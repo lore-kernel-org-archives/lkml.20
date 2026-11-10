@@ -1,104 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.37
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.16
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794299392;
-	b=nvMqkFfEzRovQ2ymkAMC7vwh6KagYzKjihHfh17VCdJ23LsWirrDKHuEG52SFH3vwzWx
-	 4tQ1XCGzCZfjKViWZn51yj5DvoTfFY5flhJKtttCV5Q7NrO+4dBC6TpHlktkWy4qtWuDv
-	 GS1By8OKSQxWFF66wxku7+UqozXa9IEweNZRtaTl/ppU5JS4oRJgQVV1REk4ecAun/D2w
-	 3ShKeJkJnBi7DwwcNaN/y1Sv2MTFmW3jRFoSi2u1/laDpyJoYcS03Big8H4w2oFQ4tLMy
-	 uDLULI8LLlNPt0hzGwNW6dTS1mmP4FXxgHQ1VLd84/02fleKilmpymvV6Qyg2qbeUdg==
+	t=1794299396;
+	b=BpUixYjl1sLwS5ozbGjtJYkwQYZgzd15+Aqn7NLXoQAXO0fjZlzWdp7bBZdPFYjAWLd4
+	 o0aQy2oUYi62vg/jaVxWYhs2cy8AW23FvGDGudHKt81KUuiAocs5dltylTH8BswuUtcw3
+	 8gbX0K3KtoMu74jOILBrQWb/r9W3Vfc8LfCraO6o8qKUDBtwqCqVyx91bKrGtY6LIV9es
+	 cyz5Wk3kzMzoJmsYDQg7nC90TInPImvt1UT2yyx7MwW2c9n8oRJFaak+iZAgdlY0zXsEI
+	 7IfINqP4D5HKOMmzCl1/LiMGEElBzey5LMQ+gqVQdLm9BOnoRH5jtXhKQBCfM2dJMiQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299392;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299396;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TsdNV5Gjgj29qumI2/bli3NuwPga4t+7w7n+gCt52kQ=;
-	b=zfRoz/QBMv7Jyn9/4mfSixuLURIiD9czIp2tzEUTQKEtwqcjR6TU5xni7ORe7T6n6qvG
-	 qU4ZiEnsi6/I7BXi4ev4zmadEEc7hWZ4ilotOgdhD5pusYHIvpozShy8I4oQnuuf/gwP6
-	 V5EryNwgLzWq395vS4eJsuVMBGJXZE90Dvfk4L55Kc0gSam7WO9PV7ughuFa8kWxhMSRW
-	 4CyE+cApx5XH1TmWIuxYuqFIrvSgvDGh+z1ntnuhUq9ybH61oCKPJ6MTSRb74mrGzxBlj
-	 lgrKwYUvIPEtfJZfzEvB3ktQO9s+GeadyuuyHiKoQwmwGFqD2w52JY1lfuohy6JcxPw==
+	bh=37GJRbn8y8CrnW+dQWPT5y39btSalZgtEo6tFY+a8BI=;
+	b=mqjIrsvqhxKf6mWlQEf4GDM7ksu7IbEFnxrJ6o04nt2DL2oiQYStOncC58HgVEdXk95m
+	 0+LxiKY351cG/lmr5YtiVH84IStIwG0l0t3/8vWTc6V9pSeJpQ/ONBqhamLA8ByAp8MUc
+	 ZGtU0k6XhC5BJfjy5xulwCX2wAnHB4w273SAZVxS3/NnXpztrkoLmFKvk1oaAMDihDfIB
+	 ZSAgR6G23OsDWDBC5n812lVTVXTir5XO59BIZdIf8l/6LBdinhTqjNXlEXF+XIoWIHNGN
+	 hwPENa8x+2f+aHEDVfQ4z80WY23nON8OXoUlAP5WTbFOMWduPug8lh+TBTT2b9Ve1EA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PkCAAxIm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.37
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013037.outbound.protection.outlook.com [40.107.201.37])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rwvMy8AF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.16
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013016.outbound.protection.outlook.com [52.101.83.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C761A606D020;
-	Tue, 10 Nov 2026 08:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C761A606D020
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A594B60A2639
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A594B60A2639
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PkCAAxIm
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rwvMy8AF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j/0YU/zvM42lE5+EoPANFpryrOqy6xHB3rWgNeGyomjZuYzzNt+cMRUR4/7/o0i3f89Qf2PjPgEGPcZfXC2zCtstztK/+Fxjt+gUm3sB1FT4CP7kLSDCmbT6+fcBxfJbf1ea4MnwFuWJka3ch5U7NK5mvy0zyiIzjGszOYdwhW/UuxSKhzgUjLrCM+lMHLNprbMxPs77g1Mw8TBzhTnGQKFeGRjqAhRthLBZv3AVxDEU7BXazhdex5WcXai8OVEjIbj22cBHLH/DInMkflprQplGjBSbi6ZD26Bqr5vSj1nXpf+hLz6mcrVnBe3sHyIzuYTEm/Ix6Osvl1XTnHblPg==
+ b=Y/JWqaEfPRopVrYgjBpCYWGfthbLegyItVB7/x/y0xsGmhkgY9oeBtgCxLfZQyXaaW+XnPi22tMua/vY8gp21z2Cg/AoGzWCAz4ylJvy+ZfLc1l9olsIw3zj26VG0L0kAprN7t1PsGeOTBqvT/r76zuhT8Os2pZPukIJazm9C4OEdklcaZpYV4T+4HJ56Ve2MODoXaZg67d4a6Qo+IGVVXDQp4fLELl1xiZJdyuwCy00eQFOsQ5KW13O/I7zcN7SGadWXifBU4b+QvHKK8UbV4dvpGPH7eWUInILthRwxqpST3als6Y0SvsmTAWI19yDhjiWa1J/CGHmTQbEHxwixA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TsdNV5Gjgj29qumI2/bli3NuwPga4t+7w7n+gCt52kQ=;
- b=IaJExPKlhwPbTLVMf0MNzI+AngvuKFVKESbRq079RGYrkbL/Ya3B1YKCNYRO0TmnjkITTzKsWq1tATPfpb0l3amh0pL0EIS0k3ltLUCl3lKg+c6XvCitVaJGf/x+BHFPf2htw7FG5yZUZmwPXF2KGvN3ud801NiTadc6v3W5vf6JUvj8t7i/+DawjqObT/3TZeGU14R1XP8vyuthFQyXKjAwYXPpmEN/A/rku60G+3AnPFj2PPXaGvjrfsSfBSfSfttVqfgs4n/eFV8MBjXG0RQW9mWXi8PsfURmaHC+/cTrVJdHPAr3bKsq4bo0u28G2sv32WhhRVLK38MliOkKag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=37GJRbn8y8CrnW+dQWPT5y39btSalZgtEo6tFY+a8BI=;
+ b=B5N0Kdls3sYmQ9bY8tmTFhnVrrfr7J0GsNobYtLxXDQnfNEk/6axUXtio9jMuN8Z06h3zZVfdkbJ2DLFe4SZ0QlZ9xFt429qtHF5FL0nXPS49QPnMioCMKhDyVXc3/LUP5qxFZwlVWSg/rxV6t/Eu/w4gREJuat9yewbOl5kJq6EDD4DR1fSRIunbA9B6/GYCtT7Gz0Mh80epwUhjp694//1WHl5ySYZQHZHPROWJ81GerpGRoMBGq49RHLTkyixE/mrpqmcNwCnivg6utijbcjoI0ReG2BG/EhefXDg6k9GpkpdN+ZfNhLLp7FsJMCmxAJpAcaKmAG9nvMjOR+j8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TsdNV5Gjgj29qumI2/bli3NuwPga4t+7w7n+gCt52kQ=;
- b=PkCAAxImebc3WUK0r4Vwm4P/7DYyLWX+CFmCSp4lvU+E4ui3XL45xztEsZfG989sdYTvNnlGiYzVrlwDWLeuGa9973pZ2wIfxFRRY7HU7EEkxUt+ae4H404NMZEoD4E5XsWuFb+M2nwRfgj239opUOoU3EYTiuY1+T/BauVF11g=
-Received: from BN9PR03CA0669.namprd03.prod.outlook.com (2603:10b6:408:10e::14)
- by IA0PR12MB7555.namprd12.prod.outlook.com (2603:10b6:208:43d::5) with
+ bh=37GJRbn8y8CrnW+dQWPT5y39btSalZgtEo6tFY+a8BI=;
+ b=rwvMy8AFv/wRRBlhWmTCDmBs0vB0qOiyLTot8YhaZLnHF98OxwmCqa8HckufuYDZZQHtXMVFB5ytyCuynDPEmEK+q0QuUJU0ymoOXUR4tv1SPA+H6l4wb72X70Ut0vtdn6O5F9HIs+QrbbRol0XHBH0Ff8cQv5PRK3E/h6cGSyesRxjIhnRuP3oEdMctce47l9i8634xw9CSvVBfdAlMtQqQTPaXsEgpQK6N7CPSb/b1HZjoz5ryy4xiP9eTPljX0lDlm8m1Yac4uPTi23PXqTggEDrRQGDKzn8GpJ9eHeAD4b85l44bbL7PK1556VMlitMKBVtQ9LbqE8ZTF7ezFA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com (2603:10a6:10:1e9::23)
+ by FRZPR04MB12430.eurprd04.prod.outlook.com (2603:10a6:d10:1cc::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
- 2026 08:29:42 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:408:10e:cafe::3a) by BN9PR03CA0669.outlook.office365.com
- (2603:10b6:408:10e::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 08:29:42 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Tue, 10 Nov 2026 08:29:42 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 02:29:41 -0600
-From: Melody Wang <huibo.wang@amd.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<bonzini@redhat.com>
-CC: LKML <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Joerg Roedel
-	<joro@8bytes.org>, Tom Lendacky <thomas.lendacky@amd.com>, <x86@kernel.org>,
-	Melody Wang <huibo.wang@amd.com>
-Subject: [RFC PATCH  3/9] KVM: SVM: Add Alternate Injection support
-Date: Tue, 10 Nov 2026 08:28:48 +0000
-Message-ID: <289ff0f00c83ae1a6bc851ba96d2d464e1102d0a.1794295647.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794295647.git.huibo.wang@amd.com>
-References: <cover.1794295647.git.huibo.wang@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 08:29:53 +0000
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb]) by DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb%7]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 08:29:53 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Tue, 10 Nov 2026 16:25:31 +0800
+Subject: [PATCH 7/9] regmap: drop regmap_bus::free_on_exit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-regmap-improve-v1-7-3a76b6c10ec6@nxp.com>
+References: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+In-Reply-To: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+To: Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, 
+ Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: SI1PR02CA0045.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::16) To DBBPR04MB7883.eurprd04.prod.outlook.com
+ (2603:10a6:10:1e9::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,487 +100,408 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|IA0PR12MB7555:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc0c9724-2824-49d7-7c9a-08df3f04c4e5
+X-MS-TrafficTypeDiagnostic: DBBPR04MB7883:EE_|FRZPR04MB12430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e88e8b4-00f8-414e-5d26-08df3f04cb1f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|22082099003|18002099003|6133799003|10067099003|11063799006|261009223027099003|261102123227099003|261026121527099003|261028144727099003|56012099006|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261021135927099003|261026140227099003|261102130727099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|261009223027099003|10067099003|5023799004|11063799006|56012099006|261022075727099003|261021121427099003|261021123027099003|261026121527099003|261102130727099003|261102123227099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	sbscGMJyGl3w8NCDHB7BPX5yAy2yIAOvFXd/58fxrqVQqkkk+LuaPMDnclLbCMCHTSgr9cl6Pned5QypN2Q07cdrwyPWU6OLtVmvmUhdt3AhS6zq2dhnTTgth01xI+SFduwsR7/MOiVwIi+MGy2AmYNQ9TLuVvy20OltIhkfZxfF4OPDwzBwO8JPenZHhzmtVKTVRgoZs6omSBPRsrewFrfyqydsZhGjhAGFK3f4t9viu+KB+mvs07BndQsyAzuVVPYWM/OGol544tx/LxRcRHOG8mTwh1LQZ4k1XRztIM2RcEZAHZikIkNemGRcfkSsKsStxXjG7zwsTme86CCSQoC1rzF5O92CoqcWC44JWdkdeCK1r87WHa0qphV/aLkPCxkgG17o9o9Ar8V6sHLol03IIMfHBIagh9lWRU5Zk11/0B3/CiJdLwjrkBlxP93X/Zs7Mf7awOolbUiBcTbxiLyhICMQNPI+TBqYaZVNTYeN1gImSNzZ3fz28ZCzgHHFHDmqSH+ZpVbUPmvD4ViHPQOTjUInXN1vVSTJRcYzLn44JGnzhMzQOsqFmpEBLvnBb9rNeSZfCErHGnEkjQWtbEmq+qsaMIn7qn0rsiD67bDrjsTEGuYmKRg/5FFxoXTnoacRaVW2GIzToNUYZOu5U5NtNSS82mHKenW3VAtKS0XPAHL3ZPscs9n7kM53fSxGKH/9pjCP8QNjjQBLMEwzTA==
+	gBEbHrXRIezPVbWnrYUSx4GY/DrSLyE11oohRDwCOyBX1qraF98CSDwHy1SAnkdOmSKheWiYuvEmOY2qq7M8GkgEIhNU2Dz1Sb6UXInr8KtwEooSAfZwD8bUBTeBqPreOOKcPd3aqttAPEzNSg0C6jZCP7RIIxYJS5rCdGrOOQllJqEPm2ldWzX8lmtzNo5hS5wcW5BgCeNITmd9sMF7lBA+Fzj7SisU1faIOmRza/ZPemk+G+G+c+zlJRzujAzfVKaQW55trr/af54qdf3uEJcF5bttVLCNFLGOd27AvfHRUZmV2sKzEetkUitejplI/ZDVxs6B2MQXk5LquCIVyxm0tJvfV6QoqLRbJpjR/4RkTuBIvV9ohdZQNiKBEZe1g2OmhSPo0CNIROxehP6CHa24ws+PfD1O2phaLk7NJqK5pWEjoR0uIbO8gC1AKENGAOgb4EI8LHOzAMLjX0yrWZuYDK7wJeLiCwlGKgY06UtTu6zmawb54CUX1tV0Ube8QLG4VVemQaa9WqXUhJC1ChkplqPZowqfLHecpsVklw82AteBBUBXj8jj5r5+693uGomF3UrME+e4a7adr/hzgpBVgK3h8W6h7bjdtMvjS3J1ddzttrUNH9DKhWAlYusmhPfkq2uO+4WBBEvHwopaM9jO4BhrprZch7bTrfV0LTs=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(11063799006)(261009223027099003)(261102123227099003)(261026121527099003)(261028144727099003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026140227099003)(261102130727099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7883.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(261009223027099003)(10067099003)(5023799004)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261102130727099003)(261102123227099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	owmdsYCezG1nFEbVrw8SRyaaWgr0XYMIt0VGj++Ixjt3CSIaF8lZSmTjgKyJC8rxdfnH7lxUV2f3WB5UuqfO5hXimPyQ9fDF5c0MC62KCcBIq64GLKGVoPpGi35AQ3XAToPXW2u3Hfeq1J6MPCcBPjQLR0kdu2VgvJSWnHqVaM0lsbppauETVJJuS5D/M9bacfQdXrAHDVCsuTr+TZvxeLreYX7pny3Z8SiQRUj+vJ3X8abKrnKVmtogTwt9Bu7MAfr3oiX3+8T4P898c43mptuyINUiAV9AoZg+cfEgiyZOBeHbVVlTGEUS2lbe2IZbBufMPyQMTsmxQ4pLLrdktGzgssmwSBwtJ4iB/yjsAYxyAcV7Bvk5+6oGAEmOVdBcwur+7lGkjVd185eI2l8uGKA/JpMnh2nwzRgbL06xaDlQgiGx67kRcemCAk8y8TYF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:42.5271
+	=?utf-8?B?eHBQenpxTHhaSUtnY292aTN5TW5NSDlkUUJqNisrQTFCQTgyaWpqN3pvcVVC?=
+ =?utf-8?B?cHZvL2tFUVRKYU4raEpMdlZSU2w1Y3NKTlVqUHpaVFBtam9mV2QycWNEMVp4?=
+ =?utf-8?B?dnN2ci9RYkVmMGREaVRmU25GcW8vUE9Wc2RxWWlDN0JmQ2FmaVpwdFprZzYy?=
+ =?utf-8?B?M1RYb2dsQ0NnVExOa1VLUmdSVWkyS1JXUFp5bGYzM0plbm1Vc2M0dk8wcnha?=
+ =?utf-8?B?R2ZtRlo5VUxMKzB3LytzWEI4MDduZG54dVVLMFZ0NWNpam9tTjk3WHpUeWxr?=
+ =?utf-8?B?SG13R0dxZmMxcUlHRXlDSS93bVgxd3pHOENIZkZGNmtSUlhyWFA3Ym1lMTB5?=
+ =?utf-8?B?M0tiRy8wVXNzNE5nTEZ3Y1d6R1Y0bHBWa2VPWE5wN0tPdzNob1RPZDA2ZUE3?=
+ =?utf-8?B?WHUxbko3MW1nTmRWZzBLUWsxemlHem51MllQbDdXVmtEbjVmQmZFeVFiOG8r?=
+ =?utf-8?B?ZjRyd2VRWkRaRElBdi8vcUNydjlNVlhBdnpmY2N4QmFxR29zT2FCVkpLenZC?=
+ =?utf-8?B?ZGwyMWk2QVU2OXlaRWttamE1OTdVcXJLb0JyTU80TVdyYnE2VTR2Nzg3MDhO?=
+ =?utf-8?B?QlNMWWRBV01HYXRYNkNVcTdCakNuQ2F5ejVyWUMrdTVGbFNLdlNGMkxXUTZo?=
+ =?utf-8?B?MmZWY2YwTzBpUnppdCtINjJuMGFEOStyVi9sRUtnL1RLNkl4MUVrTURreThp?=
+ =?utf-8?B?dzVoYkwxYjBnaDlaK1hDZmM3cTlQL3lyWjJLbGUzZHlsd1lqQzRnNU14czZv?=
+ =?utf-8?B?eUt1NkhSMG1Ma3BRV3JLR0xPNm0wZnpNZ0wyTjYvaTBNZG9BOWt0dkUvb3VG?=
+ =?utf-8?B?SUNJdnRWWXRRQVM5eVl3bDdYUmxHTnUyZlE1aWlpWFh5RGs5R1JBb25lZVhY?=
+ =?utf-8?B?VUVuSS9BZGtYNFdEZ2tkbnhkRTZBcStlaFVPb0pCUElhTDVNdnMwQTQyL2VM?=
+ =?utf-8?B?NXBVRUJJZHBwYU9ZZVYyQ3VNVDJTY2RxOXFESy9LSnZyT1pJRUZSVUFGU3p6?=
+ =?utf-8?B?OUJISDFMYmdBRDBSUTVZSTlXUC9iWnJYNDhRUUZyOEh1NzVyMnZoaG85MHBu?=
+ =?utf-8?B?QzI1Um10SzMwRlhQc0lLWFAxeDBKUWRDK09BTFAwSVFBR0RvM21xWTdmL1BL?=
+ =?utf-8?B?c0lKclltYXBJSmNyaldhRlJOTWllbGVMWCtTa1A3dlh2MEk5YlZDYXdyNkU3?=
+ =?utf-8?B?cytDMExCc1o4dnVWQ24wSHA1MVFpc3JsUkVwcjlxajk1STFrQjdLUW9vUHVM?=
+ =?utf-8?B?aEZIcG1nMVQ4NEhyTW1oR3M4RHNFVFlxQW10cEdnOUNVMUwrRzlQVVJTenY2?=
+ =?utf-8?B?NHpTWDNwdUl4cWNXUnNCMHRuZzVUTFp2Z3lSbk5HcmFuV0RtWWZFK2l3NzUz?=
+ =?utf-8?B?clRrNS9ibEFvcEFUcmtJRm4rTGYrOTJvc3ZMQm9OSWRWYVVDVllCN2VGN0lG?=
+ =?utf-8?B?MEJmNllNc0tnM0Y0T1RvTGtMVkNrSHNpUmo3aGJjZWs5R1F3RkROMjBiSk9v?=
+ =?utf-8?B?TDVuSDZxaHlCUVhYV3I3dWFRQnRaRG5Ob3E4Tlh3ZG1oRE5oYndNcGtIVmhP?=
+ =?utf-8?B?SUZIQWNoQ05oM1luMzQ4Qk5kVW5tbi9pYjBFZWN0UU1GOHA4LzI4dzF4aUtX?=
+ =?utf-8?B?Z0pnQWlkRUZDTzJiV3ltSnZXYmg1VU5VUjJXQ1JaSWxIZUh6V1hGUUNQSXF1?=
+ =?utf-8?B?ajZSUmV0cHl4MjY5V280OXJ3SW9NOFZHOUxXUE9JT013TjlIdm5YdjFsa1Uv?=
+ =?utf-8?B?Z0o0YjdlNHN0OTNLRlRSUnZMWW4xdnNSR09yMkR3cmJUaHErNGsxcGNKTVpj?=
+ =?utf-8?B?SUt6YzNHNmkxeUI2bWhGQ0VCeVNmMU5ZNytHWHBHVnRmdGRhK2NuNElmU3Q1?=
+ =?utf-8?B?QzJWVEU0WG05a1B4ZmkvSXBvd2Jua3dJRGNLMENmUGFqclpCcWpHRm9xMmt6?=
+ =?utf-8?B?MWlzWHpFK0VZcXNwN3EvRmJsbmU5NnRLeWx4K2s2YitVdnNpYWFjSGl2Wmhp?=
+ =?utf-8?B?MWtmL3B0WllSVDZzVTBvM1p3NnFUTzNieWZuVVVxUW1BbVZaeFBSRHphUGx3?=
+ =?utf-8?B?aEkzWmVXOHZJTWcwZnVuenBWNE91dnpHczh3UWlra29KWjgrVnB6K0JGK0No?=
+ =?utf-8?B?bEFHSFdTcHo4QlpMcTRxUEpVRDlXR3Y0R1dxdllXSjBYUCtobXU5c3ZPK0Rs?=
+ =?utf-8?B?MFNOL25nNkp1UWlWRWJiRnpOUUg2czRNMzFLai92NTd3UExtNGh5bi9pUmZW?=
+ =?utf-8?B?azRQRTJyaHdiblU3Z0EzeW50dEQxRWZFbFM2TzZTc1lPNmUvQ3hYT0tQZGpU?=
+ =?utf-8?B?enZFR1VBRGQrUVpwZG1CVUNSdUw1YUdDd2JEMVl2bHIwL0xvL1ZNME5Oakwv?=
+ =?utf-8?Q?G3Z79mQErm77VLYm/siqh13/Pz5NwouapvgUj?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e88e8b4-00f8-414e-5d26-08df3f04cb1f
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7883.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:53.2322
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc0c9724-2824-49d7-7c9a-08df3f04c4e5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DD.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7555
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /2BBt6R81S4u0xEt6HHMk1NcjkA7eBvAR1rCTh6F6cMhDiwzBGLYCDdkFs7pHmfRvF3cTfqBrV/u/FbKvxgA84kjAR2AZtmviLLmL7uHoWREX5kUGa+oRhROj/oYfSdz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR04MB12430
 
-To avoid breaking the other guests without Alternate Injection, add
-new paths for Alternate Injection, which will isolate Alternate
-Injection from other interrupt injection path.
+From: Peng Fan <peng.fan@nxp.com>
 
-Add new functions which supports Alternate Injection.
+The SPI and I2C bus helpers kmemdup the static regmap_bus to override
+max_raw_read and max_raw_write per device and mark the copy with
+free_on_exit so that the regmap core frees it. This is the only user of
+free_on_exit, and the per-device limits can instead be applied to the
+map while it is being initialized.
 
-No functionality changes yet
+Add an optional regmap_bus::init_limits() callback which is invoked by
+__regmap_init() after the bus raw I/O limits have been copied and before
+the cache is initialized. The latter matters for maps with raw register
+defaults: regcache_hw_init() reads them from the device while the map is
+still being initialized and uses max_raw_read to chunk the transfer.
 
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
+Use the callback for the I2C and SPI buses, which allows using the static
+bus structures directly. This removes the per-device bus allocations and
+lets us drop free_on_exit along with the associated error and exit paths
+in the regmap core.
+
+No functional changes.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- arch/x86/kvm/irq.c     |   1 +
- arch/x86/kvm/svm/sev.c | 279 ++++++++++++++++++++++++++++++++++++++++-
- arch/x86/kvm/svm/svm.c |  34 +++++
- arch/x86/kvm/svm/svm.h |  27 ++++
- 4 files changed, 339 insertions(+), 2 deletions(-)
+ drivers/base/regmap/regmap-i2c.c | 71 +++++++++++++++++++++-------------------
+ drivers/base/regmap/regmap-spi.c | 64 ++++++++++++++----------------------
+ drivers/base/regmap/regmap.c     |  7 ++--
+ include/linux/regmap.h           |  7 ++--
+ 4 files changed, 70 insertions(+), 79 deletions(-)
 
-diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
-index abce6cf24cb5..5f7e5f3e5528 100644
---- a/arch/x86/kvm/irq.c
-+++ b/arch/x86/kvm/irq.c
-@@ -165,6 +165,7 @@ int kvm_cpu_get_interrupt(struct kvm_vcpu *v)
+diff --git a/drivers/base/regmap/regmap-i2c.c b/drivers/base/regmap/regmap-i2c.c
+index eb3db02ad8fb..247dd20eb02a 100644
+--- a/drivers/base/regmap/regmap-i2c.c
++++ b/drivers/base/regmap/regmap-i2c.c
+@@ -12,6 +12,36 @@
  
- 	return vector;
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_cpu_get_interrupt);
+ #include "internal.h"
  
- void kvm_inject_pending_timer_irqs(struct kvm_vcpu *vcpu)
- {
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 924c1b968fdc..78b8487627ed 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -5741,6 +5741,120 @@ static struct hvdb *map_hvdb(struct kvm_vcpu *vcpu, struct kvm_host_map *map)
- 	return map->hva;
- }
- 
-+bool sev_snp_doorbell_has_injectable_vector(struct kvm_vcpu *vcpu)
++static void regmap_i2c_init_limits(struct regmap *map,
++				   const struct regmap_config *config)
 +{
-+	struct kvm_vcpu *vcpu_plane0;
-+	struct kvm_host_map hvdb_map;
-+	struct hvdb *hvdb;
-+	bool ret = false;
++	struct device *dev = map->bus_context;
++	struct i2c_client *i2c = to_i2c_client(dev);
++	const struct i2c_adapter_quirks *quirks = i2c->adapter->quirks;
++	size_t max_read = map->max_raw_read;
++	size_t max_write = map->max_raw_write;
 +
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+	hvdb = map_hvdb(vcpu_plane0, &hvdb_map);
-+	if (!hvdb)
-+		return ret;
-+
-+	if (hvdb->events.vmpl2_irq)
-+		ret = true;
-+
-+	unmap_hvdb(vcpu_plane0, &hvdb_map);
-+
-+	return ret;
-+}
-+
-+bool sev_snp_ai_update_doorbell(enum inject_type type, struct kvm_vcpu *vcpu,
-+				int vector, int trig_mode)
-+{
-+	struct kvm_vcpu *vcpu_plane0;
-+	struct kvm_host_map hvdb_map;
-+	struct hvdb *hvdb;
-+
-+	if (vector < FIRST_EXTERNAL_VECTOR && (type == INJECT_IRQ))
-+		return false;
-+
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+	hvdb = map_hvdb(vcpu_plane0, &hvdb_map);
-+	if (!hvdb)
-+		return false;
-+
-+	if (type == INJECT_NMI) {
-+		hvdb->events.irqs[1].nmi = 1;
-+	} else if (type == INJECT_MCE) {
-+		hvdb->events.irqs[1].mce = 1;
-+	} else {
-+		struct ext_irq_desc *vmpl2 = &hvdb->events.irqs[1];
-+		unsigned long *bit_vec = (unsigned long *)vmpl2->interrupt_bit_vector;
-+
-+		if (!hvdb->events.vmpl2_irq) {
-+			/* Only one interrupt is pending, queue it. */
-+			vmpl2->si_vector = vector;
-+			vmpl2->multi_interrupts = 0;
-+			vmpl2->trigger_mode = trig_mode;
-+		} else if (trig_mode && vmpl2->trigger_mode) {
-+			/*
-+			 * A higher prio level-triggered overwrites a previous,
-+			 * lower prio, level-triggered one.
-+			 */
-+			if (vmpl2->si_vector < vector)
-+				vmpl2->si_vector = vector;
-+		} else if (trig_mode) {
-+			/*
-+			 * Level-triggered takes the single vector slot from the
-+			 * pending edge-triggered one, which - if there still is
-+			 * a single one - moves to the bit vector.
-+			 */
-+			if (vmpl2->si_vector)
-+				set_bit(vmpl2->si_vector - FIRST_EXTERNAL_VECTOR, bit_vec);
-+
-+			vmpl2->si_vector = vector;
-+			vmpl2->multi_interrupts = 1;
-+			vmpl2->trigger_mode = trig_mode;
-+		} else if (vector != vmpl2->si_vector) {
-+			/*
-+			 * Edge-triggered: set mult only when the new vector
-+			 * that's being queued is not the currently pending one.
-+			 * The already pending vector, if any, gets a bit too.
-+			 */
-+			set_bit(vector - FIRST_EXTERNAL_VECTOR, bit_vec);
-+
-+			if (vmpl2->si_vector)
-+				set_bit(vmpl2->si_vector - FIRST_EXTERNAL_VECTOR, bit_vec);
-+
-+			vmpl2->si_vector = 0;
-+			vmpl2->multi_interrupts = 1;
-+		}
-+		hvdb->events.vmpl2_irq = 1;
-+	}
-+
-+	unmap_hvdb(vcpu_plane0, &hvdb_map);
-+
-+	return true;
-+}
-+
-+bool sev_snp_ai_inject(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_vcpu *vcpu_plane0;
-+	struct kvm_host_map hvdb_map;
-+	struct hvdb *hvdb;
-+	struct vcpu_svm *svm0;
-+
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+	svm0 = to_svm(vcpu_plane0);
-+
-+	hvdb = map_hvdb(vcpu_plane0, &hvdb_map);
-+	if (!hvdb)
-+		return false;
-+
-+	if (hvdb->events.no_further_signal)
-+		goto unmap;
-+
-+	prepare_hv_injection(svm0, hvdb);
-+
-+unmap:
-+	unmap_hvdb(vcpu_plane0, &hvdb_map);
-+
-+	return true;
-+}
-+
- static void __sev_snp_inject(enum inject_type type, struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
-@@ -5769,8 +5883,10 @@ bool sev_snp_queue_exception(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 
--	if (!sev_snp_is_rinj_active(vcpu))
--		return false;
-+	if (!vcpu->plane_level) {
-+		if (!sev_snp_is_rinj_active(vcpu))
-+			return false;
-+	}
- 
- 	if (vcpu->arch.exception.vector == MC_VECTOR) {
- 		__sev_snp_inject(INJECT_MCE, vcpu);
-@@ -5799,6 +5915,70 @@ bool sev_snp_queue_exception(struct kvm_vcpu *vcpu)
- 	return true;
- }
- 
-+bool sev_snp_ai_queue_exception(struct kvm_vcpu *vcpu)
-+{
-+	struct vcpu_svm *svm_current = to_svm(vcpu);
-+	struct kvm_vcpu *vcpu_plane0;
-+	struct vcpu_svm *svm;
-+
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+	svm = to_svm(vcpu_plane0);
-+
-+	if (!sev_snp_is_ai_active(vcpu))
-+		return false;
-+
-+	if (vcpu->arch.exception.vector == MC_VECTOR) {
-+		if (svm->sev_es.cancel_flag) {
-+			svm_current->sev_es.cancel_flag = false;
-+			return sev_snp_ai_inject(vcpu);
-+		}
-+		sev_snp_ai_update_doorbell(INJECT_MCE, vcpu, 0, 0);
-+		return sev_snp_ai_inject(vcpu);
-+	}
-+
-+	/*
-+	 * Restricted injection is enabled, only #HV is supported.
-+	 * If the vector is not HV_VECTOR, do not inject the exception,
-+	 * then return true to skip the original injection path.
-+	 */
-+	if (WARN_ONCE(vcpu->arch.exception.vector != HV_VECTOR,
-+		      "restricted injection enabled, exception %u injection not supported\n",
-+		      vcpu->arch.exception.vector))
-+		return true;
-+
-+	/*
-+	 * An intercept likely occurred during #HV delivery, so re-inject it
-+	 * using the current HVDB pending event values.
-+	 */
-+	svm->vmcb->control.event_inj = HV_VECTOR |
-+				       SVM_EVTINJ_TYPE_EXEPT |
-+				       SVM_EVTINJ_VALID;
-+	svm->vmcb->control.event_inj_err = 0;
-+
-+	return true;
-+}
-+
-+static void __maybe_unused sev_snp_ai_inject_irq(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_lapic *apic;
-+	int irq, trig_mode;
-+
-+	apic = vcpu->arch.apic;
-+
-+	irq = vcpu->arch.interrupt.nr;
-+	trig_mode = !!(apic_test_vector(irq, apic->regs + APIC_TMR));
-+	sev_snp_ai_update_doorbell(INJECT_IRQ, vcpu, irq, trig_mode);
-+
-+	do {
-+		irq = kvm_cpu_get_interrupt(vcpu);
-+		if (irq < 0)
-+			break;
-+
-+		trig_mode = !!(apic_test_vector(irq, apic->regs + APIC_TMR));
-+		sev_snp_ai_update_doorbell(INJECT_IRQ, vcpu, irq, trig_mode);
-+	} while (true);
-+}
-+
- bool sev_snp_inject(enum inject_type type, struct kvm_vcpu *vcpu)
- {
- 	if (!sev_snp_is_rinj_active(vcpu))
-@@ -5863,6 +6043,70 @@ void sev_snp_cancel_injection(struct kvm_vcpu *vcpu)
- 	unmap_hvdb(vcpu, &hvdb_map);
- }
- 
-+void sev_snp_cancel_ai_injection(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_vcpu *vcpu_plane0;
-+	struct vcpu_svm *svm0;
-+	struct kvm_host_map hvdb_map;
-+	struct hvdb *hvdb;
-+	struct vcpu_svm *svm = to_svm(vcpu);
-+
-+	if (!sev_snp_is_ai_active(vcpu))
++	if (!quirks)
 +		return;
 +
-+	/*
-+	 * AI is enabled for vmpl2 so supposed that the interrupts are
-+	 * only for vmpl2, so cancel only for vmpl2
-+	 */
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+	svm0 = to_svm(vcpu_plane0);
-+	if (!svm0->vmcb->control.event_inj)
-+		return;
++	if (quirks->max_read_len &&
++	    (max_read == 0 || max_read > quirks->max_read_len))
++		max_read = quirks->max_read_len;
 +
-+	if (WARN_ONCE((svm->vmcb->control.event_inj & SVM_EVTINJ_VEC_MASK) != HV_VECTOR,
-+			"Alternate Injection enabled,  %u vector not supported\n",
-+			svm->vmcb->control.event_inj & SVM_EVTINJ_VEC_MASK))
-+		return;
++	if (quirks->max_write_len &&
++	    (max_write == 0 || max_write > quirks->max_write_len)) {
++		size_t reg_reserve_size;
 +
-+	/*
-+	 * Copy the information in the doorbell page into the event injection
-+	 * fields to complete the cancellation flow.
-+	 */
-+	hvdb = map_hvdb(vcpu_plane0, &hvdb_map);
-+	if (!hvdb)
-+		return;
-+
-+	if (!hvdb->events.irqs[1].ext_word0) {
-+		/* No pending events, then event_inj field should be 0 */
-+		WARN_ON_ONCE(svm0->vmcb->control.event_inj);
-+		goto out;
++		reg_reserve_size = (config->reg_bits + config->pad_bits) /
++				   BITS_PER_BYTE;
++		if (quirks->max_write_len > reg_reserve_size)
++			max_write = quirks->max_write_len - reg_reserve_size;
 +	}
 +
-+	/*
-+	 * When the injection is cancelled, since the #HV is set in Plane0's
-+	 * control.event_inj, clear this field, and copy the information back to current
-+	 * Plane so it will be reinjected, but keep the data in the doorbell.
-+	 */
-+	svm0->vmcb->control.event_inj = 0;
-+
-+	svm->vmcb->control.event_inj = SVM_EVTINJ_VALID;
-+
-+	if (hvdb->events.irqs[1].multi_interrupts || hvdb->events.irqs[1].si_vector)
-+		svm->vmcb->control.event_inj |= SVM_EVTINJ_TYPE_INTR;
-+
-+	if (hvdb->events.irqs[1].nmi)
-+		svm->vmcb->control.event_inj |= SVM_EVTINJ_TYPE_NMI;
-+
-+	if (hvdb->events.irqs[1].mce)
-+		svm->vmcb->control.event_inj |= MC_VECTOR | SVM_EVTINJ_TYPE_EXEPT;
-+
-+	hvdb->events.no_further_signal = 0;
-+	svm->sev_es.cancel_flag = true;
-+
-+out:
-+	unmap_hvdb(vcpu_plane0, &hvdb_map);
++	map->max_raw_read = max_read;
++	map->max_raw_write = max_write;
 +}
 +
+ static int regmap_smbus_byte_reg_read(void *context, unsigned int reg,
+ 				      unsigned int *val)
+ {
+@@ -46,6 +76,7 @@ static int regmap_smbus_byte_reg_write(void *context, unsigned int reg,
+ static const struct regmap_bus regmap_smbus_byte = {
+ 	.reg_write = regmap_smbus_byte_reg_write,
+ 	.reg_read = regmap_smbus_byte_reg_read,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
+ static int regmap_smbus_word_reg_read(void *context, unsigned int reg,
+@@ -82,6 +113,7 @@ static int regmap_smbus_word_reg_write(void *context, unsigned int reg,
+ static const struct regmap_bus regmap_smbus_word = {
+ 	.reg_write = regmap_smbus_word_reg_write,
+ 	.reg_read = regmap_smbus_word_reg_read,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
+ static int regmap_smbus_word_read_swapped(void *context, unsigned int reg,
+@@ -118,6 +150,7 @@ static int regmap_smbus_word_write_swapped(void *context, unsigned int reg,
+ static const struct regmap_bus regmap_smbus_word_swapped = {
+ 	.reg_write = regmap_smbus_word_write_swapped,
+ 	.reg_read = regmap_smbus_word_read_swapped,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
+ static int regmap_i2c_write(void *context, const void *data, size_t count)
+@@ -203,6 +236,7 @@ static const struct regmap_bus regmap_i2c = {
+ 	.read = regmap_i2c_read,
+ 	.reg_format_endian_default = REGMAP_ENDIAN_BIG,
+ 	.val_format_endian_default = REGMAP_ENDIAN_BIG,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
+ static int regmap_i2c_smbus_i2c_write(void *context, const void *data,
+@@ -244,6 +278,7 @@ static const struct regmap_bus regmap_i2c_smbus_i2c_block = {
+ 	.read = regmap_i2c_smbus_i2c_read,
+ 	.max_raw_read = I2C_SMBUS_BLOCK_MAX - 1,
+ 	.max_raw_write = I2C_SMBUS_BLOCK_MAX - 1,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
+ static int regmap_i2c_smbus_i2c_write_reg16(void *context, const void *data,
+@@ -301,6 +336,7 @@ static const struct regmap_bus regmap_i2c_smbus_i2c_block_reg16 = {
+ 	.read = regmap_i2c_smbus_i2c_read_reg16,
+ 	.max_raw_read = I2C_SMBUS_BLOCK_MAX - 2,
+ 	.max_raw_write = I2C_SMBUS_BLOCK_MAX - 2,
++	.init_limits = regmap_i2c_init_limits,
+ };
+ 
  /*
-  * sev_snp_blocked() is for each vector - interrupt, NMI and MCE.  It is
-  * checking if there is an interrupt handled by the guest when
-@@ -5895,6 +6139,37 @@ bool sev_snp_blocked(enum inject_type type, struct kvm_vcpu *vcpu)
- 	return blocked;
- }
- 
-+bool sev_snp_ai_blocked(enum inject_type type, struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_host_map hvdb_map;
-+	struct hvdb *hvdb;
-+	bool blocked;
-+	struct kvm_vcpu *vcpu_plane0;
-+
-+	vcpu_plane0 = vcpu->common->vcpus[0];
-+
-+	/* Indicate interrupts are blocked if doorbell page can't be mapped */
-+	hvdb = map_hvdb(vcpu_plane0, &hvdb_map);
-+	if (!hvdb)
-+		return true;
-+
-+	/* Indicate NMIs, MCEs and interrupts blocked based on guest acknowledgment */
-+	if (type == INJECT_NMI)
-+		blocked = hvdb->events.irqs[1].nmi;
-+	else if (type == INJECT_MCE)
-+		blocked = hvdb->events.irqs[1].mce;
-+	else
-+		/* With Alternate Injection, there is a bitmap to save all of interrupts,
-+		 * so no need to block any interrupt
-+		 */
-+		blocked = false;
-+
-+
-+	unmap_hvdb(vcpu_plane0, &hvdb_map);
-+
-+	return blocked;
-+}
-+
- int sev_snp_max_planes(struct kvm *kvm)
- {
- 	return vmpl_levels;
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 705063c7f0f0..96d31fabb292 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4065,6 +4065,40 @@ static int svm_mce_allowed(struct kvm_vcpu *vcpu)
- 	return 1;
- }
- 
-+static int __maybe_unused svm_has_interrupt(struct kvm_vcpu *vcpu)
-+{
-+	int ret = 0;
-+	unsigned int state;
-+
-+	if (!sev_snp_is_ai_active(vcpu))
-+		return ret;
-+	/*
-+	 * Mapping the #HV doorbell page via kvm_vcpu_map() can sleep (e.g.,
-+	 * on page faults). In the HLT fast-path, local IRQs are disabled, so
-+	 * invoking kvm_vcpu_map() there can trigger a panic. To avoid sleeping
-+	 * in atomic context, assume an event is pending during the fast-path
-+	 * and defer the actual check until re-entering outside the fast-path.
-+	 *
-+	 * A related issue occurs during normal vCPU block polling:
-+	 * kvm_vcpu_block() sets the task state to TASK_INTERRUPTIBLE before
-+	 * calling kvm_vcpu_check_block(). If kvm_vcpu_map() sleeps during that
-+	 * check, waking up resets the task state to TASK_RUNNING, causing the
-+	 * subsequent schedule() to return immediately instead of blocking.
-+	 *
-+	 * Therefore, avoid calling kvm_vcpu_map() from
-+	 * svm_hv_doorbell_has_events() unless the task state is TASK_RUNNING,
-+	 * preventing both sleeping with IRQs disabled and livelocks during
-+	 * vCPU blocking.
-+	 */
-+	state = get_current_state();
-+	if (irqs_disabled() || state != TASK_RUNNING)
-+		return true;
-+
-+	ret = sev_snp_doorbell_has_injectable_vector(vcpu);
-+
-+	return ret;
-+}
-+
- static void svm_enable_irq_window(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index d2e397542a84..1ec0a045b1ea 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -288,6 +288,7 @@ struct vcpu_sev_es_state {
- 
- 	gpa_t hvdb_gpa;
- 	u8 hvdb_ai_vector;
-+	bool cancel_flag;
+@@ -345,15 +381,13 @@ static const struct regmap_bus regmap_smbus_byte_word_reg16 = {
+ 	.read = regmap_i2c_smbus_i2c_read_reg16,
+ 	.max_raw_read = I2C_SMBUS_BLOCK_MAX - 2,
+ 	.max_raw_write = 1,
++	.init_limits = regmap_i2c_init_limits,
  };
  
- struct vcpu_svm {
-@@ -1002,6 +1003,13 @@ bool sev_snp_queue_exception(struct kvm_vcpu *vcpu);
- bool sev_snp_inject(enum inject_type type, struct kvm_vcpu *vcpu);
- void sev_snp_cancel_injection(struct kvm_vcpu *vcpu);
- bool sev_snp_blocked(enum inject_type type, struct kvm_vcpu *vcpu);
-+bool sev_snp_ai_queue_exception(struct kvm_vcpu *vcpu);
-+bool sev_snp_doorbell_has_injectable_vector(struct kvm_vcpu *vcpu);
-+bool sev_snp_ai_update_doorbell(enum inject_type type, struct kvm_vcpu *vcpu, int vector, int trig_mode);
-+void sev_snp_cancel_ai_injection(struct kvm_vcpu *vcpu);
-+bool sev_snp_ai_blocked(enum inject_type type, struct kvm_vcpu *vcpu);
-+bool sev_snp_ai_inject(struct kvm_vcpu *vcpu);
-+
- static inline bool sev_snp_is_rinj_active(struct kvm_vcpu *vcpu)
+ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
+ 					const struct regmap_config *config)
  {
- 	struct kvm_sev_info_plane *sev = &to_kvm_svm_plane(vcpu->plane)->sev_info_plane;
-@@ -1009,6 +1017,18 @@ static inline bool sev_snp_is_rinj_active(struct kvm_vcpu *vcpu)
- 	return is_sev_snp_guest(vcpu) &&
- 		(sev->vmsa_features & SVM_SEV_FEAT_RESTRICTED_INJECTION);
- };
-+
-+static inline bool sev_snp_is_ai_active(struct kvm_vcpu *vcpu)
+-	const struct i2c_adapter_quirks *quirks;
+ 	const struct regmap_bus *bus = NULL;
+-	struct regmap_bus *ret_bus;
+-	u16 max_read, max_write;
+ 
+ 	if (i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C))
+ 		bus = &regmap_i2c;
+@@ -391,37 +425,6 @@ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
+ 	if (!bus)
+ 		return ERR_PTR(-ENOTSUPP);
+ 
+-	max_read = bus->max_raw_read;
+-	max_write = bus->max_raw_write;
+-
+-	quirks = i2c->adapter->quirks;
+-	if (quirks) {
+-		if (quirks->max_read_len &&
+-		    (max_read == 0 || max_read > quirks->max_read_len))
+-			max_read = quirks->max_read_len;
+-
+-		if (quirks->max_write_len &&
+-		    (max_write == 0 || max_write > quirks->max_write_len)) {
+-			size_t reg_reserve_size;
+-
+-			reg_reserve_size = (config->reg_bits + config->pad_bits) /
+-					   BITS_PER_BYTE;
+-			if (quirks->max_write_len > reg_reserve_size)
+-				max_write = quirks->max_write_len - reg_reserve_size;
+-		}
+-
+-		if (max_read != bus->max_raw_read ||
+-		    max_write != bus->max_raw_write) {
+-			ret_bus = kmemdup(bus, sizeof(*bus), GFP_KERNEL);
+-			if (!ret_bus)
+-				return ERR_PTR(-ENOMEM);
+-			ret_bus->free_on_exit = true;
+-			ret_bus->max_raw_read = max_read;
+-			ret_bus->max_raw_write = max_write;
+-			bus = ret_bus;
+-		}
+-	}
+-
+ 	return bus;
+ }
+ 
+diff --git a/drivers/base/regmap/regmap-spi.c b/drivers/base/regmap/regmap-spi.c
+index b9fec387997e..8eaebef07833 100644
+--- a/drivers/base/regmap/regmap-spi.c
++++ b/drivers/base/regmap/regmap-spi.c
+@@ -98,6 +98,26 @@ static int regmap_spi_read(void *context,
+ 	return spi_write_then_read(spi, reg, reg_size, val, val_size);
+ }
+ 
++static void regmap_spi_init_limits(struct regmap *map,
++				   const struct regmap_config *config)
 +{
-+	struct kvm_vcpu *vcpu_plane0 = vcpu->common->vcpus[0];
-+	struct kvm_sev_info_plane *sev0 = &to_kvm_svm_plane(vcpu_plane0->plane)->sev_info_plane;
-+	struct kvm_sev_info_plane *sev  = &to_kvm_svm_plane(vcpu->plane)->sev_info_plane;
++	struct device *dev = map->bus_context;
++	struct spi_device *spi = to_spi_device(dev);
++	size_t max_size = spi_max_transfer_size(spi);
++	size_t max_msg_size, reg_reserve_size;
 +
-+	return is_sev_snp_guest(vcpu) &&
-+		(sev0->vmsa_features & SVM_SEV_FEAT_RESTRICTED_INJECTION) &&
-+		(sev->vmsa_features & SVM_SEV_FEAT_ALTERNATE_INJECTION);
++	if (max_size == SIZE_MAX)
++		return;
++
++	max_msg_size = spi_max_message_size(spi);
++	reg_reserve_size = (config->reg_bits + config->pad_bits) / BITS_PER_BYTE;
++	if (max_size + reg_reserve_size > max_msg_size)
++		max_size -= reg_reserve_size;
++
++	map->max_raw_read = max_size;
++	map->max_raw_write = max_size;
 +}
 +
- int sev_nr_vcpu_planes(struct kvm *kvm);
- int sev_snp_max_planes(struct kvm *kvm);
- #else
-@@ -1055,6 +1075,13 @@ static inline void sev_snp_cancel_injection(struct kvm_vcpu *vcpu) {}
- static inline bool sev_snp_blocked(enum inject_type type, struct kvm_vcpu *vcpu) { return false; }
- static inline bool sev_snp_is_rinj_active(struct kvm_vcpu *vcpu) { return false; }
- static inline unsigned sev_snp_max_planes(struct kvm *kvm) { return 1; }
-+static inline bool sev_snp_ai_queue_exception(struct kvm_vcpu *vcpu) { return false; }
-+static inline bool sev_snp_doorbell_has_injectable_vector(struct kvm_vcpu *vcpu) { return false; }
-+static inline bool sev_snp_ai_update_doorbell(enum inject_type type, struct kvm_vcpu *vcpu, int vector, int trig_mode) { return false; }
-+static inline void sev_snp_cancel_ai_injection(struct kvm_vcpu *vcpu) {}
-+static inline bool sev_snp_ai_blocked(enum inject_type type, struct kvm_vcpu *vcpu) { return false; }
-+static inline bool sev_snp_ai_inject(struct kvm_vcpu *vcpu) { return false; }
-+static inline bool sev_snp_is_ai_active(struct kvm_vcpu *vcpu) { return false; }
- #endif
+ static const struct regmap_bus regmap_spi = {
+ 	.write = regmap_spi_write,
+ 	.gather_write = regmap_spi_gather_write,
+@@ -107,46 +127,16 @@ static const struct regmap_bus regmap_spi = {
+ 	.read_flag_mask = 0x80,
+ 	.reg_format_endian_default = REGMAP_ENDIAN_BIG,
+ 	.val_format_endian_default = REGMAP_ENDIAN_BIG,
++	.init_limits = regmap_spi_init_limits,
+ };
  
- /* vmenter.S */
+-static const struct regmap_bus *regmap_get_spi_bus(struct spi_device *spi,
+-						   const struct regmap_config *config)
+-{
+-	size_t max_size = spi_max_transfer_size(spi);
+-	size_t max_msg_size, reg_reserve_size;
+-	struct regmap_bus *bus;
+-
+-	if (max_size != SIZE_MAX) {
+-		bus = kmemdup(&regmap_spi, sizeof(*bus), GFP_KERNEL);
+-		if (!bus)
+-			return ERR_PTR(-ENOMEM);
+-
+-		max_msg_size = spi_max_message_size(spi);
+-		reg_reserve_size = (config->reg_bits + config->pad_bits) / BITS_PER_BYTE;
+-		if (max_size + reg_reserve_size > max_msg_size)
+-			max_size -= reg_reserve_size;
+-
+-		bus->free_on_exit = true;
+-		bus->max_raw_read = max_size;
+-		bus->max_raw_write = max_size;
+-
+-		return bus;
+-	}
+-
+-	return &regmap_spi;
+-}
+-
+ struct regmap *__regmap_init_spi(struct spi_device *spi,
+ 				 const struct regmap_config *config,
+ 				 struct lock_class_key *lock_key,
+ 				 const char *lock_name)
+ {
+-	const struct regmap_bus *bus = regmap_get_spi_bus(spi, config);
+-
+-	if (IS_ERR(bus))
+-		return ERR_CAST(bus);
+-
+-	return __regmap_init(&spi->dev, bus, &spi->dev, config, lock_key, lock_name);
++	return __regmap_init(&spi->dev, &regmap_spi, &spi->dev, config,
++			     lock_key, lock_name);
+ }
+ EXPORT_SYMBOL_GPL(__regmap_init_spi);
+ 
+@@ -155,12 +145,8 @@ struct regmap *__devm_regmap_init_spi(struct spi_device *spi,
+ 				      struct lock_class_key *lock_key,
+ 				      const char *lock_name)
+ {
+-	const struct regmap_bus *bus = regmap_get_spi_bus(spi, config);
+-
+-	if (IS_ERR(bus))
+-		return ERR_CAST(bus);
+-
+-	return __devm_regmap_init(&spi->dev, bus, &spi->dev, config, lock_key, lock_name);
++	return __devm_regmap_init(&spi->dev, &regmap_spi, &spi->dev, config,
++				  lock_key, lock_name);
+ }
+ EXPORT_SYMBOL_GPL(__devm_regmap_init_spi);
+ 
+diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
+index 0a7f73fc1101..c5acfe687d9c 100644
+--- a/drivers/base/regmap/regmap.c
++++ b/drivers/base/regmap/regmap.c
+@@ -1179,6 +1179,9 @@ struct regmap *__regmap_init(struct device *dev,
+ 	if (ret)
+ 		goto err_range;
+ 
++	if (bus && bus->init_limits)
++		bus->init_limits(map, config);
++
+ 	ret = regcache_init(map, config);
+ 	if (ret != 0)
+ 		goto err_range;
+@@ -1206,8 +1209,6 @@ struct regmap *__regmap_init(struct device *dev,
+ err_map:
+ 	kfree(map);
+ err:
+-	if (bus && bus->free_on_exit)
+-		kfree(bus);
+ 	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(__regmap_init);
+@@ -1513,8 +1514,6 @@ void regmap_exit(struct regmap *map)
+ 		mutex_destroy(&map->mutex);
+ 	kfree_const(map->name);
+ 	kfree(map->patch);
+-	if (map->bus && map->bus->free_on_exit)
+-		kfree(map->bus);
+ 	kfree(map);
+ }
+ EXPORT_SYMBOL_GPL(regmap_exit);
+diff --git a/include/linux/regmap.h b/include/linux/regmap.h
+index a72f17ab6264..161457726163 100644
+--- a/include/linux/regmap.h
++++ b/include/linux/regmap.h
+@@ -579,7 +579,6 @@ typedef void (*regmap_hw_free_context)(void *context);
+  *	     to perform locking. This field is ignored if custom lock/unlock
+  *	     functions are used (see fields lock/unlock of
+  *	     struct regmap_config).
+- * @free_on_exit: kfree this on exit of regmap
+  * @write: Write operation.
+  * @gather_write: Write operation with split register/value, return -ENOTSUPP
+  *                if not implemented  on a given device.
+@@ -610,10 +609,12 @@ typedef void (*regmap_hw_free_context)(void *context);
+  *     DEFAULT, BIG is assumed.
+  * @max_raw_read: Max raw read size that can be used on the bus.
+  * @max_raw_write: Max raw write size that can be used on the bus.
++ * @init_limits: Optional callback to adjust the maximum raw read and write
++ *     sizes for a device. Called during regmap initialization before the
++ *     cache is initialized.
+  */
+ struct regmap_bus {
+ 	bool fast_io;
+-	bool free_on_exit;
+ 	regmap_hw_write write;
+ 	regmap_hw_gather_write gather_write;
+ 	regmap_hw_async_write async_write;
+@@ -630,6 +631,8 @@ struct regmap_bus {
+ 	enum regmap_endian val_format_endian_default;
+ 	size_t max_raw_read;
+ 	size_t max_raw_write;
++	void (*init_limits)(struct regmap *map,
++			    const struct regmap_config *config);
+ };
+ 
+ /*
+
 -- 
-2.43.0
+2.51.0
 
