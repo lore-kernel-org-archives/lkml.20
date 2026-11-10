@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347758;
-	b=wxmpSUiDpYARzXVwIqQsoJQLHxmQm57au4dhDS1pqbKMJDIPXOar8IYv/LpEIbRXwuRV
-	 5BpqaL2YzqjVf05GGqtyOhCN+icMeSY1LY89VsMQjW9V/SeWVZAe0R/V5iJPCUzi2Xmzg
-	 4LzARAO0H/QWK7urue+CqfBDn9G0tDb0woM9PiUF+oSBp21Pv5ChyEKiIIweN+jUVmha0
-	 EmaFOpCGKznJblf/xP3AYhLL7ogKtqRJx8hKJme+64zB5uX0f56GEi3cDJxLHbl8ETR3S
-	 x9jxe0oDc16Lu13NQpMxdTPr9H/6VwB6oYuVJEzZ81aE9XndX0qMOrJ+tHbypq9rqXw==
+	t=1794347762;
+	b=i+89yz5Ze7AUWSxCHU1bnjlu8gx4/zMLxQOvCBwI2MGolJ+uu0qqa3JmHyI7zwXSU42Y
+	 +ZZFHuGoWFPK/nOyukWOWla2Bssc5oieJF15c4Oqpk30YZ83qOxe7RXwaqkWfMnlfUH9H
+	 oDmT0JEqfLrmgHHvTMO5sJL8nubYGAZddGkj/TTDvX4EF520xYbrCbKYNPXOpG4UVtUKn
+	 hFSXTldDdEi3o46uz67PvKcCqwuIy7yh6OSGr/AerX6m7YRdNk0Ndfs4pgH8sFos4teuL
+	 GsjYSn05sd17o7DRD461mMNNqJ+usNDS/n1PyXwL24umg5BjYizd67K9jQWwsUDPAJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347762;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
-	b=bIkVTKnvcqN8znpbTF84cpxpIicIa68NaQseWz4Z2OzJ1kH2YaA+eQgFrqYy/7uV7pZw
-	 nwycjuU9aaGADKMYJOchWxqPPkBAVRHRtMoN15mzm0sHZQrME3+HZP6hhnkkZwDzo2JmV
-	 86Yy3XtpAKoBqKcJbDRaVdGZlErwmT/o2M7GKnDMR6EOz1o7UahTn3p+0J9VZjML42AMX
-	 i25HuSAqv51/D7+c325EnVpqlRVViu4YTLu6vWHmdZE3DZd6ZymioTrtmghbiTaWXw1uI
-	 x/FSA7REzIeF68i0xrV8X9k7D7PnEwXOVfqZzj72xqe0/H9XLq9cNzu1e993PopgFQQ==
+	bh=ctVOchLtZ/i0vJd2/vqfjh8ZPAFvZBxtNydVJLZOi7Y=;
+	b=zdzB/4V2OGI4bBxNMjnxQUOgRzZXo73FWwk7rbKz7rM7J3AC3kqXhdwuNJ6hXjSGtzEL
+	 Zn8J3sZddPI+CSzSWmyqQUwsJdyaPLKc3XcXwUnP+C3B0PWQrR6caKuVD/156jGAiETVP
+	 CfhDwCWIM7rUSuuU9AjvI06fQ0oRdoDZoM/FFeqWJ0SzmX5PE05fxv3AkDvpvHHVuxxhI
+	 W89dy3tNLwevfvkYihZDd9vaNjQW//vLJZkHDTyAXZWjto6sZS4BOvi7yTL8d/FJh6AWo
+	 UtZ9zLA8KWdnhHCsrFI8z0n/wJXhGSbkZCp8B2NK0+0Vs4EyPLIsLovgJ5lhB3mpQ4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B5d7SS9S;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LXonw+QY;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAB8606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EAB8606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFA760A263F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DFA760A263F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B5d7SS9S
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso27799815e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:55:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LXonw+QY
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49134c8509fso2094564f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794347757; x=1794952557; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794347760; x=1794952560; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
-        b=B5d7SS9S7sY5BEcAjwqPRUD050ybw7tf2DYn8XXJ3kkFANz7v+lJ+IN8bPLYlsXk1D
-         Mz5QPVUgRzlxyfxX/XPKawERYROTJXLFCTRBVwVDQwFhLbVkgP4txLbf+ilEc04x8sSZ
-         JWiilKF+c1C+JVcODOUGvWgKNEccRGbIx/1BcngHbvBR4SR44BwJEkz7TOBS3ET8dSrh
-         ARw68NyEP9zrL2MYYR/eN3vhfsDP9EJiQ5FP6dkLG418n5MONVgYAQ4TKzR5/NjBNm2Z
-         0la20mwg6QFaAfEz4ariHboCEEyKkw0L+9dnXCfj5zTcydh4MIZk0wh9+w6l+OEC8k3d
-         G8uA==
+        bh=ctVOchLtZ/i0vJd2/vqfjh8ZPAFvZBxtNydVJLZOi7Y=;
+        b=LXonw+QYfhKw9JBD8V/vtFjdqGS0AwKeVh+8N392JDHAtx21gMIa85s0DmJr6Kfk4K
+         1WA/ThjqVS51qwQAddcnN4CM5b75eLydFNmRHgNZprBBI9cZC3avnr+RJ7PtFwRiIBtH
+         iwFAwe+V5PPsFkd9STJZBJYji9xCXEhscDtPsChb+Cd1EeoRvKwrkrFs2iG0gocRLGT0
+         2htfvvN55i5hNAzOzgedAeo6fsGPay90dk/JTywf2nnmJ+Pxagqvy5A7u+K8gA569YTn
+         Cs9z+u1jdZA5/p6XxxlFYylt5QzttOAAu7w5Waq0EfeDgBV2sJIyQf0EiyiLuKObI7I2
+         UyJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347757; x=1794952557;
+        d=1e100.net; s=20260707; t=1794347760; x=1794952560;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
-        b=IQrvrQ4PLWDi4TSHrmTYpNfWs+LXzPruBScuLiV62a876auMYakNmk8Ai+KM1EMA0q
-         hwdkOB1V7eoffVhI/vRvMylloUY3/9foFBeqMZLWJqv8eQBoNkh9iCmRcVesvtTGYzuG
-         nWt+ZOchU+9AZ6DxDbKaTZg3ET/x8Zo6peY1EYMjKi09Ehb7Ld4ntxIBZYWlpcB6vRif
-         YWL1pu0voU2ULwA3wywGVX3vMIPaSvGbvZTA8AtAloexDUAQRutHdRT0291QU/hGEO0K
-         NIQDpvUP8bUpvluKl/A5JIGScHE8zo1KGNSJmuHT+fiOMBofqMlzvEGwEWmOenBeuKbl
-         6DyQ==
-X-Forwarded-Encrypted: i=1; AL+hErFmzeipAeA9JcvCIdXND98ZihcgIUM6sHCPsCr/HWBnvUKbP0501oFGjXDCbVW6k74r4cjs+c+08TtWtWs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6lfXfNUGQQf7kukvpJD+kTH5gpMvelK0ObrK/rsUPqnIY3trW
-	qVkM+ZTw3AGRKqr9yiDH+kvIV4fhTp666/kfJMg1gCBMVa8WtHuV0P3wcAxwO4Aapi0=
-X-Gm-Gg: AYBFou2CpsBpd6SGXbYvnHpQMvwK8LPh6uqKCvwaaH3x3O9Eo4Tey6rnBQWxGDxlyS2
-	XJOfKvV1zyfdY76GidHY/BGcsNs5HJWVLl/EJ1hn+Zshvjc7yRKhhWGeswTH3JhQiPKW+qtvRv+
-	uo6Ki3xWJ+uSzqP7GqXpoyMAeZfjtuGmq43d5bE60dw9N5mmTI9QqQRpr42YZXwfICYnKszcFC/
-	RfvBnkbjURXoGYfsfbC2Yp8In9yaFxM4cHzx9yGVcYf1Po0d1Xjzgwh+mAb7Q53Syd3WlrRS0Yb
-	gV3g9LOjYwOb/RaLm1J1ZvhpZLApe2DTyaFSV9xQ9kRPkrx+EabYGwXehBDjAbyGkdcucmvKCrE
-	D2BRsK8QOo+j3YLvJTfzXDdyad+bsbU1j7qX6S5Qek3YonZkANH+rI19H0SrglcC8QQdnBNMdQW
-	JBbrdFr4dWkSH/+SwC3H9wjSyOARtj/VkVKEbnpWTpluZPggj0wHEARCgF7e/iRW4g46zzeYE0c
-	HAFa025TKsEDb+/VI2NqMXmVqjYfEr2AjEZJNcXmI+4HjnKqEckGrx0ZiPf8IC0bn29zoHqdw+O
-	niBRw6qfRfMvMwQLkOxc4jq4eh7gSPTSL/Q=
-X-Received: by 2002:a05:600c:3b01:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4ba09344911mr6417355e9.1.1794347756987;
-        Tue, 10 Nov 2026 13:55:56 -0800 (PST)
+        bh=ctVOchLtZ/i0vJd2/vqfjh8ZPAFvZBxtNydVJLZOi7Y=;
+        b=G+d6j5YQwZQuckE03zLg4YxThZ4Ahz3ksnQ4/TMn6E9/TRrlM4zELfeTshUDbe19kY
+         kKCrC9F6uCOO5AT3erU5EPahLsLpNvSWdhHegecxAP0Z9kURcTNkvU4rC8UyMvXZLOdn
+         Ap1cCFHO/VOwcY0NNUatxY4wOeAzw4Mu7cvUQ2PKIxVtnNl/JSnY0FaPzw1ypOz/fDa4
+         EI/xiHy5dwDroho49aAqem+RoxHxzozdaeaJFEGJaqLpPEQl63uI2sWryWh/tlndpmpm
+         MfaKpWAVgQ3yBojZeE+7qdoyWQ3E0FAEzuSC32kigHX5OskiKUuByPDHURTM8Eyb1pMr
+         6KPA==
+X-Forwarded-Encrypted: i=1; AL+hErHjr/MiHKAjZiJm6Q/KHfaG1oa9H83xb8YkzHkRuIQ+/VPdyxaMSZ9WB2v8sUeJuFwEr0QgBDgeaOjfefg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cerDUcOjDNtlFoSgfPZy8Qow/vmMBjjmEQzZjyla6BUPC2wGH
+	s3STlRKXb+PkQOUxohgGS26DikLHYMZM7QnxFHlW3enatj7t43JnIo/V5ThWZkJq5FQ=
+X-Gm-Gg: AYBFou2krd+YNjPAuhtUnV37TBqpF3BAMZMtpeMbPk0dJDI0eiNMNIPwv1AIw5pRkXM
+	ZLYczejB5r1BdoXVvbPe7pNMgA71cO1BK5oIFei48TvX5pt9AOgEyGSwL5JY4lpg2omj/d+Pqcp
+	VAwUwjJBeuFN+9rBbCnO1gwWuRgTPGuJ5h3mZ6x9z0Mluco+FJ0tZ2RyJ8/BvoaLOiJLgblv15U
+	X8Cd+CQsNyVLsVzU3ovJkPQGbPZ2S7XQRa20oguq2acuBBlNVdT20UzTbW02IRZd4EMYjHbPFOe
+	OBRnlv+auGU3zZPdNIyyvsuauxRBfUYfST1ruThqcFW73huavL/5jm678lB20QeW8dgW4XQcS20
+	HaupP8x24Wr8yUNP7YENkzvROTFewuZQm0MQQjIiSrq/phDil7NjogqI8c/Z2Q3Q1sY0c/LJ6M+
+	Nlda2jzrmdJxwyWGcBxa5prmRpJr7sYpRQwzScbPIsAbG+UbngUp7QmuUxgEc5rO7/vVcd5Nk2u
+	WRBAZIwPLSa8jnMvy4H6tvciR8WRVKO+QXcg8zTWtXxYjxruZklxXm4mjdCKZw9NqXQn6PPjQVB
+	hvpbPYrL1o3OQoL9kHAw+FMsx64hVDSI3g==
+X-Received: by 2002:a05:6000:402c:b0:492:820d:107e with SMTP id ffacd0b85a97d-499c792ef4emr428787f8f.47.1794347759890;
+        Tue, 10 Nov 2026 13:55:59 -0800 (PST)
 Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fba476sm107163905e9.2.2026.11.10.13.55.53
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4988bdef64dsm5664845f8f.20.2026.11.10.13.55.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:55:53 -0800 (PST)
+        Tue, 10 Nov 2026 13:55:59 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v4 04/20] mfd: lp87565: Explicitly set driver data for the generic dt compatible
-Date: Tue, 10 Nov 2026 22:54:29 +0100
-Message-ID:  <8f0bc82073121d4c2af24ef495873f486cd53631.1794347059.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v4 05/20] mfd: mt6360: Drop irrelevant __maybe_unused
+Date: Tue, 10 Nov 2026 22:54:30 +0100
+Message-ID:  <f24ff673333c0fe34408abf1a4f013eeeb5b63d2.1794347059.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
 References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
@@ -101,35 +105,34 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=903; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=ItI5605JHOVUrr1auFKK2Cyt2oOdQ7yo3fgGcZk951c=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85KecaOWAIjbliGaieC3F/az/KAF1oOz0ppUT Cs0rvDaBquJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSngAKCRCPgPtYfRL+ Tq2eCACjSWO4t72nyZBiFE17tZkmvXuwxGTijpJde+2sKH+N+/ekSU9BoQgQSohU/SCjod5MS+o hljqIT0giS6pAajDTzfEdpWe8I8CHxgrdJSnIKZ04P9wk+qBol3vLHWQCOh8Rgf0vnDN5RwA/20 KxIsfwg5Z/YL/nhmkuZv1ZXVpD41pZu9vUwtwUeqgNa1gFkOToEvBCa7pB4pdlEBwg5Ovo7RDgv M42pICHxxChHhmt1Dd0r7esMP/aMnncsy9W1kslYHgHRfnBmQiVirBE2s6dR3hetjRWzP1LuuSA miwAv1Byb4WxVpaldyT6IkNuZdmHM5k8c0MoKOQK/B17QJNO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1019; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=WVXc1FvtvHtwehAQUPEvKaZfuWX+hZavONn/+2WOSYw=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85KisuoYTGXVnjuOAoBv1WtV1Dwwmw2ojVv8v Er1hTByizaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSogAKCRCPgPtYfRL+ Tt58CACDo/1F4WSgBgjg4oDThZrM6JlYHXkQrOBvMkMkN/laIz2ikPQOpQcH6kb1HJ8KJICzPkL nfRlyhLgE/4bzVPNjE3WM5My9hgSQ4RpVWEWH60bylCAJ11pxX2cVVohWpRVn+y+R/9aa/4zl3L rvKkcDx2LZHxL/56lhEcX2R4suG/y5AkIlhXL1SAz63gSvvtJJYRPrnEt9TvbnByWDDTe3MYns7 odPfiaSK40lzbMugKCueM5ixaCZQBeGFzfqChaFn3vmtjN/AYYQ+vk2OVcJDXbDbkLJaLH5peEc R/SfnNv9Eoz8HYLAASLC1o3YqZMqweOx9lMdqz/6Z9nDEq7I
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-The driver relies on .data being (void *)LP87565_DEVICE_TYPE_UNKNOWN
-(i.e. NULL) for the generic device tree compatible. Make this explicit.
+Since commit 5ab23c7923a1 ("modpost: Create modalias for builtin
+modules") MODULE_DEVICE_TABLE() is enough to reference a device id array
+even if the driver is built-in. So mt6360_of_id[] is always used and the
+__maybe_unused marker serves no purpose and can be dropped.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/mfd/lp87565.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/mfd/mt6360-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/lp87565.c b/drivers/mfd/lp87565.c
-index b78ae79df5fa..efea1ba82811 100644
---- a/drivers/mfd/lp87565.c
-+++ b/drivers/mfd/lp87565.c
-@@ -26,7 +26,10 @@ static const struct mfd_cell lp87565_cells[] = {
- };
+diff --git a/drivers/mfd/mt6360-core.c b/drivers/mfd/mt6360-core.c
+index 8a97c30cad3f..8263e3ff8315 100644
+--- a/drivers/mfd/mt6360-core.c
++++ b/drivers/mfd/mt6360-core.c
+@@ -606,7 +606,7 @@ static int mt6360_resume(struct device *dev)
  
- static const struct of_device_id of_lp87565_match_table[] = {
--	{ .compatible = "ti,lp87565", },
-+	{
-+		.compatible = "ti,lp87565",
-+		.data = (void *)LP87565_DEVICE_TYPE_UNKNOWN,
-+	},
- 	{
- 		.compatible = "ti,lp87524-q1",
- 		.data = (void *)LP87565_DEVICE_TYPE_LP87524_Q1,
+ static DEFINE_SIMPLE_DEV_PM_OPS(mt6360_pm_ops, mt6360_suspend, mt6360_resume);
+ 
+-static const struct of_device_id __maybe_unused mt6360_of_id[] = {
++static const struct of_device_id mt6360_of_id[] = {
+ 	{ .compatible = "mediatek,mt6360", },
+ 	{},
+ };
 -- 
 2.56.0.rc1
 
