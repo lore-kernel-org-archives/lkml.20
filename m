@@ -1,70 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296124;
-	b=4babLvRcFvBqNK56LAn4xzD08BwvEZ8MGIfMo4UCKa4Hqn5pa4pJW75YoLYUlc8Aa1IX
-	 fNKg506817tYV+n98/NjpbPuNv4UZPHN3Gi4w2kO7KbS62hf51AZQ13kUeIEK30dI78sF
-	 QC3cXqBKB6S78HSGniKFUe+bzRo5H67ZlYAvllyesofInkJ9QRz9/WvXu9H3S1Rm1gxDg
-	 eCFrPvC+r5em5kbgg/Dm41WO4JQyLH27Cg0a1ryPiOlPQ38QRqFeORr/kXkXI9VoZ6ddC
-	 Q2pWIztBm95gGDMdJDFyW09BtDRc/zgbtICID5JKxwJ5j9D/cGgY7XRtSK8u04BQ3fg==
+	t=1794296137;
+	b=oJSOyx5wKZPoGCtD39oS9bQdJzzoGwGWCJ+UAd3F2yod6JX+gXhmFCfCGzZjTh2V2jMW
+	 2a7ydUa2H4adZ4LuGmS8ZDBMyUgDfVDofgHlgekqzjpK0IM2r07LfscJxL8RvRiVIr/tO
+	 ZqteABcPryjxkdCeCRJmRx5ocnSSGDhzi2uAbmoxhq02Pj+V/knZAamXrlMyTU60Xaaeg
+	 ARqqH2IDDJG4wvZg0syaLHuxAn0dxE46EmYH4IBil0YfjGEM0dEy71DvuG+BgY3LmgN1m
+	 wb9abfrL9iqUlP8JTCDs0zWp9wzJ6otjmJ8qSldpxnxDqkqspYoJfW5v8kqIUPdssUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296124;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dab/A/i+GScxx85l1FMnGvkoYL6jXJ4ltrwbw5NIbSw=;
-	b=uMf65b5cmsjJ3Pazk62w7WS2LDRUfne2KxVGilCRioGXN6Z+HrHtGg8A/q+OL9nFjq5g
-	 w33391JR7UOfqNqNtSnx7S4cPako5dEfl0v7TAGk+/SK779paO7pNU9/WgybBiTZm68zi
-	 e4uq/8JRfekITwN6fBijgjD/7dPHQx4Ms54ygpq3U2lZRyaZpj/zNJngWGyYkI/Ox8tF/
-	 t4xDJHnKvz9adNgE6rgJ5m5hBbYE/P7Aa3M2Y3ONTHIxS1rFQDptQLrbKIoklOaApvUCO
-	 90aMKt8q+UFCb+LGQQ9XJdqG7ejK3EUzPlWjEiP7IJIJOcA6QD7tIyxvWAQybDkvPRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296137;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References;
+	bh=PHDIoEm9ZHwm2QbXfcuNgzAchc1Bm5nQ/5nALaIInYs=;
+	b=mi89KVztXnv4tWwiHDakii+dF/5MswVKnyfQjLUIEnxkUz/g8i6ZgR2JZB48EoEIFGpD
+	 Z0UAb8+YE2jhT3PKfQD1gS/mQvJhbu7yqdxM85rOWCpJeqQy0nvbczmkFYMxAFMhtiVAR
+	 J07/A/C6eKoXdqcYk0k2DCRP1jsfpDGItmC/gIU1wsRsOKaih016jyeWw+wGVRbBkOdiU
+	 rOnIfczk6r4ZWpUYkH8JzpSznkNQilDHfF14cwYEn0h1Ti26QcZAYUAQW0zVGji27drpG
+	 HIGwTdQUKYMx8au3qJs6C1sOvp1/jvGR3+VHmpZdw6NMbcNzvC9ub/PoVHN6lVqWFWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="QXTW+jn/";
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01BA060A260A;
-	Tue, 10 Nov 2026 07:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01BA060A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rcRZgM1P;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9852760A6F5A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9852760A6F5A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QXTW+jn/
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rcRZgM1P
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a208d93758so17319715e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:35:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=QXTW+jn/k2p6irJWawWwnTH3kAQLUBTaskDr572XvnTVU1uSb8ZQl6fyxq2ETvXjDgy2VJBUbCmoL
-	 XcOW5RphDhcgyWCb0MbTnqG5DU9w64Ryi5Tu7Oud4rj4WDKX+L5OUYzlRxPEWD9Q8wmCfOeJqLAjuL
-	 x8A82I7fyBxNoqmc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af2c93922d-6c046;
-	Tue, 10 Nov 2026 15:35:21 +0800 (CST)
-X-RM-TRANSID:2ee46af2c93922d-6c046
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03.03 (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af2c9242df-ac0c4;
-	Tue, 10 Nov 2026 15:35:21 +0800 (CST)
-X-RM-TRANSID:2ee46af2c9242df-ac0c4
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	William Tu <witu@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4] erspan: drop packets with an unknown ERSPAN version
-Date: Wed, 11 Nov 2026 00:28:48 +0900
-Message-ID: <20261110152848.23136-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+        d=gmail.com; s=20260707; t=1794296136; x=1794900936; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=PHDIoEm9ZHwm2QbXfcuNgzAchc1Bm5nQ/5nALaIInYs=;
+        b=rcRZgM1PKg2J1JQ5LF41jxrEtSDmU9PsA/mVX2U7WzkWWMzbzB14U5Beqh+b2xStlr
+         5CHavIIrkckY9vZ1MQ76qxQvfb9c1rQgsnv6m7QCUcAVnGA2Qin4LJZM93AxAZf4VE6A
+         NoZOCkd8+6ODzzKFgDYqBXPK6yuHeGKvl46YHjnxyGLAUd4nm9S06hzYpE5N6bi8BzZ5
+         64yOh3MsgX8L538ywidwH/dyRQeWb5/phrRQdZydqNvj8RYFSDLEe7KwURziaZfyMiAh
+         45eLie5PRjJ2aQDl27OUtS34ECvvfzhajXuhqhD6iYLkX+PLhmrk44/paCLtDSkEwsY/
+         hSHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794296136; x=1794900936;
+        h=references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PHDIoEm9ZHwm2QbXfcuNgzAchc1Bm5nQ/5nALaIInYs=;
+        b=rSkP0sz32xWs5kpp6WCChKuvkpqnsTUTVGyIUU/GwW8epOFX16dfUBzJYXoyqJhFC8
+         Yc3An3/o+iyre01hstg5iydUUn4l5q47WtK4ghTHc93rOWCNPYFs/ev0jMvyyb+RrVK9
+         S3SnOrphSUuQkGSzi2fexXrAeN86zKMs4x/vvNWOpVneruu9TGcRkoCsykGnu6gReg7V
+         XWqgk/AW76dwBTLBBsWEG13hHNOENxtS/3Hri0D9UPGdbsmbjWSv+QLlFQviHi/vXhmE
+         vypTRcMEV0rArovPkugZpBsGyvFWqaVVtThN/5t2K3BFgwcRoZ+D8LygizempEGVeEEm
+         +wcA==
+X-Forwarded-Encrypted: i=1; AL+hErEX3HvlYTO3dQySkfsbYLrtr3kVDxQv8W46TKkkmSjldgbMP3jioKEdP93qBTb04Bph97iHIih6ZNYBE/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NfZMsfWAPmPhANDc4y1K4Iobl+GA4WiJNh7ems4PQeSwo10wI
+	Fa9DoHpJEhkbcT/WVYLuIDE5SQhzfezqy/wAt3GISabaQPUYfgGRzGyq
+X-Gm-Gg: AYBFou0LBsC3ayJ5ALnYXhy0PWudWLvwHD3Yn/bsNoX/3ZTHGL0G5MxCLvK3RJ3I9c8
+	JQyR+5sHdfSugv0chvazB9PAv7rqbBQZqoVJo3PTGF9tNwAISXJbWegoxYrqTyVbqu3PFVgAXhp
+	1Yt/MRjrDR2oQu/sWF4152d6ghZGkfUIuw9/d/MBEpa19Rab2SOcGd2D6LHasi9LuosyYdT2v9v
+	Yx8rY2PW3SCjY5CE9u/Z+i9Ti7osBaDZb7hizJNGKcBXbST8Vt/KZfoxZZgyF0zkNNxh4XBn4r4
+	qeSxwL/lxn+xVukFkxihE3iP4p34acJSIx8ytXRQpq+XP0wI8G1vMZYqdXCno6NGLRabv9PUM1u
+	p9D5l6NCwmTYg/0cnp+uVeDqI1mt92hhxbfcid9WwqpWazaYdg1oYwsj7JyagXdT2h8PDHYTwbW
+	tyFqf9LMVVUIhHzDR6enmqio70sMTytgIb3jySmEqiIrvJbIDYE6z84JfnMWNhlKLx3zsrzeCHd
+	34lU+fOL+QiFhSWp/Vp7cZWzeaLs/5uX79uhNs0CL3ZzHXroiXmo0xkb/SC4OvrDZLLVWdl+WSB
+	IzmpJAaSNsg5GhADfUjggeabQFrXQ0as6AQkd1fxYXVOqQmTXYlTASgu35AsVrITa05oz/kId9X
+	mFszFZXBmeCpKctHsQeL0mCcJxcE8gwKWfmQ=
+X-Received: by 2002:a05:600c:6094:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4ba0234759bmr24627895e9.18.1794296135745;
+        Mon, 09 Nov 2026 23:35:35 -0800 (PST)
+Received: from localhost ([46.36.23.99])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb158sm3448199f8f.36.2026.11.09.23.35.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:35:35 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:35:33 +0500
+From: Mark Korenberg <socketpair@gmail.com>
+To: Qu Wenruo <wqu@suse.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] btrfs: raid56: pass REQ_META to per-device bios
+Message-ID: <f05b71b2a735d2b9d018c072f30a0b78@gmail.com>
+In-Reply-To: <e29db0cb-2054-4894-958b-800d03ad4d79@suse.com>
+References: <20261106-btrfs-sb-read-req-meta-v2-0-71c1afaf5c67@gmail.com>
+ <20261106-btrfs-sb-read-req-meta-v2-2-71c1afaf5c67@gmail.com>
+ <e29db0cb-2054-4894-958b-800d03ad4d79@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,144 +96,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The ERSPAN type II and III receive paths take the length of the ERSPAN
-header from the version field of the packet, with erspan_hdr_len(), but
-never check that the version is one they know: 1 for type II or 2 for
-type III.
+On 2026/11/7 06:56, Qu Wenruo wrote:
+> NACK.
+>
+> One should not even use RAID56 for metadata chunks in the first place.
+> Nor we're any different from other RAID56 implementation.
 
-For any other version, erspan_hdr_len() returns 0 or the type III
-length. With version 0, the ERSPAN header is not pulled, so it is
-passed up as the start of the inner Ethernet frame, and in collect_md
-mode the metadata is filled from the wrong part of the header. The
-ETH_HLEN pull in __iptunnel_pull_header() still covers the bytes that
-are copied, so nothing is read past the pulled data.
+Fair enough, I'm dropping this patch.  Thanks for the reviews.
 
-Reject such packets, as a packet with a truncated ERSPAN header already
-is.
-
-On IPv4, a packet with a 4-byte GRE header is taken as type I without
-looking at the protocol. gre_parse_header() treats an ETH_P_ERSPAN2
-packet as carrying an ERSPAN header whatever the GRE header length,
-but erspan_rcv() then skips that header's version and passes it up as
-the inner frame. Type I only uses ETH_P_ERSPAN, so check the protocol
-too. Such a packet now goes through the type III path and its version
-check.
-
-IPv6 has no type I, but ip6erspan_rcv() does not reject a type I
-packet, an ETH_P_ERSPAN packet with a 4-byte GRE header. Such a packet
-has no ERSPAN header, so the version is read from the inner destination
-MAC address, and if that happens to be 1 or 2, the start of the inner
-frame is stripped as an ERSPAN header. Reject these packets too.
-
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
----
-The issue was found with the help of an AI coding assistant.
-
-Tested on x86_64 with ip_gre and ip6_gre built from net-next
-fa5196392691 with this patch, by sending hand-built GRE/ERSPAN packets
-over a veth into erspan and ip6erspan devices, in plain and collect_md
-mode: version 0 packets, ERSPAN2 packets with a 4-byte GRE header and
-version 0 or 3, and on IPv6 type I packets whose inner destination MAC
-starts with 0x1 or 0x2 are now dropped. Version 1 and 2 packets and
-IPv4 type I packets are unchanged, and erspan v1/v2 ping over IPv4 and
-IPv6 still works.
-
-v4:
-- Also reject type I packets in ip6erspan_rcv() (Sashiko).
-v3: https://lore.kernel.org/netdev/20261108193504.73393-1-yanhaishuang@cmss.chinamobile.com/
-- Also check the protocol when classifying a packet as type I, so that
-  an ETH_P_ERSPAN2 packet with a 4-byte GRE header gets the version
-  check too (Sashiko).
-v2: https://lore.kernel.org/netdev/20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com/
-- Drop the Fixes tags and correct the commit message: the ETH_HLEN pull
-  of __iptunnel_pull_header() covers the metadata copy, so there is no
-  out of bounds read (Ido, Sashiko).
-- Drop the patch that skipped the type III sub-header, as no device is
-  known to send it (Ido).
-v1: https://lore.kernel.org/netdev/20261018090236.2487997-1-yanhaishuang@cmss.chinamobile.com/
-
- net/ipv4/ip_gre.c  | 12 +++++++-----
- net/ipv6/ip6_gre.c |  9 +++++++++
- 2 files changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 5485586fa0e6..f8a7c4353502 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -255,13 +255,13 @@ static void gre_err(struct sk_buff *skb, u32 info)
- 	ipgre_err(skb, info, &tpi);
- }
- 
--static bool is_erspan_type1(int gre_hdr_len)
-+static bool is_erspan_type1(const struct tnl_ptk_info *tpi, int gre_hdr_len)
- {
- 	/* Both ERSPAN type I (version 0) and type II (version 1) use
- 	 * protocol 0x88BE, but the type I has only 4-byte GRE header,
- 	 * while type II has 8-byte.
- 	 */
--	return gre_hdr_len == 4;
-+	return tpi->proto == htons(ETH_P_ERSPAN) && gre_hdr_len == 4;
- }
- 
- static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
-@@ -282,7 +282,7 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 
- 	itn = net_generic(net, erspan_net_id);
- 	iph = ip_hdr(skb);
--	if (is_erspan_type1(gre_hdr_len)) {
-+	if (is_erspan_type1(tpi, gre_hdr_len)) {
- 		ver = 0;
- 		__set_bit(IP_TUNNEL_NO_KEY_BIT, flags);
- 		tunnel = ip_tunnel_lookup(itn, skb->dev->ifindex, flags,
-@@ -301,10 +301,12 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 	}
- 
- 	if (tunnel) {
--		if (is_erspan_type1(gre_hdr_len))
-+		if (is_erspan_type1(tpi, gre_hdr_len))
- 			len = gre_hdr_len;
--		else
-+		else if (ver == ERSPAN_VERSION || ver == ERSPAN_VERSION2)
- 			len = gre_hdr_len + erspan_hdr_len(ver);
-+		else
-+			return PACKET_REJECT;
- 
- 		if (unlikely(!pskb_may_pull(skb, len)))
- 			return PACKET_REJECT;
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index b5d6ed8f0c36..26c0e1c4de18 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -494,6 +494,12 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 	struct ip6_tnl *tunnel;
- 	u8 ver;
- 
-+	/* There is no type I (ETH_P_ERSPAN with a 4-byte GRE header) on
-+	 * IPv6, and such a packet carries no ERSPAN header to look at.
-+	 */
-+	if (unlikely(tpi->proto == htons(ETH_P_ERSPAN) && gre_hdr_len == 4))
-+		return PACKET_REJECT;
-+
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*ershdr))))
- 		return PACKET_REJECT;
- 
-@@ -507,6 +513,9 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 	if (tunnel) {
- 		int len = erspan_hdr_len(ver);
- 
-+		if (unlikely(ver != ERSPAN_VERSION && ver != ERSPAN_VERSION2))
-+			return PACKET_REJECT;
-+
- 		if (unlikely(!pskb_may_pull(skb, len)))
- 			return PACKET_REJECT;
- 
-
-base-commit: fa5196392691051963726787944db872420dfa75
--- 
-2.43.0
-
-
-
+David, patch 1/2 stands on its own and has Qu's Reviewed-by.  Could
+you take it from this series, or would you prefer a v3 with only that
+patch?
