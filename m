@@ -1,102 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309280;
-	b=lHOdKqsy227QRT8cEApDqIONDzC2D39EScxg4X8FP2VAkaaBhJCPhmBOTbDuE3QP7+j7
-	 SrTHDNssE772Y1a1gRvEsEjvzDLiKvh519lZTwNC2J+xUJGbV4iY2Q9Z3AAjiUARmmhQd
-	 pHl00HEvz9ZzDdFTzQ1R5W6uEEuw4O9Crinrv42fEINpewcACS4+2+EwmJoYZE58DVZkF
-	 5RoRro4Z64shT541fX5cF27vJzWe3x0m2a0uDISRU72uKO+/Rojb713VmP0JN0bscceTg
-	 2Zg7+Gug9ephYLd/7CEcHLLMhatoZtW0B0HD19AybmXfJSClvLKWaK94dJKt+Zk1V2Q==
+	t=1794309290;
+	b=2VvnDOSNtGboWXu12aY7X7qcwVWFvlXlb20+oUK1WYPNjX1LRg0Jd53God/pT+LV14r4
+	 kDbFPg3RJNNX4VkfgIaLFa1Yt0F9eJTIi8VZAtbCDZImqx6m6Fm3Lxy3kpWQoWULliEt5
+	 1J5nqt+ZEljf7piQieQm3iVfbskfPz6RrK20qhEGm8l0KjCflzHwHd4ei/UVeLd+0SCuU
+	 K+aeX/ZEix5r8ZR2mVxp2Mqg0NNgjEb0E3by9JrlY+q7N5jAugL1GFtAFroXOsXbLFQST
+	 hwayr0dCgfia3sXYFYGx0om4KKnO1tTWvgMc011wkyymP+wBLn2mOGiWZdmpGe7dhDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309280;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l3e6BJpcy4ENagc1gj2ABLtN+NMWCeauT8N9Tc3xxgQ=;
-	b=JP9ejYgivCQ5YhkH2v27ysEqFSfjR0K7N+3/QHULbKyT+eBLRA01jpOjDKig9lOdPWEZ
-	 6jdBkTUKgyXTJtTmMS7OOzZV4rrG1fsllaaRlE8BTd7zD+VhG0hoVoAz7zeARwn9HtZJe
-	 hkpRKzEu7i8/RePMUaclYsdrRrKtj9KldY4SEK5YAAz8mE8P6yMzXRqRoQCEtimmqLa7Q
-	 Y7Aoc200UJL4DTHycyUw5tCrLkgbFbx+ZG+NWu76IZL6VPbiTpYFbxhteQnL78WL2c6SI
-	 A/F8LHm1y5D0+2UwNXPqXYDIa/hiG2FvX43TSriDb3lhKTsiYIhH5zdFm5AZxTj0LNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309290;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
+	b=IgmTy4njNdbqHbL9QRRXtD73iZFNflaMWda8v1i6T3evxwlOZlZj2SCjgaI3+/8Cbbqj
+	 IGGv2t7GUIIVQzWg75CWzhdF0RuiT/2S+KrqQxSTpvaQqGaI3LT0lQRBFV63yD3fZIGt2
+	 ZXgtNg1cVpOgOiAowmW0YOVGb3POGdDQxE3H5hA25MtIX52UOXqqE/CrVdRlMu4qtzOfK
+	 REcqS71QIi1sCFOLIpLNLluhVN+gV8KASTEHu2pvV2QMNCxQOeaDvtgM0mgv8j4RJntfI
+	 hdDDmyvymPHwpNpa4Mo7zeYQ1HqLZfa2nYkmhplWHtOJIsWpxYdS6WFNwkh5NJUnZsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ae2KvmBo;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eGX9K1Ri;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fue1uWIB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766BE60A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 766BE60A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1083606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1083606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ae2KvmBo
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b1535be329so941668a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:39 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eGX9K1Ri;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fue1uWIB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794309288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
+	b=eGX9K1RiprlgDLcN03x69X8D8WVtOnwfkz5UhhlmqbVXEX2Vl42IV9Zn35l96PGnteFie3
+	5w9h0ro5bvGflRQkZ5V9gme+R/AiDiwbCML1/WA6W4Y55CyNlf8Tp3R6Yca57GYVsPloQI
+	ljAHtglsXE1zN5bvK5Cf2dg4yiISmmw=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-172-do8iX-zMP0qysa2dU7EhhA-1; Tue, 10 Nov 2026 06:14:46 -0500
+X-MC-Unique: do8iX-zMP0qysa2dU7EhhA-1
+X-Mimecast-MFC-AGG-ID: do8iX-zMP0qysa2dU7EhhA_1794309285
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-490d2ac331bso1644907f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794309279; x=1794914079; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l3e6BJpcy4ENagc1gj2ABLtN+NMWCeauT8N9Tc3xxgQ=;
-        b=Ae2KvmBoitqU5gyYWcAFFAL+k9B6+yTy7RsSiYaYdLMPfcZ4GSy1dpnxS3L9HDIcAx
-         8RIFEqrN96lL5i4JPPXaHIG/8fkgNu5U6OIa6kZn315YdUc1Vdhb0/ZZw/zJd5wgs+l7
-         ciMvsmzIDFKqNZKK0yRYG1cjA3BaL+Y5qUWw0NznvyW52HQGEvlPaZIIN9frFYH1Qek/
-         ktfEX609svd0niBP7QIAGM8fM2IosgAnewOZ6K532Kv6uVhzjDYIgkkPy6Z5hmMIgUMS
-         p4Yn372HpWwwlqC23GXvJXEaxQ7peLbcSPc4/Ei20WnmIGK0rlUbjvHSfGmfNluReT/r
-         09Aw==
+        d=redhat.com; s=google; t=1794309285; x=1794914085; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
+        b=fue1uWIB/eOIEC6nITbNo0WpinwOJCTHvtyX9cgkZIGGR81840Ve0tmtEXGzWvZxN8
+         5oT+VqUh4XCfLPtQjkOMnIaKc7eElRr5mK4nR9Cpl7JgoqDpwA4hPoQjBAYrK0pJh7vI
+         pr5i3qV14ZYTz0CkLgIMvbii9isWK0o1QP3gtuEiOBtjgJxljsba6H1M2HgUycHcaYYt
+         +bLbJeNx5dh16egiaGxdlgUxchbiJDcRhX48BiJXQLUu4fhJcHW2a5HBDrHnVJtiCTyX
+         Z5DAbCYFt+jNC0vnY11c8TroCrqmy4MUIItjSSu0cM2QAxwrqW+b4hxxZGWtx16fvJkv
+         G49w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309279; x=1794914079;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l3e6BJpcy4ENagc1gj2ABLtN+NMWCeauT8N9Tc3xxgQ=;
-        b=OeReOsy3u4QPM9lsFzqLXVt4Yv22s3roYi9rAHhIyJj5XKa+P/fOfp3XeKIZ6C8CQl
-         PsAaYXR2ujl4TrEWideuV5s1cd30Q2A6KQuoE84p5u1h44KlpO7AqOWx8FYlVZDK9c9O
-         fY2SfUDV0FrF9NZXDWPRBevYybeHBrwP+itwG5qg7bLxl72mK8fQnlDFMjrGrISRKyde
-         GR4Qqi/5mdvOh1HQ+uWDO0wOxO1NTndRYdRJxwGQoGrUEHJF8yi4hUvfaRXPgTWe9Orx
-         Yzy4d5QQseEk2ppGLkaMeoQgvBjA4MKNRDGieuTqC126wIQJ4+zJfoQwkEa57QtyuqI/
-         Yi2w==
-X-Forwarded-Encrypted: i=1; AL+hErENKknK5CBwPHrvqzoEgX8HFVnIu7wY0/OZEReMOXqSEjbt0UfmgcpgX8c9vzOhMhVDB0F0CbplKGY24EE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VZ170aSUsGpeEue0x0a6+Fh3h8u/cdnqjfUIhSIcyi+ttZmqD
-	ZspC1IyRG+jZr6ud7m1Kugy/MELS2vn9dGOMN4etfqE33cxrWuU1nUyK
-X-Gm-Gg: AYBFou38CCX1Z/RKtKmO9S70oT5vA6FLFa4VZ4muUXpjmVT1n1eCh0ebbgv2F8HW9rH
-	WZumPo5Ar+rrhE2hODvcbzXq86ihegLFeEAXlEJXVF5/yGBhoGjFo8TgowxqxF7pnRcLY9cV2dJ
-	LtARs5QSrCxjqNJ22jZL4ys/mp+3Yl46naq7r5isPPETrIzbINabPk60TFfYGkFDMLlnQ2KgPYo
-	fQgaxDxeS7gLDAVvqzL4GVMnLggyImHsLkT4Ppqqe9PgcZHERlyUL6RszRffh485alnTDrB95Sr
-	fGe+H/u+CrwFMQd9qDsOibIq/3YGuow9pj2gGBoUnJwour3vqnSbLbkIVJymMHbESjimycJu4F8
-	ot/v8Na6jQbo9HfPwBFCkN/FTMHPHLrYaIOjjgSPOjGPBQyoeROtEx1zqDuZecKRn9KvPxQ4e89
-	YOvkt1aQ7sSLttAm5UcSb28W/fpEaTLMLVjzp9Inmc2fsJxrhS1W4XV8BnEh++7GVvrZghutS+U
-	hNwTZLySHtZGV28VBoREdIDVOCuPM7+MoRuHzJczW9LRF0c9r3ERwyJofDObC4S5jHcsu3WfXIH
-	hYOFrtF6d8dZ/EKzUUMPeAH+bIwlBfhKkUP4eLL4/A8y7G35FO95gqB/7JRlzAVLnbm4DYu6WIV
-	Kbrnr
-X-Received: by 2002:a17:90b:578f:b0:3b0:9cc6:62c1 with SMTP id 98e67ed59e1d1-3b166e36e6fmr2378320a91.63.1794309278790;
-        Tue, 10 Nov 2026 03:14:38 -0800 (PST)
-Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1678ceda0sm3556684a91.5.2026.11.10.03.14.36
+        d=1e100.net; s=20260707; t=1794309285; x=1794914085;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
+        b=mnvXMAubdQXTj7jVj/6llePV3NtCx7eBsefvmRjOCHpDyNdDo5xHNMBrhqmMUXngzJ
+         PQV7a5YScmvPlZtHmfsA3NgEwzAc2TJ52nE+k6+XwvCgblr1D/FnWa92b6fQYzsvObYM
+         SCN4RRdB+ILHis49dATDsjKg8G295l5LYnslU6TCO/5P+RdJ4bcL4IqVdmFpx/9oOCiW
+         YbtHsChTEhQZiN3qT+7xdR9aThkFZngA8qFiVS7JZ3wPbT9yQEb37Nf9A/mKfp0F3osC
+         AaHtKYop3B7i9QNv6AGNnVfYVV2rLn8UlRTl3QrackyhyPF3Ym4AgALW7e2j7pehlmEQ
+         D7PA==
+X-Forwarded-Encrypted: i=1; AL+hErEk0n+NEkd+FOO6jxt5UHLilFBkDzcVZmcTKM5XKlyk4LX18U3Z3OeXvTvQ1TQ8+8vZC+nGHbzp2yZmWBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FbqGqaCEszZIqMwRpHdJStLTRXdUSKOmVQmrNwh9JqBQq06Ip
+	fUtbDyNd9p6eTzKozksOrFGrdrBBSpI5Wpql2Z71gd2sq1QBpKsmAUu27W5K2zRzjna+76URfC/
+	2u6+jj+jDRlF4dhzKHALdACF8AQDVlFHyp7Jt9euoYWUnKJapiqWBY07Sa/sUaEQNHg==
+X-Gm-Gg: AYBFou0prcShoTQYv+I5itdPZIUm8fPoB5IjkP6NGN7kQWIuJbsSN4ozZsfoNORGFDP
+	PxPEhI30Ci8NPMNGr5Zo4KNx9ZpLZZDJRBaOp8tMfp0URPALAqa/S24gpYwevfbWj4dHY3w4WeV
+	98dZ372lWJAd9VDBccEM4ZZHQ4FPA33P9YF0Zn/VypbrLsa/I/Ct9MaiOJpk2oqUYbiWjwz2G9+
+	SxJSM9ARMjgMP2Bxu6wvaTeeCmkd6OwdMf9Y1NiPUoV1BI2JbGXgUE8OTSe/AEyGFjYYizj4pSX
+	MsAogWK6ce7bfFG/rZxMGpTDQVwcXp1Yo17gIm9mJJeTwjcJBH1PeIHse4WJBZbrpfUoA95vhTy
+	moM+lBvqBqAXJqn+q/Zb1eoVzL2/ywyHyxZoquCSQcQcjwwj0epmyNtWrbLngwZJlvSKzblthyp
+	wlwG4=
+X-Received: by 2002:a05:6000:2010:b0:490:50c1:f359 with SMTP id ffacd0b85a97d-498305da0dfmr4850209f8f.39.1794309285017;
+        Tue, 10 Nov 2026 03:14:45 -0800 (PST)
+X-Received: by 2002:a05:6000:2010:b0:490:50c1:f359 with SMTP id ffacd0b85a97d-498305da0dfmr4850140f8f.39.1794309284563;
+        Tue, 10 Nov 2026 03:14:44 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm2904341f8f.14.2026.11.10.03.14.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:14:38 -0800 (PST)
-From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
-Subject: [PATCH v1 2/2] Input: keyboard: Add Nuvoton MA35D1 keypad driver
-Date: Tue, 10 Nov 2026 19:14:19 +0800
-Message-ID: <20261110111419.89535-3-fyhsueh4linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
-References: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
+        Tue, 10 Nov 2026 03:14:43 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:14:40 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 08/29] sched/deadline: Take a deadline boost from the
+ waiter's rt_mutex node
+Message-ID: <avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-9-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,469 +128,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-9-mathieu.desnoyers@efficios.com>
 
-Add support for the Nuvoton MA35D1 hardware matrix keypad
-controller.
+Hello,
 
-The driver handles key press and release interrupts, reports
-key events through the Linux input subsystem, and manages
-the peripheral clock during device open, close, and system
-suspend and resume.
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> When a SCHED_DEADLINE waiter boosts the owner of an rt_mutex, the owner
+> runs on the waiter's live parameters, through dl.pi_se. The waiter can
+> leave SCHED_DEADLINE, and have them cleared, before the owner is
+> deboosted. When the owner's runtime runs out, replenish_dl_entity()
+> loops forever on a dl_runtime of 0. It holds the rq lock, with
+> interrupts off. The owner's CPU warns there and locks up.
+> 
+> rt_mutex_setprio() also reads the waiter's live priority, not the one in
+> its rt_mutex node. Commit acd58620e415 ("sched/rtmutex: Refactor
+> rt_mutex_setprio()") found this fine: if they differ, a PI chain update
+> is imminent.
+> 
+> But the update can come too late. Leaving SCHED_DEADLINE clears the
+> parameters, so that admission control counts the task again when it
+> comes back. __sched_setscheduler() walks the chain only after it drops
+> the waiter's rq lock. In the change itself, task_non_contending() clears
+> the parameters of a waiter woken past its 0-lag time.
+> inactive_task_timer() clears them later, when a sleeping waiter reaches
+> that time.
+> 
+> O is a SCHED_OTHER task that holds the rt_mutex L. W is a SCHED_DEADLINE
+> task. T is any other task:
+> 
+>   CPU 0 (O)                         CPU 1 (W)                     CPU 2 (T)
+> 
+>   locks L
+>                                     blocks on L
+>                                       rt_mutex_setprio(O, W)
+>                                         O->dl.pi_se = &W->dl
+>                                     sleeps
+>                                       task_non_contending()
+>                                         arms W's inactive timer
+                                               ^^^
+We know that PI is broken with DEADLINE and this adds to the count of
+broken points. :)
 
-Signed-off-by: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
----
- drivers/input/keyboard/Kconfig         |  11 +
- drivers/input/keyboard/Makefile        |   1 +
- drivers/input/keyboard/ma35d1_keypad.c | 405 +++++++++++++++++++++++++
- 3 files changed, 417 insertions(+)
- create mode 100644 drivers/input/keyboard/ma35d1_keypad.c
+>                                                                   sched_setscheduler(W)
+>                                                                     W leaves SCHED_DEADLINE
+>                                                                     task_rq_unlock(W)
+>                                     <W's inactive timer>
+>                                     inactive_task_timer()
+>                                       __dl_clear_params()
+>                                         W->dl.dl_runtime = 0
+>   <tick>
+>   update_curr_dl_se()
+>     replenish_dl_entity()
+>       runtime += W->dl.dl_runtime
+>       loops forever
+>                                                                     rt_mutex_adjust_pi(W)
+>                                                                       rt_mutex_setprio(O, W)
+>                                                                         spins on O's rq lock
 
-diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
-index d8c64f333462..9bbcbed3d494 100644
---- a/drivers/input/keyboard/Kconfig
-+++ b/drivers/input/keyboard/Kconfig
-@@ -358,6 +358,17 @@ config KEYBOARD_LPC32XX
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called lpc32xx-keys.
+The hang of course is real though.
+
+> A copy of the parameters at the boost is not enough. rt_mutex_setprio()
+> would read the waiter's priority, then its parameters. A change of the
+> waiter can clear them in between. A stress test switches the waiter in
+> and out of SCHED_DEADLINE. With such a copy, the owner's CPU locked up
+> within a second. With this patch, the test runs for 600 seconds.
+> 
+> The rt_mutex node records the waiter's priority and deadline under the
+> waiter's pi_lock, which every change of its parameters holds. Fix this
+> by recording the reservation there too. A deadline boost then takes the
+> priority, the deadline and a copy of the reservation from the node of
+> the top pi waiter. rt_effective_prio() now reads that node too. It used
+> p->pi_top_task, which try_to_take_rt_mutex() does not update. The chain
+> walk and rt_mutex_adjust_pi() also compare the reservation, so that a
+> change of it alone reaches the owner.
+> 
+> This needs "locking/rtmutex: Clone the sort keys in
+> rt_mutex_enqueue_pi()". struct rt_mutex_waiter grows from 112 to 160
+> bytes on 64-bit. With PREEMPT_RT, every sleeping lock waiter has one on
+> its stack.
+> 
+> A 300ms debug delay before rt_mutex_adjust_pi() locks up v7.4-rc1 in
+> 8-CPU VMs, but not a kernel with this patch. The locking API, ww_mutex,
+> locktorture and futex tests still pass with and without PREEMPT_RT.
+> 
+> Found by the Sashiko AI review of v3. Before v4, a second model found
+> the window of a copy, and the stale node of a waiter that becomes the
+> top waiter.
+> 
+> Fixes: a5e7be3b28a2 ("sched/deadline: Clear dl_entity params when setscheduling to different class")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+
+I am not completely sure that we want the additinal machinery below
+though, if we can find a simpler stop-gap solution until proxy execution
+makes things right.
+
+I was thinking 2 alternative potential bandaids:
+
+ 1. Don't clear the parameters of a blocked waiter. Every live donor is,
+ by construction, a task blocked on an rt_mutex. Guard the
+ __dl_clear_params() calls in task_non_contending() and
+ inactive_task_timer() with p->pi_blocked_on (both sites hold pi_lock,
+ which is also what pi_blocked_on is written under). The bandwidth
+ release still happens at the 0-lag time; only the parameter wipe waits
+ until the task is no longer blocked. 
  
-+config KEYBOARD_MA35D1
-+	tristate "Nuvoton MA35D1 keypad controller"
-+	depends on ARCH_MA35 || COMPILE_TEST
-+	select INPUT_MATRIXKMAP
-+	help
-+	  Say Y here to enable support for the Nuvoton MA35D1
-+	  hardware matrix keypad controller.
-+
-+	  To compile this driver as a module, choose M here.
-+	  The module will be called ma35d1_keypad.
-+
- config KEYBOARD_MAPLE
- 	tristate "Maple bus keyboard"
- 	depends on SH_DREAMCAST && MAPLE
-diff --git a/drivers/input/keyboard/Makefile b/drivers/input/keyboard/Makefile
-index 60bb7baf802f..fad34b7afff7 100644
---- a/drivers/input/keyboard/Makefile
-+++ b/drivers/input/keyboard/Makefile
-@@ -39,6 +39,7 @@ obj-$(CONFIG_KEYBOARD_LM8323)		+= lm8323.o
- obj-$(CONFIG_KEYBOARD_LM8333)		+= lm8333.o
- obj-$(CONFIG_KEYBOARD_LOCOMO)		+= locomokbd.o
- obj-$(CONFIG_KEYBOARD_LPC32XX)		+= lpc32xx-keys.o
-+obj-$(CONFIG_KEYBOARD_MA35D1) 		+= ma35d1_keypad.o
- obj-$(CONFIG_KEYBOARD_MAPLE)		+= maple_keyb.o
- obj-$(CONFIG_KEYBOARD_MATRIX)		+= matrix_keypad.o
- obj-$(CONFIG_KEYBOARD_MAX7359)		+= max7359_keypad.o
-diff --git a/drivers/input/keyboard/ma35d1_keypad.c b/drivers/input/keyboard/ma35d1_keypad.c
-new file mode 100644
-index 000000000000..673ad8b9704b
---- /dev/null
-+++ b/drivers/input/keyboard/ma35d1_keypad.c
-@@ -0,0 +1,405 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nuvoton MA35D1 hardware matrix keypad controller
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/input.h>
-+#include <linux/input/matrix_keypad.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm.h>
-+#include <linux/property.h>
-+#include <linux/types.h>
-+
-+#define MA35D1_KPI_CONF			0x00
-+#define MA35D1_KPI_3KCONF		0x04
-+#define MA35D1_KPI_STATUS		0x08
-+#define MA35D1_KPI_KEST0		0x10
-+#define MA35D1_KPI_KPE0			0x18
-+#define MA35D1_KPI_KRE0			0x20
-+#define MA35D1_KPI_PRESCALDIV		0x28
-+
-+#define MA35D1_KPI_KROW			GENMASK(30, 28)
-+#define MA35D1_KPI_KCOL			GENMASK(26, 24)
-+#define MA35D1_KPI_DBCLKSEL		GENMASK(19, 16)
-+#define MA35D1_KPI_PRESCALE		GENMASK(15, 8)
-+#define MA35D1_KPI_INTEN		BIT(3)
-+#define MA35D1_KPI_RKINTEN		BIT(2)
-+#define MA35D1_KPI_PKINTEN		BIT(1)
-+#define MA35D1_KPI_ENKP			BIT(0)
-+
-+#define MA35D1_KPI_RST3KEY		BIT(1)
-+#define MA35D1_KPI_PDWAKE		BIT(0)
-+#define MA35D1_KPI_IRQ_MASK		GENMASK(4, 0)
-+
-+#define MA35D1_KPI_MAX_ROWS		8
-+#define MA35D1_KPI_MAX_COLS		8
-+#define MA35D1_KPI_BANKS		2
-+#define MA35D1_KPI_ROWS_PER_BANK	(MA35D1_KPI_MAX_ROWS / MA35D1_KPI_BANKS)
-+
-+/*
-+ * Scan timing, in KPI engine clock cycles.  PRESCALE and PRESCALDIV are
-+ * encoded as the count minus one:
-+ *
-+ *   row scan cycles = (PRESCALE + 1) * (PRESCALDIV + 1) = 2080
-+ *   debounce sample cycles = 2^DBCLKSEL = 1024
-+ *
-+ * With SCANROWD at its reset value (4 cycles) the TRM requires
-+ * row scan time > 4 + 2 * 1024 + 3 = 2055 cycles.  These limits are expressed
-+ * in cycles and therefore hold at different input rates. The actual scan
-+ * and debounce intervals depend on the engine clock rate; boards should
-+ * select a rate suitable for their switches (1 MHz has been validated).
-+ */
-+#define MA35D1_KPI_PRESCALE_VAL		0x40
-+#define MA35D1_KPI_DIV_VAL		0x1f
-+#define MA35D1_KPI_DEBOUNCE_SEL		10
-+
-+struct ma35d1_keypad {
-+	void __iomem *base;
-+	struct clk *clk;
-+	struct input_dev *input;
-+	unsigned short *keycodes;
-+	unsigned int rows;
-+	unsigned int cols;
-+	unsigned int row_shift;
-+	u32 conf;
-+	int irq;
-+	bool running;	/* protected by input->mutex */
-+};
-+
-+static void ma35d1_keypad_clear_events(struct ma35d1_keypad *keypad)
-+{
-+	unsigned int bank;
-+	u32 press, release;
-+
-+	for (bank = 0; bank < MA35D1_KPI_BANKS; bank++) {
-+		press = readl(keypad->base + MA35D1_KPI_KPE0 + bank * 4);
-+		release = readl(keypad->base + MA35D1_KPI_KRE0 + bank * 4);
-+		/* The event registers are write-one-to-clear. */
-+		if (press)
-+			writel(press, keypad->base + MA35D1_KPI_KPE0 + bank * 4);
-+		if (release)
-+			writel(release, keypad->base + MA35D1_KPI_KRE0 + bank * 4);
-+	}
-+
-+	/* Only these two KPISTATUS flags have W1C semantics. */
-+	writel(MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE,
-+	       keypad->base + MA35D1_KPI_STATUS);
-+}
-+
-+/* Release software key states when hardware scanning is stopped. */
-+static void ma35d1_keypad_release_keys(struct ma35d1_keypad *keypad)
-+{
-+	struct input_dev *input = keypad->input;
-+	unsigned int row, col, scan, code;
-+	bool reported = false;
-+
-+	for (row = 0; row < keypad->rows; row++) {
-+		for (col = 0; col < keypad->cols; col++) {
-+			scan = MATRIX_SCAN_CODE(row, col, keypad->row_shift);
-+			code = keypad->keycodes[scan];
-+			if (code == KEY_RESERVED || !test_bit(code, input->key))
-+				continue;
-+
-+			input_event(input, EV_MSC, MSC_SCAN, scan);
-+			input_report_key(input, code, 0);
-+			reported = true;
-+		}
-+	}
-+
-+	if (reported)
-+		input_sync(input);
-+}
-+
-+/* Called with input->mutex held (open, PM resume). */
-+static int ma35d1_keypad_enable(struct ma35d1_keypad *keypad)
-+{
-+	int ret;
-+
-+	if (keypad->running)
-+		return 0;
-+
-+	ret = clk_prepare_enable(keypad->clk);
-+	if (ret)
-+		return ret;
-+
-+	/* Keep hardware three-key reset disabled for a normal input device. */
-+	writel(0, keypad->base + MA35D1_KPI_CONF);
-+	writel(0, keypad->base + MA35D1_KPI_3KCONF);
-+	writel(MA35D1_KPI_DIV_VAL, keypad->base + MA35D1_KPI_PRESCALDIV);
-+	ma35d1_keypad_clear_events(keypad);
-+	writel(keypad->conf, keypad->base + MA35D1_KPI_CONF);
-+
-+	keypad->running = true;
-+	enable_irq(keypad->irq);
-+
-+	return 0;
-+}
-+
-+/* Called with input->mutex held (close, PM suspend). */
-+static void ma35d1_keypad_disable(struct ma35d1_keypad *keypad)
-+{
-+	if (!keypad->running)
-+		return;
-+
-+	/* Wait for the IRQ handler while register access is still clocked. */
-+	disable_irq(keypad->irq);
-+	writel(0, keypad->base + MA35D1_KPI_CONF);
-+	ma35d1_keypad_clear_events(keypad);
-+	ma35d1_keypad_release_keys(keypad);
-+	clk_disable_unprepare(keypad->clk);
-+
-+	keypad->running = false;
-+}
-+
-+static int ma35d1_keypad_open(struct input_dev *input)
-+{
-+	struct ma35d1_keypad *keypad = input_get_drvdata(input);
-+
-+	return ma35d1_keypad_enable(keypad);
-+}
-+
-+static void ma35d1_keypad_close(struct input_dev *input)
-+{
-+	struct ma35d1_keypad *keypad = input_get_drvdata(input);
-+
-+	ma35d1_keypad_disable(keypad);
-+}
-+
-+static void ma35d1_keypad_report(struct ma35d1_keypad *keypad,
-+				 unsigned int scan, unsigned short keycode,
-+				 bool pressed)
-+{
-+	input_event(keypad->input, EV_MSC, MSC_SCAN, scan);
-+	input_report_key(keypad->input, keycode, pressed);
-+}
-+
-+static irqreturn_t ma35d1_keypad_irq(int irq, void *data)
-+{
-+	struct ma35d1_keypad *keypad = data;
-+	struct input_dev *input = keypad->input;
-+	bool reported = false;
-+	u32 status, pressed, released, events, state;
-+	unsigned int bank, bit, row, col, scan;
-+	unsigned short keycode;
-+	bool key_is_up;
-+
-+	status = readl(keypad->base + MA35D1_KPI_STATUS);
-+	if (!(status & MA35D1_KPI_IRQ_MASK))
-+		return IRQ_NONE;
-+
-+	for (bank = 0; bank < MA35D1_KPI_BANKS; bank++) {
-+		pressed = readl(keypad->base + MA35D1_KPI_KPE0 + bank * 4);
-+		released = readl(keypad->base + MA35D1_KPI_KRE0 + bank * 4);
-+
-+		/* Acknowledge the exact snapshots, not KPISTATUS[4:2]. */
-+		if (pressed)
-+			writel(pressed, keypad->base + MA35D1_KPI_KPE0 + bank * 4);
-+		if (released)
-+			writel(released, keypad->base + MA35D1_KPI_KRE0 + bank * 4);
-+
-+		events = pressed | released;
-+		if (!events)
-+			continue;
-+
-+		/* The live state is only needed to order a press/release pair. */
-+		state = 0;
-+		if (pressed & released)
-+			state = readl(keypad->base + MA35D1_KPI_KEST0 + bank * 4);
-+
-+		while (events) {
-+			bit = __ffs(events);
-+			events &= ~BIT(bit);
-+			row = bank * MA35D1_KPI_ROWS_PER_BANK +
-+			      bit / MA35D1_KPI_MAX_COLS;
-+			col = bit % MA35D1_KPI_MAX_COLS;
-+
-+			if (row >= keypad->rows || col >= keypad->cols)
-+				continue;
-+
-+			scan = MATRIX_SCAN_CODE(row, col, keypad->row_shift);
-+			keycode = keypad->keycodes[scan];
-+			if (keycode == KEY_RESERVED)
-+				continue;
-+
-+			if ((pressed & released) & BIT(bit)) {
-+				/*
-+				 * Both edges were latched before this interrupt
-+				 * was serviced.  KEST is active-low (1 means
-+				 * released), so use the final state to order
-+				 * them: up -> press then release, down ->
-+				 * release then press.  Sync in between so user
-+				 * space sees two separate frames.
-+				 */
-+				key_is_up = !!(state & BIT(bit));
-+
-+				ma35d1_keypad_report(keypad, scan, keycode,
-+						     key_is_up);
-+				input_sync(input);
-+				ma35d1_keypad_report(keypad, scan, keycode,
-+						     !key_is_up);
-+			} else {
-+				ma35d1_keypad_report(keypad, scan, keycode,
-+						     !!(pressed & BIT(bit)));
-+			}
-+			reported = true;
-+		}
-+	}
-+
-+	if (status & (MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE))
-+		writel(status & (MA35D1_KPI_RST3KEY | MA35D1_KPI_PDWAKE),
-+		       keypad->base + MA35D1_KPI_STATUS);
-+
-+	if (reported)
-+		input_sync(input);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ma35d1_keypad_suspend(struct device *dev)
-+{
-+	struct ma35d1_keypad *keypad = dev_get_drvdata(dev);
-+	struct input_dev *input = keypad->input;
-+
-+	mutex_lock(&input->mutex);
-+	if (input_device_enabled(input))
-+		ma35d1_keypad_disable(keypad);
-+	mutex_unlock(&input->mutex);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_keypad_resume(struct device *dev)
-+{
-+	struct ma35d1_keypad *keypad = dev_get_drvdata(dev);
-+	struct input_dev *input = keypad->input;
-+	int ret = 0;
-+
-+	mutex_lock(&input->mutex);
-+	if (input_device_enabled(input))
-+		ret = ma35d1_keypad_enable(keypad);
-+	mutex_unlock(&input->mutex);
-+
-+	return ret;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_keypad_pm_ops,
-+				ma35d1_keypad_suspend, ma35d1_keypad_resume);
-+
-+static int ma35d1_keypad_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct ma35d1_keypad *keypad;
-+	struct input_dev *input;
-+	int ret;
-+
-+	keypad = devm_kzalloc(dev, sizeof(*keypad), GFP_KERNEL);
-+	if (!keypad)
-+		return -ENOMEM;
-+
-+	ret = matrix_keypad_parse_properties(dev, &keypad->rows, &keypad->cols);
-+	if (ret)
-+		return ret;
-+
-+	/* The controller supports 2x1 up to 8x8 keys (KROW = 0 is reserved). */
-+	if (keypad->rows < 2 || keypad->rows > MA35D1_KPI_MAX_ROWS ||
-+	    !keypad->cols || keypad->cols > MA35D1_KPI_MAX_COLS)
-+		return dev_err_probe(dev, -EINVAL, "invalid keypad geometry\n");
-+
-+	keypad->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(keypad->base))
-+		return PTR_ERR(keypad->base);
-+
-+	keypad->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(keypad->clk))
-+		return dev_err_probe(dev, PTR_ERR(keypad->clk),
-+				     "failed to get KPI clock\n");
-+
-+	keypad->irq = platform_get_irq(pdev, 0);
-+	if (keypad->irq < 0)
-+		return keypad->irq;
-+
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+
-+	keypad->input = input;
-+	keypad->row_shift = get_count_order(keypad->cols);
-+	keypad->conf = FIELD_PREP(MA35D1_KPI_KROW, keypad->rows - 1) |
-+		       FIELD_PREP(MA35D1_KPI_KCOL, keypad->cols - 1) |
-+		       FIELD_PREP(MA35D1_KPI_DBCLKSEL, MA35D1_KPI_DEBOUNCE_SEL) |
-+		       FIELD_PREP(MA35D1_KPI_PRESCALE, MA35D1_KPI_PRESCALE_VAL) |
-+		       MA35D1_KPI_INTEN | MA35D1_KPI_RKINTEN |
-+		       MA35D1_KPI_PKINTEN | MA35D1_KPI_ENKP;
-+
-+	input->name = "Nuvoton MA35D1 Keypad";
-+	input->id.bustype = BUS_HOST;
-+	input->open = ma35d1_keypad_open;
-+	input->close = ma35d1_keypad_close;
-+
-+	ret = matrix_keypad_build_keymap(NULL, NULL, keypad->rows,
-+					 keypad->cols, NULL, input);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to build keymap\n");
-+
-+	keypad->keycodes = input->keycode;
-+	input_set_capability(input, EV_MSC, MSC_SCAN);
-+	if (device_property_read_bool(dev, "autorepeat"))
-+		__set_bit(EV_REP, input->evbit);
-+
-+	input_set_drvdata(input, keypad);
-+	platform_set_drvdata(pdev, keypad);
-+
-+	/*
-+	 * Clear whatever the bootloader left behind before the IRQ can be
-+	 * requested.  The clock must run for the registers to be accessible.
-+	 */
-+	ret = clk_prepare_enable(keypad->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable KPI clock\n");
-+
-+	writel(0, keypad->base + MA35D1_KPI_CONF);
-+	ma35d1_keypad_clear_events(keypad);
-+
-+	clk_disable_unprepare(keypad->clk);
-+
-+	/* The IRQ stays disabled while the peripheral clock is gated. */
-+	ret = devm_request_irq(dev, keypad->irq, ma35d1_keypad_irq,
-+			       IRQF_NO_AUTOEN, dev_name(dev), keypad);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to request IRQ\n");
-+
-+	ret = input_register_device(input);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register input device\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ma35d1_keypad_of_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-keypad" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ma35d1_keypad_of_match);
-+
-+static struct platform_driver ma35d1_keypad_driver = {
-+	.probe = ma35d1_keypad_probe,
-+	.driver = {
-+		.name = "ma35d1-keypad",
-+		.of_match_table = ma35d1_keypad_of_match,
-+		.pm = pm_sleep_ptr(&ma35d1_keypad_pm_ops),
-+	},
-+};
-+module_platform_driver(ma35d1_keypad_driver);
-+
-+MODULE_DESCRIPTION("Nuvoton MA35D1 hardware matrix keypad controller");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
+ 2. Even simpler, considering that the above is of course still far from
+ ideal: replenish_dl_entity() already WARNs on pi_of(dl_se)->dl_runtime
+ <= 0, and then hangs. Make the condition bail instead. The deboost is
+ already in flight: the sched_setscheduler() that clears the donor's
+ parameters ends with rt_mutex_adjust_pi(), which walks the chain and
+ deboosts the owner through rt_mutex_setprio() and needs the owner's rq
+ lock to do so, which is exactly what the infinite loop holds. Bailing
+ releases it; the owner then sits throttled until the walk lands
+ (dl_task_timer() is a no-op for boosted entities) and moves it back to
+ fair. The stall is bounded by the walk's latency. 
+
+Don't get me wrong, the proposed fix looks OK to me, but it also looks
+more complex to backport to stable, it will be anyway ripped apart by
+proxy exec and doesn't unfortunately make DEADLINE PI less broken (yes
+of course the system won't hang, which is very desirable :).
+
+Thoughts?
+
+Thanks,
+Juri
 
