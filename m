@@ -1,54 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290028;
-	b=M7ajUeh8SBbW2n1kFjrHzcQuLG/6f0ReoRkXChUL9bI1gSn79lVaiUg/daverzleviTI
-	 ndVjOjOV92rQ8U3EzvMI47Znyr+D8fCB5krd8HAUtHOu/tIWk8rWQKjB18Z7OqXq2SSK8
-	 nLH7Cr4F3U4dzO+DWGZBv3RdWimVgofz+B1gq6qltHwSK5Crn/3yogqeQ2HeCXvGLxGye
-	 blwr44DpsfI0qIbt6/uE00lIvfPfZ/6Opk8QzyffysJB8BGGcyX94oFHime1C/yykYWVP
-	 Ew6q/Y4iRxPeAao77AqUZcTdS+shjzrzAgsLCTmgFxrRm4AvSWzvcviHd9//6TM+WcQ==
+	t=1794290135;
+	b=iK9uKA0gh8dViCCRaS5ROtEQsGll82hoYd70IjkCCTMiuEM4plThiKqE9h+J2dYMyHnn
+	 UVjUSgWe800IUZptPXGPlF+TITi3api1kg5TZdxpiOhKXz7eGF3OjexzBXGUOESLz4QbM
+	 SX/8CmcSLnWecixvHFfN45/4Gs6l3oRlwpv9/qg2SX2G09j17rAt9GhQHYWp/caOIAMIs
+	 MknWRScEtRcuU8NSeP//l2Yj/uIPw0yI5LvJYBfnICV25D8o5+W63VUUxehblFkH9p9Au
+	 VjNbf3YQy+SGCWOG2THydxQ5XF1enmN0KyHJj2aJMJTAWCfHsThqSwI7YdaI0Oe7zzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290028;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290135;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding;
-	bh=k32ubl/2xC1TeEOsdmE9A8eWKaYVe5Y3iSeyYGqQUI4=;
-	b=XfiT74WktlwNSrHXHBYxzepC9R6MWpwh2bvWImYemxyDK4drW+88gfXGlfNrJnDyfGc4
-	 JruEeCSC3TcQmxcDbZF5iRHSvwc0ku9Bow9lOltuDvWYbXEv1T/2udsRBgnL5bLrKtuKA
-	 iA9+c/Xx/eBEKCJ+/mPhpcYzZ/14BloU+czTj9KBTSxTJnnr5AxvX8NtuB6mV4ei2wGiQ
-	 pjHMmzOPltPzCudpEJjIRHGgvmko6Yq49+z/AfFlPQ80OrQVnYA373uy9mhT8+e7VP/3D
-	 YiqT3D3vtsiYrDUGEw6NCtxAvzsv1b+k4GMYKWqd6sa1aWsKD16W4mWbkuvqbi/D6pQ==
+	bh=GkcKWJ0heCTsnAPSM2CLKHVBzexochNYD8ZlSD7BEC4=;
+	b=W0aqRmROQvQ1ormwA2gbE4uQ0ZDZlLBxQ4q7hILTghuJ3JiTiCbo8eFENMCXVHnC3qnn
+	 2YxJvp2ViRGWGaw0c5s3QtqBoJOk0WRmKJmCXt2tjj205D5NE1OIM/tk4iOymub8Itukr
+	 2c9iDODiD2usFqVNe8oBOEpPzLpgFk1R2lUPCYvtjM6Uk5Xz5f7+voSgEwcA2H1TcFg1h
+	 pXlk9RhxmjjtEKNmw8g7V4aoZCx6Prub29jhbRcgy88V6dxrIPisDxJz1YdHZK8Qj26Pi
+	 7IEGJiMvKribsTNTC7qt/2yGMiPp40XUlhdI61VAsf24cVOGi/FQAtFAjwfmWZVEQxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="S1V/IePN";
-	arc=none smtp.remote-ip=95.215.58.70
-Received: from mta1.migadu.com (out-70.mta1.migadu.com [95.215.58.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lgWVTzXM;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D8C606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D8C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C047B606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:55:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C047B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=S1V/IePN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BlLqDq7pyCB3sE0VGnqVJVFi/gqZ51qn4nqEl6OMc/0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794290024; v=1; x=1794894824;
- b=S1V/IePN1X5+T+uljQBuDiSdzhPuCSFbcZpgYVfAnKLrWahijIothg+iFCmxjzD+5wacEO79
- vmJGgnCMdUtaEIed1ZYV2pRYCPkJ3jVtV+8rC9LB4aJCqNxYZyZFFiRvboTNWiEV95R+acJH4hv
- +syn1wkZ42cYhIbE4Ei85RQ0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3098e5835bb483a7;
-	Tue, 10 Nov 2026 05:53:43 +0000
-X-Mizu-Trace-ID: 3098e5835bb483a7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b7d79e8a-55f1-4a6e-b9f0-1fee3598f1f4@linux.dev>
-Date: Tue, 10 Nov 2026 13:53:33 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lgWVTzXM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794290133; x=1825826133;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=iH88yvmbUE3SFjgUzc6lodYnds+PFSYIA9Ar8F2CVSM=;
+  b=lgWVTzXMJznGGA8Yg83zpzWkwwGBoSiBA3boswZjQBISNwI1tc2Dh9U4
+   pxqKuXU2UfbqW77mE0/7LfLD5C6y/raVh+p3L40F4IcKJl4JCGLtjHdLl
+   pUVM0TyUA/8cxSBrqwoiOw0dFBg2h76+cNpOZoiDpumh0A8Zv7WydylwW
+   5i6ZR0JscS+IiQ7Z6rTkBvHitfa/p9VQXCJNT6DspbUfgq7UQUEmKhjzm
+   tKUUeFh/boMXMFvs0PL953WSRbN5PyGEQZQpu6ySk0JtaWE1R102kZPOs
+   nPIRlLSbqLZFsYhaIos9TRGo2PuczC7fa09lIbNdx5nDNtG1tTlYFpRGk
+   w==;
+X-CSE-ConnectionGUID: bMyhowoyRF+6n7L+SmBOgQ==
+X-CSE-MsgGUID: L0YBUanwR8Ktpi34YWxiXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2917651"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2917651"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 21:55:32 -0800
+X-CSE-ConnectionGUID: LcEW59E0QuehKVntU1UV3A==
+X-CSE-MsgGUID: c7XNTJf3QdG48TPU0eC1yQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8366056"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 21:55:31 -0800
+Date: Tue, 10 Nov 2026 13:55:27 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Yao Kai <yaokai34@huawei.com>, yi1.lai@intel.com
+Subject: [linus:master] [workqueue]  f1639cde5f:  stress-ng.io.ops_per_sec
+ 9.9% improvement
+Message-ID: <202611100656.fcd6dc19-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,70 +78,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
- LRU) update
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Lance Yang <lance.yang@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
- <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
 
 
-On 11/10/2026 2:31 AM, David Hildenbrand (Arm) wrote:
-> MGLRU is currently the only MM component without a dedicated component
-> maintainer. Fortunately, Kairui and Barry have been actively
-> contributing to MGLRU and have volunteered to take on more responsibility
-> by officially taking care of it.
-> 
-> Given that Kairui is already an established MM component maintainer in
-> a related MM component (SWAP), add him as an MGLRU maintainer right away.
-> 
-> For Barry, the idea is to transition him towards a component maintainer
-> role over the coming months, starting by moving him to the top of the
-> reviewer list.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   MAINTAINERS | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aa..e7ac319a570c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
->   
->   MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
->   M:	Andrew Morton <akpm@linux-foundation.org>
-> -R:	Kairui Song <kasong@tencent.com>
-> +M:	Kairui Song <kasong@tencent.com>
-> +R:	Barry Song <baohua@kernel.org>
->   R:	Qi Zheng <qi.zheng@linux.dev>
->   R:	Shakeel Butt <shakeel.butt@linux.dev>
-> -R:	Barry Song <baohua@kernel.org>
->   R:	Axel Rasmussen <axelrasmussen@google.com>
->   R:	Yuanchu Xie <yuanchu@google.com>
->   R:	Wei Xu <weixugc@google.com>
-> 
+Hello,
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
+kernel test robot noticed a 9.9% improvement of stress-ng.io.ops_per_sec on:
+
+
+commit: f1639cde5f5c1bee25498ef988227ee8cf5ddb04 ("workqueue: Make flush_workqueue() visit only pwqs active since the last flush") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 224 threads 2 sockets Intel(R) Xeon(R) (Sapphire Rapids) with 128G memory
+parameters:
+
+	nr_threads: 100%
+	disk: 1SSD
+	testtime: 60s
+	fs: xfs
+	test: io
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261110/202611100656.fcd6dc19-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/disk/fs/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/1SSD/xfs/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp3/io/stress-ng/60s
+
+commit: 
+  31e33de1f4 ("workqueue: Maintain pwq->total_in_flight")
+  f1639cde5f ("workqueue: Make flush_workqueue() visit only pwqs active since the last flush")
+
+31e33de1f4e159c7 f1639cde5f5c1bee25498ef9882
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+    260170 ±  3%      +9.9%     285895 ±  4%  stress-ng.io.ops
+      4337 ±  3%      +9.9%       4766 ±  4%  stress-ng.io.ops_per_sec
+   6244092 ±  3%      +9.9%    6861492 ±  4%  stress-ng.time.file_system_outputs
+      4547 ±  7%     -15.8%       3826 ±  4%  stress-ng.time.involuntary_context_switches
+      3320 ±  3%     -17.5%       2739 ±  5%  stress-ng.time.percent_of_cpu_this_job_got
+      1995 ±  3%     -17.5%       1645 ±  5%  stress-ng.time.system_time
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
 
 -- 
-Best regards
-Ridong
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
