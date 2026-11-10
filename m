@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319435;
-	b=wLHbtwDBDPU6V4tPsE42IZy97jNTkOvuQJifjQyzFdJ8/RVe+WUL6xlJDwtc9Fq6qWl9
-	 0ULt4IvY2/2a4yb/wmo1oa23SgtF1F/xZbRvkC7nR04miwy7wGqzGEcLIgMNGSZOswj4u
-	 /xCM5o0yqWCh7mYydxbpggZGB8d8/QDYreQFq9AGZlzTa3br+KZ4SANgR++cARjse2Jgr
-	 IVHZXyNWvQDLwhcAVlhlX1oOpSZRu+EQNugd/h/DH7MRM+3G/u+ZEGRWuggiFMZG2FyUq
-	 MsgglXyeVxD6lHXyG7gcOYgsYSsltyovGr1OXKVnym5v5DT9PWtANjetCvjtlTgjZFw==
+	t=1794319440;
+	b=kuPuPmc2p4gK0cXmELbib10YRG3d/Cu5jT5ttHZQB3D5JqrhFnDRnGZyfq5uazZvZAgd
+	 RgKxcYPH0YZ3muhXddjiS+vYUM2iNLQ9WY4zMqRQR1TheCx0e9oPdFeluVL4PSd6ioi/J
+	 06LSpSX/SRTmEoz0CLAoWcBIbgzXr1bj01ki64srf/9cn59mk/A3f2nXW+uBYnTrznupa
+	 BQ+neHN1dnagmrkIxrT86SZ7gBGzqmWupnvVE/JXLSI1bq1MPoA2Mqp61D/BqbWph6X/n
+	 PQKrNLAIIZ4uk5xdBE3ovdpPjlC9Am5LRXrFA/ZELlojJ3dWSiRWHbWD5ESBwVTNsAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319435;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6GFrZFNEcVVsZPQvsqXmRkr0iRO2Hm4Oy+Pj3GXfb5w=;
-	b=BgBj1+maxDyXJlbZ2eQhJh38kY7QFY4j8YDd3294gcsnv/y6MagcleJpjiA7rm+vNrYH
-	 uy6+mFKjV1TFXh2L9iqipH4VWzg2i9afYeiBtfReW7cnk9jHejrzOYDZ0xiXVygXdPeFH
-	 fYHp1TxTizMZOaC2zbADnR3ZGtJMkeyW8t73Ire1Muj2f1StVbb8SwQ3AT4B9CgpDN/rI
-	 fPXaOnrouE5QRREM/MqvOqbey4xOwYlI6Y/b7xUnRxLojN2cnWuP1A6NxzlgsdueSZSMk
-	 WZnOTk/Qb8usQ8EU30XxflSEjfkAXhWkEueXW/FAv92VjPxM5W6ZWxlCJLzTvN440MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319440;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=tUbt2oKwHuUhiavo123mCwWhLARFHr+XDlWR6pZ0yB8=;
+	b=QA39qBzcL0X3hVBGpSwAQPZQ3jsubz028BhiniFQCRlLi1hn2mSc1f+d1AhcmoJ++5ys
+	 ZT7KVZuuS7/WJ4N4X+F3B6h4Bfi/OfWkGxJhiYT1DH3hFUewtlQZjJA1ykPhA4vJA2Pmj
+	 3cfCaCCphQk46o6TV3zyfUWdaRXihVNpk1ldt/rcXfVNo3B99SNv5pa1SL+bv2q8Za88e
+	 EYY4yHcQFO9X2BepzIPN2wruqWAsyj5nHz8gZfR4JKpCzGPtu2vPba0lSGKnFkY8CgnJT
+	 zFs17ElUd+MXVDQO3fB5Ke4jFd5RV4mj0FtLPRLUWUuiGvoNgRUCxql7f1LoGcHN0kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENZDWd3u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNNdUIYt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB8A606A326;
-	Tue, 10 Nov 2026 14:03:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552D260A263D;
+	Tue, 10 Nov 2026 14:04:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENZDWd3u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE7E1F008A5;
-	Tue, 10 Nov 2026 14:03:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNNdUIYt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9DC1F008A5;
+	Tue, 10 Nov 2026 14:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319434;
-	bh=6GFrZFNEcVVsZPQvsqXmRkr0iRO2Hm4Oy+Pj3GXfb5w=;
-	h=From:Subject:Date:To:Cc;
-	b=ENZDWd3uGg1+Tmo3zXLk6L6U2lFlsgi1kjOdxkvSqhV71fIx7EWonGTJFA3F84IlD
-	 oZVvskTxx6bCMQsT725kpRjsPu/mc1UTsh/ZUwFp/dLB4CwoI6uFAwaISfugs+cz3F
-	 vZ1rQ3Y/8uhdQi4/5//DK0G86lpSu5QDLmb5iZ11/c050AB70YCa5UCg095gLP8zgn
-	 3yKPz7CLTX8RAlP2+xDabhc30jbnkyR+elZY79Kq+5HjRdSmcMcRlaNPW4fXXZigFW
-	 UJ6TskFyvUm6QeZzxvUjYnXniLsqP+ABELFTMsq4JjgvYH0CQ/iKlOzcr6gvnT01Cv
-	 BmqVUHkNyIy9A==
+	s=k20260515; t=1794319439;
+	bh=tUbt2oKwHuUhiavo123mCwWhLARFHr+XDlWR6pZ0yB8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=KNNdUIYtU+9rUIqFDWQ7xx8lLaNzt01wCOs/mDKhXkaTks/SOqjOJ28Hly0i+4aB/
+	 fSkn2jEwKVjWL7tDLL5ZpWd3FQEHrzm3OK8jO5/96S6YnTXLyTLkKECwuEHivFA9KB
+	 pFJZuVHVPJ6Q0cYlY3u6ONmFr+7xhcktTBRuN34azMXaOCfKia1rjjeRNBch3tEZTf
+	 CeRQXkPlEDPnqXR/S4DSfvchIfy9eiypsw/NdJ1YBL8le297Vq3U0LfA8iQBELoJXZ
+	 cUWSo/RMtRn0ydqWMgp36wfOY1qCggH04UCxFeJ2Z+6PWhUB0wh7DXj/RYXD3+fw9K
+	 NdFhgr/Pd2/og==
 From: Joshua Crofts <crofts@kernel.org>
-Subject: [PATCH 0/4] media: remove redundant
+Date: Tue, 10 Nov 2026 15:03:48 +0100
+Subject: [PATCH 2/4] media: i2c: tc358746: remove redundant
  pm_runtime_dont_use_autosuspend() calls
-Date: Tue, 10 Nov 2026 15:03:46 +0100
-Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,10 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEIk82oC/x3NMQ7CMAxG4atUnrHkZKiAqyCGgP+ChyZV3FSVq
- t6diPFb3jvIUQ1O9+Ggis3cSu4Il4He35Q/YNNuihLHEILwDLXEFXPZwFryys3Bqa3Fmy/Iyuk
- ab/KSKDpO1DtLxWT7//F4nucP6oURanMAAAA=
-X-Change-ID: 20261110-media-remove-dont-use-autosuspend-a8290b020d6f
+Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-2-cc07e71b30f9@kernel.org>
+References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
+In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  David Heidelberg <david@ixit.cz>, 
@@ -69,11 +67,11 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joshua Crofts <crofts@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1330;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1133;
  i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=7WsUjSa7CRk1bRkJLcw6la5WjIYAu39ccNcQBO/iUB4=;
- b=RWCKpNdGMrBHWssnIQ6L80sL7GB3bPSKMuoW8APdnb1uBvw7VyuObpaPzTjEWhziKndG23Iju
- TYExbCGsRknCKl+ylKWrDd0wMnQdt/w8Ar0311y9hYYCrydQlcQsgS5
+ bh=ba/J6qb/bhUHaS/o2NWicS9Z5dHclYOMh5j4Ggu8F6w=;
+ b=HI3j/jMcnI7IW0q9kjSsIPqMIAGgQ2T+thbTlUPM1y8RDHYHZH7zWAGoZy2/Kk5JCMdRwvfG7
+ tnD8UVDOk1lDjZIF/jbO1TbsvXlA1yITrliSkQ7C8dr2xZJvYXoohor
 X-Developer-Key: i=crofts@kernel.org; a=ed25519;
  pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
 
@@ -83,29 +81,32 @@ pm_runtime_use_autosuspend() calls on driver exit.
 
 Remove the redundant function calls.
 
-NOTE: Some drivers in drivers/media/ still keep their calls because they either
-rely on pm_runtime_dont_use_autosuspend() before pm_runtime_disable() to flush
-pending autosuspend delays and trigger synchronous runtime suspension,
-or operate on a parent device rather than the platform device itself.
-
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
-Joshua Crofts (4):
-      media: i2c: imx355: remove redundant pm_runtime_dont_use_autosuspend() calls
-      media: i2c: tc358746: remove redundant pm_runtime_dont_use_autosuspend() calls
-      media: i2c: vd55g1: remove redundant pm_runtime_dont_use_autosuspend() calls
-      media: i2c: vd56g3: remove redundant pm_runtime_dont_use_autosuspend() calls
-
- drivers/media/i2c/imx355.c   | 2 --
  drivers/media/i2c/tc358746.c | 2 --
- drivers/media/i2c/vd55g1.c   | 2 --
- drivers/media/i2c/vd56g3.c   | 2 --
- 4 files changed, 8 deletions(-)
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-media-remove-dont-use-autosuspend-a8290b020d6f
+ 1 file changed, 2 deletions(-)
 
-Best regards,
+diff --git a/drivers/media/i2c/tc358746.c b/drivers/media/i2c/tc358746.c
+index 91d26a6340230186239b7586e73345fb755c5164..d123a530bb879d31111e971c702bb6f96794a8e2 100644
+--- a/drivers/media/i2c/tc358746.c
++++ b/drivers/media/i2c/tc358746.c
+@@ -1596,7 +1596,6 @@ static int tc358746_probe(struct i2c_client *client)
+ err_pm:
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_set_suspended(dev);
+-	pm_runtime_dont_use_autosuspend(dev);
+ 	v4l2_ctrl_handler_free(&tc358746->ctrl_hdl);
+ err_fwnode:
+ 	v4l2_fwnode_endpoint_free(&tc358746->csi_vep);
+@@ -1622,7 +1621,6 @@ static void tc358746_remove(struct i2c_client *client)
+ 
+ 	pm_runtime_disable(sd->dev);
+ 	pm_runtime_set_suspended(sd->dev);
+-	pm_runtime_dont_use_autosuspend(sd->dev);
+ }
+ 
+ /*
+
 -- 
-Joshua Crofts <crofts@kernel.org>
+2.47.3
 
