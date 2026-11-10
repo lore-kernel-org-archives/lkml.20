@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296705;
-	b=g/g6Wy3foT1Y1YlAPbeANBMy4SCnzOwbr4nsK5SwjJu4dxKN92eyLOcuWjnFfVXrqV+r
-	 0Zbbh58vTfl5yC2fgimR/JJyufJsdMdgWihmItKdRITs+PA4PT87XCJ2LrZYMOSU3zMxQ
-	 3VF1Dnkq4saQow3QSLH4WGyvBnlrlNeE3wGQxpnylGHjEfvB3qr42SEywm4UkHTEzD4va
-	 DBqSPE6qHQj4oVjusJdv3wkAiujEC7f0w+fpNhVXyn187gi3VLWfKSff6mKLtuxnj7/fF
-	 kUWkxt3SX9wNKRdU7DjHt2vLBQBuztk9RJTHCrReORd7Oc3SL5W3XeG8tbsjX7XF+Rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296705;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=CjDWnM22Q/K7vI6+OfH7WDfHobDgdF+mnz7wU6JjdMs=;
-	b=or31YOp+XqcVm4WKeDdyKZLg87jfEfStpxlFyXibubzf7ye5JHVL9Xr1eEfXDO4Jswhd
-	 O03Lu23qH8TDbt5CWLT81Aqueoem9maZBhCiM1YA8tg4gDVE5QNL5jet0LKKn+Bskxd/b
-	 aoSjFJaXWuRFHGbG4rPAJO66C1EVZf4xLQsUd7FZ1FJI/sHiFu7EQuHIMhgRB9IsUGoDe
-	 06Z9HBt8EcZe4izaNTiosRVVcrEo9c7kkcqwCQ2zdzYNnd+VEG11Oot97APl1iR6WOfHT
-	 h2WMZvTBborpm2QN4prnNzDHASbfrcU+fPv2bApQn8T0VbRAyXlCXEUKJbWp1c44RGw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dxsocedS;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794296700;
+	b=qlMixuq5G1w7DhKOFh0tpBlsD50DE8uTDsr4FfuLdHzC+pZRGzh+Om3bJ8yOjItE2NeU
+	 /HBZI3Sb3uCx1Mlg0dWGf9alv1gqTwbt3JouO1PhmE4XFUYE9py8lM2WMFaJR0eJd/J36
+	 v09+OL/qFzUOdgfqqH04acbhvnAIXJoSkUnQjOliYBKFKkFMb6hgRrJjBcDRVfOTOE7BC
+	 ZfcQqqcJPTvW9rmtDlE7RdEoEEJrXN6jrg1hXSu5aLF2UMFOojrf7kYBfHrJogLcJngSv
+	 vrWXSJPiJ/7Omtk7s0Lp4cokVVt2HHKcSFO5skClmioiGSblq6g8PrzHXujd8mjXf/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296700;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FpCwKFl4RCuFX+xuGc1hi5xyOpBOfF9Tg48KQjLQwsE=;
+	b=Ki21Z7qqoWvFVmzYAsfgFizInMuCj88XcwBLOFyZz5NsHpZVNN1u98O6bBG+P6sV+jm9
+	 u3gMWJTN21aW3CZrYHELZBcJh0HbObLhAazqb0ql4QH1I5KJul8cLPo5sO2YKt+GSI7Vn
+	 wuuEyxzmXW7do5fTXhNge/7s9p23gz1df1/NxCeQEoEYWGu15s5BYzqxJP2bkXJF8txdX
+	 iZN/iT7hzghfK6i8P+zMqqzUDiweyA7vGCNUiRyVv3RyC8bBTSQR2bk/6ycMJ9jWP9+s5
+	 QrFLDb4KcTlB67sB5geEFwvGdj9OtEnPObDdKFGnv5lDDY295alJm2hBpBUYXK6zACw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJl6FzgC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED9606DF36
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJl6FzgC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794296700;
+	b=SazusWqgsWje2Q4Eip0D/bWVhvgNzFohESbMXKbcm/QtWtofBWMSu036nNee+yamtMzw
+	 OOWOD4iPjMU1AJamA+++sWnyLBCZpdIesmndgJjbgHX03cN8VLA6DeafobBuI6ZeVzsY7
+	 QPf/qeppThHOwQhI5cBPZML7O2cn5pTWF1f6Wt9WSWGkTHFdjhAuHqqCXzfms9uwsQuH3
+	 CwgozDn+KxmxcP+47gbuqnWkhGbzHyAHNohSNj4QU0WRAeT+oMfAtDJuRRkJr1ukgYQhF
+	 8Mapt3X+1B2e1rQlgEV6MEePrhTFfe3N+e4a1ub6HpzichQiZybtdXDt+WCXzMxoNzw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794296700;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FpCwKFl4RCuFX+xuGc1hi5xyOpBOfF9Tg48KQjLQwsE=;
+	b=eJ6EMmUp9W19/zTSD+OUEnhwlHDS85lCKZYoVo8ELh+2gJinPVWAc5o4xcT3HGQ/bj1i
+	 fyn1NjEA6P2QPBpzC2Vs7Mg/vWoyKhuj6V3j9GpITrb8RbYGs2fxILbOLY59BogfdrReM
+	 uf2gxoMwfGPoVpSMwpV4CeHI7s6vFpVkYALPNylpnGfLkIkkd7SYLBDqbn5lQknli7qjY
+	 lxSH+SKGvetauKx/LieT6iBjwcXiqDxrPt2tRorbTnggsesfjwLTjHPWOlIcaAr9gsIiH
+	 ySOvETBxZQuo8mCKzfcIlFIRFGdZTWt/PiAOQyQDbxPfuiUhisB13ZMQzHqLR2XjB4A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0696070211
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A0696070211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dxsocedS
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b28d9537bcso1203000b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296704; x=1794901504; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CjDWnM22Q/K7vI6+OfH7WDfHobDgdF+mnz7wU6JjdMs=;
-        b=dxsocedS6Hh1lIn3sRv1fe4qhTmis9Lgzbdim4sr5SQeIGtY9pxxW8y7fzV21G9QCV
-         0te7yiRXM3gKDycZlvZR3EdyImxNKRNBQCgLyZJAOxKsKdZqxm9d7al4mBhY/hQmukxC
-         gLVyxKOTlFS2CYrRtN1RNUwn44YI4DMvLScxnnY4TzvnFNLwvjr5Lu8oODsAo3NS7A/D
-         FP0XSHTQXMTD+gKsVbPgqm/TsCWMee0exBJV1/va+8af8+QMqJsfsaSKVJgYcJq+SqEl
-         KOJoEYFSGgSIK9NDdq79D3Kz/xOHOlxoTo7Ym8qfopZhkgloMCF3xSHbdmCkGMxeAQIZ
-         DGdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296704; x=1794901504;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CjDWnM22Q/K7vI6+OfH7WDfHobDgdF+mnz7wU6JjdMs=;
-        b=DwCkMME5fD04sLsRkASkZR3ic9Tc8ZZ8UZf5K5npN3KFhzawcQJG84P8m3+ARgkxsB
-         4FyDLU7zmPNgC8wdgIQUnGVomjxenTR42A+8ASPAu4gixtNBJqe10owNOx5RrhNKQHkk
-         H/Ob4vra5xbVQogAOLy+zHTwm2k75QFBLTy7+CifrJJjCCnmWYbvmopqYCHnH1CS3/0+
-         BSv2zhINZoaxwTDIiKywVCFTb2Icno5aH9BGhGNWgbycNqXdjImanrZSsnPazEwDSmJl
-         N1/rIlOtzzp3nvd7rjgbTTkv/b5OiNsYleOfBJueUXoCfu//hYWizerj1IOAZZEjJOeu
-         3IEw==
-X-Forwarded-Encrypted: i=1; AL+hErGtotFzLnQhQq5sDBp/btGc5q/ySQ14Agv5hwI8Io3U6Gf0zyyQ+AzwyILYG3hy2G0Vq0edllpGSkggZIc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xr2d1aP+ONNLf4RXkXvAmBY7j4Ev0vbCbfBqZW5sJISS6jBoJ
-	oZ/aLgHvCB2zX7L5CSADnfcDoL33dlfJZIdoj5Wg8FZMpS07g2opZIpM0Ulc5zoc
-X-Gm-Gg: AYBFou0IIlQxJ8KDbPq2BqCTETMl2iEVhqMjebH6IuDZmJ9bG7S15F+zmSq3SNcJpAe
-	Rtt7o9bBxaNSfNEC+GMwG1UE/MEpPwDCX5D0EAw92B5PmHsPrZJ+aPqLNfYrqS1d/fNy4UxkDlo
-	Hwa1P7NpU0uju1vJs7+Q/gSt4sZYP+BKtrx6pJxoOj0gPcO/zmbe3AIA9SBCvBxntf3mhHad2Gi
-	Ky4nJQey0LbrffkcrhgfNHYaKe5s+dlu6io73+sSvb2oKd4MdxavXea5OutPKJPv/rBhVCI+FIM
-	mxtih0YCkKI5bTwbiYQ9Q20fEwos0yO02H9m4k3vFGh4uOj/WIuhfHgGgvou0yFb2SRJjgIv9F+
-	Q9MDFiz3i8QiZAxw2x0fQ22k8KK9gINptnZlfzPU9gLIApWXaSH75KsjZ34v2imaUZ/i++EIX7F
-	s4GeZksfGN25bxqc+AbBN9BiBRwL9JCzgTHK31FXsfT/eEMsnu692xMJh+/kvrFRSMDo3smqQ3I
-	LFbM+/aKalxaFfftVOWBqsl9DTR0sc9RDk1+LNsObmPCppXg8oMSNREtCqnphUM/xlfo/AzOXqJ
-	4pOo4KXHs0puabJOukKeFwlRdNSxMVZ036l3O2qBu3Gz/eRKfamozgA3B9p0vDhYXPHNL8htaBL
-	lVQTcBlEDo59Uqc2uLihx6dGzncjeiJB9AU6lQgdQ7fEicJz+eEg8eyK1Foe1CwX8Vdi+mHPu+a
-	SanJCHOD9eoWQB/e6lBgHYKXUHkhXEL1AUfi9fvjo1WrT9Oj9x+7o=
-X-Received: by 2002:a05:6808:4fcd:b0:4b8:46e3:e221 with SMTP id 5614622812f47-5687288b6ccmr1019708b6e.13.1794296704117;
-        Mon, 09 Nov 2026 23:45:04 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:03 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:42 -0700
-Subject: [PATCH v2 39/58] mtd: rawnand: qcom: retain open-handle state on
- removal
+	by smtp.kernel.org (Postfix) with ESMTPS id DDF711F008A2;
+	Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296700;
+	bh=FpCwKFl4RCuFX+xuGc1hi5xyOpBOfF9Tg48KQjLQwsE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dJl6FzgC9vUsXzsoj5NXmtJqX2CmjQMlSyJ9LpoJAP4fH6xHMooB0RpQ32GRsGFto
+	 N/f3/XukpcubeXWWJZIlohZHaoU2J9Pwn2bqvTv4TjfyBQBK5Y5sY5AU9BdMFiOd4a
+	 B/Lp+lYIUjAGOdlrHVQ29avSEKG4HRdsMlrIHqBGpsCXoO7ncsE1s7JRxlC0sMtr3y
+	 ibi20fTh1P5cfJGLd7yzgzldddUhQMUnFOKzWyVWKwure0GMtT7N/PZ/EmkaWfY3nR
+	 U/SJTDs/C/75JNry4r7dIJsd764lex3K1bEGiWBS1/wY1LalK8cej60NjxXRC30tgj
+	 EFKno9hw1w7Rw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9140D48A22;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:45:01 +0000
+Subject: [PATCH 6/7] drm/panfrost: Soft-stop and resume a job that outlives
+ the timeout
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,165 +84,360 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-39-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, linux-arm-msm@vger.kernel.org, 
- Manivannan Sadhasivam <mani@kernel.org>
+Message-Id: <20261110-panfrost-long-jobs-v1-6-24508939ae8d@gmail.com>
+References: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+In-Reply-To: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+To: David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=14019;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=/xH948+6+1JFrlI3hRaTS/MLKFp0bIPTnomeWYPzid0=;
+ b=G46A4qQ3ewMaQRsPHbUheI9OD8Us/Do/bFYhm3QSwCrHS5g6Png0EGvMD3FeoziJNB1/pu4zg
+ hukp39hjbplChIFfoJZV0Gijemvx5VGBLtEEMhZxeZ4deQ3nq/TDxY2
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Keep chip metadata and controller storage alive until the final MTD
-reference is released. Unregister and disconnect each published chip
-before releasing the resources used by its hardware operations.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Install lifetime ownership after scanning each chip and before any MTD
-device is published. On a partial probe failure, unregister only the
-published chips, then disconnect and release every initialized chip.
+JOB_TIMEOUT_MS is 500 ms, and when it fires panfrost resets the GPU and
+the job is lost. But a job that runs longer is not necessarily hung:
+OpenCL kernels and heavy fragment jobs legitimately take seconds on a
+small GPU. On a Mali-G31 (one shader core) that breaks, among others:
 
-Cc: linux-arm-msm@vger.kernel.org
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+- OpenCL CTS Integer Ops quick_long_math and quick_ulong_math (long16
+  64-bit division, > 500 ms per kernel): each subtest logs
+
+    panfrost 1800000.gpu: gpu sched timeout, js=1, config=0x7300, status=0x8, head=0xa0161c0, tail=0xa0161c0
+
+  (status 0x8 = ACTIVE) and fails with the work-items after the reset
+  never written; Thread Dimensions quick_2d/3d lose whole rows the same
+  way.
+- KHR-GLES31.core.blend_equation_advanced.test_coherency.mixedSequence:
+  a 44-draw fragment job on a 1024x1024 target needs about 0.7 s, and
+  the tiles it had not reached at 500 ms read back as 0,0,0,0.
+- dEQP-VK.spirv_assembly.type.vec4.*_frag cases (a loop over the whole
+  dataset in every fragment): "Incomplete job or timeout".
+
+The Arm driver time-slices instead: a job is soft-stopped after its
+time slice and resumed later, it is hard-stopped only when it has not
+stopped after 5 s (JS_HARD_STOP_TICKS_SS = 50 ticks of 100 ms), and the
+GPU is reset only when the hard stop has not taken effect 0.5 s after
+that (JS_RESET_TICKS_SS = 55). Do the same from the timeout handler:
+
+- a slot whose job is still ACTIVE when the timeout fires is
+  soft-stopped and its job resumed from JS_TAIL, without a GPU reset and
+  without raising its karma; a soft-stop takes effect at a task boundary
+  only, after the tasks already issued have completed, so such a slot
+  gets JOB_SOFT_STOP_TIMEOUT_MS (5 s) to go idle, idle or faulted slots
+  keep the 10 ms;
+- a slot still active after that is hard-stopped, which ends its job at
+  once with TERMINATED (-ECANCELED); the stopped jobs on the other slots
+  are resumed, nothing is reset;
+- the GPU is reset when the hard stop has not taken effect after
+  JOB_HARD_STOP_TIMEOUT_MS (0.5 s); the job still running is then failed
+  with -ECANCELED instead of being restarted from scratch, where it would
+  only time out again;
+- without a reset, the address space references of the jobs cancelled
+  from _NEXT are released (a reset has panfrost_mmu_reset() drop them),
+  and a runtime PM reference is held across the stop and the
+  resubmission, so that an autosuspend cannot power the L2 off under a
+  soft-stopped job.
+
+The timeout of a job that is merely long is now a dev_dbg(); faults,
+jobs that do not stop and the other reset paths are reported as before,
+with the status of every slot.
+
+With this, on the Mali-G31 the Integer Ops, Thread Dimensions and
+mixedSequence cases pass, and the two vec4 i8/u64 bit_field_insert
+count64 fragment cases, which need several seconds to reach a task
+boundary, pass in 4-6 s.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/mtd/nand/raw/qcom_nandc.c | 46 +++++++++++++++++++++++++++++----------
- 1 file changed, 34 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 168 ++++++++++++++++++++++++++------
+ 1 file changed, 138 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
-index 978fa84f051d..2e8fc574f718 100644
---- a/drivers/mtd/nand/raw/qcom_nandc.c
-+++ b/drivers/mtd/nand/raw/qcom_nandc.c
-@@ -1903,7 +1903,6 @@ static int qcom_nandc_setup(struct qcom_nand_controller *nandc)
- {
- 	u32 nand_ctrl;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 81efa8a86..e37dd9265 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -27,6 +27,19 @@
+ #define MAX_JM_CTX_PER_FILE 64
+ #define JOB_TIMEOUT_MS 500
  
--	nand_controller_init(&nandc->controller);
- 	nandc->controller.ops = &qcom_nandc_ops;
- 
- 	/* kill onenand */
-@@ -2010,6 +2009,11 @@ static int qcom_nand_host_parse_boot_partitions(struct qcom_nand_controller *nan
- 	return 0;
- }
- 
-+static void qcom_nand_host_release(struct nand_chip *chip)
-+{
-+	kfree(to_qcom_nand_host(chip));
-+}
++/* How long a soft-stopped slot gets to reach a task boundary before its job is
++ * hard-stopped, and how long the hard stop gets before the GPU is reset. These
++ * follow the Arm driver's job slot policy (mali_kbase_config_defaults.h): a job
++ * is soft-stopped after its 100 ms time slice (JS_SOFT_STOP_TICKS = 1 tick),
++ * hard-stopped when it has not stopped by tick 50 (JS_HARD_STOP_TICKS_SS, 5 s)
++ * and the GPU is reset at tick 55 (JS_RESET_TICKS_SS, 5.5 s). A soft-stop
++ * takes effect at a task boundary only, after the tasks already issued (a
++ * compute job's work-groups, a fragment job's tiles) have run to completion,
++ * and a heavy shader needs seconds for that.
++ */
++#define JOB_SOFT_STOP_TIMEOUT_MS 5000
++#define JOB_HARD_STOP_TIMEOUT_MS 500
 +
- static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
- 			       struct qcom_nand_host *host,
- 			       struct device_node *dn)
-@@ -2022,13 +2026,16 @@ static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
- 	ret = of_property_read_u32(dn, "reg", &host->cs);
- 	if (ret) {
- 		dev_err(dev, "can't get chip-select\n");
--		return -ENXIO;
-+		ret = -ENXIO;
-+		goto free_host;
+ #define job_write(dev, reg, data) writel(data, dev->iomem + (reg))
+ #define job_read(dev, reg) readl(dev->iomem + (reg))
+ 
+@@ -165,8 +178,9 @@ panfrost_dequeue_job(struct panfrost_device *pfdev, int slot)
+ {
+ 	struct panfrost_job *job = pfdev->jobs[slot][0];
+ 
+-	/* An event for a slot we have no job on. Not fatal, as every caller
+-	 * copes with a NULL job; a WARN, not an Oops.
++	/* An event for a slot we have no job on: a resubmission raced with
++	 * the first run of the job (see panfrost_reset()). Not fatal, as
++	 * every caller copes with a NULL job; a WARN, not an Oops.
+ 	 */
+ 	if (WARN_ON(!job))
+ 		return NULL;
+@@ -672,7 +686,7 @@ static bool panfrost_slots_idle(struct panfrost_device *pfdev)
+ 
+ static void
+ panfrost_reset(struct panfrost_device *pfdev,
+-	       struct drm_sched_job *bad)
++	       struct drm_sched_job *bad, bool job_active)
+ {
+ 	unsigned int i, j;
+ 	bool cookie, idle;
+@@ -681,6 +695,12 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	if (!atomic_read(&pfdev->reset.pending))
+ 		return;
+ 
++	/* The jobs we stop drop their runtime PM references before we submit
++	 * them again. Keep the GPU powered in between: a suspend would power
++	 * the L2 off and lose the dirty lines of a soft-stopped job.
++	 */
++	pm_runtime_get_noresume(pfdev->base.dev);
++
+ 	/* Stop the schedulers.
+ 	 *
+ 	 * FIXME: We temporarily get out of the dma_fence_signalling section
+@@ -699,7 +719,8 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 
+ 	cookie = dma_fence_begin_signalling();
+ 
+-	if (bad)
++	/* A job that is merely long is not guilty of anything. */
++	if (bad && !job_active)
+ 		drm_sched_increase_karma(bad);
+ 
+ 	/* Mask job interrupts and synchronize to make sure we won't be
+@@ -714,43 +735,110 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 		job_write(pfdev, JS_COMMAND(i), JS_COMMAND_SOFT_STOP);
  	}
  
- 	nand_set_flash_node(chip, dn);
- 	mtd->name = devm_kasprintf(dev, GFP_KERNEL, "qcom_nand.%d", host->cs);
--	if (!mtd->name)
--		return -ENOMEM;
-+	if (!mtd->name) {
-+		ret = -ENOMEM;
-+		goto free_host;
+-	/* Wait at most 10ms for soft-stops to complete. Every slot must have
+-	 * gone idle before we touch the queues: a job that is still stopping
+-	 * (or finishing) raises its interrupt later, when its entry in
+-	 * pfdev->jobs[] is gone or belongs to its own resubmission.
++	/* Every slot must have gone idle before we touch the queues: a job
++	 * that is still stopping (or finishing) raises its interrupt later,
++	 * when its entry in pfdev->jobs[] is gone or belongs to its own
++	 * resubmission, and the second start of that job then runs on a slot
++	 * we have no job for.
++	 *
++	 * A slot that was idle or faulted gets 10 ms. A job that was still
++	 * active gets the time the Arm driver gives it to reach a task
++	 * boundary (JOB_SOFT_STOP_TIMEOUT_MS). If it has not stopped by then
++	 * it is hard-stopped, which terminates it at once and fails it
++	 * (TERMINATED, see panfrost_job_handle_err()), instead of resetting
++	 * the GPU under every job on it; the GPU is reset only when the hard
++	 * stop does not take effect either.
+ 	 */
+-	ret = read_poll_timeout(panfrost_slots_idle, idle, idle, 10, 10000,
++	ret = read_poll_timeout(panfrost_slots_idle, idle, idle,
++				job_active ? 200 : 10,
++				job_active ? JOB_SOFT_STOP_TIMEOUT_MS * 1000 : 10000,
+ 				false, pfdev);
+ 
+-	if (ret)
+-		dev_err(pfdev->base.dev, "Soft-stop failed\n");
++	if (ret && job_active) {
++		dev_err(pfdev->base.dev,
++			"Soft-stop failed after %u ms (js status 0x%x 0x%x 0x%x), hard-stopping the active slots\n",
++			JOB_SOFT_STOP_TIMEOUT_MS,
++			job_read(pfdev, JS_STATUS(0)), job_read(pfdev, JS_STATUS(1)),
++			job_read(pfdev, JS_STATUS(2)));
++
++		for (i = 0; i < NUM_JOB_SLOTS; i++) {
++			if (job_read(pfdev, JS_STATUS(i)) ==
++			    DRM_PANFROST_EXCEPTION_ACTIVE)
++				job_write(pfdev, JS_COMMAND(i), JS_COMMAND_HARD_STOP);
++		}
++
++		ret = read_poll_timeout(panfrost_slots_idle, idle, idle, 200,
++					JOB_HARD_STOP_TIMEOUT_MS * 1000, false,
++					pfdev);
++	}
++
++	if (ret) {
++		dev_err(pfdev->base.dev,
++			"%s failed (js status 0x%x 0x%x 0x%x), resetting the GPU\n",
++			job_active ? "Hard-stop" : "Soft-stop",
++			job_read(pfdev, JS_STATUS(0)), job_read(pfdev, JS_STATUS(1)),
++			job_read(pfdev, JS_STATUS(2)));
++		job_active = false;
 +	}
  
- 	mtd->owner = THIS_MODULE;
- 	mtd->dev.parent = dev;
-@@ -2053,7 +2060,7 @@ static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
+ 	/* Handle the remaining interrupts before we reset. */
+ 	panfrost_jm_handle_irqs(pfdev);
  
- 	ret = nand_scan(chip, 1);
- 	if (ret)
--		return ret;
-+		goto free_host;
- 
- 	if (nandc->props->use_codeword_fixup) {
- 		ret = qcom_nand_host_parse_boot_partitions(nandc, host, dn);
-@@ -2061,10 +2068,15 @@ static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
- 			goto err;
- 	}
- 
-+	ret = nand_set_release(chip, qcom_nand_host_release);
-+	if (ret)
-+		goto err;
- 	return 0;
- 
- err:
- 	nand_cleanup(chip);
-+free_host:
-+	kfree(host);
- 	return ret;
- }
- 
-@@ -2076,15 +2088,13 @@ static int qcom_probe_nand_devices(struct qcom_nand_controller *nandc)
- 	int ret = -ENODEV;
- 
- 	for_each_available_child_of_node_scoped(dn, child) {
--		host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-+		host = kzalloc_obj(*host);
- 		if (!host)
- 			return -ENOMEM;
- 
- 		ret = qcom_nand_host_init(nandc, host, child);
--		if (ret) {
--			devm_kfree(dev, host);
-+		if (ret)
- 			return ret;
--		}
- 
- 		list_add_tail(&host->node, &nandc->host_list);
- 	}
-@@ -2106,12 +2116,16 @@ static void qcom_nandc_cleanup_chips(struct qcom_nand_controller *nandc)
- 	int ret;
- 
- 	list_for_each_entry_safe(host, tmp, &nandc->host_list, node) {
-+		struct nand_chip *chip = &host->chip;
-+		struct mtd_info *mtd = nand_to_mtd(chip);
+ 	/* Remaining interrupts have been handled, but we might still have
+-	 * stuck jobs. Let's make sure the PM counters stay balanced by
++	 * stuck jobs, and jobs that were waiting in _NEXT when it was
++	 * cancelled. Let's make sure the PM counters stay balanced by
+ 	 * manually calling pm_runtime_put_noidle() and
+-	 * panfrost_devfreq_record_idle() for each stuck job.
++	 * panfrost_devfreq_record_idle() for each of them.
+ 	 * Let's also make sure the cycle counting register's refcnt is
+-	 * kept balanced to prevent it from running forever
++	 * kept balanced to prevent it from running forever.
+ 	 */
+ 	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
+ 		for (j = 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++) {
+-			if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
+-			    pfdev->jobs[i][j]->is_profiled)
+-				panfrost_cycle_counter_put(pfdev->jobs[i][j]->pfdev);
++			struct panfrost_job *job = pfdev->jobs[i][j];
 +
- 		if (host->registered) {
--			ret = mtd_device_unregister(nand_to_mtd(&host->chip));
-+			ret = mtd_device_unregister(mtd);
- 			WARN_ON(ret);
++			if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
++			    job->is_profiled)
++				panfrost_cycle_counter_put(job->pfdev);
+ 			pm_runtime_put_noidle(pfdev->base.dev);
+ 			panfrost_devfreq_record_idle(&pfdev->pfdevfreq);
++
++			/* The GPU reset wipes the address space assignments;
++			 * without one, release the reference the submission
++			 * took, or the address space can never be reassigned.
++			 */
++			if (job_active)
++				panfrost_mmu_as_put(pfdev, job->mmu);
++
++			/* The job still running on a slot that neither stop
++			 * took effect on is what forces the reset. Fail it,
++			 * as the Arm driver fails every atom on the hardware
++			 * at a reset: restarted from scratch it would hit the
++			 * timeout and the reset again.
++			 */
++			if (!job_active && j == 0 &&
++			    job_read(pfdev, JS_STATUS(i)) ==
++			    DRM_PANFROST_EXCEPTION_ACTIVE)
++				dma_fence_set_error(&job->base.s_fence->finished,
++						    -ECANCELED);
  		}
--		nand_cleanup(&host->chip);
-+		nand_disconnect(chip);
- 		list_del(&host->node);
-+		mtd_put_master(mtd);
  	}
- }
+-	pfdev->reset.count++;
++	if (!job_active)
++		pfdev->reset.count++;
+ 	memset(pfdev->jobs, 0, sizeof(pfdev->jobs));
+ 	spin_unlock(&pfdev->js->job_lock);
  
-@@ -2141,6 +2155,11 @@ static int qcom_nandc_parse_dt(struct platform_device *pdev)
- 	return 0;
- }
+-	/* Proceed with reset now. */
+-	panfrost_device_reset(pfdev, false);
++	/* Proceed with reset now, unless the slots were simply busy with long
++	 * jobs that stopped at a task boundary (or a hard stop ended the one
++	 * that did not). The stopped jobs will be resumed from JS_TAIL (see
++	 * panfrost_job_handle_err()). The hardware keeps their resume state in
++	 * the job header and the results of the tasks that already finished
++	 * in the L2: a soft reset throws both away, and a job resumed after it
++	 * completes with stale data in the buffers it had still to write and
++	 * no error reported (panfrost_job_run() fails such a job instead).
++	 */
++	if (!job_active)
++		panfrost_device_reset(pfdev, false);
  
-+static void qcom_nandc_release(struct nand_controller *controller)
-+{
-+	kfree(container_of(controller, struct qcom_nand_controller, controller));
-+}
+ 	/* GPU has been reset, we can clear the reset pending bit. */
+ 	atomic_set(&pfdev->reset.pending, 0);
+@@ -775,6 +863,8 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	panfrost_jm_enable_interrupts(pfdev);
+ 
+ 	dma_fence_end_signalling(cookie);
 +
- static int qcom_nandc_probe(struct platform_device *pdev)
- {
- 	struct qcom_nand_controller *nandc;
-@@ -2149,9 +2168,12 @@ static int qcom_nandc_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	int ret;
++	pm_runtime_put_autosuspend(pfdev->base.dev);
+ }
  
--	nandc = devm_kzalloc(&pdev->dev, sizeof(*nandc), GFP_KERNEL);
-+	nandc = kzalloc_obj(*nandc);
- 	if (!nandc)
- 		return -ENOMEM;
-+	ret = devm_nand_controller_init(dev, &nandc->controller, qcom_nandc_release);
-+	if (ret)
-+		return ret;
+ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+@@ -783,6 +873,8 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 	struct panfrost_job *job = to_panfrost_job(sched_job);
+ 	struct panfrost_device *pfdev = job->pfdev;
+ 	int js = panfrost_job_get_slot(job);
++	bool job_active;
++	u32 js_status;
  
- 	platform_set_drvdata(pdev, nandc);
- 	nandc->dev = dev;
+ 	/*
+ 	 * If the GPU managed to complete this jobs fence, the timeout has
+@@ -807,18 +899,34 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 		return DRM_GPU_SCHED_STAT_NO_HANG;
+ 	}
+ 
+-	dev_err(pfdev->base.dev, "gpu sched timeout, js=%d, config=0x%x, status=0x%x, head=0x%x, tail=0x%x, sched_job=%p",
+-		js,
+-		job_read(pfdev, JS_CONFIG(js)),
+-		job_read(pfdev, JS_STATUS(js)),
+-		job_read(pfdev, JS_HEAD_LO(js)),
+-		job_read(pfdev, JS_TAIL_LO(js)),
+-		sched_job);
++	/*
++	 * A slot that is still ACTIVE is not hung, it is running a job that
++	 * takes longer than JOB_TIMEOUT_MS. Compute kernels legitimately do.
++	 * Soft-stop such a job and resume it, the way the Arm driver
++	 * time-slices jobs, instead of resetting the GPU under it; the reset
++	 * stays for faults and for jobs that do not stop.
++	 */
++	js_status = job_read(pfdev, JS_STATUS(js));
++	job_active = js_status == DRM_PANFROST_EXCEPTION_ACTIVE;
++
++	if (job_active) {
++		dev_dbg(pfdev->base.dev, "job still active after %u ms, js=%d, head=0x%x, sched_job=%p: soft-stopping it to resume",
++			JOB_TIMEOUT_MS, js, job_read(pfdev, JS_HEAD_LO(js)),
++			sched_job);
++	} else {
++		dev_err(pfdev->base.dev, "gpu sched timeout, js=%d, config=0x%x, status=0x%x, head=0x%x, tail=0x%x, sched_job=%p",
++			js,
++			job_read(pfdev, JS_CONFIG(js)),
++			js_status,
++			job_read(pfdev, JS_HEAD_LO(js)),
++			job_read(pfdev, JS_TAIL_LO(js)),
++			sched_job);
+ 
+-	panfrost_core_dump(job);
++		panfrost_core_dump(job);
++	}
+ 
+ 	atomic_set(&pfdev->reset.pending, 1);
+-	panfrost_reset(pfdev, sched_job);
++	panfrost_reset(pfdev, sched_job, job_active);
+ 
+ 	return DRM_GPU_SCHED_STAT_RESET;
+ }
+@@ -828,7 +936,7 @@ static void panfrost_reset_work(struct work_struct *work)
+ 	struct panfrost_device *pfdev;
+ 
+ 	pfdev = container_of(work, struct panfrost_device, reset.work);
+-	panfrost_reset(pfdev, NULL);
++	panfrost_reset(pfdev, NULL, false);
+ }
+ 
+ static const struct drm_sched_backend_ops panfrost_sched_ops = {
 
 -- 
-2.53.0
+2.55.0
+
 
