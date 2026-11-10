@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322309;
-	b=vb/vZI+sTWZEjv45jPKwFNg6+IBB5MJ1bqeEgt5r+2GbkEX3wJ34I2he9ZukH12CA7GJ
-	 zGdQ0JvMKIabZUaBNh67qv24eICFn/wJszu4FVbWugI+MciuBogEdoN7kd5hQ76q7RxNG
-	 IZWCNynU27zfkBjHO8lZ2IRV9RoYJxxTPctGgyiPOZ40SDHHHowGnHf95GmN4Fol923yi
-	 fksT+QW74CaiZwFp3frG8XUB9xAIgqckn2xeJhgD1hRinCOxIycFsM19tha75sEg3OOWL
-	 VvmebvSn6N5h1heFGFQQwt+utFPEJIhanhWY54jp16IRrGKPL03u1ZRP2B5Eq6CDvOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322309;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=e1KpTWu4eWR69Fbxd+V1cdxC0knFqwScyCQVEkuHsB0=;
-	b=n+a7gHJI7mheFPsPiWIN1IZMROxPYmS5b3HtZyVr+azIx6mRMf9rilwjWGR3JJqmL798
-	 O6OtoqBclr7DMZl5ALVRD2x4gsVWoR0XmtE5vqWR9RIJIKq61nzJf/vEa0GIG7OhUosDv
-	 Qy6MJGmT82OjQDs4bSMX7oBQtUFWLLsRZz3oGcSSxmNG9uOihoT6hBpsJGkWHhAYFmmr3
-	 LxzucKWp+Q5n5lTD0Hu8qiVWtHAnTD32XaCEN4avtklubBVI8XjA2P0eSn22ugAnaSd3E
-	 +4uzzyVcN6Z/trfQA28eDcH8QuG+QUhcB4p1y0KBH9lrq5tK3BjdRWMkuvZujexsfZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGsiiQ0o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794322340;
+	b=L/ZD/XITcbqyg/q0fOZEWg3a9JHJVPws7V5ZhnJh/zPpG5RvXGSb+8YSA2YJmy1HD7pG
+	 n/NSj09uaRM0NsT5qRxqPLpCtvaiWk6A58zk8XZnHut9J8ChOuiWE1iaADJsjbKeAEGYJ
+	 mpC7CaZu9PSY1WTnWJy4rWlDCfJcoJclGyT7u+/UWXOfezGYQwEVYFW3/LWIHBQwL++2q
+	 RlCDxNbUvUaofQF3sMqM/41B5KeMWJ2hd9sHd9DfzY9DMb+CK66f6FAuy0heBtADvJjvd
+	 xpSmcGOLmczhdS+zgHocWD0morTuYv/Fw/Kvi+QGxDZ/bbmkRpHEy/OKNBpDFOfrlTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322340;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=;
+	b=AC1S4XNmQdJO8U6CMkZEEhZ6xbpAx9Vukue2dGP3UmZp4pY10w3g0WCKkrJXoA+fFoYD
+	 kPS/MzJG6PlMowcXbkuK+6R0w7xbKkeerlOfv9zqiKTaaWEmfhMAHvQFFFczk48KkEHYX
+	 NozqN6uECj6sglXc3kp/iTZp6YK00rTLWqBeKY3vbqd3bC9NKDoei+YDcanba3FgZNHNA
+	 b4FxgJNCuDyncPH2hgYUVUssMN6dq+c0Y2RTaBWQDosom4MeBMpo+rcnyXr7WNPU9WYYw
+	 uyzEXTadYEk5LlEbzrF2eXOC40ytkjqj2j3qxikm+5kZ5tHP8cJ8v65kVsFj08rmFXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB8860A3801;
-	Tue, 10 Nov 2026 14:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9C4606A31C;
+	Tue, 10 Nov 2026 14:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9C4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGsiiQ0o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0AE1F008A6;
-	Tue, 10 Nov 2026 14:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322308;
-	bh=e1KpTWu4eWR69Fbxd+V1cdxC0knFqwScyCQVEkuHsB0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EGsiiQ0oqWPL/dxaJul5vkWvAKDLe4buGaCOrro0H7mLKo7/DY5eglX0R30fHpQJm
-	 FfsZUED0fJHoPZAcOXXGI7YK/rERfliR6wpOeKSaKg+/QLA8IA9JbZl4G4JRNwR36v
-	 M81nOSZzuC0PfgPVdtlsYzhanJfi0LrgzYgmxiSxXLvWXUKYkmqJKg2DyIFizXIrcG
-	 IfX5UpFb/PY6DkfbPPYsQSSKfiQL9ZduY4mghZUnPHDscvdxvgQJ3W5gVLM0q6DNXO
-	 mcYbah+Ut1EWVXx9H3BfK4H7qA7JK7W25R9c1tXNb1e8s3iT5QlISCylqVUXJrARRb
-	 sKqqxVA88gFKg==
-Subject: Re: [PATCH v33 net-next 7/8] net/nebula-matrix: add common/ctrl dev
- init/remove operation
-From: netdev-bot+sashiko@kernel.org
-To: illusion.wang@nebula-matrix.com
-Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
- sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
- andrew+netdev@lunn.ch, pabeni@redhat.com, edumazet@google.com,
- horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 10 Nov 2026 14:51:47 +0000
-Message-ID: <179432230770.994134.2864379401996403810@kernel.org>
-In-Reply-To: <20261106045631.2224-8-illusion.wang@nebula-matrix.com>
-References: <20261106045631.2224-8-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV
+ARC-Seal: i=1; a=rsa-sha256; t=1794322317; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IES5w9/rUmQUIOSvczKB958G9ik3/KHQOdqZIpBImeiL6/DiyiXey9VoKv7eSSR//k6c8Fw0ubhAX3eutKWdaQm+KuBtR00hvQuaDMCFAvgg+s4IAxKfAFIX20MW+yKqOBKVdgvqkTmOVaw2rB8WPPnH01qLjyN/0xQuh4lonLA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794322317; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; 
+	b=G9yyZtFQYlZJTLFV0v3bg3BtMw3vkmi3+Poehl2oVa7CSuYF8dGEw/a8aUIy0/4IKr1R0wdNDNCGA2GijuVP/LJrrBnmfKrXPim37YeqeG7MDroFOJ4CvPGazX4JZmOhi+8JsK59WZKRhcQVkDWdzuUedf6LuuFtz/a2OEFdBU8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=aMZJcmnVNEHIWb8uXyKM728ieo5RiRGM1+v6GUx2I12YzHcAOTMRGrUmWeIx092Qx2aaQKx4J0j3zaJJSCDbDa6Jm8SynPbnlTZonYnMYZL0QwpSQIbBqCbpHcIsUMGRAhvQdoQ8pNLIlLckmZBw1gyZRVnn/HDBlOkYnVM97Gs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794322316098419.50846392536164;
+	Tue, 10 Nov 2026 06:51:56 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id F1A01180354; Tue, 10 Nov 2026 15:51:46 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:51:46 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
+Message-ID: <avMvRiHSp_7d8oD3@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,168 +72,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tfqghsv2wlsgx7bh"
+Content-Disposition: inline
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
 
-Low priority / nit picks for your consideration:
+--tfqghsv2wlsgx7bh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
+MIME-Version: 1.0
 
-- [Low] The comment in nbl_dev_init_msix_cnt()
-  (drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c) says the…
-- [Low] nbl_dev_setup_common_dev() (nbl_dev.c) explains why VSI/ETH
-  identity is not fetched at init: "the control PF's responder may still…
-- [Low] This patch adds the first caller of cfg_chan_qinfo_map_table
-  (nbl_dev_setup_chan_qinfo()) and puts the responder-teardown…
+Hi,
 
---
+On Tue, Nov 10, 2026 at 07:11:48AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> An SMMUv3 instance can sit in a switchable power domain of the SoC, for
+> example the MMU-600 in front of the PCIe controllers on the Rockchip
+> RK3588, which is part of the PCIe power domain. If the domain is not
+> described, nothing keeps it powered while the SMMU is bound, and any
+> register access after it has been turned off as unused stalls the
+> interconnect.
+>=20
+> Allow a single power-domains entry, as arm,smmu.yaml already does for
+> the earlier SMMU architectures.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
 
-net/nebula-matrix: add common/ctrl dev init/remove operation
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-This commit adds nbl_dev.c with nbl_dev_init() and nbl_dev_remove(). These
-set up the mailbox clean work and the mailbox channel queue. On the control
-PF they also program the mailbox QINFO routing and run init_module. The new
-entry points are called from nbl_core_init() and nbl_core_remove().
+Greetings,
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
-> new file mode 100644
-> index 0000000000000..01287c39a9655
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
-> @@ -0,0 +1,303 @@
+-- Sebastian
 
-[ ... ]
-
-> +static void nbl_dev_init_msix_cnt(struct nbl_dev_mgt *dev_mgt)
-> +{
-> +	struct nbl_dev_common *dev_common = dev_mgt->common_dev;
-> +	struct nbl_msix_info *msix_info = &dev_common->msix_info;
+>  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
+ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> index 3c044e4f03d4..c8f22dfdb1db 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> @@ -63,6 +63,9 @@ properties:
+> =20
+>    msi-parent: true
+> =20
+> +  power-domains:
+> +    maxItems: 1
 > +
-> +	/* Reserve one MSI-X vector for the mailbox.  Nothing here
-> +	 * allocates or requests it: vectors are allocated and the handler
-> +	 * attached when the device is started, after probe, from this
-> +	 * count.
-> +	 */
+>    nvidia,cmdqv:
+>      description: |
+>        A phandle to its pairing CMDQV extension for an implementation on =
+NVIDIA
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+>=20
 
-[Severity: Low]
-This isn't a bug, but is "after probe" accurate here?
+--tfqghsv2wlsgx7bh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-nbl_dev_start() arrives later in the series, in "net/nebula-matrix: add
-common dev start/stop operation". By the end of the series it is called
-from inside nbl_probe():
+-----BEGIN PGP SIGNATURE-----
 
-nbl_probe() {
-    ...
-	pci_set_master(pdev);
-	pci_set_drvdata(pdev, adapter);
-	err = nbl_core_start(adapter);
-	if (err) {
-		nbl_core_remove(adapter);
-		pci_clear_master(pdev);
-	}
-	return err;
-}
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzL34ACgkQ2O7X88g7
++pqJrw/+Ltixuq2mwS/7jblulvQQALfQna4bWRC1zreexGhF+leoXqP9JEMhCnkp
+Vr3wOBovLKA//DQokcLKXgDGqVS21CBMdTAEp2Gc+G0N0VHZzdSP7i3QCkr9qNZI
+vPm9hifWU277QF5SgT/YCR94Jt8m46KSkFNiaeq2dTUBi+/TpYO1y1UxvNnlBm8H
+ySl3PLGGBj909ezmEy12KLVHxYAPM3SKAbE6dr7Uyo3B2yuMp5uY1TPdYbJpNi4+
+s/qBdbgxBqPVWVhRspqwjcJKpc2jnv1aLQjZsHCulAxY6iOnGscDwHgCnerj7xw2
+XJOJ+cmGi2CvqRYloutaEx3DFDW0ANLaOvxLBe43c8jwuDP72eeM+Bl4JnNxQOZX
+uVu6498a/JQxBCXyo0IW/vEUQ/VhCo6bG7CaLHIWmuX/gVH0DNCuz43JFInaZaCz
+lHffjGUeQNGigfx+zlTTu1Ng0rqBA6qKnva8gOUE2AvFkWD3lYh7MWuZWy4Foz6i
+g2FEtxt2CfNYpzm6/XE5Sp5ayNqO0l3N2Y+m2W413Ae8Pe5dmtZmNekDmJOLKzYq
+PWNKmQ16cANFsiA0Zq8fL7p4EArT1cC7o37lWeKdJJdodL+edfTFWmee0YmmrTOA
+lsBVO1mkefW/Kf+L2CL8+DoN0EUu7+qa7rVBLxOlkPB+b3A8UsU=
+=xEf6
+-----END PGP SIGNATURE-----
 
-So if start fails, the probe fails. The comment above
-nbl_hw_clear_stale_status() in nbl_hw_leonis.c agrees: it says sibling
-PFs' RPCs "time out in nbl_dev_start() and their probes fail".
-
-The "after probe" wording is still there at the end of the series. Should
-it say the vectors are allocated in the start path, during probe?
-
-> +	msix_info->serv_info[NBL_MSIX_MAILBOX_TYPE].num = 1;
-> +}
-> +
-> +/* ----------  Channel config  ---------- */
-> +static void nbl_dev_setup_chan_qinfo(struct nbl_dev_mgt *dev_mgt, u8 chan_type)
-> +{
-
-[ ... ]
-
-> +	chan_ops->cfg_chan_qinfo_map_table(priv, common->hw_bus, common->devid);
-> +}
-
-[Severity: Low]
-This isn't a bug, but this patch adds the first caller of
-cfg_chan_qinfo_map_table, and that makes a few existing comments wrong.
-All three are unchanged at the end of the series.
-
-nbl_chan_cfg_qinfo_map_table() in nbl_channel.c still says:
-
-	 * 0xfe/0xfc/0xf0.  Nothing enforces that here: the resource layer
-	 * that validates the mask, and every caller of this op, arrive in
-	 * later patches of this series.
-
-But nbl_res_init_pf_num() already rejects non-contiguous masks and any
-pf_num outside {1, 2, 4}, and this patch adds the caller.
-
-nbl_res_init_pf_num() in nbl_resource_leonis.c says:
-
-	 * this running first: resource init completes before the channel
-	 * layer is set up.
-
-nbl_core_init() actually calls nbl_chan_init_common() before
-nbl_res_init_leonis(). The dependency only holds because the QINFO
-programming happens here in nbl_dev_init(), which runs after resource
-init.
-
-The kernel-doc for struct nbl_dispatch_ops in nbl_def_dispatch.h says the
-teardown order "is documented with the code that performs it, in the next
-patch in this series". This is that patch, and the text went into
-nbl_disp_remove(), which does no teardown itself.
-
-Could these three comments be updated? Could the "next patch in this
-series" reference also be removed before the code is merged?
-
-> +/* ----------  Dev init process  ---------- */
-> +static int nbl_dev_setup_common_dev(struct nbl_adapter *adapter)
-> +{
-
-[ ... ]
-
-> +	nbl_dev_register_chan_task(dev_mgt, NBL_CHAN_TYPE_MAILBOX,
-> +				   &common_dev->clean_mbx_task);
-> +	/*
-> +	 * VSI/ETH identity is deliberately not fetched here: it is only
-> +	 * known to the control PF, so it has to come from a mailbox RPC,
-> +	 * and the control PF's responder may still be probing while this
-> +	 * function runs.  The fetch is therefore left to the start path.
-> +	 */
-
-[Severity: Low]
-Can the control PF's responder still be probing when a sibling PF reaches
-this point?
-
-nbl_probe() calls nbl_probe_chip_deps() before nbl_core_init(). For a
-non-control PF, nbl_probe_chip_deps() holds func 0's device lock and
-defers the probe:
-
-nbl_probe_chip_deps() {
-    ...
-	if (mgt->dev.driver != pdev->dev.driver ||
-	    mgt->dev.links.status != DL_DEV_DRIVER_BOUND) {
-		device_unlock(&mgt->dev);
-		pci_dev_put(mgt);
-		return -EPROBE_DEFER;
-	}
-    ...
-}
-
-driver_bound() only sets DL_DEV_DRIVER_BOUND after func 0's entire
-->probe() has returned, and that includes nbl_dev_init() and init_module.
-
-The header comment for nbl_dev_remove_ctrl_dev() in this same file says the
-opposite:
-
- * between.  A sibling therefore cannot
- * reach its mailbox setup before the control PF is fully probed, nor
-
-The commit message of the last patch in the series says the same thing.
-
-Should this comment give a different reason for deferring the fetch? It is
-still present at the end of the series.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106045631.2224-1-illusion.wang%40nebula-matrix.com
+--tfqghsv2wlsgx7bh--
