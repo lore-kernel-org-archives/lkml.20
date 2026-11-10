@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296722;
-	b=KFJDvOHsctEcHkpHNR6cczOZoKAs0H3qSb4IGiu02U3QxAXH/0KXy/ZoMi6L99z9X7+H
-	 rA6Lz87ikpf9FuxuPwA+ETIX24ovF+RFQrluSwSfdmXKHXXajO2cPsYFNESCDwFJtIuHk
-	 opInxuM/C7LuGgvIlqOzvglrOdk2gr+MpLG5RlM7aPLKwHSwnbsiNTo6RIlqk/MI/Ejhc
-	 uGvnXO0CtMyrJRQxMeir1CQ795wetPXM7s2AdO7FctARJCOsDHqG3/XDxxMGal0qGhAbL
-	 A2CzKKelwzdhCeBD6bdCCIAtSwemQySDQHKTC5fAYvC5IWKLbaMDvf0VpV0MTVEwRtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296722;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=NppZ7CUb04bxQjnUofthCMie7KVnuMp1vzpPBAm263s=;
-	b=hBibSjbevYFpTJZaHdktRDklh2ylG460uAs+AAuhpyy2tYDNSr01xIU1GsOMpajHPjib
-	 QMXbtks2YZCx2xPfgE2JpulXFOyU+YKla26bKqQdkfA8mG35vcQdHindGbuJyQ1Q84gNP
-	 EYtR3ShZqV+v/DEIQXyG2Yk9owphq891Nv6OXHT6zy01oqd6FQoEJVxlXjQmkly7jaaED
-	 7xsnuXyBnph8rEeU3ub00nfKDj9qgpO/nDO+1oXW0tSGe/Cn1W1qejRB3lRp4TVJl4tQB
-	 2udgkBvu/MV83Mso05Vy0mEJLNW+e1CvsUIC5NK0BwSgHhVnSP63kzTeNiAAzw7ootA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ioIr/mu2";
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794296698;
+	b=mUYv9q8wSYYQbWLn1PjGUtqDc3E3E+i2PLWEkFnAN7s8W+4lB8mcGIQqe19OdEa43m5Z
+	 vnsjX3A97ddLL2dvtfU+k5uBIicPPI60y0aEB6p7ZEqgptQtOf8uktKBwS+8kNHoO/Ahl
+	 4g98IXY7NEvCaKOqO3Rpv7iApPtncLtYbpVf6Qatr3xcLsVCwmgZ62MCgHBPy79a5WSEG
+	 RQcdVoCIBrCzO80m1NIInAKb5wc5XH67tJ0EDk/vD1O/VSI+nB5sfsEMJo9jFL3mot6Wf
+	 3ZFhEATr7OU/rJ+PSLONOtzozZHQPzVsmDiYUhadcVUQhJ6Y+7MeqA2LbsqjEzT2g3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296698;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9XrgnRTD0mDuOgnf+3Az2+jSdGZPjgVozgVIVDYQPbw=;
+	b=yC0WVkxxptBhe/2e0w5G4ZGqez1jJvf5uPGIyMmLntF6SJGBw2n9hm9YENJrk/1/y3Ho
+	 zEPr6QmiKd58AK+8bZutzPdhVT+/VjheEoAI42ONG3SQnLPGQ43YBdFFSIkrzqGDpNvkm
+	 opmKBLWKIZgMqqFpdc93bL/Yd5rMWtnEZKkWHDcFCBGoJRQQBjTsk3ur4dkoNqsjseHYX
+	 n+ckVrLYuIAeayDmhw0htMV0ljWUFSbsiXcZ7fIcRGN/d7cb8ueRhorZZX2Bmdx77GaSV
+	 1HbuH0ytuTVyIHMjul1wlEP9+VE8Ws5hB/BgKnvUERG5HjHB1+ekfD1gNsvcqR1KBTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msmgCSss;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7286E60A380A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msmgCSss
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794296698;
+	b=TjtTABtDXzTXIbk4qx0uCrRIkc2m7K7y0DM4vUNwPWSbZHxHt+tgAmfbN4t7NGPHuYR/
+	 likfelH0tTa1Anaqg9EqGB61Go5IiGh4iuKI3mzldcoxvFF2boIs/z2oqMqUIdt8oK9O4
+	 zeG/SV61ALZz6+SOMqne/nZXZPV+ugH0vxBe195FDaz6CAxjeIiK8xzEgo+AbGQbO+y43
+	 vPnDUfmVmhQswWcJjs/6GygFJy+iuX+WPgFjY/YxBsp+BJ7SX4W0en+79AQK0Fm7QDp/8
+	 t4kd027DiIE906FYjBDsiXLwzK5Xra303dnS+BQS89GLrQKb+prIV2T8lKyO73g9KaA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794296698;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9XrgnRTD0mDuOgnf+3Az2+jSdGZPjgVozgVIVDYQPbw=;
+	b=xWcXezitloQyiKdmhj6zHXwCmb+OSz/xoviblI0Gqigo5Fg5wFcERDBiRx4Fs4esjUpA
+	 5ctaXD2Bx0/KVa7ZecwCxphb5pZs5OKnZY1E8tfyjGUJAAaGUzFqV+856kivKu6mv7ong
+	 IgJAGYYJEiR45zPoR/46x07hRApyvhipgS6GbNy1yo3PK+y1Lb4ew632GOHkZso5R0h3I
+	 GWImetTqiZaVWpI+n/jKs3qhu4Mvzz/Ie5R6InwAfsrHTLAKUrLh92Fm1klgFg6jboOI2
+	 WZU2wJJvuQerUmzKgwvGzpDBKy49l55Rn+lFOj2BKGR8SjCjES39PYXm80XdoZ7JQWQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613D6607555A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613D6607555A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ioIr/mu2
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-85ac281604dso985185a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296721; x=1794901521; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NppZ7CUb04bxQjnUofthCMie7KVnuMp1vzpPBAm263s=;
-        b=ioIr/mu2SA07h7+SKM6mvk/KXy4Usg1jCepDPOCtDPLyq8hQuiSLafuA8T/49uRE8N
-         UymSU5NI3lPmh/SscDcKJ3C6BjQqZzf0lu9Z1OOH15plpDTrvR9P/gc6acxN91gA/qo/
-         a3h/cOAt5qlch+JVUq84CBFAV6ZhJx4nXJqxDwGnV5dYMcbHaU80GKt1zkLoSf/6DUn2
-         UrNZSEVHRxtwBEE8GO8xl19S2x0le5GmeI3JLrrT2EF1ZnD0KNOHM+BucJ4jxOSDh13D
-         B/johk8xqHDx4GWRfVd94SK3MVCjzOR9Sy2zL88POo1RGmKdKkiypXg37QV9ioQ3C5Ot
-         trgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296721; x=1794901521;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NppZ7CUb04bxQjnUofthCMie7KVnuMp1vzpPBAm263s=;
-        b=Lfr9wxn3SbPzfavFEmsWkzu4Ze04Cp3tJcjFulBsyDzHnND4oQjQ7vV1r5BoRwplIb
-         yW1wpuWSsFGhS5jat2lVmQ9q9dStTLdSVOHr1ZIWJZkWkvomXJ85P22OqGQ6gyZjloxb
-         xCOGErkfDHCdSo/oNWalIw4uUqwjYIazPpohtEo1gK5sGeof/w9DkQo8UbvOX8SG7h6q
-         sqT6ilYFz1rV0zFYPc85qKX0Qb3ZrAAYlYOPaLt3U9cXg3eMxva4lONL8FGt0liTut29
-         AlbKboNQYScsY9oquLoWaRtGhKPcWYJ+rJlzC2eP4bs7NFPRsWSBpnqKQwYmjnb28dBm
-         UQgw==
-X-Forwarded-Encrypted: i=1; AL+hErGFjsDLm2Upw5xan0QHDlH/YxXnqpqAuUy7LBOYMEfS9G8M8qQAqtVB+lOi3x6aEVsKmrHRCTDoIvsI+e4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Y61tERj6hWE6LbjvAaO7IC21tM/wdJPiFvrK8gtJv+SSI+Q6+
-	A8S/cgAnSyWScDFMnbURCpgB3MFvzqCgdp8hol50Oxvl/ghueku5AkhZ7yDyQgKr
-X-Gm-Gg: AYBFou1tAzR60Ep6nfKK/f8K08IyHgTpoklXcIxlCUouDhHSsvu7uuHU+LxxPe8vCrL
-	5v6iKQ92xkibWQWta7GqQVWmGFQ5TGYmwZshwnVpo431JjxIZSrJSs0U8zxItIWvvc4vem8GtJ6
-	4k10vzVO1hRhxZwACsVXghMVyfcdO2tGxiFwdDN+R0yEnz83MniTsuU+WESHMgHF4izzjo5shyR
-	bD1xoi8tctqE+Z+hD0p8BpUNjamwznlrMAO/6riGyvh1AdV7YGjVbS5Orp9PaC3ZSAXO2Ifjfu7
-	mU7vlBsCKZnmmzjXNt31/6tPh/9ra0fwP3gdzRkTu57ZsPTqANumG3/k85Q3sxO7yJMPaFbGkzh
-	oN0zwW4QKgKu/lGydhQA/vPyU6YMeHd6P5a8AGRz69IIl2VeLxTZiUMoXRUB8ZFMC/IO3jaYAaY
-	jH51MgDnj3gxQYUayoFjjZnkm3NtlgqbwMy3rHs0QS1DZk9BW/WJkeQSUPw0z3cD96r4ab6rsxw
-	wTpND0NQCynXuL/bFG3IWbn5CSis67/XiWCVw2IJdx+G/kCgTNZwO6nigkWEi0VBuFST0mo3O/k
-	dvSEsXRgZYNTiPsdJBuWiRHbl08doH6ew/hRX4a4XdeN82wuLS3LIYoyM6GCM22OV0axiMxa9i+
-	jp8kkw5/6zeZNuzg9Hy45Ju25BPip4mQhwqws3ELeXnSs1cnMKPlGcMzlf9+GQ5ZC/+fGdq1jxn
-	NONam8wem4uQPlKgKVFamHMfKF0dHXW/FTh3sjCm6v6WlY9KKH9Iw=
-X-Received: by 2002:a05:6808:250d:b0:4f2:4d2f:7ba with SMTP id 5614622812f47-5683c8d763dmr1340541b6e.8.1794296721326;
-        Mon, 09 Nov 2026 23:45:21 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:20 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:57 -0700
-Subject: [PATCH v2 54/58] mtd: rawnand: fsl_ifc: retain chip state across
- removal
+	by smtp.kernel.org (Postfix) with ESMTPS id C43F61F00902;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296698;
+	bh=9XrgnRTD0mDuOgnf+3Az2+jSdGZPjgVozgVIVDYQPbw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=msmgCSssLCDrhhBmk9LWr1wm6jV0ScnTwkP3s9Zor+MqLNyPERG66L8w40yEKc1vq
+	 aQvESI5mw/Kw2gzVfPFzFI7o5MLzak3pOB51xAsBGVrkce4NoI9aN1DOuqdWWhyvdp
+	 rw94KXDLHGmQOncg9rvERF8qVpqL7CucuRay6Ym0IhRc0u1KgU4tkaVStewzqUR1tn
+	 cdAClScDRRp3LVqlDy6HlKHYRvh++VSy6oTaGL3VOvnfzYgzaQD3QVt89h5132wHrX
+	 tCiIyutJgJIy+1jyOe1DI4t+Kzy/h8nMNK5YoRG7rlr86mQrdkOfe7GdyaMS50z9GD
+	 bv53CFNNrRmog==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 496F148A12;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:44:57 +0000
+Subject: [PATCH 2/7] drm/panfrost: Unwind a failed GPU mapping without
+ dropping its pages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,169 +84,116 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-54-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
+Message-Id: <20261110-panfrost-long-jobs-v1-2-24508939ae8d@gmail.com>
+References: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+In-Reply-To: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+To: David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=3059;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=qcEQM5Zp3QQH8GD0avsBqzcMV8oVI5whRT62sutCDKg=;
+ b=qEPahRwq3Y/E+KqON/OMdJdyJiT6QIWrmpoRrXdVbsvrXDHuOTO1RcBO7013GP71aZNpSP7lL
+ RMD83IWZfXIAwRDCzvIViXugaUjl6GgOPsqLn/F6x+R0G7ii9VnH1Qv
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Separate active bank membership from ownership of the shared IFC NAND
-controller. Retained chip references keep the controller lock and chip
-metadata alive after removal, without retaining hardware mappings.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Disconnect before device-managed resources disappear and drop the shared
-controller reference from each chip's final release callback.
+Two error paths of a BO mapping leave the wrong state behind when an
+allocation fails part-way (memory cgroup at its limit, io-pgtable
+running out of memory):
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+- When mmu_map_sg() fails, panfrost_mmu_map() calls
+  drm_gem_shmem_put_pages_locked(). The only page reference
+  drm_gem_shmem_get_pages_sgt() took belongs to the sg table cached in
+  shmem->sgt, which the object releases when it is freed, so this drops
+  pages that shmem->sgt still maps (for an imported BO it underflows
+  pages_use_count). It also runs without the reservation lock that
+  helper asserts. Keep the pages and just return the error.
+
+- When ops->map_pages() fails, mmu_map_sg() unmaps what the earlier
+  calls mapped, but not the part the failing call itself had mapped
+  before it failed (map_pages() reports it in @mapped). Those PTEs stay
+  behind in a VA range that drm_mm hands out again, and the next mapping
+  there finds them. Unmap that part too, and flush the unmapped range.
+
+Fixes: 4da352cf8fb1 ("drm/panfrost: Handle page mapping failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/mtd/nand/raw/fsl_ifc_nand.c | 58 ++++++++++++++++++++++++++++++-------
- 1 file changed, 47 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
-index cc75b6a67e07..18b747e73c3b 100644
---- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
-+++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
-@@ -40,6 +40,8 @@ struct fsl_ifc_mtd {
- /* overview of the fsl ifc controller */
- struct fsl_ifc_nand_ctrl {
- 	struct nand_controller controller;
-+	struct kref refcnt;
-+	unsigned int users;
- 	struct fsl_ifc_mtd *chips[FSL_IFC_BANK_COUNT];
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 56e642f73..ba37da499 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -442,8 +442,11 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
  
- 	void __iomem *addr;	/* Address of assigned IFC buffer	*/
-@@ -961,11 +963,33 @@ static int fsl_ifc_chip_init(struct fsl_ifc_mtd *priv)
+ 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
+ 				       GFP_KERNEL, &mapped);
+-			if (ret)
++			if (ret) {
++				/* Unwind the pages this call mapped too. */
++				total_mapped += mapped;
+ 				goto err_unmap_pages;
++			}
+ 
+ 			/* Don't get stuck if things have gone wrong */
+ 			mapped = max(mapped, pgsize);
+@@ -459,7 +462,10 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
  	return 0;
- }
  
--static int fsl_ifc_chip_remove(struct fsl_ifc_mtd *priv)
-+static void fsl_ifc_controller_release(struct kref *ref)
- {
--	ifc_nand_ctrl->chips[priv->bank] = NULL;
-+	kfree(container_of(ref, struct fsl_ifc_nand_ctrl, refcnt));
-+}
- 
--	return 0;
-+static void fsl_ifc_chip_release(struct nand_chip *chip)
-+{
-+	struct fsl_ifc_nand_ctrl *ctrl;
-+
-+	ctrl = container_of(chip->controller, struct fsl_ifc_nand_ctrl, controller);
-+	kfree(nand_get_controller_data(chip));
-+	kref_put(&ctrl->refcnt, fsl_ifc_controller_release);
-+}
-+
-+static DEFINE_MUTEX(fsl_ifc_nand_mutex);
-+
-+static void fsl_ifc_chip_remove(struct fsl_ifc_mtd *priv)
-+{
-+	struct fsl_ifc_nand_ctrl *ctrl;
-+
-+	ctrl = container_of(priv->chip.controller, struct fsl_ifc_nand_ctrl, controller);
-+	guard(mutex)(&fsl_ifc_nand_mutex);
-+	ctrl->chips[priv->bank] = NULL;
-+	if (!--ctrl->users) {
-+		priv->ctrl->nand = NULL;
-+		ifc_nand_ctrl = NULL;
+ err_unmap_pages:
+-	mmu_unmap_range(mmu, start_iova, total_mapped);
++	if (total_mapped) {
++		mmu_unmap_range(mmu, start_iova, total_mapped);
++		panfrost_mmu_flush_range(pfdev, mmu, start_iova, total_mapped);
 +	}
- }
- 
- static int match_bank(struct fsl_ifc_global __iomem *ifc_global, int bank,
-@@ -981,8 +1005,6 @@ static int match_bank(struct fsl_ifc_global __iomem *ifc_global, int bank,
- 	return (cspr & CSPR_BA) == convert_ifc_address(addr);
- }
- 
--static DEFINE_MUTEX(fsl_ifc_nand_mutex);
--
- static int fsl_ifc_nand_probe(struct platform_device *dev)
- {
- 	struct fsl_ifc_runtime __iomem *ifc;
-@@ -1016,30 +1038,35 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
- 		return -ENODEV;
- 	}
- 
--	priv = devm_kzalloc(&dev->dev, sizeof(*priv), GFP_KERNEL);
-+	priv = kzalloc_obj(*priv);
- 	if (!priv)
- 		return -ENOMEM;
- 
- 	mutex_lock(&fsl_ifc_nand_mutex);
- 	if (!fsl_ifc_ctrl_dev->nand) {
--		ifc_nand_ctrl = devm_kzalloc(fsl_ifc_ctrl_dev->dev, sizeof(*ifc_nand_ctrl),
--					     GFP_KERNEL);
-+		ifc_nand_ctrl = kzalloc_obj(*ifc_nand_ctrl);
- 		if (!ifc_nand_ctrl) {
- 			mutex_unlock(&fsl_ifc_nand_mutex);
-+			kfree(priv);
- 			return -ENOMEM;
- 		}
- 
- 		fsl_ifc_ctrl_dev->nand = ifc_nand_ctrl;
- 
- 		nand_controller_init(&ifc_nand_ctrl->controller);
-+		kref_init(&ifc_nand_ctrl->refcnt);
- 	} else {
- 		ifc_nand_ctrl = fsl_ifc_ctrl_dev->nand;
-+		kref_get(&ifc_nand_ctrl->refcnt);
- 	}
-+	ifc_nand_ctrl->users++;
- 	mutex_unlock(&fsl_ifc_nand_mutex);
- 
- 	ifc_nand_ctrl->chips[bank] = priv;
- 	priv->bank = bank;
- 	priv->ctrl = fsl_ifc_ctrl_dev;
-+	priv->chip.controller = &ifc_nand_ctrl->controller;
-+	nand_set_controller_data(&priv->chip, priv);
- 	priv->dev = &dev->dev;
- 	priv->vbase = vbase;
- 
-@@ -1071,12 +1098,19 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
- 	ret = nand_scan(&priv->chip, 1);
- 	if (ret)
- 		goto err;
-+	ret = nand_set_release(&priv->chip, fsl_ifc_chip_release);
-+	if (ret)
-+		goto cleanup_nand;
- 
- 	/* First look for RedBoot table or partitions on the command
- 	 * line, these take precedence over device tree information */
- 	ret = mtd_device_parse_register(mtd, part_probe_types, NULL, NULL, 0);
--	if (ret)
--		goto cleanup_nand;
-+	if (ret) {
-+		nand_disconnect(&priv->chip);
-+		fsl_ifc_chip_remove(priv);
-+		mtd_put_master(mtd);
-+		return ret;
-+	}
- 
- 	dev_info(priv->dev, "IFC NAND device at 0x%llx, bank %d\n",
- 		 (unsigned long long)res->start, priv->bank);
-@@ -1087,6 +1121,7 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
- 	nand_cleanup(&priv->chip);
- err:
- 	fsl_ifc_chip_remove(priv);
-+	fsl_ifc_chip_release(&priv->chip);
- 
  	return ret;
  }
-@@ -1099,9 +1134,10 @@ static void fsl_ifc_nand_remove(struct platform_device *dev)
  
- 	ret = mtd_device_unregister(nand_to_mtd(chip));
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
+@@ -483,18 +489,20 @@ int panfrost_mmu_map(struct panfrost_gem_mapping *mapping)
+ 	if (IS_ERR(sgt))
+ 		return PTR_ERR(sgt);
  
- 	fsl_ifc_chip_remove(priv);
-+	mtd_put_master(nand_to_mtd(chip));
++	/*
++	 * On failure keep the pages: the sg table cached in the shmem object
++	 * owns the only page reference drm_gem_shmem_get_pages_sgt() took,
++	 * and the object frees both. Dropping it here (without the reservation
++	 * lock) released pages that shmem->sgt still maps.
++	 */
+ 	ret = mmu_map_sg(pfdev, mapping->mmu, mapping->mmnode.start << PAGE_SHIFT,
+ 			 prot, sgt);
+ 	if (ret)
+-		goto err_put_pages;
++		return ret;
+ 
+ 	mapping->active = true;
+ 
+ 	return 0;
+-
+-err_put_pages:
+-	drm_gem_shmem_put_pages_locked(shmem);
+-	return ret;
  }
  
- static const struct of_device_id fsl_ifc_nand_match[] = {
+ void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping)
 
 -- 
-2.53.0
+2.55.0
+
 
