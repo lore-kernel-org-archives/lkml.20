@@ -1,71 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280806;
-	b=lg1uAR1atLpgVI5huTwlHNcM78weZUgwaEmHfGKLjF5fkUk6KoJO4y1OyQ/FQ1FEMCOf
-	 lNcOkLey+zlnQisBSf+tOWK7VpxTmuSYRuheWf6LP6YkVcTUhgg+eToDWSEQoSEzJ342X
-	 pI29Q9TxU1z1LgpnneOsn+RBUegJPxIITPhq13W4CkkzbYnnOe3uxTSKEeLK7CTILeuoB
-	 cUgbLWxW8ZMYTq9111wszxMnxvHozKar2G2U689A894QCDts+l8gzhpd8wWHlOqtS8kdh
-	 +aNgnHzNWRMff5BEIV+LwQVpDBl4DxA74JGu1kciGbvVesCpMltlI4AWR8mq05SjayA==
+	t=1794280809;
+	b=YEw44WVXMO6oqqX1KYCPbX7z+nw+5aTKwxDZqb6hVx/PZuFPhkgeOLFlEEdp3414p5Iw
+	 Wxo6GaPe43OUqeNxN3sqq/O46n8JzO+56XsuZXGEZf5141hYXhL6aJ7mpdk8l0gRobiGS
+	 +8OPQ0rYTl4dNi9N/DNjRvwD3/sRhDNL1IzlMXxPRxowVs6C5fzDkRf0AWidynMFIMjsc
+	 Bi2YP3hSOLEOkCUf4QznpkSfdoioE+VHMRqjd06/EsmXuwxY+nEsnOEJwdGr5p0VuT2uz
+	 eiPYhjtCaueDP/8NLkAUVcfZvVWiOD/QSqCMP7xJACTMLoRwlvFr5c5Z1biMQf/KCxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280806;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=dBqtNyaZTHzYtirD5fNyhHxfUG0KdJEr5claBMIANu4=;
-	b=0kO54Fuwnkgq+mAYqtmwUH1R+5VaRYF9TqEW5GDxJegFkEUri4W/bx+VqIzemF40j5sw
-	 bOZIkfPlleB5gCh8rw8S+GWovYU80kx2B8aE8GCV0v1kNXohtAQjkcAzMRY06s3rjJG1p
-	 h+/cZ3gCFZpIwMPWNnrGrZDpxeXsvoY+LYrLYNJ20D0wCSuQtmsTIxL/8LQ/8UdL/LD4G
-	 /l86c6yaU6DZDCn2o/MJaUsFNIf3qo3lCXhVIG5p6EqgjEWC3+GBWkVOOYgLG7gAup63i
-	 VmyYurkIeL19odnh0IiExS76VNRzySOtwdls2l6QZyycPOgXDvIrtUp1f6lGsrsHw6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280809;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/ln9Ib9VxSrRbqcFw+pmE8sOlcvEJcaFSWJ0EYv68hQ=;
+	b=1714r6m32WjWO+wgnKQMomPY/lSb14OWIBvqczTzDoi02ZX5MDVolDEHBsY22bWELlWU
+	 JoQweMeG8Mfrxhgzg7hLNjpl75gQVXDWYy/7/QUhI9PMKYnuhbsmqwl7v9nbCGZYigZhY
+	 YZk79hebQYtuc6zDiZo4Tnxx4Q+ZjEl/99H12WVnmm/W9H+Alxn7nx+sK5SaDy4TuLOLy
+	 XdcLrDUP9gfwhxJHEoa1qVs/kaJMC/f6WiENzsBI4ny4icczpinlsvry3d7QbXf50mKZL
+	 nxecMeSe5MJ4+bbZE2L3c+qsu0yxJMryXcDXFdB65nppFVbUfYaY2F/Bj4xNDrs/Wag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=QyObajbn;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA53606A321;
-	Tue, 10 Nov 2026 03:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA53606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=UCIk+2DZ;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA03D606A32A;
+	Tue, 10 Nov 2026 03:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA03D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=QyObajbn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794280720;
-	bh=dBqtNyaZTHzYtirD5fNyhHxfUG0KdJEr5claBMIANu4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=QyObajbn5hQXvtN5hco1EcdwJRdVVLkxcL0unxnpgI8wJseMCg/8sD4SPApuq8Stp
-	 t9ssNHIB/HRj4USG2R6Bl5sFpyx9ITSjzMoiNxPjPpid/TszXsQf0Sdaxt5ZWeTpxU
-	 mykiEOsqAdETlZ1FxB5P5ktBX7niVuJiDUhMmY/s=
-X-QQ-mid: zesmtpsz5t1794280715t46df6749
-X-QQ-Originating-IP: VTjjW/EVU7TX0irIdEVOQLlnWDNjktqY9EA8ib7wjXo=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 11:18:33 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6969336988716536493
-EX-QQ-RecipientCnt: 11
-From: raoxu <raoxu@uniontech.com>
-To: nkapron@google.com
-Cc: gregkh@linuxfoundation.org,
-	luiz.von.dentz@intel.com,
-	brgl@kernel.org,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	raoxu@uniontech.com,
-	mlbnkm1@gmail.com,
-	christophe.jaillet@wanadoo.fr,
-	linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=UCIk+2DZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=UCIk+2DZBTvyXAQ+1+G8VMgcy5FPiliR/8DAB0f2Fo/cxh8t9fXRMmG+zC68x2dsO7ujkbFpNuIcM
+	 bViTNvzzqAXDdLTNTBxfguIOZkOEXzqkqvGrONm+45GWgCg6xlXSbZ1iJ//8F2Rivp6Tya0KwP6JT0
+	 T8mFCi1hdIYuh7C0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af28d645e7-cae6d;
+	Tue, 10 Nov 2026 11:20:04 +0800 (CST)
+X-RM-TRANSID:2ee76af28d645e7-cae6d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03.03 (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af28d4ec3d-a4cef;
+	Tue, 10 Nov 2026 11:20:04 +0800 (CST)
+X-RM-TRANSID:2ee56af28d4ec3d-a4cef
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	William Tu <witu@nvidia.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_printer: Fix fsync waiting for active transfers
-Date: Tue, 10 Nov 2026 11:18:32 +0800
-Message-ID: <09D38BF2C904A309+20261110031832.219431-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH net-next v3] erspan: drop packets with an unknown ERSPAN version
+Date: Tue, 10 Nov 2026 20:19:37 +0900
+Message-ID: <20261110111941.10621-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179422426074.994134.14851036970867047596@kernel.org>
+References: <20261108193504.73393-1-yanhaishuang@cmss.chinamobile.com> <179422426074.994134.14851036970867047596@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,58 +78,32 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OcsP2t8H9eg4Mg4fGSVflRHvGtWUwemtJqKzxCU3wYzvo/qV+burdu3L
-	7E/47RaMjVRSWRoMtJRIzR4TEklBW3Tim4DVh+ze4zoaxFNuWEpB5VGuLBZYy3EnhhWC1hn
-	O/JE+ufxlBmN08SkcUxJ/QiRsWTB3LsCAYeiCx9mTkVMYpcyRJxNtou0DnMDa/Gc2PsrBQl
-	ZA8NB5DGlV0GJ5dUp6Pha743tymRM3hMi/zLM/TvBIQROF8BvHiGBYSgeDu4UJfxxolr3wW
-	deKb7HAc10hhh+rSYBX77Qli8iyWPwUyIh3/Sbc4R0HjS4Pe+0MlczDzma2IpE7mnZBJS9E
-	U4nbyY/7BnbjrOHw0ujhIbIg8S3v/0SHLL3GXKeTf7yN/wRWBQgxuifd8sgj+DVK+Usrga+
-	jDCqUU0pJLvzkhxf0eBO3+pEtb4/uoS9yw6Z8+LXQxbXLQWNlwfVkCaqkPtXsshzDKVc+31
-	v4M/Xhk/CNkp5OeeHB534xENOY0kcpf+ZxTarwXo3ynh3C/fDpQpBKVvlDXN0Dr7GfbnIij
-	ZVCVqash3KMx1kl6O6TAjRzIMm9H76KAdUO4i9gBrRG3L1XAFYg/Nr/quCMFYljY93Xv1UX
-	do/YMt6TvJn8NberhTQAk+qtyU6HyTuGuR7/uVQjkX4m1kv0FRbHPKPHOWBZYNTmOY5MepI
-	rIkMtgZ81Y12PTHLa6lA2KzU6yQRtT7dEoA0oLGBnAuSoPpGM1gjYzgrWkWSy07RsMzF1Zo
-	lL8O++RmGuO7AI9FUYK0RV78OwWI7Q5Jd5DEXSAWqSxBhweFOVC64J4Qjmh+o+hBz869QLy
-	wcyMjeZCfJl1mvGZmXb7jSm+KThxVhM3ElUTASOhF0kJZ7cGpXOr+H4M8PgLvrwMYIX47hM
-	d1dVp35pIIRRn0OIKmrBFFmEW32gi1kj6I7Bv7mw4y2FkjkZSsOzee/4Nj61mDabGCKdqsl
-	Av2oBg8AebPLiHuIfD7EQxZryA5LrEel25/MSlG8fnFwMBCP1NC66qPDz9vTUzjZrtqq6dl
-	YUvKFyB83lnnu70cS9UW0J8zRESWdXnAVsFK9zAWFPRpHYHWOZ8if5SMV8WUeaLvnKaEp/k
-	QGhChtMm1YEYFZVs6Y7VZ0JPC+Eo83bMSP4bpejJuqB
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+On Mon, Nov 09, 2026 at 11:37:40AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Can some type I packets still get through this check on IPv6?
 
-printer_fsync() checks the list of free TX requests before deciding
-whether to wait for all data to be sent. Once a write queues a request,
-it is removed from the free list and placed on tx_reqs_active, so the
-free list can be empty while a USB transfer is still in progress.
+[ ... ]
 
-This allows fsync() to return before the queued data has completed.
-Check tx_reqs_active instead, matching the wait condition and the
-completion callback that wakes tx_flush_wait.
+> For a 4-byte-GRE ETH_P_ERSPAN packet, ver is the high nibble of the
+> first byte of the inner Ethernet destination MAC. If that nibble is 1
+> or 2:
 
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/usb/gadget/function/f_printer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[ ... ]
 
-diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index 1857d786110b..a2437c8e668d 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -736,7 +736,7 @@ printer_fsync(struct file *fd, loff_t start, loff_t end, int datasync)
- 		return -ENODEV;
- 	}
+> In v3, the IPv4 side was brought in line with gre_parse_header() by
+> checking tpi->proto in is_erspan_type1(). Would ip6erspan_rcv() need a
+> matching change? It could reject packets where tpi->proto ==
+> htons(ETH_P_ERSPAN) && gre_hdr_len == 4, since ip6erspan_tap_validate()
+> only allows versions 1 and 2 for IPv6 ERSPAN devices.
 
--	tx_list_empty = (likely(list_empty(&dev->tx_reqs)));
-+	tx_list_empty = (likely(list_empty(&dev->tx_reqs_active)));
- 	spin_unlock_irqrestore(&dev->lock, flags);
+Yes. In my reply to v2 I said ip6_gre is not affected because it has no
+type I path, but that is exactly the problem: such a packet has no
+ERSPAN header, and ip6erspan_rcv() reads the version from the inner
+frame. With a collect_md ip6erspan device, an inner destination MAC
+starting with 0x1 or 0x2 gets 8 or 12 bytes of the inner frame stripped.
 
- 	if (!tx_list_empty) {
---
-2.50.1
+I'll reject these packets in ip6erspan_rcv() as suggested and send a v4.
+
+pw-bot: cr
 
 
