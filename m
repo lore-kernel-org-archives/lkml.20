@@ -1,89 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332094;
-	b=q8TnyUcd6AaZVYvffSJFGdRheG0OnDTZNzmXbNIBDJ16WdEguwmEOpPATA+Wp9Vod06D
-	 c3TYiZWNl2AfZFJwnHhC6iflZj5ZebZkRFEIiLBjMPjxHREChM8pIb+hgjtYBLUMWcRxt
-	 iand2zWHXUXoJUrCWdZUpPi4xTK1jA1LUOhXt3WMdYKu5/hP11KcRsPPBqDkQiIXB/cEt
-	 9MmZUYQCOrWVb+JZckCG8OJ5nEFYV8EOZ5kUp2wsUpTx9p0IJtU1Jrl+I77JzMyR8nnn+
-	 eYocVy9ULN746MzO1OvFBVabOippmwbTnctwtSeDC7Fzp1nvq77kjqWNkw6rjgABZYQ==
+	t=1794332132;
+	b=HczzHSr5LRqBXRXqiAQZFg5L0gMAta+4YT/2NyV0YXANrxpkp+uPUlxIYxdNf9LsVEh5
+	 qh+wxznqKW/bXinB4Z9VpmpShBr8j6g0n9kAltp/2VXyQFLmtpSwhe1UIeeABTk6Qs+Rw
+	 jDA8iK3mBm+SNDyiWXfKrYfwRbbdyuglBtEbg4/xK9YqH8sTHn/kAA/ThtVatT1RSgYFG
+	 knEO0ac5YW8AvS2c+n5dxrfsHTJIkjWjiOEfSUN4K1jpivAW1QiamBQOMp1XbPgcsHIjR
+	 sXVFElsLB1SiL+yClsBc+uQxL7JdEwTLSK28voUNBT+ShDkNTX17KcI4Ck+QX6ukc8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332132;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
-	 References:From:Content-Language:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
-	b=PvjeDqgNiJY1QXdIAtvKcURSjStm/D9ttczE5CJeB5AhNZ+Za4jbq0ikomXZA9uk6Woo
-	 IooaMqqzpJtj/hqIdZpQyhG8JorbtReLgqL7ko36j8iClBwUXYXJEB5hKuxyThLDgQdrX
-	 mI3Q9H9fcjhoE962b0103k4W4XID/k4e1TdWZo55ajwkN/S2AH1mJQWVLBaZzvKLw4SM/
-	 z8Y4CG98hQE77ZL7HzvcLLd6Q4aR6jVqxW11bGg8dLey9CW6cNdcYaggvmoJM1h3HSPKm
-	 U1ml1ClrEpDjkM1xSOacf9ZHSPwpdAG26b9V498KRNsnRrweO0VOvEQg3ieOIDINARQ==
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VRe6DvGzMVEKtF/UjYGmmLxKrND1yOzI81LM0TfOFc4=;
+	b=XEJE7NVYTr0WSTZolyv0SIzhTthg32F98pf1bfhxPsdqPiZyQu4CLUskVMnnfDHIhDhR
+	 VxoCILmgZfA8Z6/M1m2i0dffn5/qf0odgdsx4lj6U7p79ItHxqLe1ZoM0aO7oDVOIGlXG
+	 Ipa6yl5I+wybQT/4pZx5dAL9wSRR/aVFZpi1KDA3lgD5Lg+GWuzyO9YANGvt09iXa02ZH
+	 cDYkLJjR+LtF9sRphgwkf67bJ092/3OuHs6uCs2R4rAarH1tvESfAeXb3MsavuOwHE8yh
+	 EXFYdlaqhFTcSoOirH6e1yAbq082MWEVo9dAuLdsphB9o84MZzBSCKvdVv7CwL9P+Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=6wind.com;
-	spf=pass smtp.mailfrom=6wind.com;
-	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=DV2mBkeH;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCLSelHd;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B838606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:34:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B838606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EC7606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EC7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=DV2mBkeH
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a7a3b29c11so2556795e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:34:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCLSelHd
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e47347279so1523966f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:35:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1794332092; x=1794936892; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
-        b=DV2mBkeHi9vDwYG/ceZd/Q4iLGwWg1jnKcSAv3wVxqBhiLC2YbAFlhVaB+RzkxLNHD
-         m4X9I8H1nweDa8MFCKzPHa4zOxNDbdVnE6brJ2m6GkZTRc71HjYQ/m3dUX0QiIMDQA1i
-         wAqtzwYOTe793jXvR4vv8mU1HWnwu151AkGbc+49mkYpJjb5rM8KPSBmnlZFZ+G1u5eh
-         F143rgAzutJ14CbssvmWElBBeEagf5O22tX0vYpoNgsf17uQD5OIhUsuiM29TwD2+e0r
-         dMmcFoUbykEs3mPoNjpF8Xp4DMUNIJn6qeZnmErM7+b6+3EqmRHdKvUf4AYk8HNInqFY
-         G+PA==
+        d=gmail.com; s=20260707; t=1794332131; x=1794936931; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VRe6DvGzMVEKtF/UjYGmmLxKrND1yOzI81LM0TfOFc4=;
+        b=qCLSelHdSwkXDi7F+RK8rmmA8JQQ27OnfUgKyHi0/X6kr7m2KA8dGm7eRUAYrqbs51
+         D7TRDFJSEHBeni84txLs6nAwKtI2lABPTcjJh8BIczjVP/5VhJVfoSkDRM1e+8agSbys
+         S+pZfy8MzfwPQdYNctro7QYB7ppaWgtguEuRDyR3n1Ml1JKHFyn18zB6DUgPET+ymMlc
+         +4d5BZDoz6gW1VdsoGSZnm5sH2TvxF1vmD8mg/MbznEkheFS6YAVdQIj8RGAC0S8tkKX
+         myb04BMRp3e8bvAllXH1hpN/35c6bYS7piAZXKqXD9aqfzHKuxflD9Y02Ej6fER5yXun
+         xDKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332092; x=1794936892;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
-        b=LVuuPMkmBhWJiVX3cd2itut2ANZszF0Gkfx5/YM9OBp8fNneZ7LXNwdhLUatV5xdSZ
-         tj1X2bdHJWYj71Q+Xsup187CaLaROQZwnDTaAawkp6/CoA+S4YD6DKIp3XPIQ55airCT
-         LGwrmHC9We6uue299hNBQDaiUkJMw1321fpl994EUhI/7aB0WhXmnNsLiLrgj2w/9jCc
-         C5HXfv9E0eQKcsyiZBqAbruMgLX1Se0BiNGVFOTnamHX05S2Yzeocow8tQqOMlzaFMQx
-         hCJUKI7DyIgSPRFHoblII/5SfRVs8o8L1N3lTPUUuBpZB/BVMu9N88MoQPYVVSwgDIHG
-         GL4Q==
-X-Forwarded-Encrypted: i=1; AL+hErGzx+iCQ+/oVJuxkm6ygMVeziZwkozsT0uKflLQ6Xfce+f928bawA4V7tFv99zL+QWdi59wbA8a6jlnRZ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8t+ferCz+3YtHxeQa684Xayiostr7PSpnu8IexulRxP8CZ6Ly8
-	CkeUAW8i6bbvhg5hd6YqQXp0KvQevheg8YmyxqhrdtJ46yj8fTtCdCQtd3qiczaw+e8=
-X-Gm-Gg: AYBFou08mlRDRd8+pjANU/YeTF0MvT7AnFpgLz09AZ2n5eie/aCzHS5kzsPypeoz2M6
-	vSuMcG1TM7pLE6f1rC4EpvaQ/gd5osUnCjPIPIbX3yZ4qewl2Lo7ku/R4eMT25hOWvu4oIm0vMG
-	zOQqbpATK93WbO/mcRyeNWbOeUHQuSwgEukoZXpPqVImVO6pqarTm1LUSVGyPeKiNAzwL1uwv4I
-	RYBSjtIeqA7iwfOnWCEF/6ZQtQ9UHbPNl6OjGipu1UVfDjGSpBht+t2RRb48jqGFZIKASOrLkac
-	pcbXb8I1dCg8WplfysKcKqiaWVUlLxbJO7R6frZVMEFBF0LehpehcuYWs1c7F3h47dyAUCFAogO
-	l6fNT0tVgs6DZ7zfRcsQvZcpSbcfO4VIq5BrCSUUS1uaQ4CsYW+sG2D83zc0ebTwZNtKkcPbDU6
-	fcnr8NfHdhghdIXR58l1jt3FzFvdql4BC1l6M4YtqPTGSZIE+vPCfGh+bfGQehPaJTzoE2nJMRL
-	mo914FjLoEdj+Wcw7tXjLIYxCMpmTzddl7i4bejazIwojn7zswpcdWQINkqom8o1iXueaioOL4Y
-	XA5WyRlHjj+9jRju3GboakXheEGIZgYqMCzQIdC5VO5/ATS4uxOcY1AadPKgLy3kxI1WJiJ7yeP
-	xA85IUg==
-X-Received: by 2002:a05:600c:1d14:b0:4a1:b027:99ef with SMTP id 5b1f17b1804b1-4ba02337685mr57336495e9.2.1794332091742;
-        Tue, 10 Nov 2026 09:34:51 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02005762sm78705945e9.2.2026.11.10.09.34.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 09:34:51 -0800 (PST)
-Message-ID: <1eb85d22-7d2b-460c-82f6-2af15a4875dc@6wind.com>
-Date: Tue, 10 Nov 2026 18:34:50 +0100
+        d=1e100.net; s=20260707; t=1794332131; x=1794936931;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VRe6DvGzMVEKtF/UjYGmmLxKrND1yOzI81LM0TfOFc4=;
+        b=sCQVVNj6DULs2ZkGOAe8ZF0Yx/6l1oZx+RFom6ZN43JeTpO+PlGu/CUJA2bYpZi0wT
+         VxLTcYJznqfL3gEQErU+XR4NiHIXcz/gW+gPtvsWNzKgeGDnXDfa1S8NfGgIz733DVcr
+         UnWFtAybfRtCQ1f+plijb4yOPszgSqwtkVRlcXM2L6rP+/IJULFNI/3ywnbhSMN+Zp8c
+         BcDXu7OUCkRJpKMGSX44nVyq8OmSMRH5CQkr5W8cvpyabPFW6mrIWtKhTIbra6MCw8lM
+         U8Wvi3wc5ObKW7bdottKDaXdh6KnGVLNuybto0ssvvTvsp0szOA2JBi2uVMSdJNKswTL
+         p1uA==
+X-Forwarded-Encrypted: i=1; AL+hErF3r+X8ICyxVslLVYIXg94N8KofidIuVPhWFDRe2Og8kMmkLyBRcngzV0dGOSPezKvWf/e0ZD3Mzg720sI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y8yWXoj4kp+RkDLIhbVbFJIPXPw85cYRWmBYntRRWq85amfiv
+	u76dC7iALoKbm/CFtbWYZ3gLNZ7ih2ndnTHi+eba9tWiFsQwOEh73bB2
+X-Gm-Gg: AYBFou1VWj/ORi5hvZiJttGNYdkf0iJFxRNbuHrFtmL9WXyaCV+I4mBiwrIlxiHO54J
+	oseuHAPlFAvzHZEKXNmcUMhbPlWKbslPoykxfZUFpAMyKm8hbfasb5clRbkM2XQYR5Fkz2gTznP
+	ez6IXdvOwJvzwkiwGQUIp4Agv+TJAEeBpV3RG0c59Kod6os/aDpgknrzeK4Dd4AHBQIUIjPg8Oz
+	rysOWD5Ee/b5yBQ7Y+A+17UA+qb/9ft3Klx+9AZn7BoSPgRph7sWQcIXafTBX8uiwt8y8qANk+a
+	9k8JZ7fJfSI7pzDDTzXJVUYL9bn94G7AtTsLa/zhaqxEiJPn74W36QzI1VUKXh4a3h9O9lGifRj
+	gtZGcEMI38tke2hcNDReqtOlOQwzhwZlzgpOr6xpCnAO6Ks44K5MBTOJ/Y04mBv91LkhwWXU4Qt
+	ML/pWE2EznK7+/g7xcHKjXl0yB9iEjC7REUHTslwzuX8gBdFITEE5PMsxTMSuyJZwjaSnwe3rKs
+	r8Tk0/ySDpA6CeFmOKBPgmiwY+QP0Ab35zLOH9wRhQ7SeT58lbCLxsY6OmEhrXTl+3KsdcP0uyk
+	k8OTpP1mLPmyu1VdnnM4C2H6hdDCiYtS4eygOG9REd1LRe2o3BC1xEQyOaKtabW9Peg4WE9pdwm
+	8B5GpNqm9caPIwQQjHZM=
+X-Received: by 2002:a05:6000:420d:b0:48e:7a41:d78e with SMTP id ffacd0b85a97d-4982e7379b7mr6438321f8f.19.1794332130261;
+        Tue, 10 Nov 2026 09:35:30 -0800 (PST)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367ba82csm6445687f8f.50.2026.11.10.09.35.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 09:35:29 -0800 (PST)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: ojeda@kernel.org,
+	a.hindborg@kernel.org,
+	nico@fluxnic.net,
+	rdunlap@infradead.org,
+	grahamr@qti.qualcomm.com,
+	jakub.git@horky.net,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH v2 0/3] kconfig: wrap long expressions in menuconfig
+Date: Tue, 10 Nov 2026 17:35:23 +0000
+Message-ID: <20261110173526.1548434-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,86 +106,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next] ipv6: reset all.force_forwarding when disabling
- all.forwarding
-To: Gabriel Goller <g.goller@proxmox.com>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Le 09/11/2026 à 16:53, Gabriel Goller a écrit :
-> Disabling all.forwarding resets force_forwarding on every interface, but
-> leaves all.force_forwarding set:
-> 
->   # sysctl -wq net.ipv6.conf.all.forwarding=1
->   # sysctl -wq net.ipv6.conf.all.force_forwarding=1
->   # sysctl -wq net.ipv6.conf.all.forwarding=0
->   # sysctl net.ipv6.conf.dummy1.force_forwarding
->   net.ipv6.conf.dummy1.force_forwarding = 0
->   # sysctl net.ipv6.conf.all.force_forwarding
->   net.ipv6.conf.all.force_forwarding = 1
-> 
-> Writing 1 to all.force_forwarding afterwards is ignored because the
-> value did not change, so the interfaces are not re-enabled.
-> 
-> Reset all.force_forwarding too and notify netconf listeners.
-> 
-> Suggested-by: Ido Schimmel <idosch@nvidia.com>
-> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+In an offline conversation, Miguel Ojeda reported that scrolling
+horizontally in menuconfig's search to read RUST's dependencies has been
+slowing down debugging.
 
-There is the same effect if an interface entry is reset:
+Let's wrap expressions (like in the 'Depends on', 'Selected by', or
+'Range' sections) between tokens at the end of the window, such that each
+line begins with the same indentation. Ensure the '!' negation stays
+attached to the left side of the option symbol, and keep the value
+annotation attached to the right side when wrapping.
 
-$ sysctl -wq net.ipv6.conf.all.force_forwarding=1
-$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
-net.ipv6.conf.ntfp1.force_forwarding = 1
-net.ipv6.conf.all.force_forwarding = 1
-$ sysctl -wq net.ipv6.conf.ntfp1.force_forwarding=0
-$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
-net.ipv6.conf.ntfp1.force_forwarding = 0
-net.ipv6.conf.all.force_forwarding = 1
-$ sysctl -wq net.ipv6.conf.all.force_forwarding=1
-$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
-net.ipv6.conf.ntfp1.force_forwarding = 0
-net.ipv6.conf.all.force_forwarding = 1
+Additionally, write a '\' at the end of wrapped lines, to visually
+indicate to the reader that the line continues. 
 
-Maybe the new value should be applied whatever the old value was for the 'all'
-entry (like for net.ipv6.conf.all.forwarding).
+Patch 1 cleans up the existing expression printing for 'select' and
+'imply' (which ANDs the select/imply targets), to properly call 
+expr_alloc_and() and print the output of that function, instead of
+printing a literal ' && '. This is necessary to ensure that any '&&' at
+the end of those lines will wrap properly in patch 2.
 
-Note that, it is the same for ipv4 forwarding:
+Patch 2 makes the wrapping change primarily in expr_print_gstr_helper(),
+which already handles writing expression tokens to a growable string, but
+now also keeps track of the wrapping info in the 'gstr' struct because
+this helper is called multiple times per expression. 
 
-$ sysctl -wq net.ipv4.conf.all.forwarding=1
-$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
-net.ipv4.conf.all.forwarding = 1
-net.ipv4.conf.ntfp1.forwarding = 1
-$ sysctl -wq net.ipv4.conf.ntfp1.forwarding=0
-$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
-net.ipv4.conf.all.forwarding = 1
-net.ipv4.conf.ntfp1.forwarding = 0
-$ sysctl -wq net.ipv4.conf.all.forwarding=1
-$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
-net.ipv4.conf.all.forwarding = 1
-net.ipv4.conf.ntfp1.forwarding = 0
+Patch 3 adds a visible continuation '\' to the end of each wrapped line.
+This is because some line wraps are not otherwise obvious to the reader,
+for example if a line ends with a symbol instead of an operator.
+(Below example uses an 80-column terminal)
 
-but not for ipv6 forwarding:
-$ sysctl -wq net.ipv6.conf.all.forwarding=1
-$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
-net.ipv6.conf.all.forwarding = 1
-net.ipv6.conf.ntfp1.forwarding = 1
-$ sysctl -wq net.ipv6.conf.ntfp1.forwarding=0
-$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
-net.ipv6.conf.all.forwarding = 1
-net.ipv6.conf.ntfp1.forwarding = 0
-$ sysctl -wq net.ipv6.conf.all.forwarding=1
-$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
-net.ipv6.conf.all.forwarding = 1
-net.ipv6.conf.ntfp1.forwarding = 1
+Here, it would be less obvious without '\' (GPIO_TQMX86):
+    Depends on: GPIOLIB [=y] && (MFD_TQMX86 [=y] || COMPILE_TEST [=y]) \  
+                && HAS_IOPORT_MAP [=y]
+
+Note that the 'help' textbox uses the same expression printer as search,
+so this has the side effect of improving the formatting in 'help', too.
+
+In the future, we should consider a larger revamp that would wrap all text
+in the search window, allowing us to safely disable horizontal scrolling.
+---
+Changes since v1:
+- add '\' at end of wrapped lines to indicate continuation (self-review)
+- use expr_alloc_and() instead of printing literal ' && ' (self-review)
+- properly support trailing '!' and leading spaces (sashiko / Nathan)
+
+Link to v1:
+https://lore.kernel.org/all/20261010095001.265759-1-julianbraha@gmail.com/
+---
+Julian Braha (3):
+  kconfig: print the output of expr_alloc_and() instead of printing '&&'
+  kconfig: wrap long expressions in menuconfig
+  kconfig: show continuation at the end of wrapped lines
+
+ scripts/kconfig/expr.c  | 33 ++++++++++++++++++++++++---------
+ scripts/kconfig/lkc.h   |  6 +++++-
+ scripts/kconfig/mconf.c |  2 +-
+ scripts/kconfig/menu.c  | 24 +++++++++++++-----------
+ scripts/kconfig/nconf.c |  2 +-
+ scripts/kconfig/util.c  |  2 ++
+ 6 files changed, 46 insertions(+), 23 deletions(-)
+
+-- 
+2.56.0
+
