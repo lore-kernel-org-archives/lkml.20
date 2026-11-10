@@ -1,104 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304624;
-	b=i8k0l75gQb9kkp3qzPWTgOFEfRMgAf5Q7bfQXNgb9nTaM5eLMAPJlJllfHPs1OqI0HsD
-	 GfteX07+VhaQcZMZt9TpTd9mtMDQk22y3tFPnm9cVR53J+V7PchWWrVPJqy0bdMca/+wq
-	 41JRBG7Z+zKJYkew4vOdJC8ViDUDGprVzcI9eXZy2VGyg3hI5NiE4IO7VaFLX6orIKKk9
-	 NAovDNL0BhMsCs7FhEkPZFZJkiMOb3w+/y+8Zc2nEBaeMsUa4EHKcYeeHp8Dqjc5sptJ1
-	 M3pPmhbctiOUGQrdR14mHEXOkkX/Bp5rne8P6bX8D4ArF0FUFtIjc5oMAsHBLq/lqRA==
+	t=1794304628;
+	b=Xea7Qd9fp3waprNmPHQOh+H/gsOK68DxhfnDf3f/55VGRH3YfA0z+swO1TulJ5GxK5iS
+	 RAwqx7rHi/BGJ5+wwOAgbQgAcB6l03sww80xzK23JfP6C26DC+Iw6PGE0S7tyQrnTjLM4
+	 m9Q5a1R8yE/D7i7AEcSVvNf6amyZBOORxj7XQDHOK/WRQXyY7aL2QYrWJiMDYCwl8FsH8
+	 13Gi5Bn4s1LRJHevnoQx+AdgK0DyloIGLZYudiH6uexA4H8M4GrwsSyvoVE+MbOdcLovq
+	 auY7QFqIQ6vz82sohKg2rjRodpmXvDwsabTbwcamJB/iVGmuLkjNaLvZ9m3yosqwJLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FQVoN2DIK9tE472IrCzkbLgC7VY9Ri60XsntnBv9TC4=;
-	b=UYslkY5H2KCTy5AC4XGwJlsY7tzim/SZTNlrEnpf4y4gPoAWyP+bTWqr5S7qf9Dl8uJI
-	 +nt/56W6A3X8Ytoe96r080cCaYngEl4VEbWH3liW49FkAvVLRlr0HhibqEfIYWezXnKTp
-	 TMJCI4JnQ3l0DUWo0mOdY+augHF6Jsyq87dT6Sqo1PmQ/Pshg80YOjDv9gKFqLBveJaUt
-	 z5VuytQRLWpV1QaqbtrdVXRe6IQRftKGBUM2NeKbOUKj+CYNauHVyQsj108Jy2PPtz69u
-	 m8bvTDiciNPOwFgPO5lh3Mwfp6Dv61VwHkEXe/0EzbBx1a8Xnp0cSdODEZcTer4bnvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304628;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=XDw9TAxp8+PVmYmAoppiNo2R12oIkwagkMS4XyFHbSY=;
+	b=qVzb0Xa4U4UuwQMDHjdXAQvE/OAAsQZke6lWxOxEPTzIceN5lKJ/rei+DJJ9ceTY6+CR
+	 nE7wt3+1Rl3Dfi4rj2a1JKxnQaiEX8orA+Y75PmLQgWdhbJ+LKlBxT3zTE6aVmtRZ5tNw
+	 fr7cf0Uvn4Ofav7noU7pTRFiE0w8itv9iF8Ch42l4xHXXQz/22CI4znR8XveDjcBaNEE6
+	 CtRRMXm5DMqX81jH/DRhBEoCAvLZhTQHZ0akQtL30tX6SW6ThtjpRjRvwfz36o/Hv9lmU
+	 YsfKtelXqfNWrH136UweSqTtMOpNXSEmg4c4nA/yR6u+wUqXoG59KqGl7RCDlnBz0fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vYaLbiLH;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FUPAm8N1;
+	arc=none smtp.remote-ip=154.81.10.40
+Received: from mail-m1040.netease.com (mail-m1040.netease.com [154.81.10.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA49606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AA49606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE49B606A33D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE49B606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vYaLbiLH
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so2752363c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:57:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794304623; x=1794909423; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FQVoN2DIK9tE472IrCzkbLgC7VY9Ri60XsntnBv9TC4=;
-        b=vYaLbiLH+Ml7HUhkCVIdy0ckcfKS15GmMl7M7vvVOk0a8iaoCp0Y7GZH41N9ZjnUrd
-         w/7+FI4zgMUdIBMi9nDw8JfoowjqGh2gDp6X5pfyMcV09Dl9S0rFtTYEZCa0QJH406il
-         9g0N5dNNj4OrmBItDlJ/akSL4nT7epVTNvZsi/N4BqDnoOOqMGacDwgSkOdOVdTa3dvI
-         mkAFmiW41h/XOhkxNvW4gAB7I9f0B5r/2JJUJBzZJvhgHOeX6zliPiUm7rrprcsO4vAc
-         q9bZeGosL2rO5XL860sLKyG9P/cPcgJD3mLXGIf48kgkMUqR8Qgi1igL3i+rRoyQ+L/z
-         OSrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794304623; x=1794909423;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FQVoN2DIK9tE472IrCzkbLgC7VY9Ri60XsntnBv9TC4=;
-        b=ygi4dFbY8YYO89CsZV4j72aSS5OdFffSPqFI7dADNdHaDVppcp/56PfkaE04GrGKPo
-         +YIKMJbGL3WJPcAuqN26GFvPhuQ2ik02KAw8eFsiQ7PuecUjO6mIJsq2Oyxsjop7+tak
-         M0ETJekWvlTYHX9LVFIPQhblN8yLghb+4VAYFHhYXPEtoyr2VUmltN4r1avqcg2KLkUn
-         b3GtRQAGs7MiZnBpRmJVQCbuN7pfkdGfVXy773bnpJPjrAmkCnZA+BLKZtviWlApCN74
-         dE29+girmkH0vV8upeZgS4A57u4L2wIcGhB45e5FUoIoKgZomcNlYXjCPc4FJCUusVGU
-         DSLw==
-X-Forwarded-Encrypted: i=1; AL+hErGq1Cma/yMbE0dgBPqZ3Kn+TWdVMkcW4D0WoScHiqCIATIoqjxVQbd+PJWIC3Hvo8rJCwplpS42a5uJwSU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IEdhozGxvpo5j0oZZvh7+f61pdElsbFGl4SKTU7nwHYWHbbfa
-	GG+kqkn8Hz1qeDQZEpr+jIglS77AG0BCKu4OYrZTu7ee4B7RaafxAPHn
-X-Gm-Gg: AYBFou0Fms80go1SPrUficTTnmFD88P1gtZ8BgSzgPoCZHk57fD9DloIglBIcz586Vr
-	2wUJ0Wnaf820adX92pKY1uu4iPh9a12W0R+wxvYxMvWEYTbEZG9O/+GCjGuiyVYqVnCotz2J2bI
-	IFgignn8Ypr84LhgMUZQWlOY/10yjIdGP2IfhzuGHW1oXWFA/w+6Jb3P8b/7Pkb3JLJuOxjBGmB
-	8aNaAt2d9vFKbhgo0Ma6evF6JqAc9w32yzh27s6BzFawoqbhi+krMJtmCJcD+yiRXfuoMyhCG7i
-	yVIyeMJCAEkDf2jm+idJs3rOrwLAUOptzelSFkEZ7isByX18jKljBtDWKfjQdUo80nkm2SaQEN2
-	VURlTqy9y7i7WUFPO0Ly1SjMsiL8aKJAlktxiQ9YTWz4aCeORp2GQeuViAbcXj6odP5LadgPD68
-	ZMFh+GZXOIUHd6B60L03k6a9OI5DHB1Lm/Rm7DJh4BUEF7w/kcf5mLkWkChpt8wd0hWQZ5nm5gT
-	3REeczUHX3msusR3RRCY/dPRfbyXLZpgMjDMbyOfU+uM8s8znhyx3nz7rzVt1rNYAOiwfvWoA0e
-	CAaSTtAzxdfOCgV/wBIQmJBUngQ6FVt0J9mkm1PxszJgxNrFoqEmO0iQ/b5Y17q6MPPoKmkI43H
-	97wmNpqjC8AowVcQK+uUXVlR/tXkr4LpFFPJOk15DcIr7
-X-Received: by 2002:a05:701b:420c:10b0:1b2:6cba:7f48 with SMTP id a92af1059eb24-1b3b5fff737mr3087655c88.31.1794304622608;
-        Tue, 10 Nov 2026 01:57:02 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b75d42sm5203801c88.20.2026.11.10.01.56.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:56:57 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Maxim Kochetkov <fido_max@inbox.ru>,
-	Andrew Jackson <Andrew.Jackson@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Tim Bird <tim.bird@sony.com>,
-	Yuri Zaporozhets <yuriz@vodafonemail.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 4/6] ASoC: dwc: Fix DMA fifo_size calculation
-Date: Tue, 10 Nov 2026 16:55:23 +0700
-Message-ID: <20261110095525.504660-5-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110095525.504660-1-phucduc.bui@gmail.com>
-References: <20261110095525.504660-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FUPAm8N1
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 542714690;
+	Tue, 10 Nov 2026 17:56:54 +0800 (GMT+08:00)
+Message-ID: <d1e3a4a9-7cb2-4345-86d9-f8d1c0156b42@rock-chips.com>
+Date: Tue, 10 Nov 2026 17:56:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,61 +48,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/8] drm/rockchip: vop2: Find the first mixer of a video
+ port with Esmart3 too
+To: aiyengar1990@gmail.com
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
+ <20261110-vop2-fixes-v1-6-d336e9dd90d3@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261110-vop2-fixes-v1-6-d336e9dd90d3@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1c4e3a1d603a7kunm6c01c8eb715da2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGR0fVkJOSE5LHhpPTBhDTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=FUPAm8N1nOe1ZJvKxUl85v9FSy633IoHhaFi9+BagYYZlyk5Vkd1HjGqcf0KxVFMf6Gm+4uR17d1NKADyKNA1BHrHw+5P7lp4tmMVhQSo/JRnDHzmo/jDhCFTg1aWOd6RCwJr7GyfyQs+6TzIFou49nk5CaHU7+4nXwdYxtciqc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=XDw9TAxp8+PVmYmAoppiNo2R12oIkwagkMS4XyFHbSY=;
+	h=date:mime-version:subject:message-id:from;
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi Arun,
 
-fifo_size should be the FIFO size in bytes (depth * width / 8), but
-the code shifts by 8 instead of 3. For capture the parentheses also
-make it always 0.
+On 11/10/2026 3:18 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> vop2_find_start_mixer_id_for_vp() looks for the first layer that holds a
+> window of the video port, but for_each_set_bit() takes the number of bits
+> to search, and ROCKCHIP_VOP2_ESMART3 is the highest window id, so Esmart3
+> is never found. A video port whose bottom layer shows Esmart3 then starts
+> its alpha setup at the mixer of a higher layer, or, if Esmart3 is its
+> only window, past all layers, and programs mixers of other video ports.
+> 
+> Search all window ids.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index 83203d18865b..2843bfb36341 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1889,7 +1889,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
+>  
+>  	for (i = 0; i < 31; i += 4) {
+>  		match = false;
+> -		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
+> +		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3 + 1) {
 
-Use depth * width / 8 for both directions.
+It would be better to add `ROCKCHIP_VOP_MAX_LAYER_ID` after ROCKCHIP_VOP2_ESMART3.
 
-Fixes: 52ea7c0543f8 ("ASoC: dwc: i2s: Add StarFive JH7110 SoC support")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/dwc/dwc-i2s.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+>  			win = vop2_find_win_by_phys_id(vop2, phys_id);
+>  			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+>  				match = true;
+> 
 
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index c5773f191db7..b0d3413c27d2 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -664,14 +664,14 @@ static int dw_configure_dai_by_pd(struct dw_i2s_dev *dev,
- 			idx2 = COMP1_TX_WORDSIZE_0(comp1);
- 			dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
- 			dev->play_dma_data.dt.fifo_size = dev->fifo_th * 2 *
--				(fifo_width[idx2]) >> 8;
-+							  fifo_width[idx2] / 8;
- 			dev->play_dma_data.dt.maxburst = 16;
- 		}
- 		if (COMP1_RX_ENABLED(comp1)) {
- 			idx2 = COMP2_RX_WORDSIZE_0(comp2);
- 			dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
- 			dev->capture_dma_data.dt.fifo_size = dev->fifo_th * 2 *
--				(fifo_width[idx2] >> 8);
-+							     fifo_width[idx2] / 8;
- 			dev->capture_dma_data.dt.maxburst = 16;
- 		}
- 	} else {
-@@ -711,7 +711,7 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
- 		dev->capability |= DWC_I2S_PLAY;
- 		dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
- 		dev->play_dma_data.dt.fifo_size = fifo_depth *
--			(fifo_width[idx2]) >> 8;
-+						  fifo_width[idx2] / 8;
- 		dev->play_dma_data.dt.maxburst = 16;
- 	}
- 	if (COMP1_RX_ENABLED(comp1)) {
-@@ -720,7 +720,7 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
- 		dev->capability |= DWC_I2S_RECORD;
- 		dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
- 		dev->capture_dma_data.dt.fifo_size = fifo_depth *
--			(fifo_width[idx2] >> 8);
-+						     fifo_width[idx2] / 8;
- 		dev->capture_dma_data.dt.maxburst = 16;
- 	}
- 
 -- 
-2.43.0
+Best, 
+Chaoyi
 
