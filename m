@@ -1,79 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794281164;
-	b=UJFaFhxajuMfJBMVMaLV5nBroifqi+CBzIfXEBqEoYKYTFi+lGJRtsDIlYdoQg6/mZMR
-	 YvS+qf9pFWRku50w4kx7J+DESYc7h2OhkZheFX7iycYt4OkxNXgSPYJycbkzXMUOSkpTq
-	 43iZDuIwGU67Nslt4Kpg/XQtyoPCocGYGmTN5i+lmCG5NfllmhVCPcmsujVgH0Qu5jd/i
-	 2nNLD/FOJk57HioJtOZFftwesqrfs5GVb1PpMWysNuKHnPZe1vNy494xicyq8dWKsCZ0G
-	 bhxtv31f0WMpfGxJ9sK8OKG+m/jYnWxd1VsM0lOy+9ktRanTZa9lUp+UyvSuePBN9BQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281164;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4HI+KyCMEDjW9zsyCeezglOrOMW4ap3W/K4vONE6ztA=;
-	b=MGWNoKTpDkMMgAecw02v4KOkexpAOr6bTWQRVylJ0A5yrqXXqygPxaIyKRRcZ9dYb7IC
-	 KMc6OVuXBW63ycS8g8ZO+aj8LS1afpZ5WvzVW787dWla3nc5aYt9p3ltxmFLBPK/Ud0Fm
-	 IQkhcnWY6pb7uYsR+N0irOzxGf84AsSRiJ2oss9otlOWgpUEfq1LN0n9zAGCyw2Y31m3o
-	 BWvG4YbsNvp9cOyemF7iN8gQHDsyXbX+r9D4CDikaXVAmWeuKI4V9YzixbO5kCP/aVtts
-	 ZzueXDVMyb6oOKsQzGQZTG/b1DMsqcIVeTYmWoQmCU/v8LcVl04X5d1h3sm+mroQSGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EcT+Yz4T;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62ABD606A330;
-	Tue, 10 Nov 2026 03:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EcT+Yz4T
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794281164;
-	b=vonfAwBXSXDIRgPdbBIC/monLynYsIsMs77/44x7N93eBstujZlBwlpWgnZmSp2d2PkX
-	 ONlLazOtxjiTmQ8kbJCbGJxidGV88dNEKhDAI8kehT8ltddsimlJjiNA6Zj9FWFQd8HrM
-	 Y8puVD1PCh/sCib4RFWtAlwbVQ5WpR9P7BEmaqZhtUu0u41LmWYjjACOmnoOh2xFDBFtn
-	 Fk574ZUjzUoSeywvaVMfxF9u0Y4sKx5VRnReRlxjaXnlewaRRaAsjg0mrAnc0Z/9xtQG4
-	 w3NtjSfML5SuiIwCxW1LlL82YZQMUbi1uLy4/1ID6jR5zN5qCcfQogequAFur41nWew==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794281164;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794281376;
+	b=BDWxOeEESbLlVQfB4ApjhxHPdoTRtuw8zAEgEyws3w4j4HM5izNxRTOFGdIQNaMaHUyk
+	 qHTriXiEP+Yfqc5G6jkf39oIa4rLfqU9YgcYD8uQJF3Y9B3HYqOruksu3lk6c3J9nEnJy
+	 HKimX4PEI/kutwpsHZuV3g+IeBsyhNih2pBBHb5wFIb2QvS+S/2loxDclJBOFuwiEKIo/
+	 APd/AIn+wMDxUyUN5uz66OIUoNUk9/MiQdP2XUFIxc8XgRH01zWzkKqXm/V6t5dnTnQAR
+	 aWJYHbFvZyvj14oyS85qLHh5ZeqbvFUiX+q3x2MaC/iiJfO1zPFsyZEZiInCovtRQ0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4HI+KyCMEDjW9zsyCeezglOrOMW4ap3W/K4vONE6ztA=;
-	b=vCRAbr36WfqRN6Mh77RkrMv1FVbHYK3nDDxyTrSoaj1Sj9qVB5KTbJv7xaOydakR9InW
-	 SJoYOc0FDfg/RM1dTzC1wHc3wmIjbPa2G0E9vFbV94ToAzUat0TcXDx25XBiUhaOgnq6A
-	 MJjS1uNc8hvMfd+7HoWu+FyC6xAFgO42IyU2xgxc4Ir2LVgnNwNUBfbJBEn78Nk991Mj4
-	 2xO72ywpNUAlKrX3zXjNPJOR90w/PkRnlrwWyCbSA+xVuaHoXXnOO5ARi8ykSqeDF09sg
-	 ZX7vs42g9shpaZUIKzE+QmAkEKg/i+486dlCeZlEL/0ry4o/3hV33nZ9t3TuVOb0q8Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=EzW2wBxhFd3AZgIdQVNZpp+frtAfuu8T5OooRMQocqk=;
+	b=yXpuAFL6EO8yyiFrjxluXG+dGMuIWmTCaEm1OiutSTb+YGyNa0M0yLHxgG2ZHDCrlSX8
+	 9aZqGXA4jfAW5ymBE3eCdiBqr2vcuF7T58GMZcjsntANIEYbm/YRkEqNBavFUpsgclTI8
+	 wRgkwn/YyXbhID07IHbvQY6BEn3m5SWy5wyphy6N5Om7ZiwgRIfkc24tHIqzUuIA8p20r
+	 /o9et7zY8UPN44Lgese/g9wCa/Tg3v5NPyDqt2iMFq0sjFwK93r65gtUXT08+pBFUnTBM
+	 Dwecqthq28OeUQUUgNsSyJ/YsNuuYFG+ufYtKvSyruKuYL4zViUCBYAFZPvE7iX8HKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IL9qculF;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 809141F0089F;
-	Tue, 10 Nov 2026 03:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794281164;
-	bh=4HI+KyCMEDjW9zsyCeezglOrOMW4ap3W/K4vONE6ztA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EcT+Yz4TuO9gk77/dP1DTYZWrsqLa6q3eyCZpGxAD1rxCaM0tGtIyW2pL0R/UxqFu
-	 HRDg1O5wKM+q6bl81/MhRXs6rqtAMJKxrH0LLyT2KAdH5alpOTqNw7lAd3/nKNIjQ8
-	 Ncy7tjs3t22RQiGKdGL5tKeOi1mr+x7oOlGWwfGyXHIexA67k/Lz0xdT22ExVUZ7Ez
-	 dyk3jOTasQj9CEQ5RdJAH3AaSMEDsqowdnxkZuszQzZYdKwtPI9Rh78uxnRiJMer1k
-	 sxkn4bmvKi18ucfoGS2omZeUbmGadk9HRyNu7rixCUNU+Zs/K3mNk7r3yqqi9Kyztk
-	 OT+/3gNHVVBJg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6AD6487AB;
-	Tue, 10 Nov 2026 03:26:02 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 03:26:03 +0000
-Subject: [PATCH bluetooth-next v2] Bluetooth: L2CAP: validate MPS and MTU
- in ECRED connection response
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1AD606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1AD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IL9qculF
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so676856a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:29:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794281375; x=1794886175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EzW2wBxhFd3AZgIdQVNZpp+frtAfuu8T5OooRMQocqk=;
+        b=IL9qculFz6WDOby3HNcHY701na5d3o23ITB+8IUhqC/UpHuWOyLMWbThTJ2+5bXih8
+         93vDIlWgw7gVQUyC5qyTddkbvJB6/rzQq25tPhRnBkgDMH3xXo5ku+9taDtwGF6TrWSu
+         TPCppNTtQZJTKBmXVTGPulINILQrmJsAiAOgFuVWPwqYwf3qy6lmCiseAyOightQHNZ3
+         HuC6FqdqmUW54vK2k8ztiMR1c5wF9uKYh1yz4WGZIH/+sAklPD+XhokGxrH4cvk/N//6
+         qxihoD0FEw1MUg49z0UWfcAdK9T9nyQ+bQVS9E/A+dXjulLtEmgCJgK5C0jMBfZLa5DP
+         /CTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794281375; x=1794886175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EzW2wBxhFd3AZgIdQVNZpp+frtAfuu8T5OooRMQocqk=;
+        b=PqaTbSfPpojAnTQqzl88iJzUb/PjYjQg+vHWqb8VXQ3TpQoDTEjwBc9xy20fZZbOLY
+         lf4iSMQ2WA0iI5sArluDCpR3RLQs4GE2W7/m/kTpcI5qcqAT8885nUhlSE3AFzUOVPaH
+         P3MAgxjbF2jOYAku4MG1r7rDLedAmBFj3y6RGjh0XwH6l41VQbxkfiUbY16srcxxC95C
+         mbtCewd/DSdTtj1Tyc4GOUbXATRls0KQSMByu18A5T/FBl4jq6sJ7nJ+KP6Y6uqfMiM8
+         PS+I+5HN/7GXClLo+Sw+4OnYEkVwmIiKE1AhqdvM1AG0lQIc8aTam9hM8DQVTbyLEeCI
+         ED8g==
+X-Forwarded-Encrypted: i=1; AL+hErGFth3npFWnVSrb0Csn6nHh37xMPpKKHxXZz1amEgf8W5PvkfP7gKQllV6p/UcQv9WZLVXTi3qYaEqSZ00=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+g75SL6BPtl+2QOWcfKdk6FBn9mnyEk/Q/lYF2tgBempwxc+0U
+	uPF073jdNMLCFv9j4mzvyDsoXBz1f83/1cSli8IMZ1+uzn7a41Tlo1gQ
+X-Gm-Gg: AYBFou3W8NNVaXa79UXtXopUg/9/CxG8PGSSzPuTLb/RlMlux3pTvy/iwudNmfAiIWF
+	3C/LConxEb5S0DOdFntqnPMGCa070p3ephVmQo+Bn/wcr5aawm6XpM7d1mox5Lpo+9kkoga/rnX
+	q8/JIBq9xutYqMLVCLG1aEDQOJNuox1Dp0APSPL/KoQy6BYSdLTrU1V4897oRXP1sl148jhpg2m
+	i+B2xXsxZYZ8LUM5/J+7I/LoFt9KuVCj9yzSQUPs0RnDCPCFCtG3ybyYlBXl6claaLRPVxxPFBs
+	0hKFAD8l2iv0+MGtPS/7qw9iYk12xVmWALjOS1n3aQauwKszdt3yZVEcU3gj7duUc9T9JOTEP1n
+	PxaN6xYUrhJw9338FLZ+xSZneMp9CsNv5/Tg257anZWNG9Ynm2peFJEbjGvCAGBvHmnlBWvV1iA
+	D9avwp+vyLHavaQtSGjcO3LC8vwWucNne1t5xtqn7BREIG2vjMRcBEdXsmwW/TsXvXy+rKh4q/I
+	2omso7FomUb+xAmWTDd7o82ugyu3A/koC4BLAxbPYfZw2oMre20KkdFU2mi1pGZmDcfL2fh+mMc
+	WCEFhrVyvyIlzkZo8Pc1qkO386nDZsWVcLy1uCGgxnyOITixYjhEiJjMRdKJBC5HavtywyqCo8q
+	TuM9y/YNLZcUuVA74aN+v6uxJ
+X-Received: by 2002:a05:6a21:3a94:b0:3e2:aa13:2e4f with SMTP id adf61e73a8af0-3f190281bbamr1075007637.56.1794281375265;
+        Mon, 09 Nov 2026 19:29:35 -0800 (PST)
+Received: from localhost.localdomain ([240e:46d:1d00:5ed4:58d0:d294:d44c:6ae8])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab21835fsm336973b3a.42.2026.11.09.19.29.24
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 19:29:34 -0800 (PST)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shakeel.butt@linux.dev,
+	roman.gushchin@linux.dev,
+	yu.c.chen@intel.com,
+	zhao1.liu@intel.com,
+	tim.c.chen@linux.intel.com,
+	lizhe.67@bytedance.com,
+	ziy@nvidia.com,
+	mgorman@suse.de
+Cc: bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: [RFC PATCH bpf-next v4 0/4] BPF-based per-cgroup NUMA balancing mode selection
+Date: Tue, 10 Nov 2026 11:29:09 +0800
+Message-ID: <20261110032913.71974-1-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,102 +120,415 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-bt-ecred-mps-fix-v2-1-48c5ee28fd8a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMqO8moC/3WNTQ6CMBCFr0Jm7RimCoIr72FYQJnCJEBJWwmG9
- O427F2+v+8d4NkJe3hmBzjexItdklCXDPTYLgOj9EmDylVJlFfYBWTtuMd59Whkx7YwVPU6L2+
- qhjRbHSf7RL6hmz4crA0jLrwHaFI+ig/Wfc/Hjc7Wf/hGSMiPO9WdMSVz8RrmVqartjM0McYft
- ExJTMAAAAA=
-To: joasantonio108@gmail.com, luiz.dentz@gmail.com, marcel@holtmann.org
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794281162; l=2807;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=41c1pMO3EYoT9jgOM2ha+yJ4QeOIoB1nBmapQHpxbjA=;
- b=xcFp+YVZoXkpoInhPt0D+YQxpcGwAPodG0vle5zTsQrrORzV6s5BVdGGGhmGYgWTTTk/n7iKM
- K+yAGwUSaLbBPEG1F6Bin5TDOEr/ynsOMcViu1mRKVLWjl9SaXZxJVF
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Problem
+=======
 
-l2cap_ecred_conn_rsp() stores the MTU and MPS from the peer without
-checking them against the minimums required for enhanced credit based
-channels.  The other LE and ECRED handlers (l2cap_le_connect_req(),
-l2cap_le_connect_rsp(), l2cap_ecred_conn_req(), l2cap_ecred_reconf_req())
-all reject values below the minimum.
+In our large fleet of Kubernetes-managed servers, NUMA balancing has
+historically been disabled globally on each server. With the growing
+deployment of multi-socket AMD EPYC servers, cross-NUMA access has become
+a critical performance issue, which led us to reconsider enabling NUMA
+balancing.
 
-With an MPS below L2CAP_SDULEN_SIZE, the pdu_len computation in
-l2cap_segment_le_sdu() wraps:
+kernel.numa_balancing is a single system-wide sysctl. Latency-sensitive
+workloads want NUMA balancing disabled, while NUMA-aware workloads want it
+enabled. No single global setting serves both.
 
-	pdu_len = chan->remote_mps - L2CAP_SDULEN_SIZE;
+Design
+======
 
-pdu_len is then clamped to the SDU length, which l2cap_chan_send() has
-already limited to chan->omtu, so nothing is over-allocated and there is
-no memory safety issue.  The result is that the whole SDU is sent as a
-single PDU, larger than the MPS the peer announced, and a channel is
-established with parameters the specification does not allow.
+Core structure
+~~~~~~~~~~~~~~
 
-Apply the same L2CAP_ECRED_MIN_MTU / L2CAP_ECRED_MIN_MPS checks that
-l2cap_ecred_conn_req() uses and drop the channel when the response
-carries smaller values.
+This series follows Tejun's suggestion to store the existing NUMA
+balancing mode bits in the cgroup's memcg and expose them through BPF
+kfuncs.
 
-Found by LLM-assisted manual code review.
+A new field, mem_cgroup::numab_mode, holds the per-cgroup NUMA balancing
+setting. Two kfuncs are added to set and read it:
 
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-v1 claimed that a peer-supplied MPS of 0 leads to an oversized skb
-allocation and potential memory corruption.  That was wrong, and I
-apologize for the noise: in l2cap_segment_le_sdu() the wrapped pdu_len
-is clamped to the SDU length, which l2cap_chan_send() has already
-limited to chan->omtu, so there is no memory safety impact.  The
-remaining problem is conformance only (PDUs larger than the MPS the
-peer announced, and inconsistency with the other LE/ECRED handlers).
----
-Changes in v2:
-- Correct the commit message: no memory safety impact, drop the
-  overstated claim from v1
-- No code change
-- Cc linux-bluetooth, which v1 missed
-- Link to v1: https://lore.kernel.org/r/20261108-bt-ecred-mps-fix-v1-1-e7419bff6ee5@gmail.com
----
- net/bluetooth/l2cap_core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+  bpf_numab_set_mode(): set the mode for a specific memory cgroup. The
+                        update is rejected with -EOPNOTSUPP if the cgroup
+                        has no visible, online memcg. Valid
+                        values are the NUMAB_* mode enum and
+                        NUMAB_FOLLOW_SYSTEM (-1); NUMAB_FOLLOW_SYSTEM
+                        uses the global sysctl state.
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 4dd56e007..c3b8f0f46 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -5711,6 +5711,16 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 				break;
- 			}
- 
-+			/*
-+			 * Validate MPS and MTU per BT Core Spec
-+			 * Vol 3 Part A Sec 10.2
-+			 */
-+			if (mtu < L2CAP_ECRED_MIN_MTU ||
-+			    mps < L2CAP_ECRED_MIN_MPS) {
-+				l2cap_chan_del(chan, ECONNREFUSED);
-+				break;
-+			}
-+
- 			chan->ident = 0;
- 			chan->dcid = dcid;
- 			chan->omtu = mtu;
+  bpf_numab_get_mode(): return the combined task-side request of the
+                        cgroup's effective memcg and of all its ancestors.
+                        NUMAB_FOLLOW_SYSTEM is returned when no request is
+                        present. A cgroup without a memcg resolves to its
+                        nearest ancestor memcg. The following section
+                        describes how the request is combined across the
+                        hierarchy.
 
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261108-bt-ecred-mps-fix-a5f18dc06329
+Both kfuncs are registered for BPF_PROG_TYPE_SYSCALL. bpf_numab_set_mode()
+is KF_SLEEPABLE because it takes the mode mutex and the jump-label locks;
+bpf_numab_get_mode() does not sleep. The mode values are exposed as a BTF
+enum, so a BPF program can use NUMAB_FOLLOW_SYSTEM and the NUMAB_* mode
+names without hardcoding private integers.
 
-Best regards,
+Effective mode semantics
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+In the current implementation, a memory cgroup can be set to the
+following modes:
+
+  NUMAB_FOLLOW_SYSTEM (-1):   use the global sysctl state
+  NUMAB_DISABLED (0):         disabled
+  NUMAB_NORMAL (0x1):         normal mode
+  NUMAB_TIERING (0x2):        tiering mode
+  NUMAB_NORMAL_TIERING (0x3): normal mode plus memory tiering
+
+The diagrams below assume that each cgroup shown has its own memcg. A
+cgroup without one resolves to its nearest ancestor memcg, as described
+in Storage of numab_mode.
+
+Except for the sentinel and the opt-out described below, the effective
+mode is the OR of this memcg's mode and that of all its ancestors.
+
+- An opt-out wins for the task side and binds the subtree
+
+  A DISABLED mode anywhere in the cgroup's ancestry opts the cgroup's
+  tasks out entirely. Given:
+                     Pods (normal)
+                     /
+          Pod-A (disabled)
+          /           \
+   cgroup-A1(normal)   cgroup-A2(tiering)
+
+  The effective task-side mode for tasks(*) in cgroup-A1 and cgroup-A2
+  is:
+
+                     Pods (normal)
+                     /
+          Pod-A (disabled)
+          /           \
+   cgroup-A1(disabled)   cgroup-A2(disabled)
+
+  (*) The folio side is described below.
+
+- NUMAB_FOLLOW_SYSTEM is skipped
+
+  Given:
+
+                     Pods (normal)
+                     /
+          Pod-A (-1)
+          /           \
+   cgroup-A1(none)   cgroup-A2(none)
+
+  The effective mode for tasks in cgroup-A1 and cgroup-A2 is:
+
+                     Pods (normal)
+                     /
+          Pod-A (normal)
+          /           \
+   cgroup-A1(normal)   cgroup-A2(normal)
+
+- For all other modes, the effective value is the OR of this memcg's
+  mode and that of its ancestors
+
+  Given:
+
+                     Pods (normal)
+                     /
+          Pod-A (-1)
+          /           \
+   cgroup-A1(none)   cgroup-A2(tiering)
+
+  The effective mode for tasks in cgroup-A1 and cgroup-A2 is:
+
+                     Pods (normal)
+                     /
+          Pod-A (-1)
+          /           \
+   cgroup-A1(normal)   cgroup-A2(normal|tiering)
+
+- The rationale behind these semantics
+
+  The cgroup hierarchy semantics invoked here are those of resource
+  limits: an ancestor's limit binds every descendant. That is the right
+  semantics for limits: a limit partitions a shared, finite resource,
+  and what a descendant consumes comes out of its ancestors' pool, so an
+  ancestor's limit must bind every level below it.
+
+  A policy request is a different kind of control: it is a preference
+  about how the kernel should treat the workload, not a quantity drawn
+  from a parent's pool. Expressing it consumes nothing, so the limit
+  semantics does not carry over; the question is only how the preferences
+  of several levels should combine.
+
+  We chose the additive interpretation: a descendant may ask for more on
+  top of what its ancestors asked for, while an opt-out at any level
+  still wins: DISABLED anywhere in the ancestry caps the whole subtree.
+
+Task and folio keying
+~~~~~~~~~~~~~~~~~~~~~
+
+The NUMA balancing knob is consulted at some callsites with only a folio
+and no task, and at others with only a task and no folio.
+
+- Task only
+
+  kernel/sched/fair.c: task_numa_fault()
+  kernel/sched/fair.c: update_scan_period()
+  kernel/sched/fair.c: migrate_degrades_locality()
+  kernel/sched/fair.c: exceed_llc_capacity()
+  kernel/sched/fair.c: get_pref_llc()
+  kernel/sched/fair.c: get_scan_cpumasks()
+
+- Task and folio
+
+  kernel/sched/fair.c: should_numa_migrate_memory()
+
+- Folio only
+
+  mm/memory-tiers.c: folio_use_access_time()
+  mm/mempolicy.c: folio_can_map_prot_numa()
+  mm/migrate.c: folio_migrate_flags()
+  mm/migrate.c: migrate_misplaced_folio_prepare()
+  mm/migrate.c: migrate_misplaced_folio()
+
+Therefore, the helpers are split by side:
+
+  folio_numab_effective_mode()
+  folio_numab_in_*_mode()
+  task_numab_enabled()
+  task_numab_get_modes()
+
+Another concern is how to handle callsites that have both a task and a
+folio. The following anchor resolves it. Both the user fault path and the
+kswapd demotion path reach folio_migrate_flags():
+
+kswapd demotion (no task):
+
+  kswapd
+  + shrink_folio_list
+    + demote_folio_list
+      + migrate_pages
+        + folio_migrate_flags
+          + folio_numab_in_tiering_mode
+
+Fault path (user task):
+
+  do_numa_page
+  + mpol_misplaced
+    + should_numa_migrate_memory(task-m, folio-n) (A)
+      + task or folio?
+  + migrate_misplaced_folio_prepare(folio-n)
+  + migrate_misplaced_folio(folio-n)
+    + migrate_pages
+      + folio_migrate_flags(folio-n) (B)
+        + folio_numab_in_tiering_mode
+
+folio_migrate_flags() must key on the folio, since kswapd has no task to
+consult. In the user fault path, both should_numa_migrate_memory() and
+folio_numab_in_tiering_mode() are called. Since both refer to the same
+folio in this context, keying on the folio at B but not at A would be
+inconsistent. The rule is therefore simple: if a folio is available, key
+on the folio; otherwise, key on the task. This also keeps the keying
+robust to future refactoring: if either folio-keyed function is ever
+reached by a kernel thread, the answer does not change.
+
+Storage of numab_mode
+~~~~~~~~~~~~~~~~~~~~~
+
+Some cgroups do not have the memory controller enabled:
+
+Given:
+          Pods (+memory)
+          /
+       Pod-A ()
+        /
+      cgroup-A1 ()
+
+cgroup-A1 has no memcg. Given the task/folio split, where should the
+mode for such a cgroup live?
+
+- If the mode were stored in struct cgroup and setting it on cgroup-A1
+  were allowed, tasks in cgroup-A1 would use cgroup-A1's request while
+  its folios would use Pod-A's memcg request, which is inconsistent.
+
+- Storing the mode in struct mem_cgroup avoids that: cgroup-A1 cannot be
+  set, and both its tasks and its folios resolve to the same ancestor
+  memcg (Pod-A).
+
+For consistency, the mode is stored in mem_cgroup, setting it on a
+cgroup without the memory controller enabled is rejected with
+-EOPNOTSUPP, and both task and folio lookups resolve a cgroup without a
+memcg to its nearest ancestor memcg. A request is effective only while
+its memcg is visible and online. Disabling the memory controller or
+offlining the memcg clears the request, and lookups skip such a memcg, so
+a pinned memcg cannot keep applying a stale request. A re-enabled memcg
+starts transparent.
+
+Shared memory semantics
+~~~~~~~~~~~~~~~~~~~~~~~
+
+With the mode stored in the memcg, the longstanding shared-memory
+problem in memcg has to be addressed for per-memcg NUMA balancing as
+well.
+
+Given:
+
+    cgroup-A     cgroup-B
+           \       | (charge)
+           Memory_shared_by_cgroup-A_and_cgroup-B
+
+A choice is required when the NUMA modes of cgroup-A and cgroup-B
+differ. Since the folio-side lookup starts at the folio's memcg, a task
+in cgroup-A operating on this shared memory uses cgroup-B's folio-side
+mode. If DISABLED were applied to memory, cgroup-B's DISABLED would
+prevent cgroup-A from promoting the shared page. We avoid that by making
+DISABLED task-side only.
+
+In our experience, NUMA balancing is mostly disabled to avoid the
+potential latency spikes it can cause. The intent of disabling it for
+cgroup-B is to avoid latency spikes for tasks in cgroup-B; it does not
+matter whether tasks in other cgroups perform NUMA balancing. We
+therefore disable the task side only, not the memory side: DISABLED
+applies to tasks, not to memory.
+
+Demotion is global reclaim, not a per-cgroup balancing request.
+DISABLED only opts the cgroup's tasks out of NUMA balancing; it must
+not become a memory-side reclaim veto, or a cgroup could keep cold
+pages in the fast tier, leaving less fast-tier capacity for other
+cgroups' hot pages and defeating promotion for those pages.
+
+So, in the end, DISABLED is a task-side property and does not gate
+memory-side operations.
+
+Shared fast tier
+~~~~~~~~~~~~~~~~
+
+A promotion competes for capacity in the shared fast tier, but it
+cannot consume more memory than the cgroup may already consume: it moves
+the cgroup's own folios, within its own memory limit, from the slow tier
+to the fast tier. Each contributor's own limit bounds its footprint,
+but the fast tier is still a shared resource; demotion is the global
+release valve that keeps cold pages from occupying it indefinitely.
+
+So a child can still enable tiering mode if its ancestor has only set
+normal.
+
+Given:
+
+                     Pod (normal)
+                     /        \
+          cgroup-A (none)  cgroup-B (tiering)
+
+the effective mode is:
+
+                      Pod (normal)
+                     /        \
+          cgroup-A (normal)  cgroup-B (normal|tiering)
+
+What an ancestor cannot do now is cap only tiering while leaving normal
+balancing available below. If that targeted cap is wanted, the natural
+extension is a negative request: NO_TIERING would propagate down the
+tree like the positive requests and mask TIERING out of the effective
+mode. It would cap promotion, not demotion; demotion remains global
+reclaim. With:
+
+                  Pod (normal | no_tiering)
+                     /            \
+            cgroup-A (none)   cgroup-B (tiering)
+
+the effective modes would be:
+
+                      Pod (normal)
+                     /            \
+            cgroup-A (normal)  cgroup-B (normal)
+
+For this version, I would keep the modes minimal and add NO_TIERING as a
+follow-up once there is a real user for it.
+
+Cost
+====
+
+On the task side, an ancestor can opt out the whole subtree with
+DISABLED, but cannot cap only tiering while leaving normal balancing
+available below. On the memory side there is no opt-out at all:
+DISABLED is task-side only, so a descendant's TIERING request is enough
+to enable promotion for its own memory, and promotion is the mode that
+consumes the shared fast tier.
+
+The per-cgroup override was measured with schbench, 384 workers, on a
+two-node 384-core machine. In that configuration, a cgroup mode put the
+cgroup at the throughput of the equivalent system-wide setting, within a
+fraction of a percent. This is a throughput measurement, not a
+microbenchmark of the scan path: while the static key is on, a folio
+lookup is O(cgroup depth), and callers that need more than one bit now
+share a single lookup. An effective-mode cache may be worthwhile for
+very deep hierarchies; that is left for follow-up measurements.
+
+Limitations
+===========
+
+The mode is per-memcg, not per-task. A cgroup without its own memcg
+cannot be set; its tasks and folios resolve to the nearest ancestor
+memcg. If multiple tasks in a single cgroup need different modes, place
+them in separate child cgroups with the memory controller enabled.
+
+For threaded cgroups, the mode must be set on the nearest domain
+ancestor that has the memory controller enabled, because the memory
+controller is not threaded.
+
+Changelog
+=========
+
+RFC v3 -> RFC v4:
+- Store numab_mode in mem_cgroup instead of struct cgroup
+- Refine the commit log
+
+RFC v3: https://lwn.net/Articles/1101442/
+
+RFC v2 -> RFC v3:
+- Replace the struct_ops interface with two kfuncs, following Tejun's
+  suggestion.
+- Improve function naming and simplify the code (David)
+
+RFC v2: https://lwn.net/Articles/1099962/
+
+RFC v1 -> RFC v2:
+- v1 keyed the hook on the memory cgroup and temporarily embedded the
+  cgroup id into the struct_ops value, because cgroup struct_ops support
+  was still under development.
+- v2 attaches through the cgroup struct_ops support that has since landed
+  in bpf-next, keys the task side on the task's cgroup and the memory side
+  on the folio's memcg, and adds the memory-tiering mode alongside enable
+  and disable.
+
+RFC v1: https://lwn.net/Articles/1054030/
+
+Yafang Shao (4):
+  sched: add helpers for numa balancing
+  sched: sample NUMA balancing mode once per path
+  sched: add BPF-based per-cgroup NUMA balancing mode selection
+  selftests/bpf: add tests for the numab kfuncs
+
+ include/linux/memcontrol.h                    |   6 +
+ include/linux/sched/numa_balancing.h          | 144 +++++++++
+ init/Kconfig                                  |  23 ++
+ kernel/sched/bpf_numab.c                      | 261 +++++++++++++++++
+ kernel/sched/build_policy.c                   |   4 +
+ kernel/sched/fair.c                           |  99 +++++--
+ kernel/sched/sched.h                          |   1 -
+ mm/memcontrol.c                               |  14 +
+ mm/memory-tiers.c                             |   9 +-
+ mm/mempolicy.c                                |   9 +-
+ mm/migrate.c                                  |   9 +-
+ mm/vmscan.c                                   |   6 +-
+ tools/testing/selftests/bpf/config            |   2 +
+ .../selftests/bpf/prog_tests/bpf_numab.c      | 273 ++++++++++++++++++
+ tools/testing/selftests/bpf/progs/bpf_numab.c |  32 ++
+ 15 files changed, 844 insertions(+), 48 deletions(-)
+ create mode 100644 kernel/sched/bpf_numab.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab.c
+ create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab.c
+
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.52.0
 
