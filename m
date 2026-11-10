@@ -1,99 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323163;
-	b=HROuUP/M9EPnt7begGP+cFaaGFOfBCPLbnFTkG9km4ZryXwRzfH0KE49hdOpixMx94xa
-	 KLmrOXQ/X+i3x49TnFM5tYPZr+vCmkrXjczPihn5eH15XdbFMP4hkkYV8SiTSTyp7P0FV
-	 6dULrjP7ov1SEKOiBFroRJxPVRLsIoC4DFLvjffYe2jn8O8kKfRECr9xbiPJY+u9M0pe4
-	 0xynJNO6eTRNV+4NLiYR++y9sU5T90YXRZWhOWEiUezO++p1ExZxtwLBgy8ibwLq4FGXK
-	 CxxQlmtLC2pukb4ZfVoxKam5l3XqdT08HMboC1DPnnqxHoSi4ADgCdtgUaIPYQkenWw==
+	t=1794323166;
+	b=eTURnCHsYIivYuep6PeVIxIi8cU/M5rhjbRJd9LE3JdBD3bIXG+S0dhz3fCbSE5ksJVS
+	 XpRKJm3y5N8P8CxDxkLBdlgnXNMb1/+jfR73lHNpiQEVu8dGTXTCyMLV/tewdQjxT+MD6
+	 fN9UVThBYqNK7vzaJaQp1b3n84vcy0wuhydWCTxAIx659gY0UFcOk/wf2oOozRYZjj7dG
+	 UR4LjYDsW+t/lzpD7yQAea6/V4UwTBUDGMic57AHLTAM5sNp3UDtel4Q2uIk/t65bVEI7
+	 RhpUFw+6hhbu3FD6rnrqP5g/GiYxerg1xLYfJ47wliVZu5rHrR+A8tUU+cQAva5fwIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323163;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3saG5HUhHWIluByVMXbKrM1wtI4RFxTnUgkKyi8UGJA=;
-	b=4ZeG9j1ht6JuaGWXc364CwceiBeOTStUoswQAMQOXb7u8UPHQbSfzO/AkIiav3K7gnMc
-	 YB5zXqPvXH7ETyomaMhV4r8ekhCJDEB19rLRJJ7h1TfJ/y/hoeG1DEFdjCOjldO/ech53
-	 iF/Wi6Nn+NLJ93rEFOaoSJskoiI3iCjJKlXX4RNzJBpQUmN+YCSciv6nWnR8VFDjf+Ber
-	 Li457qGkwykdzzyJxLlkeEK27rNkmvu8vBFOWNApSOLaEYkxXYBreAhDwioX2+deB2FGQ
-	 O68kntLes6VWRY+LGXjohFzh+Iid94zmLd9R0OpfZOMZ/8eq8SYNr+PkWPJAxWPKLaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323166;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=iSIwcETXaOk9HvPYheDqqxRnUPDv9J3s1eNW0KSF/d8=;
+	b=ZESAXIANg4OngJNg6IxuZVy94bWAptykTrQYWpH8zEp9wjyE56HfhXsGP2Id4NDSRkWd
+	 veLn3Xg4oEyY+2h38VTPY3c5490IMzN0Eui/0cWG1bM/6wKtWnNgKs4xU/FPiJ2L0I9Jw
+	 cICyE09N1albza/aE/Tmtej4+N5yLicRupPySdY04g978ictawGrxBi9eXdQkQHujZ/U6
+	 1qTYLtW1ZfJoQyqijHqDKBxhUxHGCqnF6UA2cB8eQt9sw0OVBkDeExfMVo1x9cUSCqRzM
+	 zuNqHXAGSMEW49f4eWf3wrHcKW6pYV7xG3sXhD0e/mzrde6VPMiYWuJM/E+e7a05fgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rH6iUK0m;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=COrSHNtD;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D3606A33F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F2D3606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C180606AA56;
+	Tue, 10 Nov 2026 15:06:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C180606AA56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rH6iUK0m
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so26254775e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:06:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794323162; x=1794927962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3saG5HUhHWIluByVMXbKrM1wtI4RFxTnUgkKyi8UGJA=;
-        b=rH6iUK0mFxC5SYg41GzhxuYBZQ8ZRWjcSicU/E/P8m8aSt+h7sTRxPQlU8JTL0Htoa
-         famV4KvT7Ya1jaQwHxAvdsh11CRH8Q/XH9JO5juaj5mz2Evq6ZMk9IgIxAihrMea3Asq
-         sCvgCbdDSpSGwKnDNF3CMg+Tm2RTXJL9oRW1ygHosdHUd2qPHC7/FTPQsMVS7Vy9HBpV
-         0vQrH6aVsOxYbV+Fkt/NuCfarezXqfwaaQhGGv8rqo5fRR23K+6KON7mge4K4FLeSQdd
-         LoGA3Zjxrc95B1/SBVbXyxNmZimu6JyjE5oguXnc0LmmkSOsHCZc/isFlW5A/KyfRF83
-         vvjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794323162; x=1794927962;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3saG5HUhHWIluByVMXbKrM1wtI4RFxTnUgkKyi8UGJA=;
-        b=SVF2n0DDqYZfoLVJstDPVlECz6UPH9wKgzTHCvq3hqkn36wsqqWyHm5rc4zWenguGB
-         7rxxa1f4aKQx8kR6TRqxS2MBoCyioQo1RZ75TNzHDIaiXbVzcM8vzY9dXarz/VG9fKCQ
-         4Dd3qaPO04NxTlZPyv8Abfj2lH0aI5eg5ykDbvv1NKeuKGRlhZDLwfJ1YhLeGRJkkZD0
-         Ch4vtssRfLGOGEQ8Uq4TcAsB8JY3XtFFu91B1lP+rmlupvPHYOryhe5nD3M9kZnPMjBp
-         G6wW7MghAuZMj3BhQYMsBT3qL1mL23HnABOxdWrPA2gO5dsJfZcNxlR4ES7IqDNMhOMR
-         iojw==
-X-Forwarded-Encrypted: i=1; AL+hErHYVDR2DHAkqUD9fJabu+UqmBVDTxW/aqyICjS27K6pLJKFnMqhNZNPLE+xFQehF4ElTyhmTY09kPyTAi8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fJN3JzkT6oklw/6Ax0qEAyUGiXGzJA0EDgy9xQCttro+zTfTp
-	nfzVoROeMyFXlmO/cXFXebw5ZfneUhSfos1pDjdPSiGvWz7kQ3KyaoCm
-X-Gm-Gg: AYBFou2Ma+SK8HtV7S6W1/HFXl3+BqVPxptUhEPyYJ9azUilRDAvPCVeruOW7nlT2ro
-	aoy9cbw+uWDlvq5KKXTPH2L1ATFpnZPoZnrWBClrZyr+v4Psl05XbuFdewgtd4QCv0LmlewpEH3
-	qtorTW0xuAtn4iSNLPvParL1+/8wpnj6qNpr3RY1YM9mgqnE24Tqpk3WEk2tpo8VYhlYNoAYy5g
-	1cmnwFq/Jx0Lm0kELLjWRPj8Lf3VAHlnSbloW8qbWjBzkUYltupa+vj5NAWbrk3EPR/eb0My2CQ
-	8z5v3v8qu4koPkMH0Kt0VNJVCa653s7rFkHPFGxHScfH/CmByJjHxeikmqHP1HI3IUFsPrY0SfH
-	d5ItBsFk67mAV5DEinyGheUufa2d8FZBlBKLThd4EvS7gSg/SYBz0Q5RR5pjYs3Juz5GnuVTS/C
-	29NALubR8/T75QY6zg7YPCMxgzgePN6GiLh1ISbgRbqmMVLOLU+AnLeY7ZifFd3kXVFggD4NTPA
-	Z+GFd5hJR/FcqRaUhkIBc6LOiQpLTxgWsf5nUhEtn1dBmSAI3MMhjbnMhrIeXh3IG1jTfkMmd98
-	zfT0vfxkcAWUSYEDfuB8Hn44dao8UMCJmJilFg==
-X-Received: by 2002:a05:600c:a013:b0:4b5:d95c:2380 with SMTP id 5b1f17b1804b1-4ba0234a040mr51183875e9.11.1794323161530;
-        Tue, 10 Nov 2026 07:06:01 -0800 (PST)
-Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204342asm80488225e9.6.2026.11.10.07.05.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:06:00 -0800 (PST)
-Date: Tue, 10 Nov 2026 15:17:30 +0000
-From: Anton Protopopov <a.s.protopopov@gmail.com>
-To: bot+bpf-ci@kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
-	eddyz87@gmail.com, memxor@gmail.com, almagui@kernel.org,
-	john.fastabend@gmail.com, qmo@kernel.org, brauner@kernel.org,
-	kpsingh@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, sashal@kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	martin.lau@kernel.org, mason@kernel.org
-Subject: Re: [PATCH v2 bpf-next 15/18] resolve_btfids: Tag fmod_ret
- candidates as targets
-Message-ID: <avM1isGoXgAv47ml@mail.gmail.com>
-References: <20261109170550.141443-16-a.s.protopopov@gmail.com>
- <069d59babf1ed531e1a5c1bd4ec0a943f7e8f12fc1e18f0ccc8b4edd032974a0@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=COrSHNtD
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EEB7310DBB8;
+	Tue, 10 Nov 2026 16:05:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794323159; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=iSIwcETXaOk9HvPYheDqqxRnUPDv9J3s1eNW0KSF/d8=;
+	b=COrSHNtDuQZeydl2lSdOlQdbCfmGVHmKZqw0iSK0htY5DHM9EapY8dTL3jK01nNvTGIoYh
+	RDIS+iiA6XJXLrNF6Ne3GQnHpCMZqZ8bnRo3PkwHQYlzwKnCoZmy5S6hexK8msnPWSqLS8
+	+ysA9evteRk25vbtKiYVZTc7Ig8Ao0pkONr84DhhDRhU/L8/7q+1Djb5FCBhA9h87lY8is
+	AppysDCoDR2y+EytjnRlzxGe6j/435deZQVWeD/Sg+o27fWW1A+WUhmDo26xlpKlhaNszr
+	QXbtIMVxxfl7ALbVwhKjmBZAN2fjLVQY3taq3Z5Uv+kiS1+xu64lB4NzBwpZzw==
+From: Lukasz Majewski <lukma@nabladev.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Lukasz Majewski <lukma@nabladev.com>
+Subject: [PATCH] arm64: dts: freescale: Add device tree definition for Cloos CBASE with i.MX8MM
+Date: Tue, 10 Nov 2026 16:05:46 +0100
+Message-ID: <20261110150546.1535950-1-lukma@nabladev.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,90 +69,601 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <069d59babf1ed531e1a5c1bd4ec0a943f7e8f12fc1e18f0ccc8b4edd032974a0@mail.kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 26/11/09 05:42PM, bot+bpf-ci@kernel.org wrote:
-> > resolve_btfids: Tag fmod_ret candidates as targets
-> 
-> TL;DR: resolve_btfids may tag KF_IMPLICIT_ARGS kfuncs (e.g.
-> bpf_wq_set_callback) as fmod_ret targets; the trampoline may then clobber the
-> implicit argument, and the kfunc could dereference a garbage pointer.
-> 
-> > diff --git a/tools/bpf/resolve_btfids/main.c b/tools/bpf/resolve_btfids/main.c
-> > --- a/tools/bpf/resolve_btfids/main.c
-> > +++ b/tools/bpf/resolve_btfids/main.c
-> 
-> [ ... ]
-> 
-> > @@ -1841,6 +1888,16 @@ static int btf2btf(struct object *obj)
-> >  		}
-> >  	}
-> >  
-> > +	for (size_t i = 0; i < obj->fmodret_retvals.cnt; i++) {
-> > +		const struct fmodret_retval *retval = &obj->fmodret_retvals.retvals[i];
-> > +
-> > +		if (has_set_func(&ctx.fmodrets, retval->btf_id))
-> > +			continue;
-> > +		err = add_fmodret_retval_tags(&ctx, retval);
-> > +		if (err)
-> > +			goto out;
-> > +	}
-> > +
-> 
-> Can this loop tag a kfunc with KF_IMPLICIT_ARGS as an fmod_ret target?
+This commit adds support for CBASE board, which incorporates the TQMa8MQML
+module.
 
-Yes, looks like you're right, thanks. Will be fixed.
+Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+---
+ .../arm64/boot/dts/freescale/imx8mm-cbase.dts | 577 ++++++++++++++++++
+ 1 file changed, 577 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
 
-> 
-> The kfunc loop earlier in btf2btf() has already rewritten the BTF
-> prototype of such a kfunc through process_kfunc_with_implicit_args():
-> 
-> 	t = (struct btf_type *)btf__type_by_id(btf, kfunc->btf_id);
-> 	t->type = new_proto_id;
-> 
-> so the BTF FUNC no longer lists the implicit arguments.  fmodret_collect()
-> ran before btf2btf() and compared only the return type
-> (btf_func_int_return_size()), never the argument count.  The only check
-> here is has_set_func(&ctx.fmodrets, ...), which does not consult
-> ctx.kfuncs, so the same btf_id still gets "bpf_fmodret" and
-> "bpf_fmodret_retval:...".
-> 
-> bpf_wq_set_callback() looks like a concrete case.  It is built with the
-> plugin, has an ftrace call site, and starts with a side-effect free
-> error return:
-> 
-> 	if (flags)
-> 		return -EINVAL;
-> 	return __bpf_async_set_callback(async, callback_fn, aux->prog);
-> 
-> so it would get "bpf_fmodret_retval:-22".  The kernel then adds it to
-> BTF_KFUNC_HOOK_FMODRET, and bpf_check_attach_target() accepts
-> BPF_MODIFY_RETURN through btf_kfunc_is_modify_return().
-> 
-> The trampoline model is built from the 3-argument prototype.  On x86,
-> __arch_prepare_bpf_trampoline() runs the fmod_ret programs and then calls:
-> 
-> 	restore_regs(&prog, pos_of_slot, nr_regs, regs_off)
-> 
-> with nr_regs = 3 before calling the original function.  rcx (aux) is
-> caller-saved, so __bpf_prog_enter(), the program and __bpf_prog_exit()
-> may have overwritten it.  If the program returns 0, which the verifier
-> allows, bpf_wq_set_callback() dereferences a garbage aux->prog.
-> 
-> The same seems to apply to the other KF_IMPLICIT_ARGS kfuncs that return
-> int (bpf_task_work_schedule_*, bpf_list_push_*, scx_bpf_*) whenever the
-> analysis finds an error path for them.
-> 
-> Would it make sense to skip retvals whose btf_id is a kfunc with
-> KF_IMPLICIT_ARGS in ctx.kfuncs, or any kfunc whose prototype was
-> rewritten?  No later commit in the series changes resolve_btfids.
-> 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42662799554
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts b/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
+new file mode 100644
+index 000000000000..0bbd724f3aab
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
+@@ -0,0 +1,577 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2022 Fabio Estevam <festevam@denx.de>
++ * Copyright 2026 Lukasz Majewski <lukma@nabladev.com>
++ */
++
++/dts-v1/;
++
++#include "imx8mm-tqma8mqml.dtsi"
++
++/ {
++	model = "Cloos i.MX8MM CBASE board";
++	compatible = "cloos,imx8mm-cbase", "tq,imx8mm-tqma8mqml", "fsl,imx8mm";
++
++	aliases {
++		mmc0 = &usdhc3;
++		mmc1 = &usdhc2;
++	};
++
++	chosen {
++		stdout-path = &uart2;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio_led>;
++
++		led-0 {
++			label = "status1";
++			gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-1 {
++			label = "status2";
++			gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-2 {
++			label = "status3";
++			gpios = <&gpio2 3 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-3 {
++			label = "status4";
++			gpios = <&gpio2 4 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-4 {
++			label = "error";
++			gpios = <&gpio2 1 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-5 {
++			label = "run";
++			gpios = <&gpio2 0 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	reg_usb_otg_vbus: regulator-usb-otg-vbus {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_otg_vbus_ctrl>;
++		regulator-name = "usb_otg_vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio2 2 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	reg_usdhc2_vmmc: regulator-vmmc {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
++		regulator-name = "VSD_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		startup-delay-us = <100>;
++		off-on-delay-us = <12000>;
++	};
++
++	clk_xtal40: clk-xtal40 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <40000000>;
++	};
++
++	sfp_bot: sfp-bot {
++		compatible = "sff,sfp";
++		i2c-bus = <&i2c_sfp_bot>;
++		tx-fault-gpios = <&sfp_gpio 4 GPIO_ACTIVE_HIGH>;
++		tx-disable-gpios = <&sfp_gpio 5 GPIO_ACTIVE_HIGH>;
++		mod-def0-gpios = <&sfp_gpio 6 GPIO_ACTIVE_LOW>;
++		los-gpios = <&sfp_gpio 7 GPIO_ACTIVE_HIGH>;
++		maximum-power-milliwatt = <1000>;
++	};
++
++	sfp_top: sfp-top {
++		compatible = "sff,sfp";
++		i2c-bus = <&i2c_sfp_top>;
++		tx-fault-gpios = <&sfp_gpio 0 GPIO_ACTIVE_HIGH>;
++		tx-disable-gpios = <&sfp_gpio 1 GPIO_ACTIVE_HIGH>;
++		mod-def0-gpios = <&sfp_gpio 2 GPIO_ACTIVE_LOW>;
++		los-gpios = <&sfp_gpio 3 GPIO_ACTIVE_HIGH>;
++		maximum-power-milliwatt = <1000>;
++	};
++};
++
++&ddrc {
++	operating-points-v2 = <&ddrc_opp_table>;
++
++	ddrc_opp_table: opp-table {
++		compatible = "operating-points-v2";
++
++		opp-25000000 {
++			opp-hz = /bits/ 64 <25000000>;
++		};
++
++		opp-100000000 {
++			opp-hz = /bits/ 64 <100000000>;
++		};
++
++		opp-750000000 {
++			opp-hz = /bits/ 64 <750000000>;
++		};
++	};
++};
++
++&ecspi1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_ecspi1>;
++	cs-gpios = <&gpio5 9 GPIO_ACTIVE_LOW>,
++		   <&gpio1 1 GPIO_ACTIVE_LOW>,
++		   <&gpio1 12 GPIO_ACTIVE_LOW>,
++		   <&gpio1 13 GPIO_ACTIVE_LOW>;
++	status = "okay";
++
++	can@0 {
++		compatible = "microchip,mcp2518fd";
++		reg = <0>;
++		clocks = <&clk_xtal40>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
++		spi-max-frequency = <4000000>;
++	};
++
++	can@1 {
++		compatible = "microchip,mcp2518fd";
++		reg = <1>;
++		clocks = <&clk_xtal40>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
++		spi-max-frequency = <4000000>;
++	};
++};
++
++&ecspi2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_ecspi2>;
++	cs-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
++	status = "okay";
++};
++
++&fec1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_fec1>;
++	fsl,magic-packet;
++	phy-mode = "rgmii-id";
++	status = "okay";
++
++	fixed-link {
++		full-duplex;
++		pause;
++		speed = <1000>;
++	};
++
++	mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		managed_switch: switch@0  {
++			compatible = "marvell,mv88e6190";
++			#interrupt-cells = <2>;
++			interrupt-controller;
++			interrupt-parent = <&gpio1>;
++			interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++			pinctrl-0 = <&pinctrl_switch_interrupt>;
++			pinctrl-names = "default";
++			reg = <0>;
++			status = "okay";
++
++			mdio {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				switch0phy1: ethernet-phy@1 {
++					reg = <0x1>;
++				};
++
++				switch0phy2: ethernet-phy@2 {
++					reg = <0x2>;
++				};
++
++				switch0phy3: ethernet-phy@3 {
++					reg = <0x3>;
++				};
++
++				switch0phy4: ethernet-phy@4 {
++					reg = <0x4>;
++				};
++
++				switch0phy5: ethernet-phy@5 {
++					reg = <0x5>;
++				};
++
++				switch0phy6: ethernet-phy@6 {
++					reg = <0x6>;
++				};
++
++				switch0phy7: ethernet-phy@7 {
++					reg = <0x7>;
++				};
++
++				switch0phy8: ethernet-phy@8 {
++					reg = <0x8>;
++				};
++			};
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					ethernet = <&fec1>;
++					phy-mode = "rgmii-id";
++					reg = <0>;
++
++					fixed-link {
++						full-duplex;
++						pause;
++						speed = <1000>;
++					};
++				};
++
++				port@1 {
++					label = "lan1";
++					phy-handle = <&switch0phy1>;
++					phy-mode = "internal";
++					reg = <1>;
++				};
++
++				port@2 {
++					label = "lan2";
++					phy-handle = <&switch0phy2>;
++					phy-mode = "internal";
++					reg = <2>;
++				};
++
++				port@3 {
++					label = "lan3";
++					phy-handle = <&switch0phy3>;
++					phy-mode = "internal";
++					reg = <3>;
++				};
++
++				port@4 {
++					label = "lan4";
++					phy-handle = <&switch0phy4>;
++					phy-mode = "internal";
++					reg = <4>;
++				};
++
++				port@5 {
++					label = "lan5";
++					phy-handle = <&switch0phy5>;
++					phy-mode = "internal";
++					reg = <5>;
++				};
++
++				port@6 {
++					label = "lan6";
++					phy-handle = <&switch0phy6>;
++					phy-mode = "internal";
++					reg = <6>;
++				};
++
++				port@7 {
++					label = "lan7";
++					phy-handle = <&switch0phy7>;
++					phy-mode = "internal";
++					reg = <7>;
++				};
++
++				port@8 {
++					label = "lan8";
++					phy-handle = <&switch0phy8>;
++					phy-mode = "internal";
++					reg = <8>;
++				};
++
++				port@9 {
++					reg = <9>;
++					label = "lan-sfp1";
++					phy-mode = "sgmii";
++					sfp = <&sfp_top>;
++					managed = "in-band-status";
++				};
++
++				port@10 {
++					reg = <10>;
++					label = "lan-sfp2";
++					phy-mode = "sgmii";
++					sfp = <&sfp_bot>;
++					managed = "in-band-status";
++				};
++			};
++		};
++	};
++};
++
++&i2c2 {
++	clock-frequency = <100000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c2>;
++	status = "okay";
++
++	onewire@18 {
++		compatible = "maxim,ds2484";
++		reg = <0x18>;
++	};
++
++	temp@49 {
++		compatible = "national,lm77";
++		reg = <0x49>;
++	};
++};
++
++&i2c3 {
++	clock-frequency = <100000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c3>;
++	status = "okay";
++
++	i2c-mux@70 {
++		compatible = "nxp,pca9543";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		i2c_sfp_top: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++		i2c_sfp_bot: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++	};
++
++	sfp_gpio: gpio@38 {
++		compatible = "nxp,pca9554";
++		reg = <0x38>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "SFP_TXFI_T", "SFP_TXDIS_T",
++				  "SFP_MODPRES_T", "SFP_LOS_T",
++				  "SFP_TXFI_L", "SFP_TXDIS_L",
++				  "SFP_MODPRES_L", "SFP_LOS_L";
++	};
++};
++
++&lcdif {
++	status = "okay";
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart2>;
++	status = "okay";
++};
++
++&uart3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart3>;
++	status = "okay";
++};
++
++&usbotg1 {
++	dr_mode = "host";
++	vbus-supply = <&reg_usb_otg_vbus>;
++	status = "okay";
++};
++
++&usbotg2 {
++	dr_mode = "host";
++	status = "okay";
++};
++
++&usbphynop1 {
++	power-domains = <&pgc_otg1>;
++};
++
++&usbphynop2 {
++	power-domains = <&pgc_otg2>;
++};
++
++&usdhc2 {
++	assigned-clocks = <&clk IMX8MM_CLK_USDHC2>;
++	assigned-clock-rates = <400000000>;
++	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_400M>;
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
++	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
++	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
++	bus-width = <4>;
++	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
++	disable-wp;
++	no-mmc;
++	no-sdio;
++	sd-uhs-sdr104;
++	sd-uhs-ddr50;
++	vmmc-supply = <&reg_usdhc2_vmmc>;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_ecspi1: ecspi1grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_ECSPI1_MISO_ECSPI1_MISO		0x82
++			MX8MM_IOMUXC_ECSPI1_MOSI_ECSPI1_MOSI		0x82
++			MX8MM_IOMUXC_ECSPI1_SCLK_ECSPI1_SCLK		0x82
++			MX8MM_IOMUXC_ECSPI1_SS0_GPIO5_IO9		0x19
++			MX8MM_IOMUXC_GPIO1_IO01_GPIO1_IO1		0x19
++			MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x19
++			MX8MM_IOMUXC_GPIO1_IO12_GPIO1_IO12		0x19
++			MX8MM_IOMUXC_GPIO1_IO13_GPIO1_IO13		0x19
++			MX8MM_IOMUXC_SAI1_MCLK_GPIO4_IO20		0x19
++		>;
++	};
++
++	pinctrl_ecspi2: ecspi2grp {
++		fsl,pins = <MX8MM_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK	0x00000006>,
++			   <MX8MM_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI	0x00000006>,
++			   <MX8MM_IOMUXC_ECSPI2_MISO_ECSPI2_MISO	0x00000006>,
++			   <MX8MM_IOMUXC_ECSPI2_SS0_GPIO5_IO13		0x00000006>;
++	};
++
++	pinctrl_fec1: fec1grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_ENET_MDC_ENET1_MDC		0x40000002
++			MX8MM_IOMUXC_ENET_MDIO_ENET1_MDIO		0x40000002
++			MX8MM_IOMUXC_ENET_TD3_ENET1_RGMII_TD3		0x14
++			MX8MM_IOMUXC_ENET_TD2_ENET1_RGMII_TD2		0x14
++			MX8MM_IOMUXC_ENET_TD1_ENET1_RGMII_TD1		0x14
++			MX8MM_IOMUXC_ENET_TD0_ENET1_RGMII_TD0		0x14
++			MX8MM_IOMUXC_ENET_RD3_ENET1_RGMII_RD3		0x90
++			MX8MM_IOMUXC_ENET_RD2_ENET1_RGMII_RD2		0x90
++			MX8MM_IOMUXC_ENET_RD1_ENET1_RGMII_RD1		0x90
++			MX8MM_IOMUXC_ENET_RD0_ENET1_RGMII_RD0		0x90
++			MX8MM_IOMUXC_ENET_TXC_ENET1_RGMII_TXC		0x14
++			MX8MM_IOMUXC_ENET_RXC_ENET1_RGMII_RXC		0x90
++			MX8MM_IOMUXC_ENET_RX_CTL_ENET1_RGMII_RX_CTL	0x90
++			MX8MM_IOMUXC_ENET_TX_CTL_ENET1_RGMII_TX_CTL	0x14
++			MX8MM_IOMUXC_SAI2_RXC_GPIO4_IO22		0x10
++		>;
++	};
++
++	pinctrl_gpio_led: gpioledgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD1_CLK_GPIO2_IO0			0x19
++			MX8MM_IOMUXC_SD1_CMD_GPIO2_IO1			0x19
++			MX8MM_IOMUXC_SD1_DATA1_GPIO2_IO3		0x19
++			MX8MM_IOMUXC_SD1_DATA2_GPIO2_IO4		0x19
++			MX8MM_IOMUXC_SD1_DATA3_GPIO2_IO5		0x19
++			MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6		0x19
++		>;
++	};
++
++	pinctrl_i2c2: i2c2grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_I2C2_SCL_I2C2_SCL		0x400001c3
++			MX8MM_IOMUXC_I2C2_SDA_I2C2_SDA		0x400001c3
++		>;
++	};
++
++	pinctrl_i2c3: i2c3grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_I2C3_SCL_I2C3_SCL		0x400001c3
++			MX8MM_IOMUXC_I2C3_SDA_I2C3_SDA		0x400001c3
++		>;
++	};
++
++	pinctrl_otg_vbus_ctrl: otgvbusctrlgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD1_DATA0_GPIO2_IO2		0x119
++		>;
++	};
++
++	pinctrl_switch_interrupt: switchinterruptgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_GPIO1_IO00_GPIO1_IO0		0x19
++		>;
++	};
++
++	pinctrl_uart1: uart1grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_UART1_RXD_UART1_DCE_RX		0x140
++			MX8MM_IOMUXC_UART1_TXD_UART1_DCE_TX		0x140
++		>;
++	};
++
++	pinctrl_uart2: uart2grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_UART2_RXD_UART2_DCE_RX		0x140
++			MX8MM_IOMUXC_UART2_TXD_UART2_DCE_TX		0x140
++		>;
++	};
++
++	pinctrl_uart3: uart3grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_UART3_RXD_UART3_DCE_RX		0x140
++			MX8MM_IOMUXC_UART3_TXD_UART3_DCE_TX		0x140
++		>;
++	};
++
++	pinctrl_usdhc2_gpio: usdhc2grpgpiogrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD2_CD_B_GPIO2_IO12		0x1c4
++		>;
++	};
++
++	pinctrl_usdhc2: usdhc2grp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x190
++			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d0
++			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d0
++			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d0
++			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d0
++			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d0
++		>;
++	};
++
++	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x194
++			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d4
++			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d4
++			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d4
++			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d4
++			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d4
++		>;
++	};
++
++	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
++		fsl,pins = <
++			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x196
++			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d6
++			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d6
++			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d6
++			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d6
++			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d6
++		>;
++	};
++};
++
++/* SPI-NOR memory is not mounted on the used SoM */
++/delete-node/ &flash0;
+-- 
+2.39.5
 
