@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296709;
-	b=ny0NswMBfLZorJTVsPpWbZdsrNQ8hv70A8iWWRVnykFZ9F0Fysu0W7h9efMkFfiEK4WY
-	 te/3zF0etL182xEWo6B7n1kSz0eTgHg/w1rkcs1jicYoNfwVEUocn45ecEIAZx+pyGsVm
-	 E8xoRVj06Sm2/SyBC+N71FvaOaL0eZAjq28UEhjlb2qNdDPsVzCvuKMKG5BwnfFXGSLDi
-	 xegln/ygIG6/MuRmJnQuz2Fb31ClaSR5upiSSTX9CbtMlAO3au07MojnoWPNCDJHk2uuA
-	 CceXclBRjVa9RvGnBzb3wdNrdPCNE42xQGJFh4gVhtQKGeavqUldAMud5FoH35RHKvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296709;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=WFMAx8E4/aXDwcVO8ktjOtO2+SQSHcxbfap1CQJFtVE=;
-	b=G0chjnhm5qzxElCgpOolTW/mA0O2dHrZBjvGm7fbWCH6L/HN8SYity0jF7K1VBFTPrw7
-	 gl8XXIjbyhhvIZ65KaHMFeGkDtpamnns1pUU0mmTM6Suyy9xdwIfbASwMqlMuI0iFxl38
-	 AjqYbpWbasq5JniGZBisMXU+u8N13YicN+RLSig0Ze9KaawTc8oLehXW1/vV7ncYPpmKP
-	 CcaeGUlHQoyejgAjX7DzCWVPV1a6Ez/ZOMbniCFGI7raBVYN+6rJpMWWcfOULXhoTjwsD
-	 fl4higdkaMIkXqU2gAKrOzVRa2ZVAM58q0zgaJ1daOjA/ayf6KgACmaM8wpsRpMunpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="r0juF3c/";
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794296699;
+	b=TcFYrG4bXarCnrreaLN5m3azVen2GqbfMoIPVdvaa6FCQPHjDtis181vj3Dk5HETBxK9
+	 /feuHiNduK2JSIwD+B73UApp7HE5sI3MBE49eEAivpRdi14WgOP1UfaeqoudsXR0Cgr5j
+	 jfA9e5cr0gGUxGAqUPj70SB8iEDViE/+YPxCxI+/7u+3tPPZrJ3gXWQg8ZgIyjd4Nn0HC
+	 2LNtkrS5JbcKYZbeq+rOnoOKonhrcUWLruLFLRRCaAShknj54Fn1Z5A1NFO+ZqSHGGpAr
+	 7cP5050ycgazV0aKrs0dF1hjmb5HSvdI0wOukeCT1rm3ynN1iqL18SJfAW7fpplWPkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296699;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
+	b=sUaeM7LEy9BUhOU1Vtp1+42jAcU5h78ATyP2T9ZttfUQ7Iy3snr7nqkZUo6fgq94hdTE
+	 wpAQ8WN70t5FX48JHTN82Wyf36TCJaoZk4c6tUwounI+GmpyKuhm+LY6FOLT3JurAib2J
+	 OBiDytCThgkw3WlhcDP6jbYqsXcPjq7yo6xOOa9xeA1PLmbhvLVANLFOSG19EzJxdssTY
+	 J4a6bWII9O3gEE07zNH9LqartXyX9RkMrkhtrqopUIMwHIDxHlRv8CL62I+3zXVXxz77b
+	 ldCCL5yOQpYQvWt94WjkplaSEzVGCNt/0h88rS+skSX/iEwYNR2X1qM1S4ZzTFD1irg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i/3fDxSK";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A55606DF09
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/3fDxSK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794296698;
+	b=d9u7Vgha6Uq1B01ky9RKnJuqkrn3kxYbQ1EKeDpnxlca+1ilE7k15v3OvdLXvcJnq4EF
+	 haMY8W3U7zKGj0OW7J092U97BjwczYlr/Uv3W45FtxE8d+kBGEK4+WRm4dI3VI9YYMleB
+	 SjfvCt9n5YzvcKnMmYrd4I4s0pT8CXyiaoxk2OZbK4MUhOnFhVM5AQvlzFEEaJYH8cHTl
+	 DV4jmig+3L/vcqiXozqxh/D1FbljiEx5bIDcB1eR6USon2WOrpRnKqS/dW0G4ktuZwb1J
+	 LyOBpMQ4NRx+ZRJjWSR5dVBECfOGqPfOnawbl+cmTlVf3yTzv5yRVrChUXeLa5nTrGw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794296698;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
+	b=esECSrGFm3KJ1EuNKaKaknxefSJXF6dVOWdoCqjXxk8/khyXzsnWYKS5CTTFXO2CJ5RZ
+	 kn5LztJdHedUlPRUIqXMIV+Hk5J8neUQn8MOZhJGZWQkN0xjmmGat2qzOK5Gshdeme0t3
+	 n4XfxJgas3Ks8ivXfKao4IYZUKfn7hsb/cXx1PM+yhg6VNQsuhl6JrDm1Q51g9wGNro/n
+	 KL3uR4dmzbd+AHIhcA0kCoWG3STSQL0GmNHPHdj1SaGYL88jGXmWMH2ZJO/niXqZru7m/
+	 TGoevV9ngufZmaGcSQNrHLCV4pKjRrk1l4avMWyB41imguImm3BkjbvXeGhLD/73arA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C9F60711C4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3C9F60711C4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r0juF3c/
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8479f46ecd8so860149a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296708; x=1794901508; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WFMAx8E4/aXDwcVO8ktjOtO2+SQSHcxbfap1CQJFtVE=;
-        b=r0juF3c/u4s5ing71ZNGOTkDABR0id+d+m22BOqBSdtEQGNgoAACZeNh7A9HdiMzdh
-         UKYmtwEJm8dXDAbxV0uSNeCaRZ3bIZ+CWIGznEtkFf3Wut0AnzLAaFRY5tuGy199yid0
-         72zANN4diLmMk1u1uhEerKdaKSVPLgFdTX0mmLa+eW5GfAOqGCXGd7Ue8h8cLNi+2nYL
-         GfZ4KoOMETYtTfHGn2yoNjq4hoJJLAVfTsFlRwMACKxnb1nrKnmidR5AJXKcuFvQqdGw
-         4LygVS45ODXJ/94nGE9MpMcKFgKe1QhMQoJs8dJShISReMEl6Lw18TI8LqTYc/Qfysg0
-         BD5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296708; x=1794901508;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WFMAx8E4/aXDwcVO8ktjOtO2+SQSHcxbfap1CQJFtVE=;
-        b=auVHzOmKF7ZZkmxL0yL1Ko1D7g5Z/EUnrsP9l3mV4nd2ZEITb0348T2QiRpuFwFnUL
-         hxfFanamCc0ha7MUohnJfBa4GppGiLfNLdK8HWDIZhKRC9YAbT6MJS60/D30+eOQRyms
-         ONMDaZLjzxM7Cjjkw2mia3Yb/OpN4YJzBHbKyftht76gEIvzJj6EXksv3fBxcclK9cLb
-         3d6+kbHcc7lVgS8z3VdICmJLuYqZTzi7FN6COfKBi+fF8Y1WknzBuPbVHkZv7M13lBer
-         euAB55FpRgHATgP7pH5iVFQBSVCYx1xjO5QLst2+j5nrb4gPkZMuaDFmdbSr0av+H5yz
-         /2lA==
-X-Forwarded-Encrypted: i=1; AL+hErGACUQ4VZQLBddpnvZ+PDpb38zkQbs0Pa97awN/b37EnubojPOtM8wXSfzvPk+O6Pu/4PJIK0wV0ORwRHk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DxM5TyWs1sACL7GasEQZKT2Qa6v3LjbQzAAw8c862H7XoE0ot
-	1GlrOlywF7afoLFAEQ7ccHmOL0LukHW6RYM8VoySUKHaSFsiaqHzqhhIjcq4xBAJ
-X-Gm-Gg: AYBFou3omz5uNq2aGwYzblDJeIFhNCK/Avj/6LGFQxEm5j0Mb13H0TfvNlFtU1wTT9v
-	vWP6DolpAljW6myMNkA7+ZaKx7OAlTqOrYbCoSbNaB1HXe8qPd/gl4TQPGK+wrjxk6ALLbBje4s
-	gzo9DyVwvPIisruS2iWw1z8Zh+GikqJRvJvFGSFzVJzDXNBpJV5qiqvaCRN4koCts4sNWZ/jjgL
-	27+B0M6v6Am9Rr+uO9LkuxAM+CyTBP6BV5q1dwLiyxLjwD41ZHsxhmVTWWTjfxE78+zcW0L5QAy
-	RaTp2WhrU1fF2nqUcjffNA91kktFizCDqqOwq/d0Lnez9x9rQVxw7t+H8azuOo7VTpjO6kbI3Tm
-	0xA/fmp+e7UwoScC+ODA7MAPQ0In5p4mCyh6tC6lgl1Mnx5GGHsS13CrVaYiUCJlW5+IMXGYjeE
-	RutuYJG4W0nJ1SRrCp1KDGz4vhUHQQG3mcFza4yNHDZTnphDqGqiApTUwSucij5kQQb6Deip/l7
-	Mty5ExqH8li/2IkDnZuRglXzmoZYUSwspuKRWyCEHbX5Tw9tHfm36EzQXJnjEYhHhFaT9wTv+K6
-	seMJg9qTi6KejF8UR311I6331MkBvfgLcCkUo+7QGDvmyIkwCKbbMkN2bIFv87+MKKth0gxXDnl
-	/M/r1WpS+GxHJledQ4Hwgiwhp3yVB0wcic9Fo9SW1irAe0Sos0FY34LuBSRDP74pHphFZM8rqP6
-	Zj2jmPTmQ1zW6EaaihRwi2mEbAyWAUBUshZic7/7EcWICSaj1sNJ0=
-X-Received: by 2002:a05:6808:c177:b0:4c2:5ac:7f9e with SMTP id 5614622812f47-5683ca9f489mr1419482b6e.43.1794296707747;
-        Mon, 09 Nov 2026 23:45:07 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:07 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:45 -0700
-Subject: [PATCH v2 42/58] mtd: rawnand: au1550nd: retain chip state across
- removal
+	by smtp.kernel.org (Postfix) with ESMTPS id C47B41F00903;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296698;
+	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=i/3fDxSKRJ+5/qwKT6GNvZ33hF2ahjV83fFDRRZ22Bcwksloqxuf3pDMjY96WOrYq
+	 jN9pkFOmoQuqsBbRgKYArasE4kX7oefsmcwhPD9EzQzYwEYReO7VDdN33pHTT4wuI/
+	 Q5mu8dQeVNvAKUSmAAemS2o9W1g0jO3gV4/2F7p8QAotOqqudWAYJO6kKwxlrlwE7A
+	 hWbeyAxmAsHrd1f+QJJ1hts2yKcSVBKcWGFBnB3vZrIBUa1VEIhBpkGjakXdHJuY4A
+	 nXvVguaJqUyHvZKFX2Usxacq3lo0c+k5ifgq0yn9RsAsW1I0Ce+l3dMwZg6iLE6eb4
+	 yicd/IOr+hUVg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2381C48A0E;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH 0/7] drm/panfrost: Resume long jobs instead of resetting,
+ and mapping error path fixes
+Date: Tue, 10 Nov 2026 07:44:55 +0000
+Message-Id: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,100 +86,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-42-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gZMFRWvIi5qJ2pkaKVxBkG8+
+ 3R0+Rb/n6AchRW67ITIX1EJPoHyDNxi/cwor2QwhamJqMDN+ikG3fEd/IxrGBWprkrTNtZYR5D
+ CLfIkxz3th8f6GVd2+/8E1/UDRvr78XYAAAA=
+X-Change-ID: 20261110-panfrost-long-jobs-1643287a2ac1
+To: David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=4091;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=spi4oruI9Mu1XmSFEL9ByMYtDiQL6HJu09Q2+nsBdAI=;
+ b=doXsrdVgudeHFP9TRuEw+MIqsZP2mBmCWKYTplTnRRshgc9927ATq5m1uebq/BfqiFmglLeoz
+ eAcQkNAuu9wCBi9IF9AZT/DL06JdnOf9ibJAASsPdXGrbqvS+2Peg5D
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Drain NAND access before unmapping the chip-select window, and retain
-the chip and controller until the final MTD reference is released. Check
-MTD registration errors so unsuccessful publication releases the same
-ownership.
+This series fixes problems found running the GLES, Vulkan and OpenCL
+conformance tests with Mesa on an Orange Pi Zero2 (Allwinner H616,
+Mali-G31 MP2, one shader core, 1 GB of RAM).
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Patches 1-3 fix the error paths of BO mapping under memory pressure: a
+WARN on an ordinary allocation failure, pages dropped while the cached
+sg table still maps them, PTEs left behind by a partial map_pages(),
+and the folios of a heap chunk kept after a failed fault, which makes
+the next fault in that chunk WARN.
+
+Patches 4-6 change what happens when a job runs into the 500 ms job
+timeout. On a small GPU OpenCL kernels and heavy fragment jobs
+legitimately run longer, and resetting the GPU loses their work: the
+OpenCL CTS Integer Ops long math and Thread Dimensions tests, the
+KHR-GLES31 advanced blend mixedSequence test and several dEQP-VK
+spirv_assembly fragment cases fail that way. Following the Arm driver's
+job scheduling, a job whose slot is still active is soft-stopped and
+resumed from JS_TAIL without a reset, hard-stopped if it does not reach
+a task boundary within 5 s, and the GPU is reset only if the hard stop
+does not take effect either. Patch 4 makes sure a soft-stopped job is
+never resumed after a GPU reset (its progress is in the L2 that the
+reset discards), and patch 5 makes panfrost_reset() actually wait for
+the soft-stops (JOB_INT_JS_STATE is a snapshot, not the live state);
+both are needed by patch 6 and fix the reset path on their own.
+
+Patch 7 adds the BOs around an unhandled page fault to the fault
+report, which told a texture over-read apart from a kernel problem.
+
+A job that keeps reaching task boundaries is resumed after every
+timeout and is never killed. If a limit on the total run time of a job
+is wanted, I can add one.
+
+Testing: Orange Pi Zero2 (H616, Mali-G31), Mesa 26.2, with this series
+backported to v7.3.3:
+- OpenCL CTS Integer Ops quick_long_math/quick_ulong_math and Thread
+  Dimensions quick_2d_explicit_local pass (they failed before); dEQP-VK
+  spirv_assembly vec4 i8/u64 bit_field_insert count64 fragment cases
+  pass in 4-6 s (timed out before); KHR-GLES31 blend_equation_advanced
+  test_coherency.mixedSequence passes (failed before); none of them
+  resets the GPU;
+- a never-ending OpenCL kernel is hard-stopped after 5 s and the GPU
+  keeps working;
+- dEQP-GLES31 draw_indirect compute_interop large cases in memory
+  cgroups of 450-600 MB: the processes get allocation errors or are
+  OOM-killed, without a WARN, and the GPU keeps working;
+- a forced page fault prints the fault BO report;
+- no regressions in dEQP-GLES3 draw/occlusion_query/shaders.loops,
+  dEQP-GLES31 compute, KHR-GLES31 compute_shader and a set of OpenCL
+  CTS groups.
+Each patch builds without warnings with W=1 for arm64 and arm.
+
+These patches were developed with Claude (Anthropic) as a coding assistant:
+it investigated the problems, wrote the code and the commit messages. I
+reviewed them, and they were tested on an Orange Pi Zero2 (Allwinner H616,
+Mali-G31) as described above.
+
 ---
- drivers/mtd/nand/raw/au1550nd.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+Arun Iyengar (7):
+      drm/panfrost: Don't WARN when a GEM mapping cannot get its pages
+      drm/panfrost: Unwind a failed GPU mapping without dropping its pages
+      drm/panfrost: Give back the pages of a heap chunk that failed to map
+      drm/panfrost: Don't resume a soft-stopped job after a GPU reset
+      drm/panfrost: Wait for the soft-stopped slots with the live slot status
+      drm/panfrost: Soft-stop and resume a job that outlives the timeout
+      drm/panfrost: Name the BOs around an unhandled page fault
 
-diff --git a/drivers/mtd/nand/raw/au1550nd.c b/drivers/mtd/nand/raw/au1550nd.c
-index 6796afe9cd29..ba9019ac698e 100644
---- a/drivers/mtd/nand/raw/au1550nd.c
-+++ b/drivers/mtd/nand/raw/au1550nd.c
-@@ -251,6 +251,11 @@ static const struct nand_controller_ops au1550nd_ops = {
- 	.attach_chip = au1550nd_attach_chip,
- };
- 
-+static void au1550nd_release(struct nand_controller *controller)
-+{
-+	kfree(container_of(controller, struct au1550nd_ctx, controller));
-+}
-+
- static int au1550nd_probe(struct platform_device *pdev)
- {
- 	struct au1550nd_platdata *pd;
-@@ -269,6 +274,9 @@ static int au1550nd_probe(struct platform_device *pdev)
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
- 		return -ENOMEM;
-+	ret = devm_nand_controller_init(&pdev->dev, &ctx->controller, au1550nd_release);
-+	if (ret)
-+		return ret;
- 
- 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	if (!r) {
-@@ -302,7 +310,6 @@ static int au1550nd_probe(struct platform_device *pdev)
- 	}
- 	ctx->cs = cs;
- 
--	nand_controller_init(&ctx->controller);
- 	ctx->controller.ops = &au1550nd_ops;
- 	this->controller = &ctx->controller;
- 
-@@ -322,7 +329,17 @@ static int au1550nd_probe(struct platform_device *pdev)
- 		goto out3;
- 	}
- 
--	mtd_device_register(mtd, pd->parts, pd->num_parts);
-+	ret = nand_set_release(this, NULL);
-+	if (ret) {
-+		nand_cleanup(this);
-+		goto out3;
-+	}
-+	ret = mtd_device_register(mtd, pd->parts, pd->num_parts);
-+	if (ret) {
-+		nand_disconnect(this);
-+		mtd_put_master(mtd);
-+		goto out3;
-+	}
- 
- 	platform_set_drvdata(pdev, ctx);
- 
-@@ -333,7 +350,6 @@ static int au1550nd_probe(struct platform_device *pdev)
- out2:
- 	release_mem_region(r->start, resource_size(r));
- out1:
--	kfree(ctx);
- 	return ret;
- }
- 
-@@ -346,10 +362,10 @@ static void au1550nd_remove(struct platform_device *pdev)
- 
- 	ret = mtd_device_unregister(nand_to_mtd(chip));
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
- 	iounmap(ctx->base);
- 	release_mem_region(r->start, 0x1000);
--	kfree(ctx);
-+	mtd_put_master(nand_to_mtd(chip));
- }
- 
- static struct platform_driver au1550nd_driver = {
+ drivers/gpu/drm/panfrost/panfrost_device.h |   5 +
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 214 +++++++++++++++++++++++------
+ drivers/gpu/drm/panfrost/panfrost_job.h    |   8 ++
+ drivers/gpu/drm/panfrost/panfrost_mmu.c    | 139 +++++++++++++++++--
+ 4 files changed, 312 insertions(+), 54 deletions(-)
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-panfrost-long-jobs-1643287a2ac1
 
--- 
-2.53.0
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
 
