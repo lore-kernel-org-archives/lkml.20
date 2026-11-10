@@ -1,82 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327233;
-	b=gdj+pibLKb/MWOY4EBBUVlbhrTA+7llCsosnYSn2li4nAOTKcP30+pI5FI2C3bB8XEbw
-	 uwgFGUjqF2CFU3Izai5g81OYXFAdICfG4Cd0477nOr7ZYRMW1BT+zm/UKxsm3STQzVTPB
-	 5hy8rhlgEXhZDeLBFBMRmiaWH4d9DYdLeT1TrzXu+v1BPJOxky1duK3CFs2Y2ulhdJAaF
-	 h+ltoUP8zPmJpUcAs2v05XhKBv/wWav51wA22S7gjqXcuev6BjTSoVdRBluTOdhSnEKWT
-	 BLlGvf3sEfPFSZGPhxi1zHFFb7yfya50uF2IaHVkECER6d5YEudPEF3lIprTeOAw43A==
+	t=1794327241;
+	b=5jRXiifvd5s18LxNxKxuhzr9YvBa677AWQiRCfUhQPefgYmYf3a9QgpE3rxsp+30iyXs
+	 V0N4mChPmFDqiHFhRT2t3aNHwqv/+cUoqB5keVpQdpaU/Q8QT7/zWR0K71CvuCobNklLY
+	 rQpKga3T1BsFm2ERrwFEQK1qRtxeTUDY2iY/b90uLlZ5Vy4sfjNrWem7QzanhOkPQRX7K
+	 uLWvmD9wWaiBwpg1CvrnZ+bVh0YXaNi6ORr1TY51AMB9ryq+WtqsAV+DvTB4efU3wf3yf
+	 evAe6rnECbqd5+xk7RkzWhR0cl0BBuoRCHLUzNHiwKVGMosiMADv0LnLGTU2Mip+2Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327233;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=oHP5B0UlB7/SoTwhxB0AOYNlEwskAwU+hgd9yWW6YwA=;
-	b=hHlJcA49ClLG9M7WV92YDcJ8xoHvhE9CgIo4Lz0dgt5pxEtEXDgxuKA1t04k3+gLZx//
-	 6OuwNkqSRQF0CJilXzO8Mi3nWPemzc0Z7rjWsowgUnLJ0RejJiRoGkgfkK93Afsun5HSf
-	 8etiL8heloofpdqyGhO/AToDMailMcJszRBlvLxx0LIU7jX1wiqYm1tCdeeYOlZuzXV+p
-	 kKQnxJMlPEdfQYOQ6cUXcFUgc6zTnSoqw5uUJu5Pk7whKZgETMs1uR3jfpwUEFjH9tFjv
-	 lkmgzfGrjFMEK84rSLor5Vsspf63fqiCdOrL9qKwB5M+ivTOMvAWCb7yS/5bRf5N3JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327241;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=g3puA/Rs8Op3gQUg0J/vl+syCCZwXxu4Foqvmyce9W4=;
+	b=eHyWwlRG7I9yfqKSi1SkyMqxlHjB48IeeTNspzVc4qnqhfSZVMqJqyTFDGIduVYvg/no
+	 26WMnlT2H9YrftlaHf0uN16YuTgnDLZD/aQoQHLr6as4y91FA+AUI7MiL3AcgwFpQgexF
+	 fpXpnDwgqS5DWxGK1h3gT+cdzafBcZ0Rs+RXxAAisB9qy1fbDtMzLTeZ53lrvzEBr5/Kf
+	 GD1b2p0W1YsyE+1tmmBMAOVssL6Gkh9/FduubfjMYzjcapdNd/AtQqB4G6k2Pu3lU+fSF
+	 2k2oE3HbsfsiW1trPOW5lius8ZhfrqWKYGgxtIh6D0Gntm368oD/kvsWCrSrWmaTPew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="iuhyK01/";
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=schaufler-ca.com;
+	spf=pass smtp.mailfrom=schaufler-ca.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RDGd6J64;
+	arc=none smtp.remote-ip=66.163.184.49
+Received: from sonic317-38.consmr.mail.ne1.yahoo.com (sonic317-38.consmr.mail.ne1.yahoo.com [66.163.184.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C253E606A32A;
-	Tue, 10 Nov 2026 16:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C253E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9854B606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:13:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9854B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schaufler-ca.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iuhyK01/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794327231; x=1825863231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b+GfY+61OeZggR11g46pkfalBMS7RT2Vza+al9X93H4=;
-  b=iuhyK01/N5bPFL6pJWyckSnPXskOBFd+00DROYC4tpEDnjevG0gM8yVj
-   roIIv8ewdkZ8Z0al1klzwil5rIK608Lprg8ffxqcx5dYfNimORPk/eht3
-   ghmGBEl4LEaSxnsg8rhK3dkRXqYNSf8vDiiE/gsU59rvRyeRirfegiWob
-   0mkNXsiqQMKAe3US34OkzwDIYSDjgpWOvGFSD+Wq6+2Ut4GtU87KoJOWc
-   C9ozSLCrtMYfbgX6u7r+6Ggg7WoARqdePe/UcBRVKUhtHCFgtIHU0Vwa5
-   1d42g9dUIApWAqpsuY7Ec2lItI5/PKTH/soRQzHYMf7iL6NKz04MEHlqF
-   w==;
-X-CSE-ConnectionGUID: bkxSH62jQSutgqTU5vg8Pw==
-X-CSE-MsgGUID: mOE50LdpTE+6selZY1buEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2949302"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="2949302"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:13:50 -0800
-X-CSE-ConnectionGUID: OLMcxOxJRmK8fg92V8WCXQ==
-X-CSE-MsgGUID: tTtacSy3SlKPGm6b8dLczg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8518342"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:13:47 -0800
-Date: Tue, 10 Nov 2026 18:13:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Subject: Re: [PATCH v5 07/16] iio: adc: xilinx-xadc: Use guard() for mutex
- locking
-Message-ID: <avNCuWIuS5iFrId-@ashevche-desk.local>
-References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
- <20261110050201.1850399-8-dileepkumar.nagavarapu@amd.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RDGd6J64
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794327238; bh=g3puA/Rs8Op3gQUg0J/vl+syCCZwXxu4Foqvmyce9W4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=RDGd6J64KFdUM7VGvUfJOJ8S39HfQojQbc02rHRHnll4+eFp09C8JD6kW8aBOQLyrqcKGr09PqSQWggmf2bfP9Vhj6Ope4/1O7EHKejyYQi59nBV5GLSE0Mt47vDBq8/eSYpTzOP065mJIuWwTzB8Frbmzr1bRSNaNCceXs6fsVHkW5xQcnUh3twnWE32aF9l35SVlz0GPlOQdhXi8a1Lv7heecxMJuENe5Mm07v/XnTfVhUI90f81+5pxtKs16ZyZ1dBHONujX86KEr8oFHMAXmZZWU796BbMWTn0fb4rLGhoyytHv1F0nrVY3xsiJrZOTdtlfpVEy3yMrKFWNwEw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794327238; bh=sYEQKp0KtFvQAK0J3M4QRw/Tkxc1uvwLJaeWJQ8gWyZ=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=BwudvB+03jhVnO10NtONX7aiHcEuZP5bhu5eG/BN0jxXhZmUudkpUnYCE1m7KXbFIBoi5+m1c4k0Jkh3LdYjJm/Jp2lo7/5h3H7GJwL+cSj5G0LQ3rC02xp+Db0QAoeHdKgoVCzGep5TVAqC3Yq4uYu9qBiMTU4x444Ysy/OaSw9+yGk8nbHmxvUKuMqlpoKwmsy7sbGhMpQA27xXFQovpYTxcDOclmuAadh+IhsAQFlkB/PDw3uPsMVwpbJVbSsn0iQWd6YSvx7pYYWz5VAQsnU738WymI8Z4LIo1aK/908HH7j4MmuOOP07fBh7jrpoWGIi7Ads5qsXEbvUFTkqg==
+X-YMail-OSG: 4a8g204VM1n9PqiRa7yv3CpcO8VH9DBXllKXBFIvB8iIKOCdy1oyCJDXz.qc1xz
+ pikdKsSa0vyEI_0VrAIE.SJA80Wb.KBtgC49c6.wmwlO1amPEf0yHRhYnABpmItnZOEsIKqpGPCA
+ oFFeOEUyit70BQmpM1.kjy7Vm17d54mv1rfu8lS6v.xU.PwtD6Bp.tfE3ojQbM.C6X7rGGLNKRNa
+ zetOw2TVFmA1A.wnSWTwZiIEEl_rEKknXXH6u7TXA_6_.XOKDDySO..E28RubUtd74UWM2Uv8aZ_
+ v0qezE8MJ9WFmzj_9i481qgsj9tyGjXb.awkKulhb9NgB.GhHC1L5FcOxOYG36TOWScQXrKWEq8m
+ m3A26J2RlJroVkRXbo2HrImRvDzsXe.jNd8qxSAqoInFulAmasIRdTkavo9UabjpDQLtm3bJMHdV
+ ravk_TH6Xa9rSX5Xg4m4azf2JyThWCMO1DZI2Iwm27HSv6E8wWqivGCVTmA.XhwJdW0Zndq4OxfE
+ nKxwlOCbPgcB3_BAsWxXug80z.gwtjyk3LfFwbEPzwfgF0m92XC_AOaDemlFRwDWj2XeFcvo8.7c
+ PH3XDwJ5SykDe_Ic_2r9Bpet52fWyXiaOzqJO7STLFBNRoJp1dklQesTH2iX0n48cKb8wst_HBYS
+ 1.NXayAYbPR6lCIkccrKXMOCPKu6rLinl.w3jm7XMf7TdAj81lrNRaj54SQt4JDxl3_er44tSj6e
+ vVZsV.6stxY21Xpe12CsWtuJ9i0W.CSkIK8txHnnWvh._cdVb6EyulHbkskfu3hPwFovNR75EV_R
+ Xt4rZscdTC6VPrG2kU.P8MyZWjz_fcvHR0dZyBP5KlCTTtjhXRk9kRy3QjNsorL5.A6B1cfFEaAk
+ _AEKEYP8BruqiPLlAgyFM8Z.8u_2OGdd1jDvSovuE8xLfaEyirmGRLyEfD_XyKP7wTK.PqW4K932
+ lAsWrGoJLGjTa_ZbrjXR0igCzNFg_3hq1yU82MXS0kNXiCi3KmKaj1K51gy0s9lK1BeBk1OM5xNY
+ Hutcgt47SRJCIBJucehLSDs3cOIM9YvPDQ5d0WIqaVApG7PETw0Qa9zJzQFUVgRersz5BDaUL5DV
+ as3fiZVF.ftPgP5q9imZs_5DBiNy16gaqiyu6Clsoxd3B8HJ3FXDMCMfP.KNaWKbI5fkZ0nvs85Z
+ L1bYXbd0G3G5W51iQjtuAIokuU94jV6NquWJPuJfGg.kx9axW0MnCJEAVdaqvaIK6dYG29Hzoq0y
+ _siDbT2UVD.SC_Ai7d7GRsGNuuS8Xf1IDNCAqq._UIyl36r1V4JeNck45lHJwh1wC.UyM9PJ3IgU
+ cXD5Yef270fy_7uj6dJxB9we1gQ6.GdeQLh.uM35x_9iidC3zFdGLJB08ZieRG.zX5EweOVHoV29
+ w8pLRtlJq6aVZzaYD_eLA.4v_pg1H3zbqG_6FZwReQ3aRu__yALuggSZTDZBge5z4DD3cyCKdXuJ
+ fdAXYhvzhfgYFV7ebT7Jepsh0QgK_USUXRHyKus5c5eSqqTfnDOmiq8IuOoWzvWRM.ttHHmPtEX_
+ tnucnxdlFSvCuxYNs.FRn0g6mvqli4vnzySQq1yUfqopylR8eNQmr2AX2o.xF5fu2KxVwE3P5vWM
+ aGNGu70BGvxgkIEGTXdBBlh_3XQI5U0HwzNfP38mdUhjjGqNThgAHW9.eDNG05hJsPKCtt4QV18c
+ rqcJKhYzwhPSY74xsUslsJa6orTvPYlbC0xgIVi98r34bEEa7c_TGBfIhp41p6fsHkEt6uu.p64w
+ Eq77mjiPzmnx54fHtet_cyCF6RbW15Rm3_o4syW9iXsVKyhCGdL_3ZVp32E284C2FFy_leaYePZJ
+ 87zzdzIRQCNxYkPXQF8QiWVms3NaGb4xfgV67vTbBKeyaB2W9RPIAzGoqfqS9maZDETnLp6oKgOu
+ 3j7Cb9WsrP2sfJ3tIt229KLDQoA_CZshPnym48HYnJaVivYYeM2j7zdFKsYy8KKwbWH4Hixz86lP
+ 7CW1LIX.T0a_eUIXxlUOjPr1Otm.QLTeQ__8p_.5prn1LJeG5eueWUUJ7ybnYqsjFOHBxUG8hZHk
+ xdpHjuFhEIy7ilpVYrOEIu5pP7qD9KVwJ6wI0npIhNiJHyMQudG2.G.mWXxgaX48oKnM8gJvG6o1
+ CnEd3mACQAjw79eZXQh1OKhbiKuskcH05P2CxD3iKGkvPzxmlVmQQ35xAZJ9HzZy6Z9KPZ1rRIfv
+ yNhawAEJ1APH1m125O0E7u6qAmo3C30Xw180TcsLCbqiSZiW69D8IBf05Vp1NrB9JfAW1IUiUXZy
+ gsmLO8BBi_PZmmcdoWZRwhFNlX8GNtbao
+X-Sonic-MF: <casey@schaufler-ca.com>
+X-Sonic-ID: cfdf2d2a-b498-44b5-958c-5f67e753d496
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Tue, 10 Nov 2026 16:13:58 +0000
+Received: by hermes--production-gq1-fd7994565-nddcd (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 477e123a5d70e851d8294a1398b4519e;
+          Tue, 10 Nov 2026 16:13:53 +0000 (UTC)
+Message-ID: <b943c17c-32a2-4c59-9037-a7f41bd163ea@schaufler-ca.com>
+Date: Tue, 10 Nov 2026 08:13:50 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,56 +84,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110050201.1850399-8-dileepkumar.nagavarapu@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
+To: Paul Moore <paul@paul-moore.com>, Jann Horn <jannh@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
+ netdev@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, selinux@vger.kernel.org,
+ stable@vger.kernel.org, Casey Schaufler <casey@schaufler-ca.com>
+References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
+ <CAHC9VhR+U3i8xNce8Ps8k76EZr_AeVf+fHET_Ncu1+yO1G2zSQ@mail.gmail.com>
+Content-Language: en-US
+From: Casey Schaufler <casey@schaufler-ca.com>
+In-Reply-To: <CAHC9VhR+U3i8xNce8Ps8k76EZr_AeVf+fHET_Ncu1+yO1G2zSQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Tue, Nov 10, 2026 at 10:31:52AM +0530, Dileep Kumar Nagavarapu wrote:
-> Use guard() helper for mutex handling instead of explicit
-> mutex_lock()/mutex_unlock() sequences.
-> 
-> This removes the need for explicit unlocks and the
-> error-path labels that only existed to release the mutex,
-> simplifying the control flow
-> 
-> No functional change intended
+On 11/9/2026 12:13 PM, Paul Moore wrote:
+> On Fri, Nov 6, 2026 at 4:40 PM Jann Horn <jannh@google.com> wrote:
+>> cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
+>> socket, and tries to remove CIPSO options from the middle by moving all
+>> subsequent options.
+>> That's not allowed - ip_options_rcu can be read locklessly and must always
+>> be consistent. For example, ip_options_undo() reads trusted offsets and
+>> length values from the options buffer.
+>> Fix it by doing the modification in a copy.
+>>
+>> The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
+>> propagate memory allocation failures.
+>>
+>> Triggering this bug requires that the system is configured to use CIPSO.
+>> (Setting up CIPSO requires privileges in init_user_ns.)
+>>
+>> Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jann Horn <jannh@google.com>
+>> ---
+>> I've sent a separate mail with a reproducer to Paul Moore.
+>> ---
+>>  include/net/cipso_ipv4.h     | 11 ++++++-----
+>>  include/net/netlabel.h       | 11 ++++++-----
+>>  net/ipv4/cipso_ipv4.c        | 16 +++++++++++++---
+>>  net/netlabel/netlabel_kapi.c | 24 ++++++++++--------------
+>>  security/selinux/netlabel.c  |  5 +++--
+>>  security/smack/smack_lsm.c   | 14 +++++++++-----
+>>  6 files changed, 47 insertions(+), 34 deletions(-)
+> Thanks Jann, this looks good to me.  In a perfect world it would be
+> nice to get Casey's ACK on the Smack changes, but since they are very
+> minor and basically just pass the return code through I think it's
+> okay to merge this in another day or so if we don't hear from him.
 
-...
-
->  {
->  	int ret;
->  
-> -	mutex_lock(&xadc->mutex);
-> +	guard(mutex)(&xadc->mutex);
->  	ret = _xadc_update_adc_reg(xadc, reg, mask, val);
-> -	mutex_unlock(&xadc->mutex);
->  
->  	return ret;
->  }
-
-I believe somebody already told you two things on this:
-1) make guard()() be delimited by blank lines, so it's visible at a glance;
-2) don't leave unneeded variables, like 'ret' in this case.
-
-...
-
-> @@ -101,9 +101,8 @@ static inline int xadc_read_adc_reg(struct xadc *xadc, unsigned int reg, u16 *va
->  {
->  	int ret;
->  
-> -	mutex_lock(&xadc->mutex);
-> +	guard(mutex)(&xadc->mutex);
->  	ret = _xadc_read_adc_reg(xadc, reg, val);
-> -	mutex_unlock(&xadc->mutex);
->  	return ret;
->  }
-
-Same story and so on...
-
--- 
-With Best Regards,
-Andy Shevchenko
+I don't see any reason to wait for my testing to complete. I'll shout
+if anything fails.
 
 
+>
+> Acked-by: Paul Moore <paul@paul-moore.com>
+>
