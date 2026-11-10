@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298305;
-	b=uBG+OqLAh2UUh0myTwRc6T3bhKLdvl3LbN7vqUR8MLlB16uwSClzETWT3zYBDN+YRtHf
-	 lghFMKL37eSuhKeumktxngVpbBiXlQlUn/XfjvJaWWPPF16VnlZEFObHjJAsnh9f2wwD/
-	 1BBzqOGejGH4xD4ufeviRabvUwKTzxmPtr3XCkFpx9z22zVbtRLlUDHpwUXzsnaJbgfZD
-	 N3U4adQa47huREdXpptzxQAGIrSVKxDbERvWEL7+Yrs7isqxoXRQRePo8jJyHU2EUzBRA
-	 rAEdhoZUvSMG3tJYgfCwPycnGZpdLRwOgW8AjhQLcC2aHJp/Vzd0EGZfpC72e/uYqnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298305;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6XKHkEPKtsOptLLp6CkrLlzFIFu7B8MPqkMARI4hXEU=;
-	b=g/ych7L8LxlRbqFUitIsOW3DJ5bWPL9AzW8gFbw5NZCjsoK7hbP9T+5XKTUQwJBK3sD3
-	 quPBNoeCA861kr4tYLQ+4EHLXWVv6rnSGfAVma/0wISMfT0fg+zqSmciNN8lMwPBoXQqJ
-	 K3rfjPKn76/d4PyopPBnPi5AY5ukiVT60eN16hp2cX7xo8Zl3256sX93ytGWIyGGPtczT
-	 RANV4flH6GFmeCAuwl3nZUMY2fLXSmchvJUgRKLnX2MiWohOEXMcIn7S8pgjxLacaJaZJ
-	 dslmC38FAslqEAhj4Gi6UB2P70hj9sQWfrJXy3/hGVmg8+xvL29DlCLxpzwxUADHOvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+niy5y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794298340;
+	b=BGPd87IxhUHODMAzouFssP1zTAJkfU85IfEdjqnvuhBvP5U4JNHekrSvd3I0usTdFSUP
+	 n5nHd9GTAoudF1rhkiuWYli/qHTyKZcSKpl84QwiTLdk7VD97egbgMzerNk2dxDSdsgS+
+	 7K0jPBsvfX+O/ioFxf3kyUk0oPPld6NFG/2U/ETY3DYIEmAiQk93OoFXEHB823zSLmAWC
+	 rL8gXuxDmYLGMCuDvjxEpxl85Uwk2Akko72wkLpr4HQjAJi17fEWkpheurjc7PB4tac84
+	 Nq+LJ7KpSpf3YAMjKr3U7ZEVfzdfSeEXBq8WBQ7FfRnG5SLmmMEPgvEqTTlvP82RA0Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298340;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=AB6UUbBEZNKWF17VDfnEudBTR1GYMwvjJYG/9/2B+hM=;
+	b=kdQCo9lUYAGPF5EMWEDGEeys4zXO8MkMTODRIaciVtv7qZCJEqLQOuAucM/OR9Cby1iS
+	 gs6CrFm0U4sWqxMkCahr1Y8P7MnpcVa3TA6mWPtoU4NnflPjWqX/Re2zOw26oKbQAv9I5
+	 xljgKbwOKidWBslw8Gdapyc5salS3AVV+m21V9Hl4MpDSnAvji3dJVssdxII2wiANJb8M
+	 1OpLXt1rOU0gSLWYCneZMTQfbR+f9QJRJJ8xPwfsx+zKCBAHYFTRKELkBcebSYxGaAyOE
+	 KNJWx7MHdP8MK+Cs3VycYK1vhoKZnq1oyI/0k+mc4DyGiv8cIyNR9COL9xCLgwCFBeg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PArHeiqL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66F3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14013606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:12:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14013606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+niy5y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE7D1F00900
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298304;
-	bh=6XKHkEPKtsOptLLp6CkrLlzFIFu7B8MPqkMARI4hXEU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I7+niy5yn7ysiyT/VBjM6NXG4+i7P/4VGRUpvP5ZIEEt/GJGGf7yjJrwp7WtMuLuy
-	 Pspa2YrRE2g2epU7k6G14u6yYGsRHSJVOgnTBrplChcr1TfM/1kbgAijVWTcThK2sj
-	 sE+UQM2lxZfynVvdzO26XYD0IkDzeyrledCRQYrawZQr9XPDmWSJtCaFBTkhqBns2Z
-	 snU+076DS+Cgnerf/XdfHBiJhZFEBURlSLSRWC/OuBxmH8v9ZyJJyTX056a3rZQ0c6
-	 4v8bMtBY1fZfJZ+RWaAV9or9YFGyS2abcin+h/yN50Kv3X5IljlLJBYY6BH21OP5U7
-	 t2cW68t4s0kWg==
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f36c18b75so103629485a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:11:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHUXu+E3B0FdWngHCd83MibAWJQkYhymWqBOeVvmZlUKS/o0JrKM9l/bqsYINVmklAAzj7FayAFCIA8pjs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8a0EpbuaGUkXe7f39VA1iT9Ch82juzV/uWDhpA4vyrTBfMRyJU
-	iN/jkaN2rcscPYBcRLhZEfbNr0/3oWrdKZjJpUFs6PlTuV3fKOLeLvrnsoPvx9HaA8YWV59cDrp
-	VrSDZgl3iqS21ooABUroyi0fvR1mqVxw=
-X-Received: by 2002:a05:620a:1728:b0:940:f224:5a69 with SMTP id
- af79cd13be357-9479f348f5bmr314297685a.65.1794298303673; Tue, 10 Nov 2026
- 00:11:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PArHeiqL
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso2182309e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:12:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794298338; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OR8+iJyODU/BG41/vMFVFmPn9s+huH17XNot3ag1hO6CpM3ctknJstKXGZ0M3dp2FI
+         jjigaI21YK1ABNahfgg1rbQHvktxAIz2ALHj1C00ubdOKv/o6eKXhL2B6FdEVTCE9IiD
+         Sp17lZ3o8Wzwk2Fv+b+OoTfUvI7BGMYT+OEpKbCJgs7QDIHttB2r9Rr4kQX1jnpaNpSB
+         ZCjYcXcym+8NZ8ODoHUuIVDXRQgQ/euCVtf4gCw4SUtTB+X0hklNKzqyTCxud81XiSua
+         Tc3WvYco93VfCIwjeRC15pT1ZKV3HGyonw0k9/y4rto+Bgu9DhIflGRjGFL6Y0KGtQIq
+         zBvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=AB6UUbBEZNKWF17VDfnEudBTR1GYMwvjJYG/9/2B+hM=;
+        fh=QA50bGq5calaYRyWApACcSH548Q+P9NDoXLe15lXsmI=;
+        b=iNbbNQkIHgBL07U8Dfif1KGMJ6vINgvSmAQedWyvqbbRZye35pcXSMAVnzK/cBv0qI
+         vDCbLGmE0Srp6UITfO2sR0KtNuOt+L9Tgh1NbOIY/g0cxTie8wQoNctPeuOK1FY53HjQ
+         2rPbJr74cejiCxrh2Rhc13yd9IUmaj1DTPbb82ibXvseEy8IhxyQgvmr6aB1c77XZ+v/
+         mXQ8tQm/BhIEfnGt2hNCLiYm0U159fwWv0YRHOrsBZiSpnRul8ELFGzx0y2dLsmild2n
+         ik0jfwfwlHRZsw11iSTvVPpho9bK+M3iN0VHoy9oyCZ38IDBenLAC4o0QzDtoPQRc2IR
+         +Oww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794298338; x=1794903138; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AB6UUbBEZNKWF17VDfnEudBTR1GYMwvjJYG/9/2B+hM=;
+        b=PArHeiqLOIqDA9K5txiDBN5A9Res+d70jB2RUUqytoPVSEhRmJDSGgR914oRUzvAwh
+         fPd2nhIThsA0S4wUXzVP5IIbi2WroJK8kx5XrWM5lRiOjP5MKvwtxL0ZKrPpVAcBJ0jm
+         9B1QZcIHUROOvVSwjYfWfnzzvwpG2IMvg9Ow3ZioaWxqIuGjOBIdOj1n5Ru+eZNx9TjW
+         e/ARDi0E8moZY9tioNko71nfl1ldU4/iv/6h9fxSGzVIBY5Gf2EU1goVZYyZdgR58Lfu
+         8D2A9McEpL34LunlVRyabP0xFKNUgSHCBFuRfzI+eOcIfZbWXLWk7sHeIyIUl22DvHq5
+         XDpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794298338; x=1794903138;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AB6UUbBEZNKWF17VDfnEudBTR1GYMwvjJYG/9/2B+hM=;
+        b=XZV/fjyHU6sa/LHj4OVXk/G5zF92/nM0YqepGEOc47h3Yy1Y5rmR9NCpPixhSddab7
+         oUroodZhO1ZhcPumEDCkrFzUFOIq5Wfx+rdBCk225cuhZrEWVpDdljkYi+RWCvf1GUiz
+         1Ow1DJQ1JK08HFTfHkWV+4717xviHbJPt3/6XuPn8nIpjJBtFrB9AQcCjwOReahI3TWq
+         JpS2CYPDVI8C82qSeihXvNY420u44eh4TycivV7FFbUxyb8cLGSASdUEVb0QPBtNoNIg
+         jpDx/iQNhg/WPD2hdVsEHiVDrN0BKPhpKlWzhR6YKlBG8AYjY5gwfhLNERP5CKrWHalK
+         rs5A==
+X-Forwarded-Encrypted: i=1; AL+hErGif/DelHiNEZ6p36vlMhJZwTsuoS7dk0QytAnTZIjSeEV2mQkav0SVmFMlJ93M71ZUAt64mXzlnzWbV3I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dP4fBPE/tazJOP0qixxU9kI6iKZW7nmKwtCAdkWo/gFvK7/mk
+	EY7/M3ubfmSdCr5loFKqocnHgZHHuOGl/cFL+E65+yWB+IuH6uYg+gNJkLROdnQV5clEX9SJry8
+	2A3wVeHUeC7uxD63A36o9gv8758xVM+w=
+X-Gm-Gg: AYBFou3LjvoLM2dY/FJfV2LM2m3zdkLCJ4jxmzqK7e7u/lye/jlTdH7CU4THS7z/p9p
+	8uHBM2+jDAa7XxY61YyJi00aHXvc5/MjbTCBV0PUlnq/cmAZjsNYCeM69wdZEZl+B6HAZiGdxSF
+	d9WtQIu1u+VHBU5q8GJDZAmFr2b5rM5hKkffPebvMm3JWbQjNCogr+gwg5yyUb/fYFs/lEDMnea
+	3WWG7gN9E8S90iu6DeFO2fP/6eCmhSYctOMFiVj4vR0oyO1KyVuPL4XlGaAtJ12pdyu0dgbpWYp
+	gmeCoJTYN39pVoP4R3BngEvhsOFYGioJF/odaBiBqQmoLlxoOvXQFoUnSSViaiefDUChYhbJdvg
+	+lX1sabhIfyA6I7ojfP7w52enTE0angXlRhg=
+X-Received: by 2002:a05:6512:33cb:b0:5c0:b5c:408d with SMTP id
+ 2adb3069b0e04-5c156e3e8a0mr461922e87.6.1794298337806; Tue, 10 Nov 2026
+ 00:12:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +103,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org> <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 10 Nov 2026 16:11:32 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xXTRsn=Wf3j6u7QyNs4zRc+1i6MG45vtao=5gdQv8Pig@mail.gmail.com>
-X-Gm-Features: AclHuK_7DysJ1y5_bnFyuAOrVgsW65eT05aJKGB8T07cT1zr_AQPphy0esTgfR0
-Message-ID: <CAGsJ_4xXTRsn=Wf3j6u7QyNs4zRc+1i6MG45vtao=5gdQv8Pig@mail.gmail.com>
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
- LRU) update
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
+References: <20261109-adux1020-measure-fixes-v1-0-fe1ba63f28bc@gmail.com>
+ <20261109-adux1020-measure-fixes-v1-1-fe1ba63f28bc@gmail.com> <avJcESOPo2nGq5wy@ashevche-desk.local>
+In-Reply-To: <avJcESOPo2nGq5wy@ashevche-desk.local>
+From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Date: Tue, 10 Nov 2026 08:12:06 +0000
+X-Gm-Features: AclHuK--YL6d7XaktwHV0yo6D6aDe9D2JvgZjf0sRInSEUEsIp9kqMvJFxZN6Yo
+Message-ID: <CAJsKa+6JDCVLtWsfQ0gJzX185ywWiYA_FwbV52q=N7vzgRYDVA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] iio: light: adux1020: fix interrupt clear value on
+ SMBus-only adapters
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 2:32=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
+On Mon, 9 Nov 2026 at 23:49, Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
 >
-> MGLRU is currently the only MM component without a dedicated component
-> maintainer. Fortunately, Kairui and Barry have been actively
-> contributing to MGLRU and have volunteered to take on more responsibility
-> by officially taking care of it.
+> On Mon, Nov 09, 2026 at 11:39:02AM +0000, Raffaele Tranfaglia via B4 Relay wrote:
+> >
+> > adux1020_measure() clears the mode interrupt by writing the inverted
+> > interrupt enable mask to INT_STATUS. The mask is a u16, but integer
+> > promotion makes ~0x00f0 evaluate to 0xffffff0f, which does not fit in
+> > the 16-bit register.
 >
-> Given that Kairui is already an established MM component maintainer in
-> a related MM component (SWAP), add him as an MGLRU maintainer right away.
+> Huh?! Where did you get it from? the mentioned promotion may only happen for
+> a signed char which may not hold 0x00f0 in the first place. The above is some
+> nonsense.
+
+The integer promotions apply to all types with a rank lower than int
+(e.g. char and short, signed or unsigned), as long as int can represent
+all their values (C11 6.3.1.1p2 [1]). For ~ the standard says "The
+integer promotions are performed on the operand" (6.5.3.3p4 [2]). So the
+u16 0x00f0 becomes the int 0x000000f0, and ~ yields 0xffffff0f, which
+regmap_write() receives as an unsigned int. sizeof(~v) is 4 for a u16 v.
+
+It is also what I observed: with i2c-stub (SMBus only), every read of
+in_proximity_raw fails with -EINVAL from the val > 0xffff check in
+regmap_smbus_word_write_swapped(), and succeeds with this patch.
+
+That said, I can reword the commit message to make this clearer.
+
+[1] https://port70.net/~nsz/c/c11/n1570.html#6.3.1.1p2
+[2] https://port70.net/~nsz/c/c11/n1570.html#6.5.3.3p4
+
+> >       ret = regmap_write(data->regmap, ADUX1020_REG_INT_STATUS,
+> > -                        (~adux1020_modes[mode].int_en));
+> > +                        ~adux1020_modes[mode].int_en & 0xffff);
 >
-> For Barry, the idea is to transition him towards a component maintainer
-> role over the coming months, starting by moving him to the top of the
-> reviewer list.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+> On top of that regmap should limit the value to 16-bit anyway. If there is a
+> problem in regmap to cut the upper bits, it should be addressed rather there.
 
-Thanks very much to David for all his work on this.
+Currently regmap is inconsistent here: the SMBus backends in
+regmap-i2c.c (and regmap-fsi.c) reject out-of-range values with -EINVAL,
+while the formatted plain I2C path silently truncates them. If you
+think regmap_write() is the right place to mask the value to val_bits,
+I can try to fix it there as a separate patch to regmap.
 
-I also want to thank Andrew, SJ, Qi, Baoquan, Muchun,
-Baolin, Lance, Ridong, and Kairui for their encouragement
-and kind words.
+However, even if regmap changed, the driver would still be passing a
+32-bit value for a 16-bit register. regmap_write() takes an unsigned
+int, but logically it accepts values of the register width, so I think
+the driver should be fixed in any case. From a quick search, this is
+also what other drivers do when writing an inverted value to a narrower
+register, e.g. ad4691 uses ~BIT(chan->channel) & GENMASK(15, 0) and
+zpa2326 uses (u8)~ZPA2326_CTRL_REG1_MASK_DATA_READY. Fixing the driver
+is also the change that can be backported cleanly through the Fixes:
+tag.
 
-Acked-by: Barry Song <baohua@kernel.org>
-
-Thanks,
-Barry
+--
+Best regards,
+Raffaele
