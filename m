@@ -1,68 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353213;
-	b=pauSTh+o9oE179MUl5HpWBd+h/7WxkvaI0nPL4OOl0EyGH2xK0raZ4KgIboS78Fby/0x
-	 AnVa9loWetHmoQdyr28hs4aYfDc1O95BXH79q3r0dBQiEuSPDKD8rfoq2N9ey/uVzVkJC
-	 uNssM7KqabBKcXSpOTQP4LIjCi0GkSNiXQWRJPhyc9WCXHp4cszuIpXpWH66yjinODDJw
-	 DX4/9fkmo5sI3zCWEEFW2zr9gIRuqYfKhtGa0ogmJ3gbTZCTXwzYDJXtsUBmOinKkNNqF
-	 zwCmdkv+m+fm7cMIBY843kqZei9Cs942CD6NMEow1cnCSM89VvpfKNlGEZqe3r8jYJQ==
+	t=1794353257;
+	b=BtyObp4fAXxDDpQ+AQ1QQJHVxAONEWb72Y08nS28Cv1upiFvjIvlWXxopbF4Pl+Lgr8/
+	 AqcwA1nWsqrR33kBxPiVc6MlmhqXdH7PALOiyILVDLyymoKi500fkk7GselrCB/wRcGQ/
+	 r7rf2h4tZczeLyZQl4hZ+ErIyY8241MW07YFXzLYjk5+uhcGczzjNeAjHDVUZJnQ9Eq3n
+	 YteeKX1fsuwQrmVJrbpgpv4f6dUmuYBNXNSlWqhz2eCrRSo3MzPr0wct0VcZT8XLcpCU8
+	 5xz26+ToX8wMV2B8fTItepj3abENlzfX3NbBkrVcreH1o2d+GtWA4xroOH/s9BTMsWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353213;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dkkjz90Suz+xU/M9ypVYo1fqYZs9S1zPBs/lFY8imtM=;
-	b=hN5XRiQgLBMrkTUomaBwGziNTjXuJyNxV4MK6TOAHn5Ly4qH729mD7upItWO0wyXxxw8
-	 t2i5gSkekN540WWwRmA95Agm5KCqB3+GK2yFPq2pcZr1YXWzmLIHG4IpbZERkGfndphve
-	 sXpNebSmMJYQUMQr4LjaMsPJ6rQYJRb1GALqt+bzbgSAZ9eTHduXzVhSzuoOWPo/RUMKD
-	 3qgVQL8fHVex6YFFD9egiJkK4oIU8YkaXZ/ehCMKSKljdntHErlt1TJiX4UECnxOcKRLw
-	 Q2rI2PxtjK+ZvxHCRQWfdFPhmT+lXfSevbUlK8c3glJY8uJFwMFlCMjxdTuwSbKymvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353257;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9SU31qE105wrvP2RpFtRMcpfeuKBum+yU6ILTSHS1GM=;
+	b=n02YznYzH4FldH63UE7+o/g+PNp7h0M4VbQifJu24VIBf1ozWZ40peJep8oS3Wv2I8LP
+	 wX6U0unwr2KF+gCOcqVsJLjjtgd/TQ8nBZXMMDenfxuIGxGMEoMKY+AIeFXJ9qY87A+wf
+	 mO/FefoISvkgCq9xiwG7Moj6/bp3QziVMk7d9woNVR9C6ULv0fpj9fcypHaYrwTEd5oV7
+	 iH/FMKmlgaUj7tlcBNbpvSKL7vTTSoxXha7VhM+EW8umGcUXoQFUHLfR1Ofm1XG8jVM9/
+	 WtoBpLX+hfsrTPqlFY9npmqwsqBGZgsUzmuFO4C/sIKByDqusS5K6laQtKJ46OZ/ncA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SMqYm/0Y";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ19FyuM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77ED606A335;
-	Tue, 10 Nov 2026 23:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6135A606A31C;
+	Tue, 10 Nov 2026 23:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMqYm/0Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8E91F0093D;
-	Tue, 10 Nov 2026 23:26:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ19FyuM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160641F0093C;
+	Tue, 10 Nov 2026 23:27:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794353213;
-	bh=dkkjz90Suz+xU/M9ypVYo1fqYZs9S1zPBs/lFY8imtM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SMqYm/0YGCG6mtuFtGslnCPPOfgI/ePVXB62hFOdhcunKGY6o8IiU3knvDBUo8JF5
-	 ELBVh5p+Gjh37PPtbJwU6kM7LEVRCjB9hZrJX2rAeXvRSlvR/qvjH52yr+vwqi/PAn
-	 K5wn1Byww5lvNZieDSeX1fqipgRp0HqDBkVQTRBWNSvGzNLGG4aKc8La2R70+yYN1f
-	 CBpnJ8wa0ibIbLJJ28JBV/uBwhSTv1H5ZH8n0tj+Qp5FLgN25Y/ci0mlIqpq1BTxEB
-	 RdVZAteSl9NiF7Lc2+d6WJSvwrxqqw8Wr0gOhdlqcUN5TzMcu22hQ4rgoB5kF4znd9
-	 +QGlWt4t1iLNg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: kyle.switch@motor-comm.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v17 3/5] net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
-Date: Tue, 10 Nov 2026 15:26:52 -0800
-Message-ID: <20261110232652.2437155-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105031442.4164960-4-kyle.switch@motor-comm.com>
-References: <20261105031442.4164960-4-kyle.switch@motor-comm.com>
+	s=k20260515; t=1794353257;
+	bh=9SU31qE105wrvP2RpFtRMcpfeuKBum+yU6ILTSHS1GM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KJ19FyuMQ16mdsKO22OSo/lQFdDl2kxijdpfs/PF1yA76fI+By9ox3drrd/O0XSvA
+	 v8NjcftwFfKTxaSM5Xnh5Cywb5T2elzFBm9YYwZzhfuwUmxX+ObbaEYuBbsF6XzJWb
+	 +lT05RUof+xJFIWGEur+Dgt+EoY1Pmn2X1idZFZAsVNpDr9SlGuwDi9YyMwwNP8QC1
+	 YBk2jHRBSo3r5YVW3aFyBqXuTlAdATK8Az+lPxbfvj8MxuK0xFJTrbK/ihEKC3zpIw
+	 KGlCJ/lwbgrMAuyzQV/knVHSvNk/0aSmVJQ99Rg3sktRktx8jKxiR8HoXGFCLVA3cX
+	 ijdLNfc56ltkg==
+Date: Wed, 11 Nov 2026 00:27:28 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
+Message-ID: <avOn57pfHntiwcaD@devuan>
+References: <cover.1794323750.git.alx@kernel.org>
+ <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+ <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +70,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b2kxsrve4gpqpi5u"
+Content-Disposition: inline
+In-Reply-To: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
 
-This patch replaces two GENMASK() uses in the motorcomm DSA driver with
-GENMASK_U32(). One is in yt921x_chip_setup_dsa() in chip.c and the other
-is in yt921x_mbus_int_init() in mdio_bus.c. It is described as a type
-cleanup with no functional change.
+--b2kxsrve4gpqpi5u
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
+Message-ID: <avOn57pfHntiwcaD@devuan>
+References: <cover.1794323750.git.alx@kernel.org>
+ <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+ <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
 
-> Some masks assigned to u16 and u32 fields are defined with
-> GENMASK(),which is an unsigned long constant and wider than
-> the field type on 64-bit builds. Convert the YT921X_MBUS_CTRL_*
-> masks used by mdio_bus.c to fixed-width helpers.
+Hi Joe,
+
+> Date: 2026-11-10 08:32:41-0800
+> From: Joe Perches <joe@perches.com>
 >
-> This is a type cleanup only, with no functional change. Other
-> GENMASK() uses in the driver are intentionally left untouched.
+> On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
+>=20
+> no commit description on proposed patch
 
-[Severity: Medium]
-Does this description match the diff? The patch doesn't seem to touch
-the YT921X_MBUS_CTRL_* masks at all. After this patch they are still
-plain GENMASK() in drivers/net/dsa/motorcomm/mdio_bus.h:
+There isn't much to say, but I'll add something (the explanation of why
+the parentheses are needed around the function name, for example).
 
-#define  YT921X_MBUS_CTRL_PORT_M		GENMASK(25, 21)
-#define  YT921X_MBUS_CTRL_REG_M			GENMASK(20, 16)
-#define  YT921X_MBUS_CTRL_TYPE_M		GENMASK(11, 8)  /* wild guess */
-#define  YT921X_MBUS_CTRL_OP_M			GENMASK(3, 2)  /* wild guess */
+> > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> > ---
+> >  include/linux/string.h | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/include/linux/string.h b/include/linux/string.h
+> > index 9e59f9697c9e..55ca4cb5122c 100644
+> > --- a/include/linux/string.h
+> > +++ b/include/linux/string.h
+> > @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
+nst void *src, size_t count,
+> >   * *  @s+strlen(@prefix) if @s starts with @prefix
+> >   * *  NULL if @s does not start with @prefix
+> >   */
+> > -static inline char *strprefix(const char *s, const char *prefix)
+> > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx=
+))
+> > +
+> > +static inline char *(strprefix)(const char *s, const char *prefix)
+>=20
+> Why introduce a new coding style?
 
-They still feed the u32 mask variables in yt921x_intif_read(),
-yt921x_intif_write(), yt921x_extif_read() and yt921x_extif_write(),
-for example:
+It's not style; the parentheses are technically needed to avoid macro
+expansion, since the macro has the same name as the function.
 
-	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
-	       YT921X_MBUS_CTRL_OP_M;
+Alternatively, I could rename the function to __strprefix().
 
-No later patch in the series converts them either.
 
-The two lines the patch does change are not MBUS_CTRL masks. In
-yt921x_chip_setup_dsa(), the mask written to YT921X_FILTER_UNK_UCAST
-and YT921X_FILTER_UNK_MCAST is changed:
+Have a lovely night!
+Alex
 
-	ctrl = GENMASK_U32(10, 0);
+--=20
+<https://www.alejandro-colomar.es>
 
-That seems to contradict "Other GENMASK() uses in the driver are
-intentionally left untouched".
+--b2kxsrve4gpqpi5u
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The other change is the phy_mask calculation in yt921x_mbus_int_init():
+-----BEGIN PGP SIGNATURE-----
 
-	mbus->phy_mask = ~GENMASK_U32(max_ports - 1, 0);
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzqFoACgkQ64mZXMKQ
+wqnkyw//SMcrvLK94m7pGptAYwrkzsAjnS/ms1rp2DXVYYygDz590sAwqXuMmExR
+SIEeUlm5Tj25X3zVAAi1b1P9GPG96sKMz1xVWYrbr2rp5kTW6Ugzlh2lozAfCpn2
+KKR6o+yz5vrU0dor0jy6/m0FdiIuWUiDcAquAoNIuXP7xXJifq/YQiaXrqV7wGQw
+qPA7rP8WcEXGtStTMGyZMscwwkbEAkUOjj62u4LKIXEdBIT531d+tVgGo8wZDXYx
+yNQshQTqYa10OZGy3Yox8CukE6h70T9PSUSGp/hdGnriyUY4OlsgnSvbESvPbHM7
+Hogdw3SS+hEV2mPxVsiKhYdomgUe2OlMNFaXwocFYzG14kGSVrKHHSjgAOhiXuBT
+8Y/DdHRNaUwvk4n4M+JkjWsqBlBlEtOkwN/EiXoaXxjP2wfkJgK/XnkcxMERclrY
+gDUsM/wiP73wMno2RMb9kicpHFd17RjWMAvH1/57QW4Oypa3y/fCTCEIXPn+Zt2i
+GELd/ylruhm6vPAIN9bPC3vtBbrWs/PVUqK1ezgf6khXdJq+DdbFkFG8t/wesnm6
+utI5wPKRQ1moDEwIfqTBBCialEyod8Nh3a+hCUz5B4yg8EzbZxGuAG6ctjIEI8Mr
+99esL/VEmx5QoXEHdE1RhoejHLhmlfgk+4FKZHTXSbC0+Ty3o68=
+=AAVC
+-----END PGP SIGNATURE-----
 
-Also, the message refers to "masks assigned to u16 and u32 fields",
-but none of the changed lines involve a u16 field.
-
-Both changed lines give the same values as before, so runtime behaviour
-does not change. Only the description is off.
-
-Could the message be reworded to describe the FILTER_UNK and phy_mask
-changes, with the "left untouched" sentence dropped? The other option
-is to convert the YT921X_MBUS_CTRL_* masks in mdio_bus.h as the
-message says.
+--b2kxsrve4gpqpi5u--
