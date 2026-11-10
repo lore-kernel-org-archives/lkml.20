@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273500;
-	b=d1tcuFpV4D028glXIhNvJbCqeyUodHNl3b9NxDjeL3oRUFaCcsQhnlGpTOqPRMfu5Wab
-	 3A8o+1KM57XlQ2CR9hcZsR2YSw3QHDnxbTLQvlH6gwQOFwIj2H5DQF0YZhxrOIp5eXDlC
-	 8WFOpUBKXp6/H4SG0i+UrkpK2Qyu2gFkTVDVFUl1Rnw2vTus1VzWQaRLIH+7jk8EzZCCS
-	 Uh6AmIm4Ib6kaupxy4efj5UExl1oaefwmdYdY1ZDON1IzifZMOpUYPKvjFbrznHV/eEdP
-	 wS9GbxsxrmOdpBrsBpqHA5iyxzuQzBi5q9ACP6+QKbAYEtITccDc1hZk26hFZrtW1zw==
+	t=1794273590;
+	b=WR2NecbQc0FgQIPhB8hhDozg5RA3YtBuXBY+g20aSCDHKkphqB6WFbWJ9Owy19nf4Aut
+	 3U2T+/ZTksVlZVEbF6wTcK5/G8fpNiNz2rQezYr973FPgjaoHro5xkpaFjaoqD48ZIlFS
+	 Ur4WsERCQuCFPMy3HGo1X2Llw+ucOJGpXWZrZQJ+l2Wjakzt+KtIvYfdZDuiX7MvVD/jc
+	 oSK7mx3b/A+TU4VLLSwy87s7bfPUGDaCZmPq/HnuQHCoZDPEEXkKh8TaMaLOIoLacdn7d
+	 JQnLjsVDK8Ctoqq0WnB2MTIlIFAJ4AvqmILC+pZaQ/E8n+8KwzaULpJUuQFt+quud1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273590;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4W9ISFbtgCFMCYArZUe7DDHrDlGmnATZOpaOt8j7+uk=;
-	b=0ZI8tT8f6gOu+F/KsF65ZFWqEKzjAf43oa5aUTM6mxGRURhYKg0bMYGc+E6/KAJCPfS6
-	 8ZIbGfgRTKqsvcCt+SGzkKFQxehKGF5t9o6zHQk+Gh0XxaXtK9I01H907n7Y/5PrkKtmf
-	 DhGlP44SXyYc6LFgkRCfqhVxnkU9DxPNHJuSXRaRz3hsR52G9+10FgJQA7WuOUA7MwDcC
-	 8JaJfMAj4YnRVVuMMvfY8i7l0f8MzJ76DzsVRKSf9Tyzcp1MZCC8VjLLJyhbx14YN+rUN
-	 TvQanlOv33uwyQep9CXZCsEcwrt40gQ967SIednW9cFoyad9m3wEAtTXYshDYxOeMjQ==
+	 User-Agent:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=U05+Mie79PyeWtUEBw0kGiOkIb8tSC2Jl/FhrH9xV8w=;
+	b=hmwdp7Tn1sM8NbHwxaosjaDEHW/6+Y2RJN1zVn/L9xf7YjOFUDWJPbA3xY3DzBuoxYMx
+	 7taTOlGk7otLRGbmG6typfO1tU51rI5yHvVtMIoyBPTRXxU4Zn3QFkaIQTV0V6xEEhnoA
+	 zh5Zj4U6+KVgSWY/mVecsThQ2cdF66avahegdKTBg53wJhRLreWczg8UiqEddKXAPK2RU
+	 PoAuYhvwGH0/aM0iAMCTM+4CtAQCYKbxlAZODB7gWA36HAiIQhzCUUA/1+aRRNxsQfppp
+	 5WGBrzbTAl5LdE7CKO70akEwuMJHyFpnZwI3BeoD2pVGT3ukJjym4fKRxEpulKJLpkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zl0pp8oC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mQE/ilfw";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A72606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:18:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FEC606A31C;
+	Tue, 10 Nov 2026 01:19:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zl0pp8oC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A911F0089F;
-	Tue, 10 Nov 2026 01:18:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQE/ilfw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF111F008A1;
+	Tue, 10 Nov 2026 01:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273499;
-	bh=4W9ISFbtgCFMCYArZUe7DDHrDlGmnATZOpaOt8j7+uk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zl0pp8oCON9HQRs0goyjbzHxLac/2D1pMfxoHCkaiXYzaDrzrabkp6QBCnuZ8pjR0
-	 P+hbm4VYScOJj4YSeLIMGILB3MFlqaJp1Cb2s9dbNJiuO1szo1ootxNgv5PSrSWWOJ
-	 zhhq1qlZbZmj1Fjmi7zSIUZAbioozGpfTtYQINOwnJTfZz0ZyRNKUy5DENWhF9Eq9Z
-	 W+m/SSt0BS/M6jtf+uA3FEnsaMuW/PyEMrXh49NQmDN+SViaBBug2XrToFl5lug1Ai
-	 rlIj09vaOgQCufQXZclwCo5f4rIRoOY2mwkXNE66IugIQh+mPhnXHmnPXwhtVLqJ9f
-	 xH+HOvbCLG7BQ==
-From: SJ Park <sj@kernel.org>
-To: Shivank Garg <shivankg@amd.com>
-Cc: SJ Park <sj@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: remove unused clear_flush_young_ptes_notify()
-Date: Mon,  9 Nov 2026 17:18:11 -0800
-Message-ID: <20261110011812.106413-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
-References: 
+	s=k20260515; t=1794273590;
+	bh=U05+Mie79PyeWtUEBw0kGiOkIb8tSC2Jl/FhrH9xV8w=;
+	h=From:To:Cc:Subject:Date;
+	b=mQE/ilfwO3xKy/hq0LTNskUiGiU7//zIIPekBJGuoyasIlUW4SE1HbkgZO3nVvYWG
+	 qYeEgxkgO57brh0Pl9ScfJUWDc1us+EQ6CShiZhtfcAW5UsyGC8g4rHyLcVpy96I8I
+	 nNCxuoJCutEEeLuSboTVrLSrcPBAkWGWrp0exzvVlqfKfpCxvLNGPLxNFXxiW0jiVb
+	 XFwnnGioZGsyZWP/mA7YNqhNeL3pu2XW7KEossCqTeXV4EeQovdDiTMryNXdq437SM
+	 CAQz5DcVAyVO2w+2gGd7r9uJKNu0DUJuzDSdhY0PLt+gPfr5yXWEdo6QO8jEEGuGhi
+	 H5WpefTi1RY2g==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: [PATCH v2 0/4] kprobes: Fixes for ftrace ops and optprobe state machine
+Date: Tue, 10 Nov 2026 10:19:47 +0900
+Message-ID: <179427358690.291326.2078291446658598883.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,27 +61,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Mon, 9 Nov 2026 18:41:55 +0000 Shivank Garg <shivankg@amd.com> wrote:
+Hi,
 
-> clear_flush_young_ptes_notify()'s last user was removed in
-> commit f3c493d2f42b ("mm/rmap: handle device-exclusive entries in
-> folio_referenced_one()"), which open-codes clear_flush_young_ptes()
-> and mmu_notifier_clear_flush_young() in folio_referenced_one().
-> 
-> Remove both the CONFIG_MMU_NOTIFIER definition and the
-> !CONFIG_MMU_NOTIFIER alias.
+Here is v2 of the remaining bug fixes for kprobes and optprobes, rebased
+on the latest probes/fixes branch (which already includes patches 1-3 from
+v1 and Mani Tofigh's optprobe state fixes that superseded patch 6 from v1).
+The previous version is here:
 
-Looks good to me.
+  https://lore.kernel.org/all/179375029807.247640.13024754173032838618.stgit@devnote2/
 
-> 
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
+This includes following fixes.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+1. Ftrace Ops Switching for Post-Handlers (Patch 1):
+   - When adding a second probe with a post_handler to an existing ftrace
+     kprobe, the aggregate probe's post_handler was set but remained armed
+     on kprobe_ftrace_ops. Subsequent disarming attempted to disarm from
+     kprobe_ipmodify_ops, failing with -ENOENT and leaking the armed probe.
+     Switch ftrace ops safely in register_aggr_kprobe() outside of
+     text_mutex and cpus_read_lock.
+
+2. Optprobe State Machine & Tasks RCU Quiescence (Patches 2-3):
+   - Forcibly unoptimized probes (unoptimize_kprobe(force = true)) were
+     not queued to cooling_list, causing kprobe_disarmed() to return true
+     prematurely and risking use-after-free in the optinsn detour buffer
+     before Tasks RCU completed.
+   - When a disabled cooling probe finishes cooling and transitions to
+     safely disarmed in optprobe_finalize_generation(), re-optimize any
+     blocked sibling probe whose jump range covers its address.
+
+3. KUnit Regression Tests (Patch 4):
+   - Add KUnit test cases to lib/tests/test_kprobes.c covering the recent
+     kprobes, kretprobes, ftrace ops, and optprobe fixes.
+
+Changes in v2:
+ - Rebased on the latest probes/fixes branch (v1 patches 1-3 merged;
+   v1 patch 6 superseded by Mani Tofigh's optprobe fixes).
+[01/04]
+ - Defer add_new_kprobe() until after ftrace_switch_ops completes so
+   that p is not visible on ap->list if switching ftrace ops fails.
+ - Set KPROBE_FLAG_DISABLED on ap if rollback arm_kprobe_ftrace() fails.
+[02/04]
+ - Drop the unreachable kprobe_unused(&op->kp) branch when force is true
+   and list_empty(&op->list) in unoptimize_kprobe().
+[03/04]
+ - Drop the unoptimize_kprobe() and reuse_unused_kprobe() hunks which
+   were superseded by commits 0be7a931c5e4 and 1ffd6efb1b58 in
+   probes/fixes.
+ - Drop the kill_optimized_kprobe() cooling deferral since kill_kprobe()
+   runs at MODULE_STATE_GOING when no tasks execute the module text.
+[04/04]
+ - Probe a notrace target function (kprobe_opt_target) in
+   test_optprobe_rearm_unoptimizing() so that jump optimization is tested
+   even when CONFIG_KPROBES_ON_FTRACE=y.
+ - Guard test_optprobe_rearm_unoptimizing() with
+   !IS_MODULE(CONFIG_KPROBES_SANITY_TEST) since
+   wait_for_kprobe_optimizer() is not exported to modules.
+ - Replace KUNIT_ASSERT_EQ() with KUNIT_EXPECT_EQ() while stack-allocated
+   probes are registered to prevent stack use-after-free on test failure.
+
+Thank you,
+
+---
+base-commit: 1ffd6efb1b58e596ed70f660182803264a4c84d9
+
+Masami Hiramatsu (Google) (4):
+      kprobes: Switch ftrace ops when adding probe with post_handler
+      kprobes: Fix UAF and queue cooling probes on forced unoptimization
+      kprobes: Re-optimize blocked sibling probe when cooling finishes
+      kprobes: Add KUnit test cases for kprobes regressions
 
 
-Thanks,
-SJ
+ kernel/kprobes.c         |   85 ++++++++++++++++++++++-------
+ lib/tests/test_kprobes.c |  136 ++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 200 insertions(+), 21 deletions(-)
 
-[...]
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
