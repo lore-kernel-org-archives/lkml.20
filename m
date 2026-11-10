@@ -1,97 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282649;
-	b=x580BZVoPfvoBGTpgt6fTme1lSjLGQbqESVqGELc5muZkCWCeCea6Ij20ZhibOfbPImc
-	 FiVSRGH3BAI7uLZSYdshFfv1UOr0VIhmo3NTtcoCwwN7fPy0ZkJYuBaZSCVEqeS4aah+N
-	 msyYzbCXYzupSvKWpZuQg5V83d/nFhPQgQBLBB2m2DuP8umvv31Gw9T0XemszXATBQLLJ
-	 Cr0Eo4fuDDCyi3pwY0LZVI40prOlALqn+BYMyvaIm0bMcPoHnyohUEs2AXbv05c52/OL5
-	 +mbU5y17A87ewkpfYj/b3yki9YzxdTXlKZ5DDjcQXH6Z6fw3o3mQM6Zlo2eKIUgK2yQ==
+	t=1794282644;
+	b=nqmKzyt5ZvghiJneEw9ITwz/r6xu+0tEEjDAPOoIJyhTyERyaRwcOVWfNWyY5q5LfJPO
+	 xzbOUKs0MY+MOc6TgA2w2v7ppuzCitidM/lpwvulZl3IfRu9N6q9utMNw4+4yY8HCE5xP
+	 6PkTvPMUPUhSPbdFZqQ5Dc+Y7OlWkBMMmE8mvfl+rkyi6qBEc5V0ecxLBzIT8zOjsIrnH
+	 g+bg45/yBEDQ/JH7gb5tySvBWAY9U2/+7LVdgflgaH7CkQKENiMIm+BBXVvq9cO06bV5g
+	 M/q0RThhmmCDyI1ZbjHvapdrrB9qWr1OvZ89nKC/shFKy9CCn9DbW7aqInh65HkiFNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282649;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=28EHKTd5g7GgnDMc0iqNKE3KenijVI7p8oAI1MBlUbA=;
-	b=TK07Pa4N7WhsqkjSzwwsNIfF5d3Lum3JSsxDUQ6CtZAfzoW1w2+DsrKBiUl+QfHXMchC
-	 j7dO3g6w+eGpXvGLiF/3KvifmSOaohwfeOlm7Fv7QY4M1H12QJc+BMD1XAmHfRhbZsv9W
-	 6ak7jxOfkFkTPp3raggdw/PYGKosEPaYXH5kSV0APpl4kxklpQlbTQ7epI3G4kfTLEuD7
-	 CZ51cqui8xMcs3aUxHbwNGEjbA3/zW2o2/wcZm/Fwre+XRCv+BBV3WEmhz2z/mEpfVBj4
-	 F/G18Ags9ZFgcoVpF0+GzLC98GPBYvRvXTFGd00OLh72eYQe11IGH3Ik3OJrKU68BfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282644;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=7meWxertAjl9j9mw2S4lICUqNDf7vNKHIx+/yv0Rf3Q=;
+	b=E9duT5u4a/SmofPNeTmeQQ+ndoHSTai+eQ69BgnY33zMY201P0ettwm2Jve6bgch39d+
+	 dI0Eog1Q6FwFOdEXLAEKJV2gv+F8pkww6OIJTBg1ggKUnMeCVhHYI7Pep2t2NGbEScOqi
+	 MMhAWI414LL0z28sI1E+oFiV4FlWvgCmcsxviRabwZpG3dkWyYHUOifk1Kcs868vyQH4x
+	 015atAdIhxzE4TjUDsQdtPQl85miZ8Wo3CRLLL/SCDeIxJYOfhr+7qbidQnBthJDu0w+F
+	 ti91dbYI0rhWyNXDVjdRRa6XKuw39h1bZCWqi00bmfY4CNT34umvabvk/wyMTcSisfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=MRkMaR8E;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="S3/LmUfK";
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9569B60A261D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9569B60A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B39B60A5BD4
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B39B60A5BD4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=MRkMaR8E
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=28EHKTd5g7GgnDMc0iqNKE3KenijVI7p8oAI1MBlUbA=; b=MRkMaR
-	8EV3mQT04NyuGBfJ4GAxJ318uyqe+jfErfFX7HXI3DsXV/m6bxcNJttQHm8ZR7Wm0ry9obhmmMMg8
-	9JckodjwPv+QuYrUqgFbRoK/IdP5Zwskijnn6D1KiUkg7Vt4mu5d8PBo2Jos2qvWGh3EROvnbTLbZ
-	2tnESEXqm51BVywMepAa94NhznjvnPINpCZvZ6uHkiyRh5waAJdixK6XYhzOle7Hx+17Z7GBqDhs0
-	gL4AnR4rDDat4NF/0aznKRrQrw9vj3zJqanGhjTr8t/2N1vqXwZotGh+Dl4k1Ro+CUcyAOZ8Cesoq
-	Zr822Qng/IF7Y0x9x0I0+ILG8yHg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xQcsS-00000003Vwm-2DAC;
-	Tue, 10 Nov 2026 03:50:32 +0000
-Message-ID: <a6d539cbab73091647fc2308b69fdab3069b0fe5.camel@surriel.com>
-Subject: Re: [PATCH v3 2/6] mm: gup: clarify a reason to check pte/pmd in
- gup_fast_pte_range()
-From: Rik van Riel <riel@surriel.com>
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,  Michal
- Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand	 <david@kernel.org>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-Date: Mon, 09 Nov 2026 22:50:32 -0500
-In-Reply-To: <20261109-refactor_gup_fast-v3-2-2aaef02df0e1@arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
-	 <20261109-refactor_gup_fast-v3-2-2aaef02df0e1@arm.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=S3/LmUfK
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso1182484a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:50:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794282643; x=1794887443;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7meWxertAjl9j9mw2S4lICUqNDf7vNKHIx+/yv0Rf3Q=;
+        b=xru4zxpYnhK7nxScHO7gyZeVoHvQZ6re1s0C4aAGabDwDN2zzJFbdYm4okJiVImpAr
+         2kD449DvNScEqzN0i5HUe5g4V7DuiHj0a7oTCSJFasVttlYHzyjj583DRZ8fOUS6nIHx
+         SyK1bdAoxyS+r0GCuS/54rMM+hsw6nW04G86bC8aeop+PebgEhXd0O6qCjpx8fTtAqdf
+         npjaISB81L/xPJMRJQNqlXPflAVrfri65L6uGtW20i4/+lT4R2rs9p3BCOnGXZObbhHN
+         H1r1NEWb8NntjPv1rdZkWE0RhLgzqV3Hk1H09ADa64y++83O49qm3P7jOQJrryFGFJRv
+         QJMw==
+X-Forwarded-Encrypted: i=1; AL+hErGXjb4eiIeW8UQ7cP2CFfCNiush+P3f9Y/nyM67JVBufZyhpXWYgzXbXECTLr5DuRVoOFafDS3Juu+nVAo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RlRdhjf2sDFjD/sbbWW9exxOdI2ad7if7rD0zHXn3UxpTcciN
+	fWruvuoVkHAZosrEXr72rjZZyCIDintOMey36X2gpN6R5bX8vqfbRamk9icGWCHawmh6U0UQOHE
+	EmyaZUrB0pUoyUJun8+jYsqm+DpOnoknzIGVjI8W7b4S2POaVJ1IoUZjuJtnhYkdvsAwPZZs+jY
+	FZHdo3QhzD9P1fI8kFFbOzzN/ccQwm5sqojiGHpjZO7gGnHD5pgs0O7bZBWDmnpm2GB6LB5+WU5
+	1e3XjMx26kNL49KTPn0MJZB
+X-Gm-Gg: AYBFou2Ba1qBV6JtsDbUnRoa5phGGF5I+RPjc3EBsC2iKkK/r+8i2OMNzN+nzGj/z83
+	GRZlYkBwDQn7Mvb+UD6s5y3+jrLkX2EGSnCK+1rJ74wOPV/TFNfmDP8b5z0nuMeDpChfBLdrEWk
+	fQrWkSKtTclWxctjyiQxrPW2E/q5XPVMZxG46knagpdFzO5cUI2tC+uUXW2yb5nELN8sb1fUnyq
+	7GSFWuxIYxC3PPje6YABB3zVNP3lVQ486iOGDGESuIikze7rLETHW8+lCTG4X2sVFc8fnOzOcHT
+	oisLg6qDlqKSWLOaog/ndO626Fm1NBWjpzyDLfWWwJjcP04eVY7t8ce5zbMkxTd4ARcB6IcdqT/
+	B2+tXcYKEoz6QfBg+Iaz+ltOiU1rBpA4vEO3rKoTChvN3Zap6GMXi4JtXSUY9gSjD8NZf+TyK94
+	eofvuIX6SSH0BDfA/eMOeVLUYq6oNEBwMOACVNQ/PB
+X-Received: by 2002:a17:90b:3809:b0:3b0:a1af:e4fc with SMTP id 98e67ed59e1d1-3b166d3014bmr1697648a91.63.1794282643319;
+        Mon, 09 Nov 2026 19:50:43 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b166fd0077sm1032038a91.0.2026.11.09.19.50.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 09 Nov 2026 19:50:43 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5363b06bcb2so35074771cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:50:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794282642; x=1794887442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7meWxertAjl9j9mw2S4lICUqNDf7vNKHIx+/yv0Rf3Q=;
+        b=S3/LmUfKXgPvyn04fdZpFpEkIotVwK2um6RLTnnnt2he+/MCN5G+nWuriTHH8Mu4Oa
+         X2gFBYx40ukTV9Y0yIo6tXOhCuO2lRXrAP0Si7o9D/UNRRz8MM03MFzhHRscBaWuJ0qH
+         ySMOBu5CvVcu7UjyIJuI+EMtcEGs3eCM3bN6o=
+X-Forwarded-Encrypted: i=1; AL+hErGQAPdUGeMhMKiOePRbJbRd+if5LztqBAFyUUZcl5CGSrXCfs5QjYftGv3OFiRE4r0YML4O/BUsPiBKxI8=@vger.kernel.org
+X-Received: by 2002:a05:622a:1911:b0:535:2e9:e474 with SMTP id d75a77b69052e-55525fa6b62mr21683251cf.4.1794282641821;
+        Mon, 09 Nov 2026 19:50:41 -0800 (PST)
+X-Received: by 2002:a05:622a:1911:b0:535:2e9:e474 with SMTP id d75a77b69052e-55525fa6b62mr21683181cf.4.1794282641365;
+        Mon, 09 Nov 2026 19:50:41 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550af612dfsm13740951cf.8.2026.11.09.19.50.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 19:50:40 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vivien Didelot <vivien.didelot@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v4 7/8] net: dsa: b53: harden mirror register programming
+Date: Mon,  9 Nov 2026 19:50:17 -0800
+Message-ID: <20261110035018.2169370-8-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110035018.2169370-1-florian.fainelli@broadcom.com>
+References: <20261110035018.2169370-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,52 +120,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
-> Clarify a reason to check pte/pmd in gup_fast_pte_range().
->=20
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
-> =C2=A0mm/gup.c | 8 ++++++++
-> =C2=A01 file changed, 8 insertions(+)
->=20
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 7d43ce717b246..7f9348c633d58 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -2881,6 +2881,14 @@ static unsigned long gup_fast_pte_range(pmd_t
-> pmd, pmd_t *pmdp,
-> =C2=A0		if (!folio)
-> =C2=A0			goto pte_unmap;
-> =C2=A0
-> +		/*
-> +		 * Recheck the PTE after grabbing the folio to
-> detect concurrent
-> +		 * unmapping or protection changes such as by KSM.
-> +		 *
-> +		 * Also, recheck the PMD: THP collpase can detach
-> the PTE table
+The mirror destination check can reject a first rule when a bootloader or
+previous kernel left mirroring enabled. Not all supported switches receive
+a hardware reset during setup. Unchecked register accesses can also
+corrupt mirror state or report an unsuccessful rule installation as
+successful. Reference counting must not record a first source reference
+until hardware programming has succeeded.
 
-collapse
+Clear capture control and both source-control registers during b53 and
+bcm_sf2 setup, propagating initialization failures. Check all mirror
+register reads and writes and only increment the source reference count
+after successful programming. Log deletion failures because the DSA
+callback cannot return an error.
 
-> +		 * while its entries remain unchaged. Checking the
-> PTE alone
+Use the source masks to decide whether a destination is occupied. This
+preserves the destination when a failed deletion leaves sources enabled,
+and permits a new destination after the last source was removed even if
+the final capture-control clear failed. Program the capture destination
+before the new source so a failed destination write cannot leave a new
+source enabled. Clearing the inactive capture-port field is cleanup.
 
-unchanged
+Fixes: ed3af5fd08eb ("net: dsa: b53: Add support for port mirroring")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ drivers/net/dsa/b53/b53_common.c | 91 ++++++++++++++++++++------------
+ drivers/net/dsa/b53/b53_priv.h   |  1 +
+ drivers/net/dsa/bcm_sf2.c        |  4 ++
+ 3 files changed, 62 insertions(+), 34 deletions(-)
 
-> +		 * would not dtect that we are walking a detached
-> page table.
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 7f5bae290eaa..a2d46cceca47 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -1360,6 +1360,10 @@ static int b53_setup(struct dsa_switch *ds)
+ 		return ret;
+ 	}
+ 
++	ret = b53_mirror_init(ds);
++	if (ret)
++		return ret;
++
+ 	/* setup default vlan for filtering mode */
+ 	pvid = b53_default_pvid(dev);
+ 	vl = &dev->vlans[pvid];
+@@ -2654,14 +2658,25 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+ {
+ 	struct b53_device *dev = ds->priv;
+ 	unsigned int *mirror_count = &dev->ports[port].mirror_count[ingress];
+-	u16 reg, loc, cap_ctl;
++	u16 reg, other_reg, loc, other_loc, cap_ctl;
+ 	int ret;
+ 
++	loc = ingress ? B53_IG_MIR_CTL : B53_EG_MIR_CTL;
++	other_loc = ingress ? B53_EG_MIR_CTL : B53_IG_MIR_CTL;
++
++	ret = b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
++	if (ret)
++		return ret;
++
++	ret = b53_read16(dev, B53_MGMT_PAGE, other_loc, &other_reg);
++	if (ret)
++		return ret;
++
+ 	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &cap_ctl);
+ 	if (ret)
+ 		return ret;
+ 
+-	if ((cap_ctl & MIRROR_EN) &&
++	if (((reg | other_reg) & MIRROR_MASK) &&
+ 	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
+ 		NL_SET_ERR_MSG_MOD(extack,
+ 				   "Only one mirroring destination is supported");
+@@ -2673,19 +2688,17 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+ 		return 0;
+ 	}
+ 
+-	if (ingress)
+-		loc = B53_IG_MIR_CTL;
+-	else
+-		loc = B53_EG_MIR_CTL;
+-
+-	b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
+-	reg |= BIT(port);
+-	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
+-
++	/* Select the destination before enabling the new source. */
+ 	cap_ctl &= ~CAP_PORT_MASK;
+ 	cap_ctl |= mirror->to_local_port;
+ 	cap_ctl |= MIRROR_EN;
+-	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
++	ret = b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
++	if (ret)
++		return ret;
++
++	ret = b53_write16(dev, B53_MGMT_PAGE, loc, reg | BIT(port));
++	if (ret)
++		return ret;
+ 
+ 	(*mirror_count)++;
+ 	dev->mirror_port = mirror->to_local_port;
+@@ -2700,8 +2713,8 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
+ 	struct b53_device *dev = ds->priv;
+ 	unsigned int *mirror_count =
+ 		&dev->ports[port].mirror_count[mirror->ingress];
+-	bool loc_disable = false, other_loc_disable = false;
+-	u16 reg, loc;
++	u16 reg, other_reg, loc, other_loc;
++	int ret;
+ 
+ 	if (!*mirror_count)
+ 		return;
+@@ -2709,33 +2722,43 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
+ 	if (--(*mirror_count))
+ 		return;
+ 
+-	if (mirror->ingress)
+-		loc = B53_IG_MIR_CTL;
+-	else
+-		loc = B53_EG_MIR_CTL;
++	loc = mirror->ingress ? B53_IG_MIR_CTL : B53_EG_MIR_CTL;
++	other_loc = mirror->ingress ? B53_EG_MIR_CTL : B53_IG_MIR_CTL;
+ 
+ 	/* Update the desired ingress/egress register */
+-	b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
++	ret = b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
++	if (ret)
++		goto err;
++
+ 	reg &= ~BIT(port);
+-	if (!(reg & MIRROR_MASK))
+-		loc_disable = true;
+-	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
++	ret = b53_write16(dev, B53_MGMT_PAGE, loc, reg);
++	if (ret)
++		goto err;
+ 
+ 	/* Now look at the other one to know if we can disable mirroring
+ 	 * entirely
+ 	 */
+-	if (mirror->ingress)
+-		b53_read16(dev, B53_MGMT_PAGE, B53_EG_MIR_CTL, &reg);
+-	else
+-		b53_read16(dev, B53_MGMT_PAGE, B53_IG_MIR_CTL, &reg);
+-	if (!(reg & MIRROR_MASK))
+-		other_loc_disable = true;
+-
+-	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+-	/* Both no longer have ports, let's disable mirroring */
+-	if (loc_disable && other_loc_disable)
+-		reg &= ~(MIRROR_EN | CAP_PORT_MASK);
+-	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
++	ret = b53_read16(dev, B53_MGMT_PAGE, other_loc, &other_reg);
++	if (ret)
++		goto err;
++
++	if ((reg | other_reg) & MIRROR_MASK)
++		return;
++
++	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
++	if (ret)
++		goto err;
++
++	reg &= ~(MIRROR_EN | CAP_PORT_MASK);
++	ret = b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
++	if (ret)
++		goto err;
++
++	return;
++
++err:
++	dev_err(dev->dev, "Failed to delete mirror rule for port %d: %d\n",
++		port, ret);
+ }
+ EXPORT_SYMBOL(b53_mirror_del);
+ 
+diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
+index d55fba9bcb1d..df00a5ae46c9 100644
+--- a/drivers/net/dsa/b53/b53_priv.h
++++ b/drivers/net/dsa/b53/b53_priv.h
+@@ -548,6 +548,7 @@ int b53_mdb_add(struct dsa_switch *ds, int port,
+ int b53_mdb_del(struct dsa_switch *ds, int port,
+ 		const struct switchdev_obj_port_mdb *mdb,
+ 		struct dsa_db db);
++int b53_mirror_init(struct dsa_switch *ds);
+ int b53_mirror_add(struct dsa_switch *ds, int port,
+ 		   struct dsa_mall_mirror_tc_entry *mirror, bool ingress,
+ 		   struct netlink_ext_ack *extack);
+diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+index 6570279cc040..ccc836c0718c 100644
+--- a/drivers/net/dsa/bcm_sf2.c
++++ b/drivers/net/dsa/bcm_sf2.c
+@@ -1063,6 +1063,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ 	unsigned int port;
+ 	int ret;
+ 
++	ret = b53_mirror_init(ds);
++	if (ret)
++		return ret;
++
+ 	/* Enable all valid ports and disable those unused */
+ 	for (port = 0; port < priv->hw_params.num_ports; port++) {
+ 		/* IMP port receives special treatment */
+-- 
+2.53.0
 
-detect
-
-Other than that, Reviewed-by: Rik van Riel <riel@surriel.com>
-
-> +		 */
-> =C2=A0		if (unlikely(pmd_val(pmd) !=3D
-> pmd_val(pmdp_get_lockless(pmdp))) ||
-> =C2=A0		=C2=A0=C2=A0=C2=A0 unlikely(pte_val(pte) !=3D
-> pte_val(ptep_get_lockless(ptep)))) {
-> =C2=A0			gup_put_folio(folio, 1, flags);
-
---=20
-All Rights Reversed.
