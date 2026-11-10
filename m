@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332824;
-	b=1lFTEao5RteisqMTGFXTKuAmfehE3J3GikvgRqXoqcqnt+XMeQpa/z85yhMv1/8tOUqP
-	 wbIyVzuLaADrf8Q0dR/UD8WG4OmrgJs19FGjxAxYwcdB4aEPwlgh448+fjEG4SmAUX1HV
-	 U63EIMHTcbSIVIIh5j46N6l6Yu9Lbv4ktDwfqzFsGySmTTVosz5vBP9NswkXfe45NmTul
-	 eb7+cNhTUs9Q+dim68twMCZOX7fA0SBaycsuNJM/qi7QDp9H8MPyQ/gbn9gn2+pl/6qtc
-	 qq9jRtX5QkzrxKuIxyMxP2jmsmrl+TkLdwnUc/rDfiS7vPIf9BMMOdzbyXd6yb+DGIA==
+	t=1794332928;
+	b=MykC7WqxxirNDPcQ/zk9U9fTLGn1pnw43jEAKw2+Ij1TDbH29YQCj6PeVRwv59Wvftln
+	 JpFXeZALemgzwtjNeRHp2lsIfDoObiiI9Zo6lfp2x2TZKeXdBfF3/2cY66ejudB86B6jz
+	 ctG45oK0u3IDrmyNXf/vnGADfbB3X6SnHXoakU97QWA55QDB/S7iwHoAhCAQu8oFNYaVk
+	 nwLxdpANcGNfJU22z9WTorypTlsQJ39/BAx30VsP7xeZiEX5iC4J+4EeV+dO9AhOavV0n
+	 TZ+lE/J/eya7UnHdToBbSa4XhQ9FDhNhQimAt8rwoF5UxWImvuLC6XSMKf5pwtvtI+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332928;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
@@ -15,88 +15,88 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-DetectorID-Processed;
-	bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
-	b=o2RsE1c2ozslRf3ktF8Vg8m7eG2ff2MmtAVU8U1q8xwzkshl55aBGuppN6VUQXLWPPqs
-	 fXQPygKSaNminsLf7Hz308lFxR9hGfjisH3nBCAQIjtZR0faFDHESkT6VGWuees2cAyEb
-	 ZmhVpH7qnpaQQCNVmaHcY1e9CP0UlzOic84gP+BpxFpayDipLDPyFh0lzr0PjTJMcZQQ8
-	 sfKxOMwlval75mPfj+fw8ThSs2/4fswLrUooVOVmvXCoOU9NB5VOEaReDyzK2kWFnr9ws
-	 UNYIHMx/K9W/UqgZQG6eUKIIgQs0AXcb5Jlc05x2D/6kWy+u/Y7bvBjP4I1nhxnm4AA==
+	bh=ko07PtYbqxmJFL5eE7O+1z90SoFtkrR9tqYTOjJdR/M=;
+	b=fNG9hX2V1gqTU6v7FlXTW0FcaYkiDkgz14zbtezvDKO81lGxDwy3o2lx5/y7gSNFRsJh
+	 dw7OYnp2wMU8Jkfy2jjcyEvSBiBFoptCgaRyKIOuOlvhVnV/pK4VfkAovG2ViRVsDm+21
+	 wrzAgUgXdPAfrFz0x4QDBA7qLml07CpBuM3W6SG7aQ1nEcBpDlZl3KkytrbuhBg9xS7mm
+	 y/8byS96WQG9Zm2YOi9Fkq1CRLdyla02MToC7obSHuyJ2PL2y4XSKz8GFYVlpdD0jl9tz
+	 Hlzt56G24bdim2uSBiJkktQla/KpaTigYea3wMa91qavdE5brepq4BmwoPX+EUEoXcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HaXsInnn;
-	arc=none smtp.remote-ip=209.85.214.225
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="PVaKD/XZ";
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57A4606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:47:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A57A4606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB2E606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:48:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB2E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HaXsInnn
-Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso15151045ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:47:03 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PVaKD/XZ
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b179528d56so243993a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:48:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332823; x=1794937623;
+        d=1e100.net; s=20260707; t=1794332928; x=1794937728;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
-        b=JBDi4espLeUufNbmVYxq9goePMm2iGjmljn6vxeXXHoeKVYw7VTOPxx0/pGieAfrwb
-         LXZJqfMfU2cpMzRX4P4YA4g6og3Y3KaPfRAIrGwIlMPLARkfwT/VtzaBC5mSDtxpeJGV
-         qctrQozY7YMcYns86H283KVUOl9+Nm+kKwKpdAa/xkMXcl7URz7r8x8OQC81g5U3wZ2Z
-         ksGeNxXGdXRRiMVJdrr92BZQtaNp0EGV4++QkL+o1ZJTCmEPQTIif9WFigGZSuA6VrR3
-         NKzXxAREmBrqwc0kqOaLRs7YdAL6JYchQ7CvKucjGMgRCkeUTEc1P+deCC9WzRD07ThM
-         SgkQ==
-X-Forwarded-Encrypted: i=1; AL+hErGNagP2D8yiE4htPAyK0UwQPrhffxdP+4oSONcfNBoTfspnbVdn4xCH3zq5C5el0oW7Q0T1HPPW9Re4MvY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QdjT3eCSUgEZx3bpLj/iVglpPQoz7xN5iR+FEBvt7z5gkXXTd
-	T1k/scMvsgVn26RP620a5hy0m4S/vzelighgWVN+h314gRW4yta3sZlTg9fkqSCpLgjV4cz8FxG
-	VlgfUd5W5Dm8OP0YNKPu8ny/YH9Iy6ImlVFSKm9Cju1y1y7DzIRKePfSd137H0NAXNyjX9o5VDN
-	ptXlJpfVHsGNGEUYczZmQa648xH6jvRh4mnJYmZoi5YkkeZvFoFrj+LY+U8TGqD/UB/cKGzWtfT
-	kOm4eifT6PT4khGNcex1oM3
-X-Gm-Gg: AYBFou30L3o1++D0H2bm9qtPAlQwyRFKkWhUl/0TW3SuPtbArG5wm0D4V4wbNeYk6/0
-	YIk0rPRxxCnkZAkPitWWT9N47nnI3et1BVzwkmz2dD6Ow3vPbDfDtq61hrS3124MFVrtmJF/1Vq
-	8fRS49voTb1K94EwQawWIZbaO/WTf1ebiweUr+NzcnXBjDNU9fkzzfBozvz+4SPYJph/RAKvsGo
-	HuqKBeHb0TBo43J2uIJC3X9BpPrPyBe6d4I6jvhdwcqRA1tyzFq8kcenxwL1r86rnPNwvEFvdJI
-	dACekU6cNrjNAjLcN6NmxkTwL6Mz126OOHDvitVilm2XjrLsWLxM+gqnVshMSQ9fGO6ijhdRYXw
-	unwdSVEwNNK6D4oH8mopbMMs/XQ90MeXXUPiz5/9ODOlC+7O4Fo9G2KCMLZoPWRTXir7r4GfRig
-	e0faXZPYUQWPX7wWB1DoXX2sKq4cs9BPUqo06BS2+R
-X-Received: by 2002:a17:903:3bc8:b0:2e9:64b9:a333 with SMTP id d9443c01a7336-2edb90b2f0cmr33605305ad.19.1794332823000;
-        Tue, 10 Nov 2026 09:47:03 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2edb64dd2ddsm650865ad.24.2026.11.10.09.47.02
+        bh=ko07PtYbqxmJFL5eE7O+1z90SoFtkrR9tqYTOjJdR/M=;
+        b=wESZ12c3cOomBnLt7mVJDsfSduddnVyS4RqZy9IePCUo5oRUAFFg2K2b+z2x/IjdL5
+         Pb5EFEN7K2rLSPflQrLBspVNTMsgyBk2Uh+NTFWY3A5FprGf/kWyEyqJC+FJuaA1v0Ov
+         aY/MVn9zT9eor7unFaWOftE2een1/6g8dAz7bpZHTHzjAsQ5tARjLMJNOX54wB1/3Kdh
+         HopPCbxJ4Lpm87+ZX45WyuSWNh9N0E+ZduQvfrJizGANXzz4ik8J+D96gadGDb8K1xy6
+         Zx2qcONlb1vcT+fJ5CgbV0Z9WJc6PSNt+Ew4Cu9gua2lVWg6PIYtV0hUO9zEGmGdfpbI
+         e0Bg==
+X-Forwarded-Encrypted: i=1; AL+hErHQZynVEIF7Si3ZnOIi/YnO3A+iuiIQNX7S+NQwhowSSkyVfOT9QKWggmnPAxWef5KQIIcrG0bIUiAs3Hk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lBrHoY1i+l+QAX9D0tgFssMZVAXNjBYNqnEn13IbJChXO6TF0
+	qiAUkcwttuWMFO9r+QLORqCjzLSFcgfNJGH50XgJm5eb8PneAisoI/Piym6Nb39aS6R+DXFxBxe
+	T+7WyQSsjsVQdnJVgLBQv7u5Zny1JlRpCrXHHsWaIcYg/g0SkIjLImb7EHhvjhOoOh4CTuM/wVj
+	BWPZUhtY6fjXv00/CYEzkZoFQzqOBlfkDkmSaSTKu5B56lyP2KhuapV7Ks8IMWI/awLkqIb92XC
+	Aw8Eszp/nxrHp9KMMF06Z39
+X-Gm-Gg: AYBFou3GvwLHUN+uovDjoxuE1QztqoSkeI/gDqRbH2NEU3hj9jepPpZeG4joXS4bTm0
+	3CYFvL9VQTxv/h3dxAS6svxb2m8pjvqBExD2LOg3TgV0RcxXsxO/a22okrqg453Tp/SMO9XA8DL
+	i0jNi0JGIVTd/q5E86KCbHDn0T/8mC57OgiAso1NLHL+vtIf2jN89Vd6HRrGU9nfRq7wOan8AFS
+	fCyIoqWSOUp3fLobudA5j+K2lzFSH5JWJB/Qs/FzEmhAe6aKf29+Y15D9WocEC0CO8JCUT4LCCL
+	kAWwY5u7h8VQXL7aJsvf+1pk9k3RxRNC+51AD2nhopRRd/ekQzAlII4xkTXrsw8l+hHn/ZTar6P
+	zcUw5SB9HNkmXyaeIIlbTkS7kRs+YPlNwyKS5WFvK0s5b9Tnx5F4MXTXLvPUaF/id83F81svUwo
+	ZEgO05Zz/B+iHwMmPeOnfOzE0rxEBn0eUUSUVtp29z
+X-Received: by 2002:a17:90b:51cb:b0:3ac:ffb8:1809 with SMTP id 98e67ed59e1d1-3b166d03814mr3107884a91.39.1794332927577;
+        Tue, 10 Nov 2026 09:48:47 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17db57cdcsm299612a91.5.2026.11.10.09.48.47
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 09:47:02 -0800 (PST)
+        Tue, 10 Nov 2026 09:48:47 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdb8c46e240so1195962a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:47:01 -0800 (PST)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0ac277beaso1963532a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:48:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794332821; x=1794937621; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794332926; x=1794937726; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
-        b=HaXsInnn/lUnuuaNml2GxjHTj3c2+TdW7y8ClsS+xVx/GVQmBoPUryC/kTFeOndrbP
-         McIMfLWOeso3chwKIfeW5bvjBIgHvdAXi2AKPypaBfi+j03CLCOq2gnfq4VwsafwstVf
-         VCcDlH0rZdtYs66Ft2fbYqtRI7/LABZ8i9p1I=
-X-Forwarded-Encrypted: i=1; AL+hErHawjMxP0F2XdWxhwOwflz9HYQA1hXTwlnnZAceAuu+cQP1RHuNN/OJMLwGyuXN5NA3jqQF56X1fSxvoJY=@vger.kernel.org
-X-Received: by 2002:a17:90b:2ec3:b0:3ac:9d14:feb1 with SMTP id 98e67ed59e1d1-3b166cd1576mr3597630a91.43.1794332820899;
-        Tue, 10 Nov 2026 09:47:00 -0800 (PST)
-X-Received: by 2002:a17:90b:2ec3:b0:3ac:9d14:feb1 with SMTP id 98e67ed59e1d1-3b166cd1576mr3597607a91.43.1794332820425;
-        Tue, 10 Nov 2026 09:47:00 -0800 (PST)
+        bh=ko07PtYbqxmJFL5eE7O+1z90SoFtkrR9tqYTOjJdR/M=;
+        b=PVaKD/XZv6dd9+toxjk8tcIpq29wMV7Ym0U9Xl3kttsQw6mWkXTnJ4EBJ8H8W1l0xQ
+         cmbfnw5C65SY5oOdKDGU104CkD8RMVQxia8ofiT05EDSfBH8x3EM/0DTidG/nSgUwCEZ
+         x5odETCzYbkzIxUqDwnWQ1N0uMgs1L/kV4WGE=
+X-Forwarded-Encrypted: i=1; AL+hErH9DBWY76L2FiTm5IDGB5rFmBbacIPmjrVSvXuexwf9YHLN0TAvtJHh5pJGrfsFPtpIod8qPp2T6O9Nxpo=@vger.kernel.org
+X-Received: by 2002:a17:90b:1fc6:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3b166d03802mr3219207a91.40.1794332925876;
+        Tue, 10 Nov 2026 09:48:45 -0800 (PST)
+X-Received: by 2002:a17:90b:1fc6:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3b166d03802mr3219189a91.40.1794332925425;
+        Tue, 10 Nov 2026 09:48:45 -0800 (PST)
 Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e203f8esm531433a91.14.2026.11.10.09.46.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e0d550dsm566282a91.8.2026.11.10.09.48.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 09:46:59 -0800 (PST)
-Message-ID: <79f827d9-8aec-49b4-bc70-117de314206e@broadcom.com>
-Date: Tue, 10 Nov 2026 09:46:55 -0800
+        Tue, 10 Nov 2026 09:48:44 -0800 (PST)
+Message-ID: <f24e21f1-3bd8-4682-8393-ec6aa6c1b232@broadcom.com>
+Date: Tue, 10 Nov 2026 09:48:43 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,17 +107,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] pinctrl: bcm: Fix off-by-one and out-of-bounds access
- in fsel_get()
+Subject: Re: [PATCH 2/3] pinctrl: bcm: Use pinconf_generic_dt_free_map in
+ bcm2835
 To: Wang Xiaolei <wangxiaolei01@kaihong.com>, linusw@kernel.org,
  rjui@broadcom.com, sbranden@broadcom.com,
  bcm-kernel-feedback-list@broadcom.com, daniel@dragonzap.com,
  iivanov@suse.de, andrea.porta@suse.com, phil@raspberrypi.com
 Cc: linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jonathan Bell <jonathan@raspberrypi.com>
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
- <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
+ <20261106070628.1428691-3-wangxiaolei01@kaihong.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -152,76 +151,29 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
+In-Reply-To: <20261106070628.1428691-3-wangxiaolei01@kaihong.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 On 11/5/26 23:06, Wang Xiaolei wrote:
-> brcmstb_pinctrl_fsel_get() takes the value read from the pin's FSEL
-> register and uses it directly as an index into
-> pc->pin_funcs[pin].funcs[]:
+> Replace the hand-written dt_free_map callback with the generic
+> pinconf_generic_dt_free_map() helper, which wraps
+> pinctrl_utils_free_map(). This drops the duplicated free loop and
+> handles both CONFIGS_PIN and CONFIGS_GROUP map types.
 > 
->          fsel = (val >> BIT_TO_SHIFT(bit)) & pc->pin_funcs[pin].func_mask;
->          func = pc->pin_funcs[pin].funcs[fsel];
+> The error path in bcm2835_pctl_dt_node_to_map() uses the same helper.
+> The driver already selects GENERIC_PINCONF, so no Kconfig change is
+> needed.
 > 
-> That is not how the register field is encoded. The setter,
-> brcmstb_pinctrl_fsel_set(), treats 0 as GPIO, 1..n_funcs as
-> funcs[0..n_funcs - 1], rejects n_funcs + 1 and above, and n_funcs is
-> always BRCMSTB_FSEL_COUNT (8). The field is therefore a 1-based function
-> number, while funcs[] is a 0-based array of eight entries.
-> 
-> Every readback is consequently shifted by one slot, and a field value of
-> 8 -- which the setter accepts, being the eighth and last alternate
-> function -- indexes funcs[8], one element past the end of the array.
-> 
-> This is reachable from userspace without supplying any invalid input:
-> 
->          # echo "gpio45 alt8" > .../pinmux-select
->          # cat .../pins
-> 
-> The write is an ordinary mux request that fsel_set() accepts; the read
-> that follows goes through pinctrl_pins_show() ->
-> brcmstb_pctl_pin_dbg_show() -> fsel_get() and triggers KASAN on
-> Raspberry Pi 5:
-> 
->          BUG: KASAN: global-out-of-bounds in brcmstb_pctl_pin_dbg_show
->          Read of size 1 at addr ffffa07c577ab2e8 by task cat/839
->          The buggy address belongs to the variable:
->           __compound_literal.62+0x8/0x40
-> 
-> A field value of 0 has the same root cause in a milder form: it is
-> reported as funcs[0] instead of GPIO. The mux itself is programmed
-> correctly in both cases, so this affects the debugfs readback and KASAN
-> rather than the hardware configuration.
-> 
-> Handle 0 and out-of-range values explicitly, and index funcs[] with
-> fsel - 1, so that the getter uses the same numbering as the setter and
-> the index can no longer go past funcs[n_funcs - 1]. The existing
-> fallback for func__ placeholder entries is kept:
-> 
->          if (!fsel)
->                  return pc->func_gpio;
-> 
->          if (fsel > pc->pin_funcs[pin].n_funcs) {
->                  dev_warn(pc->dev,
-> 			 "invalid fsel %d for pin %u\n", fsel, pin);
->                  return pc->func_gpio;
->          }
-> 
->          func = pc->pin_funcs[pin].funcs[fsel - 1];
-> 
-> Tested on Raspberry Pi 5 with KASAN enabled. Before the fix, writing
-> "gpio45 alt8" to .../pinmux-select and then reading .../pins triggers
-> the splat above. After the fix the same sequence reports
-> "function spi_m" with no warning and no splat, and a register field
-> value of 0 reports "gpio". The register is restored to 0 afterwards.
-> 
-> Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller driver")
-> Cc: Jonathan Bell <jonathan@raspberrypi.com>
-> Cc: Phil Elwell <phil@raspberrypi.com>
 > Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
 
+I think this deserves a Fixes: tag because it fixes a memory leak, 
+generic allocation can allocate PIN_MAP_TYPE_CONFIGS_GROUP, but the 
+custom callback does not free that allocation type:
+
+Fixes: 0de704955ee4 ("pinctrl: bcm2835: Add support for generic pinctrl 
+binding")
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
 Florian
