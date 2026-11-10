@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794329286;
-	b=jHKdCWJv+G+d7/6qK09CKDlD35xqGrsVWkfxexi70m7H2vqV91W9SPj5e46MEozgSa5d
-	 xxHd/gm6WoHSAiYvZzO8haXgdUuzHQ4bw4b55ejeIZ9WEPBuaFSXzMeH+4tVHYzz73K9q
-	 Dr+th/4S0Vf0lupQN9F17bkPkHO/eCZrtNQVOLP51yhYnIYZ7rDe4YWCJPZeQj9YoLwGR
-	 e3dhy8Y5cEsYID5EctpSWB/aI4IPZYgkHKai69hWAMyse1FCauf3ATm952tj1ZJrUAhhX
-	 bGIIWopgChrKaQx3e2GqeVMICJuL2pu75ZoQeQOBAJefYnpDxGk6y7dChf82KgQ+sNQ==
+	b=z8Nilmr2Vpm9ksNWoIL0myq34LKwQkv8SGfYV4AWZk5pkmL0Pm4eAGFrCNYapybc8OJi
+	 A3V6Wrd7TeU971/q3K5k8ezr6/Tu5T5EZDrAVlF50vQWSu2ob9RdaCUSfbgdum0tovggP
+	 6Wh2hHSSF2kBgEWiKCbTafZM68Z9vRqdJhFnV8+7VRrpInuT71hJJ0V5HH3b8FraPgsc5
+	 gRwOKE7+cq7Yf4QewarkQVH+tUTyqfogfjrwFc28RucW7DP0C2Gl+sxkWcoIoW7y5pRkz
+	 3Tai7LiZErEgoW7hm/zn8Yd8h555ZsujSvHXA2H9Y5UTW9I6Mx28vkBi6QuWNQA44Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794329286;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
@@ -13,78 +13,78 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=Vl1rYhAfjK13R83ED6coEGC+SsdHD84fHmnG4iiIzF0=;
-	b=BubqX46VY+Q+5FWhpwa439wf0Z2jMzO44jMGOnKRbJV1e325Mg+/tXYK77MVgOK+Q9H0
-	 EM1FuMe/U0gf4ZcVmUn9sRE1psqPTdjJQUn5QlE7lZ8TryzT5UH4whfiH7UArk4M2xE9k
-	 LWDyv2l0rwtQy0DjMoQrCqmTqKiLUieA0QtOLSWzub0qe/3OtHOWlYq3GHhNZ1yukDyim
-	 2DK31gbFHcK73gMNBpSJv5raSo0N9jh//2GIMt0WJLMUPnhgx4CnxwKA7cDEBrVRrJ2No
-	 NJA676gAXPu5ZAC2AwLMmI3jNJGC9MxqIQb8Tb59iOgpQaHR/wIL54IHJ3Hrr9yO2tg==
+	bh=ZKnuTzByaSSbot1/XuQEQnimjuDaYE7NsL7Tsbajd8w=;
+	b=gSR63wpg6z30IIpH+r/G2JLRbbaGdvunDvz11py9146rmkYbIDZYuBsE3FEMAmeDXcA8
+	 ln7RnTStGQ63Eyw+nP6/ofqBeHznxb3m/gJ6gHzs68CBKZbJnUXqQ+YPrIZP1Xca0MRmp
+	 7gghzJON34y4jwNuwO02llF0LdHDBKQiXA3EszX7POKQppQtQDDjTj9XkYKYtKv6poUxD
+	 M2LrBRYKSW14MoZa5AuGmgNZAezLFptX0CWVSnXPlMwaOsRDRpHhFxXf0mr9keQg2n6Bx
+	 pe52kzMAWj356MA9oWX/QW7qsvnZR+nZlpVkPn9kKlL0fsY6upVoUGZgw+muPl68iMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCDks4B9;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPVmzV7b;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4C360A2600
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE4C360A2600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842B760A261B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:48:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 842B760A261B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCDks4B9
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so13345135e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:48:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPVmzV7b
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso22095815e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:48:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794329284; x=1794934084; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794329285; x=1794934085; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Vl1rYhAfjK13R83ED6coEGC+SsdHD84fHmnG4iiIzF0=;
-        b=kCDks4B91ibZBhgI2SUudFpYYP0qRr9C46j54tg5GoH7pGmjAmmAq0393io2pUfxdp
-         L+YKdYxl/9Y58+JViO5RRpXpXVUzafnGUo1Ph7Dt+HlrgL0nZt3i+V0EgKc0EK1fvEFg
-         kp9705fID6vukQQoertnO438nlbZfkg7UCM3cYKSRFxWG6K/4MKTHaJbhrD9zyvFP2+x
-         iFIDMXAl1wdbKvY22wyHsvfZxm3pXeQQADEStL3sKUPRXANegW+VKNJxDtgDafrO2aPv
-         TbU/5Iyhm2826j3Lqe1ZYqHMiu1mq00w7+JwYFkVbQUN6j04M4CeH6/mPAZgQPHGlBzz
-         i+CA==
+        bh=ZKnuTzByaSSbot1/XuQEQnimjuDaYE7NsL7Tsbajd8w=;
+        b=xPVmzV7bBCrjPO5TMTPe8xuJ/kPsmNxM7HHYoJwmaBOTkYFeywQ6fnhiNiedU3v8dB
+         BteQJq72nW7Y3CKSHy4B2FYKAcymZx6v5r5gG1PfaCYGKxLhptSBCVXIB3sE7878v9W1
+         /dzawCpIwxYEX3MEgTn8Yy7zHZQJGB3Xm370JV5sx+qv5FVNHCwYEopJmlYixLhA5ZAr
+         CQBJ2mI+bNZ3vDY3A5m7xXT5CEOH7xpruzqeAjOgbtOGA4rTDPD2nMKXvpRHKBzDquJV
+         tPwKsFD2xgzXWzcOxfNPL0zAHEU8HT4tDtlewVnIum2K7u9SN6A4hpBfXtTrDBEwMhWE
+         r2Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794329284; x=1794934084;
+        d=1e100.net; s=20260707; t=1794329285; x=1794934085;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vl1rYhAfjK13R83ED6coEGC+SsdHD84fHmnG4iiIzF0=;
-        b=NNhSVsCHxE2v8Oij4+EOfSAl3QwXVLKPsUqGZ79teLQiegbO1QjVw704dD8xA6OOT/
-         EmKOwUQtC7pktHnfM25myKZ8+YzjCAMdsy2BaX7drXFDRPY0ueUXJ60VmIhvL/gKFX+4
-         pPDwAmU8HuHgL69k7Xp65Byh8GGTEzRZafkZ0U9/o6wrW5SbeMXr+uzPQ0F94TlnEa1n
-         4QUx/5URyg9G0PdUpoQZ3qg2GTZwNe5+1uhp502enf4vlH2zlnKe53280Af57EFjuDvo
-         GMvlX6qOqpyCuZIBVWAv3bZAWqmcE6kgTwvFCuqCxMwdyjP7vuQG30vTZy3K6WSBWIkS
-         C7NA==
-X-Forwarded-Encrypted: i=1; AL+hErH4jHrXnMJfJVGdBzLbW1Eum7vgkP+sY5aXiwldG5KjfFYU5+VEwdnVKCwCQ0mo2Z7CNnTb/eUcUv4vc8k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ldK/UXWqH1x7KhA9hUFloCvVOdPBOHTLigbgBpR0ENscG0C4Y
-	B95d5BCwGNJ0P/C2ZPZqQg8de9xQD9359uIzxNRhURtgmL35H0xAEMNi
-X-Gm-Gg: AYBFou3w70CXqseHOJUKFCwV8CNlJKExQdRcqjLC069KHnm9ohND/Y+jCN16gbjcm3O
-	1CZWF+72ljKkfYX68nKIWYMGGK5zMdFUJdtKiUbhEMTW6TiNtQJLAxPfD5j7Mf4nmzPv2CsDB04
-	K55kFVpdbfakbxZJ6udBwMdCODGyS8j37qxtyx7zSbafDOgtb0sNs1lj6iGlaPtI3ZwLpGqsElX
-	W7fF4IDA9fb3tVQpOrFexmEeqE1SGomPDqR+Z61V5FQeLM2FmDAgMDy97RuG20zBbXd7aKEqJGy
-	6x4Is4unsnitYq2/x6fOGFJ0wnRLfpUhHgELoMyVIZImz2XMwQtY5kELmi7jKIIfSgk9ViI+aUA
-	fsHEhDrs61PP3QXdAkDQnNtUkUlD9l1uFGQ+7I6x+B4LZlVpLjbaxSuLfoNHF4+6gIS6qRKfRNU
-	YQ81Rv8ZjmofDWByPRd9Hln8Qqn6B1RGXbKE9358XYyIhgeykCeUo9n+hwbBO/KJS2BhF60VO7v
-	0xtQ14e9o9X4fExgxQ8Dhvc+HKXKtykJnU/OKaitZkggH/q6gN9OwY39ERJMd67Eq2CMr9/0+3Y
-	kSryzwDQbBrO88Cpe3nS21a+6tyhZULEV+RNjfzECsZ1iYfJA1Fqusm4J4mPUkFLMNDcXUXSgQP
-	oVVJqFl3EoU2UNSc=
-X-Received: by 2002:a05:600c:8b2a:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ba02351468mr52396945e9.16.1794329284254;
+        bh=ZKnuTzByaSSbot1/XuQEQnimjuDaYE7NsL7Tsbajd8w=;
+        b=QA3jxuEiWW6+Sits4mVp3A7+d7KVd2sW0q+qUJ0iARQYuis67p2dugA1Y7BcVyqOF/
+         YsA3Np7ZQtDzFtp47Y7eMD85cwKfoq8ywsGbCftRyphpuJkVHoHHKj4YNHVdOk/1/bZp
+         hIigpogdqYNAAGVVL8NLLquI8WAFUXks6OZ/mnUEO1srNbje796aoN3Ty7L2pgypRAP/
+         jlhhOHKpGurvFt0Q5C68yqVfzbAGlwg5r8oM3y50E8+Tj1RVCtDOpz0mvJTzqrnHU0fO
+         FQDy3XzGUj3I7Zq5kxDuK85bdhQtp66h3SgWE/fd4IjH6SEBN4SkcHYLiLxVVjY99tQH
+         tRxg==
+X-Forwarded-Encrypted: i=1; AL+hErES3Gp6yfK7LXUqfutqyYq1WGM62ssAJfRZMVxpd8DLyZ3Fo9D9VVM/JwJqu7kUon6bowq+kNZHx8ajnCE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+R992NU2ro0bd+wrbuykP6Wwf+B2BgNEVYzZ/FtHTmqkBoUQOn
+	cbu8Sexl/bus5L8aCuQ2JgtZ0p2+mOeKVEzJhSHTmSKo/cEyc0sIGAIr
+X-Gm-Gg: AYBFou3FaRxcn9th1ABtm58AnhibWVK6gn0kKIR+LZKaJEI9pOzhJ++fLL7OwL2RKdL
+	j/wYos26KImiwFHOeS+fz1ef8o5dhWsKiDoTzbXbvlOR14fOBzqM3OJ6ErPz2oZJoAW8zzzC7Bh
+	eHU9HKaCcxO1iMOpPneEjQJ6Cc/bZJMW/1Jfwle3LyrNgtVwlEI8h0YvijJ5EhujlLscNWWp21Y
+	MRlwY45Qze58nGCYHbFcs2PsVoAcaW/I1eAqm/uBT9Aq6CFd6t4ciPRkkOdvz4pVYAoR1t6WAHH
+	HSg9b3EbwWcp9nynj47wAlF5vVqQdO/FO++yk23dz56EHCXdF32X18TtN+Q1UAe6DF7zMbSTuYp
+	BuaMr3MN59P/Td61W7aX6xnNjFh2FWKgVvkmGaDKcrUbILMPr8zjUgxtFEctlCsMEAmdjIKPr8n
+	zVPn0RoBHoX6nZbqBRIJdyF56g4kyO4xOqUMG3p2HwGCHxL/MjW8pYiwhzMFXac7ijiCf72rX3J
+	c3Sq/8gr8c7UmA+6tPVoyuc9Z3DQtcjOaB+OcrZw/fuR1AX4aUCLtTpUwpOCp/+MyEuYC003pf5
+	Z9HBCOZ508a4BoNg/0YsFB+WdmI+XUwo7mmcEUtxovHvgSr1oQ18U5Dz/OhacNW5AfuE60FgSTd
+	itMdf9IdtEpB6+8M=
+X-Received: by 2002:a05:600c:3d05:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ba0230519amr58148825e9.4.1794329284863;
         Tue, 10 Nov 2026 08:48:04 -0800 (PST)
 Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0233e5d7sm58289665e9.1.2026.11.10.08.48.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0233e5d7sm58289665e9.1.2026.11.10.08.48.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:48:03 -0800 (PST)
+        Tue, 10 Nov 2026 08:48:04 -0800 (PST)
 From: Sander Speetjens <sander.speetjens@gmail.com>
-Date: Tue, 10 Nov 2026 17:47:49 +0100
-Subject: [PATCH v3 3/5] firmware: raspberrypi: Add blank line after
- declaration in probe error path
+Date: Tue, 10 Nov 2026 17:47:50 +0100
+Subject: [PATCH v3 4/5] firmware: raspberrypi: Document memory barriers in
+ property list path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-fix-raspberrypi-firmware-v3-3-e001feb542dd@gmail.com>
+Message-Id: <20261110-fix-raspberrypi-firmware-v3-4-e001feb542dd@gmail.com>
 References: <20261110-fix-raspberrypi-firmware-v3-0-e001feb542dd@gmail.com>
 In-Reply-To: <20261110-fix-raspberrypi-firmware-v3-0-e001feb542dd@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -107,44 +107,50 @@ Cc: linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  sander.speetjens@gmail.com, Manuel Ebner <manuelebnerli@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=759;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1089;
  i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=oATCWeVNja5PpD9R+W2V7XOTEMrBChRYypl1NtcmQ5o=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq80rAIRFFQXasrIwqGTrwSpqg3wa5LcMTP4/9P
- Xz7kuhtWDmJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCavNKwAAKCRB4zXhFDAXI
- Z4bVD/9FjhVpXzZfrbS0bLJE0dn5UsBGcQyplnPX00c8QKHXHi9uYRS1E5E1yBhUnGHNX0/7mEu
- NkO7ZbXhdzVYxO+klLVGZWXaEy91QGigTWq6d/1ZrnVUEtvkzXveNO2owghVYfF15tmXHfl91Yx
- hCishgAVMlL9V0b5BC/Yy89y0F6aMJ6oQsKi+Xv8YH0ppjg35NiRT4Kk6UWlLgDFixRcyMW+6fF
- IzYX9Bpb3vRYenPvt/Y+s5CuPaPF08kjk2/JFima+Xh2Ma8kCMnZfiAQvA/6nnrlG0j9XrMiKet
- xrKgYlUNBpUYAaX76s5L8Z2kJohBUwJN/uuIHpwwO4qBYzlkZHd+0PFDZEJL030udF7iPIFWNjv
- XXnytqCdEaCQhNzOC/hz89Zh4A5jJXooYPGnDz1DRij+IgfUKPnHQV4zH06iGTAokTRqcCembdJ
- WUCFNN/tDxIFNXhzFg9KTszfPd2zBUNrdAR+QHnVdXekr87nsfR9Xe2/gkJoPxwvL545FvO/4jK
- yHO8Xi7MuJNVL6i3llJ+Oq01293Yj4CHOY9ym3jHwuZavGc7jFeFfr39VBDl9fwUk2MYSkFHZrm
- xugHWzfsei+tYtxPtCqKoPpm6baf1rdvSilo8uBXbMqKcA5ULIBLRs2Ijg9q5ww61g+YJOx1DPl
- 0US1McX57zjl8hA==
+ bh=u/0CXjUNJhX1Rd5kE+A4P6p5kJKiKCpC4dI5cLjLhDQ=;
+ b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq80rA5oweI1D8pEFyiEAbgaJgSX6prZmEY9bqT
+ Jj1+VYvTtCJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCavNKwAAKCRB4zXhFDAXI
+ Z5qFD/9snD3hL7PG1O7mpkf5M7Iw6hLyt6XYWllAf7G+6Yux6pLRVPnMwifq0GyoWl4JGCxI2Ra
+ MatpWsIwzW64Kg2ZrtxDPQgUpmEz593N6XbUCZJyRdG8GKVWYHAdT5Xgb02zGJ/PAvyVxPuLZCm
+ BeLi0SNzqH6/Rpg2FQBtR2VoPkSOx91ijpLngvFRMXDQKNxvwkGcgm9SqQaUHa9ozCaE10PWx9e
+ 7/qiD3SVPLbMXOQt6xNbp97QoKZ8Q6Pr74JIG246pRFAUfOxKB7mqGZbhi8IdhLQbQT60SAZg7y
+ uQDhWedQMeUhcZqrZfiIHtupekcsuv7+rGWylMO/D/F4mv1hHZgBHf2r1hYr4uSNQiQVUZCpKAX
+ b/N1P1sGiGkxggws1qDV24srGjfT3/o344MTKIFx9hkm2wvwgerJQFG6miNinZFjPS4/GZupD3S
+ YJBCpvLPzZ6JgnmItPAmuK1t6Q78B5rxfIvddhh62jCYRN+TJAWsPQsIt5v0GMYv4Ac6RGQ6o5V
+ XS+2cuuKv8Sxwd6QZw6mejnAKwzaPaCXlovUIZgP3Hz6tMMZeFp3T3dLjNqR/JlSF/ertZvNu2M
+ GSlHZZRajR0SFiMkPkrV80ZTRBp9Svaphle/A8gAIAbJZ88cLtJOCJtfYpoWSuKmiZQ9avAqClU
+ djHiFh09WZgfmFA==
 X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
  fpr=56524A8B001A11C3EEC9510178CD78450C05C867
 
-Add the conventional blank line after the local variable declaration.
+Add comments explaining the wmb() before the firmware transaction and
+the rmb() before reading the response, as required by coding style.
 
 Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
 Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
 ---
- drivers/firmware/raspberrypi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/firmware/raspberrypi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index e0c91719b4d0..04163c3f385d 100644
+index 04163c3f385d..ef3326d5cf30 100644
 --- a/drivers/firmware/raspberrypi.c
 +++ b/drivers/firmware/raspberrypi.c
-@@ -315,6 +315,7 @@ static int rpi_firmware_probe(struct platform_device *pdev)
- 	fw->chan = mbox_request_channel(&fw->cl, 0);
- 	if (IS_ERR(fw->chan)) {
- 		int ret = PTR_ERR(fw->chan);
-+
- 		kfree(fw);
- 		return dev_err_probe(dev, ret, "Failed to get mbox channel\n");
- 	}
+@@ -111,10 +111,12 @@ int rpi_firmware_property_list(struct rpi_firmware *fw,
+ 	buf[1] = RPI_FIRMWARE_STATUS_REQUEST;
+ 	memcpy(&buf[2], data, tag_size);
+ 	buf[size / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
++	/* Make sure the writes to the buffer are visible to the firmware. */
+ 	wmb();
+ 
+ 	ret = rpi_firmware_transaction(fw, MBOX_CHAN_PROPERTY, bus_addr);
+ 
++	/* Make sure we see the firmware's response before reading it. */
+ 	rmb();
+ 	memcpy(data, &buf[2], tag_size);
+ 	if (ret == 0 && buf[1] != RPI_FIRMWARE_STATUS_SUCCESS) {
 
 -- 
 2.56.0
