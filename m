@@ -1,108 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325060;
-	b=BUVEsBiJKJtx2VA8J2uUkIbmJxiqAPNTQnjAboRl7uEzE694RbE4U5GlXD3PVGJWGPhG
-	 STSCpsYigc8+oVIgiD1vNiF1MezSXFmjuFB0uhoZ0eFnSMaAbMCiPoJhVXtiJQFctT0Qr
-	 Neiez3xW5hhZui7KRea4LVwAc9tWwltz4f1U5SntXz5wDymgPShfuCS1TW2RLLrUyG56I
-	 ihUpg6JBn/cRLL56GGTX7LL/g3FxsM1qi8VdqB1tcHi+auIktjVTrK/x4Lm5Os1nKINDx
-	 ghkqx/UZ9E3rGyuCVDUDbndCXGGXUdOi6YwHOnZ4RRDFOqgMUkJe5ergmgEEDG6rnFQ==
+	t=1794325070;
+	b=PMT8hZUB5PcQtC8Z32BkRvT79tcORGi3u79DEen/OrCvs63ikzwcOWot0cQYoTSnDxWr
+	 TLc5bjFmNvg//ZREBeYvcACE4AW6Rcddveth7hDRpXReAg7FVsg7uKYPBOuVGL6MsIIvf
+	 a8YAVuJ1FK+AI0lFiy7Kg3MxJk5IaFVYNGa/suRxfrwqUiQixIxViXssacjM1pI8Wpil8
+	 LymVK1UERdStQ7ObuHCEU4TpGuBhf34Jdn3ej1QQyeLqY7TN+RYyEJA/Ig59QkswrkbyR
+	 O67OF+Oc/pBMTWIsHdzoaLd6o+z93foF3gEWZ5Fcdstvv9WBKoBbbTpC3ZXqwZCzUqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325060;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=G+VenII0jwmOnGUQKiSusNuz5Q/gzWL632bcNCLluCo=;
-	b=ZCe0zWrMnUtYT6TMhA80pBTNDYIjXUYx4/DkmpTy2lK6x/Qf25kWxdg7N7V7MtUawuY/
-	 gvTDdl0RDYpF2W1t/SdgA8jcvJPjPBfC5nox6Wo7TfSRZj3tlS4vg818ZmgYE0IGuxFiM
-	 rW1FNR21hrsnQO8d9BxuA3CpTojJdht4U0oqnogggsBIzp6mQGFvr/4RRKMAyGYubSENu
-	 RkVRp2CcfSfiuFt2qFYYhsf0VHHdShhYeUZTIo1CMvBuD2fEFTblV5N2NR/ipEvVLl+0L
-	 d3t5W9uoX+iFNWZDrxzcHx4TFKdjd4MhKddbwLtpOjniiTeze9+jtHSAceGhgCs/ZGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325070;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=ogFCUAuBZLZXOutM4r4leQllES0UKlFJyoU3ZQqHWYw=;
+	b=V2C96y36JVo+wWQ7BSVZkuWG4QCROYOidvPlh5ExrHywpF1Tj12RK4rCy4gyB2k15uG3
+	 HZ8qvLC/Xp7ZJQ3OstA3y2HwBUdagI6YwZGj8akJhw1bDi1WeP0gJZcZKO2MgYwAuZD8W
+	 3lpFXK7oAte8N7171+S6ZaCqJg3hjjnmA34cZF+JTqkNJJE+3HP5u09KTMzyD5s/juOOF
+	 g3FTn6TDRYW6YrHbACatCOG6bMApgSJZHQHpjC0T2KpV/oDaoQBj+dXNcfhXHVqLnQN+N
+	 0LKu24rtr1jNrGhesZkiCbawf95WgWD56IXevRjuFZiEf3QyURKurZHX0ScIJGYlb3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MmbldRwm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0OmouxRS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="E/9UpYUc";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="K/lgFPbV";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MGkJK4Ls;
+	arc=none smtp.remote-ip=95.215.58.80
+Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE97606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE97606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C743606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C743606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MmbldRwm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0OmouxRS;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=E/9UpYUc;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=K/lgFPbV
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EC47D1F7F7;
-	Tue, 10 Nov 2026 15:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794325058; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G+VenII0jwmOnGUQKiSusNuz5Q/gzWL632bcNCLluCo=;
-	b=MmbldRwm618/CVcGLyudixNM57fs9Hy5KWALkJOwvBDLpXlYCeUbMUVYw+8yP8pamNrQcq
-	u7WQbIKlicPKYZl30TAsdt4DbWA8qMHRHjbDLCVtfyPE8slBiW3xkVehpBMfFHjVS2SG33
-	xAZV4w75MAMkS5HkZd746kCuLZ97844=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794325058;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G+VenII0jwmOnGUQKiSusNuz5Q/gzWL632bcNCLluCo=;
-	b=0OmouxRSA2P/5DnrLBl79+irDVO1cTVam9A7eCmzSVUnAAAneE1YH/kPS1S3fXecrZ8z6E
-	S5RuvbhWOzWzm7CA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794325057; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G+VenII0jwmOnGUQKiSusNuz5Q/gzWL632bcNCLluCo=;
-	b=E/9UpYUcUPN2KYwhM9o1Q2S+Tp2V1PDYc6WPgkpPC3LrDdVgtqzJa88akvAjxGyLhHDKbk
-	3+7dqotNMsdQw/4aHBJ/8a6En57FMrVnxpEWgZ1CJ3JGlazdKG2V0SG7ftXYFxA4fsNKDM
-	j0Phgn3rff7RSfE8OgDxAxJYkql4fp4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794325057;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G+VenII0jwmOnGUQKiSusNuz5Q/gzWL632bcNCLluCo=;
-	b=K/lgFPbVHQ3kryfHqIrpNfp/GfOPUOvpW92Ge7CQRRAXWavqjUdEKXl2MKrRgTFZJiF7bk
-	YeCfbu94FkwKMaCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EAC6913479;
-	Tue, 10 Nov 2026 15:37:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eyAkLEA682qaawAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Tue, 10 Nov 2026 15:37:36 +0000
-Date: Tue, 10 Nov 2026 15:37:35 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Seunghyun An <san55@wisc.edu>
-Subject: Re: [PATCH] mm/vma: predicate vma_assert_stabilised() on
- CONFIG_DEBUG_VM
-Message-ID: <avM6Iyu3_0Mb2w27@pedro-suse.tail5790ac.ts.net>
-References: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MGkJK4Ls
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OU2BxWs+fl9KwiOZrZ7MCmCnoYNRzpKdLi98U8rTU+I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794325067; v=1; x=1794929867;
+ b=MGkJK4LsxUPiK8fFdTMjwZ+4h8LZup3UYVKpKVZuPqAwwcoLwijZdLeeb/g73663HIlgwehl
+ qFqTAnkJ1rrSJPCzWPb83tt2LaGEWCb+1XWYSBk7VIZ8iXHdGWaBRF8Air3TGXe5sKtKkiuMkFK
+ xQzLpgzgfTmsQP7jW9LU4Gao=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5011e09ddaa1884;
+	Tue, 10 Nov 2026 15:37:47 +0000
+X-Mizu-Trace-ID: b5011e09ddaa1884
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c144eb2f43so5267e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:37:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEkyAFs0Firu6fJiBIArCMO9fNuT/xBjfCdUlFB0lCbdNbqfruA7y3INtxCwjv2LOjunz0azXWDz0FSAVY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88orIDFioSZMgnpTMePrvTQ0mZCxaCcjpoVRttqN2oau466uS0
+	npkQC6uJDOEf8Yq26Vzs+Z9G4vUPxBwAGb5RuJy0EuEG8at20eGbK+unWla8EpOdE+N2UvdoWTJ
+	PEITbw8eDUbDW+Uw+qfWFsdf3nEBIr6eJSJ7FpvmR
+X-Received: by 2002:a05:6512:1052:b0:5c0:7c6e:4559 with SMTP id
+ 2adb3069b0e04-5c157db2ba2mr143661e87.9.1794325062152; Tue, 10 Nov 2026
+ 07:37:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,64 +66,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,wisc.edu:email]
-X-Spam-Score: -13.30
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-3-fuad.tabba@linux.dev> <avMoubwqgXbpflwM@gremlin>
+In-Reply-To: <avMoubwqgXbpflwM@gremlin>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 10 Nov 2026 15:37:05 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+X-Gm-Features: AclHuK9GxiFUgfn5RkRxiSl8D-ZsDGIbAcDrgyXgHWZ0Aza6Wilt0GEOkKm-eWo
+Message-ID: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
+ full dirty ring
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 03:10:40PM +0000, Lorenzo Stoakes (ARM) wrote:
-> I introduced commit 17fd82c3abe0 ("mm/vma: add and use
-> vma_assert_stabilised()") with the intent of picking up programmatic bugs
-> when debugging mm code, but kept the general practice of asserting even
-> when CONFIG_DEBUG_VM is not set in line with existing code.
-> 
-> However, it turns out doing so can cause performance regressions,
-> especially when asserted in vma_has_anon_rmap() which is referenced in a
-> number of hotpaths.
-> 
-> Since the intent was always a debug-only assertion, explicitly check for
-> CONFIG_DEBUG_VM and do not assert if it isn't set.
-> 
-> Really all of the assert paths need to be predicated on this, but start
-> with this one only, out of caution.
-> 
-> Additionally, since a detached VMA is trivially stabilised (nothing to
-> stabilise against), check for this case at the outset, and update
-> vma_has_anon_rmap() to not explicitly need to check for this.
-> 
-> This also, importantly, avoids reading any VMA fields if CONFIG_DEBUG_VM is
-> not set.
-> 
-> Target the commit which introduced vma_has_anon_rmap() for the fix, as this
-> is where the issue started manifesting in practice.
-> 
-> Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence KCSAN")
-> Reported-by: Seunghyun An <san55@wisc.edu>
-> Closes: https://lore.kernel.org/linux-mm/20261110000002.1834454-1-san55@wisc.edu/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Hi Lorenzo,
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
+<ljs@kernel.org> wrote:
+> On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
+> > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
+> > holds, and check that each call stops before the ring overflows, that a
+> > retry returns ENOSPC without progress, and that the harvested entries
+> > are the pages in order. A read pre-fault can map a page read-only, or
+>
+> Are we asserting an invariant that prefaulting happens in address order
+> here?  Is that explicitly presumed in the prefault API, or just how it
+> happens to pan out?
+>
+> I wonder if we might decide for whatever reason in future to do things
+> differently there. Bit nitty I know, but wonder if it's asserting an
+> implementation detail?
 
--- 
-Pedro
+Yes, the API doesn't guarantee an order. I'll assert that every page
+is reported exactly once instead.
+
+[...]
+> > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+[...]
+> > +static void test_pre_fault_dirty_ring(void)
+[...]
+> > +    /* Populate the pages, so that pre-faulting can map them writable. */
+>
+> Reviewed below, but I wonder how x86 could then read fault these?
+
+KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
+writable when the host page is, and marks it dirty, unless it falls
+back to access tracking (below). Populating the pages makes sure they
+aren't backed by the zero page.
+
+[...]
+> > +    while (range.size) {
+>
+> NIT: n could be scoped to this block instead.
+
+Will do.
+
+[...]
+> > +        for (n = 0; ; n++) {
+>
+> Could this loop forever if cur->flags always == KVM_DIRTY_GFN_F_DIRTY? Or
+> is that guaranteed not to be the case?
+
+It can't. Every harvested entry is set to KVM_DIRTY_GFN_F_RESET and
+stays that way until KVM_RESET_DIRTY_RINGS, which runs after the loop,
+so one pass stops after at most a full ring.
+
+> > +            cur = &gfns[fetch % entries];
+> > +            if (smp_load_acquire(&cur->flags) != KVM_DIRTY_GFN_F_DIRTY)
+>
+> Is this and the below release paired with equivalent stuff in the dirty ring code?
+
+Yes, the acquire pairs with the smp_wmb() in kvm_dirty_ring_push()
+ahead of the flag store, and the release with the smp_load_acquire()
+in kvm_dirty_gfn_harvested(). dirty_log_test does the same.
+
+[...]
+> > +        /* A read pre-fault can map a page read-only, or access-tracked on x86. */
+>
+> Hmm under what circumstances would that happen? Is there no way to ensure pages
+> are dirtied by prefaulting? I imagine not though!
+
+No, it's up to the architecture. arm64 maps a read fault read-only
+while the slot is logged with a bitmap, and x86 with EPT but no A/D
+bits maps it access-tracked. Neither pushes anything to the ring.
+
+> > +        if (!n && !harvested && !range.size) {
+>
+> Hmm, so !n && (harvested || range_size) will pass this, but then you assert
+> n immediately below, so it seems like n is an unconditional requirement.
+>
+> So I wonder whether this should just be !n in this conditional or maybe the
+> assert afterwards should be dropped?
+
+The skip is for when pre-faulting dirties nothing at all: the first
+call maps the whole range without pushing a single entry, so there's
+nothing to test. Any other empty harvest is a bug, which the assert
+reports, so I'd rather keep both as they are.
+
+Cheers,
+/fuad
