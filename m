@@ -1,54 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312792;
-	b=x8eM9MJD6usurH5QrGW/jCw0VZLCSFDCfJ7WN/mS/a316Ja6FZTY+9E1Qo3xw1ECTICU
-	 khigLJDqrKrC7ID4x+ys4cYxZUOZ1ro9IEL9zYIgv/gwfEmWCYZb3TGpe/p4lG84eft0O
-	 P5WBSXHYrJBs4d5iKLtxHomKnQKxuqYvYQrUedT/0ytqGqykUuDp4SPtDImaM+68t8NnK
-	 ADXP3ERjX4p02RJGhunqoPrV064riYOXyOuvRXHJsglBgnIbYPwIjFS/kOih8nocv+qZO
-	 kh5hhKiTrkZpdYvG8iE2iGJCO0Xv1XQptky5bi6UbW+LzzLCUt0TLR2pL6iavNMO1jg==
+	t=1794312791;
+	b=kDkLFORylLECzNJGCItw9j9zwzJbDLm4DZvhfUgwQ3L3dGGt2j2CiAC0dlNIB7nR2/uw
+	 Gh+Xa06dFBt7DcDvJ74jHvkAAXMgLrDWmcTGiQwoFkFrW3T8wVHf3w71nP5dBYsiaxres
+	 ZkJPhzLySCVcVBNkUIkmGqyzWmWYo8I4eehu9IoCddaMG3MwQoXJVsDKKN4jSgqHB/L7l
+	 U9sm/++/y8hNFsjwzcFOjYSPPfTiHcCepWqkqAGBQ29NHlchnLPbtdrSE91ie0KrEvoj5
+	 ba+D/3rDFgR1dLzuSrLNCkMOs4QMWtELKChGM0TfuCCfhnd6RexJyNNyYVS6qn7zHGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312792;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xPX6hjL/tuWyjzxA9vDr0JWxUdbpBrR5M1slKp3h4n4=;
-	b=hY2ZcFx+sPxXu2cWlQO4ByiCs9iJ2WIyffnrhmjdQ3OmFfC2Ajv00Cdv7XG9ZMsL7/Y4
-	 zYywCIA9xc/tCSW4Va/dOtSyhzN/SdNbdVGqMYE1FdgV2nwosn4ntZ21qhaOK9CBXQMKM
-	 iTFwaANYuFrJwfeinB9vPubTd78wPi+NB4g4H4Uyp0vfMerD9BFSekyjWyjbgR2J5JUXm
-	 7aa38rGMiOK4zfkr++sm+d0BOlRv6wjs3L6qTbG85duo6A1FhuFk6tBdtIrVUjCKX28ZB
-	 KllK/q5O6FO6TAcoacTOhkDvh4ZJjnMD/Hf6OTK3m6wL8+DdpKhFDNV/Yqo5QTC9y5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312791;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=WUT2O0SW8TKi+EbcZowhvh+wQIZVSFCDotTV9qKsnQU=;
+	b=WYGncM+8KglterQlLNIGCTwfEpFJxYrp49UnSuwmHmVlOPw1OTD7nsedv2L/M7zbCRuk
+	 khib1dtVo6jdCtI2YicQajE7VJvQqiRpa7tHjib4UpxDCUqb8XsdXjpdYIOED08XVoQ3d
+	 lnBbDjkWG0VbeRCDytglPWAiwZhp2xIXdrdyM7Qa5XzjJq7E8bti9qbKfzeMD3RK2exeF
+	 epig34lInaZeuhaJqLBI8pgwmTIuQOnVfFzZRokeXLY5t4/kqhV+6PNPbzQuVZWEzHYIq
+	 rSoojH8dOapSHlqPTOgUcdnFw8txUKe+xjpM+ZlyLs2fxojZMsnGNHqA/3EYtN4FxDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vTf1Iu9k;
-	arc=none smtp.remote-ip=95.215.58.243
-Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=o8NGFdwy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a9H93C0w;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qo+8yXEs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YXNjNYrm;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A25B606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A25B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C29606A31C;
+	Tue, 10 Nov 2026 12:13:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78C29606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vTf1Iu9k
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=G3nVUeH7hHipeIyGXvKuinPceTq9Y7FI9VYOHlt8gGM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794312790; v=1; x=1794917590;
- b=vTf1Iu9kTKIAJAcKbYl4y3J6wx57TpQxO4gCGgO8QSPYOVXDSHesXc6dbVMQ9rSCdMxs7UfU
- yiqOzKTWD/LocnNMZms9zAzROyzXHKsJXE+Ojvl8D8Ak7Z3mBa8okA7pcUQJJbIWro+Ti345kNb
- HBjGXwFYu50a8CON1McVyhPk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2915aee026b5dd3d;
-	Tue, 10 Nov 2026 12:13:09 +0000
-X-Mizu-Trace-ID: 2915aee026b5dd3d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0c302879-0d06-4c90-970d-6c9b40946f0f@linux.dev>
-Date: Tue, 10 Nov 2026 20:13:03 +0800
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=o8NGFdwy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a9H93C0w;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qo+8yXEs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YXNjNYrm
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5B88921F01;
+	Tue, 10 Nov 2026 12:13:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794312788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WUT2O0SW8TKi+EbcZowhvh+wQIZVSFCDotTV9qKsnQU=;
+	b=o8NGFdwyIOuncfNndtOEjuROboQRE2JcBb3nVaSr5GUt7bCru8l4xxVFHrRchVYhMp2Qzi
+	N9TTM+kebK/z73RZs2/vY2GVe//j8aEA4CPsw6IWYMNiTx9ueBLOwzqf1irRHUgsFVlsLI
+	5QqMpoV1RcsSnJ88MCNkr9Gv2J7+cP8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794312788;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WUT2O0SW8TKi+EbcZowhvh+wQIZVSFCDotTV9qKsnQU=;
+	b=a9H93C0waV1nj9dBJoVMtBkoHroU2Yw88g6hWtWYIkpbk8pn8CuX1KQQOhJ9SR1Na+y8hz
+	gcOl8bH0WiyuVRAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794312787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WUT2O0SW8TKi+EbcZowhvh+wQIZVSFCDotTV9qKsnQU=;
+	b=qo+8yXEst4416WTvyO7Ox8vs15Ov2oKlYanbPC3xwLUdzt+STEGPCRSaBVwyelwuGGkjVn
+	6dNDD/x6om3gS+9fSrCUI0EvQmaDhPufchDaGBWJ0aJYzsQPVpcFuxc2leo9WT0mGyHvXh
+	zUbzPOALMrghku3wJAcqChrZiL+n2sw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794312787;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WUT2O0SW8TKi+EbcZowhvh+wQIZVSFCDotTV9qKsnQU=;
+	b=YXNjNYrmrcNmxw8NSwb/yMKsgZIvBQQZuNbVi+71FS3Y6dETimwZyjZJFtOUypR0+oVVng
+	OsJ+4wcv2f9yBaCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F98E13479;
+	Tue, 10 Nov 2026 12:13:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6rfmAFMK82qeFwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:13:07 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id A8837224B9; Tue, 10 Nov 2026 13:13:06 +0100 (CET)
+Date: Tue, 10 Nov 2026 13:13:06 +0100
+From: Jan Kara <jack@suse.cz>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+Cc: Jan Kara <jack@suse.cz>, tytso@mit.edu, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: fix OOB write in fast-commit replay
+Message-ID: <hmrm64sqocegpeoys256faue5zxpj56v5djptsnx35mujob7b7@waziougupt6k>
+References: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
+ <038be9b9541cbcc43ed35cf7950b9361@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,57 +119,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] cgroup/cpuset: Reject updates that empty the top
- sched domain
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20261110050324.173461-1-guopeng.zhang@linux.dev>
- <20261110050324.173461-2-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261110050324.173461-2-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <038be9b9541cbcc43ed35cf7950b9361@oss.cyber.gouv.fr>
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,mit.edu,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -11.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+On Mon 09-11-26 21:47:51, Jérémy Jean wrote:
+> On 2026-11-09 14:19, Jan Kara wrote:
+> > On Sun 08-11-26 20:43:46, Jérémy Jean wrote:
+> > > Fast-commit recovery checks record bounds and lengths during scan.
+> > > Replay reads the records again without these checks. A corrupt
+> > > filesystem
+> > > can make an earlier replay operation overwrite a later record. Its new
+> > 
+> > This fact looks like the real problem. I think we should validate the
+> > replay does not corrupt the journal. How does this happen? Otherwise we
+> > have to fully redo the validation of each record done in
+> > ext4_fc_replay_scan().
+> 
+> The replay can corrupt the journal because a corrupted image can make
+> metadata blocks used during replay overlap with fast-commit blocks. I
+> agree that making sure that replay does not corrupt the journal would
+> be a stronger fix, but I'm not sure I see a simple way to fix this
+> properly. Rechecking bounds as I proposed fixes a memory issue but it
+> indeed does not address the root cause.
 
+OK, I suspected that. So it would mean making sure jbd2 does not corrupt
+the journal under itself. In ext4 we have "system blocks" infrastructure
+for things like that - see ext4_setup_system_zone(). In jbd2 I guess we
+could create something similar just for the time of replay - during the
+scan pass we'd build a list of blocks belonging to the journal (just a
+simple rb-tree with extents should be enough, under normal circumstances
+there shouldn't be more than one or two extents there). During the replay
+pass we'd verify the target locations of metadata blocks are not in the
+journal. This would actually cover a larger class of journal replay attacks
+than this particular one...
 
-On 11/10/2026 1:03 PM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> Boot-isolated CPUs remain in top_cpuset.effective_cpus, but are excluded
-> from its scheduling domain by generate_sched_domains(). Checking only
-> effective_cpus when distributing CPUs to partitions can therefore allow
-> all boot domain housekeeping CPUs to be taken from the top cpuset.
-> 
-> The resulting empty domain triggers a warning in build_sched_domains()
-> and can cause an out-of-bounds CPU access in build_perf_domains(). Both
-> root and isolated partitions can trigger this, whether local or remote.
-> For example, on a 32-CPU system booted with isolcpus=domain,10-31:
-> 
->    echo 0-9 > A/cpuset.cpus
->    echo root > A/cpuset.cpus.partition
->    Oops: general protection fault
->    RIP: 0010:build_perf_domains+...
-> 
-> Require local and remote partition creation and CPU mask updates to
-> leave an active boot domain housekeeping CPU in the top cpuset,
-> accounting for CPUs returned by the same update.
-> 
-> Add test cases to test_cpuset_prs.sh to verify that every partition
-> update leaves an active boot domain housekeeping CPU in the top cpuset.
-> 
-> Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
-> Co-developed-by: Ridong Chen <ridong.chen@linux.dev>
-> Signed-off-by: Ridong Chen <ridong.chen@linux.dev>
-
-It would be better with: Ridong Chen <chenridong@xiaomi.com>
-
+								Honza
 -- 
-Best regards
-Ridong
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
