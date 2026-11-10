@@ -1,86 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322064;
-	b=ytrgr+OqsmXf+1XLV/upfjt3G3EGRrU8ymBKThCI1Ifr5FWSvq36P4CUtWZG1NYMrV3x
-	 tWk8z1qFkaqaDjnrv+0M4IB62ZkhU2OuZuZiKeJzpggdLjPuZuUGnq1mKSLviXZfAcUvS
-	 UR4Y4XFGmHc8XPjJJVPLdVjlGKibzUHJODGyr679DXAJzQPq5Nt7HEaTEYrSxgZeoms9c
-	 aqtLIXoxBef4fGIBZ0yMKAtWxlOwymBlHkft5YcMpRf7bG/3/qfU2EuUMvau6oHALZEF8
-	 s6+ojEpnP7D9oH9Syk46oi0Xa4xMbjliB6YxDomdpriSQjRtKBYUtjO+CbTVsDphCkA==
+	t=1794322057;
+	b=3n9T9yEQzE7ovupMnlXW09ulsrVG75I119wRRu8LwPfWx87i6voYqm5EsZH92fGlHPxQ
+	 6D77TEut8/1I9LjXgIn3inXpomELBv2UwcrGnZEkaaDn/t99mzJvMchAE+IxL8ToDs9xF
+	 FmCtQ5M+pJspAwHiIVDeTpTTai8T7a+czOJrbt2tl3OQw3eCOOo7D+dRFSPqWQBsiL0kg
+	 QR6G8fx/rGHbXhsn0ajhEq/NwoFQR8FHYvkfq4V74pi3nG+AFPaTCkcUdAVYgPJKVAqlZ
+	 ouD/8lrvGhURNyBVxil860UGhL1M/qPeNJw2D6RGE5UyyTX6iVBRyQxiQ+HVVCDQy+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322064;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322057;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=wsmZfHZmE1Rq7H1s1zpsPGYsOnEWBjtJgjdw36cOKzU=;
-	b=KIAG1KImT3DVls3mWYYxwuw4e5LQ8CncyPwV5hgXPWaP+lQFDA6D0Fnx0MKt0L+7Epx9
-	 +p1gNjpauiadSfhb+OXsR8oeZkLdzeu85YHVy7pueAc9L3nFzBNw6ddGBDZOrAhIvhEWy
-	 EaRKmJtfEVjqB83q5wYcigWgATJjhjqF9JhQvKLcBtM0ND8cwnz8E7CM2XH+sTdbwlCfR
-	 ctMtY+fFxDre/8JkbnV2xpGmGwagmJyD4Gq7F1GmhYPTn0ZZ+soEDkoVj8y5sm71bESIa
-	 zGnFq8K6/4ysc9RP9vaB1MQqINpjkdqc2QvY/nUDIgyN600Wgpf7ZYZU3kg2C/BGP1g==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
+	b=mN2TUCPnhty6I3UiQg8mbrglXm/8sY/aC7V1q01TLgy/f6/4WUNbqbGjBnYG1UlqdSg2
+	 avxr9INElE7MvWwQfI8UwJu4t+xEehATH0qneMqL9vDRBafs0ff3x1RY1ddrL/bQ+2w6Z
+	 TM2w7RjqsFaeLcSEY+3AtWklw064voOecLxdjrKVNpFoXZ5vilNpcl21wh62VJEAxSDNE
+	 TaGErqdFvCFXMxHDJga5M3lrcvtJ+0Ykr3QWtz6JP3OPn0lVbIEuUkFJWV4pj5Se2Te0D
+	 fhMoFFHFpxriwgl2KwDsiC2JwUauObryA8QOPt/fIG15q3Pq0XXl22zsAbMBfO1cLfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=lKNd+mMX;
-	arc=none smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="lxQqOG7/";
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1AD60A2634
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A1AD60A2634
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE0B606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE0B606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=lKNd+mMX
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7d2d1b4a83aso637331137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:47:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=lxQqOG7/
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-490f38e9688so1680917f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:47:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794322063; x=1794926863; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wsmZfHZmE1Rq7H1s1zpsPGYsOnEWBjtJgjdw36cOKzU=;
-        b=lKNd+mMXQfZ3LOuXiYkUfL2kVEizQ03moE9Z1ZExAvADzv/DS4y2kFQYHjsOMl6gix
-         JTKreIQNDb19lm8sK/FUDosK6VUQozFstFscIVoqyUUifcdxzD6eeYz3J9YQZvr4R23L
-         zzHbcBoIbeprfgg+0+v0TjuXJo+FDUghj/Ixm3GAy+MZ7mLxtKUeyU0ZAgipGdZJ7vZ1
-         79QY0ZSZB9Z8FEZACVPEmJpBkC6qNrzZ+yK5uEE8nT15XKZMaWxSHKDGfphrp21aVvaH
-         16kZbh0U219OdNWNrZbt2w05PCCM8hYfqEYK1zD9PeX6CT5CKDTlvcrADYYTgbgWF7/N
-         C5lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322063; x=1794926863;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1794322054; x=1794926854; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wsmZfHZmE1Rq7H1s1zpsPGYsOnEWBjtJgjdw36cOKzU=;
-        b=gDGNR5enj32OHpKt5lljcDKDEpmN+jo/cDLc49pwQ0sZWST9IzITt2KIhmD+pw+klp
-         HmSKlurR9Uz3oKnpRPvQQ/o+42jTwzXmlakpk5otIi9nOHa6Wx3Ij7g4P2eOq413sr7G
-         Wryvm58lnvHx+JGaAy1M9td74SC+mP3GRbKD4evJq8F/Vo4tJREMaDDL/6mQH4Kzwo/i
-         em7Ag0JgnQ/xLryO0GWG1zFmMTYyN4ctlrdTDfiKDJJh+QIu/fCALuezf9vVkcOH2Zc1
-         N3cVhE2b+2h+3qWondFRMnEFQpJCKZdejOOUh1ksRhxCU4ThDYV9ly/7k/MpQiebU2Hm
-         0Nrw==
-X-Forwarded-Encrypted: i=1; AL+hErFnGGkFNzlHzWFdFq+Yedc8tCDu4k2SwbNq6qhUGNXsyTYzO2R3WFr1lhyMsphA9HjD4Zuj0DH9a4x0P88=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99FSSBqhDJaCJoOTLdpdl/TDM0ttyvoR3mlMMXVimFHpkVkylb
-	uZ7q//y20XHMklfszz5w9EQK8UgDB6mQMaW7owDAoMS3vkvqyZHFzt3+jQdHLJPNLAg=
-X-Gm-Gg: AYBFou3q9Xfc3rrg2NzpQCda1pA/y/PqOjAnttBwP9yFTYgTMWZ3IfaQCSeed+9v4pi
-	RdwThgS6KaFz+w1V8GEPR3t12jfWE/uZFnhzygpDxoI4d4entFTFUE1wcf06c3TV+zXd9jedvye
-	HRQAOUzcwdu8IcBKsHJD2XaXeoX6GrQqqJpEq80xXV+Uz2vTIYJNLxryKms30cPqRVerhOeQ9jb
-	OtZ8/DA0XhudhheDwufio4sL7moPmhji5r8fWzojnAqMm3zjmmGZv/HMxcmjFM/JqkDPWPaFdTd
-	beYaGRf0iPk4DrNUx17WIGEEHM28LmHmfOSE75zGmOkN8TP2jFWwWaby6XBtxPkluw/2Rc7HVgl
-	PwMUnkBB7kq4CQlhDtBWQxuiORh7uvuaEA0LgnhL3gu6jQ4jTgHaF8VOKMgfA8xs+Er1uwmxR4j
-	lvaOqMfHnkb/rqrPyNnK3OEwl1L6VYbwvXnOFPWwqX3gOxF1QMQ2z4CIWEMVfTwplrgkcEnYk7Z
-	8xzvkNT+BKTHPZV9sAa90R54eXVoz3koUqZ9tZIOy5Dz07JnqY6LDevVzF3HwD+labMOhMXO/Vv
-	VMOQ9XYvpDFqwBbKxgv45jFFfSr1FPB7t0jJ0decAJB36beMrxKDfvQMe+NGGrMHUHyphBAE+bU
-	nAcnWgNR4740j9GD4tpPp2JYAtKdvJ3IsNIpO0ZTJSCl4nDw=
-X-Received: by 2002:a05:6102:8545:20b0:7ce:78f9:adf2 with SMTP id ada2fe7eead31-7d301b83b3amr570625137.9.1794322062505;
-        Tue, 10 Nov 2026 06:47:42 -0800 (PST)
-Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c2003b37csm1895903241.6.2026.11.10.06.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:47:41 -0800 (PST)
+        bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
+        b=lxQqOG7/ja3vQA3ubzTTIQQXnhHfPS+0aO2YnX7lae2OVRufASV1+doafyCZBTaKNr
+         j+LVB34btw2XqAN9zO80UB04MX2wvWDSAaeIgqgzy09tS7K03khvWHJfsbJ3yE5fG7w1
+         V1Y2hyUUGrxfopBFqMceSlnDujFZCC7M4rETAOUwOtRgmyj9Dz2JqaENxkNpcTKvOCYJ
+         FOHoAKiTaLPRDLPo2MEqmTxxOSMRnZoSAp8o5sxRuz1y4ZYpS8h2JO2oPTuDHc8OyqpE
+         gdkdqPf5esqDTQBfb9CPFOQjrCFdLQE9c1uI9wEa2IRvjK9dLYjshru49vGfQPPYXEgg
+         yDoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322054; x=1794926854;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
+        b=DjzHMCVatAlzwBX35/SggLvSZPj3M2XWp7ZCt+CeLjL28b9KiECBL0OdiQMMkhkBCF
+         MI7NmQrSHqn0g3+Sbrvo23Ll1uuVzY/N0a4biHXwtioKUXVYILq5cca4w97ZywocFN/A
+         tDN/y2AY3NacfRYNqd3IE0Voc3PgHeojRixWkG3/IEOESM6kocn3ALSgQAm/I9CTJzLq
+         uEvn3Gex5KhHyYCWRiHPp5LOc0mbWGgEX64PA8Dp2shudZPER3REaTV8Xzh2E+9H5c0k
+         iNwqEt63TuLpLOoYqivf54Qlnslbg6dnYVigV6gI+sMf19c45pMoRF9kKotsC+IhVZGw
+         AMNw==
+X-Forwarded-Encrypted: i=1; AL+hErHhEXZE1bLFWqHgC9vnoWVKVvecH7G1YIFrjOY9vkfYZiojItJDq4MIplnBu7lBMOIeBooIy8gHUGtkMXc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9a1cF6oFy5JgCrN4r8ZlQ0NymLurdV2wK00Gp58Xb3rDajRP5a
+	TLmyB7+RJIui1TIlotR0Bf7bPfXAf//KTo28mGQMaD65d/5IOrn7DsM4aTyIiCk3vd8=
+X-Gm-Gg: AYBFou0s2iJot01aPYs9c5j93ZmFbIMA+FWc1D8c+69qAsDLoKYTyMX4IeYfAbmMuO+
+	Uq4WSaELqmA3zOgSza2S5MeyaE9k60yBTRDfFWkivkegBKgHpxUynzLgVhqiaD107OXAKjtYTM8
+	T7K+RUbunmbWIgWNc8z8DQM2wcpR4B0x8ANTlbQfhYLGUi+Kblw++XWx8e60vUMr8WYjjqRnLuv
+	XMfDsPToZNhiUyeniffCE23EvMDgaVmYWdbyD4HFJV1VEWjvmaPtlJunnNA6iDsXwjAfh7N1Ue7
+	baaB5ZO5dSt58FX6m5eWJ8411D6kmZUGDkFEEPSVv/QKDxblzQU8DorsyAqNnCt1EwC8UsglLtA
+	cX+MF+dKC2qJ+BFgrow2LPjtIS7CgeZ7StOhCvpbFSAl/ZW3IZ3784NSMX9kDVSBnDwH9sUu5f7
+	TYNl5De2Edo0X2LtHfMArqiz+Qh/y30zBhZQ9hNd1V9zYYdflzEpT8MQ7soDv0JoxDjKKLyuU2v
+	3h95ZPclB35ln1iNPc2mXZlVyO93HDZB1q4w6fzUPFVyVdfwMfMx1JuZI+gSWLdzcowtqt8R6Me
+	HPbEXp1c7ZYk2L8Rhr7womZfiJPNz1vNT7lTYzVD9fEgvf+U1/qNTdZHUQ==
+X-Received: by 2002:a05:6000:29cd:b0:492:aff5:da60 with SMTP id ffacd0b85a97d-4982e82c642mr3775637f8f.13.1794322054505;
+        Tue, 10 Nov 2026 06:47:34 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm5253059f8f.55.2026.11.10.06.47.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 06:47:34 -0800 (PST)
+Message-ID: <7f613b00-bafa-4f4d-889b-4e37f5009b6f@baylibre.com>
+Date: Tue, 10 Nov 2026 15:47:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,590 +92,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 05/19] kho: Add feature header for fine-grained ABI
- compatibility
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Tarun Sahu <tarunsahu@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org, 
- will@kernel.org, David Matlack <dmatlack@google.com>, 
- Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, 
- loganodell@google.com, arnd@arndb.de, dwmw2@infradead.org, 
- baolu.lu@linux.intel.com, Bjorn Helgaas <bhelgaas@google.com>, 
- oupton@kernel.org, alex@shazbot.org, gle.com@google.com, 
- pbonzini@redhat.com, Andrew Morton <akpm@linux-foundation.org>, 
- kevin.tian@intel.com, joro@8bytes.org, kvmarm@lists.linux.dev, 
- linux-pci@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
- kexec@lists.infradead.org, kvm@vger.kernel.org, iommu@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, skhawaja@google.com, sagis@google.com, 
- linux-arch@vger.kernel.org, linux-mm@kvack.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/11] pinctrl: scmi: report an off setting as not set
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20261110050202.529473-6-tarunsahu@google.com>
-References: <20261110050202.529473-1-tarunsahu@google.com>
- <20261110050202.529473-6-tarunsahu@google.com>
-Date: Tue, 10 Nov 2026 09:47:35 -0500
-Message-Id: <179432205559.2329176.3035981527541971699.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22528;
- i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=uDJhRLQFyAFvS1XggtjKlr4S7TK6dXpzWoFT/Nbd24Y=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq8y6LJvOvflb5TAokbmkAAlLkGbDN0PKKxSlaM
- zbmKy/X8K+JAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCavMuiwAKCRC7dyhM23N6
- 3qPPD/9GJpxZPaX0RvVkHzUeyWGkOPZJ5dBxpjhvHr9eSA9ar/L2OjrFGzb+UUDdsyvtBVb5VCB
- 5o5bs3he/MRfSVT+DSlNHyiU1onalGmvXGiWkBqg2cSMvP8HtvP8l8mSGOoNKpVFT71Uj+R5ToZ
- DB1mc58Rm0UyPkQvZ7RRwfiXYiRFkmQYRWOSXeAwEUxKseW1v1k9IEF0vaJEYaXVTXjjgiJ9IOz
- iGdngqwwDzkQjq73FbbaRNY6PzdU6eJe31/Iwo6mhj/wfFD6u2o4vx2wZBZLNJJuk9wEcNM23co
- xtteW+aBr5hx3ZnnNAI9Yg20cAu2Yyd7zq+hz0Nka5tBCXcpcPMMHIRnXenF02X+G80twYInwHD
- xEiYL7tXdwttVG0AiUupUE7BpslS3ZIwwn2jH6DU3lVLV0bC76+ZhbOmsVXlnsTDan3A/7MqeoD
- 3kw91xJI7IYG7g4lGnAU9jnK6q2MgIPxHplhNPnmeJxgZR6+o8u0mvzea+xXNpO/eEPA9tve3dR
- WXN3XtgYNTob1yZf4j0KprCn0zMLGhA9JC9PJ/DBYE0YcK3up9p3XrjivyKarYNQcEad0DjKEU/
- B7exXXFGONOaEhLYhnQ+jFY1maFQFhRrNaueAiHN3QRa589YcK8nHxakuNGdq+G6yRKurgnhz4u
- jI4J2WZ9n1nhPGw==
-X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
- fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-4-52d92843ad97@baylibre.com>
+ <avL-4lquUqW9lUNh@pluto>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <avL-4lquUqW9lUNh@pluto>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> Serialized structures in KHO and Live Update Orchestrator currently rely
-> on whole-structure compatibility strings or monolithic version fields to
-> validate handed-over state across kexec. Any change to a serialized
-> structure, even an optional additive field, requires bumping the
-> compatibility string or version number and breaks live update between
-> adjacent kernels.
-> 
-> Introduce a generic feature header (struct kho_ser_hdr) for serialized
-> binary structures in include/linux/kho/abi/feature.h. Each subsystem
-> groups the fields of its serialized structure under feature indices,
-> starting with index 0 for base fields. When a subsystem adds a new
-> capability, it appends new fields to the end of its payload structure
-> under a new feature index. Retired fields are kept in place so existing
-> field offsets never shift; if the type or format of a field needs to
-> change, the existing field and feature are kept intact until retired and
-> a new feature index with an appended field of the new type is added.
-> Only when a change requires a complete break in the serialized layout or
-> semantics that feature flags cannot handle, a new handler or format can
-> be introduced with an incremented version number.
-> 
-> Each feature belongs to either a required feature space or an optional
-> feature space. Both spaces are numbered independently starting from 0.
-> In the serialized header, required features occupy the first nr_required
-> bits, followed immediately by nr_optional bits for optional features:
-> 
->   struct kho_ser_hdr {
->           __u32 size;
->           __u16 nr_required;
->           __u16 nr_optional;
->           __aligned_u64 flags[];
->   };
-> 
-> A set bit indicates that the feature is present in the payload. The
-> truth table for deserialization:
-> 
->   Source bit       Target            Action
->   Not set          -                 Accept: feature absent
->   Optional set     unknown or known  Accept: ignore or use the data
->   Required set     known             Accept: use the feature data
->   Required set     unknown           Reject: -EOPNOTSUPP
-> 
-> During deserialization, the target kernel only validates required
-> features: if the source set any required feature bit at or beyond the
-> known required feature count of the target kernel, validation fails with
-> -EOPNOTSUPP. Optional features are never rejected; the target kernel
-> simply checks whether known optional features are present before reading
-> their data.
-> 
-> No subsystem defines feature flags yet. Every converted structure is
-> registered with 0 required and 0 optional features, producing a compact
-> 8-byte header with no flags entries. Feature enums can be added later as
-> needed, once the first additive feature is introduced for a particular
-> serialized structure. With nr_required set to 0, kho_ser_validate()
-> rejects any incoming required feature bit while ignoring optional bits,
-> allowing future kernels with additive features to evolve smoothly in
-> both directions.
-> 
-> Each subsystem registers its serialized structure with:
-> 
->         DECLARE_KHO_SER(name, payload_size, nr_required, nr_optional)
-> 
-> This establishes compile-time assertions and provides type-checked
-> helpers: kho_ser_size() for total allocation size, kho_ser_init() to
-> initialize the header, kho_ser_payload() to access the typed payload at
-> its dynamic offset, and kho_ser_validate() to validate required features
-> during restoration. DECLARE_KHO_SER_HDR(name, *fhdr) declares a struct
-> kho_ser_hdr pointer while verifying at compile time that name was
-> registered with DECLARE_KHO_SER(), allowing callers to document which
-> structure a feature header pointer represents.
-> 
-> An example demonstrating how a hypothetical structure defines its
-> features:
-> 
->   enum foo_ser_required {
->           FOO_SER_REQ_BAR,
->           __FOO_SER_NR_REQUIRED,
->   };
-> 
->   enum foo_ser_optional {
->           FOO_SER_OPT_BAZ,
->           __FOO_SER_NR_OPTIONAL,
->   };
-> 
->   struct foo_ser {
->           __u64 base;     /* base fields, always present */
->           __u64 bar;      /* FOO_SER_REQ_BAR */
->           __u64 baz;      /* FOO_SER_OPT_BAZ */
->   };
-> 
->   DECLARE_KHO_SER(foo_ser, 24,
->                   __FOO_SER_NR_REQUIRED, __FOO_SER_NR_OPTIONAL);
-> 
->   /* Serialize */
->   kho_ser_init(fhdr, foo_ser);
->   ser = kho_ser_payload(fhdr, foo_ser);
->   ser->bar = ...;
->   kho_ser_set_required(fhdr, FOO_SER_REQ_BAR);
->   ser->baz = ...;
->   kho_ser_set_optional(fhdr, FOO_SER_OPT_BAZ);
-> 
->   /* Restore */
->   err = kho_ser_validate(fhdr, foo_ser);
->   ser = kho_ser_payload(fhdr, foo_ser);
->   if (kho_ser_has_required(fhdr, FOO_SER_REQ_BAR))
->           use ser->bar;
->   if (kho_ser_has_optional(fhdr, FOO_SER_OPT_BAZ))
->           use ser->baz;
-> 
-> Required and optional features each have their own enum, numbered
-> independently from 0. New features are only appended at the end of their
-> enum, never reordered or reused. The last entry of each enum (e.g.
-> __FOO_SER_NR_REQUIRED) is the feature count passed to DECLARE_KHO_SER and
-> stays last. The fields of a new feature are appended at the end of the
-> payload. A reader accesses the fields of a feature only when its bit is set
-> in the incoming header (kho_ser_has_required() or kho_ser_has_optional()),
-> because an older source kernel does not serialize them. Use required for
-> data the target must understand to restore correctly, and optional for
-> data it can safely ignore. Variable length data that follows the payload,
-> such as an array of entries, starts at fhdr->size, the size recorded by the
-> source kernel, so it stays correct when a later feature appends fields to
-> the payload. Document that serialization helpers describe this kernel's
-> layout while deserialization helpers follow the incoming header.
-> 
-> Suggested-by: David Matlack <dmatlack@google.com>
-> Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
->
-> diff --git a/include/linux/kho/abi/feature.h b/include/linux/kho/abi/feature.h
-> new file mode 100644
-> index 000000000000..55ff1b9e9b73
-> --- /dev/null
-> +++ b/include/linux/kho/abi/feature.h
-> @@ -0,0 +1,372 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +/**
-> + * DOC: KHO Serialization Feature Header ABI
-> + *
-> + * Generic feature header for serialized binary data structures preserved
-> + * across kexec via KHO or Live Update Orchestrator (LUO).
+Hi Cristian,
 
-via KHO or LUO.
+On 11/10/26 12:24 PM, Cristian Marussi wrote:
+> On Fri, Oct 30, 2026 at 04:58:35PM +0100, Clément Le Goffic wrote:
+>> A get of a setting that is on or off, the flags and the pulls, returned
+>> 0 as a value, so every one of them showed as set on every pin. Return
+>> -EINVAL when the platform answers 0, which is how pinconf reports a
+>> setting that is not active.
+>>
+>> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl driver")
+>> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
+>> ---
+> 
+> LGTM.
+> Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
 
-> + *
-> + * Serialized structures start with an 8-byte base header (struct kho_ser_hdr)
-> + * containing the total structure size (size, including header, flags, and
-> + * payload) in bytes, the number of required features (nr_required), and the
-> + * number of optional features (nr_optional). Following the header is a
-> + * flexible array of 64-bit flags entries (flags[]) containing one bit per
-> + * feature.
-> + *
-> + * Feature bits:
-> + *   - Required feature N is at bit N of flags[].
-> + *   - Optional feature N is at bit (nr_required + N) of flags[].
-> + *   - The number of __u64 entries in flags[] is
-> + *     DIV_ROUND_UP(nr_required + nr_optional, 64).
-> + *   - When nr_required == 0 and nr_optional == 0, flags[] has zero entries
-> + *     and the header is exactly 8 bytes.
+I'll apply Andy remarks. Can I keep your Reviewed-by with those fixes?
 
-The above is not needed in the documentation.
-
-> + *
-> + * A set bit indicates that the feature is present in the payload.
-> + *
-> + * Deserialization truth table:
-> + *
-> + *   Source bit       Target            Action
-> + *   ----------       ------            ------
-> + *   Not set          -                 Accept: feature absent
-> + *   Optional set     unknown or known  Accept: ignore or use the data
-> + *   Required set     known             Accept: use the feature data
-> + *   Required set     unknown           Reject: -EOPNOTSUPP
-> + *
-> + * Validation trusts the incoming header: only set required feature bits at or
-> + * beyond the target's known required feature count are rejected (-EOPNOTSUPP).
-> + * Optional feature bits are never validated.
-> + *
-
-We can shorten the comment below (and commit message as well); there is 
-no need to include sample code showing how the header is implemented in 
-the doc comment. Too much stuff that is not really useful to the reader.
-
-> + * Defining features:
-> + *
-> + * A serialized structure defines its features using enums and registers with
-> + * DECLARE_KHO_SER()::
-> + *
-> + *   enum foo_ser_required {
-> + *           FOO_SER_REQ_BAR,
-> + *           __FOO_SER_NR_REQUIRED,
-> + *   };
-> + *
-> + *   enum foo_ser_optional {
-> + *           FOO_SER_OPT_BAZ,
-> + *           __FOO_SER_NR_OPTIONAL,
-> + *   };
-> + *
-> + *   struct foo_ser {
-> + *           __u64 base;     // base fields, always present
-> + *           __u64 bar;      // FOO_SER_REQ_BAR
-> + *           __u64 baz;      // FOO_SER_OPT_BAZ
-> + *   };
-> + *
-> + *   DECLARE_KHO_SER(foo_ser, 24,
-> + *                   __FOO_SER_NR_REQUIRED, __FOO_SER_NR_OPTIONAL);
-> + *
-> + *   // Serialize
-> + *   kho_ser_init(fhdr, foo_ser);
-> + *   ser = kho_ser_payload(fhdr, foo_ser);
-> + *   ser->bar = ...;
-> + *   kho_ser_set_required(fhdr, FOO_SER_REQ_BAR);
-> + *   ser->baz = ...;
-> + *   kho_ser_set_optional(fhdr, FOO_SER_OPT_BAZ);
-> + *
-> + *   // Restore
-> + *   err = kho_ser_validate(fhdr, foo_ser);
-> + *   ser = kho_ser_payload(fhdr, foo_ser);
-> + *   if (kho_ser_has_required(fhdr, FOO_SER_REQ_BAR))
-> + *           use ser->bar;
-> + *   if (kho_ser_has_optional(fhdr, FOO_SER_OPT_BAZ))
-> + *           use ser->baz;
-> + *
-> + * Rules:
-> + *   - Required and optional features each have their own enum, numbered
-> + *     independently from 0.
-> + *   - New features are only appended at the end of their enum, never
-> + *     reordered or reused.
-> + *   - The last entry of each enum (e.g. __FOO_SER_NR_REQUIRED) is the
-> + *     feature count passed to DECLARE_KHO_SER and stays last.
-> + *   - The fields of a new feature are appended at the end of the payload.
-> + *   - A reader accesses the fields of a feature only when its bit is set in
-> + *     the incoming header (kho_ser_has_required() or
-> + *     kho_ser_has_optional()), because an older source kernel does not
-> + *     serialize them.
-> + *   - Use required for data the target must understand to restore
-> + *     correctly, and optional for data it can safely ignore.
-> + *   - Variable length data that follows the payload, such as an array of
-> + *     entries, starts at fhdr->size, the size recorded by the source kernel,
-> + *     so it stays correct when a later feature appends fields to the
-> + *     payload.
-> + *
-> + * Writing and reading:
-> + *
-> + * kho_ser_size(), kho_ser_init(), kho_ser_set_required() and
-> + * kho_ser_set_optional() (and the clear variants) use the values this
-> + * kernel registered with DECLARE_KHO_SER(), so they describe this
-> + * kernel's layout and are used when serializing.
-> + *
-> + * A reader of handed-over data uses only the incoming header:
-> + * kho_ser_validate(), kho_ser_hdr_size(), kho_ser_payload(),
-> + * kho_ser_has_required(), kho_ser_has_optional() and fhdr->size, so
-> + * it follows the layout of the kernel that wrote the data. On data
-> + * this kernel serialized, these give the same result.
-> + *
-> + * Use DECLARE_KHO_SER_HDR(name, *fhdr) (or const
-> + * DECLARE_KHO_SER_HDR(name, *fhdr)) to document which registered
-> + * structure a feature header pointer belongs to while verifying at
-> + * compile time that the structure is registered with DECLARE_KHO_SER().
-> + */
-> +
-> +#ifndef _LINUX_KHO_ABI_FEATURE_H
-> +#define _LINUX_KHO_ABI_FEATURE_H
-> +
-> +#include <linux/build_bug.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/math.h>
-> +#include <linux/string.h>
-> +#include <linux/types.h>
-> +
-> +/**
-> + * struct kho_ser_hdr - Header for serialized data structures in KHO.
-> + * @size:        Total size in bytes (header + flags + payload).
-> + * @nr_required: Number of required features known to the source kernel.
-> + * @nr_optional: Number of optional features known to the source kernel.
-> + * @flags:       Bitmask of present features (required, then optional).
-> + */
-
-Let's avoid tab-aligning the new doc comment. Apparently, that is not 
-ideal because it makes future maintenance harder; each line must be 
-re-aligned whenever longer fields are added.
-
-> +struct kho_ser_hdr {
-> +	__u32 size;
-> +	__u16 nr_required;
-> +	__u16 nr_optional;
-> +	__aligned_u64 flags[];
-> +};
-> +
-
-Please use u32/u16/u64, this is not uapi.
-
-> +static_assert(sizeof(struct kho_ser_hdr) == 8);
-> +static_assert(__alignof__(struct kho_ser_hdr) == 8);
-> +
-> +#define KHO_SER_NR_FLAGS(nr_required, nr_optional) \
-> +	DIV_ROUND_UP((__u32)(nr_required) + (__u32)(nr_optional), 64)
-> +
-> +/**
-> + * kho_ser_hdr_size - Calculate header size in bytes including flags.
-> + * @fhdr: Pointer to the serialization header.
-> + *
-> + * Return: Size of the header and flags array in bytes.
-> + */
-> +static inline size_t kho_ser_hdr_size(const struct kho_ser_hdr *fhdr)
-> +{
-> +	return sizeof(*fhdr) + sizeof(__u64) *
-> +		KHO_SER_NR_FLAGS(fhdr->nr_required, fhdr->nr_optional);
-> +}
-> +
-> +/**
-> + * kho_ser_set_required - Mark a required feature present in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Required feature index to set.
-> + */
-> +static inline void kho_ser_set_required(struct kho_ser_hdr *fhdr, unsigned int feat)
-> +{
-> +	if (feat < fhdr->nr_required)
-> +		fhdr->flags[feat / 64] |= 1ULL << (feat % 64);
-> +}
-> +
-> +/**
-> + * kho_ser_clear_required - Clear a required feature in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Required feature index to clear.
-> + */
-> +static inline void kho_ser_clear_required(struct kho_ser_hdr *fhdr, unsigned int feat)
-> +{
-> +	if (feat < fhdr->nr_required)
-> +		fhdr->flags[feat / 64] &= ~(1ULL << (feat % 64));
-> +}
-> +
-> +/**
-> + * kho_ser_set_optional - Mark an optional feature present in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Optional feature index to set.
-> + */
-> +static inline void kho_ser_set_optional(struct kho_ser_hdr *fhdr, unsigned int feat)
-> +{
-> +	if (feat < fhdr->nr_optional) {
-> +		unsigned int bit = (unsigned int)fhdr->nr_required + feat;
-> +
-> +		fhdr->flags[bit / 64] |= 1ULL << (bit % 64);
-> +	}
-> +}
-> +
-> +/**
-> + * kho_ser_clear_optional - Clear an optional feature in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Optional feature index to clear.
-> + */
-> +static inline void kho_ser_clear_optional(struct kho_ser_hdr *fhdr, unsigned int feat)
-> +{
-> +	if (feat < fhdr->nr_optional) {
-> +		unsigned int bit = (unsigned int)fhdr->nr_required + feat;
-> +
-> +		fhdr->flags[bit / 64] &= ~(1ULL << (bit % 64));
-> +	}
-> +}
-> +
-> +/**
-> + * kho_ser_has_required - Check if a required feature is present in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Required feature index to check.
-> + *
-> + * Return: True if the feature is present, false otherwise or if the index
-> + *         exceeds the header's known required feature count.
-> + */
-> +static inline bool kho_ser_has_required(const struct kho_ser_hdr *fhdr,
-> +					unsigned int feat)
-> +{
-> +	if (feat >= fhdr->nr_required)
-> +		return false;
-> +	return !!(fhdr->flags[feat / 64] & (1ULL << (feat % 64)));
-> +}
-> +
-> +/**
-> + * kho_ser_has_optional - Check if an optional feature is present in the payload.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @feat: Optional feature index to check.
-> + *
-> + * Return: True if the feature is present, false otherwise or if the index
-> + *         exceeds the header's known optional feature count.
-> + */
-> +static inline bool kho_ser_has_optional(const struct kho_ser_hdr *fhdr,
-> +					unsigned int feat)
-> +{
-> +	unsigned int bit;
-> +
-> +	if (feat >= fhdr->nr_optional)
-> +		return false;
-> +	bit = (unsigned int)fhdr->nr_required + feat;
-> +	return !!(fhdr->flags[bit / 64] & (1ULL << (bit % 64)));
-> +}
-> +
-> +/**
-> + * __kho_ser_init - Initialize a serialization header and flags.
-> + * @fhdr:          Pointer to the memory for the serialization header.
-> + * @payload_size: Size of the payload structure in bytes.
-> + * @nr_required:  Number of required features known by the caller.
-> + * @nr_optional:  Number of optional features known by the caller.
-> + */
-> +static inline void __kho_ser_init(struct kho_ser_hdr *fhdr, __u32 payload_size,
-> +				  __u16 nr_required, __u16 nr_optional)
-> +{
-> +	__u32 nr_flags = KHO_SER_NR_FLAGS(nr_required, nr_optional);
-> +
-> +	fhdr->size = sizeof(*fhdr) + sizeof(__u64) * nr_flags + payload_size;
-> +	fhdr->nr_required = nr_required;
-> +	fhdr->nr_optional = nr_optional;
-> +	memset(fhdr->flags, 0, sizeof(__u64) * nr_flags);
-> +}
-> +
-> +/**
-> + * __kho_ser_payload - Return pointer to the payload following the header.
-> + * @fhdr: Pointer to the serialization header.
-> + *
-> + * Return: Pointer to payload memory immediately after the flags array.
-> + */
-> +static inline void *__kho_ser_payload(const struct kho_ser_hdr *fhdr)
-> +{
-> +	return (void *)((const char *)fhdr + kho_ser_hdr_size(fhdr));
-> +}
-> +
-> +/**
-> + * __kho_ser_validate - Validate an incoming header against target capabilities.
-> + * @fhdr:                Pointer to the serialization header.
-> + * @target_nr_required: Number of required features supported by the target.
-> + *
-> + * Checks that the source did not set any required feature bits that the target
-> + * kernel does not support (index >= @target_nr_required).
-> + *
-> + * Return: 0 if all required features are supported, or -EOPNOTSUPP on failure.
-> + */
-> +static inline int __kho_ser_validate(const struct kho_ser_hdr *fhdr,
-> +				     __u16 target_nr_required)
-> +{
-> +	unsigned int i;
-> +
-> +	for (i = target_nr_required; i < fhdr->nr_required; i++) {
-> +		if (fhdr->flags[i / 64] & (1ULL << (i % 64)))
-> +			return -EOPNOTSUPP;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * DECLARE_KHO_SER - Register a serialized payload structure with KHO.
-> + * @name:         Structure tag name (e.g. luo_ser).
-> + * @payload_size: Compile-time expected size of struct @name in bytes.
-> + * @nr_required:  Total number of defined required features.
-> + * @nr_optional:  Total number of defined optional features.
-> + *
-> + * Size and 8-byte alignment are asserted under CONFIG_64BIT: KHO and LUO are
-> + * 64-bit only, while !CONFIG_KEXEC_HANDOVER stubs pull ABI headers into
-> + * 32-bit builds where u64 has 4-byte or 2-byte alignment.
-> + */
-> +#define DECLARE_KHO_SER(name, payload_size, nr_required, nr_optional)	\
-> +	static_assert(!IS_ENABLED(CONFIG_64BIT) ||			\
-> +		      sizeof(struct name) == (payload_size),		\
-> +		      "struct " #name " size mismatch");		\
-> +	static_assert(!IS_ENABLED(CONFIG_64BIT) ||			\
-> +		      __alignof__(struct name) == 8,			\
-> +		      "struct " #name " must be 8-byte aligned");	\
-> +	extern struct kho_ser_hdr __kho_ser_hdr_##name;			\
-> +	enum {								\
-> +		__KHO_SER_SIZE_##name = (payload_size),			\
-> +		__KHO_SER_NR_REQUIRED_##name = (nr_required),		\
-> +		__KHO_SER_NR_OPTIONAL_##name = (nr_optional),		\
-> +	}
-> +
-> +/**
-> + * DECLARE_KHO_SER_HDR - Declare a feature header variable, field, or parameter.
-> + * @name: Structure tag name registered with DECLARE_KHO_SER().
-> + * @decl: Declarator (e.g. *fhdr, **out_fhdr, or * inside DECLARE_KHOSER_PTR).
-> + *
-> + * Declares @decl with type struct kho_ser_hdr while checking at compile time
-> + * that @name was registered with DECLARE_KHO_SER(), documenting which
-> + * serialized payload structure a feature header pointer belongs to.
-> + */
-> +#define DECLARE_KHO_SER_HDR(name, decl)	typeof(__kho_ser_hdr_##name) decl
-> +
-> +/**
-> + * kho_ser_size - Total size of header, flags, and payload for a structure.
-> + * @name: Structure tag name registered with DECLARE_KHO_SER().
-> + */
-> +#define kho_ser_size(name)						\
-> +	(sizeof(struct kho_ser_hdr) +					\
-> +	 sizeof(__u64) * KHO_SER_NR_FLAGS(__KHO_SER_NR_REQUIRED_##name,	\
-> +					  __KHO_SER_NR_OPTIONAL_##name) +\
-> +	 __KHO_SER_SIZE_##name)
-> +
-> +/**
-> + * kho_ser_init - Initialize a serialization header for a registered structure.
-> + * @fhdr:  Pointer to allocated memory.
-> + * @name: Structure tag name registered with DECLARE_KHO_SER().
-> + */
-> +#define kho_ser_init(fhdr, name)						\
-> +	__kho_ser_init((fhdr), __KHO_SER_SIZE_##name,			\
-> +		       __KHO_SER_NR_REQUIRED_##name,			\
-> +		       __KHO_SER_NR_OPTIONAL_##name)
-> +
-> +/**
-> + * kho_ser_payload - Return typed pointer to payload following the header.
-> + * @fhdr:  Pointer to the serialization header.
-> + * @name: Structure tag name registered with DECLARE_KHO_SER().
-> + *
-> + * The first operand only fails the build when DECLARE_KHO_SER(name) is
-> + * missing.
-> + */
-> +#define kho_ser_payload(fhdr, name)					\
-> +	((void)__KHO_SER_SIZE_##name,					\
-> +	 (struct name *)__kho_ser_payload(fhdr))
-> +
-> +/**
-> + * kho_ser_validate - Validate incoming required features for a structure.
-> + * @fhdr:  Pointer to the incoming serialization header.
-> + * @name: Structure tag name registered with DECLARE_KHO_SER().
-> + */
-> +#define kho_ser_validate(fhdr, name)					\
-> +	__kho_ser_validate((fhdr), __KHO_SER_NR_REQUIRED_##name)
-> +
-> +#endif /* _LINUX_KHO_ABI_FEATURE_H */
-
-Headers under include/linux/kho/abi/ are meant to describe the ABI 
-layout only, so include/linux/kho/abi/feature.h should only contain the 
-struct and declaration macros actually used by kho/abi/*.h headers:
-
-- struct kho_ser_hdr (and its static_asserts)
-- DECLARE_KHO_SER()
-- DECLARE_KHO_SER_HDR()
-
-Everything else here (KHO_SER_NR_FLAGS(), kho_ser_hdr_size(), 
-kho_ser_size(), kho_ser_init(), kho_ser_payload(), kho_ser_validate(), 
-kho_ser_{set,clear,has}_{required,optional}(), and the __kho_ser_*() 
-helpers) is kernel runtime helper code and should be moved to 
-include/linux/kexec_handover.h (which also avoids pulling string.h, 
-math.h, err.h, and errno.h into the ABI header).
-
--- 
-Pasha
+Best regards,
+Clément
 
