@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316844;
-	b=2Nxv+U7SYDDduiZli6Sa1+XSEskAJec8Um8qvkEA/LtRt+a1RzAiJO2unOQVENkeTDX1
-	 vDF8aisS8MNvEgYho/2q5LWqIbG6xJMJRmZioMnnFd6L6T+HrmQQAX/3QhlGaBwCMdW7q
-	 HsoPLuVBP6W07miRtxiXyk/Go4B9dMTC12cPo6dnIxwJzxhCCHtNO/a6PiGRmutcr+ujn
-	 OcSbyLmgLzd8vkiC4HOsbS0TJWTldV4ZMz+EDVosmdQTo29aKPTAcQNjd1V418JSPrtTl
-	 seftiAWvXEI/5xkuVsVqW53xMA3xqVkPy17FyR/0jWsdnZ0uCRBYQOasMUWeWidYCuw==
+	t=1794316843;
+	b=nTurjnGJajka/e4Q7WqPV67My/10gPc5FPEXarGeBN7aJMaRb+RqAfWwfnUQtLVGapek
+	 rDtQXwIAjLmyjLLIZc7iAGmvaCr34J7fC59Sfb4NXqtF4pMJMBlFViIbWCdYu5AFXRMZS
+	 JnGgAIuA0crkYctDbuS53xp9hF9haFMra35intjv0eOvkZuBIiUrgqFWBm9jxhg/RMDil
+	 gek1Dfwa3CD9aX2ZiHOj8r+5fm38gsB4xTgByqgKjt9SOl7mPcB7cyCFzNW++ODJe0nTI
+	 49byglcsio6d0goCspSbLSbeIIhHDuFCl3jbTS5xYsQ+hm1VheAERbZLJi49XEuzfZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316844;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
-	b=L7Cz2/8n0Nyjy8mn2HJChOzzHVBR9yuspUmntU03ZGI14uXcicnOxdQE+eQKrLoXvprC
-	 TPHXibrvJqqeI2PAX/NfOZM1RbQnI7mPLZnbIW+RYjn0hhidmHjY0rvv3jsjXnTnY8o1z
-	 SBR7ig7Al/enhmES/RG2yeKqHeHCPwyC/1iMWt1ECebi8FEJ0GaRc96dCJPQ5kUwDNIWc
-	 ZBHJqFJgOnTCS3R8zykmMnnJB8isH8cIATFiBHlYZX/iRqXWlcFnfDUSDj4s5aqkfofx5
-	 cAkCLsHwQ+/iH5xbV+l+C1c3eK327KdVP2IOqATGikZ4Xjkpu9gR2VpcxXvtwPp5jew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316843;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=kX8LGnsRnSmfvQlt6QdK+7ym1kDFujMmN9By+cL+/10=;
+	b=V3Kgkai+FpFP1p+0k0V8gVtqarLvG3XwLYXdcB99/mB2+ZOJVl4ltKpO6erG/wHR6oeZ
+	 1BUmnE4K9CNAzJUHctJUz9KXyXqK23WeKBN+IcUtMYGNy52JCNBUIEOHTatRxPaqdL475
+	 ITEWYw9ir5S4dc3lLnJm2yOT8W8NOzfFBpry2xU2K1ra80hT9WqPm6pGTv/LZ7oP4UhC8
+	 dZvdsTYlBBLal18pjmsD8APyOf7ethK+LEA6L09YMlOmUSPx6R3FkXnaoR+Cxy4rkTDFb
+	 KR9QjJnfwJxUfRbHfFEebu1cCHrWcJqUFEyBv50JzOUWZtpPh8SnTgBRw8xqOLBtoLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="VHpMP4/j";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Xsfg4laP;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11BB60798AF
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A11BB60798AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301D36079896;
+	Tue, 10 Nov 2026 13:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 301D36079896
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VHpMP4/j
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so17061395e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794316842; x=1794921642; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
-        b=VHpMP4/j4sBE/3GTsWVQXCxciymuJ7C3nxN5+Dp/83CDvcD79g8DhfK8zTD7Ivmg6i
-         67lH3Ulh4eABXI9QypW6gyGJdhevQT3cUO0D4gsxOrSN2TBJAGFjTCmosGKAmsbezZQP
-         2I1iFT+TIbq8d6EYGfEwV104xY1K3Hbt8xJ2SwGtblNfbti+36u7nsX9oq8qeor8/K+v
-         uaF059Jff6l639HK4RXNTwRqNy98Vxu2z6afcpsQUqh+LKG5NWFFuHaQOrhTa5uz3XrP
-         g6WsjwyjfzjhzaGseTGgYPYMkKmZFLmQZbul1cUcIhtMOK2/LBA2BYRyDQ1gkhRh0APK
-         t9Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316842; x=1794921642;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
-        b=To07htfRzbNR0Lg0MnaAyH1lRR4g5KKb/lz/E3CZdfjwPrZHO5f7wOvwkNsdkV2NSy
-         XnCXQ2TvsaV9JPeIH7reTWGpVyhapBIR+bfjz5g0pM+JkkbrHNTvk0Io8uDjdRO1mQvT
-         sio1yp+5AS7iPWOJFehZmrEoBD3C4NNynFm94gxs63bE3E8Sw2E7GhdM+IrHAR9KNY39
-         xrNPR5uqamtuuZUTk9UF+YVQnj6bswR7BWwsV0nWtJzzuLu4UCD4lEl+glq2cbXND7lF
-         mX1V/Yuh8s0ManjUUMLRfwS8qUe6jvEvELAkdDAosq6k7vuJNQw+qoDUAKQ2qE1zduYT
-         StPA==
-X-Forwarded-Encrypted: i=1; AL+hErEQuRsNfk5XUtUZAMcMrXddzkJv5BGQLqgIeZ5JvnkGSrvJQUurd2Yg8PgR/L3WxjbqZ657NTYWznpmALs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CjqmkbeyXeD3KYrgSPBO3GIz6x61cDkOLNns4fj7ZMEwMmznE
-	OLVwxfIhOHDEqGQ955naWvzrsqSQQnsNkuZkeCJRfQuYoOgnWfR6dzJKFN6ndYwgAZE=
-X-Gm-Gg: AYBFou2tpXlHY4aRRmlsi6UAzny4gbqYCiFPVfB3sBz2aqQsfOUwnWysklhq99ZvzI1
-	6S+VQiA/TBwOIbzbk/8UacAKgBG0ezOFYMT5TNkhZIv+36vxNt6ut04NuBI9yZLDFX5TRmIvDNV
-	RjfODD1F1wiRz9wVWTeTos2z0W+pnYbwpVWLHQfW3xS/obSv2ZyvOlrY3DBt5m9Qw9vYtUm6mlc
-	3q+vIFqMzW3IXC7goVRzPMN/+reZNTeVL5HhKPW1HQaUzsWdFRYhYLBotYdbYFkvWzPbfcHhxuH
-	wSR3j/m/EyHfGYgIkgTs6y4dFWrWtihaDU/ahuppouFpUCPJw8jfBTbUaCrivXlWyYUdeDc65V0
-	GA1AfPa1iKpPB/7qt9BiHg+cUTGza+771FU/UIL/d3pfFr8Ftadp7hLsxw2rUfzLWIcEqJoaEvJ
-	ckspvY4V3tUhj6AYZvVfJMM+P3Hdf8LlfeZkYnSBuanwweWquRM047Nf6Y8y8h/+8G/fDmC+MdY
-	eIVIR2y55pC20dQgc7+lF73D/S6nFdStrZSTgBLE78FyGK8EzJ1WDcHq1DYEtJ0+zhRr3dOGox9
-	4XZvEnBDoR2xxUKr7/ZhhSCYXO9mN9DAvmXEUNsev8iSUqAs6vP/uswAkPbBV/1mc7o=
-X-Received: by 2002:a05:600c:6089:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4ba0234f9efmr39939615e9.30.1794316841996;
-        Tue, 10 Nov 2026 05:20:41 -0800 (PST)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm5435036f8f.53.2026.11.10.05.20.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:20:38 -0800 (PST)
-Date: Tue, 10 Nov 2026 14:20:34 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: rostedt@goodmis.org, andriy.shevchenko@linux.intel.com,
-	linux@rasmusvillemoes.dk, senozhatsky@chromium.org,
-	akpm@linux-foundation.org, linux-kernel@vger.kernel.org,
-	keithrteeple@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3] lib/vsprintf: Preserve the sign of seconds in %ptSp
-Message-ID: <avMaIj0DGI9yei5O@pathway.suse.cz>
-References: <20261109215445.43419-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Xsfg4laP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1794316839;
+	bh=oh/CJGlYVkljDHq2Wtxd308vKLzmZu5wMC594kpep5w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Xsfg4laPiQGrNqCJow5PSmIgEUruyfhvRG/Jr4DVKdz4hwfhEfZrYVMpBLdClsvRD
+	 CuPdpc0yyZv2C0OBM2bWZYTZkgS8RjUcZDjbAVsiPLcc/PCtzkpatX1wGt4iu08kdT
+	 W22NLHLf09SCUyLUV/52vwND+BiyuKTJwYJ7I3+k=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 10 Nov 2026 13:19:32 +0000
+Subject: [PATCH v3 1/4] selftests: vDSO: vdso_test_abi: Also test ALARM
+ clocks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,39 +53,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109215445.43419-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-vdso-alarm-clocks-v3-1-8f3c0c5b5a11@weissschuh.net>
+References: <20261110-vdso-alarm-clocks-v3-0-8f3c0c5b5a11@weissschuh.net>
+In-Reply-To: <20261110-vdso-alarm-clocks-v3-0-8f3c0c5b5a11@weissschuh.net>
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316776; l=1291;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=oh/CJGlYVkljDHq2Wtxd308vKLzmZu5wMC594kpep5w=;
+ b=2YWH5I5GFOZPBnh1ld/BMTmdAdbEPGEMGPLn5SWbjUK7xdjr3NQehuRZEotC/lkTdgvPTB3FY
+ Ialq3rqK8nSCEDXyQvJGPhE1iMRyNpGxUBubp7XKfWuOxLqsHmtokZJ
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-On Mon 2026-11-09 21:54:45, Hungyu Lin wrote:
-> The documentation defines %ptSp as equivalent to %lld.%09ld, but
-> timespec64_str() formats tv_sec with default_dec_spec, which does not
-> have SIGN set. Negative seconds are therefore printed as unsigned
-> values: {-1, 0} produces "18446744073709551615.000000000" instead of
-> "-1.000000000".
-> 
-> Negative values can arise from time differences, for example in
-> fnic_get_stats_data() after the realtime clock steps backwards.
-> 
-> Use a signed decimal printf_spec for the seconds and add printf KUnit
-> coverage for zero, negative seconds and the signed limits.
-> 
-> Fixes: bccd5937447f ("lib/vsprintf: Add specifier for printing struct timespec64")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Tested-by: Keith Teeple <keithrteeple@gmail.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Extend the tests to also handle CLOCK_REALTIME_ALARM and
+CLOCK_BOOTTIME_ALARM. These are currently not handled by the vDSO,
+so will fall through to the system call and succeed.
 
-The patch looks good to me:
+The tests will become useful when the vDSO will start handling these
+clocks in later patches.
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Signed-off-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ tools/testing/selftests/vDSO/vdso_test_abi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-I am going to queue it for 7.5.
+diff --git a/tools/testing/selftests/vDSO/vdso_test_abi.c b/tools/testing/selftests/vDSO/vdso_test_abi.c
+index b162a4ba9c4f..4f538928e1d4 100644
+--- a/tools/testing/selftests/vDSO/vdso_test_abi.c
++++ b/tools/testing/selftests/vDSO/vdso_test_abi.c
+@@ -261,7 +261,7 @@ static inline void vdso_test_clock(clockid_t clock_id)
+ 	vdso_test_clock_getres_time64(clock_id);
+ }
+ 
+-#define VDSO_TEST_PLAN	38
++#define VDSO_TEST_PLAN	46
+ 
+ int main(int argc, char **argv)
+ {
+@@ -284,7 +284,9 @@ int main(int argc, char **argv)
+ 	vdso_test_gettimeofday();
+ 
+ 	vdso_test_clock(CLOCK_REALTIME);
++	vdso_test_clock(CLOCK_REALTIME_ALARM);
+ 	vdso_test_clock(CLOCK_BOOTTIME);
++	vdso_test_clock(CLOCK_BOOTTIME_ALARM);
+ 	vdso_test_clock(CLOCK_TAI);
+ 	vdso_test_clock(CLOCK_REALTIME_COARSE);
+ 	vdso_test_clock(CLOCK_MONOTONIC);
 
-I am sorry that it me so long to get to it and missing 7.4 merge
-window. My TODO list somehow exploded around the Plumbers conference
-and I am still catching up with it.
+-- 
+2.56.0
 
-Best Regards,
-Petr
