@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.111
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794289749;
-	b=0aO30bbfJf90jkQ/t6VXKGaCbgxusdKbV2RV16TqH9BvGXp9zXIbgMvJgp2eL2W5kS42
-	 3ojgzHXCL28/Q5MFe7B/epuNTEfYnOYW7YwIHpRuFX3+riX+rg96pe4t+bnvA0CixQqum
-	 TDVj7pZrWs+IfLBsgRIY1pHCiGxuPjxgXOkvD3eC7GytjdPbSig/Oo+LPpQrvY20EW0QD
-	 +PYMyss0wJU1294W1PiWGo7V3pqHKIfw0s67jZXHAGlCgRpr/g5/WREy8eEui20JzIegF
-	 HSAmXf4Aop0Nhx7NCmCw1HhTXlLtIUw4h6zphRhicX+jtypBECY2Vu/7OeQtYAYyOnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289749;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=AyPLIpodHMNbvUybAmAZi5srMr8R+tKvg76kiTATWH4=;
-	b=W0dxIXx1+RRkxQTGf/yJCJMZ+nZuMBujIHyNUnfVn9dEGEojEBOf1KqA7Nlks36RnwJp
-	 ToJBWhLOn0KFrwxgEwcOWZBM3ul6C5Hrb6ihqyo6k2cqFywEwUennm24MI44iVJN87kcj
-	 d9E0HxyKdcWyN882rpcFObK73A3iSreGJbA7yTVL1tUNgkTT3g0e3R5+RH5pX8RQaAMo5
-	 KDpuViFWHnIblfQ1xQPPohiZwGAZGNEz552OtCka9M1ZhWiAduqELYjZdCbV/HciVtV2l
-	 NSN7SyK0aHU4LkKzyq4T7ioqnXFjQRtrkin3mCFhRRpC0OFfLiEG7QbGfuGj/O7Uomw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manhattantech.edu;
-	spf=pass smtp.mailfrom=matc.net;
-	dkim=pass header.d=manhattantech.edu header.i=@manhattantech.edu header.a=rsa-sha256 header.s=selector1 header.b=S0UDEiTq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.111
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021111.outbound.protection.outlook.com [40.107.208.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794289755;
+	b=NLQuWMkcVllL7mEGZvWI3tNdYhFW9V0D5EfLyY1p4bMmS/KkekR8Q01DDDIm4/CQ+ffa
+	 m1Hnu2zZUENS5B8/YNyTAQ4wt1hOOzNFU7/vEarIDAJUell8Y12fMpG+bbvCWbOzvAmsx
+	 RDtSVGlVjaw27Io2h1jEsYqOZOMujGux8p2xLaU6WNVFAMnuFtPXgdUHHDWlzsAx6MQxE
+	 jLM7IoXgP3hsfrDI/DkJoJ1Vzf3Mh/p6W6AiA6S1d6ARvz6oushGAiS8nLRmHDvx7tqgv
+	 hpuceKPlL5QPjqXDWXJo+BC0SBlglGfkHF9MXiMuy1YHG4rW2NRSV4nYjVPgmY2OVJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289755;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YCSQzGAMUPcdpnnuOgggDzx++ldY+CPnHPReM+DbQnM=;
+	b=tInKNETUaVw/+I7F5D3WQaW4y8Azl4FZzb3pxA/7DEzNJ2Bi9TInE/sAVgAlJVa/UIYM
+	 4n67FtUBCQIHZop+sLzGSJNGBjaWvfguVRyzmmtgz+rtW1/BZYasBOSfh/hdreIee1C/n
+	 6uxGH8V1ek0tS1LXQkbcN7WKxDF8ESVvEopZHIhrP2QVBD4nh/7Hc2AYqmHchcRXAS3uj
+	 bk+8jCUdOcttRFR35pJYgn4cRMOfxLfBEAn/0CddVo5hLQUgACP1pal3hqNgHHYVioISx
+	 Txzv+zhACXG99UZiMgszJyVzFNRnBRNxX9i/CY5E3pU4BmiA5vUB3bygLHvaqJuOKKg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FAcwfKOD;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BCF60A2622;
-	Tue, 10 Nov 2026 05:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40BCF60A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manhattantech.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matc.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6759C60A3802
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6759C60A3802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manhattantech.edu header.i=@manhattantech.edu header.a=rsa-sha256 header.s=selector1 header.b=S0UDEiTq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mdlUy1KHN+l0nvzqkAiMZByC9HiOlV7Y6zA37GzcOcS+R6XtWViXwTbJJ5N9Rom8mqD8LLHk5/Ip1cQzoCWBD1BQkLGPQXTqSO+ov+9ddWLFwa5BI7SRR9IdpzcycVPb1/dN9PieXCkgsHZOag14KlvV160YF/TREVz0s7xH0KicRxoTopLJGNITs5Ykfm6g+hHtQoeS8AWSP1XRzHutmcYU6+saqtW6ODjfx2MbKXr81iAkCkTwvIcTArx+Y9QdrsaOdnj2YJYvFJoz9Vshkn06RDep624uDRM/h2zS08ihN0DTiVYiBWcVVHcAf47bUa1zpqcKwjrVTSp3w2J+cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AyPLIpodHMNbvUybAmAZi5srMr8R+tKvg76kiTATWH4=;
- b=cEFJATBVQJSziQ66juAhn79ofSvAbVCCiZU0WggPGo2xjnG0BtRQ3cV1LxNF0ZqsyakCGralqsMcKhTTtYlXoklMZd4W9ZmQtRbewLBberIm88vEYFfk8LS2hfrnCPfA6lz4wyJxRATjrRAgVfPgKCCGTIR3DW2JTI13muAdCwo5WwxNgUaB4lBqkDiP4kgNG/APhKQeSsorfDam8uIiDLvRpZTCykcsNjAD/vut+MtFz/adVB4fgU9vgmgtFRGsWWvpFgj/UbAUmlFQjnz2psEtuKIDzTDa5dmHi+PIqBVpKeGY9oIyFPEWTEeSG81cNWxrH4U2S/a17dVo7SPcpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=matc.net; dmarc=pass action=none header.from=manhattantech.edu;
- dkim=pass header.d=manhattantech.edu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manhattantech.edu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AyPLIpodHMNbvUybAmAZi5srMr8R+tKvg76kiTATWH4=;
- b=S0UDEiTqDRiqd0cilwdwpEiThNB6SHPMPuSEmM5esbFw+oAM4qNpHbPMxu8LuEJKq7HG8PjYFvPa6fd6iqeWxK5Cde6wrze99tzfa/n+5KflzcVZJmXHf8cXqLm2+BvrckTsIJaL7xvDJvpbtbxx3Lh9jTwP5vJioUKhF59td2MfszLSS3JwKb+hBTzv9RhpdJQWwhvWwdtu0PF4/fL3nvUeuucee8eV9HHodMrrJGdo/2ny5Lvlv3A4oaJCr6yuRya8fgUfVGqnQVoT/7LmeRM8tG//ofx/8jDsM/xgIMpMhxAFCKzBPOjCrkv4myrp6sKuyxssdMvHc3e5fgnZyQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=manhattantech.edu;
-Received: from SA1PR08MB7135.namprd08.prod.outlook.com (2603:10b6:806:1a9::21)
- by MW4PR08MB8281.namprd08.prod.outlook.com (2603:10b6:303:1bc::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 05:49:05 +0000
-Received: from SA1PR08MB7135.namprd08.prod.outlook.com
- ([fe80::1027:36f2:d644:13a6]) by SA1PR08MB7135.namprd08.prod.outlook.com
- ([fe80::1027:36f2:d644:13a6%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 05:49:05 +0000
-Message-ID: <9ced619f-58bd-41fa-b8fb-863bd49d5dbb@manhattantech.edu>
-Date: Mon, 9 Nov 2026 23:49:03 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] fat: use write_inode_now() on flush to avoid racing
- the flusher
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029-fat-flush-isync-v1-1-69c02c258d0c@manhattantech.edu>
- <878q3gth64.fsf@mail.parknet.co.jp>
- <457c34c8-b52f-41c6-8b58-ed334b0dc483@manhattantech.edu>
- <87ik2jsp9n.fsf@mail.parknet.co.jp> <87a4nvso7w.fsf@mail.parknet.co.jp>
-Content-Language: en-US
-From: Bryanna Marihugh <bryannamarihugh@manhattantech.edu>
-In-Reply-To: <87a4nvso7w.fsf@mail.parknet.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1P222CA0064.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:2c1::15) To SA1PR08MB7135.namprd08.prod.outlook.com
- (2603:10b6:806:1a9::21)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FAcwfKOD
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a07078200fso653733b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:49:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794289755; x=1794894555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YCSQzGAMUPcdpnnuOgggDzx++ldY+CPnHPReM+DbQnM=;
+        b=FAcwfKODC3vh0DknqkBWTL6lURiC1+OVyEumjEs/ifhy3qubrJhoq5pNuU0FIjID5Q
+         4bjSLb/FBujwq3wd7mWICt/MqnqUq7COctSujadM79oyE+tnj4GLZRNJbY+PuCx09hjS
+         0jel/gBMzYGjQyBpSqHZm1wsL1lVLpBobZDq0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794289755; x=1794894555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YCSQzGAMUPcdpnnuOgggDzx++ldY+CPnHPReM+DbQnM=;
+        b=necGrsMMpnwnZdJ2qUDn04Ue1IP7LcDal2xXkf+/qb3bVc7WG0t02gB/Icx+f3NYV2
+         qdRmzFSlzsVID4E+yMT9bHVrZyGLDEXDluD5TEuumhzKKmJSs8CH0uAheJ4gZ1K+7NUR
+         cXbtkgc4nXQAFvs8naki7654QFtdk4ZhAKM8tP0anM7BEEemnC7ww0dVHZ+vcTfSSveY
+         RcOFOpl2NPXFVu0Kp//+7A/34CR4Vv+hpnTpvLZqAJ0D01wLp9aW1RFptFsTzcbnVI+t
+         Hz5hMGCKpN+PL1CPf4tz1i0HccORu/SSYdsaLhhZopD8QeaMUi1JZK2Ul9jT0bN+ZpOh
+         nfCQ==
+X-Forwarded-Encrypted: i=1; AL+hErH2sSlVL7s/MCesoWiCBoqawAlBLj2ERCx+3rCvRCabLe968yWoahZla5Oc00G3JNUsnSTKyPuxLtcL2AA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ry31ZP6XyJg6MiNSP1oUKyzV/lm3RabJBzUgLYpVMD56cmkKx
+	gMv2MWg56rJqDkYovPfP9puTC/Iv9ouV4MrmTCqGUkuK4bV0+D1yvp8tr+8GLYWKvw==
+X-Gm-Gg: AYBFou1pRM5RMSxZdWvc+PSEdprO4p137jGHo/h2SJ1VJGfYWzIHS3YeYZrI0di3GtO
+	kjgvE4IIYEv95OtnqcWOmFj/uwhGEonmKF6O1F6OlRiAKcDzjU5jPT3XtUpsfRZ0HkQP7pFeiio
+	KwXPV+4TLxpwLEEY2EtrAGai6wPtOXMBXksdHfBU2OuhF1aZZF9HZ6KH1p2iu6EzwHcAGmpVQi/
+	/BcIew8tliVqyzCCjkKFvT9LL2CbDs7Vh0J/cQzrkCd7ZcDT1oGNNTkymXztZSQwqVeiHpA9AL4
+	MtvtQ+6DrPI6L+ynvHwF1EdV0qGCF6q/Mwn9gWDWvQDYmILqaU7HBPwOnPlomadZsZxhNBE5fAT
+	Wky+r3U4MWmvLgXZPseqOr0sCSevQYgIDM1vgDz4auVLgKp6OrnW//FrIRnr15g7kqpcz2kbwzC
+	UM+nJtKHIEnOdT04aLWBtVcop/rcB/VtqJN0o+OLfTIlkv/F4pI2AEI7cnPjAg4/GpMu9kfOwzh
+	jMDRybsfVNvYPJl/iBACYtQinl22uR4cGy/PuGpegWWYM1JkfZyN/pQ8rg14v+9BzpYwTinjZ6j
+	uG9ooiS+i4yAGIToTqjyqBtUu0Ur00uBb5oNTFfkw/a1kgtcMCJQ7aLmHH3ta6lGSrff12J9ts5
+	GY7GgCnqek7s9osdaUw==
+X-Received: by 2002:a05:6300:49c:b0:3de:71c4:a228 with SMTP id adf61e73a8af0-3f18f4acd21mr1304920637.15.1794289754509;
+        Mon, 09 Nov 2026 21:49:14 -0800 (PST)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d67e53asm444634a12.5.2026.11.09.21.49.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 21:49:13 -0800 (PST)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nhat Pham <nphamcs@gmail.com>,
+	Yosry Ahmed <yosry.ahmed@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Brian Geffon <bgeffon@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Richard Chang <richardycc@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v2 10/11] zsmalloc: fold zs_obj_write() into zs_store()
+Date: Tue, 10 Nov 2026 14:48:15 +0900
+Message-ID: <20261110054836.1515030-11-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+In-Reply-To: <20261110054836.1515030-1-senozhatsky@chromium.org>
+References: <20261110054836.1515030-1-senozhatsky@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,244 +103,336 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR08MB7135:EE_|MW4PR08MB8281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5854ca1f-e992-4574-57ec-08df3eee545e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|786006|23010399003|376014|1800799024|4143699003|11063799006|56012099006|22082099003|18002099003|10067099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	1HxHEpqLPhC+RwAPwbupB4zUr1Top/N/R7AkP0R5mt89M/QLOhVfW0OWZk1BLsiB/Pr7AenQlnQfeewW4JqhAEH5hUvv6u94K0Xv2DLfsa8EwHpiRyrVKgiaOewRzg8JwOoZi5j/x7Z9FpgaZvY7xLjw35YKe9kbYoAXRfrWzBLmYpriVIOsWByFISnRbqNJy7YPs4tsLn/+5L1GzQj+g0c4nhUngwLOcx87DWIrxryr47C9Fn5ISmcU37yxuMQ2BOm6oEg6F9gLBqybRHieQ5Bg/Q+4hR8CXbjEhT0kajb7H8GzH+0JgYa8YOuJuWbN74IPO003qEQHj37//VzO9nG5cMvwIkwjp4Rjg/KgGpib9VffV+FzgpuI2oceu+zKCRYsxBgkATLbVIb9JzkJWMbRxhP2PSKYOBH6F0GAELYWuRTYzgE9KACMsAdidcMToA9h2Y6IRGThQU3liJMa9hPjLRL+NiOZL204HLi+uyOj4lKa47RaOHtDsVKRntosqTdfUkaGss4IhhdKv5dl81zy500mRTe9m/mKWV09Vo3AAFhdFSlWJdIZ7HRYt6Gsf5QpxlprgYdr6MzGneWJV/cNP/Z53rNgy4t5ZK1/hkWLj8Aif5hmPIh74dodOnyTX52cqDD30N5cMJ+ij8qYMRxpjuF83l0suVVrf77pmTo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR08MB7135.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(786006)(23010399003)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXBxbG1sTEhYZXVBMDFLK2c2ekNjNDY5Mm1CeU8rMFlEaGV6VnRjc2lKRE5t?=
- =?utf-8?B?RlpOY0taSjZmSjM4R2hkVkcwbURDWVhWSkt5K08yUHJjdlZsQ21kb0diV3VD?=
- =?utf-8?B?d1FleWRFN1ZuVGtZU0lRQkk1MWxESU1MMEg1SkdFY21ieFVORTZxd1MreVNu?=
- =?utf-8?B?MGYxeUxvZVoxSkw4VndJSXV6TDdRdEhrWC9DZVBwTnp0NWo2TXlmb0VkSzJO?=
- =?utf-8?B?SXJhZm42QmtRK3M2V0lGNmFzQnNiYkxkTmwvUitaZm5RLys5Ny9NbnczamU5?=
- =?utf-8?B?eU5BcWRmNStpaUNiVTcvWWZUMTAyczgzVS9McmxIOUw1aTZXQ2xzVGNJdlQ0?=
- =?utf-8?B?SERReHNOWlFaN0g0bWsxeGFjQTVsWlloLzMzSjl5a2drVnRGYjFwM2t4THNm?=
- =?utf-8?B?dDRjQlVBdGhJbGlOU05IYTAzdXNkWFozMEFrNmF3SU15Q0xnTFk1anBvTGJZ?=
- =?utf-8?B?dE00allZSy9lVVF5SitldVVVc050UHRrQStOVDFIRVRRd3BsbTVseVFDdXpJ?=
- =?utf-8?B?N1UvdWZNRXhNUmxXZ1lkNitFbU9PY2Jsc0ZUZTAzTzg0bTJsR0EySHFUL0FD?=
- =?utf-8?B?aHlyeWNUTXB5WjdwR3lKRkNEN3VoeG51QWVjTUxtNmFDWHl6aC8yU255TndB?=
- =?utf-8?B?N1FVNkNxekorbkJqaDZVNWYrdWVhS3ZQYnBQejUwdlRIVWtTcVZFQXZVaHRq?=
- =?utf-8?B?Vm1PZWtZNkd2ZUVaWWtnMGJWK1ZtelE2bVl1dmxCckFraW0rSFRhVXAycU5U?=
- =?utf-8?B?b0JDbUQ1OW4wYW02WmZHZVpUUUlmbU9WWWkvZTl2N1QrTnYxbnVsWGcxL1dF?=
- =?utf-8?B?RE5hZHk4RXhTQ1J1NUd4L1pqdDVBNFQ1WUNTWVhoTXRyRXk5N3dRbzR3cEU1?=
- =?utf-8?B?WVF0bDlmYnhCaE9vZFpSOTdlQ2g3dy9mVGtMcWlwK1lGMWxkVTNQaUZBZmpM?=
- =?utf-8?B?bmdrbHNwcldyTFZsMnBXODNYSFlkL2VQN0hja3k4VlhQbEhFNVZBYVlyNzlv?=
- =?utf-8?B?RTRmTEsxZC84VVlDMVEzYkxUTmJkWnV6SGdrMytKek5PUC9waDZPc05kaHdV?=
- =?utf-8?B?Q3Y5RzI4MmIyTXh1VDBRMGJGRHZxc3UweWdqblpRbmFtWFYrT0ttRUo4aXY1?=
- =?utf-8?B?Y0UvQWRIbkVDSUFFTFc0TmNXbSsxZ09SamUrMUx6ZEEvMGtEbTAydjV1YUxw?=
- =?utf-8?B?WXZLcUE2bGJKYm1xNUU4bEVtKzZRTmpTZjZCQkxHSlozR2RDNXFIR1Nybkpa?=
- =?utf-8?B?bjhZdmdaZGRZdjIxT1VYbXQxVitoTmlPeVVDZEFxd0M4d0gyWkZlbUZpUlIz?=
- =?utf-8?B?U2tJNTF0dGFHNFFneUE3MXdCeDYwQzNwYk1UWFJqa2dlMmUramZpN2x2MUhD?=
- =?utf-8?B?MEp5Wk1mbHZ0akxOdDFBWXhPcHhpeWVYVUQ4L3VVaTcwSTBRUHRha1R4NHFo?=
- =?utf-8?B?NGZrY3ZHMENQdGlaS3ZpQ2R4TXdWNWkwR0d3eFF5ZkVQNnRyMjlaZ3JpRW9D?=
- =?utf-8?B?ZnRNcTNMZzlhT1gvc0psdGtaNXltbnlVNnBaZVp4MEk2L1pub2NWcjZLaXlZ?=
- =?utf-8?B?cVpadTZTbFU1eUtjRTVja0JDa28xWFlXQTBET3lJb1BtcFViMjJFc2lNb3FK?=
- =?utf-8?B?U3pOVWNJSHRndGhHRjhLY0lRbmhTbmVzOWF5RkY4Q0xYMFFVVENENXFUNDRi?=
- =?utf-8?B?NlVrNmdDcGZ0NEFXWncxektWYStGM2x0N0R2WVJCNHNrYVU4bC9ZTkJNRzh3?=
- =?utf-8?B?SEMxZFJ0WHNLYzY4WFhVMFBTaTl2UDNUMG1TL3hsNXhJeVRsdDh0bEFtYXFY?=
- =?utf-8?B?Q1pVZ0pIMENNaWkvY1AzaE5SL0hWVEtYUEJReFk2d3U4WHZPUnR5Ni95U0ox?=
- =?utf-8?B?Zk1jN0p6eXVRbGhXSHlMTXdDOVdjaDFCdjl0M1IxQmVGMlA2a1V5T1NDQTJu?=
- =?utf-8?B?a2s1RkdscDQzL3lUMC85eVZqcGRmMnFjMW9mb0xqc1VUMXFMNUxqM0dhNm53?=
- =?utf-8?B?R1BpY21CYlA4QnBqaHdjaEpHbTFBR3oxazJ5YlArRjAxTTYyd05pWEdaWVdP?=
- =?utf-8?B?WHNuTXZmVHNkbDVhaWhJZS9ORHQxRWV3OTRzMG1BSXB6L1Q3TWEydU5nYUZj?=
- =?utf-8?B?UlUxRUNSQXlkYkM4MUdJMXQwblRmdGZwVWZSTTdtUGExQlVNRTAwWTVRYWFj?=
- =?utf-8?B?ZHcvOUo2Ri9zS1A2MFM2dW1wMG9SNTJKUmMxL0VtbTFrZjVZcDl1YlFCcVVs?=
- =?utf-8?B?dGcyQytyM1JsaTNWdG0xNmRHRStUMWk2Q3B1ajZKNjVST2FBWWdmS1ViZHJH?=
- =?utf-8?B?YnBJZjNRVlg4SWZlOWhMOVRValUycWxaV2ljZUVmK3djVWdnRjMzeGd2WC85?=
- =?utf-8?Q?n6Ik6dVGMIrNHSRU=3D?=
-X-OriginatorOrg: manhattantech.edu
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5854ca1f-e992-4574-57ec-08df3eee545e
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR08MB7135.namprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 05:49:05.4887
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 21e8bc52-a9f4-4adc-8133-b5f395a5ced1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W+s2IKPndEmQeUMTOVWfEXNLl1BWkK7LB/KPq1uqmcNYZT7S7a3gKxHUIKGnZwWqqXqFSHgk+e7HDcs+Dz/Rvg/aDiBbgB0Nhie6ijaw0H8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR08MB8281
+Content-Transfer-Encoding: 8bit
 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp> writes:
+zram and zswap always call zs_obj_write() right after zs_malloc(), and
+zs_obj_write() has to take pool->lock and look up object location
+again, which zs_malloc() just did.
 
-> > Bryanna Marihugh <bryannamarihugh@manhattantech.edu> writes:
-> >
-> >> There is some regression with small files on the uas drives from the
-> >> wait.
-> >
-> > Is this wait=1? The flush should just be early flush, no guarantee to
-> > flush completely. So I think it should be wait=0.
+Replace zs_malloc() and zs_obj_write() with one single zs_store()
+call.
 
-Everything I have posted so far is wait=1. I just wanted to provide the
-benchmarks for my existing patch. I have a wait=0 one I have been
-testing now. I labeled it in the benchmarks.
+zs_store() takes zspage read lock under class->lock, before it drops
+class->lock to copy the data, while zs_obj_write() used to take it
+under pool->lock.  Compaction and page migration already take zspage
+lock under class->lock, so this follows the existing pool->lock ->
+class->lock -> zspage->lock order.  We don't need pool->lock there,
+zs_store() doesn't look up the object via the handle, it already has
+the zspage from the allocation.
 
-> > And the flush is assuming basically for removable media though, we can't
-> > choose. I think we need to check the result of such HDD/SSD.
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ Documentation/core-api/memory-allocation.rst |  2 +-
+ Documentation/mm/zsmalloc.rst                |  4 +-
+ drivers/block/zram/zram_drv.c                | 42 +++++---------
+ include/linux/zsmalloc.h                     |  6 +-
+ mm/zsmalloc.c                                | 58 +++++++++-----------
+ mm/zswap.c                                   |  5 +-
+ 6 files changed, 47 insertions(+), 70 deletions(-)
 
-I did tests with this machine's dirty_background_ratio=5 (the kernel
-default is 10), which results in a 3.4-4 GiB threshold, and with a
-256 MB threshold (dirty_background_bytes=256M,
-dirty_writeback_centisecs=100) to test what a more RAM constrained
-device might do. I set FSINFO next_cluster before each HDD run so all
-three kernels write to the same part of the disk.
+diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation/core-api/memory-allocation.rst
+index 648222b6c857..5069ac72b857 100644
+--- a/Documentation/core-api/memory-allocation.rst
++++ b/Documentation/core-api/memory-allocation.rst
+@@ -9,7 +9,7 @@ allocate small chunks using `kmalloc` or `kmem_cache_alloc` families,
+ large virtually contiguous areas using `vmalloc` and its derivatives,
+ or you can directly request pages from the page allocator with
+ `alloc_pages`. It is also possible to use more specialized allocators,
+-for instance `cma_alloc` or `zs_malloc`.
++for instance `cma_alloc` or `zs_store`.
+ 
+ Most of the memory allocation APIs use GFP flags to express how that
+ memory should be allocated. The GFP acronym stands for "get free
+diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
+index d6b21a0c0694..034daae0d37e 100644
+--- a/Documentation/mm/zsmalloc.rst
++++ b/Documentation/mm/zsmalloc.rst
+@@ -20,9 +20,9 @@ For simplicity, zsmalloc can only allocate objects of size up to PAGE_SIZE
+ since this satisfies the requirements of all its current users (in the
+ worst case, page is incompressible and is thus stored "as-is" i.e. in
+ uncompressed form). For allocation requests larger than this size, failure
+-is returned (see zs_malloc).
++is returned (see zs_store).
+ 
+-Additionally, zs_malloc() does not return a pointer; instead, it returns 0
++Additionally, zs_store() does not return a pointer; instead, it returns 0
+ (or a negative error code) and stores the encoded location of the allocated
+ object in the caller-provided ``struct zs_handle``. The reason for this
+ indirection is that zsmalloc does not keep zspages permanently mapped since
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 7c3d04d9c5bc..42852a4116e0 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -2261,9 +2261,11 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 
+ 	slot_lock(zram, index);
+ 	slot_free(zram, index);
+-	ret = zs_malloc(zram->mem_pool, &zram->table[index].handle, PAGE_SIZE,
+-			GFP_NOIO | __GFP_NOWARN |
+-			__GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
++	src = kmap_local_page(page);
++	ret = zs_store(zram->mem_pool, &zram->table[index].handle, src,
++		       PAGE_SIZE, GFP_NOIO | __GFP_NOWARN |
++		       __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
++	kunmap_local(src);
+ 	if (ret) {
+ 		slot_unlock(zram, index);
+ 		return ret;
+@@ -2271,11 +2273,6 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 
+ 	update_used_max(zram);
+ 
+-	src = kmap_local_page(page);
+-	zs_obj_write(zram->mem_pool, &zram->table[index].handle, src,
+-		     PAGE_SIZE);
+-	kunmap_local(src);
+-
+ 	set_slot_flag(zram, index, ZRAM_HUGE);
+ 	set_slot_size(zram, index, PAGE_SIZE);
+ 	mark_slot_accessed(zram, index);
+@@ -2327,21 +2324,18 @@ static int zram_write_page(struct zram *zram, struct page *page,
+ 
+ 	slot_lock(zram, index);
+ 	slot_free(zram, index);
+-	ret = zs_malloc(zram->mem_pool, &zram->table[index].handle, comp_len,
+-			GFP_NOIO | __GFP_NOWARN |
+-			__GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
++	ret = zs_store(zram->mem_pool, &zram->table[index].handle,
++		       zstrm->buffer, comp_len,
++		       GFP_NOIO | __GFP_NOWARN |
++		       __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
++	zcomp_cstrm_put(zstrm);
+ 	if (ret) {
+-		zcomp_cstrm_put(zstrm);
+ 		slot_unlock(zram, index);
+ 		return ret;
+ 	}
+ 
+ 	update_used_max(zram);
+ 
+-	zs_obj_write(zram->mem_pool, &zram->table[index].handle, zstrm->buffer,
+-		     comp_len);
+-	zcomp_cstrm_put(zstrm);
+-
+ 	set_slot_size(zram, index, comp_len);
+ 	mark_slot_accessed(zram, index);
+ 	slot_unlock(zram, index);
+@@ -2526,18 +2520,12 @@ static int recompress_slot(struct zram *zram, unsigned long index,
+ 	 * modify zsmalloc API to return this information. For now, we will
+ 	 * make do with the node of the page allocated for recompression.
+ 	 */
+-	ret = zs_malloc(zram->mem_pool, &zram->recomp_handle, comp_len_new,
+-			GFP_NOIO | __GFP_NOWARN |
+-			__GFP_HIGHMEM | __GFP_MOVABLE,
+-			page_to_nid(page));
+-	if (ret) {
+-		zcomp_cstrm_put(zstrm);
+-		return ret;
+-	}
+-
+-	zs_obj_write(zram->mem_pool, &zram->recomp_handle, zstrm->buffer,
+-		     comp_len_new);
++	ret = zs_store(zram->mem_pool, &zram->recomp_handle, zstrm->buffer,
++		       comp_len_new, GFP_NOIO | __GFP_NOWARN |
++		       __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
+ 	zcomp_cstrm_put(zstrm);
++	if (ret)
++		return ret;
+ 
+ 	slot_free(zram, index);
+ 	zs_rebind_handle(zram->mem_pool, &zram->table[index].handle,
+diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
+index 8273ae924153..8971eef333ba 100644
+--- a/include/linux/zsmalloc.h
++++ b/include/linux/zsmalloc.h
+@@ -49,8 +49,8 @@ struct scatterlist;
+ struct zs_pool *zs_create_pool(const char *name);
+ void zs_destroy_pool(struct zs_pool *pool);
+ 
+-int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
+-	      gfp_t flags, const int nid);
++int zs_store(struct zs_pool *pool, struct zs_handle *handle, const void *src,
++	     size_t size, gfp_t flags, const int nid);
+ void zs_free(struct zs_pool *pool, struct zs_handle *handle);
+ void zs_rebind_handle(struct zs_pool *pool, struct zs_handle *dst,
+ 		      struct zs_handle *src);
+@@ -67,8 +67,6 @@ void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
+ void zs_obj_read_sg_begin(struct zs_pool *pool, const struct zs_handle *handle,
+ 			  struct scatterlist *sg, size_t mem_len);
+ void zs_obj_read_sg_end(struct zs_pool *pool, const struct zs_handle *handle);
+-void zs_obj_write(struct zs_pool *pool, const struct zs_handle *handle,
+-		  void *handle_mem, size_t mem_len);
+ 
+ extern const struct movable_operations zsmalloc_mops;
+ 
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index fd466139e158..09ce8c294c5e 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -1178,54 +1178,37 @@ void zs_obj_read_sg_end(struct zs_pool *pool, const struct zs_handle *handle)
+ }
+ EXPORT_SYMBOL_GPL(zs_obj_read_sg_end);
+ 
+-void zs_obj_write(struct zs_pool *pool, const struct zs_handle *handle,
+-		  void *handle_mem, size_t mem_len)
++static void obj_write(struct size_class *class, struct zspage *zspage,
++		      unsigned long obj, const void *src, size_t size)
+ {
+-	struct zspage *zspage;
+ 	struct zpdesc *zpdesc;
+-	unsigned long obj, off;
++	unsigned long off;
+ 	unsigned int obj_idx;
+-	struct size_class *class;
+ 
+-	/* Guarantee we can get zspage from handle safely */
+-	read_lock(&pool->lock);
+-	obj = handle_to_obj(handle);
+ 	obj_to_location(obj, &zpdesc, &obj_idx);
+-	zspage = get_zspage(zpdesc);
+-
+-	/* Make sure migration doesn't move any pages in this zspage */
+-	zspage_read_lock(zspage);
+-	read_unlock(&pool->lock);
+-
+-	class = zspage_class(pool, zspage);
+ 	off = offset_in_page(class->size * obj_idx);
+ 
+ 	if (!ZsHugePage(zspage))
+ 		off += ZS_HANDLE_SIZE;
+ 
+-	if (off + mem_len <= PAGE_SIZE) {
++	if (off + size <= PAGE_SIZE) {
+ 		/* this object is contained entirely within a page */
+ 		void *dst = kmap_local_zpdesc(zpdesc);
+ 
+-		memcpy(dst + off, handle_mem, mem_len);
++		memcpy(dst + off, src, size);
+ 		kunmap_local(dst);
+ 	} else {
+ 		/* this object spans two pages */
+ 		size_t sizes[2];
+ 
+ 		sizes[0] = PAGE_SIZE - off;
+-		sizes[1] = mem_len - sizes[0];
++		sizes[1] = size - sizes[0];
+ 
+-		memcpy_to_page(zpdesc_page(zpdesc), off,
+-			       handle_mem, sizes[0]);
++		memcpy_to_page(zpdesc_page(zpdesc), off, src, sizes[0]);
+ 		zpdesc = get_next_zpdesc(zpdesc);
+-		memcpy_to_page(zpdesc_page(zpdesc), 0,
+-			       handle_mem + sizes[0], sizes[1]);
++		memcpy_to_page(zpdesc_page(zpdesc), 0, src + sizes[0], sizes[1]);
+ 	}
+-
+-	zspage_read_unlock(zspage);
+ }
+-EXPORT_SYMBOL_GPL(zs_obj_write);
+ 
+ /**
+  * zs_huge_class_size() - Returns the size (in bytes) of the first huge
+@@ -1290,9 +1273,10 @@ static unsigned long obj_malloc(struct zs_pool *pool,
+ 
+ 
+ /**
+- * zs_malloc - Allocate block of given size from pool.
++ * zs_store() - Allocate block of given size from pool and copy data into it.
+  * @pool: pool to allocate from
+  * @handle: handle to store allocated object in
++ * @src: data to copy into the allocated object
+  * @size: size of block to allocate
+  * @gfp: gfp flags when allocating object
+  * @nid: The preferred node id to allocate new zspage (if needed)
+@@ -1305,10 +1289,11 @@ static unsigned long obj_malloc(struct zs_pool *pool,
+  *
+  * Return: 0 on success, negative error code otherwise.
+  */
+-int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
+-	      gfp_t gfp, const int nid)
++int zs_store(struct zs_pool *pool, struct zs_handle *handle, const void *src,
++	     size_t size, gfp_t gfp, const int nid)
+ {
+ 	struct size_class *class;
++	unsigned long obj;
+ 	int newfg;
+ 	struct zspage *zspage;
+ 
+@@ -1330,7 +1315,7 @@ int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
+ 	spin_lock(&class->lock);
+ 	zspage = find_get_zspage(class);
+ 	if (likely(zspage)) {
+-		obj_malloc(pool, zspage, handle);
++		obj = obj_malloc(pool, zspage, handle);
+ 		/* Now move the zspage to another fullness group, if required */
+ 		fix_fullness_group(class, zspage);
+ 		class_stat_add(class, ZS_OBJS_INUSE, 1);
+@@ -1345,7 +1330,7 @@ int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
+ 		return -ENOMEM;
+ 
+ 	spin_lock(&class->lock);
+-	obj_malloc(pool, zspage, handle);
++	obj = obj_malloc(pool, zspage, handle);
+ 	newfg = get_fullness_group(class, zspage);
+ 	insert_zspage(class, zspage, newfg);
+ 	atomic_long_add(class->pages_per_zspage, &pool->pages_allocated);
+@@ -1355,11 +1340,15 @@ int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
+ 	/* We completely set up zspage so mark them as movable */
+ 	SetZsPageMovable(pool, zspage);
+ out:
++	zspage_read_lock(zspage);
+ 	spin_unlock(&class->lock);
+ 
++	obj_write(class, zspage, obj, src, size);
++	zspage_read_unlock(zspage);
++
+ 	return 0;
+ }
+-EXPORT_SYMBOL_GPL(zs_malloc);
++EXPORT_SYMBOL_GPL(zs_store);
+ 
+ static void obj_free(int class_size, unsigned long obj)
+ {
+@@ -1844,7 +1833,10 @@ static int zs_page_migrate(struct page *newpage, struct page *page,
+ 	 * the class lock protects zpage alloc/free in the zspage.
+ 	 */
+ 	spin_lock(&class->lock);
+-	/* the zspage write_lock protects zpage access via zs_obj_read/write() */
++	/*
++	 * The zspage write_lock protects zpage access via zs_obj_read_sg_*()
++	 * and zs_store().
++	 */
+ 	if (!zspage_write_trylock(zspage)) {
+ 		spin_unlock(&class->lock);
+ 		write_unlock(&pool->lock);
+@@ -2238,7 +2230,7 @@ struct zs_pool *zs_create_pool(const char *name)
+ 			huge_class_size = size;
+ 			/*
+ 			 * The object uses ZS_HANDLE_SIZE bytes to store the
+-			 * handle. We need to subtract it, because zs_malloc()
++			 * handle. We need to subtract it, because zs_store()
+ 			 * unconditionally adds handle size before it performs
+ 			 * size class search - so object may be smaller than
+ 			 * huge class size, yet it still can end up in the huge
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 241f9fdebaad..a2e0314db1cf 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -950,12 +950,11 @@ static bool zswap_compress(struct folio *folio, long index,
+ 	}
+ 
+ 	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
+-	alloc_ret = zs_malloc(pool->zs_pool, &entry->handle, dlen, gfp,
+-			      folio_nid(folio));
++	alloc_ret = zs_store(pool->zs_pool, &entry->handle, dst, dlen, gfp,
++			     folio_nid(folio));
+ 	if (alloc_ret)
+ 		goto unlock;
+ 
+-	zs_obj_write(pool->zs_pool, &entry->handle, dst, dlen);
+ 	entry->length = dlen;
+ 
+ unlock:
+-- 
+2.56.0.506.g506a7eabc5-goog
 
-WD Blue 500G 5400RPM HDD SATA
-copying a 4 GiB file 3x, then sync, MB/s
-(requests and average size are from the third run, which was traced)
-
-  5% threshold
-    stock:  89.4, 86.9, 87.8  (8,913 requests, avg 471 KB)
-    wait=1: 97.9, 97.3, 95.2  (2,168 requests, avg 1,951 KB)
-    wait=0: 96.2, 95.7, 98.7  (1,626 requests, avg 2,580 KB)
-
-  256 MB threshold
-    stock:  81.0, 88.1, 81.4  (16,291 requests, avg 258 KB)
-    wait=1: 100.7, 99.7, 98.4 (2,257 requests, avg 1,859 KB)
-    wait=0: 101.9, 100.5, 98.7 (1,532 requests, avg 2,738 KB)
-
-WD Blue 500G, copying 1000 x 1 MiB files 2x, then sync, MB/s
-
-  5% threshold
-    stock:  9.44, 9.45
-    wait=1: 9.34, 9.32
-    wait=0: 9.55, 9.58
-
-
-Samsung SSD 870 EVO SATA, copying a 4 GiB file 3x, then sync, MB/s
-(requests and average size are from the third run, which was traced)
-
-The wait=0 runs were on a different day.
-
-  5% threshold
-    stock:  338, 340, 341     (1,460 requests, avg 2,874 KB)
-    wait=1: 333, 339, 339     (1,366 requests, avg 3,071 KB)
-    wait=0: 313, 313, 313     (1,792 requests, avg 2,441 KB)
-
-  256 MB threshold
-    stock:  377, 378, 377     (11,476 requests, avg 366 KB)
-    wait=1: 378, 378, 378     (1,675 requests, avg 2,505 KB)
-    wait=0: 346, 344, 345     (2,278 requests, avg 1,938 KB)
-
-870 EVO, copying 1000 x 1 MiB files 2x, then sync, MB/s
-
-  5% threshold
-    stock:  9.61, 9.61
-    wait=1: 8.92, 8.92
-    wait=0: 9.61, 9.61
-
-PNY 32G USB 3.0 (usb-storage), copying a 3 GiB file 3x, then sync, MB/s
-(requests and average size are from the third run, which was traced)
-
-  5% threshold
-    stock:  6.4, 6.9, 6.9     (12,481 requests, avg 252 KB)
-    wait=1: 17.5, 17.9, 18.0  (3,720 requests, avg 846 KB)
-    wait=0: 17.9, 13.7, 16.4  (3,809 requests, avg 827 KB)
-
-  256 MB threshold
-    stock:  5.8, 6.1, 6.0     (13,996 requests, avg 225 KB)
-    wait=1: 17.9, 16.4, 14.7  (3,575 requests, avg 881 KB)
-    wait=0: 18.0, 18.2, 17.9  (3,663 requests, avg 860 KB)
-
-
-PNY 32G stick, copying 1000 x 1 MiB files 2x, then sync, MB/s
-
-  5% threshold
-    stock:  5.49, 5.62
-    wait=1: 5.82, 5.62
-    wait=0: 5.66, 5.65
-
-Samsung 64G USB stick (usb-storage),
-copying a 4 GiB file 3x, then sync, MB/s
-(requests and average size are from the third run, which was traced)
-
-  5% threshold
-    stock:  33.0, 33.0, 33.1  (12,725 requests, avg 330 KB)
-    wait=1: 33.2, 33.1, 33.2  (4,521 requests, avg 928 KB)
-    wait=0: 33.1, 33.2, 33.2  (4,583 requests, avg 915 KB)
-
-  256 MB threshold
-    stock:  33.3, 33.3, 33.3  (15,757 requests, avg 266 KB)
-    wait=1: 33.3, 33.5, 33.5  (4,534 requests, avg 925 KB)
-    wait=0: 33.5, 33.6, 33.5  (4,645 requests, avg 903 KB)
-
-
-Samsung 64G stick, copying 1000 x 1 MiB files 2x, then sync, MB/s
-
-  5% threshold
-    stock:  7.34, 7.34
-    wait=1: 7.33, 7.34
-    wait=0: 7.32, 7.35
-
-I was a bit surprised by the improvement on the HDD. I will see if I
-can find a high end HDD.
-
-With the SSD the 870 EVO I did the wait=0 test on a different day.
-Not sure why but it seemed to be slower on the wait=0 test, I am
-blaming the run being on a different day. I think performance is
-probably mostly flat with the fix.
-
-> And maybe it needs to check unmount time (check how many dirty was
-> missing to flush).
-
-wait=0 does come with that downside. If the flusher is already writing
-the file at close, wait=0 skips it and unmount has to write the rest.
-At 5% the 3 GiB file on the PNY stays under the threshold, so the
-flusher doesn't start until the 30 second expiry. That's why stock is
-still slow there and wait=0 behaves like wait=1. The 4 GiB files go
-over it.
-
-PNY 32G stick, 3 GiB file, cp then umount right away,
-average of 3 runs (5% threshold) and 5 runs (256 MB):
-
-5% threshold   cp returns  dirty at close  umount   total
-stock               485 s            3 MB   0.6 s   485 s
-wait=1              184 s            3 MB   0.8 s   185 s
-wait=0              180 s            3 MB   0.6 s   180 s
-
-256 MB         cp returns  dirty at close  umount   total
-stock               513 s            3 MB   0.6 s   514 s
-wait=1              176 s            2 MB   0.8 s   176 s
-wait=0              2.6 s        3,004 MB   172 s   174 s
-
-
-WD Blue 500G 5400RPM HDD SATA, 4 GiB file, cp then umount right away,
-average of 3 runs (5% threshold) and 5 runs (256 MB):
-
-5% threshold   cp returns  dirty at close  umount   total
-stock              47.4 s            3 MB   0.8 s  48.2 s
-wait=1             43.5 s            3 MB   1.2 s  44.7 s
-wait=0              2.2 s        4,064 MB  42.3 s  44.5 s
-
-256 MB         cp returns  dirty at close  umount   total
-stock              51.3 s            3 MB   0.8 s  52.1 s
-wait=1             44.0 s            2 MB   1.3 s  45.2 s
-wait=0              2.0 s        4,021 MB  43.2 s  45.2 s
-
-
-870 EVO SSD (internal SATA), 4 GiB file, cp then umount right away,
-average of 3 runs (5% threshold) and 5 runs (256 MB):
-
-5% threshold   cp returns  dirty at close  in flight  umount   total
-stock              11.9 s            2 MB     362 MB   1.1 s  13.0 s
-wait=1             12.2 s            2 MB       0 MB   0.9 s  13.0 s
-wait=0              1.5 s        4,006 MB      22 MB  12.3 s  13.8 s
-
-256 MB         cp returns  dirty at close  in flight  umount   total
-stock              11.9 s            3 MB     112 MB   1.0 s  12.9 s
-wait=1             11.9 s            2 MB       0 MB   0.9 s  12.8 s
-wait=0              1.7 s        3,350 MB     180 MB   9.7 s  11.4 s
-
-
-I can type up an actual patch with wait=0 and removing the helper
-that Matheus suggested.
-
-Thanks,
-Bryanna
