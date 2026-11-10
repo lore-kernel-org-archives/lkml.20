@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332362;
-	b=X/2HcFfQvzuL8Bx6waANpzyzevANrFr39MlwMfsNJzHPmwwSAoqDClPJr6/g1HTVUSQt
-	 CGpIPCPEmzOl1hQqGBjPwPv+pCY0T4v+G0tKwWnKfUBEMZrR4zEyC0FKD/Qh2EIw3o/qg
-	 WZ736AFk2E2w6a424K7zXLQ/aaPAaY/NmYSC76I4V4ptWPBEDkExDveRxmj3GGBbP//hL
-	 Jf817JTauIgiS7Yc0+Fa3S40jmLiziR/hx7rbn2x7MPy6RT6/M5hEef0EG+JjBbp5lgWK
-	 lf/4vHJEhM56KUjdGjwOa2UaoWCr9HESXrV3bcZ0gaH8mO+idBR3+DlLMkUwJc3RJUw==
+	t=1794332368;
+	b=4abkwohaOn/H/UxtxoM02q1t+qpn/GsziQ2wcBo1CqVC9WJSlZUfNgHaplPMjnV6FbbL
+	 zO4U10RjXWTHZ5KCQaux/KumQRTnGoXhCl8ojNoDXxiqOjgvO/UpeUQn9XdRRI3mvSV0p
+	 UerPD3quW7+L7gAIxQ0F7H0zmkRlhnXs7JJ/C6iXakHwX40Fwn2NJ6MJARijU20u7j0+x
+	 ypcubo4vabrECx/vquH0V96fJdmgtKzSH8/bVS/PvPrAwniWFFRaCfy4VXV9dOa7j0caD
+	 /w6eWXpyf3oCcq5wI/8UwElHekP2L3C4E2wullKxfmg/ocuOuKq3IsPgKaX8paJCdDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332362;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5vT4kOVkwspgVbTxuey70SAjA4cZQ7aS/tMGa/bX0lM=;
-	b=3UWmxsr3CdJXqqgZ7uh1nbQ+GoHTTXFmJfMJrrjn2ltZ4urh/rKrpLmBuTM876Y4wuWE
-	 V0oMzwScMrK6j6dyHL1ZfWok5Q7EVZUT0UiKFW3qtcEyhkmG61+Cp9EUqiDSsVZT+RzIp
-	 Vir3wUu8dZisRsTl/q9ssbtlhUshcK7dstKDkHzCWe3oq4DnOHX31dt6su5K5ejaILqF8
-	 FOZxWYkWXF1znv68TIYWcRn596YU2YDBM4G8VAPCiRTUGaccsur18u8eAPGjE/ce1ZFea
-	 +j7oAM02PE2RK6v5TCALSnxwmANmthXv2Ed6PhoSkWzlvAn+oYAkAMXHzYOdFJZhdzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=2nzMZHKj3hE5fscinAAUlVlDiG5XpzZxcETT0RVQ/Lw=;
+	b=sywwao6eze13fqJSlMlOJrB0It6ey0qMrV5M+JRf+TwDCuwKBzAxF3By1ohJqK6fYKRj
+	 Kqi2ZHg+P/b6TcK3jTdauhd8xWI2uemfIuI2ZpiOaG1uRgqGrOwgducQLHIB8OyU/9qeJ
+	 NEiGm7bq4v1/gllG1z9fwK7xAHDhFZYn4Oc279hs6Ngj0PCEdNjKXc6aiVVBeFCA6jxXq
+	 NrqWdmUSJ7I0XSfreK98KG1pXz3KdFqFlzIia6YH+wvNkG9iISnYD28kvGgBV+MDAkifr
+	 3DGL72ch8hYLXg/VjKkD7DIqCrJP+rILDz4wQHC+rO4XJu91Wnp9q9xdLMwIAmNEOAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mq/Zln3+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=dama.to;
+	spf=none smtp.mailfrom=dama.to;
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jkpr6sIz;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00223606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4A0606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C4A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mq/Zln3+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3051F008A2
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:39:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794332361;
-	bh=5vT4kOVkwspgVbTxuey70SAjA4cZQ7aS/tMGa/bX0lM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mq/Zln3+Rpd0DBHOagWPTuXBEBodAVtcAavlO6+6cc1+i2u01lXuc7l2idmaC32Z3
-	 Whk3RVaM/dXpMuWqh01E/GiP4M/Fi98mCwu0osE9YWJKzgZg0NrylYkWJpolw7mY5d
-	 2KBKyypt8hydXLFdpM14tj5X1QSuud93z/OYo45v8E8uCiRjSOSMr/Wt3+l2cFVU4b
-	 KYopzqwb0cl4mq30sdz8RLNFt9O2enA+9pNmee1SYJ6h/N7esC2c/90z9zmUsvq5PS
-	 U4lpW+DkOigq9xoYYk4MhDcviU1njnpn2WW/eU8XQRJRUQa+eHGPMdlDELCy9xvbKk
-	 XKOAgkIQJIQAw==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a49a022221so20384861fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:39:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFgFfg2+oLUoXr2Suqx4iFwAWLGq2HvXEcA6iEcxdbWm0AZOZAByIeEEQhCd4HdTqcopb/bn1NqUVCIsR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8y0joFN0MNQl49uhfTtiD/ABs195tXcceX1ErsAsd7VE6uNCHJ
-	cGG+wNJdg2/+XdI/cKCFaiH4M0/gC13Vq3qmDdTS9PkNk7zwT5rEsmf/iI+8Y1yqw6lYG885LT7
-	m7MqHVH6uF6Z66mpj1t4i7jE6vN9jKRY=
-X-Received: by 2002:a05:651c:31d9:b0:3ac:e231:bb21 with SMTP id
- 38308e7fff4ca-3ae09610ba5mr8464091fa.6.1794332360247; Tue, 10 Nov 2026
- 09:39:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jkpr6sIz
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so995731a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:39:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794332367; x=1794937167; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2nzMZHKj3hE5fscinAAUlVlDiG5XpzZxcETT0RVQ/Lw=;
+        b=jkpr6sIz1EGGbjXotdPensVeUlAmmDlAkCQ6QiTWJt3NAgl0ri4jpyPmP1OGOBXmS5
+         SeN5R85WCkoFcOwPUkrLiwwhH9SitsWu+QQxGrcodtP4GWO6neQusNsel7Gw5yKd9Fit
+         Pl7fX1kRauVJh6MlnjL4qsvi1+/JxyQjYZxClaSireoRlDOzEuD2HhgWZF/YR7+F8g5E
+         KGoOozXEuQh+4yGzRpwi/yZDcK5ja75bmkPdpKNvQMfUpxBcEu6FwdPnBVkfXx5BD471
+         bnz9iBRN0awKMWMiJrZWYdqJmO14MspBZvALUcZYn182LCVGVrij/JSVwqEhh7SafI0b
+         +5Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332367; x=1794937167;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2nzMZHKj3hE5fscinAAUlVlDiG5XpzZxcETT0RVQ/Lw=;
+        b=agU8kGDwSNTQs6iyp2sm9s/Lw+7Fg3ZlivQh2ZqXbQFtkIotBPZ4JiU3MppcNBibhn
+         TAE60JnS9B22bHo/lxM8TTQtEyuutBEpmmZkGibMDerieGCfxu9PvelG/5rnvQDn7Q3l
+         QI4Vdsx5JwDROZnPSDWgu1614rlSUgAI6Lm97j41bm/jOJktgJmT+16XoMxm5M+6wbHc
+         HFoZrEHDP7k0BdSfNvxO2qirAiKkW9lKIxW3MEATABjr5ou346219+Zmra+46ZvUoTQE
+         badU7sWMxktl/vbV8G34aQjAk6/6DcsPjhOXMfFkg7YqlwYhNaEL6WkvHkmrVi/M55ee
+         DUpw==
+X-Forwarded-Encrypted: i=1; AL+hErEUPh1qHLu465Hzkz4oAD77TPxRRcTx/f0l5WUDF/veypqbyaFonIaEczamyctMeqamfXk4bi+wO1kgvJE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pPj7hkzCqppl3jXXcA+OeUBi27YKmjO29NmvYera3LLbr5jDZ
+	psmA9J199fKyrNcl6bWZJw4MdY4nUlUmYd4cjK8BD/al8szLlxxHPOnl1Zy+VF5aLnO3UD5CPDu
+	sm3ZM
+X-Gm-Gg: AYBFou1C2ngQSTvorT9LfaBELrl1d3ZIvnwcDcUdlduTf1FRl5k05+aCn8dwk9wJ3Sy
+	xSITQPLh2x9VIydrmXcF7jOnzp6MNugAkx9MYbvoZovyPI4OEw0JVzsr1WbItZU/8eqnIWc8it6
+	+aVswOYkCR2MA83FpmZJrB8dedkBcmmnChPe59Gz02PvUxU48/mafmrQqvpB7S0wjdWjxacPfHD
+	YUMMfn/O9cN29/VBpKw7QNHoE1rGbJm+RAiUuuXzyOxyTSKNvESqY9u7EJAlbvquAUGaHGTiQ0C
+	7CjbMMjyY90yxnxAtCc+xNx/qrEGExeF9n3ojb9p8lp+QQjcbff1lsDUWFTKQ9bsEhBRnmByOR2
+	3QSXranPTX0gkte/LweUViiXLLb6Blo8/H6Ip37u92/H31xlQ7P/t6Ftdx07M+wZtgkzEU8gPvO
+	okJKEI9gZjCAQ53F/B1br6DtrzAN/clZybsjkk7TGUk4nhvQvgk3hOUoAdTO6KlslNPQwia8zxO
+	9D5uK1CU0AXmzPcn9O7u8uAIpLSXAOTmvhvIotTSQdU5dSN2jC8QQKUGA3mSJ8yQvsJUHI0lckA
+	ok2RnbsOi9GUtw2osaV4367XcZAP7Gw2/n03xld3FQ==
+X-Received: by 2002:a17:90b:4d8d:b0:3ac:af8b:6f3 with SMTP id 98e67ed59e1d1-3b166d1e021mr3103752a91.52.1794332366522;
+        Tue, 10 Nov 2026 09:39:26 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:1::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17dfb9827sm580993a91.1.2026.11.10.09.39.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 09:39:25 -0800 (PST)
+Date: Tue, 10 Nov 2026 09:39:25 -0800
+From: Joe Damato <joe@dama.to>
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
+Message-ID: <avNWzavrxJSasfp5@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
+References: <20261106191423.4194081-1-joe@dama.to>
+ <avIpEpoCYvLHYl3j@devvm20253.cco0.facebook.com>
+ <CACKFLinPK+wR=TMA3zNJDKQR_=HfMFUHPxKS+yhvv9SegZw7Ow@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,70 +108,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103114140.75649-1-k.chen@smail.nju.edu.cn>
-In-Reply-To: <20261103114140.75649-1-k.chen@smail.nju.edu.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 18:39:08 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jFbGMUHJuantcTCi09=O3s4u3rDsXvTRdooHB0BTaPpg@mail.gmail.com>
-X-Gm-Features: AclHuK_xUML9TSmfS1vig7OOfS5r2174nZw9AzhO9x79V2QDVM--UhXZ11qRnDk
-Message-ID: <CAJZ5v0jFbGMUHJuantcTCi09=O3s4u3rDsXvTRdooHB0BTaPpg@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: processor: check the _CST register buffer length
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACKFLinPK+wR=TMA3zNJDKQR_=HfMFUHPxKS+yhvv9SegZw7Ow@mail.gmail.com>
 
-On Tue, Nov 3, 2026 at 12:41=E2=80=AFPM Kang Chen <k.chen@smail.nju.edu.cn>=
- wrote:
->
-> acpi_processor_evaluate_cst() casts the first buffer of each _CST
-> C-state package to struct acpi_power_register without checking
-> buffer.length.  A short buffer makes the driver read past the ACPI
-> allocation and use the resulting address and space_id, which can reach
-> acpi_processor_ffh_cstate_probe() and rdmsr().  The _LPI path already
-> performs this check.
->
-> Skip C-states whose register buffer is smaller than
-> struct acpi_power_register.
->
-> The check has been missing since before the current git history; the
-> initial git import is the earliest tree containing the code.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+On Mon, Nov 09, 2026 at 04:13:57PM -0800, Michael Chan wrote:
+> On Mon, Nov 9, 2026 at 12:12 PM Joe Damato <joe@dama.to> wrote:
+> 
+> >   - Notifying bnxt_re when DMA is stopped.
+> 
+> I think this is probably the one item that should be added to the
+> patchset.  When DMA is disabled, RoCE will not work at all so adding
+> this will make the series more complete.  It may be as simple as
+> calling bnxt_ulp_stop(), but I haven't looked into it in detail.
 
-Changes starting to reject firmware-supplied data that have been
-accepted all the time so far are generally risky, but this particular
-one should not appear to be problematic AFAICS.
+Hm. bnxt_stop_dma runs with rtnl and the netdev instance lock held and
+bnxt_ulp_stop -> bnxt_re_suspend takes both. So, I don't think calling
+bnxt_ulp_stop is going to work.
 
-So (tentatively) applied as 7.5 material, thanks!
+Maybe I need to make a new patch where bnxt_stop_dma queues a work item that
+calls bnxt_ulp_stop without locks being held? Not sure.
 
-> ---
->  drivers/acpi/acpi_processor.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/acpi/acpi_processor.c b/drivers/acpi/acpi_processor.=
-c
-> index 5fbab54171b7..d77c90a243cf 100644
-> --- a/drivers/acpi/acpi_processor.c
-> +++ b/drivers/acpi/acpi_processor.c
-> @@ -903,6 +903,12 @@ int acpi_processor_evaluate_cst(acpi_handle handle, =
-u32 cpu,
->                         continue;
->                 }
->
-> +               if (obj->buffer.length < sizeof(*reg)) {
-> +                       acpi_handle_info(handle, "_CST C%d package elemen=
-t[0] buffer too small, skip...\n",
-> +                                        i);
-> +                       continue;
-> +               }
-> +
->                 reg =3D (struct acpi_power_register *)obj->buffer.pointer=
-;
->
->                 obj =3D &element->package.elements[1];
-> --
-> 2.34.1
->
+Also: would you be OK with bnxt_re treating BNXT_STATE_DMA_STOPPED as
+detached? I'm probably getting this wrong but I think with DMA off
+bnxt_re_suspend only takes the detach path when FW_FATAL_COND is set.
+
+LMK if I am missing something here. Just trying to limit the number of
+revisions it takes to get something reasonable :)
+
+> We have tested your patches by purposely unmapping the TX buffer early
+> to simulate the IOMMU fault.  When the number of rings is small, the
+> fall back logic to check the HWRM_RING_FREE response during message
+> timeout works most of the time.  With a large number of rings, some of
+> the HWRM_RING_FREE messages do not come back at all and DMA will then
+> be disabled.  The FW team is still looking into this to understand it
+> better.  Thanks.
+
+Thanks for testing.
