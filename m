@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316131;
-	b=Z5F+GbtMgMODTObO2sSBiO9D/r0J3x3bNio9ZtGVcsv1cz2f0CiFADxwvbcPS/eoI7mA
-	 rIh0Jqgg+OvYKc/vo9B5SWvI3LCPr5Zxwd9mE0/hTt5OF/XH7GGNeqNxTpmGyMxF8X3N0
-	 E4WKtTUUqvD6ZyFb9H0Zc1cQ0tq8M28+pBZOJbDf5AoEHrfCzCYanJupzc2qzWdcMIdgt
-	 utxlxo7e+FWZSLaxJOh1Cpt5IGCK5zEGE67t2XwZgRNkGKJBNUPQbEl0oXRAUYDlAki77
-	 qWlD7h2zKxs0uvy55U4xTaQQFRhvMuza+of8Yqd+LTRTnAOSt66+wZa34+L75mNGBQw==
+	t=1794316155;
+	b=Jbh2RCeOEKl8Jd1wls6y84gA4QkYJ0/QI0+9QFrfzfBBhmABIV22+HPScWnkhog8dSbx
+	 3b5/CXfG9VpxvnQUFB2yeF3HhxhUEBRxZUJZsbCQ5Vt+LyxlCa6oB2Oc6jwa+afWHqbuJ
+	 0NW03/nUNWnUdV2y8bmQ/fVDmnDW9GsDsFCs8mZBmf6hORame8P4TUZBB4x1n+UQ45k/I
+	 TtQ/wRe/IMqWcHACQHpbZsy1qBWMMpao44dgx40nhnWevBY3ClSLagreok5R8uMC8RJcV
+	 xxZ5Aj6vdoWuVW5vDRq+zx/oOScqcKSR9K5xW5ODMtpqLKkfLuZVkygAMujqP/eqdpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316131;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=iydFZJoGqhyO/k/DLJ8mL411l6d6tNvyIk7ou9fRBkI=;
-	b=qTB2dgpg0FmSX0zvT3b9RXWFAwnjQLisweGMJceDrLqBzqRDKMvHPgNnrF3rCc7YD39t
-	 YTzFGo1T7vuT6D4EAJYg6lDxttO5pmVI3vXKXZiKwTVJbSuQbZMna52J722e5cUTgQcVo
-	 f9v1tgA3ie3yIpoFuAcK1WdPBSsjzoQfjExu9g8YLS969lpZ1aE1RDYZvG6UGvcl1EFL5
-	 rLw5nIa3mpolVrxwWbX0DBVilKi6pGVDK0fuRzCccMDeZ/vFGD+2GaVAh7ECNP0jLYnCK
-	 uR10Xx5GOIWvnMY7mLu2NE7qDL5UZDHs0O2glskKPL5r9/GXb0DV/nwodZOGGGgK/IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316155;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=19XAClVuc+eajfIp7Ht34SDxVSiFZnDdEKutUwZPCB0=;
+	b=gW17icOAz2XqzF8j/GaXUDhdWfJxNYvkt9TyNj0RMWwLF8XZ6m7tFpFiH14GQre6e8Wg
+	 F1df0VtZ6Nj3ZAdiUsimNGBeB3ZBCXiIE1WKBHxsa3QTYS92a3/NalNdADn/MPYZorDin
+	 BJ6slo0PFRde2rkMBo2jRuuWgbaI07bOZ+AlE0V3QWbeRjWvZSDE8siiM8yFTNY5mo1Lp
+	 LsZYtA366XSPnNaFFA2N2NjWCh9KjMuFNvrQxOd6R0uRmDJITR748BN5e2Oir4qhPrQsG
+	 1PeAuJZXaKzACPMcOsg4+Sj/RQu54+aYoo6yCfViK9zgZFABuipKV2goNdh5LowpN5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=f4iSLxER;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiHUAz2g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F79606A76E;
-	Tue, 10 Nov 2026 13:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18F79606A76E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 11A75606A32A;
+	Tue, 10 Nov 2026 13:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=f4iSLxER
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=iydFZJoGqhyO/k/DLJ8mL411l6d6tNvyIk7ou9fRBkI=; b=f4iSLxERH0pNwm+hI1lQTI1UQ9
-	N/Uh8yEXcREuDUlIvJHBy+0fT4o40Wzo8LyNt8l9q2zzqkJFhf7gxBqS/bCKLIncCFyhYRi3akAUD
-	UV9WrTxAqAfnFp5pKwZYZGwJ0PN2P7LNXb1T1op3Sm/iRaG9UDDQBb8yENLVp1KxX+xI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQlaO-00FTqg-Go; Tue, 10 Nov 2026 14:08:28 +0100
-Date: Tue, 10 Nov 2026 14:08:28 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiHUAz2g
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 64AD91F0089F;
+	Tue, 10 Nov 2026 13:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794316154;
+	bh=19XAClVuc+eajfIp7Ht34SDxVSiFZnDdEKutUwZPCB0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fiHUAz2gGOKSx8xziKopAJOHkhaXvZ+7Tcum0sZ0/6S2Op2IKiuhktrnDNVuS7+1T
+	 TtItHcfwP4/inoOgJppZzDcuUvhjwDggPY2ZoJLFpivbPIz/TFrL+MNUgZWM0oy/OY
+	 3xnPuUaoIqtjaH486n0lCjbhXgkBvh+0PpIyrxFpkEBlAML+mfeOAIrgvMt+ibFeDz
+	 d6r98nQ+J6tL+sVruA8JTd48YAlctQoExvy9MV9eoU1DYT8UN47rX+AhcyYSV+wu12
+	 V0voJnb9+IrTK7NY0tYecMkSXbGOpVzsuy0E6Ik7i4WYYLVK9lrvYBBPGrTdxj8aUg
+	 jTAUjpaRr1tng==
+Date: Tue, 10 Nov 2026 14:07:56 +0100
+From: Nicolas Schier <nsc@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
 	Russell King <linux@armlinux.org.uk>,
-	Michal Simek <michal.simek@amd.com>,
-	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v3 3/5] dt-bindings: net: dp83867: make
- exclusivity explicit
-Message-ID: <dd8bc868-06e1-4f9b-9e1d-70eb0bcd8f0d@lunn.ch>
-References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
- <20261106-v7-2-topic-dp83867-v3-3-45e1d3adf1bf@pengutronix.de>
+	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: apm-power - remove driver
+Message-ID: <avMXLPuXKQGWoqL5@levanger>
+Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+ <20261109164425.GB1608140@ax162>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,65 +72,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-v7-2-topic-dp83867-v3-3-45e1d3adf1bf@pengutronix.de>
+In-Reply-To: <20261109164425.GB1608140@ax162>
 
-On Fri, Nov 06, 2026 at 08:47:27AM +0100, Steffen Trumtrar wrote:
-> The io_impedance_ctrl nvmem cell and the properties
-> ti,{min,max}-output-impedance are mutually exclusive, as noted in the
-> ti,max-output-impedance description.
+On Mon, Nov 09, 2026 at 11:44:25AM -0500, Nathan Chancellor wrote:
+> On Mon, Nov 09, 2026 at 12:09:44AM -0800, Dmitry Torokhov wrote:
+> > The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
+> > events to queue APM_USER_SUSPEND via legacy APM emulation. The only
+> > in-tree platforms generating those events are legacy Sharp Zaurus ARM
+> > machines (spitz/borzoi/akita and collie), none of which were converted
+> > to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
+> > deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
+> > board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
+> > mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
+> > of the remaining ARM platforms or other APM_EMULATION targets
+> > (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
+> > enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
+> > already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
+> > CONFIG_INPUT_APMPOWER=m entry inert.
+> > 
+> > Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
+> > exposes a module name collision (apm_power) between
+> > drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
+> > Remove this obsolete input bridge to resolve the collision rather than
+> > renaming a module whose last target platforms are going away in the
+> > same cycle.
+> > 
+> > Reported-by: Sasha Levin <sashal@kernel.org>
+> > Closes: https://lore.kernel.org/r/20261108225808.1809266-1-sashal@kernel.org
+> > Link: https://lore.kernel.org/r/20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org
+> > Link: https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
+> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 > 
-> As this is only stated in the description and not made explicit in the
-> schema, the binding checker will not catch if this condition is ignored.
+> Thanks a lot for helping with this.
 > 
-> Make it explicit in the schema that only one of them can be used. With
-> that, drop the note, which also described a precedence for device trees
-> that the schema now rejects.
+> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 > 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 17 +++++++++--------
->  1 file changed, 9 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> index 2cd8311ece5e..833540743bdf 100644
-> --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> @@ -7,9 +7,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
->  title: TI DP83867 ethernet PHY
->  
-> -allOf:
-> -  - $ref: ethernet-phy.yaml#
-> -
->  # only the PHY ID, not every PHY with the c22 fallback
->  select:
->    properties:
-> @@ -67,11 +64,6 @@ properties:
->      description: |
->        MAC Interface Impedance control to set the programmable output impedance
->        to a maximum value (70 ohms).
-> -      Note: Specifying an io_impedance_ctrl nvmem cell or one of the
-> -        ti,min-output-impedance, ti,max-output-impedance properties
-> -        are mutually exclusive. If more than one is present, an nvmem
-> -        cell takes precedence over ti,max-output-impedance, which in
-> -        turn takes precedence over ti,min-output-impedance.
->  
->    tx-fifo-depth:
->      $ref: /schemas/types.yaml#/definitions/uint32
-> @@ -133,6 +125,15 @@ properties:
->        Transmitt FIFO depth- see dt-bindings/net/ti-dp83867.h for applicable
->        values.
->  
-> +allOf:
-> +  - $ref: ethernet-phy.yaml#
-> +  - not:
-> +      required: [nvmem-cells, "ti,min-output-impedance"]
-> +  - not:
-> +      required: [nvmem-cells, "ti,max-output-impedance"]
-> +  - not:
-> +      required: ["ti,min-output-impedance", "ti,max-output-impedance"]
+> Nicolas, do you prefer taking this via kbuild-next directly or having
+> Dmitry take it via the input tree and giving us an immutable branch? I
+> assume the chance of conflicts or follow-ups are low, so we can probably
+> just take it directly but I don't want to assume your preference.
 
-This is not very readable or obvious. So i suggest keeping the text,
-and moving it here.
+Thanks!  I'd like to take it via kbuild tree.  Please complain, if I
+shall drop it again.
 
-    Andrew
+-- 
+Nicolas
