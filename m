@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327014;
-	b=iiwJ5G0YfeBLhL70fK1zpbsxWXeufH9aY+Jc2qMYKL6IR4aAXj2nvpNLmD4bUXpMutP4
-	 5QKQ+T+O0zK6mRLbkQiFsJu1eEJBn1u8i+Or9XBIxg9pLa1HycwAVHh+Nu0Sh3Bm5OTa8
-	 Rwt2Hs+Kq76Hg/rSaCWhYNwYK0B4R9EnbESFv7QyHqUwYm+GVUL1Lxm6syHAt9EJKFc/I
-	 3R1Q+eA4YXpT6PXAeG78p+Lwn9JFIsMs8o8L63PUQMhrwmCasiHVMq7ChwXlfHmhpa0dT
-	 b9ibPVRPhAx/qiuq1F66x7o0tTvwlSXWBTnDdXG1YYTmJ2kypok8oo3p7HWQIH082yg==
+	t=1794327011;
+	b=28QMwzg8n8VwbRxlCbMAOQc7AC/3OjCTwQ96kraV/OE5Y+B8sk9EytiX9zISpBOIELtI
+	 HFOzjj+Aaj5O/5GM21A1bz1vscedxlif+FomqmtOnpcffm0v3mvr4PYK5VOzL7IJD1fJo
+	 s1tnihpqoXxEAwwRa4M9X/YEr2GJ7CLF1rCTWQFhX/nNb+fU5K5ei6UHu7OFgHybb+llu
+	 9K/N4n3S1yNkwWALtljXYjvLwyRYDOdl2UmgdQSDXKcV6ZqsIsfGrNNokOg16WVWMzT8s
+	 Tk2qKfLsMUO8q+AFSGNhh95Bttwa+wqexiSVhvghanRl7ZsM30nE1gIs4zF/bVNMDBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327011;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=sW/+AZKOnfFUykr1vqtqOVrmPX3C/zFqJBALS7Am6x0=;
-	b=hxwlhMoxnaJrzBGuCRkO4A5jIqkPngfaVerpd6oFcNLcJyIOhOmWVE8mpKSqC0Knq+iW
-	 YWVvn6tPJkX0dWzblubSB76ooRxg0lndDzszqzPqeRbWlLPsNeA3MTguWABaHl2GxsGPL
-	 yYa2WuWM2y79U8rEa8mI/5q8BCPEv7/liZM60/woHjzFggXglNUKKD+tbSBdVjP7ARUcu
-	 +g1hkpcz7JG8wMsH6nODuk84SXyRGbqMemEIA0aiy2LBmi6RL92FAS6h3pC3G7gRH5TUn
-	 c3uut28puElDZPffqrHmkAyFuKIPg8ftDapKKqhG+uZUe4w20nnR1FuWEyAkjtk2Q6w==
+	bh=3AVhLi3JdPRht/cpEJYLixagKRvqBQRXjmvgnpxDuxw=;
+	b=r+ZyFG+z4j6lBcAp8DA+I0cuGQFWiGYGWdSvzvdDY5AgXGBYnA62bTYgKWIFNkvI2rbk
+	 WKaU8AxQ1hx7SviBgl9a1gDp/9s0yVHjU57SFHIf8l31ROsxIbws0mXg0Yl1ZNRGGnOWz
+	 eTLl6mioRBoVm7hARRx/OV2FSH+f05GzLiOo++C7940JVwk4nFEuc7pcTLUoTrdXLwZDv
+	 CnE5MsVQWvJjEyL1Dz76b2+nzZ6Df8YHbsXSB7KWtROBtPylCus6Pnye4R0fxr1CCinax
+	 SEUEwnNIN5khciE9Eh9raSvQ0H5rUz8wzT3NbnMV4qwvQ8rKf7+wVfAsUbhNfzsubdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSd4SjEr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFLzpzzJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A0360A2617;
-	Tue, 10 Nov 2026 16:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3C9606A32E;
+	Tue, 10 Nov 2026 16:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSd4SjEr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4E51F008BC;
-	Tue, 10 Nov 2026 16:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFLzpzzJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295601F008A1;
+	Tue, 10 Nov 2026 16:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327014;
-	bh=sW/+AZKOnfFUykr1vqtqOVrmPX3C/zFqJBALS7Am6x0=;
+	s=k20260515; t=1794327011;
+	bh=3AVhLi3JdPRht/cpEJYLixagKRvqBQRXjmvgnpxDuxw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=NSd4SjErwghoktD6+63RlnMQSLJzpRbb7QfF4iWGdNQCY67WmM4rELpejgjWwE8Dx
-	 Kkied1JdmsTaHRf2797F6PoCw4E08eaNEvwkLcBL7+P+v9ueiaLWAHc1r3m2vunI3O
-	 ytcd1ACdOYdHi21FZUsJTIXn12eK8zM4T8H1gxMe/S38bWTnmeLrYxWHAZS4ks7//d
-	 /bUmhzx4nKrxcJf9f+rj7zZYEkU50BKUd9RH6ycRcu+Gdy8xlWr1IUruFWm1d6F3NS
-	 k5YD0rJea9xysBkt6KgSjinZHIwb2ylMFybK7aSXm3+cdykcOkOeG38tUCJrAomspP
-	 b5QfP9F2lZ1aQ==
+	b=VFLzpzzJvSBELNeU6bPURuIKEhFaHqaLTU65y9/jZXrOnHBH+aaDtYa9opmiLC9PK
+	 YRZfwLAN9aGEkjqI32Ui0LX4SNA+vKx7skikcKyKw8HxB2CuzfyL8Ycw2pwQmprh3U
+	 l4BLRHLr0Jv5GUyIGvomG7EvxZsxjXCmQbjP2ue91aI8LD9awc4fRlelv30RLGfCxE
+	 tlVnreMnBf4NsrTgNNnwh7aL0ZVyMWn1bTed85DDghNMzxDMO+f2l4dt+YVUn/pZWo
+	 4L4zISdFR9yJhvhUq6cdFUsQsqoeH2xOtm1AP2fkxQoRbv0MPBd+izE0eeG1OGgfTO
+	 cVUN1IaaiMp0g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 213B939D267B;
-	Tue, 10 Nov 2026 16:10:14 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210AD39D267B;
+	Tue, 10 Nov 2026 16:10:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,37 +54,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bluetooth-next v2] Bluetooth: L2CAP: validate MPS and MTU
- in ECRED connection response
+Subject: Re: [PATCH] Bluetooth: vhci: Serialize packet reception with device
+ creation
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179432701267.4062787.11305401861516612930.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 16:10:12 +0000
-References: <20261110-bt-ecred-mps-fix-v2-1-48c5ee28fd8a@gmail.com>
-In-Reply-To: <20261110-bt-ecred-mps-fix-v2-1-48c5ee28fd8a@gmail.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: luiz.dentz@gmail.com, marcel@holtmann.org,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+ <179432700967.4062787.5840471471606584903.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 16:10:09 +0000
+References: 
+ <pm-bluetooth-objects-candidate-0253-v6-ffe55995e8c517fb1d86@gmail.com>
+In-Reply-To: 
+ <pm-bluetooth-objects-candidate-0253-v6-ffe55995e8c517fb1d86@gmail.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue, 10 Nov 2026 03:26:03 +0000 you wrote:
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On Sat, 24 Oct 2026 23:28:23 +0800 you wrote:
+> The hci_dev passed to hci_recv_frame() must stay alive until the receive
+> operation finishes. __vhci_create_device() stores data->hdev before
+> hci_register_dev() and frees the device if registration fails.
+> vhci_get_user() checks and uses that pointer without taking the
+> open_mutex held by the creator or a device reference.
 > 
-> l2cap_ecred_conn_rsp() stores the MTU and MPS from the peer without
-> checking them against the minimums required for enhanced credit based
-> channels.  The other LE and ECRED handlers (l2cap_le_connect_req(),
-> l2cap_le_connect_rsp(), l2cap_ecred_conn_req(), l2cap_ecred_reconf_req())
-> all reject values below the minimum.
+> An incoming packet write can overlap the delayed default-create work
+> scheduled by vhci_open(). If registration fails before acquiring the
+> registration reference, the following order is possible:
 > 
 > [...]
 
 Here is the summary with links:
-  - [bluetooth-next,v2] Bluetooth: L2CAP: validate MPS and MTU in ECRED connection response
-    https://git.kernel.org/bluetooth/bluetooth-next/c/1645edfa8c29
+  - Bluetooth: vhci: Serialize packet reception with device creation
+    https://git.kernel.org/bluetooth/bluetooth-next/c/f8ba3e2e82f0
 
 You are awesome, thank you!
 -- 
