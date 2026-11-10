@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278930;
-	b=aLDMhhyutDE8d8iV4/UOI7DOSRykAbrJ+DHAFu3ZgUz/AdqLFuCoSXvp1qmF2Oy5ghX+
-	 iMRCj+U1o5ce6tAizjRj2wYwgma0W1xoiFsCxvtfDT9dbiTt0Yp1AgMa3xwBVBWyhMpVC
-	 6DegJKxYf2Z3SiCJplVmkGsfiLMIg7xYfhhyMyfssnPvvAK1zsxfs1s8MTcaYz/it+cYk
-	 z6kUsxVp2/t7MElT6IHrm+8kUDWiOzlOx92Y53x5GU1iJP2veP+aGPGtfJrY6j34CRX8i
-	 gBGAs3+2OHyyYf5MalGYIDygXTYqm/syzqp0WQJ6gTC07mMwo6ackOvIs9NUSVEUDLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278930;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=OgSry7e2g9JnvLRslnsp0vdPuCB33JbamklOGcvQymQ=;
-	b=oEgObQ37nxYwYD0qF7VAWwjzG9kdOnpan0cbGl6Qlw0PZNPi/X76rIr3xTNaK9N7DUcv
-	 FV21suj4jlRVyRG/fWqZTwhn3V4TWedeRai6jBjiJ6GgU/pOuZ2I5aBOPSoitr04lFZgN
-	 OWMKCYeba+L/dzX1L7uknRs9irXKVmB3QqHNK8nUCpC8ytN7W2RUhd/fvnhyEOr+BhuNh
-	 rPV0ytQngEdp01PNjtHu13W+CHBNGgq7SYr7wqjfGJgkItBJl0Wr8qA4PndNGRqhO0pBW
-	 A86ej8sibsi2yIEtfu2bSrIji7Wfy9dZmgfvXjykK+9hNxxcLICXD3YHdWLTrjhysrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qMaP2fWa;
-	arc=none smtp.remote-ip=209.85.167.172
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794279006;
+	b=kwuIDr0X0Cn4Cy+uM/Zx9vvc7O3Ieui68m80840KeRstEiSuqQvWQIowaAj6cBgGx2VQ
+	 qdAkXBdYefavXDhactYOn4ENlU77rzOw6y/FkxExHLXDx9oFZyWRtVXAgef12LOM5Tl7C
+	 7M55HGeoMvFOrjt8bkmutVhbioAhQqJRmCZHWPLlJlkiWsc1B4wEMQ5wqY8nbMe1RN+bq
+	 7vpMTluQjzmiNnVxWem+s4u/heSAPOozwgFRswu4I3a9VHMg4q+oWDYbg0LgkHbts93Zp
+	 KxU/3Tf3Kxa+xaA4WCzslUK39Gip22LW7KJov8RSX/49/WpJ446BC5zZ6yHhd4wo2ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279006;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	b=To7o23awPOX/8dgFSmYTE08P6pIGgDavm38XXledT5R7SakzZ9aKSkoZIlkRwFQZv62N
+	 iYtJ6NPaSbTR8YRFb4YPW6VWzWMSTDgVOfrMXe9VEYPII52nQpkisAGEym4muFpBHub8s
+	 SZvSF2rnLDa9qEyJBcaleN7CyhZOcuEJE1n99tvPOBFaAyZIV+u4Q8eXP/Im9sjlvvPRr
+	 pCGFrL3g5FUtzPMiPdfgvjPcnTPVAGeLjpki+3zv3zi6Jv5SF/Y4o2ydsGr5e6U+NLNDl
+	 rPlO+Wh24lEMvZIOJU6yClPoUChc0kqpVND4rgE1mH3ibjMtLpuGk9OVNxeiwnBAZMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5woi9aA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF347606A31C;
+	Tue, 10 Nov 2026 02:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5woi9aA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794279005;
+	b=HkWJp3dN3bPcWkGcNa51GuPtkf3vveyOXqO542kEZK+7fpYVhjg3eJst6Gn55gdR0UEi
+	 7eqaWgW2AcuUc7KiyAXlZA0AUCSPbGLkDBdFPX9RYvv9G2o/4NcOWdgTUTflWGQRyhJKi
+	 Om+Hl4kWVtSWuCbOh6Dszdm+uodX6Hv6/aGiijOP7FMagGQOVWvsdiB6BTsuooidfr7tQ
+	 gz7k9aeXs5EuHNgMXe/n3v3Xm8qrgdU0NCanr+8EBILHOok89bEy7L82K+SO4n3UIvxud
+	 lKAD20n2whf5pm9idFrsw4kaEPbNtGqVstHX5WNE7udSsjJMukzkU/5KqL3uhUD1gLQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794279005;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	b=sx2o9zcNtPg9Ui4uVFqQI0Qha6ao2cUJCU52dHZnN637ENKBsAGFAzk0E/cyCzw+/mF0
+	 3voeXXR4LtjLYpTo1DKO/Qbra3yFYyY2BMsy4QSsgxr9W5tizaZir+8IPGgBKhn/opfx/
+	 4QkatUMTYyv1ouxLzqIy3hBxAEcomSd+rJVSyvlq6YAzNYqRzLZkO4qrcGToIKCdkLNSs
+	 JdzoJCjTYKPyS384ToroP8NcRU0kXuM5LMdCPiyx4dlXg2YujAFmJFuQFrC4OeJLg4FpA
+	 MpYem0wlK3eGBzaOFN9lxacxcNQZdquiMkRd7HMrmFPOMZ2PTDKZa6QPvgQtvPKxQkg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8309F60A2624
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:48:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8309F60A2624
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qMaP2fWa
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-55650fe1f0dso799110b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:48:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278928; x=1794883728; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OgSry7e2g9JnvLRslnsp0vdPuCB33JbamklOGcvQymQ=;
-        b=qMaP2fWa1IdIP/qpMN2FaoqsVUe90F4WS+2YQT/gI47mTIIiROmHTv/9fKDHOzNFZx
-         vN4+GXG9a5foFAn1JP2X5owDAeGW0GK4Z8ALOURw0QMtH3HqRKgmPsYfA7qLrl/4NkjB
-         ibFNL/J+MYlFTVVXtY38+1aUyZnWoCr24llQbUfCfky/b7fHrl/OaAb5xV8eYEnpkU6Z
-         VrWaFqfjl/uiQkytrUZydtLRLvcfcNT8rFAPiPVjcKaLutVjDYoI7Q+ugFstmU9yqmd1
-         /v0aG7rWIUGy0aDh/Et6Fns3P0sYYs8uc6YXk0PaVJPicHMPHW4RWxUsPJkMUrnuu8r6
-         LRGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278928; x=1794883728;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OgSry7e2g9JnvLRslnsp0vdPuCB33JbamklOGcvQymQ=;
-        b=PMEgqr617e+OD4iEWsjVslnS/NHx/hCFQaqUX6rMwG13JdgdEL07ch2oyHjy8W9SJw
-         97RLpfAlX1iFOqqCdcoGQxMbJQ5oYUROZMj53tE0S3Qv9fl3hXDB2VIitb32iMsZC+wk
-         JtSdHhX9D5+6PvD1srl/cx/8EGIhHCIFqvBI3OBULjF3xc/9mONCMKaUMs40C3/NU3s6
-         oJjPHaBveX76R+f/NxQY4HdVaqQLvgRIhIZ78gwDlDZ9HusNXb/m83OeMJG5rzvYvSB1
-         icDGnr3zFl0ec8onlcEKNOg7bP+Q84CGNh0YVTivGgS4TdPV5hBangUdUzLKGkeuHujK
-         6XTQ==
-X-Forwarded-Encrypted: i=1; AL+hErGY/fcAMu8gEraaPyiWSpV7dDicyJTRPq2O+SrNGSCKNONDpSYwFH58V/2StefkwzQLLelnX/cMVBcL2W0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cExS2pt0/ISpDVSCsfZZnktc2gdkTwPUNlwK9aSebZNBPJYsh
-	FEzbUruHPca+ss1YUf0iJFkCClySPLBbKyvGut58AWkCeS+BbD7ZqYw2D2BuroH8
-X-Gm-Gg: AYBFou3dEahz1hnkgnnWUInIhIKnOfKjSVfkhp28ybhgAI/h+RS0Xs0awsEuBAJoENG
-	Qa+2EwLsVXuqwhoLsmAlEF90AKrsveqvfkFuz/rKrRm3fqaxPkMbySf2i5m2IyJ4oTENjy0+6LQ
-	6RjkFNR2UpcGBdKE0lTxKmdcYnrRxtrHrlSKsfjIh2emT8SqYkXPXmqBEhFYM7BcoX6w+RXMFaR
-	df6jd0+vrVXjkXgL3/51VVsFQo5UY/rrRrJJwpf0e3QfHiPiEWdottfSvatqSRpF3DEImxPyRZm
-	cMm/w5dUawgeNy4yJBNAMRuiPVBQiJDfnweiGnMOI2akv12eA0GIaaKRdjhdXe2MzzBk93M6q/o
-	HaEVCaaVqkHOt6Hz31j+WCGBKMJxaH2GQ6Ry/mwR3QpqATI1KV2dEX7VxDNBi1cpBIfqO1O6YSP
-	dfKTXBwSC964Fu2EfCPdOJ8Kr28Ic73AJOwH1q1puZXl+UxoSsWr8askpmf7ZjL4YrjMyAe512e
-	x7SQsFUKLmxY6bnIZcghHIFerCszXqrxL933Ffny1XT8v098R2WRcPJhGgmxXm29XFSDn6eoCxu
-	F/bbDHj85imA9IA25rW+7XC1uBy8VwWixC7ha0FAlBvomh7JcVAEzC6TAYmkFkJAL/ZQAWs/BU6
-	VXZV5khESUm7iD4kUObdb80ZihpGfUqyiQIazKzFDv4BaC2PLzi2QKmilLbqxJn/blzfY8MaTxc
-	9Lk+vhp4Z4KkSuaPhEub5QAbTNxGHQLujdB1njKl96OL3vQq6smuCc
-X-Received: by 2002:a05:6808:c234:b0:53b:f634:83b2 with SMTP id 5614622812f47-5683c70cda6mr1164034b6e.0.1794278928446;
-        Mon, 09 Nov 2026 18:48:48 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905f39c60sm943233b6e.14.2026.11.09.18.48.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:48:47 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 19:48:34 -0700
-Subject: [PATCH net-next v3 3/3] net: phy: dp83tg720: report inclusive RX
- packet totals
+	by smtp.kernel.org (Postfix) with ESMTPS id 056431F008A2;
+	Tue, 10 Nov 2026 02:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794279005;
+	bh=cvnXzh/efi9WtiQF53c/L1AOqMpNaz59Ad1/m2E/GHk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=F5woi9aAlFi8Llc0+haPwKizbAi19rFnofw2murvP3XYSUdD4VmWmbxeNu1KbBzCJ
+	 2yycd548ROFgSR2UsZhm/uEOmJPE8vipp56X5XgZFVeQY8bY0yHfZzCJlh1goiScUH
+	 Wn9Gh40AxG75dIXav6paHwsjYAfA9GtoqiFWlOX+QnnDam/FwcZjXjodpe2mqfecvE
+	 iTENfRQkH3HlQ2I3h7X3GnHwMS1QeUe7wH95vz/cYt9Qnvq5uEhboOqbV+wvrWyH+G
+	 Qv8oPZSmImXvTUkvrk5LMVogUmwxgB3Zk6hxS3Odo9/gHoeLG3hA0VQ9ZYhaV8aEGQ
+	 w/o07rSwk13WA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8557D4878A;
+	Tue, 10 Nov 2026 02:50:04 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Tue, 10 Nov 2026 02:50:01 +0000
+Subject: [PATCH] arm64: dts: rockchip: Enable SDR104 on the ODROID-M1 SD
+ card
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,53 +84,75 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-odroid-m1-sdr104-v1-1-8edc6d5c1bf6@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAFqG8moC/x3MPQqAMAxA4atIZgOJf6BXEYfSRs2glRREkN7d4
+ vgN772QxFQSTNULJrcmjWcB1xX43Z2boIZiaKgZmJkwBosa8GBMwZg6XAeh1pHvnR+hZJfJqs+
+ /nJecP7EZavRiAAAA
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1796; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=qnYQwjnRjrYCEMA3SHfY2+DFHlJaSH/TMsn5Af6nh14=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFmf2qInZi0x0TBUjGFZfEd0j8Vikydvzr+ZEWZx+0Daj
+ ReMh3+XdZSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJtFgxMmwxtXqmcaHfyfmt
+ WtfeFasLt5424FNcwX/snvzEilnvvCwZGXb6Pb90ZsqCt+zXziwLDdVQdFlz76vypO9nOvoPOO1
+ IvcsHAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-acx00-phy-stats-v1-v3-3-fbc6327c5be4@gmail.com>
-References: <20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4@gmail.com>
-In-Reply-To: <20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-The DP83TG720S-Q1 datasheet describes PKT_STAT_4 and PKT_STAT_5
-(0x063c and 0x063d) as the total received packet count, including packets
-with errors. The driver currently reports this count through rx_packets,
-which is defined as successfully received packets.
+From: Igor Velkov <iav@iav.lv>
 
-Report the accumulated count through rx_packets_total instead. This
-exposes it as RxFramesTotal rather than RxFrames in the ethtool phydev
-statistics group, matching the hardware counter's semantics.
+The SD card already switches to 1.8 V, but only SDR50 is allowed, and
+clk_sdmmc0 on RK3568 is a mux without a divider: dw_mmc-rockchip asks
+it for twice the card clock, 200 MHz for SDR50, the mux rounds down to
+the 100 MHz parent and the card runs at 50 MHz.
 
-Fixes: 677d895af1cc ("net: phy: dp83tg720: add statistics support")
-Link: https://www.ti.com/lit/ds/symlink/dp83tg720s-q1.pdf
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Allow SDR104 instead; the MMC core still falls back to SDR50 for cards
+without SDR104. With the 150 MHz max-frequency from rk356x-base.dtsi
+the clock comes from the 300 MHz parent and the card runs at 150 MHz.
+Hardkernel's vendor kernel already uses sd-uhs-sdr104 on this board.
+With a SanDisk 128 GB card, direct read goes from 22 MB/s to
+58-64 MB/s and direct write from 20 MB/s to 47-50 MB/s.
+
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- drivers/net/phy/dp83tg720.c | 2 +-
+Tested with an Armbian 7.3.3 kernel (rockchip64), the property added to
+the DTB with fdtput: reboot, sysrq-b, watchdog reset, poweroff, s2idle,
+deep, hibernate, hybrid-sleep and suspend-then-hibernate; the card
+re-tuned and came back in SDR104 at 150 MHz in all 29 runs.
+---
+ arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/dp83tg720.c b/drivers/net/phy/dp83tg720.c
-index 391c1d868808..5824eff92937 100644
---- a/drivers/net/phy/dp83tg720.c
-+++ b/drivers/net/phy/dp83tg720.c
-@@ -309,7 +309,7 @@ static void dp83tg720_get_phy_stats(struct phy_device *phydev,
- 
- 	stats->tx_packets = priv->stats.tx_pkt_cnt;
- 	stats->tx_errors = priv->stats.tx_err_pkt_cnt;
--	stats->rx_packets = priv->stats.rx_pkt_cnt;
-+	stats->rx_packets_total = priv->stats.rx_pkt_cnt;
- 	stats->rx_errors = priv->stats.rx_err_pkt_cnt;
- }
- 
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+index ec43dee18094..6f77e73abc8e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
+@@ -610,7 +610,7 @@ &sdmmc0 {
+ 	disable-wp;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
+-	sd-uhs-sdr50;
++	sd-uhs-sdr104;
+ 	vmmc-supply = <&vcc3v3_sd>;
+ 	vqmmc-supply = <&vccio_sd>;
+ 	status = "okay";
 
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261110-odroid-m1-sdr104-f6e03a0c5ac9
+
+Best regards,
 -- 
-2.53.0
+Igor Velkov <iav@iav.lv>
+
 
