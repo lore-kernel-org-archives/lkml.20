@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304690;
-	b=kzM4Xs8aBaGl7hd/2gfzIoA/VndFqDzGUm0Hg9LZptHuXHRwfVa2+o4FWLsPfW49S4sW
-	 FHVG1BD4IL9ivzDb3uNEwdUXP0SX1B2WGV49EFrNm9gYhKZx28Atqaotg+9XgfgP92rMa
-	 3E8pGy+8b9PFJ70tcVzXn58yVaKSaus0yvzB9CdQALSbU7OaRrpjlqF3+49bE8Ha95RTs
-	 AFapDwWHjO1LfnpUnbF3M9/63gDwsb4V6c8R8E8YJ1E6PdKntonr/7bwhPnK2NfGQvB7Y
-	 o3ji6n33SXel2UPE1cGFcdlTZ42BMojzIleWjiDHjmuNWiqQISJMri8xBgg344aVbNw==
+	t=1794304695;
+	b=mhdepP2R2XVfyKEwZX6btlJsdT6oVvKnRPhdGP5uiboPcG7ZLNhcPHuTX0T6VxyrM+ca
+	 r9AL2VQwyv77QrIT4g6hdaXfErsvQQjxylCOsr99Ka04cD7W/qsEEFsBVbHE7bv3ZkSN/
+	 T0WLv7dXox8f7kAmX6/NyARkFGzMt+JaHHIiMpBFW1PGh/auKLMoTcOfDUFJxQegnxp8s
+	 suAv5Tl2RQwai205y90X9TBzL4y1rHf/sBV+ZMjQkYrm33I5/oCuUgXXclSHAx6r8HKfG
+	 rpxr70hNWKSIqpXJ7hDxf5CEb1mxX8iNm5y3kUM+RxnEYHKlSpooOTraXyKMhzqRp9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304690;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=am4pQajB8Z2M3cS9jEAMeZZXdvO0PJr5jLPCMgFK69Y=;
-	b=wiI/zBJVLEExrVfuzAmY4hJ+gTwKkeMgDso9CF1I6DCpFr4pDVzQlHAZpjXdD8Cw+OiZ
-	 qdbg7jL28uGfAsjT6RWFKp2uKje5CHFdB9vONIVCXq3htNuYUGcSJK8f02mIIyNghcFYH
-	 voiLLB3QOQYOGVDLqIlE5krr7Q9FV+flVKg4wALy0ndr2SyeJrK2azvdZrHo8/jFrkYc0
-	 UNQafoMGZnKGLhcniFO9m8/yD9ScamEhYaIDOb63IqeKu4uf8OLPdt9ESteWJkLETL305
-	 jfJ06F8kIJ/R3YZs4aBIHJ0syeZIFdItsp9khXt/EoRSgDdhj2ytor1KjJVrgAnb0WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304695;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=st+FkmjgxRkO2p5uixOrBUL2Qow9wwEX9/ybZqtET0c=;
+	b=AUHQLFBdAWo4kEbxZpsvUlXOEMFMArtTkYUMlJgpklGWyZBR7D1oC9+YL8NDbihhd9s5
+	 Nk9hNuchdxkvsG/ou6kTxET87ahfh9W2iE9vZ5XrToabhjwwr0Zqk7nK7RPwlmH2SfpuU
+	 dRVQZeN1FJPncywjhiUuloRJHpeHEcUgzDElcA7g3mlZp3rgC0NBbt5oQDqSHcvwuT7Cs
+	 ciBTpS+8XDbxjwMkVp84PvhSoOW2y2fypYlMHUTEfbGJ+pKLhZNwD2o0klhHHyhvG7DAa
+	 7rel7NPg34VC513bcHeEb7/LyHAqZHmvF18d/iFiaBIqk6zJB8aPFkUULDhxjvmTJbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDhgQL9e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RaHFHGUn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mhs05U7T;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97211606A338;
-	Tue, 10 Nov 2026 09:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC417606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC417606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDhgQL9e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E191F008A1;
-	Tue, 10 Nov 2026 09:58:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304690;
-	bh=am4pQajB8Z2M3cS9jEAMeZZXdvO0PJr5jLPCMgFK69Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SDhgQL9ebtVCtYRR1eU96n/fgDF2P4+ltARvs7MWChtguuYl9YQFaqG1QkM7MBL8G
-	 up+qonOXN1VV2Bz5KViu6qknduCXyYKXVDGlR2GgrRj2xbWyY+nfKZOiKgVxHa98Il
-	 0c6so/pF2O19vxh1iK4xvVTVIWgotuqh/lU6hv8AIdGOHd4skBXkO5XeL1ldmlUQHW
-	 vVg8o8U0pXmdsmgV/tot5n0AUxUHWALHTn3+0Sf3k0tNJwF29y5RCVBMbhUENcgC2b
-	 zZFc3iM5I+LMsWaiB6SkOBdzPwm5SYtkZ9IpZQjPGlM11P33CWaDcNtZeTZkBpFMmq
-	 DxSlrM1Lh5dCQ==
-Date: Tue, 10 Nov 2026 17:58:05 +0800
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: Dan Callaghan <dcallagh@chromium.org>,
-	Benson Leung <bleung@chromium.org>,
-	Sami =?iso-8859-1?Q?Ky=F6stil=E4?= <skyostil@chromium.org>,
-	chrome-platform@lists.linux.dev, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Subject: Re: [PATCH] platform/chrome: cros_hps_i2c: hold the client device
- for an open file
-Message-ID: <avLqrXdv4DK40A2v@tzungbi-laptop>
-References: <20261107185258.4115770-2-ca@modelmiser.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RaHFHGUn;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mhs05U7T
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7lG1u2240852
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:58:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=st+FkmjgxRkO2p5uixOrBU
+	L2Qow9wwEX9/ybZqtET0c=; b=RaHFHGUn5JcunHYUUobWtAI3ki0W6U5NK0DwIm
+	0MI0WtYdI/A5FEwVWqOHRMBT/xsdu+r2z12mlZ2WvzzXjMShZ14Cryd0kEj0pgZn
+	eRkUhEbrHJfd1YvXYZyQxHiNaA+d6HKgofBS3P5eoEv2DiB599+K9Qq/gadW7Zzs
+	9ccAT9ZTLYPh8sYTNBoS2A+12rpMxUk2jU8HpnjYzuHelRfHIsIT/VVfHMOXnuUz
+	zYrSrsTsNfUvnYwhiuGWLYnctuQh68t3307hEnsgguttJMtm0wahzX7L1bqsJQDj
+	lzBbmMSozRDLVZ5A1IkI5rAuwUNQBJ+oT6I3f4OdQPOphEbw==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huucp1emh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:58:13 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so1792112c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:58:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794304693; x=1794909493; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=st+FkmjgxRkO2p5uixOrBUL2Qow9wwEX9/ybZqtET0c=;
+        b=Mhs05U7TVFnffqRWKGhCr4j8nfECnDRZ0hXvEpSiooyuVm56xL9AtoxV57E7wdZW4i
+         rUqJVqO1s5Q0oxUePUHF/pryuCkvoTuBeBY9WEs2VWeQT6al95+5Zo4jbr9NlTok7AjM
+         8G0hOHHN24PEiGQPkSp4NVpI35levKn/t+VPtqGe/l8qrgv85pWlxUxmnqr/l0HGZgfR
+         ciYLY/0MoWaVDygt48sFJqM44cc5cy+BrknIYryoZTw0yMfK8LLCIzcfvrQuzF3ltuCX
+         ebisP8YDNj3G79YU1HLi39Sgjm7zSn2IuSPV9uXmcisOPovs9FLUKRPV1CXVCvBGXM+t
+         mKvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794304693; x=1794909493;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=st+FkmjgxRkO2p5uixOrBUL2Qow9wwEX9/ybZqtET0c=;
+        b=WOGVpouW6cNRH9FkprvhtY62s4ORmTOyBVwQOsZleiTjcqVWUB8+ctLWTYy2EUAQOT
+         HDNkw7gq9hUWd2ZXF5FF9ye0ls8BIH4lV53e+hqz0r1S3daR3Kkasn35AAay2nWm6IBJ
+         lF26I5wCYu7Scg83gsoq5wh48c+9YjYm5szH0vIQYzJG3AIZX0SN77hE2HIWH74I3yen
+         0zUZM7u+WFhCRMkc6nDtGMpN3Tv6PLK2rKYwfaj57QfEoiOIHtU2u3Wd1gwTkhYUc4af
+         FeVOwdkGPl6q+zlFAGK98u89HsJLxjphnpq2ZRBKt2Lo37spz37QAmBbiW/iJi3wswpq
+         t+AA==
+X-Forwarded-Encrypted: i=1; AL+hErGV0J/dHlmQzRSNYIfqOL0r5clmUPBpXc/jNKYe+UHC6CZ7/EvBYrfVcdft7MQgsB55VFIR2xuE+31fjh4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89wlTgkYft4O9ytgyxUmABLbJPnZv4+/VqHdmQDKMjkrVTUSf+
+	Hky9cbdFpq60VDugRV+z/keV3xcftvhv63XbcxSAbk7/jSA2g2KPRlpSTDCiSvx+oK2O+aXXSnU
+	4+yF9VrOR6CM/VFaeb13DKSrOk+zfbww5FzxecUh9IV7uqiSIxeQB64Je66wRaHlOuuY=
+X-Gm-Gg: AYBFou3IGml1F9O+J78pXYydkUTzM1Bx/Azih/NW4Ws3jkNDiQQTF11S+E75ffhYURK
+	rWXLZ88vYzo/vEXNb+R/i/PfZUqHjQ2A6sSyy9g0d2wZcoi8wQuXy87BWVlb8Moe7AajJPRLcB0
+	qOPEPpMBl7xvSLb+OYrL2soR+BzMY5xexxdWi3POB01ws6ratvujyK22yn9zZkYHDAg4GhIFaUx
+	/JXoaHXJ8SBkzvwHv/KXXazp0P7+mgie8sQYkZOFCqjhVH8OMUBYFXJKEBcSzWmoU6CxnbaSo/l
+	YpU8xU52pg21a0PkufH5F5KTXvBj/Ikh3NL6gO/NuD1Q56secqQfq2HSbc0/kBdaolB7GNzXIaK
+	vN7l4Ri+tpR15JXpUK3KDdUgaZL8lZiEhwbqI4PvF81YcfSmDH4vh2/KuQnqqlm8QVquCiimEr8
+	rBrd4Y7w==
+X-Received: by 2002:a05:7022:f8a:b0:1a9:f97a:34d with SMTP id a92af1059eb24-1b3b5fccfa3mr4008453c88.13.1794304693005;
+        Tue, 10 Nov 2026 01:58:13 -0800 (PST)
+X-Received: by 2002:a05:7022:f8a:b0:1a9:f97a:34d with SMTP id a92af1059eb24-1b3b5fccfa3mr4008418c88.13.1794304692520;
+        Tue, 10 Nov 2026 01:58:12 -0800 (PST)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm7333141c88.7.2026.11.10.01.58.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:58:12 -0800 (PST)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] media: iris: Fix issues exposed during decoder seek
+Date: Tue, 10 Nov 2026 15:27:12 +0530
+Message-Id: <20261110-fix_dec_seek-v2-0-210d8c4fc31b@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,220 +115,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107185258.4115770-2-ca@modelmiser.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHjq8moC/3WNQQ6CMBBFr0JmbUlbBIMr7mEIgXYqVaHagUZDu
+ LsF124mefn/v1mA0FskOCcLeAyWrBsjyEMCqm/HKzKrI4PkshA8E8zYd6NRNYR4Z9K0pcyLrDu
+ WOcTJ02PMd92l/jHN3Q3VtDm2Rm9pcv6z/wti6/1RB8E4Uwa14UoWJ8TKEaWvuX0oNwxpPFCv6
+ /oFlu3qs8EAAAA=
+X-Change-ID: 20261031-fix_dec_seek-2fa92563b495
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vedang Nagar <quic_vnagar@quicinc.com>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794304687; l=1413;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=OoTEOWQbdE3NB0Daasfn0CVEElbzqxziQTEV4sVvvLk=;
+ b=g/hV9z9s2R8N3SVEnJu74ymiGkSDFaugKOJVWe6P9etdbWT85UnQ5WMFuiHquXDkIevC8lWdG
+ oiww5YXr4oECgEGH45EtFxB5CLSteZYvc/b5XnBYT5rdcW2ED4SzDhs
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Proofpoint-ORIG-GUID: i1IUk5qznHNFWRGks2f6hfHhW0GbjSXi
+X-Authority-Analysis: v=2.4 cv=U4oHnuru c=1 sm=1 tr=0 ts=6af2eab5 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=dW6R3hR6YbmKee4CdVsA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfXx3HWIlyAy7yp
+ C/+vCoUlPccYejMR5DyNAl7RMi2p0rUkjp7brnTu4IwvKWelgeq/zAE/uXkdXIc3xYNOWsjUvtr
+ JUhWkOnRTrL7kvPvsnyQaGo+IXTXYIDnJuxGHBTRDiMfU87S7qoyuQtFxZpwLMP4kM+dnD8nB6X
+ YR3KSDb1fC4Ve2AT46L/Wgl6Z2xPDydJfnhzomdZk+v4eftIn/fYVXAGvwkOwu183/0KeMIBrN2
+ sukIyFxXZKO9sNiI0gTwsbqoMoT2ORLYf1cAzH0h7jzIHh/lg8eQDf1hdhx/bWYbqaBcx0rlgSc
+ ZaAzaaRF2U+FMUDmmYaAZMZQMOf/JHKgG/mlORiEH5vRSuzTKNvGcOU5gru+QraKzjRHMq0toFH
+ E7jq43Ye8rTBZfCA9VlFBOnl16JpG1FVtEgUk2BMtFACAILy0s32N+nOfT0PoxjyZVdWQNLEYYQ
+ ewCvrLFqMH+J+AyKPJA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX6WzzEFPpgCLM
+ 14AaWC1+frvLzc3ZDI6+uq9Cy9D9AhSnwQMWh7t5STKBuJMo2frLhQAzrcumhU/1e8xJxjIN19O
+ 4rdd5j7pyk5UJyIIgSxImlciiv8fDco=
+X-Proofpoint-GUID: i1IUk5qznHNFWRGks2f6hfHhW0GbjSXi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100039
 
-On Sat, Nov 07, 2026 at 06:53:05PM +0000, Chad Aldreda wrote:
-> hps_release() finds struct hps_drvdata through file->private_data and
-> calls pm_runtime_put() on hps->client->dev. hps comes from
-> devm_kzalloc(), so it is freed when the driver is unbound, and a later
-> close() of a file opened before the unbind reads freed memory. If the
-> client was removed with delete_device, the i2c_client may have been
-> freed as well, and pm_runtime_put() runs on it. KASAN reports a
-> slab-use-after-free in hps_release() and, after delete_device, further
-> ones in the runtime PM code.
-> 
-> release() needs only the client device, so take a reference to it in
-> open() and keep it in file->private_data, and leave hps alone in
-> release(). hps is still valid in open(): misc_open() calls it with
-> misc_mtx held, and hps_i2c_remove() calls misc_deregister(), which takes
-> misc_mtx, before devres frees hps. Unless the driver has been bound
-> again, runtime PM on the device is disabled by the time such a release()
-> runs, so pm_runtime_put() drops the usage count and its idle request
-> fails with -EACCES.
-> 
-> Fixes: 5f9952548d91 ("platform/chrome: add a driver for HPS")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
-> ---
-> Found with the coccinelle script posted at
-> https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com
-> 
-> Reproduced in QEMU 10.2.4 (q35, KASAN). The driver binds to a client
-> created with new_device on the i801 SMBus adapter, with the "enable"
-> GPIO supplied by gpio-mockup through a test-only lookup module. A
-> process opens /dev/cros-hps, the client is unbound or deleted through
-> sysfs, and the process then closes the file. Without this patch KASAN
-> reports one use-after-free after an unbind and six after delete_device;
-> with it there are none, and an unbind followed by a bind works. Not
-> tested on HPS hardware. Unbinding or deleting the client needs root.
-> 
-> Unchanged by this patch: if the driver is bound again while a file
-> opened before the unbind is still open, that file's pm_runtime_put()
-> lands on the new instance's usage count, so the sensor stays powered
-> until the old file is closed. The counts measured the same with and
-> without the patch (2, then 1, then 0); before it, that put went through
-> freed memory.
-> 
-> For stable: before v7.0, hps_release() ends in
-> "return pm_runtime_put(dev);". There it should end:
-> 
-> 	pm_runtime_put(dev);
-> 	put_device(dev);
-> 
-> 	return 0;
-> 
-> This is independent of the revocable work for cros_ec_chardev; it only
-> stops release() from using the driver data.
-> 
->  drivers/platform/chrome/cros_hps_i2c.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/platform/chrome/cros_hps_i2c.c b/drivers/platform/chrome/cros_hps_i2c.c
-> index 3b9485627831..290b136ce4fa 100644
-> --- a/drivers/platform/chrome/cros_hps_i2c.c
-> +++ b/drivers/platform/chrome/cros_hps_i2c.c
-> @@ -36,17 +36,26 @@ static int hps_open(struct inode *inode, struct file *file)
->  	struct hps_drvdata *hps = container_of(file->private_data,
->  					       struct hps_drvdata, misc_device);
->  	struct device *dev = &hps->client->dev;
-> +	int ret;
-> +
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
->  
-> -	return pm_runtime_resume_and_get(dev);
-> +	/*
-> +	 * hps is freed when the driver is unbound, which can happen before
-> +	 * release(), so release() uses only the device, held here.
-> +	 */
-> +	file->private_data = get_device(dev);
-> +	return 0;
->  }
->  
->  static int hps_release(struct inode *inode, struct file *file)
->  {
-> -	struct hps_drvdata *hps = container_of(file->private_data,
-> -					       struct hps_drvdata, misc_device);
-> -	struct device *dev = &hps->client->dev;
-> +	struct device *dev = file->private_data;
->  
->  	pm_runtime_put(dev);
-> +	put_device(dev);
->  
->  	return 0;
->  }
+Several issues were identified while investigating decoder seek
+failures.
 
-Thank you for looking into this and sharing the coccinelle script.
+A seek could trigger redundant port settings change events, incorrect
+buffer requirements for VP9 streams, and codec configuration being
+overwritten. Together these issues resulted in spurious resolution
+change notifications, firmware buffer count errors, and seek failures.
 
-I don't think holding the reference of &hps->client->dev for the fops
-lifecycle is the right direction:
+This series fixes the issues observed during decoder seek operations.
 
-1. Once the driver is unbound in hps_i2c_remove(), any still-open file
-   descriptors from that binding should become non-functional.  Continuing
-   holding the runtime PM reference just for preventing the UAF makes less
-   sense.
-
-2. As you noted under "---", it bleeds into the new instance's usage_count
-   if the driver is bound again before the old file is closed.
-
-3. Instead, hps_i2c_remove() should clean up any remaining runtime PM
-   references before calling pm_runtime_disable(), and a late
-   hps_release() on a file opened before unbind should simply be a
-   no-op.
-
-For an immediate fix, I'm wondering if we should use a similar pattern to
-what you used (devm_kzalloc -> kzalloc + kref + removed flag) for the other
-issues discovered by the coccinelle script:
-
-struct hps_drvdata {
-	...
-	atomic_t open_count;
-	struct kref kref;
-	struct rw_semaphore rwsem;
-	bool removed;
-};
-
-static int hps_open(struct inode *inode, struct file *file)
-{
-	...
-
-	atomic_inc(&hps->open_count);
-	kref_get(&hps->kref);
-	...
-}
-
-static int hps_release(struct inode *inode, struct file *file)
-{
-	...
-
-	scoped_guard(rwsem_read, &hps->rwsem) {
-		if (!hps->removed) {
-			pm_runtime_put(&hps->client->dev);
-			atomic_dec(&hps->open_count);
-		}
-	}
-
-	kref_put(&hps->kref, ...);
-	...
-}
-
-static void hps_i2c_remove(struct i2c_client *client)
-{
-	...
-
-	scoped_guard(rwsem_write, &hps->rwsem) {
-		hps->removed = true;
-
-		while (atomic_dec_if_positive(&hps->open_count) >= 0)
-			pm_runtime_put_noidle(&client->dev);
-	}
-
-	kref_put(&hps->kref, ...);
-	...
-}
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+---
+Changes in v2:
+- Dropped the TIER_AV1 cap instead of removing the set callbacks. 
+- Link to v1: https://patch.msgid.link/20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com
 
 ---
-This is actually a good candidate for using the 'revocable'[1] (just like
-the other drivers found by your coccinelle script where open files
-outlive devm_kzalloc() driver data on unbind).
+Vishnu Reddy (3):
+      media: iris: Skip redundant decoder input config params
+      media: iris: Skip redundant HFI_PROP_TIER updates
+      media: iris: Use firmware reported count for output buffers
 
-static int hps_open(struct inode *inode, struct file *file)
-{
-	...
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c         | 10 ----------
+ drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c |  8 ++++++--
+ drivers/media/platform/qcom/iris/iris_platform_common.h  |  1 -
+ drivers/media/platform/qcom/iris/iris_vpu_buffer.c       | 10 ++--------
+ 4 files changed, 8 insertions(+), 21 deletions(-)
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+change-id: 20261031-fix_dec_seek-2fa92563b495
 
-	atomic_inc(&hps->open_count);
-	revocable_get(hps->rev);
-	file->private_data = hps->rev;
-	...
-}
+Best regards,
+--  
+Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-static int hps_release(struct inode *inode, struct file *file)
-{
-	...
-	struct revocable *rev = file->private_data;
-
-	revocable_try_access_or_skip_scoped(rev, hps) {
-		pm_runtime_put(&hps->client->dev);
-		atomic_dec(&hps->open_count);
-	}
-
-	revocable_put(rev);
-	...
-}
-
-static int hps_i2c_probe(struct i2c_client *client)
-{
-	...
-
-	hps->rev = revocable_alloc(hps);
-	...
-}
-
-static void hps_i2c_remove(struct i2c_client *client)
-{
-	...
-
-	revocable_revoke(hps->rev);
-
-	while (atomic_dec_if_positive(&hps->open_count) >= 0)
-		pm_runtime_put_noidle(&client->dev);
-
-	...
-	revocable_put(hps->rev);
-}
-
-[1] https://lore.kernel.org/all/20261102161710.24076-1-tzungbi@kernel.org
