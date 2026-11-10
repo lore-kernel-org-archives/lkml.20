@@ -1,62 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271343;
-	b=r4iNhpp4M7k09gLSqb7BLcQTca+tlbn/APXrSXynjBSVS0fH7M9F8VQW8bN/qvEWWoQP
-	 iUWYSXlLfi8nNlX+uYjtq6mdoEFIxj99i5FHwXMGX5sKM/ZR/PZSPj0y9RetSfQgtX84f
-	 CAXyLHNZUavL+oaI9T2RQKZIMQstb05ahGsmIw+gE9CMZMbqckFb+5Vk1Oqkebo2+fOZq
-	 yz7gvN6/+7gXG/Cys03wkR/wdWnmEAPjFHp7N/5kKOT3LYZSis9dvhAvNtmCEI7ucSj5c
-	 5kXqiEE1eSNk/b8JlBGx+JEYrM+2NbGSrEiuI4woo2Ni0au1cqmlyCoBn+0LY1bqSPQ==
+	t=1794271351;
+	b=cHQV7nunvsiZ5xhjDUBZ0Skdc/0etFfbSydtb6iLSx5SO+oPZU4Ey+3fFd0oSVPcZQj4
+	 O36NVDtQdxX/BVuJabY37Q03vQNwkQtWxTVvKEzboseEH8eY0S3Xv4YOHDFfPpqF8S4eh
+	 qWk5m65+4gKxxladXSbByyJRZXjKMFo+QqHjcLYC86Zlj45KwQlAYyax2FRJWkJhxCHtP
+	 ZvK9OpVhouTrjzuMCKX3obZpLMjt+CI7EAfxxIZc/W6wBu5RMl0LENLAtkmY4SusbVsqW
+	 SVX3aVmanCxPxBFzn0GHzG1ejhx+UmxHx42Zo04ftR59W+e5EKL3iR3FhskL16gqdZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271343;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=nb8/3651PQi+wnO5xWDWcO+y3y5ytYQlH20uezfH+ZU=;
-	b=YtwJGBt+16uqRVP36wpc348ldCP5mACoXYNdr+XdZBwRHX58QyTH/TBRAiYO7LwzrDIo
-	 18Ka5khg7IAwcwmexCsDbl78oDp/jP/ZcVEVWsT7kaEe6Wxpuz56cI7/QA8/x5tZAjNih
-	 d8jXtYv6TBznSIiuLe1Bka2iHY9cl3EHbnQS/MnPOHs3Wdfjvw9rqBGm02aCrfFumFDFX
-	 Lp6rk4HjfNk49kGhJS4AsGIjsfqJx0ryUvoneeXh+xzFdG8db0YL+rFxU7GpFn+FMvBeT
-	 E4wNibs/WuGZIpxpnNj3AicWMJH2Rz+J+h8ELa2TCEmXVysYbqmETQaaBA9ABjDdWWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271351;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Z/eXsf9vSjR93eXN+i1Hpo7/DYsAaGqPIfyTBDNBpPw=;
+	b=446BjPrmcU+ErRypEIRVJX4E24RJW8iaObbiG/mPWkzVzM8jh2apb6DHoVcz+8odGwD3
+	 PudSwRa7oEA1Rnt0oXnBWm4uzeCB1OI1O1JLGcnhjuwFVQG+87rk339Cgm+1jzlU5Gfpd
+	 83gIlsU3khdmuq9QeaQJADbj0jPJQdJiARsZ0NzAUhV+jO0YM84cteLfZW6aqvbxH2McR
+	 bfY1XCYMm3KjMEUl/5NRDeI2A/TDOUwElaA0rwPshuAecB7HBIK+qmwfA+yCErn9TMAdv
+	 UEHNyftEbPAtwU+cvbr3+Sp1Iayffy7z5kFtjnLycqKE4DorvtUkhxCWlMRbqh4xxyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=XwPoyfaK;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=3atXviQY;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8835606A31C;
-	Tue, 10 Nov 2026 00:42:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8835606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4C0606A33C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4C0606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794271341;
-	bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
-	h=From:Date:Subject:To:Cc:From;
-	b=g46Ipwb0jR4wdsoxeI1/IuKY3ruRNQ6s2IslOn/OrWU8KUUBc9z3xcC/umjL4slnX
-	 nbh4NDNiOTFTpcSVeChDAzlqmXMKyRaVyUyv05jhhjkACerJ9mr5GFv+agnob7n1WZ
-	 uvIrb2oXUNtIe8odRRyap1Mdb9lQFd5HhhasoDv/CkbWubfYko5BxIr7H4WBh9Nq0T
-	 WGhWaAX9dPWlKqEK0LZdEzDIcbhLkDW6uJvNwjl3S+ss2FHwcfvZx5zGF6dC1FGe12
-	 d/iX24t3xZSaLA1gHv0zWYQa+heMuwOctMGJ1m9Cb3MElupRd7dF/gON9gIYSUwJNj
-	 r3tp3BYq3Pq0A==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F01B117E04E5;
-	Tue, 10 Nov 2026 01:42:20 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id B1B6148002C; Tue, 10 Nov 2026 01:42:20 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 10 Nov 2026 01:41:58 +0100
-Subject: [PATCH] spi: Fix runtime PM imbalance on pump transfer message
- error
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=XwPoyfaK;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=3atXviQY
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 68EFC1D000E2
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:24 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 19:42:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794271344;
+	 x=1794357744; bh=Z/eXsf9vSjR93eXN+i1Hpo7/DYsAaGqPIfyTBDNBpPw=; b=
+	XwPoyfaKLnhtg4pIKvX5r/BZfNlDVyKJgu4i3fMrFkIV9cEqd6YKH5qPMktUQV2K
+	Jt/4bhhFWTpz7RNtD5ZjZ7H3t81B0rfA6vRtghPeoZdoDL1r4Cm58yAqaL/lZy9W
+	ZZLKlzP8PDeMqVhoXlQE/iY6Ks+HKb829gE0iP82vdbpL4VrEfJcCuBwTBw/I9FJ
+	kUabuEUZWemBRfhCXgg+ZpkWhAb0p/KqC8lC5BLwcQjLslgvpmWNRC67lBbr9j24
+	P+cBUKDgU1EO8mD01jl3476K551CDq3xZufVVpAPLL4KhX09V0VUo4+SyLDSvooe
+	n+LLjcp+WqH5aZmi+TMsGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794271344; x=
+	1794357744; bh=Z/eXsf9vSjR93eXN+i1Hpo7/DYsAaGqPIfyTBDNBpPw=; b=3
+	atXviQYZMXLJPzLvGYWOeROnZzhXGlKagdScX8BsyduElVT46t3lwHyul6OlA/n+
+	35kgVBlxPpdeYy0MmtoZ7fq4AUscd4Lc99cubktsJ2IUCTXW8s8KpIG1N5TJx4a7
+	+REzLIZxVDbq2nUGwgZNYlQR+MQStb+puNGNYL2LpEfggvZSalNq+sm2BCxYgzJf
+	hJEwUp4K8rXoaXlsEd/KsnMtAnFyz6eNENTIquQiGHGeJeCOwz80ikIHd3wlgAxN
+	uTUSH/a/ojlQsQP3fE3gNuDrJJsYYKn7ODiWQK1P2nRlRnAYTzwr2UsFzF0km7Iz
+	yeHvnKnZ5De5IVQ9+XbHA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794271344; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Oi89BIREFPTil+Uhy8E8+oLDscEOkFuBiMxJga2INcn8naL
+	58S93omgUIvUcpZhoK1kJ0pfe7xRSREeCeWS6o5CacxF8o3OM/nesGskVw2KBE3c
+	RWxv80hi5U8k7ebFmzjYF97HZAnr0vyTu8y9ZJ0W7BLOarGVwckwFvSclOzpYREb
+	gs2H6lkbPtPUONVo1LaLcVniervQD+Csr7uSRcyr82sF0WB0ds2YXpOh5rsrs0pN
+	WBbOjCIo21qSNESE2fNyEh0qFID235ApYedoIAyPVXASWV8lrKeO+s4d/4IBTd4s
+	Lzq6BtW20q4w+gDl3Zx3gzNSy7Im39HbFnYgrQw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:a/FsXDRv4V0mUKO0tWe/ow7KXadpbcOoKS+tw/INjUs=:OX2t9AOPDiEHsqZSTUTisUlVzsKpGQHpV1UOGVQMmmw=;
+X-ME-Sender: <xms:b2jyarXluFms7wtdBTutFu8fEKbgeYVuYoUw6fkm_FbgprOaYCRO6A>
+    <xme:b2jyauY_headSLE8C58OMw4MWCvSseAQZ5uj8seIUMxanyS2c1Yfpfrnmj6xxJNLQ
+    jG7p9YkNXI2osd2eSq7nk4y8p1tw_PGwwos59HJcqxxQJxo9SqFmTqs>
+X-ME-Proxy-Cause: dmFkZTFaahMzYqQosVLa6sTsGzwZadc9J4KxF768hbw1u8zvYD6hMqQ+xV48vKTTljF1gh
+    3KRuEIkCxxRtyuXQls7diQf5Ai8iFPZpOm3U0eziP3rPYM+dBCETgorWTNjVob579xBCyd
+    8RN1+m3iJsgQ2q9mp/BfAjc0728oc2+t3YmjmBJHzpqy8EntIBZXIjl9Y4etvmZlk6wNvU
+    RwfqcT/Q/rV/+p+VLumKO7FLypUUy+ScjfHsVnqDNSjQ1MdVl/ERU/b52Ik907bid7PkbC
+    gtRt3uWVl8ZV0yL+D3gMvuTnodtfpGGg0pNd4ATyznilR5abv1draCh1U40dPxteyPIlgg
+    CWZHdV/Mocfn13LOcU6or4DD4sxzqfK2bR1GY4sp6Q7dTuMlhRF5lLPQiLWQYl86yZ45Wz
+    Q/y7M+4MJsEwRjmfCX/uFNFNVCSbGZo9EehBPS7SgWhQNK4FWVqay/uPIMpakzBN02TFeB
+    OuoeE4kQOpHg9Xo0D5Mlo7yNeGkwYiTQUbW1UFgpVCDk3/7bZQSbOAMfXaufhBZXLYZdh/
+    imlC8qVqFCrngypiPLcCPKKAu85iu0pbpc5M4wbQeVJy2zB0IklsQ+Q2/LN1o32tykaRik
+    SzcDuIXq+xHxz+JrgZpGkZ5jIOhCzX6AetyWuxmkktWhXTIyi+uhUYlyymZA
+X-ME-Proxy: <xmx:b2jyapiFOl2YXRW7tXjY-LTyI8Ay4F0kRSVFQgCSEvLVF5QTyPqu_A>
+    <xmx:b2jyakDpExcc7vqupFfv0RGWGH3CdpgOh_QrGphpZlhsiL8TNACQDw>
+    <xmx:b2jyaj45ytGzbzjZq14l0QLEIn90LcACGfOiyC1jQtbMBYCGmCZdNQ>
+    <xmx:b2jyahEkIk6TXDFIvI5BxKWZmmoQm1IwOYkmMRZpuhgF63NJ5WJcsw>
+    <xmx:cGjyakLXLz-pDAKxwHelPPG8ohCT5ekkWWvqYuxytpC1JGwK11NFzssL>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 239012C00085; Mon,  9 Nov 2026 19:42:23 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,97 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: A24yZ7_bmoKJ
+Date: Mon, 09 Nov 2026 19:42:01 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Rong Zhang" <i@rong.moe>, "Josh Triplett" <josh@joshtriplett.org>
+Cc: "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Message-Id: <f5fbe07d-4a63-44f9-8217-ee5e05408cb1@app.fastmail.com>
+In-Reply-To: <7d44c7e901c44558fc656440078cd869b06cc2a4.camel@rong.moe>
+References: 
+ <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+ <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
+ <au5nUp4extfupCpS@localhost>
+ <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+ <au-O9sHQNnHxla_e@localhost>
+ <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
+ <b2ca4d95-7b66-4a8a-8e47-84ab0e052bd1@app.fastmail.com>
+ <7d44c7e901c44558fc656440078cd869b06cc2a4.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDtgRlLUq4iLGqc6gjFkYimId
- ze2y+/B+w9QjsIKbXFA5I+obD7DPApw88tPjDJmA5X0NMaUqEEw7j7JyhhWfMsXLTUVWUfW1gT
- 5GCLn+Rft+r91HxZ26S7BeV7IM5zedgAAAA==
-X-Change-ID: 20261110-spi-runtime-pm-fix-529325c25582
-To: Mark Brown <broonie@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Mark Hasemeyer <markhas@chromium.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- kernel@collabora.com, Alexander Shiyan <eagle.alexander923@gmail.com>, 
- stable@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2294;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGryaGhpQIC8Xs2xQCf2WNxWILLEANG2wd/+H
- r6D1fb9Mj2nmokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq8mhoAAoJENju1/PI
- O/qaX14P/3c6UYpoe1cZY32PTKyEzxN4atoVcyQYaq99xgbTUKYYpP6JTNLg54d4ld2haBuxRfj
- o+qDsMYJ4gUWyQ4V2H0pIFq0GX3TEjZS+VRKGSJUGbwoazuuBJylvkTVmTlo3wH1zO7hdBaNF3A
- yW6lHSpKLN9YXXSwao9+pPoy3DjScR7AwviIdzeuv6If/Bts61DbiRe3/YiMgoGvsacqpcWzSKg
- bfhjyaTG7+k722HYMemRegBTfEGK6oWuh+zuG5T2/fkjle51SkVrtuNh2LNWPe/QUwSCOYYQ+IS
- ui05x0irNBtOKAeQ/UD2UWooaaRGGK3PHx5xATJLJkziEerOUk+FUfkcl3F7tKgdvfP2bFOmK5Q
- fY91hRBL+Fb0LGTPl0an8D6UZdUoXoPQk2Gi9Rl3AqoFWo3bLn6xipYTxcD9JlE0lGLcJ+Ugzoi
- 2mPEONJaj0pj7hYabsTHnSmkpx0jatPj5xeucNaz0XTHwAwyP8+6ksNQLGzA8YviYa3YmZ6l3i5
- cwRuPvsOSng6VlFwIz1qvuzzYoJa5n9NTiwHkbeXPXCGV5byHZ4h87IB50VwFvYRFhZP7TzBAZ6
- KHauBdXSwOLBV6AhY/0uruImRt59Wt5nPvD34CnH+w/Y6314OpxcCu+iIRyCdYXdI0LVO3saqXc
- 28Lkv86asTjXrLg60mQguCA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The current SPI message pumping code may drop the runtime PM twice when
-an SPI message cannot be sent:
 
-spi_master spi2: noqueue transfer failed
-rockchip-spi feb20000.spi: Runtime PM usage count underflow!
 
-Fix the problem by always keeping the runtime PM count increased when
-exiting __spi_pump_transfer_message(), as the caller handles decreasing
-it.
+On Mon, Nov 9, 2026, at 10:02 AM, Rong Zhang wrote:
+> Hi Josh,
+>
+> On Sat, 2026-11-07 at 13:42 -0800, Josh Triplett wrote:
+>> Rong Zhang wrote:
+>> > On Sat, 2026-11-07 at 12:49 -0800, Josh Triplett wrote:
+>> > > If that is the primary concern, would you accept a DMI-identity-based
+>> > > allowlist?
+>> > 
+>> > I don't think you need this if we take the module parameter approach.
+>> > Usually we don't want to introduce a infinitely-growing DMI quirk table
+>> > for some niche use cases.
+>> 
+>> The module parameter approach seems fine, as long as it doesn't taint the
+>> kernel to use.
+>
+> I will go ahead with the taintless module parameter approach as long as
+> Mark is not opposed to it.
+>
+Sorry for the slow reply.
 
-Note, that the function already keeps the RPM usage counter increased
-for the error paths following after the prepare_transfer_hardware step.
+I've had other users who have wanted to turn off that LED (and on a more personal note, it drives my wife nuts in a hotel room too...). So I think it's a nice to have, albeit minor, feature.
 
-Cc: stable@vger.kernel.org
-Fixes: bef4a48f4ef7 ("spi: Fix null dereference on suspend")
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-I noticed this with RK3588 system suspend/resume, which uses SPI based
-PMIC and runs into SPI transmission problems when the PM domain driver
-tries to disable regulators required by e.g. NPU or GPU domain. I've not
-yet checked too closely, but suspect Heiko's atomic SPI transmission
-support series might also help with fixing the actual failure.
+If I go and ask the FW team for their formal guidance it will be "don't do that". So module parameter works nicely here IMO. Go for it :)
 
-My patch is not really a v2, but Alexander Shiyan probably ran into the
-same issue before and came up with a way different patch and rationale:
-
-https://lore.kernel.org/linux-rockchip/20260806191854.922530-1-eagle.alexander923@gmail.com/
----
- drivers/spi/spi.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index ce257b3ec530..4d9c5d026ff6 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -1967,7 +1967,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
- 	if (!was_busy && ctlr->auto_runtime_pm) {
- 		ret = pm_runtime_get_sync(ctlr->dev.parent);
- 		if (ret < 0) {
--			pm_runtime_put_noidle(ctlr->dev.parent);
- 			dev_err(&ctlr->dev, "Failed to power device: %d\n",
- 				ret);
- 
-@@ -1988,9 +1987,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
- 				"failed to prepare transfer hardware: %d\n",
- 				ret);
- 
--			if (ctlr->auto_runtime_pm)
--				pm_runtime_put(ctlr->dev.parent);
--
- 			msg->status = ret;
- 			spi_finalize_current_message(ctlr);
- 
-
----
-base-commit: 059518f775baecc9803fc97787bd0b17558f8047
-change-id: 20261110-spi-runtime-pm-fix-529325c25582
-
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
+Mark
 
