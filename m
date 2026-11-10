@@ -1,97 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353780;
-	b=znKnJ31KFy8HG0+cdXsf60X85SQUBE5xnjsog+mMi0kz7KL4UVUHFDeUHrnSu2mPGbjt
-	 XsgCSzYRsIgzd2B4O5iF/xjhNT+b5Lm2E1/kQCj0ptSqWzRVo+CeqmjgBU8rV3t8Mzu4G
-	 wUrST2cIFWXAZBeTmxriR/AMWyEgtMxn6j1WzFa8SvIQGqopISb8X8PMzF1tla9vr958b
-	 +91EWjrZMZuB2GWlYc9Wk9WXuX2lmiiLpLpirnh17R2JO64k3182XZyxCcZyh5YazIuqp
-	 TiaGQ7u0ZyVVFnL97dwY95IGBQf55lxbZOszxPatLhx+JjebKuUJm+rqiZEAICFhi9w==
+	t=1794353838;
+	b=Nhljyw6/8qhb+Fxl6BHuuLkdojUEYBRgEYhVSqCOsDJhAV93KMYmmXuJeM4tiZaiKcg4
+	 3ctlgUnLoB1m70i+aUAr0aNEUcU2tIn9tH2rktyYFc6i/vSyliTiOPXjkvJSUXxI+eKAF
+	 9UATJyZo6fa3B12a/iC/xSFtqcvqlrfHrjvFebGH2qoY9CdhZ35CiLnFjxLNLKwmEjQGq
+	 cY1YF/j1nVZmD710yPiL1wJPoQaTkzzNEZBEmZ/o2qdFTO1bvYI9fnolM/t7lwoHicIPm
+	 3ElJydpNJ7xjGqpT69fkTOHPDSOpgpBqIp6IOLzcvaZpDSApJ5Q/Vf7SgdhL7RUf7mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DhyHXjqCuztb63PxZ1O7LhMFys3Q28OminyWGfw7Ef4=;
-	b=m1jg6b9Cm5mtQNKOrcHn5DioPiuwHoXNLv+B21E3V+9XQ1OcilTApVivZWsmKuB18xfP
-	 K6akLEPKb5LHmkJrOwCrPRrCcZ8xvwrgTua/y/W8MdofJTHpS+zXrwX/f/rezL92Un8J7
-	 uYpmrpdY7r5f/ca2tXsaI5YoDylAwlKit5k3wYGWSDek0nWauEYOq91uaB0zozLQE8RwN
-	 vIhy5wxM4S2lUawsldlFeL6whVDy4n+n0HxGY5vuLpSuxH2QRjQ9gu26wyGe+isF6d/LO
-	 B1foM0fCc5G77kSY5lDZlWyNOw/k2hCS+mjUqbT/Q85VMtrHW+iiyX1Xs3In0VM+m6Q==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+	b=vzOFVZT1DhAim5f9G4FmkJGZIOHY9sXub/MM1Sqz3s16mdb+W0Ho/ClDd0WL1meEYSnV
+	 M9LgxeINJUNg6LamsAs/Pl4S/NtLwcAnVl/XID90IrGpvnR4MOv204/8UKgJomrByxCoy
+	 aKUnaNMhRcQSgoliucBUTUiA4iLfpfTgMNZUgf0hQjGrVi5Y4ZIfyyqg/KPbGBL7BzZzk
+	 BixIg71JfLNYpuv2fXAJwIKSBPgb7gaIODd0IHb2N/Rn/GyyPHql1NWi5Y50bFp9D/AUB
+	 EnY02egedC94beyI/0O9L4Kjyrgb4elCeCY3OQuP5OmKIrLPFbHZqZibQQFs7/U+lNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bMBAb0vA;
-	arc=none smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AFB60A260A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AFB60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49574606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:37:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49574606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bMBAb0vA
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8871ada1a26so26119687b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:36:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-170135e43c7so337639c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:37:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794353779; x=1794958579; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DhyHXjqCuztb63PxZ1O7LhMFys3Q28OminyWGfw7Ef4=;
-        b=bMBAb0vAz941tkfnWeRA0uExGPe39wBJH6mluguoORT1xnehdUqqr6UWpfaiRH05Or
-         DXFHTO3NFeF6S/t8/daPx/d75OTSMqHcAFP89QeqSSh8WLtpURCyh/kU3HyoIVpiioG+
-         gk4fc7qV2HEjzCQ7TqjVNa4RS87dUZ8PGZvGDGr7bhWFuHwapQNLTpvct6xLp705UBA8
-         QcmVWLNMU38K8PSGCfx4OSedpJhxxFHB+tZlCSgNkhiNEfoEZe3BK4MI8CkDFd3J8I/Z
-         lylFWd0DTiEhWdLw+ahLNtzCQVKBJEGzNOnu1zHQenV35hlb60cEC4fvFx2XxlOtn9dI
-         B4zQ==
+        d=gmail.com; s=20260707; t=1794353837; x=1794958637; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+        b=U6zkm0r+Li0Gw+HszhANqyt3xoRZtlLyb5QfVwaorfokcRRa9+8SuufNx11mYAigdO
+         UI0ONO0j7dw9r3ouGdCazB9drEGI+AOKGYB2T+u82KQk/BDGn6HbAYh0+b7yF2QGgOQw
+         weK1SrNYANzm1DCaTZzA4Cov4dx3vRqGKH6t097njBU/WiyIN5oLKbPgwCgPcxmYxOZV
+         I0BvswsPSbj7BbUPaE4qnUFRi3GwXFUGgWYr102xEFEiSEjyqV06LGcvrpn9N9fq7q7r
+         qM2hIfcpgE2NW+VbDSKTCJwddFnHub4hDH04UOnjMM0oybYsAN9WWbBTMS4amhaucuph
+         SIKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794353779; x=1794958579;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DhyHXjqCuztb63PxZ1O7LhMFys3Q28OminyWGfw7Ef4=;
-        b=guWExx7zvl73p6FI7AbTriW++YANLALr0ag5nIzd7z+5dAYgb1/n77rEBXKzV9BPl7
-         nltWBhKXeR1rPHF5LmB/bQWL8IoxLg3ned6OqL6s/dU6607pu2h91EF5JM20atrkhwLo
-         UWxXzPx96s/fR8pmRdHEoroKBInojfdrdFw8mHdTZj5ZaEP1w2k8cdsmX2+UQZrtTuTo
-         /ajsKThsCS+DViYmDGMY+60m88su+kDC0diDdPd13f4WD7tWiVivFNF0/yipEBU8h6Go
-         OEI20tlTBlFvg3RF/p56+JuMQk3ioZSboCreyzUQB4Abkx3uU7sBJjBT+Cqaxq3lezkg
-         fU5w==
-X-Forwarded-Encrypted: i=1; AL+hErGHRfw//0cN357r6T1Kam6pkXhRGfc3s3Z2ipG1O3b1YJpUz/YJizQvXd6G/QQWDl2rOsDrYt7TgJbtk3k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9U7k0DPiUYBzGUDTRsA7l7MTrwQo+MWdcu/ArUs4cay35zsPSX
-	CH6Vf2X1MiK56A4fPIHDAXJ//mAIXgI7XPZXUtB4zYHdWgN/YPMUG/PgILgHRcLem6Q=
-X-Gm-Gg: AYBFou1XzgFaBiF82AguEkFnX+HYLR1OI4dH5M3+Md/tg9oYEKatbXtXn/jgNOeYKee
-	W1vrynab6xg1dd19n1EvYEMH8F3dg8pTobwxVpx0rwUh3RY9ZjjL5Cw3BkvBOUdlzrtNhHZLMLF
-	Rb4xRTxOz60l6h4z5euLIKeIydes+n6ByCAUdLRx9bUD7L72f57ZEBWcaOduq2LdKbI1UD0b91G
-	S9kTsv5lWVggDu9OZO3+idd3hczvGXUvQdflSaor/HMQyT5asZGJQMmDcgIJhkO+h58Z4hEBmO4
-	XSIkbWxqq4uo/tSyK6Sxi4bWaaREiNegsFn8HaIL0KaClpXAktH3BvUfmYlVorNIvguNNXefFVJ
-	EyI51r/iTF+cRhEz4UaQw2CTFusdafJqBm6fE+zw0b09/m5gyWvHsWR33AlLD6769Jh0F9lUOal
-	Ou2WmVjfE8DtuhHCdZoufJYT/dy5WOog/mJ8qXLrT2G/BydsQLpGxIc62FBaHloVKC/MT2wZMF2
-	YUNWj7HrERoiNbXemiNzuwbKrkjR07lK3BfigqmntwJ64eFQM8z3deBA7l7bl6QZU7dWrwjd5Bm
-	zuVAYk9rA+btl8Moj+rmXJkBW+ioEV/Lppox881xosjmaWV5qjPkDVYriJH8HorwNJFnZIcRTsr
-	03BfSPv1yVqNImSoH1ku4nC25gD5frn8w0DdD4F2XTuzclWihK9D01dKppayVfoQHdJjW1Eg=
-X-Received: by 2002:a05:690c:e14f:b0:8b3:3a68:f3af with SMTP id 00721157ae682-8b3a805e8c7mr3541447b3.23.1794353778972;
-        Tue, 10 Nov 2026 15:36:18 -0800 (PST)
-Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:1541:987e:e160:f038])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933d1047sm31652577b3.19.2026.11.10.15.36.17
+        d=1e100.net; s=20260707; t=1794353837; x=1794958637;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+        b=b5qoAFBkeuOre1SQpOyP2TPrzKnD5ifGdB/CxyM7784zL8AULYwDyMwmpepGefpp64
+         I/FleVAsG46Zc61TW6lLzZVRrOpFYClyWYFVksEI9O0JzNKGeKUAc0w/KjfNSdpRUsqv
+         YzjLvW33onoDog65PaHR0L6e3G4BSL7pBMkwvlsyYbcWiyC6DmnwbeKzS78ivgiV84Mr
+         clPE0T5puN5Lzeor+8MUhuBAGPfylhbNA675QELYWlljK5/alLzcDxTIvEqnJDstbx+B
+         6IePzr28CUfk5cKpcHvP4/ZuU4TrQvX0a2Vh/ulfVk+RVykyYzdFjqEQvduDfyDYRgtf
+         xzwQ==
+X-Forwarded-Encrypted: i=1; AL+hErHf8/sJYCKRW34BZ9Qns419zDz0jSKdGjIQIpKPJ/px7cIFej/B2iZKuliw6Oyyqzfe0KWKEEF+M1ny26U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96jdyGGRpybMwzMowasjipLM2Zvtp0pgkT+RgnIumVoC0c9Xhm
+	V0s+vIVA7Gxz5NcNGP2zGXrt59fs4Lrebfd+Gw181Mhjq+AjHjAqJmtX
+X-Gm-Gg: AYBFou2Vi8QHMnYhCk5G1ynXshUooEyk6VZXzhX9zf686cOdaf9/1tXtWR+IDt/8wKC
+	m7bppBm0634PIAxXu3Y+eybpPA+Lji4PCXsPvXx+0+WYQVogz1PUahPyGqvi0NM17OUPQrn5Fl6
+	I4bF0s8Yi4P2nmSdisWeLxIIeHpq/DsA0eM8FY4JDa0FPEPxHw6Gv3ktS7wiJxzJXP0BOyGRxg2
+	ceEToEYNFjt+qJPP6Lv2aNus3IJSCusS9Bazhp9cv+IxZVFXIproApxKOCl+3b897Gg0PeC45iD
+	WReCzljFog1hPu1D+vF5/ZkhwZPgkBp/+i0rtsH3tRaDjaQ2q4Unc/BV07m+irHYSn1y0jKkFYJ
+	YL9vFk6yvaEnVxFjBOsweKGVTU739RJp4c25ppKWXCuSuf54jAwXEhtaTtptCr5v3CixFMlBhOw
+	tJviXY9Dc9bmWpWA5ck7OIEXJvxKnZESsX2e6NqT9DszlnPNBIfGKqPRXTiiDzx1FJaP8zVfQMl
+	A+6n/raRuCphILvGz89TPx6nPYuap2HUFwXrkNPtpr90+U0tqiWDBzaham/D9g3aRrNF8we8uC6
+	8ZjLkK4TysbvdVq2nvIl2R0E9JrQCwNs5YwywT3BvFN4IvPLAcBVVSSlNfNroc2WV/c=
+X-Received: by 2002:a05:7022:2608:b0:18d:96e8:b913 with SMTP id a92af1059eb24-1b3c036707cmr794553c88.47.1794353837204;
+        Tue, 10 Nov 2026 15:37:17 -0800 (PST)
+Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm11981419c88.7.2026.11.10.15.37.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:36:18 -0800 (PST)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
+        Tue, 10 Nov 2026 15:37:16 -0800 (PST)
+From: Praneeth Balasubramanian <praneethb2002@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 2/2] hfs: release preallocated blocks in hfs_file_truncate()
-Date: Tue, 10 Nov 2026 15:36:09 -0800
-Message-ID: <20261110233609.561557-3-slava@dubeyko.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110233609.561557-1-slava@dubeyko.com>
-References: <20261110233609.561557-1-slava@dubeyko.com>
+	Praneeth Balasubramanian <praneeth@ucsb.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: hdpvr: Hold io_mutex when restarting streaming after a timeout
+Date: Tue, 10 Nov 2026 15:37:08 -0800
+Message-Id: <20261110233708.318348-1-praneethb2002@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +99,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfs_get_block() extends a fork through hfs_extend_file(),
-which allocates whole clumps. Also, hfs_inode_read_fork()
-initializes alloc_blocks from the on-disk physical EOF,
-while i_size and phys_size are set to the logical EOF.
-As a result, alloc_blocks can be ahead of the number of
-blocks really needed to hold i_size, even when phys_size
-matches i_size.
+From: Praneeth Balasubramanian <praneeth@ucsb.edu>
 
-hfs_file_truncate() returns early whenever i_size equals
-phys_size, before it compares the required block count with
-alloc_blocks. So, for example, a file whose size is aligned
-on the block size keeps its clump preallocation after the
-last close. Moreover, hfs_cat_delete() does not free the data
-fork and relies on hfs_delete_inode() truncating the file to
-zero size. If a file has zero logical size but allocated
-blocks, the early return skips the truncation, and its blocks
-remain marked as used in the volume bitmap after the file has
-been deleted.
+hdpvr_start_streaming() expects dev->io_mutex to be held by the caller,
+as its comment says. Every caller takes it except the restart in the
+read timeout path of hdpvr_read(). Commit 6bc5a4a19275 ("media: hdpvr:
+fix locking and a missing msleep") added the lock around the
+hdpvr_stop_streaming() call there, but not around the restart.
 
-Compute the required block count first and return early only
-when neither the size nor the allocation needs to be trimmed.
-This keeps the intent of the original early return of not
-dirtying an unchanged inode. The existing logic further down
-already handles the case of blk_cnt being equal to alloc_blocks.
+The restart checks dev->status before its USB control transfers, which
+can take seconds, and sets STATUS_STREAMING afterwards. In that time
+another thread can start and then stop streaming with
+VIDIOC_ENCODER_CMD. hdpvr_stop_streaming() sets STATUS_SHUTTING_DOWN,
+drops io_mutex and waits in flush_work() for the worker to exit. The
+restart then sets STATUS_STREAMING and schedules the worker again. The
+worker does not exit, so flush_work() can wait forever.
 
-Fixes: f76d28d235cf ("[PATCH] hfs: don't dirty unchanged inode")
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Take io_mutex around the restart, like the other callers. A restart
+that races with a stop then sees STATUS_SHUTTING_DOWN and returns
+-EAGAIN.
+
+The missing lock was found with an LLM-based tool that checks callers
+against the locking rules stated in kernel comments.
+
+Fixes: a503ff812430 ("[media] hdpvr: fix interrupted recording")
+Cc: stable@vger.kernel.org
+Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
 ---
- fs/hfs/extent.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-index 26357086517f..42231618f3f1 100644
---- a/fs/hfs/extent.c
-+++ b/fs/hfs/extent.c
-@@ -507,11 +507,20 @@ void hfs_file_truncate(struct inode *inode)
- 		if (res)
- 			inode->i_size = HFS_I(inode)->phys_size;
- 		return;
--	} else if (inode->i_size == HFS_I(inode)->phys_size)
--		return;
-+	}
-+
- 	size = inode->i_size + HFS_SB(sb)->alloc_blksz - 1;
- 	blk_cnt = size / HFS_SB(sb)->alloc_blksz;
- 	alloc_cnt = HFS_I(inode)->alloc_blocks;
-+
-+	/*
-+	 * hfs_extend_file() allocates whole clumps, so alloc_blocks can
-+	 * be ahead of phys_size even when phys_size matches i_size. Return
-+	 * early only if neither the size nor the allocation needs trimming.
-+	 */
-+	if (inode->i_size == HFS_I(inode)->phys_size && blk_cnt == alloc_cnt)
-+		return;
-+
- 	if (blk_cnt == alloc_cnt)
- 		goto out;
- 
+Notes:
+    Changes in v2:
+    - Add Cc: stable, as the media CI requires.
+    - Resent so that the author matches the Signed-off-by. Gmail rewrote
+      the From: header of v1. No code change.
+    
+    This was found by an LLM-based static analysis (GPT-5.6) that checks
+    kernel code against the rules stated in its comments, as part of research
+    at UCSB SecLab. The patch and changelog were drafted with Claude Opus 5.5.
+    I reviewed the patch and take responsibility for it.
+    
+    Testing: builds without new warnings with W=1 (x86_64). Not
+    runtime-tested, since I do not have an HD-PVR. The hang is from reading
+    the code, not from a reproduction.
+    
+    The patch applies to mainline 9ba46df34488 and to next-20261109.
+
+ drivers/media/usb/hdpvr/hdpvr-video.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
+index 4290b2367fa3..b7afcebe80e6 100644
+--- a/drivers/media/usb/hdpvr/hdpvr-video.c
++++ b/drivers/media/usb/hdpvr/hdpvr-video.c
+@@ -475,7 +475,9 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+ 				 * streaming.
+ 				 */
+ 				msleep(4000);
++				mutex_lock(&dev->io_mutex);
+ 				err = hdpvr_start_streaming(dev);
++				mutex_unlock(&dev->io_mutex);
+ 				if (err) {
+ 					ret = err;
+ 					goto err;
 -- 
-2.43.0
+2.25.1
 
