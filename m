@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794304007;
-	b=F2twGkf/ksYh+/E0Oe8xQWcLosZaXCs1HKIUq3Y8i8dfihiL7Yd6z1GOcWoDkzr66yEq
-	 YexeFZDmo6n+IF9fyq2bbtUAdXuXiwnK1PB1cOtXsjuekYpx3eIsGGId6yaVAHAZYAj5x
-	 U0nyrOC6jRVGoszYlao2vnXTXvl2YORIhLNf4gk4WYUAMMfdpDPny+kuy+2ZUgWBKhrnb
-	 GD5AKCGeFem+fwhReyBjIn+srnO6jVnIoaNspEIQjct8Xbq2WeOQCaBp/x6zap6/AvGiL
-	 zaVuKxO68G7d9txvwFDwiN+VsVfk5nOlpUk+WMgSt8ouuEd7hWikcYh9aqCnEsrAlCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304007;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zn9X6t2hm0nmjSfiVd/uA5f4elR7HuJ7qx60s+VK2HI=;
-	b=lF61x/edd7btO8p5uu4+4xgJjsPEqvs0oymQtEmciBJmxQW/AhLEgVaVs75D3h6vWU74
-	 JCRBzjYw8AK6BlopYig6bG0nZh5JTTruhjjULKYUYpJTeC7H36HV8PqWglXdjppxl+N7l
-	 x4IMOWY7NMyQ2TtCSiWgCEaITDvj+cGMTe3L4RADpECIJe+SMuJrCdDLpkasMnLodphtJ
-	 OGC7TRTUClsfkNZV9wVf1gBjTVHEuK8B5Qlu02QDCj9Cq50xY/mlbKc66Yv9+m3ODa+T5
-	 4R8cVSDU4VmWI/GttmcL+AcprSzcA01pGwZh/jzAKMM/5M2r0UG5dkylYEePPoJNimQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="eBd/xl87";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.58
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013058.outbound.protection.outlook.com [40.107.159.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794304020;
+	b=niRI0rUP8a6Lkk8+H+AYo8xDuwgQOZp28S5W3R0xzeLI3Q9JOca7T54jg+68dv9RXo1n
+	 FcOx0U3VUrSwtO2WvwI1PzSKrx+aGFQTFGQyel3AWIoXdGtK0XOfeY4e2SooyhmCZVX79
+	 6HT+6blOpIoojZ6PAjsewcaMY8gWAjzGpwYGOUgCSDOi5O9C9jSkdDJkP+P2VFu8kfcLf
+	 /iF5/11blOJERZDQvkFVWZH/Hf8Hki2+kHMfFMbt9ZmAaDTDBdbVB7XHaok2bCbZkyZVz
+	 uFSS630d52u0xBpdk1/DD/F0fg0Y4UHoxfT4Kga8a7XeeMRQoEtkSDPu+XiAPd5HTVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304020;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=aoB/ud1rCkNWKtjDq+VsUym9kzyPrwlWjt3OYzerKLE=;
+	b=BS7B0RibwXA1wolwpAPbHC+zBePxVv/JSTiI68PZh9y/GNiZvFsXeVKiZQ8VmKNTDl8L
+	 pA2qlAypYqkzjG4sV/DB/ikICJJ3SquC5CWSJtenuUfcUOynT24iwlyLg0DLGWwjx7VwT
+	 uKJDgrMgEvhskc2JjCwTgxPXWPa1aqJSq5ZpkLO5dUV6PXUHU2NUQH/MrNPDcGZA2qKk/
+	 tfIoLqGKuuf1AqWhG2tkdpyb6DSwvBAD7tY+vT9QzvFnz9YUPM90IL67RGtHpI/hhvdSY
+	 P391i5sz80GOJu9hMnNL9jajnG78I6YKiUGmuQwPj5BPAvYrJpbEbkCUli3oJFVnQTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKuoDPqw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB711606A31C;
-	Tue, 10 Nov 2026 09:46:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB711606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567CC606A913;
+	Tue, 10 Nov 2026 09:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=eBd/xl87
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U46sB6HKDhdGnrlN7/kB2ULWPrZCKIm6YML429CHk3h11pN7SvUHqYUxdXJJhARL8XnVV21hUV27F875y2v8nMoDqHPpoxGIGDUfTv6FCIKhtbPg9tROaYcVgyNaegfV8h+hRXhZwUIKm9phcImYxIwbvJ5f+WALDeBFzKuAQ/M4KqnuUa5VVbTqb7JP+OUZ5iuANgMr6dwGx+fgLhqM2ZYEiEaQUzclvwJ4K6REAR/1UsDXp+1aHK++LsK4dppWlHP4/jvlVArRqjgRap6Wf1ziuJIgjGYF56aZzbtK0phpKptOBN8IBh89U+4hvw6/9pc0lqekcRincpiDcSKN1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zn9X6t2hm0nmjSfiVd/uA5f4elR7HuJ7qx60s+VK2HI=;
- b=W70wGMk57IL/HcAPeHkhw/eYQXH59U1hOa00ApmEstAnzsvSqMI47DFc3RyqWvfLXSN3JrwHZt5NOudenGI7m27nSuQqJsKZ6qmQVcyewBjZIaYZnlEeYvsI2JjtGcFrUkk2N2+cxCm2EG1/Ijr+da5ylyxlT9Keeh0TmMDWLTNAozcExAI7HvRFUThmVDHx3icLaB0jyQJ+gswI1ZQWpIMfjvkky1MEwu9C5p6EI2b6hQwYesB96u6govBNHmGP2Li1F+89PDG+e00XbNgsSCnGOtFZRTT6G8Ni1VNjUriLwRz6ND4REDcu/Iv/6NNo0fB+qGVOiakglxXBqncbQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=pm.me smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zn9X6t2hm0nmjSfiVd/uA5f4elR7HuJ7qx60s+VK2HI=;
- b=eBd/xl87W1ZDXVsc8dxBBzCBRLRdtPHZXHG7HM7F3WJP9O6HlB3euLtOzGXWulNKVRZw5R38tLtEJZQX7LwXcIJQf75EcEaMNwZAV/2TP0N7xr+L6Tq5B7ycQ+7d6DVnB4SEA/MC1W8p9XNkYQv7PQzshXW8bI4lbRTvbRjpHeLYumqe/ZzqRtbrGVv67Se5ZRvwhq5tGoo4lPdI2S2n4WanEN/H5uFXaRXDLSzLrIt+1U+wyfnTsbc/bbWM3iUtyiHShtnwFwGVGTXJVpMrnz3+a8RM1Mb7BmjH7wZ1Sl+nN3DXhuCCYVYJvg7xStYTBBzVKSA0s2fgVt2r+aAQig==
-Received: from DUZPR01CA0315.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4ba::6) by PAWPR10MB6781.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:102:335::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 09:46:39 +0000
-Received: from MAD0EPF000008B6.eurprd04.prod.outlook.com
- (2603:10a6:10:4ba:cafe::3f) by DUZPR01CA0315.outlook.office365.com
- (2603:10a6:10:4ba::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Tue,
- 10 Nov 2026 09:46:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MAD0EPF000008B6.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 09:46:38 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 10:47:35 +0100
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 10 Nov
- 2026 10:46:37 +0100
-Message-ID: <3750472c-5a49-48f6-a8bf-0bae45e4c01b@foss.st.com>
-Date: Tue, 10 Nov 2026 10:46:57 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKuoDPqw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1621F0089F;
+	Tue, 10 Nov 2026 09:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794304019;
+	bh=aoB/ud1rCkNWKtjDq+VsUym9kzyPrwlWjt3OYzerKLE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eKuoDPqwUNtLOcO4pT9tEKkROIwU+mBPy7zeFUKNQfnurukysWljFND6UsY6ek5yB
+	 3E5nMDs4OWYolmlvRiFQ4PzOsQrxXUBzfB/mAkyZdrmlmrwo3xUSrYuOe+iu8+Vb4F
+	 fWxmmTc0/L0yaGr3La4sXLpETJYe3Unh/2FkdGqPbfynqUDrk2sA54uSk23MDzcZ7n
+	 tNCOm3vZvHkYSojK2N4drI+d4Yc5fbaIm65xBWlq6jwdqJjy7uJlJhBm+YcK+KcOYO
+	 YHN14jfiHOHhy/6DBoeGSs5/m5Tz+9vF+KJT2V96rDWDR1lo1w1FMP3HA2gyUpS00G
+	 GO75tfnBY9HBg==
+Subject: Re: [PATCH v1] sctp: fix race between addr_wq timer handler and
+ backlog draining
+From: netdev-bot+sashiko@kernel.org
+To: 18983559317@163.com
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 09:46:58 +0000
+Message-ID: <179430401881.994134.13883222094263261072@kernel.org>
+In-Reply-To: <20261106091938.112942-1-18983559317@163.com>
+References: <20261106091938.112942-1-18983559317@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,107 +64,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor
- driver
-To: Sergey Lebedev <lsa.uz@pm.me>, Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede
-	<hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall
-	<pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao
-	<hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D.
- Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
- <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain>
- <20261109124610.85065-1-lsa.uz@pm.me> <avHDwGAe99WYaty9@kekkonen.localdomain>
- <20261109132746.22125-1-lsa.uz@pm.me>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20261109132746.22125-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008B6:EE_|PAWPR10MB6781:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e39ff05-01bd-4421-8dfb-08df3f0f8460
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|376014|23010399003|18002099003|22082099003|10067099003|56012099006|4143699003|11063799006|261009223027099003|261026140227099003|261028144727099003|261102123227099003|261022115727099003|261022105027099003|261021121427099003|261021135927099003|261022075727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	2bX3oZ1AKxiK2dW/IIpqVDmF70TWToPxEEHN0QFvJV3Mr2qsmdNOqVCy/km01WRtYSvGLm7Zm+dY8+QSgREov0IojGkYVWpyeKm1kA6O7yB7jQ64/ISsg4GZyyS7CDkTAl2uhPC5mR7zGdo5Q/2ERuequmSQ2Fyx+Qr63PbEcM6VajhaH3m6Oou2Bb2OuSevDY7ociV1wiozhHmANI1+cRwc8q7PEKcvSwzzkcdZKAkWRLg5BNZJqIkahuJZfS+b1VP4rtUz9vd3yx/COSMCRgkB74/NNyJSA8Uw2EZi8RH6JiDXdvFu1rh5XucBjWII65BoCnisHWQeuDEivS2D4drGuC49Ga9yx4hagFTBra6OY2YXWgicLi8xnyMXUUbOj8pcELS3HaLovXMFyaqgUY2CNOA+pqTxGYYcP7YYgoH1FCBRLoOxokvMO2Ri01djoGLRTTeGpZPJHHJviqFi0O89V9p3DF8x7bWZg6An285CuYeFK3KvykMXJlqbSW+w/JNJNrH93sEthHwqDqovbXRgw5YjaJcBPsw7+ViZsaI0M/MnZfoE3L+Yy60McSvvdyUjNaRZxG37rU7qe8nG5YjoV71soCGU79j1rX4OB+UEZHR1QaA9ZO+03Cz37vqr4SFiSDtkq6ZVfTM75xvUvdsLwA1B8PRh7xHZkcXnpmv+St1Wyn/h7HQ1fUFem8th0q0K9YdzwQKmKEU17NMFqQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003)(11063799006)(261009223027099003)(261026140227099003)(261028144727099003)(261102123227099003)(261022115727099003)(261022105027099003)(261021121427099003)(261021135927099003)(261022075727099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vTdOeMXfx0/Y4pRf6m63tcwYoAO5F9vo4Hv45Xfk9HbwcCmUtqkD65AtjGDmZY1fGNhervxAcGh/DjdwQYnIQSoqSjLLlWXbg72BtDHMY/37ySIIPawAaw/P4qqS2e3nPeplEkg0dzTrr/WuC7izISLpq+RHnMDtN26zH1ZWQv+rNHA85KGNBiJ01ylIy4OA6xcUTXNv8dcZHm0ec5j6Mn/h5Z82n8MwpFAUQWGbOnVttqf7HSAOcAFb8EBevz3y113HU0uX5jh+/jOzCgsBFDjXmUUp1F6Iu7AysYuVAQSnIgV79sWHNyz/67mhuf09f3YvjmNerZMG1n25xbxNmRpRkmww9X8KCEIJqp4eFab/ACX4cz1LYlg8L4jSyRL/vCH3kPNtIIDPAXvyCQQwhRXOLjQ+FovTmdfXL2FemsP/Tac/WoJP8RMh5xlCeWUz
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:46:38.6761
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e39ff05-01bd-4421-8dfb-08df3f0f8460
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008B6.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR10MB6781
 
-Hi Sergey,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Le 09/11/2026 à 14:27, Sergey Lebedev a écrit :
-> Hi Sakari,
-> 
-> On Mon, Nov 09, 2026 at 02:59:44PM +0200, Sakari Ailus wrote:
->>>>> +static const s64 vd55g0_ev_bias_menu[] = {
->>>>> +	-3000, -2500, -2000, -1500, -1000, -500,
->>>>> +	    0,
->>>>> +	  500,  1000,  1500,  2000,  2500, 3000,
->>>>
->>>> Is this
->>>
->>> The sentence seems to have been cut off here. What did you mean? The
->>> table is vd55g1's, in the control's 0.001 EV units.
->>
->> Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
-> 
-> No, it is the driver's. The firmware has both a target and a
-> compensation register (UM2829, 14.7.3, Table 39 [1]):
-> 
->   AE_COMPENSATION       VALUE  15:0  SFP 8.8  Compensation in EV
->   AE_TARGET_PERCENTAGE  VALUE  15:0  UI       Percentage relative to saturation
-> 
-> where "100 means saturated image". The driver writes the target from
-> this table, 27 * 2^EV, as vd55g1 does:
-> 
-> 	static const unsigned int index2exposure_target[] = {
-> 		3, 5, 7, 10, 14, 19, 27, 38, 54, 76, 108, 153, 216,
-> 	};
-> 
-> So +2.5 and +3 EV ask for 153 and 216, above saturation; I have not
-> tested what the AE does there.
-> 
-> v4 keeps vd55g1's table, unless you or Benjamin prefer the compensation
-> register.
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
 
-From a user perspective they are mostly interchangeable. vd55g1 uses
-AE_TARGET_PERCENTAGE while vd56g3 uses AE_COMPENSATION for instance.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The downstream driver uses AE_TARGET_PERCENTAGE and that's why you have
-it here. It would make more sense to use AE_COMPENSATION semantic wise,
-but this is not a deal breaker.
+- [High] The deferral is netns-wide rather than per socket.
+- [Medium] The new early return in sctp_addr_wq_timeout_handler()
+  (net/sctp/protocol.c:648-655) can leave an addr_waitq entry half-…
+- [Medium] Each 500 ms retry runs sctp_asconf_mgmt() again on every
+  socket ahead of the owned one.
 
-> 
-> [1] https://www.st.com/resource/en/user_manual/um2829-how-to-integrate-and-configure-the-vd55g0-device-from-a-hardware-and-software-perspective-stmicroelectronics.pdf
-> 
-> Sergey
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it sits on the
+  exact path the patch claims to make safe.
+
+--
+
+sctp: fix race between addr_wq timer handler and backlog draining
+
+This patch adds a sock_owned_by_user() check to
+sctp_addr_wq_timeout_handler(). When an auto-asconf socket is owned by a
+user context, the handler drops both locks and leaves the current
+addr_waitq entry queued. It then re-arms addr_wq_timer to retry after
+SCTP_ADDRESS_TICK_DELAY.
+
+> diff --git a/net/sctp/protocol.c b/net/sctp/protocol.c
+> index 27c26e12f95d8..7528a40a87f57 100644
+> --- a/net/sctp/protocol.c
+> +++ b/net/sctp/protocol.c
+> @@ -645,6 +645,14 @@ static void sctp_addr_wq_timeout_handler(struct timer_list *t)
+>  			if (!sctp_is_ep_boundall(sk))
+>  				continue;
+>  			bh_lock_sock(sk);
+> +			if (sock_owned_by_user(sk)) {
+> +				bh_unlock_sock(sk);
+> +				spin_unlock_bh(&net->sctp.addr_wq_lock);
+> +				/* Try again later. */
+> +				mod_timer(&net->sctp.addr_wq_timer,
+> +					jiffies + msecs_to_jiffies(SCTP_ADDRESS_TICK_DELAY));
+> +				return;
+> +			}
+
+[Severity: High]
+Can a single owned socket stall auto-ASCONF for the whole network
+namespace?
+
+When any socket on net->sctp.auto_asconf_splist is owned, the handler
+stops the whole walk. It skips the current addrw, every later addr_waitq
+entry, and every socket after the owned one. It then re-arms every
+SCTP_ADDRESS_TICK_DELAY with no retry limit.
+
+An unprivileged user can add a socket to that list. All it needs is an
+INADDR_ANY bind, and there is no capability check:
+
+net/sctp/socket.c:sctp_setsockopt_auto_asconf() {
+    ...
+	if (!sctp_is_ep_boundall(sk) && *val)
+		return -EINVAL;
+    ...
+	} else if (*val && !sp->do_auto_asconf) {
+		list_add_tail(&sp->auto_asconf_list,
+		    &sock_net(sk)->sctp.auto_asconf_splist);
+    ...
+}
+
+That user can keep sk_lock.owned set most of the time. Two ways are
+threads looping on getsockopt/setsockopt calls that take lock_sock(), or
+a recvmsg() copy that faults on a FUSE-backed page. Every retry then hits
+the owned socket and addr_waitq never drains. No other user's
+associations in the netns get ASCONF ADD/DEL for renumbering or
+RTM_DELADDR events.
+
+Even without an attacker, would a server with many busy auto-asconf
+sockets reliably find all of them unowned during one pass?
+
+The commit message says this defers "like the other entries do".
+sctp_rcv() and the association timers defer per socket or per
+association, though, and don't block unrelated sockets.
+
+Could the owned socket be skipped instead, with its pending work handled
+later from release_cb or the backlog?
+
+[Severity: Medium]
+Can this early return leave an addr_waitq entry half-applied?
+
+Every socket ahead of the owned one in auto_asconf_splist has already run
+sctp_asconf_mgmt() for addrw. The entry stays queued, and nothing records
+which sockets were handled.
+
+sctp_addr_wq_mgmt() assumes a queued entry hasn't been applied to any
+socket yet. When the opposite event for the same address arrives, it
+frees the queued entry and returns without queuing the new one:
+
+net/sctp/protocol.c:sctp_addr_wq_mgmt() {
+    ...
+	addrw = sctp_addr_wq_lookup(net, addr);
+	if (addrw) {
+		if (addrw->state != cmd) {
+			...
+			list_del(&addrw->list);
+			kfree(addrw);
+		}
+		spin_unlock_bh(&net->sctp.addr_wq_lock);
+		return;
+	}
+    ...
+}
+
+Take a DEL followed by a NEW for address X, which is the DHCP flapping
+case described in that function's comment. The earlier sockets'
+associations have already sent ASCONF-DEL for X and will drop it, or set
+asconf_addr_del_pending if X was their last address. Meanwhile X is back
+on the host.
+
+With a NEW followed by a DEL, the earlier associations keep an address
+that has been removed, and the peer was told it is valid. Those sockets
+never get the reverse ASCONF.
+
+Before this patch, each entry was applied to every socket inside one
+addr_wq_lock critical section and then freed. The IPv6 DAD break fires
+before any socket has seen the entry. So this state could not happen
+before.
+
+[Severity: Medium]
+The commit message says:
+
+  "Sockets processed earlier for the same address event will see a
+  duplicate ASCONF on retry; the peer reports that in an ASCONF-ACK
+  error indication, which the association tolerates."
+
+Is this accurate for both event types?
+
+For ADD, sctp_send_asconf_add_ip() skips associations that already have
+the address, so no duplicate is sent:
+
+			if (sctp_assoc_lookup_laddr(asoc, addr))
+				break;
+
+For DEL, the first pass only marks the address SCTP_ADDR_DEL in the
+association's bind list until the ASCONF-ACK arrives.
+sctp_bind_addr_match() checks laddr->valid but not laddr->state. So this
+check in sctp_send_asconf_del_ip() still matches and doesn't skip the
+association:
+
+			if (!sctp_assoc_lookup_laddr(asoc, laddr))
+				break;
+
+Each 500ms retry then builds another DEL chunk per association through
+sctp_make_asconf_update_ip(). sctp_send_asconf() queues it with no limit
+while an ASCONF is outstanding:
+
+	if (asoc->addip_last_asconf) {
+		list_add_tail(&chunk->list, &asoc->addip_chunk_list);
+		goto out;
+	}
+
+Suppose a later socket is kept owned as described above. Suppose also
+that the peer answers heartbeats, which reset overall_error_count, but
+never ACKs the ASCONF, so sctp_sf_t4_timer_expire() never reaches
+max_retrans.
+
+Can addip_chunk_list then grow without bound until the association is
+torn down?
+
+>  			if (sctp_asconf_mgmt(sp, addrw) < 0)
+>  				pr_debug("%s: sctp_asconf_mgmt failed\n", __func__);
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch, but it
+sits on the path this patch is trying to make safe. Does
+sctp_asconf_mgmt() reach a GFP_KERNEL allocation from softirq context
+here?
+
+sctp_addr_wq_timeout_handler() is a timer_list callback. It holds
+addr_wq_lock and the socket spinlock across this call. The primitive
+that sends the ASCONF hard-codes GFP_KERNEL:
+
+net/sctp/primitive.c:DECLARE_PRIMITIVE() {
+    ...
+	error = sctp_do_sm(net, event_type, subtype, state, ep, asoc,	\
+			   arg, GFP_KERNEL); \
+    ...
+}
+
+That gfp is passed down unchanged:
+
+sctp_asconf_mgmt()
+  sctp_send_asconf_add_ip() / sctp_send_asconf_del_ip()
+    sctp_send_asconf()
+      sctp_primitive_ASCONF()
+        sctp_do_sm(..., GFP_KERNEL)
+          sctp_side_effects()
+            sctp_cmd_interpreter()
+              sctp_outq_uncork(&asoc->outqueue, gfp)
+                sctp_outq_flush()
+                  sctp_packet_transmit(packet, ctx->gfp)
+                    alloc_skb(..., gfp)
+
+With CONFIG_DEBUG_ATOMIC_SLEEP, this should warn about sleeping in an
+invalid context each time an auto-ASCONF is sent while no ASCONF is
+outstanding. Under memory pressure, direct reclaim could also schedule
+while these spinlocks are held.
+
+>  			bh_unlock_sock(sk);
 
 -- 
-Regards,
-Benjamin
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106091938.112942-1-18983559317%40163.com
