@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336886;
-	b=CxqFGglpP3SCOF7EOJg+1b8gwemtnPCoLhd3mbpLNuBwZrhpc54cg0lhS0ZiQJt/Ez3v
-	 m5oDamwqH6u7mn2OVD4KTz7JMQM0u3RUsPTn6Hi1WPTaKR8tlih/fYvLHRo8io9tIvLWB
-	 RLQ8p7X0S6JvqRF9bkYEmbFVJYpvf4maieHkNtdWgN/TknXlIgxf6yvnM4XWVnNNmzI0e
-	 IlQkx4uT5Ufbx3CbWbvRDsBd0GHI82pg0/GhHxZxv7PpZMHXzF3MmtTsN7kJv7c/kZTd3
-	 pgpmiBCZO3hEBBtdevTq+E3ZxunJx5JSl8zBaeJ8w7WFJNjTtpEVbsPkeDre9fykk/A==
+	t=1794336946;
+	b=5lP1IAdk5+fMFA/zXbrRSZ6MOS+bVQMY6HAN/2EsTf3UQ9ODUavcQ8gUzEus+sljRmze
+	 ZVymUEXUnMkdBPOro7XQLS2cqdOBHmlPuv5GKPUurd58txZYQocsyi+HXIpSp2/sP5kAz
+	 /XQQLMGZf2wwYgkolrMVtOFP+Hc8TEQtNMd/BEHvXjIGKc7GY0k7ueL/bH7VXSvcR4Evx
+	 hyjtrirfvsYnIbUnTcVGHFRcv1uMT1kCen58i1H06xb47OkNQunPD0I14tDgJVQ/Lwsrr
+	 T8bSBZrwSqBBc5BYK8k/Th+ENB/gxlqKEMnQtM2wsnUF1Thr2bPv9xZRt26NGgWhHnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336886;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=52NDmUlT/C1NnGu+Dq/AZOz+hWzBvu1Wfp+thafpfXc=;
-	b=KonVf6Oug8VMZb5gQj6mvinOahoZNxssTUcl/4gNYS7/QSu8e+7iiwwe4vEDU4j4Cyzu
-	 dzcEyjmwEuxkCDfi5dhT0uYmJYNxC5ladK4bYDa8pnfAJ2qzvwlfXrryVGODEWxFWY3SM
-	 Sa06VGqOgDbpUEGuP1a4ZK5YUeuHDqi2uULCiN9DUQGmeSJowvb1I413iUJ13WFslK2rA
-	 zeNA0M4ZCvbqOVM8u5uTQVXHwWvTjR0Ky+mwaK/MopDyqQgF/7LiFFaqPnXIAl/sRvH4z
-	 HzZgiTMfb1aKoqIVMCmqMr2yYo60hd4I7e7j14wvY/ckaf4z2Vgg6Rs3tKDdG6c4Mgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336946;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=IzfYoPQXoRB3qOZZvQLmzwqUCwQZzYFyjEAkUcvztHE=;
+	b=MPf3dps3w+W1yhV9C4P9SHjBA5kIC5qqa6v2FCPNqBQJrJYmMZ3klGL8cmud+pyuxwOj
+	 R3MmhivR6J0MwOSKFU52+cwfzJ9moO0defe5sGcJa9iNygR+uSJuVpCbRtGcCQ05F8eXZ
+	 kbQQSxzOrcWHt9yh7OXOmt1LJV7te5pYfh44aJSYKX4zS/vsNv/u+uoLzlCMrwxHzx11g
+	 CrN1t9sjs5MZI/XYkHwAh2UPICuR5OHc/uIm0lrj9te5jTPmK2VtpyWoh90osEnVvDJpo
+	 vjIBm9lLoct+8i6ZTk9BlHuirfGNoJwQ1bNJqb9w7nHW1IWmVnrIVGAzDnQQsOl+qEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOn77Q1Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=JIbPtDR1;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E13F60A2602
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:54:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B1B606A326;
+	Tue, 10 Nov 2026 18:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOn77Q1Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E47E1F008BE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336886;
-	bh=52NDmUlT/C1NnGu+Dq/AZOz+hWzBvu1Wfp+thafpfXc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LOn77Q1Q4FdQNPQHTCyBLDRVJc2OVxlu3IQSi3abYY96Yq71PSG7F/TEVoy/NyWzb
-	 6ZZ8JMgypJzK/cI+aPJQtG8QxRq27xYLoUexcHQhssamVujEko5pL2j8l9Xk5r1UDF
-	 fg6EMW/hpUVwdlWj7P/7r/PpqnxM7CCUEq2B3KCS3fXmKrU0AeKB0kcNol6YvVtkWD
-	 EFe51t8kzprPyw9dxOkb+SBmRlpAFlmtMn1G2VVZLzW8IioMKG9Lg58zzRg3ECHbNw
-	 U2ea60g7BU9XProPMSBPhJSPrIB34HlnYgmh7yz/2ywg+yhLuIaLkQP2PocVVzj3fq
-	 vxNvvUWxQIgJg==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3aae7df0971so26498451fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:54:46 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHUdNofdfYEPuu1zfdHszJg8WW2yHhJs9JZUDpdp5Td8hU0d4J3wLCK6KgEcyezXHyQDDtmTTgm35JxI1k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vhOfEprpqhXELPZkgZkZXszHgtiBInJhldz+nf4xkvLP4Zuir
-	b7MxnCKGMN2Gjl0GegNIYqYDwAAn6d10SG76g4VWuk0QC4pP+KrQUjET68fs4DisXYa9A4m2zc+
-	HQZ45T+1Ckp5OzZ8eTrFnyLgAa51H6ms=
-X-Received: by 2002:a05:651c:1606:b0:3ac:4da3:864f with SMTP id
- 38308e7fff4ca-3ae0961bddcmr8184521fa.4.1794336884424; Tue, 10 Nov 2026
- 10:54:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=JIbPtDR1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=IzfYoPQXoRB3qOZZvQLmzwqUCwQZzYFyjEAkUcvztHE=;
+	t=1794336945; x=1795546545; b=JIbPtDR1L2obaS6rr5bxvBpgsYDuHUvx99TyX6dcQqobyEk
+	lHhxT/RUxfgnXURTOyCFGkEMfsOD3ckUXdtICd/7W0Q53EUa03O6NgkBU21OXsPdvYX9JPer/b5d7
+	bXfvIZTgUlH0bVBgIrohKpMZMAExH37E6/cGU3avRpnvQ17ma3hZZC+Lvi8XFJMOmrJXrrKJU09pA
+	TARTKCnBDSo3pman+K7JeJD4Pmwkq8sHMomlrCCMMlZAsg4JmDZcgU+NGYvDZ62CdVGMfjfegjPTB
+	ieTF7wdNyXyga3gcv2/hk5KSQRVYsjxrhbkQje35ajXuqtdsQwH+gNodAPcOXtXQ==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xQr0Q-00000002BEf-0Zi5;
+	Tue, 10 Nov 2026 19:55:42 +0100
+Message-ID: <7e6a6640fe034af160eec0dda532259b499153ad.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 09/21] wifi: nl80211/cfg80211: add
+ support for SMD context programming
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 19:55:41 +0100
+In-Reply-To: <20261106-smd-v4-9-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-9-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,96 +69,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110135814.621355-1-zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261110135814.621355-1-zhongqiu.han@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 19:54:32 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hHLdd0X-r7HG24TrALGccHNZ37JUyeu=rHg9-6YAR7gQ@mail.gmail.com>
-X-Gm-Features: AclHuK9AWEuL5vf0QrXIUa41RCa4KBaWPSXD-wUP0068_a0rEgmBvhB9KueRF5I
-Message-ID: <CAJZ5v0hHLdd0X-r7HG24TrALGccHNZ37JUyeu=rHg9-6YAR7gQ@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: Skip inactive policies in cpufreq_driver_target()
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, andrew-sh.cheng@mediatek.com, 
-	rex-bc.chen@mediatek.com, jia-wei.chang@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-malware-bazaar: not-scanned
 
-On Tue, Nov 10, 2026 at 2:58=E2=80=AFPM Zhongqiu Han
-<zhongqiu.han@oss.qualcomm.com> wrote:
->
-> A policy obtained with cpufreq_cpu_get() may become inactive before
-> cpufreq_driver_target() acquires its rwsem, which may lead to a NULL
-> pointer dereference:
->
->   CPU X                      CPU Y (last CPU in policy)
->   cpufreq_cpu_get()
->                              cpufreq_offline()
->                                __cpufreq_offline()
->                                  ->exit()  /* frees freq_table */
->                                  policy->freq_table =3D NULL
->   cpufreq_driver_target()
->     __cpufreq_driver_target()
->       __target_index()
->         policy->freq_table[index]  /* NULL dereference */
->
-> Before commit 2372784542cb ("cpufreq: Drop 'freq_table' argument of
-> __target_index()"), __cpufreq_driver_target() returned an error if
-> policy->freq_table was NULL. Since the offline path clears it under the
-> policy rwsem, which cpufreq_driver_target() also holds, that check was
-> sufficient to prevent the crash.
->
-> The race has been reachable in-tree since commit c210063b40ac
-> ("cpufreq: mediatek: Add opp notification support"), which added the
-> first caller of cpufreq_driver_target() that can run concurrently with
-> CPU offline.
->
-> Address this by making cpufreq_driver_target() return -EBUSY if the
-> policy is inactive after acquiring its rwsem, in analogy with the checks
-> in cpufreq_get(), refresh_frequency_limits() and the sysfs show() and
-> store() callbacks.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261104153042.3987338-1-zhongqiu.=
-han%40oss.qualcomm.com
-> Fixes: 2372784542cb ("cpufreq: Drop 'freq_table' argument of __target_ind=
-ex()")
-> Fixes: c210063b40ac ("cpufreq: mediatek: Add opp notification support")
-> Cc: stable@vger.kernel.org # v5.19+
-> Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> ---
-> Fix the issue discussed at:
-> https://lore.kernel.org/all/a4b320d9-ade6-4f39-9e9a-e9a82b13152e@oss.qual=
-comm.com/
->
->  drivers/cpufreq/cpufreq.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 54dde8419bdc..352ee4a1f085 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2403,6 +2403,14 @@ int cpufreq_driver_target(struct cpufreq_policy *p=
-olicy,
->  {
->         guard(cpufreq_policy_write)(policy);
->
-> +       /*
-> +        * The last CPU in the policy may have gone offline after the cal=
-ler
-> +        * obtained it, in which case the policy is inactive and must not=
- be
-> +        * used for changing the frequency.
-> +        */
-> +       if (unlikely(policy_is_inactive(policy)))
-> +               return -EBUSY;
+On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
+>=20
+> +static int
+> +nl80211_parse_smd_ctx_ba_params(struct nlattr *tb,
+> +				struct ieee80211_smd_ctx_ba *ba_tids)
+> +{
+> +	struct nlattr *ba_tb[NL80211_SMD_CTX_BA_ATTR_MAX + 1];
+> +	struct ieee80211_smd_ctx_ba *ba;
+> +	struct nlattr *ba_attr;
+> +	int n_tids =3D 0;
+> +	int rem, tid;
 > +
->         return __cpufreq_driver_target(policy, target_freq, relation);
->  }
->  EXPORT_SYMBOL_GPL(cpufreq_driver_target);
-> --
+> +	nla_for_each_nested(ba_attr, tb, rem) {
+> +		tid =3D nla_type(ba_attr) - 1;
+> +		if (tid < 0 || tid >=3D IEEE80211_SMD_CTX_NUM_TIDS)
+> +			return -EINVAL;
+> +
+> +		if (nla_parse_nested(ba_tb, NL80211_SMD_CTX_BA_ATTR_MAX,
+> +				     ba_attr, nl80211_smd_ctx_ba_policy,
+> +				     NULL))
 
-Applied as 7.4-rc material, thanks!
+if you set up the policies correctly (and you should, but I didn't go
+back to check now) then you don't need the policy here
+
+> +		ba->amsdu_supported =3D
+> +			!!ba_tb[NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT];
+
+it's not super useful to use !! to assign to a bool, and if you wanted
+to be fancy you'd use nla_flag(), right? ;)
+
+> +		if (nla_parse_nested(dl_tb, NL80211_SMD_CTX_DL_ATTR_MAX,
+> +				     tb[NL80211_SMD_CTX_ATTR_DL],
+> +				     nl80211_smd_ctx_dl_policy, NULL)) {
+
+same here, and then it kind of cannot fail, I think
+
+> +			nla_for_each_nested(sn_attr,
+> +					    dl_tb[NL80211_SMD_CTX_DL_ATTR_SN],
+> +					    rem) {
+> +				tid =3D nla_type(sn_attr) - 1;
+> +				if (tid < 0 ||
+> +				    tid >=3D IEEE80211_SMD_CTX_NUM_TIDS) {
+> +					GENL_SET_ERR_MSG(info,
+> +							 "invalid DL SN tid");
+> +					goto err_free_ctx;
+> +				}
+> +
+> +				if (nla_len(sn_attr) !=3D sizeof(u16)) {
+> +					GENL_SET_ERR_MSG(info,
+> +							 "invalid DL SN len");
+> +					goto err_free_ctx;
+> +				}
+
+You've got to be _kidding_ me, why do I even have to get see such
+obviously redundant code?
+
+Please read your own code.
+
+johannes
