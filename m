@@ -1,99 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.7
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794291904;
-	b=LvwqBpuTR6sK2CtKoG+8VL7QxrDLDJ59DvfSzPZVOYHEA9X9/a4t++RTpPXhoJXYHIQC
-	 wihGsyhBi4YfeJQL0/Qg0tFpljCxGLLMKeNl8zIkYzSrX0Z1HPtmn7zqELaX1B59K+z8d
-	 5CNzIDhpG537lpBQWj60eSBmD/IxfNOUKHrPBIrlO0XYebUhGTijhsF0f2KmY0SkRoHbw
-	 vCiuxx0cmgJF+6tWWGu/a5f6tVF1WgkJKXXOv/QCW9CIpOjj0HaVYTw3XeQpRZeYKntzw
-	 ZMe1iDs7/KtBjfVE7/FOnyknKVjKdczlmiJ9+cnLVTI5W/sUQb6MqV5uWJZ9lCL6/3Q==
+	t=1794291909;
+	b=DpIBw+xxq2WV1QLhMFC1lyKbWl7gaM/gSmOoFVWSEh85zNzHJ+cZRIsyQ1phCtkFE9bS
+	 ZSr3PwniFfQ+o6HGd/yKYrZPKxFtq0u7z7oOmv9oDKesYY03M7n5dj5yfE2KvjGwoeqVo
+	 J/KLk+VDQOUU4gUpDlyk2sW4GtsmyKzTKfgEub6I1DivNl/3CpZMgEd7hsphRFlNY08db
+	 NkjFq0xm3ghiGfikds0gQQYZQgd4iHuS1MFSCIcpu1NdGgFJt66aLksYGkmZQ2+2/VMmi
+	 dDGAquRp4X6EeTNbvPHVybFn3K/fESpzvyfrwmhXToRj3qcPNw2J6DlzbZnjUv7hqwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291904;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XoC54yuYYw/o5Lza+rAR34QKYs5KVP6XkPfVvPk+eVI=;
-	b=aYEGLrgnwVa0CGHRAwestofX2J4vPKywgVxGL6CTTa+DnJM7V25HJJcBCYz2NKATqLwQ
-	 z0QsKQex1KgTe7QTJyOMzgLMYJc85F9a2OOp4/aWV+8gd6cr4gzYefmipz3Ex4irNQ6++
-	 NK5weGX6eKP/HDPgBW6kZ6F9NAH6vyiNOXGNoTqQciJlj5xAmHAd8IeqFYAVabT3uIW/G
-	 s9jsC3boDfAGqRk+fqdx199LaYdHVoKGAOPtcu2Wd3dH2lIzDRNbeHavJCfxHQO8wIbQS
-	 etWpW7YtILvosGfdbkH3unjyjeqKDPs9JsGZQkLqU2u8virGF3/YerHtWsFfmB+7lHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291909;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qVa7im9JyNQecrk3rUYJg0fizwf9uJh68ADezBOAxBo=;
+	b=SWqRiLR2D/dFEg0uOwH7AvU2gUCmxVEbhHQSfiom9Ke21Db6PXVJXInIiA2jcTX4Qomu
+	 s74CPlBnUX37hev6/J2Y3l/yHMsn9Wf09VRIDGIBn7LraLNtEV3+/YSRCtWTAWN5CEwJo
+	 Y6FOufGOcGnJaUPURLY9R5W5bUvL+7FnIvWgaKPrn9A3tLl+96Y6I8qWXev8+2ItFW7gf
+	 TyHPWetUnF7rzsh7/901tVGJEktqv+gCwZsHkIq6QrN619Z5vChS4h4ij5I02U7EazKZB
+	 u0Nd2nURTY0HkIYCuBgKZDalKsVCe4iWLEixUWCsF7zzb9QDgswGMQQv0LlqtoFuvGA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OnZ5eLoM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.7
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kifDjBR8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBA3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDBA3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECBF606A31C;
+	Tue, 10 Nov 2026 06:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OnZ5eLoM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mKPi2gWbfI+dVxFIZeqeCSoXvq7SQ9oQRjrIhCjuFbyrudb1xScKKr+QhpYlh3MeYIo99v31Cgt0yrZzNwAOimPliUYvN8M6LtwOd/lgZuBVynughoxflRPnztjkKlQX08yuyluz6DGUsufuauSSEKBbuLB45y0sR3ER7lNRt3WEssm+r5KMplgEGfVCjN4SRVkCV9F7etaDDoPrdBKUU7f7JYtDY3pZdWSrFUkQobD/Qyl/NJ2w0mzSStgVntO1SVjbss8U99y5KEb4aAc8keF1nEaIOI1AyT7/WdnXROK+6L4IkHuKK21VKSn2FOUnllaQ0K3aLqijFV/chSCb2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XoC54yuYYw/o5Lza+rAR34QKYs5KVP6XkPfVvPk+eVI=;
- b=yvZw16jzBUuRor58m8B3DUq3zrDywTrHb1YXsYJ9+6/t90SBkhtCYdPZsK8TxReT3tvsHdpKG4IPDHV0qHe4lE1on4ovpr80xcipTc/7Usci70lo5t2QWRLciaUWAoSoKcQrjb4N7ofsV1lsoUo9GUbzX1caDiP2DgwTMVLxV3US+TADZurkWyoWRnyYpTt6OuKL1Ku0VBljh8VavnXsEIBCtM8LqYO0uoH1tL/7bPtLe4Kyi1+krV96Y+O56VZqcZIEzNO7vQQRjh7N6h15cnxQR0eIGgxp9FfGsNcUZSVsoT6llM81mxKKLXuZH3/N9/x17cGDNyCPpdqVvo/m/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XoC54yuYYw/o5Lza+rAR34QKYs5KVP6XkPfVvPk+eVI=;
- b=OnZ5eLoMLCC3aFAHeBB5gObJybUqqPyVInwlWgsYhx/KHBBwV+AyDyKCu4zZt/LrnS94pU9D+aqJioAh0BCLMjH2ekDT+8ROR6QEgX0u3VC5mkgCz4uTW69s6wVO46+NgbPoxjPY9kWSt7GUsm/p6X38MtlLpuqE3QwslBvXj+kn/GmW7UvzsMyp/rYxGqObI8GuiJxCoPqShhwgtsoL4FAI7LyBCcS7xNzwkydlUJq7kfdmhbCk+oX4x+epWdC7yibhOqa+YRt/Z0VyL7iF1IJoiwwkqXkXh/y7cdFfuKdMQyRwADCOKS0qXz1f8L0VjAEuT3npRnkqwM5PrnwIWg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by CH3PR12MB9172.namprd12.prod.outlook.com (2603:10b6:610:198::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 06:24:58 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 06:24:58 +0000
-Date: Tue, 10 Nov 2026 14:24:50 +0800
-From: Richard Cheng <icheng@nvidia.com>
-To: Fenghua Yu <fenghuay@nvidia.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>, 
-	Tony Luck <tony.luck@intel.com>, Ben Horgan <ben.horgan@arm.com>, 
-	James Morse <james.morse@arm.com>, Will Deacon <will@kernel.org>, Dave Martin <Dave.Martin@arm.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Shaopeng Tan <tan.shaopeng@fujitsu.com>, 
-	Chen Yu <yu.c.chen@intel.com>, Babu Moger <babu.moger@amd.com>, 
-	Drew Fustini <fustini@kernel.org>, Vikram Sethi <vsethi@nvidia.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 11/15] arm_mpam: resctrl: Add NUMA node notifier
- for domain online/offline
-Message-ID: <avK4Ca4skGNWXwoL@MWDK4CY14F>
-References: <20261109212427.1409204-1-fenghuay@nvidia.com>
- <20261109212427.1409204-12-fenghuay@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109212427.1409204-12-fenghuay@nvidia.com>
-X-ClientProxiedBy: JH0PR03CA0021.apcprd03.prod.outlook.com
- (2603:1096:990:74::7) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kifDjBR8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794291907;
+	b=UtUq8U+S225whiMCdxuz6b3ADzNz3FOxwu0klBb0YTPosu/0xw0X+YL8PBJu8npmMLfn
+	 9MFNCWaUoIR3wQJCzcO4+x0NezEIvi9hAR1CL3hvexC6gWavq0wxa8csZ0BJmalaQiMrP
+	 VZiVF2V+NdVfWTMJy+OWeYR/GZ5yZDJJvMFTBWWjL9e+h376vl4wO3oJb2caZ9M7JLbPn
+	 KHBy0evfsUmH0pZdAKtdN7qZO3mU3ybEDynjGXWXtJ7r2IxlH0W1BN6/dB7DLiA2bTdVO
+	 XcUTr0tIrXVLsEl30T+2rPePXF4CwKAR4ndlH6zLA10FFjR0CBE/Q0jIAPTkGct+GRA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794291907;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qVa7im9JyNQecrk3rUYJg0fizwf9uJh68ADezBOAxBo=;
+	b=UsHuU0pZ4d9mwGQ4vpg7KZVMij2Cm9ZA/GevlYeAD9DgXZswXf/wBBgTUK89n1wGHISY
+	 ONlrXAuYRD4rm7mbsilOL8ssy+OW1uOTwgxOtFGnCvT5XbSOVS3ey4MxH5HLYmCPkYOkx
+	 3AL71V6dAhPJdLWjQzraYz8+B6pfCcRXT+mr/wdZeCrnCZFpRENLOCqiEDgOVBODbVpgz
+	 9XhicHavf+ooDrk/sNyvBVj8Q324HY9CXmYD9bgNlQpMgYzoCCxjB9m18I/iWixkrxbHc
+	 afmiy5cHEeI4KRjLIvVb1d3T0q59WHp5tEu4Rv7wAoPHnOlza9PcTrMbciRewo9utUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 642571F008A1;
+	Tue, 10 Nov 2026 06:25:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794291907;
+	bh=qVa7im9JyNQecrk3rUYJg0fizwf9uJh68ADezBOAxBo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kifDjBR8lxEDTBqgYx4AFYPitH8iDRtPUujwcdyxlNCwsTd49L+Ms7pRoyFeFVbV4
+	 LaMgH8HViY25YM1ruyawnyWDbNbzicsw1Tv1L769Lpyq6Bf2siVpYlH4rgM27WUfDy
+	 JLv7erGZ8QtTGAGn2JMSDfbwVYwtd5kq6fyu/t47Cxq6ZQBMcnSrJO+IaUW9kuV9Kk
+	 v8gsEMTZGSJsrr8yClb9Zts2Q1Wp4oPEtgBkZSriQunITG3lX/+8/g64WybPqSKZ8G
+	 DhEMGX7ijbwu1HFFtuueLrm30roMfdh0p9k/cpiDJwx7bGOJ3T2ZKktH6/yk8I4x3a
+	 kYnMtIqcMkE1w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B4CF548906;
+	Tue, 10 Nov 2026 06:25:05 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 06:25:05 +0000
+Subject: [PATCH v2] crypto: sun8i-ce - Add AES-XTS for the H616
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,487 +82,488 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|CH3PR12MB9172:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c44d825-3531-4108-bc17-08df3ef357a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|4143699003|5023799004|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026121527099003|10067099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|261009223327099003|261009221227099003|261009221727099003|261009220027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	jJUr9lfyW7hWqUa6cG/j0MrJZLWjoabC05We/uWglkMfUOucRkiAKBwd7AesvT1t9YDqNEMTRM4q+MZ08g+9Byi6kWpsISWSJ98brz/qlmgkYpS3lWgg2VNkuFC0U5koldARbGBSqAf3JBHcaGnaEPqUtkigAMHtcxLErRG7b7ZKTHu8Os854KG9gnsXklt8InU+xbPVBVV//StAO39lyDfo6gCVn3jlelkgcTmY8tSxG+U6u+Qm+uLgL65jYq1NreHFjd5Ha8Zgpb5fW8nMZvTmRvPgRzzEPwAJk8GQrPjItcLlSX9E7e+QZ8VDgUXJH3E9xlfFj3cN5+tj+y1S5RPNRU1y3sPubF+lSN2+JoZdfZ80REw1R7dVK6MHSe/F4cMf8FVlECB68K8hT3cXuHEdUHtlk16uCf+WpVs8Bfc+xRh1xJH1+cY9zynZvq/msXQ9aQ7n7rVTV+QJxoUxr2oYK2mCCTmqItQgMTM+KRznaApcJaRHuo2TpnmwxR1lz0U6Hv2MQqAH84aJ1blzp8+UM2PPPyOii4MBPOVVhNCcJ7t06pqzC1B1n8BTnQuOdHHkDFGHIHCLeseOzJlD6YgFXSszT+I6jmKoSz/H7m9qayD4wxfsQIe3cSOIeY5AugXSXlsOo/HtisvFFyIFhXyLmkM1aRQvNgMk1ZgGkEI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(4143699003)(5023799004)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026121527099003)(10067099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009220027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NdBE+jT9FeiRLTBr8E1nqvP2yYbX1PJ/uN+smn6xAhhRD6FtnZej+7bhY0Ek?=
- =?us-ascii?Q?30prZbwfKePwMFgLSDu4C1wqHQnDrcW+BkJtsICEV/M4/af9bFcc8DcNFl4m?=
- =?us-ascii?Q?q3iMTvgRSKpCQO6qSwCTZJtbiijvx39p9V1rt7J8FCIjuEPQqdK419NhLa2Y?=
- =?us-ascii?Q?Nap1GGU0Gf4gWupCqFVDhLd/X26E1988JJsPZoudcqDytWpNGICY0FZGH+gj?=
- =?us-ascii?Q?1KB6EGi1tfACeZTtw3sm9swPJIRXtnAZyzlA4qHlYfbjEF8+WTyVeGH3T5w5?=
- =?us-ascii?Q?k28DCKhIhG6oEVduMsjn6lrnnrLA5ESLx15XQe9eyCvednnygAUKd+4a4Y1B?=
- =?us-ascii?Q?uhtC2RJ0ORXGkR6FX6nmS5efsPsPBPDpFmMr/4LNpuBPgfx5op7lmVQgQELr?=
- =?us-ascii?Q?FpDAzQeow1uhqrEbJlb7UQiQgZDJQsdabrCtjyhUDLfeKxdJQBRTOfCNHQih?=
- =?us-ascii?Q?fsBTAAejbWdKWbtkok9/F71sjpHOCsfDD/3tgONKmhqMqs0bGaOX17dHfECa?=
- =?us-ascii?Q?6BpOtjXl9n8mNxwhAQiv4ocbFd44RcdwZd/wLTRjYSoGiXx/24/UZg85xQVH?=
- =?us-ascii?Q?n+aloBL/l/M+Eq5VY4YjzMNUJFy3XTJr7WyoBWPAiJUwXs8y566UB5AL9Pa4?=
- =?us-ascii?Q?InQqoRmntcyDio0aNaIjbx0WR4mtwXOmHAlsAbYoIEDL8ADZ5RnDTEAXrrYL?=
- =?us-ascii?Q?EINhPEnKezIhTngkYmDoxaz1fcww/LUHNRFsGIxk1pVS5FSMW2H9BtGIoXrp?=
- =?us-ascii?Q?xiHNcMMZEcYGddI0sgCI/o+oUbxcPR4Dg5Q8zKpMs/SH91nXKK0IN63xaVtr?=
- =?us-ascii?Q?nlkwI0T1vQpc9B7O2gvaGOaeN+zuR9HG74A47HxSucVc6t9bmvCzOZCX+Wzh?=
- =?us-ascii?Q?NcOLiubU27DBZPs91FBhDlV8weyNDXo1wdJ3gTgWx+d8J8DoStkHKwY+RUXM?=
- =?us-ascii?Q?1RmIGO7Bd8a04oIEtIaUI9YWMszWaTbsPaiOPfP6uiy0xbgVUXHiQXryl1kP?=
- =?us-ascii?Q?Dh9BseVvDqGHGsgs6eOIuM9EZrZGv2ankfWWysDHwi9I05GMbdV5qB4VLvXf?=
- =?us-ascii?Q?J8SOrrEdD7jParJyPCTWVLJaKOQcD0xVqEEEX07snCNjzqehCK0ztnE6mtOv?=
- =?us-ascii?Q?SfuV38S6i6DhW12qmQnotGFQzCcGvSdd0Nj1IEfkKzUDdzf2hH/llZxXBJ5a?=
- =?us-ascii?Q?7ZeyX+qdClKEiV9jRy0PEq2imsGJ9OQLF5mvxGtJakJvifu0D9v+Auq0syWc?=
- =?us-ascii?Q?MZooyabqsp+/RsJD3x6i72aO5W+ID+7sVhKpuOeqbOzJ7eqNXhadBtIxCa/7?=
- =?us-ascii?Q?YDIe+6ehpFgwocwjCyEPPH16PwDG/CqOjSQ/ctpuLo+Qh1fFxgcrpVbZsseR?=
- =?us-ascii?Q?BLL+PhYzBjwm/STa/tkNemwTF37s9p+eW2EUQBnKjrmaOENq/zH4/muyjeRV?=
- =?us-ascii?Q?Q14oDBZRuhVGCxMjZ9TnPy2/7O9AyqlfaqQ+Vg5XKrTgchuD1sloHyh8KTfK?=
- =?us-ascii?Q?+I4eBIzwXBTW7iisrOgP8seLKj3NwigpQF81sx6suto/4ZnCxOIMLKrQlcXa?=
- =?us-ascii?Q?yI84r9zviVAqMMVlFsbw1UeDNlEdJe4VpR1G7Al7T+XwVTSpJG4M0oDHhKGg?=
- =?us-ascii?Q?+0TQzosO5pBmKQLRUCPVct4+UoNR+NxU3EwXdFiogimQzVOwfo5PfE5bgVCp?=
- =?us-ascii?Q?6GfFOqItRJO4/8M1G2SjGjUiOqB/SYXmmzOUpHMyOPxztEECghR11gnZKg4x?=
- =?us-ascii?Q?UirwyzYNpQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c44d825-3531-4108-bc17-08df3ef357a3
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 06:24:58.1871
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IgoCpWjSQhm1ZjdScEACgRyhAwBMXsfZak52uJP9JV+5jLkruVduiFPTfoEWI2kvFtBN6AnyKseLUxJT2oKGCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9172
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-sun8i-ce-h616-xts-v2-1-0b99efabc1d8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7Zi2xEJceQ/DgtYpjBEwnUIwh
+ LsLuHf5kvffX0AoMglcswUiTSw89BuYUwa+rfuGkB8bg1HGaq0VytiXjJ6wtdrinARLuhjncl+
+ 43MK2e0cKPB/Ne/VjGd2TfNpDu9GypCF+jtNJ796//qRRowkh5ORUqYr61nQ1v85+6KBa1/ULF
+ de5BcQAAAA=
+X-Change-ID: 20261110-sun8i-ce-h616-xts-8e52bb3c7b36
+To: Corentin Labbe <clabbe.montjoie@gmail.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794291905; l=17220;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=2nQWpNUcBW76Dz7uIz3wV2AA9flhPGO+JjUz//TRszY=;
+ b=7XtX2fH6fEJvY5KBEabHfZvwnq0+KzVN2CKQFw1SCd7uulfPPzJToEoPfzDQ9yAl4mSsCkghC
+ hOHrsMiL/EwBwy5f8GY2Y2Hs0WvlhNmTniDS6FuhhwJZmOcFOFc0pL1
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 01:24:23PM +0800, Fenghua Yu wrote:
-> From: James Morse <james.morse@arm.com>
-> 
-> To expose resctrl resources that contain CPU-less NUMA domains, resctrl
-> needs to be told when a CPU-less NUMA domain comes online. This can't
-> be done with the cpuhp callbacks.
-> 
-> Add a memory hotplug notifier, and use this to create and destroy
-> resctrl domains.
-> 
-> Signed-off-by: James Morse <james.morse@arm.com>
-> Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
-> ---
->  drivers/resctrl/mpam_resctrl.c | 321 ++++++++++++++++++++++++++++++++-
->  include/linux/memory.h         |   1 +
->  2 files changed, 315 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index ac0c488abe12..8a169676c4ac 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -11,6 +11,8 @@
->  #include <linux/limits.h>
->  #include <linux/list.h>
->  #include <linux/math.h>
-> +#include <linux/memory.h>
-> +#include <linux/node.h>
->  #include <linux/printk.h>
->  #include <linux/rculist.h>
->  #include <linux/resctrl.h>
-> @@ -1681,16 +1683,25 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
->  	mpam_reset_class_locked(res->class);
->  }
->  
-> +static void mpam_resctrl_domain_hdr_init_mask(const struct cpumask *cpus,
-> +					      int id_cpu,
-> +					      struct mpam_component *comp,
-> +					      enum resctrl_res_level rid,
-> +					      struct rdt_domain_hdr *hdr)
-> +{
-> +	INIT_LIST_HEAD(&hdr->list);
-> +	hdr->id = mpam_resctrl_pick_domain_id(id_cpu, comp);
-> +	hdr->rid = rid;
-> +	cpumask_copy(&hdr->cpu_mask, cpus);
-> +}
-> +
->  static void mpam_resctrl_domain_hdr_init(int cpu, struct mpam_component *comp,
->  					 enum resctrl_res_level rid,
->  					 struct rdt_domain_hdr *hdr)
->  {
->  	lockdep_assert_cpus_held();
->  
-> -	INIT_LIST_HEAD(&hdr->list);
-> -	hdr->id = mpam_resctrl_pick_domain_id(cpu, comp);
-> -	hdr->rid = rid;
-> -	cpumask_set_cpu(cpu, &hdr->cpu_mask);
-> +	mpam_resctrl_domain_hdr_init_mask(cpumask_of(cpu), cpu, comp, rid, hdr);
->  }
->  
->  static void mpam_resctrl_online_domain_hdr(unsigned int cpu,
-> @@ -1711,12 +1722,12 @@ static void mpam_resctrl_online_domain_hdr(unsigned int cpu,
->   * indicating the parent structure can be freed.
->   * If there are other CPUs in the domain, returns false.
->   */
-> -static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
-> -					    struct rdt_domain_hdr *hdr)
-> +static bool mpam_resctrl_offline_domain_hdr_mask(const struct cpumask *cpus,
-> +						 struct rdt_domain_hdr *hdr)
->  {
->  	lockdep_assert_held(&domain_list_lock);
->  
-> -	cpumask_clear_cpu(cpu, &hdr->cpu_mask);
-> +	cpumask_andnot(&hdr->cpu_mask, &hdr->cpu_mask, cpus);
->  	if (cpumask_empty(&hdr->cpu_mask)) {
->  		list_del_rcu(&hdr->list);
->  		synchronize_rcu();
-> @@ -1726,6 +1737,12 @@ static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
->  	return false;
->  }
->  
-> +static bool mpam_resctrl_offline_domain_hdr(unsigned int cpu,
-> +					    struct rdt_domain_hdr *hdr)
-> +{
-> +	return mpam_resctrl_offline_domain_hdr_mask(cpumask_of(cpu), hdr);
-> +}
-> +
->  static void mpam_resctrl_domain_insert(struct list_head *list,
->  				       struct rdt_domain_hdr *new)
->  {
-> @@ -1741,6 +1758,23 @@ static void mpam_resctrl_domain_insert(struct list_head *list,
->  	list_add_tail_rcu(&new->list, pos);
->  }
->  
-> +static struct mpam_component *find_component_nid(struct mpam_class *class, int nid)
-> +{
-> +	struct mpam_component *comp;
-> +
-> +	if (!class || class->type != MPAM_CLASS_MEMORY)
-> +		return NULL;
-> +
-> +	guard(srcu)(&mpam_srcu);
-> +	list_for_each_entry_srcu(comp, &class->components, class_list,
-> +				 srcu_read_lock_held(&mpam_srcu)) {
-> +		if (comp->comp_id == nid)
-> +			return comp;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->  static struct mpam_component *find_component(struct mpam_class *class, int cpu)
->  {
->  	struct mpam_component *comp;
-> @@ -1925,6 +1959,275 @@ mpam_resctrl_get_ctrl_domain_from_cpu(int cpu, struct mpam_resctrl_res *res,
->  	return NULL;
->  }
->  
-> +static bool mpam_mba_uses_memory_nid(void)
-> +{
-> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
-> +
-> +	return res->class && res->class->type == MPAM_CLASS_MEMORY;
-> +}
-> +
-> +static struct mpam_resctrl_dom *
-> +mpam_get_ctrl_domain_from_nid(int nid, struct mpam_resctrl_res *res,
-> +			      struct resctrl_ctrl *ctrl)
-> +{
-> +	struct mpam_resctrl_dom *dom;
-> +
-> +	list_for_each_entry(dom, &ctrl->domains, resctrl_ctrl_dom.hdr.list) {
-> +		if (!dom->ctrl_comp || !dom->ctrl_comp->class)
-> +			continue;
-> +		if (dom->ctrl_comp->class->type != MPAM_CLASS_MEMORY)
-> +			continue;
-> +		if (dom->ctrl_comp->comp_id == nid)
-> +			return dom;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static struct mpam_resctrl_dom *
-> +mpam_get_mon_domain_from_nid(int nid, struct mpam_resctrl_res *res)
-> +{
-> +	struct mpam_resctrl_dom *dom;
-> +	struct rdt_resource *r = &res->resctrl_res;
-> +
-> +	if (!r->mon_capable)
-> +		return NULL;
-> +
-> +	list_for_each_entry(dom, &r->mon_domains, resctrl_mon_dom.hdr.list) {
-> +		if (!dom->ctrl_comp || !dom->ctrl_comp->class)
-> +			continue;
-> +		if (dom->ctrl_comp->class->type != MPAM_CLASS_MEMORY)
-> +			continue;
-> +		if (dom->ctrl_comp->comp_id == nid)
-> +			return dom;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static struct mpam_resctrl_dom *
-> +mpam_resctrl_alloc_ctrl_domain_nid(int nid, struct mpam_resctrl_res *res,
-> +				   struct resctrl_ctrl *ctrl,
-> +				   struct mpam_component *comp)
-> +{
-> +	int err;
-> +	struct mpam_resctrl_dom *dom;
-> +	struct rdt_ctrl_domain *ctrl_d;
-> +	struct rdt_resource *r = &res->resctrl_res;
-> +	int id_cpu = cpumask_first(cpu_possible_mask);
-> +
-> +	if (id_cpu >= nr_cpu_ids)
-> +		id_cpu = 0;
-> +
-> +	lockdep_assert_held(&domain_list_lock);
-> +
-> +	if (!r->alloc_capable)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (WARN_ON_ONCE(!comp))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, nid);
-> +	if (!dom)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	dom->ctrl_comp = comp;
-> +
-> +	ctrl_d = &dom->resctrl_ctrl_dom;
-> +	mpam_resctrl_domain_hdr_init_mask(cpu_possible_mask, id_cpu, comp,
-> +					  r->rid, &ctrl_d->hdr);
-> +	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
-> +	err = resctrl_online_ctrl_domain(r, ctrl, ctrl_d);
-> +	if (err)
-> +		goto free_domain;
-> +
-> +	mpam_resctrl_domain_insert(&ctrl->domains, &ctrl_d->hdr);
-> +
-> +	return dom;
-> +
-> +free_domain:
-> +	kfree(dom);
-> +	return ERR_PTR(err);
-> +}
-> +
-> +static struct mpam_resctrl_dom *
-> +mpam_resctrl_alloc_mon_domain_nid(int nid, struct mpam_resctrl_res *res,
-> +				  struct mpam_component *comp)
-> +{
-> +	int err;
-> +	struct mpam_resctrl_dom *dom;
-> +	struct rdt_l3_mon_domain *mon_d;
-> +	struct rdt_resource *r = &res->resctrl_res;
-> +	struct mpam_component *any_mon_comp = NULL;
-> +	struct mpam_resctrl_mon *mon;
-> +	enum resctrl_event_id eventid;
-> +	int id_cpu = cpumask_first(cpu_possible_mask);
-> +
-> +	if (id_cpu >= nr_cpu_ids)
-> +		id_cpu = 0;
-> +
-> +	lockdep_assert_held(&domain_list_lock);
-> +
-> +	if (!r->mon_capable)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (WARN_ON_ONCE(!comp))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, nid);
-> +	if (!dom)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	dom->ctrl_comp = comp;
-> +
-> +	for_each_mpam_resctrl_mon(mon, eventid) {
-> +		struct mpam_component *mon_comp;
-> +
-> +		if (!mon->class)
-> +			continue;
-> +
-> +		mon_comp = find_component_nid(mon->class, nid);
-> +		dom->mon_comp[eventid] = mon_comp;
-> +		if (mon_comp)
-> +			any_mon_comp = mon_comp;
-> +	}
-> +	if (!any_mon_comp) {
-> +		err = -EFAULT;
-> +		goto free_domain;
-> +	}
-> +
-> +	mon_d = &dom->resctrl_mon_dom;
-> +	mpam_resctrl_domain_hdr_init_mask(cpu_possible_mask, id_cpu, any_mon_comp,
-> +					  r->rid, &mon_d->hdr);
-> +	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
-> +	err = resctrl_online_mon_domain(r, &mon_d->hdr);
-> +	if (err)
-> +		goto free_domain;
-> +
-> +	mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
-> +
-> +	return dom;
-> +
-> +free_domain:
-> +	kfree(dom);
-> +	return ERR_PTR(err);
-> +}
-> +
-> +static int mpam_resctrl_online_node(unsigned int nid)
-> +{
-> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
-> +	struct rdt_resource *r = &res->resctrl_res;
-> +	struct mpam_component *comp;
-> +	struct resctrl_ctrl *ctrl;
-> +	struct mpam_resctrl_dom *dom;
-> +
-> +	if (!res->class)
-> +		return 0;
-> +
-> +	comp = find_component_nid(res->class, nid);
-> +	if (!comp)
-> +		return 0;
-> +
-> +	guard(mutex)(&domain_list_lock);
-> +
-> +	if (r->alloc_capable) {
-> +		for_each_resource_ctrl(ctrl, r) {
-> +			dom = mpam_get_ctrl_domain_from_nid(nid, res, ctrl);
-> +			if (!dom) {
-> +				dom = mpam_resctrl_alloc_ctrl_domain_nid(nid, res,
-> +									 ctrl, comp);
-> +				if (IS_ERR(dom))
-> +					return PTR_ERR(dom);
-> +			}
-> +		}
-> +	}
-> +
-> +	if (r->mon_capable) {
-> +		dom = mpam_get_mon_domain_from_nid(nid, res);
-> +		if (!dom) {
-> +			dom = mpam_resctrl_alloc_mon_domain_nid(nid, res, comp);
-> +			if (IS_ERR(dom))
-> +				return PTR_ERR(dom);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mpam_resctrl_offline_node(unsigned int nid)
-> +{
-> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_MBA];
-> +	struct rdt_resource *r = &res->resctrl_res;
-> +	struct resctrl_ctrl *ctrl;
-> +	struct mpam_resctrl_dom *dom;
-> +	struct rdt_ctrl_domain *ctrl_d;
-> +	struct rdt_l3_mon_domain *mon_d;
-> +
-> +	if (!res->class)
-> +		return 0;
-> +
-> +	if (!find_component_nid(res->class, nid))
-> +		return 0;
-> +
-> +	guard(mutex)(&domain_list_lock);
-> +
-> +	if (r->alloc_capable) {
-> +		for_each_resource_ctrl(ctrl, r) {
-> +			dom = mpam_get_ctrl_domain_from_nid(nid, res, ctrl);
-> +			if (WARN_ON_ONCE(!dom))
-> +				continue;
-> +			ctrl_d = &dom->resctrl_ctrl_dom;
-> +			if (mpam_resctrl_offline_domain_hdr_mask(cpu_possible_mask,
-> +								 &ctrl_d->hdr)) {
-> +				resctrl_offline_ctrl_domain(r, ctrl, ctrl_d);
-> +				kfree(dom);
-> +			}
-> +		}
-> +	}
-> +
-> +	if (r->mon_capable) {
-> +		dom = mpam_get_mon_domain_from_nid(nid, res);
-> +		if (WARN_ON_ONCE(!dom))
-> +			return 0;
-> +		mon_d = &dom->resctrl_mon_dom;
-> +		if (mpam_resctrl_offline_domain_hdr_mask(cpu_possible_mask, &mon_d->hdr)) {
-> +			resctrl_offline_mon_domain(r, &mon_d->hdr);
-> +			kfree(dom);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Hi Fenghua,
+The H616 crypto engine has a separate RAES unit (algorithm type 0x30)
+that does AES-ECB, AES-CBC and AES-XTS. Its XTS mode (symmetric mode
+0b1001) takes the two keys back to back at the key address, the tweak
+at the IV address, and an xts_first/xts_last pair of flags that mark the
+first and the last block of a data unit. The key size field gives the
+size of one of the two keys: 128 or 256 bits, there is no 192-bit XTS.
 
-In this function you offline monitor domain then free the domain.
+Register xts(aes) for the H616: each request is one data unit, so both
+flags are set and the request IV is the tweak of its first block. XTS
+returns no IV, so the CBC write-back of the last block is skipped.
+Ciphertext stealing (lengths that are not a multiple of the block size)
+and two 192-bit keys go to the fallback, as do the requests that the
+existing checks already send there.
 
-NODE monitoring uses RDT_RESOURCE_MBA, but resctrl_offline_mon_domain()
-only cancles "mbm_over" for RDT_RESOURCE_L3. This can cause a use-after-free.
+The engine is much slower at XTS than the CPU's ARMv8 AES instructions:
+4 times slower for 64 KiB requests (213 against 861 MB/s), 8 times for
+4 KiB and 17 times for 512 bytes. Register it below every CPU
+implementation of xts(aes) (priority 90), so that the CPU stays the
+default, for dm-crypt too, and the engine is only used when it is
+asked for by driver name.
 
-Maybe we should add cancel_delayed_work_sync() for MBA monitoring domain
-before freeing them?
+The other variants get CE_ID_NOTSUPP for the new mode, so nothing
+changes for them.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+The H616 crypto engine can do AES-XTS in its separate RAES unit. This
+patch registers xts(aes) for the H616, below the CPU implementations
+because the engine is slower than the ARMv8 Crypto Extensions; it stays
+available by driver name (xts-aes-sun8i-ce) for users who want to
+offload the CPU.
+
+Testing on an Orange Pi Zero2 (H616), v7.3-based kernel with this
+patch (sun8i-ce is unchanged between v7.3 and cryptodev-2.6):
+- the boot-time self-test of xts-aes-sun8i-ce passes, and the testmgr
+  vectors run on the engine (debugfs request counters);
+- 21 known-answer vectors (IEEE 1619 and generated, including
+  ciphertext stealing lengths, which go to the fallback) pass, and 3000
+  random requests (10% with misaligned buffers) give the same result as
+  xts-aes-ce;
+- dm-crypt with capi:xts-aes-sun8i-ce-plain64, 512 and 4096-byte
+  sectors: 48 MiB written and read back with matching sha256, and the
+  raw sectors decrypt with xts-aes-ce; with this priority, xts(aes)
+  and plain aes-xts-plain64 resolve to the CPU's xts-aes-ce;
+- the existing ECB/CBC ciphers, hashes and the TRNG still match their
+  software implementations.
+Throughput, engine against xts-aes-ce: 20/352 MB/s for 512-byte
+requests, 98/759 MB/s for 4 KiB, 213/861 MB/s for 64 KiB.
+
+This patch was developed with Claude (Anthropic) as a
+coding assistant: it investigated the problem, wrote the code and
+the commit messages. I reviewed it, and it was tested on an
+Orange Pi Zero2 (H616) as described above.
+---
+Changes in v2:
+- Select CRYPTO_XTS: the xts(aes) transform allocates an xts(aes)
+  fallback in sun8i_ce_cipher_init(), which fails without it (found by
+  the Sashiko AI review).
+- Link to v1: https://patch.msgid.link/20261110-sun8i-ce-h616-xts-v1-1-2fff3eb0807a@gmail.com
+
+To: Corentin Labbe <clabbe.montjoie@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+To: "David S. Miller" <davem@davemloft.net>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+Cc: linux-crypto@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/crypto/allwinner/Kconfig                   |   1 +
+ .../crypto/allwinner/sun8i-ce/sun8i-ce-cipher.c    | 102 +++++++++++++++++----
+ drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c  |  44 +++++++--
+ drivers/crypto/allwinner/sun8i-ce/sun8i-ce.h       |  21 ++++-
+ 4 files changed, 142 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/crypto/allwinner/Kconfig b/drivers/crypto/allwinner/Kconfig
+index d86ae005fbe2..c07212ea2fba 100644
+--- a/drivers/crypto/allwinner/Kconfig
++++ b/drivers/crypto/allwinner/Kconfig
+@@ -39,6 +39,7 @@ config CRYPTO_DEV_SUN8I_CE
+ 	select CRYPTO_ENGINE
+ 	select CRYPTO_ECB
+ 	select CRYPTO_CBC
++	select CRYPTO_XTS
+ 	select CRYPTO_AES
+ 	select CRYPTO_DES
+ 	depends on CRYPTO_DEV_ALLWINNER
+diff --git a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-cipher.c b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-cipher.c
+index 021614b65e39..b87be3123b12 100644
+--- a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-cipher.c
++++ b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-cipher.c
+@@ -6,7 +6,7 @@
+  * Copyright (C) 2016-2019 Corentin LABBE <clabbe.montjoie@gmail.com>
+  *
+  * This file add support for AES cipher with 128,192,256 bits keysize in
+- * CBC and ECB mode.
++ * CBC and ECB mode, and for AES-XTS with 256 and 512 bits keysize.
+  *
+  * You could find a link for the datasheet in Documentation/arch/arm/sunxi.rst
+  */
+@@ -19,18 +19,34 @@
+ #include <crypto/scatterwalk.h>
+ #include <crypto/internal/des.h>
+ #include <crypto/internal/skcipher.h>
++#include <crypto/xts.h>
+ #include "sun8i-ce.h"
+ 
++/*
++ * XTS uses the request IV as the tweak of its first block and returns no IV,
++ * CBC returns the last ciphertext block as the IV of the next request.
++ */
++static bool sun8i_ce_cipher_iv_out(struct sun8i_ce_alg_template *algt)
++{
++	return algt->ce_blockmode != CE_ID_OP_XTS;
++}
++
+ static int sun8i_ce_cipher_need_fallback(struct skcipher_request *areq)
+ {
+ 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(areq);
+ 	struct scatterlist *sg;
++	struct sun8i_cipher_tfm_ctx *op = crypto_skcipher_ctx(tfm);
+ 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
+ 	struct sun8i_ce_alg_template *algt;
+ 	unsigned int todo, len;
+ 
+ 	algt = container_of(alg, struct sun8i_ce_alg_template, alg.skcipher.base);
+ 
++	/* The XTS unit takes two 128-bit or two 256-bit keys only */
++	if (algt->ce_blockmode == CE_ID_OP_XTS &&
++	    op->keylen == 2 * AES_KEYSIZE_192)
++		return true;
++
+ 	if (sg_nents_for_len(areq->src, areq->cryptlen) > MAX_SG ||
+ 	    sg_nents_for_len(areq->dst, areq->cryptlen) > MAX_SG) {
+ 		if (IS_ENABLED(CONFIG_CRYPTO_DEV_SUN8I_CE_DEBUG))
+@@ -164,7 +180,10 @@ static int sun8i_ce_cipher_prepare(struct skcipher_request *areq,
+ 	memset(cet, 0, sizeof(struct ce_task));
+ 
+ 	cet->t_id = cpu_to_le32(rctx->flow);
+-	common = ce->variant->alg_cipher[algt->ce_algo_id];
++	if (algt->ce_blockmode == CE_ID_OP_XTS)
++		common = CE_ALG_RAES;
++	else
++		common = ce->variant->alg_cipher[algt->ce_algo_id];
+ 	common |= rctx->op_dir | CE_COMM_INT;
+ 	cet->t_common_ctl = cpu_to_le32(common);
+ 	/* CTS and recent CE (H6) need length in bytes, in word otherwise */
+@@ -175,6 +194,15 @@ static int sun8i_ce_cipher_prepare(struct skcipher_request *areq,
+ 
+ 	sym = ce->variant->op_mode[algt->ce_blockmode];
+ 	len = op->keylen;
++	if (algt->ce_blockmode == CE_ID_OP_XTS) {
++		/*
++		 * One request is one data unit: its first block uses the
++		 * tweak from the IV, its last block ends the data unit. The
++		 * key size field gives the size of each of the two keys.
++		 */
++		sym |= CE_SYM_XTS_FIRST | CE_SYM_XTS_LAST;
++		len /= 2;
++	}
+ 	switch (len) {
+ 	case 128 / 8:
+ 		sym |= CE_AES_128BITS;
+@@ -200,7 +228,8 @@ static int sun8i_ce_cipher_prepare(struct skcipher_request *areq,
+ 
+ 	ivsize = crypto_skcipher_ivsize(tfm);
+ 	if (areq->iv && ivsize > 0) {
+-		if (rctx->op_dir & CE_DECRYPTION) {
++		if (sun8i_ce_cipher_iv_out(algt) &&
++		    (rctx->op_dir & CE_DECRYPTION)) {
+ 			offset = areq->cryptlen - ivsize;
+ 			scatterwalk_map_and_copy(rctx->backup_iv, areq->src,
+ 						 offset, ivsize, 0);
+@@ -290,13 +319,15 @@ static int sun8i_ce_cipher_prepare(struct skcipher_request *areq,
+ 			dma_unmap_single(ce->dev, rctx->addr_iv, ivsize,
+ 					 DMA_TO_DEVICE);
+ 
+-		offset = areq->cryptlen - ivsize;
+-		if (rctx->op_dir & CE_DECRYPTION) {
+-			memcpy(areq->iv, rctx->backup_iv, ivsize);
+-			memzero_explicit(rctx->backup_iv, ivsize);
+-		} else {
+-			scatterwalk_map_and_copy(areq->iv, areq->dst, offset,
+-						 ivsize, 0);
++		if (sun8i_ce_cipher_iv_out(algt)) {
++			offset = areq->cryptlen - ivsize;
++			if (rctx->op_dir & CE_DECRYPTION) {
++				memcpy(areq->iv, rctx->backup_iv, ivsize);
++				memzero_explicit(rctx->backup_iv, ivsize);
++			} else {
++				scatterwalk_map_and_copy(areq->iv, areq->dst,
++							 offset, ivsize, 0);
++			}
+ 		}
+ 		memzero_explicit(rctx->bounce_iv, ivsize);
+ 	}
+@@ -314,10 +345,13 @@ static void sun8i_ce_cipher_unprepare(struct skcipher_request *areq,
+ 	struct sun8i_cipher_tfm_ctx *op = crypto_skcipher_ctx(tfm);
+ 	struct sun8i_ce_dev *ce = op->ce;
+ 	struct sun8i_cipher_req_ctx *rctx = skcipher_request_ctx(areq);
++	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
++	struct sun8i_ce_alg_template *algt;
+ 	unsigned int ivsize, offset;
+ 	int nr_sgs = rctx->nr_sgs;
+ 	int nr_sgd = rctx->nr_sgd;
+ 
++	algt = container_of(alg, struct sun8i_ce_alg_template, alg.skcipher.base);
+ 	ivsize = crypto_skcipher_ivsize(tfm);
+ 
+ 	if (areq->src == areq->dst) {
+@@ -332,13 +366,15 @@ static void sun8i_ce_cipher_unprepare(struct skcipher_request *areq,
+ 		if (cet->t_iv)
+ 			dma_unmap_single(ce->dev, rctx->addr_iv, ivsize,
+ 					 DMA_TO_DEVICE);
+-		offset = areq->cryptlen - ivsize;
+-		if (rctx->op_dir & CE_DECRYPTION) {
+-			memcpy(areq->iv, rctx->backup_iv, ivsize);
+-			memzero_explicit(rctx->backup_iv, ivsize);
+-		} else {
+-			scatterwalk_map_and_copy(areq->iv, areq->dst, offset,
+-						 ivsize, 0);
++		if (sun8i_ce_cipher_iv_out(algt)) {
++			offset = areq->cryptlen - ivsize;
++			if (rctx->op_dir & CE_DECRYPTION) {
++				memcpy(areq->iv, rctx->backup_iv, ivsize);
++				memzero_explicit(rctx->backup_iv, ivsize);
++			} else {
++				scatterwalk_map_and_copy(areq->iv, areq->dst,
++							 offset, ivsize, 0);
++			}
+ 		}
+ 		memzero_explicit(rctx->bounce_iv, ivsize);
+ 	}
+@@ -489,6 +525,38 @@ int sun8i_ce_aes_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 	return crypto_skcipher_setkey(op->fallback_tfm, key, keylen);
+ }
+ 
++int sun8i_ce_xts_setkey(struct crypto_skcipher *tfm, const u8 *key,
++			unsigned int keylen)
++{
++	struct sun8i_cipher_tfm_ctx *op = crypto_skcipher_ctx(tfm);
++	struct sun8i_ce_dev *ce = op->ce;
++	int err;
++
++	err = xts_verify_key(tfm, key, keylen);
++	if (err)
++		return err;
++
++	switch (keylen) {
++	case 2 * AES_KEYSIZE_128:
++	case 2 * AES_KEYSIZE_192:
++	case 2 * AES_KEYSIZE_256:
++		break;
++	default:
++		dev_dbg(ce->dev, "ERROR: Invalid keylen %u\n", keylen);
++		return -EINVAL;
++	}
++	kfree_sensitive(op->key);
++	op->keylen = keylen;
++	op->key = kmemdup(key, keylen, GFP_KERNEL | GFP_DMA);
++	if (!op->key)
++		return -ENOMEM;
++
++	crypto_skcipher_clear_flags(op->fallback_tfm, CRYPTO_TFM_REQ_MASK);
++	crypto_skcipher_set_flags(op->fallback_tfm, tfm->base.crt_flags & CRYPTO_TFM_REQ_MASK);
++
++	return crypto_skcipher_setkey(op->fallback_tfm, key, keylen);
++}
++
+ int sun8i_ce_des3_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 			 unsigned int keylen)
+ {
+diff --git a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
+index 21762bd408e5..a7d771927b7a 100644
+--- a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
++++ b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
+@@ -41,7 +41,7 @@ static const struct ce_variant ce_h3_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ALG_SHA384, CE_ALG_SHA512
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.ce_clks = {
+ 		{ "bus", 0, 200000000 },
+@@ -57,7 +57,7 @@ static const struct ce_variant ce_h5_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ID_NOTSUPP, CE_ID_NOTSUPP
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.ce_clks = {
+ 		{ "bus", 0, 200000000 },
+@@ -73,7 +73,7 @@ static const struct ce_variant ce_h6_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ALG_SHA384, CE_ALG_SHA512
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.cipher_t_dlen_in_bytes = true,
+ 	.hash_t_dlen_in_bits = true,
+@@ -93,7 +93,7 @@ static const struct ce_variant ce_h616_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ALG_SHA384, CE_ALG_SHA512
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_OP_XTS
+ 	},
+ 	.cipher_t_dlen_in_bytes = true,
+ 	.hash_t_dlen_in_bits = true,
+@@ -115,7 +115,7 @@ static const struct ce_variant ce_a64_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ID_NOTSUPP, CE_ID_NOTSUPP
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.ce_clks = {
+ 		{ "bus", 0, 200000000 },
+@@ -131,7 +131,7 @@ static const struct ce_variant ce_d1_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ALG_SHA384, CE_ALG_SHA512
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.ce_clks = {
+ 		{ "bus", 0, 200000000 },
+@@ -149,7 +149,7 @@ static const struct ce_variant ce_r40_variant = {
+ 	.alg_hash = { CE_ALG_MD5, CE_ALG_SHA1, CE_ALG_SHA224, CE_ALG_SHA256,
+ 		CE_ID_NOTSUPP, CE_ID_NOTSUPP
+ 	},
+-	.op_mode = { CE_OP_ECB, CE_OP_CBC
++	.op_mode = { CE_OP_ECB, CE_OP_CBC, CE_ID_NOTSUPP
+ 	},
+ 	.ce_clks = {
+ 		{ "bus", 0, 200000000 },
+@@ -350,6 +350,36 @@ static struct sun8i_ce_alg_template ce_algs[] = {
+ 		.do_one_request = sun8i_ce_cipher_do_one,
+ 	},
+ },
++{
++	.type = CRYPTO_ALG_TYPE_SKCIPHER,
++	.ce_algo_id = CE_ID_CIPHER_AES,
++	.ce_blockmode = CE_ID_OP_XTS,
++	.alg.skcipher.base = {
++		.base = {
++			.cra_name = "xts(aes)",
++			.cra_driver_name = "xts-aes-sun8i-ce",
++			.cra_priority = CE_PRIO_BELOW_CPU,
++			.cra_blocksize = AES_BLOCK_SIZE,
++			.cra_flags = CRYPTO_ALG_TYPE_SKCIPHER |
++				CRYPTO_ALG_ASYNC |
++				CRYPTO_ALG_NEED_FALLBACK,
++			.cra_ctxsize = sizeof(struct sun8i_cipher_tfm_ctx),
++			.cra_module = THIS_MODULE,
++			.cra_alignmask = 0xf,
++			.cra_init = sun8i_ce_cipher_init,
++			.cra_exit = sun8i_ce_cipher_exit,
++		},
++		.min_keysize	= 2 * AES_MIN_KEY_SIZE,
++		.max_keysize	= 2 * AES_MAX_KEY_SIZE,
++		.ivsize		= AES_BLOCK_SIZE,
++		.setkey		= sun8i_ce_xts_setkey,
++		.encrypt	= sun8i_ce_skencrypt,
++		.decrypt	= sun8i_ce_skdecrypt,
++	},
++	.alg.skcipher.op = {
++		.do_one_request = sun8i_ce_cipher_do_one,
++	},
++},
+ {
+ 	.type = CRYPTO_ALG_TYPE_SKCIPHER,
+ 	.ce_algo_id = CE_ID_CIPHER_DES3,
+diff --git a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce.h b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce.h
+index 468d99bf5bf6..89689e54e5fd 100644
+--- a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce.h
++++ b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce.h
+@@ -46,6 +46,10 @@
+ 
+ #define CE_OP_ECB	0
+ #define CE_OP_CBC	(1 << 8)
++#define CE_OP_XTS	(9 << 8)
++
++#define CE_SYM_XTS_FIRST	BIT(12)
++#define CE_SYM_XTS_LAST		BIT(13)
+ 
+ #define CE_ALG_AES		0
+ #define CE_ALG_DES		1
+@@ -58,6 +62,7 @@
+ #define CE_ALG_SHA512           21
+ #define CE_ALG_TRNG		48
+ #define CE_ALG_TRNG_V2		0x1c
++#define CE_ALG_RAES		0x30
+ 
+ /* Used in ce_variant */
+ #define CE_ID_NOTSUPP		0xFF
+@@ -77,7 +82,8 @@
+ 
+ #define CE_ID_OP_ECB	0
+ #define CE_ID_OP_CBC	1
+-#define CE_ID_OP_MAX	2
++#define CE_ID_OP_XTS	2
++#define CE_ID_OP_MAX	3
+ 
+ /* Used in CE registers */
+ #define CE_ERR_ALGO_NOTSUP	BIT(0)
+@@ -98,6 +104,14 @@
+ 
+ #define MAX_SG 8
+ 
++/*
++ * Priority of the modes that the CPU's own AES instructions run faster than
++ * the engine: below every CPU implementation of them (arm64 CE 300, NEON 250
++ * and 200, AES library 110, generic templates 100), so the CPU stays the
++ * default and the engine is used when it is asked for by driver name.
++ */
++#define CE_PRIO_BELOW_CPU	90
++
+ #define CE_MAX_CLOCKS 4
+ #define CE_DMA_TIMEOUT_MS	3000
+ 
+@@ -124,7 +138,8 @@ struct ce_clock {
+  *              coresponding CE_ALG_XXX value
+  * @alg_hash:	list of supported hashes. for each CE_ID_ this will give the
+  *              corresponding CE_ALG_XXX value
+- * @op_mode:	list of supported block modes
++ * @op_mode:	list of supported block modes, CE_ID_NOTSUPP if not supported.
++ *		XTS runs on the RAES unit (algorithm CE_ALG_RAES)
+  * @cipher_t_dlen_in_bytes:	Does the request size for cipher is in
+  *				bytes or words
+  * @hash_t_dlen_in_bytes:	Does the request size for hash is in
+@@ -352,6 +367,8 @@ struct sun8i_ce_alg_template {
+ 
+ int sun8i_ce_aes_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 			unsigned int keylen);
++int sun8i_ce_xts_setkey(struct crypto_skcipher *tfm, const u8 *key,
++			unsigned int keylen);
+ int sun8i_ce_des3_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 			 unsigned int keylen);
+ int sun8i_ce_cipher_init(struct crypto_tfm *tfm);
+
+---
+base-commit: 82e91fe19fb838f235f7c8829afc1eb389c93bdf
+change-id: 20261110-sun8i-ce-h616-xts-8e52bb3c7b36
 
 Best regards,
-Richard Cheng.
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
-> +
-> +static int mpam_resctrl_node_notifier(struct notifier_block *self,
-> +				      unsigned long action, void *arg)
-> +{
-> +	struct node_notify *nn = arg;
-> +
-> +	if (nn->nid < 0 || !mpam_mba_uses_memory_nid())
-> +		return NOTIFY_OK;
-> +
-> +	/*
-> +	 * Ignore nids that have CPUs. Resctrl needs to see the cpu offline
-> +	 * call for each CPU to update the CPUs in control groups.
-> +	 */
-> +	if (!cpumask_empty(cpumask_of_node(nn->nid)))
-> +		return NOTIFY_OK;
-> +
-> +	switch (action) {
-> +	case NODE_ADDED_FIRST_MEMORY:
-> +		mpam_resctrl_online_node(nn->nid);
-> +		break;
-> +	case NODE_REMOVED_LAST_MEMORY:
-> +		mpam_resctrl_offline_node(nn->nid);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return NOTIFY_OK;
-> +}
-> +
->  int mpam_resctrl_online_cpu(unsigned int cpu)
->  {
->  	struct mpam_resctrl_res *res;
-> @@ -2088,6 +2391,10 @@ int mpam_resctrl_setup(void)
->  		}
->  	}
->  
-> +	if (mpam_mba_uses_memory_nid())
-> +		hotplug_node_notifier(mpam_resctrl_node_notifier,
-> +				      RESCTRL_CALLBACK_PRI);
-> +
->  	cpus_read_unlock();
->  
->  	if (!resctrl_arch_alloc_capable() && !resctrl_arch_mon_capable()) {
-> diff --git a/include/linux/memory.h b/include/linux/memory.h
-> index 463dc02f6cff..1497d4be38ee 100644
-> --- a/include/linux/memory.h
-> +++ b/include/linux/memory.h
-> @@ -120,6 +120,7 @@ struct mem_section;
->  #define CPUSET_CALLBACK_PRI	10
->  #define MEMTIER_HOTPLUG_PRI	100
->  #define KSM_CALLBACK_PRI	100
-> +#define RESCTRL_CALLBACK_PRI	100
->  
->  #ifndef CONFIG_MEMORY_HOTPLUG
->  static inline void memory_dev_init(void)
-> -- 
-> 2.53.0
-> 
+
