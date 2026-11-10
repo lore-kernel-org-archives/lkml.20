@@ -1,61 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269943;
-	b=4kH+jXnwQ9YDjmUjYeEfQZeCeSgslri3yc4mH4pKa6EqS3Nq+/MneU85q2W0x4WXoVUS
-	 /ilHyXnMXJUfsLVf6XHkxZFc7LbteHkkSxYdLXI1Nu0zaptkVgCIJCRAbVyo/bJIichrs
-	 MB6ngokUjyJFVCCd9SFLWDwZKgxRFLB/36Jf1sQqm7YbLdUsHaplD+v7rjbRcx0x1fpcD
-	 cZUt46fOS23MKfUJ6PtcpP6BUA0dUqWptiYPICT8TAaCyblCDWAvrtSgBwtIFLMcVnxXQ
-	 Uic8P5gfXX9dIrqK1v/LDwnnVnomXd/qNgGUw7FLxU+gttIkrgJt3LMMeeslmO2un6w==
+	t=1794269940;
+	b=2pDz0g5slkgT7yD6K7LRh8GbfnSsq/xzLKvkpVixwDRGjncZew+mrveINhCRv9ZwixVf
+	 NlpnE5x4JvH4zvCpuKIjtk3kjPnABd6VpQh6tw8WOiAArXHupmye28Zvpomskn5/mh+7n
+	 W85++tr1sYytyCGs1RDeQ7nd1OYFWYlo2oFhBLS2cLMK44w8bZMqP533TN9RaDDAMOiZ8
+	 Um2sHNNzBbUlqGgPt76ApYmgBDblKIvmqsbDw/cF+SY9wiMblDWgweTHtNEKKNHAIggpW
+	 1Fh9K+kuBzThIf+QziDH0w/dZ6lwlikegWXl2UEQNAxwM79zM0HKFKoQSOckoKGMw/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269940;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=D340QR5pIY14AeGchJexrYYpbRr2AoZb/MZ4YNUL/uE=;
-	b=OPJ/6NQ9JwqzDiPpyYd12iWGyvVi9LErs1JfOI5XigXH0eiyx80QEg9gjIsBxUjXian6
-	 YsSEJKKREuu4JHM39p3d7teqxN64/I6C/FOWhVY5bLBAATXt1XihFqi3vcqhjmCCR1jZg
-	 ENR5E6jDmB9nPvw118XQK2WC3W2EEQMZ/2xQnxt8sHVE0qhJyq5YjpRNewYjuzjHsUtuv
-	 JD8ZPPYOTDiEmYvWglgz8BKEYYIEl6X/9u+OBB6/YLedVP0hB2F9eCpONRuU6sosQkqCk
-	 PupgCrpetm8oGlIsXHr0eqW5wjdPmCmrtwj7bQY3J88gtzHxd/t/QmQRiabag7d42RA==
+	bh=KHE58ax+PEyPhniZNrxi/+FM1uEajhUVPzOagR6Yuok=;
+	b=u9W6M8LQixZAfy9QWwLSXdoOekj4wbOoAAy1Q7j5HkxhUUCfFouNG1IHwdmV4Y15Hsgt
+	 fxHuYToExs4t42kVAsUU3nkzGv3J5Z2NZHY3jpM83A2KiCaoXYhmGiiQclwgdJrdzrMS2
+	 TEUe0Muy/Q7XU87LF7hVGdyvFFIP95NqrvoJpDNLDO882SAqSlFsknxRqoUnB4sez9TTn
+	 i/V5NwIlGLEBShFx82MoVRXbCWWjNxsWSfCUldTGYVDuC6ue2wHG3+2LRu/0uLHcUtvMg
+	 mrYyzGNslq8XSrPm+pMB6PK1IYIyqDADem/vReEzToKJoUSqdicOjvvaldtkwVIBUag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWR0ui3U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEvKZ78d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9284606A33E;
-	Tue, 10 Nov 2026 00:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818DF606A31C;
+	Tue, 10 Nov 2026 00:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWR0ui3U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C8A1F008A7;
-	Tue, 10 Nov 2026 00:19:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEvKZ78d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DAE51F0089F;
+	Tue, 10 Nov 2026 00:18:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794269942;
-	bh=D340QR5pIY14AeGchJexrYYpbRr2AoZb/MZ4YNUL/uE=;
+	s=k20260515; t=1794269940;
+	bh=KHE58ax+PEyPhniZNrxi/+FM1uEajhUVPzOagR6Yuok=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oWR0ui3UsuipkM4nt5kPePj4b7WnqO5HKzNfHNTVtlXChiiep43oBRJIEYE1x8pPL
-	 LAo8wnPvLxlxWAAdCXPpDwUBwWrkBckUhl0YBITLYRzg5m2WlNfNDNCgwugmenxIDu
-	 XT4x+31H8H3FpjJX+jzBCXOjNXy+9yTGDYBTfVAUDDynOuaMUAtcDb0IUDcEjB1WUi
-	 QttBZO/lomz/8wYi1Vzg4mDtDeHSne55IFV8MIBqm/OrDZiWfnxHtMJM5N5alIbEpJ
-	 JSNYeo8RkRqj1HyEHqoNLBANFglTa3EuyxlwSdu3hjsUcTsMawWiuAIv9jB8/y96nA
-	 QbLZGq9bC1AXg==
+	b=EEvKZ78djbpGqeIjeOwK5XDBVYxNbW0qUuNh6pgsFntgKUFz+fwfpRuRehHF+cQK6
+	 RwDTtcqxn4BjTZ7cE45cMqH+yYUM3f0CWSnkqicNH3AnUtPvTV4clXzuIAzbOi7sPa
+	 LtEorvj6GrP9KZFohTvoI8aLNkwgDeow4iCGCkPb+qMZSgtZ97aXX5U1hhpaXio2im
+	 RG0Fiw+QYT6lo8fRhOEpXfO/l5wRF1EwpJ0c+Zw0NwoejjKVVqjP3O2412kwqA9463
+	 Fgpcqg7KzE1ffq3a27gDSv/IPm11AqrUB7yRWYxReOtGYgiPla1iVW+ZodJ9uIZzF4
+	 h6zWQJFeIistQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: linux-arm-msm@vger.kernel.org,
-	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org,
+To: Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Add support for Mahua QCB
-Date: Mon,  9 Nov 2026 18:18:54 -0600
-Message-ID: <179426970782.877162.15936105150365282409.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/8] Commonize Glymur regulator settings for fixed rails
+Date: Mon,  9 Nov 2026 18:18:52 -0600
+Message-ID: <179426970787.877162.11018805236130863553.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
-References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,22 +78,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 27 Oct 2026 17:19:51 +0530, Sivansh Gupta wrote:
-> Add initial device tree support for the Mahua QCB. The QCB (Qualcomm
-> Compute Board) is a board built on the Qualcomm Mahua SoC. Mahua is a
-> 12 core derivative of the Glymur SoC.
+On Fri, 06 Nov 2026 10:29:01 +0100, Konrad Dybcio wrote:
+> Certain rails are predefined and will ALWAYS have to be the same for a
+> given PMIC configuration (due to electrical and other requirements).
+> Factor these out to remove a layer of pain when creating DTs and let
+> one have a better way to reason about the settings across the platform.
 > 
-> Unlike the CRD, the QCB is suitable for compute workloads,
-> power measurements and oscilloscope-based hardware validation.
+> Glymur-SiP will be the next target after/if this is accepted
 > 
 > [...]
 
 Applied, thanks!
 
-[3/4] arm64: dts: qcom: Commonize glymur-qcb.dts to glymur-qcb.dtsi 
-      commit: 71e1b237de83978ba89576f92c5da892794d67a9
-[4/4] arm64: dts: qcom: Add Mahua QCB
-      commit: 3b0df46f80ea1ee0111796f6ffc74be3a2873e9f
+[8/8] arm64: dts: qcom: Add Glymur SiP CRD
+      commit: 83402dd1d06a97eb2a377d65afee334c24a5a3d3
+
+Seems I tricked b4 again... 
+
+On the way here I had to fix up kalambo-crd, so please help me double check
+that I got it right.
 
 Best regards,
 -- 
