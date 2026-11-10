@@ -1,64 +1,176 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.238
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290344;
-	b=fqGnbetYmaBLhEpg9unJ55hQzzbCSjL7Pe/l/wI6bhG9OVKKSN15I0DIiYV5I2r5DiPU
-	 2ePKEyTE+LvF2HHi/39kI9e1D36rmhIcWL1JHdkfwdUi6ZgKYoWo3wZJ0sxEs9ih+pX2n
-	 5jfZtOPH0tuaRnNtX13izajxUEzSQJqF4/prbI5eqUKXD8dE2N92Uk3YGkzdXb6NvymdZ
-	 o++ctVLP+RI1TpWIRzd2iV8yCPQpJ6KPRsN1TSNRzhjcQBF177OZIM1pAX6YK+NLK7ywI
-	 4uxlVCscHO95GSRr7vZjDSip/UqRwHGa4Dr1qcEyGSZb8XdtE+q1H+LfpQtPuZTWg6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290344;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k9OMXHYKjwUvr7v6pNhNNy9UwviPZzUYeEcywDMVG1Q=;
-	b=VKqa+FVMbcFQvjWU8nrIbdHQkKR0oN29bqEgsH+RARECpn4uffIhwmGBipMMvV94GRZD
-	 jc1aN909FoBFVTUcXNHb7ibOxlMQbkcc17FSTXDgkqE/K7tZjlRpkmmT/tluXUmEZH7M6
-	 S+/r4Q9GsTuttZshhCAMBW+vSUGHhzvXj23VhjuMTLEQeLOUXjRUlWWo+VNNUiXyf8WOY
-	 JPtGowDPxt6qIpzQUV/C1L72q2Mh1Slg58NQ0JVXSSeUSVOK+QFFOHn5VqAPnxwCjwXNp
-	 fZdeT89BO5UgMylRo15O9AkTqS0EUCrbKkEN9yrY48s9UfsVRJ0nt8VG381PtlEO0jQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G8wZ4Ssw;
-	arc=none smtp.remote-ip=91.218.175.238
-Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794290356;
+	b=YwVHKPBKlLkhp+y87r1dvdJsYVRqGI/0YxWIEKvks7IDxem9WLKzDJ+pq+mfghh80T2g
+	 +wHIMcGKMH735VPBvXy1iD3CGYK/Oa4OUoAU3wSdcz6exWieUU1XBgC/N7aQVYVyU7wrT
+	 U9DVnmZV+ShQZdzaf0kLpt8PhdZONEfydvn9zW92d8NbAKRNEF2bt7Ei/49PLM2tXKjDC
+	 WwM2+i/Z7IKwUa81i76+ifQRCREItfnVjvEG9aGhmrGt3oDnM4y/LXxW8AoYW0UEZTuV5
+	 zYi+HXW6J2byT2SqObxWH98fX2HN9M95/ttJte7IqK6LSez4ST0+AQ/t999HNPt2EIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290356;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=9MqTu3mXlRJz4zjiTgsq3aJ3+tnAP8Gzcp8RKqeVR+s=;
+	b=nfSFpy1MbgNaVnVzvL9/rPMWlsjmzI+ZagQupkPb4ylCV6DSFxR9KK+d9K4TQDpGM3d4
+	 dXaEYXD8TSjMiqrW6DemjV/R5dCKH3NX99E3iTbtkJkzRgSL9BKFKQWM51rZxA7zJM2gN
+	 8jN9KNyHJaKJ7+MWLzdcNPb6NG7Z2wxio+pY6HBu1NrxlYDjqwFJE68un6HyfMxWjzMFZ
+	 gSEYm+6IVY0C0JSdTn5Yz8vP8K88egrraB4tEzq2uKlniWbAIac+P9M+rx8J3vYck2Y3E
+	 jBpvd8zEUozMFyXlpzycdL403ViawErRi/geb1GXVQUbdv1ofShT6Yz8nU3YT0KKUOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="E/ezYysf";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A45606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A45606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78981606A321;
+	Tue, 10 Nov 2026 05:59:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78981606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G8wZ4Ssw
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dPJoMMXJ/tOJgzyT4oINks0Nr6xe5+vM+b4TFv/4o0w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794290340; v=1; x=1794895140;
- b=G8wZ4SsweAPcyfrG0a6ACWPNQzC3TV7fzhzfngQxiwTZHTy5yAO3dGFG3ghSFHCRLD0NbGPZ
- LCR6qDuODqFTZuC4YL63GBrG6oigmgpKAWpYTFUqeEVqdWRzGofRjT7QY66yOyGh7x/TRG5azRS
- KzWt2tjvETVa9C1RyfehyPJI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id bf9b0b0bdf7fc38d;
-	Tue, 10 Nov 2026 05:59:00 +0000
-X-Mizu-Trace-ID: bf9b0b0bdf7fc38d
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 13:58:54 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Junyoung Jang <graypanda.inzag@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] igmp: use the joined device when leaving a multicast
- group
-Message-ID: <avKyno2Pcsrfu0u4@fedora>
-References: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E/ezYysf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794290355; x=1825826355;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Jds5NwXCVpaL57BKEC4Y/pgBg8p4+/r29QSoRYloK4o=;
+  b=E/ezYysfa1Cx/AZHZdB9w+yhN7sL+Q0IvJfxuZIUAUGz0nCrdCyY6ZFx
+   no0XR0IOLmyTTatYdoj9VHE3WnMAyWVVk5Qt9NznhupeOZSYQVePQ29E7
+   ZcP8WYt4XfLjX6dd1+tjplM92pKiWedTc9EwR/VKqTatMHmOVlEaM/VPk
+   odsMWuTh7+x9MrhMnF5m/PJdMHhp8xg+htqyFgrJowX4Bawfi3OamsL1U
+   U9ZgL+5uAa8nGUK3dKDTKTRb9WUGaQ01GgQvjU0lMC2qnZX7gZwiO+AU3
+   zDHHly4NTrrrkL34dmZBMdVDp2cdggc65JsVnvyUULHonGakLV/k4vOdg
+   w==;
+X-CSE-ConnectionGUID: sSJdFs+MR26k0FxhqVxn/A==
+X-CSE-MsgGUID: 5E1rkE4MR9Oj/cMr9FNj1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3064273"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3064273"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 21:59:15 -0800
+X-CSE-ConnectionGUID: wOpaAsvDRDOy7Stz+AldIw==
+X-CSE-MsgGUID: QSTNwrQNQUikRtpvvgx+jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8209473"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 21:59:15 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 21:59:14 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 21:59:14 -0800
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.8) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 21:59:14 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wTk43PJIv+7te3tLfyO5i9xAb1XyNRuV149peyGtgPkrcuulGIPzj7QGwg3ckF5UfgJqHJunHAcQK5sE+JH3XT98WLgVm26CeskTAZ3aByPgRgKU4dhWviMu82JC4Dcnik+DbdytlyMRUye8CtbAqfUeFbuf3TL6BoDjwVaHxXYhFmO5ITN6QYH19gpOBLowpRRvmj5NYWT+DtNOEYuMBgL7kKPrvimuKLSP9pjGuJ2V6SxhuWeauB7fEnPvP/7HYsy+UkHvIw2jXQh4BnV/zkz/4Z5U3+mGC5h+zcM1/CiAg3vd91e5YOEEWDKmGOD2MC6MV8jz5rShFCEvOVazmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9MqTu3mXlRJz4zjiTgsq3aJ3+tnAP8Gzcp8RKqeVR+s=;
+ b=G4XyNzhmIfukb8K3wQuIrCr8WegJOgmBdB1s3T9/uv2AvxGChe88PHHInw2S2ldwNMmuVwa7OdmQEQnM4UiGWhqLa/NwHXq3cPR/Rj1LTR+nHQHiBdGetp2ufEa+nSUP/88n0YlJF15JjN50Jlyx7sZNaHJn6aNmcFpzm9jzthdz11kyKc528C9cBsmo71pN+Eh0ZpQIYlltkHx62DJVEG6P5uA4Xi9Ey250xEQGGEJ3PBXIi6AePAkdsg2P3UsckOgfWm7hnM38t4ufM5O3pH1BOEtGiDKoAWvZkU4eBSrjVvYJQKYurOHE5jSzUA0m7euX7TitPxU3+fMOv3+4Eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ0PR11MB7704.namprd11.prod.outlook.com (2603:10b6:a03:4e7::5)
+ by PH7PR11MB7025.namprd11.prod.outlook.com (2603:10b6:510:208::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 05:59:06 +0000
+Received: from SJ0PR11MB7704.namprd11.prod.outlook.com
+ ([fe80::a8b5:7722:c11b:63c5]) by SJ0PR11MB7704.namprd11.prod.outlook.com
+ ([fe80::a8b5:7722:c11b:63c5%4]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 05:59:06 +0000
+From: "Xu, Even" <even.xu@intel.com>
+To: Myeonghun Pak <mhun512@gmail.com>, "Sun, Xinpeng" <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+CC: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Mark Pearson
+	<mpearson-lenovo@squebb.ca>, "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
+Subject: RE: [PATCH v2 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during
+ teardown
+Thread-Topic: [PATCH v2 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during
+ teardown
+Thread-Index: AQHdcM6esLzBuHpur02bIHvPC9Q5k7cmzkcQ
+Date: Tue, 10 Nov 2026 05:59:06 +0000
+Message-ID: <SJ0PR11MB77049249BC99EBA74E3875D5F4722@SJ0PR11MB7704.namprd11.prod.outlook.com>
+References: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
+ <20261109-thc-rebase-v2-1-mhun512@gmail.com>
+In-Reply-To: <20261109-thc-rebase-v2-1-mhun512@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR11MB7704:EE_|PH7PR11MB7025:EE_
+x-ms-office365-filtering-correlation-id: 6cfabbe9-cf8c-464d-b9e2-08df3eefbabf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|38070700021|4143699003|11063799006|56012099006|261022105027099003|261009223027099003|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: mqSnZccfTAfmCmhUxetEKJPi2wUCY99fxyx93T/K1Yoj/JyFnNw2+m1TO+rFohWYtWIvKRyVKYtceWiaMhUHC3qa5VgP99K79KkwFeYByt7vDgK3wpp+PFFSro0ZEtfxasYv/DHWKAZlwiwUZRh60bXmd3ETiE5bcPtzy4G4T6OCveu56tB1/SkAx7GWFKMwXJZLPnUMciSUUfyUnszeVle97vH6nFIaRZhimfU3OcCNUd8ucm8K6bu1ne9Vtrh0iOQo5iVE5H1ARujMUqtWPd3/Yy9ZIrz2p224uugwlyLdhqckzyEIyIuJ6/al5jO0RHxbKp6hSaki9oIqijaEdNyn+mBhdjld2QSS90WxgqNr4Ve7L5pIbutaTulW0HJqMIpFZ6DvTGniJFBqzf/6wx2hb46UJDiTfax8eBA3/mVvgjP2gSJOXpJU3WN31GttYriemZPcCaJHXeg34br4NCguIpf+s1m1Oa2ZgxJZCVVIcorXZvAIvfd5irT9mrSZ8mipqRd4JZzZ8mQRwi2nHmYC2DYyp3voQAbT1Ex2o8MMt6egioZ++IzAp0/FUuNKGtb+51mOXXWKRr0HzCnADqCamMOV0Wu+Vs9yXlPJf5d7wFa0krZ1yid0IEhRN2pSLtB5eXGd8Ao07ExZ+8gMXHis7NyS/Dj/UY0ikmY+1FBK7MT+ZFXrRPlvg3+PudB/La6PxwrFJczShQdszCkuXFCCAdWyP/6YvLHH7kldX9c=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB7704.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(4143699003)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NhyHQfEyEZpYRMClhADorkYOZe8CjqEmTVGBGEC+ZhoZLZq6QVuvum2BYfk0?=
+ =?us-ascii?Q?DSm2HaTaCK2enF2T1xslkEZarZsg+u9YCk0hrc08fz7KULCTgPTBDTgargzl?=
+ =?us-ascii?Q?wrQsurblIt6UmG0ss65h8nfRBha4VrEc2nv64pXLp4AZRuX8OjltpVEfyZq7?=
+ =?us-ascii?Q?DC6dOxFDLJK7E5Yr9EQAModQgc3uwVBG3NGoTgX3Xzn5THWpE8HC3UQUHmHy?=
+ =?us-ascii?Q?0D5awR8DwdeXHq+cpvVR+37GgbvBvfK7SOYxHedcBL4zSFnBe9mc4IFhXh2T?=
+ =?us-ascii?Q?JBMFNaWDgH4AEqw6f1O7eZk0S+LRuAgz9APiEmOP03ubpu0FUBdK+OjAAMBt?=
+ =?us-ascii?Q?UkzR/mKV+Hx/ny2RBhLTW8nEEkjJ4hUjwIno5saoSZIrttZiginL8kxTNUAu?=
+ =?us-ascii?Q?2x29zNyhgSv5bObSdYtNoJXPy2CEb3qNfwoLQDl96xEHzizMbLXwvz3Fm05p?=
+ =?us-ascii?Q?eaSvR3LU86byqT3ygxMgKPhXJymiTLxKIPwoqZ8GXX/je1OFsQiTq9V4XCl3?=
+ =?us-ascii?Q?eMAE240byW7Lrr3mYMoPoRQZJbyolq6QypRmeVe9yfofH3wJAjFBMQPmjLDw?=
+ =?us-ascii?Q?dKdVj5S1EcmDQEkrC52eXiAi04b/JImW+3g1JQ5EJdIluoMXG60fow4lpDA6?=
+ =?us-ascii?Q?qM8zN9nIwWbtaNvxnYTyL0d2DIHLKvMX+BFL3lAk89N7gQeMFqegWGBP94cJ?=
+ =?us-ascii?Q?Sf7rdwMYDgWbSLX2aE/GIMErl1tAwsQFIJEInlb6cAwSug+3FE8y0CbGfqp5?=
+ =?us-ascii?Q?NRKZ8S1N+65A9/m7kq0zPqAtEXZlflaCoZXtYnnMu3/sDDXeFF2cHXT+Hj0o?=
+ =?us-ascii?Q?dSp+oUbvAs4K3oAJOV7YqL8jXLh7cMJFWJ2cX+x1Fq2zubqnwGDDaOeWJ6VJ?=
+ =?us-ascii?Q?lJwKfRfy1a3kTyxX0OzNKfsQNHyen5RxPKPYVbi/V8alWzOpAFJK2KGzt8f5?=
+ =?us-ascii?Q?j8MaKlIJy/f8Vg71AzgzhGRFJDwdsPJ4H1o7J5iMVFBi4GMxBLegwPRNnENT?=
+ =?us-ascii?Q?elH5OXjs99c5dCDJ6IyfvK/lfB0vimHEtgjCsjTMImGgZN52M6dU4/0Ce8FO?=
+ =?us-ascii?Q?5hjbwbuEcvE3cINGGsn2K1Kzc7WO4+L0asNr9PjSrhozPxP2vx44ZY66rIza?=
+ =?us-ascii?Q?krxyDgLGgAsvwBNJg/Du0wETPW6oFx8m4VyKtSplg6Bpbm2WpMVbriZLYcdL?=
+ =?us-ascii?Q?NcS1AMQybvjy6eAmUdbVz3I1Rc9hODBR+//ubHbqLftFdRwZMptuqIo7uCED?=
+ =?us-ascii?Q?qqloVKcbG7Ahj4mazF5EH3Hkk4zq5ggyjs8tV0apWCQ+KoQLd2RUyo3Wxzbj?=
+ =?us-ascii?Q?NPVOcmsSiPKvwGAbCb6mdpwIytm0bBxtJz6IyYPxVifBzPPUP9gcBIPCb07Y?=
+ =?us-ascii?Q?/YuHTpfXzEsfFjR8ZmhRYyZBc9P3OK9mA3wneC0mcG8PLgvm5PPtxKjp4Oaf?=
+ =?us-ascii?Q?Rv9F/AIqBBShS8TLaix5G4VvzqMkjSB9jrr/xZtQrBI45BYGQOB6+6jbeU4R?=
+ =?us-ascii?Q?GhKV+YGw9AJV0cXuYt5D92XyIMUITQP6pLdET1rLULuzWMiJ6Xk0Oj97pizd?=
+ =?us-ascii?Q?hMlvOsGhjgs6s9clLop+rjwRO0DjS909SRPuRuapbWKN/6sR5cWxdKAZ/rQK?=
+ =?us-ascii?Q?HAxjwFy2Ac51n5YtjABjlWZMhQeAk16epH7Tkapjag3N8qeZY46fERX3puMA?=
+ =?us-ascii?Q?PYbgzDgMwkL3ouh+Yi/giiE4HXUhC0hcj7aGUOaIIAd7XY86?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,469 +180,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
+X-Exchange-RoutingPolicyChecked: wd/QxLc0R/Ylh2WtD3Z7w2rQdhvacYPZDAjA2M8ecIqb80c5n68VCXF/qkwCeeenDwcudFVhzqiKzCZcxgq45f0uifvyJXjLMDnFqkL44CScE3irHZnJsz2oUOcxfxmjq1idzcAgEnzb9kAHUN0fA2PqkAmpg2qTeCYj97sRQDXPpPbaRnFarRBZKhANcltT/l/aiVMYLbEe0lwk25UO8i8wQq1KOsWvOkhZNwZipJ2YZ8oXD3ojXDtRCAYrxkzpGeGzKuqUPYebIFwiR+SPizRzXlsrkydbwSA51R7dE+UBecAGsCdxH0yH6hLUWHefQh6H0W7J9OyjXKjRHZGN8Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB7704.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cfabbe9-cf8c-464d-b9e2-08df3eefbabf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 05:59:06.0985
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hyE2IcVVnEIxEHN6moaQHRQ3DruAU7qSrFud9+Chlb8XxtZjigXVhBtDNMLkj4sYw2P9rDUySbFKVBkbVfvibA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7025
+X-OriginatorOrg: intel.com
 
-On Mon, Nov 09, 2026 at 09:53:11PM +0900, Junyoung Jang wrote:
-> ip_mc_leave_group() resolves in_dev from the leave request before
-> matching the request against the socket's multicast membership list.
-> This lookup can return NULL even while the interface recorded in the
-> matched membership (iml->multi.imr_ifindex) is still alive:
-> 
-> 1. An application joins a group using a local IPv4 address, that
->    secondary address is later removed while the interface stays up,
->    and the application leaves using the same 8-byte ip_mreq.
-> 2. An unprivileged user joins a group with a 12-byte ip_mreqn
->    specifying a valid imr_ifindex and a nonlocal imr_address, then
->    leaves with an 8-byte ip_mreq containing that nonlocal address
->    and no ifindex.
-> 
-> Because imr_address is nonzero, the early -ENODEV check is bypassed.
-> The loop then removes and frees the socket's ip_mc_socklist entry
-> (iml) and returns 0, but skips ip_mc_dec_group() because in_dev is
-> NULL. Closing the socket cannot release the group via
-> ip_mc_drop_socket() because the socket membership entry has already
-> been unlinked. This leaks the interface's struct ip_mc_list reference
-> and multicast MAC filter beyond the socket's lifetime, allowing an
-> unprivileged user to repeatedly leak multicast group entries on a
-> live interface.
-> 
-> Fix this by looking up in_dev from the matched membership's saved
-> imr_ifindex under RTNL, matching ip_mc_drop_socket(). If the interface
-> was genuinely removed, inetdev_by_index() still returns NULL and the
-> existing hot-unplug cleanup behavior is preserved.
-> 
-> Fixes: 4eba7bb1d72d ("ipv4: igmp: Allow removing groups from a removed interface")
-> Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+
+
+> -----Original Message-----
+> From: Myeonghun Pak <mhun512@gmail.com>
+> Sent: Tuesday, November 10, 2026 12:47 PM
+> To: Xu, Even <even.xu@intel.com>; Sun, Xinpeng <xinpeng.sun@intel.com>; J=
+iri
+> Kosina <jikos@kernel.org>; Benjamin Tissoires <bentiss@kernel.org>
+> Cc: Myeonghun Pak <mhun512@gmail.com>; Srinivas Pandruvada
+> <srinivas.pandruvada@linux.intel.com>; Mark Pearson <mpearson-
+> lenovo@squebb.ca>; linux-input@vger.kernel.org; linux-kernel@vger.kernel.=
+org;
+> Ijae Kim <ae878000@gmail.com>
+> Subject: [PATCH v2 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during
+> teardown
+>=20
+> The managed IRQ can access HID/DMA buffers or queue recovery work while
+> remove or probe unwind tears down those resources.
+>=20
+> Disable and synchronize the IRQ, drain recovery work, then mask THC inter=
+rupts
+> before freeing the IRQ and releasing HID/DMA resources.
+> Track IRQ/DMA initialization for conditional probe cleanup.
+>=20
+> Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and re=
+lease
+> outside the shared hibernation helper.
+>=20
+> This issue was found by our static analysis tool under development.
+>=20
+> Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC Qu=
+ickSPI
+> driver")
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
-> Tested on Linux 7.4-rc1 in QEMU/KVM as an unprivileged user (UID 1000)
-> for both the unprivileged ifindex/nonlocal-address mismatch and the
-> secondary address removal scenario.
-> 
-> Unpatched 7.4-rc1 guest output:
->   IGMP_VM_BEGIN kernel=7.4.0-rc1 expect=--expect-leak
->   IGMP_VM_CASE=nonlocal-address
->   uid=1000
->   control_explicit_ifindex
->   after_drop=0
->   after_close=0
->   case_address_only
->   join=0
->   drop=0
->   after_drop=1
->   after_close=1
->   joins_ok=16
->   drops_ok=16
->   closes_ok=16
->   groups_after=16
->   result=PASS
->   IGMP_VM_CASE=removed-secondary-address
->   uid=1000
->   address_removed=1
->   primary_present=1
->   after_remove=1
->   drop=0
->   after_drop=1
->   after_close=1
->   result=PASS
-> 
-> Patched 7.4-rc1 guest output:
->   IGMP_VM_BEGIN kernel=7.4.0-rc1 expect=--expect-fixed
->   IGMP_VM_CASE=nonlocal-address
->   uid=1000
->   control_explicit_ifindex
->   after_drop=0
->   after_close=0
->   case_address_only
->   join=0
->   drop=0
->   after_drop=0
->   after_close=0
->   joins_ok=16
->   drops_ok=16
->   closes_ok=16
->   groups_after=0
->   result=PASS
->   IGMP_VM_CASE=removed-secondary-address
->   uid=1000
->   address_removed=1
->   primary_present=1
->   after_remove=1
->   drop=0
->   after_drop=0
->   after_close=0
->   result=PASS
-> 
-> Reproducer (igmp-multicast-reference-leak.c):
-> 
-> /* SPDX-License-Identifier: GPL-2.0-only */
-> #define _GNU_SOURCE
-> #include <arpa/inet.h>
-> #include <errno.h>
-> #include <ifaddrs.h>
-> #include <net/if.h>
-> #include <netinet/in.h>
-> #include <stdbool.h>
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <sys/socket.h>
-> #include <unistd.h>
-> 
-> /*
->  * Run in a disposable network namespace. The affected kernel retains
->  * groups after a successful address-only leave and socket close.
->  */
-> #define BATCH_GROUPS 16
-> 
-> _Static_assert(sizeof(struct ip_mreqn) == 12, "ip_mreqn must include ifindex");
-> _Static_assert(sizeof(struct ip_mreq) == 8, "ip_mreq must omit ifindex");
-> 
-> struct observation {
-> 	int before;
-> 	int after_join;
-> 	int after_drop;
-> 	int after_close;
-> };
-> 
-> struct accumulation {
-> 	int before;
-> 	int after;
-> 	int joins;
-> 	int drops;
-> 	int closes;
-> };
-> 
-> struct interface_state {
-> 	bool up;
-> 	bool primary_present;
-> 	bool additional_present;
-> };
-> 
-> static void die(const char *operation)
-> {
-> 	fprintf(stderr, "%s: %s\n", operation, strerror(errno));
-> 	exit(EXIT_FAILURE);
-> }
-> 
-> static struct in_addr address(const char *text)
-> {
-> 	struct in_addr addr;
-> 
-> 	if (inet_pton(AF_INET, text, &addr) != 1) {
-> 		fprintf(stderr, "invalid IPv4 address: %s\n", text);
-> 		exit(EXIT_FAILURE);
-> 	}
-> 	return addr;
-> }
-> 
-> static struct interface_state churn_interface_state(void)
-> {
-> 	struct in_addr primary = address("192.0.2.1");
-> 	struct in_addr additional = address("192.0.2.10");
-> 	struct interface_state state = { 0 };
-> 	struct ifaddrs *interfaces, *ifa;
-> 
-> 	if (getifaddrs(&interfaces))
-> 		die("getifaddrs");
-> 	for (ifa = interfaces; ifa; ifa = ifa->ifa_next) {
-> 		struct sockaddr_in *in;
-> 
-> 		/* IPv4 aliases may be reported as eth0:1 by getifaddrs(). */
-> 		if (strncmp(ifa->ifa_name, "eth0", 4) ||
-> 		    (ifa->ifa_name[4] && ifa->ifa_name[4] != ':'))
-> 			continue;
-> 		state.up |= !!(ifa->ifa_flags & IFF_UP);
-> 		if (!ifa->ifa_addr || ifa->ifa_addr->sa_family != AF_INET)
-> 			continue;
-> 		in = (struct sockaddr_in *)ifa->ifa_addr;
-> 		state.primary_present |= in->sin_addr.s_addr == primary.s_addr;
-> 		state.additional_present |= in->sin_addr.s_addr == additional.s_addr;
-> 	}
-> 	freeifaddrs(interfaces);
-> 	return state;
-> }
-> 
-> /* /proc/net/igmp prints each group as a hexadecimal __be32 value. */
-> static int group_present(unsigned int ifindex, struct in_addr group)
-> {
-> 	char line[256], device[IFNAMSIZ];
-> 	unsigned int index, group_count, raw_group, users;
-> 	bool on_interface = false;
-> 	int found = 0;
-> 	FILE *file;
-> 
-> 	file = fopen("/proc/net/igmp", "r");
-> 	if (!file)
-> 		die("fopen /proc/net/igmp");
-> 
-> 	while (fgets(line, sizeof(line), file)) {
-> 		if (sscanf(line, " %u %15s : %u", &index, device,
-> 			   &group_count) == 3) {
-> 			on_interface = index == ifindex;
-> 			continue;
-> 		}
-> 		if (on_interface &&
-> 		    sscanf(line, " %x %u", &raw_group, &users) == 2 &&
-> 		    raw_group == group.s_addr) {
-> 			found = 1;
-> 			break;
-> 		}
-> 	}
-> 	if (ferror(file))
-> 		die("read /proc/net/igmp");
-> 	if (fclose(file))
-> 		die("fclose /proc/net/igmp");
-> 	return found;
-> }
-> 
-> static struct ip_mreqn join_request(struct in_addr group,
-> 				    struct in_addr interface_addr, int ifindex)
-> {
-> 	struct ip_mreqn request = {
-> 		.imr_multiaddr = group,
-> 		.imr_address = interface_addr,
-> 		.imr_ifindex = ifindex,
-> 	};
-> 
-> 	return request;
-> }
-> 
-> static struct observation probe(const char *name, struct in_addr group,
-> 				struct in_addr interface_addr,
-> 				unsigned int ifindex, bool drop_with_ifindex)
-> {
-> 	struct ip_mreqn join = join_request(group, interface_addr, ifindex);
-> 	struct ip_mreq drop = {
-> 		.imr_multiaddr = group,
-> 		.imr_interface = interface_addr,
-> 	};
-> 	struct observation result;
-> 	int fd;
-> 
-> 	printf("%s\n", name);
-> 	result.before = group_present(ifindex, group);
-> 	printf("before=%d\n", result.before);
-> 	fd = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> 	if (fd < 0)
-> 		die("socket");
-> 	printf("socket=%d\n", fd);
-> 	if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP,
-> 		       &join, sizeof(join)))
-> 		die("IP_ADD_MEMBERSHIP");
-> 	printf("join=0\n");
-> 	result.after_join = group_present(ifindex, group);
-> 	printf("after_join=%d\n", result.after_join);
-> 
-> 	if (drop_with_ifindex) {
-> 		if (setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP,
-> 			       &join, sizeof(join)))
-> 			die("IP_DROP_MEMBERSHIP (ip_mreqn)");
-> 	} else if (setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP,
-> 			      &drop, sizeof(drop))) {
-> 		die("IP_DROP_MEMBERSHIP (ip_mreq)");
-> 	}
-> 	printf("drop=0\n");
-> 	result.after_drop = group_present(ifindex, group);
-> 	printf("after_drop=%d\n", result.after_drop);
-> 	if (close(fd))
-> 		die("close");
-> 	printf("close=0\n");
-> 	result.after_close = group_present(ifindex, group);
-> 	printf("after_close=%d\n", result.after_close);
-> 	return result;
-> }
-> 
-> static int count_batch_groups(unsigned int ifindex)
-> {
-> 	char text[INET_ADDRSTRLEN];
-> 	int count = 0;
-> 
-> 	for (int i = 1; i <= BATCH_GROUPS; i++) {
-> 		snprintf(text, sizeof(text), "239.250.34.%d", i);
-> 		count += group_present(ifindex, address(text));
-> 	}
-> 	return count;
-> }
-> 
-> static struct accumulation accumulate_groups(struct in_addr interface_addr,
-> 					     unsigned int ifindex)
-> {
-> 	char text[INET_ADDRSTRLEN];
-> 	struct accumulation result = { 0 };
-> 	struct ip_mreqn join;
-> 	struct ip_mreq drop;
-> 	int fd;
-> 
-> 	result.before = count_batch_groups(ifindex);
-> 	printf("groups_before=%d\n", result.before);
-> 	for (int i = 1; i <= BATCH_GROUPS; i++) {
-> 		snprintf(text, sizeof(text), "239.250.34.%d", i);
-> 		join = join_request(address(text), interface_addr, ifindex);
-> 		drop.imr_multiaddr = join.imr_multiaddr;
-> 		drop.imr_interface = interface_addr;
-> 		fd = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> 		if (fd < 0)
-> 			die("batch socket");
-> 		if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP,
-> 			       &join, sizeof(join)))
-> 			die("batch IP_ADD_MEMBERSHIP");
-> 		result.joins++;
-> 		if (setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP,
-> 			       &drop, sizeof(drop)))
-> 			die("batch IP_DROP_MEMBERSHIP");
-> 		result.drops++;
-> 		if (close(fd))
-> 			die("batch close");
-> 		result.closes++;
-> 	}
-> 	result.after = count_batch_groups(ifindex);
-> 	printf("joins_ok=%d\ndrops_ok=%d\ncloses_ok=%d\ngroups_after=%d\n",
-> 	       result.joins, result.drops, result.closes, result.after);
-> 	return result;
-> }
-> 
-> static int run_original(bool expect_leak, unsigned int ifindex)
-> {
-> 	struct in_addr interface_addr = address("203.0.113.77");
-> 	struct observation control, affected;
-> 	struct accumulation batch;
-> 	bool pass;
-> 
-> 	control = probe("control_explicit_ifindex", address("239.250.33.1"),
-> 			interface_addr, ifindex, true);
-> 	affected = probe("case_address_only", address("239.250.33.2"),
-> 			 interface_addr, ifindex, false);
-> 	batch = accumulate_groups(interface_addr, ifindex);
-> 	pass = control.before == 0 && control.after_join == 1 &&
-> 	       control.after_drop == 0 && control.after_close == 0 &&
-> 	       affected.before == 0 && affected.after_join == 1 &&
-> 	       affected.after_drop == expect_leak &&
-> 	       affected.after_close == expect_leak &&
-> 	       batch.before == 0 && batch.joins == BATCH_GROUPS &&
-> 	       batch.drops == BATCH_GROUPS && batch.closes == BATCH_GROUPS &&
-> 	       batch.after == (expect_leak ? BATCH_GROUPS : 0);
-> 	printf("result=%s\n", pass ? "PASS" : "FAIL");
-> 	return pass ? EXIT_SUCCESS : EXIT_FAILURE;
-> }
-> 
-> /*
->  * The caller first adds 192.0.2.1/24 to eth0, then 192.0.2.10/24 as a
->  * secondary address. After "ready_to_remove_address=1", it deletes only
->  * the secondary address and sends one byte on stdin; eth0 remains up.
->  */
-> static int run_address_churn(bool expect_leak, unsigned int ifindex)
-> {
-> 	struct in_addr group = address("239.250.35.1");
-> 	struct ip_mreq request = {
-> 		.imr_multiaddr = group,
-> 		.imr_interface = address("192.0.2.10"),
-> 	};
-> 	int before, after_join, after_remove, after_drop, after_close, fd;
-> 	struct interface_state before_state, after_state;
-> 	char token;
-> 	ssize_t n;
-> 	bool pass;
-> 
-> 	printf("case_address_churn\n");
-> 	before_state = churn_interface_state();
-> 	printf("address_present_before=%d\ninterface_up_before=%d\n",
-> 	       before_state.additional_present, before_state.up);
-> 	before = group_present(ifindex, group);
-> 	printf("before=%d\n", before);
-> 	fd = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> 	if (fd < 0)
-> 		die("socket");
-> 	printf("socket=%d\n", fd);
-> 	if (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP,
-> 		       &request, sizeof(request)))
-> 		die("address-churn IP_ADD_MEMBERSHIP");
-> 	printf("join=0\n");
-> 	after_join = group_present(ifindex, group);
-> 	printf("after_join=%d\n", after_join);
-> 	printf("ready_to_remove_address=1\n");
-> 	if (fflush(stdout))
-> 		die("fflush");
-> 	do {
-> 		n = read(STDIN_FILENO, &token, 1);
-> 	} while (n < 0 && errno == EINTR);
-> 	if (n != 1) {
-> 		fprintf(stderr, "expected one-byte address-removal signal\n");
-> 		return EXIT_FAILURE;
-> 	}
-> 	after_state = churn_interface_state();
-> 	printf("address_removed=%d\ninterface_up=%d\nprimary_present=%d\n",
-> 	       !after_state.additional_present, after_state.up,
-> 	       after_state.primary_present);
-> 	after_remove = group_present(ifindex, group);
-> 	printf("after_remove=%d\n", after_remove);
-> 	if (setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP,
-> 		       &request, sizeof(request)))
-> 		die("address-churn IP_DROP_MEMBERSHIP");
-> 	printf("drop=0\n");
-> 	after_drop = group_present(ifindex, group);
-> 	printf("after_drop=%d\n", after_drop);
-> 	if (close(fd))
-> 		die("close");
-> 	printf("close=0\n");
-> 	after_close = group_present(ifindex, group);
-> 	printf("after_close=%d\n", after_close);
-> 	pass = before_state.up && before_state.primary_present &&
-> 	       before_state.additional_present && after_state.up &&
-> 	       after_state.primary_present && !after_state.additional_present &&
-> 	       before == 0 && after_join == 1 && after_remove == 1 &&
-> 	       after_drop == expect_leak && after_close == expect_leak;
-> 	printf("result=%s\n", pass ? "PASS" : "FAIL");
-> 	return pass ? EXIT_SUCCESS : EXIT_FAILURE;
-> }
-> 
-> int main(int argc, char **argv)
-> {
-> 	bool churn = argc == 3 && !strcmp(argv[1], "--address-churn");
-> 	const char *expectation = churn ? argv[2] : argc == 2 ? argv[1] : NULL;
-> 	const char *ifname = churn ? "eth0" : "lo";
-> 	bool expect_leak;
-> 	unsigned int ifindex;
-> 
-> 	if (!expectation ||
-> 	    (strcmp(expectation, "--expect-leak") &&
-> 	     strcmp(expectation, "--expect-fixed"))) {
-> 		fprintf(stderr,
-> 			"usage: %s [--address-churn] --expect-leak|--expect-fixed\n",
-> 			argv[0]);
-> 		return 2;
-> 	}
-> 	expect_leak = !strcmp(expectation, "--expect-leak");
-> 	ifindex = if_nametoindex(ifname);
-> 	if (!ifindex)
-> 		die("if_nametoindex");
-> 	printf("uid=%u\ninterface=%s ifindex=%u\nexpectation=%s\n",
-> 	       (unsigned int)getuid(), ifname, ifindex,
-> 	       expect_leak ? "leak" : "fixed");
-> 
-> 	if (churn)
-> 		return run_address_churn(expect_leak, ifindex);
-> 	return run_original(expect_leak, ifindex);
-> }
-> 
->  net/ipv4/igmp.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-> index 144fca158..52cde8782 100644
-> --- a/net/ipv4/igmp.c
-> +++ b/net/ipv4/igmp.c
-> @@ -2463,6 +2463,8 @@ int ip_mc_leave_group(struct sock *sk, struct ip_mreqn *imr)
->  				iml->multi.imr_address.s_addr)
->  			continue;
->  
-> +		/* The drop request may not resolve to the joined device. */
-> +		in_dev = inetdev_by_index(net, iml->multi.imr_ifindex);
->  		(void) ip_mc_leave_src(sk, iml, in_dev);
->  
->  		*imlp = iml->next_rcu;
-> -- 
-> 2.43.0
+> No hardware testing.
+>=20
+> Changes in v2:
+> - Rebase on mainline b3dfbde62cf1. No source changes from v1.
+>=20
+>  .../intel-thc-hid/intel-quickspi/pci-quickspi.c    | 28 ++++++++++++++++=
++-----
+>  1 file changed, 22 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> index
+> bf49d8ce5f07bed092339e46c444538d78cffe26..acb4d2716ea7450d2852a900c3f
+> 0acc1d7570421 100644
+> --- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> +++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> @@ -600,6 +600,8 @@ static int quickspi_probe(struct pci_dev *pdev,
+>  			  const struct pci_device_id *id)
+>  {
+>  	struct quickspi_device *qsdev;
+> +	bool dma_initialized =3D false;
+> +	bool irq_requested =3D false;
+>  	void __iomem *mem_addr;
+>  	int ret;
+>=20
+> @@ -652,6 +654,7 @@ static int quickspi_probe(struct pci_dev *pdev,
+>  					qsdev);
+>  	if (ret)
+>  		goto dev_deinit;
+> +	irq_requested =3D true;
+>=20
+>  	ret =3D reset_tic(qsdev);
+>  	if (ret) {
+> @@ -670,17 +673,18 @@ static int quickspi_probe(struct pci_dev *pdev,
+>  		dev_err(&pdev->dev, "Setup THC DMA failed, ret=3D %d\n", ret);
+>  		goto dev_deinit;
+>  	}
+> +	dma_initialized =3D true;
+>=20
+>  	ret =3D quickspi_get_report_descriptor(qsdev);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "Get report descriptor failed, ret =3D %d\n",
+> ret);
+> -		goto dma_deinit;
+> +		goto dev_deinit;
+>  	}
+>=20
+>  	ret =3D quickspi_hid_probe(qsdev);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "Failed to register HID device, ret =3D %d\n",
+> ret);
+> -		goto dma_deinit;
+> +		goto dev_deinit;
+>  	}
+>=20
+>  	qsdev->state =3D QUICKSPI_ENABLED;
+> @@ -695,10 +699,16 @@ static int quickspi_probe(struct pci_dev *pdev,
+>=20
+>  	return 0;
+>=20
+> -dma_deinit:
+> -	quickspi_dma_deinit(qsdev);
+>  dev_deinit:
+> +	if (irq_requested) {
+> +		WRITE_ONCE(qsdev->recovery_disabled, true);
+> +		disable_irq(pdev->irq);
+> +	}
+Add a blank line here.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+>  	quickspi_dev_deinit(qsdev);
+Blank line.
+
+> +	if (irq_requested)
+> +		devm_free_irq(&pdev->dev, pdev->irq, qsdev);
+Here.
+
+> +	if (dma_initialized)
+> +		quickspi_dma_deinit(qsdev);
+Here too.
+And do the same thing for Quickspi driver.
+
+Thanks!
+
+Best Regards,
+Even Xu
+
+>  disable_pci_device:
+>  	pci_clear_master(pdev);
+>=20
+> @@ -721,9 +731,12 @@ static void quickspi_remove(struct pci_dev *pdev)
+>  	if (!qsdev)
+>  		return;
+>=20
+> -	quickspi_hid_remove(qsdev);
+> -
+> +	WRITE_ONCE(qsdev->recovery_disabled, true);
+> +	disable_irq(pdev->irq);
+>  	quickspi_dev_deinit(qsdev);
+> +	devm_free_irq(&pdev->dev, pdev->irq, qsdev);
+> +
+> +	quickspi_hid_remove(qsdev);
+>=20
+>  	quickspi_dma_deinit(qsdev);
+>=20
+> @@ -750,6 +763,9 @@ static void quickspi_shutdown(struct pci_dev *pdev)
+>  	if (!qsdev)
+>  		return;
+>=20
+> +	WRITE_ONCE(qsdev->recovery_disabled, true);
+> +	disable_irq(pdev->irq);
+> +
+>  	quickspi_dev_deinit(qsdev);
+>=20
+>  	/* Must stop DMA before reboot to avoid DMA entering into unknown
+> state */
+>=20
+> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> --
+> 2.53.0
