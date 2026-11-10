@@ -1,82 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302931;
-	b=5p36xqaj5r40HWzShzzrK9cGxLdfmK45xfGGxl7ZNAjHW85YZUbjroFXU20mCnpyE3dx
-	 anyVZFlrbXp4oKnXxMdLJJRM7FmnWNAzrSoyDJ0wLej21DYVkRnMvt2tt9IyasdcLzeN+
-	 qrw2RfP3brxIMzRUkPwMcnZlpQKcjuwuN4SQRPPDhyMqt4PHiB1pJMQfig7Hs83/aCVvB
-	 21jS7BmrO6RQfiVm68f0SUtwcoBNkHur0Vp7z3PdWkiZo04/zFX4mm5+csc6yxep9Mtwh
-	 s6/JIm7b3O0HJXGBIFBRnhh7/6EcmXfqVwoa6Ov0Uiuzy7Xhpqsd9e/rZvVFXpY3ECw==
+	t=1794302947;
+	b=1syV0o/TswXoiNtdFadHQCcj8xOyQ3KtwA3I9R+g6kZ245d820SU+d+KBDBi8Nqh386/
+	 KKgvySofJixlRoQPiRRwsCcCzsWtErCWHYZU2IZgKPzLR/bL9Tp4HhWcOop4qND5D79rl
+	 l2BUbk6WvfO00GyIxL2o1QcDcBVHdAhnNaG9TE0dM/T/tOJuWdHUpor++uLSyq9AdOuug
+	 M9sbSCTmBj9Y8zTZ0x2QO+t5tUU6D+6I3J8Q4iHfNTRfRc0T2c0HdgM4EBjfB+EcRZHv7
+	 6qLYinjq/NH5yrCcBfxJi6Cx3CiCnsWw/flZuFltRRdkXl35yxma9bajVQ4zbkWTUxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302931;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m3p/DDXuAbdnnQuiur5i1eemlv0No7Pemm1h08DiR30=;
-	b=44MPB/Jn2josOLAe0WEag9GbQiXUbQpsbHLIhnj6wD6nJQFyRbFpeZMBNHYtZNxoElJH
-	 0KNggmtBKldv9tX52QSApWI9VaiYK7sKeq2cf/XlC7w0XauX9X9BIuWzAwRSsgSbrPsx7
-	 0f1LheP/gFvj8ykvg9eNi1XbcaEJs/ANfHyyz5NUAXyoo+t0yKNuwJF+Kk22O04Ui+JtF
-	 C7cRTztzgOu8j0kkTuVNKmlLc8SvIGHSnNURY5fjiOPeqFzKngYSj1JRQxnHNzw006mMW
-	 +7VBN8aq25iUPHZLec9K3z8DV69AQe9SVupg4wTu9jLADB9T8fMxOHFoBZ2gk5CiHvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
+	b=sHct+bWjLUWh6RmUWqLrTR4vYjKHU0Adj1/AHq7ZrzumELY40lgLXaAzQbv4pLpOn2eZ
+	 D1mZX3X+4eQGqrGRBKHbO1pIsC0WMnQHVaEGX+fm3TyMoUr4CAkpSi9ie8RzXo8Pt5IUu
+	 An76mttoc4qG1pwRswCoWrPZemySDXvXBHkFwMpy4HSchDypDd74y5TAOdQJp3CiK8xrU
+	 w/R/AVIta9KP0HbdTaZNOhLWtby/LrsI7uXpZSWbv26buGHXcyI4Rd6CL8yFsEjuiNnvn
+	 kuH+LbLVURuTPhHI3eIWGwbjmNzpJ3Yfu+CTVnepbdS7LyPUNsAQd3NhfEn6L+I+wWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=bNH7JWBj;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UDxXKQMo;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CFC606B9CB
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7CFC606B9CB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94982606B147
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94982606B147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=bNH7JWBj
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA8EkeJ172632;
-	Tue, 10 Nov 2026 09:28:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=m3p/DD
-	XuAbdnnQuiur5i1eemlv0No7Pemm1h08DiR30=; b=bNH7JWBjDpfrXCniM6jbZY
-	urSiv2tl6E4orY10ZedBBa245qfEbepXIJw5iO4aqro/Jx7Ffw1QIT/K4/Fxhx/p
-	orA/2S4pd7gOTEDa+qji5DwdtylgKBknQpwB33MxnvkCKMzUOZ7IdU2REBRHy/Pz
-	/Pg/b6xulXyCfc9FiRMx2JDnRyP+wHxY+39jrCD6UoTZVJofGTSleEFy7zomJzLN
-	oYWMV6HHCiWJAKZ98G4pXhqhVToZPOB0vGFrY1eKSahC672Wc5fjGfjhoD9hOKxd
-	W0Um+aZftyR8ys6Z8KkcUfTivJCwpNtiss7iSdm1mCBc/FU3lb/gwDkAqn4ekujg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsunt46a4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 09:28:38 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7ntVX1406220;
-	Tue, 10 Nov 2026 09:28:37 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htfak5yp0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 09:28:37 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AA9SZv242140142
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Nov 2026 09:28:35 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8A4802004B;
-	Tue, 10 Nov 2026 09:28:35 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 858622004F;
-	Tue, 10 Nov 2026 09:28:33 +0000 (GMT)
-Received: from [9.39.31.79] (unknown [9.39.31.79])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 10 Nov 2026 09:28:33 +0000 (GMT)
-Message-ID: <9da4b3b5-cc9d-4a55-9aba-b491f9b222e5@linux.ibm.com>
-Date: Tue, 10 Nov 2026 14:58:32 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UDxXKQMo
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so1130560f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:29:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794302945; x=1794907745; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
+        b=UDxXKQMoogTknpK1OPVncqXSm0G22RJgQ0FxIgPiMQaF2OJT500Q9tbbv+Tv+t5bOv
+         4w4+ZxmMhb/fgy0FHH4HvD6vfIxqnkl62PfN6mzqtCgRUnOREeSSWtOQWr/3RpfQuzP9
+         Ns9uxY/Hs523nHUL4cXA7tQPO+07rJxzz8OQ2lgiS3l53zWH2iYySdKiJjv9eoPrRR6+
+         HG2NtC3puEQ2q0fLaWcsrC35e7r6LIpBPxaymZalvjNPFLK2YQNupKVOcThyOqqmsdXh
+         NNTc4B1yrJzTS+OI2uma7W0eA97/oW3fgeNX2ntRzUoAQXjiYZXiIuGxDvrZXR6pSLpl
+         001g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794302945; x=1794907745;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
+        b=r0b6huk4xbh6W9Jfoq/fCroYI57TBtrtR7Kz0ouHsKc5rYUXAqXkgLQftX0xxV8F6f
+         AMeJ6ZNC8qfnXtr6ZOy64aXqzesycUSmkGwUAFyshB/+6+PpzqMVFRPS/TqbpQeHq9gF
+         fZEzZUb4xRdxqTktPVXOgfrbQNx5FL5CqJYv1LLP/41ExBoZiptJ60w5ZEV0q3cKWCKo
+         byM/6YrD2m/3aY/2JZaGPrHU15pz+E1JWgasXd20kxCY8GnFwfEhlPEwEBgh3ow82416
+         65nba+BxoSbKrZkB9Q/FbfQUxu25Cehf/JkVHZyt9wrbQWzbKIs58ckR86yf2i2+tt7P
+         Gqww==
+X-Forwarded-Encrypted: i=1; AL+hErE/yvtD0RoS/6tXgyF6Ozb58OnOOUdlVcAyqDlKhApVIjQs8Xk2GqrwUOHIEEgrw49C+hPzM4vomefRz5s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zeY+4KXLERd382jOttnydAZCRjyrcxOCmSizq7i9PmDRZMDEs
+	1hZN8bb37cIDyGZD3NjNEouF4FhH7SRI4+PrTTjAX44LiH6qVg2QZ+xA
+X-Gm-Gg: AYBFou2YbYj5lHlaM8zCP9Wi1y1StgO4kYlA39I1dSJwH1q0bptJ8UgAp/11eLE0yqM
+	IKiCzoXs9s/DVgYKRTw7bQsHbsh274eDhNCwHPX4JJCddTXDvWmFChpUtOn4UfsewlvAinMkn5W
+	2tATe5cYudp3pDe65JYsBRpyveVjxsqgvSCsYp8AVeSxbYQGvFZUBAq1M3SvJEIi2stHIAm89D8
+	ertQXb/c5ImM6PLiagYAtdy+eDV/yEeNv9XU3DUUufhtssccdFNs7mGSfDfQiS76aJMP1Ynm0Sm
+	WmBTdJPFYtMYUK08GFBUWuRkDH7LhHK5EhGy7f/ZY/chYCumcQvZl68YIevvPmep1VjrbwwXKgY
+	dgfoPCXqpdDnrKgPIFqntNvREmpaRJloqc4jnud6KhjsHXWQXcKeV0QCOkiJqAMhdmbSvuwO06h
+	1/llW7q41DVc22NaZn4+oJgmG2WvUGEvr/piyXFWYQ9oIRrx0lVosWFGGYMZbG6IV3Pio+pZoWu
+	D95ucqyRkQNm5QkzA9a85O4PkCRfRbjlFEdiK0afaGS+Oc4GOPQaJChy83xXNl4OKS7hD4MofX3
+	AobnowCAxLWbceFMAHSnORxndQ08B8xmuBmf
+X-Received: by 2002:a05:6000:3c5:b0:48e:f10:ceb8 with SMTP id ffacd0b85a97d-4982e641f90mr3524247f8f.11.1794302944660;
+        Tue, 10 Nov 2026 01:29:04 -0800 (PST)
+Received: from fedora ([154.182.80.200])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983f7801bbsm3839798f8f.5.2026.11.10.01.29.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:29:04 -0800 (PST)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev,
+	mripard@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v2] iio: adc: at91_adc: move to devm_* to fix NULL pointer deref
+Date: Tue, 10 Nov 2026 11:28:48 +0200
+Message-ID: <20261110092848.141854-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,125 +103,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/smp: Handle of_property_count_u32_elems() error
- in parse_thread_groups()
-To: Nathan Chancellor <nathan@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin
- <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Kees Cook <kees@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-References: <20261109-powerpc-smp-handle-count-err-v1-1-e777fde7f71a@kernel.org>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20261109-powerpc-smp-handle-count-err-v1-1-e777fde7f71a@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzNiBTYWx0ZWRfX5WX+RPQynwG3
- 5JfEkkjN3w1cHQWMBKfFpcnBzPn1tTr5MKrxHNfcNe6S+QdbL7ZIZuLJWRS421ha7tRmuYgWIMH
- cV8nhZOxY0zqcoobfa1AWp/696CSUWFifnvmpyUA3xFjnudlMO+6buUvWmAj+N146kzeY1fa4Cf
- hpX2hBKdqIuISg9Dabxa0v5hNpJFRq1HgIGG3S745lB0yZwP9HcoTE1jayf5QnK48Y/TzZF9hhK
- ndTbiIvDKoo2pHGWpcLZX+VtBbmmcGqRrBEBghASRHF9uOJgo6JbN3t+TQIWWXyjC5SGE/N5VUH
- j7ZMtBkRpu691+TNdwlDEdZjnSC0FSRv+607UUjhcKGWOseO3J9SotD1KS3NRuzqaQB+5DAyghs
- mlhy94sFUZCwkz2JdIfoGIpmySdOLDbRpE2Zga8/zmu5WKFpxU3LKFBLadsQiyNIsOC5DzJ7QRj
- VD1KxB6gnxxVldkltzw==
-X-Proofpoint-ORIG-GUID: Vga60G3pp7sW2rY-UTzxIv8sw2-2Td04
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzNiBTYWx0ZWRfX5i0Nsm4mcGSp
- KcR58Y/mAj5iy4nUvD2VMeP6bffa9wunKHfQnS4dAZ6an1z/T442qDrqRRF9WlfRW+ORPvTat22
- n5iLnCwicwuXoPCaRK5aFkvSnkPUIUE=
-X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af2e3c7 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=vYq-qXZFh7psd1dCY8cA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: YTGGr8qHyJr6rGJQsWXMyujRdtHwZC5S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100036
+Content-Transfer-Encoding: 8bit
 
-Hi Nathan. Thanks for the fix.
+If 'atmel,adc-use-external-triggers' is not set in the device tree,
+at91_adc_trigger_init() leaves the external trigger slots in st->trig
+as NULL. The error paths and remove function unconditionally called
+iio_trigger_unregister() and iio_trigger_free() on them, causing a
+NULL pointer dereference.
 
-On 11/9/26 11:30 PM, Nathan Chancellor wrote:
-> After commit 0af298e62e5c ("treewide: refresh kmalloc_obj()
-> conversions"), there is a warning on boot for several PowerPC
-> configurations in QEMU:
-> 
->    WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x174/0x1b0, CPU#0: swapper/0/1
->    Modules linked in:
->    CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.4.0-rc1-00262-g0af298e62e5c #1 PREEMPT(lazy)
->    NIP [c0000000006074e4] ___kmalloc_large_node+0x174/0x1b0
->    LR [c00000000060782c] __kmalloc_large_node_noprof+0x3c/0x150
->    Call Trace:
->    ...
->    [c00000000369fb60] [c000000000614ff0] __kmalloc_noprof+0x490/0x690
->    [c00000000369fbe0] [c000000000051308] _kzalloc_noprof.constprop.0+0x1c/0x74
->    [c00000000369fc00] [c00000000200b450] init_thread_group_cache_map+0xc0/0x2c4
->    ...
-> 
-> In this case, of_property_count_u32_elems() returns -EINVAL because
-> there is no "ibm,thread-groups" property. When kcalloc() was used to
-> allocate thread_group_array, the multiplication overflow check in
-> _kmalloc_array_noprof() caught that a really large allocation was
-> requested (as -EINVAL was converted to size_t) and returned NULL.
-> kzalloc_objs() has no such check, so the large allocation check in
-> __kmalloc_large_noprof() triggers the visible warning above.
-> 
-> Check if of_property_count_u32_elems() has returned an error and bail
-> out if so, clearing up the warning.
-> 
-> Fixes: 790a1662d3a2 ("powerpc/smp: Parse ibm,thread-groups with multiple properties")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Instead of just checking for NULL, refactor the driver to use the
+device-managed (devm_*) API for registration and allocation. This
+modernizes the code, eliminates the need for manual cleanup functions
+(at91_adc_trigger_remove, at91_adc_buffer_remove, at91_ts_unregister,
+and at91_adc_remove), and inherently fixes the NULL pointer dereference
+since the core handles the cleanup of properly allocated triggers.
 
-Looks fine to me.
-Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+As part of this simplification, the remaining trigger initialization
+logic has been inlined into at91_adc_probe().
 
-> ---
->   arch/powerpc/kernel/smp.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
-> index 7a25eaa59e62..58824f5f4c80 100644
-> --- a/arch/powerpc/kernel/smp.c
-> +++ b/arch/powerpc/kernel/smp.c
-> @@ -824,6 +824,8 @@ static int parse_thread_groups(struct device_node *dn,
->   	int i = 0;
->   
->   	count = of_property_count_u32_elems(dn, "ibm,thread-groups");
-> +	if (count < 0)
-> +		return count;
->   	thread_group_array = kzalloc_objs(u32, count);
->   	if (!thread_group_array)
->   		return -ENOMEM;
-> 
-> ---
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> change-id: 20261109-powerpc-smp-handle-count-err-b48b9ffd6e90
-> 
-> Best regards,
-> --
-> Cheers,
-> Nathan
-> 
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Fixes: 0e589d5fb317 ("ARM: AT91: IIO: Add AT91 ADC driver.")
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+v2:
+ - Dropped the simple NULL check approach.
+ - Refactored the driver to use devm_* API as suggested by Jonathan Cameron.
+ - Removed manual cleanup functions and error paths entirely.
+ - Inlined remaining trigger initialization into probe().
 
-Should the similar fix is needed here as well?
+ drivers/iio/adc/at91_adc.c | 146 +++++++++----------------------------
+ 1 file changed, 33 insertions(+), 113 deletions(-)
 
-arch/powerpc/platforms/powernv/idle.c:
-         nr_idle_states = of_property_count_u32_elems(np,
-                                                 "ibm,cpu-idle-state-flags");
+diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+index 0ac74ad92fca..911838150116 100644
+--- a/drivers/iio/adc/at91_adc.c
++++ b/drivers/iio/adc/at91_adc.c
+@@ -608,85 +608,32 @@ static const struct iio_trigger_ops at91_adc_trigger_ops = {
+ static struct iio_trigger *at91_adc_allocate_trigger(struct iio_dev *idev,
+ 						     const struct at91_adc_trigger *trigger)
+ {
++	struct device *dev = idev->dev.parent;
+ 	struct iio_trigger *trig;
+ 	int ret;
+ 
+-	trig = iio_trigger_alloc(idev->dev.parent, "%s-dev%d-%s", idev->name,
+-				 iio_device_id(idev), trigger->name);
+-	if (trig == NULL)
++	trig = devm_iio_trigger_alloc(dev, "%s-dev%d-%s", idev->name,
++				      iio_device_id(idev), trigger->name);
++	if (!trig)
+ 		return NULL;
+ 
+ 	iio_trigger_set_drvdata(trig, idev);
+ 	trig->ops = &at91_adc_trigger_ops;
+ 
+-	ret = iio_trigger_register(trig);
+-	if (ret) {
+-		iio_trigger_free(trig);
++	ret = devm_iio_trigger_register(dev, trig);
++	if (ret)
+ 		return NULL;
+-	}
+ 
+ 	return trig;
+ }
+ 
+-static int at91_adc_trigger_init(struct iio_dev *idev)
+-{
+-	struct at91_adc_state *st = iio_priv(idev);
+-	int i, ret;
+-
+-	st->trig = devm_kcalloc(&idev->dev,
+-				st->caps->trigger_number, sizeof(*st->trig),
+-				GFP_KERNEL);
+-
+-	if (st->trig == NULL) {
+-		ret = -ENOMEM;
+-		goto error_ret;
+-	}
+-
+-	for (i = 0; i < st->caps->trigger_number; i++) {
+-		if (st->caps->triggers[i].is_external && !(st->use_external))
+-			continue;
+-
+-		st->trig[i] = at91_adc_allocate_trigger(idev,
+-							st->caps->triggers + i);
+-		if (st->trig[i] == NULL) {
+-			dev_err(&idev->dev,
+-				"Could not allocate trigger %d\n", i);
+-			ret = -ENOMEM;
+-			goto error_trigger;
+-		}
+-	}
+-
+-	return 0;
+-
+-error_trigger:
+-	for (i--; i >= 0; i--) {
+-		iio_trigger_unregister(st->trig[i]);
+-		iio_trigger_free(st->trig[i]);
+-	}
+-error_ret:
+-	return ret;
+-}
+-
+-static void at91_adc_trigger_remove(struct iio_dev *idev)
+-{
+-	struct at91_adc_state *st = iio_priv(idev);
+-	int i;
+-
+-	for (i = 0; i < st->caps->trigger_number; i++) {
+-		iio_trigger_unregister(st->trig[i]);
+-		iio_trigger_free(st->trig[i]);
+-	}
+-}
+-
+ static int at91_adc_buffer_init(struct iio_dev *idev)
+ {
+-	return iio_triggered_buffer_setup(idev, &iio_pollfunc_store_time,
+-		&at91_adc_trigger_handler, NULL);
+-}
++	struct device *dev = idev->dev.parent;
+ 
+-static void at91_adc_buffer_remove(struct iio_dev *idev)
+-{
+-	iio_triggered_buffer_cleanup(idev);
++	return devm_iio_triggered_buffer_setup(dev, idev,
++					       &iio_pollfunc_store_time,
++					       &at91_adc_trigger_handler, NULL);
+ }
+ 
+ static int at91_adc_read_raw(struct iio_dev *idev,
+@@ -924,9 +871,8 @@ static int at91_ts_register(struct iio_dev *idev,
+ {
+ 	struct at91_adc_state *st = iio_priv(idev);
+ 	struct input_dev *input;
+-	int ret;
+ 
+-	input = input_allocate_device();
++	input = devm_input_allocate_device(&pdev->dev);
+ 	if (!input) {
+ 		dev_err(&idev->dev, "Failed to allocate TS device!\n");
+ 		return -ENOMEM;
+@@ -951,8 +897,7 @@ static int at91_ts_register(struct iio_dev *idev,
+ 		if (st->touchscreen_type != ATMEL_ADC_TOUCHSCREEN_4WIRE) {
+ 			dev_err(&pdev->dev,
+ 				"This touchscreen controller only support 4 wires\n");
+-			ret = -EINVAL;
+-			goto err;
++			return -EINVAL;
+ 		}
+ 
+ 		input_set_abs_params(input, ABS_X, 0, (1 << MAX_RLPOS_BITS) - 1,
+@@ -964,27 +909,14 @@ static int at91_ts_register(struct iio_dev *idev,
+ 	st->ts_input = input;
+ 	input_set_drvdata(input, st);
+ 
+-	ret = input_register_device(input);
+-	if (ret)
+-		goto err;
+-
+-	return ret;
+-
+-err:
+-	input_free_device(input);
+-	return ret;
+-}
+-
+-static void at91_ts_unregister(struct at91_adc_state *st)
+-{
+-	input_unregister_device(st->ts_input);
++	return input_register_device(input);
+ }
+ 
+ static int at91_adc_probe(struct platform_device *pdev)
+ {
+ 	unsigned int prsc, mstrclk, ticks, adc_clk, adc_clk_khz, shtim;
+ 	struct device_node *node = pdev->dev.of_node;
+-	int ret;
++	int i, ret;
+ 	struct iio_dev *idev;
+ 	struct at91_adc_state *st;
+ 	u32 reg, prop;
+@@ -1140,11 +1072,23 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 			return dev_err_probe(&pdev->dev, ret,
+ 					     "Couldn't initialize the buffer.\n");
+ 
+-		ret = at91_adc_trigger_init(idev);
+-		if (ret < 0) {
+-			dev_err(&pdev->dev, "Couldn't setup the triggers.\n");
+-			at91_adc_buffer_remove(idev);
+-			return ret;
++		st->trig = devm_kcalloc(&pdev->dev,
++					st->caps->trigger_number, sizeof(*st->trig),
++					GFP_KERNEL);
++		if (!st->trig)
++			return -ENOMEM;
++
++		for (i = 0; i < st->caps->trigger_number; i++) {
++			if (st->caps->triggers[i].is_external && !(st->use_external))
++				continue;
++
++			st->trig[i] = at91_adc_allocate_trigger(idev,
++								st->caps->triggers + i);
++			if (!st->trig[i]) {
++				dev_err(&idev->dev,
++					"Could not allocate trigger %d\n", i);
++				return -ENOMEM;
++			}
+ 		}
+ 	} else {
+ 		ret = at91_ts_register(idev, pdev);
+@@ -1154,36 +1098,13 @@ static int at91_adc_probe(struct platform_device *pdev)
+ 		at91_ts_hw_init(idev, adc_clk_khz);
+ 	}
+ 
+-	ret = iio_device_register(idev);
++	ret = devm_iio_device_register(&pdev->dev, idev);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "Couldn't register the device.\n");
+-		goto error_iio_device_register;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-error_iio_device_register:
+-	if (!st->touchscreen_type) {
+-		at91_adc_trigger_remove(idev);
+-		at91_adc_buffer_remove(idev);
+-	} else {
+-		at91_ts_unregister(st);
+-	}
+-	return ret;
+-}
+-
+-static void at91_adc_remove(struct platform_device *pdev)
+-{
+-	struct iio_dev *idev = platform_get_drvdata(pdev);
+-	struct at91_adc_state *st = iio_priv(idev);
+-
+-	iio_device_unregister(idev);
+-	if (!st->touchscreen_type) {
+-		at91_adc_trigger_remove(idev);
+-		at91_adc_buffer_remove(idev);
+-	} else {
+-		at91_ts_unregister(st);
+-	}
+ }
+ 
+ static int at91_adc_suspend(struct device *dev)
+@@ -1333,7 +1254,6 @@ MODULE_DEVICE_TABLE(of, at91_adc_dt_ids);
+ 
+ static struct platform_driver at91_adc_driver = {
+ 	.probe = at91_adc_probe,
+-	.remove = at91_adc_remove,
+ 	.driver = {
+ 		   .name = DRIVER_NAME,
+ 		   .of_match_table = at91_adc_dt_ids,
+-- 
+2.56.0
 
-         pnv_idle_states = kzalloc_objs(*pnv_idle_states, nr_idle_states);
-         temp_u32 = kzalloc_objs(u32, nr_idle_states);
-         temp_u64 = kzalloc_objs(u64, nr_idle_states);
-         temp_string = kcalloc(nr_idle_states, sizeof(char *),  GFP_KERNEL);
