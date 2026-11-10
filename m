@@ -1,101 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344460;
-	b=4B84hjsGJixGfHlVCZMIVX6AkQRV0LdDwv1+e9vsXZHCtoh5Rl/7z3wyKX7Rqy9Rt+Qk
-	 ZETQZIZHjIrJeUNfxBR3lWIpNG4eg0n2Q7cPY8kmdrLtbu/mMVgWmvkE3sm5XGfbOi3FY
-	 HuHniDo6aLfMkNF7IP1wdfavD2+IxFLmUlIwLLCiX+qiZN6GJyPWhuiNZ4/yYAu/4mkPr
-	 JK6sFM2jPxuCLvI2nJ+p5L/4uoBwP9mzoeWzvUQ31zOkTexMkye0rbo20qYO0c9c5/GzM
-	 tF/dVsoTDz37WXdtObYwxwfJ9KF4L90K7WzcjmC3Q0RbNu0h2+khS007mUKb+aY2w4A==
+	t=1794344513;
+	b=3+7V//afP9qxImFxZMcue41FfSr563KFvwVL3w4LM6+FOTH4A6s6UIOL6hAbXAwS70H+
+	 SiR4yeRD6Lb2hhx8jnSGRidca2WnC6clp2pEJIwVm3auPWzI+Zu1/XuV3dkgzrG4tzbmG
+	 i4rJ//9iDxnOLB5damIwa5AxXP9QoH4A4DS6yDMdMGrQRN6gc32zUrYu8NtrL7IwYWq04
+	 K9lRUqDN2wyXJO6eG3+Y7ZFLUbjkrHBDOw0vbunptfmFOgQfNKHx4PjQh2qGVjEWaof0j
+	 GRfW2jurU0j3We5TXg5E+dMUgQROOrBAjBsI88WbNDve0FD/ikwJ1lqFOqx/jipd3Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344513;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hDLUHlDELwoWZCmTvGw0qzaVx27lJyAdyGftfx2GJak=;
-	b=gZtFAviPnG5KTBOem4AuV+ZmQWjzLkN2N7QjCJ3SNyI2R8cnrn6EmkEIArl62xCHeW1S
-	 3VZak+iaYNgrdi36vMFrhoBAq1Ba1hu97SX9X56iYAkbubVFA7bwIUTOIlEYDI/Hp1qew
-	 g4NV4KXxYXpz/oGCNtslfHNzdYL/If7Q2RT4X6WVjD3BjF3joLO2PCI7y3AZbvPbU0DuE
-	 Poa4vQ5KPNMGCnemQLX8mpRmgi3g5Jxa5GZZ663eMTYQqBCJln2si5hIti0WOTLxbKE2O
-	 6CZVod8TYutdO755Xo3punP7YKcCYbgShuZ9SSh0HjviRB4mRjmIBwDWVQIjSIxnSxg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=M7R8N2eXWD6+EHKfny1HAblM/aky2ALTwQRlCwbdbPY=;
+	b=Pa5F7WWnvz7N43i+DcDxaBRtB58tZIZMj3wWbSS8Zyilg9AREORaUKb2PPRjyImBBcOw
+	 gOyyvZKmT6PzmzxK1kraK+08NOW1UEqNe8+5opBHL+DhwVvz9d63akALEQ0IQ+HgC33hs
+	 NkMSAlwkAfEJxONvzpS5j0Mogb1JJngGPMHO6QYRCRtGxYgcwN3GO02RrDBKqAl8+7PFM
+	 rLwNdk56GEYdxqkRuoV/CrJdMo8FFh5QDOCjNp3Oj8wwYDUrdnOtPDnxcsWI6THziJ8UI
+	 UT94KLGuFv9m0oCvICDSCtn4xcvyiJvVM8umkMjyxk6BjOWOFCLzS98Cth0Sm3jYf6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OK9Pka/U";
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=blockcast.net;
+	spf=pass smtp.mailfrom=blockcast.net;
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=CSJ9Dgp0;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B3B606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B3B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209C3606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:01:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 209C3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OK9Pka/U
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1712465f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:00:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=CSJ9Dgp0
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-37198ed3727so3199071eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:01:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794344458; x=1794949258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hDLUHlDELwoWZCmTvGw0qzaVx27lJyAdyGftfx2GJak=;
-        b=OK9Pka/U2GuWO3Nz5xYdLVshL8cUBub24v8bD5TtQklTl2g1u7vgxIV/c4bnPd+orq
-         /MzAJdLOOJXJzg4e4n/LQORaYBDQ8wn3dEJhXzB7ZLFZPek9F+DtWvsPXWhR3dSjGx/5
-         2uKrVfKFk8I1jONKFojsDXrIzfIpl9ye6WW3K9hfPeHijSS/9o4/yNOjYwJkrjQuNM10
-         /H6WiU3LzRiCKMgNdk9GuLMT08EKAsYdASt2ymV4wiE1bWYtdI+kN+vai/HF48BsJV9K
-         VvXbyBmTAzqjRJ0nTKywkVj/d9I72oQkYWABKUnb83RMk53/1+WpvnXWB3kcIWZkVVKg
-         bc5w==
+        d=blockcast.net; s=google; t=1794344512; x=1794949312; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M7R8N2eXWD6+EHKfny1HAblM/aky2ALTwQRlCwbdbPY=;
+        b=CSJ9Dgp0zGlrS9GT0Yb7zoj6ITj6pka3nrha22Lru7iJfbhyzdeBhzBHWat74WMNtO
+         6I7fNFUxnihp+OiK6I4FRUbbuzOmWZig8TzXInUMD4q82joiV8MMV7bPZ5itH+GxgLLI
+         /2STzSYDYWj41+0g/1DnGSRu/Q9ONfSdCbUvBnxZ/8pWVf145+nbhldcjBbi2kkMHJd4
+         pZNiRQ5MQlHFYCyKBQMngh56SCV47a9T7N9W97bXOnZZlt2hWWn9X6NBKP0Vi0d6emIN
+         t3xR8T6qT4F5vB9asfdyn6rukpaXEP+J3H4ACd0uK6VRHkXkrbgBkCg9pnZ2hAMy7kIP
+         EtLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794344458; x=1794949258;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hDLUHlDELwoWZCmTvGw0qzaVx27lJyAdyGftfx2GJak=;
-        b=jY2E3woy07aFde8D8XBfij+ucME/4VKEQKpeI6WfkaxsIQ9Nl8LZgNqsQxXR5+xpsA
-         O5Fr99vciBZxg2HA0PMAgFAT+8Dh1t6XXTE4e/DZc7LubioNtIFpAuHKkmZll+SqBEPU
-         QjJ+Pw3rFqDWOYgt0/LAEwDByENMiUzJJ3T557KOC1jHpAS+J5STwL40iFrJ6v8jZEkJ
-         F9npER60bo+rIQ5pkUcYt4Fv6AfqThJcOx/iHuIPllIlVRCi1JI2P3dzWkE7YYmK9vVs
-         rw9HeCsLoOHdDw494n3PLtOyh9qWRGhvNTuw3amgKAlQmLB/7HRY0YYzcfyFfFPLghBY
-         2bmA==
-X-Forwarded-Encrypted: i=1; AL+hErGrH6iq14rFDLMNI6HM59IkXmI6HU2DYIpsEfcQv63rWL9mTlHZB0fIiScruxCBI8aNMRo3MICKIq6G2fE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HAiPo48xReGFrurTaO4XW7vDnPgNG+hoZrO541zitjQcXG1RB
-	X9sEyVHKIALPGwG51gWi2Jd7LH4v/7P8Z5INQ2Fe0N0cqFlhNI9p9rMI
-X-Gm-Gg: AYBFou2IbqHvgGMvA5wEJuW7usma6Q8I0BvjpbqR4KVvI05k+iZLJAhGlAf457Qvcp0
-	eCcg6pOOdPkn5arwx1x1zxYBIMo8mMufn86PU1s9Bf5RBVOj6L8R8TWVZdHPatZgpPGnOaOkCnU
-	uHQhafcib9L6m/ITtioDLw3iBPXRi+/3vrSXCiFbN/sZX9btw64LOJfHmaTJWe2m8TMqmjzB+W9
-	uInv4xrneF5zWWf0CZskB/xxScEg5lkmgtzOjGHsJyIudYQmcr5VY7WCzq8wuHM5Hn/4dymQa23
-	3jpcrC4cw+4G40G4mdLziuCD4fO2Cx7qY/OeBpEI40m1jTHaM+fysalV50p497RHvprERtoNV0+
-	HA1GnaOM1K0ypj6vd7wB4BI7F2/XJxbhUglsA/y5Rf3iEpI0CjMmJK6oA28Q/GoRIIkyx3GMhyf
-	IA7a2j6yAizATACiTYZNPfYs6q1sx0sMCKtvrXptjSHHvnqe9z7gxBdtLQF2n2kYCCEpkSVbkTG
-	Ud/ncjSO2I4xHMh55pCPteNWbw8jDLm1d42DBPeyMS/skJQuIqB1F8y/9E6lkaZUlr2VDugxONP
-	bhgM3KlowPnl/DtJ7Er6QgtLFesJxZQCvVtFrBaUUq37/096p8TJxLqEbAoCYnEVSg==
-X-Received: by 2002:a05:6000:40cd:b0:490:a3e7:8af3 with SMTP id ffacd0b85a97d-499c764a963mr279177f8f.35.1794344458068;
-        Tue, 10 Nov 2026 13:00:58 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c9b1sm6460691f8f.6.2026.11.10.13.00.56
+        d=1e100.net; s=20260707; t=1794344512; x=1794949312;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M7R8N2eXWD6+EHKfny1HAblM/aky2ALTwQRlCwbdbPY=;
+        b=Ba/7CVz75vwCEHLspSGLbqmKWXWf31ApTwuwi1GfV3EwBsK9w6TY4q7eRaKl/5Jf2+
+         o60vgmliBPyKnJcWX4S+SGMp3cQgYf1ELmLw4Q8M3gpcF7bSs/zUG0Wh92rITsEuBmwI
+         O20HOULF8Z9/uC1aJ6oUBDtDMTjOSXNQFJ46GEPCFOvCdlhCwEA13TslBibAXZuB1EFG
+         yCy9wi+hwCRp4a3aTECPoZANEMrOrBsYRhjz6DIjeMiqWaQ3UFnEe7x1kYMFjpX5yKlE
+         o73LwAIDtHDdZ2RUWv4H45QO2Qo5gL/EIokaomp4XJhZK/s95cUVfHfckFiunw/5B+9c
+         /gpg==
+X-Forwarded-Encrypted: i=1; AL+hErGDm7TDDa0WlMFHc+bL2qr31mE+DVIOs5Nqb7u9tHokJjFCp3fmKw1AKOOXbU/o0zbasPRE6TMoa6OAig0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vNiCqTKspvYmLsSd2PH0hye3gZntigxdlKblufbhzJyPYZBQJ
+	+Dgh7TQYSxCQ35qgmxV9ZU9lKK6MaHWZa5PKS7vRHDOG3zehDIsQlYBEqnxhFnFVpls=
+X-Gm-Gg: AYBFou0T58hnaFIXSHKuUfuAWhMTzRCD9kNZMxEdxCzzP23NQPY6tZpgezu+x328EaI
+	U3IPBxHvPukr4xbjoyXzPWkO77zGT+FcYXkMiO4vhcu+z/igL75r4fRz7RJ137PcD66gWdZeEtt
+	NVe+1p3PXTqH2zdrXGnrMvRyMn92crH9lFQq3/B0/G1gCE2bOLZfHwr8hEwl81ZdxLWedPloj9S
+	7dpmTwlMqNZcUlIkuXA6h5eahf0AppImm0clD3e/QEkolk6L/MmdxapLc+E/g/f6xd0YbGF+VQW
+	n0Kqi+GXAK93DXFL0JZIf9W+3GF9K/+VHOogtGDMcDPy9haVYQypBTW56l70vP7hWiv0eXq5FPo
+	Sz92GQf7nrRKs1i7JqBdviBVEOiJsa2zp2XHgUrGlYIerDDid2JTGr8MAxnzPa3fvuKTm7w3zlp
+	Ng0TLXqx3CbyXpyGLOrH0IcVgB7ECTJP798yOVZBrppgsCUWdIjAJqHzh5YP81Ow/U8wBm+Pcsv
+	ETnXQKjcLkvykOmHHDnux9I4OznGXSOIKQXVWmMRF5gnfS9DVVTNMNJfbtTeQiR7av9dFn4x9YV
+	+YP2uLKUjdc+SzfDtdhb1luTMQc2DgFbnE4Cr+xq5FE7CTd3iVRrHcRFhMlgCznXPySOwLMp8TG
+	BY5TmCsX9WMtK3g4y
+X-Received: by 2002:a05:701b:4516:20b0:14b:1ef8:698d with SMTP id a92af1059eb24-1b3c036c2c0mr73201c88.15.1794344511472;
+        Tue, 10 Nov 2026 13:01:51 -0800 (PST)
+Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4efc2sm8017033c88.15.2026.11.10.13.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:00:57 -0800 (PST)
-Date: Tue, 10 Nov 2026 21:00:55 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Usama Arif
- <usama.arif@linux.dev>, bp@alien8.de, dave.hansen@linux.intel.com,
- dsterba@suse.com, linux-kernel@vger.kernel.org, mingo@redhat.com,
- terrelln@fb.com, tglx@kernel.org, x86@kernel.org, kas@kernel.org,
- hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
- CPUs without FSRM
-Message-ID: <20261110210055.0ca9fc07@pumpkin>
-In-Reply-To: <719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
-References: <20261104222806.1826508-1-usama.arif@linux.dev>
-	<CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-	<719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Tue, 10 Nov 2026 13:01:50 -0800 (PST)
+From: Omar Ramadan <omar@blockcast.net>
+To: netdev-bot+sashiko@kernel.org
+Cc: ap420073@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	horms@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	rostedt@goodmis.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH net v5 1/5] amt: fix use-after-free when a Membership Update re-arms a freed tunnel
+Date: Tue, 10 Nov 2026 21:01:46 +0000
+Message-ID: <20261110210147.100396-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179423575689.994134.7687724928848317687@kernel.org>
+References: <20261105125010.1107546-2-omar@blockcast.net> <179423575689.994134.7687724928848317687@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,30 +109,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 12:17:51 -0800
-"H. Peter Anvin" <hpa@zytor.com> wrote:
+On Mon, 09 Nov 2026 14:49:16 +0000, netdev-bot+sashiko@kernel.org wrote:
+> - [High] amt_tunnel_expire() (drivers/net/amt.c:1412) runs on amt_wq.
+> - [High] amt_del_group() (drivers/net/amt.c:293) used to free the group
+>   node with kfree_rcu().
 
-> On November 10, 2026 9:53:07 AM PST, Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> >On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama.arif@linux.dev> wrote:  
-> >>
-> >> +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
-> >> +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM  
-> >
-> >Let's not do that.
-> >
-> >Putting magic things like RET in alternatives is just a bad bad idea.
-> >
-> >               Linus  
-> 
-> Why is that, *given that it is in assembly*?
-> 
-> For C (or Rust, or C++, ...) it is obviously bad chicken.
+v6 has superseded this posting; this patch is v6 2/6:
+https://lore.kernel.org/netdev/20261107004935.2627329-3-omar@blockcast.net/
 
-Because RET is a horrid sequence subject to a lot of patching
-to avoid multiple speculative execution issues.
-If is were just the 0xc3 opcode byte it wouldn't be an issue.
+Answers below are against v6 and the v7 I am about to post.
 
-David
+> Can this flush deadlock amt_wq? amt_tunnel_expire() runs on amt_wq, and
+> so do group_gc_wq and source_gc_wq.
+
+Fixed in v6, and v7 keeps it. Both flushes are gone:
+amt_tunnel_expire() and amt_dev_stop() call __amt_group_gc_work()
+directly, and the group GC calls __amt_source_gc_work() directly
+instead of flushing source_gc_wq. The cancel_delayed_work_sync() calls
+left in the GC queue nothing: each takes a pending timer work off its
+timer or queue, or waits for a running one on a barrier that
+max_active does not count.
+
+> What limits the number of deleted group nodes waiting on group_gc_list?
+
+Nothing, and v6 still has this. max_groups bounds live groups, not
+parked ones, and before this series a deleted group went to
+kfree_rcu(), so the series introduces the regression.
+
+v7 counts the nodes parked on both GC lists, under the one lock that
+now protects both, and queues the drain of both lists at once when the
+count reaches AMT_GC_KICK (2048). A parked group keeps its 256 source
+hash heads, so it is a kmalloc-4k object, and 2048 of them is about
+8 MiB; the kick keeps the backlog near that instead of letting it grow
+for up to 30 seconds. A periodic drain that ends with that many parked
+again re-arms at 0 rather than after the interval.
+
+> When the GC finally runs, __amt_group_gc_work() walks the whole spliced
+> list with no cond_resched():
+
+v7 adds cond_resched() after each node in both drains. They run only in
+process context, with no spinlock or RCU read-side section held. The
+kick also bounds what amt_dev_stop() frees in its drain under RTNL.
+
+> Is 0 safe to use here as the "never refreshed" value for last_seen?
+
+Fixed in v6: 2/6 stores "jiffies ?: 1", and 6/6, where every tunnel is
+stamped at creation, drops the special case.
+
+> Could the commit message describe each of these failures? Alternatively,
+> could they be split into separate patches, each with its own Fixes tag,
+
+v7 keeps one patch, since the tunnel and node fixes share the same
+helpers and the same tunnel->lock rules, but its message now names each
+failure: (1) as the amt_dev_stop()/amt_tunnel_expire() double
+list_del_rcu() and free, (3) and (4) as frees after only
+cancel_delayed_work(), and two more races in the timer work: parent
+pointers read before tunnel->lock or RCU, and a second destroy or
+delete after waiting on tunnel->lock. It carries both tags:
+
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+Fixes: bc54e49c140b ("amt: add multicast(IGMP) report message handler")
+
+Both went into v5.16, so stable reach is unchanged.
+
+On (2): every walker of a group's source hash, the report handlers and
+amt_group_work(), holds tunnel->lock, as does every caller of
+amt_destroy_source(), so I don't find a reader that can follow
+snode->node onto the GC list. v7 still gives sources and groups a
+gc_node of their own, and says it is hardening.
