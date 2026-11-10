@@ -1,80 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327241;
-	b=5jRXiifvd5s18LxNxKxuhzr9YvBa677AWQiRCfUhQPefgYmYf3a9QgpE3rxsp+30iyXs
-	 V0N4mChPmFDqiHFhRT2t3aNHwqv/+cUoqB5keVpQdpaU/Q8QT7/zWR0K71CvuCobNklLY
-	 rQpKga3T1BsFm2ERrwFEQK1qRtxeTUDY2iY/b90uLlZ5Vy4sfjNrWem7QzanhOkPQRX7K
-	 uLWvmD9wWaiBwpg1CvrnZ+bVh0YXaNi6ORr1TY51AMB9ryq+WtqsAV+DvTB4efU3wf3yf
-	 evAe6rnECbqd5+xk7RkzWhR0cl0BBuoRCHLUzNHiwKVGMosiMADv0LnLGTU2Mip+2Ew==
+	t=1794327255;
+	b=oM6q4e3Ni0DWbDQ9VCLc8K8pSyAAJRg7CijSc2GbneXwaWT+lPWAG4v/PvbnbCZFjNOb
+	 xKad3P3ybB7pMsJDOtBxOAcGzDvG0dw3KTSfuJ6zIgMs4mYAawvGrTbQG0zQYQzPWwnxF
+	 zlG8BfuS2gk6gkG8Ks0khHZ6Caha+P7ow75PQavE8q9xRuuaL+C7uzcim514qI39OoTN1
+	 LMOhX2HKj772F+mG9eppWSOEWbeVRe5kWgglfK/kVFcwczvaIQ49WyNpl/TL1sBGbwcEw
+	 Pzp9BXSW3NZO7tKphHtBJ4y1cHrpueX9iYNQGl8S5aYXZ9rk/x1ZWA9amc+AcUtSCmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327241;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=g3puA/Rs8Op3gQUg0J/vl+syCCZwXxu4Foqvmyce9W4=;
-	b=eHyWwlRG7I9yfqKSi1SkyMqxlHjB48IeeTNspzVc4qnqhfSZVMqJqyTFDGIduVYvg/no
-	 26WMnlT2H9YrftlaHf0uN16YuTgnDLZD/aQoQHLr6as4y91FA+AUI7MiL3AcgwFpQgexF
-	 fpXpnDwgqS5DWxGK1h3gT+cdzafBcZ0Rs+RXxAAisB9qy1fbDtMzLTeZ53lrvzEBr5/Kf
-	 GD1b2p0W1YsyE+1tmmBMAOVssL6Gkh9/FduubfjMYzjcapdNd/AtQqB4G6k2Pu3lU+fSF
-	 2k2oE3HbsfsiW1trPOW5lius8ZhfrqWKYGgxtIh6D0Gntm368oD/kvsWCrSrWmaTPew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327255;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=a2d/fBfzfFNSaTFIalghXmF7Nmh1cwB84PjdUqrUwow=;
+	b=5W3kgm8av3RSD18LPCL+7ym100CwW71uMfhSpH5uINe0Nu6KMUEeOaIwzx9CTGviXktL
+	 qHPn48YFisLtK+9mn1dL0W6fyE2qxIYGNfeYEjXQB/6qL1YZJzIPmf63IvFfmOQjUAFHR
+	 AXN63WTPXp0m0knkGiYg2RKYwlD4dxcgmpmnuKstvtJgMUOsYNW/TSWMB5yAycCjmUQ+L
+	 nufcoldT7CerCHVVq6AyAW8Y5Tw9ER2UF42dhhSZGZob6w8wGrUhpezujdxpVUFYvdn95
+	 2E6Ys/HLavW0ckef/1iJIaqVuiuRehS8jfsKQyp77WGNonXF640jW4+eebnFgzEepAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=schaufler-ca.com;
-	spf=pass smtp.mailfrom=schaufler-ca.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RDGd6J64;
-	arc=none smtp.remote-ip=66.163.184.49
-Received: from sonic317-38.consmr.mail.ne1.yahoo.com (sonic317-38.consmr.mail.ne1.yahoo.com [66.163.184.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ab06j4EB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9854B606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:13:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9854B606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schaufler-ca.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CD5606A326;
+	Tue, 10 Nov 2026 16:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RDGd6J64
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794327238; bh=g3puA/Rs8Op3gQUg0J/vl+syCCZwXxu4Foqvmyce9W4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=RDGd6J64KFdUM7VGvUfJOJ8S39HfQojQbc02rHRHnll4+eFp09C8JD6kW8aBOQLyrqcKGr09PqSQWggmf2bfP9Vhj6Ope4/1O7EHKejyYQi59nBV5GLSE0Mt47vDBq8/eSYpTzOP065mJIuWwTzB8Frbmzr1bRSNaNCceXs6fsVHkW5xQcnUh3twnWE32aF9l35SVlz0GPlOQdhXi8a1Lv7heecxMJuENe5Mm07v/XnTfVhUI90f81+5pxtKs16ZyZ1dBHONujX86KEr8oFHMAXmZZWU796BbMWTn0fb4rLGhoyytHv1F0nrVY3xsiJrZOTdtlfpVEy3yMrKFWNwEw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794327238; bh=sYEQKp0KtFvQAK0J3M4QRw/Tkxc1uvwLJaeWJQ8gWyZ=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=BwudvB+03jhVnO10NtONX7aiHcEuZP5bhu5eG/BN0jxXhZmUudkpUnYCE1m7KXbFIBoi5+m1c4k0Jkh3LdYjJm/Jp2lo7/5h3H7GJwL+cSj5G0LQ3rC02xp+Db0QAoeHdKgoVCzGep5TVAqC3Yq4uYu9qBiMTU4x444Ysy/OaSw9+yGk8nbHmxvUKuMqlpoKwmsy7sbGhMpQA27xXFQovpYTxcDOclmuAadh+IhsAQFlkB/PDw3uPsMVwpbJVbSsn0iQWd6YSvx7pYYWz5VAQsnU738WymI8Z4LIo1aK/908HH7j4MmuOOP07fBh7jrpoWGIi7Ads5qsXEbvUFTkqg==
-X-YMail-OSG: 4a8g204VM1n9PqiRa7yv3CpcO8VH9DBXllKXBFIvB8iIKOCdy1oyCJDXz.qc1xz
- pikdKsSa0vyEI_0VrAIE.SJA80Wb.KBtgC49c6.wmwlO1amPEf0yHRhYnABpmItnZOEsIKqpGPCA
- oFFeOEUyit70BQmpM1.kjy7Vm17d54mv1rfu8lS6v.xU.PwtD6Bp.tfE3ojQbM.C6X7rGGLNKRNa
- zetOw2TVFmA1A.wnSWTwZiIEEl_rEKknXXH6u7TXA_6_.XOKDDySO..E28RubUtd74UWM2Uv8aZ_
- v0qezE8MJ9WFmzj_9i481qgsj9tyGjXb.awkKulhb9NgB.GhHC1L5FcOxOYG36TOWScQXrKWEq8m
- m3A26J2RlJroVkRXbo2HrImRvDzsXe.jNd8qxSAqoInFulAmasIRdTkavo9UabjpDQLtm3bJMHdV
- ravk_TH6Xa9rSX5Xg4m4azf2JyThWCMO1DZI2Iwm27HSv6E8wWqivGCVTmA.XhwJdW0Zndq4OxfE
- nKxwlOCbPgcB3_BAsWxXug80z.gwtjyk3LfFwbEPzwfgF0m92XC_AOaDemlFRwDWj2XeFcvo8.7c
- PH3XDwJ5SykDe_Ic_2r9Bpet52fWyXiaOzqJO7STLFBNRoJp1dklQesTH2iX0n48cKb8wst_HBYS
- 1.NXayAYbPR6lCIkccrKXMOCPKu6rLinl.w3jm7XMf7TdAj81lrNRaj54SQt4JDxl3_er44tSj6e
- vVZsV.6stxY21Xpe12CsWtuJ9i0W.CSkIK8txHnnWvh._cdVb6EyulHbkskfu3hPwFovNR75EV_R
- Xt4rZscdTC6VPrG2kU.P8MyZWjz_fcvHR0dZyBP5KlCTTtjhXRk9kRy3QjNsorL5.A6B1cfFEaAk
- _AEKEYP8BruqiPLlAgyFM8Z.8u_2OGdd1jDvSovuE8xLfaEyirmGRLyEfD_XyKP7wTK.PqW4K932
- lAsWrGoJLGjTa_ZbrjXR0igCzNFg_3hq1yU82MXS0kNXiCi3KmKaj1K51gy0s9lK1BeBk1OM5xNY
- Hutcgt47SRJCIBJucehLSDs3cOIM9YvPDQ5d0WIqaVApG7PETw0Qa9zJzQFUVgRersz5BDaUL5DV
- as3fiZVF.ftPgP5q9imZs_5DBiNy16gaqiyu6Clsoxd3B8HJ3FXDMCMfP.KNaWKbI5fkZ0nvs85Z
- L1bYXbd0G3G5W51iQjtuAIokuU94jV6NquWJPuJfGg.kx9axW0MnCJEAVdaqvaIK6dYG29Hzoq0y
- _siDbT2UVD.SC_Ai7d7GRsGNuuS8Xf1IDNCAqq._UIyl36r1V4JeNck45lHJwh1wC.UyM9PJ3IgU
- cXD5Yef270fy_7uj6dJxB9we1gQ6.GdeQLh.uM35x_9iidC3zFdGLJB08ZieRG.zX5EweOVHoV29
- w8pLRtlJq6aVZzaYD_eLA.4v_pg1H3zbqG_6FZwReQ3aRu__yALuggSZTDZBge5z4DD3cyCKdXuJ
- fdAXYhvzhfgYFV7ebT7Jepsh0QgK_USUXRHyKus5c5eSqqTfnDOmiq8IuOoWzvWRM.ttHHmPtEX_
- tnucnxdlFSvCuxYNs.FRn0g6mvqli4vnzySQq1yUfqopylR8eNQmr2AX2o.xF5fu2KxVwE3P5vWM
- aGNGu70BGvxgkIEGTXdBBlh_3XQI5U0HwzNfP38mdUhjjGqNThgAHW9.eDNG05hJsPKCtt4QV18c
- rqcJKhYzwhPSY74xsUslsJa6orTvPYlbC0xgIVi98r34bEEa7c_TGBfIhp41p6fsHkEt6uu.p64w
- Eq77mjiPzmnx54fHtet_cyCF6RbW15Rm3_o4syW9iXsVKyhCGdL_3ZVp32E284C2FFy_leaYePZJ
- 87zzdzIRQCNxYkPXQF8QiWVms3NaGb4xfgV67vTbBKeyaB2W9RPIAzGoqfqS9maZDETnLp6oKgOu
- 3j7Cb9WsrP2sfJ3tIt229KLDQoA_CZshPnym48HYnJaVivYYeM2j7zdFKsYy8KKwbWH4Hixz86lP
- 7CW1LIX.T0a_eUIXxlUOjPr1Otm.QLTeQ__8p_.5prn1LJeG5eueWUUJ7ybnYqsjFOHBxUG8hZHk
- xdpHjuFhEIy7ilpVYrOEIu5pP7qD9KVwJ6wI0npIhNiJHyMQudG2.G.mWXxgaX48oKnM8gJvG6o1
- CnEd3mACQAjw79eZXQh1OKhbiKuskcH05P2CxD3iKGkvPzxmlVmQQ35xAZJ9HzZy6Z9KPZ1rRIfv
- yNhawAEJ1APH1m125O0E7u6qAmo3C30Xw180TcsLCbqiSZiW69D8IBf05Vp1NrB9JfAW1IUiUXZy
- gsmLO8BBi_PZmmcdoWZRwhFNlX8GNtbao
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: cfdf2d2a-b498-44b5-958c-5f67e753d496
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Tue, 10 Nov 2026 16:13:58 +0000
-Received: by hermes--production-gq1-fd7994565-nddcd (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 477e123a5d70e851d8294a1398b4519e;
-          Tue, 10 Nov 2026 16:13:53 +0000 (UTC)
-Message-ID: <b943c17c-32a2-4c59-9037-a7f41bd163ea@schaufler-ca.com>
-Date: Tue, 10 Nov 2026 08:13:50 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ab06j4EB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C847B1F008A1;
+	Tue, 10 Nov 2026 16:14:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794327254;
+	bh=a2d/fBfzfFNSaTFIalghXmF7Nmh1cwB84PjdUqrUwow=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ab06j4EBUjZ+I1S1yBO2pSb67Qh9FrF+mRBi623YxyIQJdHvKj8/hKxJ6AToz63uF
+	 CQmgrkwCpgpk9UPECCP68pkPAt3CIGH61Pp5zRTVYQLxplg1lb/h3WlIKhMIxrgRD0
+	 2Zk4bIzZfy0TFiS6dNEdxGzk7Lqy7xk5BUq4jNCVLPq0m0Kfi5SM8XUCJOxIpu68HQ
+	 f+w5nXCIF2afv98n20t9bLBX+sYXVQTnKuzBIJYXg8sPe3MR1NiVUjAm6E1LvaZ5Gd
+	 IU2DODwMwILlW6MHbuJg1AX13CqOwS8SEZ3T9g+eIodWABWWc+lprmxnm7Kf2CIQcA
+	 4WR5drvhOFJVw==
+Date: Tue, 10 Nov 2026 17:14:06 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/5] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avNCY5ghSn-M8oqB@devuan>
+References: <cover.1794323750.git.alx@kernel.org>
+ <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+ <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,65 +72,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
-To: Paul Moore <paul@paul-moore.com>, Jann Horn <jannh@google.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
- netdev@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, selinux@vger.kernel.org,
- stable@vger.kernel.org, Casey Schaufler <casey@schaufler-ca.com>
-References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
- <CAHC9VhR+U3i8xNce8Ps8k76EZr_AeVf+fHET_Ncu1+yO1G2zSQ@mail.gmail.com>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <CAHC9VhR+U3i8xNce8Ps8k76EZr_AeVf+fHET_Ncu1+yO1G2zSQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-
-On 11/9/2026 12:13 PM, Paul Moore wrote:
-> On Fri, Nov 6, 2026 at 4:40 PM Jann Horn <jannh@google.com> wrote:
->> cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
->> socket, and tries to remove CIPSO options from the middle by moving all
->> subsequent options.
->> That's not allowed - ip_options_rcu can be read locklessly and must always
->> be consistent. For example, ip_options_undo() reads trusted offsets and
->> length values from the options buffer.
->> Fix it by doing the modification in a copy.
->>
->> The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
->> propagate memory allocation failures.
->>
->> Triggering this bug requires that the system is configured to use CIPSO.
->> (Setting up CIPSO requires privileges in init_user_ns.)
->>
->> Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jann Horn <jannh@google.com>
->> ---
->> I've sent a separate mail with a reproducer to Paul Moore.
->> ---
->>  include/net/cipso_ipv4.h     | 11 ++++++-----
->>  include/net/netlabel.h       | 11 ++++++-----
->>  net/ipv4/cipso_ipv4.c        | 16 +++++++++++++---
->>  net/netlabel/netlabel_kapi.c | 24 ++++++++++--------------
->>  security/selinux/netlabel.c  |  5 +++--
->>  security/smack/smack_lsm.c   | 14 +++++++++-----
->>  6 files changed, 47 insertions(+), 34 deletions(-)
-> Thanks Jann, this looks good to me.  In a perfect world it would be
-> nice to get Casey's ACK on the Smack changes, but since they are very
-> minor and basically just pass the return code through I think it's
-> okay to merge this in another day or so if we don't hear from him.
-
-I don't see any reason to wait for my testing to complete. I'll shout
-if anything fails.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6az5minxxtrwr4gt"
+Content-Disposition: inline
+In-Reply-To: <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
 
 
+--6az5minxxtrwr4gt
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/5] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avNCY5ghSn-M8oqB@devuan>
+References: <cover.1794323750.git.alx@kernel.org>
+ <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
+ <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
+MIME-Version: 1.0
+In-Reply-To: <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
+
+Hi Joe,
+
+> Date: 2026-11-10 07:47:55-0800
+> From: Joe Perches <joe@perches.com>
 >
-> Acked-by: Paul Moore <paul@paul-moore.com>
->
+> On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
+> > As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> > between an empty prefix matching an empty string from a non-matching
+> > prefix.  This is a fundamental design flaw in this API, and not
+> > something that can be fixed.
+> >=20
+> > As always, this is a consequence of choosing sizes instead of pointers.
+> > Sizes are often the wrong choice.  In this specific case, pointers are
+> > more capable of differentiating these cases, as NULL is a special
+> > sentinel value that doesn't need to overload a valid value.
+> >=20
+> > Let's implement strprefix(), a function that returns a pointer
+> > right after the prefix if found, and a null pointer if not found.
+> >=20
+> > We'll slowly migrate existing code from str_has_prefix() to strprefix().
+>=20
+> Most uses of str_has_prefix could use the existing strstarts.
+
+Hmmm, actually, both str_has_prefix() and strstarts() can be replaced by
+strprefix(), which provides functionality for both use cases.  It's the
+more generic API for this.  And I expect compilers can optimize the
+unused parts if actually unused.
+
+
+Have a lovely day!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--6az5minxxtrwr4gt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzQskACgkQ64mZXMKQ
+wqnQMQ/+JSd+d9JXXdBlPNG7Sau+EnfWITQPtqNVph42m8pmt0QrtmNSgdOTgyRU
+UJDFWdQ+pD9VzeNRedBQVbE/5zu0AxKunpKIM6aUGvl7UER57ZMKzR1gyHB2bY7M
+FLd3hIfedcj+DfqqUzXUMZuf8D3CqQRlv07iy92PvC0ZScwyuGkI/E/r2cNQ+Exn
+xk+2Ko1d1tvMspJfkcNtGGS3Nb5qrSpUXPK0+O6xXmHftcAAhRe5pESoiuymHtib
+VO0+alNsE/U9qP6isgMbwxvBtO3KoCmZAD74eOg912eG6+yuJjgEg4YXDEVGWhxo
+CRUjGaUVMBuTOq6HJyWwD4/kW3S9BtGnsDrUh2/xHtUMwUVQeiuxOTRTJMnlGt+Y
+dNGV43DEQGatNPcQ6BRYiT8DAFmvRh2TZP1JHr6iJVWoF/Xv4iw+VMDyZPKd93wk
+ygi6Ju+mF8TEOYuKaG+9vCpi3yIDTYax+xW7WjeIaVpqCI1P+vth96BocsIEo7XI
+nqoha2jX7YdkkLNw410UrdEvyR5H0TdykNxHZAv6AT2xlkegEOVIrJKGdsVOf4+E
+mH/FCJj8eLjYA+hQVgTR82PUnWi0kuaGq3xbU601GJdFnunqQ8oFqBipVftrEfhd
+FoTAWprqrPzqAP5sERTQEy/HwnqrWfT5ccRo3UfkOy0IGoK84jw=
+=Ddl8
+-----END PGP SIGNATURE-----
+
+--6az5minxxtrwr4gt--
