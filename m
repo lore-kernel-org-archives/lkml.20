@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339051;
-	b=U12RuIWlDesbDhUAHYfL2VV4/ukgGNs10h7U631/y8LhFUoIKHnRDOZayxR3Aq/K0KeR
-	 QAmoVdkyUxj4DCr7NO1G+0nmz7ICTf+nA/oxmt2S16pIqoZZUZn1gbuVOSbXWSN+yg7b1
-	 saBBjbF/9ed/kFc0JzhA6ayoME1e6fDx6PnwpADsjXCz2a07MZG5EPcq9cOQHq3UvR+ge
-	 L7spMw59M4p+ErF6zdtEaUZm4dNbmdMwzTvuAKfg/xuLg6C0UYtyRTuJmzhXexXU2YR0h
-	 QRGiRjg3BsQWIgPPorv3Xs5ip448kntbhFxqIzRLtC/vwez5GlqoLceO8qrZt45QtMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339051;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794339076;
+	b=VTeuuif7s6JIu6Srjx1uVUeLjX9cHO9O2AUwl6JaIEHZ7xH+ITFBrTD81CyjVSOpAXlr
+	 QpqfeFWb1IAVU1AmCX0SksNoyos2Vpc1G4RWX9W4nHL+w3zySpnEIL2CpeGRdZ4INXbru
+	 mGNBZTl/mBEEfPk+de+uip3KgObe9pM82yfE9ipQxGEaVYqRHkStDXIn8lsocy3YHS/Xf
+	 Kf32V5F21xCVyS0n7X7c1H394nkf9sM1OgjjxXHWgFn7ZlJFD6V8OTAgmny3YHjh19lhq
+	 GFaOTm8TlrmTyG+Jz4LFnMkpB7+E67Z03XDyjfp1Qop/Y4OKf/RQMKsKRpsKsWyi5Lw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339076;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-	b=Azs+PBcZaohLPytcdCr+2/Qyb9T0vJ1MpM5Dm3HTIf+u/VtFOeSM53vdKKK7PJm0Mksv
-	 zH+N84Tuop31sB4w/4jkuchkKOXVz+SJPbj6T3KIYhYfI9jck8xVrmvtbC1Ipp7ohPqPq
-	 9w9Nx9lF9Sh5TPJre/O12H8DMEbvlF0ujAlg3vwCtRNcrWK54A1ha2VTux/c1fK5TUzaL
-	 0KhndsXQ9ATiYxc7lxLGqp9mNtSXwK+XhZbFELVQIzsP11oW4e+F3mQWe+h6NrIivGIM8
-	 WcFGI2M3K33kUGv6C1aI+rsyxkTE4kCl+MR7RIBJ3lt0V1TThpBlas1wgMfl0e4dRPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
+	b=nNXUoWWd7fLq2gYhyp4ZdNzIfhfpnHj5V3iwWldpviEOmRD0AXp3iV4X8U2Cs+iX36p5
+	 g9I4gof9Al3CaFXr/JtGehkAGDAMjKHfISV337BixSRFEqbuwrvcX6LhCWV5xhbVOm4sB
+	 mcD8thMzEpwEsixpWXhMbwBF+UUYLib4E1K3ytsIMeciUZeOjarMb0co6tbhcfLZoSmKS
+	 q6oprjn02M2waWeAf+jPDu5P6Wh57vuvKk+iSOdnyahZ0uJDAKQqo7fzE24HLb7NsMZ05
+	 YL+kGiyzb8DArOpAfANTH0QkSAxuGDdJZ0g2cEN0sB7huLiFNQ9vdFlff7i1sRte6Gg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6bqoH7V;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ygA55dIo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36389606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36389606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF8C606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:31:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EF8C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h6bqoH7V
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso1636296eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ygA55dIo
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b70192ebceso4296748a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:31:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794339075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VNbA9LI0PJtbMQ25/I22Y8lxkxRSKaudMxpLvh2MPCWnQJLT1GXWUxQ6uEFZtee2lu
+         ezah4oEgGXxXbtxlbxMLWNju8x5nHRe0XLZziYIChrcH7qWmcVVP+5jrxc0fVejQYIeh
+         dBXWyILxGtKav8HTw59AJjEj4LqMIRBKHTiv7b7rD+soTTdNe5OMHpFsjBWlHYd8Zs9r
+         zoWOjUeOer9xOzsdHjgN3SPBYj9f6Ut4zciahjrhj0PHBnkE++79FYg8dkmcX8dgrLU8
+         9olPQ9VANkAzynoerK0ZlEPqoHfelF1IZYjTPNzMW/RtlZCYg+QVyersn+Pi5NAmcpOX
+         BMFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
+        fh=hwQohN6jwcKYZslHRnGfGmfatMpHDAVV6bD4w54rXPo=;
+        b=lvNJoS9dOyG5fw9NyPxVQOxFrcdSPVsPzIswvmx4VCKMKLhJCjP6vCMQs3LkIU+Xi4
+         aXNtSSpgppGPTrkP9Afoxk9G41jeUweApMkQ9S0z4gBuDlaamvEHUQo4yg3FvUk1sThs
+         m23W5OgJ8fxnktZBgKg3yEZsxhiQ1tpZmdAW7XzvW9azZsLzlg2qinT+ZE8Ad0QDPf7J
+         ApqPaKvBW8nVgK6jNc27APwoqipMZo4/PHk9FdfH5modaSONH4uwIaOGdWaLmwiMo/fR
+         ajs54RCYpSTvkb86AyBJvpnTKp0TRP6rydYD0LsanOlnpl8aldr5XC/CPzKzbZnNoQqC
+         2WmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794339049; x=1794943849; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-        b=h6bqoH7VMNzR1Uc8o0iEVl0dIWWYMzwCTv6JFmJwsHvXwfnuMX5+S6eMyAsWfiLx+l
-         maYL1X56Wenjg94aCeWnt+n3mUhiGzVA6W8phl+vz6gAgnJdhIg1fMSR0g7Gycs9kZys
-         YaB5rn2nBFLXFSAqlVsBpZtSZ8bWKK2n67cBTXOmoWOfULksbn2//xs5yDHaK5aAZzJI
-         il8OBSG0LJ4l7HKAGKsKpMvhugu16sV1otQvL7/0rFlvQ8W8JxhwRP+7isSixfkh80yr
-         QBZ3DnUerdp1P7LLemzkt9rRw25skVMLMy377c0vHVjyQctiuK5N4P0+EdYXcaR2z4y1
-         H0Tw==
+        d=gmail.com; s=20260707; t=1794339075; x=1794943875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
+        b=ygA55dIoz/6O4MxSokjKAYOAnTAUBuad/texw+fVpfWZq/9MB7Z84VndkLK8QIAqXU
+         9MBui/Yo5n2BSvO3OClQ6fhIsD8wQ7G3jWmz6cdywYdqMY1bm/I+0AndVvZf7rva6T00
+         ysgfJC+APM3chckN/eEMKFJeSEdUxCjJWXXwyhPziZxsdO3qDUVPxF/wKrF4y1Kdhw43
+         yPO6PQEBCd6Svdh22LukN+Cha+0U985V65ONfS/l0syMDRV+/0W0TJb7C/oAoj1J9mXp
+         p0bq1nVovvt7QUX+14kIP+gM0Pn6A6fLGHCfdd0Lm3JxE/gOBbzMx9hcD2gLU9bTGC0R
+         M6dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339049; x=1794943849;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nvA1lxZEpIqjWhYL3aA6OSO2sYeOAGbwAuUAZj8n0+c=;
-        b=2TlqccK4rrhdrdw8rZmElD1ip+ADpJP6HvXgzk20TNX7w56w9YyfU9pYE+XNAhz/EL
-         3jwYKH9fIvAxceRSdyRC8zpTFrsAoIYXi2XUuhAg5qtmrH24CuBRCbXEYxfMG3Sqgtk/
-         Pg7bfMoWR86p+vbTHrKqCVAk5IKEtLxFXyV8DCikkpXgioIM7U6hDhzMSFYTDESQ995E
-         XTJcE/5eHTCZgIsekvHjM55tPCqNXOENExa6n/uyiwXIVzzw2NaY3Xlgg91jCq7KSLmo
-         /v3nzvU3DqSJ6ePCCLycpucLelerlhckheTViKiB079hVmBxhZFFUOulG3KGe+Lkvwup
-         FTcQ==
-X-Forwarded-Encrypted: i=1; AL+hErEcIYGBO15ovD8633KYtMeS/gImVglHWZMdweMAOHniniKu2of6ZlkeWjv+e9G1iV4XK4ANg+jrWzI/984=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TIaCprr0QADSm8NH5FXN9M5SkdtaQURnpsuUbE+aP05pEEPZU
-	sDTV6Mhz3B3thviiiQzwQypg4SR+f8P96kD5NwNkacZSrD8HIFuhskC5
-X-Gm-Gg: AYBFou1pKCeXDFSPnkvq/ytfwr2FTo+I5mK3DHMQgEb6K4RunPn/PlVD9oEAh4wtMU9
-	saxYPPhvWPyRqDtQJzuBOV57CdLukxmzkPbh/VoGFEKyGhedFsFF6C12aC1UpGSomlDhHXdW8zB
-	N292O1fFmXdj1yV6eELOppdX4zgm7/2Dwps9Vyz5YSPNvZ0BaBZNiMMLEa46QYpbn28oe9zklMz
-	fNg4R0WzrpzD4slHLSVX1Fq3SbPVxvrYHFGCYCjbvQ1gbGZ8hsmpPt4zI4PWEojo5HqNT+OJLKE
-	w0uZcb7UZFp2Mn2A1E9mXO3awN+1y80zcCu1h7X0sDgA82oX4cBT0z+rllsktciu3GwB684ElmT
-	nEjh3qXDc7jbPFsB1NzCjqqY4+5zJaZ8VOwPpIG2y8L9vf8qTFBj25rc/f2JQN42BXn4ke8Prbw
-	0KZseSSvUNZMpqQI3zCodAxbCU3tayq2AD31/o08sG6H5FhjNQ8oDX4wBOtfwqF2hs9NQ2BjPNs
-	8XHB3dAqcnc1WCVJa6MPsMe8BIrzd2toGqFfUV6CtDf3rgoVCD3PUaRzOj452WBHv3u2z0EdXPY
-	j1BrtFO5JYqscOJ0COMl4bzI1bfoll7enFnBuHAGy/KeiWA9iQ==
-X-Received: by 2002:a05:693c:8814:20b0:36f:4615:9747 with SMTP id 5a478bee46e88-37680a5d9e4mr395559eec.0.1794339049150;
-        Tue, 10 Nov 2026 11:30:49 -0800 (PST)
-Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm7730435eec.0.2026.11.10.11.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:30:48 -0800 (PST)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH 2/2] arm64: dts: rockchip: add USB-C DP altmode support to LubanCat 4
-Date: Wed, 11 Nov 2026 03:30:28 +0800
-Message-ID: <20261110193028.512456-3-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110193028.512456-1-cyan2254650260@gmail.com>
-References: <20261110193028.512456-1-cyan2254650260@gmail.com>
+        d=1e100.net; s=20260707; t=1794339075; x=1794943875;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
+        b=Ep9fz+Z+UadOEsTwDi5bCQTU0aFOxu4MBosJ6SbH7L65IuB3IAwO+yvj4KBH3Yq8E6
+         2EPMTpWG+tzT5unpvAxxbwACrw6LADlpkXv1IS90XfP953JwfiYez+CG6M7N/M8zPW7f
+         W9jk2MbbPxqs2aObGCiDYdsohtMTqc1MGlNlphuaXhZRpskdLFrMHeVaWzrXTLVHMWOs
+         +jBLItSdoad0pll9XnkcfLHyxeJSqQ0CH9L+zcJPp5FeC8vCEcAZ1qwpbz5o65h/P5gP
+         K7BgitV8+dT3QlEh7VB27t4iOy8fOHUqq3o+lBfcL0qisS4mOXzYewggeHcxI9NW5/oR
+         rC1w==
+X-Forwarded-Encrypted: i=1; AL+hErEc0dXH2SWHFGpV9WJm5MIpzxzH0YBhRJ+JRPDJGhkfW18+S7nlp0YYFrbsEHhyB2RxHe0pbSSPXENNg1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KGLHod129mnd7iPNTgBlemOMIiJTsmx8KgwSnXd7lfLQtODvc
+	1T8ZzWeufmr+K69sDdxvbDbtnQEo8+2fzeT8i2sb57k7tugTsNxT9kAtzjSH1Ys5tLkk2bZhvJN
+	pCl0AK18FvDuHy9G+R+CtbfTDHu+boVs=
+X-Gm-Gg: AYBFou0j/JgNWx/7MnAhssNpYJJhslLx5+r7++Z9ItxWwycku8qbQNRfmvXG4ROiiN3
+	GeVGW0rd/nXnjAckZ6syPmgecK7YBtEoaOz/UI7GBsFmx5WfApqnkmSmNtVcCeEeSy86jZlXXjg
+	sRA0+I+ShO8zCWS7v99OttIzHr9275M/nZL9eQBA+mP3VcaPcIgkzOCAwxuBUt3jeydM6J/f6Wx
+	rK10PX3OTNGqwmIMBH6V5duxCKqmxO89NuA9VRc3etOQIEQWEcZ2PeT/l4deEk/JnThRLnpACSQ
+	0/6hEQjT4N4NmTw9GTsL2bFxZ8Ddoo7G9MeMKHLFuwWxzmjklRpe6z6ABsLLIuXWUnfE0KIwz8d
+	PB3b2bVA6aSR46MvO0L664h+ErAJSPqsfivimLha9/psi7nR+xUD9UpBEgaMaxyMbe07C9njO7/
+	BYarV/+JXne3FFq6KaeWql2i0cKLCmR7xCMWy9imZL7l/r
+X-Received: by 2002:a05:6402:5416:b0:6b1:b9b0:dcfd with SMTP id
+ 4fb4d7f45d1cf-6b77707dcb9mr271933a12.0.1794339074327; Tue, 10 Nov 2026
+ 11:31:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,125 +105,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
+In-Reply-To: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Tue, 10 Nov 2026 20:31:02 +0100
+X-Gm-Features: AclHuK_7HNzlokPAsBoIv_7fPp-EVtZiMe-LJK6KHz7D9VmXnxbP6S1wnm1WwT0
+Message-ID: <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/3] perf alpha: Decode ProfileMe samples
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Type-C port on the EmbedFire LubanCat 4 supports DisplayPort
-alternate mode through the RK3588 usbdp combo PHY (usbdp_phy0).
-The sideband use (SBU1/SBU2) AUX signals are routed through two DC
-switches controlled by GPIO4_B3 and GPIO4_B4.
+Hi all,
 
-Add the DisplayPort alternate mode entry (SVID 0xff01) to the USB-C
-connector and connect connector port@2 (SBU) to usbdp_phy0 port@3.
-Configure usbdp_phy0 with mode-switch and sbu{1,2}-dc-gpios.  Enable
-dp0 and connect dp0_out to usbdp_phy0 port@2, with dp0_in fed from
-VOP2 VP1.
+On Wed, Nov 4, 2026 at 7:53=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> The Alpha kernel series "alpha/perf: add ProfileMe sampling" adds
+> ProfileMe sampling to the Alpha cpu PMU. Each ProfileMe sample carries
+> the profiled instruction's PMPC and its I_STAT and PCTR_CTL status as
+> PERF_SAMPLE_RAW data, which says whether the instruction retired,
+> whether it trapped and why, whether it was a mispredicted branch,
+> stalled before map, or was killed on a wrong path, and what PCTR1
+> counted while it was in flight:
+>
+>   https://lore.kernel.org/r/20261104-alpha-profileme-v6-0-63362e9290a3@gm=
+ail.com
+>
+> This series is the perf tool side. Patch 1 decodes the raw data in perf
+> report -D and perf script -D, as is done for AMD IBS. It copies the new
+> uapi header from the kernel series into tools/arch, so it should wait
+> until that header is merged. Patch 2 adds a script that sums the status
+> by symbol or by instruction, in the style of DCPI. Patch 3 gives perf
+> mem a ProfileMe event, as the kernel series reports the DTB hits and
+> misses of loads and stores in the data source.
+>
+> To try it, with the kernel series applied:
+>
+>   perf record -R -e cpu/instructions,profileme/ -- ./workload
+>   tools/perf/python/alpha-profileme.py --pc
+>
+> I tested this on an AlphaServer ES47 (EV7). Sampling a loop whose
+> branch tests random data reports that branch mispredicted in 21% of its
+> samples, and 0% with sorted data. As a normal user, perf mem record on
+> a loop that loads one word from each page reports the load's DTB hits
+> and misses.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+> Changes in v4:
+> - Patches 1 and 2: ignore TRP, and MIS and the trap type with it, for
+>   an instruction killed before it was mapped, as the kernel series
+>   does. Thanks to Ian Rogers.
+> - Patch 2: record cpu/instructions,profileme/ in the example, as a
+>   precise event now samples only retired instructions, which leaves
+>   the killed% and invalid% columns at 0. Thanks to Ian Rogers.
+> - New patch 3: add a perf mem event for Alpha, cpu/cycles,profileme/.
+>   Suggested by Ian Rogers.
+> - Link to v3: https://patch.msgid.link/20261102-perf-alpha-profileme-v3-0=
+-4bf6e1dda733@gmail.com
+>
+> Changes in v3:
+> - Patch 1: silence -Wpacked around the uapi header, which breaks the
+>   build where __u64 is 4-byte aligned, such as sh4.
+> - Patch 2: only read raw data from cpu PMU events, as a tracepoint's
+>   payload can pass for ProfileMe status. Thanks to Magnus Lindholm.
+> - Patch 2: print a table for each thing PCTR1 can count, so that mixing
+>   events no longer averages unrelated values. Thanks to Magnus Lindholm.
+> - Link to v2: https://patch.msgid.link/20261030-perf-alpha-profileme-v2-0=
+-9ce2f0b0e622@gmail.com
+>
+> Changes in v2:
+> - Patch 1: copy the raw data out of the sample and convert it from
+>   little endian, so that it decodes on strict-alignment and big-endian
+>   hosts.
+> - Patches 1 and 2: follow the new 28-byte struct alpha_profileme_sample
+>   from kernel v2.
+> - Link to v1: https://patch.msgid.link/20261028-perf-alpha-profileme-v1-0=
+-f46c1938d001@gmail.com
+>
+> ---
+> Matt Turner (3):
+>       perf alpha: Decode ProfileMe raw samples
+>       perf python: Add alpha-profileme.py
+>       perf alpha: Add perf mem support
+>
+>  tools/arch/alpha/include/uapi/asm/perf_event.h |  31 +++++
+>  tools/perf/Documentation/perf-mem.txt          |   3 +
+>  tools/perf/arch/alpha/Build                    |   2 +-
+>  tools/perf/arch/alpha/util/Build               |   2 +
+>  tools/perf/arch/alpha/util/mem-events.c        |  17 +++
+>  tools/perf/arch/alpha/util/mem-events.h        |   7 +
+>  tools/perf/arch/alpha/util/pmu.c               |  11 ++
+>  tools/perf/check-headers.sh                    |   1 +
+>  tools/perf/python/alpha-profileme.py           | 178 +++++++++++++++++++=
+++++++
+>  tools/perf/util/Build                          |   1 +
+>  tools/perf/util/alpha-sample-raw.c             | 156 +++++++++++++++++++=
++++
+>  tools/perf/util/sample-raw.c                   |   2 +
+>  tools/perf/util/sample-raw.h                   |   2 +
+>  13 files changed, 412 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
+> change-id: 20261028-perf-alpha-profileme-8010299be323
+>
+> Best regards,
+> --
+> Matt Turner <mattst88@gmail.com>
+>
 
-Tested driver stack registration on LubanCat 4 hardware:
-- dw_dp bounds successfully to display-subsystem;
-- DRM DP connector card2-DP-1 is registered and reports disconnected;
-- typec_displayport registers the DisplayPort altmode driver;
-- usbdp_phy0 registers the phy-switch and phy-mux.
-Physical DisplayPort link training and monitor video output are pending
-verification with a physical USB-C to DP sink/cable.
+My plan is to take this series through the Alpha tree alongside the
+kernel ProfileMe support. Does that work for the perf maintainers?
+An Acked-by would be appreciated.
 
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
----
- .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-index a94aaddb2..6c5a942df 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-@@ -323,6 +323,13 @@ usb_con: connector {
- 			source-pdos =
- 				<PDO_FIXED(5000, 2000, PDO_FIXED_USB_COMM)>;
- 
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0xffffffff>;
-+				};
-+			};
-+
- 			ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
-@@ -342,6 +349,14 @@ usbc0_ss: endpoint {
- 						remote-endpoint = <&usbdp_phy0_ss_out>;
- 					};
- 				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_dp_out>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -857,6 +872,9 @@ &usb_host2_xhci {
- 
- &usbdp_phy0 {
- 	orientation-switch;
-+	mode-switch;
-+	sbu1-dc-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PB4 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
- 
- 	ports {
-@@ -878,6 +896,22 @@ usbdp_phy0_ss_in: endpoint {
- 				remote-endpoint = <&usb_host0_xhci_ss>;
- 			};
- 		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			usbdp_phy0_dp_in: endpoint {
-+				remote-endpoint = <&dp0_out_con>;
-+			};
-+		};
-+
-+		port@3 {
-+			reg = <3>;
-+
-+			usbdp_phy0_dp_out: endpoint {
-+				remote-endpoint = <&usbc0_sbu>;
-+			};
-+		};
- 	};
- };
- 
-@@ -895,3 +929,26 @@ vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi0_in_vp0>;
- 	};
- };
-+
-+&dp0 {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy0_dp_in>;
-+	};
-+};
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
--- 
-2.56.0
-
+Thanks,
+Magnus
