@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794276634;
-	b=S619MgeIl+MuKBPMGg4Tb1j+ih6ezmarsbjmZQE0UXO2MpdBy9EqH0IWW7xnt/bdC/q/
-	 cIr8Q5w+K489O6bQ0eHKVoC85i1rvEopkZ1Dv8QiykvQV6iyeAIBwE+u1Cq0g7jId9Cp2
-	 aDM5WzFmcuyEtbQjD8ad5z+NsIWa5QINJjAo62nd4PI0jobUxpM6oYUMlF/bliUkcN69W
-	 bi3TXEoFb1mT/BsuNh8z1PfFF7tlZ6j1ONkkFPF43SMK9xh615Z0X+4d0T+l+TuUjL5eY
-	 9yE44yXCQe+F+u74CX7EUzZAYU8DSQqXJfiZZ3caE/MUHtVhoxVA8GqVSyxDn+/5VQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276634;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794276700;
+	b=Eelx8GVTaiMkFLVmlzI8Pb0hP9u6roxZJkQiujGjS7RtnT02tuonS0glGImx5X7w8bft
+	 GpbEyQVF4rUb6xwq3o9pDr3hHhF8DChBD/1WNtYyEUU06hh2DvQ/ky07pIEwfhtG1Z1L3
+	 pfBrp61PFuAQGcxj3wLqWehTZ4D/ngG6N5mxwqpfA8mcgDSMdEIaJmbjsbKNuC7g1gJ8c
+	 uxAjogeOSj23IBWmFOlquH9hoF+q6O8z3Ig4Sehdduyhodst4V4LokRSbqFRA85IU7lIa
+	 6nrBDBLNR+VfxGxV/krZdo3KKoWFzEn26L3n/Tm9yAlSWu1R5SQW1W5eWAlVPRSnvYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GU9EjYSQxV4eVGM8pi1wTcBqlYubWYJf24gfH5mqmRo=;
-	b=r2jDz1ahzcZT8r448Aay13gp3+1c5rnYA37rCk7JZ+s06R+75nl2WFNnmu2CCc4OYJvs
-	 F1NpiVILs9nPhhCWFu9/2K59grB5oZmy/BEohHetz9EnUoF5pScLB8yN12u6+U3iOyKjB
-	 CPn4Xtx7nlpG8MvLjVVhZ7av9pyl8EEyP4Rh3en8NHakNsb5IZVxCPshpPO4oPc36lkck
-	 wF+vBusNtayMvl+9x4fmabq3yCP/qJAZYNLSA+Wc/DSkSFOlrLVC8U+GDFdwefa82U4fZ
-	 9oGpylvR63dLzja83Ksbc8qg9/Hfj4e9RmrwfVgY9wXu5LtKjYUcQkpEftyZtIORScg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZTu3X4QyB3nudJbrQzIVh4I/G0ZNmo+cjpo/1+ph+rk=;
+	b=xnRcKAzqcEdaZlNcz06u2pvs7Av1p+a5px1w3WU1o16ZC67TwzdCy1L+mH1AyiUNOgXN
+	 rLJGRqcQQ7mW2+9vW69ILKeM9h9Gj0fSuagqv9Ttv4BcLF/xaGghyOmDE4vImo/G4MgXl
+	 UQBsMo5fyV2qkfIEYCvyhmF7r0Bo0Gwn466VdjFnrbTTxUQaq6acoKAQLOM4W+ox9PXcD
+	 2NgCFkJG9nZlm6dO3Z0Kv9YqLLOztX5fSBJFAmYvUbVHG/ExOtmFzTyI/Ap9/l7QO8qru
+	 B2NBhjRGqzsBO052k6ZagAjRW/h9sZiONX4xVwOeOL8Cw5FF2ntfegI7DDQnFFMV/KQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jx6UBesi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=seLEIOFw;
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5B9606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F5B9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA04606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CA04606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jx6UBesi
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so923985b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:10:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794276633; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oIccbe9ZKV51zAWfkUwXRyuBLeRI4p0oz1znqz/UHkZIWKHEk+tcQkhwPmq+ufU4/y
-         FBKhTi8krj0GIzrfLBaCTSQ1y7Wvgs8r8NbTba107kHVIYuQ3C6cZZCWEgeDWtIfiuKD
-         Qg9ieXYsRQhRC/+c/5Ia5x1lCy22kGnPxayipJPtZHh5SvDj2rM2m9jeHaDag091l8cM
-         KDplzD5ahcvKWzZH2nH7iQFzCv97Ly31fyphWhP82RoVeCHciUQB3gm5GVOCyIQNNHQ5
-         86ye05X0jyW4xYhM/sjq3kFr9ZOydunc1bMgI6qOuHl379cRtfjo4obVxk+0GyMYehqs
-         t3fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GU9EjYSQxV4eVGM8pi1wTcBqlYubWYJf24gfH5mqmRo=;
-        fh=1FimBAVP1dct0evzID9hBMjfuFrUH6kmpSu+WJ6kG4U=;
-        b=NC53QPZEnGaRpcYCBEtcowmUkO7/wZVtHrC8xZsEQXsQOlR/lrokLW/6gOcZQF1lo2
-         MAZXcK6aAcllkH5mIXKtqTjavnDAmFgyahVx9k6Ml1HeFAVONJZpfceUqawMP5HuhwuZ
-         6GGfI6IMh2J/VqdReDB9IkmX0zbqwnuacr1eqkxekMJabl8+CP9GbK8vWA0vFpThXCaL
-         OQBw5J8jksjD1G/LX0yTmKzqTWuDe0iJmpu1R7hDoxEXlbEt/4pgP3XY/3ZmE7QtfnPf
-         Z1Hcgj0RaebkYCIMhwvjQwSc+y7GGUougmlBlhdJUJzeWWeq9JdFa7XWeeLxhzDWLVzM
-         8t2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=seLEIOFw
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6fe4372c5f3so871233eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:11:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794276633; x=1794881433; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GU9EjYSQxV4eVGM8pi1wTcBqlYubWYJf24gfH5mqmRo=;
-        b=Jx6UBesibvKmFXUbiN1heQ0gwpowE3/vZ86/WkwBWZjvZ5aRIqEPr5NCXsRZN9FkGq
-         /zKHRJaBYarzlNszLkbDm7gBobre8/jK2rb9IaAb3Ip5Gusn+UHQFfXM7x8Mlia+QsZi
-         AftAcFbmRg7+SOxFGhXLSxbcBgwWQ+Z8tQsg3n1UjTo90zNKNkWLQAhTUA2mnu4CFDNh
-         a9z79bhvI7wmB3JBpmnURO9MvhIrCQ1jT6eiPCfDF1RlL+O2VSVeYn9iizYF2ynDoPYs
-         qR1R5FnAorCK2qjBBEuK7/gIaK8DOZJFOWVdHQGSlTYqOFPyALOtlxhNA9ZtnIEPbaDS
-         aoYg==
+        d=gmail.com; s=20260707; t=1794276699; x=1794881499; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZTu3X4QyB3nudJbrQzIVh4I/G0ZNmo+cjpo/1+ph+rk=;
+        b=seLEIOFwvC6m2cjIwoDCZho9raQDHiECw0W0IlrXddiP9fcY004mxBfZg2JYUoUxG1
+         WOVhjRpPHS5E07UVk2hKXgZBuBxn7xauHA2iWW4o9atyxhmgvyCTZvMD0t1CA++eC20M
+         R6aiVpKbdWIA9bezLbQvjSiSXim8ymaU82D/EJKm81RxQ9CJ5Hx4bS8/U3ScbCplcCA9
+         lIrTjuTPRIgCEI8qzMkG8DuXIcfsdGc1WRnKoiUW7Uf+wSQBMliLJJ4swfnVIxpqZJEx
+         /1ivy0esnLBPyuB8BNfqOLFpvWr+uPKP1WhI7BVycMuZMdWjWDkbEN2Ip70AOokiUAol
+         vtdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794276633; x=1794881433;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GU9EjYSQxV4eVGM8pi1wTcBqlYubWYJf24gfH5mqmRo=;
-        b=dhQ6MEycUFzGe2hSd2t17juSZHAmAe1eN97qLJiga7s9GWh/ec7aA5cnGLsI66hNgo
-         jzwHoZYfQ3OOEBuETAq8jec8nCPnbDuKNp0YoODnRFJP+B422fCEf+GZWsAZWuhY5ifg
-         HjoJLp3W4vBiMolS2FHYa18T62M0DX6ZQSj/plkQ0jfYHjNQKWsNPydLPUHoa/hgaWq4
-         mOpt0ZJrOGKz5WBMLOrKWUBlNgUQlGdhA3zOaOTXx0XqnUw+6OHGRPR764izy6AgtNzn
-         R8FeSgBLEbvAQAB560fgmBXCHxlVq5SlHkosSWYwEOE3Rs6MQAnBlVUfW/fmtiO6ohA9
-         qNhg==
-X-Forwarded-Encrypted: i=1; AL+hErGvrp8iaCu0snqYboa2r19/cCFfxBW52l9+lmb+DViqUVIbXWuAR0cFvuz2ZFLXuNkMRv/qUGwIj+4bcN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/lJQzJTj5BgLq81sEzeAPBg/e61Ym8QFZQiUa/aO055T04n4DE
-	NJhNbAa5uLywj+9YHnmfuCwE6iJf6fnn+nXmZtORIv2rbuqAGQXIs/8l7EDjoPSLUzx9eQY/X+v
-	lxuPie56LhpqfcveR7r7s/Zfc+4N+S90=
-X-Gm-Gg: AYBFou1S0uy5X4MVWUZNRDyQyd4Pu+A714kXbZv2Jw0I30AGGv3AmND3mwEsiS7xkCt
-	9/wWghi68e0D/nmNDCQbDHVWUdbWFKmQYq0X76i5cBHU1A1rfhalRYJ4sUsk2g5kxe+5ajSE7SU
-	PM4jUyu0MgOaNTYq5Lz4mLoQ8KDkLI9ixBofB6cqVZ+FDMOaTapFSbLTQllV7EbB8AD1icRrsJK
-	EWktYEgDM+21yE8bZt0iQwp9QjarjJgxAJsPCWEeK+SmxPbZF4q4eV5wfeS4uPWW/DxPoEe2+jI
-	01SDg3gcseR+mWACdtiE4iMZBg2x/dIhKiNS6yKTLktq5r4iC4ZKqKco5sTBPBbv2GQCCxccHY7
-	LRjH74KGyNtjkq+655CcPZQLswof333rudEyY5QK1kcXmpPuIVxKKgGes1M5HysngcOCvNmL5ly
-	mUPS2sHEO/ZDM8CGy7Q/gpyoy2mcBedvtgGA==
-X-Received: by 2002:a05:6a00:391a:b0:8b4:b88a:c2d4 with SMTP id
- d2e1a72fcca58-8ba881e8931mr1491983b3a.59.1794276632703; Mon, 09 Nov 2026
- 18:10:32 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794276699; x=1794881499;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZTu3X4QyB3nudJbrQzIVh4I/G0ZNmo+cjpo/1+ph+rk=;
+        b=n7naFGcZ4wp1EaPJbA9D4XtPEvIfYX6c72lQCxQSJNQGl8Nk4Jye+ZaXBFrSLO/cBq
+         GtaTGZlw5YpNDTY3hM3NgkgW8pJ7wv8sBCsQxu/2RVJcb9TTmHw0ZNDvtMmmde5byltb
+         WaY85MbGJMqpY0oiEh9BQnV4wIIakCkjQVLiyOTnWgpY5XxNuc16tbhE3b/yBOqHADxn
+         e0hYTyCZ1+KXUcIVEeCraxA+8vGPQK/lpYGI+WlVmGAklTJ1xbmhLa3iPrdqxlMe3uB+
+         n1XjZEfqWPmknGXQMgwRgIWsV7I8AAgoUTJm6yrPs2vBzoVX+M5TdyQuHhPgcl0FpwL3
+         T10A==
+X-Forwarded-Encrypted: i=1; AL+hErHJ7PTIQsQTfLSNMpeKv5xF2b3Fn00Drzw3rqE5cQxlha5QGChs2CEPHVblP8skKG4zGje5FkpuaP7iMDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gPuh5e5upRnFD+didLbLUvtHMRsw/rOfnB4XiEDjYw15yPQe9
+	OV3h8maJjZm3uireB4Ej6fXSGwrtxxwvTpVBfmoXMz3ykGTQyaqjQBSU
+X-Gm-Gg: AYBFou1qS7T5wfWfaRvlkufrwEmdgwzbNilMBP11NMxMS7OiZUFm6s8t87vP1owZfDQ
+	RqC7eXeidit94tgfqgv3g8euHfBafQ1WbJLA6/8Il2n/4RhnDdDF7w3DWTGPJm9Alkwt6bY2/8N
+	y8Uf+nDTpZZboNHvAe1tmtGUGt0scAYaU0yxJWkpOdqnAJ3M3UNpcGHn5wt7i4peif7DjGYKBiO
+	WgG1t0NukIK9FLYSQAef9+Bqha23UEUUx4yViQZcfz7LJAusWZwhKu74FF1/1ClFnThjKC9abQS
+	RssAH2I8sQVMcLVQ11asXrBXoS++za/HylRqofjDAJk74m2RnDv+imrTiFpu3HYDHOv5A4Rl7OX
+	l9o6wVklkbcdU9xzNuGnalDN+pBYLZlzhlkuh5A2r6OQAKZcSw8qJRDdEkoOKADhYOAW/DxoPk3
+	G4aYig7RxY589Fvr5kaGOv+Oivu++YplExXN0jcl/1EAfaTgtA98QVdWF3nQINS7UTMzfNjwydC
+	aFqQgt2JbOstfE5Fd7EmGSaq9NuXHu8KXIr8LS8/JMVLgzVo98wayTmcCj/6ik8KfRZfse5uzGS
+	D5fPhZLHyx+80miC9wY4vQSgrd80N+NROr3JSO/bbeSj3D67SVk26WySvk5sEWjT4giwgBK5zgV
+	9+Ixi
+X-Received: by 2002:a05:6820:5055:b0:715:24e6:9529 with SMTP id 006d021491bc7-718a7bd98d0mr462083eaf.86.1794276699230;
+        Mon, 09 Nov 2026 18:11:39 -0800 (PST)
+Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718a945ceebsm717268eaf.8.2026.11.09.18.11.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 18:11:38 -0800 (PST)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: linusw@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] pinctrl: sunxi: use automatic voltage detection on A733
+Date: Mon,  9 Nov 2026 21:11:36 -0500
+Message-ID: <20261109-a733-pinctrl-v3@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,108 +102,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106195126.1563231-1-andrey.misyrov@gmail.com>
-In-Reply-To: <20261106195126.1563231-1-andrey.misyrov@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Mon, 9 Nov 2026 21:10:21 -0500
-X-Gm-Features: AclHuK_xDqAXw_TmBik1qZpjy57T3ZinrxmJok9KVaPZUDx9W2Oq2jkZuacmkfM
-Message-ID: <CADvbK_dNcVHxMQ4NhqZqVFCcCy0R_ufW=QbXXyVFdhV9B7O43A@mail.gmail.com>
-Subject: Re: [PATCH net v3] sctp: fix ASCONF address change on single-homed hosts
-To: Andrey Misiurov <andrey.misyrov@gmail.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Jun Yang <junvyyang@tencent.com>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 2:51=E2=80=AFPM Andrey Misiurov <andrey.misyrov@gmai=
-l.com> wrote:
->
-> Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
-> DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
-> located by, so that a later wildcard DEL-IP cannot use it after free.
->
-> This also breaks the single-homed address change (RFC 5061 5.3.2). The
-> host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
-> is located by L, and DEL-IP L is now refused. The sender never gets an
-> all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
-> data, so the association stalls.
->
-> Fix the wildcard DEL-IP instead: look up the transport of the packet
-> source rather than reusing asconf->transport. Both DEL-IP paths can
-> now free asconf->transport, and chunks bundled after the ASCONF still
-> use it, so point it at a surviving transport: the packet source for the
-> wildcard delete, the primary path for a plain one.
->
-> Found by manual code inspection while reviewing a backport of commit
-> 9b2854f86f0b; reproduced on a two-namespace single-homed renumber.
->
-> Fixes: 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-=
-IP processing")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
-> ---
-> v3: a plain DEL-IP of asconf->transport set it to NULL, but chunks
->     bundled after the ASCONF dereference chunk->transport (e.g.
->     sctp_vtag_verify()); point it at asoc->peer.primary_path instead,
->     as suggested by Xin Long. Reported by the netdev Sashiko AI review.
->     v2: https://lore.kernel.org/all/20261029193454.1028626-1-andrey.misyr=
-ov@gmail.com/
->
-> v2: the reworked wildcard DEL-IP branch could itself free
->     asconf->transport via sctp_assoc_del_nonprimary_peers() and leave it
->     dangling for a bundled DATA chunk (sctp_assoc_bh_rcv() ->
->     peer.last_data_from) and the following SACK; retarget
->     asconf->transport to the surviving peer. The pre-existing wildcard
->     SET_PRIMARY / sctp_source() point is left out of scope.
->     Reported by the netdev Sashiko AI review.
->     v1: https://lore.kernel.org/all/20261022163639.2566945-1-andrey.misyr=
-ov@gmail.com/
->
->  net/sctp/sm_make_chunk.c | 17 +++++++++--------
->  1 file changed, 9 insertions(+), 8 deletions(-)
->
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index ddc31a5..9719464 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -3151,9 +3151,12 @@ static __be16 sctp_process_asconf_param(struct sct=
-p_association *asoc,
->                  * packet MUST be deleted.
->                  */
->                 if (af->is_any(&addr)) {
-> -                       sctp_assoc_set_primary(asoc, asconf->transport);
-> -                       sctp_assoc_del_nonprimary_peers(asoc,
-> -                                                       asconf->transport=
-);
-> +                       peer =3D sctp_assoc_lookup_paddr(asoc, &asconf->s=
-ource);
-> +                       if (!peer)
-> +                               return SCTP_ERROR_REQ_REFUSED;
-> +                       sctp_assoc_set_primary(asoc, peer);
-> +                       sctp_assoc_del_nonprimary_peers(asoc, peer);
-> +                       asconf->transport =3D peer;
->                         return SCTP_ERROR_NO_ERROR;
->                 }
->
-> @@ -3166,13 +3169,9 @@ static __be16 sctp_process_asconf_param(struct sct=
-p_association *asoc,
->                 if (!peer)
->                         return SCTP_ERROR_DNS_FAILED;
->
-> -               /* Don't free asconf->transport; a later wildcard DEL-IP
-> -                * parameter reuses it.
-> -                */
-> -               if (peer =3D=3D asconf->transport)
-> -                       return SCTP_ERROR_REQ_REFUSED;
-> -
->                 sctp_assoc_rm_peer(asoc, peer);
-> +               if (asconf->transport =3D=3D peer)
-> +                       asconf->transport =3D asoc->peer.primary_path;
->                 break;
->         case SCTP_PARAM_SET_PRIMARY:
->                 /* ADDIP Section 4.2.4
+A733 uses two-bit voltage-mode fields, but the handlers selected when
+v7.4-rc1 added A733 support program them as one-bit fields. The R-PIO
+handler also writes an A523 control register absent on A733.
 
-Acked-by: Xin Long <lucien.xin@gmail.com>
+Add BIAS_VOLTAGE_PIO_POW_AUTO to select auto (01) in every field of
+POW_MOD_SEL at controller init and skip per-pin voltage setup. Use it
+for both A733 controllers: the A733 User Manual v1.00 documents 01 as
+auto in sections 18.14.6.1 and 18.14.7.20. Give A733-R a separate
+descriptor so A523-R keeps its existing voltage handling.
+
+Fixes: 0535bfbfa97b ("pinctrl: sunxi: add support for the Allwinner A733")
+Fixes: 31d68e10381c ("pinctrl: sunxi: a523-r: add a733-r compatible string")
+Link: https://lore.kernel.org/r/20261107000135.6b684277@ryzen.lan
+Suggested-by: Andre Przywara <andre.przywara@arm.com>
+Suggested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+---
+Changes in v3:
+- Set every two-bit field to AUTO at init on both A733 controllers.
+- Shorten the description; retain A523-R's existing handling.
+- Drop Vinicius' Tested-by because the voltage-mode programming changed.
+  Keep his Suggested-by for the separate A733-R descriptor.
+
+v2: https://lore.kernel.org/r/20261104-a733-pinctrl-v2@gmail.com
+Replaces Andre's RFT: https://lore.kernel.org/r/20261013142351.771229-1-andre.przywara@arm.com
+
+Tests: arm64 defconfig sunxi W=1, boot-stack Image W=1 and DTB W=2 built.
+Not tested: board boot, 1.8 V switching, A523.
+
+ drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c | 19 +++++++++++++++----
+ drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c   |  2 +-
+ drivers/pinctrl/sunxi/pinctrl-sunxi.c         |  7 ++++++-
+ drivers/pinctrl/sunxi/pinctrl-sunxi.h         |  2 ++
+ 4 files changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+index cffc1e53eef1..006754c0645f 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+@@ -30,17 +30,28 @@ static struct sunxi_pinctrl_desc a523_r_pinctrl_data = {
+ 	.pin_base = PL_BASE,
+ };
+ 
++static struct sunxi_pinctrl_desc a733_r_pinctrl_data = {
++	.irq_banks = ARRAY_SIZE(a523_r_irq_bank_map),
++	.irq_bank_map = a523_r_irq_bank_map,
++	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_AUTO,
++	.pin_base = PL_BASE,
++};
++
+ static int a523_r_pinctrl_probe(struct platform_device *pdev)
+ {
++	struct sunxi_pinctrl_desc *desc;
++
++	desc = (struct sunxi_pinctrl_desc *)of_device_get_match_data(&pdev->dev);
+ 	return sunxi_pinctrl_dt_table_init(pdev, a523_r_nr_bank_pins,
+-					   a523_r_irq_bank_muxes,
+-					   &a523_r_pinctrl_data,
++					   a523_r_irq_bank_muxes, desc,
+ 					   SUNXI_PINCTRL_NCAT2_REG_LAYOUT);
+ }
+ 
+ static const struct of_device_id a523_r_pinctrl_match[] = {
+-	{ .compatible = "allwinner,sun55i-a523-r-pinctrl", },
+-	{ .compatible = "allwinner,sun60i-a733-r-pinctrl", },
++	{ .compatible = "allwinner,sun55i-a523-r-pinctrl",
++	  .data = &a523_r_pinctrl_data },
++	{ .compatible = "allwinner,sun60i-a733-r-pinctrl",
++	  .data = &a733_r_pinctrl_data },
+ 	{}
+ };
+ 
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+index ca82f08a3a65..e095abbb7232 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+@@ -24,7 +24,7 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
+ static struct sunxi_pinctrl_desc a733_pinctrl_data = {
+ 	.irq_banks = 10,
+ 	.irq_read_needs_mux = true,
+-	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
++	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_AUTO,
+ };
+ 
+ static int a733_pinctrl_probe(struct platform_device *pdev)
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+index 3ee5012463da..444930d3c389 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+@@ -732,7 +732,8 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
+ 	u32 val, reg;
+ 	int uV;
+ 
+-	if (!pctl->desc->io_bias_cfg_variant)
++	if (pctl->desc->io_bias_cfg_variant == BIAS_VOLTAGE_NONE ||
++	    pctl->desc->io_bias_cfg_variant == BIAS_VOLTAGE_PIO_POW_AUTO)
+ 		return 0;
+ 
+ 	uV = regulator_get_voltage(supply);
+@@ -1659,6 +1660,10 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
+ 	if (IS_ERR(clk))
+ 		return PTR_ERR(clk);
+ 
++	/* Select auto (01) for every bank, including shared VCC-IO. */
++	if (desc->io_bias_cfg_variant == BIAS_VOLTAGE_PIO_POW_AUTO)
++		writel(0x55555555, pctl->membase + pctl->pow_mod_sel_offset);
++
+ 	/*
+ 	 * Seed the output latch shadow from the hardware so pins the
+ 	 * bootloader left in output mode keep their state; see
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+index 7c2f29e75519..7b36c5c2263e 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+@@ -130,6 +130,8 @@ enum sunxi_desc_bias_voltage {
+ 	 */
+ 	BIAS_VOLTAGE_PIO_POW_MODE_CTL,
+ 	BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
++	/* Two-bit PIO_POW_MOD_SEL fields set to automatic voltage detection. */
++	BIAS_VOLTAGE_PIO_POW_AUTO,
+ };
+ 
+ struct sunxi_desc_function {
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.53.0
+
