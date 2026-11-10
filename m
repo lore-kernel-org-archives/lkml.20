@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316034;
-	b=KSD1/wAiGv4xrtMYFJPV92v+ZWY2/T39WEH1ncdILd8a9ZbCt5P3VTmchBqibv81Obsf
-	 oIP9Gelrqk00L5j87TKfaLtq4TrlQVDozuBvyi0TnERnLBg9FOYGHg9SuS8OYEPojMdez
-	 TV5aPC3+Q1ltOQHhg2OrwyRS/2qBTcJQMTVtLbBv2dQLgwpEPoAcOh5yq2HY+7kB/9BZh
-	 KK8jTONFAGsrFBCxGIrOTOHNdgcvi0RklAqSp81QyjwQYij14pPmZPDS+hmi1hTUCuYEL
-	 7LoliQt5j+1/PBLw08fb8mVtL9DSpfErsYGh2B10AFjlg+pLgh3goaR1jWZMNjHdmnQ==
+	t=1794316048;
+	b=0pwLXc5xB8LjjDH0r9ZJCmmKmZkVK5UoPzy3tNPUDt3E7uA+MgcH6wMhhH7SOBnBwL96
+	 XmuK8594qoFrKvByMh2j7T0nm8s+t0P8tHqGvTlHxu3t7iofnXwflVXQD6/beL3OEWiOf
+	 6P1iH5ieQxpooUO7KDrTkxWhmzbN+dqkrYj0iPzem4fjvbXBRV1cTylMybE0LyVbxXNy8
+	 nbJCQOj7xh8+Sr+wnMsc3YG5K8jP1S8Yq605ihV3Chy/gg7KAgSxGj2ZrLNjP8tNYnPTa
+	 Dj6mcRkTcFc5ni1t6f9gvmjWtqlL5VLDydzNQKinPwHrjC6ykG4RvknPVLLNH80TApw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316034;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=wqelae6FwvZv7TATekt4BSlN+Z+PwLT3NdN3rlcY/1s=;
-	b=shlBkRJ6xEQ5nhjqsEughR+A2AQqN4rSOQc2guyhTK7VfNjK+FsHBscKbb8tirJ4YwmD
-	 65Jk9ckGMB+lkpY051NU5jtdsism14/nJX/gNxU6t60MkCSMkMIIIBVZtaum6q2aa2aMv
-	 AXObTQOSTxMy8ZjkrjPk7OQhJpi3ili1hftNcJ8WUn+7pgi//g450ZoIMf/4TslhjCLHL
-	 4GG1hz2r90cpDvyS2hlh2WFpeWneLLioJEdPnlhyMPEhrnuaBYsIyDSSUMmJ2DjUlcFDj
-	 vG24gMqauHaJ2sxi063K1DQC5WeL1Xy6lvfpElUkch+Wv7bVl5lpap+Zc/wprhK37xQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316048;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=ld7tlpB+QzKUKDfK4FSxy2dA1rDs18hbb1XMFoIOhuI=;
+	b=VSf4fTZes0veiLZ5dc4CaPVUDvj/T52zqcJdWyL+czO9ivAxZlt+vRazgWNEjirwtbp3
+	 TpCEEHOGq8iRS805SK83x46DpFb7+IcCKUJo6UzYUc+VCWk+lNQdr1IKGnenHyUIY48D/
+	 2hkqhQRecyaO0c9EcpGNC0c6os1BsEWDqVErnX2BKtfG82QC5wpI9rV0PNmROKVA0HaOP
+	 SO3cfsWiiB8FTdfZ4YbBV6mbRBEPqk4463DceDo48SBXvwYwFjS9HM5MyipaY2vYAVRjz
+	 Y3X3BEWsAhvSxI0BbTZvcFSQnXFPNzGEPVVtUHdizQpPxoX5UhdMwJwjSAJerQIluOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7837D606BFDF;
-	Tue, 10 Nov 2026 13:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7837D606BFDF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Tue, 10 Nov 2026 21:07:07 +0800 (GMT+08:00)
-Date: Tue, 10 Nov 2026 21:07:07 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: rafael@kernel.org, sudeep.holla@kernel.org, jassisinghbrar@gmail.com
-Cc: linux-acpi@vger.kernel.org, viresh.kumar@linaro.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	lenb@kernel.org
-Subject: ACPI: CPPC: shared PCC subspace data can be freed while another
-  CPU probes, reads, or tears it down
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?Rd9I3DiH6nJ5xwDR7hwMki1N8jM=
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90556606A33E;
+	Tue, 10 Nov 2026 13:07:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90556606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794316052; x=1825852052;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=FZcWkIhdyH5Ehmankjtvhx6cnha9ocIFxpZgxmcPbeA=;
+  b=QZcalDd8Mjf4tv7216mvRiZ7hk7+V1moeJd8xCME+NjZRvozihDHuCMr
+   LmhpZaYEbfGybqHuc73mJjFdDF2BXZk9hhpIe7OG5vVKTx4tgEXK91BHV
+   iLVTZ0jvto7TEm9KevBEZzaeDde3kGXqgxBxiwM43GQXYsAEQMHhQ/bNs
+   /9FZmiyoSF2H0Ooo0we5RLbYdsFD06nEfCK+QsmIHrY3huv15TpUhXwx8
+   jjEeroq0w5aKGIhzWaOddq6MsZy745z4/f08ZJP0if5ARAwQtQZ0etCxb
+   L4bdClvHohugYbcxl0ddIv46703ENUTetA7euZCMnn+4Z68rmJsfaQ3YH
+   w==;
+X-CSE-ConnectionGUID: oz70YvFpTLmcpvIlRBAtVw==
+X-CSE-MsgGUID: fNuTcHKpTeWL7Y0p/xkBOg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 15:07:24 +0200
+X-CSE-ConnectionGUID: pPHsg/CST7OIaJsAEVnfQQ==
+X-CSE-MsgGUID: wg6sKAfvTLS91yli0OgcOw==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
+  by ces03_data.me-corp.lan with SMTP; 10 Nov 2026 15:15:11 +0200
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 10 Nov 2026 15:07:15 +0200
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Tue, 10 Nov 2026 15:06:16 +0200
+Subject: [PATCH] i2c: nomadik: handle pm_runtime errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,139 +65,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <7e7371c7.22ae1.1a1c591c7ae.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMDW_cX7FvNqlJgNAA--.8725W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgQHB2rx8m6R6QACs7
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-i2c-nomadik-handle-pm_errors-v1-1-ea1ac92af8f4@mobileye.com>
+X-B4-Tracking: v=1; b=H4sIAMcW82oC/y2NQQrCMBAAv1L27EISmop+RUTSZKurNqmbVoTSv
+ zdqjwPDzAyZhCnDsZpB6M2ZUyygdxX4m4tXQg6FwSjTaK0VsvEYU+8CP7AI4Uk49BcSSZKxPhj
+ b2tpZtW+gJAahjj+//On85zy1d/Ljt7kZQq+pfMdNW5YVNuTAA5UAAAA=
+X-Change-ID: 20261110-i2c-nomadik-handle-pm_errors-4925b54a5076
+To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+X-Mailer: b4 0.16.0
 
-cGNjX2RhdGFbXSBpcyBhIGdsb2JhbCBhcnJheSBvZiBzaGFyZWQgUENDLXN1YnNwYWNlIG9iamVj
-dHMuICBUaGUKcmVmZXJlbmNlIGNvdW50IGlzIGFuIG9yZGluYXJ5IGludCB1cGRhdGVkIHdpdGhv
-dXQgYSBsb2NrLCBhbmQKYWNwaV9jcHBjX3Byb2Nlc3Nvcl9leGl0KCkgY2FuIGtmcmVlKCkgdGhl
-IG9iamVjdCBhbmQgc2V0IHRoZSBzbG90IHRvCk5VTEwgd2hpbGUgYW5vdGhlciBDUFUncyBhY2Nl
-c3NvciBpcyB1c2luZyBpdCwgd2hpbGUgYW5vdGhlciBDUFUncwpmaXJzdC1vbmxpbmUgcHJvYmUg
-aXMgYWxsb2NhdGluZy9yZWdpc3RlcmluZyBpdCwgb3Igd2hpbGUgYW5vdGhlcgpyZW1vdmUgaXMg
-ZGVjcmVtZW50aW5nIHRoZSBzYW1lIGNvdW50LiAgVGhlIHJlc3VsdCBpcyBhIFVBRiwgYSBOVUxM
-CmRlcmVmZXJlbmNlLCBhIGxvc3QgcmVmY291bnQgdXBkYXRlL2xlYWssIGFuZCBhIFBDQyBjaGFu
-bmVsL3NobWVtCmxpZmV0aW1lIHByb2JsZW0uICBUaGlzIHJlcG9ydCBpcyBzb3VyY2UtbGV2ZWw6
-IHRoZSB0ZXN0IGVudmlyb25tZW50CmRvZXMgbm90IGhhdmUgYSBQQ0MvUENDVCBjb250cm9sbGVy
-LCBzbyBubyBkeW5hbWljIHJlcHJvZHVjZXIgaXMKYXR0YWNoZWQuICBJIGFtIG5vdCBjbGFpbWlu
-ZyB0aGUgZG91YmxlLWZyZWUgdmFyaWFudC4KClRoZSBkZXRhaWxlZCBkZXNjcmlwdGlvbjoKCiog
-VGVzdCBlbnZpcm9ubWVudCAvIGFmZmVjdGVkIHZlcnNpb24KCiAgTGludXggNy4zLjAgc291cmNl
-ICh2ZXJpZmljYXRpb24vbGludXgtNy4zKSwgbGluZSBudW1iZXJzIGZyb20gNy4zLgogIFRoZSBh
-dmFpbGFibGUgUUVNVS9LQVNBTiBndWVzdCB1c2VkIGZvciB0aGUgc2libGluZyBDUFBDIHJlcG9y
-dCBoYXMKICBubyBQQ0NUIHRhYmxlIGFuZCBubyBQQ0MgbWFpbGJveCBjb250cm9sbGVyLCBzbyBp
-dCBjYW5ub3QgY3JlYXRlIGEKICByZWFsIHBjY19kYXRhIG9iamVjdC4gIEkgZGlkIG5vdCBmYWtl
-IGEgcGNjX2RhdGEgb2JqZWN0IG9yIGNhbGwgdGhlCiAgdGVhcmRvd24gcGF0aCB3aXRoIGEgc3lu
-dGhldGljIHBvaW50ZXI7IHRoYXQgd291bGQgbm90IGJlIGEgdmFsaWQKICBkeW5hbWljIHJlcHJv
-ZHVjdGlvbi4gIFRoZSBhZmZlY3RlZCBjb2RlIGlzIHRoZSBub3JtYWwKICBDT05GSUdfQUNQSV9D
-UFBDX0xJQiBwYXRoIGluIGRyaXZlcnMvYWNwaS9jcHBjX2FjcGkuYyBwbHVzIHRoZSBQQ0MKICBt
-YWlsYm94IHJlbGVhc2UgaW4gZHJpdmVycy9tYWlsYm94L3BjYy5jLgoKKiBNZWNoYW5pc20KCiAg
-QSBQQ0Mgc3Vic3BhY2UgY2FuIGJlIHNoYXJlZCBieSBtdWx0aXBsZSBDUFVzLiAgcGNjX2RhdGFb
-cGNjX3NzX2lkXQogIGlzIHRoZSBnbG9iYWwgc2xvdCwgYW5kIGl0cyByZWZjb3VudCBpcyB0aGUg
-bnVtYmVyIG9mIHBhcnRpY2lwYXRpbmcKICBDUFVzIChjcHBjX2FjcGkuYzo0OC04MykuCgogIEFs
-bG9jYXRpb24gKGNwcGNfYWNwaS5jOjcxNC03MjkpIGlzOgoKICAgIGlmIChwY2NfZGF0YVtwY2Nf
-c3NfaWRdKQogICAgICAgICAgICBwY2NfZGF0YVtwY2Nfc3NfaWRdLT5yZWZjb3VudCsrOwogICAg
-ZWxzZSB7CiAgICAgICAgICAgIHBjY19kYXRhW3BjY19zc19pZF0gPSBremFsbG9jKC4uLik7CiAg
-ICAgICAgICAgIC4uLgogICAgICAgICAgICBwY2NfZGF0YVtwY2Nfc3NfaWRdLT5yZWZjb3VudCsr
-OwogICAgfQoKICBUaGVyZSBpcyBubyBsb2NrLCBhbmQgdGhlIHNsb3QgY2hlY2ssIGFsbG9jYXRp
-b24sIHB1YmxpY2F0aW9uIGFuZAogIGluY3JlbWVudCBhcmUgbm90IGF0b21pYy4KCiAgVGVhcmRv
-d24gKGNwcGNfYWNwaS5jOjEwMzctMTA1MSkgaXM6CgogICAgaWYgKHBjY19zc19pZCA+PSAwICYm
-IHBjY19kYXRhW3BjY19zc19pZF0pIHsKICAgICAgICAgICAgaWYgKHBjY19kYXRhW3BjY19zc19p
-ZF0tPnBjY19jaGFubmVsX2FjcXVpcmVkKSB7CiAgICAgICAgICAgICAgICAgICAgcGNjX2RhdGFb
-cGNjX3NzX2lkXS0+cmVmY291bnQtLTsKICAgICAgICAgICAgICAgICAgICBpZiAoIXBjY19kYXRh
-W3BjY19zc19pZF0tPnJlZmNvdW50KSB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2Nf
-bWJveF9mcmVlX2NoYW5uZWwoLi4uKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtmcmVl
-KHBjY19kYXRhW3BjY19zc19pZF0pOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgcGNjX2Rh
-dGFbcGNjX3NzX2lkXSA9IE5VTEw7CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9
-CiAgICB9CgogIFRoaXMgaXMgYSBwbGFpbiByZWFkLW1vZGlmeS13cml0ZSwgZm9sbG93ZWQgYnkg
-YSBzZXBhcmF0ZSByZWFkIGZvcgogIHRoZSB6ZXJvIHRlc3QsIHdpdGggbm8gcGNjX2xvY2sgYW5k
-IG5vIHRlYXJkb3duIG11dGV4LiAgVGhlIHJlbGVhc2UKICBoYXBwZW5zIGJlZm9yZSBrb2JqZWN0
-X3B1dCgmY3BjX3B0ci0+a29iaiksIHNvIHRoZSBrZXJuZnMgZHJhaW4gdGhhdAogIHByb3RlY3Rz
-IHRoZSBjcGNfZGVzYyBzeXNmcyBvYmplY3QgZG9lcyBub3QgcHJvdGVjdCBwY2NfZGF0YSBhdCBh
-bGwuCgogIEFjY2Vzc29ycyB0YWtlIHRoZSBnbG9iYWwgc2xvdCBhbmQgaW1tZWRpYXRlbHkgdXNl
-IGl0OgoKICAgIGNwcGNfZ2V0X3JlZ192YWxfaW5fcGNjKCk6IHBjY19zc19kYXRhID0gcGNjX2Rh
-dGFbcGNjX3NzX2lkXTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRvd25fd3JpdGUo
-JnBjY19zc19kYXRhLT5wY2NfbG9jayk7CiAgICBjcHBjX3NldF9yZWdfdmFsX2luX3BjYygpOiBj
-cGNfd3JpdGUoLi4uKTsgdGhlbiB0aGUgc2FtZSBsb29rdXAKICAgIGNwcGNfZ2V0X3BlcmZfY2Fw
-cygpOiAgICAgc2FtZSBwYXR0ZXJuIChjcHBjX2FjcGkuYzoxNDg4IG9ud2FyZHMpCiAgICBjcHBj
-X2dldF9wZXJmX2N0cnMoKTogICAgIHNhbWUgcGF0dGVybiAoY3BwY19hY3BpLmM6MTY3OCBvbndh
-cmRzKQogICAgR0VUX1BDQ19WQUREUigpOiAgICAgICAgICBwY2NfZGF0YVtpZF0tPnBjY19jaGFu
-bmVsLT5zaG1lbSBkaXJlY3RseQoKICBOb25lIG9mIHRoZXNlIGNoZWNrIGZvciBOVUxMLCBhbmQg
-bm9uZSBob2xkIGEgcmVmZXJlbmNlIHRoYXQgd291bGQKICBrZWVwIHBjY19kYXRhIGFsaXZlIGFj
-cm9zcyB0aGUgdXNlLgoKICBGb3VyIGluZGVwZW5kZW50IGludGVybGVhdmluZ3MgZm9sbG93OgoK
-ICAgIEEuIGV4aXQgdnMgYWNjZXNzb3IuICBUaGUgbGFzdCBDUFUgaXMgdW5ib3VuZCB3aGlsZSBp
-dHMgdGljaywKICAgICAgIGNwdWluZm9fY3VyX2ZyZXEsIG9yIGFuIGFscmVhZHktcnVubmluZyBh
-Y3BpX2NwcGMgc3lzZnMgc2hvdyBpcwogICAgICAgaW4gYSBQQ0MgYWNjZXNzb3IuICBleGl0IGZy
-ZWVzIHBjY19kYXRhIGFuZCBpb3VubWFwKClzIHRoZQogICAgICAgY2hhbm5lbCBzaG1lbTsgdGhl
-IGFjY2Vzc29yIHRoZW4gY2FsbHMgZG93bl93cml0ZSgpIG9uIGZyZWVkCiAgICAgICBtZW1vcnkg
-b3IgZGVyZWZlcmVuY2VzIE5VTEwuICBUaGlzIGlzIHRoZSBzaW1wbGVzdCBVQUYgYW5kIGRvZXMK
-ICAgICAgIG5vdCByZXF1aXJlIHR3byBDUFVzIHRvIGJlIHJlbW92ZWQgYXQgb25jZS4KCiAgICBC
-LiByZW1vdmUgdnMgcmVtb3ZlLiAgVHdvIENQVXMgc2hhcmluZyB0aGUgc3Vic3BhY2UgYm90aCBy
-ZWFkCiAgICAgICByZWZjb3VudCA9PSAyLCBib3RoIHdyaXRlIDEsIGFuZCBuZWl0aGVyIGZyZWVz
-OiB0aGUgb2JqZWN0IGFuZAogICAgICAgY2hhbm5lbCBsZWFrLiAgSWYgb25lIHJlbW92ZSBoYXMg
-YWxyZWFkeSBmcmVlZCBhbmQgY2xlYXJlZCB0aGUKICAgICAgIHNsb3Qgd2hpbGUgdGhlIG90aGVy
-IGhhcyBhIHN0YWxlIG5vbi1OVUxMIHZhbHVlLCB0aGUgc2Vjb25kCiAgICAgICByZW1vdmUgY2Fu
-IGRlcmVmZXJlbmNlIE5VTEwgb3IgZnJlZWQgbWVtb3J5LiAgVGhlIGV4YWN0CiAgICAgICBkb3Vi
-bGUtZnJlZSByZXF1aXJlcyBib3RoIHJlbW92YWxzIHRvIG9ic2VydmUgemVybywgd2hpY2ggbmVl
-ZHMKICAgICAgIGFuIHVuZGVyLWNvdW50IG9yIGFub3RoZXIgcmVtb3ZlIHBhdGg7IEkgYW0gbm90
-IGNsYWltaW5nIGl0LgoKICAgIEMuIGZpcnN0LW9ubGluZSBwcm9iZSB2cyByZW1vdmUuICBDUFUg
-QiBpcyBkb2luZyBpdHMgZmlyc3QKICAgICAgIHBoeXNpY2FsIG9ubGluZSBhbmQgcnVucyBhY3Bp
-X2NwcGNfcHJvY2Vzc29yX3Byb2JlKCk7IENQVSBBIGlzCiAgICAgICBiZWluZyB1bmJvdW5kIGFu
-ZCBydW5zIGFjcGlfY3BwY19wcm9jZXNzb3JfZXhpdCgpLiAgVGhleSBzaGFyZQogICAgICAgdGhl
-IHN1YnNwYWNlIGJ1dCBob2xkIGRpZmZlcmVudCBDUFUgZGV2aWNlIGxvY2tzLiAgVGhlIHByb2Jl
-J3MKICAgICAgIHBjY19kYXRhX2FsbG9jKCkgY2FuIHJlYWQgdGhlIHNsb3QganVzdCBiZWZvcmUg
-ZXhpdCBmcmVlcyBpdCwKICAgICAgIHRoZW4gaW5jcmVtZW50IGZyZWVkIG1lbW9yeTsgb3IgaXQg
-Y2FuIGVudGVyIHJlZ2lzdGVyX3BjY19jaGFubmVsKCksCiAgICAgICBzbGVlcCBpbiBwY2NfbWJv
-eF9yZXF1ZXN0X2NoYW5uZWwoKSwgYW5kIHRoZW4gd3JpdGUgdGhlIGNoYW5uZWwKICAgICAgIHBv
-aW50ZXIgaW50byBhIHNsb3QgdGhhdCBleGl0IGhhcyBhbHJlYWR5IGZyZWVkIGFuZCBjbGVhcmVk
-LgogICAgICAgYWNwaV9jcHBjX3Byb2Nlc3Nvcl9wcm9iZSgpIGFsc28gZGVyZWZlcmVuY2VzCiAg
-ICAgICBwY2NfZGF0YVtwY2Nfc3Vic3BhY2VfaWRdLT5wY2NfY2hhbm5lbF9hY3F1aXJlZCBhdAog
-ICAgICAgY3BwY19hY3BpLmM6OTgxIHdpdGhvdXQgYSBOVUxMIGNoZWNrLgoKICAgIEQuIGNoYW5u
-ZWwgcmVsZWFzZSB2cyBpbi1mbGlnaHQgc2VuZC4gIHBjY19tYm94X2ZyZWVfY2hhbm5lbCgpCiAg
-ICAgICAoZHJpdmVycy9tYWlsYm94L3BjYy5jOjQzMS00NDgpIG9ubHkgaW91bm1hcCgpcyB0aGUg
-c2htZW0gYW5kCiAgICAgICBjYWxscyBtYm94X2ZyZWVfY2hhbm5lbCgpOyBpdCBkb2VzIG5vdCB3
-YWl0IGZvciBhbiBpbi1mbGlnaHQKICAgICAgIG1ib3hfc2VuZF9tZXNzYWdlKCkvdHhkb25lIG9y
-IGZvciBzZW5kX3BjY19jbWQoKSB0byBmaW5pc2guCiAgICAgICBBbiBhY2Nlc3NvciBhbHJlYWR5
-IGluIHNlbmRfcGNjX2NtZCgpIGNhbiB0aGVyZWZvcmUgdXNlIHRoZQogICAgICAgcmV2b2tlZCBt
-YXBwaW5nIG9yIHRoZSBmcmVlZCBjaGFubmVsLgoKICBUaGUgcHJvYmUgZmFpbHVyZSBwYXRoIGlz
-IGEgc2VwYXJhdGUsIG5vbi1yYWNlIGxpZmV0aW1lIGRlZmVjdDoKICBhY3BpX2NwcGNfcHJvY2Vz
-c29yX3Byb2JlKCkncyBvdXRfZnJlZSBwYXRoIGlvdW5tYXAoKXMgYW5kCiAga2ZyZWUoKXMgY3Bj
-X3B0ciBidXQgZG9lcyBub3QgZGVjcmVtZW50IHRoZSBwY2NfZGF0YSByZWZjb3VudCB0aGF0CiAg
-cGNjX2RhdGFfYWxsb2MoKSBqdXN0IHRvb2sgKGNwcGNfYWNwaS5jOjEwMTUtMTAyMykuICBJdCBj
-YW4gbGVhayB0aGUKICBjaGFubmVsL29iamVjdCwgYnV0IGl0IGlzIG5vdCB0aGUgY29uY3VycmVu
-dCBVQUYgYWJvdmUuCgoKKiBSZXByb2R1Y2VyIGFuZCByZXN1bHRzCgogIE5vIGR5bmFtaWMgcmVw
-cm9kdWNlciBpcyBhdHRhY2hlZC4gIFRoZSBjdXJyZW50IFFFTVUgdGVzdAogIGVudmlyb25tZW50
-IGhhcyBubyBQQ0NUL1BDQyBtYWlsYm94IGNvbnRyb2xsZXIsIHNvIGEgcmVhbCBwY2NfZGF0YQog
-IGNhbm5vdCBiZSBjcmVhdGVkOyBJIGRpZCBub3Qgc3Vic3RpdHV0ZSBhIGZha2Ugb2JqZWN0LiAg
-VGhlIGV2aWRlbmNlCiAgZm9yIHRoaXMgcmVwb3J0IGlzIHRoZSBzb3VyY2UtbGV2ZWwgbGlmZXRp
-bWUgYWJvdmUsIHdpdGggdGhlIGV4YWN0CiAgbGluZSByZWZlcmVuY2VzIGluIHRoZSBtZWNoYW5p
-c20gc2VjdGlvbi4KCiAgU3RhdGljIGV2aWRlbmNlIHN1bW1hcnk6CgogICAgLSBjcHBjX2FjcGku
-Yzo3MTQtNzI5OiBwbGFpbiByZWZjb3VudCsrIGluIHBjY19kYXRhX2FsbG9jKCkKICAgIC0gY3Bw
-Y19hY3BpLmM6MTAzNy0xMDUxOiBwbGFpbiByZWZjb3VudC0tLCB6ZXJvIHRlc3QsIGZyZWUsIE5V
-TEwsCiAgICAgIGFsbCB3aXRob3V0IHBjY19sb2NrCiAgICAtIGNwcGNfYWNwaS5jOjk4MS05ODk6
-IHByb2JlIHJlYWRzIHBjY19kYXRhWy4uLl0gd2l0aG91dCBhIE5VTEwKICAgICAgY2hlY2sgYW5k
-IGNhbGxzIHJlZ2lzdGVyX3BjY19jaGFubmVsKCkKICAgIC0gY3BwY19hY3BpLmM6NjQ0LTY3NTog
-cmVnaXN0ZXJfcGNjX2NoYW5uZWwoKSB3cml0ZXMgdGhlIGNoYW5uZWwKICAgICAgYWZ0ZXIgYSBz
-bGVlcGluZyBwY2NfbWJveF9yZXF1ZXN0X2NoYW5uZWwoKQogICAgLSBjcHBjX2FjcGkuYzoxMzEz
-LTEzMzYsIDEzNjYtMTM4OSwgMTQ4OCssIDE2NzgrOiBhY2Nlc3NvcnMgdXNlCiAgICAgIHBjY19k
-YXRhW10gd2l0aG91dCBhIHJlZmVyZW5jZSBvciBOVUxMIGNoZWNrCiAgICAtIGNwcGNfYWNwaS5j
-Ojk3LTk4OiBHRVRfUENDX1ZBRERSKCkgZGVyZWZlcmVuY2VzIHRoZSBzbG90IGRpcmVjdGx5CiAg
-ICAtIGRyaXZlcnMvbWFpbGJveC9wY2MuYzo0MzEtNDQ4OiBmcmVlIGRvZXMgbm90IHdhaXQgZm9y
-IGluLWZsaWdodAogICAgICBzZW5kcwoKCiogU3VnZ2VzdGVkIGRpcmVjdGlvbgoKICBNYWtlIHBj
-Y19kYXRhIHJlZmNvdW50ZWQgd2l0aCByZWZjb3VudF90IGFuZCB1cGRhdGUgaXQgdW5kZXIgYQog
-IGRlZGljYXRlZCB0ZWFyZG93biBtdXRleCAob3IgcGNjX2xvY2spLCB3aXRoIHRoZSBzbG90IGxv
-b2t1cCBhbmQKICBpbmNyZW1lbnQgZG9uZSBhdG9taWNhbGx5LiAgQWNjZXNzb3JzIHNob3VsZCBh
-Y3F1aXJlIGEgcmVmZXJlbmNlIChvcgogIHVzZSBSQ1UpIGJlZm9yZSBkcm9wcGluZyB0aGUgbG9j
-aywgYW5kIHRoZSBmcmVlIHBhdGggc2hvdWxkIGNsZWFyIHRoZQogIHNsb3QgZmlyc3QsIHRoZW4g
-d2FpdCBmb3IgcmVhZGVycy9pbi1mbGlnaHQgc2VuZHMgYmVmb3JlCiAgcGNjX21ib3hfZnJlZV9j
-aGFubmVsKCkuICBGcmVlIHBjY19kYXRhIGFmdGVyIHRoZSBrZXJuZnMgZHJhaW4sIG9yCiAgbWFr
-ZSB0aGUgc3lzZnMgc2hvdyBob2xkIGEgcGNjX2RhdGEgcmVmZXJlbmNlIGZvciBpdHMgd2hvbGUg
-Y2FsbC4KICBUaGUgcHJvYmUgZXJyb3IgcGF0aCBzaG91bGQgcm9sbCBiYWNrIHRoZSBwY2NfZGF0
-YV9hbGxvYygpIGluY3JlbWVudC4KICBSZXBvcnQtZmlyc3QsIG5vIHBhdGNoIGF0dGFjaGVkOyBJ
-IGNhbiB0ZXN0IGEgcHJvcG9zYWwgb24gUENDCiAgaGFyZHdhcmUgb3IgYSBzdWl0YWJsZSBRRU1V
-IG1vZGVsIGlmIG9uZSBpcyBhdmFpbGFibGUuCgoKCiAgUGxlYXNlIGtlZXAgbWUgaW4gQ2M7IEkg
-YW0gbm90IHN1YnNjcmliZWQgdG8gdGhlIGxpc3RzLgoKCgpSZWdhcmRzLApIYW54aWFuZyBYdQp4
-dWh4QGh1c3QuZWR1LmNuCg==
+In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
+the controller registers are accessed without checking the return value.
+If pm_runtime_get_sync() fails, access to the register of the device that
+was not correctly powered on may cause a bus fault or other unpredictable
+system behavior.
+
+Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() that
+always return 0 on success and automatically restores PM usage counter
+on failure, and return immediately if it returns any error.
+
+Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+---
+This is fixed version of patch #6 in a set of fixes in i2c-nomadik
+driver:
+
+https://lore.kernel.org/linux-i2c/20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com/
+
+Please replace that patch with this one.
+
+Changes in this version of the patch:
+
+- use pm_runtime_resume_and_get() instead of pm_runtime_get_sync() in
+  order to automatically restore the usage counter on failure and always
+get 0 on success (pm_runtime_get_sync() may also return 1 if the device
+is already active).
+- use variable `status` instead of `i` for its return value.
+---
+ drivers/i2c/busses/i2c-nomadik.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
+index c3878670da9c..74ecf188c9eb 100644
+--- a/drivers/i2c/busses/i2c-nomadik.c
++++ b/drivers/i2c/busses/i2c-nomadik.c
+@@ -713,12 +713,13 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
+ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 		struct i2c_msg msgs[], int num_msgs)
+ {
+-	int status = 0;
+-	int i;
++	int status, i;
+ 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
+ 	int j;
+ 
+-	pm_runtime_get_sync(&priv->adev->dev);
++	status = pm_runtime_resume_and_get(&priv->adev->dev);
++	if (status)
++		return status;
+ 
+ 	/* Attempt three times to send the message queue */
+ 	for (j = 0; j < 3; j++) {
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-i2c-nomadik-handle-pm_errors-4925b54a5076
+
+Best regards,
+--  
+Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+
