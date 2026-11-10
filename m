@@ -1,62 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274712;
-	b=XlQ8x1Ti1EujNUPTkNKGlxNAEVzMrnIBjhO8QMtmgeZ+MSkshpTFUSP+2zt8iBP6F5d0
-	 WlmteTjZa4v2fRTyxjGZsXDfxYqs7fvfLq7MOYB2zApyV44OVH4e2+0z4mbsYnKZuk0Tw
-	 HrqqmVrzPwEqzY4NUqr933wnQh60N12Fixb8O0Tvc413PnbWzKGNi7xmrrgbnRm3K+fbv
-	 GjAFyx051cHWuULGUtgUGn69vUISSF5/y+oact55UZomDa2VTvJgBLAQ/doEoqAYRJYq0
-	 Ptjr/Wcqkesr4ca9OeSHx+TPCd+kCOR1FPeQ9kEVsJlJCk2sPSCDNlkV7ATYLuxWIjQ==
+	t=1794274705;
+	b=VfgJwMh8uVANQpdQqOdCILmy9QrPmJfCGp+hNFrScNb7t67t+tc6KKP2/xbce69ff/Nd
+	 koKv5soPY189QvD3CdnV87TyPatVILTzEKb7ijR+8CSP61t0x11bw+fFS8q6cKzP6OHB0
+	 4jb5xTuCImTWswl6weheg2ZpnYvh2bgJVE3GUhhJ1LygKJiFolikZQOFA2KXnAKNyMz4X
+	 ncvBULM64PjoSwf2740cpZc8KReo9a2odTOitgswj9QQ+rHLD9j3HUZ4tt65yMm3VxxHe
+	 0LDseB5MpeuSpKQbRSZL4EJTJqAlOXPFdwBR4RP0Y0KAUIuBPEScuMcB/Tk1iblRLWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274712;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Y7tdQjym8J95a6/U7vV5Laz+tn2VaoFtzuNilhh5ksk=;
-	b=XuEdWLOV9vdo/kT+lIHZCN1h0zy9L20cYKPnvfVfe0n4vfgb/Zl+I3yuMrMKFdUF6Rf6
-	 delCe9+e6jVQmcI2wE2Qyi6wKZuz8v3PSneFgAi9QADVBcM3Ck4EbYUZCMEARbvqYKNUl
-	 R8hP9SHg3AJ9xhhgFRHLgrO3z1JkE/yMIDrTceA9oKFddK0slsrvh2UUqk/9c+VzAFKuj
-	 b92MBYp/Ocb2b1dvY/aqbr2AMUj/oHkqKc6ppS/dYmexh3Gf/YHVs5lmFzvenwDR/RHm2
-	 UX2ZbpWcrY1/EIrV/I3vuFRLirtkL8UKGP3AuFFNLbry0VfWi+dATXXKw5Gg9BW/zqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274705;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C6qqXg66snVjWtvXLaTCarySN21K2eU4ZVWZSHhFYXY=;
+	b=kmYQ8YUJRH+gj1kWPFyHPhwpOWghjwlHTAgP4Qb4VRKZ6krtXnml4nhPyQPOEXFasoAj
+	 PdTFCVVF7pKE/+RLRB2ghun5tf+kE+vTMUTSPn080JmFwweW2bZ4TQ/ntVkdUltQ5JLx+
+	 YQD53sQhtdcGZDy4QvNnNu7b4gfcb9MifbSe4m/0Zc1rO7OJDJXaK18YSZ4OyMvCsrHYK
+	 2cob+AlVMgPi/ovWFHv2S36qcMLi5WJQV4tucyhAr3iLNR32Tt001okOGcRKFDWk3zIPB
+	 gYB5TlhGTzXAy8fXc89VJMtvYVpy9ryWz9IpMzbWygScEjmw6JL5uHHs1j4avzZolQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9iwtHTS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=f98cykkt;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892FD60A2638;
-	Tue, 10 Nov 2026 01:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A221606A32E;
+	Tue, 10 Nov 2026 01:38:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A221606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9iwtHTS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464F61F008A6;
-	Tue, 10 Nov 2026 01:38:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274712;
-	bh=Y7tdQjym8J95a6/U7vV5Laz+tn2VaoFtzuNilhh5ksk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=T9iwtHTSmGwuxvHxrInQGPul4KPymMJNuF3MT725oS+oZMYUrKIssTUxzFPcus5uD
-	 UMvGwyk5oMJnSpzGr7v7LF5BJmMrIyRNleX+6cBQ5+E2DOJQ22VRNutLnDZhxfzUJ+
-	 6kEIhKPKul7dOnzAHg1U7eixVW9S2rbINTI1oDSMd6PS95+KrBOi8aKjlDiNJPhmJy
-	 9w4wiUwd4NDUDVhkmZSBluD9HoOB6T/fwcwCQyyIAuqWuFjuX1yuyu4Bq6vMa+w3kR
-	 k1Pphlg3KogGyc8/uyoSTrOvyu0JkzVvbr5h4PbXmgHXPSFzHVWgc27S4ZcwVfYrop
-	 H5p8ibCA16+Jg==
-Subject: Re: [PATCH net-next v20 03/13] ax88179_178a: Split driver into
- library and device specific code
-From: netdev-bot+sashiko@kernel.org
-To: mail@birger-koblitz.de
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, chenhuacai@kernel.org, kernel@xen0n.name,
- edumazet@kernel.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- neuromoments@gmail.com, beganovic.emir@gmail.com
-Date: Tue, 10 Nov 2026 01:38:30 +0000
-Message-ID: <179427471082.994134.5058142083124643699@kernel.org>
-In-Reply-To: <20261106-ax88179a-v20-3-37b5a1189983@birger-koblitz.de>
-References: <20261106-ax88179a-v20-3-37b5a1189983@birger-koblitz.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=f98cykkt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794274701; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=C6qqXg66snVjWtvXLaTCarySN21K2eU4ZVWZSHhFYXY=;
+	b=f98cykktG5+PgveGjBDygLrRpf5avxbLthqoDHCTgUtR+bQv2Jy9Mwvfno1ltMzQMjX/bq5T2dtVfyebhASL4G6grww2X9kehUkVCKbTCqSIV+Aui2tRE9UF8mRrAZdli/5yGBvxcOG5apWz4b61wW/Rf8eXtmvFJNSBQuwfiLE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=36;SR=0;TI=SMTPD_---0XETOXAn_1794274696;
+Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XETOXAn_1794274696 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 10 Nov 2026 09:38:18 +0800
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+To: palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	oleg@redhat.com,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mark.rutland@arm.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	shuah@kernel.org,
+	mpdesouza@suse.com,
+	martin@kaiser.cx,
+	kmehltretter@gmail.com,
+	oliver.yang@linux.alibaba.com,
+	zhuo.song@linux.alibaba.com,
+	xueshuai@linux.alibaba.com,
+	jkchen@linux.alibaba.com,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v7 09/10] riscv: Kconfig: enable HAVE_RELIABLE_STACKTRACE and HAVE_LIVEPATCH
+Date: Tue, 10 Nov 2026 09:37:49 +0800
+Message-Id: <20261110013750.36800-10-xueshuai@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261110013750.36800-1-xueshuai@linux.alibaba.com>
+References: <20260914092648.51254-1-xueshuai@linux.alibaba.com>
+ <20261110013750.36800-1-xueshuai@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,321 +95,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 4 (2) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message describes a pure code move plus a module
-  rename ('Split the ax88179_178a module code into code common to ...…
-- [Medium] The new `medium_status_mutex` is documented as protecting
-  AX_MEDIUM_STATUS_MODE (ax88179_lib.h:161), but in this commit only…
-- [Medium] `ax88179_change_mtu()` (ax88179_lib.c:396-438) now returns an
-  error from the new `err_out` path, but only after it has already done…
-- [Medium] The patch renames the kernel module from ax88179_178a.ko to
-  ax88179.ko (Makefile lines 15-16: `obj-$(CONFIG_USB_NET_AX88179_178A)…
-
-Pre-existing issues:
-- [Medium] In the moved `ax88179_get_eeprom()` (ax88179_lib.c:191-223),
-  `eeprom_buff` comes from `kmalloc_array()` (line 205, not zeroed).
-- [Medium] `ax88179_set_features()` (ax88179_lib.c:339-366, moved
-  unchanged) toggles the checksum-offload registers by XOR on the…
-
---
-
-ax88179_178a: Split driver into library and device specific code
-
-This commit moves the register definitions, the USB command helpers and
-the common ethtool/netdev callbacks of the ax88179_178a driver into a new
-ax88179_lib.c and ax88179_lib.h. It also renames the module to ax88179 and
-adds MODULE_ALIAS("ax88179_178a") for the old name.
-
-> diff --git a/drivers/net/usb/Makefile b/drivers/net/usb/Makefile
-> index 4964f7b326fbc..ddd76fa71e2ee 100644
-> --- a/drivers/net/usb/Makefile
-> +++ b/drivers/net/usb/Makefile
-> @@ -12,7 +12,8 @@ obj-$(CONFIG_USB_HSO)		+= hso.o
->  obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
->  obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
->  asix-y := asix_devices.o asix_common.o ax88172a.o
-> -obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179_178a.o
-> +obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179.o
-> +ax88179-y := ax88179_178a.o ax88179_lib.o
-
-[Severity: Medium]
-This renames ax88179_178a.ko to ax88179.ko. The only compatibility added
-is MODULE_ALIAS("ax88179_178a") in ax88179_178a.c.
-
-The alias keeps "modprobe ax88179_178a" working. Will configuration that
-matches on the real module name still take effect? For example:
-
-  - "blacklist ax88179_178a" in modprobe.d. kmod compares the blacklist
-    against the resolved module name, and the usb:v0B95p1790... modalias
-    now resolves directly to ax88179.
-  - module_blacklist=ax88179_178a on the kernel command line, which is
-    compared against mod->name.
-  - Anything that checks /sys/module/ax88179_178a.
-
-Users of this device family often blacklist the vendor driver so that
-cdc_ncm binds instead. The later patch "ax88179_178a: Add HW support for
-AX179A-based chips" also relies on OS configuration to choose between this
-module and cdc_ncm.
-
-After an upgrade, could such systems quietly end up with this driver bound
-again?
-
-The rename is still there at the end of the series, which also renames the
-Kconfig symbol and the usb_driver name to ax88179. Could the commit message
-mention this limitation of the alias?
-
-[ ... ]
-
-> diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
-> new file mode 100644
-> index 0000000000000..063427ff55e42
-> --- /dev/null
-> +++ b/drivers/net/usb/ax88179_lib.c
-> @@ -0,0 +1,461 @@
-
-[ ... ]
-
-> +int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
-> +{
-
-[ ... ]
-
-> +	first_word = eeprom->offset >> 1;
-> +	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
-> +	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
-> +				    GFP_KERNEL);
-> +	if (!eeprom_buff)
-> +		return -ENOMEM;
-> +
-> +	/* ax88179/178A returns 2 bytes from eeprom on read */
-> +	for (i = first_word; i <= last_word; i++) {
-> +		ret = __ax88179_read_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
-> +					 &eeprom_buff[i - first_word]);
-> +		if (ret < 0) {
-> +			kfree(eeprom_buff);
-> +			return -EIO;
-> +		}
-> +	}
-> +
-> +	memcpy(data, (u8 *)eeprom_buff + (eeprom->offset & 1), eeprom->len);
-
-[Severity: Medium]
-This is a pre-existing issue that this patch moves without changes. Can
-this memcpy() hand stale heap bytes from eeprom_buff to userspace?
-
-eeprom_buff comes from kmalloc_array() and is not zeroed. Only ret < 0
-counts as a failure. __usbnet_read_cmd() copies only the bytes that were
-actually transferred and returns that short count:
-
-drivers/net/usb/usbnet.c:__usbnet_read_cmd() {
-    ...
-	if (err > 0 && err <= size) {
-		if (data)
-			memcpy(data, buf, err);
-    ...
-}
-
-If a device answers a 2-byte read with 0 or 1 bytes, eeprom_buff keeps
-uninitialised bytes, and ETHTOOL_GEEPROM returns them to the caller.
-
-ax88179_set_features() has a similar problem. Its u8 tmp is never
-initialised, so a failed 1-byte read leads to a stack byte being XORed and
-written to the COE register.
-
-A later patch in the series, "ax88179_178a: Add support for
-AX88179A/772D/279 EEPROM access", fixes the get_eeprom part. It switches to
-kzalloc() and checks ret != ax179_data->eeprom_block. The set_features part
-is still present at the end of the series.
-
-[ ... ]
-
-> +int ax88179_set_features(struct net_device *net, netdev_features_t features)
-> +{
-> +	u8 tmp;
-> +	struct usbnet *dev = netdev_priv(net);
-> +	netdev_features_t changed = net->features ^ features;
-> +
-> +	if (changed & NETIF_F_IP_CSUM) {
-> +		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
-> +		tmp ^= AX_TXCOE_TCP | AX_TXCOE_UDP;
-> +		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
-> +	}
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, since the function moves
-unchanged. Can the XOR toggle leave the hardware checksum offload out of
-sync with net->features?
-
-ax88179_reset() always turns on every COE bit, whatever net->features says:
-
-drivers/net/usb/ax88179_178a.c:ax88179_reset() {
-    ...
-	*tmp = AX_TXCOE_IP | AX_TXCOE_TCP | AX_TXCOE_UDP |
-	       AX_TXCOE_TCPV6 | AX_TXCOE_UDPV6;
-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, tmp);
-    ...
-}
-
-ax88179_reset() runs from ax88179_resume() and from ax88179_net_reset().
-Consider this sequence:
-
-  ethtool -K tx off   -> TXCOE TCP/UDP cleared
-  suspend/resume      -> ax88179_reset() sets all TXCOE bits again
-  ethtool -K tx on    -> tmp ^= AX_TXCOE_TCP | AX_TXCOE_UDP clears them
-
-NETIF_F_IP_CSUM ends up set while the MAC no longer fills in IPv4 TCP/UDP
-checksums. Would CHECKSUM_PARTIAL frames then go out with bad L4 checksums?
-
-Writing the absolute state derived from features, instead of toggling,
-would avoid this. The code is still the same at the end of the series.
-
-[ ... ]
-
-> +int ax88179_change_mtu(struct net_device *net, int new_mtu)
-> +{
-> +	struct usbnet *dev = netdev_priv(net);
-> +	struct ax88179_data *data;
-> +	u16 tmp16;
-> +	int err;
-> +
-> +	data = dev->driver_priv;
-> +	mutex_lock(&data->medium_status_mutex);
-
-[Severity: Medium]
-The commit message describes this as a split of existing code plus a module
-rename, but some of it is not a straight move. Compared with the code
-removed from ax88179_178a.c:
-
-  - struct ax88179_data gains medium_status_mutex, which ax88179_bind()
-    initialises.
-  - ax88179_change_mtu() now takes that mutex, checks every register
-    access and can return an error. The old version had no lock and always
-    returned 0.
-  - The BUG_ON(!dev) checks in __ax88179_read_cmd() and
-    __ax88179_write_cmd() are dropped.
-
-Should these behaviour changes go in a separate patch with their own
-justification, or at least be described in the commit message?
-
-> +	WRITE_ONCE(net->mtu, new_mtu);
-> +	dev->hard_mtu = net->mtu + net->hard_header_len;
-> +	if (net->mtu > 1500) {
-> +		err = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
-> +				       2, 2, &tmp16);
-> +		if (err < 0)
-> +			goto err_out;
-
-[ ... ]
-
-> +	mutex_unlock(&data->medium_status_mutex);
-> +
-> +	/* max qlen depend on hard_mtu and rx_urb_size */
-> +	usbnet_update_max_qlen(dev);
-> +
-> +	return 0;
-> +
-> +err_out:
-> +	mutex_unlock(&data->medium_status_mutex);
-> +	return err;
-> +}
-
-[Severity: Medium]
-On this error path, do net->mtu and dev->hard_mtu keep the new value even
-though the MTU change is reported as failed?
-
-Both are updated before any AX_MEDIUM_STATUS_MODE access. err_out does not
-restore them and does not call usbnet_update_max_qlen(). The core does not
-roll back on error either:
-
-net/core/dev.c:netif_set_mtu_ext() {
-    ...
-	orig_mtu = dev->mtu;
-	err = __netif_set_mtu(dev, new_mtu);
-
-	if (!err) {
-    ...
-	return err;
-}
-
-So after a failed USB transfer:
-
-  - userspace gets an error, but dev->mtu shows the new value
-  - the NETDEV_CHANGEMTU notifiers are skipped
-  - rx_qlen/tx_qlen no longer match hard_mtu
-
-A retry with the same MTU then hits this check in netif_set_mtu_ext():
-
-	if (new_mtu == dev->mtu)
-		return 0;
-
-It succeeds without touching the hardware, so AX_MEDIUM_JUMBO_EN stays
-wrong for that MTU.
-
-The old code always returned 0, so this inconsistency is new in this patch.
-The function is the same at the end of the series.
-
-[ ... ]
-
-> diff --git a/drivers/net/usb/ax88179_lib.h b/drivers/net/usb/ax88179_lib.h
-> new file mode 100644
-> index 0000000000000..9111a1395eb2f
-> --- /dev/null
-> +++ b/drivers/net/usb/ax88179_lib.h
-> @@ -0,0 +1,195 @@
-
-[ ... ]
-
-> +struct ax88179_data {
-> +	struct mutex medium_status_mutex;  /* protect AX_MEDIUM_STATUS_MODE */
-
-[Severity: Medium]
-The comment says this mutex protects AX_MEDIUM_STATUS_MODE, but
-ax88179_change_mtu() is the only function that takes it. Is that enough to
-protect the register?
-
-None of the other accessors in ax88179_178a.c take the mutex:
-ax88179_suspend(), ax88179_link_reset(), ax88179_reset(),
-ax88179_net_reset() and ax88179_stop().
-
-ax88179_link_reset() runs from the kevent work without RTNL:
-
-usbnet_deferred_kevent()
-  info->link_reset(dev)
-    ax88179_link_reset()
-
-That means it can run at the same time as ax88179_change_mtu(), which runs
-under RTNL. One possible interleaving:
-
-  ax88179_change_mtu()              ax88179_link_reset()
-  read AX_MEDIUM_STATUS_MODE
-                                    write new speed/duplex mode
-  write stale mode | JUMBO_EN
-
-The MAC speed and duplex would then disagree with the PHY until the next
-link event.
-
-It can also go the other way. ax88179_link_reset() reads
-dev->net->mtu <= 1500, then ax88179_change_mtu() sets JUMBO_EN, then
-ax88179_link_reset() overwrites the register without JUMBO_EN. Would jumbo
-frames then be dropped?
-
-By the end of the series the AX88179A mac_link_up path in
-ax88179a_devices.c also takes the mutex. The legacy accessors in
-ax88179_178a.c and several accessors in ax88179a_devices.c still do not.
-
-Should the other accessors take the mutex too, or should the comment say
-what the mutex actually serialises?
-
+Content-Transfer-Encoding: 8bit
+
+From: Wang Han <wanghan@linux.alibaba.com>
+
+Now that the metadata frame records, the kunwind state machine and
+arch_stack_walk_reliable() are all in place, advertise the capability
+to the rest of the kernel:
+
+  * select HAVE_RELIABLE_STACKTRACE under FRAME_POINTER && 64BIT, so
+    only the configurations with the tested metadata records and
+    FP-based reliable walker enable it.
+  * select HAVE_LIVEPATCH under the same condition and source
+    kernel/livepatch/Kconfig so the livepatch menu is reachable from
+    the RISC-V configuration.
+
+The 64BIT dependency is conservative scoping rather than a hard
+technical requirement: the metadata frame record, kunwind state machine
+and arch_stack_walk_reliable() also build on RV32, and the IRQ-stack
+frame-record adjustment fixes a latent RV32 issue. However, the syscall
+livepatch selftest and module relocation path have only been exercised
+on RV64 QEMU virt so far. The 64BIT gate can be relaxed in a follow-up
+once RV32 has equivalent coverage.
+
+This is split out from the unwinder change so the policy decision and
+the implementation can be reviewed and reverted independently.
+
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Reviewed-by: Martin Kaiser <martin@kaiser.cx>
+Tested-by: Martin Kaiser <martin@kaiser.cx>
+Signed-off-by: Wang Han <wanghan@linux.alibaba.com>
+Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+---
+ arch/riscv/Kconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index e7891a2a89da..4512f67bbfd9 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -186,6 +186,7 @@ config RISCV
+ 	select HAVE_KRETPROBES
+ 	# https://github.com/ClangBuiltLinux/linux/issues/1881
+ 	select HAVE_LD_DEAD_CODE_DATA_ELIMINATION if !LD_IS_LLD
++	select HAVE_LIVEPATCH if FRAME_POINTER && 64BIT
+ 	select HAVE_MOVE_PMD
+ 	select HAVE_MOVE_PUD
+ 	select HAVE_PAGE_SIZE_4KB
+@@ -195,6 +196,7 @@ config RISCV
+ 	select HAVE_PERF_USER_STACK_DUMP
+ 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
++	select HAVE_RELIABLE_STACKTRACE if FRAME_POINTER && 64BIT
+ 	select HAVE_RETHOOK
+ 	select HAVE_RSEQ
+ 	select HAVE_RUST if RUSTC_SUPPORTS_RISCV && CC_IS_CLANG
+@@ -1415,3 +1417,5 @@ endmenu # "CPU Power Management"
+ source "arch/riscv/kvm/Kconfig"
+ 
+ source "drivers/acpi/Kconfig"
++
++source "kernel/livepatch/Kconfig"
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-ax88179a-v20-0-37b5a1189983%40birger-koblitz.de
+2.39.3
+
