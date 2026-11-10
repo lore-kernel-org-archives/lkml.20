@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313126;
-	b=Ef4CN6pStlQYE5gmRDWLjLKMdb3esVuKYMvOL0Nydv3mbrYohvoh3H6Bq4FKjmfZATkL
-	 4Qv3/4x4UygN/A/AADAaRotv80kr1gvn5+xSqTumAelY/c0dTRpsHyuQRge59QEtzVPcS
-	 YBTQ2gkXSzU65zmw6MQvAK2OPsDaNmSoI83mWKDhkr1YkSgJs24u6hgFpLgiWvZaM+2Na
-	 BIrlalQFzvb715ftW+p/KHCf0ol4Kbp9i4FghjYs+w47sFuLRbbS5egYLgX0tMuojuzlu
-	 ncbdaQaL9b9Yyjlxg+ZXde/IVivaYp5hfRFRT6JBMT0fUEf4iAzSv7oPEBCQ0thxyXg==
+	t=1794313144;
+	b=qaM1wpPKrPUG8F9kNN8UvZ62B1S2/sM8hP7sgMS/jAU7Om66xIsx9kg8RTq3BwiCwaro
+	 yihTlMshfP9ten6QYb66pDIBAonAxtdMIDV5UNy6LAla1jtNClwX/JbWMCHoDONN5OXrL
+	 9hGVwfwUTTzdIPq6dh2m++PY0K15qnZOQYvAtf1CLXbWksatcVay7pwRyYzVBKFj9uOpb
+	 rpDX8u7E/7iitSsL1/JvLwF4duBFOY0jDGMtUEPiaGYK7+rfqrjKhRr3JzQlx0iTmeaYI
+	 2P16C/UIvrUiK9uXL42d2BplrrPlfDigwKMaRz+FrfTlMgHno1EVCYPRiEOEV6BQglg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313126;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=PnZdqN7YVfod3XTPPe7pH85dZfOUEl0xdGXQRdrN5P0=;
-	b=hPXKLlhZnEHfy1JqVhsZ9B4E255UngkSoDwuXAZIaZzT7wDToj/uzjFbg58IO2JezXmt
-	 q5x8PkC60wZdffcEbu5bXz3lnzei+D3Jd4S6W6odooWDHzyslzsqcgXz+Xkcfdf7A2H/a
-	 J+biQeD22pj7dr0oLo6FUQM2k0YtkQ7FDCBaI5BTj0e5ouVIRCqc4dlZIessqt98h0tHO
-	 jYvyZaaozNDfQjCZF41+S5iXxG8zzt6cwYeB2zcTc8JfleboxQYo6WFucsdu7kaQ/VAF/
-	 yGm/Yx31UqwaGl6WUFphDFMSc5v7dV2dNjtERts7LEM1X+U3S2/CnEwj+abCu1MULoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313144;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=DJoXiCBdlUX6P7F/sHPq9wTeXk/IjATyg4uv4A6oh/s=;
+	b=fzu6ELpkJQxGQsJ00jH18k0aDEK9hXyThNjNAGQ20ddiUgMmrojvrml2+hEJ1R626raa
+	 GDdZQd2Li81sbm2aij2LcnJ6IezDYqsaAn2JDVt4pp88J6SJE+5z3um+LJM0vHCrpLtPn
+	 3EkkYILPF7SnntOmQxeAVtqjhJiEeMK12Y35CyxPg3TRsV4fWRbG17KumjXb81hFAiE7D
+	 K/DqBRL6FlQvDIGoJQzIzyqPa/G9gFks8r4nx6xBpy5vjkzNmICQGrWzBG64dZCwCGMWM
+	 2Z1HothuctqDNKeiVKjkOUH3CcKmxCJYO64K7LaD0/vOn/p28SjJQ2amrIMsz6VU6GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ELQZ59BG;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=cryspen.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CC7606A321;
-	Tue, 10 Nov 2026 12:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0CC7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ELQZ59BG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=PnZdqN7YVfod3XTPPe7pH85dZfOUEl0xdGXQRdrN5P0=; b=ELQZ59BGDHyPKNOtS9iVkmf3+b
-	yMQgWP7nx5/NJ7FuTpUHOKQabMJx9NBYZQo3W0iGwgUMy0tfGjZARgTEHmAc9gUepVSu4JKS4pFgg
-	o9N/5UGZxCgJe9+yvhMXvyTljfkUzclCn45BNte1VxDWVmZb7yHKc/AtzNNM6XdwNJQSrA+Zqa7rc
-	f5dhQEozCol2AYbIg/uehfZzQN7LeZ95aFo/f0sfA5y0+UPCrly0XsNTb3QIbiWhWPd+PHpnwjpwU
-	SkH9UgZ01XwPSLR2fTx/qK4h4Ypcc795gOMnjmCHbhFeUhnqe2m6N4Dv4p/ricvr7UCSeD0fTdOk3
-	mkyoRCrg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQkoC-00COW0-2G;
-	Tue, 10 Nov 2026 12:18:40 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 10 Nov 2026 04:18:32 -0800
-Subject: [PATCH bpf] bpf: Report RCU-tasks quiescent states in do_check()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D900F606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D900F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4922dbcee23so1044167f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794313142; x=1794917942;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DJoXiCBdlUX6P7F/sHPq9wTeXk/IjATyg4uv4A6oh/s=;
+        b=ZrVNyRNr0zBsYTsevZhj+6j5F+tOhZrjTTFmBXdpG+IbX8gLnCLBDHcg9GKqwrWYDw
+         bPA7NBhSYsfD3ka86IBriuz3orQlmII+VbdVdOTIX6GOe7yJNThlQTywQfwkXcvoWogG
+         SGHgtuYSw1MgW0M5Nv78cLdmp/OQV7Pxq+0DILa32m/YW9WQdynTkHXZEjHfWOqqrsbj
+         raq5JzYXoVjQ289oP2XVhpx74ftnlv4jmpnF3FK3v5AdMDGy4r4P0XRErHB8E7LlOjA+
+         jmq8DlsmVtFHhYbe1Gt15AKuWoREqvLJNaulaujJ9mDpTZ0cLKkGO1DD25bm5t8XPxsj
+         keEw==
+X-Forwarded-Encrypted: i=1; AL+hErG8Is9N4F8TlHmHa5MPiuPWKBLRhhOBSWk2M/iGRgIAzILmA7Sulg1XUxcCcnP0WyLjOX6mBLF4zTWj/To=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+J3TmQYJfNPKOuiuKuKwSKmvHceK5R0/pU7DGHQbATpyuk0l/t
+	/KSWLiyaoPkLIJtjY66GvaVsPViHttZuKRdG5AvMlSv2TJNNUJKpMoBa
+X-Gm-Gg: AYBFou0ZKm/WLb0NFNLsqy6HFCryOslpdJwwFXor2Lf+TGIK12AHf7EPfHEXTgSCoJ4
+	OOobnq7Er4DabO1KqdMGjG5sUEwWxXJqPzhFm3nQ2xsDom+ezI1TjHi4/Tpg5bgw8d2aFHCAQcz
+	W8BsqqD81SJZBHeYFh0FQC7ZdG87LnmLGfjVnUAqIPVM/mW799Yx4OJ/yhpWXdmOHPoy+QcnkW1
+	7Gb4nEXvVVjdDOyipA/9P4vFgGD0/MCbjHNdQno+JyrFpNgtSIC4tNVwutY2nf0tkTLAhtru8Qb
+	vSsEG4ZLvl+SQAq5bse8iX0XA985cQKFhnWNj823Ld34PmLy1XTdOvehuFXMcSk/VAEhOmmshlu
+	L00lgUS+2ky3x3MY1mPkCnsiznQFsdlPvh6XrwSf7Ab5N5C5YDu/agLjXUNF0QxHY0PKE9raRai
+	WEk0N0PE6vd3XT+T5I2IMksWEWSoVS8vsTPIhiliNEwoSj7YgnpbPD+GDbQDtPCwlFSXtlY9GHG
+	rQ/HjhVU9jDdsPAHiI9MZcSFSzSMsdn0M2hxBxg/YxwFsTYmc2Kw4oyJ37zKFI/I55CCmqjC2cE
+	H/KKPqxD02FJfSan2Yr+fofZHEw55nrl1IZSu681nQ81Obtcvi3lmLm9CZ08yOH4fSsmOAFbibB
+	NBs7nDW8ey3DPCX148K+scT50ScAHwPv/RS4XjG5IfBJMSUaQuUkoyaWHeXpctacL4fcRejpTO3
+	Nl3lvNCFQPrcU=
+X-Received: by 2002:a05:6000:2511:b0:492:20e0:f200 with SMTP id ffacd0b85a97d-49842870943mr4544422f8f.14.1794313141971;
+        Tue, 10 Nov 2026 04:19:01 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c2793sm4715458f8f.45.2026.11.10.04.19.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:19:01 -0800 (PST)
+Date: Tue, 10 Nov 2026 15:18:57 +0300
+From: Dan Carpenter <dan@cryspen.com>
+To: aleszlucero@gmail.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: octeon: remove unnecessary parentheses
+Message-ID: <avMLsZaC_AywFjUs@stanley.mountain>
+References: <20261110-octeon-parentheses-cleanup-v1-v3-1-ea6d4ecf2ec5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,100 +83,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-bpf-verifier-rcu-tasks-qs-v1-1-99e8f798a6dc@debian.org>
-X-B4-Tracking: v=1; b=H4sIAJcL82oC/x3MQQqDQAxA0atI1gbMFAV7ldKFM2Y0CNYmOhTEu
- ze4/Iv3TzBWYYNndYJyEZPP6kF1BWke1olRRm8ITeiIqMG4ZSxusrCipgP3wRbDr2GMbXgkyhy
- 5B/ebcpbf/X6BM3hf1x9kO+LrcAAAAA==
-X-Change-ID: 20261110-bpf-verifier-rcu-tasks-qs-bb523c1febe9
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- paulmck@kernel.org, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1998; i=leitao@debian.org;
- h=from:subject:message-id; bh=njfHvcNv1uYoTbhkRrJyJ5ytQ82fBSWXSapr6BPDnSk=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8wudQKG/DG+AgSbgzvbYLgjtdkL3lYMKEkb/T
- 5qkL3ncjDaJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavMLnQAKCRA1o5Of/Hh3
- bTaVD/0awCdqrFDDQHZAptK18QmBaa9NqSONw90EjgEj1fa8q9vabGu6t1TEyzQKlP4l2e0V/U8
- RfrYeZ9Tm982dJXr0svu6Vr1FlWZrsffB1JHZbUcnZM0eslMx3tmH3nQRwz2DhTWdde4nQGoSvl
- hNarPoSSwuRw4FCepHzldcKlnri/nx6M4st3QWl3WNywnfA0UL8JcvZXG76Ckt+GLur108mesTq
- JCIjUw6G+CtgR2WBRQm5/oiUhKnitHJ2bdjOXm+Qc82kssvhaPpbEy1qHicOta/fmtcKYJBSmel
- m2j4su7o9CHiq4XdBkYy51epwRpNwhEffa6o5LXU012xCylC5YHSLz+p7xlP5Zvj7ydr5gS3oiS
- +reBR0HtkVW4jaCq8KJIMIZjEEmL2Beco1hn0ESNXD5unBGoJoktmqIDJ5+eCdKfz9givC+Kbm0
- hkGqLkx/A5gaxjxPjgeKAjth1b+Wkr1J08OgapPwM05i7nAjqvByPptXxDQqoJjutVTt6ebTl2h
- 8Fpl+BYh8zzu2z+oa6TaYolO2lfpUZab6NWkdYmpZb/EM7VapXR7vERqgVUP0znkTPmAnUPEK4B
- ul1LPBVF9PXqJkzYKsYuR6+plNnFz6ghJb/bC83Qvp5Bh2UvyuaTn+QudZ8kARb5jyakNm2BJUs
- 5v+JM2n663ehdrg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110-octeon-parentheses-cleanup-v1-v3-1-ea6d4ecf2ec5@gmail.com>
 
-I am seeing rcu_tasks stalls in the Meta fleet on debug kernels (KASAN,
-kmemleak, lockdep), where a task loading a BPF program stays in the
-verifier for over 20 minutes:
+On Tue, Nov 10, 2026 at 03:37:24AM -0600, Oscar Alejandro Sánchez Lucero via B4 Relay wrote:
+> From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+> 
+> Fix checkpatch.pl warnings by removing redundant parentheses around
+> conditional checks.
+> 
+> Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+> ---
 
-  INFO: rcu_tasks detected stalls on tasks:
-  000000000cc1a43d: .. nvcsw: 4/4 holdout: 1 idle_cpu: -1/91 task:GlobalCPUThread state:R  running task  pid:175256 tgid:169948 ppid:1
-  Call Trace:
-   __create_object
-   __kmalloc_node_track_caller_noprof
-   krealloc_node_align_noprof
-   copy_array
-   bpf_copy_verifier_state
-   bpf_split_cur_state
-   do_check_common
-   do_check_main
-   bpf_check
-   bpf_prog_load
-   __sys_bpf
+Search for this on lore.
 
-The main loop in do_check() only calls cond_resched(), which is a no-op
-on PREEMPTION kernels. Involuntary preemption is not a Tasks-RCU
-quiescent state, so the loading task never reports one and stays a
-holdout until bpf_prog_load() returns. Meanwhile every
-synchronize_rcu_tasks() caller waits, e.g. ftrace_shutdown() of a
-dynamic ftrace_ops.
+https://lore.kernel.org/all/?q=cvm_oct_common_change_mtu
 
-Upgrade it to cond_resched_tasks_rcu_qs(), which reports a quiescent
-state even when cond_resched() does nothing. The need_resched() check
-goes away, as cond_resched() does it already.
+I don't even know how you are seeing these warnings because I
+changed checkpatch to not warn about it.
 
-Fixes: 3c2ce60bdd3d ("bpf: adjust verifier heuristics")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- kernel/bpf/verifier.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+dcarpenter@stanley:~/progs/kernel/devel$ ./scripts/checkpatch.pl -f --strict drivers/staging/octeon/ethernet.c
+total: 0 errors, 0 warnings, 0 checks, 1037 lines checked
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 5e4700fda66b9f..232551fd7cefdd 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -20627,8 +20627,7 @@ static int do_check(struct bpf_verifier_env *env)
- 		if (signal_pending(current))
- 			return -EAGAIN;
- 
--		if (need_resched())
--			cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 
- 		/* reset current history entry on each new instruction */
- 		env->cur_hist_ent = NULL;
+drivers/staging/octeon/ethernet.c has no obvious style problems and is ready for submission.
 
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261110-bpf-verifier-rcu-tasks-qs-bb523c1febe9
+regards,
+dan carpenter
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+
 
