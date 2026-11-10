@@ -1,49 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343557;
-	b=it72p5kFFIGWrecsJgIYV2iYleWFAxUoFIEzkQjcd0ipBIR3jop+GraOw9fgybBm0hKX
-	 sbAKRVRXJg/2uSLH176Cgz8f08WCYfcQisGbaBqgIXyxlKytQgOqZrWBrXu7hqqblxlvp
-	 Zz+9tf0JDbKi0zXcGcHfkdrTCMu7QMjPAshyP2pybk6TawarBeGXzvy9vt4lwyKh1FMXD
-	 QZ9x+cjZvXrAO/epDyMpevX7MvAW4GeN+neEpOqQlh1vBkBMu4BtESs+1bIT5NpL4kaGG
-	 gYaVOJSPyeMydIVlq+9CeeRYYb2gV2/ajrh2BU9fI6wMKWveDOzpQHZbn5jvDHWgOdQ==
+	t=1794343565;
+	b=HNsC/vjJBuB5u/YK1G2yiqB2RKoFSadg3+fEXWHpxKyVV+t3ZMJlnzs3cuBbSaVwbkFi
+	 /QUt6or7HXVdMYUwrMAUZmBIpy7q7xyR4+u3E/zreORvVooq+tQdV8OmGcMIOybHw7SkY
+	 mEkd1VNBxmJw66WC+0IkwA4LsSs+nMyZyLW59wEelZz5VTKD7uC2KALCBSuPU0MC94vlx
+	 jTmrQqrd2xg8AePF0QrE49nK3ufouENS3Usdy1iZn3hAHyJ1AHx+BOSLYfm5yXeYDL4pN
+	 2xX2SrSe58Pdm+uuRkZH1tKAssOPEN6XT6ijayhuSckHrwKT9QgohBCqQfqFFmBNtqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343557;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=CuppdRTtKTDc0kj9BPcB/tmHqk2RmCkorw1WGlouRFA=;
-	b=Tp3dtbgCsPFGxHgOhY7a7ekseJe06E+1MSFL1oHBj5z4Z5BQxcF+tkqVnRBqwR5TNZFC
-	 kr7kmxUGJac9Mz0NYtZsi00wmI8PihEXAkAEtgLP30NueIT6hq9FlJR0/xroDblh2fPI+
-	 lUt2UYLhp6BbtDzH9c0No0piKfjyDa7oFbbgyfcRUiIBLZofmY84QR6FuktWEr3jALP14
-	 ri+lNVMiIKYnIkKo4NT4NL9p9ZFSNkB6TIbR3iMc8EM1ppugxPMOZ4gAKU/u2Bm6u3MHy
-	 oD8d6P2NlhgQ/yWQs/Ou9sfb7lOpOxNCI5JYFHCFKavGH8Ngm/bV72vKxPIKmDD6uhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343565;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=rMRPONQOYjAF9HKKBayLjA2YuezRW4mL6HNg3dL1nlo=;
+	b=KVq5pWAZaN9ymIusfsctj4IF8fI8xdDg0PjE3VK/9sG5Wcm23Gc3dcn8FcRTXagiFayO
+	 kVJuNT6Q1MSw9YO4wWwTIrzSjEfFIdlFSOkvE2DPzPl6Fv4Z7BpDWj/k0ykNyktmZFpIU
+	 qQKJZBpnBknfsr687Y3S7sqB5QcURQhpFxC+Bj+VjIKK1bVqMsqDQ29LCEh3H19jbYTCJ
+	 IgQK67NjD+MbALDbGYFn7/n7Mwtkm9k4/8B1h42pi5npeqDd25xsiLhUI5W3cichSML6g
+	 W3ZPwzQ99nyaUR+991RrbE4tPHjiC9LRIcu47uRTMNLMR+hXmKpmFerdwgtf1sAyD7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqlFydK2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzRYE13j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D9C606A325;
-	Tue, 10 Nov 2026 20:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117BB60A2603;
+	Tue, 10 Nov 2026 20:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqlFydK2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494BE1F0089F;
-	Tue, 10 Nov 2026 20:45:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzRYE13j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D441F008AB;
+	Tue, 10 Nov 2026 20:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794343557;
-	bh=CuppdRTtKTDc0kj9BPcB/tmHqk2RmCkorw1WGlouRFA=;
-	h=From:Subject:Date:To:Cc;
-	b=LqlFydK2h3IQE1wObYptOnb6YZh9152rj6NCxzzmbzwr/Drp4Pxk6kvdMu1q5x2H8
-	 nNMUTMMVUfPmMt5orgqPkEm4tGTRRqM48ssWR+4G+/Cjn5sNWyUN43vLXc/t9JozJ1
-	 wE4d5NLg2zrHO/5no0qGZpkbBYuYn4P7QNT7pcIlmk/ARtcM94gxZ/qii8xMDhQkks
-	 l3/bOTh9B9telEAcGbnlXqn2sjRQRao6CnLH6maX16o390IwJzcpRl3QedHd8M830L
-	 kR46XeK3R8F0xh1llYvsNY8Ah1A1aDIKaBfG8kZ7iquzaWBtLwN8GGOqiPoNfyEfVP
-	 FrrObr8Y67S0g==
-From: Mario Limonciello <superm1@kernel.org>
-Subject: [PATCH v2 0/2] PCI/PM: Disable bridge D3 on a few devices
-Date: Tue, 10 Nov 2026 14:45:44 -0600
-Message-Id: <20261110-superm1-kbz-222179-v2-0-5605e6ce6454@kernel.org>
+	s=k20260515; t=1794343564;
+	bh=rMRPONQOYjAF9HKKBayLjA2YuezRW4mL6HNg3dL1nlo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HzRYE13jB8RdQv3aSy711gVTQF5aN3kmny3Bm+Tqd6DGpMnW/UdmBhwvuV3tDKwWA
+	 qBQkdAe99fCfyY4HwhHW6vpWLb11tiX1rqZm0gqSH24JDOLS4Qw49hrn6RKPLTZ5tX
+	 8yK911/kTi5YKMv0Zeg0t9hinxeSS095ez81rveTvDj3lhZIp5MNrpZ0TzLVXjAROD
+	 H+8sIgKlcwqIAFUbaPlcIA/mKF9hJXlPwet/3tzJzqABID/FKMqpm7AOyUBYjWme3C
+	 0bNu78jINjA9S3ckBH6UNePnv8GkZJATc2s+TTg1AYJLjtNo7jNr7qgY8y7Qdi6pm5
+	 ugUx9cOxV5vJQ==
+Date: Tue, 10 Nov 2026 21:45:52 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>,
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-mm@kvack.org,
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+	fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org,
+	xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev,
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-usb@vger.kernel.org, Amir Goldstein <amir73il@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 40/41] erofs: refuse files on pseudo filesystems as
+ backing files
+Message-ID: <avOCgJPOwRdsIxgd@MacBookPro.fritz.box>
+Mail-Followup-To: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>,
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-mm@kvack.org,
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+	fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org,
+	xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev,
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-usb@vger.kernel.org, Amir Goldstein <amir73il@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-40-4c998976c6c7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +88,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V07Zh2wqO44j8MiwIDVBTIFIhK+
- HcLbF2e5N5zVuGILTlxC1bBtFhnh94DXgJRtqZvCGzlWaDEWEnU4OaR+KWgK76AiCpJIdSpjsL
- EVLWWwh9Hptq+D+k9P9nNxYPKaTfti9a6aeDPUV3UvjsDvvAvsCiQUKbKxHFYGIxU1hH39LwO3
- Ih827Yf/yaAkccAAAA=
-X-Change-ID: 20261028-superm1-kbz-222179-4898547adf80
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kerenl.org, 
- linux-kernel@vger.kernel.org, Mario Limonciello <superm1@kernel.org>, 
- Joshua Perry <josh@6bit.com>, stable@vger.kernel.org, 
- Tony Murray <murraytony@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261110-work-loop-pseudo-v1-40-4c998976c6c7@kernel.org>
 
-A few devices have been reported over the past few cycles
-to have problems with bridges at D3. This series adds them
-to the block list for the feature.  See individual patches
-for details.
+On Tue, Nov 10, 2026 at 10:14:56AM +0100, Christian Brauner wrote:
+> File-backed mounts take any regular file as the image and the same goes
+> for the extra devices of such a mount. erofs reads them with the
+> credentials of the mounter so this doesn't hand out anything the mounter
+> couldn't read anyway. But files on pseudo filesystems aren't images.
+> Refuse them just like loop does.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
----
-Changes in v2:
-- Pick up tags (Rafael)
-- Correct URL in comment (Sashiko)
-- Rebase on v7.4-rc2
-- Link to v1: https://patch.msgid.link/20261102-superm1-kbz-222179-v1-0-c91a664ba251@kernel.org
+Reviewed-by: Gao Xiang <xiang@kernel.org>
 
----
-Mario Limonciello (2):
-      PCI/PM: Disable bridge D3 on Lenovo ThinkCentre M90n-1
-      PCI/PM: Avoid D3cold for HP Spectre x360 Convertible 15-ch0xx PCIe Ports
-
- drivers/pci/pci.c | 36 +++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261028-superm1-kbz-222179-4898547adf80
-
-Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
-
+Thanks,
+Gao Xiang
