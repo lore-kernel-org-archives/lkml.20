@@ -1,82 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309235;
-	b=XZ70aeBJt9XGH2zrdX+4mST26mZjXN6teOSp6cDWyRyoq6/sMXj1OSbLUnCX0TEJdwVi
-	 RfuSIuiEuoJ9huWuQp1C9W4sHO7z0olnSuIz+0lAONVFoSWZELJdADiVlc/I+ThZceH0M
-	 c/F0jjfrFV/tjpgklxmD/1DPRWKdspp69YLxDJ1euzrRTU6WMpKAVlUpQYmJLHDwBkpXH
-	 MQMslMIRTLYgE8Rh/f2NUFU3vaJK5kJ6hmaZcOnHgleR2Y34LS37dywFF5gJ4Ekcug06B
-	 wwwLz/NW4/KcYSGDcUbj7z3v5UPL6niC0wAokBxfFOcux9wRCaI1iHeSWKUusVi9HKQ==
+	t=1794309245;
+	b=RPICqJXo9Jeu51pEWh88KT2rDQ+4WFtBfhUq+jKe3PCZT3iF+qiZLWjft7ksXLz89TWt
+	 7GhHnH9kxv3J1oYVPhBIPA80kL6EShwOnFRGdwVhcaPtEvMLOWmLfSY8EChp/GeG14Z8o
+	 LKlxSDWbtSiSJrzlNQY5kw7Gwl/C4QnmT4rFuxYkpGFVcTo7v6br8S75iV99eDd3sLTng
+	 Qei911qYCsqNOOEqlX3/Sltz0ewW5Ix9ykMtMI80PWcMve+EYbTC4ZFOk5Y6iMe/cTcxs
+	 RaMJf5ffXAxPEEOE1Erupkou0NHybIgSnvWL1O3c/Guv6CyWEx1Ej2d0fEHEzyKNbGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309235;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=1ddw33IRhP/2JwGXS8pr/OEmMOA3/AlgOlVfVT3jdAg=;
-	b=p5WCev0yw2WOcpPFwy97+mJhsbUoEBoLSREvoEzy/V5pERNHCH6nSmrVKEqVQ/NOmtJz
-	 v8D/gLJvDV5ocbBcY22bwZNENeaAjpDZCg/rl4MSotW7yHZlD2OQX1H+VHGrapQWW1Keg
-	 i2jgSrv0mG2kJBSqtCPscxaTCFOKxbRrYSSUnJaeRWwsoc3Y7VNr80a5kIJVy79JiUHrz
-	 ywQsim8/eUfYFVidjR8lUj5EMlYMqPgbM4zT6y2oD3GthvXjPjPO9fDB7F/b0CVqGZMdb
-	 QMl0BHJw57AjHHbkqQafUJrNPNnSPpHkGD43Vn0sV/hIsi3S/oyOXlZobtuhzmsIc5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309245;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EJYGyku4plj4YEG/HyqlppooqGbqsGjX4RZGU5RMAbo=;
+	b=rXQzrOXd0nuW3tRQFYQvPFmhm9GTAJa3ed+BnxYT5nNh0j0Dp1aMX2uswuWoUUtt+DDa
+	 r5VRf/LCXizibHMMCszZ1fWoNuHEiIIow4K4GA0lbNKEx4EOuMMD9QRYY568AzwhvTPjU
+	 +u4jZMGtv71prEW2JWhVmLpNDLFIIbX4QR/E0SS8eFTVhIsnH91A7E5VZWv2ADhHCkofX
+	 m2zB0be40jfdF+YfEj9pra9VePtM780SZQD+2woXEys9aH3Yl+Onu6saC6dWlGS8APK0+
+	 0xgZX9NizCC5LMho9JFKGILl1rAFgwZNPXAFL//RHQeJlV0kYoGW5jzNhW6OKsBUYUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ge8kgWs0;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgIDDh9w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1DD606A325;
-	Tue, 10 Nov 2026 11:13:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C1DD606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2DA606A31C;
+	Tue, 10 Nov 2026 11:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ge8kgWs0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794309233; x=1825845233;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Q151x58OOoxplNHV2tNqcg1F9gUopr/bQY46SxbANQE=;
-  b=Ge8kgWs03JlnGdcfz/d9HojFTQdUrse3JcB2FxS9aNoEr9UHfLc4EXHR
-   eV7YTz5TfKQNN5ldy2HdLXEqUyMfPiYUwk7nS607h4CUtPvaVz8PJDBcA
-   tbMBnwvhupP3gvTuXRg0xF59yl0t1u7B833HxTlI7LXbSsdwHTnzdoJEA
-   ZTex85wK8O9EA/alphufXQ8KVKJtpGpsH9H37kmgg9HscMdwHKWzRoilY
-   pHWA2NV1sArQzTOu4Nx1xPNbYjlpZ8h23SLCL19qR4hn52t42PjPMJ3Sg
-   OAiUqf4DRApmMIVJ2MPNgXRZA9Y19yDF50CvC67vWZL2CBVTC1jfqxWAQ
-   Q==;
-X-CSE-ConnectionGUID: A+8ay+ufTfmPEa9GTxJ1/A==
-X-CSE-MsgGUID: PmKP8m5TS/WFWmhGh46UqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2929469"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2929469"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:13:52 -0800
-X-CSE-ConnectionGUID: nQhW5sMRTXe0+WPQEFVfgw==
-X-CSE-MsgGUID: Jr4gJxw2Sk+1AP3yIDtnrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="9903373"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 10 Nov 2026 03:13:49 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQjnO-00000000wh1-3pUd;
-	Tue, 10 Nov 2026 11:13:46 +0000
-Date: Tue, 10 Nov 2026 19:13:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Armin Wolf <W_Armin@gmx.de>, hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bifangknt@qq.com, nicokessler@icloud.com, sre@kernel.org,
-	linux-pm@vger.kernel.org, wse@tuxedocomputers.com
-Subject: Re: [PATCH 5/9] platform/x86: uniwill-laptop: Expose raw battery
- capacity to userspace
-Message-ID: <202611101928.MbCyLNXk-lkp@intel.com>
-References: <20261110001725.851443-6-W_Armin@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgIDDh9w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9614C1F008A2;
+	Tue, 10 Nov 2026 11:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794309244;
+	bh=EJYGyku4plj4YEG/HyqlppooqGbqsGjX4RZGU5RMAbo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PgIDDh9wYkSzRgTXcE924njSkPqk0YnOqO0dt1BhVGNnu+S2Ulu+CmHQ55ani1zhq
+	 a6snBhc7RHLcI1FoRlYK+GfpUGDs0bhlgetWiW3AcfU2dmYB3upSePUY5OgXbkdP/Q
+	 qneG4c56ANkklwEJWL8d1lZ1754hIZQ4xnm/L5Anb5OQsfYsQeLUG+ppuqBXvfwYTJ
+	 Nx4INZbGak+MqGlJQgHPuQEUCGgiL35t3yzESBkn534aN32P42J7tyEORBtklNp7rz
+	 Nr9Fmxg8wTExnABcYusZzcEt0HOZUvlJER+NGXznkcYp7RkPgYGGYBUkxv3nkzKfD9
+	 cx4eD7kv+7aRw==
+Date: Tue, 10 Nov 2026 12:13:57 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avL8UwNK8iXJQIUo@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+ <avL4LoCz2wc164zo@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,164 +72,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="duvq6kgm7ybsxza3"
 Content-Disposition: inline
-In-Reply-To: <20261110001725.851443-6-W_Armin@gmx.de>
-
-Hi Armin,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on sre-power-supply/for-next]
-[also build test ERROR on linus/master v7.4-rc2 next-20261109]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Armin-Wolf/power-supply-core-Add-power_supply_has_property_direct/20261110-010643
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git for-next
-patch link:    https://lore.kernel.org/r/20261110001725.851443-6-W_Armin%40gmx.de
-patch subject: [PATCH 5/9] platform/x86: uniwill-laptop: Expose raw battery capacity to userspace
-config: i386-randconfig-1009-20261110 (https://download.01.org/0day-ci/archive/20261110/202611101928.MbCyLNXk-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611101928.MbCyLNXk-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611101928.MbCyLNXk-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/platform/x86/uniwill/uniwill-acpi.c:2148:3: error: cannot jump from this goto statement to its label
-    2148 |                 goto err_remove;
-         |                 ^
-   drivers/platform/x86/uniwill/uniwill-acpi.c:2150:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-    2150 |         guard(mutex)(&data->battery_lock);
-         |         ^
-   include/linux/cleanup.h:416:2: note: expanded from macro 'guard'
-     416 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:299:3: note: expanded from macro 'CLASS'
-     299 |                 class_##_name##_constructor
-         |                 ^
-   <scratch space>:19:1: note: expanded from here
-      19 | class_mutex_constructor
-         | ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:25:1: note: expanded from here
-      25 | __UNIQUE_ID_unlock_362
-         | ^
-   drivers/platform/x86/uniwill/uniwill-acpi.c:2150:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-   include/linux/cleanup.h:416:15: note: expanded from macro 'guard'
-     416 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:165:2: note: expanded from macro '__UNIQUE_ID'
-     165 |         __PASTE(__UNIQUE_ID_,                                   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:13:1: note: expanded from here
-      13 | __UNIQUE_ID_guard_361
-         | ^
-   drivers/platform/x86/uniwill/uniwill-acpi.c:2139:3: error: cannot jump from this goto statement to its label
-    2139 |                 goto err_free;
-         |                 ^
-   drivers/platform/x86/uniwill/uniwill-acpi.c:2150:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-    2150 |         guard(mutex)(&data->battery_lock);
-         |         ^
-   include/linux/cleanup.h:416:2: note: expanded from macro 'guard'
-     416 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:299:3: note: expanded from macro 'CLASS'
-     299 |                 class_##_name##_constructor
-         |                 ^
-   <scratch space>:19:1: note: expanded from here
-      19 | class_mutex_constructor
-         | ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:25:1: note: expanded from here
-      25 | __UNIQUE_ID_unlock_362
-         | ^
-   drivers/platform/x86/uniwill/uniwill-acpi.c:2150:2: note: jump bypasses initialization of variable with __attribute__((cleanup))
-   include/linux/cleanup.h:416:15: note: expanded from macro 'guard'
-     416 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:165:2: note: expanded from macro '__UNIQUE_ID'
-     165 |         __PASTE(__UNIQUE_ID_,                                   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:13:1: note: expanded from here
-      13 | __UNIQUE_ID_guard_361
-         | ^
-   2 errors generated.
+In-Reply-To: <avL4LoCz2wc164zo@devuan>
 
 
-vim +2148 drivers/platform/x86/uniwill/uniwill-acpi.c
+--duvq6kgm7ybsxza3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avL8UwNK8iXJQIUo@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+ <avL4LoCz2wc164zo@devuan>
+MIME-Version: 1.0
+In-Reply-To: <avL4LoCz2wc164zo@devuan>
 
-  2125	
-  2126	static int uniwill_add_battery(struct power_supply *battery, struct acpi_battery_hook *hook)
-  2127	{
-  2128		struct uniwill_data *data = container_of(hook, struct uniwill_data, hook);
-  2129		struct uniwill_battery_entry *entry;
-  2130		const struct power_supply_ext *ext;
-  2131		int ret;
-  2132	
-  2133		entry = kzalloc_obj(*entry);
-  2134		if (!entry)
-  2135			return -ENOMEM;
-  2136	
-  2137		ret = device_create_file(&battery->dev, &data->charge_full_raw_attr);
-  2138		if (ret < 0)
-  2139			goto err_free;
-  2140	
-  2141		if (power_supply_has_property_direct(battery, POWER_SUPPLY_PROP_CYCLE_COUNT))
-  2142			ext = &data->standard_extension;
-  2143		else
-  2144			ext = &data->cycle_count_extension;
-  2145	
-  2146		ret = power_supply_register_extension(battery, ext, data->dev, data);
-  2147		if (ret < 0)
-> 2148			goto err_remove;
-  2149	
-  2150		guard(mutex)(&data->battery_lock);
-  2151	
-  2152		entry->battery = battery;
-  2153		list_add(&entry->head, &data->batteries);
-  2154	
-  2155		return 0;
-  2156	
-  2157	err_remove:
-  2158		device_remove_file(&battery->dev, &data->charge_full_raw_attr);
-  2159	
-  2160	err_free:
-  2161		kfree(entry);
-  2162	
-  2163		return ret;
-  2164	}
-  2165	
+> Date: 2026-11-10 12:10:57+0100
+> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+>
+> Hi Bart,
+>=20
+> > Date: 2026-11-10 10:00:42+0100
+> > From: Bartosz Golaszewski <brgl@kernel.org>
+> >
+> [...]
+> > > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
+> > > > >=20
+> > > > > Can property be statically defined somewhere? We might want to al=
+so optimize
+> > > > > these duplications with const variant (here or elsewhere, for fwn=
+ode generic
+> > > > > path, I believe).
+> > > >=20
+> > > > Please rephrase because I'm not quite following what you're saying.
+> > >=20
+> > > Can prop->name come from something that is declared as
+> > >=20
+> > > static const ... foo =3D {
+> > > 	... .name =3D "bar";
+> > > };
+> > >
+> >=20
+> > You can't know it for every instance of struct fwnode_handle, so the
+> > answer is: no.
+> >=20
+> > PS: is there a way of using match_string() with non-const data?
+>=20
+> Given the definition here:
+>=20
+> 	$ grepc match_string .
+> 	./include/linux/string.h:int match_string(const char * const *array, siz=
+e_t n, const char *string);
+> 	./lib/string_helpers.c:int match_string(const char * const *array, size_=
+t n, const char *string)
+> 	{
+> 		int index;
+> 		const char *item;
+>=20
+> 		for (index =3D 0; index < n; index++) {
+> 			item =3D array[index];
+> 			if (!item)
+> 				break;
+> 			if (!strcmp(item, string))
+> 				return index;
+> 		}
+>=20
+> 		return -EINVAL;
+> 	}
+>=20
+> You should be able to call it with a cast.  It's dangerous, but
+> technically it works.  I'm not encouraging it, though.  :)
+>=20
+> 	char **strings;
+>=20
+> 	...
+>=20
+> 	i =3D match_string((const char *const *) strings, n, "foo");
+>=20
+> This is a historic problem in C, which was solved in C++.  I have
+> a proposal paper for the C Committee for solving it as in C++:
+> <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
+>=20
+> This paper will be discussed (and probably voted in) in the next meeting
+> of the committee (which happens next week), so there's a chance that
+> this will be solved for C2y, and thus the cast will no longer be
+> necessary.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+FWIW:
+
+	alx@devuan:~/tmp$ cat const.c=20
+	#include <stddef.h>
+
+	int
+	main(void)
+	{
+		const char *const *ccp =3D NULL;
+		char **p;
+
+		ccp =3D p;
+	}
+	alx@devuan:~/tmp$ gcc const.c=20
+	const.c: In function =E2=80=98main=E2=80=99:
+	const.c:9:13: error: assignment to =E2=80=98const char * const*=E2=80=99 f=
+rom incompatible pointer type =E2=80=98char **=E2=80=99 [-Wincompatible-poi=
+nter-types]
+	    9 |         ccp =3D p;
+	      |             ^
+	alx@devuan:~/tmp$ cat const.c | gcc -x c++ -
+	alx@devuan:~/tmp$=20
+
+C2y, if my proposal is voted in, will behave like g++ above.
+
+
+Cheers,
+Alex
+
+>=20
+> The history of why this is not allowed in C but is in C++ is, as far as
+> I've been told, the following:
+>=20
+> Back before C and C++ were standardized, C++ invented const, with rules
+> slightly more allowing than what they are now.  This was going to be
+> standardized first in C89.  But very close to the release of C89, they
+> realized about the danger of converting a const char** to a char**
+> implicitly.  They were so close to the release, that they opted for the
+> safest approach: disallow any non-trivial conversions.
+>=20
+> Later, while standardizing C++98, they realized we could allow a few
+> more conversions safely, and so they did.
+>=20
+> C could have taken advantage of that, and pick C++ rules in C99 or C11,
+> but for some reason, nobody proposed that.  I'm proposing it now.  :)
+>=20
+> We've already discussed this proposal informally within the committee
+> for some a year and a half, and there seems to be consensus that we want
+> it.  We're only being careful about the specific language.  But I think
+> I finally got it, and it will go in next week.
+>=20
+>=20
+> Have a lovely day!
+> Alex
+>=20
+> >=20
+> > Bart
+> >=20
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--duvq6kgm7ybsxza3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmry/HUACgkQ64mZXMKQ
+wqn/iBAAiyKr32RTSK1TYPvSQDL88d2mG37wJFkiZwQ+iI8faT6DtjYjQitkYcwD
+3CjIdOt1+IDPhpe1Cgmr9JdLdORzxcjiGzprYHyTJ2tI48XhfGmuL1tX39aR7RrF
+/myY8MICWrxtYs+pA7gNydDwWdpSncWv7xNa0FKP+kzy8tr/unrPcfWxlUL9wtZs
+KbWQvzyGzOK3tA9JrOYl7mS/qmUoGUq3kZGbxnYV1Mho22LXk/fa4kB4cSsCUgY0
+VrXy4W7R6InMPl3z6iAi6QzKo4qZD6xUYOtDsSsgQ0bobe4Rg0uRWVolH+8DG+6Y
+/Ri6DuEwV8x15Y5gzzu826tQYuZIPt+lr3Q3IfiLF3FcGTjHHN0uoh/EXggsH0ih
+Yni/L5hj7ldlItbFyaY0WTPtv1C/GCv5DOEDzgKXltLVLdXARD3vbwIAcAto/T/N
+7wPsnH5PDd/TCRuQsqr41rPVeF54KpIInzrWttZ7LFHBKe/EWsIJnShFfju+V1Uj
+R9PcJaiiq597UzR8ffJMquBsjnz4eUTXtsaFg7jtp/A2/s4earwxUcqWnDcOmdz6
+U/izMMopfrM/NCnXvBpXeIMDMY9ZOCo0zawfNqb8JnxS1OOPyulZQsRkPNcAfY/K
+KTkHdVHdOzs+8iG7FGCaHW+15ZVskdXQzzo+n3oOTiOlvcf4ZDk=
+=7Dj+
+-----END PGP SIGNATURE-----
+
+--duvq6kgm7ybsxza3--
