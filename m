@@ -1,100 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332037;
-	b=wCHyKlwCw8NZJdDoc4KZ+1aJApNwMp/P+JXqKJI5SN8ayOHxmmcztl66FNxwJ2YFa1NH
-	 pkOWwlC56CkKagq28UGyMLTc6367OZPx9dHwHbOmcJsqr6HagV1cTtZAHliBX36+1DE+y
-	 EoDao8Gm5EwPv0z9LNxdsdbw4Nx9vhZ6es6xUFWVgPB9MyJklmv+XRUCEynOKuLHtkIjH
-	 MOCx2wL/7SgEcCTrnp7SyyNsD6ueImAuQg7KSByEaOItYyWROdEE7GqsguWYJ/bHtLjFy
-	 MyKm5Cux3CviMudiSy3mdXHGlvXr15k4sugcf7hPXuwmaAx6YhQGVJZg4CXTLL6RqFg==
+	t=1794332079;
+	b=oUhrGZTswmviSLV1kjtilX7jCgriinyJY8qzt6N+li0Kuz6ykv1YODADl2/VHWFyZ31z
+	 CT1ZEU0IYFO2G7OI7ooscUQ/Xdbor8+aLfAO4tucJwDWFRzKOssaawa0DGACA5GJ6lRGU
+	 2HVwY7+SCtSODCSFRI6EuLTb2qz8L/8XSA4+R3Cw/aRoO6pEgwPMJaIpCozIrnwdxHMMk
+	 V9dC7YQ5+V0mRZKuprVQTYaQKEuoW4H/1N7/jMETtAUvmpXjdmu58E0dI2xjQeMfAoPOJ
+	 XGLqhxJj39KXSAPQ8LwnGQOjDGOJl5ajYvpzjD4V6365kC1odC1OkMTX6jtesso79iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9zqzYW4ru8OeiEnFYJDpvwtnOOYnHBlJKYXWpDNw1es=;
-	b=q5I+e6uvDAsgZhyb98aAOOy+cJSvKN9bYKw6RAxfmWcScehaUepXPARn2X1f2SWXVLok
-	 8TIgWXBEW/FiwFpHFV/P7F1P5yXeY7yzxxCRsai6nhrjoKp2XWNc1YWXJk4mdkFeUpOun
-	 RJMNLTDUi3M186kh59Tg4WCtmLzZMxiSQc+zSOs+tppG1RzFUmko8YQN1lOsa5APnHP/s
-	 ldiklQ2Gw7nM66KLJfTgvj4zfUUpMqgKb5NaK/QnbXu1wjy6W2mCXNS6Blrn1hLO7DDxs
-	 O+nS10/HFmMGgMgbGZIe6/dI0xyYaxGUvs7kxaTgYA4fl+WBrXjrX7yqqn7fJERWQeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332079;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=;
+	b=F9G0ropTr1xrXhoQxiyMCtn7nRud8X5Wqt4gxhklv+gnqprqdtomkCg3qWhOumn/Fl3L
+	 hNayq/S+HfVm0oCULu0sl14qx/r67hmUuTvL9jbsTf8n2TwjFNjdL5OPJsZJ7pi7iKEYO
+	 0JYeLtZXH7aN7Wo3z20eptrBH95PEKt4cv2fICh+exZEFChagGYybYJ8qKvkn0nNEXJ66
+	 OdNq1jKZQnepG4oVSLUHmPv4tqPsKzFBFwhg0zKaNx2tQxHXaezWsOMbEbOcdnc2r0Tka
+	 DmOytDoEwi7M6Uyf6DQAUwrSeY2MnJqPS+xfwhOM+bbqamlDRZLoJbOEDOgV23jMd6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eyRphzfn;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI;
+	arc=none smtp.remote-ip=103.168.172.148
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E6C606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E6C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1C0606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:34:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F1C0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eyRphzfn
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53665358476so21611991cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:33:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794332036; x=1794936836; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9zqzYW4ru8OeiEnFYJDpvwtnOOYnHBlJKYXWpDNw1es=;
-        b=eyRphzfngUXPZtGUh4ciZsqVuoJdIbbdOdc0R5SX4iJRArgXjvj7ITIGNm60b6Oyub
-         1d0WvouKJHWbAXnc9UddDTEIQnpxJoWMEuZuw2oGyvmrpQBJdVVF/qVFsyz/bME9anR6
-         OdZNGDp9nwjuMGwdY+YdfbeQU6V/KEGUg4KKdwMQpZwzQdAEMY/o1SRtzfxbSbMp4DSF
-         1B6fC57Jg99jAvGZBDgxsx7IY5krV6bNBcK3owZKjk0rSnQcnDMzRs+XjJoxzwWGBMQG
-         2hjuAIoMXqtnbo0kRBwkygFhlkFBkrZ+vTP/ijTQaIrfOrQySqzRLsVdoj9jbIKdX0WD
-         OZJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332036; x=1794936836;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9zqzYW4ru8OeiEnFYJDpvwtnOOYnHBlJKYXWpDNw1es=;
-        b=wp7m244T+UrscXLzgUySp2hfnKTdMblGjxGRCZy0uLtsIytYI/PJoCu81kZcPwXvux
-         AZiwJWrddYFjUNRpwTJKMfqkLo/fh+WT9zuv3867SXOmUncnV7nriRPP51PQkPDVBt+7
-         UDyqz6IqfkdYqw0E5rFITp3LOJKQ0sQ4EMzt5W1wIbspBamErLTcx1epXUGpCe7KDVKt
-         8YT6uz8metDmrwkA0BhAaUs6AivNb21al6K3jwPIZttaggdr19jpQYX0K/AWqJy1rIwA
-         RX07mI6BmZeYAcPxzg+iy+FSPtt8YHa46DpD+7iRVQMwO0a7H0FDy4RZe2qFSl/9msbK
-         hn+Q==
-X-Forwarded-Encrypted: i=1; AL+hErE+noG3sIgtKPNw6EgELgCzE2HV7j6EQK7Ea453gzMgR6+53/PSCs9+OYJnxYr9RwcGIJOcfI4QDrlDhkg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89/XpRaqRnf5ZuPMCtGDDmC8WVnW3RA8cZWG0p4x/DoXEMYDe3
-	6JBzPkYPKVqR8ijbjLKQ36DrphyPPwE59MuOZbuXkKK7SWIEuTcH+Teb
-X-Gm-Gg: AYBFou2TZaaA+djA09rI76GVu3x7erlxT1y8fsnpCpvRF09WTvlc1GK7P3hu5jaGor8
-	EE1Abo22rOE6LDlZIZNmmSzK1IJ/7Cwr6YNedAkEI+TeXBMgGHXB8RfskpLCmPcTqG8wnvufvUd
-	x7tqhRJ1CMCKwTot4wJoTA0CEWV9nCMzI2sLXot0z8AH0D0WPS8w300jnNmUspMPNop2aetCEiR
-	beKHh7eiP4pEvz3C+W3BWZ8vaz97BUlApuwjXMJu/pagrTDxxlKvI1yxhm9+YHuZ28DFoIZx0dN
-	K9rslRfJsCwFuGHfCI7UX1skJmFVtj0nlC8ezxNEdmbXBNtoVfR2fLWZM9o3C/1IiYDy50+pb7e
-	q560TZko8GODpTzbPY1GSpAHFEThBHOoaAHKDjPuNEod3B2E5XdjW81856JpnFC/n0XBVsiqi5s
-	T9OJ9Oe1ksGeOmDgecSNiNbu3b6U59Hgr6thUOek5m2hbqzf+YLtI5ejxn070zlgwJq/b/PayiS
-	1YzLmOw9xIv2aIQamiHSRz9c5TPFM7CCXHaHJrotfgYZWAIu+/glqkLH51QgliDZqpXKe89q1aa
-	CiI3HmMuA8mF3yIqUoFrIESwGRqMRlYucGA/21axVVexN1nrLdfquHEFNNgCQWyC0k9EmG5/TiK
-	OLavsmFY3Ve9C6pKB49Qde2YjO+s3ZYVSwmNA6+s8tNT38dnIWtQ6OHm+a0rusgpiem35I6tdkc
-	+OJJnNZq1jArvn7x8wpt2ncIfG54mtfOigEXlisKbsRCR8rhAX81uw9qB8HivAVSyeV1mUGPUi1
-	OeXZbLjYjW2s+RAq1S7ph/ZtMBbM0nJRPOE0pJgtfjJlA==
-X-Received: by 2002:a05:622a:1ba5:b0:535:1b50:48a6 with SMTP id d75a77b69052e-55525fa6c73mr51407731cf.6.1794332035626;
-        Tue, 10 Nov 2026 09:33:55 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:940a:c6ea:f292:3644])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-555065e4ad7sm29130471cf.0.2026.11.10.09.33.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 10 Nov 2026 09:33:55 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	Herman van Hazendonk <github.com@herrie.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] clk: qcom: gdsc: unwind power domains when registration fails
-Date: Tue, 10 Nov 2026 12:33:54 -0500
-Message-ID: <20261110173354.41274-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id 51B14EC060B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:34:37 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 10 Nov 2026 12:34:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794332077;
+	 x=1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=
+	1kkmLxfefJ1GOpeQDRHT5oyBPcD39lMZN4OoMlQzflxHNyJZBPrtkzINXhLdGsfp
+	PyCVT8c4Ro4fKiD1GQpm1HfJ+cvSRmiKfw4Ii0cUBQt1sYMgp532GQihIJbXVUCq
+	XxUi8yP5aGH31M/cYzaq7OwyC+z46Mpd7I4rel1T83EMFzLA/qmbuqJGbxL+h6Qj
+	a2tDRIKc0r6cmTt40gbeNtGGyygvqRzgstqa1PRJ0VmUdgCX0mV5cMjLuAJ3+LJs
+	rufS3QW03ytSU5o2np56onR6nUbNJjCDvLAI9UVoQWfo5y5twIOB5uItBpjHg55p
+	64tg1lh1d2D8Sm5ZGpxKEQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794332077; x=
+	1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=c
+	2X0TOdIo/hvbcYO8lUEIzueX7J63fTGyOnpl83eqvV2hDFNZQkMwGpyEOjymlz1P
+	/oskVMvWUT6DrfatMjpOtGYjWWDumVMdqbvCvGHrNCnSizezWGWpgEnLnZBwCwsN
+	VdV7LYVsAYwo/MdGLFlBZZu3YMkD17N1Gzu+aIfFkZADjS9Zw24uwIhbO7yao3C/
+	f6InulNT/3xtqprnd4AzOM5Mfn0yVXMw6gWkoZt5zTABmd6BzHZYYSMhvkqyhnCX
+	O1CRLioG371jQIgURocPFeyfEg9soTeXn3/aguoNC0fyh1JXVZZP41CflfhJ/GJI
+	fDOk9lHT5JSRCykwaBT6A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794332077; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:WpLPwQO9Ogxh8FlihRxUAHIyyrmvSaRKegdJQ9uOiEV77TK
+	bHOCMSvhU6osmdF2OjEFYjpkC9Y94aCniSfHljWNtzPxOtuUufvpDoe2wyDiGtvK
+	WM2SkfSs7IXwiPBdTsn5U1IFBcO0rE2RzgGmC0CHveMfvc24Gqln0/zLWnjaE231
+	W7aqERq1etzX5zAmCQ+i9Kz1PjNeeahsxuQnMRsC54sK5Wj7HQoTpbvIOq68xd/a
+	l5yPMRvG3Brvd+vCgYf9cpdx5bJnp+ivXtytGGAVYBIXRxtH/1UzGqR+yy+sz4pS
+	PMfueoeE/RHCNrXPSVZRtCnRFT0evCaKFIr7yXA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:j5EGXVVw93SNBXUJJ2dE05PR0u71RYfBjN/3IoGlRkc=:OizvlOtUbcQjOUuDe6QmyFt73nQXIcMPGe5y0Z0BmS8=;
+X-ME-Sender: <xms:rFXzaklCw_4KhbgHn5Xfc4Vb1NKY3xPGCSkAjXPuk_UGWfo2-9vF4w>
+    <xme:rFXzavgHo8MF8TRhu-QnIMVztHSFcvmgRp7yd97xzZ2M9vU5ASATyC3cpg5HPXUvH
+    KNHF7amjxl0lOTTn-ngSK-cGHpIU9gSrOPhUoKGJbWPcWHbRfHK444>
+X-ME-Received: <xmr:rFXzavE1qF5hjtOqtdHvCjrs7W1QwtVy1afVmXR0HylPdSWDRo8zPaDTsvFtnw>
+X-ME-Proxy-Cause: dmFkZTGCd/In14w3y25iKTyFC3yOKrM7gSzH5eAyn8BNxBG+Q329vrnfJ+I9l/0vqPLDdt
+    wg3SVRYPpsxeJoVRXLa++PDjg/lC5Wfg8aFVaR1E4E0D9baFoXNFtTv8dn/n96TvQBYKB7
+    ezwYSNLTJOeosVGKnKp7IDvk+e1NJdZzxdH2j2Of6rnk6JKaTuzfJcgEZoLhTabZ3mbbn3
+    wx6wsF/FK04d3hCyKsWaW4R3OCDlHU0VuHL9GZ0TixTITLQGgxvsq+dmcKbgRg5Av9qMIr
+    y5EpX2PKOyHOOb+4EMLtMD1i5pfKlHcGHudbQQkZrfadKJMo6LXTTRYk4RJ2U+UNxAEsTS
+    se/yc+qkpzsbZHQpTOJR5RNDtksWihVCLIY1n4hJ6Txz4tJ5ArdOMTBivJRuCemZGDyMs0
+    3vD07PCrYDsx2mZ93bQfUHzAHeLdlfIUbF74Tekuq7ZJyz5uSlR33rpgsWFlmM65Hd+/wx
+    v3Gvfa5wNrKiGFlGDK2i9rGPOTR8Rg1uwoODrkND7ux1vygGMIC3dG7dCov37mS8TYiI9F
+    HhyTG0sQ2+uFWDmBiofyDmcerqUt9S+SAVDl/kUU7PuBWlUGhTDY31amus4JRYJa4Y+t9e
+    KyhbQpqXsp2G7H7qGtO8IOBNS/jNyqC0MEo022ppWLkO4KGuocCOSsX3WCCw
+X-ME-Proxy: <xmx:rFXzaptVX4JX5D5shB0tRw2sj1TPIuakCWrt1Ild_iDOD0JpslheGQ>
+    <xmx:rFXzaocsZ1cRzbpfip9cgMs4FYtWdKYichEjJqMcX03iVAXD43hiAA>
+    <xmx:rFXzanmoI5vW4PT2ac2kO-hX1a3Z5Ba3FXIwrXn9AX_s0ySlKtpv-Q>
+    <xmx:rFXzajCCiRf4Ecb887FMZnry0KIc-O8rIAJ8NCKt4GDENh40XEdDnA>
+    <xmx:rVXzavIlDOEBxljooTqE24OwAE7Bv5ZkikK2fPOS1UD5KEKuueks_MN7>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 12:34:36 -0500 (EST)
+Date: Tue, 10 Nov 2026 10:34:34 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, stable@vger.kernel.org, Abhishek Sahu
+ <abhsahu@nvidia.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah
+ Khan <shuah@kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH 4/5] vfio: selftests: Add sysfs_kernel_warn_count_get()
+Message-ID: <20261110103434.48709eba@shazbot.org>
+In-Reply-To: <20261029203324.1637772-5-dmatlack@google.com>
+References: <20261029203324.1637772-1-dmatlack@google.com>
+	<20261029203324.1637772-5-dmatlack@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,78 +128,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-gdsc_register() leaves the power domains it has already initialized
-registered with genpd when a later gdsc_init() or
-of_genpd_add_provider_onecell() call fails. Callers only install their
-gdsc_unregister() devm action after gdsc_register() returns success, so
-nothing removes those domains, and a later probe attempt initializes
-the same static struct generic_pm_domain objects again while they are
-still on the genpd list.
+On Thu, 29 Oct 2026 20:33:23 +0000
+David Matlack <dmatlack@google.com> wrote:
 
-Commit 86b23609d5e1 ("clk: qcom: gdsc: tear down per-domain genpds in
-gdsc_unregister()") made the unregister path remove the domains, and
-commit 16ba98dace9e ("clk: qcom: gdsc: Fix error path on registration
-of multiple pm subdomains") fixed the subdomain part of the
-registration error path. Make the rest of that error path match
-gdsc_unregister(): when the provider cannot be added, remove all
-subdomains and domains, and when gdsc_init() fails, remove the domains
-initialized before it.
+> Add a helper to read /sys/kernel/warn_count, which counts the number of
+> warnings (e.g. WARN(), KASAN, and UBSAN reports) the kernel has
+> encountered since boot. Return a negative value if the file does not
+> exist, e.g. on kernels that predate it.
+> 
+> Factor the code to read an integer from a sysfs file out of
+> sysfs_val_get_int() so that it can be shared by both helpers.
+> 
+> This will be used in a subsequent commit to detect kernel warnings
+> triggered by tests.
+> 
+> Signed-off-by: David Matlack <dmatlack@google.com>
+> ---
+>  .../vfio/lib/include/libvfio/sysfs.h          |  7 +++++++
+>  tools/testing/selftests/vfio/lib/sysfs.c      | 19 +++++++++++++++----
+>  2 files changed, 22 insertions(+), 4 deletions(-)
 
-Fixes: 45dd0e55317c ("clk: qcom: Add support for GDSCs")
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
----
-Tested in QEMU on a 7.3-rc5 tree, running the real gdsc.c and genpd
-with a synthetic DT and fake registers, with failures injected at the
-first, middle and last gdsc_init(), in subdomain registration and in
-provider registration, plus sparse arrays, explicit parents, a device
-parent and a pd_list (52 cases). 36 of the 52 cases failed the
-cleanup checks before this patch; all 52 pass with it.
+I have a concern with this approach.  I run selftests in parallel as
+much as possible, using multiple devices, each targeted at specific
+tests, with other functional and performance tests running
+concurrently.  When wiring this into my harness, I initially saw a
+failure, but can't reproduce and have no log from the original event.
 
-Registering the same objects again after a failed attempt still
-reports an existing kobject (-EEXIST), with or without this patch;
-that looks like a separate genpd lifecycle issue.
+I've updated my local CI to keep a console log so that I might have a
+chance of chasing the next instance, but I don't much like the fact
+that any warning occurring concurrently with this test can trigger a
+failure and the test doesn't provide anything to go on in the test logs
+themselves.  Thanks,
 
- drivers/clk/qcom/gdsc.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
-index be9c14e..8739293 100644
---- a/drivers/clk/qcom/gdsc.c
-+++ b/drivers/clk/qcom/gdsc.c
-@@ -647,7 +647,7 @@ int gdsc_register(struct gdsc_desc *desc,
- 		scs[i]->rcdev = rcdev;
- 		ret = gdsc_init(scs[i]);
- 		if (ret)
--			return ret;
-+			goto err_pm_domain_remove;
- 		data->domains[i] = &scs[i]->pd;
- 	}
- 
-@@ -666,10 +666,21 @@ int gdsc_register(struct gdsc_desc *desc,
- 			goto err_pm_subdomain_remove;
- 	}
- 
--	return of_genpd_add_provider_onecell(dev->of_node, data);
-+	ret = of_genpd_add_provider_onecell(dev->of_node, data);
-+	if (ret)
-+		goto err_pm_subdomain_remove;
-+
-+	return 0;
- 
- err_pm_subdomain_remove:
- 	gdsc_pm_subdomain_remove(desc, i);
-+	i = num;
-+
-+err_pm_domain_remove:
-+	while (i--) {
-+		if (scs[i])
-+			pm_genpd_remove(&scs[i]->pd);
-+	}
- 
- 	return ret;
- }
--- 
-2.56.0
-
+Alex
