@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302349;
-	b=EBqVlKXUfxkzdUDUNcH/VnVr4C5v62hiEHxTlC6w1xlI9qV59lseJCRzbvJW0H2n9PUX
-	 AuB5qj+Gn8P80DuIcl8NpgQsMNYd1VGASluuiaji2OMKWUMO/atNPOXeEohDZEuGrRL74
-	 mQFowCynnMsYS5T9jCjOKryhcRVwokE3Dzf+jonoyvgYcFMogvWcc2ul8A+mU3rGnwaDk
-	 ym/Csc9rivOEOz3+fSWu2vV56MbWrwfyx+1j/LTQng7m4NJpdDYccTiBxo0zy41tUFXm6
-	 5wbRFjk5sn+Dk+7YYj3R5/EgjbtJNwF+MVeo9g110xSatGjgP4zpBy62tCcXKVzRpCw==
+	t=1794302315;
+	b=5Rf3WnHBiKb/WXQMBhQAkxZEcdd3ol0xpb6zDHo2ldQM5dI4zn8cMgOTH00xOij23hxX
+	 WnMCP5Gb+5HU15/S4l3jWF4AAAPQZvp47umX6pd1a96bB5AtzM2nBms63NU94+byOxkFF
+	 BeXNc4Gxnpu3hRJWbKpy07Ab0ntcxJDFwyNru12qQSYFCF8sY5sUaJiYQkR/d1P1c5NzP
+	 JYKE2o9/d1eBQkj4t4kdOrZi7hGl0OIim3b8Wk/dVz3piJKxglQ9nUbbKVfW/C3IUijAT
+	 Fig+CtOJE/5mdIWjWGiwMrtYFpb67lIjaB4/bkeLSmMmTAik55gYvJT+52EPQJixyFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302315;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5VuE4/weECRM9eIO6+lamMRzkXENJc2tSdRrjKtP/6E=;
-	b=kPuCc6B2gUdSO5G+kaQpVP7Zg5TAg32gJg3G+/h7fjqnOuqtWVF+8KpaidnYx5bYTB5/
-	 Gt/dBZbTeiQ+VgLe3drFs8cYHYO5Mnw/73j7csHzqFWZu5cQ7WIKF3OcIehf01eW30eas
-	 5JxEdvDKdLVPm+9pqn8tA3ikJvfuXDzjaQjxGTzuuD/HV3MXa4aq+90F0brc/z4pXFN23
-	 b0gcr964hxvuA+NMhPT6d3ztSEI389GPV2mJpMOhVHDFshug/MowuFT4y0jAAfzHEv2uD
-	 yU/TrRhw/n+Z7Ctve+nBf/SVQGb7uQGwf8log8EIwcWt/GCYoWExTisZRnPyns1mhkw==
+	bh=B8RQTNfc/eWS72nZHsD5FmaXKvsQcX/MHrv0MZNEckg=;
+	b=me4Hjo6yqGv0zhrcbzPLc+KPMPqFDqYHXhaZUqyjgvVAwZtGxzTpyK6C/RO55nVK4FdD
+	 L7cRhOO43A3UJ1pSEkG95FwRquENEJLaO0HWBvO883oRr0uwd9GP3kZuFL2zHHNQBBDkW
+	 2VGIZfVQGhApFuUejCUt3XwUvK0SJjmncrcCdqgGk2+wb4XU4Iib4XcptWkATsV8Reumy
+	 1TsfcSldYO7+nCdd31OXiFt/5ffdSSv1EW/WhimmIU0miKq9D4+YIYxvI/MnC/12756Fz
+	 RMu2AfxvgILE0QBnwIfe78gJH64qGQU+3P555MdnGlxCbUA5NE6OSV/tH3gKjZ3t80Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iQA/sxsh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/Ap+R4z";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F2F607695D;
-	Tue, 10 Nov 2026 09:19:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615A1606B17B;
+	Tue, 10 Nov 2026 09:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iQA/sxsh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A77511F008A3;
-	Tue, 10 Nov 2026 09:19:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/Ap+R4z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20071F0089F;
+	Tue, 10 Nov 2026 09:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794302349;
-	bh=5VuE4/weECRM9eIO6+lamMRzkXENJc2tSdRrjKtP/6E=;
+	s=k20260515; t=1794302315;
+	bh=B8RQTNfc/eWS72nZHsD5FmaXKvsQcX/MHrv0MZNEckg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=iQA/sxshAM8lgjVZtwQBlBlt6Ccgq/KLZUd+ak37Q2oUOuNb3EKD2IEz5QKL7HSuJ
-	 PzfYZUUU9t4mHJQyXpGh/FegWtFPckXXEaWIZpe18Dzveuhdh412cFkoYX9U6GHhAs
-	 FA3mIwVRbXfRG/foFS7hgF8f2XdzXBVoA2mbPV/1dW+mNpe42vnBoqn1KQUo3a7IH3
-	 OShJM3zaQPTgLbpL8PYQYa3MhajH2yuDWbFWTSzcixuX/GpsV21irhlminf8YwjK3i
-	 FcMM/10RV269QdY1WwY6VGtRQ1P449Wk5bY3A8Uk5z3MdBjKp3IUMwp4dCZ2nOAdUX
-	 a+oxx0hQk158g==
+	b=c/Ap+R4zFMvV3/8vcuIEPdB/Gt2XHUlHZTBEX28zCRTGUeuDJCvLmXS2bTYSdzi9R
+	 0gr12Xdu/wNWC4bbLqs4TiHsR/YcW9JNs28CEkwEGUBB6TGWOirP4sbeOuKd4a7tZW
+	 afM3jYlHN6+MVYSwuAcf1MRkadLxCZQa5Ry8f4ildqJfo+Wt7K+lGKrO7TizAPDeis
+	 lj14KsNBHSrSqgHUxSQyH2WPPe6YEGnglY+yEWWsL8vk8c3l5TKaUlKahI+HbhISLF
+	 nnD6YXeLZZD0ZUXVgvIwonj2iwv3yWDlAmtq4vfzLGXczqU+vQuxgOQWxGbajWp8T+
+	 zqYWbwys3SKng==
 From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 10 Nov 2026 10:14:44 +0100
-Subject: [PATCH RFC 28/41] ocfs2: use fc_init_pseudo() for dlmfs
+Date: Tue, 10 Nov 2026 10:14:39 +0100
+Subject: [PATCH RFC 23/41] fuse: use fc_init_pseudo() for fusectl
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-work-loop-pseudo-v1-28-4c998976c6c7@kernel.org>
+Message-Id: <20261110-work-loop-pseudo-v1-23-4c998976c6c7@kernel.org>
 References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
 In-Reply-To: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -75,44 +75,44 @@ Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
  linux-kselftest@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=brauner@kernel.org;
- h=from:subject:message-id; bh=IdNufAsq5EGNNcdE9WV9rVN1DCJjWbb8v/riZT7kRA0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9erDl3LqF3BIxnOW7s6R69N3au4r1m0WSo7rUW0tPb
- d3ziC+no5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCJLTjEydK1aEV6R03Dp6Qur
- 9ReajrtK9AT09OsHms5fHf0wofDSUkaGzj38rmzbCz87b5+14Zu8c8plz01rglO+aJ1tSLofN8u
- eDQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=893; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=hjM1iJ4vU3paA5L4OQPDkADa3AqUdKJFLW5EmBnT+kw=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9erCuT2albMuTpuPqTDYzVbc45F0XFJ6y9xJTg/iJB
+ vndWrxNHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPh02ZkeGybnbLv4dlnla2P
+ zh+U1FV/fVEjuEXs+QzeMzuWCLwPtWVk+PIs8Nv5vXPYWX98mZbrdj9iVbPCut91O9M+rQ7YuNr
+ gHTMA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Initialize dlmfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-also SB_I_NOEXEC and SB_I_NODEV. dlmfs never holds executables or
+Initialize fusectl as a pseudo filesystem. This raises SB_I_PSEUDO and
+also SB_I_NOEXEC and SB_I_NODEV. fusectl never holds executables or
 device nodes.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/ocfs2/dlmfs/dlmfs.c | 2 ++
+ fs/fuse/control.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/fs/ocfs2/dlmfs/dlmfs.c b/fs/ocfs2/dlmfs/dlmfs.c
-index d3bfcada3e3b..1789ec96dc13 100644
---- a/fs/ocfs2/dlmfs/dlmfs.c
-+++ b/fs/ocfs2/dlmfs/dlmfs.c
-@@ -21,6 +21,7 @@
+diff --git a/fs/fuse/control.c b/fs/fuse/control.c
+index 21ffde596d61..4497362e7df0 100644
+--- a/fs/fuse/control.c
++++ b/fs/fuse/control.c
+@@ -10,6 +10,7 @@
+ #include <linux/init.h>
  #include <linux/module.h>
- #include <linux/fs.h>
  #include <linux/fs_context.h>
 +#include <linux/pseudo_fs.h>
- #include <linux/pagemap.h>
- #include <linux/types.h>
- #include <linux/slab.h>
-@@ -563,6 +564,7 @@ static const struct fs_context_operations dlmfs_context_ops = {
+ #include <linux/namei.h>
  
- static int dlmfs_init_fs_context(struct fs_context *fc)
+ #define FUSE_CTL_SUPER_MAGIC 0x65735543
+@@ -334,6 +335,7 @@ static const struct fs_context_operations fuse_ctl_context_ops = {
+ 
+ static int fuse_ctl_init_fs_context(struct fs_context *fsc)
  {
-+	fc_init_pseudo(fc);
- 	fc->ops = &dlmfs_context_ops;
- 
++	fc_init_pseudo(fsc);
+ 	fsc->ops = &fuse_ctl_context_ops;
  	return 0;
+ }
 
 -- 
 2.53.0
