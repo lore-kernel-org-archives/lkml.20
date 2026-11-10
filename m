@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279144;
-	b=gOoIW1oiqwgfzSmI557+ERHGwsskK03gzEcOaJxOx85Hl2J53tuI+a1zIQT/Qa4W6AWh
-	 eGOZ10/Q7fxqFZOgo7oVjsP8NoB1fJbivOB3xPTCHcDiXUBUuLUOcKSkIchnzItmPiZ17
-	 08LiuappexY4dhaw4FAnQ7VE1HULv/2jQ34qtEicp1TuQA7tG9NN2Rp5SDCfcIzF4m3cW
-	 qJg0VnjmLUGNNoTASHogoBqbyqdXajyk2PfdUPElZiUQXRizoygcv8F+0vPzEEcCu67Ze
-	 MzM5Ins/RRQW+gK2WjdXgE9vjZTuwtQGIFtnYGUgPv7U+RFAz0X/bnHbaQSgfxBz3Ig==
+	t=1794279146;
+	b=gegEc80t6OVT5kKLlI5kpJl0DIKDJbKWq7knFN2RJqMxiqYP+A9aOLsHxhssdGubbHwv
+	 SXsIMmGUyDoqM8QIO9HgxVWsl7HnOpC7/xTy6fN4MG1IpMq55JF5a60uVVhXeyP192A2/
+	 4nqJ7hiE7T6lo17IDjiwKSdIGXyU1mza03LzsmNK6cqRYQn8+QA7k4Q0o56tTP0uY0Cdf
+	 B+Llg57BS5lvmuD0nl/kiEo8HLSWv0manCLKNRsFxpC5PlIjuk0SOcrRnoUo+GpdmzEPQ
+	 8/HPg4pL7fkhasQ/ICUGBiuOmW7UX4FOiaBjG56VCOvM/vhXYJrzALliIN12JWDH+tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279146;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=1o3TgLBCn/asTnqDXbcDsKfs5lg9f0d7xH7UA0kKlpg=;
-	b=sI2trh+/yYA90/5qGqkd0cGdayT+AMLIXqray26R+m0ICvpTKZvNtnTIjRw1+Te9fcLm
-	 4+GRKHbDG8AbJ6EVD9RGXmtntzvm6T82SADIIHjTXi7WwKL0Fag/6STQe6r/MlLdThiMR
-	 D8zT5PzpugD7ADpaxpXOOTud8i/ZF0fGIZLiXshNtsum3oMHgQvYNkqGZmuF0PPtLfujk
-	 j+JA1Y1mo/W/kqAZwIcLgZKtOD2G06ZFVqwJeXitpXVJtRuNL5zAhhhlPe9Bm2n0dgAlF
-	 1vzAOtnfwLMlnn0jGe7XXCL8VQr9ed0w8D7/f47m/DRBSAGADS8neIZB3FNAMomjDCA==
+	bh=nVLuWoo1y6ND0a9aTD0T7hC5NidaBGXYwbt6YdA3oj4=;
+	b=WLKhPwcIlpb6HVA/QKDUq/LVqM+2vS1NgzKG+R4MEDuoy6NreJhxNU1HEOjFXAejIZEa
+	 t4ZatwdifS7K7GUeNRgWNqTncBFb38Ac6EMcEjaEUl+sHCUKjyopZSjUmIQe7pC7YVD2H
+	 sI2JSP7Q6z4kHywjbJDCJsUckq2IQAgebXzfptOQcEWbyv+Zd5Em4LHf0+Vi7ZMeYGJBD
+	 fcamMQ2JuZq5OkmZD2tN35Wc2ZEF6NgzMA87RZ5rSkfAmtCyEzzSrhabQ3f8AXxttCu37
+	 9VZzYOOtM4Bm644vhUG+EJzbeQQAfSTXumXFP7/joH02CqqjGtd0KxBeBVN3bXefr8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6wqf0En;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJsTVEXC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A9860A260D;
-	Tue, 10 Nov 2026 02:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D50D60A261B;
+	Tue, 10 Nov 2026 02:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6wqf0En
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0531F008A4;
-	Tue, 10 Nov 2026 02:52:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJsTVEXC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC8A1F008BD;
+	Tue, 10 Nov 2026 02:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279144;
-	bh=1o3TgLBCn/asTnqDXbcDsKfs5lg9f0d7xH7UA0kKlpg=;
+	s=k20260515; t=1794279146;
+	bh=nVLuWoo1y6ND0a9aTD0T7hC5NidaBGXYwbt6YdA3oj4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=m6wqf0EnE8iE/PnapG73uZN8YnHsQ7lTKo47z+UzV7ukHwlmqyZzjA5T0WCsR+/8w
-	 5ybwBtY/e5o+JZ9ni4nR05cXAjA09aV+ZsVzQ5eXEE5Rw5AmQAXZo8z/yVmz0QtFDK
-	 KO2eETCPBg2KETIwmP0BhaXre6xQfqlHIq+aI7QIGWPOdxIKEAA0HlpjIyVZoq4ewG
-	 7urT5lzJYtLVkXybWwEX4zQFfjWmYLnCOFay9NwVzvrn4M3WZXqnHV/KAJ/ygDJLCg
-	 xYhtjXs2dGQVY1Otxc507+NKaSzk9Wsed6nOvoiT8YsiyNuVHMS9wGka9PSwj6hqpb
-	 ifliFSbOJ4KQA==
+	b=FJsTVEXCtfu4LEG+ppmzxVMLMGJT4p0KqLf8loa8ZxHp7vifJbY05Lsi4mNbtquj1
+	 dkQvMujeewqf0l6LTo4kX4gCebrSHKT5F5CheNlhm9uSqsmxd8fuXLHqTF1NN3ZWeA
+	 aQhpx3HYORmzFR8XcZ+GGJqSUOhHxmPY4/hdb4d6DOkrAo/7R/kKNdE4eRmkbcDeoG
+	 lcbiWSI2Cd3bm5HvmDHQISHMLsa+hATM9/ETAYgrIz1WWz6IDuxwOfC30G40ScWHnd
+	 njwPZBzoKdxDo8VOUuSq/FzrMAoEgfd9ikBhy00DUJ/zXPMs8qhuLFKc+RLWCoDjfl
+	 PYuwxUXLJzhlg==
 From: Namhyung Kim <namhyung@kernel.org>
 To: acme@kernel.org, Gu Bin <gubin@cmss.chinamobile.com>
 Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, 
  alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
  adrian.hunter@intel.com, james.clark@linaro.org, 
  linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105064958.2134-1-gubin@cmss.chinamobile.com>
-References: <20261105064958.2134-1-gubin@cmss.chinamobile.com>
-Subject: Re: [PATCH] perf machine: Fix NULL deref in
- machine__is_lock_function()
-Message-Id: <179427914390.13444.16238989516543583346.b4-ty@kernel.org>
-Date: Mon, 09 Nov 2026 18:52:23 -0800
+In-Reply-To: <20261104090229.1870-1-gubin@cmss.chinamobile.com>
+References: <20261104090229.1870-1-gubin@cmss.chinamobile.com>
+Subject: Re: [PATCH] perf hist: Fix branch_info index for sample weight
+Message-Id: <179427914553.13444.2646955447454960251.b4-ty@kernel.org>
+Date: Mon, 09 Nov 2026 18:52:25 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,24 +64,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Thu, 05 Nov 2026 14:49:57 +0800, Gu Bin wrote:
+On Wed, 04 Nov 2026 17:02:28 +0800, Gu Bin wrote:
 
-> machine__is_lock_function() looks up __sched_text_start and, if found,
-> assumes the remaining scheduler/lock text symbols are present too: it
-> dereferences sym->start for __sched_text_end, __lock_text_start and
-> __lock_text_end without a NULL check, under a "should not fail from
-> here" comment.
-> 
-> That assumption has already been broken in practice: on s390,
-> __sched_text_end shared its address with __cpuidle_text_start and
-> was dropped by symbols__fixup_duplicate(), causing a SIGSEGV in
-> "perf lock contention".
-> commit d8d85ce86dc8 ("perf lock contention: Fix core dump related to
-> not finding the "__sched_text_end" symbol on s/390") worked around
-> that particular case by keeping duplicate symbols via
-> symbol_conf.allow_aliases. The symbols can also be absent when the
-> kernel image has no lock text, or when the symbol table is otherwise
-> incomplete.
+> iter_add_next_branch_entry() is called once per branch and uses &bi[i]
+> for the hist entry, but reads the weight from bi->flags.cycles (i.e.
+> bi[0]) for every branch, so every entry is weighted with the first
+> branch's cycle count. This is incorrect when the branch stack contains
+> more than one entry with different cycle counts, as the weight of each
+> hist entry fails to reflect the cycles of its own branch.
 > 
 > [...]
 
