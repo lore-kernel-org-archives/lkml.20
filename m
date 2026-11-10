@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313949;
-	b=4oXdvlChIQI20/RIbLJR7MbZP8ElCVIhRq/e/Ga8wPRSs7eogV7zfQIkyuJaCr8YVgaz
-	 EsCPhWhJVpdnIjjrQIV9iuJ4Ldh+sYBzTqRZWGWY5G2V8oSc6ZwjSRqTpjVLahf5cSsII
-	 1dwd6h28CozSaUQk052fhQ+vF7dhkJxwYPnpFhpZQFML6p1dx2WWo5i0LstnV0cmVwmyI
-	 ApjourqhUf0agzVJ/YqO4lqNaT232zgGR3uf/HYI15nu2s5qLBEgQSOjzJBdDpd2IBYwb
-	 xnmOPqPjLJWO3+0E1Fbw2YpgbdRknMVo4KdIHmxDw1BUZeb5RSu0+WMD/E9XGHruEZQ==
+	t=1794313969;
+	b=ZF1no7iWY9DeCHjinU2nVVVYdgeugFNCbTE+cD5h97LmawM008ImeWkUJeec/lJPidff
+	 SRLQbGIf5QTJdy1RYuHevpNxwWGWstKYegbJGYZiS714ia5T0m/4BDOsBA0Zo7Lbxf2U3
+	 lImPylbVLbfvIBD/yNTrQsJK6JhT0HFERYzQM60aWJBT3glfjYGNiwbOchYsLz+o3DNuQ
+	 Uym1lVQzDCNaubdA2fhY5K/oZ5NXNGc2pJo1n6LghRLUQpwZrhqvG9bGIzbLUbRjBIXPA
+	 8a5nTKkAFLr2/0Vg6YkDwxE/60vfMGPqcowi3xmJ1KmoR930I0bUfhxA96gtgBkikyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313949;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313969;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lmxqKZZVg8hW4bTmhQL70087cSnpYuyKRLOfUsTG3fY=;
-	b=vWTtmx3wv+SdMN748XMEgkmzWTQoVOGs+MhSFtF1771Ak4oWUQPI88EQKBxRT3sv/pjX
-	 ZAJihwd7SyRaOqXjUC+WWME2Plhe8AoiIBnjIL9fneER/+abfp9t/tAQGqnZsF+F6yZpK
-	 QmX5DL1D3vLn/Hdg+AXPrLt3F0I8ra4HuWnBrpHy7ZA3vwCH9MtlI/bSoE9i3RAKawudY
-	 ukGKOusOlFhg5qfznX5fW4hUa843jWsLkixhaKAD3ubZsyMMGJMZQe8lG+sAQNbANXQBe
-	 dwEOSoq+esDyrLnVDOd7dTnYaIhe8yryeeTuXWJLJ+1Rgs5Sh3tz94pVlEmgQsDhG/Q==
+	bh=sQXSsT4WBF/N08WgnvFzvS+W6m23Oj2zYeyAcujIwH0=;
+	b=VfeFF1ffzuUXyruyml16PPeDp92fP5IAivgk3Xb3G/Y/dW4MLlzVQ/BilLNtg4qIcGzP
+	 sL0LHDoppYY9bDKqxMM5Yz+aOeww6M8/NtAkK2tJBNFYKFQBfyPiSVZh1n5cFWowfRnBF
+	 tSEtsjw9yUKBW7lIamRF6nVJemvEeormtLIKG0TbbHGQhJjgQSW00JfeyrXuZVPAxSutF
+	 vN0wO37BnEcBoIMQ36jYarT0oc4bURw6z1BollgxS5xNa2X94hyzhUL4TopJbMKud/335
+	 fRjSXW4wEAALIabN9YgrG2jXtwJ7pai7Hxi4ncMmFhifPmlnBYrmbetpPNaGuZXSo2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nXiuWMpQ;
-	arc=none smtp.remote-ip=74.125.227.201
-Received: from mail-pi2-f9.google.com (mail-pi2-f9.google.com [74.125.227.201])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=ksJ3yT1f;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3987B606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3987B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EF3606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:32:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EF3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nXiuWMpQ
-Received: by mail-pi2-f9.google.com with SMTP id 41be03b00d2f7-cdd9779aac8so102457a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:32:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794313948; x=1794918748; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lmxqKZZVg8hW4bTmhQL70087cSnpYuyKRLOfUsTG3fY=;
-        b=nXiuWMpQw2XE5OpmrLBlkLkG4WeT4cbD4hAHIhDXA7Gdh/vzo6oT2ByCMdOAJofh5K
-         TVdTTC2DL9axJK9NoNDWlBDmnJENNjCsMDFwufhTwfU/eWlbavuup7K7bQ4YnU0Bq6gP
-         5VPwNcmL3PjL4NG5Xqq0R03k054zMvDVLN3c1dnkdfvDghOBTUT5vv6DN/hb1BklNe2l
-         bKXrzPviFvI3tQd6yB2Z8XIUwLu61b6ZRE1BSvUKcBr0nf2L91o+/ku1X9RwHlfFx/05
-         eA2LdGL4qWIjHZbU4bD1lzzB6TvAGC732m7FPMei/CvWowez5nWIPip6S8YbJcMjv1ie
-         st/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794313948; x=1794918748;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lmxqKZZVg8hW4bTmhQL70087cSnpYuyKRLOfUsTG3fY=;
-        b=fgwKN4JLdaP2HkjrWSuCwKAuFjA98GMPo51RD2ftcfb5WVemV1yD6HiI9bwf7bIvNf
-         4r2s4hid/5bRbYqunGpWGbgIKxvbhlCPru+SYAxGSOkGf/Ze5T1d2NSTlb/yrx5F9YGp
-         rE63uKoNtxx+qqNcp8HzZvYhgpA3lDHVi+7sNcS7nLcAlxR4KNB+4QtVT3oQcQooWmWk
-         cuMwOpu82bABWA+oo4yMIkaNvKRcwjs4MGGhoJ66tbmjSDhFh7KvO9K4xoXvX2Use+82
-         yNzhHyNmQskv+maCCHKNnNjANLLnnOhlie31Hp5VEQH5l96AE5Idz5t4+KPdpes0HQEk
-         1fQA==
-X-Forwarded-Encrypted: i=1; AL+hErF4/1qtrU9uuM0RXGAB+C4cmUl1TLyYKJm3RRDCz6AOJAMXU4Rp6fyDccjjXe3q3CMHzOUl4rci7MiT4m8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ghx8C5GtFmfyLEkwIOeOMEId7rJsYeVNgEHpCqA35txZ3RP8J
-	R5RJ2Ibo9UlJx+2fQ21xeixKLYJKGkWwAoyzrHIPpRRyedQCxh61ncBs
-X-Gm-Gg: AYBFou36+SmGW1qVJdW9wNciPYK+0RlpooL0pqYHU9aLAVKlAmI9G9VtQK7IbkoHUYZ
-	GgFgOTBVCdNUEdXT3YjaBUL/9BOxJyP8AvrJzayY98RDXrrVtjLik5nxx8bNTN/Bpvj23aNR7Oi
-	XpQurBQuEXkJRqPYdOuzvOrWfGfqtcCCxmV1hCHHyGiwwOvmzYIIcrJNySY/QQG5uMeLYbpIi9p
-	Z6W7UGXrbu/wJI/R81llUv5pTm0JGb5JLp180YPXhqy1iNNhz10+tt+A9b6PREDtskYU0X6NP9U
-	HhIjLwjfITBDtZhspHVlwm4ieBvA42d9LatSNFXRzzT0+vkzBVuvmcpzEUMPS8M2nlKWWajKIGy
-	9e0Oto6v6aNMAadreMZf9wQ/UV9iv8NrWfLhl/9Q5XkPxoMZYglElwKvfxQtJnMYu3IdZw+aF3O
-	IR9Ex5F9bSgrucG9hXkFAqd0oYbmjA1HNIRmTuitfxWQxVEdrf+CDwwr97I95dB/BZ2TBqmwYZu
-	aF2kj82McJ7yB2VBu9UqSG1IOYhng0DtkzTJ6sMfq529lbb+P+FLl6Tz7ON8GezX6C2Y79mjcTN
-	h7LNufv3IOt5t5iqIRSDJfCcB2rhGH9rfE2Y8Bpzpg==
-X-Received: by 2002:a05:6a21:3d8c:b0:3de:79fe:13f with SMTP id adf61e73a8af0-3f18efad460mr1762586637.38.1794313948383;
-        Tue, 10 Nov 2026 04:32:28 -0800 (PST)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa506bca4sm815282b3a.0.2026.11.10.04.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:32:27 -0800 (PST)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: david@kernel.org,
-	hughd@google.com,
-	akpm@linux-foundation.org
-Cc: ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mm/migrate: improve mlock tracking for PTE-mapped large folios
-Date: Tue, 10 Nov 2026 20:32:18 +0800
-Message-ID: <20261110123218.1579490-1-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=ksJ3yT1f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794313964; x=1794573164;
+	bh=sQXSsT4WBF/N08WgnvFzvS+W6m23Oj2zYeyAcujIwH0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ksJ3yT1fLilfN6G4cP3Z1mUT/U4CAyLtCPRbI00qouKkaqKQOg6loCx/h+rCfpHSu
+	 PRFulT/qtaZ08D1tXTJtB8G76Rb5HvFdr3KVN3hZEWIEXI0hbeT4B07rtFwO1KeNeY
+	 8Lxw6+rs3RrPYsoNn3xHCst/WdBsAxEz1iE2p091q320XkyDOgFa7+d0SrdBlchC/a
+	 oQwUjMU1IscP18RYssueQM2zMYIhfxg0WnfTJdYWC4wm83SKzb9GhGWDsjq1q7fcpU
+	 6g6++IufcRe4SfmyQ9x/MOX0TbJ4i8Kgq0iEL/L7p5lz8SARQEJprPOzC+gstDEk4E
+	 21Hf8cqre/MOw==
+Date: Tue, 10 Nov 2026 12:32:40 +0000
+To: Dan Callaghan <dcallagh@chromium.org>, Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: =?utf-8?Q?Sami_Ky=C3=B6stil=C3=A4?= <skyostil@chromium.org>, chrome-platform@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] platform/chrome: cros_hps_i2c: fix use-after-free in release() after unbind
+Message-ID: <20261110123230.1251547-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: 886e3cea0d8b9aeaf3fc366b4c2ef5f025234e47
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +61,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Wandun Chen <chenwandun@lixiang.com>
+hps_release() finds struct hps_drvdata through file->private_data and
+calls pm_runtime_put() on hps->client->dev. hps comes from
+devm_kzalloc(), so it is freed when the driver is unbound, and a later
+close() of a file opened before the unbind reads freed memory. If the
+client was removed with delete_device, the i2c_client may have been
+freed as well, and pm_runtime_put() runs on it.
 
-Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
-mlocks a large folio when all its pages are added in one rmap operation.
-However, when a PTE-mapped large folio is migrated, remove_migration_pte()
-restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
-result, PG_mlocked is not set on the destination folio.
+Allocate hps with kzalloc_obj() and reference-count it: the binding
+holds one reference and each open file another. remove() marks hps
+removed and drops the runtime PM references that open files still hold,
+before it disables runtime PM, so a release() after that only drops its
+reference to hps. A file opened before an unbind then no longer affects
+the device, including after the driver is bound again.
 
-Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
-remains undercounted until that scan occurs.
+remove() now calls misc_deregister() first: misc_open() calls
+hps_open() with misc_mtx held, and misc_deregister() takes misc_mtx and
+unlists the device, so once it returns no open() is in progress and
+none can start. The open count that remove() then drains cannot grow
+again.
 
-Restore mlock once the full mapping has been restored in a locked VMA
-under one page table lock, rather than waiting for try_to_unmap() to
-restore the mlock state.
-
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Fixes: 5f9952548d91 ("platform/chrome: add a driver for HPS")
+Cc: stable@vger.kernel.org
+Suggested-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
 ---
- mm/migrate.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+v2:
+- Follow Tzung-Bi's suggestion: reference-count hps and have remove()
+  drop the runtime PM references of files that are still open, instead
+  of holding the client device for each open file. A file left open
+  across an unbind and rebind no longer affects the new binding.
+- One mutex protects open_count and removed, in place of the rwsem and
+  atomic_t in the suggestion. open() cannot run concurrently with
+  remove() (see the changelog), so the lock only orders release()
+  against remove() and against other opens and releases, which are
+  rare.
+- Not converted to revocable, which is not in mainline yet; this
+  version can go to stable.
+- Subject changed to name the bug.
+v1: https://lore.kernel.org/r/20261107185258.4115770-2-ca@modelmiser.com
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 94033c222e04..140e291d4587 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -353,6 +353,7 @@ static bool remove_migration_pte(struct folio *folio,
- {
- 	struct rmap_walk_arg *rmap_walk_arg = arg;
- 	DEFINE_FOLIO_VMA_WALK(pvmw, rmap_walk_arg->folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
-+	unsigned long nr_ptes = 0;
- 
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		rmap_t rmap_flags = RMAP_NONE;
-@@ -446,9 +447,16 @@ static bool remove_migration_pte(struct folio *folio,
- 			else
- 				folio_add_file_rmap_pte(folio, new, vma);
- 			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
+Reproduced in QEMU 10.2.4 (q35, KASAN) as for v1: the driver binds to a
+client created with new_device on the i801 SMBus adapter, with the
+"enable" GPIO supplied by gpio-mockup through a test-only lookup
+module. A process opens /dev/cros-hps, the client is unbound or deleted
+through sysfs, and the process then closes the file. Without this patch
+KASAN reports one use-after-free after an unbind and six after
+delete_device; with it there are none, also with lockdep enabled. A
+test-only print in the free path showed hps freed at the last close
+after an unbind or delete_device, and in remove() when no file was
+open. With a file left open across an unbind and bind, runtime_usage
+reads 1 with both files open, 0 after closing the new file and 0 after
+closing the old one (2, 1 and 0 without the patch). Not tested on HPS
+hardware, and a release() racing remove() was not exercised. Unbinding
+or deleting the client needs root.
+
+For stable, before v7.0 this conflicts in two places: there is no
+kzalloc_obj(), so probe should use kzalloc(sizeof(*hps), GFP_KERNEL),
+and hps_release() ends in "return pm_runtime_put(dev);", which the new
+release() body replaces.
+
+The code, changelog and reproducer were written with an AI assistant
+(Claude Opus 5.5), working from Tzung-Bi's suggested structure, and
+the assistant ran the tests above. I ran the final version myself and
+got the same results.
+
+ drivers/platform/chrome/cros_hps_i2c.c | 75 ++++++++++++++++++++++----
+ 1 file changed, 66 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/platform/chrome/cros_hps_i2c.c b/drivers/platform/chro=
+me/cros_hps_i2c.c
+index 3b9485627831..bff063f58777 100644
+--- a/drivers/platform/chrome/cros_hps_i2c.c
++++ b/drivers/platform/chrome/cros_hps_i2c.c
+@@ -14,9 +14,12 @@
+ #include <linux/fs.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
++#include <linux/kref.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pm_runtime.h>
++#include <linux/slab.h>
+=20
+ #define HPS_ACPI_ID=09=09"GOOG0020"
+=20
+@@ -24,8 +27,27 @@ struct hps_drvdata {
+ =09struct i2c_client *client;
+ =09struct miscdevice misc_device;
+ =09struct gpio_desc *enable_gpio;
 +
-+			nr_ptes++;
- 		}
--		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
-+		if (READ_ONCE(vma->vm_flags) & VM_LOCKED) {
-+			if (folio_test_large(folio) &&
-+			    nr_ptes == folio_nr_pages(folio) &&
-+			    !(pvmw.flags & PVMW_PGTABLE_CROSSED))
-+				mlock_vma_folio(folio, vma);
- 			mlock_drain_local();
-+		}
- 
- 		trace_remove_migration_pte(pvmw.address, pte_val(pte),
- 					   compound_order(new));
--- 
++=09/* hps outlives the driver binding while files are open. */
++=09struct kref kref;
++=09/*
++=09 * Protects open_count and removed. Once removed is set, release()
++=09 * leaves the device alone: remove() has dropped the files' runtime PM
++=09 * references.
++=09 */
++=09struct mutex lock;
++=09unsigned int open_count;
++=09bool removed;
+ };
+=20
++static void hps_free(struct kref *kref)
++{
++=09struct hps_drvdata *hps =3D container_of(kref, struct hps_drvdata, kref=
+);
++
++=09mutex_destroy(&hps->lock);
++=09kfree(hps);
++}
++
+ static void hps_set_power(struct hps_drvdata *hps, bool state)
+ {
+ =09gpiod_set_value_cansleep(hps->enable_gpio, state);
+@@ -36,18 +58,33 @@ static int hps_open(struct inode *inode, struct file *f=
+ile)
+ =09struct hps_drvdata *hps =3D container_of(file->private_data,
+ =09=09=09=09=09       struct hps_drvdata, misc_device);
+ =09struct device *dev =3D &hps->client->dev;
++=09int ret;
++
++=09ret =3D pm_runtime_resume_and_get(dev);
++=09if (ret)
++=09=09return ret;
+=20
+-=09return pm_runtime_resume_and_get(dev);
++=09mutex_lock(&hps->lock);
++=09hps->open_count++;
++=09mutex_unlock(&hps->lock);
++
++=09kref_get(&hps->kref);
++=09file->private_data =3D hps;
++=09return 0;
+ }
+=20
+ static int hps_release(struct inode *inode, struct file *file)
+ {
+-=09struct hps_drvdata *hps =3D container_of(file->private_data,
+-=09=09=09=09=09       struct hps_drvdata, misc_device);
+-=09struct device *dev =3D &hps->client->dev;
++=09struct hps_drvdata *hps =3D file->private_data;
+=20
+-=09pm_runtime_put(dev);
++=09mutex_lock(&hps->lock);
++=09if (!hps->removed) {
++=09=09hps->open_count--;
++=09=09pm_runtime_put(&hps->client->dev);
++=09}
++=09mutex_unlock(&hps->lock);
+=20
++=09kref_put(&hps->kref, hps_free);
+ =09return 0;
+ }
+=20
+@@ -62,10 +99,13 @@ static int hps_i2c_probe(struct i2c_client *client)
+ =09struct hps_drvdata *hps;
+ =09int ret;
+=20
+-=09hps =3D devm_kzalloc(&client->dev, sizeof(*hps), GFP_KERNEL);
++=09hps =3D kzalloc_obj(*hps);
+ =09if (!hps)
+ =09=09return -ENOMEM;
+=20
++=09kref_init(&hps->kref);
++=09mutex_init(&hps->lock);
++
+ =09hps->misc_device.parent =3D &client->dev;
+ =09hps->misc_device.minor =3D MISC_DYNAMIC_MINOR;
+ =09hps->misc_device.name =3D "cros-hps";
+@@ -83,32 +123,49 @@ static int hps_i2c_probe(struct i2c_client *client)
+ =09if (IS_ERR(hps->enable_gpio)) {
+ =09=09ret =3D PTR_ERR(hps->enable_gpio);
+ =09=09dev_err(&client->dev, "failed to get enable gpio: %d\n", ret);
+-=09=09return ret;
++=09=09goto err_put;
+ =09}
+=20
+ =09ret =3D misc_register(&hps->misc_device);
+ =09if (ret) {
+ =09=09dev_err(&client->dev, "failed to initialize misc device: %d\n", ret)=
+;
+-=09=09return ret;
++=09=09goto err_put;
+ =09}
+=20
+ =09hps_set_power(hps, false);
+ =09pm_runtime_enable(&client->dev);
+ =09return 0;
++
++err_put:
++=09kref_put(&hps->kref, hps_free);
++=09return ret;
+ }
+=20
+ static void hps_i2c_remove(struct i2c_client *client)
+ {
+ =09struct hps_drvdata *hps =3D i2c_get_clientdata(client);
+=20
+-=09pm_runtime_disable(&client->dev);
++=09/* After misc_deregister(), no open() is running or can start. */
+ =09misc_deregister(&hps->misc_device);
+=20
++=09/* Drop the runtime PM references of files that are still open. */
++=09mutex_lock(&hps->lock);
++=09hps->removed =3D true;
++=09while (hps->open_count) {
++=09=09hps->open_count--;
++=09=09pm_runtime_put_noidle(&client->dev);
++=09}
++=09mutex_unlock(&hps->lock);
++
++=09pm_runtime_disable(&client->dev);
++
+ =09/*
+ =09 * Re-enable HPS, in order to return it to its default state
+ =09 * (i.e. powered on).
+ =09 */
+ =09hps_set_power(hps, true);
++
++=09kref_put(&hps->kref, hps_free);
+ }
+=20
+ static int hps_suspend(struct device *dev)
+--=20
 2.43.0
+
 
