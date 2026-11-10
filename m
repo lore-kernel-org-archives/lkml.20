@@ -1,87 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309269;
-	b=trE2QjEgxyfXptZXkkaqbrWk+ZySV5YS7xympVzNACWiSgIsQH1vRXtSnC4tM8H4E7Rw
-	 iBOL0aT6htEbUCehDm3k5lqidpPoiNnn8EGt9oYInJCIEhOA9jQ3dfs5iigrCPzMTkrJm
-	 /PwrqQvmptkCbTrnZ3A8z173JYa0rianG7xjOVhUBDspYWk1/zMivDAO8feBek1qd9ZPp
-	 2qQhtuuEFzL3f3OpWnuzf57sVNWe6UGF2pl9Tr/xZf/GAqMyGBIAXuKTDjd+WAmP71aqS
-	 8PCley7rPtfOrhaoZb8b3Aa8IoLr4XNFTYqcl0ZrWy1SzKII7v6Pnss/ZfS9gn6yNgA==
+	t=1794309275;
+	b=eOueoHIFIJN0FB9yhwnxzkU46XpBD6N9unwAkVFqRclcHU5zVivroAXLjtZvVIgy6KSM
+	 YKsY5LpxSiXolHUWiycyQfNV4aOu91vTRpdVW8X1MPlGCBJv6WGRD0+csaPzfLuIMQydX
+	 tAiDhIYT7YoIrHM5cja79THnIkSTc02pYh54qEfGbpb9QmFeVbmq8s1TCiIcnwa5tYb2f
+	 +ddJpP7/5HWuO1Tow7AITuwR0fAzwF/KMkx8xuukfgarS2bq0gmhmAHTlKa+YkHINnhEk
+	 Cvppd1Msns5BSWDs1Z0e47+lamDA+gylCFlFmJK0yKCev6jGyuUTvPfNTFh5LZjdvZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309275;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6pjqL8lgJ5H5rEEpJ/FLBjpoQyXvjDN5uURvtTrdJq0=;
-	b=ZVef4y32pf0XnBHuXHkssiGWQlx5nfCRRt8HNQ3tBr7EONPcr+/UcKNMh6JHQBEXFzum
-	 B3c/TFcRUfvpiVJxLCUwHHGLyGuHG28oF6b1gS9a1gyEPbI7DbmCnqF85oC2zYlWuTkyH
-	 E3h7OU2naQuvEzwNFUIqlxPmxh6c8epgHVxyQWln9nGXvxhGMnmspP8OqHcbetwwOtfMg
-	 Q+wckI8OpSihXbQYXwHqGb6jgs8pLMfYJ37OmFt1Z6T3g8uKrPqJ9wkGdLo5nL3MID1Jf
-	 okfjxJRBnISJ47R0WIPgQqMyXs3KbM+7VUvOrfdzuzAYw+YiOunQgeKy+fmhegIkZig==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vDiweiYOObynXPO198CmBSeMUJu3WdkZCa738v5k3/E=;
+	b=qIgYbOqd0eihGkTLZa2DYakENUCgu8WANY7NUJFx4gn4wlI96CuDnxEz8eGTJVAP9Ofr
+	 xjxtskcQAPTtw6bwj5q6EiD5J5aPgdiA0haEswAC+oCdA+NF4RrXkCz8Kv2tIYTdRIVhk
+	 KQmxKUhKTrumWWuvgS2gIYko+IOfj5nkDeD/+efkYZHvGuZ8hqxn/A6h9tYeQix75FVyL
+	 wJwf1WxYawrKwDq+DzyZBUxTABXyZBw4ULDr9yp4AeN0raX6jHaXJTllT5pDg1hRaqtrv
+	 eqBk7NeXTGbDHCkwEtH6ekAZm1t6TRnaz3eMA9BeFW2qJpyxrHrQeuCVMaAZn76hC/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hGfUAKuo;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0A4NBtI0;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB5F606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB5F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C53606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0C53606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hGfUAKuo
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so14139955e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0A4NBtI0
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb9d5c1c8eso945416a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794309266; x=1794914066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6pjqL8lgJ5H5rEEpJ/FLBjpoQyXvjDN5uURvtTrdJq0=;
-        b=hGfUAKuoU8WVVrATySszgzvOyBQWURQjoxAYcusqxr00mbG9lLJ5YurmZyaZAXWbrs
-         O400VeVYivYCW8fyu6+Dvqp5OaVfYP3myT2OpkOoGR0u3aFVFEoZGejFSmaCwvEiIQkZ
-         roI6fjGYDwpgzcuTHJ7Las8b62EneeV9ghLyUXE6VEZXXKGvWoPQdPnLXNTH0Hpp8Jk6
-         5/pklK9B1N9VubIaExX3gN+ZT0YRWjBR3/6srd/2UZT8+0xNEoLQH8Gc1AeBou7Thu17
-         iUhGpyGKF4A8m4u7sMhEu8srrwTsUDIKh0rNLG9LyufE47ann7PBBKyDs9e0T8GyxFiH
-         VSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309266; x=1794914066;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794309274; x=1794914074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6pjqL8lgJ5H5rEEpJ/FLBjpoQyXvjDN5uURvtTrdJq0=;
-        b=sdYRJsh/7Xy1Tw8iFzgSbuQUse/YkgK3PLTue89DfSEN4E6wtehZe4HIZxL9pW0Ik1
-         RFy6w7zUNzQkCR+wpc+v5AgxoBPrW6/fhD5iuS5q4ea86+WyJ/tuApoktl06jZ/J0GmA
-         2US6Ex3E9AiHzjphB+axZFnfau6uXDJxBKmp8yzJGiT8EQbQzDdP0I+y86J/L6/5ZNAA
-         CoyBvepD7jMz8ZNV2RJs9OAZ78z1tITypwA+46VXkDJihajIfI3/li6euJD9UBOmE+79
-         9rrMfHCjnrgiL+Q3bG8MG5gq+a4LX+3KrpLoBg3FCq3EbMDl4v8Yc6DbGqjWLv2jiqPI
-         jm3g==
-X-Forwarded-Encrypted: i=1; AL+hErHcy9802POYev73gxuRE2unhzw6cOInFWxbGu2RMPvbIRPKKTjPVh6DH+4JnrmfL0CnA7tF+eLvMtTSabI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Bpi7U8PEzf8TayGA++LuCJkGQzwfE1QnU1lJjkpdqg5/7gpa8
-	kJnMM25dUF3/o0YHFbzgA6+ZSGeevo9X2PQRtlQDHISeEraL5FjMXt71gsWNCd9YRes=
-X-Gm-Gg: AYBFou28s4MT50YYOgJhM1RGpSEZoH6RVI1HNp5zfSUbR/b+U39XU+dqCh4sRNr/FFy
-	IZjq/zvKhkiEKDgp1XX8WdEXUW4b3OLttHPHWrJ6qY2iwdcCB/wNPP7nP70m89bM13YBQBme0gH
-	eSyUjZJMKKLWmh5a311n4g+VHa7Qr66QYO/sdx2iBhD+7C4+76ZrUGirKDXCrJWK222v2H7Sykm
-	AGqi5ihE9frsrJ7kNIv7D3xwdbV6zgi7frugEMeJGQ4T/QZDJS8xhLGqTBsnQ49iXTIaR9zDmcb
-	2oLfnCgi5ullAHbbcXuq0OoTT1V7hLY0s8Mri/8HVg/hx0cQOI5efWl9kizt8wiL0ilaEER7eGf
-	gmdKq9OluliJ+oDTF6120Gl0GHSS/fAiOOA7uDRJVAp+DbnxN2rTM4t2Fn9F/YMbpYyVnwzjjvO
-	yLWlGn8EO9U3PixNjnvOB0Zg/6U47IA3f1mAifUQGN7RZMdEFgk/g9elbn+5kLqCaeYxAQt5+2i
-	N5bNUTjbyLQYoeu/Y/Z6mHiNE/V0SrJZEm6KbUSJ5NpVkperyvRJ1SnRwYeW3rFViKg4nK63wmb
-	uYXl7Zm0oyHlfCP7Qj9RiKkI2WWV5xoU
-X-Received: by 2002:a05:600c:c16f:b0:4b7:6942:39bd with SMTP id 5b1f17b1804b1-4ba0234e2e5mr35596445e9.26.1794309265823;
-        Tue, 10 Nov 2026 03:14:25 -0800 (PST)
-Received: from [192.168.3.100] ([151.61.248.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365ccbccsm4366683f8f.44.2026.11.10.03.14.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 03:14:25 -0800 (PST)
-Message-ID: <ca4c9e4e-80bf-435d-9f55-18f1a38c4472@baylibre.com>
-Date: Tue, 10 Nov 2026 12:14:24 +0100
+        bh=vDiweiYOObynXPO198CmBSeMUJu3WdkZCa738v5k3/E=;
+        b=0A4NBtI0eyXzfDdgbJFJ0O+X5G9I6rwPW7cDcK3TBsChbEgP3ATozn1s+AimSSjxqm
+         eRcFDjUgqeGUyIa1o7Yi0YEHLGcr1EWbADhlYgoFlkAxVmKhewf8cghrZc+4CQrZlfRz
+         U82qtl5cQHGi/el/C3+TstzdjXim7pE8wXX5j5Hue+TvObXOQ8dRuSjoDUrdhYi6x7LZ
+         rEdNhPcZmY9t9wRc+pwsBOHq0hgtzUxSvIAE7szblCSWxTOwEZ1oHQuCqvZdh0X4aEhj
+         k/x7KzleGiiYPI3F7IFpbIlzCyxyI0S7/fcZhCQ0JveNxGBFOy8NnIVMiN/kzJzdw9uX
+         GmNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794309274; x=1794914074;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vDiweiYOObynXPO198CmBSeMUJu3WdkZCa738v5k3/E=;
+        b=ebEW8OnUgcGTyIQc2GjNQErIkBgSzRxN0A+IPUXKv8jGrdkXP2K46jT+VdDsKJBKIB
+         B8HhndFfq559XUt1doOJ9CvJuv7CDAodxPYIcTDgQWkr2/QnLrEyofGxS1CJbpsIw5WW
+         4GeNL9Bn3n3KeM/Y+2hPuwLaZxCNW1yPkHMelAWJC7zdj3OAYCjWRuCNQALCOfYO62l8
+         s0Xe+T0H79bSXnXScahc77nWk9B3uD1seCUO9BGr4898Rd5+7wFe2G8UbA6A8SSouxmc
+         o8xtl8L1nKdpvXji0lX2m6WPZnwBp6BuFspnxgpLbrvZTROQggIL+xdAXThARExL6zXC
+         0OeA==
+X-Forwarded-Encrypted: i=1; AL+hErGUj4hEfr68zRvMa22d5O9YPcu9b8OrGrT/FTauzED/vpP/F504rRmc7cHVUhSG5B9IkwlsrUZ9poRYXHk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8v/wIjtIPC+NHLhEkoU8+iFvMlBWH5oVZz+QS/BJTFVxA/s3zA
+	UobpsZXg2B4h52t2aUJZupemLLYlGWjuYGSKDKhfzG84GZaYkKjp7rGu
+X-Gm-Gg: AYBFou24txAsd9MB3Zzo7QY+l5l+fYyynQyhQNB3vj3KY6L5LG/9c2omdUaxmdwOcdp
+	BC5kXWuToYOE+0sgAY+3dAKQbBirtBq85n3x1YYu526LqykJdvvCgEYGslL6GUC8iXnUvBi6oo7
+	tuPHjFSxuS6wUmz1jnFbfKTIaloxKtN19mrXqDWTLwo1d93NjncAp8zbTWBCi1IJoJg9JmedSXu
+	IU6vzUJJnv7FqnjMksUQgI+9ye4jtVEyo9Qg+GRYTHQANp7Rp314pM4L5JUilX2ZDos0L5u5fLu
+	1MnHuYVtOUbQodsRdjGjgNCcrK0IgIq6eRl5BMiDnSpelSPtjFO38jLCf2dXzi+YhY3EjMvUOS0
+	tYp6J7fSsbclryFY4RZREgmFT7Mn/0Rc4STqVeN27x9KQA1v6+dnmSbmNTQGl8F5euGkZG93UVB
+	h6r7tG8/W2XQL1Jlzb425f41DpMxtsZvHNaugOssts4+pdySaFUSdfZ9JckW+9+zCX27Wf2CwtD
+	AaZv0892PvirzBvZHNP+YHkr/VCOHY8G+SuWE7QP0Pw8KNYcazhNFHCZT/KulXgNqzGoIZtG6Qv
+	k/u2YWJRQYRhEbt2B+ZJCJFfSnXUCQr5xc0jyv2cCv9/a8rE2SDkq2hblfJN54N0q0NWunYuVfC
+	dbDQZ
+X-Received: by 2002:a17:90b:2e87:b0:3ac:4e18:238e with SMTP id 98e67ed59e1d1-3b166d05111mr2527465a91.46.1794309274191;
+        Tue, 10 Nov 2026 03:14:34 -0800 (PST)
+Received: from fyhsueh.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1678ceda0sm3556684a91.5.2026.11.10.03.14.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:14:33 -0800 (PST)
+From: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+Subject: [PATCH v1 1/2] dt-bindings: input: Add Nuvoton MA35D1 keypad controller
+Date: Tue, 10 Nov 2026 19:14:18 +0800
+Message-ID: <20261110111419.89535-2-fyhsueh4linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
+References: <20261110111419.89535-1-fyhsueh4linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,88 +106,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: meson: gx-formatter: change stream lock from mutex
- to spinlock
-Content-Language: en-US
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261021-gx-formatter-use-spinlock-v1-1-71ebc9224c03@baylibre.com>
- <CAFBinCCV+rBnfSzY6LWfCU_D=BHmWi8CoZE0aza5BhvWXw3-8Q@mail.gmail.com>
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <CAFBinCCV+rBnfSzY6LWfCU_D=BHmWi8CoZE0aza5BhvWXw3-8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 11/8/26 10:01 PM, Martin Blumenstingl wrote:
-> Hi Valerio,
-> 
-> On Wed, Oct 21, 2026 at 11:52 PM Valerio Setti <vsetti@baylibre.com> wrote:
-> [...]
->> @@ -85,9 +85,9 @@ static void gx_formatter_detach(struct gx_formatter *formatter)
->>          if (!ts)
->>                  return;
->>
->> -       mutex_lock(&ts->lock);
->> +       spin_lock_irq(&ts->lock);
->>          list_del(&formatter->list);
->> -       mutex_unlock(&ts->lock);
->> +       spin_unlock_irq(&ts->lock);
->>
->>          gx_formatter_disable(formatter);
-> The documentation below states that ->ops->disable is called with the lock held.
-> gx_stream_stop() does call it with the locks held but
-> gx_formatter_detach here doesn't.
-> 
-> It doesn't seem to be problematic yet because aiu-formatter-i2s.c
-> doesn't register a ->disable callback.
-> Can you please still look into whether this is a problem?
-> 
-> Also for a future patch (not this bugfix anymore) it would be great to
-> have lockdep_assert_held validate that the lock has been taken (inside
-> ->enable, ->disable and ->prepare).
-> 
-> [...]
->>   struct gx_formatter_ops {
->>          struct gx_stream *(*get_stream)(struct snd_soc_dapm_widget *w);
->> +       /*
->> +        * Following functions are called with gx_stream->lock held and local
->> +        * IRQs disabled so they must not sleep.
->> +        */
->>          void (*enable)(struct regmap *map);
->>          void (*disable)(struct regmap *map);
->>          int (*prepare)(struct regmap *map,
+Document the Nuvoton MA35D1 hardware matrix keypad controller.
 
-Hi Martin.
+The controller supports up to eight rows and eight columns
+and generates interrupts for key press and release events.
 
-Oh, good catch indeed.
+Signed-off-by: Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
+---
+ .../bindings/input/nuvoton,ma35d1-keypad.yaml | 73 +++++++++++++++++++
+ 1 file changed, 73 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
 
-As you correctly pointed out that's not a problem today because the only 
-formatter currently present in the tree doesn't implement the 
-'disable()' callback. However the upcoming AUDIN support [1] will use 
-that callback, so the question might remain.
-
-Technically in 'gx_formatter_detach' the formatter is first removed from 
-the formatter list (with spinlock held) before being disabled. This 
-means that other start/stop actions cannot be called on that formatter.
-
-So even though this is ideally safe, I think that moving 
-'gx_formatter_disable' under the spinlock guard is better: all the 
-register access are MMIO (not sleeping) and then the behavior would be 
-symmetrical with 'gx_formatter_attach'.
-
-Thanks also for the suggestion about 'lockdep_assert_held'.
-
-I will send an updated version with these problem fixed.
-
-Thanks for the review!
-
+diff --git a/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
+new file mode 100644
+index 000000000000..be678d0b38b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/nuvoton,ma35d1-keypad.yaml
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/nuvoton,ma35d1-keypad.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 Matrix Keypad Controller
++
++maintainers:
++  - Feng-Yi Hsueh <fyhsueh4linux@gmail.com>
++
++description: |
++  The Nuvoton MA35D1 keypad controller scans a matrix of up to eight rows
++  and eight columns and reports key press and release interrupts.
++
++allOf:
++  - $ref: /schemas/input/matrix-keymap.yaml#
++
++properties:
++  compatible:
++    const: nuvoton,ma35d1-keypad
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  keypad,num-rows:
++    minimum: 2
++    maximum: 8
++
++  keypad,num-columns:
++    minimum: 1
++    maximum: 8
++
++  autorepeat:
++    type: boolean
++    description: Enable key autorepeat events.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - keypad,num-rows
++  - keypad,num-columns
++  - linux,keymap
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/input/input.h>
++
++    keypad@404a0000 {
++        compatible = "nuvoton,ma35d1-keypad";
++        reg = <0x404a0000 0x10000>;
++        interrupts = <79>;
++        clocks = <&clk>;
++
++        keypad,num-rows = <4>;
++        keypad,num-columns = <1>;
++        linux,keymap = <
++            MATRIX_KEY(0, 0, KEY_1)
++            MATRIX_KEY(1, 0, KEY_2)
++            MATRIX_KEY(2, 0, KEY_3)
++            MATRIX_KEY(3, 0, KEY_4)
++        >;
++    };
 -- 
-Valerio
+2.43.0
 
