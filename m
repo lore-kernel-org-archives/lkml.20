@@ -1,83 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794291267;
-	b=S/8aAweFsFP3/1RFg7oS2rVQlAevsUZ0g/I53sCctriNzWPjHV2I2q4uSU+OU8o7vJeq
-	 k1NdwAuMqdk8eh92NebmUYUCC+V+vi8vIXzhOmJgaolBk4vtWTf7joZ13IKYJMY7/aVNX
-	 hqP5CRatfCQOPRCuxzT6jrBuqoIxI3SLdhmxl/39AmKmqTbCoJLWcjc9+SFEHjHK2YExH
-	 Ov5LY4yovmN9qZKiopJzkb1W0pXx5Eeq1a71LzB2EepgEgcVbjQl1cOa4lZCDSkUE4w69
-	 EjK1CW3uVWkPFpwXLU84a1oSmyz2cju57SH5bMwNb1g94jU0C3xbvvyWnHbU8gRrsYw==
+	t=1794291285;
+	b=R2UGzT2061t1/e76QYHP7LtvvueeO4WJoHIInMPdBZRETW2YhQhI/69rPWnjIDYaAZea
+	 Oulqy9r+iZYllNg2TlcjMINJrsYY0IvvVVuJuQ83o4IP4Joe/9U95teq3+QJmGS2stLlP
+	 himG193oh3rTu41DOybC5D3D95ypVTbDWx0ElR3PcqoVy6RdpAwLXt/YEXgPbzKb8dpzS
+	 JBWAHozJWwAX19SENCcmEP9mTCad+SYcrAH1IFYiTHcg0FOi16TTttuLW4ruemCEe31Sh
+	 kY0ho42deDEpj6Yiy9M2YR40gKOXJpHx9YXnvHFTxUTaPYb71rIVOKCKc0Lyn7862mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291267;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=BjkJxNIOZYjYtRtEqr5Rr8/9mY4LqFUYFiIwbhcKsds=;
-	b=gMY2S7ZIwwK91N3O7niXmt7v2VFzfpeGx12k1BNli94P/ljoTxVJfV+Kl/y7PHVUYq/Q
-	 J4nczZ6skMiugvFOajO2bHh1bRIgFQ93cAj+WxUJ501GTgtZq1mZHlF+COoQwhsUM97Sr
-	 mY60z7MLCDjPFGk0YJeUS0kxD+ZZwEtBDyxG3csL0VgysAFLEMNdgALb2potiFSXYOnxv
-	 i2T9DOmYwIpRHhYb3g5jtuPUNbN4VXJLsiT41h3C5pGkKCeXqoRlEVMowLmCbgktwX/oE
-	 HNb6BmVn7m/pH9c1kiSrmNR2MsDI0l+rHDbFQ4iupvqO6z97EzXrkYrqIvDgTGEED4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291285;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+HOH7O4j20KDfBtKxtSGJ323bTE8G0lrShsobfiCmIU=;
+	b=nSnl/cgchn1f0zEUQUd1/Vy2pnqpAJtyBhxRfovV1iix/mCl8nXc9Cuh4PzhOmBKb1PQ
+	 yPaHL6QdGoBgvSQC32LhePCFYNdZqKuPCqA45bUwpaWIMtJBF403dNVWr8GAX7WNWelev
+	 7MlpkwC+dK51t+iJTsDGtPia3t36oQxbYzK4BVPuo4Mb4zgtv5IqXqANBmKkX1z09L2Sw
+	 +jKAZ7mwNWLn04gdlA5z/VVZ2vlP973UBeLjHqDl4zaDKSeTzJy94VU+/f+/5yfeyrpb+
+	 Q6PEt7xPUMkS0eUhVJSHp5x8tGJJoWkxJN99rc6OzShJksYIMjGsj2dNsJcgqUv1Mrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cryspen.com;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YHum3B/j";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80ED606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C80ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F67606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43F67606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b467581b98so14736785e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:14:26 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHum3B/j
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so381489eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:14:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794291284; x=1794896084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+HOH7O4j20KDfBtKxtSGJ323bTE8G0lrShsobfiCmIU=;
+        b=YHum3B/jKzFxCesg7+Ct7CPnwxHr0nrJAYz+jcYt1wC41y/pqChO3cemGyDqaU0WYi
+         ZhrHQHR+K1Da9LhsBEUrVWbvL2gWmaQdaMgYKWqh17gYHHUD8+DkzHB+ntUDF2lRwVzs
+         s3WQRy31A++D4hh081Nmn/QvCHW1XCaCsx0pWfJUmlKICljEo9YCuXefvQoUVmAznqfX
+         gBPwUs7cOtjvTU37V6rBUVifr67VxETH4kcmTT6f4dl7uN1zLFST7CCg8pH8JgBgOZTh
+         OZJffn8MWCr83MlMWrkJPuslh8yd5fuOebAj5cmk1UXJ6Gzb4JrryKbSpoGgyuaduvmw
+         EzVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794291265; x=1794896065;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794291284; x=1794896084;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BjkJxNIOZYjYtRtEqr5Rr8/9mY4LqFUYFiIwbhcKsds=;
-        b=mxVRGNMCMSVmVia6IZqnUxpWxt6mLCFg+QjpfbP/p28EaARcANuPWlCuNLgrliZ7Gr
-         Tdq/0yD9r7cf5wQcWuhAgC7e7nrmsYsixJUbJ/MAQ+Wyvb/wjTMnZy2IX1gPka+EUOiD
-         ECHZaJlRze8bfbNe2Y0WUAgfab5monN7SuKXe0IbqJ8COsmWwrWLW103Nz5pWA4NqbTK
-         k4viurU+CqXf0quqJtMmmxHLybkP2Jk/IJ59S80grErhHimNdvDQqyTyzkd7HY+TnrVc
-         Xlz4yNiQTpin67j5h+yz/VSvg9AUTlj9wLHYqo/Q13wL0J71DjNOQVJ3U1+yJXPGw5Af
-         5KoQ==
-X-Forwarded-Encrypted: i=1; AL+hErEwDPW4kPSl9e1CgWk1CJfy2NbYTTGBTu/B2EAIRTdV+zne7IkCRyrk5Yf4oplxPdSN6AqYfBuGkLUqCws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ng+QqHBYOItoBrxYR+gpuE9DtNmdWM99moYJllCJtYLcUCQOl
-	KW9xWU13jkillpqJB9JUPNxlMwBcBJpjpSjyvryQrnPeJ6eM8QE6WjaZ
-X-Gm-Gg: AYBFou1NpGttARl7q621JeICVXC2H4CvEAjkdglT+00zc36l8lqoZIQ8PAcE4fTyJeb
-	LmN8PvEIBvd2P0YsMt1qel0te0MPVsYd0l0WdhqoYDHVEsy00l2DDWvEmztu251OdZDGoZGpbV4
-	d4AtgZIgIMBN3O9m+yXe5JcrsGuFHlEJVC1dDvhgdo+kUMZMrVzg1aoOCzn7ihkSmkbVVFoEiC7
-	l3HN3A/XXs5n96H8VvEvN9UYBjNuQUu7/x7mFvj2tZa/CjrZe46thPkmsT53YgIDk5cRjJ/DK5d
-	f/gru7MtAgYW9bDBdAiVF0nt39rteI78ilUQFt/3G37kIXdA5Zy97gPG4OM66GymEEpHxKLN+GT
-	9REu1OzNNut/PAIK1r1uT54inoCwmm5BxCwPi/NSnwel4L3OM7ZtyQH2ZN4unmCJS8gsWiEPiFu
-	erqOZhKi8w/Ty5DDlYik3kdDV4l2IuRw5eOvwMi6Y4WAA6dSQqNep+/LwptEHKz2um2WW97Ab1n
-	NOEKejx2R+kPGpAnnMIZNul6/W45tx4uKwwW4y5EgZrqEIfiXcFn5YxJIeQANlz6QVTXc0rgII3
-	8eVFjvEg78pSOwxC2Qgrd0ffC9BpgKPxYRWlg60ZdoHjCbgeXlP0EUf/gYfoW7gZQihcFyrr8Ks
-	zKDW1G52RZiIma5/HUwd8r5ges95PwgDYe7Ph0WucQbjGSC6eCrrXoTrwxQ3xglw8
-X-Received: by 2002:a05:600c:3d05:b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4ba0234d4a0mr21225695e9.24.1794291264969;
-        Mon, 09 Nov 2026 22:14:24 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835e20f91sm3405814f8f.27.2026.11.09.22.14.23
+        bh=+HOH7O4j20KDfBtKxtSGJ323bTE8G0lrShsobfiCmIU=;
+        b=YeAPvziYj5g/pk6/QyI+lb/tNzIg9XsHeRQX2n8d1uDz2rTDARgnu4dGANQI86bAAU
+         bVRqH/MgpsrDTa13x66fSO1l2k7BRqDi+CEh4B0ku+nXb2iQe0jYR3ZeWZrk+nxm5WnH
+         dfISyeYh5QQM4Y+iSYU3JVn7l5kbSmSjjert5oLM63x7lJNCSAQjFZZ/Wt0eYSkB8bIg
+         LBmEKTPXHkFeXog2y0IcEJlFBB1shiQFtZmcb+W6Ga4iFRfAf5vJdfKnR/w670x8K+Rl
+         xrM0YO/DckyeQmtZdhQzK0HpZS4lMcz4D5i3RSclltfMTa+u3wxDJFa0Bdp87vfgRJNX
+         rvEA==
+X-Forwarded-Encrypted: i=1; AL+hErGGtEtKKypm9mZBGiCt2xsgponwZMdoL38OpqxKn2SrxKuOrYP1RCUO2XUfQXsVzBR6t7SCoBFqCEatCwQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/u9+vinVmxFGgcoSYNWktpfrIlJFcLR5ZNvE4NGNNqntMNHA+Y
+	+VQ3t8LUr3eTr44oU7HJRpZlqjm8aMcBp4xxvUU8NsGATpb4gHiO7NlA
+X-Gm-Gg: AYBFou0piBDREYM8NBSOCs7Q2TSPRUTlEW5IP6qMZnAvTUoX4cB+DznVb857wL0kDub
+	HlInj3JzJrUVzqA+QQdtuv09jxWgfVBA5WfMxjgM/6QwCPwobbNM7At73GIH+exsptBl0qVmXV3
+	zNsPom0CnGQa5BTEvj475kljOOnO/q01HzZXbdc2i3yCfs4wOCiV0DAoomJgp+UUdKGk5o4a/IB
+	z5cGuYw4Mkob0J1oxJPjqH/OD2AVIYhpzKFzxG05fazMJdsUO339sC44TTyeJlWQ3wEAQOKTGCM
+	flLoKX3GBYIaf3++BYfXCH7HtPRW/ygqJkiRHwmyA0r9nd0o6vYo4aqe6LkCchDubgY6wgC3g8Z
+	6uG+TzaqMJWCJNrf2/T0heFgj9qruyjG+GLO8SrEcJxD7COOc8cC5HzzBRGF5xOvCY+3IdmZoen
+	hMvBU6KWrPFGbQfTf64o5hAGNLUecWZMesWEsJ+L+jnuJJvFg/zvTNIeFKux5ZFXYrb0ogtIfO3
+	d7yYVXT2kpVm9nVUWOgFjh20vd9m85QNCgNUX//NEDAfaF8I0jYSapvfO0Z3JDpisGL5jxatlvo
+	uoRg2TyiDEA6dqYtsLojLroRiOeT5xvN
+X-Received: by 2002:a05:7301:488b:b0:36a:1e0c:e28d with SMTP id 5a478bee46e88-3751c53546emr2305164eec.4.1794291284219;
+        Mon, 09 Nov 2026 22:14:44 -0800 (PST)
+Received: from archl-rock5b ([45.112.0.182])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375218c863csm3802316eec.28.2026.11.09.22.14.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 22:14:23 -0800 (PST)
-Date: Tue, 10 Nov 2026 09:14:20 +0300
-From: Dan Carpenter <dan@cryspen.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: [PATCH] KVM: arm64: nv: Invalidate whole L1 blocks on TLBI RIPAS2E1
-Message-ID: <6817d113e5f0a9cafe0ce5bc0847276b7f14aacc.1794210561.git.dan@cryspen.com>
+        Mon, 09 Nov 2026 22:14:43 -0800 (PST)
+From: Anand Moon <linux.amoon@gmail.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+	linux-kernel@vger.kernel.org (open list),
+	linux-pm@vger.kernel.org (open list:SYSTEM RESET/SHUTDOWN DRIVERS),
+	linux-riscv@lists.infradead.org (open list:RISC-V SPACEMIT SoC Support),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
+Cc: Anand Moon <linux.amoon@gmail.com>,
+	Alex Elder <elder@riscstar.com>
+Subject: [PATCH v1 1/2] i2c: spacemit: Avoid sleeping during bus reset in atomic context
+Date: Tue, 10 Nov 2026 11:44:26 +0530
+Message-ID: <20261110061429.2036-1-linux.amoon@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,80 +103,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-The shadow stage-2 can map one of the L1's stage-2 blocks with several
-smaller leaves.  This happens when the host backs the memory with
-smaller pages, when the memslot is dirty logging, or when the L1 block
-size falls between two host block sizes.
+The spacemit_i2c_conditionally_reset_bus() function uses usleep_range()
+to wait after triggering a bus reset request. However, this function can
+be invoked during atomic I2C transfers (such as power-off or restart
+handlers running in atomic notifier chains), where sleeping is illegal.
 
-When the L1 invalidates part of such a block, handle_ripas2e1is() only
-unmaps the requested range, so the shadow leaves for the rest of the
-block stay valid.  A TLBI must remove every TLB entry for a block it
-touches, including the parts outside the range.  The L1 does not need
-to issue another TLBI before reusing the rest of the block, so the L2
-can still reach those pages through the stale shadow entries.
+Replace the sleep operation with the driver's internal helper,
+spacemit_i2c_delay(), which conditionally uses udelay() when running in
+an atomic context, avoiding "scheduling while atomic" bugs.
 
-Use compute_tlb_inval_range() in s2_mmu_unmap_range() to find the L1
-block size, the same as the IPAS2E1 path does, and widen the range to
-whole L1 blocks.  The other caller, handle_vmalls12e1is(), unmaps the
-whole IPA space, so the widening does not change anything there.
-
-This only affects nested virtualization: the host must be booted with
-kvm-arm.mode=nested and the VM must be given a virtual EL2.  In such a
-VM it breaks the isolation that the L1 hypervisor provides.  An L2 can
-keep reading and writing pages that the L1 has taken back and reused,
-either for itself or for another L2.  The host, other VMs and VMs
-without nested virtualization are not affected, because the shadow
-stage-2 only maps the L1 VM's own memory.
-
-Fixes: 5d476ca57d7d ("KVM: arm64: nv: Add handling of range-based TLBI operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@cryspen.com>
+Assisted-by: LLM
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Alex Elder <elder@riscstar.com>
+Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
-This is part of our formal analysis work at Pereq.  I'm not super
-familiar with this code.  Claude wrote a self test that I used to
-test, but it's crap and not worth preserving.
+ drivers/i2c/busses/i2c-k1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I also considered widening the range in handle_ripas2e1is().  We would
-need to use the largest block size in that scenario and it seemed like
-it might hurt performance.
-
- arch/arm64/kvm/sys_regs.c | 13 ++++++++++++++--
- 1 file changed, 12 insertions(+), 1 deletions(-)
-
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 3d3f4eb82fbd..e1a687dfeea7 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -4116,6 +4116,17 @@ union tlbi_info {
- static void s2_mmu_unmap_range(struct kvm_s2_mmu *mmu,
- 			       const union tlbi_info *info)
- {
-+	u64 start = info->range.start;
-+	u64 end = start + info->range.size;
-+
-+	/*
-+	 * An L1 stage-2 block may be held in the shadow S2 as several smaller
-+	 * leaves, and R_TVTYQ requires the TLBI to invalidate all of them, so
-+	 * widen each end of the range to the L1 block containing it.
-+	 */
-+	start = ALIGN_DOWN(start, compute_tlb_inval_range(mmu, start >> 12));
-+	end = ALIGN(end, compute_tlb_inval_range(mmu, (end - 1) >> 12));
-+
- 	/*
- 	 * The unmap operation is allowed to drop the MMU lock and block, which
- 	 * means that @mmu could be used for a different context than the one
-@@ -4139,7 +4150,7 @@ static void s2_mmu_unmap_range(struct kvm_s2_mmu *mmu,
- 	 * the L1 needs to put its stage-2 in a consistent state before doing
- 	 * the TLBI.
- 	 */
--	kvm_stage2_unmap_range(mmu, info->range.start, info->range.size, true);
-+	kvm_stage2_unmap_range(mmu, start, end - start, true);
- }
+diff --git a/drivers/i2c/busses/i2c-k1.c b/drivers/i2c/busses/i2c-k1.c
+index ff32876e24d3..f4b21d7efaaf 100644
+--- a/drivers/i2c/busses/i2c-k1.c
++++ b/drivers/i2c/busses/i2c-k1.c
+@@ -332,7 +332,7 @@ static void spacemit_i2c_conditionally_reset_bus(struct spacemit_i2c_dev *i2c)
+ 		writel(FIELD_PREP(SPACEMIT_RCR_FIELD_RST_CYC, 1),
+ 		       i2c->base + SPACEMIT_IRCR);
+ 		writel(SPACEMIT_CR_RSTREQ, i2c->base + SPACEMIT_ICR);
+-		usleep_range(20, 30);
++		spacemit_i2c_delay(i2c, 20);
+ 	}
  
- static bool handle_vmalls12e1is(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ 	/* check sda again here */
+
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
-2.53.0
+2.56.0
 
