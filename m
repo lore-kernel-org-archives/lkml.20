@@ -1,77 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296724;
-	b=G6VGl2l/Fougp2BN61DfnUWMIkdipEF4cHrUhrxx7sJjhaWWUlBqK9zwxFe5R1H25b94
-	 dQsH4e1GFj4kTOUZB2mjzpBj4+Fv4aaczTEHD5X01LnIU9TAbVsq6tx5ivteuaAZi4tM9
-	 ydOmI/J8rYM9S6bDR6rJiUAhWjXPs5/un4CtrrgIWkW38J1rz+kMfiZ5hLyWrZYcAOeGI
-	 BhppM309B7+Ri/aEVDkiT3fS5W8QaNBgkPBco7IoRUfI9TeeVNX6554Ris11U1mRYakNV
-	 sfHrJE/N4JrZpPTf37zk7+6cx/A8zIPhDVHwH+lZtssSoNWqQXkzqf356tkfEuH+Tzg==
+	t=1794296726;
+	b=JdUT69H9OqwB+bn4RFT9Vb8lUruLT2JtWEc+++o0vN9Va4pLyABuhD1PJnutGz+/E011
+	 JOqbrKhEup51JgK9DtPnbQjfFUqJ8+fpYLvRdI66ESkXffaRB0oxuew1XGwoGrnftQWxq
+	 M+FIEmLdFuMO2yFcl1crDxZKr5su2d5uGBV7T2mlfI/JzGj9v6XDyvl+2uV3k0TZsr1Ki
+	 dALCJKqNa8XE0u0xuC6q3hLcUGMhK5cXr8bvq67xTflG14d5vSZUPAVRl4EBBZQLxspZL
+	 1wnHk7jzg9rlE+4zw14pBy9thhXfAEoRVr+quY0iCIRX10hQ7h1uaMIV/snzGrkw+XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296724;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bYjIYJm+n4nfDEAiZsWWktm7zzoyMcwgpbOm01w6spo=;
-	b=e3RvsTwF47CywYVd/czDVm6/1w53T0x+jUlanU9OKb6RzIxZ+SGRq6iFTgenSUTQb2MV
-	 dEUHZqtZQO5QrzVJen6DgTYxx1HxMV4rD5zU+cFSGLYlpGxsGV7eKuTFptwtXBjPkKAyl
-	 Btd/II7RXLNCzL9gbbxdHrdGkysKTQNFNVbukajqOx50QurKeFlbUzWQ9o3SEMuFQ6rQC
-	 3RAfKjatOWMz77DdtHS8YcKixD0xaxYSeeKXypsgJfsbf1IeFcURTnLUZMgqisjeRqo+v
-	 VB5C1SPkya+yTwrYr3TZKOqfEaOj6yo66ZIwNe9nwgD3GoMIGPSKerCMaDkZRblUqmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296726;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=KxRoCKaLFTMBGcFqcbl1lD4jLUh8waiooh35vSxr5ng=;
+	b=rMUVlaP5Gmdo7LgRd7teQ/rBtSj/cFx7pY19SDPDIIHEMNsOvF+PJaVWS7SYTqsXXcTr
+	 w4GMVvGA96DsQXRG7G3S5l7tG5h+h0WUtWTzbhAQZU6T6izxsvHBgv018qMqFGioAMu5/
+	 7lCWIn7YgqwQExDdcMXUuzjm/ZK7yviJVbst3srEt9kkwz9VV8IiRmdGfS0ZwLPwAIRGk
+	 4g41XccYY65JqYns9yWWwE2mits5+nFyTFiMKjcPmaDDeHK0yePtamttdx5iPDlj63Yg/
+	 UNwlCiCdIyI35q5+qc8D2PKbyRFQMRTPHz9BTLWQL/YjSa0xhm/hWTTr04kUqTRNVCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vlqCJjlJ;
-	arc=none smtp.remote-ip=95.215.58.85
-Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIPL1AVr;
+	arc=none smtp.remote-ip=209.85.160.53
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFC76075572
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFC76075572
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC70607620A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CC70607620A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vlqCJjlJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eY4VzD6wuof/JGdxP9nVKDJYmUFOxcoqpj+Y4Rp/P/w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794296721; v=1; x=1794901521;
- b=vlqCJjlJyhHO7JNbh8wajhkg5NO2nXDKM909lNOFUfkvgpW5VMjfwx25/Ij7r4IAoc3qN9jO
- pvKoFU0KTLNqAH5FS6p7MEbW8dboYwgKqMDNyHnEDT077oFgIzFKurSY4FboJMkAIQaAG2+6jjm
- Wzn+O01jdKSBSvqiJwnfISLo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d048f83d76d25cf6;
-	Tue, 10 Nov 2026 07:45:20 +0000
-X-Mizu-Trace-ID: d048f83d76d25cf6
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: akpm@linux-foundation.org,
-	chengming.zhou@linux.dev,
-	corbet@lwn.net,
-	david@kernel.org,
-	link@vivo.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	odys.yuan@gmail.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	tujinjiang@huawei.com,
-	vbabka@kernel.org,
-	xiao.wang@vivo.com
-Subject: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages under only_merge_zero_pages
-Date: Tue, 10 Nov 2026 15:44:49 +0800
-Message-Id: <20261110074451.220524-2-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIPL1AVr
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4ad4072943dso605127fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794296725; x=1794901525; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KxRoCKaLFTMBGcFqcbl1lD4jLUh8waiooh35vSxr5ng=;
+        b=AIPL1AVr6ix3Hap5lhNIJosluN/s9gCJb2MTF5Z92cXTmjyR0QijX2St+ZJEKdIzq7
+         pOi5RP39LZcei1/un3R8Ucjc4wnoWTzGcL7QDpPvjHt7U6CozTBreeTNA2f9V8TLCDQy
+         cy7fTdMnOhejbMVJMdEbBnAW782EXM+AF2e/0Lx0ffA6gh/4VsD1+eOo1Rp5tXGgoUm5
+         I2SYNZVCrTcoEAs3PwWDWB42lKu+tFnihGHchwPB5ZZkA/5JtwlXzxDzb6noHZZqn3ad
+         Z35dav2fgTSIUrk/FgUwLOV9jKeLTNPizHckpG5F2SW00wb6puspTu3lE6vDW8udF0Oc
+         H7zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794296725; x=1794901525;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KxRoCKaLFTMBGcFqcbl1lD4jLUh8waiooh35vSxr5ng=;
+        b=2FrD1pKnq3Sho4WBVTGU2ZeK09xdiSSLhSN/lDvRTGUrgKjANRFHTt5htfJEHqv+fr
+         6CbS0fu2yoG/ukLKgGEtXhSZt/THhVf84qods3GRhcjmOZujvVYSbwqESVPJFMZxnMg0
+         oQ+zTTSjjkDMsFeG2GjSG/qV3gg5jKCim1ESSpKcunBTYbuJqdyHnlQt0Ir3OiSPx3Sz
+         Z0o8111hWHeDm82zS81uoWIiKhGNpVW+SteAXcovJQyx3fS2hdpu1ELiEtBoDukogWKX
+         wcSJB2M2nFbGU/qAY1SUNWW9I9UwUfAmTdBisx+gEI/7sg75KSZTYBC8iy7DFxzFUNSW
+         yJBg==
+X-Forwarded-Encrypted: i=1; AL+hErFKadxZlYY0qWdSQFdyXc87VYcoFKI4WTsh32eX8CzaEOp+ABcKXpi6TPXJXxJuLZMbVWUiYz+SYN2+0i8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DyUE/68nAmKpQ/FUUpK1Uj85XbatqFshgd0lUPYYMm9CqX9gJ
+	eWqZMtfhEmfZ8bA92ICw3xzNxepfNpO7HU78V3PZ7D1RCExCX1o4xJXwBabgS/11
+X-Gm-Gg: AYBFou0JfzdwF1AZpOW9Jxc+2r0N/Nbw6KAVPFfyTLo11lx/5hPg0kscLFY8LMLw8qx
+	yDo1lWVmJq2Hnuc73cBf9T5k+878orZ4FBHSrkb8myIyUcyPHyXvkRJ5B29pn53BVXEUh5sgYYv
+	xiGQS4UkgCkmUzSNUGcRrlsg3KMWhvGqJVvlvmu1eMzUWqzZ4wP2tbAzI+eRwWdhdT3MXqjI666
+	64hOYuk0kHf9nWzUQ35IDH0pqquY/faKIOjai8yLtYzOoMSIri+l0nMuub/xQW+EhoaWrdRMd4j
+	PP21nzOyGrWHD+0wduGPk0RR8HH12JI8D9SnoYV34PjjgzH9W//TAGEqRNKS17ywLelAaobGl1s
+	W9jFZ7j5yFMgEw/hRuBsHN5b5NK0hnxCHFwFAZ7Ln420+jjxEpz8lK7wRI8LIOHnXdmAroZsVSJ
+	IGf+JsDZCWb9ikvR5lb1tp/2zqWsB9Mc74K4Mb1qUnR0MWaJ50/O3EOWHS2KXVxBh3r+3d9JsC4
+	FMGXD4DawqP7GjrmJa0DzQiXQiWMcIO1ySusQFvLBdNfuJ5+7nKfCAUQMdtV/T2ImvFdx6yRpNT
+	HkA01TELCV+L1k7jLUDJ/+JHznHTqE+JsSKtB83zBeDoiVYdLW+5qZEmTogh67fsaDOYEfQ7XFS
+	2bqc/b6PkSvqRnCZ7td7BDem8eC7jeY/es9kBrhEdRL4HQfVKzSeGEMJUu3r204cSnPMfy4EdiW
+	zeur9L7AeLhw4gENuUo8y3+b5yFS+L82k7a3l/5UNFB/g+63jjPyUbyFSGSPaTWTA9J5jSUJXy
+X-Received: by 2002:a05:6808:1527:b0:4f3:e98f:fa19 with SMTP id 5614622812f47-5683cb83119mr1326842b6e.61.1794296725316;
+        Mon, 09 Nov 2026 23:45:25 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:45:24 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 10 Nov 2026 00:45:01 -0700
+Subject: [PATCH v2 58/58] mtd: rawnand: diskonchip: retain chip state
+ across removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,156 +94,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-58-9137d08f05df@gmail.com>
+References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-When only_merge_zero_pages is enabled, ksmd only ever merges empty
-(zeroed) anonymous pages with the kernel zero page. A page that carries
-data can never be merged, yet the current code still allocates an
-rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
-decides to skip it.
+MTD device references may outlive unregistration during module removal.
+Disconnect before unmapping the device and freeing the hardware ECC
+codec, while retaining chip metadata until the final MTD reference is
+released. Install lifetime ownership before the late initializer
+publishes partitions.
 
-On workloads with a large amount of non-mergeable anonymous memory this
-is a real cost: every scanned non-zero page pays for an rmap_item
-allocation, and the rmap_items accumulate in the per-mm pending list.
-For example, a MySQL instance with hundreds of gigabytes of anonymous
-memory (mostly buffer pool pages that cannot be merged) ends up with
-ksmd creating rmap_item metadata for each candidate page; the metadata
-overhead can wipe out any gain from the zero-page merging and even turn
-the net benefit negative.
-
-Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
-get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
-checks whether the candidate page is all zeros. A non-zero page is
-skipped entirely: no rmap_item is allocated for it, and any stale
-pending rmap_items below it are freed (as get_next_rmap_item() would).
-The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
-counts it as scanned and continues, so the pages_to_scan budget is
-preserved.
-
-The all-zero check (pages_identical() against the kernel zero page) reads
-the whole page. For a non-zero page this is a net win: the extra page read
-is cheaper than the rmap_item allocation and the stable/unstable tree
-operations it would otherwise trigger.
-
-A page that is zero now but is written before cmp_and_merge_page() runs
-is still handled correctly, because the checksum-based decision in
-cmp_and_merge_page() (added by the previous patch) is the authoritative
-one.
-
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-Co-developed-by: Jinjiang Tu <tujinjiang@huawei.com>
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- mm/ksm.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ drivers/mtd/nand/raw/diskonchip.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 49f3728a3d03..e641c37ee096 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2535,6 +2535,69 @@ static bool should_skip_rmap_item(struct folio *folio,
- 	return true;
- }
+diff --git a/drivers/mtd/nand/raw/diskonchip.c b/drivers/mtd/nand/raw/diskonchip.c
+index 540b6baf8bb1..a4338b51b49d 100644
+--- a/drivers/mtd/nand/raw/diskonchip.c
++++ b/drivers/mtd/nand/raw/diskonchip.c
+@@ -1296,6 +1296,11 @@ static const struct nand_controller_ops doc2001plus_ops = {
+ 	.attach_chip = doc200x_attach_chip,
+ };
  
-+/*
-+ * Determines whether a candidate page should be skipped entirely when
-+ * only_merge_zero_pages is enabled, before an rmap_item is allocated for
-+ * it.
-+ *
-+ * A page that is not all zeros carries data and can never be merged with
-+ * the kernel zero page, so there is no point in allocating an rmap_item
-+ * for it. Skipping it here avoids the rmap_item metadata cost that full
-+ * KSM would otherwise pay for every non-mergeable page.
-+ *
-+ * @rmap_list: head of the per-mm pending rmap_item list
-+ * @addr:      address of the candidate page
-+ * @folio:     folio containing the candidate page
-+ * @page:      the candidate page
-+ *
-+ * Returns true if the page should be skipped (and any stale pending
-+ * rmap_items below @addr are freed), false if it should be processed.
-+ */
-+static bool should_skip_non_zero_page(struct ksm_rmap_item **rmap_list,
-+			     unsigned long addr, struct folio *folio,
-+			     struct page *page)
++static void doc_chip_release(struct nand_chip *chip)
 +{
-+	struct ksm_rmap_item *rmap_item;
-+
-+	if (!ksm_only_merge_zero_pages)
-+		return false;
-+
-+	/*
-+	 * Pages already merged by KSM are handled by cmp_and_merge_page();
-+	 * do not skip them here.
-+	 */
-+	if (folio_test_ksm(folio))
-+		return false;
-+
-+	/*
-+	 * An all-zero page is exactly what we want to merge with the kernel
-+	 * zero page; process it.
-+	 */
-+	if (pages_identical(page, ZERO_PAGE(0)))
-+		return false;
-+
-+	/*
-+	 * The page carries data: free any pending rmap_items that are below
-+	 * it (they are stale, as get_next_rmap_item() would), and skip it so
-+	 * no rmap_item is allocated for it.
-+	 *
-+	 * Compare the masked address, unlike get_next_rmap_item() which
-+	 * compares the raw rmap_item->address (which may carry the
-+	 * UNSTABLE/STABLE_FLAG bits). That is intentional: a pending
-+	 * rmap_item at the same address as a non-zero page is stale and must
-+	 * be freed here, not returned for processing.
-+	 */
-+	while (*rmap_list) {
-+		rmap_item = *rmap_list;
-+		if ((rmap_item->address & PAGE_MASK) > addr)
-+			break;
-+		*rmap_list = rmap_item->rmap_list;
-+		remove_rmap_item_from_tree(rmap_item);
-+		free_rmap_item(rmap_item);
-+	}
-+	return true;
++	kfree(chip);
 +}
 +
- struct ksm_next_page_arg {
- 	struct folio *folio;
- 	struct page *page;
-@@ -2737,6 +2800,16 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 			if (tmp_page) {
- 				flush_anon_page(vma, tmp_page, ksm_scan.address);
- 				flush_dcache_page(tmp_page);
+ static int __init doc_probe(unsigned long physadr)
+ {
+ 	struct nand_chip *nand = NULL;
+@@ -1494,13 +1499,21 @@ static int __init doc_probe(unsigned long physadr)
+ 	ret = nand_scan(nand, numchips);
+ 	if (ret)
+ 		goto fail;
+-
+-	ret = doc->late_init(mtd);
++	ret = nand_set_release(nand, doc_chip_release);
+ 	if (ret) {
+ 		nand_cleanup(nand);
+ 		goto fail;
+ 	}
+ 
++	ret = doc->late_init(mtd);
++	if (ret) {
++		nand_disconnect(nand);
++		free_rs(doc->rs_decoder);
++		iounmap(virtadr);
++		mtd_put_master(mtd);
++		goto error_ioremap;
++	}
 +
-+				if (should_skip_non_zero_page(ksm_scan.rmap_list,
-+						     ksm_scan.address, folio,
-+						     tmp_page)) {
-+					folio_put(folio);
-+					ksm_scan.address += PAGE_SIZE;
-+					mmap_read_unlock(mm);
-+					return ERR_PTR(-EAGAIN);
-+				}
-+
- 				rmap_item = get_next_rmap_item(mm_slot,
- 					ksm_scan.rmap_list, ksm_scan.address);
- 				if (rmap_item) {
-@@ -2839,6 +2912,15 @@ static void ksm_do_scan(unsigned int scan_npages)
- 		rmap_item = scan_get_next_rmap_item(&page);
- 		if (!rmap_item)
- 			return;
-+		if (rmap_item == ERR_PTR(-EAGAIN)) {
-+			/*
-+			 * A non-zero page was skipped under
-+			 * only_merge_zero_pages: it was examined but not
-+			 * merged, so count it as scanned and keep going.
-+			 */
-+			ksm_pages_scanned++;
-+			continue;
-+		}
- 		cmp_and_merge_page(page, rmap_item);
- 		put_page(page);
- 		ksm_pages_scanned++;
+ 	/* Success! */
+ 	doclist = mtd;
+ 	return 0;
+@@ -1535,11 +1548,11 @@ static void release_nanddoc(void)
+ 		nextmtd = doc->nextdoc;
+ 		ret = mtd_device_unregister(mtd);
+ 		WARN_ON(ret);
+-		nand_cleanup(nand);
++		nand_disconnect(nand);
+ 		iounmap(doc->virtadr);
+ 		release_mem_region(doc->physadr, DOC_IOREMAP_LEN);
+ 		free_rs(doc->rs_decoder);
+-		kfree(nand);
++		mtd_put_master(mtd);
+ 	}
+ }
+ 
+
 -- 
-2.34.1
+2.53.0
 
