@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333207;
-	b=svGuYVVsPFWgXLBGzXxKLf96abK6akcMD6SK5JVfs99nSHYLzjyd+Bs4hwi/uXHOrmf/
-	 O/jJWmrydmuBXk+TYnkuyVTDKqmx8IIJ5kNh5mBTOaCOMkI3xMnkh3zdVBkH5dLDLr6Xc
-	 REgtoGAno/vQgwVs/9aZ7P5JAzjJBtH2Uu6pW3wDhbG7KB8sEd1ejYU1F+f+0NKEjIBDn
-	 jvP99Ea8S8hFc8MXA6f/Ukoz1zOXZxkSPZUH7Dww54su0lFWreoSdMaCtNYdQ/VCUzllG
-	 gORJFUlFIz5P6UrUBt2/C1CdRGO3LOKRjN0YcpfsmB2wpZNWbNBorWZa8FtQNhSVI3g==
+	t=1794333205;
+	b=yqxNMgDGfSePGV9DA1X34goilgZ2wixMUV0jC434/FE6yfd/4Abc82fNl2TRXfMb/1NG
+	 rKIdZnu0r1Z/gOIUIo3MOsuvUadPCfURMaba/rRiKDk3uhGx+Eca3aa5GCKMY5cQyryoS
+	 LsnlmD5CsNbuw9ot/m13HmQOFrbfPXFYQapsW76uB7LJDX2RbsXpVE2Sfos/eL6YIQx1X
+	 6vVKAazz0/0xBFtmiHdsKhvjoH/q5Y6HIdry3DzOcHD1P7PZfiod1813yWDcRs+EW1Bti
+	 YTslw8IrMhKAbKnOW3iF3gKpcto2qCtSQZgGwADO1EzL8FNjeHgmuF6s7bnouNV93Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333205;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ebrgguzYZNPO98ahlAUGmK5SoDtGwXJz8Q3pxsxvEgw=;
-	b=Jmhe+y/BBx7wKErlfOZJjg4b1WjAQkWnaCGUvtJflfDxJ9+syt/grBor0X3K7HZxUCCh
-	 vG8n0BEn4hhROxZ8epyqhF3+pqZ4pBUa9X6wtBYpFz4QrPNy6Xi/5Xb24hysJgFVuzy+9
-	 m+YUfsRJ4p1k6y/jJ8iTbtEgfvT3YV9WFLGZvGZ3qkJIkI4Nup74s7fCSf44WVy4lSm5h
-	 6/VR/zlLkcR9pYO+ZHiR4+BPokIwH8f7/jUSrw0GuJNcz+A4NCr60XV1RMcnV9eZdqcn3
-	 5AKSafWpOH5PLWG4rajnluY+Yeq21DAaaMh4+lUTx7G/e59kTIADCWl1YclYUaoU8/g==
+	bh=ab568wwvPbStL1asXtzTrQ7hg5GKYsBt/+WIszdq9+A=;
+	b=auvAXNspw3kqXUOaPb6+eiZKsUB7sdvTgL5WW4jIc/woHoArsdXnFzE1YZGFCwM9kRVV
+	 fHKonuYNHISv6hKhxeNg42aQpF3htk8vFsMxie4KP54aL0EVfstKWs6EU4GARru0Z0Bf9
+	 V2hXyyr17LNsBhr/I/G/XzN+Q7/yIDY83vnkwX8sJiYnXQKho0eHgIBCWj0y8atjwCOAi
+	 e6FqBrmyvSDV2j8H4PWf3p6gglGbY2oTvQJx2rlgX0yGyKu9tl10BraphHxyO6r76Qrjr
+	 +3tZkfEwZlv8wo8y8lAqd2Mh7YxtZBN4HOFhvu9ZTVuoCPyvCaWAbsMBEjJ+S+lCgYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpi8Epj2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ruy9uac3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B850860A262E;
-	Tue, 10 Nov 2026 17:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81D1606A327;
+	Tue, 10 Nov 2026 17:53:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpi8Epj2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD211F008A6;
-	Tue, 10 Nov 2026 17:53:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ruy9uac3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0991F008A2;
+	Tue, 10 Nov 2026 17:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333206;
-	bh=ebrgguzYZNPO98ahlAUGmK5SoDtGwXJz8Q3pxsxvEgw=;
+	s=k20260515; t=1794333204;
+	bh=ab568wwvPbStL1asXtzTrQ7hg5GKYsBt/+WIszdq9+A=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Rpi8Epj2hAbMGS9noZ90k0oah0cdappeJZcbQPqArf6F1P6oyjOuB9F19VFsQBRqI
-	 BTDRBmrLMRK59Px5MifpXTi8+0nYI9q+6dud24HN6qd9SBTEYVCJB8VRdrioJdL3/J
-	 m2TB8nqYGRQ8s+VhX2kSTnU6PP8CFdF2STZur3jU5W5CT1U9wYVnGBV6WS9AvinRf9
-	 5iE0W4OQsMw7Nl3GYZnFsrHZZoOveKiMm5G0BqqOmxhegLnLSCRL7ok/Up0BuA3zGV
-	 i6MhyM0WSzoHyek3oJXGyGAso/leIDGchY8lLvyzCsywGpY/hr6Qej17ir1eWmJdF5
-	 X6HN1Av2KZCJQ==
-Subject: Re: [PATCH net-next 05/10] dpll: convert dpll_lock to rwsem
+	b=Ruy9uac35FNa/e9uIlj/CahwSyVHIhN0Ge8tMfWIqfdFhU3vJHMU1iZafxswC2obp
+	 N0isaOWEzLOhw3RCcWyrbI+izQTsqlALDv/G+/rlZNJdGj3EP1fYMzV8XwYyVicf3s
+	 DE+r414viPj+mUlqRj/5LlE+SAJ5Ac8yStGxLSJO/VlgiJxlKQDUHMq7qN6jNObrTo
+	 u23b1GglHX+rTp7fdfsyMGD9P1pv7w0JU6Ga8wzjVK1ZliyY5OwuDbGywnpM+gIuoM
+	 Ai6p5y2qWK+LmV6W0FJ/NBtw+yYQIL/QgBj9ReYwpr2f55trxItPQhi9Ee2eooI8Xq
+	 fqhEH+KU0CYVg==
+Subject: Re: [PATCH net-next 03/10] dpll: add domain object
 From: netdev-bot+sashiko@kernel.org
 To: ivecera@redhat.com
 Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
@@ -53,10 +53,10 @@ Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
  intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
  karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
  poros@redhat.com
-Date: Tue, 10 Nov 2026 17:53:24 +0000
-Message-ID: <179433320479.994134.13826920591104367019@kernel.org>
-In-Reply-To: <20261106121005.1327603-6-ivecera@redhat.com>
-References: <20261106121005.1327603-6-ivecera@redhat.com>
+Date: Tue, 10 Nov 2026 17:53:22 +0000
+Message-ID: <179433320288.994134.11961533455589849486@kernel.org>
+In-Reply-To: <20261106121005.1327603-4-ivecera@redhat.com>
+References: <20261106121005.1327603-4-ivecera@redhat.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,83 +76,54 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] This patch turns dpll_lock from a mutex into an rwsem.
+- [Low] The comment on `lock` in the new struct dpll_domain
+  (drivers/dpll/dpll_core.h) says it "Serializes the driver callbacks of…
 
 --
 
-dpll: convert dpll_lock to rwsem
+dpll: add domain object
 
-This commit converts dpll_lock from a mutex to an rwsem. Core functions
-that change the topology take it for write. Netlink requests, dump parts
-and change notifications take it for read, so callbacks of different
-domains can run concurrently.
+This commit adds struct dpll_domain, which groups all dpll devices and
+pins created with the same (module, clock_id) pair. Domains are
+refcounted, stored in an xarray and freed along with their last object.
+It prepares for serializing driver callbacks per driver instance instead
+of under the global dpll_lock, and states no functional change.
 
-> diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
-> index dd09f52817099..8eb7468234315 100644
-> --- a/drivers/dpll/dpll_core.c
-> +++ b/drivers/dpll/dpll_core.c
-> @@ -19,8 +19,12 @@
->  #include "dpll_core.h"
->  #include "dpll_netlink.h"
->  
-> -/* Mutex lock to protect DPLL subsystem devices and pins */
-> -DEFINE_MUTEX(dpll_lock);
-> +/* Protects the topology and lifetime of DPLL devices and pins. Taken for write
-> + * to change them and for read for the whole netlink request, part of a dump or
-> + * change notification that uses them. Driver callbacks are serialized by domain
-> + * locks, which are only taken under this lock.
-> + */
-> +DECLARE_RWSEM(dpll_lock);
+> diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
+> index da8a369556ed1..6705e81bc11de 100644
+> --- a/drivers/dpll/dpll_core.h
+> +++ b/drivers/dpll/dpll_core.h
+
+[ ... ]
+
+> +struct dpll_domain {
+> +	u32 id;
+> +	u64 clock_id;
+> +	struct module *module;
+> +	refcount_t refcount;
+> +	/* Serializes the driver callbacks of all DPLL devices and pins
+> +	 * that share one (module, clock_id) pair.
+> +	 */
+> +	struct mutex lock;
 
 [Severity: Low]
-Should the assertions in dpll_domain_get() and dpll_domain_put() be changed
-to lockdep_assert_held_write() along with this conversion?
+This isn't a bug, but is this comment accurate at this point in the
+series?
 
-Both helpers still use the plain form:
+In this commit, domain->lock is only set up and torn down:
+dpll_domain_get() calls mutex_init(), and its error path and
+dpll_domain_put() call mutex_destroy(). Nothing acquires it, so driver
+callbacks are still serialized only by the global dpll_lock.
 
-drivers/dpll/dpll_core.c:dpll_domain_get() {
-	lockdep_assert_held(&dpll_lock);
+The later patch "dpll: take domain locks around driver callbacks" adds
+the mutex_lock() calls on dpll->domain->lock and pin->domain->lock that
+make the comment true. So the mismatch exists only in this intermediate
+commit.
 
-	xa_for_each(&dpll_domain_xa, i, domain) {
-		if (domain->clock_id == clock_id && domain->module == module) {
-			refcount_inc(&domain->refcount);
-			return domain;
-		}
-	}
-	...
-	ret = xa_alloc(&dpll_domain_xa, &domain->id, domain, xa_limit_32b,
-		       GFP_KERNEL);
-	...
-}
+Could the comment say the lock will serialize the callbacks, or could it
+be added in the patch that starts taking the lock?
 
-drivers/dpll/dpll_core.c:dpll_domain_put() {
-	lockdep_assert_held(&dpll_lock);
-
-	if (refcount_dec_and_test(&domain->refcount)) {
-		xa_erase(&dpll_domain_xa, domain->id);
-		mutex_destroy(&domain->lock);
-		kfree(domain);
-	}
-}
-
-On the old mutex, lockdep_assert_held() checked for exclusive ownership. On
-an rwsem it also passes when only the read lock is held.
-
-Every current caller holds dpll_lock for write: dpll_device_get() and
-dpll_pin_get() via the alloc helpers, and dpll_device_put(), dpll_pin_put()
-and the register/unregister paths via the __put helpers. So this is not a
-runtime problem today.
-
-However, the read-side holders added here (dpll_pre_doit(),
-dpll_pin_pre_doit(), the dumpits, dpll_device_change_ntf() and
-dpll_pin_change_ntf()) can now run concurrently. If one of them reached a
-domain lookup-or-create, or a final put, lockdep would no longer warn about
-the race on dpll_domain_xa or on the domain refcount.
-
-call_dpll_notifiers() can keep the plain lockdep_assert_held(), because it
-legitimately runs under the read lock.
-
-These assertions are still unchanged at the end of the series.
+> +};
 
 [ ... ]
 
