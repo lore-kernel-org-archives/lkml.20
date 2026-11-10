@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301054;
-	b=SqNdYNVrTkhuqriXzp5jkTcmPkApvPIfyrtkbvBZTehh+3xpyObJLXR0ZCthylM7EmMJ
-	 MyeSeTtxQ8ePeytoI2tx0Rrh7GhLb3Tf9DwxWa5TaC+4XVXGjDMHJjKDOByaqOWmIlg1H
-	 3uT0QWMOSU0C2dSeuOKAEFtxp85BMkeSRwOYNZticz1YFTHPRttfGpbDKrEpDL6OVlka/
-	 QdQC8zU14nDavn3P/uXvoJjmKtHX/cCYQ6YlPyl9WV3+9LyNUDkDjtVm3iIcUJNwmsXmq
-	 bb6XkfFfO0W6RV+KJ98p2aw/TSFgWcQfeFLOzJK1Kk8cj+L4UAgZnZbZYBGIUXJ1Glg==
+	t=1794301061;
+	b=E5DJT5VQlvhmdXHxD8Rvnz65sehDdmCrZLw+R4KxOep0f4GalCwNMg6mnbftlX8ZzXP/
+	 e6eY2HDFjA5xG6EtfW69EM6bSRHWbkVuLwo7VtE6V3OlDyFEEPVzx3tlN+ApwWYKZgb1b
+	 IiuW1KnnwntN3lmPIzZEWJhBDxB4ejlRVj7qOxbgxsBSlybzoo2HalouAiB4KkXPdXQiv
+	 fxZW1k0rkCI6yNF1yrwbCPtM6J0IySu1TazMiC2/o6aXNu/9j/47qqShw3G5PIVCHi6IH
+	 dEQAzsrzEWGK1cfF5m+5goYQ4x2el/oQRp3NlmuDmi0IwqvX2SnaMwD9tB0mg4wBiGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301054;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=N456NnosGaoI7MKxsp6e0Ms9ZTTTgDYa/PkwX0lrx9M=;
-	b=ck7j/B06G3xBB2mO5lNWhxji9Q+OzbQg7uovE7HtKS3LtQMF2S9NrGBR1cfWPGK70tB/
-	 tDsTwMS6ZCPPzVEt5wr+kHlSMMbQ1/BoHZDx6Dk2S1sMkU5+NoanyUBcgwnTEgGa76hC2
-	 LB2SkuzVBFMdz9mUWagdYU9/ipXp1q+4tocjJojz9ELIgangKCmyKAMyCOX0KIH4vLKpg
-	 talMLm3W2s/Ex1t9KN5kqNJQYpmeMB1k0ahB8YpzgJ0US6B3q/a/xY/Ko9qeeWyO5wBdg
-	 YbiEhj7UmmgKGxfP5aGpv6+Acuh8Poc2Wa7BcyAtyi5MczktHSWNgFu5aAvPugpbcOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301061;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QO3TC598PjuKBpjKdzTX4SuKJE/JMxeGN6A58UOqy2c=;
+	b=AlLPBOC8wf43f34A5KOQgHMkJEZ+b91r1Ld47jG93McIVNTCke8GFiv/ytgrtakRIds6
+	 9VX6lGADVT72OO7ci+LCQPllJ1fI2GOVvGLPyqU7PYp5NpD9458qhPuU7g2BLJGDoah/p
+	 5h/yp6TCAhWU5m0v1T71DhwAb8fPrKRxswET7YWTBL5pYf+fNiIMnNK03bMbWUu9/4a4/
+	 z9TyzCHnG6v5p98UTeyeYDpBr43utmDjDpTxIl2NqgRGqWDuLcJDZt1AEBmv+ak1lY5F6
+	 l/IvTmA3PFVqnEmW2yicrAIPhp6wQLJn9eJNtBiaWoKi31DzUomEYy3DDBQWXYzBCWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+mQY1+h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohi12+lZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFD3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:57:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB84A606A321;
+	Tue, 10 Nov 2026 08:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+mQY1+h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B2B1F0089F;
-	Tue, 10 Nov 2026 08:57:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohi12+lZ
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E69361F008A5;
+	Tue, 10 Nov 2026 08:57:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794301054;
-	bh=N456NnosGaoI7MKxsp6e0Ms9ZTTTgDYa/PkwX0lrx9M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=L+mQY1+h6ujuFTABer/civexikaWaPzRJgaRK3DJEY0/SDc7Gomhi8a30x8EK9z9R
-	 zhiy9a4iyS4/Bihy3DftUvBhopjAk8TshBg1U+sU62E/izCMSSBuErYNJ2K0fWzxvV
-	 jqlAVpIHb7YXYPv+kC2KtDgD+rhVY/+VUvnqlvqf3KQpzUKV6OBJy1VBylrQhBkqjU
-	 VYCbFklVfkC0ntksPWfQsO6sLL4MMmoUOpNx48QH7Hp9StufHgicVxoD2ym+J+j6ZM
-	 nCnrWYtPFylKVMGLD+ZNQcIPSAHa/vKSOp7CMaH+OC3Tu+xvn2JM4Fms4/8XMCudJx
-	 dC5MMhHQaicKw==
-Message-ID: <e89ab6eb-2fd3-4638-a3a9-fef406478435@kernel.org>
-Date: Tue, 10 Nov 2026 09:57:28 +0100
+	s=k20260515; t=1794301060;
+	bh=QO3TC598PjuKBpjKdzTX4SuKJE/JMxeGN6A58UOqy2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ohi12+lZlHUZQX+s905Dw9DFBrisQN0xiV0rzzgZu+NlzU3L15GiZsusvCdYmiGam
+	 4teSigLD5V53HUroqi9496ujv8mEOZVuAgia2xpur7VXf1eIMZ4sWgcygaV5pEVXkW
+	 0Lzo+/Qbp6IAHKHpOvy6MOaQAg7OvcWi+1nlQJbIM7GDU7h+Wc7eVoR2tozhPz52NZ
+	 oImRSjVqJ6Wkk6PLCNvdrLmghlcdc6CpDzSOr4M42MknGXlaIxdVZ5Uk03gMyaq5cN
+	 SiwjVohnF4x8w6vtnbiwoiDVtlB9NU3ALsTTtYoZgrpakukawkeLSHGrNVMsyRgOqA
+	 oCGr0B5uVtSZQ==
+Date: Tue, 10 Nov 2026 09:57:36 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Johan Hovold <johan@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] software node: make swnodes hold their own references on
+ parents
+Message-ID: <esbdzbsadwc7hym6aa6x3lirhs3r47w2wcygwshcb3metdh773@ersixahci2rm>
+References: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
+ <avIkbNrRtnJxZuYL@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,70 +63,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc32/modules: Reserve a PLT entry for
- ftrace_regs_caller
-To: Bradley Morgan <brads@mainlining.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
- <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-References: <20260923175631.235276-1-brads@mainlining.org>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260923175631.235276-1-brads@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avIkbNrRtnJxZuYL@ashevche-desk.local>
 
-
-
-Le 23/09/2026 à 19:56, Bradley Morgan a écrit :
-> Commit 7dfbfb87c243 ("powerpc/ftrace: Activate
-> HAVE_DYNAMIC_FTRACE_WITH_REGS on PPC32") made count_relocs()
-> undercount the PLT entries the loader
-> consumes: module_finalize_ftrace() now creates two trampolines
-> (mod->arch.tramp for ftrace_caller() and mod->arch.tramp_regs for
-> ftrace_regs_caller()), while count_relocs() reserves only one entry
-> for ftrace.
+On Mon, Nov 09, 2026 at 09:52:12PM +0200, Andy Shevchenko wrote:
+> On Fri, Nov 06, 2026 at 12:13:28PM +0100, Bartosz Golaszewski wrote:
+> > In swnode_register(), swnode->parent is assigned before calling
+> > kobject_init_and_add(), which normally acquires a reference on
+> > parent->kobj via kobject_add_internal() that is held until after
+> > software_node_release() completes. However, if kobject_init_and_add()
+> > fails before acquiring the parent reference or drops it on error in
+> > kobject_add_internal(), swnode->kobj holds no reference on parent->kobj
+> > while swnode->parent remains set.
+> > 
+> > With CONFIG_DEBUG_KOBJECT_RELEASE enabled, the random delay in
+> > kobject_delayed_cleanup() may create a situation where - when
+> > unregistering the child node and then the parent - the parent object
+> > gets released before the child who's left with a dangling pointer.
+> > 
+> > Acquire a refernce to the parent swnode when registering the child and
+> > drop it on child's release.
 > 
-> So the core .plt ends up one ppc_plt_entry (16 bytes) short. The
-> walk in do_plt_call() scans for a free slot with
-> "while (entry->jump[0])" and has no bound check, so once the last
-> reserved slot is used up, the walk steps past the end of the section
-> and patch_instruction() writes the 4-instruction trampoline into
-> whatever module memory follows the .plt.
+> ...
 > 
-> Count the second entry, mirroring what module_64.c does for the same
-> pair of stubs.
+> > +	if (parent)
+> > +		swnode_put(parent);
 > 
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
-
-I would have had a preference for something similar to commit 
-c12cfe9dee07 ("powerpc/module_64: Convert #ifdef to IS_ENABLED()")
-
-Nevertheless,
-
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-
-
-
-> ---
->   arch/powerpc/kernel/module_32.c | 3 +++
->   1 file changed, 3 insertions(+)
+> This will be the second case of potentially NULL being passed to swnode_put().
+> Since it's a static internal API, I would just add a check there and hope that
+> compiler will inline and that will be optimized away on the cases when the
+> parameter is known not to be NULL.
 > 
-> diff --git a/arch/powerpc/kernel/module_32.c b/arch/powerpc/kernel/module_32.c
-> index f930e3395a7f..61152deffc55 100644
-> --- a/arch/powerpc/kernel/module_32.c
-> +++ b/arch/powerpc/kernel/module_32.c
-> @@ -41,6 +41,9 @@ static unsigned int count_relocs(const Elf32_Rela *rela, unsigned int num)
->   
->   #ifdef CONFIG_DYNAMIC_FTRACE
->   	_count_relocs++;	/* add one for ftrace_caller */
-> +#ifdef CONFIG_DYNAMIC_FTRACE_WITH_REGS
-> +	_count_relocs++;	/* add one for ftrace_regs_caller */
-> +#endif
->   #endif
->   	return _count_relocs;
->   }
+> Maybe in a separate change.
+>
 
+Yes, I actually added it to my TODO list but this is clearly a fix, so I
+wanted to keep it small.
+
+Bart
