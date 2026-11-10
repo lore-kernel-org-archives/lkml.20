@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343210;
-	b=vR3FDiK0KinIPCXOM1TekuWmvFahvGf69DIhVkb5nrY0XwXPbirNs3cn0VOg9/VcEg62
-	 DIew56X5hcvs8Zk3F1tv+OOus41iCdPwbpgfrkvQ+okOAkJqbBUCYMpLUXB9clFi61w6x
-	 Kq36SwU7yOw0LaR/4JyHoS2tbOQ1oSKLScb5ygZUwKhQ4dgRoCOPiSXJ5/CS2g9QOeeAo
-	 h4PhZEBIO5NASlKbfcE2zkVuq5SZtCyHoEZEghHLbZrh32N+OhVCdt8iJMKYg8xt/daZH
-	 rJWZhHcshxuM0UR6zH30eIU2ao0gunXB/KWcpEAXzl3ZBC6cstjp0A++aTaBNElizOA==
+	t=1794343259;
+	b=sT6M30aSLNuU2HON4W5Roo0ECkOG4I3jsvl6SQeRsBS5RbHYfcQlRa1bH+kommPmNYT4
+	 b13LZcyiIN/r72QJxjSnddndqZ3eRue74rQ39CHabXuyPc3T2Pb0NEnCYtlfBhKCXwbcE
+	 v03eZV1sr4PsDIsQdVMnGdXz7J6W8FbFBe8LqkUFrkk6OolA+WHT0GKTI1fWcQ68jdf4e
+	 9+oKysr95ViX5uoxgNDc5bAd3cFS3u3LRK6hAFnWerL55jh4HrOclpxhZ18wbq4VtAHhO
+	 cRzCEPpJr5FeJ4INGQTROHvTCRnXsbFaeh4J/2/kxqezi5g1VVbwZ/plFNmCBpsJc2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343210;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=tH7VEUdf+F5G4QVeqrk092cc8aMIfb8V1vO/1TFqi0s=;
-	b=E2TOK1Rl5c+t4J/kL4cJESEXk1WutG47MoEr2uan/jzLyXhaTGEZ7eV5w8HlumP3oa2L
-	 63biIt1X+yRhO007BotnUI+aDddNikLgmfKHHDJuMs8lO1tRr6two+ZT5enLHFpgDe9aA
-	 fz99HqtZygHaVNCkivwWXFbCU0hXYxZz668phEJxS6JZvKUWmCmrKuyF1hHtQfFBXoLop
-	 0/4tEXWD7QZBLay5Mws9qHBjcZdxH3lVLcXyPdrAGllbn6rP1AHo8ief67ATXIMHI3d9t
-	 pf0tntH7dpMsDTU6bVZHeAc+ZXTfojjkJOQKamSt2D3AmwzjgMZTYxxhuyDZz+tfeIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343259;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Z2r/5TPOj6xlBCwBMvS5lY/uHLFbDokwBpHEPZnfXAg=;
+	b=5Xt9y7tFXMAgFAeyAqolLrJ02EyPWTr/XVwaUPMjbrvE2HDi9wwiuiY4VJ+a9gGrOffG
+	 5+kvAwHhtUUuLG1/dIWv+lK3s14ztAr8PGU6xPQBltQWac5P1+BqtMlYOjkIHzYSE9myZ
+	 qZsz/FjYIPKjPT0O4sFj1Al6h45gSCu5iPCgfMrRlPifTIWgwpFcQmJYVQiGx0opsm4Qr
+	 lqpBudB/nj3sEkL0mPdXCea/k8pLE96xZsi09raadF1lnb+XOpjwbSM/cxRkdvWQH+sWl
+	 zupOUwzlOCoI/GiHAc2Yvf0vaMgS3BPQD+Zf6bJmIcUKMeNwBbBuYkzoAT1ApFAGlAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwnCAze0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oDNonfYx;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E10D60A3812;
-	Tue, 10 Nov 2026 20:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75454606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75454606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwnCAze0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B14B1F0089F;
-	Tue, 10 Nov 2026 20:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794343210;
-	bh=tH7VEUdf+F5G4QVeqrk092cc8aMIfb8V1vO/1TFqi0s=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=DwnCAze0sSTut+Dgb4VfT/uuQuZyOMhw5X6/Xejt/ODP6tUm1/nJt4qclP0LUD45/
-	 WsuHhJRkg+BJ3purSl/wxLt/Q9utnuZehp1mB9+auMaV6eTZgJDv6US3M0MVqa76N2
-	 yUr4wKX2zMvsKcgGfO4HYjh5wuYrHkbXc8FGbmKgLfClP7xeKFAv98EQ68O/NFeTb/
-	 W/AlTYq22g9dpsE5393qqFFgNRfsJvUzpDbADHZRbLq9ZiYGy/K6MOQcFGzICxYFWr
-	 glfSJdhX6Cvu+qSfFwKCJC0LnYjRg7h0rkzpdhgNuzvR1xjeAJR4KPpowtif9lJLfR
-	 naYGrHFXdynqw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2110239D6577;
-	Tue, 10 Nov 2026 20:40:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oDNonfYx
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3910218eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:40:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794343259; x=1794948059; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z2r/5TPOj6xlBCwBMvS5lY/uHLFbDokwBpHEPZnfXAg=;
+        b=oDNonfYxV3uPERsEfmZktK78O1OYzkH6GfwFoa6Q28trPcc5e7NsrchzQxsI28BIXa
+         XZlW/dSuycFbDvY+eqLdOolB8u2hU3zOxzX87h59Gz8ZeVf3c+5gd5vfnDaPjET+HJwj
+         ydlIJb/nNsSUrt19d1qWpP+mDGLRurZiCHegGrgLD3IS2n+nKIEP30pd0s3XkAy8lxbj
+         ikf41kzJAtRqigyeQtGfofjWZpx9aadU30zFneLo/LvweW8/NjzQBjoN1xJHGKOQDfeW
+         dNY/vPhznM7JEWkRoXMDRFJljKljRX4zgA9SP6tzX0NfGuuC+pf4wAzDMANKXxHtzADI
+         I06A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794343259; x=1794948059;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z2r/5TPOj6xlBCwBMvS5lY/uHLFbDokwBpHEPZnfXAg=;
+        b=hDnFk2V2ylo8on5CSshbF8OyITLNwzo7SDvB9MFS2HoFeX7C5vwdJlxS3gd91MyDU/
+         3AiZMG7sUAAVBn9mwUdKpXDkWIx12ysGjUhxlRT20bbBrIv8NYArweCuJUppJ4D59gpf
+         Zid3CkX35+WwQaW+EFZtLhpxQKbhaqNvH7tVS0eTxO8G5ZWcHn6uDrLFWOYwgbo5S8HX
+         jWIIy6IgwaTi2l5w0qYZh6icF8jJhdhEj/o+TECu9wRMwLv9FD/UAinWawSIz62ZLjJW
+         /WbMDh4BXZIp0XW/A/tAvoFjzfRyZ/ppazNQSMSFAgDRarSRNPxL3yl9Xl8TRJlMRtOd
+         GEDA==
+X-Forwarded-Encrypted: i=1; AL+hErGj3pMtyK8kRy3VxEycJmqRWFWmsIK9kUE7K6twf2eY+swx2zfJ8ktd3MmkdNodNgvqhJx1AINl8WF+DVM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9h9Ekkn481ztjr3vg5geYu6yAfoSjWVuf1jtoYDlsX6f6nllHr
+	x2DDCMsgwBQY2+WTauB3OxaqQi/KIoj6dvElUoGyWwpOLciQ6VnbVBJpALD+Ntii
+X-Gm-Gg: AYBFou3W43kiyDhAH2LF/XObrTPBbZt8AuAsO+C/n3q9E1Hby8FX9/4ovDZ+tEZKsMO
+	3VqQ/cvVqPL3JNycsySVzthHir1uwrMbgws5RaS7wt/cdgJyJDno8qqXNh0bKswMOI3/veyGxbo
+	o84Z6YRbIfCx94o2h+3OGaEeJ9qNxoiUbfm6oTb4oZqB2nQKoCfKoyIMpFFyXC0EXaE3d4Nu5lY
+	H3LIIydhEXhmUGPiZHKP54qbjF5n8V6uv+ewc+ngIAmGvFtLvYiOeI0ar7sUepj5tNsx6v/+toT
+	AaKIi7IGoVOO7+/LOeQgypJSXOM3H9lwNa1hnJRryFtOiTntCbcj7mhfCng/Qti0yJcsgJ6vvXB
+	08UIqhGdBd30VMU+UsQNt+RCWGca/3cByVqOwfZSa4mXNGoQPxaeG34Z2ANXyx/2zHB86+GBR8Y
+	kjQCPz0xz18nDPvZ8Jtt66cq/7NOJW/AjcWjYdKGZKqyt3e96C9DmiJ5YJaZpbjTYVRBc68A5Db
+	VjreYdDVvt41t6ceaXYb3rQWGIdp02CTvKFSgPJNvkJ/8uoDDGWE+t7cAAKLLa3Z0MpPZG/7nN1
+	OQcWgOgi1q0MSPRBRIvTNk1lZrwbLT3RA0r7kiEs8xB8I2lE7H9h0lZLyTFj3vEC8w==
+X-Received: by 2002:a05:693c:600a:b0:35d:4e41:d2c2 with SMTP id 5a478bee46e88-37686d3278amr499900eec.33.1794343258427;
+        Tue, 10 Nov 2026 12:40:58 -0800 (PST)
+Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.98.41])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bfb58dsm17473286eec.18.2026.11.10.12.40.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 12:40:57 -0800 (PST)
+From: Gopal Malaviya <gopalmalaviya53@gmail.com>
+To: akpm@linux-foundation.org,
+	willy@infradead.org,
+	jack@suse.cz
+Cc: linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	fujunjie1@qq.com,
+	vishal.moola@gmail.com,
+	roman.gushchin@linux.dev,
+	tracekotae@gmail.com,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] mm/filemap: restart mmap readahead on sequential faults after many misses
+Date: Tue, 10 Nov 2026 20:40:35 +0000
+Message-ID: <20261110204035.184968-1-gopalmalaviya53@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-206717@kernel.org>
+References: <20261109091444.128521-1-gopalmalaviya53@gmail.com> <sashiko-outbox-206717@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,45 +107,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] tun: delete the flow entries of the moved queue on
- detach
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179434320867.48129.7633247531885586539.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 20:40:08 +0000
-References: <20261104174240.138491-1-umangpokhriyall@gmail.com>
-In-Reply-To: <20261104174240.138491-1-umangpokhriyall@gmail.com>
-To: Umang Pokhriyal <umangpokhriyall@gmail.com>
-Cc: netdev@vger.kernel.org, willemdebruijn.kernel@gmail.com,
- jasowangio@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
 
-Hello:
+On Tue, Nov 10, 2026 at 09:15:49AM +0000, sashiko-bot@kernel.org wrote:
+> - [Medium] mm/filemap: do_sync_mmap_readahead() recovery fails when
+>   min_order > 0
+> - [Medium] mm/filemap: do_sync_mmap_readahead() ignores VM_RAND_READ and
+>   !ra_pages
+> - [Low] mm/filemap: prev_pos == -1 wraps to match pgoff 0 on 32-bit in
+>   mmap ra
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Thanks, all three are right. On XFS with 16 KiB blocks the reproducer
+still takes 4096 major faults with this patch, and on a MADV_HUGEPAGE
+mapping with MADV_RANDOM it starts readahead anyway. I am testing a v2
+that handles both and the 32-bit case, and will send it once the tests
+are done.
 
-On Wed,  4 Nov 2026 23:12:40 +0530 you wrote:
-> When a queue is detached, __tun_detach() moves the last queue into the
-> freed slot and decrements tun->numqueues. The flow entries that point at
-> the old index of the moved queue, now tun->numqueues, are meant to be
-> deleted, but the call passes tun->numqueues + 1, an index that never
-> exists, so nothing is deleted.
-> 
-> Until those entries are refreshed by a write on their flow or age out,
-> tun_automq_select_queue() returns an index past the last queue, and
-> netdev_core_pick_tx() sends every such flow to queue 0 and warns:
-> 
-> [...]
-
-Here is the summary with links:
-  - [net] tun: delete the flow entries of the moved queue on detach
-    https://git.kernel.org/netdev/net/c/4cc0a3f89707
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+The page_cache_ra_order() underflow is pre-existing; I will look at it
+separately.
