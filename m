@@ -1,168 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794313481;
-	b=uHWJlBMvzb+ktaoKtUCRgAz0wDMn4Xf/u+MDgSVX0TUmyKtPR5GupM/K2efhVLLeKV3F
-	 5G+HMryZ60XL1BMC0IQoZ7dWDdYxvq9SS6XZmFK04LeZaF7q2Cxgak7cY2s7jTHqId+KI
-	 bgE5TNTz6kEGXXmdmIB3097kgnySJqqPsGaYHDER9dqG4ZPCiruNKAM55KW4K9rP99q12
-	 Lyyxrhg71PPdD0S3YGVB5u1nI7x02kE7rRkCnbxeoSJw1RI7uDEhNbL1NCKe9cwI/itZ5
-	 f/FGMGGa32Rbk+eLFMsLtoheECkIxDPGqHByDigH0aUfqj0d//YSfYI5zxLB4AUryeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313481;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xDOIdpaCx9QY4p1FOgufA3xlzxKio9Xq87xYhvhitV4=;
-	b=BZP9a4Wac4Ui5ETV+GgfX+9SSdRzjjQ6c7k249jTnXNjQI1Od3jjMKo+Np/PiMzgFDuq
-	 MbfhEkvqGzarO9lq0NbKrqYtCQ78JBjZweR+n1DEme7AiRllbbS1TxEzgCaueYL7ZlnVp
-	 4D+0eW3yEYEqYIx04qVe/PPKzOGuUtzMoBE/w7dt9qc05mXI2Z4iKMrgk+T9QtM8HSm1L
-	 u5RLBDd/Asf3eAQNbJ2GM4HydAqx0CuPPOiZ6tnq6cl9T+aDGiKZ3+onw9Wb5lg6sJKUF
-	 irt1q98WkOkAEQKTAaEXGyjfyH5usrFwql+B0//lj1Nf/cR/4JJHWZc+QsvrmPYSLzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=I2D1k0kP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.69
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19011069.outbound.protection.outlook.com [52.103.23.69])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794313491;
+	b=5A398j7TTNOxpwDARGj1ZOrVrRsCl4qHfuH5szih5UqP8vEGlAff8Op8jRo9gP8J2o6I
+	 G+Qo9BLVqel5vtfIJn7oKSg90a25JOnngddgO1xREAuMEMRlLkrUbdEkHYgLdkLXoTGDm
+	 wvKu5mOrZJeqc0Mg1uwoIwVk108mmtH/RmVJ5HdtbDWeQ0sG+HSKC1G1Zqf/+mZkZrrg4
+	 FfakpdhQ1E9PS1lABR8aZxnWIr8EBAyZxe9L+flqXzxZOD1UhDymGWAORH1aBtJ30f4C/
+	 Ond0XFJDXBoDqUBM+OgZoL+jjGIMYCln8RuYHiuISyrqqCEQ+bNVsczt7zSethUhX+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313491;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=oGxVOcOZKJdSVIhjkgYRwcfA8DhUPk7Xrs1pQVfHMK4=;
+	b=dHIQG2z33cj2jwbn2UUAsNjaE0ZhVW3P/KFFOTvrOEUTWGk+lhmMz05rGm0JvJD/OECv
+	 +4GVsgujE5MgUUQ9iKslngttfssR4OMAfxqITsan078qh3BP4fns5hLfOuniuj5XuBIfn
+	 j0mX0IGsxSNfloIQGEHN6JWxI5G+ugQ51A/xyR6i4UURVYQIU0hpqeCsw0rPagVNCCmuB
+	 VDamlWM6l5M+5A7g+s9rENEjIqXBNS9qFtZ1MWfMyR6TgLsszIawtK4rsjagJFix95u2q
+	 qtmQSxE48xnLnJncDOA+XdFX7v5X6ImGZAEo9TF3OqL9uiB6n8UbV/wwNS9RyIQFdyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="IGXR5J/f";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Znbv1O2I;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24356606A31C;
-	Tue, 10 Nov 2026 12:24:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24356606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3401606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:24:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3401606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=I2D1k0kP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VT7vzpeEItI744ABovFTnr+WVYnEbznfxkcXIJl7+NsUfslo6smrBd5rtbMLdefWlXVLsMhhxfWI0CNkNFDSCS6m3lGh5UYhe+XRMhA5WiOYGhMq/9sj0l6HRVuzau381aNe0pFY8KA5eHM/ndP0jXcnoiR2Coq1VMjskuQKWB+jkabc/Wn7lOWOCUIj7SaAMbVMi45lTNLIFZiCIdY7H0PThaSZLW9kCbJBGLjJRP4pQV6TajfzgwF7U+9h+7wjywMlhAiXU4bPIk2PlDDEMUvELIoSC13dV6hAtnfMjczcA3OgAh/OArjOVU5JC6cCjr0By8kOofjR4MwpmWyMTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=xDOIdpaCx9QY4p1FOgufA3xlzxKio9Xq87xYhvhitV4=;
- b=Z3E6c6oBWb7zhQELcW9idVwLC0C+X9b/FXsYZ99a4HHJDswPUyWdxOjocxoNjxNCNQD939nlMRINzoK2txW7WqxMSRYOz5C1N/gf0HgXnSj1JT3EZfBWYlpy+LGhkEitk6dstZe1ES7QTawkmhtEIyJQQ432hVbjxWA0SGEbIfk4YhNBJ7nLSUYrvejZyYFDSeO+EYJqGXNoO56kY/e4melMzDC5cggLJQwtYbhnS+0AB4k58v9mdoU0wbW+i77npWJ7DU5tAp10cmaNdSO/W7IbzuOOTK1RBx/q8EGT07zUy6EteVOfoxpRUr3ErctyqLF23oz729/apv6+Wk/eNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xDOIdpaCx9QY4p1FOgufA3xlzxKio9Xq87xYhvhitV4=;
- b=I2D1k0kPufVrPjkSDffoBrn5lgAs7vQ4PYbEReRDfuwF+P7tynx3d8ZrIyVMhbCJW+O8kjHQLyCYlnLMDnqnmNT/jqvFJ2iFiz66GLz0FtEAfovse+6rJjMk0SwfnT5XMSg6LnUg44hlqcJegf8uCJJF14dHhG9/N3PH9G54UTTs9wC8hR13E/vcpgRYUSDICl9q8fUuYklzwRagzjY//oNGela110K3odLw4CJW7uMUOz8udeKVCNj+qYn4KcU7jaOxioQJWWTe63meauSDXc01fpr/r/zRpLkdEbf0wT1IS8I1NDtpqjkDziouOeSguFKMgMk/bHh+YXQTu1n2tg==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by SJ0PR05MB7532.namprd05.prod.outlook.com
- (2603:10b6:a03:2ec::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 12:24:38 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 12:24:38 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "yangxiuwei@kylinos.cn" <yangxiuwei@kylinos.cn>
-CC: "mkp@kernel.org" <mkp@kernel.org>, "James.Bottomley@HansenPartnership.com"
-	<James.Bottomley@HansenPartnership.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"bvanassche@acm.org" <bvanassche@acm.org>, "jthoughton@google.com"
-	<jthoughton@google.com>, "asml.silence@gmail.com" <asml.silence@gmail.com>,
-	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v3 5/6] io_uring/cmd: allow reusing SQE storage for
- completion data
-Thread-Topic: [RFC PATCH v3 5/6] io_uring/cmd: allow reusing SQE storage for
- completion data
-Thread-Index: AQHdbp1r/IUM1KiQW0u7BqizLWiRsQ==
-Date: Tue, 10 Nov 2026 12:24:38 +0000
-Message-ID: <20261110122434.4144043-1-x-professor@outlook.com>
-References: <cover.1794045010.git.x-professor@outlook.com>
- <a4ec8431c2f36172348449b872faf26d7d6d4d7a.1794045010.git.x-professor@outlook.com>
- <20261109025114.433681-1-yangxiuwei@kylinos.cn>
-In-Reply-To: <20261109025114.433681-1-yangxiuwei@kylinos.cn>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|SJ0PR05MB7532:EE_
-x-ms-office365-filtering-correlation-id: 772229fa-9495-4d15-7870-08df3f2596de
-x-microsoft-antispam:
- BCL:0;ARA:14566002|4140399003|24021099003|25010399006|31061999003|16041099003|38102599003|8060799015|19110799012|8062599012|12121999013|24121999003|22091999003|15080799012|12091999003|53005399003|40105399003|26121999007|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?utf-8?B?dmtyajN5cmdNNFJWcDVHZmU1SHF4aWx3QjhFRVVKQXA1N2Q4TE5XZmkzWHc3?=
- =?utf-8?B?dWNCMWtCdzJpZUNyVXQzTURnMU5kVi83N2ttMEYyeitVS2l3aFlsWUluei9a?=
- =?utf-8?B?ZCtwM3hSbjI1dTJtNTRXbCsxVzEzdXhqSXZsSmgwZGdEa2VlSTNsNWZaclNs?=
- =?utf-8?B?dzVaMXNhQnBXYWt1VkR6OVlqVlZtY1UycWc0RkZjdkVENlNDTjJzUzQ5TWgz?=
- =?utf-8?B?c3Q0VlVVSU9taTdYRi9pZWRCSXFVaGEzdUR6bzBzOVVsWkcvS0VmRG5NTVFI?=
- =?utf-8?B?MEtibkJwWkwzVFViTktEU1VQMUFMdkNUOW02dzZtaXBwU2ErbmFYUkhpZjRP?=
- =?utf-8?B?SGxEVzJqYVZxSGtVTzZaeDljSWtPM1hZUlh4NWdFQms2TThyaHpyWGlEQ3o0?=
- =?utf-8?B?Nm5Od0NIUHhkQnVEdDhqM1hjd1BTRTM5YVNyTXdLMHdNbmVibm5TMUtVcm9y?=
- =?utf-8?B?VjRKTm1tVzZkU205RGRlRFBMSnBmVmpLQlFuS1BWbHFvV1RuVTRDbGJTYzRl?=
- =?utf-8?B?a2NnUTV5ZlIrVTRiZE5BTFpUQzhiZjdMWlA3b3NzcGt0NEhOcFZHUW1KSUll?=
- =?utf-8?B?VnNyZEY1NGtBUDcvaCtNTklCVWoyT1BPNDR4SHVZZ0pEOGo5K3dvbzFtUmhN?=
- =?utf-8?B?U0t0YjJ4MGI4TUt0MGk1S2V6b3kyV3pIOUNER3YzZDdqblQ0T1hQRFdhZlQ1?=
- =?utf-8?B?eHRvd1Q1S3BrL1pZcEVyaHVSZFdSbnNwNURxTHVkemR0S3NnYVVlKzdCaGQr?=
- =?utf-8?B?S0ZKRkE2MVJ2RkJsQkF4dU0wOXRHRXZUTnVKZXg3azd6bTZ1YUdZYkR4dXph?=
- =?utf-8?B?NWI4bzdKVXkyTndBS01BWG12RXZadzZUVlduZVUxVElHbnB1NUhJWHluR0gy?=
- =?utf-8?B?TlU3OUlCTCtRT2FCMWFzSVE3VCtPdmFSMnhrcFNNaVdhNHBYTGVWT2dLRC9w?=
- =?utf-8?B?aXhpUkg2TDU2dTh5Qm0xVVREems4NGZtTnRWaDUwMldDYmtJajNzeEVTRklT?=
- =?utf-8?B?Yy9JV082SDMzbEQxb1FZM3JUYU55QzNUaUZJT2grQ0dlZE52NGpxbXZ5WlRm?=
- =?utf-8?B?c25CcEZXNytsQkJYVHZWU1pyS1ZUZlJvcjNwL3Y1Q1FmYklqT2IxVVpWT3lN?=
- =?utf-8?B?YWJpdmp0YzNjWDNOYmJyN0UrK0tXM0JIMXVYTXFCM1hiek5CclRUQTJ6a1F2?=
- =?utf-8?B?UUZVWVpXcTRPaVpzdjNFTFVwd21WaS9JM3lGT2ptS0NiVVo2UTNac1FCSG9t?=
- =?utf-8?B?NWRZU0RRUVVwZ3k1OVYxUWVBeEY4amNiQWFsVWV3MTlRbS80a2VuRFA1RWdu?=
- =?utf-8?B?cEcwTE9VR0NPU0RIQUh5YzJXUkYrKzE4Mjd4bS9CL2hiSEZyaWROcXBrN1Zz?=
- =?utf-8?B?MU5HSlFEREo1c1p5K3JSMXVleUl5YXYrbUlWdlI5ZlN0L0ZIMko3ZVJXYTQ4?=
- =?utf-8?B?RzlWV1pubTVMTVYwbGUxby9kSXJNUWxmY2tBYVZjbXk2NTVOdndxUHVNUlJk?=
- =?utf-8?B?MDd1cVNnaDBYd1B1WGJEWld1aTRSY25FdU9UVzF6Y1AwSFlUWURqcjN4Mmcr?=
- =?utf-8?Q?Xzexb5sqJ7PW6S8HnfysGVchg=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RzkrRkVGOENEaWpEanQ4Tm5zcnp4NnBmaFNVbUs0N2FyVDFOQ2xYUUZQV1Mw?=
- =?utf-8?B?QU14MVVzM201TUpkaEY4dG5qaDJxNEdpOCtBd3NYcjlHbG9uL01Ob2d3MEx5?=
- =?utf-8?B?UDVMTnlTVFBzdUxuTjluYUduMitEeVFINmdCWExFbGRZa3ZaUWN4MHZ5R0xu?=
- =?utf-8?B?YUZSMmdTSnZ3azdpRDBNKzkwWER3YSswNHNITlRwWExTWmt1bEUyVDBSNE84?=
- =?utf-8?B?bVFNZ2NRVXlqbk1CNWRxL2lSN3NWRXI3cXl2cksrRDJkODFOTzVlSjJZTVMw?=
- =?utf-8?B?aVBiR1BXTHNkN0FYZjFuMittZHBQN1lMTExQWTlMUWRhUllGWjhQdVRvSnl3?=
- =?utf-8?B?M0JsM0xBYUtMbjAzaFF1b0NSeHRGdmlrMmp5SDZqU055TjM2Q2hENUJGUElo?=
- =?utf-8?B?bzNNb0xqV3RlR2dwTms5bkRYVGxmZEdqOTVheU1xM1VxUWgrQVRxS0JZNzlO?=
- =?utf-8?B?MEMzMTN3MHo1MFpVMTRjUzgrK0dhY3JERHFwZUI0TEZMM1VlY2VIMXhkRVdu?=
- =?utf-8?B?MS90OE5GQ1dmVzA2UVlBc0Q3cTd6c2RLRko4Y0pQWFNNMnFPQ2RONzAzT2NH?=
- =?utf-8?B?bElvNTc0a3pNd0JlTjM3Vk5YRGxUcHlkbFZQUTAvZGdlajUwdmhmZzR3M05Y?=
- =?utf-8?B?cFRaTEdzcWZPMWc3QzRKdmxFam1jM3BFWC81ejJ2eHgyeGNtNDRTQlg2Yk9C?=
- =?utf-8?B?NGg1Vzc0eXc4QW1tV1hzbW90c0FKNzQ0c3VKbmxFTTVENVVoNWx1d1h2bnZR?=
- =?utf-8?B?YWJvcmtNazh6blpDYUQrcE1hVkUwcnF0NzlrWFRXN1NSTHJ0aDRCZkUrOGNC?=
- =?utf-8?B?Ky9lU0ppU3FTTnBMTkZEWmIvNFZoYS9xT3FKRFFkc3hPdFRjcUM3WEZNdG9p?=
- =?utf-8?B?L0t3Q1dKbTRSUzloYVZlY2RyeXBnNmFJZDBTclp1N3Z6czU0S3RRVXlqSzV2?=
- =?utf-8?B?d0EyVVRMOTFpY2dpdkpKemRuUDR3cHBHY01rcUd5N1ppQWIyaUxNc0c1WHlw?=
- =?utf-8?B?aEFhNXJKMU5mbjhxc2Fka1VGaUllcWF5TlJweE4rTFcyU083VG1IdmY2RHpF?=
- =?utf-8?B?aW05ZG5PZnM2Z1htaC9XM1RaRElNeHpSN0JvMlJCYi94YUhwQU1VVVZ6b1ZV?=
- =?utf-8?B?ZHI5QlpGaE80dmJ4dDdwZXpWTnVVZlFLeGZSQ2wrUG5qYkNmdloyU3V1aThi?=
- =?utf-8?B?ZWlIQ0JWSUludHEvSnNMd3NlbUhLV2NQdms2L2hHR1Arenk0VmxWTlQ5NXQ0?=
- =?utf-8?B?MGZOWk5LN0x2ZXFIN3lpaDBDcDZGVzJxQk1adG9tR2Y5aERNQXAzS3A1Q0R0?=
- =?utf-8?B?RGZMMDNGVUsvVzM2NWVzZTk5SE1kWUhoNmJUTnNGSWlCdTY2UkJ6RnpvemFu?=
- =?utf-8?B?WTU4UXN6K2dtcitKR0NKZUFpUHpsVXRHdURoTjZyc21zOE04RnV6bGd4OUhm?=
- =?utf-8?B?UmwxbG0xM29RTWZVOHMwNU5HcW1qZVNEOGZ4QklQRzF3andmWWszRHFMTGdR?=
- =?utf-8?B?anhwZU5EK2VZN2RqNW5YdE9kQVNzMXlhVlFJcnBva3JnbnEyNnZHcktLc01N?=
- =?utf-8?B?TXJ4T1hsaVFvOHI1L3BiUUgwSG1OMjZFNFZSZ1Rha3M5NjExcE5zUUJoRE1G?=
- =?utf-8?B?cDFidFAzWDkvWTlPMzdLaGI1YnhTWE84eHRNSHYwbTVTMVVjdnIrL2Z6bmMz?=
- =?utf-8?B?WEVHU3BWTkpsZ29Obi80L2g5WnZNQjlzUno0Z2dXQ00ydjREbTVkSExmNStj?=
- =?utf-8?B?bElzV0t0eThMdDBGaFpjSi9vdndYVHNVR2s2ajQ2Y2Yya1dpaldDNTlXbW9W?=
- =?utf-8?B?bWlvSmM1OFA3ZlpvbWJtbmFtd3hLZjMybXlyaVVKcmxHQ3RJeExGTmNnNTRR?=
- =?utf-8?Q?yvhh5nh4PAnRy?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <51F20E9E6C155046A168A91C47568143@namprd05.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IGXR5J/f;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Znbv1O2I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794313490;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oGxVOcOZKJdSVIhjkgYRwcfA8DhUPk7Xrs1pQVfHMK4=;
+	b=IGXR5J/fH0fvnBdYZrBHddM7QJFsQ2ACLoHw+ZpIvdL0s97xBPY/mX1XjwKnawS4TgCh+v
+	T6iLXya5woE7QOA4l3mkuWhFq56Di5VSEa6KLb47z/CXHK5EI6HSZQ+o6AKcnyrQdhlW+I
+	faQ6/g+nwEGLfFJK27acoLx/JBxhF+I=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-630-BCDqWiVrNPOeu5AOyBLdkA-1; Tue, 10 Nov 2026 07:24:48 -0500
+X-MC-Unique: BCDqWiVrNPOeu5AOyBLdkA-1
+X-Mimecast-MFC-AGG-ID: BCDqWiVrNPOeu5AOyBLdkA_1794313487
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a204f135ffso11361915e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:24:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794313487; x=1794918287; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oGxVOcOZKJdSVIhjkgYRwcfA8DhUPk7Xrs1pQVfHMK4=;
+        b=Znbv1O2Izs7LoHwe4uvM0TQYevCK3P91i6Nt28X4e6BvC8r1sY/wc333tDL7w+gHBi
+         Qvb3ev6KEDKLo+/pwyV88U0TjB5epP1Rwrzk8o2+Kv1kKR3+fp9fph474pkfDM8bAZPU
+         T/MZ83SCqBBZ3aX2ZaY+L2C+Rkxuswed3DN51iPOzGNeXGnMZfkDuw3Q5HLchp8Lmdn7
+         Y7bY8jU49Jtj4WNTO2O4mlYmOErB8L6pF250gnp51HgB15FCsT0Rc7cW13iCSV1av6sp
+         cEUrTE7fE3JNX/7tHA1Rb1wzEZ9jNfH2JIIn1Jq66pDvphPfPbUaCaeuyeK06h2lHvJI
+         pARg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794313487; x=1794918287;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oGxVOcOZKJdSVIhjkgYRwcfA8DhUPk7Xrs1pQVfHMK4=;
+        b=G8dUplCcUyI8ljO4RjHi4DXH+xiAPLaH2BwprNEdBWQily+c0tRYCKFQAzflT3Rv4A
+         15E//767oaB+X/lK2MVp/lh/tGRHKj55xyobM6qnaoRhAa026/MIn0m6ZYhjTSMsK2/v
+         pc8wIH1cqZNCm0qZOW1UqivZ5xzwEoZokxkhFTnyjLUh+20Gh4LqEr6PSIKdEmX/0uuX
+         aoDecQ3pvjsM0wQhXYtESM0YlnXw03KrvN9jVfh0DaF9uVIbxso9z5R511Hy4NUpWrux
+         wYbV5rHGbslFpLwigLXMdIYH50l/Fdy+wt1L5ucFE3qSeDrdCYELdGOSr1Xbcq0JQD+8
+         W8DQ==
+X-Forwarded-Encrypted: i=1; AL+hErFDBTvUxPyUeqdxmvTeUevTbnhBTYDRbp0MsArgb2xQhjJjlyO819HR6ZUYPi2s2RlnCpdtmFps3g1ltOA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sXoIWWpwV9DJFv4qXuvMSzb3RZrJvEowaSlKXY8LPclfq14fz
+	KB4eDBVKkqNZaWOlAvD5zHkPZvWGSnBhFCX/usQuto3lR4svbS1YlHLq3o5MuPRiilMsYQTr9ki
+	YFgQ8MrnPtdW4rKAY9jQgnL7O+PmIE9Alv791saz3x4HM8lkiDeRoVVh+hxn1vS6b6Q==
+X-Gm-Gg: AYBFou2fln/xYhTxLjffbu0bDJ8fTMYYKGaKESLzBGOVORypqVBogrFmwKcdQexNM4e
+	SOQGIUAkaQvIMBJRHD4+c4LFSjupSM8bsVpIS43LTb9rcnivyNbknAkWZyvns7CYQBoXx1YkSpZ
+	/ajSirHnNPBwjFJPQSFbG2ZtzR/ejbWQPXi6KNC+opSWbngPYbConzceyshoAg905PKsNOj4LDV
+	VEuJIuPw7vZu9NzFjJ3gTqgLNZn5u18pEhyt1SCYcNbNggZOYTnMyNJDaT0XJsgSlNbyY3r8d6P
+	6iVpf/h4xKrOaJxRXPzFOW48HwSezIkCxpEJdfNIBHkr4n7/4l5fBD2Fv/O8L59nX3+2qdnQ4OP
+	uZI5Y4EmGM/CzHhf5lIUVHjn8fYSZwX6PBJM=
+X-Received: by 2002:a05:600c:4e55:b0:4a7:6425:c274 with SMTP id 5b1f17b1804b1-4ba023052a8mr41188465e9.2.1794313487135;
+        Tue, 10 Nov 2026 04:24:47 -0800 (PST)
+X-Received: by 2002:a05:600c:4e55:b0:4a7:6425:c274 with SMTP id 5b1f17b1804b1-4ba023052a8mr41187875e9.2.1794313486647;
+        Tue, 10 Nov 2026 04:24:46 -0800 (PST)
+Received: from [10.43.3.161] ([213.175.46.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0223c41csm62198205e9.14.2026.11.10.04.24.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 04:24:45 -0800 (PST)
+Message-ID: <eea7b4ef-a514-4c2e-81c4-690cdeeb40c2@redhat.com>
+Date: Tue, 10 Nov 2026 13:24:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -172,46 +110,259 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 772229fa-9495-4d15-7870-08df3f2596de
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 12:24:38.6878
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR05MB7532
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 07/10] dpll: reject measured_freq_get for foreign
+ and on-pin registrations
+Content-Language: en-US
+To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Min Li <min.li@microchip.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ Grzegorz Nitka <grzegorz.nitka@intel.com>,
+ Karol Kolacinski <karol.kolacinski@intel.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+References: <20261106121005.1327603-1-ivecera@redhat.com>
+ <20261106121005.1327603-8-ivecera@redhat.com>
+From: Petr Oros <poros@redhat.com>
+In-Reply-To: <20261106121005.1327603-8-ivecera@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCA5IE5vdiAyMDI2LCBZYW5nIFhpdXdlaSB3cm90ZToKPiBpb19hc3luY19jbWQgaXMg
-aW9fdXJpbmcncyBvd24gYXN5bmMgc3RhdGUuIHNxZXNbXSBpcyB3aGF0Cj4gaW9fdXJpbmdfY21k
-X3NxZV9jb3B5KCkgcG9pbnRzIGlvdWNtZC0+c3FlIGF0LiBHaXZpbmcgdGhhdCBidWZmZXIgdG8K
-PiBzY3NpX2JzZyBjb3VwbGVzIHRoZSBkcml2ZXIgdG8gdGhlIGlvX3VyaW5nIGxheW91dCBhbmQg
-bGlmZXRpbWUuCgpIaSBZYW5nLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBzY3NpX2JzZyBwYXNz
-ZXMgdGhlIHJlcXVpcmVkIHNpemUgdG8gdGhlIGhlbHBlcgphbmQgZ2V0cyBhIHBvaW50ZXIgdG8g
-dGhlIHN0b3JhZ2UgYmFjazsgaXQgZG9lcyBub3QgYWNjZXNzIGlvX2FzeW5jX2NtZApvciBzcWVz
-W10gZGlyZWN0bHkuIEhvd2V2ZXIsIEkgYWdyZWUgdGhhdCB0aGUgaGVscGVyIGNvbnN0cmFpbnMg
-aG93CmlvX3VyaW5nIGNhbiByZXVzZSB0aGF0IGludGVybmFsIHN0b3JhZ2UuCgpUaGUgcHJvcG9z
-ZWQgY29udHJhY3QgaXMgdGhhdCwgYWZ0ZXIgYSBzdWNjZXNzZnVsIGNhbGwsIHRoZSByZXF1ZXN0
-ZWQKc3RvcmFnZSByZW1haW5zIHZhbGlkIHVudGlsIGlvX3VyaW5nX2NtZF9kb25lKigpLiBCU0cg
-cmVxdWVzdHMgOTYgYnl0ZXM7CnRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIGNhbiBwcm92aWRl
-IHVwIHRvIDEyOCBieXRlcy4gVGhlIGNhbGxlcgptdXN0IGFsc28gc3RvcCB1c2luZyB0aGUgU1FF
-IGFuZCBtdXN0IG5vdCByZWlzc3VlIHRoZSBjb21tYW5kLCBhbmQKbXVsdGlzaG90IGNvbW1hbmRz
-IGNhbm5vdCB1c2UgdGhlIGhlbHBlci4KCkplbnMsIFBhdmVsLCB3b3VsZCBzdWNoIGEgY29tcGxl
-dGlvbi1zdG9yYWdlIGNvbnRyYWN0IGJlIGFjY2VwdGFibGUKZm9yIHVyaW5nX2NtZCwgb3Igd291
-bGQgeW91IHByZWZlciB0aGUgc3RvcmFnZSB0byBiZSBkcml2ZXItb3duZWQ/Cgo+IFByZWFsbG9j
-YXRpbmcgdGhlIGJ1ZmZlciBpbiBic2cgaXRzZWxmIG1heSBiZSBhIGJldHRlciBmaXQuCgpXaGlj
-aCBvYmplY3QgZGlkIHlvdSBoYXZlIGluIG1pbmQgZm9yIHRoZSBidWZmZXI/IFdpdGggNi82LCBl
-bmQtSS9PCmZyZWVzIHRoZSByZXF1ZXN0LCBhbmQgdGhlIHRhZyBjYW4gYmUgcmV1c2VkIGJlZm9y
-ZSB0YXNrIHdvcmsgY29waWVzCnRoZSBzZW5zZSBkYXRhLiBTdG9yYWdlIHRoYXQgaXMgcmV1c2Vk
-IGFsb25nIHdpdGggdGhlIHJlcXVlc3Qgb3IgdGFnCndvdWxkIHRoZXJlZm9yZSBoYXZlIHRoZSBz
-YW1lIGxpZmV0aW1lIHByb2JsZW0gYXMgc2NtZC0+c2Vuc2VfYnVmZmVyLgoKUXVldWUgZGVwdGgg
-YWxvbmUgYWxzbyBkb2VzIG5vdCBib3VuZCB0aGUgbnVtYmVyIG9mIGNvbXBsZXRlZApjb21tYW5k
-cyB3YWl0aW5nIGZvciB0YXNrIHdvcmsgb25jZSB0aGVpciB0YWdzIGhhdmUgYmVlbiByZWxlYXNl
-ZC4KQSBCU0ctb3duZWQgcG9vbCB3b3VsZCBuZWVkIGEgc2l6aW5nIGFuZCBleGhhdXN0aW9uIHBv
-bGljeS4KYnNnX29wZW4oKSBjdXJyZW50bHkgYWxsb2NhdGVzIG5vIHBlci1maWxlIHN0YXRlLgoK
-SWYgZHJpdmVyLW93bmVkIHN0b3JhZ2UgaXMgcHJlZmVycmVkLCBJIGNhbiBpbnZlc3RpZ2F0ZSBh
-IHBlci1maWxlCnBvb2wgZm9yIHY0LiBJIHdvdWxkIG5lZWQgdG8gY2hlY2sgdGhhdCB3YWl0aW5n
-IGZvciBhIGZyZWUgYnVmZmVyCmNhbm5vdCBwcmV2ZW50IHRoZSB0YXNrIHdvcmsgdGhhdCByZXR1
-cm5zIGJ1ZmZlcnMgZnJvbSBydW5uaW5nLgoKVGhhbmtzLApZaW5namllCg==
+
+
+On 11/6/26 1:10 PM, Ivan Vecera wrote:
+> A message about a pin with .measured_freq_get calls .freq_monitor_get of
+> a dpll of the pin. For a pin of another domain, this device callback
+> would run outside the domain of the dpll, so dpll_pin_register() now
+> rejects such ops.
+> 
+> dpll_pin_on_pin_register() checks nothing about them. The message would
+> call .freq_monitor_get with no NULL check, on a dpll of the parent pin
+> that can belong to another driver, so reject them there as well.
+> 
+> No in-tree driver passes such ops. Add KUnit tests: the ops work on a dpll
+> of the domain of the pin, and are rejected on a dpll of another domain and
+> under a parent pin.
+> 
+> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+> ---
+>   drivers/dpll/dpll_core.c       |   6 +-
+>   drivers/dpll/dpll_core_kunit.c | 112 +++++++++++++++++++++++++++++++--
+>   2 files changed, 111 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
+> index 8eb74682343156..84377f8ba16036 100644
+> --- a/drivers/dpll/dpll_core.c
+> +++ b/drivers/dpll/dpll_core.c
+> @@ -958,7 +958,8 @@ dpll_pin_register(struct dpll_device *dpll, struct dpll_pin *pin,
+>   
+>   	dev_ops = dpll_device_ops(dpll);
+>   	if (WARN_ON(ops->measured_freq_get &&
+> -		    (!dev_ops || !dev_ops->freq_monitor_get ||
+> +		    (pin->domain != dpll->domain || !dev_ops ||
+> +		     !dev_ops->freq_monitor_get ||
+>   		     !dev_ops->freq_monitor_set))) {
+>   		ret = -EINVAL;
+>   		goto out_unlock;
+> @@ -1065,7 +1066,8 @@ int dpll_pin_on_pin_register(struct dpll_pin *parent, struct dpll_pin *pin,
+>   
+>   	if (WARN_ON(!ops) ||
+>   	    WARN_ON(!ops->state_on_pin_get) ||
+> -	    WARN_ON(!ops->direction_get))
+> +	    WARN_ON(!ops->direction_get) ||
+> +	    WARN_ON(ops->measured_freq_get))
+>   		return -EINVAL;
+>   
+>   	down_write(&dpll_lock);
+> diff --git a/drivers/dpll/dpll_core_kunit.c b/drivers/dpll/dpll_core_kunit.c
+> index a58800eda5ff51..84c405f855d8cb 100644
+> --- a/drivers/dpll/dpll_core_kunit.c
+> +++ b/drivers/dpll/dpll_core_kunit.c
+> @@ -87,6 +87,7 @@ struct dt_reg {
+>   	struct dt_dev *dev;
+>   	struct dt_pin *parent;
+>   	struct dt_pin *notify;
+> +	const struct dpll_pin_ops *ops;
+>   	struct dpll_domain *forbid;
+>   	enum dpll_pin_state state;
+>   	enum dpll_pin_direction direction;
+> @@ -276,11 +277,33 @@ static int dt_lock_status_get(const struct dpll_device *dpll, void *priv,
+>   	return 0;
+>   }
+>   
+> +static int dt_freq_monitor_set(const struct dpll_device *dpll, void *priv,
+> +			       enum dpll_feature_state state,
+> +			       struct netlink_ext_ack *extack)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int dt_freq_monitor_get(const struct dpll_device *dpll, void *priv,
+> +			       enum dpll_feature_state *state,
+> +			       struct netlink_ext_ack *extack)
+> +{
+> +	struct dt_dev *dev = priv;
+> +
+> +	dt_dev_enter(dev, dpll);
+> +	*state = DPLL_FEATURE_STATE_ENABLE;
+> +	dt_leave(dev->dom);
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct dpll_device_ops dt_dev_ops = {
+>   	.mode_get = dt_mode_get,
+>   	.mode_set = dt_mode_set,
+>   	.supported_modes_get = dt_supported_modes_get,
+>   	.lock_status_get = dt_lock_status_get,
+> +	.freq_monitor_set = dt_freq_monitor_set,
+> +	.freq_monitor_get = dt_freq_monitor_get,
+>   };
+>   
+>   static int dt_frequency_get(const struct dpll_pin *pin, void *pin_priv,
+> @@ -433,6 +456,21 @@ static int dt_ref_sync_get(const struct dpll_pin *pin, void *pin_priv,
+>   	return 0;
+>   }
+>   
+> +static int dt_measured_freq_get(const struct dpll_pin *pin, void *pin_priv,
+> +				const struct dpll_device *dpll, void *dpll_priv,
+> +				u64 *measured_freq,
+> +				struct netlink_ext_ack *extack)
+> +{
+> +	struct dt_reg *reg = pin_priv;
+> +
+> +	dt_pin_enter(reg, pin);
+> +	atomic_inc(&reg->freq_gets);
+> +	*measured_freq = 1;
+> +	dt_leave(reg->dom);
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct dpll_pin_ops dt_pin_ops = {
+>   	.frequency_get = dt_frequency_get,
+>   	.state_on_dpll_get = dt_state_on_dpll_get,
+> @@ -446,6 +484,13 @@ static const struct dpll_pin_ops dt_pin_ops = {
+>   	.ref_sync_get = dt_ref_sync_get,
+>   };
+>   
+> +static const struct dpll_pin_ops dt_pin_ops_measured = {
+> +	.measured_freq_get = dt_measured_freq_get,
+> +	.state_on_dpll_get = dt_state_on_dpll_get,
+> +	.state_on_pin_get = dt_state_on_pin_get,
+> +	.direction_get = dt_direction_get,
+> +};
+> +
+>   static const struct dpll_pin_properties dt_prop = {
+>   	.type = DPLL_PIN_TYPE_EXT,
+>   	.capabilities = DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE |
+> @@ -570,9 +615,9 @@ static void dt_reg_release(void *data)
+>   
+>   	if (reg->parent)
+>   		dpll_pin_on_pin_unregister(reg->parent->pin, reg->pin->pin,
+> -					   &dt_pin_ops, reg);
+> +					   reg->ops, reg);
+>   	else
+> -		dpll_pin_unregister(reg->dev->dpll, reg->pin->pin, &dt_pin_ops,
+> +		dpll_pin_unregister(reg->dev->dpll, reg->pin->pin, reg->ops,
+>   				    reg);
+>   }
+>   
+> @@ -588,12 +633,14 @@ static void dt_reg_add(struct kunit *test, struct dt_reg *reg,
+>   	reg->parent = parent;
+>   	reg->state = DPLL_PIN_STATE_SELECTABLE;
+>   	reg->direction = DPLL_PIN_DIRECTION_INPUT;
+> +	if (!reg->ops)
+> +		reg->ops = &dt_pin_ops;
+>   
+>   	if (parent)
+> -		ret = dpll_pin_on_pin_register(parent->pin, pin->pin,
+> -					       &dt_pin_ops, reg);
+> +		ret = dpll_pin_on_pin_register(parent->pin, pin->pin, reg->ops,
+> +					       reg);
+>   	else
+> -		ret = dpll_pin_register(dev->dpll, pin->pin, &dt_pin_ops, reg);
+> +		ret = dpll_pin_register(dev->dpll, pin->pin, reg->ops, reg);
+>   	KUNIT_ASSERT_EQ(test, ret, 0);
+>   	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dt_reg_release,
+>   							reg), 0);
+> @@ -1432,6 +1479,59 @@ static void dt_test_ref_sync_pair(struct kunit *test)
+>   	dt_expect_events(test, (void *[]){ ctx->p.pin }, 1);
+>   }
+>   
+> +/* A pin with a measured frequency must be in the domain of its dpll */
+> +static void dt_test_measured_freq_foreign(struct kunit *test)
+> +{
+> +	struct kunit_suppressed_warning *w;
+> +	struct dt_ctx *ctx = test->priv;
+> +	struct dt_reg *reg;
+> +	int ret;
+> +
+> +	dt_dev_add(test, &ctx->e0, &ctx->dom_e, DT_CLOCK_ID_E, 0,
+> +		   DPLL_TYPE_PPS);
+> +	dt_dev_add(test, &ctx->f0, &ctx->dom_f, DT_CLOCK_ID_F, 0,
+> +		   DPLL_TYPE_PPS);
+> +	dt_fwnode_pin_add(test, &ctx->x, DT_CLOCK_ID_E, DT_PIN_IDX_X);
+> +
+> +	reg = &ctx->reg_x_e0;
+> +	reg->ops = &dt_pin_ops_measured;
+> +	dt_reg_add(test, reg, &ctx->dom_e, &ctx->x, &ctx->e0, NULL);
+> +	atomic_set(&reg->freq_gets, 0);
+> +	KUNIT_EXPECT_EQ(test, dt_run(test, dt_pin_ntf, &ctx->x), 0);
+> +	KUNIT_EXPECT_GT(test, atomic_read(&reg->freq_gets), 0);
+> +
+> +	w = kunit_start_suppress_warning(test);
+> +	ret = dpll_pin_register(ctx->f0.dpll, ctx->x.pin, reg->ops, reg);
+> +	kunit_end_suppress_warning(test, w);
+> +
+> +	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+> +	if (!ret)
+> +		dpll_pin_unregister(ctx->f0.dpll, ctx->x.pin, reg->ops, reg);
+> +}
+> +
+> +/* A pin under a parent pin cannot have a measured frequency */
+> +static void dt_test_measured_freq_on_pin(struct kunit *test)
+> +{
+> +	struct kunit_suppressed_warning *w;
+> +	struct dt_ctx *ctx = test->priv;
+> +	struct dt_reg *reg;
+> +	int ret;
+> +
+> +	dt_on_pin_add(test);
+> +	dt_pin_add(test, &ctx->y, DT_CLOCK_ID_G, DT_PIN_IDX_Y, &dt_prop);
+> +	reg = &ctx->reg_c_m;
+> +
+> +	w = kunit_start_suppress_warning(test);
+> +	ret = dpll_pin_on_pin_register(ctx->m.pin, ctx->y.pin,
+> +				       &dt_pin_ops_measured, reg);
+> +	kunit_end_suppress_warning(test, w);
+> +
+> +	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+> +	if (!ret)
+> +		dpll_pin_on_pin_unregister(ctx->m.pin, ctx->y.pin,
+> +					   &dt_pin_ops_measured, reg);
+> +}
+> +
+>   static struct kunit_case dt_cases[] = {
+>   	KUNIT_CASE(dt_test_domain_sharing),
+>   	KUNIT_CASE(dt_test_domain_per_module),
+> @@ -1456,6 +1556,8 @@ static struct kunit_case dt_cases[] = {
+>   	KUNIT_CASE(dt_test_set_on_pin),
+>   	KUNIT_CASE(dt_test_device_set_ntf),
+>   	KUNIT_CASE(dt_test_ref_sync_pair),
+> +	KUNIT_CASE(dt_test_measured_freq_foreign),
+> +	KUNIT_CASE(dt_test_measured_freq_on_pin),
+>   	{}
+>   };
+>   
+Reviewed-by: Petr Oros <poros@redhat.com>
+
