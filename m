@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308221;
-	b=KvmsWCZoLGxDgPM/XtyoQmpYEV8fZ+48KCSB0PzY6O/e6Wj5Gww5PRRNBrfWCVtUoT7Y
-	 AnkPC4Gg1fTuZbNw4ZzRFC9/zRzjhzRNhd1Z7Z4FwQL42gw5bg8ogzq4PZVJqS+vQUP6x
-	 9HViHZ0TQv5psiShsFZrBQW5oQB3/94pc8ZtOTg0hhQpBzn6FXTmNu2DTevdqQzY+ViRw
-	 utXrcYDrc/Z1AVBGSsWnmcj1VkmXTqjMgEiQTqNWHDxhDneggruCPVBpyZxsTnQqiDvs5
-	 F4ZC4tQBECYzxPCj5wqYbUL9OPo+gw2vvDmvUyqaOed8giiS1+fZ7uRN/ShPi6MO17w==
+	t=1794308303;
+	b=5XYT3FctbFG/n+in1s5WVlXkI3a1NnJR/3NUBZGHNpIOwmfW2f+EKy9htsyDydW+7Q4M
+	 4Zt/s2n8EtyvB5vFeZpRek0u8t20AiyP9Ckz6Ua1cW/zn0a6fdRcGKi/uW7SakDigQ1Yp
+	 ACEJeBuL6N5VXe2JEKBS6oRQ/ywbeiwaaF5wd1Wc5fhjBvDDI0wLZjBjEXqabSq+BIFTF
+	 ayEgH7EdlLwsXhTvjdO4R0Mb50w1GjZ8e5+gGEXTFmJeNWjeTRP1sleWK4wYwgefZryvY
+	 CBIkFFxUYVnWgPDFFWB1T0m6pgthc03l1cRRuB5+P/Y1y61Nq6tcVZSSaMq3hJiHD+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308221;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yYiBagOWcslaP5fFjDzsUoDb/X8ymLQTjZmMzDj0cQI=;
-	b=uD24ureKFbFTTH7dnXpmZvAWj3jbp4Vgb/9M5yqgFpFe+xQa6VYlPVWrK0znkgbnEFcu
-	 CwH4VJKSAznl4tOw0l51lmvOAW2dJq2fDYAIPSiPjFYBU88avkwKG1odFeLPf86Hsc80a
-	 LRKyBiCo9zjSao6l2S3C51LJ9pd16gnC8bUq64hiE1sEvHnkRwrRDPVfb/5PzrzHARozT
-	 E2Y/t4Rjz0MKbizbTmJNudoBF4BgfqwxEavIhA7fWhb7PrFP8NV5zVb04/qn0/OOCTWsr
-	 Bkt6KKW2BmkoelKp1aUVYf7NHT/9OcYkj+1QCNi99nBh1mQPGPtyxzRrj9lDOQBJoxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308303;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6KUDHj9lnMhAg+nHCDiWshEywbgwlvmxhCYqrSNjsow=;
+	b=cXRJzsF1yvb261BuwIgcwjEUnqg4+J9nOMv4Ln6+WbjBe8p2ZTekU5Rx+gJstrtJ1jVP
+	 0pJcIvs6yd7PZ/kzBvmNbdFRuPjmSfKZmj0Hd0HUhleVXTpc9pVjFFXfU/aApj6nEhIBH
+	 gug9rSuS0i3DrrRIj0xmo3MPTUzFXoSjvMMzfXpQUoe1ITmPg2cuq5Ko++Rk7iG6KDVGJ
+	 h1O5iEtEBTXWBtagE8xJhkraIT7Ul8D4UM3Rhbrt0wrT5UqUZ9Wh1QTzhh5g2ESLY/ECc
+	 C0Rx46B6cRUycHbeeHoQC0h4C47jXmMLvMu9hE4680OiRpsDzV6e7KF8YOub3HWmllg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlEvOM2Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SDKOEak/";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280D9606A321;
-	Tue, 10 Nov 2026 10:57:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308CA606A31C;
+	Tue, 10 Nov 2026 10:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlEvOM2Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82ED41F008A2;
-	Tue, 10 Nov 2026 10:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794308220;
-	bh=yYiBagOWcslaP5fFjDzsUoDb/X8ymLQTjZmMzDj0cQI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PlEvOM2YRIZR+c3pFtg6FLYfZSD1LfYFaVgyGJ5nHhH/FmgpYnP+G+XWJnWlpsOvh
-	 aqYmcsjfoMohZAdVcOPGFh8Eh05u3fW+9cEIVNSV5dzqcc13iNevdsjP9Nfir86BYN
-	 2EYbj0xF3PbCK0noup/owF88hhPFTnEa7opHOTlzIg1YXSlDlWKD2fEfaKoZssnz9R
-	 Y/EIzp6M5CspnCMsl34DxT3LdhBZekEKRmKcUggCh6CP+s8tgltiiBUv63DLZgejXn
-	 f7RGmMpfMR2VdOJqk0+jgMRdVBHXFWUTZaSgbcxleaXfvzFIL2mhz2a5m6hD5bQCkr
-	 6rgexRC1hN18g==
-Date: Tue, 10 Nov 2026 10:56:58 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Iker Pedrosa <ikerpedrosam@gmail.com>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] pmdomain: spacemit: Add power domain driver
-Message-ID: <20261110105658-GKA2005@kernel.org>
-References: <20261108-04-k3-pm-support-v3-0-b9dc0857039b@kernel.org>
- <20261108-04-k3-pm-support-v3-2-b9dc0857039b@kernel.org>
- <DMQHSDTR177I.1HWHAF4FWTFQ5@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SDKOEak/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794308302; x=1825844302;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rzWOvcnMo7ieIYwX8DGNSb4d4JD47sR79PHePk6OGc4=;
+  b=SDKOEak/K+/eE2mERxsjjHJ/iP5wKsI3ETPMdgU48lw1pqVd1F2Mh3HJ
+   MfSDGWQvyFuHTg95V18aa0CfgPy05Ne6JCxzRHBsTFc5L5oQpa/nLU3cd
+   2QKBpiDIZ8OXQfrJwIiI0YL6Ut1WKAcMwyfU8Y6vLATATG0+bmgxXNP2a
+   8wqjPYgujaJnkeFwbkkxcRak9U5Ud16o62K2v3eVmiea04vXe9k8jcrhP
+   +0BzCKdkukr2W6wJQ8WjYNj/rRNf/jfdfswalwWmEr7ihUVINQyTC+Lka
+   XJuBavTZtiMP1qUsA80Ar/qta4MLjZLFGO7QvvBS6ohyb1CTTFMWe88UX
+   w==;
+X-CSE-ConnectionGUID: p4/Sz5Y2SG60ypDhIw48fQ==
+X-CSE-MsgGUID: 0xkYZtCRRyq8WeWnPDgNBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2955687"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2955687"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:21 -0800
+X-CSE-ConnectionGUID: svM277OqS7Givrs42fzSFg==
+X-CSE-MsgGUID: niEuaG0QT1+pIEt/DikLVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7993273"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:17 -0800
+Date: Tue, 10 Nov 2026 12:58:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
+ deregistration
+Message-ID: <avL4x_clSegBu-Qi@ashevche-desk.local>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-3-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,99 +89,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DMQHSDTR177I.1HWHAF4FWTFQ5@linux.spacemit.com>
+In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Troy,
-
-On 07:12 Mon 09 Nov     , Troy Mitchell wrote:
-> Hi Yixun,
+On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
+> If a client has both a primary and a secondary firmware node, the
+> secondary node is accessed via the ->secondary pointer of the primary
+> node.
 > 
-> On Sun, 08 Nov 2026 10:36:02 +0000, Yixun Lan wrote:
-> > +config SPACEMIT_PM_DOMAINS
-> > +	tristate "PM Domain driver for SpacemiT SoC"
-> [...]
-> > +	  Say y to enable device power management through PM domains.
-> This is tristate now, so "Say Y or M".
-> 
-Ok, will update
+> Use a temporary variable to track whether the firmware node is a
+> software node and remove any software node before dropping its reference
+> to avoid a use-after-free in device_remove_software_node() when
+> accessing the secondary firmware node.
 
-> [...]
-> > +#include <linux/io.h>
-> > +#include <linux/err.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/pm_domain.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/auxiliary_bus.h>
-> io.h, err.h and platform_device.h are not used right now.
-> 
-Ok, will drop them
+...
 
-> [...]
-> > +static int spacemit_pd_power_off(struct generic_pm_domain *domain)
-> [...]
-> > +	if (ret) {
-> > +		dev_err(&domain->dev, "failed to power off domain %s: %d\n",
-> > +			p->name, pd->pm_index);
-> > +		return -EBUSY;
-> > +	}
-> 
-> -EBUSY drops the -ETIMEDOUT returned by regmap_read_poll_timeout();
-> why not print ret and return it? Same in spacemit_pd_power_on().
-> 
-Yes, I think it's ok to propogate the err
+> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
+> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
+> Cc: stable@vger.kernel.org	# 6.16
 
-> [...]
-> > +static bool spacemit_pm_is_off_state(struct spacemit_pmu *pmu,
-> > +				     struct spacemit_pm_domain *pd)
-> [...]
-> > +	return (reg & bit) ? false : true;
-> return !(reg & bit);
-> 
-Actually, there isn't much difference, your version is slightly short
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Hans de Goede <hansg@kernel.org>
 
-> [...]
-> > +static void spacemit_pm_domain_cleanup(struct spacemit_pmu *pmu)
-> > +{
-> > +	struct spacemit_pm_domain *pd;
-> > +	int i, ret;
-> > +
-> > +	for (i = 0; i < pmu->genpd_data.num_domains; i++) {
-> > +		if (!pmu->domains[i])
-> > +			continue;
-> > +
-> > +		pd = to_spacemit_pd(pmu->domains[i]);
-> > +		ret = pm_genpd_remove(pmu->domains[i]);
-> > +		if (ret)
-> > +			dev_err(pmu->dev, "failed to remove domain %s: %d - state may be inconsistent\n",
-> > +				pd->param->name, ret);
-> > +	}
-> > +}
-> [...]
-> > +static void spacemit_pm_domain_remove(struct auxiliary_device *adev)
-> > +{
-> > +	struct spacemit_pmu *pmu = auxiliary_get_drvdata(adev);
-> > +	struct device *dev = &adev->dev;
-> > +
-> > +	of_genpd_del_provider(dev->of_node);
-> > +	spacemit_pm_domain_cleanup(pmu);
-> > +}
-> pm_genpd_remove() fails with -EBUSY while a consumer is still attached,
-> but pd is freed by devres anyway. Set suppress_bind_attrs like most
-> pmdomain drivers?
-> 
+Can we keep these two Cc out of the commit message?
 
-No, I won't add suppress_bind_attrs
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
 
-As I'm also aware of this problem, but intend to address it in a different
-way, and should send a patch in another separate thread..
+...
 
-In my opinion, Adding "suppress_bind_attrs = true" will only mitigate
-the problem, in the case of this driver, it will still trigger a problem
-while unloading the driver with rmmod command if built as kernel module,
-consumer side won't get notification with the event. Ideally the device link
-machanism should solve this, currently I'm working on a patch for this..
+>  	struct fwnode_handle *fwnode;
+> +	bool fwnode_is_software_node;
+>  
+>  	if (IS_ERR_OR_NULL(client))
+>  		return;
+> @@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
+>  	else if (is_acpi_device_node(fwnode))
+>  		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
+>  
+> +	fwnode_is_software_node = is_software_node(fwnode);
+> +	device_remove_software_node(&client->dev);
+>  	/*
+> -	 * If the primary fwnode is a software node it is free-ed by
+> -	 * device_remove_software_node() below, avoid double-free.
+> +	 * If the firmware node is a software node, its reference count
+> +	 * was decremented by device_remove_software_node().
+>  	 */
+> -	if (!is_software_node(fwnode))
+> +	if (!fwnode_is_software_node)
+>  		fwnode_handle_put(fwnode);
+
+Do I understand correctly that this is a dup with the platform device case? Can
+we make a helper (on swnode API level) to cover any other existing or potential
+case to avoid similar issues in the future?
 
 -- 
-Yixun Lan (dlan)
+With Best Regards,
+Andy Shevchenko
+
+
