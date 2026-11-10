@@ -1,102 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309812;
-	b=NLlQ4WYsxEKpHHn9G5Hxge+QrUCSnKPP7p0vzvFBMmp5Q/WbHPoPIbhNkG2T2wDao2TK
-	 ilHiMDkzNeQlsTvMRKBAF9KJizMwZrca+dFCDDwf0+z41Nf9PUJjKVZoF9c/3hPpPg18H
-	 3Jq9kxRqSwc+Gk1KMobgK3l1pNLUS4oIWyj9SHv9s31L9Adm3JIm38+FXZ63MUzdOA1SO
-	 ld8T05M3zwFwUXAML9B+8QPUXhgLkv5OgRSq+Y/HXIdx42Mn3d0UkAz1rpYpmOqI/dJzU
-	 AZ2oMbw0pw+FBsP4IwCXob3b4MMuirRAIFn7+dHrzBoKy/sB7RAcSspaY5otj9ljRYg==
+	t=1794309815;
+	b=fjg7sgNABbolfCHNkEOI1+UYjnHB7Col8ufVjNSIn8A+Vpq/x4f+N9xJPEP9IxPmiMIX
+	 YyEWObqEgRKLrekUEnnpBN+4qMLnOM6krKhEF81wjW0k3eKhF76aczNQqWZPRQoZ8+oH4
+	 jWii+WTA2hm5Mh3Fr0BFEekYfH9+yOX+8Or2CiOO99Zt0Tigz5K+NA9CgY+cgUk3mxT7m
+	 X7HcWEub6Z1pDoWPQKJJ7mznHoOvksDMeOHydvvVPEJIDkOMnE5nwzahEAkkzbiUD+M1B
+	 cpxNk7Z5VU+Qi0otHdknfZpNlTxdSLkDKe4sdQz6DeNPOh74i3J0GxbRiV7KqrcJemw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309815;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DGq51QJrQsvY2v7g8/tGIwgu4Arc6xoOnd1DO44Z1Sk=;
-	b=rVIHQVdMQHAE+smHWRSgoKkKZrmQGsl+p3pBIWyVPQTgMyqPmsG2S7jDMDzEb9vASIlR
-	 BdvBF7fqjbc71M8pmr5GSpnkGxplDqQ/1GBcDDUrXxZE+BVCssWsmbO279vJ0nWHCFxup
-	 vW43v0xT2rwGK42iqUlzrqrYmWtjTzH9DZKRVj//7SvIyQTvpHaP0p1DBssu0FePtzLg/
-	 zfkkMYR8RAcWRZ4uEalXYnaguglr8vbT+37haAY5ffwzXf6PKlmRrHEkAzyhGmaR9Yer/
-	 sPoJSyev24PZB0/FJtu+CCVi7A9vxVj4DdLMOWLfNa/jumhaKUQf/Gz/Ilk5zlxbhAQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=r5U8/rgfnjSuKRxmIlR9EPiXA6jixruLFsqUagZ4x5U=;
+	b=BGVMwP9wv8yPg6BvH0ORmEYsMq+ST3r+KGGlvuR9Ha1UVWLzu0oTC/gThSHYJ4wseAPq
+	 fEeW8a97fP4rL2RCTkGrRW0tNYSE5EwQdShw9KhBXaEkyHORAaLpLXCCZbh27Ax0GaVFW
+	 Th4tepd6A6Eqo5zrxHD6SN9I7NT40a+JzQqc6IjjDUMLwbS/fmLhVNNDpax2l7VS6UiHf
+	 /da7wNpsHOqj3MZONwhpWRCjcoTtLPepxBCdsIUGL5LsGR3gslFCglaKbqpGyGHvcV+yw
+	 paUDU50s1IypriMQt+0ZbbkMZ1bXvI0UHmtdW/d8KbS746crUvNHBAtjOSPKD0HVQDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a0zmvyTZ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=rRbconzt;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P7qnHHdf;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KS5L+TJU;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91659606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:23:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91659606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C31960A2618
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:23:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C31960A2618
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a0zmvyTZ;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=rRbconzt
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P7qnHHdf;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KS5L+TJU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794309810;
+	s=mimecast20190719; t=1794309813;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=DGq51QJrQsvY2v7g8/tGIwgu4Arc6xoOnd1DO44Z1Sk=;
-	b=a0zmvyTZsoR6lst4JJ3XE6hF+X6ne/wLk677jvnTXjWXNTDFrmQkPi3xHZ9hRogNrgDwCt
-	8L07Vx/0fkdjyIjMXjA8WC09YNBPtNdQEgbPCK6ub3bdFWEVl6Xa8EShO2M2f9e7e/c27O
-	i9IZDIDCPhxEKlcHwqc7rHKY1klHZlI=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=r5U8/rgfnjSuKRxmIlR9EPiXA6jixruLFsqUagZ4x5U=;
+	b=P7qnHHdfexDO6cnOCT4s98pfW00OUw51CDXH0RJTO9QgKzB5TRQhhdVajm3IjefwgQP3lS
+	vPTtMOuyf0xpmlYD7JALFrXo4Fhzpu1p4mJ46D7T+o+gVdmgcfZGO63fFZk3wb3+6xnIF9
+	5R7yg60K6IP/Mtn+LJyH+8NEb9HUI6w=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-52-hV7LDJgFPC6TXUXd2vz9GQ-1; Tue, 10 Nov 2026 06:23:29 -0500
-X-MC-Unique: hV7LDJgFPC6TXUXd2vz9GQ-1
-X-Mimecast-MFC-AGG-ID: hV7LDJgFPC6TXUXd2vz9GQ_1794309809
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5383d650f2dso39998421cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:23:29 -0800 (PST)
+ us-mta-422-DsAVMS6PP6mZyCN7oc-06g-1; Tue, 10 Nov 2026 06:23:32 -0500
+X-MC-Unique: DsAVMS6PP6mZyCN7oc-06g-1
+X-Mimecast-MFC-AGG-ID: DsAVMS6PP6mZyCN7oc-06g_1794309812
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91ea5866643so36402306d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:23:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794309809; x=1794914609; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DGq51QJrQsvY2v7g8/tGIwgu4Arc6xoOnd1DO44Z1Sk=;
-        b=rRbconztkoMxAoXmr4b7yOde5UMlxpUrCIZ8miBpo06PV6TzgX2Ti1KnoJc2v522p8
-         pgHcFvc1Sdd1wwV2QavbJiabwXZz1mwjpIVec/vLo8L+2f4+X3ZI98kPazV/sxIdXpLP
-         h/Uuk4cIqIs47O6XdZ6ucwPllMwPL0tHnznLg5AswNggzhgBq2Zbp9S3L8hBxgeeJ62h
-         QTbAHwafZe0qNdqsCPl/9EZbALFHBeqxhvaDH0xyAUkeNjl51rbgCZYy5cJYps+EVMhH
-         +KbtG6Xnp08J6LqvaRw8SK86J4DyLRc6HQ0wtxY5t6emuvveAM3n270esFEm8pG+0FeJ
-         OLDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309809; x=1794914609;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1794309812; x=1794914612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DGq51QJrQsvY2v7g8/tGIwgu4Arc6xoOnd1DO44Z1Sk=;
-        b=cOR4xNkI9mOc8r+EtHZ4eYonEoWuvW8Fnrenu2HAM7XNuzjyj4PlnXhcKCWTfnogaj
-         9N1aawQ8SmMgoLYa4SgYDGCE7zhTRPbyxLwDquGp41tpbEZ94eglWU8AAq++csnZi6AP
-         I0YfpFpOF0uTde5cafFKsSuIQf03FOxTeV8ySnyobZdo8w+oHMfSRUbAJgwrkDeiRWQ3
-         XBJNObmzLphbhekSOydRKANJzLCN5xKtm3AniBdB3juNy7P4vvcCmwLqOQiKh8MHKqPn
-         ngItVI1KilShzs+k2axMx3N/t6mAtekOxhh+MOt64stHyRrNohafeImRtMR9gYBVe4yk
-         5F1Q==
-X-Forwarded-Encrypted: i=1; AL+hErE33aNv3IHgSpdb7QUcBYrhOW4FYkHtpsBXb1FC6b78Vzzc6BFDgFHPb+2VaEf1y+CIHv0wSlvH+Xhe6z0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qnktTH10iTlTNKz9GcOUJKNGrxFLXpDcdobR7p6DSwU9EFG9H
-	Q/0u2VVHhgZAcIs4oaViw8OGyCAIl9aqhetYFMlsFR8oE2UOQ6dtc8lxq6nsMpcW+10OlfGb5yD
-	/yqqc13WAImjWPQKxdIDZ52bMe4Qdy5Yiu9cKvLbe9wCrxdG2LW7gyB5cs0+culAt9g==
-X-Gm-Gg: AYBFou2a/D4+UBtcpDOKX3COIVxaXXE7OGJGIQdf4eoqx6Z2ZHlsJWprMKhNkQCrEXy
-	JaQ7YJf//c9M0t1sDpCzKt74s+5M8sgFYzB8PVTWpMd/klb8aqetytYsJPOEYxGXEgVuSdd/IxJ
-	fSGd7I05lY07FULIPtyhPE5H1+bROWR3LVxouJDErPrWAO3bFwlhLx0GZHOCM9MC0Re92umcM7o
-	mQM63bPMZUGNO8Qr/PTi78W+736HU5vZN/zcqTaE+SY7yi5ri9+bMcEE061NpJE3/Mz+eqQFyHR
-	VKJkuK4L7I6WPbAVzsHdDYyrNJ/go4ZzW9XhJ3sSyCLpdYV/9NfN2j7tYnV7mIlQowsVkgDlZq/
-	eOTcATZRgAiUBppho7k7BxwIvUReECJmHiDvSYvZ361T+Jtl0wKcgkmLSUl8SVY4xvkhU4yrfqs
-	jMNKIDrBZcdy8GFcbOy9v80D53cb0sT4yBYvu/Vxh2ixb4R+1GAL3yYz6odi+kw+/qcIOvp0zqU
-	B9vf/lVolmAspWCAQUNjYFAXB/rjppQ0DiAtqUSYHjX8maW+lja
-X-Received: by 2002:ac8:6103:0:b0:537:636f:b31 with SMTP id d75a77b69052e-5552a45df54mr30141131cf.73.1794309808550;
-        Tue, 10 Nov 2026 03:23:28 -0800 (PST)
-X-Received: by 2002:ac8:6103:0:b0:537:636f:b31 with SMTP id d75a77b69052e-5552a45df54mr30140831cf.73.1794309808077;
-        Tue, 10 Nov 2026 03:23:28 -0800 (PST)
+        bh=r5U8/rgfnjSuKRxmIlR9EPiXA6jixruLFsqUagZ4x5U=;
+        b=KS5L+TJUm595P/fXVs47ssaDLl2fhFtlG5KQA3qq8h39mrmAlUEZUQws1D27OAzvAz
+         XHb/J/H+S5mLvNeguD/ks5PLVESAHR3ZY/19ELUI2qdV42Smr0/weywPMNJmNgKXl2Mp
+         vEOkNl7X29W9cMsPVQOLxMa9lgGWJC9WTjdwAnRfbNs3QYLE7GLmP2UBFD1Gdlgk0U08
+         CSNqIU5NF98DCsfftfLclGU30y8f4e/NVG3uoxmivQjUV6le6mI0vSe4DC1n8IVl91Q/
+         LFONWvyGHeF39wWIF9uNUIma45j26ox81iXN8cvJwdHPTi3eFV2RVYLz/EGBJ581R+K5
+         d2jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794309812; x=1794914612;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r5U8/rgfnjSuKRxmIlR9EPiXA6jixruLFsqUagZ4x5U=;
+        b=mxmMbzl5VuVQbe87bD8pzEwZ+fBS/5ogtKn4rPw/9X97XSweaxV4KQWrkE20yqc92I
+         ApRW3CaGfNZI5Ea7VPplKeyG056+rCj+AJyGsh6bwSR+2hxsjN1uDOJ+Sr4SHijQD+9r
+         /8g4dbO2KB+NrLRrXPQZt9HBmp5O5OHMzRTZOllLyjsr0Pik+LLXtNrCbh866zIdIuNG
+         olJBhYJKPOkxobvoFqsiKFEduwuJHTh6UocOvy0qqSXiMkrc7DBWt/9s6YDcLXWQCd3o
+         Ma4oYgWt8us91/Tfox//8qk6fKiRZeJ0GEHPXormXmSCd0a0tflzlay062C381tdyIGt
+         jjHg==
+X-Forwarded-Encrypted: i=1; AL+hErEiVhbNn++dvImrk+HZ8nVbicaf+ISZl8ceKZDDTfIvVrEVdcF0ya/UdXxsYk8mUUSnZGGE9rtkF7C58S8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wgtfGHrzUPy9vpRIfW3G8V9cutTW+lWgU/TFelCQZABlJQ/3P
+	64DmxHeCQeMQBXQwhvz2oPAuHKGuez+S4AMCiForREgBoZpEgDWXFd51YOFlVU1EEMA1lfZciVW
+	5iUXmWn6AdCeh1MQzk9cYbCnjeqo5kPiMSlnUA/e6CEnqzXL8LQsFIlnlS5L6Gl0K6A==
+X-Gm-Gg: AYBFou1IS8u2LtzM0sp9sKTuUhg6d4ELqDsnilowE5Ft45KEA644gea6GNy6mQw+pWX
+	mx9yHdLdO09PkoCVX8xkFaXuPiXK1Ws6esuh8P9jyGHF+ad99gSFIp+kulT/HPtrEmUx8kAVPJm
+	tMrYIgAY9sWLMJoccNVFJnpO2WhvFNXE67FSxpHpvTEABDBYHe6hHl7PLZ+WTgYhiAjOkAJfgHJ
+	LDdBWIinqHB7ZlDrY71U1ZZMz/zSr8HjrsGN+k6L3T95l7U/KOWYHISm7rh8B3fjj/ieocMyKxB
+	MZLRTud6OpJJmIdk0qU8eRrmurUJnGIGEZlfDPnqUihout2nkLZDcftyC0+P/KuWzKVz0h6qJ7w
+	48tKRCDp43vBfCIPG/H4bh5G8RYsjPOsaqwVIpsnEUudqgNvtcr10r/B6TTueEM2wj/DZyA5AD3
+	MMfnMJSlJd3EyF1UeoAKHvN75nAxfMP5N3dMzCeM6YAqcndv5otlu2OhpT3Dv7uEBnbGaGPll0f
+	L3qgYG8P8orBzGomzide2+LspuH8rGLdeN3oM9tlR6BocF2RPtU
+X-Received: by 2002:a05:6214:27ef:b0:91e:8a33:6434 with SMTP id 6a1803df08f44-91eef98c2dcmr36477136d6.48.1794309811479;
+        Tue, 10 Nov 2026 03:23:31 -0800 (PST)
+X-Received: by 2002:a05:6214:27ef:b0:91e:8a33:6434 with SMTP id 6a1803df08f44-91eef98c2dcmr36476776d6.48.1794309810956;
+        Tue, 10 Nov 2026 03:23:30 -0800 (PST)
 Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04e7315sm18569186d6.22.2026.11.10.03.23.26
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04e7315sm18569186d6.22.2026.11.10.03.23.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:23:27 -0800 (PST)
+        Tue, 10 Nov 2026 03:23:30 -0800 (PST)
 From: Alex Markuze <amarkuze@redhat.com>
 To: "David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -105,10 +107,12 @@ To: "David S . Miller" <davem@davemloft.net>,
 Cc: Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 0/4] net: streamline skb_splice_from_iter()
-Date: Tue, 10 Nov 2026 11:23:21 +0000
-Message-Id: <20261110112325.3263078-1-amarkuze@redhat.com>
+Subject: [RFC PATCH net-next 2/4] net: skb_splice_from_iter(): group consecutive pages of a folio
+Date: Tue, 10 Nov 2026 11:23:23 +0000
+Message-Id: <20261110112325.3263078-3-amarkuze@redhat.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110112325.3263078-1-amarkuze@redhat.com>
+References: <20261110112325.3263078-1-amarkuze@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,93 +124,199 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-skb_splice_from_iter() does per-page work even when the input describes a
-contiguous range of a larger folio. Adjacent tail pages have different page
-pointers, so appending them separately also prevents fragment coalescing.
-For ITER_BVEC, the helper first builds a page array, then walks it to append
-the bytes that the original bvecs already described.
+skb_splice_from_iter() appends extracted pages separately, preventing
+adjacent tail pages of one folio from coalescing.
 
-This series removes that redundant work from the MSG_SPLICE_PAGES path
-used by sendfile(), splice() and other in-kernel socket senders. Contiguous
-folio ranges become fewer skb fragments, with fewer page-reference
-operations; BVEC input is consumed directly, without the temporary array.
+Group contiguous ranges of a folio on direct-mapped builds. Normalize
+large folio positions into page-aligned coordinate windows so fragment
+offsets and append lengths remain representable, and widen the coalescing
+endpoint calculation to prevent wraparound matches. The boundaries follow
+fragment representation limits, not a device-sized fragment cap.
 
-The patches separate a correctness fix from the optimizations:
+Keep skb_append_pagefrags() ownership checks. HIGHMEM retains actual-page,
+in-page-offset, page-bounded fragments; software checksums walk base pages.
 
-  1. Make a zero-byte request a no-op and restore the unappended iterator
-     remainder after rejection, preserving any successfully appended prefix.
-  2. Group contiguous bytes of a direct-mapped folio, including across
-     extraction batches and repeated calls. Representation-safe anchors
-     and wide endpoint arithmetic keep offsets and lengths well-defined.
-  3. Walk ITER_BVEC segments directly and advance only by appended bytes.
-     Bound the request against the unsigned iterator count before assigning
-     the result to the signed return type.
-  4. Add two KUnit cases for append/resume and zero-length/rejection
-     progress, on both the extraction path and the direct BVEC walk.
-
-Grouping stays within a folio and preserves the append helper's ownership
-checks. CONFIG_HIGHMEM retains actual-page, in-page-offset, page-bounded
-fragments. Software checksum traversal remains page-aware. The caller's
-byte-count and partial-progress interface is unchanged.
-
-Performance
------------
-
-An alternating A/B of the folio-grouping and direct-BVEC implementation
-showed lower sender CPU cost for sendfile() from large folios:
-
-  sendfile() workload                         change in sender CPU/GB
-  64 KiB folios, 64 KiB transfers, full speed          -11%
-  64 KiB folios, 64 KiB transfers, paced at 1 GB/s      -5%
-  4 KiB folios, tested transfer/rate combinations      -3% to +3%
-
-At 64 KiB, large-folio sends used about 2 fragments per skb instead of
-about 16. Single-page folios retained the per-page layout, providing a
-control for the optimization. The large-folio 256 KiB CPU result was within
-run-to-run variation, rather than a resolved improvement.
-
-The measurements used a Linux 7.3-rc6-based evaluation kernel (532788178)
-and virtio-net VMs, with interrupts pinned to NUMA node 0. Each
-cell had four runs per kernel in alternating rounds. CPU/GB is whole-host
-sender CPU time, total minus idle, per GB sent; received data was verified.
-These measurements cover the earlier implementation of the optimizations.
-The present revision adds iterator and representation corner-case fixes
-and the regression coverage described below.
-
-Testing
--------
-
-The mailed tests are two KUnit cases, not a broad ownership or coordinate
-matrix. Each runs through both the extraction path and the direct BVEC
-walk. One appends part of a multi-page folio and resumes: payload,
-checksum, fragment count, iterator residual and ordinary references.
-The other checks a zero-length no-op and rejected-page rollback with and
-without an accepted prefix.
-
-Those cases passed on UML, with no skips. The focused build used W=1 and
-WERROR=y. The mails apply to the stated base and match the recorded
-intermediate trees. This is not a KASAN run, a physical-NIC test, or a
-rerun of the measurement above.
-
-Together, the measured reduction in fragments and sender CPU cost, the
-single-page-folio control, and the progress regressions support making
-this a generic improvement to skb_splice_from_iter().
-
-Thanks,
-Alex Markuze
-
-Alex Markuze (4):
-  net: preserve splice iterator progress on rejection
-  net: skb_splice_from_iter(): group consecutive pages of a folio
-  net: skb_splice_from_iter(): walk ITER_BVEC segments directly
-  net: add basic splice KUnit tests
-
- include/linux/skbuff.h   |   3 +-
- net/core/net_test.c      | 170 +++++++++++++++++++++++++++++++++++++++++++++++
- net/core/skbuff.c        | 141 ++++++++++++++++++++++++++++++++++++---
- net/core/skbuff_splice.h |  34 ++++++++++
- 4 files changed, 338 insertions(+), 10 deletions(-)
+Signed-off-by: Alex Markuze <amarkuze@redhat.com>
+---
+ include/linux/skbuff.h   |  3 +-
+ net/core/skbuff.c        | 63 ++++++++++++++++++++++++++++++++++------
+ net/core/skbuff_splice.h | 34 ++++++++++++++++++++++
+ 3 files changed, 90 insertions(+), 10 deletions(-)
  create mode 100644 net/core/skbuff_splice.h
 
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 6787fcf6ac3e..b19ba550ae11 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -4009,7 +4009,8 @@ static inline bool skb_can_coalesce_netmem(struct sk_buff *skb, int i,
+ 		const skb_frag_t *frag = &skb_shinfo(skb)->frags[i - 1];
+ 
+ 		return netmem == skb_frag_netmem(frag) &&
+-		       off == skb_frag_off(frag) + skb_frag_size(frag);
++		       (u64)(unsigned int)off ==
++		       (u64)skb_frag_off(frag) + skb_frag_size(frag);
+ 	}
+ 	return false;
+ }
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index ee7a1bc72cc2..3a66a50513a3 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -98,6 +98,7 @@
+ #include "devmem.h"
+ #include "net-sysfs.h"
+ #include "netmem_priv.h"
++#include "skbuff_splice.h"
+ 
+ #ifdef CONFIG_SKB_EXTENSIONS
+ static struct kmem_cache *skbuff_ext_cache __ro_after_init;
+@@ -7532,6 +7533,23 @@ static void skb_splice_csum_page(struct sk_buff *skb, struct page *page,
+ 	skb->csum = csum_block_add(skb->csum, csum, csum_offset);
+ }
+ 
++/* Add the checksum of @len bytes at @offset in @page to skb->csum; the range
++ * may run on into the pages that follow @page.
++ */
++static void skb_splice_csum_range(struct sk_buff *skb, struct page *page,
++				  size_t offset, size_t len,
++				  unsigned int csum_offset)
++{
++	while (len) {
++		size_t part = min_t(size_t, PAGE_SIZE - offset, len);
++
++		skb_splice_csum_page(skb, page++, offset, part, csum_offset);
++		csum_offset += part;
++		len -= part;
++		offset = 0;
++	}
++}
++
+ /**
+  * skb_splice_from_iter - Splice (or copy) pages to skbuff
+  * @skb: The buffer to add pages to
+@@ -7540,8 +7558,12 @@ static void skb_splice_csum_page(struct sk_buff *skb, struct page *page,
+  *
+  * This is a common helper function for supporting MSG_SPLICE_PAGES.  It
+  * extracts pages from an iterator and adds them to the socket buffer if
+- * possible, copying them to fragments if not possible (such as if they're slab
+- * pages).
++ * possible.  Pages that cannot be sent (such as slab pages) are rejected
++ * with -EIO, not copied.  Consecutive pages of one folio are grouped within
++ * the fragment representation limits.  A fragment is anchored at the head
++ * or a tail page of that folio and holds one reference on the folio either
++ * way.  On CONFIG_HIGHMEM builds a fragment stays within one actual page
++ * of the folio, because kmap_local_page() maps only one page.
+  *
+  * Returns the amount of data spliced/copied or -EMSGSIZE if there's
+  * insufficient space in the buffer to transfer anything.
+@@ -7552,7 +7574,7 @@ ssize_t skb_splice_from_iter(struct sk_buff *skb, struct iov_iter *iter,
+ 	size_t frag_limit = READ_ONCE(net_hotdata.sysctl_max_skb_frags);
+ 	struct page *pages[8], **ppages = pages;
+ 	ssize_t spliced = 0, ret = 0;
+-	unsigned int i;
++	unsigned int i, nr_pages;
+ 
+ 	if (!maxsize)
+ 		return 0;
+@@ -7575,29 +7597,52 @@ ssize_t skb_splice_from_iter(struct sk_buff *skb, struct iov_iter *iter,
+ 			break;
+ 		}
+ 
++		nr_pages = DIV_ROUND_UP(off + len, PAGE_SIZE);
+ 		i = 0;
+ 		do {
+ 			struct page *page = pages[i++];
++			struct folio *folio = page_folio(page);
++			struct page *fpage = page;
++			size_t foff = off;
+ 			size_t part = min_t(size_t, PAGE_SIZE - off, len);
++			unsigned int first = i - 1;
++
++			if (!IS_ENABLED(CONFIG_HIGHMEM)) {
++				struct skb_splice_frag range;
++				u64 pos = ((u64)folio_page_idx(folio, page) << PAGE_SHIFT) + off;
++
++				range = skb_splice_frag_normalize(pos, len);
++				fpage = folio_page(folio, range.anchor >> PAGE_SHIFT);
++				foff = range.offset;
++				part = min_t(size_t, part, range.len);
++				/* A tail anchor also takes/drops a folio reference. */
++				while (i < nr_pages && part < range.len &&
++				       pages[i] == pages[i - 1] + 1 &&
++				       page_folio(pages[i]) == folio) {
++					part += min_t(size_t, PAGE_SIZE, range.len - part);
++					i++;
++				}
++			}
+ 
+ 			ret = -EIO;
+-			if (WARN_ON_ONCE(!sendpage_ok(page))) {
++			if (WARN_ON_ONCE(!sendpage_ok(fpage))) {
+ 				iov_iter_revert(iter, len);
+ 				goto out;
+ 			}
+ 
+-			ret = skb_append_pagefrags(skb, page, off, part,
+-						   frag_limit);
++			ret = skb_append_pagefrags(skb, fpage, foff, part, frag_limit);
+ 			if (ret < 0) {
+ 				iov_iter_revert(iter, len);
+ 				goto out;
+ 			}
+ 
+ 			if (skb->ip_summed == CHECKSUM_NONE)
+-				skb_splice_csum_page(skb, page, off, part,
+-						     skb->len + spliced);
++				skb_splice_csum_range(skb, pages[first], off, part,
++						      skb->len + spliced);
+ 
+-			off = 0;
++			off += part;
++			i = first + (off >> PAGE_SHIFT);
++			off = offset_in_page(off);
+ 			spliced += part;
+ 			maxsize -= part;
+ 			len -= part;
+diff --git a/net/core/skbuff_splice.h b/net/core/skbuff_splice.h
+new file mode 100644
+index 000000000000..dd51daf74903
+--- /dev/null
++++ b/net/core/skbuff_splice.h
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef _NET_CORE_SKBUFF_SPLICE_H
++#define _NET_CORE_SKBUFF_SPLICE_H
++
++#include <linux/limits.h>
++#include <linux/minmax.h>
++#include <linux/types.h>
++
++struct skb_splice_frag {
++	u64 anchor;
++	unsigned int offset;
++	unsigned int len;
++};
++
++/*
++ * Use page-aligned windows of INT_MAX + 1 bytes.  The anchor is a byte
++ * position within the folio, not a pointer; callers have the live folio.
++ * Every offset and append length fits the int arguments of the fragment
++ * helpers, and offset + length fits u32 without wrapping.  Consecutive
++ * calls use the same anchor until a representational boundary is reached.
++ */
++static inline struct skb_splice_frag skb_splice_frag_normalize(u64 pos, size_t len)
++{
++	struct skb_splice_frag range = {
++		.anchor = pos & ~(u64)INT_MAX,
++		.offset = pos & INT_MAX,
++	};
++	u64 space = (u64)INT_MAX + 1 - range.offset;
++
++	range.len = min_t(u64, len, min_t(u64, space, INT_MAX));
++	return range;
++}
++
++#endif /* _NET_CORE_SKBUFF_SPLICE_H */
+-- 
+2.34.1
 
