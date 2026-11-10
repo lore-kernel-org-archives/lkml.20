@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316579;
-	b=Aq9tWetCtDNB+0fzAWdPaSUUSjP0sZPsLqStLCLbsuG8NJJ4RepFAzYtAwTF7jV3UBCJ
-	 A0xUH1HmFHVnOR7pX+9IJoLN2LyJR/aH8SLymCqXa9w2QCo8g7uBeS0aB0UuE/GTROmB3
-	 h87laSmdCdB7LPJ2aVW+e1QqXeUyejPNUhbp2NO54AE+WkeNgFIWsNT0vtvR7NqxTt9Ey
-	 HhfZic2APzjhee4tUsX9WLLg4/1h94unyUdkE2nfNRDTivYCj+zkpKDanK5BV1TQw7Ha2
-	 3ryyqmj57+2rktKGRTqx/VeeRe8/zSVYFRdzTzUuk7DFe2RMrHTyjqW6xReiD6f1Y8A==
+	t=1794316589;
+	b=cWPFLYOsOPkSaszq/CNfBtN4D19T5oZfbSBwGUMHzc3XLTIR5LOMUhjFimX9yYXdBFk3
+	 Yi2xV9x4Suggl7hzt4MPAZiKScOn0ujKegHFumB4osOJFIjSV/l0jauGiIDQVEmmvXftK
+	 vfLgmoLMq4P5PoqwMuwcaTyhryU/nexPe6a/HrHBgnj2YMLHpQebaZ5Qq3+ddvwESnS1e
+	 noIQrysrCQBrDhwmaJOk8VAFb2oj6BR3nnaguVLKU7FzZvKCruGZnS3zPo/JfUyPRZfG1
+	 5pRRERXHnWf3XEytjjnUQlhFKkZC9rquzaCLWn1a7oBwzpzhG2zgc1nm/IuTPalOqQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316589;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
-	b=UTfg6oEARdPhoroGhUI1yl21WVS7HtXI+WOd+dBQl2VhcjZWgk32JwaVJhGs3WQtKpJa
-	 kQKmoRVMIsC+ebbJpGnupC+hNVPc6qI7c6wpK9U41yo+/xPVEeqBmakRY1uFtB4VAmQ1Z
-	 f0f9j/6V/30seXDiAepauy3ATxt7+Z2ZqsbYBOF3zvorr/lCalCHz24MFJC3NWsSa8Lo+
-	 RRh92gGL+2g/GKPhNgq/lLHxn5i+L+zykChmOOabF5fx+yoJVYo7lx70eafP7OiTvN/cu
-	 c/5GGBDHEstEHWOab5XqrstqJIpX8cd4zxcu8f/A0b4xS4fCnJfth+AGYrnghY5Jyig==
+	bh=cYhmmDhk9YyrIeJ9b5QNPOWsGYE+KiNLYLN1UcJqjIE=;
+	b=P8a3B2QrXvsJZpCS1o3IQiqq4qpqg/4N2kjjK6vV6UGwpz4bPUw/W2n/AltvMMTPUiZV
+	 B12nfX2M0fkbWdPgfgmsk9HzdaGfZaY+EOa7+vVfu1DAZx9h6Xepu1YNLK4M64+t14lSC
+	 HJhm22m4wuvaLHTI6z0lM3QPbimn/rapg8cxe2RpZ8mueiOvDgEh+tSVLNFCUthOkOS+O
+	 to/anzAE2BbuxwWop0lTbwUUWQMVdS8AWv6BmGTFBg61X19MrCnmWb4PQ3A0QlHmpjFQ/
+	 wm+65vxlcL1sr0zn1fSo/SV0gGghoWspUg/RDTTSzdGnjvh5azykwBjjWCuXV6XJ2EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujHf7F8v;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vLSN8PsO;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B21D606BFFB
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:16:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B21D606BFFB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1D460A382B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C1D460A382B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujHf7F8v
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so1122049a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:16:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vLSN8PsO
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b17b277a68so32324a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:16:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316578; x=1794921378; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794316588; x=1794921388; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
-        b=ujHf7F8vbBL9mJIIbCDBDy172NhqabWtc4jQ1OoIaP+P001lSlq10qIjBhKQq13AOf
-         pDH2AfJz8b0xTnz66v6Gj5y6UIVXLM7zifrvXpNo4SREqE1WSoxZCDZmNnZI3nZ87+cn
-         RFFR+SyLVI8dYr+Rm+mu7D7NiGPJGEdeOxrG5KeTT+DAiCYwWHujGHdMyNqXQmt+laIY
-         AwiqzvUDwSbJwZ44SH6rAWFjyHUDkhYOreuBk6ex/6BJpsUeeb+8gsalHEt77L0NBZ6/
-         GZP7gTWuZfwxxiL4JZH3V6iDKoAyRefhjYPU1ATRJ7ExP6dUlj5ZlApUcks8oE+7XtTs
-         erjw==
+        bh=cYhmmDhk9YyrIeJ9b5QNPOWsGYE+KiNLYLN1UcJqjIE=;
+        b=vLSN8PsOwYs2ON8XuKR3EWKb2IKgNZ4WHvcex5LKAO/bDso+oTHr7yEOQNWjEzsjT/
+         IJ6Kql+zRHVXwB7xFxkVqNxaUhpliOerxd0I1sxJH2RzWG+V2giIDuhbJueEzpuOKdb7
+         okrBhq7I8LAPxkB6BxMibiRu5zP3bLzBb6jibe/xD338uno88z8aKVk6WBJOPzVBz6Qj
+         HSjDRrM0CBjRq0HH8i++t7cxZEplLieb8eiXNv92y/OD5QoRHRjd48yYQOzo/LcREaEO
+         zTFYbOmuRA9sMoOCkJubRgqQjrYGfJzwe1lJM6I8l2O/3XT8rm4vuPhnPy/MvBfm6+1Y
+         /T8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316578; x=1794921378;
+        d=1e100.net; s=20260707; t=1794316588; x=1794921388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
-        b=q8NrMZbsmZzI6sYDLZDdt8f1TzQmaNWykXGyD0lEMj2TY+FNDj5dg9U62h8gx/iGAD
-         AYh4kgUdvXOYwYYZeXhWyL/ra6QYJUmJI5SBvCM7Dj3DOJG+YsrfRge2wcOPhkL0Z8CL
-         ey5YpHcxXv9esCscuy8JhJOblIIQQSCybxLLTTtEfsnCgX5xgPG440ppCT2NBcMFuu55
-         Y693sRj7e5vRogh2LOh5fiOsVZW3pvxKbm2TYocy6FnkyhKmKQS17Xj1fCC6ohdPNMcX
-         1XcSU1rvUUXbfBzmxNzPoIRSNB898q2VOkHy7MrpENWC3I+dfXgviclz6U9wP/kLXCrj
-         3lyQ==
-X-Forwarded-Encrypted: i=1; AL+hErFk8LQPOv8jFjRxrA/7A94XTkbpsK9oCCjudbyGvmu3zpz9AXSC6PGlJO4Ss2WxEXTAOsswv9VThSVZVBE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uaQavpY0w2gC/Nyo2RnSWDdZizM70N1JJCOv+3ZVkyaG2W1z6
-	ndnbW1uPwZYCWjSl3IllpU2ezBg2/lTjRX2Po3nhjv0pPElGywK17nzb
-X-Gm-Gg: AYBFou2WiHkRz6zWPno2K39T6yjqXUPRGPtHtY+8gPY7lN/oKC6YlqhhvQMt+ATks2y
-	7H/+VDxNqzkHKz456MadtA2Q05LtQwkTQyF+iSsKsy+qBcwN3nhIkyd4izSMHDH6oMSz/QiPDa3
-	VLXjbKMLqdQ1aUhl5RShsJIsiTuhzztNhEysbGgIQ7UC/F0W7aLY09UOtA6mAfy2kOlYN+jsEwm
-	t9+Edg7rszYq1M84EJLEQhecq2deiF4aFVro1aNYdrNoBY6K/Mhh2YEI5BF4LGFtY1+KG6VVPWD
-	wnL/NwdPLbs3C3nvlpnisHQfWuJBH0NP6r5rQwIxQnTMS4Y//4UVr93UULAMczbFXT9icBJUCBe
-	qVHbm5iOw9ZDyVhUZf4rj1gECV5tmZGHBsJtItuMgEk4f1krHKf6sjGB1VaaS1xPtPAPt8ioPs4
-	qNCHI8UDS37poDI+kqRw6amQVmGazwGxZU3Izs44vFlrvOMBR62V01jBbbAxWp+7eY5kz4kZaLv
-	+6uL6/AoS0Zv3CJf4ZZNv6gbOM1grQ3F8FOl+uM/9ryl6meZjeuq5tyFsj+13W2Be4MjKFzbFjf
-	aU6uu/+Tb2MlXj6zFGk4fFZxLH0CmAX6Ej3AR/zgY1+cxlXOD/Hc
-X-Received: by 2002:a17:90b:35c6:b0:3b0:9e2c:9b60 with SMTP id 98e67ed59e1d1-3b166cd47b6mr2411498a91.21.1794316578225;
-        Tue, 10 Nov 2026 05:16:18 -0800 (PST)
+        bh=cYhmmDhk9YyrIeJ9b5QNPOWsGYE+KiNLYLN1UcJqjIE=;
+        b=aMdLwu08X+wWieU2gMWXKAbqQ3iKDHCkuSVhXYp60HKAKLHcehNZYTqddo6dTqRfHr
+         F46u5oi8rvNXC6YY5HmllRmWT942EFZXL588zod3S4/JFofAYAxRw2HOWeoiGzngunDM
+         04fZzNLAWYr2JLk/sytOOnrurt5GsMpIvQ4jwtpoKMO0p4pifworqexvNU0dywAOOiC4
+         nPwtc7chz0mg8Pa5B+ldEL5FeQMYI07O6NcAaRoxBD4iugneb01JCRFAdIGbDrzRXy6U
+         mYUcBSTMgqxuRPM993w1CympcECWtMMy0rrFZWSk0l8o0JdRwF8L25S3dTaOnunVhX9K
+         wHKw==
+X-Forwarded-Encrypted: i=1; AL+hErGrMjo862Pn6h9aFzZ9b3G+qzEZXUoBerAJoDpvYbV6c5uLzAUu4gEhRNqaX9QJ3SaxINGEhsNsMEWp+K4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cAIxNr2SVdKNqZQGqyMy4SUEHf6Pi2KiWgT7HJXKSBVQ10PiN
+	PK37Qlc4GxbHX3wARx7HOgDwHaYhC22F0Ty5TGf/sTWiIsev/sTZs6xU
+X-Gm-Gg: AYBFou03thDRlOqsPAsCkvzmydTBdIgQZGKe/2vmtSHMnsXdFT5eJzFqHlq7gH1syba
+	+NusTXhGA3nFdKUkfZz8vqRhaMelp9unySM/wt9NghMGdO6bdcJ1QcmcceQYlJPtPt0esGpRW7d
+	ClDABNlZ/FpVjUCuQBaoQWTSLhClcP3xSB4+Mu8l7KSGh3ym1orzwBZtELbNg/Cb1GPWq+8LVqP
+	ghiqvpep4BNJf/aSy0Ee7hEU0BKod4xPAG4XOl4/Oxu8GC7tGH43tP5WceRsWzR8YGfoyBawTTL
+	nvDqbvg+CDVNLLAPvVXq++EurGDj2rML7VbGrQV2titIZWjmayUq+rhWSlKLwpCAu9xapngrImB
+	oQQtmd2DdNqxjN2J8XOm8f6dd6M9BG+AWPn97mq5SOxLtkriKvOct+t1/wMS1luS33HFfQ9naS8
+	n2a5Z3qTln3mXPoxKrEEI74qk9K3IOA2nlFUzQ/vsmgy9HgZqLZFBCxlkDUdVniWAxggfbD0/Dm
+	FVbNAzjf1+XmeUozJI598WsX1GPrWUvBG6T409yEgZ5z8M1/UVt/sKjL/vzH0v4rzwSgHHp9jUP
+	xuvXYrfdHLFsj2b55meDl0iJSaJHNQY=
+X-Received: by 2002:a17:90b:4c51:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3b166aef970mr2935950a91.4.1794316587571;
+        Tue, 10 Nov 2026 05:16:27 -0800 (PST)
 Received: from cryptic.lan ([2001:569:7077:be00:8191:2bfc:aa6d:704b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.16.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.16.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:16:17 -0800 (PST)
+        Tue, 10 Nov 2026 05:16:27 -0800 (PST)
 From: Allen Pais <allen.lkml@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Allen Pais <allen.lkml@gmail.com>,
@@ -85,10 +85,15 @@ Cc: Allen Pais <allen.lkml@gmail.com>,
 	Arnd Bergmann <arnd@arndb.de>,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>
-Subject: [PATCH v4 10/33] dmaengine: mmp_pdma: replace per-chan tasklet with dmaengine BH
-Date: Tue, 10 Nov 2026 05:13:10 -0800
-Message-ID: <e0e306bdccfa7c8da6e9bed0bab9f8848db3bc64.1794315350.git.allen.lkml@gmail.com>
+	Frank Li <Frank.Li@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 13/33] dmaengine: mxs-dma: use dmaengine BH scheduling
+Date: Tue, 10 Nov 2026 05:13:13 -0800
+Message-ID: <dc2a8bc5d071b865be14d8ede93a3b6bc68839a5.1794315350.git.allen.lkml@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794315350.git.allen.lkml@gmail.com>
 References: <cover.1794315350.git.allen.lkml@gmail.com>
@@ -110,56 +115,53 @@ the common scheduling and teardown mechanism.
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/dma/mmp_pdma.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/dma/mxs-dma.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
-index 6045d6d1cc79..abea70dea890 100644
---- a/drivers/dma/mmp_pdma.c
-+++ b/drivers/dma/mmp_pdma.c
-@@ -115,7 +115,6 @@ struct mmp_pdma_chan {
- 						 * is in cyclic mode */
+diff --git a/drivers/dma/mxs-dma.c b/drivers/dma/mxs-dma.c
+index cfe4d759d65f..3dfd56a53414 100644
+--- a/drivers/dma/mxs-dma.c
++++ b/drivers/dma/mxs-dma.c
+@@ -109,7 +109,6 @@ struct mxs_dma_chan {
+ 	struct mxs_dma_engine		*mxs_dma;
+ 	struct dma_chan			chan;
+ 	struct dma_async_tx_descriptor	desc;
+-	struct tasklet_struct		tasklet;
+ 	unsigned int			chan_irq;
+ 	struct mxs_dma_ccw		*ccw;
+ 	dma_addr_t			ccw_phys;
+@@ -300,9 +299,9 @@ static dma_cookie_t mxs_dma_tx_submit(struct dma_async_tx_descriptor *tx)
+ 	return dma_cookie_assign(tx);
+ }
  
- 	/* channel's basic info */
--	struct tasklet_struct tasklet;
- 	u32 dcmd;
- 	u32 drcmr;
- 	u32 dev_addr;
-@@ -373,7 +372,7 @@ static irqreturn_t mmp_pdma_chan_handler(int irq, void *dev_id)
- 	if (clear_chan_irq(phy) != 0)
- 		return IRQ_NONE;
+-static void mxs_dma_tasklet(struct tasklet_struct *t)
++static void mxs_dma_tasklet(struct dma_chan *chan)
+ {
+-	struct mxs_dma_chan *mxs_chan = from_tasklet(mxs_chan, t, tasklet);
++	struct mxs_dma_chan *mxs_chan = to_mxs_dma_chan(chan);
  
--	tasklet_schedule(&phy->vchan->tasklet);
-+	dmaengine_schedule_bh(&phy->vchan->chan);
+ 	dmaengine_desc_get_callback_invoke(&mxs_chan->desc, NULL);
+ }
+@@ -386,8 +385,8 @@ static irqreturn_t mxs_dma_int_handler(int irq, void *dev_id)
+ 		dma_cookie_complete(&mxs_chan->desc);
+ 	}
+ 
+-	/* schedule tasklet on this channel */
+-	tasklet_schedule(&mxs_chan->tasklet);
++	/* schedule BH on this channel */
++	dmaengine_schedule_bh(&mxs_chan->chan);
+ 
  	return IRQ_HANDLED;
  }
+@@ -781,7 +780,7 @@ static int mxs_dma_probe(struct platform_device *pdev)
+ 		mxs_chan->chan.device = &mxs_dma->dma_device;
+ 		dma_cookie_init(&mxs_chan->chan);
  
-@@ -1045,13 +1044,11 @@ static void mmp_pdma_issue_pending(struct dma_chan *dchan)
- }
+-		tasklet_setup(&mxs_chan->tasklet, mxs_dma_tasklet);
++		dmaengine_init_bh(&mxs_chan->chan, mxs_dma_tasklet);
  
- /*
-- * dma_do_tasklet
-- * Do call back
-- * Start pending list
-+ * dma_do_tasklet - BH worker to process completions and kick pending work
-  */
--static void dma_do_tasklet(struct tasklet_struct *t)
-+static void dma_do_tasklet(struct dma_chan *c)
- {
--	struct mmp_pdma_chan *chan = from_tasklet(chan, t, tasklet);
-+	struct mmp_pdma_chan *chan = container_of(c, struct mmp_pdma_chan, chan);
- 	struct mmp_pdma_desc_sw *desc, *_desc;
- 	LIST_HEAD(chain_cleanup);
- 	unsigned long flags;
-@@ -1168,7 +1165,7 @@ static int mmp_pdma_chan_init(struct mmp_pdma_device *pdev, int idx, int irq)
- 	spin_lock_init(&chan->desc_lock);
- 	chan->dev = pdev->dev;
- 	chan->chan.device = &pdev->device;
--	tasklet_setup(&chan->tasklet, dma_do_tasklet);
-+	dmaengine_init_bh(&chan->chan, dma_do_tasklet);
- 	INIT_LIST_HEAD(&chan->chain_pending);
- 	INIT_LIST_HEAD(&chan->chain_running);
  
+ 		/* Add the channel to mxs_chan list */
 -- 
 2.43.0
 
