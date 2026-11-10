@@ -1,119 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281424;
-	b=My8V6BN5kLp8T5Y8owvKlqVsjhzmSZsCOZFPgRujeEghDAS+a/AQSvtv25pIahpP6NN2
-	 w0sPRVW0siAGH4sGpmgwSaaKNa4Bf0+ojaopTg74uTKUldX6dJuuF7YYseMCJnNgSjhS9
-	 I/Or3L4UCvUulPUXTujqdJFfTY6zUBP8jgMHB/70C2qKS7lw+L26kAxvDrBmHkMR/TgPn
-	 pA9u5CnsLyfsRl/2H8Kj7xh/J5hmui41uGbFtPhwMnMW2iHHSx/mkG8HK2lzK7Ps5d03d
-	 zORkD95k4oV84tyW0koqZD8Qbl7rTu5fvONkkpg1Wv3nEsg6adFK+ulJhqV8D2aA2Ig==
+	t=1794281485;
+	b=xdbqSBQjKBR+UF4VuTNfkoATZldeCWnPmSwqUPJRxLUDf11kPkU+wvXmu0ZcRHX+y/KI
+	 2hlzofUf5Kx8s+8tgv+vm2h0vsPYlabrdxYFqyIjcttoe4fBkyhJr5QmZ0XuNRPauAnE6
+	 OD1OhXhkmhbYqTvxSZLhta7Zf/P5rgsQdt0LZ+ctEIG94kinoHi/QHS/umm2zKQrpibrA
+	 luNhxr8Frm4uukHnZo1K0wrPVb2t9Eij5UCAUiDWNvxT2lTKGbX2DkaYS+/N6BljwzwpK
+	 c+tHUo9Lx0ywQzTkmnw6XfcZVhKE/eX2oTfGDqRYtSJ0yyBYAadvSX5hrjMdwTk7Rfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281424;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gxdjfkE2u6hMgUrERKs9IK41dx8VvemjPSvlkCJqFUU=;
-	b=BybeZ0PSogzAaeb8HngngcbDZRHoqPnmLdEgHmbiSzcMSaW9h9BH1kNHJc0n8Xak3ZCp
-	 NdYHQRGI2TJcYN2mzURHPVB9jPJrpVm2Nk6x/EnWHvjOwUdZ5+KDYNDAwz27SVnLKk2ue
-	 ih5pPuktpFMshzsT79tu+G3dd8cRdG5FjzjzntJIdaUS4aYbF6OXgbtZZ0bhaxlgT654M
-	 YipWMEIOwBCXUkqc5ykE2P9reR9gqiyxqskPmHrgpl3BCuRG8a0+fiHncfF3OdA/yL3qJ
-	 lbo/SU9pgztPAsmFRCYejLcvta8AZHzaPyWX1VSNcj3/jmkpm30Cjl7QQTKcWKaF7jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281485;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=XzzTILdfbYBLvw0MWiIRHVzcsuMJFD+V9XadsyocBCs=;
+	b=iSOIKsErrI6viq9kdNi62hL7agbhSdZJoE53UPGs6urX9hHpH7USg1aaFWerrZzbPqCx
+	 LvJtPS6WTKmtOzlJ/KZHOqdIKi283PpSFAQFNUJaj44TWIsVYV1KnCJLeD919YnEK0GUc
+	 yKafYC1Rqoy4vSxg6ghljYgDN72WrOT5d0HeQcZ3ufsK20u1e5+kNYPN/qikW5MJS8TyI
+	 JxW0ecjWUQ8RsDrRX/TwAeD/2Tk5GTT4xTuskUQ4eu8a9HE0NdPUEbA8HEYl/w2GbtBim
+	 5bjK9PEHt478oaYp4bfNJCZE16dHa5phLAhRH/yMoz4N3ddBaUrEe/cot+Emvd+opcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AtTkhZae;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FcOl3+Eg;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E6E606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E6E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F88C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F88C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AtTkhZae
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdb628232d2so911151a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:30:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794281423; x=1794886223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gxdjfkE2u6hMgUrERKs9IK41dx8VvemjPSvlkCJqFUU=;
-        b=AtTkhZaeU4hUtuGnRtS0F/N3iO+1WlWiKDM4IHXPrTmT37Z72Qbpkeu80eTmvSZz1x
-         AOiLkMjr9VvaO6BXCIp6zPi09rXrwfIlg6eUx9QNDXS94b9GRPE5nJeUg+U04ltfJegk
-         NeJPojTsts2wX0CGibfvU4BXioqxU9amayLrlaUZ3DNU3T2PvSfZoMADJMfLW72c+weH
-         mid1sbiKiU3UFS1h35zuS6M09zx4cyWj4tiNUioRG4LWjWPehHSzU8X48KZUY8Vod05f
-         +rYgjcYRO6VyDI/9dzqrSiXq51iiV1YIqefrLkeCvnthY7SMT/Sb/JNek/ZQMxEheQk8
-         /lDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794281423; x=1794886223;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gxdjfkE2u6hMgUrERKs9IK41dx8VvemjPSvlkCJqFUU=;
-        b=ZLFJYICmn9O9jZrao8I7DpRKj4Z2knvouH9qB3aaFFy+SfE7Z47ryndgTtpJMgVMzo
-         XXwC0FDxFSDI9UUcQusWBg5tV+AbEdjV/qUEXXlDJWK9p0LvrbL/5Sj4vdyz6/xhRBmH
-         wb0/wkWZx/hpeXkML/SHz6vN4MCFtP/849wpM8geoXe5/wr/CZ6ByW7hkOj3bnKMfVcS
-         wlzfPjzO0liYUviL9mL4hqULB+LEmFnHAIEqITEXlN5SffpfZpe7BEXRo9+HjJz1ebS4
-         8NB358wEJ05AvnCxxqiAh8Q/zUO9XHU8d5MQKZ8lGHDc63HocliSiOsgLtibrCa7SdXO
-         QhDQ==
-X-Forwarded-Encrypted: i=1; AL+hErH/SAY8gL5rUDPOL9WBhSVxkMnkvJ1ZAfFPB7H0caBpwzOodxSy+XdLrT6JINtFNR4lQrY/3m0bPoN7gT8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mDOxRY87j0XWTLc8u7SXZ8S89vRDd4KwvdR2aWaCdujVgH0aF
-	6Ti9e/oJB8CJxxyATWt4YauLok39I8alQuX+GBBb8pF7xMeXXeMCqTl9
-X-Gm-Gg: AYBFou1S3HV20wYVTggPm1lggjNQF67LGfJPH0cH27woAP9+7TQLEntn2D5X/yD4H1R
-	JS5r3j3Mr5361qyLGUHRk/FZEplW3DnWmCBfCXTrzIVG0I8kiYiYkkQ5awZ1t8k5ogYY7H5xAUV
-	rwoSGmLsacWXL0JE2gESmKcxdopMt3MM09+jAfNJEsyYWiahy61NSIyXVdivxD+Y19OFc/5RtLu
-	oavC4wfzPZlj+A4f1NvsInnEgjT0IdjI8FQesjo6D6VzcbX2FH4awCsOC5WIo4q1pnbu2bljxmQ
-	15JcnxqeT1uRmq9vJ1qAMZs7Y8OKzHS7uXicpdVb1AtDydgVsbGRAjTWZJ5utXe8lNrzPpQK5S8
-	XLLbdqDUYnoz9IGTVRbhlFAWW3o0a3gSJe5tCxx1bd+Tbks0eWdaSF1LcagV4zPxnzHi9E1eO8s
-	tFRDwa+oE4nWNsblY5u0EUxDfe4eaEuC3zw6+rJOJJPXC13g1wwKftQVRHc7CIOBYh7ouZxhPrY
-	NEBeoVqKI4N87ryVWoG5zdFvnlFsA/q8W6V2dnN9hkceDhzjL81lI67Gc4jX9rVSKLs9xmU81+N
-	ZprKhkxgI8o8Z8Qql7JqQip9XBgKNIKGJ4gc/e91S7vzt9dw53OXJhUaEft2mz4DSrZplhDpVKk
-	ObuZ4NT3KaX689GE5sWPpq6rk
-X-Received: by 2002:a05:6a21:2013:b0:3e2:a9cc:3ece with SMTP id adf61e73a8af0-3f18e8c5cb6mr1040170637.23.1794281423096;
-        Mon, 09 Nov 2026 19:30:23 -0800 (PST)
-Received: from localhost.localdomain ([240e:46d:1d00:5ed4:58d0:d294:d44c:6ae8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab21835fsm336973b3a.42.2026.11.09.19.30.11
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 19:30:22 -0800 (PST)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com,
-	tim.c.chen@linux.intel.com,
-	lizhe.67@bytedance.com,
-	ziy@nvidia.com,
-	mgorman@suse.de
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH bpf-next v4 4/4] selftests/bpf: add tests for the numab kfuncs
-Date: Tue, 10 Nov 2026 11:29:13 +0800
-Message-ID: <20261110032913.71974-5-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261110032913.71974-1-laoar.shao@gmail.com>
-References: <20261110032913.71974-1-laoar.shao@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FcOl3+Eg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794281485; x=1825817485;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8UETthy2DqGK6OxbGSELIutxELUHxSSjiu6K8rj6CiI=;
+  b=FcOl3+EgqP4M1DF326nt96DRLr9vakl4YeaoLlCS5BS7JzoiOWL1q58z
+   Ogp8FJXA3thi3q92A19MIT+CunRxE7VoL62+kuiJq1jmiZ/ytJVBMsfRI
+   aGRSrRWkvTJUJL4AzTr0nKJluQUeQdODkjq/eAFYkf+3j07K8eSnVrxmq
+   Wms3wtcE1FFS6hji12Eqvbdf15KFJBGxcGX04RdJpVF53FmSX4Cidc1W6
+   wHtQ75cYDTPj2doBgiYAyQTmFu9hERQu2IuHNNJvySEJQK6Hd41dIMsPq
+   BcUaZmDt0ngIPS5Jm5AKhhmnZF75haYJoQhic1rG+dg2i/SHUUGPJxgoD
+   Q==;
+X-CSE-ConnectionGUID: BPSgxG1/S4yvArZZiKHeDA==
+X-CSE-MsgGUID: KtJbT3zeQmuCMv9JTe7Nlw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3017289"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3017289"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 19:31:25 -0800
+X-CSE-ConnectionGUID: lvwgFE01SeODw4B0rb84cQ==
+X-CSE-MsgGUID: aa7n53KeSJe7hEqTlfVN4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8349576"
+Received: from ranerica-svr.sc.intel.com ([172.25.110.23])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 19:31:24 -0800
+Date: Mon, 9 Nov 2026 19:39:29 -0800
+From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+To: Javid Rzayev <rz.cavid@gmail.com>
+Cc: darwi@linutronix.de, kprateek.nayak@amd.com, len.brown@intel.com,
+	linux-kernel@vger.kernel.org, ricardo.neri@intel.com
+Subject: Re: [PATCH RFC] x86/cacheinfo: Remove get_cache_id() due to ID
+ collisions
+Message-ID: <20261110033929.GA26452@ranerica-svr.sc.intel.com>
+References: <20260319-rneri-x86-cacheinfoid-bug-v1-1-5875849dd0e5@linux.intel.com>
+ <20261109165537.6656-1-rz.cavid@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,364 +80,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109165537.6656-1-rz.cavid@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 
-Exercise the bpf_numab_set_mode() and bpf_numab_get_mode() kfuncs
-through BPF_PROG_TYPE_SYSCALL programs: the set/get roundtrip, the
-mode domain (NUMAB_FOLLOW_SYSTEM and the NUMA_BALANCING_* bitmasks
-accepted, anything else rejected with -EINVAL), unknown cgroup ids
-rejected with -ENOENT, and the hierarchy combination the memcg walk
-produces (inheritance, OR-ing, and an opt-out winning over every
-request in the chain). Also verify the memory-controller requirement:
-setting on a cgroup without a memcg is rejected with -EOPNOTSUPP,
-while bpf_numab_get_mode() resolves it to the nearest ancestor memcg.
+On Mon, Nov 09, 2026 at 05:55:37PM +0100, Javid Rzayev wrote:
+> On Thu, Mar 19, 2026 at 05:38:00AM -0700, Ricardo Neri wrote:
+> > calc_cache_topo_id() and get_cache_id() both compute cache IDs used to
+> > determine which CPUs share a cache. Intel processors use
+> > calc_cache_topo_id(), while Hygon and recent AMD processors use
+> > get_cache_id(). Intel processors use get_cache_id() as well, but only to
+> > populate /sys/devices/system/cpu/cpuN/cache/index*/id.
+> 
+> Hi Ricardo,
+> 
+> On Intel hybrid parts the bad IDs do not stay confined to
+> cache/index*/id: after CPU hotplug they leak into shared_cpu_list.
+> 
+> I hit the collision on Arrow Lake-S (Core Ultra 7 265, 8P+12E, no
+> SMT). Even without SMT, CPUID leaf 4 on the P-cores reports 2 threads
+> sharing L1, so get_cache_id() shifts P-core APIC IDs by 1 and E-core
+> APIC IDs by 0:
+> 
+>   CPU  type  APICID  L1 id (unpatched)
+>    4   P     0x30    0x18
+>    8   E     0x18    0x18   <- collides with CPU4
+>    5   P     0x38    0x1c
+>   10   E     0x1c    0x1c   <- collides with CPU5
+> 
+> When a CPU goes offline, cache_shared_cpu_map_remove() clears
+> cpu_map_populated. When it comes back online, the LLC is still valid,
+> so x86 populate_cache_leaves() is skipped and the generic
+> cache_shared_cpu_map_setup() rebuilds the maps by comparing ci->id.
+> 
+> On v7.4-rc2 (unpatched), right after boot L1 shared_cpu_list is
+> correct (cpu4: "4", cpu8: "8") and only the IDs collide. After
+> offlining and onlining cpu8 it becomes "4,8" for both CPUs, i.e. a
+> P-core and an E-core appear to share L1. On a distro 6.12 kernel,
+> after several suspend/resume cycles both pairs (4,8 and 5,10) were
+> wrong.
+> 
+> With this patch applied on v7.4-rc2, L1 IDs equal the APIC IDs and
+> are unique. Offlining/onlining cpu8 and cpu10 leaves all
+> shared_cpu_lists intact. L2 IDs change (e.g. 0x3 -> 0x18 for the
+> cluster of CPUs 8-11) but the shared_cpu_lists are unchanged.
+> 
+> It may be worth mentioning the hotplug effect in the changelog. Do you
+> plan to post a non-RFC version to the x86 maintainers?
+> 
+> Tested-by: Javid Rzayev <rz.cavid@gmail.com>
 
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
----
- tools/testing/selftests/bpf/config            |   2 +
- .../selftests/bpf/prog_tests/bpf_numab.c      | 273 ++++++++++++++++++
- tools/testing/selftests/bpf/progs/bpf_numab.c |  32 ++
- 3 files changed, 307 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab.c
+Hi Javid,
 
-diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
-index 49dfe939467c..e56c8872e51a 100644
---- a/tools/testing/selftests/bpf/config
-+++ b/tools/testing/selftests/bpf/config
-@@ -7,6 +7,7 @@ CONFIG_BPF_JIT=y
- CONFIG_BPF_KPROBE_OVERRIDE=y
- CONFIG_BPF_LIRC_MODE2=y
- CONFIG_BPF_LSM=y
-+CONFIG_BPF_NUMAB=y
- CONFIG_BPF_STREAM_PARSER=y
- CONFIG_BPF_SYSCALL=y
- # CONFIG_BPF_UNPRIV_DEFAULT_OFF is not set
-@@ -78,6 +79,7 @@ CONFIG_NET_CLS_FLOWER=y
- CONFIG_NET_CLS_MATCHALL=y
- CONFIG_NET_FOU=y
- CONFIG_NET_FOU_IP_TUNNELS=y
-+CONFIG_NUMA_BALANCING=y
- CONFIG_NET_IPGRE=y
- CONFIG_NET_IPGRE_DEMUX=y
- CONFIG_NET_IPIP=y
-diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_numab.c b/tools/testing/selftests/bpf/prog_tests/bpf_numab.c
-new file mode 100644
-index 000000000000..6fb6a4d9f291
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/bpf_numab.c
-@@ -0,0 +1,273 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <test_progs.h>
-+#include "cgroup_helpers.h"
-+#include "bpf_numab.skel.h"
-+
-+#define CGROUP_PATH	"/bpf_numab"
-+#define CHILD_PATH	CGROUP_PATH "/child"
-+#define HIER_PATH	"/bpf_numab_hier"
-+#define HIER_CHILD_PATH	HIER_PATH "/child"
-+#define NOMEM_PATH	"/bpf_numab_nomem"
-+#define NOMEM_CHILD_PATH NOMEM_PATH "/child"
-+
-+/* The per-cgroup request domain, mirroring the kernel constants. */
-+#define NUMAB_FOLLOW_SYSTEM	(-1)
-+#define NUMAB_DISABLED		0
-+#define NUMAB_NORMAL		1
-+#define NUMAB_TIERING		2
-+#define NUMAB_NORMAL_TIERING	3
-+
-+static int numab_set(struct bpf_numab *skel, u64 cgid,
-+		     long mode)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	int ret;
-+
-+	skel->bss->set_cgid = cgid;
-+	skel->bss->set_mode = mode;
-+	ret = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.numab_set),
-+				     &opts);
-+	if (!ASSERT_OK(ret, "set run"))
-+		return -1;
-+	return skel->bss->set_ret;
-+}
-+
-+static long numab_get(struct bpf_numab *skel, u64 cgid)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	int ret;
-+
-+	skel->bss->get_cgid = cgid;
-+	ret = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.numab_get),
-+				     &opts);
-+	if (!ASSERT_OK(ret, "get run"))
-+		return -EIO;
-+	return skel->bss->get_mode;
-+}
-+
-+static void test_set_get(void)
-+{
-+	struct bpf_numab *skel;
-+	int cgroup_fd;
-+	u64 cgid;
-+
-+	cgroup_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(cgroup_fd, 0, "join_cgroup"))
-+		return;
-+
-+	skel = bpf_numab__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	cgid = get_cgroup_id(CGROUP_PATH);
-+	if (!ASSERT_GT(cgid, 0, "get_cgroup_id"))
-+		goto cleanup;
-+
-+	ASSERT_EQ(numab_set(skel, cgid, NUMAB_NORMAL), 0, "set normal");
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_NORMAL, "get normal");
-+
-+	ASSERT_EQ(numab_set(skel, cgid, NUMAB_TIERING), 0, "set tiering");
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_TIERING, "get tiering");
-+
-+	ASSERT_EQ(numab_set(skel, cgid, NUMAB_NORMAL_TIERING), 0, "set both");
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_NORMAL_TIERING, "get both");
-+
-+	ASSERT_EQ(numab_set(skel, cgid, NUMAB_DISABLED), 0, "set disabled");
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_DISABLED, "get disabled");
-+
-+	/* Back to the system setting. */
-+	ASSERT_EQ(numab_set(skel, cgid, NUMAB_FOLLOW_SYSTEM), 0, "unset");
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_FOLLOW_SYSTEM, "get unset");
-+
-+cleanup:
-+	bpf_numab__destroy(skel);
-+	close(cgroup_fd);
-+}
-+
-+static void test_invalid_mode(void)
-+{
-+	struct bpf_numab *skel;
-+	int cgroup_fd;
-+	u64 cgid;
-+
-+	cgroup_fd = test__join_cgroup(CGROUP_PATH);
-+	if (!ASSERT_GE(cgroup_fd, 0, "join_cgroup"))
-+		return;
-+
-+	skel = bpf_numab__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	cgid = get_cgroup_id(CGROUP_PATH);
-+	if (!ASSERT_GT(cgid, 0, "get_cgroup_id"))
-+		goto cleanup;
-+
-+	ASSERT_EQ(numab_set(skel, cgid, -2), -EINVAL, "set below domain");
-+	ASSERT_EQ(numab_set(skel, cgid, 4), -EINVAL, "set above domain");
-+	ASSERT_EQ(numab_set(skel, cgid, 0x1000), -EINVAL, "set far above");
-+
-+	/* The rejected requests must not have stuck. */
-+	ASSERT_EQ(numab_get(skel, cgid), NUMAB_FOLLOW_SYSTEM, "get unchanged");
-+
-+cleanup:
-+	bpf_numab__destroy(skel);
-+	close(cgroup_fd);
-+}
-+
-+static void test_bad_cgid(void)
-+{
-+	struct bpf_numab *skel;
-+
-+	skel = bpf_numab__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	ASSERT_EQ(numab_set(skel, 0, NUMAB_NORMAL), -ENOENT, "set cgid 0");
-+	ASSERT_EQ(numab_get(skel, 0), -ENOENT, "get cgid 0");
-+	ASSERT_EQ(numab_set(skel, 0xdeadbeef, NUMAB_NORMAL), -ENOENT,
-+		  "set bad cgid");
-+	ASSERT_EQ(numab_get(skel, 0xdeadbeef), -ENOENT, "get bad cgid");
-+
-+	bpf_numab__destroy(skel);
-+}
-+
-+static void test_hierarchy(void)
-+{
-+	u64 parent_cgid, child_cgid;
-+	int runner_fd, parent_fd, child_fd;
-+	struct bpf_numab *skel;
-+
-+	runner_fd = test__join_cgroup("/bpf_numab_runner");
-+	if (!ASSERT_GE(runner_fd, 0, "join_runner_cgroup"))
-+		return;
-+
-+	parent_fd = create_and_get_cgroup(HIER_PATH);
-+	if (!ASSERT_GE(parent_fd, 0, "create_parent_cgroup"))
-+		goto cleanup_runner;
-+
-+	if (!ASSERT_OK(enable_controllers(HIER_PATH, "memory"),
-+		       "enable_memory_controller"))
-+		goto cleanup_parent;
-+
-+	child_fd = create_and_get_cgroup(HIER_CHILD_PATH);
-+	if (!ASSERT_GE(child_fd, 0, "create_child_cgroup"))
-+		goto cleanup_parent;
-+
-+	skel = bpf_numab__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	parent_cgid = get_cgroup_id(HIER_PATH);
-+	child_cgid = get_cgroup_id(HIER_CHILD_PATH);
-+	if (!ASSERT_GT(parent_cgid, 0, "get_parent_cgid") ||
-+	    !ASSERT_GT(child_cgid, 0, "get_child_cgid"))
-+		goto cleanup;
-+
-+	/* The child inherits an ancestor's request untouched. */
-+	ASSERT_EQ(numab_set(skel, parent_cgid, NUMAB_TIERING), 0,
-+		  "set parent tiering");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_TIERING,
-+		  "child inherits");
-+
-+	/* A request ORs with the ancestor's; NORMAL does not undo TIERING. */
-+	ASSERT_EQ(numab_set(skel, child_cgid, NUMAB_NORMAL), 0,
-+		  "set child normal");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_NORMAL_TIERING,
-+		  "or both");
-+
-+	/* The child's own opt-out wins. */
-+	ASSERT_EQ(numab_set(skel, child_cgid, NUMAB_DISABLED), 0,
-+		  "set child disabled");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_DISABLED,
-+		  "own opt-out wins");
-+
-+	/* So does an ancestor's: a task is never forced into balancing. */
-+	ASSERT_EQ(numab_set(skel, child_cgid, NUMAB_TIERING), 0,
-+		  "set child tiering");
-+	ASSERT_EQ(numab_set(skel, parent_cgid, NUMAB_DISABLED), 0,
-+		  "set parent disabled");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_DISABLED,
-+		  "ancestor opt-out wins");
-+
-+	/* Unsetting the parent re-exposes the child's own request. */
-+	ASSERT_EQ(numab_set(skel, parent_cgid, NUMAB_FOLLOW_SYSTEM), 0,
-+		  "unset parent");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_TIERING,
-+		  "child request again");
-+
-+	/* Unsetting the child leaves the chain with no request. */
-+	ASSERT_EQ(numab_set(skel, child_cgid, NUMAB_FOLLOW_SYSTEM), 0,
-+		  "unset child");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_FOLLOW_SYSTEM,
-+		  "no request");
-+
-+cleanup:
-+	bpf_numab__destroy(skel);
-+	close(child_fd);
-+	remove_cgroup(HIER_CHILD_PATH);
-+cleanup_parent:
-+	close(parent_fd);
-+	remove_cgroup(HIER_PATH);
-+cleanup_runner:
-+	close(runner_fd);
-+}
-+
-+static void test_no_memcg(void)
-+{
-+	struct bpf_numab *skel;
-+	int parent_fd, child_fd;
-+	u64 parent_cgid, child_cgid;
-+
-+	parent_fd = test__join_cgroup(NOMEM_PATH);
-+	if (!ASSERT_GE(parent_fd, 0, "join_nomem_parent"))
-+		return;
-+
-+	child_fd = create_and_get_cgroup(NOMEM_CHILD_PATH);
-+	if (!ASSERT_GE(child_fd, 0, "create_nomem_child"))
-+		goto cleanup_parent;
-+
-+	skel = bpf_numab__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto cleanup;
-+
-+	parent_cgid = get_cgroup_id(NOMEM_PATH);
-+	child_cgid = get_cgroup_id(NOMEM_CHILD_PATH);
-+	if (!ASSERT_GT(parent_cgid, 0, "get_nomem_parent_cgid") ||
-+	    !ASSERT_GT(child_cgid, 0, "get_nomem_child_cgid"))
-+		goto cleanup;
-+
-+	/*
-+	 * The parent has a memcg; the child was created without enabling
-+	 * the memory controller in the parent's subtree, so it has none.
-+	 */
-+	ASSERT_EQ(numab_set(skel, parent_cgid, NUMAB_NORMAL), 0,
-+		  "set parent normal");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_NORMAL,
-+		  "child resolves to parent memcg");
-+	ASSERT_EQ(numab_set(skel, child_cgid, NUMAB_TIERING), -EOPNOTSUPP,
-+		  "child set rejected");
-+	ASSERT_EQ(numab_get(skel, child_cgid), NUMAB_NORMAL,
-+		  "child get unchanged");
-+
-+cleanup:
-+	bpf_numab__destroy(skel);
-+	close(child_fd);
-+	remove_cgroup(NOMEM_CHILD_PATH);
-+cleanup_parent:
-+	close(parent_fd);
-+}
-+
-+void test_bpf_numab(void)
-+{
-+	if (test__start_subtest("set_get"))
-+		test_set_get();
-+	if (test__start_subtest("invalid_mode"))
-+		test_invalid_mode();
-+	if (test__start_subtest("bad_cgid"))
-+		test_bad_cgid();
-+	if (test__start_subtest("hierarchy"))
-+		test_hierarchy();
-+	if (test__start_subtest("no_memcg"))
-+		test_no_memcg();
-+}
-diff --git a/tools/testing/selftests/bpf/progs/bpf_numab.c b/tools/testing/selftests/bpf/progs/bpf_numab.c
-new file mode 100644
-index 000000000000..25da97bce82f
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/bpf_numab.c
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+
-+/* Inputs, set from userspace before each run. */
-+u64 set_cgid;
-+long set_mode;
-+u64 get_cgid;
-+
-+/* Results, read back after each run. */
-+long set_ret;
-+long get_mode;
-+
-+extern int bpf_numab_set_mode(u64 cgid, enum numab_mode mode) __ksym;
-+extern s64 bpf_numab_get_mode(u64 cgid) __ksym;
-+
-+SEC("syscall")
-+int numab_set(void *ctx)
-+{
-+	set_ret = bpf_numab_set_mode(set_cgid, (enum numab_mode)set_mode);
-+	return 0;
-+}
-+
-+SEC("syscall")
-+int numab_get(void *ctx)
-+{
-+	get_mode = bpf_numab_get_mode(get_cgid);
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.52.0
+Many thanks for testing this patch and making the observation about
+the CPU hotplug effect.
 
+I do plan to post a non-RFC version of the patch and I will be sure
+to mention your observation along with your Tested-by tag.
+
+Best,
+Ricardo
