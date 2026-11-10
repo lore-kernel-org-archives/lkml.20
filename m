@@ -1,63 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794275096;
-	b=W5zPuKkEMicCmdx7S58DOqdmEKYZabXLgBS8hFwct3coqE9tGMqixA+dm2ca2x4gVd0Q
-	 UrYsyHjvBed7eR+Pez84lEr5ooJAzjwn1u6IwZLX47j9TCDOAPF4fqqCi7jG0G6tlTcdR
-	 6fR0/fdRFtYsCc54RIo2Ed9rTJe0LTyHiZhM4zICuwCwy5p5M0paGOeTGZHqgs5l9ClT5
-	 BRBd6dVsnmq3GD0Waj/MrRX9xHWIHLd7Vs1Blc3lKWJo1RI8nk3r37EYjAlLgLn6ZO6Z7
-	 skMgRtyaukWE07/eoaGP1D1ZMYJBqMD6Ydw7RPUUL7n9n+0rQSkfm50pqoLV9u8zT/w==
+	t=1794275124;
+	b=HWBkcGlOWSYM/IE2N8bab9Ip3O6CeQZOaV6d0P8brmELiba1SWhawdLC3LBJENRqEakc
+	 VEhzvTf2UZJkOKlOHQTHeOiDWzwMM/AF5tzTrl4WbSfbF0bC+ikhv1L138wKWYwOUoATc
+	 HYJYRqgYh8w0PpRl2oNUmCHIj9wW1r6iSfMNd+4gR9ctOt39gmFIJkc/HSs6drMSQc58s
+	 NgapIijYpLyIjwGH7FdVq/ITIfkjM4glf0S+vvDmuAWR92Na15tnCuXDl8Laav1MlJ7bK
+	 NMKvWrfkpJHnvBPLZU6Jbx6yxGJkExu/enFTHDLuj2LwE/6j1cDbQYtXUNqB9jAbSfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794275096;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=z+4EY+8KKxK3cbzz2wjy14lYgyq1UFQ1PnavJMZdtnY=;
-	b=FFc5ZigVueiCFit14abjSUnY+hwG/KqdkVMzHuKcezUdm4E9dregTeFLZFsFuKYdQLNJ
-	 p9UY42JcNhdcaxyBD8PRhLtl+yLWSP7w/GeIJstn2PFXJBVJMEkP7F9Ju0pjYQVYI1t/T
-	 KKRFrEIt8FzQkvMGl06fPBoCuRLoFO/uF88MVqZV+EMlzFBQpqzNpk190IoRZrNl64G3/
-	 rLBPLCBgQr1SxydTOjZ1raBwp5xJCnaeyXyxEQ0lnaFEo4fGGoHJrJuC6s8C+cEglULpU
-	 pAC70p9soul/Ra12HQSxnzuLjANUUkayf+TAlMi3+7iFsh3WsotiC0DSewgaubYJMHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794275124;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IFcFWQpilaX79mXWQN69ZR7nna2ky8RvcPu19ICh9h4=;
+	b=RWepskX7xAszRdy7UQabtTiC96EJuKrLtQSl3EGqOJ8WHCuX5Q/hCtetdtc8S5iCKk73
+	 4sRCT7ijhcdQxPP4Gv47uiDyJvcdA+7lZ2iavW9PI1g1bWosIDVUPfiZcROuz/RNV1vq+
+	 L5foT06sqQxAYzV8aMicHRrxrWeWGdelFFgAzrurDaRrITpepuRFZsSOMCYdSAAjF0en9
+	 77cx2hGvvmYBK60xrdFKSt2e0nTzSo+cd5ypgAzUBvItssX9flgejY3HMOu50Kfy0B7E/
+	 mCW1n5pm1r6NSlbYxrDXKJuilDeM2Yo20zHPI5hTItWK99spVp8VPWTiioMVeLrW00w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MPg/2vL6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="CaJllgu/";
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622A7606A321;
-	Tue, 10 Nov 2026 01:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D6C606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D6C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MPg/2vL6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41D41F0089F;
-	Tue, 10 Nov 2026 01:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794275096;
-	bh=z+4EY+8KKxK3cbzz2wjy14lYgyq1UFQ1PnavJMZdtnY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MPg/2vL6JzdB3cjQ10UHXJVIDFvIwvy9wyubTR9zqq0p9LYJIDD4/foW9tN/+sPWK
-	 /kTLrB6X/orky8QFfBd7sp6raJdjMz9pkzFfWS3jwyTKakOw0SKRkxW8uYnLfJdyhw
-	 XXLzuLl8top8E/y4UAaZuk8IryYJJu9dLzDTySSTPlYILI1LJ0mNUZdMFn1ZXqhITV
-	 FtJjOM9GExcahyn9zeeeG+aoAD8rHCaDcz/ZlJmOPh46isthDt2jja1+m6R60wXuW4
-	 ziApxigCbHMjNxSqnKkQKZY+yUsMkLvDG/kUWl8K+IZOPeh4XIxmSkQSnw5Q9fY+8y
-	 A9+rGDE7+PxrQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id D39DD310B0D7;
-	Tue, 10 Nov 2026 01:44:52 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Brian Masney <bmasney@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-omap@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261109-regulator-subsys-v2-1-370edc01ee9c@redhat.com>
-References: <20261109-regulator-subsys-v2-1-370edc01ee9c@redhat.com>
-Subject: Re: [PATCH v2] regulator: convert to subsys_platform_driver()
-Message-Id: <179426493952.3711751.3118760089270754666.b4-ty@b4>
-Date: Mon, 09 Nov 2026 22:55:39 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=CaJllgu/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794275118; bh=IFcFWQpilaX79mXWQN69ZR7nna2ky8RvcPu19ICh9h4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CaJllgu/2aZKoHkij5hp5h0jDyTjPFM7le4JBQERwSSKAYsq+RaBRteX07EM0EP6n
+	 Gg0/FHFqRdWWCYR7dt5n+TmSuSr5eDqltEic2Lf00fQQO3zccPcX43NqnF0ekmu/o/
+	 87aAVboxKXo5nLVmM0sFOtxVIGnpWR+JU7YTDnQQ=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id B463E6A4; Tue, 10 Nov 2026 09:45:06 +0800
+X-QQ-mid: xmsmtpt1794275106tyno8fqh8
+Message-ID: <tencent_DEBEB3490E975A2C62C2D7DD573A9A254F05@qq.com>
+X-QQ-XMAILINFO: OTR3aNS6beOJRZnjRpXpOTQ8Uc0v/jdvoZSa0LcNiG2ceT0653kt4/fwtiXsLW
+	 tUTNfwfLbOUUEDbBX/fJ/jgnHBdDQsEYdjEcVoZjZ1kOcjs1QNKlYiTiBzgZok/f4YjbzZeIiMZy
+	 buYZEFNV+VRa1euUk9gIA7jLyu0kIou3GbK4t8XuvlTvPtta93CBbgEZw2gLE2kIUjBsKGa8WKEX
+	 W8OyOaZgX8q4z6LKBe/LuoXNv9EcLaN98Op/eaihSa01jPodWpb5W+t9kfUdKNRE35dy+XuxyPqU
+	 I/g9iljmop1qoa/ZUvw5sf/NmovOMPe/A9sOBDz6ckLJr7FuSY7dB8iOkH/LfRZj3DRQf4Frxd9V
+	 k8kh6cMFqY+lrAvIDIEDT7Vq98AY4YbWgV6y/Pn0aM2+xU8cbDx8i2F1GCOYsN3SDIRIYIMsQSTr
+	 krMvGBtVdlASEreyQ1OtudM50MmRB/pvF3r8b6889p3dqspOKsbu4eLtCmBbYxFayI/Jq9Sjj8xV
+	 0r4V7m1Cw/mF4Gm8+B7ACyd+xKjOw7bOWjsDiTn48kYY5pTfqKIOGYi8xmMes/jPoorNjbvomKab
+	 4hYuMwm2i1M1bO+INYOfNnaTGbgpbwWrkN+CzFpQ3bKs10mkomWoeCeoQtkZr4gKHZzieNM22xl4
+	 rROwUA706PoMdJNGludx+gZGIrN72YIkWPrZYnh/RtUv1RQWa2L9Fy4eXIGJhAeah7jMnxdpP/8x
+	 VJ8xVqHxtgVnItEVVSsKENEPDqrOBZ99VDVBTSpUwuIAJcSzjZIYVnEdv6TalwKEH5dZhiZT8km7
+	 pGXCCl9IZF96wJ/a4d3dDcK7L1sCUXRqSBgyDRb5f7iakqo9CAFkjvBmE3xKe9miIfXC7nfR9dkw
+	 /4FVeohT5CtvSdUXZx6zmjkX3tHvduiTGnu1LKVMGUd1ZuyjUm5bw6BaUXZF9SXhvwid41rrw5ZY
+	 iVlzWU7pkmy3kzWV9sDBx65rmj5u8Inr7LaJ6HpQ+b2IfOYGnlQx3w1TXR+RsSllOL4iuUlIKUWh
+	 9u5zDbangHZ4DSczbyVsrwAmDmgKiDXcZhw36OzU/x1GHTNTAAYEWC2j7pdfJb3hdPBYFjBw==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Shuai Liu <847807867@qq.com>
+To: ocfs2-devel@lists.linux.dev
+Cc: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	a.p.zijlstra@chello.nl,
+	syzbot+c73ff6790f3d6c635abc@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] ocfs2: fix lockdep class of newly created directories
+Date: Tue, 10 Nov 2026 09:45:06 +0800
+X-OQ-MSGID: <20261110014506.561567-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a791c94.01d0871a.3a0d52.009a.GAE@google.com>
+References: <6a791c94.01d0871a.3a0d52.009a.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,46 +85,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Xu2NjFsborPmWZXavBEW+5G8t7Z/Jy94NrhatdekAPo=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+lYskv/GoYHSOTw8UyX3gkP77N/PxBxu1nf6l5B2ym
- PhiqZhiRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACbycg7Df2/NuAzXt0Uz/l1d
- +qx7nWfxBG+VSVfaNiuf9G/d9PD9GQ6G/1kv3q6oqA/8MCd61oWt//4afog+tfnTn3/rOM49YWK
- 5Jc8MAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Mon, 09 Nov 2026 16:26:45 -0500, Brian Masney wrote:
-> regulator: convert to subsys_platform_driver()
+Directories and regular files use different lockdep classes for
+i_rwsem (i_mutex_dir_key vs i_mutex_key) so that lockdep can verify
+the documented locking order "parent[2] -> child -> normal" without
+spurious class-level cycles: e.g. cross-directory rename takes
+I_MUTEX_CHILD on the source directory followed by an unclassed
+I_MUTEX_NORMAL on the target inode, while other paths take
+I_MUTEX_NORMAL on a file before touching a child-class inode.
 
-Applied to
+Since commit 14358e6ddaed ("lockdep: annotate dir vs file i_mutex"),
+this split is applied in unlock_new_inode(), which relies on the
+inode being created with I_NEW set.  ocfs2 creates inodes through
+new_inode() (no I_NEW) and instantiates them with a plain
+d_instantiate(), so lockdep_annotate_inode_mutex_key() never runs on
+this path.  Every directory created after mount therefore keeps the
+plain i_mutex_key class for its whole lifetime, breaking the
+dir/file class separation that the VFS locking order relies on.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
+With such a directory the class-level chain
 
-Thanks!
+  i_mutex_key/I_MUTEX_NORMAL -> i_mutex_key/I_MUTEX_CHILD
 
-[1/1] regulator: convert to subsys_platform_driver()
-      https://git.kernel.org/broonie/regulator/c/b526cfdf5d3b
+recorded by the reflink path (ocfs2_vfs_reflink() locks the source
+inode, then __ocfs2_reflink() takes I_MUTEX_CHILD on the orphan
+inode) collides with the chain
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  i_mutex_key/I_MUTEX_CHILD -> i_mutex_key
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+recorded by vfs_rename() when renaming a directory onto an existing
+file, and lockdep reports a "possible deadlock in vfs_rename":
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+  syz-executor105/5623 is trying to acquire lock:
+  ffff8880767009a0 (&sb->s_type->i_mutex_key#18){+.+.}-{4:4}, at: vfs_rename+0x6e3
+  but task is already holding lock:
+  ffff8880764ff9a0 (&sb->s_type->i_mutex_key#18/2){+.+.}-{4:4}, at: vfs_rename+0x64d
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+  Chain exists of:
+    &sb->s_type->i_mutex_key#18 --> &oi->ip_alloc_sem --> &sb->s_type->i_mutex_key#18/2
 
-Thanks,
-Mark
+Fix it by calling lockdep_annotate_inode_mutex_key() in
+ocfs2_get_init_inode() right after the final mode is established,
+before the inode can be found or locked by anyone else.  This is the
+same treatment shmem got (commit b45d71fb89ab8adf, "mm: shmem.c:
+Correctly annotate new inodes for lockdep"), following the hugetlbfs
+pattern of annotating right after new inode creation.  Freshly
+created ocfs2 directories are now properly separated from files in
+lockdep and the rename vs reflink cycle disappears.
+
+The C reproducer from syzbot (mount ocfs2 image, OCFS2_IOC_REFLINK,
+mkdir two directories, rename a directory onto the reflinked file)
+hits the lockdep warning on every run without the fix and runs
+cleanly with it.
+
+Reported-by: syzbot+c73ff6790f3d6c635abc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c73ff6790f3d6c635abc
+Fixes: 14358e6ddaed ("lockdep: annotate dir vs file i_mutex")
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ fs/ocfs2/namei.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
+index d8759605786c4..f3ec348eb709d 100644
+--- a/fs/ocfs2/namei.c
++++ b/fs/ocfs2/namei.c
+@@ -203,6 +203,13 @@ static struct inode *ocfs2_get_init_inode(struct inode *dir, umode_t mode)
+ 		set_nlink(inode, 2);
+ 	mode = mode_strip_sgid(&nop_mnt_idmap, dir, mode);
+ 	inode_init_owner(&nop_mnt_idmap, inode, dir, mode);
++	/*
++	 * This inode never goes through unlock_new_inode() (there is no
++	 * I_NEW state on this path), so the directory vs file lockdep
++	 * class split for i_rwsem has to be done here, before the inode
++	 * becomes visible to anybody else.
++	 */
++	lockdep_annotate_inode_mutex_key(inode);
+ 	status = dquot_initialize(inode);
+ 	if (status) {
+ 		iput(inode);
+-- 
+2.43.0
 
