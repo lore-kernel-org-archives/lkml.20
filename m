@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318849;
-	b=0bCw0kK+0GpkmamQ9C+/UGfZZxChkMF/aUnXmjvuRty15jVqCIikRohnkFUtH0pEMZBS
-	 ir2TcjyxUZeX8stzBoEDktnPyl3F7pLqXrV2P89XW9sY4X53g3r/Y2kA3RrFMMpOAD1uq
-	 Be3YOhQ56X47PVpUnjAlIqF+t2834rQmw61sDu3DZyfX7bxLefgHVik0914sOQVBkoWs+
-	 wLx2+6hDPz9FTLkpy37JM+1MZAem43fkDTiLpKyeWgGBvCYvBeu1NkKtWP/QPCS9/d+qI
-	 J5V8upWrk/h9A7ZxxatC0yj3uAHzp48sU5dQIQ/Mt9GWsEDKvoDT7Jo/qmRi7ARGcCw==
+	t=1794318889;
+	b=r7W8ITYkZw8wYnpEL9zJXdUsuk2vaowh0mPTvEWpXuxqnWc3aPz0XYCmcUgOIh+h83z6
+	 cEYLKbw6O2GEJrMjAiCcLNdwlgMFYKjNTZHbmO9vYLUSCbz1Z/Vs7aSx/bYuAbgnf7/Af
+	 14DJgb5UryrK5Dr4O8f0zyT+FkiJY61b7gSmWJNxKTMtiHcSJh2xE+vpJv14KTBhmG5Ul
+	 Yf3sudO0g29GIpT6IL5/bOd5mhBuIgeNY/jX+mwniiYZ9pSHFveAcx2NTV6BEjVYbfEbo
+	 cspiQzERSI2cGjV5TRpDyQduNNag8VL9/b9raeCfNMT3jQyu1xr3q7xdNXc9ylcuCNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318849;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=afOauq29YyzAQV1cQ4sSotUY3ZBtY/Xgdqao80whYC8=;
-	b=sTIFxBu5bZyUR+cfLTPBVvYQnCl1AqXHB6xWl9+wzRCVzD9tnE8vcMxPucCUbXoN+7G1
-	 d8q+wRtC4xbtFDs4Z5U/iWOfKD8mtgHqepnqg1rBsYnYynlfxNvu7sOkWt86itNW/crNA
-	 NqHku0fuQgBT/edxqrlcXavOtJXiTKNoIqwXm3i74skWJ2gqkv3LIRrimXGOehLd/iNzU
-	 kvDFm/Ae7EPD03wRVMhnrmsJxvxtoctgScuucsr3RZ/bbEaR9OKZyatcVUe9l9yIYcvXx
-	 ZzpjB3B/3DKWrdNz4+EA2rHwuF4/AUZW3EQfFAyXSbMvg4bfc4EM5rpWa7OcsoRzVYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318889;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RYPhgJGQCwOuBRuJsUZG5jqL37WaDmQ33hS03hfIFgk=;
+	b=ei6SPJI4F3Cio2oXJPb4h0bSsRSCPUJfUrt8BBhW0fbtXV5+eH9icWUBFCqYvobQuaRy
+	 shCWN2D3RBRMaP7Ux3CI2kROLND/xQRU+vTK2UCvH+XiEawep5mSnE3hMadyR5DFLKTXP
+	 iF0F20YAW9kSBewRuQ8i4o/qc/AuLa0jM6AQ7oIZJeP7wsDLj+NRas182d3BD5AyLBprH
+	 DsIUwahbUJ+GLJn+/qwrKa6vL/Dc+O9vFO5SdNcHh2M2/7IWqOS+EuFd9Xx1ufB58zJiv
+	 JYAsZQnTNH2tjLRwZigAURS+56O8Blq7CDGwYSQfgFmOcE1HCqBkd6yJjI2C3MynAhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEm6idkq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ET24+BCt;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C50606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CF0606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98CF0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEm6idkq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BC321F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318848;
-	bh=afOauq29YyzAQV1cQ4sSotUY3ZBtY/Xgdqao80whYC8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XEm6idkqmcShtl0VEKBM5aa9vwWvVRtlg3uyM3pU7okM9BXA0aV1ztPxMpX0c/QdG
-	 rBpusGSvQn5gQHi2Dw+hkUIDSfvnbO6MXOayxdCmpwZiR7ERhERIxNxOrhWj5VwR6+
-	 G5ljrQr3NZNwgXLucTuexhw2uITlcWor4gq446VITPK66dE0eG2sBmgrBQxnOHhk+e
-	 7MfV6QQ5bdwKQWxorxmmLxI+V5L/Gl9SQVN5Nap2YIrHazQkBNFHeIUwThDvcNt6It
-	 1/Dy3DlR8cKB3vCLJYl9oXMwzKcFXspT0ywgYQorYODkGCcHzpVDwN+QTlrd/DniOQ
-	 BrnthuSvTZ0OQ==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso2538272e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:54:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFkmFIje57I2HlHG5hRfkDIEfk+JFcj5JbeqgCcRrhyxKsHUmFJqt80MUs3lpgPSwwHn59b+Nxk7eOQUU4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ci/72Px47N+MFJRFgr/gmMnwktSInJ2xxHuTWtKlJUnA2P4nv
-	vsP/uLfcdHvwiDSNvpngxbfA0JxXYXd7HfNDOKfQGD20l1Fe1EBwmLed6Tm1zbGNGNrFd84yggn
-	dKckr2G9E59hDpxqRHwHBP/noWHgw2Ho=
-X-Received: by 2002:a05:6512:a87:b0:5be:4754:2297 with SMTP id
- 2adb3069b0e04-5c156ee6348mr875909e87.58.1794318846876; Tue, 10 Nov 2026
- 05:54:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ET24+BCt
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso19911335e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:54:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794318887; x=1794923687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RYPhgJGQCwOuBRuJsUZG5jqL37WaDmQ33hS03hfIFgk=;
+        b=ET24+BCttaFJhFjFN6Eks2eX8C7MGzZ1SLB8gH6G9gFUT8E5qOKkXXMlpScMkMSxwP
+         Du7v/5gUag1yzuXJxIFaV3YF0d4wo1IWLcZbzKLDnlNn88334khYUalL7W8s8hmLYldR
+         PiyaJyEKNFOkTELbJ4iF7ktMe9D9cL69s6PRaNXKL/bNZOLQD/AU9RHXCaX5vnfLYFs6
+         wae4vlZoYtiIXmHxCDuImSOykO1mEIMdA4Y5xk4b0LqG4JG0DwiCmuV9GSlHgGAIrOOj
+         fDeAxOs/li94i9Os4YCgtYzWf49OlUt1xLE5+7c9mNFksNfT34pPe/o+113YlMRCO7tU
+         Kh9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794318887; x=1794923687;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYPhgJGQCwOuBRuJsUZG5jqL37WaDmQ33hS03hfIFgk=;
+        b=ADRe019KgcPkgWOrjhR62XFfvxIid/AzBK7qnrCyb0m2u9JWkn3ufufxfVj1tES1WM
+         3WUXNbYlnQqVFqhwuEkhjX8cbyvvTllwazhrTvsrKjgvJ3LqJS0YNXz159IGvjxKZtDU
+         UIz12WCZ2WzMMbrFZDbD1ZbI6iurDRORpj9GKcWf+wGltpYDsvLq4VxDTPhTvzp9NsJ/
+         raOCeFE/Er41YJzU0wYN9Nlo0DNLXVIic+i+tAVrV3UnpxTeb/oquRRjMUKGj4hG5p6f
+         PGAUeX8pQyku5pU7wDXKBlLpABgXcpGjfzRF5bcYfMj+3eebImJ7lJsEqNp+C0maVqPu
+         Vnkw==
+X-Forwarded-Encrypted: i=1; AL+hErE8PllhXoeRbu9LNlx0jmDGjjkjm3tkfEReTID4nPXYPqb0tyj7NDmB2RqbKwQjrwRkLmL8GZ+7K783YXQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+APNQ+PV/9aNVmxa1E8Qcqlni3jcspJsyuCUwt8Chq+qJpvcGA
+	v+im8SyKoUPcjFlicgbRu2zQKr6M2NeMc4yim/Js9NphNCt4DIws0EbR
+X-Gm-Gg: AYBFou1HCF/Toky32abXU0tZTe0xfD2wn0bOV8LBeG8ayj/d3vvLsx1prMVYFiSUA00
+	tYZE/WSUnqT+SjEWqeUoDssIq58pH6iWntoYQUgey9SUu2QLEmoSbD72hLWoTkUKlsqDBF+hWDc
+	LeDGFBdZg2Oi54+wS3zZRVa+wTuLrOrg5+Ko0DPpFUz6obU/dYzAWZs8O351HtY5bZIlVtUQc3m
+	qbBEPz7diYwXqrsK+/FIzm/iGlwoi0rVLE6YuFUH+BRo5X07+/9Pm8xXoC03Is//3RGpfc6jHzY
+	XcUzJmHoR2pEbq/StfHvfZrp8SrBqQRiGVUgqU9xSnvEufG39cvSgyolpOvsafroRQbM3txAHnE
+	3XkzlTNGdBVNf0Q3tjszgzCuxGVcGWWYCWfJTWkZXWeSapV1wXU8srrgZnP5xs170uaw+H/5tQz
+	GDB+KMGIS+VkJmmhS83g2WZ3VKvP0iqq8HccFv5kYIcU4gUpqKceEQgfBSaBBSFh0u8/PF6GQoh
+	cvh4v3DsLzlNqpXvT6tAjFblG0D/1y9XE7jbzbL5Bhx47XMr+vgoE0466WA4exn7/h6zrgapEAE
+	h6wE9CAMSSPjxjEejbjAM6oq/mh9eiUVPhra7EUbgzlMnWuyBlSB2ah/e+/UABqRoA==
+X-Received: by 2002:a05:600c:46c6:b0:4a2:1196:db0e with SMTP id 5b1f17b1804b1-4ba023508a8mr51664645e9.30.1794318886866;
+        Tue, 10 Nov 2026 05:54:46 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2c5asm104946385e9.5.2026.11.10.05.54.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:54:46 -0800 (PST)
+Date: Tue, 10 Nov 2026 13:54:44 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ kees@kernel.org, justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
+ drivers
+Message-ID: <20261110135444.7d8070ec@pumpkin>
+In-Reply-To: <cd073632-0919-4015-8daf-39cfe24391e8@kernel.org>
+References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+	<cd073632-0919-4015-8daf-39cfe24391e8@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,119 +102,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
-In-Reply-To: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:53:54 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gb4AmXJxS5URSSJezE1_o6=pVij+q6w2Jx1Ky0y3zKcw@mail.gmail.com>
-X-Gm-Features: AclHuK9dqerjRxFqtrcC-O6iWqdGCncLHLlui7XbBZcA7O2_gAnU3Mlx1rtWIKg
-Message-ID: <CAJZ5v0gb4AmXJxS5URSSJezE1_o6=pVij+q6w2Jx1Ky0y3zKcw@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: processor: thermal: Do not leave a stale limit when
- not throttling
-To: me@ashtonantila.com
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 6:57=E2=80=AFPM Ashton A. via B4 Relay
-<devnull+me.ashtonantila.com@kernel.org> wrote:
->
-> From: "Ashton A." <me@ashtonantila.com>
->
-> cpufreq_update_thermal_limit() sets thermal_req to cpuinfo.max_freq
-> scaled by the reduction step, also at step 0, when no throttling is
-> requested. cpuinfo.max_freq drops to the nominal frequency while boost
-> is disabled (amd-pstate, and intel_pstate with no_turbo), so a cooling
-> state update in that window leaves thermal_req at the nominal frequency
-> after boost is enabled again. The CPU then stays at its base clock
-> until the next cooling state change.
->
-> On systems with an ACPI thermal zone that has a passive trip (_PSV)
-> with the processors in its _PSL, such an update happens on every
-> resume, when the zone is re-initialized and step_wise re-applies the
-> cooling state. Suspending with boost disabled, e.g. in
-> power-profiles-daemon's "power-saver" profile, and switching back to
-> "performance" after resume is enough to hit this.
->
-> Before commit d15ce412737a ("ACPI: cpufreq: Switch to QoS requests
-> instead of cpufreq notifier"), the limit was recomputed on every policy
-> update and could not go stale.
->
-> Use FREQ_QOS_MAX_DEFAULT_VALUE at step 0, the value the request is
-> created with. ->verify() already clamps policy limits to
-> cpuinfo.max_freq, so this only drops the stale limit.
->
-> Reproducer on v7.3, ASUS ROG Flow Z13 (Ryzen AI MAX+ 395, amd-pstate
-> active), with N being any "Processor" cooling device:
->
->   echo 0 > /sys/devices/system/cpu/cpufreq/boost
->   cat /sys/class/thermal/cooling_deviceN/cur_state \
->     > /sys/class/thermal/cooling_deviceN/cur_state
->   echo 1 > /sys/devices/system/cpu/cpufreq/boost
->   cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
->
-> This prints 3000000 instead of 5187500. With this patch it prints
-> 5187500, also after the power-profiles-daemon suspend and resume
-> sequence above.
->
-> Bug 221795 reports the same symptom on another ASUS laptop with the
-> same kind of ACPI thermal zone.
->
-> The issue was diagnosed and this patch drafted with an AI coding
-> assistant (Claude Code, Claude Opus 5.5). I have reviewed the cause
-> and fix, and I take full responsibility for this commit and the fix
-> included.
->
-> Fixes: d15ce412737a ("ACPI: cpufreq: Switch to QoS requests instead of cp=
-ufreq notifier")
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221795
-> Signed-off-by: Ashton A. <me@ashtonantila.com>
+On Tue, 10 Nov 2026 11:08:30 +0100
+Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
 
-Please address Sashiko's feedback on this:
+> On 06/11/2026 08:46, Mariia Nikitash wrote:
+> > In preparation for removing the deprecated strlcat() API[1],
+> > replace the strscpy() and strlcat() calls used to construct
+> > V4L2 card names in the TEA5777 and TEA575x radio drivers.
+> > 
+> > seq_buf tracks the current write position and remaining capacity
+> > across appends, avoiding repeated scans of the destination buffer.
+> > This preserves the resulting strings, including truncation behavior.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>  
+> 
+> Nacked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> 
+> This is silly. Just use scnprintf().
 
-https://sashiko.dev/#/patchset/20261028-acpi-thermal-stale-limit-v1-1-4b0ab=
-3230f01%40ashtonantila.com
+Or wait for someone to add a call that just does what is needed.
+In this case the first stscpy() returns the length (and it is often
+known).
+So you could have:
+	len = strscpy(buf, tea->card[, buflen]);
+	len = strscpy_at(buf, len, " TEA5777"[, buflen]);
+or:
+	len = strscat(buf, buflen, tea->card, " TEA5777", ....);
+or some variant that will do a strnlen(buf, buflen) to get the offset.
 
-> ---
->  drivers/acpi/processor_thermal.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor_th=
-ermal.c
-> index 11036f0d2b9..3663a54c043 100644
-> --- a/drivers/acpi/processor_thermal.c
-> +++ b/drivers/acpi/processor_thermal.c
-> @@ -97,8 +97,15 @@ static bool cpufreq_update_thermal_limit(unsigned int =
-cpu, struct acpi_processor
->         if (!policy)
->                 return false;
->
-> -       max_freq =3D (policy->cpuinfo.max_freq *
-> -               (100 - reduction_step(cpu) * cpufreq_thermal_reduction_pc=
-tg)) / 100;
-> +       /*
-> +        * cpuinfo.max_freq changes when boost is toggled, so storing it =
-when
-> +        * no reduction is requested would leave a stale limit behind.
-> +        */
-> +       if (!reduction_step(cpu))
-> +               max_freq =3D FREQ_QOS_MAX_DEFAULT_VALUE;
-> +       else
-> +               max_freq =3D (policy->cpuinfo.max_freq *
-> +                       (100 - reduction_step(cpu) * cpufreq_thermal_redu=
-ction_pctg)) / 100;
->
->         ret =3D freq_qos_update_request(&pr->thermal_req, max_freq);
->         if (ret < 0) {
->
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-acpi-thermal-stale-limit-7a1b102a1bdb
->
-> Best regards,
-> --
-> Ashton A. <me@ashtonantila.com>
->
->
+But it really is best to leave the strlcat() calls in there for now.
+
+David
+
+> 
+> Regards,
+> 
+> 	Hans
+> 
+> > ---
+> >  drivers/media/radio/radio-tea5777.c | 10 ++++++++--
+> >  drivers/media/radio/tea575x.c       | 10 ++++++++--
+> >  2 files changed, 16 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/media/radio/radio-tea5777.c b/drivers/media/radio/radio-tea5777.c
+> > index fb9de7bbcd19..2b1c7f6ddd60 100644
+> > --- a/drivers/media/radio/radio-tea5777.c
+> > +++ b/drivers/media/radio/radio-tea5777.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/init.h>
+> >  #include <linux/module.h>
+> >  #include <linux/sched.h>
+> > +#include <linux/seq_buf.h>
+> >  #include <linux/slab.h>
+> >  #include <media/v4l2-device.h>
+> >  #include <media/v4l2-dev.h>
+> > @@ -255,10 +256,15 @@ static int vidioc_querycap(struct file *file, void  *priv,
+> >  					struct v4l2_capability *v)
+> >  {
+> >  	struct radio_tea5777 *tea = video_drvdata(file);
+> > +	struct seq_buf s;
+> >  
+> >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
+> > -	strscpy(v->card, tea->card, sizeof(v->card));
+> > -	strlcat(v->card, " TEA5777", sizeof(v->card));
+> > +
+> > +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
+> > +	seq_buf_puts(&s, (const char *)tea->card);
+> > +	seq_buf_puts(&s, " TEA5777");
+> > +	seq_buf_terminate(&s);
+> > +
+> >  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
+> >  	return 0;
+> >  }
+> > diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea575x.c
+> > index c37315226c42..e49228eb7c46 100644
+> > --- a/drivers/media/radio/tea575x.c
+> > +++ b/drivers/media/radio/tea575x.c
+> > @@ -9,6 +9,7 @@
+> >  #include <linux/module.h>
+> >  #include <linux/init.h>
+> >  #include <linux/slab.h>
+> > +#include <linux/seq_buf.h>
+> >  #include <linux/sched.h>
+> >  #include <asm/io.h>
+> >  #include <media/v4l2-device.h>
+> > @@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, void  *priv,
+> >  					struct v4l2_capability *v)
+> >  {
+> >  	struct snd_tea575x *tea = video_drvdata(file);
+> > +	struct seq_buf s;
+> >  
+> >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
+> > -	strscpy(v->card, tea->card, sizeof(v->card));
+> > -	strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v->card));
+> > +
+> > +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
+> > +	seq_buf_puts(&s, (const char *)tea->card);
+> > +	seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
+> > +	seq_buf_terminate(&s);
+> > +
+> >  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
+> >  	return 0;
+> >  }  
+> 
+> 
+
