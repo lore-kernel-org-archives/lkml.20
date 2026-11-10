@@ -1,50 +1,151 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325487;
-	b=vBnH59Rw6PtYgNS1G2N5+OkMrrd5DJsvUCBglMR22Pz4l4KI6vNWDBQng3ihi6IvmzYM
-	 RjLRxrGFrj2xVlNdBQAf0HQ/+jSVkaitLJMWmOHC2RirlORW2/Wj8kjLgK9X6mEnkYV0E
-	 b3Xaue/Ne4FE8T2tQNMyHsMF2oQxkTFUUyz+cBoYBRo+4REher5NrE3HVG6IksVozwUtL
-	 lV4599T4yu56M2vl3KiTU08qb5COWH+e2+9kdD5harnFQ9Ns0YK59heMhoiFpI2W3cMBL
-	 2N0Nwfs2HHupWPardboU5E5+GCKcVVEC9ztK0ta9bXx50P/pUS+SVaWFtgXko1Ti5/A==
+	t=1794325516;
+	b=Lur8lYadiCzC9taTM37bmKb+yIxW+eoK5TzR7/f+pXApLfRw7Vc65Ho/5Jz0iCIsb/yw
+	 gh7VL9N1lgqXUA/+kvy5hg+Me/ZAWd+5xyX645M//F5F5NGwodAy4KQmDlSjvWSqUxPm8
+	 kMR7LMnycH4YQHskPvd8eGIfXNSYkpluH7c98g+F3PTufrc+VQrWPtkR8OJQiYgxkYc3v
+	 ecdAv52wysfs0lnk+WW1TZDxJigfjJSCAFl2Y051HL1MnPWCPqfWXNVFOq0rw4iRODGSd
+	 MfEOfpyG/WUxafnhSQdisqqC0h2SD+FWsRFRzcCPxY23laMFAAC22S28v2dch9owK5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325487;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=q5FEyc/Q/PEgipfxVB9U/FpkGYQGxTKlpGrp5AF+G0o=;
-	b=nsMhX8VdQwuN5HJBx6UhFaOZg2i8JRgaZotkqRpncfGJ83CZA8yJh0NiGcw99cHBphmZ
-	 0OoSOOPTUtyXGXaLJn9aEW9h0+9Um0wv58YPWW1QqdhMbWc20p+OHYo4NShTxCrtZ42/H
-	 j10fagdajjHZbEDJFbisTYv6hrO5RhDi6NFJB+QfojpB2cakE77rp6SONWIajH8DqUx5z
-	 Q6b7FzuN+u05T9cFFMIg++LeBSgt+q84Sxx5hnC08BXvjRCNI2dYc+xSNSs1+QCym2BGn
-	 kGeV8ZFXRC2Zgn0hwp2dYGKIqwcfSc55qgARoWch2rQmigyWEwsQA/7y4EgGBiqdLAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325516;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:Date:MIME-Version:User-Agent:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ur06BcCoPVFOLLgbWWBjmYM6+1B0Y/FtOISCDS4o+nQ=;
+	b=kKB549MmRH1zJ1nC9hmD/mqOQn/0szLwlGB7T1pYoxUh4jqrbwk0fr+eOB0RUO5LQIVX
+	 x2biXUgdG8bsNoCgUEklUwvrRyaKRc+QCxn6AIqJsF01H3j5c03Cp2loX1uHeNO5X5Okc
+	 YcXJOdXzC1qfNH/ePBuwFtFL0ZUr00Sj+wNF6NMc+w0ROs9QA7BGjkELelgr2gFxDh7/j
+	 mHxuiOFmoLyCy/Dlpje1zcsCMPc88ReQF3ERYLt3lu2/osQqk/ma3HHprvpSnGvi8HCLU
+	 T18RUwv3tBIOsZSkRxioLb8ozUSXhUopf0vAuQcb4o21Sz0sItup66RHwF2et38tjSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Nb9BYZvc;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B13D606A332;
-	Tue, 10 Nov 2026 15:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B13D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <d40bcc5d7742025db9a67af5c77796745e284e45.camel@crapouillou.net>
-Subject: Re: [PATCH v2 0/3] MIPS: CI20: Enable SMP with two CPUs
-From: Paul Cercueil <paul@crapouillou.net>
-To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Paul Burton	
- <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
- =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
- <zhouyanjie@wanyeetech.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>, open
- list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"	
- <linux-clk@vger.kernel.org>, hns@goldelico.com, paul@boddie.org.uk
-Date: Tue, 10 Nov 2026 16:44:41 +0100
-In-Reply-To: <20261110043131.1985993-1-f.fainelli@gmail.com>
-References: <20261110043131.1985993-1-f.fainelli@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AAB606A338;
+	Tue, 10 Nov 2026 15:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34AAB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Nb9BYZvc
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAFERNe2865033;
+	Tue, 10 Nov 2026 15:44:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ur06Bc
+	CoPVFOLLgbWWBjmYM6+1B0Y/FtOISCDS4o+nQ=; b=Nb9BYZvcDmIF++N47KyGQ6
+	sV6OXVOFSzByu10U9mrAyJCsnBmQoPd8nBl7TCjB/OvVR6iQ9lalHJaMyTGdXJVI
+	6PEaP9QAMADVWE1Y9dK3TF88PSj8on0OzMQcmit08o05EMI9MuQALgZLn/iXviFu
+	2YhH8pxnKoPtA8uvVSHCQ0Bni+0S5g0JGWzlCFL9t8CNXlmPU/k4ExDShf8JsM07
+	AjuphtviU/o9ja+oEa4vuEn+GKCBGZ6Sh7buJ/q/4s2fqLTtYbeodYjgGOI1huaR
+	wfXz4dVAicdK5nsjUJk7OSb+Dr7ksZjLEXr2JGQiQRqBfK6C4Pk8MDru/JdUF6/Q
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug65qyw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 15:44:56 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF4ukE1880658;
+	Tue, 10 Nov 2026 15:44:55 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hv3320nkq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 15:44:55 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAFisKm21103336
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 15:44:54 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5B8FC58061;
+	Tue, 10 Nov 2026 15:44:54 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3308F58058;
+	Tue, 10 Nov 2026 15:44:53 +0000 (GMT)
+Received: from [9.111.22.168] (unknown [9.111.22.168])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 10 Nov 2026 15:44:52 +0000 (GMT)
+Message-ID: <81a1fed9c86e3954b1807f7425f98d210503a28f.camel@linux.ibm.com>
+Subject: Re: [PATCH] PCI: pciehp: Fix NULL pointer dereference in
+ pciehp_configure_device()
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Lukas Wunner <lukas@wunner.de>, Priyank Rathod
+ <rathodpriyank@google.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Ricky Wu <ricky_wu@realtek.com>,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <avLsH4a-l_uxlWfU@wunner.de>
+References: <20261012-pcie-hotplug-nullref-v1-1-6e21c2e89ea4@google.com>
+	 <sashiko-outbox-168676@kernel.org>
+	 <20261109215339.1841223-1-rathodpriyank@google.com>
+	 <avLsH4a-l_uxlWfU@wunner.de>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 16:43:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,84 +155,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: _xJ1m2a1Svgy2rQpS3gtq5qcrweH-1MM
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af33bf8 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=zd2uoN0lAAAA:8 a=AhZ-bqvTIkWdB_Qqr3QA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 5qnxxBCVhhvRX37NEybGtZxpNOlEjox1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2MiBTYWx0ZWRfX82Los6COhTQB
+ vpuPlQLuQVZ803DmSRs7ASKbHYoYJM7KbYmGWJ7Hwmrsg6rw+Ifek5+e96BNNN8uEuUkqgyGaxi
+ 7T8q1pNYt4rz73PKR1vpixgcA+T726DxY8xx0Fjt/RxhhwbeE1mJnNO//JASlvL4r7rxoNCAkmO
+ MVMQWZCc7zcHTrDWyaIUpuv9K4U0D0PHXaGExfRq7ZQDj1MKG5eI2RXUjdyM2qLYrgWVIvD6Ygy
+ QZXBhptuBRxqgUtDwZYtu6ulxEgnfs79x5pYb+qBXc/7BFzI6l3tjo6NBMLm7EkBTPml29/4sM1
+ 718OzpaVN9+fa0Ev/WHlnRVNK4woUYOCx3I1Gig9WGo/HrGgqeDl3d8L8jWihhZzv/iGP2rPHJy
+ HORfiK2Uqy64C9+VguPfgvDFbZfKJO2jOP6NgNpq21zphTRJ+XolfQyyoU+8ty5vx5ZyZGWBhPV
+ /hupKDOAL8IhxbDCg1Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2MiBTYWx0ZWRfX09NMx5N0fJ5v
+ pK2NCx5KU0eaZaJFLvdFfn9TEUKhiIy9h1qfzS4OVmqtdXMqZ+Geok2ME4FPz15ubDjh++6E+K+
+ wPM0ltcUI1/XW1PNrvp9M34DSwZVwPM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1011 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100062
 
-Hi Florian,
-
-Le lundi 09 novembre 2026 =C3=A0 20:31 -0800, Florian Fainelli a =C3=A9crit=
-=C2=A0:
-> This patch series resurrects SMP support for the CI20 board. This was
-> submitted back in 2020 by Zhou Yanjie.
->=20
-> Changes in v2:
->=20
-> =E2=80=A2 Moved SMP sources to arch/mips/ingenic/ and the header to
-> arch/mips/include/asm/
-> =E2=80=A2 Removed CONFIG_MIPS_INGENIC_SMP, using CONFIG_MACH_JZ4780 and C=
-ONFIG_SMP
-> directly
-> =E2=80=A2 Renamed JZ4780-specific SMP symbols to XBurst names
-> =E2=80=A2 Changed CPU enumeration to assign consecutive logical IDs and r=
-emoved the
-> explicit two-core limit
-> =E2=80=A2 Changed mailbox IRQ allocation failure from panic to logging an=
-d returning
-> =E2=80=A2 Shortened commit descriptions, removed Codex attribution, and a=
-djusted
-> source credits and sign-offs
-> =E2=80=A2 Kept the clock polling patch and CI20 defconfig changes unchang=
-ed,
-> =C2=A0 added Paul's R-b for patch #1
-> =E2=80=A2 Updated the kernel baseline to include additional upstream fixe=
-s
-
-You should also have a changelog per-patch, in each patch's header.
-
-Your patch [1/3] has a Fixes: tag but does not Cc stable@vger.kernel.org, s=
+On Tue, 2026-11-10 at 11:04 +0100, Lukas Wunner wrote:
+> On Mon, Nov 09, 2026 at 09:53:38PM +0000, Priyank Rathod wrote:
+> > On Mon, Oct 12, 2026 at 10:16:29PM +0000, sashiko-bot@kernel.org wrote:
+> > > While this allows devices without Function 0 to be successfully hot-a=
+dded,
+> > > will it lead to spurious teardowns upon system resume?
+> > ...
+> > > Could this spurious teardown issue be avoided by modifying
+> > > pciehp_device_replaced() to handle missing Function 0 devices correct=
+ly?
+> [...]
+> > Regarding the bot's question above: pciehp assumes Function 0
+> > (PCI_DEVFN(0, 0)) represents an occupied slot across all four of its
+> > lookup sites -- the -EEXIST check at the top of
+> > pciehp_configure_device(), pcie_init(), pciehp_device_replaced(), and
+> > the DSN read at the end of pciehp_configure_device() (consistent with
+> > PCIe r6.3 sec 7.9.3 requiring Multi-Function Devices implementing DSN t=
 o
-you'll have to send a v3.
-
-I reviewed [2/3] and it looks good to me, but I'm a bit concerned about
-Nikolaus' reported issue.
-
-Thomas, if you can wait a few days, I can test it on my CI20 and if it work=
-s
-report back with a Tested-by: tag.
-
-Cheers,
--Paul
-
+> > expose it on Function 0).
 >=20
-> Florian Fainelli (1):
-> =C2=A0 clk: ingenic: Poll JZ4780 CPU1 power status atomically
+> I'm not even sure whether pciehp is actually used with jailhouse,
+> s390 or loongarch.  pciehp assumes in multiple places that function 0
+> is present, so guarding against a missing function 0 in a single place
+> doesn't really make sense.
 >=20
-> =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) (2):
-> =C2=A0 MIPS: Ingenic: Add XBurst SMP support
-> =C2=A0 MIPS: CI20: Enable SMP with two CPUs
+> Note that there's a patch pending which moves the cached dsn from
+> pciehp's struct controller to struct pci_dev, so the days are numbered
+> for the lines you're changing:
 >=20
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
-> =C2=A0arch/mips/Kbuild=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0=C2=A0 1 +
-> =C2=A0arch/mips/configs/ci20_defconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 2 +
-> =C2=A0arch/mips/generic/init.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +
-> =C2=A0arch/mips/include/asm/ingenic-smp.h=C2=A0=C2=A0 |=C2=A0 20 +++
-> =C2=A0arch/mips/ingenic/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
-> =C2=A0arch/mips/ingenic/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +
-> =C2=A0arch/mips/ingenic/ingenic-smp-entry.S |=C2=A0 54 ++++++
-> =C2=A0arch/mips/ingenic/ingenic-smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 247 ++++++++++++++++++++++++++
-> =C2=A0arch/mips/kernel/idle.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 26 ++-
-> =C2=A0drivers/clk/ingenic/jz4780-cgu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 2 +-
-> =C2=A011 files changed, 362 insertions(+), 3 deletions(-)
-> =C2=A0create mode 100644 arch/mips/include/asm/ingenic-smp.h
-> =C2=A0create mode 100644 arch/mips/ingenic/Makefile
-> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp-entry.S
-> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp.c
+> https://lore.kernel.org/r/20260902133933.2992457-7-terry.bowman@amd.com/
+>=20
+> Are you actually observing a crash in practice because of a missing NULL
+> pointer check?
+>=20
+> Thanks,
+>=20
+> Lukas
+
+FWIW we (s390) do not use pciehp we use our own s390_pci_hpc for
+hotplug. I'd be interested if this comes out of a real issue or just an
+LLM worry too though.
+
+Thanks,
+Niklas
