@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322455;
-	b=WGXob02+bLOjCmk/qGRBDvQjTmiX5uL6m8pf1dvCLTk0tEvT3mqnPy0R6XQS+QIkrukt
-	 Ps/dFGkXUXfMJUVciq/+ylGA/pmzb8T18Azvn3O2thJNsKFFTDPQg2i7Rh7c9+b49zJJU
-	 OwsxZxi4Abcj4jffBhNkifdIOqbdJDIu7ht0mOlcSM5TNFbY72dzjcN8GO7Sx+6TG6yG4
-	 eQP/molVReP+LaGGxhx1lQS+wegseiSxwjx8Qvlt4N4wiQ5sGq6OihtMFAobCJVr8HqYQ
-	 PoVYQWcmtGcB06NrnhaQPUiTQEmiLk6fceKPvEHRM6nstGyj/LgEWXt9yQMs+Q2kNAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322455;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=1nscl7aZNwOtv842vwFmJ0HuXa6txcAWMb0wIM3bg7A=;
-	b=470TIAHkHzc+WEy6FJEDdzRKz6TOdzwVGyHe34nWK8uM9SSB306pdLwZ4AJpWcYVUTIC
-	 30R//XzGdvHrbPas9AibB1o2RRzhy5BPgNpwgJbnWrqg84HQBc+rlkpdzgP19fKFx2hSy
-	 iOdhJesjGSvXJQRY060dWQBPyjpPVwyZqkJhXTz4gGn+jz5gPw7AfaopnzanWz1dinge3
-	 DnaAW1978JW2nTWKDd0cnuI2S6g5539/5BQ0IOIbj1pCiVBr//A+/u72HdDSja6g+NJNH
-	 Zb3N8cvJTxU/IR5vj7wofim4Ms6ZU0Kx6tkXebKilOCP/c1Ec8Pv14qAtCnkL59EeNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=LnS20fwW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322459;
+	b=04qoExmc3cQ5fAlgQgRcewVNjzROe75SiM7qdaPcI2v0/l+2dbgqALW/f1IjY6L8S4hS
+	 Lv4vqpj18lUsL339kBzfwzBwnk4MB4EMfucYIOfHIBxqj/hyooOo+n/UM2wyNULEN2sh4
+	 0Q34dQQfjwXhMIHP3BJ8tE4c3rZaTDPI6qjhrrIOez+p1u0Rkb4DUAHqhw9rOdF/s0ney
+	 ShalAzSfRrXW5qbvVppThdv433H4OcKbJjJnniPZyNL+OmG1Dnp0K7K2lqmZyug/ybMqZ
+	 X48gWn8yaIxR3LXFQY62TTnpdAmIfZ1/JlqhK91R8jMCjVhTqWhSLjWTtVmo9hofLlw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322459;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=tU70rkAg+574vgu487sbjgQCUDsnSlr+Ix8M/GBIFUk=;
+	b=oiciJOzqNMxy+tW8bEB6KwLgeJqly0oC60T3awtQayzUNArgjhGgBg1rS0LdOoALTzmI
+	 Cmt0++cI9hxOPalQGycl0KgsrJVysBSWDFOGd+Bqvf1bxfBmVZvmlXK/be7emHRieerhE
+	 lb39UB4kgpZ3ut3GoNtJfA43wWaQE/nTujKrRnk40Pl5MU03cLW78xYL81YfC+YtDpavj
+	 ZJJ3M0aKmeI8BaQOhopCfT5r519HhKZeKDuz2A3TfjCL1qvigsMJQSFLxDaowg1XAWIxx
+	 6y7FEZA7Jm7QeUxr5Fse/JTioUd/C2FmJM6sdqENFSKonAqd0YAfFzIOWeInFghrV6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP6aS3o6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7B6606A31C;
-	Tue, 10 Nov 2026 14:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B7B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD4B60A260D;
+	Tue, 10 Nov 2026 14:54:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=LnS20fwW
-ARC-Seal: i=1; a=rsa-sha256; t=1794322424; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UQSDQPeWhfDIklKZ7AQ4NwCZKHSdWUX/rrRc047HEmYw+aETLagSI4a9TAIEG14IcNGL8ymrGQi6OqZrBdm72lGeJXqjG//Te9khom1dWxsIqTwWFBGu6xXvMlkOU8uD/YOJGmOVyQdhle3ryB9qGy76eJ0u9nCR20RbwS9rr+I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794322424; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1nscl7aZNwOtv842vwFmJ0HuXa6txcAWMb0wIM3bg7A=; 
-	b=i6Hdhl3LW9WWmxNJMIJv0NFXuWqWKsV72EAfdGP/d3Dgykm7kjpX7jcmm40kemY6mbp8TilQJVAgo2/OVMweLpMI3yLnddctKZ6sI54PEs8NeuZ35CjNtI+uTmZMUGM27Vn5OPDg6h0SKEuDwYXT4z74OLcaOwsvcS7K0FDkvfg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=LnS20fwWU9doICCJkO1+lTngxmeRJLeTmQxP2EXQ9bP0uSEb9wxc+bD/UKHee2lakzRDGm4FJbQg/0tmwGt7iTYbFr6liiSlrMUKT70SiXzC+mVv2K3pll3en/EjvAwbCZW5g8JKpa44Y9+RTbtRVUZrWO5iCFZTC7JhPpdWEy0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=1nscl7aZNwOtv842vwFmJ0HuXa6txcAWMb0wIM3bg7A=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794322422153362.1328994697353;
-	Tue, 10 Nov 2026 06:53:42 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id A4C1E180354; Tue, 10 Nov 2026 15:53:28 +0100 (CET)
-Date: Tue, 10 Nov 2026 15:53:28 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 3/5] iommu/arm-smmu-v3: enable optional clocks
-Message-ID: <avMvinXkzBpaRh5K@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP6aS3o6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA411F008A4;
+	Tue, 10 Nov 2026 14:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322458;
+	bh=tU70rkAg+574vgu487sbjgQCUDsnSlr+Ix8M/GBIFUk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DP6aS3o6jpTl7p6kQ+3Ohzu6vewKiJu6Y3pMPcN4g9pzxnDVvCQuE5ceRMSFrX+a1
+	 3AXrcPapKJ1EmYUjLxBCCI4T2UoH1u9a9qoucrm0WNVciYasEQpHu0iJWFE7pWWS6j
+	 boWcIX6a0VePN5jszwb7jxXJDVB7TPVMhOz5TXPepwo4PeGrrni6RtQHQU/iQZQTL7
+	 dWUuWbLL+rs0bw2izuJpK4h4c0eX4+ht4/1FURWsMIupUkRmqepWvygDwPSUatg/8O
+	 vcxDKawh8ysJan2gNwT45AwHSJNAaGYC586psdionq5lb3hYxnaVGlfNDjlxSqSqRx
+	 cM/QUFefl6NjQ==
+Date: Tue, 10 Nov 2026 08:54:14 -0600
+From: Rob Herring <robh@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: linux@roeck-us.net, krzk+dt@kernel.org, conor+dt@kernel.org,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+	UNGLinuxDriver@microchip.com, nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan
+ controller
+Message-ID: <20261110145414.GA3828324-robh@kernel.org>
+References: <20261109133609.810876-1-robert.marko@sartura.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,111 +63,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j6dulos5oufpuo7z"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+In-Reply-To: <20261109133609.810876-1-robert.marko@sartura.hr>
 
-
---j6dulos5oufpuo7z
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/5] iommu/arm-smmu-v3: enable optional clocks
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, Nov 10, 2026 at 07:11:50AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> On some platforms the SMMU's clock is controlled by the OS, and without a
-> consumer the clock framework gates it as unused late in boot. Any later
-> register access, for example the CR0 write in the shutdown path, then
-> stalls the interconnect. This happens on the RK3588 when no PCIe
-> controller keeps the PCIe MMU-600 clock running.
->=20
-> Get and enable all clocks described in the firmware node before the
-> registers are first accessed, and keep them enabled while the driver is
-> bound. Nodes without clocks are not affected.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On Mon, Nov 09, 2026 at 02:35:05PM +0100, Robert Marko wrote:
+> The LAN969x fan controller has a PWM output and tachometer input in a
+> register block separate from the Sparx5-compatible temperature sensor.
+> Describe it with its own compatible and binding.
+> 
+> The optional fan child specifies PWM period and polarity, tachometer
+> pulses per revolution, and thermal cooling levels.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/=
-arm/arm-smmu-v3/arm-smmu-v3.c
-> index 6d4520c47308..cce66db93219 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -12,6 +12,7 @@
->  #include <linux/acpi.h>
->  #include <linux/acpi_iort.h>
->  #include <linux/bitops.h>
-> +#include <linux/clk.h>
->  #include <linux/crash_dump.h>
->  #include <linux/delay.h>
->  #include <linux/err.h>
-> @@ -5786,6 +5787,7 @@ static int arm_smmu_device_probe(struct platform_de=
-vice *pdev)
->  	resource_size_t ioaddr;
->  	struct arm_smmu_device *smmu;
->  	struct device *dev =3D &pdev->dev;
-> +	struct clk_bulk_data *clks;
-> =20
->  	smmu =3D devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
->  	if (!smmu)
-> @@ -5800,6 +5802,11 @@ static int arm_smmu_device_probe(struct platform_d=
-evice *pdev)
->  	if (ret)
->  		return ret;
-> =20
-> +	/* Optional clocks: keep them running for as long as we are bound */
-
-useless comment, otherwise
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
-> +	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to enable clocks\n");
+> Changes in v2:
+> - Describe the fan controller in a separate binding and compatible.
+> - Keep the existing temperature-sensor binding unchanged.
+> 
+>  .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> new file mode 100644
+> index 0000000000000..0b7d38a6d20ae
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  	smmu =3D arm_smmu_impl_probe(smmu);
->  	if (IS_ERR(smmu))
->  		return PTR_ERR(smmu);
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
+> +title: Microchip LAN969x Fan Controller
+> +
+> +maintainers:
+> +  - Robert Marko <robert.marko@sartura.hr>
+> +
+> +description: |
 
---j6dulos5oufpuo7z
-Content-Type: application/pgp-signature; name="signature.asc"
+Don't need '|'
 
------BEGIN PGP SIGNATURE-----
+> +  LAN969x fan controller with a PWM output and tachometer input. The fan
+> +  child's pwms property references this node to specify the PWM period and
+> +  polarity.
+> +
+> +properties:
+> +  compatible:
+> +    const: microchip,lan9691-fan
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: System reference clock
+> +
+> +  '#pwm-cells':
+> +    const: 2
+> +    description: |
+> +      Number of cells in a PWM specifier.
+> +      - cell 0: PWM period in nanoseconds
+> +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> +
+> +  fan:
+> +    $ref: fan-common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      cooling-levels:
+> +        description:
+> +          PWM duty-cycle values corresponding to thermal cooling states.
+> +        items:
+> +          maximum: 255
+> +
+> +      pulses-per-revolution:
+> +        minimum: 1
+> +        maximum: 4
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzL+gACgkQ2O7X88g7
-+prUgg/+JNEo0SPEnyobWdRYPSOZu/Tn9RCGlBzIehkk0TD0d2SvMuDPacuxM6iy
-msiz8nlhpfkagYAKp9ojnjS8MIDJ98u/AihAlgXj6PaLeWVLhUaN62zkKgYEB7pN
-eAK6AZNCaLAKTDfQUhnAS5Ts4DFqhfo2kURK/5sLoKgvgCEIVJIBQsISRtOgxnYp
-w+rqmAj1so634w7NXLzLt2hCL93EZxSfQWJFjWzAX4pSR0YtRYM+g9NZiO2G/YHj
-Aip92FBnkjVXbl0+DAPnQJ3PTjWIWABxwp4DLs/WfkiOHSv59z6rXW7iluR/+5y1
-6e2T21bQnoAmbGsTKpZbTT6UUkLCfXDfIc4bIFqWQR604Gb37xENkUsq8elOzIfT
-oj4ObXRhUCUlurV2tVjAmYqlbXKrVEEhI+pnTvbg3aNmj/12fT5wtOZsaSGg8FVW
-nTjMYzcj+geSNOKvi/asIOFV8jR6fIl7TwOS7u/ojoTlCvAJ2V77g8l5+u/8qnA/
-Phw3tKaaoahqi7m84zxDyc1oXAwvUvz0kDZIg8ZEUm6fRr1W53LILDMvMgIrRTcL
-qmzlHQJlx+PhspiX+kE7kwCp8dFmhcndqnlZwsTcIdxkGJJQnhM0Anrq0k3x6omB
-OI5FfL+iINUvWHew81mwzujVKxBgxcYpbbfxo2ySecCSc5HmH0A=
-=10on
------END PGP SIGNATURE-----
+Drop. That's already the max in fan-common.yaml. minimum should be added 
+there too as 0 would never make sense.
 
---j6dulos5oufpuo7z--
+> +        default: 2
+> +
+> +    required:
+> +      - pwms
+> +
+> +    dependencies:
+> +      '#cooling-cells':
+> +        - cooling-levels
+> +      cooling-levels:
+> +        - '#cooling-cells'
+
+The dependencies should also go in fan-common.yaml. Perhaps 
+cooling-levels without #cooling-cells might make sense sometimes?
+
+Rob
