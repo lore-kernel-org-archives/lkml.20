@@ -1,61 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301173;
-	b=fpiN7DDtm7LQfuqQ2r7Ts9sM3c2dWVqGYiIx2eFQIAF1k1XrK+XebgeXn3SjQmholwyQ
-	 fzw49GhKrpq1zmpGvjEYe58ZehixpLlh9WEonTTrslJmE6oxbi+Rd3mKDH+nkKv0zCZly
-	 TbG1HuofQg47Mpao5/M75I2VQ31XumP6iMmyjjq46d7V97W4vNKFpV5KOis3NI4mAyU1t
-	 89B4Zyov87/9JT9tkQZM98yFoBeHyl//t4sqNPfFJ7Zghh2Sy2ggibZYb0gWmnuTnDU3f
-	 mqL6RL5YUM+Q/nsIP85ak1aU7YTgxb6rvCsLSTaE64RrqvKYCx49WYBKiFn/OsMzzog==
+	t=1794301224;
+	b=5IVnGTxUaQL2T9aONwlV8DYq2p+dtGhvJeLEEgmby9/8Fc8Bb+0WtU0HQAe0LeIcfSZ6
+	 YYxjmqEyh6ycd6Zedx3wWWScRu0OhyGx9wbQf/hNl7PLKHyUTSUFICTqZjMHjVs+UB0p4
+	 Ep3AnFqkOBvV6uGUtNj4fZZ3aRJZNLXIbX4ww1u5drTYAWBb1quFBZKgifzqDW19yZ/Q8
+	 4fNdfsIXlrxHJz3U5EhwyUmw/+CfQ00muBKaF3ThdJq2mgqc4s1rB0LtgPzTeQ9LTZpVn
+	 zyO/+M8lu3EMcaGh5k2OiQ5bJaY+cQxBURvsXWYgNj/0Am5cQqkh0hILOxKhkfnjllQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301173;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=UriPUrEKGMPcV1kTeVLDKkGMmTprVWESy8oG8aPSbZo=;
-	b=z2UE21Zp/KeGBgqyEECGGrzAnPWtAPLJI3ZVgmQvbI4dB/KEUJIjabso/8JvQV8AzHGL
-	 dCKlKYhDe3GfKOSC492zJ9Lhwo5+bkFnCfMzro0D2BDxAfikbaKqFEEb6hdxjsPYqjEZC
-	 UWkh0ayBo3/nUMvmMXHQqdiTzp/EYYn0qUGDRfmVOk5rCgSJpw4AEWOgDXpzMBQ/gsQUt
-	 wzFehiLtdag2X8ZvgViIAgTsGnlUNrxFukfv6TnkAdeQ1nP0SrL1k8W5evsZJQoo3O/cw
-	 MgIeCgV2zdKYSEP0f1+GYp9DXJEKXN5PfgF/UC496ZpHAO3xKpuYkYM+F+pvyGfcRPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301224;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=lQtZOpUfiYCTJSBMFgdGb2GeoFfEdKFJd20iCHb6o+M=;
+	b=hB/12sLZfkoN3W4Xsnqmmgt6O6tOhSbM6slGABfqSKU/t1DdeYFQGXZB8J3MLPFlijt+
+	 wjQpEz3cToKkmNEFZPaLK3A45w/HWdL3gik7qQjO4yf5xzhLAZ94T664vQCsShfMEq52b
+	 5lM4DRBPmo1biiLfbWmbukoGcstjbVa4all2V/mtSqz9Z1S2fGPDjdkYssILX7XPDD62C
+	 xOZOC8U/TmqxtfUrIFn9rlKj+U/59uakY9/yaX6XuIboIflYC6t6KOBp3eUqOCbVWBY7J
+	 FkIgkcct2iHIUvvB5LdU5i7jviGXwz6jthp3+VyqKuuhZ1oF/45JCfhLmQNv3Ne0sKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B664D606A32A;
-	Tue, 10 Nov 2026 08:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B664D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8DxztLy3PJqwiAeAA--.20886S3;
-	Tue, 10 Nov 2026 16:59:30 +0800 (CST)
-Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJBxa87t3PJqCXQzAA--.20943S3;
-	Tue, 10 Nov 2026 16:59:27 +0800 (CST)
-From: wuqianhai@loongson.cn
-To: chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tzimmermann@suse.de,
-	deller@gmx.de,
-	bhelgaas@google.com
-Cc: ardb@kernel.org,
-	ilias.apalodimas@linaro.org,
-	javierm@redhat.com,
-	loongarch@lists.linux.dev,
-	linux-pci@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wuqianhai <wuqianhai@loongson.cn>
-Subject: [PATCH v3 5/6] efi/libstub: Enable direct sysfb_primary_display access on LoongArch
-Date: Tue, 10 Nov 2026 16:57:28 +0800
-Message-Id: <20261110085729.2628009-2-wuqianhai@loongson.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110085729.2628009-1-wuqianhai@loongson.cn>
-References: <20261110085729.2628009-1-wuqianhai@loongson.cn>
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=irTTzZ58;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE76606A321;
+	Tue, 10 Nov 2026 09:00:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE76606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=irTTzZ58
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA5CAC14;
+	Tue, 10 Nov 2026 09:57:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794301079;
+	bh=lQtZOpUfiYCTJSBMFgdGb2GeoFfEdKFJd20iCHb6o+M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=irTTzZ58ctngpld/5PbZUALYREhgVH75GSxEArM0asIzdV6GUBIteZmbasJvaVRQl
+	 dZRo8ZdfV/iF2cetbmAUNF3MPflHmaxY64wO2cAKG3BPccZFj1VZiSK6ANovZFXYFa
+	 P0/qRG8k6VKpTgQUVPBmcYLwA5gtYV2IWDXVooGM=
+Date: Tue, 10 Nov 2026 10:00:18 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David CARLIER <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	dan.scally@ideasonboard.com, nayden.kanchev@arm.com, mchehab@kernel.org, 
+	hverkuil+cisco@kernel.org, linusw@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Require an enabled link to start a
+ video node
+Message-ID: <avLYoCrMB_L3gTPT@zed>
+References: <20261105231626.7152-1-devnexen@gmail.com>
+ <avHo8IXKwjsWNzO3@zed>
+ <CA+XhMqyKNd2maRXmmpL=aOMB-z4X3JgCD5ofiHpMubtFHuS_0g@mail.gmail.com>
+ <avLQuNJ_KPOH7Ao8@zed>
+ <CA+XhMqwfK+zoXb2_9XBUnjd9cLY_D0WwykbSccQR6kKqriZezA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,53 +67,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxa87t3PJqCXQzAA--.20943S3
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7GF1fCFW5GrWxCFykWFWxuFX_yoWkCFgEya
-	s8urZrWr4j9ryYgr4UKrWfuas0qay0qw1kZF92yrW3tw4jgwn5Ww4kXwn7CF13AryvkrZ8
-	A3WDCF9xAr48tosvyTuYvTs0mTUanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbqAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_JF0_JFyl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Wrv_ZF1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48J
-	MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4U
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxFksUU
-	UUU
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CA+XhMqwfK+zoXb2_9XBUnjd9cLY_D0WwykbSccQR6kKqriZezA@mail.gmail.com>
 
-From: wuqianhai <wuqianhai@loongson.cn>
+Hi David
 
-alloc_primary_display() returns NULL on LoongArch when neither
-CONFIG_EFI_EARLYCON nor CONFIG_SYSFB is enabled, so the EFI stub does not
-populate the core kernel's sysfb_primary_display.  Allow LoongArch to link
-directly to sysfb_primary_display, like x86, so the firmware framebuffer
-information is always available.
+On Tue, Nov 10, 2026 at 08:32:00AM +0000, David CARLIER wrote:
+> Fair point, sorry for the shortcuts.
+>
+> > What does it mean "rather than through the graph" ?
+> > enable_streams() is propagated by drivers along the pipeline by design
+>
+> Badly worded, sorry. I only meant that start_streaming() takes the
+> resizer from cap_dev->rsz rather than from the remote end of an enabled
+> link, so it enables it even with the link disabled.
+>
+> > Is this a typo ? From FR we can't go to the DS resizer.
+>
+> Not for data, no. I meant the media_pipeline_populate() walk: from the
 
-Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
----
- drivers/firmware/efi/libstub/efi-stub-entry.c | 1 +
- 1 file changed, 1 insertion(+)
+Ah ok
 
-diff --git a/drivers/firmware/efi/libstub/efi-stub-entry.c b/drivers/firmware/efi/libstub/efi-stub-entry.c
-index efa3ab8ad1c6..2ac22720675c 100644
---- a/drivers/firmware/efi/libstub/efi-stub-entry.c
-+++ b/drivers/firmware/efi/libstub/efi-stub-entry.c
-@@ -20,6 +20,7 @@ struct sysfb_display_info *alloc_primary_display(void)
- 		return __alloc_primary_display();
- 
- 	if (IS_ENABLED(CONFIG_X86) ||
-+	    IS_ENABLED(CONFIG_LOONGARCH) ||
- 	    IS_ENABLED(CONFIG_EFI_EARLYCON) ||
- 	    IS_ENABLED(CONFIG_SYSFB))
- 		return kernel_image_addr(&sysfb_primary_display);
--- 
-2.34.1
+> ISP source video pad it follows the immutable link into the DS resizer
+> sink pad and, through the internal route, its source pad. A
+> MUST_CONNECT on that pad would then fail FR only streaming with the DS
+> link disabled.
 
+This means (and reading Documentation/admin-guide/media/mali-c55.rst I
+think it was intended) that if you link-enable the DS-pipe you will have to
+start streaming on the DS capture node, otherwise streaming will never
+start due to mali_c55_pipeline_ready() returning false ?
+
+I wish I had a system with a DS pipe to test with.
+
+What I'm after here: I'm trying to figure out if your change
+introduces any requirement on how pipe have to be handled and if this
+has any implication on how libcamera works on mali.
+
+A use case is continous capture from DS while only taking seldom
+pictures from FR. In this case I have to link both pipes, start both
+of them and feed buffers continuously to DS and only sporadically to
+FR. The key here is the requirement to call STREAMON on both capture
+nodes if they're linked.
+
+In other words, if you want to use both pipes you need to link both of them
+and call STREAMON on both capture devices, even if in a session you will be
+capturing from one of them.
+
+I think it's fine and matches the documentation in mali-c55.rst and
+the libcamera pipeline handler.
+
+>
+> Thanks for the reviews.
+> Cheers.
