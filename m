@@ -1,54 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307679;
-	b=xt7Ktij95f695t2NLwp7Z72vPPj0k7P79gOlNOGZJyWuBvMuXuD5XsFd1DdDUd4KIeS0
-	 3poBazqlfVK8TrgVpj50vqcTd5FRkMuuV+DEnYZTnQ+CDdkRi/CFUo0mvIqO7NJ30Dyx9
-	 JzChAk0smQfi4fPBRcMP6G7sAmWCr3si+/L/8GqYsVJBwXKfrfObZtycDsWBHKB9+E7ga
-	 XBs0hK9MieKBQxlsXWIIVya2z1Z2VxrNW9mJLDb8slYJgW71ns1BpsAOaRGnXN1FWoRwd
-	 3+qfoAkFOaCxcO69Md2rsj4aF4k/XOQbBYab3UCo3MtRqzae9cs6i18L1ZnQ/qyHl0A==
+	t=1794307690;
+	b=BOZnlb0lBJ1MgjYfZQrKuB1awikPBVXoVGVZwb//F2POXt8+eQezB9zJ224AduC9R++o
+	 5G44HhDvBddRTOCkwtWJ9RhUPZVa8zsYdxMmq3VioLk7uPqclSPeenw4DGwnYiM+/+g40
+	 KZACcQf9I96+Td+X6KTbNgOmVyJhyjRWLPvoodoIcAB9Ho6w2vYIR7mLRRz7Qv0a8AkDT
+	 NFklMGjfhOglwiv467hkPCmtKk3/2R/3qOPgQwOT/IkKXyinNdZiM6EEu8PXzjnVA1VDy
+	 F07VyHVx0Qp7jujalj7UP5cdMhNHaUSniC6o0jksO85/UZDefdhw7Jh8JLK66bykC3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307679;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=musk+utB1KfWcXDecDGeXhJbvzifsbZCNqbV6Pr8GHE=;
-	b=mS09IpxhfVzduzuy33LIQvkGhvASGM0SgJhLioSmX9ABYaRiYe3Ew58OPXy7FPmUaVG+
-	 mQ61ZU/szRYfV1daAcLIubjneYKSJLCdzZXmjH1vfHDFSqzNHhONN8DfE8JnFfVAKT1aw
-	 IGQ2+DsQi30hLoEaNPXx6hZl2r2YKSKv5GffMcrR1N3x/hAMWWH/aUPYat+U7BfosnFbE
-	 +2hKnagOi5/CMbMEPZDlXt/5Eht5uh4YGfIrq25QOHB9ag2FeWyrDuO56YsTlSG78mVH9
-	 LA/5ozqXRBeuZJXFOcNaRodxlHAV3Y7y0HKJ0GDHy1nS2zxVe2vNpLlawO1dBBmCaEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To;
+	bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
+	b=ZfKj9WvyLa04lmVuTAMWac1tek3iVzQMb5VriT1BqD2N0myiEOGoAVbDAjqYyI3wuM5t
+	 3vm9wJfs/EVjhhuHGdMlnDu4ropKwJeBMeZl/VgNEgSE+yy++nVbwob+WNeap4q+mXKO2
+	 FrHhUgxWCW9dxWgboYeFwjGpycFAHh2wnDIh4Jz41jJVbvRzpWiyWtU+M37POSZmcLg5O
+	 sFYDyEUT3ZM9hJ87KtKSyq5MGJhi+eWtq+ImPP7V4Lwy/bO7qaWw6RbyqRKFyNKR84C5S
+	 bYdRpcP757Wmc1Mydj/EuGpU0x9mZyxwzIJRzFg3LtfDi0CBlHJcUbck868dxTMTnyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bjd+2Fzf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FJ+yNBRx;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE1606A31C;
-	Tue, 10 Nov 2026 10:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9998E60A260B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9998E60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bjd+2Fzf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FE5E1F0089F;
-	Tue, 10 Nov 2026 10:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794307678;
-	bh=musk+utB1KfWcXDecDGeXhJbvzifsbZCNqbV6Pr8GHE=;
-	h=From:To:Cc:Subject:Date;
-	b=Bjd+2FzfWgs1r5CaYTKJ2dqdFylBLe36fcIRBVaTnzcc/Pq8lNC++m80t8iQYPXT5
-	 9jdJMi1SU9cnmiQp7qWwFRy13BLSuQGSHcbb+xXThq77LwpMk6NK8hgVFzY9SNiQGS
-	 QliIcWhKRZllitF37MulWnvwPw2uHJynbsG+pqs9ha5oodYn4xaCZAhY8kH5HYIQCs
-	 UwHulAs0kXsrxdy/FqNU/GAMI0tTjH2T4G090wzgwRe6lpgfZz3HfsAq8CB/ApsESY
-	 jJVfnWoORwCwF2mGWY2mjt7/h7rK1un0GDg6awUim6QqyUu5ucFytRAietEOdD5Hpg
-	 OlUxtLV4fqoYg==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL for v7.4] vfs fixes
-Date: Tue, 10 Nov 2026 11:47:42 +0100
-Message-ID: <20261110-vfs-7.4-rc3.fixes-a971ed79be85@brauner>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FJ+yNBRx
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so18336275e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:48:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794307688; x=1794912488; darn=vger.kernel.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
+        b=FJ+yNBRxyJI2z7b9ifd1BlWgPyDujuP2bucSCxdd2jMCCs2Vq+y4Fg1q2qXXeVscn9
+         EDBeZTKKPxc5cwKpQ1zbptmVdrVEaBhQbEPKjLOB8gDdBVuC6cmkvy9rE9ba1e+7Qkci
+         DncEFa7RlS3gf5l8G33OgqHGfOasXBPTLKjqVLP19T4YyGzT5srN2n7zvsO9zQNUemSK
+         yIFXayt+0HJrSNQa8igR1kJ6445w0Q7c89bEdbaBgIK2G0a1kkn8yPuiFaQBxYdMuVw3
+         dRLQOPVCONqsVm+QcYaSrdtXPjVawC8Ehaf1Eu5PNMDhKdU6bbf5EdA+6oRIbTvo+WFR
+         biHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794307688; x=1794912488;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
+        b=Exw2s18GZEdOQHiKc7GsgYeWtrf4xPZJ/7yXDKMMZLGXcaCDHBmRCYYjLquZBlosE6
+         zYq6racWrb/9n9CEW2TIA6X9VGsKsKlemDq9A1AeRgl0GksGd3QSk40eGOgkr4eco8UA
+         ALE7N+S2Gfmo5Yr2BDabVhfd67UzMzqTKDR67ldVOX2w3KXzvroxDWJMui1u0LkDdQWY
+         Wk/pCW3t0ZajV3XjuHzddftgL/StHtZds7vNcwtLTYTLG6NMs+4nxjtvFKCjTPPphwqO
+         DGcwHTxMxL9j/q781IANlUvi8GRLE/zABawxgrSNKg2PRfRirh+l1mxlHkAP+yXLCDCI
+         z4wg==
+X-Forwarded-Encrypted: i=1; AL+hErG7zAGQwZt+iHXPPuOW5QsP8zO+YCxc4Wt0iR8pwCWZT/4qkmTD09Lm4V63aDFhhu++bp7+boQAF07pEZo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cgCx9V4YJxnEd+OUYQiKMAPk1zFXSeYOqZ3szlq4OzVjF0Z3T
+	Pmf1JvR/3eK5izPpAPCptBzc97S19lW+DC0ybfv9PUrzLVBoB2fb1XmWwW/Zr1QgKuQ=
+X-Gm-Gg: AYBFou0ui+lsKxHVNTLbymo6L7WzXxvPpor4aGYbvR6DLWf417pLWfqr5ET0OUGiSoQ
+	1a+ddXuE8TTfmFIjThtZr+XnDXqu2OyZ8sASPOKSUtmNoSyEXVBbt1ow86sqt3RINPAc+yAoktN
+	M1aoj0LB2kj/Tn5VR7Y9git9CRqcUdoWt9OcDs+XriqxMzC1rmi3HWf8gPovgfh4+54eZ4HHhVS
+	5gYUd8f31PGBrZhfdnR+qrkbsGCRAu8Yc4omrXLUeb46T4Psu0nAJvFeM1Aw77MJDendbQYSkQr
+	VuVrB8czkdJ5h62pH8Bzi0PdJD+Fj3uM6qyRqhVxMuLkBztD+i+dMp+LiC35XPscIzGQ3IuskXR
+	lolhaZTEntWUwJyAm5kbTHpuxwazUXWfNq/Xosxgk08EOYDzC2FN7lCDEq1iBZCKU49z1RYrpg7
+	+5i+pGjfdbq9hp3C0Z+KwHqxjBOSceuMYlXxqLbiJfFDwbdhzfz8YAA3zeE2+8j/6GzudRj40Zg
+	5VLxhvu60oahJX8EZeY5FX852l8ATv3aAmLV9ohIUueC0VPtCaEB39KtkTqzRxLQvkNwhjs2foX
+	5ZnL614zuRAT7DqzRU18TubHuLQzRAiCgZrngsK0g1pOyQJhm/Gu9CENXRV7kJFV1riJBQjr
+X-Received: by 2002:a05:600c:348d:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4ba023051a5mr35822815e9.1.1794307687833;
+        Tue, 10 Nov 2026 02:48:07 -0800 (PST)
+Received: from ?IPV6:2001:a61:1365:2501:d97e:4bec:d495:3c3f? ([2001:a61:1365:2501:d97e:4bec:d495:3c3f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204ee67sm57409875e9.13.2026.11.10.02.48.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 02:48:07 -0800 (PST)
+Content-Type: multipart/mixed; boundary="------------lieuYdQrnBx6m16xWGNncEST"
+Message-ID: <a26ce7f8-e2df-4d1b-a22f-1787126ca989@suse.com>
+Date: Tue, 10 Nov 2026 11:48:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,259 +91,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11731; i=brauner@kernel.org; h=from:subject:message-id; bh=USaOZFgtrjm7+lXKWZybDrDvfVgr7XHE4Q8JGFPQlvM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9+hbcJvPnyY0F1T9CC4RKXFp8BS6Z2aV+Knywdc6UK VcM7VWLOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYyN5nhn/WvNRxTZ05OZPl1 c+fZs91K5UKPcyZL1G+PMoyuETbL0mP4p785W5/Npvbkgd/GkzymzT7uMWnavSXma1fL+SkGPCs RZQUA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: usb: rtl8150: fix rx tasklet use-after-free on
+ disconnect
+To: Myeonghun Pak <mhun512@gmail.com>, Petko Manolov <petkan@nucleusys.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+References: <20261110043016.56986-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20261110043016.56986-1-mhun512@gmail.com>
 
-/* Summary */
+This is a multi-part message in MIME format.
+--------------lieuYdQrnBx6m16xWGNncEST
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This contains fixes for the current development cycle:
+On 10.11.26 05:30, Myeonghun Pak wrote:
 
-- libfs: Make readdir on tmpfs walk the offset tree in offset order
-  instead of d_children to avoid skipping entries or relisting the whole
-  directory.
+Hi,
 
-  It's faster too. Listing a million entries takes 114ms instead of
-  146ms, and 113ms instead of 470ms with four processes listing in
-  parallel.
+> Kill the tasklet again after unlink_all_urbs() has waited for all
+> completion handlers. tasklet_kill() drains any late tasklet and prevents
+> self-rescheduling; disabled endpoints prevent it from leaving an RX
+> URB in flight. Keep the first kill to stop an existing reschedule loop
+> before unregister_netdev().
+> 
+> Found by a static analysis tool under development.
 
-- iomap: Finish the ->iomap_next() conversion that started in v7.3.
-  The nilfs2 and fuse ext_map iomap code added this merge window is
-  converted so now we can remove the ->iomap_begin()/->iomap_end()
-  fallback. We waited until the new iomap users from other trees were in
-  mainline otherwise this would have been very messy.
+Good catch; nice tool.
+But the fix is not correct.
 
-- errseq: Retry with the current value when the cmpxchg() in
-  errseq_check_and_advance() fails to avoid an old value coming back
-  later hiding the errors.
+> Fixes: eff674a514bd ("USB: rtl8150_disconnect() needs tasklet_kill()")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> 
+> ---
+> 
+>   drivers/net/usb/rtl8150.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
+> index d51e43170e03..98c36c377956 100644
+> --- a/drivers/net/usb/rtl8150.c
+> +++ b/drivers/net/usb/rtl8150.c
+> @@ -971,6 +971,8 @@ static void rtl8150_disconnect(struct usb_interface *intf)
+>   		tasklet_kill(&dev->tl);
+>   		unregister_netdev(dev->netdev);
+>   		unlink_all_urbs(dev);
+> +		/* A completion may have scheduled it after the first kill. */
+> +		tasklet_kill(&dev->tl);
 
-- aio: Hold an extra count for exit_aio() itself so it can't return
-  before the last free_ioctx_reqs() callback has called complete().
+The tasklet, however, can also submit the URB again, which in turn
+can submit the tasklet and so on. There is an unavoidable window
+in that sequence, as tasklet_kill() will kill the tasklet, but it may
+have run in the window.
 
-- pidfd: Fail the namespace ioctls with EREMOTE unless the target is
-  visible in the caller's pid namespace like PIDFD_GET_INFO does.
+Hence you need to also, in addition to your patch, actually prevent the
+resubmission of the URBs. The attached fix will do so.
 
-- eventpoll: Wake the next waiter when a woken waiter returns early
-  because of a fatal signal to avoid sleeping forever.
+How do we do this? Shall I submit? Do you want a joint submission?
 
-- backing-file: Pass RWF_NOAPPEND on to synchronous writes to the
-  backing file.
+	Regards
+		Oliver
 
-- initrd: Flush the deferred fput() of the ramdisk file before mounting
-  root.
+--------------lieuYdQrnBx6m16xWGNncEST
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-net-usb-rtl8150-break-cycle-between-tasklet-and-URB.patch"
+Content-Disposition: attachment;
+ filename*0="0001-net-usb-rtl8150-break-cycle-between-tasklet-and-URB.pat";
+ filename*1="ch"
+Content-Transfer-Encoding: base64
 
-- iov_iter: Take an unsigned long segment count in import_iovec(). The
-  upper 32 bits of the count passed to readv(), writev() and friends
-  were dropped before the UIO_MAXIOV check.
+RnJvbSBjOGI4OGQ0NWNhZWYwYzJmZGZhMGIxYTUxZjc3YzJkYjU2NzY1OGJmIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBPbGl2ZXIgTmV1a3VtIDxvbmV1a3VtQHN1c2UuY29t
+PgpEYXRlOiBUdWUsIDEwIE5vdiAyMDI2IDExOjI2OjM0ICswMTAwClN1YmplY3Q6IFtQQVRD
+SF0gbmV0OiB1c2I6IHJ0bDgxNTA6IGJyZWFrIGN5Y2xlIGJldHdlZW4gdGFza2xldCBhbmQg
+VVJCCgpUaGUgdGFza2xldCBjYW4gcmVzdWJtaXQgdGhlIFVSQiwgd2hpY2ggaW4gdHVybiBj
+YW4KcmVzdWJtaXQgdGhlIHRhc2tsZXQuIFRoZSBjeWNsZSBuZWVkcyB0byBiZSBicm9rZW4K
+dGhlIHNpbXBsZXN0IHdheSB0byBkbyBzbyBpcyB0byBwcmV2ZW50IHRoZSByZXN1Ym1pc3Np
+b24Kb2YgdGhlIFVSQnMgYnkgcG9pc29uaW5nIHRoZW0uCgpTaWduZWQtb2ZmLWJ5OiBPbGl2
+ZXIgTmV1a3VtIDxvbmV1a3VtQHN1c2UuY29tPgotLS0KIGRyaXZlcnMvbmV0L3VzYi9ydGw4
+MTUwLmMgfCAxNiArKysrKysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0
+aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC91c2Iv
+cnRsODE1MC5jIGIvZHJpdmVycy9uZXQvdXNiL3J0bDgxNTAuYwppbmRleCBkNTFlNDMxNzBl
+MDMuLjYzNWU2NWEwZGU0MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvdXNiL3J0bDgxNTAu
+YworKysgYi9kcml2ZXJzL25ldC91c2IvcnRsODE1MC5jCkBAIC0zNTMsMTEgKzM1MywxOCBA
+QCBzdGF0aWMgdm9pZCBmcmVlX2FsbF91cmJzKHJ0bDgxNTBfdCAqIGRldikKIAl1c2JfZnJl
+ZV91cmIoZGV2LT5pbnRyX3VyYik7CiB9CiAKK3N0YXRpYyB2b2lkIHJlZW5hYmxlX2FsbF91
+cmJzKHJ0bDgxNTBfdCAqIGRldikKK3sKKwl1c2JfdW5wb2lzb25fdXJiKGRldi0+cnhfdXJi
+KTsKKwl1c2JfdW5wb2lzb25fdXJiKGRldi0+dHhfdXJiKTsKKwl1c2JfdW5wb2lzb25fdXJi
+KGRldi0+aW50cl91cmIpOworfQorCiBzdGF0aWMgdm9pZCB1bmxpbmtfYWxsX3VyYnMocnRs
+ODE1MF90ICogZGV2KQogewotCXVzYl9raWxsX3VyYihkZXYtPnJ4X3VyYik7Ci0JdXNiX2tp
+bGxfdXJiKGRldi0+dHhfdXJiKTsKLQl1c2Jfa2lsbF91cmIoZGV2LT5pbnRyX3VyYik7CisJ
+dXNiX3BvaXNvbl91cmIoZGV2LT5yeF91cmIpOworCXVzYl9wb2lzb25fdXJiKGRldi0+dHhf
+dXJiKTsKKwl1c2JfcG9pc29uX3VyYihkZXYtPmludHJfdXJiKTsKIH0KIAogc3RhdGljIGlu
+bGluZSBzdHJ1Y3Qgc2tfYnVmZiAqcHVsbF9za2IocnRsODE1MF90ICpkZXYpCkBAIC01MTgs
+NyArNTI1LDcgQEAgc3RhdGljIHZvaWQgaW50cl9jYWxsYmFjayhzdHJ1Y3QgdXJiICp1cmIp
+CiAJcmVzID0gdXNiX3N1Ym1pdF91cmIgKHVyYiwgR0ZQX0FUT01JQyk7CiAJaWYgKHJlcyA9
+PSAtRU5PREVWKQogCQluZXRpZl9kZXZpY2VfZGV0YWNoKGRldi0+bmV0ZGV2KTsKLQllbHNl
+IGlmIChyZXMpCisJZWxzZSBpZiAocmVzICE9IC1FUEVSTSkKIAkJZGV2X2VycigmZGV2LT51
+ZGV2LT5kZXYsCiAJCQkiY2FuJ3QgcmVzdWJtaXQgaW50ciwgJXMtJXMvaW5wdXQwLCBzdGF0
+dXMgJWRcbiIsCiAJCQlkZXYtPnVkZXYtPmJ1cy0+YnVzX25hbWUsIGRldi0+dWRldi0+ZGV2
+cGF0aCwgcmVzKTsKQEAgLTc1MSw2ICs3NTgsNyBAQCBzdGF0aWMgaW50IHJ0bDgxNTBfb3Bl
+bihzdHJ1Y3QgbmV0X2RldmljZSAqbmV0ZGV2KQogCWlmICghZGV2LT5yeF9za2IpCiAJCXJl
+dHVybiAtRU5PTUVNOwogCisJcmVlbmFibGVfYWxsX3VyYnMoZGV2KTsKIAlzZXRfcmVnaXN0
+ZXJzKGRldiwgSURSLCA2LCBuZXRkZXYtPmRldl9hZGRyKTsKIAogCXVzYl9maWxsX2J1bGtf
+dXJiKGRldi0+cnhfdXJiLCBkZXYtPnVkZXYsIHVzYl9yY3ZidWxrcGlwZShkZXYtPnVkZXYs
+IDEpLAotLSAKMi41Ni4wCgo=
 
-- splice: Advance the pipe tail before checking for a full bvec array
-  in splice_to_socket(). The last buffer was counted again, so MSG_MORE
-  was set although the pipe was empty and small TCP transfers waited
-  for the cork timeout.
-
-- vfs:
-
-  * Reject negative offsets for SEEK_DATA and SEEK_HOLE in
-    default_llseek() and use must_set_pos() for its whence handling.
-
-  * Only clear tv_nsec in timestamp_truncate() when clamping changed
-    the seconds. Timestamps whose seconds were exactly at a filesystem
-    time limit lost their subsecond part.
-
-  * Don't leak the kernel-internal STATX_ATTR_CHANGE_MONOTONIC in
-    stx_attributes_mask.
-
-  * Clamp the FIONREAD result to the int range so a file with 4 GiB
-    left isn't reported as empty.
-
-  * Fix the SEEK_CUR f_lock check.
-
-- selftests: Fix the statmount and mount_setattr tests on 32-bit and
-  s390, build the fchmodat2 and openat2 tests without sanitizers when
-  the toolchain lacks the runtimes and fix a clang warning in the
-  mount-notify test.
-
-- docs: Fix a docutils warning in porting.rst.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-No known conflicts.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit 05441d697f7f9a927264f4058cbbc6a03dfcac9d:
-
-  Merge tag 'cocci-7.4-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jlawall/linux (2026-11-03 08:36:32 -0800)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc3.fixes
-
-for you to fetch changes up to 1448959fe3d013ffdb8302d17e4a8fdad2d2da95:
-
-  fs: fix the SEEK_CUR f_lock condition (2026-11-09 16:04:55 +0100)
-
-----------------------------------------------------------------
-vfs-7.4-rc3.fixes
-
-Please consider pulling these changes from the signed vfs-7.4-rc3.fixes tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Abbott Liu (1):
-      initrd: flush deferred fput() before mounting root
-
-Andrea Parri (1):
-      iov_iter: take an unsigned long segment count in import_iovec()
-
-Avi Weiss (2):
-      fs: clamp FIONREAD result to int range
-      splice, net: avoid MSG_MORE when the bvec array fills
-
-Chen Linxuan (1):
-      pidfd: restrict task access ioctls to the caller's pid namespace
-
-Chris Mason (1):
-      backing-file: pass RWF_NOAPPEND to synchronous writes
-
-Christian Brauner (9):
-      libfs: make i_rwsem the lock of the offset tree
-      libfs: walk offset directories in offset order
-      libfs: end offset readdir at positions past DIR_OFFSET_EOD
-      Merge patch series "libfs: fix readdir of offset directories"
-      Merge patch series "iomap: remaining patches for iomap_iter_next conversion"
-      Merge patch series "errseq: fix lost writeback errors in errseq_check_and_advance()"
-      Merge patch series "fs: fix and deduplicate whence handling in default_llseek()"
-      aio: don't let exit_aio() return before complete() is done
-      fs: fix the SEEK_CUR f_lock condition
-
-Hungyu Lin (1):
-      vfs: preserve subsecond timestamps at filesystem time limits
-
-Jeff Layton (1):
-      statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in stx_attributes_mask
-
-Joanne Koong (5):
-      nilfs2: convert iomap ops to ->iomap_next()
-      fuse: convert ext_map iomap ops to ->iomap_next()
-      iomap: remove ->iomap_begin()/->iomap_end() legacy path
-      iomap: pass iomap_iter_next_fn directly instead of struct iomap_ops
-      Documentation: iomap: update docs to reflect iomap_iter_next model
-
-Mani Tofigh (1):
-      eventpoll: wake the next waiter when a woken waiter is killed
-
-Randy Dunlap (1):
-      fs: porting.rst: use literal string to avoid warning
-
-Sasha Levin (4):
-      selftests/statmount: fix format warnings on 32-bit and s390
-      selftests/mount_setattr: build with a 64-bit off_t
-      selftests: probe for sanitizer support in fchmodat2 and openat2
-      selftests/fs/mount-notify: fix the indentation in the fsmount test
-
-Shashank Mohan Jain (2):
-      errseq: don't let errseq_check_and_advance() hide later errors
-      lib/tests: errseq: add a concurrent check_and_advance test
-
-Siddharth Chintamaneni (2):
-      fs: reject negative offsets for SEEK_DATA and SEEK_HOLE in default_llseek()
-      fs: use must_set_pos() in default_llseek()
-
- Documentation/filesystems/iomap/design.rst         | 140 +++++++++++++++------
- Documentation/filesystems/iomap/operations.rst     |  68 +++++-----
- Documentation/filesystems/iomap/porting.rst        |  16 ++-
- Documentation/filesystems/porting.rst              |   2 +-
- block/fops.c                                       |  10 +-
- fs/aio.c                                           |   4 +-
- fs/backing-file.c                                  |   7 +-
- fs/btrfs/direct-io.c                               |   8 +-
- fs/dax.c                                           |  48 +++----
- fs/erofs/data.c                                    |  28 ++---
- fs/erofs/internal.h                                |   3 +-
- fs/erofs/zmap.c                                    |   7 +-
- fs/eventpoll.c                                     |  11 +-
- fs/exfat/file.c                                    |  14 +--
- fs/exfat/inode.c                                   |   6 +-
- fs/exfat/iomap.c                                   |  22 +---
- fs/exfat/iomap.h                                   |   6 +-
- fs/ext2/ext2.h                                     |   3 +-
- fs/ext2/file.c                                     |   4 +-
- fs/ext2/inode.c                                    |   9 +-
- fs/ext4/ext4.h                                     |  10 +-
- fs/ext4/extents.c                                  |   8 +-
- fs/ext4/file.c                                     |  22 ++--
- fs/ext4/inode.c                                    |  58 +++------
- fs/f2fs/data.c                                     |   6 +-
- fs/f2fs/f2fs.h                                     |   3 +-
- fs/f2fs/file.c                                     |   4 +-
- fs/file.c                                          |  10 +-
- fs/fuse/dax.c                                      |  10 +-
- fs/fuse/ext_map.c                                  |  11 +-
- fs/fuse/file.c                                     |  10 +-
- fs/fuse/virtio_fs.c                                |   3 +-
- fs/gfs2/aops.c                                     |   6 +-
- fs/gfs2/bmap.c                                     |   9 +-
- fs/gfs2/bmap.h                                     |   2 +-
- fs/gfs2/file.c                                     |   6 +-
- fs/gfs2/inode.c                                    |   6 +-
- fs/hpfs/file.c                                     |   6 +-
- fs/inode.c                                         |   3 +-
- fs/internal.h                                      |   1 -
- fs/ioctl.c                                         |   5 +-
- fs/iomap/buffered-io.c                             |  40 +++---
- fs/iomap/direct-io.c                               |   8 +-
- fs/iomap/fiemap.c                                  |   8 +-
- fs/iomap/iter.c                                    |  13 +-
- fs/iomap/seek.c                                    |   8 +-
- fs/iomap/swapfile.c                                |   4 +-
- fs/iomap/trace.h                                   |  12 +-
- fs/libfs.c                                         | 133 ++++++++------------
- fs/nilfs2/file.c                                   |   2 +-
- fs/nilfs2/iomap.c                                  |   4 +-
- fs/nilfs2/iomap.h                                  |   4 +-
- fs/ntfs/aops.c                                     |   6 +-
- fs/ntfs/file.c                                     |  20 +--
- fs/ntfs/inode.c                                    |   2 +-
- fs/ntfs/iomap.c                                    |  42 ++-----
- fs/ntfs/iomap.h                                    |  10 +-
- fs/ntfs3/file.c                                    |  16 +--
- fs/ntfs3/inode.c                                   |  13 +-
- fs/ntfs3/ntfs_fs.h                                 |   3 +-
- fs/pidfs.c                                         |   8 ++
- fs/read_write.c                                    |  48 +++----
- fs/remap_range.c                                   |   6 +-
- fs/splice.c                                        |   2 +-
- fs/stat.c                                          |   6 +-
- fs/xfs/xfs_aops.c                                  |   8 +-
- fs/xfs/xfs_file.c                                  |  53 ++++----
- fs/xfs/xfs_iomap.c                                 |  55 ++------
- fs/xfs/xfs_iomap.h                                 |  16 +--
- fs/xfs/xfs_iops.c                                  |   4 +-
- fs/xfs/xfs_reflink.c                               |   6 +-
- fs/zonefs/file.c                                   |  22 ++--
- include/linux/dax.h                                |  18 ++-
- include/linux/fs.h                                 |   9 +-
- include/linux/iomap.h                              |  66 +++++-----
- include/linux/stat.h                               |   3 +
- include/linux/uio.h                                |   8 +-
- init/do_mounts_rd.c                                |   5 +
- lib/errseq.c                                       |  29 +++--
- lib/iov_iter.c                                     |   6 +-
- lib/tests/errseq_kunit.c                           | 110 +++++++++++++++-
- mm/shmem.c                                         |   2 +-
- tools/testing/selftests/fchmodat2/Makefile         |  18 ++-
- .../filesystems/mount-notify/mount-notify_test.c   |   8 +-
- .../testing/selftests/filesystems/openat2/Makefile |  18 ++-
- .../filesystems/statmount/statmount_test.c         |   4 +-
- .../filesystems/statmount/statmount_test_ns.c      |   5 +-
- tools/testing/selftests/mount_setattr/Makefile     |   2 +-
- 88 files changed, 776 insertions(+), 732 deletions(-)
+--------------lieuYdQrnBx6m16xWGNncEST--
