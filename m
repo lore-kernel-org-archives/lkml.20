@@ -1,65 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344322;
-	b=zdkTGu9pcWE7K5EhqQWHPXzUc3gSAh2TIv9wcQXNndj1c4KKcDQ5JPlYRPYplMG7ZcT1
-	 qwfoWTjFA7NZ+Zve6u/4BUI+w9kkVJagrs2SwLE7CKDqxhki2apqU+OB8dIN7PmiwWZk+
-	 8NUZS4C5jRC0FVDVU31V/OtmNT1WFyhflTZ/TrHu2sGw33oTZ8qMjds1dqCEfydx/5OzL
-	 +IQ6YwI0vPqv/YLNH3JkPQZRLSDH7+zNFNkHZyp9jo2rC9NHnpYGZCb1pmFh8ueFGkgH5
-	 VJB1gwvY/XPPrqVZBz069l29RY50jyFt+LuLqoLmezn4HJ5Ip6l14p8tNX37juGxrgw==
+	t=1794344362;
+	b=Qg7ysdOhwGsiU7vfPdnkc25AC4aPSzVqLgSyoVJQwHV/NRfjHeKqE53d3/tPZ/2rHOaB
+	 Cbs0AqHsnWyjOGGcb+FndFeqCyi9LiGm/jMPU3N5KOWQTd1FOAVZxBiiirkFzNAGIHsWL
+	 4dRE5Enu3RZ0Ko0fXvQ5Sqq6MBuV3qgxhHLGg4FJoD+aiCgQ2odwPdanYqPlYM6jrZiv/
+	 X+fobSruwPailLxRSlKhCTeXiOS0YMHb6u2/0t8mB0DRnLnCc3QMLiJG0krD3igmhYytm
+	 EFADSWZUnwKJ54dxwvBiNzgCcmH/KkAKg0n77Gy2DCD96GieonD9fQy6m7DWxULyqTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344322;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ab1Y4a2opdPjndxb5YBYW98/QiDJ0m0oBjPEITs6l+E=;
-	b=ljUWyIpi4WSalZ76kvjy5JuKKCAFUwQIA0zkXM2jeaubRHD8GTj6s4VgaUzWkDtlqhVe
-	 2euX3fQClkk3UB8bBeok07dbimiDZ4BuvQNYHroMI8CqswGZmQH6FWCHnmtJCm0BEArog
-	 vA66Nbi8KJJBSV38wAJ3AFIc9V4YKKUMkvvzDWQRCzEAy0PfcaFZcLcdqFb+5WpbiF1Dq
-	 OBXkYbf9A8QSEauzMd4rak+bLKrQcY3jb1EuggKLg5U3W/yYp1u0JA4v0hdUQDX5HVkvT
-	 9DiIKlnokCFFkO1ylP1kJyDr6qQ17PV6Gj+7MNWakZozjXyCB7Jtk2NVo3aiU12odsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=nTOSTzpDd6DYXlGIMr6Wyyl34ouDeSuy6M7YMcar9Os=;
+	b=KAFLnuDrYFNk9c44dAYejgcn+gK6GKzDlfnGVTodZfVEuYmVocSWNA91KanW1hHqad49
+	 5XdZdaXghg8Gg2QnO6/KPvhTB5H856UYbwrMbw88dY/RUcApr/RcIz/O2TjZEC0lROkJH
+	 KY1PUllSyOmQFNmoMHD1dNEOgtP8KNY1o7WhtnmKeIcEUOiuB0o2aau/9R1qCLzekHy0f
+	 NXeTTMaRSqeRxTnKc4dSgkyTzvaXtuLdKNPl+lzyBJAX5MJVxuTK0+NeiYnzIN3n+VdiJ
+	 LNWEnWocE2wNk3lgMLrX5ihN8L7aD4ozW5iOJS1Ekqm1R3wLB1/nipDRr2geHYm4jiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1+s5ZC9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=LLrbqAYX;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF7A606A32E;
-	Tue, 10 Nov 2026 20:58:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3A8606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B3A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1+s5ZC9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88A31F0089F;
-	Tue, 10 Nov 2026 20:58:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344321;
-	bh=ab1Y4a2opdPjndxb5YBYW98/QiDJ0m0oBjPEITs6l+E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D1+s5ZC9NaCe/pXn8/7c8nfH560r5x6nbafR5BAbOh5MxKbPeY4ZNopGSNnaKhUUl
-	 VrxX4Jx3PS/6ICacp+7wf+T7g/r78U5oiDMxJ+2e/TFRPOO5JctOKnZBkdy5uebWE0
-	 UXT8GoiGsd1q/NKQpjh3hDmsU1DZGAy/yfR2x4RRMF84LQZKut9WvVRAcLtIfCvMPJ
-	 hwHIzAC/DzFFD4cs94VDUlYwN09iksM7LI+mXvkJJHSyBQbHnap7ByyuIFuLWDB4Rc
-	 Jr6BTSvxFmJ0rAaOBHfOOxfN2tZVUs+4W+inKTcVZJr2BYe2pcwCmfKPvCbOjp1Kvg
-	 uAgQX7yytUrQQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: yanxia@cmss.chinamobile.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	kuniyu@google.com,
-	xeb@mail.ru,
-	yana06070@163.com,
-	netdev-bot+sashiko@kernel.org
-Subject: Re: [PATCH net-next v2] ip6_gre: fix changelink conflict checks for L2 tunnels
-Date: Tue, 10 Nov 2026 12:58:38 -0800
-Message-ID: <20261110205838.2246603-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104150330.70963-1-yanxia@cmss.chinamobile.com>
-References: <20261104150330.70963-1-yanxia@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=LLrbqAYX
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so3304955a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:59:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794344360; x=1794949160; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nTOSTzpDd6DYXlGIMr6Wyyl34ouDeSuy6M7YMcar9Os=;
+        b=LLrbqAYXV5l3qZehWXP03Hq+boT4H7MopSGsgngJ9+bPt4HwAI61WW/pE4ygkSHkf4
+         7mKLY1zBawfYKYskYctxMuEKf0Q+zpNtFW+8evVP5Ptu8RbGg1zVsn4EQ72NyVlZh6ZD
+         F5/268AB/Oq3U0WlyzulZyt+YU8O5nZqJRMpQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794344360; x=1794949160;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nTOSTzpDd6DYXlGIMr6Wyyl34ouDeSuy6M7YMcar9Os=;
+        b=I3AGe9NIlhQySyVDpfo2KiM56flrnycUwgrqP1v9E6NgGfvuCbLIQJojAOexQS3Q1a
+         jleq+UUH8Xlcl2xz2jR7ThDSrlAA3Cn9tQL3yab4AAR6YXPM5GciuMNbmFuqyCNRnX+B
+         wu0yGiX/A5uy1CEMh5eBX5+d6Hb4dgNdU8wbFxA6b7wJ/TQYnWV4Rqq/oFPOYrTh69pe
+         kMgcoudeqJYynoPUE7NE6M5gCms0Za2YfF/t5ZzRnlEbvk5OgdzQoqQ5s9/q6q5H5n0s
+         hohBvyrbPxXJvqLYmmVwSom+/Qlx/6/oTgb1yzReIpvQouXSnbZCkTHJz5m82clvdj/t
+         Di6g==
+X-Forwarded-Encrypted: i=1; AL+hErGqGSh4k0vOiSJb79lksvc/DmcWUGYwXqlCA8DVsEINfMFTr36BRGolAtDBcsp9hSKmI586Mgff9K6BHH8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GQ64VX9b14yEPsqkBj1qyjYm8wxsOSl9lq33XkzTmGaGyU1R9
+	1doAPXt14I4iGSBgqwqqKk0ZZHWj1uMt0+zKMFWu5ea+c/BTy+qyOeQ4UXW5A/l7YPG6LnDImVz
+	YB36S392b1A==
+X-Gm-Gg: AYBFou3Wc7lC13ajQCdC63Pgtabez/71BPgm8jPcp+YGyqPJtMXq/TcwCgVhaRukgd9
+	Ve0oprBe4gfA4Ut/eg1nzm99Uz4zaZD0nL2JqMqGDwhDLAV9bVa7YuouNO0RUtZZZ7hx4GgWuLh
+	SiAQWywQq20+DYNyIW8q/HuKGVGUg9dKZkV+YLaSvIKlzbVxlMsEiiuf35JTMPUUMWKZ0In0fc0
+	i3G49SgA3edU3paM5jCiJ0HptyHZVBvd9GRUZfmX0HHWU5SiWvHfDK1GPnrblXyo83trBibTKNx
+	aqx8YPqhMsPaEqS/kcj3McqC7TDRp+ZyVypAqO9RvD3HJCdIT15WI6bC25qrpB5PRqZtpbKAuYx
+	Cp/dIluArjUCex7qGN18OdCDIT6o3cdeH8lgDXpavGSFGS4FJ1rPBYqhUJ2Q40LrU38Ens/UsAR
+	DZmMU2o9QJZ79O1/hlHXO7oPRNOQA7+8XIq5OXDl9xP64IETzLfbIJtwUdArvm0g5YfBq5q+ry1
+	6gDl3Vmpa9GbXie2+M+H5KM7JqfIhJ/yhuGqYCBQ9zDx1rJaEY0gYkLeDYgbRJv+2FxjJbs00qG
+	52OkY6QOEPvHrL79we+8GA8ntUBIBbtj/xMVZkvuAX0kxHcxyx5MJsHYnQNUhsKw4YpoP/uUU2W
+	cDVY=
+X-Received: by 2002:a05:6402:5004:b0:6b7:7785:e390 with SMTP id 4fb4d7f45d1cf-6b77785e9a4mr358777a12.39.1794344359653;
+        Tue, 10 Nov 2026 12:59:19 -0800 (PST)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com. [209.85.208.49])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578f062dsm1640311a12.27.2026.11.10.12.59.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 12:59:19 -0800 (PST)
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b750e40ce2so2056537a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:59:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHVv3iOX4PurSCeStbuBJU6Wl8e2BHZ7ZNFwA9IOeJvLJJamk1r5yoRwLvWxOFsmlbwiFx08wzWw2YGJUE=@vger.kernel.org
+X-Received: by 2002:a05:6402:15:b0:6b6:4dcd:968c with SMTP id
+ 4fb4d7f45d1cf-6b7773f4923mr272940a12.16.1794344358604; Tue, 10 Nov 2026
+ 12:59:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,181 +94,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104222806.1826508-1-usama.arif@linux.dev>
+ <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com> <719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
+In-Reply-To: <719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 10 Nov 2026 12:59:02 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjXc16n7ppqhuCDXj3WZMiACupW63+BQh0x0OQFTBpf-A@mail.gmail.com>
+X-Gm-Features: AclHuK8AR7PiXXdephnj3JZk1X28I0xJsdLMZGKhS3tXiXzvFtP8szDn-7QDsQE
+Message-ID: <CAHk-=wjXc16n7ppqhuCDXj3WZMiACupW63+BQh0x0OQFTBpf-A@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Usama Arif <usama.arif@linux.dev>, david.laight.linux@gmail.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, dsterba@suse.com, linux-kernel@vger.kernel.org, 
+	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
+	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-ip6_gre: fix changelink conflict checks for L2 tunnels
+On Tue, 10 Nov 2026 at 12:18, H. Peter Anvin <hpa@zytor.com> wrote:
+>
+> On November 10, 2026 9:53:07 AM PST, Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> >Let's not do that.
+> >
+> >Putting magic things like RET in alternatives is just a bad bad idea.
+> >
+> >               Linus
+>
+> Why is that, *given that it is in assembly*?
 
-This commit changes ip6gre_changelink_common() to use ip6gre_tunnel_find()
-with dev->type instead of ip6gre_tunnel_locate(). That way, L2 tunnels are
-checked against tunnels of their own type. It also makes
-ip6gre_tunnel_find() skip collect_md entries while walking the bucket.
+It's assembly, but it's assembly that potentially gets rewritten.
+objtool already knows about __x86_return_thunk being special (although
+I think it's the _target_, not the call site, it cares about).
 
-> diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-> index b5d6ed8f0c369..07f7220df938f 100644
-> --- a/net/ipv6/ip6_gre.c
-> +++ b/net/ipv6/ip6_gre.c
-> @@ -306,6 +306,9 @@ static struct ip6_tnl *ip6gre_tunnel_find(struct net *net,
->  	head = __ip6gre_bucket(ign, parms);
->  
->  	hlist_for_each_entry(t, head, hash_node) {
-> +		if (t->parms.collect_md)
-> +			continue;
-> +
+I would like to not have magic in stuff that is in the alternatives
+section. We've had issues with relocations etc before.
 
-[Severity: Medium]
-Could skipping collect_md entries here reopen the misdelivery this commit
-is meant to close, in the case where the other tunnel is collect_md?
+That said, grepping a bit for this, it turns out we already seem to be
+doing that in memmove_64.S, although it was hidden from my first grep:
 
-ip6gre_tunnel_link() still links collect_md tunnels into the hash buckets
-with hlist_add_head_rcu(). The receive walk in ip6gre_tunnel_lookup()
-never checks collect_md:
+  #define CHECK_LEN     cmp $0x20, %rdx; jb 1f
+  #define MEMMOVE_BYTES movq %rdx, %rcx; rep movsb; RET
+  .Lmemmove_begin_forward:
+        ALTERNATIVE_2 __stringify(CHECK_LEN), \
+                      __stringify(CHECK_LEN; MEMMOVE_BYTES), X86_FEATURE_ERMS, \
+                      __stringify(MEMMOVE_BYTES), X86_FEATURE_FSRM
 
-	head = &ign->tunnels_wc[h1];
-	hlist_for_each_entry_rcu(t, head, hash_node) {
-		if (t->parms.i_key != key ||
-		    !(t->dev->flags & IFF_UP))
-			continue;
+which is pretty disgusting. But I guess that train has passed..
 
-		if (ip6gre_tunnel_match(t, dev_type, link, &cand_score, &cand))
-			return cand;
-	}
-
-When two entries score the same, the first one in the bucket wins. That
-is normally the one linked most recently.
-
-For example:
-
-  ip link add md0 type ip6gretap external
-  ip link add tap1 type ip6gretap
-
-Before this patch, the second command failed with EEXIST because
-ip6gre_tunnel_find(..., ARPHRD_ETHER) matched md0. Changing an existing
-ordinary ip6gretap to zero params with changelink was rejected too,
-because locate matched ip6gre0.
-
-With this patch both succeed. tap1 ends up at the head of tunnels_wc[0]
-and takes the keyless traffic md0 used to get, without the metadata dst.
-
-The same looks possible for ip6erspan. It also looks possible for L3
-ip6gre collect_md tunnels with explicit params, through
-SIOCADDTUNNEL/SIOCCHGTUNNEL and ip6gre_tunnel_locate().
-
-The commit message says:
-
-  Skip collect_md entries while walking the bucket: they can coexist with
-  ordinary tunnels with the same lookup parameters
-
-That holds for the per-net collect_md_tun pointers. Does it also hold for
-the receive demux in ip6gre_tunnel_lookup()?
-
-Before this patch, that coexistence could only happen if the ordinary
-tunnel was created first.
-
-[Severity: Medium]
-The subject and message describe a change to changelink only:
-
-  ip6_gre: fix changelink conflict checks for L2 tunnels
-  ...
-  Use ip6gre_tunnel_find() with dev->type, as the newlink paths do.
-
-The skip is in the shared helper, though. Doesn't it also change
-ip6gre_newlink(), ip6erspan_newlink(), and every legacy ioctl that goes
-through ip6gre_tunnel_locate()?
-
-These are some differences users can see:
-
-- newlink of an ordinary tunnel whose laddr/raddr/i_key/link/type match an
-  existing collect_md tunnel used to fail with -EEXIST. It now succeeds.
-
-- SIOCADDTUNNEL with params that match a collect_md ip6gre device used to
-  return -ENOBUFS through this code in ip6gre_tunnel_locate():
-
-	t = ip6gre_tunnel_find(net, parms, ARPHRD_IP6GRE);
-	if (t && create)
-		return NULL;
-
-  It now registers a new ip6gre%d device.
-
-- SIOCDELTUNNEL on the fallback device with params that match a
-  collect_md device used to delete that device. It now returns -ENOENT,
-  or -EPERM for zero params, because the lookup finds ip6gre0 itself.
-
-- SIOCGETTUNNEL on the fallback device used to return the collect_md
-  tunnel's parms. It now returns the fallback device's own parms.
-
-This also differs from ip_tunnel_find() in net/ipv4/ip_tunnel.c, which
-does not skip collect_md entries.
-
-If only changelink should ignore collect_md entries, could the skip go at
-that call site, or behind a parameter? If not, could the commit message
-describe the newlink and ioctl changes?
-
-[ ... ]
-
-> @@ -2055,7 +2058,7 @@ ip6gre_changelink_common(struct net_device *dev, struct nlattr *tb[],
->  
->  	ip6gre_netlink_parms(data, p_p);
->  
-> -	t = ip6gre_tunnel_locate(net, p_p, 0);
-> +	t = ip6gre_tunnel_find(net, p_p, dev->type);
->  
->  	if (t) {
->  		if (t->dev != dev)
-
-[Severity: High]
-Can this return -EEXIST when a collect_md device changes its own
-parameters?
-
-ip6gre_tunnel_find() now skips every collect_md entry. A collect_md
-device therefore no longer matches its own hash entry, and the walk moves
-on to the next entries.
-
-In every netns, the fallback ip6gre0 sits in tunnels_wc[0] with all-zero
-parms and dev->type set to ARPHRD_IP6GRE:
-
-net/ipv6/ip6_gre.c:ip6gre_init_net() {
-    ...
-	t = netdev_priv(ign->fb_tunnel_dev);
-	hlist_add_head_rcu(&t->hash_node, &ign->tunnels_wc[0]);
-    ...
-}
-
-ip6gre_newlink() never calls ip6gre_tunnel_find() for collect_md devices:
-
-	if (nt->parms.collect_md) {
-		if (rtnl_dereference(ign->collect_md_tun))
-			err = -EEXIST;
-	} else {
-		if (ip6gre_tunnel_find(net, &nt->parms, dev->type))
-			err = -EEXIST;
-	}
-
-So "ip link add md0 type ip6gre external" creates md0 with zero params
-and links it into tunnels_wc[0] ahead of ip6gre0. A later
-"ip link set md0 type ip6gre external ..." then goes:
-
-ip6gre_changelink()
-  ip6gre_changelink_common()
-    ip6gre_tunnel_find(net, p_p, ARPHRD_IP6GRE)
-      skips md0, matches ip6gre0
-    t->dev != dev -> ERR_PTR(-EEXIST)
-
-Before this patch, ip6gre_tunnel_locate() found md0 first, so
-t->dev == dev and the update succeeded.
-
-SIOCCHGTUNNEL on md0 looks affected the same way. In
-ip6gre_tunnel_siocdevprivate(), ip6gre_tunnel_locate(net, &p1, 0) now
-returns the fallback tunnel, and the t->dev != dev branch sets -EEXIST.
-
-The L2 kinds can hit this too, when a collect_md ip6gretap or ip6erspan
-device shares lookup params with an ordinary L2 tunnel. newlink allows
-that.
-
-Would it work to skip the ordinary duplicate search when
-nt->parms.collect_md is set, as newlink does? Another option is to accept
-a match on the device's own entry.
--- 
-pw-bot: cr
+           Linus
