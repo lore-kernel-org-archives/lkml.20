@@ -1,81 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311389;
-	b=BMci1VXzg9v9nBDlx2l5Kj4Jc0pzzii+C7gzaf1d1kfzYciqV06Z+JPDclAhLsA8ccUU
-	 860GY5iEANqhXDzyn4TvOkSGvbZYoaNROEtMN0hSnf3pOcu9oyG1ErVyTlTI4xYYgSZ74
-	 om3bPqgUl6fiV+9Xe+qeZEW4D4BkGglnwAeWt20u9LCjuj0J6HRbAADgDkctQL8fNBsXt
-	 biI6rjrTAvQA5jbFlGSrZCmyCQMHDZ71EQw7lbhc1fP1PpPkOQsmiXgphZQjGwVV6wetH
-	 JoSO8iBX6b/6ePLODqTMUJRNPmGQDyoNqHR9G3ennh0aApDvGMbFJg07V0lb4f9ApGQ==
+	t=1794311418;
+	b=SaVRTmuuW2OxbhBkbY7ne3h9KI3bcxh3QXABV2Ljt1gPNNOGhLx2amGt2Xvy8+z2irT/
+	 ZVjETNPj3cWpZPwiI4hWAHk/J8Qoz3mziFWNoJwXCaikwMD1Mwaep/7ah/EjTNKnKK4ot
+	 Z6OD+7TUN9N+BY0mnWdva2h+oAFfufzY9lmw9pv+F+/U5TU2gR51RzNjPyESxAaKKWy6N
+	 qfxuPpCplJxDBR4SOd4jBc8e3sWzwGZ8vsdYA4wkssJcKKoo6EVbOQQgbjP96CYmRPazX
+	 rTQo+fhPjW4rZfZTRtiY9lP0GEy6MZhi+fhAe8t85s2Ifpsjmhk6pdWAKGFPJur2ONA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311389;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-MTK;
-	bh=CZ27xK6IHcnAGaEHdGwRWZS9iObODCSj/ll8dw4bp3g=;
-	b=k+O3AX075wZD1bgCqTUKA4Dz/09jFrPdH5xCqdQUSRrKDC6LQzaGl203D3RbG33n7vQP
-	 MMW8lmdkYRr0LTbgF4AeAmm93MffW6UmVlW/Podzv/k6TCoOPwmShdlyK16vJYXDEyHSP
-	 X3AIaTFP5cfKydKYMZ+hylqk4H4CSlfBQGOMEriJ4TW11ccGlWQYuVznIVsO7GrDvNuh+
-	 pzzv8qParK1W+BrTZ0U5wzlLBsGuNc6BBLnyQkWtNp+8mtvMJLlndUR7IyYQ4r+x9/aQ7
-	 7yXVq8961EBC379+fLdKfgTESAXlrDnBdlqFD+/6cF75pknNgWKN+3gzjEI3TQ/F9xQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311418;
+	h=DMARC-Filter:DKIM-Signature:X-Lms-Return-Path:Content-Type:To:
+	 Subject:Content-Transfer-Encoding:References:X-Mailer:Cc:Date:
+	 In-Reply-To:From:Message-Id:Mime-Version:X-Original-From;
+	bh=O7PTjUyc3KTKqk0pH/vhoZcDfD8UpwLbbvm2vjkTKH8=;
+	b=ErV3v1iV7N2++TpKzAYmzk++qN6LpPrJid6dLsbc5ji3iKrS/dPh3cpT8ucxhlPg+ZRu
+	 rm8TmDc8yDHd2P9km54yK/s/WyIpVGetdjDyXson95nPKolqYk2mO7R+QiwgUdGVpImn0
+	 JkjI/eedAMif1Y6oAew0KAMkDIKBXP2dUcM6Pao+jv0YI81s+sElveRLob7TYaHsvBMOo
+	 /5glcYR8v+PMOA9zjCwDEG1osAu9xB5yFhOL6hKveG0bvq/iGe0kl7uB92zKKIVGd7l3u
+	 eOgmgT7XHj+P3P5pb0gK05s00kHue3ur0ccDWcfFO40AYeR4MK9UQ9mM1OniDaK2KhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lPucZqKA;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=HNCe1CRu;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952BF606A325;
-	Tue, 10 Nov 2026 11:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952BF606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77BA606C619
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:50:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D77BA606C619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lPucZqKA
-X-UUID: d0a88980dcfc11f18dc8c9802ae25ab1-20261110
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=CZ27xK6IHcnAGaEHdGwRWZS9iObODCSj/ll8dw4bp3g=;
-	b=lPucZqKA38DBAKjXCwSkuvUDU74rHZ9lwl+/f8s4V8oTxkWroqZv/iRqSi6Hm3DoQKxETHNuVZdvgSlIPVergtr0aMokt5Mejp1Xs/SLNV0PxzYAn36A1NW9ZfawKlxXBHPrDWDh/gJiST6aktAKKAIZ9HHQdtgpUIlJyYe3Xfo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:dfeb11cd-2ef8-45dd-9375-212006edb065,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:81b91457-a87d-42b7-8ffd-9e23ca174329,B
-	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
-	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
-	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d0a88980dcfc11f18dc8c9802ae25ab1-20261110
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <chunfeng.yun@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 568629884; Tue, 10 Nov 2026 19:49:41 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 10 Nov 2026 19:49:40 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 10 Nov 2026 19:49:39 +0800
-From: Chunfeng Yun <chunfeng.yun@mediatek.com>
-To: Mika Westerberg <westeri@kernel.org>
-CC: Andreas Noever <andreas.noever@gmail.com>, Konrad Dybcio
-	<konrad.dybcio@oss.qualcomm.com>, Sven Peter <sven@kernel.org>, Yehezkel
- Bernat <YehezkelShB@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, <linux-kernel@vger.kernel.org>,
-	<linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, Chunfeng Yun
-	<chunfeng.yun@mediatek.com>
-Subject: [PATCH 0/7] thunderbolt: Add support platform NHI driver
-Date: Tue, 10 Nov 2026 19:48:48 +0800
-Message-ID: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=HNCe1CRu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794311412; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=O7PTjUyc3KTKqk0pH/vhoZcDfD8UpwLbbvm2vjkTKH8=;
+ b=HNCe1CRuEG9MNc5tpC4kvFCMx9JA7+Q26Y9Yz0jVqsnbaROSFCaEKy0MLrArFqepGZLM57
+ w/j4DWZncgJrNvCDkF/bijYaTPO/cDTg6T2fupHBdw8Hm92Ci1kbaqEXKgJb9rgBFjshdF
+ JE2AFivEnCTGYL9i0E0xFbX1dZPsJO69yeBKpdl5c4n7Hwi77RX6vUHMBhK8aZNdo6Pxef
+ tJqEjZC2bQDt7DTuXvRwXDv92zx1/mKi6f+36HOStwNwGbY/ifoWwRP43gFM+5sruS4aFZ
+ ScUTdnE0kOxAWo3+MoNDvdpWQ/BkvkFd9VggU/skt/zcIQUj85+RnTI270wvfQ==
+X-Lms-Return-Path: <lba+26af304f3+9f7137+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+To: <akpm@linux-foundation.org>, <apopple@nvidia.com>, <balbirs@nvidia.com>, 
+	<david@kernel.org>, <muchun.song@linux.dev>, <osalvador@suse.de>, 
+	<rppt@kernel.org>
+Subject: [PATCH v2 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+Content-Transfer-Encoding: 7bit
+References: <20261110114859.76343-1-lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+Date: Tue, 10 Nov 2026 19:48:59 +0800
+In-Reply-To: <20261110114859.76343-1-lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <20261110114859.76343-3-lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,111 +66,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="y"
-Content-Transfer-Encoding: 8bit
-X-MTK: N
+Mime-Version: 1.0
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
 
-Historically, the USB4 / Thunderbolt subsystem has had a hard dependency
-on PCI, bundling the core framework, the PCIe-attached Native Host
-Interface (NHI) driver (pci.c), and the Intel Connection Manager (icm.c)
-into a single module (thunderbolt.ko).
+Boot-time HugeTLB allocation has to initialize tail struct pages itself
+when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
+gigantic pages, this can cover a large number of tail pages.  Most state
+installed by __init_single_page() and prep_compound_tail() is identical
+for every tail page in the same huge page; only PFN-dependent fields need
+refreshing.
 
-Modern ARM64 SoCs (such as MediaTek MT8901 / MT8992) integrate the USB4
-host router / NHI directly as an MMIO platform device rather than sitting
-on an external PCIe bus. Furthermore, embedded and SoC-based platforms
-often do not include PCIe-attached host routers or require Intel ICM
-support, making a mandatory PCI dependency and bundled PCIe code
-undesirable.
+Initialize the first tail page normally, copy it into a local template,
+then initialize the remaining tails from that template with
+memmap_init_page_from_template().  This avoids repeatedly doing the full
+__init_single_page() and prep_compound_tail() sequence for state that is
+identical across tail pages in the same huge page.
 
-This series decouples PCIe NHI and Intel ICM support from the Thunderbolt
-core framework, introduces a generic platform NHI driver supporting DT and
-ACPI bindings, and addresses link training timing and race condition issues
-observed during suspend/resume and authorization.
+On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
+(HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+initialization time improved by 36.43%, measured with a temporary
+jiffies-based printk modeled after the existing timing in
+memmap_init_zone_device():
 
-Overview of Changes
-===================
+  base (v7.4-rc1):  318.4 ms
+  with this patch:  202.4 ms
 
-1. Modularization & Namespace Cleanups (Patches 1-3)
-   - Patches 1 & 2 clean up internal interfaces before exporting. Core NHI
-     functions are prefixed with standard tb_/tb_ring_ namespace prefixes.
-     Intel ICM mailbox helpers (nhi_mailbox_cmd/mode) are moved into icm.c
-     and made static, and interrupt work initialization is internalized in
-     tb_nhi_probe().
-   - Patch 3 drops the hard "depends on PCI" from CONFIG_USB4, introduces
-     CONFIG_USB4_PCI to build PCIe NHI and ICM as an opt-in module
-     (thunderbolt_pci.ko), and adds a .select_cm() hook in tb_nhi_ops to
-     allow connection manager selection without core hardcoding.
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+---
+ mm/hugetlb.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-2. Platform NHI Driver (Patch 4)
-   - Introduces CONFIG_USB4_PLATFORM (thunderbolt_platform.ko), adding
-     support for memory-mapped USB4 NHIs via Device Tree ("usb4-nhi-platform")
-     and ACPI ("ACPI0015").
-   - Implements platform-specific tb_nhi_ops hooks and runtime PM.
-   - Adds support for an optional dedicated wakeup interrupt from an
-     always-on power domain, necessary for SoCs where the primary NHI MAC/PHY
-     power domain is gated during suspend.
-
-3. Link Training and Disconnect Improvements (Patches 5-6)
-   - Patch 5 increases the port link training timeout in tb_wait_for_port()
-     from 1s to 2s. According to the USB4 specification, Phase 5 (Link
-     Equalization) alone may take up to 1000 ms. When combined with Phases 2-4
-     (~200 ms) and retimer command transaction delays across dual-retimer
-     topologies, physical link establishment can legitimately exceed 1.2s–1.5s,
-     which previously led to spurious disconnects during wakeups.
-   - Patch 6 decouples the TB_PORT_UNPLUGGED wait time from the overall 2s
-     link-up timeout. Under normal link training, the port enters
-     TB_PORT_CONNECTING within ~200 ms. Capping TB_PORT_UNPLUGGED retries to
-     400 ms allows genuine device disconnect wakeups to be handled promptly
-     without waiting the full 2s.
-
-4. Prevent Authorization/Teardown Race Warnings (Patch 7)
-   - Prevents WARNING splats in tb_path_activate() and tb_disconnect_pci()
-     when sysfs 'authorized' is modified while a downstream router is lost or
-     unplugged during suspend/resume. Checking sw->is_unplugged avoids
-     redundant lookups and activation attempts on already-freed tunnels.
-
-Testing
-=======
-This series has been tested on MediaTek ARM64 SoC platforms with an
-integrated platform USB4 NHI, verifying:
-- Cold boot, device discovery, and tunnel allocation (PCIe, USB3).
-- System/runtime Suspend and wake-on-connect/disconnect/remote wakeup.
-- Concurrent sysfs authorization changes during disconnect events.
-- Verification of modular builds with CONFIG_USB4_PCI=m and
-  CONFIG_USB4_PLATFORM=m.
-
-Chunfeng Yun (6):
-  thunderbolt: Prefix NHI core functions with tb_ and tb_ring_
-  thunderbolt: Move ICM mailbox functions to icm.c and internalize
-    interrupt work
-  thunderbolt: add platform NHI driver
-  thunderbolt: increase the lane adapter link-up timeout value
-  thunderbolt: decouple the waiting time of TB_PORT_UNPLUGGED and
-    TB_PORT_UP
-  thunderbolt: prevent pcie tunnel activation/teardown warnings
-
-Konrad Dybcio (1):
-  thunderbolt: Make PCIe NHI support opt-in
-
- drivers/thunderbolt/Kconfig    |  20 +++-
- drivers/thunderbolt/Makefile   |  10 +-
- drivers/thunderbolt/ctl.c      |   6 +-
- drivers/thunderbolt/domain.c   |  14 ++-
- drivers/thunderbolt/icm.c      |  59 +++++++++++
- drivers/thunderbolt/nhi.c      |  92 ++++--------------
- drivers/thunderbolt/nhi.h      |  16 ++-
- drivers/thunderbolt/pci.c      |  50 ++++------
- drivers/thunderbolt/platform.c | 172 +++++++++++++++++++++++++++++++++
- drivers/thunderbolt/switch.c   |  26 ++++-
- drivers/thunderbolt/tb.c       |   7 ++
- drivers/thunderbolt/tb.h       |   2 -
- drivers/thunderbolt/tunnel.c   |   1 +
- drivers/thunderbolt/xdomain.c  |   5 +
- include/linux/thunderbolt.h    |   4 +
- 15 files changed, 356 insertions(+), 128 deletions(-)
- create mode 100644 drivers/thunderbolt/platform.c
-
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 630c96cd1e88..3f6731161d77 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -3223,6 +3223,7 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+ 	enum zone_type zone = folio_zonenum(folio);
+ 	int nid = folio_nid(folio);
+ 	struct page *page = folio_page(folio, start_page_number);
++	struct page template;
+ 	unsigned long head_pfn = folio_pfn(folio);
+ 	unsigned long pfn, end_pfn = head_pfn + end_page_number;
+ 	unsigned int order = huge_page_order(h);
+@@ -3231,11 +3232,20 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+ 	 * As we marked all tail pages with memblock_reserved_mark_noinit(),
+ 	 * we must initialize them ourselves here.
+ 	 */
+-	for (pfn = head_pfn + start_page_number; pfn < end_pfn; page++, pfn++) {
+-		__init_single_page(page, pfn, zone, nid);
+-		prep_compound_tail(page, &folio->page, order);
+-		set_page_count(page, 0);
+-	}
++	pfn = head_pfn + start_page_number;
++
++	/*
++	 * Seed a template from the first real tail page and refresh only
++	 * PFN-dependent fields before copying it.
++	 */
++	__init_single_page(page, pfn, zone, nid);
++	prep_compound_tail(page, &folio->page, order);
++	set_page_count(page, 0);
++	memcpy(&template, page, sizeof(template));
++
++	for (pfn++; pfn < end_pfn; pfn++)
++		memmap_init_page_from_template(pfn_to_page(pfn), pfn, zone,
++					       &template);
+ }
+ 
+ static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
 -- 
-2.45.2
-
+2.20.1
