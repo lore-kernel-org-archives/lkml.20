@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307187;
-	b=xY950IoyNcFbinq9BwyxV1dlCgGi8B+SG93JSBSNeKiV+WVKpIMvgYBJpJgUz4KtnVPm
-	 bMm4NJoG9Dxd3qdH05N2RJVxBMGxuf5ARd7HcYg8bxXyI/UaiIYKkLar6szqdh4QWyFbo
-	 ERKE6OvEoR+NCS2C2EftcmMCda1fBYvaTMwocLijzU+LeSn6vOIsXcjDfpG0HDNleLu2Y
-	 deSjBVU74T/7imtIPlaW8Mf+cJYXiA2y0SjvRIGEtxIR9Y/R+0Ia/QmVp6DRUOjdZx5mF
-	 8E3SZLeMaqKsunwe4wSSNUe9gMWOJhjs+OT4MCpBiKI+F+8PCW3su3DRGYkt0TS0rhA==
+	t=1794307262;
+	b=0Y2AHls6tpL+jxqMPpH6pmuZk7qfUu9+hXCbRzv0Fqr38D3R06a7UdjtagTTLbrtq9wI
+	 dzdTzHUJBxHYe+tuOAAI3UuR2Lrg1ZJQgxBy6l+6d9pKlFQquElI09rMeD01dIPzlfjvW
+	 V1r9r+IUumZ6iNKbeZh6I5HUeoG8eKx7RTVPxKY86cITcutFu5Exto2YFDN8Asu9Xcky6
+	 +b7mX+fIerSZhR1aH6U7MpiBitslvKUdBetflbapbbI0xY8rWuAvVKuKmGqKcdL6+NytY
+	 W5Vxju6dGCjSLfa28/1aXKlHb+Q/Ollld0J/8SngWYCEl1/ZoblfF5xMqkR95pGEMiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307187;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=V93bLP8gitFVjdbD9n5f5D3hXtOS1ernEzFrniNePIQ=;
-	b=x1sHTgx4aXIfcdqncjOmHs0QD46e36lu4JYnVVd4EY2GUUJz1rZcsBuiX+8YLFFRtCj6
-	 S8ITeDjNT4PRN7sSAsuIvRQmtI18w+bybU+kdmxXGknM+FJFwcNPG2DW2n2Pmc8eeQMsQ
-	 N0tpPQHrdFysBLlsZG32yDe2pcHSQkdM1UirV5ypnv8XAZ8WHfkwJKdeGTatuYQGOl9Ro
-	 FZSYu1E5T/Yttx7SWXC2AiqzavcOiyNmg13frBWpULM/b3WshtdxLrQMp52QinSnN9c3k
-	 hCaRT92Mga4PkKugucAddYtF2bDmz1s6iLa7NIwduCJ7xzVivJ8t/bdoPgcZ46wybag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307262;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=aRfxxKk5JELB+Ani22l80ZT8QKCCTc2Q/EP8+1DWDqM=;
+	b=osZKNehOkuESCGH7kG4fVPsGBVGp+9z+otvArPZT+mZKOmvpjs17aEsvJkN5EQAaeRJh
+	 TEBEEnTssczQUbg153o6s8YvGmA7M8gRhbkuB68A7BJrP0x/2gWFQhvvpgkiOqVx9j5DG
+	 z/0qN0umtRlESRM9oO1XkzkqcC5W8LPkb1O15rX+RanVoggGpul1RIJxW1S29RkCNNsPr
+	 3qirRBrtAC2uxnpfyNZP1RLjCYZtvFSdIS4/UIzSKPNIRuUXHIi+jFte/7Fqn8bRE/XXO
+	 9Bejnudpy+Fds21TiPVwGMnWZmvcA2nQRA5PFMyuEKvKX4jlLe7L4/7pVplD1yIaHtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0TJM8m6Z;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=mVM172Nb;
+	arc=none smtp.remote-ip=195.10.208.46
+Received: from mout-b-106.mailbox.org (mout-b-106.mailbox.org [195.10.208.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FBF606A31C;
-	Tue, 10 Nov 2026 10:39:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FBF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B318606A321;
+	Tue, 10 Nov 2026 10:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B318606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0TJM8m6Z
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=V93bLP8gitFVjdbD9n5f5D3hXtOS1ernEzFrniNePIQ=;
-	b=0TJM8m6ZTU3EPOTVyrznExjVRfXRocvEgm9LOD+3+Z0TAxdKN4YtNfrF3zgQHCeHQTjbjh5sP
-	MHiU2QVTHe1t59r/ZTNl9qvLNBFkXj1K7f2KwN7XJT4lzlyNprzJQSUVc0WtBeEvPnZDRXRAdls
-	3V7jAnaocPS/FJKKw6zMymg=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jP36V4sDszcZyY;
-	Tue, 10 Nov 2026 18:38:58 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8D241202E6;
-	Tue, 10 Nov 2026 18:39:36 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 18:39:35 +0800
-Message-ID: <9d2d6f81-ceb7-48a7-99a0-18a0bb8c504f@huawei.com>
-Date: Tue, 10 Nov 2026 18:39:34 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=mVM172Nb
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-106.mailbox.org (Postfix) with ESMTPS id 4jP38g4GZtzNlgV;
+	Tue, 10 Nov 2026 11:40:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794307251;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRfxxKk5JELB+Ani22l80ZT8QKCCTc2Q/EP8+1DWDqM=;
+	b=mVM172NbFfAuP9fWqdRHbtUWgMm4uhNbiOnlaF7GqnRp64feTeIessWyiri9s0RhH9BLcm
+	z84etFtO0Koq+RHOsFB+3RXhr4NeeHch4j+QxBP+BgL++Et/CzCLj2FR5U4rMKOcTUWr8W
+	ZkxhArrFaaOTNjM6tdkUwZXk3rjAUYmbb7i3c4yyndIr/ShLisygS92YwgifWlMJuleeIm
+	8gfCvys1o1l643c+66UwKGscW43RH6BKMR25fioNQOfEtesGfvYs3ONSyUwed/Fn3Svzd4
+	2z+fsz6atXytLLSf6Axqf945s3hs/2ra/unKY/LJxITOr3UlOrwr96TJKs7K4Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <674eb8ef-c93f-4926-a760-62df154ed3eb@mandelbit.com>
+Date: Tue, 10 Nov 2026 11:40:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,530 +67,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/hugetlb: allow crashkernel to reuse hugetlb CMA
- memory
-To: Usama Arif <usama.arif@linux.dev>, Andrew Morton
-	<akpm@linux-foundation.org>, <baoquan.he@linux.dev>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
-	<jbohac@suse.cz>, <sourabhjain@linux.ibm.com>, <leitao@debian.org>,
-	<linux-kernel@vger.kernel.org>, <kexec@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-mm@kvack.org>, <kas@kernel.org>,
-	<hannes@cmpxchg.org>, <riel@surriel.com>, <shakeel.butt@linux.dev>,
-	<zaslonko@linux.ibm.com>, <brads@mainlining.org>, <kernel-team@meta.com>
-References: <20261106165142.2847916-1-usama.arif@linux.dev>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261106165142.2847916-1-usama.arif@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH net-next v2] net/mlx5e: Prefetch the packet a few strides
+ ahead in the linear MPWQE path
+To: Dragos Tatulea <dtatulea@nvidia.com>, netdev@vger.kernel.org
+Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org,
+ cratiu@nvidia.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261104195241.1883539-1-antonio@mandelbit.com>
+ <a31e1e60-7e31-4a14-a087-428d1e3627f2@nvidia.com>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <a31e1e60-7e31-4a14-a087-428d1e3627f2@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4jP38g4GZtzNlgV
+
+Hi Dragos,
+
+On 06/11/2026 11:55, Dragos Tatulea wrote:
+> Thanks for your patch! These look indeed like enticing numbers. I'd
+> like to take some time to try this at scale and on other NICs (CX8)
+> and CPUs (Grace) and also check latency.
+
+Thanks! In case it helps, I measured latency on my side in the meantime
+(I don't have access to the monster Grace/CX8 equipment, but it's still
+something :-)).
+
+Request/response over the bare ports (one transaction in flight, like
+netperf UDP_RR/TCP_RR), same system as in the commit message: one RX
+queue per port with its IRQ on a dedicated CPU, MTU 1500, default
+coalescing (adaptive RX, rx-usecs 8, rx-frames 128), 10s per test,
+prefetch off / v2 / v2 + next-WQE follow-up (see below) interleaved,
+mean of 3 rounds:
+
+                      p50 (us)              p90 (us)
+                  off    v2    +next    off    v2    +next
+   UDP, 64 B     24.60  24.61  24.60   25.37  25.37  25.39
+   UDP, 1400 B   25.08  25.08  25.10   25.94  25.96  25.92
+   TCP, 64 B     24.65  24.64  24.66   25.48  25.46  25.85 (*)
+
+   (*) one round at 26.59, the other two at 25.47 and 25.50
+
+p99 and p99.9 (37-45 us and 67-100 us) varied more between rounds than
+between the variants, and nothing was lost. So no latency cost that I
+could see at low rate.
+
+I'm also testing a small follow-up: v2 doesn't prefetch when the stride
+4 ahead is in the next WQE, so the first strides of every WQE are never
+prefetched. Following the WQ list to the next WQE (only when
+cur_sz >= 2, so it is posted and its pages are allocated) removes 26-32%
+of the remaining DRAM demand fills on the RX CPU and adds 1.8-3.3%
+throughput, measured with TCP inside an ovpn UDP tunnel (where the RX
+CPU is the bottleneck); its latency is the "+next" column above.
+
+I had planned to send it as a follow-up patch, but I can also fold it in 
+a v3, whatever you prefer once you have your results.
+
+If there is anything specific you'd like me to run here, feel free
+to let me know.
 
 
+Thanks!
 
-在 2026/11/7 0:51, Usama Arif 写道:
-> crashkernel=size,cma reserves a separate CMA pool. On systems that
-> already reserve several gigabytes with hugetlb_cma= (which is common in
-> the Meta fleet), the crash kernel cannot use that existing memory as
-> part of its working set. With hugetlb_cma=6G, requesting another 2G
-> with crashkernel=2G,cma brings the total CMA reservation to 8G, none of
-> which can serve unmovable kernel allocations.
-> 
-> Use existing HugeTLB CMA memory first for crashkernel=size,cma and
-> reserve dedicated CMA areas only for the remainder. With hugetlb_cma=6G,
-> a 2G request reuses 2G without reserving more CMA. With hugetlb_cma=2G,
-> a 4G request reuses 2G and reserves another 2G.
-> 
-> The full HugeTLB CMA pool remains available to HugeTLB and movable
-> allocations during normal operation. After a crash, the capture kernel
-> can use the selected ranges as working memory. The conventional
-> reservation is still required to hold the kernel image and initrd.
-> 
-> The ,cma option already opts into excluding userspace memory from the
-> vmcore. This includes allocated HugeTLB pages in the selected ranges,
-> which the capture kernel can overwrite. The existing dump completeness
-> and pending DMA risks apply to these ranges as well.
-> 
-> Have architecture code record the requested CMA size and perform the
-> reservation in mm_core_init_early(), immediately after
-> hugetlb_cma_reserve(). The HugeTLB CMA areas are then available for reuse
-> while memblock can still reserve any remainder.
-> 
-> Use the existing four range slots for both reused and dedicated memory.
-> Limit reused memory to the page-aligned request, account for dedicated
-> CMA alignment, and report any shortfall. Ignore malformed optional sizes
-> and reject requests that would overflow page rounding.
-> 
-> Suggested-by: Breno Leitao <leitao@debian.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
-> v1 -> v2:
-> - Use existing HugeTLB CMA memory first for crashkernel=size,cma and
->   reserve dedicated CMA areas only for the remainder. (Kiryl)
-> ---
->  .../ABI/testing/sysfs-kernel-kexec-kdump      |  3 ++
->  Documentation/admin-guide/kdump/kdump.rst     | 22 ++++++--
->  .../admin-guide/kernel-parameters.txt         | 16 +++++-
->  arch/arm64/mm/init.c                          |  2 +-
->  arch/powerpc/include/asm/kexec.h              |  2 -
->  arch/powerpc/kexec/core.c                     | 12 ++---
->  arch/powerpc/mm/mem.c                         |  6 +--
->  arch/riscv/mm/init.c                          |  2 +-
->  arch/x86/kernel/setup.c                       |  2 +-
->  include/linux/crash_reserve.h                 | 14 ++++-
->  include/linux/hugetlb.h                       | 12 +++++
->  kernel/crash_reserve.c                        | 51 ++++++++++++++-----
->  mm/hugetlb_cma.c                              | 50 ++++++++++++++++++
->  mm/mm_init.c                                  |  2 +
->  14 files changed, 159 insertions(+), 37 deletions(-)
-
-Should it be separated according to the architecture and framework code?
-
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
-> index f59051b5d96d7..9197cbbcbe7c8 100644
-> --- a/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
-> +++ b/Documentation/ABI/testing/sysfs-kernel-kexec-kdump
-> @@ -58,4 +58,7 @@ Description:	read only
->  		the Contiguous Memory Allocator (CMA) area that are allocated
->  		to the crash (kdump) kernel. It lists the start and end physical
->  		addresses of CMA regions assigned for crashkernel use.
-> +		This includes existing HugeTLB CMA memory selected with
-> +		crashkernel=size,cma. These ranges remain usable
-> +		by the running kernel and are excluded from the vmcore.
->  User:		kdump service
-> diff --git a/Documentation/admin-guide/kdump/kdump.rst b/Documentation/admin-guide/kdump/kdump.rst
-> index 7587caadbae1a..91779205d1456 100644
-> --- a/Documentation/admin-guide/kdump/kdump.rst
-> +++ b/Documentation/admin-guide/kdump/kdump.rst
-> @@ -313,9 +313,25 @@ crashkernel syntax
->  
->  4) crashkernel=size,cma
->  
-> -	Reserve additional crash kernel memory from CMA. This reservation is
-> -	usable by the first system's userspace memory and kernel movable
-> -	allocations (memory balloon, zswap). Pages allocated from this memory
-> +	Reserve additional crash kernel memory from CMA. Existing HugeTLB CMA
-> +	memory is used first, and dedicated CMA areas are reserved for any
-> +	remaining amount. For example, this reuses 2G from the existing 6G pool
-> +	without reserving additional CMA memory::
-> +
-> +	    hugetlb_cma=6G crashkernel=256M crashkernel=2G,cma
-> +
-> +	With a smaller HugeTLB CMA pool, the remainder is reserved separately::
-> +
-> +	    hugetlb_cma=2G crashkernel=256M crashkernel=4G,cma
-> +
-> +	This reuses the existing 2G and reserves another 2G of dedicated CMA.
-> +	Both kinds of area use the same limit of four physical ranges. If there
-> +	is insufficient memory or too few range slots, the kernel reports the
-> +	shortfall. Normal CMA alignment applies to dedicated reservations.
-> +
-> +	The selected memory remains usable by the first system's userspace,
-> +	including HugeTLB allocations, and kernel movable allocations
-> +	(memory balloon, zswap). Pages allocated from this memory
->  	range will not be included in the vmcore so this should not be used if
->  	dumping of userspace memory is intended and it has to be expected that
->  	some movable kernel pages may be missing from the dump.
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 0b3c140babd94..a1fb40e500097 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -1100,7 +1100,21 @@ Kernel parameters
->  			or memory reserved is below 4G.
->  	crashkernel=size[KMG],cma
->  			[KNL, X86, ARM64, RISCV, PPC] Reserve additional crash
-> -			kernel memory from CMA. This reservation is usable by
-> +			kernel memory from CMA. Existing hugetlb_cma memory is
-> +			used first, and dedicated CMA areas are reserved for any
-> +			remaining amount. For example:
-> +			  hugetlb_cma=6G crashkernel=256M crashkernel=2G,cma
-> +			reuses 2G without reserving more CMA, while:
-> +			  hugetlb_cma=2G crashkernel=256M crashkernel=4G,cma
-> +			reuses 2G and reserves another 2G of dedicated CMA.
-> +
-> +			Both kinds of area use the same limit of four physical
-> +			ranges. If the available memory or range slots cannot
-> +			cover the requested size, the kernel reports the
-> +			shortfall. Normal CMA alignment applies to dedicated
-> +			reservations.
-> +
-> +			The selected memory remains usable by
->  			the first system's userspace memory and kernel movable
->  			allocations (memory balloon, zswap). Pages allocated
->  			from this memory range will not be included in the vmcore
-> diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-> index 4e7682dfe366c..a781cc60b4282 100644
-> --- a/arch/arm64/mm/init.c
-> +++ b/arch/arm64/mm/init.c
-> @@ -114,7 +114,7 @@ static void __init arch_reserve_crashkernel(void)
->  		return;
->  
->  	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-> -	reserve_crashkernel_cma(cma_size);
-> +	crashkernel_cma_set_size(cma_size);
->  }
->  
->  static phys_addr_t __init max_zone_phys(phys_addr_t zone_limit)
-> diff --git a/arch/powerpc/include/asm/kexec.h b/arch/powerpc/include/asm/kexec.h
-> index e02710d6a2e1a..d3b5028102cdd 100644
-> --- a/arch/powerpc/include/asm/kexec.h
-> +++ b/arch/powerpc/include/asm/kexec.h
-> @@ -117,11 +117,9 @@ int setup_new_fdt_ppc64(const struct kimage *image, void *fdt, struct crash_mem
->  #ifdef CONFIG_CRASH_RESERVE
->  int __init overlaps_crashkernel(unsigned long start, unsigned long size);
->  extern void arch_reserve_crashkernel(void);
-> -extern void kdump_cma_reserve(void);
->  #else
->  static inline void arch_reserve_crashkernel(void) {}
->  static inline int overlaps_crashkernel(unsigned long start, unsigned long size) { return 0; }
-> -static inline void kdump_cma_reserve(void) { }
->  #endif
->  
->  #if defined(CONFIG_CRASH_DUMP)
-> diff --git a/arch/powerpc/kexec/core.c b/arch/powerpc/kexec/core.c
-> index dc44f11be353e..1b70eb10beac2 100644
-> --- a/arch/powerpc/kexec/core.c
-> +++ b/arch/powerpc/kexec/core.c
-> @@ -62,8 +62,6 @@ void machine_kexec(struct kimage *image)
->  
->  #ifdef CONFIG_CRASH_RESERVE
->  
-> -static unsigned long long crashk_cma_size;
-> -
->  static unsigned long long __init get_crash_base(unsigned long long crash_base)
->  {
->  
-> @@ -107,6 +105,7 @@ static unsigned long long __init get_crash_base(unsigned long long crash_base)
->  void __init arch_reserve_crashkernel(void)
->  {
->  	unsigned long long crash_size, crash_base, crash_end;
-> +	unsigned long long cma_size = 0;
->  	unsigned long long kernel_start, kernel_size;
->  	unsigned long long total_mem_sz;
->  	int ret;
-> @@ -115,7 +114,7 @@ void __init arch_reserve_crashkernel(void)
->  
->  	/* use common parsing */
->  	ret = parse_crashkernel(boot_command_line, total_mem_sz, &crash_size,
-> -				&crash_base, NULL, &crashk_cma_size, NULL);
-> +				&crash_base, NULL, &cma_size, NULL);
->  
->  	if (ret)
->  		return;
-> @@ -133,12 +132,7 @@ void __init arch_reserve_crashkernel(void)
->  	}
->  
->  	reserve_crashkernel_generic(crash_size, crash_base, 0, false);
-> -}
-> -
-> -void __init kdump_cma_reserve(void)
-> -{
-> -	if (crashk_cma_size)
-> -		reserve_crashkernel_cma(crashk_cma_size);
-> +	crashkernel_cma_set_size(cma_size);
->  }
->  
->  int __init overlaps_crashkernel(unsigned long start, unsigned long size)
-> diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
-> index b617b69452cd6..d6e84dc1e24c5 100644
-> --- a/arch/powerpc/mm/mem.c
-> +++ b/arch/powerpc/mm/mem.c
-> @@ -272,12 +272,10 @@ void __init arch_mm_preinit(void)
->  {
->  
->  	/*
-> -	 * Reserve large chunks of memory for use by CMA for kdump, fadump, KVM
-> -	 * and hugetlb. These must be called after pageblock_order is
-> -	 * initialised.
-> +	 * Reserve large chunks of memory for use by CMA for fadump and KVM.
-> +	 * These must be called after pageblock_order is initialised.
->  	 */
->  	fadump_cma_init();
-> -	kdump_cma_reserve();
->  	kvm_cma_reserve();
->  
->  	/*
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index e822fce0af4b0..194045dc3fed6 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -1357,7 +1357,7 @@ static void __init arch_reserve_crashkernel(void)
->  		return;
->  
->  	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-> -	reserve_crashkernel_cma(cma_size);
-> +	crashkernel_cma_set_size(cma_size);
->  }
->  
->  void __init paging_init(void)
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index 19fc8e1714e64..8848e207780b5 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -627,7 +627,7 @@ static void __init arch_reserve_crashkernel(void)
->  	}
->  
->  	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-> -	reserve_crashkernel_cma(cma_size);
-> +	crashkernel_cma_set_size(cma_size);
->  }
->  
->  static struct resource standard_io_resources[] = {
-> diff --git a/include/linux/crash_reserve.h b/include/linux/crash_reserve.h
-> index 30864d90d7f50..b11d7814979cc 100644
-> --- a/include/linux/crash_reserve.h
-> +++ b/include/linux/crash_reserve.h
-> @@ -5,6 +5,7 @@
->  #include <linux/linkage.h>
->  #include <linux/elfcore.h>
->  #include <linux/elf.h>
-> +#include <linux/range.h>
->  #ifdef CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
->  #include <asm/crash_reserve.h>
->  #endif
-> @@ -31,7 +32,18 @@ int __init parse_crashkernel(char *cmdline, unsigned long long system_ram,
->  		unsigned long long *low_size, unsigned long long *cma_size,
->  		bool *high);
->  
-> -void __init reserve_crashkernel_cma(unsigned long long cma_size);
-> +#if defined(CONFIG_CRASH_RESERVE) && defined(CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION)
-> +void __init crashkernel_cma_set_size(unsigned long long size);
-> +void __init reserve_crashkernel_cma(void);
-> +#else
-> +static inline void __init crashkernel_cma_set_size(unsigned long long size)
-> +{
-> +}
-> +
-> +static inline void __init reserve_crashkernel_cma(void)
-> +{
-> +}
-> +#endif
->  
->  #ifdef CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
->  #ifndef arch_add_crash_res_to_iomem
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index 58f755e70e966..69732e4cc03e2 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -1349,12 +1349,24 @@ static inline spinlock_t *huge_pte_lock(struct hstate *h,
->  	return ptl;
->  }
->  
-> +struct range;
-> +
->  #if defined(CONFIG_HUGETLB_PAGE) && defined(CONFIG_CMA)
->  extern void __init hugetlb_cma_reserve(void);
-> +unsigned long long __init
-> +hugetlb_cma_add_crashkernel_ranges(unsigned long long size, struct range *ranges,
-> +				   int *nr_ranges, int max_ranges);
->  #else
->  static inline __init void hugetlb_cma_reserve(void)
->  {
->  }
-> +
-> +static inline unsigned long long
-> +hugetlb_cma_add_crashkernel_ranges(unsigned long long size, struct range *ranges,
-> +				   int *nr_ranges, int max_ranges)
-> +{
-> +	return 0;
-> +}
->  #endif
->  
->  #ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-> diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
-> index eee37a11380ce..53d76ba6b3c31 100644
-> --- a/kernel/crash_reserve.c
-> +++ b/kernel/crash_reserve.c
-> @@ -16,6 +16,7 @@
->  #include <linux/kmemleak.h>
->  #include <linux/cma.h>
->  #include <linux/crash_reserve.h>
-> +#include <linux/hugetlb.h>
->  
->  #include <asm/page.h>
->  #include <asm/sections.h>
-> @@ -340,9 +341,9 @@ int __init parse_crashkernel(char *cmdline,
->  	 * optional CMA reservation
->  	 * cma_base is ignored
->  	 */
-> -	if (cma_size)
-> -		__parse_crashkernel(cmdline, 0, cma_size,
-> -			&cma_base, suffix_tbl[SUFFIX_CMA]);
-> +	if (cma_size && __parse_crashkernel(cmdline, 0, cma_size,
-> +					    &cma_base, suffix_tbl[SUFFIX_CMA]))
-> +		*cma_size = 0;
->  #endif
->  	if (!*crash_size)
->  		ret = -EINVAL;
-> @@ -470,21 +471,41 @@ void __init reserve_crashkernel_generic(unsigned long long crash_size,
->  }
->  
->  struct range crashk_cma_ranges[CRASHKERNEL_CMA_RANGES_MAX];
-> +static unsigned long long crashkernel_cma_size __initdata;
-> +
-> +void __init crashkernel_cma_set_size(unsigned long long cma_size)
-> +{
-> +	crashkernel_cma_size = cma_size;
-> +}
-> +
->  #ifdef CRASHKERNEL_CMA
->  int crashk_cma_cnt;
-> -void __init reserve_crashkernel_cma(unsigned long long cma_size)
-> +void __init reserve_crashkernel_cma(void)
->  {
-> -	unsigned long long request_size = roundup(cma_size, PAGE_SIZE);
-> -	unsigned long long reserved_size = 0;
-> +	unsigned long long cma_size = crashkernel_cma_size;
-> +	unsigned long long request_size, reserved_size, reused_size;
->  
-> -	if (!cma_size)
-> +	if (!cma_size || crashk_res.start >= crashk_res.end)
->  		return;
->  
-> +	if (cma_size > ULLONG_MAX - (PAGE_SIZE - 1)) {
-> +		pr_warn("crashkernel CMA size is too large\n");
-> +		return;
-> +	}
-> +	cma_size = roundup(cma_size, PAGE_SIZE);
-> +	reused_size = hugetlb_cma_add_crashkernel_ranges(cma_size,
-> +							 crashk_cma_ranges,
-> +							 &crashk_cma_cnt,
-> +							 CRASHKERNEL_CMA_RANGES_MAX);
-> +	reserved_size = reused_size;
-> +	request_size = cma_size - reused_size;
-> +
->  	while (cma_size > reserved_size &&
->  	       crashk_cma_cnt < CRASHKERNEL_CMA_RANGES_MAX) {
->  
->  		struct cma *res;
->  
-> +		request_size = min(request_size, cma_size - reserved_size);
->  		if (cma_declare_contiguous(0, request_size, 0, 0, 0, false,
->  				       "crashkernel", &res)) {
->  			/* reservation failed, try half-sized blocks */
-> @@ -500,21 +521,23 @@ void __init reserve_crashkernel_cma(unsigned long long cma_size)
->  			crashk_cma_ranges[crashk_cma_cnt].start +
->  			cma_get_size(res) - 1;
->  		++crashk_cma_cnt;
-> -		reserved_size += request_size;
-> +		reserved_size += cma_get_size(res);
->  	}
->  
->  	if (cma_size > reserved_size)
-> -		pr_warn("crashkernel CMA reservation failed: %lld MB requested, %lld MB reserved in %d ranges\n",
-> -			cma_size >> 20, reserved_size >> 20, crashk_cma_cnt);
-> +		pr_warn("crashkernel CMA reservation failed: %llu MB requested, %llu MB reused, %llu MB newly reserved in %d ranges\n",
-> +			cma_size >> 20, reused_size >> 20,
-> +			(reserved_size - reused_size) >> 20, crashk_cma_cnt);
->  	else
-> -		pr_info("crashkernel CMA reserved: %lld MB in %d ranges\n",
-> -			reserved_size >> 20, crashk_cma_cnt);
-> +		pr_info("crashkernel CMA: %llu MB reused, %llu MB newly reserved in %d ranges\n",
-> +			reused_size >> 20, (reserved_size - reused_size) >> 20,
-> +			crashk_cma_cnt);
->  }
->  
->  #else /* CRASHKERNEL_CMA */
-> -void __init reserve_crashkernel_cma(unsigned long long cma_size)
-> +void __init reserve_crashkernel_cma(void)
->  {
-> -	if (cma_size)
-> +	if (crashkernel_cma_size)
->  		pr_warn("crashkernel CMA reservation not supported\n");
->  }
->  #endif
-> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-> index cd6a64986278a..cd6f64da31a2c 100644
-> --- a/mm/hugetlb_cma.c
-> +++ b/mm/hugetlb_cma.c
-> @@ -11,6 +11,8 @@
->  #include <linux/memblock.h>
->  #include <linux/math.h>
->  #include <linux/math64.h>
-> +#include <linux/range.h>
-> +#include "cma.h"
->  #include "internal.h"
->  #include "hugetlb_cma.h"
->  
-> @@ -387,6 +389,54 @@ void __init hugetlb_cma_reserve(void)
->  		hugetlb_cma_size = 0;
->  }
->  
-> +/**
-> + * hugetlb_cma_add_crashkernel_ranges - share HugeTLB CMA with the crash kernel
-> + * @size: maximum number of bytes to share, aligned to PAGE_SIZE
-> + * @ranges: crash kernel memory ranges
-> + * @nr_ranges: number of entries already in @ranges, updated on return
-> + * @max_ranges: capacity of @ranges
-> + *
-> + * The shared memory remains available to the HugeTLB allocator until a crash.
-> + * Only physical ranges belonging to successfully reserved CMA areas are added.
-> + *
-> + * Return: number of bytes shared.
-> + */
-> +unsigned long long __init
-> +hugetlb_cma_add_crashkernel_ranges(unsigned long long size, struct range *ranges,
-> +				   int *nr_ranges, int max_ranges)
-> +{
-> +	unsigned long long shared_size = 0;
-> +	int nid, i;
-> +
-> +	for_each_node_mask(nid, hugetlb_bootmem_nodes) {
-> +		struct cma *cma = hugetlb_cma[nid];
-> +
-> +		if (!cma)
-> +			continue;
-> +
-> +		for (i = 0; i < cma->nranges; i++) {
-> +			struct cma_memrange *cmr = &cma->ranges[i];
-> +			unsigned long long range_size;
-> +			struct range *range;
-> +
-> +			if (shared_size == size || *nr_ranges == max_ranges)
-> +				return shared_size;
-> +
-> +			range_size = min_t(unsigned long long,
-> +					   PFN_PHYS(cmr->count), size - shared_size);
-> +			range = &ranges[(*nr_ranges)++];
-> +			range->start = PFN_PHYS(cmr->base_pfn);
-> +			range->end = range->start + range_size - 1;
-> +			shared_size += range_size;
-> +
-> +			/* Keep shared pages reserved if CMA activation fails. */
-> +			cma_reserve_pages_on_error(cma);
-> +		}
-> +	}
-> +
-> +	return shared_size;
-> +}
-> +
->  bool hugetlb_cma_exclusive_alloc(void)
->  {
->  	return hugetlb_cma_only;
-> diff --git a/mm/mm_init.c b/mm/mm_init.c
-> index a9d848c92678b..2367af05570bd 100644
-> --- a/mm/mm_init.c
-> +++ b/mm/mm_init.c
-> @@ -28,6 +28,7 @@
->  #include <linux/swap.h>
->  #include <linux/cma.h>
->  #include <linux/crash_dump.h>
-> +#include <linux/crash_reserve.h>
->  #include <linux/execmem.h>
->  #include <linux/sizes.h>
->  #include <linux/vmstat.h>
-> @@ -2686,6 +2687,7 @@ void __init mm_core_init_early(void)
->  	free_area_init();
->  
->  	hugetlb_cma_reserve();
-> +	reserve_crashkernel_cma();
->  	hugetlb_bootmem_alloc();
->  
->  	sparse_init();
 
 -- 
-Best regards,
-Jinjie
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
