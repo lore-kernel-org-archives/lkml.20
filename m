@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333204;
-	b=hGG8Ch+4I9CoICWNLpkgpiUDXIg/UFqpUY8vkWf8lwHpTsE3fH8JnHRwvpo+dRUjkj75
-	 OlFRcS5UjQM89nph4M2uWLxNYIXTWLnbhZ49ubbL7qk4e8CHqrnpgUNKcfWo6sLSBwpe1
-	 J8a7SZwUGnZW5t4eEFuQG20iVRKZxnJ5MutODuSs4XdxJmbHe0FRqSVrh22nrmbva/QK/
-	 uffkFu7Kkdr+73YsMYkeRcx9+Ld2DeaU4Grscfo3HWowNGnPMHT6MMwC6Va7Vpfiv1aB9
-	 A55XZo4HxvU63DU7rgnks8kkFjmhXFE6VGQRU6Opqjc23WtF+pKR5v/CRZTIZxJG8dA==
+	t=1794333208;
+	b=fcpmqX3nSSnYUGSBU4rpYBDi/qh6OJFuRlekpVB2ARXnpNu9LY0xVWqCMiM7UNE/2j7r
+	 OQGvCZAVmhSm2SLN7DUr78aYaI5/cVylRL2MHv0Nc8RUATPzmpG8HhqPwv7m/otqcuWPC
+	 D6zeqBzLZ7+jNEF/wJoju1vsLr+1bfNWtLvtBVwIz72vkBQdxImgqUGtSrkj8VX9vDa4m
+	 XJ/PFzZIlfIOLSZmqCy9ct+n7LrUgNkqsBoUm2DodtgJsLtfy8J8rX9yVTzRFdfvnWmkm
+	 sd8oTZlXzdxkbO2VR+5BwX3I+Hdin1WTB0y3P+0KZEWnRkWjKwEKduoNX7cAEHkFfkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GnvtK+3U/RcfwTnmG6gFTC36hd5/sy2S2GrhJPZTnBc=;
-	b=pQ9E9U+i/X55PYxZHoZylJyF939gzQ178y9M6+RgO7WCVp5bZqQ3TS4OxSo/RbjxCAzI
-	 p0stseqkmokxZ3Hvs/y1eNEJtZ2Nh2Z8pYIJ8bFC/pHX5Ns5KJozNduF7pDejFjDDrJt/
-	 x+uPuaVWojmpfY447UtsiKadzqE5cUGH4ZMDDOEU2aOMrCVPpqQgGCFALpfumyu7/90EZ
-	 B8/sIFtWABDEVK1VM/dupdXwg0q4jh/U2glFSPvunezy52zs0aJkPNM1hzCJzQAc/pKlx
-	 5mtZIMzJIzZxLJ+MTJ+Ty5AIcYsKD4lhf2DJ6IpeTDBpOcKoMmgGHG+oQ6xB0McFiZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333208;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
+	b=ypzxs5KrzjmBdpsIhOgGrKY/lIRFk0AyDZBStWkrbZgi51EM9b7FbCmk5PFTX+7vrH6u
+	 9kQKCpzeLxJdkNWVnkqsKrwQKAMXUXanpFza8SXFjzjPUImWnU5Qwg+n6DOJ8HGOcEzTY
+	 KitWPZrLhmGsWYep9qZZO4MXPJS/SO7rtjWji0ZHWTVNSAJLIOlYqBCLgsyXFEpgUu1u0
+	 9qsDjyRSuW1RIMVSX6TakFSwlYQbQg5vfDz9sFEwcQNwUqISpK15SIzuHnj/G1gUlTYuh
+	 Xb1blFFNG/rTO4kmnePFx7Ovkg1BUbzK9eJ4DG2rxnTjPHqCuVsCgh78VWv3hdgD1KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=4hVxK9ZW;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=QO67sRQc;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9352C606A333;
-	Tue, 10 Nov 2026 17:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9352C606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8494A60A2627
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8494A60A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=4hVxK9ZW
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jPDlk6wWDz1XM6J6;
-	Tue, 10 Nov 2026 17:53:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794333200; x=1796925201; bh=GnvtK+3U/RcfwTnmG6gFTC36
-	hd5/sy2S2GrhJPZTnBc=; b=4hVxK9ZWLaiRmHsnHuaHVDUjBPYv9GL1LJWY6GfM
-	DJEIMHWv5A6Wh/wvwRAZ/9EdRxXvYnnvp5b0tXWXslgay8hZGds4s9t15fu6FVbg
-	T+Vd53NmDaqhErAJOa/P5tKjxyQJVjI+la8j/Ar9pI6Bnd0pkIw+WmVb427zE5dw
-	xL9XUnTNZFWSpxerE9GsfK+TWMjxCt6C379d8KQy8LceR1MPy2s/qtFKTxDSXjFG
-	EQJYV4K0K2lpmZaQf+Cl1xcEvsPIFOe0KRo6FlxYa6DXNH3kChf+eP/Ccg6sYP1B
-	FtDxz36TVry8l0t/Z1n0eR4VgNqMHmWja9fHjuVBLgIvOA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id Rr6yJ-zkMksr; Tue, 10 Nov 2026 17:53:20 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jPDlg61BWz1XM311;
-	Tue, 10 Nov 2026 17:53:19 +0000 (UTC)
-Message-ID: <caf069e4-2a44-47f7-9e04-2a0713011dbe@acm.org>
-Date: Tue, 10 Nov 2026 09:53:19 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=QO67sRQc
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c506094fd93so67070766b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794333205; x=1794938005; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
+        b=QO67sRQc/F9GOOubFNOTdhUY0L7rrjJn9TvOFMFau9bZ6JyLa36MvY/4WJZlPVNh8L
+         FO3lTQBbwVQsQNdcOM/ISpiSdubGSK852XTvnAaUXLT5lkBPIxkjSiXav6EpoW7oA2rv
+         pqAmumELeKgVQK0j3Vk5Y4Jz+eKPD6BxsyCmg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333205; x=1794938005;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
+        b=LV7Nhp5I5GIim+e3DgdpbZLvLcxOoJraKhQEUhmu9zr/bBjvsElADKKw69nDqvdOY8
+         8SwboCmj1HhERZ9/jMkllAUFn5vNqrFW4lyzfU6bAKnLSy3F7XcXZ5FVmWxMo+JrzMM8
+         F8MO8Ri+jT3xmotCAJjxYrpaazmHmV+Zz+1mQcibnzJDRyhoCsmEwbXPc9uyh5sFGeGD
+         AECJumdevNuicN3hUzRm42UJJuVWRhIg2590LyKfWr2im59FO5JDy3M8pi9Y4tXpOwl/
+         myQFGHUgJeZ5TO/TEH8gz4ExVywILvbwTTIiOSusHKFv2G8rX1QGIlyJOwbzKx7xycz6
+         WJAw==
+X-Forwarded-Encrypted: i=1; AL+hErH+ubKckxfiDFqxFddhlsO/xFvdooartf3CkXM8bL+mtXGqyCz2Ajw/aK/r5k7PJDPro6VxNr0tP/blaXw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FYvigA4gEYX/ajipGhgygMo8vhkpGPN07XMl1U3g71FYL9OG3
+	NlNS6u+dxVzMg0pPK4jv8QP8cREXlKu4lvS92XE9b+J1k1BnqwuBeFMqcHf7+yFP67kcuQ4UeSW
+	TOCln5OA=
+X-Gm-Gg: AYBFou0ZmDAnTyU/c0CvNop/AjV+jFgd3emiNfo8sWMHCz8A9Y2dj+GU0TZCfi+n5Ol
+	s9JKCgXt0lnE6ZAFe2fvBYQswg9JOv+abhamOFD612T5qCZEUQhLo52ztw0FGCAdkkTcClnvqU8
+	IxuggbREMCbjgioTNIUWo5k3G9wJ2OUR3+3Ht5UWaKnvMCy9OBn9hyT5LGsDxmo44cvZ7SxK8K4
+	uq0dv7PAhhZic0FzUJA9XLGBLuUfdjFXkcGYsNwNyaOAej0DRNf1M1PhXCsbm7SVoelMhXIdLLx
+	pbVPBLqNzduwX4RVKrn1EpIiBu7ASS1XxB9yNyfW9qWT3z0dLzEY+TQqU7l9PK65LRigBrr+HfK
+	yzIkcXwdyCEmI6skfwJ8YJwMoIjwkfoRlFOJrLsYHRX7g5VRLw74vyyuYzwGR1DZ4dRtr5IoS5j
+	HMzPDgswcb8HAmlHxwE1P3y6WYaUq/pdLGn8eEO8ZsK02vFMfKxKlv/rKyVcEvBobqlLb52XREN
+	oLLv3VDge26IifN2aByvdplOJ+2nayFFWJcLj/KplBQMoJGAeycOkL/058xsmyezvNZVnh1grEo
+	B4Mc5kE8mwXAL9IRdqKi/UXsPVEB15fd6BlxnQYbgi53eOzg87qCwQyQnatIy4LPau+XFLlsNTH
+	NZ00=
+X-Received: by 2002:a17:907:f448:b0:c3f:84aa:af0d with SMTP id a640c23a62f3a-c50495703femr282601166b.18.1794333204687;
+        Tue, 10 Nov 2026 09:53:24 -0800 (PST)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a64f888sm139223966b.66.2026.11.10.09.53.23
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:53:23 -0800 (PST)
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso363176366b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF3sVxcd19t074aIvsgC29mdPP+Ks/qRWXKYLA7SWJWkBYjO6JIV1N1eI7CDBjnmPpVDGdYn8JoXCbI8js=@vger.kernel.org
+X-Received: by 2002:a17:906:eec7:b0:c24:4128:c19f with SMTP id
+ a640c23a62f3a-c50495452d4mr284411166b.11.1794333203501; Tue, 10 Nov 2026
+ 09:53:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,59 +94,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] scsi: ufs: core: Hold host_sem in
- ufshcd_wl_poweroff()
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkp@kernel.org, martin.petersen@oracle.com,
- stanleyjhu@google.com, peter.wang@mediatek.com, alim.akhtar@samsung.com,
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgsproxy1@samsung.com,
- h10.kim@samsung.com
-References: <cover.1794275305.git.hy50.seo@samsung.com>
- <CGME20261110020747epcas2p20410190486c9b48b4b2a4e9d8a4c2292@epcas2p2.samsung.com>
- <973576304.21794277202839.JavaMail.epsvc@epcpadp1new>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <973576304.21794277202839.JavaMail.epsvc@epcpadp1new>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261104222806.1826508-1-usama.arif@linux.dev>
+In-Reply-To: <20261104222806.1826508-1-usama.arif@linux.dev>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 10 Nov 2026 09:53:07 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
+X-Gm-Features: AclHuK_YBuVUu8dldYSH0xy9GHb-ZW0uFjYPGcJH1YUucefKxO_Kk8UxiibHCPE
+Message-ID: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+To: Usama Arif <usama.arif@linux.dev>
+Cc: david.laight.linux@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com, 
+	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org, 
+	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
+	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/9/26 6:03 PM, HOYOUNG SEO wrote:
- > -	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- > -	return 0;
- > +	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
- > +	down(&hba->host_sem);
- > +	ret = __ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- > +	if (ret)
- > +		up(&hba->host_sem);
- > +
- > +	return ret;
+On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama.arif@linux.dev> wrote:
+>
+> +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
+> +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM
 
-Now that the __ufshcd_wl_suspend() return value is propagated, I think
-that the issues reported by Sashiko must be addressed:
+Let's not do that.
 
-- If the WLUN is runtime suspended when .poweroff is called (this
-   happens if ufshcd_rpm_ok_for_spm() returned true in
-   __ufshcd_suspend_prepare(), e.g. with the default rpm_lvl ==
-   spm_lvl), __ufshcd_wl_suspend() triggers error recovery and returns
-   -EBUSY. power_down() in kernel/power/hibernate.c interprets -EBUSY
-   as a wakeup event and rolls back hibernation. ufshcd_wl_suspend()
-   checks pm_runtime_suspended(dev) and ufshcd_wl_shutdown() calls
-   ufshcd_rpm_get_sync(). ufshcd_wl_poweroff() does neither.
+Putting magic things like RET in alternatives is just a bad bad idea.
 
-- For UFS_SHUTDOWN_PM, failures of ufshcd_set_dev_pwr_mode() and
-   ufshcd_link_state_transition() are not converted into -EBUSY, so a
-   positive SCSI or UIC status can be returned from a dev_pm_ops
-   callback.
-
-- hba->is_sys_suspended is not set if .poweroff succeeds.
-
-How about moving the body of ufshcd_wl_suspend() into a helper
-function that accepts a pm_op argument and calling that helper from
-both ufshcd_wl_suspend() and ufshcd_wl_poweroff()? That would make the
-poweroff path identical to the system suspend path except for the
-target power mode and link state.
-
-Thanks,
-
-Bart.
+               Linus
