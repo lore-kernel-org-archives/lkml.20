@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276054;
-	b=n2bQW2F8oF5RK24na3FBN6QSpWQNU2yOu89TQdNVA2BIbwOb7BqMFW9UU5munuOSWLRp
-	 WLrELf+nDClq2FbA6T/Xni60Z0hAL0aKgrl4XQYRIG44xOa3+spwNEOT53yO8NtM5qroy
-	 bgDdI1RqKg2xAerHLtHFgEYoUT8nBrFYajJf5ac2ZhiAJBWwGRqZk438RhPuDAVnQA9UV
-	 1rCkivyhez26RNlUVWeaaO29uOBQplEbboDC+vYlaNgdecjXhKVPqo8c/f/KcIFOYeFZR
-	 ds5z1p31tchzu/3CtqrGLx6td09VRkybV9WiBT38FtmYc/4qyKtYaXvDSQRF5wjVbkQ==
+	t=1794276076;
+	b=CKE3rkjl8K7Sv2k5I3ZsyByGSJpFwgutBfvtlZy7AYZL30zar/8NAHDDsFcUi6CjR7LT
+	 YIWCAbCESPz4bLt4A5J8WWyt3JdsA6TDhRm1/vWnFJR8mySAc7dtIy71+kjbhPRG3dIzm
+	 VjmlWcOKzLfIrjsWx1rlCU5GZcsdpPEf0NMDkJaVhaLbyv3VFS+E9gvRs2hGCl438GNni
+	 5BmcIzoBWO1MyNrfAo3xd5b4dHOKGE6JxKvoaPSJ92kU4c1IJLfU2JvszMFBWGCo6QGXU
+	 z39xzxw0qPLX5lkE6rv7EgY2ZjYUG1RjJFJKrNgQlUZVLAlZoZLQEN5dYlvcFuGa8qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276054;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276076;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YEDAhjo9qmUbNLW8i7SAVbogenycso1goIWVSRsvePw=;
-	b=1x/Vv2iYI54cKq1FYe7fe63PZmT8GI8MT4KoAsLu+c0RBMhOqr0QtSH/x0rMqV2/6Ceq
-	 45Is2St+07uMv7fsiRS95Z9vH40+3dW1jK0D5LJP3GeMG2+OY2Gx0FMcu63+rjsfAiDMO
-	 3AFHZ9yaXCNLMCZlvGctfsPvzHg+l6+8pStn1uAhQ6xMp/DnEdsxFf+cB2o7iC2uUjkZm
-	 WuGYzwPtHA9Wzv190Ir5Y3ZxEtIU71eXZ+QlA+4QcqycLeD6TnworDEZG3IlZQ03LKs7K
-	 faCtXniBBsn1tjj4607AJXFzipyOY04+T1+lKi/6wNGQzJocm67OwgL+ssq1yBcqtLg==
+	bh=7a2LGI6SnaTCVfspM3YCywqqGri+7oAH2td8mYSDEVM=;
+	b=wAaP/fIesUCImzA2jGUQ0NoeEjxV+8nRvlGRYiCpG+MedXFmKexSb/wVyy9305HVL7bW
+	 ukfeVUs5J9db1UpZUT0d0VEUWJCWomkS+wkkC8FHvhYiCX+8IRYHSFP+xtyWUtGWbDGiG
+	 dSB6tmAldh9uQhQPxqywtcJQPfWMtKwOQcNGy9UHJd7/6E9Arg5WEUo1rHJqLQ4bcf7dw
+	 tAbqo4vHBPgGpjbeuInZRwXfcVDr8OJVjpRldDhXiiY3/kzMdjPMEPR/DShCY++7tK8+V
+	 2QOWAwJAbE3rFN6InRdekRGdMiG7cuzHVTvrQ3TA2sDChc2JETTkyDCjeO57c2JbM4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="ObvB6/jS";
-	arc=none smtp.remote-ip=91.218.175.134
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V1KFIf0F;
+	arc=none smtp.remote-ip=95.215.58.201
+Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97650606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:00:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97650606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595F860A6F79
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 595F860A6F79
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ObvB6/jS
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V1KFIf0F
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g8MhyEfSMkG7aAeA1J8plWd/PX3q6qOIj91uCFAlkQc=;
+DKIM-Signature: a=rsa-sha256; bh=Nn1olpN2r1H2fU4Tau/Z8D7h1QOfkV8i5QZfgCnG8ag=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794276051; v=1; x=1794880851;
- b=ObvB6/jSvtf9TkdGzewZJq/FLa4QRcXKQTnwKsEr724yCirqEInfbCA5ufSgCxJZIlEXSCPJ
- qCHUY4u61/qy1Z3tlrxbu1UCDuLHLZN9zpwA0jQEFuc/RXUjUktViBotI97yTEU+4LItanhAseY
- N8Y7a/0rqcSMZgtVwzvkfP/8=
+ t=1794276073; v=1; x=1794880873;
+ b=V1KFIf0FqGrGSOSc4HdpPkYDqF0DjBxodWi2IVkcatjGEUnusu22BlQ6YZMmQLP/noAODBpN
+ 0qZv41zH2fe1T58u3Hd4YN348EEL0TYxS/ikDOUbgpTJYsYi/R2DQW/pLJ9u2H6aoduv3pHuhMI
+ Q/VmtiuGRLI1rzkQ3att1FgA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c02f8ffe697f16c;
-	Tue, 10 Nov 2026 02:00:51 +0000
-X-Mizu-Trace-ID: 1c02f8ffe697f16c
+Received: by smtp.migadu.com with ESMTPS id 18d11e292dcdd995;
+	Tue, 10 Nov 2026 02:01:13 +0000
+X-Mizu-Trace-ID: 18d11e292dcdd995
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v15 04/18] HID: asus: add vibration strength configuration
-Date: Tue, 10 Nov 2026 02:00:22 +0000
-Message-ID: <20261110020036.112884-5-denis.benato@linux.dev>
+Subject: [PATCH v15 17/18] platform/x86: asus-armoury: pick the eGPU activation from the reported GPU
+Date: Tue, 10 Nov 2026 02:00:35 +0000
+Message-ID: <20261110020036.112884-18-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261110020036.112884-1-denis.benato@linux.dev>
 References: <20261110020036.112884-1-denis.benato@linux.dev>
@@ -85,234 +85,310 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ASUS ROG Ally handhelds support the vibration strength to be configured:
-add sysfs attributes to allow userspace configure motors vibration
-intensity.
+The egpu_enable attribute used to take four values. The WMI method
+returned 1 for every one of them, so that return never said which
+activation had been used. The extra values stayed while the right
+choice was still unknown. It is known now: 0x0001 is NVIDIA, 0x0101
+is AMD and 0x0201 is Intel, and a wrong value must not be sent. The
+tools that drive this attribute only write 1, so the AMD and Intel
+values were unused unless someone requested them by hand.
+
+Writing 0 turns the eGPU off and writing 1 turns it on. The value
+sent for 1 is the one that matches the GPU vendor of the connected
+station, or NVIDIA when no vendor has been reported.
+
+hid-asus reads that vendor from the station version query and reports
+it through asus-wmi. Removing the station stores 0, which restores
+the default. One mutex serializes the report. The connector is
+proprietary, so only one XG Mobile can be attached, and one vendor
+word is the whole state. The armoury store reads it while holding
+egpu_mutex, in the same section as the WMI call.
 
 Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Co-developed-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Luke Jones <luke@ljones.dev>
 ---
- drivers/hid/hid-asus.c | 171 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 171 insertions(+)
+ drivers/hid/hid-asus.c                     | 38 ++++++++++++++-
+ drivers/platform/x86/asus-armoury.c        | 57 +++++++++++++---------
+ drivers/platform/x86/asus-wmi.c            | 43 ++++++++++++++++
+ include/linux/platform_data/x86/asus-wmi.h | 11 +++++
+ 4 files changed, 125 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 6d2e3676950c..c778fdc31cdb 100644
+index 440ee26eb547..d4a24a19db63 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -98,6 +98,9 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+@@ -89,6 +89,20 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+ #define ASUS_XGM_TLV_TAG_LEN	3
+ #define ASUS_XGM_TLV_HDR_LEN	(ASUS_XGM_TLV_TAG_LEN + 1)
  
- #define ASUS_HID_INPUT_KBD_REPORT_ID 0x01
- 
-+#define ASUS_ALLY_VIBRATION_INTENSITY_MIN 0
-+#define ASUS_ALLY_VIBRATION_INTENSITY_MAX 100
-+
- /* Spurious HID codes sent by QUIRK_ROG_NKEY_KEYBOARD devices */
- #define ASUS_SPURIOUS_CODE_0XEA 0xea
- #define ASUS_SPURIOUS_CODE_0XEC 0xec
-@@ -824,6 +827,9 @@ static struct ally_prefs {
- 
- 	bool xbox_controller_enabled;
- 	u8 gamepad_mode;
-+
-+	u8 vibration_intensity_left;
-+	u8 vibration_intensity_right;
- } ally_prefs = {
- 	.lock = __MUTEX_INITIALIZER(ally_prefs.lock),
- };
-@@ -993,6 +999,149 @@ static ssize_t xbox_controller_store(struct device *dev,
- 
- static DEVICE_ATTR_RW(xbox_controller);
- 
-+/**
-+ * ally_set_vibration_intensity() - Set the gamepad vibration intensity
-+ * @hdev: HID device the command packet is sent on
-+ * @left: left motor intensity
-+ * @right: right motor intensity
-+ *
-+ * Context: Caller holds ally_prefs.lock.
-+ * Return: 0 on success, negative errno on failure.
++/*
++ * Four PCI IDs at the start of the version payload, high byte first:
++ * vendor, device, then the two subsystem IDs.
 + */
-+static int ally_set_vibration_intensity(struct hid_device *hdev, u8 left, u8 right)
-+{
-+	const u8 data[] = { left, right };
-+	size_t buf_len;
-+	int ret;
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_VIBRATION_INTENSITY,
-+					       data, sizeof(data), &buf_len);
-+
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to set vibration intensity: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ally_vibration_defaults(void)
-+{
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	if (ally_prefs.initialized)
-+		return;
-+
-+	ally_prefs.vibration_intensity_left = 100;
-+	ally_prefs.vibration_intensity_right = 100;
-+}
-+
-+/* Indices into ally_vibration[], in the order ally_set_vibration_intensity() takes them. */
-+enum ally_vibration {
-+	ALLY_VIBRATION_LEFT,
-+	ALLY_VIBRATION_RIGHT,
++enum {
++	ASUS_XGM_PCI_VENDOR,
++	ASUS_XGM_PCI_DEVICE,
++	ASUS_XGM_PCI_SUBSYS0,
++	ASUS_XGM_PCI_SUBSYS1,
++	ASUS_XGM_PCI_ID_COUNT,
 +};
 +
-+static u8 *const ally_vibration[] = {
-+	[ALLY_VIBRATION_LEFT]  = &ally_prefs.vibration_intensity_left,
-+	[ALLY_VIBRATION_RIGHT] = &ally_prefs.vibration_intensity_right,
-+};
++#define ASUS_XGM_PCI_ID_LEN	(ASUS_XGM_PCI_ID_COUNT * sizeof(u16))
 +
-+static ssize_t ally_vibration_intensity_show(char *buf, enum ally_vibration which)
-+{
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	return sysfs_emit(buf, "%u\n", *ally_vibration[which]);
-+}
-+
-+static ssize_t ally_vibration_intensity_store(struct device *dev, const char *buf,
-+					      size_t count, enum ally_vibration which,
-+					      const char *group)
-+{
-+	u8 value, v[ARRAY_SIZE(ally_vibration)];
-+	struct hid_device *hdev = to_hid_device(dev);
-+	size_t i;
-+	int ret;
-+
-+	ret = kstrtou8(buf, 10, &value);
-+	if (ret || value > ASUS_ALLY_VIBRATION_INTENSITY_MAX)
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &ally_prefs.lock) {
-+		for (i = 0; i < ARRAY_SIZE(v); i++)
-+			v[i] = *ally_vibration[i];
-+		v[which] = value;
-+
-+		ret = ally_set_vibration_intensity(hdev,
-+						   v[ALLY_VIBRATION_LEFT],
-+						   v[ALLY_VIBRATION_RIGHT]);
-+		if (ret < 0)
-+			return ret;
-+
-+		*ally_vibration[which] = value;
-+	}
-+
-+	sysfs_notify(&dev->kobj, group, "intensity");
-+
-+	return count;
-+}
-+
-+/* Generates <side>_vibration_intensity_{show,store,range_show}. */
-+#define ALLY_VIBRATION_FUNCS(side, SIDE)						\
-+static ssize_t side##_vibration_intensity_show(struct device *dev,			\
-+					       struct device_attribute *attr,		\
-+					       char *buf)				\
-+{											\
-+	return ally_vibration_intensity_show(buf, ALLY_VIBRATION_##SIDE);		\
-+}											\
-+											\
-+static ssize_t side##_vibration_intensity_store(struct device *dev,			\
-+						struct device_attribute *attr,		\
-+						const char *buf, size_t count)		\
-+{											\
-+	return ally_vibration_intensity_store(dev, buf, count, ALLY_VIBRATION_##SIDE,	\
-+					      #side "_vibration");			\
-+}											\
-+											\
-+static ssize_t side##_vibration_intensity_range_show(struct device *dev,		\
-+						     struct device_attribute *attr,	\
-+						     char *buf)				\
-+{											\
-+	return sysfs_emit(buf, "%u %u\n", ASUS_ALLY_VIBRATION_INTENSITY_MIN,		\
-+			  ASUS_ALLY_VIBRATION_INTENSITY_MAX);				\
-+}
-+
-+ALLY_VIBRATION_FUNCS(left,  LEFT)
-+ALLY_VIBRATION_FUNCS(right, RIGHT)
-+
-+static struct device_attribute dev_attr_left_vibration_intensity =
-+	__ATTR(intensity, 0644, left_vibration_intensity_show, left_vibration_intensity_store);
-+
-+static struct device_attribute dev_attr_left_vibration_intensity_range =
-+	__ATTR(intensity_range, 0444, left_vibration_intensity_range_show, NULL);
-+
-+static struct device_attribute dev_attr_right_vibration_intensity =
-+	__ATTR(intensity, 0644, right_vibration_intensity_show, right_vibration_intensity_store);
-+
-+static struct device_attribute dev_attr_right_vibration_intensity_range =
-+	__ATTR(intensity_range, 0444, right_vibration_intensity_range_show, NULL);
-+
-+static struct attribute *ally_left_vibration_attrs[] = {
-+	&dev_attr_left_vibration_intensity.attr,
-+	&dev_attr_left_vibration_intensity_range.attr,
-+	NULL
-+};
-+
-+static struct attribute *ally_right_vibration_attrs[] = {
-+	&dev_attr_right_vibration_intensity.attr,
-+	&dev_attr_right_vibration_intensity_range.attr,
-+	NULL
-+};
-+
- static struct attribute *ally_config_attrs[] = {
- 	&dev_attr_xbox_controller.attr,
- 	NULL
-@@ -1002,6 +1151,14 @@ static const struct attribute_group ally_attr_groups[] = {
- 	{
- 		.attrs = ally_config_attrs,
- 	},
-+	{
-+		.name = "left_vibration",
-+		.attrs = ally_left_vibration_attrs,
-+	},
-+	{
-+		.name = "right_vibration",
-+		.attrs = ally_right_vibration_attrs,
-+	},
+ /*
+  * Every station answer echoes the report id, the opcode and the
+  * subcommand, then the payload.
+@@ -255,6 +269,7 @@ struct asus_xgm_info {
+ 	char part_number[ASUS_XGM_INFO_LEN];
+ 	char firmware_version[ASUS_XGM_INFO_LEN];
+ 	char generation[ASUS_XGM_INFO_LEN];
++	u16 pci_id[ASUS_XGM_PCI_ID_COUNT];
  };
  
- static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
-@@ -1014,6 +1171,8 @@ static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
- 		return ret;
- 	}
- 
-+	ally_vibration_defaults();
-+
- 	scoped_guard(mutex, &ally_prefs.lock) {
- 		if (!ally_prefs.initialized) {
- 			ally_prefs.gamepad_mode = 0x01;
-@@ -1265,6 +1424,18 @@ static int hid_asus_ally_init(struct hid_device *hdev)
- 			hid_warn(hdev, "Failed to apply Xbox controller mode: %d\n", ret);
- 	}
+ struct asus_touchpad_info {
+@@ -5206,6 +5221,18 @@ static int asus_xgm_get_version(struct hid_device *hdev,
+ 	asus_xgm_tlv_str(info->firmware_version, sizeof(info->firmware_version),
+ 			 buf, len, ASUS_XGM_TAG_FIRMWARE);
  
 +	/*
-+	 * The MCU does not keep the vibration intensity across a reset:
-+	 * send the recorded values again.
++	 * The IDs are stored high byte first. On a captured GC33Y the
++	 * payload begins 10 de 27 17 21 fb 10 43: NVIDIA 0x10de, device
++	 * 0x2717, 0x21fb and ASUS 0x1043.
 +	 */
-+	if (ally_prefs.initialized) {
-+		ret = ally_set_vibration_intensity(hdev,
-+						   ally_prefs.vibration_intensity_left,
-+						   ally_prefs.vibration_intensity_right);
-+		if (ret < 0)
-+			hid_warn(hdev, "Failed to restore vibration intensity: %d\n", ret);
-+	}
++	if (len < ASUS_XGM_RESP_PAYLOAD + ASUS_XGM_PCI_ID_LEN)
++		return -ENODATA;
++
++	for (int i = 0; i < ASUS_XGM_PCI_ID_COUNT; i++)
++		info->pci_id[i] = get_unaligned_be16(buf + ASUS_XGM_RESP_PAYLOAD +
++						     i * sizeof(u16));
 +
  	return 0;
  }
  
+@@ -5586,6 +5613,8 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+ 		hid_info(hdev, "XG Mobile: firmware %s, generation %s\n",
+ 			 info->firmware_version, info->generation);
+ 
++	asus_wmi_egpu_set_vendor(info->pci_id[ASUS_XGM_PCI_VENDOR]);
++
+ 	/*
+ 	 * The attribute group is not devm-managed: a creation failure is
+ 	 * fatal and unwound through asus_xgm_init_err, while on the unbind
+@@ -5634,6 +5663,7 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+ 
+ 	return 0;
+ asus_xgm_init_err:
++	asus_wmi_egpu_set_vendor(0);
+ 	sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
+ 	drvdata->xgm_info = NULL;
+ 	drvdata->xgm_led = NULL;
+@@ -5867,8 +5897,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	if (drvdata->listener.brightness_set)
+ 		asus_hid_unregister_listener(&drvdata->listener);
+ 
+-	if (drvdata->xgm_info)
++	if (drvdata->xgm_info) {
++		asus_wmi_egpu_set_vendor(0);
+ 		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
++	}
+ 
+ 	if (drvdata->xgm_led)
+ 		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+@@ -5894,8 +5926,10 @@ static void asus_remove(struct hid_device *hdev)
+ 	if (drvdata->listener.brightness_set)
+ 		asus_hid_unregister_listener(&drvdata->listener);
+ 
+-	if (drvdata->xgm_info)
++	if (drvdata->xgm_info) {
++		asus_wmi_egpu_set_vendor(0);
+ 		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
++	}
+ 
+ 	if (drvdata->xgm_led)
+ 		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+index fb382de5b57b..dcf2e761016d 100644
+--- a/drivers/platform/x86/asus-armoury.c
++++ b/drivers/platform/x86/asus-armoury.c
+@@ -86,6 +86,8 @@ struct asus_armoury_priv {
+ 	 * sequences and dGPU connection status:
+ 	 * do not allow concurrent changes or changes
+ 	 * before a reboot if dGPU got disabled.
++	 * The activation section reads the reported GPU vendor here.
++	 * That word is covered by egpu_vendor_lock in asus-wmi.
+ 	 */
+ 	struct mutex egpu_mutex;
+ 
+@@ -538,13 +540,28 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+ ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+ ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
+ 
+-/* Values map for eGPU activation requests. */
+-static u32 egpu_status_map[] = {
+-	[0] = 0x00000000U,
+-	[1] = 0x00000001U,
+-	[2] = 0x00000101U,
+-	[3] = 0x00000201U,
+-};
++/*
++ * egpu_default_enable_value() - Activation value for the connected station
++ *
++ * The eGPU switch activation value selects the vendor of the external
++ * GPU: 0x0001 activates NVIDIA, 0x0101 AMD and 0x0201 Intel. Pick the
++ * value matching the GPU vendor reported for the connected station,
++ * and fall back to NVIDIA when no vendor has been reported. The caller
++ * holds egpu_mutex. asus_wmi_egpu_vendor() takes egpu_vendor_lock.
++ *
++ * Return: the activation value for the reported GPU vendor
++ */
++static u32 egpu_default_enable_value(void)
++{
++	switch (asus_wmi_egpu_vendor()) {
++	case PCI_VENDOR_ID_ATI:
++		return 0x0101;
++	case PCI_VENDOR_ID_INTEL:
++		return 0x0201;
++	default:
++		return 0x0001;
++	}
++}
+ 
+ /*
+  * armoury_pci_rescan() - Performs a PCI rescan
+@@ -578,11 +595,17 @@ static ssize_t egpu_enable_current_value_store(struct kobject *kobj, struct kobj
+ 	if (err)
+ 		return err;
+ 
+-	if (requested >= ARRAY_SIZE(egpu_status_map))
++	if (requested > 1)
+ 		return -EINVAL;
+-	enable = egpu_status_map[requested];
+ 
+ 	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
++		/*
++		 * 0 deactivates the eGPU. 1 activates it with the value for
++		 * the GPU reported for the connected station. Read that
++		 * vendor in this section.
++		 */
++		enable = requested ? egpu_default_enable_value() : 0;
++
+ 		/* Ensure the eGPU is connected before attempting to activate it. */
+ 		if (enable) {
+ 			err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_EGPU_CONNECTED);
+@@ -661,7 +684,7 @@ static ssize_t egpu_enable_current_value_store(struct kobject *kobj, struct kobj
+ static ssize_t egpu_enable_current_value_show(struct kobject *kobj, struct kobj_attribute *attr,
+ 						char *buf)
+ {
+-	int i, err;
++	int err;
+ 	u32 status;
+ 
+ 	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+@@ -670,20 +693,10 @@ static ssize_t egpu_enable_current_value_show(struct kobject *kobj, struct kobj_
+ 			return err;
+ 	}
+ 
+-	for (i = 0; i < ARRAY_SIZE(egpu_status_map); i++) {
+-		if (egpu_status_map[i] == status)
+-			return sysfs_emit(buf, "%u\n", i);
+-	}
+-
+-	return -EIO;
++	return sysfs_emit(buf, "%u\n", status != 0);
+ }
+ 
+-static ssize_t egpu_enable_possible_values_show(struct kobject *kobj, struct kobj_attribute *attr,
+-						char *buf)
+-{
+-	return armoury_attr_enum_list(buf, ARRAY_SIZE(egpu_status_map));
+-}
+-ASUS_ATTR_GROUP_ENUM(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
++ASUS_ATTR_GROUP_BOOL(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
+ 
+ /* Device memory available to APU */
+ 
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a65090429ca7..16836e7ee3dc 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -881,6 +881,49 @@ static DEVICE_ATTR_RW(dgpu_disable);
+ #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+ 
+ /* eGPU ********************************************************************/
++
++/*
++ * One XG Mobile can be attached: the connector is proprietary, so
++ * this word is the whole report. 0 means the station is gone and
++ * the next activation uses the default value. egpu_vendor_lock
++ * covers the word. The armoury store holds egpu_mutex and then
++ * calls the getter, which takes this lock. The setter does not
++ * take egpu_mutex.
++ */
++static DEFINE_MUTEX(egpu_vendor_lock);
++static u16 egpu_gpu_vendor;
++
++/**
++ * asus_wmi_egpu_set_vendor() - Report the vendor of the external GPU
++ * @vendor: PCI vendor ID, or 0 when the station is removed
++ *
++ * Pass 0 when the station is removed. That restores the default
++ * activation value. egpu_vendor_lock serializes this with
++ * asus_wmi_egpu_vendor().
++ */
++void asus_wmi_egpu_set_vendor(u16 vendor)
++{
++	guard(mutex)(&egpu_vendor_lock);
++	egpu_gpu_vendor = vendor;
++}
++EXPORT_SYMBOL_NS_GPL(asus_wmi_egpu_set_vendor, "ASUS_WMI");
++
++/**
++ * asus_wmi_egpu_vendor() - Vendor of the external GPU
++ *
++ * Takes egpu_vendor_lock for the copy and releases it before
++ * returning. The armoury store calls this while holding egpu_mutex.
++ *
++ * Return: the PCI vendor ID last reported with
++ * asus_wmi_egpu_set_vendor(), or 0 when no station is known.
++ */
++u16 asus_wmi_egpu_vendor(void)
++{
++	guard(mutex)(&egpu_vendor_lock);
++	return egpu_gpu_vendor;
++}
++EXPORT_SYMBOL_NS_GPL(asus_wmi_egpu_vendor, "ASUS_WMI");
++
+ #if IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS)
+ static ssize_t egpu_enable_show(struct device *dev,
+ 				   struct device_attribute *attr, char *buf)
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index b5ed8c83ace1..a53b2828bb1d 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -204,6 +204,8 @@ int asus_hid_register_listener(struct asus_hid_listener *cdev);
+ void asus_hid_unregister_listener(struct asus_hid_listener *cdev);
+ int asus_hid_event(enum asus_hid_event event);
+ bool asus_wmi_custom_fan_curve_is_enabled(void);
++void asus_wmi_egpu_set_vendor(u16 vendor);
++u16 asus_wmi_egpu_vendor(void);
+ #else
+ static inline void set_ally_mcu_hack(enum asus_ally_mcu_hack status)
+ {
+@@ -239,6 +241,15 @@ static inline bool asus_wmi_custom_fan_curve_is_enabled(void)
+ {
+ 	return false;
+ }
++
++static inline void asus_wmi_egpu_set_vendor(u16 vendor)
++{
++}
++
++static inline u16 asus_wmi_egpu_vendor(void)
++{
++	return 0;
++}
+ #endif
+ 
+ #endif	/* __PLATFORM_DATA_X86_ASUS_WMI_H */
 -- 
 2.47.3
 
