@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296696;
-	b=pZE1df4szpUMSA3t/P5GS1PsbxHorr/DwypMSVGeYjTf/Ik+GfAKSqpdkqqqd53HLvij
-	 tRyfAT8mdgM/K3Xkxm5wOONgjp4Jt0KkBNcLformiVurMCKKGcyB38TDj0G+yZvrFzkI1
-	 YhxSJMYq3o/mT9Hoibsn/c6Jg5M8nbujB7lZEMe5/LURRSl9gzqkmYf9GZUMPv5FCEtfm
-	 RtNUphoe/PCPov1Bq8jD24kpuKm8RN30TWHsxSJS1aWwXyCF1lCwxoRueWKqC80B8fGgR
-	 IvG//c8bNYrjEqOnMpfbgfE6hnKC9stX+w8QVy9dMo0kzF+1Q1KGUeMwjLvYMQ+ezlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Wbdgh15lLoRVXKPHuZMnVRIK8oPQOLAhA/ub2vbd0UQ=;
-	b=W0jiVZ0KQzGrQX2cMZlWNCPs2gGVsxEplCLVYyve1TUJGUdKyh72J6ITfxHo3NqQGlsL
-	 AexDiQSLo57CkVlSPtZt17BtjFHvRvbOACvi2AqKtX6VpZddxL9EM7jqHX8M5e+o0rewQ
-	 mNX0QHTctxxZiOdvGKaKUKsOWJO5IJ0QQE4jpd69WGCT2ekoG9LHDgzRWxHrDbylAeuam
-	 JU4f5J2aSvFzxk9tGjKKyMRB2f9cAzGzTrloCF9hRjZgUOkOhF2HxCk+ZrNq5Ex2sJQlr
-	 LjT6y5Zj1XkcobDHWltbheNI2XIub6UFT6KiO5eg8KJKLAgmOWmWTRwqraanmm3oY5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="K1HP/SMi";
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794296699;
+	b=gQK8Ha4r3Ls1Mz0LEAFQPf2O+evlcqj6mV/22Ij3ULFqK8hJyRq5L7TEDKcU07EEAa3I
+	 rat0pHCrFiIACuPOyyN0Aedy4vt0PoI2mIUNtAFkNw4Kg30vi7L0Fun3PrKhiJbILvYQV
+	 fD02VsYFSi5bVjgOTjiTZODus1t8LBrbSBoty97REHg1/scEIIS7PYZdY09IRNDNyKdgQ
+	 h4/9IoV3aJD5XR4ZunVcy4PO8bKZ+Zhyw8gDmcdrd75rxzLUo2wjuSH6u/azcU6L04gyc
+	 OWQTxJ+fVKhX48YmiHH3Z91KIPRByy9/L03OJXKqvgNC3u+e5O9nl1JpWTf7MlohhGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296699;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bL0W2Z4JP6LW6reZ8aAiCPCa3mYcnz2C1bt6K2RjlIU=;
+	b=XRlhS0HHV673NbIyvG70cqk6fyH2YkyiUxf8iu0ieXcrqKXSCxU1jcND+qDdWJwAQ0Wt
+	 t5axQ9V5i5kf6QWtVwNk9++z6Zkvta6JLNzrlMk9DkiVMvlMV0JMEq50ItrrDzdB3wjT4
+	 mGCZWW7osT3V1dvdUPWuhm2HnLTTwiiJBrBtN9J+P+TofPSIUxllwgFnJPkeyPkzZud4a
+	 3ene4Fgux6LHPLPp5ldApdufUckF7MF/MpyZeGH7OoHTbDvTSj/5kB5xD7yCN9oAtKZ5s
+	 otKO7B1nSFJkdqPav6sNLIV5d9aXHI7iRYRuwM+OykrzsL4nAh57xmtGIOio4SEC2rg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3jkEXpO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D0E606DF11
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3jkEXpO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794296698;
+	b=OrZY2k1zQHXIvY2pIs9sfS7M3I4igLhkPaog+OWoY+fupoIqBdq/DCv95IPtn0HWeu+N
+	 bb6Pq2AuGvK4lm63BM0fSlsP3UHBh3h4yz6lZlVRz/eMBDYj2YOnNoVw5pO3Bk5gSQO/H
+	 fPl1DwwEaTRGmhzxqTq4ddRF9VDIAPaBTPWyHmEKz4c4LJa3HTtoDL21bApz0EhYuS5xS
+	 AwhDXxZNJzLwSop/rhGjoI7tfUhLCwb4n4ZpWoupt9l9twIOQgOmsBvvoLsJ0qQPpj/1U
+	 BCZccfdZf5/Tb0Ki11QqPKabHPkz1rvHhYcvnbKsWkl9JONBHaxUOJMSVyPSnDhn6EQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794296698;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bL0W2Z4JP6LW6reZ8aAiCPCa3mYcnz2C1bt6K2RjlIU=;
+	b=KtNAzuQErzK6/jvzz/uKMstquW+UUKON5jvapqdGTOPsVpodPAfsQHQD/i5MnmlfltiY
+	 dopz6bFRCU6p1BAHINiTG+OblpfrHphlhtMK4dfeaNL4DCtQaW2HbHooqpuxfkcApUGvs
+	 4GQPtVDh9ydtF0w+wSyUfs0sOaLfyjfgG9ZdgFmtvMUUGSOJx8qL/4IzZATU2P7vAIh9X
+	 iFD6pK9+60xxi99vBxJUgdsBEi1VKFqNhLru9+Mm4fbtUzNm3mPN54gfEuXKcxfgYKcm1
+	 Y5iVTaJ9C4AKiX2c0KPx99yafG+Aeh4jyvkbkPp6hkyVM9IT+bd++HAc9MJAcUz0LnA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C308E606D296
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C308E606D296
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K1HP/SMi
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6e560e00a86so1053647eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:44:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296694; x=1794901494; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wbdgh15lLoRVXKPHuZMnVRIK8oPQOLAhA/ub2vbd0UQ=;
-        b=K1HP/SMiukpEATJdAO73UEk26vQGC+iFZfKZL8rYJtz9MfTiR41PYYHYqj4tAo/6w/
-         fuM2OgyXNeAJGdL1t2Mwy8uScN9qW94+9OhBzn3DfEEwt7kc7bxoseNzS6kbFAx/2zR9
-         c0r38uDsihefrut/UqtIpXCrjinCigAt6uEsn2xpBKHUpaCdYP98qmz0f2wCR8cVzCgT
-         2NHc97UAyrdeZxK7Tl67oxrYZorNwCo9FZxiHAch+k/U3BNPPh2MilYhoCcgO8XhxJ/x
-         kYBQ/FqveBrhNEqNCwv8wkf1b0jewk/U+d3+e/Y0oSYRqul+bP2/+fYj1tM+04ndFzde
-         QN7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296694; x=1794901494;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wbdgh15lLoRVXKPHuZMnVRIK8oPQOLAhA/ub2vbd0UQ=;
-        b=kkNET7yyfjom8/Sx2wEwbIiNDU0iOXebBzV5Ew12qfs3p78Pp1TA1g1/P2M5p5PanU
-         5o7OixjdCV0pT2VmlESUXCALQXr39XIMpQPB8W8v67J3cjEBpwYCwVWmMw4u9VzXyaO3
-         75+gVFmAqM8O2k6ziWAl6/3u2D8Ihx9R7627Mwdcbb3977d9bwV0mVfAXwK+enMQA+l4
-         R4ljt2JONFUwzNAnq+byTe4hkGKGezJUAhBpGyxphsymnyT/R8A83eiiedFjaKgQcD4F
-         nXm6uAhaSHenvy1x+Ea2koyv7hqLYMmQabqoKqgf2t/vjn6vjSs/Wu0LRDfY9mUEMsvU
-         o1hA==
-X-Forwarded-Encrypted: i=1; AL+hErGYVTSjyO3KW/xDPRi7KxcvGjnYaDGlY/cTzOtWbNWZV0Hv//jDx4P/VuTsyGK7x9j1b6oZ4LHRXqsJQ+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Ihj+bbcWEA+ch/Amu0MUcgBAOI69EUsseAa4SJ3GKsWESRbzV
-	aMZqxY7CkJIp4Dt0Q7xPBxQX3DoxEaswrD0zdDjHJt2aYuDmwknRq4zT7RwkYpdP
-X-Gm-Gg: AYBFou3SI7uHH93CyeX5T+gkqFHfJhHpVh30k7EG45kH/q5LaBhTA8MFmiumAEG/BOA
-	FHOXd42JUaJhyCmPMbTVtUlNFj00yWX1Pv3kUaqakl/1Oe21zGO7PH2fsR7VLAGpI+ACsSeI5eY
-	Y/Hj3tsuphyQM+VWpHC5KrpXT7FRJlhAEzFPm8d+PP58VtVEYolKJM8oAV2/l/7rz3G9M8BVUYT
-	8JAxlFuH2d5S240eJmKxCK10vMocDchR95rzEDkD5g4mTZ6OFBcLhhYZ4WzG1HyFJTHUoS2xEdc
-	hMziy7L1Gt/e95Ga61zd1w1n7ZZzd0u6ensBs33HnhKU4abvYBBg05wKZgTFKk8DLgqzGWaiTSP
-	D0c/pS97NNv3rVNKFdGZacd30jWr1pAdnLDlrU9MJsntuRPY3ATvtFMCxHmfFGUq/hUkSwu6Bob
-	9c2IHj2kPQ9NOL7LrIjlfbUZyWktktBadgM3BAPlgyADJkl1DPBuLctR4+D4CRnHhw7C3V75ghn
-	MdMq5ydc3tAIUrb2z30Cf15n55Q33vY/a8YOxzS8ySxCGKJYUeaflasnyiShLHJGblQ1AgToXQC
-	u5+KJHqWGYKPhbPHU2TYE3i9kGJQHuujz8WzDC36bvDEg0X9vOJjfcO0x5gRc/jvLdKSCThAqk2
-	vhE4DONIo9T3xDaxq7dtPdM/y1vJlx2pp4DCxsQUgbA8sKAK3eUuEwTYJ7J4joWeDIXXkfPh/9A
-	7mATW6BbJZbCRKsAtS3JnuiJO9uRUcXNT4VnsdDQlYb+YYxbTnHco=
-X-Received: by 2002:a05:6808:1713:b0:510:7dc8:5ff7 with SMTP id 5614622812f47-5683c945eb5mr1346257b6e.19.1794296694580;
-        Mon, 09 Nov 2026 23:44:54 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.44.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:44:54 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:34 -0700
-Subject: [PATCH v2 31/58] mtd: rawnand: mxc: retain open-handle state on
- removal
+	by smtp.kernel.org (Postfix) with ESMTPS id CDAD41F00904;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296698;
+	bh=bL0W2Z4JP6LW6reZ8aAiCPCa3mYcnz2C1bt6K2RjlIU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=A3jkEXpOiRdLMm3T2j4oYUyLd1e6eTJ6fjZ682NxUSqVdUQ8EMXXq16NQ+/1nKLe7
+	 YYcUoFASQujQUmTTDrb4g1gfOnmWNI5XeolYD9O+BV23NUjdyE1MrDIYwrYEZ9frM6
+	 I7D80ou3ysvFvEZOA/Lx9cil3EiwRE/f3jgmZ4c6BGMl+SP4dP38Z0/Gy24U7+Sb3W
+	 BQQoeGu+r9sg7MK9qOEbiY6BCfEkLeiM116RLVT+ca+u8HkIeh9VfnBL14O/mMcfnv
+	 3dhDKzGe02KlGTZ+zKutT5O1ZUFpoXt4izPs5rVIKm2whVyFzPrC2oKOO7Qil9ytWv
+	 f8lYjI+F2ftug==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5A67548A16;
+	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:44:58 +0000
+Subject: [PATCH 3/7] drm/panfrost: Give back the pages of a heap chunk that
+ failed to map
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,100 +84,127 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-31-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- imx@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>, 
- linux-arm-kernel@lists.infradead.org, Sascha Hauer <s.hauer@pengutronix.de>
+Message-Id: <20261110-panfrost-long-jobs-v1-3-24508939ae8d@gmail.com>
+References: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+In-Reply-To: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+To: David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=3323;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=oQpWmLCqf1iAHBCQa+93x7LSuBekHjA6s9/N4mAhsDQ=;
+ b=q8FxM+RVA8I02+Ov5R2YmLbImHVeteBSHQilAwpzNNl3kdGphbWOGLak3vslgyHAysQdOCuyP
+ qafHNoVHmzECdLI1FfCNx6b0eBsKqBMZ0VgOtJ9nefilrj9qgUeY6uS
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Keep chip metadata and controller storage alive until the final MTD
-reference is released. Unregister and disconnect each published chip
-before releasing the resources used by its hardware operations.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Retain the embedded legacy controller and drain I/O before clock
-disable.
+panfrost_mmu_map_fault_addr() grows a heap BO by one 2 MB chunk per
+fault. If reading the chunk's folios, building its sg table, DMA mapping
+it or mapping it on the GPU fails, the folios that were already read stay
+in bo->base.pages, while the chunk's sg table stays empty. The next fault
+in that chunk reads the same folios again and finds their pages already
+owned:
 
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: imx@lists.linux.dev
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+  if (drm_WARN_ON(&pfdev->base, already_owned))
+          folio_put(folio);
+
+Before commit b49c35ba0ce1 ("drm/panfrost: Fix a page leak in
+panfrost_mmu_map_fault_addr() when THP is on") the fault path skipped
+pages that were already filled in; since then the array is filled a
+folio at a time and an already filled page is treated as a bug.
+
+On those error paths, put the folios read for the chunk and clear their
+entries, so that a later fault in it starts from an empty range.
+
+Fixes: b49c35ba0ce1 ("drm/panfrost: Fix a page leak in panfrost_mmu_map_fault_addr() when THP is on")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/mtd/nand/raw/mxc_nand.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 34 +++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/mxc_nand.c b/drivers/mtd/nand/raw/mxc_nand.c
-index 4d8b92e7e672..d9f1e57c1ebf 100644
---- a/drivers/mtd/nand/raw/mxc_nand.c
-+++ b/drivers/mtd/nand/raw/mxc_nand.c
-@@ -1686,6 +1686,11 @@ static const struct nand_controller_ops mxcnd_controller_ops = {
- 	.exec_op = mxcnd_exec_op,
- };
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index ba37da499..13728b0c4 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -597,6 +597,28 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
  
-+static void mxcnd_release(struct nand_controller *controller)
+ #define NUM_FAULT_PAGES (SZ_2M / PAGE_SIZE)
+ 
++static void panfrost_heap_put_chunk(struct page **pages, pgoff_t start,
++				    pgoff_t end)
 +{
-+	kfree(container_of(controller, struct mxc_nand_host, nand.legacy.dummy_controller));
++	pgoff_t pg = start;
++
++	while (pg < end) {
++		struct folio *folio;
++		pgoff_t n;
++
++		if (!pages[pg]) {
++			pg++;
++			continue;
++		}
++
++		folio = page_folio(pages[pg]);
++		n = folio_nr_pages(folio);
++		for (pgoff_t i = 0; i < n && pg < end; i++)
++			pages[pg++] = NULL;
++		folio_put(folio);
++	}
 +}
 +
- static int mxcnd_probe(struct platform_device *pdev)
+ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 				       u64 addr)
  {
- 	struct nand_chip *this;
-@@ -1694,10 +1699,14 @@ static int mxcnd_probe(struct platform_device *pdev)
- 	int err = 0;
+@@ -671,7 +693,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 		folio = shmem_read_folio(mapping, pg);
+ 		if (IS_ERR(folio)) {
+ 			ret = PTR_ERR(folio);
+-			goto err_unlock;
++			goto err_put_chunk;
+ 		}
  
- 	/* Allocate memory for MTD device structure and private data */
--	host = devm_kzalloc(&pdev->dev, sizeof(struct mxc_nand_host),
--			GFP_KERNEL);
-+	host = kzalloc_obj(*host);
- 	if (!host)
- 		return -ENOMEM;
-+	this = &host->nand;
-+	this->controller = &this->legacy.dummy_controller;
-+	err = devm_nand_controller_init(&pdev->dev, this->controller, mxcnd_release);
-+	if (err)
-+		return err;
+ 		pg &= ~(folio_nr_pages(folio) - 1);
+@@ -693,7 +715,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 	ret = sg_alloc_table_from_pages(sgt, pages + page_offset,
+ 					NUM_FAULT_PAGES, 0, SZ_2M, GFP_KERNEL);
+ 	if (ret)
+-		goto err_unlock;
++		goto err_put_chunk;
  
- 	/* allocate a temporary buffer for the nand_scan_ident() */
- 	host->data_buf = devm_kzalloc(&pdev->dev, PAGE_SIZE, GFP_KERNEL);
-@@ -1796,9 +1805,15 @@ static int mxcnd_probe(struct platform_device *pdev)
- 		goto escan;
- 
- 	/* Register the partitions */
--	err = mtd_device_parse_register(mtd, part_probes, NULL, NULL, 0);
-+	err = nand_set_release(this, NULL);
- 	if (err)
- 		goto cleanup_nand;
-+	err = mtd_device_parse_register(mtd, part_probes, NULL, NULL, 0);
-+	if (err) {
-+		nand_disconnect(this);
-+		mtd_put_master(mtd);
-+		goto escan;
-+	}
- 
- 	platform_set_drvdata(pdev, host);
- 
-@@ -1821,9 +1836,10 @@ static void mxcnd_remove(struct platform_device *pdev)
- 
- 	ret = mtd_device_unregister(nand_to_mtd(chip));
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
- 	if (host->clk_act)
- 		clk_disable_unprepare(host->clk);
-+	mtd_put_master(nand_to_mtd(chip));
- }
- 
- static struct platform_driver mxcnd_driver = {
+ 	ret = dma_map_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
+ 	if (ret)
+@@ -720,6 +742,14 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
+ 	dma_unmap_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
+ err_map:
+ 	sg_free_table(sgt);
++err_put_chunk:
++	/*
++	 * Give back the folios read for this chunk, so that the next fault in
++	 * it (the chunk has no sg table yet) starts from an empty page range
++	 * instead of finding it partly owned.
++	 */
++	panfrost_heap_put_chunk(pages, page_offset,
++				min_t(pgoff_t, page_offset + NUM_FAULT_PAGES, nr_pages));
+ err_unlock:
+ 	dma_resv_unlock(obj->resv);
+ err_bo:
 
 -- 
-2.53.0
+2.55.0
+
 
