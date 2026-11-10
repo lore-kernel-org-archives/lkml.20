@@ -1,104 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304571;
-	b=3GimpawSc/hxtxg0mYxD+387Gb/y4AW8gwIqLhRnhxqtqZuGGAnVJfAzDMPjwbTCgK5S
-	 b6Vs2Xtq2oVB0JDgbpBBfWTaRajtqg548RPRoetjbP0xUvEKaX1JTwzPH62tVrEV1+AnB
-	 MuFAGteVWK+YujfYjV/KffafHNlzV3JBxWas1rY3tBk/vWm6EdsSAV6WfM8IsC1kmSJLD
-	 FoJYMQRj5rLT4jD85zJGr7j18q1zH5svzixNfEOHsDMlcS78RRdPnXWtQQ5meNdkq8Io6
-	 8hSaslpDDYD97mmaCwYpXAJvtVCplIzV6xypZwFe0u4rIiu0t1LaBZcSHkQY/ijnBnQ==
+	t=1794304572;
+	b=JigOgBN6olW5JQmuuvhsx5qWJxz93j7/2oDQp/LssBV4OIq8HEBiWA2n741TrR8NxF6y
+	 KUaRbiVsEGLPys7oP1paXtgx4m/JKPXSsuQ+9J7xZuZL5ZhPV8cizPsTZzJS/VUNjOgwo
+	 yWKuVDV64hKT65TltJruLxEhKOpYbyqfloOl5yUMjiWmTb+ku6QagwyZTNBT5RLBkMpEI
+	 J9DqPXqxF5LjhVri0zu9WuJpkRflllQhq7E0qBnAk9yuftEGlcDu3HPMw2T4gRGYKCgM6
+	 QbOuRvGnZ90OfChbuZvo38lb6Lf+3eki537wZW8spD3cfZmitBShFdeU0TdY9Uf6onw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304571;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=k7ESrloobDv7SNdQrKyuiHBRBGJ/v+HpoIq/NFIvBiY=;
-	b=Aa0CrR+TMqAtQI/Wb6MLNiiuYvLE5FPpekKERucQMDqcd2X4JmeLQJie5C2phpVtva5U
-	 SvXM4SFR6pb/m8C+lgdTPiIP2GXmYWGLFSntWdn9E8si3YrM8ea0JTiwwyt154KEUgQYd
-	 BQlfxj1r3bCsGimype5ZqC+MkrTGmNxQJi8Hv/Pgbl4Y2Te6rYZxkHV+YTnm0cnyeXUtj
-	 PPYlya/uxp/g+5Mgu+BkQoHebbDkth7RHis4UqX8a5SD7PGjXISvDSz0BD3RSgz1VolHu
-	 zH4s1pIOYdVvNUcK0pj1r+k/RvyaB4sHH1dLL1uhrAdYWblx5+UlLXXmAEBSTJHngEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304572;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
+	 X-Spam-Flag;
+	bh=njqIDeu4mZ9D1qm6umrCPHuDUdn8t4YgJWAoQ9l6i2I=;
+	b=sSnUx+F2FIvAFDhRuU1/Oj1IQxLQ8PgBJwihNi7bRaNa77KgPlWki1q5aMX/BG5J3T99
+	 X0G9eqZS1VwVnGSOC8wvgKnie+2W8J1lAlgpVz1z78zekgJav9UKcxw+jgEv1f+Dfh+m5
+	 ngUWtE2Y+z+df9hQM5XgdUB01XArMHPKc8pbLQXkoqb4wV5k9GQQ7ZLMfR0YiLHVzi6iB
+	 AeP3eHcJOhpCjcu/KAZcpzW0oQVfDQmUrCZ2LAXKWft3VotR8Y9MeaPijhLG1ADeq/4nw
+	 taovyXhPK3X+q6EqwLcQbUagxU4Irrw452XF91EtphIo5STiCM2MwhTuZuA6PXx4NSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HipcaoUQ;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=W9zRrQU3;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=W9zRrQU3;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326BC606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F00606A321
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:56:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326BC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F00606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HipcaoUQ
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so3596245eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:56:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794304570; x=1794909370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k7ESrloobDv7SNdQrKyuiHBRBGJ/v+HpoIq/NFIvBiY=;
-        b=HipcaoUQg0pdDvcbtAXJBoPA32Fo2G+7P+Qt9wzwiOElVHvFFn4SltuB/XsXbCe6//
-         Efb2bL/d7cEDCPkoovWwVLnbdDQUsVFkh+k0Mwe7KSKL+3AqwN2pHc7m7fpCOj65ZNzf
-         +eCW7i9YbK1dilJwdSBnX9VHeIcSM5CKyRWoYy1m9h0K7OTJ+KykVz+TU6RwX4MGCKEn
-         9FzIZQ3UNTJJ+Qj/k1rvzHCxYyo862hWqQOv3MnjMFwl7TQDZ7oIFImgoaiybqliYHnu
-         LnDfCywsmj5txM6hfVUM2aTERhQWgD7TkVhSda2feVR+Qlnur4Nc5yJWR3NLn8LHsui2
-         UxKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794304570; x=1794909370;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k7ESrloobDv7SNdQrKyuiHBRBGJ/v+HpoIq/NFIvBiY=;
-        b=p3jpiyzw37qI2E8sGi9u7d/kHoTpMfTpCtkfLGJMZ1DvqfJW9gOP8vZiZyMNBMSp9s
-         IY1y7y1/E3vzu7q/Xz2K7TnsxchipviHakbWj3CKwtEGNtajTBWBXCn5iSGh8iLHOITk
-         Ga8c6GdgKAl6APm4qeotZeDvBw51T7k9/UtRfGtu9Hp3CAcXsYuNb0lv+l4RyH9GzzZb
-         cfij5mjy1BaKxOOq5uAjyHP3oEypnAN03yTxsg/m+mQ41BwOahjK9lZGidI8dkU0NBJj
-         ISFpCL3NwPKGpUjrziLTV+IvOWyvMqL1u8O5xzBxx7baavY27tSUWh7LWUyaIAtDgzO4
-         xKAg==
-X-Forwarded-Encrypted: i=1; AL+hErEiO+ewo4FrrI5mnQQtrTx0TL27hMkKoFg8AqDIao4NTel3cCJ/OGsZ1q5xKs8hqxaHL4PjzrYDLrytQqc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9N5TnBozX1xwyrGT12l003xVon7tX+CjLW++3JVKPnC95TxAU/
-	xWKT1eSMsDHh3ZEJSdn1bTCer90Fb64KBJGMnMUqp0fe2G1iX2bV4S0p
-X-Gm-Gg: AYBFou0eQzQaYzzbc4jV0e9FzNeswzQeo13ugdrbONBs+Y8ZU6g3iEuaGq8sx1Iey/3
-	AdTHh6Ro62WfehoJNcOnKtO5+YXyMSbOjzZ1/NhBo8+gX90FHNBeCHHRHK0P5SZFBxRMqpxKUGX
-	ewXV14SxP4Kfwf8yCe7qRyEoNB08E1hMCyGaS1ZDYny9JmyUpNy9hqndquL8QJl9oYj/GPahbY0
-	zsWvE1Y9De+tGMzATedS7p2I7K0DBoLTKfn2zgaHfjkGM7zCab1AtLRtypXmTkqe9DzjfsKFa8S
-	r0Pe/rLlnWV612ejHyOMzdjm0ttQ2ZfQye/qOdBwHfYc379g094g8VanjigIxxuYjyMdwjDd1Uf
-	cU7cWixoTp3VaJuQIkFTZu7f5Rlpa5nBSv6hs5LdTQ2+I3GHmqjuYNQfvokE6AEFe7ew72ecjxr
-	UpyUO4BX3DNCWiaCS7PKbsriVUOGwiSlvBNrIEdFMtLmPRuBUmV612I7x4tbmDkOVurFmGc5drw
-	97IjNhW8G2C//C8V/CYRLlnkSvEzmWS3yrwLYffDVRXZdTTLYM/Wjgrcg3nJqcwpJOahhFpFAaR
-	3kBnffuNuzzX6lyiRkLzAr3mgrgoKn9XlEN9k+qZfL2xmujYz/kqaONtZHe5735Y+eGH3AdHeEG
-	Met4cCt8QIfJTyYOlssBEJ0IteTJwKtW8pLJ/qUtWQ48Hwhlg5uxuuRWP8BK0EV+0ww==
-X-Received: by 2002:a05:7022:7f01:b0:1b0:c224:5bdc with SMTP id a92af1059eb24-1b3b5fd1a6bmr2337472c88.14.1794304569837;
-        Tue, 10 Nov 2026 01:56:09 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b75d42sm5203801c88.20.2026.11.10.01.55.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:55:55 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Maxim Kochetkov <fido_max@inbox.ru>,
-	Andrew Jackson <Andrew.Jackson@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Tim Bird <tim.bird@sony.com>,
-	Yuri Zaporozhets <yuriz@vodafonemail.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 1/6] ASoC: dwc: Fix bit clock rate in TDM mode
-Date: Tue, 10 Nov 2026 16:55:20 +0700
-Message-ID: <20261110095525.504660-2-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110095525.504660-1-phucduc.bui@gmail.com>
-References: <20261110095525.504660-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=W9zRrQU3;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=W9zRrQU3
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0352D1F80C;
+	Tue, 10 Nov 2026 09:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794304569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=njqIDeu4mZ9D1qm6umrCPHuDUdn8t4YgJWAoQ9l6i2I=;
+	b=W9zRrQU3CDuE8opufyUhKZFiDx1U2FzMNsgoboYaMotC/UN/fuzX1o3DxbjGn5PXYzMgzz
+	BfcHSFEzonbMw3wX/0WH+Y6JBy4//QqKijcDW5USho2RkggJWYTnMr/Z8rPkhZwaSL/ogd
+	eqo8tnzp8lIr9j0lwcF2XbynsTN0QLY=
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794304569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=njqIDeu4mZ9D1qm6umrCPHuDUdn8t4YgJWAoQ9l6i2I=;
+	b=W9zRrQU3CDuE8opufyUhKZFiDx1U2FzMNsgoboYaMotC/UN/fuzX1o3DxbjGn5PXYzMgzz
+	BfcHSFEzonbMw3wX/0WH+Y6JBy4//QqKijcDW5USho2RkggJWYTnMr/Z8rPkhZwaSL/ogd
+	eqo8tnzp8lIr9j0lwcF2XbynsTN0QLY=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9E5F1339F;
+	Tue, 10 Nov 2026 09:56:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6GHdIDjq8mpWCgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Tue, 10 Nov 2026 09:56:08 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 0/2] Xen/gnttab: improve error handling in gnttab_dma_{alloc,free}_pages()
+Date: Tue, 10 Nov 2026 10:56:03 +0100
+Message-ID: <20261110095605.369848-1-jgross@suse.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,38 +88,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.995];
+	MIME_GOOD(-0.10)[text/plain];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+This small series is V2 of a patch Jan sent out early this year.
+I just added patch 1 due to some remarks Jan made when sending out
+his patch, and then removed some now stale parts of his patch.
 
-The bit clock is computed as rate * data_width * 2, which only fits
-a two-slot I2S frame. Use rate * data_width * tdm_slots in TDM mode.
+Jan Beulich (1):
+  Xen/gnttab: improve error handling in gnttab_dma_{alloc,free}_pages()
 
-Fixes: 221acc16aee1 ("ASoC: dwc: Add TDM mode support")
-Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
+Juergen Gross (1):
+  xen: don't allow gnttab_dma_[alloc|free]_pages() in PV guest
 
-Changes in v2:
- - Move the indentation fixes into a separate commit.
- - Add Maxim Kochetkov's Reviewed-by tag.
+ drivers/xen/grant-table.c | 36 ++++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
- sound/soc/dwc/dwc-i2s.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index dbda943cfaf3..1f4d06a82333 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -332,6 +332,9 @@ static int dw_i2s_hw_params(struct snd_pcm_substream *substream,
- 		} else {
- 			u32 bitclk = config->sample_rate *
- 					config->data_width * 2;
-+			if (dev->tdm_slots)
-+				bitclk = config->sample_rate *
-+					 config->data_width * dev->tdm_slots;
- 
- 			ret = clk_set_rate(dev->clk, bitclk);
- 			if (ret) {
 -- 
-2.43.0
+2.56.0
 
