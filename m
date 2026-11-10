@@ -1,58 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311567;
-	b=myTG0hiGolm69TbPnGNTapebi7jT0Eo2J2l9uqdaVPhoZrsOOEZg8Nhtsup6K59JKZU+
-	 19XTFvmIIvKYhIgSIYRjf9zOWdgmjiq3I+/TVMu7WNqFbN7Lv9PmDnOHGbgpWLYLMJCKq
-	 U5UoC3lkBj8JbANzyaTUtOXegepCCdla+/9LOLAch1ghmTD3ew78n96SHvBk6n4AxTDfo
-	 YwuaH0WECpoXFwg3VraAnGwu43kml+OV65t1d8QJ1hvgABc4uAE4aiSZLcHRJDDvK1SIv
-	 8Yzr8ihQiVrUFq+/i76tv8OAoZu4PgvjNHV5dzwAaLmbIVbtJzso6w6NU1AZLuuA7Zw==
+	t=1794311654;
+	b=ZeVhNkhMPPk4AJ9imDHJUOfmf11vxc+1kqQKbwxahK3DaoJGOhIC1Yt/UfSp70KlFp2+
+	 ZzPVdg4pKnBv60ziz6aTunD8xgYQAuG9SyauKWb/VOlFao0CWSW+bJKcCQKUMRpRTBd60
+	 jmfdpKpbAHse5DmpzIfLUA7LsMHwwXPf7F/KKhGn3qAPJFgS2yHIc7EYgb62qvtJ+HPQF
+	 tRwmyELSCnvPyb9L8oTAZaiwII6m/rvX/Qo7/97bNt/2KLyVYKd6br/0uhN1vn5K4wpRu
+	 M3CMRQXagSrEPbYl97+ue8CP1x6nQs9/G8Nt9kgb4i1gXY4ZmtGXOxrpjKCC9dFPz/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311567;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
-	b=lLz1uVuABKy0R/oE4ibXJrpYP3D4bHt/WMhu78sRimtVU14ifoJlKB8d7YV1ArVHbXQa
-	 RM2fcCEK8YK92UhdL1O05xg7XLCaVsaUBz1AqsW+L9vBPPmeWtirnN+iH+Xr3PblpzeHR
-	 PuHkU6g5Eu0O/2Bur5MOVDjblvuWZtHm6hc4leN8KJabJqoNPQRWBfBkXeNUuzfwY0S02
-	 QL4U7bs3HpEEJyU192XRtyq8Q9BH0QGXV0Ql7nxtdjIO9AJEtYt1zB7z4DuMJDR/bpQUZ
-	 akxJ1qfIi9KQeIcIr5bnhRXV2MYVX2ZiBBd+ekXSjS1qFREH4X+hCZZaRtqykjNczIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311654;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=00Fdwn10rGQVzKW8pjIVBgoz/XU0RjZKEKOP68LF8SA=;
+	b=dhBCx6ddPYRiHttxke055AACcUGMSZXzyP08klZmJsjQNmkWxvy0dZsIoEtUXyRJ1Ibq
+	 AGXuCXAbQG5ayJqIvzeLFqMepSAMF+uSEDHetEOwDhVo8ELoQ4wlWitCXXxwDIVNYv4FA
+	 ufrZTDzr9IeXjPwOLW8zr4vE9f7AmQ+bQaISdBSj0zRsAdiOvJg8eERkDe+ZNzbC41GBz
+	 P69pMqb3MzzDuS2b/RVdJPcn58Btxjs3Zom+9lPNv5RGlRT18LwOMSRzup1a0DxvbV8v2
+	 s9u2SEaiggbFwcqxsGMncNm72gDQTmUJik6KCCt5pejOyX6/4BmNZtmu+XCRIlTbs1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fGDDh90F;
+	arc=none smtp.remote-ip=50.112.246.219
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96235606B5AB;
-	Tue, 10 Nov 2026 11:52:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041F3606A32E;
+	Tue, 10 Nov 2026 11:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041F3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP8HkjU5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EE91F0089F;
-	Tue, 10 Nov 2026 11:52:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311567;
-	bh=Q+IkvQtL5ObOy+q62Xc96m74OgGtoWgoqKq4zQpvAZ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DP8HkjU5T83IWyPjBkGBGk4rtnDD7AROqjLS347ksks61BqCyegrtofOXDOd2MLWj
-	 y5v5LekEWgJIwdi8jcSVZSOfNh6DNLeRf0oEPf/qx0r2rhECckbAgQ26HUC+9Op824
-	 TYWCdeeANpr3OrBAjhz4yPYln7Mawc17X/WCBA1PMuBGt0NlmdHwGEqMuCi+dix0x5
-	 qja565LmnhO5EGUi7MgurfmPOlTht4sa9a0fKJzxR+zIOMF4yf3pZFrolv35TtX201
-	 yu0bevNg1SHN2X4DU0xoVtcm7Zwier+QtgstMCRDMzA67VOyk+THdhPCTaOPcJMAJP
-	 vRjnlElsnjGNg==
-Date: Tue, 10 Nov 2026 12:52:43 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Demeter Barna <me@fromdisposition.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine:
- Add SM8350
-Message-ID: <20261110-colossal-dancing-clam-1db0cd@quoll>
-References: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
- <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fGDDh90F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1794311654; x=1825847654;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=00Fdwn10rGQVzKW8pjIVBgoz/XU0RjZKEKOP68LF8SA=;
+  b=fGDDh90FeQwzuXd2dGDIxVaLAUTC34HC9UalHX5/m2sE2R+4O/NarqTE
+   psn8lpE8LH/5EEICMjFbeRfy+AzDXBtyGkKEmG664Pmf24VGp2VdoOAnR
+   pCU6bVlW46OjAXy+SQYmRICAcVDM28U1hF7GhZjRgKX77DrHkx/uemiB9
+   RVyAMtq8CA0xsy3+qy42v24XHXvMj+7vWO5dCKq7O8raKa2fuYFZ2nRKd
+   EdbAIk88/oJhKSx1pnvtdC/7387UMMo//OFqumRTZLia0k1q6dDwYRCPr
+   Sblp/U2PeWbJqFwouEQaiaRfloL5uWWUhOG3c7fIHUtOkXNyBdMweHcXS
+   g==;
+X-CSE-ConnectionGUID: SVXNrMN+THCX9A4p6AfVrw==
+X-CSE-MsgGUID: k3mSKaVWSnKq2dUmFntIYA==
+X-IronPort-AV: E=Sophos;i="6.27,205,1787011200"; 
+   d="scan'208";a="33384274"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:54:11 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:22431]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
+ id 739f06b5-ed38-4d68-8e1c-236e5caac1a0; Tue, 10 Nov 2026 11:54:10 +0000 (UTC)
+X-Farcaster-Flow-ID: 739f06b5-ed38-4d68-8e1c-236e5caac1a0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 10 Nov 2026 11:54:10 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 10 Nov 2026 11:54:09 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+CC: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuah Khan
+	<shuah@kernel.org>, Hangbin Liu <liuhangbin@gmail.com>, Liang Li
+	<liali@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] selftests: bonding: feed link monitor to deflake prio_test
+Date: Tue, 10 Nov 2026 11:53:52 +0000
+Message-ID: <20261110115354.2250237-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <auvnnIXQV2zufxtF@fedora>
+References:
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,24 +88,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-b4-sm8350-ice-v2-1-fd5e84985e90@fromdisposition.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, Nov 09, 2026 at 01:55:29PM +0000, Demeter Barna wrote:
-> SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
-> hardware key manager behind it, clocked by the UFS ICE core and AHB
-> clocks and powered by the UFS PHY GDSC. Document the compatible. Being a
-> new SoC, it stays off the legacy single-clock list, so both clocks and
-> the power domain are required.
-> 
-> Signed-off-by: Demeter Barna <me@fromdisposition.org>
-> ---
->  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Hi Hangbin,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Thu, Nov 05, 2026 at 10:19:08AM +0800, Hangbin Liu wrote:
+> If the kill fails for some reason, will we wait here forever and hang the
+> entire test?
 
-Best regards,
-Krzysztof
+No. bash keeps a terminated child's exit status until it is reaped, so if
+the ping already exited the kill fails but the wait returns immediately.
+Only a genuinely unkillable ping would block, independent of kill. The
+idiomatic form is kill_process() from net/lib.sh, which short-circuits
+the wait when the kill fails.
 
+Let's disregard v1 anyway. Your question made me look again, and it only
+treats a symptom: the Sashiko review was right that the mechanism in my
+commit message was wrong. I'll follow-up.
+
+pw-bot: cr
+
+Thanks,
+Bjoern
