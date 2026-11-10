@@ -1,61 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326265;
-	b=WyQQy68/y/P5o2UuQe4DDsT/Gajpca2ax+rSH6+8bQKuuGwijzR2dImL/B7q9iVRdXJK
-	 kLd6TRwo9b2O0UaJwLVwLOQ0HXHTXCAt7G49wU8xSAh+F/lUNYfj6rOwXnH/BC6goKR07
-	 CQeuNRZiBlMXTCvTtDDDN8PZeKgu01vPUxPGVNXbEVVxgpVRbsVMQa261hOw93USxBgly
-	 SuUgIPpV1M3w35fi12JwyOc3FFOTKQd7S406z3gmPwYs97Gs4rFR42A3bdSr/mSgqVM0h
-	 zW0FkVT5ojZ5Vx5B1/RtRx2OVjVr8m/U8GWVnJxsAxDfb6Y7ZPrI8Z0pAbrQc96Nn6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326265;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XJwsefjVaveYZaUliYO/CZG3zDAU8kboouxJy1sNukw=;
-	b=MmnC1TlKimLtfTXHeEI/xFdl8NyKF2GGaVw4Hp8n031MxfaG2GJkN/wDKLM/NhVcHELh
-	 eqzyMRqyBqeViCHECpyF2iE2wVsx8oaWdlSChFM+2WvU/38D+R8Pp2VRlfxSMEWibJF5O
-	 uOoC0icQSToDvzO+B4TjPrneV1U9rPaIm8QQjAwUqBzSKEtcSWtF1mhUyM069ed/VxEBx
-	 DFcDnvLP8eM1HyVAR5PCgNgZlmM5lBtofu3ZfICbMBX6p/XuwzDMjlMGTp93lX505wk/7
-	 NcAC7iIsE/cg/qGQ/PiNYe+hmrxFTuOFBVXoYbBvmMNwrY9B5Jjzu/ippc02+c8yFlQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3hlURjL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794326290;
+	b=kHa+3fXgYbuJi/yAKe2EJ1bUtLQ+IP4yQG4suYtfcwe9ou1CxiiBLBRrIlNdiV2f5SEX
+	 V57Zel4nZEmja6G3/pK/syJEjYtRex0cYMS71VRfUar2fawSYkqpGpwkhW+BLGieHYCHg
+	 sod4dCvcjquBnpBaCzp6yvbpFpzhUzG3FJ1WHpjAa2Yke51gqXVyDzd67GCAd/sXQ8+aO
+	 iYlI/si5uoGTdI0GcKjhGXp/3sBzWyDOF2VeTr54MuEJMeTwOW+qk3j0SRETkZO+1iA68
+	 hH8mFapRRQ2wuQ1YF7uFsSxbKPPdpTCErFK3hE/AlnRM0Xx1SagmNnJj19RNHNM4nig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326290;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=EsbKpFcuLMq41Elq3siL6Ogks64uU5Zyr5ZlrtXoBoE=;
+	b=lqG3Fs4ksxqRCDLNncqLc/Kk4ZAA1oI7tD92oIIDeR7d9pGpXCKlVdtdYVHk06U0Jx96
+	 yax/iekTzMxnLi1f26Arbu6zStD00tLaEvrGCSEPXrZb8recvrfTiVfeoUADLImIo/VUL
+	 nkH1mMWbuirQplOchJWe4J4NTouJY+Dj7T3L9ejI08Q5Whhzcym3Op+s+DePJLlUsIpel
+	 62mURyS7Lux7jfOdwXpKd745fWlamuaeWs6aFp25PAqsw8hVZkzqwg330OhxNDE5fPW87
+	 +VB3fKF6il3LE8LUu0sdrytuHUd9ap1GZ8n9XpbmqZK4pqDViCqtG7UPSOz6PztIk8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q79zNSdD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9F5606A330;
-	Tue, 10 Nov 2026 15:57:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C2A606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:58:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C2A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3hlURjL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C081F008BE;
-	Tue, 10 Nov 2026 15:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326264;
-	bh=XJwsefjVaveYZaUliYO/CZG3zDAU8kboouxJy1sNukw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f3hlURjLe6WtMd1ogimfqcw5Fy5jhN0/5fGaM9qQ1j71lr5gyWspl8BX6XdY/mgfv
-	 NAtItad9jotkAVbrbqn5HjD8gDv9DBAm5qPCxVkNzwUGW0CnQa4ivlYKO8K+AAbc+o
-	 6M0c3y2PVvOKQmTha6q4iyKrb9UQrPww8ppZGxlk6ez7ZutpJpmSskCjD6jqs3Fb5g
-	 cZgot1B1WaQneHRwD59XrlWaxDesOlnWmzVkNN+FcCt0XivIKw60DKzJUvFrQsl0VV
-	 1iOkTwSegXSamFk9u0pUlL1+rhsXOH5PQyY6/FZ+7sZT2H1M8boAjN99RVdP9dcIM6
-	 MGJHnVnXg5faA==
-Date: Tue, 10 Nov 2026 15:57:37 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Will Deacon <will@kernel.org>
-Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
- full dirty ring
-Message-ID: <avM9i8xWNZ2fU8_2@gremlin>
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-3-fuad.tabba@linux.dev>
- <avMoubwqgXbpflwM@gremlin>
- <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q79zNSdD
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1458803f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:58:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794326288; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jBcBCVrBlRg/sMIUtrURrBD8fyy5E6Opyzs0JG7VA5yd19rzCZV0JhSjz+jfHYAxxl
+         CtopKTP+N+ztLMDXI90MxMycxq4scFJxtoA/Fgw0M1NZ9uE9tWiaN76HT6hcS/vcM7/i
+         eMItbEMfZpov+PumhvBHDoC8hSQly/gQOvIc4eusDlpFrgo5Ahk8ALHJvha95k/0AQw9
+         oBpquhYTCqng07sh3VrW0uokRU+aG86/r8uDfvhgO/Lfr2W0oNifSOERY11wCCW1FKP2
+         jcwL6TdLVMbZub1ISlETenZqRQ0BxbtCMSX3LH07/0rAZ6KbKrBtR3HLEDVSrm9iTNgt
+         gOgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EsbKpFcuLMq41Elq3siL6Ogks64uU5Zyr5ZlrtXoBoE=;
+        fh=fTA2UtpfAAGu3AWrqSM+kfNr+XUtEZz/ZBP2jMdZTZg=;
+        b=bb+22rrX1lnO42DsPI3gzR/3j7LhG7Jqk83JyouLD7iYKFgJEKGCciozU/gjZTIaPS
+         1KnSoDfQleM9xJ7qPX+g7rsUoCj0x5HqgKmPXejo6zYMPwLyIXgW3vDzhuLDnTKkl/25
+         trkDvf/WHmX8uWCWDz5yNYRMa7ky0tZSfReFWgHUZl0GoEhSVugQtLo0SJZF4bRDzcGJ
+         iYf3rbyq/3D+8t33ZIrayMWTMLOCVS1maCS8kqLWr7uvcHkBlid/xDTYe/nIxRke6Au4
+         S5CdtlbWR4XaQyVELF0bDRHYPE9cqHYXRrEH+St3rJabHQI5paBfhw4bn7EC+Gj/Lihf
+         J3Wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794326288; x=1794931088; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EsbKpFcuLMq41Elq3siL6Ogks64uU5Zyr5ZlrtXoBoE=;
+        b=Q79zNSdDUkIkW8QYnHL5dRfVZhyo3YrEKQe0HL6dhmDyhzaUk/x/kN+quabtnbkJkD
+         05Jgvk/OGWba/oWsoXLOBAgR0aFnwUBpoItFY5UBERV9LY8mjnQ5nCx/tq9yOXdfD+N1
+         qi87NmiMuLPmMsXvnnAVYUyr7h/hqDbpRr+hUTi3QbMIKNPzHAOPdqbXWF4BHvzIo81w
+         3kXNcutCo7dJlu+8O+oPjQdjv/ZbNI5dNQXvbF1Nt5P8drlD5WmIDqN2yK88iDdwsJS+
+         R/OAziKpJhTgLqQzRSaXm0y/4MzpZDfuD+0xpncEE+gWGkR6YGzKtxniDUCBwL7MMd7g
+         4z4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794326288; x=1794931088;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EsbKpFcuLMq41Elq3siL6Ogks64uU5Zyr5ZlrtXoBoE=;
+        b=n3mSBCvMqD6WRRZ05zOEGWeE5QcZGZmrYKvcyqIoaSliHoWMCG3DPxp7adO/pub2g1
+         W2dAw6CWRHnCYwdJe/rU2lbOoF39MPFvWGJFlIUBzeAiM5BRJttSg+r3w1xQaTZ+Nm7Z
+         inhn2IHnyBb0SWKX2uNCYWPq1Xu34sUBzUGNxfq4CT66Cp7vaZQoYUzfb14U/Y50HQqP
+         QsJdXatD6e3IDblTATgMFSeS2nXlBDTzIvYp5EGZG09SuRRFvNWXKvJs7UK//FnEXKBQ
+         m2PfyVOHTeRqihZekfqLFkV+4ndrV9TrmuA/qRPmnDCi9EgXCI8fqdMBU24+j0WvGIFf
+         ImJA==
+X-Forwarded-Encrypted: i=1; AL+hErEXjFW9Ico/fAHueUFFT3gLXWHDC9fk+U413XoMyApa7Cx9/38Q9fjno8RNyOcmhSEhU5YL6ObAkazNnqk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nUyk/rYPj0kmOkwPfBi3BemgjFGUEfACkRF6nwLYSbBjicv2J
+	RW7+PQ5r0TETAGmv3pQYr4tQIXoahmDF1kr/NdZ5CXPdbe+cxiIjuhOA022wSgEd0vWWQfAUe2E
+	2z/ZyFO1VpSvsE2ahAP90chhjyFcJ+uE=
+X-Gm-Gg: AYBFou0WUDIPPY/PKzXaJfDdbwKcIM/uJLT0UoRjSnu8jzTKDf7LYwC1CrSk0PVHOzn
+	PY0LnZwF8IHw5hdqkU5I9kdD6fo4Wa66vma50iS34lbDsYtwieW2tjMUPUKqc3akcnehANOme+u
+	f0zXA27ImfrjskdQZyJi9u8wrEpLu83vtDIrwhtvS/lN/uauK3/LMtSG6d76IY7KhclGUgd50xf
+	OUh3FbzFlkTibGGCluMgUgb4sSuQ+vx6YqwBDlrgYTdEakFvO2rR4WCEmUtrY4Q87AYoAXeGNeJ
+	BfYkN7wftrT23xYyVFVvGL3Ab1xmYTGm+54eipIeFntnTTCXEtZLWSm9WwosAOo+1eGUPk4CX8d
+	C1lVwjaIyoA5xiZm7H4JXcstnpdYs1Yut8lu5Kd7WzQADL+m5e4zWTgaVxiSBjv3V1J82kmPx47
+	MWMdYQp0F4RYJZDB86eUboqraCvWkkcDIt7QiKFSas3A1WFsqOa4C6Kw6rhw==
+X-Received: by 2002:a05:6000:1acd:b0:48f:bbb5:61c2 with SMTP id
+ ffacd0b85a97d-49835e20dfamr5690481f8f.4.1794326287951; Tue, 10 Nov 2026
+ 07:58:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,117 +105,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+References: <20261109114123.797741-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXc=DRkGOhc75Zq524X9Rcc7OOMs6dy0rj0-zm+iFP1wg@mail.gmail.com>
+In-Reply-To: <CAMuHMdXc=DRkGOhc75Zq524X9Rcc7OOMs6dy0rj0-zm+iFP1wg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 10 Nov 2026 15:57:41 +0000
+X-Gm-Features: AclHuK8VhXmMiM-0xoy1Quk2mtTjBlhaN-fEKwHUTOUmC_0XTYG3Vg7pF9M9bxE
+Message-ID: <CA+V-a8vtcZA_51PmDVWMKsOWaQB+CVDe=qh2FG=6iH2Rf2szVQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: defconfig: Enable the RZN1 RTC driver
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 03:37:05PM +0000, Fuad Tabba wrote:
-> Hi Lorenzo,
+Hi Geert,
+
+Thank you for the review.
+
+On Tue, Nov 10, 2026 at 1:47=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
+k.org> wrote:
 >
-> On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
-> <ljs@kernel.org> wrote:
-> > On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
-> > > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
-> > > holds, and check that each call stops before the ring overflows, that a
-> > > retry returns ENOSPC without progress, and that the harvested entries
-> > > are the pages in order. A read pre-fault can map a page read-only, or
+> Hi Prabhakar,
+>
+> On Mon, 9 Nov 2026 at 12:41, Prabhakar <prabhakar.csengg@gmail.com> wrote=
+:
 > >
-> > Are we asserting an invariant that prefaulting happens in address order
-> > here?  Is that explicitly presumed in the prefault API, or just how it
-> > happens to pan out?
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > >
-> > I wonder if we might decide for whatever reason in future to do things
-> > differently there. Bit nitty I know, but wonder if it's asserting an
-> > implementation detail?
->
-> Yes, the API doesn't guarantee an order. I'll assert that every page
-> is reported exactly once instead.
-
-THanks!
-
->
-> [...]
-> > > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
-> [...]
-> > > +static void test_pre_fault_dirty_ring(void)
-> [...]
-> > > +    /* Populate the pages, so that pre-faulting can map them writable. */
+> > Enable the RZN1 RTC driver as a module. It is used by the Renesas
+> > RZ/T2H and RZ/N2H SoCs.
 > >
-> > Reviewed below, but I wonder how x86 could then read fault these?
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
-> writable when the host page is, and marks it dirty, unless it falls
-> back to access tracking (below). Populating the pages makes sure they
-> aren't backed by the zero page.
-
-Ack.
-
+> Thanks for your patch!
 >
-> [...]
-> > > +    while (range.size) {
-> >
-> > NIT: n could be scoped to this block instead.
+> > --- a/arch/arm64/configs/defconfig
+> > +++ b/arch/arm64/configs/defconfig
+> > @@ -1393,6 +1393,7 @@ CONFIG_RTC_DRV_TI_K3=3Dm
+> >  CONFIG_RTC_DRV_RENESAS_RTCA3=3Dm
+> >  CONFIG_RTC_DRV_MACSMC=3Dm
+> >  CONFIG_RTC_DRV_S32G=3Dm
+> > +CONFIG_RTC_DRV_RZN1=3Dm
 >
-> Will do.
-
-Thanks!
-
+> I don't know what happened here, but this is not the right location to
+> add it? Moving between CONFIG_RTC_DRV_PL031=3Dy and CONFIG_RTC_DRV_SUN6I=
+=3Dy
+> while applying.
 >
-> [...]
-> > > +        for (n = 0; ; n++) {
-> >
-> > Could this loop forever if cur->flags always == KVM_DIRTY_GFN_F_DIRTY? Or
-> > is that guaranteed not to be the case?
+The configs weren't sorted, so I added it at the end. Thank you for
+taking care of it.
+
+Cheers,
+Prabhakar
+
+> >  CONFIG_DMADEVICES=3Dy
+> >  CONFIG_APPLE_ADMAC=3Dm
+> >  CONFIG_DMA_BCM2835=3Dy
 >
-> It can't. Every harvested entry is set to KVM_DIRTY_GFN_F_RESET and
-> stays that way until KVM_RESET_DIRTY_RINGS, which runs after the loop,
-> so one pass stops after at most a full ring.
-
-Ack OK.
-
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> i.e. will queue in renesas-devel for v7.5.
 >
-> > > +            cur = &gfns[fetch % entries];
-> > > +            if (smp_load_acquire(&cur->flags) != KVM_DIRTY_GFN_F_DIRTY)
-> >
-> > Is this and the below release paired with equivalent stuff in the dirty ring code?
+> Gr{oetje,eeting}s,
 >
-> Yes, the acquire pairs with the smp_wmb() in kvm_dirty_ring_push()
-> ahead of the flag store, and the release with the smp_load_acquire()
-> in kvm_dirty_gfn_harvested(). dirty_log_test does the same.
-
-I know it's test code, but general kernel practice is to add a comment saying
-what memory barriers pair with so it's easier to track, could you add those for
-these?
-
+>                         Geert
 >
-> [...]
-> > > +        /* A read pre-fault can map a page read-only, or access-tracked on x86. */
-> >
-> > Hmm under what circumstances would that happen? Is there no way to ensure pages
-> > are dirtied by prefaulting? I imagine not though!
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
 >
-> No, it's up to the architecture. arm64 maps a read fault read-only
-> while the slot is logged with a bitmap, and x86 with EPT but no A/D
-> bits maps it access-tracked. Neither pushes anything to the ring.
-
-Right, OK, makes sense.
-
->
-> > > +        if (!n && !harvested && !range.size) {
-> >
-> > Hmm, so !n && (harvested || range_size) will pass this, but then you assert
-> > n immediately below, so it seems like n is an unconditional requirement.
-> >
-> > So I wonder whether this should just be !n in this conditional or maybe the
-> > assert afterwards should be dropped?
->
-> The skip is for when pre-faulting dirties nothing at all: the first
-> call maps the whole range without pushing a single entry, so there's
-> nothing to test. Any other empty harvest is a bug, which the assert
-> reports, so I'd rather keep both as they are.
-
-OK I see. Really the assert below is !n && (harvested || range.size), maybe
-clearer to be explicit but it's also a bit noisy so not a big deal.
-
---
-Cheers, Lorenzo
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
