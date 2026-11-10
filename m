@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342508;
-	b=Ceo4hLrPUOgOdqaUEC4XFx6tTKyWbC4/Qn2plDSpGq8SkfijsO5khS4kZwiTwEd2nskK
-	 d2SNiBNB4Z9vYe0ISsE72FxGyWNfUfQPfKPhjuQXBCBlYD2pPghIJXXwlt19GwObdGAek
-	 rvg2f8kN176wuiblxGIoSzfaR0ddOToEp1Gv7Hy6PY6sdghFOfObLN8vh0iqSAGi2fogV
-	 2De8QUvDwrj3ESwBBvAvLmPK2YTdIV2pJfUbTeQ3/u39OS6G4ZmUVTwSxew83XYbR4aJn
-	 7m3RtPV55W2oDdZvIc/6WDVMM4WrWX9Tnt22z6qen/kKH8vaUh0NZrTnsqA8ochvnKw==
+	t=1794342500;
+	b=C/Ud9bxwXPhJcz+BXZWANKnjrxGDQBJIHJOqiM725NQK/P903Spt2YjewKZCc0oLS1Zj
+	 4uRopmSlVmISyLhQYRP7o8cdhnparwpMSyClIqZwUqM49MDWQoN/upo7LzBbY3rSUkIgi
+	 OYCkquOaJyFiVTbGSKJexSWky2lrcy9qDU19uYRQIO+Gqb6i3LcTJduUU+m36PvLEJA8h
+	 rSxWWJJSewBudwKAewYq4DEaZTN0wUXRJEHUsNVmr1yQVUvfD5/cYhVMG1xmps92ZxXLa
+	 2j2WTZo2Y9IWbY3ix8jpRKllI1a+Me/KBlHN9f87uelKzXj9HSe3jCSU1FJkPT6/fOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342500;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=VC/yA8LuQFAXhdzNtcFAIsxI36LebW6JYbNmaan7FZU=;
-	b=zRt4M3oaa+yoqpnnC3LKtXMBYT9IXc/6tL8iMpvHkomfLN3G77uG0rfSF9PnXKQe/j8G
-	 JUZSUOw1lAfjbjnWJt+K1BX+SAl5DCuxKnRQI5EB3U9mI20Di+GlSTnE1TM5Eix6p8vgO
-	 2iXdjMEKuMO8zOilHGAGTRZxYX+7Kg/uGt8+8YRWCAzvtPlw7XRPdHCdQZ78vopc1JnxM
-	 oRAR9CPryb6RZTGXcZT8mOXw+PduE3SVrdWRqdOfKsL6ql7xePTc8Fo4pk7T4kf1p4hho
-	 3wcFGA/ZeQIpNmvjYcLk0Ddk68iEF7QmojMRUr3XvFS6XyUeS/s4rA4dANfl0W/p/+g==
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Infomaniak-Routing;
+	bh=18Upaku51TXF7f7RVBOgnNL6ZM9H8UnRIpYKn77kd8I=;
+	b=RP2Q4BSqpt6dKJ/mB41tiRUvWIkIFQMhPGlovAR6aZNHHIbM/TJTxZ3r++x7w0TWovnv
+	 8yCFfyHgE8LUhuoip5EIX+WhdGiScskYJvH4gSpBChRRNMT5xHF/8rRu2soHjfkQQJbb9
+	 +DhGz6STi0bnqSb+RXgYGrRYsETvs9QPCvzj9CWh5KYPGL6eiNf3hUIEmPScE8Uy3/ozv
+	 6cMOj7OnUqfm9XR2DxAmHqQeLnwhPUVaU5h5SRzsPGLrml7E2NIPxlIRZekdgl0uyTGwJ
+	 0NUEIKo1si88F7k0+KDj54ncp21CtcgtLa40iVYyEG8a17fCxxt7GSPGNlm8gA828/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=digikod.net;
 	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=A+Ugosja;
-	arc=none smtp.remote-ip=83.166.143.168
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=aaKjNMAc;
+	arc=none smtp.remote-ip=83.166.143.175
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782AF606BA57
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:28:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 782AF606BA57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17760606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:28:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17760606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=A+Ugosja
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJBX2l52zH03;
-	Tue, 10 Nov 2026 21:28:20 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=aaKjNMAc
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJBT1hyLzDcG;
+	Tue, 10 Nov 2026 21:28:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794342500;
-	bh=VC/yA8LuQFAXhdzNtcFAIsxI36LebW6JYbNmaan7FZU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=A+Ugosja4GAF8/VgKl3H3LDZlGbWeNoudrRHsjeiE9gDTWy69vSexuBLIv8X8hiZ7
-	 k8y9O4Sz26di+XVdJWTBgNM4j0XYTcxAnQGTOhR0xF4/eCGqUKMXfzHvsQg01t9Yw7
-	 4evPLA+RC2a344MuyHazXj8/Wasra9MhUHYco9Ig=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJBW05gvzxdn;
-	Tue, 10 Nov 2026 21:28:18 +0100 (CET)
+	s=20191114; t=1794342496;
+	bh=18Upaku51TXF7f7RVBOgnNL6ZM9H8UnRIpYKn77kd8I=;
+	h=From:To:Cc:Subject:Date:From;
+	b=aaKjNMAcjUMpcK3Mi2cc1oWepPvafda5NnJXtg4O67fC0qezloWSeXBCwTQo0WHod
+	 VC2xEceHUnvqQ15niSn2lfLoGJkZ5OVFgGqdite6eSyhFX/IBQERJ5Q7Ds/Au3mHUw
+	 YBSMt3oTb34+vZdnzm8povctJdtPpHh8Mch1uiJU=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJBR50kBztWR;
+	Tue, 10 Nov 2026 21:28:15 +0100 (CET)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: James Morris <jmorris@namei.org>,
 	Paul Moore <paul@paul-moore.com>,
@@ -63,11 +63,9 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	linux-kernel@vger.kernel.org,
 	linux-security-module@vger.kernel.org,
 	selinux@vger.kernel.org
-Subject: [PATCH 2/2] selftests/landlock: Test PR_SET_SECUREBITS mediation
-Date: Tue, 10 Nov 2026 21:28:07 +0100
-Message-ID: <20261110202811.2409395-3-mic@digikod.net>
-In-Reply-To: <20261110202811.2409395-1-mic@digikod.net>
-References: <20261110202811.2409395-1-mic@digikod.net>
+Subject: [PATCH 0/2] Fix LSM mediation of PR_SET_SECUREBITS
+Date: Tue, 10 Nov 2026 21:28:05 +0100
+Message-ID: <20261110202811.2409395-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,111 +79,57 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
-The preceding commoncap fix routes the CAP_SETPCAP check for privileged
-PR_SET_SECUREBITS requests through the ordinary capable hooks.  Add a
-focused Landlock regression test for this path.
+Hi,
 
-Keep CAP_SETPCAP effective to isolate Landlock mediation and run the
-audit case in a child domain.  A privileged change returns EPERM and
-emits an exact CAP_SETPCAP record, then an unprivileged-only change
-succeeds.  After the child exits, require the domain deallocation record
-to report exactly one denial; this proves that the second operation did
-not create a hidden denial without relying on an asynchronous no-record
-timeout.
+This is series 2 of 3:
 
-The existing check-exec securebits fixture already covers commoncap's
-privileged, unprivileged, locked, and user-namespace semantics.  Without
-the preceding fix, this Landlock audit test fails.
+  1. fix Landlock mediation of commoncap's capability checks;
+* 2. fix PR_SET_SECUREBITS mediation and add focused Landlock tests;
+  3. fix Landlock mediation of capabilities guarding LSM policies.
 
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Günther Noack <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Serge Hallyn <serge@hallyn.com>
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
+This series applies on top of series 1:
+https://patch.msgid.link/20261110202436.2408244-1-mic@digikod.net
+
+Since per-process securebits were introduced, PR_SET_SECUREBITS checks
+CAP_SETPCAP with cap_capable() instead of ns_capable(), so LSMs
+restricting capabilities through the capable hook (SELinux, AppArmor,
+Landlock and BPF LSM programs) cannot deny it.  A task with CAP_SETPCAP
+can therefore change privileged securebits, and thus how its
+capabilities evolve across UID changes and execve(), without the
+expected denial or audit record.
+
+Patch 1 uses ns_capable(), as PR_CAPBSET_DROP already does, for the
+changes that require CAP_SETPCAP; changes limited to the unprivileged
+securebits still do not check a capability.  It applies cleanly to the
+6.18 and 7.2 stable branches; older ones need a simpler adapted
+backport.  Patch 2 adds a Landlock audit test that fails without patch
+1.  It shares cap_test.c with series 1, which is the only reason for the
+ordering.
+
+Serge and Paul, a review of the commoncap fix and an Acked-by for taking
+both patches through the Landlock tree would be welcome.
+
+John, Stephen, KP and Matt, please check the AppArmor, SELinux and BPF
+LSM implications of exposing this CAP_SETPCAP check to the capable hook.
+
+Regards,
+
+Mickaël Salaün (2):
+  capabilities: Check PR_SET_SECUREBITS with ns_capable()
+  selftests/landlock: Test PR_SET_SECUREBITS mediation
+
+ security/commoncap.c                        | 42 ++++++-------
  tools/testing/selftests/landlock/cap_test.c | 69 +++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ 2 files changed, 89 insertions(+), 22 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/cap_test.c b/tools/testing/selftests/landlock/cap_test.c
-index c79bb42c6282..741567c5ab41 100644
---- a/tools/testing/selftests/landlock/cap_test.c
-+++ b/tools/testing/selftests/landlock/cap_test.c
-@@ -1275,6 +1275,75 @@ TEST_F(cap_audit, denied)
- 	EXPECT_EQ(0, records.domain);
- }
- 
-+/*
-+ * A privileged denial allocates the domain ID.  The following unprivileged-only
-+ * change must not create a hidden Landlock denial, so the domain's deallocation
-+ * record must report exactly one denial.
-+ */
-+TEST_F(cap_audit, securebits)
-+{
-+	const unsigned long unpriv = SECBIT_EXEC_RESTRICT_FILE |
-+				     SECBIT_EXEC_RESTRICT_FILE_LOCKED;
-+	__u64 *domain_id, deallocated_dom = 0;
-+	unsigned long bits;
-+	int err, ruleset_fd, status;
-+	pid_t child;
-+
-+	domain_id = mmap(NULL, sizeof(*domain_id), PROT_READ | PROT_WRITE,
-+			 MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(MAP_FAILED, domain_id);
-+	*domain_id = 0;
-+
-+	ruleset_fd = create_cap_ruleset();
-+	ASSERT_LE(0, ruleset_fd);
-+	/* Allow the child to replace the audit filter before exiting. */
-+	ASSERT_EQ(0, add_cap_rule(ruleset_fd, CAP_AUDIT_CONTROL));
-+
-+	child = fork();
-+	ASSERT_LE(0, child);
-+	if (child == 0) {
-+		enforce_ruleset(_metadata, ruleset_fd);
-+		EXPECT_EQ(0, close(ruleset_fd));
-+
-+		set_cap(_metadata, CAP_SETPCAP);
-+		bits = prctl(PR_GET_SECUREBITS);
-+		EXPECT_EQ(-1, prctl(PR_SET_SECUREBITS,
-+				    bits | SECBIT_NO_CAP_AMBIENT_RAISE));
-+		EXPECT_EQ(EPERM, errno);
-+
-+		EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_SETPCAP));
-+		EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd,
-+							  getpid(), domain_id));
-+
-+		EXPECT_EQ(0, prctl(PR_SET_SECUREBITS, bits | unpriv));
-+		clear_cap(_metadata, CAP_SETPCAP);
-+
-+		/* Receive the asynchronous domain deallocation record. */
-+		set_cap(_metadata, CAP_AUDIT_CONTROL);
-+		EXPECT_EQ(0, audit_filter_drop(self->audit_fd, AUDIT_ADD_RULE));
-+		EXPECT_EQ(0,
-+			  audit_filter_exe(self->audit_fd, &self->audit_filter,
-+					   AUDIT_DEL_RULE));
-+		clear_cap(_metadata, CAP_AUDIT_CONTROL);
-+
-+		_exit(_metadata->exit_code);
-+		return;
-+	}
-+
-+	ASSERT_EQ(child, waitpid(child, &status, 0));
-+	if (WIFSIGNALED(status) || !WIFEXITED(status) ||
-+	    WEXITSTATUS(status) != EXIT_SUCCESS)
-+		_metadata->exit_code = KSFT_FAIL;
-+
-+	EXPECT_NE(0, *domain_id);
-+	err = matches_log_domain_deallocated(self->audit_fd, 1, *domain_id,
-+					     &deallocated_dom);
-+	EXPECT_EQ(0, err);
-+	EXPECT_EQ(*domain_id, deallocated_dom);
-+	EXPECT_EQ(0, munmap(domain_id, sizeof(*domain_id)));
-+	EXPECT_EQ(0, close(ruleset_fd));
-+}
-+
- /*
-  * Denials in the capset and mmap_addr paths are audited like capable hook
-  * denials.  The vm_enough_memory hook only withholds the admin reserve, with
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+prerequisite-patch-id: 365071039dd2be439f67707944d12edbe1422d60
+prerequisite-patch-id: 021705fb5147cdc8edcac9dbe53c06b854cf976a
+prerequisite-patch-id: 1dfd782b28feeac47423e702764778031b850d6c
+prerequisite-patch-id: 0bf745b08b99168d266461ef5b0b943a2b71eceb
+prerequisite-patch-id: 542fe806b611c7cc8e2ded656b62731d25dcba9b
+prerequisite-patch-id: 39d6ce2bdfc170b545eb2d275ab781e15c9e887a
 -- 
 2.56.0
 
