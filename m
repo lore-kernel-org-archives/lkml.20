@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268864;
-	b=riYFMSWr7TGtaoDs6ATJhVPsdKzdn8/KgqFZqlCfK0TDg9nD2Sx7jrLznJz0R4Zvb1L+
-	 oMVlUhDqJlqcnQQ5UwCmVnVXuv2kYDkSiqr8vfwv7QV6dW2eKL+VyvS1cYIfwa/zaWaCd
-	 yeUyYoKIyHTwHNx+A4v0DrhDA7z0EbLRgzEJvvJ0yjhx5buNqAPI/vi+QL0EQ2V7xKizk
-	 dgZhomHPWzlkW1qw1ZLwip/8Gdo3DctLfkPRGdJS134tj6da9baokmadm2pJvumE64lfN
-	 yeMW4iV9jS7NQseIzw3TwdQRPIL/NUK+Jy6BXhiKtk8UMBeUXWNJjsNQLc6/mQjM+iA==
+	t=1794268867;
+	b=lhPufqHKEmvu7hgv6+sl4KHUZWADbDCfwnlib6+1N0CDU8dZutjAl7RL+2KuBQdgBmML
+	 tTdg2nsjNSlGQ3GIoBhPewnH2epagdu4yG7VnBKCss7iDrpQ3ZxX9yTc1G5Dh5L5f2LnA
+	 xSnx3udO6CwR1HLyZYliVxM79JKZrlkX7cRspF3t3TkYBHct2LJebtdxABmJNKzRpXcAm
+	 4tq+VowZKHRE5gaVcfFYk2BlscdYZb2vulnt3JMIitpS49z46I/Eha9xNRMNeUtmYGCVm
+	 ZpIv1eV6COqs+YcKX3Oguli7vgFmTbN7SYYsc0xBD+H+KpiQpBVHGR0b+Bs4J0qr6Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268867;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=GNB0X7+XipJb4nexBOoRaSCIpW4lOyXDa+yUEHQilhA=;
-	b=vbKxLh3TKF3EU/Jo5h3MlPy1fGn5stiZFBPXmHDPDyWctTfm6OfKHUdCT4boD6HcoSfi
-	 aiDmzPCQxG8piXkpeiffBsUVLBdYfZ8sqAnHVKaexWKHSBP3WPbPu/zQKk6rF380BdHrg
-	 Lu/g1mjkNQdEF4uYXlnZI3W/wXfrCtg96ITCw0r7KdkUiOkaJB9hPi+2HnJt5ojryVs50
-	 4OD3meQBTTzBW3IgQ0o/s1MnWumogY6TT+EBNr2Me011HfJgApKoh7cVTyt3PtpkhZOvb
-	 4J71XQK/jl5OMNT6g05BS5AOPqGDzB2/KOWjaFtqEA2xLLFPR303UB8wntQ35BYY0mA==
+	bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
+	b=G1CVneqR1ZrsTPOYsYdEQYEXqk8dp9sr7Imlm5OYy1ItvhukeilNBwMYsnYfuRE/5WTF
+	 0qn+qzdyMipJIojbCf6IcwH2MJzqyQrONmcmyiedGPDf2URbkGS6MLxGrW41cOl2mqfZM
+	 nt6q4uoKfojuy89iVzrQW8W3G1XAbrzOm5sEpIR45lAeWCE5vDimArJNqpZGzsUvm/zOF
+	 hcVyLUFkMBUvSvXZ8FpG/A4psXUB8vf97ET+Df7BNzFJbpKOHPCSfpj/rGd30OMH3IWsx
+	 3FK6vxFGP48KtXFczmlbq7Qg9wO3T2BqC0BQ9oXWZGqd97oJDBy4qyh1PmBvp8Svcmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYZmPJ9C;
-	arc=none smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWMxmg6g;
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C659860A3812
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C659860A3812
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB8360A2610
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB8360A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYZmPJ9C
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-48ed188ee81so725617fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:01:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWMxmg6g
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-53ec2cc397aso816558b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:01:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794268863; x=1794873663; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794268865; x=1794873665; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GNB0X7+XipJb4nexBOoRaSCIpW4lOyXDa+yUEHQilhA=;
-        b=BYZmPJ9C4iKDt41duCZ9z3I3JPpn0tmSD1L1L8RWTTgQr7K3hZsRGCJeGJOA3T/wJm
-         1N/2/vTfkxcyPP6M8FLvtbJGUq500XCsSoLnFu4DeAnXLygTHUeDXPLRGVG8xCvuUuaD
-         bRsdtx57G8RoHynWfN8u/mw0Tgdk7IW5Ww6WyDwvDAcu1OOQAy6SwkEtteDBdFn6Cu/d
-         2mjdC9eZ7vxDbmcOpZJpVCZvRuxnQIjTt3pMPoGUW2uZruqSJPSMdJc8QX8E1+T+bmNo
-         ZMD3O+pvpWstMklEL5ESDfk07clM/8QLZQ42rlCbNJnwnDXlputp+RVP9lmf3mEzxNwI
-         wqGQ==
+        bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
+        b=CWMxmg6g2abgyUL5n3vZf/Z9PKy3GyA5VprFxK1HtxhTnu7L0zo6Kl9i5Dco9q4JYe
+         L45BL6POyL/UOgpR+NESp6BFYJd1egU9vqKj9v7LjGw2XzDIYKCkPUFSL48hRpNONyma
+         Cpp66jfSduBkNvP9xWrkTi67/KuKkHPdM9N9cy7J/vul4YdaROCfUQnNMDJhqHnhO7Bj
+         pexc6Kurpan5ou39HoL0Txe4yzqXCisy8qrstnDtzT4kN0cY7ckG2RxIdwougbkz7z+l
+         NetBoFnVtmBvxAlLcCdQwVydp2nVwYgHpdqKudef0OBb9KCGazMx92HZaHwkxCH8PX1/
+         lvPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268863; x=1794873663;
+        d=1e100.net; s=20260707; t=1794268865; x=1794873665;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GNB0X7+XipJb4nexBOoRaSCIpW4lOyXDa+yUEHQilhA=;
-        b=vAdmanqYi+ab3t1DhIOWIfbP8lTSGT0VWpunvJf3KvFnloqAVrPIdZBZJzRPAEytUy
-         4anFHUiBG2eR20EB7GcY76is/GbP0b50JlD26Xw+yGZvcE9oqhIn/gFgXdDYahBGFrhH
-         sAdXEj8vpHHQnyqGcWx8p1kBIddbZcS/UXjeeujqsyOE1bhi6WKaMRP0owk4TMMPr8vu
-         LpUCqOcF0OApoyntOHWco5+9UoCe0DXjd+jdv7YpxGWCJfN6YTHGXD3UN9mQVrZzjANA
-         Vpa+4If8ldVVDrryb7kNws64NmD8plU3uOv0eMi+1S53lf9c/BvxGQMAUvNjjUeCtTEz
-         yvxA==
-X-Forwarded-Encrypted: i=1; AL+hErHDdSTyeIm2sPXFoHNwMTER4nNThxocLDUePZuuPU+k8jPRIsiQwGhwqZlHM5qznb2qazyIY0cyeguJax8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8s+HX8qGFzlZ7RP0MI7rRffmSznRbqKen/DfSzGKbNqJtAyPzE
-	Zjc8eiXzu9dL8IUI2itm8h4EfBonQKnF7gm+ZwAPyeZx2C9wu3mCR48f
-X-Gm-Gg: AYBFou1DrztYn3WlXeT4ZncBEyAPOuXBRagd9Of5yE0rgXs+MdzEjv3EpSen1DBW6RH
-	F42AaVrJ2YJyKWTwh5U5XpIc8I56LvFRBoskaD659faf35/pASukE4/coO8wnYymB/JN/611cAc
-	5jKW4BRnwefJgA/9kr1J7/Vm7fnNNVUHnwsp1wxsulNXZuiKjQht7hzS/ECJ0Mn2VFqK6blue8r
-	RDViOMjO4Sqtr74P5KJ7khjU/zujYm+8bYygKDhGnsUQQ8UAP5MX0bgYsFyJhx3c2PfxRXXCPia
-	pauPYcFnRJWZOgCLJkubSuZMjNl6va8C2hLuTbaINWZN/wF8ik+0iBsHOl5KVcm+Vg2k6DIPi4L
-	r14ZB2J24GoRndNquoLpxurhqMbE6FxRZRuNqk406lJrIp9a3028UjG9YdrEXbY4rkFR6spzrKX
-	nImDIJNWWnieMEAVzhkOt84/kO/y9QUXqUzn++HEdGQAnbao6JH7nvO3fhGUjcqxww8A9F2THJQ
-	IB9JGoblN37Szwp+eWk3bK0979gvfvjhpeo3Bli8uY1adRPnkHGtDovV6bDo+4UpvWCdkMIdm9u
-	dCgn0p0GyyJ+SxfIZ1hbfqmYyrDfU0ZX9Hq5nwzLCGw=
-X-Received: by 2002:a05:6808:308a:b0:564:48f3:dfac with SMTP id 5614622812f47-5683ce042fdmr929817b6e.47.1794268862779;
-        Mon, 09 Nov 2026 16:01:02 -0800 (PST)
+        bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
+        b=sJVuoIY+FePUzXK0ZtnPd79AjhtkoEXYPjYUeyRkeOANQvik+3Bq69CSl1+1cZjquV
+         6NWgNy1QcFH3xM4B38m7WJYpTfJbNzK0oIG+J0Ek2CrDeplp9UxrVFYDYIrdApPP/4mJ
+         jlq7is1+F2xvVJjwHSWgGdTEKtRhiEdoeD0ZeiyY3pEzJw/7IZCAnc/g2/QsSge180y8
+         7aTf8omfbFgdbRSfuYWqUkLpZJjzTTtM4fWZcNHJvqaov89V3go84WxHOcQbJZfmUQWt
+         Z4RVoedqKuubtSxehtkeVvEm77mMHYbJGE3XwOJieUTtBq+rUxcplnfc6LIN/JSQyBxf
+         a1iQ==
+X-Forwarded-Encrypted: i=1; AL+hErGyTNd6jr+g50s2C/oT2Bk0InEvahb6VuFM54AWappxvOFBj6zrETRpxmZbaTxkxYF9qsLdauD/oD8NTFA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Nlgo0APouAIr7sVyet3uL39LzDiKHUi+Gp/ve2NqwBei2SNv9
+	/CZhZz1K6fN0Suy9zOEJ3DBacS+4fB3QbpK+24Ic0Cg3eoKjFmYjDwna
+X-Gm-Gg: AYBFou1DY42OcVZAVmOW7TYjpRu+hlicm/4l1bYbm8JfzeUDREsK95ZP0qKrs7pWrKk
+	mWFS82j+CipJ5ZMCGb0dzQn9Z9vlgZun/qsbiv69uU2V0TvdGyPj5f7v2c+drTma+OjxWk69Rzx
+	l+ohqbnWJvHsigbE/vvmM3m0AaNr9f5Ib9KoVKNlLcXk01tpchEe8z4PiuSDqHPz6P40hPmLr4K
+	TSKkz55Mzr8BOLS1L4PN8HqVWj+PBHjKTb71341gzDkW1Xpu5b/sIWggNTkE9LsFoJgnrf7Mtj1
+	7pfO3mVXi8hBaMeW7qJTH3hmTbVdi/pEcecEhRpAgYhGc9Ej6q5Nbs4rM0pio0So+YkV8OoPdt8
+	JSViFNRKRtXwcQs9jxJlIr+1wS1Swhnh6Isq1EEOKc/GEwmza+tyTNDk3b1DcLDAh8koWL0uvdf
+	AfgjxJWKT+JMVTaPL162PB90i4E1lEr7nJTbV+yUlCv/HuSpenzk0EouHtg/A4y7UWJasCk8+VX
+	9ZJuRzZISGd4MGxdjmpwCaRG7KPS02scwkAyoijeCMUw7KqliOC/wQ+21aDBPRrNeDXcrF7HqcW
+	LVICVh+lQKZrRhgMsP45mV8c5tsc9tkmykiMQHF+j8s=
+X-Received: by 2002:a05:6808:c123:b0:55c:844:98ff with SMTP id 5614622812f47-5683cd4858fmr845306b6e.34.1794268865523;
+        Mon, 09 Nov 2026 16:01:05 -0800 (PST)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905735edasm623697b6e.7.2026.11.09.16.01.00
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905735edasm623697b6e.7.2026.11.09.16.01.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:01:02 -0800 (PST)
+        Mon, 09 Nov 2026 16:01:04 -0800 (PST)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: nathan@kernel.org,
 	nsc@kernel.org
@@ -88,9 +88,9 @@ Cc: masahiroy@kernel.org,
 	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH v3 4/6] modpost: fix pointer arithmetic on NULL in parse_source_files()
-Date: Mon,  9 Nov 2026 18:00:01 -0600
-Message-Id: <20261110000003.1719966-5-lzsx618@gmail.com>
+Subject: [PATCH v3 5/6] sorttable: avoid pointer arithmetic overflow when locating sort_needed
+Date: Mon,  9 Nov 2026 18:00:02 -0600
+Message-Id: <20261110000003.1719966-6-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110000003.1719966-1-lzsx618@gmail.com>
 References: <20261110000003.1719966-1-lzsx618@gmail.com>
@@ -105,45 +105,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_source_files() checks whether a dependency is in the same directory
-as the object file with
+The location of the main_extable_sort_needed variable is computed as
 
-  (strstr(line, dir) + strlen(dir) - 1) == strrchr(line, '/')
+  (void *)ehdr + shdr_offset(sec) + sym_value(sym) - shdr_addr(sec)
 
-When the dependency is not below dir, strstr() returns NULL and the
-pointer arithmetic on NULL is undefined behaviour. This happens for
-every module with dependencies outside its own directory, and UBSan
-reports:
+which first adds the symbol's virtual address (e.g. 0xffffffff8...) to
+the pointer and only then subtracts the section address. The
+intermediate pointer overflows, which is undefined behaviour and is
+reported by UBSan.
 
-  scripts/mod/sumversion.c: runtime error: applying non-zero offset
-  to null pointer
-
-Check the result of strstr() before using it.
+Subtract the section address from the symbol value first.
 
 The problem was found with UBSan, and the analysis and fix were
 prepared with the help of an AI coding assistant; I reviewed and
 tested the result.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a79f248b9b30 ("scripts: Add sortextable to sort the kernel's exception table.")
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
- scripts/mod/sumversion.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ scripts/sorttable.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/mod/sumversion.c b/scripts/mod/sumversion.c
-index 3dd28b4d0099..4c59e7cfbcbd 100644
---- a/scripts/mod/sumversion.c
-+++ b/scripts/mod/sumversion.c
-@@ -364,7 +364,8 @@ static int parse_source_files(const char *objfile, struct md4_ctx *md)
- 		}
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index 88e49a5c4251..0425e00c490f 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -788,7 +788,7 @@ static int do_sort(Elf_Ehdr *ehdr,
+ 	sort_needed_sec = get_index(shdr_start, shentsize, sort_need_index);
+ 	sort_needed_loc = (void *)ehdr +
+ 		shdr_offset(sort_needed_sec) +
+-		sym_value(sort_needed_sym) - shdr_addr(sort_needed_sec);
++		(sym_value(sort_needed_sym) - shdr_addr(sort_needed_sec));
  
- 		/* Check if this file is in same dir as objfile */
--		if ((strstr(line, dir)+strlen(dir)-1) == strrchr(line, '/')) {
-+		p = strstr(line, dir);
-+		if (p && p + dirlen - 1 == strrchr(line, '/')) {
- 			if (!parse_file(line, md)) {
- 				warn("could not open %s: %s\n",
- 				     line, strerror(errno));
+ 	/* extable has been sorted, clear the flag */
+ 	elf_parser.w(0, sort_needed_loc);
 -- 
 2.34.1
 
