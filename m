@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312845;
-	b=PpkwHdyPFseSXOyZ0fFtWHQDg/ouUWQx2nL5kbb1lSO+QLa67kcQ1dSdNWdVsJ8SxsrK
-	 Wv76VLoqItZG+WFYeVroO1EcSwwBOgJcuhNp+VB0vxCev8G4RkkmDHJ0NGjrqRfdYOWeX
-	 9ebb11P4IVdOnvX5RY/frQid247/UEAN39t6+MHmTG5RDq63jYj0UVWIZP5qKg/mvmtGq
-	 tMDrCckrJosJEw4kro7e7t4+VOLocQw7O1GY7xJ90Bby66SLHFIC+aIgtTSb6klftp6rQ
-	 DM/qgmebCGv4o48FYSJ8d9jOpOCz0zxR6kIVmS+2RzY3Yy44FXXZmHZB89AbMpoOnCw==
+	t=1794312871;
+	b=FB1TVO5ogXWH50YlK/3aO0wiLxwOoqeSTi1AetTwtZv/wBV7tfgOawd+5pZ8WoBy8QLX
+	 GPA4waotA8nf6bJcdn30HMsgYrp2QcRc/eHY3QdRpwZIQomJIRrTpXHtSAd4Z64sv2GB3
+	 ij60dX8gmfMlRIRw3I/XSsuFBk29cP4k+Y4zz2UlIN24pI8Vb5EkNgz5sHnK64XIQaJDi
+	 8Mj3i11LadME0E2zXYuih5EyJXPveoYjgmgmC53T9egTFnX4bI+hO7ELzbhDbO664K8Qu
+	 db4G4xK9jXntmZKESewNWO3EOum33mJ0aiah9ikUQPhtgt+S0jeakrAZc0dIi5jHe9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312845;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=9XQf049qlMr5l+2AJNntOVaRI7j8tgv5qMJR7B8HYEk=;
-	b=o4VeJWqcHN28WnZnwVAagsmRcCKfKOTv7wkM/+ZMzaKJN8tXfS6EFGlsTFwYJCfA7rep
-	 r8s5x876zsixAg9eMGbYo5BC6IPzJzaAIUbnvUVztLgITAGpfcwPg8TPhcKbANyGBf/lK
-	 JCmyz/2zQaofCosidFn3iaWa5sGQbQjKQuLkKKHxazBRxJmUXRRGxXLE/306i4bGycLAK
-	 0SapzSBskW3IM3AP/9U27wk5rnW5tbFIwAWkInQmC2hIPerhXbVWXHMKmStRJfb0aWvVD
-	 LpA6o+lFvRtYnCcxF8ZMFWiMAKRIF8nxXE8HKgEIuKi5e9ArFDOhL7csK+Q1GhWBgvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312871;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iP7ihblxE57Xx8rjE7fq3FQri1E1LvdLUGQwTbaBM2w=;
+	b=jlUz2UbDgmPpiZ0BBxXA1t+mRSiD7OPaAsvZ6DLaxJj7//i4ySu8UKAknGRcXGNxWe1g
+	 vtliPFa2vj/D8VfRsvYsb0l/pELvoDgqZkcsWtN5FuAm9egNa8tT4/jFbuE1luWYbDsVC
+	 RRqTy9G+49WUe4DBEA0ZX5R+1Qk/Ekizd60VFj3pl08h54DYpOXyif2sDF1l2LHGK/CMr
+	 frRCjt/A2XRRdkgOJMg5CcG0zTgkcTHVOsIDCPqgfTb6d6Qjq07/JOKhjXy4GIx7RXCVv
+	 58OnBs41x9xFgtIcSDUZTQgXeAnKYtTxN8sPAKdyFblaoMm3ZOu1dfPVRxyTik2NJfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.71
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKVck9DA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B32606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B32606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-719112c89f1so76221eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:14:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794312844; x=1794917644;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9XQf049qlMr5l+2AJNntOVaRI7j8tgv5qMJR7B8HYEk=;
-        b=y/az77jrb87+Sn6y/MHDlD6blkdhW43fWI/a1ZsqKjO5WVEDyTgNHdVN/EVd1vVPsN
-         isReftsnTqSTvSuRa1oxLP8iNselrDosQj9zFICXSanZxZh9a7KopurdT27sLTsEqeR6
-         hmqM5qh/ykchLhhc8zIRYRHyl7P+2fLM5ryODORwToPl4E172jyOpuWNBbIvrFBF4N2+
-         vagEobgRHAxEIk/119tHlrvClQ3XYKarWEtVGVGayC0X61Hd4Wu05mbg5gLCj0tN2tKx
-         2+TebEMJxXJlqb55kHp6gHSzkkSMu5zpMz/Yex3K0uIXXuPDLJINaVKbWz1Uh3qAZ6NJ
-         uoPA==
-X-Forwarded-Encrypted: i=1; AL+hErH52vEGMxSqa4ahpuDAUhP+BBXjBAucTQZWdTnIn6oZk9Q0E08BzYfz59piVrPBAfb+xHweg3ES06cMuPo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2juy9Hj5+PaVkLcRy1K7UiVaAdWaSFlJJT36WDnf+F3QKBChk
-	MDe8zJE8JHN5exoMYjBagki7IfOqLaAZdOtTKwB+vWIFAc4CkvTl1/LbMwIcoDy4DfwQltTKbWP
-	GbLC7Ym+2MANgEMb9/Ce/5hHZPBfamQFKcQQzqoK/HnsVzqFf7Q5lLVm+u3c=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B17606A31C;
+	Tue, 10 Nov 2026 12:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKVck9DA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A202C1F008A1;
+	Tue, 10 Nov 2026 12:14:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794312871;
+	bh=iP7ihblxE57Xx8rjE7fq3FQri1E1LvdLUGQwTbaBM2w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GKVck9DAyjJRwF6HuQpkK7AbBrIq+eQ3cPUnGzG1Gq6VuJ8UdC/rCB6CSKkKcIn5Q
+	 aRteYVwg0E/vjLAXAgSdndPFJbm2kW7UBAXPX2wxyItnKElyEsLD/JgTWO8DtW5Dh3
+	 h3jcYUcQVTzLucvFJrStVxZQYgRn0K2azySx1VuMNH8H+8ewWXtkM6vCbuFPilzsPN
+	 NSvLuLl8hwNDOj7EqwhE6MCfb1dosSfzqmEaasFJc7Whkck+lVyJ4XXZBZBJcTx8Qd
+	 XGZ0iAu3gUthpEeOCBdSh9mvjej8lNkfPGb0llFg+KFxSchaArzxL3km1wwecp/SCl
+	 SZ6Yu7OkzoWBA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7494D198003A;
+	Tue, 10 Nov 2026 07:14:21 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Tue, 10 Nov 2026 07:14:27 -0500
+X-ME-Sender: <xms:nArzanSpIIwG51tsHxoNjg4cx6XZb8fKe9mFQiaStEaiiWGXacBybg>
+    <xme:nArzakaVN84v7aVb-PegN2kbNzRsB3CRvMureoDByD8I5xamajVLlGpz647xE3fm3
+    51B8K8DIgvq8gUblQ1_wtJPjuOKxEnDGaUv3u-nc8ErEhpB3-Hwsxog>
+X-ME-Received: <xmr:nArzanTpMal-hQi5JzOJnpszvHZD8_1RlukXgFm8HSGeIx7gjB6EKJdzoew>
+X-ME-Proxy-Cause: dmFkZTGpbVzkrelYKxT3HOk2p4weC4oCcSZPW/rpHgt9mwOOujexV3ntOnbLy9kT90zWH2
+    X4R/Pc7He9zKvvIIHknrJ6jmRqd+GEiC5OJ1/9zKSazJXODPTmBjL5gTrOW05ZhonWrI0U
+    H7BGU8fq4gRtYPJHKGaPFUfd+hhqfZs0WJnuKaF+0z1+xy9ewLL2avPysZ0hBftBGgc1ji
+    WNjIvzjtJS6O1t8aThrFrTYaX6K2a/nHsjYlaSHjs0ddkvqo5ZzGQQwxlvpOQpp6n9RdMq
+    LUyGL1B9cM4bURzCmIX/QZAKp+9nxEgKsjUMOYTJUoyJO1N1eTM0iZVOZQxVws8ePh1gf5
+    u3NT1w0HRepOqC6jxxdIbkR0OIlfn08JNCqChvaiOat1qs/Hvs4BeuDHJ+03E4GxBLn7AO
+    9iaWFSdMmsDwlTfkeYfju8yOlYi22QNnwJ+V7OmWCOi9D2Qgdp7rMn0ILlObukPllx8sp6
+    sgtZnaDrpNVkntf/YPmW6nW2IwRTwVszcOKhtCnGhQn68O5yLhgSQvPSdVi/TWcO5aJME1
+    AEY2vAPdhKIz5yKKlYXlb4TNn/LlK8U8Y7KG9HvGrQdaItlAJAEARWVtXQQmQULCTORKOG
+    tQUdCQhsBV3Keoy0kZLDn2YA5jCy79U1wRJL8S9SH4wnTl0B20/HB6fTGrIw
+X-ME-Proxy: <xmx:nArzak63XRT07vEmPmWdj3UQk19LRBHMl5JrY5kevBf3xCYTpbZ34g>
+    <xmx:nArzaiT_kk--095o0kgnoe_C38SrCC57yVH7d8pyGoRFenBerbO_5w>
+    <xmx:nArzamTn6p9WWzTEKKy5ym9NJMOSo0Usfg-Cs0u9knPk_yDjYCeNgg>
+    <xmx:nArzaoNTDpTG50M4xFTa42zG1GDWh9eEqtpP7nfOAgtsLCIUoCitng>
+    <xmx:nQrzav1UKN_6PhSRRpxLt3yvag5XAx38k6QE3cFnxbcCpC6V8RwR5kkj>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 07:14:20 -0500 (EST)
+Date: Tue, 10 Nov 2026 12:14:18 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Uladzislau Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+Message-ID: <avMKVYORkTQfdVB9@thinkstation>
+References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,33 +101,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c1f3:b0:567:e9b5:37b6 with SMTP id
- 5614622812f47-5683ce042f1mr1853184b6e.41.1794312843853; Tue, 10 Nov 2026
- 04:14:03 -0800 (PST)
-Date: Tue, 10 Nov 2026 04:14:03 -0800
-In-Reply-To: <CACbwGuToY751Z2gkHGVFE+r=NDObep3X9YrgMq8BZz5DOKZreA@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af30a8b.3aeedea3.3c289c.0040.GAE@google.com>
-Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: gbughunter8@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
 
-Hello,
+On Tue, Nov 10, 2026 at 12:03:06PM +0000, Lorenzo Stoakes (ARM) wrote:
+> Given the current throughput in the kernel resulting from AI-generated
+> series, I unfortunately lack the bandwidth to generally be able to offer
+> review except in those areas I maintain.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Oh. Sorry to hear this.
 
-owned.c:1: error: VRP_SYZBOT_DOCKER_HOSTMOUNT_IMPACT
+Thank you for you job.
 
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Tested on:
-
-commit:         e7a52de5 add one-shot owned Docker host-mount impact c..
-git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-docker-hostmount-1110-e7a52de
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
-dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
-compiler:       
-
-Note: no patches were applied.
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
