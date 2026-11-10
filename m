@@ -1,78 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794339542;
-	b=lcahlBFNJY4Sm9/9pQYfptPbNnDoXJvx01POtmS/FB5f+ovp09brrbK053SP8X9FLnpE
-	 hjs5TSq3TRra4jwKGkqlipJiQ1HyYDr+QwSvx8OROo75A2XOqr+UeXG//ozx/x9PxXiwi
-	 zoR/n1R+7iXOD0OyN4w6F/aFS5595cT7rtKtrgcNxr7UVXMe+EUztiBRYjrDM9xRozW0x
-	 /UD1jeTFRQm3o+IRlitCQHcMtKtUi/G332wEUZPfgQ61hFKoeRPrcBfTJV0oS1DolYC+Y
-	 CzJgYokvCYiMRD6rzOvZQgm/L91xHQKU31lNd4/A8zShoYF56n6+rJXWaDCrVqd63nw==
+	t=1794339608;
+	b=CVBpyT1xSBSSzV91wb/y1d047NGkp9xUYOGPy9+vksG1viXADGD8uERXz9TYYVOxYllb
+	 oh51sGA2W0eFf4AsKqjzLI802/sHyI2LYYsGfq52U0ZngZLXnOlp6SALKKgrkvf0lk9VI
+	 HGUz3+dRPxSNpP0Pj+ZEMb4p5yms3/80jEf/NjR4Gm4T5DhLe3IIg38FRAYOUV5DLzsz4
+	 rIy+Xy594nCHOqjpLS+AYaCX/T6jASMYTeDYSYdgMgAdzVj30M6iG2tqspwgnLX5IbjTZ
+	 UFA/XMyrR3EXC/0Rd32ndeG0bQaam4I2xRW8kwoiwNQZRXJwLLe11//KaVPMC9y7NyA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339542;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YJ260lSe/neQCxSi0JebgbI4CTavL15CM9mfgM7fevs=;
-	b=W4C/P38A9qtYbsEjuN50ghG7z2TtG4vjy4YULEynAy8sIvWwR4TLo1OHDukw+nC8ULQT
-	 O81RodAfGapC+iaIrN84khJwb9MKFmQ2mfOhOVF2hvZ+0ijTLDj4BXDKHQRTO8HJeVHc8
-	 TcNWDdZqJ9uwGttQdmd0bqG24NDyRTVVarzgiifd00w11qtGv6tA/26E8CgC6aJ6QxA5e
-	 9IW0KWX9W1ejvEWW0sKZvUDQcGRcARKHnJhDk2GE7s8rzi0QUuyJTTq/XM+/zK0I8K4XU
-	 y4tXSDy8lYDnRFqoke9YeO0/H+GVuZkznqSQSzXfiR1VVDav8nkSXA3nr+/Kg4fsK+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339608;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
+	b=sA2Nxzngnm3/+9ujEtsryvCAflsQUCllR9ZwyQTR5SH6lqEbN02t45soKAXUdKa+ruIO
+	 RW0EIAVtJG/jh1U7IcWlETC0UhM1TVuYsT8+CyNbZIDtLVq4wotfndySf/3t7plwLTLHM
+	 sW0z2cuCYKRhLLJoPHtqIBsoeZqXZ6tRwNCPuSfq5i4YO7xtDKUbzwtoFEEKUb2QJF36q
+	 x1hAOcQJqDgUhrIt3iOIZwOjGumcJDbRikOU92Wbe4JS/70pQDLVDjYRvnV+UhNi0RC4g
+	 SSQ6w8Ffaul8UAtCf0ClEjd4oafYGydbUtk6LWljpX3qgbrb/5PPw/Q9RYuiifS6CXw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX4rhzTs;
-	arc=fail smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTMexmft;
+	arc=fail smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAF7606A32A;
-	Tue, 10 Nov 2026 19:39:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704A0606A31C;
+	Tue, 10 Nov 2026 19:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX4rhzTs
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794339541;
-	b=T9Dr6vNLpEg6NZ7vFPmJ+tEuNkiJYq3ABdt8qbm+KLPTX/c+8RCW2kUJBExbbw1bjJxQ
-	 4DB7pQmiVpL3ztgbMbydCgXwkwcwfopQyQaeF5Qz5cOOGO8oPY2AVnGMBmDTWoeHYDMTm
-	 +6d3+LwM4OESaTdlHT0V85QetKbqjEbWbcPB5BU7LHELaI/rVI+sAYlWzZXExP369JXER
-	 YfEWgTSKPBtRPZ+TuRrVaXSD2y0Iq6GdD2WoJQhrAZT3RiYfgnn0xt7t4wxp8Ed0lq9lX
-	 2IGLV4NjlgTR/JWmr6BdgmMfbyk8uifDlTPw1k3AV0rM+85MzNarX+VtbqeThBt4P5g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794339541;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YJ260lSe/neQCxSi0JebgbI4CTavL15CM9mfgM7fevs=;
-	b=TyaYwR5egdOIhwMQnxiwOaEM6DACSDQYm9JuGtX15jJ13w0EbUp+Cun2H+i/REWuHpbw
-	 r5y67s7nGOZKaPzwHbspUlt8tSSqYT+OblMi1tKb/+k05GR7Mf8kPDiJ8il7zXxoUl8xR
-	 Y37cDlAxiopaAo24jAQ4xjl4RljaxfPjFCIFjY3LFQXzhZ3+5792EyF1fOmq2FXLSRrXk
-	 5s33XIT9wuyQQGlw3HB+fpyU8EMmwh+2xSuAlqxtHNk3s0iud7G5GE1RusQJIMEe6ohwI
-	 ivd021hDH1tHP2YMtrIM6xlpTlBFnFrbgfG1MjQ5I5xIMuuU95YBgtWOsE1XqiUcJVg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2CEED1F008A2;
-	Tue, 10 Nov 2026 19:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794339541;
-	bh=YJ260lSe/neQCxSi0JebgbI4CTavL15CM9mfgM7fevs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cX4rhzTswuzgzoR94Q4+V5WZ8c2QgxfFbKPlMqpcktEL0CYbeyJzZdONU/8unwhgn
-	 Y6XAcRDk2V0KAS90ZLvuw1pOHbC5EvLcU7EsfXxD3UNuZ2gFE4i+h+DELxQW9C+Emc
-	 1WC+ER5//l3PIC9eItg3EwN/+o/ldRwQdCbY1qwO/oW/uurvYhye4ddid9XfnOBHsj
-	 /O/CVPvX2ZDIXUz6N66nutcLuIGUsFwns22h3OsNw2fFVad+SXbDAL5m4TWhnfBECn
-	 BGE6xBkOLbmXtORKkObIx5n9YMvoDyu6+dAmJDbHASo+0U6cLtWwKpI8XFbsZClXvN
-	 U8LPg6ncdhvlw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A692748C72;
-	Tue, 10 Nov 2026 19:38:59 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 21:38:52 +0200
-Subject: [PATCH v2 2/2] backlight: add ktd3137 support
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTMexmft
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794339607; x=1825875607;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
+  b=fTMexmft9eYenerBmQEhPXY/KoMDNV9ubexM9j66O918i/Uoh26UiyjQ
+   Hw3vPlgOx9Sjq9m5G6Gdwe9ayyu/eC+faZboZJ8kYrgE4Ck2cSASk/38b
+   dT3mkauYx8qNu83WGYOM8kOdF+XuMKDgeMHHM5UBabM/wrF4BKCl+nYod
+   yAlhYcUffqysPHAuYz3cP4ZjmZA3Fl4ZEtijElagYH6vcbJNJyS85gsRY
+   Fjpad20x95lMU6W4+f2MAYwHEWAtRfO0URiyQnaZymV8UV5uR/HPKUYJK
+   pDExhkR5vR0LFwgkD1K/SEniNxN8tvSac5VBBkRnOrdyKj2RGKx2xowlw
+   w==;
+X-CSE-ConnectionGUID: MN0CmpmoQpGcpU6Z3FQ7Dg==
+X-CSE-MsgGUID: iIiwmXjgSqu5CavKNNPidQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3016938"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3016938"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:40:06 -0800
+X-CSE-ConnectionGUID: jVoukwsrSuqQiDwHCTUXPQ==
+X-CSE-MsgGUID: /g1s2oqwRmG32WSO9J2ymw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8671061"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:40:07 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 11:39:45 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 11:39:45 -0800
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.70) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 11:39:00 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sLJl1twh99WqM8O/tcTN07FCNBPa/jHtDAboeD3aw7uLcPDu/oy98MRxxXIQm4y1WRMz+h2kbTF7NHI0nk1Wwrh8lC2WmKIzfHTUJCwynsbsN2m9RYBiHVKCOzJcfcTCE3Nuz2phO5ansipG1buXJrzl3lFGvq7KR13DD8kyi9Xl01b/yFzLVIjqpvcVE6HGpcyNHQVhN+5Kbh8ERA7DR6+Tc0Jz91de3SlfkwxMLHaVSgPp2QOh5/9Y7nKqlC1N2ROQRUz6DAY2SaDeCKR4xqsXqR6Z9URfcwPwEL5QknKy2ctbD4jaOcIVpFxO0eDe/iXnjDdnNE4PDdleLA/UCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
+ b=Hj+ZR5UXxm9sa1NnPdnA4nBjrAGFO0HhT+/anp6plJ6ZdPB6Nl6h3DU6gtc9TZnGIzse6w41Rb2Lo3dUfPvaQN1KTG+AtnCDPVcAs2I0/0tJg0VZGK+7o5pVtSFyv/1drjbMrDHL2sQ2Iw9CnpWfWV0neuCbyMpStvKfEWothQAz5lQWCtP8TEEGTlnj0Bd7UcTZLvm0ts6oXvEkzCtksBxvl63rNeoK4jgI4tIhttsnHt81EUV8oN9vPzQxbnoyRzFm6lw+W9pO+rqC4jlERgvExvTPXH9fZpNcz5cKeLUPLZljvx4SNiDfsJrK5kWqyrHt8ufX3tSeCok+MZEi5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6469.namprd11.prod.outlook.com (2603:10b6:8:c3::19) by
+ SJ0PR11MB8295.namprd11.prod.outlook.com (2603:10b6:a03:479::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 19:38:57 +0000
+Received: from DS0PR11MB6469.namprd11.prod.outlook.com
+ ([fe80::ee3c:8422:6754:29b0]) by DS0PR11MB6469.namprd11.prod.outlook.com
+ ([fe80::ee3c:8422:6754:29b0%3]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 19:38:56 +0000
+Message-ID: <cdc9ded1-c765-49bf-99bf-a36341af8a7d@intel.com>
+Date: Tue, 10 Nov 2026 11:38:53 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] igb: do not let a VF set other VMOLR bits through its
+ frame size
+To: Paolo Abeni <pabeni@redhat.com>, <tkusters@aweta.nl>, Przemek Kitszel
+	<przemyslaw.kitszel@intel.com>
+CC: <intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Alexander Duyck <alexander.h.duyck@intel.com>, "Eric
+ Dumazet" <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+	"Jakub Kicinski" <kuba@kernel.org>
+References: <20261104-igb-vf-rlpml-v1-1-729621b60eee@aweta.nl>
+ <984a9f14-d8d3-41d4-a846-6750f710c741@redhat.com>
+Content-Language: en-US
+From: Tony Nguyen <anthony.l.nguyen@intel.com>
+In-Reply-To: <984a9f14-d8d3-41d4-a846-6750f710c741@redhat.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0094.namprd04.prod.outlook.com
+ (2603:10b6:303:83::9) To DS0PR11MB6469.namprd11.prod.outlook.com
+ (2603:10b6:8:c3::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,356 +139,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-6768-ktd3137-v2-2-9496c51efea4@protonmail.com>
-References: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
-In-Reply-To: <20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794339538; l=10109;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=kRX2DsfK/P16Pc7K10xoV7BnyUBL78NnDS9+cOkdHAY=;
- b=+U26cyiqgX+/1KRpU5+27JOcBm4PzBE2qGWn6+oX9T/Cw5XmSHQeVNnTN5weFTtsh921w+HKz
- daO5+CnGF6zDhlDYJrU0UpBYPg7VSIXlRQIyZOb0Bx7p+R7ARh300jF
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6469:EE_|SJ0PR11MB8295:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc6f2226-f412-4ddc-bdf8-08df3f624268
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|11063799006|4143699003|56012099006|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: FNRxo4KU6yvFH8KeGC1zxm/TTmzzIddVYiy4xr3wbEGzuNzS0A7CHvey3RntB14jXl5FIND5Yp+xtaXy4l7cVHTE9vs/zUG1KgNypcv7KxVLxO+WIyb+BzzeBR7KxGvkiWfzWeC8U/2R5b9YhAPwA26aw3N23wV8wGUhln1SdpCwodNIs9EDiD2RAXL9e1+cthsE8VxMhtCpaH/K1tetFO/coTseqaqKjF7C+ETId5XqwqIN2sk2zk5F627n9RFMRwxs1BxfOghm5AunvA97ZlyjOKSSjBMXZ82ddoEijtWmD+9fUOVQNYlsewcBDXYfFCVV/7RTY2Ys6UpT4E24Geq+dNMnXBggwH+FoA7ZxEor1KqC4lotsKK0HrajOtknKr0RIv5h5GS1b+9aKpmVcdqlgzURXQZ9T2zSs4OXYjglfnfSD1r0l6OOCGAu8AebJyBv+UdJHeObgQgyKCOYOxpYDXDoiwWLy1w5kNp5EbId79mcJa6oeUKQp0QyNJFRcXju9by2pmgmJKAzc9IJH90yjoScvYTm4jtkXso+BmPBvr7PzTs3CM+htmFHQLxxBGa4YmCTlzpgeoINcVqymunug7LdXmjOzvaX2ITVHXuv1oz0yKydNcZiw+c1+mEMrCWHrzfTGlo9yUmmkDxN0cRdVv8c+ZLLhov47YAooCw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6469.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFhoSDlybnc2MnFoVTRrR2x2bmlxaHhTUk95TExpcm8yNVp2NWRKMlI1dC9j?=
+ =?utf-8?B?YnRlaDZNNTRTQlZpMTNFSUI1ZzVpYnByREh1dnpUWDBWZjA1SEVtcGtZekQr?=
+ =?utf-8?B?L2wxNzRWRWtTYWhBc1FzbndROHRwYW9IRUJNdFA4aElqTUw1T0ROc1AvVWI3?=
+ =?utf-8?B?M0tmcDVNM1kzeXR2eGt5bDBVVDEwanJBKzJvNi9XdjR4NmJEMWlVQ2xER2FJ?=
+ =?utf-8?B?eHZST0JMY3IzOXZHY2FFMERldkJkS0NneDI2L2xicXNKL2dPZEY3Y2c0d2xK?=
+ =?utf-8?B?Y2JRUGQyRnViRHdKR3Z6cUpFNHRHSXNpd29hQnByVEFPaE9BcUVHTlV5YW1i?=
+ =?utf-8?B?djN3VHo3RXJtMWRFcnJFdlBwZDZIY203Q3lnU1FneHNORHNvTHpQbllNeTVa?=
+ =?utf-8?B?bVJkaEY1RjFvTlhBZVBlV0ZLNFVFb0czZys0QnNMMHVlcFBCRGhCT3J2bU9m?=
+ =?utf-8?B?NTliWHZOTGY3d1ZBYnNySmNzQm41Rlh0V3c3Vm9ZTTZEMk5YcTY5M1BJYTNQ?=
+ =?utf-8?B?TUZFc0hNRENaZVU2aWdlMWQva2lxSVpvZi9TR3hyVm5HdHJJcUMvRitNS0lm?=
+ =?utf-8?B?bnFyb0Jjc0kyNWZrUWwyYVl6NjY3WGU2MHk4ampnZEdtS1kxL3I0a29jVTNC?=
+ =?utf-8?B?NVc2VldHcEEzb00rK0Z0M3JOcU5vc2xtYnZSVXRrRUtuSndZQ2w4QkJLYTRt?=
+ =?utf-8?B?RXBkZDczRWczVHhvOVlqOHNTZ0M2YU9oUENPWDV0R0V5VnJ6ZFpaRWtNa1ln?=
+ =?utf-8?B?ZUExY0lYS1RzdXRJTFdPZGNYT0tWc2JiN2lsUDVBRE5FemhuRXh0QUJEa0Qw?=
+ =?utf-8?B?UlNLV29NdUExSWhBZzE3S3ZoT1dMZUR1WFpyK21RRFRCRXlYNWZFMDVhWHhJ?=
+ =?utf-8?B?c3FzVXNjdlE2TnpvMmMrKzBkOU8wMWJocjlZUkhlNmtjcmNmYTBLK2pBMWFK?=
+ =?utf-8?B?cVp3MFUvaXErTURja1FPN0xBRWpwbll4aSs0UWh3elhQQllkU3dhM0s4QVdO?=
+ =?utf-8?B?dlM1VkFQYTg4c0VXSkRlMURKd2huMFd0SjJGcEVPa3drUTQyS0tza0hROXZo?=
+ =?utf-8?B?azBlbjRINWxPSkYvZ1EyRGxxVVQ4VFh4b3krK1AxNDdnUlM4dndVQ1VVdEx4?=
+ =?utf-8?B?UVdvTkN4a1Q0dElpTUw1NmdpdWF3VGdMUEpvc3dydmFlN2ZWRkZBZm0zeVdF?=
+ =?utf-8?B?enFkL3J2QzNBNmdBbXg0L1VzaDBaLzk0NnYxVWdrKzhKZkJ4RHYxS3NpVyty?=
+ =?utf-8?B?OWN4M28vZndqR0F1U1B1T2hUV3MzSjA5UDBDZnVFcDF5VklndlN2UVh6dXRi?=
+ =?utf-8?B?eVhCdmVoOENEVk1Hc1pUblR2RWozWGlCdGVBQitmWWRGT3o2aUxPajlRZEFX?=
+ =?utf-8?B?ZVozVzlBbkhydDhRdmRybE1pUUtlcUtyeVNrZVJHV25tZWx4S2xsL1VFM1ZF?=
+ =?utf-8?B?UHh5Tnd4dStzN2RXc2pkZis2dmFrV1hLS1VYVFhRNXBWeHdwbWJ6cjJMMnhp?=
+ =?utf-8?B?bGxsajIwNmNZVVhIM1dyZUJsVUxiTFhMSUp3RFN4ODlMMEQ2OTY5NkpXZkNj?=
+ =?utf-8?B?T2d6SVh6WWw0dzlPTXFVOXZQUHdEZjNhVkg3c1R1Um8zNkFVV1NDT1MwY2tN?=
+ =?utf-8?B?bVplY0kyanZZcGVzUzFzWC9ONEh6K1o4bmdDV2NTbmFLUDR6cXpIalgySEVn?=
+ =?utf-8?B?OGxIazNLc3hINUVjZG9SdXJQV2svTndFRmVNNkJOcGVETXNwMm16VGdRUUxv?=
+ =?utf-8?B?aVBKK0JRV0FBQVpuaW5lZGp6UlhERmJScktVdlM1aFpkT29DVXh6R0kra2hY?=
+ =?utf-8?B?L0ZPN0p5bGcyWmVQWXBLMjc1UHZSMFByanovWXYwQlgyTTFKOWpPL2VWc0xT?=
+ =?utf-8?B?blkxV2NLZUFSMFRZNVFucHN4VHl2U2hXdEFRVVNGSUk4NmpuZUpVL2c2QTYx?=
+ =?utf-8?B?N2lQZXFMU1krYVhQZGpiSFNscjRNeEk2Y3EzdFRrZTJZQVNqL05UdXIyUVJG?=
+ =?utf-8?B?WUZncjF5VTJQbUxvTlFmZEJURkpVTWJFZ3VhSnFsT0pFUEhMN01wWXRvVUV0?=
+ =?utf-8?B?b1ErNUFodDVzTThjaE5VWWlQRW5RQ292djlDL3lNbzZzMzl4WEVwZ2ZYTzNR?=
+ =?utf-8?B?YU0xYmg4ZlJUTjF4OGxVK0xUM25QRytkMzVVUVF4LzNDNkhKd09xMTRONUx5?=
+ =?utf-8?B?SXhPOU9LSCtBdmtzVStTcDBGd2xBUVdOaDl4dmcxSVVuVXRjeDhkTGFuNU1S?=
+ =?utf-8?B?bEE4VTA4ZDJzdEtyWS9tQ1lqeUpsL05uKzJZOEMrczB1MFptVUxBc0gxYW5h?=
+ =?utf-8?B?RHRYUDFLMFJTRzAxMWo2QjNKQk5UUGEvbVBFazZMMEU1RU5GOEdmVmFmWklY?=
+ =?utf-8?Q?wBWe1vC1fXm9BzGU=3D?=
+X-Exchange-RoutingPolicyChecked: NW0w9b/Gu9G9wsiwTXVJN9Iwcqcs1PhHx/yPrm1ZX8dJxidZ/1jQyHIE6WDkvU8aUNd29jYcPvUDc941chTmHu31evLWwf0VzT5SZy4XCO4Yillve4tx8Z6S5F8y8uWouKauiaOzmIJL0T4+UE20niJbM72Va5vsNlwt1oMoe0EvYaM0QzavXcqur3FqOVzo0pym/k/e/d5h24DCrdmNFNu+zFqzlm3NkEO/pZey6oqnwRecDaDb7DlGVPlTrMUG+QgibamEtB8pJKraYZHMFbgizmX5pg3aLOoz1B57ux15Tke6BGagxRnxaNZZZAaACv02MSgHHgUtuHTm/Cbcyw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc6f2226-f412-4ddc-bdf8-08df3f624268
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6469.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 19:38:56.7884
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jl+GQLQQsJk0BhQyX9n9/ezCsIzxv9OCuEfiXY7C6KH4EE3VY/ecl5LmAL75M3sR9lzlQjIGC213clUjtf7SFlB2ZbEs2PqaxDDJ4AZPVR0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB8295
+X-OriginatorOrg: intel.com
 
-From: Roman Vivchar <rva333@protonmail.com>
 
-Add support for the KTD3137 display backlight IC. It's used in various
-Xiaomi phones, such as Xiaomi Redmi Note 9.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- MAINTAINERS                       |   1 +
- drivers/video/backlight/Kconfig   |  11 ++
- drivers/video/backlight/Makefile  |   1 +
- drivers/video/backlight/ktd3137.c | 258 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 271 insertions(+)
+On 11/10/2026 6:48 AM, Paolo Abeni wrote:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 24dd5b43f167..23114fd09445 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
- M:	Roman Vivchar <rva333@protonmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-+F:	drivers/video/backlight/ktd3137.c
- 
- KTEST
- M:	Steven Rostedt <rostedt@goodmis.org>
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7c66b8840d88..0196b8597367 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
- 	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
- 	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
- 
-+config BACKLIGHT_KTD3137
-+	tristate "Backlight Driver for Kinetic KTD3137"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Kinetic KTD3137
-+	  found in various Xiaomi smartphones.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called ktd3137.
-+
- config BACKLIGHT_KTZ8866
- 	tristate "Backlight Driver for Kinetic KTZ8866"
- 	depends on I2C
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 34469711c6cd..b2d3b69e9e32 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
- obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
- obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
- obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
-+obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
- obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
- obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
- obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
-diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
-new file mode 100644
-index 000000000000..1595aefd46e6
---- /dev/null
-+++ b/drivers/video/backlight/ktd3137.c
-@@ -0,0 +1,258 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2025-2026 Roman Vivchar <rva333@protonmail.com>
-+ *
-+ * Backlight driver for the Kinetic KTD3137
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define KTD3137_REG_DEV_ID		0x00
-+#define KTD3137_REG_SW_RESET		0x01
-+#define KTD3137_REG_MODE		0x02
-+#define KTD3137_REG_CONTROL		0x03
-+#define KTD3137_REG_RATIO_LSB		0x04
-+#define KTD3137_REG_RATIO_MSB		0x05
-+#define KTD3137_REG_PWM			0x06
-+#define KTD3137_REG_RAMP_ON		0x07
-+#define KTD3137_REG_TRANS_RAMP		0x08
-+#define KTD3137_REG_FLASH_SETTING	0x09
-+#define KTD3137_REG_STATUS		0x0a
-+#define KTD3137_REG_MAX			0x0a
-+
-+/* KTD3137_REG_DEV_ID */
-+#define KTD3137_DEV_ID_A		0x12
-+#define KTD3137_DEV_ID_B		0x18
-+
-+/* KTD3137_REG_MODE */
-+#define KTD3137_MODE_BL_EN		BIT(0)
-+#define KTD3137_MODE_CURRENT_MASK	GENMASK(7, 3)
-+
-+/* KTD3137_REG_CONTROL */
-+#define KTD3137_CONTROL_LINEAR		(BIT(1) | BIT(2))
-+#define KTD3137_CONTROL_IND_2P6A	BIT(3)
-+#define KTD3137_CONTROL_OVP_32V		BIT(5)
-+#define KTD3137_CONTROL_FREQ_1000KHZ	BIT(6)
-+#define KTD3137_CONTROL_DEFAULT		(KTD3137_CONTROL_IND_2P6A | \
-+					 KTD3137_CONTROL_OVP_32V | \
-+					 KTD3137_CONTROL_FREQ_1000KHZ)
-+
-+/* KTD3137_REG_RATIO_LSB */
-+#define KTD3137_RATIO_LSB_MASK		GENMASK(2, 0)
-+
-+/* KTD3137_REG_PWM */
-+#define KTD3137_PWM_CH1_EN		BIT(0)
-+#define KTD3137_PWM_CH2_EN		BIT(1)
-+#define KTD3137_PWM_FILTER_6LSB		(BIT(3) | BIT(4))
-+#define KTD3137_PWM_DISABLE		BIT(7)
-+#define KTD3137_PWM_DEFAULT		(KTD3137_PWM_CH1_EN | \
-+					 KTD3137_PWM_CH2_EN | \
-+					 KTD3137_PWM_FILTER_6LSB | \
-+					 KTD3137_PWM_DISABLE)
-+
-+/* KTD3137_REG_RAMP_ON */
-+#define KTD3137_RAMP_ON_MASK		GENMASK(7, 4)
-+#define KTD3137_RAMP_OFF_MASK		GENMASK(3, 0)
-+/* Ramp ON: 2ms, OFF: 8ms */
-+#define KTD3137_RAMP_DEFAULT		(FIELD_PREP(KTD3137_RAMP_ON_MASK, 4) | \
-+					 FIELD_PREP(KTD3137_RAMP_OFF_MASK, 4))
-+
-+#define KTD3137_MAX_BRIGHTNESS		2047
-+
-+#define KTD3137_I_MIN_UA		5000
-+#define KTD3137_I_MAX_UA		29800
-+#define KTD3137_I_STEP_UA		800
-+#define KTD3137_I_DEFAULT_UA		20200
-+
-+struct ktd3137 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct gpio_desc *enable_gpio;
-+	u32 led_current;
-+};
-+
-+static const struct regmap_config ktd3137_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = KTD3137_REG_MAX,
-+};
-+
-+static int ktd3137_init(struct ktd3137 *ktd)
-+{
-+	int ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL,
-+			   KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
-+}
-+
-+static int ktd3137_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct ktd3137 *ktd = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	if (brightness > 0) {
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_LSB,
-+				   brightness & KTD3137_RATIO_LSB_MASK);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_MSB,
-+				   brightness >> 3);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_BL_EN,
-+				  brightness ? KTD3137_MODE_BL_EN : 0);
-+}
-+
-+static const struct backlight_ops ktd3137_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = ktd3137_backlight_update_status,
-+};
-+
-+static int ktd3137_parse_dt(struct ktd3137 *ktd)
-+{
-+	u32 max_ua = KTD3137_I_DEFAULT_UA;
-+	u32 val;
-+
-+	device_property_read_u32(ktd->dev, "led-max-microamp", &max_ua);
-+
-+	if (max_ua < KTD3137_I_MIN_UA || max_ua > KTD3137_I_MAX_UA)
-+		return dev_err_probe(ktd->dev, -EINVAL,
-+				     "led-max-microamp (%u) out of range\n", max_ua);
-+
-+	val = (max_ua - KTD3137_I_MIN_UA) / KTD3137_I_STEP_UA;
-+	ktd->led_current = FIELD_PREP(KTD3137_MODE_CURRENT_MASK, val);
-+
-+	return 0;
-+}
-+
-+static int ktd3137_probe(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev;
-+	struct backlight_properties props = { };
-+	struct ktd3137 *ktd;
-+	u32 val;
-+	int ret;
-+
-+	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
-+	if (!ktd)
-+		return -ENOMEM;
-+
-+	ktd->dev = &client->dev;
-+
-+	ret = devm_regulator_get_enable(ktd->dev, "vin");
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
-+
-+	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
-+						   GPIOD_OUT_HIGH);
-+	if (IS_ERR(ktd->enable_gpio))
-+		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
-+				     "failed to get enable gpio\n");
-+
-+	/* HWEN should stay HIGH for at least 150us before I2C can be used */
-+	fsleep(150);
-+
-+	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
-+	if (IS_ERR(ktd->regmap))
-+		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
-+				     "failed to init regmap\n");
-+
-+	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
-+
-+	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
-+		return dev_err_probe(ktd->dev, -ENODEV,
-+				     "unsupported chip id: 0x%02x\n", val);
-+
-+	ret = ktd3137_parse_dt(ktd);
-+	if (ret)
-+		return ret;
-+
-+	ret = ktd3137_init(ktd);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
-+
-+	backlight_dev = devm_backlight_device_register(ktd->dev,
-+						       "ktd3137-backlight",
-+						       ktd->dev, ktd,
-+						       &ktd3137_backlight_ops,
-+						       &props);
-+	if (IS_ERR(backlight_dev))
-+		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
-+				     "failed to register backlight device\n");
-+
-+	i2c_set_clientdata(client, backlight_dev);
-+	return backlight_update_status(backlight_dev);
-+}
-+
-+static void ktd3137_remove(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
-+
-+	backlight_dev->props.brightness = 0;
-+	backlight_update_status(backlight_dev);
-+}
-+
-+static const struct i2c_device_id ktd3137_ids[] = {
-+	{ "ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ktd3137_ids);
-+
-+static const struct of_device_id ktd3137_match_table[] = {
-+	{ .compatible = "kinetic,ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ktd3137_match_table);
-+
-+static struct i2c_driver ktd3137_driver = {
-+	.driver = {
-+		.name = "ktd3137",
-+		.of_match_table = ktd3137_match_table,
-+	},
-+	.probe = ktd3137_probe,
-+	.remove = ktd3137_remove,
-+	.id_table = ktd3137_ids,
-+};
-+module_i2c_driver(ktd3137_driver);
-+
-+MODULE_DESCRIPTION("Kinetic KTD3137 Backlight Driver");
-+MODULE_LICENSE("GPL");
+...
 
--- 
-2.56.0
+> I still assume this one will go via the intel tree first. Please LMK
+> if I should apply it directly, thanks!
 
+Hi Paolo,
+
+Yea, I'll take it through IWL.
+
+Thanks,
+Tony
+
+> Paolo
 
