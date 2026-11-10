@@ -1,66 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324828;
-	b=g71LKay1owJ4oQgP9nm09B9pYq/B2HZXp/jhLWTRM43JNWdN2xCaqNJBwS7wvdJOjzd5
-	 W+6mpgxtanzTDW72VyQEfjydOnsBVLnmO5ufv2s8Cv4Rg5eaf2BRq+BRJ8+ispxa4HoxC
-	 X79xDDTTq2XR8AZrkpba4exojakSoh0kt45AnjCt+cnVeNqBRnKLwK0GD5J0DEZ2YLPSj
-	 JAnwvWEzSCpUatNwNC5VQgUvbVe9TbjYczTy3a5DdDytvxC25/7GszKgVC04qwXglnqOV
-	 JCmiKI1Lox1Feyhmku4mzm759RohRL0CaIg9y1l3YjrLbib62q7XZ+K5ldvOuxV0+0w==
+	t=1794324844;
+	b=I3x4v51eKdtFUFP8v6qeTDRV7VR/4GFZ+Hgl9nxpcvbXZr6JX57VsTQy7JNuVezW3FWZ
+	 MznnmAdDk8mW6/Oj+sSiyYVglcU/HOLvIFDeMi7p1yS3S4UZi2/I7JtjyuHqsDbXvq2oT
+	 nKGTqj0zwwyQS1WM6B0+LGrvJ51WmoHbgfTZxkrSRsBDqHv9rKRgQ/+gzCtoPZBWni3d2
+	 xF1vpm/0o4BxYzBaHMdrCL2GAZ8BRjp9AachjCK97cTZuRl8uauR3p93aYQ3lG2QSDGL/
+	 a1rNwDkUArBmsm83aPIc6huZCwfR6JyMFoc+SrsWEINSpO5hFSMXtjSeon8dvtjb7Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324828;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g/SjKPleM9qVQQO+iskDBaMPr/z+uX0TPZsgdSwyR3w=;
-	b=vJddyVMZbQOS2zOpZaQKdNCVdA0caDB1LZpX0jWawuH4ZM6LxUSMsaCbwRq0YuBSvdOv
-	 RxqIkgWAc3gJSBOKLPgVoKVZxDMhJjc8G5VuE0UOR4E4qjFfoP2jRH7tL5vL6FQPoaF/2
-	 IkO7fcuqUmdsF4++iKYBEltEMJBV1FG+8hTZ1et96lt/x7h11YkvrAXk3RJw4EE5lN9dV
-	 7XAsLSW5m3DwoGf4CxTWnLK6V4KHZ324J5oisS6Z9ONrtRVnsc9IgSsqqYJPM0g7w0YOs
-	 5qwBHCQimCwGarE9yyZyDGvHJpf5UbKE10PAEHU+oF6fBhtowdDkR3YxxyktT86+b9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yluzRKmVDPu+7EECyA/efKixS7yyj5ZyapVEgCd4Byg=;
+	b=4qL/KoMnZp8qPogH7Oly4SRYQV9v8DS8LoNozF4VvbyCkz96r5orFej1Q9/HOCfeRrmt
+	 TomLivRhWwGKfdBdu86KsCPYrBppNS8BHy66q5XjIB4Vfv/IjE2EQ1YY4Y2iBJa4y+La0
+	 4rud2Tui2gBGyqdkSDEln1LcTJXnt1PVLLGnmPCgDl0fCtCMf181kc/sRet94Go12zbqn
+	 PldPVpE0wBEiTQ6Mze3EJd3VOWsE2V7UvuqPXE13nlNjM4uGINFUifR1Nxzs0NvTbVM/Y
+	 ydR5GAbbQj0DfVrY9WOoTIKnc4iSyJjaUT8QXLxTBKgd31unaBwRRHj+C5Yau7koUsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iesYPJDp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AJGtPjpk;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C913606A330;
-	Tue, 10 Nov 2026 15:33:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244F6606A339
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:34:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 244F6606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iesYPJDp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F071F0089F;
-	Tue, 10 Nov 2026 15:33:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324827;
-	bh=g/SjKPleM9qVQQO+iskDBaMPr/z+uX0TPZsgdSwyR3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iesYPJDpDPjLVnVdiNy5DXLlxBTia/Kwz27Osob2NsVKBGheX/8B5gx6Yf2LoF+K0
-	 0+zFKA51XIPot7UGZlZh/uxVy+c7sqDHL67CREW04ba5e//+ez3rnkPJBjMAOklXeD
-	 t9kRgik7xwXHWudNFYktA3i7j6s0GncwMh+3JUIZoGkGBqtMldkb6JKKveM9W9+r0L
-	 QNhxfvLHGR0VDXm9q+ze4qKTL35xCnWKz7J+3W53S4ucbRnp879wimNIdC1FuxqI5K
-	 XjypcLiuLHsvNTl22UrfYXHhLjww8mYuIdl1OrxOL0wVB7A89HUKn/ZvArQTBwJvb2
-	 wI62LDd7lBo7Q==
-Date: Tue, 10 Nov 2026 16:33:40 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Alejandro Colomar <alx@kernel.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v3 3/5] stddef: Add const_cast()
-Message-ID: <2bf5cf7baad87b5b7b7f833df390596a033fd6f6.1794323750.git.alx@kernel.org>
-X-Mailer: git-send-email 2.55.0
-References: <cover.1794323750.git.alx@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AJGtPjpk
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-49318428d98so1151584f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:34:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794324842; x=1794929642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yluzRKmVDPu+7EECyA/efKixS7yyj5ZyapVEgCd4Byg=;
+        b=AJGtPjpk4PKprYewYVnrBUwOAmxm+FC6DejzkymBnetvLQdlSs2Ozqz/LL4d+nh+iR
+         Cc1/oQaSSZudftwymLggWc7hx/8KJ47EQ/O8KeJvDq8AYM37DgF7VNR1xzR37beWwgns
+         urL6MupdY9mPHdc/hRaKOsSnyV1o52gkEnXo1VqwurUzFNwv7uKixoDU3V9eU8EAg0QS
+         y1NbtmarHQXUC5KFeOWLAfmTLpLEC1Hb2WfhmZXmMGIgfek0tSWeJtifeEfcvJbid0L5
+         csIKMBEpsyITKCNkbQyojd47jBuRebXwyXMvE4U+oG2g9DT3hmwp7oWf1rWRaxPq1vEl
+         /qGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324842; x=1794929642;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yluzRKmVDPu+7EECyA/efKixS7yyj5ZyapVEgCd4Byg=;
+        b=x7vOA3w4j/wTLkt0/r4lXQamIneQMabDYuSnBi0MeWBFMo5DP01GP04lImjW5VRFL9
+         tHVzGHGvBPNYH4OlPuCC4n1bMjXMY1v1UczLKUdcWTg2rDUYnBAAFzvv+PmZ4WSI4W+T
+         xq2rfmAuPK0MKGrYNACvKW7Tbc2vAETEUGXol9iMrrg6pMXZiBNrlqO7lQPvgNVvTnZI
+         iFa0HAW8gUq4qdboh+BLaTnAlNADYjDHrjM2izofThq1F9JKJg6z/zhFBw1XYTevr3hT
+         vGK82ivScEzRZMZwNpD+SIte8lLvyHIrJsAHe1V7A5bC7A/5GbPlHFqAyGeMWleYnDtt
+         1rHA==
+X-Forwarded-Encrypted: i=1; AL+hErH39jZqS9kVRX+fMK4Sf3jrHM+ucpV67zZjvE0Ukr3HgpiX57/UNkUkeJZxJx/LMhJl4ETM93BW6M/sjhc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QE7feMR9dEzJIgKQGZaumQhmLNw2vwVw9F8/MQ5rVdMN839Rn
+	p8PZWFJquBX2d7+qu6v0Imo6zdIwMaiG0CR8K468JCY5irYUnJyEpmxtvQAzor4BVTY=
+X-Gm-Gg: AYBFou3DUG+PfjS360UvNkEo9spXHirug7oDF8jM2uIjwLXVH3SwY+kfHsNmoj+catx
+	VvTHI4X8mwfmrz1Tz/58tyDC6+xEmibGKqp5y4OuektL2Be1MT/IAQAWTq8zSxYC+dhmPMQlyWg
+	35/LiYb97OUimWe/+s7z7s45QmhqRMaUhWr6e7peUe5WcZJiOUJeHxmjQhI/sLqfObrAxTcWUc7
+	+twi1a2oVMsDNCLabyrbETZImsVxX6f3chY78Matuvr5yz9aLyPvsOOJC4tL8tKodrru7jLYCv3
+	vtvYuEEjsclq/bmJwyJUPjtnTMUhw9zGiVNC3AWCDN36dnxEhq6YdD/HJmjNm1WTRD/knSGB7f8
+	QX40t3QJzsvukoiJK9ov60tfu0p4qaZ9LvF1Spk5UfsEwxyEQJp4I971KzQ+z33kXxE1y3B+jIq
+	r+VOTDTCpH1pxfbU0NnCQ2G1LLifMUpach4qjiLBLSRp4xj4mc4l3aGf1we7r1el6JuORKQ8Eg3
+	CUND7wZy5p1+7l4pcPEvmvI9tt9VNz0rfwpDxmQ2hAhKGcdT+7GnMMpv3cHc6x9/bxDnzj+rAw4
+	ZE8HwnKfpwhcxt04gKYvEDIBB3UilbroECc=
+X-Received: by 2002:a05:6000:25e9:b0:493:59c9:ebcf with SMTP id ffacd0b85a97d-49831432d19mr5298578f8f.57.1794324842495;
+        Tue, 10 Nov 2026 07:34:02 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-499823761f5sm105321f8f.2.2026.11.10.07.34.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:34:02 -0800 (PST)
+Message-ID: <bc1cd619-1b3a-4d67-98ff-c4351a1c3662@linaro.org>
+Date: Tue, 10 Nov 2026 15:34:01 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,93 +92,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x4z5nhiegy4aftww"
-Content-Disposition: inline
-In-Reply-To: <cover.1794323750.git.alx@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 16/23] coresight: trbe: Always classify TRBSR when
+ updating buffer
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-16-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-16-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---x4z5nhiegy4aftww
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Alejandro Colomar <alx@kernel.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v3 3/5] stddef: Add const_cast()
-Message-ID: <2bf5cf7baad87b5b7b7f833df390596a033fd6f6.1794323750.git.alx@kernel.org>
-References: <cover.1794323750.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1794323750.git.alx@kernel.org>
 
-This macro serves to cast const away without risking unwanted
-conversions due to mistakes in the cast.
-
-It's similar to C++'s const_cast(), but it is more restrictive: it can
-only cast away 'const', and not arbitrary qualifiers.
-
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- include/linux/stddef.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/include/linux/stddef.h b/include/linux/stddef.h
-index e1851c50c89b..d79a81406b78 100644
---- a/include/linux/stddef.h
-+++ b/include/linux/stddef.h
-@@ -194,4 +194,16 @@ enum {
- #define TRAILING_OVERLAP(TYPE, NAME, FAM, MEMBERS)				\
- 	__TRAILING_OVERLAP(TYPE, NAME, FAM, /* no attrs */, MEMBERS)
-=20
-+/**
-+ * const_cast() - Drop const in the left-most derivation of a pointer
-+ *
-+ * @T: Type for the cast.
-+ * @p: Pointer to be casted.
-+ *
-+ * If @p is of type const @T, then it is casted to @T.
-+ * Otherwise, @p is returned without any casts.
-+ * This avoids mistakes that change anything other than 'const' in a cast.
-+ */
-+#define const_cast(T, p)  _Generic(p, const T: (T) (p), default: (p))
-+
- #endif
---=20
-2.55.0
-
-
---x4z5nhiegy4aftww
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzOVQACgkQ64mZXMKQ
-wqkhtRAAlHrELZUj/9qogUkPnG1xDQtdWzwKbfz+1uyKYE54u/857CGFAEB4XKWo
-FMPLZI/Cm9cAj9WeBoqgNNxIDhWx+pvv1tUuot6iGkbG7mgqBBsk/ijPViAsNGn0
-tBT2ao/aBkf7MZ+/Sg5QAlV2HxUYFWujrHFo2P+HkDfnFSV3RtaZkT5t/+HXK+1p
-rHRDXix4+8aSKIid32Ki3Vcd0vwOf6u+heTElGiyQc79YJ8bCR/vvtPrg5IJjx8B
-XVR6D+NYv3xJ5/bOivfF+nRBttumFtXFCWsy9YFiYgogO7yZoFde3Au7hj7ALvwj
-BCffEQUqUgge13j4mlTGx2uEv74/0kH86FCRJxyqFqh7sFiytDy9Qvd4IEBowwxW
-yk0MTMUiCa+MBg4VTejxtf1AzOX9ANzt5sHL1evrobEddQYPUP6EO4WI+0Q/XPYj
-7dD429Tcn2sTTcvTQ+yofDuFpFVri7oBqbOSnjAd5NhfV4dMRVszXDGLZ1Z2I1el
-kXZYKOLOQG/CHfVpd5B8KE0QQePlk5NzT8nodTlUQAPIlKDkN1w4M2Yulxt46r5X
-r76wRDxSfpAktmr0mAl7UG65Y8RJvtBCmAaznfHq8S++Fhdi5VpqQuQWRMCc8IpP
-yVGvH+GTRv3qyx7nonwf0ZQLXSm7v1E0ZXTTnWA+uog99TFgsyM=
-=KJ8i
------END PGP SIGNATURE-----
-
---x4z5nhiegy4aftww--
+On 16/10/2026 17:55, Leo Yan wrote:
+> arm_trbe_update_buffer() must account trace when perf stops a session,
+> even if no maintenance interrupt has been handled. Prepare it for
+> trigger and wrap modes by making the trace-size decision from the
+> drained TRBSR status rather than gating classification on IRQ.
+> Acknowledge IRQ only when it is set.
+> 
+> In FILL mode, reaching LIMIT sets WRAP and IRQ and returns TRBPTR to
+> BASE. Interrupt delivery can be delayed, so update_buffer() may run
+> before the IRQ handler. The existing IRQ-gated path uses WRAP to size
+> through LIMIT in that case; preserve this while also classifying
+> updates without a pending IRQ.
+> 
+> With classification on the no-IRQ path, a normal software stop can
+> have TRBSR.S clear and an ignored detected trigger can set TRBSR.TRG.
+> Neither should warn or discard valid trace. Mark fatal status as
+> truncated and return zero. Use LIMIT for a filled WRAP and TRBPTR
+> otherwise.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-trbe.c | 24 +++++++++---------------
+>   1 file changed, 9 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index ac49098aa08412a23a20d32f84c2e1977ee4a223..661f4a78e67c30652de8c834e4773819fa67b5ac 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -662,8 +662,6 @@ static enum trbe_fault_action trbe_get_fault_act(struct perf_output_handle *hand
+>   	int ec = get_trbe_ec(trbsr);
+>   	int bsc = get_trbe_bsc(trbsr);
+>   
+> -	WARN_ON(is_trbe_running(trbsr));
+> -
+>   	if (is_trbe_abort(trbsr)) {
+>   		err_str = "External abort";
+>   		goto out_fatal;
+> @@ -844,7 +842,6 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
+>   	enum trbe_fault_action act;
+>   	unsigned long size, status;
+>   	unsigned long flags;
+> -	bool wrap = false;
+>   
+>   	WARN_ON(buf->cpudata != cpudata);
+>   	WARN_ON(cpudata->cpu != smp_processor_id());
+> @@ -896,23 +893,20 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
+>   		 */
+>   		clr_trbe_irq();
+>   		isb();
+> +	}
+>   
+> -		act = trbe_get_fault_act(handle, status);
+> -		/*
+> -		 * If this was not due to a WRAP event, we have some
+> -		 * errors and as such buffer is empty.
+> -		 */
+> -		if (act != TRBE_FAULT_ACT_WRAP) {
+> -			perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+> -			size = 0;
+> -			goto done;
+> -		}
+> +	act = trbe_get_fault_act(handle, status);
+>   
+> +	/* If an error occurred, the buffer may be empty */
+> +	if (act == TRBE_FAULT_ACT_FATAL) {
+> +		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+> +		size = 0;
+> +		goto done;
+> +	} else if (act == TRBE_FAULT_ACT_WRAP) {
+>   		trbe_report_wrap_event(handle);
+> -		wrap = true;
+>   	}
+>   
+> -	size = trbe_get_trace_size(handle, buf, wrap);
+> +	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
+>   
+>   done:
+>   	local_irq_restore(flags);
+> 
+Reviewed-by: James Clark <james.clark@linaro.org>
