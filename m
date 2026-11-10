@@ -1,69 +1,140 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.68.146
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304837;
-	b=cNZmEQx/cJ+ImuBdwFdIW6fMM/HhQijcMMU/B+AWRlPh0p4nYhLnAMKN2MKF6r5jzKkc
-	 Uc1BwE9EYtF0U+0/AP4yeQFW46t5U+nTkq7LMDbHkQrJJvmQIRDdX+qr1MiPLpIPn5jMe
-	 de+/1Q5bX1OjM8nVYpEIjaKhmuEB0Unr9hvUmdR0awipDBacT/VSn/k5Gqj2/tePblwLe
-	 YN8FaPXZiPVQ3uR41NE5UfSUNMv6LmhAiMqO0c8+yFV+sLhp9/sW41GmSwIHPlKQm1zD/
-	 cJNEsRXRmpu30D9wR1UFnAMf76tZlv+WX4bj/CYWCIVw6M7TlHK87iKgDryOzx/iGrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304837;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-JNJ;
-	bh=1Cs2n0h6w2Ln3VT0XyxB2uB1yqjzmn9HR/nBfN5kA3s=;
-	b=yVKX7d3UJsqstmRgddJD3YbbnK6M6lwblvqLex/M0gNacYP1fFFPJlXpyoxz863XxUU6
-	 w4Uy2OU2qYD4tnaXbZYNSH8jL9ukOwisjm719PdIpNAwKqn+Ydwn8KnOavrZ2RNWKOFwq
-	 BMsV7OkBZhJ4DXBC/JawovnxryYP6uX6OrBknuhRRqOT++EL57OVS+/uALyPIyE5p0jnJ
-	 gioMNVgh4yPavAid+gy9sEPV8GC4N0LKWkI6zFEtsu8zjj+XtELzAiS3f9bdUbeABij3f
-	 1t7glvYmAHRtIa0seFEuFpLYOF/r8YzR9x/JHl+4r4pebEYkyIOlxAxlRnaBFGfAihA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=verdict.gg;
-	spf=pass smtp.mailfrom=verdict.gg;
-	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=LodZi1K0;
-	arc=none smtp.remote-ip=57.103.68.146
-Received: from outbound.mr.icloud.com (mr-2002c-snip4-3.eps.apple.com [57.103.68.146])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794304862;
+	b=qQrM+MgTrWoVk32KIXjHytFpX6Rqh/63AfBsKzIvOzBwSAG3DmD7l50LDTXuxdNUipfw
+	 BNSSgDh5z+Tm4KF+LLBYw8WKJ3dfAl5QilpBhc3Sc8FzBwRp1UgzJrL1DMtZyykkrzxMs
+	 eOXWU/eyu7UNYdujZkQLbG0HVeM9ilhSZUve2BKuUYyxEYCDXuA2nNy4vpqAH4+ulyWF4
+	 i8BDU6jLeVyXPsP36B844qik3d3DmA05w3DSoDsmaQCXUGXjgsgeQBzqaWJbNyFNkxwji
+	 9A9pS1BX70PCikQZ2YI7atMQTf/wFQPgRq2OVOdsCpKwHn9SxMP6fnX0h93fP0IeX0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304862;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Cc:Subject:To:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
+	b=3XaKj4TuNWq3RsPij/zLG8sPoxbewT0Rg9la6svj3L8wuptv+zZrwBrwINEf9QU5ndkL
+	 xAHaRZBV1BiHOAqWHf9PUx9PqHCiePD9ZgTtPFjQllO64A2KuYL3A9DG4u49mow4QhOVY
+	 vSOyBeEwcp6QoaaELj/q05Zof/OJhvtJIGZ8n1LL6qdvmj/0n5yt5eG3/6JiTFQJDsnu1
+	 fYLQ3JQivDo56OZJ098ozPetqAqRCO+Va4YOxCyVZ9GQUVonnJ3RrfKz/iy6JKbH7fhZ1
+	 U8t8G0I6bA+yoZU0z23qIfI9sVAEV6CENWY4lm4CZBRajpHY3UyF8rEEoYfKZ+GdyIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=citrix.com;
+	spf=pass smtp.mailfrom=citrix.com;
+	dkim=pass header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=OM8KmlSa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD8F60A380F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECD8F60A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F29606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F29606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=LodZi1K0
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPS id DBBCF1800154;
-	Tue, 10 Nov 2026 10:00:33 +0000 (UTC)
-X-ICL-RepId: 01a1c4e6-f92d-73ff-ad41-3f5a00b803a3
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQ1OHVwORQFEF0oBTVIPDxRcFFofVgVyBlwKVwRUHxwXXlhVCQodVwJdEVAZGQxVUEsbDlwFS1oVVRcOAkIfUB9MFldDWhkcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKHVcCXRFQGRkMVVBUEVdQC1kCQg9JAlwHWwtFAEgAQw9fCkEKVQdAUw5eGUsZXS1BDkAUUBtHQ1AMDFBNAUMICghHA00XXjJTBF8RUBY=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794304835; x=1825840835; bh=1Cs2n0h6w2Ln3VT0XyxB2uB1yqjzmn9HR/nBfN5kA3s=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=LodZi1K0TifBExTHMs3szHhECTGiRUN6/5wsDnRKWKfJvFIG8COT+DmAyR/Dsf31MTGdxhMCU0l5SM9zgnJmsFmkfknEno3a/K/D88W8tM9sOPr5VvSc3dCg0QFc+CoCWmEHogE2qyit9Z4+7G8JbWYJa7vtZQpV8X3c34m1A3ADZzLKRrz6EcZLvdZNYtaiXQ1Meg9t5cXs+CKHhOKu6wi6b9rlNu0k8jxfXoe9HCbP4ZF7/xtN7vRapoxpFZqp8WGMLoO4NLKH9o1zBqW40ULGBNvATIbfwj+QxMr78tUQTIT1lgEy1LNJe2a07u8ltXH4xbQ6kDkEx6ejJJalYg==
-mail-alias-created-date: 1621344842221
-Received: from DelNac.mail.msk (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPSA id EA9AF180015A;
-	Tue, 10 Nov 2026 10:00:30 +0000 (UTC)
-From: Vladimir Vdovin <deliran@verdict.gg>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Vladimir Vdovin <deliran@verdict.gg>
-Subject: [PATCH net-next v2 3/3] selftests: net: pmtu: Add IPv6 and asymmetric multipath tests
-Date: Tue, 10 Nov 2026 12:59:03 +0300
-Message-ID: <20261110095903.84813-4-deliran@verdict.gg>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110095903.84813-1-deliran@verdict.gg>
-References: <20261110095903.84813-1-deliran@verdict.gg>
+	dkim=pass (1024-bit key, unprotected) header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=OM8KmlSa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C/9jVqC35Vh94RZtA50zXUyrGR9vsB1QKqxtnTI/vMJNywUrX18t3GKf2Ll6o2VyBfujN+NqmyzVqYebUWE2yWE04ffnJ1KZNhAd3tiTHeQMtrc/uRCcTgPj7P0r5rtLJrxtzZVdaH4HNITT4d9pa/cppRiaQZxXTB8dPjOHGTrFRqQ5wMCWMfA84WMrZRpJBldzWHqQNm5sPRdDNz64BEKMY4UoDCdQd2xs5ZEHpzldC3rSIspao83/BCgLPx6PFEdKbJj3XB/bp+tyfxxtf2SeZY7PFvOWN81afsyw4NY9terXaBvxMQM02Jd1AuSCnUYTXqXCRsvSUFANNZyh7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
+ b=MT2Yta0I99Wtljw/ARfB42k66ok7cPhYznbJcKQAJ/gLj8cSxVkgI204lEwE8Q5yQPL8Nl/XxwBA1Oj7B6jsSyS7ydmHR8hkpD3mhmDkk5BAeyCbqXVh3M2Qo7+IvKvFe4VnvfcyZNxkd4xp+xbB3xXcD9hUBgWnwgb5Z6UZR7qj3E42lQMBeHHvm2ndkjV4erDEWYh4MLXATZpWHsbrlowAh6nIlsRoMut+kF9ATKdtlGMKyeZtFaD/iRpsc/zFtVTXqoOdRgKogkaSwxzuVkxE4Gxm1Ub6m1Id8reiToc+e+3pQ/eksAb4Eo4eOFgEdKx/TTd+GMZ+0pFCbhlukQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
+ b=OM8KmlSa7r40QsNV1mR9Tg+yEO+3QmX+Al5Mn0LE/NhldAbvsE3pDfIOxBZgQFC3R7ThV1nmZwxLlLVEdw0kAvZi1+tfIVYH3W/uoM62Ug9ACC7Cm0vmnd/b+zyjDT7o1fpDFbXnLp+f07QbU77OkPb6w6k6jpmULhBuzxbbZdc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by BY5PR03MB5348.namprd03.prod.outlook.com (2603:10b6:a03:21b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 09:59:58 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 09:59:58 +0000
+Message-ID: <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
+Date: Tue, 10 Nov 2026 09:59:53 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/2] xen: don't allow gnttab_dma_[alloc|free]_pages()
+ in PV guest
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org
+References: <20261110095605.369848-1-jgross@suse.com>
+ <20261110095605.369848-2-jgross@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20261110095605.369848-2-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PAZP264CA0090.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:1fa::17) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,398 +144,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: SvnHDOP2XVKWZ6OWpORTLjs-dzGsHMEf
-X-Proofpoint-ORIG-GUID: SvnHDOP2XVKWZ6OWpORTLjs-dzGsHMEf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfXyEXgmSfy1l10
- QVN6+KfDvGLCNH8SeMhhsDTXWTOWFbleWJXsR1cIz1bkiBU1YgfOT2NNqgdPbHORwC5ZoToNR9Y
- 5wBqBUvEqgY57/X5ojDYkVqvZhUP90G+/PfTFvBVO/oTg3MIIS6rY8xEi3f3gMML6F/2f0CBmSI
- amNdwECE6zLqRodQgCAOgm9He4xyX4sXW1jwLpQEnnO85euWjm+lbmeJzTyMOeoBJvCbKKWznZO
- wzYANpGkuWZc7QaM9ZdmtWGZNolIhro1pksIWyAMY23996ZXiT+jsJl4PPdmbrJPhc0ioDW45BJ
- gHK53yI77EkG8xTIyUNNqaHJ4Z7SBLOBbOp/1CKZGdd8CX7zFswmRuT8FsNy9A=
-X-Authority-Info-Out: v=2.4 cv=TLdIilla c=1 sm=1 tr=0 ts=6af2eb42
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0iTdSYv0MckaDtb-3agA:9
-X-JNJ: AAAAAAAB5/BCyadAmoGbci3DQos4VZ9MS028e+xWyQwNj0Jfp9oHiOEQwdjnDWPcGYgJmJ
- wZHzcLQeQ2fYZgg3ihd+brq3wAfObDwrwcNX5M8V36AlIeNa10EwNlr0QHBxSUabyJL3+W
- bxV49pyxYAQ6aNSZt9+uXwWiqA3DAP6EJ67TDkE83UXnd3C8ouRczWGwGQuG4LIrHIuMZ/
- vWDlmR+rA7q2ciCKNf3mgR2cAtrrkA+c2gZfNpREy51eWsnnIiOavYTacIF7uITjynZBAp
- s4YCxKcvdhqWr2EqxNUGDz1baKyR1x27msLJk4DVbkrvVbw3itg/UbTwz8USb95dTSYEJa
- JRHMvXhPsLbq0rwJrbrD+1WAz8hUrcKA/Q2EiWsDA4UrkVJ65+UtAPnSoLnuwPMjGSVU34
- GRQOnIBfB54UrOWQmcSHXh6IXO+BeJSOBQphiLA41YowEIW5069XDQcKsNZuBvfgxs08K/
- zDiFdGHHWlld5BfIY6f2sKGOXKoX8WFkB+mtEbcl9nvFSKOmnCp9DqgNSKakgoadwvMDP+
- nO0+9PgM9rzdGuWNV/wL1AqA2Xc4zeompdDt5j8dHB2RkieqOkF2tWPIHaETEVVVBYhY7q
- lKEtZ/Yr/vrpLyFYXNhmL0ac3FjZDbXzBrCSZUKH8Llx3mgEOtlBXjI9ffAldO/WKGuA35
- 9ID9og8Uz0AKPIer2tpaa1mwkiW/Luas5+0E8LLC7JNDnCzQTXMRAYSvHpyByi3hu0IjwY
- hudrgFfmhMPzOxf1aN9qQjhP5RtALxRnhTyygwc8Emla2Pv9U+c3rmyA+t9brQ7fN6A0TH
- EDac87DD3SegR0njV4PZ/5JkGePcjpeMFrmim/Q=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|BY5PR03MB5348:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae85bf77-b04b-4f3f-4e13-08df3f1160c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|6133799003|10067099003|11063799006|56012099006|4143699003|261102123227099003|261026121527099003|261021121427099003|261022075727099003|261022105027099003|261028144727099003|261021123027099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	MZEuwYUfej0h3I705vq305U4QRsgW+GdDaRFewwuJar4U3Xy0N278gE7ns0UgWRrTU5+EKnPn/Um4GRgYCrapbQOX/e67Jz0c0SJV7jD5iEPPW1P9ewQI0ja7H2MDNC9XwJlWjLorUb0towE2jutsUb0gQbPP+7qb6qoXVEfLgrb24xtKrCm+Rs0CD2+2D9KXr0f2sc4EwABEBGyXZFeOedcsf8ZR3Jf5BEDnnxlOsTYSbGyzHNkh9n0+H6UZxSBhx4j9nzwnIEmwoJFK5+VrIQJLLkjLnjAzMV+zNcwMTjhIz7/izOKDvFmuG+1PLxJIG+TutB3Rh5HZJw2BzwXjvwpq/djBVYoeJ2LmYeFkcbetE1KwtatOnhFTSUhT1Nj20LLWGHRQNHEW6fcvD+Rwd4clKM7eS2T0VLrcOgZr3RDSeUslg6cX7sufGMLzZ7DABHh8WvgDZaVxuuibFBDr4K8h52y+pb7PlNxarrSYlLovP4x33ETv7mHJ0NaTtte37++B4Ck1jiOf721FeXNmOuDw67BsoUbUv0HiWigEzCJiXSFaxJ775MwLLQcBN5j0Kr5SHx1BGijpTHB4gimv+CbV6CHwGNN8Fm9Hi+4kPD1rlHty9lDG6L9N8riBzlq5vxxb/DVU7c0X/K4vGf8w9SVovbmH2LZLtYVwJmy3+o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261022105027099003)(261028144727099003)(261021123027099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZU01eTVwUWxOZ0xDNUhiZWl3OVkvelhQMjBteTRuQlhZdHdkcGRRR28yTGI4?=
+ =?utf-8?B?NkFoMDBtNXZ6VFYzK3J6TFU2ZFFnV0I4M0FWdEVYR1o1RmRUNy9tYmd6bDM1?=
+ =?utf-8?B?WTVIR0oxOVdtejdkY000aEM1L0xnTHFsUnFpbStuWi9VYnI4ZTk0b0ZBQTJN?=
+ =?utf-8?B?dnNmRHkzTjJ0Zy8vWGdoNjk3Qkd0SU9nWFN6SEoxWXc3NXhkajNhRDlLTFVI?=
+ =?utf-8?B?TUFjR09GSXcxd1BlcVFnY3YvcVRJOVV4MkJNTW9xR0dLaXBPcjExZGhJN0pq?=
+ =?utf-8?B?dDNTVGZkQUpYb1k0dWVyTFdaNHM4anhrNFAyazI3RXIraFJlRlBaWnBxbGQ5?=
+ =?utf-8?B?R3BCZzg4VHp6Vm1FcmFtTytpMVlKdmg2ZnhXbkxDclppMUFNVjE4ZWdrRTEr?=
+ =?utf-8?B?VnRjTnhnekh0Yk5XdlVqVjNmLzV4T0YvTzMxbUo2N1ovTzNtaFZ6TjdNUlI5?=
+ =?utf-8?B?M1VOMCtZazFDUWNwNkRlOXdKR1p0Y3ZKQURDYkZaczdLUFpPVTJMVWVQYXdC?=
+ =?utf-8?B?djZGUCt4dE1JWWpoaVMxZDZhMDYzZ0NNZEMrb25UenVUK3ZGMHNPSEFnbExu?=
+ =?utf-8?B?RjduL3VnS3BtUWhZYnpaVGdLamR4VHAzRHJGUHE5Mmg0dzEvclpyQVlickxD?=
+ =?utf-8?B?dVZ1eWhMcCtlM1M0OTBGSktxSEVtRFMvTDlwdlpCbnlCQ09yY2YzakM3OXRC?=
+ =?utf-8?B?d3lNRzBaTUNDcWhaOW9tTi9sUTZ4UHRKTU1YckMrcTJZbENkbFdOMmZSL2NF?=
+ =?utf-8?B?Vml1Nm9BUWdXMi9pOFhFUG5GOUVQMkNhM3JCZCtQN0k5RE8vMUxFTHVmZjVP?=
+ =?utf-8?B?NXZ4QWd3YkRiT3JBVjdHOHZxVTFXSjNxY09aN1lHbTAxY0E3amNUZ09YMzJz?=
+ =?utf-8?B?Um9PLzFhT01QSXhJNDhLV01pVmo5SUZHYTZwVVhQa2RzbWc0citlUktFRGY5?=
+ =?utf-8?B?L3JhNUZyY3BuSXhLMGxvQVVvSFpPVWR6c2IvVXZHN1FabXp3aHBZajQ3d2pK?=
+ =?utf-8?B?VncyNCtLRkV0cVl4MkMxSEkwaUhacDVpYVhRNkM0bTJRRlZhdGM1eSt4TzFq?=
+ =?utf-8?B?VS9TMWZqMTc2d2NZK3pLQWpyYW5kMW4yTTNOVWw4K1Q1MHY0aVJMclBkNyt1?=
+ =?utf-8?B?NDYzZWJaWlFsWDBHa0k0TGlPZG1aUTlkRlBuUk5ucTBQZjlXTVpYelpIdFpJ?=
+ =?utf-8?B?aGhyaHdycEFvbTBzOWQ4by8vWDN5VVBIdmZJR1pFZ0tGWkcxNm9UUXRoOXBP?=
+ =?utf-8?B?VnhRWFZFY0Y1Ylg1Nzgzd0FjRjlDNStJeDM5YWxYbGJDckZZb0J2MGRJbTFu?=
+ =?utf-8?B?SmhIbWNURkVYSldOR3RBSCtuSHM1RXoyeDRQczdwaGNQVlozVDRXQnNBbU1t?=
+ =?utf-8?B?K2lpbDFXSjR4U1ZEdHAyVy9JK3I4VWdQYy93ODhPY2dJcE9rVzVRNEZxQUU2?=
+ =?utf-8?B?Z1FqR05NMVgwanNnMXd3R2IrYzNPRkRmVVN3OG9XUENnRDFsMkFHNnNzalRH?=
+ =?utf-8?B?eGtwQ2tzT2xOU3dHWUZ1SXFhMjFVZFpLRm9KcDY4MlMzNjdaSDlDSzRLaTJS?=
+ =?utf-8?B?dUI3YU9UbERjSlZJWlpqQXN1M1NmRmtqUEtwNGN1ZGtndlFFTXNZUiszQW1U?=
+ =?utf-8?B?d1dkZkU0aStEQ2RaRjIvdk0zeDF6OUxsQVNKRXhNRUh2c3dVUExYbDhHdVNl?=
+ =?utf-8?B?eVBsUGVJMkorWVc1MXh6WDVTdnpXdnlDcXJVMzUwaEwrZ3JXQTNIdDhCRmFm?=
+ =?utf-8?B?L2s5cTQvT2Q4amQ3UENPcFQ2T3FJK1ppRS8rOXNXQ0lkQ0Q5YlhJeTBuMDN4?=
+ =?utf-8?B?emMxZEdhTjBCelZrRzVmWXVxRkFiMjg0WkZQbTVPNk5PcUFtVjJkLzBLQjVL?=
+ =?utf-8?B?YU1QNEZRQmtxaUJ0cGtSc1FYNDJ5VlJUL0NqOVEyQVF4TGFVWnpBRW5jZjIr?=
+ =?utf-8?B?a2hyWklJQWdnQnVVZUkvYktzTWhWdXB4ZnB3V2dndGx1UmxLRERGUFM0SC9a?=
+ =?utf-8?B?aXlpeTNoVHI0ZDlxVXZreXE4U2dIb0EwQ3JVN1RrMml1amtFV3l2cm5PL3lJ?=
+ =?utf-8?B?YmhROE1EcUp3Z1ExVVJENEp0M3ZZK3ZvTVBhUlRiZXpnZmsrblYrUVBkZXZY?=
+ =?utf-8?B?K0w1YlNKUHZVOGE0anpPc3JORUtIOUlRWFNnakF5TVYzem14dkdLaml3a2Vz?=
+ =?utf-8?B?K3BSV2J3QklaM1NNQm9vVUVvQmVOOGltcHdDUnY3ZFFaQ2dyekFmVFFDOHZ3?=
+ =?utf-8?B?VzJKQnVwZks3azJlVWRXS0NIbjFma1lXOURtUS8xTkxucTdZUG9OcXBGMmd0?=
+ =?utf-8?B?VWZHRWhJRlNEYnE1UUxwZGNMTU8zalpqdEJ6NnR6SXowNE0wN3VNUT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae85bf77-b04b-4f3f-4e13-08df3f1160c2
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:59:58.1715
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DWbFE1w0xrfuEX8/4yHcs0fv7TJbuja9UYSvKTEeUawGXH3IsfyxIPJZZizHlSrUIdwHCzNCzAQfh12Ipb3jx3H1tbbatAXfioBmL9bvcEQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5348
 
-Make pmtu_ipv4_mp_exceptions family agnostic and add
-pmtu_ipv6_mp_exceptions: one oversized ping over a multipath route
-must leave PMTU exceptions on both paths.
+On 10/11/2026 9:56 am, Juergen Gross wrote:
+> Today gnttab_dma_alloc_pages() or gnttab_dma_free_pages are never
+> called when running as a PV guest, but this holds for in-tree callers
+> only.
+>
+> Bail out early when being called in PV mode in order to ensure no out
+> of tree module or future use cases are violating this assumption.
+>
+> This enables to safely remove PV-only code from both functions.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  drivers/xen/grant-table.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+> index 604c4eea5930..56a497987942 100644
+> --- a/drivers/xen/grant-table.c
+> +++ b/drivers/xen/grant-table.c
+> @@ -1063,6 +1063,9 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+>  	size_t size;
+>  	int i, ret;
+>  
+> +	if (WARN_ON(xen_pv_domain()))
+> +		return -EINVAL;
 
-Add pmtu_ipv4_mp_asym_exceptions and pmtu_ipv6_mp_asym_exceptions with
-an MTU of 1400 behind one router and 1300 behind the other. They pick a
-flow through each router (a source address for IPv4, whose multipath
-hash covers addresses only, a flow label for IPv6) and check that a
-Packet Too Big from the first router is cached on both paths, then
-that a flow through the second router lowers the PMTU of both paths.
+This will get very spammy if hit.  WARN_ON_ONCE() ?
 
-Without the preceding fix the IPv6 tests fail with both legacy
-nexthops and nexthop objects:
-
-  PMTU exception wasn't created after exceeding MTU (veth_A-R2)
-
-Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
----
- tools/testing/selftests/net/pmtu.sh | 276 ++++++++++++++++++++++++----
- 1 file changed, 238 insertions(+), 38 deletions(-)
-
-diff --git a/tools/testing/selftests/net/pmtu.sh b/tools/testing/selftests/net/pmtu.sh
-index c7cd271714ef..6eb79cb76db7 100755
---- a/tools/testing/selftests/net/pmtu.sh
-+++ b/tools/testing/selftests/net/pmtu.sh
-@@ -203,6 +203,18 @@
- #	on host A and B on lo reachable via both routers. Host A and B
- #	addresses have multipath routes to each other, b_r1 mtu = 1500.
- #	Check that PMTU exceptions are created for both paths.
-+#
-+# - pmtu_ipv6_mp_exceptions
-+#	Same as above but with IPv6
-+#
-+# - pmtu_ipv4_mp_asym_exceptions
-+#	Same topology as pmtu_ipv4_mp_exceptions, with b_r1 mtu = 1400 and
-+#	b_r2 mtu = 1300. Pick a flow through each router and check that a
-+#	Packet Too Big from R1 is cached on both paths, then that a flow
-+#	through R2 lowers the PMTU of both paths
-+#
-+# - pmtu_ipv6_mp_asym_exceptions
-+#	Same as above but with IPv6
- 
- source lib.sh
- 
-@@ -272,7 +284,10 @@ tests="
- 	list_flush_ipv6_exception	ipv6: list and flush cached exceptions	1
- 	pmtu_ipv4_route_change		ipv4: PMTU exception w/route replace	1
- 	pmtu_ipv6_route_change		ipv6: PMTU exception w/route replace	1
--	pmtu_ipv4_mp_exceptions		ipv4: PMTU multipath nh exceptions	1"
-+	pmtu_ipv4_mp_exceptions		ipv4: PMTU multipath nh exceptions	1
-+	pmtu_ipv6_mp_exceptions		ipv6: PMTU multipath nh exceptions	1
-+	pmtu_ipv4_mp_asym_exceptions	ipv4: PMTU multipath nh exceptions, asymmetric MTUs	1
-+	pmtu_ipv6_mp_asym_exceptions	ipv6: PMTU multipath nh exceptions, asymmetric MTUs	1"
- 
- # Addressing and routing for tests with routers: four network segments, with
- # index SEGMENT between 1 and 4, a common prefix (PREFIX4 or PREFIX6) and an
-@@ -350,8 +365,12 @@ tunnel6_b_addr="fd00:2::b"
- tunnel6_mask="64"
- 
- host4_a_addr="192.168.99.99"
-+host4_a_net="192.168.97"
- host4_b_addr="192.168.88.88"
- 
-+host6_a_addr="fc00:1000::a"
-+host6_b_addr="fc00:1001::b"
-+
- dummy6_0_prefix="fc00:1000::"
- dummy6_1_prefix="fc00:1001::"
- dummy6_mask="64"
-@@ -994,49 +1013,112 @@ setup_ovs_bridge() {
- }
- 
- setup_multipath_new() {
--	# Set up host A with multipath routes to host B host4_b_addr
--	run_cmd ${ns_a} ip addr add ${host4_a_addr} dev lo
--	run_cmd ${ns_a} ip nexthop add id 401 via ${prefix4}.${a_r1}.2 dev veth_A-R1
--	run_cmd ${ns_a} ip nexthop add id 402 via ${prefix4}.${a_r2}.2 dev veth_A-R2
--	run_cmd ${ns_a} ip nexthop add id 403 group 401/402
--	run_cmd ${ns_a} ip route add ${host4_b_addr} src ${host4_a_addr} nhid 403
-+	family=${1}
-+
-+	if [ ${family} -eq 4 ]; then
-+		host_a_addr=${host4_a_addr}
-+		host_b_addr=${host4_b_addr}
-+		nh_a_r1=${prefix4}.${a_r1}.2
-+		nh_a_r2=${prefix4}.${a_r2}.2
-+		nh_b_r1=${prefix4}.${b_r1}.2
-+		nh_b_r2=${prefix4}.${b_r2}.2
-+	else
-+		host_a_addr=${host6_a_addr}
-+		host_b_addr=${host6_b_addr}
-+		nh_a_r1=${prefix6}:${a_r1}::2
-+		nh_a_r2=${prefix6}:${a_r2}::2
-+		nh_b_r1=${prefix6}:${b_r1}::2
-+		nh_b_r2=${prefix6}:${b_r2}::2
-+	fi
-+
-+	# Set up host A with multipath routes to host B host_b_addr
-+	run_cmd ${ns_a} ip addr add ${host_a_addr} dev lo
-+	run_cmd ${ns_a} ip nexthop add id ${family}01 via ${nh_a_r1} dev veth_A-R1
-+	run_cmd ${ns_a} ip nexthop add id ${family}02 via ${nh_a_r2} dev veth_A-R2
-+	run_cmd ${ns_a} ip nexthop add id ${family}03 group ${family}01/${family}02
-+	run_cmd ${ns_a} ip route add ${host_b_addr} src ${host_a_addr} nhid ${family}03
- 
--	# Set up host B with multipath routes to host A host4_a_addr
--	run_cmd ${ns_b} ip addr add ${host4_b_addr} dev lo
--	run_cmd ${ns_b} ip nexthop add id 401 via ${prefix4}.${b_r1}.2 dev veth_B-R1
--	run_cmd ${ns_b} ip nexthop add id 402 via ${prefix4}.${b_r2}.2 dev veth_B-R2
--	run_cmd ${ns_b} ip nexthop add id 403 group 401/402
--	run_cmd ${ns_b} ip route add ${host4_a_addr} src ${host4_b_addr} nhid 403
-+	# Set up host B with multipath routes to host A host_a_addr
-+	run_cmd ${ns_b} ip addr add ${host_b_addr} dev lo
-+	run_cmd ${ns_b} ip nexthop add id ${family}01 via ${nh_b_r1} dev veth_B-R1
-+	run_cmd ${ns_b} ip nexthop add id ${family}02 via ${nh_b_r2} dev veth_B-R2
-+	run_cmd ${ns_b} ip nexthop add id ${family}03 group ${family}01/${family}02
-+	run_cmd ${ns_b} ip route add ${host_a_addr} src ${host_b_addr} nhid ${family}03
- }
- 
- setup_multipath_old() {
--	# Set up host A with multipath routes to host B host4_b_addr
--	run_cmd ${ns_a} ip addr add ${host4_a_addr} dev lo
--	run_cmd ${ns_a} ip route add ${host4_b_addr} \
--			src ${host4_a_addr} \
--			nexthop via ${prefix4}.${a_r1}.2 weight 1 \
--			nexthop via ${prefix4}.${a_r2}.2 weight 1
-+	family=${1}
-+
-+	if [ ${family} -eq 4 ]; then
-+		host_a_addr=${host4_a_addr}
-+		host_b_addr=${host4_b_addr}
-+		nh_a_r1=${prefix4}.${a_r1}.2
-+		nh_a_r2=${prefix4}.${a_r2}.2
-+		nh_b_r1=${prefix4}.${b_r1}.2
-+		nh_b_r2=${prefix4}.${b_r2}.2
-+	else
-+		host_a_addr=${host6_a_addr}
-+		host_b_addr=${host6_b_addr}
-+		nh_a_r1=${prefix6}:${a_r1}::2
-+		nh_a_r2=${prefix6}:${a_r2}::2
-+		nh_b_r1=${prefix6}:${b_r1}::2
-+		nh_b_r2=${prefix6}:${b_r2}::2
-+	fi
-+
-+	# Set up host A with multipath routes to host B host_b_addr
-+	run_cmd ${ns_a} ip addr add ${host_a_addr} dev lo
-+	run_cmd ${ns_a} ip route add ${host_b_addr} \
-+			src ${host_a_addr} \
-+			nexthop via ${nh_a_r1} weight 1 \
-+			nexthop via ${nh_a_r2} weight 1
- 
--	# Set up host B with multipath routes to host A host4_a_addr
--	run_cmd ${ns_b} ip addr add ${host4_b_addr} dev lo
--	run_cmd ${ns_b} ip route add ${host4_a_addr} \
--			src ${host4_b_addr} \
--			nexthop via ${prefix4}.${b_r1}.2 weight 1 \
--			nexthop via ${prefix4}.${b_r2}.2 weight 1
-+	# Set up host B with multipath routes to host A host_a_addr
-+	run_cmd ${ns_b} ip addr add ${host_b_addr} dev lo
-+	run_cmd ${ns_b} ip route add ${host_a_addr} \
-+			src ${host_b_addr} \
-+			nexthop via ${nh_b_r1} weight 1 \
-+			nexthop via ${nh_b_r2} weight 1
- }
- 
-+
- setup_multipath() {
-+	family="$1"
-+
-+	if [ ${family} -eq 4 ]; then
-+		host_a_addr=${host4_a_addr}
-+		host_b_addr=${host4_b_addr}
-+		nh_r1_a=${prefix4}.${a_r1}.1
-+		nh_r1_b=${prefix4}.${b_r1}.1
-+		nh_r2_a=${prefix4}.${a_r2}.1
-+		nh_r2_b=${prefix4}.${b_r2}.1
-+	else
-+		host_a_addr=${host6_a_addr}
-+		host_b_addr=${host6_b_addr}
-+		nh_r1_a=${prefix6}:${a_r1}::1
-+		nh_r1_b=${prefix6}:${b_r1}::1
-+		nh_r2_a=${prefix6}:${a_r2}::1
-+		nh_r2_b=${prefix6}:${b_r2}::1
-+	fi
-+
- 	if [ "$USE_NH" = "yes" ]; then
--		setup_multipath_new
-+		setup_multipath_new ${family}
- 	else
--		setup_multipath_old
-+		setup_multipath_old ${family}
- 	fi
- 
- 	# Set up routers with routes to dummies
--	run_cmd ${ns_r1} ip route add ${host4_a_addr} via ${prefix4}.${a_r1}.1
--	run_cmd ${ns_r2} ip route add ${host4_a_addr} via ${prefix4}.${a_r2}.1
--	run_cmd ${ns_r1} ip route add ${host4_b_addr} via ${prefix4}.${b_r1}.1
--	run_cmd ${ns_r2} ip route add ${host4_b_addr} via ${prefix4}.${b_r2}.1
-+	run_cmd ${ns_r1} ip route add ${host_a_addr} via ${nh_r1_a}
-+	run_cmd ${ns_r2} ip route add ${host_a_addr} via ${nh_r2_a}
-+	run_cmd ${ns_r1} ip route add ${host_b_addr} via ${nh_r1_b}
-+	run_cmd ${ns_r2} ip route add ${host_b_addr} via ${nh_r2_b}
-+}
-+
-+setup_multipath4() {
-+	setup_multipath 4
-+}
-+
-+setup_multipath6() {
-+	setup_multipath 6
- }
- 
- setup() {
-@@ -2377,8 +2459,18 @@ test_pmtu_ipv6_route_change() {
- 	test_pmtu_ipvX_route_change 6
- }
- 
--test_pmtu_ipv4_mp_exceptions() {
--	setup namespaces routing multipath || return $ksft_skip
-+test_pmtu_ipvX_mp_exceptions() {
-+	family=${1}
-+
-+	if [ ${family} -eq 4 ]; then
-+		ping=ping
-+		dst="${host4_b_addr}"
-+	else
-+		ping=${ping6}
-+		dst="${host6_b_addr}"
-+	fi
-+
-+	setup namespaces routing multipath${family} || return $ksft_skip
- 
- 	trace "${ns_a}"  veth_A-R1    "${ns_r1}" veth_R1-A \
- 	      "${ns_r1}" veth_R1-B    "${ns_b}"  veth_B-R1 \
-@@ -2395,18 +2487,126 @@ test_pmtu_ipv4_mp_exceptions() {
- 	mtu "${ns_r2}" veth_R2-A 2000
- 	mtu "${ns_r2}" veth_R2-B 1500
- 	mtu "${ns_b}"  veth_B-R2 1500
--
- 	# Ping and expect two nexthop exceptions for two routes
--	run_cmd ${ns_a} ping -q -M want -i 0.1 -c 1 -s 1800 "${host4_b_addr}"
-+	run_cmd ${ns_a} ${ping} -q -M want -i 0.1 -c 1 -s 1800 "${dst}"
- 
- 	# Check that exceptions have been created with the correct PMTU
--	pmtu_a_R1="$(route_get_dst_pmtu_from_exception "${ns_a}" "${host4_b_addr}" oif veth_A-R1)"
--	pmtu_a_R2="$(route_get_dst_pmtu_from_exception "${ns_a}" "${host4_b_addr}" oif veth_A-R2)"
--
-+	pmtu_a_R1="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R1)"
-+	pmtu_a_R2="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R2)"
- 	check_pmtu_value "1500" "${pmtu_a_R1}" "exceeding MTU (veth_A-R1)" || return 1
- 	check_pmtu_value "1500" "${pmtu_a_R2}" "exceeding MTU (veth_A-R2)" || return 1
- }
- 
-+test_pmtu_ipv4_mp_exceptions() {
-+	test_pmtu_ipvX_mp_exceptions 4
-+}
-+
-+# Find a flow from host A to ${2} that goes out through ${3}: a source
-+# address out of ${host4_a_net}, added to lo as needed, since the IPv4
-+# multipath hash covers addresses only, or an IPv6 flow label for a packet
-+# sent from ${host6_a_addr}
-+mp_flow_via() {
-+	family="${1}"
-+	dst="${2}"
-+	oif="${3}"
-+
-+	for i in $(seq 1 32); do
-+		if [ ${family} -eq 4 ]; then
-+			flow="${host4_a_net}.${i}"
-+			${ns_a} ip addr add ${flow}/32 dev lo 2>/dev/null
-+			out="$(${ns_a} ip route get ${dst} from ${flow} 2>/dev/null)"
-+		else
-+			flow="${i}"
-+			out="$(${ns_a} ip route get ${dst} from ${host6_a_addr} \
-+				ipproto 58 flowlabel ${flow} 2>/dev/null)"
-+		fi
-+		case "${out}" in
-+		*" dev ${oif} "*)
-+			echo "${flow}"
-+			return 0
-+			;;
-+		esac
-+	done
-+
-+	return 1
-+}
-+
-+test_pmtu_ipvX_mp_asym_exceptions() {
-+	family=${1}
-+
-+	if [ ${family} -eq 4 ]; then
-+		ping=ping
-+		dst="${host4_b_addr}"
-+	else
-+		ping=${ping6}
-+		dst="${host6_b_addr}"
-+	fi
-+
-+	setup namespaces routing multipath${family} || return $ksft_skip
-+
-+	trace "${ns_a}"  veth_A-R1    "${ns_r1}" veth_R1-A \
-+	      "${ns_r1}" veth_R1-B    "${ns_b}"  veth_B-R1 \
-+	      "${ns_a}"  veth_A-R2    "${ns_r2}" veth_R2-A \
-+	      "${ns_r2}" veth_R2-B    "${ns_b}"  veth_B-R2
-+
-+	if [ ${family} -eq 4 ]; then
-+		# Routes back to the source addresses mp_flow_via() picks
-+		run_cmd ${ns_r1} ip route add ${host4_a_net}.0/24 via ${prefix4}.${a_r1}.2
-+		run_cmd ${ns_r2} ip route add ${host4_a_net}.0/24 via ${prefix4}.${a_r2}.2
-+	fi
-+
-+	# Set up initial MTU values: 1400 behind R1, 1300 behind R2
-+	mtu "${ns_a}"  veth_A-R1 2000
-+	mtu "${ns_r1}" veth_R1-A 2000
-+	mtu "${ns_r1}" veth_R1-B 1400
-+	mtu "${ns_b}"  veth_B-R1 1400
-+
-+	mtu "${ns_a}"  veth_A-R2 2000
-+	mtu "${ns_r2}" veth_R2-A 2000
-+	mtu "${ns_r2}" veth_R2-B 1300
-+	mtu "${ns_b}"  veth_B-R2 1300
-+
-+	flow_r1="$(mp_flow_via ${family} ${dst} veth_A-R1)" || {
-+		err "  no flow through veth_A-R1 found"; return 1; }
-+	flow_r2="$(mp_flow_via ${family} ${dst} veth_A-R2)" || {
-+		err "  no flow through veth_A-R2 found"; return 1; }
-+	if [ ${family} -eq 4 ]; then
-+		ping_r1="${ping} -I ${flow_r1}"
-+		ping_r2="${ping} -I ${flow_r2}"
-+	else
-+		ping_r1="${ping} -I ${host6_a_addr} -F ${flow_r1}"
-+		ping_r2="${ping} -I ${host6_a_addr} -F ${flow_r2}"
-+	fi
-+
-+	# A Packet Too Big from R1 is cached on both paths
-+	run_cmd ${ns_a} ${ping_r1} -q -M want -i 0.1 -c 1 -s 1800 "${dst}"
-+
-+	pmtu_a_R1="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R1)"
-+	pmtu_a_R2="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R2)"
-+	check_pmtu_value "1400" "${pmtu_a_R1}" "exceeding MTU via R1 (veth_A-R1)" || return 1
-+	check_pmtu_value "1400" "${pmtu_a_R2}" "exceeding MTU via R1 (veth_A-R2)" || return 1
-+
-+	# The lower MTU behind R2 lowers the PMTU of both paths
-+	run_cmd ${ns_a} ${ping_r2} -q -M want -i 0.1 -c 1 -s 1350 "${dst}"
-+
-+	pmtu_a_R1="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R1)"
-+	pmtu_a_R2="$(route_get_dst_pmtu_from_exception "${ns_a}" "${dst}" oif veth_A-R2)"
-+	check_pmtu_value "1300" "${pmtu_a_R1}" "exceeding MTU via R2 (veth_A-R1)" || return 1
-+	check_pmtu_value "1300" "${pmtu_a_R2}" "exceeding MTU via R2 (veth_A-R2)" || return 1
-+}
-+
-+test_pmtu_ipv4_mp_asym_exceptions() {
-+	test_pmtu_ipvX_mp_asym_exceptions 4
-+}
-+
-+test_pmtu_ipv6_mp_asym_exceptions() {
-+	test_pmtu_ipvX_mp_asym_exceptions 6
-+}
-+
-+test_pmtu_ipv6_mp_exceptions() {
-+	test_pmtu_ipvX_mp_exceptions 6
-+}
-+
- usage() {
- 	echo
- 	echo "$0 [OPTIONS] [TEST]..."
--- 
-2.56.0
-
+~Andrew
