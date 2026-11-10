@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794313770;
-	b=1iB5WOtoGH3eQHb7KwnEWEB3OxVUPceCXtzTLKi6Fb9gdi7rdjdoItu008QS288onRDg
-	 ITgI2P7mvPcKsDXIkvShzlK7MGAP8JF1T6F/AGwY+HW2EHrxsCOvM2KoDctiXFi4Yij4+
-	 e/NapIEkcz27V41HvMZ2y1VFGQke+ErmdMHvR8/ET1K0Cpcb7pwz9sNBmz++p8kqvfhH7
-	 JWFAhWHBCSROULt/3lRVqaOZuMr+Xiw7v5rBZyQpLAi8FCCbGpvNxwLTV5RfmYMBZv/G/
-	 m2w+hnjKZRySnHXj3Pu2I7UljJjwiu5+FI1KivvYbBH7Lsqem8qoYbDmsvw3T8UUJOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313770;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	b=EHnYGSTVFoTUUzaONrUH0No1JiYkBkfferax0aPC0zMtZMyMvLZ5NZ5KtDX/VTtih9uB
-	 F07r/+xML/mP9XnsXeGPD/dX0aCriImiil81ip95otg61f88sA8xyn+ZARyW8cvMp1UuK
-	 YxGJPY+Jy5m5ffRCn1eryu/iyA3ARscjTBItuhyKsLQ5lYqJxZS92Lh0g2NeqwJMF7ieq
-	 lm3FWrBgy/Qj1r5jHtrHpQr7AAr+PiulFHN7yWbQ0kPe/cwxE1N2KRInLCkv8sJLe87jG
-	 KS4zWa3StN03QnQKtUvzv8K50lQ4phbauzRgaA14HVAzCfN+Z8VNaZkQ1p1LxRHCabQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=zaZpaR+1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794313801;
+	b=IgLsYlH/z3YTNhMCDQ54oLTkqEz6/UO3U0V0HZwLqNQ4ad4uTW03JCtZ7fRj6GxwG2va
+	 AMhgWYFOimrChO4EDUxBmzzbrRdN8JutTGmbqNauAx+t/2435cFMSkh6IhSjQw175LWId
+	 GQV9wq3mr0JWhs+ONfoadr5pQj6pVL/LodVNE/RFCmwbyztZFbtiY8zfoYsdIynYfC5Jy
+	 9IclCoSFjZkCij1i73DCECjoFdHas4l/1QFqP9eobi+cX5LVjkkSvm/xQYzy1+ww1Vblq
+	 mL4tFXzuRS3IEQI4j1rvYYby8l5aGXG5H8vyzkHD7gbtMwcAFOIrp9jJPxsXOefubyg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313801;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=BgSE/1fL0Gmuvdjo71x0BWWR6H8PrWT9eXmVlUS9oqw=;
+	b=eL8TGSBp3+fARly/O2lNrvdxrPrX44xJiM1LAu70PZUBAZsR+DYtlwzV/JxjnEWkf/OI
+	 V6pZ/TKbmDjOHS7LfETz2ZVEsjLd6P4nSqqoKGWBBRv/JkdaUuktXhrhZKoc7FWEh3xb8
+	 xDEzZePuHQsRQlfeDD+3kpRuVbq5cYhn0QeD/qCKQQPtcE9wNoIL5TVSpV82gXWRmljJC
+	 6mU4j9VXnD2XlVFwcPJXoV4WIUd+74A0uQ/5NPHl83bkx7a6WoviL6gs02fHDoC1O6ToH
+	 Cygqsx4hJOwBPqQKNmuWz7h2FXmeUmFLjL694woMH1y94VYxmMMtrdyg+44j6sdULoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blfPTJf3;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6EE606A31C;
-	Tue, 10 Nov 2026 12:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07103606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:30:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=zaZpaR+1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794313769;
-	b=qgSXO6P5Dz3SxfFWElMSo+uBna+CvxPqBUXTiFFyPJ6fLU/7LyP9uLr6t09BeE3zTc9i
-	 RiuXRM/IFolEcIe3lOID2CjbRQv0AcfXBsyekzwEE5KFlVHt3NTmZ/DI+uBrclEZkPzi2
-	 W/ZqTQTjt2Y0DAvHn8jt02OpjrOu0Ev+AGfp5SWbDk/FUsm1tGXkoBKw25Jbtx+qfvd78
-	 dBBpWbbzMBPj3NnUOZDAC4YHZxzPJgHrBnaTPxgsP6chLTHuTfBhIOmhDXNhHU8MOChYK
-	 HX/DW2Ss8ZwNNBzAeqxji0LeQKjGtw07npaBhx19ypaJd23wf88tQuzkq7jj5Abuqjw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794313769;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	b=ejeFySfW/0OgO0giXWGMOmr+JrbOD44dyQFloYesefGP2jtp0zTOQ9zuK9uScMOuGkpT
-	 znM72i/vOs2+Wem7qVqqG74ehfUNXSdPLGJRJs6Il+lP3E6WJg3fydcF6tNvBU92Z0qxn
-	 w1POK1fqFTsUcU7xlk8RGIdtk5tBF3QOym++QZG4L1wwTnobpx/AlcEMzjdlvzuCwqfUq
-	 w9EkWTU/njpG+9/dVVWQ89f6SQpyO/91iZ5Vv6bnhNTy5Uw7tfnxxSY+LwEwMLh7BES7C
-	 WKqfIc0wLfgrmLMRdzHWNhcbgj2N0fSPv06BLht/5L9L0Rn2nlcwt2OqT1fca/nOL2w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D94B71F008A1;
-	Tue, 10 Nov 2026 12:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794313769; bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	h=From:Date:Subject:To:Cc;
-	b=zaZpaR+1fmXeNU9U6EX2aS4hksFHmaSspHIeoRQdw+6C8JvCA84Ww4xacLCipa+av
-	 h6WkEUwNb5GKPU2PFhvjMloo+BrFcpclc1JKqzoENI04i0WbgB21Gy+adtdXJ5DHoR
-	 soEzJdsKdlGGn65/PJiby9ZAea3gkxtemLGyUNtM=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 51AC748B02;
-	Tue, 10 Nov 2026 12:29:28 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 10 Nov 2026 13:29:08 +0100
-Subject: [PATCH] remoteproc: imx_rproc: revert channel freeing order in
- imx_rproc_free_mbox
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blfPTJf3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55A811F0089F;
+	Tue, 10 Nov 2026 12:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794313800;
+	bh=BgSE/1fL0Gmuvdjo71x0BWWR6H8PrWT9eXmVlUS9oqw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=blfPTJf388MwCSPYtBP64cewc1b2uqBwZadbzZJb8OnU5AzPSUz7Ze9pmAulkvUGV
+	 KGs5AWiBuT8LkB86B+jsPYEfMqUOFv7Cm0Rnc0eDReHhdwvB3+Q8bZoVywnKEg+/Aa
+	 U4gXPKYx1tzcqu2FEcGmvHOyko63avnRy4Dn0xih/SgUdNl16nUTxI0bMjwe4tq+MG
+	 jCwEX12VoK+bAQ/5nwsJSX2QtmXuDIfu7AeNgn+SyOw7O4YusX+UHbctmDpxdjNy1J
+	 kKKtXmcYu6YGusfHauB8/pihppdE919Y59BVQkxIkGoZQaJ5G6zDG5+hwrYgONrJKE
+	 6dCdyraaHfiFQ==
+Message-ID: <67275d3d-cc60-406c-a088-298b948d7577@kernel.org>
+Date: Tue, 10 Nov 2026 13:29:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,130 +51,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/migrate: don't move memcg NR_FILE_PAGES for swapcache
+To: Zi Yan <ziy@nvidia.com>, Song Hu <husong@kylinos.cn>,
+ akpm@linux-foundation.org
+Cc: matthew.brost@intel.com, joshua.hahnjy@gmail.com, byungchul@sk.com,
+ gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ willy@infradead.org, shivankg@amd.com, ridong.chen@linux.dev,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261104044313.2099309-1-husong@kylinos.cn>
+ <DMR78FJXMD8M.QC57KT5GIPX1@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DMR78FJXMD8M.QC57KT5GIPX1@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-imx-rproc-free-mbox-v1-1-3e33ff98570d@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQBBHSq4iLGCc6BROZtBIQ7
- 260y7f4/4BMwpTh3RwgtHPmFCv0qwG/uDgT8lQNRplOa2WR14KySfIYhAjXMRV0Thk7ta23RkM
- tN6HA5bn2w9/5N37If+8VnOcFBhEig3cAAAA=
-X-Change-ID: 20261109-imx-rproc-free-mbox-aa029d44c921
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- weinshec@holodeck2.de, stable@vger.kernel.org, 
- Richard Leitner <richard.leitner@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794313767; l=4029;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=rNNJZEDgaW7DJ4fiz5yErnGrwanLKG16YmYo4n8oobc=;
- b=lM3N39GVUUMurY+eD75Pypflu4aRSAT1B8iVo7IH+Qj9zTH0nazkdyFmU6YAeo5NHOgpAQdH9
- 4MuKUHhmeiRDWufv8cIUK2p2C+fuOS6+WsPXZ3VHLbozgvV5jEGyIFR
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
 
-The imx_rproc driver is affected by a race condition in the shutdown
-ordering in imx_rproc_free_mbox(). A received message might cause a
-virtqueue_kick resulting in tx_ch access. When imx_rproc_free_mbox() is
-triggered between the if (!priv->tx_ch) check and the mbox_send_message()
-call in the imx_rproc_kick() function the mbox_send_message() then tries
-to dereference a NULL pointer on the tx_ch (as seen in the call trace
-below).
+On 11/10/26 04:09, Zi Yan wrote:
+> On Tue Nov 3, 2026 at 11:43 PM EST, Song Hu wrote:
+>> NR_FILE_PAGES lives on both the node and the memcg plane for page
+>> cache folios: filemap_add_folio() and filemap_unaccount_folio() charge
+>> it to the folio's node and memcg, while __swap_cache_add_folio() and
+>> __swap_cache_del_folio() maintain the node plane of NR_FILE_PAGES and
+>> the memcg plane of NR_SWAPCACHE.  A folio in the swap cache therefore
+>> carries no per-memcg NR_FILE_PAGES count: shmem folios drop their
+>> memcg file accounting when swapped out, and anon folios never had any.
+>>
+>> The cross-zone arm of __folio_migrate_mapping() moves NR_FILE_PAGES on
+>> both planes unconditionally.  For swapcache folios the memcg plane is
+>> empty, so migrating one misaccounts it: the destination accrues
+>> nr_pages that were never accounted there while the source counter
+>> underflows.  The wrong counts persist until the memcg is destroyed,
+>> but the aggregate in memory.stat stays correct, so the drift is easy
+>> to miss.  NUMA balancing, migratepages, compaction and memory hotplug
+>> can all migrate such folios.
+> 
+> It would be better to simplify the above like Joshua suggested.
+> 
+>>
+>> Reproducer, on a 2-node QEMU guest with cgroup v2:
+>>
+>>   1. create a cgroup with memory.max = 50M and swap enabled;
+>>   2. memset 128M of anonymous memory in it, so reclaim swaps most of
+>>      it out;
+>>   3. fork to raise the swap entry refcount, then fault the memory
+>>      back in, so the resident folios are swapcache ones;
+>>   4. migrate_pages(pid, node0 -> node1).
+>>
+>> "file" row of memory.numa_stat (bytes) after step 4:
+>>
+>>                     without this patch      with this patch
+>>                       N0          N1          N0          N1
+>>                      0 (*)  51691520         0           0
+>>
+>>   (*) the source counter has gone negative; negative values read as 0.
+>>
+>> Keep moving the node plane via mod_node_page_state() and skip only
+>> the empty memcg plane, mirroring the swapcache exclusion the NR_SHMEM
+>> handling in the same block already applies.  It accompanies
+>> commit 4eef27af2932 ("mm/migrate: move NR_FILE_THPS on cross-node migration")
+>> and commit c5eef2e03618 ("mm/migrate: move NR_KERNEL_FILE_PAGES on cross-node migration").
+>>
+>> Fixes: 0d1c20722ab3 ("mm: memcontrol: switch to native NR_FILE_PAGES and NR_SHMEM counters")
+>> Signed-off-by: Song Hu <husong@kylinos.cn>
+>> ---
+>>  mm/migrate.c | 16 ++++++++++++++--
+>>  1 file changed, 14 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/migrate.c b/mm/migrate.c
+>> index 28a8d7734735..bc60f6587d1b 100644
+>> --- a/mm/migrate.c
+>> +++ b/mm/migrate.c
+>> @@ -690,8 +690,20 @@ static int __folio_migrate_mapping(struct address_space *mapping,
+>>  		old_lruvec = mem_cgroup_lruvec(memcg, oldzone->zone_pgdat);
+>>  		new_lruvec = mem_cgroup_lruvec(memcg, newzone->zone_pgdat);
+>>  
+>> -		mod_lruvec_state(old_lruvec, NR_FILE_PAGES, -nr);
+>> -		mod_lruvec_state(new_lruvec, NR_FILE_PAGES, nr);
+>> +		/*
+>> +		 * Swapcache folios carry NR_FILE_PAGES on the node plane
+>> +		 * only (their memcg footprint is NR_SWAPCACHE, see
+>> +		 * swap_state.c), so move only the node plane for them.
+>> +		 */
+>> +		if (folio_test_swapcache(folio)) {
+>> +			mod_node_page_state(oldzone->zone_pgdat, NR_FILE_PAGES,
+>> +					    -nr);
+>> +			mod_node_page_state(newzone->zone_pgdat, NR_FILE_PAGES,
+>> +					    nr);
+>> +		} else {
+>> +			mod_lruvec_state(old_lruvec, NR_FILE_PAGES, -nr);
+>> +			mod_lruvec_state(new_lruvec, NR_FILE_PAGES, nr);
+>> +		}
+> 
+> Like Joshua said in another email, it will be more readable if
+> NR_SWAPCACHE updates can be moved into the then branch above.
 
-Therefore fix this behaviour by first freeing the rx channel, so no new
-messages are received and therefore no kicking on tx_ch can happen.
-Afterwards release the tx channel.
+Can one of you write me the updated patch description? Thanks1
 
-This problem was encountered on a fleet of i.MX8MP devices on about 1 in
-500 system shutdowns, resulting in Oops below. This Oops was recorded
-from a v7.3.0 kernel before the work-queue removal.
+-- 
+Cheers,
 
-    remoteproc remoteproc0: stopped remote processor imx8mp-cm7
-    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-    Internal error: Oops: 0000000096000004 [#1]  SMP
-    CPU: 0 UID: 0 PID: 32710 Comm: kworker/0:1 Not tainted 7.3.0-XXX #1 PREEMPT
-    Hardware name: XXX (DT)
-    Workqueue: imx8mp-cm7 imx_rproc_vq_work [imx_rproc]
-    pstate: 40000005 (nZcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-    pc : mbox_send_message+0x8c/0x178
-    lr : mbox_send_message+0x88/0x178
-    sp : ffff8000897f3b70
-    x29: ffff8000897f3b70 x28: ffff80007a07b248 x27: ffff0000d90e1a20
-    x26: ffff80007a07b328 x25: ffff0000c1d31300 x24: ffff0000d90e1a40
-    x23: 0000000000000001 x22: 0000000000000005 x21: ffff8000897f3ba4
-    x20: 000000000000000b x19: ffff0000c1b24240 x18: 0000000000000000
-    x17: ffff80006a453000 x16: ffff800081ac8000 x15: 0000000000000000
-    x14: 0000000000000040 x13: 0000000000000228 x12: ffff0000c115a3e8
-    x11: 0000000000000000 x10: 0000000000000001 x9 : ffff800080cd6570
-    x8 : ffff8000897f3ba0 x7 : 0000000000000002 x6 : 0000000000000000
-    x5 : 000000000000000c x4 : 0000000004400000 x3 : 0000000000000000
-    x2 : 0000000000000000 x1 : ffff0000cb268000 x0 : 0000000000000000
-    Call trace:
-     mbox_send_message+0x8c/0x178 (P)
-     imx_rproc_kick+0x50/0xc0 [imx_rproc]
-     rproc_virtio_notify+0x3c/0xa0
-     virtqueue_kick+0x4c/0x68
-     rpmsg_recv_done+0x224/0x658 [virtio_rpmsg_bus]
-     vring_interrupt+0xbc/0x158
-     rproc_vq_interrupt+0x40/0xb0
-     imx_rproc_notified_idr_cb+0x20/0x40 [imx_rproc]
-     idr_for_each+0x74/0x100
-     imx_rproc_vq_work+0x2c/0x40 [imx_rproc]
-     process_one_work+0x194/0x520
-     worker_thread+0x19c/0x320
-     kthread+0x134/0x148
-     ret_from_fork+0x10/0x20
-    Code: 37f80574 aa1303e0 97ffff39 f9400a60 (39402001)
-
-Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
-Cc: stable@vger.kernel.org
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
-Backport notice: For kernel versions before the work queue removal
-(<=7.3.y) a cancel_work_sync() should be called on the queue after
-freeing the rx_ch.
----
- drivers/remoteproc/imx_rproc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 581bb07f5893f..232da31a56ebe 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -920,15 +920,16 @@ static void imx_rproc_free_mbox(void *data)
- 	struct rproc *rproc = data;
- 	struct imx_rproc *priv = rproc->priv;
- 
--	if (priv->tx_ch) {
--		mbox_free_channel(priv->tx_ch);
--		priv->tx_ch = NULL;
--	}
--
-+	/* First release rx channel as its callback may kick vqs via tx_ch. */
- 	if (priv->rx_ch) {
- 		mbox_free_channel(priv->rx_ch);
- 		priv->rx_ch = NULL;
- 	}
-+
-+	if (priv->tx_ch) {
-+		mbox_free_channel(priv->tx_ch);
-+		priv->tx_ch = NULL;
-+	}
- }
- 
- static void imx_rproc_put_scu(void *data)
-
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261109-imx-rproc-free-mbox-aa029d44c921
-
-Best regards,
---  
-Richard Leitner <richard.leitner@linux.dev>
-
-
+David
