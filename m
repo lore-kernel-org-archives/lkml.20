@@ -1,91 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287582;
-	b=3EMMIoOjcFrKn21O5H7QuIZLkY/lzPBNCNx3XFp2Pdr13BvW1wqWAm99I2DMCanoKllD
-	 FdUqfGnTbvsqrfhJiFLvnhdfhw2WP5ewyP0vq9zanGro8QVf4l1KpvmuM1KjTmQxfws2t
-	 VQdfMVn7Fd7Qwvrokep0JNuq7s71HwH39WShGuCrE7Rmb5SqF77rhZXVnR77VFT7zOB0p
-	 DKN/INLuXJESsBcdhTKSbURpOoRWJkg+PRLPX/RSxwsBZUlFMvoJqI9QdG4pMw5kdCH8/
-	 u3fi056KHCM/DgKAHNtmwPkS7sYx+l5aiJ3DqIJPYouYtszPOey0xwaQgitiss1YLeg==
+	t=1794287831;
+	b=nRltuWLugEMMsh3wmafVkojZAuo2jT+ptjiqnEsLzfu0sfajn840iEwoqbr21ImJxm5O
+	 li3/0qEL8OPS+8RhhoBoe2dUL77ZuzIAIxUUGK+DCBFaHuC/N5Z8KRVZEuL1w5OtY4Gg/
+	 pHtt9fdjRJdKXOBpBQpvHg+cJEjjBA7Yz+Z162Wf7NwT7zNTjWNceXRDysQLzypm7om2A
+	 Uk2BfNEZ3qpfTog3T+4ldvXElGIrJCDOXY9iIxazDYlYZtuKu1AvdWxc//84iswDuSnqk
+	 maQLU59ggingMIlGyDE+9eypLB66N6KipL6NNE6SZWTkroP10fL49Q7XRZex0nFUv2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287582;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287831;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=CQzpgVc/oheunZLPAVoKj6i/IlJ4YnhoDZwgYdq5g1I=;
-	b=Y7A59Zn6F5H15b+KgglXqsyKBRWIkZeHJnpV5Z5mbKPlrkESeNkfHtbikDOXzlHem0Zy
-	 QSVDE7DH76hzz5PmMY+Jx2+SwMyC/c4PlssapkkxbFHrBn10eaA7tdZnUhuOc0zeVBVgf
-	 qKtBy4e7bbraw4CzKIwtXsjHrPm78Ju6genVMpuJBtuC0wagvam/7uHR4xM7C3EumAzY7
-	 RWogPwj7ae7wEMwqwlMitR32k/RkL3OSRDNSLjlMXkvR7Lzs+itLFz0nJJThARVgElOK/
-	 ZNL663HemY06cuYDRQmFfUE3RNBUhHvyAH//iy1m1wv/bclOsrOPI/S0zsWOdvFC+Sg==
+	bh=hJUKVOXw+rsYg0Fl10Dji6GuiYtz/4hFo7JB2GRgOYo=;
+	b=vAFpL/q61cPiWr7rDWdFFZDf+q9KJ3i52M75JmBAiSP1U2G6rDgQKCt3t/gksB9gT66f
+	 BLDW89bF8buGdS4CyX8qiBhBz96IH/zaLrQzR0rKwcqpuG0/lYwDIgwa+znNTCY2/BU/F
+	 m9SRW8oP9QkiKX3BxFilaaQ9L/5N9ZBW/nAxKrt8YfJ/x/b1/G8J2H5f1vtGykCOWbfm9
+	 BvfCWv82wxIlAWFF4/aWKnjNaTjiH7uH/+kC7g/pURgLaK8nGR2xoPwGO/QoqKo7fOsJA
+	 JUEb3A6JlWzVku4j5PJH4b3VNdsBYvZ996+5D1GTSckVMWhLjl8tGBGW8+pwMfQerFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=BBM2jElv;
-	arc=none smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="OHmvt/Dt";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5C6606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B5C6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07275606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=BBM2jElv
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4adea5b7a2fso776581fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:13:01 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=OHmvt/Dt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019051F0089F;
+	Tue, 10 Nov 2026 05:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794287580; x=1794892380; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQzpgVc/oheunZLPAVoKj6i/IlJ4YnhoDZwgYdq5g1I=;
-        b=BBM2jElvIB24gifQzUXiFY9ZSwjwEJzhwWpSMU9m4Vge7y2NrVDjW4RhQXFef3ZcTi
-         E36Vzh2x/OoBVkyyyydONvq8xyo3mBRP7bt8ocAjMDt7qFvDoCvpsQwaEE/RcSuNWnyC
-         6JtA21bNkGcMLPux11uEzKXLdi04qP8GETQSE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794287580; x=1794892380;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQzpgVc/oheunZLPAVoKj6i/IlJ4YnhoDZwgYdq5g1I=;
-        b=z1PMPAuNkEHfNAPjI8bZpKsaup5jnWyJ5qLhfUkeEyZktDCNPYHQV8BcvcHg+q4HjV
-         OVlOT1YUD7CFNtDDb9fe/SmIlHiOuL3WQT/avPEjP5aUI4cLK0Am6OoB5kAlphd8CZ6L
-         yY5p1iu9sxRbO5IDNvTlYTdShk5L7Gt4kRy9fBqgBGXIyk08l9UdtQa5EV0CzPKAjxos
-         FO9iaBZxASvUGeJL9L7DSYeMfLuE3n5FD8R139eQqGDHG6sP/lWMViGaLZ8xSHwP0jtk
-         jUfmdWTlMxFvHv6cSdn8yARZtV3zJ5XQXXQwwA9rl8OCZiFpuujljN0zW/dSMUvazepl
-         fcAA==
-X-Forwarded-Encrypted: i=1; AL+hErE63JxQS0vt+vI9HzlO4vuWdwpb7/CM7VJvDelm7VcmXAbqnFAKPbXvyooEk9MR3z3eXaLKolRPK/xoIY0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96L+dfgUkR2v9190hyvOWBGL+gqHPWJ75r70pjfB/mQHdZkPzc
-	AjKHUe6No3VjAF/cppCvFwpVhmQg4QgP5h02sgSVoVL+3HPqje+Q9k4wVB1Mw4B3emB3qlD0zY8
-	6+cAadfY=
-X-Gm-Gg: AYBFou3u58BNTfw0wn3OOxUwq9+bIqpAIHc4FMf6dB+X+QaBj2yxw6rMz8nbxWkP2UX
-	b7olUEahgs3bbg612MWDv7WQWWNtxPJu0W7SzmUqkF/l+pxuRjLW66D0CdP+fNmI3F1DyHOKtNS
-	k+nLaYJhK3bwDHHd/yzQznyl/904n6IycmNIYi0NANyKOuPc72ooNVmTlfMM/n9dZ5twSkXM+jT
-	odGQM5HFoT2Ica+le1HIsltZ8V73vsgVw43nc6qZKqSINvYe7gMz9jFdugXIUg3UZGfoQ6qg6/D
-	W9vOMXGBJtwv9EZeeUItqit3sRR/ixD9S2Sl/PXDg4bK15unm6+JOmcBrAXbfMzCR8plLK7n2p9
-	2vZQgBKP1sDdX0XRa5aKk9iWcPlKrCRBX9/Btanht35pQQcVztLJQwzAbZ2Obk7N/hkQfgf0tEm
-	vYcxM6wAnd1f9VW5P8lK4FU4M4J83AX+xMxbVA+8s5JY/yE6BphrvaI3SKjfwIcvPN7Zn+CQN3d
-	0rXThHhzY0pMkfgDzudavPBdeo6OAOXiH+Oi3pa+jk5hZVsd9KnAFQAdFQwp5qc3Kp+X3FD2ne1
-	1upQqdPvjdd3XTui08tvMOZOv89DvrUfw9ple7X6HdbSnT87LRsWIlJmMzWbKJ9fLAHIgIVoLi/
-	pi6OHUBbfLglMkPShlmi+Dw/SMwjAtA==
-X-Received: by 2002:a05:6870:701f:b0:4a2:4e0c:593d with SMTP id 586e51a60fabf-4ae2274babcmr813526fac.31.1794287580407;
-        Mon, 09 Nov 2026 21:13:00 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae2308e3ccsm881504fac.15.2026.11.09.21.12.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 21:13:00 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] net: preserve skb header offsets during headroom changes
-Date: Mon,  9 Nov 2026 21:12:58 -0800
-Message-ID: <20261110051258.64350-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1794287830;
+	bh=hJUKVOXw+rsYg0Fl10Dji6GuiYtz/4hFo7JB2GRgOYo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OHmvt/DtePgbTU+VOoheC8pijLTPtihzRe2VU2S7xY68oADyVHeSJ0+6zjB5vuhRk
+	 gNZrALJn6f8nyM+4RwDQMibH4qvZC+jQE3kTRXpnJp/0QbRtOA1peLP4M+RTC+Fa6U
+	 RYRAVYwpzMaR/9fTcpx2vv43kiBRNr+TOvtpCh6A=
+Date: Mon, 9 Nov 2026 21:17:09 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Weilin Tong <tongweilin@linux.alibaba.com>
+Cc: catalin.marinas@arm.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm: kmemleak: avoid long RCU read-side sections in
+ reports
+Message-Id: <20261109211709.133122f9f10091f06c4acbc1@linux-foundation.org>
+In-Reply-To: <cover.1793871596.git.tongweilin@linux.alibaba.com>
+References: <cover.1793871596.git.tongweilin@linux.alibaba.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,133 +56,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Large device headroom can make aligned skb expansion wrap the u16
-network, transport or checksum-start offsets. An MPLS LWT/netkit
-reproducer reaches an out-of-bounds Ethernet-header write when
-neighbour output converts the wrapped network offset into an unsigned
-pull length. Bounding skb->data alone misses the later offsets.
+On Thu,  5 Nov 2026 17:52:48 +0800 Weilin Tong <tongweilin@linux.alibaba.com> wrote:
 
-Reject unsafe growth in pskb_expand_head() and skb_copy_expand() before
-the offsets change, preserving the transport-header sentinel. Also
-bound native MPLS's initial label pop, LWT's inner-header reset, and
-the TC/Open vSwitch MPLS-pop helper, which can wrap without expanding
-the allocation.
+> Reading a kmemleak report can traverse all tracked objects in one
+> RCU read-side section and cause a stall.
+> 
+> Serialize disable-time cleanup with clear operations and report readers,
+> then use kmemleak_cond_resched() in both report traversal loops to let RCU
+> progress safely during long reads.
 
-The issue was found by an LLM.
+Thanks.  Has this been demonstrated?  Are there real-world reports?  Or
+is this a theoretical thing from (LLM assisted) code inspection? 
+Please do share such details, they matter.
 
-Fixes: 1a37e412a022 ("net: Use 16bits for *_headers fields of struct skbuff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-Changes in v2:
-- Validate native MPLS headroom before the first label pop/reset.
-- Check the actual shared expansion before network, live transport or
-  partial-checksum offsets can wrap; retain unset-header semantics.
-- Cover TC/Open vSwitch MPLS pop as well.
-
-v1: https://lists.openwall.net/netdev/2026/10/30/51
-Review: https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2611.0/05339.html
-
-I have a reproducer for this issue and can share via DM
-
- net/core/skbuff.c        | 27 +++++++++++++++++++++++++++
- net/mpls/af_mpls.c       |  3 +++
- net/mpls/mpls_iptunnel.c |  4 ++++
- 3 files changed, 34 insertions(+)
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8da53d5b76fc..6e0205f923f3 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -2118,6 +2118,22 @@ struct sk_buff *skb_clone(struct sk_buff *skb, gfp_t gfp_mask)
- }
- EXPORT_SYMBOL(skb_clone);
- 
-+static bool skb_header_offsets_fit(const struct sk_buff *skb,
-+				   unsigned int nhead)
-+{
-+	if (!nhead)
-+		return true;
-+	if (nhead > U16_MAX - skb->network_header)
-+		return false;
-+	if (skb_transport_header_was_set(skb) &&
-+	    nhead >= U16_MAX - skb->transport_header)
-+		return false;
-+	if (skb->ip_summed == CHECKSUM_PARTIAL &&
-+	    nhead > U16_MAX - skb->csum_start)
-+		return false;
-+	return true;
-+}
-+
- void skb_headers_offset_update(struct sk_buff *skb, int off)
- {
- 	/* Only adjust this if it actually is csum_start rather than csum */
-@@ -2305,6 +2321,9 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
- 		return -EINVAL;
- 	}
- 
-+	if (unlikely(!skb_header_offsets_fit(skb, nhead)))
-+		return -EINVAL;
-+
- 	if (unlikely(skb_shared(skb))) {
- 		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-@@ -2523,6 +2542,11 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
- 		return NULL;
- 
- 	oldheadroom = skb_headroom(skb);
-+	if (unlikely(newheadroom > oldheadroom &&
-+		     !skb_header_offsets_fit(skb, (unsigned int)newheadroom -
-+						  oldheadroom)))
-+		return NULL;
-+
- 	n = __alloc_skb(newheadroom + skb->len + newtailroom,
- 			gfp_mask, skb_alloc_rx_flag(skb),
- 			NUMA_NO_NODE);
-@@ -6771,6 +6795,9 @@ int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
- 	if (unlikely(!eth_p_mpls(skb->protocol)))
- 		return 0;
- 
-+	if (unlikely(skb->network_header > U16_MAX - MPLS_HLEN))
-+		return -EINVAL;
-+
- 	err = skb_ensure_writable(skb, mac_len + MPLS_HLEN);
- 	if (unlikely(err))
- 		return err;
-diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
-index ad4ad6f2001a..18c9654a6b36 100644
---- a/net/mpls/af_mpls.c
-+++ b/net/mpls/af_mpls.c
-@@ -419,6 +419,9 @@ static int mpls_forward(struct sk_buff *skb, struct net_device *dev,
- 	if (!nh)
- 		goto err;
- 
-+	if (unlikely(skb_headroom(skb) > U16_MAX - sizeof(*hdr)))
-+		goto err;
-+
- 	/* Pop the label */
- 	skb_pull(skb, sizeof(*hdr));
- 	skb_reset_network_header(skb);
-diff --git a/net/mpls/mpls_iptunnel.c b/net/mpls/mpls_iptunnel.c
-index 1a1a0eb5b787..4eccbd911fe1 100644
---- a/net/mpls/mpls_iptunnel.c
-+++ b/net/mpls/mpls_iptunnel.c
-@@ -109,6 +109,10 @@ static int mpls_xmit(struct sk_buff *skb)
- 	if (skb_cow_head(skb, hh_len + new_header_size))
- 		goto drop;
- 
-+	/* The aligned expansion must still fit the u16 header offsets. */
-+	if (unlikely(skb_headroom(skb) > U16_MAX))
-+		goto drop;
-+
- 	skb_set_inner_protocol(skb, skb->protocol);
- 	skb_reset_inner_network_header(skb);
- 
-
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
--- 
-2.55.0.openai.911.g06873a30d2f3
+In [2/2], *pos does not advance while kmemleak_seq_next() skips objects
+whose get_object() fails.  If *pos isn't aligned to the 256 boundary
+and preemption clears need_resched(), a long deleted chain gets no
+periodic RCU break.  Seems the code could tighten and simplify the "once
+per 256 operations" logic?
 
