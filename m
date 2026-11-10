@@ -1,48 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342806;
-	b=S3Xd5tDMRUonanrFquR0A6vYoDaEweaH5RwUfFx10kcK98imi+QtgGnae/5SPqpu+imU
-	 CczOL+tMHovhFFdEJo89Fg9NuhxovoTY4qO0tViOefHog3gYIjxC2FbvOmSRf3Kez+yoW
-	 56lbvLQ1nVbvTqWFC7E+OEsqaqLNj0mzw8wEpat+xIkJBVsrqs9cZ91zpBx+IHSlnSlvd
-	 G3racVT0BLlR0iq6cBGvudU9Jl6U0yta2Wt4ADg0nDTqBLfKpdjvQrO0BnslyS6eqq3DN
-	 KRPc2jUuBsvact8vtDlE4yjTShNsuubjrhaCahu8Lyvn9+iGLID/LnTWS+0zQVi0BBw==
+	t=1794342814;
+	b=WnOR3w9QRM35o962ErS7modell6Aqb8uGnWwWKGxQYd1W10q+/ZvJd7aRtrNqvk9MzM2
+	 HlEZ40ngxEmtk8MX58xrerhn0qsrGpF+v5yLL+V1Dd2mZpD+weovDRD35N9BZ3tFtzOhE
+	 ooEDixKpDT2aS/iuMTMQhsF5EKpxBTTUpisoJGRDckncbxeG0yXC8H1HHSfOMdzs6dajX
+	 niVoV6ToksVUC6I8yslbnahuA3qTzWlXIU7qMGsi6f0KUEB1UyYJZDPbbkJRWFR7u3BDh
+	 ouuvPePBFbFPVT3CRoBdxGklKK/jou7DwRVtJvQjwen9D/7IuDss4zaQv2eqN4puPsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342806;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HNkHh8576R9yenj6hZR3ukTbtfxm+sK5xBh0AHQFgqo=;
-	b=nXNQDXbnUpUXsHlkpU+QvjDkxzY/jDs6OQJn6b6j++t1zNWyAFsYPeO3M+rzmEfAwdCQ
-	 qsOQo9mGtCKiyIHujHAR72FgDi4iu9VxP8acHKKJI6UZGhc9SwrtzcEdDTDfrFBmHnhNU
-	 DU0uuz2ydUcc3Ls2DI4ZIegbd9KxWgFn239O4/mbGAe8LN2lZ1FxnI3fYTQuH9JwOasvu
-	 D/WNX/vXrkke6mmFuvUQFjccuM/dYN2hDyFmLh6ZLdllaUD3qqlslG+aetO9g+5/x0DoG
-	 drI5y/VJJ2iec1x/8eeG8e8+jSC0E+iVhFZSnRSP8Rj/XSOB7Zt7P/HXRSJEFfm0eGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=W7PiBRIxIQWxlBVmTUgm82BXTtlWQOY8DOJouVlWEbc=;
+	b=e7KpEHNlhy1WJItaJpNGYTYtoYnW/QnFNqtvdaeRqJmziCEdDVAgLmRdqFEL3/OMKyER
+	 LIF5a1KfzDyaqLScCRhRTjDpdkkEHXudClGLsFjqsseV4o/J+J+7RkjrENSbpbZefKI0m
+	 Hopg75JqG0Vq1PTbDqsBzhig5lls4s/Obvry6q65iCi4pAChskqARg+s8Hnh7lF4c+ICb
+	 tHXUyybF2gtaZmCG3H2eFAxHh7xAZwFesHNAVMwYPzIUirAPm/Sq+wmrMXHbDmHFE/Xk3
+	 G413kTOmdeREnZ9XLFoVv0c3tUCrtRij3nrGNPh68W3jUThNRAXYlrh8fqrnHr0twhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faMHSEj8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LHdDH70S;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFCE606A88C;
-	Tue, 10 Nov 2026 20:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A346C606A881
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:33:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A346C606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faMHSEj8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D423A1F008A1;
-	Tue, 10 Nov 2026 20:33:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342806;
-	bh=HNkHh8576R9yenj6hZR3ukTbtfxm+sK5xBh0AHQFgqo=;
-	h=From:Date:Subject:To:Cc;
-	b=faMHSEj8UOEq56lelMECdxXPosfoDrSmgupOG1ETLfm4s/3RSRQbWnwEO2YuWM/7o
-	 dmvKVtzQ6CUh3/qK0bKxwIxZ4CxZnXNghLCj/+N5VKaXGQ+S6vb48mZc+rCQaovFzA
-	 fKHHKewXX3EiL693xJoDj4nixSbxG+ILn5SFAPqTt6yCBbW2M9pj8sJvfQkDwrknjN
-	 lqKgQ1wb5erbceCc9bmLoWvqgj0SOf0MZ4iPOqdaZ8BHNYWRLB0jIBXJEqO2dmIsoh
-	 w7r1dGCWLtOSxfhnYv7h5R7wm+yc8RMvKwInddNOaWkifRhKkkT2xfUXMGCOBJ+svQ
-	 r/GWXEbl0wTOQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 10 Nov 2026 21:33:12 +0100
-Subject: [PATCH RFC] mm/filemap: fix lseek() skipping a new large folio
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LHdDH70S
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8dd9b9743so27245045ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:33:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794342813; x=1794947613; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7PiBRIxIQWxlBVmTUgm82BXTtlWQOY8DOJouVlWEbc=;
+        b=LHdDH70SQTAlGlOHZJ8OmWoY5mSzDxfdJ6ry6utEM2+tbzPdbVR3zDup7Elpb5mkfC
+         8SZph/EUwqHwoDt650JdmteglN8nb+iUQUJWRZEhphs4+oY7VMP9IH08n3Jnd1FsDYPI
+         paNmd+8c5mgB8kKPIm9Fj8fs11njK2zNsbgeC1+KCSCBke9Ems/F4pkZJ1DOYavKnJXy
+         G3MILmbXp1klukIYR5ga2VyCQ5eXmKEBQ0u3aT536pSRZdZicj7rn++w/3mWBbQmXsiN
+         jMrTLFGV/3mjaxrOfmnKwTZmhHlGVryIXFjdx5NYeZ0jWXtwI02XyIBB8eGyWCbslK/B
+         1obw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794342813; x=1794947613;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=W7PiBRIxIQWxlBVmTUgm82BXTtlWQOY8DOJouVlWEbc=;
+        b=CndswG+86um6lLSvZ3JAEr+6LnftE6eDz9OrCd4PFk0AhSthlTi/QDcFgZWYEErYRU
+         zL02Wi0kDoJCRmVu7x0dbeOtX+ii7+MGUHEIMDrO9V2P+Qtdd3DOmQxkBhrENRrrcrbb
+         mOi28FgCa9O4DBkuejiA32CDyHGcOsJimviKle/PqgfEjZiAjXzJiftd4xKXS3/HyyQU
+         TeJTG0JuB3zT+TQMS3YYqYm7XTZFRKWvc7PGmFmzgbTt+fSgVSWxI6JmJjG2voW4DG8e
+         cpNkwe0C2RnNGnHBRTXrQohiNlaiX9hCmGRdTc+OcTACSEa4/hh48X76SlsgdWkHroil
+         58Qw==
+X-Forwarded-Encrypted: i=1; AL+hErF0H1EePS2KfOe9ZNqA3YMQPZspOcPwZBOupA2oJBv2b+DjDG8isaRtdCn3IikAFx2SJOHP8v8QfMYjZBs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/padg7pkTK7YvhibGaOI5RG8txK+ToQUnFcgEA1GMdHaqfzipg
+	f62T4N++uXGvrXlKWdUPO2F38ycJ1or8eZd1Y9chYUubnso2Fj/C58s0dsxpe9QZ5wj1y1HGIjk
+	p8v8A6A==
+X-Received: from plbio14.prod.google.com ([2002:a17:903:12ce:b0:2e5:ffbf:77d8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22ca:b0:2df:991b:4368
+ with SMTP id d9443c01a7336-2edd7a4a36amr2909545ad.53.1794342812593; Tue, 10
+ Nov 2026 12:33:32 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 10 Nov 2026 12:33:30 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,144 +76,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-lseek_hole-v1-1-c089c960b846@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAId/82oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0MD3Zzi1NTs+Iz8nFRdk0TL1CQTU4MUE3NjJaCGgqLUtMwKsGHRSkF
- uzkqxEMHi0qSs1OQSkDFKtbUAZorfanMAAAA=
-X-Change-ID: 20261110-lseek_hole-4a9eb450d473
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
- William Kucharski <william.kucharski@oracle.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4173; i=david@kernel.org;
- h=from:subject:message-id; bh=X++bvNWUrEFTrfv+bufHFUKamza572buPbl4/CTqBK0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI+1/cxbPvE+j1D/eEZu9grzhmFD/alMGdsl37QLiJZ/
- KjVd+6ljlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDaEi1MAJiJ5heF/+M5Zfhv1b05LfcKm
- d/eLrM6M5ByjxT+W6nftT4teeoCnm5HhqOm8SHsngVql4xs2W/y/IaU0Sdjs8xGZ5Obpdtsagrz
- 4AQ==
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+Message-ID: <20261110203330.11789-1-seanjc@google.com>
+Subject: [PATCH] KVM: selftests: Override memmove() to prevent "magic"
+ references to memcpy()
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-mapping_seek_hole_data() walks the page cache under RCU and only calls
-xas_set() after entries larger than a page. Between base-page entries,
-it continues the walk with xas_find(), which skips sibling entries
-to return each multi-index entry only once. If a large folio replaces
-small folio entries between iterations, the slot holding the new folio
-can lie behind the cursor. Skipping its sibling entries then skips data
-that has not yet been examined.
+Override memmove() along with the other string operations to prevent the
+compiler from generating a reference to the built-in memcpy() when using
+musl as the libc with a static build, which utlimately results in an error
+during linking due to a duplicate memcpy symbol:
 
-On tmpfs, SEEK_HOLE can then return an offset inside existing data.
-SEEK_DATA can skip data after a fallocated page that is not uptodate.
+  ld.lld: error: duplicate symbol: memcpy
+  >>> defined at string_override.c:23 (lib/string_override.c:23)
+  >>>            $BUILD/build/selftests/c/lib/string_override.o:(memcpy)
+  >>> defined at memcpy.lo:(.text+0x0) in archive $BUILD/build/musl/lib/libc.a
+  clang: error: linker command failed with exit code 1 (use -v to see invocation)
+  make: *** [Makefile.kvm:382: $BUILD/build/selftests/c/demand_paging_test] Error 1
 
-For example, assume a 2 MiB tmpfs file backed by 4 KiB pages on x86-64,
-with page index 63 fallocated but not uptodate and all other pages
-uptodate. Index 63 occupies the last slot in the old xarray leaf. A
-SEEK_DATA starting there can skip that page, then race with collapse of
-pages 0-511 into one 2 MiB folio. The next xas_find() moves past the old
-leaf and skips the new folio's sibling entries in the parent, returning
--ENXIO instead of finding data at page index 64, or 256 KiB.
+The failure crops up when linking in the TDX library code[*] due to
+tdx_init_vm() generating a call to memmove(), which is "fine" until the
+perfect combination of static linking with musl triggers the above.
 
-The inode lock held by lseek() does not exclude collapse or swapin.
+All kudos goes to AI for figuring out the insanity:
 
-Restarting the xarray walk after every entry fixes this, but increases
-SEEK_HOLE time about 24%, when scanning a fully written 1 GiB memfd backed
-by base-page folios in an x86-64 microbenchmark.
+ 1. string_override.c defines its own memcpy, memset, memcmp, and strnlen (so
+    guest VM code doesn't jump through the dynamic linker's PLT in normal
+    dynamic builds), but it does not define memmove.
 
-Instead, use xas_next() for adjacent indices. Restart the lookup from the
-root at the requested index if it returns an empty slot or an internal
-entry, including a sibling entry. Also restart for nonadjacent indices,
-invalid iterator state, or failed folio validation. This avoids skipping
-unexamined data without restarting each lookup during base-page scans.
+ 2. In musl on x86_64, src/string/x86_64/memcpy.s (memcpy.lo) defines two
+    global symbols at the function entry point:
+      .global memcpy
+      .global __memcpy_fwd
+      .hidden __memcpy_fwd
+      memcpy:
+      __memcpy_fwd:
 
-Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+ 3. And musl's src/string/x86_64/memmove.s (memmove.lo) implements
+    non-overlapping forward moves by jumping directly to __memcpy_fwd:
+      memmove:
+          mov %rdi,%rax
+          sub %rsi,%rax
+          cmp %rdx,%rax
+          jae __memcpy_fwd
+
+ 4. As long as nothing calls memmove, ld.lld already has memcpy from
+    string_override.o and never extracts memcpy.lo from libc.a.
+
+ 5. However, the one library file that calls memmove (either directly or
+    transitively via a libc.a function like getline/stdio that only that
+    file uses) causes ld.lld to extract memmove.lo from libc.a, which has
+    an unresolved reference to __memcpy_fwd. To satisfy __memcpy_fwd,
+    ld.lld is forced to extract memcpy.lo from libc.a, which also defines
+    memcpy and collides with string_override.o!
+
+Link: https://lore.kernel.org/all/20261105-tdx-selftests-v16-3-2024e8fa517a@google.com [*]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-I'll be more than happy if someone of the pagecache folks wants to take
-over ;)
----
- mm/filemap.c | 38 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 35 insertions(+), 3 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm          |  2 +-
+ tools/testing/selftests/kvm/lib/string_override.c | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 648f783454c3..87c583509567 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3233,6 +3233,40 @@ static inline size_t seek_folio_size(struct xa_state *xas, struct folio *folio)
- 	return folio_size(folio);
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 17a4256e9081..031f78643af8 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -295,7 +295,7 @@ CFLAGS += -Wall -Wstrict-prototypes -Wuninitialized -O2 -g -std=gnu99 \
+ 	-Wno-gnu-variable-sized-type-not-at-end -MD -MP -DCONFIG_64BIT \
+ 	-U_FORTIFY_SOURCE \
+ 	-fno-builtin-memcmp -fno-builtin-memcpy \
+-	-fno-builtin-memset -fno-builtin-strnlen \
++	-fno-builtin-memset -fno-builtin-strnlen -fno-builtin-memmove \
+ 	-fno-stack-protector -fno-PIE -fno-strict-aliasing \
+ 	-I$(LINUX_TOOL_INCLUDE) -I$(LINUX_TOOL_ARCH_INCLUDE) \
+ 	-I$(LINUX_HDR_PATH) -Iinclude -I$(<D) -Iinclude/$(ARCH) \
+diff --git a/tools/testing/selftests/kvm/lib/string_override.c b/tools/testing/selftests/kvm/lib/string_override.c
+index 5d1c87277c49..3bc434f46177 100644
+--- a/tools/testing/selftests/kvm/lib/string_override.c
++++ b/tools/testing/selftests/kvm/lib/string_override.c
+@@ -29,6 +29,20 @@ void *memcpy(void *dest, const void *src, size_t count)
+ 	return dest;
  }
  
-+static inline struct folio *seek_get_entry(struct xa_state *xas, pgoff_t index,
-+					   pgoff_t max)
++void *memmove(void *dest, const void *src, size_t count)
 +{
-+	struct folio *folio;
++	const unsigned char *s = src;
++	unsigned char *d = dest;
 +
-+	if (!xas_valid(xas) || xas->xa_index + 1 != index)
-+		goto restart;
++	if (d <= s || d - s >= count)
++		return memcpy(dest, src, count);
 +
-+	/*
-+	 * A lookup within a multi-index entry can leave xa_offset at its
-+	 * first slot. Restore the slot corresponding to xa_index before
-+	 * advancing.
-+	 */
-+	xas_advance(xas, xas->xa_index);
-+	folio = xas_next(xas);
++	while (count-- > 0)
++		d[count] = s[count];
 +
-+	/*
-+	 * A concurrent collapse can replace the next slot with a sibling entry
-+	 * referring back to the slot holding the folio.
-+	 */
-+	if (!folio || xa_is_internal(folio))
-+		goto restart;
-+	if (xa_is_value(folio))
-+		return folio;
-+	if (!folio_try_get(folio))
-+		goto restart;
-+	if (folio == xas_reload(xas))
-+		return folio;
-+	folio_put(folio);
-+restart:
-+	xas_set(xas, index);
-+	return find_get_entry(xas, max, XA_PRESENT);
++	return dest;
 +}
 +
- /**
-  * mapping_seek_hole_data - Seek for SEEK_DATA / SEEK_HOLE in the page cache.
-  * @mapping: Address space to search.
-@@ -3263,7 +3297,7 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
- 		return -ENXIO;
- 
- 	rcu_read_lock();
--	while ((folio = find_get_entry(&xas, max, XA_PRESENT))) {
-+	while ((folio = seek_get_entry(&xas, start >> PAGE_SHIFT, max))) {
- 		loff_t pos = (u64)xas.xa_index << PAGE_SHIFT;
- 		size_t seek_size;
- 		u64 next;
-@@ -3286,8 +3320,6 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
- 			goto unlock;
- 		if (start >= end)
- 			break;
--		if (seek_size > PAGE_SIZE)
--			xas_set(&xas, pos >> PAGE_SHIFT);
- 		if (!xa_is_value(folio))
- 			folio_put(folio);
- 	}
+ void *memset(void *s, int c, size_t count)
+ {
+ 	char *xs = s;
 
----
-
-base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
-
-change-id: 20261110-lseek_hole-4a9eb450d473
-
---
-
-Cheers,
-
-David
+base-commit: cf7fa575900051e489f95944c65f432ea706ed73
+-- 
+2.56.0.542.g3ef89b7020-goog
 
