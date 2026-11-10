@@ -1,102 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323001;
-	b=S7XaLbjOG+w/cYACgkjtpwwCZW9ph6jt/n7/G5/ww11RuyeF/n6u6cnRAm8qfCEHMpIi
-	 2E/JgL+Ko7tq3rH1Jo1NYUTwSi6TxFIJuiQc94zlReM2G8B7d7Rs0ZHUNGLYpNL6V55xM
-	 J5F+IGp/BCBmXM9qNGk8DxrCchkPStH+lVbYDpoCbLMAeeecN4SNms9/WN6QwWgBEO7VE
-	 KC5d8HUDToIOcwqrOQkYpLcncGN/rhPuJmLh5Os3BvzVSe+76LLYaDGyJDOlw8tS90B6U
-	 IeEP2bVPJD53sSbpRM58ZBvni2z8G7F5FmRefnu8FAGScwDP9N3yu6en0mvTYWjYOPw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323001;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
-	b=RaEqEWgrcHLAVByW4zFJpGH5xlIritWnACbCiXSwqO7JFSmC1LWhR63pN2e04jwuQs/z
-	 jIS2WMb/7/E85kNlTusuVyaP+Ea5b7jlID425wmpdw42HrzlMQnM5w50Xa3Rw7IanE+Tk
-	 Tm4bNFislt9w8uGweAfvepmpaufrDrN21RHVF4PJ8vWuELeNThZ3P/lO98FeJ5Ul0Prc5
-	 RmIVHBZNKR/H5A4Qvrk0Kbg4gmG0lRRoFqQR7zZRne6vXUo4WpUPnc46CCevYP7M/5obk
-	 dBd85b5rtCL/+woMDJqZ8NuKJx+WQL5hGyfTsNi6UThAR9v8rMvuHgxtl+X5JIry/gg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gkZ3ZevI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323021;
+	b=no78+30vBtQNQL/4FnADzmJeR1t63LzDTQHierPPw/zt9lu9XrSmwh7pZoCX8PD8Vmw7
+	 zeq1+ebApSP0EfSRwdCYAbUYBWGOf09XY27Yxah1iJZxqigRYTK0I8bBTDpu4CddWImDc
+	 HYPNWjBbFY7dUisnwEBl0C4MNKEEi8mHDODFue5Xx/TuUhD/a+xKg4ohZ1GCBGUR274ei
+	 YXgWdEcnDLE6doD46JylWxh1YjYOZQpE3BLVFFaOCmUvPu6dORCTKrJ4+u9dv6R0u83wA
+	 4Eq5/TcVFtWCDNmCSIxGwK56y6t1f6GdhmqCSdXHvZVj9+AkbUXiMNLSU20z386K1iA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323021;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=HI3ODZEfxqyV3WqOMo8kXvUgM0sAej4sbQyygJrPN3w=;
+	b=K0/m9FQy0IB/AREXADNlVbhjhofj6s22pt0SGFYc6rsaoV9B6Rffq7KASiS7HrlnEM/I
+	 HSYiIhPg58H4ztKskQQxOOSTCysIam5utR4zjMcVhdXJ2Ibx7en9XZFztWAkpje1RvXWE
+	 /bZNtWlCVR4iKZiGGQ78e/3OMECvPkui6sPcJDSpHq5murGf4D/TgBQMYclKBI0RywiNP
+	 3nf5+XksjCUNtiil3XeVYJMsz7scRa0INTy3864gWebUFmgJ0xL6vZSLyNpG9wDymnXmp
+	 vvk/OAXlNqLY0pj1PcWAzywa2Mf8fciQ2l5JYz2I/taoSRx8y+Hh+FpaKjQAdrbcOKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MsLsWS3C;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19DB60A261C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A19DB60A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA59060A262E;
+	Tue, 10 Nov 2026 15:03:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA59060A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gkZ3ZevI
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab30b3212aso16276121fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:03:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794322999; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aywGdiKDuDSA0kPVK8I0Wq8XiUxN7ICq03ASqmy6afl4gM2z80nUSCOGYiQH7IVL6U
-         MD5b6IN7ECDuPMou0gGkovKCKsxH+LLDX7+gEmiXmPFDTNC5zb8vAbSizLf/4tgAvGpN
-         UFXNzaWpRb8CNSHkFIvDFLhi6vTDuSCJSl3VmuqoEm4dixx/LRb81xSLoaqyAK1Al9+z
-         kpl/y/FElXmdS8pJ5er3Is5h7Xsg4N7uFpvLSKgpNWk7D0lmLEBy2tnvv2WkK1q172DD
-         4ALFHskN1OMXdDz6Bb25bK/DzZVLhIqVkdXD/UKp8bSNI9fd6EDBvFikXklEor+FehJX
-         3MPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
-        fh=lFr+shz85HeSal65yPsvRRc1IjADhMyfygN7VEF4O/k=;
-        b=cWLsnQkTDZKGYMknWsP7wAb2/Pk4QV8ygW4j1eJS62lvdgLQBXKqAheSDAV018OKOu
-         SGKSukfgJqK+njZgOvbUO/jE+URhfkbYrow7BhZYwXWw0Rs84CZ80Uz/iOo1F72xprsR
-         j0UWHesEd0IEbvi28HGCVKIUVwa+n+VzCN5gW5RUr6GUgzdPzNCjfUek/sqfEyf4yvV2
-         TZU0eiYeUOZ9VoyCh/EpoG4EvlOgs006CXsksKvdDJ55fTPNnx5piUY1xapHiegJ05Q7
-         4V3fztiLmp6V+6aEsj/WaFRf9wxJUFjPMKhEWPNMTWT29xoNwONtxjFHzTb9678CjjxT
-         aRYg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794322999; x=1794927799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
-        b=gkZ3ZevIjNXFHSzu9Bt+jSMSyP8cWYV2jHvj4vt0pnNf0x9xage6N68On8Vnm1bXc+
-         Fl1bB3JoFV3MFaC85jmTIHoLhEjc6p3kWnaZvOSIBoiKSpLvtkX8Frk6gAeE+BrRvsV2
-         LjgvGbz52JOdxoXE3N+YfnXQCta1Ex2pqPJEi9dAKe90Hm3IZ34I2WiteabFSo4/cDKC
-         EzA7B0wweN8ofdxXGMBUN8hi4cKHwd8q4q8n2ZXj06st8a4RMBvg0k4f/cC+rTfEnpg7
-         kJ45z/RPqRp2K0CFoXGlfCke5K2gNDYI+biNGp2w9BoG9uPPsb4u9sDCh2T+2P4WMZWH
-         jcAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322999; x=1794927799;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
-        b=u4Sf/KdLFABPHxcakPKSr7m27WJB8nP4GzLBiCal+El+V71Q7Kghu56d7mGxVfzGwd
-         cTO4Oah1+63ZT1xX6ocNOleMK0K+YSKwhyWK4MYN7cTVsMlsU/MBvvcdaSgz3aKjUSVH
-         /3vB+YZQpxFgYea7M3w9A3nOvhCBs9gdJdUIm5dCyG1ovRHhhLDUIPfP0+Ip8f9yKSkp
-         e0bmve7+f5HTNR32fKrxJPMJHkoWzq8YTVa1bp/htnh6J9HABC4Mgy11QT45uqm5ronf
-         hT/eMLn/g0DZ+5EzSEOUwIZsIkcn6PmuGmDHziIDoEO/XY+hngNhRLp/8ViV4YhQb3X5
-         3tFw==
-X-Forwarded-Encrypted: i=1; AL+hErHtfDfyzhcRPq6D/EX5ZW6j48mN95WL013BeddbOsXEQIsM0PLpgARLgZstcd1ATHNyjsEwxctWo28zbaE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85LfUWRnwO8uF4BsHLLTdLHe/F40Xumk4dP2di8CbqbrloAvs5
-	CRBp6QE73+8PoxQIcVEDoAT9g54dxxUM76OHX10huIE14MBrP5CYoA9R+OK5fnh+ZAtbJ7HfDNK
-	l6aaSSyPjKO+EYjCMUcKz6MagA7rjp8s=
-X-Gm-Gg: AYBFou2z5IrXHIUHmoayJ4cvgibrvP36cLx3lwvcKIKjygAH9Qxj7GBlJtyZ4MZmSZF
-	c/0rmFhzWfJDRrKRjkQTeEqp06Pc9EaVM+zlGNhUZXPD0Ru0qQOngzNke+vo6CbCjDAEDMF4SQ5
-	j3NjC4UbZCcgGYvgsn3a6CaEvisD45ai66QFMZKG6fZf5xyFKL6HgQsGTAc0Kuwvcq8Ei92268g
-	25dr2z81ltYCYlGjCBJrCrVBravFXzuzdNMcE6qhyXo8b034GOPFviLybmjCxeko26MVfCC32X7
-	A2JBlnLVAcqiQfEturyI8Vriaru86rVHWEMJ1Nnr+7+6quREbgQKmhC4fWvoaIZZaY+CoLdVxQn
-	MgqG4HAyFjVIohgERA41h0JExs9goPaY2o/y2pH+S2mrSLVtHLqD9YEbptGYyvvXRNFhsnWizVm
-	vKdWy0fJI7n5M853zMCWRCc5WqZadLxkwgMetvtfM1HwMlS868ZaxIOfah4YsPKC3J7nmnurnkZ
-	A==
-X-Received: by 2002:a05:651c:886:b0:3a9:db75:823b with SMTP id
- 38308e7fff4ca-3ae0963461fmr6011631fa.17.1794322998586; Tue, 10 Nov 2026
- 07:03:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MsLsWS3C
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jP8zv0nyhz8Xrr9;
+	Tue, 10 Nov 2026 23:03:39 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794323019;
+	bh=Vto36UR5PeGgWfEXmDgcAGesARJ0OUwKJ0q1TTRSQYw=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=MsLsWS3CN3NQG7wR0V+7Ut1TqCrIJa6u1MrJUnLY6yIlmSfW02M7ENxbXJXwxuYo9
+	 3G5zUEWaQICMSuhWt6wKJM01IIQwAbV/IitFEM2Bz4O8ki0e8jrShAul1P2O5l2z3C
+	 vICNBhakNCfqNyg620k3sHz2pQcaPJo240+ds/t56dcAzOp7udwYGk0nL/B3TMLqks
+	 wSRrG+oDGoRVrb6S9XFD+J0qXBhih/JK5AZmr5drfkFlJOjifnEyhQDGu8bZEL8Agi
+	 grIa0w7wBx24XxsT4flQtsUjzZ++b43XHT27nFiRjC97352Ok0K3IwNgnyWfFcFqAv
+	 kilN+Uqq6/b1w==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6AAF3T5Y030926;
+	Tue, 10 Nov 2026 23:03:29 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 10 Nov 2026 23:03:32 +0800 (CST)
+X-Zmail-TransId: 2afa6af3324434a-1d972
+X-Mailer: Zmail v1.0
+Message-ID: <20261110230332609vrNKZhiIS1EGJIhlnmX1-@zte.com.cn>
+In-Reply-To: <20261110230327212pqd9rWq5IWa4wD-Ckj5C3@zte.com.cn>
+References: 20261110230327212pqd9rWq5IWa4wD-Ckj5C3@zte.com.cn
+Date: Tue, 10 Nov 2026 23:03:32 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,33 +72,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com> <20261109-zsmalloc_stat-v2-2-caee41684aba@gmail.com>
-In-Reply-To: <20261109-zsmalloc_stat-v2-2-caee41684aba@gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 10 Nov 2026 08:03:05 -0700
-X-Gm-Features: AclHuK85VkAR2wnOqNqvQgZfQ_LlfrHbXEwJe7NhWmwf8P3bqM9yi-Y0ggTdBo4
-Message-ID: <CAKEwX=PNpMr5x4gTo_OK5D5EgKPDvZx2e2=95-4_SV8zq37VnQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] mm: remove CONFIG_ZSMALLOC_STAT
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <hansg@kernel.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDEvMl0gYXRhOiBsaWJhaGNpX3BsYXRmb3JtOiByZWplY3QgaW52YWxpZCBwb3J0IG51bWJlcnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6AAF3T5Y030926
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:39 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF3324B.000/4jP8zv0nyhz8Xrr9
 
-On Mon, Nov 9, 2026 at 5:59=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
-om> wrote:
->
-> The statistics interface now uses the debugfs API stubs directly, so
-> CONFIG_ZSMALLOC_STAT no longer controls any zsmalloc code.
->
-> Remove the Kconfig entry. Replace the remaining CONFIG_ZSMALLOC_STAT
-> settings with CONFIG_DEBUG_FS=3Dy.
->
-> Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-I wonder if we can just squash all 3 patches lol. Anyway, LGTM:
+ahci_platform_get_firmware() reads the "reg" property of every child
+node of the AHCI controller and uses the value as an index into
+hpriv->saved_port_cap[], which has AHCI_MAX_PORTS (32) entries, without
+checking it first.
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+ahci_platform_get_resources() checks the same property against
+hpriv->nports, but only in its own loop, and hpriv->nports is itself
+clamped to AHCI_MAX_PORTS.  A device tree describing a port with a
+"reg" value of 32 or more therefore reaches
+ahci_platform_get_firmware(), where the "hba-port-cap" property is then
+written past the end of the array.  Values just above the end corrupt
+the following fields of struct ahci_host_priv, larger ones write outside
+of the devres allocation.
+
+Apply the same validity check as the resource loop and skip such child
+nodes.  That loop has already reported the invalid port number, so do
+not print a second warning.
+
+Fixes: 18ee7c49f75b ("ata: ahci: Introduce firmware-specific caps initialization")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+
+---
+v2:
+- Do not print a warning for the invalid port number: the resource loop
+  has already reported it (Niklas Cassel).  The validity check itself
+  is unchanged.
+- Send as 1/2, with the ahci_dwc patch as 2/2.
+- v1: https://lore.kernel.org/all/20261029190111138tS0yRo0lL1zJZ_IutobE1@zte.com.cn/
+---
+ drivers/ata/libahci_platform.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+index ae342080556a..0ffa4486de77 100644
+--- a/drivers/ata/libahci_platform.c
++++ b/drivers/ata/libahci_platform.c
+@@ -434,6 +434,10 @@ static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
+ 		if (of_property_read_u32(child, "reg", &port))
+ 			return -EINVAL;
+ 
++		/* Already reported by ahci_platform_get_resources() */
++		if (port >= hpriv->nports)
++			continue;
++
+ 		if (!of_property_read_u32(child, "hba-port-cap", &hpriv->saved_port_cap[port]))
+ 			hpriv->saved_port_cap[port] &= PORT_CMD_CAP;
+ 	}
+-- 
+2.27.0
