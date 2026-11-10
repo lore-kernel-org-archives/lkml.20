@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323461;
-	b=hyLRUFay9yH10S/slMhDJfavvGR5qAAoKckDf49Lyv6Ewv0OF3AuM0n/fGHee1p0fP6R
-	 VenQei5NFWOLTK9RibG/JB1Tw9HJ1PiCKIsa9Lj/ykt7CFHK/HxqHOZSC2Fb8wqm9o3GQ
-	 diOQFomyiQCWeKqyQlGb2kVr7JDE6iAKRYuGYsW0qsVYKZCiKEgxebwblH/i9dinJKu2N
-	 pjQ+xZKtOKl8pnb1Dag5GWA7+awvvPvTuYgY9eMpFnD5hG/H6FZxsiYT7Pr0rer/r3lZ3
-	 LUZMln/U1oc3AKxbtR/VzUB3BF395CuebuR+S8fUYsqxO44r/d37xZdxLSfmx+VYOtw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323461;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
-	b=WX8kUhDlzDRCnaPncaycSbA5N31RSKip9nwxx7ruFbpuc5ZtExxkHCrWaLVquXkQCpMS
-	 hOiN0L4+0JyhTuksXKZYN9JLpB3J2Vt1QPSz1EUTFsWIpPWwCxWa9OdYeLcayFc7iYeWz
-	 5LBWl2iDezYSl1amuPszThASbamfvc9rYoPpKTiCXhjgHqGqKcGp0zZMWqVHkxisXkExH
-	 p04GgBOY1tR8gh1mtdQpAuiV04c2U1Wh0fgqxYIPTv3VdeOHUryphZoWbwOYc/xNwrKuf
-	 g2fn/Rw8ppbH3IbMK/Hx0H8aDJTaFQXGnT6yW1Xs+PrD407AmvqtlN6tqPOGMD7/iPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794323474;
+	b=DJRXDg/H6CGcmfPAaukJdE3eTPDR6E2IVr2koQKgQdjVmDlTvMGYrkHQhCN0o05MltcS
+	 tEaVgTstku45xSgMTYdmiKu5txb2hS5AYKFiS6Wctvngke/O+6dCkWO1Ic3edr75glX8K
+	 HvU2KH9+b5IPgWyqSN/DpPvDmj39XEexzblc8UTUAYX+DYLTq/x2PYxi2uMQR6rDmKm0f
+	 l/MbXmCaKdw3e7b28eoXny1BILAOjGmouUAh+mvS1nM3+UHCheyAksuuffg9qw0AhvNGl
+	 88LhEHPY0AYDzWpl+HZ4l6VWVIhjrpjtXJ+Tnrk1kjsUzU2jjEuqvuyFFj7gJ4shRGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
+	b=UPHcyruf3HgC8l/7JCRdJGQg41dp8axb8Pn3PvX2a9wP+jjfI58DLl8WYyunHtR280Fc
+	 mVIZCXjLVU3QYzEdJI1p33VEL8h+93qufbOnvH8/n8AFFgwxFY/5IAFnAMeKYayhcsdvs
+	 6BDeRNJzzvEKw+dCNehffX/WMkceteb/3KnGviLBvu1UTQv55DezX47T8LHP7ulooww8T
+	 PZlfe5Rf4s1OMq/nH0euAZzYFccGbDTNtGVqXBKEodZtyYsUCcpE3b4HaDRGUFs0w4UDl
+	 qzKevqCNHw9I+3PXoYtIIACy/FhXIiBp8tmaKQcFe3/y4C6wEOU38G9gTzhIHWW0pvQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEkxyspm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1160606A31C;
-	Tue, 10 Nov 2026 15:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F15606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F15606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117751F008A5;
-	Tue, 10 Nov 2026 15:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323460;
-	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ff3FmVsDnez4qfT39XX0kcfM/DNkc0rXxt/RVnKcZqMWRUtIVUZO3sY1Y1T/jrJAa
-	 LMkcjSntcqIt/Dbq3Xerko7WDpaJXndU2wUtOuoW2+uINMqX2Jsh+NPneCeq+ZzcTc
-	 y/10hlPv9GBW10fubJHi/KnE3+svfMF9H9xnKvALCEtFQgdn75smaq1BywPaQM223f
-	 lLXjmVkwU/bhZko1W7RzSFeDujo+89KOrwp2v8SoKRveZnQxtqZcT6qfBOCpXiNOJC
-	 WtdpzOM3P3/7d3roJBdk72LHb5u6IbqeBvAteyUJlQN8Vrn4anv8df/BaYyyG/q+C2
-	 W0F51h3lnQSGA==
-Date: Tue, 10 Nov 2026 16:10:54 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avMzoKHbsuMcZpW2@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
- <avMBNUEL9_V7WnK-@devuan>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEkxyspm
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b3a332105bso2511797b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:11:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794323473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nhST6XDMXYanZglCYUehJ+hE2H9UnVPbH/1PEDo8rkrKeong5Sc5KOgTbXUEyqSHsd
+         RFGgQw4IxGYBmeu9mqAjvycDC+cx2ycpxCbdrK2Srh/4c2nayS3Aqq5iTvE3dcCnOZVy
+         7Nd0O4hX59XOPeCtlvsPCBJJd6sH1DTcs9a3oQoPsquZdv85m+2jh2tpjRKId0fTsfuV
+         M16QvLo4MFcRVJpmjuOv2NQcLrUonDWojn5wrD+rN7fjpohKo34uXGdoxCgOpFjfWymq
+         COvVdPamiuxr8Dz+OXeN24JcUeWwigwKlzAU3uUk0R9BIxODr8eRrIC6BoUZ3T3USfGa
+         5Z5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
+        fh=RS5LUk+EIXVF+H4xYXVcc45l/KssbUFcxSk44dkrKS8=;
+        b=UCuA+mFSBzf/Iw23dAC+rLFUowiyXlH4ycTvH1tIpYXrIPmiGmt2NBKZqW1ewqYPlw
+         TwQKrwkCT7XsUgB5MycNyrSAGblC5TVLadvYNUdSGPjNYeRMeXxKExCEwkTjTePkzUKu
+         Mv5zh1t7fnb1SIT37ap4MRgFqfyzOyei4g2gbRLYJr2qg5Tc012+K7SRuKkq5cwb4qVm
+         0tjviThifWa7+PX8XIky3wPTf6XDw9Hb5IdYqzRNKgbNhD7GAU1cQelQSELajPzJpDD+
+         WRR/L2yhXT/nmYslXHL5NeBc2+sBaffdl68zV17gYChxOdAEdUm1d+a0fzehnih+H0h6
+         0zdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794323473; x=1794928273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
+        b=BEkxyspmKNnBwgGD1le3LUrb6O7S9br2n9OnXxyeKH4vPKd6lDXl68kyuhSP5MbCvr
+         6c4sPDhrHcgdHDrzs1BeIRwb4segvJ/I+JsnVuU5ZJgf8sRlb6eTp4TF0zerTYF1p1jg
+         5OATx40g9K7KyUGFdH/8f4VJy0RUNptqnMTXwJ2eriPsp3/1FTTyj6DPRM2l5QkFJ28u
+         4l89PKqrvLF4M/WoBpDrvpg+mzrCJaaqZaugKTzpSlPSF2Bg/Uz3dyqGvZNGI8VjZeeO
+         x7v7Mu5eQUqGM261FojIPuwuss6/0nK78r8diDzbN1eVDnAoSBGXSpbE302W28Jtt3gl
+         suVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323473; x=1794928273;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
+        b=M2pQbwOxM00+lUnYQRxTZWQBmNEZ5RIXRStzXKJnEHP/FcLkSgLjo29VcYv3alRU85
+         2icXwHZC54iwtY7QrLXYPPJJhztNVDrKlQP/zVzEFlBhpZoiHRk7Jz88jYAKXWlOuh/t
+         s6bjQzktCGUaE4rQFJkaA5UxLzuSq45Yk+5FCvEUbhF1OQ9tBveH4MVTw/Zjhk3o7CLC
+         x8VsOqVAdVQc9AOTMfaggfBFZrd8UBmxUd9GfoUwGux859fLjTPeMABiK2Xvdqqx+dzn
+         YZVpxP7HwQE6vrfnUj8xwe9PeLGPsm0OxICF2VdaikOqwsMsZdLhrkHRzsddwdEu6P/H
+         CsFA==
+X-Forwarded-Encrypted: i=1; AL+hErEqGWm7hKHfahhJzQGP6Zpa1NEFWSweHDR4OSL4gKICSuOBoIq/OtFO4kVszMHS0kHCB7Qm1TYCfV3+2A4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ggP03Zlu926YGeRo0jt1GRGGgkVpiT+He/Tgz/H6NAiBHcce7
+	0zZqxfPlY9xhSespjgamW/f19P2YtnQ9yNhHZZOK6hWPO6S1l5oost/Tgnu+MZAH2FsWAICYovz
+	wdHdPrEdqvNwO9PYyKVrfn6Jk3ZfmRvI=
+X-Gm-Gg: AYBFou2sIlmYx3MkS4ZCdivOS479Izk6phyhuO0BllFhavfgYcmoGGfo3Y5IYUEMOMb
+	TXmoYilqHuVcoZfyZW8+en3QIpZriy8nId/z3bJv5PPc9nqzoz8+Ig1ojCFhFiXpLpQUQGpnHt0
+	fW5Wpd3F6hYvn15Rp87ZkSAmzuCIZwlsacePq/v0aGWJBeqTATGD2l/cbpLBtCZ19JPfoLE87te
+	5mnc1vUoJj4lbsGWwW55gBjS1kVg57m9mHL2lodcyoIc311NPx9J+72cVyc65/Pv9EGNx5bl7t6
+	Me6mrgd4WaaexX+UgPi2DRcgwZzCNUb9cqkJgi78LD0Xulp17O5KidbMoQurOvKGMzCXsBiMll9
+	tXn9zEh1xclAIv6uOsDX9msQuo+dPzphMT5GokPxMtiZM3FIzqS8oPmFahADk7KuCeZ9eXYcJTb
+	jx8jqtYYaxjrUKwl/i6EWyOtAS5sTTyzZTqLzLDlEIUzXqGy+rgF0AMft0
+X-Received: by 2002:a05:690c:f8f:b0:8b0:cd32:b8dd with SMTP id
+ 00721157ae682-8b392630812mr20533077b3.17.1794323473171; Tue, 10 Nov 2026
+ 07:11:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,209 +105,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qpxgmtmgum7gp73j"
-Content-Disposition: inline
-In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
-
-
---qpxgmtmgum7gp73j
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <CADq=QSxw-5LstC5McTqfsp9NaVrsUcemepw2g_TJXNrdpgFdRQ@mail.gmail.com>
+In-Reply-To: <CADq=QSxw-5LstC5McTqfsp9NaVrsUcemepw2g_TJXNrdpgFdRQ@mail.gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 10 Nov 2026 10:11:00 -0500
+X-Gm-Features: AclHuK_GUiwCVuUhAn-ajDH8D9wFR1ipOXSYvJeuudI1cZ9x_iMQK-rERRc69EA
+Message-ID: <CABBYNZJ2zD42-szQ5KWExOVkSLPmO8AH-FNyO2Eq3V4bfSrVxg@mail.gmail.com>
+Subject: Re: [BUG] Bluetooth: stack out-of-bounds write in eir_create_adv_data()
+ and eir_create_scan_rsp() when a controller stops reporting LE Extended
+ Advertising (seen on 7.3.1)
+To: Piyus Kedia <piyus@iiitd.ac.in>
+Cc: marcel@holtmann.org, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avMzoKHbsuMcZpW2@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
- <avMBNUEL9_V7WnK-@devuan>
-MIME-Version: 1.0
-In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
 
-> Date: 2026-11-10 12:35:22+0100
-> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Hi Piyus,
+
+On Mon, Nov 9, 2026 at 11:57=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> wro=
+te:
+> diff --git a/net/bluetooth/eir.c b/net/bluetooth/eir.c
 >
-> > Date: 2026-11-10 12:10:57+0100
-> > From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-> >
-> > Hi Bart,
-> >=20
-> > > Date: 2026-11-10 10:00:42+0100
-> > > From: Bartosz Golaszewski <brgl@kernel.org>
-> > >
-> > [...]
-> > > > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> > > > > >=20
-> > > > > > Can property be statically defined somewhere? We might want to =
-also optimize
-> > > > > > these duplications with const variant (here or elsewhere, for f=
-wnode generic
-> > > > > > path, I believe).
-> > > > >=20
-> > > > > Please rephrase because I'm not quite following what you're sayin=
-g.
-> > > >=20
-> > > > Can prop->name come from something that is declared as
-> > > >=20
-> > > > static const ... foo =3D {
-> > > > 	... .name =3D "bar";
-> > > > };
-> > > >
-> > >=20
-> > > You can't know it for every instance of struct fwnode_handle, so the
-> > > answer is: no.
-> > >=20
-> > > PS: is there a way of using match_string() with non-const data?
-> >=20
-> > Given the definition here:
-> >=20
-> > 	$ grepc match_string .
-> > 	./include/linux/string.h:int match_string(const char * const *array, s=
-ize_t n, const char *string);
-> > 	./lib/string_helpers.c:int match_string(const char * const *array, siz=
-e_t n, const char *string)
-> > 	{
-> > 		int index;
-> > 		const char *item;
-> >=20
-> > 		for (index =3D 0; index < n; index++) {
-> > 			item =3D array[index];
-> > 			if (!item)
-> > 				break;
-> > 			if (!strcmp(item, string))
-> > 				return index;
-> > 		}
-> >=20
-> > 		return -EINVAL;
-> > 	}
-> >=20
-> > You should be able to call it with a cast.  It's dangerous, but
-> > technically it works.  I'm not encouraging it, though.  :)
-> >=20
-> > 	char **strings;
-> >=20
-> > 	...
-> >=20
-> > 	i =3D match_string((const char *const *) strings, n, "foo");
-> >=20
-> > This is a historic problem in C, which was solved in C++.
->=20
-> BTW, self-correction:  it is solved for char *const *, but char** is not
-> convertible to const char *const *, neither in C++ nor in future C.
+> --- a/net/bluetooth/eir.c
+>
+> +++ b/net/bluetooth/eir.c
+>
+> @@ -300,6 +300,16 @@ u8 eir_create_adv_data(struct hci_dev *hdev, u8 inst=
+ance, u8 *ptr, u8 size)
+>
+>
+>
+>  skip_flags:
+>
+>      if (adv) {
+>
+> +        /* The instance's length was validated against max_adv_len()
+>
+> +         * when it was set, and max_adv_len() depends on a controller
+>
+> +         * capability that is re-read on every bring-up - so by now it
+>
+> +         * can be larger than the caller's buffer. Refuse rather than
+>
+> +         * overflow; a truncated AD structure would not be parseable
+>
+> +         * by a peer anyway.
+>
+> +         */
+>
+> +        if (ad_len + adv->adv_data_len > size)
+>
+> +            return 0;
+>
+> +
 
-Self-correction of the self-correction: char ** will also be convertible
-to const char *const *.  I was confused during a short moment, it seems.
+We probably need to unregister the advertising instances if the
+controller changes its max size.
 
-	alx@devuan:~/tmp$ cat const.c=20
-	#include <stddef.h>
+>          memcpy(ptr, adv->adv_data, adv->adv_data_len);
+>
+>          ad_len +=3D adv->adv_data_len;
+>
+>          ptr +=3D adv->adv_data_len;
+>
+> @@ -342,7 +352,7 @@ static u8 create_default_scan_rsp(struct hci_dev *hde=
+v, u8 *ptr)
+>
+>      return eir_append_local_name(hdev, ptr, scan_rsp_len);
+>
+>  }
+>
+>
+>
+> -u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr)
+>
+> +u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
+ze)
+>
+>  {
+>
+>      struct adv_info *adv;
+>
+>      u8 scan_rsp_len =3D 0;
+>
+> @@ -357,6 +367,10 @@ u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 inst=
+ance, u8 *ptr)
+>
+>      if ((adv->flags & MGMT_ADV_FLAG_APPEARANCE) && hdev->appearance)
+>
+>          scan_rsp_len =3D eir_append_appearance(hdev, ptr, scan_rsp_len);
+>
+>
+>
+> +    /* See the matching check in eir_create_adv_data(). */
+>
+> +    if (scan_rsp_len + adv->scan_rsp_len > size)
+>
+> +        return 0;
+>
+> +
+>
+>      memcpy(&ptr[scan_rsp_len], adv->scan_rsp_data, adv->scan_rsp_len);
+>
+>
+>
+>      scan_rsp_len +=3D adv->scan_rsp_len;
+>
+> diff --git a/net/bluetooth/eir.h b/net/bluetooth/eir.h
+>
+> --- a/net/bluetooth/eir.h
+>
+> +++ b/net/bluetooth/eir.h
+>
+> @@ -10,7 +10,7 @@
+>
+>  void eir_create(struct hci_dev *hdev, u8 *data);
+>
+>
+>
+>  u8 eir_create_adv_data(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
+ze);
+>
+> -u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr);
+>
+> +u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
+ze);
+>
+>  u8 eir_create_per_adv_data(struct hci_dev *hdev, u8 instance, u8 *ptr);
+>
+>
+>
+>  u8 eir_append_local_name(struct hci_dev *hdev, u8 *eir, u8 ad_len);
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+>
+> --- a/net/bluetooth/hci_sync.c
+>
+> +++ b/net/bluetooth/hci_sync.c
+>
+> @@ -1563,7 +1563,8 @@ static int hci_set_ext_scan_rsp_data_sync(struct hc=
+i_dev *hdev, u8 instance)
+>
+>          }
+>
+>      }
+>
+>
+>
+> -    len =3D eir_create_scan_rsp(hdev, instance, pdu->data);
+>
+> +    len =3D eir_create_scan_rsp(hdev, instance, pdu->data,
+>
+> +                  HCI_MAX_EXT_AD_LENGTH);
 
-	int
-	main(void)
-	{
-		const char *const *ccp =3D NULL;
-		char **p;
+Ditto
 
-		ccp =3D p;
-	}
-	alx@devuan:~/tmp$ cat const.c | gcc -x c++ -
-	alx@devuan:~/tmp$=20
+>
+>
+>      pdu->handle =3D adv ? adv->handle : instance;
+>
+>      pdu->length =3D len;
+>
+> @@ -1609,7 +1610,7 @@ static int __hci_set_scan_rsp_data_sync(struct hci_=
+dev *hdev, u8 instance)
+>
+>      if (instance)
+>
+>          hci_dev_lock(hdev);
+>
+>
+>
+> -    len =3D eir_create_scan_rsp(hdev, instance, cp.data);
+>
+> +    len =3D eir_create_scan_rsp(hdev, instance, cp.data, sizeof(cp.data)=
+);
 
+Ditto.
 
-Cheers,
-Alex
+>
+>
+>      if (instance)
+>
+>          hci_dev_unlock(hdev);
 
->=20
->=20
-> Cheers,
-> Alex
->=20
-> >  I have
-> > a proposal paper for the C Committee for solving it as in C++:
-> > <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
-> >=20
-> > This paper will be discussed (and probably voted in) in the next meeting
-> > of the committee (which happens next week), so there's a chance that
-> > this will be solved for C2y, and thus the cast will no longer be
-> > necessary.
-> >=20
-> > The history of why this is not allowed in C but is in C++ is, as far as
-> > I've been told, the following:
-> >=20
-> > Back before C and C++ were standardized, C++ invented const, with rules
-> > slightly more allowing than what they are now.  This was going to be
-> > standardized first in C89.  But very close to the release of C89, they
-> > realized about the danger of converting a const char** to a char**
-> > implicitly.  They were so close to the release, that they opted for the
-> > safest approach: disallow any non-trivial conversions.
-> >=20
-> > Later, while standardizing C++98, they realized we could allow a few
-> > more conversions safely, and so they did.
-> >=20
-> > C could have taken advantage of that, and pick C++ rules in C99 or C11,
-> > but for some reason, nobody proposed that.  I'm proposing it now.  :)
-> >=20
-> > We've already discussed this proposal informally within the committee
-> > for some a year and a half, and there seems to be consensus that we want
-> > it.  We're only being careful about the specific language.  But I think
-> > I finally got it, and it will go in next week.
-> >=20
-> >=20
-> > Have a lovely day!
-> > Alex
-> >=20
-> > >=20
-> > > Bart
-> > >=20
-> >=20
-> > --=20
-> > <https://www.alejandro-colomar.es>
->=20
->=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---qpxgmtmgum7gp73j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzM/0ACgkQ64mZXMKQ
-wqm5Vg/9FMzxE1DzVEdsHiBQi+kE7cGOI4ma9sgDJoEjK6z5pi5vl41VIbj9mKII
-2gyshPP75e70Ee00CxPc7F1OEuG0DLkf7Rz9MfydiUWxowxGnZZmvwGjgknk3uZY
-TEq+UcZ4eJneqVtMT2O74AtskE0VxyxIrr0fBn/vn/3wxMd3atylcFUuZqSW1jiQ
-vUAiMxz6JNIKvtIvaK6FPdMJqP60PxQ5gtIXQtvFlnRx6y8cB2Qoq/wsPdo7RBqf
-kmx/lVrbl7Z+i7d3pjq7DkIMdpEYzozg3i0PrGJb3+XmXS4OnNN7GRQUHFZvGEXg
-We8350HB3xTkLK3uJTkJ2OO0Yx1Rvuc1x3qIoGlBhhmJirYwjO4smRXKIABqNjEM
-tZY+QdsyOgfIiAD+2HGpqyxSSznYC8nOZ8+XlhGVxwEdDeLjJzA3cBuGVQZVzwo2
-TXhd/ONWz3/s8yv63CnJINvJliYYJSedAf96xADYYUo+gJx7Nk93eepRxQDWIMI8
-jXvCFC4Q9bNXrS5t4lDPGzyiK35y//hBaz1r56nVjRPIiAaUnd5uKDAbY4elhUjM
-0GGBVUuPq/ucJ73OfL3fY/oWl8s5aF3AyyGJQRp6PVp8zEzpBIX/6mX2b4MIz2mv
-+f+RIixqGWjFtWrhHpUqAN0MEqtmid9TfhEokNAKeWhIAhcZPfM=
-=i4c8
------END PGP SIGNATURE-----
-
---qpxgmtmgum7gp73j--
+Next time, send it as a proper patch, so CI can pick it up and Sashiko
+can analyze the changes. Also, and also address the claims about it
+being material to security@kernel.org don't hold anymore since you
+just published it to linux-bluetooth.
