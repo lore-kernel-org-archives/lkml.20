@@ -1,80 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794296699;
-	b=TcFYrG4bXarCnrreaLN5m3azVen2GqbfMoIPVdvaa6FCQPHjDtis181vj3Dk5HETBxK9
-	 /feuHiNduK2JSIwD+B73UApp7HE5sI3MBE49eEAivpRdi14WgOP1UfaeqoudsXR0Cgr5j
-	 jfA9e5cr0gGUxGAqUPj70SB8iEDViE/+YPxCxI+/7u+3tPPZrJ3gXWQg8ZgIyjd4Nn0HC
-	 2LNtkrS5JbcKYZbeq+rOnoOKonhrcUWLruLFLRRCaAShknj54Fn1Z5A1NFO+ZqSHGGpAr
-	 7cP5050ycgazV0aKrs0dF1hjmb5HSvdI0wOukeCT1rm3ynN1iqL18SJfAW7fpplWPkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296699;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
-	b=sUaeM7LEy9BUhOU1Vtp1+42jAcU5h78ATyP2T9ZttfUQ7Iy3snr7nqkZUo6fgq94hdTE
-	 wpAQ8WN70t5FX48JHTN82Wyf36TCJaoZk4c6tUwounI+GmpyKuhm+LY6FOLT3JurAib2J
-	 OBiDytCThgkw3WlhcDP6jbYqsXcPjq7yo6xOOa9xeA1PLmbhvLVANLFOSG19EzJxdssTY
-	 J4a6bWII9O3gEE07zNH9LqartXyX9RkMrkhtrqopUIMwHIDxHlRv8CL62I+3zXVXxz77b
-	 ldCCL5yOQpYQvWt94WjkplaSEzVGCNt/0h88rS+skSX/iEwYNR2X1qM1S4ZzTFD1irg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i/3fDxSK";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A55606DF09
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/3fDxSK
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794296698;
-	b=d9u7Vgha6Uq1B01ky9RKnJuqkrn3kxYbQ1EKeDpnxlca+1ilE7k15v3OvdLXvcJnq4EF
-	 haMY8W3U7zKGj0OW7J092U97BjwczYlr/Uv3W45FtxE8d+kBGEK4+WRm4dI3VI9YYMleB
-	 SjfvCt9n5YzvcKnMmYrd4I4s0pT8CXyiaoxk2OZbK4MUhOnFhVM5AQvlzFEEaJYH8cHTl
-	 DV4jmig+3L/vcqiXozqxh/D1FbljiEx5bIDcB1eR6USon2WOrpRnKqS/dW0G4ktuZwb1J
-	 LyOBpMQ4NRx+ZRJjWSR5dVBECfOGqPfOnawbl+cmTlVf3yTzv5yRVrChUXeLa5nTrGw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794296698;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
-	b=esECSrGFm3KJ1EuNKaKaknxefSJXF6dVOWdoCqjXxk8/khyXzsnWYKS5CTTFXO2CJ5RZ
-	 kn5LztJdHedUlPRUIqXMIV+Hk5J8neUQn8MOZhJGZWQkN0xjmmGat2qzOK5Gshdeme0t3
-	 n4XfxJgas3Ks8ivXfKao4IYZUKfn7hsb/cXx1PM+yhg6VNQsuhl6JrDm1Q51g9wGNro/n
-	 KL3uR4dmzbd+AHIhcA0kCoWG3STSQL0GmNHPHdj1SaGYL88jGXmWMH2ZJO/niXqZru7m/
-	 TGoevV9ngufZmaGcSQNrHLCV4pKjRrk1l4avMWyB41imguImm3BkjbvXeGhLD/73arA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794296704;
+	b=Yjq1RwH8Ec0V3OLbxyn90qp0jU0UMAtc/5Gub94g25gPs1foStJ5+u1TNmx+R03nh52V
+	 G6gcAJJQ4j89NW9vrtbMw2tyoY+geM2/R5OSyu6QhJfFazzOGMYRdwT9wCFCu6adxiY+E
+	 +Xx4qxMkYwbTO+y+3YPhN0Uwx1pRCgezsjV4s7gxoBELxtz6UmSxssZOcVwZ2+XCH3vIm
+	 mFqJSyMWgtxr1zOIlKLn+u6D9VcH1lebB0+npgt8JBeZmhOenpErgYW2sOfrJXYXuE05F
+	 XqsRIOiyBpvsqUO6OAqdGqwgkNIxeK9q4N8PQyP+re23p7iSNjIEBwNKA1VG7KYv4dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296704;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=HLZfvDioLp/vY/9zYDjLGVC8TxAnz3Z/4xHRKH8AmZg=;
+	b=SpG67QeYIk52sBPfpbBAQmlLXhX+2cAu4DbS5cpwS8aiXI+bseGyojOO2qjqa5xT9U2U
+	 rTrsw3EReimVNRzH6YSHbsQ/5/lb7ZEF/t6Jz7jzOsiaxGyw5Acer9pqjTl0Pc/xOqCQC
+	 uox9Zh+OtsXAiJXsjEsBVOczlUj0mavlyzHX+HyOccfXhowAvaOiDsLse+KTGGG5R5WGO
+	 hw2R1Yn20djDs6is6+WHFzudVfm3DWtOaoIgzH9IRA0y3h2diHIszbqtUc3kPojPg8WUp
+	 tYNXoo4X92rcmd02Md1pZ/IJZrAFh5vE+wFUfViI2G4MjjbgETOFOdlVb9T7HokBtyw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oeB+akYX;
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C47B41F00903;
-	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794296698;
-	bh=SDZOQzw39w9YoYyHd/qaECvEwozcHNT8jrDRXkiG+Lg=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=i/3fDxSKRJ+5/qwKT6GNvZ33hF2ahjV83fFDRRZ22Bcwksloqxuf3pDMjY96WOrYq
-	 jN9pkFOmoQuqsBbRgKYArasE4kX7oefsmcwhPD9EzQzYwEYReO7VDdN33pHTT4wuI/
-	 Q5mu8dQeVNvAKUSmAAemS2o9W1g0jO3gV4/2F7p8QAotOqqudWAYJO6kKwxlrlwE7A
-	 hWbeyAxmAsHrd1f+QJJ1hts2yKcSVBKcWGFBnB3vZrIBUa1VEIhBpkGjakXdHJuY4A
-	 nXvVguaJqUyHvZKFX2Usxacq3lo0c+k5ifgq0yn9RsAsW1I0Ce+l3dMwZg6iLE6eb4
-	 yicd/IOr+hUVg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2381C48A0E;
-	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/7] drm/panfrost: Resume long jobs instead of resetting,
- and mapping error path fixes
-Date: Tue, 10 Nov 2026 07:44:55 +0000
-Message-Id: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1934F60A262F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1934F60A262F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oeB+akYX
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-53dda625f63so1140846b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794296703; x=1794901503; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HLZfvDioLp/vY/9zYDjLGVC8TxAnz3Z/4xHRKH8AmZg=;
+        b=oeB+akYXNxQ4v9UIpCPwYz8xHPFGWc+kV6z+a0CbfH1VwKQBlwyjufSW8E9qUDX98C
+         avHIYxydc6+ZBcQ/Y9kq19pantBD60NoMwIsBWWGDBHX29IR1GiC4uJfk7+oOGagO5s6
+         U4JACAcizsY1eNycNSb1VrZCV3Wt1PgYTX1sWAZrszCSe+VtpKw3/BmLbZiC3SeY+3iG
+         iBrh7m8yy4Zpp0N+/ZPa0BjXcMsCwgEYa5FHE47bBZoIslwsvoD4MhcWVXjDecBI1zQQ
+         RkCML7OpAPIwLRwhUs5G+XR+rTY4FqtelRX2qVc3NWfv4UCdIwVygt1dcd0v1Y818SYN
+         6mgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794296703; x=1794901503;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HLZfvDioLp/vY/9zYDjLGVC8TxAnz3Z/4xHRKH8AmZg=;
+        b=tdkkf02JW4HUopePZV0msmDHBdyc8P4L2RaS7QVWE7hFEQg7a7nn9WSEWZhEy98emc
+         l6aIOiLE8kICKxjp+m8IKjOH6HRzMCzWRMy2H0vUQU5Znc2B2c2nLohNLFwpYsrIx8yo
+         SWZC7I3JcXYZlGmIMwwsncneJiYrqUFl2DT5/DZSLve3DzslvI4sA2ZbU2Z8M+HI0DO2
+         IjroAwrw95PZnl/Zw2M7t25TKsBIkwc/edzeLfqoNzaqzPQxPUY8YPH84Ng3iQe7Xhs9
+         6QBGNXyXa08nVhm7jFBqgEu3R93KzdBDafbGwkhCeIKAzinmtizAKIgXHYkKttYM3yFn
+         ceSg==
+X-Forwarded-Encrypted: i=1; AL+hErHWFez09seTRAKm0O+0EGhLavI5p3dRwoh/OvNIGomm8os6LlqZIJiAtxunVsTXZy9GarcW041CE7z9WpE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8gTuOB48AMzs2mXyIUOzeIqsxcNEP+NbL4Sve4yMiEN/PRR3x
+	g/u455AcF2ax++NXYNeS+ErSLWgC9B7dWK4ogB7l5IsGNirENaKaJSLHa/H2Oogi
+X-Gm-Gg: AYBFou3sKCruQj9OnvZ8uEPoRXm8/xoV9cKk2C9rXF/k0YXDSn84+obdtL709lAnoHI
+	Rv1PFYeW/VW9LS49i27WCyNgBdxPwDu+OtiDkTVdkeaZc9TykQ7++1jRB296DvT1cIh49Mw2Fnh
+	vsZeOtAT6leKYeImztEqIfu2euSGKENIAu4cava8Io3WYZ17byUynQD2Y4vIRvwGevldDYDSp5G
+	Nj4cKhVRDUKiCT8JYkSHtYpcTsZPLco55jhzqukRHgqX3mLQeQ1HbS+t8l+84jbz9VKjKcuz1R0
+	NBK7jzdz6eupxCQlSyvcWS+n12Ju3KfpHv6NUUKhsJ9VZl/M2MCRzDJWx4zmowiZ9ZLgNB6eFnN
+	3EtvM09TKYzjK+IX40Xej+olc0U8Ohu97rostPmawK6SzegqGQIcif8M/ar7JiRsHi+GTi1YqUd
+	aKpEqNc+xM1OkMnnmz/2Ok6VwEjK+CARaVcuq+nuLUERPnuRIadaIwpUWcPw5bBgRd/Ea6r2sNY
+	DsKfgwqSXScicJzDJCMI+uSE63r5OU4BkLcuV+qxcjyNkDDodWu1LfbgMGrSOpQ7cZG6H5MrLgr
+	3fRVfBK7p31NFklj0VfeSP7g1rb3MPmgOPx+iBkYsclkhuUqF7TBHsKGTZDq8WtiNpifYqp77qR
+	IgMmj39dPd5TB+zP1OMXwAE1DyHiGPcvXyxRIsgdezSqaw8+DlHobMzfoOifagvHIAuZeBOfI35
+	7hoIy4vb/ZK6Fi9JK9B/P43ucD/1k/EYaQnEDEO3QfpZ41CuFal9Qh
+X-Received: by 2002:a05:6808:e85:b0:4ec:4c7e:37b5 with SMTP id 5614622812f47-5683cc8615cmr1404944b6e.29.1794296702875;
+        Mon, 09 Nov 2026 23:45:02 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:45:02 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 10 Nov 2026 00:44:41 -0700
+Subject: [PATCH v2 38/58] mtd: rawnand: cadence: retain open-handle state
+ on removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,109 +96,196 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gZMFRWvIi5qJ2pkaKVxBkG8+
- 3R0+Rb/n6AchRW67ITIX1EJPoHyDNxi/cwor2QwhamJqMDN+ikG3fEd/IxrGBWprkrTNtZYR5D
- CLfIkxz3th8f6GVd2+/8E1/UDRvr78XYAAAA=
-X-Change-ID: 20261110-panfrost-long-jobs-1643287a2ac1
-To: David Airlie <airlied@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Maxime Ripard <mripard@kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-38-9137d08f05df@gmail.com>
+References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=4091;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=spi4oruI9Mu1XmSFEL9ByMYtDiQL6HJu09Q2+nsBdAI=;
- b=doXsrdVgudeHFP9TRuEw+MIqsZP2mBmCWKYTplTnRRshgc9927ATq5m1uebq/BfqiFmglLeoz
- eAcQkNAuu9wCBi9IF9AZT/DL06JdnOf9ibJAASsPdXGrbqvS+2Peg5D
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 
-This series fixes problems found running the GLES, Vulkan and OpenCL
-conformance tests with Mesa on an Orange Pi Zero2 (Allwinner H616,
-Mali-G31 MP2, one shader core, 1 GB of RAM).
+Keep chip metadata and controller storage alive until the final MTD
+reference is released. Unregister and disconnect each published chip
+before releasing the resources used by its hardware operations.
 
-Patches 1-3 fix the error paths of BO mapping under memory pressure: a
-WARN on an ordinary allocation failure, pages dropped while the cached
-sg table still maps them, PTEs left behind by a partial map_pages(),
-and the folios of a heap chunk kept after a failed fault, which makes
-the next fault in that chunk WARN.
+Allocate the final shared buffer before publishing any chip.
 
-Patches 4-6 change what happens when a job runs into the 500 ms job
-timeout. On a small GPU OpenCL kernels and heavy fragment jobs
-legitimately run longer, and resetting the GPU loses their work: the
-OpenCL CTS Integer Ops long math and Thread Dimensions tests, the
-KHR-GLES31 advanced blend mixedSequence test and several dEQP-VK
-spirv_assembly fragment cases fail that way. Following the Arm driver's
-job scheduling, a job whose slot is still active is soft-stopped and
-resumed from JS_TAIL without a reset, hard-stopped if it does not reach
-a task boundary within 5 s, and the GPU is reset only if the hard stop
-does not take effect either. Patch 4 makes sure a soft-stopped job is
-never resumed after a GPU reset (its progress is in the L2 that the
-reset discards), and patch 5 makes panfrost_reset() actually wait for
-the soft-stops (JOB_INT_JS_STATE is a snapshot, not the live state);
-both are needed by patch 6 and fix the reset path on their own.
-
-Patch 7 adds the BOs around an unhandled page fault to the fault
-report, which told a texture over-read apart from a kernel problem.
-
-A job that keeps reaching task boundaries is resumed after every
-timeout and is never killed. If a limit on the total run time of a job
-is wanted, I can add one.
-
-Testing: Orange Pi Zero2 (H616, Mali-G31), Mesa 26.2, with this series
-backported to v7.3.3:
-- OpenCL CTS Integer Ops quick_long_math/quick_ulong_math and Thread
-  Dimensions quick_2d_explicit_local pass (they failed before); dEQP-VK
-  spirv_assembly vec4 i8/u64 bit_field_insert count64 fragment cases
-  pass in 4-6 s (timed out before); KHR-GLES31 blend_equation_advanced
-  test_coherency.mixedSequence passes (failed before); none of them
-  resets the GPU;
-- a never-ending OpenCL kernel is hard-stopped after 5 s and the GPU
-  keeps working;
-- dEQP-GLES31 draw_indirect compute_interop large cases in memory
-  cgroups of 450-600 MB: the processes get allocation errors or are
-  OOM-killed, without a WARN, and the GPU keeps working;
-- a forced page fault prints the fault BO report;
-- no regressions in dEQP-GLES3 draw/occlusion_query/shaders.loops,
-  dEQP-GLES31 compute, KHR-GLES31 compute_shader and a set of OpenCL
-  CTS groups.
-Each patch builds without warnings with W=1 for arm64 and arm.
-
-These patches were developed with Claude (Anthropic) as a coding assistant:
-it investigated the problems, wrote the code and the commit messages. I
-reviewed them, and they were tested on an Orange Pi Zero2 (Allwinner H616,
-Mali-G31) as described above.
-
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Arun Iyengar (7):
-      drm/panfrost: Don't WARN when a GEM mapping cannot get its pages
-      drm/panfrost: Unwind a failed GPU mapping without dropping its pages
-      drm/panfrost: Give back the pages of a heap chunk that failed to map
-      drm/panfrost: Don't resume a soft-stopped job after a GPU reset
-      drm/panfrost: Wait for the soft-stopped slots with the live slot status
-      drm/panfrost: Soft-stop and resume a job that outlives the timeout
-      drm/panfrost: Name the BOs around an unhandled page fault
+ drivers/mtd/nand/raw/cadence-nand-controller.c | 60 +++++++++++++++++++-------
+ 1 file changed, 44 insertions(+), 16 deletions(-)
 
- drivers/gpu/drm/panfrost/panfrost_device.h |   5 +
- drivers/gpu/drm/panfrost/panfrost_job.c    | 214 +++++++++++++++++++++++------
- drivers/gpu/drm/panfrost/panfrost_job.h    |   8 ++
- drivers/gpu/drm/panfrost/panfrost_mmu.c    | 139 +++++++++++++++++--
- 4 files changed, 312 insertions(+), 54 deletions(-)
----
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-change-id: 20261110-panfrost-long-jobs-1643287a2ac1
+diff --git a/drivers/mtd/nand/raw/cadence-nand-controller.c b/drivers/mtd/nand/raw/cadence-nand-controller.c
+index d53b35a8b3cb..65c4eab600af 100644
+--- a/drivers/mtd/nand/raw/cadence-nand-controller.c
++++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
+@@ -562,6 +562,7 @@ struct cdns_nand_chip {
+ 	struct cadence_nand_timings timings;
+ 	struct nand_chip chip;
+ 	u8 nsels;
++	bool registered;
+ 	struct list_head node;
+ 
+ 	/*
+@@ -2991,6 +2992,11 @@ static const struct nand_controller_ops cadence_nand_controller_ops = {
+ 	.setup_interface = cadence_nand_setup_interface,
+ };
+ 
++static void cadence_nand_chip_release(struct nand_chip *chip)
++{
++	kfree(to_cdns_nand_chip(chip));
++}
++
+ static int cadence_nand_chip_init(struct cdns_nand_ctrl *cdns_ctrl,
+ 				  struct device_node *np)
+ {
+@@ -3007,9 +3013,7 @@ static int cadence_nand_chip_init(struct cdns_nand_ctrl *cdns_ctrl,
+ 	}
+ 
+ 	/* Allocate the nand chip structure. */
+-	cdns_chip = devm_kzalloc(cdns_ctrl->dev, sizeof(*cdns_chip) +
+-				 (nsels * sizeof(u8)),
+-				 GFP_KERNEL);
++	cdns_chip = kzalloc(struct_size(cdns_chip, cs, nsels), GFP_KERNEL);
+ 	if (!cdns_chip) {
+ 		dev_err(cdns_ctrl->dev, "could not allocate chip structure\n");
+ 		return -ENOMEM;
+@@ -3024,20 +3028,22 @@ static int cadence_nand_chip_init(struct cdns_nand_ctrl *cdns_ctrl,
+ 			dev_err(cdns_ctrl->dev,
+ 				"could not retrieve reg property: %d\n",
+ 				ret);
+-			return ret;
++			goto free_chip;
+ 		}
+ 
+ 		if (cs >= cdns_ctrl->caps2.max_banks) {
+ 			dev_err(cdns_ctrl->dev,
+ 				"invalid reg value: %u (max CS = %d)\n",
+ 				cs, cdns_ctrl->caps2.max_banks);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto free_chip;
+ 		}
+ 
+ 		if (test_and_set_bit(cs, &cdns_ctrl->assigned_cs)) {
+ 			dev_err(cdns_ctrl->dev,
+ 				"CS %d already assigned\n", cs);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto free_chip;
+ 		}
+ 
+ 		cdns_chip->cs[i] = cs;
+@@ -3059,20 +3065,22 @@ static int cadence_nand_chip_init(struct cdns_nand_ctrl *cdns_ctrl,
+ 	ret = nand_scan(chip, cdns_chip->nsels);
+ 	if (ret) {
+ 		dev_err(cdns_ctrl->dev, "could not scan the nand chip\n");
+-		return ret;
++		goto free_chip;
+ 	}
+ 
+-	ret = mtd_device_register(mtd, NULL, 0);
++	ret = nand_set_release(chip, cadence_nand_chip_release);
+ 	if (ret) {
+-		dev_err(cdns_ctrl->dev,
+-			"failed to register mtd device: %d\n", ret);
+ 		nand_cleanup(chip);
+-		return ret;
++		goto free_chip;
+ 	}
+ 
+ 	list_add_tail(&cdns_chip->node, &cdns_ctrl->chips);
+ 
+ 	return 0;
++
++free_chip:
++	kfree(cdns_chip);
++	return ret;
+ }
+ 
+ static void cadence_nand_chips_cleanup(struct cdns_nand_ctrl *cdns_ctrl)
+@@ -3083,10 +3091,13 @@ static void cadence_nand_chips_cleanup(struct cdns_nand_ctrl *cdns_ctrl)
+ 
+ 	list_for_each_entry_safe(entry, temp, &cdns_ctrl->chips, node) {
+ 		chip = &entry->chip;
+-		ret = mtd_device_unregister(nand_to_mtd(chip));
+-		WARN_ON(ret);
+-		nand_cleanup(chip);
++		if (entry->registered) {
++			ret = mtd_device_unregister(nand_to_mtd(chip));
++			WARN_ON(ret);
++		}
++		nand_disconnect(chip);
+ 		list_del(&entry->node);
++		mtd_put_master(nand_to_mtd(chip));
+ 	}
+ }
+ 
+@@ -3127,6 +3138,7 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
+ {
+ 	dma_cap_mask_t mask;
+ 	struct dma_device *dma_dev;
++	struct cdns_nand_chip *entry;
+ 	int ret;
+ 
+ 	cdns_ctrl->cdma_desc = dma_alloc_coherent(cdns_ctrl->dev,
+@@ -3181,7 +3193,6 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
+ 		goto dma_release_chnl;
+ 	}
+ 
+-	nand_controller_init(&cdns_ctrl->controller);
+ 	INIT_LIST_HEAD(&cdns_ctrl->chips);
+ 
+ 	cdns_ctrl->controller.ops = &cadence_nand_controller_ops;
+@@ -3201,9 +3212,17 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
+ 		goto unmap_dma_resource;
+ 	}
+ 
++	list_for_each_entry(entry, &cdns_ctrl->chips, node) {
++		ret = mtd_device_register(nand_to_mtd(&entry->chip), NULL, 0);
++		if (ret)
++			goto unmap_dma_resource;
++		entry->registered = true;
++	}
++
+ 	return 0;
+ 
+ unmap_dma_resource:
++	cadence_nand_chips_cleanup(cdns_ctrl);
+ 	dma_unmap_resource(dma_dev->dev, cdns_ctrl->io.iova_dma,
+ 			   cdns_ctrl->io.size, DMA_BIDIRECTIONAL, 0);
+ 
+@@ -3260,6 +3279,11 @@ static const struct of_device_id cadence_nand_dt_ids[] = {
+ 
+ MODULE_DEVICE_TABLE(of, cadence_nand_dt_ids);
+ 
++static void cadence_nand_release(struct nand_controller *controller)
++{
++	kfree(container_of(controller, struct cadence_nand_dt, cdns_ctrl.controller));
++}
++
+ static int cadence_nand_dt_probe(struct platform_device *ofdev)
+ {
+ 	struct resource *res;
+@@ -3275,11 +3299,15 @@ static int cadence_nand_dt_probe(struct platform_device *ofdev)
+ 		return -ENOMEM;
+ 	}
+ 
+-	dt = devm_kzalloc(&ofdev->dev, sizeof(*dt), GFP_KERNEL);
++	dt = kzalloc_obj(*dt);
+ 	if (!dt)
+ 		return -ENOMEM;
+ 
+ 	cdns_ctrl = &dt->cdns_ctrl;
++	ret = devm_nand_controller_init(&ofdev->dev, &cdns_ctrl->controller,
++					cadence_nand_release);
++	if (ret)
++		return ret;
+ 	cdns_ctrl->caps1 = devdata;
+ 
+ 	cdns_ctrl->dev = &ofdev->dev;
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+-- 
+2.53.0
 
