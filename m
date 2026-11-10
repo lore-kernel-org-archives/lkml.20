@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393032;
-	b=5fMjj4ynqRO0CPmG8Zr3GMOL+D1S5pXwCX4D+yQHAB26NlG+w8qsLFghQZATMCHGPUx0
-	 vmNNwMmzTimi/BqudLqKZiap9A3IvpWdf964M15+EickuMw58SXIvaZKG5bQOZ7Uyv+Ed
-	 e944V2MPcj/HKMtAS6U3c6QlM6/W3Zg+iDjIABI96pXP4L6hwPhIXqaY4nSpFg+Sm+Fxm
-	 0UmvMbqU1AtSNSW1pFKv3Cpp42cZbVidGHyzK4GRy2qJfxy2pVqNftBcPHql8KZZSob5R
-	 KyRXarKqKjdHF6fnlLkym2McQqknnk8mYKUfbOGaZ9hECzgk8IUQ8ORZ500Qm/p/e3A==
+	t=1794393037;
+	b=scu+EIhVWC9Utxn0XSrMeQH/CeTCWPvXPClqWMqPHsWeDCMNR4xFxv5yugPRFCYED6hm
+	 Ffs2j5DXtSt0ODR5uMxIoir6Atfs59cTAovma/upLLN8IJs5HUXy1dQWgvNTtULkTH8kO
+	 cRAh84vUEx9la/cYbPAkAuyzxASCDmajb74Y0g8Oie76+Q48bQOo4sAYoqtWnOhI2dFcB
+	 +OYN2V5wSqm2e1JbHipuM5kVUXHAmfI77GVDVTGXSq1kMaa8tLhH9vgXmqEm/ZbVQ7cBZ
+	 iqtB9y2b/34z6KTT8ZkWHo7SPunFRPOzRHno+5VmqFbKfEcr8TMhc0sh7h7IsgbN/Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393037;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=3saJzizEnMz5wH7u54dhoxxqETLwZ4xBqMdsXbVIbJg=;
-	b=C8CCmODxfUTj//bI4zqWAUhUfiV/3EOcP3irfw+pHNA/rEKoMms0nxfsecMTgw1PdBAc
-	 QXaVM834OU3hN0o+6UMzpQk7oz9qDjfpGGaccH8MjXQuCDq1mesMW3oc5w63H3R4hIpiZ
-	 sU2ZRendiwoFvdCdTlSyatvCJYEy8WL6bCZfW3Bb82+cH3aZkrta7ofkbyvJAHF4Udfas
-	 sch9SHwuzJa8S8tAdu8fJmsYy4z5Qrjfm1H7HZEluS7Py4eNaDgLdpm5IuyZZhQpLOIQF
-	 TRPXduQv05SYbXjorOVrUNiivmkQcorKQyFwfixS7f9CYUbOBELBHml/96ERaoqEMsQ==
+	bh=KxrhFMa8/sp9xXjPYISbhRzyRkp2BmT2lD81VC2uH5g=;
+	b=Zs7js/Fm54NGeiX/yV0TzeiAGKCHIifkQCy/vdUAkqUU5T1o4yWegYDVeeJKjdo1QhkR
+	 oXsKvDZluIWVNhXEJEDjlCJOj/vgwxo69dduTiLzd1+RgbGG8/E67gukjz1duKT9wYdlt
+	 DOsfPA/AUk+STXm2bTk5SsYY6/LGSalM0WWXRol8rzeoy9/BIOLemvx2Vm2pDxKvCNHxH
+	 DVyunG9lzbSAwkIcDKNUS+iL/iQzBhDSqy43Abeqy1xQk+audoCyiQwOyROwSSih9A4QO
+	 IeTCepgO3VdIfpPoHvMndhd66uELhjQllHi+k3qh4Yr8JH6FFyZpD7PxYVSFnAdmDKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Blqa9Gyl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrTLwSLE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFD8606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D5E606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Blqa9Gyl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39161F00A06;
-	Wed, 11 Nov 2026 10:30:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrTLwSLE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB69F1F00A05;
+	Wed, 11 Nov 2026 10:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794393032;
-	bh=3saJzizEnMz5wH7u54dhoxxqETLwZ4xBqMdsXbVIbJg=;
+	s=k20260515; t=1794393037;
+	bh=KxrhFMa8/sp9xXjPYISbhRzyRkp2BmT2lD81VC2uH5g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Blqa9GylRCpbtJozK/p/Zo193IJINi2WaRazttyjHzqBDPNoJRNAG1Vziv7InKfMm
-	 xoXOB2cKk/bUFZNRGvTrkPsch1q1hPHaStFBLVqxTtF6c12RMhuX7/RgHp3U54HKX9
-	 W9TgRSqiQlPDbwe6Ct2C52W2zAH8kFVJspSa8lQ1mdo5XYiv1ZsHudg21foSJpwhiw
-	 PHquU0fbT4mFR6HmLFnHvH64e+t8ouqsuUuH/UT0BefrKwlHJI+iEMZt0h6tBz7UjC
-	 cEdzy3mMcK7KGZB+oNBWbJ19n0lVdM1IdHxPvHTuZFM5XJSUBTwx1cKrbXnYRx+beS
-	 ID87t6aBRiSNQ==
-Message-ID: <45f16b1d-d53b-4bd4-80af-292880622edc@kernel.org>
-Date: Tue, 10 Nov 2026 14:01:41 +0100
+	b=JrTLwSLEd+YvzAemdyR51xbG4OegeC7uVGwCapD1h/0s5JMcEnFwWTDyHw8hxhFYc
+	 Yceo4rD3o841E85q5UtJ63r9LzJ+/IPSvgm54TH6mNqnP/tb0WyhsqEDBspvr1nMgU
+	 Hu4Q34UrszFwNjN+s0A0uWuX0SBJx41Hhlkwlrl2IZ2jWWBFyeM5f6ONI7me+XJd2x
+	 tDLrSIQN0h+XzgIJDmF0lUAShZ6b6bEeZ/g2Px2DPD5n88Mxnvvk5FF5+ArOFgekE3
+	 KuBbgHWL/Op3aP1kzP2GjMevvmUd+kFCCVz2h+/uqELmyOPdyL+R577xO/dD9peHYL
+	 sFm19EJSuqEpQ==
+Message-ID: <e66b6c19-95d2-459a-926c-8429df693acb@kernel.org>
+Date: Tue, 10 Nov 2026 14:06:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,19 +52,17 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] mm: gup: clarify a reason to check pte/pmd in
- gup_fast_pte_range()
-To: Rik van Riel <riel@surriel.com>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
+To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
 Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
  Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Yuan-Hao Hsu <aa9736195201@gmail.com>
+ Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
 References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-2-2aaef02df0e1@arm.com>
- <a6d539cbab73091647fc2308b69fdab3069b0fe5.camel@surriel.com>
+ <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -111,55 +109,62 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <a6d539cbab73091647fc2308b69fdab3069b0fe5.camel@surriel.com>
+In-Reply-To: <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/10/26 04:50, Rik van Riel wrote:
-> On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
->> Clarify a reason to check pte/pmd in gup_fast_pte_range().
->>
->> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
->> ---
->>  mm/gup.c | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>
->> diff --git a/mm/gup.c b/mm/gup.c
->> index 7d43ce717b246..7f9348c633d58 100644
->> --- a/mm/gup.c
->> +++ b/mm/gup.c
->> @@ -2881,6 +2881,14 @@ static unsigned long gup_fast_pte_range(pmd_t
->> pmd, pmd_t *pmdp,
->>  		if (!folio)
->>  			goto pte_unmap;
->>  
->> +		/*
->> +		 * Recheck the PTE after grabbing the folio to
->> detect concurrent
->> +		 * unmapping or protection changes such as by KSM.
->> +		 *
->> +		 * Also, recheck the PMD: THP collpase can detach
->> the PTE table
+On 11/9/26 13:32, Yeoreum Yun wrote:
+> This is preparatory patch to make gup_fast_pte_range() batchable.
 > 
-> collapse
+> Introduce gup_unshared_pages() to count consecutive pages within a folio
+> that do not require unsharing, and use it to implement gup_must_unshare().
 > 
->> +		 * while its entries remain unchaged. Checking the
->> PTE alone
+> Also add a folio argument to gup_must_unshare() so callers can reuse an
+> existing folio and avoid the compound_head() call implicit in PageAnon().
 > 
-> unchanged
+> There is no functional change.
 > 
->> +		 * would not dtect that we are walking a detached
->> page table.
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  mm/gup.c | 111 +++++++++++++++++++++++++++++++++++++--------------------------
+>  1 file changed, 66 insertions(+), 45 deletions(-)
 > 
-> detect
-> 
-> Other than that, Reviewed-by: Rik van Riel <riel@surriel.com>
+> diff --git a/mm/gup.c b/mm/gup.c
+> index bfe83ce1411d5..c863bae33e2f1 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -633,58 +633,39 @@ static struct page *no_page_table(struct vm_area_struct *vma,
+>  	return NULL;
+>  }
+>  
+> -/*
+> - * Indicates for which pages that are write-protected in the page table,
+> - * whether GUP has to trigger unsharing via FAULT_FLAG_UNSHARE such that the
+> - * GUP pin will remain consistent with the pages mapped into the page tables
+> - * of the MM.
+> - *
+> - * Temporary unmapping of PageAnonExclusive() pages or clearing of
+> - * PageAnonExclusive() has to protect against concurrent GUP:
+> - * * Ordinary GUP: Using the PT lock
+> - * * GUP-fast and fork(): mm->write_protect_seq
+> - * * GUP-fast and KSM or temporary unmapping (swap, migration): see
+> - *    folio_try_share_anon_rmap_*()
+> - *
+> - * Must be called with the (sub)page that's actually referenced via the
+> - * page table entry, which might not necessarily be the head page for a
+> - * PTE-mapped THP.
+> - *
+> - * If the vma is NULL, we're coming from the GUP-fast path and might have
+> - * to fallback to the slow path just to lookup the vma.
+> - */
+> -static inline bool gup_must_unshare(struct vm_area_struct *vma,
+> -				    unsigned int flags, struct page *page)
+> +static unsigned long gup_unshared_pages(struct vm_area_struct *vma,
 
-yes, thanks!
+Besides the function name, LGTM.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
-A respin please (maybe tomorrow?)
+gup_pages_requiring_unsharing() ? Don't quite like it, but something along those
+lines.
 
 -- 
 Cheers,
