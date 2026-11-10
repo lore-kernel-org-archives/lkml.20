@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308435;
-	b=TKCm60fC55BY9TYQvoTuOdMqCjDswpq+TBjHc3y7gDt0OaIyZWyX/nw4NZs4HUnUFUrr
-	 wMd/wcKYkLsb1VgFrbCKN4C2rfZ9+6oryiN2SxsluAcbgo7iNvv+SYilO/4VzCiZ7/mn2
-	 YgLrZ6WK8d7Q1dAVnU4IF0eWkpGA7FGbF5fK+ENeYPFrBaeSoWh1rDDqRWaG1Iip3SNo5
-	 C5Biulea4A78kH+Isjbd5PcsSX7DJh0Br3Xb7BRQi2ArLXHCIlJ1H08UxCayu6A3oIZk8
-	 KVujGKQbpbGP+SrVGw/yjrpKd3JOKhRRx9gbOHblienHBGFeh5+uytN6G4edpSZMiJQ==
+	t=1794308443;
+	b=TFFqwVFC85UjEkkWgsgzfw4zFBMlb3XOJhHo9Q6RBqo8LBOiXwhMSpqFZtEMy3n8YrrJ
+	 KtIcTkeFOU58sChytaFW39VZLoDiHHx80aHm0HMskXrq0p/AEjsaLQJlGaprfVWDv5kEW
+	 MMRa+CZJ1x5lRRXq7dgv/a0nHeQbtlI/u54mG20pjaKZnZLAGfQg5YRKGs2y5bEizNi30
+	 WyCw0Mc0v4QiaR652cxfRvuQwfJh7vd0eGu5R3LymkbSx2WyssJMLNLUcwyVXH2U4/bm5
+	 GEHZilVWoSA1rsdXSNOwdVKeSC7lvBKgex6nUE9pCtmg5SsJQ5RoURB0RtDUANDoXIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308435;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mr+oYs8/abSZSj4lJ4PMIllB4JnBFwVNz1SRvIolKDk=;
-	b=NPmcYuIex9lE9x2Kpy7sWG4uY73+Ipe39iiWsUOef8aBo9G24TbRO5WY/Mmud9XeaNvE
-	 HQ7gqJLaRQW0zxF7lFwDpZgccNv/MFKvFPWjDrv4GReDiKEKt6X1ivGbViGyE3vOvFFIB
-	 gkMvOUVySQjjljIUD4MsBI2AYaD61l4w068Ik6sJVZOWBzcuV22CuH89uw0gmWAXrJEXz
-	 9ta9Mwkl0JqtyXBPV9v+mvSYDBFUQujwLvwfs6KMU+twt7SGi2eIW27XXwDS0/obyXmDy
-	 fTeRo2zQ1070vz6aPhJBKJshyXx50FQYvMYfeIPvvqRoGJzfvNoMXV9IJdBInpihImg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308443;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Wv2p26gpeUqh9YHe7IUFpRTwcMzkjGJ1jZc1lffjWFU=;
+	b=WkvZw4LjA/F1R+74nodYFYZwqDvLXPDFH2EEqzFl1TLc3SXYV+3fVQw0NBDLs7p5AM+0
+	 0kzJJ40uFjLD+a25QwZCS1AsZz1O9lEyRFpt2bKDeeLKRhZ4ABSoXDe7kmok2PARaFzNb
+	 znjc6z+GEaxS3ApsWvxCCg0DNrjSKlQiv0dxoFjlktAJ7he+55hG5CTNIDZtBJD/6kZgR
+	 mAWG9zRxEvRFqGwwS18QJnkvNgNsDP6zlez6JZGLYiD01nXg553EJX+rpJBC5j3KWF4I2
+	 I2bFUr1hosdq7tYT8Dmzp+5KMZDwTvMjseECS8Vs3OrN9Fkzk4a7EtBsi6CywPStogg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LblR3Mll;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F50260A380E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F50260A380E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UR+oRQEN;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92D460A383D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92D460A383D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LblR3Mll
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71D571BC0;
-	Tue, 10 Nov 2026 03:00:30 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 886443F85F;
-	Tue, 10 Nov 2026 03:00:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794308433; bh=4ck62cy1mlRNr4GFH/FwZpJqZdKAc0N4+tB/W3NHdFY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LblR3MllBiBoWbbp/bPau9MCduLwG1ZSwBtHEe+oMYAEMj36I3Mv+8I48Y6V1S/A3
-	 4DiT3rjIj15YNhjEKrgjKDo60yfQpeEqhmRGrJ3k4Cstjh62Bh3F8++Y84qbc+0NJx
-	 APrqPZZAwLmaPhwOrBjKvSsYJiMT9fe2+K6HTZ0o=
-Message-ID: <00a1bcb7-2884-4075-8d51-b8a465e37492@arm.com>
-Date: Tue, 10 Nov 2026 11:00:30 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UR+oRQEN
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so15805325e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:00:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794308441; x=1794913241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wv2p26gpeUqh9YHe7IUFpRTwcMzkjGJ1jZc1lffjWFU=;
+        b=UR+oRQENsNTyw3m8WPRxHakPMD/6M89G2GAH08z8luOgAuTYMwATMm40YkQjUmifrM
+         0I0lYgItJ8iRTCd2Zi7HSPoiCb9Jfm897ztEJX6ly4PAjZK66S7FQpnPTnp4WfOgil71
+         sS6EAeBEnAQXtYBXug/wf3vqUhZlNR/waxaiX4Vbpj2853UP0Pj/t+2kEPD3uzJ4Z75N
+         Vj9xgTWOoMaDcdSmCpYtZWf8y5aFClQ9S7OCYqvtOzp0DKEA6vOIZHfTzdUKMwoECdwy
+         qdoejJJ5aBD9AYCkstvgOzgJOwMHKNFwgSF/h1BLTJc5BS5UWlvnbo/XPoCHV9iRnUUh
+         itTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794308441; x=1794913241;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wv2p26gpeUqh9YHe7IUFpRTwcMzkjGJ1jZc1lffjWFU=;
+        b=tdmGGiBsczQw+D5LcRUzykGxMKPuhSExoCFkSkC7OSEaVC6r8TRHMk/83hQDhLok7e
+         4iI49T5W3ZA7eeyhmDR+dspvAQx7HtEo2+1LR1zXrpWdFCFuTtkuipVyXU3vFK3ck1uS
+         uQP+HHkCbXw/fA5k6kdrN2ypmbfldBB/hGJxgeTEUlH/E9qOkNMCDPzWMsfEjpWerf8B
+         WshxqO0AabVZiHFMjT4CLuQtb+1jY25S4uubzTxGaWhU/hPFwcgT/bYoUJ231aLH/pQg
+         LKsc97GuyZieBpfU0U2/5nKIMz1mvaNXufeW/JE7jaEeuRVkWzbzFJeRV2d78PNZy1SN
+         8frg==
+X-Forwarded-Encrypted: i=1; AL+hErEgXMi/TvO0UC1TEofyGIIvI4XeTqD4Hh2UII/D7jXQomWpImWbjrlEK2kSJ/+vb6GeiEabMrzG3t1M6KA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82OMehW+PfK3tNFGrtX5BxBY+8m8e356YlSo1q2UqzkyjnD3nQ
+	T47q6marsMfGZm5yMG6m9wyolfyda18S/NjKbLTqx49RO+xKL0MRuUyg
+X-Gm-Gg: AYBFou3xEllvd0Pg1d1CXO27jVCu1m//aFsNYSb7zy5xF7sguI9T2gu9uFmWOlHjmVw
+	LFF6SeH7bWtqZPVtEMnw9M7jgBbbANEboxgIZC2kLCOD/8Gisd3BkcObf+AHHgQG8oxFcV10f2L
+	43i3dJr2tIaAVSeQNF+jBejXLIcWlNg8mbNr2l6PPnfllmFTut2KnnESiN+DpuXp21kjjcm0w9I
+	D1JsJCenyyuhmtnQgeMTegIvjMto5R/mBNm/efY0DXdrOoaFFj3f99MSBlm/pxNwP6hyjPA0gU3
+	xcxi904QBmqka+nBUMB7xd9umixBmyUJHx/IYvWwKfS/74VCWzTS3TeyD65RkaPsWgbOFbvA0Bz
+	XDVSb2/kldRVGJXb8sAs50lFMFnz5uggaLAbMc9OOMV4aXy6u1FHRECFca7fGxudJBsHHxX8Ptp
+	n8VKUkMHUs1HDyditBn4IyELyP7ctq/TdU7QEmQ7oB3/c9hD1V6s9SFzBb7wsJDJRioIQn41H2g
+	J+OAaXbmiVzwmXLX882cf/NIp28uBYq7L6Po06JdDCfOgJ8kbHlxtqeXrhNi9f5mkjiL6a2NDjh
+	EE/6Y2S6/WcWHPa71kIYVvwoq5iT8fhJ+17/oFbGkGIjgZS64FY4bkb1OLNpmOCAVA==
+X-Received: by 2002:a05:600c:6387:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4ba02349a18mr35485105e9.20.1794308440720;
+        Tue, 10 Nov 2026 03:00:40 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02381916sm25962625e9.3.2026.11.10.03.00.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:00:40 -0800 (PST)
+Date: Tue, 10 Nov 2026 11:00:34 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Dan Carpenter <error27@gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>, Jarkko Sakkinen
+ <jarkko@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>, David Howells
+ <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, James Morris
+ <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] keys/trusted/tpm2: rename "bool" to "boolean"
+Message-ID: <20261110110034.0a46b9f7@pumpkin>
+In-Reply-To: <avFcjHwnh9mrOEnz@stanley.mountain>
+References: <avFcjHwnh9mrOEnz@stanley.mountain>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,61 +103,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] arm_mpam: resctrl: Separate MPAM domains
-To: Reinette Chatre <reinette.chatre@intel.com>, james.morse@arm.com,
- Dave.Martin@arm.com, fenghuay@nvidia.com, ruanjinjie@huawei.com
-Cc: tony.luck@intel.com, yu.c.chen@intel.com, babu.moger@amd.com,
- fustini@kernel.org, tan.shaopeng@fujitsu.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev
-References: <cover.1794283825.git.reinette.chatre@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Reinette,
+On Mon, 9 Nov 2026 08:39:24 +0300
+Dan Carpenter <error27@gmail.com> wrote:
 
-On 10/11/2026 04:19, Reinette Chatre wrote:
-> Thank you very much to Ben, Jinjie, and Shaopeng for reviewing and testing RFC v2.
+> In C23, "bool" is a keyword so rename this array from bool[] to boolean[]
+> to avoid a conflict.
 > 
-> Changes since RFC v2:
->   - RFC v2: https://lore.kernel.org/lkml/cover.1792443633.git.reinette.chatre@intel.com/
->   - Patch 1 is new. It adds find_mbwu_mon_comp() to replace the duplicate
->     code found in resctrl_arch_cntr_read() and resctrl_arch_reset_cntr(),
->     as suggested by Jinjie.
->   - WARN when domain allocation fails. (Ben)
->   - Squash three patches into the patches they build on. (Ben)
->   - Move "Require a component for each monitoring event" ahead of the
->     structure split so the check it adds precedes its first user.
->   - Fix the mpam_resctrl_get_mon_domain_from_cpu() function comment that
->     still referred to the control component.
->   - Add tags from Jinjie and Ben.
->   - Please see the individual patches for their detailed changelogs.
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> ---
+>  security/keys/trusted-keys/trusted_tpm2.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> Changes since RFC v1:
->   - RFC v1: https://lore.kernel.org/lkml/85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com/
->   - Give each type of domain its own structure instead of duplicating the
->     shared one, set up each domain independently instead of undoing one
->     domain when setting up the other fails, add additional verification
->     checks.
-> 
-> The MPAM driver represents a resctrl domain with a single structure,
-> struct mpam_resctrl_dom, that holds both a control domain and a
-> monitoring domain. On a system that supports both allocation and
-> monitoring, one instance is created for each domain and its two
-> domains are added to the resource's control and monitoring domain
-> lists.
+> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> index 30188a0ec676..2d6cc53539c8 100644
+> --- a/security/keys/trusted-keys/trusted_tpm2.c
+> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> @@ -59,13 +59,13 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>  			       asn1_oid_len(tpm2key_oid));
+>  
+>  	if (private->blobauth_len == 0) {
+> -		unsigned char bool[3], *w = bool;
+> +		unsigned char boolean[3], *w = boolean;
+>  		/* tag 0 is emptyAuth */
+> -		w = asn1_encode_boolean(w, w + sizeof(bool), true);
+> +		w = asn1_encode_boolean(w, w + sizeof(boolean), true);
+>  		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode"))
+>  			return PTR_ERR(w);
 
-Thank you for this respin.
+Hmmm... how can that fail?
+bool[] is just "\1\1\1".
+I bet asn1_encode_bool() isn't inlined - where the compiler would optimise
+most of it away.
 
-To avoid any confusion for others I mention here that the 'MPAM domains' mentioned here are the MPAM
-driver representations of resctrl domains and *not* related to the MPAM feature
-FEAT_MPAM_MSC_DOMAINS. There is currently no support for FEAT_MPAM_MSC_DOMAINS in the MPAM driver.
+It is a horrid variable name, asn1_bool_true[] would be better.
 
-Thanks,
+David 
 
-Ben
+>  
+> -		work = asn1_encode_tag(work, end_work, 0, bool, w - bool);
+> +		work = asn1_encode_tag(work, end_work, 0, boolean, w - boolean);
+>  	}
+>  
+>  	/*
 
