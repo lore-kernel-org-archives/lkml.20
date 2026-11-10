@@ -1,97 +1,93 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349455;
-	b=W/R+ArRW33xFFXrswio4+AfAkL0Sp20c5adLBuaX2cS/kGA24UBVLhfQhpKpiEw+QiFR
-	 ZWJNgNZ7QjpWn/P6oHFsJ4kKtz5RGJkkAU1wWQlTIxBQNqCl3y9BJi7u4RiEMsMwOmR1b
-	 deRfTGDOT6QBWLfqqhwE5Qe9aZ1o3FZgxOTF7+GBuQX+J09kHyDv9AXYyOe85PaVN4kIe
-	 PkxzNotvlFj8l2hCJIoKCI3r1fGG0qlU4uK6n3FFMeSfgJTKWNOOt9S2IB4ZYZzCpJq0n
-	 +F2gpa9j95xWpkTDGG0EhHiW/jDBeGGwllqDLoRn6sVPyDvEz9lvInH9immBITPctpQ==
+	t=1794349470;
+	b=U1lnXAClsgk03adyFDuzIB32LsmSp00k/tlWne0wBG8rK1bl98cXpuvjiQpBoolu8Sas
+	 7aQvbWWeGvSES3aL4q3QOLF2ffhRjlvPII9kgbPKJQX+E1I3EvJkc5grkLujw1qVsE8IX
+	 DaW/AEpS++FZYQFMYzXVy6kwhitL2p114XqV/fnI6r0yT7lFAYDeq3Ks6X9L3FDawo9vQ
+	 vqLestLF7Ru46BErlVGjMO1eXke1rFcwWOHQbYw0d607Y0XcUZ9mNGvb16rszAAd1okOI
+	 NU9IPk9fYZiC6lSd46+/VRwtuBx+pdOgy+nesF5nMI2hnnUL1YJ2BKPytRrBw97DlfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349455;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349470;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5VGH+8AVAlrWwk+iBkQMQ4d2lmEyzdJub4xNIMW5F28=;
-	b=dXxl0oxkX39BXYLytLbcEngXF4cQz0tiMdDICbRlkmWiP30E7DRHPbWZlSIKCFji6TKA
-	 aMIFlCExv5AsqtlQqpQe1LxHQLublL2empXH3bcVm4mt1/ZFHM24G47KcLeVrlAmunxsI
-	 22pL23fit1Oh+jeqg3tj7CwP4HiftYzFaZ2R2EHbjutmhajeXKpqSx7tdgkmGVd8H/cQc
-	 LZdXdkpfnI31HtSUEvtZANeD67xgf2mnOqBACZcVsdWolyIZt2nz1UXC4ftRYpGxXPVx5
-	 tTpf9p4NmKe75Oz6EypUzyoSRY0zquErMXot1CkGkRHb7O/nWppQK5JMfjyQt1lLNaw==
+	bh=EBeS7Y1h+n1TS1fYH/iVVovPRJYz5qCi7WG3/RLe+mQ=;
+	b=zEryo6wn6HnDRTIRm3qyT9cq8GwDHEBYwgcWl+lP6nxQWjqCB+lQp+2zS2gOVbwujmwj
+	 JBZrW8jcTQcxkbBI2n8NcMhwpg7ZSmNu4eXPud4U3yrgc6lp1NfRhGY+Zni7dJfbjBkNl
+	 HxLF8/sM7gvOf1IjVHWjMJe+dEMkPaqLZ/8QoADlicrDxZjBXjUziuxc6c+MbsBGSzGff
+	 r/mI/LKOpqAel5ZrmCO7Eqrv5vouk6gJM4CNmDBzCRQIt1nA0YQCdm4OpguBMkAdldohg
+	 puHz4P/TqAQ9drYtD3k6N9lR6rSUMRmjq3JZvqBXAfD3Lt8yZaZ41egT8MdTCDLZMnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xz2B1zuG;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wWD3spZB;
 	arc=none smtp.remote-ip=74.125.82.171
 Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E620606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:24:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E620606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829A8606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 829A8606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xz2B1zuG
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37628596783so1112950eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:24:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wWD3spZB
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37000e7234bso4904001eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:24:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794349454; x=1794954254; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794349470; x=1794954270; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5VGH+8AVAlrWwk+iBkQMQ4d2lmEyzdJub4xNIMW5F28=;
-        b=xz2B1zuGmegeSZMDCqovYzUH4V7UWmjgS1jy33CXEthDGKsL20CtXrVMTuy/oFw/Hc
-         ys9awCsiB9470wbVB1uulspA8O7rAcwvo+xKFZKibnlSCcxyQ29+tfh2QipcYruKHkQG
-         EWrYPhllOWo87R+ZGBEdHslgkazYFM8WbR9e+eU7awVm/gHpbaSUt05ivkS6rZK4bEnL
-         T7GV9Ht/CsU+YZofjK981aZlTwO5ukZhYEuJjCufgiq1qNi4zQbRHff2CxpP2DIM1A2g
-         bpUoyk0y/hjhmYizcSmMLlvIGFqeqw1yYVGPvJ03Ty06Qbu5vaGk5QL27BN/4SQrdkQ7
-         BkSA==
+        bh=EBeS7Y1h+n1TS1fYH/iVVovPRJYz5qCi7WG3/RLe+mQ=;
+        b=wWD3spZBqdkBsKXg2//dXCaL1KoOC0mC5l/ga4Ed/fPmhyA1O/0XxD2M6dr8Z8ahL1
+         BQc8ybMtzpR3HK9WJ8H7E8/HMXDCJgPiPay+Hkzlrbcw8eKl0ieGfEdAsc1dulWSlklC
+         3tgUP5TufP/1AYB+ikYSgt35uS25CbbWMY/oelHdOtWYEqRJc7ieXneLJD9fcw+sBtcU
+         6eZQex9eIRW1Vjoo6MxHuu877kzGAxN6GsvLvB9/k7ZGyqKutYYaSLzTMHTxqdM0rfQ+
+         JD9BRqrwALOHzvmWooTHUdSeF9bhHtrGtFyEudzq3n1U0ticE3DzkQd0BcLy38IhaE9f
+         6KKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794349454; x=1794954254;
+        d=1e100.net; s=20260707; t=1794349470; x=1794954270;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5VGH+8AVAlrWwk+iBkQMQ4d2lmEyzdJub4xNIMW5F28=;
-        b=FrzJD1TriKUoYWXsyQPPQmrhh6xO0expMpveE2v3t7IzLUo5dVjIYrqAyYcyk7b2J3
-         Gb5PxZKYp88eAOcSW94sCLxfHSNVXfukhszyn2ICLDvbq/ak0cic70mkytzVR8Q4YMPB
-         tw+F+kW+hx2qDl0iMlnrXiwi3W110JOSBQ+aHDM9lFO9OwNV+b9rxPAiSjh63dlsOAEs
-         gRVfmjE5+Tq9XsZOKQqtRQpuAi3S97U4web8EatOGrURPKVGggYxZWOyn8kAWat5feRs
-         U09vzJdhalDwcqI/l+ep1R4Os0CsmKtDbZoT95Qat+9g4JU8F5fwCEkfS+7TlHoiUHqq
-         mcrg==
-X-Forwarded-Encrypted: i=1; AL+hErE1hfI4XTqw2zlg0ASdMiof7MWhyeyc2ZcI+YLvqmd/RhP6ezG2f6HYjTO9sTgScL8JjP44UhaZc2+bjlA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/lRCcVWF7Fvjve6VZ+NrIrdpL20Tz00VKqZpXNlAqn59zdKTKI
-	C0m/H6RdgHV2b3Zb0+qFKIBHb3Pq+K7NOimUQ6Ng6VkqeLb41flRu9/V
-X-Gm-Gg: AYBFou1rrGtCWxQtfAvATngu5v1oJcB9vraFkcjlB777Lp9zRZb1j/Sk6JVQwujPZI/
-	lWvLKmVqwnNblAQbtNOJd3lKKG0hDww6C+JOQfV/V3uXbfCO8FR/3jYwqM7Xjb+xYb/ZIMzFzLP
-	dIF/5aV+PSz/HTZw8SPZuzlRwOLnt/ua5SOIQafmna+rDo0ys0fRSr5iknA50fAK0A+IM+HpbRF
-	AGzA1b/uAGVjQepf38bwnrEyGRy2q/DdzcZKgIiNOo+qK17Wd6xQbGNNGhA83IddK1uyTIllA55
-	gFozsBN9EhjOSHP7aV37XmJkBtxOGAgnsKppLlyY/Lrp6IxMnC+EsaR/DfYk4q72AavaIgGu3ga
-	bQft2Y95c1tvZDNe7vYBrFviWT/Xn0egG8EALJLs5LfSESsBenGLxnJ9YXvX81lURzI9gZgzPzS
-	5xRwLLaaQ0P3WZOkP3haGJ2U/tc7/PYVyMcuMhSP+9eRgGbb1Kj+GCVWHrpy/VcWhUwCfCc9hrw
-	H36yR+M7/SBpziFEL3afRE6msmV1Cn8cK982kmigKEdeOJkUAS+OG+ccjlf6+/EgHPdzORAD74G
-	O4Gab60isJNUXFBw9xlWgCs856iFKO6AXhAgIyOIb0bauJVH44rvAsW1qEJf
-X-Received: by 2002:a05:701b:455a:10b0:185:fd0c:4585 with SMTP id a92af1059eb24-1b3c034aa22mr354963c88.33.1794349453933;
-        Tue, 10 Nov 2026 14:24:13 -0800 (PST)
+        bh=EBeS7Y1h+n1TS1fYH/iVVovPRJYz5qCi7WG3/RLe+mQ=;
+        b=Mg19I+qyY7/bHn8xRFPc59abU+DM++tkqVEAOpxeaSXksMuK3SGJGuYuYmhE1EgSFw
+         U2CKyIqlGpP/gVWO7Y0z9+Wnb//v+qzi4/L7YjsU34FbylT4fzIYE5HeDrdmW5JptDBH
+         0NaeuD7RSD09NAnlzj4gpN5ZrLbmMdF9sMfizwWPjRC5QUdnX7kJ91+xpdr2wevUFd/M
+         tIHmBUvqzEgX+BX3gMvF5S3bzJx2bqd/Nni4AEsH/P+NmCzPQsa+NH2YhacGJsOVp6zr
+         gQZ8Mf9fZKgJQmxAxCngkZRDV2fJIRBzgBDC2ZnSTZm8z1uD8HErzjtgVCorcgrGG6DN
+         jgzw==
+X-Forwarded-Encrypted: i=1; AL+hErFjjWncjJkSI6J1s6E9xymQo+4N2iAokNHnWsZ7fMLid6GAQ/tAUWKnDa9i6u+8Rk/rn58RG3OkUI8bub0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rXvPG/7Mhg+hlWCWHpwwgfXi5wgyDgT/QUEyS3FjproiuX7FT
+	SXGRodx+G6nDDeR78AFaeg1GR8KpfI73gTwKoIJdbXcWzriVBWaeZ1bU
+X-Gm-Gg: AYBFou3XvJoDmHDD9rl1B16JMVarv5PguJGwJ1UanMgBcpNUvytQshQX9euSWat2jBP
+	KXTQM3kexopiD33DpuEu/gj8F9nZHNhIqKlitj0c70mVD8mjlGqrbr4ryyjVOJCh6G0l1G6A9FV
+	tFE6LVlqv7kUyRyqj5A2paRD/9zWInXbr6mrKUCkCCbGiYmJgkNrAlHirdS3HMKOkjDuSoaS3eS
+	4sQBPRl/llQa1fKJEc+sEyCDlmXmnc8jCtAH5TWSPumGDzm09WMG7moX1Tl4SgqxI4LK4+jiLlp
+	8jlMaPYFZhlpzu8Wo33OMQFoAYLJPK8WjDGhpXa3x5ttNsC9OImFJ0G9rB3PCkgshLdU/Yr9vRw
+	TwUDknRpkIZ2QBgGptA+Zt8aqukSJOLz3h/4wU66Tv3K9vcCEBnwma0EvbGY0g7AFRF9OSvbhfL
+	5mxLIt4eVJ3P+uO+6of7j/R6zzcg2OxrP/OE1eYbD8i4KqcAeL4y4zA2TtbqcyTdos6nkAJtrxY
+	mCLvdphOJe4pH0wKziwtIFGsVboMmulFomTWbT3eH20FlGvGz9AuXXpPzExjNsyGJwBwqziaiBO
+	bT1m3Bnz3sMMnnFrxJRIK/avjKazTKmAP4oV/ocaWFXpGyFpyBG8DWDPsCSS
+X-Received: by 2002:a05:7022:ef16:b0:1b2:4188:840b with SMTP id a92af1059eb24-1b3c0311ab7mr489976c88.25.1794349469455;
+        Tue, 10 Nov 2026 14:24:29 -0800 (PST)
 Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b56c4e88sm8661009c88.0.2026.11.10.14.24.13
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm11566320c88.7.2026.11.10.14.24.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 14:24:13 -0800 (PST)
+        Tue, 10 Nov 2026 14:24:29 -0800 (PST)
 From: Praneeth Balasubramanian <praneethb2002@gmail.com>
 X-Google-Original-From: Praneeth Balasubramanian <praneeth@ucsb.edu>
-To: Lee Duncan <lduncan@suse.com>,
-	Chris Leech <cleech@redhat.com>,
-	Mike Christie <michael.christie@oracle.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	open-iscsi@googlegroups.com,
-	linux-scsi@vger.kernel.org,
+To: Bart Van Assche <bvanassche@acm.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Praneeth Balasubramanian <praneeth@ucsb.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: iscsi_tcp: Don't read sk_user_data from the recv work
-Date: Tue, 10 Nov 2026 14:24:03 -0800
-Message-Id: <20261110222403.205332-1-praneeth@ucsb.edu>
+	Praneeth Balasubramanian <praneeth@ucsb.edu>
+Subject: [PATCH] RDMA/srp: Reserve send queue and CQ space for ib_drain_qp()
+Date: Tue, 10 Nov 2026 14:24:21 -0800
+Message-Id: <20261110222421.205573-1-praneeth@ucsb.edu>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,36 +100,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With recv_from_iscsi_q=1, iscsi_sw_tcp_data_ready() queues
-conn->recvwork, and iscsi_sw_tcp_recv_data_work() runs the receive path
-under lock_sock() only. At the end of iscsi_sw_tcp_recv_data(),
-iscsi_sw_sk_state_check() reads the connection from sk->sk_user_data.
-Its comment says it must be called with sk_callback_lock, which the work
-does not hold.
+srp_destroy_qp() calls ib_drain_qp(), which also drains the send queue.
+ib_drain_sq() requires the caller to "ensure there is room in the CQ and
+SQ for the drain work request and completion".
 
-On teardown, iscsi_sw_tcp_release_conn() first calls
-iscsi_sw_tcp_conn_restore_callbacks(), which sets sk->sk_user_data to
-NULL, and only then flushes recvwork in iscsi_suspend_rx(). If queued
-work runs in between and the socket is in TCP_CLOSE or TCP_CLOSE_WAIT,
-iscsi_sw_sk_state_check() dereferences NULL->session. With a delay
-added at the start of the work to widen this window, a target-side
-connection close gives:
+SRP reserves that room on the receive side, where the queue and CQ have
+queue_size + 1 entries. Commit 9294000d6d89 ("IB/srp: Drain the send
+queue before destroying a QP") switched from ib_drain_rq() to
+ib_drain_qp() but did not grow the send side. The send queue and send
+CQ hold exactly m * queue_size entries, which is the most work requests
+SRP can have outstanding. If the channel is torn down while the send
+queue is full, for example during error handling after a target stops
+responding, posting the drain work request can fail with "failed to
+drain send queue", or its completion can find the CQ full. The QP is
+then destroyed without the guarantee that ib_drain_qp() is meant to
+provide.
 
-  Oops: general protection fault, probably for non-canonical address ...
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  Workqueue: iscsi_q_3 iscsi_sw_tcp_recv_data_work
-  RIP: 0010:iscsi_sw_tcp_recv_data+0x219/0x420
+Add one entry to the send queue and the send CQ, as nvme-rdma and iser
+already do.
 
-Both callers already have the connection. iscsi_sw_tcp_recv_data() gets
-it as an argument, and iscsi_sw_tcp_state_change() reads it under
-sk_callback_lock. Pass it in instead of reading sk_user_data again. The
-connection stays valid until iscsi_suspend_rx() has flushed the work.
+The missing reservation was found with an LLM-based tool that checks
+callers against the rules stated in kernel comments.
 
-The unlocked read was found with an LLM-based tool that checks callers
-against the locking rules stated in kernel comments.
-
-Fixes: f1d269765ee2 ("scsi: iscsi: Run recv path from workqueue")
-Cc: stable@vger.kernel.org
+Fixes: 9294000d6d89 ("IB/srp: Drain the send queue before destroying a QP")
 Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
 ---
 
@@ -143,69 +132,39 @@ Notes:
     at UCSB SecLab. The patch and changelog were drafted with Claude Opus 5.5.
     I reviewed the patch and take responsibility for it.
     
-    recv_from_iscsi_q is off by default, and setting up the session needs
-    root on the initiator, so I am sending this as a regular fix rather than
-    a security report.
-    
-    Testing: two QEMU VMs on next-20261023, an LIO target and an open-iscsi
-    initiator booted with iscsi_tcp.recv_from_iscsi_q=1, using CHAP and
-    continuous reads. The initiator kernel had a 20 ms msleep() added at the
-    start of iscsi_sw_tcp_recv_data_work(). Closing the TCP connection from
-    the target side produced the oops above. I have only seen it with the
-    added delay. 
+    Testing: builds without new warnings with W=1 (x86_64). Not
+    runtime-tested. I do not have an SRP target setup, and I have not
+    observed the drain failure myself. The change only follows the
+    ib_drain_sq() contract and matches the receive side and nvme-rdma.
     
     The patch applies to mainline 9ba46df34488 and to next-20261109.
 
- drivers/scsi/iscsi_tcp.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/infiniband/ulp/srp/ib_srp.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/iscsi_tcp.c b/drivers/scsi/iscsi_tcp.c
-index 9260b1c9b0e0..88b1f255ae9b 100644
---- a/drivers/scsi/iscsi_tcp.c
-+++ b/drivers/scsi/iscsi_tcp.c
-@@ -104,18 +104,20 @@ static int iscsi_sw_tcp_recv(read_descriptor_t *rd_desc, struct sk_buff *skb,
- 
- /**
-  * iscsi_sw_sk_state_check - check socket state
-+ * @conn: iscsi connection the socket belongs to
-  * @sk: socket
-  *
-  * If the socket is in CLOSE or CLOSE_WAIT we should
-  * not close the connection if there is still some
-  * data pending.
-  *
-- * Must be called with sk_callback_lock.
-+ * The caller passes @conn rather than having it read from
-+ * sk->sk_user_data. The recv work runs without sk_callback_lock,
-+ * and connection teardown may already have cleared sk_user_data.
-  */
--static inline int iscsi_sw_sk_state_check(struct sock *sk)
-+static inline int iscsi_sw_sk_state_check(struct iscsi_conn *conn,
-+					  struct sock *sk)
- {
--	struct iscsi_conn *conn = sk->sk_user_data;
--
- 	if ((sk->sk_state == TCP_CLOSE_WAIT || sk->sk_state == TCP_CLOSE) &&
- 	    (conn->session->state != ISCSI_STATE_LOGGING_OUT) &&
- 	    !atomic_read(&sk->sk_rmem_alloc)) {
-@@ -148,7 +150,7 @@ static void iscsi_sw_tcp_recv_data(struct iscsi_conn *conn)
- 	 * unmap it now. */
- 	iscsi_tcp_segment_unmap(&tcp_conn->in.segment);
- 
--	iscsi_sw_sk_state_check(sk);
-+	iscsi_sw_sk_state_check(conn, sk);
- }
- 
- static void iscsi_sw_tcp_recv_data_work(struct work_struct *work)
-@@ -202,7 +204,7 @@ static void iscsi_sw_tcp_state_change(struct sock *sk)
- 		return;
+diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
+index 955f36efeebd..2cd0b728424e 100644
+--- a/drivers/infiniband/ulp/srp/ib_srp.c
++++ b/drivers/infiniband/ulp/srp/ib_srp.c
+@@ -546,7 +546,8 @@ static int srp_create_ch_ib(struct srp_rdma_ch *ch)
+ 		goto err;
  	}
  
--	iscsi_sw_sk_state_check(sk);
-+	iscsi_sw_sk_state_check(conn, sk);
+-	send_cq = ib_alloc_cq(dev->dev, ch, m * target->queue_size,
++	/* m * queue_size + 1 for ib_drain_sq() */
++	send_cq = ib_alloc_cq(dev->dev, ch, m * target->queue_size + 1,
+ 				ch->comp_vector, IB_POLL_DIRECT);
+ 	if (IS_ERR(send_cq)) {
+ 		ret = PTR_ERR(send_cq);
+@@ -554,7 +555,7 @@ static int srp_create_ch_ib(struct srp_rdma_ch *ch)
+ 	}
  
- 	tcp_conn = conn->dd_data;
- 	tcp_sw_conn = tcp_conn->dd_data;
+ 	init_attr->event_handler       = srp_qp_event;
+-	init_attr->cap.max_send_wr     = m * target->queue_size;
++	init_attr->cap.max_send_wr     = m * target->queue_size + 1;
+ 	init_attr->cap.max_recv_wr     = target->queue_size + 1;
+ 	init_attr->cap.max_recv_sge    = 1;
+ 	init_attr->cap.max_send_sge    = min(attr->max_send_sge, SRP_MAX_SGE);
 -- 
 2.25.1
 
