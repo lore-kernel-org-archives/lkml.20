@@ -1,95 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306108;
-	b=GqsUyILdkfU1qDV0rkJnfQJmwspaLBTU2lX+5wW3KsMYC2oZWDnH79UlrQ9yu/dzoOHP
-	 v4jKc1boGa2STvHt/4FPYrJW7xM/3UCfFlwFIMYgb0mjNeNTgm+DXyBMCemZnf0PVCTNs
-	 V8k9boRqR9n/KZr6m+ls1PvcO6EdqEy+AFiU3UyTusd9YcF6eLEIeD8CXT/ruVOeVytHq
-	 NrMx2WvsHietHmybi7KOki1f60oa3hiP5Bpz3olrn4eSZX5cLS2BBauJTEOAnTQ6wfuPv
-	 rBLGc4E3//4tNq6nznH5qmh9RzU+WMBueJRNaTuwL+VcIUEYXEkKArclr9osFrkpopQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306108;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=66CVXLPdSuOq1X5AAPjRfsou8hH5OizS/Qalj5QJ79M=;
-	b=qm3mjlRxm0UEUpEAJrSZqnAdL8yBAUyicTSRpWwOP5VbEEUCHe1nWUIIDZmIodxjwIIB
-	 jnUyxYqw4ZCVpKAdVjAMnGsv3FgBFmWh8PZTdqC+hhy+YtFDsWeLPDEJfRNaOIOEK+6hX
-	 wUmhpPBxDA9Zv3qFk5ZTgod82JsKGmniEDK9wsq185wd/df8ZzeM8jY7SK7Zk0jL5wxDZ
-	 N6MF0f9ZSYs89Wv67KMVwwEBZxIhGlrz1HZ5S7leDZrCPZHKqCQwhCOJWQThI4k0IG1yL
-	 +5/6EZlpMFS1RkUo5VAjn65IBapDCdUmd9RENXu36jkUblrXKoCdmlnCg50NBYvlnZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tat1ud0r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794306103;
+	b=P+97cUe9AcxM+nsdyCXErvVpM/djgK0XUSA4iP8PraQUNNeM9B04bY0KTvS47akMnHAF
+	 wg8RxxaPHW424CoUvAB5/hCPTg++3VCOVfXX6vZf04eLHvz+clWryEkbG8RhxYRnYROWD
+	 jtASBFpCjkCybXYh7XyJVl9fRFDeTV7owH5PjfMk/dhZWSTNGHY88Z/nkI1IhbytQeXBG
+	 X0IobgeMPPGfTxSoiB+EYwVzIMjrHGNPpBPyqcJZct0I9UaCQLr3wBnT1cdPSE4Ub2KOR
+	 o/k9OuJACqi19zr6E8J5JqKdq7S0TvFdAtg7QI0S3xm/6rYw+6jrWXvwYDD/E9zYOHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306103;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lRawS1WgZr/Y6lRRnzg2Hjbqh+fLD0lNEw5+cV0mTac=;
+	b=SYQlPt437sXsFKIDWFAOJE0op3HxewsdSlTBF+O0teEx/0i1kiRhuju9PSNQrFAp4gom
+	 00XKFLF4tyy+yzi01KpaLKROYmUCJOEivt4eNhDfM8JPBJLt2hpZXCW3DFJhMURcyz8N3
+	 ZFh7RBNrW5Y7gZPc8wnk/LlLUSbrAYCs7qihFFI4myj7mAVilxt4JA2x3tGd7OR/RBwSB
+	 48M9pqCPjqgwp38esZtolO9MgvsToObTD7gkPLCNgrUJsOuZSvkY4mSp5XqHoA9NPweGK
+	 DUcfJeOqIVHMvL/i/EMLTrIAbDB9mGghJn5XjJm0m9l3hfYlwtcYzrjTPdqYNxReIug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ofq1Bxln;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.44
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A4E606B9B8;
-	Tue, 10 Nov 2026 10:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC79160A381C;
+	Tue, 10 Nov 2026 10:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC79160A381C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tat1ud0r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21DA1F0089F;
-	Tue, 10 Nov 2026 10:21:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794306107;
-	bh=66CVXLPdSuOq1X5AAPjRfsou8hH5OizS/Qalj5QJ79M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tat1ud0rt0l5W7U3hDBcHTuuP/pqwFUemjcq182xdCMj2JKor4k1DWhzm2nb6iNr3
-	 JqNFb3OK0xs6y8x5ePSTXmk1JK/Rv8mygXdm9FQVflgqSRbYhjMrMag9seNsBrKRZq
-	 L6pYY8bzgnk0RDielX+HPlk7OCPCKVWIBcGllw8n0r8/P6Him8gx2SUBfm7UCdD0UP
-	 hqJ1AWgwmClj4CKO56yr+N7JzkxzQkGtqdZgYmQx1NCR2EA+LXm8VCB6/x7eDon4ap
-	 7YYmIUEcNXzcOZW6P+0gWssz6BQhPRPPiYYxU7T3YRi8uE9LpDOgHFLPGpig++Kn99
-	 V5AYm5jJOMQmw==
-From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
-To: Magnus Karlsson <magnus.karlsson@intel.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	Mina Almasry <almasrymina@google.com>
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	David Wei <dw@davidwei.uk>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stuart Clark <stuclar@meta.com>
-Subject: [PATCH net-next v1 06/11] page_pool: Coordinate refill with memory providers
-Date: Tue, 10 Nov 2026 11:20:27 +0100
-Message-ID: <20261110102039.1002605-7-bjorn@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110102039.1002605-1-bjorn@kernel.org>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ofq1Bxln
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=isYui5O6EygdL9wnC9B9ZP+qHCGFUuAzCOuZVCPWcNCqxrpNcGVkWN4fhL1jQWTgy3jhbrZczA8j0NX8cKdjCQyGxT0BqUjhIxk8eJJY8McCU4337N0UT+CmZBTbdX6P61YwYqYPNcG+pzDzuWkOBloWteamaTKl/yPWG63A7+5ymqafwRY/0QlcydXVej5aH1bdsS6ROoKKrAkgsd0g0bpOIg7+qIvCIV3hw3PTYx6nKhIpcm79KP/9B+2M0Ca7TD2yILRQwKO5oiyNcMCAccUQe2aUBpMK5nfuVY/Atu9zxj9cJ9nvR8JGVSQOVSdLOA0zj7wFgmh4AMcZQPVj7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lRawS1WgZr/Y6lRRnzg2Hjbqh+fLD0lNEw5+cV0mTac=;
+ b=ct5KemAArBdfwMzmQCX3PyaOf7KHOkKHX8dZOh+ksE4ZAReFwC+dIM0lQ3QQkAlvi5djzVKxBvWn62eGhpXvuceq8hCHz5DnWiouaM8AfCQIOKKmda2NfToeeHgxNluLu4lhfVF5aay3ELJUspvGvavrGMKB2NRrB38BD8XlCakIYi4fO97Q8SQy5DxTgJbESSA+Bd9SsHvINUeUPn/m5CSd27FNWHeqmi0Z28qWy0aaDlnxSxCKch62/snMJm7UG/HAFzPyR2BuLp6kGmlHlh7xJBZREBJOQz7iCfUt+tPB4ivN6Iku37b/2TTbS/9+nXyjeP3qyq/P8NwYyOZf0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lRawS1WgZr/Y6lRRnzg2Hjbqh+fLD0lNEw5+cV0mTac=;
+ b=ofq1BxlnFi8PjsqbwxQBke8Cldo9O6rvvgcqGjpppmx9eQgqFZUJAGRob1TjwUVBqxPvlaFaVBXReq9wZm5884AxnOsk+gkKMBGma3zDillTodcFLne7qczQE7dmc7KbaMkH3G8lrTj1dKqzb9YMwloQWgI2ErWzbnJBg50STGj0tigEdP/Nw8YTmIyyp0MTD2N/fFbwWidWG//A9SBf5UYnk3XIGPpwzCBCIqa+9bUT1Py21WWo8oOpA2iEs36+M4ESRki8L/ntFumik12vnhe4qk23qHMAq8GvHzmUgPyYCHwamWhn2zJI1CipjoO2qNsk0w15Up0BjmzufK2UtQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA3PR12MB111810.namprd12.prod.outlook.com (2603:10b6:208:712::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 10:21:40 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 10:21:39 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Tue, 10 Nov 2026 19:21:00 +0900
+Subject: [PATCH v3 11/13] gpu: nova-core: falcon: use src_start as FB
+ offset for all DMA transfers
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-r000-fw-v3-11-20d79ebb646f@nvidia.com>
+References: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+In-Reply-To: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY6PR01CA0035.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bd::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,503 +102,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA3PR12MB111810:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb3db45c-7153-436e-26e8-08df3f1468a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|11063799006|56012099006|261021121427099003|261021123027099003|261026121527099003|10067099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	gsXGrWWo+XBLD8CUiPJ5zA40BwE+Fzvfl8HFbyfXQHISPZIMq0GQwTp+7TkGQ0wSTNpZC8rzX6q3mc+U/NBdwZWgkoVAPgxQSWC3Zi6txwqKtlkKH8fvTCb/44ZoGmUl/mZFZQ3tUm/5eQ4Utix4dLRtv/2eCkJ28Kw1YLXwW3zeCbH0zmPARq+Z3R2V4coQ/sXDmaAWb11eiisLqpgNqBD3VKCw2t2Q4aM8gsZ1ng+61M3BXxISNmYuYou3cnRFvpiNWHt3y3SXSkK7yJd+oPvTHtaQX8yrAKmmy4VYeeM261ikIR0s3AwhEIfMC1hmCjZspHyNYjvbY3B0wURFfOwomMpfWAy1qtj6H/Sp/NL3fGimS5yG10LD7dqKb6FwvaaelhgWTaBE9qUSjjXWm2E74JLk8FCiidEyGyyIky49ZBOrZ6B0Xo9nX57h63xMp4lGqa+GIaxOf6BxpcM67/gTLG0gr+JpCB4fyB0pJvlaom6Ymvt90h7UbK2pwTKsvuGbHhnsbnYSMbk48AnSlIKp5XHASHyf6KGp7o9KalT2JGGGyyllfxoMeBu+2KVgZnzfJ4vYD2elOv7O3ZxL4Vdm68wY7ZKdHuGqcQLWfuB2iXrBP3H/TFdhPjPJrupTlbYnjG4I6MdIX7kcdwGzFBBL01uWpL2yUfXXRd8X8ws=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261026121527099003)(10067099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VzZJc0dmclUrMVFCUzRXYlA5cjJya0IveHpoNnZSalY5c3V3eEFWUU5ZeWg1?=
+ =?utf-8?B?TFpBZzNYUUZVeEVTLzFESWVaZHZWTC91cE8vTFpUcno3c3lKc2FiemRHZXZZ?=
+ =?utf-8?B?Ni9kUGRKcmxxYlBObjZLV0JWZWFuZjUwL1dGd25RQnZCN1crWHY1K2JkQ08w?=
+ =?utf-8?B?TXM0WXlpWHVwelBGVWJQc1p6UFpkcms5R1JYOThpb2FxVjdNR1kxdWdGYmhR?=
+ =?utf-8?B?YjZ4d0hCc2lMTGVpY01iNHphazRiLzB4YnFEaWd4aWpRR3VTUHBIWmc3SjZu?=
+ =?utf-8?B?dThDZmFkMkd2QmZhbW1KK2d6VWRUbk1jcU03QWwvUG5iTkhra0dSaVJvdjZ0?=
+ =?utf-8?B?M1BNRjB3Zjg5cUpkYld2SHVLNzNuc3p2c0l4UVI1NklVOHdVamdFOWNjaFp1?=
+ =?utf-8?B?bVZkU3E4bmJVbW5SVzMyZi9qVTJBSWd0blJ4SHdMbkJyRXVHL0JDMGIxczFC?=
+ =?utf-8?B?eU9SRm91NWsxVjJRaHBtV2x3UUpxNTl4UlV6bitQODFkNENLUEdSeXdqaDcr?=
+ =?utf-8?B?Ui9QSzZNZXN0ek9aWmRrQUEvQUpsR3BCQWhwRFlsY0hoNkdGdXlFbThmalky?=
+ =?utf-8?B?VU0wcDZ2bG5LS2xJazlucEh4T01BN0ZOSjNHdVFVUnhmY095SEwrc01LcWVn?=
+ =?utf-8?B?NUVNYkV3WE55Qjh5SnF1MHFOT0NHOUZwWXR5ajljWXdWSDNaVnIrUTlFZ2hO?=
+ =?utf-8?B?b2hndU5yNy85YlZuUGQvVGxzOFc1ZzRuU1hVYjFQbGxzYXpPdjdaQzBBN2JU?=
+ =?utf-8?B?V1VYemZaeWpDVHF5S2tqTWpFYUZnR21ibzNPdzR2ZW5VUkc2WDNzRERnV2E0?=
+ =?utf-8?B?UEVndDV2NkhpcGorc1YwUGhqclFFNjZGV3dhWkgwb3lXNnJhc0lNR3h0UG1N?=
+ =?utf-8?B?em14NzhJUkVMaGdwTHlKemVpRU9ILy9LZzhRMTR6bnZCMkFVSzBwdXBydzcx?=
+ =?utf-8?B?bDBZSzVmMWpFeDZpeTBaVVhJVnpxR3U0TkcwYWxHYkx2NWM4M3BBZGdJb2xJ?=
+ =?utf-8?B?UVFndUpEMzJGZW9Ja0wrV0lWNGV5Z0NCdkZYRnFVdFlLRjFDUG14SzErNHZz?=
+ =?utf-8?B?dStqZEJ6MWtPcExKajVhMldQZFFtWTBjQnZqWi9odWNPZDNKMkh1TzNiK213?=
+ =?utf-8?B?TjZHRGpTT1orSHFRTWE1eE1WTFErQWFPd0Z5SDRNMnl2YkdCZDlCbkJnTnZS?=
+ =?utf-8?B?WEQxdEozdWl2T2Q5cGkzM1VDRTM1NjlLWnpJOER4eG95eXlNaVpJMThXOW5s?=
+ =?utf-8?B?YmlZRVBkNGRTU1dBSm8zcE9kNGFwL3JTS1U2MThqNjV2dVlXV2NEdkVtb1ZW?=
+ =?utf-8?B?RjlLM0NKVmpGNU43Y3h2TytvMFR4djZXOVJyNncxdXovemRHcnVBNnNNVzdk?=
+ =?utf-8?B?UlFoZFpqUGN3QkhUTkNST2szZUdjc1Vza0M0SDJ4SHhYT1BJODBmRU1MWkNR?=
+ =?utf-8?B?L05xRFBvSG04WmVBZkhld0pyc0tBeFIrWGdSZlA1cVVsRlRmV0g2MTZrazV3?=
+ =?utf-8?B?TnhhR1MwSUNoTmJqYTN4TFQ3RUpvYUJNVXVhWjdKNGdDbVk3RE96MnN2MEdk?=
+ =?utf-8?B?VTJ0V1RMbWl0a3FMZmZMdnBvWm9DSTcwODlZNDNKeHlUdDJrYkxIbmx1aGVO?=
+ =?utf-8?B?VFJEbXVXRTJsQkUvcjZLSlZjdkoxNEpmSzUwVG1mMEdhQ1N2M0hISUlNNFJt?=
+ =?utf-8?B?TG5BMHZvams2RzhrNGhSSThDL3JqdEs1RzhvZTRnNm5PaUt5ZUFhb1A5dldi?=
+ =?utf-8?B?enBPRDZ5cjZST2Y0djNqdkRJamJQUnl6NXpsZEtmeGhnSzJDd3V2dHVpU1lE?=
+ =?utf-8?B?QjNRclpiMy93bGd0aHZPN2VVYVN1cmp0eXh6dGlIaEF0b2dtblFPV3R2Vk1s?=
+ =?utf-8?B?UDFqQ0lXeGw5NGFOTzRyNy9ZNWlWMVcxb2w5TGs3bS8ybUFCa2QrdVN0S2k5?=
+ =?utf-8?B?WG51Sllxd3l4YVM3L3lMbGhUWnBXRTFQUTdmZVljRjFPc3hLbjR3YkUwdUpa?=
+ =?utf-8?B?MkpOS3FOUW0wNDhvVHdHU2NDYmo5QzN0MUhUNXUyQWkvNlFjR2p3VkoreHRB?=
+ =?utf-8?B?SU5pTTBQdjVraW9QK0Q5Um4raytpNk9hdGoyTnNWSUlMTlVHcUkyNWg5T25r?=
+ =?utf-8?B?eFVGemxaQ2l1RVRkVFF5ZExSbGoxMWJhK3pGZVhkZXFaVldMY1RNRVRHMzVY?=
+ =?utf-8?B?UjZ0dGNhWnVRN01lNDVBdzVuU2x1dk1EcFdFOW5xT29hdkFNTmF1MTNtWGh2?=
+ =?utf-8?B?R2FvZS9iTUtoL3J1ak1WeWova3BjSG96TGFSejRqaHpTVzRDd29vbUtjUVRx?=
+ =?utf-8?B?eTNzVitxRjB1czQ1em5NS3hsUEltM2NlYUU2SzAxTmhucE0wSmdmWC8yOGs4?=
+ =?utf-8?Q?k+iWPMLlmeGNgo17Bbg7dOvGnmLRVHVKxCkdcfayohoig?=
+X-MS-Exchange-AntiSpam-MessageData-1: YYcPKq2jSneRsQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb3db45c-7153-436e-26e8-08df3f1468a0
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 10:21:39.8997
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aSYUVJiF51DqK+NnRsDDslZGsW2Oho+n+JY/VtJsKfdZ67JHt6zMntZyRvtBltbYgb/gOo6kMz51vO/AfQeBJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB111810
 
-A UMEM has a fixed number of chunks. When a refill finds none, and the
-chunks come back later, nothing schedules the queue again: RX stalls.
-Kicks after each queue operation are easy to miss.
+dma_wr() splits the source offset of a transfer between DMATRFBASE and
+DMATRFFBOFFS differently depending on the target memory. This separation
+adds branching to the code, and is not strictly needed as DMATRFFBOFFS
+supports 32-bit offsets.
 
-Drivers report the end of each refill with page_pool_refill_done().
-The provider then asks for another poll, or wakes the queue later
-through the NAPI that the core publishes while the queue runs. Socket
-wakeups use that NAPI too, so such drivers need no ndo_xsk_wakeup.
+Remove that distinction by programming the start of the source into
+DMATRFBASE and `src_start` into DMATRFFBOFFS for all transfers, which
+also removes the `fb_offset` and `base_offset` local variables.
 
-With XDP_USE_NEED_WAKEUP, the FILL flag stays set: a flag set only
-when starved can miss an entry posted at the same time.
+This changes the register values programmed for untagged DMEM
+transfers, but not the addresses they read from. No change of behavior
+has been observed on either r570 or r615.
 
-Signed-off-by: Björn Töpel <bjorn@kernel.org>
+Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
+Link: https://lore.kernel.org/all/DMQI0G2K6Z3B.1YEH6D2ZILRBI@nvidia.com/
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- Documentation/networking/netmem.rst     | 10 +++
- include/net/netdev_rx_queue.h           |  6 ++
- include/net/page_pool/helpers.h         | 24 ++++++
- include/net/page_pool/memory_provider.h |  2 +
- include/net/page_pool/types.h           |  6 ++
- net/core/dev.c                          |  4 +
- net/core/dev.h                          |  4 +
- net/core/netdev_rx_queue.c              | 97 ++++++++++++++++++++++++-
- net/xdp/xsk.c                           |  4 +
- net/xdp/xsk.h                           |  1 +
- net/xdp/xsk_pp.c                        | 73 ++++++++++++++++++-
- 11 files changed, 226 insertions(+), 5 deletions(-)
+ drivers/gpu/nova-core/falcon.rs | 21 +++++----------------
+ 1 file changed, 5 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/networking/netmem.rst b/Documentation/networking/netmem.rst
-index 39cb75339704..74c73d7d126e 100644
---- a/Documentation/networking/netmem.rst
-+++ b/Documentation/networking/netmem.rst
-@@ -136,6 +136,16 @@ Driver RX Requirements
-    circulation times, such as when userspace holds a reference in zerocopy
-    scenarios.
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index facf65a17c0f..a7e41e282ec2 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -566,17 +566,6 @@ fn dma_wr(
+         // need to perform.
+         let num_transfers = load_offsets.len.div_ceil(DMA_LEN);
  
-+8. After each RX ring refill, call page_pool_refill_done() once per page
-+   pool, with PP_REFILL_FULL only if all rings that use the pool are full.
-+   Rings of a queue that take buffers from one such provider share one
-+   page pool. Keep buffers in each of them, first in a ring that every
-+   packet needs, like a header ring, so that a provider with few buffers
-+   does not leave them all in one ring. If the call returns false, poll
-+   again soon, for example by returning the full NAPI budget. Register the
-+   NAPI of each RX queue with netif_queue_set_napi(); the core schedules
-+   it when provider buffers become available.
-+
- Driver TX Requirements
- ======================
+-        // For IMEM and tagged DMEM, we want to use the start offset as a virtual address tag for
+-        // each page, since addresses in the firmware (and the boot vector) are virtual.
+-        //
+-        // For untagged DMEM, the start offset is folded into the DMA base.
+-        let (fb_offset, base_offset) = match target_mem {
+-            FalconMem::ImemSecure | FalconMem::ImemNonSecure | FalconMem::Dmem { tag: true } => {
+-                (load_offsets.src_start, 0)
+-            }
+-            FalconMem::Dmem { tag: false } => (0, usize::from_safe_cast(load_offsets.src_start)),
+-        };
+-
+         let dma_base = match src {
+             FalconDmaSource::Sysmem(dma_obj) => {
+                 // Upper limit of transfer is `(num_transfers * DMA_LEN) + load_offsets.src_start`.
+@@ -586,11 +575,9 @@ fn dma_wr(
+                     .map(usize::from_safe_cast)
+                     .ok_or(EOVERFLOW)?;
  
-diff --git a/include/net/netdev_rx_queue.h b/include/net/netdev_rx_queue.h
-index 989120cbf452..ca12cbf7b825 100644
---- a/include/net/netdev_rx_queue.h
-+++ b/include/net/netdev_rx_queue.h
-@@ -33,6 +33,12 @@ struct netdev_rx_queue {
- 	struct pp_memory_provider_params mp_params;
- 	/* stamps the page pools of each queue allocation */
- 	u32				mp_gen;
-+	/* NAPI of the running queue, for memory provider wakeups. Set while
-+	 * mp_armed, and if the provider has a refill_done op. Written under
-+	 * the ops lock, read under RCU, see netif_mp_wake().
-+	 */
-+	struct napi_struct __rcu	*mp_napi;
-+	bool				mp_armed;
+-                io_project!(dma_obj, [try: base_offset..end_offset]).dma_address()
++                io_project!(dma_obj, [try: 0..end_offset]).dma_address()
+             }
+-            FalconDmaSource::Framebuffer { base } => base
+-                .checked_add(u64::from_safe_cast(base_offset))
+-                .ok_or(EOVERFLOW)?,
++            FalconDmaSource::Framebuffer { base } => base,
+         };
  
- 	/* If a queue is leased, then the lease pointer is always
- 	 * valid. From the physical device it points to the virtual
-diff --git a/include/net/page_pool/helpers.h b/include/net/page_pool/helpers.h
-index 96e6b62cdebb..245a904e0b2b 100644
---- a/include/net/page_pool/helpers.h
-+++ b/include/net/page_pool/helpers.h
-@@ -523,6 +523,30 @@ static inline bool page_pool_is_unreadable(struct page_pool *pool)
- 	return pool->mp_ops && !(pool->mp_ops->caps & MP_CAP_READABLE);
- }
+         if dma_base % DmaAddress::from(DMA_LEN) > 0 {
+@@ -624,8 +611,10 @@ fn dma_wr(
+                 regs::NV_PFALCON_FALCON_DMATRFMOFFS::zeroed()
+                     .try_with_offs(load_offsets.dst_start + pos)?,
+             );
++            // The source offset doubles as the virtual address tag for IMEM and tagged DMEM.
+             self.pfalcon.write_reg(
+-                regs::NV_PFALCON_FALCON_DMATRFFBOFFS::zeroed().with_offs(fb_offset + pos),
++                regs::NV_PFALCON_FALCON_DMATRFFBOFFS::zeroed()
++                    .with_offs(load_offsets.src_start + pos),
+             );
  
-+/**
-+ * page_pool_refill_done() - report the end of an RX ring refill
-+ * @pool: page pool of the rings
-+ * @state: whether all rings that take buffers from @pool are full
-+ *
-+ * A memory provider with a fixed set of buffers must know when the rings
-+ * are full, and when they wait for buffers. Call this once per page pool
-+ * after each refill, also when the rings were full already.
-+ *
-+ * Context: the NAPI poll that allocates from @pool, or the driver while that
-+ * NAPI is disabled, with IRQs enabled.
-+ * Return: true if the refill is done, false if NAPI should retry it soon.
-+ */
-+static inline bool page_pool_refill_done(struct page_pool *pool,
-+					 enum pp_refill state)
-+{
-+	const struct memory_provider_ops *ops = pool->mp_ops;
-+
-+	if (ops && ops->refill_done)
-+		return ops->refill_done(pool, state);
-+
-+	return true;
-+}
-+
- /**
-  * page_pool_supports_frag() - may page pool buffers be split
-  * @pool: queried page pool
-diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_pool/memory_provider.h
-index e732b21be9a2..daec73c9dcee 100644
---- a/include/net/page_pool/memory_provider.h
-+++ b/include/net/page_pool/memory_provider.h
-@@ -42,6 +42,7 @@ struct memory_provider_ops {
- 	int (*nl_fill)(void *mp_priv, struct sk_buff *rsp,
- 		       struct netdev_rx_queue *rxq);
- 	void (*uninstall)(void *mp_priv, struct netdev_rx_queue *rxq);
-+	bool (*refill_done)(struct page_pool *pool, enum pp_refill state);
- 	u32 caps;
- };
- 
-@@ -55,6 +56,7 @@ int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
- int netif_mp_close_rxq(struct net_device *dev, unsigned int rxq_idx,
- 		       const struct pp_memory_provider_params *old_p);
- bool netif_all_mps_have_cap(struct net_device *dev, u32 cap);
-+bool netif_mp_wake(struct netdev_rx_queue *rxq);
- 
- /**
-   * net_mp_netmem_place_in_cache() - give a netmem to a page pool
-diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.h
-index e9f3af91e305..58ca414fa3d2 100644
---- a/include/net/page_pool/types.h
-+++ b/include/net/page_pool/types.h
-@@ -40,6 +40,12 @@
-  */
- #define PP_FLAG_MEM_PROVIDER	BIT(4)
- 
-+/* Ring state after a refill, see page_pool_refill_done() */
-+enum pp_refill {
-+	PP_REFILL_PARTIAL,	/* some ring of the pool has room left */
-+	PP_REFILL_FULL,		/* all rings of the pool are full */
-+};
-+
- /* RX buffers a page pool supplies, see page_pool_params.rx_roles */
- enum pp_rx_role {
- 	PP_RX_ROLE_HEAD		= BIT(0),	/* packet headers */
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 7e985fb82488..6033fc61a666 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -1771,6 +1771,7 @@ static int __dev_open(struct net_device *dev, struct netlink_ext_ack *extack)
- 		dev_set_rx_mode(dev);
- 		dev_activate(dev);
- 		add_device_randomness(dev->dev_addr, dev->addr_len);
-+		netif_mp_arm_dev(dev);
- 	}
- 
- 	return ret;
-@@ -1833,6 +1834,7 @@ static void __dev_close_many(struct list_head *head)
- 
- 		netdev_assert_locked_ops_compat(dev);
- 
-+		netif_mp_disarm_dev(dev);
- 		if (ops->ndo_stop)
- 			ops->ndo_stop(dev);
- 
-@@ -7559,6 +7561,7 @@ void netif_queue_set_napi(struct net_device *dev, unsigned int queue_index,
- 	case NETDEV_QUEUE_TYPE_RX:
- 		rxq = __netif_get_rx_queue(dev, queue_index);
- 		rxq->napi = napi;
-+		netif_mp_update_napi(rxq);
- 		return;
- 	case NETDEV_QUEUE_TYPE_TX:
- 		txq = netdev_get_tx_queue(dev, queue_index);
-@@ -7960,6 +7963,7 @@ void __netif_napi_del_locked(struct napi_struct *napi)
- 	}
- 
- 	list_del_rcu(&napi->dev_list);
-+	netif_mp_napi_del(napi);
- 	napi_free_frags(napi);
- 
- 	gro_cleanup(&napi->gro);
-diff --git a/net/core/dev.h b/net/core/dev.h
-index e3337013ffc8..56386fd8c767 100644
---- a/net/core/dev.h
-+++ b/net/core/dev.h
-@@ -125,6 +125,10 @@ bool netif_is_queue_leasee(const struct net_device *dev);
- 
- void __netif_mp_uninstall_rxq(struct netdev_rx_queue *rxq,
- 			      const struct pp_memory_provider_params *p);
-+void netif_mp_update_napi(struct netdev_rx_queue *rxq);
-+void netif_mp_arm_dev(struct net_device *dev);
-+void netif_mp_disarm_dev(struct net_device *dev);
-+void netif_mp_napi_del(struct napi_struct *napi);
- 
- void netif_rxq_cleanup_unlease(struct netdev_rx_queue *phys_rxq,
- 			       struct netdev_rx_queue *virt_rxq);
-diff --git a/net/core/netdev_rx_queue.c b/net/core/netdev_rx_queue.c
-index 4e2f906fbc73..3fe904b56791 100644
---- a/net/core/netdev_rx_queue.c
-+++ b/net/core/netdev_rx_queue.c
-@@ -116,6 +116,94 @@ bool netif_all_mps_have_cap(struct net_device *dev, u32 cap)
- 	return true;
- }
- 
-+/**
-+ * netif_mp_wake - schedule the NAPI that refills a memory provider queue
-+ * @rxq: physical RX queue of the provider
-+ *
-+ * Context: IRQs enabled, not in hardirq. The caller keeps the device of
-+ * @rxq alive.
-+ *
-+ * Return: false if no NAPI refills the queue.
-+ */
-+bool netif_mp_wake(struct netdev_rx_queue *rxq)
-+{
-+	struct napi_struct *napi;
-+	bool running = false;
-+
-+	rcu_read_lock();
-+	napi = rcu_dereference(rxq->mp_napi);
-+	if (napi) {
-+		local_bh_disable();
-+		napi_schedule(napi);
-+		local_bh_enable();
-+		running = true;
-+	}
-+	rcu_read_unlock();
-+
-+	return running;
-+}
-+
-+/* Point wakeups at the NAPI of the running queue, and schedule it once: a
-+ * refill during the start may have found no buffers.
-+ */
-+void netif_mp_update_napi(struct netdev_rx_queue *rxq)
-+{
-+	const struct memory_provider_ops *ops = rxq->mp_params.mp_ops;
-+	struct napi_struct *napi = NULL;
-+
-+	if (rxq->mp_armed && ops && ops->refill_done)
-+		napi = rxq->napi;
-+	if (rcu_access_pointer(rxq->mp_napi) == napi)
-+		return;
-+
-+	rcu_assign_pointer(rxq->mp_napi, napi);
-+	if (napi)
-+		netif_mp_wake(rxq);
-+}
-+
-+static void netif_mp_arm_napi(struct netdev_rx_queue *rxq)
-+{
-+	rxq->mp_armed = true;
-+	netif_mp_update_napi(rxq);
-+}
-+
-+static void netif_mp_disarm_napi(struct netdev_rx_queue *rxq)
-+{
-+	rxq->mp_armed = false;
-+	RCU_INIT_POINTER(rxq->mp_napi, NULL);
-+}
-+
-+void netif_mp_arm_dev(struct net_device *dev)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < dev->real_num_rx_queues; i++)
-+		netif_mp_arm_napi(__netif_get_rx_queue(dev, i));
-+}
-+
-+void netif_mp_disarm_dev(struct net_device *dev)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < dev->num_rx_queues; i++)
-+		netif_mp_disarm_napi(&dev->_rx[i]);
-+}
-+
-+/* The grace period of netif_napi_del() covers wakeups that found @napi. */
-+void netif_mp_napi_del(struct napi_struct *napi)
-+{
-+	struct net_device *dev = napi->dev;
-+	unsigned int i;
-+
-+	/* free_netdev() frees the queues before it deletes the last NAPIs */
-+	if (dev->reg_state != NETREG_REGISTERED)
-+		return;
-+
-+	for (i = 0; i < dev->num_rx_queues; i++)
-+		if (rcu_access_pointer(dev->_rx[i].mp_napi) == napi)
-+			RCU_INIT_POINTER(dev->_rx[i].mp_napi, NULL);
-+}
-+
- static int netdev_rx_queue_reconfig(struct net_device *dev,
- 				    unsigned int rxq_idx,
- 				    struct netdev_queue_config *qcfg_old,
-@@ -152,13 +240,15 @@ static int netdev_rx_queue_reconfig(struct net_device *dev,
- 		goto err_free_new_queue_mem;
- 
- 	if (netif_running(dev)) {
-+		netif_mp_disarm_napi(rxq);
- 		err = qops->ndo_queue_stop(dev, old_mem, rxq_idx);
- 		if (err)
--			goto err_free_new_queue_mem;
-+			goto err_arm_old_queue;
- 
- 		err = qops->ndo_queue_start(dev, qcfg_new, new_mem, rxq_idx);
- 		if (err)
- 			goto err_start_queue;
-+		netif_mp_arm_napi(rxq);
- 	} else {
- 		swap(new_mem, old_mem);
- 	}
-@@ -183,8 +273,13 @@ static int netdev_rx_queue_reconfig(struct net_device *dev,
- 		     "Failed to restart old queue in error path. RX queue %d may be unhealthy.",
- 		     rxq_idx);
- 		qops->ndo_queue_mem_free(dev, old_mem);
-+		goto err_free_new_queue_mem;
- 	}
- 
-+err_arm_old_queue:
-+	/* The old queue may run */
-+	netif_mp_arm_napi(rxq);
-+
- err_free_new_queue_mem:
- 	qops->ndo_queue_mem_free(dev, new_mem);
- 
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 781ba46eb152..113b0b08356d 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -794,6 +794,10 @@ static int xsk_wakeup(struct xdp_sock *xs, u8 flags)
- {
- 	struct net_device *dev = xs->dev;
- 
-+	/* The core wakes the queue for both RX and TX. */
-+	if (xs->pool->pp)
-+		return xsk_pp_wakeup(xs->pool->pp);
-+
- 	return dev->netdev_ops->ndo_xsk_wakeup(dev, xs->queue_id, flags);
- }
- 
-diff --git a/net/xdp/xsk.h b/net/xdp/xsk.h
-index 9699e9a499a3..d7d6bcf0a893 100644
---- a/net/xdp/xsk.h
-+++ b/net/xdp/xsk.h
-@@ -42,6 +42,7 @@ bool xsk_pp_supported(struct net_device *dev);
- int xsk_pp_bind(struct xsk_buff_pool *pool, struct net_device *dev,
- 		u16 queue_id);
- void xsk_pp_unbind(struct xsk_buff_pool *pool);
-+int xsk_pp_wakeup(struct xsk_pp *pp);
- int xp_alloc_heads(struct xsk_buff_pool *pool);
- void xsk_clear_pool_at_qid(struct net_device *dev, u16 queue_id);
- int xsk_reg_pool_at_qid(struct net_device *dev, struct xsk_buff_pool *pool,
-diff --git a/net/xdp/xsk_pp.c b/net/xdp/xsk_pp.c
-index c2214e718cdb..a77213f7fef6 100644
---- a/net/xdp/xsk_pp.c
-+++ b/net/xdp/xsk_pp.c
-@@ -36,7 +36,8 @@ struct xsk_pp {
- 	u32 nr_pools;
- 	bool dma_need_sync;
- 	/* RX queue of the provider, NULL once it is removed */
--	struct netdev_rx_queue *rxq;
-+	struct netdev_rx_queue __rcu *rxq;
-+	bool starved;
- 	u8 *state;
- 	u32 reuse_cnt;
- 	u32 reuse[];
-@@ -219,11 +220,31 @@ static netmem_ref xsk_pp_alloc_netmems(struct page_pool *pool, gfp_t gfp)
- 	return netmems[n - 1];
- }
- 
-+static bool xsk_pp_wake(struct xsk_pp *pp)
-+{
-+	struct netdev_rx_queue *rxq;
-+	bool running = false;
-+
-+	rcu_read_lock();
-+	rxq = rcu_dereference(pp->rxq);
-+	if (rxq)
-+		running = netif_mp_wake(rxq);
-+	rcu_read_unlock();
-+
-+	return running;
-+}
-+
-+int xsk_pp_wakeup(struct xsk_pp *pp)
-+{
-+	return xsk_pp_wake(pp) ? 0 : -ENETDOWN;
-+}
-+
- static bool xsk_pp_release_netmem(struct page_pool *pool, netmem_ref netmem)
- {
- 	struct net_iov *niov = netmem_to_net_iov(netmem);
- 	struct xsk_pp *pp = pool->mp_priv;
- 	u32 idx = net_iov_idx(niov);
-+	bool starved;
- 
- 	spin_lock_bh(&pp->lock);
- 	net_mp_niov_clear_page_pool(niov);
-@@ -232,11 +253,47 @@ static bool xsk_pp_release_netmem(struct page_pool *pool, netmem_ref netmem)
- 		pp->state[idx] = XSK_PP_REUSE;
- 		pp->reuse[pp->reuse_cnt++] = idx;
- 	}
-+	starved = pp->starved;
-+	WRITE_ONCE(pp->starved, false);
- 	spin_unlock_bh(&pp->lock);
- 
-+	/* A starved queue may wait for this release */
-+	if (starved)
-+		xsk_pp_wake(pp);
-+
- 	return false;
- }
- 
-+static bool xsk_pp_refill_done(struct page_pool *pool, enum pp_refill state)
-+{
-+	struct xsk_pp *pp = pool->mp_priv;
-+	struct xsk_buff_pool *xp = pp->pool;
-+	bool wait = xp->uses_need_wakeup;
-+	bool more;
-+
-+	if (state == PP_REFILL_FULL && !READ_ONCE(pp->starved))
-+		return true;
-+
-+	spin_lock_bh(&pp->lock);
-+	if (!pp->fq) {
-+		spin_unlock_bh(&pp->lock);
-+		return true;
-+	}
-+
-+	if (state == PP_REFILL_FULL) {
-+		WRITE_ONCE(pp->starved, false);
-+		spin_unlock_bh(&pp->lock);
-+		return true;
-+	}
-+
-+	/* With need_wakeup, userspace wakes the queue after it posts FILL */
-+	more = pp->reuse_cnt || xskq_cons_nb_entries(pp->fq, 1);
-+	WRITE_ONCE(pp->starved, !more);
-+	spin_unlock_bh(&pp->lock);
-+
-+	return !more && wait;
-+}
-+
- static int xsk_pp_nl_fill(void *mp_priv, struct sk_buff *rsp,
- 			  struct netdev_rx_queue *rxq)
- {
-@@ -246,10 +303,12 @@ static int xsk_pp_nl_fill(void *mp_priv, struct sk_buff *rsp,
- /* The queue no longer uses the provider, and its DMA stopped */
- static void xsk_pp_detach(struct xsk_pp *pp)
- {
--	pp->rxq = NULL;
-+	RCU_INIT_POINTER(pp->rxq, NULL);
- 	spin_lock_bh(&pp->lock);
- 	pp->fq = NULL;
- 	spin_unlock_bh(&pp->lock);
-+	/* Wait for wakeups that found the queue */
-+	synchronize_net();
- 	xp_dma_unmap(pp->pool, XSK_PP_DMA_ATTR);
- }
- 
-@@ -266,6 +325,7 @@ const struct memory_provider_ops xsk_pp_ops = {
- 	.release_netmem	= xsk_pp_release_netmem,
- 	.nl_fill	= xsk_pp_nl_fill,
- 	.uninstall	= xsk_pp_uninstall,
-+	.refill_done	= xsk_pp_refill_done,
- 	.caps		= MP_CAP_READABLE,
- };
- 
-@@ -428,17 +488,22 @@ int xsk_pp_bind(struct xsk_buff_pool *pool, struct net_device *dev,
- 		return PTR_ERR(pp);
- 	}
- 
-+	rcu_assign_pointer(pp->rxq, __netif_get_rx_queue(dev, queue_id));
- 	mp.mp_priv = pp;
- 	mp.rx_page_size = pool->chunk_size;
- 	mp.rx_headroom = xsk_pool_get_headroom(pool);
- 	err = netif_mp_open_rxq(dev, queue_id, &mp, NULL);
- 	if (!err) {
--		pp->rxq = __netif_get_rx_queue(dev, queue_id);
- 		pool->pp = pp;
- 		pool->xdp_zc_max_segs = dev->xdp_zc_max_segs;
-+		/* See xsk_pp_refill_done() */
-+		if (pool->uses_need_wakeup)
-+			xsk_set_rx_need_wakeup(pool);
- 		return 0;
- 	}
- 
-+	RCU_INIT_POINTER(pp->rxq, NULL);
-+	synchronize_net();
- 	xp_dma_unmap(pool, XSK_PP_DMA_ATTR);
- 	/* Copy mode takes the chunks that the provider holds */
- 	if (!xp_alloc_heads(pool) && xsk_pp_abandon(pp))
-@@ -459,7 +524,7 @@ void xsk_pp_unbind(struct xsk_buff_pool *pool)
- 	};
- 
- 	/* Unregister removed the provider already */
--	if (!pp->rxq)
-+	if (!rcu_access_pointer(pp->rxq))
- 		return;
- 
- 	netif_mp_close_rxq(pool->netdev, pool->queue_id, &mp);
+             self.pfalcon.write_reg(cmd);
+
 -- 
 2.56.0
 
