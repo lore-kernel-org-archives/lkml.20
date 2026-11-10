@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333634;
-	b=2MVzimAzbRTVYJ0NTSiq4sVa4SAre9NG8tPBdUAIAGEhCoIvCms1SH0bJQ92sHhEC92c
-	 5Cndd2GQ9wyY3ZpRFFjtn2LNJZFkls34IGVWLV1u5UK9ozwR9Vr1md1KnKQLSzEwZwfam
-	 VRcoB8e8hzddjNcQBspqqBlu8m10W2lcX9ysQCZL9Lw0QBkOYlqn/mGwgnsc7N9IntpJL
-	 /fzuULdYeNUC5Cmz8AGr8xD04FrobBPOJSKyyQOL4ry1DtT3rEIDNeP8q467SG1mQuFG8
-	 6XEagb5eYtOOjA2VfWz+NyqpSlw90oh/8YfYuKgDYs+ML8Y6iGXyrpWQFUhruWvwhIw==
+	t=1794333647;
+	b=lpZbz6dd1EJD7kfoSyDiKteTDbCwF/FODJ98NYK2jCrofGdxKS2xEmbzLiMLAl4pY6e7
+	 vJ2zBhYs5/ILZYUt+I6UF5im0Yk0FehuCDjjBFIxZhS7gEjuZLXRaB5nrWMUaQ/KHhh6j
+	 khjGz5UrFv3XTKo1fksSRaHITNTYkTy2EauRxGK3JTCrXqk98CUH8BpGI4/PZRvfa/iYa
+	 sL4UDLMcoRBJzBCcFMIBKxsB4IGRyxWFTGwWK2+v/kHUIbOa7OioFyJ7pgf75NjsNO4jd
+	 wCl+LIcL60AC51nM7vbbYh+LZ6W5Y8gF0ROBfSd3dxeTVBUDYz80BEXISK8a7rSdzSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333647;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=C3do4ymgkQu9W4+TcuI1rL2WbfZAofbuASAnuxyg2Dw=;
-	b=A1vgvpOIW3IVwLAHAt26KTx4ZcrKPAnfhkPb4PXgAR87h2EvB55jDaRUO3z1m9OYiH8C
-	 gRWcBMmHrrAlkUrZUufasC+Dxi6WX8lJmyn35HkOyw+Q7vTn2SoAqWV18/EbvVNJihzI+
-	 b6qqUiv6MQb/8utx50rG07n1TnRRXCWcY4UOrAcOOKmZWVPA8wBYMIKdxHYKKuh+bHcUa
-	 6WC1cOzZ8F6I6tRpalfGDdl+rdFgYdTGx3VCtzl5h48toowCia0sOd/c/V+1v2pZfv4U7
-	 QS/LzxhyERLBsbxvrtoRNdQj+CqSX1xdLBeHfS1dY5+cdMft3BeFLpUn7DWttMvTQVw==
+	bh=+9N5Sc1Y8ONMq1nw5Y8gb9n5wSCLwY8oTDzk3ovJiVU=;
+	b=nautuD3okE2+lmCiCHfX5W3wY9t4pHp067i9Xvq0Rbd9kTr2QtIrMqJps1hMYqAE8e56
+	 B/OOPQ+I8i8ZhX/up4NJsi5AY/qnq+8zCxqNrDYjNFJx2jOqFF5SgSGmYOCRqbqqG4Trf
+	 qvxasJYjEW9EITLnYSM70oAXKc45lZN8UGJX7B4PfJqeEVYjF7hjlffewSaArZJbMJUva
+	 fJlWZm4WBx59Mk52OfDcaxrCaG/inZ49UMZdNcWjn0jS4ZQedl53ntxgNMpwKahw3CThL
+	 ac7qDYm14z0ghl//Ijr6pLYL+IM+nwz2nBnG/YuCHtVBj4craBx8i5JUo+SHmLiP20Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w+SH9VWR;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPpAztYi;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2B9606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:00:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC2B9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E13B606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:00:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E13B606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w+SH9VWR
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso4681437eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:00:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPpAztYi
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1931ff67a29so2634573c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:00:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794333633; x=1794938433; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794333647; x=1794938447; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C3do4ymgkQu9W4+TcuI1rL2WbfZAofbuASAnuxyg2Dw=;
-        b=w+SH9VWRyXsPa5qul6qJRUpisDhjHkJLHqyXYBtLFotki2LnPuLjr1ij6Yxc2CV42z
-         vnhjL9fX139akCQkqW2Dp5sn1Xg4NTENK4xL6vkHiersraC2Mw41nYyMDvMbdMOghHzQ
-         E5UBe0G8FIF9ZNrwD/oMvxiPsJWHRj6UyJA1SocM91kwoeMe/Lns5gAYUkd/4zYLzsCc
-         aCFelTEd21CASV6lWAh1EGPK0YjLjjxT7unMy3pLoJMTOOhhQJRnMrrndQQqqfQ08nub
-         R2mWTX+abuLfzPQ0ZZE0HfdyqM58AdIdP3Qz6E1u9bxTJvE3evwvGRJOLO/Pf23WO5l1
-         k6jg==
+        bh=+9N5Sc1Y8ONMq1nw5Y8gb9n5wSCLwY8oTDzk3ovJiVU=;
+        b=lPpAztYi8aeJ6OBN3RP85MvzjoYDSOhz7iAhYyUIZRsC8DPug6tPHBt/nB+KDlNTB6
+         +pzVynLqxFDI9e8ge35hXlobrdy/GjZuFhegfNK9bQ6sVszbr/iWI5zUNY6TQdC6Gua4
+         soK1gUrcxITYiPfAWjUprq4PzOOy7EcuKu1imvqGZgBf1dOGYIbo0Ns/kZMP5apTPyZ4
+         yCp44Gu/SIAeEMEgeeaDRpFu7fjKstGzrd1Et6syGgP0XhyjcRsX9N3/miR/oD/vvmxh
+         bf/YEgEWIyLEGpdq7rvTWk9hbkDRFuw1+wHG2QKhxmTs968gGt9hvLfOitv/70qLpbhf
+         UiSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333633; x=1794938433;
+        d=1e100.net; s=20260707; t=1794333647; x=1794938447;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C3do4ymgkQu9W4+TcuI1rL2WbfZAofbuASAnuxyg2Dw=;
-        b=XNxnvqDnWqsBR7peT2zutTtE1OnatG7QTsPs1SWJz+OHZQYjfQIlW0/aHAPr4Fvt5y
-         6SZ8KHzzFplqeQLy0jqI4M8/6ETA+O9+ZlgOyr7UPQJI14Z6dxCjPXR6xjGytV0Ii592
-         d/xHyewJBVv6Cv1RNc+eKxu4E5/RVLfNPCA/JU19/Rl1bxs0QIU629OrHqIpmxAFM6IP
-         hOAJoQI6sRaGFggdSCK8d8rzZEEfEg7ANRXsViha6jZ/656lgfRHIBz2Hdky8KTKtMys
-         XttsK7FqjtqAG7ywRyt4xogo/75VtozIG7mizkrsr3wcrYFAP766ON/7hAszArJflv18
-         CLNg==
-X-Forwarded-Encrypted: i=1; AL+hErGc7BPXe6A0wufvNh5wXj08656hQjujHoeVRdiNsghYgec5fdgzLFmHeLDrFVzSSUssY9AjC/ASgXROozw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YncGN0/qCs33exKu+oxyFwewAyqJbLW877hcFnDUp+2rbkBGI
-	9ZuiLCrlwflbUIKpfMN3mNkX1kYcFB7Sx9XljWSZWnhVz35jqf15Q98fK8qEH1TnhO4=
-X-Gm-Gg: AYBFou1BD65kb+BqVPeaiXi69cRe9OlvJPU9aJq6UdM3WgwrMrr71Pyayt44iSlJE1+
-	tqyJEO0ARMueei1bwajt6phxV10AVcApXjBSNYY4x7iMKlHCQLEPaoZOjT8QK55ZdH3bzm1jjm7
-	Z+jgmPRTM3JMC/TFnEIHJBiM9RsJy5whGPi6ryOqDS+yqJfMjhH4TqgGNRNIvF0pnNTLVlpt6d6
-	gdOceqX6gjWvHJcC/N4WlL4ITmU58sENweE6/SQdEIN9Uzg+rbpGrlV9Ei29T1k4vvPJ10tnheB
-	JD83725+H/rYRk7jKJw89K8usfxTxRzOoip3Gl+OIM2YGJbKl0lzSwqbfT8Mj/YZMMD3Dx37cGe
-	S4buVRKIujxFHaf4qqdj41Wg/rKP1fNMTAX9pcq8EYKMuqzchha8d6+WyFliReN4dUboIqQUQsd
-	KbtlZD1ED43EHGafCN4EZKLVpa75ga7NvUgc8zEjXFtDRr3Xzpwa4OXts8Wr7Kn0Rj5DFmfyzJc
-	GTABZRWgdXKRcA93NREPbBRACLDB7Z9ap4tq++ko+Kqj/Oe3kFTIvBgvf9A6f6J8uhr5BxDcvNl
-	dGztRgDYakz5/s/IvJxQQ64NF3E+INtd7dYmkgR6BoPa2FvtQliLF4ySw+4=
-X-Received: by 2002:a05:701b:4585:20b0:1b2:cb38:5412 with SMTP id a92af1059eb24-1b3b61960f3mr4159856c88.42.1794333632388;
-        Tue, 10 Nov 2026 10:00:32 -0800 (PST)
+        bh=+9N5Sc1Y8ONMq1nw5Y8gb9n5wSCLwY8oTDzk3ovJiVU=;
+        b=ZhPcAeMlKFkMCihQmqua5lu6vtU584v2OWWaxXqVo+9cLLL+LJ+vX3cz3TA4WuIm3J
+         sexzb2nw/8X2hzo2vJ/F888qTtOGV851KiF4rWtFnp0+zEArwe0k+msVQrAesP9IwzEk
+         fMNkHG2n/lYr+JTs/LX72BYSmwO9wGxBj4pj8jJzNpHoXL2HpwneEjG4EhXb2Bwd/Dhg
+         WZr+iSbH9+z8450MQLKvsSl9R7almiQycnbPabMQoBurFWt76VRH5+f+QEW6mM6VV2SX
+         /DZTtkukFMILXlMRe68zPOtOnst+rNO+BC83tru0H4Y3JwCJnUmeikrWk569vOHdgWMr
+         hzcQ==
+X-Forwarded-Encrypted: i=1; AL+hErHJRFXwtMjY1ba9pOj65KNmwt2tDJb18KPcBBTzWiwfMz6CFLd/N9e+J4lvOuFvLgSO+Ku/5m1tvmEK4Xo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1q+QDiRV8fLJHnY3YuQx2+jolKdY4SjA8PGaD9DOwZqA0ssYz
+	3nFGj58bu8T/NaV1PVPwvHKb0BXf541BJp679uzbOXCN8Md4pqiXZJiW
+X-Gm-Gg: AYBFou2ggbpr7EugHTpqboqwHbTzziqoteyAz+Pod1wDEQWkY/5AYL4orunRGxtbUnK
+	y/ZaZVjiHKtjjjV3QfSEDAtKfHejABwcLKYtzk/h9P5zYLPvECIXIblZTHnDIpxqs8DzGI6DbPr
+	IEYf9Y7YqEuxJXlvIBq4YjHV0b3NaJ/2o0NSlYycJ6KZhmi/twZ1BMmigyBs9nBGXkkXMr8HkFo
+	v92cT5jWQFL9DswxltnXVAtPmChTT//ut5ohRiqQfmMlpBYnqCOiRBLujP2pjliPe71pAqNJFUF
+	KjJI8+KlRQIuvIvwIPffwlQDjbRyvJ/PKf4edUHp3uPSROwH2K5DmeYBt1FKQCcVer9oS5aQdJI
+	jFizaouLEw/iUKuwWfhb5Go49om329ZQ+LfzlF147LHasdbcnELKZqxrYeNpyi01sj7lVdDRQ7J
+	hkUR30dHcbDmj7aqAqhzOZULhqF/gaoR/X0IYLnmjxYUTVQkaorlCtBJg89F/GoNXtOQY+MEOdJ
+	fLzC5VyDj2L0BsdCl45YG9eByII017QLF0aCbtpqbB1L9tJjKtSZBnGCCz1nuZ2NOW9G/Esj/DL
+	0k4djsYo8yppEvbiufhbqFOAgaaiADmL2M1BW+SyqY3b0OoLlryJpCJ6BAQ=
+X-Received: by 2002:a05:7022:b052:20b0:1ab:fe29:5081 with SMTP id a92af1059eb24-1b3b6073e47mr5274788c88.20.1794333646393;
+        Tue, 10 Nov 2026 10:00:46 -0800 (PST)
 Received: from aig-kmd-01.. ([120.133.49.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4b90csm7624260c88.14.2026.11.10.10.00.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4b90csm7624260c88.14.2026.11.10.10.00.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 10:00:31 -0800 (PST)
+        Tue, 10 Nov 2026 10:00:45 -0800 (PST)
 From: Yin Tirui <yintirui@gmail.com>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -97,9 +97,9 @@ Cc: ljs@kernel.org,
 	yintirui@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH RFC v2 4/9] mm/huge_memory: use normal_or_softleaf_folio_pmd() in the PMD split path
-Date: Wed, 11 Nov 2026 01:59:19 +0800
-Message-Id: <20261110175924.2945538-5-yintirui@gmail.com>
+Subject: [PATCH RFC v2 5/9] mm/huge_memory: dispatch on the folio when splitting a huge PMD
+Date: Wed, 11 Nov 2026 01:59:20 +0800
+Message-Id: <20261110175924.2945538-6-yintirui@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110175924.2945538-1-yintirui@gmail.com>
 References: <20261110175924.2945538-1-yintirui@gmail.com>
@@ -114,67 +114,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Get the folio once with normal_or_softleaf_folio_pmd() and decide the
-deposit once with vma_has_deposited_pgtable(), as zap_huge_pmd() does. That
-makes split and zap classify an entry the same way, and drops
-vma_is_mm_managed() from this path.
+Only anonymous folios carry the anon rmap and PageAnonExclusive() state
+needed when rebuilding PTEs, so decide the split path from
+folio_test_anon() rather than vma_is_anonymous(). Treat a NULL folio as
+nothing to rebuild.
 
-Behaviour changes only where the entry and the VMA flags disagree, which no
-in-tree path produces.
+This only changes behavior for folio/VMA mismatches, which are not produced
+by any in-tree path.
 
 Signed-off-by: Yin Tirui <yintirui@gmail.com>
 ---
- mm/huge_memory.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
+ mm/huge_memory.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 85813114fde1..d0ff2957e47f 100644
+index d0ff2957e47f..dcc8cd380da2 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -3217,7 +3217,7 @@ static void unmap_huge_pmd_entry(struct vm_area_struct *vma,
- 	 * We are going to unmap this huge page. So
- 	 * just go ahead and zap it
- 	 */
--	if (arch_needs_pgtable_deposit())
-+	if (vma_has_deposited_pgtable(vma))
- 		zap_deposited_table(mm, pmd);
- 
- 	if (!folio)
-@@ -3244,6 +3244,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	pmd_t old_pmd = *pmd;
-+	const bool is_present = pmd_present(old_pmd);
- 	struct folio *folio;
- 	struct page *page;
- 	pgtable_t pgtable;
-@@ -3277,16 +3278,18 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+@@ -3289,7 +3289,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	if (unlikely(!is_present && !folio))
  		return;
- 	}
  
 -	if (!vma_is_anonymous(vma)) {
--		const bool is_present = pmd_present(old_pmd);
-+	folio = normal_or_softleaf_folio_pmd(vma, haddr, old_pmd, is_present);
- 
--		if (!vma_is_mm_managed(vma) || is_huge_zero_pmd(old_pmd))
--			folio = NULL;
--		else if (is_present)
--			folio = page_folio(pmd_page(old_pmd));
--		else
--			folio = softleaf_to_folio(softleaf_from_pmd(old_pmd));
-+	/*
-+	 * A non-present entry which is neither a migration nor a device
-+	 * private entry is corrupt, and pmd_to_softleaf_folio() has already
-+	 * warned about it. Leave it alone rather than act on a PFN which
-+	 * means nothing.
-+	 */
-+	if (unlikely(!is_present && !folio))
-+		return;
- 
-+	if (!vma_is_anonymous(vma)) {
++	if (!folio || !folio_test_anon(folio)) {
  		unmap_huge_pmd_entry(vma, haddr, pmd, folio, is_present);
  		return;
  	}
+@@ -3299,14 +3299,12 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 
+ 		entry = softleaf_from_pmd(old_pmd);
+ 		page = softleaf_to_page(entry);
+-		folio = page_folio(page);
+ 
+ 		soft_dirty = pmd_swp_soft_dirty(old_pmd);
+ 		uffd_wp = pmd_swp_uffd(old_pmd);
+ 
+ 		write = softleaf_is_migration_write(entry);
+-		if (PageAnon(page))
+-			anon_exclusive = softleaf_is_migration_read_exclusive(entry);
++		anon_exclusive = softleaf_is_migration_read_exclusive(entry);
+ 		young = softleaf_is_migration_young(entry);
+ 		dirty = softleaf_is_migration_dirty(entry);
+ 	} else if (pmd_is_device_private_entry(old_pmd)) {
+@@ -3314,7 +3312,6 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 
+ 		entry = softleaf_from_pmd(old_pmd);
+ 		page = softleaf_to_page(entry);
+-		folio = page_folio(page);
+ 
+ 		soft_dirty = pmd_swp_soft_dirty(old_pmd);
+ 		uffd_wp = pmd_swp_uffd(old_pmd);
+@@ -3366,7 +3363,6 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		 */
+ 		old_pmd = pmdp_invalidate(vma, haddr, pmd);
+ 		page = pmd_page(old_pmd);
+-		folio = page_folio(page);
+ 		if (pmd_dirty(old_pmd)) {
+ 			dirty = true;
+ 			folio_set_dirty(folio);
+@@ -3377,7 +3373,6 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 		uffd_wp = pmd_uffd(old_pmd);
+ 
+ 		VM_WARN_ON_FOLIO(!folio_ref_count(folio), folio);
+-		VM_WARN_ON_FOLIO(!folio_test_anon(folio), folio);
+ 
+ 		/*
+ 		 * Without "freeze", we'll simply split the PMD, propagating the
 -- 
 2.34.1
 
