@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309877;
-	b=c9tQ1p4DGJN77DywMS9d1nCNCkboQHIWJt2VSCfkBUqqY2TgfTbYj5pf4BKJORY6htmY
-	 cdI1xsY9FLBPdSvkDD1jOgUR3xCPSjsyTY+Z8LlVnZF5TtKUpqNMbfpCHU0zWuDsG0sTa
-	 UWfQ6FUKNzDs81HNT5HnUHr8qGKUjElqONEb263KzkwVFnPC6BzspZKgoaKP7erqHhW4I
-	 uc22LA4cm8fgf7c4HkAtjDbiCdekbnyWHqPIJJL7DbJtJftqDGYgOyMjxBF7RAUR6XbnH
-	 /hAXxK5iUhs3Wp53K6NCXkvVLwqquqQC0o9uynb7jlrMI+Ef+q+XChkWbQ/8KIae8hQ==
+	t=1794309885;
+	b=F+j7YcB4xAT1ZRgJBW4JQKWuSGAFaZrbzIeJ3T4ryU+W3kk93MBoTxoq5kJb6u7c4kqs
+	 nPc1Szp+SDioToHAOgYGUSYFE0Zvrick9s6+lNM/yAwe0rfMuOWPT/0AT1Zq5iBXkgGUi
+	 oA7oMqE05+eSNj5YwpkozDIfzZmYfe7+DP8ETQYEMAqgbqA59eLZfQqCQNoOPBPtE80sm
+	 kasJbtV9W8bIsunF12ynxO7wa3okjG0KFHYTjINh7emLC1bpj+vlbl6tMhvgQL0yCH+uN
+	 l2c8mTm6W0ZwqQvMEBuIG1Ij26O4bLFZ2HrYikjTL+C5p6CymWaslsHRm5wjHWBTnqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309877;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=gtytf2wOlGKlE0TlreFVP+6q1oQ0wXhrbpcwMFr2kqE=;
-	b=1p4RcnxPcLAx4xaAecC9dpL5QBv6QfsMpXRO1ssLy67sw0Vjo+Z031rxKc1bAGyeunp9
-	 M4xBwIsKITkPbzyG4dC6/JdSwYwfaGZFUxZTMSeulV4qW23n8dvzHVMz9MpiTh/xl6aS+
-	 69fMWg+mZyKqDZ7JWPWV0kThr/b9JaFyiVIabY4osmlUaOEX4/Vkxtosk5QoRQ6prxZ01
-	 CsdE15UaBfj7Pt3NIRFRJ1P8UtSX8vulTwKnHDssa5LpkRlZMdA+YJ1i2lWSdYIpUp9XP
-	 ymw1fNEeUv1lcyqsHO3Hvrkzxjn84Bv6whs3+6cRWp1SByL1sTlRy21HkCdGP6tRjGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309885;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xc/2Ec+isrnw7gxi44tzolJqOLCV74Dq//tFYw2pc30=;
+	b=mik3wQHMlycTBvmMCacpQZ7HzPh0ZCyywfYYW5bLdhPkvU+LUxcVoeAuLpt4B4kMEf2i
+	 fZkJPZJBTBXP0lwi9nEUo8qvNgB9hcUhSv6ZtlhtUBauPI0QBYOO/XdXin0zqqaM6LNme
+	 DBE3cGuB/Wdej4pwLpdoSo0W15NwiwRT8GFZfw9pkpbYh6fyL3hvteDF1PZJbstnJamzi
+	 34wbIjYtVSDVfqumOk5YjRnpkXgJz//RjaNB9qymRqw41Twt6TlmBtIBdMY7aqaXJenTd
+	 JRbt4T+vOMi8Mc17G6zX6G0o1FT7HuFnUjhbtbD9EE9bIdL/imzE5o/VZ6PhULAcZLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWIygTuW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HRA702GZ;
+	arc=none smtp.remote-ip=91.218.175.176
+Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A0160A2628;
-	Tue, 10 Nov 2026 11:24:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E313C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E313C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWIygTuW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CADD91F008A3;
-	Tue, 10 Nov 2026 11:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794309876;
-	bh=gtytf2wOlGKlE0TlreFVP+6q1oQ0wXhrbpcwMFr2kqE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZWIygTuWyMwrCCyWkgY7RsSrCDlQmRHjE9kDJJY9fgSKkW2X7Pzbdk/3g7E0JGGJj
-	 mqde4QNo0dOhsy/Gn071pmagJMcFwkMHNEXlNvvPDwwp10eksS4IhEBAyNpcUUHNdg
-	 03xRBW6p5vKfHW+VjaiwWf0yMYhOG5dztiwt7IvW67IkhnjAYpK1fJnR6QatxQkKpc
-	 Z9tzO6sREiDZhnO+fEx9KNcU9tT1MGR+831DZvlJFymsBcBH7mSmiB/bkiRKz0KB+8
-	 QOgrK4FV4ntU7mrjA9MLzJxXq9gTVW21ij/97aJSimoh+G1ihBNJeSIJ5pl1uTAFQi
-	 BezOJm2/uzfMg==
-Date: Tue, 10 Nov 2026 11:24:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-hardening@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HRA702GZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kYvyfDK0ROE4CNDauI9kgGxJwtog7X2zxAx8KX+EfBM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794309883; v=1; x=1794914683;
+ b=HRA702GZnLe6rctJhDQuM+ozDS99Y6I83jb7m2Te53GS/hs2+bFIZ2s+2cVGJMwAK/Owan6N
+ 20o+OdmwXDveZmtlleLBldslCBbxqEGAILLWaDa9vd4MwMVxUAOiLKuGQOVdjKeCgfTjK8eDDjO
+ cJ9wglN3lckVV9nThG0g6dh8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6c351c2373b5f8e3;
+	Tue, 10 Nov 2026 11:24:42 +0000
+X-Mizu-Trace-ID: 6c351c2373b5f8e3
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb+git@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
-	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Maxwell Bland <mbland@motorola.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pierre Langlois <pierre.langlois@arm.com>,
-	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH RFC v10 22/22] mm: Add basic tests for
- kpkeys_hardened_pgtables
-Message-ID: <717cccfe-81d6-4e09-a466-5361ae27776f@sirena.org.uk>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-22-aa6c4d9603bc@arm.com>
- <2d13fbb7-b5b4-446e-8709-5b43349ff19a@sirena.org.uk>
- <9e59fd71-97e7-422c-a7dd-bc23c6e6a852@arm.com>
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>
+Subject: [PATCH v4 3/9] mm/vmalloc: BUG_ON() on an unaligned range in vmap_range_noflush()
+Date: Tue, 10 Nov 2026 19:25:40 +0800
+Message-Id: <20261110112546.261415-4-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,42 +84,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qb3IpGrfHJvhxTh/"
-Content-Disposition: inline
-In-Reply-To: <9e59fd71-97e7-422c-a7dd-bc23c6e6a852@arm.com>
-X-Cookie: You can't take damsel here now.
+Content-Transfer-Encoding: 8bit
 
+commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not
+PAGE_SIZE aligned") put the check in vmap_pte_range(), which is too
+late, because the upper levels may already have installed page
+tables for a range that is rejected anyway.
 
---qb3IpGrfHJvhxTh/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The pte loop maps whole pages and stops only when addr lands
+exactly on end.  An unaligned end lets addr jump over it and the
+loop keeps mapping past the range.  An unaligned start maps the
+page below the range and usually misses end too.  Such a range is
+never a legitimate request, and the corruption it leaves behind is
+hard to attribute to the caller afterwards, so bug out on addr and
+end at the entry of vmap_range_noflush() and drop the check from
+vmap_pte_range().
 
-On Tue, Nov 10, 2026 at 10:01:36AM +0100, Kevin Brodsky wrote:
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ mm/vmalloc.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-> Do you mean adding the dependency KPKEYS_HARDENED_PGTABLES=y to
-> tools/testing/kunit/configs/all_tests.config? Indeed that would only be
-> meaningful on arm64 (for now). That said it wouldn't hurt other
-> architectures, so happy to add it there if you think that's worth it.
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 093b8d5f7b0e..27f2674a5556 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -125,9 +125,6 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 	unsigned long size;
+ 	unsigned int nr_pages;
+ 
+-	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
+-		return -EINVAL;
+-
+ 	pfn = phys_addr >> PAGE_SHIFT;
+ 	pte = pte_alloc_kernel_track(pmd, addr, mask);
+ 	if (!pte)
+@@ -347,6 +344,7 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
+ 	 */
+ 	might_sleep();
+ 	BUG_ON(addr >= end);
++	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
+ 
+ 	start = addr;
+ 	pgd = pgd_offset_k(addr);
+-- 
+2.25.1
 
-Yes, or something like that - unfortunately KUnit checks to see if the
-config options appear in the configuration so something that vanishes on
-other architectures causes issues.  Perhaps the default for the config
-option ought to depend on KUNIT_ALL_TESTS?
-
---qb3IpGrfHJvhxTh/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmry/tcACgkQJNaLcl1U
-h9AxJgf9HO+bESqmb7Zyf8xVpU39o1ESgrk4qSe8omR1YVn15bXCLHubG4BA7k39
-BBRjIUd0oKzcXxtFkuIyZLiQ194uaRe6MuOfoI+Ruzd2qjgzTlq18s/CUQYd23um
-xjtw1Rb5Vj5ruXGAwkuBosPG2vqzM/kA0ruLkQQ1lknx0wrk4buAsFjcNPjsddup
-ZjuRO6lSuXkDYGYG8l64ReC2hWfMTDKifeFbf0EMisifvHZ0dEmDf5Y+uJiG8l0v
-fQU+vj+TzA5V1SPmj9DpyTfm2wWwqpbBgxyuE1eOOj5Cj7wZ4Pz+fHhnfcmklIiL
-arkt18G1049QM3sfXwdWCKF3B89YVw==
-=yf2T
------END PGP SIGNATURE-----
-
---qb3IpGrfHJvhxTh/--
