@@ -1,65 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274447;
-	b=oJL573dDxg9rGY3ed19YeIKmhmyWsjngioAthQkz7zmEo3VHRxZwaOAmIKEDR3Q8y4px
-	 6bbYqjuNxJE3L9AG6baauR1Jk3jk5yGByrgGmLD3WE+ObIYf3IP9puAsCo5f4IxBSkNBa
-	 rK8KwasWOopC2gwvPvmuT+0xqr89lzSVx1o8wT0vwqrz9C9RvuB//cdRz93utHijWeGhl
-	 Wan4HN1aCc8hTr+yPBhQ8I8opkWEkIFZ4TORjY5DX/qTYDjOJCZn3KhslLRr4Td6IFBTP
-	 yY1SH829ljMy9P32ouYKZPPG4ZGm+zVWn/FOmUNok1C8pQ5hTLuNd5Her9E5jLp1Q/w==
+	t=1794274481;
+	b=mCTgEuZqEmT43TgjfRbPe/CrY5QcfquOWXTQCqa4tgSBdhmprSAZdqAY8lP4uTehu/f0
+	 gdU5OZsL62YpFg1Pty3TouzG8S7Sqmx6qy68v/I3JLJ11nqgyLUz/yZCcIwQqZnp9Og/d
+	 ew8AXCfJl/0gBiXiVMJPc0fpExeOAysjUToNr/QpvGChC6URFovMKUxmyoc1imYkBo8O/
+	 0LKc/XR6D6JxoRENxq8v05w+dlRs4xOLDKdXQvq8O9fDb/ni8ZouI8enMEtwlWj41Dr52
+	 WAyqaf4iBSDLXMGVKJq5BGGYbb8AMXtqx1k3vhl7QGcgH7WtHc7eHgtzcoj2U+GChEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274447;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AB66/v2qqiaPMMtAxVxm8zYadiax3Nt9sPxRF63Dxbw=;
-	b=nmVuoMbMVB5wRe0RjWtC2UvRSQl4E81sSUGSSEW2v2QmppwewHlbF5h053H3v16jIHwc
-	 7VB/cH8bLVvEsi4x2Zu9Z7gbNVYZMHy3Iagtj/MwtOxc7p6Ma38Ltyfns0w47mPUhSmJ4
-	 28D3l1+IZ509NTYtufTKwBWSt5V4Qbv6EtB3Tq5ZoyHWUd3zLaI+aZMTpSSWTy3KmG1Ue
-	 CTuxCpgiop1jlMvAiVfkPn9Ic2R/4NAjIcs6z3oNI9LKy/1s+dzQ3XyOkT8Y5cEt28bdV
-	 mNz93Ifvii+Ykup0E43wn4T63cAsu2yhnqMqMGubidGRc+Ndpm0cD/CI31zoOLLFJxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274481;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=7DLbqVwKut81UJQz2eVhLGMdnz2UGDrpeK5bP7AZPjM=;
+	b=qMb3lkNZudkGQwdToEY0WSUhemZ8+DsksO+ekIGPVouZPQ3oLJHGW6sgO+hdo5eXMDtE
+	 wUVrAhqfqlmp79XHsVF3XIXA9FZTAIO6R35MF7oxivRFb2EmDbaCL1M6m8w61BpyyCThv
+	 SogZIws4QM/gAx+pEajqVH3q/BIfeBpNfVkBSqekZMnUwF79QybfcDGM0fSSID//I8mPN
+	 IP3gN9WHzPXDpGrqx4sAM/Bx8UHRmLssJ30TW4FVxCtkcgeY7GKwyFQhRlIzUKSXBBizX
+	 4LSzahbEndvO2TMC2WLeqOj01J0PFfDvt0p0IZJjB2hKH5484On/aa+NnRCatX8CoJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DwxlrtX4;
-	arc=none smtp.remote-ip=91.218.175.107
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frbjRNm4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E4B606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:34:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3E4B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCC3606A31C;
+	Tue, 10 Nov 2026 01:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DwxlrtX4
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=s2g0Oek4Alnf2qjcFNmkwbjLXBHjq/aq5QUfCVDyglE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794274443; v=1; x=1794879243;
- b=DwxlrtX4wCIpck7iss7oUNAr3hj/pZobec1ls5mg2uw7DS2gZ+0haT0yVzUN0BVp1IyV2CGe
- fjHkwvi8hnwgRuRICl0lrqup6yqWwCmODcKP1ec3rKadassrPR4b8t/2PJm/hdM7w3D0qufaHZF
- mzWF7Wf9yb6OQBib+rYehl0o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 86af1ee8961c55c2;
-	Tue, 10 Nov 2026 01:34:03 +0000
-X-Mizu-Trace-ID: 86af1ee8961c55c2
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 02:34:02 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: linux-wireless@vger.kernel.org,
- Noah Weinberger <NoahWeinberger2003@proton.me>,
- "pkshih@realtek.com" <pkshih@realtek.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "security@kernel.org" <security@kernel.org>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_wifi=3A_rtw88=3A_sdio=3A_check_p?=
- =?US-ASCII?Q?acket_length_against_remaining_RX_data?=
-In-Reply-To: <tKht3w_knueblApO8rdPrR1QcEs6-nv-6y_7lYwYWCYqQJJ2ZiPAgcGJZuiQVeotGyIaO3EZ9j_0jFwlc5ESOzzhNSRjQu5vvUGR1kf2MUE=@proton.me>
-References: <tKht3w_knueblApO8rdPrR1QcEs6-nv-6y_7lYwYWCYqQJJ2ZiPAgcGJZuiQVeotGyIaO3EZ9j_0jFwlc5ESOzzhNSRjQu5vvUGR1kf2MUE=@proton.me>
-Message-ID: <43A4B4D6-EB5F-4079-8BE9-A452DA8B2AB6@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frbjRNm4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C8D1F0089F;
+	Tue, 10 Nov 2026 01:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794274480;
+	bh=7DLbqVwKut81UJQz2eVhLGMdnz2UGDrpeK5bP7AZPjM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=frbjRNm4ypnIa8r11pCsYtVX8qqs79/UoQ8MKYE4b95DIDJuu9KNdum5qsfgOH9kU
+	 /ClYy9NxMY6n+wGS7/bqu8/OVYVSJ0CleG4JRpSgFvTZ9kfUwfDLL+s3bwVcRaXwrg
+	 I9UxgmAZNH7cZPt5kcBwK2Y9yziGvWrYzEz6LfOYD7meaIAQj1MhMZTJPJSy57Vbfl
+	 aBtBbVnBllPkjjFGudNtLs/rczbQYF83HCLiByt6wYoBqzBIkA5SBigae8zai+AF6R
+	 RSHv2ZdNPaZiRUBfl/om+5mLRcjJWZsOEWTc1S3BKudjh+P3X6oVOa80U24tvfeN8r
+	 ASaB2BeQVX4rA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 02C76CE0DDC; Mon,  9 Nov 2026 17:34:40 -0800 (PST)
+Date: Mon, 9 Nov 2026 17:34:39 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	rcu@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>
+Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
+Message-ID: <3cb75140-1d10-4de3-86e6-c9d70edd2da5@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
+ <20261023181940.457424-1-puranjay@kernel.org>
+ <f785237c-ee5e-4ad3-8ee9-79474f5f45c8@efficios.com>
+ <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
+ <853d8469-94a4-4b33-a0d5-d6d2138fe3ef@paulmck-laptop>
+ <597586c9-35ae-43bd-9b79-7abf62057838@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,138 +84,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <597586c9-35ae-43bd-9b79-7abf62057838@efficios.com>
 
-Hi Noah,
+On Mon, Nov 09, 2026 at 08:00:12PM -0500, Mathieu Desnoyers wrote:
+> On 2026-11-09 19:25, Paul E. McKenney wrote:
+> > On Tue, Oct 27, 2026 at 09:13:17PM -0400, Mathieu Desnoyers wrote:
+> [...]
+> >> So we'd keep using call_rcu to handle the steady-state reclaim of rcu
+> txn,
+> >> but use this specialized irqoff RCU domain for the empty slab case.
+> >>
+> >> Thoughts ?
+> >
+> > Atomic SRCU within interrupts-disabled regions seems to fit
+> > this bill: synchronize_srcu_atomic(), srcu_read_lock_atomic(),
+> > and srcu_read_unlock_atomic(), which interrupts disabled across
+> > the latter two.  Maybe srcu_read_lock_atomic_irqsave() and
+> > srcu_read_lock_atomic_irqrestore() if that helps.
+> >
+> > Or am I missing a turn in your requirements?
+> 
+> It fits well, thanks! It would replace the per-CPU counters I wrote
+> for this domain. The steady state stays on call_rcu(), so the
+> srcu_struct would only see synchronize_srcu_atomic(), never
+> call_srcu(). I see two gaps between my requirements and your
+> proposal:
+> 
+> First, NMI readers. rcu_txn_dereference() should work in any context,
+> NMI included, as rcu_dereference() does. A tracer or a BPF program can
+> walk an rcu_txn list from NMI. The atomic flavor uses
+> __srcu_read_lock(). Its this_cpu_inc() is not NMI-safe on every
+> architecture. And one srcu_struct cannot mix the atomic flavor with
+> the nmisafe one.
+>
+> Could the atomic flavor count its readers as srcu_read_lock_nmisafe()
+> does? Then a reader could also enter from NMI. The code I have for the
+> next version keeps one counter per NMI nesting level for this. With
+> SRCU, the sums of locks and unlocks handle the nesting already.
 
-Thanks for looking into this. A few comments below.
+The other user that I know of is David Woodhouse, now CCed.
 
-On November 8, 2026 11:27:09 PM GMT+01:00, Noah Weinberger
-<NoahWeinberger2003@proton.me> wrote:
+David, would you be OK with srcu_read_lock_atomic() using NMI-safe
+counters, similar to __srcu_read_lock_fast()?
 
-> Subject: [PATCH] wifi: rtw88: sdio: check packet length against remaining RX data
+(Yes, I *could* make only your _irqsave() and _irqrestore() variants
+NMI-safe, but then we have to enforce different srcu_struct structures
+for _irqsave() and not.)
 
-This doesn't apply to rtw-next, which is the tree rtw88 patches should be
-based on, because the same check is already there. I sent it in October and
-Ping-Ke applied it as
+> Second, interrupts off. The wait for readers can run with interrupts
+> disabled, for example in a list delete under a raw spinlock. The
+> kerneldoc of synchronize_srcu_atomic() then requires the readers
+> to disable interrupts too. So yes, the irqsave and irqrestore variants
+> would help. The readers would use them instead of preemption off.
+> 
+> Would you prefer to add these two variants on the SRCU side, or should
+> I prototype them with the next version of this series?
 
-        83ca360e8528 ("wifi: rtw88: sdio: reject oversized RX packets")
+Your choice!
 
-It tests pkt_offset + pkt_len > rx_len at the same place, so this patch can
-be dropped.
+If you would like to do it, the trick is to make srcu_read_lock_atomic()
+and srcu_read_unlock_atomic() invoke __srcu_read_lock_fast() and
+__srcu_read_unlock_fast(), respectively, instead of __srcu_read_lock()
+and __srcu_read_unlock(), again respectively.
 
-For future rtw88 patches, please base them on rtw-next and put that in the
-subject as [PATCH rtw-next].
+Then there would need to be an srcu_read_lock_atomic_irqsafe() and
+srcu_read_unlock_irqrestore(), which would (as you say), replace
+preempt_disable() with local_irq_save() and preempt_enable()
+with local_irq_restore().  There would be a flags argument that
+as far as I know requires srcu_read_lock_atomic_irqsafe() and
+srcu_read_unlock_irqrestore() be macros.  It would be good to share code
+with srcu_read_lock_atomic() and srcu_read_unlock_atomic().
 
-> Hello,
+And kernel/rcu/rcutorture.c would need a bit of tweaking to test
+this new interface, which should be discoverable by looking for
+the code that tests srcu_read_{,un}lock_atomic().  Maybe just make
+srcu_torture_read_lock() randomly decide between srcu_read_lock_atomic()
+and srcu_read_lock_atomic_irqsave(), and have srcu_torture_read_unlock()
+follow that decision.
 
-This would end up in the git log, so please leave the greeting out.
+One potentially tricky part here is that rcutorture is not set up to
+pass a flags variable from a read-lock to the corresponding read-unlock.
 
-> rtw_sdio_rxfifo_recv() validates the descriptor's pkt_len only against
-> the absolute maximum (11454), never against the amount of data actually
-> transferred (rx_len). The last-packet branch is taken precisely when
-> curr_pkt_len + pkt_desc_sz >= rx_len - which includes the case where the
-> descriptor *overshoots* the buffer - and rtw_sdio_rx_skb() then calls
-> skb_put(skb, pkt_stat.pkt_len) on a buffer allocated for the aligned
-> rx_len.
-
-The length checks are in rtw_rx_query_rx_desc() rather than here, and there
-is a lower bound too.
-
-Commit messages are plain text, so please drop the asterisks and the dashes
-around that aside as well.
-
-> The loop's own comment documents that the 8051-class chips can produce
-> packets whose pkt_len is zero or points beyond the end of the buffer
-> when the RX fill race hits; pkt_len == 0 is guarded, the overshoot is
-> not. An inconsistent descriptor therefore reaches skb_over_panic() ->
-> BUG.
-
-That comment is in rtw_sdio_rx_isr(), not in this loop, and it explains why
-the driver stops when no RX request is pending. So it describes a case the
-driver already avoids there, and I don't think it explains the overshoot
-here.
-
-The zero length check also only covers normal frames, because
-rtw_rx_query_rx_desc() returns for C2H before it gets there.
-
-The BUG isn't always reached either. For normal frames skb_put() only gets
-pkt_len, and pkt_offset is applied after it:
-
-        skb_put(skb, pkt_stat->pkt_len);
-        skb_reserve(skb, pkt_offset);
-
-So a small overshoot gets past skb_put() without a BUG.
-
-> Affected version/commit: mainline
-> fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07),
-> drivers/net/wireless/realtek/rtw88/sdio.c:1352-1419
-> (rtw_sdio_rxfifo_recv), sdio.c:1331-1350 (rtw_sdio_rx_skb), rx.c:295-320
-> (rtw_rx_query_rx_desc).
-> Loop predates this window (8703B); newly reachable via 8723BS support
-> added in this window.
-
-fa4ad798f6f6 is not v7.4-rc1, which is 6628e7d4c6b2 from Nov 1. Line
-numbers
-go stale quickly and the first line is well over 75 columns, so please
-leave
-this out of the commit message.
-
-"Newly reachable" isn't right. The loop came with the SDIO support in
-65371a3f14e7, and 8822BS, 8822CS and 8821CS have used it since then. It is
-also not clear to me what "this window" refers to.
-
-> [ ... ] every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
-
-This is a note for reviewers, so it belongs under the --- line and not in
-the git log. The code paths are cited above, not below, and since you are
-the reporter, writing it in the first person would read more naturally.
-
-Please build a patch before sending it,
-Documentation/process/submit-checklist.rst asks for that. If you only want
-someone to verify a report, maybe RFC would fit better than a plain PATCH.
-
-You also sent this to security@kernel.org.
-Documentation/process/threat-model.rst treats devices reporting values
-outside their documented ranges as regular bugs, so that list should be
-left out of this one.
-
-> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
-
-There is no sign off on this patch, so it couldn't be applied even without
-the conflict. This tag isn't needed on your own patch, and checkpatch also
-asks for a Closes or Link tag after it.
-
-A fix like this should also have a Fixes tag:
-
-        Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-
-> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-> index dc2fd0f..0a07d8d 100644
-> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-
-[ ... ]
-
-> +             /* The device may provide an inconsistent descriptor whose
-> +              * packet length points beyond the received data; do not let
-> +              * skb_put() run past the allocation in that case.
-> +              */
-
-I think this comment can go, the check is clear without it. It also isn't
-quite accurate. skb_put() would stop with skb_over_panic() rather than run
-past the allocation, and the check compares with rx_len, not with the
-allocation.
-
-The style is wrong either way, a multi line comment should start with /* on
-its own line.
-
-
-Best regards,
-Luka Gejak
+							Thanx, Paul
