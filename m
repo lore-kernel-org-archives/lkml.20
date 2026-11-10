@@ -1,51 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.154.241.218
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317297;
-	b=3NuFmpUmD/frkBTLp8OmogTVWRFt0+h+rZLWDpjf/4eNPVMvhwkdkqMA0uEstD87I8UV
-	 3M5/uUXkcIZKShKyfKmkJ+PCWMeTanF1rROSGAG/Ex0tl/DwzUW/W9H1cjvzTdR/KJmsD
-	 JKAS6233ahS2RQI3ydr7d97G6KrLk7RrfVfebSNAEAQ+IYitAyEDrkq656Ndlrzivcu/O
-	 uqMzfDpRQDtMgMjG1gKbuL18d3p21YPKK0l58G/EWPluCmmSc6J0ZSXS9ges/2Q2E5AYP
-	 imdTp77qGN7/XJQKnlnzlW/LftYZEYEgs2siqLWKyJofqMFWCqkLqpFDMyFd5/TQx0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317297;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:Organization:X-Mailer:MIME-Version:Content-Type:
-	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=l14YgoDj6UsUcAbDEsM0PgXfMBZOn3CoIGk61o/gzMk=;
-	b=4w8XTkCKj3QUMJc3W7OtBMMAkHU21rw+0QTrz+vCrpB5cXbPDwv5qaWujiaOHATC6sXD
-	 ckAkqRcheEmMKWQK8OvJZ3f6BPf0ovueQbgOt4xXz22PAsxbnTNp5iWLZYzW2fE4VR41z
-	 ZREoClil6s2Epgie03yqStt4VmqNr6bTzB7k4ZLjRYoVybz+5fffzJotUBP2sdoqlCWdE
-	 AlMDYo4y3YthdQBSIQMCd1B1bHkJ1/11R09AzJBXAOe6XPTxMZxkT5zwHFUIcjMlMg++z
-	 ooiwl91+R2jl4DuhehWAQ8Yi11sL7Xaxoerai36JoFVvybMV8cbmcLVyklifrgJqxSQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lauterbach.com;
-	spf=pass smtp.mailfrom=lauterbach.com;
-	arc=none smtp.remote-ip=62.154.241.218
-Received: from bm.lauterbach.com (bm.lauterbach.com [62.154.241.218])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794317307;
+	b=t04l5Gpf2hfMq3RgKIb8MYJHYXxINWOKEWAWx6LysBx4oupllN9U7fvaIWHyG/zON3f5
+	 JEx5JmzHKQqE1rS1q5mvTri42BfKyE7DJFftMvfTTHF4NG5RBEfT++5zVWTtZBq/dzxRQ
+	 SuRTav/pS+3k1kobmYuMX4JMXCQreX0dM6UGli1e1Gy1PZ4VK4cBQ2t4czcdlT/ecEXp0
+	 44S+kqXRDiE+Aogt7O0s0vMUeLX3fnuGf8WCmnfL9oe23ZLTwCJAx2T3YQgA/23TkvVxE
+	 6w+XehMsMDXZdk+ECLNyqELWA4Qcmjw7qj4UGu5EzupJN7M+4hV8GRINdF5sc4Nx9Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317307;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fUWl3obGCUO3NiGQKuqWXiuDxi7JouGoPBYumWeiMf0=;
+	b=SYxmbs+yea+rYLAQEHD0OczgyKKyb5AmOylDBWY/mxIlEWVYF92Le3y5Rj7Os8pyls+l
+	 h+NNsi889Qmb2g3VahPLkW3iVVb08TJQ5fqtsZlt1ioUTGy7Twe4iHgIqSnX1OL3qxiZg
+	 Eic/nC1iSPDk5Z/N9mkkN274cynMr2tf3O2t5lDeate+F7cR8JgN9/Lzxp0OzgCFBYXv6
+	 XdIieZ0zBcXv1Vdq9mvzZbLVj9M5ziWtNq7GajgDYlSY7mGB4hBUaDV7Oi6g4iqQfisXK
+	 D+YzUJYtMGOLb5+DkFho3QplgT5sI6ye3A15T6NDO/ShL3OpZkfFaDErvwxfFpkk7LQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9jeyRzO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7286B606A755;
+	Tue, 10 Nov 2026 13:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9jeyRzO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794317307;
+	b=B7O8RYbXV8Ry498NtzReeW16APhjoVUWcnv5iLVfD3x3zaSt2DOH0E8yg7Reu/gPX+WM
+	 LH2wR8Riiuidy+ExGDeHuXQjS4gtA69T9SDF2batE5kaHVdMyj7u5Mt60Sd4CeWP7tWEF
+	 Dfj4s4Q2kT+1wCgRvzLfVdmm0RzMLMovqucR5nYN1dI9iHk9/8+21NLfGsBZpuQhSJqsz
+	 bk8PCd1vWO2/qx7UfKYohgyul3h5ZfnkmQ4S3t9RgVlXRB7hnBJoqVWiWNvu7JQ/Z0we9
+	 Ccf/vCmRwIyt6z8k4K2eHdAp609e0xSouzjWdpbZQv3QIF96OqcoxIKAvDBZctIqGxg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794317307;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fUWl3obGCUO3NiGQKuqWXiuDxi7JouGoPBYumWeiMf0=;
+	b=eBotnDiQFgNz8011cY7LpHD2OPeH/RiJxyxZXp328LRVsgh6PqoOElc5JpkXK53jGnPN
+	 mhqs6NHxUgo+BKY+rriklNKLgrxumIO3LPgAuPBYWOdW7efBhCf+G0bkpOGblj2OHb6Xt
+	 3BTLoDnZAZ9UcxA9awTMxfzgOp39uBm97j89IM8MB0+Kc9YFTwip0kQ0df4j6ZabKM9/X
+	 tqIqeCpdtKY7CDA/n0ML1BpUqeJKcc/ZDi9LDKUxftaLDkZFVlNSRyvkK1wh4kJL89PvY
+	 nIwT4mJ+lM0mtpMQe3Av2qdA1z+zM1SUB83kjoVJuz1IJKZOGMSt4NaTFOnFkRpIxng==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C4D606A325;
-	Tue, 10 Nov 2026 13:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C4D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lauterbach.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lauterbach.com
-Received: from ingpc2.intern.lauterbach.com (unknown [10.2.10.44])
-	(Authenticated sender: ingo.rohloff@lauterbach.com)
-	by bm.lauterbach.com (Postfix) with ESMTPSA id 96B701A2EE074;
-	Tue, 10 Nov 2026 14:28:06 +0100 (CET)
-Date: Tue, 10 Nov 2026 14:28:06 +0100
-From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
-To: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
-Cc: brianellis@gotenna.com, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: dwc3: apply XCVRDLY after PHY init
-Message-ID: <20261110142806.6c3aed36@ingpc2.intern.lauterbach.com>
-In-Reply-To: <20261109-dwc3-xcvrdly-after-phy-init-v1-1-488ed0a0c7da@gotenna.com>
-References: <20261109-dwc3-xcvrdly-after-phy-init-v1-1-488ed0a0c7da@gotenna.com>
-Organization: Lauterbach GmbH
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-unknown-linux-gnu)
+	by smtp.kernel.org (Postfix) with ESMTPS id 806651F0089F;
+	Tue, 10 Nov 2026 13:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794317306;
+	bh=fUWl3obGCUO3NiGQKuqWXiuDxi7JouGoPBYumWeiMf0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=b9jeyRzOzhEF45p5gyS4/IWd0QPb27b/wLqtCDgdhDqgY5aKKzbiicEtmvzNWzYl/
+	 +en+t6IifTecZ3YQ5z6of58zllbxa3cdDtZHldCLdYTu6BH42idNyoQAAo3S/1521i
+	 5B2YGOmsG45dTNSD/0W7Ko4PObIchvKBrsQJLCWwouU2Rayz/jWGKeKRwPlkKUwKRe
+	 0wDgl+3KlB6ZsB3f+ym5jjIanHflDLUA2/Kxqg6ku9VgYm6jRvKvWw4B62NfCBoahj
+	 Zikh33rvOBhp0fWqZIfjLR34TCaZpCs+syi/b0oZLsNR+Vg24cF21ePuBhBUaOPfTv
+	 vB9FfTW5pn1SA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 012B848B66;
+	Tue, 10 Nov 2026 13:28:25 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:28:25 -0600
+Subject: [PATCH v3] staging: octeon: fix OF node and fixed-link leaks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,261 +82,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="MP_/pW_pSM03sPOE5BUUld6eaQX"
-X-Bm-Milter-Handled: 166a2dfb-2e12-4590-8fa5-72e30323519f
-X-Bm-Transport-Timestamp: 1794317286637
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-octeon-of-node-leak-fix-v3-1-9cdd7e1d48fa@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7Zi2pCiuvIdhUcoUGqFjWkI0p
+ He3cgGX7yX//R0SRU8JbtUOkTafPIcC9akCO5kwEvqhMCihGinFBdmuxAHZYeCBcCbzROffeNW
+ 16G1vlBIEZf2KVPRRfnSFJ59Wjp/jaJM/+7+5SZSotNOtdH3bWH0fF+Pns+UFupzzF8XjBrS+A
+ AAA
+X-Change-ID: 20261107-octeon-of-node-leak-fix-8530bcba220e
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794317305; l=1834;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=jl1zaHvHGKs1nPczUORm41xcESZsx9ReVkyvB9xAjJ8=;
+ b=wcq4qyYEf6+zZd6aBylkQJrPRqr6AWFbWWGX6sThGne0nm2+1AkoNb+krQ4VFyS0rh54QeCWz
+ vVnVMZmaWxkDbrQfEthwB27z4oaDKvpe+HA7u19OHwv0vHx3yQXO28T
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 8bit
 
---MP_/pW_pSM03sPOE5BUUld6eaQX
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-Hello Brian,
+Deregister fixed link and put OF node on probe failure and device removal
+to prevent memory leaks.
 
-> Each link enumerates at 480 Mbps and passes traffic, 
-> then drops 2.20-2.23 s after enumeration, and the host's
-> attempts to re-enumerate the device fail.
-
-I have a hypothesis what the problem is:
-USB 2.0 LPM (Low Power Management).
-Please try the attached patch.
-If this helps: That's the origin why you loose the link.
-
-It seems USB344x + DWC3 don't support USB 2.0 LPM in this combination.
-
-Note: This problem only appears when your HOST USB Controller also
-supports USB 2.0 LPM.
-Meaning: Depending on your exact Host PC you might not see this effect.
-Only recent PCs support USB 2.0 LPM; on my PC here only some specific
-USB ports support USB 2.0 LPM. So on my PC it depends to which USB port
-you connect the device to.
-
-
-> Ingo, if your USB3340 board is still to hand, it would help to know
-> whether its high-speed links stay up for more than a few seconds, with
-> and without this change.
-
-Yes this board is very much on hand ;-)
-The high-speed link there stays up indefinitely.
-
-> Not addressed here: on our board the ULPI ID read that a28de6335657 uses
-> to detect the USB3340 fails when no cable is attached at boot, because
-> this PHY only clocks ULPI with VBUS present, so the bit is never set and
-> the port runs at full speed.
-
-At least for my board this is not the case.
-
-I get a completely stable 60Mhz ULPI clock regardless of if 
-VBUS is present or not.
-
-Which of course in turn means the ULPI ID can be read out without
-any problems.
-
-This very likely depends on how exactly you use the USB344x.
-On my board I am using a USB3346 with the circuit described in
-
-https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/00001880A.pdf
-
-Figure 8-1 USB333X DEVICE APPLICATION DIAGRAM
-(CONFIGURED FOR ULPI CLOCK OUTPUT MODE)
-
-What kind of circuit does your board use?
-
-> Fixing that needs a DT property and a binding update, so it is not part of this fix.
-
-That was my original patch proposal: Use a DT property.
-I got push-back on that idea. 
-The auto-detection via using the ULPI ID is a lot nicer.
-Of course this doesn't work if you don't have a stable ULPI CLK signal.
-
-> What matters is when the bit is written, not its value.  Written at the
-> end of dwc3_core_init() instead, GUSB2PHYCFG holds the same value
-> (0x00022710 on this board), and high-speed links on the same board stay
-> up: one ran continuously for over 1000 s with no receive errors, and 60
-> re-enumeration cycles completed without a failure.
-
-Where did the 60 re-enumeration cycles came from?
-If the link "stays up", then why do you get a re-enumeration?
-
-It might have something to do with what happens with the
-ULPI PHY when USB 2.0 LPM gets active.
-When the host looses the link (which should not happen in the first place)
-because of USB 2.0 LPM, then it re-enumerates.
-Depending on where you put the "dwc3_ulpi_setup(dwc);"
-this re-enumeration after link loss (because of USB 2.0 LPM)
-might then work.
-
-But again the link should not be lost in the first place.
-
-with best regards
-  Ingo
-
-
-
-
-
-On Mon, 09 Nov 2026 10:22:31 -0700
-Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org> wrote:
-
-> From: Brian Ellis <brianellis@gotenna.com>
-> 
-> Commit a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed
-> negotiation.") sets GUSB2PHYCFG.XCVRDLY in dwc3_ulpi_setup(), which
-> dwc3_core_init() calls straight after ULPI init.  That is before
-> dwc3_core_get_phy(), dwc3_phy_init(), dwc3_core_soft_reset() and
-> dwc3_phy_power_on(), so the bit is already asserted while the PHY is
-> brought up.
-> 
-> On a ZynqMP board (DWC3 2.90a, peripheral mode) with a USB3340, that
-> ordering breaks high-speed links.  Each link enumerates at 480 Mbps and
-> passes traffic, then drops 2.20-2.23 s after enumeration, and the host's
-> attempts to re-enumerate the device fail.  We measured 12 such links on
-> two host root ports; every one died in that window.
-> 
-> What matters is when the bit is written, not its value.  Written at the
-> end of dwc3_core_init() instead, GUSB2PHYCFG holds the same value
-> (0x00022710 on this board), and high-speed links on the same board stay
-> up: one ran continuously for over 1000 s with no receive errors, and 60
-> re-enumeration cycles completed without a failure.
-> 
-> Move the dwc3_ulpi_setup() call to the end of dwc3_core_init().  The bit
-> is still set well before any high-speed chirp, which only happens when a
-> host enumerates the device.
-> 
-> Fixes: a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed negotiation.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Brian Ellis <brianellis@gotenna.com>
-> ---
-> How this was tested: not on mainline.  The failure and the fix were both
-> measured on our board running AMD's 6.6-based vendor kernel (through
-> ADI's tree), with a28de6335657 backported.  The backport calls
-> dwc3_ulpi_setup() from the same place and differs only in handling a
-> single USB2 port.  The 12 failing links were attached directly to two
-> host root ports.  The 1000 s run was through a hub, on a kernel carrying
-> this change plus five other local dwc3, ULPI and extcon patches.  The 60
-> re-enumeration cycles were direct to two root ports, on a later build
-> with more of our local USB fixes.  On mainline the change is
-> compile-tested only (x86_64 allmodconfig, W=1, no new warnings).
-> 
-> Not established: why the ordering matters.  The outcome follows whether
-> XCVRDLY is asserted before dwc3_phy_init(), not the value written, but
-> we have not identified which step of PHY bring-up is sensitive to it.
-> 
-> Ingo, if your USB3340 board is still to hand, it would help to know
-> whether its high-speed links stay up for more than a few seconds, with
-> and without this change.
-> 
-> Not addressed here: on our board the ULPI ID read that a28de6335657 uses
-> to detect the USB3340 fails when no cable is attached at boot, because
-> this PHY only clocks ULPI with VBUS present, so the bit is never set and
-> the port runs at full speed.  Fixing that needs a DT property and a
-> binding update, so it is not part of this fix.
-> 
-> Tool use: an LLM coding assistant (Claude) helped run the investigation
-> and keep its record, wrote the code change, and drafted this changelog
-> and these notes from that record.  The measurements were taken on our
-> hardware.
-> ---
->  drivers/usb/dwc3/core.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-> index fd5c2cd36c..9b37ceda9a 100644
-> --- a/drivers/usb/dwc3/core.c
-> +++ b/drivers/usb/dwc3/core.c
-> @@ -1371,8 +1371,6 @@ int dwc3_core_init(struct dwc3 *dwc)
->  		dwc->ulpi_ready = true;
->  	}
->  
-> -	dwc3_ulpi_setup(dwc);
-> -
->  	if (!dwc->phys_ready) {
->  		ret = dwc3_core_get_phy(dwc);
->  		if (ret)
-> @@ -1534,6 +1532,9 @@ int dwc3_core_init(struct dwc3 *dwc)
->  		dwc3_writel(dwc, DWC3_GUCTL3, reg);
->  	}
->  
-> +	/* XCVRDLY must not be asserted across PHY init, so set it last. */
-> +	dwc3_ulpi_setup(dwc);
-> +
->  	return 0;
->  
->  err_power_off_phy:
-> 
-> ---
-> base-commit: 3149e8b3237f58d4dd440fc64c45c93404c4b064
-> change-id: 20261109-dwc3-xcvrdly-after-phy-init-509803f4b0c8
-> 
-> Best regards,
-
-
-
--- 
-
--------------------------------------------------------------------------
-Dipl.-Inform.
-Ingo ROHLOFF
-Senior Staff Engineer
-phone +49 8102 9876-142 - ingo.rohloff@lauterbach.com
-
-Lauterbach Engineering GmbH & Co. KG
-Altlaufstrasse 40, 85635 Hoehenkirchen-Siegertsbrunn, GERMANY
-www.lauterbach.com
-
-Registered Office: Hoehenkirchen-Siegertsbrunn, Germany,
-Local Court: Munich, HRA 87406, VAT ID: DE246770537, 
-Managing Directors: Stephan Lauterbach, Dr. Thomas Ullmann
-
--------------------------------------------------------------------------
-
---MP_/pW_pSM03sPOE5BUUld6eaQX
-Content-Type: text/x-patch
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename=0001-usb-gadget-composite-Disable-USB-2.0-LPM-Low-Power-M.patch
-
-From 58bd9ce416687c35ead5245820e42e74dc349018 Mon Sep 17 00:00:00 2001
-From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
-Date: Fri, 28 Aug 2026 19:06:31 +0200
-Subject: [PATCH] usb: gadget: composite: Disable USB 2.0 LPM (Low Power Mode)
-
-Make sure, that the BOS descriptor sent to the host indicates, that there
-is no USB 2.0 LPM support.
-
-Note 1: DONT'T do this via
-   dwc->gadget->lpm_capable = false;  // in dwc3_gadget_init()
-because this would also disable LPM (Low Power Mode) for SuperSpeed; but
-LPM for SuperSpeed seems to work without a problem.
-
-Note 2: USB 2.0 LPM seems to be a mess!
-=> There seem to be LOTs of (SuperSpeed capable) devices which have non
-working USB 2.0 LPM.
-
-Signed-off-by: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
- drivers/usb/gadget/composite.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Oscar Alejandro Sánchez Lucero (1):
+  staging: octeon: fix OF node and fixed-link leaks on error and teardown
+---
+Changes in v3:
+- Rebase into mainline and perform cross compilation validation for MIPS64.
+---
+ drivers/staging/octeon/ethernet.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
-index 1b2238147cfe..59dcf5788f96 100644
---- a/drivers/usb/gadget/composite.c
-+++ b/drivers/usb/gadget/composite.c
-@@ -769,8 +769,10 @@ static int bos_desc(struct usb_composite_dev *cdev)
- 		usb_ext->bLength = USB_DT_USB_EXT_CAP_SIZE;
- 		usb_ext->bDescriptorType = USB_DT_DEVICE_CAPABILITY;
- 		usb_ext->bDevCapabilityType = USB_CAP_TYPE_EXT;
--		usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT |
--							USB_BESL_SUPPORT | besl);
-+//		usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT |
-+//							USB_BESL_SUPPORT | besl);
-+		// No USB 2.0 LPM support whatsoever please!
-+		usb_ext->bmAttributes = 0;
- 	}
+diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
+index 42ec4b8324a8..13df64d3f498 100644
+--- a/drivers/staging/octeon/ethernet.c
++++ b/drivers/staging/octeon/ethernet.c
+@@ -114,6 +114,11 @@ static void cvm_oct_remove_device(int port)
  
- 	/*
+ 		cvm_oct_tx_shutdown_dev(dev);
+ 		unregister_netdev(dev);
++		if (priv->of_node) {
++			if (of_phy_is_fixed_link(priv->of_node))
++				of_phy_deregister_fixed_link(priv->of_node);
++			of_node_put(priv->of_node);
++		}
+ 		free_netdev(dev);
+ 		cvm_oct_device[port] = NULL;
+ 	}
+@@ -919,10 +924,16 @@ static int cvm_oct_probe(struct platform_device *pdev)
+ 			}
+ 
+ 			if (!dev->netdev_ops) {
++				of_node_put(priv->of_node);
+ 				free_netdev(dev);
+ 			} else if (register_netdev(dev) < 0) {
+ 				netdev_err(dev, "Failed to register ethernet device for interface %d, port %d\n",
+ 					   interface, priv->port);
++				if (priv->of_node) {
++					if (of_phy_is_fixed_link(priv->of_node))
++						of_phy_deregister_fixed_link(priv->of_node);
++					of_node_put(priv->of_node);
++				}
+ 				free_netdev(dev);
+ 			} else {
+ 				cvm_oct_device[priv->port] = dev;
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261107-octeon-of-node-leak-fix-8530bcba220e
+
+Best regards,
 -- 
-2.55.0
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
 
---MP_/pW_pSM03sPOE5BUUld6eaQX--
