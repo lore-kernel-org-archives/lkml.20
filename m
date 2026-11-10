@@ -1,73 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350389;
-	b=xJwG8Kms+MWNBrqTcSXqw3aEszw1jkCSK0FWzEcTX1cJO71lKJXse1ij25u4/55ubKF+
-	 JfApTnMLYNPviKiVbiFZayjaKakM7FWB3QEipaWVnMkAhDcQzuokUYQ6HOZPvEhCQGZd0
-	 HERaNw3nrFRkK7ASJyEO6Tn4MdeXOqA8HSeMT7Xb68V1shi3bekc0XWfjcwsa7t3p9dgw
-	 pO2gPLy+48hi8pufILDc00OKESQL5f7sYbhUWID6UkMMCI8U93H9OVljvV19vnX7XU2oH
-	 gHC2mwCvfOnQWbWXuuVuOl4JvabuSOsPi6NwSPHzq+mCjwIcjAvk17gffuPLXBYev9A==
+	t=1794350500;
+	b=lVd8UPX4LHdnFzCWsZntFU3lIUPfE24Y8curULulwtcbxKa5dFicdbo3YM9d3gGG47V3
+	 7pUB8vnaEl3zlfOPekQ+Wfx/2M8Xr/6SJp0W/2J6RQz1op5uYz72r/WZmsDF4Y7vho8mL
+	 kHcOCUNkHX6XAz74nf336bE3FzCb9d8TfU+e2mNXJkygVYaK+5fShj+zzNJFrxAP3Oglk
+	 gAU4V12IOjIupl/4IiQDyG09TMdqS/8FXNGNyhTAVqmzYwuPRLsG9w0K7O2JKWjGq7xoe
+	 BbumZN8INMwa5zXH1ERn3ZaXyXePUwMQGR9UGzFUsd6lKGoFBOsJmm2ciWexJFRMfAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350389;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=a1bHwZlYSD2BW5v3v1BOVUB7uMkjZmsOG9hh7y5BbEg=;
-	b=USDt5stpxF2lM6MNtMmu/ozlVVkejF/zJUbwFh0Le2JtdlGctpGacrp1Yc3CPMVZ+aMX
-	 chFzHRTgVPATeX8Wpm2ZE0LKlcURuYxJv+4VcpFibN6wNQT582nBeQu0JIWdO5jCtVDpx
-	 cQfBsYdZhP4Zz077V+DpCyc09/CW85hH6fHmUyjUNzj7CtV357bWKkRvSebu2OOBwau4e
-	 TFGg/tx5rFluTWc+qk+WVIaD4WppjklwabcW1YWLY0tcvD9Gt/xaZ0a2mucgNzGEewe6q
-	 8WvyZVcfnzBYY9aloXtytF0a3yR2x2KHTcGK08o6D886sE7QmQy3yQ4A10NIC3RvNyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350500;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=NijWXXvdHVUP6AQHOboqPYVhaLdHKiYRLTT2DOKoP9M=;
+	b=xbBO5hsESSK6O4dsHPEiVkYSioA+jn11aL6nfS9NXCOnH234v6YPWl2CotPPC6Cxe1iC
+	 Y73wP53BTnXTUSqQne7XMuyp9R8W6NfdXs82UB/lm/QIS2X6EUclAcn6e/isBE7IApXi9
+	 +meNxhwqzoiDyWrAK5Kly6PfO45p5A0pUSGrEacNBvVpqCQqUQx3vyYY6thnb+aZcPBng
+	 UgX3ymQSf/S6SgBcSO8/nJPUxOeICxULVWaUIbggjew5GPbNPjkgLIPFR6+AC9rRr+cN+
+	 2dHKQdeCh/QQnGwJmmhPJjeXGFUyKklaMszsWiibx0yG6rrieauCf12crwazfEnv/4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YuC5jIUj;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2222606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:39:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2222606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=T6x9htG2;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6B0606A31C;
+	Tue, 10 Nov 2026 22:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YuC5jIUj
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7CA191477;
-	Tue, 10 Nov 2026 14:39:44 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F9B93F85F;
-	Tue, 10 Nov 2026 14:39:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794350387; bh=47N9Y/9hU3S6BEA5zDQDwUZ1lx8KQxi4n7ENHeqP1eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YuC5jIUj1X4tX345MmGh7nc7u+Pc11yyRl68eR0M3uBMl/DcVeFxxAPb9/Dw3+Xz5
-	 ZwcijTHo30ovBbbvqc6VSlBzIHDdw8xsEUIneSa1VBhrB+Fnmb6WFHT9gwCHXMu8b2
-	 jUXE5r1P/97US5vMO/dxrYae/4S1BOV1imprjiyg=
-Date: Tue, 10 Nov 2026 22:39:43 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Rik van Riel <riel@surriel.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-Message-ID: <avOdL2ctoS_2zi0x@e129823.arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
- <7627c0d90188b581e7740bf8d17c8dd07b460f89.camel@surriel.com>
- <avLqwIWHa5CAbHO2@e129823.arm.com>
- <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
- <699499e46ace0875fd0f32052399e665c8209ea9.camel@surriel.com>
- <avN8WISVUF7u4bXl@e129823.arm.com>
- <5db7a358c293393a93984ac3c3cc58e810edd75a.camel@surriel.com>
- <avOMKWJe3wwNb2sW@e129823.arm.com>
- <0ff8276d-9535-449a-94b0-912651411bfe@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=T6x9htG2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=NijWXXvdHVUP6AQHOboqPYVhaLdHKiYRLTT2DOKoP9M=; b=T6x9htG2JWq3vI26F++miy+joo
+	D3sjp0DeI/7GWaX+8eA5RzAUSTl9nuN9EX5FjvzvVdp6p/vup/wUoyEvOMelo/eq2zmyZosuGxKbA
+	X25FIvBqu9Zf4okRNNa8GqlCugPh/kTzkgRCz6Kq/xpH9XkQnEdbZVdJ3NLTRYaYjtwg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQuWx-00Fb2E-5f; Tue, 10 Nov 2026 23:41:31 +0100
+Date: Tue, 10 Nov 2026 23:41:31 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joasantonio108@gmail.com
+Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: usb: smsc75xx: reject frames shorter than the
+ FCS
+Message-ID: <137b3cc5-7077-45d9-8ba3-ea4c584f1992@lunn.ch>
+References: <20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,48 +67,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0ff8276d-9535-449a-94b0-912651411bfe@kernel.org>
+In-Reply-To: <20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com>
 
-On Tue, Nov 10, 2026 at 11:35:25PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/10/26 22:27, Yeoreum Yun wrote:
-> > On Tue, Nov 10, 2026 at 03:23:15PM -0500, Rik van Riel wrote:
-> >> On Tue, 2026-11-10 at 20:19 +0000, Yeoreum Yun wrote:
-> >>>
-> >>> Hmm, Wouldn't this name be semantically much the same as keeping
-> >>> the existing gup_unshared_page(), since both essentially convey that
-> >>> no unsharing is required from GUP's perspective?
-> >>
-> >> The function measures how many pages in
-> >> this current interval do not need to be
-> >> unshared.
-> >>
-> >> I'm happy with any name, though.
-> >>
-> >> I would really like to just see this
-> >> code go in, so I can post my two
-> >> GUP series on top, first the batching
-> >> for the GUP-slow path, and then the
-> >> series that allows access_remote_vm()
-> >> and friends to work under the per-VMA
-> >> lock.
-> > 
-> > @David, If you don't have any strong comments for original name
-> > -- gup_unshared_page(), May I post next version with resolving other
-> > comments so that Rik's series be posted soon?
-> > 
-> > Otherewise, gup_skip_unshare_pages() works for me.
+On Tue, Nov 10, 2026 at 09:03:21AM +0000, Joas Antonio dos Santos via B4 Relay wrote:
+> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 > 
-> Let me think ...
+> smsc75xx_rx_fixup() takes the frame length from the RX command word
+> supplied by the device and strips the FCS by using "size - 4" for the
+> allocation, skb_put() and memcpy() of each frame that is not the last
+> one in the URB.  The length is only checked against an upper bound and
+> against skb->len, so a device can report a length field of 2..5, which
+> gives a size of 0..3 after RXW_PADDING is subtracted.
 > 
-> Maybe just throw in:
+> size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
+> __netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
+> wraps back to a small value and the allocation succeeds.  skb_put()
+> adds the length to the 32-bit skb->tail and skb->len, which also wrap,
+> so the skb_over_panic() check does not fire.  The following memcpy()
+> then tries to copy almost 4 GiB from the URB buffer into that small
+> allocation and writes far beyond it.
 > 
-> 	gup_pages_not_requiring_unshare
+> A malicious or malfunctioning USB device can use this to corrupt
+> kernel memory or crash the machine.
+> 
+> Reject frames that are too short to hold an FCS, as lan78xx_rx() does.
 
-Agree. though name is long, it would be better to explain anyway.
+I assume there is soon going to be another check to ensure the frame
+is big enough to have an ethernet header? Can these checks be
+combined?
 
-Thanks!
-
-
--- 
-Sincerely,
-Yeoreum Yun
+	Andrew
