@@ -1,124 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340044;
-	b=wc9hH7YQYvwMrf7pmRLZMMNaPZdIp5I/aNi5l38BnuW+lRlv5vz8zAP2LXMnqNz4l4t1
-	 b4ROizRi/EhKfd17IKqCJyf1EAL3FJSEk7q7xgg2eltBihgOxgsYIcTbipSCkoGpHv2wM
-	 Lv40BnlP/fISEX1omVcscmRuefeamFvDX2MfLeu9CscmJrl8i8RgmQMkfTjftG9DzbWw0
-	 AeShDdqW2yebUDa01CbvP41c7E9fwmfpyGRuslLFirKmFzIkz0HBbUepZBgNoTxtBuPM7
-	 IFNVm/2Ej7cNMPivDqWQyAfVwFHGk0yfu7Q9q/Rd82gyTsn0tkLucpE5wn/1p6sjEDw==
+	t=1794340131;
+	b=fv+R6o/nPQGia5NQxFFOsvhs7gN9MZudIjczRILYUYwgYKi7z85Sn7u/i7MD/Et9WkFQ
+	 AuKb8pS4QX69mJTHOz74Bj7TS25vA5G6PLTZSWEHm7bCJzyJU+O5iu5Cxc4/Fi3k7pl49
+	 J+1vO71dB76sw9Xn83d24ClXNA4RtEq21v8aDNNQbpXhFMUBJoFEl2YeUyIlI7HKpyTa5
+	 1b2M6rCQG/0jRdqG2xNKaUdv4havamstZEQS3l1G5YbshgDzzVzu81w7vq/LSQBXMJgt9
+	 oZRqw0mcKpL1us0HEWUwh8tG0zZt/iWLlHX2VVIr1qgiR+Bb/0YELnSzW2ySR8FJQZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340044;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-	b=OO6kj/jGUQvBwc6g4h+MkOsfCYrcGLzOVZw/peeIxRzRZmh9K09OpQmCXHQvsQ3e77X8
-	 KlEchd7ZHqXtFtKU5HXIEFhM7rhOIVK3gMCnt7uTJjYrnfeu1U4zCvny5VmpUsSMTNiA5
-	 Mpro6HzHVdxxp1xnU9wTSybDKdCYDcTGn5GnimHcbaIndZKXLC3Lio5UVf6qK1UbvKKyH
-	 DIagXAF+/yoBQGxqR20neu1PHnq5OhrqO9HnCTqE18PI/DnXGT7RNyGIsLPQgZ/eFXTgd
-	 Y3DFAdx6i8K2zsf+9WLkdLQBshXR71gCS29jw+gSfLNvXJ6dIzS81pykBjm37YPJIQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340131;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=FZwsc4vEEFoPSZcA9FrAm9Zjfu5lDJ7Cw08Uku6ESbo=;
+	b=SnSDJc9v1a1YLb6IYJ/9jqQKfI1botjUrZd0RTA/DNe0ACaf/gCUcg8eQFaJ05ySrnmT
+	 OYYH/QgzoMlJJ1Qjr2uDRKmsKOr1hqrdje52E/iJcny6Db4k3BLvSjlpWUzPGwcQqz6ri
+	 adPCG47bm98uNR9bIigGLe+ojnI3YhV4bPGkU/r/zUsEXxcp93cUQlscA+oFU0r+Kabb+
+	 Ep/P9UiNZoWdvgA8BHFBCwEG16rCkH4fB51itabyhQ3fY58mjkT2qSLkJpl/8tlop6hfi
+	 ErtwygswaMzs0AmLWTNb8icDUGJNBq/SZ8hSL/xFRhxuRXYYBTmTIQK2Qs8w6aPuBxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HMQF8SxU;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LlbC0SDd;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="B/ndMjUk";
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571A0606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 571A0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526A5606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 526A5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HMQF8SxU;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LlbC0SDd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794340043;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-	b=HMQF8SxU0DWXo4QjEg2vA3CYXK/35ZhMrGktOsG7GQvG6GI7bITt4JSplTzFoPBl/FX+Hc
-	FLoaiY98GPEO1SC8K5iyfIQK+JE0piLwMg6tYWIj68vVRT5qXVSxfuYSrunx9gDgzoUHxT
-	U7OuP0A0IYhaozIGacJuiL9X6paaqIo=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-W7Gcq6fLOUeQj65kNE-OEQ-1; Tue, 10 Nov 2026 14:47:19 -0500
-X-MC-Unique: W7Gcq6fLOUeQj65kNE-OEQ-1
-X-Mimecast-MFC-AGG-ID: W7Gcq6fLOUeQj65kNE-OEQ_1794340038
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4916bd6e3baso1968280f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:47:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B/ndMjUk
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b15e46698aso1140791a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:48:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794340038; x=1794944838; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-        b=LlbC0SDdRVWh4mfVKJGcz5b2K1ftvVEwGYBArWTbuHzMzf/WlvIaTFqn3TBV0fMdHW
-         IUtbcJZSynNEkxstfl9y8Xw9FB6x8XZy3ZL4ueoM+AOvSiPzyJw2AyaQ53hiXbSwjO5n
-         DfF/YJJej+qDZYCASm9EKgkM/rEC6Q6FKfh1wb8FKCMHL8MlPNlXOoH0DKCapBIxUN8c
-         PxtPyNUHRKaSNw8eocImUNNnqMgAMkw6iZYVKWAgi+V6ihSZ8wKg6kMeALRagobSk7wE
-         XrgBjXNXzgRTleufl4Xyrl3ORlMUmgkXwSwrQb+Amt1D9BGvERr+shOhs6oBi1X0wSlr
-         g0zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340038; x=1794944838;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1794340129; x=1794944929; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-        b=sQVrCUFJXM8Ry7ntFQZjljMx7DKqGQrMfrWSRGhWseKr4g2CQ2lEMWOKmTPiorLIZy
-         93OcykpyAvp/MvwvjBQp2VVr2xwFjMTrHL9pYCjieDEG9eO5KnIj9cbFAuwGdQzvyLL7
-         B28/DxSGMLUd8Q7ek0t3ff5NP4xOH6GG25LaY/aRRvfg0YiWflHVWK5Gv2ucXAj3Yy2/
-         DRO5DP42B2DaJfT39U4Yp9kf3XpKlG5HvfHSffM7MoI7SBMx9srDCwWD15OwlCB3jHCI
-         Ofb5QBaeKxpxjy60UjTxwXfr8JP+B2tvdzqHaB1n3pPLPwNcCjGYVdmndaYLBoUJa2iL
-         7qmw==
-X-Forwarded-Encrypted: i=1; AL+hErEPVKAv8jxEI6wX+cnoykj3jCgjU/OmVbJzat9vPDtH9Rf0RHcXFB19+rNfCKY2fN1w+z3VHEG9DiDvyI0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hpb+K4FgN9wm9U8hjeMimOA/eLIivTaFRsKOH7xqGGdKvkNfc
-	jKSuVXt/KZtNz+VjrnnDZKoknX/lzVQ+T1GMV3t9ZjgMiiqn0GAM0crLy4IjtAg6yfRk2csbRE+
-	YSYOXo1NRgVKTHSxvmzTAmQkirCNePMzrXTpQBFMizOy80h7GI/KOF+KGmky5Q79yQQ==
-X-Gm-Gg: AYBFou0ukvafY7trXQMMqDwNL1K/ccgsKzl4e8SGMVYZHRF6JBF79nGbGXpI4qtMrE0
-	9ioyYM6smpx5ySOsgx1Jsy0Gbr9IA45o8dcgs/skHSDdm/4RUaFmZ5raYMOAsENbwDf6075HB5Q
-	yfkMtK0VK7aJnBD9iAZ0fI1sPD+9kLgBzCj8dJ7gyDFUJkB5KQoAvz2XDexcD+S/vgOeN0pRfJL
-	hW1cZR1BOHQWcMnCznwRuq7X4Hgfs6MoIGk3/bxLhgQ2oWhkvxIKAxS1K/aJXg5XQt/HLT53WMc
-	1U/X8gYhz1OmKjK+qJXGrhiJEVnYU8bCsHjg3xorKniZvzIf5LdO/2Cd1foyJ8mJwQmUsw2rerG
-	Rom/HoLuBho/5kyUnieecIP8kXRIt7Qxv+zhYaN3o0HOCpZ39AO/NdXHvg3p6zxAx2++7ojEFQ7
-	63S2E=
-X-Received: by 2002:a05:6000:2dc1:b0:497:bd30:8e39 with SMTP id ffacd0b85a97d-498304e5dd4mr6728831f8f.44.1794340038308;
-        Tue, 10 Nov 2026 11:47:18 -0800 (PST)
-X-Received: by 2002:a05:6000:2dc1:b0:497:bd30:8e39 with SMTP id ffacd0b85a97d-498304e5dd4mr6728770f8f.44.1794340037803;
-        Tue, 10 Nov 2026 11:47:17 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836a9951csm6505110f8f.56.2026.11.10.11.47.15
+        bh=FZwsc4vEEFoPSZcA9FrAm9Zjfu5lDJ7Cw08Uku6ESbo=;
+        b=B/ndMjUkDcWvqgfXf/+6/0AGo1TpdEndEdCmBQ8h1vAuWWvvCMRma5AyfOceO1F01v
+         SzxOYObtpP5oDROrkYzfV31IBR0ADwxP8XnnFfsDAXtNgNZGQUf3YtkjnHbaF9htkxmO
+         +3WVSmPyi5iuXYjJa7jVHF8SI+Dc0P4PfmVcZLkNmXtMU6Wdw6Rmm5sX1LtopkncN6AB
+         MSD6Ps371FgU0uojCT59IBgVsMdpn3dHOGOnnv0Uhc+UgXLlFuU8ByTIVeD+cG2x+FMa
+         9BRDmV3EGwfRDPDDWVEkEScrkMod3M+q5T9KICPXs0XhWnJYuLWw/UNSc4FbENLKjJcx
+         dcYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794340129; x=1794944929;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FZwsc4vEEFoPSZcA9FrAm9Zjfu5lDJ7Cw08Uku6ESbo=;
+        b=mmX0Hx4wMsHqfcgtsLRrzATGSfkMxjMbi1bH6r1jnspqfHkHWGIQhTQK6KwTLR8bJU
+         WSC3WoxRL5Z77NlWdNm46GPP9rZMuPME4woYL3wxrk0OI9AJsQ5LcvPGvVcjeuVWHsux
+         qM2X+zOcx9s8K851fD3XVAyCh7qXicMOjP8wQIfyeAiobowTGq1vXOAQLmWbV71432A/
+         wv4zEoH6FqMJWMlteavpWuT7ZwVXE6GbP1w8qcm2QiTpBj6YWjhyys8LOGSmXuMdC9mN
+         N9C+1VTetBbixDm0TCBV7XgmuKtVZaXVocAfE2yDuZqhZZS7fVwQZ1KqMXpGQGWgpDmJ
+         9OYg==
+X-Forwarded-Encrypted: i=1; AL+hErHI736+SqcaSb7xdBfgr0K3F0Oxp526/JAe1bkqI3y8w633OwIptVBjSp4py7VZ4hqUPFEDc99cDb9yGYw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JIYDM9+bkY5DGDFx8r+nwDhGzY3UaD2jxiy5/r7bpsynnTTKf
+	01JP7LG3hA13KYY+H3Hu65O/2TQ71eNg8AFaU3IllrWwqnAX+pXtrLb9Qp12fkAzFfw=
+X-Gm-Gg: AYBFou3er+tvrb6gKaqPch6eCeoBQUNGPlRuKq8OUAaEK5LnGRjLAawpTezrxD7NvJo
+	3uysqHLmUHfoGWPTOsMnUnyttF/POFEBV32p/O8Rx+hdLvly40yp0A6FCISywTZy/gw+Y1NTg+R
+	Soi9D5L9IyWro+vluxMBtq8dM2ECaiIXC+++Gx2zFaOsbc3Dlrgt/PkmRzdrDrTQUNRI9rrbNtP
+	hZiysw74NNW6zb2OQccLrJQhbj20FpkuJdHf3oa1esuwXUD6P8U9XMAZH+hyE2fku3TpnpCRKZ/
+	L1HI2pcW5jtoaJ3fhmlVnpPgOTJsy7dTCSp8y7fruZ7+uTpyitp4QWIXY7s///KldD4furr/2/9
+	lSXEPgzO8REJlj3O5p3OqT0wOhJbSIQF7E9ejkE2nU3n2BkNTgiKee0CU8MH0NchOZfCsU0We2R
+	Qxd/GNC+cUN17ocLtR6oUYFyp0LlHIRtLDFNbfx2jkM99d/YGzRv8yjhS1E6Cn3vpwbJJWtXXMh
+	wR2E1P9UTORa1s+LTdfBuwlwxEZRfD3Vq45D4TMpBrVb+gveCtxZ8XoqJTzAEge98SISWJHkKUX
+	e04mrjBz+g==
+X-Received: by 2002:a17:90b:33c6:b0:3b0:9e2c:9b61 with SMTP id 98e67ed59e1d1-3b182ee21e0mr8597a91.35.1794340129433;
+        Tue, 10 Nov 2026 11:48:49 -0800 (PST)
+Received: from localhost ([97.126.173.69])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b17dfb9827sm995022a91.1.2026.11.10.11.48.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:47:17 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:47:14 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 11/29] sched/deadline: Release the bandwidth of a task
- that leaves the class asleep
-Message-ID: <avN0wpOY2zoRnK8q@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-12-mathieu.desnoyers@efficios.com>
+        Tue, 10 Nov 2026 11:48:48 -0800 (PST)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Andreas Kemnade <andreas@kemnade.info>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Russell King <linux@armlinux.org.uk>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, absicsz@gmail.com
+Subject: Re: [PATCH 1/2] ARM: omap: cpuidle34xx: balance cpu_pm_enter/exit()
+In-Reply-To: <20261028212302.75ec622e@kemnade.info>
+References: <20261028-susp2-v1-0-174b52857d89@kemnade.info>
+ <20261028-susp2-v1-1-174b52857d89@kemnade.info>
+ <20261028212302.75ec622e@kemnade.info>
+Date: Tue, 10 Nov 2026 11:48:47 -0800
+Message-ID: <7ha4ngv55s.fsf@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,196 +100,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-12-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain
 
-Hello,
+Andreas Kemnade <andreas@kemnade.info> writes:
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> A task that leaves SCHED_DEADLINE while it is not queued can keep its
-> bandwidth in total_bw until the next rebuild of the root domains.
-> Repeated, this fills total_bw up to the admission limit. Then
-> sched_setattr(SCHED_DEADLINE) and CPU offlining fail with EBUSY.
-> 
-> A task that leaves the class keeps its bandwidth until its 0-lag time.
-> Releasing it earlier would allow temporary overloads. For a queued task,
-> switched_from_dl() calls task_non_contending(). It releases the
-> bandwidth if the 0-lag time is past. Otherwise it arms the inactive
-> timer, which releases it then. For a task that is not queued,
-> switched_from_dl() relies on the timer armed when the task blocked.
-> 
-> But that timer is not always armed. The task may have blocked after its
-> 0-lag time. Or the timer fired while the task was still in the class,
-> and only removed running_bw. Then nothing releases total_bw. The timer
-> is also cancelled before the 0-lag time when the task wakes up on
-> another CPU, or comes back to the class asleep.
-> 
-> Fix this in switched_from_dl(), for a task that is not queued and has no
-> timer pending. If the 0-lag time is ahead, arm the timer. If it is past,
-> release the bandwidth now. Then clear the parameters, as
-> inactive_task_timer() does, so that no later path releases the bandwidth
-> again. A timer handler that already started finds a dl_bw of 0. The
-> deboost of a later priority inheritance boost finds no parameters. Since
-> "sched/deadline: Take a deadline boost from the waiter's rt_mutex node",
-> a boost that the task gives as a waiter does not read them.
-> 
-> Juri Lelli's first fix, since dropped from tip, released the bandwidth
-> here without clearing dl_bw. The bandwidth of a boosted task was then
-> released twice.
-> 
-> The Sashiko AI review of the third posting found the two cases with the
-> 0-lag time ahead. deadline_bw_test, added later in this series, tests
-> this in pi_former_owner_asleep and deboost_released_resets_period.
-> 
-> Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-2-dd761fe005b4@redhat.com/
-> Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-> Reported-by: Tejun Heo <tj@kernel.org>
-> Closes: https://lore.kernel.org/all/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->  kernel/sched/deadline.c | 98 ++++++++++++++++++++++++++++++++++-------
->  1 file changed, 81 insertions(+), 17 deletions(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index e6c55afcfd01..d5d0f87d3a94 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -403,6 +403,23 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
->  
->  static void __dl_clear_params(struct sched_dl_entity *dl_se);
->  
-> +/*
-> + * Return the 0-lag time of @dl_se, relative to the clock of its runqueue.
-> + * After @dl_se blocks or leaves the class, its utilization counts until
-> + * that time.
-> + */
-> +static s64 dl_zero_lag(struct sched_dl_entity *dl_se)
-> +{
-> +	struct rq *rq = rq_of_dl_se(dl_se);
-> +
-> +	/*
-> +	 * Using relative times instead of the absolute "0-lag time"
-> +	 * allows to simplify the code
-> +	 */
-> +	return dl_se->deadline - rq_clock(rq) -
-> +	       div64_long((dl_se->runtime * dl_se->dl_period), dl_se->dl_runtime);
-> +}
-> +
->  /*
->   * The utilization of a task cannot be immediately removed from
->   * the rq active utilization (running_bw) when the task blocks.
-> @@ -476,15 +493,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
->  
->  	WARN_ON(dl_se->dl_non_contending);
->  
-> -	zerolag_time = dl_se->deadline -
-> -		 div64_long((dl_se->runtime * dl_se->dl_period),
-> -			dl_se->dl_runtime);
-> -
-> -	/*
-> -	 * Using relative times instead of the absolute "0-lag time"
-> -	 * allows to simplify the code
-> -	 */
-> -	zerolag_time -= rq_clock(rq);
-> +	zerolag_time = dl_zero_lag(dl_se);
->  
->  	/*
->  	 * If the "0-lag time" already passed, decrease the active
-> @@ -3606,15 +3615,69 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
->  	dec_dl_tasks_cs(p);
->  
->  	if (!task_on_rq_queued(p)) {
-> -		/*
-> -		 * Inactive timer is armed. However, p is leaving DEADLINE and
-> -		 * might migrate away from this rq while continuing to run on
-> -		 * some other class. We need to remove its contribution from
-> -		 * this rq running_bw now, or sub_rq_bw (below) will complain.
-> -		 */
-> -		if (p->dl.dl_non_contending)
-> +		bool released = false;
-> +
-> +		if (p->dl.dl_non_contending) {
-> +			/*
-> +			 * Inactive timer is armed. However, p is leaving
-> +			 * DEADLINE and might migrate away from this rq while
-> +			 * continuing to run on some other class. We need to
-> +			 * remove its contribution from this rq running_bw now,
-> +			 * or sub_rq_bw (below) will complain.
-> +			 *
-> +			 * inactive_task_timer() will find !dl_task(p) and
-> +			 * release total_bw via __dl_sub().
-> +			 */
->  			sub_running_bw(&p->dl, &rq->dl);
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl) &&
-> +			   dl_zero_lag(&p->dl) >= 0 &&
-> +			   !hrtimer_active(&p->dl.inactive_timer)) {
-> +			/*
-> +			 * No inactive timer is armed, but the 0-lag time is
-> +			 * ahead. Either the task is waking up on another CPU,
-> +			 * and migrate_task_rq_dl() cancelled the timer. Or it
-> +			 * came back to the class asleep, and switched_to_dl()
-> +			 * cancelled it. Arm the timer, as for a queued task.
-> +			 * Its handler finds the task out of the class and
-> +			 * releases total_bw. running_bw is already off this
-> +			 * runqueue, or was never on it.
-> +			 */
-> +			task_non_contending(&p->dl, false);
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
-> +			/*
-> +			 * No inactive timer is armed, and the 0-lag time is
-> +			 * past. Either the task never ran in the class, or it
-> +			 * blocked after its 0-lag time. Or the timer fired
-> +			 * while the task was still in the class. Nothing else
-> +			 * releases total_bw, so release it now.
-> +			 *
-> +			 * A timer whose handler already runs also leads here,
-> +			 * since hrtimer_active() is true. The handler waits
-> +			 * for the runqueue lock, then finds a dl_bw of 0,
-> +			 * cleared below.
-> +			 *
-> +			 * A task deboosted from priority inheritance, with no
-> +			 * parameters of its own, has no bandwidth in total_bw.
-> +			 * Neither has a special task.
-> +			 */
-> +			struct dl_bw *dl_b = dl_bw_of(task_cpu(p));
-> +
-> +			raw_spin_lock(&dl_b->lock);
-> +			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
-> +			raw_spin_unlock(&dl_b->lock);
-> +			released = true;
-> +		}
->  		sub_rq_bw(&p->dl, &rq->dl);
-> +		/*
-> +		 * Clear the parameters too, as inactive_task_timer() does at
-> +		 * the 0-lag time. Then no later path releases the bandwidth
-> +		 * again. A later priority inheritance boost sees a task with no
-> +		 * parameters of its own. task_contending() and
-> +		 * task_non_contending() skip it, and its deboost releases
-> +		 * nothing.
-> +		 */
-> +		if (released)
-> +			__dl_clear_params(&p->dl);
+> On Wed, 28 Oct 2026 20:15:11 +0100
+> Andreas Kemnade <andreas@kemnade.info> wrote:
+>
+>> These calls are usually done in a balanced way, so allow notifiers to
+>> assume that these calls are balanced under all circumstances.
+>> Seen some spurios vfp issues probably connected to this.
+>> 
+>> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+>
+> Looked again at some discussions with Sicelo testing such things:
+> He had observed a NEON off count 1 but MPU 0 in /sys/kernel/debug/pm_debug/count.
+> Probably more involved, but lets not freak out things here.
+> So that is definitively a real problem fixed by this. vfp_pm_resume()
+> would not be called to restore the state without a patch like this.
+>
+> So this is
+>
+> Fixes: 1cd96478cf150 ("ARM: OMAP3xxx: CPUIdle: optimize __omap3_enter_idle()")
 
-The fix looks right, but I wondered if we can condense a bit the above
-if-else tree. It's essantially doing what task_non_contending() does
-already (special and non-DL tasks checks included)?
+Even with this fix, I found on OMAP3 (beagle and beagle-xm) that there
+are still intermittent failures, and the NEON vs. MPU count mismatch was
+a good indicator to dig a little deeper.
 
-What about something like
+I think the fix here is to add the neon_clkdm -> mpu_clkdm wakeup
+dependency before the clockdomains are allowed to idle.  Otherwise NEON
+could idle immediately.
 
-     if (!task_on_rq_queued(p)) {
-         if (p->dl.dl_non_contending)
-           sub_running_bw(&p->dl, &rq->dl);
-         sub_rq_bw(&p->dl, &rq->dl);
+With the patch below, I don't see any intermittent VFP crashes anymore
+with early testing.
 
-         if (!p->dl.dl_non_contending)
-           task_non_contending(&p->dl, false);
-    }
+I'm still doing a few more tests, but will sent a proper patch with
+changelog after some more testing.
 
-I ran the same collapse on top of the series and it passed the selftests
-with LOCKDEP w/o warnings.
+Kevin
 
-Thanks,
-Juri
+
+diff --git a/arch/arm/mach-omap2/pm34xx.c b/arch/arm/mach-omap2/pm34xx.c
+index 9992549c7336..d11967c2f4bf 100644
+--- a/arch/arm/mach-omap2/pm34xx.c
++++ b/arch/arm/mach-omap2/pm34xx.c
+@@ -510,6 +510,20 @@ int __init omap3_pm_init(void)
+ 		goto err3;
+ 	}
+ 
++	neon_clkdm = clkdm_lookup("neon_clkdm");
++	mpu_clkdm = clkdm_lookup("mpu_clkdm");
++	per_clkdm = clkdm_lookup("per_clkdm");
++	wkup_clkdm = clkdm_lookup("wkup_clkdm");
++
++	/*
++	 * Add the NEON wakeup dependency on the MPU before the clockdomains
++	 * are allowed to idle: once pwrdms_setup() has programmed NEON's next
++	 * state to OFF/RET, an idle NEON clockdomain otherwise lets NEON power
++	 * down while the MPU keeps running, and VFP instructions then trap as
++	 * undefined until NEON is woken.
++	 */
++	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
++
+ 	(void) clkdm_for_each(omap_pm_clkdms_setup, NULL);
+ 
+ 	mpu_pwrdm = pwrdm_lookup("mpu_pwrdm");
+@@ -523,11 +537,6 @@ int __init omap3_pm_init(void)
+ 	per_pwrdm = pwrdm_lookup("per_pwrdm");
+ 	core_pwrdm = pwrdm_lookup("core_pwrdm");
+ 
+-	neon_clkdm = clkdm_lookup("neon_clkdm");
+-	mpu_clkdm = clkdm_lookup("mpu_clkdm");
+-	per_clkdm = clkdm_lookup("per_clkdm");
+-	wkup_clkdm = clkdm_lookup("wkup_clkdm");
+-
+ 	omap_common_suspend_init(omap3_pm_suspend);
+ 
+ 	arm_pm_idle = omap3_pm_idle;
+@@ -562,7 +571,6 @@ int __init omap3_pm_init(void)
+ 	if (IS_PM34XX_ERRATUM(PM_PER_MEMORIES_ERRATUM_i582))
+ 		clkdm_add_wkdep(per_clkdm, wkup_clkdm);
+ 
+-	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
+ 	if (omap_type() != OMAP2_DEVICE_TYPE_GP) {
+ 		omap3_secure_ram_storage =
+ 			kmalloc(OMAP3_SAVE_SECURE_RAM_SZ, GFP_KERNEL);
+
 
