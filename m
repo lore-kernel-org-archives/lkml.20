@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.253
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287015;
-	b=GvLEId/FEAG47NvetrGtH1L0t+D4bJn2Li5wFPjk0SeyJXBgF/ZG/SMn9sXS2RMbntqh
-	 1jEk3mXFPwinT1eU3ssJ+Mm3l3v24WLwANta2+nPe72Li0gLS4k2FTlEjomFfbbE/bfsy
-	 FMsKPf8pstTFVU9o6SaR086BtfqWcrNwraJEyPaIUgAHKcGJq2l+v26V/y/HoUisYXQCa
-	 q45jQDkYRajZBz5bak5gD2CZJTxxcprixpfcmxgGvrEWaFpgNvtLC28xALYSSYku6M8pC
-	 uc8rNOps72Law9gooeuBziW6HCkZY7c/0ScBJC22RFon3sVqFIoLfLEijiw3LLB3TgQ==
+	t=1794287021;
+	b=0XgIRjFIlSPtyvpQjKsme5js/SjX6CdGY+9kZdAqlFXl/sfnNZajtQrCdeHdlND0hy6I
+	 Cjlj3QapF8GL8eLcw0lcIv3pyNfXQ6+Lusa/G4MD1+pZtmhViMdpEAIn7GfXTsdzG/czT
+	 8iiwo5hdbgmLdH5XC8VNSOAU7L51y2+mVLMCKz/OJb+wzxiHez6E/4hmosGy4E90xcj21
+	 dCO5BeRk/zOMHQ2A9DXfvpt754eaG7hw9bkPD0+g3AYQF80qZEonwGEq2lYY2YKeNcijr
+	 Ui5JLoH+Tf15WUVcg8/KlYC9PmiMlsF+PzzEdFidO5nvw3N2NGSOxJMzifvH9pxEcgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287021;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sgTYq8Z+zb/9G+ukAwbTsP6zjarbUmQuFNjBPBC3j9g=;
-	b=3ez4E5DH34p3mXY9Rj/BVczt4jEEO/XXVKWAmdALTapULZD1bzkEXlFpEH294mmy3ypn
-	 sYWBDmyuomQlPUUOjuq2HrwPcqkuEg945hCDR8efaaUmXnTahSMXFwhhxtzPkWweUharc
-	 vXAZZ97Y4PH6htmzYj/z3+BF9nBIwW/LT04ULO+k5BJcatsl8sTK00RB6wYgKhsM7SgwL
-	 qbPq5rjZgtS0HGBI8cACl/MhmAEvsXxEB0L4iiqwJ2iWNHHa9Kussa+9B++uKpmvib94r
-	 0t7x3xnifmVoYBbL8PEhtaql59EwjG+FIYRpJhsbEt97AUxVXLLZJAHFVKRs7/39FXQ==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=W1sxioC7CMROvx/r1UAJHDcZA5UE9rSvFPDNj6JhOK4=;
+	b=yBsnmNbbmrXIKn5OOeVqMG2SvciXQzFUr82TWoyz9epb2AuBOa+g95OuoSYgolNdaPvb
+	 c68dcIniGe69cXky4++kpf4FpO1AQ3+dWEdeTwf+6QCbkd39U4kT3UXqTjlZrMlS+I6cK
+	 +Ml9KueiOLSBP+BzLlHH0f3gZBxC/d2SngbpvLeu49W/DFN8q4P8Qs7LMxG+o8P3bYI9Z
+	 +c37rtn47xuiHXIFXH5dM0rK6cnh1ZZ/s7p0FYXCgdDEZ1euKOmeFExTH8Du6Q047ql+M
+	 y28gIL1U8i96VWdRPr5NfQgQrsLuS7o6ujqK93l1pkUIDpwcVQTFGTmRWQGsTROs49A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cZcfx0qV;
-	arc=none smtp.remote-ip=91.218.175.253
-Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dWImxHsR;
+	arc=none smtp.remote-ip=95.215.58.161
+Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CCC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CCC606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11A2606B090
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:03:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D11A2606B090
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cZcfx0qV
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dWImxHsR
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sgTYq8Z+zb/9G+ukAwbTsP6zjarbUmQuFNjBPBC3j9g=;
+DKIM-Signature: a=rsa-sha256; bh=Qr6efF4jJpI/9qmyxgdFUkjEvcMPZqgHpk0hHki1Z4s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794287009; v=1; x=1794891809;
- b=cZcfx0qV+dEpYe5WAWec+0Thjmeu1uV8oS+V7CwBHB4AtgUChUF3rz6lKiYVoSLBYxPlCar8
- 3EWvGHiIr85WGyV8BIp+vwsKz1t4oarkSXh8yT8MTeEMwZtibquZbVKJjUKrJ8xK0YlXnuAHkC4
- HGy1b1iOnTl5iarO6BKfOl1A=
+ t=1794287018; v=1; x=1794891818;
+ b=dWImxHsRkvJSoxPLXq54ffkl6WuZS5XUWVPOZ9/+1MKChgY0A/oSEyuWT3WLSoZBd56cLDxQ
+ f5kCmEqx47WrbHA+RoiWrhSdgLJWfyP7+CmHo4RK/msQnBQlx2OMHP6bCIEiS/8+LauFLtQCOog
+ ZrZWCS4z1SvDM5oCSoX657i8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 77ffe16c7a4271bf;
-	Tue, 10 Nov 2026 05:03:29 +0000
-X-Mizu-Trace-ID: 77ffe16c7a4271bf
+Received: by smtp.migadu.com with ESMTPS id 2b2d84358f04e1ee;
+	Tue, 10 Nov 2026 05:03:37 +0000
+X-Mizu-Trace-ID: 2b2d84358f04e1ee
 X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	ljs@kernel.org,
-	muchun.song@linux.dev,
-	lance.yang@linux.dev,
-	ridong.chen@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU) update
-Date: Tue, 10 Nov 2026 13:03:23 +0800
-Message-ID: <20261110050323.88803-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-References: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Tejun Heo <tj@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v3 0/3] cgroup/cpuset: Keep the top scheduling domain populated
+Date: Tue, 10 Nov 2026 13:03:21 +0800
+Message-ID: <20261110050324.173461-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,24 +72,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-On Mon, Nov 09, 2026 at 07:31:53PM +0100, David Hildenbrand (Arm) wrote:
->MGLRU is currently the only MM component without a dedicated component
->maintainer. Fortunately, Kairui and Barry have been actively
->contributing to MGLRU and have volunteered to take on more responsibility
->by officially taking care of it.
->
->Given that Kairui is already an established MM component maintainer in
->a related MM component (SWAP), add him as an MGLRU maintainer right away.
->
->For Barry, the idea is to transition him towards a component maintainer
->role over the coming months, starting by moving him to the top of the
->reviewer list.
->
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Boot-isolated CPUs stay in top_cpuset.effective_cpus, but are excluded
+from its scheduling domain. Allocating all boot domain housekeeping CPUs
+to partitions can therefore leave the top scheduling domain empty even
+though effective_cpus is nonempty, leading to warnings and an OOPS in
+build_perf_domains(). CPU hotplug can reach the same state.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+The patches are ordered as follows:
+
+  1. Check local and remote partition creation and CPU mask updates.
+  2. Allow top-level partition CPU replacements that return CPUs to the
+     parent in the same update.
+  3. Handle CPU hotplug and preserve partitions that cannot return an
+     active boot domain housekeeping CPU.
+
+Changes since v2:
+  Keep patch 1's kernel changes unchanged. Update its selftests following
+  Longman's and Sashiko's comments and cover recovery with a single
+  top-level HK CPU. Add patch 2 to fix the CPU replacement rejection
+  reported by Sashiko, with its own regression test. Update the hotplug
+  fix, now patch 3, to avoid invalidating unrelated partitions, including
+  partitions whose boot housekeeping CPUs are all offline. Drop v2's
+  isolated CPU cleanup patch in favor of Ridong's fix:
+  https://lore.kernel.org/all/20261107120100.3587595-4-ridong.chen@linux.dev/
+
+  v2: https://lore.kernel.org/all/20261105130344.664336-1-guopeng.zhang@linux.dev/
+
+Changes since v1:
+  Rework the fix following Ridong's suggestion and add test cases.
+  Add patch 2 for CPU hotplug and patch 3 for isolated CPU cleanup
+  when the parent partition becomes invalid.
+
+  v1: https://lore.kernel.org/all/20261104071600.474587-1-guopeng.zhang@linux.dev/
+
+Guopeng Zhang (3):
+  cgroup/cpuset: Reject updates that empty the top sched domain
+  cgroup/cpuset: Allow top-level partition CPU replacement
+  cgroup/cpuset: Keep the top sched domain non-empty on CPU hotplug
+
+ kernel/cgroup/cpuset.c                        | 75 +++++++++++++++++--
+ .../selftests/cgroup/test_cpuset_prs.sh       | 68 +++++++++++++++++
+ 2 files changed, 137 insertions(+), 6 deletions(-)
+
+-- 
+2.43.0
+
