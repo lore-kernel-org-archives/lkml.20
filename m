@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325380;
-	b=u4NtPKZdcpL0hbDUjzDZZzv6+lTUKsqCNxBSmeq9n3iyRAz7tbfcsha2lk/6E+Bn4svo
-	 3nL+752TbrPuFyIUWwIzAY0xobnjCgC7KH6GInxRd54ShXs2rUygA6VUkoZPI7B3/bJs7
-	 H/DobOg02RpXcsB4LloY6iWuQJ/OcRd4yOY2em4ibypmjvbgWzcywN+Px6USkx0la+RQ3
-	 bqqKRsRYACkflQ3kKytUUkGws5Cn1O6VIk5TLpD/8zAxW7pYbqu/kRFoHlkcvzavpP7rD
-	 ET73G5yqKip84+osTqsgXZPuO15R4V2aWMluqlnDxloaIQPx3J01b0ouiUogQEsoVDw==
+	t=1794325382;
+	b=POA56lf53SolV/XJh+w8gUlUJbvwd/+p1sXiN3mwkfpnozaSVMEP+VtaeLhC/0oIwmvr
+	 RaL0uLFqmLz3eRUItCfQyLEb+LO5uqXULRIM3hN4zHa6haCd72juEVJ2uefsFWI0XqCxZ
+	 POi210KoeUxKwrP71fh3qUXAwXauoqV3klR/Si00kVDVdGGfljekUOc8WAcu88pF7QNzX
+	 X+EcZTpp8MGVoIq9CpoDBYbwXzvt4oHpmhy15O2TjHv1G2G4yTqKIq96jMz6pQOMOAGN3
+	 DLNMS6Rt7aZmdzcQnWOFoy+9zg/rY873/ldbUqC7KUr9u0BWfolCcyxli6x6yMSPUKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325382;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4jRjHl81EF7Up+etusJDBfF6O2vx8cD/qRLceIcvSnE=;
-	b=qQ0PW9/m2xdE2YYfr7+k6nWo11b97KqjDZc28j3QnTLIxRE/kHNMMAtOkp7ZexIV5aoN
-	 swQJuRQTfaGltubUJdflz6u4NcDVQ0wxTmpsAYEQvEViQEzPfMxpziUQ84v+X4KOeeSFq
-	 OAg0m3qHg7OugdxvWUCFPV6OQoZ2gwA70By3vUAtvXFvkvkX1J8e/mtVK75oXDtZrwTVl
-	 8Yb2ZkVSO1XFPz1aPaj55Na5KGPMv1yOoLjcYt0WMHFbJ4O0BZt94O4vAWPHazibczTj7
-	 P5d2se17Cpfonl1l9iWmPIPF20Z+zh7w7zVCDPZODj3VFqcuRJ9cOCBgoVN9orLpsJA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lXiFw4Dd7FvHs44ojLdvo5R3mFdiF36N0TFZ4+8H/44=;
+	b=xUK3AFudQsjhjw/kjsFKqYfHMHlC3/jqRKki6XXqKYwAj5g91kOZvUaRhA4v6thYHGZn
+	 z0ZFRzKE9myWHUsMof4lPy/jSuug8ELTwMDyfC3jFj4wLabxRzhOEXjaKp/KOGZ8pRB2N
+	 fHAwBs6nLKoSD+2tzzesFWseqfKhD+97hhGKNPHA0AhbfOEkuq5cyljvpf7Vu5CpFjkFw
+	 rblJ0avvEODbzYpTbO+41W6LhY/vBzfgKuyyD0psaRCjUgjabaskx5eb3jcj5c2aSJYd3
+	 +WlQ+iodMa+mSwS2o5iQP5zsg04HvTKei8K7N2+PLninpFQ7ZHf4502VNXDCml1Q63A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l5AEAHyv;
-	arc=none smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a2QuhtcD;
+	arc=none smtp.remote-ip=209.85.208.173
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D042F606A33E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D042F606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0B6606D769
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C0B6606D769
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l5AEAHyv
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a49a022221so19006701fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:42:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a2QuhtcD
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ada7d53082so23991091fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:43:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794325378; x=1794930178; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4jRjHl81EF7Up+etusJDBfF6O2vx8cD/qRLceIcvSnE=;
-        b=l5AEAHyv8z+xulJVwemyoKO1nMLJoW+0E/Ca3zvhcOYCWcwLTpnla9Us4ZMoYZhRwt
-         7D/Bt7S60gk5MjmfbWwFBma7zl4e+M+3SeYfldkBWxgY+g9v6lgfKF+FfeyoxMsIp17i
-         IX+nH54etlVjQl5/and1ir8fTJVCeTVV5MXnQRsjxDf5vW+iKaIqR4uAhRhOWKChdmX+
-         Iyntsj6tex8XP0yk5L1n1DblWV7pVcDQ2YEjjhsTrv/VibzeLYiZg1MFsZMMNJXSi3qF
-         nA3wkyWxZBeQtkT+OBHdxH3R5nFzWx+LojB6FzA/xmcP0V4jUdPA7Ka8EqIdYoevtyho
-         xE+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325378; x=1794930178;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794325380; x=1794930180; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4jRjHl81EF7Up+etusJDBfF6O2vx8cD/qRLceIcvSnE=;
-        b=s3Af8LAkUyW/MM6PVcdPgyNLB5EpZs96zXk6cZgD4bTPnrj4To7utZSfog4vIzojud
-         Q3M9r2IEblUGBjGO3clJhJmvcTrLMkq+EwVw5MHjjut27ldlTeyLwOJgggMKwHJjI3xn
-         3vh9SWBMUIgB9TD5cho3eP/aZsihr0TYHIvo+PrPee+PGUHTXcBNYTSD49giPduCwfuu
-         n6jCnVfLUBfhkCmJBE0+x99CsS5M7bInUbcwdECaXlAHseiyZqW+D4IUanB2vP2rqgl6
-         EK+Xhu45fPXFIOv8drcSRX+kPjC3cyxduxPJhXlPzlQlCLqa9AYsq+pt5BzDfNy12n59
-         5e1Q==
-X-Forwarded-Encrypted: i=1; AL+hErHqJoWpZhitHgFRCrJSDBA/TfoLm3r04NLfHfELX2r6Xdz/JiZlAlf6wJJCWtf0oVUvyVknnOwY2rGDvrs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RmzaUZlp7OFILsIeE6iRy3EAFMhcU/BPhwrXWSJbNwewsLYSB
-	w6gaQ8x8DbM4qWd/qOWU0qHsnUSgam/nCZmcrN7PLwJYOMu6xmYxWnid
-X-Gm-Gg: AYBFou2UhKusoLTz8qF14QoQL7TvZLRvDBOJ1wulGaIWRJVNvh1Nv5OkHuIorUF2GXk
-	cd0t3S025vZJps3z1Kj+1omnQ0XGzso29nYAB3Fumiwk2ZKIMN/JWyLnXHj9bF5mKhLTc3V0QEe
-	+824mrDORokeah6M6vOl1XxRhAcsRrPdtZwoLmWQ0+bP+EVUePfD9Ka6sdCa7tWWOAWuLTLijB4
-	JTCissdqB2yxYPb7hqaKq8Q8e4hV4vsW5bbTCI2kR09qHHm4+h3CmS1mzFm5GFMf+oXaPjAbK49
-	iF3OLE6TvqOxKiWVXti1rS+V0G2obT0aK5J5OKtvSMHRFHvjNErDyOB12CaEs5dd1ZWcH1QsqZz
-	y/AY6qZSyyyRs14lHOzEclz9dhKD6c4fvrZQuL09A+pMGWlbpBT7jwoCQFeNiNwJ0pg8R5J5u6n
-	uBt7pxQy55o/IDLvsHCKM455/ZffUqHBzzXBO84++btZBVwSrtHHCl5vhsFXDSKFDpyC5rJFjoe
-	GYYhz2a3Na1Vy740VLv6k4NKRAdzgYSis6nIUX9p8/Rjv+a1//DbpqrGObP0/4s3jCGFJ9pfBsk
-	4DvKMq2+soNihDCPPE/JMkqMEGzs4xJx3CGReSbQFHbujnEH1lvTmEh+fi7Il13vaSnervL8W0+
-	1nliN8pRsomsyhEl2wI0TXVZt01bNvgSvY8N1Kw==
-X-Received: by 2002:a2e:a9a5:0:b0:3a7:6d4a:1c9f with SMTP id 38308e7fff4ca-3ae0963162bmr6483001fa.15.1794325377875;
-        Tue, 10 Nov 2026 07:42:57 -0800 (PST)
+        bh=lXiFw4Dd7FvHs44ojLdvo5R3mFdiF36N0TFZ4+8H/44=;
+        b=a2QuhtcD9NiI+APBI/3N5YHnMvnOOrpIrsL6je8N2XoT0m0FKjNMV820GI7bijoRmc
+         AQA7HLoxpArYDNh73ojFE6zMnZdFiG3W7BgjhIsm3FRV1xSimg4ApDajKNK62U53VgUd
+         B3arRBndGdPE/jS6QrENVrshLO1eXSy9+akDRPeCo0q4tggfj3AqPBOphavascuD6zfP
+         sQSJpNLp70cnQuuL+GOVAjM4JOdO+b/KlnZjGLaFhWcQD1FOLku6WBaWhkTZEj+Oftua
+         aBnpVtTeSh9eRzP84UBqna8iacPOjOZWArTgHfRf4+AtLTWgklZuZBwLZmhlxONaTbRV
+         IYKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794325380; x=1794930180;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lXiFw4Dd7FvHs44ojLdvo5R3mFdiF36N0TFZ4+8H/44=;
+        b=afQ8VWbg/1EOU79oEXyMUDIFY68ccu2y4SDfQRvluJbdAYs3jiPo51LPfL7CSbhfoG
+         z43U0SDZ0qLNUk+pZHpqL65cGdOu9Q5+qghWPhnG2tJg6SVhXf5/9b9Zwp6UUTo3mI4y
+         NqiNShZAMvvd19tI9Py4juSZNxzimXldXSjxdnJhN93AOoL/vaW5syyAWEFHN85W3H1v
+         T1N/9t6Kr0KqoCMatpXAgWLq8qg0fnM5E1cSJtHWSxkbeHhbDSa5VheBizBwXUKfcLbf
+         EJVkcBI5fnC6CrFfPF9p7UK0STVyU3nQBltUq0b/8eZvBVEGMjeb/RT5H6Yel/wIDcEr
+         lcYA==
+X-Forwarded-Encrypted: i=1; AL+hErG3XQk3vwot53paxB6k455NU99w6rgb49+ht+C5mcTVVryk0yiaD8T3cc6nzVUZvk+96W+F1Ed4eyDWhSM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MlYd0Bmi+f/OxtaY93kQrnrXj8wAdvVfCGjSUipnq3jsufWEp
+	18gZTz7Ua1IBSP3wGFG4JAF8yxQ9HStBZEACocdEv1U3q1ZUVrC3rvdI
+X-Gm-Gg: AYBFou1yCOlQjDdFm5K27hUgPT3a0hGFd7MTbicKRSWSl4PheVWFtKCzfD329FPPXHt
+	pk8IMNyL+g5DmBG5FhyP6k0mqJGlK2GFfA1JtpnfX14tdtUvi8kyvVxdUynLyUfSpz/u8gma/Td
+	fu/pKQP/K8X0dMUBZ1M9ybCPGNoa27jiR2qpud0ObtlOgmSjTcFFxhxGS2zO2epM9f/sA+mBcSs
+	tj+NbweN021xjUCEQ8oZ26oH/5jQXSUgnNByb/IAQnw2CY8hpZNaQP0qwe1YG9OulcZbxyZViw/
+	JmrJcOgghYw6mOAJAHplBzUb82tSDZNChQ4vvf3zHI9w8zjOkDIRk8pa/wblVSPsx0z4rgtEZuf
+	c1ZutzQ81oJM8EIodRII2Ujckh1DyAd2Wh+iTCMkAX4YO4SwuSn9ZrLrx/nMH6ecsZLqu0rLeNT
+	10dqdEOzmPLxzlJk6KnT5TkdVQL8I7CSlotGnm+TGnpULT/YGXrQulZo8UUyXbszgBV0Tu4KBLa
+	vaAOXx5B0sPLiUuw7rnsg6v5wC2SydLBrIYwTiS/8e7KwUa2QozuTRVviDVVXE4oret2FXf3xAi
+	dHfuqz7U0NVs84MSh9vEgsMdRn9knUbQdckfkS4SHDVCDp3xQ9QNoY93Xw9aaeysh64lLc1Z2SG
+	9ddo5/+KfAfDualIenAoqZfTkmESWqcp5U8jWUOM=
+X-Received: by 2002:a05:651c:1615:b0:3ac:e00f:6bef with SMTP id 38308e7fff4ca-3ae109af6d7mr1681fa.6.1794325380084;
+        Tue, 10 Nov 2026 07:43:00 -0800 (PST)
 Received: from yantra.. (nekmmqt3kfwnocz4ivv-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:453b:19fe:80e1:2b9b])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae0923d583sm5751481fa.21.2026.11.10.07.42.57
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae0923d583sm5751481fa.21.2026.11.10.07.42.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:42:57 -0800 (PST)
+        Tue, 10 Nov 2026 07:42:59 -0800 (PST)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Andy Shevchenko <andy@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -92,10 +93,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH 0/2] iio: pressure: dps310: data-ready trigger
-Date: Tue, 10 Nov 2026 17:42:52 +0200
-Message-ID: <20261110154254.39092-1-zoone.rupert@gmail.com>
+Subject: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
+Date: Tue, 10 Nov 2026 17:42:54 +0200
+Message-ID: <20261110154254.39092-3-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110154254.39092-1-zoone.rupert@gmail.com>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,31 +110,249 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DPS310 can raise an interrupt on SDO for each new result. Document it
-and use it for a data-ready trigger, so triggered captures follow the
-measurements and are stamped with the interrupt time.
+With an interrupt wired to SDO, the chip can signal each new pressure
+result. Expose it as a trigger, so captures follow the measurements and
+scans carry the time the result was ready, not when the handler ran.
 
-Tested on a DPS310 breakout (0x77) on a BeagleBone Black with SDO to a
-GPIO, level-low and falling-edge: one scan per pressure result at 1 and
-8 Hz, gaps steady to 0.15 ms where the handler timestamp moved 1-2 ms.
-Without an interrupt nothing changes. Not tested: active high, which
-needs SDO strapped low (0x76), and ZTS8032.
+Polarity follows the interrupt type. Status latches while the interrupt
+is disabled, so it is cleared before enabling. The trigger is not the
+default, so FIFO mode without a trigger is unchanged.
 
-If the chip stalls, the case the timeout reset is for, the trigger stops
-firing until the buffer is disabled and a read resets the chip.
-
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
 Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 
-Rupesh Majhi (2):
-  dt-bindings: iio: pressure: infineon,dps310: Add interrupts
-  iio: pressure: dps310: add a data-ready trigger
+ drivers/iio/pressure/dps310.c | 129 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 125 insertions(+), 4 deletions(-)
 
- .../iio/pressure/infineon,dps310.yaml         |  10 ++
- drivers/iio/pressure/dps310.c                 | 129 +++++++++++++++++-
- 2 files changed, 135 insertions(+), 4 deletions(-)
-
-
-base-commit: b70566610b48ba49dec636019da4d696db64b085
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 5cee23986f30..76738360e528 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -17,6 +17,8 @@
+ #include <linux/cleanup.h>
+ #include <linux/devm-helpers.h>
+ #include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/irq.h>
+ #include <linux/limits.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
+@@ -31,6 +33,7 @@
+ #include <linux/iio/buffer.h>
+ #include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
++#include <linux/iio/trigger.h>
+ #include <linux/iio/trigger_consumer.h>
+ #include <linux/iio/triggered_buffer.h>
+ 
+@@ -62,10 +65,13 @@
+ #define  DPS310_COEF_RDY	BIT(7)
+ #define DPS310_CFG_REG		0x09
+ #define  DPS310_INT_HL		BIT(7)
++#define  DPS310_INT_PRS		BIT(4)
+ #define  DPS310_TMP_SHIFT_EN	BIT(3)
+ #define  DPS310_PRS_SHIFT_EN	BIT(2)
+ #define  DPS310_FIFO_EN		BIT(1)
+ #define  DPS310_SPI_EN		BIT(0)
++#define DPS310_INT_STS		0x0a
++#define  DPS310_INT_STS_PRS	BIT(0)
+ #define DPS310_RESET		0x0c
+ #define  DPS310_FIFO_FLUSH	BIT(7)
+ #define  DPS310_RESET_MAGIC	0x09
+@@ -144,6 +150,9 @@ struct dps310_data {
+ 	bool timeout_recovery_failed;
+ 	bool fifo_temp_valid;
+ 
++	struct iio_trigger *trig;
++	s64 irq_timestamp;
++
+ 	/* Used only while the FIFO is enabled */
+ 	struct iio_dev *iio;
+ 	struct delayed_work fifo_work;
+@@ -706,6 +715,7 @@ static bool dps310_is_volatile_reg(struct device *dev, unsigned int reg)
+ 	case DPS310_TMP_B1:
+ 	case DPS310_TMP_B2:
+ 	case DPS310_MEAS_CFG:
++	case DPS310_INT_STS:
+ 	case 0x32:	/* No documentation available on this register */
+ 		return true;
+ 	default:
+@@ -713,6 +723,12 @@ static bool dps310_is_volatile_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
+ 
++/* Cleared on read */
++static bool dps310_is_precious_reg(struct device *dev, unsigned int reg)
++{
++	return reg == DPS310_INT_STS;
++}
++
+ static int dps310_write_raw(struct iio_dev *iio,
+ 			    struct iio_chan_spec const *chan, int val,
+ 			    int val2, long mask)
+@@ -1048,7 +1064,7 @@ static int dps310_fifo_set_enable(struct dps310_data *data, bool enable)
+ 				  enable);
+ }
+ 
+-/* No interrupt pin is wired in tree, so drain on a timer */
++/* The FIFO only interrupts when full and then stops, so drain on a timer */
+ static unsigned int dps310_fifo_interval(struct dps310_data *data,
+ 					 int prs_rate, int tmp_rate)
+ {
+@@ -1375,6 +1391,7 @@ static irqreturn_t dps310_trigger_handler(int irq, void *p)
+ 		s32 channels[2];
+ 		aligned_s64 timestamp;
+ 	} scan = { };
++	s64 timestamp;
+ 	int rc;
+ 
+ 	mutex_lock(&data->lock);
+@@ -1383,7 +1400,12 @@ static irqreturn_t dps310_trigger_handler(int irq, void *p)
+ 	if (rc)
+ 		goto err;
+ 
+-	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), iio_get_time_ns(iio));
++	if (iio_trigger_using_own(iio))
++		timestamp = data->irq_timestamp;
++	else
++		timestamp = iio_get_time_ns(iio);
++
++	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), timestamp);
+ 
+ err:
+ 	iio_trigger_notify_done(iio->trig);
+@@ -1391,6 +1413,97 @@ static irqreturn_t dps310_trigger_handler(int irq, void *p)
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t dps310_irq_handler(int irq, void *private)
++{
++	struct dps310_data *data = private;
++
++	data->irq_timestamp = iio_get_time_ns(data->iio);
++
++	return IRQ_WAKE_THREAD;
++}
++
++static irqreturn_t dps310_irq_thread(int irq, void *private)
++{
++	struct dps310_data *data = private;
++	unsigned int status;
++
++	if (regmap_read(data->regmap, DPS310_INT_STS, &status))
++		return IRQ_NONE;
++
++	if (!(status & DPS310_INT_STS_PRS))
++		return IRQ_NONE;
++
++	iio_trigger_poll_nested(data->trig);
++
++	return IRQ_HANDLED;
++}
++
++static int dps310_trigger_set_state(struct iio_trigger *trig, bool state)
++{
++	struct dps310_data *data = iio_trigger_get_drvdata(trig);
++	unsigned int status;
++	int rc;
++
++	guard(mutex)(&data->lock);
++
++	/* Status latched while disabled would fire a stale interrupt */
++	if (state) {
++		rc = regmap_read(data->regmap, DPS310_INT_STS, &status);
++		if (rc)
++			return rc;
++	}
++
++	return regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_INT_PRS,
++				  state);
++}
++
++static const struct iio_trigger_ops dps310_trigger_ops = {
++	.set_trigger_state = dps310_trigger_set_state,
++};
++
++static int dps310_trigger_probe(struct dps310_data *data)
++{
++	struct device *dev = &data->client->dev;
++	struct iio_dev *iio = data->iio;
++	int irq = data->client->irq;
++	bool active_high;
++	int rc;
++
++	switch (irq_get_trigger_type(irq)) {
++	case IRQ_TYPE_LEVEL_HIGH:
++	case IRQ_TYPE_EDGE_RISING:
++		active_high = true;
++		break;
++	case IRQ_TYPE_LEVEL_LOW:
++	case IRQ_TYPE_EDGE_FALLING:
++		active_high = false;
++		break;
++	default:
++		return dev_err_probe(dev, -EINVAL, "Unsupported interrupt type\n");
++	}
++
++	rc = regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_INT_HL,
++				active_high);
++	if (rc)
++		return rc;
++
++	data->trig = devm_iio_trigger_alloc(dev, "%s-dev%d", iio->name,
++					    iio_device_id(iio));
++	if (!data->trig)
++		return -ENOMEM;
++
++	data->trig->ops = &dps310_trigger_ops;
++	iio_trigger_set_drvdata(data->trig, data);
++
++	rc = devm_request_threaded_irq(dev, irq, dps310_irq_handler,
++				       dps310_irq_thread, IRQF_ONESHOT,
++				       iio->name, data);
++	if (rc)
++		return rc;
++
++	return devm_iio_trigger_register(dev, data->trig);
++}
++
+ static void dps310_standby(void *action_data)
+ {
+ 	struct dps310_data *data = action_data;
+@@ -1404,6 +1517,7 @@ static const struct regmap_config dps310_regmap_config = {
+ 	.val_bits = 8,
+ 	.writeable_reg = dps310_is_writeable_reg,
+ 	.volatile_reg = dps310_is_volatile_reg,
++	.precious_reg = dps310_is_precious_reg,
+ 	.cache_type = REGCACHE_RBTREE,
+ 	.max_register = 0x62, /* No documentation available on this register */
+ };
+@@ -1470,8 +1584,9 @@ static int dps310_probe(struct i2c_client *client)
+ 	/*
+ 	 * The device measures continuously in background mode, so a triggered
+ 	 * capture is just a read of the latest results. The setup ops run the
+-	 * FIFO drain when no trigger is attached. The trigger is not aligned
+-	 * with the measurements, so the timestamp is taken in the handler.
++	 * FIFO drain when no trigger is attached. Only the data-ready trigger
++	 * is aligned with the measurements, so for others the timestamp is
++	 * taken in the handler.
+ 	 */
+ 	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
+ 					     dps310_trigger_handler,
+@@ -1484,6 +1599,12 @@ static int dps310_probe(struct i2c_client *client)
+ 	if (rc)
+ 		return rc;
+ 
++	if (client->irq > 0) {
++		rc = dps310_trigger_probe(data);
++		if (rc)
++			return rc;
++	}
++
+ 	rc = devm_iio_device_register(dev, iio);
+ 	if (rc)
+ 		return rc;
 -- 
 2.43.0
 
