@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296724;
-	b=lq3imi2ymI+SAZrxeIx57tNaMautrKUb0+WNshGx0IMrLg3ZDn3wTRUWdZuLRGTpgvum
-	 WMzanpE06MTp8OFECB9K1HaoZTwCr+S1X8XRceF4NA1amFdDAuLuhukDbktAH6Gu2z+P4
-	 J1oXUmuy8IIWuq+0aFoWJYI+wEsWaZ2A9Ra2+lQ2zKJOmrl7K8rUS6bGZ/UoLO1V03HdQ
-	 dX7LoY2KxpT07t60oQ3iW9KgPoKqPqxYaMpWRetmUaNb/khT0AituIS30oXIngOQMCL8Z
-	 OFosxVs+k+fCmgQQHVWZdjrAi1SbEoYcaq4zv1KrmPtRpe+D/haH6fGAZnnOlJAcrgg==
+	t=1794296744;
+	b=aPq74ij0vfm6KwQGiiRHDqJoAe3TsEBlua6bRkRIBCmkpBU0lqx6yj4o65SGT7UJyKJd
+	 PfNQdIUU/41i1WvNFHySeDEp4yONGQ166cTZlncMsACvTSkWpXEIopE2orAf86fVU02bc
+	 moD9rxNYDtWhvWdGzyFZTYAGXE06b54YQi1Ixlvo8NYlRx3JOcAGv36RGj9q+U341RG2c
+	 vYu4O1mdGCETZoVDjdNG8BoHkW0wvsMzuM0aHwP5/DJ9qfaalH3lovTD0s+j12N13u3NI
+	 rLIrRT9f5spewYb1sbVXFCPp+n8bCEX1YcWqrMDJg0LTy5w/7oNJShqblsjH7r3OaAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pwUJjWsLv0sbZcwY6lQaaStciK0Yii7zkSEUupy4QzQ=;
-	b=x9iAB5C1W3GjizqLOetFPyuU35zx81MVCX/ObeVGbeLRB2WnzQguTvt5GEzZ5wLuMhZI
-	 EZJizBosCF3VgA5WXY0HQng4IDxZ173uMlxcruhI7JsSR9C1fPErgCmLNpKiyF3wAC51l
-	 K3UYzJeG/mT55rjz+vbAqC8B0S04cm4moZY6s/RBt/BDeAUossZDcsF9lxhol3ZOj2jXs
-	 UP17SR7U589fFkXBi+NJlOdRQ8VZlD+lT2gOdmUF1+ZWNJYshZ72GNw69yFNpz/KExQ+u
-	 UY4masrjI3/INUmBVzWv/pUqoMxS8nNDoup138kR1Xyrn2aA91Qpgn07hDamYrc7YzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296744;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=J/UcQFN1fT4xKZkZ8LLvoG6TGQaSTpYGVdEtojnOZAc=;
+	b=U8UVB71UXERN/nFKmW9M/PK3IZAsDcVWB9XrRysY7yXGLI4CSH1ZVsUB3GyZm2ojoHNH
+	 8s1JOOEjBGdIAnbxoXsnEMI92oc3ITgrQCna9dOmHHG8WwH8rhxs2Ok2+j9QgD0yp5gUn
+	 IELo5YMlx93Kf4GNguORG0GLoMK3hqUR4t1elL+KbgydsLBu0jzEfLquZN1WigHB4o5OA
+	 dl51y+XuoMSw2fCcVyUcbnElsj6MEIR6xEZkVJom3meosXytGVio7pxYNlCVPXmUY8m8u
+	 EkLAzN/+yUXCNkMj9/yiI+4WeZ+aYUues2bdMdDByZGayMtHdntX7YHNMfYakbQZoOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmZJMrsu;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cgayhVnx;
+	arc=none smtp.remote-ip=91.218.175.245
+Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC14607557C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC14607557C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC9A606A56C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC9A606A56C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmZJMrsu
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-53a448f86e0so908239b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296723; x=1794901523; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pwUJjWsLv0sbZcwY6lQaaStciK0Yii7zkSEUupy4QzQ=;
-        b=zmZJMrsulkM1iK40g5RR7U1JFbdjmyf4Vl1KDC/9Ls4AF/WXqz2yEl0xDk8uusxpSv
-         NlXtUDZEWx8g30eVfdd2chWHhqRu8s39qWJl2QHLalmS19GFoweAJjxH2uKltJpD9d9r
-         skp9H89d1vpHhCXNcaM2j4Ihs4Jl+Fn5d/94ln0pmO3uFcVXBsbv+FeH0zM9tr4SqURB
-         yg+NQ307C1UUjw8WOrIGk+zpOck28FB8qQ0kNKHrE6/19nlODVlWUzaV/OODgyfLZvGT
-         Jaj0cnlLsTL9lTn/7Y3FCERpW5zsUfufjESgSEAzfohURDyJlYE1p2Ld4xVRrUjX4AMh
-         ek9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296723; x=1794901523;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pwUJjWsLv0sbZcwY6lQaaStciK0Yii7zkSEUupy4QzQ=;
-        b=DE3dSaY1mnVAf6HGVhAejOzToWvac239vDEOvkiMRarHqxafkeJ560vg4d4Jv8JAem
-         5dTAr4BEYEOUd5RpwAogbFC0PY8ueUNAVxzubjDh2iU+kQVmx+JR7G7TTcZzc+AW8c0b
-         cMopOYVbF2jm8XDXZjIRL/6O5+M/YbWfwe/1jx6oZvkcXgs/jwlq00nUZuSgWg9X3gF8
-         ha/57VcspF4dxZi597xipzuwHpIciAE7bk/9eAOVQ0cnu0kY0cyMjv37Z/QxUG/OP6o3
-         BcFPEU7eyoQ4ZiIO+NQJyL7bh+Dnqm2Io/CILU0QtqoRMpE9FN+Anj6K4vAAKSX7uzqy
-         /lmA==
-X-Forwarded-Encrypted: i=1; AL+hErFy2letW+FgxNkkvLUUjT9f2is/GUfhVdlB/2M9WcYS+X1iHDWCER+2Z/yjrj37uap0bt+aFH1cyBzD1c8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ImSUbiYul+P3LBzdSvJNOJn4m+W78Cw1MDYrqE3dzhpEtqwp9
-	BWsIgmxBIigNxiUmtwf79iuML0apat2/EvTNmv5LogagNATeZv5ABbCDMIt3zaNr
-X-Gm-Gg: AYBFou2cg2d8LPjyP4BoMEgYnS8orkEjDThzNbRHB6oZSt3pdx9PyQ+G04Y3fM/U8dl
-	WCf4vov6NScAvG5Fq+u9tfKG6qVTAoPoP3oISbTJLj7WZat78SYe4f1arn0j6Sm+K+bTHf2sFCW
-	VJqge+ZAw49i27O4AF6FU5a09ANre7W0AltGdQmWLt/km/nbzNbdZC6bQFUkqnVMBObmeH8FGbD
-	Gp1CTYD9mmBPgkfY3HvmbmwQlngo6xaVqRWrN4ap+TiJ67jO/08UYMRDtcaWBD2FWxbLwdLeZZV
-	wJWtvuK0in2+nK+b/vjmF9/JUSDAMECZNLlQ7D74LpFClsborux4ynzbNHHwS743HWUONiJweke
-	0ePRZMbCea4ZP8szvZLcdEttN63qw24jWXbDXdJrl7YuYV+bj/51R8e1QzRTjb4Exzma/EL8Aft
-	mkCWp3EAj0fZCBGOWqK5ooyUxNEfKjNyFYFTFhkiLX8mocAQ6PGyi+niL8zYH/o8aVF/Rz/yzf7
-	akEvMjDr1R4xYW3Sc1VZi8wdHs1TwG6wuh6z/w2EBT6Hvmd7C9+8dkWYCUCK9me+eohQTWUvwxE
-	MaElBMcu9W6yE4+yF3xTITVLVQzi8gXQk8jnslYp36Duy6um4VnjxoccJ+wZ7TaCybNJY02SS3a
-	pqQjhz68wmNF6c8CEvWilJVIO580vYs/qgCpMN1pItmZO4DkJo+IphmyZzQ+jrU7hDgAySJ35A3
-	SpO/k8gY8Qif7kItQ8TiSJJimjeKE3t1UIJaIgtE7sSjlbee9BZCM=
-X-Received: by 2002:a05:6808:4f5f:b0:4b9:e5fa:8903 with SMTP id 5614622812f47-5683cbf9608mr1759067b6e.22.1794296723223;
-        Mon, 09 Nov 2026 23:45:23 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:22 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:59 -0700
-Subject: [PATCH v2 56/58] mtd: rawnand: nandsim: retain chip state across
- removal
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cgayhVnx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ltueAResg7nQ5h4N2uZJoyGUbiD7RPPYBW6X+pD3324=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794296740; v=1; x=1794901540;
+ b=cgayhVnxb5gSAg543StC1dhDs4DUVCfUTsjPl02QeWaCYqdQ4xzYEjtAmOCC4kb7zZduougd
+ WlBlRSUADyHt/Y7MZxyWgOeEASm7HmnQ+OjkWJV5khn6rL+8O5sXnzszm5FMGo7tamV/NygJ2/k
+ WiDNSSAMIn0Ovw0L4QRiDwnc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id a3f2b9640a841c13;
+	Tue, 10 Nov 2026 07:45:28 +0000
+X-Mizu-Trace-ID: a3f2b9640a841c13
+X-Migadu-Flow: FLOW_OUT
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: xu.xin@linux.dev
+Cc: akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	corbet@lwn.net,
+	david@kernel.org,
+	link@vivo.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	odys.yuan@gmail.com,
+	rppt@kernel.org,
+	surenb@google.com,
+	tujinjiang@huawei.com,
+	vbabka@kernel.org,
+	xiao.wang@vivo.com
+Subject: [PATCH 3/4] selftests/ksm: consolidate ksm_stat readers into ksm_get_self_stat()
+Date: Tue, 10 Nov 2026 15:44:50 +0800
+Message-Id: <20261110074451.220524-3-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
+References: <20261110074312.219847-1-xu.xin@linux.dev>
+ <20261110074451.220524-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,112 +81,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-56-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-MTD device references can outlive device unregistration even when no
-open file pins the simulator module. Disconnect before freeing the
-simulated media, and retain the chip metadata until the final MTD put.
-The lifetime core waits for remaining device references during module
-unload.
+ksm_get_self_zero_pages() and ksm_get_self_merging_pages() both read
+/proc/self/ksm_stat and differ only in the key they look up. Replace
+them with a single ksm_get_self_stat(key) helper in vm_util.c, which
+reads one value from /proc/self/ksm_stat by key name and accepts only
+the keys used by the tests.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+This is a pure refactor with no functional change; it prepares for a
+new test that also needs to read ksm_rmap_items from /proc/self/ksm_stat.
+
+No functional change intended.
+
+Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
 ---
- drivers/mtd/nand/raw/nandsim.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ .../selftests/mm/ksm_functional_tests.c       | 18 ++++-----
+ tools/testing/selftests/mm/vm_util.c          | 40 ++++++-------------
+ tools/testing/selftests/mm/vm_util.h          |  3 +-
+ 3 files changed, 22 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index 6716eafb4b00..0c8c741b2b85 100644
---- a/drivers/mtd/nand/raw/nandsim.c
-+++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -2254,6 +2254,11 @@ static const struct nand_controller_ops ns_controller_ops = {
- 	.exec_op = ns_exec_op,
- };
+diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
+index 135191f99962..2ffb97ae3120 100644
+--- a/tools/testing/selftests/mm/ksm_functional_tests.c
++++ b/tools/testing/selftests/mm/ksm_functional_tests.c
+@@ -85,7 +85,7 @@ static char *__mmap_and_merge_range(char val, unsigned long size, int prot,
+ 		return err_map;
+ 	}
  
-+static void ns_chip_release(struct nand_chip *chip)
-+{
-+	kfree(nand_get_controller_data(chip));
-+}
+-	if (ksm_get_self_merging_pages() > 0) {
++	if (ksm_get_self_stat("ksm_merging_pages") > 0) {
+ 		ksft_print_msg("Still pages merged\n");
+ 		return err_map;
+ 	}
+@@ -144,7 +144,7 @@ static char *__mmap_and_merge_range(char val, unsigned long size, int prot,
+ 	 * Check if anything was merged at all. Ignore the zero page that is
+ 	 * accounted differently (depending on kernel support).
+ 	 */
+-	if (val && !ksm_get_self_merging_pages()) {
++	if (val && !ksm_get_self_stat("ksm_merging_pages")) {
+ 		ksft_print_msg("No pages got merged\n");
+ 		goto unmap;
+ 	}
+@@ -204,7 +204,7 @@ static void test_unmerge_zero_pages(void)
+ 
+ 	ksft_print_msg("[RUN] %s\n", __func__);
+ 
+-	if (ksm_get_self_zero_pages() < 0) {
++	if (ksm_get_self_stat("ksm_zero_pages") < 0) {
+ 		ksft_test_result_skip("accessing \"/proc/self/ksm_stat\" failed\n");
+ 		return;
+ 	}
+@@ -221,7 +221,7 @@ static void test_unmerge_zero_pages(void)
+ 
+ 	/* Check if ksm_zero_pages is updated correctly after KSM merging */
+ 	pages_expected = size / pagesize;
+-	if (pages_expected != ksm_get_self_zero_pages()) {
++	if (pages_expected != ksm_get_self_stat("ksm_zero_pages")) {
+ 		ksft_test_result_fail("'ksm_zero_pages' updated after merging\n");
+ 		goto unmap;
+ 	}
+@@ -234,7 +234,7 @@ static void test_unmerge_zero_pages(void)
+ 
+ 	/* Check if ksm_zero_pages is updated correctly after unmerging */
+ 	pages_expected /= 2;
+-	if (pages_expected != ksm_get_self_zero_pages()) {
++	if (pages_expected != ksm_get_self_stat("ksm_zero_pages")) {
+ 		ksft_test_result_fail("'ksm_zero_pages' updated after unmerging\n");
+ 		goto unmap;
+ 	}
+@@ -244,7 +244,7 @@ static void test_unmerge_zero_pages(void)
+ 		*((unsigned int *)&map[offs]) = offs;
+ 
+ 	/* Now we should have no zeropages remaining. */
+-	if (ksm_get_self_zero_pages()) {
++	if (ksm_get_self_stat("ksm_zero_pages")) {
+ 		ksft_test_result_fail("'ksm_zero_pages' updated after write fault\n");
+ 		goto unmap;
+ 	}
+@@ -671,7 +671,7 @@ static void test_fork_ksm_merging_page_count(void)
+ 	child_pid = fork();
+ 	if (!child_pid) {
+ 		init_global_file_handles();
+-		exit(ksm_get_self_merging_pages());
++		exit(ksm_get_self_stat("ksm_merging_pages"));
+ 	} else if (child_pid < 0) {
+ 		ksft_test_result_fail("fork() failed\n");
+ 		goto unmap;
+@@ -771,7 +771,7 @@ static void test_merge_aged_pairs(void)
+ 		goto unmap;
+ 	}
+ 
+-	ksft_test_result(ksm_get_self_merging_pages() == 2 * pairs,
++	ksft_test_result(ksm_get_self_stat("ksm_merging_pages") == 2 * pairs,
+ 			 "Pages aged by smart scan got merged\n");
+ unmap:
+ 	ksm_stop();
+@@ -793,7 +793,7 @@ static void init_global_file_handles(void)
+ 	pagemap_fd = open("/proc/self/pagemap", O_RDONLY);
+ 	if (pagemap_fd < 0)
+ 		ksft_exit_skip("open(\"/proc/self/pagemap\") failed\n");
+-	if (ksm_get_self_merging_pages() < 0)
++	if (ksm_get_self_stat("ksm_merging_pages") < 0)
+ 		ksft_exit_skip("accessing \"/proc/self/ksm_merging_pages\") failed\n");
+ 
+ 	pages_to_scan_fd = open("/sys/kernel/mm/ksm/pages_to_scan", O_RDWR);
+diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+index f26f9e4bfdbe..8f1ee1f81e36 100644
+--- a/tools/testing/selftests/mm/vm_util.c
++++ b/tools/testing/selftests/mm/vm_util.c
+@@ -904,14 +904,20 @@ bool detect_huge_zeropage(void)
+ 	return enabled;
+ }
+ 
+-long ksm_get_self_zero_pages(void)
++long ksm_get_self_stat(const char *key)
+ {
+ 	int proc_self_ksm_stat_fd;
+ 	char buf[200];
+-	char *substr_ksm_zero;
++	char *substr;
+ 	size_t value_pos;
+ 	ssize_t read_size;
+ 
++	/* Only the keys actually used by the tests are accepted. */
++	if (strcmp(key, "ksm_rmap_items") &&
++	    strcmp(key, "ksm_zero_pages") &&
++	    strcmp(key, "ksm_merging_pages"))
++		return -EINVAL;
 +
- /*
-  * Module initialization function
-  */
-@@ -2263,6 +2268,7 @@ static int __init ns_init_module(void)
- 	struct nand_chip *chip;
- 	struct nandsim *ns;
- 	int ret;
-+	bool retained = false;
+ 	proc_self_ksm_stat_fd = open("/proc/self/ksm_stat", O_RDONLY);
+ 	if (proc_self_ksm_stat_fd < 0)
+ 		return -errno;
+@@ -925,34 +931,12 @@ long ksm_get_self_zero_pages(void)
  
- 	if (bus_width != 8 && bus_width != 16) {
- 		NS_ERR("wrong bus width (%d), use only 8 or 16\n", bus_width);
-@@ -2377,6 +2383,10 @@ static int __init ns_init_module(void)
- 	ret = ns_parse_badblocks(ns, nsmtd);
- 	if (ret)
- 		goto free_ns_object;
-+	ret = nand_set_release(chip, ns_chip_release);
-+	if (ret)
-+		goto free_ns_object;
-+	retained = true;
+ 	buf[read_size] = 0;
  
- 	/* Register NAND partitions */
- 	ret = mtd_device_register(nsmtd, &ns->partitions[0], ns->nbparts);
-@@ -2392,11 +2402,16 @@ static int __init ns_init_module(void)
- unregister_mtd:
- 	WARN_ON(mtd_device_unregister(nsmtd));
- free_ns_object:
-+	if (retained)
-+		nand_disconnect(chip);
- 	ns_free(ns);
- free_ebw:
- 	kfree(erase_block_wear);
- cleanup_nand:
--	nand_cleanup(chip);
-+	if (retained)
-+		mtd_put_master(nsmtd);
-+	else
-+		nand_cleanup(chip);
- free_gp_list:
- 	list_for_each_safe(pos, n, &grave_pages) {
- 		list_del(pos);
-@@ -2413,7 +2428,8 @@ static int __init ns_init_module(void)
- 		kfree(list_entry(pos, struct weak_block, list));
- 	}
- free_ns_struct:
--	kfree(ns);
-+	if (!retained)
-+		kfree(ns);
+-	substr_ksm_zero = strstr(buf, "ksm_zero_pages");
+-	if (!substr_ksm_zero)
++	substr = strstr(buf, key);
++	if (!substr)
+ 		return 0;
  
- 	return ret;
- }
-@@ -2431,9 +2447,9 @@ static void __exit ns_cleanup_module(void)
- 
- 	ns_debugfs_remove(ns);
- 	WARN_ON(mtd_device_unregister(nsmtd));
-+	nand_disconnect(chip);
- 	ns_free(ns);
- 	kfree(erase_block_wear);
--	nand_cleanup(chip);
- 
- 	list_for_each_safe(pos, n, &grave_pages) {
- 		list_del(pos);
-@@ -2450,7 +2466,7 @@ static void __exit ns_cleanup_module(void)
- 		kfree(list_entry(pos, struct weak_block, list));
- 	}
- 
--	kfree(ns);
-+	mtd_put_master(nsmtd);
+-	value_pos = strcspn(substr_ksm_zero, "0123456789");
+-	return strtol(substr_ksm_zero + value_pos, NULL, 10);
+-}
+-
+-long ksm_get_self_merging_pages(void)
+-{
+-	int proc_self_ksm_merging_pages_fd;
+-	char buf[10];
+-	ssize_t ret;
+-
+-	proc_self_ksm_merging_pages_fd = open("/proc/self/ksm_merging_pages",
+-						O_RDONLY);
+-	if (proc_self_ksm_merging_pages_fd < 0)
+-		return -errno;
+-
+-	ret = pread(proc_self_ksm_merging_pages_fd, buf, sizeof(buf) - 1, 0);
+-	close(proc_self_ksm_merging_pages_fd);
+-	if (ret < 0)
+-		return -errno;
+-	if (!ret)
+-		return -EIO;
+-	buf[ret] = 0;
+-
+-	return strtol(buf, NULL, 10);
++	value_pos = strcspn(substr, "0123456789");
++	return strtol(substr + value_pos, NULL, 10);
  }
  
- module_exit(ns_cleanup_module);
-
+ long ksm_get_full_scans(void)
+diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
+index ab1325dc6580..2b25a9eab30c 100644
+--- a/tools/testing/selftests/mm/vm_util.h
++++ b/tools/testing/selftests/mm/vm_util.h
+@@ -159,8 +159,7 @@ static inline int sz2ord(size_t size, size_t pagesize)
+ void *sys_mremap(void *old_address, unsigned long old_size,
+ 		 unsigned long new_size, int flags, void *new_address);
+ 
+-long ksm_get_self_zero_pages(void);
+-long ksm_get_self_merging_pages(void);
++long ksm_get_self_stat(const char *key);
+ long ksm_get_full_scans(void);
+ int ksm_wait_full_scans(long nr);
+ int ksm_get_smart_scan(void);
 -- 
-2.53.0
+2.34.1
 
