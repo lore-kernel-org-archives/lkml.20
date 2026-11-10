@@ -1,81 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309915;
-	b=5lxKGzkRol4ogigrUNiLy0FbCaPNEpLJ+LE/nJzDJMMkDiIkmpJWKErkEvdIdouDFcSt
-	 PS7A2OBtGoT5AAeZuPtbq86FooA1dnMTOLq8Asu/Ii52Y9tqwtM1t2gpCm6cS5cW9UTLI
-	 M25towK6Z72kjWGQi0WVkaKvlsrDxW6cH1CQPnkEIEAEcur5xDi3Qw7X4qOyytiAk+joO
-	 AvbX0efARx3khNTebUhp1Omk9D0xvwSv2AoEl5kRJzC7Y2OHwIcwE5tadfEwArRVLl403
-	 fZVlMezSNRFlmHjHutRgCrBnIyVATdnwF8DZRXda6AIlGSIIBN+7QWL6Kz1qJO6V3Mw==
+	t=1794309918;
+	b=zFNLuEUQIW2e8s8LJDzUuyartJcLzme0HN8SqfrXC9ozl8CJ7OJwKuJtBiXIYlc5TRTW
+	 Yz/nsYqnWUAuWri8MpKLnBI0SM31D181W6jKmGio5Y3N/ccFaQgs39YSa9JOdciUQbRc8
+	 RVk2DobomuYLxs7WVEmw+U/9kQzY5X2WWImG0mVvskjhERspUPuepCItRVBXl/pNJn1e0
+	 hePwb2XA9qpbQJhnXDx/+b9n3k0OhszDDMLh4enYeZQhqO4Z+699SQPTxtt7Ba3Qx07BY
+	 +CRbDNfdlrt+SOn+xlb/21jsBKsfQfsjF2efVRf7h3pU9qEIjDCrsfnbA9s1YF7wYgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309915;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=njIoOXK5zMREOncg8mUAQGqPEShsE5xs29xDkWFtyUU=;
-	b=LosghG204nfk4TUsqv2WPwmsUEoZFmFslgwdWP4GtFva0xws6f4iwk0BTw6OPbZOhN4n
-	 +NmIKWmRvP6vILRNcBJ0GKwbzn+ujTd36MC4H/SRVjQwzKgUnPNwSihdoIp58qBQHfO2p
-	 NqO97bdzu5FR+ehdWTJDotpsOqvMbw/2VFJaxfLASVSZdVfqwpeL7/l5fL1q1+vtcZWae
-	 pTNwVYBpVWPwi6+5lY9EGfQyhshCJEs642s4AqDq/HMdqQUDOxtmKJUDsEkruPL4+8SZf
-	 wMtCGkWwAYZhpl3GE9PshuC2hIP8SnmQ+zbieaAnWNY49HRvgB159D2XUnz0ymSfcxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309918;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=AuudWVgrS3U0W2Ftt+AqT6mImlT0GC7ZxcnFi16YT/M=;
+	b=p78cBFYC3OBopGVsm/UQ00mCyBGL7o8vWar7EE4QFSuoiSRltRixrOipyxOGRrxGt266
+	 aRDzhnWCkMk3vAntQvWN7ZjsUj7r/DrbMCNQOcrL45ubIjk5yaX9de1o1zpfr2Q2VBTLX
+	 erL8kMGP+xhqPuzKWS9/LFufDmIIhMfVnaAozyftPE8RAiJMNC35P2aKTOXfd/ivw5t6G
+	 ojRh0W2j33rv9vG9nzuXc9t21f4PVzlwMvRWmdKthaX07WwJXnitxCOfLHLygRJuY6FYs
+	 L8Ir5Fo+RXnCpr5T7VI65c7c8tHGGryg7NQTyVIHXJupNoEGkrq+XyLicTn/dDPfK0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="mVkWfYh/";
-	arc=none smtp.remote-ip=91.218.175.193
-Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j6U0B5x4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SerslcNO;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ye6SrqMU;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nupH0Gw0;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5CD60A262F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:25:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C5CD60A262F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86E060A3818;
+	Tue, 10 Nov 2026 11:25:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E86E060A3818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mVkWfYh/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BPShZdqjxGXzG9YjR46DA5wDrW3cgTzpgUAq+Dua6mc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794309913; v=1; x=1794914713;
- b=mVkWfYh/OU5ocR0W3SIgvgFGay1eXuZ9K2ZVcborArx5MMPEOCDYFyeFOxuvPOfLou+64Lbj
- NxviIlOtEWv4pnOnogTcpp3NFs6KhEcTsaL6ycgwbASbu3WK9k8ORbYH9DHGuAFwa6g6CJimA+3
- WU9vvPNnJDjYBbYQqi7Xo5Z8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aaa1849df80259f7;
-	Tue, 10 Nov 2026 11:25:10 +0000
-X-Mizu-Trace-ID: aaa1849df80259f7
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Uladzislau Rezki <urezki@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 6/9] mm/vmalloc: only flush the cache after the vmap succeeded
-Date: Tue, 10 Nov 2026 19:25:43 +0800
-Message-Id: <20261110112546.261415-7-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
-References: <20261110112546.261415-1-hao.ge@linux.dev>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j6U0B5x4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SerslcNO;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ye6SrqMU;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nupH0Gw0
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E399C1F7D9;
+	Tue, 10 Nov 2026 11:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794309916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuudWVgrS3U0W2Ftt+AqT6mImlT0GC7ZxcnFi16YT/M=;
+	b=j6U0B5x4LMEF2SqldUZ6WxGzciuHvpc4XKOQfSwA0jlM+Ngq3gqlLwdx0U7k99r6K1YgTx
+	jDmT0ToxeqhQ5MhnFOTxqMLupcalIlGwySTIkUwm9S557ue/oomLSn8W6Z0VO0caP5lR57
+	kcQBQfIAs3Lv+LELjQKVWOABCxQ6BS0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794309916;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuudWVgrS3U0W2Ftt+AqT6mImlT0GC7ZxcnFi16YT/M=;
+	b=SerslcNOHfjDDAH8G69EmoWXx/SdtWHShxQ5iGsseiz2FpcDxcMWA3d0+oDrgcHlVxole5
+	MYYCbgJQAtW9HyBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ye6SrqMU;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=nupH0Gw0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794309915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuudWVgrS3U0W2Ftt+AqT6mImlT0GC7ZxcnFi16YT/M=;
+	b=Ye6SrqMULx+MGMKXtvnn8CDcR/nANw6pzsd6c2htNEZ03gV1WLqnJFR8TysAS0B5A6nmSr
+	GBiUvW2s8no48CwxY6mZXOIFpq8+67DMSjRlgp5LpPPkiOkmPUFdXP2ZFudpX2MuM2hy8c
+	m/I6EwHvb46J/dWFL2nrg7NgSdmPmaU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794309915;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AuudWVgrS3U0W2Ftt+AqT6mImlT0GC7ZxcnFi16YT/M=;
+	b=nupH0Gw0To6sosww78CwUKyfabAeLUUaTu42aBQqe2aQBRcBHwT/toT4a67En2U2WzLtVZ
+	K9u+O/q/RHoKfYDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C0A6B13479;
+	Tue, 10 Nov 2026 11:25:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id fZNmIhr/8mpCZQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 10 Nov 2026 11:25:14 +0000
+Date: Tue, 10 Nov 2026 11:25:13 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Seunghyun An <san55@wisc.edu>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, 
+	Jann Horn <jannh@google.com>, Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Suren Baghdasaryan <surenb@google.com>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/rmap: use vm_pgoff for anonymous VMAs in
+ linear_anon_page_index()
+Message-ID: <avL5C_w-wo6bJJTj@pedro-suse.tail5790ac.ts.net>
+References: <20261110000002.1834454-1-san55@wisc.edu>
+ <20261110000002.1834454-2-san55@wisc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,55 +115,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110000002.1834454-2-san55@wisc.edu>
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: E399C1F7D9
 
-vmap_page_range() and __vmap_pages_range() call flush_cache_vmap()
-before they even look at the error code. A failed mapping is never
-used, so the flush is pointless at best.
+On Mon, Nov 09, 2026 at 06:00:01PM -0600, Seunghyun An wrote:
+> __vm_anon_pgoff_hi sits right after vm_refcnt in the vm_refcnt
+> cacheline. Since commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track
+> MAP_PRIVATE file-backed anon folios"), which made anon rmap use it,
+> __folio_set_anon() reads it on every new anonymous folio, i.e. once per
+> fault that maps a new anonymous page, between vma_start_read() and
+> vma_end_read().
+> 
+> When several threads fault on the same VMA, the other CPUs keep writing
+> vm_refcnt from vma_start_read()/vma_end_read(), so this read often
+> misses and pulls the line over. The extra load can force a coherence
+> transfer and makes the following vm_refcnt updates more expensive.
+> 
+> For anonymous VMAs the anonymous page offset is always equal to vm_pgoff
+> (linear_anon_page_index() already asserts this under CONFIG_DEBUG_VM;
+> it holds for MAP_PRIVATE /dev/zero too since commit e59c9a971a9f
+> ("mm/vma: make MAP_PRIVATE-mapped /dev/zero mappings truly anonymous")),
+> so compute the index from vm_pgoff as before. That brings back the
+> pre-series behaviour for the hot path; MAP_PRIVATE file-backed VMAs still
+> read the split field. Keep the assertion, the other way round.
+> 
+> Moving __vm_anon_pgoff_hi out of the line does not work without growing
+> vm_area_struct. With e.g. CONFIG_ANON_VMA_NAME=y the struct is exactly
+> 192 bytes, cachelines 0 and 1 have no hole, and the only 4-byte fields
+> that could fill the slot next to vm_refcnt are vm_lock_seq and the lo/hi
+> halves. vm_lock_seq is read before vm_refcnt is taken in vma_start_read(),
+> so it would just move the miss.
+> 
 
-According to the Sashiko review it is worse than pointless on UML:
-flush_cache_vmap() there is flush_tlb_kernel_range(), which syncs the
-PTEs into the host OS. Flushing a half-installed mapping therefore
-leaves host mappings behind for a range that was just freed again.
+I trust Lorenzo knows more about his plans to use anon_pgoff than I do,
+so I'll let him reply. A comment though:
 
-Only flush when the mapping, and for vmap_page_range() also the KMSAN
-metadata, is fully set up.
+> Measured on an AMD EPYC 9634 (84 cores, 12 CCDs, CONFIG_DEBUG_VM=n), on
+> mainline after v7.4-rc1 (the base of this series). Threads share one
+> anonymous VMA, each faults its own slice and zaps it with MADV_DONTNEED;
+> faults/s, median of 3:
+> 
+>   CPUs                      base      patched
+>   1 CCD,   7 threads        2.360M    2.369M   +0.4%
+>   7 CCDs,  1 thread each    1.738M    1.982M  +14.0%
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- mm/vmalloc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+This is not particularly surprising. CCDs have their own L3 cache. I'm not
+surprised the coherency penalty is much higher cross-CCD.
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 0565cbfe325c..3f98056f8c7e 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -369,10 +369,12 @@ int vmap_page_range(unsigned long addr, unsigned long end,
- 
- 	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
- 				 ioremap_max_page_shift);
--	flush_cache_vmap(addr, end);
- 	if (!err)
- 		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
- 					       ioremap_max_page_shift);
-+	if (!err)
-+		flush_cache_vmap(addr, end);
-+
- 	return err;
- }
- 
-@@ -758,7 +760,9 @@ static int __vmap_pages_range(unsigned long addr, unsigned long end,
- 	int err;
- 
- 	err = vmap_pages_range_noflush(addr, end, prot, pages, page_shift, gfp_mask);
--	flush_cache_vmap(addr, end);
-+	if (!err)
-+		flush_cache_vmap(addr, end);
-+
- 	return err;
- }
- 
 -- 
-2.25.1
-
+Pedro
