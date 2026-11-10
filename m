@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276047;
-	b=1XKqFXnhjCby9loGH6bpDGIKI/QwwVGNDO6gc5BlsU94KM7IVURjX7yoRZvuAWxGYPj6
-	 mqF0W3uV5hUi4rCqEsohhQSxPKTKWLWR/epEwYBADxzJV9Msd3/0eAvm6JvNRZGVLSJsA
-	 RguJHP6CMN2TrnGcSpaALfvZycqN5wBUS6VKC7De2QqPA90NI3GSiDTnmD2GZ2AHEfGfm
-	 /MtyDyZ9sfrF3kTFTCBUYVMmZYJ0GiIOZP0E5NyENuWdhkU5OKWw3bkY2U/t7EI6t5YeL
-	 zDwihnbgQPJ15S2YKjnyONQYhKHCW3ZolgqViMNDKCBUIQGMNP//4VyaVlpK44XVadg==
+	t=1794276057;
+	b=fx8O99fZ6btyt6UrdaVRVvzIwfiRcGbl0HNH8TX+KkuNP7pCYNoL78rJ7cCVMt8g/Rl5
+	 ftI1ZRo1UIx2EV2BA28W4e2oZretGGdm33vKpBXI6JeSySP0Sw1RinRXpnLeAcNpLxWeg
+	 aIdX8e6E8LlDuw0xjH3c5MZrmWmVW7nNvT0d7nfQ7ohSCwlI9mMvoNnpu5Gubxv+tXakT
+	 rtEIJbh+v0jfgprWBEWSJL+qwVVBQ2A5wxAR0QqG+Rmw6BhVDOrQVQOG7k/TgB62JBjyw
+	 JqzjXju8pj3+oCZFN6J08XVzOBePdMGJUfcWQ+vgX377y9b48dfj5804UuXlhaqDnwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276057;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VulZgd1OmIgfFNSU3Wrt5M2z68Iowq4ne/lLLBtWXyo=;
-	b=Z7teywyotoP0EL/ZEpxheALfeJ/G8SEUGV8j0NYO9N5rUWuUu5Ninq8kENri+tqhWAJ+
-	 WVe3i5lDN6lJ1fyScMJvP7cz2cVw47T4sVRuUcCg1iuLEo4Nora4ZNEcFjqgnrpWKSqOt
-	 mmp6f8qa90OLMPfbXS1evipi8Gnv04A1PvyfDBVi+BCNZQT8mJ/xbs4ZP2mABcMs987Tc
-	 nO+w653+Zot0xkuF+lDdMhG9p6uW5WJX5D+7g8mg+vvraluk5ooT9gfSekL4Aw0W3qoGV
-	 Lpn/R2RBK7WAMNloR9bfWrMiCtAiEDiK5tzoSFirgmU5ha0pAYZQYxVJnGIxoUNT/Uw==
+	bh=WqvT28WV+anyotgW8PNughiin9p9xfa/cUTdf5pWpM4=;
+	b=4WBAoLI/jGtb16liRMCRullysdgL9v+bOBMhzU8shWl8XjYSJMXrNZGoYG2ARoiJwKH1
+	 PX6pyUeuCuupB786MNgk8lKRx/dfqvBMkugJsbWegqgHWsQXc/xPhwM3Ij9gQWvkMQStn
+	 D9i0GJFEcjHN3HIUy6ccjQUH3NCEchWXFVDyG/JE1y7Vfv52Z4WbXKV9apZBaCns24eMX
+	 uGrSUpCo4f38qM6GFoJHWmlII4yz9JG6IamsgQenuuNj4hKAGnWICNO/pSwKlSd91h3d9
+	 12KlrarYx9KYNfZoW/wlEjrpNc7YApQwtnG7o7X9VUEy8NIV/eNsVGeVHfWb0j6cbug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cdvqrM3H;
-	arc=none smtp.remote-ip=95.215.58.101
-Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t5NjQWFB;
+	arc=none smtp.remote-ip=95.215.58.132
+Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FBC606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:00:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43FBC606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78AD60A2631
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:00:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A78AD60A2631
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cdvqrM3H
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t5NjQWFB
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IzInqVi5ibrCr4PMJDN9KnBm3+SlxCOw2z/EKJEDIl0=;
+DKIM-Signature: a=rsa-sha256; bh=xi/JqNHaosZLgG2wfQoXZL/6tVxJn7Tx4Z7pJb2AWx0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794276044; v=1; x=1794880844;
- b=cdvqrM3HVIHQAIFs1qrnKUM81QwIrcukQIqmKjYM6aI740c1ntL1qo8XsF2WXUqlLzio7piW
- 1uO1IDKUR1wznBTwEurl2phimKshwr8XwOEM9EcS+hTGl7KG+tDn8JZHE5t7JrulqTM7vB/w23C
- WvCwLU3XHHzGzNdHgCudbveU=
+ t=1794276054; v=1; x=1794880854;
+ b=t5NjQWFBDF24Xn93JcElvGneDwENNNL3be/zhLYo11Gb0GM90RzxAFxypDJa9nC3wZI8J2gR
+ u6lg2IiHRNTJG0MpuATDILudA8wf3ISszxbKKVdVadmWuj8Z1jL9yb4YcqAAuy1xbVwgfiSHQhx
+ JKRZPmSSETPU+TYu4NFP04IQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id baea39a9f389d16f;
-	Tue, 10 Nov 2026 02:00:44 +0000
-X-Mizu-Trace-ID: baea39a9f389d16f
+Received: by smtp.migadu.com with ESMTPS id efe4117b172e351d;
+	Tue, 10 Nov 2026 02:00:54 +0000
+X-Mizu-Trace-ID: efe4117b172e351d
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v15 01/18] HID: asus: size feature reports from the HID report descriptor
-Date: Tue, 10 Nov 2026 02:00:19 +0000
-Message-ID: <20261110020036.112884-2-denis.benato@linux.dev>
+Subject: [PATCH v15 06/18] HID: asus: add triggers inner and outer range configuration
+Date: Tue, 10 Nov 2026 02:00:24 +0000
+Message-ID: <20261110020036.112884-7-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261110020036.112884-1-denis.benato@linux.dev>
 References: <20261110020036.112884-1-denis.benato@linux.dev>
@@ -83,372 +83,286 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ASUS vendor protocol uses the same feature report IDs across very
-different devices: on N-KEY keyboards and ROG Ally report 0x5A/0x5E are
-64-byte reports, while on XG Mobile stations report 0x5E is a 300-byte
-report. The driver currently hardcodes transfer lengths (16 bytes for
-the handshake, FEATURE_KBD_REPORT_SIZE for reads, ROG_XGM_REPORT_SIZE
-for the XG Mobile LED, ROG_ALLY_REPORT_SIZE for the MCU version read),
-which mismatches what the hardware expects and would break if a new
-device used yet another size for the same report ID.
+ROG Ally devices allows configuring inner and outer ranges for triggers
+buttons on the back: allow userspace to configure the sensitivity by
+exposing sysfs attributes.
 
-Derive the transfer length of every feature report from the HID report
-descriptor of the device at hand:
-
-- add asus_report_len(), which resolves a report ID to its struct
-  hid_report and returns hid_report_len();
-- asus_kbd_set_report() now zero-pads short payloads to the exact
-  report size and rejects payloads that do not fit the report;
-- add asus_kbd_get_report() and use it from asus_kbd_init() and
-  asus_kbd_get_functions() so reads are sized per report as well;
-- asus_xgm_led_set() sends a minimal payload and checks the transfer
-  result against the descriptor length instead of the hardcoded
-  ROG_XGM_REPORT_SIZE, which is removed along with the fixed-size
-  buffers in asus_kbd_set_fn_lock() and asus_kbd_set_brightness();
-- mcu_request_version() sizes the 0x0d response from the descriptor
-  and names the keyboard feature report FEATURE_KBD_REPORT_ID.
-  ROG_ALLY_REPORT_SIZE has no remaining user and is removed.
-
-Captured USB traffic of the same commands issued by Windows shows they
-are always written at the full report length, which this change now
-matches.
-
-Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
 Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Co-developed-by: Luke Jones <luke@ljones.dev>
+Signed-off-by: Luke Jones <luke@ljones.dev>
 ---
- drivers/hid/hid-asus.c | 181 ++++++++++++++++++++++++++++++-----------
- 1 file changed, 135 insertions(+), 46 deletions(-)
+ drivers/hid/hid-asus.c | 225 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 225 insertions(+)
 
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index f6aa1be09ad5..46643022b68d 100644
+index b3edb5731c06..5b8b4e2a901e 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -22,6 +22,7 @@
+@@ -107,6 +107,11 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+ #define ASUS_ALLY_INNER_THRESHOLD_MIN 0
+ #define ASUS_ALLY_INNER_THRESHOLD_MAX 50
  
- #include <linux/acpi.h>
- #include <linux/cleanup.h>
-+#include <linux/container_of.h>
- #include <linux/dmi.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -30,6 +31,7 @@
- #include <linux/usb.h> /* For to_usb_interface for T100 touchpad intf check */
- #include <linux/power_supply.h>
- #include <linux/leds.h>
-+#include <linux/types.h>
++#define ASUS_ALLY_TRIGGER_RANGE_LOWER_MIN 0
++#define ASUS_ALLY_TRIGGER_RANGE_LOWER_MAX 50
++#define ASUS_ALLY_TRIGGER_RANGE_UPPER_MIN 70
++#define ASUS_ALLY_TRIGGER_RANGE_UPPER_MAX 100
++
+ /* Spurious HID codes sent by QUIRK_ROG_NKEY_KEYBOARD devices */
+ #define ASUS_SPURIOUS_CODE_0XEA 0xea
+ #define ASUS_SPURIOUS_CODE_0XEC 0xec
+@@ -841,6 +846,11 @@ static struct ally_prefs {
+ 	u8 left_outer_threshold;
+ 	u8 right_deadzone;
+ 	u8 right_outer_threshold;
++
++	u8 left_trigger_min;
++	u8 left_trigger_max;
++	u8 right_trigger_min;
++	u8 right_trigger_max;
+ } ally_prefs = {
+ 	.lock = __MUTEX_INITIALIZER(ally_prefs.lock),
+ };
+@@ -1354,9 +1364,213 @@ static const struct attribute_group ally_right_joystick_axis_group = {
+ 	.attrs = right_joystick_axis_attrs,
+ };
  
- #include "hid-ids.h"
++/**
++ * ally_set_trigger_ranges() - Set the gamepad trigger travel ranges
++ * @hdev: HID device the command packet is sent on
++ * @left_min: left trigger minimum (start of travel)
++ * @left_max: left trigger maximum (end of travel)
++ * @right_min: right trigger minimum (start of travel)
++ * @right_max: right trigger maximum (end of travel)
++ *
++ * Context: Caller holds ally_prefs.lock.
++ * Return: 0 on success, -ENOMEM if the command buffer cannot be allocated,
++ * or a negative errno if sending the packet fails.
++ */
++static int ally_set_trigger_ranges(struct hid_device *hdev, u8 left_min, u8 left_max,
++				   u8 right_min, u8 right_max)
++{
++	const u8 payload[] = { left_min, left_max, right_min, right_max };
++	size_t buf_len;
++	int ret;
++
++	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_TRIGGER_RANGE,
++					       payload, sizeof(payload),
++					       &buf_len);
++
++	if (!buf)
++		return -ENOMEM;
++
++	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set trigger ranges: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void ally_trigger_defaults(void)
++{
++	guard(mutex)(&ally_prefs.lock);
++
++	if (ally_prefs.initialized)
++		return;
++
++	ally_prefs.left_trigger_min = ASUS_ALLY_TRIGGER_RANGE_LOWER_MIN;
++	ally_prefs.left_trigger_max = ASUS_ALLY_TRIGGER_RANGE_UPPER_MAX;
++	ally_prefs.right_trigger_min = ASUS_ALLY_TRIGGER_RANGE_LOWER_MIN;
++	ally_prefs.right_trigger_max = ASUS_ALLY_TRIGGER_RANGE_UPPER_MAX;
++}
++
++/* Indices into ally_trigger_limits[] */
++enum ally_trigger_limit {
++	ALLY_LEFT_MIN,
++	ALLY_LEFT_MAX,
++	ALLY_RIGHT_MIN,
++	ALLY_RIGHT_MAX,
++};
++
++static u8 * const ally_trigger_limits[] = {
++	[ALLY_LEFT_MIN]  = &ally_prefs.left_trigger_min,
++	[ALLY_LEFT_MAX]  = &ally_prefs.left_trigger_max,
++	[ALLY_RIGHT_MIN] = &ally_prefs.right_trigger_min,
++	[ALLY_RIGHT_MAX] = &ally_prefs.right_trigger_max,
++};
++
++static ssize_t ally_trigger_limit_show(char *buf, enum ally_trigger_limit which)
++{
++	guard(mutex)(&ally_prefs.lock);
++
++	if (!ally_prefs.user_cal_support)
++		return -EOPNOTSUPP;
++
++	return sysfs_emit(buf, "%u\n", *ally_trigger_limits[which]);
++}
++
++static ssize_t ally_trigger_limit_store(struct device *dev, const char *buf,
++					size_t count,
++					enum ally_trigger_limit which,
++					int lo, int hi,
++					const char *group, const char *name)
++{
++	u8 value, v[ARRAY_SIZE(ally_trigger_limits)];
++	struct hid_device *hdev = to_hid_device(dev);
++	size_t i;
++	int ret;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value < lo || value > hi)
++		return -EINVAL;
++
++	scoped_guard(mutex, &ally_prefs.lock) {
++		if (!ally_prefs.user_cal_support)
++			return -EOPNOTSUPP;
++
++		for (i = 0; i < ARRAY_SIZE(v); i++)
++			v[i] = *ally_trigger_limits[i];
++		v[which] = value;
++
++		ret = ally_set_trigger_ranges(hdev, v[ALLY_LEFT_MIN], v[ALLY_LEFT_MAX],
++					      v[ALLY_RIGHT_MIN], v[ALLY_RIGHT_MAX]);
++		if (ret)
++			return ret;
++
++		*ally_trigger_limits[which] = value;
++	}
++
++	sysfs_notify(&dev->kobj, group, name);
++
++	return count;
++}
++
++/*
++ * Generates <side>_trigger_range_<limit>_limit_{show,store,range_show}.
++ * @lo is the lowest value the store accepts; it is 0 (no check) for the
++ * "lower" limits, matching the original code, which only checked the maximum.
++ */
++#define ALLY_TRIGGER_LIMIT_FUNCS(side, limit, LIMIT, which, lo)					\
++static ssize_t side##_trigger_range_##limit##_limit_show(struct device *dev,			\
++							 struct device_attribute *attr,		\
++							 char *buf)				\
++{												\
++	return ally_trigger_limit_show(buf, which);						\
++}												\
++												\
++static ssize_t side##_trigger_range_##limit##_limit_store(struct device *dev,			\
++							  struct device_attribute *attr,	\
++							  const char *buf,			\
++							  size_t count)				\
++{												\
++	return ally_trigger_limit_store(dev, buf, count, which, lo,				\
++					ASUS_ALLY_TRIGGER_RANGE_##LIMIT##_MAX,			\
++					#side "_trigger", "range_" #limit "_limit");		\
++}												\
++												\
++static ssize_t side##_trigger_range_##limit##_limit_range_show(struct device *dev,		\
++							       struct device_attribute *attr,	\
++							       char *buf)			\
++{												\
++	return sysfs_emit(buf, "%u %u\n", ASUS_ALLY_TRIGGER_RANGE_##LIMIT##_MIN,		\
++			  ASUS_ALLY_TRIGGER_RANGE_##LIMIT##_MAX);				\
++}
++
++ALLY_TRIGGER_LIMIT_FUNCS(left,  lower, LOWER, ALLY_LEFT_MIN,  0)
++ALLY_TRIGGER_LIMIT_FUNCS(left,  upper, UPPER, ALLY_LEFT_MAX,  ASUS_ALLY_TRIGGER_RANGE_UPPER_MIN)
++ALLY_TRIGGER_LIMIT_FUNCS(right, lower, LOWER, ALLY_RIGHT_MIN, 0)
++ALLY_TRIGGER_LIMIT_FUNCS(right, upper, UPPER, ALLY_RIGHT_MAX, ASUS_ALLY_TRIGGER_RANGE_UPPER_MIN)
++
++static struct device_attribute dev_attr_left_trigger_range_lower_limit =
++	__ATTR(range_lower_limit, 0644, left_trigger_range_lower_limit_show,
++	       left_trigger_range_lower_limit_store);
++
++static struct device_attribute dev_attr_left_trigger_range_lower_limit_range =
++	__ATTR(range_lower_limit_range, 0444,
++	       left_trigger_range_lower_limit_range_show, NULL);
++
++static struct device_attribute dev_attr_left_trigger_range_upper_limit =
++	__ATTR(range_upper_limit, 0644, left_trigger_range_upper_limit_show,
++	       left_trigger_range_upper_limit_store);
++
++static struct device_attribute dev_attr_left_trigger_range_upper_limit_range =
++	__ATTR(range_upper_limit_range, 0444,
++	       left_trigger_range_upper_limit_range_show, NULL);
++
++static struct device_attribute dev_attr_right_trigger_range_lower_limit =
++	__ATTR(range_lower_limit, 0644, right_trigger_range_lower_limit_show,
++	       right_trigger_range_lower_limit_store);
++
++static struct device_attribute dev_attr_right_trigger_range_lower_limit_range =
++	__ATTR(range_lower_limit_range, 0444,
++	       right_trigger_range_lower_limit_range_show, NULL);
++
++static struct device_attribute dev_attr_right_trigger_range_upper_limit =
++	__ATTR(range_upper_limit, 0644, right_trigger_range_upper_limit_show,
++	       right_trigger_range_upper_limit_store);
++
++static struct device_attribute dev_attr_right_trigger_range_upper_limit_range =
++	__ATTR(range_upper_limit_range, 0444,
++	       right_trigger_range_upper_limit_range_show, NULL);
++
++static struct attribute *left_trigger_attrs[] = {
++	&dev_attr_left_trigger_range_lower_limit.attr,
++	&dev_attr_left_trigger_range_upper_limit.attr,
++	&dev_attr_left_trigger_range_lower_limit_range.attr,
++	&dev_attr_left_trigger_range_upper_limit_range.attr,
++	NULL
++};
++
++static struct attribute *right_trigger_attrs[] = {
++	&dev_attr_right_trigger_range_lower_limit.attr,
++	&dev_attr_right_trigger_range_upper_limit.attr,
++	&dev_attr_right_trigger_range_lower_limit_range.attr,
++	&dev_attr_right_trigger_range_upper_limit_range.attr,
++	NULL
++};
++
++static const struct attribute_group ally_left_trigger_group = {
++	.name = "left_trigger",
++	.attrs = left_trigger_attrs,
++};
++
++static const struct attribute_group ally_right_trigger_group = {
++	.name = "right_trigger",
++	.attrs = right_trigger_attrs,
++};
+ static const struct attribute_group *const ally_cal_attr_groups[] = {
+ 	&ally_left_joystick_axis_group,
+ 	&ally_right_joystick_axis_group,
++	&ally_left_trigger_group,
++	&ally_right_trigger_group,
+ };
  
-@@ -51,9 +53,6 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
- #define FEATURE_KBD_LED_REPORT_ID1 0x5d
- #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+ static struct attribute *ally_config_attrs[] = {
+@@ -1391,6 +1605,7 @@ static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
  
--#define ROG_XGM_REPORT_SIZE 300
--
--#define ROG_ALLY_REPORT_SIZE 64
- #define ROG_ALLY_X_MIN_MCU 313
- #define ROG_ALLY_MIN_MCU 319
+ 	ally_vibration_defaults();
+ 	ally_joystick_defaults();
++	ally_trigger_defaults();
  
-@@ -582,20 +581,104 @@ static int asus_raw_event(struct hid_device *hdev,
+ 	scoped_guard(mutex, &ally_prefs.lock) {
+ 		if (!ally_prefs.initialized) {
+@@ -1700,6 +1915,16 @@ static int hid_asus_ally_init(struct hid_device *hdev)
+ 			hid_warn(hdev, "Failed to restore joystick thresholds: %d\n", ret);
+ 	}
+ 
++	if (ally_prefs.initialized && ally_prefs.user_cal_support) {
++		ret = ally_set_trigger_ranges(hdev,
++					      ally_prefs.left_trigger_min,
++					      ally_prefs.left_trigger_max,
++					      ally_prefs.right_trigger_min,
++					      ally_prefs.right_trigger_max);
++		if (ret < 0)
++			hid_warn(hdev, "Failed to restore trigger ranges: %d\n", ret);
++	}
++
  	return 0;
  }
  
-+/**
-+ * asus_find_report() - Find a report of the given type by its ID
-+ * @hdev: HID device
-+ * @type: report type (HID_INPUT_REPORT, HID_OUTPUT_REPORT or
-+ * HID_FEATURE_REPORT)
-+ * @report_id: report ID to look for
-+ *
-+ * Return: the report with the given ID, or NULL if the device does not
-+ * declare such a report.
-+ */
-+static struct hid_report *asus_find_report(struct hid_device *hdev,
-+					   unsigned int type, u8 report_id)
-+{
-+	return hdev->report_enum[type].report_id_hash[report_id];
-+}
-+
-+/**
-+ * asus_report_len() - Length of a feature report for the device
-+ * @hdev: HID device
-+ * @report_id: report ID of the feature report
-+ *
-+ * The same ASUS report ID can have different sizes depending on the device:
-+ * report 0x5E is a 64-byte report on laptops but a 300-byte report on XG
-+ * Mobile stations. Always size transfers from the report descriptor of the
-+ * device at hand instead of hardcoding lengths.
-+ *
-+ * Return: the length of the feature report in bytes, or 0 if the device
-+ * does not declare the report.
-+ */
-+static size_t asus_report_len(struct hid_device *hdev, u8 report_id)
-+{
-+	struct hid_report *report;
-+
-+	report = asus_find_report(hdev, HID_FEATURE_REPORT, report_id);
-+
-+	return report ? hid_report_len(report) : 0;
-+}
-+
- static int asus_kbd_set_report(struct hid_device *hdev, const u8 *buf, size_t buf_size)
- {
--	u8 *dmabuf __free(kfree) = kmemdup(buf, buf_size, GFP_KERNEL);
-+	size_t hw_len = asus_report_len(hdev, buf[0]);
-+
-+	/* The payload (including the report ID) must fit the device report. */
-+	if (!hw_len || buf_size > hw_len)
-+		return -EINVAL;
-+
-+	u8 *dmabuf __free(kfree) = kzalloc(hw_len, GFP_KERNEL);
- 	if (!dmabuf)
- 		return -ENOMEM;
- 
-+	memcpy(dmabuf, buf, buf_size);
-+
- 	/*
--	 * The report ID should be set from the incoming buffer due to LED and key
--	 * interfaces having different pages
-+	 * The report ID should be set from the incoming buffer due to LED and
-+	 * key interfaces having different pages. Short payloads are zero-padded
-+	 * to the exact report size the hardware expects for this report ID.
- 	 */
--	return hid_hw_raw_request(hdev, buf[0], dmabuf, buf_size, HID_FEATURE_REPORT,
-+	return hid_hw_raw_request(hdev, buf[0], dmabuf, hw_len, HID_FEATURE_REPORT,
- 				  HID_REQ_SET_REPORT);
- }
- 
-+/**
-+ * asus_kbd_get_report() - Read a report sized from the descriptor
-+ * @hdev: HID device
-+ * @report_id: report ID to read
-+ * @buf: buffer to store the report in
-+ * @buf_size: size of @buf
-+ *
-+ * The transfer is performed at the exact report size the device declares
-+ * for @report_id. The device may answer with a short read, and only the
-+ * bytes that fit in @buf are copied into it.
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+static int asus_kbd_get_report(struct hid_device *hdev, u8 report_id,
-+			       u8 *buf, size_t buf_size)
-+{
-+	size_t hw_len = asus_report_len(hdev, report_id);
-+	int ret;
-+
-+	if (!hw_len)
-+		return -EINVAL;
-+
-+	u8 *dmabuf __free(kfree) = kzalloc(hw_len, GFP_KERNEL);
-+	if (!dmabuf)
-+		return -ENOMEM;
-+
-+	ret = hid_hw_raw_request(hdev, report_id, dmabuf, hw_len,
-+				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The device may return less than requested (short read). */
-+	memcpy(buf, dmabuf, min(buf_size, hw_len));
-+
-+	return 0;
-+}
-+
- static int asus_kbd_init(struct hid_device *hdev, u8 report_id)
- {
- 	/*
-@@ -604,8 +687,13 @@ static int asus_kbd_init(struct hid_device *hdev, u8 report_id)
- 	 */
- 	const u8 buf[] = { report_id, 0x41, 0x53, 0x55, 0x53, 0x20, 0x54,
- 		     0x65, 0x63, 0x68, 0x2e, 0x49, 0x6e, 0x63, 0x2e, 0x00 };
-+	size_t hw_len = asus_report_len(hdev, report_id);
-+	size_t cmp_len;
- 	int ret;
- 
-+	if (!hw_len)
-+		return -EINVAL;
-+
- 	ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
- 	if (ret < 0) {
- 		hid_err(hdev, "Asus handshake %02x failed to send: %d\n",
-@@ -613,19 +701,20 @@ static int asus_kbd_init(struct hid_device *hdev, u8 report_id)
- 		return ret;
- 	}
- 
--	u8 *readbuf __free(kfree) = kzalloc(FEATURE_KBD_REPORT_SIZE, GFP_KERNEL);
-+	u8 *readbuf __free(kfree) = kzalloc(hw_len, GFP_KERNEL);
- 	if (!readbuf)
- 		return -ENOMEM;
- 
--	ret = hid_hw_raw_request(hdev, report_id, readbuf,
--				 FEATURE_KBD_REPORT_SIZE, HID_FEATURE_REPORT,
--				 HID_REQ_GET_REPORT);
-+	ret = asus_kbd_get_report(hdev, report_id, readbuf, hw_len);
- 	if (ret < 0) {
- 		hid_warn(hdev, "Asus handshake %02x failed to receive ack: %d\n",
- 			 report_id, ret);
--	} else if (memcmp(readbuf, buf, sizeof(buf)) != 0) {
--		hid_warn(hdev, "Asus handshake %02x returned invalid response: %*ph\n",
--			 report_id, FEATURE_KBD_REPORT_SIZE, readbuf);
-+	} else {
-+		cmp_len = min_t(size_t, sizeof(buf), hw_len);
-+		if (memcmp(readbuf, buf, cmp_len) != 0) {
-+			hid_warn(hdev, "Asus handshake %02x returned invalid response: %*ph\n",
-+				 report_id, (int)cmp_len, readbuf);
-+		}
- 	}
- 
- 	/*
-@@ -640,32 +729,35 @@ static int asus_kbd_get_functions(struct hid_device *hdev,
- 				  u8 report_id)
- {
- 	const u8 buf[] = { report_id, 0x05, 0x20, 0x31, 0x00, 0x08 };
--	u8 *readbuf;
-+	size_t hw_len = asus_report_len(hdev, report_id);
- 	int ret;
- 
-+	/*
-+	 * Function flags are at byte 6. A shorter report does not
-+	 * contain that byte.
-+	 */
-+	if (hw_len < 7)
-+		return -EINVAL;
-+
- 	ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
- 	if (ret < 0) {
- 		hid_err(hdev, "Asus failed to send configuration command: %d\n", ret);
- 		return ret;
- 	}
- 
--	readbuf = kzalloc(FEATURE_KBD_REPORT_SIZE, GFP_KERNEL);
-+	u8 *readbuf __free(kfree) = kzalloc(hw_len, GFP_KERNEL);
- 	if (!readbuf)
- 		return -ENOMEM;
- 
--	ret = hid_hw_raw_request(hdev, report_id, readbuf,
--				 FEATURE_KBD_REPORT_SIZE, HID_FEATURE_REPORT,
--				 HID_REQ_GET_REPORT);
-+	ret = asus_kbd_get_report(hdev, report_id, readbuf, hw_len);
- 	if (ret < 0) {
- 		hid_err(hdev, "Asus failed to request functions: %d\n", ret);
--		kfree(readbuf);
- 		return ret;
- 	}
- 
- 	*kbd_func = readbuf[6];
- 
--	kfree(readbuf);
--	return ret;
-+	return 0;
- }
- 
- static int asus_kbd_disable_oobe(struct hid_device *hdev)
-@@ -690,7 +782,7 @@ static int asus_kbd_disable_oobe(struct hid_device *hdev)
- 
- static void asus_kbd_set_fn_lock(struct hid_device *hdev, bool enabled)
- {
--	const u8 buf[FEATURE_KBD_REPORT_SIZE] = { FEATURE_KBD_REPORT_ID, 0xd0, 0x4e, !!enabled };
-+	const u8 buf[] = { FEATURE_KBD_REPORT_ID, 0xd0, 0x4e, !!enabled };
- 	int ret;
- 
- 	ret = asus_kbd_set_report(hdev, buf, sizeof(buf));
-@@ -700,7 +792,7 @@ static void asus_kbd_set_fn_lock(struct hid_device *hdev, bool enabled)
- 
- static void asus_kbd_set_brightness(struct hid_device *hdev, u8 brightness)
- {
--	const u8 buf[FEATURE_KBD_REPORT_SIZE] = {
-+	const u8 buf[] = {
- 		FEATURE_KBD_REPORT_ID, 0xba, 0xc5, 0xc4, brightness
- 	};
- 	int ret;
-@@ -900,10 +992,15 @@ static int mcu_parse_version_string(const u8 *response, size_t response_size)
- 
- static int mcu_request_version(struct hid_device *hdev)
- {
--	u8 *response __free(kfree) = kzalloc(ROG_ALLY_REPORT_SIZE, GFP_KERNEL);
--	const u8 request[] = { 0x5a, 0x05, 0x03, 0x31, 0x00, 0x20 };
-+	size_t hw_len = asus_report_len(hdev, FEATURE_KBD_REPORT_ID);
-+	const u8 request[] = { FEATURE_KBD_REPORT_ID, 0x05, 0x03, 0x31, 0x00, 0x20 };
- 	int ret;
- 
-+	if (!hw_len)
-+		return -EINVAL;
-+
-+	u8 *response __free(kfree) = kzalloc(hw_len, GFP_KERNEL);
-+
- 	if (!response)
- 		return -ENOMEM;
- 
-@@ -911,17 +1008,16 @@ static int mcu_request_version(struct hid_device *hdev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = hid_hw_raw_request(hdev, FEATURE_REPORT_ID, response,
--				ROG_ALLY_REPORT_SIZE, HID_FEATURE_REPORT,
--				HID_REQ_GET_REPORT);
-+	ret = hid_hw_raw_request(hdev, FEATURE_REPORT_ID, response, hw_len,
-+				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = mcu_parse_version_string(response, ROG_ALLY_REPORT_SIZE);
-+	ret = mcu_parse_version_string(response, hw_len);
- 	if (ret < 0) {
- 		pr_err("Failed to parse MCU version: %d\n", ret);
- 		print_hex_dump(KERN_ERR, "MCU: ", DUMP_PREFIX_NONE,
--			      16, 1, response, ROG_ALLY_REPORT_SIZE, false);
-+			       16, 1, response, hw_len, false);
- 	}
- 
- 	return ret;
-@@ -958,17 +1054,12 @@ static void validate_mcu_fw_version(struct hid_device *hdev, int idProduct)
- 
- static bool asus_has_report_id(struct hid_device *hdev, u16 report_id)
- {
--	struct hid_report *report;
--	int t;
-+	if (report_id >= HID_MAX_IDS)
-+		return false;
- 
--	for (t = HID_INPUT_REPORT; t <= HID_FEATURE_REPORT; t++) {
--		list_for_each_entry(report, &hdev->report_enum[t].report_list, list) {
--			if (report->id == report_id)
--				return true;
--		}
--	}
--
--	return false;
-+	return asus_find_report(hdev, HID_INPUT_REPORT, report_id) ||
-+	       asus_find_report(hdev, HID_OUTPUT_REPORT, report_id) ||
-+	       asus_find_report(hdev, HID_FEATURE_REPORT, report_id);
- }
- 
- static int asus_kbd_register_leds(struct hid_device *hdev)
-@@ -1171,17 +1262,15 @@ static int asus_battery_probe(struct hid_device *hdev)
- 
- static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
- {
--	const u8 buf[ROG_XGM_REPORT_SIZE] = {
--		FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
--	};
-+	const u8 buf[] = { FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00 };
- 	struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
- 	int ret;
- 
--	ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
-+	ret = asus_kbd_set_report(xgm->hdev, buf, sizeof(buf));
- 	if (ret < 0) {
- 		hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
- 		return ret;
--	} else if (ret != ROG_XGM_REPORT_SIZE) {
-+	} else if (ret != (int)asus_report_len(xgm->hdev, FEATURE_KBD_LED_REPORT_ID2)) {
- 		hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
- 		return -EIO;
- 	}
 -- 
 2.47.3
 
