@@ -1,57 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354151;
-	b=kWBiEBlqoxlR9XXuRRydGMaBgvpqo71fYV5BIIU+r5Jat4zGfMLpdBHRQkffcEgI+36z
-	 /VlqjLQugd7pTJpk5c2nldDytQ3PjLcMyNQpQ12vxrn14zvNjxyywlMQb7wr6So5H6+Tn
-	 Va81ikXVroNyJB7rTXZX9UF7Q1/NOtJ85mxtTHIzLZ/r9sgdMgjjDkP/XOaSRR/fyMJNt
-	 7E53feiFU0UZx/8XUulk0VYKbdTe/9TgZ950huvl0DHOGfSvDEJpDsdOkX0sApdQApH2d
-	 NRQGJGO1UrVdGTgoF5KboOi6nc+evjV2IL3McK8JF8RTtshfy6fwEcxYtYrRMPwAWGA==
+	t=1794354202;
+	b=EY6cSO3p121pfYHBOm47KqpXdRYtBCQ7IDCwfYsIpAw+NVo2NxzCc4/3AJaoPEmyXqvK
+	 ayLm2yj1Ra9I2LMmcX/RYul2ePzWXquU0OG8+Jd168lJYJnel2dKL2JZl6aHmu0z3S+RT
+	 4t1kelBK4bf910eLeRRDcsTqiqaQYXLG9YE+JbSS3tMeEscw0zvxrhtEtCEAW3o3F2h/L
+	 xm5sfanpP3XoGRHPOJvpFsxI9jJuusfYDNurJt6JaGxFxWdOc2bdGauDclNlLPTkSe4B7
+	 3XKgXKVtSJyLrPI96qWn2pd969sZKb3BP0lAQdeFpqE3Au7RWLRyEgqr94aPRYzlWtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354151;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CsUP7uvted68zB+90tj7YUthWbvQdljORHl/K8ISItY=;
-	b=AL7UtBUx9qBSAPv9GDgq0VS7MJeC6KICl2+Upmm8pHkSiDXZxhDZdYkSEELCfqjgRzwZ
-	 0n9mVos51nxJaR2/bjc86TRLmB+Bb6CmhdyRavHfqMXLGRQVA2g3qQAEaX+2LrKsFqDFQ
-	 wxTaJLCfDoTw8emYNcpxSq/K04BjLe7KSSBLAzuuE+9M6hvWRNJU9AMqUzr4ug4qMXxS5
-	 bECHRzUOfv3WBJbZYROvECTzIXXFRTTWHEkMqQCZQJScizkpCDcAtGnYAw3aFUxsUAtM4
-	 LXw52KoGa2Dyu17Nyn9mDlxoZwZAzrAVXYS4/TqwrtCyWBrftjocktqp+KUO9vg2Q/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354202;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
+	b=msCEHqxxEAviVYHn16iJt7K6Z2CRUq8FKcbQ/U5tXSNycfhc2+jD06NOfjvcHuPkp5sP
+	 tfByn3CHnxec+QecEnLSY/cAVSSTkmphqceQNqpfBsi7n4TEsYQ9CeJ+tFRX/PabXtEuT
+	 T7tSADuLEuxX0aa3VGQXdUzRQQnSSXZVpt08dozlNssln5Sm4Y1v9wJAjYVKalsV0YRen
+	 GS1MZ8l4HaskurQyIbeBnFFtuxm5lHrMscc+aSEUG6jN2ajtWHRJhKEUr6BUe9HDfET7f
+	 ZJWxrctq60f33N3edodVIt3qxmegvd0cii4I8vMjV0C1lKlWKBfsqxsJbrLUYwC4IQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.ch;
-	spf=pass smtp.mailfrom=protonmail.ch;
-	dkim=pass header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=NAxcib4x;
-	arc=none smtp.remote-ip=185.70.43.103
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	dmarc=none header.from=alistair23.me;
+	spf=pass smtp.mailfrom=alistair23.me;
+	dkim=pass header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C15E606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C15E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C21606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C21606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=NAxcib4x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.ch;
-	s=protonmail3; t=1794354148; x=1794613348;
-	bh=CsUP7uvted68zB+90tj7YUthWbvQdljORHl/K8ISItY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NAxcib4xPHjyl4LCjL0Kc/O+zU6j9SE0tP7NP3Ac28mazEbo4HdkOYj+YZB7qFJ8E
-	 ipTi+947Arq+aNsLlToJwJ+VulJIiQqjb2Yd00j5vUf2U87v0TjmB/jibY27o3Pr0U
-	 z5m0F3oCZgLx1ih+Ey8c3lkmWEHrXkXgMhsq61+Vrg1Bh2KpaNg6F+xrB/5z8GrwJs
-	 UmybeO7ll4pQib02YBQjqMCC6QZf3okOSJn41VY8WYl+pLsaqSz0FCUA86GpGWlJ/l
-	 IG+LWeKxq38J92xytrAdKHW9tl7zEafEnKg5dJvOGvlvWfw4/RhWz2jd6RHeLVt0Je
-	 iP8nW3cnnlMFg==
-Date: Tue, 10 Nov 2026 23:42:21 +0000
-To: Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Yassine Oudjana <y.oudjana@protonmail.com>
-From: Ben Grisdale <bengris32@protonmail.ch>
-Cc: Ben Grisdale <bengris32@protonmail.ch>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2] mfd: mt6397: Use PMIC specific interrupt count for domain creation
-Message-ID: <738177eZDQjVkBbNjeXNQVKLv3V-twRGcbGlGk02RsZtm53MbHqt7pcsoigp-ZV9xh_ehAVHa4ZZEvXLXFbrOw==@protonmail.internalid>
-Feedback-ID: 27291966:user:proton
-X-Pm-Message-ID: c730cca830f1d3a8b357a1e7430262ae4c743f50
+	dkim=pass (2048-bit key, unprotected) header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfout.phl.internal (Postfix) with ESMTP id 04175EC0603
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:43:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Tue, 10 Nov 2026 18:43:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
+	 t=1794354200; x=1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0p
+	CIuLNaVpstw=; b=SLTRwptregmi5YgLcqMIJr1XNTmok1drjTOQY8r7bwcZnPJY
+	e3WMsgkDUiQBxSB6DEYNqLWcK4F8oo8eJw9LTPyiJBn4PZMWJ7YTPHQrrDiRgejZ
+	CP8gY++zNgjuAAkDbIxIatPrnGggdEiamfEIqb72zQ1bvwbj0Lqbw2GBr4Sm3vA2
+	DwEeNElmboQe3Kn//Rfhkx84HRAH3wIE637Glo5jhbRXbLkdjoM9liT6PIGCZH7A
+	vHxB9KthZ6mV8pQToL9FokWuKrFFXLZQmD24ZLWR513xzcglC/eJYuiL3+t67YQL
+	vYsRF/O2EbsacqFxAAOihJwY/dHgqsZTTi9ySw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794354200; x=
+	1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=; b=L
+	vIryW+Uc//8KT1///hSFZ5BUkFs5DKzbZtv9/CNM/3k3Q6wDtjwFMcPnN8OwxQNm
+	EUtTpvdIjQvFZfDX5b4qK1ECoJQ4+EQ3VLSlswSlJy/BVEzw6MPcrCi5ahBowtH6
+	NBEbzAzU/LW1xHdP3pSi6zsLtoOgL7KfyetPbw7ycGdn68Ee/I4qjv20rQLyWO70
+	DDHZ72z8+l8u6dcm+6EgsZdLlxMq93ONZZXmXBtpayNSw4GNV8cjIeu6aAZ9ePxa
+	O/G/7WYKnBDnU1fN3y3ltodBRa52YcfOMKeYaizTOpafz6CnSJmNJdrGMS7K0giG
+	sJKYHRYvfEP2pIE2rPk3w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=alistair23.me a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794354200; d=alistair23.me;
+	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:E/h+6u5wSCNJ63+5twkcdUjJgFefwDCbVR4mbHS7/vKG8rP
+	ZlK/jYMwSlUa8Ewl6nvI3uOU3aw7lOmyAbQZX/e6q0Vcu/PeNI9Spcms9ouHFkiP
+	TiHc6x1Ik0MxmqIl6GyrWyVkh6lceWN800sn+P9ZGQE9N6Qa7HP6e1ZFexPgjUPd
+	5b5RPt89dIetMkITfvN0PKYZPKOjcuFY2+naz99h4V/fyNdk7g4dRbhtXnbvL8lR
+	HZ1njfowFoLCwadq+L5Xjidoo9fgJF1ABz3wBeOapK7GpiapL5La1LvyOegyLPBy
+	CwckbHQTo6dqD2jquau7EKh0vNPjaX1IGC5/4pg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:Qk7gK0IsGB1Q6aMT9k9ePKHHzrDKj/tmy1PB+LqXS+8=:0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
+X-ME-Sender: <xms:Fqzzav6CaRv0CZbpxaOaxI427YxzI0JXQeiBEP_FEXoTduxxdSW9KA>
+    <xme:Fqzzar1XqJKXDv2fua0IUkpihguiZF-Qx6aLA8ONrbsGVXIzDnDN0ErOEiEGSkTC8
+    5UTtqjBatuyRVNJiI8mNr5ZKRIrqVfut_k589jJma_ZL-ZRH4N2wHXP>
+X-ME-Received: <xmr:Fqzzarh7rCqzpoW2_Ze1VXOpeFiDtFZ-HYgAXPzeAZFzbk2Tybau9VCEwHTuwtDUvv27UKLQLcHDpk8j1Rcp>
+X-ME-Proxy-Cause: dmFkZTFEX2UJcgpQyiNt+GxCdCP+sn8sCJSYmF1dP9IOYwinxKt8hHWepJE33Bo25oa75j
+    7gYdW9w0WbI1jJmzHwxrRwYH/Xkjfzj1yd9rLQkOTNeYP831KcvJRlyXTPGSQntqNX989A
+    rJ1Zv+fbrOEP/F1XVyGYnhaIFK2xhP3dYOl1BebBb9gXvOcQfiXrvc3yExHxVmuC3DQ3S0
+    IrX3U95+MFySpqTExrClQ99RERJLeLlqG5NK7HRE2QLNSdmp1C7JQGLx7RRqoYYPQlFJZy
+    fYNjsLgymWFoiNeFxev51sYd0FUYH6bv6duka8km9mkgrCBoXVpgMooGzQuArczz/S0zjF
+    89VpIcB+8BgGiEqNTOMqmqWpArDL00KPCSx2ZdPUXc2L4Exmfoj+27+VnHOZBbu8Ac7HgB
+    q2YkjksWafyjGGs9Iu95Z32qXKTMWdJEvixQ+ByAd7GSyLoimQrcIjtICLp45ZWR3PmevI
+    yVO0bxLh2ji5bMhtqUzh9YIuA9OPL1cyhZVLmRX5XKYJV4zQI7u1J2o6xCBPHxRtziYFY3
+    DG/t4hLh+MjwNGQIZUcbiThQqLn4C3EvgJ84tcb2sALmQ7YX3iQ1ionCAt1bLwaJqwXChL
+    2wN4nvBvJshvhI8X+7wZIyqrpMHa/3jL2PaDkVTIvrcRpGOUSTIj5VcN2L1Q
+X-ME-Proxy: <xmx:FqzzanQ17uTRRiZOYy9o-IGG0nlVQclLbKF8PHhe7VVHf3OGtWQJaQ>
+    <xmx:Fqzzat7uwXYoFXrH1gMhNdWKIwL6bfq7JMDDnbN8p_6ymoRAN1feVw>
+    <xmx:Fqzzavz_pwLK_ml4Tho34EuPc1x8Jg81BmUW6ftWq9xEgWr89JhJtw>
+    <xmx:FqzzatCuIMkDsSetXx98vgWYEBIUs-IEK98FOma_PsVTFHQXUUwr0w>
+    <xmx:GKzzasWECsVibloWQs9MRGueFVep43cowMHxf1hnUYg2YjXDMRaTJ1dM>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 18:43:13 -0500 (EST)
+Message-ID: <7ba76316996d17efab87a180c88da4c3300f075c.camel@alistair23.me>
+Subject: Re: [PATCH 1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
+From: Alistair <alistair@alistair23.me>
+To: =?ISO-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>, Marcel
+ Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
+ <luiz.dentz@gmail.com>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Yixun Lan
+ <dlan@kernel.org>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Troy Mitchell
+ <troy.mitchell@linux.spacemit.com>, linux-bluetooth@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Wed, 11 Nov 2026 09:43:10 +1000
+In-Reply-To: <20261110074607.363918-2-frederic.mahe@cirad.fr>
+References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
+	 <20261110074607.363918-2-frederic.mahe@cirad.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,19 +137,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi folks,
+On Tue, 2026-11-10 at 08:46 +0100, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
+> The RTL8852BS is a Wi-Fi 6 + Bluetooth 5.2 chip with Wi-Fi on SDIO
+> and Bluetooth on UART (H5). Its Bluetooth part works with the
+> RTL8822CS driver data, so use realtek,rtl8822cs-bt as fallback.
+>=20
+> This patch was prepared with the help of an AI assistant (Claude),
+> which also ran the tests.
+>=20
+> Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
 
-Please ignore this V2, it was CC'd to the lists by mistake whilst I was
-testing my mail setup.
-It is identical to the patch in V1, which is still current:
-https://lore.kernel.org/all/20261110-mt6397-irq-num-fix-v1-1-81d17454194e@p=
-rotonmail.ch
+Reviewed-by: Alistair Francis <alistair@alistair23.me>
 
-Apologies for any inconvenience or noise caused.
+Alistair
 
-Best regards,
-Ben Grisdale
-
+> ---
+> =C2=A0.../bindings/net/bluetooth/realtek,bluetooth.yaml=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 11 +++++++--
+> --
+> =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
+>=20
+> diff --git
+> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
+> aml
+> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
+> aml
+> index 7d567122b..ffdf13b05 100644
+> ---
+> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
+> aml
+> +++
+> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
+> aml
+> @@ -4,16 +4,16 @@
+> =C2=A0$id:
+> http://devicetree.org/schemas/net/bluetooth/realtek,bluetooth.yaml#
+> =C2=A0$schema: http://devicetree.org/meta-schemas/core.yaml#
+> =C2=A0
+> -title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS Bluetooth
+> +title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS Bluetooth
+> =C2=A0
+> =C2=A0maintainers:
+> =C2=A0=C2=A0 - Vasily Khoruzhick <anarsoul@gmail.com>
+> =C2=A0=C2=A0 - Alistair Francis <alistair@alistair23.me>
+> =C2=A0
+> =C2=A0description:
+> -=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS is a WiFi + BT chip. WiFi
+> part
+> -=C2=A0 is connected over SDIO, while BT is connected over serial. It
+> speaks
+> -=C2=A0 H5 protocol with few extra commands to upload firmware and change
+> +=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS is a WiFi + BT
+> chip.
+> +=C2=A0 WiFi part is connected over SDIO, while BT is connected over
+> serial. It
+> +=C2=A0 speaks H5 protocol with few extra commands to upload firmware and
+> change
+> =C2=A0=C2=A0 module speed.
+> =C2=A0
+> =C2=A0properties:
+> @@ -28,6 +28,9 @@ properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 - realtek,rtl8821cs-bt
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: rea=
+ltek,rtl8723bs-bt
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
+rtl8852bs-bt
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
+rtl8822cs-bt
+> =C2=A0
+> =C2=A0=C2=A0 device-wake-gpios:
+> =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
