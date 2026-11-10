@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294665;
-	b=wZuOUrKBhWblD+eAHHDPtuVHF9mM9zd1pS+hQ3e+mo4S4jkMnZvPhzbRxXLkk+alxmEn
-	 cL1w0Fhkx8pR9tfBAnXw0l9SA9qwd44srywa0TPurWnonCNIX2/V/z3a9KIhZKqez8RNn
-	 MUuLuBgoB6Lg/lTQ14LDnKIhtPT5G+gJ7p4etmWx86vglyrVKnE63zTO7mhrYmLyTaXS+
-	 gVTb/2SX6ofnDfoXaJi790m1MU3Ru11Bi/4asXmx8eBLoQCkL9ta1boEaUDDLDJcEpioh
-	 2wXI8WmIqSpJsTM8C7Qs3zBHFvNDx31bkQxx15CfDyN0WkweAMIv9rSRo/hcZhAHxAQ==
+	t=1794294664;
+	b=i7884rdSyluJv5lTMrzHHxfGO8ElxHHIpEekh3VIkV485gGe4IGJysz/rsNBNZ51OXB1
+	 7DpIVRvALliqFclCUmfPMEbbJld3Yv4aUI3aPgYhij68CIkKIEyE22ub1wz4EyYTshIUv
+	 csGGRz/NOgLMmTpoCu8RkWu3hR9L2bmsulW8+4iOQz+R/cttJeYJVhaOn2cT2oKP/ovJh
+	 GiVv77UMPYm6QaktX1bJbdzTMBHr7lo+jtFW3sWr7zYiNElS4tCd2slZhtWMGiK3SBdNf
+	 dtpw8CMGPkD28+/rkHSHq75sIiq817G+MGn35RQP3XlnvWr81UJKU17hwHCvihEUGVg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294664;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l9NeHEnz1TMa9R4zZQlGMVr9N+Rkyp8M1rZ+xyQSjjw=;
-	b=r+GEt1V/EMgRnV8i7EjdwwOeFiwlHQzQheGaQoM/Qm+R+yFx21RYoWCLJOruIshXQ3g5
-	 tdh3jAbNyWIKiRllau+FT0Lq90O5+X31sLmWL6LyeExpy3HzpANzS9jhjte7XL8quNXsx
-	 iJ7t8c40AUe6xQsgSRRKYNBeql1XlI/efu9DKasW219ngU6+mVCqQYZyngqKDWE4dkxMc
-	 EmFEdtV3UClyoVZAwJRwHqiRydMctemqd+G1n21V8ptGo19udwZV15O3eDtaXP7UFO7Tn
-	 cIdnBvrOzEo9fGsViCVO4LItITU3FbpsUHUNrgbPNQUyne9GNRKq74syD8IqI0Aj6cQ==
+	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
+	b=Qcr5pwjOsGg9JuyC9ujmccX4aGLozMDVRdyz+Kxf8THSY4H/JLAg+KYnoKSVdH1vjUOg
+	 nnY6nBDeryoRcRaIhAIoJWIgcQ8l91v2X80QOx13FzUJ9NnQoaDo2QAueFAJuWFnWfD3A
+	 qX3Xb5XiM3MoaBURwRQfuRCTjOQFrZQmF0gAkUspHdvaCkUMNiluBLoX4oXJUVhHN1Qjl
+	 KiLnOmz0Bw24c0Y5muQG1oZKsUO/P7lqNTQhBuVYzLiraTZeaYiX2jnSEcJlsgXHEOJR0
+	 yirDUnqrrskkDdbyuY+RuPQxkpgIHaxLuSjUnMowfuC0RMSFqAvta7aOETBQHxFRcnA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrKDUlJG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXKgqdVE;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3116F60A2600;
-	Tue, 10 Nov 2026 07:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C41606A326;
+	Tue, 10 Nov 2026 07:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrKDUlJG
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXKgqdVE
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294665;
-	b=Gk0vKb7FvqeeD6dueCuBr1jUrc9IZ9l0zszfXieCNqJnLVIStsEBSwGdzK/+M2zgCUul
-	 XdHfzRIa/fsBMXDd2fiZHZ6HESMPMVZ2HkPY90BXe2qWZiovyTnkECin4ZAIimYbZAL2d
-	 DGPH4UzHwSqvYW8tlCPW/HmDWROnt0ZhIK2BiwZHZ4WVqKx9B2TJTu319L9pyIPO1xFoE
-	 p7AmPceXVfWGGZFXbQl3rqBTbNkO90qaRRC/A1hjoTYRTeAzE1GF5oIfRFNEOq/fmvlE/
-	 KVxneuo3+nTRr8UYIz+9Kp7G3TOxJmgXqboLbBLR5iTER1sSKw1gNGlcrPNLDu18HTQ==
+	t=1794294663;
+	b=SX6INuHZBHNSpwJJ+VfaG2KvZIHxyqnmknY8ldwvTW1DiJDBQIR7Sr3pXL5FMkAy52kQ
+	 aUm6KIvQ4rYGM20LJ1Z8/LcupCS/pLnyZFS9n8suT4eBnLL0yFiRBS2rzobr5xQbQI1x0
+	 X4ByuUOfz9jLk9NOcZ5jXaGQ7faKhpn6UcqFWys+O2s8NYnRJjLaPtIQC1XdMQVAtzwFr
+	 2npBeHJ0jqkoJhAK3o7bI9A7+Frys4AVUXY0D6u0VeCUO4wNGlfKjYqCy0PkJ7mo2eRrO
+	 SFlLzLPJdl5lFA9XUEH9S+wjLzT9kPOmdMRlDX0aj82HeTixP8iHFeR6SUQxxiPd6qw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294665;
+	c=relaxed/relaxed; t=1794294663;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l9NeHEnz1TMa9R4zZQlGMVr9N+Rkyp8M1rZ+xyQSjjw=;
-	b=HjLXbacTjaffZITGHhs8lis8jj8lth64afRNV80W8tY4d5BRMdayN9wHLbzT+RVkJfVA
-	 vVeecWRhv69fkK5Vfnaj9wl7H9xDndrPXUi2RP6J+RrP3dOKLS7fvzMrhxh1EvNtazgFZ
-	 P5umRiSkzpaDPUapKBkthaGqYTb179UbMwVnHG5YaU8pn4X4sA4b/pV3pXXh8xEv8LL4A
-	 dfubF3UuYISzubTX+8vBbz8M3QozxlSiyH5tjzYHkfjVA/iIPgZKw4nEpMFSvLSIDD0gV
-	 vCoZBSlrEVvrq6Bmow8miqleEh2WakjbtZ0rRT/Mmh+IngtipLtAMU0rODNa4mHuTmQ==
+	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
+	b=thkeD0VVL8jPE84hjmEEqj07ZmvxGQ+OY0qWPNBsmZ1pMxOEKAg7JLtmU7FE/OXblkOk
+	 Hxfx075kk2aZ3s9G+Ev/DYr2uq32a4VH/tRsTMDBsY3JSaRdNWy2qZUHvlHoDAM/Y7jdN
+	 WoXpqTK/e5RR9pgQCME9l4YwrDECITBPKkU0EecNICRzia2udign573dagGVDU4QdMR68
+	 l1Eh3BA51N42qV7cNrycQuOYqtvVhYEyeNTj9TVCDYCCgIZ+/tpBcEXpFUL5dzf/43vxo
+	 bTD0reJpCQzh9gdhoAJ5tu9Nl/YnELwI02Gm0k8vFQscjPXdP8fUnY5CA2WDxlIQBCg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 04BB31F008A5;
-	Tue, 10 Nov 2026 07:11:04 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CA3061F0089F;
+	Tue, 10 Nov 2026 07:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294665;
-	bh=l9NeHEnz1TMa9R4zZQlGMVr9N+Rkyp8M1rZ+xyQSjjw=;
+	s=k20260515; t=1794294663;
+	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nrKDUlJGvl0jVRTNCo3YMTLvRQXkruhxdI7UNMjrstquTX2/Bv0e9ocmZDlqxSuA5
-	 3DI9Em2PNpgtDoBT+H6crei3x8cQsBPSQedSN+kN4ck9s+iBCblprbFO6mKaoeKQU8
-	 q9WJVC8+qDKzSEWVn0KTowGqQEGNITak0v/JwzWu3pkkJpB88Wsthk+i+EttI7LT1+
-	 uITPwrIZAG8d+WZ3Nn2nagV0B0X5dIk5SIlk3WuH15siCE/1dNvpFzu+vuNzERxtKz
-	 /6NWMZ5ixy0HxqWJUi2VVvHDE2weAY77zmTd994hUiGsKBEpzitprddpioOmZceSIV
-	 d9noBtw7Gcogw==
+	b=WXKgqdVEkC65IBksa+cC+H9ZtfNbYQE2nFyPRzEPZRe79GJJGUV3i64XhS+xb09XN
+	 GbnoSW2Gr/QW4Xwiis/sDh96ZNkfDej9D5ea6MzG1j8g6XKBf3rw+KN1DDLODvXxzh
+	 8dine03TaaP3zcVC2DqPBdUxH7lNJCWHBl7/NX1lT5PvrRoc/h4A69O5jMGlcXJ3su
+	 AqUAKCjYaAejbvz6AnDv++VYfs0TEh60XkcbD2Z33K4qy2YagU/0b+CFOk3ax4aHQe
+	 Kkr8HI/bxfou1c0Q+joos7ZxB4xrqluPy48tCoKmjT+FuYGvCkvwlXSrG/wp0qheDq
+	 kIztTn+iom8pQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 94D6148935;
+	by lkml.kernel.org (Postfix) with ESMTP id 510B548926;
 	Tue, 10 Nov 2026 07:11:02 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:11:06 +0000
-Subject: [PATCH 5/5] iommu/rockchip: Hold the master in a page fault storm
+Date: Tue, 10 Nov 2026 07:11:02 +0000
+Subject: [PATCH 1/5] iommu/rockchip: Don't walk a page table that a reset
+ took away
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-iommu-rockchip-faults-v1-5-b1dda574dbb8@gmail.com>
+Message-Id: <20261110-iommu-rockchip-faults-v1-1-b1dda574dbb8@gmail.com>
 References: <20261110-iommu-rockchip-faults-v1-0-b1dda574dbb8@gmail.com>
 In-Reply-To: <20261110-iommu-rockchip-faults-v1-0-b1dda574dbb8@gmail.com>
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
@@ -92,11 +93,11 @@ To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
 Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294661; l=8444;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294661; l=2142;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=4zp/VLFVCPilsQkwznLyGs+jzibbKfJs9/IdoQHukWg=;
- b=7P8CMZwYh5IypdW41trMvO/0Qo4fGylRl6TRRoQ0zmjrh3N638KrKMyTgGcqdFZ3wr9i+rgf/
- hNf+bGbu3X4Bmp1L+MGCdORKREL8MqkMXc29QDOLcbbb1AvpBy3aib4
+ bh=ToGf1ObH2yGo1OMq0C57Okydv2han7Kmp00MrNYUTIY=;
+ b=vqEYjTZrW9gc7C8emgS8qlnnnYJOcO/kFRASz5eG+NVNvNmDn9iyaZcTnYLO1wAW6NxEhyFRS
+ 44usyRyEK44ADSHnskRvuD6Y5MDdVSpbvtbO18Lq7pWquTbkZBnC2+D
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -107,216 +108,52 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-rk_iommu_irq() acknowledges every page fault with PAGE_FAULT_DONE at
-once, which lets the master go on. A master whose job points at
-unmapped memory keeps accessing it and faults again right away, until
-its own driver stops it. On RK3588, a VEPU121 JPEG encoder core given an
-unmapped input address retried the same few addresses (16 IOVAs in
-0x1000000-0x1007080) for more than five minutes after one bad job:
+When a page fault is reported, log_iova() reads the directory address
+back from the MMU_DTE_ADDR register of the IOMMU and dereferences it
+through phys_to_virt() to log the page table entries of the faulting
+IOVA. The IOMMU of an RK3588 video decoder core is reset with the core:
+by the core's own soft reset, which the hardware also does by itself
+when a job times out, and by the core's AXI reset line. A fault taken
+just before such a reset is handled with MMU_DTE_ADDR reading 0, and
+log_iova() dereferences the physical address 4 * dte_index:
 
-  rk_iommu fdba0800.iommu: Page fault at 0x0000000001005280 of type read
-  ...
-  watchdog: BUG: soft lockup - CPU#0 stuck for 317s! [kworker/0:1:11]
+rk_iommu fdc38700.iommu: Page fault at 0x0000000013400200 of type read
+Unable to handle kernel paging request at virtual address ffff600000000026
+KASAN: probably wild-memory-access in range [...0130-...0137]
+...
+rk_iommu_irq+0x490/0x758
 
-The interrupt storm kept CPU0 in hard interrupt context, so the
-encoder's own timeout work, queued on that CPU, never ran to reset the
-core, and the board was reset by its hardware watchdog.
-
-Count the faults of an IOMMU, and when more than 64 arrive within
-100 ms, don't acknowledge the next one: the bank stays in
-PAGE_FAULT_ACTIVE, which holds the master at its faulting access, and
-its fault interrupt is masked. rk_iommu_enable() already acknowledges a
-pending fault (see rk_iommu_enable_stall()) and sets the interrupt mask,
-so a driver that resets its core and reattaches it (as the Hantro and
-rkvdec drivers do after a timeout), and a runtime resume, end the hold.
-If nothing does within 100 ms, a delayed work releases the master and
-unmasks the interrupt, so that a master whose driver has no recovery is
-throttled rather than stopped for good. A single fault, or a few, is
-handled as before.
-
-Measured with the same bad job, ten times: a storm was held after 65
-faults, rk_iommu_irq() took 0.8 to 1.7 ms in total per bad job (2.02 s
-without this change and the rate limit), and the encoder's timeout
-reset the core every time; ten runs of the GStreamer pipeline that had
-locked up the board ran to their end.
-
-This is what the Rockchip BSP does for its video codecs, which mask the
-IOMMU interrupt in their fault handler and leave the fault pending until
-the hardware timeout and reset, but needs no help from the master driver.
+Only walk the directory if the register holds the address of memory, and
+say that the page table was lost to a reset otherwise. The fault is
+still acknowledged (zap, PAGE_FAULT_DONE, INT_CLEAR) as before.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/iommu/rockchip-iommu.c | 108 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 106 insertions(+), 2 deletions(-)
+ drivers/iommu/rockchip-iommu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index c57a1f8941c5..cbf9f81a775a 100644
+index 21af2f621c76..d40e2a26b7be 100644
 --- a/drivers/iommu/rockchip-iommu.c
 +++ b/drivers/iommu/rockchip-iommu.c
-@@ -27,6 +27,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/string_choices.h>
-+#include <linux/workqueue.h>
+@@ -564,6 +564,17 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
+ 	mmu_dte_addr = rk_iommu_read(base, RK_MMU_DTE_ADDR);
+ 	mmu_dte_addr_phys = iommu->rk_ops->pt_address(mmu_dte_addr);
  
- #include "iommu-pages.h"
- 
-@@ -48,6 +49,15 @@
- #define RK_MMU_FORCE_RESET_TIMEOUT_US	100000
- #define RK_MMU_POLL_TIMEOUT_US		1000
- 
-+/*
-+ * More page faults than RK_MMU_FAULT_STORM_COUNT within
-+ * RK_MMU_FAULT_STORM_MS make a storm: the next fault is held for
-+ * RK_MMU_FAULT_HOLD_MS, with the interrupt masked.
-+ */
-+#define RK_MMU_FAULT_STORM_COUNT	64
-+#define RK_MMU_FAULT_STORM_MS		100
-+#define RK_MMU_FAULT_HOLD_MS		100
-+
- /* RK_MMU_STATUS fields */
- #define RK_MMU_STATUS_PAGING_ENABLED       BIT(0)
- #define RK_MMU_STATUS_PAGE_FAULT_ACTIVE    BIT(1)
-@@ -118,6 +128,10 @@ struct rk_iommu {
- 	struct iommu_domain *domain; /* domain to which iommu is attached */
- 	const struct rk_iommu_ops *rk_ops;
- 	struct ratelimit_state fault_rs; /* for the fault reports */
-+	unsigned long fault_window; /* jiffies: start of the storm window */
-+	unsigned int fault_count; /* faults in the storm window */
-+	unsigned long held_banks; /* banks holding a fault, interrupt masked */
-+	struct delayed_work release_work; /* releases the held faults */
- };
- 
- struct rk_iommudata {
-@@ -638,6 +652,88 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- 		rk_pte_is_page_valid(pte), &page_addr_phys, page_flags);
- }
- 
-+/*
-+ * PAGE_FAULT_DONE lets the faulting master go on. A master whose job points
-+ * at unmapped memory, such as a codec core given a bad address, keeps
-+ * accessing it and faults again right away, many thousands of times a
-+ * second, until its own driver resets it; and an encoder core was seen to
-+ * retry the same few addresses for minutes. That interrupt storm keeps one
-+ * CPU in hard interrupt context, which can also keep the master's driver
-+ * from ever running the timeout that would stop it.
-+ *
-+ * In a storm, don't acknowledge the fault: the master is held at its
-+ * faulting access, as the bank stays in PAGE_FAULT_ACTIVE, and the fault
-+ * interrupt of the bank is masked. rk_iommu_enable() (an attach, as done by
-+ * a driver that resets its core, or a runtime resume) acknowledges the
-+ * fault and unmasks the interrupt, and so does release_work after
-+ * RK_MMU_FAULT_HOLD_MS if nothing did, so that a master whose driver has no
-+ * recovery isn't stopped for good.
-+ */
-+static bool rk_iommu_fault_storm(struct rk_iommu *iommu)
-+{
-+	unsigned long now = jiffies;
-+
-+	if (time_after(now, iommu->fault_window +
-+		       msecs_to_jiffies(RK_MMU_FAULT_STORM_MS))) {
-+		iommu->fault_window = now;
-+		iommu->fault_count = 0;
-+	}
-+
-+	return ++iommu->fault_count > RK_MMU_FAULT_STORM_COUNT;
-+}
-+
-+static void rk_iommu_hold_fault(struct rk_iommu *iommu, int index)
-+{
-+	rk_iommu_write(iommu->bases[index], RK_MMU_INT_MASK, 0);
-+	if (!test_and_set_bit(index, &iommu->held_banks))
-+		dev_warn_ratelimited(iommu->dev,
-+				     "page fault storm: holding the master for %u ms\n",
-+				     RK_MMU_FAULT_HOLD_MS);
-+	mod_delayed_work(system_wq, &iommu->release_work,
-+			 msecs_to_jiffies(RK_MMU_FAULT_HOLD_MS));
-+}
-+
-+static void rk_iommu_release_work(struct work_struct *work)
-+{
-+	struct rk_iommu *iommu = container_of(to_delayed_work(work),
-+					      struct rk_iommu, release_work);
-+	void __iomem *base;
-+	int i, ret;
-+
-+	ret = pm_runtime_get_if_in_use(iommu->dev);
-+	if (ret <= 0) {
-+		/* a runtime resume reprograms the IOMMU */
-+		WRITE_ONCE(iommu->held_banks, 0);
++	/*
++	 * A reset of the master can reset its IOMMU too, between the fault and
++	 * this handler: DTE_ADDR then reads 0. Don't walk a directory that
++	 * isn't in memory; the caller still acknowledges the fault.
++	 */
++	if (!mmu_dte_addr || !pfn_valid(PHYS_PFN(mmu_dte_addr_phys))) {
++		dev_err(iommu->dev, "iova = %pad: fault while page table lost to reset (MMU_DTE_ADDR %#08x)\n",
++			&iova, mmu_dte_addr);
 +		return;
 +	}
 +
-+	if (WARN_ON(clk_bulk_enable(iommu->num_clocks, iommu->clocks)))
-+		goto out;
-+
-+	for (i = 0; i < iommu->num_mmu; i++) {
-+		if (!test_and_clear_bit(i, &iommu->held_banks))
-+			continue;
-+
-+		/* Nothing to do if the IOMMU was enabled or disabled since */
-+		base = iommu->bases[i];
-+		if (rk_iommu_read(base, RK_MMU_INT_MASK) ||
-+		    !(rk_iommu_read(base, RK_MMU_STATUS) &
-+		      RK_MMU_STATUS_PAGING_ENABLED))
-+			continue;
-+
-+		if (rk_iommu_read(base, RK_MMU_STATUS) &
-+		    RK_MMU_STATUS_PAGE_FAULT_ACTIVE) {
-+			rk_iommu_base_command(base, RK_MMU_CMD_ZAP_CACHE);
-+			rk_iommu_base_command(base, RK_MMU_CMD_PAGE_FAULT_DONE);
-+		}
-+		rk_iommu_write(base, RK_MMU_INT_MASK, RK_MMU_IRQ_MASK);
-+	}
-+
-+	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
-+out:
-+	pm_runtime_put(iommu->dev);
-+}
-+
- static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- {
- 	struct rk_iommu *iommu = dev_id;
-@@ -698,8 +794,12 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 			else if (print)
- 				dev_err(iommu->dev, "Page fault while iommu not attached to domain?\n");
- 
--			rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
--			rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_PAGE_FAULT_DONE);
-+			if (rk_iommu_fault_storm(iommu)) {
-+				rk_iommu_hold_fault(iommu, i);
-+			} else {
-+				rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
-+				rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_PAGE_FAULT_DONE);
-+			}
- 		}
- 
- 		if ((int_status & RK_MMU_IRQ_BUS_ERROR) &&
-@@ -1029,6 +1129,8 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
- 	}
- 
- 	ret = rk_iommu_enable_paging(iommu);
-+	/* enable_stall() acknowledged any held fault, INT_MASK is set again */
-+	WRITE_ONCE(iommu->held_banks, 0);
- 
- out_disable_stall:
- 	rk_iommu_disable_stall(iommu);
-@@ -1322,6 +1424,7 @@ static int rk_iommu_probe(struct platform_device *pdev)
- 					"rockchip,disable-mmu-reset");
- 	ratelimit_state_init(&iommu->fault_rs, DEFAULT_RATELIMIT_INTERVAL,
- 			     DEFAULT_RATELIMIT_BURST);
-+	INIT_DELAYED_WORK(&iommu->release_work, rk_iommu_release_work);
- 
- 	/*
- 	 * Take every clock the devicetree provides.  Most IOMMU instances
-@@ -1387,6 +1490,7 @@ static void rk_iommu_shutdown(struct platform_device *pdev)
- 
- 		devm_free_irq(iommu->dev, irq, iommu);
- 	}
-+	cancel_delayed_work_sync(&iommu->release_work);
- 
- 	pm_runtime_force_suspend(&pdev->dev);
- }
+ 	dte_addr_phys = mmu_dte_addr_phys + (4 * dte_index);
+ 	dte_addr = phys_to_virt(dte_addr_phys);
+ 	dte = *dte_addr;
 
 -- 
 2.55.0
