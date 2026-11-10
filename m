@@ -1,62 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301450;
-	b=noLR/Rdi8KDoI3eE1qKIgHCbS2IBgBA2kqrA7flRqy9a190JvrHtECKmzdUNw3vJY2Kg
-	 DUVyVGJjryOGXrRPh0/DhJIYAJeU8Yyd/Jh81N4FTx+MB1VysdLMcQ0x9aR+5+VSm7/Fy
-	 qbSDHD3/0VXmfwVo+9a9PNEK/GVR2BVITwUbzpO3YME6ZMW2VUew63hGeDSxi4ldPdHXr
-	 ZDftMRHkcxmtzEZ1ua5I9xhQU6lPRvpMvF67XMtOen6NnU/yQYwUkJnGwtXDzBiRpiukT
-	 2ArA/95KJXxaxZMT1zBKWkviWjXXRCTQ5um/7UEuE9lWQwJ26hvKJpQwlcill2zhRYw==
+	t=1794301463;
+	b=Ps4Ng6wClcgbq2FI6X1ImKnC1OvwpGDXxZBs1F0NLvAy1LfBroMVltQT2Zdh8ce1Ljow
+	 +ICn9nWUYR1jdsb7mGEBCVRvOVfhCeLIxV6mDuDIujNHrCN6elWP/MR+vgEgP82pxdHHi
+	 8oSEGu/TWHB7IJR1pu9xRSeZHdrYi7W9nQoAsHTqOkD1ak47PHvN7fE8OP8n7Akt8a3bw
+	 7mytaWR2xZesuWhXX9zwsf9TDb2GfqORhNKs2Pk0mdAl8k70az4jBd579pducpeTKuf/0
+	 dToUfC4NZRo/xFbJqnZ3L/sEE2ZeA6soXO2uXwHAnsiglLwpPe90wEeBDrWvRTqYoCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301450;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=4dIt1AfgIDEeFJWlP0nlFpcsbLLfzKQxu18qQOXeU/w=;
-	b=RCSHNC4iz6XHIuLzWgRslXQkM4FPkVsY/jFPpd7N1eoa2fm/+dtaHHd3jE7KKRiWa9oU
-	 yK0lJvvQrqo2NTpbzejFu5I2BCPngTNFcNonxlLu6KW5ie7CiqV+7h1x0M4y/QAzGokFX
-	 g2CFEbvSAyFKn/I4oEhQS9q8MHxPfqyneeZbq6CFuHLWgPy3PJy/sHbeEbaxbJ5tbbsr8
-	 u0SrQpDOCzYex4pmhNDi1NTfayvQfrUUbp/1hQRourUeWFAmnLU2EqLoA+gi83DGnOHmy
-	 1ZdxvnIO+VOticihFbife7icPuxiEYgeIHO/3RpybnCXFJB+QMl+/Nezve+z2SZv6dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301463;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+	b=wp9sopw+jm0diLDpJS0UKluE9I2t8ntgTd/9gTgPTchEOF5MaWaYEPU9EVS8a2Pk9fjr
+	 Q2OUfFhOVjM/dk6xeJwhLmbZycJ854HRt4Fs4nIWlo0SOxk59WNBGe7d5YXaElKWpDlx/
+	 lVLwfPEocW9PR/ErgAhObEsYZQCGs/nG6nViMbCwaDg0oQBXhwm8zwZVq+U04tKM0kTFg
+	 upnef0WfE1t6Rb9PCZ5f33SIPYCHsRFHQ1FWxZ5bFhaA2Iq/fhrfqIf4mKl+MIEyyVE0n
+	 QXAuE2VMyRn8nceN2bzijSG1tKCjf/95tniOBsh8IQL/JsS8ycTfgVltzA9FGuPRTYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28B4660A3802;
-	Tue, 10 Nov 2026 09:04:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28B4660A3802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8DxytEE3vJqaiEeAA--.20968S3;
-	Tue, 10 Nov 2026 17:04:04 +0800 (CST)
-Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJCxe84A3vJqYXQzAA--.22085S3;
-	Tue, 10 Nov 2026 17:04:03 +0800 (CST)
-From: wuqianhai@loongson.cn
-To: chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tzimmermann@suse.de,
-	deller@gmx.de,
-	bhelgaas@google.com
-Cc: ardb@kernel.org,
-	ilias.apalodimas@linaro.org,
-	javierm@redhat.com,
-	loongarch@lists.linux.dev,
-	linux-pci@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHN4HdpJ;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E4660A2618
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E4660A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHN4HdpJ
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b1015a4259so1181088a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:04:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794301462; x=1794906262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+        b=CHN4HdpJjhaw6yzpMGiBtZd8Cy0+I3sGP/qWTxIbR8Fokp5GKuXtar3nTW/rK1SStB
+         CLiQKm5t0b1dfTfrauLTo60yJ8QRnk0lOWJZ9tkP/yFythccsI1AcUH6aTfxAqRhBi14
+         gKSSL/rvAa5bLnmVhUrukJz+d15GIb6iQZfPzJURtDsAklciwRmGGYvXfCdVcaOYmpWN
+         WZelPjBGO26Z7Xdg6j0jlmgY8n4Wum0Irl6YjGVdoRIiPwovhB9FRcrujvvZ8oTkB6Yr
+         xbNDEafkzI8bseF2OvaohEXDfdQy9EixptAiQyEdE5UWQJobyRYYD/vfStClGpJDa8KW
+         v3TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794301462; x=1794906262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+        b=B7bUG8vT9NrP+5qxIoP2gvOAWif1SSeKkTo3SZA976JRP/9qOY2C47CaDczTsNx7Y7
+         fP970DN6RLlhW/lhr49a5zDqBJU7vdGpt1xLjCfgPoq2yGIlPpNz7mHmjcsj5UdNis5+
+         Dw9oS6qyKihIipPRYK86KbXBGLBlfys7u03Vj0Saa7pHippMvE+ECeLwed9hn2QT4KbP
+         R0eTpjUZEmQMT5yk7Q3ip0mgVJf6JDxYIhEh2P+1GIa+OciF362i73RKg5Iz9r6mSKYG
+         HBPH7dEduFPE0lwofcowPVEYUlC+LjgAlghq+OB8KlqE2a9JQhWW58UqamV41VThSGEG
+         eTSA==
+X-Forwarded-Encrypted: i=1; AL+hErGcJ7PURLFTome+eM6R44ae2aHk/qlr2/bN1wDBwwiDn5e3HCQE0QY1sLrV0v6YliqtsOlwDsJve7hKi1Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EbMni68QWyLd4esQOsWY4JHPwheOMDB/ojecw96CiIb16mD+E
+	XqsEJEj/k0XkUGm/ChppcuOrHT9jEnYrPA96nKBj+vFzvwV4UdUm0/oQ
+X-Gm-Gg: AYBFou3Fn53dvZCE2kqsA9ZYOs8piwWDIaLpDTUgzJP3h6ompHymXQQ4VyJlPw/VYnU
+	HkIMDzAfwcShttgQq0JfsJ5DUBdBA+9sRr1aw66U6qcwSzPx66l+V78aDdzhL/+BGaEMcmmW8/Z
+	R2pg3N0YpJZIG6ATYIz+VRr1/wPt76HmKv+XYci9YE7lgbkHC2df8aHv9sWOdr4qLEvdOHtr8vJ
+	yTsZzWT3BTPWxydNr36QWEBJxL1uxJsu0jh4k4jwNfvNWhIs0WNL9PM8rzo6D/Fq33Sb4gxHL6d
+	slXTAxCd9EMKp8DTwECFTZZlPmlmEaR66CSSXEUnD+VEqyXxPLJE655irJBAGAJZGQhgSNifMbo
+	nFdYUH6eH2q1ZdhkzJ/el57zJw2dkD20k0IInys4GwsgFsCTf8O+pejihkug9vn4kDdYANTrgt9
+	/i3l72UPrcrCzAwlRH4SMVH8ErO7f8THByjioOzhbNxC6A+tVbZEBEbIxCjCe/p/M/V5KDPs6JM
+	8BF04z+WM5Ja5ikRJA3m0iEEKDFzY+blC1G2tPNxBQQeup3MuDfzGXisbTtwn1XU4f5UE4VPAoC
+	QKAJPYlCk6pkri9v7JUs
+X-Received: by 2002:a17:90b:1b03:b0:3ac:97bc:4c7b with SMTP id 98e67ed59e1d1-3b166c8486cmr2157706a91.14.1794301462591;
+        Tue, 10 Nov 2026 01:04:22 -0800 (PST)
+Received: from oslab.. ([101.6.42.129])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1676d83absm3051305a91.7.2026.11.10.01.04.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:04:16 -0800 (PST)
+From: Tuo Li <islituo@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	wuqianhai <wuqianhai@loongson.cn>
-Subject: [PATCH v3 1/6] LoongArch: efi: Provide sysfb_primary_display for screen_info users
-Date: Tue, 10 Nov 2026 17:01:58 +0800
-Message-Id: <20261110090203.2631481-2-wuqianhai@loongson.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
-References: <20261029033440.973077-1-wuqianhai@loongson.cn>
- <20261110090203.2631481-1-wuqianhai@loongson.cn>
+	Tuo Li <islituo@gmail.com>
+Subject: [PATCH] media: dvb-bt8xx: Fix potential double-free in frontend_init
+Date: Tue, 10 Nov 2026 17:03:43 +0800
+Message-ID: <20261110090343.1245744-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,84 +96,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxe84A3vJqYXQzAA--.22085S3
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7uryfWF1ftrWDXrW7Ww18tFc_yoW8trW8p3
-	srAF4ktr48GFs8Jryvy3s7urW5Gr95G342gFnxCa4rAw1qqr4kXr1ktryDXFyqqa1FkayF
-	qF1rXa1avF4DCwcCm3ZEXasCq-sJn29KB7ZKAUJUUUjr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26r4UJVWxJr1ln4kS14v26r4a6rW5M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6Fy26r45twAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
-	vY0x0EwIxGrwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vI
-	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_GFv_Wrylx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_tr0E3s1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
-	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	rb1UUUUUU==
 
-From: wuqianhai <wuqianhai@loongson.cn>
+The caller in dvb-bt8xx.c (frontend_init) already frees the allocated
+dst_state when dvb_attach(dst_attach, ...) returns NULL:
 
-LoongArch defines and initializes sysfb_primary_display only when
-CONFIG_SYSFB or CONFIG_EFI_EARLYCON is enabled.  The PCI VGA arbiter and
-the framebuffer console need the firmware framebuffer information through
-screen_info whenever CONFIG_SCREEN_INFO is enabled, even if neither of
-those options is set.
+  if (dvb_attach(dst_attach, state, &card->dvb_adapter) == NULL) { 
+    pr_err("%s: Could not find a Twinhan DST\n", __func__);
+	kfree(state);
+	break;
+  }
 
-Drop the guards so sysfb_primary_display is always defined and
-initialized, and its EFI stub alias is always provided, mirroring x86.
-This avoids selecting SYSFB just to obtain the symbol.
+Remove the redundant kfree() calls from dst_attach() to avoid
+double-freeing the state on failure paths. This keeps ownership with the
+caller until a successful attachment transfers it to the frontend.
 
-Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+Signed-off-by: Tuo Li <islituo@gmail.com>
 ---
- arch/loongarch/kernel/efi.c        | 5 +----
- arch/loongarch/kernel/image-vars.h | 2 --
- 2 files changed, 1 insertion(+), 6 deletions(-)
+ drivers/media/pci/bt8xx/dst.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/loongarch/kernel/efi.c b/arch/loongarch/kernel/efi.c
-index 69dd83f8082f..e491a82b2e0d 100644
---- a/arch/loongarch/kernel/efi.c
-+++ b/arch/loongarch/kernel/efi.c
-@@ -74,10 +74,8 @@ bool efi_poweroff_required(void)
- 
- unsigned long __initdata primary_display_table = EFI_INVALID_TABLE_ADDR;
- 
--#if defined(CONFIG_SYSFB) || defined(CONFIG_EFI_EARLYCON)
- struct sysfb_display_info sysfb_primary_display __section(".data");
- EXPORT_SYMBOL_GPL(sysfb_primary_display);
--#endif
- 
- static void __init init_primary_display(void)
+diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
+index 110651e47831..5cdf8a77260c 100644
+--- a/drivers/media/pci/bt8xx/dst.c
++++ b/drivers/media/pci/bt8xx/dst.c
+@@ -1694,7 +1694,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
  {
-@@ -129,8 +127,7 @@ void __init efi_init(void)
- 
- 	set_bit(EFI_CONFIG_TABLES, &efi.flags);
- 
--	if (IS_ENABLED(CONFIG_EFI_EARLYCON) || IS_ENABLED(CONFIG_SYSFB))
--		init_primary_display();
-+	init_primary_display();
- 
- 	if (boot_memmap == EFI_INVALID_TABLE_ADDR)
- 		return;
-diff --git a/arch/loongarch/kernel/image-vars.h b/arch/loongarch/kernel/image-vars.h
-index e557ebd46c2b..4d1d7978553a 100644
---- a/arch/loongarch/kernel/image-vars.h
-+++ b/arch/loongarch/kernel/image-vars.h
-@@ -11,9 +11,7 @@ __efistub_strcmp		= strcmp;
- __efistub_kernel_entry		= kernel_entry;
- __efistub_kernel_asize		= kernel_asize;
- __efistub_kernel_fsize		= kernel_fsize;
--#if defined(CONFIG_EFI_EARLYCON) || defined(CONFIG_SYSFB)
- __efistub_sysfb_primary_display	= sysfb_primary_display;
--#endif
- 
- #endif
- 
+ 	/* check if the ASIC is there */
+ 	if (dst_probe(state) < 0) {
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	/* determine settings based on type */
+@@ -1714,7 +1713,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
+ 		break;
+ 	default:
+ 		pr_err("unknown DST type. please report to the LinuxTV.org DVB mailinglist.\n");
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	state->frontend.demodulator_priv = state;
 -- 
-2.34.1
+2.43.0
 
