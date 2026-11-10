@@ -1,47 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310240;
-	b=dhVMH96dpQsriUbjh5wRpB2+onzPkVmYc+W+Bxlu9s2ueGbe6+dyokkKSZ/utD0DVko0
-	 oGxQM4IGn2O41YFpEylfbI6F85yLkvWeBX3SphzZH3OVoqV3ioRd6ma4ktUVy7YEQqo70
-	 U/ClHbwZgnrpnJp6tT2qYhOGTlPOX5T9eWJD4WsWCg0G79f5/sV2V4L00mM0pds9hAas/
-	 z82zN+FcF1P4P+c1fC22kAhScAmlHA0tSgttwEbOMTEmnOcZh869orGuWqT2zTRAc8I4/
-	 Vmp/Ww7B1uREW+CjpIXiV3D48Kunc47egGKcNs/QlB2T3RpDSCbKhhLWUnN7UB0y4Vw==
+	t=1794310285;
+	b=DJFtdLM0DUKVPWtp+phXU4cLAXbPNu5PwnXAR4RLs3Hg/WJYJ16yp0FuzIPBZwbaOEUL
+	 zyuVOxwqUhy9mWRgHi9CQpFgyIq9ClHqOxzuJlQRXNsnkgps1QSzfJhc8INKi/Ip2S6U5
+	 wqAaf3BlHhoKXorYJ/YgZZ/i2cT1rH4P8UQDSsY/IqHJe099RDDDa4ALYbRh1sZF/l9SV
+	 2G4VUo3sZvdrdjxMv2dEnUWb2iNfQalfuDkcffA6BgwHzYUbpG42g6Z83ef3k/NuI+Oip
+	 5vvlQiGJSW9HdDXuXPxPqMhoyCpRSMpEbM6ryxak5wTRrB5UuumNKBfGQIAnKRHi+fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310240;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MOigD0yAt2156qG3a+jhbB1buv2afPkFgZKdK1zleIY=;
-	b=OmuJBXUM783naDxhLt4sBdcKHhl0hcCnFz0k6Agr+CijACPELNjWicGSXxVA4IfSeGlf
-	 Xmlyjs7Q9aj5uhEO8x1OIheOnmKtKAmB1Rmk3Vqxo9CtoVGcYhG86mGJCHPpTw5GPgcmj
-	 wvmhb/fKuH1repBzrQZNub6GPM6ZJdozWxG7Z7IA2W2LwM60eC4EtMMRhYuBywgkSYFZ3
-	 ivBt7oWYpNnsm7flIb4wP49POzcum21R+JGXGq7IDVFg6GvUa61NullZcE0jqxjvc0N6e
-	 yF8XELDzRGpxeP/GElC6bwn0mheNFjsz3e5+EzMg9RWb0HHDtTfP69ITgUZ3GVMSk1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310285;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=YNvbDX5GZoykBGORHisupVHuAa7wnlS0Wpxyq/NqfE4=;
+	b=0sryxz7DSY3UQr9K8gpDAapoQ6yXRPDAxEsFsbeLcZcwepfHoVRKqYduShn+LyiUDJkU
+	 MBIKOEw/ZSyRh8wEaFlaNFZZP5gNjmW/S5++20JaDg/DJkjYP5HoJpHlghfLA08s3wa4P
+	 8/mQLttlIDpgVg4icgj521XjK5jkzGmPAcQssvzvz8yWS5hO3p6Xjh1sCe7Y86cP64XAu
+	 yhlurv+hPbtUa2/Blec0M4FqX7O9O6vM6UJJnTPyXw1uUYvNQ8jm/Hh0ZazozNK6sQpr9
+	 sIkOE+r5/fbZd1divI75F5i+K5P3kWljDksHZ9AyRDbBqQi9WbHZVO2VVlwn1uExzJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXejoFaW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTdrh3xj;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A826E606A32A;
-	Tue, 10 Nov 2026 11:30:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE70606A325;
+	Tue, 10 Nov 2026 11:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE70606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXejoFaW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653121F0089F;
-	Tue, 10 Nov 2026 11:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794310240;
-	bh=MOigD0yAt2156qG3a+jhbB1buv2afPkFgZKdK1zleIY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VXejoFaWXlyfveiZhknS6zvyo9c+N47lAhIrgiWfzT47ocATlmBufBVZrFqxtgpn6
-	 AjlxoEdw+9zqj/SzH36uRd+UWEA1w47Nt0zsUrzjehPBiuTmZVejSRZqlsHxn5OBsD
-	 dILCnBMFb+rTXPpv0waO0P0Ybki/VhJLscK/Iuv9EzRN69RLt1EDjuQjlRn2Vj6WdP
-	 97qvHL2EnkQE+Xptdb2lWP2TBwOsnrRV9Uxq1sis3P/mnjgQo2+2UOHh6Hxp1Ycr05
-	 lMGmmAWRsyofd86z2mgt8AbLan3kg44h5Jm9TpDPNNgpAnLZ97fxwJKliyUXm40XQp
-	 c5qdWPvXFGciQ==
-Message-ID: <3b5ac166-17aa-4418-bdb8-c7b9de22b991@kernel.org>
-Date: Tue, 10 Nov 2026 12:30:33 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTdrh3xj
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=YNvbDX5GZoykBGORHisupVHuAa7wnlS0Wpxyq/NqfE4=;
+	b=aTdrh3xjFkqdQyfNv2eUk72tdmzzxQBJtM/7OkJqmED5lm/CTKuu8X/BWqApKUIe5Q1nLnHrY
+	Vqunuh+a5yRElVNyYZTHWxC9aPZFy4rge0xnLB9l9DnuA69Q+CJo/gRCJm5i3iG5wvt5Wy13QzT
+	WmVMa5gKtea2ZaLz40CFqHQ=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jP4Gk4SYgz1K96b;
+	Tue, 10 Nov 2026 19:31:10 +0800 (CST)
+Received: from whupemp200008.china.huawei.com (unknown [7.152.184.21])
+	by mail.maildlp.com (Postfix) with ESMTPS id 53D8A4058E;
+	Tue, 10 Nov 2026 19:31:19 +0800 (CST)
+Received: from localhost.localdomain (10.50.85.93) by
+ whupemp200008.china.huawei.com (7.152.184.21) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 10 Nov 2026 19:31:18 +0800
+From: JiangJieHua <jiangjiehua1@huawei.com>
+To: Paul Moore <paul@paul-moore.com>
+CC: <audit@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Eric Paris
+	<eparis@redhat.com>, Ricardo Robaina <rrobaina@redhat.com>, Florian Westphal
+	<fw@strlen.de>, Pablo Neira Ayuso <pablo@netfilter.org>,
+	<netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+	<zhangchangzhong@huawei.com>
+Subject: [PATCH] audit: fix incomplete NETFILTER_PKT records and return void
+Date: Tue, 10 Nov 2026 20:29:39 +0800
+Message-ID: <20261110122939.45373-1-jiangjiehua1@huawei.com>
+X-Mailer: git-send-email 2.33.8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,94 +71,300 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] dt-bindings: input: apple: Add DockChannel HID
- transport
-To: Michael Reeves <michael.reeves077@gmail.com>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-input@vger.kernel.org
-References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
- <20261108-b4-apple-mtp-keyboard-v5-2-e2c97b82669a@gmail.com>
- <20261110-accurate-unselfish-cockle-3a39bd@quoll>
- <CANpmGNufv4_PM=1D1E-KRNQOuCPj8k+sGUJ1Y2HkkAtoSuL0Ow@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CANpmGNufv4_PM=1D1E-KRNQOuCPj8k+sGUJ1Y2HkkAtoSuL0Ow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemp200008.china.huawei.com (7.152.184.21)
 
-On 10/11/2026 12:26, Michael Reeves wrote:
-> On Tue, Nov 10, 2026 at 8:20 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->>> +
->>> +  hid-country-code:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    description:
->>> +      HID country code for the keyboard layout variant.
->>
->> What is the meaning of values? Do they map to any existing ABI? Like USB
->> HID? Otherwise, why country code is 32 bit integer instead of ISO3166
->> codes? As pointed last time, this should go probably to a common hid
->> schema.
-> 
-> It is USB HID country code. I will specify that in the description in
-> next version.
-> 
-> Would you like me to add it to
-> Documentation/devicetree/bindings/input/input.yaml,
-> or make a new hid.yaml in that same folder?
+Commit f19590b07cb6 ("audit: add audit_log_nf_skb helper function") and
+commit 15b0c43aa621 ("audit: include source and destination ports to
+NETFILTER_PKT") introduced audit_log_nf_skb() and its transport header
+parsing.
 
-I would vote for input/hid.yaml
+The helper returned early with -ENOMEM when skb_header_pointer() failed for
+the network header, and the later port parsing did the same for the
+transport header.  Such an early return skips the remaining fields, so the
+NETFILTER_PKT record is emitted with only "mark=" and without the address
+and protocol fields.
 
+Log the address and protocol once the network header is available, and
+route the error paths through placeholder logging: a missing network header
+logs "saddr=? daddr=? proto=-1", as the pre-refactoring callers did, and a
+transport header that cannot be read where one is expected logs
+"sport=? dport=?".  The same "proto=-1" placeholder is used for an
+unknown bridge ethertype and an unknown nfproto, which previously printed
+"proto=?".
 
-Best regards,
-Krzysztof
+Validate the IP version and the IPv4 header length, since bridge packets
+can reach the audit hook without the receive path validating them.  Locate
+the transport header from the network header instead of relying on
+skb_transport_offset(), which is not guaranteed to point at the transport
+header.  For IPv4, a non-first fragment or an unreadable transport header
+logs unknown ports; protocols without ports are unaffected.  For IPv6, a
+non-first fragment leaves proto at IPPROTO_FRAGMENT (44) and a negative
+offset from ipv6_skip_exthdr() means the extension header chain cannot be
+parsed; in both cases the transport header is not available, so keep the
+addresses and protocol and do not log ports.
+
+Both callers ignore the return value (net/netfilter/nft_log.c and
+net/netfilter/xt_AUDIT.c), so make the helper return void instead of
+inventing error codes for a value nobody consumes.
+
+A packet whose network header cannot be read now logs:
+
+  before: mark=0x0
+  after:  mark=0x0 saddr=? daddr=? proto=-1
+
+A TCP packet whose transport header cannot be read now logs:
+
+  before: mark=0x0
+  after:  mark=0x0 saddr=10.20.0.2 daddr=10.20.0.1 proto=6 sport=? dport=?
+
+Fixes: f19590b07cb6 ("audit: add audit_log_nf_skb helper function")
+Fixes: 15b0c43aa621 ("audit: include source and destination ports to NETFILTER_PKT")
+Signed-off-by: JiangJieHua <jiangjiehua1@huawei.com>
+---
+ include/linux/audit.h |  12 ++---
+ kernel/audit.c        | 114 ++++++++++++++++++++++--------------------
+ 2 files changed, 65 insertions(+), 61 deletions(-)
+
+diff --git a/include/linux/audit.h b/include/linux/audit.h
+index 767e349d4834..8263257a010e 100644
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -197,8 +197,8 @@ extern int audit_log_subj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
+ extern int audit_log_obj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
+ extern int audit_log_task_context(struct audit_buffer *ab);
+ extern void audit_log_task_info(struct audit_buffer *ab);
+-extern int audit_log_nf_skb(struct audit_buffer *ab,
+-			    const struct sk_buff *skb, u8 nfproto);
++extern void audit_log_nf_skb(struct audit_buffer *ab,
++			     const struct sk_buff *skb, u8 nfproto);
+ 
+ extern int		    audit_update_lsm_rules(void);
+ 
+@@ -276,11 +276,9 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
+ static inline void audit_log_task_info(struct audit_buffer *ab)
+ { }
+ 
+-static inline int audit_log_nf_skb(struct audit_buffer *ab,
+-				   const struct sk_buff *skb, u8 nfproto)
+-{
+-	return 0;
+-}
++static inline void audit_log_nf_skb(struct audit_buffer *ab,
++				    const struct sk_buff *skb, u8 nfproto)
++{ }
+ 
+ static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
+ {
+diff --git a/kernel/audit.c b/kernel/audit.c
+index 631d6d4a23cf..c5997077a46b 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -2511,8 +2511,8 @@ void audit_log_path_denied(int type, const char *operation)
+ 	audit_log_end(ab);
+ }
+ 
+-int audit_log_nf_skb(struct audit_buffer *ab,
+-		     const struct sk_buff *skb, u8 nfproto)
++void audit_log_nf_skb(struct audit_buffer *ab,
++		      const struct sk_buff *skb, u8 nfproto)
+ {
+ 	/* find the IP protocol in the case of NFPROTO_BRIDGE */
+ 	if (nfproto == NFPROTO_BRIDGE) {
+@@ -2532,24 +2532,32 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 	case NFPROTO_IPV4: {
+ 		struct iphdr iph;
+ 		const struct iphdr *ih;
++		int thoff;
++		bool frag;
+ 
+ 		ih = skb_header_pointer(skb, skb_network_offset(skb),
+ 					sizeof(iph), &iph);
+ 		if (!ih)
+-			return -ENOMEM;
++			goto unknown_proto;
++		if (ih->version != 4 || ih->ihl < 5)
++			goto unknown_proto;
++
++		thoff = skb_network_offset(skb) + ih->ihl * 4;
++		frag = ntohs(ih->frag_off) & IP_OFFSET;
++
++		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
++				 &ih->saddr, &ih->daddr, ih->protocol);
+ 
+ 		switch (ih->protocol) {
+ 		case IPPROTO_TCP: {
+ 			struct tcphdr _tcph;
+ 			const struct tcphdr *th;
+ 
+-			th = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_tcph), &_tcph);
+-			if (!th)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, ih->protocol,
++			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
++						&_tcph);
++			if (frag || !th)
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(th->source), ntohs(th->dest));
+ 			break;
+ 		}
+@@ -2558,13 +2566,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 			struct udphdr _udph;
+ 			const struct udphdr *uh;
+ 
+-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_udph), &_udph);
+-			if (!uh)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, ih->protocol,
++			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
++						&_udph);
++			if (frag || !uh)
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(uh->source), ntohs(uh->dest));
+ 			break;
+ 		}
+@@ -2572,19 +2578,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 			struct sctphdr _sctph;
+ 			const struct sctphdr *sh;
+ 
+-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_sctph), &_sctph);
+-			if (!sh)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, ih->protocol,
++			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
++						&_sctph);
++			if (frag || !sh)
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(sh->source), ntohs(sh->dest));
+ 			break;
+ 		}
+-		default:
+-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+-					 &ih->saddr, &ih->daddr, ih->protocol);
+ 		}
+ 
+ 		break;
+@@ -2594,28 +2595,36 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 		const struct ipv6hdr *ih;
+ 		u8 nexthdr;
+ 		__be16 frag_off;
++		int thoff;
+ 
+ 		ih = skb_header_pointer(skb, skb_network_offset(skb),
+ 					sizeof(iph), &iph);
+ 		if (!ih)
+-			return -ENOMEM;
++			goto unknown_proto;
++		if (ih->version != 6)
++			goto unknown_proto;
+ 
+ 		nexthdr = ih->nexthdr;
+-		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
+-				 &nexthdr, &frag_off);
++		thoff = ipv6_skip_exthdr(skb,
++					 skb_network_offset(skb) + sizeof(iph),
++					 &nexthdr, &frag_off);
++
++		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
++				 &ih->saddr, &ih->daddr, nexthdr);
++
++		if (thoff < 0)
++			break;
+ 
+ 		switch (nexthdr) {
+ 		case IPPROTO_TCP: {
+ 			struct tcphdr _tcph;
+ 			const struct tcphdr *th;
+ 
+-			th = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_tcph), &_tcph);
++			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
++						&_tcph);
+ 			if (!th)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, nexthdr,
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(th->source), ntohs(th->dest));
+ 			break;
+ 		}
+@@ -2624,13 +2633,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 			struct udphdr _udph;
+ 			const struct udphdr *uh;
+ 
+-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_udph), &_udph);
++			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
++						&_udph);
+ 			if (!uh)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, nexthdr,
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(uh->source), ntohs(uh->dest));
+ 			break;
+ 		}
+@@ -2638,19 +2645,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 			struct sctphdr _sctph;
+ 			const struct sctphdr *sh;
+ 
+-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
+-						sizeof(_sctph), &_sctph);
++			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
++						&_sctph);
+ 			if (!sh)
+-				return -ENOMEM;
+-
+-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+-					 &ih->saddr, &ih->daddr, nexthdr,
++				goto unknown_ports;
++			audit_log_format(ab, " sport=%hu dport=%hu",
+ 					 ntohs(sh->source), ntohs(sh->dest));
+ 			break;
+ 		}
+-		default:
+-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+-					 &ih->saddr, &ih->daddr, nexthdr);
+ 		}
+ 
+ 		break;
+@@ -2659,11 +2661,15 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+ 		goto unknown_proto;
+ 	}
+ 
+-	return 0;
++	return;
++
++unknown_ports:
++	audit_log_format(ab, " sport=? dport=?");
++	return;
+ 
+ unknown_proto:
+-	audit_log_format(ab, " saddr=? daddr=? proto=?");
+-	return -EPFNOSUPPORT;
++	audit_log_format(ab, " saddr=? daddr=? proto=-1");
++	return;
+ }
+ EXPORT_SYMBOL(audit_log_nf_skb);
+ 
+-- 
+2.33.8
+
