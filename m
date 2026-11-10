@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794291332;
-	b=x/uqPoikJNHLEFT5Ybew5T6n6z6z351521CjRV25lB7uMdR7Tnr14dVNyJ4A4qd38Zen
-	 Vf+hSnfV5fO+OSIrmftQn23zKq6+ogSxxR23yOgQ7vlNynXZzvZVKlog5TOOH85K0gxGy
-	 GAcjI8hT2pwPK1IoiUE6ykfo3gqEMAVDJpgEkAYcDAC9SjCS7G2T7ynh0gb5R5aV6zqCb
-	 YW9cQCZFaMls5B5K/jK9X1K+elsdvub6Uan9x62WqnC0+VJHWgzi3SbRI8yEdy0h0XU6X
-	 GTd6YFees53S7Qq1Jgion5prEXEQvRqImVVY6/49evKR1M/ED0q2ZQdCiwopfOjIb3A==
+	t=1794291366;
+	b=wNVBXiMziu2ZCC5/8oOFbBIPuv4ptufAv1OmwBob3ubGkDpjsVS+eQXcGFbHSUWB3CFE
+	 83kKCvhMyuvlil4AHC9y3u6IVGQKFRiyKb8BtjB/GSlObUgaoqctnaL/apJW8VcpZmnER
+	 ukX23OdkQVM4QsB4zyDfXvhQXz1/2l9ZYY7nMA1P+ad4klWKImOqDiIRnlB2SnZA27s+m
+	 dCXEmV6gL/3iIOnKrpGkPDgoeaPx+0GB6tm5E+4CLEnQ1q92YpD295Oophc5vogrHnXlV
+	 Ft9mOS9QN189xgmnNU57S0A5JixL7g1HnM0/fwShOnt0D7P9NXSRDIjgAe8STwnMsDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291332;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
-	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=85od8xelAuMtSdRpPQfSyU6RHml/ulrI0FnwARIs0KY=;
-	b=uECAh0zOjWcBblNJtpa48QfrQHwFpDBwq4hBM3Sy3t0uvf32aIa98pHm8zlBXkHNllXR
-	 X63J4gNX/EVpSv4ccq+7NQ6UsSP9EWLyQCIVsWhh3tLrfQ/Zln1FyNA9R97rAxLGCgyVa
-	 SXYuyxrlu1wYX0jzMISigdeXrCQwbNlan278dhG3ZrdbVhs/BRvelAE4U3SxfknCiQgVh
-	 4GiL+Hg4PV1S4qtBIwCQrZpHcU/rqGTgDZVkskmAa22EiGPQZt4CbrF/88x1GoVPzLdm5
-	 pR8SoxujRxMuY7qB/OlcArAXzRNz3cFpUP+Y9/S7z0jHCVEioMA4dnU//cAJTF01xlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291366;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=4rpBnan4h9EaTRrTQa5iufmTkFiE4enWZJ7KpZ2EtyE=;
+	b=RHS1QFCKPmtKz9scpWOaqOZa8pKdQSvlIx2aydBjek+KMp4L44XUl46k+DLI9dooB+Ms
+	 PzJVAjWabDsYyAFMgWmVcz6MACYAT75ICGXaiAXA8QBHJ6h4wMCwh2i3Z7ds2hxJ5rxhH
+	 LtnWMuiF816iYzt8KPb4QsaAC4Pf7lMN/bLYopxUKa/SIQPRLaMK+h9jcPsINC7qMn8dN
+	 h766mkCLRPLTuV5yp1l63eecW270ej2QApwdA+CMbHwmwUPvRhf89MEDEpgKE371JeKUV
+	 oE+KWkQYWjgL8XwQaQSnQT4uz4GDGLH/Z83JWbyrA+Kjc5TvyCfXAh6LNlD/xa5p42g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=pWN+Z8AS;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE3A606A31C;
-	Tue, 10 Nov 2026 06:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE3A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jNxGL3VPpzc8B;
-	Tue, 10 Nov 2026 14:15:22 +0800 (CST)
-From: zhangdaolong <dlzhangak@isoftstone.com>
-To: Xiubo Li <xiubli@kernel.org>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF59606A32A;
+	Tue, 10 Nov 2026 06:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF59606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=pWN+Z8AS
+Received: by mail.grapheneos.org (Postfix) id 8868C3C08EF3F;
+	Tue, 10 Nov 2026 06:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794291359;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=4rpBnan4h9EaTRrTQa5iufmTkFiE4enWZJ7KpZ2EtyE=;
+	b=pWN+Z8AS/hTfBYDuDe04b9qDbVQFO6GjMnQyT2M3LfKbxRM77S26loS5IBQj51zdsfgDNk
+	HO8nSi4rBs3bPeVjNp9sXCruwQZlONsuZ8suLASmx5UAa/WQ5kL75N2uVVZhXIgNwNXMZf
+	gtvkEarX9m1FyBSubwOEgHfmCLnOHwuacpXDTzB+8fflStiOZJHhq33qk8y1aoAaVt+Y9E
+	TXZiF4la6wzg8TJB1KlBDpV1JLkvSOmY953lGFTBMSmhmmr188P3L+h7lA4HiPVlAUqY3O
+	w2MY8bunH1G3gS5BF6Z+khhMWHOqa5l3HvPxPjv9XcMcYq7wLc8mgFzizu4i1g==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhangdaolong <dlzhangak@isoftstone.com>
-Subject: [PATCH v2] ceph: drop stale dentry when ceph_unlink() gets -ENOENT
-Date: Tue, 10 Nov 2026 14:15:22 +0800
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <CAOuZWzy9ro0r4RhYqKEBVPLnjNueQGCAV9bTGpN_PtArbY6soA@mail.gmail.com>
-References: <CAOuZWzy9ro0r4RhYqKEBVPLnjNueQGCAV9bTGpN_PtArbY6soA@mail.gmail.com>
+	liamsmith827 <liamsmith827@proton.me>
+Subject: [PATCH net v2 0/4] ipv4: restrict on-link fallback to lookup misses
+Date: Tue, 10 Nov 2026 06:15:32 +0000
+Message-ID: <20261110061536.10811-1-liamsmith827@grapheneos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,68 +71,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Tue, 10 Nov 2026 14:15:22 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AF2B67A.000 by FangMail milter!
-X-FangMail-Envelope: 1794291322/4jNxGL3VPpzc8B/6AF2B67A.000/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1794291322.6AF2B67A.000
-X-FangMail-Outinfo: 1794291322/6AF2B67A.000/4jNxGL3VPpzc8B/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1794291322.6AF2B67A.000.4jNxGL3VPpzc8B@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF2B67A.000/4jNxGL3VPpzc8B
 
-Dentries under .snap do not have MDS leases. If a snapshot is removed
-in the window between d_revalidate() and the synchronous RMSNAP request
-in ceph_unlink(), the MDS replies with -ENOENT and no dentry trace.
+From: liamsmith827 <liamsmith827@proton.me>
 
-Because ceph_fill_trace() only invalidates the parent directory when
-result == 0 and neither ceph_unlink() nor the VFS layer unhashes the
-dentry on error, the stale positive snapshot dentry remains hashed in
-the dcache. Subsequent stat on .snap/<snap> still finds the deleted
-snapshot and mkdir .snap/<snap> fails with -EEXIST.
+For non-vrf unicast, the on-link fallback currently occurs regardless of
+the particular error returned by fib_lookup(). As a result, routes and
+rules that are supposed to restrict traffic (blackhole, prohibit,
+unreachable) are unable to do so comprehensively.
 
-For regular files and directories, a concurrent unlink by another client
-revokes the local dentry lease and parent Fs caps, so dropping the
-dentry and clearing parent completeness on -ENOENT serves as hardening
-that matches what ceph_async_unlink_cb() already does on failure.
+A specific example of this being a problem is within Android, where the
+VPN "kill switch" is implemented with prohibit rules. Any process that
+can set flowi4_oif (SO_BINDTODEVICE, IP_UNICAST_IF, IP_PKTINFO, etc.) is
+able to utilize this fallback, meaning unprivileged Android apps can
+trivially bypass the VPN. This is particularly bad on cellular networks,
+where ARP is often not needed.
 
-Fix the stale .snap dentry issue and harden ceph_unlink() by calling
-ceph_dir_clear_complete(dir) and d_drop(dentry) when
-ceph_mdsc_do_request() returns -ENOENT.
+The first patch adds FIB_LOOKUP_REPORT_MISS. IPv4 FIB lookup maps a
+routing miss to -ENETUNREACH, which is also returned when an unreachable
+rule is encountered. This flag prevents the mapping, returning -ESRCH
+instead.
 
-Suggested-by: Xiubo Li <xiubli@kernel.org>
-Tested-by: Xiubo Li <xiubo.li@clyso.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
----
+The second patch uses this flag to restrict the fallback to routing
+lookup misses for non-vrf unicast. The fallback is still always taken
+for multicast, regardless of any restrictions or misses.
+
+The third patch updates tests now that the on-link fallback has been
+restricted to routing lookup misses for non-vrf unicast.
+
+The fourth patch replaces an existing comment which describes obsolete
+fib_lookup(), MSG_DONTROUTE and IPv6 behavior.
+
+This was originally observed on an Android device, by way of packet
+capture.
+
+Tested fcnal-test.sh in UML with CONFIG_IP_MULTIPLE_TABLES both enabled
+and disabled.
+
 v2:
-- Narrow down the commit message to explain the .snap race window and
-  describe the regular file/dir part as hardening (Xiubo Li).
-- Add Tested-by and Reviewed-by tags from Xiubo Li.
+- Restrict the fallback to routing lookup misses, instead of only
+  honoring prohibit (-EACCES).
+- Add FIB_LOOKUP_REPORT_MISS to differentiate a routing miss from an
+  unreachable rule.
+- Split the comment update out into its own patch and remove the
+  signature.
+- Enable all of the commented out device bind tests in
+  ipv4_ping_novrf(), add a route miss test and update the UDP test
+  expectations.
+- Target net instead of net-next, add Fixes and Cc stable.
+- Drop RFC.
+v1: https://lore.kernel.org/netdev/20261019032406.88874-1-liamsmith827@grapheneos.org/
 
- fs/ceph/dir.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+liamsmith827 (4):
+  ipv4: add FIB_LOOKUP_REPORT_MISS
+  ipv4: restrict on-link fallback to lookup misses
+  selftests: net: test restricted on-link fallback
+  ipv4: replace obsolete routing comment
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index 6eb5b1cb039b..f4c0521f3bcc 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -1473,8 +1473,12 @@ static int ceph_unlink(struct inode *dir, struct dentry *dentry)
- 	} else {
- 		set_bit(CEPH_MDS_R_PARENT_LOCKED, &req->r_req_flags);
- 		err = ceph_mdsc_do_request(mdsc, dir, req);
--		if (!err && !req->r_reply_info.head->is_dentry)
-+		if (!err && !req->r_reply_info.head->is_dentry) {
- 			d_delete(dentry);
-+		} else if (err == -ENOENT) {
-+			ceph_dir_clear_complete(dir);
-+			d_drop(dentry);
-+		}
- 	}
- 
- 	ceph_mdsc_put_request(req);
+ include/net/fib_rules.h                   |  5 +++
+ include/net/ip_fib.h                      |  6 +--
+ net/ipv4/fib_rules.c                      |  2 +-
+ net/ipv4/route.c                          | 34 ++++++++--------
+ tools/testing/selftests/net/fcnal-test.sh | 47 +++++++++++++----------
+ 5 files changed, 51 insertions(+), 43 deletions(-)
+
 -- 
-2.48.1
+2.47.3
 
