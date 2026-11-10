@@ -1,62 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331146;
-	b=0ykaihwIQISufVF837E6W7T0+NpVbC7e8fOZySlaCXnz4DI8A07FijbbU8LLYyYVz0st
-	 3z/dwcqHQGkJ6VOwrU9BuuHgMiqnFN1KA4eAYYVws5OdqqP9Mzv2yn3M0mK2gnCIOapoO
-	 u/pgOuOhMg8VieRb6/Rn6WQVEubjMPSBQxSRDbLvKOyuanBWO0y0KT1kPSmiHh0C1FxHs
-	 EtjMw7bYE6bjNLOX44jcavlOoAvpNpujyLjJC+UKg/3A3tDpMy4hzf8UTRyx+zuTtq28m
-	 txkVdCUfSYeKa+oeExb29IeHNq2rRTxlBkN4StbhHLcZYf5FVOKpTZRbGe40tuwqQIQ==
+	t=1794331162;
+	b=HB+n+ZEhxR1eEkfK85JQpCQBmGOU5SE4X/7FhuWKnsQe4nVJypuZQeG79ilP5k4+QpD/
+	 Z6ntA9rVM0vLkDva77SAW2br7fqW9zon57arPJ9ksBpltZ8vKDtseMPOFyd4zqzlXqz7U
+	 rBSX1CoPtIcdDhShvk43J+SGpvrKynfw9pLxEikbaLhgAAVOtF9SbD4ANzZ95iQ0EmjcO
+	 2Lf1mhXVvgYRbBzbSaT1Ozj7OCjBjbCKTOpVs9vPIgMmM1qR6YwGvJ6Szo7IyFBixgWUD
+	 wkw1eiuI0GEXpI+tOYDo47GbO5Pm3TnTTXSUdAqytPeVAq9q61/iRUVc6AO6jJiny1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331146;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=V7fyh20lQdCfEvkMlKmFXdlszEDXLNAOR5UNt1WFBvY=;
-	b=30uUFMSU3YNqagowunzVqlM98OGU6aUNHKmrKWmNmZzZrmVsy6AkeeECZ1ox5iucvUe/
-	 Gt9joa9ITSsz63yARfWvAcSwvbNkoR+YyivDFMVMxDKEWWB2J5tXhd4fJY2gLHW7byR8Q
-	 WkJRvv/n74DXgA0cTojD0D+61pCZ9YU8xPrDxKZLRBSUhrrdNMlSRyRv0hrJfKTnOIizc
-	 nj4FoH3qtG+kGLni1Pq2A6t2Svh8QoTWF5UMLYj7Q/yIfDcFLoT6pbvukLs8ckuJULfcT
-	 ZVzG3NU+p99/NLpkeN4ozZWDHeDBbQyguSfBTUfVpBVmdTaptExJjQBZy+valA6nB0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331162;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zbj2//T84I89RHJJWMcBH8ord+kaFBlmckmGd9rh3BE=;
+	b=QJSbnVQxh/7vA97sNZMbGDoM3ntsVmEeTvpq8Iqb1U+6tlMKgZtlxPEu/9jvSdlRAeC/
+	 9MskUoK3e4BcQLG3++8yVmGPUnEsc49pv+qeDzY31+UljHEWvw5gLXVOlsGM6De5zpRjS
+	 OQkF75fqjzrFXU17HCEq1ticpQ2xfpGOgNGCxDuK8BSyaPmj4ccWBx/XIZUgU81EfrhXz
+	 Tt1vX8Kng31SyRjuoWVO08lONzZ9pVOBUHDNVWbPvefrlrXg6kdqX5vEsxgrycvUE42g+
+	 oiohlqoqQfR1gAP32Arx2Wn7+knKnfoyYprP6KZwaO7ZGoFyN6gBscJcFn4FwOyBunw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tsx7bEP6;
-	arc=none smtp.remote-ip=91.218.175.56
-Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4WktlZd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFA6606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:19:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BFA6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13C4606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tsx7bEP6
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5N+pLaOxaXEBjI3kYto3LAKJTxf1OYPE2hTSsrnSYYI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794331143; v=1; x=1794935943;
- b=Tsx7bEP6Ypq1So8KXtDqPuPvTYK81USd+XpualrAKn7Q3AV+W/nA/mWDrlwE6zEavHzQlDP/
- N3nz+IhvfOkwudejQFR9BSwEk78UZ9sJpPdMvHqSHGE83c9Z+a90DYDY0v6Cyq4d6Xd3+L3zAQ3
- /3p5P4gEtfHYsQghaFIRMfs8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa015b11524bf34b;
-	Tue, 10 Nov 2026 17:19:03 +0000
-X-Mizu-Trace-ID: fa015b11524bf34b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c00d7ac49dso7792e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:18:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGNinJzcEqLSy1ceJ1Sb16p1rNjj0wPomBWEsfUYu6wHgQP1N4sfEXCOe7ds/1JXcDrSQe7xqXrL7ihxcg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XNcWCojG3nPSGvBRJV53vJZ39tb8hdDJmO9KzHRzB1gqUqi20
-	LiuQsPkqv8duozdSj5mOStUODUTNRa7z1/Y0Az09BRLvIPUe+3InaGbqhFLKq2T+fFZM42tZvHI
-	pem6vh1cSA5JQ03l2CoGVRmBMf2Kf6wlN+1Qy47zv
-X-Received: by 2002:a05:6512:1153:b0:5c1:5361:4aae with SMTP id
- 2adb3069b0e04-5c157dccb40mr145514e87.11.1794331138677; Tue, 10 Nov 2026
- 09:18:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4WktlZd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8ED51F008A5;
+	Tue, 10 Nov 2026 17:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794331161;
+	bh=zbj2//T84I89RHJJWMcBH8ord+kaFBlmckmGd9rh3BE=;
+	h=From:Subject:Date:To:Cc;
+	b=U4WktlZdYCYdRsuEkyoJvtLa+HHPN/UpP5smyZy5n8ffm0cLHbR4uWHPH51o9JKtR
+	 mtT+wQHrPPOdJPPWwRpxXS+43t+hx8TZJtIF8JVrQdSI6gJJ+vd5y9LJ5xrv1MLYck
+	 24RFrVIgPhDinv3GEHan2JfzxfD5jPqflf4JHWqdth/sFHLYg3opwxo3Jxr4Q0mHy+
+	 TZHl6SdiZRhGJ6AaiJ3jRhF8VkrMznyuxldIDGgnqSpCX5f6TBlhs/kHDJf06I1FWj
+	 rqeQfdRteqqhAvpIqlnrBfo49KG1MDg4L1kBenp6kzRNqf3zjMFmpSpvMK8ZS3mm2Q
+	 xBzIN2sbGhOjw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH v3 0/3] mm/khugepaged: bound mmap_lock hold time when
+ walking an mm's VMAs
+Date: Tue, 10 Nov 2026 17:19:10 +0000
+Message-Id: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,73 +54,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
-In-Reply-To: <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 10 Nov 2026 17:18:22 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
-X-Gm-Features: AclHuK8XEMs-LG2DuXG_orFbD_2iTQdN4-tg95UYPdRQQh0AwcU2lWY30uJCy0M
-Message-ID: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ6DIBCF4asY1qUZEKm66j2aLlBHJBo0YEmN8
+ e5Fu2kXLv+XzDcr8egMelImK3EYjDejjZFeElJ3ymqkpolNOHDJgBe0714aJ6WxoYOa0dYLbc2
+ bChBF1kiJKgMSjyeHcT7gxzN2Z/w8uuX4E9i+fkkG6RkZGAWq4KYqJlWdS7j36CwO19FpspuB/
+ zrZqcOjI9JcVFWLQoL8c7Zt+wBn4xH3BQEAAA==
+X-Change-ID: 20261029-khugepaged-latency-fix-40495d66ea50
+To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3543; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=frmUoMWw/pesiZEDvVRHRiCCGgqcEy/Ev4fY2Sa4j3w=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI+Bwl9cG78PWfppZNfGibtOJbe1y/gvrYx1yBGyClN4
+ P6eS9ZPOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARs8UM/2y9aqa/KXJ93mLY
+ zb7k6gvJuyfsDOv6Nl+qOioeX6orms3IsH9pmrl7ZWSXzT7PlAn3X69ZsOWhid6yjGfHgpk+2we
+ qMQIA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Sean,
+This series introduces a couple small changes to khugepaged to improve its
+behaviour both in the face of mm->mmap_lock contention and to reduce that
+lock contention when possible.
 
-On Tue, 10 Nov 2026 15:48:37 +0000, Sean Christopherson
-<seanjc@google.com> wrote:
-> On Tue, Nov 10, 2026, Fuad Tabba wrote:
-> > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-[...]
-> > @@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
-> >                          break;
-> >                  }
-> >
-> > +                /* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
->
-> Please don't include AI comments verbatim.
+Looking at the first change - if the mmap lock is contended, an attempted
+mmap trylock in collapse_scan_mm_slot() will result in the scan being
+aborted wherever it happens to be, and when next the mm is processed it
+starts from the beginning again.
 
-The series is LLM-assisted, but the comment was actually me.
+If an mm has a lot of ineligible VMAs and is undergoing significant
+mmap_lock contention, collapsing the eligible VMAs there can take a very
+long time.
 
-> > +                if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
->
-> Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
-> clobbering vcpu->run->exit_reason.
+Patch 2 of the series fixes this (patch 1 is a prerequisite) by keeping
+track of where khugepaged was in the mm before aborting the scan.
 
-Will do.
+This issue was noticed during some work in which an mm was instantiated
+with a large number of small VMAs under significant mmap_lock contention,
+during which collapse was observed to take 10.8s. With this patch applied
+it took 3.6s to collapse the same mm.
 
-> Side topic, kvm_dirty_ring_check_request() is rather confusing (clears and then
-> re-sets the requests).  AFAICT, it can be this instead:
->
->         lockdep_assert_held(vcpu->mutex);
->
->         /*
->          * The vCPU isn't runnable when the dirty ring becomes soft full.  Keep
->          * the requests set until the dirty pages are harvested and the dirty
->          * ring is reset by userspace.  Note, checking if the ring is soft-full
->          * can get a false positive, but not a false negative, because only the
->          * vCPU can add entries to the ring, and its mutex is held.
->          */
->         if (kvm_test_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu) &&
->             kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
->                 vcpu->run->exit_reason = KVM_EXIT_DIRTY_RING_FULL;
->                 trace_kvm_dirty_ring_exit(vcpu);
->                 return true;
->         }
->
->         kvm_clear_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu);
->         return false;
+Finally, patch 3 uses this to have khugepaged release + reacquire the mmap
+read lock if it is contended after walking a large number of VMAs.
 
-I'll send it as its own patch.
+This was also observed as part of the previously mentioned work in the form
+of mmap lock stalls, which patch 3 resolves. The reader stealing the lock
+back from a queued writer on re-acquisition is addressed separately by the
+rwsem change at [0].
+
+Importantly, none of the changes introduces any regressions for khugepaged
+anywhere. It is all upside, and implemented conservatively.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+v3:
+* Moved hunk from 3/3 to 2/3 as per Baolin.
+* Switched to using a declared KHUGEPAGED_MAX_VMA_SCAN_BATCH constant, as
+  per David.
+* Updated commit message to reflect this, and added link to rwsem patch.
+
+v2:
+* Removed mmap_lock_nosteal patch (was 3/5) and sent a general rwsem patch
+  separately, as per Peter.
+* Removed what was previously 4/5 as with 3/5 gone it was no longer
+  necessary.
+* Put 2/3 commit message on a diet, as per David.
+* Updated 3/3 to count every VMA rather than only skipped ones as per David.
+* Updated 3/3 to use a sensibly calculated maximum VMA scan count renamed to
+  KHUGEPAGED_MAX_VMA_SCAN_BATCH as per David.
+* Updated 3/3 to only release the mmap lock if it is contended.
+* Updated 3/3 to resume from the per-mm cursor after re-acquiring the lock
+  rather than the now stale VMA.
+* Updated 3/3 to treat a VMA whose aligned end wraps the address space as
+  the last in the mm, as per Lance.
+* Fixed 3/3 KHUGEPAGED_MAX_VMA_SCAN_BATCH to derive from the pages_to_scan
+  budget passed to collapse_scan_mm_slot().
+https://lore.kernel.org/r/20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org
+
+v1:
+https://lore.kernel.org/r/20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org
+
+[0]: https://lore.kernel.org/all/20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org/
+
+---
+Lorenzo Stoakes (ARM) (3):
+      Revert "mm/khugepaged: remove definition of struct khugepaged_mm_slot"
+      mm/khugepaged: scan mm's more efficiently under mmap_lock contention
+      mm/khugepaged: release contended mmap read lock after scanning enough VMAs
+
+ mm/khugepaged.c | 121 +++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 85 insertions(+), 36 deletions(-)
+---
+base-commit: 34f88a114888c9dba49e45f2b0c2a3e83c4c871c
+change-id: 20261029-khugepaged-latency-fix-40495d66ea50
 
 Cheers,
-/fuad
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
