@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269627;
-	b=izMFJHkcutrz+Pj5CtunzII4JnByK+ZJww94EF/kx0LVcRm/XHEk7XqhvNi+dbFo0Ua6
-	 0CMYf9QyKvMl/hKuK2Z0ZsyAH39XHL1dwoKWHfY1ar1F6f1B2idFq5blnB6vWycP8kq44
-	 WUKwCPa07ld8+P7PuQRyFZQVrJQzG2gTLA/Vh/qcgZeUs0JNhQTbIZRPz8O+0UiaRB2vC
-	 MSXa8ByB3H6gvzpUVoMoe8mJxDKztABiCymh2dCsXSYeVNRMT05+M3jel/S6sPOk2R2B7
-	 irszR3MYnGnOPlhrayQBiSD0vckGsIVNhEo+9Dq9zwgRJn9vaQ7d6tktyN8VinYL1Eg==
+	t=1794269624;
+	b=sAKR8SsbR5yZaa/lh8X3MWypOi3ya9U7wNnOVmaaLbc7KzfMvXj8XaphTAr66ofI5WMd
+	 HdMgci4tfCXarJeiOX+noxW9YV7Ievh/HGCZ3KNgnF36XHcmHUbuyjwJr6894vSuNaLPg
+	 W0XpJdboB0nF+IIBD9oAihDxNu74K9ie4MHmmEK0J3RzgAufUr5fNbNft+tw3fHVJkHxL
+	 9paGIPzhCFzytbgAWwq8hJzsfbZaAEy39WA2oaEO8LfYh9KLWnm3iAb2WUVqhiiS5kyCl
+	 f3muRknHIrxTZhdRzP20fV0l4va3iy8QB3yWNPnbzGITtFIB6ZSJedpvQlicI/xXeKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269627;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269624;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=vMh+Q56MZvI5joGXMeXyiT3B3iHFRGTGkYpSLYCToeg=;
-	b=LCvnqFX7sTcIfH9J0dFXytMnJ+JIXpEiMwGJoAjVb19ifqSl65QpbynIdwEiK0z371ZC
-	 P3TK8A3rUgoCgEmds/HsuQKdaJppk0Q3f7zbu5l2iqFtnWmHcz8J0RZfglBrISbmgQtOY
-	 JgnRjRj4mk47W4ZCCaOj6DJRikp07dFhf3QrLZTJpTqf3bmUlOQnfHWJPgbOluTxK1tqW
-	 LXobl4QU60sMkTeiFE5cLF2NDjF1lKHzRXtnyHTLda6F+8tloCgACWYNU5NwKYr1wdi34
-	 J2+Vx+fjXi3Mh0d+pkSFeusq1dzcVBTZi1lH/llvQe0EEKq2Qs0GGP0v7TPBGWIq9jw==
+	bh=yrGclO4/aoEe927BbVMTUA4tFEEdMcd1zZBu4QwOF9c=;
+	b=WgvRuTYhg0kOrXDwVefwxtj862HRe1eN5pBxg1iVewcCP85zBhZ4VZsW1Ij1pCz74Iu5
+	 /mBfgHMFV+CaSowa9yZekBlXy6On3BMB7nqLkvBbbWaW7+LuQ1GqtiegasuApD8HrsBuI
+	 eSr1l43d5qiQXJJaOFvLIdx6LjNUZaL3O0CyLfxpVlVb0/+TtSocC5lDV5oT4oIKhClUZ
+	 pu+xacbeOeoTmDrwb5wLnUnWJLHRR3v3gj4l0leSUXk8ZeUjQek8kr3ztTTGZA7CgY/eE
+	 IH7xUFHnKlsAM+TLq7IWWggr0oXJiR5wYzJYrlWzu04Srt6svesGp7hZz0UnqMx3B+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=lwJjPuJ0;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jFUiKDm6;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A42606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:13:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A42606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767FB606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 767FB606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=lwJjPuJ0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jFUiKDm6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794269625;
-	bh=2C/7CqEXhDNtn9sWg/q5Rq3Zr/m6eyF8Xd7V6VgvnqE=;
+	s=mail; t=1794269621;
+	bh=t0o7CEzI07tAoH2hLqfIQRg+o6LZrPzh4NSjQxogkOo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=lwJjPuJ0dCkMZe1+LSdC9GRIR7MjL1YR8APIOr7toR526y6dXUxk/etmY7AuJi9in
-	 gSMmrv+bfPNGtdgOOFB4zkC2QApVWFNbpZM/Smx6ZevwXY4hlPZm6/5AJBm1dbPokz
-	 WrztSLtiWUAMsPuBDWrLcVO5wE5/zeenVGlCIDHl8+3P79qDDTPN+SW0vRHjT499FA
-	 Lz2HFbBCH1inZX99YEpzsKBgWOrv/88v3+FcOj9xA6E3HzjgecP6dZdyScf5FgLMfa
-	 VKzVVipTr54VP3b5r8QZ8LlONfaC95burB5NpJt/yUM9+JKmqUbWYvnj9QOcGgRSm7
-	 VrmkQcJr8z1Wg==
+	b=jFUiKDm65jEPBGJqIZoqdHOpkCx1rKgH34HYCCoslIgFy4uzdb4t6/BePZJfYyOOt
+	 2U31rifTzkTGvRnzTR0cc9OeixTZSQ+QohdAHJ0pOUTP97QYc8RvmGiev1qIeARiNj
+	 p0ZBQ42Ay7Gru3osjS4FRhUh8+cvuyuGSfRX0n6nD7HvQfrASK0PNganI4YsfumnxQ
+	 LlmzJ3zsZGPs/W2eE258USk3uy0V37YPvtLgFgbiXz+ZEftwu3EuW/43YGqtFdSIZl
+	 dUwX+Xc43haUBBSj+MRMNzq7vrH20mWXJ5A0Gv+VXtmwiu48c+nKJ+Whfzt1odXPLW
+	 a7fHgGQYPzsKg==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E25C217E14AA;
-	Tue, 10 Nov 2026 01:13:44 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B5D6F17E04B4;
+	Tue, 10 Nov 2026 01:13:41 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 10 Nov 2026 02:13:43 +0200
-Subject: [PATCH v4 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
- scrambling infrastructure
+Date: Tue, 10 Nov 2026 02:13:39 +0200
+Subject: [PATCH v4 2/9] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-vc4-common-scramb-v4-6-eaa141a0da0f@collabora.com>
+Message-Id: <20261110-vc4-common-scramb-v4-2-eaa141a0da0f@collabora.com>
 References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
 In-Reply-To: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -79,424 +79,66 @@ Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Lucas Tanure <lucas.tanure@neat.no>
 X-Mailer: b4 0.15.2
 
-Replace driver local scrambling logic with the newly introduced common
-HDMI 2.0 scrambling support:
-
-- Advertise source-side scrambling capability by setting supported HDMI
-  version based on the variant's max_pixel_clock.
-
-- Provide minimal .scrambler_{enable,disable} connector callbacks that
-  only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
-  sink-side SCDC programming and periodic status monitoring to
-  drm_connector_hdmi_{enable,disable}_scrambling().
-
-- Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
-  the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
-  which internally calls drm_connector_hdmi_sync_scdc() to trigger a
-  CRTC reset on reconnection.
-
-- Drop the local scrambling_work delayed workqueue and scdc_enabled
-  flag, now tracked by the common drm_connector_hdmi layer, as well as
-  the now unused output_{bpc,color_format} driver data members.
+The VC4 HDMI driver has a local helper to check whether a mode requires
+scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+use the common helper instead.
 
 No functional change intended.
 
 Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 226 +++++------------------------------------
- drivers/gpu/drm/vc4/vc4_hdmi.h |  21 ----
- 2 files changed, 25 insertions(+), 222 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index c3636ed60d56..d7ef47dc4b02 100644
+index 22533f1c6207..d9383af60906 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -35,7 +35,6 @@
- #include <drm/display/drm_hdmi_cec_helper.h>
- #include <drm/display/drm_hdmi_helper.h>
- #include <drm/display/drm_hdmi_state_helper.h>
--#include <drm/display/drm_scdc_helper.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
-@@ -113,22 +112,6 @@
- #define HSM_MIN_CLOCK_FREQ	120000000
- #define CEC_CLOCK_FREQ 40000
+@@ -129,15 +129,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ 	return true;
+ }
  
--static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+-static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+-					   unsigned int bpc,
+-					   enum drm_output_color_format fmt)
 -{
--	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
+-	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
 -
--	lockdep_assert_held(&vc4_hdmi->mutex);
--
--	if (!display->is_hdmi)
--		return false;
--
--	if (!display->hdmi.scdc.supported ||
--	    !display->hdmi.scdc.scrambling.supported)
--		return false;
--
--	return true;
+-	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
 -}
 -
  static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
  {
  	struct drm_debugfs_entry *entry = m->private;
-@@ -262,115 +245,6 @@ static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi)
- static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi) {}
- #endif
- 
--static int vc4_hdmi_reset_link(struct drm_connector *connector,
--			       struct drm_modeset_acquire_ctx *ctx)
--{
--	struct drm_device *drm;
--	struct vc4_hdmi *vc4_hdmi;
--	struct drm_connector_state *conn_state;
--	struct drm_crtc_state *crtc_state;
--	struct drm_crtc *crtc;
--	bool scrambling_needed;
--	u8 config;
--	int ret;
--
--	if (!connector)
--		return 0;
--
--	drm = connector->dev;
--	ret = drm_modeset_lock(&drm->mode_config.connection_mutex, ctx);
--	if (ret)
--		return ret;
--
--	conn_state = connector->state;
--	crtc = conn_state->crtc;
--	if (!crtc)
--		return 0;
--
--	ret = drm_modeset_lock(&crtc->mutex, ctx);
--	if (ret)
--		return ret;
--
--	crtc_state = crtc->state;
--	if (!crtc_state->active)
--		return 0;
--
--	vc4_hdmi = connector_to_vc4_hdmi(connector);
--	mutex_lock(&vc4_hdmi->mutex);
--
--	if (!vc4_hdmi_supports_scrambling(vc4_hdmi)) {
--		mutex_unlock(&vc4_hdmi->mutex);
--		return 0;
--	}
--
--	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
--							   vc4_hdmi->output_bpc,
--							   vc4_hdmi->output_format);
--	if (!scrambling_needed) {
--		mutex_unlock(&vc4_hdmi->mutex);
--		return 0;
--	}
--
--	if (conn_state->commit &&
--	    !try_wait_for_completion(&conn_state->commit->hw_done)) {
--		mutex_unlock(&vc4_hdmi->mutex);
--		return 0;
--	}
--
--	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
--	if (ret < 0) {
--		drm_err(drm, "Failed to read TMDS config: %d\n", ret);
--		mutex_unlock(&vc4_hdmi->mutex);
--		return 0;
--	}
--
--	if (!!(config & SCDC_SCRAMBLING_ENABLE) == scrambling_needed) {
--		mutex_unlock(&vc4_hdmi->mutex);
--		return 0;
--	}
--
--	mutex_unlock(&vc4_hdmi->mutex);
--
--	/*
--	 * HDMI 2.0 says that one should not send scrambled data
--	 * prior to configuring the sink scrambling, and that
--	 * TMDS clock/data transmission should be suspended when
--	 * changing the TMDS clock rate in the sink. So let's
--	 * just do a full modeset here, even though some sinks
--	 * would be perfectly happy if were to just reconfigure
--	 * the SCDC settings on the fly.
--	 */
--	return drm_atomic_helper_reset_crtc(crtc, ctx);
--}
--
--static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
--				   struct drm_modeset_acquire_ctx *ctx,
--				   enum drm_connector_status status)
--{
--	struct drm_connector *connector = &vc4_hdmi->connector;
--
--	/*
--	 * NOTE: This function should really be called with vc4_hdmi->mutex
--	 * held, but doing so results in reentrancy issues since
--	 * cec_s_phys_addr() might call .adap_enable, which leads to that
--	 * funtion being called with our mutex held.
--	 *
--	 * A similar situation occurs with vc4_hdmi_reset_link() that
--	 * will call into our KMS hooks if the scrambling was enabled.
--	 *
--	 * Concurrency isn't an issue at the moment since we don't share
--	 * any state with any of the other frameworks so we can ignore
--	 * the lock for now.
--	 */
--
--	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
--
--	if (status != connector_status_connected)
--		return 0;
--
--	return vc4_hdmi_reset_link(connector, ctx);
--}
--
- static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 					 struct drm_modeset_acquire_ctx *ctx,
- 					 bool force)
-@@ -382,8 +256,8 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 	/*
- 	 * NOTE: This function should really take vc4_hdmi->mutex, but
- 	 * doing so results in reentrancy issues since
--	 * vc4_hdmi_handle_hotplug() can call into other functions that
--	 * would take the mutex while it's held here.
-+	 * drm_atomic_helper_connector_hdmi_hotplug() can call into other
-+	 * functions that would take the mutex while it's held here.
- 	 *
- 	 * Concurrency isn't an issue at the moment since we don't share
- 	 * any state with any of the other frameworks so we can ignore
-@@ -406,7 +280,8 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 			status = connector_status_connected;
+@@ -312,7 +303,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+ 		return 0;
  	}
  
--	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
-+	ret = drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
-+
- 	pm_runtime_put(&vc4_hdmi->pdev->dev);
+-	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
++	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+ 							   vc4_hdmi->output_bpc,
+ 							   vc4_hdmi->output_format);
+ 	if (!scrambling_needed) {
+@@ -442,7 +433,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 		const struct drm_display_mode *mode;
  
- 	return ret == -EDEADLK ? ret : status;
-@@ -544,6 +419,14 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
+ 		list_for_each_entry(mode, &connector->probed_modes, head) {
+-			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
++			if (drm_hdmi_mode_needs_scrambling(mode, 8,
++							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+ 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+ 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+ 			}
+@@ -819,7 +811,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+ 		return;
  
- 	drm_connector_helper_add(connector, &vc4_hdmi_connector_helper_funcs);
- 
-+	/*
-+	 * Since we don't know the state of the controller and its
-+	 * display (if any), let's assume it's always enabled.
-+	 * drm_connector_hdmi_disable_scrambling() will thus run at boot,
-+	 * make sure it's disabled, and avoid any inconsistency.
-+	 */
-+	connector->hdmi.scrambler_enabled = drm_connector_hdmi_scrambler_supported(connector);
-+
- 	/*
- 	 * Some of the properties below require access to state, like bpc.
- 	 * Allocate some default initial connector state with our reset helper.
-@@ -776,32 +659,15 @@ static int vc4_hdmi_write_spd_infoframe(struct drm_connector *connector,
- 					buffer, len);
- }
- 
--#define SCRAMBLING_POLLING_DELAY_MS	1000
--
--static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
-+static int vc4_hdmi_scrambler_enable(struct drm_connector *connector)
- {
--	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
--	struct drm_connector *connector = &vc4_hdmi->connector;
-+	struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
- 	struct drm_device *drm = connector->dev;
--	const struct drm_display_mode *mode = &vc4_hdmi->saved_adjusted_mode;
- 	unsigned long flags;
- 	int idx;
- 
--	lockdep_assert_held(&vc4_hdmi->mutex);
--
--	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
--		return;
--
--	if (!drm_hdmi_mode_needs_scrambling(mode,
--					    vc4_hdmi->output_bpc,
--					    vc4_hdmi->output_format))
--		return;
--
- 	if (!drm_dev_enter(drm, &idx))
--		return;
--
--	drm_scdc_set_high_tmds_clock_ratio(connector, true);
--	drm_scdc_set_scrambling(connector, true);
-+		return 0;
- 
- 	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
- 	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
-@@ -810,58 +676,27 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- 
- 	drm_dev_exit(idx);
- 
--	vc4_hdmi->scdc_enabled = true;
--
--	queue_delayed_work(system_percpu_wq, &vc4_hdmi->scrambling_work,
--			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
-+	return 0;
- }
- 
--static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
-+static int vc4_hdmi_scrambler_disable(struct drm_connector *connector)
- {
--	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
--	struct drm_connector *connector = &vc4_hdmi->connector;
-+	struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
- 	struct drm_device *drm = connector->dev;
- 	unsigned long flags;
- 	int idx;
- 
--	lockdep_assert_held(&vc4_hdmi->mutex);
--
--	if (!vc4_hdmi->scdc_enabled)
--		return;
--
--	vc4_hdmi->scdc_enabled = false;
--
--	cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
--
- 	if (!drm_dev_enter(drm, &idx))
--		return;
-+		return 0;
- 
- 	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
- 	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) &
- 		   ~VC5_HDMI_SCRAMBLER_CTL_ENABLE);
- 	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- 
--	drm_scdc_set_scrambling(connector, false);
--	drm_scdc_set_high_tmds_clock_ratio(connector, false);
--
- 	drm_dev_exit(idx);
--}
- 
--static void vc4_hdmi_scrambling_wq(struct work_struct *work)
--{
--	struct vc4_hdmi *vc4_hdmi = container_of(to_delayed_work(work),
--						 struct vc4_hdmi,
--						 scrambling_work);
--	struct drm_connector *connector = &vc4_hdmi->connector;
--
--	if (drm_scdc_get_scrambling_status(connector))
--		return;
--
--	drm_scdc_set_high_tmds_clock_ratio(connector, true);
--	drm_scdc_set_scrambling(connector, true);
--
--	queue_delayed_work(system_percpu_wq, &vc4_hdmi->scrambling_work,
--			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
-+	return 0;
- }
- 
- static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
-@@ -931,7 +766,7 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
- 	if (vc4_hdmi->variant->phy_disable)
- 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
- 
--	vc4_hdmi_disable_scrambling(encoder);
-+	drm_connector_hdmi_disable_scrambling(&vc4_hdmi->connector);
- 
- 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
- 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
-@@ -1540,7 +1375,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 		goto err_disable_pixel_clock;
- 	}
- 
--	vc4_hdmi_enable_scrambling(encoder);
-+	drm_connector_hdmi_enable_scrambling(connector, conn_state);
- 
- 	if (vc4_hdmi->variant->phy_init)
- 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
-@@ -1691,8 +1526,6 @@ static void vc4_hdmi_encoder_atomic_mode_set(struct drm_encoder *encoder,
- 	mutex_lock(&vc4_hdmi->mutex);
- 	drm_mode_copy(&vc4_hdmi->saved_adjusted_mode,
- 		      &crtc_state->adjusted_mode);
--	vc4_hdmi->output_bpc = conn_state->hdmi.output_bpc;
--	vc4_hdmi->output_format = conn_state->hdmi.output_format;
- 	mutex_unlock(&vc4_hdmi->mutex);
- }
- 
-@@ -1762,8 +1595,9 @@ static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
- static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi20 = {
- 	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
- 	.max_bpc		= 12,
--	/* TODO: set HDMI_VERSION_2_0 and convert to common scrambler infra */
--	.supported_hdmi_ver	= HDMI_VERSION_UNKNOWN,
-+	.supported_hdmi_ver	= HDMI_VERSION_2_0,
-+	.scrambler_enable	= vc4_hdmi_scrambler_enable,
-+	.scrambler_disable	= vc4_hdmi_scrambler_disable,
- };
- 
- #define WIFI_2_4GHz_CH1_MIN_FREQ	2400000000ULL
-@@ -3245,7 +3079,6 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 
- 	spin_lock_init(&vc4_hdmi->hw_lock);
--	INIT_DELAYED_WORK(&vc4_hdmi->scrambling_work, vc4_hdmi_scrambling_wq);
- 
- 	dev_set_drvdata(dev, vc4_hdmi);
- 	encoder = &vc4_hdmi->encoder.base;
-@@ -3258,15 +3091,6 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
- 	vc4_hdmi->pdev = pdev;
- 	vc4_hdmi->variant = variant;
- 
--	/*
--	 * Since we don't know the state of the controller and its
--	 * display (if any), let's assume it's always enabled.
--	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
--	 * sure it's disabled, and avoid any inconsistency.
--	 */
--	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
--		vc4_hdmi->scdc_enabled = true;
--
- 	ret = variant->init_resources(drm, vc4_hdmi);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-index b2879c29d02e..e6cd40acc843 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-@@ -118,8 +118,6 @@ struct vc4_hdmi {
- 	struct vc4_encoder encoder;
- 	struct drm_connector connector;
- 
--	struct delayed_work scrambling_work;
--
- 	struct i2c_adapter *ddc;
- 	void __iomem *hdmicore_regs;
- 	void __iomem *hd_regs;
-@@ -187,25 +185,6 @@ struct vc4_hdmi {
- 	 */
- 	struct drm_display_mode saved_adjusted_mode;
- 
--	/**
--	 * @scdc_enabled: Is the HDMI controller currently running with
--	 * the scrambler on? Protected by @mutex.
--	 */
--	bool scdc_enabled;
--
--	/**
--	 * @output_bpc: Copy of @drm_connector_state.hdmi.output_bpc for
--	 * use outside of KMS hooks. Protected by @mutex.
--	 */
--	unsigned int output_bpc;
--
--	/**
--	 * @output_format: Copy of
--	 * @drm_connector_state.hdmi.output_format for use outside of
--	 * KMS hooks. Protected by @mutex.
--	 */
--	enum drm_output_color_format output_format;
--
- 	/**
- 	 * @hdmi_jack: Represents the connection state of the HDMI plug, for
- 	 * ALSA jack detection.
+-	if (!vc4_hdmi_mode_needs_scrambling(mode,
++	if (!drm_hdmi_mode_needs_scrambling(mode,
+ 					    vc4_hdmi->output_bpc,
+ 					    vc4_hdmi->output_format))
+ 		return;
 
 -- 
 2.55.0
