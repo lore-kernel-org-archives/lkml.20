@@ -1,109 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794331063;
-	b=nk8mLk7/haX5r8eExZ5WrCJ0N63g8gecBXkN+QyiWacfm6/tQTAs79W1YfGntntJXurN
-	 43Nj73sI7DNLKcgHj1ZlqBqOHeLfuSzw5EC8jL6o8dQuvEuM3ELeo6yPHzUtAst4gvdy5
-	 MqynHG8j0HV/S7xs6SNyXSq5a8ToxCBtZMaK6kniGPd8/5ikwDLiWrkWnLkOYQfc22I/y
-	 391JUC7Gjb0KypORldXgtkl1vyOEzepVsRgqWoL41lLIeGBMHloHErS/5BUUtWyrXZdA+
-	 iThyNA8bvXQjfGvmjGfl2P7ZGjQu5f6YiQoLZ6OE7X96EvIjjo39cx1VBF1PSy/ALIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331063;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=np30jfTbjAs7KOdDcJm8BZ6bqjB4t5fJI+6aC0zo+WY=;
-	b=ju5sXQzsW8a54YMUc225YGKDI1YcA6DseNrkdUTLV2f5MF/SDwwgFnuHe+o5w/CTjdV9
-	 +rKsMDHnGs7Q/CJLORJ2Hy8b7A5z3zaLpw1sv/N9rzT86NwmlQiR2mCNUNKV6+uIYuLHv
-	 KQzuWRWego77KbS5inH6cCy1nqktl18FCkoZo1KYC1h8Uja8IGhcrHYFkOJRZRNk0OKcF
-	 FfFLGGePDdYEqJE54iYBr5QreJxCaOtOkCx0giQVRkCNZAjz3HEdp2o4s0+/D4+EbUE2q
-	 wJA10mjGfPVzGXojdoYrvfXUFX8PMm+BBIbbx2WzJJkd+Yhp/mw8e7RWgf7D8rBbDLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iwpGs71+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.52
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012052.outbound.protection.outlook.com [40.93.195.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794331093;
+	b=b04WPAid2wJvAmSVr4pPGcWduV57jusXG3YC/dI6GqlKPZJyr4mJL2Z+tTxlVNbLfwaS
+	 lynzcPionKigF9p1tsfhkKABZbhn6XcBFE1ax5Q4tXohF9QkmA2BLJFJUF/ajxLFjYSy2
+	 +JIJGHP8zSUBnsSOETcWbgzyH1yIXMcfb4XM/d+KGfX8T/EO+8ewx2g1W7LzbutGB62nV
+	 T7s3pinA+5eNlruMORnZe4pnvd6gTiTRVqFcLg2u1x5eLzmn5gDZwldLNxcbLji8A4Bzc
+	 SX8ClNRdMkqmm8PmOkYv/A8kaJPgJgMM/ep40fouZiy6AANvG1RBOo8I9T+hzv3vp8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331093;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fobaesnmMKyjTvyeIs4N9hvt2MoGfB+9T3M/lvazKZE=;
+	b=hQ3wVkyJOm3nxtGaMxob7+dhPTNSuqSHv9UB1GeSezmSFjALIfd168DxWprYipJcgyBI
+	 4X9fwm5sqETh8oOPYuurxoJfRD99/iwmTqFzOlDSQh0G5HOrQugUC7/jfCk3uL9PdWRTj
+	 FZtxJEZHNnj3eL8e6vgLwCxFpnfasCeZRAyf6b0Z21rBmyT0cwBKWNCR23mkTnIwAnMxm
+	 gv5KUowJbB3D7ryyx3u/KfUQBpMSCwe/1QkWjac9uqaoJZ8352rDY9Rti/neEdSStaS7p
+	 UlVll1iPkUVcFZ8IpY7hBTWP5s7Wb21wHUTuoIZCv4l4hu1F5MvsVYWUFeTF/E8PZbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2MKsMOA;
+	arc=none smtp.remote-ip=209.85.221.171
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223EC606A321;
-	Tue, 10 Nov 2026 17:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 223EC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E859E606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:18:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E859E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iwpGs71+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ubHmZeJ94zIoo1nXP9SzQ8jPtS5W3QrlYep3NxbPxiHa+/VlwlFULiDNGOCvmrhiTleoL3zoHBlGRgIS+R+/6eBB1IUHUC6P+BQ0r9XcGi86kMxgHWvG2nKL05p1eE2Ho/ZEXB7afiYUCSnw6mUdaiaHqphruk/SIab1eySpBRyGNR0gd24+sKDOIbWVhzYRyro6a4oue2FlPYvQaU8j5w5PWXVpP3lCptPeZCDiDfh50lYKC6Qp9GVQlBfsgJY9Qu6OheOewxopG7NnkfBYzARw8I5AV6C/xlLVYBmfC5zFVXMjJBec0wW2jAzdsaWpjn7cUrnuftSD+uMn+Fta1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=np30jfTbjAs7KOdDcJm8BZ6bqjB4t5fJI+6aC0zo+WY=;
- b=TiWY9txv/xz8/STGGWxjaUxoO6G8xO+VsOLAoXjPO2KCLA9x7ygMWRnguYj7ZezoVzZWvid+9NRN1HkBywg0pRjwPvM1hWa+B1zZk/TXXBXSP0AohpZAuIgEkQ0dfclIUm89eJZT1IvKtTUFDx7gOYbQGa87qW8fdxlD22l2PUwp58UE9SiVVrdyBnBLUjyXmFm5QWqyrgh5xhYLKQ1xl72eyob/+460QMD/E4CdgbNFXSGbsuI21fnas3eEspKCzXKyZHcd+acMAwlk1FMc3a1TJonwy9+bEtsF/3z7meRAYJiNUfaBJCFzD+yo8J5J0jSfasQv+A6UIQm2uk83kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=np30jfTbjAs7KOdDcJm8BZ6bqjB4t5fJI+6aC0zo+WY=;
- b=iwpGs71+wMS3BWS6/J5syGWoY6GSk+B+rHXgtYrpx0MBAlWl3wdLWUxXbDO+nAxZu7LwKclNdKpgW/Fsip8trCyn+krjQJ261z1rkvHhJR5NpJZzMjmz7KjpIGvgGERdrdkxtuKwurEb3Ji0cJRU2Qo3FPhp6VNwv+9FFcPbNqf+8ftswx5PfA337uiRiQ6Va6aUPvLfJ/DmZrblHX36F1R/MB7dZ4SSvvBWtzR6cAeZuwY6Ob1G8ssVWT8RN8BDgdfkDT2169RY2bq0cPGywIqxYxJEfdDeX6s49yVt2xDWlr5Y2Dsznr77JfP4Pvjd3WI/ZUTYuDeyHrWoEPmsfg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY8PR12MB7633.namprd12.prod.outlook.com (2603:10b6:930:9c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 17:17:35 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 17:17:35 +0000
-Date: Tue, 10 Nov 2026 12:17:33 -0500
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v11 1/5] rust: io: use Alignment size constants
-Message-ID: <avNRlUdtK4lF8-sj@yury>
-References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
- <20261109-chid-v11-1-082aa9bf5a91@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-chid-v11-1-082aa9bf5a91@nvidia.com>
-X-ClientProxiedBy: CH2PR10CA0018.namprd10.prod.outlook.com
- (2603:10b6:610:4c::28) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2MKsMOA
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eac49ec2f5so146503e0c.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:18:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794331091; x=1794935891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fobaesnmMKyjTvyeIs4N9hvt2MoGfB+9T3M/lvazKZE=;
+        b=t2MKsMOAy9KtNuW4zAnMxjLYtFFUpd/FGPaFO9CVqQpvAGcOhTfCOQ1dE+g0/JE5W3
+         iYxVuhk1uwONz+s60uoo280ERJsZWBul91t9Ec5gvPIqMc8iIGqjpvIxWhNQMYF10oUg
+         1+D0PV9XL7j940+aWUmk6k7rA0cgZANCh/Wugit50afRVZZYn/obEXsU15bDfmNiF3p2
+         iAq3OK2ZlWZf241ikfzGMtj5j6cuL179ByzkhGXRXgeuvNnAi+HD7tH/iZJlGTpl6nco
+         qSR2R7JbMboziAWXOODwmHhkhvjZa2BOMpPv1AJQ5xBdu+VjKqPrioP57rMhC/Saebfu
+         e7jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794331091; x=1794935891;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fobaesnmMKyjTvyeIs4N9hvt2MoGfB+9T3M/lvazKZE=;
+        b=wPoGj7vHGFxCJZacgiVmLBMbSgDf6iTlyAhp/eOS1sFQu82rkC4VJvhY7raiFMJep0
+         4CQ3/97GOV6ql7Yg0C5/KoRUxqoDyUvwwR5zI+HAbcW3FnXbJ+ifmJV+N0NI+Lb7qg3N
+         9L9kTWvjD/wLzw7Gm/17pn/DsRoBfDknFLZrM2NKbnkzI7bu9rKlUCadPWCida3pMRnT
+         4nG3+I0bX8Xv70dGJWprnXPnf+/20t1tY6s9Qz7+AsdTGBbmPziIxKOqZ6alPiWOPxdn
+         fB57Xopusk0QhTm7OFvwCGtyugI7esI9fD/yybmlbVJR13nJWMMO/GLUHiYdZ0Sb0LqX
+         92Ag==
+X-Forwarded-Encrypted: i=1; AL+hErF8I/zzo2uP7TaBen56iMptbdORxM0CsXBYIwpKYko9NEG8uTya1mlqkjZZ3AKGjhLTv3wRU/nemkL5Ka0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pZ9wsl35pvcEIDLpTBX/v0s6fnARZoj61ZlQoU7KFmBLZSjU0
+	E/5KIZmJ6kf7LVASLxBxasTvzABOCkXKFTrcBQfNeKAViJKSbjCNMLjN
+X-Gm-Gg: AYBFou2/3ZipKg8o6WavEZUam6UupKDCOFtDQwD2m5f/cvioO5nyaUCuNQKdrF+AGnS
+	cK7IcSdaSUwZ93fyZl3+mW2caZk3G4dphsn0jr5vip4SmhAcHcGVoL5aSMTILSZq5AEdU2hHXL1
+	5DoAmkW8i7t5qvj6Ux+8D2zNfBspm3fjQnVq19O7Fvq2QTn5IeYd+1N7ZGF+hID8FUs0rggUJmV
+	wJcBaJ0EphhVE2b8x6wEEgJQeKuEz7Cs2FzKyTsTPZY5dZ4sUMwIdHcCRFGKwxyzuxQ4qRSSK83
+	rO4jjgDgkxXcS0F9jBAbtQL3gCn4jQybCTe0auLrJFOtHd5P/c81mDgvm8DbNbrCi/zEB8H57b6
+	TzpJG1/wKgqqnb12Gdoxtj6waDiNQ1k7PwPyxRFTL6GkGCygfUJxlfkX60MKytGfpXiAPI/c9zF
+	stWAAzR8egyK4xsKCIeZZSgj16rW/A8TeeeC3cIejAOfAbHDcHTLzRUk2Av1sHQuRc5AmvD2SxV
+	WJGNNiacy6TlCkYLd1ndv7gFjWzICi1SBJ1A0CZENDVucpZGgQJ4QrA/D1OLT3a0i7M7aMzBlK0
+	huKXDflD3xSElDE705UQ21SG3LEfS/DyivEAJD6iZe0LLuqNzT3Z15EnGqnBLs+Uabw+TWzPha6
+	FUft8RPTJ22rUaTuTsTp5Ariq5nP0AwhrGmCmCof18yv2w3Y=
+X-Received: by 2002:a05:6123:50e:10b0:5ec:e2a2:b70e with SMTP id 71dfb90a1353d-5ee0d1b1b03mr1450303e0c.4.1794331090720;
+        Tue, 10 Nov 2026 09:18:10 -0800 (PST)
+Received: from localhost.localdomain (bras-base-sbcypq6202w-grc-36-65-94-163-70.dsl.bell.ca. [65.94.163.70])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe12dsm2036676241.5.2026.11.10.09.18.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 09:18:10 -0800 (PST)
+From: Massi Djaiz <djaizmassi@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Massi Djaiz <djaizmassi@gmail.com>
+Subject: [PATCH] staging: octeon: Fix return value documentation warnings
+Date: Tue, 10 Nov 2026 12:16:18 -0500
+Message-ID: <20261110171618.4507-1-djaizmassi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,98 +96,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY8PR12MB7633:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79998af1-44cd-4c61-1803-08df3f4e82d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|23010399003|376014|7416014|366016|261102123227099003|261009223027099003|261021123027099003|261021121427099003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	VkwnnDO/Hy9FGeyzuIEfluiEeuOLRkEnSd6afHo6J2lUA+/qgXG/Cymn4cFOa/Ghr9PgSRsC9QJs3QjIVOVZvsbFexEeZuCjmMiM5tGEi1HXcVUOwwl3SEZ5MU0iOAPDNHEa1WM+fEPwtP9x0kk0Jl1pgBZNzYnRfK+ge/7Nh8L6ar3MjgxdPNoK0cTpF6bv83i95DtH+KoLlYit+L+4m1+ENr4hqjLNcfJBBXcwyJokbpHOxiJZKVtApDs29mFWMw+oQpryZDoIVYWCmxlL/nqw/7OLo/qUN/9r3aw2pmeNDT+GvNbUJrIgmogtSpf5Qfktygdze29r3qB/VhIiCFDlDOzEDgRG+ljoribe/MldcqxGxLD0eoTGgxX6B6/MeD5rlIUXYZU9Zpzv2Oh4oa+cLX1/gxjxzmUN4zvuVsp0x94En9vzZpx4HgDQN4cNdl7E6fMEjmJfg6qjIGuQDCjtI+chL5FW/gNyTP7RSiFE/sTfro/TLG7Xh4Si7FyBNmfiiqivjfvLPiGGXmIiOnBEHML9jFJhoAuXiOeV41v7nYyVYA0sTFupCkrgUMp4Bl1Tgn2p+cCKqqzOryKfFMLcjUOeLxBHxnFTleOgtC3hln5UGKJzj/xltC9JpDzceNvhIuHbVVLBLKU3O/FUk/RWxTxMKyzRL8EoQdpHWWk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(23010399003)(376014)(7416014)(366016)(261102123227099003)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?deoHvm8A6wvmI3RGPEbxMMa5zT8krrHljaafR9Yqp8fBZH6Tki/Vijx9Yzfk?=
- =?us-ascii?Q?JLynHDJp1OLQExfHy4o3nso01XBD0oyU8+IroU2vI3Hgfjbym1nwe0LLPzV1?=
- =?us-ascii?Q?nlpgingIZPJ9ru9FZN50nVngepRP1tPHxd9Kwrb4UQ/Zrhx3rN6r4LT/uOkV?=
- =?us-ascii?Q?RZ/0FSqI9mbWERj4UvULR8VPgVcCfGb5s2vDnr36vMiCiF3vhV/lxLHyc2Cs?=
- =?us-ascii?Q?g7KpCAZCCu4FFmGmwlN/bGMwPtP4WiFkuiSKzasKrbxGAQMzwmPMN5U+iq/c?=
- =?us-ascii?Q?lCOnIQN8M/LcLUxqLTEXi+8LFUMxX9eHb4Bl/WMc0/SXI69GxHqUzj/XTZg5?=
- =?us-ascii?Q?mqc+t8KCHZpeaX1UG4q54YMhsPRQedZbmqvEQS9R5vEwImvjYQjUHids0C1M?=
- =?us-ascii?Q?VnT2X/tIbqgcCxnjXVLUIiL1YNNjC39rnDM5GZ8jjKppWmmj18lI0/xIP7Av?=
- =?us-ascii?Q?bu14At1+du6UF8WsTCHTU2a8clJatHWlfVSIn66eL/ir8auRRLcDV02s6EOz?=
- =?us-ascii?Q?xP40dwb3kqffzv8H4p2tPVnK05ZBoDYmmUxxaAUal934dBLmEhzy3PsVC+W4?=
- =?us-ascii?Q?1sF1mEcbid60lJ5rmOpvT1vQKsj13ZIChGs0kvsi7bbIAI3aGn6R01nTd+8o?=
- =?us-ascii?Q?mrNJWvD6GDf5mKQXXhx+ZHrX044hAdvmQCXzJ1++JkUInouyLwuZU4Jpmn1I?=
- =?us-ascii?Q?9a0wAHPMDISLECNNyekkvamE/aLuY8vpXiqeWuHfFsZLg3vgQmnmaqKQYOye?=
- =?us-ascii?Q?H1yiDnWBD1aGzz0xCz7KFY4wnNl/O18HiQGeLmgyAFdNjIxS6ZblZYTTc++n?=
- =?us-ascii?Q?RrOmTPT2ud3W3d8GeiUDQ2cEE+nKI/gbj3cSUANPVTJt1n34veRZdkZlpQFz?=
- =?us-ascii?Q?8WGFJtXw/smuL6vEv2jOFt0bcvCtCCYEavgDBbpEvCCIsNBPJwXa8W6/lh10?=
- =?us-ascii?Q?avhcAxTQqSw2LNqmTSDEwODPeduWGVMdqW251q6sEx6Xn16rwP2iJxIrt9EQ?=
- =?us-ascii?Q?aO2I8349gEf5SYaAi5cziSxZ0LjjrqAglTyhl9yK2DpuE0Hqn3a4ziG4a+72?=
- =?us-ascii?Q?1EESVkYoPXve9ucXR7GR6bKTxWkYU7YE6fVQUah1NoLKTjiHQzhacDmFwLYQ?=
- =?us-ascii?Q?3VjMHUAOpbejyAHwUyw9iPt5i2TLRcvV0YENzedfzOJQuqBXll+jKPmhtYAb?=
- =?us-ascii?Q?jKP9cmo66ltcs05D8ai1SVFhr6cVATh6/24kFrI79BxBlPdEm3BdMkkQMu37?=
- =?us-ascii?Q?r/dW0x83DgrXIw7BZWhUkK0CV68k/s+50qTgiGNneVeCFrPcvwsbcOC/AsJo?=
- =?us-ascii?Q?UE0u3NpT8/zo8SzVsGWwy3hr+FUNitQpya00dzsg8h8grIhKJKBqLNALoKKt?=
- =?us-ascii?Q?i2k80nEQWlcIRXOnRsGwGjs10icAkRxbggBqbDMbsMCW1CZquOhkfWQ+vYzj?=
- =?us-ascii?Q?KooC78EjCTCyRVrzj7RPHnjAYIik9wR0DqzXzZlsFXcU4eyCE6kEYyfe73mf?=
- =?us-ascii?Q?TWkBVlpaEop3iYV0ALiWyqiXmd3n6FN+9dngvqMQ8eiU2QsqxLa3FTYXX5PH?=
- =?us-ascii?Q?56JQAGwDQECifyHSJdBUDTYpXKKF/rYooMXZlQYMwqs+vAKnNNuXwFhYvE08?=
- =?us-ascii?Q?KHpjyt5rcszPIIOuhEdGBjWUHnfhFhEHpSSq7+Yd0X4crem/zcns3k52lfh0?=
- =?us-ascii?Q?WgMphuis96d8Ql6WXbioYFy3LfVAre0SDkR9oziVFsL3R2ABSvK+PifWoo/2?=
- =?us-ascii?Q?hvSkpEXEiPSTINN09ZsAj5zFL9XQNfD2nbDrFAYULBjF+Um89HVS?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79998af1-44cd-4c61-1803-08df3f4e82d2
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 17:17:34.8169
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z5cc3+MyF9bJ+YIVRnnrfUPubxQse0IK25sTqQuSDUfyoZAe+r8TvypexixJ0I8u5epdNpEv9XZga7rQeHdK8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7633
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 05:32:49PM +0900, Eliot Courtney wrote:
-> Use `SizeConstants` for Alignment that are implemented now.
-> 
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Running "scripts/kernel-doc -none -Wall drivers/staging/octeon/" reports
+that 17 functions in drivers/staging/octeon/ have a missing
+description for their return value.
 
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
+16 of the 17 functions have a return value description formatted as
+"Returns [...description]".
 
-> ---
->  rust/kernel/io.rs | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index a877df11a03e..31c6975376bf 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -21,7 +21,8 @@
->      ptr::{
->          Alignment,
->          KnownSize, //
-> -    }, //
-> +    },
-> +    sizes::SizeConstants, //
->  };
->  
->  #[cfg(CONFIG_HAS_IOMEM)]
-> @@ -154,7 +155,7 @@ pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: usize) -> Result<*mut Sel
->  impl<const SIZE: usize> KnownSize for Region<SIZE> {
->      const MIN_SIZE: usize = SIZE;
->      // Alignment of 4 is the most common; different base types can be added once required.
-> -    const MIN_ALIGN: Alignment = Alignment::new::<4>();
-> +    const MIN_ALIGN: Alignment = Alignment::SZ_4;
->  
->      #[inline(always)]
->      fn size(p: *const Self) -> usize {
-> 
-> -- 
-> 2.56.0
-> 
+1 function, cvm_oct_do_interrupt(), has no return value description.
+
+Documentation/doc-guide/kernel-doc.rst states that if a function has a
+return value, it should be described in a section named "Return".
+Sections are only recognized if their name is followed by a ":".
+
+- Replace each occurrence of "Returns" with "Return: ".
+- Add a return value description to cvm_oct_do_interrupt(),
+  which always returns the constant IRQ_HANDLED.
+
+No functional change.
+
+Signed-off-by: Massi Djaiz <djaizmassi@gmail.com>
+---
+ drivers/staging/octeon/ethernet-mdio.c |  4 ++--
+ drivers/staging/octeon/ethernet-mem.c  |  4 ++--
+ drivers/staging/octeon/ethernet-rx.c   |  5 +++--
+ drivers/staging/octeon/ethernet-tx.c   |  4 ++--
+ drivers/staging/octeon/ethernet-util.h |  6 +++---
+ drivers/staging/octeon/ethernet.c      | 10 +++++-----
+ 6 files changed, 17 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/staging/octeon/ethernet-mdio.c b/drivers/staging/octeon/ethernet-mdio.c
+index 211423059e30..569e4aba38bc 100644
+--- a/drivers/staging/octeon/ethernet-mdio.c
++++ b/drivers/staging/octeon/ethernet-mdio.c
+@@ -49,7 +49,7 @@ const struct ethtool_ops cvm_oct_ethtool_ops = {
+  * @rq:     the request
+  * @cmd:    the command
+  *
+- * Returns Zero on success
++ * Return: Zero on success
+  */
+ int cvm_oct_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
+ {
+@@ -132,7 +132,7 @@ int cvm_oct_common_stop(struct net_device *dev)
+  *
+  * @dev:    Device to setup
+  *
+- * Returns Zero on success, negative on failure
++ * Return: Zero on success, negative on failure
+  */
+ int cvm_oct_phy_setup_device(struct net_device *dev)
+ {
+diff --git a/drivers/staging/octeon/ethernet-mem.c b/drivers/staging/octeon/ethernet-mem.c
+index 68c3ef984e56..224a7189faf2 100644
+--- a/drivers/staging/octeon/ethernet-mem.c
++++ b/drivers/staging/octeon/ethernet-mem.c
+@@ -20,7 +20,7 @@
+  * @size:     Size of the buffer needed for the pool
+  * @elements: Number of buffers to allocate
+  *
+- * Returns the actual number of buffers allocated.
++ * Return: the actual number of buffers allocated.
+  */
+ static int cvm_oct_fill_hw_skbuff(int pool, int size, int elements)
+ {
+@@ -76,7 +76,7 @@ static void cvm_oct_free_hw_skbuff(struct platform_device *pdev,
+  * @size:     Size of each buffer in the pool
+  * @elements: Number of buffers to allocate
+  *
+- * Returns the actual number of buffers allocated.
++ * Return: the actual number of buffers allocated.
+  */
+ static int cvm_oct_fill_hw_memory(struct platform_device *pdev, int pool, int size,
+ 				  int elements)
+diff --git a/drivers/staging/octeon/ethernet-rx.c b/drivers/staging/octeon/ethernet-rx.c
+index 5be43bbf6a1d..5ca30f5b046d 100644
+--- a/drivers/staging/octeon/ethernet-rx.c
++++ b/drivers/staging/octeon/ethernet-rx.c
+@@ -41,6 +41,7 @@ static atomic_t oct_rx_ready = ATOMIC_INIT(0);
+  *
+  * The interrupt occurs whenever the POW has packets in our group.
+  *
++ * Return: Always returns %IRQ_HANDLED.
+  */
+ static irqreturn_t cvm_oct_do_interrupt(int irq, void *napi_id)
+ {
+@@ -55,7 +56,7 @@ static irqreturn_t cvm_oct_do_interrupt(int irq, void *napi_id)
+  * cvm_oct_check_rcv_error - process receive errors
+  * @work: Work queue entry pointing to the packet.
+  *
+- * Returns Non-zero if the packet can be dropped, zero otherwise.
++ * Return: Non-zero if the packet can be dropped, zero otherwise.
+  */
+ static inline int cvm_oct_check_rcv_error(struct cvmx_wqe *work)
+ {
+@@ -404,7 +405,7 @@ static int cvm_oct_poll(struct oct_rx_group *rx_group, int budget)
+  * @napi: The NAPI instance.
+  * @budget: Maximum number of packets to receive.
+  *
+- * Returns the number of packets processed.
++ * Return: the number of packets processed.
+  */
+ static int cvm_oct_napi_poll(struct napi_struct *napi, int budget)
+ {
+diff --git a/drivers/staging/octeon/ethernet-tx.c b/drivers/staging/octeon/ethernet-tx.c
+index 5e536827f87a..44534b94aec2 100644
+--- a/drivers/staging/octeon/ethernet-tx.c
++++ b/drivers/staging/octeon/ethernet-tx.c
+@@ -122,7 +122,7 @@ static void cvm_oct_free_tx_skbs(struct net_device *dev)
+  * @skb:    Packet to send
+  * @dev:    Device info structure
+  *
+- * Returns Always returns NETDEV_TX_OK
++ * Return: Always returns NETDEV_TX_OK
+  */
+ netdev_tx_t cvm_oct_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+@@ -500,7 +500,7 @@ netdev_tx_t cvm_oct_xmit(struct sk_buff *skb, struct net_device *dev)
+  * cvm_oct_xmit_pow - transmit a packet to the POW
+  * @skb:    Packet to send
+  * @dev:    Device info structure
+- * Returns Always returns zero
++ * Return: Always returns zero
+  */
+ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
+ {
+diff --git a/drivers/staging/octeon/ethernet-util.h b/drivers/staging/octeon/ethernet-util.h
+index 2af83a12ca78..510e04030c74 100644
+--- a/drivers/staging/octeon/ethernet-util.h
++++ b/drivers/staging/octeon/ethernet-util.h
+@@ -9,7 +9,7 @@
+  * cvm_oct_get_buffer_ptr - convert packet data address to pointer
+  * @packet_ptr: Packet data hardware address
+  *
+- * Returns Packet buffer pointer
++ * Return: Packet buffer pointer
+  */
+ static inline void *cvm_oct_get_buffer_ptr(union cvmx_buf_ptr packet_ptr)
+ {
+@@ -21,7 +21,7 @@ static inline void *cvm_oct_get_buffer_ptr(union cvmx_buf_ptr packet_ptr)
+  * INTERFACE - convert IPD port to logical interface
+  * @ipd_port: Port to check
+  *
+- * Returns Logical interface
++ * Return: Logical interface
+  */
+ static inline int INTERFACE(int ipd_port)
+ {
+@@ -39,7 +39,7 @@ static inline int INTERFACE(int ipd_port)
+  * INDEX - convert IPD/PKO port number to the port's interface index
+  * @ipd_port: Port to check
+  *
+- * Returns Index into interface port list
++ * Return: Index into interface port list
+  */
+ static inline int INDEX(int ipd_port)
+ {
+diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
+index 42ec4b8324a8..463302cf5a61 100644
+--- a/drivers/staging/octeon/ethernet.c
++++ b/drivers/staging/octeon/ethernet.c
+@@ -183,7 +183,7 @@ static void cvm_oct_configure_common_hw(struct platform_device *pdev)
+  *
+  * @work_queue_entry: Work queue entry to free
+  *
+- * Returns Zero on success, Negative on failure.
++ * Return: Zero on success, Negative on failure.
+  */
+ int cvm_oct_free_work(void *work_queue_entry)
+ {
+@@ -211,7 +211,7 @@ EXPORT_SYMBOL(cvm_oct_free_work);
+  * cvm_oct_common_get_stats - get the low level ethernet statistics
+  * @dev:    Device to get the statistics from
+  *
+- * Returns Pointer to the statistics
++ * Return: Pointer to the statistics
+  */
+ static struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)
+ {
+@@ -247,7 +247,7 @@ static struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)
+  * @dev:     Device to change
+  * @new_mtu: The new MTU
+  *
+- * Returns Zero on success
++ * Return: Zero on success
+  */
+ static int cvm_oct_common_change_mtu(struct net_device *dev, int new_mtu)
+ {
+@@ -401,7 +401,7 @@ static int cvm_oct_set_mac_filter(struct net_device *dev)
+  * @dev:    The device in question.
+  * @addr:   Socket address.
+  *
+- * Returns Zero on success
++ * Return: Zero on success
+  */
+ static int cvm_oct_common_set_mac_address(struct net_device *dev, void *addr)
+ {
+@@ -416,7 +416,7 @@ static int cvm_oct_common_set_mac_address(struct net_device *dev, void *addr)
+  * cvm_oct_common_init - per network device initialization
+  * @dev:    Device to initialize
+  *
+- * Returns Zero on success
++ * Return: Zero on success
+  */
+ int cvm_oct_common_init(struct net_device *dev)
+ {
+-- 
+2.43.0
+
