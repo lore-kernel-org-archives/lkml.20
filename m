@@ -1,62 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325926;
-	b=EWv5ylOPPCD9U1A21Q4pNoAkwMoJCo1aYpZefv5up49o7XMPWN3U+gvsf/ANGJjjmhOi
-	 abxLuMDHLxvjjQ91T0MVXEStq2mRKPk1L8l4sumN8QPseQBZAicibJdnEV6v49RQItkXd
-	 /v89QiMzvJIHIf5Z1PT9XridYsq8a4F+AOQibZKtc/gpvi59Z/aiPh/UsjJwz3SWG/WFf
-	 s3CqCj6pUspAAQ8sjX/U9IrU2n/DnyvJK5+/4jcj8Ggj7JObNU+3SSN4evepGTW6ZS3di
-	 EyUpLTuSG0mPFN+6rxiG3iTZAz6R4v5gCNQoL4BYR9rvy6kAbaxV39qkjoEuxJyLYMw==
+	t=1794326017;
+	b=XzQXj+6KJTLjkJmlbIhX+I9BpMWODIEfKv13ViIW7HJR3qfl2tQejkd6unvRKZaTyftX
+	 2drzMM2Ki2X7plzfzt0jf0+Dmz0SVhcHMGfJY8HHqn36ZV5Q/1Vlq+3M2gBR4DTBug9Sx
+	 q9bpibpMjj9JHRu9Dx/FYVATaNXQt4gnkN6+B4uxxDsXId2PygcBDJRaH4xbZduU5IEbP
+	 CBjhg/Gz8AEKl/rdwYPkQC5EcmadkyAkucXqEzgqj2eETp1iliO57QLd5pz1FZiNbqyqL
+	 66+2VHfzRaDYKi5jfFtCGHcGNvzgv+ltrPc+EBCltVk1bw82u1SrlHYongJTkpjCn6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325926;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zrMcVk/FXBVd+TGYXJcrqn9TJIqgyPhhxmNRvtTxdwY=;
-	b=unOW1CZ+m7JB1X2EAMGzNAm8YPKUNmfbYMXuE/A5dc0qyqslBEQCnTDoROISnR+TcDCA
-	 JUdVyP5xKpcPNuWGtISEIO+onmHbPcWtrvFh81tiBM4UKWpS0CFK3ArSqgfv27H6VuANl
-	 IU23cT/xkEv/O0Q0bY/SUQxAevZSdpi0hUlaB5ITNLfmYxMIh7QHSr3BsDh4IpW8JOnF9
-	 j6YOIH64nhqjkj0iYO82yW6nqWY54szpmj8LLhbMtO+x8c9aLzjYi/Ww8eH1r2VYmHNkS
-	 RYhK2l510EeHdX1z9tHuP/8PJ31AlPs24PN5NemB59JNlSsg0UHG9IBp1Emd7kZXcZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326017;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
+	b=UjzWNON7LgRx1bO5g8/Wfs3qIPTxop07zACiCSQ4639PDmAwQqf4xLU60r6YwBXr7qPT
+	 13Vz243vVVOwqlddhZdlfDbRylHdOSHQng3HxMoNPDCVvcxWwi0ExJJAwikSueXaRQ1nd
+	 NPpIDj/wcDsvR7Af4MudALmGC4ejj8I/1eQaZY7wN+oa9c4ffz1DE0tVJb8lriPoFH+xb
+	 k8zemOpJC3hX72EEeAEpr4LbaOYapBhP9P6HwOMplMjf940I5phqCy0GXF3ddSEm02Fqu
+	 9/sJcWVhcl51XmaFECEw4UKWO2X2dRc/FYviecHEYbIvh7WkIGgThKkqpn3cWIj3nlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="LAO6VCj/";
-	arc=none smtp.remote-ip=91.218.175.128
-Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KdYgOstJ;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953BD606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:52:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 953BD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D55606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:53:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17D55606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAO6VCj/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=I48YjLcxJvx4CWukts+x9dGdBS0QAfV6VzkLdQtjevU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794325923; v=1; x=1794930723;
- b=LAO6VCj/jP97doJQdG9N7nDKXV86mxjgXAenEhMMC4DEMioHzogsAR3u4dnk7G+xT/vASlEn
- 8H0KwD//3y7rPZOujqEXkoyxyVbiEaozExAGmmv8kSVpAhvr8eoF1QA5LvgFAAEqdNqWMTUylEu
- XUClkzHN2xVrI8jjGczIs2Mo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9b44e70281ab94c0;
-	Tue, 10 Nov 2026 15:52:03 +0000
-X-Mizu-Trace-ID: 9b44e70281ab94c0
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 15:51:58 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: jiangjiehua1@huawei.com
-CC: audit@vger.kernel.org, coreteam@netfilter.org, eparis@redhat.com,
- fw@strlen.de, linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- pablo@netfilter.org, paul@paul-moore.com, rrobaina@redhat.com,
- zhangchangzhong@huawei.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_audit=3A_fix_incomplete_N?=
- =?US-ASCII?Q?ETFILTER=5FPKT_records_and_return_void?=
-In-Reply-To: <20261110122939.45373-1-jiangjiehua1@huawei.com>
-Message-ID: <F79DD66E-99AE-44E0-87A3-E7B2FE704290@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KdYgOstJ
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so1633891b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:53:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794326016; x=1794930816; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
+        b=KdYgOstJ7KLq1UQCYnD9H+1JdC2fwddQe0d1osd1pI5CkONyb4xd30ewS/w0DolsYJ
+         knbje4zjcRXc95NT2DxIGHuvwMxO8wzqB2goyjWWKKuO21kBp2M85q2UxpXKZHBVQ+KE
+         gQGPicw5TyoImAIIqGWTJcQ+yAWfiv+RkAXUWMMA5R6pZd66vTfGFHN4aVnJ9iT08lxB
+         6LFkqs9sZzB4bPQCxaZFImj4SoLcVp5AEDD2ablOsfa3ZhpVdtGiYZPlb8HRE0wv1wSt
+         /pdnHBlpmOYLmcaUAeGn2XjRl3F72aYJb8n0YZaS8OOQvnPs3RLVUMuj4yVD+B8tEHej
+         /qTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794326016; x=1794930816;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
+        b=FZ4emhwcP0lkrlMZAIcHMozV4G9YVbKlV1d8cekMkc2ttqoRDXTJQ5p8x6D6NBaJdd
+         8/+3HnUHNj8O5ZUTJmyK9sbb4qSt8UGNUO6AebUFLbC0Zkz8wyX5aY8HYMelQ3yXkAAE
+         WFesfF/5ryyxkXUQd6twlEARrquHUH4gIq+dmYB9N/ggJiMP+iikzj+nQOadamcnbRMF
+         6p4Qh0C/VlIIlTNH4nsM6xg7rKHcjAaPQ4CK2hEOpuowDJFwOYK9whD4CQvok0DeO6tP
+         qsRSI2dUajv8eEBKT2YLRczf+LZp8kxJuHthPfM56Kiu3KbomHXFaHjjwGFt6RgR5CLm
+         naAA==
+X-Forwarded-Encrypted: i=1; AL+hErF3MB94zWfTQ+dF4r1XhfvBL0WgWcTBmZiZdxZSfAEAQvW0CreoGUT5CXny77zsho1qrE/EQg1Mf+9t5Oc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XbCsx/VGEpcVqQepFGr94s8qaXEOPBYFRVHVu5LUBVo5hCiHG
+	ZdzwdzhahKO3WicDvCVY3RChgGGR5GG/ApJilGxu7aues4DjPwCKgAFASjNyWfmHXZgHF41MnRQ
+	K5TJfjA==
+X-Received: from pfwp56.prod.google.com ([2002:a05:6a00:26f8:b0:89e:861c:6b39])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2402:b0:899:3439:c8d5
+ with SMTP id d2e1a72fcca58-8ba862ccf23mr3397440b3a.14.1794326016155; Tue, 10
+ Nov 2026 07:53:36 -0800 (PST)
+Date: Tue, 10 Nov 2026 07:53:35 -0800
+In-Reply-To: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,308 +77,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-3-fuad.tabba@linux.dev> <avMoubwqgXbpflwM@gremlin> <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+Message-ID: <avM9_7aWUDJSL3Lq@seanjc-mac.roam.internal>
+Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
+ full dirty ring
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On 10 November 2026 12:29:39 GMT, JiangJieHua <jiangjiehua1@huawei.com>
-wrote:
->Commit f19590b07cb6 ("audit: add audit_log_nf_skb helper function") and
->commit 15b0c43aa621 ("audit: include source and destination ports to
->NETFILTER_PKT") introduced audit_log_nf_skb() and its transport header
->parsing.
->
->The helper returned early with -ENOMEM when skb_header_pointer() failed
->for
->the network header, and the later port parsing did the same for the
->transport header.  Such an early return skips the remaining fields, so the
->NETFILTER_PKT record is emitted with only "mark=" and without the address
->and protocol fields.
->
->Log the address and protocol once the network header is available, and
->route the error paths through placeholder logging: a missing network
->header
->logs "saddr=? daddr=? proto=-1", as the pre-refactoring callers did, and a
->transport header that cannot be read where one is expected logs
->"sport=? dport=?".  The same "proto=-1" placeholder is used for an
->unknown bridge ethertype and an unknown nfproto, which previously printed
->"proto=?".
->
->Validate the IP version and the IPv4 header length, since bridge packets
->can reach the audit hook without the receive path validating them.  Locate
->the transport header from the network header instead of relying on
->skb_transport_offset(), which is not guaranteed to point at the transport
->header.  For IPv4, a non-first fragment or an unreadable transport header
->logs unknown ports; protocols without ports are unaffected.  For IPv6, a
->non-first fragment leaves proto at IPPROTO_FRAGMENT (44) and a negative
->offset from ipv6_skip_exthdr() means the extension header chain cannot be
->parsed; in both cases the transport header is not available, so keep the
->addresses and protocol and do not log ports.
->
->Both callers ignore the return value (net/netfilter/nft_log.c and
->net/netfilter/xt_AUDIT.c), so make the helper return void instead of
->inventing error codes for a value nobody consumes.
->
->A packet whose network header cannot be read now logs:
->
->  before: mark=0x0
->  after:  mark=0x0 saddr=? daddr=? proto=-1
->
->A TCP packet whose transport header cannot be read now logs:
->
->  before: mark=0x0
->  after:  mark=0x0 saddr=10.20.0.2 daddr=10.20.0.1 proto=6 sport=? dport=?
->
->Fixes: f19590b07cb6 ("audit: add audit_log_nf_skb helper function")
->Fixes: 15b0c43aa621 ("audit: include source and destination ports to NETFILTER_PKT")
+On Tue, Nov 10, 2026, Fuad Tabba wrote:
+> Hi Lorenzo,
+> 
+> On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> > On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
+> > > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
+> > > holds, and check that each call stops before the ring overflows, that a
+> > > retry returns ENOSPC without progress, and that the harvested entries
+> > > are the pages in order. A read pre-fault can map a page read-only, or
+> >
+> > Are we asserting an invariant that prefaulting happens in address order
+> > here?  Is that explicitly presumed in the prefault API, or just how it
+> > happens to pan out?
+> >
+> > I wonder if we might decide for whatever reason in future to do things
+> > differently there. Bit nitty I know, but wonder if it's asserting an
+> > implementation detail?
+> 
+> Yes, the API doesn't guarantee an order. I'll assert that every page
+> is reported exactly once instead.
+> 
+> [...]
+> > > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+> [...]
+> > > +static void test_pre_fault_dirty_ring(void)
+> [...]
+> > > +    /* Populate the pages, so that pre-faulting can map them writable. */
+> >
+> > Reviewed below, but I wonder how x86 could then read fault these?
+> 
+> KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
+> writable when the host page is, and marks it dirty, unless it falls
+> back to access tracking (below). Populating the pages makes sure they
+> aren't backed by the zero page.
 
-This code looks very, very confusing. :(
-
->Signed-off-by: JiangJieHua <jiangjiehua1@huawei.com>
->---
-> include/linux/audit.h |  12 ++---
-> kernel/audit.c        | 114 ++++++++++++++++++++++--------------------
-> 2 files changed, 65 insertions(+), 61 deletions(-)
->
->diff --git a/include/linux/audit.h b/include/linux/audit.h
->index 767e349d4834..8263257a010e 100644
->--- a/include/linux/audit.h
->+++ b/include/linux/audit.h
->@@ -197,8 +197,8 @@ extern int audit_log_subj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
-> extern int audit_log_obj_ctx(struct audit_buffer *ab, struct lsm_prop
-> *prop);
-> extern int audit_log_task_context(struct audit_buffer *ab);
-> extern void audit_log_task_info(struct audit_buffer *ab);
->-extern int audit_log_nf_skb(struct audit_buffer *ab,
->-			    const struct sk_buff *skb, u8 nfproto);
->+extern void audit_log_nf_skb(struct audit_buffer *ab,
->+			     const struct sk_buff *skb, u8 nfproto);
-> 
-> extern int		    audit_update_lsm_rules(void);
-> 
->@@ -276,11 +276,9 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
-> static inline void audit_log_task_info(struct audit_buffer *ab)
-> { }
-> 
->-static inline int audit_log_nf_skb(struct audit_buffer *ab,
->-				   const struct sk_buff *skb, u8 nfproto)
->-{
->-	return 0;
->-}
->+static inline void audit_log_nf_skb(struct audit_buffer *ab,
->+				    const struct sk_buff *skb, u8 nfproto)
->+{ }
-> 
-> static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
-> {
->diff --git a/kernel/audit.c b/kernel/audit.c
->index 631d6d4a23cf..c5997077a46b 100644
->--- a/kernel/audit.c
->+++ b/kernel/audit.c
->@@ -2511,8 +2511,8 @@ void audit_log_path_denied(int type, const char *operation)
-> 	audit_log_end(ab);
-> }
-> 
->-int audit_log_nf_skb(struct audit_buffer *ab,
->-		     const struct sk_buff *skb, u8 nfproto)
->+void audit_log_nf_skb(struct audit_buffer *ab,
->+		      const struct sk_buff *skb, u8 nfproto)
-> {
-> 	/* find the IP protocol in the case of NFPROTO_BRIDGE */
-> 	if (nfproto == NFPROTO_BRIDGE) {
->@@ -2532,24 +2532,32 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 	case NFPROTO_IPV4: {
-> 		struct iphdr iph;
-> 		const struct iphdr *ih;
->+		int thoff;
->+		bool frag;
-> 
-> 		ih = skb_header_pointer(skb, skb_network_offset(skb),
-> 					sizeof(iph), &iph);
-> 		if (!ih)
->-			return -ENOMEM;
->+			goto unknown_proto;
->+		if (ih->version != 4 || ih->ihl < 5)
->+			goto unknown_proto;
->+
->+		thoff = skb_network_offset(skb) + ih->ihl * 4;
->+		frag = ntohs(ih->frag_off) & IP_OFFSET;
->+
->+		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
->+				 &ih->saddr, &ih->daddr, ih->protocol);
-> 
-> 		switch (ih->protocol) {
-> 		case IPPROTO_TCP: {
-> 			struct tcphdr _tcph;
-> 			const struct tcphdr *th;
-> 
->-			th = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_tcph), &_tcph);
->-			if (!th)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, ih->protocol,
->+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
->+						&_tcph);
->+			if (frag || !th)
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(th->source), ntohs(th->dest));
-> 			break;
-> 		}
->@@ -2558,13 +2566,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 			struct udphdr _udph;
-> 			const struct udphdr *uh;
-> 
->-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_udph), &_udph);
->-			if (!uh)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, ih->protocol,
->+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
->+						&_udph);
->+			if (frag || !uh)
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(uh->source), ntohs(uh->dest));
-> 			break;
-> 		}
->@@ -2572,19 +2578,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 			struct sctphdr _sctph;
-> 			const struct sctphdr *sh;
-> 
->-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_sctph), &_sctph);
->-			if (!sh)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, ih->protocol,
->+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
->+						&_sctph);
->+			if (frag || !sh)
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(sh->source), ntohs(sh->dest));
-> 			break;
-> 		}
->-		default:
->-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
->-					 &ih->saddr, &ih->daddr, ih->protocol);
-> 		}
-> 
-> 		break;
->@@ -2594,28 +2595,36 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 		const struct ipv6hdr *ih;
-> 		u8 nexthdr;
-> 		__be16 frag_off;
->+		int thoff;
-> 
-> 		ih = skb_header_pointer(skb, skb_network_offset(skb),
-> 					sizeof(iph), &iph);
-> 		if (!ih)
->-			return -ENOMEM;
->+			goto unknown_proto;
->+		if (ih->version != 6)
->+			goto unknown_proto;
-> 
-> 		nexthdr = ih->nexthdr;
->-		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
->-				 &nexthdr, &frag_off);
->+		thoff = ipv6_skip_exthdr(skb,
->+					 skb_network_offset(skb) + sizeof(iph),
->+					 &nexthdr, &frag_off);
->+
->+		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
->+				 &ih->saddr, &ih->daddr, nexthdr);
->+
->+		if (thoff < 0)
->+			break;
-> 
-> 		switch (nexthdr) {
-> 		case IPPROTO_TCP: {
-> 			struct tcphdr _tcph;
-> 			const struct tcphdr *th;
-> 
->-			th = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_tcph), &_tcph);
->+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
->+						&_tcph);
-> 			if (!th)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, nexthdr,
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(th->source), ntohs(th->dest));
-> 			break;
-> 		}
->@@ -2624,13 +2633,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 			struct udphdr _udph;
-> 			const struct udphdr *uh;
-> 
->-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_udph), &_udph);
->+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
->+						&_udph);
-> 			if (!uh)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, nexthdr,
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(uh->source), ntohs(uh->dest));
-> 			break;
-> 		}
->@@ -2638,19 +2645,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 			struct sctphdr _sctph;
-> 			const struct sctphdr *sh;
-> 
->-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
->-						sizeof(_sctph), &_sctph);
->+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
->+						&_sctph);
-> 			if (!sh)
->-				return -ENOMEM;
->-
->-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
->-					 &ih->saddr, &ih->daddr, nexthdr,
->+				goto unknown_ports;
->+			audit_log_format(ab, " sport=%hu dport=%hu",
-> 					 ntohs(sh->source), ntohs(sh->dest));
-> 			break;
-> 		}
->-		default:
->-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
->-					 &ih->saddr, &ih->daddr, nexthdr);
-> 		}
-> 
-> 		break;
->@@ -2659,11 +2661,15 @@ int audit_log_nf_skb(struct audit_buffer *ab,
-> 		goto unknown_proto;
-> 	}
-> 
->-	return 0;
->+	return;
->+
->+unknown_ports:
->+	audit_log_format(ab, " sport=? dport=?");
->+	return;
-> 
-> unknown_proto:
->-	audit_log_format(ab, " saddr=? daddr=? proto=?");
->-	return -EPFNOSUPPORT;
->+	audit_log_format(ab, " saddr=? daddr=? proto=-1");
->+	return;
-> }
-> EXPORT_SYMBOL(audit_log_nf_skb);
-> 
->
-
---- Thanks!
+Before we effectively solidify the behavior, I think we should have an explicit
+discussion about the desired behavior of KVM_PRE_FAULT_MEMORY when dirty logging
+is enabled.  E.g. the only reason I kept the existing behavior in my auto-prefault
+series was because I couldn't think of a good reason to change it.  But we never
+made a concious decision in the first place, i.e. we never considered what would
+happen if prefaulting collided with dirty logging (as evidenced by this bug).
