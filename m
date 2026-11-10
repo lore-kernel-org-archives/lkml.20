@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294689;
-	b=qbUqBPuy08Zkw22waqRDuXPFaEixv1hm+NT/fj3P58JxIA8Xkcb22bRJ6KxSvhmrvrio
-	 ybM7OprlYpbBYnDQHS1Mh+xPPd3jy0mvS8MX6ZjFne8PSBE+3voWDonOkEpRb0pBGRifH
-	 pz6v0ps1cBNFayUz9wVxy4/BHkDDsvMZ5OpcEi7x32j2XeY4XMzmUX7Q1Hf+q3ZVz+F0e
-	 NGVNFPWOcO9ESiVXuHR9eEsUoVAvZyFgypwKZlFe0jdXDLAtiujsN1jbijMROae/IG76X
-	 uTg9nImPd2r3xX/lb2EI7wy2JfH/or/tREdvlYL9+NaJVpmqLaDowx+nTLGL7GQgDQA==
+	t=1794294690;
+	b=dutzKiy6H5ju/IsX1yqnZWAjAtL+QeN9EbNfColXv/RPnUSVe9yGtX13RH3AesyO90lT
+	 hNiLVbYq+AuEMVam2kp5dPp7cUBNL9nr5qEW5/66xMQ+DqBecfEmv5XILVykioBal2syE
+	 9k4xky/UdsA0Tx/JpQ8MgZtQjXOFrGjVJkKSVvuzSbGDuTvHDKbrjgPG2SvGtfmr3DLJB
+	 6P1URdE8JAqNTbTKqi3UJBzUh4M4lMuhUR7+AON37Vt1y2Um8ivBAY4VBuJkZDSMQtgeP
+	 oglvdhYsnYMuNQBRNqEvz8HdG4meddGX9lqm4/nv55qAZtlVHwxHTfFxl4bIEjyoc2w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294689;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-	b=lX9xMdfsyd4393ERkVf0keU4QO7KpQBY2duHHwVQ3o9ei4tn5N0GxuuG+DzA7JB0NPxb
-	 eEGqxwVumsvarsmDA7cwzFm//P3taw7SCE3bn+GCE+qLtbwJgYmubIYWJVrEpNn/o4RFo
-	 DpYWElFjCvylRVoXqmvTr5Ot9AkZmMgT/tuo5xgtKN6LdpwNbq+6OwtqNK2De4mmSAvHT
-	 JRRuSIvBYz/m+B3vhskWHv/ca1f01lVPHh8AdkdwaE8tSE6qr5nUmLGbzBpMJem5lrCjy
-	 bubt6xdZ0BkuKP4MPTYtPjhCnAEXIwlm798ynNTh7wDoEryQ4p5kG1pL4NRxVOnyAFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294690;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=INj9XiCO7qQYOH/BALkYphgV6XWt7EmpgJJgizsfpGQ=;
+	b=06asosIqdi7/LskxGOozVicvG4+wYJgDV6YQZjMXyDnT3D9Z/EFYysD5t0DjOsLUN5cl
+	 RORKXJ5V9FzushaKE0OG6yCzJ9WFPIKbsCU6qgqhUNvDQcM13/DeKiAdzwDiZBG0ZuGo6
+	 pJZfqUSe+yBuMB2k/pFwVWTqUvPdFe3Xm0FWmDYi8U68jxzhEVKrp8R+r7hVFT6WiL3cC
+	 AXVSoRqDWNIdB8xmk/4Jc4k2hmY4p8ldf8VT4Q6ivn98t4E9sfrvxL4Ri3Os6h3O8h9KF
+	 l6Z83eGDBVT80wP9mKS9fW7WPsBhw07SPZp6Wc79INleNeEIbh8b+ratCmQOw5EHzCQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJ8lzL7m;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9A9606A332;
+	Tue, 10 Nov 2026 07:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJ8lzL7m
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794294689;
+	b=z1EgNvsWaOafPL7/7+fowANbGI5aBJfBvmj3uP/0P2o/MN8nd/RiWzcTdzgXiaRYeeRy
+	 TE2+hZ88PIVGsSYVLx3SXY0v9432tky1VlILkkgeTgVQpNSpusYDpoyDZN09j8w68I9L+
+	 mXL551xgHvMMG3BuZhUUZsThGDiCZFQS5fXXc5/uTMU4qs8gkc1VjxOSyYH59tiefNRAo
+	 6RoSeLx83bNyTT4ksF1Lf7Lt+H3IlUFWyYl4bPihcPqHAnq+63nlOsR+h7w2nlG2AVM9U
+	 ptEtcrNwor4kOoBKBA+oyK6cBORKRDfRtbcUl5rTCQzHZ1W5I+POWWX/2S71QTDc7vA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794294689;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=INj9XiCO7qQYOH/BALkYphgV6XWt7EmpgJJgizsfpGQ=;
+	b=Q7lpNol4OUhrdhH3lz9AMBxOLjzPLCI2cdGZ2jiQQnYi9TmnTmyLi9hfAwYuzfl/Jw6X
+	 0NmTBgnwkLlxuIYCv44+3xkIwMpLwfNb1mjwDQuc3jPRis/So1/vdOk/gc8VEH16Fdc9/
+	 pMReNGqE+DhiGaNMbuLYZQp4bKaK6LSlLsnbh5OByJ5Bfpc/fOexLy6uejif1LsVAdVcK
+	 DXnlrwa0YO8WBRAmlPSRTxUeEaJ/KszTGDZkOTZQAwXf4jrhmecMFPCCpLgUHKzAEF/3u
+	 Y7v64oDzRFDQVDEjOFK7OyCiSjauNq0ObqouM0KN0n1r5ocguSu17lVNV8fDTsXvICQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D2D606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86D2D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aVZph5jn
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67c05273c38so2028519d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:11:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794294688; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WtWAmY3SsUcLMs9Cc8UhIQDsOy+K+Fs2gGGmAeuKaLxjHxHMnyogQyFRS/qQwDAuwt
-         6JFLXwmcMLlLT+yp+a/dBqJamPj3H6JLbZ5PX2KQuyj7l+STlJP8hVOjz0UbwUKj/xuW
-         z/PYjVSD5KkrxHFBTfO0REmpTZuJuOPEbR5kZUfHJZV2xpEXN/cNbrqr8irN93jh9QOy
-         eBHYizXXhuTPv2x6OJjOTWiFXGNFyFZfZxhb0IVCCwGx1KCTCQPgFiIh4wSC5trzwQm+
-         qNpnvzQNyg7lpZJUCTI3vDd8fgGCK5FqclZujDu040aG2BFebj9JajvqOCWqeZAehw0y
-         qYXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        fh=+gZriJt8nz3+eVKnHTX26iok5NQ0iqXcZ5dbST9B6p0=;
-        b=qm2WvzC497xtyxHIyj6vhp6vNbVj/JuESjDfA7nU7TUuHjrzNADnzKbxJR6hxLExYB
-         JeWD3lTP895WrgO1gUg2u+xuhsQyDOPpWtt7Ln0uRp1NMgZfdsPmLttjmkr64Nk/+Hjn
-         m9klD9p6DA1BCxtvc8p1yR4VpWVyrrZ4FuWSsb053FL1GFakfapTZ/OtcRJk65wQ0OOn
-         SRaDkf7ovwAf2IX29y0Eh2ANsEAX/kHvprzbI7XZJsWm537kYPLgUFcg+w/alSI34l5d
-         hKLybjqPECmDxnJU61h4EcEeWgKtApJJxEUR1rC5uEzQz4T6zA4Ems2lTPAjr746gSlN
-         QOpg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794294688; x=1794899488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        b=aVZph5jnpz05+IInawFNEBG4LWaGyR6KawbNhlPio048THbmdlYy905j4OFPaX2CCj
-         TUycftg6CzZQDxK7jZ7CjGl14d09h98g8UJxxBZ6lnP7g+pTrHx9V1Z+dDmU3/7PamWR
-         6GWkClYFkHadDsV02afWsVL5zo6p8KbSPQ8vhwj7MNxvc2wDvZwmcCK9MLd1JLI/IPrk
-         CgySYic2c1reZ/EjbRjPpjarqZitNvLUlTFzYU0NJms8wsUrOr5BdiS3VhMtbtebkDTH
-         Dkhw4xDoARR+pWLPEeJhdn59fqCKzxGps/S9SS/2HAo6UJfiGQ71mi7wNQ07QvtkYiCe
-         0mzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794294688; x=1794899488;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WRBGfbs2S64fL/sGXyZyTUAZ/P+8Vyhapa6z3k4bWvA=;
-        b=rUO62l/eJdWUsVw9JSixPop3yMBKzoTbkQ7EnQ9Bhlto6FE7oOB6ZjpkMsBd88yX/J
-         7QY5UK5S37ZljTXmCEHjgWHr0UqylltwOqcasQqbcJ6cm8HuZc8/2o2/HFtl79kYAWeG
-         Xu/K2XSz94uvSisyKNVnEiC4/eWeUZ4p5HTCXlZYMcSvE3NNHLQZO2DFyNbet6kV9PBr
-         vEDZsNIyvtozprzoomO4GZNdoY2Wr1xNE8qgKySEqrkPJ38diNs6/QrpFk1bqsEy9Xa/
-         6l+VNdaaBT0Gb5Iiny0T2XDkEBw7EFFqnWi5tlBMv4EHowowXpmJW1IUN7i6p9NXKy48
-         xv3Q==
-X-Forwarded-Encrypted: i=1; AL+hErGE9CloxyKD3yQzv9yYhF5EfM2nFETPMu4r/aaFeWOv6sZIvrNTZUfS5pP0tRqU8Jbmj6mZLQic23yQNPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HDlHmnREZSQlIaDNBDHjPKy7MSOqXdbJm8vVrRKZa4UH+QRaf
-	yrTqA/HKrBFo9nfEUTSVP7vuA2wpjhQu5xxDj+Z4bqqz/Ip9n261+FvVw8MJxPO4QzsFX2eOq35
-	grBGkqXMY3INib7PqpZrQ9jEvOx2LnI4=
-X-Gm-Gg: AYBFou2qYaleStuQCkV8RuuZaeyHTlkvEZGovjE5wwm4tk4WGgG1lQ61onyTt7YWnam
-	L10r8PjD+JimXR27MLI66Szwaawf5+UozNgWpYuUeMBbUz7JgNps0+LBF22DNg2zpMQsoYK6Ela
-	rRuAbwroRG2Zisa4yCe+meYbdI6zu6ic4ssIrXY70tOIj/LkXSRDrkP8oYNJu7VQtO/9bAonjbn
-	bVVYH0CeBIdqLtuRPEtdLVIiKWm05kVaniSPVTw+BZN7xkXdRtmUpXRpAZct8LiAZQUdxhLhSnD
-	NgQit1Oa0HQNoSWVHvrUrn5zRd8Sk1mORlSzGpk70bb1tPK7gfahXedzLO07Ts94OTw8KO38uGK
-	l9CMHN0XA3Ey5V0rB7OZ1+fXNMXwbc+RGiYS5
-X-Received: by 2002:a05:690e:480b:b0:679:c916:46ed with SMTP id
- 956f58d0204a3-67c56867600mr864381d50.65.1794294688510; Mon, 09 Nov 2026
- 23:11:28 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id AFF431F008A3;
+	Tue, 10 Nov 2026 07:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794294689;
+	bh=INj9XiCO7qQYOH/BALkYphgV6XWt7EmpgJJgizsfpGQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WJ8lzL7mKehPXrnxUTUxUA4SJQBTslk6BLkztD3iriTuXxY6B4uEUgAbfhvo1n3Ut
+	 e3cgUAu8IGtsRp9zsANfxZS+oQh3AH+ApWG5arjjkRz4ovdsRFi2LO+29lf+iOIm7O
+	 5lt4z/B5erxrZExk0LeM6+Vx43nUxbDpj5YaM3TcO3ADjEFdSS/tCHZkdOosGWJDqL
+	 yhaqH/JbampZFRu7riJ/qlaO5tQo9kx6m0SJ44HmZrP9AquiMuGx5yUsxRDsrVoe96
+	 aLQPITqLV8IZ03xZsWfojQoSuN1YzH2jZeVMPUmzA7WVuxwwiL7YxsOwUv79//0q+E
+	 LIXnq6f+MLr/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 445474893F;
+	Tue, 10 Nov 2026 07:11:28 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:11:30 +0000
+Subject: [PATCH 3/3] pmdomain: rockchip: do not report probe deferral of a
+ domain as an error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +83,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at> <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 10 Nov 2026 08:11:17 +0100
-X-Gm-Features: AclHuK_6GpTQ67xpDENQByDg8QRKTv0ORuAztrJZSqgIK4qf--6_2HTmK0qNm1Q
-Message-ID: <CAFBinCDi3m0gMTQBCd-yrCfAKkT0QeuXq0wE_i+CfCtS2oX+yA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: amlogic,meson6-ir: allow wakeup-source
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-pmdomain-rockchip-v1-3-6b9fa6ebaa86@gmail.com>
+References: <20261110-pmdomain-rockchip-v1-0-6b9fa6ebaa86@gmail.com>
+In-Reply-To: <20261110-pmdomain-rockchip-v1-0-6b9fa6ebaa86@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Shawn Lin <shawn.lin@rock-chips.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
+ Elaine Zhang <zhangqing@rock-chips.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294687; l=2616;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=qCJHjn4ARWllWuHF/3iUyLeU1dBEpnl7ug6sZBC3HTs=;
+ b=8X1ybrV4e6PsuLq/Pxx6EQ2FHsA73qXCewhBYjwkiMJXLmo6XYpqrrBDeFmWuCs7wg1xr8Atc
+ qjKCZLA33M7DM0Pe0fSNxZsscSShW/5/Z1vnho6mDSZn6ki5VYFy+KC
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 6, 2026 at 11:20=E2=80=AFAM
-<christian.koever-draxl@student.uibk.ac.at> wrote:
->
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->
-> The receiver can stay powered across suspend and wake the system when
-> a remote control key is pressed. Allow boards to mark it as a wakeup
-> source.
->
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
->
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+
+When a power domain clock is not available yet,
+rockchip_pm_add_one_domain() records the reason with dev_err_probe() and
+returns -EPROBE_DEFER, but its callers rockchip_pm_domain_probe() and
+rockchip_pm_add_subdomain() still print it with dev_err():
+
+  rockchip-pm-domain ...: failed to handle node power-domain: -517
+
+once per probe attempt, and twice for a nested domain. On an RK3588
+board whose NPU domain clock appears late this is more than 20 error
+lines before the domain finally probes.
+
+Only rockchip_pm_add_one_domain() can return -EPROBE_DEFER here, and it
+already records the deferral reason, so skip the message in the callers
+for -EPROBE_DEFER and keep it for real errors. dev_err_probe() is not
+used in the callers because it would replace the reason recorded for
+/sys/kernel/debug/devices_deferred ("failed to get clk at index 1") with
+the less specific "failed to handle node power-domain".
+
+Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
+Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/pmdomain/rockchip/pm-domains.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+index d7df19e10000..70ebe5696b39 100644
+--- a/drivers/pmdomain/rockchip/pm-domains.c
++++ b/drivers/pmdomain/rockchip/pm-domains.c
+@@ -1050,8 +1050,9 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
+ 
+ 		error = rockchip_pm_add_one_domain(pmu, np);
+ 		if (error) {
+-			dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
+-				np, error);
++			if (error != -EPROBE_DEFER)
++				dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
++					np, error);
+ 			return error;
+ 		}
+ 
+@@ -1144,15 +1145,17 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
+ 	for_each_available_child_of_node_scoped(np, node) {
+ 		error = rockchip_pm_add_one_domain(pmu, node);
+ 		if (error) {
+-			dev_err(dev, "failed to handle node %pOFn: %d\n",
+-				node, error);
++			if (error != -EPROBE_DEFER)
++				dev_err(dev, "failed to handle node %pOFn: %d\n",
++					node, error);
+ 			goto err_out;
+ 		}
+ 
+ 		error = rockchip_pm_add_subdomain(pmu, node);
+ 		if (error < 0) {
+-			dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
+-				node, error);
++			if (error != -EPROBE_DEFER)
++				dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
++					node, error);
+ 			goto err_out;
+ 		}
+ 	}
+
+-- 
+2.55.0
+
+
