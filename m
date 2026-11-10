@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336338;
-	b=KFn4v4ifzBvlZA22wiJTzznDSvuM9d3NT3WwJJIN4U0O1L/tGC22Ec/H2Z7S3rU6nwGO
-	 RbxwevcmitQElTHehWFaqoPpmtsAouwW6r1WiFNuLhRtd+7K/ohUKweC+aTKsDkpKfObN
-	 NEgRU01PfMTilDU7HOT0insVoYRBWlSzC2wPFP3pn5ZIl0y7ln4mXPh6Hlautj6XkQvJO
-	 1KygW2PWq+HEMHCOf0hCU71mXaqiX5/f7Bi2m1v3Ikn4bz5maistaCKI/UGwiTwyjw0Ca
-	 mxpATax+OHyrk0XCU0HxoOAbf0URq3eTRUXPujLhKAsj9ORWWLvoC5QxMeM5LQ0II4Q==
+	t=1794336341;
+	b=uw+UHrDqa91dsDWfxCyTv647pbhg3MXwNf7B1nS5namMcBh4czurykZ6S74zh4Krf75S
+	 eIvCZLMLe6EIw1YklU214Rj5GoYnL6C3oLL5Crej0ApEsqhbVHm8IbQsY8+1qNS/fE/8Y
+	 qMHi72MyxbJheLujTBrgA9Yi5y3KFQ2ZLG7gf/MF+4knV/SozB/grDCTvLz2Qx3hRQcc2
+	 F/A9sMbFU+W/k6Plsg+8blFis8PE39E4DILUl/zkoVq+Wmrbe8op5LyHpA66Bj610OP2c
+	 7cvPF9MTPqLTYBLJ37/NYSG6Yq9GGPJEumqgT8zoNuHRS4Cxs+9L1AzuDz+L5naG0rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336338;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jDn+kAHlJ1YKV/vSjJMTOq+sX3gPOQ26dm9cQX+T7Co=;
-	b=3wq5odEzAhSqP9izttmh8hvoTiH1KKmIFtkC3zW4UcsFl8qurh4T18VnE6BkoyR8weHZ
-	 4ySud70RReRzmyA//eR3usLdGehMoFFZWWUbGlfOC3H47OmzGZz9J702eHDJr9HuvIXnl
-	 4Oyf7xa4Xv0dpnfUi/78ll+i01LVUGi2wtawlwPPZ/8HHQZycqmqbzfpimm2Xie+bF1OG
-	 /Y/+LGTXly6+Yj6bYustpBren7yqHsNSZCCq0TS/lve8p3t2WLQ1/PVkumkh2MgVJodQu
-	 aziW6pUB+E5Yr7BAWihQX3LZvKFF9D+At/E4A0AWtRcJdwImYV4+4ykFz30CMyursoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336341;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=cpJJtLOFz3P0sUNXeBfXN7xq2D+YajosRJqT3OCqsuc=;
+	b=UThdqB2fPcY01UyN9nECaSUxHYCC6CKnytbv48IqvXnSYimU5j0iUvDFw6+22TX7uzUo
+	 6IM6V6l9R6zfhu6Dx1Yevks+01eW4/OmbhtqJ6U2evfyuoE6DmfkDh+TDyk+VNyntINIy
+	 L3zRrj0CiDJC1a0J6eEYqJYQ1WRcx+N8jVpHZAmYcurhpBPa1iDStR/bYEuSY+0tTQnCS
+	 ow9GIcMZWjypZv57MRBiltOD/r0Yul8+x+6hcAJ6p61AJxAqaqlchiGH2VfKU84KlR/t4
+	 7Iu5qrzmDMr4wsFuUEsPaWLyQM4LIFkOn7QNvAxKh5dar9cdzfYpJsnfXrj+dEkJz6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhQiG7uu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=Slj3uqmI;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EA3606A327;
-	Tue, 10 Nov 2026 18:45:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BAA606B59C;
+	Tue, 10 Nov 2026 18:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhQiG7uu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6381F008A2;
-	Tue, 10 Nov 2026 18:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336337;
-	bh=jDn+kAHlJ1YKV/vSjJMTOq+sX3gPOQ26dm9cQX+T7Co=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fhQiG7uuYywqrnJ1To2XB3v7Jidj1RPi/wyyYjpeBPZsVAD2HJiQvdshP5yDQtNk+
-	 4bTubfTT36iMuNB1Ux18/gUn2k3On06ctHzcZEuBQnMkgxqs+x4LUgW4of1uB7x2Ck
-	 ec4z61FshOMCHLn6R8c1NPikkLK9oWiPbijkXnFJ1LB+MWK1wd1fcEFx6w5UwyMavF
-	 CBauDfjcfYpa/CcWwAWFF6fB+st3chmIvfVWqHr1bB49moU8seP0H+MBmIR3+zaES+
-	 05MS8ATN4ERryl56oZDf7o0kx+GHrN4E8Qln2FW0U3E1w9HdGDcgJ7Lp2BlODpAiVo
-	 F5faYuv83ydDg==
-Date: Tue, 10 Nov 2026 08:45:36 -1000
-Message-ID: <3296ff1ecad6573e1719cb205d9128f7@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Yafang Shao <laoar.shao@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, tim.c.chen@linux.intel.com, lizhe.67@bytedance.com, ziy@nvidia.com, mgorman@suse.de, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH bpf-next v4 0/4] BPF-based per-cgroup NUMA balancing mode selection
-In-Reply-To: <20261110032913.71974-1-laoar.shao@gmail.com>
-References: <20261110032913.71974-1-laoar.shao@gmail.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=Slj3uqmI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=cpJJtLOFz3P0sUNXeBfXN7xq2D+YajosRJqT3OCqsuc=;
+	t=1794336341; x=1795545941; b=Slj3uqmIAbTI4eSiagxFmExG6UKKW+10G0QrwTNayHlvNu9
+	phrTJcMdDwBQKlWhWxLSjWOKKNA9DbioT6lvpQO64vUSB8TMxIhbgN/ntyez0DZjm8b7N1/Y/TwwP
+	FunE6UXqXAYaqQekzb0uLMMgANtZ6mHB/w+IemabRg47kRGPPoInO2qLMFrH8Lo1hNvgi0y36PMHQ
+	zjOuMVbiKqs1lUMJ6jVUy9x603ONIcZxqqK/8k74DzellA4/3HYr/T5UAoPg26l8/UitxU4Y1kNM4
+	4OlPEZiZPBRIo2Qx/FuzsMY9jBWrBB7M+lJK2k44EUiqmuv94Q1AMP75kDF1U8mg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xQqqf-00000002AOi-2Fue;
+	Tue, 10 Nov 2026 19:45:38 +0100
+Message-ID: <554491de8880420965217a37a7748d48622f1187.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 05/21] wifi: nl80211: define interfaces
+ for SMD BSS Transition context transfer
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 19:45:36 +0100
+In-Reply-To: <20261106-smd-v4-5-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-5-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,60 +69,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-malware-bazaar: not-scanned
 
-Hello, Yafang.
+On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
+>=20
+> +/**
+> + * enum nl80211_smd_ctx_type - SMD Request Type values
 
-I'm not going to engage further in this series until the situation
-changes.
+This is more "ST request type" or something.
 
-LLMs have made it much cheaper to produce plausible-looking patchsets
-for new features. That makes it easy to keep sending iterations of a
-feature which touches code that the submitter doesn't really understand
-or hasn't thought through in depth. The reviewer ends up doing much of
-the developer's work while the submitter sits between the reviewer and
-whatever the LLM produces. I think this series is an example of that.
+You're conflating "SMD" with "SMD transition" throughout, and the "BSS"
+in the subject isn't really supposed to be there
 
-Some examples from v4:
+> + * Used with %NL80211_ATTR_SMD_CTX_TYPE.
+> + *
+> + * @NL80211_SMD_CTX_TYPE_PREP: SMD BSS Transition (ST) Preparation.
 
-- A folio belongs to a memcg and that memcg decides the policies around
-  it. That's how memcg works for every other memory policy, and tasks
-  belong to a memcg too. The series still splits NUMA balancing into a
-  task side and a folio side with different semantics. DISABLED applies
-  to tasks but not to their memory, and the two sides combine the
-  hierarchy differently.
+(as here)
 
-  On v3, I asked why. v4 moves the storage into memcg and keeps the
-  split, but doesn't give a high-level reason why NUMA balancing should
-  work differently from how memcg handles every other memory policy.
-  More generally, the major design decisions come without the reasoning
-  behind them, and asking didn't produce it. Each iteration only barely
-  updates what was pointed out in the previous one.
+> + * @NL80211_SMD_CTX_TYPE_EXEC: ST Execution.
+> + * @NUM_SMD_CTX_TYPES: internal.
+> + * @NL80211_SMD_CTX_TYPE_MAX: Max type of ST context.
+> + */
+> +enum nl80211_smd_ctx_type {
+> +	NL80211_SMD_CTX_TYPE_PREP,
+> +	NL80211_SMD_CTX_TYPE_EXEC,
+> +
+> +	NUM_SMD_CTX_TYPES,
+> +	NL80211_SMD_CTX_TYPE_MAX =3D NUM_SMD_CTX_TYPES - 1,
+> +};
+> +
+> +/**
+> + * enum nl80211_smd_ctx_ba_param - SMD Block Ack Context attributes
+> + *
+> + * @__NL80211_SMD_CTX_BA_ATTR_INVALID: Invalid attribute.
+> + * @NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE: Required (u16) BA buffer size.
+> + * @NL80211_SMD_CTX_BA_ATTR_POLICY: Required (u8) BA policy.
+> + * @NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT: Flag attribute to indicate
+> + *	AMSDU support.
+> + * @NL80211_SMD_CTX_BA_ATTR_TIMEOUT: Required (u16) Block Ack timeout.
+> + * @NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG: Flag attribute to indicate
+> + *	fragmentation support.
+> + * @NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL: Required (u8) HE fragmentati=
+on
+> + *	level.
+> + * @NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE: Required (u16) extended buffe=
+r size.
 
-- numab_memcg_mode() walks up to the root memcg and recombines the
-  requests on every call. The callers include every load-balancing
-  candidate in can_migrate_task(), every task migration, every NUMA hint
-  fault and every page migration including compaction. This happens
-  whenever any cgroup has a mode set, although the result changes only
-  when a mode is set or a memcg goes offline.
+Same here as in the other patch - splitting the buffer size into two
+variables or attributes seems ridiculous.
 
-- numab_memcg_active() reads css->flags once and the comment says that
-  this makes the three state bits describe the same moment. However,
-  nothing synchronizes those flags with the mode. In the lookups, the
-  check is redundant anyway because offlining a memcg or disabling its
-  controller already clears the mode.
+> + * @NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP: Optional (u8) TIDs include=
+d.
 
-A developer could cost reviewers time before too, but each round took
-the developer much more effort in comparison. That kept the effort
-balanced between developer and reviewer in a sustainable way, and it
-made sure that the developer learned and improved while working through
-each iteration. LLMs broke that balance.
+That doesn't really make sense, it just introduces a place where things
+can drift - the per TID nested values below already implicitly say which
+TIDs are valid.
 
-I don't know what the right solution is, but at this point shepherding
-patchsets like this doesn't make sense for me.
+> +/**
+> + * enum nl80211_smd_ctx_ul - SMD Dynamic Context - UL direction
 
-Thanks.
+Right now I don't see a lot of value in splitting UL/DL attributes when
+they're basically mostly the same - we can probably unify that into one
+space and maybe have a few that are one direction or the other only?
 
---
-tejun
+johannes
