@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346959;
-	b=qI7RRzTqyNpsyjf0yC3a5TknToftUB23HVOZnYLtfJhNefEkZ0oDcFL0l0xiYlUupkkT
-	 K7nQsW7hV527kiukS/86DNcNqOsPVndWtSYC1U+20GXTZlO2i7ZiK3mzb+CKRCmcgBiXh
-	 VBSaDen3u6XRBXQxGiPGInUpjTmxxHvYCh+HIOyilAEvKmqhNAFE1epC7plCIrjyMAQKU
-	 BD6AZAqlelNmZbS7nXHcwej+RKyeLm7OL+yCO9OwU+IFVyymG/3GBBZLQ85RC9QyUJqsR
-	 yi6RYRMdC7EP5/k3XsHxdBlT/vHzIxDKRKN9qOrK/QhlTNuJCOQ4SSEiJmbsHZqkHWQ==
+	t=1794346960;
+	b=OQPGGhf/kif0mMCfXsMUHfW+Pgysk/FE4kRXVAF2qyNnizoEjfpnhW9IDTwbVajCoA+G
+	 96045MXCyT7n7iNedXPi+bCWGItRHTQTL3pmtt5JgrRobln/nGLGHAzvkGnieA3y6rIdh
+	 aKjcDo1aVAA9e8C/L8RyQ+H3Q3ribzJHDbLW4IjIm0GWRTPe4qxY7B/0ykvkozcrG0+fH
+	 f3JwvPlGYqGA5iotYFei6QIHd3GXJTZF0SKVvhSebusBb6/fpNz98i9wb5m9J2KbudS3G
+	 0Xcb+gYX7+vaDbjwSDn26EG5ADUsmmDtqY/1tfHywcSdMncevfgubN9iShGXqnCzX4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346959;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
-	b=5YluYo82dIMzzrvtas5ZBpqXAo9/7z24i5obLKjfPB837gQAq8aMZmwOZQKA2TJf63ba
-	 TAZO9P16AFTrO/Lytwuw5zK30zd0OvLaUBc2LhqjY0PuFqAcxRg6Ejs988aCLjLv7DHAA
-	 CCV4oappsU14DAhfBU30zFbhzbfk6WlBd+sOYDmmGUvTwLFaQasSjagmSFL4DmaQE1Eig
-	 TQyE6QlhDruI5NQ/0xJNwPFIp6CdC6xdRXf5IAsTpwis3Kfw9lO6Xy1OloEYJZyYXInl+
-	 c0yJKg+WTQdiyFfkkeootnoWaOHGhvEeoQw40UOMLPajxArQo4vuGA9nw0tmXRlEFwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346960;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/0IJzjD1leWBOmIalg2+9HG6AipukIvLj6BktyhCaOU=;
+	b=1C+SI53SI9e2e6cQp+EI6/UVJ4rdVUPckW9LxjdhepJH9S68dSfVH8RPxWNZ2bzE7slL
+	 yHL+HniCaMq2xbBBCjpmOPCCctDmcITjxFfOT495QRb4kxYNKe35NaVaC2kmyeMoiMGWo
+	 dYduleirEGCSpYR2UjDzX2WKmPQzlDStbpzYXWSQnHSZU0WaqWn5zLJAxbRAplDg390P+
+	 ezjFz1veP8xmSOudH2irWVIIlyDdjb+A1Oil1EAGh70ay9/pYNw2u4B5Cm63V0AejIlF4
+	 e8wlWTVFlYN2wyVa/kfxcROr7s+/DaSwjagv6GFVF/wXc7nGS1LaYQCcebIHJEUKbHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="k6H/qLF4";
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kI1YKtnf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437E0606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437E0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1580606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:42:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k6H/qLF4
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-84d5e56f876so1649483a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:42:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794346957; x=1794951757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
-        b=k6H/qLF4bbf7rcyUJTTOVrtLQg1T4mQisUqZqTOptcR9ySMlXow2jQgdbUvSY2ZN3G
-         wQEj+U2eBJ7apPFknmoofTcmAR5+g6JbMuuQIqc0aRkb4ars5n7dbyB1LPmPKf6cn/7M
-         7rl1i0h4T/v36yR1UJXxaJTdS3NJlA4pyW4xZW2V3NWRAbguVUQl/a01nLVQzcWBATc+
-         yeyk53L0xKKE6u/kq2zj8m8tfi+FnmWWl/GWc9hPD6Zh/zkHpOgnBPYQBBum+Uadey9g
-         i5tuu17OP0qYFk8Aq1NK7Y/LYAEHa6UK8rVXQr0puM7Wjf877vnPpmHmCUcPBIlNln7f
-         0Hcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794346957; x=1794951757;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
-        b=Z/VyXbd2u5HqtJbBXFIz+p/CLmVqpwJbrqNTUXzi0Pmy2yV52coubetmtmn01+spKU
-         9UTFO0Xd61S+Xs7bLsvgIKC6qHWKN+P4R6gyXCKaKYh01TapVDiX7SGKjOeSSgsZSkX3
-         zB2+MMx/uhPNCSwo7xsAR2MXUXaG1FstLbRrIR/R5tZvltQ1Ukvs3On5QLCkzVo0ythW
-         J7ucgk1avbrU/t1cP3ldybfz90ToUWFTsFp3ErRTwu1UCMCS2+ceeO02RyRmqqNuFXP4
-         FuPBCEBI1UYcbMP0N1TNMI/aup+AwdbH4TWdEFzId74fjBDakrr+6OemQ3KyN85mUFxl
-         C0mg==
-X-Forwarded-Encrypted: i=1; AL+hErHjE8hrP8daHkai+psGi+t+zoYD1aHl3/TWFFSa1NowDPJKYlncugQXXTqvMrL19tKxJUy+wLbaZbYaqDY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RWbFxqJOqO8Bkh6FP0jGMG8RZZUrhe/HWnoMZy9TNMzoMdjgD
-	PBZSGhhGxVzpLk0QPOQal7K+cOs74X+FrKewLIK3wOvWKTS7B1NQ3AjKJWYYILpvchA=
-X-Gm-Gg: AYBFou1TNEQ1RMWKah3jucgiOd5zbTmq30JhqqoxK4oBCnCeU2iZkrQAqhvJGux35x6
-	eB807XZQ2LvXFRB4hqf4w0g8NrZzutDKIIbModhu/CGhojJR/om9gKHWp6gA48feMZeAuZbUCJR
-	JxZhMV+Q1KA38NZhLS80gynfB+tVjLs1l5YmHq9QNW3LJM7BObpWB5pZF8091wJ/T5ZJjRGABSg
-	jVCvCKM90FUFybSWYtmI+Kb0tLRyKq0f1Yin3Ir54rHWmOzHwLUeYYvaD4b3HAQXEaTDORpHQUB
-	ugDGwnDtsV8vi64QfGjRYIqsBnvjjo+QZBJdxbduvUk1hcmLfarKv3pzHTi+bVZ/cNGgwijplkp
-	kl5kJ32Xpb4QohJsP9MggfMYXDioNWqW+EVloR3NZBZqZNXmeOMLcu3RmwaEgCMGqpBNLRD4+14
-	T2l8vCdQ/0LR21AWN/H0BY16fAWLblHwnS3oOiVqI7LFdY+r10TlHLck/WkvRKx7NI9LLa2M4nK
-	LBvTRsM8p9zL09CQmCukiwNogr9wg2infZegg3dLwR8U4X79EjsI4lKPaQHngINgYJ7oV+1oXpk
-	clvS+6er4c5JDFJqb86vTFz3
-X-Received: by 2002:a05:6820:1518:b0:70b:8379:c145 with SMTP id 006d021491bc7-719177cc79fmr245993eaf.28.1794346957078;
-        Tue, 10 Nov 2026 13:42:37 -0800 (PST)
-Received: from en1.. ([204.144.167.9])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718a945ceebsm2575322eaf.8.2026.11.10.13.42.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:42:36 -0800 (PST)
-From: Amir Abudubai <amirabudubai@gmail.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Amir Abudubai <amirabudubai@gmail.com>
-Subject: [PATCH] Bluetooth: L2CAP: Increase default socket buffer to hold large SDUs
-Date: Tue, 10 Nov 2026 15:42:30 -0600
-Message-ID: <20261110214230.3646539-1-amirabudubai@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kI1YKtnf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492951F0089F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794346960;
+	bh=/0IJzjD1leWBOmIalg2+9HG6AipukIvLj6BktyhCaOU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kI1YKtnfZR8F2XwLuz0DIOW1qK6FIIZHFV6VG1RNcVA60MJiL4I+xy/KpmajCNgoS
+	 94Yu7FpeHTZlr4N4kGve6rZH9hGddTYItJsx5XE3dKaGGNahzKwjbp+Ibw7hw8pCpW
+	 RkS/FPTU+Q/170qepbdJoed//SdQYpCspIfQyBP1VCj2GR3BqjbFrkqPqHMQpgLTUV
+	 H+6qzgxXAd8E0/+dqBAS4YYciHZrdYPrsthLYqFMvmgU9WCIuGn7kdrjwBz7sSqyKI
+	 JR5UZTi0RoQ+L3A34GBO+ikZBAAG8m2HbPsC03ZwfYd9svbnzqN40Szz2nff8trNQ0
+	 FPdmpgj0kTXGA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso1720078e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:42:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH42xPmS6tV1jn2xMqZSsO7ljG09HVVySsD904rIk+8gPeo7DQ9lYwvG6aQB6wfDeV9QavRAH5u9qJgu+w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pi1ItmRISuUDz2+d/egywC/ymhAu8VLx0s8rWQD/vcu+CIVLU
+	rAm2t0yaxXYCjyZrK4FGuaMOMS/JPrOsdiQ3dtS92h+Ejy1cnUQ0l/2QTIDkelvvm57634lNYa0
+	NmG0duSmLIB3oSw/voWF6MZ1tUjwWpYo=
+X-Received: by 2002:a05:6512:1052:b0:5c1:4e2d:57bc with SMTP id
+ 2adb3069b0e04-5c15d76aab8mr100084e87.47.1794346959064; Tue, 10 Nov 2026
+ 13:42:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,68 +59,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110-gpio-shared-refcnt-race-v2-1-8a0b76e01714@oss.qualcomm.com>
+In-Reply-To: <20261110-gpio-shared-refcnt-race-v2-1-8a0b76e01714@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 10 Nov 2026 22:42:27 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=DDvyghTwUZ6Be_h6CW==Ni0QtUfPAHLL=5iuCrSu0PA@mail.gmail.com>
+X-Gm-Features: AclHuK-NkELi0fVYKm89vk76-m1xiQbJEmTbPyxt3yo0Ro_HhjI5lSEmupk_eDk
+Message-ID: <CAD++jL=DDvyghTwUZ6Be_h6CW==Ni0QtUfPAHLL=5iuCrSu0PA@mail.gmail.com>
+Subject: Re: [PATCH v2] gpio: shared: fix a race in shared desc release path
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The L2CAP send path requires a full SDU to be assembled in the socket
-buffer before transmission can begin. Therefore, the socket buffer must
-be large enough to hold a worst-case SDU.
+On Tue, Nov 10, 2026 at 11:10=E2=80=AFAM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-Derive the required buffer space from the worst-case parameters:
-Maximum SDU plus length field: 65535 + 2 = 65537 bytes
-At MPS 24:                    2730 full PDUs + 17-byte tail
-With 4-byte L2CAP headers:    28-byte full PDUs, 21-byte tail
-At HCI MTU 27:                2730 * 2 + 1 = 5461 fragments
+> gpiod_shared_put() races with concurrent calls to
+> devm_gpiod_shared_get() like so:
+>
+> CPU 0 (unbind / probe failure)      CPU 1 (concurrent proxy probe)
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D      =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> gpiod_shared_put()
+>   kref_put(&entry->ref, ...)
+>     refcount_dec_and_test() // -> 0
+>                                     devm_gpiod_shared_get()
+>                                       mutex_lock(&entry->lock);
+>                                       if (entry->shared_desc) {
+>                                         kref_get(&entry->ref); // on 0!
+>                                         shared_desc =3D entry->shared_des=
+c;
+>                                       }
+>                                       mutex_unlock(&entry->lock);
+>     gpio_shared_release()
+>       mutex_lock(&entry->lock);
+>       kfree(shared_desc);
+>       entry->shared_desc =3D NULL;
+>       mutex_unlock(&entry->lock);
+>                                       // uses freed shared_desc
+>
+> Because gpiod_shared_put() decrements entry->ref without holding
+> entry->lock and gpio_shared_release() only acquires entry->lock after the
+> reference count has already reached zero, a concurrent call to
+> devm_gpiod_shared_get() can acquire entry->lock in the intermediate windo=
+w
+> and observe a non-NULL entry->shared_desc. This can result in a
+> use-after-free and a double-free when the second consumer releases its
+> reference.
+>
+> Use kref_put_mutex() to ensure the entry lock is taken without a window
+> in which a concurrent user can see a non-NULL entry->shared_desc while
+> it's being released.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://sashiko.dev/#/bug/linux-30e071e4-4e4a-4b63-bd83-df1147055=
+d35
+> Fixes: a060b8c511ab ("gpiolib: implement low-level, shared GPIO support")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-MPS 24 and MTU 27 are chosen because they produce the most fragmentation.
-Apply a 4x safety factor because SKB_TRUESIZE can underestimate actual
-usage because of class-size rounding and minimum allocations.
+Good find!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Amir Abudubai <amirabudubai@gmail.com>
----
-The L2CAP send path deadlocks waiting for buffer space if it cannot fit
-a full SDU in the send buffer. Using the system default typically causes
-that to happen before the max allowed SDU. I didn't address the deadlock.
-I just scaled the buffer so it is unlikely to happen unless the socket
-gets resized after initialization.
-
- include/net/bluetooth/l2cap.h | 4 ++++
- net/bluetooth/l2cap_sock.c    | 1 +
- 2 files changed, 5 insertions(+)
-
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 54eddcdd341f..0cf1ca4ec3cd 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -26,6 +26,7 @@
- 
- #include <linux/unaligned.h>
- #include <linux/atomic.h>
-+#include <linux/skbuff.h>
- 
- /* L2CAP defaults */
- #define L2CAP_DEFAULT_MTU		672
-@@ -41,6 +42,9 @@
- #define L2CAP_DEFAULT_MAX_PDU_SIZE	1492    /* Sized for AMP packet */
- #define L2CAP_DEFAULT_ACK_TO		200
- #define L2CAP_DEFAULT_MAX_SDU_SIZE	0xFFFF
-+#define L2CAP_MAX_SDU_FRAGS		5461    /* Sized for worst-case CoC fragmentation */
-+#define L2CAP_DEFAULT_SNDBUF \
-+	(4 * L2CAP_MAX_SDU_FRAGS * SKB_TRUESIZE(SKB_DATA_ALIGN(HCI_MIN_LE_MTU + BT_SKB_RESERVE)))
- #define L2CAP_DEFAULT_SDU_ITIME		0xFFFFFFFF
- #define L2CAP_DEFAULT_ACC_LAT		0xFFFFFFFF
- #define L2CAP_BREDR_MAX_PAYLOAD		1019    /* 3-DH5 packet */
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 7a2551ef7f50..5f4fde8b4a6d 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -2046,6 +2046,7 @@ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
- 
- 	sk->sk_destruct = l2cap_sock_destruct;
- 	sk->sk_sndtimeo = L2CAP_CONN_TIMEOUT;
-+	sk->sk_sndbuf   = L2CAP_DEFAULT_SNDBUF;
- 
- 	INIT_LIST_HEAD(&l2cap_pi(sk)->rx_busy);
- 
--- 
-2.43.0
-
+Yours,
+Linus Walleij
