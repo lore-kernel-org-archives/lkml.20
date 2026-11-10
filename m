@@ -1,84 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794333275;
-	b=mt5ifBueyEM8zRaxVjcBGZhhi2LI/dZuW11vZy4kwT+8Enc7tzfK2g7BIzqDVbMTopHO
-	 rNkjsxpJ3J8/pNcAAcD3fW7tyB9G363nttzBJtcju0XqwC4bz6kByfxcIg0w9nLzioP+M
-	 baKe3p9lG+vKVOXT5jBfdq0mPNcY6hvvbyV9W/6WYJu223SDieLp1PxDlVs9+TGL02o2J
-	 UV5nziPryQfq2OnxXxX7VXEoYJ9IT3prkuM+RKu7LwnJVrPdagos7EkPoo/IHK4t9Lcmk
-	 Y/NnB45cEycqjUUpgM3EyjwhYeJCxjCVYKXsZvBnC9VdIui90VSnTO/V+rIxbLOsjqg==
+	b=XMU/XPn3Ona9eYDriX7VgO/dHrLPOUySyboSuY0i/4i3SME+gTMCgV4Fmyp+FvE+Hp7m
+	 ISL9lpx7YZipCxPqPtI1yFKt/mYNMV3C8av+futnM3sHK53j/lnkWcCjph9rGG2Vfa1Y+
+	 /st6MIC/wsnAxL0AeujP86Qjfgbz1SDazEqGV1amZOJOCdageFkxTqOy/+wzM6V2uMHS/
+	 puirt2uzSoc3cG+zi98Fhc+L8AHkjwE15uQXUwr+OVXG4RXefjjpWsOWZ9hbHWdI7AvO8
+	 zfp8Fw5tvSIPIeES8p1av8kRZqdfIvQICVenrozHgP1byAwakfNx1BFdmrRwcTtsF6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794333275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=XvblCMGLEMwr6aPTNBYSVtI2iLfab9ugT+R+DDYhUcc=;
-	b=gpoD15ydQEZZ+7mWxT0LRXfBYbuFkqL359ouRT38fLWzRw80K7mS1uNEGa8NljsVerHf
-	 h5Q1rOacQisv0+9zgetinjgn+ymDlr6wQHGhNkY79pDQtr4cI9tcyfAKKNSr/S/HtNkov
-	 LJ43WRR8EKDnJirsZVuurThCYVFcDNzvJfMr4eglM7hA/MdgDyf0u25jD3TRgn2aeYHGR
-	 Pg2EM8yisEHgpSusPa5Uer03fEKp7utZWDCeO1SCY2I9wCQLvcIWERTTa3d0y7PWwpv+N
-	 OHivbDg7nHYuWIChVwdY+ICYRqc6hZZKvLrO18NasJ9q7NqQms/9nYSAx9XUARECmPQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4pnnDWdAYsZMZqj961RhFPH2NfsLQtwXJEoTctZQHUo=;
+	b=aKvihACWaTfavnTyyFj+h24yibteNCiV7E7E9BmImdRbmnWFHZyg8wbTz8yT5USnpwdk
+	 2dANqDiflcAkS1vlr4VpYjPGPvgfsfGiUOAb29UqL9FvuMh7W9Rcwc3CTaxiTUahGkefZ
+	 DVgoPGGWqN0oslwyzNFlUxikoqXEp6kD6tQ6RbeZKiLFHqv3I4XTNbDmBnsxmkNiqjPZe
+	 OhpITjvPxFjzPq++g0XogPXylJ2lXoczy6BKr7qUcvXP65Xvn0Bs6XMDkXE2Ibr4UOhBD
+	 989ygQZhk6h5eza3411CHh7l9JBvcf7jgQksCeX/Z07xG14chxNHkR45bhTohbKaeHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lw3Cz0np;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kPLpDJgn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EmLGn1x9;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BCE60A3808
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8BCE60A3808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661A560A380F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661A560A380F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lw3Cz0np
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-170135e43c7so3634879c88.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kPLpDJgn;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EmLGn1x9
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF0AEq3183232
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4pnnDWdAYsZMZqj961RhFPH2NfsLQtwXJEoTctZQHUo=; b=kPLpDJgnRB/CQQhh
+	nVJhC7YmRMlrwFSY4zE5PlkPuPFkWe7lzv9OnMNyUOa04wohvDLY6JoOu9ZAfedd
+	vKZIVYUuB2KqqpMkT7OG6U9vFPE+XpMmg61kjqtpE3CpABi2NmNGT/OkOnadzM+7
+	TO47KiK8A2P57JXjQ3FIxzeSI0j++luvTyrNeccsUC0SnG4eX7eSUz1VAyeMhjzN
+	d2dEQVKikx5j6MksiOVULaV1PPuTvy+CIflXwxpvp1oz0/nnV0RebL4Mkj6ZNNlY
+	sKyO+ARgkahnwDAS/t2r/iNfFeVROiB0qN3xwAfFD6O0b2IN/aybrI6gJvmI5T31
+	xs/jpA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huucp37b8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:34 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f322ef7d3so534950685a.0
         for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794333274; x=1794938074; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XvblCMGLEMwr6aPTNBYSVtI2iLfab9ugT+R+DDYhUcc=;
-        b=Lw3Cz0np7H6aT/xnS0b2HyPV5mz1dHKVxQXacZ0Blkw1VCOl9jUelyv5Bnr86QZo9i
-         J2pFUEBNfuOMLG9ABmLewJ5PMSXZpypJHcbT9o5Mi7cvkk5nCORDJty1i5Na7UrtUXBo
-         A1abRQK3FeExFQcNJToNAxo+x0i85qzl9i2x/zNyGB1rYWTrXrqA65RPr39UszJv5x0F
-         mbvmrghN0HpWgV08HnnHx545UeZ8CHpolVZJMCLBe4GrZBRvdFEG39LoI2PB7Wi/zQz3
-         29jrQunOmfGj65kNFLZThPSUt3IWkERmHZo2WxpiqdyQN338QupMbi7X8nuJHYOl7lED
-         pjNQ==
+        d=oss.qualcomm.com; s=google; t=1794333273; x=1794938073; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4pnnDWdAYsZMZqj961RhFPH2NfsLQtwXJEoTctZQHUo=;
+        b=EmLGn1x9GJqyw6+y9H+f5mk1G3PfuZZXZl9HzLmTwOgLVeHPFgSK/Ep49FVC4X+pIq
+         SGq+fulRhdWXau+qiigGz/gcCzAcKGP5Da53lo8radRAdyAUDbC/lEdaX+5jPWPLOz2I
+         eh+hBINEeA226zp46XeSr36GiWUANDWJiHSU56+ytgGD/97C6fHk9Bzc+t4nYErZzL/a
+         usW2GArn6eu8KXkgXMMxpN8gwEz7tamXSvcPSmEc0g1mlU9jYL/j8FNAKOfEBnNRPA5E
+         EpB15aI+3AGvbCTlh1Fl1hOqYjVyKVaCBw46aGuXXUeocgLUFy3E+1PMW4WxnV0/kvX/
+         ujcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333274; x=1794938074;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794333273; x=1794938073;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XvblCMGLEMwr6aPTNBYSVtI2iLfab9ugT+R+DDYhUcc=;
-        b=II1Qh8FPrcAnkTQ8S+vjL+g6yG6Ywqu/SxMYB+gu/HTIFsWG/Bvu1lckjfKGjRuEPv
-         ljJ+/52mYjMNyoT/WcUaeksuo+M/RJ+d+GjJSqGc+PVyWj3SGzm+HAaLZ1Tw1Eoeowzg
-         fGBiTa7YKvrnUkwEzGfWl9zYU7AIKmr57lvGBzEvavwmKONfBZbpCeWv9GPR0ugK7/Gq
-         WkYZu0BtGAT6uvQpIdipLs81iGrRf6ulxG+ASG+xBlpqkmwDiXjwreouOLrwJPIAVSQk
-         4LzzCFph7iEl2YXFhEO9P0WWCVaKqWmM0IJoK/AvWJoOB6VeITItNoQhALGqhqQZaSu1
-         AjZw==
-X-Forwarded-Encrypted: i=1; AL+hErEl/SFhG+EkFeIifw/GJND3wlUXG3kw2ybrh5CsxjDzFaM/2X4SNKdUt7bn+DdyAMwuBoFH0BqYOYrkRvY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9E6wdGhqgwGaVHjoB/5bKhvOOsKRd0QGIrolvHiQPVClStcO6a
-	Bnb+whKGCE/0BLhLUaAmkkEIBi8UE77fVM11fPcWTH7BhOkOGe3tqsie
-X-Gm-Gg: AYBFou3QOc9qwaG/8oRtAVXjG4+wlCW0MdyJLuRVszA85jO7p2LJm3NwLV2uv2iiEpn
-	IBrkxtaZCaQEiXyot6hw0d3pV3SH018Tc+HYOjUZY+1ukRotYcBb91Z8BAn1SboqWtER5KD0jfK
-	t/g/45PdGbUe5EbnRHHXblN0k9fKhdE4OLl/BT/DX3P6+KsGLBSc3/nxpRo/dtmc24Z/lnrqIS1
-	mKICJRH8AliK0GdGdV0o+FpnHOLWPPIFp0RicRoV87AluAFOhu78/SSQ1HlXL57Dt0mW2umZG4n
-	4Q8sDEPq1XyDKOpQr7OmIP7LBsLzzCVzpaRg+Zl4xQHv+xiQQzw0jqPJtP+HiNpmN1g/wW9xrCm
-	g9R+sjWZR+xGm9XY7t/zKrdb/ulEGfANnUlc6RaZPJfQcSrC9bnOSbuw6Il9lwy4mao92wpUPr9
-	JrycB3bihDfh7lYNEjySHhgLapivW4lQ7f6xH88yVTjBH5C6dVafckhtgNLtTLwwLygkzKpOKIg
-	JJcWiUkH7JWzhny2Qk9VR9PY9QcnZnZeM1Xcko8s2lLlbWFGM6/bQxT86KmKXAw4s/CgOJ3uXEu
-	TCA0gyvrIbDFpD0Gk1EY2ovOPCEPiuVW9BX/HQ==
-X-Received: by 2002:a05:701b:2302:b0:1b3:a9c0:6a3e with SMTP id a92af1059eb24-1b3b5fff49bmr4373309c88.29.1794333273602;
+        bh=4pnnDWdAYsZMZqj961RhFPH2NfsLQtwXJEoTctZQHUo=;
+        b=BKxTHJ2ipkhMXxk2x42xb5jpEwTJMJOQ0Chd2eip5L5KF55XSWaP/m55zu1WxNqg1B
+         cL8d1xYATLCiDHmElxpEPGXl39PhnYMkwB++Rk4vx8BLAqHcIWn81nFIHO5dS/dzOUyJ
+         Rec++s8uQzuPAHiYYgUUeEEPgvmwjkYXoB9hmddowkaX/77O5pKQSwmaKYRk+d8zofF4
+         ojLX4LWFbwRcrN0cWw8yphPe4uyDD37hSEpepV9/GAV1aJ58b2SZWNNR/t9K/ZHRsrMs
+         zak63uJXifeO9oVZJEutKEM3ZbjQgrbuFLrRaR/RD2h4euXhKHCru1vV3PgFTh0Edevo
+         5wkA==
+X-Gm-Message-State: APuU4Z+Dz/7CRZ/V968D1ukF3N5HMMrEnXBWF0eYIWDw2FsHl3lwrLPR
+	3vPGRAT/peP72HPTezPr6ZL+YP8U4enTxnwJX3PVFGi8Fna7zZhnCVFeQ3BQlgbtufynXgojfy1
+	/eSzLqUAqBiYBhspmRGmJF9mg6+9DLF9n/6Ci0nq0tUiBmeP8bbooC2QcxOOWqa5lQhmiHYD7ac
+	k=
+X-Gm-Gg: AYBFou387JGcDSZK5AnlsWeOtiFfhYVKsycvG81H0L27flF1gcvDHotosC9DkszxBXm
+	uTfcws+VKR8CXXKJW3kHqfxfyKtHO58Ww9HG8YnTWWgs5UNzrmXArYsB1k/p794KH+kfnxdTp1R
+	y+KqraNYC0p2TP01Orth5T0mlBY/cUY/Iqc3kyXaR5Emcbct7bqbmPfLwq7PviF62tSGNLwvFtC
+	1ncF5nD/MuQux7kN8x0viwtcuWyWfMRjZamuasqnv5/3/h2e+Zh5NDy7JCGRA+D63d4ISQ1L+is
+	giexOXLmIk2WPiM6DiQU1yekk6EDrh/sM4UKDNTgvmMU41IeVITTqFhaa3EzDm+BAEwtuj+BQbZ
+	U5w7UJ2vyMrYxWW5y4myke/cZGirXXH8Of2o4/GJ4QSo/1y3t2OmeyZvJR/fZ+ccHG/AOZuISOp
+	/I98wKW9ISS1c=
+X-Received: by 2002:a05:620a:1a28:b0:93e:9792:fd47 with SMTP id af79cd13be357-9479f1c0455mr543171185a.4.1794333273473;
         Tue, 10 Nov 2026 09:54:33 -0800 (PST)
-Received: from [192.168.29.85] ([2405:201:8026:213e:7392:6aad:f285:27fa])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890c0esm8649478c88.1.2026.11.10.09.54.28
+X-Received: by 2002:a05:620a:1a28:b0:93e:9792:fd47 with SMTP id af79cd13be357-9479f1c0455mr543166985a.4.1794333272867;
+        Tue, 10 Nov 2026 09:54:32 -0800 (PST)
+Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367ba82csm6540280f8f.50.2026.11.10.09.54.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:54:33 -0800 (PST)
+        Tue, 10 Nov 2026 09:54:32 -0800 (PST)
+From: =?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>
+To: linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+        Samuel Holland <samuel.holland@sifive.com>,
+        Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
+        Zong Li <zong.li@sifive.com>,
+        Charlie Jenkins <thecharlesjenkins@gmail.com>,
+        Andy Chiu <tchiu@tenstorrent.com>,
+        Guodong Xu <guodong.xu@oss.qualcomm.com>
+Subject: [PATCH v2 2/6] riscv: hwprobe: Report Zicbom and Zicboz only when available
+Date: Tue, 10 Nov 2026 18:50:44 +0100
+Message-ID: <20261110175048.82208-3-radim.krcmar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261110175048.82208-1-radim.krcmar@oss.qualcomm.com>
+References: <20261110175048.82208-1-radim.krcmar@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +128,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] powerpc/perf/vpa-dtl: use GFP_ATOMIC for DTL buffer
- allocation
-From: mdshahid03@gmail.com
-To: mdshahid03@gmail.com
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
- chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102143719.165508-1-mdshahid03@gmail.com>
-References: <20261102143719.165508-1-mdshahid03@gmail.com>
-Date: Tue, 10 Nov 2026 23:24:14 +0530
-Message-Id: <179433325437.153822.17133762919793487046.b4-reply@b4>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 8vzUOV-uPZk4ZtVsoMFB1ytNIhGD9xuP
+X-Authority-Analysis: v=2.4 cv=U4oHnuru c=1 sm=1 tr=0 ts=6af35a5a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=t9496tuAAAAA:8 a=EUspDBNiAAAA:8 a=o7KgkvQ512dmKa9T_xgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=4wQ91nGE5lQcD7eh5OX0:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX9R4xcVSpwxZM
+ xfwtQdiaeG1C2URlZZrYUtNDGC00A0iUovOEJJjU7SNgTNYyJbaz8Ggarguk77fAV3duPiNxT1V
+ +PeQgtFURh+tPEnKTmbDBv79dNT2kGHmSwjqXLyxzA/oNBMRcaL+lR3Wo/liEZT3UYORP9a4iV8
+ V+23EDw/iC20LnMOYnKrPcwO40bcj+/2GWsmXsNsDMMa5hn9EFUsR0y+jEEON34RDiPRnonwfAM
+ YZBzJjHcLyKCv1Lg3VIwD7gnH/fD8XPUYV3bMsYJTWiQRI+TrL7rypZSuQbV7YYlFzAy1G6Rglt
+ hiF1uGNrmQI3ZQE7eqrTrAWirKaJ+HgVF1JmgrDoMv4ZNyURVbHrxa/4y9bj0yyl4SMKU3q7QGZ
+ KqHh+Fbe+Pex587c0a0Joi48chFYi56F6SeCwQ7Tgo1wprdpYNbdIKm4C2qFImcPoNDU4ktKqTV
+ 09GAH4uicLYYO1F4A7g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX+aH81WP7JmEt
+ S7fRNxsIhm8n2mxiESoVoxCyK8Lxz5wAopX0DP76y8UCckxReTN0TrV/j0QXcgh3ty7aumI2Xp4
+ fZtxVRAK4kNOK0CTru5HARj48LmHqoY=
+X-Proofpoint-GUID: 8vzUOV-uPZk4ZtVsoMFB1ytNIhGD9xuP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100071
 
-Hi,
+User-mode use of Zicbom and Zicboz requires senvcfg.CBCFE and
+senvcfg.CBZE, respectively, which we set only when all harts have the
+extension.
 
-Could you please review this patch and give your feedback,when time
-permits.
+hwprobe currently reports the extensions from the per-hart ISA bitmaps
+alone, so it can advertise extensions that are always disabled in
+user-mode.  Report correct environment to user-mode.
 
-Thanks
-Shahid.
+Fixes: 1b57747e978f ("riscv: Enable cbo.zero only when all harts support Zicboz")
+Fixes: eb1003970940 ("RISC-V: hwprobe: Expose Zicbom extension and its block size")
+Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+Reviewed-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
+Signed-off-by: Radim Krčmář <radim.krcmar@oss.qualcomm.com>
+---
+v2:
+* slightly reworded commit message
+* added r-b
+---
+ arch/riscv/kernel/sys_hwprobe.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-On 2026-11-02 20:07 +0530, mdshahid03@gmail.com wrote:
-> From: Mohammad Shahid <mdshahid03@gmail.com>
-> 
-> The DTL buffer is allocated while holding dtl_global_lock, which
-> is spinlock.
-> 
-> GFP_KERNEL allow direct memory reclaim and may sleep. Combining
-> GFP_KERNEL with GFP_ATOMIC does not remove the direct reclaim.
-> 
-> Use GFP_ATOMIC alone to ensure the allocation does not sleep
-> while the spinlock is held.
-> 
-> The issue is reported by script coccinelle call_kern.cocci.
-> 
-> Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
-> ---
->  arch/powerpc/perf/vpa-dtl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/perf/vpa-dtl.c b/arch/powerpc/perf/vpa-dtl.c
-> index 3e3d65b6c796..3d34417e6aae 100644
-> --- a/arch/powerpc/perf/vpa-dtl.c
-> +++ b/arch/powerpc/perf/vpa-dtl.c
-> @@ -338,7 +338,7 @@ static int vpa_dtl_mem_alloc(int cpu)
->  	if (!dtl_cache)
->  		return -ENOMEM;
->  
-> -	buf = kmem_cache_alloc_node(dtl_cache, GFP_KERNEL | GFP_ATOMIC, cpu_to_node(cpu));
-> +	buf = kmem_cache_alloc_node(dtl_cache, GFP_ATOMIC, cpu_to_node(cpu));
->  	if (!buf) {
->  		pr_warn("buffer allocation failed for cpu %d\n", cpu);
->  		return -ENOMEM;
-> -- 
-> 2.43.0
-> 
-> 
-> 
-
+diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
+index feae40466e2b..73d5e25677a5 100644
+--- a/arch/riscv/kernel/sys_hwprobe.c
++++ b/arch/riscv/kernel/sys_hwprobe.c
+@@ -91,6 +91,12 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+ 	if (has_vector() && riscv_isa_extension_available(NULL, V))
+ 		pair->value |= RISCV_HWPROBE_IMA_V;
+ 
++	if (riscv_isa_extension_available(NULL, ZICBOM))
++		pair->value |= RISCV_HWPROBE_EXT_ZICBOM;
++
++	if (riscv_isa_extension_available(NULL, ZICBOZ))
++		pair->value |= RISCV_HWPROBE_EXT_ZICBOZ;
++
+ 	/*
+ 	 * Loop through and record extensions that 1) anyone has, and 2) anyone
+ 	 * doesn't have.
+@@ -120,9 +126,7 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+ 		EXT_KEY(isainfo->isa, ZCB, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZCLSD, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZCMOP, pair->value, missing);
+-		EXT_KEY(isainfo->isa, ZICBOM, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICBOP, pair->value, missing);
+-		EXT_KEY(isainfo->isa, ZICBOZ, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICFILP, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICNTR, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICOND, pair->value, missing);
+-- 
+2.55.0
 
