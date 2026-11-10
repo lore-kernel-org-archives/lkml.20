@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318110;
-	b=o2qjDmfE2Ux15Zd2BnNwqceN0c4dwccpl5zK68EazQtxiNCMOogGW813arjZNL1auRIU
-	 3cAjKpeTtFwCC65UqnQ857ii81mIETqeyT4KBvKnO6Pf0xaO7zIf8w1lQ9mCZpAr1WBv1
-	 GmTmtV9dBV5drWu8GyQBckzGQzDcaIVl39owjpyUcgr3eYQq/TMmYlOBa6bcFffM9Eou0
-	 nyIPKgiEoVjTohMrT59hysw92xLzV4swyYEIbMyp3S7ktPN2TPNyNYAQgQvOvjCwrIKtR
-	 wJgSWAkg7CRBYJGxFgUkIuTQp4MN42UFo5x4krCjehn4Qw53hyTYTI2JDoaLdILRTaQ==
+	t=1794318135;
+	b=yBeVJsPc+k9H/XR6IyFimYT8FS4dy9ry7ZI/enVVuKcziekq8Wn6qQ+YPMhBexgzodkh
+	 qS8xyk/1hLkOX/aK6CgWZ5mm7/Nw+XraeJZu8AQiF1I5QYZlhvOTuSCXSZpd4q8ziTYuq
+	 rCMp1Q7Rq0hdeikCx0xafA88hzjg2k9d7e4EQdEZNA8slgsiaTAeXcE3mAmowjmMB/aaV
+	 LJ40EGZ73hrMPzx8ZIv8m7Pg0hSYJsMiINvjtEhp/Vl1101nncNc7MYdo51W52Ez+ickj
+	 Oyhra8F6P0Q97PirGAZ/8VxsYkW+heADxFEXl2mig6gJXl4MtHfsRuqBXV++e98YI8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318110;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=I4NC7lUnuU3t6RdztBdinj8K1pbEHcL7U0ZmdoGloDc=;
-	b=Uz3hdBoECw7a96wcCxgab1RyIxW/pY1NM4APOmX95KsZtzSbE5oMp85QiYTx95NYP7bD
-	 ESB9wYbaxQsq8gtQCD+kCyF5Ny/W0wU3Xw0dETodaTklDEANzmxuhbdiaTnqZknJx1Mcf
-	 fMzcXmUtdTmD8nqSpcQMLXR2ukbowrCzPAwkbvp5kNAyocVxiCa78LtYHWTKOOjc50Eff
-	 itoDgvs/v2fYxwUFnyQmbddUiZcvcH0C41b33Jid1DJ9IIclK+SrP7VzLNB5IcforIcu1
-	 zF1a1OFe5CxyJ+heXUtW3gO0+HZyymvv5zKgxG8RhgrSSP8ST3/rIQMnb4iDTrVMchg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318135;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=eYs+Fegr6eB0PcIdRKpfDtRPaQfHYvt3G6SFzIB7RsU=;
+	b=N+TyVh1choJ7aU0Xe0SgrYliyKlHHlXJ8+f6STu0JZaP+9KRqckzZJEG5RNhj+JF2C9r
+	 z0hESO6KbAxp0J8LJZyRDgcPQlHiRTgotnIO1UpKfm81E4OwWzaQEagqPTXpkUnlUoPiO
+	 UY16l6Kzef2fcB45rcVIciSvbmWOjqZbe3s+YW79n8sjwm0WA9sROex0EjdefBDkopBel
+	 xo9EwldqiOE25sf4f/R3mfn0KIvqEk6t0WiFkxAlREy84LBVMj1GeUU/MYj4NMokw7pEU
+	 y6uVS/RJ1qhNUzUD/uN3JGQtuEgLFOQYBSSgXwJptXnqGyXXopCPxzoxYpQdMSweTYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=oeAHCfdj;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b="OWss4i/Y";
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B35606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B35606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3C8606A31C;
+	Tue, 10 Nov 2026 13:42:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E3C8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=oeAHCfdj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=I4NC7lUnuU3t6RdztBdinj8K1pbEHcL7U0ZmdoGloDc=; b=oeAHCfdj9hG7nViqF+JtS5/7lQ
-	QoT12sD6vmUY/ZE9sui9TSDfrb6BQVp1vZEREFpVvQgaTQMMp9Cu2COr++Wfsv59Dn9s9R9ZknZ1t
-	LE+pF0DaTZHwk2hMFVcNL2loQTBJXbPi5n7j8wPeJ8KPut8tE6dTCgguC14gJv8BBfv4G7qpMDvBL
-	MTFiyR2OPquilVrno7NEXYvCj4jsWiHxTjgRpRWGcIxWgpANvBiEfk8xptaueQdgPmqbol7WjbcYw
-	383U56D1KEeBhQbLDKSpr2iY0c2jWlkTqyl8zDQQ7+7O6/BaY7G9pj9T4UePdS9DfovweVEwYsyBk
-	GL0EmQmg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQm6a-00CRbD-1T;
-	Tue, 10 Nov 2026 13:41:44 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 10 Nov 2026 05:37:32 -0800
-Subject: [PATCH] configfs: lock the group inode in
- configfs_unregister_group()
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=OWss4i/Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1794318130; bh=bcXqt42XRNdswsbMlIOG2xwf1uaEU0fPAUEiWxCSUDU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OWss4i/Yjw9dRrX/LmMsLYgUWxJ+o8/z5DZn9qibpbXXSzkPbDUzYwDYLCIYs1gcx
+	 fEeMyosyxsEliU4a7CKhRtCAgJpAd4xKRfQvdPBogMWiJriO77hH6kNmGuV8+8wL8s
+	 9XYH70cmhye5WlBAdtKFf+mMY7XnwRnE6/u36uVXysk5lebN9EdFUUh0qsPRs9B51m
+	 guCg9DQtsLm29wpsXciDSxRk09AKEV/I+Ta86fX0XjWKs2zNR+Vh1s5chdAoLYrL9b
+	 D0NQ2IzyqjN3e8kjqe2n3NCgFZcewfqvtrEYJRSZr8wdyB5lpuYGUJNtFvUMAK6NKE
+	 qD6nEVIwRnuww==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id E5727B8D; Tue, 10 Nov 2026 07:42:10 -0600 (CST)
+Date: Tue, 10 Nov 2026 07:42:10 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Cai Xinchen <caixinchen1@huawei.com>
+Cc: nicolas.bouchinet@oss.cyber.gouv.fr, xiujianfeng@huawei.com,
+	paul@paul-moore.com, jmorris@namei.org, shuah@kernel.org,
+	kalevi@kolttonen.fi, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	bpf@vger.kernel.org, lujialin4@huawei.com
+Subject: Re: [PATCH -next -v2 6/8] lockdown: bound the status string with
+ scnprintf
+Message-ID: <avMfMnoJUb9bIYbG@hallyn.com>
+References: <20261110132818.2231593-1-caixinchen1@huawei.com>
+ <20261110132818.2231593-7-caixinchen1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,120 +66,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-b4-configfs_unregister_lock-v1-1-040529e5c509@debian.org>
-X-B4-Tracking: v=1; b=H4sIACoe82oC/x3MUQqDMAwA0KuEfFuwnbjRq8gQrUkXJu1ItiGId
- xd8B3g7GqmQYYQdlf5iUgtG8A1gek0lk5MFI2BoQ++9b93cuVQLS2Ybf0Upi31Jx7Wmt+uZpju
- n5TGHGzaAHyWW7dqH53GcMd8Ur20AAAA=
-X-Change-ID: 20261110-b4-configfs_unregister_lock-6fea7fcd8b23
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Joel Becker <jlbec@evilplan.org>, 
- Daniel Baluta <daniel.baluta@intel.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3487; i=leitao@debian.org;
- h=from:subject:message-id; bh=lZy4YFtwcqYImJlydQp/C9CCDBO/2v8XFYbkoIpRTF0=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8x8TNg7J8twYc8Nrs523cDHp1G9cQEEiW7fml
- vlHcIim+pSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavMfEwAKCRA1o5Of/Hh3
- bbRhD/9CbWmh+OEi5RRkcMfSEb2J/AiToqn53SZ0HZH9K+a7n7Pgyld+UPsJ8k3797E6ozjaEi8
- EANUH4Mo/HX78dM1LpeK5GOO4pzGrC0oJuo24sH42Tu2/WAxE1vhUjXsEu2qxztsANP7qa7Mb6F
- d6tBiojZJVW3KS90NM6u0eiPCJVwmYh0z2UiG/ftkFMEUSoousSYrRRdxTI3pfMQgOyn8iWG1jU
- +x5hLpQB4MXWQ8aoqPQsXdzQmonUMGcUqptyheWQoMt/lYHnsTWshYuqPFH9aMzvhU+9UhzV1oH
- FlRiHdxS5zC/tcZXK274HzO91etbb6pc+u+MrqPbgRZ/HktlArHAwj1X4Ls/Njzai1WN+Epm9sy
- ZUnQuHxCJ8gi3tK83CLeApdeG55D+Mnb0Ikoo8gb/IvU6U4UFhRAgRS5oo48vnIhKmjy+ZbIqNd
- cE98mjOg/0S3muRkxoyPnh+VaNG97OAOe49JTyP8aAxT1g0NdNll6uXsCbaOWQCMmCQj4cIx6Wi
- nbCvmbCMJ0ipJoziSCzIO0Qoq2h898v63ea0760/ENvz9kFIWhPGzc4/wBRkKAT3A2cdGyuBKTP
- 0Zji5Eb9KOFj/Mb7OfDH9jmm891G4W5fr77OwRb457JwRX20wIrCmMpEHeJdlA7gkVSuOsYYKU7
- ruMvrIuDNuWhjrg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110132818.2231593-7-caixinchen1@huawei.com>
 
-configfs_unregister_group() detaches a group and marks its directory
-S_DEAD while holding only the parent directory's inode lock. rmdir()
-and configfs_unregister_subsystem() also lock the directory itself,
-and configfs_detach_group() documents that its caller does.
+On Tue, Nov 10, 2026 at 09:28:16PM +0800, Cai Xinchen wrote:
+> Use scnprintf() instead of sprintf() when composing the lockdown status
+> string in lockdown_read().  The current set of levels fits well within the
+> 80 byte buffer, but sprintf() provides no protection if more or longer
+> labels are added later.  scnprintf() makes the buffer bounds explicit.
+> 
+> Store the level label strings in named arrays and point the matching
+> lockdown_reasons[] entries at them.  Their sizes are compile-time
+> constants, so a BUILD_BUG_ON() can verify that the status buffer is large
+> enough for all level labels, their trailing spaces, and the brackets
+> around the active one.
+> 
+> Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 
-Operations inside the group depend on that lock. symlink(2) holds it
-once the VFS has checked that the directory is not dead, so
-configfs_symlink() expects configfs_get_config_item() to find the item.
-Racing it with configfs_unregister_group() breaks that:
+Reviewed-by: Serge Hallyn <serge@hallyn.com>
 
-  CPU 1 (symlink into G)          CPU 2 (unregister G)
-  inode_lock(G)
-  may_create_dentry(G)
-    !IS_DEADDIR(G)
-                                  inode_lock(parent)
-                                  configfs_detach_group(G)
-                                    d_drop(G)
-                                  S_DEAD set on G
-  configfs_symlink(G)
-    configfs_get_config_item(G)
-      returns NULL
-    parent_item->ci_type
+> ---
+>  security/lockdown/lockdown.c | 28 +++++++++++++++++++++++-----
+>  1 file changed, 23 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/lockdown/lockdown.c b/security/lockdown/lockdown.c
+> index 84efd533fe5a..26cac7628a48 100644
+> --- a/security/lockdown/lockdown.c
+> +++ b/security/lockdown/lockdown.c
+> @@ -14,13 +14,17 @@
+>  #include <linux/lsm_hooks.h>
+>  #include <uapi/linux/lsm.h>
+>  
+> +static const char lockdown_label_none[] = "none";
+> +static const char lockdown_label_integrity[] = "integrity";
+> +static const char lockdown_label_confidentiality[] = "confidentiality";
+> +
+>  /*
+>   * These are descriptions of the reasons that can be passed to the
+>   * security_locked_down() LSM hook, used for the denial message and the
+>   * securityfs status file.
+>   */
+>  static const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX + 1] = {
+> -	[LOCKDOWN_NONE] = "none",
+> +	[LOCKDOWN_NONE] = lockdown_label_none,
+>  	[LOCKDOWN_MODULE_SIGNATURE] = "unsigned module loading",
+>  	[LOCKDOWN_DEV_MEM] = "/dev/mem,kmem,port",
+>  	[LOCKDOWN_EFI_TEST] = "/dev/efi_test access",
+> @@ -41,7 +45,7 @@ static const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX + 1] = {
+>  	[LOCKDOWN_DBG_WRITE_KERNEL] = "use of kgdb/kdb to write kernel RAM",
+>  	[LOCKDOWN_RTAS_ERROR_INJECTION] = "RTAS error injection",
+>  	[LOCKDOWN_XEN_USER_ACTIONS] = "Xen guest user action",
+> -	[LOCKDOWN_INTEGRITY_MAX] = "integrity",
+> +	[LOCKDOWN_INTEGRITY_MAX] = lockdown_label_integrity,
+>  	[LOCKDOWN_KCORE] = "/proc/kcore access",
+>  	[LOCKDOWN_KPROBES] = "use of kprobes",
+>  	[LOCKDOWN_BPF_READ_KERNEL] = "use of bpf to read kernel RAM",
+> @@ -50,7 +54,7 @@ static const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX + 1] = {
+>  	[LOCKDOWN_TRACEFS] = "use of tracefs",
+>  	[LOCKDOWN_XMON_RW] = "xmon read and write access",
+>  	[LOCKDOWN_XFRM_SECRET] = "xfrm SA secret",
+> -	[LOCKDOWN_CONFIDENTIALITY_MAX] = "confidentiality",
+> +	[LOCKDOWN_CONFIDENTIALITY_MAX] = lockdown_label_confidentiality,
+>  };
+>  
+>  static enum lockdown_reason kernel_locked_down;
+> @@ -137,6 +141,16 @@ static ssize_t lockdown_read(struct file *filp, char __user *buf, size_t count,
+>  	char temp[80] = "";
+>  	int i, offset = 0;
+>  
+> +	/*
+> +	 * Size the buffer for the worst case: the active level is
+> +	 * confidentiality, with brackets and trailing spaces, plus the
+> +	 * terminating NUL.  The label sizeof() values include their own
+> +	 * NULs, so only three more bytes are needed.
+> +	 */
+> +	BUILD_BUG_ON(sizeof(temp) < sizeof(lockdown_label_none) +
+> +				    sizeof(lockdown_label_integrity) +
+> +				    sizeof(lockdown_label_confidentiality) + 3);
 
-  [    9.725911] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
-  [    9.726694] KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
-  [    9.728710] RIP: 0010:configfs_symlink+0x132/0x820
-  [    9.734253] Call Trace:
-  [    9.735132]  vfs_symlink+0x25b/0x4b0
-  [    9.735379]  filename_symlinkat+0x11f/0x300
-  [    9.735637]  __se_sys_symlink+0x16e/0x410
-  [    9.735889]  do_syscall_64+0x141/0x440
+Awesome, thanks.  It also might be worth it to replace the 80 in temp[80]
+with the calculated size, but this is safe enough.
 
-A NULL check there would not be enough: the IS_DEADDIR() re-check that
-configfs_symlink() makes after its unlocked window is stale for the
-same reason, so ->allow_link() can run while the group is unlinked and
-freed.
-
-pci-ep-cfs registers its controllers/<epc> groups with
-configfs_register_group(), gives them ->allow_link(), and frees them
-right after configfs_unregister_group() when the controller goes away.
-
-Take the group's inode lock around the detach, as
-configfs_unregister_subsystem() does for the subsystem directory.
-mkdir(2), unlink(2) and rmdir(2) inside the group rely on the same lock
-and VFS checks, but only symlink(2) was tested.
-
-A test module that registers and unregisters a group with
-->allow_link() in a loop, raced with symlink(2) into the group, faults
-within a second without this change and ran clean for 191k cycles
-with it.
-
-Fixes: 5cf6a51e6062 ("configfs: allow dynamic group creation")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- fs/configfs/dir.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index 7f4f448a6c66..c4f570686bd2 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -1822,6 +1822,7 @@ void configfs_unregister_group(struct config_group *group)
- 	up_write(&frag->frag_sem);
- 
- 	inode_lock_nested(d_inode(parent), I_MUTEX_PARENT);
-+	inode_lock_nested(d_inode(dentry), I_MUTEX_CHILD);
- 	spin_lock(&configfs_dirent_lock);
- 	configfs_detach_prep(sd, NULL);
- 	spin_unlock(&configfs_dirent_lock);
-@@ -1829,6 +1830,7 @@ void configfs_unregister_group(struct config_group *group)
- 	configfs_detach_group(dentry);
- 	d_inode(dentry)->i_flags |= S_DEAD;
- 	dont_mount(dentry);
-+	inode_unlock(d_inode(dentry));
- 	d_drop(dentry);
- 	fsnotify_rmdir(d_inode(parent), dentry);
- 	inode_unlock(d_inode(parent));
-
----
-base-commit: b8dd3e40fe051c328e71632e3f88b4df5d03ffbe
-change-id: 20261110-b4-configfs_unregister_lock-6fea7fcd8b23
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+> +
+>  	for (i = 0; i < ARRAY_SIZE(lockdown_levels); i++) {
+>  		enum lockdown_reason level = lockdown_levels[i];
+>  
+> @@ -144,9 +158,13 @@ static ssize_t lockdown_read(struct file *filp, char __user *buf, size_t count,
+>  			const char *label = lockdown_reasons[level];
+>  
+>  			if (kernel_locked_down == level)
+> -				offset += sprintf(temp+offset, "[%s] ", label);
+> +				offset += scnprintf(temp + offset,
+> +						    sizeof(temp) - offset,
+> +						    "[%s] ", label);
+>  			else
+> -				offset += sprintf(temp+offset, "%s ", label);
+> +				offset += scnprintf(temp + offset,
+> +						    sizeof(temp) - offset,
+> +						    "%s ", label);
+>  		}
+>  	}
+>  
+> -- 
+> 2.18.0.huawei.25
+> 
