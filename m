@@ -1,104 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322008;
-	b=BBzO37faRxvaWSxLgwL7fz+AymGCHtcpgw8QnGvTXzLMO+V/esYAVFlfiEplWUFy+UME
-	 /mLig7rstleG4BYfPlkIAYJ0uF4L7dymE/IgukbhEf4TJZxiHwhJKjPLfRO65PfxJTZ4n
-	 VmOVCorSuMTLELL+mhacUXZm2atF9HQQkuXmm5Wk8SUAOhVUJKU+kzZDX2FoscHkll3xS
-	 t00DtOUQNQ5nk0bbe3eP56nEC/dDjS6k4QvTdeoNwUbY/qn86ZEc858zRqfYC3hBAVgpk
-	 SHaI1Th1maxKk+hLHwYR0szNSaRmM8oePqNWLaTARVxGh1ZHOg63hW4Pgq2fNbV5WWg==
+	t=1794322012;
+	b=L7REe0fAqD2zSk+UYVcZ2ILyn+lHzmUMQMA/jTZ8nKSmjOuoqU4HXu2jPhyjhifL/pzN
+	 4i6x7p0gpB/eFrBy/unJbZxIDzTA7M+dqBRPMxHDG/c7bKoaR49LSx4hUL2ddZ+j7HtKY
+	 o0xesaxTnczQVuXfBkYKqUFZXTZOYU/UOfG0EBrGFMw40/nTQX1cy48ehmkA2Y2Ud5G+6
+	 hsgULeWEFwvK/v1dE2MaT9i3z7jmEWz3UCI1/tTdjLA3xQ1uY+3+sKcvlk7g7U++NlvgP
+	 EjozISUaphBESMhziIsC3XxMSCtEJ+FDHhR0f6c03LEF8s4SPJUqEcLehcapnmmfkxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322008;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=3fpw5vkQV00MZzYQ5OK3lZxe4BbABKYr3Pz4v+FktUg=;
-	b=XDbNWKnWSUCfxC1J21eYEp5zRUi8M96S4w4XOvWgz/MqepGo8rTN6o+gQvFOaWTyTTH2
-	 LJ4sghQ1/uhApgRozWr7yl3Tvuj3YphWM1ZrI9jA942o5TFmXf/9GYaA+zJ1n9gMqrVcv
-	 J942LXhdERPrkQtXVl/OQZNG2uqwYGuZi27LzfwwW9ll3V0pzDG/MHCg4pjjok9qkWcLH
-	 cMENNy9dfxBme2J+aY5Xlzsi9aq+dJZj0COtSe6v07r/2V3SD56Vl1QXw7nn4ryQokGOt
-	 nGrLyytzXiNg11emxRr/J76dIHT+B3ccSfpOWMLItnJyFq+c8+27c2rsMurghyFXqvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322012;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1KVmT/jAeHggYSDMy5XhsiWoFkhNbvG+TBe6IcrseP8=;
+	b=gx+8fyT4yQ7/4KWwVkvMrrSlaaBOdI65Zls5z0SkZt0lD+ytAlPmfld8Q0Gs9DW5Gc7C
+	 TvzeXqWqSSHByqOJU31rPkmbPfwcy73iX7JPs2Ao0DlFpNzYAt+IBGT/TUgJOMBB3tMBy
+	 A9lDtqFS+CE7Nuiml+ZzuE46uh7hVmOApSnPvr8SFTKmB3O2cEXwKSUsvscVhLIm2vdpc
+	 byGMON3fmFggJalezIJe33Umpre83syyhoqC96JycuxeIV9L1A4HEBy4K2rmn63V9garo
+	 hVAK/2kqA4sj6v9A375/kFAoL9uU6C3071Red9Zzy3oX3MonbzeDi02QfPs6ukdJ10A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vGXUB5CM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="5vwS/Kh1";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vGXUB5CM;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="5vwS/Kh1";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZkPeK3S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE57606A336;
-	Tue, 10 Nov 2026 14:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE57606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34A360A260B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:46:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vGXUB5CM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vwS/Kh1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vGXUB5CM;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vwS/Kh1
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 74A6121F09;
-	Tue, 10 Nov 2026 14:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794322005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3fpw5vkQV00MZzYQ5OK3lZxe4BbABKYr3Pz4v+FktUg=;
-	b=vGXUB5CMFdvnAKPLlYK1zWAQuk/FiBryrNG327MvzaMIDpJzZzfPBVkRGlnt9oyVwbtOIO
-	nnZPHGMWffgmh1tPmMhTPKB8lg4In8N339yacvLbiXGmIv6WZ5kSHLZBePOy9B9h74/NeV
-	HA6fDdfsBf9k3YSGKrPyMdc4pkaC5XE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794322005;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3fpw5vkQV00MZzYQ5OK3lZxe4BbABKYr3Pz4v+FktUg=;
-	b=5vwS/Kh1ntJmKOvwdlC32GY7RBrN5Z8bSngFoKazMeGR1LlCBEKsxMH+AoxIbo2MjY+jrO
-	AdDZrTNYuBOqvtAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vGXUB5CM;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="5vwS/Kh1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794322005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3fpw5vkQV00MZzYQ5OK3lZxe4BbABKYr3Pz4v+FktUg=;
-	b=vGXUB5CMFdvnAKPLlYK1zWAQuk/FiBryrNG327MvzaMIDpJzZzfPBVkRGlnt9oyVwbtOIO
-	nnZPHGMWffgmh1tPmMhTPKB8lg4In8N339yacvLbiXGmIv6WZ5kSHLZBePOy9B9h74/NeV
-	HA6fDdfsBf9k3YSGKrPyMdc4pkaC5XE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794322005;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3fpw5vkQV00MZzYQ5OK3lZxe4BbABKYr3Pz4v+FktUg=;
-	b=5vwS/Kh1ntJmKOvwdlC32GY7RBrN5Z8bSngFoKazMeGR1LlCBEKsxMH+AoxIbo2MjY+jrO
-	AdDZrTNYuBOqvtAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDA1A1339F;
-	Tue, 10 Nov 2026 14:46:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HNSjMFQu82rQNwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 14:46:44 +0000
-Message-ID: <ad517faa-3c8d-43a5-a3d6-8cd6f046f757@suse.de>
-Date: Tue, 10 Nov 2026 15:46:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZkPeK3S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DED81F008BD;
+	Tue, 10 Nov 2026 14:46:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322011;
+	bh=1KVmT/jAeHggYSDMy5XhsiWoFkhNbvG+TBe6IcrseP8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OZkPeK3SJPZwzex0XvhopNw0+zo4i+WiKBEzj82AQHInnkKWB4VBeieUMz8ofOoCp
+	 +u3bP35JvUZM/d+xteqYk81GWQCPplHbdF38AWss8uamUw4RxeueKzSsp7F/Q761Hm
+	 /7q8F/gQdNlw1zJMCMPLOrqBuSh4o9Tj0eNrtEjh/Wg0llY+DWmNRzaiasmXpMGG2X
+	 5mR0TUWRd2iNLGv5DYodgTkjsonUyYL3CrmxgqxmOkR3vOJPnqHSzzywV+s4KxwM+T
+	 l2S1SJmtgsPgAZ87jfcOY/BM7y4Q4/jqF/GNGCqGWvQfVRrgYyTTbvbCXlyBqiIo/L
+	 XGCOQVUbV2tkQ==
+Date: Tue, 10 Nov 2026 15:46:49 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 00/10] replace CONFIG_SLUB_TINY with a slab_tiny boot
+ parameter
+Message-ID: <avMspQZD7fyg4i2x@thinkstation>
+References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,139 +62,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] LoongArch/PCI: Refresh screen_info after resource
- assignment
-To: wuqianhai@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name,
- deller@gmx.de, bhelgaas@google.com
-Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
- loongarch@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029033440.973077-1-wuqianhai@loongson.cn>
- <20261110085617.2626835-1-wuqianhai@loongson.cn>
- <20261110085617.2626835-3-wuqianhai@loongson.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261110085617.2626835-3-wuqianhai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[loongson.cn,kernel.org,xen0n.name,gmx.de,google.com];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,loongson.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 74A6121F09
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
 
-Hi
+Thanks. I think it'll be ready once the issues on patch 2 and 4 are
+addressed. Could you please adjust in v4 and respin?
 
-Am 10.11.26 um 09:56 schrieb wuqianhai@loongson.cn:
-> From: wuqianhai <wuqianhai@loongson.cn>
->
-> PCI resource assignment runs from acpi_init() at subsys_initcall time.
-> The firmware framebuffer BAR can be relocated, leaving screen_info's
-> lfb_base stale.  vga_arb_device_init() runs later at subsys_initcall_sync
-> time and reads screen_info to identify the firmware default VGA device.
->
-> Update screen_info through the generic screen_info_apply_fixups() helper
-> right after the root bus resources have been assigned, so both the VGA
-> arbiter and sysfb_init() observe the final framebuffer address.
+Also I think it's worth measuring impact on memory footprint of this
+(SLUB_TINY before this series vs. slab_tiny after this series)
+and put that in the cover letter.
 
-I don't know much about the internals of the PCI subsystem.  But I would 
-assume that there's a common function that sets up PCI resources on all 
-architectures. And this is the place where we'd want to call 
-screen_info_apply_fixups().
-
-Best regards
-Thomas
-
-
->
-> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+On Thu, Nov 05, 2026 at 09:43:49AM +0100, Vlastimil Babka (SUSE) wrote:
+> CONFIG_SLUB_TINY was introduced to help tiny systems migrate away from
+> the SLOB implementation so it could be removed. Its main purpose has
+> been to disable all forms of percpu object caching (cpu slabs back then,
+> now sheaves), and being a compile-time config option, some extra minor
+> saving were achieved by code elimination or more agressive merging of
+> caches with reclaimable and non-reclaimable objects (keeping those
+> separate helps reduce high-order page fragmentation but not memory
+> footprint.
+> 
+> However being a config option brings issues such as incompatibility with
+> other options that has caused troubles in the past and Linus argued for
+> removing it [1]. Moreover, there is a use case for having full-blown
+> scalable implementation enabled and being able to disable it with a
+> boot-time rather than compile-time decision. That ise base is the kdump
+> kernel which shares the same vmlinux but wants to minimize the memory
+> overhead (which has to be pre-reserved from the production kernel) and
+> does not mind reduced scalability.
+> 
+> Thus this series reworks the CONFIG_SLUB_TINY to be controlled by a
+> variable set by a boot-time parameter. The config option itself is
+> deprecated and only sets the default value of the variable, and all its
+> interactions with other config options are removed.
+> 
+> The conversion builds mainly on the fact that most SLUB_TINY specific
+> paths to avoiding percpu object caching are shared with slab_debug
+> handling, except doing any actual debugging checks.
+> 
+> Thus introduce slab_debug=N (for No-op) option to allow using the
+> slab_debug checks directly, and extract the underlying static key
+> handling from CONFIG_SLUB_DEBUG only scope. The decision to create
+> separate kmalloc-rcl caches is also made to be boot-time.
+> 
+> The parts of CONFIG_SLUB_TINY that can't be transformed to a boot-time
+> decision are related to dead code elimination and fast path inlining,
+> merging of non-kmalloc reclaimable and unreclaimable caches, an
+> ignoring SLAB_NO_MERGE for performance purposes (currently used in
+> networking). Those lost memory saving should be all relatively minor
+> compared to the savings from avoiding percpu caching.
+> 
+> To sum up, after this series:
+> 
+> - CONFIG_SLUB_TINY is a deprecated option that has no interaction with
+>   other options and only controls the default behavior.
+> 
+> - New slab_tiny boot parameter controls the functionality (and can
+>   override CONFIG_SLUB_TINY in both directions).
+> 
+> - slab_debug=N can effectively achieve most of slab_tiny and on a
+>   per-cache basic
+> 
+> - the implementation is simpler with many ifdefs removed
+> 
+> [1] https://lore.kernel.org/all/CAHk-=wh-k04MsoEC0SGKff2Snm6bBF_e+0pHOKwaWv4umZ_SnQ@mail.gmail.com/
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 > ---
->   arch/loongarch/pci/acpi.c | 4 ++++
->   1 file changed, 4 insertions(+)
 >
-> diff --git a/arch/loongarch/pci/acpi.c b/arch/loongarch/pci/acpi.c
-> index ccbcea61fcd9..cb313ff67f7e 100644
-> --- a/arch/loongarch/pci/acpi.c
-> +++ b/arch/loongarch/pci/acpi.c
-> @@ -9,6 +9,7 @@
->   #include <linux/slab.h>
->   #include <linux/pci-acpi.h>
->   #include <linux/pci-ecam.h>
-> +#include <linux/screen_info.h>
->   
->   #include <asm/pci.h>
->   #include <asm/numa.h>
-> @@ -256,6 +257,9 @@ struct pci_bus *pci_acpi_scan_root(struct acpi_pci_root *root)
->   		 */
->   		pci_assign_unassigned_root_bus_resources(bus);
->   
-> +		if (IS_ENABLED(CONFIG_SCREEN_INFO))
-> +			screen_info_apply_fixups();
-> +
->   		list_for_each_entry(child, &bus->children, node)
->   			pcie_bus_configure_settings(child);
->   	}
+> Changes in v3:
+> - Rebase to v7.4-rc1
+> - Add SLAB_DEBUG_NOOP to SLAB_MERGE_SAME (sashiko)
+> - Prevent premature slab free in slab and kasan kunit tests by new
+>   patches 1 and 2 (sashiko)
+> - Link to v2: https://patch.msgid.link/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org
+> 
+> Changes in v2:
+> - Rebase to current mainline (with slab/for-7.4 merged)
+> - Stop triggering nohash pointers due to slab_debug=N (Harry)
+> - Stop preventing slab merging dues to SLAB_DEBUG_NOOP (Harry)
+> - Link to v1: https://patch.msgid.link/20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org
+> 
+> ---
+> Vlastimil Babka (SUSE) (10):
+>       slab, kunit: pin test slabs by an extra allocation
+>       kasan, kunit: pin test slabs by an extra allocation
+>       mm, slab: refactor slab_min/max_order handling
+>       mm, slab: introduce slab_debug=N
+>       mm, slab: rework KMALLOC_RECLAIM handling of SLUB_TINY
+>       mm, slab: make SLUB_TINY handling dynamic for sizing decisions
+>       mm, slab: convert CONFIG_SLUB_TINY checks to kmem_cache_debug()
+>       mm, slab: remove remaining compile-time checks for CONFIG_SLUB_TINY
+>       mm, slab: add slab_tiny boot param
+>       mm, slab: deprecate CONFIG_SLUB_TINY and reduce its Kconfig effects
+> 
+>  Documentation/admin-guide/kernel-parameters.txt |   4 +
+>  Documentation/admin-guide/mm/slab.rst           |  18 ++-
+>  include/linux/slab.h                            |  17 +--
+>  lib/Kconfig.kasan                               |   2 +-
+>  lib/tests/slub_kunit.c                          |  36 ++++-
+>  mm/Kconfig                                      |  16 +--
+>  mm/Kconfig.debug                                |   2 +-
+>  mm/kasan/kasan_test_c.c                         |  24 +++-
+>  mm/slab.h                                       |  32 ++---
+>  mm/slab_common.c                                |  21 +--
+>  mm/slub.c                                       | 167 ++++++++++++------------
+>  11 files changed, 195 insertions(+), 144 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20260911-slub_tiny_rework-8f2634dd17a7
+> 
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Cheers,
+Harry / Hyeonggon
