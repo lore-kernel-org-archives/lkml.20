@@ -1,94 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300552;
-	b=yjh+HxiTyec7+znkt2Wfp8lUXmWKGjrEHgSfH6KSm2BsLrJFpXaerdVpmD2I8/tooNKQ
-	 hA0NeRkniaXYBOSu2XfJpNLkddMEfOQwVhh/R2ExDjGzxFQVwkZlp8iFTQ9QGJp2JrQP+
-	 0qNkDY0GhGQ8OW0mTnlna7wJY/gWvHbm5yH1cawCWU+XB1c9oQr42Vkh0vA+kdB+5iRkn
-	 2J/Q6Y1/snTkl7hkqCvypRCP07AIVKMgkjL35lnTltrz3qr0Byw+xhgByEIeQ778i1XZy
-	 Nfg3nkrGQdsEWwE0N+rEiLh9mPvbl7cirfkgJuN78SuKpnPc8gBg7x+MXJ1KpKI4iQQ==
+	t=1794300558;
+	b=XgBFM/nn/wKxjt9Mf2+61iPndk81/SJfMvATCxiIK8TT+x8c9q9+jXlxWZvp3bbixsUZ
+	 77mcoC/DK1LvSGlmQqGQqQVxEgCIVU632nE9/gXN7Z2kZUMOCmQuna9yq8Paw+Gx51YPe
+	 xlage4COjVUv8eeEr8FvQCLX4LgP+2RjwZfuwDUrIuNtunpElqkJJiXQQmncVEQz7hMKl
+	 56jZvxXtpCpM4si3ImFv4ewY+l1AvoF6DGehRS34WQMfj5mdZF7PxBSf8MJ5A3nH60CzV
+	 JXLkIBe6pzwvWrSdZGIncly/p1WqgetjiV1vG0/jbGH1KZ7wqVC2brn1B6MY2bkBN5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300552;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+jpP9hHBLdvkPKqqx3Eoy4sT1PswK17YP171LAP+8rw=;
-	b=PnNgNJfcrDYtol+ZCl/YmAHxJJzGPLcdlzZiT+6NuDpxwWjqRq7IOJ13AgVLhHlBsieo
-	 3jJsA+Cg7wop3aO33328POCsH3IEnj6Nv1QR45kAlWm+DQWRZQMT9Ffd7pj2t23PbnTfV
-	 ZlbObga5J/RKQxbQEqEIV1WJ32+USUvyb/svxybMkQNaBLnxSQpBEwQ9vYRQh+b/nePNW
-	 lbSdUfP4yMYIa4+469WOBhcN3WQ6m5/g7Ve3F4IrT6s+9s00I9N/3fr8XJzK0uX+xTj7j
-	 lR7suYVpjJxLw1q5FxA3ZbUBWodQqSXHS69jhsnSW53eSzq4G7Q4zkTrN51CxeRyCRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300558;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=mA2kKVvz8Zo1bjkKdij3A3VIEQ8ORUrZ6l6fiNtUyi8=;
+	b=lNb0C1lAlJfUDeTfKQG0jCfgA6KdfmvXsxj/LO6odm8HfxPxoi2oBG8zK7c2B2BVW8Pd
+	 Jd2QwBKFHBrNNprMar7PtDZi6uaDPVUcQeIFw4F1VucjGLqGncmQ7v3p5HOy72kZQ+JR5
+	 3b5ebujTpoe+HtTMPEUpWpeez/mDti/cmIOhhG/LZBY6E6cglWT+tGgzuX7f1eTcBJAiF
+	 2bUM/ezAVwC8SWkG9SEsi6ySlErru4qSnQ48Jpv4QQy2nLQctmxj7xEs0407/7UcC7C+m
+	 u4bIrOAMbh78n9ms2o1MWLKb/E56guLrRMiNl3Ze/phN3kXOxgAMd/poqbfhLfoySZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qETT+gTm;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zay7kTVV;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=DJB3Lig9;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4D3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4D3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D59606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8D59606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qETT+gTm
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36a315ed211so2049926eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:49:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794300551; x=1794905351; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+jpP9hHBLdvkPKqqx3Eoy4sT1PswK17YP171LAP+8rw=;
-        b=qETT+gTmKnFSPNo83MbCr6TDSRXbiNG6AUb8oWIXCPeKr21+qWyIZzL8WV1EtG+26R
-         p2P9D1O4WTWr3zM2oNUG928gnCyw1fEM2Hh5S6DQvocSJR9v6lR1/CWGcCXMhvQe4wYA
-         /zYrpAUIPKK91XehOoiBoJ03usdt2lsSX9F0AqZa8CpgLWET84pN6XYNryQ5bPlViOty
-         KNtLiiCSoKLG67QWaE0u4bs64eKekLec+u5ATGThoF9Gaewcc41egu+yWADpk9e9/6fw
-         YA8TEPyrVpaz8KJHleLimUsOL/G/Ew9GM5glnQuUKoqZP8tm8kwmkb5JSerzR+xY8qiQ
-         tuBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794300551; x=1794905351;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+jpP9hHBLdvkPKqqx3Eoy4sT1PswK17YP171LAP+8rw=;
-        b=skWZDvuRnOyH3dKtrrld0E1toPVpq8eIvqMwWF4SMJZARzwzhvsJWAsciG1hRkfbYQ
-         VQ5lYsf+Lj2FZme9SmE76SVZ3Lt+QdbeSB5dGwrBCmOE9qV/vtAy429IbP+VbUuwQPxT
-         9Y5dlvk6tZ7HwuYM+TLa3e24tTn27fqBnIliMNB5sQ9CJGtocPkeQEqA9TsxiNR3hP09
-         Tbgf8PuuwxdxPZ6CRwcFZfDrervO99SUIYLuge4s5cKC4Hn/AHiUhpcCTa+5biDhoCvP
-         aiCVXXOVvyn7eNiUIiqFlLd3l4QqMVbITYA+56y+mckwEJaYC7xkzgH0kzXE/rZ3Z5uq
-         cxfQ==
-X-Gm-Message-State: APuU4Z9BKMQIG0pvEPlOecBd1BBwGuhGxpPnb499ggBE/giNAOMZavCI
-	tI6SzsEIy83v778c0YxNEAt7a2KlKByA80zUf2LD2kf0UfJPwjyb4rCp
-X-Gm-Gg: AYBFou0TnxhRQkrxJBt2vyl3CJet+jtIKwWgAxUgLQb410l6+lVAp2ncQRYDxy310RX
-	CQmqgqRNPGZH+ZGTg+s6ipTJAPfbe+cI0LWe2uF/SkgeCbB/SNTQDcEB9UzZQ/BznUybs7sjYly
-	qXA/rrPmOcluneX/JcrjJxjS6P/VTdqpE+rIdfIm5+n/IKx5aQKN2q7otsFebwZn1fcksY/s7P7
-	4LiJo1TSKLN1JK5QoniAy9EvEDWsw4SXgUJDvFEI+Nwga4hjbIkWb6DHuE0qEe7fTyt58Wawf7F
-	/W8VOp9OMRYntifUjWgAGalGe4USIIf3yAJ2rVS5Snm0iAtDFeX97UtnZ235BjoJ2RbMrI6V+sV
-	ZOmE6mt2jbLmqUsX2X7Q99zn4Aq9pV0pQMCXXAimtLv+xFz6QlSy0ETB3mb74bpntKaxSg2LMZ/
-	LkvzjlUOVhS8lmeFnrE9G5CXn3FJybQjC5FYBIm2Ya7z3GN2wjxPo6pM/xn0FJzD5UNinHNWvTg
-	cgU/iRPkcZ5RZWr5auiPDtRkubRlDG/hOhQG65X97YhxY3z1ZjM8U/DYqnmyBtLS06Q/ydrAfLe
-	FrX0G1GcDGg7sLu4fSZuuNxjW/VMLPeBLftmW02ZS0t5YaJUkUF5
-X-Received: by 2002:a05:7300:e9d6:10b0:36a:647b:2d7a with SMTP id 5a478bee46e88-37503f67618mr3036430eec.0.1794300550852;
-        Tue, 10 Nov 2026 00:49:10 -0800 (PST)
-Received: from localhost.localdomain ([103.179.231.100])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm5897214eec.24.2026.11.10.00.49.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:49:09 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: hare@kernel.org,
-	hare@suse.de,
-	hch@lst.de,
-	kbusch@kernel.org,
-	kch@nvidia.com,
-	sagi@grimberg.me
-Cc: linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH] nvmet: clean up DH group state on initialization failure
-Date: Tue, 10 Nov 2026 08:48:32 +0000
-Message-ID: <20261110084832.3508-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zay7kTVV;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=DJB3Lig9
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794300556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mA2kKVvz8Zo1bjkKdij3A3VIEQ8ORUrZ6l6fiNtUyi8=;
+	b=zay7kTVVp2m+o7JUTTJzwebW9g/+E+6XATtuJB9qSxEXtOhBN5CY7+Fk4Y64T6STe2Qei9
+	mLmc4lpsmshlbd8J7ktCjE3J7eUMg5LDD1Crt0z666v1ViWzpOK6yUtr0Fq6DkyGis1JAx
+	adpU+7bx9tL6Nn/kxSsU/cOVDhHTD2vPL/EWUFwi8GFhCnFghrfAuzAl+AopzrpndIP8Ok
+	YfXDUXhJi8qgCcV3xm6ln++rrqHpnfbp8XKaOdLJW5yxKFB7FQvA4OlpePC1MC3BlNl7HR
+	g3WlNx9zuEvV5H+H4zuGYd1hl4F/ApHE5ucOnWKzI2zox9a+HrbF4gFoGHp7Dw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794300556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mA2kKVvz8Zo1bjkKdij3A3VIEQ8ORUrZ6l6fiNtUyi8=;
+	b=DJB3Lig9c+2HLwJJWpCu0mz+rX2WorbSM7AdpdZYwKv5olp6yDiU8/HQrOa5VcFoejL2Bg
+	8nHObyL1Dxp5LsBg==
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Petr Mladek <pmladek@suse.com>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, Ryan
+ Roberts <ryan.roberts@arm.com>, Breno Leitao <leitao@debian.org>,
+ printk@lists.linux.dev, linux-kernel@vger.kernel.org, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH printk 2/6] console: Introduce unsafe flush policy flags
+In-Reply-To: <avJDvDl0Hcx_CEGY@ashevche-desk.local>
+References: <20261109123127.489676-1-john.ogness@linutronix.de>
+ <20261109123127.489676-3-john.ogness@linutronix.de>
+ <avJDvDl0Hcx_CEGY@ashevche-desk.local>
+Date: Tue, 10 Nov 2026 09:55:15 +0106
+Message-ID: <87eccthy0k.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,64 +76,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-nvmet_setup_dhgroup() leaves the DH transform and group ID
-initialized when private-key generation, public-key allocation,
-or public-key generation fails.
+On 2026-11-10, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> On Mon, Nov 09, 2026 at 01:37:19PM +0106, John Ogness wrote:
+>> Prepare for per-console atomic flushing policies by introducing a
+>> new nbcon-specific console field @unsafe_flush_flags to store the
+>> unsafe flush policies for a console. The policies are represented
+>> by bits, specified by enum nbcon_unsafe_flush_flags.
+>> 
+>> Currently it is expected that any @unsafe_flush_flags bits are set
+>> prior to console registration and do not change while registered.
+>> 
+>> No functional change.
+>
+> ...
+>
+>> +	int			unsafe_flush_flags;
+>
+> Why are flags signed?
 
-A subsequent invocation with the same DH group incorrectly
-returns success because the existing transform and group ID
-are treated as proof of successful initialization.
+It is not relevant and all other flags in struct console are signed, so
+I figured it would blend in. I will change it to unsigned for v2.
 
-Release the transform and reset the group state on initialization
-failures so that subsequent attempts can properly retry setup.
+Thanks for taking a look.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/nvme/target/auth.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
-index ccba84b1344e..7733d50de708 100644
---- a/drivers/nvme/target/auth.c
-+++ b/drivers/nvme/target/auth.c
-@@ -105,6 +105,10 @@ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id)
- 		if (ret < 0) {
- 			pr_debug("%s: ctrl %d failed to generate private key, err %d\n",
- 				 __func__, ctrl->cntlid, ret);
-+			crypto_free_kpp(ctrl->dh_tfm);
-+			ctrl->dh_tfm = NULL;
-+			ctrl->dh_gid = 0;
-+			ctrl->dh_keysize = 0;
- 			kfree_sensitive(ctrl->dh_key);
- 			ctrl->dh_key = NULL;
- 			return ret;
-@@ -115,6 +119,10 @@ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id)
- 		if (!ctrl->dh_key) {
- 			pr_warn("ctrl %d failed to allocate public key\n",
- 				ctrl->cntlid);
-+			crypto_free_kpp(ctrl->dh_tfm);
-+			ctrl->dh_tfm = NULL;
-+			ctrl->dh_gid = 0;
-+			ctrl->dh_keysize = 0;
- 			return -ENOMEM;
- 		}
- 		ret = nvme_auth_gen_pubkey(ctrl->dh_tfm, ctrl->dh_key,
-@@ -122,8 +130,12 @@ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id)
- 		if (ret < 0) {
- 			pr_warn("ctrl %d failed to generate public key\n",
- 				ctrl->cntlid);
--			kfree(ctrl->dh_key);
-+			kfree_sensitive(ctrl->dh_key);
- 			ctrl->dh_key = NULL;
-+			crypto_free_kpp(ctrl->dh_tfm);
-+			ctrl->dh_tfm = NULL;
-+			ctrl->dh_gid = 0;
-+			ctrl->dh_keysize = 0;
- 		}
- 	}
- 
--- 
-2.55.0
-
+John
