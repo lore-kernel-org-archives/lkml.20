@@ -1,56 +1,82 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336849;
-	b=YKjlXOkXzPVgEr9qTerACaKky25cYZDRE0CgLQei6T8NyL4faKPBlftgE4rHmrIohEfS
-	 QpF1iC7uZkPnpcbFS9i6+ntQ02eEJ1uOE/VhVWdXVmp+31AsCJja61VnJJWzHrDgk/sJh
-	 GmTJRXaxU/OKwgtG7Bjbbq9RVQKRhkmSxbEHpx7bhsmon1HYOwSc1Ml8TJJwgpJ3534ZG
-	 Uynje3w8gJeyHkugK8EdnCFsi8+y77cPmx0glN4EmS0D0o7OxNpfV8k7eKyr6S1YQ/wJe
-	 xLCJZuzBO5D7vNmoordVocNR7F+i8t56CKFr4WN1tuHmfk/gkkfp/cLQqqy91O9xOJg==
+	t=1794336863;
+	b=auodraA/keaHAsM5lR73aesIBVitF+pP5IlLdQwC61YYV4qlYmxcGlPSkcR6uEjzYb6Y
+	 leGgnKaB5g2z5WNwri2EPWIWyBhQzv3JmzUjtsyLZBcffr47ZAUiBDLVn0TeMPYjWHRpd
+	 g9Kwwa/5Z/3N24CxcDnzLvS3rtEG8idOYX5Nio6tTJMFwCCukMJeaorpytxXpBiJVhQUg
+	 xa/qB8aqZ+xH3gM7u266kpHCqfjR5GuHaeJzNrhTQx1ItGR+a6jcNlGlb38v6t0Jixspn
+	 JOuZupZcz/4EjqYFGdle5Dlv0uadU+z8x1bKJDUHYai/LXkc+v0TA6CRbWB22PU79SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336849;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8aZiMgdpUIGUYsouHyN6a1Ywpiuzgy+D+c9XrtJxDx4=;
-	b=gtPl+RiopUyrDeTND7nk0Aik3gzkNI3zH4X+kUJhuP9S4xRg75WQi9BUJ76PD2c39Rux
-	 3qzdjibYAK8OWFu6to/YyQOvzcLEDuXrs/QYUrdyXaxePSP4EimTrHyWQHks/c12Ez+8y
-	 y5SVgLOZwOAXUpJCbrcH1n4d56Q6hrhRTpoT1Qkysf4SxbOamI9nxavnBEnJTLDrbhNDd
-	 FRdCMjkNzk+9O+JFIv7WH8TDzKwM9GBMxzbzpFkbEkAWoGInQ7+3IfCgOCoYo7akkzKMp
-	 f9OUMRdBuoXxp2T0+ZMMZEIrfXl9eVT0txaZdv7yKwQmTxguJifR5kdjvLSxCgd5LbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336863;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=nDbl4gUxTNcd/3+M+YJSzWuFbUppBzQzgjX3N9VirY8=;
+	b=iX9Bj+PRsrSwdIWRp8m2U5fRp80XLMq2XHjoS5vpOIKtZeCUhj8iihltMMfoxvRnjfnt
+	 HWck0XJeFkUu82oqTmMHe1zW1VBvWBqAMk1You1rCro4NKWdg+tJBByXKBHYsAmdicdJF
+	 sO2tkmVX/Xdr8UNISZZ3pifLKVMKXD6Morufc1EF0OlNQYPLYp7LhaipzeqoxQO4Q4DET
+	 UlDdKUH7Bw+WP1eR9Tag70hqsV5KBs4hoTymN7K0iakHGEAchV3nuK2ty+maSnoPjctlJ
+	 yYgRbaCeagH+X/n+5FoxkeiANoGx+nfJMWONNnbwHUQ9zzW6Pslxmx0JZAbEl7qjGmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q2xwnIu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3dpPRVt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41354606A31C;
-	Tue, 10 Nov 2026 18:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F3F606A323;
+	Tue, 10 Nov 2026 18:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q2xwnIu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680B31F0089F;
-	Tue, 10 Nov 2026 18:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794336848;
-	bh=8aZiMgdpUIGUYsouHyN6a1Ywpiuzgy+D+c9XrtJxDx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=0Q2xwnIu1XHpGYM5ts5NJYcRAPbKRzaWxjptggBFTxRDc1XwH+UjPC9k/juwxrMRm
-	 SRdhdf5KQVl6xB/CnTRQQIbvBcKPsUIl582SLXyJeNu4PYFkt8GthI/us1kfVe8iHO
-	 FJKQDenC2Up7fR/yjPLL6Kmbbv2NZCp8S/YTIJXg=
-Date: Tue, 10 Nov 2026 13:54:05 -0500
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Dominik Brodowski <linux@dominikbrodowski.net>
-Subject: Re: [PATCH 2/3] PM: add sysfs attributes for additional
- suspend/resume metrics
-Message-ID: <2026111027-purifier-revolver-37c3@gregkh>
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
- <20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
- <2026111023-padlock-deluge-4173@gregkh>
- <20261110195020.7d07ae63@systembl0wer>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3dpPRVt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8D51F0089F;
+	Tue, 10 Nov 2026 18:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336862;
+	bh=nDbl4gUxTNcd/3+M+YJSzWuFbUppBzQzgjX3N9VirY8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=T3dpPRVtZPsPK7y3nPh5Kmn1H3KdxyosPsL1B8UEFq7jNCUDHQUbaGWyr7QYJmfCs
+	 mQ4ztvcGhWNk9QlpsxptOAduOLSuSb3IB97kk1QEjN3ywKIxSPsWLUg+VTs7bDtHRr
+	 Cx4TUvsGlZXjoBYJarnyg7KcVxn8HUlKb0jCjWKo76KBVSQtvGccH0VjxfkDjeVi7J
+	 1VvTG1stfPRyWnbCq3jJ81QCp3DrjhBN/3Q+m7cJjWjfextIdIFGNvhqQ8RqLcDazf
+	 X3BLqM99Lke0zoestAlOZ0Kyn50e61GhNwBGU+mnN3p/d5OUEWO/XjzzvWdzhTNre3
+	 Vyw9t52MSe6cQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 91709CE0AD8; Tue, 10 Nov 2026 10:54:22 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:54:22 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	rcu@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>
+Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
+Message-ID: <30d1455d-db30-4528-ae23-80aed17feba2@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
+ <20261023181940.457424-1-puranjay@kernel.org>
+ <f785237c-ee5e-4ad3-8ee9-79474f5f45c8@efficios.com>
+ <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
+ <853d8469-94a4-4b33-a0d5-d6d2138fe3ef@paulmck-laptop>
+ <597586c9-35ae-43bd-9b79-7abf62057838@efficios.com>
+ <3cb75140-1d10-4de3-86e6-c9d70edd2da5@paulmck-laptop>
+ <cf8bf913-1bf9-49d6-9749-8631cee1604f@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +88,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110195020.7d07ae63@systembl0wer>
+In-Reply-To: <cf8bf913-1bf9-49d6-9749-8631cee1604f@efficios.com>
 
-On Tue, Nov 10, 2026 at 07:50:20PM +0100, Joshua Crofts wrote:
-> On Tue, 10 Nov 2026 12:29:11 -0500
-> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> 
-> ...
-> 
-> > > +static ssize_t runtime_resume_count_show(struct device *dev,
-> > > +					 struct device_attribute *attr,
-> > > +					 char *buf)
-> > > +{
-> > > +	u64 count;
-> > > +
-> > > +	spin_lock_irq(&dev->power.lock);
-> > > +	count = dev->power.resume_count;
-> > > +	spin_unlock_irq(&dev->power.lock);  
+On Tue, Nov 10, 2026 at 10:26:24AM -0500, Mathieu Desnoyers wrote:
+> On 2026-11-09 20:34, Paul E. McKenney wrote:
+> [...]
+> > > Would you prefer to add these two variants on the SRCU side, or should
+> > > I prototype them with the next version of this series?
 > > 
-> > Why is a lock needed at all?  The value isn't going to "smear", it will
-> > change right after the lock anyway.
+> > Your choice!
 > 
-> On 64-bit systems an aligned u64 read is atomic, but on 32-bit systems it
-> gets split into two 32-bit loads. Without locking, the read can tear
-> between the upper and lower halves.
+> I'll do it. Adapting atomic SRCU to these needs is much more
+> maintainable than keeping my own copy of nearly the same mechanism.
+> 
+> > If you would like to do it, the trick is to make srcu_read_lock_atomic()
+> > and srcu_read_unlock_atomic() invoke __srcu_read_lock_fast() and
+> > __srcu_read_unlock_fast(), respectively, instead of __srcu_read_lock()
+> > and __srcu_read_unlock(), again respectively.
+> 
+> I'll start by making every atomic reader NMI-safe this way, as you
+> suggest. If David objects, we can still change it based on his
+> feedback.
+> 
+> > Then there would need to be an srcu_read_lock_atomic_irqsafe() and
+> > srcu_read_unlock_irqrestore(), which would (as you say), replace
+> > preempt_disable() with local_irq_save() and preempt_enable()
+> > with local_irq_restore().  There would be a flags argument that
+> > as far as I know requires srcu_read_lock_atomic_irqsafe() and
+> > srcu_read_unlock_irqrestore() be macros.  It would be good to share code
+> > with srcu_read_lock_atomic() and srcu_read_unlock_atomic().
+> 
+> Agreed. I plan to name them srcu_read_lock_atomic_irqsave() and
+> srcu_read_unlock_atomic_irqrestore(), as macros sharing code with the
+> current pair.
+> 
+> > And kernel/rcu/rcutorture.c would need a bit of tweaking to test
+> > this new interface, which should be discoverable by looking for
+> > the code that tests srcu_read_{,un}lock_atomic().  Maybe just make
+> > srcu_torture_read_lock() randomly decide between srcu_read_lock_atomic()
+> > and srcu_read_lock_atomic_irqsave(), and have srcu_torture_read_unlock()
+> > follow that decision.
+> > 
+> > One potentially tricky part here is that rcutorture is not set up to
+> > pass a flags variable from a read-lock to the corresponding read-unlock.
+> 
+> I'll look at the rcutorture side as part of it.
+> 
+> A later version of rcu_txn will then use these readers, instead of its
+> own per-CPU counters.
 
-Are you sure?  ANd if so, is that so bad?  The value is "best effort" as
-it can, and will, change right after reading it.
+Sounds good, and looking forward to seeing what you come up with!
 
-thanks,
-
-greg k-h
+							Thanx, Paul
