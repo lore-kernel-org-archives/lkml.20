@@ -1,75 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347143;
-	b=do3XZy9icFCgxE0JP76XCdJUmtgMcagPDyI7CPISjoBeN2lfVKq1DoJHlEis1hwygQku
-	 XgX4KC1ET8cwqsLnid4nZj1J4mvdN9JoupZJdIX8atiVK2uV0ka6BlHTeEC0A2bOBGcGb
-	 CJ+ZdGXed4klNxXlqOYTr5qjH1oIp2NU+2G0ZE8vEYJsIC7AseiBQ02Btto/TaPxrydGY
-	 7M49u/pXs6RNtIwpN9m2OUCiTyxVw6DNmdx9iYp3rDbLSeZpCa78z+27Y2KU9eGXd7J8P
-	 0KW5wplB+eQwt617fvceoJNeYj2wdE+5oI/tcietgbXjHca1JKCCiguKkXrK1TQ3nlw==
+	t=1794347158;
+	b=v+hStehKr5q7ajv9+n5iOQFZWwyDZE/YXwt2Tvn3KjNHKBwvvOu4hAwzdy+Iw938FLo1
+	 tPwrJZC96iR84dDhbInWq/xopR50/0Kad2UOpasYm0grRcr3F+u3+f4HENn+2tiJDx0WS
+	 ixQ05uxz8TChkWGvn/rKlLPkuWzCv8+Zc1VWbHh/CeVGjnXW/PTi5LCf8JWA2zI0jrddL
+	 xd6GDoOsMQWdoWRfJk0LHNEzgMNAipgSi8zrMZQUXCpW9nVsweZ+LiTRD1TxgnxNC8COl
+	 CiUojmyIVsTqjMp+oT4w73W8HQrH2z6FDcxzEoz4u43l0FrNzIBEI7WzT7wR71SH06w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347143;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=35fQk2prx0lBB02/47r4mEUB8fpBOI29YWOfBrE+Kf0=;
-	b=kMaNSjdu44hStqcU+0GE+wmxhODw62KKr+FO3Be+rLExyefVf3YJcE2STcTnpahaKsRh
-	 Owe08Bn89tNsI1FGm9EXZ7jLNLwpOg9Qgm39BJmfBnZrO1Bvs6r03/VNhnjYsUGHbsc07
-	 Jb2pkTtAmogcC/0pG5vghz02GbEz/bsEItTOZYecctCoIMTuHVtA969NSo3fYZ//7E2EA
-	 rzqgQLJl1eMseubAsPz3XtCzUPF3wF099sV/xFodcDr7xUx8BlPGApzve3Amvr6DLgWAw
-	 Z7P2wFiusyrsj7iTrdsNL2UDzAIH25RW7snzROfEYZfuRsO8h1o1nzfG9Yq4y2Km8wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347158;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=M7sF+0lKlZFH44EHViGdUB0omP3CtyYvzMtcq6TGobs=;
+	b=eWbvzDJS9poxUb7IT84qHwnRktah++VUNi6Bl6UxtBsifculLW95X0o30QiN1Or3ik4s
+	 wnBAKB3OXCJu3yoUwSyl5JWu6Ws9sQBwm6BBsMWNUzZEkipvk5ksUxZxDAjAR4FZd1j7w
+	 eu0tBpNFxLx+R6o4a1aVSxk9BRfg4sRITyQ14byFdFri1itgBRZbM4aP5VuzIdk540XDg
+	 7urdx8oh+/+X3fZZEYwF761g7GnT5CWHJ1yhpmDug5KmRKGc8lh5++RaTjS3umNlJjhT2
+	 jlDBSK4m+E1UNEupIUiXb9RzK+kB2KGqQIQpuBXQZAmHvNwJdBfVeZBEDm6vBGydzBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kymx3Z5Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSzjzpFC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85DF606A321;
-	Tue, 10 Nov 2026 21:45:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A46B606A31C;
+	Tue, 10 Nov 2026 21:45:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kymx3Z5Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBBE1F0089F;
-	Tue, 10 Nov 2026 21:45:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSzjzpFC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F3F1F0089F;
+	Tue, 10 Nov 2026 21:45:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794347142;
-	bh=35fQk2prx0lBB02/47r4mEUB8fpBOI29YWOfBrE+Kf0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kymx3Z5QuLjhVt9c5TXAk+kfoV9+Q69m2rh6gKaY2iciQySjWz776ENyyzO76ntE/
-	 /uzWTdV8hdYbQdh1l4IyeQ5fyyv9r2cCWu0qjO5wH2a+J4S0bzy6nNaTA6trhTE0GW
-	 /L1dwdPvEztraG/h+sVCOy641h7Uk/TMwO2q4hRzVBg/Rkxmb7cReJ+LatfFNQPTkP
-	 6patrVaXaDmYcM/GxuvUQx3acPjDDOm/3QA23frVW+hN4rGRkeHMgbj+Hzf1wrVZRK
-	 Mzim6bafAA11Nz4YojXw6wG9MXECjIaGYV2Ai4JM+kIAL0NrS4PfdlrklEcr67vMyR
-	 y6wV8M99tyxhQ==
-Date: Tue, 10 Nov 2026 13:45:39 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ding Meng <meng.ding@siemens.com>
-Cc: netdev@vger.kernel.org, Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jonathan Corbet <corbet@lwn.net>, Andrew Lunn <andrew+netdev@lunn.ch>, Tony
- Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
- <przemyslaw.kitszel@intel.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Richard Cochran
- <richardcochran@gmail.com>, florian.bezdeka@siemens.com,
- jan.kiszka@siemens.com, wq.wang@siemens.com, p@1g4.org,
- gerhard@engleder-embedded.com, Jason Xing <kerneljasonxing@gmail.com>,
- Simon Horman <horms@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Martin KaFai Lau <martin.lau@linux.dev>,
- Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri
- Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor
- Solodrai <ihor.solodrai@linux.dev>, John Fastabend
- <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
-Message-ID: <20261110134539.12d860ef@kernel.org>
-In-Reply-To: <20261105071706.7043-1-meng.ding@siemens.com>
-References: <20261105071706.7043-1-meng.ding@siemens.com>
+	s=k20260515; t=1794347157;
+	bh=M7sF+0lKlZFH44EHViGdUB0omP3CtyYvzMtcq6TGobs=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=jSzjzpFC1lJq45DadIevqR8IeWuHrceuuyjJmbb3DW3ua0ZtVYxMqJN9PBqMZnkZY
+	 DDBAaYHJY7PFLY0yJ2XCEKqA5hJeXyPXeeWtmsv/XokjdZc/IKP/s4oVwzFk5XJ/tc
+	 5IS74XL6vV5moDkNopRSX0mmUC14Eyx5V/AM1gHUK+YZKuobuf948fzormXlenhEXu
+	 1nDeid3UkvsfM7NijlAG9oYFkJlmU97J+T94A6NvLEZa9izsp3DnhIgRK+dSAGoZEC
+	 A5MuPweukTvUhR/yF1aJX4PDZEY6UbsC29dW9gv0/CpaD4UceosfEbd3tPgjUaIOsL
+	 6a+3L4Hm6Epsg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 96F99CE0AD8; Tue, 10 Nov 2026 13:45:57 -0800 (PST)
+Date: Tue, 10 Nov 2026 13:45:57 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, corbet@lwn.net, mingo@redhat.com,
+	frederic@kernel.org, neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org, urezki@gmail.com, dave@stgolabs.net,
+	stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org,
+	dhowells@redhat.com, j.alglave@ucl.ac.uk, luc.maranget@inria.fr,
+	akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev,
+	brads@mainlining.org, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org, rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 23/28] rcuscale: Add hazptr scale type
+Message-ID: <c4f84631-5805-4750-a7bb-3fd5a24bbb62@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+ <20261104165504.2430480-24-kunwu.chan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,20 +72,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104165504.2430480-24-kunwu.chan@gmail.com>
 
-On Thu,  5 Nov 2026 15:16:08 +0800 Ding Meng wrote:
-> +  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID is
-> +  enabled and the driver is using NAPI. This hidden configuration is
-> +  selected automatically by busy-poll support and by drivers that need
-> +  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
-> +  use deferred timestamp conversion must select it so the networking
-> +  stack can find the device and call its timestamp callback even when
-> +  busy polling is disabled. The struct contains also two other fields,
-> +  but they are reserved and undefined.
+On Thu, Nov 05, 2026 at 12:54:41AM +0800, Kunwu Chan wrote:
+> Add a hazptr scale type for per-writer hazptr_synchronize()
+> cost and per-reader hazptr_acquire()/hazptr_release() overhead.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+>  kernel/rcu/rcuscale.c | 67 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 67 insertions(+)
+> 
+> diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
+> index 5659eaebc5c0..6e3e3f296f85 100644
+> --- a/kernel/rcu/rcuscale.c
+> +++ b/kernel/rcu/rcuscale.c
+> @@ -40,6 +40,7 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/rcupdate_trace.h>
+>  #include <linux/sched/debug.h>
+> +#include <linux/hazptr.h>
+>  
+>  #include "rcu.h"
+>  
+> @@ -460,6 +461,71 @@ static struct rcu_scale_ops tasks_tracing_ops = {
+>  
+>  #endif // #else // #ifdef CONFIG_TASKS_TRACE_RCU
+>  
+> +#if IS_ENABLED(CONFIG_HAZPTR_TORTURE_TEST)
 
-Just take napi_id from under CONFIG_NET_RX_BUSY_POLL instead of
-complicating everyone's lives.
--- 
-pw-bot: cr
+Ah, maybe this is why you want hazptrtorture and rcuscale to be built
+into the same kernel.
+
+But what you really want is hazard pointers to be built in, right?
+As opposed to the torture test?  But this patch will be on top of the
+patches providing unconditional hazard-pointer support in the kernel,
+so you can just omit the above #ifdef.
+
+The reason for the CONFIG_HAZPTR_TORTURE_TEST #ifdef is that it is
+possible to build kernels that do not support Tasks Trace RCU.
+
+							Thanx, Paul
+
+> +#define HAZPTR_SCALE_NR_OBJS 8
+> +static int hazptr_scale_obj[HAZPTR_SCALE_NR_OBJS];
+> +static atomic_t hazptr_scale_sync_idx = ATOMIC_INIT(0);
+> +
+> +struct hazptr_scale_state {
+> +	struct hazptr_ctx ctx;
+> +	void *addr;
+> +};
+> +static DEFINE_PER_CPU(struct hazptr_scale_state, hazptr_scale_state);
+> +
+> +static int hazptr_scale_read_lock(void)
+> +{
+> +	struct hazptr_scale_state *state = this_cpu_ptr(&hazptr_scale_state);
+> +	int idx = smp_processor_id() % HAZPTR_SCALE_NR_OBJS;
+> +	void *ptr = &hazptr_scale_obj[idx];
+> +
+> +	state->addr = hazptr_acquire(&state->ctx, &ptr);
+> +	return 0;
+> +}
+> +
+> +static void hazptr_scale_read_unlock(int idx)
+> +{
+> +	struct hazptr_scale_state *state = this_cpu_ptr(&hazptr_scale_state);
+> +
+> +	hazptr_release(&state->ctx, state->addr);
+> +}
+> +
+> +static unsigned long hazptr_scale_completed(void)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void hazptr_scale_sync(void)
+> +{
+> +	int idx = atomic_fetch_inc(&hazptr_scale_sync_idx) % HAZPTR_SCALE_NR_OBJS;
+> +
+> +	hazptr_synchronize(&hazptr_scale_obj[idx]);
+> +}
+> +
+> +static void hazptr_scale_sync_exp(void)
+> +{
+> +	int idx = atomic_fetch_inc(&hazptr_scale_sync_idx) % HAZPTR_SCALE_NR_OBJS;
+> +
+> +	hazptr_synchronize(&hazptr_scale_obj[idx]);
+> +}
+> +
+> +static struct rcu_scale_ops hazptr_scale_ops = {
+> +	.ptype		= 0,
+> +	.readlock	= hazptr_scale_read_lock,
+> +	.readunlock	= hazptr_scale_read_unlock,
+> +	.get_gp_seq	= hazptr_scale_completed,
+> +	.gp_diff	= NULL,
+> +	.exp_completed	= hazptr_scale_completed,
+> +	.sync		= hazptr_scale_sync,
+> +	.exp_sync	= hazptr_scale_sync_exp,
+> +	.name		= "hazptr",
+> +};
+> +
+> +#define HAZPTR_SCALE_OPS &hazptr_scale_ops,
+> +#else
+> +#define HAZPTR_SCALE_OPS
+> +#endif
+> +
+>  static unsigned long rcuscale_seq_diff(unsigned long new, unsigned long old)
+>  {
+>  	if (!cur_ops->gp_diff)
+> @@ -1140,6 +1206,7 @@ rcu_scale_init(void)
+>  	static struct rcu_scale_ops *scale_ops[] = {
+>  		&rcu_ops, &srcu_ops, &srcua_ops, &srcud_ops,
+>  		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
+> +		HAZPTR_SCALE_OPS
+>  	};
+>  
+>  	if (!torture_init_begin(scale_type, verbose))
+> -- 
+> 2.43.0
+> 
