@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329704;
-	b=BYyhIX+C6kXaMgL4gDArDhn7zZI0aWxbhX6MPgsSR2D9byk6pOTmbMgQXM2xWxefjxOA
-	 J8aCklapytJOAc07z5wQnvf0qtL1W/C25GPXL+thYyWxnzT0O9FqpnUDaitwjKnGNasiJ
-	 pJymQ7E6eV41ZTuMCZbRrwPFIzZQrN3KPDPyY6rF/0p1r8nRkCRoAzgbvxpr7SfnXZMyO
-	 aDEzMgHh58naZg+1JqTFFxQ940dtI9JBYgKmJdETEVe81RCD0thOMoeZggd5qnd0qymFq
-	 /0SPUbuyiwsW6JzTgNL6egUIXvaKEbXc6qeV2pubnWtrd+9Jp/eACxmXvw2+0kkTqRQ==
+	t=1794329710;
+	b=p0c2ZQvMrv5q+g2Xz8xq470SwNdKUYclZdZrl0l9Tqi1BUwUbVqaayNKmHHVdR6IBlgx
+	 oDPZ3oeu3KZEpxrpbhYReN53MGSHN0Z47wq12BmRdIEu0kZ8VMT7cYtbNMoc+G/nPgZLd
+	 ryrh+AcucN/07mMpNIICGWei5eIQFaJK4FUzFEvYSdLZncvflLZCm42KEmylJAPcYIO5D
+	 lEHv7U9u1UQ+r7l57KBrS7u6blwUB1c5EhwamV6LszM7q5vlzkhfXvctw4cdyeGBqVe6/
+	 zTYoFw9+mb+6loZmJnWWbZlwzCvYhmtqkMpV1rZqrDBlc2s8d4nRc1HCo4lMAaq6gNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329704;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xtlNzexgpyraXnkzb2cGNwRrOc/5l0CGjaw5+9/Uw9c=;
-	b=YSco4vNVbfvt4mDY2hjmhJ6eJfGaxAj8BWao/yDio0z0ZswJ26zMLW6/LvH+t0Mi4bmE
-	 b51jM1NUFR1NcTjphEsnkqkyegnjjr5nR9gYvFpjESfMB9+0gREBvrO2g4O4NM3iVdhMo
-	 TnYBTtqFPIA3fgYANmWj/QVgrh2J613/5C47xj9405+sfHz/1YLrZqdBkX16fdzckr7kB
-	 YqnB2EGPIWNN9MQqlDFgt6OT6tn+Ke34+kRCb93Rlv0OrZ0BjnN2ei2PYwPtZg6338uR3
-	 zbLpaZKlv+MvRfp4yYZrvSprqeu6OTVJ4RhKqMOibGDxZABBwH+ywNSb4y8Cq5ixSLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329710;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=+p5LsXOQnB/59+iK7tE/PH15gIGyp3rLq42QFenYeJw=;
+	b=j1f68ZBvZ7jnkWZ2HAfvDXq23v0WG/qXby2psKnSntDu0F1fep3GYz/fKsdACu77AMOb
+	 wOv1367ZlLXlXlFPLz6ZY7UApwlkyPP9NXpaWRgKDhoKP9PvDA+SGzkVm8CQlYCZv9von
+	 cBQWAWZLS7ckeL5LTN0FNk3INJ9MlCXLvS4BrC7JP4qWkgJigEk8xUKEfBtOs8d3QjSRW
+	 h4HDGD1DiloojOrs0S2/H/1v+cTpGcIRSY3M/r9f+YkeYmajeCBQW53Uyc6zA10EaOeva
+	 kcL809LWEpog7kIrqnsqusXW0Sd5VkLhKrLrpu5EAusyS3oYF5cZQkuqjj7IXHEWVdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckOW86Dv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C83606A334;
-	Tue, 10 Nov 2026 16:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckOW86Dv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C881F0089F;
-	Tue, 10 Nov 2026 16:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329704;
-	bh=xtlNzexgpyraXnkzb2cGNwRrOc/5l0CGjaw5+9/Uw9c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ckOW86Dv7eBrMYpfPpQlv5/Ibg5XMJLvcfywM/egfYsdxWVtKR1vJOr1svAKtBrmg
-	 hiyrpW2QLlO2giu15U6nqD3/97ZOHsUnzrwICpO6HfR4Sg5trE3gk5Hc3VgksIWpUQ
-	 sVwcFwg62XOi7QIpVoNi9h58auDKR4t4QwAt+ZGj/Dp4gw8HBw1fFrnwklOL6l6yWG
-	 RgyjyyqCabNwtLyrnfknW8peaHMSh/S88RWgWZQLWK81CnTAz7tOZ75xnoPpao+aey
-	 ik9HUpKKCb2RHR/N6GHEXNpxyIf4wMi4o66l6MIpbgSNjVgETbSpAwlpLAZN79DxmM
-	 j1Mv7WXP17kmw==
-Subject:
- Re: [PATCH net-next 2/5] net: rnpgbe: Report link settings through ethtool
-From: netdev-bot+sashiko@kernel.org
-To: dong100@mucse.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, yaojun@mucse.com
-Date: Tue, 10 Nov 2026 16:55:03 +0000
-Message-ID: <179432970303.994134.1660961190803975260@kernel.org>
-In-Reply-To: <BB3F0BAB3B9947AF+20261106112522.43965-1-dong100@mucse.com>
-References: <BB3F0BAB3B9947AF+20261106112522.43965-1-dong100@mucse.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADE0D606D214
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE0D606D214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMDWnmpiTPNqQ68vAA--.40291S2;
+	Wed, 11 Nov 2026 00:54:58 +0800 (CST)
+Received: from 51f0e866aafc.ntu.edu.sg (unknown [155.69.197.24])
+	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S2;
+	Wed, 11 Nov 2026 00:54:55 +0800 (CST)
+From: Suyuan Wang <stevewong@hust.edu.cn>
+To: iwona.winiarska@intel.com
+Cc: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	joel@jms.id.au,
+	gregkh@linuxfoundation.org,
+	Suyuan Wang <stevewong@hust.edu.cn>
+Subject: [PATCH 0/2] peci: Fix two use-after-free bugs in device teardown
+Date: Tue, 10 Nov 2026 16:54:47 +0000
+Message-Id: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,79 +53,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IAEQrMDWnmpiTPNqQ68vAA--.40291S2
+Authentication-Results: app1; spf=neutral smtp.mail=stevewong@hust.edu
+	.cn;
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4xJr4DGw1kZr4xCr1rWFg_yoWktrb_ur
+	W2krykAwn5GFnavasIkr1rZry3AF48Z3yftFZ5tF48A3yFqr98Xr4DZrWavr10v395ur1D
+	Ary5ZrWfZwnrKjkaLaAFLSUrUUUU5b8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbPxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
+	8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2
+	z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAaw2AFwI
+	0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27wAq
+	x4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r4UJVWxJr1lYx0E74AGY7
+	Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j
+	6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIecxEwVCm-wCF04k20x
+	vY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jSNtsUUUUU=
+X-CM-SenderInfo: jxsqimirwzmmo6kx23oohg3hdfq/
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
 
-Low priority / nit picks for your consideration:
+Hi,
 
-- [Low] In mucse_mbx_fw_req_handler() (rnpgbe_mbx_fw.c:465-466), the
-  patch takes the 2-bit firmware field FIELD_GET(ST_STATUS_MDIX_MASK /*…
+A static analysis run over the PECI core turned up two places where a
+struct device is still used after the reference keeping it alive may
+be gone. I went through both by hand on next-20261109.
 
---
+The first one is in unregister_controller(), which reads the fwnode
+and disables runtime PM after device_unregister() has normally already
+freed the controller. The second one is in the sysfs "remove" handler:
+it doesn't hold a reference across device_remove_file_self() and
+peci_device_destroy(), so the device can be freed under it, either by
+its own device_unregister() or by a controller removal running at the
+same time. For that one I followed what SCSI does in
+sdev_store_delete().
 
-net: rnpgbe: Report link settings through ethtool
+Both are compile tested only, since I don't have PECI hardware. If
+anyone with an AST2600 or NPCM BMC could give them a quick run, that
+would be great.
 
-This commit adds get_link_ksettings support to rnpgbe. At probe time it
-queries firmware with GET_LANE_STATUS and reports the supported and
-advertised link modes, autoneg, port type and PHY address from that
-reply. It also caches the MDI-X state from LINK_CHANGE_EVT, and sets
-the default link to autoneg on TP ports and to fixed 1000/full on fibre
-and backplane ports.
+Thanks,
+Suyuan
 
-> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-> index 4a18937927514..469818b83d70f 100644
-> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+Suyuan Wang (2):
+  peci: Fix use-after-free in unregister_controller()
+  peci: Fix use-after-free in remove_store()
 
-[ ... ]
+ drivers/peci/core.c  |  8 +++++---
+ drivers/peci/sysfs.c | 13 ++++++++++++-
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-> @@ -435,6 +462,8 @@ static void mucse_mbx_fw_req_handler(struct mucse_hw *hw,
->  
->  		hw->speed = le16_to_cpu(req->link_stat.st.speed);
->  		hw->duplex = req->link_stat.st.flags & DUPLEX_BIT;
-> +		hw->mdix = FIELD_GET(ST_STATUS_MDIX_MASK,
-> +				     le16_to_cpu(req->link_stat.st.status));
 
-[Severity: Low]
-This stores the raw 2-bit firmware field (0..3) in hw->mdix. Is that
-value guaranteed to use the ETH_TP_MDI_* encoding?
-
-When the carrier is up on a TP port, rnpgbe_get_link_ksettings() copies
-the value straight into the ethtool status field:
-
-	if (status & MUCSE_LINK_TP)
-		cmd->base.eth_tp_mdix = hw->mdix;
-
-The ethtool uAPI only allows ETH_TP_MDI_INVALID, ETH_TP_MDI or
-ETH_TP_MDI_X in eth_tp_mdix. ETH_TP_MDI_AUTO (3) is only valid for
-control. Both linkinfo_fill_reply() and the legacy ioctl path pass the
-value to userspace without checking it.
-
-If firmware reports 3, userspace gets an invalid status. If firmware
-reports 0 while the link is up, userspace sees "Unknown". If firmware
-uses a different encoding, userspace sees the wrong MDI/MDI-X state.
-
-The control path already sends ETH_TP_MDI_* values to firmware in
-phy_link_set.tp_mdix_ctrl, so values 1 and 2 may well line up. Nothing
-here documents or enforces that, though, and later patches in the
-series don't change the parsing or the reporting code.
-
-Could the firmware value be mapped to ETH_TP_MDI_* explicitly, with
-anything unexpected reported as ETH_TP_MDI_INVALID?
-
-The patch also adds a second MDI-X field definition, for the
-GET_LANE_STATUS status word in rnpgbe_mbx_fw.h, and nothing uses it:
-
-	#define MUCSE_LINK_MDIX		GENMASK(14, 13)
-
-Neither this define nor ST_STATUS_MDIX_MASK documents its value
-encoding. Is MUCSE_LINK_MDIX meant to be used, or can it be dropped?
-
->  		rnpgbe_set_link(hw, mucse_link_is_up(hw, req));
->  		/* update regs to notify link info is received */
->  		mucse_update_link_status_reg(hw, req);
-
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/FB722C2F25FE9005%2B20261106112420.43050-1-dong100%40mucse.com
+2.34.1
+
