@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332146;
-	b=DSVjSFXI8JaYFGjoB/T2RuPF0rwsxitea5dbDPaFFicBgOb47QGMRNES1Og0eTo7nQ4H
-	 khY85u0h2Si673UB8qbJrxDwA4s4Ox+dNd6rBWdFpOlcgRPw+cZGhiDSxwV5sf1CdY0NE
-	 E8ixPVE0qpfxwoAl92UaDptAs1oz2BLm2JZZCJ4Eej5o65fLpgXtYZXGsqxlMOYs4IhZd
-	 o4MqvGAtcG1m4UllvwB6Ie57PR65F13XG3/VgmZXekcSD5ee9HcfnE1h31UWG0fWjpVgy
-	 YwoUOJ9lXbYUs559dBZLA2/gOD13pCUv5AEm3yVosneYwYnNDUyEs//dQFiLlGKXIwQ==
+	t=1794332144;
+	b=uHKKEBJAcVLbGVWjaG8wsQ31COFz9DIwH+G2sGy+w8suwxzzerVpXK2sJu7NT7NYkqMm
+	 eZWxeggOX5b04aqknxkGnMtJJGHrGM7oUYT80jXGOL9ijx+dUdvglUcx17+KEI/i9jnlA
+	 v4GSFsB51ikk1ZIw4Ui9VtYm8RGzJcOI8QaU2ypBxjjwTamHXcPtUwmy8e/x/XsrRkRvU
+	 g3Nh2y2qRfVjR5y1yNIn1HU0FDQ3GpSeyAvtEI26IVJxGQlY0DwARjDKvzQ2CPGsZo+iP
+	 614tq4zjdYmrt7ICSTX6KRZxhjewEF5/rAzVDD5AuqCpTJUQldrCnw486rHLhNKwNHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332146;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332144;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=qKATZfaP7j93mPzPK2LI85ABT996WxYe1HUN7LIOWWs=;
-	b=xBf9sOVKpvhU420rTjW6ns8un/jO/huS8xboAlCXHf2KWRXx4FsJSCGRkcyXeVhF/rPH
-	 TdfRWi3f9arVC3VpNMbSKw5VyIqMaWrrbnDqG4zFIQm3143PE/44j8yXdoLREWju5Wuvs
-	 TVY7oAV6O9H4VymkFE7tqTMMCdRsAxFhmuL0uyBEkeNFo4ddOxLPmbj2d3IviyEFpKvQ3
-	 NitjyzLSjcZ1e759CogZXyMxmdo2sW6zEJIpMq4/kb1KOjA5tpI7pSU/6yjsP/Jc7e3xB
-	 NAjTE/3Vl+LDU8m0Zn9ZgxmPCTlAqECjC03dyZ+OGx61SN4pcrVMzj0AguDsufsxKhQ==
+	bh=qThPFwQh/YlsuXHUZSO9OIPn8uv/mcMeWuP0/iLWm/M=;
+	b=q2mnlPzWqLqL4bYbPkCBNSpwv0uXpze6m/Wctlmw4p5LRTDQWRyW+TRAdr+yqah/a1MK
+	 0+qr8Q3EciNnRD/alz5gXrjk1Z/CjuFguncttz5BKZxDjjVfo7SMjYvykmA16S0yU9tpz
+	 jzWFzlvEZgbZ0x4Ciin3iARAZK4cg5LoWqKemsWUOxqYtJ2IvM2sg0cPJGbjlzkakkkB8
+	 dwuwHj5lJRJ5cbeo96JMmG8kqaVsMyoVjPkMllrLA7awZLzMLmbp1AqmQTPlwvr2hRrLU
+	 0UM2ng81yDlkYEkC6l1j1YzAlde77MA7Ji6+IwESwOoFa0m+NPma1rgYd3v+RDS62jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nku048xR;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=N+wJ66S4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TIFXR1gL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ZKyr49vR;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C1060A383E;
-	Tue, 10 Nov 2026 17:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C1060A383E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686A960A3821;
+	Tue, 10 Nov 2026 17:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 686A960A3821
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nku048xR;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=N+wJ66S4
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TIFXR1gL;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ZKyr49vR
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794332144;
+	s=2020; t=1794332143;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qKATZfaP7j93mPzPK2LI85ABT996WxYe1HUN7LIOWWs=;
-	b=Nku048xRe56rBscs+R4YPdFX3ZQuf5rxGLU4vnKamW47iJSwqSSskk5uC7qTAZEhDiCYgS
-	kQL254F4o1VDFnswU6XEnYPnm0DX3qPWQ2w4mtz98GYvAaRUdteijU0g7kyfreVAA7y5nC
-	CNXqC7dv5bp1nMif70MPxZkFcqEFQgROKEEV1gOU6mSIsOTXN/vAS3Jn2J6XyarqAXY3en
-	XiDa5qjuzWkEVh2ADcBk9lag11WT010v5gWDks7PMRd5hAc3EVjpu6BZM19ZA8kdjP3v8o
-	1ePvpKJSjCK4Q9yusrlvML/f6pvf2kGInup027oS99hGqgTIybKGLR55dG8/0g==
+	bh=qThPFwQh/YlsuXHUZSO9OIPn8uv/mcMeWuP0/iLWm/M=;
+	b=TIFXR1gL/W3mCTLQ0SuJim344Vw8LMC1tDMgN5nXuLDDbn05A9f93/xzcB2sfGkTyu6b5g
+	l+pNinEX/FLmE6QRDCapda90DkBDJG1Ll+xU3XakPov5oaah1+tEU+uothXQNuxbc9N2qo
+	AI0xsNRnEGeRp2lEwKkElUTvsjhAPzsVRxLEo0xbhHOzKAZ76+W1smwdfYgF+GHTq9yEmO
+	F4HafTsYNOopRqMQi1OYmoHPGYbx0667GuQYETQBfQjnX9H8suYUz/sPjo/JjuflHNFh/8
+	/TOQy+4AqTsXOPXuujmIi8yNCWMQFFm1fiFdhHgNRH4K8MJnao6uq/RIWNmhAw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794332144;
+	s=2020e; t=1794332143;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qKATZfaP7j93mPzPK2LI85ABT996WxYe1HUN7LIOWWs=;
-	b=N+wJ66S4m4BSaxKMFhZP1MLw91xzVjEA35ES/gVfaBMB8vJa98W7GbLUj9cl0SNy/mTjgb
-	iQqQOSKsrULNC5BQ==
+	bh=qThPFwQh/YlsuXHUZSO9OIPn8uv/mcMeWuP0/iLWm/M=;
+	b=ZKyr49vRhR8SNTnOBremmuW9OJw3mRZt4bDur2ZXqgOebyx7f+st7NC5zahBWMo7+FnEFI
+	H4NdhHcafN6W+9AQ==
 To: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	rcu@vger.kernel.org,
@@ -94,9 +94,9 @@ Cc: John Ogness <john.ogness@linutronix.de>,
 	Johannes Weiner <hannes@cmpxchg.org>,
 	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
 	Qais Yousef <qyousef@layalina.io>
-Subject: [PATCH v2 7/7] Documentation/sched: Add fairserver to sched-deadline
-Date: Tue, 10 Nov 2026 18:34:49 +0100
-Message-ID: <20261110-sched_dl-v2-7-cc9399f7aeb1@linutronix.de>
+Subject: [PATCH v2 5/7] sched: Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED
+Date: Tue, 10 Nov 2026 18:34:47 +0100
+Message-ID: <20261110-sched_dl-v2-5-cc9399f7aeb1@linutronix.de>
 In-Reply-To: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
 References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -111,59 +111,112 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The fair_server ensures the fair-class gets CPU run-time and throttles
-even the rt-class if needed. Add this bit of wisdom and the recently
-added sysfs knobs for configutiation.
+The admission control for SCHED_DL has been moved to sysfs and RT
+throttling has been moved (long ago) to the fair_server and its debugfs
+interface.
 
-Assisted-by: LLM
+This file remains to have an impact only on RT_GROUP_SCHED. Keeping it
+for ABI/ compatibility reasons makes no sense because its original
+purpose (RT throttling) is no longer served. Anyone changing this file
+and hoping to change the throttling behaviour will be surprised.
+
+Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED so everyone
+using this outdated file is aware.
+
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- Documentation/scheduler/sched-deadline.rst | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ kernel/sched/rt.c | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/scheduler/sched-deadline.rst b/Documentation/sch=
-eduler/sched-deadline.rst
-index 23ea88b2ed7dc..f0d667e09d10c 100644
---- a/Documentation/scheduler/sched-deadline.rst
-+++ b/Documentation/scheduler/sched-deadline.rst
-@@ -577,7 +577,8 @@ Deadline Task Scheduling
-  level.
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1a6450f91d567..855e4ee470f69 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -25,11 +25,22 @@ int sysctl_sched_rt_runtime =3D 1000000;
 =20
-  A main difference between deadline bandwidth management and RT-throttling
-- is that -deadline tasks have bandwidth on their own (while -rt ones don't=
-!),
-+ is that -deadline tasks have bandwidth on their own (while -rt have only
-+ throttling via the fair_server),
-  and thus we don't need a higher level throttling mechanism to enforce the
-  desired bandwidth. In other words, this means that interface parameters a=
-re
-  only used at admission control time (i.e., when the user calls
-@@ -604,6 +605,24 @@ Deadline Task Scheduling
-  be thus free of oversubscribing the system up to any arbitrary level.
-  This is done by writing -1 in /sys/kernel/sched/dl_runtime_us.
+ #ifdef CONFIG_SYSCTL
+ static int sysctl_sched_rr_timeslice =3D (MSEC_PER_SEC * RR_TIMESLICE) / H=
+Z;
+-static int sched_rt_handler(const struct ctl_table *table, int write, void=
+ *buffer,
+-		size_t *lenp, loff_t *ppos);
+ static int sched_rr_handler(const struct ctl_table *table, int write, void=
+ *buffer,
+ 		size_t *lenp, loff_t *ppos);
+ static const struct ctl_table sched_rt_sysctls[] =3D {
++	{
++		.procname       =3D "sched_rr_timeslice_ms",
++		.data           =3D &sysctl_sched_rr_timeslice,
++		.maxlen         =3D sizeof(int),
++		.mode           =3D 0644,
++		.proc_handler   =3D sched_rr_handler,
++	},
++};
++
++#ifdef CONFIG_RT_GROUP_SCHED
++static int sched_rt_handler(const struct ctl_table *table, int write, void=
+ *buffer,
++		size_t *lenp, loff_t *ppos);
++static const struct ctl_table sched_rt_group_sysctls[] =3D {
+ 	{
+ 		.procname       =3D "sched_rt_period_us",
+ 		.data           =3D &sysctl_sched_rt_period,
+@@ -48,18 +59,15 @@ static const struct ctl_table sched_rt_sysctls[] =3D {
+ 		.extra1         =3D SYSCTL_NEG_ONE,
+ 		.extra2         =3D (void *)&sysctl_sched_rt_period,
+ 	},
+-	{
+-		.procname       =3D "sched_rr_timeslice_ms",
+-		.data           =3D &sysctl_sched_rr_timeslice,
+-		.maxlen         =3D sizeof(int),
+-		.mode           =3D 0644,
+-		.proc_handler   =3D sched_rr_handler,
+-	},
+ };
++#endif
 =20
-+4.1.1 Fair server settings
-+--------------------------
-+
-+ The fair server ensures that fair-class tasks (SCHED_OTHER) are not starv=
-ed
-+ and can be scheduled even when tasks in the RT scheduling class
-+ (SCHED_FIFO and SCHED_RR) are consuming all CPU time. It replaces the
-+ legacy RT throttling mechanism, which was configured through the procfs
-+ interface.
-+
-+ The fair server executes fair-class tasks through a deadline-scheduling
-+ server with a runtime budget. It guarantees that the runtime configured by
-+ fair_server_runtime is provided within the interval defined by
-+ fair_server_period.
-+
-+ Both values are specified in nanoseconds and can be configured on a
-+ per-CPU basis through /sys/kernel/sched/cpuX. Setting
-+ fair_server_runtime to 0 disables the fair server on the corresponding
-+ CPU.
+ static int __init sched_rt_sysctl_init(void)
+ {
+ 	register_sysctl_init("kernel", sched_rt_sysctls);
++#ifdef CONFIG_RT_GROUP_SCHED
++	register_sysctl_init("kernel", sched_rt_group_sysctls);
++#endif
+ 	return 0;
+ }
+ late_initcall(sched_rt_sysctl_init);
+@@ -2845,6 +2853,7 @@ int sched_rt_can_attach(struct task_group *tg, struct=
+ task_struct *tsk)
+ #endif /* !CONFIG_RT_GROUP_SCHED */
 =20
- 4.2 Task interface
- ------------------
+ #ifdef CONFIG_SYSCTL
++#ifdef CONFIG_RT_GROUP_SCHED
+ static int sched_rt_global_validate(void)
+ {
+ 	if ((sysctl_sched_rt_runtime !=3D RUNTIME_INF) &&
+@@ -2853,13 +2862,11 @@ static int sched_rt_global_validate(void)
+ 			NSEC_PER_USEC > max_rt_runtime)))
+ 		return -EINVAL;
+=20
+-#ifdef CONFIG_RT_GROUP_SCHED
+ 	if (!rt_group_sched_enabled())
+ 		return 0;
+=20
+ 	scoped_guard(mutex, &rt_constraints_mutex)
+ 		return __rt_schedulable(NULL, 0, 0);
+-#endif
+ 	return 0;
+ }
+=20
+@@ -2887,6 +2894,7 @@ static int sched_rt_handler(const struct ctl_table *t=
+able, int write, void *buff
+=20
+ 	return ret;
+ }
++#endif /* !CONFIG_RT_GROUP_SCHED */
+=20
+ static int sched_rr_handler(const struct ctl_table *table, int write, void=
+ *buffer,
+ 		size_t *lenp, loff_t *ppos)
 
 --=20
 2.55.0
