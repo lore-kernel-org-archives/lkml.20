@@ -1,55 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318221;
-	b=Kch+t7ntCF08iH86E7rQ6oV7MAeeQjRIXMQLQz1jjExbr1A7oPCnrSpdnfSX/rqFtFHZ
-	 dRBIu0HuaE/4uzJIdaDk2GxxDF0Xaubj0IHPM1rcgAVYQjhIE1xTXe8blo1+dIuIhHb5b
-	 XLGAxCl5z14Dzbkup6+Ypj+mtWr6WpyFpPDFbZvxJmsp7oufRswAw1m6LRy6L32lyfMTi
-	 3IcTeM/bj7KLV62zdkbAP7EyF6FCvq6qBlBHB9NJrSBG0s6i9QyGzFIDFAZUJ99lklSuo
-	 iZ5jSu3WSYSIKAIx1boyFdBjYQMchmIz9Qf/GUMcOHs+F3yxJKGWc4jJvT30VSRhCFQ==
+	t=1794318254;
+	b=yOw3bePmt09tYQMi8J2+3nGY7lCbQ9v0YRiJLxfClpxgPkP/BEeTWig8kuv7a/dY0yG6
+	 C04gch+RxtYwqSy6DQQA0jw8gSffocHd5ifZ6nZGUGynAg1zi5AktaPk5d21OLdKWYi1o
+	 AXn2LFgKZqKbUzsJNgS6gyOObb04ej7kiqsln6Y0ypWDIohq8/EjAM0yZfUq22WqEd+u3
+	 iXPlJQ+imWVMq6vh2kQHtQh/lGcHdlTJVOX7tZ8l9u1PUUkzqw3sWUVh+vETnhPu9NR9F
+	 lOpF6ldOjML4RA6C50RvYXpLhHwzXs7K2JoLkxplhFafnlLChhM/FuFUMPa34jZ9Akg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318221;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
-	b=1D3k/c+Urg+LjaZkHedA8HicKU4HCUA6cfKHmfPIzYK/JGWtTuwSrQKJdKpS3FJL2Kp+
-	 zLtcNxIWTlGg4aBoVr7GExYrQoLfuBX/CjQKgEaX4xnsXiu1yZvmdzglb8cQVM2Na6aby
-	 25NwWxTcR9DT2coYm659V8XjdeYIhJT3wKA7SFhBpnW+dO/n31y9sf3Im7Bsua27dbBNf
-	 B80WLfI9tlPzEaJTMfkdYqaDvjBtEAYS3yqDJeU7eUESgRM/kgaFb11gDo7AgQG8YLrMN
-	 6/fBLKLgVFKd6kQJJVmWWKlmzcij8PwKzf3YbPgNw3x/RHdmeJo9BXnsXNT+fbHJR/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318254;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=/8eG7V+IcDdBQXwPQjy8Y/TEnkXIzPepTQcL05EXyfs=;
+	b=Um/k+erYjVHAUzjGZqQjvYfyBqPiKP81SRz+QhhxEIS09iyewZWMZgt0oPPWEi8Zux1e
+	 r0NbESRy5Mu7gCOwXBpcn2Hfxp/CMaUCbTXecRMTnWzzcD67mwMCW9KXJ+YOJNEUQfcKY
+	 rN+S3+gPLN92jDPA03PTjH0h+4YaRpbil9H3JoJgV4gIrqJL5Igk9UKK39tzZjeqjGAp1
+	 Wmccr17r1yw9jV20GckTfsR4vx7Nl7YNsfFLdR0VFteg4ixWJjmaVjd2tltfUzLZ4J5JD
+	 CsgNG4udnxbecvRXnjcpUBVj/1GG+DItTKy5eTPmsAzNDxWEiG+aasT9mJJVhcN/Z9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D25606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82E91F008A6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318220;
-	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X35Ie0l6xxvw4jnrTxdLHJi5zZXKxSS5FgGv1NVilkBAlR4KrJMIpS2P7mLKkb1Xt
-	 DS0r8i0Q7z5BdtLQE5PXIh824UuNYowXk7WbYZJJkHuA0OUzodC8pI3ClQPZAf30aY
-	 sZIuaUv4NrelZB8undh/sLPU6UwYhTT8m1ig9prMT33gh3ic3CgI0NfO/O8jKriGjY
-	 j8uTR/5jLwEw+FWkSpG7TJq5qN88J0lK3QGTEOC5HFrY3eqn5l2E3b4z60QjA7kvMY
-	 ISzQG0xl9PkNP6gwfmWjGTgrf+zK1hdaFsJAydCJt84EX3rVty54gIOR06D+KshCWR
-	 avqEYshnjFd/g==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so1982088e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:43:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE0YhaQW1xmX0WYMW8eZEGzpHbH9u4VIC+si/feJCf7D71DcYaJRVKxtiVvSFJm3v5giCLNqVtj4XmCUao=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nL8Tjm9zrU/J3ILf1lulRJeIP8tXvb91+xmO7X/xruv7/RLZD
-	FAO6ZP0X5Wyk0FAgmDMQTm6o8ibLcmx1ji8PfMguGzmh26VWXRvYurHYLghidefTwSDCoG4L8Cg
-	Kmdw4St46vgQEhGO+tGyotJ1S/0t4b0w=
-X-Received: by 2002:a05:6512:138f:b0:5be:409b:9456 with SMTP id
- 2adb3069b0e04-5c156df0efcmr715179e87.34.1794318219335; Tue, 10 Nov 2026
- 05:43:39 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6B0606A325;
+	Tue, 10 Nov 2026 13:44:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB6B0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [127.0.1.1] (unknown [223.166.93.97])
+	by APP-01 (Coremail) with SMTP id qwCowACXwfubH_NqRy+3AA--.4075S2;
+	Tue, 10 Nov 2026 21:44:02 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+Date: Tue, 10 Nov 2026 21:43:54 +0800
+Subject: [PATCH] platform/wmi: Allow consumers to load without ACPI
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,105 +46,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com> <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com> <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com> <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
-In-Reply-To: <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:43:26 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-X-Gm-Features: AclHuK-pcwwNwXj_L6iW3-vvSkvrQjC7ziz7J5YFE42wW0pgOcr3E-9SlUnpCf4
-Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency ranking
-To: Lukasz Luba <lukasz.luba@arm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Guo Chen <guo.chen@oss.qualcomm.com>, Vincent Donnefort <vincent.donnefort@arm.com>, 
-	Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, 
-	tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-wmi-no-acpi-v1-1-eebea07db551@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAJkf82oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0MD3fLcTN28fN3E5IJMXUNTy0ST5DRDS1MLAyWgjoKi1LTMCrBp0bG
+ 1tQAnfNK4XQAAAA==
+X-Change-ID: 20261110-wmi-no-acpi-159a4cf19580
+To: Armin Wolf <W_Armin@gmx.de>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-acpi@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-CM-TRANSID:qwCowACXwfubH_NqRy+3AA--.4075S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr18XF1kAw13uFWxWrW3KFg_yoW8ZryxpF
+	4Utay0krWrXa9FkwsrA3ZrW3y5uF1fu348Wry8C343Za1rWw1kW3Z7tas8XF98Jr4xAa1S
+	yFWkGay7ZFs8ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUb_Ma5UUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwIHDGry2F7bZwABst
 
-On Tue, Nov 10, 2026 at 2:11=E2=80=AFPM Lukasz Luba <lukasz.luba@arm.com> w=
-rote:
->
-> Hi Rafael,
->
-> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
-> > On Tue, Nov 10, 2026 at 10:58=E2=80=AFAM Lukasz Luba <lukasz.luba@arm.c=
-om> wrote:
->
-> [snip]
->
->
-> >>
-> >> That's fine, please continue.
-> >
-> > I have a couple of questions though.
-> >
-> > First, why is the ondemand governor mentioned in the changelog?  In
-> > the mainline, the ondemand governor cannot work with EAS, so it
-> > shouldn't matter for this issue, should it?
->
-> The ondemand is affected by the EM setup code and set 'inefficient'
-> flags for some OPPs. The EM is also present for cooling devices
-> and can work w/o EAS and schedutil, w/ just ondemand governor.
->
-> Because EM marks the OPPs kind of 'globally' as inefficient, then
-> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
-> In the EM code we have:
-> cpufreq_table_set_inefficient(policy, table[i].frequency);
+Since commit 4ea18e604272 ("ACPI: video: Remove CONFIG_X86 handling from
+nvidia_wmi_ec_supported()"), the ACPI video module uses WMI on all
+architectures. When ACPI is disabled, e.g. on a devicetree boot,
+acpi_wmi_init() returns -ENODEV, so the wmi module fails to load and so
+do video, amdgpu and radeon, which depend on it.
 
-So maybe this is the one that needs to be fixed?  What about simply
-skipping boost frequencies in it?
+Return 0 without registering the WMI bus instead. The exported helpers
+then report that no WMI device exists. Skip the teardown on module exit
+accordingly.
 
-> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
-> pass to __cpufreq_driver_target() with that flags as well.
+Fixes: 4ea18e604272 ("ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_ec_supported()")
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+Tested on a HiFive Premier P550 booted with devicetree and an RX550,
+with ACPI_WMI, ACPI_VIDEO and DRM_AMDGPU built as modules. Without
+this patch, wmi fails to load and so do video and amdgpu. With it,
+wmi, video and amdgpu load and the RX550 is initialized.
+---
+ drivers/platform/wmi/core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Thanks for explaining and all of that needs to be said in the patch changel=
-og.
+diff --git a/drivers/platform/wmi/core.c b/drivers/platform/wmi/core.c
+index a99da9b7039d787ce3c1e0ece74ffbd79fafd3f7..6668789904a903c8d4e7810976f4e485d7a1b32a 100644
+--- a/drivers/platform/wmi/core.c
++++ b/drivers/platform/wmi/core.c
+@@ -1598,8 +1598,9 @@ static int __init acpi_wmi_init(void)
+ {
+ 	int error;
+ 
++	/* ACPI video still needs the exported helpers when ACPI is disabled. */
+ 	if (acpi_disabled)
+-		return -ENODEV;
++		return 0;
+ 
+ 	error = class_register(&wmi_bus_class);
+ 	if (error)
+@@ -1628,6 +1629,9 @@ static int __init acpi_wmi_init(void)
+ 
+ static void __exit acpi_wmi_exit(void)
+ {
++	if (acpi_disabled)
++		return;
++
+ 	platform_driver_unregister(&acpi_wmi_driver);
+ 	bus_unregister(&wmi_bus_type);
+ 	class_unregister(&wmi_bus_class);
 
-> >
-> > Second, why is the issue regarded as a defect in the code and not in
-> > the energy model?  Arguably, boost frequencies should be more costly
-> > than the non-boost ones.  At least the idea behind the boost is making
-> > higher-cost OPPs temporarily available.  If they are sustainable,
-> > treating them as boost OPPs is rather pointless.
->
-> IMHO it was a bug in the commit mentioned in this patch fix tag.
-> It is affecting more than just EAS or EM, since the EM is working with
-> all generic code and all cpufreq governors.
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261110-wmi-no-acpi-159a4cf19580
 
-To be precise, the EM initialization may affect cpufreq in general
-because inefficient frequencies are used for CPU cooling.  Fair
-enough, but I'm not talking about this.
+Best regards,
+-- 
+Han Gao <gaohan@iscas.ac.cn>
 
-I'm talking about a reason for giving boost frequencies lower or equal
-cost relative to non-boost frequencies in the energy model because
-this doesn't make sense to me TBH.
-
-And I get that such energy models were there before the commit in
-question and now they are not working properly, but IMO they are
-broken, not that commit.
-
-> >
-> > TBH, I'm too comfortable with looking at cpufreq frequency from within
-> > the EM code.  If that needs to be done, something is amiss at the
-> > design level.
->
-> I think this edge case is special, as I described above.
->
-> I'm happy to hear your view on this EM influence to some global
-> setting in cpufreq. Maybe it was too far to establish this
-> 'inefficiency' flags in there for many usage?
-
-There's nothing wrong with using the information from the energy
-model, when available, to amend cpufreq, but the patch goes the other
-way around: It tries to amend the energy model with information taken
-from cpufreq (in order to avoid making mistakes later when amending
-cpufreq with the energy model information).
-
-I think that cpufreq should simply refuse to set
-CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
