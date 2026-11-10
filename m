@@ -1,101 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322846;
-	b=bvIpoy0MxS3ocg65nYh5t4kRBC8s2gxZTyqMkmZdgnhDbC9ogfPxRQ2T9QLcg/pn9JqP
-	 5zdemjs5Svlu8u6Py0lHkVxh7QH+mqeuXWYXr91rJTj3HgT158nFePoqjs1MgNw+Qgudy
-	 nSVOsBnz6v/aokAjHWYHwCw+HOzCCk1CGA1I6maCDdxtfiGJ/xThZvGvmmfNbGTfcIwP9
-	 KiRrm12T9edZZQXhJq7s1DEwIQqjbLK5LlDUTT8YSfmtYCqF5TFocEPTAC/5OVzSXWayq
-	 AMWh6pgsdhyn61HDlaYrItvTEoAso6282P769EFyPGNd+XSNQiC4sYrMYUQ6vHTWMWg==
+	t=1794322848;
+	b=FT6xWxpTC+pZmx0iN2ASR7J46IiAOGyzvMG14ae4x3CGmrW3beYcXpcMO5Z8in/QecJC
+	 ryM1PPIrFEXDhGUGXlAqHaI3bEMdi2pk2eW9MZ+IxWzEh7pV1D9T7cKNGE0F0UZBCmHyn
+	 Z13CQ+ichn/KA2XGF3PT6HfboKfPFyjZttj4M3eV+/BfMWInnrwO0FoAh8JbGKVhRioEu
+	 pH43cpLoxzJP/1cd6IuwSOr74mMX5EtbNKD9cM2uXmogw1Z56uK7lGghm/FqV2JOjluQW
+	 huYeD1E962HxTlnRnVJXMzEwbB23Pb/t6nCCbxToZ7sk7cVDhN859hgWAKYvVL2I8yw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322846;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lerN1oA58W2Z8Jb9p+WACSxu0UlPvw3XxQk8+NissT0=;
-	b=CX4vskaXOe/mPo7UcA25C7PNta6eR2EnVsmbTp6KYcvcspnNmOsUsEkgD5ZysVTeoK35
-	 ZKRxBuxWjYAUPrYHXpNvkVyecH/GEE2Crzxc+gWIhpeX73xJIaxdFMTKbB8H0bcoKPxVf
-	 zoJ9IlwGIiUTwDBECm3h878a5oto8Q9nDh8apcgqdjBdk8kKDwv7yZgNTlwkqupiUSQym
-	 SvzX7Uv6WLktNCsabjYmrTNis7OV82My9BF8dAoJZ13cPyCdYiwCkBdN12+SmZwG8XVou
-	 qFi6FG2MOF98+t3Wkf3zsZCs4Bh+9Y+bOC1gnx8pO+hn94dMa2ZIlO7Wkml+fX4goeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322848;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=;
+	b=3odu2V2AM1zZMo6NXB7VEY9oI5nIScUOv9rIQBnLDqmFjE7kz3DG/x/VqK9kVOnPyhk1
+	 6qeIcdrDnNSCUUFpwrokmtq3rmNCdpN87mnFioiv09KrOfD4R66ZH+roIElcPQz29Jhsn
+	 0LaI8YD0y0tHmKnrdS3Xzt3+IqJ436DycGffow9Xj6lI+xG4EyEVuHRIH8RqxQH/X3lLu
+	 oWLBbYMLw3LnWAU7JwxrYIhozKVvFWXKO5nLyRo3PbOCBCJAdad3jpXuckPOFfdZS1pB2
+	 nVJgBNIE8KEDDqEphJo0tYqJSVaaDKL8l+EjryQRNzNRbQyHBVcUJtYCyQh24pkN2sg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lF8kNUXv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F339160A3804
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:00:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F339160A3804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8665560A5BC8;
+	Tue, 10 Nov 2026 15:00:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8665560A5BC8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lF8kNUXv
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e10a70540so1302101f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:00:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794322844; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bSTXuCljfjzgUW4NpyBOBDILQDq0gF3kzykLtv2wbyGHMgm5tEX506ugtvmy97NwhM
-         W6++vPGdabkH+DQr1LqaNEJs3BxMahF8d+LVdiqRahgaQtisnybvnLOWKkcSpQsTSGpu
-         9xOQ/GbiQI12YTuvYviYT09SHEmkQeO1/ljkLcFtiDXgngouJleH1J6PeyvMswK1bK9D
-         cmHz29noPfv4q+U6Dm83nLh3hYcsbIKiZNs4+DFHP+I3U67L91HMQY+6N0WCFLrMFjBs
-         GoAS39rQBt4gpIe11tUvfVI9g2gOHnpDhnWB1l6i11gMMvaVNNMKi/HlJZDZmf+GhHX5
-         hf2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lerN1oA58W2Z8Jb9p+WACSxu0UlPvw3XxQk8+NissT0=;
-        fh=5WU5942kqnMlN61odA6St1utU8cn1ROvReeL59BPOAc=;
-        b=MoShHrZ7Nvru+IFM0NOG2j05VxppyfQa2Jv9myuQvu7UzUTnHGU+4/zCFUkjXw0JBx
-         ALfKgRuoERrxeLfW9CZw0zOzv1Dbmsr4FfBqsGjkMmymCzOBGL+6Uu0RjPzKN6Y2Khxn
-         RLPEiHeXS2hzyYK3hDxzmDvwU4WqerCoxfPwSsnVU2cNZTMy6Srf1cYjkl79ir7pgQ23
-         aH6IW7fwkNbeYor7SggmFhbTyq94Xu4tHT76Dd1ECw5y3luO8tcGHLYadqmEWTmH8BrM
-         zeJEJ3Sv5Edsja31RL3Yyd4iPau50fKXfouqdpnzJTLfC0Bd3w+wW1gs7kNpdzNFlZSe
-         6alg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794322844; x=1794927644; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lerN1oA58W2Z8Jb9p+WACSxu0UlPvw3XxQk8+NissT0=;
-        b=lF8kNUXv9vRZwcLl8/eos8sU/Jdi6f9PaFIm8XYKZAeCkMQt4hQ7bsa3IUf6P3fpgz
-         I3VbtrsLwLYqKuiAfkoQlxrEUIwLmJJ+7n3+NV2dboruNg70FKcnZCYJeUYnwhAQXocL
-         wJ8t4/QLFWOkUWBG9mT9sFmMw8PbXmBWyaEXvd2GOnRkdsTD6ojl2gl8UHOkxi4X/i4g
-         vnHbxKquS0kkl1QLAfgu6OK5seYVS9AOrp2x0rC/6OLOBNMgmhfeSOBp4pojJNxgC/aQ
-         rZGyxErxqyRM0KOL/cfQ4bP3FzfG3wiDn46tnSjjhsQHc+1TxpLF9HGKkrFeI9AXrUxC
-         Fj+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322844; x=1794927644;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lerN1oA58W2Z8Jb9p+WACSxu0UlPvw3XxQk8+NissT0=;
-        b=FFUInzmMlseeaYiERYqVzK+kr6/siF7/wY+qIdzxfzVU3nIxSxWqrVku7xC9/LzXw1
-         OKv68rtUKc780BgTbrvPt6E9QkAA7pdw+jGC7lcJhQRjqlQlnuwCo9TKK+FLHvTgc/16
-         G5d1bTl87GxGXp0S4ws5fvjUzCEIeAEpCeUumRS2KzAIPo3V3ZCG26Nvau8qI3dx+mTS
-         RjG1ZZUnvEWUFsS5rSkutJ5BDuYFsPilbSFDET10zeT6GUWSjp9K+IEX20oFUE23d/QG
-         /fqzn7H+f4EB8mk+vg/t4aK8zJdrS/FJ6n6fSD6C97Pznn1GzDXq37XRkgUiaaYt//mO
-         adcg==
-X-Forwarded-Encrypted: i=1; AL+hErHzjbpmoqoR2brR1ggCUgoUUo9na80IWb65CvfKsJEKJgQhHkcyOylrRWGoDBSvkrmxVID8kYybyZeR21I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/p0cHHyA+wkd3S3IbfZ04UI6ITJsyh10zews5fTK8O0TL2ZMWh
-	q+4jHnk7XMNz7Vx17EIFuAx+UJo7ztqYqZrD43cOndOVs/zkHIWsG3U4CrMA3tpr4yG4HBl1F+/
-	Jv32qgOMfH2hAvBoHV34IWxO0dg75kAk=
-X-Gm-Gg: AYBFou2Ojx7HkDf6U0un/zC2+sh+wR+tPzUQq66uo81TkM1A1xxFZzUQSVzg0DOTCfD
-	MO6jCEDryi+Jo9CqE2cuLKiYUj83WOSms8AJjq64Z/FsiYRFJfO9Y1Bhdqsf4CWhpeXKxcX+LNL
-	dlsz/ofJKwVsfxTWBWUg5GbJjg9tCgc6BsSD2j6f3R4Onb598e4fJldNPokuvuQG/byc+/s+3XJ
-	lxFuKnhFrvMReEKQq+SSoQdv73DrOHMyirdcX8f32vox1n3l/diWdr8srkAg7iiIubYirx6BU89
-	279eCojO2O1ylXg+2VdMiDigq4XWjtE0WwIoScZbnaLMxmj00NLaZtmUHZtQm9Cu9BPE/YM28RF
-	8E6Cs7tqqKCgyEneiOyI5s5m0RiFPJAG1AEWavu930IHOAC7isoQnU5QnzmAufi9IMLlmrvn0UV
-	YE6eDtRKmNpBggEW4woI7Rfz9OH5tkFbsqTbrSws4ARiOv09J7P3Ow
-X-Received: by 2002:adf:e011:0:10b0:48e:66d0:664c with SMTP id
- ffacd0b85a97d-4982f2b4b58mr4108324f8f.15.1794322843878; Tue, 10 Nov 2026
- 07:00:43 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ
+ARC-Seal: i=1; a=rsa-sha256; t=1794322829; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Eb0p/omXtaq1k5nxNfO+ujP/HRbgPhXxnjYl+jPdYc33Yc4CrkysC7ePkukgW8NK5IKc5RY+vhGMiAznLn97L7pksj0kVP0VZ1zSIMSmmfMe1WNC4FF183uIUlrKrPSETt5Z75rc6eSv7KOMulct6Wto+FSqVTG4EzDTjhT+YMM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794322829; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; 
+	b=G9ld2mFn+L16/WrbrJefoNJzbBywfBEPAo+iqStgHa6C6TF5jHufoDYvw2tnQhDwUgHu4Zl7LC2qACeUO5z0i0bWjSMDNeEZG7n6jsKYHlAgvNB7ThslS4sN+7ErElweraMVKzr0KRYQGd5GilNe5cFtg3BEkanr62mXWRAWPpM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=gDpkEvFJvIQrrlLE8Kbk9F2ORW97VzC+pAoFvwtWAdavuP8rXp7dDxdBG0pvOYEzPRLWJag0ME6Wb/fcmYkLCkagSxHhVF32qTeT1los1whzDp4eLXfbMyslEUXbKBlIA+InyXnlx12Js13nHIYPDnzuc94GNosGA4yZb2G+fVc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794322827521487.8316939248318;
+	Tue, 10 Nov 2026 07:00:27 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id D82A2180354; Tue, 10 Nov 2026 16:00:17 +0100 (CET)
+Date: Tue, 10 Nov 2026 16:00:17 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
+ the RK3588 PCIe SMMU
+Message-ID: <avMwk16cTHMQIwmC@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +73,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com> <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
-In-Reply-To: <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 10 Nov 2026 08:00:32 -0700
-X-Gm-Features: AclHuK-XBZsgATZ4npwXhUnZcAjEJ-IievOGuoTbtipAN4Uucan3rCpbmZ9SRXo
-Message-ID: <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yvnwakyswhfsguxx"
+Content-Disposition: inline
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
+X-ZohoMailClient: External
+
+
+--yvnwakyswhfsguxx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
+ the RK3588 PCIe SMMU
+MIME-Version: 1.0
 
-On Mon, Nov 9, 2026 at 5:59=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
-om> wrote:
->
-> CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
-> counters are updated regardless of this option.
->
-> Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
-> stubs when CONFIG_DEBUG_FS=3Dn. Skip statistics setup silently when
-> debugfs is unavailable.
->
-> Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Hi,
+
+On Tue, Nov 10, 2026 at 07:11:51AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> The MMU-600 for the PCIe controllers (mmu600_pcie) is enabled for every
+> RK3588 board, but its node does not describe that it lives in
+> RK3588_PD_PCIE. It only works today because TF-A leaves the domain on at
+> boot and, on most boards, an enabled PCIe controller holds it on later.
+>=20
+> On a board that disables all PCIe controllers using that domain (the
+> Orange Pi 5 with its M.2 slot in SATA mode is one), genpd powers
+> PD_PCIE off as unused after boot while arm-smmu-v3 is still bound. Then
+> at reboot arm_smmu_device_shutdown() writes CR0 and polls CR0ACK on the
+> unpowered block, which stalls the bus: the kernel never reaches
+> "reboot: Restarting system" and the board only comes back once the
+> watchdog fires.
+>=20
+> Describe the power domain, so genpd keeps it on for as long as the SMMU
+> is bound.
+>=20
+> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU =
+on the rk3588 SoC")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 > ---
->  mm/zsmalloc.c | 33 ++-------------------------------
->  1 file changed, 2 insertions(+), 31 deletions(-)
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk3588-base.dtsi
+> index aa69fd3793fd..bcd342c025c9 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
+>  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
+>  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
+>  		#iommu-cells =3D <1>;
+> +		power-domains =3D <&power RK3588_PD_PCIE>;
 
-FWIW, LGTM:
+The TRM says the power domain of MMU600_PCIE is PD_PHP, not PD_PCIE.
+See Table 7-1 RK3588 Voltage Domain and Power Domain Summary around
+page 1096 (depending on specific TRM version).
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Note, that PD_PCIE is a child of PD_PHP, so it makes sense that
+PD_PCIE also works.
 
-But I come from the perspective of large(r) server machines - I'd wait
-for the feedback of embedded folks too :)
+Greetings,
 
-Sergey, how do you feel about this direction? We've run the stats
-collection (even before we select CONFIG_ZSMALLOC_STAT to expose the
-stats to userspace) for eons, and it was never a bottleneck AFAICS in
-our fleet...  And the stats files seem trivial, relatively speaking?
+-- Sebastian
+
+>  	};
+> =20
+>  	mmu600_php: iommu@fcb00000 {
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+>=20
+
+--yvnwakyswhfsguxx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMYEACgkQ2O7X88g7
++prfPw/9H7V6CFJtfI0s9f5zQ1tXpHmng97aGYhRQAxloE/LcvZHpFI8zHFOAL+3
+/BQfGKhYVHxw0VEO4VSVrIbaLWag1mtFtYfjINdR5/uT6937ctWfyskTfMuKf/35
+O3nOwz8Uihhq3ZbA+AFJ+DLbUiRs7+Ka7rn4IxvDE/YEZrVPFJIRmU/iJ5NZTiDs
+u8AVATgGiVEmYXFkrqUr3siaEB5QiITUOkv8F4y5i9xYcrqnRr+9LrwjXVsjVpn+
+cySgWnAySJ13eX55L4XktWLXiqd26EaK7dRTcWsNm6mACod8BP1sGtDJkS310fFv
+Utzx30B9Qh7ThWXF2HwdmeqSGfzWFc54k8IHtmx7PcpKkxmOFXG5+e7gOw1IMCE0
+Ro9SQxIwJ44twPtPyuQyA/nzqvui8ZmzFhZ9TmuKjyuR1tOLmg1546WVLJroN3+B
+ceLNYAhT94Xopbf4C1WAA8WWOSEuhU7ILyyDB+LqVQEG8YtaP6d9wFq0vRDxKbXj
+WITuytLrKkMWWjwXtq2qWko1HLDCHv1SV/1lmw7Vxye2Gx8mLIjnrRXgRVfhcmZA
+TC7g/FJ3/oEvKSbf9OrE5LglaqBWGgwbzN+e/g7UCoQnfHKOwHB9phFeOj7nUTvW
+/zzCKbC+DQ+HjRbMKlP9bEw/GgJebMSK+fDAM7d68zim0FCJ5Jo=
+=Q6ux
+-----END PGP SIGNATURE-----
+
+--yvnwakyswhfsguxx--
