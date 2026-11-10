@@ -1,87 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281866;
-	b=4yzrrMccuig4C+y6Ldo31kx9OAn96UNNdZf5TQH5aKnKpA3Qu9Fs9H06Km7/SALBC+jZ
-	 aiqWPQK5oGnin2OL2hEKs1a+/n35c2LacnVj8wBg7tBwW1QBSZYJM6CFPU2fctb1QUAAq
-	 kyvUulbDfKuSDECbXVGVPm/9jzIDo5tQkyp73oDrtwc/ofWO/nMn6J4YVohafGGTaF7dY
-	 Q1m429SlvxSUxZbiDCqV1z+vqBbfAwUDJnC9UkFumCz/p+RlP2UEMXzqblqkuZkzlRzJA
-	 LIsJ93zeu4l5mxmAYuC9KoTXYm0VX5r34Nd6/reWonTito+yA942/afcSX8i3QyNwjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281866;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0bFyB5NYJMmix1JXZ8Gfv/sgxvyiynVAalRHTQxAKf0=;
-	b=x9QVm96wlrXXNYunaIdENDww40d4IMCJSpf4mfGKppla76D6DerNznnswiWgYL/70UzI
-	 nx4dke747P2oVJeDCKqIrgdRg46NXL+Z6tkzxIIRKlj+BZEFn9m8sSpv9bWzeJ1WOvzgO
-	 QdlFlzUlM4A8h+hLiIXPA8w4Sdgx9Af00M0G3nOVvYtpWdj5rp9cDRukJAXuICCvopn62
-	 6alo6AuQJohXl2KL+B3hVF8DlMTXpd71WLs7L8jwle6DpoLmTqcUMbulrrZxC01w9Aqiw
-	 ITuPo+nEPtf5bF1/6TOaYEsninWsAEsEgvrwSS1oYK6fXYyd1jb4JxdWsoPMjfhwyzw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Dbx/iSV7";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794281859;
+	b=BsglpE7dZNEyTwjaVCfLP7dhOm1HoJSj/CzqsLvxzsmymrKtgSvaic2LaclXNKp1UeCU
+	 0UjFqvH7/pox+qfabC8yz1S92PwmTYEDYhF0vQa2UzRBnMTxZacen6jxC8Wf4kbopeZJC
+	 dCXMkeGYxIAHAoX027aP8AhR4oPrgWmeHLTazYaooRrBxUkDbHBYV20hMj+EiYeIh1/O4
+	 JrQIu7V4jng3m7UyfKF//DrglazfquC2OwPRAx4Q4WqISuGX0QohrcHBYv1kIoHgghyLP
+	 z8kQVbgG2Ee4jB6ej5NQFEzGA33DETBbUfkp5wnRdddymEriY2PBXd+Ug2gRvzs+TKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281859;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:X-NVConfidentiality:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UA3JzOcD8AseSokwXvgTFCDIVIanwkUCoO93Mvm0Jc8=;
+	b=cczHlhwJnNdv+GKRfhlCvGo9/JMQnjL60pDGNvyetgpnLB75rGmO0jhfbBMUbHRX8XXj
+	 UdcyyWU6IIIuvD7oRXnoRPGyMqlMrC94sCp7YeSIQL0Scq2oqWu2nQEAKjXmyATNuYbIO
+	 sDVaUyv5UbZPcNSG43DvnY+k2Wm7bBgurODpZIYWYcNsb+O6e7vPzf5GhBvi3L7mOEM3m
+	 AyJUoLB3jsuQM+6TG5fbwoZmhkYNeg43Fjy1+z7nBbfS0s7q5J9rUltZ+k31UOiy+znIp
+	 cMTDiLaLriJFyIOAtFZQTUBrwDHYOmO7Vbpx/7XEGaFHs+w5BGsCewEYrkVC9nowsZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ALEsgktN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.19
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013019.outbound.protection.outlook.com [40.93.196.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D6DAF60A2636;
-	Tue, 10 Nov 2026 03:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0960A2630;
+	Tue, 10 Nov 2026 03:37:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D0960A2630
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dbx/iSV7
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D35021F008A1;
-	Tue, 10 Nov 2026 03:37:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794281865;
-	bh=0bFyB5NYJMmix1JXZ8Gfv/sgxvyiynVAalRHTQxAKf0=;
-	h=From:To:Cc:Subject:Date;
-	b=Dbx/iSV7cTFsIAJDznLTkufVlrkOhnjBV1cdey+SDcIKfykuCIOCznQDmK8cIGAKr
-	 XHRMOyPCAPRzSfBFKQuEbYxApURNV+VZZKudQVp3kvp552SweD9kMHWZ8ULW1DmDXu
-	 CC23s60NtKoKlZ6YzaXKXjW1mpq8UtU2fUfYeL/5hNf3Bm298a+LeZKmvbnMsQw84x
-	 9zjvupy5vLzpgptoLwZDevpW8tSJIBaDDBx2zq5LUUnJN3TAmAy3/ZpVHO/lfZ0tJL
-	 gefEPFVeOEQ93XKdJ/5S4C5N2qEVK16EMI6EUf1qwVxBouuRLCUoyS9qCbUkklg45k
-	 ByB2IbA7lGjfw==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH v7 0/3] KEYS: Replace assoc_array with rhashtable
-Date: Tue, 10 Nov 2026 05:37:35 +0200
-Message-ID: <20261110033738.2495880-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ALEsgktN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cRrwhnh44FGOngd9eYE3CxLfFmTU+/jBvhXZt7s3c3j0cNrZVavKsgRV0N/FzqNe4sV5oYDnynuSTh+2Y65Q9yd72IwgukcNtCWEoffrDvSWksv3J/hqO8w3SvUjzoeLpm9XnbM/cVtCk4/ms9TFW0t3GheSUz207B3WrUqZPLjev1C0Yx8FQzMxjKNkOc6upeYJP4r3Vg6mr1zzbx78l2PDrgAxa1QA8GCoIHNpLTFsJ+5+QPlXZaWgDCM3rQIpgUBHxqKU1iaREjG5CDgasEckxyDQfMwXGMVPFhHwR5loOUYTNFhYhaz1VjHNgj+X4fisqS7SKTUFgbxCNlisWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UA3JzOcD8AseSokwXvgTFCDIVIanwkUCoO93Mvm0Jc8=;
+ b=jhs9DjXoCeLCWioTTXRXbWYFO3SsHvIkAzZIppIIRFComkxtKM7Wwj8+Bcb+lOEPoOeXG0nTVo8oLPAYtFJyjMyhVowbM5b2DY8RlVouX90ufyQDoW7qJM7m/d8kr9XpxNQzlQyMsBgl63981EuOo7Tt3i4y8fW4wNmMjHXcR1zXQKsbjpMc3x/aIlIUj2uRY9gnUPqmrEvIEJy0FsDJ2G68CXOEEoWllQrlj3xNvdQ3Ln2ZzkkqBfqz5jCjx+Ter7MRR5j45F3KLpS8KZ223TYiCz0uperpjwyq9mRpSluNSgw7BGIzr79xMzn0n2pohaK4tZ+eAt5/OPxtAyANmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UA3JzOcD8AseSokwXvgTFCDIVIanwkUCoO93Mvm0Jc8=;
+ b=ALEsgktNmUuVI49RQwexZkpUCLf8fUyRExsF7vzoHVR/0W4kyChgWHaFpVbwfO8jyRoVXBNHjuhX4YJBWcv9ggnBR+ALt3czULjtIfZjz+srqNK73YYylGoOGdn1T6e9s9OQXt+URBygwce/LkJyK0bHLovbPAHn0okCGSRl/8xsfg+atpArqzXXw9SRPXxcrs+WOj2Tbj8li1ePuWbgTzXUXbBbIyyCuFeGp83tJxHITaax1VGclb/DyYjZrkP8EbHJeCdfT1Rh2S7GKwHk0GUTMwNNtoxXxDhvYFq5cd8iRqqMeCo0w203H1aXROqG42/192QpujZq4KaK8Vf8Aw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 03:37:01 +0000
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 03:37:01 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-pci@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH 2/2] gpu: nova-core: factor out and expose Falcon::is_processor_suspended()
+Date: Mon,  9 Nov 2026 19:36:54 -0800
+Message-ID: <20261110033655.148487-3-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110033655.148487-1-jhubbard@nvidia.com>
+References: <20261110033655.148487-1-jhubbard@nvidia.com>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0221.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c1::16) To SA1PR12MB5614.namprd12.prod.outlook.com
+ (2603:10b6:806:228::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,166 +117,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|SA1PR12MB9514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85e7a17b-8383-4959-8d07-08df3edbe1a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|56012099006|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261009223027099003|261021121427099003|261021123027099003|261022113327099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	Unm9qImJ5eYCuEy4myDEtFLPmVZUXPVv5rADgD8srUrHXFGdPjZTzl3CfXy5ZZjtyX2dlCKrMiAGnEuAapOqS/ubGGYvY7QnooiXufcC8gCSzskSUlvVcekMlNwOS5zkugVPu6rfZHrQaKtm0O6IZQiwwaVaZKeKIKhZNDCBJEotwawqjxThW1j0scnDA+rBT7S2GBfOPcVNcn6kHYpoG55bRpWZBcqFyO9Wp8z/Frtc/0efn8GqLarh7izYl4LISP+aGLaG8vm4kKlA0JBVusthKrAAyVcP+GcSWcu88oemqRatDls5KEtzf9xoGiTA9LKCRq4tNetEKQU8hNltu1dnwoA/zvqCFudNe16O5Qk/NvjDJr3hVU3P1O9HfUdymFirWA2I0jHHc5LOk3rCLr/5GM7lprvzA1A2Wp6w+S4YfE9sny6cB+23bzLjSdUNq05Z9G6allgEsKdA6SNZFXHzxfdJ4JmsI9hKjjWiaXZOP8RJj60q7eIOiN0Mt9mfqFuj7QFVO9BL0x+fPHY/Xgo2n04LgW/WdFuSWrc9a/+55i/vWyAOMxQjZMtNTFWvDabKsONF1IVy0Nwp+xJU4N77Z5S3COYfCuDl0dbFh3mTCVa0jLHwLEAYvlv+uiVkcVzD8uvtpqEZKBzaA4+ZMx2v5O1gp6WuAK23iOVmnVg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261009223027099003)(261021121427099003)(261021123027099003)(261022113327099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?njnaSXwBgqtsymoP/4duUu3/Hp0k9HaPM2qo4RsJM9fiAL/nqrRjTUhafIme?=
+ =?us-ascii?Q?HMCYRa6h7FM6DtzMZiN2aXSDMh2ssBSAC3jnfHsA9I3Zi5uoorRNgS5/Ye/N?=
+ =?us-ascii?Q?tqcBIX5RR63tUcmdA0cHWmPq0MSiu0Hab69AeNsjjtrPmhatMlnQ4HP5MERD?=
+ =?us-ascii?Q?4QyAzK7+Q6LW29GrKZEIJWESjJ6rb3qv1TeNx2OX7KdX34qIlJ0+AssFgNft?=
+ =?us-ascii?Q?miLJyB+V3wViXjHoRqNocFME79Y/TqqoXGgvKYD0jM92ar/AfBbV1Wy0fXed?=
+ =?us-ascii?Q?oXiGu0j7UJ9LjC7ztB8pRmGkUeQ62j3PM1kEOcKRucLmVKqULq7FUScu3tgg?=
+ =?us-ascii?Q?yCFXwKwkfEJwM1WnI8TbBkqweGq36+3bGHVsjJ+FtTlrCsNk2tYPwATPZ1ax?=
+ =?us-ascii?Q?u5xMlf//H6/1Alr+25o3dgQfWFAIIc84AbxK2MRrYr3S2yhFdV/SjE63hNYJ?=
+ =?us-ascii?Q?aJQ1Y0oxvYZZyvpgA1hVZLcPO0/B/mD6ckT/iWU2H5qje2zoteQvWM992V+X?=
+ =?us-ascii?Q?PvvaJwhEq+KJfXPKcA2VMskzQAfK6GbVJkmZ2ws13IZb5eNyQx3LeefYAgA8?=
+ =?us-ascii?Q?ydMv6UecgVjTAj5ANiORkFyBeKJ1mfBk6GCenN6Yr8141CWGmlgDfEC3SFy2?=
+ =?us-ascii?Q?oFyaOOy5mXCHPH3gpSQT+MUQG4UB5juBUJUOkdwl8VjZxhFEDpoq/DQD+Quk?=
+ =?us-ascii?Q?PzH+NeKQD1XSF3weto5kH3eaOfUpjWaiwza/+uCbRJiwxQcajI1MKT+FPGrM?=
+ =?us-ascii?Q?JpynHMxwFysLS+ITimenkZz2g0btPnPfME63JkHjQt15CaA4fnqBnqmgv4I4?=
+ =?us-ascii?Q?XYhWPiepe5K8OMMsdbYG91Ab/ljlaqGkYyzguQG8rrgUOxJL42Z9jScZOCuC?=
+ =?us-ascii?Q?TvdnCaAQ9XPJ3xeJQKORSrnOwGeRCAGOmIJPvHYUipK2ynObkVfOJQfkxD9w?=
+ =?us-ascii?Q?fP07ZpayFxe/kBe5v2l9iNKaNTK/P/fXDrJo+Cw8WzBnMrVCYnviZ4QuTDPa?=
+ =?us-ascii?Q?a2L2QJCvy/X2EIID97phK2UxbZ/s0V4cKhG30DstjX0aCSwr3OsEiGuQMC5W?=
+ =?us-ascii?Q?1q0Km9gG+hEUQsteqKGzQS4Rdx1oCN7IH7FUvigMC5BXqkyi6tEuVY64ZRev?=
+ =?us-ascii?Q?UZeTsTmDAFSPy5rynxXuPcyc4dLayAnPOjcYCnfULGSzoVvO5zcxjwOAJb41?=
+ =?us-ascii?Q?TwPfVnnk3lpZ4F+JOCmnz6Ae/B4TRf5B9nyzyRdRn0DJpgAQt06Oje0iC/vF?=
+ =?us-ascii?Q?sW03E6+GZlgFSlrZfn5WNBk9jclF7NTU9zN4rEnth2pNEKJww8k6Nk9xJLnn?=
+ =?us-ascii?Q?92asDBcXUggZGIGc72RiR66dtTRf5HDo7b3VJxy/XFZwJTiYQQXhWhrON79L?=
+ =?us-ascii?Q?PpcrsTC+U/wmqpFAYBx35ZCkysfHEfmWdgZJkRDBWyBhV3zeCjU7aEnCN6pK?=
+ =?us-ascii?Q?PyBD51aJj7wUHthUYUZ1bhUR1D5Bd0u3t4zUJiUnBWiGPcJCrwJhKKxrojx6?=
+ =?us-ascii?Q?xEkrARZvOGC0vukttD2WW5W0E9CV/6SeB0k1lCp19S4GEZ5s54L3TvErgUv6?=
+ =?us-ascii?Q?EbgDw5+LNcj+pgbrffGJXZuvIP7tOPuLfDtnCPQwdeldtKEhmgpa3cv/fvCK?=
+ =?us-ascii?Q?wZbcvRKdtdA5RgJnl4f7QvOSY7jWMU7ZVsIlNcxKvPoo4uA5EKoDM+MnuW6Q?=
+ =?us-ascii?Q?YwedxSuBbrvSttBXc9G/sgrwFOaCY+Dtf1DaDzFg4+7V2TUQ6f2UakguQQBy?=
+ =?us-ascii?Q?Gy062z8blg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85e7a17b-8383-4959-8d07-08df3edbe1a3
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:37:01.5646
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 99Ym+OVfjWFA8YqBq1ozphCwmPETU8YO023DneKEbd5Wm3ZYZaKk4MmfMyLxnnf8AOrJfFGMgjLcsFQ999deYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
 
-The keyrings subsystem is the sole user of assoc_array. It has over 1700
-lines of code, no test suite, and a long history of bugs, with LLMs now
-finding more.
+The r000 boot protocol requires the driver to wait for the GSP suspend
+bit after each load-and-execute event. The shutdown path already does
+this.
 
-This unfortunate outcome has evolved over time by large from the shortage
-of in-kernel callers, time bandwidth and 3rd party contributors.  What the
-keyrings subsystem needs is just a generic key-value store, which performs
-well with sparse key sets. Replace assoc_array with an rhashtable-backed
-keyring index and remove assoc_array from the kernel.
+The boot sequence will soon need this same functionality, so factor it
+out into a method, and put it in it's logical location as well, as a new
+method of Falcon<Gsp>.
 
-CHANGES
-=======
+Also, use register!() for this, instead of manually masking off bit 31.
+As usual, that results in much more readable code.
 
-v7:
-- Rebased.
+No functional changes.
 
-v6:
-- Eric Biggers: Set .insecure_elasticity = true in keyring_link_params and
-  drop the -EBUSY retry loop in __key_link_begin().
-- Addeded Reviewed-by's from Eric Bigger and Ignat Korchagin.
+Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
+ drivers/gpu/nova-core/falcon/gsp.rs | 7 +++++++
+ drivers/gpu/nova-core/gsp/boot.rs   | 6 ++----
+ drivers/gpu/nova-core/regs.rs       | 5 +++++
+ 3 files changed, 14 insertions(+), 4 deletions(-)
 
-v5:
-- Eric Biggers: Include <linux/jhash.h> explicitly in keyring.c.
-- Eric Biggers: Document why hashing type/domain_tag pointers with SipHash
-  and truncating the digest to 32 bits are safe.
-- Eric Biggers: Rework the commit message for "KEYS: Replace assoc_array
-  with rhashtable", including behavioral and operational changes.
-- Retry rhashtable_insert_fast() on transient -EBUSY in __key_link_begin().
-
-v4:
-- Eric Biggers: Correct the kerneldoc summary for keyring_is_empty().
-- Eric Biggers: Truncate keyring_index_key hash to u32 and drop index_id.
-- Eric Biggers, David Howells: Use a proper struct instead of a two-element
-  array to pass the edits.
-- Eric Biggers: __keyring_link(): Call key_put() in the rollback of
-  rhashtable_replace_fast().
-- Eric Biggers: Retract from using __free(kfree) in keyring_get_index().
-- Eric Biggers: Reuse keyring_link_key() in keyring_obj_cmpfn().
-- Eric Biggers: Document why keyring_index_free() uses queue_rcu_work().
-- Eric Biggers: Fix the commit message for "KEYS: Replace assoc_array with
-  rhashtable".
-
-v3:
-- Since David is away for the next week I decided to address the
-  low hanging fruit that I reported myself.
-- Unified and sanitized function and variable naming and removed
-  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
-  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
-- Flattened the implementation by refactoring out some useless
-  wrappers and other constructs.
-- Addressed continuation after triggered WARN_ON() on at the three
-  sites that I've described in my email response to the previous
-  patch set version.
-- Reworked keyring_read() so that it triggers the scheduler between
-  the iterations.
-- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
-
-v2:
-- Tried to address all the issues pointed out by David and Eric. Tell me
-  if something was ignored, as that would be an unintentional mishap.
-- Updated and trimmed the source code comments.
-- For assoc_array_edit I decided to go with two-element pointer array,
-  which shifts a bit what David suggested.
-- Dropped is_keyring flag. It was so obvious call so I mention it here
-  just in case because too obvious maxes out my self-doubt ;-)
-- Used cleanup.h primitives where I possibly could especially in order
-  to make fallible initializations more bug-resistant.
-- The already-ack'd bug fixes are included but will be dropped as soon
-  as I've sent them over to Linus.
-
-VERSIONS
-========
-
-- v6:
-  https://lore.kernel.org/keyrings/20261107195605.3929659-1-jarkko@kernel.org/
-- v5:
-  https://lore.kernel.org/keyrings/20261105031401.956609-1-jarkko@kernel.org/
-- v4:
-  https://lore.kernel.org/keyrings/20261029232437.2581640-1-jarkko@kernel.org/
-- v3:
-  https://lore.kernel.org/keyrings/20261025001105.1824178-1-jarkko@kernel.org/
-- v2:
-  https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
-- v1:
-  https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
-
-Cc: bpf@vger.kernel.org
-Cc: dm-devel@lists.linux.dev
-Cc: fsverity@lists.linux.dev
-Cc: keyrings@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org
-Cc: Alasdair Kergon <agk@redhat.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Alex Shi <alexs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Andrii Nakryiko <andrii@kernel.org>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Eduard Zingerman <eddyz87@gmail.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Eric Biggers <ebiggers@kernel.org>
-Cc: Ignat Korchagin <ignat@linux.win>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: James Morris <jmorris@namei.org>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>
-Cc: Mike Snitzer <snitzer@kernel.org>
-Cc: Mikulas Patocka <mpatocka@redhat.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Song Liu <song@kernel.org>
-Cc: "Theodore Y. Ts'o" <tytso@mit.edu>
-Cc: Yanteng Si <si.yanteng@linux.dev>
-Cc: Yonghong Song <yonghong.song@linux.dev>
-
-Jarkko Sakkinen (3):
-  KEYS: Introduce keyring_is_empty()
-  KEYS: Replace assoc_array with rhashtable
-  lib: Remove assoc_array
-
- Documentation/core-api/assoc_array.rst        |  564 ------
- Documentation/core-api/index.rst              |    1 -
- .../zh_CN/core-api/assoc_array.rst            |  473 -----
- .../translations/zh_CN/core-api/index.rst     |    1 -
- drivers/md/dm-verity-verify-sig.c             |    2 +-
- fs/verity/signature.c                         |    2 +-
- include/keys/keyring-type.h                   |    1 -
- include/linux/assoc_array.h                   |   88 -
- include/linux/assoc_array_priv.h              |  178 --
- include/linux/key-type.h                      |    1 -
- include/linux/key.h                           |   29 +-
- kernel/bpf/keys.c                             |    2 +-
- lib/Kconfig                                   |   14 -
- lib/Makefile                                  |    1 -
- lib/assoc_array.c                             | 1724 -----------------
- security/keys/Kconfig                         |    1 -
- security/keys/internal.h                      |   14 +-
- security/keys/key.c                           |   22 +-
- security/keys/keyring.c                       |  994 +++++-----
- security/keys/request_key.c                   |    8 +-
- .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
- 21 files changed, 479 insertions(+), 3643 deletions(-)
- delete mode 100644 Documentation/core-api/assoc_array.rst
- delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
- delete mode 100644 include/linux/assoc_array.h
- delete mode 100644 include/linux/assoc_array_priv.h
- delete mode 100644 lib/assoc_array.c
-
---
-2.47.3
+diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
+index 1faefaede9fe..54247691b53c 100644
+--- a/drivers/gpu/nova-core/falcon/gsp.rs
++++ b/drivers/gpu/nova-core/falcon/gsp.rs
+@@ -47,6 +47,13 @@ fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, super::PFalcon2Registers> {
+ }
+ 
+ impl<'a> Falcon<'a, Gsp> {
++    /// Returns `true` if GSP-RM has suspended the RISC-V core.
++    pub(crate) fn is_processor_suspended(&self) -> bool {
++        self.pfalcon
++            .read(regs::NV_PFALCON_FALCON_MAILBOX0_LIBOS)
++            .processor_suspended()
++    }
++
+     /// Clears the SWGEN0 latch in the GSP falcon.
+     ///
+     /// While the latch is set, no later message signals the tree, so a caller that consumed a
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 1887806dc330..9d5da5b165ac 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -2,7 +2,6 @@
+ // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+ use kernel::{
+-    bits,
+     io::poll::read_poll_timeout,
+     prelude::*,
+     time::Delta,
+@@ -98,10 +97,9 @@ fn shutdown_gsp(
+         cmdq.send_rpc_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
+ 
+         // Wait until GSP signals it is suspended.
+-        const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
+         read_poll_timeout(
+-            || Ok(gsp_falcon.read_mailbox0()),
+-            |&mb0| mb0 & LIBOS_INTERRUPT_PROCESSOR_SUSPENDED != 0,
++            || Ok(gsp_falcon.is_processor_suspended()),
++            |suspended| *suspended,
+             Delta::from_millis(10),
+             Delta::from_secs(5),
+         )
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index df2eddc58efb..3a0c7159fa7e 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -147,6 +147,11 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+         31:0    value => u32;
+     }
+ 
++    /// `MAILBOX0` as LibOS, the kernel that GSP-RM runs on, writes it.
++    pub(crate) NV_PFALCON_FALCON_MAILBOX0_LIBOS(u32) => NV_PFALCON_FALCON_MAILBOX0 {
++        31:31   processor_suspended => bool;
++    }
++
+     pub(crate) NV_PFALCON_FALCON_MAILBOX1(u32) @ 0x00000044 {
+         31:0    value => u32;
+     }
+-- 
+2.56.0
 
