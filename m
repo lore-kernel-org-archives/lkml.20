@@ -1,90 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=139.138.61.253
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302676;
-	b=FQGeuQrqXTZgcVUDX0VJ/16AhzWm8ys3NKoKogoBVFowztTX1hxlopsSyue0d9PrdCwb
-	 5XruqSXKGaz1dtj4xdjZTQe/In1YPGGRnESuqTuqSzw4oFFl09Zo1HO28nFwx1IZvlfOZ
-	 IIu5BsF/AHvJFHM6L0BRCdcWhkvdCmcfKRjDA7GvxElwhGVkxcPyYlL+g1WZ9Jw6V6GO7
-	 0Qb34eY2/d2++1A/93X/xnst2hw3yfPwUQnqiHnASCtz2EEhs1Cs2I2u9+YuEl6iELnTD
-	 d9mT29Pe5yFyMQbtfp4ikXEYlVZ50KCgbKHr5ZBneDskF5Jgw1K4pdUd4GduOrYO6Qg==
+	t=1794302683;
+	b=Yc9ImWZfrVRtk8PZlEC1BzCTj2DnahkwPEJaEj2jWf7C38Gn1C6gp5Oa3vR6aUmY84jJ
+	 fG9Nk3VqD1QapP7hvFgVf1XW+7NPPZB5eRWFX94sKaIQpATo5FZ5rycF09QDQiNDL/EP9
+	 +PVEqWl+OvppGqFUGLFjpkL9yYiXAbrjiKcqj59MXRy/0pUazYVhJjgmwcMplAO+gnD1O
+	 9/i3dMQkdZnG98Ccry2CoNmuHanUdPbVZKsx+WbsxB/JC9M/2ZEwxbXT/hAikvajr2/l4
+	 jirUy9t160TO/1oMck6UILc+RqKbOXnxkl5ApT0osgy5/CArIzqZeN9VUGbC5eLuy3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302676;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=LWR9vxDpfyJAKF5RgruZrTkh8ttPuorehv2eynfAWfY=;
-	b=pEVnOgEhAZ2PmJSAFerKRqD+ApEFFLE89opOnM5Q2vUpXm+N9wGNS/v4ZPldfngf0W9I
-	 Uv1gxsvN97Hwa2fxEGE347sNHvjGDI++2whXmA5OQUQfRAV3d7rbNoAnw0ihrlLpCv8v5
-	 rdsi8LELcLWgEm3GHT7bZViFW8kwoJMay8AQwCBm3n5JNRhifE5Lfaquv9g99CAMBRdcw
-	 v50ec6EeA/kZA0S+gl83fqDIXAfWObk0uFF2DBufDzMVkb1lNBro1wM/pnfFLwFlZFjlJ
-	 LZfW1dhyKWEDrc9lREflYnfIw0Jztvol1JcrDBwhH33Ybs1/hQ5jhHMooOhMZO4py1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302683;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=anLdELyja2Hy69l1U4K5GC3KSWyOsZhor6+5I7MJPrQ=;
+	b=pQ+DL/c8FzaulqvYZuxUwjw51mYrsXKMt66aqeQBGQguPYKJDEGYBIfV1yiWrmnxKXbx
+	 GiSfS7Z74zm09cGUJ2szA9pNi9Q+NiPJvCIn2PW4RcIGsbimhcgAFdcvIKuChofaIsN3g
+	 P1Xm+oGY6Qata3R3l2DpWL1y38j99hfM6GegQdg264UTbNrBK/xGZ+Bku4DSWxuBMcWwJ
+	 WMntF8pCMC3UJTc1W7b5lWAmDMu5lSwNL1mqe3t0aovx/duOgy3ZG8vD+PeLAmgAEXwyE
+	 FtyZznHtkp8x/A97b4asvvw9dxI3bipJy2VU2Kvdf0m0n3YIQCWuq/Qwou0xS7nFzJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=EaeWgrwa;
-	arc=none smtp.remote-ip=139.138.61.253
-Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com [139.138.61.253])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ESB/PjWK";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2307606A931;
-	Tue, 10 Nov 2026 09:24:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2307606A931
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4096070B34;
+	Tue, 10 Nov 2026 09:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=EaeWgrwa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1794302675; x=1825838675;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tAn9etkH1K72b0If4iL3ZP13Ct439bRX2/j7e7dhMuk=;
-  b=EaeWgrwaDOP2uWivmn82R+CgZA/y9lrW5an6zb8Pgswinl3jQ3VrgC/r
-   vUSzKo6U3a1R8a/Gbcd7nIhjzUTNej9mPqLlcYZ/FKMaRkfTZsyJ6E5C7
-   WwkdiLK+5M2pVy2K8vkwoVL9+80z3j1/0i4cnf8YSGK73AMN4n5SvLr7t
-   kPall5bXyN4g/hKp8mMVplvGSCQZsywS4ZPw5nBj0X9LcefTMQpl69AGz
-   AQvC2rkTRMqD2mKxSNbAgbHNEo1bDszphpJbrfAtodLf9uZ6ruQVXRml+
-   okCZaT4cwFliLgnPtzzLqj1O2OwCrxyKgOO0rXaS0CMrz0ugHjq3VcCZB
-   w==;
-X-CSE-ConnectionGUID: /ckuOwG0T1ye/yfEKCRCUg==
-X-CSE-MsgGUID: m5wMWlCXTYyNN2Mytkc13g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="249236744"
-X-IronPort-AV: E=Sophos;i="6.27,205,1786978800"; 
-   d="scan'208";a="249236744"
-Received: from gmgwnl01.global.fujitsu.com (HELO mgmgwnl01.global.fujitsu.com) ([52.143.17.124])
-  by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 18:24:27 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mgmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id DCC1226E1;
-	Tue, 10 Nov 2026 09:24:27 +0000 (UTC)
-Received: from az2nlsmom3.fujitsu.com (unknown [10.150.26.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 9650618026EB;
-	Tue, 10 Nov 2026 09:24:27 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.61.34])
-	by az2nlsmom3.fujitsu.com (Postfix) with SMTP id 3ABC11019053;
-	Tue, 10 Nov 2026 09:24:18 +0000 (UTC)
-Date: Tue, 10 Nov 2026 18:24:17 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Steven Price <steven.price@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: Re: [PATCH 00/11] KVM: arm64: CCA: Prepare Realm memory management
-Message-ID: <avLgdqlfUPMAI-r9@FCCLS0092175.localdomain>
-References: <20261102141304.126883-1-steven.price@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESB/PjWK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C931F008BC;
+	Tue, 10 Nov 2026 09:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794302682;
+	bh=anLdELyja2Hy69l1U4K5GC3KSWyOsZhor6+5I7MJPrQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ESB/PjWK+7S4hjQjB/73o85ozUTxNGJcqR0TnfzJKkNnd6UYrv4E7xJSc1bKO//Hn
+	 rkf4+WQvzyZf42O1qbYbMhUlmgr1W5deOzJJmZ5KUMYJKnnpWtoXVYXj+dtdZtyPoS
+	 xxrS1xZ9mP2EWgJcmiidxffyNNuo5GynD31uah5rmQUQHROrdjeqVIc3FwWbOt/y4s
+	 iE2aCm5GxutXvK/N4gExiTkv5wRs7xrv9DSKusBdgzQawHVWyUg7snClrfR+QAU+ip
+	 DJKYBZLvhsxN84M2YjXVI0YTj3dOCOF3l3zhtRrYrZmu6uDkut5NaVFPbagJucH2mt
+	 RrlQ9HWeLrLTw==
+Date: Tue, 10 Nov 2026 11:24:35 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Chen Pei <cp0613@linux.alibaba.com>, pjw@kernel.org, palmer@dabbelt.com,
+	alex@ghiti.fr, pratyush@kernel.org, graf@amazon.com,
+	shuah@kernel.org, guoren@kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+	kexec@lists.infradead.org
+Subject: Re: [PATCH v3 2/4] riscv: Add support for kexec handover (KHO)
+Message-ID: <avLi0_mYXatBWmpL@kernel.org>
+References: <20261106071459.2003-1-cp0613@linux.alibaba.com>
+ <20261106071459.2003-3-cp0613@linux.alibaba.com>
+ <179415145358.358073.165272378597657083.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,39 +62,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102141304.126883-1-steven.price@arm.com>
+In-Reply-To: <179415145358.358073.165272378597657083.b4-review@b4>
 
-On 11/02 14:12, Steven Price wrote:
-> This series adds the memory plumbing for CCA building on the basic
-> plumbing[1] that has just been merged.
+On Sun, Nov 08, 2026 at 10:24:13AM -0500, Pasha Tatashin wrote:
+> > The generic handover paths are already in place on RISC-V: the outgoing
+> > kernel publishes the handover FDT and the bootmem list in /chosen of the
+> > DTB built by of_kexec_alloc_and_setup_fdt(), and the incoming kernel
+> > picks both up while scanning that node. Only the architecture symbol is
+> > missing.
+> > 
+> > Set it to 64BIT && MMU: ARCH_SUPPORTS_KEXEC_FILE is already 64BIT only,
+> > and KEXEC_HANDOVER selects CMA, which depends on MMU.
+> > 
+> > Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+> >
+> > diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> > index e7891a2a89da..a5c56252ff44 100644
+> > --- a/arch/riscv/Kconfig
+> > +++ b/arch/riscv/Kconfig
+> > @@ -1125,6 +1125,9 @@ config ARCH_SELECTS_KEXEC_FILE
+> >  config ARCH_SUPPORTS_KEXEC_PURGATORY
+> >  	def_bool ARCH_SUPPORTS_KEXEC_FILE
+> >  
+> > +config ARCH_SUPPORTS_KEXEC_HANDOVER
+> > +	def_bool 64BIT && MMU
+> > +
+> >  config ARCH_SUPPORTS_CRASH_DUMP
+> >  	def_bool y
 > 
-> These patches add the internal realm VM state and RMM feature checks,
-> prepare realm stage-2 setup and teardown, and provide RTT mapping and
-> invalidation helpers. Realm memslots are now contrained to the lower
-> half of the IPA space, because faults treat the protected and shared
-> halves as aliasing. The final patch then connects these helpers to the
-> KVM stage-2 MMU operations.
+> Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
 > 
-> There's also an integration branch[2] that builds on this series and
-> includes the realm descriptor creation, REC entry/exit, activation and
-> the new uAPI. This series by itself is also available as a git
-> branch[3]. However the new code isn't generally active without the full
-> integration branch.
+> But pre-reqs. should be applied prior taking this series:
 > 
-> [1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
-> [2] https://gitlab.arm.com/linux-arm/linux-cca
->     branch: cca-host-mm/v1/integration
+> 1. https://lore.kernel.org/all/20261023054518.3258350-1-gthelen@google.com
 
-Hi Steve, thanks for your work on CCA upstreaming.
+I'm planning to send it to Linus this week.
 
-For testing purposes, could you clarify which TF-RMM revision (or commit
-hash) you tested with? Although this MM series itself doesn't seem to be
-particularly sensitive to changes in TF-RMM, testing the integration
-branch could be affected by subtle changes in the RMM.
+> 2. https://lore.kernel.org/all/20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org
 
-It would also be useful to know the TF-A revision, if possible.
+This is easy if we take it via liveupdate tree :) 
 
-Thanks,
-Kohei
+@ricsv folks, how do you prefer to play it?
+
+> -- 
+> Pasha
+> 
+
+-- 
+Sincerely yours,
+Mike.
