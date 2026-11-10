@@ -1,148 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794311993;
-	b=URDuzVJMXYgyX5h00JA9/EhYO6BoTK5mk3dNlJ70nQZvXJVlQ/OISftyeK1E6zdi7+Uh
-	 U6x/HIqc0PE+kl/Dm3DOsLMLpdQnKm/kM5Utuz3bib2FhRYuE15wpuIY87+uheEnJTCRq
-	 ytgN7BeMmSvVBPnRkiNEzPgO+ScPzQdfrjawHgXM7Teegbp6FgH9XE72d6ViirrQYju6/
-	 gv4m8u4fmQYSDY8o1NICV6UPn8gIHrn4/FOks63Wh4nmFzdqJfNkjCpehAbErjgLVSVvX
-	 RzG8W/LNg5hhIZuQrG+Qy39X0hRd+VHWM9la0XgwLMs1Ay/yvpZPZYYza5p+Z/jvQ1Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311993;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=V9/hmEpW7VhCM2APgNcx6VDBdyZLPM+ZVWuCrNLxXzM=;
-	b=JR3jYwtgf/myVBIlg0FtpkWq02aFkpaQKj9Y8sfrXZx0LXJRPx5FuAcqCoaWa7WjnfPY
-	 kM2Eh91mcFg7na0DSyWPa6t3w7ywTpoDCcK0uGg55A+hkB+beAZpf6vxe7Si7UpxMqF8Z
-	 OoSrFv9QPKUdAKTGYTcu0C2PIvirfsCQ3Yds4/t3oY4MtA3oIO9B/eCNG+p2D9n9m/03z
-	 mj4AWHX1zeCkUFejFLM8EVKG59bdl1aAh7mkr0MVLaAhBwBrxeDWRKXtMI4keYMDfDJ6X
-	 Pd3n8trq/kBuZkVBoCdtnYbfMiiA9KRiXUjIrcdMQhI03kQ0QKqZfvx5z8slT4/clCw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ikgGded2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.61
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010061.outbound.protection.outlook.com [52.101.228.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794312022;
+	b=ec/5eobh6gPn5jwYT/CpTnQ3dgWQrDk/aMI+AxRcXAJA/L7kNGLmF2UcJcz3Ph2joyys
+	 /jm6be83EJ/qE3FkGCWTIjwYzpEh3orNMG2ruJVtvhfnTbSOzXNYHrjOiKE+2zPFE9ot4
+	 ziILbhwuxL9SsZdkKrNPRekeIae8Ehuy9ZQ19/d4CgIgyLkiDOxiLbPsK1neY02cY2uqr
+	 UPafl8prhL3Z9AefB8HETN8yyyU80mgp2jEKAndLQM69tmNkzAL1LFNzVtOQyNiPQ5VaB
+	 kbHddUHLYxfP8aaYrXAfkZn3nAJKKeAdPDVJC0zhatEGhLw1LCZ9o9r3AwfmeLpbG2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312022;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5X3zb3VH4w0Ie2RKn7QlDBjKtcvMvn58SYuQeOEmpyc=;
+	b=PEGTeQ9o/OgqvupaTA9aHfe1uyrPIePGcfFifrt3xO4Gj8E4W9CyNfIvymzpT2zYE9W3
+	 C8Q/KCZ6jNppl6nJonggDYnYHK9eCKZgpDCck30wxth2yrtV77zT/eEjnENg1k0K6PMIJ
+	 Mmy7P6qbdW0btJhtMuSJWNpoF2AkaJBDPZgNbLyZxCWD1lGfh4Be2NhBTniY87D8b7Et0
+	 jdAJK92Xf2EPGKsydwgvlo0oD4sdL55atQz10vG0O0Y6KnHnaihKGzRA3/f5EStfPqJDI
+	 pETrnqXCHf0c7f+5J6Cq7+U57AtilvMaBbGVH+q6z/hGNo7ztcaCHpV12aIsYT7eadg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmpchzK2;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F55606A31C;
-	Tue, 10 Nov 2026 11:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81F55606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68192606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68192606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ikgGded2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N4Azm49Q5Jaq2klVhRcJHF+qeG7NmP5cyJR3q05vss4sCNs7xkgwHEllBhlvBSy/vYPeCSw4F1lPvQWKa6Y56eOv6nRTleHXQEIkWOkZ4y/s6ZNhqyyly0ntqiahVn9AQaqqYwaqdQcSrVeBFgmFJ7SSOUki/iQRGtgZYJfTx92W/G4i55gu85xX+23VOWwFcgdluhRQcfpK3lNm/lbfrYK0dd3PQicZPMCkRd0bFVtL5gdh1eOKwMRMAphMp3iR9ObHMqt4FWVKKeHhR7ud2LeJxPBv2rojGmSCeEKzvzDq2lUyT6r57OlGdKt65lydLESKDshlRXUKovvW9K2zOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V9/hmEpW7VhCM2APgNcx6VDBdyZLPM+ZVWuCrNLxXzM=;
- b=J1Q5aCoJaBxUfhtmGVfbNUnGSM4OYx9Ag7tFWSBU2sLnfsqNBMS59cXLYEvPTkhoRUiLacz64mDfnQvKlC96G1L+0zTM5EyNuWs5WgZzQe4WyuvDPkj45UQBay7LRsoebQLJLM8+W8W7U1Ivf2i6Oznm50rHo6A7fXY2wZKMGn1swjLn0+CnWpJMl43X2+d5Z0COYfCuG5eKEQgw2PZL63oajn0Ow44MK9jGorcw3DlZ7VlI3YFodtHpMGb8SIdJvqlZ1c3mItKSF08FiTqLvj6pluYK5Gl9lIqUZfRUfbRIjo8I7ZqfhJLJYzxx96B/+7IUldPt5u1bzAYNtRXurw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V9/hmEpW7VhCM2APgNcx6VDBdyZLPM+ZVWuCrNLxXzM=;
- b=ikgGded2PsaQAXu2ff+yoG4FUWMzA2DzU+vEf01ZY4XOUgNCNlPpOH2uYoOpb7IduFNt0GapbUVZffPPJ+H0n6HMLcmzKrOC8hghl3EiQ61gM/Mv7s+S8Huw/GcRJ7sFeDc7te7MBn9ow8S4pgF5RHjePqgbSuuxGZ/lKvZlgo8=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS3PR01MB7174.jpnprd01.prod.outlook.com (2603:1096:604:149::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 11:59:49 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 11:59:49 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
-	<prabhakar.csengg+renesas@gmail.com>, Fabrizio Castro
-	<fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH] drm: renesas: rz-du: mipi-dsi: Drop duplicate
- platform_set_drvdata() call
-Thread-Topic: [PATCH] drm: renesas: rz-du: mipi-dsi: Drop duplicate
- platform_set_drvdata() call
-Thread-Index: AQHdcQkfBhop1o3vvU+JgV0KsDs5cbcnMzrg
-Date: Tue, 10 Nov 2026 11:59:49 +0000
-Message-ID:
- <TY3PR01MB1134683B4AB5DC97B70F76FB586722@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261110114622.229608-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20261110114622.229608-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB7174:EE_
-x-ms-office365-filtering-correlation-id: 3602f887-210c-434b-7c8e-08df3f221f4c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|18002099003|22082099003|10067099003|38070700021|261009223027099003|11063799006|261022075727099003|261021123027099003|56012099006;
-x-microsoft-antispam-message-info:
- CJ9NhDDMsxTMwfK+oBfG6/l9p4d93AnaMhr0S9gqR68UOeH/6wDdB8BpAcBxc88iZzvF0UFmeFwFOfu4FE9CQ1YuzXJAtTv9tOscm2W/U0JaIkEhv0Y188ex+7f7Db+6dtjPAMTrKmFRwiuvamTul3m8moCB+HorS47qFMpNC4IW+gSweA7hHKpAU1+ZZav2d6qjWsKIC6gXxf4PNo6OtvAw/SuaXmq24dO0Hp/mvtf8UYXDlr56LQ2PVhx1615JkNkOKmDL0nXK82jwCWJPPA6PRF/ajzHPxoPwg8tZUxTxvXBoelLNMfvgvyKWqeWaZj9QT2cbZIaXl3uhycjhNeV5wlID5vZgAx+YsaXNWmCLl4sZwTj2jBlaYVK48tOScG7jEfXltB1ZnEQGPrx1K+BJ1ZoPS0qg2CRhA7eX+To616XIXfXf1jMkKqUDZmR7Jgkh3ZgjhZ48Pf+e9dvMxJSaKkz12sjnI0yFeBmbbpJ8cfEjmln6d2M32Mm1xgQu3MrJoaazUPuWkVccFjGxknfQRKcgYEl9uNFtaCc1E8JM02ZUYGZ6b7DuoiyRX0swx+Zh6oLsZ1OJhCJLpNhxNmd1N4qonKQpKdjrjxLCmmFyajFTRsYujwBO53vwLb28wwB1T/yNl0J6QlYe5z+U+lIuKPT10uYU5SDO9OAOo4Q=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(10067099003)(38070700021)(261009223027099003)(11063799006)(261022075727099003)(261021123027099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?GUMhQ4v2qAVuLQ9tzr4ondiqY3Vu7iMPDKsMJhOgiKqh3Em+5UzOg+fodY2q?=
- =?us-ascii?Q?OBzcC0YI88LaQXuyn6veBVsORZDje5QYmBtcRoGFSejKKO+GB5U8uVxuaVDT?=
- =?us-ascii?Q?Y+AEtQEsPSHafxGE3JCAx3zJJYZ38IBLmJWWFDl79vnwInZSsvpv++a/3utZ?=
- =?us-ascii?Q?PdOiaobszkd6pKLaKW+m32GndIqQwayBOrNlhbROhJFBc0RFS4aDo38+cY53?=
- =?us-ascii?Q?LYNEA3HElP/JP8skZxMfUzkw0Ofe8KT80+mE1LexGm0L4Z6oXCkUckLvPQeS?=
- =?us-ascii?Q?CwoNDWwgmIE1dQy7zSBJi3VZ3u1e2pXSfEBdch/pcaYleKDWc7f5iqAbC0Y/?=
- =?us-ascii?Q?asRPt8/kOTBtMFufaTaQmdOWWqJcK8A3FtyAvlGIqvfvYmIP4LUVJALXIWRs?=
- =?us-ascii?Q?AZ19SQdfj0fIv9kWh+9EbrjHfmkZC9e65Uj7Otl6E4TRIOLhEhuHDs3P76kt?=
- =?us-ascii?Q?BzspwvGrLJLVRU/0qtAQiXEEEvoWmo0eHFJh92W2G/5X5g82by6EE3zrUqT2?=
- =?us-ascii?Q?y1YKHadEJIbcEynDzaONv8wXRWT0sfKcwNRSmuQsjXn5ceLPYneGusiHM5dc?=
- =?us-ascii?Q?rX3xzBQdYJ9Jh2B6H7q/c25+yE/ebkeds8WoigKWFdCgFe5iXH8/rNTgsx0L?=
- =?us-ascii?Q?3iW9R7cVxWNG5JkCy2pcklKhMdqsD/HHsXc3g5J3+837ZUEP9m4Sjcv4MhJA?=
- =?us-ascii?Q?X/Vu+fwV+/yuL8FUAPCtE1ntHD3oLHE7F4pUjdaVGAYR4aeIZ+GCz1RNUfz4?=
- =?us-ascii?Q?nlIOkTy6PE/HkW2ff6W5gTd5CNgLJb3aumCA0Yf+C7jAeTIxYMKbsALIWgxT?=
- =?us-ascii?Q?EnZ/y8titPM472eNwjGcS5bzZ42YHwxU6MOlLCzRvlg+CQoRqUiYmpTELxMs?=
- =?us-ascii?Q?4aNDdk0s2wRV4hxa3D5Y1JwFjg3076rUdjNJZ7PuyE6hlBZFnne1rVJc/1J3?=
- =?us-ascii?Q?AGaL8b88B+ZEI4lOjivPV95qmlf9zoSxkO3vAtI/qoW4RkF5flmSjNJSOPBb?=
- =?us-ascii?Q?JvBKtrhN/KdGvsqCyJLpdSYxrQIDbR3dTDDFfo+XvLNG9zj0cOb7f8ewJyWq?=
- =?us-ascii?Q?92h4gkAZRIRSAzVRornRFWc/25vvg6reKVWzOnAOA5W+RkcpuFIFKmi6Q3Zz?=
- =?us-ascii?Q?lzjCmSLmN3WJwIffZZwqvDBqo3qDcgJrAPAu0SeSVhIYAN8Y2uBwxUlwtHJH?=
- =?us-ascii?Q?hNY93Uh1ZHHPxHsr6OyiTkCWAkK7Q3GIy3UJHZMMLnLoO/EAwoVr5aAI9pM2?=
- =?us-ascii?Q?QUCb1CnCogOqh44rM4qr7JUZl08thmlKGX2FYDcVxaVy89V+krePZ3SOxXJg?=
- =?us-ascii?Q?KgvOUGDykL4oUbjE7NHX5ZT8AMFnFJVwL88ngltiMnrS5mN7kQe+afZdIAHD?=
- =?us-ascii?Q?sxyK5KiESzOrFG5E4jvNjUJNNRShFW3M9aIEm+FGgnbnxjaX6ad0Do8DAG+z?=
- =?us-ascii?Q?PYsFXpkMnaJ4CRduqsqCODPO+nze/hrrjJWiYAJkNO5JKr7kYwZyK6kR12fT?=
- =?us-ascii?Q?qOCslkqqySskcio2V//v0KKqPL9MTIzyQ0bEJksT9HaWsy43XwZuPsBRrnxb?=
- =?us-ascii?Q?M16eRJfES4wkH+HQi0NG4U+mZNI0sWx/SxKcgJtd/XOpKbSdBrYWv/2C0tSK?=
- =?us-ascii?Q?Wwpif3ZnytTz/rmxHfSiHnKILK5kFWJ3QITAsYt/gJuwcaAzUcycPUOA+FK0?=
- =?us-ascii?Q?JQLrNw6qYfYbRvYX9HWp1nepARoUti7dDkMy5HlgRT1i9H14XkmaCwyu3REV?=
- =?us-ascii?Q?HhSUgFfELg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmpchzK2
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so15722075e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:00:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794312021; x=1794916821; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5X3zb3VH4w0Ie2RKn7QlDBjKtcvMvn58SYuQeOEmpyc=;
+        b=xmpchzK2ATYRBITRt7/sepYMIJFbxa9hoAXjYxMVUbIaigNRiAVUEEMT5IFFHkkbHM
+         gbNUlE34vmLvq8KLJ1qEwfx4vLrgrtb9Mvybjlavt4YUucd2wNKLH6Sl7dFOtFZFz8KK
+         gyuCc1aYErPCjZLM7rEVj3NCkl77A2ZcuJWb2QVF1A/a3DZcoL6UuYrTB8ibjiLfgR63
+         IiWTa2o9HuRvBkXjOtMLmvfhyA9624B4smZZlTWBT1fUW0scyuGBCCr2zA41vX+jb5Hu
+         X0aJMqyxqzMhlzIIW0jEHEic4sdTZ2U6/qT4Pda4FLFG7UD80VzLs0nbdTNyQt+IgGkQ
+         6Mrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794312021; x=1794916821;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5X3zb3VH4w0Ie2RKn7QlDBjKtcvMvn58SYuQeOEmpyc=;
+        b=e7FhbgfhSyI01Ujzd2GhhbVJ2mFp1WNxr/HNr2zE/sHFkzpAFr86DynZFlQOEudmm0
+         EV6ZIpelot8V/sxy6u50vdwIX42lbECyp83+RXNippDt1mNaGCcx6MFGIcKfY2Y/zbut
+         xDHp5NwhXUtwUvtSuwO0Fe4nqCN31OIAeL3PF4S55Po5y9VkzuiOdPOZEwcxhTOzdCxG
+         ovDRxZbQOtR0/P7Klh0hDDYW9uYAeojmfkr8hFaPrKTmkG7eq7dX4tjXa4W4G+9rOajJ
+         skk2EWquSmzS35+x/jVffwGn9X3tlKFRqGXO31KLkJroEGRrp/Jj/sIIKdRHlYxW4UuX
+         8wIw==
+X-Forwarded-Encrypted: i=1; AL+hErErWPvVyUjky+NeVo3MqttM1ieVeZ2f8ZkpC5IFqurrDARkD6B8+yNOkD5GuW16+T5OD/5cw0Ul196lFJ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U4sMTTHLuCnr77MRx31eGRROwIHbgg27Venp3XnDtRkY3yaJe
+	dfs2Q2le7aBOGR5o63egsGDEzeQcUqxsIz5jJYLu8XKcAg1GTc9/Wu6K
+X-Gm-Gg: AYBFou18AxEm6pVNb8Df3KlFDToEXRjmuIs/6oT9yRWUjr17uTA+SixUaF2qMPxk+uB
+	U3Ani1Ul2+XVKiZcsN3/n7YbRX1GzGlkihtN7s+MLKm4I6kc0JRMYaMM+j7//Nye2Qu2RbglfG3
+	27pNT+ax7FbvEbmDCnMxtw+YNU8Bkl6yHziQR6/EmTcVL5mdHOwG64vwlu4aAtl26D8prqY0kAA
+	Vw/d3fL19/0Yi5bH+hoEeUI5jMlxBmG93ya/CCtpR2DCs7XVW4d8WD7+eYNK7lOTaP03hLfBFfJ
+	m1GLBc1ouRcV/7qKxZPKDUjfl5fxi8bkxCU848Prv/hRvXQwwQ1pe0IS+tXuZAGSIhlRxLFn98r
+	EgpTC9JDIScQFnJtTUMj9xHfw43lhk2bT0o5XpCgy1+HDGVa/Dvi8lAoJJgGBuA2gQkD2DGYWNP
+	ZWEohREDw4TIgzTAt76KvIppXnJY3yvjDu+EkF1OJV9/D7Bgx3GoYS+iDCZ3ZREWtko7RMxZWHu
+	+DQtNMH3THopPe03kscj2SQtN19IkHZlhd03p1cH8B9rq3HubV3hsznvhxUfY0/WO88JtiuVnwT
+	IEjcNRN4A6lnyNnlxY9YseyK
+X-Received: by 2002:a05:600c:3e07:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4ba0234a8f3mr43245435e9.22.1794312020086;
+        Tue, 10 Nov 2026 04:00:20 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea9eesm97526925e9.11.2026.11.10.04.00.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 04:00:19 -0800 (PST)
+Message-ID: <d4bb71af-cd1f-4d42-b724-916064f4cf0f@gmail.com>
+Date: Tue, 10 Nov 2026 13:00:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,70 +92,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3602f887-210c-434b-7c8e-08df3f221f4c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 11:59:49.5876
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nYZeVZLQRNDdFXm1hx55CAgyw6RK3+MELJQZbN8pngRIBekN62NZ6X3XkbvPss63CA3NGe2FZlDMWChSzZv5n3hA8fDmZod/GXkqgpwKwDQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB7174
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
+ into pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
+ <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
+ <c8dd3102-38f8-4972-ad2d-97545fd8c8d4@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <c8dd3102-38f8-4972-ad2d-97545fd8c8d4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Prabhakar,
+On 11/10/26 11:38 AM, David Hildenbrand (Arm) wrote:
+> On 11/7/26 23:23, David Hildenbrand (Arm) wrote:
+>> Similar to mapping pagecache folios into page tables, let's reject
+>> additional references when splicing folios into a pipe if the refcount
+>> is at its limit, similar to how we handle it during GUP.
+>>
+>> This will prevent more cases of possible folio refcount overflows with
+>> large pagecache folios.
+>>
+>> Let's keep it simple and check in the two callers of
+>> splice_folio_into_pipe(). Return -EOVERFLOW if the limit prevents any
+>> progress, so do_splice_read() can fall back to copy_splice_read() when
+>> read_iter is available. This keeps sendfile() and other splice users
+>> working when ordinary reads would still succeed.
+>>
+>> Also fall back to copying in FUSE when taking another reference through
+>> fuse_ref_folio() would exceed the limit.
+>>
+>> Also check in try_get_page() to cover pipe-buffer duplication by tee()
+>> and partial pipe-to-pipe splicing.
+>>
+>> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+>> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+>> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  fs/fuse/dev.c      |  5 +++--
+>>  fs/splice.c        |  8 +++++++-
+>>  include/linux/mm.h |  9 ++++++---
+>>  mm/filemap.c       | 11 ++++++++---
+>>  mm/shmem.c         |  4 ++++
+>>  5 files changed, 28 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+>> index 3641abb90d6bb..4f6b7b42bfd3e 100644
+>> --- a/fs/fuse/dev.c
+>> +++ b/fs/fuse/dev.c
+>> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
+>>  		if (cs->write && cs->pipebufs && folio) {
+>>  			/*
+>>  			 * Can't control lifetime of pipe buffers, so always
+>> -			 * copy user pages.
+>> +			 * copy user pages. Also copy folios at their refcount limit.
+>>  			 */
+>> -			if (cs->req->args->user_pages) {
+>> +			if (cs->req->args->user_pages ||
+>> +			    unlikely(folio_ref_count_over_limit(folio))) {
+> 
+> Linus points out off-list (thanks!), that fuse_ref_folio() should have
+> really used try_get_page() right from the start.
+> 
+> And that we should just not fallback to a copy, in particular,
+> if the refcount is invalid (<= 0).
 
-Thanks for the patch.
+now that is said out loud, makes sense.
 
-> -----Original Message-----
-> From: Prabhakar <prabhakar.csengg@gmail.com>
-> Sent: 10 November 2026 11:46
-> Subject: [PATCH] drm: renesas: rz-du: mipi-dsi: Drop duplicate platform_s=
-et_drvdata() call
->=20
-> From: John Madieu <john.madieu.xa@bp.renesas.com>
->=20
-> The platform driver data is already set earlier in rzg2l_mipi_dsi_probe()=
-. The subsequent
-> platform_set_drvdata() call uses the same arguments and is therefore redu=
-ndant.
->=20
-> Remove the duplicate call.
+> So the following is what I have for now. Once we remove the limit
+> handling again, that code won't change, which is good.
+> 
+> I went back and forth with folio_get_checked() naming, but decided to
+> not mix in the "try" as that just reminds of our speculative refcount
+> handling. (folio_try_get_checked / folio_try_get_referenced)
 
-Some thread related to the patch [1]. Can you please drop the first one and=
- keep the second
-one?
+agreed with that.
 
-[1] https://lore.kernel.org/all/TY6PR01MB173770FD0BA340F5A50633E21FF322@TY6=
-PR01MB17377.jpnprd01.prod.outlook.com/
+[snip]
 
-Cheers,
-Biju
+> -			if (pipe_is_full(pipe))
+> +			if (pipe_is_full(pipe) || *ppos < folio_next_pos(folio))
+>  				goto out;
 
->=20
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
-/drm/renesas/rz-
-> du/rzg2l_mipi_dsi.c
-> index 5b257f5adf06..985d6e02203c 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -1576,8 +1576,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_dev=
-ice *pdev)
->  	if (!dsi->dcs_buf_virt)
->  		return -ENOMEM;
->=20
-> -	platform_set_drvdata(pdev, dsi);
-> -
->  	ret =3D rzg2l_mipi_dsi_pwrrdy_init(dsi);
->  	if (ret)
->  		return ret;
-> --
-> 2.56.0
+nice!
 
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+
+-- 
+cheers,
+jose a. p-a
