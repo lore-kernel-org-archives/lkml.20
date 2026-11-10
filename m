@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305410;
-	b=fGfpV/SfxrG901CL1mkLCINm0AJhiiN+20UucDXS7SUIDkROzV5cBs5q1NQoYctZO6PQ
-	 PihCS7O5C9WA+blI0VlOyHUa5WE5WfD7+SG/zxp3zkNsZ9IDIgMCcLOkcoyw0TWz1GgJ+
-	 3wkRX6uacfgvCe87uXwajYq+bGa2u0uA/bWbBP1qHyiS80daawsUrDhLdfXHJi7kt3WRe
-	 iIMLCNaeoyQ0/90Nhg3DfWwTd+7qdYGOhEyVVoTafKNSlRQ3PWehb9hnxiiR4rG8lbuQ5
-	 /q87QsmbdfLvL9utOF/2az445d8s6rszV3MZPJvST5hQXK5ptIOdlVIsrXK6iuRoiYA==
+	t=1794305407;
+	b=WxBKLLNbLi/4rOqTAKYkdIPg1zdpxYHVMpfmfyyYo/S/+o/in4SAmV7mBcLxQFYofsgq
+	 fQ+7qXuWIIEA9KjUPi7GfN7FJe/Txyc+j4FvFVmhe5DwcLcwV7GhRATTZWx5TOspKo1TO
+	 70I3g5vItHDr5jfswGaWAuWPbCR+8+4WqZOOxW/IfLpAYzhc1IhOaGdzfaluEfL9T5LxK
+	 pJho+6EbYFh2i0hjNqo+06fsHQLh12lP6UzJEV8y5Rw+BnW0in36D8q6J8FhLhv+qeJXb
+	 l0JVvSU65N3pAwawqHT8kdtcU5poLYRYev1gzf2BfZNuRYJPhQeJP8NRx8a2n8Ax/4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305410;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p0b4HYMjqgMZb222DZNYKa+IKVop6pKB2asojuDpXTg=;
-	b=CiiSoQXsu+ZXv2FzLuUwoHJtSuLYqH3yFkMZB8iVtsmPFhd0EeQPfMia7g4bQUyWdWNM
-	 ipVWQGR+epDR35JJIB8dXhnXcWzaS3dwhdJhjEw4k5wByXCYtS/OjBXiwt2pkXmArmQuu
-	 RQI6+9NiTeJAikPUIozmckefhSbjteM6TsRvnzyS8nmfzbKiOe4ktTkpcEdPh56oj/nLm
-	 Kt3PncZ8cBNV0nxQoWV+6kaCKOQ27+NeBw5vYyCYUzsxI0UjlDguv3ps3C3CrrLnLFlRX
-	 jfLC+kS7wB4F3Ima+94lhjfdnxWJzPxI1AU2JtPYd00oiEKgycdm2wz9Bs+cVhLp3hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=El/8JBBP72rDx75dqpDC2klSCHMZgsc/9NFgTGKU9aI=;
+	b=KbMf2KYruFcGN11sQM9+lHFPhw1nPd8mE1r8z0j1OFkhjAdwCak/k/gH6x9fIjA0jtUO
+	 ARIwMydfNGUzxsAJJvB4uOQu7B4BQ07B9T4wnwYuRi6+172ITnKntGMwbtw1qjwJzNHdQ
+	 5CmMLl2ft6b+BSwsCNgIyi6AIwHTI8Ayeuh59jMIbcfIsep/d8yIzqc3+CsahomJRnKzv
+	 +qwICBUNJnWZfXBV9hAfsziAht+vb5MIHHFqWzeUbrLmp/SUuFLpMckuXiZDCqtvTZKDL
+	 SFl9Fje6f0afi2XfhmO+ifQsY0J+1UuneOJSRzCFQ9tQosO+ardnF2ktU3UcdeeF2lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LK8zMZr0;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF5D2606A335;
-	Tue, 10 Nov 2026 10:10:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF5D2606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwx4KcBE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5B7606A33A;
+	Tue, 10 Nov 2026 10:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LK8zMZr0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=LK8zMZr0XH3fzL01T74alwSck9G456YEc/RkYQ8QaHpilcTzVi66bOHmb3yWrhRmWsHMpTAnmIKIz
-	 Zd1uQqP17pnAM4AaeLWKFDgoPZqZlR4hDGbRoKt/0jiyX0ehQZVnlIbZHMthGLj6Tbc2qGEb/Yijuh
-	 57eMwoM2oJxpPL5U=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af2ed778fb-cbe74;
-	Tue, 10 Nov 2026 18:09:59 +0800 (CST)
-X-RM-TRANSID:2ee56af2ed778fb-cbe74
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af2ed74c04-b1a93;
-	Tue, 10 Nov 2026 18:09:59 +0800 (CST)
-X-RM-TRANSID:2ee46af2ed74c04-b1a93
-From: zhaofeng2 <zhaofeng2@cmss.chinamobile.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	linux-pci@vger.kernel.org,
-	Nishanth Menon <nm@ti.com>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] PCI: keystone: Fix device node leak in ks_pcie_am654_set_mode()
-Date: Tue, 10 Nov 2026 18:09:54 +0800
-Message-ID: <20261110100955.1046-4-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261110100955.1046-1-zhaofeng2@cmss.chinamobile.com>
-References: <20261110100955.1046-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwx4KcBE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58371F0089F;
+	Tue, 10 Nov 2026 10:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305407;
+	bh=El/8JBBP72rDx75dqpDC2klSCHMZgsc/9NFgTGKU9aI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Mwx4KcBEIY4KrxoXxGbJZF0oTJsu18oVCIlGM0PjWRLbRS4oKjSeQrRQi7jkNxKjU
+	 vye7nCZkKdN7NYvsakkU8aBjlShrznTfxbybz9TRMci12/Zxc541jMKxcAb/1lcl3l
+	 TSD6A5xhbbxJQDzIDOec/OFt8/sUS8TDK9Dy0lT7cooCo5alxhiEjEHyPrNd7Cll9U
+	 S5Abey03UkVO/jnP+yDM26u44anI4kab0UTufNScnAE+M/nH/FVLxrtT1+ugeszvE/
+	 iYevgmtPpLwx+nGrDZvFFJeKoqpkdbXP9HkwgkdEyFFFq9h2Z9UN5NEyAEfwQE11h/
+	 GCbvq93A0tE1A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D82EC391B148;
+	Tue, 10 Nov 2026 10:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,38 +54,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next 0/3] net: add SO_PASSCRED_THREAD to get a
+ thread-specific SCM_CREDENTIALS
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179430540568.3843312.3120284833105457561.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 10:10:05 +0000
+References: <20261102-halaney-scm-creds-thread-v1-0-0b4d75dbf35f@amutable.com>
+In-Reply-To: 
+ <20261102-halaney-scm-creds-thread-v1-0-0b4d75dbf35f@amutable.com>
+To: Andrew Halaney <andrew@amutable.com>
+Cc: kuniyu@google.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+ brauner@kernel.org, richard.henderson@linaro.org, mattst88@gmail.com,
+ linmag7@gmail.com, tsbogend@alpha.franken.de,
+ James.Bottomley@HansenPartnership.com, deller@gmx.de, andreas@gaisler.com,
+ willemb@google.com, arnd@arndb.de, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-arch@vger.kernel.org
 
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Hello:
 
-ks_pcie_am654_set_mode() resolves the "ti,syscon-pcie-mode" phandle
-with of_parse_phandle_with_fixed_args() to obtain the mode register
-offset, which takes a reference on the syscon device node, but the
-reference is never dropped after the offset has been read from
-args.args[0], so the syscon node is leaked on every probe.
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Drop the reference with of_node_put() once the offset argument has
-been consumed.
+On Mon, 02 Nov 2026 17:12:33 -0600 you wrote:
+> Currently, SCM_CREDENTIALS carries the pid of the thread-group leader,
+> despite carrying the uid/gid of the actual sending thread.
+> SO_PASSPIDFD_THREAD lets a receiver identify the sending thread, but
+> only through a pidfd. If you just want to know what the tid of the
+> sending thread is you have to do something like:
+> 
+>     1. Setup SO_PASSPIDFD_THREAD on the socket
+>     2. ioctl(thread_pidfd, PIDFD_GET_INFO) per message
+>     3. close(thread_pidfd) per message
+> 
+> [...]
 
-Fixes: 7dcf07ac8867 ("PCI: keystone: Use phandle argument from "ti,syscon-pcie-id"/"ti,syscon-pcie-mode"")
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
- drivers/pci/controller/dwc/pci-keystone.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletions(-)
+Here is the summary with links:
+  - [net-next,1/3] selftests/net: pass socket options to the scm_pidfd test flows
+    https://git.kernel.org/netdev/net-next/c/5fb7b21d2971
+  - [net-next,2/3] net: add SO_PASSCRED_THREAD to get a thread-specific SCM_CREDENTIALS
+    https://git.kernel.org/netdev/net-next/c/d006eac7b099
+  - [net-next,3/3] selftests/net: Add tests for SO_PASSCRED_THREAD
+    https://git.kernel.org/netdev/net-next/c/032bc8ef0456
 
-diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
---- a/drivers/pci/controller/dwc/pci-keystone.c
-+++ b/drivers/pci/controller/dwc/pci-keystone.c
-@@ -1059,8 +1059,10 @@
- 
- 	/* Do not error out to maintain old DT compatibility */
- 	ret = of_parse_phandle_with_fixed_args(np, "ti,syscon-pcie-mode", 1, 0, &args);
--	if (!ret)
-+	if (!ret) {
- 		offset = args.args[0];
-+		of_node_put(args.np);
-+	}
- 
- 	mask = AM654_PCIE_DEV_TYPE_MASK;
- 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
