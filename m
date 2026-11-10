@@ -1,90 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329287;
-	b=TJOaI5K8sGcE15drh2cuLhmsVo5Q5l0nGMDbgv0z/ZX6Oh1jiORMYWvw0hnD4kBg/qUf
-	 RBzVNXBNNkdYOzpoFHyY2YmVWGZA0fTNQGWAwXljf0ezuSB8EEg/bH2Wcl+FOQnoVAnVo
-	 8/GyeTIDa8IaFMC7CzUWMsjd59Q10Vj/SYEw1aIoZnrqWgzjJN2z57Vx/tnpTaIabPdFM
-	 D4P+NIFJbPCmyCRSVyOpg426Zyq+uHO0oX32/+5C8nFoilp1QQK7Me1tgwlY72v7UAGN/
-	 ehmyy7Ou2wVQI5bksdmUg2BOROsu8eAHvwu2lDc9bpS8NtA5iopcdNkdqBxCoLhSzng==
+	t=1794329304;
+	b=srvyF96+JGvwyZ1Jv7/WUTQMREgGgx2hePFs+QI6CwpZDhB59nGK0V/UfjMp4sWew+7c
+	 UN0vf9s6tGpKLN+Pyle1PPprmDEggAeFTgTKFikDOvJfa+6QkgyShz+9+00d0hEiwSifz
+	 HY+e1PCLj+PfIo1smZT/CL4zEj/DK3+ZaW4mWaS+43UiaigCG6d4e/8Jli+2Ang88PVgJ
+	 3oTHQH66TVB3mK/ij7fXATyvgtlYN+LY1GvfN71yIO33P4AWXuzNyJy7w48O2qcdjiBcm
+	 91EZlj9ZjZvep0UeokFnrSOoXdP1EZTY5VMXWVB7dpVlrrfiAbmC189f1/vhdkB3Psw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329287;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=5jNzkTDWBY7EoZ5CQOKUTiIbRDsD/JgXPPmATkQN3UY=;
-	b=px8HcfreXzQKh9meAZu/uv7D1SQ1ePojhUN4j2+iwrQZ3b9nq+R7d7KmaacY0BPPWfQv
-	 aeP6JSZrjcaWbK39c7FzfW3/2+ZcK8Cc9VxgSHJJ41yhnJ38lN0ByMmkPbevCGAAZEn9d
-	 rBxx5Jf6DzF1IKyOOe+4r6ziWAV+7PJ8ZGqttpgRIQsyAYTg5jwnCdyE2IECOAH0+O9n+
-	 wmXUZ09pBWEWkiiPX4hnm1/9T3VBAAIhiivN52ik+9NR1bcYxTqr6SU2nipj6Vy02AGxA
-	 eWPLlkVHG5TN0FXu59Y0jlVkk7oX1KX2rD2cI+Or3QxN5FbarBDRt8173YVCA0tWMdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329304;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=2iT2z9deD3v2LTiCM0NOycxK+0oeR8FJkn/kz5VClR8=;
+	b=sEpddUezBuhqA18TN1NKyyzaO4j2f9rbRaY0D5pOqwpmWh1e9X4LdKtjPae1KBMsKX/y
+	 FxTH/0Z1xPJFtUIjNhbULs/ClG/g5XWkY/6wV3pZicQC16hu1dPa31djRr2zBeeL16jeI
+	 M6wTDrm0W893SgbrlwEXeyBpogQJ9chrJhxRhUrFDtIX119Re2Xxcz1iacdl0iqs08QaY
+	 ikVGZvOlXvRlmx2q4uvDCOh/x8cs84UG/caUZTLSgoiDitJXO+Xz4QV4dqlqKdbQeFb/I
+	 Fzqf8d+PQtJoQHu74DDuLCZvMH3ZHI4XK0U/Uvw5Hh3WdM7Of++ZTgcktQ9u1lBayRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lCZF4QP4;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aH9t1QJu;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5994360A2631
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5994360A2631
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFD7606A330;
+	Tue, 10 Nov 2026 16:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BFD7606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lCZF4QP4
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso22096055e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:48:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794329286; x=1794934086; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5jNzkTDWBY7EoZ5CQOKUTiIbRDsD/JgXPPmATkQN3UY=;
-        b=lCZF4QP4AjuhBOJJsPDMFGyzhYeIqrHW0Hn1HFxfTDI5bEYAdwIzuXsAKJHNA63LRR
-         ncrgIiGXnnXgn1+yv6irzFe0FGoc/du9AubpTQ3Vnv1vrMLEpkXn//CtTugGD+4Rj8cX
-         LNqgXJ0rANvrgK4vZlOK30zAHCSzeCxGpRd6xi0NxTwGjrRzoMbFI1Rig41Xvuw99+fb
-         ocS+0IrFflXv24cpbB8kqB9EV4zL4u/etsEmv2tlEptPBw9cmFb3GdD1OYoS27Vax+As
-         qN6RBasQHAKoJqJ8s4LD11SBTRGNhP4wesWIZsZErreMHBP5iTCzIu5CDQhRJUtnk9/D
-         tZjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794329286; x=1794934086;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5jNzkTDWBY7EoZ5CQOKUTiIbRDsD/JgXPPmATkQN3UY=;
-        b=tZ58xTndnQaxe5vfYWTuZ5JmAVgq19X5dCTEP4gMtXznccemJPjhjLuFLSnxBQtbRf
-         xoH2Af+qhTtAmsybn4Gbf684z+ZNKu2uN3Xlqv/mrY9ti9DFmfL6CTjyAYxa8F0LgULh
-         QuBuSsCfdhBPWU0Dw634xzzoeuWluTia4eigt34S6aHVuTlrAr4CoIQZgnTS6vjdy65p
-         erKrdWlaT9vI4fvLj+ggG+W/4CmZt6B9rNXHnv5fYcDAGs9/tS4F2btqB4yDkbMqyfeO
-         51Nl3ab8hk20HS392PgaZMSS4mBKrcBlBnCQlczWXjGZ7kKfefDsxSU8WoL4DtMbH1S8
-         ZFqw==
-X-Forwarded-Encrypted: i=1; AL+hErHJIoP96LmMa8ANii78AYDEXyZvUFkqrGQPRgE7rK29V7xgnaqr892C3DQUHyPFRa+F5DtJJiycMSViW/M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k/r6LbJkNdHeEUJtxuqashYdzmRb+QjpWUB4nTIXmBjHUHX5o
-	4h9oMpJdiZYDnINJgeKfVy4zxdq+a/5/1WXYEkmn0xiuzoJJpDjW1Y0bCWH3kWOkW7U=
-X-Gm-Gg: AYBFou3xopQedkC5ACDQKvC5M8keSQ7DWFkOPgqwcAjSPHNFegmknh6ciPSCOH5agvn
-	w3dmQYm6qj0nEUQwuSC/Gnw0/bMFoDA9szos6VIHHtfumKgHcdiJpF6pqgwtHu3LpsIiZ480Aft
-	QUOgai4nVZnlJdX0xB1u+q4Ic0C9l1kE/HcRzycHSt6mRVdPzdYD5gyQiabYTIcL5Eu5dt8I/jY
-	kkPxucAb6GdjQk0AlTt+FPuy80sd9qqvDc3+LFpYvBR/z5PK/SNpouiJF75PPcevEoZAPJN8ijq
-	TprTljEdM5/hbwKd/n2Q2YP/Iika9jS47IQmUS/eRED9c7fnbFffvUGwnhWo9QjjxGNEPMgoGH6
-	32ewXL3VZ3coIL97/vqcVSl5uccv1YLU353N6j4UJG3qUHKnQoJZbZYzIXku3CgOBcBlf8Ewnfo
-	CjyX6aINmTt1gmny6lQRyilxOOZsJPvhryQZyOpSROGWYd5hpE+QIgSSAmzgk4XgfiJgMZzMn6h
-	vBXg0z3ZDLXLbmzuLkBwqXqs66B1svoJT3QfuWisQ33NIGTI1K5T24ES+wvPpJj4yaDGZkFII1f
-	c86yhjctmeAsRkVZTrrwR8n+mrMEcC+NtHum32RoO9869U2vHh/3yV0WyHbrzyrIsyYBA0uuIZO
-	ZIuuwb13nVaAjkGjbZWo9UEQB99Hz43Mv+EHI
-X-Received: by 2002:a05:600c:3b8e:b0:4b2:2ec5:8a2b with SMTP id 5b1f17b1804b1-4ba023367dbmr73326205e9.10.1794329285394;
-        Tue, 10 Nov 2026 08:48:05 -0800 (PST)
-Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0233e5d7sm58289665e9.1.2026.11.10.08.48.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:48:05 -0800 (PST)
-From: Sander Speetjens <sander.speetjens@gmail.com>
-Date: Tue, 10 Nov 2026 17:47:51 +0100
-Subject: [PATCH v3 5/5] firmware: raspberrypi: Store child devices in
- struct rpi_firmware
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aH9t1QJu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794329302; x=1825865302;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o4UdVx86IM4K7U+2Y3fruIEQKmiuo2wLg8MXLMOMdCQ=;
+  b=aH9t1QJu53zPlhACTqQU1X/omwi6eSehZf1qlxxE0GTZKWeKOF6JSUa8
+   2EkE9HLfDV2iGiHGKpGQsRKh4fJL4rHz6GzbWdwi2ShuYKMJgsVilmKET
+   BHOIYUofAb3gMSig3P2sTAHznB+PVY9Rg1vUHUIAPjhIh21813cWaDkdB
+   Xz+eGodtO0Pw4IzlXI0D1MXLe30xk6zf9JD6dJ9apqCLAZKduJROVUAYl
+   27tN7Kdo0euy+JiW/DfDFMRQZo6MpI+FfBVoeY43VNs2egBkHzkG/+qd6
+   cB7eShQskUN+wUpQZTXbteMLc6LNo7E6T/nBZyHXiQl+kDcWoOaqmKxfw
+   g==;
+X-CSE-ConnectionGUID: wRDzD+m9T92TpxZuHaXKTQ==
+X-CSE-MsgGUID: v2BlIVsCQpGcrJOuYEjTBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3083388"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3083388"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:48:22 -0800
+X-CSE-ConnectionGUID: KjvyDt4+TQOaqKPGq7kkmg==
+X-CSE-MsgGUID: kfbUK6o9TzGt6oYNNEFwlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8298130"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:48:19 -0800
+Date: Tue, 10 Nov 2026 18:48:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH 2/2] iio: pressure: dps310: add a data-ready trigger
+Message-ID: <avNK0EldiZVxrhE8@ashevche-desk.local>
+References: <20261110154254.39092-1-zoone.rupert@gmail.com>
+ <20261110154254.39092-3-zoone.rupert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,189 +86,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-fix-raspberrypi-firmware-v3-5-e001feb542dd@gmail.com>
-References: <20261110-fix-raspberrypi-firmware-v3-0-e001feb542dd@gmail.com>
-In-Reply-To: <20261110-fix-raspberrypi-firmware-v3-0-e001feb542dd@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
- Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
-Cc: linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- sander.speetjens@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5290;
- i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=cCr9oSQ7ijmTl0sHNAB0mmcjcqvy+3BnH3Zv/rG+4pA=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq80rA7SOj4zCwP4LvqClwcUlAL3SUUi5sg3T75
- Dso4NA7juWJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCavNKwAAKCRB4zXhFDAXI
- Z1FaD/9nRWH78cALEuYlTOoVLuBlFwnxBDk5lcmdQPOlJvETMq+CEqsq+t6v9/eKLtLLoxEdH4T
- jw+AIUtoY81iQ33bh7PNl+0GcWB+HCWpkvnj/0c8jZq8ARhpoJ8aTfOgp7OWrm2VZlfwcj9JPuM
- mYDw7cxR5k4JhALV07WeqyN9XyN2bcGGEuFBPevk2Gzo9np93mc/lqwwv3/F4koHBN2d+NV+fvK
- BPuuDdFznh7RrxTMOjHjSLe3/jZ7zKBcd2kEviwcbq7aIP5ftAWwR8u5MjKZEQaEg5M/eHgSOK4
- cPo67KB1EyftRLGXBfvgWjZmfg8BQpaMc3L6vpP4EwcVRoYq+zYQXkNWbMoxc78sgdyaGhanfVH
- mOvkTuzbadxQt7fCjK26uPKs59icGp86793lHUtgc8PL5wLTpY0o6IajBCsokMm7O06AuBGAOki
- OoKtUx07MU1eRuT17r7XhF7NLUcm5p/2e0iot5gLjjdDWhNzN+PBBj0HzPGRbCnTH+DbtDkSkQm
- ZEywDAYRHWk1mXJasgT4OBmEoIdbjamtulKgd7QBQH+vorqgKfqd80VxjUnUifOAmCsDGKlc6qR
- a7ThQ91fSGhMxq1Wt/P8tIoMMazk0+g32orU0dy5vKLkKbcuOnYblQM5wbFebUEBKIwggjNEUpt
- m7SlfgYSxxcwM5Q==
-X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
- fpr=56524A8B001A11C3EEC9510178CD78450C05C867
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110154254.39092-3-zoone.rupert@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-When the raspberrypi-firmware driver is probed multiple times
-(e.g. via multiple device tree nodes or dynamically loaded overlays),
-rpi_firmware_probe() blindly overwrites the
-global child platform device pointers rpi_hwmon and rpi_clk.
+On Tue, Nov 10, 2026 at 05:42:54PM +0200, Rupesh Majhi wrote:
+> With an interrupt wired to SDO, the chip can signal each new pressure
+> result. Expose it as a trigger, so captures follow the measurements and
+> scans carry the time the result was ready, not when the handler ran.
+> 
+> Polarity follows the interrupt type. Status latches while the interrupt
+> is disabled, so it is cleared before enabling. The trigger is not the
+> default, so FIFO mode without a trigger is unchanged.
 
-During initialization, rpi_firmware_probe() calls
-rpi_register_hwmon_driver(), rpi_register_clk_driver() and
-rpi_register_rtc_driver() to allocate and register new child platform
-devices, storing them in global static variables. On a subsequent probe
-the same platform device names are already in use, so
-platform_device_register_data() fails and returns an ERR_PTR. The old
-code never checked this return value and stored the error pointer
-directly into the globals, overwriting the previous valid references.
-When an instance is later unbound, rpi_firmware_remove() would then call
-platform_device_unregister() on that error pointer (or on a pointer that
-belonged to a different instance), while the previously allocated devices
-were permanently leaked.
+...
 
-Move the hwmon, clock and rtc platform devices into struct rpi_firmware
-so each instance owns its own children
-and their lifetimes are correctly paired with the parent.
+> +static int dps310_trigger_set_state(struct iio_trigger *trig, bool state)
+> +{
+> +	struct dps310_data *data = iio_trigger_get_drvdata(trig);
 
-Also check the return value of platform_device_register_data()
-so that an error pointer is never stored.
-The child devices are optional; do not propagate registration
-failures so the main firmware interface remains available.
+	struct regmap *map = data->regmap;
 
-Fixes: 70eea1bbb556 ("firmware: raspberrypi: Register hwmon driver")
-Fixes: 91f2cf4a6b21 ("firmware: raspberrypi: register clk device")
-Closes: https://sashiko.dev/#/bug/linux-667c4859-a44e-4461-aa3f-5b04056cc1d3
-Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
----
- drivers/firmware/raspberrypi.c | 50 ++++++++++++++++++++++++++----------------
- 1 file changed, 31 insertions(+), 19 deletions(-)
+> +	unsigned int status;
+> +	int rc;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	/* Status latched while disabled would fire a stale interrupt */
+> +	if (state) {
+> +		rc = regmap_read(data->regmap, DPS310_INT_STS, &status);
 
-diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index ef3326d5cf30..7d8b89aeaf02 100644
---- a/drivers/firmware/raspberrypi.c
-+++ b/drivers/firmware/raspberrypi.c
-@@ -22,10 +22,6 @@
- #define MBOX_DATA28(msg)		((msg) & ~0xf)
- #define MBOX_CHAN_PROPERTY		8
- 
--static struct platform_device *rpi_hwmon;
--static struct platform_device *rpi_clk;
--static struct platform_device *rpi_rtc;
--
- struct rpi_firmware {
- 	struct mbox_client cl;
- 	struct mbox_chan *chan; /* The property channel. */
-@@ -33,6 +29,10 @@ struct rpi_firmware {
- 	u32 enabled;
- 
- 	struct kref consumers;
-+
-+	struct platform_device *hwmon_dev;
-+	struct platform_device *clk_dev;
-+	struct platform_device *rtc_dev;
- };
- 
- static DEFINE_MUTEX(transaction_lock);
-@@ -204,6 +204,7 @@ rpi_firmware_print_firmware_revision(struct rpi_firmware *fw)
- static void
- rpi_register_hwmon_driver(struct device *dev, struct rpi_firmware *fw)
- {
-+	struct platform_device *pdev;
- 	u32 packet;
- 	int ret = rpi_firmware_property(fw, RPI_FIRMWARE_GET_THROTTLED,
- 					&packet, sizeof(packet));
-@@ -211,13 +212,19 @@ rpi_register_hwmon_driver(struct device *dev, struct rpi_firmware *fw)
- 	if (ret)
- 		return;
- 
--	rpi_hwmon = platform_device_register_data(dev, "raspberrypi-hwmon",
--						  -1, NULL, 0);
-+	pdev = platform_device_register_data(dev, "raspberrypi-hwmon",
-+					     -1, NULL, 0);
-+
-+	if (IS_ERR(pdev))
-+		return;
-+
-+	 fw->hwmon_dev = pdev;
- }
- 
--static void rpi_register_clk_driver(struct device *dev)
-+static void rpi_register_clk_driver(struct device *dev, struct rpi_firmware *fw)
- {
- 	struct device_node *firmware;
-+	struct platform_device *pdev;
- 
- 	/*
- 	 * Earlier DTs don't have a node for the firmware clocks but
-@@ -231,11 +238,16 @@ static void rpi_register_clk_driver(struct device *dev)
- 		return;
- 	}
- 
--	rpi_clk = platform_device_register_data(dev, "raspberrypi-clk",
--						-1, NULL, 0);
-+	pdev = platform_device_register_data(dev, "raspberrypi-clk",
-+					     -1, NULL, 0);
-+
-+	if (IS_ERR(pdev))
-+		return;
-+
-+	 fw->clk_dev = pdev;
- }
- 
--static void rpi_register_rtc_driver(struct device *dev)
-+static void rpi_register_rtc_driver(struct device *dev, struct rpi_firmware *fw)
- {
- 	struct platform_device *pdev;
- 
-@@ -252,7 +264,7 @@ static void rpi_register_rtc_driver(struct device *dev)
- 	if (IS_ERR(pdev))
- 		return;
- 
--	rpi_rtc = pdev;
-+	 fw->rtc_dev = pdev;
- }
- 
- unsigned int rpi_firmware_clk_get_max_rate(struct rpi_firmware *fw, unsigned int id)
-@@ -329,8 +341,8 @@ static int rpi_firmware_probe(struct platform_device *pdev)
- 
- 	rpi_firmware_print_firmware_revision(fw);
- 	rpi_register_hwmon_driver(dev, fw);
--	rpi_register_clk_driver(dev);
--	rpi_register_rtc_driver(dev);
-+	rpi_register_clk_driver(dev, fw);
-+	rpi_register_rtc_driver(dev, fw);
- 
- 	return 0;
- }
-@@ -349,12 +361,12 @@ static void rpi_firmware_remove(struct platform_device *pdev)
- {
- 	struct rpi_firmware *fw = platform_get_drvdata(pdev);
- 
--	platform_device_unregister(rpi_hwmon);
--	rpi_hwmon = NULL;
--	platform_device_unregister(rpi_clk);
--	rpi_clk = NULL;
--	platform_device_unregister(rpi_rtc);
--	rpi_rtc = NULL;
-+	platform_device_unregister(fw->hwmon_dev);
-+	fw->hwmon_dev = NULL;
-+	platform_device_unregister(fw->clk_dev);
-+	fw->clk_dev = NULL;
-+	platform_device_unregister(fw->rtc_dev);
-+	fw->rtc_dev = NULL;
- 
- 	rpi_firmware_put(fw);
- }
+(as per below)
+
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	return regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_INT_PRS,
+> +				  state);
+
+	return regmap_assign_bits(map, DPS310_CFG_REG, DPS310_INT_PRS, state);
+
+> +}
+
+...
+
+> +static int dps310_trigger_probe(struct dps310_data *data)
+> +{
+> +	struct device *dev = &data->client->dev;
+
+	struct regmap *map = data->regmap;
+
+> +	struct iio_dev *iio = data->iio;
+> +	int irq = data->client->irq;
+> +	bool active_high;
+> +	int rc;
+> +
+> +	switch (irq_get_trigger_type(irq)) {
+> +	case IRQ_TYPE_LEVEL_HIGH:
+> +	case IRQ_TYPE_EDGE_RISING:
+> +		active_high = true;
+> +		break;
+> +	case IRQ_TYPE_LEVEL_LOW:
+> +	case IRQ_TYPE_EDGE_FALLING:
+> +		active_high = false;
+> +		break;
+> +	default:
+> +		return dev_err_probe(dev, -EINVAL, "Unsupported interrupt type\n");
+> +	}
+
+> +	rc = regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_INT_HL,
+> +				active_high);
+
+	rc = regmap_assign_bits(map, DPS310_CFG_REG, DPS310_INT_HL, active_high);
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	data->trig = devm_iio_trigger_alloc(dev, "%s-dev%d", iio->name,
+> +					    iio_device_id(iio));
+> +	if (!data->trig)
+> +		return -ENOMEM;
+> +
+> +	data->trig->ops = &dps310_trigger_ops;
+> +	iio_trigger_set_drvdata(data->trig, data);
+> +
+> +	rc = devm_request_threaded_irq(dev, irq, dps310_irq_handler,
+> +				       dps310_irq_thread, IRQF_ONESHOT,
+> +				       iio->name, data);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return devm_iio_trigger_register(dev, data->trig);
+> +}
 
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
