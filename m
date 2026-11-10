@@ -1,70 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330797;
-	b=0QLEpMOjSqqMkrvEwhw+Wj8NPXvPVaY5ntufIhOhaLBOrYtiJNKO397ZZALqx7rqY0dK
-	 CTp05/c70M3pLBxcHcs+y+6vmRJYNYK3TfIWHszvjLoVliL1dDl8gH+lHRZe4w6tU8rTH
-	 NdRBKQyq9V60X+Tb8w0tinpMu9hoyM65mdx5thMo+lIvfGrQbizfN6oePTCM6PSCadAqQ
-	 TnrzRYZ7gjDAvWEl8yIj8o/2QLx3uqMpaV31mbzYpG4t6oko5Kyl9MZu+7aBiCimoxLzA
-	 sAy+mW4yZIoV6RhRQWwqCot01uOxYOt9qkSJYECfIRAsxihy0h7XS6j1q9ZHCYwPmGA==
+	t=1794330877;
+	b=goGQeqVqnwDCk5xWHMMN+cdOyCPNTt0Zr7+5PEViBBfbyrZmEIlXL880iJgF8ItqpIAI
+	 vQRXNxc6btQjdr5Dj0cQ7hQyj5bsQwFoODEpKkRcAWie96SK3XXh69hSWyc6/Ofs1fI+r
+	 J2TLqQ3UXEemSVxhfJpMqXK182x/DzBtqpz3574H5cv0hmguHjkoWqdMigHdjoHLPp4pX
+	 Nnn1qn0WOkHDi1bOWQn3WlebldAnV9osf8cCKYp94pZaRK5NetX7P9keGDAMyaMyPz890
+	 vH0kwo6eYDLIbOGTFGs+LH3Kdu9VJUKKD1aWnm1zpJHyvbOjweugFmdaSIQ63FNRFKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330797;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=876nNHPSsXIwn5QT36OAF+F9PJl/ud1EqARrq44NCYM=;
-	b=EOQ83+NWOHicvTzPwHat/MBhTo28kC6/g8XkccKMj0ZUI117dqpdwWludNUnaw8gc8Nt
-	 lSU8vm4hj2Nl3QJ+qY/bt51K83nqq0YdAO9bZOFF9zUskfnc8egdoTGIRJ93Q5FRcXJuu
-	 HwsCoY6Mfd4jV4Yc9uWdnkUsqMKIhH532kxhMwHKwPOXK4DVEOM1EjotPOwHmKz6RUf2p
-	 3zgM5jOsjlN5UMfFKAZUG+XaZyhBLt/UJaFfv6rjoIkIn5E5e4rHWdJrNK5NmIGXlQJPS
-	 OReB5nF+37S+axYc1qYQOc0dZCt3wvMBybbQet9SnLeBfJYnhQ9qTiDx8RsZKxwPsng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330877;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=LTWBfg8jrmgB53gmwy0LmPiU2h8gohFwr8Vgfp8rLdE=;
+	b=4zaBtFvfB2yLrR9ELPjCKW5hLTmHQNS9nArVLiv/JEYzNCJr2xmXgLu1kFPcPwEtFf9N
+	 63ECtaV48C9FzStDfra/a6iBud0VMvPgZdkSxir26SqGP+udt+FHpF7KWBy/LmDp43VYH
+	 UV0t5QW/D2aE/wfWtirNc9RebRQtYzyo5+iF0EkvbJvhszDovmA9vhxKJBxJDi/xWNODw
+	 ubG/XxcV7vmsbrVezh1l13J7G9kXNsMB/bmn1WkJtvwDXkvxaBOJMMto9IhGvdeZURewE
+	 8DStNJDGKVTuBc3A4/tpMAMJzjbcm6gOnnfbLhxaQ+Lkfw5XfRUim1pMX2hfX/U8Asw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Fif89Btb;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6027D606A31C;
-	Tue, 10 Nov 2026 17:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6027D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Fif89Btb
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jPCsN4vr7zKndp;
-	Tue, 10 Nov 2026 18:13:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794330792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=876nNHPSsXIwn5QT36OAF+F9PJl/ud1EqARrq44NCYM=;
-	b=Fif89BtbSEllTeNT0Z5WDJXgmwtTK0DWbfd7mFevy5E/0fWgoCNW7iYFA1DG67982Bknne
-	lw8dM3j3gWASvS7HzbbzcdYKn1Ka2EyIKIluNHk2V3QNsaUW5qMcukdtytsXZ0hJUAdgWY
-	VfMMIgy3FGngM13IcrGG7GP/mvfLyKOVOsc6UpvmY45ZX2E1o3Sc5JcbHrxWWF6jT7fDZa
-	wc/HTIjD09y+A5jLtT3OshxgjF5HxhLVTZsEban2u3rFaIPxavxJ/M+2xQ6kerNDKj19Ju
-	+N8McDeBf8AdFgTgc/++fyM9WiWnLm35hyVhowGPHBy2Qzg6x1La4JG77j9ILQ==
-From: Gabriele Gamba <gabriele.gamba@mailbox.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Lukas Larson <lukaslarson@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: Add DMI quirk for Dell 16 Premium DA16250
-Date: Tue, 10 Nov 2026 18:12:41 +0100
-Message-ID: <20261110171242.49762-1-gabriele.gamba@mailbox.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026095326.21615-1-gabriele.gamba@mailbox.org>
-References: <20261026095326.21615-1-gabriele.gamba@mailbox.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D679A606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D679A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so3241788b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:14:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794330876; x=1794935676;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LTWBfg8jrmgB53gmwy0LmPiU2h8gohFwr8Vgfp8rLdE=;
+        b=crT82B24nwkvIZGzkyh6nctUaAL7h2s002bMPm5K2og5lSWICP8+jV8x/2Iuz/8fA6
+         9/+fXD8v2VE7p0sQMm4mVsvg+nHOhyeoNqVGvhlLGqp2u0jQEBtkzX5eNJJ+tOn2IrNs
+         YL2sb00TtGXW78Tf9TdiwhBGdXd0a/BoYrsPn3hlPHMzdoSpnyeUdcnuL7TQiK5AoEHn
+         tgpLynIn7rgEkX9nOA8JQZkKI2ERFY8J5CQP4HQ4Vf67SwYwbrvJqLM8vQWSSg61BShh
+         4moZzgZ94IFRpBiKyPRMTPY7eO87NZiRbn64cUNNg1Tl8Kw3EO7B4Duev1Shpc2yxx0G
+         cDaA==
+X-Gm-Message-State: APuU4Z/mI3rx1dgYhp4MCvYjESzbsm+5wZEpHrZU/apWaK5j1U9s+r51
+	2FPl0fZoDTmYCZvYcx36oaxX67DJyINAYHQxfpBVOf+XuUZhms5NpJ99KqW7bTo4DtUEdwPsYkO
+	44TleiR2P8A2w9+79Iz2Sindd1F99O/LIwvRb2glfWbv15lCm/bA7jx+259U=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,18 +57,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: wujjodt6tyenuy8c8m8unp8pw5jxreh8
-X-MBO-RS-ID: af16dcd6decc968c9a2
+X-Received: by 2002:a05:6808:15aa:b0:55b:fcf7:61f8 with SMTP id
+ 5614622812f47-5683ce04279mr2466274b6e.40.1794330875780; Tue, 10 Nov 2026
+ 09:14:35 -0800 (PST)
+Date: Tue, 10 Nov 2026 09:14:35 -0800
+In-Reply-To: <6aece79e.382bd2ce.33e041.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af350fb.6ea51c61.3838e6.000d.GAE@google.com>
+Subject: Forwarded: [PATCH] nbd: move sk_set_memalloc out of tx_lock critical section
+From: syzbot <syzbot+72fceb8393e04ce876d9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I've since noticed that Lukas Larson sent the same change on 31 March:
-<20260331190145.11592-1-lukaslarson@gmail.com>
+***
 
-You mentioned there that you'd take it for v7.2, but it doesn't seem to
-have landed. The diff is identical, so either patch works; if you prefer
-his for being earlier, I've added my Tested-by on that thread.
+Subject: [PATCH] nbd: move sk_set_memalloc out of tx_lock critical section
+Author: timo.joannin@gmail.com
 
-Thanks,
-Gabriele
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+---
+ drivers/block/nbd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index ffce519bf008..5112e3a03027 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -1369,12 +1369,12 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+ 		if (!nsock->dead)
+ 			continue;
+ 
++		sk_set_memalloc(sock->sk);
+ 		mutex_lock(&nsock->tx_lock);
+ 		if (!nsock->dead) {
+ 			mutex_unlock(&nsock->tx_lock);
+ 			continue;
+ 		}
+-		sk_set_memalloc(sock->sk);
+ 		if (nbd->tag_set.timeout)
+ 			sock->sk->sk_sndtimeo = nbd->tag_set.timeout;
+ 		atomic_inc(&config->recv_threads);
+-- 
+2.56.0
+
