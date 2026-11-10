@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316846;
-	b=m/pwHBIpgRSkXAEdw4VBzwe1+JSyaf8KIz1LOXv6xNeRDRtjrktkZF59z8bE+II23DtB
-	 tnvKMleHoyRmMAC2I7CnvnexlGitBdETcHD5qYPBdc/+S7MjfBYvQ3rzt98YW2xtcxMr4
-	 qjJh08hL5kXnTAVoR8ZxftrIPBGCiqfntaCYkSuTUa+6WpFCN52ziYk+PG/9u1zfSJ44E
-	 KhCQQne+aYK/AmbNNz+KSw5TbWyUHVQ4E0cAHZ57Qaz6YolxR/2jnbR3KI4rfEzShM+ul
-	 aembEAAbQlYfkTT1E1C0HFlkM+JHZDImaMJ4i7yuSHNoC45NSNG1t27TmiDKePKebhw==
+	t=1794316843;
+	b=5IQHmX511LUYTSmKveWnWfVZVTJspvQ8dYmdQW9dg/6HZ/efU8We9afDaxDnv6v/UaT5
+	 be0q9yRUnMfUTZDwS2LKuVEoshsi1xxr7z1f38NqHrjiqDU7oDBgvK0+QT//5jAKhGq1X
+	 xkj96IT4THItKBW/gKbHTI9Om0qvlzgDe+fUIO8MViei7UmkjZgfMSfE3WzCWCyf0dsFz
+	 eiO+ZRSoDoaoRwKxti66yk5QWuzQDHSDFEO/YGGVUqiQm06H1SPq8QhLGi/K452Jgx0Os
+	 8Kh4ulcSR3FTbL6OR7JiW9jknPsAoAZgckAYAKM78EforqMHWDjAccLbYNJRSwT074g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316846;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nOV6h0PZaqwHwVMl2GxvCHfQDmp289bzmQPwDxXJnZ0=;
-	b=Q7Dd+0DsIUreI1Tox+aQU75HBPkEmZxeKqn6LYmqTDuD5UwBG4cZFh4S+8MyWwGFFF+H
-	 42HSWK13/EKbXHINB95Qx94+McYz/Ta1Q22P15bSNLLopkhCzzrZAHiXnt2A4snNTmY2h
-	 VKmlTyIBErquipWNFvaj/KXk1qrjlOEGACDdZUqMX3URJEOa8WZLURGHw9yDdyYzMmSwE
-	 ata3x2fFV0JlESsq3piZD/4tXiXkf/JGuRFEHwHwdwmo3crhaL4cQq0lyLt87EZSbzDm0
-	 jHdE4ZEEut7BNZx0cGmS6en1KER13pnSChTBGQQVt1E0W5W4ODeB8PJrW6KEJQn2/oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316843;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=AqrDbNk/xaVHc9xh6RFnXh6Hj87ffrP0ahXVb4adO1Q=;
+	b=WlebuDqFBgnLwi9cShf1XHQ4rhffcM4lLlk07uhkdEnOX8jYQJyB3Hh3kY8yw75uzTJ4
+	 cgyTl8G2NZAhqhljpn+Y7l5N4IjDr9pS8DpYm6x6sk9NM0XvsgUTg/7A0hrnpQvmS2Cy5
+	 /1pM3KKceLInGgoLQBg0sJABPJRpI8zlGtB+TSj2rQyXR3OSN8r5jMPR9SrKECgJZHMx4
+	 UNIkR5mhjvZFc1NecWnH+F6H1FxyjWtRsz2a5q/UyXvq/qX7X8LEOz7FvqiAYYzUL4fY3
+	 MC1tIVApGzapejuVJ+z03Ftci5qfCW9JzS6TShnlBcwNUozEywu01+SzRy3o5W94JnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VMfdCrHB;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b="ZDSMJ0/6";
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC77860A6F4C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC77860A6F4C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3013C6079894;
+	Tue, 10 Nov 2026 13:20:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3013C6079894
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VMfdCrHB
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so24650105e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316844; x=1794921644; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nOV6h0PZaqwHwVMl2GxvCHfQDmp289bzmQPwDxXJnZ0=;
-        b=VMfdCrHBw2dfp6abCT5rVeYVHN0aZKjAE8RDXt5VvgNtzo6LeoUbcNxkJjTkymNzLm
-         fdHeygnzwD0bqmE7+K478UL3kPfaxtQ2NHMjNHV4ZezRWeDlLK9pEK7bsPSdGds88wq4
-         KZSUinfmHGlcYgqCuC/e8j7qdy30r4XeOvsGDQRMzkFZhSH0++4Ik2S9rx991hw0a8tU
-         YQQ8I+BoMK+fhwQFksgN5i0vTIQTWrfM/u4SZw43iZul0GfZkvsE0MuIORUcLFIZYZ8d
-         qZfjDV0fcCp5N8OCRO3gb3KGNmG7nma0uKqRmhixoDK8WYv4H6AHJvJVweOSljthRDIF
-         A26w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316844; x=1794921644;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nOV6h0PZaqwHwVMl2GxvCHfQDmp289bzmQPwDxXJnZ0=;
-        b=p0J3GfgL+VAzXpG6KGm8ptON8YkJSIYM/vTLwkJI0RFWJ+0Zzg5Yk0dlbzlQUiJhP0
-         eZxjLFQajkJRUHVyAQB8QsKNFs2Ygb2SdAXUHPtfxUxJbQdkrVdwEU0gprNmQbxO8fZZ
-         oXq/GhjlC6yfcZeI7YOeL4FyJXYVUgIGMS1vOAEB2+GRnXPZO3yQ0ojxdQIDLL6ucsxl
-         FE4g2EP5ryWryoydpsufe12cGRbUWKkUzQL7yZ3gp0t5p2Dz3R6unBtb6tg8gd0saXaX
-         kGB9HNXHp9xray0Yd6snIznV7rIXHtvUEGcXDIA+3fe87/BXgNNpFvhA1LHl/QajSVIb
-         0sWA==
-X-Forwarded-Encrypted: i=1; AL+hErF7cViWhtP0xXUbirmq/fxtpDlymlyXfgWgOnwNqCJzg7rFyyobVPMPdsEOEvOejbGkm2Ab6/EDU8CvzY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/D8+dWGy4uU7fd44XaG8CqLJLAz7WDqx7WN/bhjijBpi5QwMA
-	ZgxcBtATy9lVGqsvpkts4rAOT5HiYtGkWvf+kyvUgcnevA8mSNUw4we+
-X-Gm-Gg: AYBFou1Hlzk9k9GFVQaPu7wa9gXb5gp3B2qxME62EHCJVDdn5LSaL2CIXX7P8CGSaqf
-	34K5J4tptUAj6q5MdlIuWgCD9Z2EVJVDRVH0FoEcocZuYfUXoOHXjWe3dcL7Tyg3zRbD9cxvaPY
-	/B0DEwGOeiBG4+hkAuG9JMqhPw2+yA1sxd/rk6m+jn3A/DPUNK8mrg0iZHcFuy4hd9d0lygNTa4
-	o4rxaMKgMLWG0xjI7zljFOWsOmOnsE1m5lsaQx3ojqN6ZfV7QlpjXMJ89/NGA1OuT2fUCICGxCt
-	tKR6/qHMdKvzq/xWSvDqvCKo1uuq6mJNQWK4aSg5UWL1vKxXCHmm1WhkYuFGrwkanHjGt5MW3ps
-	E/QziHDS7iL4V0FzL5ADojwCzZ5O3SXwbGKyV7LrfrZEIdg3BRZaXt/mP2se45DL/6O+TNGxI3U
-	yisgntcWo+AmQrbvGd2TvWg08lAbizyJRTqGCXGEkbSlbt3xbq2nhKD/tDO+b9GfQtIOdtz/32P
-	QAz/sVr28CrKW72ydOfxl+GQLY9kxnuk39h0cbsJOIpDxfTaiJzrwsq8lVEcFPSWeo6xI9OZDcb
-	66FMHi1EXEt0sx+XTz1InDnEGqWe7n8D5f05/6HEo/erEVXsL6nfdRUB0y6VKfggoeTGaKhroAw
-	m4UxAHUArEnXS6JW1L62COZLLH3+3zULUfi0meJas
-X-Received: by 2002:a05:600c:1f87:b0:4a2:a9:ed87 with SMTP id 5b1f17b1804b1-4ba023485ffmr42762735e9.19.1794316844000;
-        Tue, 10 Nov 2026 05:20:44 -0800 (PST)
-Received: from DESKTOP-0KSTGNI.localdomain ([197.45.135.182])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm5043287f8f.10.2026.11.10.05.20.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:20:43 -0800 (PST)
-From: Temitope obabi <obabitemitope765@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Temitope obabi <obabitemitope765@gmail.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: Intel: Remove unused sst_ipc_inbox_rdata tracepoint
-Date: Tue, 10 Nov 2026 15:20:07 +0200
-Message-ID: <20261110132013.732-1-obabitemitope765@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=ZDSMJ0/6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1794316839;
+	bh=wNLCPZp3qCOPdxC0onl2ifZBFX7WzFGvrMZdSxrqp+o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=ZDSMJ0/6ytbrhmHA+KGjAnaQk8jwnF2m0LnWXRzxuIyZqkRlSv55fm4NF/tKbL5Q1
+	 DuCYPP7+SF9jhumDVQGpsxjpBPF7WWZ+NPny01iXH6b557A1QeLrpxsmZtVVnrsl/4
+	 93/HdPicXShTuJ19SmclH6Inpkg9gjSeyDdhzNGQ=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 10 Nov 2026 13:19:34 +0000
+Subject: [PATCH v3 3/4] vdso/gettimeofday: Add support for
+ CLOCK_BOOTTIME_ALARM
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,39 +53,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-vdso-alarm-clocks-v3-3-8f3c0c5b5a11@weissschuh.net>
+References: <20261110-vdso-alarm-clocks-v3-0-8f3c0c5b5a11@weissschuh.net>
+In-Reply-To: <20261110-vdso-alarm-clocks-v3-0-8f3c0c5b5a11@weissschuh.net>
+To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316776; l=1717;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=wNLCPZp3qCOPdxC0onl2ifZBFX7WzFGvrMZdSxrqp+o=;
+ b=afeTJ5aV3RVIAnj5G7feRA7Q7S3uvj2M10qFzH/bjCS8t0EVLMO8m6KgGGJLzDEdXGwFQ76k6
+ YnqvZVIXXsMBv32WA1I4w31ItiSio7zSqZ3/xnaklQp7tPjk2L3ow6M
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-The sst_ipc_inbox_rdata tracepoint has had no callers since commit
-970d299b0a0a ("ASoC: Intel: Remove unused code") removed the last one.
+CLOCK_BOOTTIME_ALARM behaves exactly as CLOCK_BOOTTIME as far as the
+vDSO is concerned. The vDSO library can handle it automatically
+correctly. Only the basetime needs to be maintained during the tick.
 
-Tracepoints that are defined take up around 5K each, even if they are
-not used. Remove this unused tracepoint.
+The namespace offset is already set correctly, although it was not
+used before.
 
-Fixes: 970d299b0a0a ("ASoC: Intel: Remove unused code")
-Signed-off-by: Temitope obabi <obabitemitope765@gmail.com>
+Reuse the CLOCK_BOOTTIME basetime for CLOCK_BOOTTIME_ALARM and update
+the userspace hres clock mask to include CLOCK_BOOTTIME_ALARM.
+
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- include/trace/events/intel-sst.h | 8 --------
- 1 file changed, 8 deletions(-)
+ include/vdso/datapage.h | 2 +-
+ kernel/time/vsyscall.c  | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/include/trace/events/intel-sst.h b/include/trace/events/intel-sst.h
-index 0416e91f8181..ae7c269b0824 100644
---- a/include/trace/events/intel-sst.h
-+++ b/include/trace/events/intel-sst.h
-@@ -69,14 +69,6 @@ DECLARE_EVENT_CLASS(sst_ipc_mailbox,
- 		(unsigned int)__entry->offset, (unsigned int)__entry->val)
- );
+diff --git a/include/vdso/datapage.h b/include/vdso/datapage.h
+index 89ecf9f9fce5..49f388a54e6a 100644
+--- a/include/vdso/datapage.h
++++ b/include/vdso/datapage.h
+@@ -40,7 +40,7 @@ struct vdso_arch_data {
+ 			 BIT(CLOCK_MONOTONIC_COARSE))
+ #define VDSO_RAW	(BIT(CLOCK_MONOTONIC_RAW))
+ #define VDSO_AUX	__GENMASK(CLOCK_AUX_LAST, CLOCK_AUX)
+-#define VDSO_ALARM	0
++#define VDSO_ALARM	BIT(CLOCK_BOOTTIME_ALARM)
  
--DEFINE_EVENT(sst_ipc_mailbox, sst_ipc_inbox_rdata,
--
--	TP_PROTO(unsigned int offset, unsigned int val),
--
--	TP_ARGS(offset, val)
--
--);
--
- DEFINE_EVENT(sst_ipc_mailbox, sst_ipc_inbox_wdata,
+ /**
+  * struct vdso_timestamp - basetime per clock_id
+diff --git a/kernel/time/vsyscall.c b/kernel/time/vsyscall.c
+index fc3313d6afa6..4231b04aec2c 100644
+--- a/kernel/time/vsyscall.c
++++ b/kernel/time/vsyscall.c
+@@ -69,6 +69,9 @@ static inline void update_vdso_time_data(struct vdso_time_data *vdata, struct ti
+ 	vdso_ts->sec	+= __iter_div64_u64_rem(nsec, (u64)NSEC_PER_SEC << tk->tkr_mono.shift,
+ 						&vdso_ts->nsec);
  
- 	TP_PROTO(unsigned int offset, unsigned int val),
++	/* CLOCK_BOOTTIME_ALARM, copy of CLOCK_BOOTIME */
++	vdata->hres_coarse.basetime[CLOCK_BOOTTIME_ALARM] = *vdso_ts;
++
+ 	/* CLOCK_MONOTONIC_RAW */
+ 	vdso_ts		= &vdata->raw.basetime[CLOCK_MONOTONIC_RAW];
+ 	vdso_ts->sec	= tk->raw_sec;
+
 -- 
-2.53.0
+2.56.0
 
