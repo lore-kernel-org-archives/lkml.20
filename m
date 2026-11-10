@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292466;
-	b=tWebVx41VyN31nnw3KWtqnZKy/rsXjR0qx3GGT9HvVeXbFeapxkbRJlrYnGiOwsjtjGN
-	 soC87mAwj60a579lWdDd/Tb2N9sorjppMhNimrDEFXDGrHAqXE+CGCiMpcoxyQFmZ3UoU
-	 2/+uJVNZRlWxslGwUKpERPx5rnvj7KT21eMYXJsgYCumNjZ6aIPMwrXVSXDQJgz9LPm7a
-	 NJdORilxZS9JdwFybuQdZ2fYBfpBHY81C22og/bur/DgdRbrqlL49J78nTMJ3Yc2mf8dc
-	 vUlM9ZcZQ83OnrDsBAKmkwvaL9tY5Mynac6zU9yoNUBO/eicts3O3tQUODY54rbM9Lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292466;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TB1USGVTx640Zvbk135mn4iYv7WXgIneZLftabfVllM=;
-	b=KGOs5xxM0zqakxOSfQWM2UUDHyL4hcS0KJM8y5lNknOjTQxS3XmjwvXAom4fGydQiRhu
-	 JhJ5kpjW6nfwOWOVvMzEt/cn4B5xtjismJO9N+vTcHoRKFD/h9qEoLTlXHpnRWJGlVK7r
-	 eZnRaVNBrHD1Qf2XzOF4IbeJX6Pf4nNda+/p+9Zcb32RMKkey4uzFlw3Lno/uITHyhVyi
-	 jn8qJKj4DFrIBM7Qvql+23AuFq8kvyF3L08DVkvhNf3wjo+1SgFHvd7iqL8S/4jJBP8Ge
-	 SjHIshpVPd6DV9c2r3W1myPJU06hplhhvD7LrP2e5thf2BjpIpqPRMREcdgVP5LsLaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db5IaQKZ;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794292508;
+	b=gVqq03Yz5AqRg+aRrzYQit9K0qa2vwxWJ0mevGMbBNB5Oxipro8/mjY+pjpKbqSdGa73
+	 ojlAFij63e4QRu+bjcSfN78BZncmFawqxcrNhuRCZBkQF5N9ymiJ1oSj43bxmbmlyjsWG
+	 jG+EQbjQON3MdiLR6efVjsPMe7yQV4sTng2bxhz2TiXb5+Ob4NXFMUF86FX7flg/RP/H5
+	 WIgSAFX47dg7kLs6hYud3nq3/EEG0Q76npKzOt59aBqViACn0zVrqA7ljjji/XXYGZ/TA
+	 GJyxReKwC6fFBGMLHDyiDm6WXZHczvT4Afpo8AQArl3hKqXVgPeCw7syp9+vbUI4K0g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292508;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
+	b=nNvZgQ0EgqK1AQtoz5ScKHy3GzLXp5NvSldH3pgfzL053jtrGydSNswmN3c0Xb56ok6v
+	 Rhwwkqa1/Xbbr20U6GAZQRcSLlEc0udiUkothRy5PFbpaPywhDE08Up3N8iOa+yA08uKV
+	 BI1mLyhJh1Hc8oI5oX1WgsLL3Ktpbb/maidjdMnfO4h5otWP6ehw0LwWMYHr59ZjV4pqW
+	 j+WBTNkjp7SWp4nmgNyIG6N7KH2eBWRMC35NSE+KAB10m+tS4u1E4c0cSttf1gM7R5DcL
+	 33PxS9LrvE8v2SYXw7LMNNRAqmGvq8U5WeA+mvs8vyMCn9dcKm4ZDTs7zVa2xEwkKZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=QS5LM1FM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE0B606A325;
-	Tue, 10 Nov 2026 06:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAE0B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BC1606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3BC1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db5IaQKZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794292465; x=1825828465;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=rFkt1BT6fyDbG06HCBrjcXVAu+RVbJ7nRpLMtE7qmTo=;
-  b=Db5IaQKZDAydXusbbLPH9pe7EGSxMaJUEW6s/6sKRN61gYQVjgoHCKt4
-   pUl4zLlv1u39vv70brP846YsbhOYiYBMlox/PqafSBzFBig3ksHUqRe1L
-   wdAs3Q841TIuQDmioKhL3DfncfqXlnEUSj7nw9xbbAKMvBHzIr4tnQ48x
-   P1UW+7YKv/iwf5YGILTMiT0e1zWwn6vepn3HU9jORCwp1VbkT1oo0YJZK
-   laG0/VUmS4FhZaYdeVB4tR8k5tN51sElpbAsyngptEeAg9kbNsE1LA5BR
-   vrzEzbvbtj7cMEow1AgVWUUjqsXRZ4a5iXpgX9HKhKzOYf7F7QgntETJT
-   A==;
-X-CSE-ConnectionGUID: AgrPbNiBSoOof/UMxWeBpQ==
-X-CSE-MsgGUID: TqM5Fre/T2K2PjRjGqSXJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2898311"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2898311"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 22:34:24 -0800
-X-CSE-ConnectionGUID: /55pxstLQWOvefAU4Z9o5Q==
-X-CSE-MsgGUID: e0nCUlzYQqur3E6icwfX0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8375379"
-Received: from unknown (HELO [10.238.3.153]) ([10.238.3.153])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 22:34:20 -0800
-Message-ID: <dc2d49c8-18ac-4f24-bd49-1f81ce300562@linux.intel.com>
-Date: Tue, 10 Nov 2026 14:34:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=QS5LM1FM
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so244242466b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:35:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794292506; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Br07NiPGrwlSKlwdDu38kug58c919f/+IQdp3h0WTUUpEZ4uA1nS03e24iPg/kyMyX
+         mXtFdhfZTmtK5dUPEslIrUTEp3+FbolhwK0lEU7kPvTGk+WtZndEOQJgQRwz/MdAYOrf
+         ilinWLJREm1/07nU08IEWphLMK4ERUn3jDSFxrPHJbgkkLidw475pYueFJw6h4MLzPHu
+         VVsWHkdEmZlBjx3NESisbmasG0qH+WP5TwYh66XL3Xp62WvoZr4mAF1ilL3Dag6uGNrJ
+         p1HAqvtZ3lB3c1iZCvfQwpJfeO8U9GlNzdHokBXfRvuKUk/01RNt+az6xMJk3R3C+PON
+         lehw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
+        fh=Wx+SW0JJfzTKlQAqYSHtP81jpwOvFvpAfh7Vb/m1IVA=;
+        b=aBXgYzdJbuCS/WGvs9pW8apzio8iU8B2UBaA1eMKQguRz76sfqqg14FQvsJBYKWB2p
+         xGdyZqGKpuJhQ3EygnLXtr1afxAYvXolDA02v+OtjUgKJFVLPI5qXZNf7Pl4PZxncbmF
+         tFAApmeAUxozs6bdImdtLogXhL+QBgs7E8cfRGOJ+83y9dIflpEGUwHobqvqYlF8+Xyc
+         J9GU9YI/Jav+B79IaO0+f/WhbOjNY/GSRu+GtXwNLPKzdLbx9ABxlSFJzQ9sEBI59Xv6
+         u5U59EtPhmRuV2Gc2GdmRGenk0MKdNGcg/uCDAlgOAo2glLgDtnOrt0TRv+Eh5qHsSSk
+         3P/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794292506; x=1794897306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
+        b=QS5LM1FMbPzdChydpLxU58IliuEhNfcDAqRmHDm3mMZ+MiOC+MSUpLE3DoccfzLbjd
+         sXv34iMGUGocJKpYUubaa4NqZqW1qXomZfuCt3ecdYJFS8RWAtwz+EfSB24j4ZVzbvbv
+         9TWfhX3lHYswm0aUabBkuTkhlSn0v3v9qmnPPfnE3IllO+t++8BwB8PjTD+ZYYGEjs/C
+         dh00ORY+lxY7YQrcHnOrvAgsWSfzQRDRyc+PJ/uQJELdw3nM/uhaklNbaX2iJQUb9Ehi
+         1uXNHWzk5etVguBlml5Lal8RJ6vNZGuG7EoHkKyKuBUvoUMXCFSk4QQi5myJmMYSHvV8
+         ATXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794292506; x=1794897306;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
+        b=sYM77fzV5GwfhJxnVYdkK6ychhWE0gkWWLcgapRYBI8KFuL+ObeY7NNynuociRKEYQ
+         OKBpWOpXgiXHcFmyiSaA4putWTF2BQYFpKF5c42GNtyc87HnJ9xP615SnARHTPbUxARb
+         Ix3CyOdqaSN5zzMqF/K2FWuXlNQlv5Q02K5OJ+BvhT5cDkyReZq98CuH8SBnkvWYSq8s
+         6Q06iE8fycnWK/zxc1GH4ko6fIdRv8NsWH/AeEQ7a1Acl3UZ9t9ayw8r4Ediw7CRHbSr
+         q2CCgJxPdO7V/gx5WHaeztmJzANaIW+OEbuTan81Ys0Qjw3i+4FTfdAUAQLKyvnwnoXt
+         CMyA==
+X-Forwarded-Encrypted: i=1; AL+hErHfw8rOIglV9Mesa2qRx4ZbUBj3v3h44jUc4mhbJH7gkSorXbVWJQaT6GPCQ7e4IqyaQQ84fvlT02uND7w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yqwGv+CMN2AWlOnGZfmgamsFHG5qQa/ZIYRuWaCsYjz3sZGBu
+	oen3TTQK5SN+zsvUPD1TfKSw4U1g+VlBoxKrOxHN63Z3l+abVUuBrOu25Go6SzNpk6VqnjLAOdw
+	8z87nKF9H36muyNR0+xlpTlDMX21+6RhtTkUO+DsX0w==
+X-Gm-Gg: AYBFou3cG6us6BNTmAyhV9eE/IBUBqKnllQHoYVgIIfpMQ0GksJqV1qAbk3j5FmrwtA
+	jQmm2AwiEODCd6yuJgJU50r/lF7PCICmOJ07BzgNTuPu+CHo3VJHh0yTrCJMl3aQw84Umu4ZKXQ
+	AMh43N8QZOXPf9if6j7GiqymNJXLeosdQeI1zIrQb3mQBK+5e4U6FbikcAR8ZtTVoDK3qhffc37
+	j2F8KwEeSxjRNQHt5edgo5kI1798Ux11uHLbs94bLAPxLRG4W+iZWKEMn4wBhsgHN+mjLaNyuVl
+	SW3FPSxZVH8qavdDxhN8xsRV+YLGUgiBTm69cGgceKVMj3i90VrbYj/aZvk/hgyJZPlMEm5B8Hf
+	xGq1lih/nYrGrSNs2Qk0yH3eVokxXy0vRFAROPvTDUN+Ddpx390zzxPfQoxM79V6eqKIa
+X-Received: by 2002:a17:907:3f0d:b0:c2e:4a61:d436 with SMTP id
+ a640c23a62f3a-c50495d6ee1mr127887266b.36.1794292505807; Mon, 09 Nov 2026
+ 22:35:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,180 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 1/2] x86/virt/seamldr: Support large TDX module
- binaries
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "Gao, Chao" <chao.gao@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Van De Ven, Arjan" <arjan.van.de.ven@intel.com>,
- "Xu, Yilun" <yilun.xu@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "x86@kernel.org" <x86@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
- "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>
-References: <20261106132159.1551365-1-chao.gao@intel.com>
- <20261106132159.1551365-2-chao.gao@intel.com>
- <0ee3d9592e4e73bd0e5bedafc836033fdfc9f120.camel@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <0ee3d9592e4e73bd0e5bedafc836033fdfc9f120.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261102-bq25792-v9-0-65f223e95fbc@flipper.net> <179426549236.3711751.6417012163300457231.b4-review@b4>
+In-Reply-To: <179426549236.3711751.6417012163300457231.b4-review@b4>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Tue, 10 Nov 2026 10:34:54 +0400
+X-Gm-Features: AclHuK9pc8-UGCoY8qoJMcDm1W89S8IUmtpee84nm2Kphvd-KkvUPWFG9vri-8g
+Message-ID: <CAKTNdwFsC+o_vAztfBZHyxDT499eOeQ4VxTr2xjAF2Xca7D2Mw@mail.gmail.com>
+Subject: Re: [PATCH v9 0/3] Add support for the TI BQ25792 battery charger
+ (regulator part)
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Chris Morgan <macromorgan@hotmail.com>, 
+	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/2026 6:34 AM, Edgecombe, Rick P wrote:
-> On Fri, 2026-11-06 at 05:21 -0800, Chao Gao wrote:
->> The module binary is handed to P-SEAMLDR as a list of page physical
->> addresses in 'struct seamldr_params'. The list has 496 entries, which
->> caps a module at 496 pages.
-> 
-> nit. change it to "...caps a module at the same number of pages".
-> 
->>
->> TDX modules are gaining features and are about to outgrow that limit.
->>
->> The P-SEAMLDR ABI was extended to chain the list across 4KB pages. For
->> a module over 495 pages, the last of the 496 entries points to another
->> page of entries instead of to a module page. The last entry of that
->> page can point to yet another page, and so on, until every module page
->> is listed.
->>
->> Grow module_pages_pa_list[] so that 'struct seamldr_params' spans
->> multiple pages (16 for now), and use the extra pages as the chained
->> pages. The last entry of each page then points to the entry right after
->> it, which starts the next page. These link entries do not hold module
->> pages, so leave them out of the maximum module page count.
->>
->> The 16-page size is somewhat arbitrary. It fits modules of up to about
->> 32MB, far above the roughly 2MB of current modules. It wastes 60KB for
->> today's modules, which is fine because the memory is freed right after
->> the update. Sizing module_pages_pa_list[] per module would mean either
->> moving the allocation after the image header is validated, or allocating
->> from an unvalidated page count. Either way it is more code churn.
->>
->> Do not query P-SEAMLDR for chaining support. Userspace selects the update
->> image and is responsible for ensuring the module is compatible with
->> P-SEAMLDR.
+On Tue, Nov 10, 2026 at 3:11=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> > This adds support for the TI BQ25792 battery charger, which is similar =
+in
+> > overall logic to the BQ25703A, but has a different register layout and
+> > slightly different lower-level programming logic.
+> >
+> > No cross-tree dependencies here, as the MFD part is already in master.
+>
+> This doesn't apply against current code, please check and resend.
 
-Although the change log above has mentioned "For a module over 495 pages,
-...", a 496-page module was compatible with the P-SEAMLDR without chaining
-support, but now it requires P-SEAMLDR with chaining support.  Is it worth
-calling out this change to userspace?
+Thanks for the heads-up, I will rebase and resend. In the meantime,
+I've also added some further functionality to make it safer to use
+while sourcing >5V over USB PD, so I'll restructure the series a
+little bit while at that.
 
->>
->> Thanks to Yilun for the idea of allocating the chain pages together
->> with 'struct seamldr_params'.
-> 
-> I'm not sure what this means.
-> 
->>
->> AI was used under supervision to review code and workshop logs.
-> 
-> Same comment as on the next patch.
-> 
->>
->> Signed-off-by: Chao Gao <chao.gao@intel.com>
->> ---
->> v2:
->>  - Make 'struct seamldr_params' a fixed 16 pages instead of sizing it
->>    to each module, capping modules at about 32MB. [Rick]
->>  - Drop the patch that moved the allocation after image validation. [Rick]
->> ---
->>  arch/x86/virt/vmx/tdx/seamldr.c | 32 +++++++++++++++++++++++++-------
->>  1 file changed, 25 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/x86/virt/vmx/tdx/seamldr.c b/arch/x86/virt/vmx/tdx/seamldr.c
->> index b1137ca6150d..087bdf10a9a7 100644
->> --- a/arch/x86/virt/vmx/tdx/seamldr.c
->> +++ b/arch/x86/virt/vmx/tdx/seamldr.c
->> @@ -24,7 +24,18 @@
->>  #define P_SEAMLDR_INFO			0x8000000000000000
->>  #define P_SEAMLDR_INSTALL		0x8000000000000001
->>  
->> -#define SEAMLDR_MAX_NR_MODULE_PAGES	496
->> +/*
->> + * module_pages_pa_list[] spans multiple pages. The last entry of each
->> + * page points to the next page and does not hold a module page, so the
->> + * maximum number of module pages is the array size minus one entry per
->> + * page.
->> + *
->> + * SEAMLDR_PARAMS_NR_PAGES is somewhat arbitrary. It allows modules of
->> + * up to about 32MB. Increase it if modules outgrow that.
->> + */
->> +#define SEAMLDR_PARAMS_NR_PAGES		16
->> +#define SEAMLDR_NR_MODULE_PA_ENTRIES	(496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
-> 
-> I think you should describe the math a little bit here. 496 is the space in the
-> original format, but the last one is now a pa pointer, right? So can't be used
-> as a page of module data. And then each successive page is 511 entries and then
-> a pa pointer? So is the math actually right?
-
-My understanding is MODULE_PA_ENTRIES hold both addresses of module pages and
-the pointers to the next page.  SEAMLDR_MAX_NR_MODULE_PAGES below is the page
-number for the TDX module.
-
-> 
->> +#define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
->>  #define SEAMLDR_MAX_NR_SIG_PAGES	1
->>  
->>  /*
->> @@ -48,10 +59,10 @@ struct seamldr_params {
->>  	u64	sigstruct_pages_pa_list[SEAMLDR_MAX_NR_SIG_PAGES];
->>  	u8	reserved[104];
->>  	u64	module_nr_pages;
->> -	u64	module_pages_pa_list[SEAMLDR_MAX_NR_MODULE_PAGES];
->> +	u64	module_pages_pa_list[SEAMLDR_NR_MODULE_PA_ENTRIES];
->>  } __packed;
->>  
->> -static_assert(sizeof(struct seamldr_params) == 4096);
->> +static_assert(sizeof(struct seamldr_params) == SEAMLDR_PARAMS_NR_PAGES * PAGE_SIZE);
->>  
->>  /*
->>   * Serialize P-SEAMLDR calls since the hardware only allows a single CPU to
->> @@ -129,17 +140,24 @@ struct tdx_image {
->>  /*
->>   * Given a vmalloc() allocation, write all of the backing physical
->>   * addresses to pa_list[]. Caller guarantees that the array is big
->> - * enough.
->> + * enough. If pa_list[] spans multiple pages, point the last entry
->> + * of each page to the next page.
-
-I was wondering why SEAMLDR_MAX_NR_MODULE_PAGES	is not
-(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES + 1), since I thought
-the last page should all be the addresses for module pages.
-
-But I find the code below always treats the last entry of a page as the pointer
-to the next page, i.e. SEAMLDR_MAX_NR_MODULE_PAGES is indeed
-(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES), but I am not sure the
-comment is clear enough.
-
->>   */
->>  static void populate_pa_list(u64 *pa_list, const u8 *vmalloc_addr, u32 vmalloc_len_pages)
->>  {
->> -	int i;
->> +	int i, j;
->>  
->> -	for (i = 0; i < vmalloc_len_pages; i++) {
->> +	for (i = 0, j = 0; i < vmalloc_len_pages; i++) {
->>  		unsigned long offset = i * PAGE_SIZE;
->>  		unsigned long pfn = vmalloc_to_pfn(&vmalloc_addr[offset]);
->>  
->> -		pa_list[i] = pfn << PAGE_SHIFT;
-> 
-> How about a little:
-> /* If the current entry is the last in the page. */
-> 
->> +		if (PAGE_ALIGNED(&pa_list[j + 1])) {
->> +			pa_list[j] = __pa(&pa_list[j + 1]);
->> +			j++;
->> +		}
->> +
->> +		pa_list[j] = pfn << PAGE_SHIFT;
->> +		j++;
->>  	}
->>  }
->>  
-> 
-
+Best regards,
+Alexey
