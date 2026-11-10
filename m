@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344755;
-	b=PSARmOAYsmoh+oWjv5mRCeCYl/TUIAVNuwhuPNj8uVAFRxZtEMhMAHM0UiK/ni8CfrRx
-	 VamAQVPyDIj+pbzkAVg1ikousdRNP6Pprlv3ob3Cokh4XkggFBjRrOoNnSuspXclA2Lvv
-	 2ilxuGDg85Rk/84DyV15JrL0nRC4L+V9nGjDJzR/xj6bZTcoAsb+qReFGSrOpBBl0QBIl
-	 7V/O0MtR9RmN86YrqwFOYHzWY72NMFhp8m2fEw5cFJl3PPahYJqpcWyiLiP47xL85Tku3
-	 3w1EBJurYaBHOtlhzpRbdCgEYl5Xs5FvI7QTAMWKjNcXvOQKFtX060aRxfWUGUzWK5g==
+	t=1794344752;
+	b=S9+N/k1/alhFa7gGaH0eGeMPJXRWbUgxY6n3mphGNvOaUpdyDiZi87C6mMjwxd5PqPP+
+	 tXmATjfP2RwD3Nxl5fhEmuWaHrQWgQv/bLeRoSwvQ4hYq86z7eTZZJCla8SOMtTy8eM7D
+	 KznvDZcD0mcxUqMS1k6lK38wqS71s7jTGQiihaJXzhxe8KamYhqAhNOjXy/A8xv+yskKJ
+	 AT68fie4afMS/FM/5ldto9FDchyon4UmcD8PUQACk0BMOGagMq8qDTobLKt9/Kerfn1Zp
+	 fabtV+epRSMgxCrB/Th0FhI7RUQkKWyWtQsawGtDRuQJxiPo6mlFyCF5fO5VrpV3yHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344752;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=K9In9Zcj7gt1OtN+lcji+Pbk1pTinQeT5pc+Z1I5NM4=;
-	b=tw4K8fi2zf2vkyutiDR5/4KGsDTAFlSCnGCgDIIW2zH5zXgGwP0Del7cOeRm52F+CO+y
-	 eeh1xupLViQq+0EyOLzIqZz/rHHLxK1oex6YXj2tfcy0PcxmfUv0ILE1Drjk7sS5Z5Kow
-	 tseHjz+8eA2wF18mVwdaVTC0MOpBc6VeTC46hVh84j0z23jyWgUqzZWm0ue7rpd/okGGt
-	 HO4o11wgBhOMFg2lD15gbvSEafrk9JBFHr2mcrf6PxYALfCK5K/7ITp6CLRp1wBlv2eFv
-	 OlZVayJTP4gLTZwe2UThI/VDASqQCpwMWao4O+a0qYK8Yygba4lxt1usscxjfmHsA8A==
+	bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
+	b=UzqhH3bUz6EEp3mimG5fU/UyUmAQcWCscRt17KsoRpRkb/7W3cqmi022vJ+nd+8rAu9o
+	 3gKVgDP8PDQ4eX9r4zTzRqzm//Y86+OcdO6pVmTY9g+SkDihj2ksGRxOvlDD1pETIJw/Y
+	 dqQ2UW6j63cIlCBlQuuhikkYSBBM9sLoXoCf2tf7DhTjgiwNF2jQhiOnw7rNtxol/v2QH
+	 PLCGXPZctfOdISRPwYNCH3nFJWOKfMmEslAhOdI2K1CJzN0U6Fn0SS2T4tHz/YK4ONyGP
+	 n+6n+LBp6bofFesuKSe9seyyhWQDMAKWSg1sYQICQxI/1pQOGuPz8ZZedb1IPonE/8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=blockcast.net;
 	spf=pass smtp.mailfrom=blockcast.net;
-	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=Q20MpRMx;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b="PFKGTh/x";
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BFE60A5BC1
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BFE60A5BC1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B87160A382C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B87160A382C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=Q20MpRMx
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3704d30b84fso3211532eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:05:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=PFKGTh/x
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3acec6677so3870692c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:05:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1794344754; x=1794949554; darn=vger.kernel.org;
+        d=blockcast.net; s=google; t=1794344751; x=1794949551; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K9In9Zcj7gt1OtN+lcji+Pbk1pTinQeT5pc+Z1I5NM4=;
-        b=Q20MpRMx82mv4ZBPPKuxjXbOQukjlei4ekYDypmmEFNcMsG7spNoCAbMoibi3q++vX
-         IwDB9IxYkGaIv7oO12TwwqxYh65+UNtO1Wxz+4U6PlhP3W4s/EqYZJimz4Sa4gpd/kSa
-         DfJ0kSEKe2ISYQiJ8uLoc3eWkjbsIAI2l9ezJJLd7HNfINGQAg9jpr3vatr1q0AeHhEt
-         vsB/450skq9oQDnRSucHfBtP/m1uXIZsAEjvDyJMa9NaXpqt9E9xN3XMQuDt2zyvxvsR
-         6NdRPNeD/yq+yWOr7vcATuC/uxUsQsLwCT9+U+GXBijBitx+tEWtEhfNLV8pb0K502LZ
-         ymdA==
+        bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
+        b=PFKGTh/xcQl+W0yBVx+SaOfczow99hFdO6cJJoZJNuz6AXxmdoWFbZ3Y9pmgR3Fvzq
+         oZaYe7Znzz5zqaXwBkNJyt9JoQDKbVb28mfc/D6mAHcvttw7pRl+Bu4g7rFzwE25OWb9
+         dW267fUD7hXxaHrg7UewdnzTD8UxA8YRf6+9IdM7vSjWaZ1yJkNp7RAbRe3j41nAw/d3
+         vCg5UHVxkLGk2ROIRaSAtvHhWcpg4huyFEW+Y2i+8TgBJ9TQhU9LXbTbymmxVhmgmLTc
+         kwO6YFnVO755/P19vG4cBGk8AMltMylGgh5CeK/yic3SWZSbK8zRZmJi51AP0MfLhx/6
+         JfmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794344754; x=1794949554;
+        d=1e100.net; s=20260707; t=1794344751; x=1794949551;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K9In9Zcj7gt1OtN+lcji+Pbk1pTinQeT5pc+Z1I5NM4=;
-        b=rzodG4hzlWUu8tGmLXXRiAgNh+F71grC4oLp0e9vUaWpoRoO3diDkzYbFnBp24+YBP
-         a/aZDYSRleazCXgQ+FPufLUzPMlkLC8T86Oo47EeX2W01LRlStISlXvvnRaemjGep87i
-         5OkHfDKTxnXtkMducHUr7qS4HaDSqTXCURPJLUwErq8xzz7vQ38JAMAV2zaG/Qzlc10X
-         n1J/imiu+O6R6s9iC2J4fW2yH5KQycd8RzGetEg1H3/Hr3f+hym35HBgxytutjqh1+dx
-         w/idX0PrZ63YZ/10YiONbu/sMVkAf6D5i5lYzSx+bQPjOexm/qBCaNzcetMtQ+Nq+FFf
-         yKag==
-X-Forwarded-Encrypted: i=1; AL+hErGrrKivgcFIYoLIVLUotQRkorcNK+qQpTZaeeIIO5LnQQ8ZJFWvLYpjL/ke1c2Ptjxcq8WtOoW5HdrGFAA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wmDqcBBEL9pm8Mn2b3uT3SmX58Stw057hs7ZsWD9M09cmutr5
-	OtEQq8aXw/3Rbc9hNmR5uBrKCVQWoNxmD7njq7WuuRe6j94UyhoI6C6HuevJtBZDQgsY44LxwQr
-	MwBJ9Z2XOlEW01Cs=
-X-Gm-Gg: AYBFou1gyo+MIJkCGoi4aQeRMzU+TX59DmeYiJGnel4yeeFLMoBCFuxd03HGicquCV8
-	+yKQMy+w4+8fvAr1Xvv/7ZnR7LrolKR471rE6IMVk7jPVKBFm/fV/mV3KtRp4HijAmvPieW2mRC
-	BYViKpCdPZyEEZm5ZgAKrN61FpG7AHOA9bn9QAsBP4N4YXml73h+JHnsgfnfgdYUH+ZYXJz8ajr
-	GL9Eonf1bkofolDsafBf+cnkUTZv21wH3St6xJyISrrPV0fTtmH59DbKLkh+qfyXlmIEtBgb/xQ
-	/tYSwbzygRB8y+ztB8Qo1VPnKfuHLvJRu4WRIh8Goi7uHFCGESDrS6uGrMJ1qMsNd8vufBz9O5h
-	OHsW67CRbj7eywW7bBuFkzo3IBV3alQAEcEviYtyb812ri1c39rSQk0Ny2nuRQC2CGsSm3JCIav
-	IVGA1cP6vsdOWfiHNZFwqxNKxZXaNg/12gbQezMXcwrMHrpSGi6V7P1gzbDwzD9+WZ2PnH9RAGg
-	UtK2PC5prqUAfk5LIQNN6ao8zHzzx5P8lXaTCH5S7CZ+EymARErpyIQAnmH8fB5CDXSjcHGYTIB
-	iKDE2qkUf4JRrSSqdGchInwbVUj0Q9xRrCGYub1BYz6GLSRd7LPe8cqzUxN+DtIcS38bfHY=
-X-Received: by 2002:a05:7301:2892:b0:375:dc5b:43fa with SMTP id 5a478bee46e88-3768579fb7dmr585103eec.8.1794344753382;
-        Tue, 10 Nov 2026 13:05:53 -0800 (PST)
+        bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
+        b=WmV6QZUpXc3qTkbp8aHKgmZTNtux9sPotre2TaDTkpIUpOsOf9Sx2Lmn8Ivx8mfGbi
+         uQkfexvPWrECIe8ZwXXuETurtLQ/hghtK/nIvzwPFykZc7CgctPTuC9eBsDvjVH9uJdT
+         VGzZwzStjJLqIjYNiX1dv5YrItsN6blNDGPLmeDrBxo9zYx/JowTmD3LUHZP2sGgZk5o
+         MkQFpb83BNMwG+72Pa/Q660NvA/yeNFuhy0FVCOmF8XwWGkB0dpFMMuxxYgSScXpW8RB
+         K67gzbNJA+l2i+2Aw61HwHnujwGBJdeaw1PfQxiKsoxr7uOPq6MlYzMxEA9ewUzOvDet
+         CqnA==
+X-Forwarded-Encrypted: i=1; AL+hErGXvpZrVT0OuLRPvoRuBRl+fto35VYd+besF2C0cvyJx+0ifE9Lpt5EYSKe/cD+PwP2gCrRi9swGe9DBJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lLNQC/7ZihvAStRa9Y8/08KXQEAazaCdQUbDhzvfW0GxrA8yH
+	7CCrXIdT3QuOIlGbvlhg2h20yG4+4y0G1tPeUOKNo1PuiQAfJKOpB5cmwEjM1SZg7V0=
+X-Gm-Gg: AYBFou01ZJHsDMVaEouUDGgcWv90HGLFjJ+SPJBsibi46y83Vv9GRRlkCFRR7u5Odza
+	YVJNSOgaFjMUyKe/LuGtwK/ZKjvLWNbrnU68KcBqAGhIx6x0tDogi5OxhbxVbLJm2eEtAnm7vz1
+	Eb9Z55dtltu+1506oTS3TT936OYsp1kDgQBoCaX1FcV+HiWjFD8SMLRf9Sk2Nw2/tdxTtBkeAGr
+	vJQzTfUERbf7Yl4+tQ7zevbUFLvXXOWI1bMOblsXHY5Epa7flXFWtt0Fcuu4bG6hyN6yBu3pxwH
+	p1It+VpGoCes98WxJgcfiLi5muj32V8BfXJA4Nl0i39CNdQn1Jl/p9LsB3bZYeK3aX4NhOu9o6z
+	kSLIPz07MvBt82gmhcLzHFsVVy2YZao1HsVs7dVuzk+kTV2/XTOampmazITQkGR0YXTgJcyEq7u
+	ApodGkJDpNaN8OPxcSGP0uD1vdTEt5Jdt3S6BaYV6XdThyFjgMEl2lVyIz7u+wJGRPEo+MHWKdz
+	iuql6ome1uUXlpBEWK5YX6rB6CRA+M4peNS1HeZFxRZjUyUbGMQS0vHdSNlVdiUsNCffqBvfWFw
+	NZfNwA27NdsTZWZ6F9LDigPO303IcEmTJU/DGSKdWTrq4Yym8ZHdbSk1VPJuF6sms9GmFi0=
+X-Received: by 2002:a05:7022:ed07:b0:188:ea93:6cf9 with SMTP id a92af1059eb24-1b3c0359347mr89087c88.43.1794344751021;
+        Tue, 10 Nov 2026 13:05:51 -0800 (PST)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm10464097eec.17.2026.11.10.13.05.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm10464097eec.17.2026.11.10.13.05.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:05:52 -0800 (PST)
+        Tue, 10 Nov 2026 13:05:50 -0800 (PST)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -94,9 +93,9 @@ Cc: netdev@vger.kernel.org,
 	Steven Rostedt <rostedt@goodmis.org>,
 	linux-rt-devel@lists.linux.dev,
 	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH net v7 6/6] amt: create relay tunnels only from authenticated Updates
-Date: Tue, 10 Nov 2026 21:05:37 +0000
-Message-ID: <20261110210538.217936-7-omar@blockcast.net>
+Subject: [PATCH net v7 5/6] amt: make pre-query report drops visible
+Date: Tue, 10 Nov 2026 21:05:36 +0000
+Message-ID: <20261110210538.217936-6-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110210538.217936-1-omar@blockcast.net>
 References: <20261110210538.217936-1-omar@blockcast.net>
@@ -111,742 +110,197 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An AMT Request has an unauthenticated, spoofable source address. Allocating
-tunnel state from that path allowed spoofed Requests to consume tunnel
-slots or overwrite the nonce and MAC of an established gateway.
+A gateway cannot forward an IGMP or MLD report until it has received the
+relay's Membership Query for that family.  The Query supplies the
+response MAC the Update echoes, so dropping an early report is required,
+but doing so silently leaves operators with a dark multicast path and no
+indication why the join never happened.
 
-Keep Requests stateless by deriving the Query MAC from the source
-address, source port, nonce, and current secret, and retain four secret
-generations so a gateway can renew its MAC across rotations.
-Authenticate the Membership Update before decapsulation, and create or
-refresh tunnel state only once ip_mc_check_igmp() or ipv6_mc_check_mld()
-has accepted the encapsulated message. Key verified state by the
-address/port endpoint, enforce global and per-source limits, and
-silently reject an endpoint that cannot be admitted: withhold the Query
-rather than send ICMP Host Unreachable to a source address nothing has
-authenticated yet.
+Emit a family-specific debug message before taking the drop path.
 
-A MAC is now accepted only for a bounded time after the Query that
-carried it. Before, a tunnel copied the secret when a Request created it
-and never saw it rotate, so its MAC never expired. Now the secret
-rotates every 60 seconds and four generations are kept, so a MAC is
-accepted for 180 to 240 seconds. RFC 7450 section 5.2.3.5.4 has a
-gateway start a query timer when it accepts a Query, with a duration it
-SHOULD compute from the Query's QQIC (125 seconds here), and section
-5.2.3.5.5 has it send a new Request when that timer expires, so a
-gateway that times its next Request from QQIC renews its MAC inside the
-window. The in-tree gateway re-Requests every two seconds while its
-Requests are answered. A gateway that never sends another Request kept
-working before; now its Updates are dropped as Invalid MAC once the
-window has passed. So is the first Update after a new join from a
-gateway that, as section 5.2.3.5.4 also allows, uses a longer timer
-while it has no group subscriptions to report: it is dropped until that
-gateway's next Request.
+tx_dropped could not show these drops either: amt_dev_xmit() reaches the
+same tx_dropped increment after amt_send_membership_update() has handed
+the report to the tunnel, so in gateway mode every forwarded report was
+also counted as a drop. Return NETDEV_TX_OK directly once the report has
+been sent, so a report the tunnel accepted is no longer counted in
+tx_dropped.
 
-Which MACs are accepted changes too. Before, an Update had to carry the
-nonce and MAC of the latest Request from its address; now any pair
-minted for its address and port within the window is accepted. The MAC
-never covered the encapsulated report, so this changes only how long a
-pair seen by an on-path observer stays usable: off-path senders still
-cannot produce a valid pair.
+The device is LLTX, so amt_dev_xmit() can run on several CPUs at once;
+use DEV_STATS_INC() for tx_dropped and tx_errors, there and in the
+control-message senders that update the same counters, so concurrent
+increments are not lost.
 
-The secret is now seeded before amt_socket_create() enables the receive
-path. It was seeded after the socket was created since
-commit b9022b53adad ("amt: add control plane of amt interface"), when
-there was no receive path yet, and
-commit cbc21dc1cfe9 ("amt: add data plane of amt interface") added
-amt_rcv() and the per-tunnel copy of the key without moving it. Since
-then a Request that arrived during amt_dev_open() could get a tunnel
-whose MAC used an all-zero key (on the first open) or the previous key
-for the tunnel's whole life.
-
-amt_update_tunnel() retries once when it finds its tunnel dead, and the
-lookup skips dead tunnels, so an Update that races amt_tunnel_expire()
-creates the replacement instead of being dropped. The Request path's
-per-source count and the re-check under amt->lock in
-amt_tunnel_get_or_create() skip them too. Every tunnel is now created by
-an Update, which stamps last_seen, so amt_tunnel_expire() no longer
-treats a last_seen of 0 as never refreshed. amt_tunnel_get_or_create()
-also rechecks netif_running() under amt->lock before it links a tunnel.
-dev_close() clears the running state before it calls amt_dev_stop(),
-which drains the list under amt->lock, so an Update still being received
-while the device goes down cannot link a tunnel after the drain.
-
-Every Membership Update, forged ones included, reads the secret
-generations to check its MAC. Their writers hold amt->lock and update
-them inside a seqcount, amt->key_seq. The Update path copies them in a
-key_seq read loop, so reading them takes amt->lock only on PREEMPT_RT,
-to wait for a writer.
-
-Keying by address and port lets one address hold several tunnels; before
-this patch the Request path looked tunnels up by address alone, so an
-address normally held only one. amt_max_tunnels_per_src() bounds that
-at an eighth of max_tunnels, at least one tunnel and at most
-AMT_MAX_TUNNELS_PER_SRC (16): 16 at the default 128 slots, 2 at 16. One
-address then holds at most an eighth of a table of eight or more slots,
-while gateways behind NAT still get several tunnels once the table has
-16 or more slots. A configurable limit needs new uAPI, so it is left
-for net-next.
-
-Found by code inspection against RFC 7450; not triggered at runtime.
-The Sashiko AI review of an earlier posting pointed out the undocumented
-behaviour changes and that a fixed per-source cap let one address fill
-a small table.
+Found by code inspection while debugging an IPv6-in-IPv6 forwarding
+failure in a selftest for the AMT IPv6 outer transport. This drop can
+leave one address family dark, so it was a suspect, but that was not
+confirmed: the failure was later traced to the selftest, which sent a
+single datagram without waiting for the relay's multicast routes to
+converge. The drop has not been observed in production, and there is
+no oops or trace. The Sashiko AI review of an earlier posting found the
+tx_dropped miscount and the non-atomic counter updates.
 
 Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
 Assisted-by: LLM
 Signed-off-by: Omar Ramadan <omar@blockcast.net>
 ---
- drivers/net/amt.c | 405 ++++++++++++++++++++++++++++++++--------------
- include/net/amt.h |  14 +-
- 2 files changed, 294 insertions(+), 125 deletions(-)
+ drivers/net/amt.c | 42 +++++++++++++++++++++++++-----------------
+ 1 file changed, 25 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index de5b7dbe3..8014798b3 100644
+index 99cce0a14..de5b7dbe3 100644
 --- a/drivers/net/amt.c
 +++ b/drivers/net/amt.c
-@@ -700,14 +700,6 @@ static void __amt_update_relay_status(struct amt_tunnel_list *tunnel,
- 	tunnel->status = status;
- }
- 
--static void amt_update_relay_status(struct amt_tunnel_list *tunnel,
--				    enum amt_status status, bool validate)
--{
--	spin_lock_bh(&tunnel->lock);
--	__amt_update_relay_status(tunnel, status, validate);
--	spin_unlock_bh(&tunnel->lock);
--}
--
- static void amt_send_discovery(struct amt_dev *amt)
- {
- 	struct amt_header_discovery *amtd;
-@@ -891,11 +883,16 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
- 
- static bool amt_send_membership_query(struct amt_dev *amt,
- 				      struct sk_buff *skb,
--				      struct amt_tunnel_list *tunnel,
-+				      __be32 daddr, __be16 dport,
-+				      __be32 nonce, u64 mac,
- 				      bool v6);
- 
--static void amt_send_igmp_gq(struct amt_dev *amt,
--			     struct amt_tunnel_list *tunnel)
-+/* The destination is passed by value rather than as a tunnel: a Request is
-+ * unauthenticated, so no tunnel state is created or changed for it - see
-+ * amt_request_handler().
-+ */
-+static void amt_send_igmp_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
-+			     __be32 nonce, u64 mac)
- {
- 	struct sk_buff *skb;
- 
-@@ -904,7 +901,8 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
- 		return;
- 
- 	skb_pull(skb, sizeof(struct ethhdr));
--	if (amt_send_membership_query(amt, skb, tunnel, false)) {
-+	if (amt_send_membership_query(amt, skb, daddr, dport, nonce, mac,
-+				      false)) {
- 		DEV_STATS_INC(amt->dev, tx_dropped);
- 		kfree_skb(skb);
- 	}
-@@ -983,7 +981,8 @@ static struct sk_buff *amt_build_mld_gq(struct amt_dev *amt)
- 	return skb;
- }
- 
--static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
-+static void amt_send_mld_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
-+			    __be32 nonce, u64 mac)
- {
- 	struct sk_buff *skb;
- 
-@@ -992,13 +991,15 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
- 		return;
- 
- 	skb_pull(skb, sizeof(struct ethhdr));
--	if (amt_send_membership_query(amt, skb, tunnel, true)) {
-+	if (amt_send_membership_query(amt, skb, daddr, dport, nonce, mac,
-+				      true)) {
- 		DEV_STATS_INC(amt->dev, tx_dropped);
- 		kfree_skb(skb);
- 	}
- }
- #else
--static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
-+static void amt_send_mld_gq(struct amt_dev *amt, __be32 daddr, __be16 dport,
-+			    __be32 nonce, u64 mac)
- {
- }
- #endif
-@@ -1032,7 +1033,16 @@ static void amt_secret_work(struct work_struct *work)
- 					   secret_wq);
- 
- 	spin_lock_bh(&amt->lock);
--	get_random_bytes(&amt->key, sizeof(siphash_key_t));
-+	write_seqcount_begin(&amt->key_seq);
-+	/* Keep three previous generations for a 180-240s MAC lifetime.
-+	 * Its 180s floor exceeds the advertised QQIC (amt->qi, 125s),
-+	 * allowing the gateway to renew its MAC with a periodic Request.
-+	 */
-+	amt->key[3] = amt->key[2];
-+	amt->key[2] = amt->key[1];
-+	amt->key[1] = amt->key[0];
-+	get_random_bytes(&amt->key[0], sizeof(siphash_key_t));
-+	write_seqcount_end(&amt->key_seq);
- 	spin_unlock_bh(&amt->lock);
- 	mod_delayed_work(amt_wq, &amt->secret_wq,
- 			 msecs_to_jiffies(AMT_SECRET_TIMEOUT));
-@@ -1232,9 +1242,16 @@ static void amt_send_multicast_data(struct amt_dev *amt,
- 			    0);
- }
- 
-+/* Send a Membership Query in reply to an unauthenticated Request.
-+ *
-+ * No per-source state is read or created: the gateway echoes the nonce and
-+ * the keyed MAC in its Membership Update, where the MAC is recomputed, so
-+ * everything this needs is passed by value.
-+ */
- static bool amt_send_membership_query(struct amt_dev *amt,
- 				      struct sk_buff *skb,
--				      struct amt_tunnel_list *tunnel,
-+				      __be32 daddr, __be16 dport,
-+				      __be32 nonce, u64 mac,
- 				      bool v6)
- {
- 	struct amt_header_membership_query *amtmq;
-@@ -1255,13 +1272,13 @@ static bool amt_send_membership_query(struct amt_dev *amt,
- 	skb_reset_inner_headers(skb);
- 	memset(&fl4, 0, sizeof(struct flowi4));
- 	fl4.flowi4_oif         = amt->stream_dev->ifindex;
--	fl4.daddr              = tunnel->ip4;
-+	fl4.daddr              = daddr;
- 	fl4.saddr              = amt->local_ip;
- 	fl4.flowi4_dscp        = inet_dsfield_to_dscp(AMT_TOS);
- 	fl4.flowi4_proto       = IPPROTO_UDP;
- 	rt = ip_route_output_key(amt->net, &fl4);
+@@ -735,7 +735,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
  	if (IS_ERR(rt)) {
--		netdev_dbg(amt->dev, "no route to %pI4\n", &tunnel->ip4);
-+		netdev_dbg(amt->dev, "no route to %pI4\n", &daddr);
- 		return true;
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
  	}
  
-@@ -1271,8 +1288,8 @@ static bool amt_send_membership_query(struct amt_dev *amt,
- 	amtmq->reserved = 0;
- 	amtmq->l	= 0;
- 	amtmq->g	= 0;
--	amtmq->nonce	= tunnel->nonce;
--	amtmq->response_mac = tunnel->mac;
-+	amtmq->nonce	= nonce;
-+	amtmq->response_mac = mac;
+@@ -745,7 +745,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
  
- 	if (!v6)
- 		skb_set_inner_protocol(skb, htons(ETH_P_IP));
-@@ -1285,11 +1302,10 @@ static bool amt_send_membership_query(struct amt_dev *amt,
- 			    ip4_dst_hoplimit(&rt->dst),
- 			    0,
- 			    amt->relay_port,
--			    tunnel->source_port,
-+			    dport,
- 			    false,
- 			    false,
- 			    0);
--	amt_update_relay_status(tunnel, AMT_STATUS_SENT_QUERY, true);
- 	return false;
+@@ -790,7 +790,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 
+ 	amt_update_gw_status(amt, AMT_STATUS_SENT_DISCOVERY, true);
+ out:
+@@ -826,7 +826,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
+ 	if (IS_ERR(rt)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
+ 
+@@ -836,7 +836,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
+ 
+@@ -883,7 +883,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 
+ out:
+ 	rcu_read_unlock();
+@@ -905,7 +905,7 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
+ 
+ 	skb_pull(skb, sizeof(struct ethhdr));
+ 	if (amt_send_membership_query(amt, skb, tunnel, false)) {
+-		amt->dev->stats.tx_dropped++;
++		DEV_STATS_INC(amt->dev, tx_dropped);
+ 		kfree_skb(skb);
+ 	}
  }
+@@ -949,7 +949,7 @@ static struct sk_buff *amt_build_mld_gq(struct amt_dev *amt)
  
-@@ -1477,12 +1493,7 @@ static void amt_tunnel_expire(struct work_struct *work)
- 	 * or finds it dead.
- 	 */
- 	now = jiffies;
--	deadline = tunnel->last_seen;
--	/* No Update yet: the Request armed gc_wq for one GMI. */
--	if (!deadline)
--		deadline = now;
--	else
--		deadline += msecs_to_jiffies(amt_gmi(amt)) * 3;
-+	deadline = tunnel->last_seen + msecs_to_jiffies(amt_gmi(amt)) * 3;
- 	if (time_before(now, deadline)) {
- 		mod_delayed_work(amt_wq, &tunnel->gc_wq, deadline - now);
- 		spin_unlock_bh(&tunnel->lock);
-@@ -2631,16 +2642,165 @@ static bool amt_membership_query_handler(struct amt_dev *amt,
- 	return false;
+ 	if (ipv6_dev_get_saddr(amt->net, amt->dev, &ip6h->daddr, 0,
+ 			       &ip6h->saddr)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		kfree_skb(skb);
+ 		return NULL;
+ 	}
+@@ -993,7 +993,7 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
+ 
+ 	skb_pull(skb, sizeof(struct ethhdr));
+ 	if (amt_send_membership_query(amt, skb, tunnel, true)) {
+-		amt->dev->stats.tx_dropped++;
++		DEV_STATS_INC(amt->dev, tx_dropped);
+ 		kfree_skb(skb);
+ 	}
  }
+@@ -1353,7 +1353,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		group.ip6 = ipv6_hdr(skb)->daddr;
+ #endif
+ 	} else {
+-		dev->stats.tx_errors++;
++		DEV_STATS_INC(dev, tx_errors);
+ 		goto free;
+ 	}
  
-+/* The live tunnel of the gateway endpoint @saddr:@sport, or NULL.  Dead
-+ * tunnels are skipped, so the retry in amt_update_tunnel() after losing a
-+ * race with amt_tunnel_expire() creates the replacement.
-+ */
-+static struct amt_tunnel_list *amt_tunnel_lookup(struct amt_dev *amt,
-+						 __be32 saddr, __be16 sport)
-+{
-+	struct amt_tunnel_list *tunnel;
-+
-+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
-+		if (tunnel->ip4 == saddr && tunnel->source_port == sport &&
-+		    !READ_ONCE(tunnel->dead))
-+			return tunnel;
-+	}
-+	return NULL;
-+}
-+
-+/* Most tunnels one source address may hold: an eighth of the table, at
-+ * least one and at most AMT_MAX_TUNNELS_PER_SRC.
-+ */
-+static u32 amt_max_tunnels_per_src(const struct amt_dev *amt)
-+{
-+	return clamp_t(u32, amt->max_tunnels / 8, 1,
-+		       AMT_MAX_TUNNELS_PER_SRC);
-+}
-+
-+/* Look up the tunnel for a source whose Membership Update has already been
-+ * authenticated, creating it on first contact.
-+ *
-+ * This is the only place tunnel state is allocated, so amt->max_tunnels
-+ * bounds the number of *verified* gateways rather than the number of
-+ * unverified Requests anyone can send.  A per-source cap derived from the
-+ * table, amt_max_tunnels_per_src(), additionally limits the tunnels one
-+ * verified source address may hold.
-+ */
-+static struct amt_tunnel_list *amt_tunnel_get_or_create(struct amt_dev *amt,
-+							__be32 saddr,
-+							__be16 sport)
-+{
-+	struct amt_tunnel_list *tunnel;
-+	u32 per_src = 0;
-+	int i;
-+
-+	tunnel = amt_tunnel_lookup(amt, saddr, sport);
-+	if (tunnel)
-+		return tunnel;
-+
-+	spin_lock_bh(&amt->lock);
-+
-+	/* Re-check under the lock in case a concurrent Update won the race, and
-+	 * count how many tunnels this source already holds on the same walk.
-+	 * Skip dead tunnels, as amt_tunnel_lookup() and the Request path do, so
-+	 * a tunnel being freed neither stands in for its endpoint nor counts
-+	 * against its address.
-+	 */
-+	list_for_each_entry(tunnel, &amt->tunnel_list, list) {
-+		if (tunnel->ip4 != saddr || READ_ONCE(tunnel->dead))
-+			continue;
-+		if (tunnel->source_port == sport) {
-+			spin_unlock_bh(&amt->lock);
-+			return tunnel;
+@@ -1366,12 +1366,21 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		/* Gateway only passes IGMP/MLD packets */
+ 		if (!report)
+ 			goto free;
++		/* A validated report can only be forwarded after the relay's
++		 * family-specific Membership Query supplies the state echoed
++		 * by the Membership Update. Log this readiness failure before
++		 * the shared drop path accounts it.
++		 */
+ 		if ((!v6 && !READ_ONCE(amt->ready4)) ||
+-		    (v6 && !READ_ONCE(amt->ready6)))
++		    (v6 && !READ_ONCE(amt->ready6))) {
++			netdev_dbg(dev, "drop %s report: waiting for Membership Query\n",
++				   v6 ? "MLD" : "IGMP");
+ 			goto free;
 +		}
-+		per_src++;
-+	}
-+
-+	if (amt->nr_tunnels >= amt->max_tunnels ||
-+	    per_src >= amt_max_tunnels_per_src(amt)) {
-+		spin_unlock_bh(&amt->lock);
-+		return NULL;
-+	}
-+
-+	if (!netif_running(amt->dev)) {
-+		spin_unlock_bh(&amt->lock);
-+		return NULL;
-+	}
-+
-+	tunnel = kzalloc(sizeof(*tunnel) +
-+			 (sizeof(struct hlist_head) * amt->hash_buckets),
-+			 GFP_ATOMIC);
-+	if (!tunnel) {
-+		spin_unlock_bh(&amt->lock);
-+		return NULL;
-+	}
-+
-+	tunnel->source_port = sport;
-+	tunnel->ip4 = saddr;
-+	tunnel->amt = amt;
-+	spin_lock_init(&tunnel->lock);
-+	for (i = 0; i < amt->hash_buckets; i++)
-+		INIT_HLIST_HEAD(&tunnel->groups[i]);
-+
-+	tunnel->last_seen = jiffies;
-+	INIT_DELAYED_WORK(&tunnel->gc_wq, amt_tunnel_expire);
-+	__amt_update_relay_status(tunnel, AMT_STATUS_RECEIVED_UPDATE, false);
-+
-+	/* Publish only once the entry is fully initialised. */
-+	list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
-+	amt->nr_tunnels++;
-+	mod_delayed_work(amt_wq, &tunnel->gc_wq,
-+			 msecs_to_jiffies(amt_gmi(amt)) * 3);
-+	spin_unlock_bh(&amt->lock);
-+
-+	return tunnel;
-+}
-+
-+/* Apply a valid, authenticated Membership Update to the tunnel of its
-+ * endpoint, creating the tunnel on first contact.  Returns false if the
-+ * Update is dropped.
-+ *
-+ * amt_tunnel_expire() reads last_seen and sets dead under tunnel->lock, so
-+ * the refresh below either keeps the tunnel alive or finds it dead.  A
-+ * tunnel that expired between the lookup and the lock is skipped by the
-+ * second amt_tunnel_get_or_create() call, which creates its replacement.
-+ */
-+static bool amt_update_tunnel(struct amt_dev *amt, struct sk_buff *skb,
-+			      __be32 saddr, __be16 sport, bool v6)
-+{
-+	struct amt_tunnel_list *tunnel;
-+	int i;
-+
-+	for (i = 0; i < 2; i++) {
-+		tunnel = amt_tunnel_get_or_create(amt, saddr, sport);
-+		if (!tunnel)
-+			return false;
-+
-+		spin_lock_bh(&tunnel->lock);
-+		if (!READ_ONCE(tunnel->dead)) {
-+			/* gc_wq is re-armed by amt_tunnel_expire() itself
-+			 * from last_seen, never from here, so this cannot
-+			 * re-queue the work of a tunnel that is being freed.
-+			 */
-+			tunnel->last_seen = jiffies;
-+#if IS_ENABLED(CONFIG_IPV6)
-+			if (v6)
-+				amt_mld_report_handler(amt, skb, tunnel);
-+			else
-+#endif
-+				amt_igmp_report_handler(amt, skb, tunnel);
-+			spin_unlock_bh(&tunnel->lock);
-+			return true;
-+		}
-+		spin_unlock_bh(&tunnel->lock);
-+	}
-+	return false;
-+}
-+
- static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- {
- 	struct amt_header_membership_update *amtmu;
--	struct amt_tunnel_list *tunnel;
-+	bool verified = false;
-+	siphash_key_t key[4];
-+	int len, hdr_size, i;
- 	struct ethhdr *eth;
- 	struct iphdr *iph;
--	int len, hdr_size;
-+	unsigned int seq;
- 	u64 response_mac;
- 	__be32 saddr;
- 	__be32 nonce;
-+	__be16 sport;
- 
- 	saddr = ip_hdr(skb)->saddr;
- 
-@@ -2654,27 +2814,45 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 
- 	nonce = amtmu->nonce;
- 	response_mac = amtmu->response_mac;
-+	/* Snapshot the tunnel endpoint port before the encap is stripped. */
-+	sport = udp_hdr(skb)->source;
- 
-+	/* Recompute the MAC handed out in the Membership Query.  Four live
-+	 * secrets cover 180-240s, exceeding the advertised QQIC (amt->qi,
-+	 * 125s), so a periodic Request can renew the MAC before it expires.
-+	 * Authenticate before decapsulation or allocating tunnel state.
-+	 */
-+	do {
-+		seq = read_seqcount_begin(&amt->key_seq);
-+		for (i = 0; i < ARRAY_SIZE(key); i++)
-+			key[i] = amt->key[i];
-+	} while (read_seqcount_retry(&amt->key_seq, seq));
-+
-+	for (i = 0; i < ARRAY_SIZE(key); i++) {
-+		u64 mac = siphash_3u32((__force u32)saddr,
-+				       (__force u32)sport,
-+				       (__force u32)nonce,
-+				       &key[i]) >> 16;
-+
-+		if (response_mac == mac) {
-+			verified = true;
-+			break;
-+		}
-+	}
-+
-+	if (!verified) {
-+		netdev_dbg(amt->dev, "Invalid MAC\n");
-+		return true;
-+	}
-+
-+	/* Create or refresh a tunnel only once the encapsulated message has
-+	 * passed ip_mc_check_igmp() or ipv6_mc_check_mld().
-+	 */
- 	if (iptunnel_pull_header(skb, hdr_size, skb->protocol, false))
- 		return true;
- 
- 	skb_reset_network_header(skb);
- 
--	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
--		if (tunnel->ip4 == saddr) {
--			if ((nonce == tunnel->nonce &&
--			     response_mac == tunnel->mac)) {
--				goto report;
--			} else {
--				netdev_dbg(amt->dev, "Invalid MAC\n");
--				return true;
--			}
--		}
--	}
--
--	return true;
--
--report:
- 	if (!pskb_may_pull(skb, sizeof(*iph)))
- 		return true;
- 
-@@ -2688,21 +2866,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 			return true;
- 		}
- 
--		spin_lock_bh(&tunnel->lock);
--		if (READ_ONCE(tunnel->dead)) {
--			spin_unlock_bh(&tunnel->lock);
-+		if (!amt_update_tunnel(amt, skb, saddr, sport, false))
- 			return true;
--		}
--		/* Refresh liveness under tunnel->lock, where
--		 * amt_tunnel_expire() reads it; 0 is kept for a tunnel no
--		 * Update has refreshed.  gc_wq is re-armed by
--		 * amt_tunnel_expire() itself from last_seen, never from
--		 * here, so this cannot re-queue the work of a tunnel that is
--		 * being freed.
--		 */
--		tunnel->last_seen = jiffies ?: 1;
--		amt_igmp_report_handler(amt, skb, tunnel);
--		spin_unlock_bh(&tunnel->lock);
- 
- 		skb_push(skb, sizeof(struct ethhdr));
- 		skb_reset_mac_header(skb);
-@@ -2720,14 +2885,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 			return true;
- 		}
- 
--		spin_lock_bh(&tunnel->lock);
--		if (READ_ONCE(tunnel->dead)) {
--			spin_unlock_bh(&tunnel->lock);
-+		if (!amt_update_tunnel(amt, skb, saddr, sport, true))
- 			return true;
--		}
--		tunnel->last_seen = jiffies ?: 1;
--		amt_mld_report_handler(amt, skb, tunnel);
--		spin_unlock_bh(&tunnel->lock);
- 
- 		skb_push(skb, sizeof(struct ethhdr));
- 		skb_reset_mac_header(skb);
-@@ -2746,13 +2905,10 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 	skb->pkt_type = PACKET_MULTICAST;
- 	skb->ip_summed = CHECKSUM_NONE;
- 	len = skb->len;
--	if (__netif_rx(skb) == NET_RX_SUCCESS) {
--		amt_update_relay_status(tunnel, AMT_STATUS_RECEIVED_UPDATE,
--					true);
-+	if (__netif_rx(skb) == NET_RX_SUCCESS)
- 		dev_sw_netstats_rx_add(amt->dev, len);
--	} else {
-+	else
- 		amt->dev->stats.rx_dropped++;
--	}
- 
- 	return false;
- }
-@@ -2868,15 +3024,30 @@ static bool amt_discovery_handler(struct amt_dev *amt, struct sk_buff *skb)
- 	return false;
+ 		if (amt_send_membership_update(amt, skb,  v6))
+ 			goto free;
+-		goto unlock;
++		/* Sent: the tunnel consumed the skb.  Not a drop. */
++		return NETDEV_TX_OK;
+ 	} else if (amt->mode == AMT_MODE_RELAY) {
+ 		if (!data)
+ 			goto free;
+@@ -1400,8 +1409,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	return NETDEV_TX_OK;
+ free:
+ 	dev_kfree_skb(skb);
+-unlock:
+-	dev->stats.tx_dropped++;
++	DEV_STATS_INC(dev, tx_dropped);
+ 	return NETDEV_TX_OK;
  }
  
-+/* Handle an AMT Request.
-+ *
-+ * The source of a Request is unauthenticated: it is a bare UDP datagram with a
-+ * trivially spoofable source address.  Allocating tunnel state here would let
-+ * an attacker fill the table from spoofed addresses, or let one spoofed packet
-+ * overwrite the nonce/MAC of an established tunnel and cut that gateway off.
-+ *
-+ * Nothing needs to be remembered at this point.  Every input to the keyed MAC
-+ * is carried in the packet or is device state, so the MAC is generated here,
-+ * echoed back by the gateway in its Membership Update, and recomputed and
-+ * verified there - see amt_update_handler().  Tunnel state is created only once
-+ * that verification succeeds and the encapsulated message passes its IGMP or
-+ * MLD check.
-+ */
- static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
- {
- 	struct amt_header_request *amtrh;
- 	struct amt_tunnel_list *tunnel;
--	unsigned long long key;
-+	bool full, have = false;
- 	struct udphdr *udph;
- 	struct iphdr *iph;
-+	siphash_key_t key;
-+	u32 per_src = 0;
- 	u64 mac;
--	int i;
+@@ -2777,7 +2785,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
+ 	if (IS_ERR(rt)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
  
- 	if (!pskb_may_pull(skb, sizeof(*udph) + sizeof(*amtrh)))
- 		return true;
-@@ -2888,59 +3059,45 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
- 	if (amtrh->reserved1 || amtrh->reserved2 || amtrh->version)
- 		return true;
+@@ -2787,7 +2795,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
  
--	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
--		if (tunnel->ip4 == iph->saddr)
--			goto send;
--
--	spin_lock_bh(&amt->lock);
--	if (amt->nr_tunnels >= amt->max_tunnels) {
--		spin_unlock_bh(&amt->lock);
--		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
--		return true;
--	}
--
--	tunnel = kzalloc(sizeof(*tunnel) +
--			 (sizeof(struct hlist_head) * amt->hash_buckets),
--			 GFP_ATOMIC);
--	if (!tunnel) {
--		spin_unlock_bh(&amt->lock);
-+	if (!netif_running(amt->dev) || !netif_running(amt->stream_dev))
- 		return true;
--	}
--
--	tunnel->source_port = udph->source;
--	tunnel->ip4 = iph->saddr;
--
--	memcpy(&key, &tunnel->key, sizeof(unsigned long long));
--	tunnel->amt = amt;
--	spin_lock_init(&tunnel->lock);
--	for (i = 0; i < amt->hash_buckets; i++)
--		INIT_HLIST_HEAD(&tunnel->groups[i]);
+@@ -2833,7 +2841,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
  
--	INIT_DELAYED_WORK(&tunnel->gc_wq, amt_tunnel_expire);
--
--	list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
--	tunnel->key = amt->key;
--	__amt_update_relay_status(tunnel, AMT_STATUS_RECEIVED_REQUEST, true);
--	amt->nr_tunnels++;
--	mod_delayed_work(amt_wq, &tunnel->gc_wq,
--			 msecs_to_jiffies(amt_gmi(amt)));
-+	/* Snapshot the secret and the table-full state under the lock and walk
-+	 * the endpoints outside it, so a Request holds amt->lock only for this
-+	 * O(1) snapshot.
-+	 */
-+	spin_lock_bh(&amt->lock);
-+	key = amt->key[0];
-+	full = amt->nr_tunnels >= amt->max_tunnels;
- 	spin_unlock_bh(&amt->lock);
- 
--send:
--	tunnel->nonce = amtrh->nonce;
--	mac = siphash_3u32((__force u32)tunnel->ip4,
--			   (__force u32)tunnel->source_port,
--			   (__force u32)tunnel->nonce,
--			   &tunnel->key);
--	tunnel->mac = mac >> 16;
-+	/* Skip dead tunnels, as amt_tunnel_lookup() does: each is already
-+	 * being torn down, so it must not count against a new endpoint.
-+	 */
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
-+		if (tunnel->ip4 != iph->saddr || READ_ONCE(tunnel->dead))
-+			continue;
-+		per_src++;
-+		if (tunnel->source_port == udph->source)
-+			have = true;
-+	}
-+	rcu_read_unlock();
- 
--	if (!netif_running(amt->dev) || !netif_running(amt->stream_dev))
-+	/* Withhold the Query when a new endpoint cannot get a tunnel. */
-+	if (!have && (full || per_src >= amt_max_tunnels_per_src(amt)))
- 		return true;
- 
-+	mac = siphash_3u32((__force u32)iph->saddr,
-+			   (__force u32)udph->source,
-+			   (__force u32)amtrh->nonce,
-+			   &key) >> 16;
- 	if (!amtrh->p)
--		amt_send_igmp_gq(amt, tunnel);
-+		amt_send_igmp_gq(amt, iph->saddr, udph->source, amtrh->nonce,
-+				 mac);
- 	else
--		amt_send_mld_gq(amt, tunnel);
-+		amt_send_mld_gq(amt, iph->saddr, udph->source, amtrh->nonce,
-+				mac);
- 
- 	return false;
- }
-@@ -3208,6 +3365,16 @@ static int amt_dev_open(struct net_device *dev)
- 	enable_delayed_work(&amt->discovery_wq);
- 	enable_delayed_work(&amt->req_wq);
- 
-+	/* Seed the keys before amt_socket_create() enables the encap receive
-+	 * path, so no Query MAC is generated, and no Update verified, with an
-+	 * all-zero (predictable) secret.
-+	 */
-+	spin_lock_bh(&amt->lock);
-+	write_seqcount_begin(&amt->key_seq);
-+	get_random_bytes(&amt->key, sizeof(amt->key));
-+	write_seqcount_end(&amt->key_seq);
-+	spin_unlock_bh(&amt->lock);
-+
- 	err = amt_socket_create(amt);
- 	if (err) {
- 		disable_delayed_work(&amt->req_wq);
-@@ -3218,7 +3385,6 @@ static int amt_dev_open(struct net_device *dev)
- 	amt->req_cnt = 0;
- 	WRITE_ONCE(amt->remote_ip, 0);
- 	amt->nonce = 0;
--	get_random_bytes(&amt->key, sizeof(siphash_key_t));
- 
- 	amt->status = AMT_STATUS_INIT;
- 	if (amt->mode == AMT_MODE_GATEWAY) {
-@@ -3436,6 +3602,7 @@ static int amt_newlink(struct net_device *dev,
- 		amt->max_tunnels = AMT_MAX_TUNNELS;
- 
- 	spin_lock_init(&amt->lock);
-+	seqcount_spinlock_init(&amt->key_seq, &amt->lock);
- 	amt->max_groups = AMT_MAX_GROUP;
- 	amt->max_sources = AMT_MAX_SOURCE;
- 	amt->hash_buckets = AMT_HSIZE;
-diff --git a/include/net/amt.h b/include/net/amt.h
-index dedf328d8..9ba097127 100644
---- a/include/net/amt.h
-+++ b/include/net/amt.h
-@@ -253,10 +253,6 @@ struct amt_tunnel_list {
- 	bool			dead;
- 	__be16			source_port;
- 	__be32			ip4;
--	__be32			nonce;
--	siphash_key_t		key;
--	u64			mac:48,
--				reserved:16;
- 	struct rcu_head		rcu;
- 	struct hlist_head	groups[];
- };
-@@ -342,8 +338,12 @@ struct amt_dev {
- 	struct work_struct	event_wq;
- 	/* AMT status */
- 	enum amt_status		status;
--	/* Generated key */
--	siphash_key_t		key;
-+	/* Current key and three previous generations keep MACs valid for
-+	 * 180-240s, beyond the advertised QQIC (see amt_secret_work()).
-+	 */
-+	siphash_key_t		key[4];
-+	/* For lockless readers of key; writers hold lock */
-+	seqcount_spinlock_t	key_seq;
- 	struct sock	  __rcu *sk;
- 	u32			max_groups;
- 	u32			max_sources;
-@@ -401,6 +401,8 @@ struct amt_dev {
- #define AMT_SECRET_TIMEOUT	60000
- #define IANA_AMT_UDP_PORT	2268
- #define AMT_MAX_TUNNELS         128
-+/* Upper bound of amt_max_tunnels_per_src(), the per-address tunnel cap */
-+#define AMT_MAX_TUNNELS_PER_SRC 16
- #define AMT_MAX_REQS		128
- #define AMT_GW_HLEN (sizeof(struct iphdr) + \
- 		     sizeof(struct udphdr) + \
+ out:
+ 	rcu_read_unlock();
 -- 
 2.43.0
 
