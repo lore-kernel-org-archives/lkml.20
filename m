@@ -1,64 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294038;
-	b=OxpzQjtEX+9DYveZBVLnqgzxvBETA/0Lyu6W17H8lKDRanN2t6K1r7vP4CdY9pJNqCxb
-	 XV82CSKONZ9hNUq1InDlkzVYxn9VzO5JCj7ljc488qZ0UN3W6lJVdwOfoXRwm8gFYbNeW
-	 HvZgfV7jyhlXYbGS0iLTSs2ZsLF7X8ZQUv5IxTvRSLWbDl4CZYWpNpaSpTrD9NWCfmgci
-	 c0LmpCIO16nu3jgXvkolZc9PHID90930/pRGTVrhHMt+REi1f+SDGHAUzlVfB258Xh4xE
-	 twzjvHymYzIG7v2XgPjGdbvU51Ztm5OuMfAbO6Bm7k3LTVA2CoEuKdBN2rZ1kZZcV5A==
+	t=1794294132;
+	b=vbx3/vyE5XUv6a08Kp44IIxvwBZG80qFQ/AzZ0b3tDxR6vUOl/kHhh9bGxhmpSS4AdQb
+	 EEwH2Hla7KjqCHfuqalzW09KXF/aLEcCV7bYPJIaasn/AOdpFY8jUz/YIlWK4gZgLCRUW
+	 M/v7QYKM4BolHhgHvj/+z6g/DkKy8QDlW+3v4K7nRmlzADXyHfKKB38BDqZxzoZpGGggg
+	 W9bQwlevVUsLnTn+e7G6rjc1NhG5GMpYV9KxlhOcouGupYD4ePQwekhWjbaKwcRuQGdXe
+	 W/uDcbTY+JlJwTaUbuCo5IoqMM33x/pDSaf33C5GAVweUg4lmBflgNOdRToRwoC4Hdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294132;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uIgIoqNUaNcHTCa8YxNJf9eSahU1vZuGDd3kO1Ne5XU=;
-	b=lm9Odd2Yuce2Y2nX5F2iPuDpwT0cKSgL83eRnKgF3tazp5HdvninBezKxoonzMbxcxMI
-	 +vjdqKx8+Bdn64S48GvH5edMSBLhDK2Q+2R+pCGlSfSLv8rL/MKmAStsMmSww9NhnVxkQ
-	 MQ+kLVfA7yQns9/cslNMb9ibp1i3GBbCObMqAILBEkavBVwmf0zjJ9vCzxPElTKftyNxQ
-	 2HOvOt1ofj52I4ogqSGwSwK8QxolsNJQVcy9gcsC7PJou+MkqkFAEHxeNcpLkYg940/3B
-	 UWQuPn5fnCvP0mGbUS5CGPiy+JlNFvch36HTNbtvDBrPkyPTRcYsDjuH5dedzy7ticA==
+	bh=jTHiZ4jJN/E8yIGpxapjAZs2O+sKVcXlYf7ss7FEZYQ=;
+	b=lTif4V/SRFwi0WBXcvlTT7Y+SXTmHnLhOhVrWOT1lqqObCRUmWvRly/F37B2NmrfQMEA
+	 tnxkEa31MWYJ6tlhvx0bZW5U2gkqnhbKRWWYcWFueQC5WdlCTzTdTOkirlDK7BrJO24/0
+	 J5fbvFjRVNwdYpJvS6fDLXFWnU+z61KwBhkbOgAEQ4ryPgfleI0qSXiLbXm/FZuwj2pqf
+	 n7WsV2CPnutxKF5epntf2w4PpzxHNbYP7SGREF21HqaKTAxvFzJIyBU8bVzxuAtzjDiTb
+	 xdL7qrJeWsMmVEfde4qpDFRVfigrBsvYUd1uQAqtTN4SEze8AF8ywXjBedSLvgGGJWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZFnEL3cO;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B7TXg070;
 	arc=none smtp.remote-ip=111.22.67.139
 Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 095F9606A321;
-	Tue, 10 Nov 2026 07:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 095F9606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8EF5606A31C;
+	Tue, 10 Nov 2026 07:02:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8EF5606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZFnEL3cO
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B7TXg070
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ZFnEL3cO3IbqlOJmmJt7FEsk8BicLWOkn+5bWrzzshISbvyKKefBsuJKrJHNuR8BVQVvT8AWXWqL2
-	 IUhMpnOIPXf6yp8/fRgaRp7d1cF18Yk1a9A/tYTVLELbwU9z+UBBJFpVI45OPVYJyVocSHxsDyJDbU
-	 pJc8kzTfxnEuOwKA=
+	b=B7TXg070/gXUzm5z54hkm/3Xpi2NMmsBhkTy3TMMflpNysvYQ66QByshODi7gfNjBSgBKrL+eOpUD
+	 1ers/voTH5kRVvm4219Kv0NbtjqyJxYBTdXYQHDdVTjfkl8vX4/Ssu8iJNF+iDb1mArqX/ZDTU84sS
+	 rH4d3BdCJSj8gRrU=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af2c111092-c9602;
-	Tue, 10 Nov 2026 15:00:35 +0800 (CST)
-X-RM-TRANSID:2ee56af2c111092-c9602
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af2c1720a4-d137e;
+	Tue, 10 Nov 2026 15:02:10 +0800 (CST)
+X-RM-TRANSID:2ee96af2c1720a4-d137e
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af2c1102d5-ab182;
-	Tue, 10 Nov 2026 15:00:35 +0800 (CST)
-X-RM-TRANSID:2ee96af2c1102d5-ab182
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af2c16f620-aa48e;
+	Tue, 10 Nov 2026 15:02:09 +0800 (CST)
+X-RM-TRANSID:2ee36af2c16f620-aa48e
 From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] mmc: sdhci-acpi: Fix free_irq() of a never requested IRQ
-Date: Tue, 10 Nov 2026 15:00:31 +0800
-Message-ID: <20261110070032.1387-1-laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] iio: accel: mc3230: Leave chip in standby on mount matrix probe failure
+Date: Tue, 10 Nov 2026 15:02:06 +0800
+Message-ID: <20261110070206.1452-1-laixiangwu@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,49 +73,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qcom_probe_slot() stores the IRQ number from platform_get_irq() in
-*irq and requests it afterwards.  When request_threaded_irq() fails,
-sdhci_acpi_probe() already jumps to the error path that calls
-qcom_free_slot(), but *irq still holds the positive IRQ number, so
-the (*irq < 0) guard in qcom_free_slot() does not catch it and
-free_irq() is called for an IRQ that was never requested, resulting
-in a "Trying to free already-free IRQ" warning.
+mc3230_probe() switches the chip to WAKE mode before reading the
+mount matrix from firmware, but when the mount matrix cannot be read
+it returns directly and leaves the chip in WAKE mode.  The
+iio_device_register() failure path, in contrast, correctly puts the
+chip back into STANDBY, so the mount matrix error path is clearly
+missing the same cleanup.
 
-Reset *irq to the -EINVAL sentinel when the request fails, so
-qcom_free_slot() skips the free_irq() as intended.
+The mount matrix is read from firmware only and does not need the
+chip at all, so move it before the WAKE transition.  That way the
+chip is only woken up once the remaining steps cannot fail anymore.
 
-Fixes: 96ccb858093d ("sdhci: acpi: add qcom sdhci host reset quirk fix")
+Fixes: e59c6acfd5fa ("iio: accel: mc3230: add mount matrix support")
 Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
 ---
- drivers/mmc/host/sdhci-acpi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/iio/accel/mc3230.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mmc/host/sdhci-acpi.c b/drivers/mmc/host/sdhci-acpi.c
-index 84c705460..85705d2eb 100644
---- a/drivers/mmc/host/sdhci-acpi.c
-+++ b/drivers/mmc/host/sdhci-acpi.c
-@@ -412,6 +412,7 @@ static int qcom_probe_slot(struct platform_device *pdev, struct acpi_device *ade
- 	struct sdhci_acpi_host *c = platform_get_drvdata(pdev);
- 	struct sdhci_host *host = c->host;
- 	int *irq = sdhci_acpi_priv(c);
-+	int ret;
+diff --git a/drivers/iio/accel/mc3230.c b/drivers/iio/accel/mc3230.c
+index b45897210..9ee71da7e 100644
+--- a/drivers/iio/accel/mc3230.c
++++ b/drivers/iio/accel/mc3230.c
+@@ -183,14 +183,14 @@ static int mc3230_probe(struct i2c_client *client)
+ 	indio_dev->channels = mc3230_channels;
+ 	indio_dev->num_channels = ARRAY_SIZE(mc3230_channels);
  
- 	*irq = -EINVAL;
+-	ret = mc3230_set_opcon(data, MC3230_MODE_OPCON_WAKE);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = iio_read_mount_matrix(&client->dev, &data->orientation);
+ 	if (ret)
+ 		return ret;
  
-@@ -422,9 +423,13 @@ static int qcom_probe_slot(struct platform_device *pdev, struct acpi_device *ade
- 	if (*irq < 0)
- 		return 0;
- 
--	return request_threaded_irq(*irq, NULL, sdhci_acpi_qcom_handler,
-+	ret = request_threaded_irq(*irq, NULL, sdhci_acpi_qcom_handler,
- 				    IRQF_ONESHOT | IRQF_TRIGGER_HIGH,
- 				    "sdhci_qcom", host);
-+	if (ret)
-+		*irq = -EINVAL;
++	ret = mc3230_set_opcon(data, MC3230_MODE_OPCON_WAKE);
++	if (ret < 0)
++		return ret;
 +
-+	return ret;
- }
- 
- static int qcom_free_slot(struct platform_device *pdev)
+ 	ret = iio_device_register(indio_dev);
+ 	if (ret < 0) {
+ 		dev_err(&client->dev, "device_register failed\n");
 
 
