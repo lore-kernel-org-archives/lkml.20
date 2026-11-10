@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794285170;
-	b=vSAtUDw+uqUK+HlcCbwlIultEZKovW95kR8AeLW+0+by8L6EN7oXI1QTddVov1ivqSdR
-	 SX8EUExJehuDDmAphre9nAhalJYMB/h54IRTgpgNIgJLkE2MqXa8mS+QXoMSrTtKNVMCS
-	 94t0BPEoxOx9BuzRHdXHAkutPsNUE167Ez+N93JW/UcX3re2j6ay7x6yCIa6cPVtBT1R+
-	 J7q1KH9A+S/YaXsGPmK+ngwO5ulbHfXwpRlrQui0Rl/eSmM/0g4nJ2BpEVzLLdAJ7t3qb
-	 nlLexzT8AW/oUukTUtyjQDeHyo0sYV10Dt5zHTl3edifOy6QnTjUxbJSSLYyKRTHhKA==
+	t=1794285167;
+	b=B6ZSqeBp0U9wZyhrM+qyoAtonzf70ijCnPrQje4hkgvrxdYUuCt9K+USN4YV21bAh/jl
+	 3FKSZtb5nGonW1cCeXSemoeFh/dYzHH0TJRdiJT/EXJtly+1SaiXBFgLScH4wtmUouV0d
+	 f9LWr3gM0eqd4JqBrMry1idcSCmsMmIH5iB4bLe1sMcKRau3rqEt9CSQmpzkbKwqB8AWz
+	 AyVpqdbThwEt3xURYqh8TEz93UNIxR7udPz8IJcjdXmUsnB5HbmvLqTBPt61PAuA/vRDl
+	 H8hTEqNTIEQn1T5rcl2dSw79HkZnbsBGeyN+9aKKtNQv91EOJHCEMsZKQsXMkq+F6hA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285167;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6qA0mLid2qN3DytPIXjzaUO3Qx+Zu5Z7DpSKjkEVo2o=;
-	b=jSULpoK7irWig9U2yVAlVtjSHx/H2P+STmXKgj8QDl3S/HouPlIVASDaoim/Ztuz3ysH
-	 rMreg0JEQloUrDuB+ehJH/HpK5lWcFTRp53U6qSx7I05mMsefyhFRZGFby3uoE9jEemXe
-	 ZKtTxyz18xFUZqcqNAAnMkJLtML5idq8coU3ukjgyEyripWTcybMcGf6n25KWUbO3HG6r
-	 gc09iGGdBwhCQBcUh9rohzn32TDn/p/QsYcslRmu7QRyGwQl6XkZQpD/rSlRDxpLhWIYu
-	 m94+MD21yfbhTSW2B2PxideGH4wgHuM93vyiwZe/t1+99QsZ/sDl5sfU+b7b81JxIcQ==
+	bh=mQHo+Pq1IJv6wRo06t/mpmrPiKGrNMyrY0EUw4RM8cA=;
+	b=1nj6/6r1orsO20wqWxk52Bwh9a85GtjGwaQP+IBE5XSz321e22BbtxG1YrgpaGQTR2bf
+	 yTr3dkm4CZLAA5VHF53PEj9Iyy8A1ondJV8FmGQJoV6703G7nfkaU+o7nVjRZeckQNORy
+	 44ESeFD6ux5fY2YABN8vZWAB2CPsMAynCGuIVJNLkFb6tJkTYK9KZOHr17A8JNCAYyklj
+	 y+4Q0hXngYS57n/npJV1dgwD8hLy2ZdHX6VaPfZWHJkI3o988tvilMcatHJfzNP0+H6RP
+	 QatuYzaa3m57nlVMHMS7f6Bi9aoS+gH69MnKu8ouhtoSfRomfow7ovEcbWjPw3d9tUw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTS8UJ7j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUmjn93F;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9268360A380C;
-	Tue, 10 Nov 2026 04:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689B6606A338;
+	Tue, 10 Nov 2026 04:32:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTS8UJ7j
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUmjn93F
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794285170;
-	b=LkZZ/3sv6n7kiIp7W7tg8MNSz2h6sfKWUlkNeD1mTkOskNp4B6xoU9TazevD8ODj4vre
-	 r64VqBVBhGByOnma2sYWnEn8iePZJFa5Ahu/z3iAEsF7AziA0UA7/aT8N/N5DN8OagNAZ
-	 h763VjGrIqpe7g7Oqpk/OUYR7FmxcuiLtVIFESugKY1PVpK/O3A5jhEkAt2ssBFBj59O5
-	 hQ6oNHFBpvfU3YONAsTkiUG6U29ZTigdXrJr2mlsFceBD+r6yEMXQyRjYvTjRUubHF9KF
-	 IlA6W2bofhod28NUYZxV06kMSqKbbKb5SHuUlsWFe7RDmwwG8kCi26SEtBFMduqIDIQ==
+	t=1794285167;
+	b=rVOyOhqbUl9cgdkJUvxaWFGpxeccCbZ8d3YgvAyyMXf81BWFd6Ye8yYNr8Ma6qdf/Gs9
+	 zb433hmWXOmz2RxGtJRViUnZTJ2az93aILg0uZ+qaf2W1zd11KIUu1L3y4DxnENKYppYd
+	 DLb0rGFCnIBc7+B12pUN6SraK2R8+0QBclDe3/6JDUIPt/+92dzGG/Ln1Rv/Dyy4iDT4q
+	 CMpRvS/Rv4oGQo0dfj0oPNG2l8RfGc9AfkjBix3N1zG6Po7HTbOvWh8Jsfbq3qjzqALPr
+	 +c4hh/cQMC93pzX1lvnizG0zvq5q7tmL01JaEBpJrnnDjMco0Jn8tqm63ECp8rxIoUg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794285170;
+	c=relaxed/relaxed; t=1794285167;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6qA0mLid2qN3DytPIXjzaUO3Qx+Zu5Z7DpSKjkEVo2o=;
-	b=MGuo/6lXFxPQDcsB3wvlLjEbxhqSbMsbgfgIFvckVpRhJZlyznTKg19gweeMW7so0BbU
-	 BJT1Bh7brlE1Z3NWhzuVaUAKifv9VC8Ppivm9H6qpitXkEtyK7hvGjcEa7MvoZy9AJZVe
-	 yn4BcVTk+GIuoR7BaB3PY2XcktiMA5wxZY+eGGO+H5isxM0ISE4trriSZ8TILPs7YKTq7
-	 vHXVQdZffqXU4ybIq4OADu8fo4bz22AwhRVmB0HPrDu4fMDuPr63vqmLbS4kh/K+QjkIv
-	 Gey98Vz6B+d+LC9eFEPKssnRfpZjxoKWvawNRe7Qc2cQOwvD3GPJBwL2yo9RKSd/0sQ==
+	bh=mQHo+Pq1IJv6wRo06t/mpmrPiKGrNMyrY0EUw4RM8cA=;
+	b=m+PDAi1TQhqHdzwLW9W6fDn/bKh7TJFPdH9jXILtjI2vLtn46Z6Y39TGf3My1oXUgJyK
+	 0kyRPJiz1G3m3Z8J/C9eYzV36L9ymSHmWEuG7DuF27zvCo0cSALmZIZSgbxEDvWcN6d4H
+	 LsDPP5XxWmEPVsGvMlpYPSMTmyZiP+Doa1yJ2YCqTSA6COUuMRe1GJWUx8ukUibiaarKX
+	 O5v7zNNAkB1TlPNi1siSdV47qM4lxgCopS4EI2Pce3QanN6uLYUjZErWlYh1U6WO9HI8/
+	 yYq7v+BcnWKETnp25MBk/Czfa6B9Z/XEfyONLN9O1X6fvz+v6L9463U9DNK2Skx+19g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B7D231F00902;
-	Tue, 10 Nov 2026 04:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285170;
-	bh=6qA0mLid2qN3DytPIXjzaUO3Qx+Zu5Z7DpSKjkEVo2o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mTS8UJ7j3z8mYnyLc0e7Jqza7DbrGtQcgPDTsOw69eZllvvsAFJ/qRA+Kp75PPE+9
-	 qBi9cVzwMAvD6QmHO6GbUWv2zJAyasr+ct09uHV2ja5g8iR9ioF0Nijg+tfWPpY57W
-	 xnFY4e4PqWuAirnDSvJrvMNApOhB3HaRvRJaAvaU8rtPmKQX2R6ZlaihPsM5YW2owZ
-	 2rr1VjN8NeyscjU3JXSsyK68kP/TAsOMvUKWpNoJO9wTN0o71KUxnfjsfoAfzLAZkG
-	 qb+ydhiCVME3OxCnZuBm/wXB6/sN2tzjlvngWJi8EiWtGKgIgMkZoyjWHkOul9GzaU
-	 xQCy54dCueQPg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8278548885;
+	by smtp.kernel.org (Postfix) with ESMTPS id 33CD51F008A3;
 	Tue, 10 Nov 2026 04:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794285167;
+	bh=mQHo+Pq1IJv6wRo06t/mpmrPiKGrNMyrY0EUw4RM8cA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mUmjn93F+mmb5trzt9NmmRN6/oyGx5fmwBBKxUD9wXEAy6gZ/ivShSIIOzvSFQ/pv
+	 wFrIMqb+YVen007giDRSarVKONaSKxJXWF2P9EDog9mTKIjE0d9jsy/PfsTNj8uXjq
+	 W6Sv6ZjO4dfWMsbMgeZrIL1V2d5SvxxE20rrPoGUFG9S/P8fb/KFsdddVgOm6rpOL8
+	 0d8JsFQtxAav25OvJkfF90FhYAXiz+crJAI5+cb9OGNHmsfAwgcTcXKEd9fgVmpOc/
+	 97GU6tZNmBnDjCqwkUI4epnWYCTU+CGoEkjtlsxYEk0rI4zqr915iJrbxzMyEinevo
+	 2279nGKKaP90A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B318548859;
+	Tue, 10 Nov 2026 04:32:44 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Tue, 10 Nov 2026 12:32:39 +0800
-Subject: [PATCH v14 14/14] gpio: pl061: use string_choices helpers for IRQ
- trigger logging
+Date: Tue, 10 Nov 2026 12:32:28 +0800
+Subject: [PATCH v14 03/14] gpio: regmap: remove gpiochip before tearing
+ down irqchip
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-cv75-gpio-v14-14-e586aad0467a@ambarella.com>
+Message-Id: <20261110-cv75-gpio-v14-3-e586aad0467a@ambarella.com>
 References: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
 In-Reply-To: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
@@ -97,11 +97,11 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
  Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=1466;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=1280;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=zQWRi0fgwIaty3vp0IahahK3JC0SGC12QCtYzwVUqX4=;
- b=zsCAuUjcqcBhE4/IUMhwikNV+XTsAvvXwqzIHpVPk+uxwMwBNY+6quMtoEU6rnyhoKiaH5xyN
- dTESRinK4yhBquV3uCg5eDt9rQZWxRwf29/N1POh31DFAUOplb/y/rf
+ bh=hUOMd6dzhgSqIYRo/goV9ScP4Xfisuex5VCHYS0+NCE=;
+ b=na1xyTOzbfzZEjqluTbwt9g6U6lD+ZUvJugRpIFG7dQTUdXuUo33Nw/FSIJc9N3AyBKldq0J2
+ f6kmVe0CQOOAG02lWvmlU4GzDehd8DA4JXZzZYlWegd8smFsFIFSop3
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -112,47 +112,42 @@ Content-Transfer-Encoding: 7bit
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Use str_high_low() and str_rising_falling() for the level and edge
-debug lines.
+gpiochip_remove() calls acpi_gpiochip_free_interrupts() and
+gpiod_free_irqs(). Both still need the irq domain.
+regmap_del_irq_chip() removes that domain, so remove the
+gpiochip first.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Fixes: 553b75d4bfe9 ("gpio: regmap: Allow to allocate regmap-irq device")
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-pl061.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpio/gpio-regmap.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index 63ec5363dd5f..86c22378e759 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -26,6 +26,7 @@
- #include <linux/regmap.h>
- #include <linux/seq_file.h>
- #include <linux/spinlock.h>
-+#include <linux/string_choices.h>
+diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+index 0a44deae3d01..1bfdb00dad95 100644
+--- a/drivers/gpio/gpio-regmap.c
++++ b/drivers/gpio/gpio-regmap.c
+@@ -445,12 +445,19 @@ EXPORT_SYMBOL_GPL(gpio_regmap_register);
+  */
+ void gpio_regmap_unregister(struct gpio_regmap *gpio)
+ {
++	/*
++	 * gpiochip_remove() runs acpi_gpiochip_free_interrupts() and
++	 * gpiod_free_irqs(). Both still need the irq domain.
++	 * regmap_del_irq_chip() removes that domain, so remove the
++	 * gpiochip first.
++	 */
++	gpiochip_remove(&gpio->gpio_chip);
++
+ #ifdef CONFIG_REGMAP_IRQ
+ 	if (gpio->irq_chip_data)
+ 		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
+ #endif
  
- #define GPIODIR 0x400
- #define GPIOIS  0x404
-@@ -195,8 +196,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 			gpioiev &= ~bit;
- 		irq_set_handler_locked(d, handle_level_irq);
- 		dev_dbg(parent, "line %d: IRQ on %s level\n",
--			offset,
--			polarity ? "HIGH" : "LOW");
-+			offset, str_high_low(polarity));
- 	} else if ((trigger & IRQ_TYPE_EDGE_BOTH) == IRQ_TYPE_EDGE_BOTH) {
- 		/* Disable level detection */
- 		gpiois &= ~bit;
-@@ -219,8 +219,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 			gpioiev &= ~bit;
- 		irq_set_handler_locked(d, handle_edge_irq);
- 		dev_dbg(parent, "line %d: IRQ on %s edge\n",
--			offset,
--			rising ? "RISING" : "FALLING");
-+			offset, str_rising_falling(rising));
- 	} else {
- 		/* No trigger: disable everything */
- 		gpiois &= ~bit;
+-	gpiochip_remove(&gpio->gpio_chip);
+ 	bitmap_free(gpio->fixed_direction_output);
+ 	bitmap_free(gpio->fixed_direction_mask);
+ 	kfree(gpio);
 
 -- 
 2.34.1
