@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330249;
-	b=hNIEp8SogJhfhqP5RZFtVKrLUGTPABAxLOyQeQRYqu+aI0B3Gfv5kPmAImZQY7qYZwe8
-	 OhDalhzbJhQU3tPNvMOkxHpFoCmAB9ZfN82MCR0Ub4kF/sFspABSNWSiKfAYi/JifFsiM
-	 nJsT8FAbRtBRUHmrTSG9iQqBV8mCvEIHY1UILtGi6AfA3drqe/GFcShXo0B6bsflqtAkQ
-	 zwoly9Qb5BySBDfxlYkBm0Cm/ZYMoheWeSnud2Z2kylOBAsT3CxaFID7ZAMRbhVFI2YBn
-	 p7GgvtozQlEzIAlp3vvUr00oRWHSyMSFbYrSSDxemALUkKywFcPLD8KS5Ny2IPF4oMA==
+	t=1794330314;
+	b=mK1MQOjkINvyp77WQV5GlnY160OBPQcK+w8IfOqT7U1LQ9t0zJQEItGkE8Xu4cBl5lP5
+	 i7om8beTW3wbB8e1SO4dWw9JBZKPKpm4ELpgCtaOahPsbnSD/EsFTHOrUCIlb9K8aJoAV
+	 paxiWvsx1l9QrL5zYUFOuzrRwGFMb8nX9ALA5Ue+LirJmOSWU6HM2yv4ln4Onb9jbMGG0
+	 PW89Aimw4x36gMdviVDfd5leCCYaDSRXlpztfX1aKENpsZNyfxrx3mL8GFYPrfYz2c6rq
+	 TwtSxHD+H8/4dSXX5IyxIk2EBzNzRe3HF2350HRJL0eGea/IJdgxMlQP25F6a6bQo+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330249;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Gq0M0cu2Lo2dpH/31tGMSg+0YblrzrHJ9B+jvPcEV1o=;
-	b=M5PbOZr9MFczPb7B+pvdFwUqAdILMlf3xxygzgBDkrLVhJ6Y5QXPUu2JtqV7gZCB9CYS
-	 kDxreTkPMC2M36828oHPX15yt4ghTOKqqtuCte2jTcsiWNocKxvVziunJfz5T41+obzhA
-	 L0VNvIVpgrhYzkgakzxZTNv3KJQgDfU7BogHShDF9774TTihYJACbcTVUIBs1yYq+9fKd
-	 WA2NgBnEWVDj5sPVrbYuVDlfgsmFjrivGKql9NHUiK2/FxJMGAUSabwmKv3E5S0POc8Y4
-	 L7/nvgCQDkCj35LHryg5A+AHRnKbHEJMJpdSrKliJMnoqWNHciv4C6t2RCwd5wA06eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330314;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=i+PblSFW5rSWL+XOE14iSP6Y05pkEHzAEKdDJT11t1Q=;
+	b=EWD9htWnOmPdrWd61t1A1lgq1J0nsXj/MJijako+bsQjvhzxXq1bbQ9AYgbzN430dFxh
+	 UJIDh6ye/81o+SMcT/5+VKnOtzeoF9/YUO9i/rCp9G6wYcU0k5MP2Kym17MS0ifvnl0+i
+	 hVukuVfFrzHF3c2uMFlhceAZ2qJl7iMEO/cRONNeAR/Ludj2xku8r+4rKZDaNFFQsfgc6
+	 lnfAZdx4g5Qgqqe9ovfhB8QlEN9rf+/ijD0nJuNelZPkLjZjPIG+pN+QwhFOTkLI5KvPM
+	 L6Ce8sxYqvY1KZmcQPDh10zVHaTL/5gGpgh3QDR9PNISxoe25EVo3RHV8lFqMEHDhdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1cgX7Ni;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3772606A321;
-	Tue, 10 Nov 2026 17:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1cgX7Ni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C4E1F0089F;
-	Tue, 10 Nov 2026 17:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330248;
-	bh=Gq0M0cu2Lo2dpH/31tGMSg+0YblrzrHJ9B+jvPcEV1o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G1cgX7NiXhXz1FiR4I3hiMIl8Zg3MlXjsdc+UHxBoZ71sJhJIeejhkHzBEscFHpyO
-	 ehXeoroAKlW9RB8Utvb0oBHHg2hzsHAfyeyVaqKEmnfTPmHMHRZD/yRcg1JToi9PnI
-	 Usds/guZ1hvt6T7e7+LeCxWlfnMFCQtCj/iYy2CUwcI+f3EovAcj1CG2UzgThf2hUB
-	 68e+msgJJMgWlmk/1q2VsYMk7RuIEE8R4pA1OBmg0bprVRM3YqNZ4kRKHjto6nBwXt
-	 jbRyD0WTFLWru0NVnW6DKCgJwtUDRcEGjIf8dcgg/MaEWx11DbfdfUHVEBtgGWJCxe
-	 u/h8Pe+zuP63w==
-Date: Tue, 10 Nov 2026 18:04:03 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>, 
-	Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/2] Add scope-based cleanup capability to eventfd_ctx
-Message-ID: <20261110-spekulant-erledigen-allumfassend-280fdca625e2@brauner>
-References: <20261027-efd-autofree-v3-0-caa2442e1beb@arm.com>
- <20261106-hinein-lagebericht-abbezahlen-cb826d68d175@brauner>
- <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
- <sp6gvawt6petvrlky7g6pqaqsp3jwouu6ixarevis5m5vd7fwe@xjxeakzi3nn3>
- <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
- <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3961D606A320;
+	Tue, 10 Nov 2026 17:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3961D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <c763b6e7f130d329242c098807957c4c88ca2262.camel@crapouillou.net>
+Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+From: Paul Cercueil <paul@crapouillou.net>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org, 
+ "H. Nikolaus Schaller"	 <hns@goldelico.com>, Paul Boddie
+ <paul@boddie.org.uk>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>,  "open
+ list:INGENIC JZ47xx SoCs"	 <linux-mips@vger.kernel.org>, "open list:DRM
+ DRIVERS"	 <dri-devel@lists.freedesktop.org>
+Date: Tue, 10 Nov 2026 18:05:07 +0100
+In-Reply-To: <avMt5CTevTANpXqO@houat>
+References: <20261105203517.2293404-1-f.fainelli@gmail.com>
+	 <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
+	 <avMt5CTevTANpXqO@houat>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,17 +58,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
 
-On Fri, Nov 06, 2026 at 04:02:00PM +0100, Jan Kara wrote:
-> Well, the change is kind of "meh, I don't care much" for me. So I guess if
-> you include some conversion that actually makes code simpler, I guess
-> Christian might be open to merging this.
+Hi Maxime,
 
-No, I agree with you. I think if at all it should go together with a
-conversion that actually gets rid of a goto mess, e.g.
-mshv_irqfd_assign() or sm.
+Le mardi 10 novembre 2026 =C3=A0 15:45 +0100, Maxime Ripard a =C3=A9crit=C2=
+=A0:
+> On Mon, Nov 09, 2026 at 08:46:40PM +0100, Paul Cercueil wrote:
+> > Hi,
+> >=20
+> > Le jeudi 05 novembre 2026 =C3=A0 12:35 -0800, Florian Fainelli a =C3=A9=
+crit=C2=A0:
+> > > The LCD controller's internal bridge is embedded in an object
+> > > allocated
+> > > with drmm_encoder_alloc(). This initializes the encoder but leaves
+> > > the
+> > > bridge's reference count at zero. Since drm_bridge_attach() takes a
+> > > reference, probing the CI20 display produces addition-on-zero and
+> > > underflow warnings and fails to attach the HDMI bridge chain.
+> > >=20
+> > > Allocate the internal bridge with devm_drm_bridge_alloc() and
+> > > register
+> > > it with devm_drm_bridge_add() before attaching it. Keep the encoder
+> > > in a
+> > > separate DRM-managed allocation: encoder cleanup can drop the final
+> > > bridge reference before it has finished accessing the encoder. Find
+> > > the internal bridge through the encoder's bridge chain during mode
+> > > setting, and use the bridge argument directly in bridge callbacks.
+> > >=20
+> > > Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+> > > drm_bridge_attach/detach()")
+> > > Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> >=20
+> > Looks like I lost my commit rights to drm-misc-next, I guess for
+> > inactivity.
+> >=20
+> > So I'll ack it (LGTM) and let someone else (Maxime?) commit it.
+>=20
+> I just checked, your account still have access to drm-misc, and the last
+> activity was yesterday.
+>=20
+> Did you lose access to that account?
 
--- 
+I connected to gitlab.freedesktop.org yesterday, that was me.
+
+I get a "denied publickey" when trying to sync the branch with dim, which i=
+s
+weird because my SSH public key set on gitlab is the correct one.
+
+Cheers,
+-Paul
