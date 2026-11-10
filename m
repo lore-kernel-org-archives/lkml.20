@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794315307;
-	b=OXPwJKMwhudElEpL6uITLywXX+tQb4qqLNCp93vfxCRo5FpeWrXMkPq66bYEGAkH5w7X
-	 Wr46cdjq3WEgJ7NBYLNNQaYEwhPk3rx4QQCt0sqHYXsXJiXpZ1wgvlA9jylhpbv5XV4AZ
-	 6cZ++CyItO/IOSJ1VyVImsZTQmaE1Q11UbvPGFfVQzTnE5sz3Hiqkzxhdig0ZBf1s0OiZ
-	 jwaU/q59OqecDmkmay3h8q5Rpj7SRA65twaw2neqHv1SldBQrJUpIiuKmvzfFyit6166b
-	 InCIZSY/wySuKM1pRA8xF5dzpickZ0cwW2FoGpcPa+ca3DrOaeLewMwMJYRkyQPNSxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315307;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=;
-	b=5aXF/7t8CmzGoygj2F4C3Nc3ww622njZozBN0BlQOT5JK2JrK09gPM5NZHkmdiJEUPaB
-	 KuK63d1az04js9Fu1sgy56pQUGxNEgiHOIhKMaK/aV2JBO/qs+1kuggom44koZ9s5YsZk
-	 ts1X6tehlvp+gfxjKCoeFQvc/etojwkFdNx+Gw4pLBdPc38SwZ7qDGSMR24iw0wN9qhWM
-	 iW2MSzbRHLYBVpyrOqCNQQnygXVFUOiD1Bew/TSn40A2tV/bQeLc8+lMoNLLV3+Jw3KSW
-	 rheI33EHNC2XqjMmSCuj4qf/FoJ1/gDG029bCGUopRhSfwJ7zllkF0KmWp50e4EqI5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=I815BIk8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
-Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794315317;
+	b=bFDz3uSmRDFzEE31qqDiX0DZekBkPrfywOhCTt60MTeERO/4wCTT9ZRkFYYhpaY/N4FP
+	 Sg/LKq856WlsXVVGiTsjOvyrRsqktXyND2kdUWOdu4QyOBEkaheKrwfVRvC2V+6ZAEJwy
+	 GnG8sRySyxQJi9rcqJnCLU5m3Ztzyc4oDNO/wYSk7p0tvU9nPDEzDgx5mOvmIS53xw1eE
+	 ZUbbHWsIG0hj5tSpPxty2U6nyqFJL8A2MTNXSKZ2FUsBuNBRFAdcmA3oMMZc37b9syby/
+	 pk/bpdnk4VpLCC0SnORHdalEYzXcXMtOC8vda/TFjpI8TjVdO/y0tIqXAcgpyXrrkVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
+	b=ROqE8/Vv1pj7cALIH4UI57bnR6RoEkwipkBYpWDDZEhcn6Z+09KrTjTZIIvKcd2EDM1H
+	 y21b7hx+4TUxhL8c+BkGyddHuXM9I2o09dOrEUZZcGZluYZAhKTZT3sn6NgZEA0XffVV+
+	 UJTWQjX5pnbKs1zcJJoQ9szFfLBBRCDozzcT9/B101Hf8qWgxAnKbVeWpZWkKLvtILlof
+	 9IPkbhLmhr4ci06Kc2L9ZEuJA/WJvE3RSm3NZ1K5q5a2aEpHFUL/+YS4bHO5Ya0FJGf5J
+	 Nl8vZTQUIhv3cao/8gTT5goJFv9yVkacALZzHKb4BFXBP6t8FrOqb5diSF5+RDu0Viw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HKElo7IS;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A576D60A2600;
-	Tue, 10 Nov 2026 12:55:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A576D60A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97D160A2612
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:55:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D97D160A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=I815BIk8
-ARC-Seal: i=1; a=rsa-sha256; t=1794315283; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Y94BJ/d0hu/ljQ4Yxrp6aA/BvOH34wxDNxYzHHDKhrnVdwxONwD6P/+T2AL7wT6+z+cOjh+D+jRcsCYlF4yjz0LDWPtww32bPIw5V8D16x0JhmfUglr9tC9wvAHa/yS1vXBqBiKlt3ZSHlsZTl8eMSZJ4lQ67RraBPTQXU9V+6A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794315283; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=; 
-	b=hjTGevDhhbrsiZPnVW8oeHzIW9l2DC2E2Cdvwkejm/CCd1oevNWYszDsDwbpBZbrcSIgzBWtGaMiTOZt7sVP4URJ545UU79FU6KXZSxTZnxAWW+QC3a0wxcp+FyjZguzVw0lGJNoxy6KKI04pm4jNPqhW6ePGipWPmq+s4uIxfA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=I815BIk8Ck01D+vSY1GW88Nk761IpiALPCQaTeYJateDDS83tBm4s55KwO5+3Sg7rvd1L0GcA9wSsgLaGzVfWHTAkFu9K1JKmGsKCDK9tpY6DE+Q4guO89Hts5LvyQOCDAqiV3luJoyXUg/vhlo6L7//CTmdXQiYoJAwc0olrrU=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794315281413705.7572751268435;
-	Tue, 10 Nov 2026 04:54:41 -0800 (PST)
-Message-ID: <866cfed1-e55f-4f01-acbd-c29219f67e54@zohomail.com>
-Date: Tue, 10 Nov 2026 20:54:37 +0800
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HKElo7IS
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdb1199bfd8so799029a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:55:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794315316; x=1794920116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
+        b=HKElo7ISktPKWfb9xeQZupSjRFJ5M5d1kMcDar0ZaqBwFUrTylEq+AsYWADn5hN0fa
+         gOLFwTr/tOo2+ScR5xdnmknTwTZtDLQD5eFUwJr1MR0qzll3IgBcKi5w0nIJv14MsnD8
+         Fv+Z4RbppADwrGnnEvgeqNWjZ5jv1icT5/6KUJ/pzrC1bjBgHDxiqg9zKw5gGSkUoHF0
+         wkiqPMXNs+41ltOOhSAySjGbzyjUuhdC6JWHM5/hnUUAopO12WmPr4GtgFKj7j8lhtMj
+         AL7OgMejVq94e8pXnA1vkau7qQnT1SBA0a9ksb8bP20jPQiXc5y+oqi1SgZq4T+/ODar
+         j7fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315316; x=1794920116;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
+        b=IXhsoy/ggpWd3o4V3IJnGcn6gCdFylyEDiMZMIyo/JouKWuyGbOo2stQLeU18ozq2J
+         xUJYcGnTIgwghi8rZG5v0ui7tH5qpdUEEumGXJebPR77kAEwvS7/uwo2dTiE1hIYNQOQ
+         zbodAMMumZ26oOPx+Uemh1InMv9RQz95Bw6uTpO5rKNt9UbIWsbRudf19nHcHRVwESUE
+         wh7LX1q4baVmG1ugNQP2F3KBAxgDQpjx1zSFof9VE9WsFw57El9yctDeUNpBkeen8h5G
+         pvHorPMEHoYzjl5T+W1HYZ/Kbor/MvvVkga4v//1ckALoZvdwgZ0B1C5DGyHM87bzlxa
+         js5w==
+X-Forwarded-Encrypted: i=1; AL+hErEPdkaOZmSQ7D3kuEFdRtGCGQMJdiUUgKxSHR06pXY7oGhVzGScL2L0bFNiBI2JGFVwji+/CHK4JuJjCHo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+60uv6CFatoLGVhFjZPO3Me8cBpdsZQPPQ54jEdYpIVc70M1P0
+	5CcagEkecyrQZpB5nmOw2M3Uk/iXZwTZF3OdIo0Jcn30B9dzY+dpmmI7/EH6DDKa2qE=
+X-Gm-Gg: AYBFou3Ao34deFmmS1TpqX4psfKWVDgPdtpKUUqPhZrMpl6tKoe9vntZj8sduYEllwf
+	B5YAgo2ByqLD3tXd7Pg1EGH9vp7YGFCBAxvbrLg1NBVASf/+3/SRWooCFi9kJAy5uOkBMPx3Kcq
+	y9PT5SMiBVjKUKsyLmbEaIaizKK3wYrM8fpyK9O+S+lMzPOm/LzUspxGArnfieIV3kn7Jvk5lHc
+	ZpKQ+ICIktzkHgdaLX461BqTkL3+udzi8jp6cFcvtbnEz8fkhM9LGzB8kfzQTexqICgPhALNvYX
+	mkuUqIhryHXWWgB9/M3tvCNPQitQOy/w7WT8eBinU4T3vrpif8MQDjFG6S5fOuvpOJHU0kuAUDM
+	S0IfG0JDzkeW9+sPljzKauWczNVYbXxDe/aXmVtqLWYbZbbTx2f2PJojFYnWB4xlpMnFgeGlZSo
+	lDex+TtfTPfOZ1QlvJwq6RZNWybGey8ko8I7BSRgYSF7VS53dej1wBJIDPwfFgL/5rs4X6Ed46R
+	zqttJL7MMa3/76a2W8u2sAjSmkc15L21ddmUI3CQFKwEIWhZewnSiH2oYZiijfvEdMAtbJYb7o/
+	rhXvoQPS1yoYpWa1MfnK7Ht+Wr2jCoaZDswtQZ4arkhMKUH7ARGYljthJLzDzW49PhZgwqi7Kvr
+	SZkc2/O/6RIV+EWn4yq7guTvM9xcSJDxwW1eRhQ==
+X-Received: by 2002:a17:90b:1dcd:b0:3aa:fc22:8aad with SMTP id 98e67ed59e1d1-3b166d31305mr2579742a91.54.1794315316112;
+        Tue, 10 Nov 2026 04:55:16 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:88e2:4271:a9b8:cc50])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1690eb517sm1631666a91.4.2026.11.10.04.55.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:55:15 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sstabellini@kernel.org
+Cc: jgross@suse.com,
+	oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] xen/pvcalls: destroy the per-socket workqueue on release
+Date: Tue, 10 Nov 2026 21:55:08 +0900
+Message-ID: <20261110125508.47483-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <604a9832-80ac-107c-b36f-4bb338519cbc@kernel.org>
+References: <20261109122324.30134-1-yhlee@isslab.korea.ac.kr> <20261109122324.30134-3-yhlee@isslab.korea.ac.kr> <604a9832-80ac-107c-b36f-4bb338519cbc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,86 +102,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] cxl/edac: Mask DPA flags in the event record cache
- key
-To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261108022022.3352-1-ai@linux.com>
- <20261108022022.3352-4-ai@linux.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261108022022.3352-4-ai@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227409f9b5e809833055c825ca500000bcf75c86c3758d1da631cda78326748a4312015d4a113cc6f:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
 
+On Mon, 9 Nov 2026, Stefano Stabellini wrote:
+> Please move the call to destroy_workqueue() just after flush_work().
 
-在 2026/11/8 10:20, Jongwon Lee 写道:
-> The low bits of the DPA field in General Media and DRAM event records
-> are flags. Bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace
-> events print the DPA with CXL_DPA_MASK applied, while
-> cxl_store_rec_gen_media() and cxl_store_rec_dram() use the raw value as
-> the xarray key.
->
-> User space takes the DPA from the trace event and writes it to the
-> mem_repair dpa attribute. If the record has any flag set, xa_load() does
-> not find it and the repair fails with -EINVAL.
->
-> Use the masked DPA as the key. Records marked NOT_REPAIRABLE are still
-> rejected, because the lookup skips them.
->
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-Reviewed-by: Li Ming <ming.li@zohomail.com>
+Done in v2:
+https://lore.kernel.org/all/20261110125002.46683-1-yhlee@isslab.korea.ac.kr/
 
-> ---
->   drivers/cxl/core/edac.c | 16 ++++++++++++----
->   1 file changed, 12 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index 42683b7c54..f627c73ff6 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,6 +918,16 @@ struct cxl_mem_repair_attrbs {
->   	enum cxl_mem_repair_type repair_type;
->   };
->   
-> +/*
-> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-> + * Records are looked up by the DPA user space writes back, which comes from
-> + * the trace event and has the flags masked off, so key them the same way.
-> + */
-> +static inline unsigned long cxl_rec_dpa(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
-> +}
-> +
->   static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
->   {
->   	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> @@ -1131,8 +1141,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
->   		return -ENOMEM;
->   
->   	old_rec = xa_store(&array_rec->rec_gen_media,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
->   	if (xa_is_err(old_rec)) {
->   		kfree(rec);
->   		return xa_err(old_rec);
-> @@ -1161,8 +1170,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
->   		return -ENOMEM;
->   
->   	old_rec = xa_store(&array_rec->rec_dram,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
->   	if (xa_is_err(old_rec)) {
->   		kfree(rec);
->   		return xa_err(old_rec);
+Best regards,
+Yehyeong Lee
