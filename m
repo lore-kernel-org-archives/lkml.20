@@ -1,53 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336825;
-	b=xDJMtLi6MaR2DLFPRzWMwBKC5R+brgLx/EI89b50bblttuWhTZKNLxstMDpMNRUjDzOY
-	 BOWMtR2bAXjxo/tbrrutcbRQhvGFTQfTNYIk2yTTLF9NS1QRsA6CegvAQ4INL1+l7P5q5
-	 fDxXocZWRX3rPynuMW1QVzeO4RMJQ0xYwhJOZeJG0OeLqIUZckbUHBh9U5JYBi3sbCFY1
-	 XS6wBK/xHAihbX6pVkSJLrPI+DXNk4JvJIMyxgCAQa5EcYp0aXzsS1zYXSG+9HhqqGFRi
-	 6kY1ZiOcPicGtNN04/st0FWc+JrTOW+Selg9f3haYBvR3TQ5Ju/oWMfueEwOwRRt24A==
+	t=1794336849;
+	b=YKjlXOkXzPVgEr9qTerACaKky25cYZDRE0CgLQei6T8NyL4faKPBlftgE4rHmrIohEfS
+	 QpF1iC7uZkPnpcbFS9i6+ntQ02eEJ1uOE/VhVWdXVmp+31AsCJja61VnJJWzHrDgk/sJh
+	 GmTJRXaxU/OKwgtG7Bjbbq9RVQKRhkmSxbEHpx7bhsmon1HYOwSc1Ml8TJJwgpJ3534ZG
+	 Uynje3w8gJeyHkugK8EdnCFsi8+y77cPmx0glN4EmS0D0o7OxNpfV8k7eKyr6S1YQ/wJe
+	 xLCJZuzBO5D7vNmoordVocNR7F+i8t56CKFr4WN1tuHmfk/gkkfp/cLQqqy91O9xOJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336825;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=WfgVb+98zze5M/HUuNMbgboxdFsP2UahqL/P5wxY7Ys=;
-	b=kGqKgCQgb2GvTrpCZ9N3uoT1HvZT6isnpjsuftDunKYlMOjZ139w9e+pHA1uaWElrWBF
-	 +N2XkiZ/17cCm54ZPdAPIKknu8Yxm3B+501vU9ZK6jg9XHDa8JhbsutzisrohKJqOJFfC
-	 bIMd0wkZBUu438PFhPIXzIMw/SMQdGzY8M6LWs5IyZZqHiXewP9gY6tSsj0WpPPTQt89K
-	 frCCu9pJhgozTYkD93j2pd6oV2eru348/Po3UHAX2iYrl9PZ2HT+d13MMcQucKv1RJWjh
-	 Pe78OGb9eI88SCiORm7fT7eTdrlF/EwPqHxW9I5ao//bvSQHXcanOTqGz6LgAqZ0isw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336849;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8aZiMgdpUIGUYsouHyN6a1Ywpiuzgy+D+c9XrtJxDx4=;
+	b=gtPl+RiopUyrDeTND7nk0Aik3gzkNI3zH4X+kUJhuP9S4xRg75WQi9BUJ76PD2c39Rux
+	 3qzdjibYAK8OWFu6to/YyQOvzcLEDuXrs/QYUrdyXaxePSP4EimTrHyWQHks/c12Ez+8y
+	 y5SVgLOZwOAXUpJCbrcH1n4d56Q6hrhRTpoT1Qkysf4SxbOamI9nxavnBEnJTLDrbhNDd
+	 FRdCMjkNzk+9O+JFIv7WH8TDzKwM9GBMxzbzpFkbEkAWoGInQ7+3IfCgOCoYo7akkzKMp
+	 f9OUMRdBuoXxp2T0+ZMMZEIrfXl9eVT0txaZdv7yKwQmTxguJifR5kdjvLSxCgd5LbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q2xwnIu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5712606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5712606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-540537f959fso2730058b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:53:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336823; x=1794941623;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WfgVb+98zze5M/HUuNMbgboxdFsP2UahqL/P5wxY7Ys=;
-        b=bE+Bg5iaQNCjPcwxiYlx2PAK7RSLoC3n/hWI4XD0DouYgBZI4G6YEDWCqE2WyBsXeH
-         KFdvz3w3ZwhJ3CEQhmgBB/HoRD6/KuVC2W/0rgyjSyn7QoFyBzTcKbuYLY0kvsE1RlwQ
-         bOaLVuhssB/eWEi77Fc6cB0XZ4h28GI9dXsfghaYVkcqWptAWV1NfN8XpkkaNnrkSYky
-         a40vKoPvMmzOASgdAbLu/OLnRZ0Hotat+mnzYzB79RIh4TIfnaEh+ojPreTxleq83D9b
-         /Ttx8E1fThaPEGWsk8oPqIn0J1+bhQS+5SAasHzYUgItmvpFi6JDPmnpMo4U/727NqlY
-         5ayw==
-X-Gm-Message-State: APuU4Z++Jk66O6/vwjN0+pxe6Y17VLh+xFjrKFvo0lunBZzzAX60zryG
-	MePcE5znHCQsrSmQGu6JVR2Y3/OX8TFMmUMpRvIToIUfN6Dh8wmI5iQ/nNTMO4S4xOFAyBAiW3H
-	HmvtkkH4yDDPv5YqpKDvxr5TEP/79avXjjpC06TNwkFlssyfjm4uGLn6kCpk=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41354606A31C;
+	Tue, 10 Nov 2026 18:54:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q2xwnIu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680B31F0089F;
+	Tue, 10 Nov 2026 18:54:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794336848;
+	bh=8aZiMgdpUIGUYsouHyN6a1Ywpiuzgy+D+c9XrtJxDx4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=0Q2xwnIu1XHpGYM5ts5NJYcRAPbKRzaWxjptggBFTxRDc1XwH+UjPC9k/juwxrMRm
+	 SRdhdf5KQVl6xB/CnTRQQIbvBcKPsUIl582SLXyJeNu4PYFkt8GthI/us1kfVe8iHO
+	 FJKQDenC2Up7fR/yjPLL6Kmbbv2NZCp8S/YTIJXg=
+Date: Tue, 10 Nov 2026 13:54:05 -0500
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Dominik Brodowski <linux@dominikbrodowski.net>
+Subject: Re: [PATCH 2/3] PM: add sysfs attributes for additional
+ suspend/resume metrics
+Message-ID: <2026111027-purifier-revolver-37c3@gregkh>
+References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
+ <20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
+ <2026111023-padlock-deluge-4173@gregkh>
+ <20261110195020.7d07ae63@systembl0wer>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,40 +60,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3505:b0:567:dc3a:c63e with SMTP id
- 5614622812f47-5683cc9ee30mr2532896b6e.10.1794336823726; Tue, 10 Nov 2026
- 10:53:43 -0800 (PST)
-Date: Tue, 10 Nov 2026 10:53:43 -0800
-In-Reply-To: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af36837.c2a1e073.10a5a1.1172.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
-From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110195020.7d07ae63@systembl0wer>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Tue, Nov 10, 2026 at 07:50:20PM +0100, Joshua Crofts wrote:
+> On Tue, 10 Nov 2026 12:29:11 -0500
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+> 
+> ...
+> 
+> > > +static ssize_t runtime_resume_count_show(struct device *dev,
+> > > +					 struct device_attribute *attr,
+> > > +					 char *buf)
+> > > +{
+> > > +	u64 count;
+> > > +
+> > > +	spin_lock_irq(&dev->power.lock);
+> > > +	count = dev->power.resume_count;
+> > > +	spin_unlock_irq(&dev->power.lock);  
+> > 
+> > Why is a lock needed at all?  The value isn't going to "smear", it will
+> > change right after the lock anyway.
+> 
+> On 64-bit systems an aligned u64 read is atomic, but on 32-bit systems it
+> gets split into two 32-bit loads. Without locking, the read can tear
+> between the upper and lower halves.
 
-***
+Are you sure?  ANd if so, is that so bad?  The value is "best effort" as
+it can, and will, change right after reading it.
 
-Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
-Author: nenkov2004@gmail.com
+thanks,
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -680,6 +680,9 @@ int nvme_reset_ctrl_sync(struct nvme_ctrl *ctrl)
- {
- 	int ret;
-
-+	if (!test_bit(NVME_CTRL_STARTED_ONCE, &ctrl->flags))
-+		return -EBUSY;
-+
- 	ret = nvme_reset_ctrl(ctrl);
- 	if (!ret) {
- 		flush_work(&ctrl->reset_work);
+greg k-h
