@@ -1,60 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285310;
-	b=oqIrcR7gzCPpeOxebnOFg2MiDXM4oTLQkKbdfc3Q/y3tKP/fD0Dow8s59Oa4BiKCZ+Yw
-	 RdwLKbiWneoCgxQCrY5xIsRdiLW8+qFslLFg1FfQ7kTzXPyQlw7rd/6Njkr8i3MPNi3CC
-	 1eh1l4PkBW20BeZU50UL+zoQV1r5d/scC7gIoYp+NCBIS4vMRotmQw2pYhLZp+voBUVrk
-	 Vj48emWj5VuGMHQnr4VXcEAkAsyJfF+1h0UlzJeYsJC5DeqlUrg3na80vcrPjYmNi3fep
-	 P1AlpTYSD+A+OU2c5lWxsaipzlR02aJEa/eUGI+hcAznzhXC7kXXxe+KCgEMJsHBjgw==
+	t=1794285306;
+	b=stSaRsORVFB2yEtjnkNjOF+M0LJHloHRvPqeFChQMYF/0RgmKoMgOK8Z/fkBtmDu2ZaO
+	 2XPxVN/1vMWcu1jPpgzhgd3v5XzGdt53kkPUDov+Ok3ZF1D18ubbaGle3DjWIFtWbqAIr
+	 FSmp5WQmodQGcFQD9bRRSjdgkw6JQbeb+c9bWvA3owKNFlxqP4IXvamC21CiohuEpujeb
+	 ouuH1W1xNE+/JuDAKze2lWKuQmQA85hYA7wo9nXVXMXtlM3tLuwq34lfgLUuyPPYuDrA9
+	 IMx4YyAJQBGPIhBDjcOmATDhrsIrb6EoYs85rtT1ScujgspOfEAWmWPIpQYcuByJHwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285306;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=e63F4xJK85t/vceTbSAf9OXrOgGwXRgT3yCBrctHLM4=;
-	b=kzufBafXVxv17zPNeQscaj9PaHzRN2Oidhd+l10dLrgdmBF3tH4DChhEYXsL2G0LMHVx
-	 Pi7TCaeVB50hpkz6wepkcIhfps+kkVRMIBWe7pgSwReEYEZyThmzcjDbcYqML6JuGEIKh
-	 pPcp/UMdWGjE8w1qKe/iQjzR7VKAXE5GutLJ6Qb9G6NtI5x+TJsCe31Af7jdnuU1JnSIQ
-	 Z+y4rj4lpvGXiMnToMvB4vWt2/iPj+XCuSJxOw8WruwzUn2Gvg1BwJuoSPuFNKDPeV3vu
-	 0MO1hbH1Ub3A0ASTNK7nGcJIyUR2GW5Fu18b2B0stPAADlfSil9dFjnjZ2FDze2Px1w==
+	bh=zfwjN6fG8/jvSCSqDiUFOSSPXc7FFGswmXCNW9VpGbU=;
+	b=5WFjbt4GilZayqpBBypVtajJ1J/SmV3LhX0L0MHM36D7bKKSQCV+J9Tip67yyFiAj08Q
+	 ex/Lyvh5JDlgK212auAW5UPyFGjeuWtHiRWjm/jq9vi47ax0f+KTczBwemxW+cXsAFxWG
+	 x9xfRfkQlsZos9j3PBWePVom5UFH+aTg8p8KHLb9jKyEo3vy/mgZ6r51aXYwHLPyrBBRj
+	 +THAaGILDfsQvNp/W3S3/NfKtqhb0TnMRF5jVCarBeEWjLw0a4IZ6VDPmzRvy93CJAFJH
+	 Pi69BwN+T6DDLCmcgM8cJEzxIS3g/Hu+62Kn/UhhYndGM+gnB9v/kz074peJ1EoRvlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azGEMG5Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjZzbBPx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE444606A8B0;
-	Tue, 10 Nov 2026 04:35:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADC7606A88A;
+	Tue, 10 Nov 2026 04:35:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azGEMG5Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AF01F0089F;
-	Tue, 10 Nov 2026 04:35:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjZzbBPx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783801F008A7;
+	Tue, 10 Nov 2026 04:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285309;
-	bh=e63F4xJK85t/vceTbSAf9OXrOgGwXRgT3yCBrctHLM4=;
+	s=k20260515; t=1794285305;
+	bh=zfwjN6fG8/jvSCSqDiUFOSSPXc7FFGswmXCNW9VpGbU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=azGEMG5ZYJ5BxBZ+lnUgHCNB5mBVtN8f77q/c0S/fRUxbYXRrX3wzcIhE9FkjSkXV
-	 xFxRXdeLvwaXc2mk3iTuj5LIZha4e409M3H3Wu4Ps0JeyAYakM4AD5IKtR18YbzwDa
-	 c4yYC78zLv6QgRXS4Y27CvwvByLNlxKYdN0RgOnD98xUna1DeUm2UZ4pgYJJLG3Py/
-	 ZKj/USJH/e2/SImn5aVlk5TTpzkJ5XXQU1SglyLkS26ViVgEGDU7ISI/PugxjBlvod
-	 5WmWU37A9RKKlk/EXu4uIat7OxcLL48Ja0kctUBsdHw8lUvPKeS9dgYCMBPzPXv7/Z
-	 aLTJYvDdim4cA==
+	b=TjZzbBPxrAnl+wyNQBe14auTt/X/HGI56gZQdojoqaGyK50uP/bmoS+R+rqXE14Vx
+	 6TFwWyBQWhFsstYMlimHhEnXrYTuZG2qG0PBzn/trlFbRU27b2qeAFh1Ffke34H/4U
+	 nNFIUj1br6CJrFmQd+MUArj13f6CtwTCV/PGQwPkIzqe81lsDmEhB7hXvVwNfpogww
+	 H3OYDYaxI1aWzrzmb2e66/LhDK1EvyIl8XmN50mMKqQ4FlcE0VcgsLQ7z4AdYFs2F3
+	 Lom/NX8cYqIEt6RdE6zJm0i63276IjxXb1O7SM3WG4sVZrbPT8waRTCPFTY+nDFeuU
+	 3Pev26d2PfadQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Luo Jie <jie.luo@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-tama: Enable RGB and flash LEDs
-Date: Mon,  9 Nov 2026 22:34:50 -0600
-Message-ID: <179428529347.1061455.14966282554610037250.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	quic_kkumarcs@quicinc.com,
+	quic_linchen@quicinc.com,
+	quic_leiwei@quicinc.com,
+	quic_suruchia@quicinc.com,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 00/12] clk: qcom: ipq-cmn-pll: Add IPQ5210 CMN PLL support
+Date: Mon,  9 Nov 2026 22:34:46 -0600
+Message-ID: <179428529342.1061455.1754522824154624445.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-topic-tama_leds-v1-1-863badcf5ac5@oss.qualcomm.com>
-References: <20260911-topic-tama_leds-v1-1-863badcf5ac5@oss.qualcomm.com>
+In-Reply-To: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
+References: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,14 +78,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 11 Sep 2026 11:57:08 +0200, Konrad Dybcio wrote:
-> All of the XZ2/3 series devices have a front RGB notification LED and
-> a single rear camera flash LED. Describe them.
+On Sun, 06 Sep 2026 07:18:06 -0700, Luo Jie wrote:
+> The CMN (Common) PLL block of IPQ5210 is almost same as that of IPQ9574
+> which is currently supported by the driver. It accepts a 48 MHz reference
+> clock from the on-board Wi-Fi block and is configured to run at 12 GHz.
+> The difference is in the output clocks.
+> 
+> This patch series adds support for IPQ5210 into the CMN PLL clock driver.
+> On the IPQ5210, the CMN PLL block supplies a broad set of output clocks
+> to the networking hardware and GCC:
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-tama: Enable RGB and flash LEDs
-      commit: f94de513c6ee685062b3cfecea1fb464cf8bed9d
+[11/12] arm64: dts: qcom: ipq5210: Add CMN PLL device node
+        commit: 4a155c4e88e0d5189724c799fbe8e610d22cb277
+[12/12] arm64: dts: qcom: Update IPQ5210 xo_board to use fixed factor clock
+        commit: 1d6abd242b45fb772190641fae374fd45ce0086b
 
 Best regards,
 -- 
