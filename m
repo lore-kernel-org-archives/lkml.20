@@ -1,60 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324063;
-	b=JHHlRsvYhiSe2oNdb+7A27GLy8g/0NWJSJxp6RJ4NH4KnVc/RSghrIZfvj0sOK73iBeB
-	 k8/xB1T1CUvGN7cxjh6KXnhve79A4bgRfQTFyZvndHzzgTgQOOip40vf61jt+VlIttT+7
-	 XqEyLYPOgRNpTRjLosH/aS+WrKmmNtvyJ0U5cDMFMS7Mu56hd+A3/b/GDIYeLe4aXcYir
-	 /TysFvA62IdOkyLtGliHMW8Y8f3nVXle+Pd46Ymm0GZrGeCJPFXhiDPQQiGZF98RTgCiV
-	 bF4c8bzhE0Zh0ZfyUHSNSp1JhVV57r/l+XGybjP8Jk9nEX7w2W+C012nCd+DV8FB2lQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324063;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=raHyU/2oWj3MIkc4njVf9d+hSYUDkOCTNzI7Fv9pxhg=;
-	b=LcWuX4fNyA1GS6d9kf+d7aerCYfX1WVevlLPTKkaes3tH4+G8eZMKCny2xIhJg5occcQ
-	 MjX9sVqYB0voLLqp/Z0tgtq2M6bEJh8zmzMrF6f5I285uPt4tqjGXn45/FKzs2c/1KREY
-	 FyYgvviYWBIfIX6i2Ff85+NkUd/w1LKZR1L1RAthfuGq1O/pqkxdVtdXCQ87lcHm8KEDe
-	 f5m4nKyn0XhpahRRscuqrQEPyj6M2VTQV7LcrlW8A3U1mJrcBFYmHgTB2koKUdLfPCovQ
-	 jPvxg6RixZMLLVbDMKW2XmiMurMNV3nztUVE7Y4y/V1afEf9/IlBIdxmdT3g7+eHMrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSiLlANd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794324077;
+	b=KqOoxEcqOHW3QmQWzrturo1PqVa7LyCkLwoodgKiSSngxtCS21pTSBQQ9fajgDIOQtWh
+	 oEoM1yKY/jCznH5AyLdrxQyKAi/aJeqqVlXH5/bp2boKZkIr4TO6HvenuQ5IGcTSaOjqw
+	 Rlq9GMdrkXrIXIkZ7FrhReohChZAi2CFucDzrSFD6hgiR2KMAgLjA6SiyCHjx6A26ASYQ
+	 +pTWkxWrSEk1BV+KlQfQ0qUTWNQYxYOqoT2t3W6tL2b+VvnAGTy3FbG67GDh5n03+7MRU
+	 7my13Z8wCJdWCnY4osTYm++qEgNRGrhYRDX1of6sl+4lwtCMy2FmyvQwWTdSa8ge8Eg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324077;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qvdbQNT+ZcUGzxGLUnoqfC+lNHUCHbUKEdqKTfkGHOc=;
+	b=J/2cGtdQDjb36Kjv0/G/cW0m3RvQowDfhuXdu95KYj17o6Lkw6gVaLo1RzrWwo8+eeXF
+	 tw25/acbvobYSArW/BPYg6sMUs8N6WKFHXdxHxodzf7UAlQo44jhr7mrtqxiA2VV0dj2L
+	 f4SaUKId7gD57xydBk2fNykaEWfN4Me7UQ8+d4NDfagak5v7SNde133iUS0grE/Uqdo96
+	 Joof8qGEE4o/6iUARNTVxz769+ozE0oIMuiJ4jMpQZloDQL/+2av07y13g8JZI+38IR64
+	 AtWPTBuKWinGsMPQzao5NPX4guC2p34eWEk/2/JZWVq09PZPeGe9BOGcviT/i6CIITQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0YehZMlT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.9
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013009.outbound.protection.outlook.com [40.107.201.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA33606A331;
-	Tue, 10 Nov 2026 15:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB05606A325;
+	Tue, 10 Nov 2026 15:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BB05606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSiLlANd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C371F008A1;
-	Tue, 10 Nov 2026 15:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324062;
-	bh=raHyU/2oWj3MIkc4njVf9d+hSYUDkOCTNzI7Fv9pxhg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mSiLlANd8ANMpcZPLxiB+c+tcHbLC83C8XuQSm9CLhGY1sJW6BPoq0/QSKNRXA7nU
-	 LuOXDrR/ApxVKuWlqlg6ncMTF3d46iKu/MQMVL1ygXguEQ/pvmKUdqvJvKPrAmH8FC
-	 sDfBZ5PdyL1+0GTyukoRE0xgn4fxAIJC27i0V2fc1BgzigvJGiowVaRoPs2d9nXMzC
-	 74dmgWBvxG1+JT01/wR8tpRxuqwG9pPDgguC9rdXHI0oy/PfdlcHYj4BXePgvV3W4K
-	 GGwx0WjqF4VYNP5zGvR5nnj50ixsGVugtFmehzOR1R8e6mmLFYuPVzGV+coScAFo00
-	 hyekvcW+VwFNQ==
-Subject: Re: [PATCH net v2 2/2] net: dsa: realtek: rtl8365mb: keep the neutral
- PVID in VLAN-unaware bridges
-From: netdev-bot+sashiko@kernel.org
-To: stijncleynhens@gmail.com
-Cc: netdev@vger.kernel.org, linusw@kernel.org, luizluca@gmail.com,
- alvin.sipraga@analog.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- namiltd@yahoo.com, linux-kernel@vger.kernel.org
-Date: Tue, 10 Nov 2026 15:21:01 +0000
-Message-ID: <179432406157.994134.6897059294926012210@kernel.org>
-In-Reply-To: <20261106150225.3700205-3-stijncleynhens@gmail.com>
-References: <20261106150225.3700205-3-stijncleynhens@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0YehZMlT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fkq/m4rhdFVVuFIyGt8QeLxv5QqR9LUofO3/gGvMIRKvf7LQ7f9RyH5Un7fvLf1AexISm02KZbGGsfaYrYxCtI/GDxSADhiD4/9n6o8BEwWrpVXSofaWQ6CmBJrivbs53iB8nEBScPn9IfP2IGzDbiK1ravfua29zwVrPe3pnKl/3BHBOSGudZmxWrhkNjt1adEyO89lqc34MXu/rwsGDRp0aEn7VbuKeepXj+kOAcs+z3EWWTJDXt6+RpWFiMEM9njJqODRl6a4crLapLF4DJ+l9OIqAsv35Nyam4EVTrEb+ZivT4M1u1InoMiUDv8NzRGCVtILfuBSW1rfHJbjrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qvdbQNT+ZcUGzxGLUnoqfC+lNHUCHbUKEdqKTfkGHOc=;
+ b=i8OaJNIIbPHMjAlnPem7x2+aI8KzmgpxQZ7MfrKv/WjatjNr4eUYQ13SNdiAUJQherOWtyV5dB87TvcPIWem2Br20+P33Io+EdEcP6NA3huf4BYDEpf/oSwGxaymhe/rpSiAU1Q57yeg+W4dzwovcStlPYJSqnMga6s2aCsFzAkDlbe28MxLgAsbZ9KMxutRjRYdT9pOrH1NHGuNK6KjpSBA+Dqh6z1MxqxNQJeWga/eITwPbycwATPx68dHVJlZSyxFRTabrHKBJyYDW7FovXp7Fm1xkYeNFWuA0bjI2/GgA9Tb0dPqo2BNVKn2UqIZBtKXo+SSZ9zw4v5pM4L7MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qvdbQNT+ZcUGzxGLUnoqfC+lNHUCHbUKEdqKTfkGHOc=;
+ b=0YehZMlT4lWh/yx5hr06fygk9FEh8qkfjHIx9GwQZDipHGA/d9DiEyaJvYvaiP5ECGOoowm821fZDH/UnDV7vUIO5yFwXY+s0ES/2UZ6FrvcmobybxA+BZkxcIsuEwXnAJlV9bkpGuwtTjst91udcK90QqvBqSctiyyPg1z/Hu8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from EAYPR12MB923140.namprd12.prod.outlook.com
+ (2603:10b6:303:2fd::15) by LV3PR12MB9266.namprd12.prod.outlook.com
+ (2603:10b6:408:21b::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 15:21:14 +0000
+Received: from EAYPR12MB923140.namprd12.prod.outlook.com
+ ([fe80::b986:8b81:beda:c167]) by EAYPR12MB923140.namprd12.prod.outlook.com
+ ([fe80::b986:8b81:beda:c167%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 15:21:14 +0000
+Date: Tue, 10 Nov 2026 10:21:06 -0500
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 3/7] RAS/AMD/ATL: Add unified UMC address translation
+ interface
+Message-ID: <20261110152106.GA1579751@yaz-khff2.amd.com>
+References: <20260922202318.4079080-1-yazen.ghannam@amd.com>
+ <20260922202318.4079080-4-yazen.ghannam@amd.com>
+ <20261106175635.GAau4U08ECoVyMTEy1@fat_crate.local>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106175635.GAau4U08ECoVyMTEy1@fat_crate.local>
+X-ClientProxiedBy: BN9PR03CA0669.namprd03.prod.outlook.com
+ (2603:10b6:408:10e::14) To EAYPR12MB923140.namprd12.prod.outlook.com
+ (2603:10b6:303:2fd::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,211 +96,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EAYPR12MB923140:EE_|LV3PR12MB9266:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0c389d6-f055-48c7-4756-08df3f3e427a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|6133799003|3023799007|4143699003|5023799004|11063799006|56012099006|261028144727099003|261026140227099003|261102123227099003|261009223027099003|261102130727099003|261022075727099003|261022105027099003|261021121427099003|261026121527099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	CaKjuorGkIny2Y5/ywMVmCnG4muBE4NO6VgW4kJh2dc8eBmAKhZhy77DKhqu98hKctPANr8s3JE8cN4Pprq/XHTJG+y69rxfABgq1qiigPs3dA7nuU3ps5vNOnohc2AwVPsVK3ec5Uj/eFEbVefNxiV0fbKrJ5q18HRFfQfwbp61H47cH7o3fhQGv6zqXguDgqIm73+nIH4qogz9JYEzQ1e8zu8jtwSLltMPwuUIlEAoOrqQsWo/zvOcplF49QlH2Gx68/DWpIef2FKjz4SuqK27+MJi6z7RP5GtAIs2pZvSRXE/9QAhDlnIH7D0oRzD6tVDR3daillWV9pFGwxuMORvCEskNN4e67H1cYMTFQQP8S51tHN/2YlWaJcG76zDjvqj5nAFHN7Sk6WAAciPuD6sqEU3EvGiNpD+82Hk2iRWxLN5GJ8mIA6Lq8DPcO+j2R9kHyB8xjB8nkjOq3QNfGBNaddKRG5CjXFI7HFNWUlu7nDZ1xK5Fmx0ZKrIUks6/zm8tiGLLqntHyaspYdpdalMo2Xy3semH4Nw4NG0S49GNGN3o6/QJeUlUJYCGofpGg1jsrc+IW7Gq05h2UdHy7TumUBmNGGiTDECrZds/msG32KS/s7KWzbsIYoOUPILaOqRNz7+hDJpOSl+F8zjo7x0M1FZzkbgkadbs6JcCo4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:EAYPR12MB923140.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(6133799003)(3023799007)(4143699003)(5023799004)(11063799006)(56012099006)(261028144727099003)(261026140227099003)(261102123227099003)(261009223027099003)(261102130727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026121527099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jrbSQ4Zd1QW1YohYBXaGl+0jXb5cyBGWy2KqHN/0MGX3U63wO6lwxS2gPtn+?=
+ =?us-ascii?Q?zhV5dyLdrVztMJH7n03sbUCkFRAyS98tyrVS0xcaVNKoYTDmfJuF8YNXsjSo?=
+ =?us-ascii?Q?uuug6vfCnzTRNLZVwZ77TOvLTKRzgqGp7FatPCE3Pv1YqEu3dOcfPruj3jkT?=
+ =?us-ascii?Q?98Wrj7Su3hyqkrNRClDva44uBil2wFqRVpCE3uZn9V8IvJAS5lHffA1GgF1V?=
+ =?us-ascii?Q?Leh24G30eM3u23CLXrbahq+F+ZTXYEJ/HIUGYEpOphHoYbXxnNPEpCzl/j2R?=
+ =?us-ascii?Q?K3UVesx8VredpaktZZwYv0oUp1gS+4MuuBKVbcIrnwjmu30UUQeZ3xqORP0O?=
+ =?us-ascii?Q?Z94cnzALBI8/JC8CF31DpfW2rgZ3tOhqPs6SVZ+/e6QdhhJghlb85k3ocpi9?=
+ =?us-ascii?Q?buQeBpThL6/i+eIwmDMSZqyYp+B6qh9wXzgDzvvNoZ31SIGAY6+8gsmQbU10?=
+ =?us-ascii?Q?4RMjmDp/Tv3/iJWBrVsPvnTws/x5+20WSMYpNJFaiffWu3gZXNnZbmJc2kl7?=
+ =?us-ascii?Q?4C3HITtg1bK6QRQQCLiSIzLMH3dNh/QZIIXOT1jVnPYvPRgscDAcTkfc9Gkp?=
+ =?us-ascii?Q?gD4lWxT+i56pa8lqDgpMLA+kC9WT/iGR0+e0o9f0VvMrG4vQakFUOUWQ+NOg?=
+ =?us-ascii?Q?JAdzT+3V87lTNH7gZJmbDQ6mPwN/4c1xE7wKBr4jQnLVZKLhku3KVLvyWZZI?=
+ =?us-ascii?Q?lxDkGtyN3xX7038WF/ludE8DSvl3/clNGWZUsg5fdx4oRG1BlIJyrhHuptrj?=
+ =?us-ascii?Q?HamhkbaWcMmiCQ0+KHAWp5xzVNmOdO+dRwaaiL4VwhcsCGHuXryRnJ1FIARk?=
+ =?us-ascii?Q?dTb3txg6VCE/pv3O+1mUm8iiMfcOeXimdkiNShKd7AF+pfXmdoTNXJoeryKc?=
+ =?us-ascii?Q?3M9KsirasrpXLJi4NHY70wL2pFGYkJIIytkmr1tj2wViOVSkEquzckOUNW31?=
+ =?us-ascii?Q?yi45bLeBb7IQ2gkxzqnRCSXWW7lYDcfttLgn+BTnHrfjvufatKWdJOwlz6Yj?=
+ =?us-ascii?Q?4ALxq2zwO0orDbVSK5w8FwkhgX8W4bPROMAfZ6FAnc0LR8qSNpaGerihhh0v?=
+ =?us-ascii?Q?kk2pLZFlpJEhlKfa0pTwFY0TIvxb1l/aAP/5Nl+ZeKLrbkug6ChBhCMY/q/k?=
+ =?us-ascii?Q?lY5jg+pzSwjj8vYHrbht+RKfxk+ueONhoQHit/H8sjsfgtR6l8+w/MZjC1ol?=
+ =?us-ascii?Q?OOlmOp6qcrgsrarvyEcC0KH8aXvDeXXRHXigXNJOvojmBk49WKYMKveVYsmD?=
+ =?us-ascii?Q?XO6VRnsVTAVOzK+Sy9o4UpAxES7WNGzNJS4CUNkW75h6e1Iall1bnBLzzN22?=
+ =?us-ascii?Q?UCrzVhtcpqouPXELPr3kn2JdhkBU3Npr3L2oynXkeBH1L2enJ6UL4JUsGUD1?=
+ =?us-ascii?Q?DBGnG1myalDo3Vnzdi0P9PhGR+l6mRKYUp5wW9fqIcJDpNlIinlAwJzmt11V?=
+ =?us-ascii?Q?Y9EyXCV6v85jqhyGO3MVM47RgzOezlI8aGoq2/6QwLcG51QXuQXHWPGB8D1i?=
+ =?us-ascii?Q?8O7qkUMBDhglcx1tRF98RX4+LFc1AOBTFDWdms+DlO12KQnPgpUyQfUjMZ91?=
+ =?us-ascii?Q?NB2Fu+b3ttCpZtaHUgSklZrgieXrgKVjkrLEOncvLC1LqowP7oaD0D2DnKQx?=
+ =?us-ascii?Q?GI+XszYFX4EGk2kF7N20y5JbFeLApEI+XxuffYSzBYzJpRoIL1q+u/mg9WnI?=
+ =?us-ascii?Q?y27+rYsPTgD7UKsPaDTfH2BB2Q05GRYh1LxGNdFx1+GAL5LL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0c389d6-f055-48c7-4756-08df3f3e427a
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB923140.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:21:14.7717
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2DC5ETkbfX46aXalKA2EVAKAXqfzBKVXSA4f6SU1kBJW9icrNNjGL2RrZ58EzrXq2OBfbfsHJyj291d98lsVpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9266
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Fri, Nov 06, 2026 at 09:56:35AM -0800, Borislav Petkov wrote:
+> On Tue, Sep 22, 2026 at 03:23:13PM -0500, Yazen Ghannam wrote:
+> > The library exposes a single function for UMC address translation. Adding a
+> > new translation would mean adding and plumbing another export. Callers also
+> > have no way to request more than one representation of an address in a
+> > single call.
+> > 
+> > Add a single entry point, amd_translate_umc_mca_addr(), that operates
+> > entirely through struct atl_err. Expand the struct with a pair of
+> > operation bitmaps and the per-operation output fields.
+> > 
+> > The caller provides the error inputs and requests one or more operations.
+> > Each operation is attempted independently. The library sets a validation
+> > bit and fills the matching output for each operation that succeeds. The
+> > caller must check the validation bit before consuming an output value.
+> > 
+> > Group the error identifiers (normalized address, socket, and UMC bank ID)
+> > into struct atl_umc_addr. Lay it out to match the PRM parameter buffer
+> > inputs that every handler shares, and embed it in the buffer. A caller can
+> > then build the buffer straight from its own struct atl_err. Move the buffer
+> > definition to internal.h so callers outside prm.c can do so.
+> > 
+> > Route the interface through the always-built RAS core so the library
+> > remains optional. The core provides the entry point and a
+> > register/unregister pair. The library registers its implementation on load.
+> > The entry point does nothing (no validation bits set) when the library is
+> > absent.
+> > 
+> > Start with a single operation, ATL_OP_SPA, that produces the System
+> > Physical Address. Try the PRM handler first. Fall back to the native Data
+> > Fabric translation if PRM is unavailable and the Data Fabric revision
+> > supports it.
+> > 
+> > Leave the existing amd_convert_umc_mca_addr_to_sys_addr() interface in
+> > place for now.
+> 
+> Please remove text explaining the code.
+> 
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+Okay.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> > Assisted-by: LLM
+> 
+> Those tags are not needed anymore. Yeah, that was quick:
+> 
+>   1e035297ffda ("docs: remove Assisted-by references")
+> 
+> ...
+> 
 
-- [High] In VLAN-unaware bridges, rtl8365mb_port_commit_pvid() now sets
-  pvid = 0 (VLANMC index 0, EVID 0).
-- [Low] This patch removes the only callers of
-  rtl8365mb_vlan_port_get_pvid() (in rtl8365mb_port_vlan_filtering() and…
-- [Low] The patch updates the file-header comment in rtl8365mb_vlan.c to
-  say that VLANMC index 0 is the neutral PVID "for standalone ports and…
+Okay.
 
---
+> > diff --git a/drivers/ras/amd/atl/umc.c b/drivers/ras/amd/atl/umc.c
+> > index befc616d5e8a..91c02ef5dc11 100644
+> > --- a/drivers/ras/amd/atl/umc.c
+> > +++ b/drivers/ras/amd/atl/umc.c
+> > @@ -416,3 +416,45 @@ unsigned long convert_umc_mca_addr_to_sys_addr(struct atl_err *err)
+> >  
+> >  	return norm_to_sys_addr(socket_id, die_id, coh_st_inst_id, addr);
+> >  }
+> > +
+> > +/*
+> > + * Translate a UMC MCA error address into one or more representations as
+> > + * requested by the caller.
+> > + *
+> > + * The caller sets the input values and requests one or more operations
+> > + * through @err->requested. @err->valid is cleared on entry. Each operation
+> > + * is attempted independently. The corresponding bit in @err->valid is set
+> > + * and the related output field is filled for each operation that succeeds.
+> > + * The caller must check @err->valid before consuming an output value.
+> > + *
+> > + * The PRM handlers consume @err->umc_addr directly. Only MI300 needs its
+> > + * MCA_ADDR value converted to a normalized address first; see get_addr().
+> > + * MI300 platforms provide no PRM handlers, so the conversion is left to the
+> > + * native fallback path.
+> 
+> Hm, ok. Sounds like a whole protocol. Lemme get to the end of this and see
+> whether this is not too overengineered for no good reason...
+> 
+> 
+> > + * Registered with the RAS core as the UMC address translator; see
+> > + * amd_translate_umc_mca_addr().
+> 
+> Unnecessary text.
+> 
 
-net: dsa: realtek: rtl8365mb: keep the neutral PVID in VLAN-unaware bridges
+Okay.
 
-The patch stores the bridge PVID per port in bridge_pvid and only programs
-it while the port filters VLANs. Ports of a VLAN-unaware bridge keep the
-neutral PVID (VLANMC index 0, VID 0), so untagged frames match the VID 0
-FDB/MDB entries that DSA installs. It also replaces
-rtl8365mb_vlan_pvid_port_set() and rtl8365mb_vlan_pvid_port_clear() with
-rtl8365mb_vlan_pvid_port_commit(), which programs both the PVID and the
-accepted frame types.
+> > + */
+> > +void amd_atl_umc_translate_addr(struct atl_err *err)
+> > +{
+> > +	err->socket_id = topology_physical_package_id(err->cpu);
+> > +	err->valid     = 0;
+> > +
+> > +	if (err->requested & ATL_OP_SPA) {
+> 
+> You can make those operations a number and this then can become a switch-case.
+> 
+> Should be easier, like a dispatch table.
+> 
 
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> index b90e46c165bf8..4f0e0ab7f5023 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+I had considered that. But I went with the flag idea so that we could do
+multiple operations with a single call.
 
-[ ... ]
+> > +		struct param_buf p_buf = {
+> > +			.addr		= err->umc_addr,
+> > +			.out_buf	= &err->spa,
+> > +		};
+> > +
+> > +		if (!prm_umc_norm_to_addr(norm_to_sys_guid, &p_buf)) {
+> > +			err->valid |= ATL_OP_SPA;
+> > +		} else if (!df_cfg.flags.prm_only) {
+> > +			unsigned long spa = convert_umc_mca_addr_to_sys_addr(err);
+> > +
+> > +			if (!IS_ERR_VALUE(spa)) {
+> > +				err->spa = spa;
+> > +				err->valid |= ATL_OP_SPA;
+> > +			}
+> > +		}
+> > +	}
+> > +}
+> 
+> ...
+> 
+> > diff --git a/include/linux/ras.h b/include/linux/ras.h
+> > index 468941bfe855..eac8cf39ddd5 100644
+> > --- a/include/linux/ras.h
+> > +++ b/include/linux/ras.h
+> > @@ -3,6 +3,8 @@
+> >  #define __RAS_H__
+> >  
+> >  #include <asm/errno.h>
+> > +#include <linux/bits.h>
+> > +#include <linux/stddef.h>
+> >  #include <linux/uuid.h>
+> >  #include <linux/cper.h>
+> >  
+> > @@ -35,10 +37,26 @@ static inline void
+> >  log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev) { return; }
+> >  #endif
+> >  
+> > +/* Operations requested and completed through amd_translate_umc_mca_addr(). */
+> > +#define ATL_OP_SPA		BIT(0)	/* System Physical Address */
+> 
+> verify_comment_style: WARNING: No tail comments please.
+> 
+> Please audit your whole set.
+> 
 
-> @@ -2004,42 +2007,44 @@ rtl8365mb_port_set_vlan_egress_mode(struct realtek_priv *priv, int port,
->  			RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK, val);
->  }
->  
-> +/* Program the PVID that the port should use for untagged frames: the PVID of
-> + * the bridge while the port filters VLANs, and the neutral PVID (VID 0)
-> + * otherwise. A VLAN-unaware bridge, like a standalone port, gets its FDB and
-> + * MDB entries with VID 0 from DSA. As the switch looks up its forwarding
-> + * database by the VLAN that it classifies a frame to, a bridge PVID would make
-> + * those entries miss every lookup.
-> + */
-> +static int rtl8365mb_port_commit_pvid(struct dsa_switch *ds, int port,
-> +				      bool vlan_filtering,
-> +				      struct netlink_ext_ack *extack)
-> +{
-> +	struct realtek_priv *priv = ds->priv;
-> +	struct rtl8365mb *mb = priv->chip_data;
-> +	u16 pvid;
-> +
-> +	if (vlan_filtering)
-> +		pvid = mb->ports[port].bridge_pvid;
-> +	else
-> +		pvid = 0;
+Will do.
 
-[Severity: High]
-With this change, untagged frames from every VLAN-unaware bridge are
-classified to VID 0, which is the VID standalone ports already use. The
-previous commit made VID 0 an IVL VLAN. Taken together, do multicast
-lookups from all bridges and all standalone ports now land in one shared
-{MAC, VID 0} space?
+Thanks,
+Yazen
 
-The commit message says:
-
-  "The per-bridge EFID keeps these lookups local to the bridge."
-
-That looks true for unicast only. Hardware multicast entries have no EFID
-field, and rtl8365mb_l2_add_mc() says so:
-
-drivers/net/dsa/realtek/rtl8365mb_l2.c:rtl8365mb_l2_add_mc() {
-    ...
-		 * Entries from different bridges will collide on the same
-		 * MAC+VID slot with an OR'ed member mask, but packets will
-		 * only exit through ports allowed by the source port's pmask.
-    ...
-}
-
-Also, rtl83xx_port_mdb_add() accepts both DSA_DB_PORT and DSA_DB_BRIDGE,
-and it only uses the EFID in a dev_dbg():
-
-	/* EFID is not used by hardware MDB entries; debugging only */
-
-Before this patch, bridge traffic was classified to the bridge PVID
-(VID 1). No VID 0 multicast entry could match it, so unregistered
-multicast was flooded within the pmask. Three cases look affected now.
-
-First, DSA installs DSA_DB_PORT host entries at VID 0 for every user
-port's mc list, whether the port is bridged or not:
-
-dsa_user_sync_mc()
-  -> dsa_user_vlan_for_each()      /* always calls cb(arg, 0) */
-  -> dsa_user_standalone_event_work()
-    -> dsa_port_standalone_host_mdb_add()
-
-Say an untagged frame arrives on lan1 for 33:33:00:00:00:01, for example
-an IPv6 RA or an MLD general query from an upstream router. It now hits a
-{CPU}-only entry. Does it still get flooded to the other ports of the
-bridge?
-
-rtl8_4_read_tag() calls dsa_default_offload_fwd_mark() for any frame that
-was not trapped. That means the software bridge would not re-flood the
-frame either. IPv6 33:33:xx groups use DMAC lookup. Whether IPv4 groups
-do as well depends on the IPMC lookup mode, which the driver does not
-configure.
-
-Second, suppose bridge B snoops a group G and installs {G, VID 0} -> {b1}.
-Would that entry now also match traffic for G inside bridge A? The result
-would be member & pmask(a1) = {} (dropped) or {CPU}, where bridge A would
-otherwise have flooded the unregistered group.
-
-Third, DSA refcounts CPU port MDB entries per database:
-dsa_port_do_mdb_del() looks up {addr, vid, db}. However,
-rtl8365mb_l2_del_mc() still clears the port bit on the single shared
-slot:
-
-	mc.member &= ~BIT(port);
-
-When one bridge or standalone port leaves G, does this remove host
-delivery of G for the other databases that still need it?
-
-Does this need per-bridge separation of VID 0 multicast, for example a
-distinct classification VID or FID per VLAN-unaware bridge? The other
-option would be per-database handling of the shared slot.
-
-> +
-> +	return rtl8365mb_vlan_pvid_port_commit(ds, port, pvid, vlan_filtering,
-> +					       extack);
-> +}
-> +
->  static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
->  					 bool vlan_filtering,
->  					 struct netlink_ext_ack *extack)
->  {
-> -	enum rtl8365mb_frame_ingress accepted_frame, prev_accepted_frame;
->  	enum rtl8365mb_vlan_egress_mode mode;
->  	struct realtek_priv *priv = ds->priv;
->  	u32 configured_ports = 0;
->  	struct dsa_port *dp;
-> -	u16 pvid_vid;
->  	int ret;
->  
->  	dev_dbg(priv->dev, "port %d: %s VLAN filtering\n", port,
->  		vlan_filtering ? "enable" : "disable");
->  
-> -	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
-> -						  &prev_accepted_frame);
-> -	if (ret) {
-> -		NL_SET_ERR_MSG_MOD(extack,
-> -				   "Failed to get current framefilter");
-> -		return ret;
-> -	}
-> -
-> -	/* While filtering, only accepts untagged frames if PVID is enabled */
-> -	if (vlan_filtering) {
-> -		ret = rtl8365mb_vlan_port_get_pvid(priv, port, &pvid_vid);
-
-[Severity: Low]
-This hunk and the one in rtl8365mb_port_vlan_add() remove the only
-callers of rtl8365mb_vlan_port_get_pvid(). The function is still defined
-non-static in rtl8365mb_vlan.c and declared in rtl8365mb_vlan.h, so the
-compiler will not warn that it is unused. Can it be dropped?
-
-Similarly, the only remaining users of
-rtl8365mb_vlan_port_get_framefilter() and
-rtl8365mb_vlan_port_set_framefilter() are in
-rtl8365mb_vlan_pvid_port_commit() in rtl8365mb_vlan.c. Could they be made
-static and removed from the header?
-
-> -		if (ret)
-> -			return ret;
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-> index 58948e76f122a..64acd762e912f 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-> @@ -42,7 +42,8 @@
->   *    may be useful for ACL rules which specify alternative forwarding
->   *    decisions.
->   *
-> - * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
-> + * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports and
-> + * for the ports of a VLAN-unaware bridge.
-
-[Severity: Low]
-This isn't a bug, but the matching comment in rtl8365mb_vlan_mc_find()
-was not updated. It still says:
-
-	/* By design, VlanMC[0] is reserved as a neutral PVID value for
-	 * standalone ports. It always has EVID == 0. That way, we assume that
-
-Should it also mention VLAN-unaware bridge ports?
-
->   *
->   */
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106150225.3700205-1-stijncleynhens%40gmail.com
