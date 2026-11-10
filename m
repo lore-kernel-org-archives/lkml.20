@@ -1,49 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354010;
-	b=dlhd4Z8nTyUnbjv8t9ioDudpC5+h3kI609KpfqKr2nOBtIPY2Vq3th2bfhrFolMHFQF0
-	 c9Iebs492T3qRJUS6wyhMe0prcBcharTatM6sFPYHwoIOg+Fc8yBO4jGTv4tBvMZIp7+d
-	 b1ZNl74rssPkxLydWctwamWwhXZV0I67F95ZXYZKBr6lU0TU8dfcIhA9Vc8u5NdIZhvnA
-	 g1SSqd2Sxx/0AROwIc1gl3+saSMxT6fPW9aXj0WyaHwqx5L4zl01YrRs07SsV1bUP3HVE
-	 AqulInmgQSpTPVjbuWfVA+6WMx2T2UNRpX2dqPgv947DtOlNDmMnUnvH1Xaj7dpkpiw==
+	t=1794354101;
+	b=Yw1WM8Y5R8nuXN68AWGGHpk8+SSVVaXSi0k4GwTXhGSKb93Xg1HE0IMXinuSARS0s4sl
+	 K23r3hWb5mWL+y3mXebuAS0uMNAZcqneweh4itAYu2reS3l97h/+aV9aMgrLjs29tAawh
+	 N0AjZ1vuXlJldA9Bin2IMD9yIofG8C7abTBIJJHfHuGaPX5P+4eOc1zPc+LyYWMmj0Kzg
+	 4JKfwRn1rwxwRAVSmO/rIgKYsN09QFzcIeMCxByqKGt0uF+qaS7l/XYi4iuQVKfWM3QNf
+	 Z0U5LZKl8UofUYUjPylBVDGCJS4Lxd6OF5oVUP4NBrQtZlG/90y3zW7jYiB5/6QQIYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354010;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=pYmj9P82h3mH0toZaIrqOD30rRfqgoFATEdZmKo+ic8=;
-	b=uSLrYjR3PgyGKCDlzOsrfOajqsq7tSTADLCURF9RH5rLA1cFYvcTfowmqqxC/QYogLzI
-	 n2E3xBlmMGWRJEHlS4EEV97pZG0D1GrcDFH6wfFiDQVWfrbeJEJFb5HV0Xe8uOImz9xNB
-	 nk2i3rACAWoectmi9ly0nreMFUz1tZVG1q8gdKwtCAWed46ejZHL6dg76fwZjTY+2Mg+8
-	 T4xr7rUQCqcLcjQcNH7zVMqU8L6UaNdDHexNXR2FCBpoylUJy8B/XIVgUrzRQkaDbwefn
-	 ee/V0tlOeP5Z9sd+lqbBl9pghPb61FHBhJioPvFkroBw9k0C+qyN4635gconQxEvANA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354101;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=m/I3u2DIcuWXKQ1Qo8rwF6DEUqXpIQH/9/2v0i4WFaw=;
+	b=nKHPgQxeHl/P0lDw381yAFDzqTLgVBFSnJmH98HXxVEZ99eBr3CU5y9afWH2ZIe4Xpgb
+	 jwuHAF9EGW4bGCRJa9tyFevOxtyemnU5CqY6FBQbryEOiiKcMBcotJf37BuAEnBGzwp6S
+	 P0G1BpePyhI8uxK3kgq+FrweHtgtzSjg6qR1woiw3jDzzWmCe9tXxaCbSHr4/Qo+FF2nS
+	 BvBelzuHFv9qqiSxnhPWaafXgDwWG1Kj2hy7mB1DMvBzmnmy/kl0RSIoup2L3zPvC5Jmq
+	 USeMmQ31+gO3CDIw/T9pOwVF0WVPAj7Rfq5Ufjn/mLgOjXKP6hclSfmJ/9kKLLUfaAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZQ/DXxgq";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G31UKzFt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD0B606A31C;
-	Tue, 10 Nov 2026 23:40:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932F7606A320;
+	Tue, 10 Nov 2026 23:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQ/DXxgq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63421F0093C;
-	Tue, 10 Nov 2026 23:40:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G31UKzFt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6165C1F0093C;
+	Tue, 10 Nov 2026 23:41:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354009;
-	bh=pYmj9P82h3mH0toZaIrqOD30rRfqgoFATEdZmKo+ic8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZQ/DXxgq/1nzzLRmf+wBdN0ecg8VeeRkWVoRvNuS3N5MDUf+Ynt4bRoztKQPIeEkv
-	 rPZBA54ZLiGVmmp5WWmsuJol/+AqwJevjDocNBn4gOZCz3fvWjgwB+KKrWLKP83C4/
-	 shieXjNsdbDzyIjHjeIVYkI1MmB1WeEZ6PpG3vt/Uc8vXfncc4YLBuV7FQ0lyApILy
-	 V0sKeMLfMhPCPyVV2RJCTWvZcNbED79rem5P5ypt9l2QMW+keVL9yAlSCK+1JDVpkm
-	 p7l+IVWJGf8PeVmeyClE6jqNm5y/BULooVF+FQX9UxFEPkHMeG7jRMjVyLIULgVieT
-	 5BrUa9hpdbU7A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D830C39E8A41;
-	Tue, 10 Nov 2026 23:40:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794354101;
+	bh=m/I3u2DIcuWXKQ1Qo8rwF6DEUqXpIQH/9/2v0i4WFaw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=G31UKzFtI/faUuneUGXzHgUw1C7od2JUH+tqw/0q4HOplmgemS2fyuwH3RUv5WgpR
+	 59tPNWKH7j7zrD2mpHu+Hlp1k/r5q0/+7eamwyoC3QKUAmrAJEckQ8tFT91Zhst9R6
+	 96LGFfzbWOfZ+2ZQEEXkKEjWmZUYDEL+TS2p02nm+6tLK892S6LKCJnU9QFsGxnhSr
+	 n6B6oJ+B6BTWuBppDyEhUvyGTKU7mBj3uhg9YGaDP05t3aYflVQ8WZcVhJdZHBcS/i
+	 smF5X6ZNBcrN676lC9VznuJ8XKqnnujfiRr9lIqzQIqd+a4rl88fPg6Qp8BYhFEnjX
+	 QKg7vNSKwCVYA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Keith Busch <kbusch@meta.com>, bhelgaas@google.com, maz@kernel.org,
+ lrizzo@google.com, hch@lst.de, changfengnan@bytedance.com,
+ namjain@linux.microsoft.com, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org, Vidya Sagar
+ <vidyas@nvidia.com>
+Subject: Re: [PATCH v3 2/2] PCI/MSI: Implement irq_mask_noflush() for MSI-X
+In-Reply-To: <avHxSog2_rsJKGUy@kbusch-mbp>
+References: <20261106173448.34794-1-kbusch@meta.com>
+ <20261106173448.34794-3-kbusch@meta.com> <87wlqpwukt.ffs@fw13>
+ <au-DcqwAz2wmmOne@kbusch-mbp> <87o6c0wbo4.ffs@fw13>
+ <avHxSog2_rsJKGUy@kbusch-mbp>
+Date: Wed, 11 Nov 2026 00:41:37 +0100
+Message-ID: <87o6bwtfta.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,72 +63,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net V3 0/8] net/mlx5e: Fix offload lifetime and exclusion
- bugs
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179435400767.117523.810055396061956358.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 23:40:07 +0000
-References: <20261105211637.1083978-1-tariqt@nvidia.com>
-In-Reply-To: <20261105211637.1083978-1-tariqt@nvidia.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- parri.andrea@gmail.com, borisp@nvidia.com, cratiu@nvidia.com,
- dtatulea@nvidia.com, gal@nvidia.com, jmassar@nvidia.com, jianbol@nvidia.com,
- kuniyu@google.com, leon@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, mbloch@nvidia.com, phaddad@nvidia.com,
- prathameshdeshpande7@gmail.com, raeds@nvidia.com, roid@nvidia.com,
- saeedm@nvidia.com, shayd@nvidia.com, horms@kernel.org,
- steffen.klassert@secunet.com
+Content-Type: text/plain
 
-Hello:
+On Mon, Nov 09 2026 at 09:14, Keith Busch wrote:
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+> On Sat, Nov 07, 2026 at 10:53:47PM +0100, Thomas Gleixner wrote:
+>> On Sat, Nov 07 2026 at 13:00, Keith Busch wrote:
+>> > This is done on purpose: pci_msix_write_vector_ctrl() already has the
+>> > same offline check, so nothing actually gets written, same as before.
+>> >
+>> > And regardless of whether it's offline or not, we have to set the
+>> > PCI_MSIX_ENTRY_CTRL_MASKBIT in the cached msxi_ctrl. That's common to
+>> > both paths, so it lives in the noflush helper to avoid duplicating it.
+>> 
+>> Indeed, but that's an unreadable mess TBH.
+>
+> No disagreement there! I was just going for a minimal diff, but we can
+> refactor a bit on the way. I'll take a stab at it.
 
-On Thu, 5 Nov 2026 23:16:28 +0200 you wrote:
-> Hi,
-> 
-> This series by Cosmin fixes several mlx5e offload issues.
-> 
-> 1.   Fix fs root table cleanup bug.
-> 2.   Fix IPsec encap serialization bugs.
-> 3.   Fix a deadlock between HCA devcom lock and mode_lock.
-> 4.   Fix uplink unbind deadlocks by not holding mode_lock across
->      removal. All eswitch operation initiators wait for ongoing ones to
->      finish first. Unblocked by 3.
-> 5.   Fix races between profile cleanup/init and IPsec policy/state add.
->      Unblocked by 4.
-> 6+7. Block eswitch mode changes before accessing the IPsec context
->      during policy and SA creation. Unblocked by 5.
-> 8.   Serialize TC/IPsec exclusion counters with a per-device spinlock.
->      Unblocked by 6+7.
-> 
-> [...]
+Yes, please. The minimal diff approch is what creates the most problems
+down the road.
 
-Here is the summary with links:
-  - [net,V3,1/8] net/mlx5e: Release IPsec root table reference on RX setup failure
-    https://git.kernel.org/netdev/net/c/e8303b581085
-  - [net,V3,2/8] net/mlx5e: Serialize ipsec encap reservations with eswitch operations
-    https://git.kernel.org/netdev/net/c/b102f927c69e
-  - [net,V3,3/8] net/mlx5e: Take HCA devcom lock before esw->mode_lock
-    https://git.kernel.org/netdev/net/c/b7e98883eeb7
-  - [net,V3,4/8] net/mlx5e: Fix E-Switch races in uplink unbind
-    https://git.kernel.org/netdev/net/c/5eaf9931c8af
-  - [net,V3,5/8] net/mlx5e: Fix ipsec core device access during profile changes
-    https://git.kernel.org/netdev/net/c/5b310ae1eff7
-  - [net,V3,6/8] net/mlx5e: Block E-Switch mode changes during IPsec policy creation
-    https://git.kernel.org/netdev/net/c/d9e4ac08ea89
-  - [net,V3,7/8] net/mlx5e: Block E-Switch mode changes during IPsec state creation
-    https://git.kernel.org/netdev/net/c/0d09de8e4f11
-  - [net,V3,8/8] net/mlx5e: Serialize TC and IPsec offload exclusion counters
-    https://git.kernel.org/netdev/net/c/717dec565a5e
+> I also don't really get the rationale for putting the check in
+> write_vector. The commit message says the checks are to avoid having to
+> deal with errors, but posted writes don't produce errors, so not sure
+> what it's actually guarding against.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+To me the explaination made sense and there were no objections within
+month from any of the people involved. I'm not a DPC (or whatever is
+involved) expert. I just work here.
 
+I've Cc'ed the author of the patch for you as that might be a better way
+to answer your question, no?
+
+Thanks,
+
+        tglx
 
