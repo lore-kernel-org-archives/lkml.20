@@ -1,54 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302108;
-	b=KpVt9CJhjVetLII1yh14Tr/RZ4CY6nOrkiORgL/hxDdmGOcmjPhYllaptw/5eFZ5lLcV
-	 BGyIBc61C8ThMwy96WpIH5mkq4Thb7JikXK+TaIeMRue2+ToFzfuCnJ5lQ08ay5TZgCHi
-	 Q3l/9kHKBsbe/sCDEayzLFU+C1hfN7GNhNk5aKey0o5Xjv12xYfPcVgiIiioTVzqn3Wwi
-	 D2Bq4zvq5AF6BXqyYaxm0JfXayAk2/PNp8xU5E8Bujp2HxyazhsB4BkU+cliKua+pG+x+
-	 PH8eC1bwg8Fam00rRBgUrSOE2Z1DLWFBgBB/7hmcvwdWFmTaPhtOgQVK1e0lt5zRFxA==
+	t=1794302114;
+	b=qQKSoGst3ZLfg/v53Vq9AARvwdVsmwQHGgw4pgfi7YiQIQhHXXl3RvrdljmgRxxESk2V
+	 +096N1xXt0Xc2hLujSxOFusw+Tp4uFfEaQZDb9IZ65e1Mv0NHPlmnDaI7a5eLrIfCQt8w
+	 QzPJE4t9ml0gTcQ9TwLVhyHZTMxHP6sDGQgsEBaS+9B1xNeoLbWimqPdK+aV7dnqGA0+F
+	 a33C1HYwWt+w0jvoiS3k9t5u2uKe1wsGJ6iodV2Zj2Pv9Kor77QhV4iIVzu84KVKhXtJx
+	 2K5RrpxRWeN1JGRY2WyqpcT1qIAxjXdmqK5vYPoXgQHn6NFo4hvsQ4N61bLTSTh6zzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302108;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=f2nY2psBL9Dn36CGhhiafRyd89S7py63c4DQ0xt83qo=;
-	b=zVCx/WxKe2LNwVVkbwzDdtqahU4BmbxZ2sPWMFgT9kRymRIhHnTGQyLBwthXRPxaHEJN
-	 nHx2jcAdiqB5ye2b91O3Kl9VZ03z7x/Ychjn5zAp8INlFXef8CUZ565ORVOvT8hDfmNFT
-	 3h5x77PiJGXNPFEUrKA6nSPKI2IRY8c/QyDios/4uCfxNOwbt/eBpiu18gkR+2zgtfCP5
-	 AmocvN2PYnyKOj79Dh2nW3GlWMqWwVo64+B/8BiDtZS6piIbFUsTIfCXA3crW6wB4jYWG
-	 ebO4hoSKVzPx2nRmcEUB+fhHSwQcbhaKIwO5oS4mVaXFUthVZiVopE7B8adPHi9mrow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302114;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=hUcho8twJXgjwEPCrObhBW0yK1GzMc3JHr8xlFYANFg=;
+	b=C4xl9ecGrDdUvOgMrcQxDsyTRIIEmjuXJhpovw2M9kEtvwnJj6n3FDp3BPzY/GZF11BW
+	 8nPte97Lt+68yfXxDwG6NW3Uh19tsnUwzn/MaKKnFE0iYHTNiQfWPvwPw75yR6MLnVWHQ
+	 gkeHLKsZkwIl+k5vPGpgVmXESHCVzF6z0QKmYOhyc5KlpPVznx+f/YWYa/3bOIgrMc1OA
+	 Fd+jfvcgDK0aNfD+yOJfSek8U5c4VJui7uHp+riX0mE/+IYYJlT08CcYalyKNnLnG79S6
+	 0xpbt86tnxUxidigFI8A9SRSui1DjiSnulc3yb4LUIBDwSqa+1XWv4ZsTweS/sTdR1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adAFt7a6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=ifEyezbl;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB74F606A32A;
-	Tue, 10 Nov 2026 09:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7350606A321;
+	Tue, 10 Nov 2026 09:15:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7350606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adAFt7a6
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ED8381F0089F;
-	Tue, 10 Nov 2026 09:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794302106;
-	bh=f2nY2psBL9Dn36CGhhiafRyd89S7py63c4DQ0xt83qo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=adAFt7a6BXxxbbviaxn8vaXQDnCFhRCDgHvgs6yQ9qvueBadNDKcHW8+CMux9c57j
-	 OP+Np/7/jNRlOJBCu3H2az/Efk45qMsYdkmz7pfFPbIiKdVIsA/LG8MnUVzlTsJiWg
-	 IbwcYKDSQPQKw7p4r80M4kIGFLtg62IGxWicuX/7iyRtv+basr6EuhYvBrnVotPx2+
-	 A36tXHfm/9vjrqivF8jMVWqrGYKINPNSBCiVjKjagbgW1YK03VTwMrhjYYysMWgryD
-	 8MmjngK5XWS8IjYc0tZoQsrF95Z/MMODLCU+aulb0+kKVFVWYR7Z/JH57LSHdZG//e
-	 zfGWCLE+xNsmQ==
-Date: Tue, 10 Nov 2026 10:15:03 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: sodaville: fix use-after-free bug when registering
- the irqchip
-Message-ID: <kyqnjm57yrercvg5raacrxwt46p2fig6leeeywipv66c3iqzlg@tdh5swet65jb>
-References: <20261105-gpio-sodaville-use-after-free-v1-1-f572f40feedd@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=ifEyezbl
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jP1Fg5HDmzMlJM;
+	Tue, 10 Nov 2026 10:15:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794302103; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hUcho8twJXgjwEPCrObhBW0yK1GzMc3JHr8xlFYANFg=;
+	b=ifEyezbll62IWg9DTZIB0s+gg+zPNxe1+Kp1Rf78KBGc42LAxexW0xip9Outubiw3Qvpm7
+	2v0yyclxsURvY9bMevENDIqiJi3OIIPb1fy2R6VUEW24jTz6ZMUlUjL6Paq43rAorSdtj0
+	h7j04pMZ5UOo2PjZAis24aj6WRxJ881VynoDtwsH46HED4wvUFkAZeKbnzzJcvVM0XTUfv
+	ZwEkNm8tJRVscRCFXVl8zgRA0pNb3zVfUPE7rq7rPbK4ViUXNQ4DDOLWb3kTTGPdDahDi1
+	k/TwCUMdEO2E3yTIRhOhorwl9hH0QJky+GauJfgCHWloO75e5a53m9ZmE/rj2w==
+Message-ID: <a887bbe998a3f0afeeb7fd955c6cafda67aa8fca.camel@mailbox.org>
+Subject: Re: [PATCH 7/8] rust: drm: Add JobQueue
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Younes Akhouayri <git@younes.io>, Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl	 <aliceryhl@google.com>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Matthew Brost	
+ <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Date: Tue, 10 Nov 2026 10:14:58 +0100
+In-Reply-To: <kw-1794059738.215694434-299782-0@younes.io>
+References: <20261106140752.520386-2-phasta@kernel.org>
+	 <20261106140752.520386-9-phasta@kernel.org>
+	 <kw-1794059738.215694434-299782-0@younes.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,19 +88,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-gpio-sodaville-use-after-free-v1-1-f572f40feedd@oss.qualcomm.com>
+X-MBO-RS-META: ouzy5xsma8ocp33pncyodapbeeh6zb8t
+X-MBO-RS-ID: e0aa8df6102491b87ea
 
-On Thu, Nov 05, 2026 at 02:14:27PM +0100, Bartosz Golaszewski wrote:
-> In sdv_register_irqsupport(), if irq_domain_create_legacy() fails during
-> device probing, a generic IRQ chip is left registered in the global gc_list
-> while its underlying memory is freed, leading to a use-after-free. Use
-> the managed variant of irq_setup_generic_chip() to ensure that the chip
-> gets unregistered before the memory it uses is freed.
-> 
- 
-Andy, will you queue this or should I take it for this week's PR with
-fixes?
+T24gU2F0LCAyMDI2LTExLTA3IGF0IDEzOjU1ICswMDAwLCBZb3VuZXMgQWtob3VheXJpIHdyb3Rl
+Ogo+IE9uIEZyaSwgNiBOb3YgMjAyNiAxNTowNzo1MiArMDEwMCwgUGhpbGlwcCBTdGFubmVyIHdy
+b3RlOgo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJvcChqcSk7IC8vIFJlbGVh
+c2UgbG9jay4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFQ6OnJ1bl9qb2Iod29yay5mY3R4
+LCBydW5uYWJsZV9qb2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEgPSB3b3JrLmlu
+bmVyLmxvY2soKTsgLy8gUmV0YWtlIGxvY2suCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAvLyBydW5fam9iKCkgYWJvdmUgbmVlZHMgdG8gYmUgY2FsbGVkIHdpdGhvdXQgbG9jayBw
+cm90ZWN0aW9uLiBUaHVzLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gaXQgaXMgcG9z
+c2libGUgdGhhdCB0aGUgZHJpdmVyIGluc3RydWN0ZWQgY29tcGxldGlvbiByaWdodCBiZWZvcmUK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHdlIGNvdWxkIHJlLXRha2UgdGhlIGxvY2su
+Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBqcS5sYXN0X2NvbXBsZXRlZCA+PSBzZXFu
+byB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICpqcS5hc19tdXQoKS5wcm9q
+ZWN0KCkuY2FwYWNpdHkgKz0gdTY0Ojpmcm9tKGpvYi5jb3N0KTsKPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgZmVuY2Uuc2lnbmFsKE9rKCgpKSk7Cj4gPiArCj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIERyb3AgaGVyZSBkaXJlY3RseSBpZiBwb3NzaWJs
+ZS4gT3RoZXJ3aXNlLCBsZXQgdGhlIERyb3BXb3JrZXIKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLy8gdGFrZSBjYXJlIG9mIGl0Lgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBpZiBjb3JlOjptZW06Om5lZWRzX2Ryb3A6OjxUOjpKb2JEYXRhVHlwZT4oKSB7
+Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEuZHJvcF9saXN0
+LnB1c2hfYmFjayhqb2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBqcS5ydW5uaW5nX2pvYnMucHVzaF9iYWNrKGpvYik7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB9Cj4gCj4gV2hlbiB0aGUgSVJRIHdpbnMgdGhlIHJhY2UsIGBjb21w
+bGV0ZV9qb2JzX3VwX3RvX3NlcW5vKClgIGtpY2tzIHRoZQo+IERyb3BXb3JrZXIgYmVmb3JlIHRo
+ZSBqb2IgbGFuZHMgb24gYGRyb3BfbGlzdGAsIGFuZCB0aGlzIGJyYW5jaAo+IHB1c2hlcyBpdCB0
+aGVyZSB3aXRob3V0IGtpY2tpbmcgYWdhaW4uIEFtIEkgcmVhZGluZyBpdCByaWdodCB0aGF0IHRo
+ZQo+IGpvYiB0aGVuIHNpdHMgb24gYGRyb3BfbGlzdGAgdW50aWwgdGhlIG5leHQgY29tcGxldGlv
+biBvciB1bnRpbCB0aGUKPiBxdWV1ZSBkcm9wcz8gSWYgc28sIGlzIHRoYXQgYWNjZXB0YWJsZSwg
+b3IgZG9lcyB0aGlzIHBhdGggbmVlZCBhCj4gYGNoZWNrX3N0YXJ0X2Ryb3Bfd29ya2VyKClgIHRv
+bz8KCkkgdGVuZCB0byB0aGluayBpdCdzIGFjY2VwdGFibGUgKGFuZCBJIHdhcyBhd2FyZSBvZiB0
+aGlzKS4gVGhvdWdoIHdlCmNvdWxkIGtpY2sgaXQgaGVyZSBuZXZlcnRoZWxlc3MsIGl0J3Mgbm8g
+YmlnIGRlYWwuCgpARGFuaWVsLCB5b3UgbWVudGlvbmVkIGRyb3AgZGVsYXlzIHJlY2VudGx5LiBP
+cGluaW9uPwoKPiAKPiAKPiA+ICvCoMKgwqDCoMKgwqDCoCBzZWxmLndpdGhfaW5uZXIofGlubmVy
+fCB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBsZXQgbXV0IGlubmVyID0gaW5uZXIubG9j
+aygpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGV0IGRyb3BfbGlzdCA9IGNvcmU6Om1l
+bTo6dGFrZSgmbXV0IGlubmVyLmRyb3BfbGlzdCk7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBsZXQgd2FpdGluZ19qb2JzID0gY29yZTo6bWVtOjp0YWtlKCZtdXQgaW5uZXIud2FpdGluZ19q
+b2JzKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxldCBtdXQgcnVubmluZ19qb2JzID0g
+Y29yZTo6bWVtOjp0YWtlKCZtdXQgaW5uZXIucnVubmluZ19qb2JzKTsKPiA+ICsKPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHdoaWxlIGxldCBTb21lKGpvYikgPSBydW5uaW5nX2pvYnMucG9w
+X2Zyb250KCkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBsZXQgZmVuY2Ug
+PSBqb2IuZmVuY2UuYXNfcmVmKCkuZXhwZWN0KCJmZW5jZSBub3QgcHJlc2VudCIpOwo+ID4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmZW5jZS5zaWduYWwoRXJyKHNlbGYuZXJyKSk7
+Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBkcm9wKGlubmVyKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRyb3AoZHJv
+cF9saXN0KTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRyb3Aod2FpdGluZ19qb2JzKTsK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRyb3AocnVubmluZ19qb2JzKTsKPiA+ICvCoMKg
+wqDCoMKgwqDCoCB9KQo+IAo+IEluIHRoZSBgd2hpbGUgbGV0IFNvbWUoam9iKSA9IHJ1bm5pbmdf
+am9icy5wb3BfZnJvbnQoKWAgbG9vcCwgYGpvYmAKPiBnb2VzIG91dCBvZiBzY29wZSBhdCB0aGUg
+ZW5kIG9mIGVhY2ggaXRlcmF0aW9uLCB3aGlsZSBgaW5uZXJgIGlzCj4gc3RpbGwgbG9ja2VkLiBJ
+ZiBgSm9iRGF0YVR5cGVgIGhhcyBhIGBEcm9wYCBpbXBsLCB0aGF0IGVuZHMgdXAgaW4KPiBgRHJp
+dmVyRmVuY2U6OmRyb3BgIC0+IGBzeW5jaHJvbml6ZV9yY3UoKWA7IHNvIGlzIHNsZWVwaW5nIHRo
+ZXJlIHdpdGgKPiB0aGUgaXJxIHNwaW5sb2NrIGhlbGQgaW50ZW5kZWQsIG9yIHNob3VsZCB0aG9z
+ZSBqb2JzIGJlIGNvbGxlY3RlZCBhbmQKPiBkcm9wcGVkIGFmdGVyIGBkcm9wKGlubmVyKWAgbGlr
+ZSBgZHJvcF9saXN0YCBhbmQgYHdhaXRpbmdfam9ic2AgYXJlPwoKTm9wZSwgdGhhdCBjb2RlIGlz
+IHdyb25nISBBY3R1YWxseSwgbm90IGhvbGRpbmcgdGhlIGxvY2sgaXMgZXZlbiB0aGUKcmVhc29u
+IHdoeSB0aGUgbWVtOjp0YWtlIGlzIGRvbmUuCgpJIGFkZGVkIHRoZSBsb29wIGxhdGVyLiBXaGF0
+IGx1cmVkIG1lIGludG8gaXQgaXMsIEkgdGhpbmssIHRoYXQKY29tcGFyZWQgdG8gQyB5b3UgY2Fu
+bm90IGNsZWFybHkgc2VlIHRoZSB1bmxvY2soKS4gTm90IHN1cmUgaWYgdGhhdCdzCmlkaW9tYXRp
+YyBhbmQgaW50ZW5kZWQsIGJ1dCBJIGxpa2UgdG8gY2FsbCBzdWNoIHZhcmlhYmxlcwpgaW5uZXJf
+bG9ja2VkYCBvciBhZGQgYSBjb21tZW50IHNvIHRoYXQgaXQncyBjbGVhcmx5IHZpc2libGUgdGhh
+dCBhbgp1bmxvY2sgdGFrZXMgcGxhY2UuCgpXaWxsIGZpeCwgdGhhbmsgeW91LgoKUC4K
 
-Bart
