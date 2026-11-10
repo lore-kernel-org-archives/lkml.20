@@ -1,127 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340592;
-	b=tXmv1K26JhviCDFB94YW8GaD+841IC0XsMc9aKTv+o7367fZlCz00Don6OGDTHzbzqpI
-	 8z9HqchyLxEgmT/bfKOjb7Z57mx+4CWaFhPX7OumP6NVh+mDbtD4TI8aCg3K9TesoKqim
-	 zti2j9Zy1qsH5XvJL/8j/5JUN6qzub6zgwbNmnsv4bISHgAm178PXY1o+btivpAc3gIZJ
-	 r90I5SQlz1HVPTUEr5pGubUYwRPHYnCvtj5Vk4V1mzyGjKJ/UevmDvc5/C6wjEN11WaKr
-	 5ywxLKRW2AkCTcH4VoPan5QcwkhLNri/VwV+qneig3BvNPLjGhZ8rAtsfTDOkxSRwfg==
+	t=1794340605;
+	b=dKxJ2WLNx+SijmprHu80cDFcuUe4oxUE2Rvl7oT0fQO2nnl+Q/ZPpZpKI9Ec9y3vDe4+
+	 mrRwYAb07XVlBp0XywCc72hPTvezMaa7uMP+QLCIs1W+EYdOZpR1NDa4KNHWihcLIsRT8
+	 M+ZrS1FEsheazW62P3CSWdLl6FJLkQbaodo1a2WFd0/8ZepXUI9r+Uhu1lTHV9GKjYif7
+	 J39+3fHLnpeN77OcBLOgzAFldihnfcpqkKBkd4j+SmxnTcGNWfzyN30YeHVtkXwT+5QKW
+	 lAs4kxIpEVSdpkcBo4Di+XX5ldjmM92mXnxi1udZfcXG/RzA2fAY1FvyMV5D9x3zsQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340592;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=/WXnfO1pguHO5Uh5/HzEIL5sCV/yT5Wbg4U4qsYfw8E=;
-	b=frzDfeRkUGp4IXsAQSz2wNmHWV9YT6Rge9f8UdCpmYgRlo9xqHnSw0T9f3qR2PLumzmp
-	 n9RuL7R6sfmwityD158GeT7IsvWralXkQ98VFdGqRbcAsTeD32FEr/NF5XekFsAkfKj/y
-	 +e2CnILkXImenDpiUYFXauzXyAZdrTHhgCWRKNyR3ft398e3SLf7Jbe2oKOwqVVUQzj5W
-	 n2ZlHeRB4CJp1kWztvuQ/SBvyXuscqKmWSBPxuzAMxOweznFT/q3HiZNmDoGatFIiQTw5
-	 bxmtZEUcplg+fn7Q6gAnxOE6eysDxpRbpz+tpXV3K4g9djHJxFmum0RTO2ItUvw5pnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340605;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=X0P1xn7DMOwro4V4hfNIR9IZH4WRiTAHbOHV5MPmvj8=;
+	b=lLmeaF5K7Y2BJ25jPYJzv9tlxsUZUgdrtpIweuzxiKvhXMrFwEg+M4fu0mEFns/CplSU
+	 tQ1+tdzFfYB88uuxXBMG/O9ZdljEA0kd8QZm2zBf/lI9tEG3MsSFHLfYa3IMvE4CQTB4l
+	 jXjt6/srSATihzErG6Q72wDIiGKP4aSCpidhmAJ2AoPorMG0Fu2mJDlzXNpt1skdH+QU3
+	 LAdVBzFViIOZklucxryARsWYZumwAA7dkXeOfWsZ2Dd1S8b81FWE9bCc60TLSl8/q/jV+
+	 xgQ3KmqUo03ldXAHYkBz2atjoBGF4/a9PcK4bKVJlKCX3WEMZ1CzSyMCbfMd1uDDa1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=OqX8fuhl;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IJ8zYCo7;
-	arc=none smtp.remote-ip=202.12.124.156
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSWBwruB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CB2606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:56:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56CB2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCCB606A326;
+	Tue, 10 Nov 2026 19:56:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=OqX8fuhl;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IJ8zYCo7
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 972677A026C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:56:31 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 10 Nov 2026 14:56:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794340590; x=
-	1794426990; bh=/WXnfO1pguHO5Uh5/HzEIL5sCV/yT5Wbg4U4qsYfw8E=; b=O
-	qX8fuhlfxrJcJj/mxoG8xkMB3mRHj6trNGTNYOT3QMmW3BYmtOV4tg+AY2rXZRBG
-	3Mfsq2TKnonwY2MK+t/aRddyLAfz/g99/YlqPoYzLD6P++whB7Tkx+wuWy/N+EB5
-	42eQPNMHsm6HAhDD1SmP9J+HPZ765XONH6eE3ttlMzuwBMm1Z25O/aZJFAwvgI1l
-	fmrcpG0nqXXQbtgCDmvaGTT9SZ25JEMW1R048YfGocxcxGjN3bPJA8gcYLqBqNSo
-	tGEArOlyZ9gL0rsiRnrq5n6E/6OyWuqzYh5M85JPc7kYB0QAvpH4Z7KhLetEYZrb
-	ZR54xGGfz1ASNKs4l46Ww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794340590; x=1794426990; bh=/
-	WXnfO1pguHO5Uh5/HzEIL5sCV/yT5Wbg4U4qsYfw8E=; b=IJ8zYCo733yjnnVw4
-	OMxLfkWi1ucrqKYQ595LM6iYl6sFO8zc+GrBLYmxXsf9Gc62oA4tKjJ7QeBJrTLF
-	Cm6US42trBh0tycS2GNxJcTDNLGCfYTEuQc/UiXNunGzI6e+vthL7mwnu5GWLNwh
-	/lEOING50/+7FRb7pdHePlKoNZ2FBJnZpylx5E10g2e1vBfCwPjsJ0FYJRg7Kien
-	/h3f/fwoQu2z7qtTnPbZ3BPFZCxaw8+HpdJ9A8KfsX4OBYVujz86/yImxcZ0nhr+
-	BjIBgcXbu0CPtxX2oqk5VGBoYVk1uWzEzR+NLGbP0C9c6f8IHxT1mR0cgcRk725y
-	J6tnA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794340590; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:skcZCtRrHcWyfrGdDhTRk5TO32JlGPtWbi8WgGFbnQkaby5
-	LUz/vXl+DeZd9r5vMttyQ4JdeiYAQS8+8n5LzCzu/rcZxNNIrHK2dz7AQ7hQWS+V
-	2hcxOf7Tawxw4HknLLUaQfXhctqELF06exVRT4osDNEINCoSIQX8qqI68zCIWOq9
-	pOrrO3296NCEDh0j/y/cbAu9nnN3qk2pHwSi7WUDxrphHP9PhVVEzFdsbgWSwmbf
-	tcrlglhhqTccjO8E1XY9apPfQYcy8BUOyccHRBae4IxHfOxtSGxAOoISWm1q0TKf
-	3FWHJ4mkvC2vm/UiMODT/Lu+WneWVNhlEig4Uig==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:3mJlawYgtIESowWFbXWw49mEgN/OyySXD9UQ+0QQ77U=:/WXnfO1pguHO5Uh5/HzEIL5sCV/yT5Wbg4U4qsYfw8E=;
-X-ME-Sender: <xms:7XbzaoJ7Qex_Dqwc53EVljjGHBy8o2d7LUXxHUhe2z6cyzcPwiehaw>
-    <xme:7XbzaiySMIbxm4qFP9FwfIFM_tAJZAuwZ9wDwOFwJpNIKGBlqo1AYZmH5FNHjIWea
-    lnVs3k5Qx43ASxoQWLhNQ6SJI0rW3K5HzBYpMz3q5YjII73GP9lbeKD>
-X-ME-Received: <xmr:7Xbzaut6M8ANgc_plyTEFk4GkKGYxlFKaZ2EV4IjWCS4FCXxqFjkzMTB_Yslkfqy>
-X-ME-Proxy-Cause: dmFkZTGG8uV2SYVEMc1ZbCZHj9D26sfpiWG3Wl6apS7UurKAUsTHjS2YUGO+lnEIA8JdFH
-    UN/9kUPmq9I/XVRHWxOysla8Y2V6ydnhLX3VHjN4SGRgghXSI3fwc5vkhNOXrXTClOp1xX
-    2wT7XUovMsdtI5V+T3O/Fwr3x52Edt7n7V12L4koDNzkM1qtYkOvaku2AlM2omQaycwZcY
-    GEGZ1Frtx2Fa9WiaUfIhuU2uNOOPIJIQS/SXOWSWJmspQeFeFvBp8zsioaWhurhsly9jv1
-    D663yu29rv9f0ldoVmrpnz2Fb1uguRjOLypmUwH3drIyGjgU8vU6kCU/TMruDFGMgtwftB
-    jtudH+jxAUurUiOTlKze46XMtyjK8M2sCUZ/B2i0ckmhPG2w6h+qiXcMDIXNYAgv16U/b4
-    Q7SqArSRvJCwJMtoIEIi3afULxaJFaMOnE2byoSZpGvL4nkV77tBCmzBDBjGZyj7N3XAAN
-    ZoLUr0Vgqo4AhZU/1XGz2xvBgHpnP56tZ4Riw7Vh7GDMns3AREE4Ln9sB8c7CGJEzSLJBW
-    estotEXZOLZbBbHXCC+qEORYf8jEUvNsoHqMXZmR1kiWDfpttQ56a9ByWu2gAYKvcs+5gg
-    g7yoVgUcBOUC5T70k0NDvd6U2VIzvtf9QG2Tl5B/Jz4B9Nt6CxI4f9J0JUsQ
-X-ME-Proxy: <xmx:7XbzalB0BfrvjR_MZBx6Y0_T3adsaAkup0m2ADn99FGN9K9cei_YjQ>
-    <xmx:7XbzagFNXmzSevAhqSKB-JkYz9deC7VaEuicclt1zLypwsbKb6hGgA>
-    <xmx:7XbzalDo5ytD6tOj21mjrKpFI0VU_4uynGwrBbcp_QaKVIBSgI_0PA>
-    <xmx:7XbzamnLqsZ5XuvPCVVNJiIT31hd_usck_pXYhSPDn4VI1bYGVXoyw>
-    <xmx:7nbzatJOLgHlk5ds-KHdO_A6ned5PtGMJU3vj_SKQTS71Q6QTz90gHSb>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 14:56:28 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	mmakassikis@freebox.fr,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH] ksmbd: set create_time to btime in ksmbd_vfs_fill_dentry_attrs()
-Date: Tue, 10 Nov 2026 13:56:25 -0600
-Message-ID: <20261110195625.3211657-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110161659.481208-1-koray.fra@gmail.com>
-References: <20261110161659.481208-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSWBwruB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EF31F0089F;
+	Tue, 10 Nov 2026 19:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794340604;
+	bh=X0P1xn7DMOwro4V4hfNIR9IZH4WRiTAHbOHV5MPmvj8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=MSWBwruBUwX1RFyh5/WNLBZ1zTHwWKVzlH4BzIEmxirvu2ExjyCQVncKoL0+jQd9o
+	 ShWrZjkqNuBfHzZXLFt1TnHByiozoCE2DNLL8ALLtf8xSQkwJeh1e9ne8TRZeSa9qa
+	 3+UYyT4DcHl/q/NzIxmE1s9uMVRYD7wsSsHA74Nx6l7nVFZwvDMUljqp8maIV241Tu
+	 WZh2W1ypx4wHX8ZKhuHrSMA5RwPChgVDDMoa0fyzoFmtC9gcJoJ+fru+3p+YgOPkEL
+	 J+yxrkeY8brOsY7KypjsZWnfqzSNLhI+AV8U504NTDg63GgC+FNF5L6pcy981vRV0m
+	 HTX/xjFvpYEmA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 4F13ECE0AD8; Tue, 10 Nov 2026 11:56:44 -0800 (PST)
+Date: Tue, 10 Nov 2026 11:56:44 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	luca abeni <luca.abeni@santannapisa.it>,
+	Yuri Andriaccio <yurand2000@gmail.com>,
+	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Qais Yousef <qyousef@layalina.io>
+Subject: Re: [PATCH v2 0/7] sched: RT throttling cleanup and a bit of
+ documentation
+Message-ID: <c2bf89ce-b9de-43cf-839b-395d28b2275c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,22 +88,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
 
-Hi,
+On Tue, Nov 10, 2026 at 06:34:42PM +0100, Sebastian Andrzej Siewior wrote:
+> People used to disable the RT throttling mechanism by writing -1 to
+> /proc/sys/kernel/sched_rt_runtime_us. Since v6.12 they can still do this
+> but they don't disable RT throttling anymore. Instead this throttling
+> mechanism has been taken over by the fair_server which can be configured
+> via debugfs.
+> This is not really documented by a hint appeared a few cycles later in
+> Documentation/scheduler/sched-rt-group.rst. This can be found once you
+> know what you are looking for because this document describes the RT
+> group scheduling (CONFIG_RT_GROUP_SCHED). The fair_server is used even
+> without it.
+> The then there is global DL resource control which also shares this
+> file proc file (which is stuck if CONFIG_RT_GROUP_SCHED is enabled).
 
-On Tue, Nov 10, 2026 at 05:16:59PM +0100, koraynilay wrote:
-> ksmbd_vfs_fill_dentry_attrs() queries vfs_getattr() with STATX_BTIME,
-> but discards ksmbd_kstat->kstat->btime and unconditionally initializes
-> ksmbd_kstat->create_time to ksmbd_kstat->kstat->ctime.
+Nice, thank you!
 
-I tested this on a kernel whose fs/smb/server matches ksmbd-for-next,
-with files and a directory created on the server, so without the DOS
-attribute xattr. Before the patch, a directory listing reported their
-ctime as the creation time, while a query on the open file reported
-the btime. With the patch, both report the btime. A file created over
-SMB keeps its stored creation time in both. smbtorture gives the same
-results as without the patch, and KASAN reports nothing.
+Unfortunately but unsurprisingly, this gets the same divide-by-zero
+issue reported (belatedly) on the earlier series:
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+https://lore.kernel.org/all/e58e48c3-ac62-40cd-b5d3-2de87db12496@paulmck-laptop/
+
+							Thanx, Paul
+
+> This little series:
+> - Marks CONFIG_RT_GROUP_SCHED as broken because I was not allowed to
+>   remove it.
+> 
+> - Untangles DL usage of sched_rt_runtime_us and moves it to
+>     /sys/kernel/sched/dl_period_us
+>     /sys/kernel/sched/dl_runtime_us
+> 
+>   This keeps the _us sematic that we used to have /proc. It _could_ be
+>   changed to ns instead.
+> 
+> - Moves rcutorture away from the procfs interface since it tries to
+>   shutdown the fair_server for its testing.
+> 
+> - Adds sysfs interface under /sys/kernel/sched/cpuX to represent the
+>   runqueues. The only knob for now is fair_server_{period|runtime}
+>   representing the fair_server parameters. If all goes well, debugfs
+>   could be removed. The ext server could be moved, too.
+> 
+> - I tried to correct/ update documentation while at it. I added the -doc
+>   folks on Cc so they are aware. I can drop them in the next posting, I
+>   expect that this gets routed via the sched/-tip.
+> 
+> v1…v2: https://lore.kernel.org/all/20261105164724.yxONBd03@linutronix.de/
+>   - Tejun and PeterZ asked for marking CONFIG_RT_GROUP_SCHED broken
+>     first.
+>   - Everything after patch #1 that got queued up.
+> 
+> RFC…v1: https://lore.kernel.org/all/20261023161348.t3lpPLQZ@linutronix.de/
+>   - Try to remove RT-GROUP-sched after figuring out that it is useless.
+> 
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> ---
+> Sebastian Andrzej Siewior (7):
+>       sched: Mark RT_GROUP_SCHED broken
+>       rcutorture: Don't try to disable to RT throttling.
+>       sched: rcutorture: Allow to disable DL fair_server
+>       sched: Move DL's admission control to sysfs
+>       sched: Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED
+>       sched: Add sysfs files for the per-CPU fair_server knobs
+>       Documentation/sched: Add fairserver to sched-deadline
+> 
+>  Documentation/arch/arm64/asymmetric-32bit.rst |   2 +-
+>  Documentation/scheduler/sched-deadline.rst    |  36 ++-
+>  Documentation/scheduler/sched-rt-group.rst    |   7 +-
+>  init/Kconfig                                  |   2 +-
+>  kernel/rcu/rcu.h                              |   2 -
+>  kernel/rcu/rcutorture.c                       |  37 +--
+>  kernel/sched/deadline.c                       | 338 +++++++++++++++++++++++++-
+>  kernel/sched/debug.c                          |  56 +----
+>  kernel/sched/features.h                       |   2 +
+>  kernel/sched/rt.c                             |  61 ++---
+>  kernel/sched/sched.h                          |  55 +++--
+>  11 files changed, 423 insertions(+), 175 deletions(-)
+> ---
+> base-commit: fd9230005e85472b81c1c7c16afe93dd878996b1
+> change-id: 20261110-sched_dl-a9727787112f
+> 
+> Best regards,
+> --  
+> Sebastian Andrzej Siewior <bigeasy@linutronix.de>
