@@ -1,63 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322853;
-	b=M59ynB9VHGgTEJG+U1ZBgI/oxIiyRSnemH2wij3bFJjcpUc1ZrmJwwCbK46zFr3dY1mN
-	 w9mgEybT4EQldzLXpfDhzwMG9U5scbi3/wy9lsyAtPpTZ3GCp3SFxs8u+ztlIfrp+gkL1
-	 sUESXiRcONHuanuJ9qvGJ4kekz3/CT8cV7eojJilHR6B3ztbioWnHidoCip5rMid6UyMz
-	 EohOpByDpWJgRS/gbhiNjb6B3e3ke67uEKYBOvN26RdAaWAEosBimXSoYANrm3l8YwHyS
-	 C3kWFqjMK+/RpTIsdWJcdghBd8oz7WEB/uT4LZvhZAWR9fgN7QrcDR8TsFu6BA4WcvQ==
+	t=1794322862;
+	b=sR2tf1oJ3OHDA30KxPPYyRIn0h4yIcEcIBZIPeMa3nTwZ0s7s6nMrLdknyluzckorXuI
+	 5IGoNTcqrDjQY6Q1jKZtrHUGIENKHoxeHu/Tfl3caWKAP9ADfS5UirMXUg3dTaxNoO2hO
+	 tIiql2JpOz2KnZo4Neti5lKP/vRdvOU+NnIsqEymK21yGjfDfBvLCRkwklxROOt2HTBVm
+	 REEPFrVHc1QI9GGlcqNwQnoDuxfNW0zIVRJYLDH+hphLCgLVWTT36+6m1sHPom7tRuA4N
+	 yBrvAZSo1uvuojCmLHX+bI5NgysDm4ba1wfNMlOPX6xMTygNpmrFQyQi5aaqkKKCWRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322853;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=LUXVKyaf2YBA+Itk4l0dA4eJy7yJqBsYFAOw9EDLcDY=;
-	b=lkfGsgKF2jkQ/wKbqHTwQh9l8spGHcMoWrc9i2UHF4GLAOfSquTTKyEx6mza/rtwcAbA
-	 dFbkX1gmCQFJaW28j4u8FC0LJUZGjYKJMtSSugkwWGWOP4JQBUTLSdepv06fhPOygkT5B
-	 DHZt+ZL1SazwWz0Lq5ot9rA5536W59vaN+lkmRKcwf2GHI3B6nW0tfuPlYA6AiVkauZIZ
-	 5S4PPmrdNk4PqzulEssnxIQTLP4A8lXjKl7B2AYmiutiB4u/HjJQCtHO5CXD8o9wIjkLw
-	 0txdcqkIK5zx/OlDlCcfqTujrLPWdU/ODxhzpuopwyJ5WEzl+proKNjt6h3YWmTO+Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322862;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=ubYYcNbEK/GuSiutt2HOhQIAkSJORbiIRUFMnHJbgVs=;
+	b=UhrVpDy1EJn2n2KcRidZs2CCdwlaCdG+Bw0LklYF3wBUXGddKsvCyn9+kQbpsajcqG43
+	 bL7Ra7lfDJNT47bxzDqwUZ5cEchnR5NrhH0Q3crVR4PhKlwLmIgZyKgQKW0czvm/ckhL0
+	 ZQyf5oLp1Z4O6tMTBuQjw4wH8NEaj0pOTJIApT6mgIGJzmiW7+C2Iy3TbO+hweWgxve7Q
+	 CHqhlDITAmgfuXdMvYOpCqryt2CkjCy+eYntqHtbrL/9/K6jzKXE1ywQVTE88nQZu1ghT
+	 vIBL1Z1+UuEEdCs738hZiPALM1TiQHh5ltsXV75CbdJnqzDrnKIMZCFBGwXxQxLPQ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McBVjdYf;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OpJ5Lebf;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A66606A32D;
-	Tue, 10 Nov 2026 15:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A66606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C604660A6F48;
+	Tue, 10 Nov 2026 15:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C604660A6F48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McBVjdYf
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2B3E10DAD8;
-	Tue, 10 Nov 2026 16:00:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794322840; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=LUXVKyaf2YBA+Itk4l0dA4eJy7yJqBsYFAOw9EDLcDY=;
-	b=McBVjdYfg+4PlVwZi6G6TaAYJMn9xbIG2ErO8vi5HnxqefugD7oVSGDk1yA8fJn2AYQc1G
-	3a8R7ErWAHqLrcNfWoLsWDSD6tc6QejX8ZS3fteo2Jdh7D0XQL2IA7kbUNeDkVwXBdCCQv
-	Hj1VOcsrDIOrktM7YAd0n21/YUkevW11qjRFAVikVmlzjyJSVpq/ngzu6YYRUD2TbHEGAU
-	IBQMOJz3t8USHaWj4RXjlUmvdIHi9rBbTiXToxoLINYZuEOzuL0Bm1uzfcq8aQaqC51lgh
-	YQYNpc+xP3FCX3amH/wEWF+mWxVUQxBr8U4ndHIvSSD4IiXZIBwrOmvcXo8Gng==
-From: Lukasz Majewski <lukma@nabladev.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lukasz Majewski <lukma@nabladev.com>
-Subject: [PATCH] dt-bindings: arm: fsl: Add an entry for Cloos CBASE board
-Date: Tue, 10 Nov 2026 16:00:24 +0100
-Message-ID: <20261110150024.1530988-1-lukma@nabladev.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OpJ5Lebf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794322862; x=1825858862;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=SAvjfpCgoB7tOWF+pZouDr5eEUsxhVDG6E9CdDWBaG0=;
+  b=OpJ5Lebftkw3uWuuHANIy2yRADuShivB+i3XjvtpsY27a/SH+v8hdU+2
+   qFVq7QWexALYehf6SyW0xAG2vNW5PinM6F/p0Enwqd/55xacdlq3fFuU6
+   H+osJr36JcraDCP4ShiqGnYI9OXOXRnY2erNMuscguavTTL+8HJmxfCHX
+   YTyI5MusTbbpddmOnvZeodlIiMFHOaPcTLcxkX5JbNnCAACtPDj8FbLLg
+   iQ9GjGvXclSnRYXmveAY+TDckqPhN3UHMH45avmhwHwE0nOFWta/QWCJ+
+   kBIdGYHptFdQOxPMKJ4HamLg11ey60YwcrdtiX/gkpBarn9bZMxyLGgjY
+   Q==;
+X-CSE-ConnectionGUID: LPhJvoQ5Rde2Hf2K4jWiAA==
+X-CSE-MsgGUID: vaeUC7RZRIaCbrU4ofgmUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3171923"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3171923"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 07:00:55 -0800
+X-CSE-ConnectionGUID: n2bh9NRcRi2qglaV294cqg==
+X-CSE-MsgGUID: GqSv2yaBQDKEbwGxmDIrqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8502138"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 07:00:51 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 10 Nov 2026 17:00:47 +0200 (EET)
+To: Denis Benato <denis.benato@linux.dev>
+cc: Chipang Kao <prozac2734@gmail.com>, W_Armin@gmx.de, chipang_kao@asus.com, 
+    corentin.chary@gmail.com, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, luke@ljones.dev, 
+    platform-driver-x86@vger.kernel.org, scardracs@disroot.org
+Subject: Re: [PATCH v6] platform/asus: Move ASUS platform drivers out of
+ drivers/platform/x86
+In-Reply-To: <e91e759b-d9ff-403c-a968-6fd19ca8707d@linux.dev>
+Message-ID: <a93dc80c-617a-b44c-4efe-f0b08dbcd520@linux.intel.com>
+References: <20261110065630.270276-1-chipang_kao@asus.com> <179432207917.2180.5316107179972885113.b4-ty@b4> <e91e759b-d9ff-403c-a968-6fd19ca8707d@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,28 +81,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/mixed; boundary="8323328-1395278430-1794322847=:1229"
 
-Add an entry for the i.MX8MM Cloos CBASE board.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
----
- Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
- 1 file changed, 1 insertion(+)
+--8323328-1395278430-1794322847=:1229
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index c8290a83205b..3aee85026f6c 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1102,6 +1102,7 @@ properties:
-         items:
-           - enum:
-               - cloos,imx8mm-phg           # i.MX8MM Cloos PHG Board
-+              - cloos,imx8mm-cbase         # i.MX8MM Cloos CBASE Board
-               - tq,imx8mm-tqma8mqml-mba8mx # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM on MBa8Mx
-           - const: tq,imx8mm-tqma8mqml     # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM
-           - const: fsl,imx8mm
--- 
-2.39.5
+On Tue, 10 Nov 2026, Denis Benato wrote:
 
+> 10 nov 2026 15:48:16 Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>:
+>=20
+> > On Tue, 10 Nov 2026 14:56:28 +0800, Chipang Kao wrote:
+> >
+> >> ASUS WMI and related platform drivers currently reside under
+> >> drivers/platform/x86/. However, with the emergence of ARM64 devices
+> >> utilizing ACPI WMI interfaces, maintaining these drivers exclusively
+> >> under x86 creates unnecessary architectural restrictions and Kconfig
+> >> duplications.
+> >>
+> >> To allow non-x86 architectures (such as ARM64) to select and build
+> >> the applicable ASUS platform drivers:
+> >> 1. Relocate all ASUS platform drivers and headers from
+> >> =C2=A0=C2=A0 drivers/platform/x86/ to drivers/platform/asus/.
+> >> 2. Create dedicated Kconfig and Makefile under drivers/platform/asus/.
+> >> 3. Update drivers/platform/x86/Kconfig to remove duplicated entries.
+> >>
+> >> [...]
+> >
+> > Thank you for your contribution, it has been applied to my local
+> > review-ilpo-next branch. Note it will show up in the public
+> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> > local branch there, which might take a while.
+> >
+> > FYI [if applicable to your patch], as per Linus' policy change, also
+> > fixes are mostly routed through for-next unless the fix is for a
+> > commit introduced in the most recent cycle or is clearly a regression
+> > fix.
+> >
+>=20
+> Hi Ilpo,
+>=20
+> v5 was resent without my reviewed-by, can you please add it back? Thank y=
+ou.
+
+Thanks for spotting. I've now put the tag there.
+
+
+Chipang,
+
+Generally the Reviewed-by and Tested-by tags should be collected from=20
+previous version(s) when preparing to send a new version as maintainer=20
+tools only automatically pick them from the current version thread=20
+(err'ing to the side caution).
+
+Only if you make really major changes, it might be warranted to drop tags=
+=20
+but those cases are truly rare.
+
+
+--=20
+ i.
+
+--8323328-1395278430-1794322847=:1229--
