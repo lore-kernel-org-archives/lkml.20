@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794284016;
-	b=PBPVu0Nw7yg4kkn3yyNDz8q/FIhh9RDPAmZDNnKfxbrZX5T1MzQHbKIVXHXvpdEtuIkX
-	 NdOxAzL/RdDQBJvPhD3s8uB/LysrQO1uvY4SzvGttAgxNlvaExlap29G4m7GBfdZvYymX
-	 DJs0HVNTJ48rV0L6zpCx4vNwq+H3683sPEZYaWyDmi118MZrA3G4cCBfkYQ1u0Ol6ukHR
-	 3z+WC4kGQcmx1n64lrGG+TH4y7+raLMx49a4bgUKhTuS2Wg07kBpP/tGBjIcwhf9kMaye
-	 Nk63zRrP0oPa0hQbobXNaiQe6xleyiEpXeTEbp4l39on9CUQ7bPfV5GkU8DQUeTX3Aw==
+	t=1794284015;
+	b=VJtqVGmVGJBrfe/j+c85M+Mb0b3a0anEaoxh4BjaQvzY/KhWhBb0aD0tbpfHElad1mBI
+	 oPPUSrnYLK6Lc8V5Ds16YrDFj0qEOWh+pj5wI5jMItvZ2CsVQEaQPgRgQ8Kzvt4cnY1kY
+	 UpvP4X3TIJ25FLTHMbiAC2tiY24cc3IWGf8KSZQ6lXr2i/3eqseo9oU6Fb1IXZGgeY6t+
+	 PkYFSOKUs0mP7P2XldoB6A86en3b48dRDVsc2G9bxI4KIcwUADIzrx6ZwMA87uDQYPAMd
+	 eO1Avtd4JlqZnAibUt3xRq9fxWQAe4XrTNp+v0EZMM0I1FSKD4f397KsfCq3ToBpv0Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284016;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x5Nutz9s3G9AAWB/9srA9rP7IgGDdtdeNmZgsZmICyo=;
-	b=ri13Lq9MrVHxQcv/3t3pgUV9xlSYBi1IbloNLh32qnwwRuhFwy3GHaW8KqiIeEFCE8nV
-	 /lpVdaFVFRRV8+FwlpwBdFmnM4NUC12+IUQql2NahjP+E/UZhQOn3fBggTRdFOxgNluqE
-	 Cp6K8C81fNbggoE7ZDDRwk6/6ZohBz9vTPGRHbBcgsxO7MYgSDqatQdf6hIBHQLQgiMqg
-	 RiHZyxtlzgn8Zug3ut/UzGbYNyOBJtfeyKyA+gSZsZ7xe5by0In/egPvifykdiRv4FrL3
-	 RV1eFh0smDEq6hJkaUgekD5vzV/cwQLRovU/2BEfLQHaXv4/rIK5UhCNP18Dc6BWhaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284015;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=sXdcuMnWSW6xTJfls848K2GigRKYiWPGbVeFV2DOeV8=;
+	b=o5XBfbC0WUWXbQzhhSg3Z9Hjf8DBnNiFxngI3nvi0mKyR3xjm1DpZnAGVT6MyOGYYCcn
+	 sY+x5TYhLqjzZZ/S7WP8GXghIrQuNBXgyJrVGc/g8OjEw2um3cz0HXFD0bPENMti1Zv9L
+	 ++UOhP3OR2DSC1XFZhruMsEhWVFAkh2sE8RZG/lHvNbsj0RwWmQEgydhWow5reu1O5xP+
+	 h6vcPb5IJ/tvItjRwTGMMnXxfx2+ku6l6apNl1T6+VzBd2eIRf33YHNSXG3DqawGKLWWk
+	 PzJZUIUMbi2pNKGH3nmUe7oyiLg/AZIjx4y5NaKLSuXGPc5+TohHlpNpHNm61ygcbMg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klvwVp0B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcLdr5pe;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697A7606A326;
-	Tue, 10 Nov 2026 04:13:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A4E606A31C;
+	Tue, 10 Nov 2026 04:13:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klvwVp0B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcLdr5pe
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794284006;
-	b=wyu4dG0WprRxGfwG9uXkkdJzhCtmmudsbc0EGk/3BnBEfSNc96sz0Y6QLH2xMAAz6PwD
-	 XO8xUwbYPznxRSCK5mzcvoru46E21+N4FaJcl01HS3qiVXzjIaJ8gfgju1DsSWmINwmdL
-	 Ua7CtMVTCFmbjJoMS1327fBLZD5HD6PtHYjlCQ7f23TZXzdwy7/Gny0/VGZfdrTDYabrV
-	 NpA/W8meLY6hOgnsgfvnOcAVXIu8J4hE6jA9lB5oXqCU1Tgohk2hqS3g+lG54+wwEMaB/
-	 +n1r6Z0r+lLHNJ+vOku/32nrhJ+dFWLc9zPXRDx1wi0VyTpqlnNuovRQvrtG5s/1uZA==
+	t=1794284005;
+	b=MVF5diAG3Ww3PBYgk6m9sD7nDYZrL/NDe+5O794C/EGOvZDSGnaXAISbgogfWZ8+yszN
+	 oDyVpN3FWg3WfrQ2wjY+1uWAK90+BAG6ptJ80klfovBNlhhCxLnwVma+xTpKyxBciOROC
+	 JGCV7irgW7CaHh5CAQzDQZZdnouoCwkKvudAGXZbvbTVP8C26wMFfcD4N6/AHAIQNSpri
+	 ZXf752dw5ey3U3ZdeE6Q0FVx4GuZbc5yWlJBwFIgGiHyko9Z+6aRftsn8HhFmg0/foL34
+	 HSQDmCavUTmw7NktXCldOFe0il8GLcIiC29iEaOFGCLxla/lazrMj5RIoI/vdnBafJQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794284006;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x5Nutz9s3G9AAWB/9srA9rP7IgGDdtdeNmZgsZmICyo=;
-	b=Bw69bizp2byDJ8V4GgjyhnWCypdXS2qDNOpqNOJa0IOwSwnSR3XNJChZmq5vrslbU74C
-	 /D/QK8fa8mHz3AtF8oC3UP9LLwu4OMlRzjXeSBoAlA/F2bY7waKmjhnP2Pm71oXtc5QXg
-	 D+gCzGiHIS5kYTVHgXIcM2cHLjJYzwSChD6SlGQMeyJOjhSS9eMgbtQQ2IfuZbRyGiaJP
-	 2dsJkv44uShw31R+o7D+fC8sYtvGMgpo5laCPPL0+/T18qoKJDMAD1F/qFdUkeKEtv7M8
-	 br201+2Ho9x5FvFx9T3I8+rhWC8hqxOAkHIrjAh1YBxXVsy8BAPHFyi3T84jQ8z6k9Q==
+	c=relaxed/relaxed; t=1794284005;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=sXdcuMnWSW6xTJfls848K2GigRKYiWPGbVeFV2DOeV8=;
+	b=chtJ58YmATZqxdnOQJhbsWl6HpVal1w4r8mX6M1+EJKlbZt7kXPqF+KTyV1AOxlrKF9v
+	 OHr3sAQuhg2kN4mMEh5Bz7N8C7hXFSertMNVY/rlDFH//niMEPeYcIDsl4CaK7qVuIaNH
+	 bogGjq4YBHG9c+/uLt20BH/tUv8cmY47TvGYj3xpG9NRFCmFxTOJ4VEwtJM/DXAeK3QXF
+	 10ujRK/1YygMXGfX9lkfo3QTriLPqaHmlNzoifwZ6KQa+I++oynjNe2RbnOZtpTZiVEG0
+	 LQ3BpqDX877ekUJKLooPP9M/xnE+TRWTaO5sYsbjT9xEZnufwNHLRjola1kWNlhQfOw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1277A1F008A4;
-	Tue, 10 Nov 2026 04:13:25 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CC84C1F008A1;
+	Tue, 10 Nov 2026 04:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794284006;
-	bh=x5Nutz9s3G9AAWB/9srA9rP7IgGDdtdeNmZgsZmICyo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=klvwVp0B5kOE+cIifMDPD7M3OK5o7DOGSFrBon2VAwufQeZ5HDojFlBM3V7orZInz
-	 7kCI6wPTkCd7AEKnR2Eidji7/eBnyyORuywmHChK2/MqarOqWWDTlfS/wM7NjSUVad
-	 OIQXpusvJDHZxfVtA8XfbfMP7ptY7Fg3dkM40FQOxrgqDUXG2Z7Jjl3H0mTh8weeqo
-	 astwGtxQTnpC3eH4ZZVU+2zEYjUAwBHIKT8yc70m7pgmlGZAOPnJad3rz7cEbQ3hlu
-	 8yYPh1quCq6MwuE1SQWRc1H2jX6jcCYOq8faIDpUGj4N68JKP1h1e6lipFl/cU4p9f
-	 5M3IvQTtabudA==
+	s=k20260515; t=1794284005;
+	bh=sXdcuMnWSW6xTJfls848K2GigRKYiWPGbVeFV2DOeV8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=kcLdr5peUVuJzBCLtIUbTR/kHpzEojp5p8tg3vjF7Y/B1vzRwyyX4KCvMkPNYhIF7
+	 nRUOGghQSaLFs2SdajJsyDO5O+VEwfFbE0lxTK2vk3ukArBsYB8YYKwKOmQA8/tTCv
+	 mWSSRFXP4nMNLOoQ7BdjOey90romGdHk5S8v4RaRwz9DNA8JeelpP0iErjEwpnJaYZ
+	 s/e+u9hkesDVH5+c1tzI0rvj+K69NlyqOpD75tgDaiK9aIosp4JPSFmsJSdM148tl7
+	 VzT8E9uvOp0SQcY5+bmZ9Vtq9hdtIRvttBLpEM7UU0S4POMGI+aywRoCChen6uEm5O
+	 iKV1LMFwtuChg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 956B748828;
+	by lkml.kernel.org (Postfix) with ESMTP id 5ECBA487E1;
 	Tue, 10 Nov 2026 04:13:24 +0000 (UTC)
 From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 12:13:24 +0800
-Subject: [PATCH v8 3/4] usb: gadget: gadgetfs: prevent ep0 event counter
- underflow
+Subject: [PATCH v8 0/4] usb: gadget: gadgetfs: fix ep0 request lifetime and
+ event counter
+Date: Tue, 10 Nov 2026 12:13:21 +0800
+Message-Id: <20261110-gadgetfs-ep0-v8-v8-0-8f90434574fe@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,88 +85,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-gadgetfs-ep0-v8-v8-3-8f90434574fe@gmail.com>
-References: <20261110-gadgetfs-ep0-v8-v8-0-8f90434574fe@gmail.com>
-In-Reply-To: <20261110-gadgetfs-ep0-v8-v8-0-8f90434574fe@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/22NOw7CMBBErxJtjZE35F9xD5TCOBtnEfnINhYoy
+ t2JQ4s0zZNm3qzgyDI5aJIVLAV2PE87VKcE9KAmQ4K7nSGVaYGIUhjVGfK9E7RIESpx0WWmqMY
+ 8RQX7arHU8/sw3tofu9f9QdpHTWwM7PxsP8dlwNj7Yw9ljBRFJ/NM1loXqK5mVPw863mEdtu2L
+ zAAcB28AAAA
+X-Change-ID: 20261110-gadgetfs-ep0-v8-3c74ae91521a
 To: Neill Kapron <nkapron@google.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Jing Lin <kayano050408@gmail.com>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794284002; l=2064;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794284002; l=2061;
  i=kayano050408@gmail.com; s=default; h=from:subject:message-id;
- bh=pBjpCdkDcRNOhDPtGrN7QLaKfaAQikSi1RkPd2YYDUQ=;
- b=samnUyOjUqW5GKsaAhRjLqkd5+rKXEIFpZzgZWhi044/16FyRCE/k0E/8LNh+hayxZbQp3k8z
- uz9adxC3fv7Aw0hDYJ39vEtI9kYn9ZQAv2Bdrt8wD/tQ9MZEvCuUHmI
+ bh=BlzA0Qa2znzj8wOnyhlzEGmT96YORddPRspoCgok8lU=;
+ b=5nKStOoz1gCplPEVEFe9tOPU3HcgunCLaLVMgYZnJLvw+/cZnU7WnwhxUSSPhDHyIgu4gb3sS
+ wuwfRcze6m0BRRhpNWs0SPgBjleZKUcf7zIZKrautxqq6U1qI61BBi8
 X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
  pk=pr6i8RN1WEON1jbXPdghSglxaBSzfuJjXNGFknX//+A=
 X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/default with
  auth_id=1441
 X-Original-From: Jing Lin <kayano050408@gmail.com>
 Reply-To: kayano050408@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Jing Lin <kayano050408@gmail.com>
+This series fixes the ep0 request lifetime and shared request buffer
+races in gadgetfs, and the pre-existing event counter underflow.
 
-ep0_read() snapshots dev->ev_next, drops dev->lock while copy_to_user()
-runs directly from dev->event[], and subtracts the snapshot afterwards.
-A concurrent disconnect, connect, setup, or another reader can reset,
-deduplicate, or consume the queue in that window.  This races on
-dev->event[], can drop newly arrived GADGETFS_SETUP events, and wraps
-dev->ev_next if the queue shrinks below the snapshot.
+The first patch covers request lifetime and buffer ownership, the second
+the ep0 setup abort and unbind state races, the third the event counter
+underflow, and the fourth removes the const cast in gadgetfs_setup().
 
-Dequeue the events into the local buffer and update dev->ev_next before
-dropping dev->lock for copy_to_user().
+The setup() callback runs in interrupt context and may not sleep, so a
+mutex cannot be used to serialize it against ep0_read() and ep0_write().
+The shared request state remains protected by dev->lock and the control
+payloads are handed off through private buffers.
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
+The series was tested with the syzbot reproducer and with targeted
+lifecycle, request-reuse, abort, unbind, stale-setup, and event-counter
+tests on arm64 QEMU with dummy_hcd, KASAN, and lockdep.  The syzbot
+reproducer still exits 137 on the fixed kernel without a BUG, WARNING,
+KASAN report, or lockdep splat.
+
 Signed-off-by: Jing Lin <kayano050408@gmail.com>
 ---
- drivers/usb/gadget/legacy/inode.c | 26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
+Changes in v8:
+- Discard a queued but uncollected GADGETFS_SETUP event when a new SETUP
+  arrives, so userspace cannot queue a response for a control transfer
+  the host has already superseded.
+- Link to v7: https://patch.msgid.link/20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index d2e148054..d15739df2 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1266,25 +1266,19 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 				break;
- 			}
- 		}
--		spin_unlock_irq (&dev->lock);
--		len = n * sizeof (struct usb_gadgetfs_event);
--		if (copy_to_user (buf, &dev->event, len))
-+		len = n * sizeof(struct usb_gadgetfs_event);
-+		memcpy(tmp, &dev->event, len);
-+		if (dev->ev_next > n) {
-+			memmove(&dev->event[0], &dev->event[n],
-+				sizeof(struct usb_gadgetfs_event)
-+					* (dev->ev_next - n));
-+		}
-+		dev->ev_next -= n;
-+		spin_unlock_irq(&dev->lock);
-+		if (copy_to_user(buf, tmp, len))
- 			retval = -EFAULT;
- 		else
- 			retval = len;
--		if (len > 0) {
--			/* NOTE this doesn't guard against broken drivers;
--			 * concurrent ep0 readers may lose events.
--			 */
--			spin_lock_irq (&dev->lock);
--			if (dev->ev_next > n) {
--				memmove(&dev->event[0], &dev->event[n],
--					sizeof (struct usb_gadgetfs_event)
--						* (dev->ev_next - n));
--			}
--			dev->ev_next -= n;
--			spin_unlock_irq (&dev->lock);
--		}
- 		return retval;
- 	}
- 	if (fd->f_flags & O_NONBLOCK) {
+To: Neill Kapron <nkapron@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-Git-155)
+---
+Jing Lin (4):
+      usb: gadget: gadgetfs: fix ep0 request lifetime and buffer races
+      usb: gadget: gadgetfs: fix ep0 setup abort and unbind state races
+      usb: gadget: gadgetfs: prevent ep0 event counter underflow
+      usb: gadget: gadgetfs: avoid writing through the const setup pointer
+
+ drivers/usb/gadget/legacy/inode.c | 437 ++++++++++++++++++++++++++------------
+ 1 file changed, 305 insertions(+), 132 deletions(-)
+---
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+change-id: 20261110-gadgetfs-ep0-v8-3c74ae91521a
+
+Best regards,
+--  
+Jing Lin <kayano050408@gmail.com>
 
 
