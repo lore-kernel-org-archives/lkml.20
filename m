@@ -1,102 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794347790;
-	b=DD/6VPz9dM8KHz4gvDzc3Qpr88CigBbZTvgfiaDRiRYFtOyUnqi13CGdY4RcgV3KiEVU
-	 SeBymICrG0hdu2igbE4kxKevwoS/fxUCixoQMVB4D8VobyWQTTPvtFnPIklPQsvh9Dr+j
-	 +m/v2Kzr+HZkPqLQ6nWoDd7zNT4HF1cJl86d7JL19tbqO16d3fkRt8U9FI5sqgsLa74uU
-	 GdUlCrRwlNP6AMndlfOSnpkl4tR9AUby9oYY0HRRkhPsa9LtpqJn6Ycti4axDbQbZhCKB
-	 FNrOElxpINcbzGXfXEe7NDD45fxWaHWOwPsqw+1SYRpD+mi88GJw0NE3qknQ3IYngXg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347790;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CjYErmufOolDm1hiDzVXRNzCKrX4C/HlUHLg3tfIGmY=;
-	b=ZdCWnc5PH5UBPzNI7zAHFihukDSejwpst+Ddnh0jKcP+kXv12ZwsCvoxtt8x/7UVvlAk
-	 GBVqttemOOd1VTgtqDSiQTlJKtoRkk0tNIhQvhhvyfpLVkaUCKsGIRCJX6l0d0Za9i0iq
-	 qWI8l8J8OrWYG9hHddZDiRwJLwd5lPpYFLPHRgUKvBR8vshGacvaAc1RIU0XJ1DNvkchs
-	 Ol04S2wi3MSYC5Zxs6jzG9FSDNnEvgsKhb4tSngtbCmugv25Sh/azqEbbz6awI8YXMMan
-	 cH+Z7mByEcK2mNAMA7LqUthrPwKpg13cYAeoFIRJyWHl0JfLEUnQ2fHqc3RVCloBIMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Bko7F5oq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.62
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794347803;
+	b=Er+yBgo9w80Iat0zVSUO7DeLQKHC23I43IZ8Mu+8ReRuRQV1ZxKvamSFJNNNOarp9dsB
+	 JVIWqzen+z0+4iJiSrh876EDwUepLbfSzprRhZULRDHgvhjPM7XCGFpE0Fy6+bF3zR341
+	 AdHK4TFhG1UZP18zm4HcO+dyid3yWB95AQcTzhHOvOJcRdtLBEqHT+F/PKcdTXm3qt+RG
+	 tAedPNttb/ySI/JoMjUdXoQWRmdccZNmE0z5qaTbYnkB0ryO1tKPcd5r35R451W2mjwOJ
+	 daUHm9IvfKxpzSL8O0zVyb+81rhWTqE748x2+RYgVxUq2PiPirdhTPTXZQKRmwTZgWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=E59CXqBJgHb8JuBP3VbC54ycnN+izEgm9vGp5wS4S/I=;
+	b=D07ynIpzdga8Xi7OnEx6WGEc6+w594YHi5rQ+yMikJouRbVAavSqKPlpR61Acznt77Me
+	 7Qo5i9y/nHlowV4BZIPzB0Nhm9A1RpzGakQlsRRUO1nGs1/cZVh7Kac6tlLt6KN9XZxqk
+	 ijS2VT3M4RcUpVDvyvrBDKx4XJkGcwRbjtlI2zQIhzV4ZyUrm7FdFmaXsz66MEu1ko66K
+	 ioxlYOJt5Z0NNWfjYm4Iin5nAKN0g0qUgsUE8e6/HrPfPBmOMHu41BM0QmWMtI57Ta+Zc
+	 uvMPTLfZcxDATBIuztm84GGpJOAj3UlOA7eFC8FY5tkvNbhoCqazAizGX7yPcIBOc9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=VroI5BUA;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72800606C98B;
-	Tue, 10 Nov 2026 21:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72800606C98B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA30A60A260D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA30A60A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Bko7F5oq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jHOq+SxuvyxJU9bOxRrpUPdIyoJl8iGoiEvRUL0TyEpA70gbJZhQWfOOIlDl4JCGLwm557zxNyu51LQ0bW2sHHJqZpdcR9zjZIobuX55ELNRVlYBrCUZGhYsgAwB5nN/H0ABGIZYtK8H1QmAuuDDjKSpG3C4Zxfweo9vQXkexrBGZS2+gTLW976nSSIfbIgH+RhUs7krzka2eZmOggo5UkyPxqX88C28dRPeZF8JrH3LzU47h0x6aCTRuuunDs5xzT6kWdbFX0PqX3I8VbpX3BeB7zWMsISp8tgHWFgGpV+/pPVit3BYxNUfwQFZUxq35uE2U1ozQ72mRqGAOCe3uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CjYErmufOolDm1hiDzVXRNzCKrX4C/HlUHLg3tfIGmY=;
- b=aBwK6KSYsFG9MDu2Ha0WN9DiEvGZEWqE2B62/vHo9y+fA7ALGzQyD8FdX/j79DcMovBbBj4GmG3WolKY6ptMj+kl2WZq6rMgFO+s/QCnSFYQgn6qoJjalwJlgYf8RG02GUOM4jDMBWBZaqzabETGnAuY49e0ggV+uZB1lcZz5LT4PJ+gdkN5hE3v4brzEa541u6dKiRI0hGgfy38joVdZQ/waWzqtd6/1qyZ7TK86sagzqldiKJHvl6wpcyjRGLD4kacxtfvCtN6mfw9so3IXvq9KMwoEnU64BDhxBisG+X6U2tifdGGmwVmLX8h3jYkdUVkkdr+zoQpabrBg6d+wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CjYErmufOolDm1hiDzVXRNzCKrX4C/HlUHLg3tfIGmY=;
- b=Bko7F5oqdbj2ON90G9FJ8jpWPdckSqxnVQSH04ByErQgBEp2PVp/RB9Ds6js1NMG3ZK5Q64T/O5xqQQrl0v0dZ8AFN8rtti+y7jFn2D3w+wvQP+iStH0mvDP05C1Q43Wpjf162Rry7UiTnHfhtLPB3C+qJfMCsf8MJTtd7Zu/eQ=
-Received: from BLAPR03CA0009.namprd03.prod.outlook.com (2603:10b6:208:32b::14)
- by DSVPR12MB073533.namprd12.prod.outlook.com (2603:10b6:8:3ea::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 21:56:26 +0000
-Received: from BL4PEPF000003F0.namprd04.prod.outlook.com
- (2603:10b6:208:32b:cafe::8b) by BLAPR03CA0009.outlook.office365.com
- (2603:10b6:208:32b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Tue,
- 10 Nov 2026 21:56:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL4PEPF000003F0.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 21:56:26 +0000
-Received: from quartz-7b1chost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 15:56:25 -0600
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: <linux-pci@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <bhelgaas@google.com>, Yazen Ghannam
-	<yazen.ghannam@amd.com>
-Subject: [PATCH 3/4] PCI/AER: Report the ratelimit interval in milliseconds
-Date: Tue, 10 Nov 2026 15:56:13 -0600
-Message-ID: <20261110215614.3931232-4-yazen.ghannam@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261110215614.3931232-1-yazen.ghannam@amd.com>
-References: <20261110215614.3931232-1-yazen.ghannam@amd.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=VroI5BUA
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490585eddfcso2014321f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794347801; x=1794952601; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E59CXqBJgHb8JuBP3VbC54ycnN+izEgm9vGp5wS4S/I=;
+        b=VroI5BUAKdjlWlw5llC3ybTIXsKHe7A2Q+FM0SdY8gzOpgbbNVBDzYJT8YMw46bw87
+         PzAplY09XRq65V1qa/GCIRy0J/N/P/DtBfTR3B2hoiVMh9tndOtxCoCpdSBXcBe2kUzP
+         WObk/gXIBr6IRSfvKKegvHQBGRz6BEcv4CxLYSLu1jW/1wvbdo7W6JIF6HYLd0OI9Fu4
+         /LIT2vAWBH/cUbvuJhFQ3cfhIsEkC3H871r45BWiJ3wx12b5IeVw5ksXFVxpywOBSsQ7
+         ZBsNY4wgZiGyEf0BQdEnwkEY4gCidorPfZkEV4PMF8yuXnh38s4IG8wB8fkA248ehSxP
+         fpEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794347801; x=1794952601;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E59CXqBJgHb8JuBP3VbC54ycnN+izEgm9vGp5wS4S/I=;
+        b=JlkYXmqS/pdKvskudfAC32nounXpGtPjm3/48wGjfOilaNRfTxAGfguIK/p5KaCSuq
+         u7+EduU/lWH+1MCF14mhbeVzYq9n3x2KWjpifqL5lNc3cY+qaz1w7mmKIEG7dBgB220f
+         KvY2O/2ObHHiun9ll8ECUZBbxnGjTiEDiSVkRgnAguhVOdqZafWGQTFpGoECzpRRyInY
+         +lcj087cHrki4BOzZsO5T10T4XlRuqxG6apQKW0oDDpCimE6AMrJ0edumb4hy3Po5kxg
+         C7qvngmXQPOr1FL3caUg+VZE2Bjf7y9Le7di44i5AHpmytXDZK+nsBk3AYTl78xk6wog
+         Q9ug==
+X-Forwarded-Encrypted: i=1; AL+hErFE3/3oYKozUgQ9D0r4TULysryrdgE3j1WfbLyn/sHQ+5qTW/Ta0pKhKKVCftee6IWRlkqjods9qGZFkpc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uS55W6+WHpbBDjtABNzN6MQPgFu+07AvEDBfaEt8UQl9h4XnE
+	T4Ot3gNV9d9OHk8UB2L2vq+rQhTrPSYWOTxILLLiRPw/5cjUJNxA4lTs3V8JKKqAmN8=
+X-Gm-Gg: AYBFou3PxSmTKBa9mDsK+SgtDT5hb9M7TWuJAoJDa1PGD6OK52ElmHhm+WYF/miE1gM
+	Sb2fJgPWLAbGPOhbzowAreLnLMll74kr8Ct0WGQ5xLpkSerWeu/1whurV3sGns6f7mCPImYLub1
+	sSURz45kGwimqw/kKj4LuspHBmM7vmcRnDNxkceDVAS5H2EuTBeKhuIjiA8widvlCvvTng4OVas
+	be0QR493A5+EbXlECbOx/HeEZMyH6p4G05WvdAIlNo/RTRl6HMiyOAb15p6UfsmGJ1loXevonSb
+	1TFJveZK09ryNFQ1Fc31muJE9ByT3ZSQ3ootDEyjV/JQ4BS4M7zKDIxhDPO369Ol4/kZT7pqead
+	H+KNBpKZ1hVHI/0GmeK0cHSKub0Owb8sq4n+fcOJ4hRBDzad3WQX3vIrt2IqETNruEE1zw3OcQ8
+	4qru5c5MNj4UlDgl0Osa/bsT56M5zCUnDjqQ5KXbcZhNjrp67SLZq3o5dtbNXjXkZj1U9RGEfVB
+	8K/Xt9180QH4f+FrP6op/pzizgGBJ2vLWGMdTW68MgeA/ymGp0/GOQfbpSWyHMWwrbFpmUvNFXj
+	AOLPWuB1eHdmsbNoslnO4T0oewYdM6OO8pY=
+X-Received: by 2002:a05:6000:4917:b0:490:6e0f:a024 with SMTP id ffacd0b85a97d-499c69ca529mr383503f8f.13.1794347801137;
+        Tue, 10 Nov 2026 13:56:41 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4983284c9b1sm6621758f8f.6.2026.11.10.13.56.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 13:56:37 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Lee Jones <lee@kernel.org>
+Cc: James Ogletree <jogletre@opensource.cirrus.com>,
+	Fred Treven <fred.treven@cirrus.com>,
+	Ben Bright <ben.bright@cirrus.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-omap@vger.kernel.org,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v4 18/20] mfd: Unify style of i2c_device_id arrays
+Date: Tue, 10 Nov 2026 22:54:43 +0100
+Message-ID:  <9d0e23458e847372a4ba9a4f582d36f0ff5b0edb.1794347059.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.56.0.rc1
+In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
+References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,65 +114,302 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9688; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=myyBJOjZPFrpOZu3O1FTOXkBTyz0HAOD1yt8lASvMME=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85LQLmEJ/EfwuhlpMI5PAWgaYg46BcM2a7xBy Uc5qGX1phaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOS0AAKCRCPgPtYfRL+ Thh5B/96AgcnoILKjfGHz+Ttbq3WuuqTyIoUl0O2oKQ4URsccTHtPLRWDArTmC31psMPoxB+mqj ZcqOSIfuZbV2JuYvf4OFI+GxMSN0bI3KcEeB9AqVmmNOdMTz+c1/BM7duwUtf/ZQKDw+JJqAvu1 sgpHvePMiHwuES4dnG1RniGoMbxqDkxXTqnAmnS8gJCdF+9I/ymeLWOWwuXazvjMffzNu8D7eOs 7TE4XNpQjCtk+McVeaHXmPDaZkiQMkwyr2DYJr/iPslEwmp1J/D0f/PwCaxqg7f3E1Bm72Zadai wIXzc8+bn1lZEmO2bfBQ6m2qJENGLl5m0NxRLoew5xaMd58Z
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PEPF000003F0:EE_|DSVPR12MB073533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32039e21-0070-4610-20d9-08df3f7577f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|6133799003|10067099003|261102123227099003|261026121527099003|261021123027099003|261021121427099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cFnEnjaxaxidWc0gn+qRVzYXjkt+4f4JgHVTMivabZ77mZVkJhmN7IK7+iMaHj22KlX/1h9jculQv4OdlVxjItjC4ZDPfm6SB0geDCzCKkv6YHbRJ2Ajp2SdbqLV9bKQQCrsKDyH96Hmfvt3hnIqp44vfQv8zOKzn+AiNf7BGzkwwkNuqVtlq/B87Vo4xBlsLwe7cfpoK8EfS8rJ5hfqXgn1lgEOSnpowpSRmvl80T4xv6ivk8/b/Fel9dUCX4Xg5ibnN5RNc8chbalmGHXkDXFvZXRlEtV1NnQNWKqy4jOb7pdRBVSnHXwEO8bd+nMa4KVpttnu1ASMucbxX+xiKuA0lk4tCYk0qPUEqT98kF/SXBpue8FyDuBfHGDMCyux1ytjx89bbqrCAgNNnCYvx2sY4K3qPS5b8t9D0Pw2FkJsq8QdpGCNQJleamRyhU92tjE2joYmE3fAmlDzPvgbk4Sj1Q8efeyN5TcY9P8xOIeR1+ARXCZPh8Z2ursFAp/eX6rHyPMm/l3RyXQpJDYkU92IRc0XL4xkb1mGgcRE5nM4hw0WECuZoRIH95G2iDfAgB618GqC8sTyZqFHjtYXnAyOv7U1AzJ+FExeENkJnFMBxzFSa0HkembJOskWyagHBaidLY1KTB1VgaERwUpgV0QUxCLIrsrq2c3fonUU+ukqikPGU51eiRuHUyQd6kPEG3WrK2ozXQCmSWHmQrA3IA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(10067099003)(261102123227099003)(261026121527099003)(261021123027099003)(261021121427099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WeCzq2rBCevEaUybXh3t2f5mBYttper0VitG0hVcEtrtSjgp/f9gTbi4oU9gSGNyksL41mT9cbi1XbbVjlt1tyLtoBTyHW/K9dV1/zQwYMXdfS19RQ2/SgBUxlA+RsVhBhOshhUnwDQZT0Nc8CqlThxdspde6EArRjc6ho1ZsUQnjdeoa2d9mVgolU45ezQe4dfMsjXGb80LW49aKwSBUMH48vYn+qxZO9Kvqd15SsMBTdJeB95Qxtx2D+SyxKtvDatbJJUZ5Jvqkz8tFUeIDXMheQz01tthNCkZ05A/OuQQhGuk5JvG8YD5DLgD0m88bmtgfVQdmJGzoQWXcZ7NlA64GHiwj5gyCLXkB40tXashWbCY54YMdwPZftfir1UW9Z4EtVR6FtqUjJtrX+Apvz3A6v1syhIS1cGuLZCQuO21/26Jfv+9IUx6S64B9qXt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 21:56:26.5718
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32039e21-0070-4610-20d9-08df3f7577f3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL4PEPF000003F0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB073533
 
-The "*_ratelimit_interval_ms" attributes convert milliseconds to jiffies
-when storing. But they don't convert jiffies to milliseconds when
-showing. So the user is presented with the raw jiffies value.
+Most of these arrays already mostly match the most used and
+generally recommended coding style. That is:
 
-Do the jiffies to milliseconds conversion when showing the value.
+ - no comma after the list terminator;
+ - a comma after an initializer if (and only if) the closing } is not
+   directly following;
+ - no explicit zeros in the list terminator;
+ - a space after an opening { and before a closing }, a single space in
+   the list terminator;
 
-Fixes: b4fe7398def6 ("PCI/AER: Add sysfs attributes for log ratelimits")
-Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Adapt the few offenders accordingly and also use tabs for indention for
+two drivers.
+
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/pci/pcie/aer.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mfd/88pm800.c       | 2 +-
+ drivers/mfd/88pm805.c       | 2 +-
+ drivers/mfd/88pm860x-core.c | 2 +-
+ drivers/mfd/act8945a.c      | 2 +-
+ drivers/mfd/as3711.c        | 2 +-
+ drivers/mfd/as3722.c        | 2 +-
+ drivers/mfd/bq257xx.c       | 2 +-
+ drivers/mfd/cs40l50-i2c.c   | 2 +-
+ drivers/mfd/da903x.c        | 2 +-
+ drivers/mfd/da9052-i2c.c    | 2 +-
+ drivers/mfd/da9063-i2c.c    | 2 +-
+ drivers/mfd/max77620.c      | 2 +-
+ drivers/mfd/max77843.c      | 2 +-
+ drivers/mfd/max8907.c       | 2 +-
+ drivers/mfd/rc5t583.c       | 2 +-
+ drivers/mfd/rsmu_i2c.c      | 2 +-
+ drivers/mfd/si476x-i2c.c    | 2 +-
+ drivers/mfd/tps65910.c      | 6 +++---
+ drivers/mfd/wm8400-core.c   | 4 ++--
+ 19 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index 401cd3a1b3d0..32a4c9101946 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -699,9 +699,9 @@ const struct attribute_group aer_stats_attr_group = {
- 					 char *buf)			\
- 	{								\
- 		struct pci_dev *pdev = to_pci_dev(dev);			\
-+		unsigned long iv = pdev->aer_info->ratelimit.interval;	\
- 									\
--		return sysfs_emit(buf, "%d\n",				\
--				  pdev->aer_info->ratelimit.interval);	\
-+		return sysfs_emit(buf, "%u\n", jiffies_to_msecs(iv));	\
- 	}								\
- 									\
- 	static ssize_t							\
+diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
+index 0e5c6b20943f..0f209084e8d3 100644
+--- a/drivers/mfd/88pm800.c
++++ b/drivers/mfd/88pm800.c
+@@ -117,7 +117,7 @@ enum {
+ 
+ static const struct i2c_device_id pm80x_id_table[] = {
+ 	{ .name = "88PM800" },
+-	{} /* NULL terminated */
++	{ } /* NULL terminated */
+ };
+ MODULE_DEVICE_TABLE(i2c, pm80x_id_table);
+ 
+diff --git a/drivers/mfd/88pm805.c b/drivers/mfd/88pm805.c
+index 2eb3380a5207..8df11233bc4c 100644
+--- a/drivers/mfd/88pm805.c
++++ b/drivers/mfd/88pm805.c
+@@ -31,7 +31,7 @@
+ 
+ static const struct i2c_device_id pm80x_id_table[] = {
+ 	{ .name = "88PM805" },
+-	{} /* NULL terminated */
++	{ } /* NULL terminated */
+ };
+ MODULE_DEVICE_TABLE(i2c, pm80x_id_table);
+ 
+diff --git a/drivers/mfd/88pm860x-core.c b/drivers/mfd/88pm860x-core.c
+index 1b201ad129c2..d3c24a7a3936 100644
+--- a/drivers/mfd/88pm860x-core.c
++++ b/drivers/mfd/88pm860x-core.c
+@@ -1233,7 +1233,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(pm860x_pm_ops, pm860x_suspend, pm860x_resume);
+ 
+ static const struct i2c_device_id pm860x_id_table[] = {
+ 	{ .name = "88PM860x" },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, pm860x_id_table);
+ 
+diff --git a/drivers/mfd/act8945a.c b/drivers/mfd/act8945a.c
+index bb1b4e4fb288..e5fba40f89d4 100644
+--- a/drivers/mfd/act8945a.c
++++ b/drivers/mfd/act8945a.c
+@@ -55,7 +55,7 @@ static int act8945a_i2c_probe(struct i2c_client *i2c)
+ 
+ static const struct i2c_device_id act8945a_i2c_id[] = {
+ 	{ .name = "act8945a" },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, act8945a_i2c_id);
+ 
+diff --git a/drivers/mfd/as3711.c b/drivers/mfd/as3711.c
+index eb03b813d58f..6d2fa63e7f4b 100644
+--- a/drivers/mfd/as3711.c
++++ b/drivers/mfd/as3711.c
+@@ -193,7 +193,7 @@ static int as3711_i2c_probe(struct i2c_client *client)
+ 
+ static const struct i2c_device_id as3711_i2c_id[] = {
+ 	{ .name = "as3711" },
+-	{}
++	{ }
+ };
+ 
+ static struct i2c_driver as3711_i2c_driver = {
+diff --git a/drivers/mfd/as3722.c b/drivers/mfd/as3722.c
+index 2f58709ffd9a..ec7be5fb326e 100644
+--- a/drivers/mfd/as3722.c
++++ b/drivers/mfd/as3722.c
+@@ -433,7 +433,7 @@ MODULE_DEVICE_TABLE(of, as3722_of_match);
+ 
+ static const struct i2c_device_id as3722_i2c_id[] = {
+ 	{ .name = "as3722" },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, as3722_i2c_id);
+ 
+diff --git a/drivers/mfd/bq257xx.c b/drivers/mfd/bq257xx.c
+index 5310337fe9d4..48c5b132de2f 100644
+--- a/drivers/mfd/bq257xx.c
++++ b/drivers/mfd/bq257xx.c
+@@ -131,7 +131,7 @@ static int bq257xx_probe(struct i2c_client *client)
+ static const struct i2c_device_id bq257xx_i2c_ids[] = {
+ 	{ .name = "bq25703a", .driver_data = BQ25703A },
+ 	{ .name = "bq25792", .driver_data = BQ25792 },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, bq257xx_i2c_ids);
+ 
+diff --git a/drivers/mfd/cs40l50-i2c.c b/drivers/mfd/cs40l50-i2c.c
+index 6043eb6639b5..b61b0484644d 100644
+--- a/drivers/mfd/cs40l50-i2c.c
++++ b/drivers/mfd/cs40l50-i2c.c
+@@ -41,7 +41,7 @@ static void cs40l50_i2c_remove(struct i2c_client *i2c)
+ 
+ static const struct i2c_device_id cs40l50_id_i2c[] = {
+ 	{ .name = "cs40l50" },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs40l50_id_i2c);
+ 
+diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
+index 64c7ea0b5d2b..4491aba8f835 100644
+--- a/drivers/mfd/da903x.c
++++ b/drivers/mfd/da903x.c
+@@ -449,7 +449,7 @@ static const struct da903x_chip_ops da903x_ops[] = {
+ static const struct i2c_device_id da903x_id_table[] = {
+ 	{ .name = "da9030", .driver_data = 0 },
+ 	{ .name = "da9034", .driver_data = 1 },
+-	{ },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da903x_id_table);
+ 
+diff --git a/drivers/mfd/da9052-i2c.c b/drivers/mfd/da9052-i2c.c
+index b75cfe805d5e..6af9552ccba1 100644
+--- a/drivers/mfd/da9052-i2c.c
++++ b/drivers/mfd/da9052-i2c.c
+@@ -108,7 +108,7 @@ static const struct i2c_device_id da9052_i2c_id[] = {
+ 	{ .name = "da9053-ba", .driver_data = DA9053_BA },
+ 	{ .name = "da9053-bb", .driver_data = DA9053_BB },
+ 	{ .name = "da9053-bc", .driver_data = DA9053_BC },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da9052_i2c_id);
+ 
+diff --git a/drivers/mfd/da9063-i2c.c b/drivers/mfd/da9063-i2c.c
+index b57a6ee90aa9..068f080d1f9b 100644
+--- a/drivers/mfd/da9063-i2c.c
++++ b/drivers/mfd/da9063-i2c.c
+@@ -478,7 +478,7 @@ static int da9063_i2c_probe(struct i2c_client *i2c)
+ static const struct i2c_device_id da9063_i2c_id[] = {
+ 	{ .name = "da9063", .driver_data = PMIC_TYPE_DA9063 },
+ 	{ .name = "da9063l", .driver_data = PMIC_TYPE_DA9063L },
+-	{},
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da9063_i2c_id);
+ 
+diff --git a/drivers/mfd/max77620.c b/drivers/mfd/max77620.c
+index a66ca73997f5..e4d7cb4afef0 100644
+--- a/drivers/mfd/max77620.c
++++ b/drivers/mfd/max77620.c
+@@ -697,7 +697,7 @@ static const struct i2c_device_id max77620_id[] = {
+ 	{ .name = "max77620", .driver_data = MAX77620 },
+ 	{ .name = "max20024", .driver_data = MAX20024 },
+ 	{ .name = "max77663", .driver_data = MAX77663 },
+-	{},
++	{ }
+ };
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(max77620_pm_ops,
+diff --git a/drivers/mfd/max77843.c b/drivers/mfd/max77843.c
+index d3224cf5e3f6..238584e703b8 100644
+--- a/drivers/mfd/max77843.c
++++ b/drivers/mfd/max77843.c
+@@ -170,7 +170,7 @@ static const struct of_device_id max77843_dt_match[] = {
+ 
+ static const struct i2c_device_id max77843_id[] = {
+ 	{ .name = "max77843", .driver_data = TYPE_MAX77843 },
+-	{ },
++	{ }
+ };
+ 
+ static int max77843_suspend(struct device *dev)
+diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+index 70ffc08a96d1..6e2fed7021a8 100644
+--- a/drivers/mfd/max8907.c
++++ b/drivers/mfd/max8907.c
+@@ -301,7 +301,7 @@ MODULE_DEVICE_TABLE(of, max8907_of_match);
+ 
+ static const struct i2c_device_id max8907_i2c_id[] = {
+ 	{ .name = "max8907" },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max8907_i2c_id);
+ 
+diff --git a/drivers/mfd/rc5t583.c b/drivers/mfd/rc5t583.c
+index 4ad761fbfab2..acb42868be37 100644
+--- a/drivers/mfd/rc5t583.c
++++ b/drivers/mfd/rc5t583.c
+@@ -281,7 +281,7 @@ static int rc5t583_i2c_probe(struct i2c_client *i2c)
+ 
+ static const struct i2c_device_id rc5t583_i2c_id[] = {
+ 	{ .name = "rc5t583" },
+-	{}
++	{ }
+ };
+ 
+ static struct i2c_driver rc5t583_i2c_driver = {
+diff --git a/drivers/mfd/rsmu_i2c.c b/drivers/mfd/rsmu_i2c.c
+index d05aaf576a86..c03db3ce5f12 100644
+--- a/drivers/mfd/rsmu_i2c.c
++++ b/drivers/mfd/rsmu_i2c.c
+@@ -335,7 +335,7 @@ static const struct i2c_device_id rsmu_i2c_id[] = {
+ 	{ .name = "82p33811", .driver_data = RSMU_SABRE },
+ 	{ .name = "8v19n850", .driver_data = RSMU_SL },
+ 	{ .name = "8v19n851", .driver_data = RSMU_SL },
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rsmu_i2c_id);
+ 
+diff --git a/drivers/mfd/si476x-i2c.c b/drivers/mfd/si476x-i2c.c
+index 549f64255eef..aa2619e41484 100644
+--- a/drivers/mfd/si476x-i2c.c
++++ b/drivers/mfd/si476x-i2c.c
+@@ -841,7 +841,7 @@ static const struct i2c_device_id si476x_id[] = {
+ 	{ .name = "si4761", .driver_data = SI476X_CHIP_SI4761 },
+ 	{ .name = "si4764", .driver_data = SI476X_CHIP_SI4764 },
+ 	{ .name = "si4768", .driver_data = SI476X_CHIP_SI4768 },
+-	{ },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, si476x_id);
+ 
+diff --git a/drivers/mfd/tps65910.c b/drivers/mfd/tps65910.c
+index b0dbee3e6ea2..d19bd3643591 100644
+--- a/drivers/mfd/tps65910.c
++++ b/drivers/mfd/tps65910.c
+@@ -532,9 +532,9 @@ static int tps65910_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tps65910_i2c_id[] = {
+-       { .name = "tps65910", .driver_data = TPS65910 },
+-       { .name = "tps65911", .driver_data = TPS65911 },
+-       { }
++	{ .name = "tps65910", .driver_data = TPS65910 },
++	{ .name = "tps65911", .driver_data = TPS65911 },
++	{ }
+ };
+ 
+ static struct i2c_driver tps65910_i2c_driver = {
+diff --git a/drivers/mfd/wm8400-core.c b/drivers/mfd/wm8400-core.c
+index 1c0ba450ef9b..d3180aa44e1a 100644
+--- a/drivers/mfd/wm8400-core.c
++++ b/drivers/mfd/wm8400-core.c
+@@ -135,8 +135,8 @@ static int wm8400_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8400_i2c_id[] = {
+-       { .name = "wm8400" },
+-       { }
++	{ .name = "wm8400" },
++	{ }
+ };
+ 
+ static struct i2c_driver wm8400_i2c_driver = {
 -- 
-2.55.0
+2.56.0.rc1
 
