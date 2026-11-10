@@ -1,124 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309290;
-	b=2VvnDOSNtGboWXu12aY7X7qcwVWFvlXlb20+oUK1WYPNjX1LRg0Jd53God/pT+LV14r4
-	 kDbFPg3RJNNX4VkfgIaLFa1Yt0F9eJTIi8VZAtbCDZImqx6m6Fm3Lxy3kpWQoWULliEt5
-	 1J5nqt+ZEljf7piQieQm3iVfbskfPz6RrK20qhEGm8l0KjCflzHwHd4ei/UVeLd+0SCuU
-	 K+aeX/ZEix5r8ZR2mVxp2Mqg0NNgjEb0E3by9JrlY+q7N5jAugL1GFtAFroXOsXbLFQST
-	 hwayr0dCgfia3sXYFYGx0om4KKnO1tTWvgMc011wkyymP+wBLn2mOGiWZdmpGe7dhDg==
+	t=1794309311;
+	b=5LkZ3RctDaOQqsNL5Km+dOLoao7luC6OM7S1H6Z9gkTz6hkSpIqokJK9/4RETFwdymGc
+	 oBsrRvqXqc6nsDtp5H2ER3ON23YmunD2cs4NPnfn10dg6Rgm2400gMG78g5jgE26WTREE
+	 oG8OFlJPO8FZxcKwH0I68RVxNYLf4QUf3/vngc92aFCAq1Al9VoAcDfFgBCB78bCzzVt0
+	 hd71AKztnx83yiDNvaZq/77UWgYe6Ny0iiEnHeDnt6cA8nNulOGwP9XyUJocLOYyKGgWm
+	 HJksl/uVhohXLVpiY+3/l70+vtp4v0qN74vJTSCdx75wWpN1uaRB+hDCsG34Lx9eBIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309290;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
-	b=IgmTy4njNdbqHbL9QRRXtD73iZFNflaMWda8v1i6T3evxwlOZlZj2SCjgaI3+/8Cbbqj
-	 IGGv2t7GUIIVQzWg75CWzhdF0RuiT/2S+KrqQxSTpvaQqGaI3LT0lQRBFV63yD3fZIGt2
-	 ZXgtNg1cVpOgOiAowmW0YOVGb3POGdDQxE3H5hA25MtIX52UOXqqE/CrVdRlMu4qtzOfK
-	 REcqS71QIi1sCFOLIpLNLluhVN+gV8KASTEHu2pvV2QMNCxQOeaDvtgM0mgv8j4RJntfI
-	 hdDDmyvymPHwpNpa4Mo7zeYQ1HqLZfa2nYkmhplWHtOJIsWpxYdS6WFNwkh5NJUnZsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309311;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FdOVbvcKdFgkXdU4BMS1bRcFn7D8v8NDtVISXLeDPZI=;
+	b=VIjon5Z8SQE37wNkpiNx9HzSyL9UI6yeFCS0GMCAu5lRHtRswibJNLG1NmfEP4TQRmQq
+	 jll3ypextmErZ9w1kCWrmQ+hitsL/MFoAvAcehXdQYds3T2qsFrja1ly306bZUBPgBW8P
+	 Vk93dIv4fZMyaPJJ5Ur4ojtztcCw3RRclKyThzzaij+aak37v9LMnkpvo6h8m56AMpWfi
+	 CHW5ZI+XynNZHw1DxUr54P+lekS4zokNQ2YfGqGBdhoG8g7XbwjbVNmO7MGos/33j8FQt
+	 IJm0lIXW6+0qJw1CBaauKN+PLHuQa7h8fyiKwTzL5eTKIy8AlWIkjyPFJzcfEU3yZqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eGX9K1Ri;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fue1uWIB;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DmSzA/cc";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1083606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1083606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC45606A325;
+	Tue, 10 Nov 2026 11:15:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eGX9K1Ri;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fue1uWIB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794309288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
-	b=eGX9K1RiprlgDLcN03x69X8D8WVtOnwfkz5UhhlmqbVXEX2Vl42IV9Zn35l96PGnteFie3
-	5w9h0ro5bvGflRQkZ5V9gme+R/AiDiwbCML1/WA6W4Y55CyNlf8Tp3R6Yca57GYVsPloQI
-	ljAHtglsXE1zN5bvK5Cf2dg4yiISmmw=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-172-do8iX-zMP0qysa2dU7EhhA-1; Tue, 10 Nov 2026 06:14:46 -0500
-X-MC-Unique: do8iX-zMP0qysa2dU7EhhA-1
-X-Mimecast-MFC-AGG-ID: do8iX-zMP0qysa2dU7EhhA_1794309285
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-490d2ac331bso1644907f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794309285; x=1794914085; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
-        b=fue1uWIB/eOIEC6nITbNo0WpinwOJCTHvtyX9cgkZIGGR81840Ve0tmtEXGzWvZxN8
-         5oT+VqUh4XCfLPtQjkOMnIaKc7eElRr5mK4nR9Cpl7JgoqDpwA4hPoQjBAYrK0pJh7vI
-         pr5i3qV14ZYTz0CkLgIMvbii9isWK0o1QP3gtuEiOBtjgJxljsba6H1M2HgUycHcaYYt
-         +bLbJeNx5dh16egiaGxdlgUxchbiJDcRhX48BiJXQLUu4fhJcHW2a5HBDrHnVJtiCTyX
-         Z5DAbCYFt+jNC0vnY11c8TroCrqmy4MUIItjSSu0cM2QAxwrqW+b4hxxZGWtx16fvJkv
-         G49w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309285; x=1794914085;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qOR1to8DwDNMHvVPWKTNupvvaYNTxEjClRGA3vc5Xw0=;
-        b=mnvXMAubdQXTj7jVj/6llePV3NtCx7eBsefvmRjOCHpDyNdDo5xHNMBrhqmMUXngzJ
-         PQV7a5YScmvPlZtHmfsA3NgEwzAc2TJ52nE+k6+XwvCgblr1D/FnWa92b6fQYzsvObYM
-         SCN4RRdB+ILHis49dATDsjKg8G295l5LYnslU6TCO/5P+RdJ4bcL4IqVdmFpx/9oOCiW
-         YbtHsChTEhQZiN3qT+7xdR9aThkFZngA8qFiVS7JZ3wPbT9yQEb37Nf9A/mKfp0F3osC
-         AaHtKYop3B7i9QNv6AGNnVfYVV2rLn8UlRTl3QrackyhyPF3Ym4AgALW7e2j7pehlmEQ
-         D7PA==
-X-Forwarded-Encrypted: i=1; AL+hErEk0n+NEkd+FOO6jxt5UHLilFBkDzcVZmcTKM5XKlyk4LX18U3Z3OeXvTvQ1TQ8+8vZC+nGHbzp2yZmWBA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FbqGqaCEszZIqMwRpHdJStLTRXdUSKOmVQmrNwh9JqBQq06Ip
-	fUtbDyNd9p6eTzKozksOrFGrdrBBSpI5Wpql2Z71gd2sq1QBpKsmAUu27W5K2zRzjna+76URfC/
-	2u6+jj+jDRlF4dhzKHALdACF8AQDVlFHyp7Jt9euoYWUnKJapiqWBY07Sa/sUaEQNHg==
-X-Gm-Gg: AYBFou0prcShoTQYv+I5itdPZIUm8fPoB5IjkP6NGN7kQWIuJbsSN4ozZsfoNORGFDP
-	PxPEhI30Ci8NPMNGr5Zo4KNx9ZpLZZDJRBaOp8tMfp0URPALAqa/S24gpYwevfbWj4dHY3w4WeV
-	98dZ372lWJAd9VDBccEM4ZZHQ4FPA33P9YF0Zn/VypbrLsa/I/Ct9MaiOJpk2oqUYbiWjwz2G9+
-	SxJSM9ARMjgMP2Bxu6wvaTeeCmkd6OwdMf9Y1NiPUoV1BI2JbGXgUE8OTSe/AEyGFjYYizj4pSX
-	MsAogWK6ce7bfFG/rZxMGpTDQVwcXp1Yo17gIm9mJJeTwjcJBH1PeIHse4WJBZbrpfUoA95vhTy
-	moM+lBvqBqAXJqn+q/Zb1eoVzL2/ywyHyxZoquCSQcQcjwwj0epmyNtWrbLngwZJlvSKzblthyp
-	wlwG4=
-X-Received: by 2002:a05:6000:2010:b0:490:50c1:f359 with SMTP id ffacd0b85a97d-498305da0dfmr4850209f8f.39.1794309285017;
-        Tue, 10 Nov 2026 03:14:45 -0800 (PST)
-X-Received: by 2002:a05:6000:2010:b0:490:50c1:f359 with SMTP id ffacd0b85a97d-498305da0dfmr4850140f8f.39.1794309284563;
-        Tue, 10 Nov 2026 03:14:44 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm2904341f8f.14.2026.11.10.03.14.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:14:43 -0800 (PST)
-Date: Tue, 10 Nov 2026 12:14:40 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 08/29] sched/deadline: Take a deadline boost from the
- waiter's rt_mutex node
-Message-ID: <avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-9-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmSzA/cc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D131F0089F;
+	Tue, 10 Nov 2026 11:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794309311;
+	bh=FdOVbvcKdFgkXdU4BMS1bRcFn7D8v8NDtVISXLeDPZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DmSzA/cccKoAot6OoPurM2eGxFwrqjl3PNn6sOlcK4MuqbckjFlQ+1BWNuMwZ18uV
+	 8DxrZdxy3xkHKQtR+GuKDIG6/gqLfvYi/nbSqPKwnoa2J6XxxZFPKHoZ2a4z148+Lw
+	 d3AQuWQeisrRNd5ySpoaq5vg/sMal+rztXbpjzUb861zOUxtMiXQNXFG+JdEV7Y69V
+	 zeisfrr1LV3CrtP5aRnQKZmY0Dy6fnp+A/R20vGrLJHgd3zlz065lQCiucM10Ut0ML
+	 EBvsuSkeX/ZGI/JJhQFqLr/Vah+kHGVoai9NPIqWgzpAZQsw1OG6uJVtXtZgDJ3P/b
+	 g7/meQIMiZCzg==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xQjoi-0000000AuCa-2Gte;
+	Tue, 10 Nov 2026 12:15:08 +0100
+Date: Tue, 10 Nov 2026 12:15:08 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
+ deregistration
+Message-ID: <avL8vNRJdZric-mu@hovoldconsulting.com>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-3-johan@kernel.org>
+ <avL4x_clSegBu-Qi@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,130 +74,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-9-mathieu.desnoyers@efficios.com>
+In-Reply-To: <avL4x_clSegBu-Qi@ashevche-desk.local>
 
-Hello,
-
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> When a SCHED_DEADLINE waiter boosts the owner of an rt_mutex, the owner
-> runs on the waiter's live parameters, through dl.pi_se. The waiter can
-> leave SCHED_DEADLINE, and have them cleared, before the owner is
-> deboosted. When the owner's runtime runs out, replenish_dl_entity()
-> loops forever on a dl_runtime of 0. It holds the rq lock, with
-> interrupts off. The owner's CPU warns there and locks up.
+On Tue, Nov 10, 2026 at 12:58:15PM +0200, Andy Shevchenko wrote:
+> On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
+> > If a client has both a primary and a secondary firmware node, the
+> > secondary node is accessed via the ->secondary pointer of the primary
+> > node.
+> > 
+> > Use a temporary variable to track whether the firmware node is a
+> > software node and remove any software node before dropping its reference
+> > to avoid a use-after-free in device_remove_software_node() when
+> > accessing the secondary firmware node.
 > 
-> rt_mutex_setprio() also reads the waiter's live priority, not the one in
-> its rt_mutex node. Commit acd58620e415 ("sched/rtmutex: Refactor
-> rt_mutex_setprio()") found this fine: if they differ, a PI chain update
-> is imminent.
+> ...
 > 
-> But the update can come too late. Leaving SCHED_DEADLINE clears the
-> parameters, so that admission control counts the task again when it
-> comes back. __sched_setscheduler() walks the chain only after it drops
-> the waiter's rq lock. In the change itself, task_non_contending() clears
-> the parameters of a waiter woken past its 0-lag time.
-> inactive_task_timer() clears them later, when a sleeping waiter reaches
-> that time.
+> > Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
+> > Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
+> > Cc: stable@vger.kernel.org	# 6.16
 > 
-> O is a SCHED_OTHER task that holds the rt_mutex L. W is a SCHED_DEADLINE
-> task. T is any other task:
+> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Cc: Hans de Goede <hansg@kernel.org>
 > 
->   CPU 0 (O)                         CPU 1 (W)                     CPU 2 (T)
+> Can we keep these two Cc out of the commit message?
+
+I prefer to highlight the authors of the commits mentioned in the Fixes
+tag this way.
+
+> > Signed-off-by: Johan Hovold <johan@kernel.org>
+> > ---
+
+> > @@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
+> >  	else if (is_acpi_device_node(fwnode))
+> >  		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
+> >  
+> > +	fwnode_is_software_node = is_software_node(fwnode);
+> > +	device_remove_software_node(&client->dev);
+> >  	/*
+> > -	 * If the primary fwnode is a software node it is free-ed by
+> > -	 * device_remove_software_node() below, avoid double-free.
+> > +	 * If the firmware node is a software node, its reference count
+> > +	 * was decremented by device_remove_software_node().
+> >  	 */
+> > -	if (!is_software_node(fwnode))
+> > +	if (!fwnode_is_software_node)
+> >  		fwnode_handle_put(fwnode);
 > 
->   locks L
->                                     blocks on L
->                                       rt_mutex_setprio(O, W)
->                                         O->dl.pi_se = &W->dl
->                                     sleeps
->                                       task_non_contending()
->                                         arms W's inactive timer
-                                               ^^^
-We know that PI is broken with DEADLINE and this adds to the count of
-broken points. :)
+> Do I understand correctly that this is a dup with the platform device case? Can
+> we make a helper (on swnode API level) to cover any other existing or potential
+> case to avoid similar issues in the future?
 
->                                                                   sched_setscheduler(W)
->                                                                     W leaves SCHED_DEADLINE
->                                                                     task_rq_unlock(W)
->                                     <W's inactive timer>
->                                     inactive_task_timer()
->                                       __dl_clear_params()
->                                         W->dl.dl_runtime = 0
->   <tick>
->   update_curr_dl_se()
->     replenish_dl_entity()
->       runtime += W->dl.dl_runtime
->       loops forever
->                                                                     rt_mutex_adjust_pi(W)
->                                                                       rt_mutex_setprio(O, W)
->                                                                         spins on O's rq lock
+The bug is different, but the fix is the same. This all gets cleaned up
+in patch 4/8.
 
-The hang of course is real though.
-
-> A copy of the parameters at the boost is not enough. rt_mutex_setprio()
-> would read the waiter's priority, then its parameters. A change of the
-> waiter can clear them in between. A stress test switches the waiter in
-> and out of SCHED_DEADLINE. With such a copy, the owner's CPU locked up
-> within a second. With this patch, the test runs for 600 seconds.
-> 
-> The rt_mutex node records the waiter's priority and deadline under the
-> waiter's pi_lock, which every change of its parameters holds. Fix this
-> by recording the reservation there too. A deadline boost then takes the
-> priority, the deadline and a copy of the reservation from the node of
-> the top pi waiter. rt_effective_prio() now reads that node too. It used
-> p->pi_top_task, which try_to_take_rt_mutex() does not update. The chain
-> walk and rt_mutex_adjust_pi() also compare the reservation, so that a
-> change of it alone reaches the owner.
-> 
-> This needs "locking/rtmutex: Clone the sort keys in
-> rt_mutex_enqueue_pi()". struct rt_mutex_waiter grows from 112 to 160
-> bytes on 64-bit. With PREEMPT_RT, every sleeping lock waiter has one on
-> its stack.
-> 
-> A 300ms debug delay before rt_mutex_adjust_pi() locks up v7.4-rc1 in
-> 8-CPU VMs, but not a kernel with this patch. The locking API, ww_mutex,
-> locktorture and futex tests still pass with and without PREEMPT_RT.
-> 
-> Found by the Sashiko AI review of v3. Before v4, a second model found
-> the window of a copy, and the stale node of a waiter that becomes the
-> top waiter.
-> 
-> Fixes: a5e7be3b28a2 ("sched/deadline: Clear dl_entity params when setscheduling to different class")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
-
-I am not completely sure that we want the additinal machinery below
-though, if we can find a simpler stop-gap solution until proxy execution
-makes things right.
-
-I was thinking 2 alternative potential bandaids:
-
- 1. Don't clear the parameters of a blocked waiter. Every live donor is,
- by construction, a task blocked on an rt_mutex. Guard the
- __dl_clear_params() calls in task_non_contending() and
- inactive_task_timer() with p->pi_blocked_on (both sites hold pi_lock,
- which is also what pi_blocked_on is written under). The bandwidth
- release still happens at the 0-lag time; only the parameter wipe waits
- until the task is no longer blocked. 
- 
- 2. Even simpler, considering that the above is of course still far from
- ideal: replenish_dl_entity() already WARNs on pi_of(dl_se)->dl_runtime
- <= 0, and then hangs. Make the condition bail instead. The deboost is
- already in flight: the sched_setscheduler() that clears the donor's
- parameters ends with rt_mutex_adjust_pi(), which walks the chain and
- deboosts the owner through rt_mutex_setprio() and needs the owner's rq
- lock to do so, which is exactly what the infinite loop holds. Bailing
- releases it; the owner then sits throttled until the walk lands
- (dl_task_timer() is a no-op for boosted entities) and moves it back to
- fair. The stall is bounded by the walk's latency. 
-
-Don't get me wrong, the proposed fix looks OK to me, but it also looks
-more complex to backport to stable, it will be anyway ripped apart by
-proxy exec and doesn't unfortunately make DEADLINE PI less broken (yes
-of course the system won't hang, which is very desirable :).
-
-Thoughts?
-
-Thanks,
-Juri
-
+Johan
