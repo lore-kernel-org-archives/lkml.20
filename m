@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339012;
-	b=XZMmDWs+ILzR/rF9lfNFziFLAt5wJUymSih3yAYMZSE65nHdLbIo1Wl0eBJ4AuJlXJS+
-	 VYzDnfkLFMywcR4K21XsZmj+AKZ36xvi1713MUaQVTIVBgrbArgwexJD/baYutaq+l9Gp
-	 RUynzFO8kF2jnM7gj72Iw+OhFOOCMdez6wsfOpq0QYk5DNgW4+3ewh4T95iMZElkkj9Dr
-	 YixlAU1ZehagUZCBc2fZPlzlFXd2aq2MqATu/PyTOOVMGGuSBZLhAEdGsQ7V3UA8QY+j7
-	 bDcYjEA90GoJU2i9kl35BX//DbQmZjwGNHKVkW7J2eqi/G099w0oEOAhzTgQgVFRc9A==
+	t=1794339040;
+	b=enbpMNqgTkkgYpYJRK8dFb6TKZ3x9Y4JY9rQw+33B53gfOSqzJzNM6V2OOtPm7KqaATd
+	 0iMXdVSwjwWJ6LrD2qcJiM2t+stM+mE2/i6ODaNavq3zvNtBxRQms0Ek4gW7p/VvHxEe3
+	 LG6jO8H5z3+W2l7KA9RS+U/fF8o92onMqaKa3JsWox92yRBAkFfpYHLm2lpgEzca3grYO
+	 RH858u+ZN4/b/fQUWDZHKvXOz318NsghAMmXlb9mT65IU8fEqIquh8vI7AuH6Wtoy+K0g
+	 Gkh9wXxhL2/jZVBapNyoqKdLbk+FOcIM0/LZYzFPTq0xW2Cth1p3n/5rQFVlkiZ8c6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339012;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LGPIl1X2938Koi0DR0rm/YsbCnI/0WOoEQgD2bU/dEM=;
-	b=vTedksdLFndTOAAKu9m1bqRg5LnMoRAo55ajV6h+3Z5z/F3jvz3gpyQP/7VT7etqyytm
-	 WsDPq4iyIezm1zpoOreJYOknIJBnINRAHRzmZ4Q6x8h2zUmA9KJtlxokOU93SR5FVtNAx
-	 YVwfi0beQ7lKUxv9yxXuwU2NA00X7nCj1vnsb5GeNC9lfvot2amXLNmMoumfA5mzxXJMR
-	 QqIVAS2EmXL/TsS8ZXwbPQ95LkuAP8qfPJhlgdoUZAmSBHz8Tzg5ilCJ+33JeMsRVragf
-	 dPmpCmDaJK4RMQ/IW6moGqVq7ceYqpOAYMCNdRTkVq3z9yUQzcvh2deKHERIa/CZy6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339040;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NUDs1vdfcZBxBx3xJiXUGpUDlEHyuHjTI9fXY3QHrkc=;
+	b=CJlwhao6PvSPwAoHSY9gdj3Rot2+NRRCkWvdUKYJ0/u027301zftfMJKvid4kEaeKXoJ
+	 qCD4eJftoMCFefgQTrN1RsRxTL+FYeYkq125L9MhO6t3q6R/JBH4lCvfsHjCJIeAz1/Ve
+	 Xb5C2U1ndt4KKRlaZVUQTgRIqvEekMg7yTpYkD2cJ0TEWTnLEAxNa3kNVxg6XSwJFuwsR
+	 sQW1gW+njG+Oug3gEWpsaV/pFt/b5OfF7i7kXKdJZRKgoqXDUem1Qu3Vyhgdv2hju34cQ
+	 vCYE1W1dOiEDxhEGiIUbGcJFOD2R1+avWp2WhrqaquRTq5rmwWcS3p97PCq4Pi1iCAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBP3n8Ip;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kLFffG5q;
+	arc=none smtp.remote-ip=74.125.82.194
+Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE9E606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14E2606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A14E2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBP3n8Ip
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206E31F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794339012;
-	bh=LGPIl1X2938Koi0DR0rm/YsbCnI/0WOoEQgD2bU/dEM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IBP3n8IpUOKN570ejMS1wTKMubTQbrYborJlAKacYFBb3RkCQJKF9bFu567TqFwF9
-	 WvtZJw2pTmDpuCWySoKkB5DbvxuzMeJVx5bg8W8OWpytajZIn2tS+H5V3Zrb2DyVTJ
-	 jjp791kF7/1g3A427A/5b1LKcyHt0k6XuaJzXrX3UincO5dbMUqAnFUM2BJ60XCEVf
-	 FOTmc7A7MbEPEmin2NVL8+9gIXUUjXR/YkEG3HEptsjeFs58PlmSEL4u0gslwswFiz
-	 tS2A2lEMXpuYfY/zzEImtlFB4WljBKsH2sga/uaVUcXZirubnEfPt7w3VmVXa5gJ/k
-	 ObfJhC1Iau6sA==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d58c50743so187263166b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEqL6aXxm0gOJqKSDko2q0Ppt7Mglagt1Q9JSrBGrl/eO9u2HMVG2HAfKcs4szDJVbUwyQdgsFNdn/2JoU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/phFBkpdMsCjWPEaYy84pAdopzDITaYm93l1a6ZhdXoYXrqvDK
-	ud0xazYjZt4btsPQn3vt2xaQqV9V9qcn2pk8eMNksc/MdRDy2iFTkqUQ652wZjRCbv3QUnz79i6
-	ZFHzzWvXlyOI7k+yq2nNUD5AMyZO7chA=
-X-Received: by 2002:a17:906:f5a4:b0:c2a:ad55:b3fa with SMTP id
- a640c23a62f3a-c5066983ae0mr9587466b.7.1794339011019; Tue, 10 Nov 2026
- 11:30:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kLFffG5q
+Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-37198ed3727so3111729eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794339039; x=1794943839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NUDs1vdfcZBxBx3xJiXUGpUDlEHyuHjTI9fXY3QHrkc=;
+        b=kLFffG5qAIK2Rx446b61kwv0+kC8xdxvAAfZ6PduQcOfFYgwBTAQwFAiKiVrEEQl8f
+         RcPJPWb3KsULfTQHXVbSAfkbeyNxCH5J9yMxozyEBLKU/Op+0EcVDilaVF2V629MwQSb
+         QMaZJywCE/eA/LxGn55+r/PdS3coukI5bjwf5TLAtrjkeAZfT2S9fsJYThTa2vuvucGk
+         m9z1Q0Ijv53734gUX+kSa05f3nj0wlpWpOA+HHz9J96BGoWxLV9mzSN53vuHYA0Y8BdR
+         +pdn7ofarjWNxH1+hY/Q9FkY1aSocSpBQhkQmoB+bd//bn9HNVINrQFvzzYWa74/oJ4a
+         BOoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794339039; x=1794943839;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NUDs1vdfcZBxBx3xJiXUGpUDlEHyuHjTI9fXY3QHrkc=;
+        b=B0paag2fUuJAwamC8558VAZp3FgrcSWEWLBaAnfP6VrQCLAzyhhDq/OsJBPd3OMT+3
+         2gxqs4MLal71/b/igfGLpx8Po7n40HpBCYB7JnohZS7Ca+BIcgPGA6ZZ9uDIBli9JiOB
+         Q0rP1r/sZDtParBmp62k6z9tW8kmk7qyMF3GIxFl/xRVPzBNEWu54TXQntE2uKWe+so/
+         e4NBRYpVPgOe9tzj3K/yn+pU4dnB2rlc0eWCPJl0S22zaxooZXaVhFff2THkt6CH95Qb
+         Mu1zotp15uAdszcSNQuPZd+Pu2FB0xHY3Bbp91ljmlWiGWPyo93XAhS70Jiq/Y3zoD5d
+         ASZg==
+X-Forwarded-Encrypted: i=1; AL+hErEfDraQCFE9NlhVascx8vTCmuQnh11kVG9UCcpZdr1U9xPlQlpgJaEuUuvJVWd3aC4M8K/KSZqXNviPMgI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gjtl0Sw0SgglpBNyfYKW8TJP86VvaUW9yxK5r8l8Y/VQlFRT7
+	7yBDL+CVeVwjXx7+dduMlz+1xSOK1yNI1MwysXbiFPuUEDaAP7nBqyaI
+X-Gm-Gg: AYBFou3/xwUSu4wFd5yFWWQ+oexjf59T0tSDuc3kpBjndRZ4jbNQfbn2bnJfUeDI9p2
+	ErXQ8opUwpJ33p3Ny15tY/FogNqJ6e6nv7BHNHm0PQjUB5CLZG6QQ+kPp97hjDqRaLRJHn1UDgO
+	4wAF+2AZpPNeuqzNZtlKQneL0RZVm7b81uJheeuRVn+3cBDLYEawNdoX6/LcN1kkaeudlyhoGk1
+	OQsXty4SAkCmWAI1obiawX6d/BIREAZNz/A8q55mILUQIMqbOOOC6gUsdpGB2FSiioljhVT824l
+	1+nvkh2awY0VnlIlfT9TVkWob6U+rFIt/ympqm9rgACDqHXS7MJgkVnEK10P9bqDFOaPWp24ooi
+	Q/65+BnZ5hAiSDZJLxK/8rxEYzeYoGlp2xxOGG6YjfNKmPUlCEQhq7j2HYqDMNjMeQ80JuOwsnQ
+	A6nK2Y2V/Vp6OdWNCw2eUCv68U/SZnvmaTybGZPjr1dVHA/65RH9YG4LoqLoEmy4OWYfR4rNhJ4
+	i9e41iuyFMKLGbISQNM1oTgKJF8MsQQ8m27aIqHL3oY25WkwUGIyZ1BrQF48TapA2y+ETISA7vl
+	fGJo4dg364u22ecSEWw4pHDCOXFkyznh45Iwj0ebdEiMOPZcVA==
+X-Received: by 2002:a05:7301:5f17:b0:375:85ac:d14f with SMTP id 5a478bee46e88-3766a1086f8mr574713eec.14.1794339038382;
+        Tue, 10 Nov 2026 11:30:38 -0800 (PST)
+Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm7730435eec.0.2026.11.10.11.30.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 11:30:37 -0800 (PST)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH 0/2] arm64: dts: rockchip: add USB-C PD and DP altmode to LubanCat 4
+Date: Wed, 11 Nov 2026 03:30:26 +0800
+Message-ID: <20261110193028.512456-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,124 +99,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110004037.125692-1-jmattson@google.com> <avNYjOevOv5s2o5k@google.com>
- <CALMp9eQAxDhnJGrxt8MquPKE2jsUzezn+nbRXV7E_OiATFhsow@mail.gmail.com>
-In-Reply-To: <CALMp9eQAxDhnJGrxt8MquPKE2jsUzezn+nbRXV7E_OiATFhsow@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 10 Nov 2026 11:29:59 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zN6W=95uOEUhzSenbJeBECjWk-HRgX7PSewwJZgfmQLoQ@mail.gmail.com>
-X-Gm-Features: AclHuK_PZKyUeReg_hid0eJ_EJBgYl9g5LBEmic378BD6K5Cm1sdvKm6xOKGm0Q
-Message-ID: <CAO9r8zN6W=95uOEUhzSenbJeBECjWk-HRgX7PSewwJZgfmQLoQ@mail.gmail.com>
-Subject: Re: [PATCH] KVM: nSVM: Add missing CET VMRUN consistency checks
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	John Allen <john.allen@amd.com>, Chao Gao <chao.gao@intel.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 11:18=E2=80=AFAM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> On Tue, Nov 10, 2026 at 9:56=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Mon, Nov 09, 2026 at 04:40:37PM -0800, Jim Mattson wrote:
-> > > Per the APM, "Canonicalization and Consistency Checks,"
-> > >
-> > >   [t]he following conditions are considered illegal state combination=
-s:
-> > >
-> > >    - CR4.CET=3D1 when CR0.WP=3D0
-> > >    - Any reserved bit set in S_CET
-> > >    - CR4.CET=3D1 and U_CET.SS=3D1 when EFLAGS.VM=3D1
-> > >
-> > > Check these conditions in software before trying to VMRUN vmcb02, so =
-that
-> > > the illegal states result in a #VMEXIT to L1 rather than an exit to
-> > > userspace with KVM_EXIT_FAIL_ENTRY.
-> > >
-> > > Fixes: c5ba49458513 ("KVM: nSVM: Save/load CET Shadow Stack state to/=
-from vmcb12/vmcb02")
-> > > Signed-off-by: Jim Mattson <jmattson@google.com>
-> > > ---
-> > >  arch/x86/kvm/svm/nested.c | 15 +++++++++++++++
-> > >  1 file changed, 15 insertions(+)
-> > >
-> > > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> > > index af0ef678433d..20ede403b62d 100644
-> > > --- a/arch/x86/kvm/svm/nested.c
-> > > +++ b/arch/x86/kvm/svm/nested.c
-> > > @@ -469,6 +469,21 @@ static bool nested_vmcb_check_save(struct kvm_vc=
-pu *vcpu,
-> > >       if (CC(!__kvm_is_valid_cr4(vcpu, save->cr4)))
-> > >               return false;
-> > >
-> > > +     if (CC((save->cr4 & X86_CR4_CET) && !(save->cr0 & X86_CR0_WP)))
-> > > +             return false;
-> >
-> > Why aren't we checking X86_FEATURE_SHSTK here as well? Do we know if
-> > older CPUs that didn't support CET had the consistency check?
->
-> CR4.CET is reserved if an AMD CPU doesn't have X86_FEATURE_SHSTK.
-> Hence, older CPUs without CET support cannot fail the consistency
-> check.
+This series enables the front-panel USB Type-C port on the EmbedFire
+LubanCat 4 single-board computer, covering USB Power Delivery, dual-role
+data/power, and DisplayPort alternate mode.
 
-Oh I missed this, thanks.
+The port is backed by a Fairchild FUSB302 controller on I2C1 (0x22),
+a fixed 5V VBUS regulator enabled by GPIO1_C1 (limited to 2A by an
+LPW5209 switch), the RK3588 combo PHY usbdp_phy0, and two DC switches
+on GPIO4_B3/B4 for the SBU1/SBU2 lines.
 
->
-> > > +
-> > > +     if (guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) &&
-> > > +         CC(!kvm_is_valid_u_s_cet(vcpu, save->s_cet)))
-> > > +             return false;
+The series is organized into two steps:
 
-I wonder if we should clear the cached s_cet based on
-X86_FEATURE_SHSTK, similar to how we sanitize some cached control
-fields in __nested_copy_vmcb_control_to_cache(). Mostly orthogonal to
-this patch tho.
+1. Basic Type-C and USB PD support:
+   Adds the FUSB302 node, VBUS regulator, dual-role power (source 5V/2A,
+   sink 5V/1A) and dual-role data connector.  Sets usb_host0_xhci to
+   OTG mode with usb-role-switch, wires HS data to the host controller
+   and SS data to usbdp_phy0, and adds orientation-switch on the PHY.
 
-> > > +
-> > > +     if ((save->cr4 & X86_CR4_CET) && (save->rflags & X86_EFLAGS_VM)=
-) {
-> > > +             u64 u_cet =3D 0;
-> > > +
-> > > +             if (!__kvm_emulate_msr_read(vcpu, MSR_IA32_U_CET, &u_ce=
-t) &&
-> >
-> > If X86_FEATURE_SHSTK is not enumerated by the vCPU, then whether or not
-> > the consistency check is done depends on ignore_msr. If ignore_msr=3D0,
-> > the MSR read will fail and we won't do the consistency check, but if
-> > ignore_msr=3D1 the MSR read will silently return 0, so the consistency
-> > check will be done but will always succeed.
->
-> If X86_FEATURE_SHSTK is not enumerated by the vCPU, then CR4.CET =3D=3D 0
-> and this entire block is skipped.
+2. DisplayPort alternate mode:
+   Adds the DisplayPort altmode entry (SVID 0xff01) to the connector,
+   wires connector SBU (port@2) to usbdp_phy0 (port@3), and connects
+   the display pipeline: VOP2 VP1 -> dp0 -> usbdp_phy0 (port@2).
 
-Ack.
+Validation and hardware test status:
+- 'make dtbs' builds cleanly without warnings.
+- 'make dtbs_check' against usb-connector, phy-rockchip-usbdp,
+  rockchip,dw-dp, and fcs,fusb302 schemas passes with 0 warnings.
+- Patch 1 has been verified on a physical LubanCat 4 board:
+  * tcpm and fusb302 probe cleanly;
+  * Host mode: USB 2.0 and USB 3.0 peripherals enumerate; USB 3.0
+    operates at SuperSpeed in normal orientation (reverse-orientation
+    SuperSpeed is subject to the known upstream phy-rockchip-usbdp bug);
+  * Device mode: ConfigFS CDC ACM serial gadget successfully enumerates
+    on a host PC at high-speed with bidirectional data communication;
+  * VBUS power switch correctly enables in source mode and remains
+    disabled in sink mode with reverse current blocked.
+- Patch 2 driver stack registration has been verified on board:
+  dw_dp binds to the display subsystem, DRM connector card2-DP-1 is
+  registered, usbdp phy-mux and phy-switch are registered, and
+  typec_displayport binds to the altmode.  Display output / link
+  training is disclosed as pending physical verification due to lack
+  of a USB-C to DP monitor/cable at this time.
 
-> > Instead of this implicit dependency, should we check for
-> > X86_FEATURE_SHSTK explicitly?
->
-> That seems superfluous.
+Pufan Jin (2):
+  arm64: dts: rockchip: add USB-C PD support to LubanCat 4
+  arm64: dts: rockchip: add USB-C DP altmode support to LubanCat 4
 
-Given the above, yes.
+ .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 172 +++++++++++++++++-
+ 1 file changed, 171 insertions(+), 1 deletion(-)
 
->
-> > Also, if X86_FEATURE_SHSTK is enumberated by the vCPU, and the MSR read
-> > fails, the consistency check will silently be skipped. But I don't thin=
-k
-> > this can/should happen. Maybe we should WARN in this case.
->
-> You're right; failure to read the MSR should result in a failed VMRUN,
-> and a warning would help triage the failure.
->
-> > One last question, in the restore path, the MSR may have not been
-> > restored yet, right? Can the consistency check mistakenly fail in this
-> > case?
->
-> Not with a legal snapshot. Note that on the restore path, the 'save'
-> area holds L1 state. Hence, RFLAGS.VM must be clear, because VMRUN
-> raises #UD in V8086 mode.
+-- 
+2.56.0
 
-Oh that's subtle, but yes, makes sense. I was going to suggest a
-comment, but I can't find a good place for it :)
