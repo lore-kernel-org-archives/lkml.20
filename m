@@ -1,74 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326017;
-	b=XzQXj+6KJTLjkJmlbIhX+I9BpMWODIEfKv13ViIW7HJR3qfl2tQejkd6unvRKZaTyftX
-	 2drzMM2Ki2X7plzfzt0jf0+Dmz0SVhcHMGfJY8HHqn36ZV5Q/1Vlq+3M2gBR4DTBug9Sx
-	 q9bpibpMjj9JHRu9Dx/FYVATaNXQt4gnkN6+B4uxxDsXId2PygcBDJRaH4xbZduU5IEbP
-	 CBjhg/Gz8AEKl/rdwYPkQC5EcmadkyAkucXqEzgqj2eETp1iliO57QLd5pz1FZiNbqyqL
-	 66+2VHfzRaDYKi5jfFtCGHcGNvzgv+ltrPc+EBCltVk1bw82u1SrlHYongJTkpjCn6A==
+	t=1794326020;
+	b=IRPrhJy5N5C2OF7MBCwYRI75NZQWnN9V7ZE1rjDwK5/yzUpScPxLTjqIxsE2fO77R7LT
+	 SPFKEHImIGXdn18vMDL4UC5fCqPyw4ciT9nXh4hlQ0VY9xwtAaXp/JGGJ7Vbow/qVM+EZ
+	 20c2hLV+iglphD4VVIdeZIJPjbCfGEXFE5ipechlGhF8e6BmMNsAioCFrzuy+vhu7VqBJ
+	 OJS2En2ONfX/Jhu27C3O6UnBl7q6x43LpYuSMknVgTaCAT4DcHhrB7rakkBF0XmSLqUHa
+	 geeSaETDj218sMjeaBCjokWVa/xSzyTm07QT0p+kZ2Jnb97yl+5HL0uhrhLdN77giyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
-	b=UjzWNON7LgRx1bO5g8/Wfs3qIPTxop07zACiCSQ4639PDmAwQqf4xLU60r6YwBXr7qPT
-	 13Vz243vVVOwqlddhZdlfDbRylHdOSHQng3HxMoNPDCVvcxWwi0ExJJAwikSueXaRQ1nd
-	 NPpIDj/wcDsvR7Af4MudALmGC4ejj8I/1eQaZY7wN+oa9c4ffz1DE0tVJb8lriPoFH+xb
-	 k8zemOpJC3hX72EEeAEpr4LbaOYapBhP9P6HwOMplMjf940I5phqCy0GXF3ddSEm02Fqu
-	 9/sJcWVhcl51XmaFECEw4UKWO2X2dRc/FYviecHEYbIvh7WkIGgThKkqpn3cWIj3nlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326020;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=4qaBcoJhuip85HNRKTiRsc6cXmbUnKal0wM/bMhZ1/4=;
+	b=n2AL5ggXs4aRilrw4Kjj0CstkIBmYvbSjNGczKYvacj47+W9vY59Kz4kAPHKdPy2YAdS
+	 TN3W6KlFxshiT4d9w8TLAF4bb6lzJA1pqHYYx5+7puN+JwnDGwTcWHgJ1U6+8SVOGzq2U
+	 xGn/2VNnWlbqBwhjJRt8GTsZEeM2apjUAPRQh28jflGcTJhw7fYHv5DoSNFeU3fJth35z
+	 QtzBcLtUFOgo2tezZ0sG1ODDls/0MquPqTTNE9ZEaWKasXbmLJYg6/BOCNhAFbq4S7Z2u
+	 gLeZHdy0ziPG4wPw91XzjnE6hIiWMaJMYroPsBLShFaLtKdSW9vxzwS/TzlJRXNMNxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KdYgOstJ;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSgH+nQG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D55606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17D55606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DD360A260A;
+	Tue, 10 Nov 2026 15:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KdYgOstJ
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so1633891b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:53:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794326016; x=1794930816; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
-        b=KdYgOstJ7KLq1UQCYnD9H+1JdC2fwddQe0d1osd1pI5CkONyb4xd30ewS/w0DolsYJ
-         knbje4zjcRXc95NT2DxIGHuvwMxO8wzqB2goyjWWKKuO21kBp2M85q2UxpXKZHBVQ+KE
-         gQGPicw5TyoImAIIqGWTJcQ+yAWfiv+RkAXUWMMA5R6pZd66vTfGFHN4aVnJ9iT08lxB
-         6LFkqs9sZzB4bPQCxaZFImj4SoLcVp5AEDD2ablOsfa3ZhpVdtGiYZPlb8HRE0wv1wSt
-         /pdnHBlpmOYLmcaUAeGn2XjRl3F72aYJb8n0YZaS8OOQvnPs3RLVUMuj4yVD+B8tEHej
-         /qTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794326016; x=1794930816;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mb0MdDBCZew5k3777cm9fQD62/5KwOz3NQ1SfeT9BE8=;
-        b=FZ4emhwcP0lkrlMZAIcHMozV4G9YVbKlV1d8cekMkc2ttqoRDXTJQ5p8x6D6NBaJdd
-         8/+3HnUHNj8O5ZUTJmyK9sbb4qSt8UGNUO6AebUFLbC0Zkz8wyX5aY8HYMelQ3yXkAAE
-         WFesfF/5ryyxkXUQd6twlEARrquHUH4gIq+dmYB9N/ggJiMP+iikzj+nQOadamcnbRMF
-         6p4Qh0C/VlIIlTNH4nsM6xg7rKHcjAaPQ4CK2hEOpuowDJFwOYK9whD4CQvok0DeO6tP
-         qsRSI2dUajv8eEBKT2YLRczf+LZp8kxJuHthPfM56Kiu3KbomHXFaHjjwGFt6RgR5CLm
-         naAA==
-X-Forwarded-Encrypted: i=1; AL+hErF3MB94zWfTQ+dF4r1XhfvBL0WgWcTBmZiZdxZSfAEAQvW0CreoGUT5CXny77zsho1qrE/EQg1Mf+9t5Oc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XbCsx/VGEpcVqQepFGr94s8qaXEOPBYFRVHVu5LUBVo5hCiHG
-	ZdzwdzhahKO3WicDvCVY3RChgGGR5GG/ApJilGxu7aues4DjPwCKgAFASjNyWfmHXZgHF41MnRQ
-	K5TJfjA==
-X-Received: from pfwp56.prod.google.com ([2002:a05:6a00:26f8:b0:89e:861c:6b39])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2402:b0:899:3439:c8d5
- with SMTP id d2e1a72fcca58-8ba862ccf23mr3397440b3a.14.1794326016155; Tue, 10
- Nov 2026 07:53:36 -0800 (PST)
-Date: Tue, 10 Nov 2026 07:53:35 -0800
-In-Reply-To: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSgH+nQG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B92A1F008A3;
+	Tue, 10 Nov 2026 15:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794326020;
+	bh=4qaBcoJhuip85HNRKTiRsc6cXmbUnKal0wM/bMhZ1/4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSgH+nQGYPhpecDT9RjX6A/Px+LoAnOuAhiSotnuroSbtWAmzKYW4psaCtAgm3HTu
+	 Ud6V+EHkVE3/ElaMQwFldGXubSt6xnnZ/H3lgzIXO1EM8FVi1btcbv6Q58NdTqn5kX
+	 VSwm6LEMTkaplsK5V9TVhOGb77Pc7h/AvO0sKyFHmtojeCKTH7meWA2i2lB3xJQORv
+	 LLCXQjH6SckaZOufXYpZi4+dMGxI7LRSKGENk099kRFe/hVqBoPU2XdsQ5DcgYensD
+	 /N1jMWwlSmjxHjQj70tuBOg1mUKeFDv3uHaSqSd+3wj7rolN0iCh/5JK3PXXFiZxS4
+	 +LKdNCB+uEhVw==
+Date: Tue, 10 Nov 2026 15:53:30 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-hardening@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ard Biesheuvel <ardb+git@google.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
+	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
+	Linu Cherian <linu.cherian@arm.com>,
+	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Maxwell Bland <mbland@motorola.com>,
+	"Mike Rapoport (IBM)" <rppt@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Pierre Langlois <pierre.langlois@arm.com>,
+	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH RFC v10 07/22] arm64: Initialize POR_EL1 register on
+ cpu_resume()
+Message-ID: <be361be8-c5ad-4ff7-a6db-7b0815bfe1d0@sirena.org.uk>
+References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
+ <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,62 +82,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-3-fuad.tabba@linux.dev> <avMoubwqgXbpflwM@gremlin> <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
-Message-ID: <avM9_7aWUDJSL3Lq@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
- full dirty ring
-From: Sean Christopherson <seanjc@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y6i2pjiKjCxCKcN0"
+Content-Disposition: inline
+In-Reply-To: <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
+X-Cookie: You can't take damsel here now.
 
-On Tue, Nov 10, 2026, Fuad Tabba wrote:
-> Hi Lorenzo,
-> 
-> On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
-> <ljs@kernel.org> wrote:
-> > On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
-> > > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
-> > > holds, and check that each call stops before the ring overflows, that a
-> > > retry returns ENOSPC without progress, and that the harvested entries
-> > > are the pages in order. A read pre-fault can map a page read-only, or
-> >
-> > Are we asserting an invariant that prefaulting happens in address order
-> > here?  Is that explicitly presumed in the prefault API, or just how it
-> > happens to pan out?
-> >
-> > I wonder if we might decide for whatever reason in future to do things
-> > differently there. Bit nitty I know, but wonder if it's asserting an
-> > implementation detail?
-> 
-> Yes, the API doesn't guarantee an order. I'll assert that every page
-> is reported exactly once instead.
-> 
-> [...]
-> > > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
-> [...]
-> > > +static void test_pre_fault_dirty_ring(void)
-> [...]
-> > > +    /* Populate the pages, so that pre-faulting can map them writable. */
-> >
-> > Reviewed below, but I wonder how x86 could then read fault these?
-> 
-> KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
-> writable when the host page is, and marks it dirty, unless it falls
-> back to access tracking (below). Populating the pages makes sure they
-> aren't backed by the zero page.
 
-Before we effectively solidify the behavior, I think we should have an explicit
-discussion about the desired behavior of KVM_PRE_FAULT_MEMORY when dirty logging
-is enabled.  E.g. the only reason I kept the existing behavior in my auto-prefault
-series was because I couldn't think of a good reason to change it.  But we never
-made a concious decision in the first place, i.e. we never considered what would
-happen if prefaulting collided with dirty logging (as evidenced by this bug).
+--y6i2pjiKjCxCKcN0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Nov 09, 2026 at 03:58:32PM +0000, Kevin Brodsky wrote:
+> From: Yeoreum Yun <yeoreum.yun@arm.com>
+>=20
+> The POR_EL1 register is reset to an unknown value after cpu_suspend().
+> Since POR_EL1 always holds POR_EL1_INIT when entering cpu_suspend(),
+> initialize POR_EL1 with POR_EL1_INIT before cpu_do_resume().
+
+> +#ifdef CONFIG_ARM64_POE
+> +alternative_if_not ARM64_HAS_S1POE
+> +	b	.Lskip_por_set
+> +alternative_else_nop_endif
+> +	mov_q	x2, POR_EL1_INIT
+> +	msr_s	SYS_POR_EL1, x2
+> +	/* isb can be skipped since cpu_do_resume() will do it. */
+> +.Lskip_por_set:
+> +#endif /* CONFIG_ARM64_POE */
+
+cpu_do_resume() will update TCR2_EL1 to enable POE again, a sufficiently
+unhelpful implementation could potentially decide to do that before this
+POR_EL1 value takes effect AFAICT given that there's no barriers.
+
+--y6i2pjiKjCxCKcN0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzPfoACgkQJNaLcl1U
+h9CfMQf+KE7tK9rhq506LXhS8qhdHDevtfZx2qtai6oaI8ROe6CSxZZ/PYZX/AxQ
+RB6TsZs/ebSJ8cn//ARFNZTWaspOHI13wG87Laj48QjwPVZuyBAE0MV4dlqlxM8S
+SUaN2cQ+xL/+x75htSgmDnA6NBZi/NXn8Ln2hpoiO8FO2oPSFY4l4xT9lMCvlol/
+4g9degQsFMatI+eteIErPUBMjUrTr+jpSK6zC65gIHerzlhXvpQmwro7KV4njpMZ
+zD2uA/+8YKidz8WAbiX8M9XETgaqWCGaTex5RrzWMqls1c0DvV4mFFlewowBTtEl
+CC0tUcjeb2jQhyVBZSQ3m48X0DCWPw==
+=ZUNG
+-----END PGP SIGNATURE-----
+
+--y6i2pjiKjCxCKcN0--
