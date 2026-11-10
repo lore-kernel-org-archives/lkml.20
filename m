@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280405;
-	b=Xwkkb0jbFEGS1Vdtp1K93ovdmszNnbTZuxXRy9+e4cjcBkpIxeSGDRyItlAorwgXvJbF
-	 71X2n41/fDyE25l5gBIUWHNOns0no1TVA7t984xwnt5K7wYPD/Gc2lzx7WhmclJk/KLAx
-	 0mVQ65ZFzIjKD9aqDTF+c/rBUhX64Ft4FOAXIxJYss4FLpZqLEOMp510ZrknAMixV/mvh
-	 7+LPucj3iAANBDHbJTtV4n+EcOh6Vd4sOGSB2J3FOfvZb1F3vhpXD+5czvaBcDBbsb3mU
-	 DhufuMZgH/Te3xqPpp/l2YAZ4jIzI4MMVc6KRxpJ74r0e67SmK/Ssb07QJvCHeWYyVw==
+	t=1794280406;
+	b=TOLIPGqPI2ZYcXEVxEKGuWkFSYhG6440qRPMB5wwY9smToPX/7HIs+rq3n/QNOypGtsa
+	 LOCsMfetkeqtUju6ogUlYLMkJa6/5BnNB72D3TGwe69BJy3wsrlLY98RKnLNeLjAHWClI
+	 IBOgVqKRD1dFPGxBnUg4u1prp8v57cQ9TCBNxAmVt4MtNiFVo81if04j0mkyVTdcXlB0P
+	 e23ngFyq7jF7afra+Va9e9EDXKaDPtZMjMSB3UwhEty+Xx2coVNyEpgbSiU2aC37OnaIP
+	 oT2W06y5ORPWRLuVRXp53impNEFBxW5WqbiiCpGybpRSsvVn2xPXQr6LEFUwD4Ffi6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-	b=x3eGtBmD6DnQC/+wwu+A5+Btftbyi3yQcaiieH6zxRnKOxHK8xNDtiImQyg4f/zqWVlh
-	 d3uUpt5G/Hlxg6eKU0vLmzb4a8Cg5fDu+G5527VpRJ2Rw+KHypNwUes2rtz+7WYzAsXnE
-	 Pw2q9n8B4jfI6ki85GraM7ADBnEm8n4Wb56RDk5KEOH+4eQkmZ04569pG1slEJm1+1N6K
-	 ZISxQV72Za0esI6cTwFZ7gdPM7CZkeXvcHXunb07c51keshHR5rEnDpXfCe3MVqei5Y+n
-	 wGaFzuBThXXyuJ2Rqn4XRbhJXoAELFBsMFN3b1EEx8i4HnJLBWigh4yUWaAY4V0SjSg==
+	bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
+	b=ex1JPXDY3v15Fej1BPpiWXWkWjtxTy+IzDBfxC0ZIV/tda0L5Kc1lhfUmfdL9G/Wl79w
+	 H19am61NNmtPYyfWOvhstjRaYFZsjPTFoDthQhQJn4vqLTZRJFmgCrr9eUgL8DSKJT0WZ
+	 SSvFWDAlbrreZ/6qHA0StcSzBtd6j0Q4p6mr+mREsWuPYIIFw0uu6lPy1kDPG2naGVKFn
+	 64qEwXcwHLZ5qKb7CrdJ4hQrwSwiLvyoWdBcFasbISf38GxS2nK3YSxbYVtBIdphLFhIm
+	 8vAb5HyMOsrXxTTtCCOO8MiF6H6uZvqka3DjIdiRf11LfGqYU71bMbesAVHOhWh96Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3bjQbyi;
-	arc=none smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsHgNnaD;
+	arc=none smtp.remote-ip=209.85.167.178
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C217960A5BD3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C217960A5BD3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122CE60A5BD4
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 122CE60A5BD4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3bjQbyi
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-5058b105df7so494560b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:13:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsHgNnaD
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53656465d1dso736593b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:13:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794280404; x=1794885204; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794280405; x=1794885205; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=l3bjQbyiXUB14A26wKcSv5ua9dacnx5+WhNFzm0Ki3HQpqBbk3Gsc0Nz29dnZA/MW3
-         +MDpuMWMELqUVajxi3Fuc8EKLVIDZJkX4mgNrYWHtfJEHjsNckS/IIeia2rHTtotdyb1
-         V9u/IserDlXT9tduNcT9PTYazDOC48j8+Q4T2lyHCsjBdMKbtRzgwWa/C2kg8g7rC4u5
-         IHRJFfs/PiG6lfqzYOyzpqw2wdcEBdHRYdiSKXJqwvPBCpLeuFhNgiyXpzTc7t1vOhnc
-         CXswg5b/5He5KGHzjfXv4gs0ccrZuxRD3DUXplwUvR3B87Mhp51lTloovxdNsxFA0Npn
-         SS/g==
+        bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
+        b=nsHgNnaD2HOBw7xy3XK+XyVqyXJd8qQ5zML/Lw2bZM2GRcXMg9fmedY74R/2tFK3le
+         5wYelxRFo235aTFkzKSa/FRtfalRDF5R4meubBagm31YKAFt2FbnG/D9mps/JvBjttm+
+         AihKGxeBi5te0mqgZk4ksGDTmH1wJpNcLZ8KbuMb+EyrXFmg4Q1QUuwpNpRoUBza1imY
+         6ZjLI4znoJ2kp5LLvJh/+zhatpvJIud3xT8qnYI1YtNPEP2YwCOdoQ15CzeOpKSVH0re
+         SEbQAdYz0VVyJhCDiPWb9oxzfXbaJDaS0ojda8IcmyNVL5J0fstmElKyLc0h3B1BitJ0
+         01qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794280404; x=1794885204;
+        d=1e100.net; s=20260707; t=1794280405; x=1794885205;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=LdpOAIbJ8CdOhhR9uxuwsLcweOmTBwr2G2kQxd+8ythAKomJRBRLrh2tncCastN0Ut
-         qDnIpRJsmeag5VNz3RYIqWhbtwF+Zbzis0U3X8bu8ayd92Na3SYb1JbBLLEakE6kOCqe
-         hgO0iY79qDOe/WjCGYghkqE6q1NnGyMzQTz34oevcJkzHXOLDDBD1exKFs9wGhrdAC2T
-         iOKPnEMBsnNJebZe3Qak/nVdKolW6oKZTxhv9vM9ALgp4IygSe8AzbtJyxOaIxOUnwz4
-         k6Rjs7RZy4lpMfR7yiqSwC2MZ0voyTv8rlh0TF17i0c9gtsHjX2EeZY1W3Y4lE5fZY/v
-         c27Q==
-X-Gm-Message-State: APuU4Z+vNWoGNJnn+L29IilKwo1DMrdz/8OcGEBTegDwdfpjdnzWXh6s
-	Q6EIa08E6WdB/bxp+UwRkviEarglc2xqv+3WvlXfPyUx7l0rOF3pAdS8
-X-Gm-Gg: AYBFou2yyec1XIRiM27NEEeu9R+la6P4g3IRrcZD6HcPB473Urw35p3xElL1YaY5LNJ
-	bW11YOcchALFfsXU0jDVc7BCB3+UC89ljuzVz9OKoFVRwaXaRgi6hrLmWtSZoELDIRxOO5MTBgZ
-	QVkLsxXZWm2A2RpG5ALDXrVyaEqDFpvnDd1lnicf144fooFE1OcIdXfEqnJcmYN8jgbhHwonPOw
-	GKh4MQEEJ4sWeCu0YQnKtZqw0uxyh0QMAHzLNrSX0DGtX1gLw8do89F08s7VmFqagcKG0Kw/Ozd
-	X0jcVGhuL3e6fpQPk8O2Dajf8mp7n8cSA4h9NLxWS9OQPd3CyULw3a8XFIA9I08djeBgZCdCJ36
-	LHUALPRR+8vRmgAN0APzT+D/4tC50VjEp81GgrfytvSjcNRB4dYr468/fAShVuWmco0fb/fl09J
-	NQJpDtpTnYCsSjhvi7JWHP3WDmnafBXV47pAo7+u4esJywZ8WbqSmSMCyQ+VhYwrepLaC1jRrdN
-	lhpaNa73jwANrCuldsk6E3SoRWYXyZxo3kHagZlqflhbmSgjAvlLaYgor/H6H5sKGcJTpEfoTVu
-	l/B9wAuEwbgtzlvJqBKx7KIKC53y7+6ReEXnoZM2C1/xs3UIakR06D6xKycovY8nIn/R5DfZGmT
-	9cqbaKQLTauoHUWJL5V8RgPkRSz0VZrBZ2HJ3IPoUK2NegmKkqcRFe0fzFA3nC2y0haYZj1LE/x
-	zYBMzz1BvF1A70ATKZTCV3nR2JY+VHEHIwKiFc9NwrwYTKGkCBu2ql
-X-Received: by 2002:a05:6808:509f:b0:55c:8ee:a9c4 with SMTP id 5614622812f47-5683cd30aacmr1359211b6e.43.1794280403760;
-        Mon, 09 Nov 2026 19:13:23 -0800 (PST)
+        bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
+        b=XJZ6Ts/FBKkcS53n6XKEILTvWBqB1WQFFD9xcKP/mRsESdcG23bQQNMWiXY9tEfvyZ
+         Hi196WY9GMCEP6e4cKiKxacCDmRdOqNqDFv07yqRdWanAU+jB+uq/8951doIytRzV2ip
+         lVoZFAg8h0CGeK2898XDMf3abhuTBe/j1MF+OrGqPkHGE5W2ZobX0o/UoIQJmZTD4u3z
+         JTyj3a7KzoxJdKLVekgIcQUDveAL67YEU38t/r0zubz0YOpBDVzaDsUuaYLA0tZIU/6X
+         aXJWiNDvxrzyGRROCQ7Bh41pCFBKRmpfz7mAb9Dqjwxr7aeSif8K3td67o0FhAKKqmqo
+         SgAA==
+X-Gm-Message-State: APuU4Z8BlhYnrV9Pe1eBJtvM2r4Jqe2E9xotXNp6hZWl7s6EoGMk7wtu
+	xc65fyXaz9Wj3P1nBM3IIl6mbv/RPhVlfADRlW2kgVmoJAXcTv1gIX8+
+X-Gm-Gg: AYBFou0kmgdtymp5EQXdYTVqM21Byo64/1olgdPtVxhCGgRFvzbYQAYToUmYcsZB7+L
+	/oaBPUshCjl2tXPpfADKCxnkO4IzZoeUDxoIhkYiV1+NWF7+aJwEawzxcATFhhOTtEMe2Ld8cmr
+	+WQN/htOf0Ed00F4FYR7LB996x0DnrGwxMDiF6+9fMhNCch5YycEEFk0ThFR/q7940e5N335uFj
+	fMZj5ulbMlUlzzDBA8569PXFOJPQOoEEVUr42eiZ9t+7VBCNAnV24QYOUDC0XxeN7uBEIXFaTkl
+	6quXNp/ixjhYdQ2mYLq5sypTMZDB24Yiruo9+tPDIO7KUC1pLHZAmoDkaitdNq+3kCFnGUoVJjN
+	XBd/2Dziyb39Q7aIc/JYr/wzVeijPiG3fPGl1RcCM6koWTStfdh/9qpNM4CEmE7RxfJW2bdUh5A
+	Jje+09esGIrVUFa/nt4/sGBYugLH0m/8ci54sroo8ESxiWfH8jg+JqvHvViiA77OEuRnefeVRaN
+	p0bT0WJMgY1RqMMbfySk6KyTyrwDBsw9c1MADtNwjZ+YPOf9VFndXOc28uSQyb/UZCj7xOz60Y/
+	w+JKPq3GaS8j/bdhzjzk1GqEJR8PSWe21BSe0lw9ztvmZ38ecTr9ZN41AtWWKTzptUIzGObXtnY
+	47s8EiawgaM5OqvIi53PY39iSg7oDeXqmUKvCguE//NoPjbmMxLlsBSQACk6jkNRm0APINKAUyB
+	HygcqH/O1XKWzSDpEKs0LQkfzfk1j9/6cunMiWhsjiEfaGEcgoUg8O
+X-Received: by 2002:a05:6808:508e:b0:4d6:90f4:48ab with SMTP id 5614622812f47-5683cd1b07bmr1294602b6e.45.1794280405078;
+        Mon, 09 Nov 2026 19:13:25 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905736b92sm1019236b6e.8.2026.11.09.19.13.22
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905736b92sm1019236b6e.8.2026.11.09.19.13.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:13:23 -0800 (PST)
+        Mon, 09 Nov 2026 19:13:24 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 20:12:58 -0700
-Subject: [PATCH v9 09/11] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner A523
+Date: Mon, 09 Nov 2026 20:12:59 -0700
+Subject: [PATCH v9 10/11] serial: 8250_dw: discover Allwinner A523 FIFO
+ depths through FCC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-h616-uart-fifo-v1-v9-9-3f03961dae8a@gmail.com>
+Message-Id: <20261109-submit-h616-uart-fifo-v1-v9-10-3f03961dae8a@gmail.com>
 References: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
 In-Reply-To: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
@@ -108,37 +108,97 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Samuel Holland <samuel@sholland.org>
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The A523 UART integration has different FIFO depths across its controllers
-and reports each controller's depth in the FIFO Clock Control register.
-The receive thresholds follow the standard DesignWare FIFO-relative
-mapping, while the optional-register layout differs from the generic
-DesignWare integration.
+The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
+on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
+its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
+offset 0xf0. The field holds a byte count, not a logarithmic encoding.
 
-Add a compatible for this integration, also used by A527 and T527, with
-snps,dw-apb-uart as a fallback.
+Read this field in the sunxi setup callback when platform data does not
+provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
+its 256-byte configuration without accessing FCC. The probe has already
+enabled the clocks and deasserted reset before invoking the callback.
+Leave the FIFO clock-control bits untouched.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Use the shared DesignWare trigger setup to validate the depth and build
+the FIFO-relative threshold table. Invalid depths fail probe before
+registration instead of producing zero or truncated thresholds. The 8250
+core derives the transmit load from the discovered depth.
+
+Select this setup for the A523 compatible. Like H616, this integration
+has Allwinner-specific debug-divisor and RS485 registers overlapping the
+generic DesignWare feature probes. Use the common sunxi PIO setup,
+BUSY-safe integer divisor programming and software RS485 handling. Keep
+the APB clock gate enabled during termios updates with SKIP_SET_RATE.
+
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/8250/8250_dw.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-index fc1289073241..ea6ce99178e3 100644
---- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-@@ -61,6 +61,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun50i-h616-uart
-+              - allwinner,sun55i-a523-uart
-               - anlogic,dr1v90-uart
-               - brcm,bcm11351-dw-apb-uart
-               - brcm,bcm21664-dw-apb-uart
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index a55f60330a51..257baab5a3ed 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -44,6 +44,10 @@
+ #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
+ #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
+ 
++/* Allwinner FIFO Clock Control register */
++#define SUNXI_UART_FCC			0xf0
++#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
++
+ /* Quirks */
+ #define DW_UART_QUIRK_OCTEON		BIT(0)
+ #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
+@@ -63,6 +67,7 @@
+ struct dw8250_platform_data {
+ 	u8 usr_reg;
+ 	u32 cpr_value;
++	/* Fixed FIFO depth; zero selects discovery during setup */
+ 	unsigned int fifo_size;
+ 	unsigned int quirks;
+ 	int (*setup)(struct uart_port *p);
+@@ -666,7 +671,15 @@ static int dw8250_sunxi_setup(struct uart_port *p)
+ 
+ 	p->type = PORT_16550A;
+ 	p->flags |= UPF_FIXED_TYPE;
+-	p->fifosize = data->pdata->fifo_size;
++
++	/* Apply given FIFO size or try to autodetect it */
++	if (data->pdata->fifo_size) {
++		p->fifosize = data->pdata->fifo_size;
++	} else {
++		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
++
++		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
++	}
+ 
+ 	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
+ 
+@@ -913,6 +926,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
+ 	.setup = dw8250_sunxi_setup,
+ };
+ 
++static const struct dw8250_platform_data dw8250_a523_data = {
++	.usr_reg = DW_UART_USR,
++	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
++	.setup = dw8250_sunxi_setup,
++};
++
+ static const struct dw8250_platform_data dw8250_octeon_3860_data = {
+ 	.usr_reg = OCTEON_UART_USR,
+ 	.quirks = DW_UART_QUIRK_OCTEON,
+@@ -965,6 +984,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+ static const struct of_device_id dw8250_of_match[] = {
+ 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+ 	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
++	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
+ 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+ 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+ 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
 
 -- 
 2.53.0
