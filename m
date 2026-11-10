@@ -1,85 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315405;
-	b=XrKgUVR8lJcpmZ1UcbF8g1PChJT/k7KAm1hMSZEJLbojZTTEaErICqZaT/MfkzN9WAU+
-	 QgPAO192ive5RK6pTVjeBoI7XuCrQyUJS+mz0Lz0P+OJ0z4dYX31/XDlUup4MJmb53Jnw
-	 4K/Jvtp5MXc3FP0GZuZHikWTZVxR96QIoZ30x86XSzrWSbWJIkRVWfVSl1ZyizIYOrB4w
-	 XNUZZQKgySAcNv7hdzbyJa2fEHoG3yOU6bGBg05xfod30spXNQN8R9BTnG8zmuiikZ1WK
-	 DTRPAsHWqr4qQSMKM/07LWZKtVJhrZxQUnbDAsjX7vDuwfUyoksfuMyMRO7JifMPQ0A==
+	t=1794315415;
+	b=5LW9jf21YmEq+KeuMXSqJ3EXE7/28FWXpHvXDtvy+/ZVukEDhygMi27Vzf90AMQXzxnX
+	 gPBFin7/wQ58qE9m5yatZE3xh0ng3F/cVtSxxE8kv/k5ddtFCsx/zTvSPAWPrLMTOrzZH
+	 J+TM3llxCoXpyatKClzjWVflMsyIwmDJUNsYEFner9f3cDTG1ET86k8d/QYcdz8xb9cKG
+	 9rMx23IrOhNA+gmc2CAm+5yYOYVXEw+RFcXlBLsLYmugp6sb5DtrpM3/8nG2/KVBqMmr1
+	 bOdDHhPQqZpYFKgk6W1XTaH0m3t7zkswIWiA694QvD4Ftno/5Xk259MxCW2uyDB/+Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315415;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
-	b=pHI/ASVObzA4y51C0v1Z+DnnoY2YfjvIDMNqILbt5VGe1c9RScST2T7iivr0H5lmz/AC
-	 OOpsem+JPbreRyOl+dCAVwZO4pITsTWjXQB6e3CYFR81t69Jx6brvBuVBRqiVAil83muK
-	 A5g/LFCzOauCnPTH1GzgTtWoN8ca4AwpKtPMsboIctT5Ozgr2yGkV7f8OimtUSI2jLYnY
-	 1SuIoFnQ5SjUAjhWpMoIgc1GzHpSH4QSDayTFvx7xGqux2447ecR502AlTfGLz60T8Ip3
-	 Lj4NRteh+zNTRFmlAVh5VFSa5XgXoOdrUf71VxxeB0LGF2xUwJWrU/QqAk+Wh39R6+g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IeOT9xLeeqacFZZnQmq4TBiIPHeJUjHe1IrFDqXdtIE=;
+	b=ZsHfMwg2iAmWzx4nR4bYQzi5KGM7ApZOODX+eH/nu4MB0NqZWUf2/xJeiM93ROU3tcp4
+	 KIvSBEoFdDlvmC5FJAlYTk4OtK3iKTiNCSposudVghUY2Vke1s0hqZzkiWIPfS+GrfReB
+	 1zESp47tWYqn3GRngCwI6yKfFLOJW7oZdoeu6eBtXpKGfPXxkHh55rFrYw8EHo+mcKYG9
+	 wrStoa/b50ZEe69ffiMKUmwz6yOWfitlJtAuU9iQBPX/eGyB6XSTJwwWqPdllGlfm7rqb
+	 mK+0bf0cjnMQ6VMF3a+YYV8Vl6VMFnhr/ZqSEJCS/d8hNSc4nHNN1r909jz7Ydsc1jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=B3iJeP0V;
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b96gF91f;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1585606D5D6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1585606D5D6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FD3606E445
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FD3606E445
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=B3iJeP0V
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ecde8e8e5bso547398e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:56:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b96gF91f
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so19647875e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:56:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794315404; x=1794920204; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
-        b=B3iJeP0VqOibLx/oHU379JhvLuL5xoHtXPOSUDz1sWhQq3L6oFf2bvSFc1MOgJFpsk
-         RH7eI3twEeghXtQ/Gk0Jj8E/OIuyPJtOVIv5QU+CMQrlde3D4Zc/qL0Xz1umU76GfSvN
-         3W3Ys46pB5DBi7ADjnu72bDFF65QV+tmu7+yIYy48KqnK2nc00twgRldIQCpHQdU+c1T
-         ca3u4c3qGNmz9c/L+fD1jlkf/u+FY+feBQqAAdd+4GQC/efExzpnavMzwuladM5T9A1O
-         ChELZT7mPSGcLB7aLK/BGp2p0aZ/4WFMNh9MLPSeMdy5DOg6pitTxINH6bCR12ZxmaZ6
-         khCg==
+        d=gmail.com; s=20260707; t=1794315413; x=1794920213; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IeOT9xLeeqacFZZnQmq4TBiIPHeJUjHe1IrFDqXdtIE=;
+        b=b96gF91fgxmu7AFw8Mr3FEqFQ1VWCSFJQHvEcELbcupQM6RiwMuR47GJ4cPF3X5662
+         YoJD4CONI3OAlFpd12UpcJHjLiPYDep5ZS259XUDuVAq4rf7jpdoHndoXCzx1Ot2kTtC
+         WrskDTHBNkJa2qMV4ssYkbQiXNQQgTRoleYTjQChfwKzdeEYrzVfK3y7AU0yQti/KTZN
+         Jdsa7IkeLc6SbkDGQ3Bo/POgQJjWTreqQa+DyUK4snQdaVS34uZwrNO1yncURZMIiwDW
+         dDmrqpafu6L3ShEDn/ftW+ehZ2NkLhmtrh4057tDWysFrxBiUTvaLil9/T8Yz7rxfN56
+         D3EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315404; x=1794920204;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794315413; x=1794920213;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
-        b=enoAWvvyNr6eF34bGaUOLYUCsyuN6GdTWcmaJU3jbZUi1YLpuOpQN/ARG3G6DzJeZ5
-         ZaXg/G19iZyC0ILnnMn77lihVN2/lSHRnOz9CBchvGJiOprcH9wBPBXQYnsMvRPFBVy2
-         +NCWkS0XOdeOOdVrM2+NovjM0G2wOcijj2Rjbg1tHdp+/Lqavu4si0E0GEPqxVUxuYTx
-         7yst0RD7uRrC7bJVXyQKURGpxKEmfRPZcoFI65WCzn/OT1zkXYRug0YU9/NZIeLQxPpc
-         pfuS5BRJkIc2RTAtuEqswEJFjokCyTrBY5CpzdyiYbIeWtB5mqt1UwFVonnbjkgn+AGR
-         0P5A==
-X-Forwarded-Encrypted: i=1; AL+hErHCBAbt6lEs3EWnsg+bqsBj9Z56bdeHwjUAfbK6TMxaWkK238HMfuaaGKohtvfjNpLrfYGx7ulsysLkyBg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ptck7W4B5tcIG6Jk0wdyDeNgC6TzDlsS6z+aCnWAzdjBp6S7p
-	Rw/p/W+QChcswTXE+uHlc2ySo2N2nSMLIr90Y1j2u4EZvSijXKDjNoLH+Aef+kHaoKw=
-X-Gm-Gg: AYBFou349XCVNEmCTPWbY+ozix5nEnMZbZ40xCNtw95FOkrb5G3+UXGm01Ny0CB9vqQ
-	reXJvW4JSobu10pI8CKrMhdlN17N1/sAWZeexRE51yxT+/YCyIuG8zoINsnJN6+JvdVDryfU3Wl
-	a3Mvifq4u4g9VDYeAy9QO9vETZiWaC2jRqIHU6Y3jFNg1vF+Kz2KRFjS6TT7PK6K2/U7XJAqEDB
-	hrzf3HMBeoICoWhVVPoWJ6RymDgD3z9EkBFJJbN0uaM0rCEBZlYyVtt4NozTftbc/KOksQBGsUf
-	ZpS1LjdiIfHE2LZ/859AlH2sWi07W7NXQEkYvnq6TjxYQzuGMtXp4S6H8RFuZDbs/XhKy9It+aq
-	28KyoRIrht6AKCSV6mBI4x9XQeV0mZWhGUrNOkn5Ll5Opex0XYdntjMyKk8vnOivub8IRfDLPA5
-	WDFsK+GVLkK4wKrQhzZpD/cIaTelPy50wciejcULohxVLRkCK7vM7DHoFnXwNM15eIpvtG3fIrm
-	96cqZ9ECsItvKcI9R1FuzlxhlrqUgqQ6kuV6xLkLfZPeRAnAu23rK3PSkoXEy6mXc1wAr/u9Eu7
-	wYfyIR+rrXUiz0qM16cG/fxIjHFPL2wgEig5BmqcQrh0T4vvBDlGxE41EjBtDpHcnblX7HIJJtX
-	990gn/Qh89Qjwadn7DNrkmf7T2YrgHAQ/Of2XKBd7v+MgZw3BDKMn
-X-Received: by 2002:a05:6122:3407:b0:5ec:3e18:a8da with SMTP id 71dfb90a1353d-5ee0d14a2e5mr823009e0c.17.1794315403552;
-        Tue, 10 Nov 2026 04:56:43 -0800 (PST)
-Received: from localhost (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5b2233sm1547234e0c.10.2026.11.10.04.56.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:56:42 -0800 (PST)
+        bh=IeOT9xLeeqacFZZnQmq4TBiIPHeJUjHe1IrFDqXdtIE=;
+        b=u97NZU1dMi0oqXIrqeWT+3SXg61zz8Ieuzfz3R3Q+DdWrelAKwqDhKlH7DyFWtSSPp
+         UV17yWJ8WTvVVMKGOBoFD8xax/mK47DW/uZWsgKMLcJIUwpimWSRI7BBZP37+ggAuj0J
+         MFRD4F1r/DsKCVfVhgVVkYcv3usYVngR27xcBLXodMHPDwF04t7Ji2+zy+unAVvEO+Q+
+         RhPrr8QrHyFLKd9lHs/KlKedo+JLUak5f2uyXA/uDcT5eLbYP7WIE1e+rdqbTPGeQOjy
+         x/45r/c+NNfPNiSYP4EsxV1WD6VAbF44NdmnolzYTgJef9gwBb7HFkGDFdYR+HBdbDOM
+         /7oQ==
+X-Forwarded-Encrypted: i=1; AL+hErHM0K9yRLAye4M4FmOAnX4BzJYUywtOK0v0qF5qAlVv/1k8y7gksa1MQ3lXLOLTiu0+6TiVNgiSSg1L8co=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+g/jzIi6WGbUTcfqKJ1uPAPs5/dG9GN6K1wL4piWDa1EZa0jM2
+	bsU6T3hu7fnvypU4sF+ql0ZPLQeG36Oc2GqO8d4m+/GJX6uLEasaXAuG
+X-Gm-Gg: AYBFou1gdjkrj7loE6o4CU/HnKXmsKSozqwrYjjqxa2M/jDLed5enwJ6gDR58O08+zM
+	oYeDb3Y/ZdP3Rxt2VXIMy0AvqcHwBuTqEgr8IwPHJ06bwT13Zcjt6mxNJo5DD/2HKTlHtxbUJAS
+	9yGRohETpP9o/fSbviwPmCFf0ov6rPAcx/32Xsyyvx1Z7DMQz/+mKexzPFxlXTnLzuWSCmOCrEF
+	mkRsCScYKa/3R/bw5H9NV4tUQ14vPwQ9d55zx4Zt9wP4v5n9fidqjsTQM4pVk1nwLCHtlRnm02O
+	4yG4NBP1U+L7bDathv/OuOzup408CIlkAqBJ3kLvlPjtMYxCriWGKD4Ql4zDPrGsYbYR4I9Z9Vw
+	8S0MZxCT6lkcvMvkw+AKqjLLIQ/kgSUC0OurjRiTx3/GgJnHPN7Ul201v2kKa53RESYintk4Y2V
+	50oSvILh+BvekcxUvzh24bimuKKo0nKDRHKorQ1I8+PIcnL9b+ck5oX0BC3P0x+InpETRVZz4/y
+	eiWDEmM0ZgsR8LWGgcA2BG5Jio5msjt/uj2dd6YjeOvpsX0CptnRBjwa5p+zkFFrvwLw7jntSE3
+	tkcBAc6oaizB1OM8XLC1QegkauKGqUtF+lOGug==
+X-Received: by 2002:a05:600c:3e85:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4ba023475a6mr41152805e9.15.1794315412633;
+        Tue, 10 Nov 2026 04:56:52 -0800 (PST)
+Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0236f03esm48845445e9.3.2026.11.10.04.56.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:56:51 -0800 (PST)
+Date: Tue, 10 Nov 2026 13:08:22 +0000
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Siddharth Nayyar <sidnayyar@google.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Giuliano Procida <gprocida@google.com>,
+	Neill Kapron <nkapron@google.com>,
+	=?iso-8859-1?Q?Thi=E9baud?= Weksteen <tweek@google.com>,
+	Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light
+ skeletons
+Message-ID: <avMXRmKUcsU1WEiJ@mail.gmail.com>
+References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+ <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev>
+ <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,252 +114,648 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 07:56:41 -0500
-Message-Id: <DMRJQ42LR1D3.1GZKU9EX48KZU@soleen.com>
-Cc: <kvmarm@lists.linux.dev>, <linux-pci@vger.kernel.org>, "Pratyush Yadav"
- <pratyush@kernel.org>, <kexec@lists.infradead.org>, <kvm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <skhawaja@google.com>, <sagis@google.com>, <linux-arch@vger.kernel.org>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 01/19] liveupdate, kho: Remove __packed from KHO, LUO
- and memfd ABI structures
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-To: "Tarun Sahu" <tarunsahu@google.com>, "Pasha Tatashin"
- <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>,
- <robin.murphy@arm.com>, <maz@kernel.org>, <will@kernel.org>, "David
- Matlack" <dmatlack@google.com>, "Alexander Graf" <graf@amazon.com>,
- <seanjc@google.com>, <jgg@nvidia.com>, <loganodell@google.com>,
- <arnd@arndb.de>, <dwmw2@infradead.org>, <baolu.lu@linux.intel.com>, "Bjorn
- Helgaas" <bhelgaas@google.com>, <oupton@kernel.org>, <alex@shazbot.org>,
- <gle.com@google.com>, <pbonzini@redhat.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, <kevin.tian@intel.com>, <joro@8bytes.org>
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261110050202.529473-1-tarunsahu@google.com>
- <20261110050202.529473-2-tarunsahu@google.com>
-In-Reply-To: <20261110050202.529473-2-tarunsahu@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
 
-On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
-> All structures in include/linux/kho/abi/block.h (struct
-> kho_block_header_ser), include/linux/kho/abi/luo.h (struct luo_ser,
-> struct luo_file_ser, struct luo_file_set_ser, struct luo_session_ser,
-> struct luo_flb_header_ser, struct luo_flb_ser) and
-> include/linux/kho/abi/memfd.h (struct memfd_luo_folio_ser, struct
-> memfd_luo_ser) have naturally aligned fields on 64-bit architectures,
-> with no padding holes between fields or tail padding. Assert both the
-> structure size and 8-byte alignment under CONFIG_64BIT at compile time.
-> Any future unaligned field addition should come with reserved field to
-> keep the structure aligned.
+On 26/11/09 09:39PM, Alexei Starovoitov wrote:
+> On Mon, Nov 09, 2026 at 11:46 AM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+> 
+> > Andrii, Alexei, wdyt? Any other ideas?
+> 
+> The loader asks the kernel for ids, sizes and offsets only to pass them
+> back in the next three commands:
+> 
+>   the loader asks                   and passes it back in
+>   --------------------------------  ------------------------------------
+>   id, size of bpf_struct_ops_<t>    BPF_MAP_CREATE
+>   id of <t>, index of the member    BPF_PROG_LOAD
+>   offset of data, of every member   BPF_MAP_UPDATE_ELEM
+> 
+> the kernel can match by name instead.
+> 
+> The kernel has both BTFs. BPF_MAP_CREATE of a struct_ops map demands
+> btf_fd of the object already, and bpf_struct_ops.c doesn't use it.
+> The kernel can find its struct_ops and the members by name,
+> like btf_parse_kptr() finds the type of a kptr.
+> Then the loader passes what bpftool knows when it generates
+> the skeleton:
+> 
+>   command              the loader passes
+>   -------------------  ---------------------------------------------------
+>   BPF_MAP_CREATE       btf_fd, btf_value_type_id and value_size of the
+>                        struct in the BTF of the object
+>   BPF_PROG_LOAD        attach_btf_obj_fd = btf_fd, attach_btf_id = that
+>                        struct, expected_attach_type = index of its member
+>   BPF_MAP_UPDATE_ELEM  that struct with the prog fds in it
+> 
+> The kernel rejects such BPF_MAP_CREATE and BPF_PROG_LOAD today.
+> Nothing changes for existing users.
+> The BTF of the object is in the blob, so the signature covers the names.
+> 
+> Then no need for a helper or a kfunc. The 4k buffer, the fds of module
+> BTF and the offsets at run time go away.
+> map->def.value_size, prog->attach_btf_id and prog->expected_attach_type
+> don't hold offsets into the blob.
+> 
+> The diff below replaces patches 1-5. Patches 6 and 7 stay.
+> 
+> Something like this (compile tested only):
 
-Just state:
+I like Alexei's approach better and have tested it with shirudo
+(have not tested patches 6,7, shirudo doesn't need them).
 
-Remove __packed, as it may break natural alignment. Instead, ensure that=20
-all padding holes are explicitly covered by reserved or similar fields,=20
-as is already done for KHO/LUO serialized data, so no functional changes=20
-are intended by this change.
-
->
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> ---
->  include/linux/kho/abi/block.h | 10 +++++++--
->  include/linux/kho/abi/luo.h   | 38 +++++++++++++++++++++++++++++------
->  include/linux/kho/abi/memfd.h | 16 ++++++++++++---
->  3 files changed, 53 insertions(+), 11 deletions(-)
->
-> diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.=
-h
-> index d06d64b963be..36bdbaf9b3b8 100644
-> --- a/include/linux/kho/abi/block.h
-> +++ b/include/linux/kho/abi/block.h
-> @@ -12,7 +12,7 @@
->   * pre-update kernel to a post-update kernel.
->   *
->   * This interface is a contract. Any modification to the structure field=
-s,
-> - * compatible strings, or the layout of the `__packed` serialization
-> + * compatible strings, or the layout of the serialization
->   * structures defined here constitutes a breaking change. Such changes r=
-equire
->   * incrementing the version number in the `KHO_FDT_COMPATIBLE` string to
->   * prevent a new kernel from misinterpreting data from an old kernel.
-> @@ -26,6 +26,8 @@
->  #define _LINUX_KHO_ABI_BLOCK_H
-> =20
->  #include <asm/page.h>
-> +#include <linux/build_bug.h>
-> +#include <linux/kconfig.h>
->  #include <linux/types.h>
-> =20
->  /**
-> @@ -49,6 +51,10 @@
->  struct kho_block_header_ser {
->  	u64 next;
->  	u64 count;
-> -} __packed;
-> +};
+> 
+> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+> index 520fd72e21fd..4adf8efeb990 100644
+> --- a/include/linux/bpf.h
+> +++ b/include/linux/bpf.h
+> @@ -2434,6 +2434,8 @@ void bpf_struct_ops_put(const void *kdata);
+>  int bpf_struct_ops_supported(const struct bpf_struct_ops *st_ops, u32 moff);
+>  int bpf_struct_ops_map_sys_lookup_elem(struct bpf_map *map, void *key,
+>  				       void *value);
+> +u32 bpf_struct_ops_map_update_size(const struct bpf_map *map);
+> +int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr);
+>  int bpf_struct_ops_prepare_trampoline(struct bpf_tramp_nodes *tnodes,
+>  				      struct bpf_tramp_node *node,
+>  				      const struct btf_func_model *model,
+> @@ -2511,6 +2513,14 @@ static inline int bpf_struct_ops_map_sys_lookup_elem(struct bpf_map *map,
+>  {
+>  	return -EINVAL;
+>  }
+> +static inline u32 bpf_struct_ops_map_update_size(const struct bpf_map *map)
+> +{
+> +	return map->value_size;
+> +}
+> +static inline int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr)
+> +{
+> +	return -ENOTSUPP;
+> +}
+>  static inline int bpf_struct_ops_link_create(union bpf_attr *attr)
+>  {
+>  	return -EOPNOTSUPP;
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> index 62de0919db72..e0f7ec984c64 100644
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
+> @@ -1598,6 +1598,13 @@ union bpf_attr {
+>  						   * struct stored as the
+>  						   * map value
+>  						   */
+> +		/*
+> +		 * BPF_MAP_TYPE_STRUCT_OPS takes one of the two ids.
+> +		 * btf_value_type_id is a struct in btf_fd, e.g. tcp_congestion_ops,
+> +		 * and value_size is its size. The kernel finds its struct_ops and
+> +		 * the members by name. BPF_MAP_UPDATE_ELEM takes the struct of
+> +		 * btf_fd. BPF_MAP_LOOKUP_ELEM returns the struct of the kernel.
+> +		 */
+>  		/* Any per-map-type extra fields
+>  		 *
+>  		 * BPF_MAP_TYPE_BLOOM_FILTER - the lowest 4 bits indicate the
+> @@ -1685,7 +1692,13 @@ union bpf_attr {
+>  		union {
+>  			/* valid prog_fd to attach to bpf prog */
+>  			__u32		attach_prog_fd;
+> -			/* or valid module BTF object fd or 0 to attach to vmlinux */
+> +			/*
+> +			 * or valid module BTF object fd or 0 to attach to vmlinux.
+> +			 * BPF_PROG_TYPE_STRUCT_OPS takes the BTF of the bpf object too.
+> +			 * Then attach_btf_id is a struct in that BTF and
+> +			 * expected_attach_type is the index of its member.
+> +			 * The kernel finds its struct_ops and the member by name.
+> +			 */
+>  			__u32		attach_btf_obj_fd;
+>  		};
+>  		__u32		core_relo_cnt;	/* number of bpf_core_relo */
+> diff --git a/kernel/bpf/bpf_struct_ops.c b/kernel/bpf/bpf_struct_ops.c
+> index 7c5cd6086e27..eb1144ca5c11 100644
+> --- a/kernel/bpf/bpf_struct_ops.c
+> +++ b/kernel/bpf/bpf_struct_ops.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/rcupdate_wait.h>
+>  #include <linux/poll.h>
+>  #include <linux/bpf-cgroup.h>
+> +#include "../tools/lib/bpf/relo_core.h"
+>  
+>  struct bpf_struct_ops_value {
+>  	struct bpf_struct_ops_common_value common;
+> @@ -42,6 +43,12 @@ struct bpf_struct_ops_map {
+>  	void *image_pages[MAX_TRAMP_IMAGE_PAGES];
+>  	/* The owner moduler's btf. */
+>  	struct btf *btf;
+> +	/*
+> +	 * Like in CO-RE "local" is what the BTF of the bpf object has.
+> +	 * When local_type is set map_update_elem() takes this struct.
+> +	 */
+> +	struct btf *local_btf;
+> +	const struct btf_type *local_type;
+>  	/* uvalue->data stores the kernel struct
+>  	 * (e.g. tcp_congestion_ops) that is more useful
+>  	 * to userspace than the kvalue.  For example,
+> @@ -724,8 +731,136 @@ static void bpf_struct_ops_map_free_ksyms(struct bpf_struct_ops_map *st_map)
+>  	}
+>  }
+>  
+> -static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
+> -					   void *value, u64 flags)
+> +static const struct btf_member *find_member(const struct btf *btf, const struct btf_type *t,
+> +					    const char *name)
+> +{
+> +	const struct btf_member *member;
+> +	u32 i;
 > +
-> +static_assert(sizeof(struct kho_block_header_ser) =3D=3D 16);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct kho_block_header_ser) =3D=3D 8);
-> =20
->  #endif /* _LINUX_KHO_ABI_BLOCK_H */
-> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
-> index 288076de6d4a..721949374fa1 100644
-> --- a/include/linux/kho/abi/luo.h
-> +++ b/include/linux/kho/abi/luo.h
-> @@ -58,6 +58,8 @@
->  #define _LINUX_KHO_ABI_LUO_H
-> =20
->  #include <linux/align.h>
-> +#include <linux/build_bug.h>
-> +#include <linux/kconfig.h>
->  #include <linux/kho/abi/block.h>
->  #include <uapi/linux/liveupdate.h>
-> =20
-> @@ -82,7 +84,11 @@ struct luo_ser {
->  	u64 liveupdate_num;
->  	u64 sessions_pa;
->  	u64 flbs_pa;
-> -} __packed;
-> +};
+> +	for_each_member(i, t, member)
+> +		if (!strcmp(btf_name_by_offset(btf, member->name_off), name))
+> +			return member;
+> +	return NULL;
+> +}
 > +
-> +static_assert(sizeof(struct luo_ser) =3D=3D 32);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_ser) =3D=3D 8);
-
-Please remove the two assertions above throughout this patch, as they=20
-are replaced later in the series. In general, introducing add -> remove=20
--> add churn across a patch series is discouraged, as it indicates a=20
-lack of planning.
-
-> =20
->  #define LIVEUPDATE_HNDL_COMPAT_LENGTH	48
-> =20
-> @@ -98,7 +104,11 @@ struct luo_file_ser {
->  	char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
->  	u64 data;
->  	u64 token;
-> -} __packed;
-> +};
+> +/*
+> + * 'id' is a local struct, e.g. tcp_congestion_ops or tcp_congestion_ops___v2.
+> + * Find bpf_struct_ops_tcp_congestion_ops in the BTF of vmlinux or of a module.
+> + * A module can have it for a struct of vmlinux. The caller does btf_put(*kern_btf).
+> + */
+> +static const struct bpf_struct_ops_desc *
+> +find_desc_by_local_type(const struct btf *btf, u32 id, struct btf **kern_btf)
+> +{
+> +	const struct btf_type *t = btf_type_by_id(btf, id);
+> +	const struct bpf_struct_ops_desc *st_ops_desc;
+> +	char name[KSYM_NAME_LEN];
+> +	const char *tname;
+> +	s32 value_id;
 > +
-> +static_assert(sizeof(struct luo_file_ser) =3D=3D 64);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_file_ser) =3D=3D 8);
-> =20
->  /**
->   * struct luo_file_set_ser - Represents the serialized metadata for file=
- set
-> @@ -113,7 +123,11 @@ struct luo_file_ser {
->  struct luo_file_set_ser {
->  	u64 files;
->  	u64 count;
-> -} __packed;
-> +};
+> +	if (!t || !__btf_type_is_struct(t))
+> +		return ERR_PTR(-EINVAL);
+> +	tname = btf_name_by_offset(btf, t->name_off);
+> +	if (snprintf(name, sizeof(name), VALUE_PREFIX "%.*s",
+> +		     (int)bpf_core_essential_name_len(tname), tname) >= sizeof(name))
+> +		return ERR_PTR(-EINVAL);
+> +	value_id = bpf_find_btf_id(name, BTF_KIND_STRUCT, kern_btf);
+> +	if (value_id < 0)
+> +		return ERR_PTR(value_id);
+> +	st_ops_desc = bpf_struct_ops_find_value(*kern_btf, value_id);
+> +	if (!st_ops_desc) {
+> +		btf_put(*kern_btf);
+> +		return ERR_PTR(-ENOTSUPP);
+> +	}
+> +	return st_ops_desc;
+> +}
 > +
-> +static_assert(sizeof(struct luo_file_set_ser) =3D=3D 16);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_file_set_ser) =3D=3D 8);
-> =20
->  /**
->   * struct luo_session_ser - Represents the serialized metadata for a LUO=
- session.
-> @@ -131,7 +145,11 @@ struct luo_file_set_ser {
->  struct luo_session_ser {
->  	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
->  	struct luo_file_set_ser file_set_ser;
-> -} __packed;
-> +};
+> +/*
+> + * attach_btf_id is a local struct and expected_attach_type is the index of its
+> + * member. Replace them, and the BTF, with what the kernel has under the same names.
+> + */
+> +int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr)
+> +{
+> +	const struct bpf_struct_ops_desc *st_ops_desc;
+> +	const struct btf_member *member;
+> +	const struct btf_type *t;
+> +	struct btf *kern_btf;
 > +
-> +static_assert(sizeof(struct luo_session_ser) =3D=3D 80);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_session_ser) =3D=3D 8);
-> =20
->  /* The max size is set so it can be reliably used during in serializatio=
-n */
->  #define LIVEUPDATE_FLB_COMPAT_LENGTH	48
-> @@ -152,7 +170,11 @@ struct luo_session_ser {
->  struct luo_flb_header_ser {
->  	u64 pgcnt;
->  	u64 count;
-> -} __packed;
-> +};
+> +	st_ops_desc = find_desc_by_local_type(*btf, attr->attach_btf_id, &kern_btf);
+> +	if (IS_ERR(st_ops_desc))
+> +		return PTR_ERR(st_ops_desc);
+> +	t = btf_type_by_id(*btf, attr->attach_btf_id);
+> +	if (attr->expected_attach_type >= btf_type_vlen(t)) {
+> +		btf_put(kern_btf);
+> +		return -EINVAL;
+> +	}
+> +	member = btf_type_member(t) + attr->expected_attach_type;
+> +	member = find_member(kern_btf, st_ops_desc->type,
+> +			     btf_name_by_offset(*btf, member->name_off));
+> +	if (!member) {
+> +		btf_put(kern_btf);
+> +		return -ENOENT;
+> +	}
+> +	attr->attach_btf_id = st_ops_desc->type_id;
+> +	attr->expected_attach_type = member - btf_type_member(st_ops_desc->type);
+> +	btf_put(*btf);
+> +	*btf = kern_btf;
+> +	return 0;
+> +}
 > +
-> +static_assert(sizeof(struct luo_flb_header_ser) =3D=3D 16);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_flb_header_ser) =3D=3D 8);
-> =20
->  /**
->   * struct luo_flb_ser - Represents the serialized state of a single FLB =
-object.
-> @@ -175,7 +197,11 @@ struct luo_flb_ser {
->  	char name[LIVEUPDATE_FLB_COMPAT_LENGTH];
->  	u64 data;
->  	u64 count;
-> -} __packed;
-> +};
+> +u32 bpf_struct_ops_map_update_size(const struct bpf_map *map)
+> +{
+> +	const struct bpf_struct_ops_map *st_map = (const struct bpf_struct_ops_map *)map;
 > +
-> +static_assert(sizeof(struct luo_flb_ser) =3D=3D 64);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct luo_flb_ser) =3D=3D 8);
-> =20
->  /* Kernel Live Update Test ABI */
->  #ifdef CONFIG_LIVEUPDATE_TEST
-> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.=
-h
-> index 08b10fea2afc..376a724a1d8c 100644
-> --- a/include/linux/kho/abi/memfd.h
-> +++ b/include/linux/kho/abi/memfd.h
-> @@ -11,6 +11,8 @@
->  #ifndef _LINUX_KHO_ABI_MEMFD_H
->  #define _LINUX_KHO_ABI_MEMFD_H
-> =20
-> +#include <linux/build_bug.h>
-> +#include <linux/kconfig.h>
->  #include <linux/types.h>
->  #include <linux/kho/abi/kexec_handover.h>
-> =20
-> @@ -20,7 +22,7 @@
->   * memfd uses the ABI defined below for preserving its state across a ke=
-xec
->   * reboot using the LUO.
->   *
-> - * The state is serialized into a packed structure `struct memfd_luo_ser=
-`
-> + * The state is serialized into `struct memfd_luo_ser`
->   * which is handed over to the next kernel via the KHO mechanism.
->   *
->   * This interface is a contract. Any modification to the structure layou=
-t
-> @@ -54,7 +56,11 @@ struct memfd_luo_folio_ser {
->  	u64 pfn:52;
->  	u64 flags:12;
->  	u64 index;
-> -} __packed;
-> +};
+> +	return st_map->local_type ? st_map->local_type->size : map->value_size;
+> +}
 > +
-> +static_assert(sizeof(struct memfd_luo_folio_ser) =3D=3D 16);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct memfd_luo_folio_ser) =3D=3D 8);
-> =20
->  /*
->   * The set of seals this version supports preserving. If support for any=
- new
-> @@ -85,7 +91,11 @@ struct memfd_luo_ser {
->  	u32 flags;
->  	u64 nr_folios;
->  	struct kho_vmalloc folios;
-> -} __packed;
-> +};
+> +/*
+> + * 'data' has the layout of the local struct. Copy every member to the place
+> + * of the member with the same name in the struct of the kernel.
+> + */
+> +static void *local_to_kern_value(const struct bpf_struct_ops_map *st_map, const void *data)
+> +{
+> +	const struct btf_type *t = st_map->local_type, *kern_t = st_map->st_ops_desc->type;
+> +	const struct btf *btf = st_map->local_btf, *kern_btf = st_map->btf;
+> +	const struct btf_member *member, *kern_member;
+> +	struct bpf_struct_ops_value *value;
+> +	u32 i, size, kern_size;
+> +	int err = -EINVAL;
 > +
-> +static_assert(sizeof(struct memfd_luo_ser) =3D=3D 48);
-> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-> +	      __alignof__(struct memfd_luo_ser) =3D=3D 8);
-> =20
->  /* The compatibility string for memfd file handler */
->  #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
-
---=20
-Pasha
-
+> +	value = kvzalloc(st_map->map.value_size, GFP_USER);
+> +	if (!value)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	for_each_member(i, t, member) {
+> +		const void *src = data + __btf_member_bit_offset(t, member) / 8;
+> +
+> +		if (__btf_member_bitfield_size(t, member) ||
+> +		    IS_ERR(btf_resolve_size(btf, btf_type_by_id(btf, member->type), &size)))
+> +			goto err;
+> +		kern_member = find_member(kern_btf, kern_t,
+> +					  btf_name_by_offset(btf, member->name_off));
+> +		if (!kern_member) {
+> +			/* This kernel doesn't have the member. That's fine when it's not in use. */
+> +			if (!memchr_inv(src, 0, size))
+> +				continue;
+> +			err = -ENOENT;
+> +			goto err;
+> +		}
+> +		if (__btf_member_bitfield_size(kern_t, kern_member) ||
+> +		    IS_ERR(btf_resolve_size(kern_btf, btf_type_by_id(kern_btf, kern_member->type),
+> +					    &kern_size)) ||
+> +		    size != kern_size)
+> +			goto err;
+> +		memcpy(value->data + __btf_member_bit_offset(kern_t, kern_member) / 8, src, size);
+> +	}
+> +	return value;
+> +err:
+> +	kvfree(value);
+> +	return ERR_PTR(err);
+> +}
+> +
+> +static long __bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
+> +					     void *value, u64 flags)
+>  {
+>  	struct bpf_struct_ops_map *st_map = (struct bpf_struct_ops_map *)map;
+>  	const struct bpf_struct_ops_desc *st_ops_desc = st_map->st_ops_desc;
+> @@ -960,6 +1095,23 @@ static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
+>  	return err;
+>  }
+>  
+> +static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
+> +					   void *value, u64 flags)
+> +{
+> +	struct bpf_struct_ops_map *st_map = (struct bpf_struct_ops_map *)map;
+> +	long err;
+> +
+> +	if (!st_map->local_type)
+> +		return __bpf_struct_ops_map_update_elem(map, key, value, flags);
+> +
+> +	value = local_to_kern_value(st_map, value);
+> +	if (IS_ERR(value))
+> +		return PTR_ERR(value);
+> +	err = __bpf_struct_ops_map_update_elem(map, key, value, flags);
+> +	kvfree(value);
+> +	return err;
+> +}
+> +
+>  static long bpf_struct_ops_map_delete_elem(struct bpf_map *map, void *key)
+>  {
+>  	enum bpf_struct_ops_state prev_state;
+> @@ -1022,6 +1174,7 @@ static void __bpf_struct_ops_map_free(struct bpf_map *map)
+>  	bpf_map_area_free(st_map->ksyms);
+>  	bpf_struct_ops_map_free_image(st_map);
+>  	bpf_map_area_free(st_map->uvalue);
+> +	btf_put(st_map->local_btf);
+>  	bpf_map_area_free(st_map);
+>  }
+>  
+> @@ -1056,11 +1209,53 @@ static int bpf_struct_ops_map_alloc_check(union bpf_attr *attr)
+>  {
+>  	if (attr->key_size != sizeof(unsigned int) || attr->max_entries != 1 ||
+>  	    (attr->map_flags & ~(BPF_F_LINK | BPF_F_VTYPE_BTF_OBJ_FD)) ||
+> -	    !attr->btf_vmlinux_value_type_id)
+> +	    (!attr->btf_vmlinux_value_type_id && !attr->btf_value_type_id))
+>  		return -EINVAL;
+>  	return 0;
+>  }
+>  
+> +/*
+> + * btf_value_type_id and value_size are of a local struct. Replace them with
+> + * btf_vmlinux_value_type_id and value_size of the struct_ops with the same name,
+> + * so that everything but map_update_elem() sees a regular struct_ops map.
+> + * Return the local BTF. A module that has the struct_ops is pinned.
+> + */
+> +static struct btf *local_to_kern_attr(union bpf_attr *attr, const struct btf_type **local_type,
+> +				      struct btf **kern_btf, struct module **mod)
+> +{
+> +	const struct bpf_struct_ops_desc *st_ops_desc;
+> +	struct btf *btf;
+> +
+> +	if (attr->btf_key_type_id || (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD))
+> +		return ERR_PTR(-EINVAL);
+> +	btf = btf_get_by_fd(attr->btf_fd);
+> +	if (IS_ERR(btf))
+> +		return btf;
+> +	st_ops_desc = find_desc_by_local_type(btf, attr->btf_value_type_id, kern_btf);
+> +	if (IS_ERR(st_ops_desc)) {
+> +		btf_put(btf);
+> +		return ERR_CAST(st_ops_desc);
+> +	}
+> +	*local_type = btf_type_by_id(btf, attr->btf_value_type_id);
+> +	if (attr->value_size != (*local_type)->size)
+> +		goto err;
+> +	if (btf_is_module(*kern_btf)) {
+> +		*mod = btf_try_get_module(*kern_btf);
+> +		if (!*mod)
+> +			goto err;
+> +	}
+> +	attr->btf_value_type_id = 0;
+> +	attr->btf_vmlinux_value_type_id = st_ops_desc->value_id;
+> +	attr->value_size = st_ops_desc->value_type->size;
+> +	/* The module holds its BTF. The BTF of vmlinux doesn't go away. */
+> +	btf_put(*kern_btf);
+> +	return btf;
+> +err:
+> +	btf_put(*kern_btf);
+> +	btf_put(btf);
+> +	return ERR_PTR(-EINVAL);
+> +}
+> +
+>  static u32 count_func_ptrs(const struct btf *btf, const struct btf_type *t)
+>  {
+>  	int i;
+> @@ -1079,13 +1274,17 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
+>  	const struct bpf_struct_ops_desc *st_ops_desc;
+>  	size_t st_map_size;
+>  	struct bpf_struct_ops_map *st_map;
+> -	const struct btf_type *t, *vt;
+> +	const struct btf_type *t, *vt, *local_type = NULL;
+> +	struct btf *btf, *local_btf = NULL;
+>  	struct module *mod = NULL;
+>  	struct bpf_map *map;
+> -	struct btf *btf;
+>  	int ret;
+>  
+> -	if (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD) {
+> +	if (attr->btf_value_type_id) {
+> +		local_btf = local_to_kern_attr(attr, &local_type, &btf, &mod);
+> +		if (IS_ERR(local_btf))
+> +			return ERR_CAST(local_btf);
+> +	} else if (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD) {
+>  		/* The map holds btf for its whole life time. */
+>  		btf = btf_get_by_fd(attr->value_type_btf_obj_fd);
+>  		if (IS_ERR(btf))
+> @@ -1158,6 +1357,8 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
+>  		goto errout_free;
+>  	}
+>  	st_map->btf = btf;
+> +	st_map->local_btf = local_btf;
+> +	st_map->local_type = local_type;
+>  
+>  	mutex_init(&st_map->lock);
+>  	bpf_map_init_from_attr(map, attr);
+> @@ -1173,6 +1374,7 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
+>  	__bpf_struct_ops_map_free(map);
+>  errout:
+>  	module_put(mod);
+> +	btf_put(local_btf);
+>  
+>  	return ERR_PTR(ret);
+>  }
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index 9004f2673ccf..d8d5a700c98f 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+> @@ -1896,6 +1896,8 @@ static int map_update_elem(union bpf_attr *attr, bpfptr_t uattr)
+>  	}
+>  
+>  	value_size = bpf_map_value_size(map, attr->flags);
+> +	if (map->map_type == BPF_MAP_TYPE_STRUCT_OPS)
+> +		value_size = bpf_struct_ops_map_update_size(map);
+>  	value = kvmemdup_bpfptr(uvalue, value_size);
+>  	if (IS_ERR(value)) {
+>  		err = PTR_ERR(value);
+> @@ -3040,12 +3042,14 @@ static int bpf_prog_load(union bpf_attr *attr, bpfptr_t uattr, struct bpf_log_at
+>  				goto put_token;
+>  			}
+>  			if (!btf_is_kernel(attach_btf)) {
+> -				/* attaching through specifying bpf_prog's BTF
+> -				 * objects directly might be supported eventually
+> -				 */
+> -				btf_put(attach_btf);
+> +				/* only struct_ops can name its target in the BTF of the object */
+>  				err = -ENOTSUPP;
+> -				goto put_token;
+> +				if (type == BPF_PROG_TYPE_STRUCT_OPS)
+> +					err = bpf_struct_ops_resolve_attach(&attach_btf, attr);
+> +				if (err) {
+> +					btf_put(attach_btf);
+> +					goto put_token;
+> +				}
+>  			}
+>  		}
+>  	} else if (attr->attach_btf_id || multi_func) {
+> diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+> index 62de0919db72..e0f7ec984c64 100644
+> --- a/tools/include/uapi/linux/bpf.h
+> +++ b/tools/include/uapi/linux/bpf.h
+> @@ -1598,6 +1598,13 @@ union bpf_attr {
+>  						   * struct stored as the
+>  						   * map value
+>  						   */
+> +		/*
+> +		 * BPF_MAP_TYPE_STRUCT_OPS takes one of the two ids.
+> +		 * btf_value_type_id is a struct in btf_fd, e.g. tcp_congestion_ops,
+> +		 * and value_size is its size. The kernel finds its struct_ops and
+> +		 * the members by name. BPF_MAP_UPDATE_ELEM takes the struct of
+> +		 * btf_fd. BPF_MAP_LOOKUP_ELEM returns the struct of the kernel.
+> +		 */
+>  		/* Any per-map-type extra fields
+>  		 *
+>  		 * BPF_MAP_TYPE_BLOOM_FILTER - the lowest 4 bits indicate the
+> @@ -1685,7 +1692,13 @@ union bpf_attr {
+>  		union {
+>  			/* valid prog_fd to attach to bpf prog */
+>  			__u32		attach_prog_fd;
+> -			/* or valid module BTF object fd or 0 to attach to vmlinux */
+> +			/*
+> +			 * or valid module BTF object fd or 0 to attach to vmlinux.
+> +			 * BPF_PROG_TYPE_STRUCT_OPS takes the BTF of the bpf object too.
+> +			 * Then attach_btf_id is a struct in that BTF and
+> +			 * expected_attach_type is the index of its member.
+> +			 * The kernel finds its struct_ops and the member by name.
+> +			 */
+>  			__u32		attach_btf_obj_fd;
+>  		};
+>  		__u32		core_relo_cnt;	/* number of bpf_core_relo */
+> diff --git a/tools/lib/bpf/bpf_gen_internal.h b/tools/lib/bpf/bpf_gen_internal.h
+> index 206adf28793d..caad131b0452 100644
+> --- a/tools/lib/bpf/bpf_gen_internal.h
+> +++ b/tools/lib/bpf/bpf_gen_internal.h
+> @@ -75,6 +75,9 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
+>  			struct bpf_prog_load_opts *load_attr, int prog_idx);
+>  void bpf_gen__map_update_elem(struct bpf_gen *gen, int map_idx, void *value, __u32 value_size,
+>  			      __u64 flags);
+> +void bpf_gen__struct_ops_update_elem(struct bpf_gen *gen, int map_idx, void *value,
+> +				     __u32 value_size, const __u32 *fd_offs,
+> +				     const int *prog_idxs, int cnt);
+>  void bpf_gen__map_freeze(struct bpf_gen *gen, int map_idx);
+>  int bpf_gen__func_ptr_map_create(struct bpf_gen *gen, const char *map_name, int obj_map_idx,
+>  				 void *value, __u32 value_size, const __u32 *ptr_offs,
+> diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
+> index 555d4757a898..f496071a01f4 100644
+> --- a/tools/lib/bpf/gen_loader.c
+> +++ b/tools/lib/bpf/gen_loader.c
+> @@ -1113,6 +1113,10 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
+>  	/* populate union bpf_attr with btf_fd saved in the stack earlier */
+>  	move_stack2blob(gen, attr_field(prog_load_attr, prog_btf_fd), 4,
+>  			stack_off(btf_fd));
+> +	if (prog_type == BPF_PROG_TYPE_STRUCT_OPS)
+> +		/* attach_btf_id is a struct in the BTF of the object */
+> +		move_stack2blob(gen, attr_field(prog_load_attr, attach_btf_obj_fd), 4,
+> +				stack_off(btf_fd));
+>  	if (gen->attach_kind) {
+>  		emit_find_attach_target(gen);
+>  		/* populate union bpf_attr with btf_id and btf_obj_fd found by helper */
+> @@ -1221,6 +1225,36 @@ void bpf_gen__map_update_elem(struct bpf_gen *gen, int map_idx, void *pvalue,
+>  	emit_map_update_elem(gen, map_idx, &attr, attr_size, key, value, value_size);
+>  }
+>  
+> +/*
+> + * pvalue is the struct as the object has it. The kernel moves the members to
+> + * where it has them. The fds of the programs prog_idxs go to fd_offs.
+> + */
+> +void bpf_gen__struct_ops_update_elem(struct bpf_gen *gen, int map_idx, void *pvalue,
+> +				     __u32 value_size, const __u32 *fd_offs,
+> +				     const int *prog_idxs, int cnt)
+> +{
+> +	int attr_size = offsetofend(union bpf_attr, flags);
+> +	int value, key, zero = 0, i;
+> +	union bpf_attr attr;
+> +
+> +	memset(&attr, 0, attr_size);
+> +	value = add_data(gen, pvalue, value_size);
+> +	key = add_data(gen, &zero, sizeof(zero));
+> +
+> +	/* see bpf_gen__map_update_elem() */
+> +	if (!OPTS_GET(gen->opts, gen_hash, false))
+> +		emit_copy_initial_value(gen, map_idx, value, value_size, 0);
+> +
+> +	for (i = 0; i < cnt; i++) {
+> +		emit(gen, BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_10,
+> +				      stack_off(prog_fd[prog_idxs[i]])));
+> +		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
+> +						 0, 0, 0, value + fd_offs[i]));
+> +		emit(gen, BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0, 0));
+> +	}
+> +	emit_map_update_elem(gen, map_idx, &attr, attr_size, key, value, value_size);
+> +}
+> +
+>  void bpf_gen__populate_outer_map(struct bpf_gen *gen, int outer_map_idx, int slot,
+>  				 int inner_map_idx)
+>  {
+> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+> index 0e2a93a42908..3a0cabddb987 100644
+> --- a/tools/lib/bpf/libbpf.c
+> +++ b/tools/lib/bpf/libbpf.c
+> @@ -1459,6 +1459,24 @@ static int bpf_map__init_kern_struct_ops(struct bpf_map *map)
+>  	return 0;
+>  }
+>  
+> +/* The kernel finds its struct_ops and the members by the names that they have in obj->btf */
+> +static void bpf_map__init_gen_struct_ops(struct bpf_map *map)
+> +{
+> +	struct bpf_struct_ops *st_ops = map->st_ops;
+> +	__u32 i, vlen = btf_vlen(btf__type_by_id(map->obj->btf, st_ops->type_id));
+> +
+> +	map->mod_btf_fd = -1;
+> +	for (i = 0; i < vlen; i++) {
+> +		struct bpf_program *prog = st_ops->progs[i];
+> +
+> +		/* The kernel rejects a prog that two maps use for different members */
+> +		if (!prog || prog->attach_btf_id)
+> +			continue;
+> +		prog->attach_btf_id = st_ops->type_id;
+> +		prog->expected_attach_type = i;
+> +	}
+> +}
+> +
+>  static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
+>  {
+>  	struct bpf_map *map;
+> @@ -1474,6 +1492,11 @@ static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
+>  		if (!map->autocreate)
+>  			continue;
+>  
+> +		if (obj->gen_loader) {
+> +			bpf_map__init_gen_struct_ops(map);
+> +			continue;
+> +		}
+> +
+>  		err = bpf_map__init_kern_struct_ops(map);
+>  		if (err)
+>  			return err;
+> @@ -5609,7 +5632,8 @@ static int bpf_object__create_map(struct bpf_object *obj, struct bpf_map *map, b
+>  		map->btf_value_type_id = 0;
+>  		break;
+>  	case BPF_MAP_TYPE_STRUCT_OPS:
+> -		create_attr.btf_value_type_id = 0;
+> +		if (!obj->gen_loader)
+> +			create_attr.btf_value_type_id = 0;
+>  		break;
+>  	default:
+>  		break;
+> @@ -9761,6 +9785,46 @@ static int bpf_map_prepare_vdata(const struct bpf_map *map)
+>  	return 0;
+>  }
+>  
+> +/* The loader keeps the fds of the programs in the order of bpf_object__load_progs() */
+> +static int bpf_program_gen_idx(const struct bpf_program *prog)
+> +{
+> +	const struct bpf_program *p;
+> +	int idx = 0;
+> +
+> +	for (p = prog->obj->programs; p != prog; p++)
+> +		if (!prog_is_subprog(prog->obj, p) &&
+> +		    p->load_strategy == BPF_PROG_LOAD_STRATEGY_AUTO)
+> +			idx++;
+> +	return idx;
+> +}
+> +
+> +static int bpf_map_gen_struct_ops_update(struct bpf_map *map)
+> +{
+> +	struct bpf_struct_ops *st_ops = map->st_ops;
+> +	__u32 i, cnt = 0, *fd_offs = st_ops->kern_func_off;
+> +	struct bpf_object *obj = map->obj;
+> +	const struct btf_type *type;
+> +	int *prog_idxs;
+> +
+> +	type = btf__type_by_id(obj->btf, st_ops->type_id);
+> +	prog_idxs = calloc(btf_vlen(type), sizeof(*prog_idxs));
+> +	if (!prog_idxs)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < btf_vlen(type); i++) {
+> +		if (!st_ops->progs[i])
+> +			continue;
+> +		fd_offs[cnt] = btf_member_bit_offset(type, i) / 8;
+> +		/* struct bpf_program * doesn't go into the blob. The loader stores the fd here. */
+> +		memset(st_ops->data + fd_offs[cnt], 0, sizeof(__u64));
+> +		prog_idxs[cnt++] = bpf_program_gen_idx(st_ops->progs[i]);
+> +	}
+> +	bpf_gen__struct_ops_update_elem(obj->gen_loader, map - obj->maps, st_ops->data,
+> +					type->size, fd_offs, prog_idxs, cnt);
+> +	free(prog_idxs);
+> +	return 0;
+> +}
+> +
+>  static int bpf_object_prepare_struct_ops(struct bpf_object *obj)
+>  {
+>  	struct bpf_map *map;
+> @@ -9775,7 +9839,10 @@ static int bpf_object_prepare_struct_ops(struct bpf_object *obj)
+>  		if (!map->autocreate)
+>  			continue;
+>  
+> -		err = bpf_map_prepare_vdata(map);
+> +		if (obj->gen_loader)
+> +			err = bpf_map_gen_struct_ops_update(map);
+> +		else
+> +			err = bpf_map_prepare_vdata(map);
+>  		if (err)
+>  			return err;
+>  	}
