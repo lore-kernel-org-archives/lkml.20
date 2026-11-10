@@ -1,67 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309058;
-	b=K7kbxmFualncdNNsddAhEgRu/9BOLMXwDPWCbo41CbZq0QV2lB2NvhLZPZzeTf0njqw/
-	 SpbCZ5bUrETri4AAMGaYr8p4ykEEJP7CUUwYyyiO0EB+iXWbX0At9EzwewKXW9kojtT2w
-	 jd4QiGapSnWH/lLwJixwme3s1oUC7SQ5ispj8cK6SZgK6/5j1P2IIGgHQAalIyk2Aosvp
-	 DGaaWnQPnZ3btV2wVQ8fM+HuT/y5q8bgRDkv6/+QaM1/mnbbyI84F6nx7Us0pE75CIhZT
-	 +O8gWGt/Mi449umTSJhE0n1yiqDme5uEGx3tls/EoEo/ggy+W9XnFzbc7KMB2J2jyVA==
+	t=1794309104;
+	b=KUO/7uQsfRQb9XGAA0TIoTyMGMNegZiiBWHceGlXzE/9q3eWGm6feQ/c5qXsGEhgXbNY
+	 7ziFlhGR5jpwOS54Tzb/HYSYG4SeI1LG6nXZLAco/DPdnSaNmFYUlIXBg2rbu7GExEs06
+	 g2T6u3Yuvx9ic+YSBBc/1giEvfCb0Lm6rjkOmqcaXqyOTzzOGMRG9xVpJ+Dh6zBCYpZq+
+	 8gx8YXesBEFWYvFWpFX4ilD0viOU5SDlL1QAqK3fBW+sopQITOa9y7XutV2KzFqfB2l0n
+	 EMcz4PQcluABmrAYicmoTKNYJb7zPy1c+01IEevElCy1Nbv2ZGBxXH1FkER7Hmp0qPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309058;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wRhstAJRC5xiQsYu+JzyOCa4Dl4h2pV6bk94Dt2C34o=;
-	b=VMNZzZjTe2o5eL/6gIKgiqCjQax6EzLYghFpu6Ou/HGWphPXVH0M0/naEjldXX0/MFPx
-	 FrnE3T5jj0HSAK3LehLjIyMV9b9mI80M6K6RFmJL35R0dHg4njV+Ap0pRTqsbQMMZ3tnF
-	 yeDxW96WHIFc0ZQ4OwHm4Yi8elXSGBuKJBZHxwmf/sqNjGw8pmivd+suiw+weZypd45X8
-	 jKuImpSmLioyYl/4K2znI9jEIeULWKGoAgtaPtlU+TtT94SB3UAG+OVYoDYitG+2my5v0
-	 pVHQSigV4NqyJRuLsM64vY4576CjfKi/TynrroKErnygp8+420nplXyf2A1bdFDlr7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309104;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=URNm3AaV7OhkF+44lQ7GzK8Lve00n5qQDwL4NE/x4Rs=;
+	b=sefUHsDEV1CL9+OhzudYkt43Ts5nzqXAHEyBDaPPeoSESAnGK5ytMjsNa+ZlmbKeK3NG
+	 ySxx+5yq8VvAqUsw7DU0pnf6v4mOXi9/PAngo5tFFk2iftOV7HuHeGwyqfxnAFf7aduEM
+	 7ZV9ymyvV9Q4BSGm1EAX2AO2fYFQvfI+a+tKMoi44Zh2OkTz2IQRfRzB6x7W17ZRsQfUE
+	 teaPPgo2lNhNgejMx69wbpD2IbTbi993jTaBIZkOE6qVdNA4xiD9p2S09lHpNU4r46Zll
+	 MhUFja9j3XFy72IcBJnLz7+XQ4+V5cgDIbC5Q7j7mGL8ElXROqiXQnGBoNDt7nJZhlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ATUDKg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=i02rXB+p;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8D7606A325;
-	Tue, 10 Nov 2026 11:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6C6606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:11:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F6C6606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ATUDKg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E141F0089F;
-	Tue, 10 Nov 2026 11:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794309057;
-	bh=wRhstAJRC5xiQsYu+JzyOCa4Dl4h2pV6bk94Dt2C34o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A8ATUDKgImRjziRxEUdGfa5kpbI1iH73VaS8PDukLfx9Q0rxYXwUVQ3tKA1rdmSDj
-	 3Ro+gsTb4g44q/JK8UCxo48n2Ruda48fe+syHxkAbOPfb4yL7oQPfa7S2RGap6kEsh
-	 /EbCxOSEjlPq4wQZkPJsdDjzDveSdPcHgA7TG7F2NHuqUc7pVcSRkucNSMnKEUOrVi
-	 PikhC+ae7M972Bfbvv+kQeaiW5LMNf3q9vfvCEHWYQrxZ8iHNkkPw4ww+7mBJdRlQC
-	 fOPqQkfx2IQveAo+a+dTJYbtq4obh/DOEJ52dBFx1+7SL1JNzRbM3pxMGIaUPRkHgO
-	 BCaOyou6gwoEA==
-Date: Tue, 10 Nov 2026 12:10:50 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avL4LoCz2wc164zo@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=i02rXB+p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=URNm
+	3AaV7OhkF+44lQ7GzK8Lve00n5qQDwL4NE/x4Rs=; b=i02rXB+p+ezyY+T9IzNM
+	Qg2/TbI2j1IeV/mdj4IIhfjWhMyv16kR7h8KHBe7WvPbbRwzqIAO6kKL5kZt7SZu
+	l8RDOCA24sMzfes2GshnBEOLdXameStP3o59qX/+Fe3mhbk1zso39dc/Sz8KGEof
+	d6Tmlb+fvXpfodwK581vA53aIjzj/iPeIiTOeeDAWbIVodLaK6Z50EozW3xTO8Yv
+	6vH01sByRlmBMYbHfbO9bvonGnvVwVkUCFwaKQ4DH5v6bDS7JWuys49PF+PFul4g
+	zt2GzSbpMy7NGESJRKYoTmp0GnbAX9IreOiLjSNgpHp4jU1Wr2ZC+7GibPjFCJ7g
+	RA==
+Received: (qmail 205301 invoked from network); 10 Nov 2026 12:11:40 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 10 Nov 2026 12:11:40 +0100
+X-UD-Smtp-Session: l3s3148p1@FtiBJOpfzIQujnsO
+Date: Tue, 10 Nov 2026 12:11:39 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Stefan Roese <sr@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: i2c: mt7621: Document an7581
+ compatible
+Message-ID: <avL76_zF5NizIRMK@shikoro>
+References: <20261103210542.15965-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,159 +71,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wx2y6hldnr44vqml"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+In-Reply-To: <20261103210542.15965-1-ansuelsmth@gmail.com>
 
+On Tue, Nov 03, 2026 at 10:05:40PM +0100, Christian Marangi wrote:
+> Airoha SoC implement the same Mediatek logic for I2C bus with the only
+> difference of not having SCL_STRETCH bit.
+> 
+> Add a dedicated compatible for the Airoha AN7581 SoC to account for this
+> minor bit variant.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
---wx2y6hldnr44vqml
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avL4LoCz2wc164zo@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
-MIME-Version: 1.0
-In-Reply-To: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Hi Bart,
+Will apply it to my for-andi branch.
 
-> Date: 2026-11-10 10:00:42+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
->
-[...]
-> > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> > > >=20
-> > > > Can property be statically defined somewhere? We might want to also=
- optimize
-> > > > these duplications with const variant (here or elsewhere, for fwnod=
-e generic
-> > > > path, I believe).
-> > >=20
-> > > Please rephrase because I'm not quite following what you're saying.
-> >=20
-> > Can prop->name come from something that is declared as
-> >=20
-> > static const ... foo =3D {
-> > 	... .name =3D "bar";
-> > };
-> >
->=20
-> You can't know it for every instance of struct fwnode_handle, so the
-> answer is: no.
->=20
-> PS: is there a way of using match_string() with non-const data?
-
-Given the definition here:
-
-	$ grepc match_string .
-	./include/linux/string.h:int match_string(const char * const *array, size_=
-t n, const char *string);
-	./lib/string_helpers.c:int match_string(const char * const *array, size_t =
-n, const char *string)
-	{
-		int index;
-		const char *item;
-
-		for (index =3D 0; index < n; index++) {
-			item =3D array[index];
-			if (!item)
-				break;
-			if (!strcmp(item, string))
-				return index;
-		}
-
-		return -EINVAL;
-	}
-
-You should be able to call it with a cast.  It's dangerous, but
-technically it works.  I'm not encouraging it, though.  :)
-
-	char **strings;
-
-	...
-
-	i =3D match_string((const char *const *) strings, n, "foo");
-
-This is a historic problem in C, which was solved in C++.  I have
-a proposal paper for the C Committee for solving it as in C++:
-<https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
-
-This paper will be discussed (and probably voted in) in the next meeting
-of the committee (which happens next week), so there's a chance that
-this will be solved for C2y, and thus the cast will no longer be
-necessary.
-
-The history of why this is not allowed in C but is in C++ is, as far as
-I've been told, the following:
-
-Back before C and C++ were standardized, C++ invented const, with rules
-slightly more allowing than what they are now.  This was going to be
-standardized first in C89.  But very close to the release of C89, they
-realized about the danger of converting a const char** to a char**
-implicitly.  They were so close to the release, that they opted for the
-safest approach: disallow any non-trivial conversions.
-
-Later, while standardizing C++98, they realized we could allow a few
-more conversions safely, and so they did.
-
-C could have taken advantage of that, and pick C++ rules in C99 or C11,
-but for some reason, nobody proposed that.  I'm proposing it now.  :)
-
-We've already discussed this proposal informally within the committee
-for some a year and a half, and there seems to be consensus that we want
-it.  We're only being careful about the specific language.  But I think
-I finally got it, and it will go in next week.
-
-
-Have a lovely day!
-Alex
-
->=20
-> Bart
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---wx2y6hldnr44vqml
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmry+7MACgkQ64mZXMKQ
-wqmmXg/+JeY9H4QAyqVc4xKon1zkJm4/P+50FgURTEMAfhalUbXNOhgyHq3QtwPo
-RoaqS8aCxAiVqZ3Qqf/qecOpkYoqQqtg8OUV4Np+DNTd6dSuIxlm4nk2frFFLPRR
-Bux4w0usdq0kR9M9f4R051z++FzMPV0wX2IhrGaHVArt6igqkoIITR6gh/i+TxBv
-8ylPyg6kvREx2OnxliD/mQfrr/3rkyFNhNKJhDsFScjWPYGsyGXLn2GLs8jPhhB4
-PbB+r6j/QFkqx/RfrWvLc6XqZhUsdXvAcKo1Ti5Ar7EFBWXzMi9VaDlMWNNtz7dh
-CXyErp4TiTRW4w54ZgponS1C0tLN9CFfKEVMbD/J+zYzwJ8yqAoidlCYAfN5ZASY
-dam6rZj2W6MjFQx/8dC1+DdWTW6ihy7q6cHUJt2YI4uowd5wquSBdC8EetoU0MlB
-o6q4ye5rK94anbe9ydQd7Nkyp4sKjUlZHpzMRB0az3fL8rT0FsiXSz0jIPRQzk7v
-qdcaDXnBtUuDgkblQCedfJySBDm9N9Gmh3NJdQtOGk57KQ586yeNPExs3o0SivF5
-cJ3ckUERShrT9/bAGrSpjZKGR3yG6S4oNQMY4arUXntsR34sZfKeoGmA7kHSBljk
-F0nB+Ypd308lrNHlK4GRc1TrMn+/FxXew2+9N8X4xdTHleGKHLw=
-=qslH
------END PGP SIGNATURE-----
-
---wx2y6hldnr44vqml--
