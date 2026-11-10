@@ -1,88 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306677;
-	b=EK+aAUCKpJ7xB+2qA3A6lvaYYpq2SDquHII2PhaldRZuzKfoiheiuKkkVZrp8T7Bb7KI
-	 NGVbCMDYyU1nx10FDh/JKjODbySOHyo/xpOd7lGcnAFTkL4drULzV0taeTPLmMYmQzb5K
-	 AbBgVXfWLZmzI8cg17fm5CnpINUG0Wvk3Atn08Ae3D8QOCtaKtz7k9+E2QCVr/JiYpzym
-	 ew1cPq71OUaYlTAuSDmBj7Bx6hPr/xRYpjvv1ft5NACaYgnmtcbFP6msowHYISL75HYq4
-	 7Z33GENg4I3nfecfcvzO3x6zCUpwSmnY4SmDSRoH/qX5ko6OHDkqK6ExTAK1SOsDPsQ==
+	t=1794306770;
+	b=42qJt8sOjpP8jXoP8YA9hoYHCbS+BNmYNLTnyz+V/R9vN+Rkbv3gM4KBYwqL3iUbC5Fg
+	 CijOZJAkAtu32eZuQgimgO4wI+Im5c6jNnBbgGf4R87WwsTbw+tNqK4jTqgmHLsl05s9q
+	 uGq0jZ5kFIL0DUKWzVLvv+p2UpNjTG4zNWcQToYQuBOJEhxDEU6PN3rK7ziXVn+JY1Ywe
+	 n4PVV/8zDeypJgzehTdKcWm+6wT2ibtvuUp2dGQ8kB3WcSkaon+4i6j+/29xnw3xu9Dof
+	 FTLAnNfcML9OCwTr/haa/2SBWAL4SxyjH0SNfkbRiPWvPHdirSC+1vmbvP52ZABPJYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306677;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=FlTOvt8xOuSZHY/ZhFJxT3wExaMHYGHsA+ZOjDuv1Xg=;
-	b=yNdmTHmwK4UgPzVA3qTqrgXuOIvE3sFU98rD9rfh0+VHfD19UyvgfOms6w/oFDB3+AHw
-	 dapJdfPcX9YJU1kgGcCw1EHlvZsxiarqvbZTHBdUFOqNAFK3IH4bCys6XkwPFvfj0c9Tm
-	 dUWnd/DAHdWpP9tCW5FjD7hgL5bX8o+11muywU2UxyyvCwsmzlwO+uYU3JJJRuillKZvw
-	 kTPUfolwK2G4Hmfl03sDvWCjvwuFQYK1/Njzww9Gw1WVPFraY0IIAybIvJ752fK/Wu0Op
-	 xHgf3ZJTEazrn3EExNi/c2k0YSna9Bm0KF0xIkacANvnht2c6XL99IlTNQMupJN/VLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306770;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uTuBZqTkCTsEEU+80LJmJIDLq+GQ1UT+vDvIO6jFFlw=;
+	b=jlDHVtD93nrjo5U1gmRNr47xStz4XiWUtfJ5IM3PevFGNaFWR7D4MQY9VNred3H4iP35
+	 p+dyHrcc02U4choBWUvYfiVT8d0GWgcli3qs2r4ZmGKcBp0rxv5nNhm51nFgwZeyydt4Y
+	 FUqLQGTIsExg3fucFiEIz7Ki95U4xZgPnQDA1/ZUvcgYQxbAD5VJVl8+gXc0jwhZjEKdH
+	 tIqTOoUO2uIc3135yob1E2p4LHshakL5vPKxsFMFmQvgCAnG1OyqUew9xKQ04Sm9koCtX
+	 dYcYj1mPJEnXD7JN32rp0nG8FQTMLHKTIq7f1Affg0M/Iqb1Q98EcbGdWG2pWHK0kcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TFk/Y+ji";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73409606A31C;
-	Tue, 10 Nov 2026 10:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFk/Y+ji
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C371A1F0089F;
-	Tue, 10 Nov 2026 10:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794306677;
-	bh=FlTOvt8xOuSZHY/ZhFJxT3wExaMHYGHsA+ZOjDuv1Xg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TFk/Y+jiK+EeQW5DRQUIlqyMDJ1m7JtpGMtzUWzaNuBXN8NGzSIQYRjDtEsZSS/Lq
-	 nTl+qHoUewD+1ZWM6II/Z3cVkeeffvj6N19cFlEpgV0ZerIjvKcQsq7ti5MBhDtgh+
-	 Z6ABlVaHvb0obwpM9gRl506tiidEpK9JNBdgYLo2DPwy3DEAR49tfrZAexflUvATq4
-	 PHnjleqWVM/ZNUU2TiM+ak+96r+PD/jhhY+YE3XzdHqSnJ2Chwpnp/PtFjfKvZIU1l
-	 KGxHtdDHpHj5UenNAe4G4E+rwKnmRmHw6zeYBP8Izh4offkWLE5yQ9MCwbLrz7GQ1C
-	 V+XjNaE47uQCw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 84C96198003A;
-	Tue, 10 Nov 2026 05:31:08 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Tue, 10 Nov 2026 05:31:13 -0500
-X-ME-Sender: <xms:a_LyalRqEEi22Zqq6xXTNfIUy1eL86wOL44elLImVT1Lsz4I5o4NDQ>
-    <xme:a_LyaofLRkKgdVDCIpLMt-x0w2QBiy6WJ3SG2qd3kB3mLSD0b_evF3p9ohLL5ZLV_
-    OfegCXLJf86bDoZm-OFgj4KgF0XOHoCUx3AT3GPPCQ0H9EYcGT2_YSL>
-X-ME-Received: <xmr:a_LyahzS7EBQguTo6tQOf3vfPqVyehOAK23g_Ana5o6vWhs_lDY5Dgn7Ycs>
-X-ME-Proxy-Cause: dmFkZTEG22a+fWVd70W49sFkRLfWvSfLcWkkA8IdPKW1pytV604LiaaxMHr+3VX6gcn2ih
-    GiUPahwkcrJH43OV7arrk1kjGoupNgLdUGWA4rlKrCZdhAxycDsbiIvNnshqWYHI+xLDe7
-    dxnOUcGrxdxai4noAKbPqcoiuqTq9Tod3cSSi9wDUWiqFbOM1ID69QdDUWEKVjGm82rvAt
-    JR0UnN68vbOUf5D+VOrJZpgRA9Wh8QJ0moenK7uAy/B7MIYsD+VIAyYz7XTWxdZEo9/pA+
-    5BRy43Xu6FxuylSNGzBoqk8fdRU/C/TaThdgv/qpGOTUROZq+kPfrdsgaZtu/HQc2YspNq
-    EKJ62rkXCupFiccIn7l53OEU9i211HD6OS/YfEOm47OcP2NA61JeSas/jWclFEP3D3DEeE
-    efYfWjXpUN+S8GDN/VhSqFSJWW4VuwFgbEpc9uHxiC67VKgTZ+ME4p8H3qec7YdgCKwFWG
-    eHP2eUftj4HU/7zaw8vRb54j2/i2x5gwz4FdcwObCwUq/eJ09xn8D1Ip1B+J5u2vN/slUH
-    LNLhiJthRs9RHC4IILLJbsnRZhvAVfABd+0fCgi6qFZyoN50GvPmjgxDdz8NgWpk/R2ks4
-    VnE/UIouYNnuFUF5IN5hePej0uFfDKFZ4yO3cvK29zLUrxuLXll19+3AYkvQ
-X-ME-Proxy: <xmx:bPLyahG7ogfO690v1-QjAH6E3xLHXpH-QYT5DmlN8Q25wNoyJG514g>
-    <xmx:bPLyat5zOTNLQyqaeyO7kYwF95OY41Lo4707nSIzHk49ns3u-pP4jw>
-    <xmx:bPLyagEiQCloo7AHvZ5xh3p-bgvb-j_epsB5qcDMBfskiHWpaQ2BcA>
-    <xmx:bPLyalA3FAEjqpSRI-xagrKLiK1OOBO02b09RiOIh-Zgwo5Bl40rNQ>
-    <xmx:bPLyahBlf8mf5Dse7Df3PSCo9B8OPUYJcjcL_9jT9ga7mVAS6Bz3KGF0>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 05:31:06 -0500 (EST)
-Date: Tue, 10 Nov 2026 10:31:05 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, baoquan.he@linux.dev, 
-	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org, 
-	ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, jbohac@suse.cz, 
-	sourabhjain@linux.ibm.com, ruanjinjie@huawei.com, leitao@debian.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-mm@kvack.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
-	zaslonko@linux.ibm.com, brads@mainlining.org, kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/hugetlb: allow crashkernel to reuse hugetlb CMA
- memory
-Message-ID: <avLyOzQMBnHYLEst@thinkstation>
-References: <20261106165142.2847916-1-usama.arif@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49BF606A32A;
+	Tue, 10 Nov 2026 10:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C49BF606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0b5e06bedcf211f19a56ed5b684f684d-20261110
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
+	HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3c1c8b24-5d8b-41a2-a320-8d206ebf0ddd,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:3c1c8b24-5d8b-41a2-a320-8d206ebf0ddd,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:f3d953bc796359c5d5a7f4434680fd77,BulkI
+	D:26111018324134S4ID9W,BulkQuantity:0,SF:17|19|38|66|78|102|127|136|153|85
+	0|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:ni
+	l,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,
+	BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0b5e06bedcf211f19a56ed5b684f684d-20261110
+X-User: liuzhe1@kylinos.cn
+Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
+	(envelope-from <liuzhe1@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 684438741; Tue, 10 Nov 2026 18:32:35 +0800
+From: Zhe Liu <liuzhe1@kylinos.cn>
+To: axboe@kernel.dk,
+	tj@kernel.org,
+	josef@toxicpanda.com
+Cc: yukuai@fygo.io,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	Zhe Liu <liuzhe1@kylinos.cn>
+Subject: [PATCH 0/3] blkcg: decouple cgroup v1 I/O accounting from throttling
+Date: Tue, 10 Nov 2026 18:31:58 +0800
+Message-Id: <20261110103201.762861-1-liuzhe1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,53 +85,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106165142.2847916-1-usama.arif@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 08:51:42AM -0800, Usama Arif wrote:
-> crashkernel=size,cma reserves a separate CMA pool. On systems that
-> already reserve several gigabytes with hugetlb_cma= (which is common in
-> the Meta fleet), the crash kernel cannot use that existing memory as
-> part of its working set. With hugetlb_cma=6G, requesting another 2G
-> with crashkernel=2G,cma brings the total CMA reservation to 8G, none of
-> which can serve unmovable kernel allocations.
-> 
-> Use existing HugeTLB CMA memory first for crashkernel=size,cma and
-> reserve dedicated CMA areas only for the remainder. With hugetlb_cma=6G,
-> a 2G request reuses 2G without reserving more CMA. With hugetlb_cma=2G,
-> a 4G request reuses 2G and reserves another 2G.
-> 
-> The full HugeTLB CMA pool remains available to HugeTLB and movable
-> allocations during normal operation. After a crash, the capture kernel
-> can use the selected ranges as working memory. The conventional
-> reservation is still required to hold the kernel image and initrd.
-> 
-> The ,cma option already opts into excluding userspace memory from the
-> vmcore. This includes allocated HugeTLB pages in the selected ranges,
-> which the capture kernel can overwrite. The existing dump completeness
-> and pending DMA risks apply to these ranges as well.
-> 
-> Have architecture code record the requested CMA size and perform the
-> reservation in mm_core_init_early(), immediately after
-> hugetlb_cma_reserve(). The HugeTLB CMA areas are then available for reuse
-> while memblock can still reserve any remainder.
-> 
-> Use the existing four range slots for both reused and dedicated memory.
-> Limit reused memory to the page-aligned request, account for dedicated
-> CMA alignment, and report any shortfall. Ignore malformed optional sizes
-> and reject requests that would overflow page rounding.
-> 
-> Suggested-by: Breno Leitao <leitao@debian.org>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Commit a3166c51702b ("blk-throttle: delay initialization until
+configuration") deferred throttle policy activation until an I/O limit is
+configured. However, cgroup v1 accounting still lives in the throttle
+policy and is performed after the activation check in blk_should_throtl().
+Without an activated throttle policy, v1 statistics such as
+blkio.throttle.io_service_bytes remain zero even while I/O is issued.
 
-> ---
-> v1 -> v2:
-> - Use existing HugeTLB CMA memory first for crashkernel=size,cma and
->   reserve dedicated CMA areas only for the remainder. (Kiryl)
+This forces cgroup v1 users to configure the throttle policy just
+to obtain I/O statistics, even when no throttling is needed.
 
-Suggested-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+This series moves cgroup v1 I/O statistics into blkcg and performs
+accounting before checking throttle activation. It also moves
+statistics reporting, reset and offline propagation into blkcg,
+while preserving recursive aggregation and existing userspace
+interfaces. With these changes, cgroup v1 I/O statistics work
+without configuring throttle rules, while lazy throttle
+initialization is preserved.
+
+A/B-tested on linux-next (next-20261109) under QEMU (x86_64, TCG)
+with the same kernel configuration. With no throttle rule, a 4 KiB
+direct write accounted for 0 bytes and 0 BIOs on the baseline.
+With the series applied, the same write accounted for 4096 bytes
+and 1 BIO. A 1 MiB direct write split into 64 KiB BIOs accounted
+for 1048576 bytes and 16 BIOs with the series applied.
+
+Zhe Liu (3):
+  blkcg: allow printing rwstat samples without policy data
+  blkcg: move cgroup v1 I/O statistics out of the throttle policy
+  blkcg: account cgroup v1 I/O before checking throttle activation
+
+ block/blk-cgroup-rwstat.c |  18 ++--
+ block/blk-cgroup-rwstat.h |   2 +
+ block/blk-cgroup.c        | 188 +++++++++++++++++++++++++++++++++++++-
+ block/blk-cgroup.h        |  15 +++
+ block/blk-core.c          |   1 +
+ block/blk-merge.c         |   9 +-
+ block/blk-throttle.c      |  78 ---------------
+ block/blk-throttle.h      |  12 +--
+ 8 files changed, 224 insertions(+), 99 deletions(-)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.25.1
+
