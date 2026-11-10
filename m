@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334982;
-	b=3Gz30Szllv/fWBzsmL7+VIdQSKnRkpzDZVZxHM/m4HXf3T/P3h0nreCfQvhfeYS246jI
-	 6xMcxtyNKEVKmzunA/IpFM2PbPYbex46wtVSUyZJhcJ0U25e/1Ju1ZPt5z6R7yMmTJ8iN
-	 z0I4PZx3l0pc0RNWGgR3RLmMzPn/lbo9sB3NznZgBfozc39lq/R7h0fpJuLeYfXX5sCUQ
-	 z2ES7xYW4oUxRssjQIa4Pb2Qh0nMpflxfc2tqM4u3uim3KrcHdh6Ctj8pZY/y5Bifpy28
-	 OaPnWL4iRJStgl8NwTt5k0BYBI08skhtMq/ytRRhTmadRTwLlcRBQOPjOR309z7APhw==
+	t=1794334993;
+	b=FP/yJxkSCjzK0bZxUxHSTpooSLVAXL5vN1K8MeZMAJghFiWnUCibaYeXs7rHSgKIxoHO
+	 9cg/aliBzVXWBdX8xrdiY9fm+ivaVWrd7FLhznUVEMUay6cqA5LaDjTTVa8Qyf0LKxt4J
+	 bYu8bSVTitr+UcAzrGLK5EaxdLqQkwKtCray16gYNO51PJDea4owemsG05gISiiF4dVd1
+	 iu4S7b+Nf/rVp/3ZJIayqyuhm7FOdU2dorEocc/ptVw7uUFeSgMV7u8frPL4G2cHfEYix
+	 OTpYpXpIeXLE4QhlL1MqUpwB77r1zHnmSpY3qGk1Yt33uhQ26F7V1HgS2A7IYMjMCFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334993;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=nM4EMErCeXJNQs+7ozPXWBVLaYZr0fUdSK86cNZxul0=;
-	b=Tk/9dfRsFnR2LJEYJHm+cFzV1z3MH60mHPODDX/gUZm9748FCLBHrWGiPXtWK0VYWPUn
-	 IMonKva487P5wcz+szZ5McUAAKYvvb13HFrme5HzutBD5ebk5iY/ZHqcwViG+uud6P60p
-	 zDQ/cBS9DI4enXk3py/9ivYQwsMtQ+VC19phtuUR4gpM7e2wpAvq53K1f5n7fVNk91v1D
-	 +PiHVy5ZVgdcho5KehsMh1P5jPVPzGkuxnHY6vQIDqbN56NItzoBScpQ+H8PH8cd8I5Lb
-	 MQwgo9NIiSpBD2SX7IhjWz2YYwhNLxI6JCtgQbcvksyFtXdNlHJJc3l858s3TI/I8gg==
+	bh=L32xlL3j8LzgwOvsZhYg+y811wqSmjBPx2c8wQdC6NI=;
+	b=uSkf+53z75qd6ApyV7X9H8IRHeQBajxihEO7PJaaCBjEmKpJNvLKSooXOe5rlYIzASms
+	 8b+g0cUcmPjYPfBWdE/MmkOwCQHCXl5Uzbp5OFqjyFV83jIrsPmk47OBjZRCTFNCAhgXV
+	 E6PNCTKsU10IFJph7UczsPToe06HnB9akejeR8hcEBc3eVKjq5SZW7r6WwzqQx/Y35Shp
+	 sdYJKFJqe1Dd7Y12FRkGVqSJHG/ovQC6SqfFnkgIdWmsCg78XcQEKpghk2kfRben/78qP
+	 lK0ExsSGB+G6aiLZt1MlL1oX4EmK48gBehASprQyIyVIcK/oeQ03R90+EHQovTi9VbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuHErv1g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnyuOKVj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D542606A320;
-	Tue, 10 Nov 2026 18:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A23260A3807;
+	Tue, 10 Nov 2026 18:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuHErv1g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04A31F008A1;
-	Tue, 10 Nov 2026 18:23:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnyuOKVj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2E21F008A3;
+	Tue, 10 Nov 2026 18:23:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334981;
-	bh=nM4EMErCeXJNQs+7ozPXWBVLaYZr0fUdSK86cNZxul0=;
+	s=k20260515; t=1794334993;
+	bh=L32xlL3j8LzgwOvsZhYg+y811wqSmjBPx2c8wQdC6NI=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FuHErv1guC8Yh9nbEeBWMhChLKI+Kefs48Hz19+LPzcu7/KuyXGDfceKcbxYfCUB2
-	 YzPF84dwM/0ETHxVlsN3B1hyoucuFatp395mjRAZprR1DDh99pOiBTjx2z1WcfjnDW
-	 W9br8BLBLUq5QpBcpGfEszxaGHTk+2cEquZfjeC3WxA29gv630zWxEaIEGwIZ0uxOh
-	 Gqk8Yv1x3vLKgDJTQdQGiXYM7uCksrDaXcazPVOoNykR+kFXJ6anV9IcLLjp49bzE1
-	 Ej/Ztev/qtfqqdGGlewMLgEpAhiUssepi6NNs1my4/ADfUEEhRgXj8dA8HT8Z3cfuv
-	 /JUWGlBnLbNIA==
+	b=AnyuOKVjld5xR2H00+GoPrLNozJ7wl+pE18yC6gXkWNc+hAZxOBSIwQo0xG4YzH2e
+	 vd/m+W/icgt4v28MLgqpz30zSeb+L42d4t4iBwdqYjmbybFiE4r/QQZp/iBqIMmVeE
+	 oV9y/Xt9YB8kcTesMC3cCF37Ly9LUbEWyOIYBMVValgU5ITrCcK9bearvOZS0v/qMp
+	 IFp0IVdBk9WTS/AlZrp8T/zY2jCG2e/4iFepiA14Qnjc463W5VvxeDnfyRmT0cgPsS
+	 Ip6VgJYC+Gd/fHB4n+z2lGQHFFgLyFrwsxVzbnyS1jRWtKotQafn27+HYLh3hMCKDY
+	 62KWv5BNi2nBw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B31439D608B;
-	Tue, 10 Nov 2026 18:23:01 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210BF39D608B;
+	Tue, 10 Nov 2026 18:23:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,47 +54,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: mana: fix XDP_REDIRECT of pre-allocated RX
- buffers
+Subject: Re: [PATCH net v5 0/2] bonding: fix the initial last_rx seed for the
+ ARP monitor
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179433498045.4118637.10096653969989484640.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 18:23:00 +0000
-References: <20261102064324.806414-1-orgads@gmail.com>
-In-Reply-To: <20261102064324.806414-1-orgads@gmail.com>
-To: Orgad Shaneh <orgads@gmail.com>
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-rdma@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, weh@microsoft.com,
- kotaranov@microsoft.com, horms@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, longli@microsoft.com, dipayanroy@linux.microsoft.com,
- hamzamahfooz@linux.microsoft.com, gargaditya@linux.microsoft.com,
- ernis@linux.microsoft.com, falakreyaz@gmail.com, jbrandeb@kernel.org
+ <179433499166.4118637.5486946303666911972.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 18:23:11 +0000
+References: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
+In-Reply-To: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
+To: Ramses de Norre <ramses@well-founded.dev>
+Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, jbohac@suse.cz, edumazet@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, razor@blackwall.org,
+ hangbin.liu@linux.dev, liuhangbin@kylinos.cn
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon,  2 Nov 2026 06:43:24 +0000 you wrote:
-> mana_pre_alloc_rxbufs() fills the RX rings with plain pages from
-> dev_alloc_pages() (from_pool == false), but the rxq is registered with
-> MEM_TYPE_PAGE_POOL and mana_run_xdp() builds every xdp_buff with that
-> rxq info. mana_rx_skb() frees a !from_pool buffer correctly on
-> XDP_PASS, XDP_TX and XDP_DROP, but a redirected buffer is freed through
-> its memory model: __xdp_return() hands the plain page to
-> page_pool_put_full_netmem(). This triggers the WARN in
-> include/net/page_pool/helpers.h, breaks the page refcount, RX refills
-> fail and the queue stops receiving.
+On Fri, 30 Oct 2026 15:51:14 +0100 you wrote:
+> bond_enslave() seeds a new slave's last_rx before it has received
+> anything. The ARP monitor checks that seed with an up test for a slave
+> that starts DOWN, and with a down test for a slave that starts UP. The
+> seed is wrong for both.
+> 
+> Patch 1 fixes a slave that starts DOWN. Since the up test gained
+> arp_interval/2 of slack, the seed falls inside the up window, so the
+> slave is reported UP for half an interval without having received
+> anything.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: mana: fix XDP_REDIRECT of pre-allocated RX buffers
-    https://git.kernel.org/netdev/net/c/67869597fab0
+  - [net,v5,1/2] bonding: fix initial last_rx vs ARP-monitor slack window
+    https://git.kernel.org/netdev/net-next/c/7cf2286b280b
+  - [net,v5,2/2] bonding: give a slave that starts UP a full arp_missed_max window
+    https://git.kernel.org/netdev/net-next/c/9231c2b6f180
 
 You are awesome, thank you!
 -- 
