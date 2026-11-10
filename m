@@ -1,115 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315688;
-	b=tBw7CRsXZNtMBCjivWzQYNbaLaLfeGiT1boaIct/z1eNjw5NwC1K+9he1eAupH/cZhRg
-	 Wy8CPyJh/pSknu2hZGtjZ9tg7m4s57EIFT6W2BaDJe5p4IVfrWju1QEDxc3AfMp9HARIT
-	 PzVIXU64pdnAZidN9fowV0Q6E4IAAhWGawkLx3JaeyWahTgZ7KE4wVexZ6On1WNH0MLLH
-	 VJNiEE+obZ0Areb11VDoWyeXUAWeycDfw4LS3Ew5oM2seoKlSJCeTYEuVCHAk8JLf8Tt5
-	 +TR9L4dRPGcx/tXP1jPITlu1+pDgNY9lc4+FOqYgYua+1JaDrVER5tIU+SCNxuQcV+Q==
+	t=1794315745;
+	b=ez/RwwHXuz1yQrcXOt+gGN+/USiZ7cwMuPXq6m4qNsJKJQ41nGPOzHaXeOA0Lp9phwJw
+	 wSKzu7TkBlA+VovivxFHFZhnN4CFfY3QhGp49ipWp4yINaB7y6ezyuQ5d3rDcECNKIwjS
+	 qE2Ho5xC/Bt8Ngv0r0IhZjhXkLR6POxRoFj4LOhob9zXiGXDN7MBtZgzhm3gGz4eDz2sG
+	 6SveN5kpq1BvvgBpGD2CBBDFsOadaaZ4IUwOEv1rkNBNHm2j1G8UPzWNWo5zv5TzpTGU3
+	 RrFoIMo/snSM+C5pDlRfEOJ8paVidlUcNaRWqvFtNNLVzvyfu4zcK+3uNkmADFhXSww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315688;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=D2v39D546EgtBEUxd0H/nXHWdpp+WjM1EXJHBDXXhZg=;
-	b=QpsvXZ0JkcT37OM1AxTHk3owpL0bv8SMqvhmJVMsqqJ+bKjS+5l93ZqyOQ2gEkqWbonW
-	 /kpG2QeHvm/n/SPpouVuszkOzPbKrR4g12TQssUkYjWIQvMDhgatNiio3UQQF6maoT1s+
-	 92k8gjupB7tL7K6WPJHcjMW/X9eQW8nF4jFyfNgCociVoyZ7h5vQZSZr/mYMserDPkz8R
-	 UwqIW2nUkRSWdxRzZT3itp3xF8PZ7Ppry1SkbI/uqPyLpsrfEhA0ZF6BeHE9C1SXDodwX
-	 0Yf+Iz2sdMBCKDMgMigW0gAVx31KnYLNwvqx4RqbEkPIQj2kiMYUT95tRbhYHKMF05Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315745;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
+	b=0OKtWSAOZRjpyg2WNa9g/vtOz1F37d7B4OseApfR3RRAGA46gz+rVKsvlBSB1UUA1uZr
+	 wQFNC8ne3uU3x46c55RXim6R0KhxUjgy5K2t6BjYFlenNxr/oXHBCzBTxFPvMGe1OhL0m
+	 RHwiN0E8EZUMBY/itzX2WHS57LWMoBK9eaBZ032jq1B4pWFYO8rt6/Lup3Uo6+qANcSRZ
+	 wAKyVDvl/FfTDtziVQC7qD7aOeH7IDdC26AzjT5LEo5gnGElVCZIY+QJCBBAJKgd9FDrW
+	 lDTYMyvTeNgzwHU2HElU6NeVzXN6Lh4NAM7l8glgNbrHpZLnM7ED3qpH+R/ahr6cxkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=RB4Gi6He;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMFLKGZG;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=RB4Gi6He;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMFLKGZG;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PT6uxmeV;
+	arc=none smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B34A606A7D6;
-	Tue, 10 Nov 2026 13:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B34A606A7D6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF12606BFC8
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CF12606BFC8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=RB4Gi6He;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMFLKGZG;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=RB4Gi6He;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QMFLKGZG
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5BDE721EA6;
-	Tue, 10 Nov 2026 13:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D2v39D546EgtBEUxd0H/nXHWdpp+WjM1EXJHBDXXhZg=;
-	b=RB4Gi6He2tOUNMy6bJ00Z+v0V8KBcoceupgbTjR0W9JRUotJXCO22uGnREICS5iWEx7X0U
-	0IVV7m7jzO3SjxV/YRQ64cvorbwE4hatCdNNKs+HWfoWzBZSpCG4wvirvsVGvpDlswb0vl
-	KcHcL0cPLfF1+mgGlKlCLvj6g90mp8U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315686;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D2v39D546EgtBEUxd0H/nXHWdpp+WjM1EXJHBDXXhZg=;
-	b=QMFLKGZG2/0yvUwt73PA3Kt1faHu2V/ZbQg11OX2y8poQHVD2y2CgIBv6al9zzMKJr2g2c
-	lv9nmQzfSnMd0CCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D2v39D546EgtBEUxd0H/nXHWdpp+WjM1EXJHBDXXhZg=;
-	b=RB4Gi6He2tOUNMy6bJ00Z+v0V8KBcoceupgbTjR0W9JRUotJXCO22uGnREICS5iWEx7X0U
-	0IVV7m7jzO3SjxV/YRQ64cvorbwE4hatCdNNKs+HWfoWzBZSpCG4wvirvsVGvpDlswb0vl
-	KcHcL0cPLfF1+mgGlKlCLvj6g90mp8U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315686;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D2v39D546EgtBEUxd0H/nXHWdpp+WjM1EXJHBDXXhZg=;
-	b=QMFLKGZG2/0yvUwt73PA3Kt1faHu2V/ZbQg11OX2y8poQHVD2y2CgIBv6al9zzMKJr2g2c
-	lv9nmQzfSnMd0CCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3299E1339F;
-	Tue, 10 Nov 2026 13:01:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pQ1HBqYV82oESQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:01:26 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id C0977224F3; Tue, 10 Nov 2026 14:01:25 +0100 (CET)
-Date: Tue, 10 Nov 2026 14:01:25 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
-	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 28/41] ocfs2: use fc_init_pseudo() for dlmfs
-Message-ID: <ubsk5hvk6rl3woji3mwix2l4hwfcp3s2q3m2g7llo4yozmi4qf@vnfosiawowxo>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-28-4c998976c6c7@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PT6uxmeV
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5e948e56af3so738309e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794315744; x=1794920544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
+        b=PT6uxmeVeP7Y8K6sMNunJNdKlUzDMU1Gd/89tgmqn4GRh1XL+8kzfBL7Nt4EFylQtj
+         RyQIfBxTkvlYeC4gCBbbK2P9nzZMBFyAQfxn55P+NISv4fCK2kAkbDACJarOZN7Vnb+B
+         6ggs6UzceUP5tzrt/A2r/dqcj4hod44cVSa1/aVqWVumHgdSdUKDJ5iREaeQVC1EMaNW
+         fqnWZ+gnH9fwkOVZ7T6Zoe3D0ebrvGx1v/e5xwQTApSZVS5iOmlirhBqTl1bklBLzdeD
+         x99fQMIqGp931QGCAAXl0vHIXkowv50lI6obi8m1VsW/FsEuguuRoJ0JMWBAQg+kFPtn
+         knXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315744; x=1794920544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
+        b=SymuAa9E+VykVOsjXnjqU8+CwjO3I0de+TOkhIRa7i76GlY+gcroqB4VR5Xmg+udPA
+         xC66yyXXMcSt6OHVk6R3QVsVWAQdm/4GbLPqtoh32Pg43OKhsU70MfE+Y79S8MQesPGI
+         co7YE7ozaEwCcCUrtmE2A9DO5NbuI7aitHNzvkw/wFwKB1z3V8yuiCnF51dKFDOqUfAc
+         xz4jzNfSpY87oDivYlajI/cjhh1YljZ7oJgoeS/dDEuucZr/BIfv4QGAQRKT/V82Y4Mg
+         BIYiW6o99jxTwHBcYmEkgFDcfR/Bjqp8FkstTwzuGzCV6jnSJqnJyotPB635vd3O14H0
+         LpFA==
+X-Forwarded-Encrypted: i=1; AL+hErHuqTmKwvmleGes1JYlyh4VMr2NxFXwmrDNY/mjveJZ0e1A6mIR3C5j/nvmLQOJmU7mKkBBLjy1xZk+/bs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+37XmaYTPaT09q3m3bq2UTB4iaQ4w7H27HsxqHJ4BjDDGUpSd8
+	xMRRtd4p3fA7dkvGtnd3HyMCu/VkSpid5bLMpjmYucocDTF9kiHjWCxE
+X-Gm-Gg: AYBFou2TeZJEgO2wKYU8NJADgewSZvYp9xkrA4I2/eT6NlPhtDWLthExdLQpMk056ub
+	yUb7EeyT4nKjcxFxdGuRFzeoIDiYLW6agiVkquNMIlwoGqHh3nQ44vxcVWQMiBrNJGPS2VaHl4x
+	uCbxRI4ki02+tB+pPP8mB9TZD3NRdxT8ukpS7wUQGSUQEFbHs1KrOB4zfxsTA199MV/IQH7WEvE
+	8e+qliMfIjPSlZa4IGwYAXXodgOLOmuudaSYlqHT0z84E8DmDNQyx2dBJ/sjQ4BOmzvIC63UEPO
+	NJ9dN752/n5WmFNjKEdiivVojIDl2ugcs7/k4m3+fft9eIJBaoMT78N1JOocw3mfLUeMedeRbWd
+	gaE/wnlD+ncLk6Y367KY1wqLdHf0D45gqqjsUbzEGNC9jMk2ImR8HWxYu6y9m08lKarBf9v0+er
+	phHMdVlbqAT+hKysVitMx1kj5RSQU9sbjLqVYor2gDHNYdT0CPlb5xYMGrTd9J85p7j5QwVMveX
+	bTeYgzIATQibNvT2Jvcs4/A5XLRoAeVPGUFstokIfv6Y+oWsriRgWWHsR0hKnGuJe9YIGrmQS+E
+	/gud0BOqfKKEViM8/oVPTgeCKMv72eQuPUBc4qZnbQ/KcUcr1ZdL/22wzazxwBFQa6NRCJzuYSv
+	dnhuY612xKN5nhI8eAkj6DolYPbidzcJeYAQ/Qo0quTohkiGeVT4yR0MwrjJ4R5Y6oEIHnwxI1i
+	A=
+X-Received: by 2002:a05:6122:1d01:b0:5ec:c3ed:7d99 with SMTP id 71dfb90a1353d-5ee0d0a5264mr742890e0c.6.1794315734491;
+        Tue, 10 Nov 2026 05:02:14 -0800 (PST)
+Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5fd00esm1573509e0c.16.2026.11.10.05.02.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:02:12 -0800 (PST)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	linux-gpio@vger.kernel.org
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Pablo Mazzini <pmazzini@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: sunxi: a733: do not switch the mux to read IRQ lines
+Date: Tue, 10 Nov 2026 10:01:57 -0300
+Message-ID: <20261110130157.112155-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,76 +105,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-28-4c998976c6c7@kernel.org>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[31];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Tue 10-11-26 10:14:44, Christian Brauner wrote:
-> Initialize dlmfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-> also SB_I_NOEXEC and SB_I_NODEV. dlmfs never holds executables or
-> device nodes.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+The A733 description sets irq_read_needs_mux. When a GPIO used as an
+interrupt is read, sunxi_pinctrl_gpio_get() then switches the pin to
+input and back to SUN4I_FUNC_IRQ, which is function 6. The A733
+interrupt function is 14, so after the first read the pin is left on
+function 6 and its interrupt no longer fires.
 
-Looks good. Feel free to add:
+On my board this breaks microSD card detection: the PF6
+card-detect line is read at probe, and after that neither removal nor
+insertion of the card is noticed.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The A733 data register reports the pin level while the pin is muxed
+to the interrupt function, so the switch is not needed. The A523 and
+D1 descriptions do not set this flag either. Drop it.
 
-								Honza
+Fixes: 0535bfbfa97b ("pinctrl: sunxi: add support for the Allwinner A733")
+Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+---
+Tested on a Cubie A7Z with the pending A733 clock, PMIC and DT series
+applied: before this change PF6 read back function 6 and card removal
+and insertion were not seen; with it PF6 stays on function 14 and one
+removal/insertion cycle was detected.
 
-> ---
->  fs/ocfs2/dlmfs/dlmfs.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/ocfs2/dlmfs/dlmfs.c b/fs/ocfs2/dlmfs/dlmfs.c
-> index d3bfcada3e3b..1789ec96dc13 100644
-> --- a/fs/ocfs2/dlmfs/dlmfs.c
-> +++ b/fs/ocfs2/dlmfs/dlmfs.c
-> @@ -21,6 +21,7 @@
->  #include <linux/module.h>
->  #include <linux/fs.h>
->  #include <linux/fs_context.h>
-> +#include <linux/pseudo_fs.h>
->  #include <linux/pagemap.h>
->  #include <linux/types.h>
->  #include <linux/slab.h>
-> @@ -563,6 +564,7 @@ static const struct fs_context_operations dlmfs_context_ops = {
->  
->  static int dlmfs_init_fs_context(struct fs_context *fc)
->  {
-> +	fc_init_pseudo(fc);
->  	fc->ops = &dlmfs_context_ops;
->  
->  	return 0;
-> 
-> -- 
-> 2.53.0
-> 
+ drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+index ca82f08a3a65..456d9170c2a2 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+@@ -23,7 +23,6 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
+ 
+ static struct sunxi_pinctrl_desc a733_pinctrl_data = {
+ 	.irq_banks = 10,
+-	.irq_read_needs_mux = true,
+ 	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+ };
+ 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
