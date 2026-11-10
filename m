@@ -1,68 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309245;
-	b=RPICqJXo9Jeu51pEWh88KT2rDQ+4WFtBfhUq+jKe3PCZT3iF+qiZLWjft7ksXLz89TWt
-	 7GhHnH9kxv3J1oYVPhBIPA80kL6EShwOnFRGdwVhcaPtEvMLOWmLfSY8EChp/GeG14Z8o
-	 LKlxSDWbtSiSJrzlNQY5kw7Gwl/C4QnmT4rFuxYkpGFVcTo7v6br8S75iV99eDd3sLTng
-	 Qei911qYCsqNOOEqlX3/Sltz0ewW5Ix9ykMtMI80PWcMve+EYbTC4ZFOk5Y6iMe/cTcxs
-	 RaMJf5ffXAxPEEOE1Erupkou0NHybIgSnvWL1O3c/Guv6CyWEx1Ej2d0fEHEzyKNbGg==
+	t=1794309257;
+	b=rikKwXpHURGt5SlnnZSHhDvxINt77V9cVnXs6bCFKOg3I+zlAeY2rQ0hgliP7ecKd0vS
+	 t/xY95zRJqztqgFPznKOy1vNg2tbvJfTuAqoLZUaED5KWBMKTiNUsZxGnRSBEaHbq+AlF
+	 wTzBLDeHGagxEtyJMD0MWODIN2BnH/6X95+Xr8VLpmhmMXff3hrpiy40DRtvcmRskDAJy
+	 3xchu4b5hVwK4SAMOUpAg2lLT0mhVK8jsH/XMsZq5r8vyZKPMrE4Xr1wdL9OovWMMIF9w
+	 4tTXIql+DPYhZEwiH3MU2iPsuIndk4KSgJw3FNVmsuHfiWBcVEPCep19/thsh/KSEOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309245;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EJYGyku4plj4YEG/HyqlppooqGbqsGjX4RZGU5RMAbo=;
-	b=rXQzrOXd0nuW3tRQFYQvPFmhm9GTAJa3ed+BnxYT5nNh0j0Dp1aMX2uswuWoUUtt+DDa
-	 r5VRf/LCXizibHMMCszZ1fWoNuHEiIIow4K4GA0lbNKEx4EOuMMD9QRYY568AzwhvTPjU
-	 +u4jZMGtv71prEW2JWhVmLpNDLFIIbX4QR/E0SS8eFTVhIsnH91A7E5VZWv2ADhHCkofX
-	 m2zB0be40jfdF+YfEj9pra9VePtM780SZQD+2woXEys9aH3Yl+Onu6saC6dWlGS8APK0+
-	 0xgZX9NizCC5LMho9JFKGILl1rAFgwZNPXAFL//RHQeJlV0kYoGW5jzNhW6OKsBUYUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+	b=a02gQaWWDRXz5enls1AxQLGQYL2yJtevtnEohvrI+bBZ6D7GuTyX+yC2/sDz17dyBXxM
+	 O5/Er3OAVC/ZyXE0rTSGD7PJsgDD/BbmWuv3NmZTaeBK5p7Ed47LQZ4yn65yCYZbNKCkJ
+	 4GgavpKISVpvxkP3GHv66yqHFOLa+Z97mTxnDKzr0nWsS8Ri6HiiCkWuHE2EmiaFfLmXr
+	 GBHy/bZikZ/zDsM/2CaQCSZ7Lmvkz8XplMgyUcxpvKf28Rw9W/fhgHqkf2H6ZiO740liS
+	 B4+jGhrKVfXdCbin7iuLzj65IWigxFMJmQq8wHBAcdeChS41SQTcrNVUlGsMfbtSM4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgIDDh9w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=whEgGqij;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2DA606A31C;
-	Tue, 10 Nov 2026 11:14:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD3E606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD3E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgIDDh9w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9614C1F008A2;
-	Tue, 10 Nov 2026 11:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794309244;
-	bh=EJYGyku4plj4YEG/HyqlppooqGbqsGjX4RZGU5RMAbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PgIDDh9wYkSzRgTXcE924njSkPqk0YnOqO0dt1BhVGNnu+S2Ulu+CmHQ55ani1zhq
-	 a6snBhc7RHLcI1FoRlYK+GfpUGDs0bhlgetWiW3AcfU2dmYB3upSePUY5OgXbkdP/Q
-	 qneG4c56ANkklwEJWL8d1lZ1754hIZQ4xnm/L5Anb5OQsfYsQeLUG+ppuqBXvfwYTJ
-	 Nx4INZbGak+MqGlJQgHPuQEUCGgiL35t3yzESBkn534aN32P42J7tyEORBtklNp7rz
-	 Nr9Fmxg8wTExnABcYusZzcEt0HOZUvlJER+NGXznkcYp7RkPgYGGYBUkxv3nkzKfD9
-	 cx4eD7kv+7aRw==
-Date: Tue, 10 Nov 2026 12:13:57 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avL8UwNK8iXJQIUo@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=whEgGqij
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3106553eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794309256; x=1794914056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+        b=whEgGqijQSILV6KrKPrl7DR6X0Hr8ZyZ0F+U95wxJ5yN553gCfwFMIILJpN1Ue0c3+
+         DyAwDdzrXHajzSVmVDGGWiKYcfVBffIovDms+hLlDkIsNjua0YbuJKkAf/u2nLzZAANf
+         GD4YqVyXjmiWIwusmBt6KjrGLsqg3BklO+ipkyBexKh32346bos5/CPbYPH1CwmcEBIU
+         g8n9/jMTecJ5JzfqiB3BBg+CNz4Jr6iseEuQXSdPl9H0nDgj7IXbQUNeuCkP7D/NXnP8
+         1kuEVHOCbN7tUqWaVlqHkvYdB9anRnflK2zc4Sar7uK5mnf5HrjtP5nVx1JxCyx24MDL
+         IpAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794309256; x=1794914056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+        b=YgvxupEuRTjCkfuOXRxC4e4F0wRdVbdqFzfCL1j0ixLs9XCm1+3x7ZUOAi639fZ/cE
+         b9Ume2lOAPagJiXZ4AHTBirRBTMKQ1iZTSeN9NwV3NCsozpf06OSshnjrTJbO6Y9razG
+         ZF11mMs8p5um2vvNhEHRVvIZYjDzdd+hG5Yi5LUxsw3wqU72iOlKLMoTYCOyfDeomGq6
+         6oLKSoYa/tL1/V6Sr1jCzPhyyVxDhtutHZG5DRp3tjfDsLUWP+wPeMpj5obhFpwoixZh
+         Se7eYgf27gBFpcSUYpRuDctEQfxuMSR6EMaUNvxinajtKv7K/WeUerfOtZcm8AMGw2dU
+         1iSg==
+X-Forwarded-Encrypted: i=1; AL+hErEppJPyiZ8qAJEoOKumLsF6xshYvyuDIlODJh87wYw6YgSZJ3hohuhfmAtRsWsDGcgZDDoMgfgxEKkLlEk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lBrI5grhgfBfpIA31pcpu1UHuvw08df1qY0ZNSIrTkkkwji4w
+	DqVDaFjTG6NJO0TMuoXzcAcBHFshNBicLc63qeim5Yn6aW9IA73TNn2n
+X-Gm-Gg: AYBFou2dC+aucNDt4Ziq/EID5zikAvpAdVXyS0ZRgrCM0aB+LO4W8lJavT5sJkiMJue
+	2bfJajoNW7aug7nrX4AH76qgQnDy9eQz1lD/JLjTShgW/vm/8CSwo1SzV1m/2hBt28nYqWPWKe9
+	mVP92Ncp0Pcbklu3iqIAMmbJ3/QMaqE7RPKYARKHsB8+g9WG9P+rK3dAZifGx3+srUJdlpeVG1d
+	Vh1u30C+Ip6GffxoHuJ0Yf/AEqEtwmq3iCwdKQAtiIQQCv/Vsnfsqtni5Nt5A1PcgaOY5YZ+Nd5
+	z0NLqzu3955kpWsS2Mq/zafQmnjSkKya6TOmis1Z0Yo9A8qlpGHl8wqP4IVyTU43RSESUFB1MqQ
+	I7J1pxSTbUUYl+KGlb4dgbtCrzY3SodKCCZCeD0Y6AgsSmH+N2UGGYTRx+lSV6cqd/yu7WhYAjv
+	HNifLDIhRNqAvRSI8PqQ1ofw+JYURZWuxBhuuI0wtPEFtu1qr1UoBGwFPzjpReV8D1G0383FVYR
+	QOQcdDYAZdNnme18CFxYYrNNWqiNnt00CDiKc6/1hRsThFf4LYxURVSMMpzUnwK9/FW/yMH3rs9
+	nyY2UJ7I7Cm56n6GpKCBMT+tEvqwOBNM1n8miaEeMeSyU8zTmA==
+X-Received: by 2002:a05:7301:78c7:b0:375:87f5:ccee with SMTP id 5a478bee46e88-37587f5cedfmr1886929eec.29.1794309256012;
+        Tue, 10 Nov 2026 03:14:16 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae6377sm5908119eec.3.2026.11.10.03.14.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:14:15 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Peter Chen <peter.chen@kernel.org>,
+	Xu Yang <xu.yang_2@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] usb: chipidea: core: cancel power_lost_work on removal
+Date: Tue, 10 Nov 2026 20:14:02 +0900
+Message-ID: <20261110111402.2504885-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,198 +98,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="duvq6kgm7ybsxza3"
-Content-Disposition: inline
-In-Reply-To: <avL4LoCz2wc164zo@devuan>
+Content-Transfer-Encoding: 8bit
 
+ci_hdrc_resume() queues ci->power_lost_work on system resume when the
+controller lost power during suspend. The work (ci_power_lost_work)
+dereferences ci: it touches ci->irq, ci->dev and switches the role.
 
---duvq6kgm7ybsxza3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avL8UwNK8iXJQIUo@devuan>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <avL4LoCz2wc164zo@devuan>
-MIME-Version: 1.0
-In-Reply-To: <avL4LoCz2wc164zo@devuan>
+ci is allocated with devm_kzalloc(), so devres frees it after
+ci_hdrc_remove() returns. ci_hdrc_remove() never cancels power_lost_work,
+so a work queued by a resume just before unbind can run after ci has been
+freed and dereference freed memory -- a use-after-free.
 
-> Date: 2026-11-10 12:10:57+0100
-> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
->
-> Hi Bart,
->=20
-> > Date: 2026-11-10 10:00:42+0100
-> > From: Bartosz Golaszewski <brgl@kernel.org>
-> >
-> [...]
-> > > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> > > > >=20
-> > > > > Can property be statically defined somewhere? We might want to al=
-so optimize
-> > > > > these duplications with const variant (here or elsewhere, for fwn=
-ode generic
-> > > > > path, I believe).
-> > > >=20
-> > > > Please rephrase because I'm not quite following what you're saying.
-> > >=20
-> > > Can prop->name come from something that is declared as
-> > >=20
-> > > static const ... foo =3D {
-> > > 	... .name =3D "bar";
-> > > };
-> > >
-> >=20
-> > You can't know it for every instance of struct fwnode_handle, so the
-> > answer is: no.
-> >=20
-> > PS: is there a way of using match_string() with non-const data?
->=20
-> Given the definition here:
->=20
-> 	$ grepc match_string .
-> 	./include/linux/string.h:int match_string(const char * const *array, siz=
-e_t n, const char *string);
-> 	./lib/string_helpers.c:int match_string(const char * const *array, size_=
-t n, const char *string)
-> 	{
-> 		int index;
-> 		const char *item;
->=20
-> 		for (index =3D 0; index < n; index++) {
-> 			item =3D array[index];
-> 			if (!item)
-> 				break;
-> 			if (!strcmp(item, string))
-> 				return index;
-> 		}
->=20
-> 		return -EINVAL;
-> 	}
->=20
-> You should be able to call it with a cast.  It's dangerous, but
-> technically it works.  I'm not encouraging it, though.  :)
->=20
-> 	char **strings;
->=20
-> 	...
->=20
-> 	i =3D match_string((const char *const *) strings, n, "foo");
->=20
-> This is a historic problem in C, which was solved in C++.  I have
-> a proposal paper for the C Committee for solving it as in C++:
-> <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
->=20
-> This paper will be discussed (and probably voted in) in the next meeting
-> of the committee (which happens next week), so there's a chance that
-> this will be solved for C2y, and thus the cast will no longer be
-> necessary.
+Cancel power_lost_work at the start of ci_hdrc_remove(), before the
+devm-allocated ci is released.
 
-FWIW:
+Found by static analysis; not runtime-reproduced (needs a chipidea
+controller losing power across a system suspend/resume that races unbind).
 
-	alx@devuan:~/tmp$ cat const.c=20
-	#include <stddef.h>
+Fixes: cc509b6a47e7 ("usb: chipidea: core: handle power lost in workqueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/usb/chipidea/core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-	int
-	main(void)
-	{
-		const char *const *ccp =3D NULL;
-		char **p;
+diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
+index 3461dd7..400e4ca 100644
+--- a/drivers/usb/chipidea/core.c
++++ b/drivers/usb/chipidea/core.c
+@@ -1246,6 +1246,13 @@ static void ci_hdrc_remove(struct platform_device *pdev)
+ {
+ 	struct ci_hdrc *ci = platform_get_drvdata(pdev);
 
-		ccp =3D p;
-	}
-	alx@devuan:~/tmp$ gcc const.c=20
-	const.c: In function =E2=80=98main=E2=80=99:
-	const.c:9:13: error: assignment to =E2=80=98const char * const*=E2=80=99 f=
-rom incompatible pointer type =E2=80=98char **=E2=80=99 [-Wincompatible-poi=
-nter-types]
-	    9 |         ccp =3D p;
-	      |             ^
-	alx@devuan:~/tmp$ cat const.c | gcc -x c++ -
-	alx@devuan:~/tmp$=20
++	/*
++	 * ci_hdrc_resume() queues power_lost_work when the controller lost
++	 * power during system suspend; the work dereferences ci, so drain it
++	 * before the devm-allocated ci is freed.
++	 */
++	cancel_work_sync(&ci->power_lost_work);
++
+ 	if (ci->role_switch)
+ 		usb_role_switch_unregister(ci->role_switch);
 
-C2y, if my proposal is voted in, will behave like g++ above.
-
-
-Cheers,
-Alex
-
->=20
-> The history of why this is not allowed in C but is in C++ is, as far as
-> I've been told, the following:
->=20
-> Back before C and C++ were standardized, C++ invented const, with rules
-> slightly more allowing than what they are now.  This was going to be
-> standardized first in C89.  But very close to the release of C89, they
-> realized about the danger of converting a const char** to a char**
-> implicitly.  They were so close to the release, that they opted for the
-> safest approach: disallow any non-trivial conversions.
->=20
-> Later, while standardizing C++98, they realized we could allow a few
-> more conversions safely, and so they did.
->=20
-> C could have taken advantage of that, and pick C++ rules in C99 or C11,
-> but for some reason, nobody proposed that.  I'm proposing it now.  :)
->=20
-> We've already discussed this proposal informally within the committee
-> for some a year and a half, and there seems to be consensus that we want
-> it.  We're only being careful about the specific language.  But I think
-> I finally got it, and it will go in next week.
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
-> >=20
-> > Bart
-> >=20
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---duvq6kgm7ybsxza3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmry/HUACgkQ64mZXMKQ
-wqn/iBAAiyKr32RTSK1TYPvSQDL88d2mG37wJFkiZwQ+iI8faT6DtjYjQitkYcwD
-3CjIdOt1+IDPhpe1Cgmr9JdLdORzxcjiGzprYHyTJ2tI48XhfGmuL1tX39aR7RrF
-/myY8MICWrxtYs+pA7gNydDwWdpSncWv7xNa0FKP+kzy8tr/unrPcfWxlUL9wtZs
-KbWQvzyGzOK3tA9JrOYl7mS/qmUoGUq3kZGbxnYV1Mho22LXk/fa4kB4cSsCUgY0
-VrXy4W7R6InMPl3z6iAi6QzKo4qZD6xUYOtDsSsgQ0bobe4Rg0uRWVolH+8DG+6Y
-/Ri6DuEwV8x15Y5gzzu826tQYuZIPt+lr3Q3IfiLF3FcGTjHHN0uoh/EXggsH0ih
-Yni/L5hj7ldlItbFyaY0WTPtv1C/GCv5DOEDzgKXltLVLdXARD3vbwIAcAto/T/N
-7wPsnH5PDd/TCRuQsqr41rPVeF54KpIInzrWttZ7LFHBKe/EWsIJnShFfju+V1Uj
-R9PcJaiiq597UzR8ffJMquBsjnz4eUTXtsaFg7jtp/A2/s4earwxUcqWnDcOmdz6
-U/izMMopfrM/NCnXvBpXeIMDMY9ZOCo0zawfNqb8JnxS1OOPyulZQsRkPNcAfY/K
-KTkHdVHdOzs+8iG7FGCaHW+15ZVskdXQzzo+n3oOTiOlvcf4ZDk=
-=7Dj+
------END PGP SIGNATURE-----
-
---duvq6kgm7ybsxza3--
+--
+2.43.0
