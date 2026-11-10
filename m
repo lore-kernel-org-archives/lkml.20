@@ -1,63 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336638;
-	b=ShuKGj8nPnerCmSoGIv3tKNpH6hX+W9D7ZnSdLjB+aLHpbNyJdLVFyYeLkmZPFGe5Lhs
-	 T/CeS6W0QJbprFrGfYIn9spuKT2c0G/Jpq5QWA7pzWaG+mLytChME5A9cN9k3YeYLqeXp
-	 jxFBRS/2QbvO1V82DrXOA0MKoTJDE2te+O/EpodoTHf9NXOjHnppMlxrponu+p3uTSDyb
-	 9g7wtUvgoHb+WgunovuEiFdbIZ8p2mqiiscCWAiUV66AUduxXaN1LTWUeNjNrN1eURRUQ
-	 0uFL/L3qDG6Zg8gwKFQzibBOyJgiiPOv5XZmVbho9U7vnM0uzg5yYpfZd8ogxtpy01w==
+	t=1794336633;
+	b=nerHpTXui6zfp50ggFO71WuIpbCe5dfvQSOsi/M1Jh93G3SGBitR01IjXMuTHxAViV9Q
+	 x3EMd9LkmWSRrjIM+34JnrlhJ/eaQOxij5mNOXGOOI3SLu1GOUgCw6m3Zl74khTYvw+S6
+	 P1BN9FBEjpbVnBUkrwFoVTcRodrJ+5X17MhPqiLOf31hfFquwf852GDMwGiVpV8g+Xe/r
+	 0nh+rmbxH++rupkavw5MdTgXPQcLEfBZEcimfC1HIuHiImW8IMVIZZzucYwmqFRS+PNoK
+	 tn5rTbj4ktSw6+7ATHV/ibbxxOm/PCmVR0u53iATyVYb+Y/+ptFwvt2gDxmJ/G0kaOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336638;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
-	b=k17WjBse6NdRbdgTh9CH+2UCi61oFZ1pspNar7iwN+aVZssrQBLBqFaS5kpKS8Fv9D5T
-	 06uPvV0Sx2BEEg2FFbARUO/BJirvFCOSfj69+WVoPSQf2PwKKGhAgiCe1mxZ5EEou6Ayb
-	 xYm8mHYaKR3ZpMq1RExXG07OGh1zLKCFEUIJNnIdJFLQIZhnLODoZik3s3unS4Dv7E8P8
-	 snXbROzxrfjOUQFBi+S6XcxpZUa9wT8sIbUo60FOh0hHkI3DWIo9PHPDhugPTJmA1sw4a
-	 pL40LtdZYaUhHhJfMGW8SQlhYyAcXN3bVW93Inn5X0qPqAmISc+RYrsVTYhlkciqlVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336633;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=93NL5yz+3QKPP5WELcAqJ61iCYkDaiarObF4tACg0WU=;
+	b=pD+J9YOFB9jHlhamQgan89GJFCnDB/Jov0Y7W6Uz6CY8+Y+8GziVZaundhum5vNdvI5I
+	 cMyRWJgLEbAv5P40vFDoXeDATLZCckCXTeKsmrAMuZvbrYh6iuFmkYlqoZwO38ybekuSR
+	 F+7IlhGsD3h/Lotb0AVRrgKxqCFwf5llHL59yYYruTTjrWBo4MESvNWpnNgQI+Vx+t0T+
+	 zEWSTNF9AgHz15ETQaz/lRpeWgFpdFELNv/rvgcgrcIAT29C/XHb3BYiERPUtoHaUsjK3
+	 7evSwoMqwUuxin03IzeuqIcIkpNRXpV+Ev2OApzixdroEKf5mNBUcAZvTrXbQ32JLZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/CvgNXe";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8F6606A33B;
-	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA17606A320;
+	Tue, 10 Nov 2026 18:50:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566731F008A2;
-	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/CvgNXe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BAE1F0089F;
+	Tue, 10 Nov 2026 18:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336637;
-	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kx2ZaO3znvu4YvmU84JU+Iyq4xCs5EF+0qqxwsv7Row54evB55RJqH6zZjZ2YTzQ+
-	 KH6d3TrAUB73sCg7Q4T8ypXYbrkMJ+f7ztTRCFp7X1Ta5vIntCe6skoAzfj1B/aNst
-	 XvaFfDfIz59yeRWjUCmhwHiJa8ugLfELWt6zQuawcKMqTkbJZnBIaDbriM8t/kINrw
-	 VNbS+DBr7usofeo/G9oKuoz5YkNWqwUOJ0KUAyTNIZKZIyV8m8Qp7xFy+bHtMetLOC
-	 EZjZd1GYO25xuVcTjsbN28QUu2N6kI0ISNCbTTLxHSEa0ajGl9mwxkTRvGZO7e3GM0
-	 IWu6/RQKO9MaQ==
-Date: Tue, 10 Nov 2026 12:50:34 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: linux-kernel@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-rockchip@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-phy@lists.infradead.org, Dave Jones <s.dave.jones@gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-Message-ID: <179433663384.1318226.574453120666617957.robh@kernel.org>
-References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
- <20261110074533.4052196-2-damon.ding@rock-chips.com>
+	s=k20260515; t=1794336632;
+	bh=93NL5yz+3QKPP5WELcAqJ61iCYkDaiarObF4tACg0WU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=j/CvgNXeoUgqLZbrh25fy8ki9qZYw3Ufq4lajRGkx6SWO/wog1Pl8/P17915Lpwgx
+	 f6p82JXImsJNa7ttmfWZ+k7NI96v08BpNVwEEVyfGSFbzmoeXJuroYUZv9WtxLSZKF
+	 fKFeMAyOfLl5a1ME4MMeJitPVneUY6HOG/cjb0h59wdA6ZY8en6G8FT1LOAyG1GDD8
+	 /hHQYllNxqukw46KtvzuAN6x5mNSrx+px2ATIFldjDj2zjioSsSXGDBa8nId5ZNRUk
+	 SUDLirtkOkXuiGOgInk8jKbW6EVfMQNKVnMnABY70zYAoPWLFeYb4wmUCjQQVD7VdP
+	 ZyHsz5/wDs6SQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 38FB3CE0AD8; Tue, 10 Nov 2026 10:50:32 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:50:32 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>, bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH bpf] bpf: Report RCU-tasks quiescent states in do_check()
+Message-ID: <a8891e73-226b-4baa-ab7c-59ed23919efd@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261110-bpf-verifier-rcu-tasks-qs-v1-1-99e8f798a6dc@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,42 +73,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110074533.4052196-2-damon.ding@rock-chips.com>
+In-Reply-To: <20261110-bpf-verifier-rcu-tasks-qs-v1-1-99e8f798a6dc@debian.org>
 
+On Tue, Nov 10, 2026 at 04:18:32AM -0800, Breno Leitao wrote:
+> I am seeing rcu_tasks stalls in the Meta fleet on debug kernels (KASAN,
+> kmemleak, lockdep), where a task loading a BPF program stays in the
+> verifier for over 20 minutes:
+> 
+>   INFO: rcu_tasks detected stalls on tasks:
+>   000000000cc1a43d: .. nvcsw: 4/4 holdout: 1 idle_cpu: -1/91 task:GlobalCPUThread state:R  running task  pid:175256 tgid:169948 ppid:1
+>   Call Trace:
+>    __create_object
+>    __kmalloc_node_track_caller_noprof
+>    krealloc_node_align_noprof
+>    copy_array
+>    bpf_copy_verifier_state
+>    bpf_split_cur_state
+>    do_check_common
+>    do_check_main
+>    bpf_check
+>    bpf_prog_load
+>    __sys_bpf
+> 
+> The main loop in do_check() only calls cond_resched(), which is a no-op
+> on PREEMPTION kernels. Involuntary preemption is not a Tasks-RCU
+> quiescent state, so the loading task never reports one and stays a
+> holdout until bpf_prog_load() returns. Meanwhile every
+> synchronize_rcu_tasks() caller waits, e.g. ftrace_shutdown() of a
+> dynamic ftrace_ops.
+> 
+> Upgrade it to cond_resched_tasks_rcu_qs(), which reports a quiescent
+> state even when cond_resched() does nothing. The need_resched() check
+> goes away, as cond_resched() does it already.
+> 
+> Fixes: 3c2ce60bdd3d ("bpf: adjust verifier heuristics")
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-On Tue, 10 Nov 2026 15:45:31 +0800, Damon Ding wrote:
-> Document the eDP transmitter PHY with Naneng IP block found on the
-> RK3568 SoC. The PHY has its own register window inside the eDP PHY GRF,
-> so its node is modeled as a child of the eDP PHY GRF syscon with a reg
-> property describing that window.
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+
+> ---
+>  kernel/bpf/verifier.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> Also add the "rockchip,rk3568-edp-phy-grf" compatible with its own
-> binding schema, so the shared Rockchip GRF schema is not extended with
-> per-device conditionals.
-> 
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 5e4700fda66b9f..232551fd7cefdd 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -20627,8 +20627,7 @@ static int do_check(struct bpf_verifier_env *env)
+>  		if (signal_pending(current))
+>  			return -EAGAIN;
+>  
+> -		if (need_resched())
+> -			cond_resched();
+> +		cond_resched_tasks_rcu_qs();
+>  
+>  		/* reset current history entry on each new instruction */
+>  		env->cur_hist_ent = NULL;
 > 
 > ---
+> base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+> change-id: 20261110-bpf-verifier-rcu-tasks-qs-bb523c1febe9
 > 
-> Changes in v4:
-> - Add the reg entry for the PHY node and the ranges/#address-cells/
->   #size-cells for the parent syscon node.
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
 > 
-> Changes in v5:
-> - Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
->   the PHY node, matching the updated driver.
-> - Split the "rockchip,rk3568-edp-phy-grf" syscon node to its own
->   binding schema, instead of extending the shared Rockchip GRF schema.
-> - Rename the reference clock to "ref".
-> - Drop the example from the PHY binding schema, as complete MFD
->   examples belong in the GRF binding schema.
-> ---
->  .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 46 +++++++++++
->  .../rockchip/rockchip,rk3568-edp-phy-grf.yaml | 80 +++++++++++++++++++
->  2 files changed, 126 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->  create mode 100644 Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
