@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317185;
-	b=2n2I+nyqDX/G6Mw16aE6ypbXW7D2EWeoFNHMioxfJgvCz+465i/C9eGYWAH76X8JKY/b
-	 YcM3EKvwAg4oMvzr7vUbOCBMyNrIswGXV67aMxOeamOkk+ZGtP5LmpFr80kQmYp9VnWk0
-	 kLgidmSp8T8vD0aFaPfPW7NUuMCfbqkBdFLgv3tcibp+HEE2SBbEuN0vouxBN21WepaAV
-	 snQI7Ea3JU5g//txllMmzrXuLwurLCxjtKHXe05kM5JqUEvJxBAeDNItAu8brOHXwMNmz
-	 qLYgI9ZGl5TZ/s5IYjYAp7zRJxXn7MWiF98DZuqLWua3DmzQhBU8QTXmBSS4Gft5U+A==
+	t=1794317242;
+	b=x0FIdpSIJ0yHWSFwQ0VyAAtiEgxEKRp5YAlMbw0sWR+2Kt8NHQUOHEevPDRBcBn5Rr1B
+	 QTW3htwVb8lIw5KzHZbwL3aRiNjlpWvYns0XXmv2Kd0WIlKIDD+ZBjLDyurndn5mp+kqk
+	 psv8r5cvUrMkEH6kL7kM3XoHXkIIZt6QR73pvXXdl21/ZKolE2fDx21i9M8gY2JbDSJ8H
+	 n2UcMBGLxgTOrBCPPechwpLY6h5z6xPFqxJwLulTNgHR2vqbbR0YkJf1MtCi9tXmmVgc+
+	 baR28ZCslL85Y4SjWTxY/3dJbsWrwzPK2m9SuqlNpd8BwnoBeAlvlFcuUjlIqthZUBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317185;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317242;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QYi2FkrOHKAn8jWeQSafUk5fN1h3AA6n95wvazfn3aQ=;
-	b=5XjvYEwwh3jgRu0nBDeHJ2gQCGIDGI3p3W1cSXxNzGNP3dK68rc0KT8PLDAL08pbv0D6
-	 cLJnuFY56zz2x+c/9B0MQaUgeB1tajvtqTJeeyC/BZR1EcT8wtBoQSlCqoYO5eihQYEru
-	 aUcX+MWWoZMS9qV6Hal5inrudWkKwabN2fHvi0I+u+0qcv7tAlpKaUMPcX0hJ1ugdVnos
-	 uervMjUelG3OxiqcLlMyi5nwLUJ/wIQLnR1QAnzdDK4D9QFDo5r2tLnYqgO8Oy27q5GO8
-	 6xOBiDpeBtVyriHmgGEEFOtRGDymn2rr1bX/0IGpvA4utXCp0ZOVXLYu6F8bvWQtX0w==
+	bh=wxaCYyKL+z4mqSacizxtGpLwQg976okfyyahEHpaHsY=;
+	b=Qds3wFx302us4i9NdeyXMcuDvo+39dLTwioHbsbPswd1SJ5NvcFZycYeyXYXDff11K+z
+	 ZqBLptvyjdcRxp9GpLYkXL/TzLIHmjMoyCGsL5PbV/uaCxDXAjjH+PKLaFSY3uZxFsU1Z
+	 XXluW02FTYGktl5IABbScMmCYUaahEGOEpyl8C9AS+0y8vV0YcAKfmjDsZsyHxVc5y3VM
+	 y1+f3GVj5uWVX9x6tO83ce/4aoWzO0BaLBBEWx/K3sCKHrWXBm0Bh3hZNZUL96OKgHTRf
+	 C97eYVgV3rahf+/rojXkW/uRaAxu7pSo6DquNXEYZ8ByZ5BeIeyue72FfhXy5eejOqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AtLp5/RT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Hg8ZZveN;
+	arc=none smtp.remote-ip=95.215.58.29
+Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C62D606A33C;
-	Tue, 10 Nov 2026 13:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD19606A743
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:27:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AD19606A743
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtLp5/RT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2111F0089F;
-	Tue, 10 Nov 2026 13:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317184;
-	bh=QYi2FkrOHKAn8jWeQSafUk5fN1h3AA6n95wvazfn3aQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AtLp5/RTpGlqDN34Tri/itWk2Tx4a7UuIZjP2sfUfrULEqMPt8lC+bbJX1Z962ZCC
-	 +QAvBgv6F0O3K/VXGAsjY5I1PijgZ+zzSm1v8wWlvb0rME6Ixclc2IdFkuvdZ2qQPt
-	 x+L1EPtKeItt66wZj3Cwnz//GO6C8yKteZZ+VEIksKSL8G+ALS8yVacn+Cs6dhubhw
-	 /veIjpktWTnt7viEULVVmfJZdbuz4BrUTWfAxhwEQPHd056tAuDo6BryFqPekLx1vq
-	 TGuZb+mL+NoKV7xw7thS2J0URaAK0EsR0wPxq3yPxkmMVFMz1Avn8roCPJp+Q9D2mT
-	 e5YQ31mqrph6g==
-Date: Tue, 10 Nov 2026 14:26:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Alban Bedel <albeu@free.fr>, 
-	Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: clock: ath79: add the PCIe PLL clock
-Message-ID: <20261110-hilarious-attentive-velociraptor-cd55fa@quoll>
-References: <20261110013646.1582970-1-rosenp@gmail.com>
- <20261110013646.1582970-5-rosenp@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Hg8ZZveN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZeuUfEfQhCgZ/JtebCRh29O9EvKPCwKAdhyX7sNum/k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794317238; v=1; x=1794922038;
+ b=Hg8ZZveN2MXg+dQOCvqXKdVn2uuRgRfWJO5U8ZuNeAwdpcpch68Pbv6740xLqSHhrRgHbBcw
+ OfZErMtvLOUKZoT9gvQlAjJgOJsoVKB+/k//2bIXWeI1A0TZxRMekRbaCYX+MN7VhV9AawNvxX/
+ Mf/HNoGltsDy5gj1oapADiJM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a733b54b25416052;
+	Tue, 10 Nov 2026 13:27:18 +0000
+X-Mizu-Trace-ID: a733b54b25416052
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 14:27:08 +0100
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+	Pankaj Raghav <p.raghav@samsung.com>, John Garry <john.garry@linux.dev>, 
+	"Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+	Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xfs: check the disk address for hardware atomic writes
+Message-ID: <avMVZKaUjc8qVktd@quentin>
+References: <20261110-xfs-hw-atomic-align-v1-1-2274b169c32e@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,37 +65,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110013646.1582970-5-rosenp@gmail.com>
+In-Reply-To: <20261110-xfs-hw-atomic-align-v1-1-2274b169c32e@samsung.com>
 
-On Mon, Nov 09, 2026 at 05:36:44PM -0800, Rosen Penev wrote:
-> Add an ID for the PCIe PLL, which AR724x, AR934x, QCA953x, QCA955x and
-> QCA956x have, so the PCIe host controller nodes can reference it.
+On Tue, Nov 10, 2026 at 05:00:57PM +0900, Daejun Park via B4 Relay wrote:
+> From: Daejun Park <daejun7.park@samsung.com>
 > 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> xfs_bmap_hw_atomic_write_possible() checks the alignment of the encoded
+> br_startblock, not of the disk address. The two can differ outside the
+> first group.
+> 
+> Since commit ec8f62cc109a ("xfs: don't limit software atomic writes by
+> the group alignment"), a misaligned write can reach the hardware path.
+> The block layer can fail it with -EINVAL, and XFS does not retry it
+> through the COW path.
+> 
+> Check the disk address instead.
+> 
+> Fixes: ec8f62cc109a ("xfs: don't limit software atomic writes by the group alignment")
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+
+The changes look good to me.
+
+It looks like this bug got exposed as a side effect of relaxing the
+software atomic writes as we should have always did this check in
+xfs_bmap_hw_atomic_write_possible()?
+
+Could you explain a bit more of that in the commit to give some more
+context?
+
+Especially, we need mkfs.xfs < 6.16 to trigger this for data volume but
+it is an issue for rt volume even on latest xfsprogs.
+
 > ---
->  include/dt-bindings/clock/ath79-clk.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Affects a group size that is not a multiple of the device's atomic
+> write unit max. mkfs.xfs 6.16+ rounds agsize to it, not rgsize.
 > 
-> diff --git a/include/dt-bindings/clock/ath79-clk.h b/include/dt-bindings/clock/ath79-clk.h
-> index f8a98e4d206d..e4956afd151d 100644
-> --- a/include/dt-bindings/clock/ath79-clk.h
-> +++ b/include/dt-bindings/clock/ath79-clk.h
-> @@ -12,7 +12,8 @@
->  #define ATH79_CLK_REF		3
->  #define ATH79_CLK_MDIO		4
->  #define ATH79_CLK_UART1		5
-> +#define ATH79_CLK_PCIE		6
+> Tested on emulated NVMe, 64 KiB atomic unit and boundary: 64 KiB
+> atomic overwrites in AG 1-3 (mkfs.xfs 6.6.0, agsize=262142b) and
+> rtgroups 1-7 (xfsprogs 7ebfc20eb88e, rgsize=65534b) failed with EINVAL
+> before and use COW after. fstests -g atomicwrites, xfs/838 (rt): no
+> change.
+> ---
+>  fs/xfs/xfs_iomap.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+> index c3465204b8d..cfa2f7ac03a 100644
+> --- a/fs/xfs/xfs_iomap.c
+> +++ b/fs/xfs/xfs_iomap.c
+> @@ -848,8 +848,11 @@ xfs_bmap_hw_atomic_write_possible(
+>  	 * atomic writes are required to be naturally aligned for disk blocks,
+>  	 * which ensures that we adhere to block layer rules that we won't
+>  	 * straddle any boundary or violate write alignment requirement.
+> +	 * Check the disk address: br_startblock carries the group number in
+> +	 * its high bits, so it can be aligned when the disk address is not.
 
-Splitting one define per patch is ridicilous. This is just ONE commit.
+I guess you can keep the comment generic by saying "fsbno is not a linear
+disk address" as we can have start offsets for rt groups.
 
->  
-> -#define ATH79_CLK_END		6
-> +#define ATH79_CLK_END		7
+>  	 */
+> -	if (!IS_ALIGNED(imap->br_startblock, imap->br_blockcount))
+> +	if (!IS_ALIGNED(xfs_fsb_to_db(ip, imap->br_startblock),
+> +			XFS_FSB_TO_BB(mp, imap->br_blockcount)))
 
-You cannot keep changing the ABI.
+Good catch.
 
-Best regards,
-Krzysztof
-
+-- 
+Pankaj
