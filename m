@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279324;
-	b=HI/A60cQ3S7ZjwlKa4nQSfVnWHJ4lLq4DcLyJl/vV6MpMCzk0Qf+2pW3BOaxte+qrTKG
-	 8crMFRMERhM6PRhkz5h9M+QnpY/1jIHJbt2/F0qALzVP5zwwhd36nMwbbOd6LUjCZhWL6
-	 YikKzDz87RNIwz5ehAwnF3dUahTILY+5mAqns26aKfMaytcqfzvDpR2wGsPagC2jKoi6e
-	 GvXKUJv36PcBmlwHovqO4y1hdTQJZBDUCEt5+CKVV0uz04gJ6QFXK60tO0Fal/N0DAPTq
-	 CcbsW9DQpA/xKcftyPji/M1Bk3KfTfKxU2Bv85L9QaOK1Axd5CMLr80LaLKUl82gY7A==
+	t=1794279312;
+	b=298RQmKinm68a6i0u3BmLXL77r3EKwykcZwxhp/3a1QVB5QL41wachhOi4pECIKfyq/s
+	 1D4yia1qqURTS2E8S7i3lMm46FpVMohqc6SrBX5xa8FTIBGZdtyGitgOH/vBviZsghcTd
+	 FQBIsXKKGwKJ41uzjvQF21t5MVMYbghh7Dzzwkfkhl8NwkWVHPBtCjeuVTfQwoDXy4oc8
+	 Mljh8DDpDLewrRVcvnzJS9YoAGiBsSq8AUsSwaV1RJQZOlZ9cf7ClCLkcYJOq2UGZHxFz
+	 ZftB+/8ooazGsATJxtDw2fYB9xUduyKr2IrYBXf7t5fyb0pa+AGUJKkZYTZByQTZA7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279312;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=846j6wL4j7UvBVjd/28Rgk3idfp9HTNpB1bpeGDTWng=;
-	b=A3OdPLnpln20B4ao3vcw2TYd6tAZBFw0ix6ctfgk6s/hdg/Y+OAFVSE0Q10m2KRAN2DL
-	 9ErOX7rUHDQ9u+CBkWDn6c5x4J6rvWO7Ppxlk4EetNKjDt4WrVkNbxoeGSDbMl020pM21
-	 HlJkJcQ6NnZHr+NEBLy5InQKtjPhOr9RL6eTlZp143TD4PD/j1vYCAuleO6jV3kxihYSt
-	 ztMF4mdboUwL7SajvH5+gBNi+FNksy1M4/Y3aPpsuJ/6yiyBYiolVYFZMm64NdbyxeldJ
-	 jqa40LSJDHfr5USZczBaNu16CPAzM2R9Xk86kaLb0fSXb2zb+PH0NEeKPsIsqArs2+w==
+	bh=GX6NMgzIRw89DK00cR/AHQm10bN7NFOig+LbXAxw8pE=;
+	b=WxOhPchjnpgS8oamz7qdzE5QX2f8rkrjaAlX+hfQHMvEgDSho9NZHY/BAK3h4AdPrGia
+	 ozt7svcR0mhMFvVQLRWrpk1nZyYNY31TekL5ZJaK39jdftwWwHzxVxxJjLC6pmgHNokZd
+	 TNh0mx7d8ggdeRcx1B8mv8QUA/4ZCWXR4bTOKK4mbSYFZODcEc1uqzICceUkJxsjMqX8i
+	 4aRrxQOYqTiN9SqafoFZMWuAS0ogWPK8eMXTFvB6tqkehJZnjgQXHtzkyzvS/u+TWchbZ
+	 ha5fswbGgSeN2exYk6FmR/xgMdWeWrxf9LuPkQ7kCK1/Q5wv03drcuou2Wyh6+NwuVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehcs4YFY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qiit7JZW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B20606C6D1;
-	Tue, 10 Nov 2026 02:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33410606B0EC;
+	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehcs4YFY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65CB01F0089F;
-	Tue, 10 Nov 2026 02:55:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qiit7JZW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CFD1F008A4;
+	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279323;
-	bh=846j6wL4j7UvBVjd/28Rgk3idfp9HTNpB1bpeGDTWng=;
+	s=k20260515; t=1794279311;
+	bh=GX6NMgzIRw89DK00cR/AHQm10bN7NFOig+LbXAxw8pE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ehcs4YFYbwPN7lGLVw4nRjvIKzJuMs+nJVBbZ1HEETYCKz/yDxekLyx6XlE9VlOLf
-	 wvrIcIDJar03NkNF/fodXcYM7k2s7pwf6FIOSJpMCuobp2X6bXinJN5bRRobAs9Grd
-	 ZbLPf/IhI5mDCwJVorNzJsDH/y+jxlJdzijcltclEGiTcBNOYgNVaMeXQqqZvBD9eH
-	 YsC46xgN1/RBkWC4hVTZxZZiKbLYah9KyAR14TCKORXAOi60s0CI2EmVuSLAV6GnRN
-	 ynPzdbWHddR+LuwVEp/zz/xdBN8/x1SJcwEz62ubIbGf3GTwPlAdTeOUJ/Zyts/mTo
-	 oZx7Fr/I9dyKw==
+	b=Qiit7JZWphnyULcjmDZtQY1+3Ad1ZuI7Nrngu8wNHQfGz6824RHRLxsyvWbSoj1Gd
+	 NRhjRjWRi2aXENblbSiI2QR6Jn6eiVjtbxXnvu+bjYGpo9dIri/Pg+ek4pXJAHk7r4
+	 OUp1h8Ye1xhoeGFnOppGyZvHMvKvcZj/4cTE4wZDp9SCoyI4S9VbK4oLHCOw5ZwKhN
+	 bYUhpkQDPaIpXLehAr3EQrgYReSttWewDFtZwA/ZgQDmC4VVpFyvVeD4IYDgXCZUr4
+	 //asiNGRJjtektg93joQSxSpFpsBQ62rZ1n5xYVMYoI4I59NJxe3OiO1zNZU28TAGZ
+	 YRqSjQo9V4UbA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E221391AFCB;
-	Tue, 10 Nov 2026 02:55:23 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B240391AFCB;
+	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +54,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] netdevsim: fix NULL deref in port attrs after unbind
+Subject: Re: [PATCH] net: dma: use dmaengine_desc_set_callback()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179427932199.3612825.4107115664399893985.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 02:55:21 +0000
-References: <tencent_C7E2CBFD5E5A8E8541FEA08915F742EC6405@qq.com>
-In-Reply-To: <tencent_C7E2CBFD5E5A8E8541FEA08915F742EC6405@qq.com>
-To: Shuai Liu <847807867@qq.com>
-Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, jiri@resnulli.us,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
+ <179427931017.3612825.1887357709243075778.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:55:10 +0000
+References: <20261102191922.4044912-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261102191922.4044912-1-Frank.Li@oss.nxp.com>
+To: Frank Li <Frank.Li@oss.nxp.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org, radhey.shyam.pandey@amd.com,
+ michal.simek@amd.com, stephan@gerhold.net, loic.poulain@oss.qualcomm.com,
+ ryazanov.s.a@gmail.com, johannes@sipsolutions.net, Frank.Li@nxp.com,
+ andre.przywara@arm.com, liyouhong@kylinos.cn, joe@dama.to, arnd@arndb.de,
+ phucduc.bui@gmail.com, yiconghui@gmail.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org
 
 Hello:
 
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sat,  7 Nov 2026 17:20:09 +0800 you wrote:
-> The new_port and del_port device attributes call nsim_drv_port_add() and
-> nsim_drv_port_del(), which fetch the driver private data with
-> dev_get_drvdata().  If the device has been unbound from the driver, that
-> private data is NULL and priv_to_devlink() turns it into a bogus pointer,
-> so a write to either attribute faults in devl_lock():
+On Mon,  2 Nov 2026 14:19:16 -0500 you wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
->   BUG: unable to handle page fault for address: fffffffffffffeb0
->   RIP: 0010:__lock_acquire
->   Call Trace:
->    ...
->    nsim_drv_port_add
->    new_port_store
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across net drivers.
+> 
+> No functional change intended. Prepare to make struct
+> dma_async_tx_descriptor private to the DMA engine.
 > 
 > [...]
 
 Here is the summary with links:
-  - netdevsim: fix NULL deref in port attrs after unbind
-    https://git.kernel.org/netdev/net-next/c/98aaf4da98d2
+  - net: dma: use dmaengine_desc_set_callback()
+    https://git.kernel.org/netdev/net-next/c/e281e85235cf
 
 You are awesome, thank you!
 -- 
