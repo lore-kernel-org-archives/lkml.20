@@ -1,91 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274699;
-	b=ETw4zVvqIG1BVCxSqxwA7+VHCyDnyRo4zjfh7DOiOaPAl9/T2wF3bSO0Xt8SEkavPJ/U
-	 sE+afansaXZX+bZFW8HsvGK7BXev/ii6y9cDg04TnsPUtiUAaoCC9MeebvLdDJH+qJMeh
-	 PwUJOk+poVDLZyXRI6focxGsr87IMenOCCfCuu1M7DLuQGItzyacB8xVr7ys1RVgZmjTe
-	 r8zPAlvHZWHg01Ff/6CJ+EeNCv4lck3F2ztXPVMUpzZGtKhygaqasP1gEb3AGtOpgsKOZ
-	 9mXrpNORsBEuQA86Qv8oWxTx9BBH9T7dXS/3Xfp8kY7J1qbyasuGTbLDUmkaOJejbUg==
+	t=1794274810;
+	b=K+ZowGSK9/Hvgh04tFfKzXFVCN1b1Lfv+eSsbuIRk8LYZELTojeDzvJ1X7Y1CG+XlspE
+	 +vkTatxWqAC/Ddtvbt/FtlTb+tGOP81x67YO5cGqQxL3OMtPKrJ8iT9vzSZ2oiQ32opEj
+	 9kKGWRD+5OuLWmwHEQyBxTO6ALHsR9iY3mAyugC6Q9ji/DCoe/CewvOYexGcipk5q+AjP
+	 oSe6DfhjPj+dfaBKNRZl/oh/m7x7p0YztNdauJIaIBPyxi0izle6zS1Dmu3gBERCP556J
+	 CKtIhq7nFKhUPyphSl3943inwpQ+f4q8tTrreR/R1Tw23HjUQ3XFM22RRYLzF6E9K9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274699;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qtL12tPj0UANHhr+zb7I/FGfbJPG4yRpNtN1L+RRhXk=;
-	b=3cjos4+xEU686Ijfzr6WIwPla5yGhUMlJxa7TTEugjzTDIbGj/CkxdqFSvQya46D02w2
-	 Z1RfvGrdQz/KlIzXlh05jCXixSLFxXErfnKe6wDxKlkRMatngiTHkSbRGl5mBVXnodydw
-	 kApbji4uSw2Kks9499pL+uQRzctEwdA4anGyumVDD02PU/jxU8MvwW0jt9GkTkBh3L8PD
-	 LMQai3sT3jxwkEFfOENkSObVXNoVpG+Vz0CRU3oTBcZjLadfeb4zm34pP3+KgIyh1BIIN
-	 mD3CDVWVwFyCyc/zFYI6tTqn/4gq5i68RwP0sMNOu5rIxBcNW1hR+4P1Zon3hGhB2qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274810;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
+	b=B0K89GrFWo6kCoraBYMNbUpYNa5HfuQpDJoITZXJtizT+BXdxs9HD7YNmciC1zy9DTg1
+	 X0NqFSDRbm19FXSprbA2Zu+aEeM2nvvcm91xJKoPb7IFA2TfXm7jt0o3PnRfWCbL+CYHY
+	 4yZ2qN4h01sCIPMcEk4HIPZerQYrJX2SUD8FHVFihm+DzcGHbEV6v0GxIpvadprZekSqv
+	 GgCeb4q3muvC136ZJu/+rPhIQGNn4wEQH770NQO87HJtHu6T19kycRHuxb6PXArBzs0m9
+	 MzvehsX7+kBwg+UIZ1/ihshsaqHrQ3OqaNKSP7vz2bVQOqCUyq9vW4RJe2rTaeOmhkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NwFVaABC;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="z/pehWdh";
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C1B60A2613;
-	Tue, 10 Nov 2026 01:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91C1B60A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30718606A325;
+	Tue, 10 Nov 2026 01:40:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30718606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NwFVaABC
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794274695; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=qtL12tPj0UANHhr+zb7I/FGfbJPG4yRpNtN1L+RRhXk=;
-	b=NwFVaABCYBMmknHsf90Q5F52zFiqdoLxgWnZhWCOQfZKn7ffAOBnGn6+3VXSbaCTrPOkKRnhLn5NuXYJdqAuMmdiJ08j3Af7hQiLtLwgn4XPa04fN3rqDeJukCQ/Ez5MGOZQajML/rm6Z6MkhxJAHkdWl7pW5PJPPMx3b3gkk4s=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=36;SR=0;TI=SMTPD_---0XETOX8Q_1794274691;
-Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XETOX8Q_1794274691 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 09:38:12 +0800
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-To: palmer@dabbelt.com,
-	pjw@kernel.org,
-	aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	oleg@redhat.com,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mark.rutland@arm.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	jpoimboe@kernel.org,
-	jikos@kernel.org,
-	mbenes@suse.cz,
-	pmladek@suse.com,
-	joe.lawrence@redhat.com,
-	shuah@kernel.org,
-	mpdesouza@suse.com,
-	martin@kaiser.cx,
-	kmehltretter@gmail.com,
-	oliver.yang@linux.alibaba.com,
-	zhuo.song@linux.alibaba.com,
-	xueshuai@linux.alibaba.com,
-	jkchen@linux.alibaba.com,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	live-patching@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v7 07/10] riscv: stacktrace: introduce stack-bound tracking helpers
-Date: Tue, 10 Nov 2026 09:37:47 +0800
-Message-Id: <20261110013750.36800-8-xueshuai@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261110013750.36800-1-xueshuai@linux.alibaba.com>
-References: <20260914092648.51254-1-xueshuai@linux.alibaba.com>
- <20261110013750.36800-1-xueshuai@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=z/pehWdh
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
+	b=z/pehWdhVRd/ELfMH/gt5hqXy00rS0mSKpMJfKKpoUb95Kz3+hvKZOcvSGcXpUCFCOFyeTo6I
+	O44kGYOmFW4yb8HA+sfsJmWg8arK1dkAdareBWdQ3WJGeKw2j35GImzfqDptOFrUXROU/JdNmN3
+	XSi3f3715y4lEoE7y1XpwCk=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jNq8P4HRgzLlvw;
+	Tue, 10 Nov 2026 09:39:49 +0800 (CST)
+Received: from whupemk300004.china.huawei.com (unknown [7.152.185.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id EFD2940586;
+	Tue, 10 Nov 2026 09:40:03 +0800 (CST)
+Received: from huawei.com (10.67.174.33) by whupemk300004.china.huawei.com
+ (7.152.185.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 09:40:02 +0800
+From: Gu Bowen <gubowen5@huawei.com>
+To: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, Ignat
+ Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>
+CC: <keyrings@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <lujialin4@huawei.com>
+Subject: [PATCH] crypto: asymmetric_keys: verify_pefile: fix integer underflow in pefile_strip_sig_wrapper
+Date: Tue, 10 Nov 2026 09:56:57 +0800
+Message-ID: <20261110015657.528337-1-gubowen5@huawei.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,299 +71,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk300004.china.huawei.com (7.152.185.168)
 
-From: Wang Han <wanghan@linux.alibaba.com>
+The pefile_strip_sig_wrapper() function validates the win_certificate
+wrapper that precedes the PKCS#7 signature in a PE binary.  It checks
+that the wrapper length does not exceed the certificate table size
+(``wrapper.length > ctx->sig_len``) but fails to verify that the
+wrapper length is at least ``sizeof(struct win_certificate)`` (8 bytes).
 
-A reliable unwinder needs to validate that every frame record it reads
-is fully contained in a known kernel stack, and it needs to refuse to
-walk back into a stack it has already left. Add the building blocks
-for that:
+When a crafted PE image supplies a wrapper with ``length`` in the range
+[1, 7], the subsequent arithmetic::
 
-  * struct stack_info / struct unwind_state in a new
-    asm/stacktrace/common.h, modelled on the arm64 reference
-    implementation.
-  * stackinfo_get_irq() / stackinfo_get_task() / stackinfo_get_overflow()
-    plus the corresponding on_*_stack() predicates in asm/stacktrace.h,
-    so callers can ask "is this object on stack X?" by stack kind
-    rather than open-coded address arithmetic.
-  * unwind_init_common(), unwind_find_stack() and
-    unwind_consume_stack() helpers that enforce the
-    forward-progress-only invariant required for reliability.
+    ctx->sig_len = wrapper.length;      /* e.g. 1 */
+    ctx->sig_offset += sizeof(wrapper);
+    ctx->sig_len -= sizeof(wrapper);    /* 1 - 8 = 0xFFFFFFF9 (unsigned) */
 
-No existing user is wired up to these helpers in this commit; the
-unwinder switch comes in a follow-up. The header changes leave
-on_thread_stack() with the same semantics as before, just expressed in
-terms of the new helpers.
+underflows the unsigned ``ctx->sig_len`` to a value near UINT_MAX.  The
+following ``sig_len < 4`` sanity check is bypassed because 0xFFFFFFF9 is
+greater than 4.
 
-Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
-Reviewed-by: Martin Kaiser <martin@kaiser.cx>
-Tested-by: Martin Kaiser <martin@kaiser.cx>
-Signed-off-by: Wang Han <wanghan@linux.alibaba.com>
-Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+The underflowed ``sig_len`` is then passed to verify_pkcs7_signature()
+and onwards to asn1_ber_decoder().  The ASN.1 decoder's own
+``datalen > 65535`` entry guard can be satisfied by constructing a
+PKCS#7 length field of exactly 65535 (e.g. ``30 82 ff fb``), allowing
+the decoder to proceed and attempt to read OID octets beyond the
+allocated vmalloc buffer, triggering a page fault in look_up_OID()::
+
+  BUG: unable to handle page fault for address: ffffd1e986cb2000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:look_up_OID+0x14/0x100
+  Call Trace:
+   pkcs7_note_OID+0x33/0xa0
+   asn1_ber_decoder+0x363/0xbd0
+   pkcs7_parse_message+0xd9/0x1b0
+   verify_pkcs7_signature+0x24/0x80
+   verify_pefile_signature+0x7b/0xf0
+   kexec_kernel_verify_pe_sig+0x1b/0x40
+   kimage_file_alloc_init+0x1d8/0x3f0
+   __se_sys_kexec_file_load+0xc6/0x270
+
+This is reachable through the kexec_file_load syscall on architectures
+that verify PE signatures (x86 bzImage with
+CONFIG_KEXEC_BZIMAGE_VERIFY_SIG, arm64 Image with
+CONFIG_KEXEC_IMAGE_VERIFY_SIG), requiring CAP_SYS_BOOT.
+
+The oops occurs while the caller holds kexec_lock; if the faulting task
+is killed, the lock is never released, leaving all subsequent kexec and
+kdump operations permanently returning -EBUSY until reboot.
+
+Add a lower-bound check on wrapper.length before the subtraction to
+prevent the underflow.
+
+Fixes: 09dacbbda935 ("pefile: Strip the wrapper off of the cert data block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gu Bowen <gubowen5@huawei.com>
 ---
- arch/riscv/include/asm/stacktrace.h        |  67 ++++++++-
- arch/riscv/include/asm/stacktrace/common.h | 159 +++++++++++++++++++++
- 2 files changed, 224 insertions(+), 2 deletions(-)
- create mode 100644 arch/riscv/include/asm/stacktrace/common.h
+ crypto/asymmetric_keys/verify_pefile.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm/stacktrace.h
-index b1495a7e06ce..df4d022f6430 100644
---- a/arch/riscv/include/asm/stacktrace.h
-+++ b/arch/riscv/include/asm/stacktrace.h
-@@ -3,8 +3,13 @@
- #ifndef _ASM_RISCV_STACKTRACE_H
- #define _ASM_RISCV_STACKTRACE_H
- 
-+#include <linux/percpu.h>
- #include <linux/sched.h>
-+#include <linux/sched/task_stack.h>
-+
-+#include <asm/irq_stack.h>
- #include <asm/ptrace.h>
-+#include <asm/stacktrace/common.h>
- 
- struct stackframe {
- 	unsigned long fp;
-@@ -16,14 +21,72 @@ extern void notrace walk_stackframe(struct task_struct *task, struct pt_regs *re
- extern void dump_backtrace(struct pt_regs *regs, struct task_struct *task,
- 			   const char *loglvl);
- 
--static inline bool on_thread_stack(void)
-+/*
-+ * IRQ stack accessors
-+ */
-+#ifdef CONFIG_IRQ_STACKS
-+static inline struct stack_info stackinfo_get_irq(void)
-+{
-+	unsigned long low = (unsigned long)raw_cpu_read(irq_stack_ptr);
-+	unsigned long high = low + IRQ_STACK_SIZE;
-+
-+	return (struct stack_info) {
-+		.low = low,
-+		.high = high,
-+	};
-+}
-+
-+static inline bool on_irq_stack(unsigned long sp, unsigned long size)
-+{
-+	struct stack_info info = stackinfo_get_irq();
-+
-+	return stackinfo_on_stack(&info, sp, size);
-+}
-+#endif /* CONFIG_IRQ_STACKS */
-+
-+/*
-+ * Task stack accessors
-+ */
-+static inline struct stack_info stackinfo_get_task(const struct task_struct *tsk)
- {
--	return !(((unsigned long)(current->stack) ^ current_stack_pointer) & ~(THREAD_SIZE - 1));
-+	unsigned long low = (unsigned long)task_stack_page(tsk);
-+	unsigned long high = low + THREAD_SIZE;
-+
-+	return (struct stack_info) {
-+		.low = low,
-+		.high = high,
-+	};
-+}
-+
-+static inline bool on_task_stack(const struct task_struct *tsk,
-+				 unsigned long sp, unsigned long size)
-+{
-+	struct stack_info info = stackinfo_get_task(tsk);
-+
-+	return stackinfo_on_stack(&info, sp, size);
- }
- 
-+/*
-+ * Cast is necessary since current->stack is an opaque ptr.
-+ */
-+#define on_thread_stack()	(on_task_stack(current, current_stack_pointer, 1))
- 
-+/*
-+ * Overflow stack accessors
-+ */
- #ifdef CONFIG_VMAP_STACK
- DECLARE_PER_CPU(unsigned long [OVERFLOW_STACK_SIZE/sizeof(long)], overflow_stack);
-+
-+static inline struct stack_info stackinfo_get_overflow(void)
-+{
-+	unsigned long low = (unsigned long)raw_cpu_ptr(overflow_stack);
-+	unsigned long high = low + OVERFLOW_STACK_SIZE;
-+
-+	return (struct stack_info) {
-+		.low = low,
-+		.high = high,
-+	};
-+}
- #endif /* CONFIG_VMAP_STACK */
- 
- #endif /* _ASM_RISCV_STACKTRACE_H */
-diff --git a/arch/riscv/include/asm/stacktrace/common.h b/arch/riscv/include/asm/stacktrace/common.h
-new file mode 100644
-index 000000000000..360a26e34349
---- /dev/null
-+++ b/arch/riscv/include/asm/stacktrace/common.h
-@@ -0,0 +1,159 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * RISC-V common stack unwinder types and helpers.
-+ *
-+ * See: arch/arm64/include/asm/stacktrace/common.h for the reference
-+ * implementation.
-+ *
-+ * Copyright (C) 2026
-+ */
-+#ifndef __ASM_RISCV_STACKTRACE_COMMON_H
-+#define __ASM_RISCV_STACKTRACE_COMMON_H
-+
-+#include <linux/compiler.h>
-+#include <linux/errno.h>
-+#include <linux/types.h>
-+
-+#include <asm/stacktrace/frame.h>
-+
-+/**
-+ * struct stack_info - describes the bounds of a stack.
-+ *
-+ * @low:  The lowest valid address on the stack.
-+ * @high: The highest valid address on the stack.
-+ */
-+struct stack_info {
-+	unsigned long low;
-+	unsigned long high;
-+};
-+
-+/**
-+ * struct unwind_state - state used for robust unwinding.
-+ *
-+ * @fp:        The fp value in the frame record (or the real fp).
-+ * @pc:        The ra value in the frame record (or the real ra).
-+ *
-+ * @stack:     The stack currently being unwound.
-+ * @stacks:    An array of stacks which can be unwound.
-+ * @nr_stacks: The number of stacks in @stacks.
-+ */
-+struct unwind_state {
-+	unsigned long fp;
-+	unsigned long pc;
-+
-+	struct stack_info stack;
-+	struct stack_info *stacks;
-+	int nr_stacks;
-+};
-+
-+/**
-+ * stackinfo_get_unknown() - Get an unknown stack_info.
-+ *
-+ * Return: a stack_info with low and high set to 0.
-+ */
-+static inline struct stack_info stackinfo_get_unknown(void)
-+{
-+	return (struct stack_info) {
-+		.low = 0,
-+		.high = 0,
-+	};
-+}
-+
-+/**
-+ * stackinfo_on_stack() - Check whether an object is fully within a stack.
-+ *
-+ * @info: The stack to check against.
-+ * @sp:   The base address of the object.
-+ * @size: The size of the object.
-+ *
-+ * Return: true if the object is fully contained within the stack.
-+ */
-+static inline bool stackinfo_on_stack(const struct stack_info *info,
-+				      unsigned long sp, unsigned long size)
-+{
-+	if (!info->low)
-+		return false;
-+
-+	if (sp < info->low || sp + size < sp || sp + size > info->high)
-+		return false;
-+
-+	return true;
-+}
-+
-+/**
-+ * unwind_init_common() - Initialize the common parts of the unwind state.
-+ *
-+ * @state: the unwind state to initialize.
-+ */
-+static inline void unwind_init_common(struct unwind_state *state)
-+{
-+	state->stack = stackinfo_get_unknown();
-+}
-+
-+/**
-+ * unwind_find_stack() - Find the accessible stack which entirely contains an
-+ * object.
-+ *
-+ * @state: the current unwind state.
-+ * @sp:    the base address of the object.
-+ * @size:  the size of the object.
-+ *
-+ * Return: a pointer to the relevant stack_info if found; NULL otherwise.
-+ */
-+static inline struct stack_info *unwind_find_stack(struct unwind_state *state,
-+						   unsigned long sp,
-+						   unsigned long size)
-+{
-+	struct stack_info *info = &state->stack;
-+
-+	if (stackinfo_on_stack(info, sp, size))
-+		return info;
-+
-+	for (int i = 0; i < state->nr_stacks; i++) {
-+		info = &state->stacks[i];
-+		if (stackinfo_on_stack(info, sp, size))
-+			return info;
+diff --git a/crypto/asymmetric_keys/verify_pefile.c b/crypto/asymmetric_keys/verify_pefile.c
+index cec99db14129..cfa85ccb1cf7 100644
+--- a/crypto/asymmetric_keys/verify_pefile.c
++++ b/crypto/asymmetric_keys/verify_pefile.c
+@@ -146,6 +146,11 @@ static int pefile_strip_sig_wrapper(const void *pebuf,
+ 			ctx->sig_len, wrapper.length);
+ 		return -ELIBBAD;
+ 	}
++	if (wrapper.length < sizeof(wrapper)) {
++		pr_warn("Signature wrapper too small (%x < %zx)\n",
++			wrapper.length, sizeof(wrapper));
++		return -ELIBBAD;
 +	}
-+
-+	return NULL;
-+}
-+
-+/**
-+ * unwind_consume_stack() - Update stack boundaries so that future unwind steps
-+ * cannot consume this object again.
-+ *
-+ * @state: the current unwind state.
-+ * @info:  the stack_info of the stack containing the object.
-+ * @sp:    the base address of the object.
-+ * @size:  the size of the object.
-+ *
-+ * Stack transitions are strictly one-way, and once we've
-+ * transitioned from one stack to another, it's never valid to
-+ * unwind back to the old stack.
-+ *
-+ * Note that stacks can nest in several valid orders, e.g.
-+ *
-+ *   TASK -> IRQ -> OVERFLOW
-+ *
-+ * ... so we do not check the specific order of stack
-+ * transitions.
-+ */
-+static inline void unwind_consume_stack(struct unwind_state *state,
-+					struct stack_info *info,
-+					unsigned long sp,
-+					unsigned long size)
-+{
-+	struct stack_info tmp;
-+
-+	tmp = *info;
-+	*info = stackinfo_get_unknown();
-+	state->stack = tmp;
-+
-+	/*
-+	 * Future unwind steps can only consume stack above this frame record.
-+	 * Update the current stack to start immediately above it.
-+	 */
-+	state->stack.low = sp + size;
-+}
-+
-+#endif /* __ASM_RISCV_STACKTRACE_COMMON_H */
+ 	if (wrapper.revision != WIN_CERT_REVISION_2_0) {
+ 		pr_warn("Signature is not revision 2.0\n");
+ 		return -ENOTSUPP;
 -- 
-2.39.3
+2.43.0
 
