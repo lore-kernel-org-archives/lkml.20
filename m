@@ -1,49 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301308;
-	b=2eUh7V6NmiYDWTSQKJKt54zPeeKoexbq+y0L1HNYkc95sxfKXYc44Qp0MEmeYU4DE7Q9
-	 o6FwloQxuPqlUyTyqRMVcQKHqeX+cFJY4emOmIE+wT3EZh9bNoMoNUwq4Qbif7gJU3ge6
-	 A5x2ulMfFHN600faBhn9R6nWyn5bE4ag0Eh/eRDuEJsw+QT72Z1t1a2kMBUDCtiiGZ7b+
-	 F59OFkfcIa6GssWZe9QDsTdodD26noASvJH+7DOum5au3JlbldhIEHqFABzfiryu7RjF5
-	 DzYWBJu6tr34bWEVEp4LhxXz8cU+pcmATt/e1gIShX1DfUtI8LiCfrplnVsFzRFPjNg==
+	t=1794301313;
+	b=Vm0B7kk8K0EFXVMNUQ+uHtpP2BNpT5FR9kewfWJMhR2Xal496UsDoB3UJP4sXIETNnrS
+	 bJukXuWk/ycFO8l3dL6pIhB2RVQGKc0mR6HiYXJVapSik2aIB8vKKKo26F+sa+YshX0v6
+	 pSVRSbgUkiOYK2VVPDhb6Cq5TIrftbe9GiJTfuAyXklJzUEbnBfJ1X2XqrETk1Gq4R2hO
+	 T0Pfa9rkPHvVNieibh0v5JvU6wBtfHAzZia/0/kWzITFytQ12/xJtxvHd/VBwFoF+od3B
+	 nJ3Ug8Od3LVv8ZfulyQnYbHe0itgYgSNmFUHhMn0CaTdPfkBDiCUbS5NZPqwrDjpyqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301308;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=N5RMWLcP7isxBVM2qsk29DjsEb+SK3rhdns3s69Yvq8=;
-	b=C1OoMwhIh7odZY2nA4DUkbUxw8mkz9AwH9zaoEEsD+WyX4UnbllBLNRY+xDQ2dOoWCl1
-	 ITePw5E6PVNvurqm9TgM1idtL9O68wqjg0TaHLDZ5K5ikyklZI5dXWrpg/I60Tr44GJnv
-	 wlK9Yl5uPNB7b5m1VS9V01f+8NORuFjoXOrU04w1cL/smFZP+VTEFVFddUY+CqZF4GOdM
-	 OPP/KV3zyHtZdWF2W4WbLbnx4yLqrhJTNY2k+kOr0Gn4qEuBpKymUGdUfYN3fshxVMUEm
-	 /pomWJOV5+fRxAPpid5hkgCFVXskuZUAYG9PVjC+ndnW4bcr71K9YsS/ygoAl3E6bMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301313;
+	h=DMARC-Filter:DKIM-Signature:X-Virus-Scanned:Received:From:To:Cc:
+	 Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tdvwiNlqaiNgnQeeDxlcwnYpnhQBbwCpT74p9vzgZbc=;
+	b=IEqBOASOR6tArBAA/1fO5kWeMdRsUneyKRo9Yo6tvZYmgI8fQpwuyPbxkUyEtFrdB6nm
+	 aL9BHRj2X+X2kpl6UZ0DUCNEmDtwmMcIO1fPgUQzz6k31ccDBydQK8hxht4Rw0S0CYq09
+	 QTcDksnUJTy9GtRHLgwvNdh4ZwAz7L63JPOZ2leY9IYpPH/cRoZxKU+/KLzhcShAnUNWT
+	 oVqdctZIC4B3B2cu+q9rg4qM0MYZcQBJXoCWH9a9A2WFnZLaZE2mrfq9pmlRhqhlnRnTW
+	 BGZZvO2/gEBv9xSCUWS9RUaqBcEtk+b2Nuo/QBFChf0zmJnmGxZ+E9B/RNNQF3qvSFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mlXxr88Y;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3598C606A31C;
-	Tue, 10 Nov 2026 09:01:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3598C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=tuxist.de;
+	spf=pass smtp.mailfrom=tuxist.de;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=LxnN5cpN;
+	arc=none smtp.remote-ip=173.212.254.19
+Received: from proxyplus-primary (groupware.tuxist.de [173.212.254.19])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB723606A333;
+	Tue, 10 Nov 2026 09:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB723606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mlXxr88Y
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 665221516;
-	Tue, 10 Nov 2026 01:01:43 -0800 (PST)
-Received: from [10.57.60.120] (unknown [10.57.60.120])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A60013F85F;
-	Tue, 10 Nov 2026 01:01:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794301306; bh=9CU41Se9la/KtdDwMQULrIKfytvMpdfr7XLUHb+OkJk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mlXxr88YJEAGdd0L2wAgQsnosP8cErHqpjtUnIFgrZRlpeDVMedSkCWzs5XJQabcP
-	 AYoasvJ/eG3DdRL64rFmaMFN2uhjRLcP6I3ZkVQpszUmeizzIzpLY6LqjYw9gK2PiX
-	 Tw4LA2EMpYvVCFN3nkVI0GLFrsqAWZf0DZ7bW+m8=
-Message-ID: <9e59fd71-97e7-422c-a7dd-bc23c6e6a852@arm.com>
-Date: Tue, 10 Nov 2026 10:01:36 +0100
+	dkim=pass (2048-bit key) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=LxnN5cpN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxist.de; s=201705; h=from:to:subject:date:message-id; bh=tdvwiNlqaiNgnQeeDxlcwnYpnhQBbwCpT74p9vzgZbc=; b=LxnN5cpN8XJ0h92RHN7CfIqWh3ls2CW7+cCitxb9OvfBU0/S9qpIhB873+L1X6jds5AWIHU6Qbpwj+nbMx6I7mCyE+WL4uGlJMz1tiHN+RAI0+QeADTVgz5pzI7Q1vJKfnQN2ewuj82ZZa9dEd+qNKXfCsqW80CHGi9918+E7KGa3fuVX3Aaux5u9GUJ0IyMYtHCa1vyfYMDuIfmibrFVcSZjqCRmHlvgYEzk2szPTG3mImI9mX4kPBdQxtvlH2WyqDFNSTpH7gQeaCfifSJoJnbFBsIHN6CR9vMxrUn6DFjiNMFjr8wdFyMJrgaJWvJPgfuwUVRP+Tcey8ZKB6Rxg==
+Authentication-Results: proxyplus-primary; auth=pass smtp.auth=713ee033-d4f8-4c9d-9e24-a891eb9c547d
+X-Virus-Scanned: proxyplus-clamav builtin
+Received: from groupi3 ([10.1.2.47]) by proxyplus-primary (ProxyPlus) with ESMTPSA; Tue, 10 Nov 2026 09:01:21 +0000
+From: Jan Koester <jan.koester@tuxist.de>
+To: linkinjeon@kernel.org, smfrench@gmail.com
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, brauner@kernel.org, linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org, samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 2/6] ksmbd: keep named ACL entries effective when a DACL sets a POSIX ACL
+Date: Tue, 10 Nov 2026 09:02:33 +0000
+Message-ID: <13deb997dee36bdc7f75e2ae@groupi3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +52,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v10 22/22] mm: Add basic tests for
- kpkeys_hardened_pgtables
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, Ard Biesheuvel <ardb+git@google.com>,
- Andy Lutomirski <luto@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>,
- Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>,
- Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Maxwell Bland <mbland@motorola.com>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Pierre Langlois <pierre.langlois@arm.com>,
- =?UTF-8?Q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>,
- Quentin Perret <qperret@google.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, x86@kernel.org,
- Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-22-aa6c4d9603bc@arm.com>
- <2d13fbb7-b5b4-446e-8709-5b43349ff19a@sirena.org.uk>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <2d13fbb7-b5b4-446e-8709-5b43349ff19a@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On 09/11/2026 20:28, Mark Brown wrote:
-> On Mon, Nov 09, 2026 at 03:58:47PM +0000, Kevin Brodsky wrote:
->
->> ---
->>  mm/Makefile                               |   1 +
->>  mm/tests/kpkeys_hardened_pgtables_kunit.c | 200 ++++++++++++++++++++++++++++++
->>  security/Kconfig.hardening                |  12 ++
->>  3 files changed, 213 insertions(+)
->> +config KPKEYS_HARDENED_PGTABLES_KUNIT_TEST
->> +	bool "KUnit tests for kpkeys_hardened_pgtables" if !KUNIT_ALL_TESTS
->> +	depends on KPKEYS_HARDENED_PGTABLES
->> +	depends on KUNIT=y
->> +	default KUNIT_ALL_TESTS
-> I'd also expect to see this added to one of the KUnit config fragments
-> somewhere so it gets run as standard, though that's a little awkward
-> given that KPKEYS_HARDENED_PGTABLES isn't universally available.
+parse_dacl() turns ACEs for other users into named POSIX ACL entries
+with an rwx mask, but leaves the group bits of fattr->cf_mode as the
+owning group's ACE made them. set_info_sec() sets the ACL first and
+then the mode, and on an inode with an extended ACL the mode's group
+bits are the mask: a DACL without an ACE for the owning group (as
+Windows writes them) left the mask at --- and every named entry
+without effect.
 
-Do you mean adding the dependency KPKEYS_HARDENED_PGTABLES=y to
-tools/testing/kunit/configs/all_tests.config? Indeed that would only be
-meaningful on arm64 (for now). That said it wouldn't hurt other
-architectures, so happy to add it there if you think that's worth it.
+Put the mask into the mode's group bits when there are named entries.
 
-- Kevin
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jan Koester <jan.koester@tuxist.de>
+---
+ fs/smb/server/smbacl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index d1cf63a9fe..b3daf65798 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -680,6 +680,12 @@ static int parse_dacl(struct mnt_idmap *idmap,
+ 
+ 	if (acl_state.users->n || acl_state.groups->n) {
+ 		acl_state.mask.allow = 0x07;
++		/*
++		 * With named entries the mode's group bits are the ACL's mask:
++		 * the chmod after setting the ACL mustn't mask them all off.
++		 */
++		fattr->cf_mode = (fattr->cf_mode & ~0070) |
++				 (acl_state.mask.allow << 3);
+ 
+ 		if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
+ 			fattr->cf_acls =
+-- 
+2.56.0
