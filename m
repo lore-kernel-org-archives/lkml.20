@@ -1,54 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.126.93.238
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300034;
-	b=RK6NZh4RjsdwLvZAuU34zZdP3kQikamlCnFUo1Vw5Cia1UsSh9260UIHBQdbmFCyPvlx
-	 2lJ7/qIf5uizjD0iA5Ffy9p6pyOqN0lITZ3KYlWNuCs6v9sNIo1bJ6CwX2k271F1xKsTt
-	 ZcmnOEAR4Oi68KoEgDEYDs1FJpyZvO7yRWXdbkaY04ncKvFklKwLp1BJhsEjb4FDTwWoh
-	 tbB9Ej2VaTonKoTs0hHBN1p2qhbdJCIDU+ikYVS6sqJZN1mpbTTqb2iQnZqUEh6xpjeU1
-	 y6kd/axf1k39cZrNPEtrEq3nkjWQgmVFBKXjmnkWgVV3QPcVZ3pfLFeqFKbos1gYn0Q==
+	t=1794300059;
+	b=u4yNrlPyO2vPRVlwnEQGCEI5mu/pSXfAlsc3+8EwHYBNLmljsA9OYZhyuGbBBDUdkBGd
+	 eWCDoAlRO1e8JWsMdqIzdhjUw9O71DraMAr8EO/cld0FizvGohO6kSybIAMHhR3j7NA7g
+	 d9BjlrBLYVdRY6r9Y8eaYX1YM+UpRRs7cG4b5kMzkEGH5VhxzO3rMk8Pgj67vFj8tSgSe
+	 ORUCipiqpvdIvwaKU5es0dIe6YQ98D7bPgnB2bq30RE+qHmrNmrow3ja21UhtzvE5Jv5+
+	 LhB8felWoA2VnKAj3MVP17XLsGMcYvivF0ItMQk3lfxHLJcmQjBZE4T/IvfslIcuuXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300034;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Kuuk/hrD7Y5kBgo1UUEL20dkTIOAGPjE8cjvVVCmqM8=;
-	b=Hn+5IkCe4GLKUeTdZMuQoZ4N8BGPPO/ajVAhCzniFuEXqwB1f3cKwo3W4+dMoM8nLWUN
-	 MdS3LGsoDR5SjMPTLS4lyzLBCeofOYbudPaTq0KT3Vs3ITnnSUQVjrC5DUWFqytGZsSs6
-	 KxvHcrue+0yU9Ns9w3nb1mHS8yapeqLjnt0UFZ9gn8MLve2T4ScsaxaQRQIBcVz6DJeHs
-	 a6PG3cgNl2f4armyTReD82qOw9IBQtjO/tKnX9SXu2pvrqJbLT/xDEZs32kv0P2LtNfi8
-	 zZzmu9lBq4lemwtfyINxByTEJ6V9G9cjB8wq0vkRkrC/sGUhD4z86l8MA8c4XvcfTeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300059;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
+	b=rgPXOHLRbSK7htilEIx+gopSaKCm+l17BPcyS1LRKhNelV3LIl+40fUhzLzgpXNcwjd9
+	 BtllOAoQ05jddgSNNlvRfyrHNyXU8k1DA8d8F0WHABucbNeiWhwGLUvxu5IPqLCJuGhpQ
+	 hLjvQdfk3yCCR4LzG/Fnct0ozhqzRGABloafOqZY1Hpt2avsrhhIgaZPtRAJy7DqRK+gn
+	 oT027bXY6TICaxAgY7j1+COj2iGsUXNNaGwRC5L2nVbTpqlblwFBZq96702XWzXaQm4BA
+	 Nvg0FjW37H4d7kROdT6k6KiQIkMIuGiSefBY6RnN9A3rAgpvuWP2U5NqR6PIhOaN+eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tTMrfSeu;
-	arc=none smtp.remote-ip=91.218.175.187
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg;
+	arc=none smtp.remote-ip=103.126.93.238
+Received: from mail-m93238.xmail.ntesmail.com (mail-m93238.xmail.ntesmail.com [103.126.93.238])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D140A606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D140A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B24606A31C;
+	Tue, 10 Nov 2026 08:40:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B24606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tTMrfSeu
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+BDtNKQAcgvK1t7SdHiV+auWUziT0f+nSZmIK+DU/cc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794300031; v=1; x=1794904831;
- b=tTMrfSeue3KOCOUpto+p0cOw18Bm7FG9+o0sTCx0JmVWueIKxhCcAb3J417XWmYFh81QMoxb
- rvn/PPzoMpfUpehFQlzBdWQguQM429BAnEIKKPQWmP5SkMo1sBNXi/J4bGGPpvOhU0orei1ldCx
- q4v3DOY0QZtR4PgmBYPu9DY4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 41afd226588cedd8;
-	Tue, 10 Nov 2026 08:40:25 +0000
-X-Mizu-Trace-ID: 41afd226588cedd8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d66ec8aa-fb96-42de-a9a0-5b5aa29f1083@linux.dev>
-Date: Tue, 10 Nov 2026 16:40:18 +0800
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ub1Vz6pg
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5423d7e15;
+	Tue, 10 Nov 2026 16:40:46 +0800 (GMT+08:00)
+Message-ID: <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
+Date: Tue, 10 Nov 2026 16:40:44 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,110 +49,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 2/5] cgroup/cpuset: Correctly set cpus_updated in
- cpuset_hotplug_update_tasks()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261109190955.1398611-1-longman@redhat.com>
- <20261109190955.1398611-3-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261109190955.1398611-3-longman@redhat.com>
+Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
+ RK3588 PCIe SMMU
+To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Niklas Cassel <cassel@kernel.org>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c49deb4a03a4kunme182f695684554
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTxgYVk8dSRkfTh5OTx9ITFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Ub1Vz6pg4k6UDZWkqzesWeqUcDzAnME4g7qqjqvvetdVS/Ss/SwQXxpNyBNYMdrUu/8p/ufPvd5dmdHK4QSGnWfq3IjAecSeG3pCLk7ElJpWWcjAWfAbiW1rMa5gcgNzalcqvN8CF4cWUxh29xpvhKY4L5PyMUWV01V2VvR56Bg=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=2tnTx+Y1fIgKicxn0toiFZfZX4oNt2OFXzdiYm7aVCA=;
+	h=date:mime-version:subject:message-id:from;
 
+Cc: Simon and Finley
 
-
-On 11/10/2026 3:09 AM, Waiman Long wrote:
-> When cpuset_hotplug_update_tasks() is called with the conditions that
-> either remote_partition_disable() or update_parent_effective_cpumask()
-> has to be called, the cs->effective_cpus can be updated such that it
-> matches what is computed in new_cpus. In such case, cpus_updated can
-> be incorrectly set to false leading to stale CPU afinity remained in the
-> tasks not matching the new cpuset value. Fix that by forcing cpus_updated
-> to true whenever one of these partition helpers is being called.
+在 2026/11/10 星期二 15:11, Arun Iyengar via B4 Relay 写道:
+> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
+> (mmu600_pcie) is enabled for every RK3588 board, but its node describes
+> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
+> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
+> why nobody noticed: on a board that enables no PCIe controller in that
+> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
+> board without PCIe), genpd powers the domain off and the clock framework
+> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
+> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK on
+> the dead block, the interconnect stalls, "reboot: Restarting system" is
+> never reached and the board only comes back ~90 s later when the
+> watchdog fires.
 > 
-> Fixes: 4b842da276a8a ("cpuset: Make CPU hotplug work with partition")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/bug/linux-ab90f7e8-0d60-40ca-83e9-e405075b24d2
-> Signed-off-by: Waiman Long <longman@redhat.com>
+> Patches 1 and 2 allow power-domains and clocks in the arm,smmu-v3
+> binding (arm,smmu.yaml already allows both for the earlier SMMUs).
+> Patch 3 makes the driver get and enable the clocks of its firmware node
+> before the first register access, for as long as it is bound; nodes
+> without clocks (and ACPI/IORT systems) are unaffected. Patches 4 and 5
+> describe the power domain and the clock in rk3588-base.dtsi. Both DT
+> patches are needed: with the power domain alone the clock is still
+> gated and the shutdown still hangs.
+> 
+> Related: Pranjal Shrivastava's "iommu/arm-smmu-v3: Add runtime PM
+> support" v11 (2026-09-29, 20260929034510.2023173-1-praan@google.com,
+> not merged) adds pm_domain-based runtime PM and resumes the SMMU around
+> shutdown, but has no clock handling. This series is compatible with it:
+> once it lands, the clocks from patch 3 should move into its runtime
+> suspend/resume callbacks.
+> 
+> Tested on an Orange Pi 5 (RK3588S) with the M.2 slot in SATA mode and
+> the root filesystem on the SATA SSD, where every reboot used to hang:
+> three consecutive reboots printed "reboot: Restarting system" and the
+> boot loader started 0.6 s later (previously ~89 s, from the watchdog);
+> clk_summary shows aclk_mmu_pcie enabled with iommu@fc900000 as consumer
+> and pm_genpd_summary shows PD_PCIE on; the SMMU probes as before and
+> SATA keeps running at 6.0 Gbps without errors. With patch 4 alone
+> (power domain, clock still gated) the reboot still hung at
+> "arm-smmu-v3 fc900000.iommu: shutdown" on the serial console. Boards
+> with PCIe enabled are already in the state these patches describe.
+> 
+> This series was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit messages, and I reviewed and tested
+> every change as described above.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 > ---
->   kernel/cgroup/cpuset.c | 11 +++++++++--
->   1 file changed, 9 insertions(+), 2 deletions(-)
+> Arun Iyengar (5):
+>        dt-bindings: iommu: arm,smmu-v3: allow a power domain
+>        dt-bindings: iommu: arm,smmu-v3: allow clocks
+>        iommu/arm-smmu-v3: enable optional clocks
+>        arm64: dts: rockchip: add the PCIe power domain to the RK3588 PCIe SMMU
+>        arm64: dts: rockchip: add the clock of the RK3588 PCIe SMMU
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 6074327c3477..3955d2d574cf 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -4002,7 +4002,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   {
->   	static cpumask_t new_cpus;
->   	static nodemask_t new_mems;
-> -	bool cpus_updated;
-> +	bool cpus_updated = false;
->   	bool mems_updated;
->   	int partcmd = -1;
->   	struct cpuset *parent;
-> @@ -4015,12 +4015,18 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	if (!tmp || !cs->partition_root_state)
->   		goto update_tasks;
->   
-> +	/*
-> +	 * cpus_updated should be set to true when remote_partition_disable()
-> +	 * or update_parent_effective_cpumask() is called as cs->effective_cpus
-> +	 * may have been updated.
-> +	 */
->   	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
->   				       (cpumask_empty(&new_cpus) &&
->   					partition_is_populated(cs, NULL)))) {
->   		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
->   		remote_partition_disable(cs, tmp);
->   		compute_effective_cpumask(&new_cpus, cs, parent);
-> +		cpus_updated = true;
->   	}
->   
->   	/*
-> @@ -4045,6 +4051,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   		partcmd = partcmd_update;
->   
->   	if (partcmd >= 0) {
-> +		cpus_updated = true;
->   		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
->   		if (is_partition_valid(cs) || (partcmd == partcmd_invalidate)) {
->   			compute_effective_cpumask(&new_cpus, cs, parent);
-> @@ -4053,7 +4060,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->   	}
->   
->   update_tasks:
-> -	cpus_updated = !cpumask_equal(&new_cpus, cs->effective_cpus);
-> +	cpus_updated |= !cpumask_equal(&new_cpus, cs->effective_cpus);
->   	mems_updated = !nodes_equal(new_mems, cs->effective_mems);
->   	if (!cpus_updated && !mems_updated)
->   		goto unlock;	/* Hotplug doesn't affect this cpuset */
-
-I think the issue only happens in the remote partition case.
-remote_partition_disable() calls reset_partition_data(), which sets
-cs->effective_cpus to what compute_effective_cpumask() will return
-afterwards, so the cpumask_equal() check misses the change while the
-tasks still have the old affinity.
-
-update_parent_effective_cpumask() only updates the effective_cpus of
-the parent (through partition_xcpus_add/del()), and cs is skipped in
-update_sibling_cpumasks(). So cs->effective_cpus isn't changed there and
-the original check still works. If new_cpus is the same as
-cs->effective_cpus in that case, forcing cpus_updated just walks all the
-tasks in cs and calls set_cpus_allowed_ptr() with their current mask.
-Should cpus_updated only be set in the remote partition case?
-
-Also, as the problem comes from remote_partition_disable() in the
-hotplug path, should the Fixes tag be the following instead?
-
-Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
-
--- 
-Best regards
-Ridong
+>   Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 10 ++++++++++
+>   arch/arm64/boot/dts/rockchip/rk3588-base.dtsi            |  2 ++
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c              |  7 +++++++
+>   3 files changed, 19 insertions(+)
+> ---
+> base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
+> change-id: 20261110-smmu-v3-pcie-pd-a2f127b81d8f
+> 
+> Best regards,
+> --
+> Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> 
+> 
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+> 
 
