@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325885;
-	b=Z+Inb8hxxIeLquCpq+NkfAO0wm65xVCVFZd9sURF94hGnhpfs2lv1g7suYssN6lqDYsd
-	 8WWxkvrdpVMJK3wxgU7gtKM6JVCNjckl3UVqWMhjtSbVXw9J5ULoCzOf8Omb/intBxHzG
-	 2cmpuRUohEZgMkse32VXJ3oQmzFLQUgxvKXYAWHGa8PHHGwXcdqKZQ9OCaaHVA3kNZEWH
-	 hC7jwAbtOZ36EzuzYvCVSLBnB0f9a5ThMcLXa7ywoX8L4KT94t4DF1SyOQXtLldAFJkrI
-	 frt6a7vCIPWqvjyeEfO0kKwlf22DL+Mr5i+oJtkC96/ciOULBjEQvfXVACoYHKMV6ng==
+	t=1794325926;
+	b=EWv5ylOPPCD9U1A21Q4pNoAkwMoJCo1aYpZefv5up49o7XMPWN3U+gvsf/ANGJjjmhOi
+	 abxLuMDHLxvjjQ91T0MVXEStq2mRKPk1L8l4sumN8QPseQBZAicibJdnEV6v49RQItkXd
+	 /v89QiMzvJIHIf5Z1PT9XridYsq8a4F+AOQibZKtc/gpvi59Z/aiPh/UsjJwz3SWG/WFf
+	 s3CqCj6pUspAAQ8sjX/U9IrU2n/DnyvJK5+/4jcj8Ggj7JObNU+3SSN4evepGTW6ZS3di
+	 EyUpLTuSG0mPFN+6rxiG3iTZAz6R4v5gCNQoL4BYR9rvy6kAbaxV39qkjoEuxJyLYMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325885;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325926;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
 	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S+yaxY1IOkbr2hblsylEbiBouEaLkWRredpFXFNGEPs=;
-	b=lDYnp9iNuST3sbcwsChiQAt/0tflPEjWKEzI9+LMNk3iWWuPBtg4+B8rvxT4Btafd8f1
-	 SKyT2L9B0LXKSuxbPu4A7KHTNtixUfhnefgKq/s6kd2TUdaOyt748PguY5Bk8zeeVNO+A
-	 OMouqjA7AKP+CLW8sItU5q29n2YSmY+DwLAQst1r7VlVtU+sXPNv2DbLbG96jYx7jjSQz
-	 xIuVl9zQN1nj4nZLrV5fF/3hrujx9l+beIwvaiOKFRvEXyQWGCRpGFqerPOaL5Ef9TLuW
-	 NNgaX9YAbyJCws3p5J06BxbwrlEXT0gyBw7F6yqKBiuacSLRu2PjaRgEWThV4L+jBMg==
+	bh=zrMcVk/FXBVd+TGYXJcrqn9TJIqgyPhhxmNRvtTxdwY=;
+	b=unOW1CZ+m7JB1X2EAMGzNAm8YPKUNmfbYMXuE/A5dc0qyqslBEQCnTDoROISnR+TcDCA
+	 JUdVyP5xKpcPNuWGtISEIO+onmHbPcWtrvFh81tiBM4UKWpS0CFK3ArSqgfv27H6VuANl
+	 IU23cT/xkEv/O0Q0bY/SUQxAevZSdpi0hUlaB5ITNLfmYxMIh7QHSr3BsDh4IpW8JOnF9
+	 j6YOIH64nhqjkj0iYO82yW6nqWY54szpmj8LLhbMtO+x8c9aLzjYi/Ww8eH1r2VYmHNkS
+	 RYhK2l510EeHdX1z9tHuP/8PJ31AlPs24PN5NemB59JNlSsg0UHG9IBp1Emd7kZXcZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rld116DC;
-	arc=none smtp.remote-ip=91.218.175.112
-Received: from mta0.migadu.com (out-112.mta0.migadu.com [91.218.175.112])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="LAO6VCj/";
+	arc=none smtp.remote-ip=91.218.175.128
+Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AD1606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:51:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50AD1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953BD606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:52:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 953BD606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rld116DC
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAO6VCj/
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ekUbTVzeA1JNlzfG7xd+5633WBpvGDfH+mmSDR5DYLM=;
+DKIM-Signature: a=rsa-sha256; bh=I48YjLcxJvx4CWukts+x9dGdBS0QAfV6VzkLdQtjevU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794325882; v=1; x=1794930682;
- b=rld116DCyefpF4HY6HzebCbZOPxDgtBgxSsjhBvC1bllJIxpyyrQhJq+P+PzvTn4OLH4t74n
- Mc9IMqMWy0YdoXmgUVTTIjmZC8DOoFaUD6ZduG7QNFZskXgOx/QcJ0nYRCt6F/hu0SpO1Vr+WNN
- IOz/Hc+sRP6qee1SHukxIaG4=
+ t=1794325923; v=1; x=1794930723;
+ b=LAO6VCj/jP97doJQdG9N7nDKXV86mxjgXAenEhMMC4DEMioHzogsAR3u4dnk7G+xT/vASlEn
+ 8H0KwD//3y7rPZOujqEXkoyxyVbiEaozExAGmmv8kSVpAhvr8eoF1QA5LvgFAAEqdNqWMTUylEu
+ XUClkzHN2xVrI8jjGczIs2Mo=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef20ab98b7ec7150;
-	Tue, 10 Nov 2026 15:51:22 +0000
-X-Mizu-Trace-ID: ef20ab98b7ec7150
+Received: by smtp.migadu.com with ESMTPS id 9b44e70281ab94c0;
+	Tue, 10 Nov 2026 15:52:03 +0000
+X-Mizu-Trace-ID: 9b44e70281ab94c0
 X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 15:51:18 +0000
+Date: Tue, 10 Nov 2026 15:51:58 +0000
 From: Bradley Morgan <bradley.morgan@linux.dev>
-To: mic@digikod.net
-CC: brads@mainlining.org, brauner@kernel.org, dhowells@redhat.com,
- jarkko@kernel.org, jmorris@namei.org, josef@toxicpanda.com,
- keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- morgan@kernel.org, paul@paul-moore.com, serge@hallyn.com, sergeh@kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_Let_LSMs_deny_the_?=
- =?US-ASCII?Q?CAP=5FSETFCAP_snapshot_for_mapping_uid_0?=
-In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
-Message-ID: <80A558D7-7DC3-4780-91F5-990E4917E8A4@linux.dev>
+To: jiangjiehua1@huawei.com
+CC: audit@vger.kernel.org, coreteam@netfilter.org, eparis@redhat.com,
+ fw@strlen.de, linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ pablo@netfilter.org, paul@paul-moore.com, rrobaina@redhat.com,
+ zhangchangzhong@huawei.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_audit=3A_fix_incomplete_N?=
+ =?US-ASCII?Q?ETFILTER=5FPKT_records_and_return_void?=
+In-Reply-To: <20261110122939.45373-1-jiangjiehua1@huawei.com>
+Message-ID: <F79DD66E-99AE-44E0-87A3-E7B2FE704290@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,88 +70,303 @@ Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 10 November 2026 14:42:04 GMT, "Mickaël Salaün" <mic@digikod.net> wrote:
->Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
->records in parent_could_setfcap whether the creator of a user namespace
->had CAP_SETFCAP, because a creator writing its own uid_map only has
->capabilities in the new namespace.  The snapshot uses cap_raised(), so a
->task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
->namespace it creates.
+On 10 November 2026 12:29:39 GMT, JiangJieHua <jiangjiehua1@huawei.com>
+wrote:
+>Commit f19590b07cb6 ("audit: add audit_log_nf_skb helper function") and
+>commit 15b0c43aa621 ("audit: include source and destination ports to
+>NETFILTER_PKT") introduced audit_log_nf_skb() and its transport header
+>parsing.
 >
->Use security_capable() against the parent namespace instead: the
->creator's credentials still belong to it at this point, so commoncap
->returns the same result, and only LSM denials are added.
+>The helper returned early with -ENOMEM when skb_header_pointer() failed
+>for
+>the network header, and the later port parsing did the same for the
+>transport header.  Such an early return skips the remaining fields, so the
+>NETFILTER_PKT record is emitted with only "mark=" and without the address
+>and protocol fields.
 >
->Do not audit this check: creating a user namespace does not use
->CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
->that later fails has no LSM audit record.
+>Log the address and protocol once the network header is available, and
+>route the error paths through placeholder logging: a missing network
+>header
+>logs "saddr=? daddr=? proto=-1", as the pre-refactoring callers did, and a
+>transport header that cannot be read where one is expected logs
+>"sport=? dport=?".  The same "proto=-1" placeholder is used for an
+>unknown bridge ethertype and an unknown nfproto, which previously printed
+>"proto=?".
 >
->Checking CAP_SETFCAP when the map is written would not work: the
->writer's credentials then belong to the new namespace, where commoncap
->grants the creator all capabilities.
+>Validate the IP version and the IPv4 header length, since bridge packets
+>can reach the audit hook without the receive path validating them.  Locate
+>the transport header from the network header instead of relying on
+>skb_transport_offset(), which is not guaranteed to point at the transport
+>header.  For IPv4, a non-first fragment or an unreadable transport header
+>logs unknown ports; protocols without ports are unaffected.  For IPv6, a
+>non-first fragment leaves proto at IPPROTO_FRAGMENT (44) and a negative
+>offset from ipv6_skip_exthdr() means the extension header chain cannot be
+>parsed; in both cases the transport header is not available, so keep the
+>addresses and protocol and do not log ports.
 >
->Cc: Christian Brauner <brauner@kernel.org>
->Cc: Josef Bacik <josef@toxicpanda.com>
->Cc: Paul Moore <paul@paul-moore.com>
->Cc: Serge Hallyn <serge@hallyn.com>
+>Both callers ignore the return value (net/netfilter/nft_log.c and
+>net/netfilter/xt_AUDIT.c), so make the helper return void instead of
+>inventing error codes for a value nobody consumes.
+>
+>A packet whose network header cannot be read now logs:
+>
+>  before: mark=0x0
+>  after:  mark=0x0 saddr=? daddr=? proto=-1
+>
+>A TCP packet whose transport header cannot be read now logs:
+>
+>  before: mark=0x0
+>  after:  mark=0x0 saddr=10.20.0.2 daddr=10.20.0.1 proto=6 sport=? dport=?
+>
+>Fixes: f19590b07cb6 ("audit: add audit_log_nf_skb helper function")
+>Fixes: 15b0c43aa621 ("audit: include source and destination ports to NETFILTER_PKT")
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+This code looks very, very confusing. :(
 
-I'm logging out of mainlining.org (sigh) anything meant to be cc'ing me,
-e.g: get maintainers should cc the linux.dev email instead, annoying brr.
-
->Cc: stable@vger.kernel.org
->Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
->Signed-off-by: Mickaël Salaün <mic@digikod.net>
+>Signed-off-by: JiangJieHua <jiangjiehua1@huawei.com>
 >---
+> include/linux/audit.h |  12 ++---
+> kernel/audit.c        | 114 ++++++++++++++++++++++--------------------
+> 2 files changed, 65 insertions(+), 61 deletions(-)
 >
->This is independent from Josef Bacik's series, which reworks this code
->to close other ways around the CAP_SETFCAP rule:
->https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com
->
->That series still computes the creator's CAP_SETFCAP with cap_capable()
->and cap_raised() in cap_setfcap_level(), so it would need the same
->change.
->---
-> include/linux/user_namespace.h | 5 +++--
-> kernel/user_namespace.c        | 8 +++++++-
-> 2 files changed, 10 insertions(+), 3 deletions(-)
->
->diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
->index 91232053775d..370961fde45f 100644
->--- a/include/linux/user_namespace.h
->+++ b/include/linux/user_namespace.h
->@@ -86,8 +86,9 @@ struct user_namespace {
-> 	kgid_t			group;
-> 	struct ns_common	ns;
-> 	unsigned long		flags;
->-	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
->-	 * in its effective capability set at the child ns creation time. */
->+	/* parent_could_setfcap: true if the creator of this ns could use
->+	 * CAP_SETFCAP in the parent ns at the child ns creation time.
->+	 */
-> 	bool			parent_could_setfcap;
+>diff --git a/include/linux/audit.h b/include/linux/audit.h
+>index 767e349d4834..8263257a010e 100644
+>--- a/include/linux/audit.h
+>+++ b/include/linux/audit.h
+>@@ -197,8 +197,8 @@ extern int audit_log_subj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
+> extern int audit_log_obj_ctx(struct audit_buffer *ab, struct lsm_prop
+> *prop);
+> extern int audit_log_task_context(struct audit_buffer *ab);
+> extern void audit_log_task_info(struct audit_buffer *ab);
+>-extern int audit_log_nf_skb(struct audit_buffer *ab,
+>-			    const struct sk_buff *skb, u8 nfproto);
+>+extern void audit_log_nf_skb(struct audit_buffer *ab,
+>+			     const struct sk_buff *skb, u8 nfproto);
 > 
-> #ifdef CONFIG_KEYS
->diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
->index cd748e1cbace..57b7f10be74e 100644
->--- a/kernel/user_namespace.c
->+++ b/kernel/user_namespace.c
->@@ -128,7 +128,13 @@ int create_user_ns(struct cred *new)
-> 	if (!ns)
-> 		goto fail_dec;
+> extern int		    audit_update_lsm_rules(void);
 > 
->-	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
->+	/*
->+	 * verify_root_map() relies on this once the creator only has
->+	 * capabilities in the new namespace.  Let LSMs deny it, but do not
->+	 * audit: the creator may never map uid 0.
->+	 */
->+	ns->parent_could_setfcap =
->+		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
+>@@ -276,11 +276,9 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
+> static inline void audit_log_task_info(struct audit_buffer *ab)
+> { }
 > 
-> 	ret = ns_common_init(ns);
-> 	if (ret)
+>-static inline int audit_log_nf_skb(struct audit_buffer *ab,
+>-				   const struct sk_buff *skb, u8 nfproto)
+>-{
+>-	return 0;
+>-}
+>+static inline void audit_log_nf_skb(struct audit_buffer *ab,
+>+				    const struct sk_buff *skb, u8 nfproto)
+>+{ }
+> 
+> static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
+> {
+>diff --git a/kernel/audit.c b/kernel/audit.c
+>index 631d6d4a23cf..c5997077a46b 100644
+>--- a/kernel/audit.c
+>+++ b/kernel/audit.c
+>@@ -2511,8 +2511,8 @@ void audit_log_path_denied(int type, const char *operation)
+> 	audit_log_end(ab);
+> }
+> 
+>-int audit_log_nf_skb(struct audit_buffer *ab,
+>-		     const struct sk_buff *skb, u8 nfproto)
+>+void audit_log_nf_skb(struct audit_buffer *ab,
+>+		      const struct sk_buff *skb, u8 nfproto)
+> {
+> 	/* find the IP protocol in the case of NFPROTO_BRIDGE */
+> 	if (nfproto == NFPROTO_BRIDGE) {
+>@@ -2532,24 +2532,32 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 	case NFPROTO_IPV4: {
+> 		struct iphdr iph;
+> 		const struct iphdr *ih;
+>+		int thoff;
+>+		bool frag;
+> 
+> 		ih = skb_header_pointer(skb, skb_network_offset(skb),
+> 					sizeof(iph), &iph);
+> 		if (!ih)
+>-			return -ENOMEM;
+>+			goto unknown_proto;
+>+		if (ih->version != 4 || ih->ihl < 5)
+>+			goto unknown_proto;
+>+
+>+		thoff = skb_network_offset(skb) + ih->ihl * 4;
+>+		frag = ntohs(ih->frag_off) & IP_OFFSET;
+>+
+>+		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+>+				 &ih->saddr, &ih->daddr, ih->protocol);
+> 
+> 		switch (ih->protocol) {
+> 		case IPPROTO_TCP: {
+> 			struct tcphdr _tcph;
+> 			const struct tcphdr *th;
+> 
+>-			th = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_tcph), &_tcph);
+>-			if (!th)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, ih->protocol,
+>+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
+>+						&_tcph);
+>+			if (frag || !th)
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(th->source), ntohs(th->dest));
+> 			break;
+> 		}
+>@@ -2558,13 +2566,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 			struct udphdr _udph;
+> 			const struct udphdr *uh;
+> 
+>-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_udph), &_udph);
+>-			if (!uh)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, ih->protocol,
+>+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
+>+						&_udph);
+>+			if (frag || !uh)
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(uh->source), ntohs(uh->dest));
+> 			break;
+> 		}
+>@@ -2572,19 +2578,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 			struct sctphdr _sctph;
+> 			const struct sctphdr *sh;
+> 
+>-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_sctph), &_sctph);
+>-			if (!sh)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, ih->protocol,
+>+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
+>+						&_sctph);
+>+			if (frag || !sh)
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(sh->source), ntohs(sh->dest));
+> 			break;
+> 		}
+>-		default:
+>-			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+>-					 &ih->saddr, &ih->daddr, ih->protocol);
+> 		}
+> 
+> 		break;
+>@@ -2594,28 +2595,36 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 		const struct ipv6hdr *ih;
+> 		u8 nexthdr;
+> 		__be16 frag_off;
+>+		int thoff;
+> 
+> 		ih = skb_header_pointer(skb, skb_network_offset(skb),
+> 					sizeof(iph), &iph);
+> 		if (!ih)
+>-			return -ENOMEM;
+>+			goto unknown_proto;
+>+		if (ih->version != 6)
+>+			goto unknown_proto;
+> 
+> 		nexthdr = ih->nexthdr;
+>-		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
+>-				 &nexthdr, &frag_off);
+>+		thoff = ipv6_skip_exthdr(skb,
+>+					 skb_network_offset(skb) + sizeof(iph),
+>+					 &nexthdr, &frag_off);
+>+
+>+		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+>+				 &ih->saddr, &ih->daddr, nexthdr);
+>+
+>+		if (thoff < 0)
+>+			break;
+> 
+> 		switch (nexthdr) {
+> 		case IPPROTO_TCP: {
+> 			struct tcphdr _tcph;
+> 			const struct tcphdr *th;
+> 
+>-			th = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_tcph), &_tcph);
+>+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
+>+						&_tcph);
+> 			if (!th)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, nexthdr,
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(th->source), ntohs(th->dest));
+> 			break;
+> 		}
+>@@ -2624,13 +2633,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 			struct udphdr _udph;
+> 			const struct udphdr *uh;
+> 
+>-			uh = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_udph), &_udph);
+>+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
+>+						&_udph);
+> 			if (!uh)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, nexthdr,
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(uh->source), ntohs(uh->dest));
+> 			break;
+> 		}
+>@@ -2638,19 +2645,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 			struct sctphdr _sctph;
+> 			const struct sctphdr *sh;
+> 
+>-			sh = skb_header_pointer(skb, skb_transport_offset(skb),
+>-						sizeof(_sctph), &_sctph);
+>+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
+>+						&_sctph);
+> 			if (!sh)
+>-				return -ENOMEM;
+>-
+>-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
+>-					 &ih->saddr, &ih->daddr, nexthdr,
+>+				goto unknown_ports;
+>+			audit_log_format(ab, " sport=%hu dport=%hu",
+> 					 ntohs(sh->source), ntohs(sh->dest));
+> 			break;
+> 		}
+>-		default:
+>-			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+>-					 &ih->saddr, &ih->daddr, nexthdr);
+> 		}
+> 
+> 		break;
+>@@ -2659,11 +2661,15 @@ int audit_log_nf_skb(struct audit_buffer *ab,
+> 		goto unknown_proto;
+> 	}
+> 
+>-	return 0;
+>+	return;
+>+
+>+unknown_ports:
+>+	audit_log_format(ab, " sport=? dport=?");
+>+	return;
+> 
+> unknown_proto:
+>-	audit_log_format(ab, " saddr=? daddr=? proto=?");
+>-	return -EPFNOSUPPORT;
+>+	audit_log_format(ab, " saddr=? daddr=? proto=-1");
+>+	return;
+> }
+> EXPORT_SYMBOL(audit_log_nf_skb);
+> 
 >
 
 --- Thanks!
