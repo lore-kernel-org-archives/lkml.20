@@ -1,65 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341188;
-	b=dEHZ/Y2Fl6LiKMTV0OSnT6vvRaOx7ixusTsMI2XACqn7mr1UHXfVlI27tFSuomKUd1ji
-	 Zd+fTgwwMDlJKSVBXHqJ+TjcZq+TRV4WUL3xY4ewoFe/HpXdvzMJYsb8naOuXYSR8pvhc
-	 OCHMe65lH4nr6ksU8Y1h52e2NLxi2mg/dAmvn2hL/09w8ed8fdgVou+bGIimQG8UaneNv
-	 97TCuUFU9Ixj/A6APdzhB1mwEiFnRBWXPJh/v7uRNLho2bnejUQHv5niJTltq2QumHpAi
-	 mHYpsCKsZ8jpWa+2IoJCOBGRmz2PSjElqjFUtg4AW6/YZxltzohouBqw0c8YhvyjA+Q==
+	t=1794341195;
+	b=ZkyVV8/s2heQs4NeFGz/wUT4/EtxGkhz6geJdVBrsn+MQQLbTZPnJg0V5OMCeO8DGKkr
+	 STD3Q3GhpbRNQYLS1z8gLRo8QVu33Rzt3b+YoGXGDaX/I1Lz25G5idYDsRlfaOopfAgTy
+	 hJO1Mp2LDiam08VMx99GvIOEGFrgMnr69wAspfrk2ddgqhViY14pQNRqsJSM70ozVpgzg
+	 zUPzB0+Cawgl3s9RmUqQijN7ONN0UcQGtqi9yznnOHbRcSZYvSfhooGwZIDVaGDn3MVcr
+	 x7VlSj+H8VeHu9Uy7UccJiVDNems8pr7ueztOFJND+ZRD3/BaW6q2Hx70jaLUoTS0dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341188;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=alD3fGtjQd9CCc7M7nbOuP3nu43HinJ6Imab9qhCwWk=;
-	b=xOTWAsUgRcMDtPAUU5xTlHz4qy8T3C19IU3qgxWtvbgvy7XyZYAHJXi8YEUp9x4RB/jG
-	 wTuXhfkkr+NDNmbEA3+YTmk2yPnG/1P03134Pan4fXKJFcYXQ0eRhnvNrVU73nmnDrhEP
-	 +1U7oeWJhEaaeSQ7Xtl+r6p5sZ1kY4k5pt7idIlOrLaPyN+RWIageUSikg3DDHneqJfSE
-	 SpldTh8j4wXr74F9aznKAKOVTDkXpOZzPYJ2xJ9evgbQkY2pRhiyYWsiPXRcNKvD9Tb08
-	 ZaT/GRHHTwqkECStlITZLTdCFh6hXgKsyF4xVN5gMe0WrnL6rZ9DKcekRMDGRQyh7DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341195;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=efMbBQpSE7PY6ajwU86PUaHLoc8raeHWwmeeNwcIfd0=;
+	b=Wp29mjvhNuEnr3EFgXJZDjkwWWdutTZitGlBQgyWzuP7aU5QnhXrxC2AtHKReIp1L86E
+	 +xEJd5Hcp2xArpFZBZ8RXjL4zrO1fIoAyp48GSdE+owldE6D3kTOKme1NBIeIBxiulj02
+	 MhhRqN80X62aE1+ZVitol+HQk73UU5FoFBFQ28Or7J415YLnTZokgDV0GpBnFGpT+pJZq
+	 yv2xE2xdlhxMi/a4aiBi2LKTHwXJTFXG/qmzCne3AQNUyAiNGVgLcmFKYMcPiLYsuNwXo
+	 51ktDLyRyUfX/E12YY6EO3jLtVuA63cd0OAWVLbzW266VD38ON3sn19VfFDZU/lGYyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="H+BbA/2o";
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USwnmPZm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4004606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4004606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A1C606A320;
+	Tue, 10 Nov 2026 20:06:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=H+BbA/2o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=alD3
-	fGtjQd9CCc7M7nbOuP3nu43HinJ6Imab9qhCwWk=; b=H+BbA/2o2lW/5M6/l8NT
-	tW7m23UMVgUFK1pd62lc8xhVwor3DTtfyk4b1gtqwvkwJdUeyhzGUKAxU4bj74Qh
-	YDB0ea/8aTh/r58NjJEib+8C76I/HX2NJArp22utwcj7zu65XZ2fMOD+FJtrF17x
-	gTk+CJNH0Fe540MGbqpSn8m/48EsxeXglyn/YXRyIlUA/kS9rMsg41rQAvcaeJ/9
-	7VgTMZPMaVbz0YnFhBd31TXcyKPmrGVSu48tn11a1B5dH5flCYCIHVXpAY+SNiG8
-	GR8K2RKFr9VTcca7cxEOk+GYYXLKGYtaSns0L9QlWRImlnzFr44dlJejtiMK3rjI
-	pA==
-Received: (qmail 352277 invoked from network); 10 Nov 2026 21:06:24 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 10 Nov 2026 21:06:24 +0100
-X-UD-Smtp-Session: l3s3148p1@oH7qnPFfQNMujnsO
-Date: Tue, 10 Nov 2026 21:06:21 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] i2c: dev: clean up registration
-Message-ID: <avN5PWgseDWJJq36@shikoro>
-References: <20260827102043.673273-1-johan@kernel.org>
- <20260827102043.673273-4-johan@kernel.org>
- <avMFCwqx2X6pl4hP@shikoro>
- <avMRNeDGriRh6D1N@hovoldconsulting.com>
- <r7a57zw5h253lhdecxdoagdcok4lobodiouutxxq3t237imdhy@n4t46uvgvf22>
- <avMW-hz61zXUbQWV@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USwnmPZm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD8661F0089F;
+	Tue, 10 Nov 2026 20:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794341194;
+	bh=efMbBQpSE7PY6ajwU86PUaHLoc8raeHWwmeeNwcIfd0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=USwnmPZm3DY7fxFB3PkAgP5UMifgYLDzbFk9wRj73iKSymrIZv6CJRzaRbOoM5kye
+	 V2yqKoXdePDRo2XDnYXKptQx5jbzyaxl6n/duMvjfOm9rWuuA9JjIDHMGexWuHLMjX
+	 m5Lq6uQAnF3baee3tby+U6ta8TU767lXhaGM8DAhec080SS0dXcVdpAjXEpP+9G5k0
+	 gJvaSjUdCUOuk2SB/lwDmGG3lM8KpLoQVqjdQBmA5t0Zs/l2soVC+kQcGFsivsrRmK
+	 19UVYSRadBzB3wgUuNNdmM4geeRdKg5lxKqLtQGmR6jfq9Oxh+yCT7kPXMRhf6RZfa
+	 vSmi4GCSfCT8w==
+Message-ID: <47e6cb2d-f84c-4aef-b658-7dac5e046434@kernel.org>
+Date: Tue, 10 Nov 2026 14:06:30 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,22 +51,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avMW-hz61zXUbQWV@hovoldconsulting.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
+Content-Language: en-US
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bjorn Helgaas <helgaas@kernel.org>
+Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
+ <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Mesih Kilinc <Mesih.Kilinc@sony.com>, LKML <linux-kernel@vger.kernel.org>
+References: <20261109232700.GA345907@bhelgaas>
+ <f37d6958-086b-0006-8fbc-c4c15369b796@linux.intel.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <f37d6958-086b-0006-8fbc-c4c15369b796@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+> 
+> The regression is the same genoa iomem blackhole we discussed in the v3
+> thread:
+> 
+> https://lore.kernel.org/linux-pci/20261013130948.6231-9-ilpo.jarvinen@linux.intel.com
+> /
+> 
+> There were multiple possible possible ways to quirk this and it comes down
+> to which one you (Bjorn) prefer. I just left my quirk patch out of these
+> v4 and v5 series because it seemed the least likely to be the one taken.
+> 
+> If you want me to test a specific quirk approach on the affected system,
+> just let me know. I already did test reverting your change that freed the
+> e820 reserved regions for iomem use and that did prevent the regression.
+> 
 
-> If Wolfram insists, I can revisit this, but I don't think it's needed.
+Yeah with any luck our best bet for everyone is reverting commit 
+07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map").
 
-Well, I can see both sides. One the one hand, it is a bit of an academic
-excercise, on the other hand it is more "correct".
+> 
+> (I now seem to realize I forgot to include Mario while sending v5. I've
+> added him to this now.)
+> 
+> Mario was willing to pursue contacting the reporters of the earlier
+> problems with a pre-prepared branch to test to see if my placement series
+> could resolve the issues reported (earlier). Depending the results of that
+> test, we might have yet another way to quirk it.
+> 
+> Mario,
+> 
+> There were quite many changes in v5 so I'd prefer the test branch using
+> v5.
+> 
 
-I favor the incremental approach. I won't force Johan to do something
-which he thinks is superfluous. But if someone interested sends such an
-incremental patch, I'd vote for inclusion. And with all the code
-analysis out there, I think such a patch will come eventually.
+Done!
 
-That being said, it means I could then apply this series to my for-andi
-branch and add the comment I requested here myself. But I will wait
-until tomorrow to wait for further comments, if any.
-
+https://lore.kernel.org/linux-pci/20261110-superm1-genoa-mess-v1-0-bdcb3a6f2463@kernel.org/
