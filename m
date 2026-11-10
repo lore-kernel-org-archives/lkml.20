@@ -1,71 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319614;
-	b=DwsuItT1Idy3mX21AWswMeJVmbz882QHMXjx/U4ASZAdjORTiUMXXCwLwR57ah85s6cm
-	 P65np333zKqMBNryl/YxfK9AW5/Dm6SgjYJ26+B7Bn5A7upt3krQB4KdJz2wiep6285Rt
-	 LeWvIWhYwx1sNAsMni1QkANsuF66OzejwWk7fchIBtHow1CyEx6QhpCCyovfXtTbzxvE9
-	 imHc+0IlK6lKBfHP7bfECXC+7OygCPErlM2jxZUe9Xr1GjDef2lWfvI29s2FDDisTYMaE
-	 2CH/v2elOwNfsEVvT4xnrcLsySAjHvJmCW9yEX5RgUV1bgItKHXv1MWdIgZVcecPK2w==
+	t=1794319668;
+	b=ht2YkqLisVBSGgyP9thefreAeS8rKP4I2jLvTR1lZEYurN+0r0HFAtS/UyoMU2HCPuRZ
+	 zLU4LVsbPlomX3Uqzst0MQ68Zam9wnRG9Ys7n1vh5AkDzXlqeER9Dy7RBczLENq0Z5dbD
+	 Cg1n7qyqrwrLf5otGEIRaXAzHE5eMVaRl7krlSAjjILyt2AmTYIU5ZY6oRhZsiczRwV53
+	 59mAJMJVnsxJ+6ZJ6+PQ6rAZwsBBQ/tbd/2g9cJEZCG5k/nw2/RYYV+LreS4bvPj7bXiW
+	 lmzasmtt08xghJ9omIzflPcbUZQuZNoec3TzUSvvODcgGsSSFa4fsdbFlGMLDR0j1jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319614;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6mdx737bcxeVcciGfuHgnMznol7+4MpQaOj9g4XVWL0=;
-	b=WcBNa7O1XUUxt5lLStrrp8jaQ7efVi5lQQGJIJeuzQSrtmSo2MhKWc9v+sN4/X3QNnEB
-	 J6x6R0kZzCXiA1JM6tNp+KnOOfWh/V2qsh6OwpTZO6Roc8e0uDdMBif4+/dj4ClMtfgMg
-	 FK+vQrVaFWl0kWXVT+vT5iiaOAM06N+24aCc6syASX2w2jspIJxDXFYAbFJcANLHa4/Lz
-	 n4jGrRpj/t4yYNo40ISnDextn8bcdF0oyUFsxchLeDcN9Q/ST6mx0ZQ8XpqXjKBusvGbE
-	 1b6ZolRfsAFswY5Ypg1SNr/SIwj+B4aeOaxEeNYmMscTin1yliH3+gyHH9qEuCL4cZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319668;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=o32XJk3B6ikVfi12PbmwjBY5KI6kvxLInmTz1VZt7Pw=;
+	b=OkO+nppBbhOux97SGZaNKYOF2cotWH1wH+QjGzzhzVemSICj8ZXl2+1ZmSuQ+aRo4Mwp
+	 flwuaU2MfqePSzQP0gyYUn5HztUF0l8u5dOPBNDHmlbwv6YQPlt5h9XjbgO1KI+zchBIH
+	 vmoNCrI30G7yRlBIszA/n1EA4ex2eLXVEeMHhBxfswa9vaPJjOr4X3Ccr/DyuwCGdGvdl
+	 gP60zKNovCJE19/EwtKy5v1AOS3ts43rBYJj8s4F5wwHitR+GoikKRZoLprQG3qKi3Bbd
+	 s0rhrfhJPZLFaLRHNUKnTFV+0bF/K5m1xBv/Lkc2j/3BzWCZocw5pO20To+XECoKhqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPYmvbsb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B8F2D606A321;
-	Tue, 10 Nov 2026 14:06:53 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9OtPTSA;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E8CA606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E8CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPYmvbsb
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CAD501F0089F;
-	Tue, 10 Nov 2026 14:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319613;
-	bh=6mdx737bcxeVcciGfuHgnMznol7+4MpQaOj9g4XVWL0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OPYmvbsbYEIAyqQ66foGVr6ozvMzlKC/en38xqcdxVQU0194eo5B5cptbbZlk3FLj
-	 qjGNveKQdTK1fN7MKM+xFNGe9chMw0b0WEdx25m3+F3JSvLh1z0L9Ka8ZEIeUEbU9G
-	 C/dLvCsb8iG/f4N1k9xrHxvLk10X3p/cafIzVXoTCFJK62SV4Ky8ze+UI7VYWtxxxH
-	 CxS+KsSNb+UMi/8hIiodrdCDFOEwdfXqd0F3TH0ysqUr6TBjfzgPVAPaSLxhrx49d9
-	 TgKEVCV1O4elPHxm6ocTfStWrv/pZtE+FKVIIWtx41H5VYYtZrx84xPDQwLNgJAHcV
-	 p6vTXvGrT2tbw==
-Date: Tue, 10 Nov 2026 15:06:50 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <42haexjuvyhxznlre4wtwb6ent3epgnqn6mvj2pjxrbryvy7yt@2p7odc4trzo7>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
- <l7ppjeoqvc6hblk52a6upei4ee2caahe2ltiur4gwig3ez7d3c@dmzzy22ixvlc>
- <CAHp75VdZpqt8PzVypQ85U1OjxszXOmCP9MKv3ozQOh-UVFnR-w@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9OtPTSA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F0311143D;
+	Tue, 10 Nov 2026 06:07:43 -0800 (PST)
+Received: from [10.0.136.86] (LRYFGMQP07.cambridge.arm.com [10.0.136.86])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 08E0B3F632;
+	Tue, 10 Nov 2026 06:07:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794319667; bh=xqh7DJ+zVV52dERd2AmnJh4G5Obs3nbK4SBhiC/5OFs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=F9OtPTSAuCR3v0zdhUomHdxSKOH7WfvEa+Wn3w7XeU8yZoSOHT28dhZIhIxAYJnub
+	 RL2VWiMb/wfGV5G7rTJQG2SyTATNBvgIlZGj6KD3A9ecb9VSVMaiJcqrrWkQbCZaAt
+	 9STn87OzjVbmYjrZynUmOJVWlSS54fzzO9nNBmNI=
+Message-ID: <3f68c02d-066d-40e6-b86c-bf41def97464@arm.com>
+Date: Tue, 10 Nov 2026 14:07:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,74 +53,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VdZpqt8PzVypQ85U1OjxszXOmCP9MKv3ozQOh-UVFnR-w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] tools/mm/thpmaps: handle carriage returns and
+ non-UTF-8 filenames
+To: Weilin Tong <tongweilin@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261104061641.1115805-1-tongweilin@linux.alibaba.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261104061641.1115805-1-tongweilin@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 12:51:53PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 11:50 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > On Tue, Nov 10, 2026 at 11:12:02AM +0200, Andy Shevchenko wrote:
-> > > On Tue, Nov 10, 2026 at 11:00 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > > > On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
-> > > > > On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> > > > > > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > > > > > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
+On 04/11/2026 06:16, Weilin Tong wrote:
+> VMAList opens smaps with universal newline handling and strict decoding.
+> A carriage return in a mapped filename can split a header into multiple
+> records, while non-UTF-8 bytes cause UnicodeDecodeError.
 > 
-> ...
+> Read LF-terminated records and use surrogateescape to preserve filename
+> bytes. Escape filename characters that stdout cannot encode to avoid
+> UnicodeEncodeError when printing mapping names.
 > 
-> > > > PS: is there a way of using match_string() with non-const data?
-> > >
-> > > Why? It's an input parameter, it returns an index. Whatever you
-> > > provide will be not modified.
-> 
-> 
-> > What I mean is that the following change
-> 
-> > +               ret = match_string(merged, n1, sec_props.array[i]);
-> > +               if (ret >= n1) {
-> >                         merged[count++] = sec_props.array[i];
-> >                         sec_props.array[i] = NULL;
-> >                 }
-> >
-> > Results in:
-> 
-> > drivers/base/property.c: In function ‘fwnode_property_get_names’:
-> > drivers/base/property.c:607:36: error: passing argument 1 of ‘match_string’ from incompatible pointer type [-Wincompatible-pointer-types]
-> 
-> > And I don't see a good way of working around it without doing:
-> >
-> >         match_string((const char *const)merged, n1, sec_props.array[i]));
-> >
-> > which is ugly.
-> 
-> Ah, got it! But why is the "merges" char ** and not char * const *? I
-> believe that will fix the issue.
+> Fixes: 2444172cfde4 ("tools/mm: add thpmaps script to dump THP usage info")
+> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+> Link: https://lore.kernel.org/linux-mm/20261101211644.c63a2028bbede0f763f41f80@linux-foundation.org/
+> Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
 
-Then you won't be able to assign dynamically allocated strings from
-prim_props and sec_props to members of "merged".
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
 
-  CC      drivers/base/property.o
-drivers/base/property.c: In function ‘fwnode_property_get_names’:
-drivers/base/property.c:601:27: error: assignment of read-only location ‘*(merged + (sizetype)((long unsigned int)i * 8))’
-  601 |                 merged[i] = prim_props.array[i];
-      |                           ^
-drivers/base/property.c:614:41: error: assignment of read-only location ‘*(merged + (sizetype)((long unsigned int)count++ * 8))’
-  614 |                         merged[count++] = sec_props.array[i];
-      |                                         ^
-drivers/base/property.c:619:16: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-  619 |         *props = merged;
-      |                ^
-make[4]: *** [scripts/Makefile.build:321: drivers/base/property.o] Error 1
-make[3]: *** [scripts/Makefile.build:603: drivers/base] Error 2
-make[2]: *** [scripts/Makefile.build:603: drivers] Error 2
+> ---
+> Changes in v2:
+> - Escape unencodable mapping names in vma_print() (Sashiko).
+> - Rebase onto mm-new.
+> 
+> Link to v1: https://lore.kernel.org/linux-mm/20261102085419.696232-1-tongweilin@linux.alibaba.com/
+> 
+>  tools/mm/thpmaps | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/mm/thpmaps b/tools/mm/thpmaps
+> index a1a9bc30514f..0e17723515cd 100644
+> --- a/tools/mm/thpmaps
+> +++ b/tools/mm/thpmaps
+> @@ -196,7 +196,8 @@ class VMAList:
+>      # instance to receive VMAs.
+>      def __init__(self, pid='self', stats=[]):
+>          self.vmas = []
+> -        with open(f'/proc/{pid}/smaps', 'r') as file:
+> +        with open(f'/proc/{pid}/smaps', 'r', newline='\n',
+> +                  errors='surrogateescape') as file:
+>              for line in file:
+>                  elements = line.rstrip('\n').split(maxsplit=5)
+>                  if '-' in elements[0]:
+> @@ -363,12 +364,14 @@ def cont_parse(vma, order, ranges, anons, heads):
+>  def vma_print(vma, pid):
+>      # Prints a VMA instance in a format similar to smaps. The main difference is
+>      # that the pid is included as the first value.
+> +    name = vma.name.encode(sys.stdout.encoding, errors='backslashreplace')
+> +    name = name.decode(sys.stdout.encoding)
+>      print("{:010d}: {:016x}-{:016x} {}{}{}{} {:08x} {:02x}:{:02x} {:08x} {}"
+>          .format(
+>              pid, vma.start, vma.end,
+>              'r' if vma.read else '-', 'w' if vma.write else '-',
+>              'x' if vma.execute else '-', 'p' if vma.private else 's',
+> -            vma.pgoff, vma.major, vma.minor, vma.inode, vma.name
+> +            vma.pgoff, vma.major, vma.minor, vma.inode, name
+>          ))
+>  
+>  
+> 
+> base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
 
-This is where we could use kstrdup_const() but we'd have to keep track
-of these strings now in error paths and that complicated things. I'll
-just keep the existing loop I have.
-
-The alternative is of course relaxing match_string() or introducing a
-non-const variant or even hiding the variant behind a macro using
-_Generic(). But that's work for another series I think.
-
-Bart
