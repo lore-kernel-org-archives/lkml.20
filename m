@@ -1,110 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290558;
-	b=0ciqZjt1plt04GHHQZ89qSn2/O7wR14ncbXjbe+jhpLCjXsd0+ve7A6vP8yJOc3fcubp
-	 QvR7ta5um/pLbRdykTdiZBVtxn6XiBRphG3e1U/l53e1rWV1ss1ysfzP1jy15l4ICXy6q
-	 2sObSw3K9ig8am7ruMOEbQjdWbOXo6T+07s9zisY8TYpZmHOXCRByWEFcsPBwB0S388z9
-	 yqOpAFbhCipFyyHPPKfMQDBZjPGi7uX+r7wqB0TtU6E179ZfuLotuLj4xfQfq0ibK1kO6
-	 iSR/3JFLkicN2itQmXM0pwZ0Xl9JNe/qM/1h7bie4xrucRdco2sO4PLxAbmO8ylLBRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290558;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=hlKSwbDaSVH7Fcw2T/jklK3nMnUgIQIhV1V2VLCXGFM=;
-	b=EPI9CWRvpd/8keUQhwsn95pgD0pciDykuVmAUsWl07VeqqviOjwkqtVw15Mcb8tURJI8
-	 2WyrvIXQLgyqVS/ck1BWB8KMU/KeyRQEyliMHKhSY65B5AiOAg1Oi50TNoZ0d3Y97FdtU
-	 Y/dv3QFJlb5IBszp7w4BB6ZuZxEmkCkzn4wppCHXBXANJ+eMl+IPbZwIlLtDMDktZgMkO
-	 k9XLryQNZPd9D+2TrcBK04+iXgMh6zIZmTykOrpZ2eG+Tq1jk0rGiIl3JmoDEFmA/qUAA
-	 Wje5j0Wt9A8YjgVi7O4XVPt14W+2nLMuw/ooxifcsL2Z8HMA9htjsRnl194pt892o0A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="S3/EIgPs";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FqoQYn5G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="S3/EIgPs";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FqoQYn5G;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794290582;
+	b=1BJE53K272Ymke2mnRb+BOjWK0Q4oEKbiRFVk7wCFRH1mwzb9nLEIEb8hyqybySJRb+Z
+	 QubS5+cwJuGQPlhf11ygQbEzFzYe66kYSe0j08fHXg1+uJBaonOMBh84QNjt8ByS8PyLs
+	 RdSuNoNZGMwCJNBMTFV3VFbD/wZOBt5ux9xrd0rBB+tBzwMLBIN9PDBrlkjNb9KOjb9gO
+	 Cu3KhPsxguOKa1PE+IR5DPjjc6AftKOKotB/apJKQzkNmikOyjFuiuvOxbsPox01erJjS
+	 h6QbMX3u0RDDhaqCpU+0J9V61773bnCgMfY1oyP1R3/wblJqWn7AGkkjzUs0HIHoguA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290582;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=4uDag57MGMHKoDnL2fBg4X/AmVbZNFgXOIQxpE7QZXU=;
+	b=rIz3DZND4Tc8X/PA7Tmx3RByQsIWTUoH76U3m1GyrgPNg4NYllpZmnONTP6jjeIUDTKm
+	 Dwnq50MagesHyieHOknKdNYLdTCWdldmT9WLnnycjEh/DoH/k/DrM+idBQW41yfbB5p+G
+	 Y7EP1KMiiVvb0gJgk8iit/cclMf+4TNRuiFOI9V+1gm3DAXeES7ierjCvGTg/n1zEb4cA
+	 04gPqSn731yN30BOPynvDJQ6mrr99cwHfrqmjbjsutyFisZf7PYFwq3NcrCaYQHDRYu4D
+	 iK9IGbK/z0xRfLwdQPJiD4h0IgPz1gZhXCLmDXh2r+o5muIZJukD6KlBNacxDd/WaMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuePcgnq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73066606A321;
+	Tue, 10 Nov 2026 06:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuePcgnq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794290582;
+	b=VkOfEApsPgkSs/h68MlhU1wQ54tmRPHzEoAWFJcBYauK7DWob+5fd385Jn6EaGI9Nu+H
+	 PpiXfBWOspFsqnBqnMurprrN07u6jNwnMH0Bbd6LqxyRAXQIAK7PZkHJ7RyZKFQ452pIa
+	 6nd9t7O9Mt2vuw3hxAY7BLEcPfKDmzzB7vw8nvs3fyCL+qLme98eN/jsBg7FHT7rdFzTI
+	 FLahTzQjY9vWDjHzUkRvCwYnl5NByErZuOo6tiPZeJUgvmVUUF4Ta2Ixiilvcjq46JbHV
+	 R/j8XxmHKCQkz0xzUqW81Gzt+VrPPQYTPru++g76gVxjaUPZnG/LO5oTc7vtV6IkDdQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794290582;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4uDag57MGMHKoDnL2fBg4X/AmVbZNFgXOIQxpE7QZXU=;
+	b=HMAfjdBtJsMKp5p6ueEP8rJArB+r8PsRzZTgFKWjPFJWYefzn+bmqbGfAfEM8vHB0Axn
+	 H7HQWl/rpbICNBcx14EXcFEjr7NJplQxxVaKLzhNUDRK2exa6ldulhosb73E4SJAE/hem
+	 ss0cZy85leuoptBzWOwTAoRqFMOzRDpwUVKy3l4dWHZRYkjJbeOjeGpaIxzr2yPrJenIx
+	 Q9BS5CB9qOb/AVToBkw8IlwRBo2PY7pSx3jMHLdJ1ziEvUWpObbbexrKPMiduZDi1Ng2w
+	 uFYX6a9FtS9YmTW+v8m7bU20EOKD7eAD9izHKXm98mG45+1JeXVX+KkPQmjS8X41tXg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E390606A325;
-	Tue, 10 Nov 2026 06:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E390606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S3/EIgPs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FqoQYn5G;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=S3/EIgPs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FqoQYn5G
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6A89C1F441;
-	Tue, 10 Nov 2026 06:02:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794290550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKSwbDaSVH7Fcw2T/jklK3nMnUgIQIhV1V2VLCXGFM=;
-	b=S3/EIgPsJ9kX+yOdzUiPuKUBuOl6GUgUxc0WF0Zr1y9+60kVdegZOg6g+/APHN0uBblfk9
-	HTfQnNMLIAXvyAYXjdRLsivNuiRCgZDRc+wjDWH5+mjP2mkbLZjrSzAhPRlWoWXyY7oezO
-	4AAUtNzXAZ0sWCY6ZiXnZG2TMyRXzbg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794290550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKSwbDaSVH7Fcw2T/jklK3nMnUgIQIhV1V2VLCXGFM=;
-	b=FqoQYn5GHhY0liT1iBzPl2O6QUsuk43C5BWnrnLj4YnG5l2jM2aG9UlXenY8KksvQlSvTm
-	fhUnhXHxXuLkrSBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794290550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKSwbDaSVH7Fcw2T/jklK3nMnUgIQIhV1V2VLCXGFM=;
-	b=S3/EIgPsJ9kX+yOdzUiPuKUBuOl6GUgUxc0WF0Zr1y9+60kVdegZOg6g+/APHN0uBblfk9
-	HTfQnNMLIAXvyAYXjdRLsivNuiRCgZDRc+wjDWH5+mjP2mkbLZjrSzAhPRlWoWXyY7oezO
-	4AAUtNzXAZ0sWCY6ZiXnZG2TMyRXzbg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794290550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKSwbDaSVH7Fcw2T/jklK3nMnUgIQIhV1V2VLCXGFM=;
-	b=FqoQYn5GHhY0liT1iBzPl2O6QUsuk43C5BWnrnLj4YnG5l2jM2aG9UlXenY8KksvQlSvTm
-	fhUnhXHxXuLkrSBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0FAD13479;
-	Tue, 10 Nov 2026 06:02:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oxNbMHWz8mpXGwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 10 Nov 2026 06:02:29 +0000
-Date: Tue, 10 Nov 2026 07:02:29 +0100
-Message-ID: <877bilusui.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Angel J <iamanaws@httpd.dev>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix the Dell XPS 8940 headset microphone
-In-Reply-To: <5ncUNWXphcObbYD04quaQMbD0tGoekaHB-QQrX5tgC7sSbzoT9jRVrbY9PyT6mRbww0G9-voA6Y98HjvPg7U25kmeybfQALp5NsNKym-3pc=@httpd.dev>
-References: <20261103150336.507675-1-iamanaws@httpd.dev>
-	<87wlqtukxh.wl-tiwai@suse.de>
-	<5ncUNWXphcObbYD04quaQMbD0tGoekaHB-QQrX5tgC7sSbzoT9jRVrbY9PyT6mRbww0G9-voA6Y98HjvPg7U25kmeybfQALp5NsNKym-3pc=@httpd.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 3C3E81F0089F;
+	Tue, 10 Nov 2026 06:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794290581;
+	bh=4uDag57MGMHKoDnL2fBg4X/AmVbZNFgXOIQxpE7QZXU=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=RuePcgnqyfte1XHsFrVtjrcwYEeEMlrvEc5kHWsePiYiugAi4LVUrxeO3OTnt78gD
+	 lUNH10G/Ry6sIBtDsI19jyuodatX6x2tEv0eOxXvmlGhYxxQ0n4y3Xaiuwto05L3zQ
+	 2+lwcr5kcJ5eh7UJUk8B16BqQvYnqknzZ1kBABGH1NCziF6MgwoAL39chsPjFRVaOY
+	 G14AZJPYKmT0FaWn+2RuPYVi5uTReweH4enmmhJFsox8698BK+rUOSb7rga4uGnafR
+	 3uI2GJAnagTWcuqp0+2tJ68zpnOYVT83HIw631MRfinQQX0e+dTuxUJskZh74zgByg
+	 Yyi1Waj2/8V6Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8CC5D488AF;
+	Tue, 10 Nov 2026 06:03:00 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH 0/2] clk: sunxi-ng: h616: Fix the EMAC 25 MHz and S/PDIF
+ clocks
+Date: Tue, 10 Nov 2026 06:02:59 +0000
+Message-Id: <20261110-h616-clk-emac-spdif-v1-0-e5e36e8963e4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,52 +83,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnBcwRQr6KrKDpumMOifNNgbFd
+ 7fbjt/h/zOYJBWDrsqQ5K2mj62ALhXwNGw3QQ3F4GrniajGyZNHXheU+8Boe9CIDRG3PsQxiIN
+ S7kmifn7X/vq3vcZZ+PldwXGc14sRa3cAAAA=
+X-Change-ID: 20261110-h616-clk-emac-spdif-411c96dfbde2
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290580; l=1811;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=IFyI7JJ8fJLP5Ef3+9F0FXrHqe21a7ZPZU1S9cQpPE0=;
+ b=7owWMhF0E+ULMOrWbnsnk0mKjC9hdboYHaGDF3wJNwiCdTE7p9ICpEEDXmeEk4EgPmnUT4xre
+ P2q6cD2d5QxDg5AHxmameUabWmzoFT/46s8Ummp7LZinICao/MP2pvL
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-On Mon, 09 Nov 2026 18:58:47 +0100,
-Angel J wrote:
-> 
-> On Tuesday, November 3rd, 2026 at 23:15, Takashi Iwai <tiwai@suse.de> wrote:
-> > The code change looks OK, but could you resubmit with a proper
-> > Signed-off-by tag with your full name (also From tag, too)?
-> > Signed-off-by is a legal requirement.
-> 
-> Hi Takashi,
-> 
-> Thanks for reviewing. My understanding is that the guidelines require
-> a known identity, without necessarily requiring disclosure of a full
-> name. I consistently use “Angel J” and this email address for kernel
-> contributions. My PCI fix, commit 8805840aad73, was merged with the same
-> author identity and Signed-off-by.
+Two small fixes for the H616 CCU, found while checking the clock tree of
+an Orange Pi Zero2 against the H616 user manual.
 
-Is your identity really already widely known in the kernel community?
-I see only one recent commit in the past, and I can't see it's really
-"known".
+Patch 1 models the EPHY 25 MHz clock as PLL_PERI0 / 24, as the manual
+describes it. Only the parent and the reported rate change; the register
+writes are the same.
+
+Patch 2 lets the S/PDIF clock change the audio PLL rate, so the 44.1 kHz
+and 48 kHz families both get the right module clock. It is the H616
+counterpart of the H6 patch that was just applied [1].
+
+Tested on an Orange Pi Zero2 (H616) with a 7.3 kernel carrying both
+patches:
+- clk_summary shows emac-25m at 25000000 with pll-periph0 (600 MHz) as
+  its parent (200000000 below ahb3 before). The Zero2 uses an external
+  RGMII PHY on EMAC0, so nothing on this board consumes the clock; only
+  the clock tree was checked.
+- With the S/PDIF output enabled, the spdif clock is 24576000 Hz under
+  aplay at 48 kHz and 22579200 Hz at 44.1 kHz. I have no S/PDIF receiver,
+  so the output itself was not checked on the wire.
+
+These patches were developed with Claude (Anthropic) as a coding
+assistant. It investigated the problem and wrote the code and the commit
+messages; I reviewed them, and they were tested on an Orange Pi Zero2
+(H616) as described above.
+
+[1] https://lore.kernel.org/all/20261104185027.883011-1-jernej.skrabec@gmail.com/
+
+---
+Arun Iyengar (2):
+      clk: sunxi-ng: h616: Fix the EMAC 25 MHz clock parent and divider
+      clk: sunxi-ng: h616: Let the S/PDIF clock set the audio PLL rate
+
+ drivers/clk/sunxi-ng/ccu-sun50i-h616.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+---
+base-commit: 280af24c860569000b375edda6436ba8e3ee4b3a
+change-id: 20261110-h616-clk-emac-spdif-411c96dfbde2
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
-thanks,
-
-Takashi
