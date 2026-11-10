@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292990;
-	b=C5/sBMJkjcT8Ebmk7gVSLghxwasmwYK8VgiztMPOKS8aOLpt9CsxrOo/0jDTL61CZOZv
-	 luFkG3pLW4LHH54X2folWkSx3xxswtn3a3HYlRJAf5z6eSFkDslcDP4e7Fl8kZc78g6ep
-	 a0YDBwdQgeajcMzCZ8LOBxMR5F3Fd1EdSwDMfTA7o+Bp2wZ50lhTsHXk3nAP3mFqpH1Gp
-	 +S2WMZNzvNsLJd66urYxIEwAnpW2Hh1tKakibTCNK3tppCr0e8XjyLWfE4UPfXXpwOQRD
-	 KpJOjkZkqJpdWb93DOPZ+C7zUDjXXd2QywcW+oSYbNiGPlhbE14j/oeDQU9i1S9hvbg==
+	t=1794293012;
+	b=tTqKQlJ2WDw4AAdb2HwIPPaQKlUSiTCaDldUFFAeB3vrHscK/RtHxuwrsd3jcvePBdW0
+	 X4SksF+YSz2lW355juPoGyGLN0ysRmoI+IbFPNXAjHNBIVJnTFQyfgJBNDN2EvRXXbxhA
+	 g/pupSEVD71nVslOkGPiGiPKRsGN6Zy6TllFpB0wxWP0bT5V2m38E9drcOP+t6Rp09KzT
+	 5FHUgbZ9d/E0PrmRhMMrkaZeExFA4ONj6c/4/2ilisE5sUn9w8wfXapgViLAPLQevmUSq
+	 TCPNHWCmUERsUAvaZGPyRhMqPp+VLw33KDmLoL/QO73+pG8tSaEX9rvQ5bH2nu+HEzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292990;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=KDDnULezz0lYOy8E8UC/jFsEQulCu5gvg3BMNhfnq08=;
-	b=Z+7w0LMhe7/8LVuNYmcYfh4GMN9ztZAD7qPKytmgL80MJxFKtZKxCsvvrBbzf4yqjFFi
-	 GJAOh5pAJqIwWyxDNUmlABh4qN0q5kUVC6AX/JYKcsSVQTqniHXirfeKpevPAOtZ7+NSt
-	 Vdjr3tR7lHaQ+t8QcGdP5SrHkDn9ftnPdfxyLROeob2GHK4QxsrAilAi7rX7n7SA6TUxj
-	 sfxA//kBLKH0RX+VwwDUpRhPmuu3gjrBMc4xoI6latobZbCOz8Q8m7fqycMutLtdxtvrt
-	 OCqT2F6BQWvUrFsbNOIC1zkkmIVuceC3OetHsp/dmjuiBWRfrEkCs0KoB/bBtWj4Zfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293012;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=AHUwN/nH0PPuEC6CSqNWG/eemyUpNYMNWAvelBWwzMg=;
+	b=WbUUso4rkza5vWSc7T6R+55yCPo3nuJreqWPzixiAPlV7nF6x5qdJuD1xcCxSRrmrCsa
+	 ujA3CCSud4maJc+QN3HUcDE6kN9CMeQYqPaKZUKPMVzsZgKXCNvFppnkq0YEcvt0Jq17x
+	 onNi+U2KEkH9WY00bnhCoLgjrwRBjFl3k1byr5lKc0fzlxf6+60C9512VF1lN0vyukJBs
+	 QAe6Fkzs528vtvt45JxjQItXKSdM5j15ZMKhQe0PesEsjfFS4cvZNj+EXDYMdek0H2hJH
+	 Xa7ISrLHLGRc8ihg2ND2a+WkKjfV9Z3pzY+jTOvd+b7Kd7RgPAHEGmK3C1qinbdU59w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=SfTTZ+nW;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=A4P3AWGy;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE0606A644;
-	Tue, 10 Nov 2026 06:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDCE0606A644
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD343606A332;
+	Tue, 10 Nov 2026 06:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD343606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=SfTTZ+nW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794292913;
-	bh=KDDnULezz0lYOy8E8UC/jFsEQulCu5gvg3BMNhfnq08=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=SfTTZ+nWCSvOOeAwOUskOv5JEMPVZjLIQCCbrbwhyiMgneIi7FR77dN84F0fJcrer
-	 GzwtqFl11fTwd3QAxdzT2Lva41y+s4P0waKJTuWDjCxRWp7Xxg6m7ruxxR8RJ4FaWg
-	 5/ypBkWJ1doLlZ4hurRBAhIgoLxhwo9cjzlhEmJ0=
-X-QQ-mid: zesmtpsz1t1794292906t134bec0a
-X-QQ-Originating-IP: oveHQlJZS5x70FgvyEUxF/FxqKq+xrb9z38Pxn3Oj8M=
-Received: from = ( [183.48.247.17])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 14:41:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4058580149435769383
-EX-QQ-RecipientCnt: 12
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=A4P3AWGy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=AHUwN/nH0PPuEC6CSqNWG/eemyUpNYMNWAvelBWwzMg=; b=A
+	4P3AWGybYkjh7jx2fH6vg6kjRQjDscvZlSMEne90YNZ8W5QNc0Kw8Xu1oDzWhC27
+	TtWS/ff1vXv+gNJNP9NjgQir+1wJw1fykhksu+fpX/ajcbTaEBC/8RlS3Lcc4evQ
+	vjSl+MBlEd831/vEO5DjY+rc+gX0+xJiveRO+uLOSM=
+Date: Tue, 10 Nov 2026 14:43:17 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: WARNING in cm109_urb_irq_callback/usb_submit_urb on v7.2-rc3
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SBv6SvUEi4SSYYOkdmEsTju82UcS4ufQl245Xc+0Gpx/uxxgFbWVuH1zqy+aKERKnoRu9TDlC8s9YbKt+y62I+JZmkBw7KBQQsLYA8A==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,80 +59,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=8b303d3f581878ca74b7956765d7a47b0d4702373ae20e17a1f1330f5a6e;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 10 Nov 2026 06:41:43 +0000
-Message-Id: <DMRBR0ARCU5N.1WRTDA5GN4OG5@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Andi Shyti"
- <andi.shyti@kernel.org>, "Sebastian Reichel" <sre@kernel.org>, "Yixun Lan"
- <dlan@kernel.org>, "Aurelien Jarno" <aurelien@aurel32.net>,
- <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, "Alex Elder" <elder@riscstar.com>
-Subject: Re: [PATCH v1 1/2] i2c: spacemit: Avoid sleeping during bus reset
- in atomic context
-In-Reply-To: <20261110061429.2036-1-linux.amoon@gmail.com>
-References: <20261110061429.2036-1-linux.amoon@gmail.com>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M75I2DDAzREFGJVAK34Vsh2hoI4LWS+DRTezaCk976dM47Snl/iyjo46
-	CwL4ODDoBRITs4ehM/pdaQ+dvbp+H5KF/+NjV632gkX0jJpqHFG6RVU15O1hddOG7EEA5AH
-	b3WiV5FPDbHIxURxuKjWhlULWewILpd26Yt3YMoTYg7yQza0jADBfq2Jk74+/WjyjEUl8du
-	+oNwl+hyhikcePPslM8dpEZh7sMk3MsDFOG0qpzorOs+jBGoQN0C80VeAdEMUORmKXrajob
-	U/09UOk0ElwPvGvq81Cm+TDHcBYN3Pc6YPqP3IwnQQbIvvPMtsrsM9Xp5QVCmFAxFW+OGpW
-	8gxQbk4usL9rtWEF3qjRl85/CTMHoDZ32DlAIHTYFvAmu1wRaATybVO9JAJfQm8u4Rsgj/r
-	lPRCniGWohwo+DueAlWCZJXpFlb9Jqe+0a5tYrHJCsAVsB7OrtPbNa9H+/xbp1UsW1w2gCS
-	aQ1inlizQ+y6soiI5pCJMEv5GH+1NL+jWpDd33udAiM6MR3LUY20jb4RSCR1zLvAbtCZ10z
-	0lltyKvYQ+RzrpYJKwEO7H3h2eB6uZh7A2YzfrL6CkgyIkiNrjCAJ2oYWNIQ+68G/f7rYC2
-	D04GEkRHvP0UaDRUSP0wLHMbnb4dToS4Zzp6O7VVvXNI0AydwkQOvt4z4lM+kWE7g9sKAqK
-	gJj3nwmC56jiBJtl5M7eY29ZYRFHvt40W+0hn0aR3NowcZcNVzKly/jUYnGsUOFNwvPdXAi
-	FudLyrG5jUdOnaWczQce62oJAb99e3vXZ5AV1YanBVnLyPhOcTnvem/A6tV6EtlolO11K8I
-	Wwv5spG19PShk2dk/d4L65X/1FYDyBAcROk7SU6dNvYFemPr/PnLbNOPRUHeYr0KpDB55wc
-	8B2KXwcJt8CSoZ0cNCxYZYNIcMyB+s2Bur3WF8wFGx6dJ6VanZs+kguVxAkw1naOdg+SFEm
-	8AbNHfgQAq4ZDLrUJqaS2LkorQ2EHPh0s1cD9s8bb/wcofxBCe5fefbPRlt1qVla4ceqtLn
-	/AQPxGS4E9RCS1xGH6sFMAFfsQ9jvyi+rX257gUgtE3uon6MD5jWHpvsAxdDe2IKcOPmjO2
-	Q==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Message-ID: <4ffee3ca.5062.1a1c4325d29.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kigvCgD3__MFvfJqPBJrAA--.49W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3QXHeWryvQXLrAAA3h
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
---8b303d3f581878ca74b7956765d7a47b0d4702373ae20e17a1f1330f5a6e
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Tue, 10 Nov 2026 11:44:26 +0530, Anand Moon wrote:
-> The spacemit_i2c_conditionally_reset_bus() function uses usleep_range()
-> to wait after triggering a bus reset request. However, this function can
-> be invoked during atomic I2C transfers (such as power-off or restart
-> handlers running in atomic notifier chains), where sleeping is illegal.
->
-> Replace the sleep operation with the driver's internal helper,
-> spacemit_i2c_delay(), which conditionally uses udelay() when running in
-> an atomic context, avoiding "scheduling while atomic" bugs.
-This usleep_range() was left behind when the PIO path and
-spacemit_i2c_delay() were added, so please add:
-Fixes: 5dd75dac1b35 ("i2c: spacemit: introduce pio for k1")
-
-Otherwise, LGTM.
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-
---=20
-Troy Mitchell
-
---8b303d3f581878ca74b7956765d7a47b0d4702373ae20e17a1f1330f5a6e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavK8pyEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9IdAD/cSnhy/8EVYiM
-iOg2ZBk126QEPmIPly5ZvxvY7dIXMt8A/3F0j9wcXPKP/DGUvY9SzSto1m3OYAr8
-vnOgFrFuFiAE
-=GBnh
------END PGP SIGNATURE-----
-
---8b303d3f581878ca74b7956765d7a47b0d4702373ae20e17a1f1330f5a6e--
+CkhpLAoKCnN5emJvdCByZXBvcnRlZCAiV0FSTklORyBpbiBjbTEwOV91cmJfaXJxX2NhbGxiYWNr
+L3VzYl9zdWJtaXRfdXJiIiBvbiBsaW51eC01LjE1LiBUaGUgc2FtZSBmYWlsdXJlIGlzIHN0aWxs
+IHJlcHJvZHVjaWJsZSBvbiB2Ny4yLXJjMyB3aXRoIHRoZSByZXByb2R1Y2VyIGJlbG93LgoKClRl
+c3RlZCBrZXJuZWw6CsKgIExpbnV4IHY3LjItcmMzCsKgIEhFQUQgYTEzYzE0MGNjMjg5YzBiN2Iz
+NzcwYmNlNWIzYWQ0MmFiMzUwNzRhYQoKCk9ic2VydmVkIGZhaWx1cmU6ClsgICA0Ny4yMjAzOTdd
+WyAgICBDMF0gV0FSTklORzogZHJpdmVycy91c2IvY29yZS91cmIuYzozNzkgYXQgdXNiX3N1Ym1p
+dF91cmIrMHgxNWFiLzB4MThlMCwgQ1BVIzA6IGMvODk5OQpbICAgNDcuMjIyMDMwXVsgICAgQzBd
+IE1vZHVsZXMgbGlua2VkIGluOgpbICAgNDcuMjIyNzI1XVsgICAgQzBdIENQVTogMCBVSUQ6IDAg
+UElEOiA4OTk5IENvbW06IGMgTm90IHRhaW50ZWQgNy4yLjAtcmMzICMxIFBSRUVNUFQoZnVsbCnC
+oApbICAgNDcuMjI0MTU3XVsgICAgQzBdIEhhcmR3YXJlIG5hbWU6IFFFTVUgVWJ1bnR1IDI0LjEw
+IFBDIChpNDQwRlggKyBQSUlYLCAxOTk2KSwgQklPUyAxLjE2LjMtZGViaWFuLTEuMTYuMy0yIDA0
+LzAxLzIwMTQKWyAgIDQ3LjIyNTk0MV1bICAgIEMwXSBSSVA6IDAwMTA6dXNiX3N1Ym1pdF91cmIr
+MHgxNWFlLzB4MThlMApbICAgNDcuMjI2OTAzXVsgICAgQzBdIENvZGU6IDhjIDQ4IGM3IGM2IGUw
+IGZmIDFhIDhjIDg5IGRhIDQ4IDhkIGI4IGIwIDAwIDAwIDAwIGU4IDg2IGFhIGQ3IGZlIGU5IDlh
+IGYxIGZmIGZmIGU4IDZjIGE5IGFlIGZhIDQ4IDhkIDNkIGE1IDZkIDRlIDA5IDQ4IDg5IGVlIDw2
+Nz4gNDggMGYgYjkgM2EgNDEgYmYgZjAgZmYgZmYgZmYgZTkgZjcgZjIgZmYgZmYgZTggNGQgYTkg
+YWUgZmEgNjYKWyAgIDQ3LjIzMDEyNF1bICAgIEMwXSBSU1A6IDAwMTg6ZmZmZmM5MDAwMDAwN2Iy
+MCBFRkxBR1M6IDAwMDEwMDQ2ClsgICA0Ny4yMzExNTNdWyAgICBDMF0gUkFYOiAwMDAwMDAwMDAw
+MDAwMDAwIFJCWDogZmZmZjg4ODAyNDk1OTAwMCBSQ1g6IGZmZmZmZmZmODc5NGU1ZjcKWyAgIDQ3
+LjIzMjQ3Nl1bICAgIEMwXSBSRFg6IDFmZmZmMTEwMDNmOGNiMjEgUlNJOiBmZmZmODg4MDFmYzY1
+OTAwIFJESTogZmZmZmZmZmY5MDVlNDAyMApbICAgNDcuMjMzODA4XVsgICAgQzBdIFJCUDogZmZm
+Zjg4ODAxZmM2NTkwMCBSMDg6IDAwMDAwMDAwMDAwMDAwMDAgUjA5OiBmZmZmZjUyMDAwMDAwZjY0
+ClsgICA0Ny4yMzUxNTFdWyAgICBDMF0gUjEwOiBmZmZmZjUyMDAwMDAwZjYzIFIxMTogMDAwMDAw
+MDAwMDAwMDAwMyBSMTI6IDAwMDAwMDAwMDAwMDAwNDYKWyAgIDQ3LjIzNjQ3M11bICAgIEMwXSBS
+MTM6IGZmZmY4ODgwMjQ5NTkwNTggUjE0OiAwMDAwMDAwMDAwMDAwMDBmIFIxNTogMDAwMDAwMDAw
+MDAwMDAwMQpbICAgNDcuMjM3ODA4XVsgICAgQzBdIEZTOiAgMDAwMDdmYmYzZGFkYzc0MCgwMDAw
+KSBHUzpmZmZmODg4MDk4MTlhMDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWyAgIDQ3
+LjIzOTMwNV1bICAgIEMwXSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAw
+MDgwMDUwMDMzClsgICA0Ny4yNDA0MDddWyAgICBDMF0gQ1IyOiAwMDAwMjAwMDAwMDAyMDNjIENS
+MzogMDAwMDAwMDA0NjUyNzAwMCBDUjQ6IDAwMDAwMDAwMDAwMDA2ZjAKWyAgIDQ3LjI0MTczMV1b
+ICAgIEMwXSBDYWxsIFRyYWNlOgpbICAgNDcuMjQyMzEzXVsgICAgQzBdICA8SVJRPgpbICAgNDcu
+MjQyODA2XVsgICAgQzBdICA/IF9fc2FuaXRpemVyX2Nvdl90cmFjZV9wYysweDIwLzB4NTAKWyAg
+IDQ3LjI0Mzc2N11bICAgIEMwXSAgPyBfX19yYXRlbGltaXQrMHgxODUvMHg5ZTAKWyAgIDQ3LjI0
+NDYwOF1bICAgIEMwXSAgY20xMDlfdXJiX2lycV9jYWxsYmFjaysweDQ3MS8weGI5MApbICAgNDcu
+MjQ1NTMwXVsgICAgQzBdICA/IF9fc2FuaXRpemVyX2Nvdl90cmFjZV9wYysweDIwLzB4NTAKWyAg
+IDQ3LjI0NjQ3OF1bICAgIEMwXSAgX191c2JfaGNkX2dpdmViYWNrX3VyYisweDJlYy8weDVmMApb
+ICAgNDcuMjQ3NDAxXVsgICAgQzBdICA/IGR1bW15X3RpbWVyKzB4MTM1OS8weDM1YTAKWyAgIDQ3
+LjI0ODIzN11bICAgIEMwXSAgdXNiX2hjZF9naXZlYmFja191cmIrMHgzOTEvMHg0NTAKWyAgIDQ3
+LjI0OTE0NV1bICAgIEMwXSAgZHVtbXlfdGltZXIrMHgxMzZiLzB4MzVhMApbICAgNDcuMjQ5OTQz
+XVsgICAgQzBdICA/IF9fc2FuaXRpemVyX2Nvdl90cmFjZV9wYysweDIwLzB4NTAKWyAgIDQ3LjI1
+MDg5MV1bICAgIEMwXSAgPyBkb19yYXdfc3Bpbl9sb2NrKzB4MTIyLzB4MjkwClsgICA0Ny4yNTE3
+NDldWyAgICBDMF0gID8gZmluZF9oZWxkX2xvY2srMHgyYi8weDgwClsgICA0Ny4yNTI1NjZdWyAg
+ICBDMF0gID8gZGVidWdfb2JqZWN0X2RlYWN0aXZhdGUrMHgyYWQvMHgzOTAKWyAgIDQ3LjI1MzUz
+MV1bICAgIEMwXSAgPyBkb19yYXdfc3Bpbl91bmxvY2srMHg1NC8weDIzMApbICAgNDcuMjU0NDIw
+XVsgICAgQzBdICA/IGRlYnVnX29iamVjdF9kZWFjdGl2YXRlKzB4MmFkLzB4MzkwClsgICA0Ny4y
+NTUzODVdWyAgICBDMF0gID8gX19wZnhfZHVtbXlfdGltZXIrMHgxMC8weDEwClsgICA0Ny4yNTYy
+MzldWyAgICBDMF0gID8gX3Jhd19zcGluX3VubG9ja19pcnFyZXN0b3JlKzB4NTgvMHg3MApbICAg
+NDcuMjU3MjM0XVsgICAgQzBdICBfX2hydGltZXJfcnVuX3F1ZXVlcysweDE4My8weGExMApbICAg
+NDcuMjU4MTMyXVsgICAgQzBdICA/IF9fcGZ4X2R1bW15X3RpbWVyKzB4MTAvMHgxMApbICAgNDcu
+MjU4OTg1XVsgICAgQzBdICBocnRpbWVyX3J1bl9zb2Z0aXJxKzB4MTdmLzB4MmQwClsgICA0Ny4y
+NTk4ODddWyAgICBDMF0gIGhhbmRsZV9zb2Z0aXJxcysweDFiZS8weDhlMApbICAgNDcuMjYwNzA3
+XVsgICAgQzBdICA/IGlycXRpbWVfYWNjb3VudF9kZWx0YS5pc3JhLjArMHg5Zi8weDExMApbICAg
+NDcuMjYxNzMxXVsgICAgQzBdICBpcnFfZXhpdF9yY3UrMHgxNjYvMHgyMDAKWyAgIDQ3LjI2MjUx
+Nl1bICAgIEMwXSAgc3lzdmVjX2FwaWNfdGltZXJfaW50ZXJydXB0KzB4YTYvMHhkMApbICAgNDcu
+MjYzNDczXVsgICAgQzBdICA8L0lSUT4KWyAgIDQ3LjI2Mzk4OF1bICAgIEMwXSAgPFRBU0s+Clsg
+ICA0Ny4yNjQ0OTBdWyAgICBDMF0gIGFzbV9zeXN2ZWNfYXBpY190aW1lcl9pbnRlcnJ1cHQrMHgx
+YS8weDIwClsgICA0Ny4yNjU1MDhdWyAgICBDMF0gUklQOiAwMDEwOl9yYXdfc3Bpbl91bmxvY2tf
+aXJxcmVzdG9yZSsweDNjLzB4NzAKWyAgIDQ3LjI2NjYwMF1bICAgIEMwXSBDb2RlOiA3NCAyNCAx
+MCBlOCAwNiA3ZSA2YiBmNiA0OCA4OSBlZiBlOCA1ZSBkNSA2YiBmNiA4MSBlMyAwMCAwMiAwMCAw
+MCA3NSAyOSA5YyA1OCBmNiBjNCAwMiA3NSAzNSA0OCA4NSBkYiA3NCAwMSBmYiBiZiAwMSAwMCAw
+MCAwMCA8ZTg+IGZmIDQyIDVhIGY2IDY1IDhiIDA1IDU4IDkxIDM5IDA4IDg1IGMwIDc0IDBlIDVi
+IDVkIGMzIGNjIGNjIGNjClsgICA0Ny4yNjk4MTBdWyAgICBDMF0gUlNQOiAwMDE4OmZmZmZjOTAw
+MDI3MTdiNTggRUZMQUdTOiAwMDAwMDIwNgpbICAgNDcuMjcwODM1XVsgICAgQzBdIFJBWDogMDAw
+MDAwMDAwMDAwMDAwNiBSQlg6IDAwMDAwMDAwMDAwMDAyMDAgUkNYOiAwMDAwMDAwMDAwMDAwMDA2
+ClsgICA0Ny4yNzIxNzFdWyAgICBDMF0gUkRYOiAwMDAwMDAwMDAwMDAwMDAwIFJTSTogMDAwMDAw
+MDAwMDAwMDAwMSBSREk6IDAwMDAwMDAwMDAwMDAwMDEKWyAgIDQ3LjI3MzQ5M11bICAgIEMwXSBS
+QlA6IGZmZmZmZmZmOGY0Y2I1ODAgUjA4OiAwMDAwMDAwMDAwMDAwMDAxIFIwOTogMDAwMDAwMDAw
+MDAwMDAwMQpbICAgNDcuMjc0ODE1XVsgICAgQzBdIFIxMDogMDAwMDAwMDAwMDAwMDAwMSBSMTE6
+IGZmZmZmZmZmOTA1MTA5ZDcgUjEyOiAxZmZmZjkyMDAwNGUyZjcxClsgICA0Ny4yNzYxNjJdWyAg
+ICBDMF0gUjEzOiBmZmZmODg4MDI0MTU1MjM0IFIxNDogZmZmZmM5MDAwMjcxN2JhOCBSMTU6IGZm
+ZmY4ODgwMjAzZTUzMDAKWyAgIDQ3LjI3NzQ5MV1bICAgIEMwXSAgdXNiX2hjZF9wb2xsX3JoX3N0
+YXR1cysweDQ2ZC8weDYyMApbICAgNDcuMjc4NDEyXVsgICAgQzBdICA/IF9fcGZ4X3VzYl9oY2Rf
+cG9sbF9yaF9zdGF0dXMrMHgxMC8weDEwClsgICA0Ny4yNzk0MTVdWyAgICBDMF0gID8gX3Jhd19z
+cGluX3VubG9ja19pcnFyZXN0b3JlKzB4NTgvMHg3MApbICAgNDcuMjgwNDA2XVsgICAgQzBdICBk
+dW1teV9wdWxsdXArMHgxMzIvMHgxNzAKCgpUaGlzIGlzIHRoZSBhc3NlcnRpb24gc2l0ZSByZXBv
+cnRlZCBieSBzeXpib3Q7IEkgYW0gbm90IGNsYWltaW5nIGEgc3BlY2lmaWMgcm9vdCBjYXVzZS4K
+CgpUaGlzIGlzIGEgcmVwb3J0IG9mIGEgc3RpbGwtcmVwcm9kdWNpYmxlIGZhaWx1cmUsIG5vdCBh
+IGJpc2VjdGVkIHJvb3QgY2F1c2UuCgoKUmVwcm9kdWNlcjoKwqAgQyByZXByb2R1Y2VyOiBodHRw
+czovL3Bhc3RlYmluLmNvbS9yYXcvWjJrSkJLSzQKCgpBcnRpZmFjdHM6CsKgIGNvbnNvbGU6IGh0
+dHBzOi8vcGFzdGViaW4uY29tL3Jhdy92SkZnZDBGawrCoCBrZXJuZWwgY29uZmlnOiBodHRwczov
+L3N5emthbGxlci5hcHBzcG90LmNvbS90ZXh0P3RhZz1LZXJuZWxDb25maWcmeD0zNTNhZTI4YzQw
+YjM1YWY1CgoKVGhhbmtzLgoK
