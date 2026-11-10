@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794278144;
-	b=qhQK9TZVk1de0EqL8CrkrDui1wYpbGB8/AA3A15PkW9BwyC77H/WTy+Va+CWRAYEscMH
-	 PmMN3lhLGG1vPwUwEMY265qVbQTk39+kPRpS6EkVT/8KKzcb1Dmeh4C+c4fH1kAJGTE7Z
-	 Z/tu15CCN/2aE+VKCh+3C6sp4BbK2i4bybeVgOk3JP8TS36L8dv3fQgvlOx+RQmHb+9Ft
-	 ybdmWab74YiLA82HMK++KIDJA1J9t46kDeabPfZaW0CDsvBzbuNsFq+wkqE3k3UIeT+F2
-	 SiPzYrjFwXNhgrgSfHxp3o7BOs/IogJpFyEtJBNerO1lRzQRCE6gI46Hw7EL3xa8unA==
+	t=1794278146;
+	b=Z+Jaz2MRvrNsQ29vGDh6Wgwzo9iCBEUts5p04THNN5PPTDKp35LhcrI7o6rh5HV38t1m
+	 b5o+5DBLKV9GAlGBi4ymDl/2crD8fwIiLHtnqo+awrWPVD3nj4dukwEAuzTg6hyD/usiO
+	 OzeeEWeMmQle1dJZNgPmmG5iRcP3kPsukmhNOye1f/mjcqSfU/xVLbAFEXcc++Det3ljI
+	 BwUfxf5v4Nb5z82iu52lZgl16ns9kH2QFrl7v4CK/hkEAm8teyPfDRVnIV4lvvpRF2S+4
+	 MtbLOVzZQvzycpAlaaFX+KTA8HWc/rOUxyWL5YNFUgxJ0qb7PsFSrlInYF5v8iw2VSA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278146;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:From:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=4b8VMR0ToT11MGOGDl7IQcBDkYw4JTHYnJZ3xagfNUE=;
-	b=WVUmt87SYz1VOFEBYkke5oU+a4Cx1+XWCKc1zCR5ov8omx8CKvsj4L8SNxkSGmnmDMFx
-	 BS+sT7dhbkz/Sspt/7j1UbpHQO6BkEdU+se2ztG9vmdCFw1+3FBckKk3dFuvTwpxt5v8T
-	 erfDleQYmzp7JBGb71KlXu1hTFsUmfSGvB0xcFTzEws7oq3gNabFAUG94OHzYWg2PM/22
-	 3Jbi8faUrOL4jCeKCxn1Q0oNKag9BC0dr/vpqGfUnritIHUaP4ZrWumJjfUGPhb7K1DvP
-	 lOHoaiSAgS2NRr3eBV18Wg5AnP3X6yNoRYHf4IXSWmas7xWHxvU1EcwYkvWO8maUuCg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BbaQv55LLw86So2eGUmzZSVYmgLolt+j026ggWtATLs=;
+	b=Fns7rDpDvdeDelTp1uHL0sonpEelgZ/EaeNniX/X2tNjtqmnB8UyqZv3zdoA5eyyWyqX
+	 BC7CiO07+jGe4FxjWdT2a0jn340rQG1AyLGcIQ2tPEp3kchtJXG40/37XoQiPbsfgpaWd
+	 TNEegV7Dj7LkZX4n4QhdZ+WAX2lgUoD7v+JHylGarA3EKa+CBWZvxzfTL9TGT9LEmPBK/
+	 rObkFlb9/c8GrXQC86CZIDiy4DIu78E+fdgNOxbPz5k2tfJvIYRUxzmZuo000/ErmXHcn
+	 Yza8a2JXzYd3TaRL4WeJUXcKCEKA1w/f7Cpzn4LbcOBZSWsVrHx7Cu7+5XunTn4/15A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZJa/DLkb";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eWeSr5r5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26F2606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:35:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D26F2606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC99B606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC99B606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZJa/DLkb
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d30639709so191339066b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:35:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794278141; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eWeSr5r5
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b75712fb57so644580a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:35:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794278144; cv=none;
         d=google.com; s=arc-20260327;
-        b=PaBM4Skvjc2DcP/cVAIndNBvnfqOu80SLriPGecowdj5A90o90ez0UEsza7ZbIv3kp
-         ltABZ3tFH2hIDoclZ5apEhEpTmN0cpvGfk/4RMuo/1Sc7ogZtHwDyq4SVkFtIChI28IC
-         YnI83j8szBOvdedo0fK6eYfXNa/JMjKS9/f3G728nS4QMqhueOEzbpIcvx22/EACAnHM
-         z7Spa7/VEuc/yY9dqitPFNSfAqJhZGxxb5T0R1e9MtKLmNMt9+PM182DH2BJQocDqe1o
-         /bJbZDMswV+Y1y8I4/aBG7whuzuVINUxgFKiGJ2nru533WQjoIJUZwxBaNr7f63RjS63
-         yFTg==
+        b=XRbrgczAfRPOxlFEyKSyUQUdbX1KYyWSofDuqqFIzy20Y2dwOznkYmXre755CUqGe+
+         C8gy8DJ3KatKtIlwaZsGcJM922Ugz3Y7Y+ypX/qpJDxeVso7E3z3SD0IkBgB3VlyPAPw
+         v0511++LnCQh0WuRvDQz+N4496YHusmNNdkILyOqJzrviOroWARIfdDPWK634oAsq3eC
+         IRzrupY90bycUd8+q6zwYiW6NiMQdJpSzpqda5pLsa0u082VfroBkcIJ7OvJzOMdpi74
+         VoRXJ8+r09P4JNQld0looX57o3IBeUc0v8JMt5Cc1O2qPsH9lnAeUse500QtHveqcx9h
+         OmSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=4b8VMR0ToT11MGOGDl7IQcBDkYw4JTHYnJZ3xagfNUE=;
-        fh=p9X6/Eh4+SW7cI56Gl7NehJsDv9s2B9YoD8bq5r1pas=;
-        b=YQJQRzTP0jFdY5SkwHbKoxBMMTsvCozS3955EO27zmFxhiMMq9rsplBl1VtQrgVU3Z
-         ItY58x8L6Cdb3ZXmj6HpYEuuqOwjVJjxDTF0HscuUMwwOWa7zROPsIjwrSitd9pVqiOY
-         48oCxYBOVldrpWMF/kv1Xb4AkDEzF274tE1ZKmB31X5/8YHEq0RBfLVEYFZsOB7r0HgR
-         Tbzj5qvqDC7PSRh3afkzA4P3dmFfGJLDwbCduFcJeFedXVs2KmrtkyOBspCbSyeQqOx1
-         2NespDQozRJHPisBeY0UjndrJNZSSodQoXgnQhf/LhK5KbWP+soTc7btVdEaACONVo4w
-         rNnA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BbaQv55LLw86So2eGUmzZSVYmgLolt+j026ggWtATLs=;
+        fh=LsyHTLgm4Ph3WC9Q/i3GYr0yvSwivsRrLUqeqWTnEYo=;
+        b=SnRDqzmS44frgg4CC08sYjrZiTWrN+F+qwoEpFw2oDmgDmColWCXZTUKHPIY4US3j9
+         q3DdP5q5Y+szIzWLNu2Y/h9flXvg5+9G2XNn6riZ7jSp3uN39UuR4pkIJW9fxfAj+S5G
+         7GNuNr/zMPTsujXJ8c6wc97MHCjsmqx9vZZh/oPyP3NO/lmSS6KDuMS/939vttv1Oh+u
+         G4a2HZBLaj2gx9lS6sXa6afRe/JJnaES8DP0g2AWv89f9T1xwGpx+FoJBHc/x/uUgrkT
+         wQwPJ5Hj9lgxtSSHc9xDZa/7E5Lo/mDcAqDyUNDanCZRmpcmGZ7Mzgqix45Zo73HLN5B
+         Ke0w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278141; x=1794882941; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4b8VMR0ToT11MGOGDl7IQcBDkYw4JTHYnJZ3xagfNUE=;
-        b=ZJa/DLkbwFK13GYxif9rrBk9ZFMepmH7kYdlzvkEiIJhXqMFFQEbBTJOa2BkwztIem
-         X1tAX5wYK/JV07jx3lDJonCdEFnL0fAlA+FfEm76mlqR5zB8k/FvXPQ9OnKhfXh2gJuX
-         dgWJ1jVuYiRXaOL4T6zNpkJN5SWltL/abyNxbghyyvg8/15mNS4WiLQZn0T1eWLVs/T5
-         +uXmdJDZgOnwBFpuK/P6vNLzxZ9EDrhRPYN9XpJpPEU/lHdQUnH7L8MyUQ1pAKTsYAD+
-         XWvnGYdcjCBiL5vf7xcaDBVnYonKkyGDkSYytToSziNyJ59kFqvXYKcjc83pSAAP23Fp
-         DgHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278141; x=1794882941;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794278144; x=1794882944; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4b8VMR0ToT11MGOGDl7IQcBDkYw4JTHYnJZ3xagfNUE=;
-        b=VYJs0LDxayqUW9aFAG0IIkHuESlAg35wDt/hLiyh+9f7MwMRQwiDl7IH/ZbNy0N3sI
-         NpjmyRXGatY78RVsIOrPhLKvevEGC1S8k+lipmy+7+xulmNNEYyrcuSzwKi2gc77nNON
-         r63cAtFfahtziZICJxupvqU1ZroCkDykw2NEg8aVt/yymlaGt2z4S2MTBhImloPgQZPu
-         +Y3MCf3IPhuG7jv9dC5/SF01B2/b7Hk/JLh5u3zNhs1O7O3ix1mZew76cLMkNrXLXMLO
-         o5Gaoh/oD72TAmlG0ff4lhzL1yjbqZwUH2YlLyBNhB1bz/s/vO0JmReJBPWEbtaqPgU/
-         d6Xg==
-X-Forwarded-Encrypted: i=1; AL+hErHdsf54lFG0jZqr5Z9XDrknsRCAIDQmKMokSNYRjyvWvb2IcX1hp0K3lDr3KGUvTJMGZ2EdCwhJ7gqHZdE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hWjLngXmkoFuaHgHKVpRhBHISPLvo3AMZJfjKtUqSVuN6hQ4E
-	ys3Eqs+HOaoed49FYtttFlaO92um+ygDNzj6ciNXxo8/w0vi7OYnPvHRAzxr35gOIhrQvma6VdD
-	KVJcYapH1J/qc0cFPnFK6RMgq7YnqYQ==
-X-Gm-Gg: AYBFou2Jw/1ebR/s0sCsMOFOkoFdc7Xu9tvzITpLJIY6NUwf0r7CgHNbqwezF/JCJ2f
-	ZGlzIrX1bL10PfmVtmlk/p2/UFWJibFCbiHbNWb27knsGW20+lrXNwSMZAvaoAVMETY33S+/NBR
-	ENKJd+L+JdrsyouEImv+67nUsV6AYVqv2aCr6ES97uGdCz0EsPbalqPPxQ8upbyLaG/USJbAiWL
-	dPjYjSms1DKr0evVd07W5STe3M8GFIVomV9KImg4j6uUoRhogOfSZFZTTiQZ+UXHYhdQlruHCaU
-	jfUCROyu8vD4gF+OHKq3IUxIiD+GAs8GPJnrSLs8xOgGVT/SfWzMqldhDm5FGItbyUMktSWNto2
-	sUc1l7o6YoAIVRNV9cltKnLKjCQhtuOVdtRYH2tnGKxXWulfc46mKMmR07zztSUNcODhDvXgzhK
-	kNLOfyB4m2Fprh6bQ9ISoewJ7OKuDIrHkTHk6npet01Bjo
-X-Received: by 2002:a17:906:ef01:b0:c31:8c48:e18b with SMTP id
- a640c23a62f3a-c50494b5468mr87905566b.14.1794278141251; Mon, 09 Nov 2026
- 18:35:41 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 10 Nov 2026 02:35:39 +0000
+        bh=BbaQv55LLw86So2eGUmzZSVYmgLolt+j026ggWtATLs=;
+        b=eWeSr5r5o4b1bkqYgjtJbC3rvhYpbz3xWgu0aFWS22hceYif1O3IQXjrS3egH1On7Y
+         KX2rRkHlzyj9L1BWTMksqurfYziKbAMiQ/sLsnW2woDzPSHgBnaBJkAHN9eMGje7En8F
+         hmedJE2eyTyBa0d220Zu2/+RfZYbFaZSycyh9uhIuIfnwXcRYUnaPlgIB04++iJw4rMZ
+         zlt+wbkvaTn9Su/9+0JxBb+QzhIuCezceOZaJHA7ngx38wdX5AXaFTH3QQ6G3bMIDWo7
+         a57FxHRfYEDzvyHNNLpvVnxr/9YhRNWLNU4jxDGHiMM8iGpaZNV+iJoblOzKcHB10bum
+         VEvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794278144; x=1794882944;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BbaQv55LLw86So2eGUmzZSVYmgLolt+j026ggWtATLs=;
+        b=A7/AE4d6DoNo1szF1Kb/WKwAnQSbSmtq7I9/YgHziDYdYUJMxF2tS0jk6InLObFGua
+         zSqBeZVCfPYpVmuA2lv8yJLJmDLDuGyuAELG2XCIib2aMO78ftXVfePPfeXE3HuEBlJl
+         jcm4Dh9TozBAahmy6esr9h+8juTx65QZBFm6aK1Sns1/1z96q/UR7qxKjcM7fspRTHI1
+         ZaTQtA4inzhBQn3tqDaVNvTh08l7KXr9+zI1n+4wZPW608CcDO5GN+Sw15AQrQRL7Q8A
+         X3DhgdoQYlA4xzdKhQGoU6SKb7iJRYKKf1nar4MymLsvFrdIzTwb4MhB8LVtjYfUP+IE
+         3aUg==
+X-Forwarded-Encrypted: i=1; AL+hErH1R2brSs01KjFQzs+pnMkuiaN/AuP7qhLOL4hy2aQeckn/sdq/gTIKa7l8jsjo8jqf/CZbpL17J7sbz6E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sfTtpDWgV80mR40+3hr5uvP4QyJ8ugpnsRws4Pydls1PZbJ8D
+	dq/OjbQlHrAY1e8I8cEjlO7R+7Y3iMmRZtBSeZeJEXCnCQEQx/tqUnh9nbXlXARQW9zqfGCB4c/
+	W0kDD/3PVhTJJ/4eOCdvlluaPSoNd0m8=
+X-Gm-Gg: AYBFou0tR9rawiY3tPD1sJdLoK4u6v9U2xu7l4J+5Bn/pkoFwJNAFqHKnvQXkS7wlID
+	p571HKMBRTY18Z4kgf3Fm7ANAW4ZcdeBZefl18I7XIysMBZcvp6LCjG7t6rt3u5KSm7KUZ0ikAY
+	PgG3XK72hhqjgyyJ2PGOUTZC6jiJbKF/CreetYvElh/tRdObBTldo+YzVS42SCXF8AQzzx/DjIH
+	vReMAdriM4mHpk2EfVMp7eN1epcMxKkRQPJIF85JLIg2EAA0BLzq8HUJx2YmL5+HSJBy5EnFKKZ
+	hoZlGN1eYnk2OfkGtr9pfpfwEfa0tKXFJTIe5tJtULP6iT05wL6GDapDI2lKl6Tgpqqn2VvcH8E
+	9ch4aoJw+qF5CK9lzPsGtMYf6Rp71jp8LJ0Jx0fZgK+jAfYqlv/jfuKbnMpyoqinFygArIpKGA8
+	ru9sOJegDq9/HfnA5mQN+YCNFCqPvxA7ycIvVcU2kq7IVChTClCQITwrDHMKSlbOq0nGL7g8jT6
+	pVQWRfnnn4aEK4kNgzX1wsJNq36Cy7srbswYT7vK195SxxHxg==
+X-Received: by 2002:a05:6402:1ed3:b0:6b5:6116:e333 with SMTP id
+ 4fb4d7f45d1cf-6b756ae9459mr1091731a12.31.1794278144068; Mon, 09 Nov 2026
+ 18:35:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,584 +106,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Myeonghun Pak <mhun512@gmail.com>
-In-Reply-To: <CAGEsz8Gb=4JS4OAFKppe=LW6JYa2ssJ8APdJJX2Ou_BhzEvZxg@mail.gmail.com>
-References: <CAGEsz8Gb=4JS4OAFKppe=LW6JYa2ssJ8APdJJX2Ou_BhzEvZxg@mail.gmail.com>
-Date: Tue, 10 Nov 2026 02:35:39 +0000
-X-Gm-Features: AclHuK8a2vf6Kdy8AdU3IyQjeInaPjr1EXSZeWDCZfS69AY6Gnq0Va-6HMxz_ls
-Message-ID: <CAGEsz8FyKXrsy2GFmBO16mTN+d0KteHk-e7QoO3VsfHdeHs79g@mail.gmail.com>
-Subject: [PATCH v2 2/2] mfd: wm831x: Align child IRQ resources and lifetime
-To: Lee Jones <lee@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Ijae Kim <ae878000@gmail.com>, 
-	patches@opensource.cirrus.com, mfd@lists.linux.dev, 
-	linux-input@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261110013646.1582970-1-rosenp@gmail.com> <avKAhjtbi85dpGoV@x1g10>
+In-Reply-To: <avKAhjtbi85dpGoV@x1g10>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 9 Nov 2026 18:35:32 -0800
+X-Gm-Features: AclHuK_Jcl2NU-HrOo7MbkFV6enMWs315CdjsGGJBAubQkYibDnJglGFx-rUHxk
+Message-ID: <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] clk: add a driver for the ath79 PLL controller
+To: Brian Masney <masneyb@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Alban Bedel <albeu@free.fr>, Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Onkey removal and battery IRQ error cleanup free unmapped platform IRQs
-instead of the requested Linux IRQs. This can leave handlers registered
-after their data is freed.
-
-Pass the IRQ domain to MFD and use mapped resources in the children.
-Manage onkey IRQ/work cleanup and unwind consumers before disposing IRQ
-mappings on initialization failure. Retain polling for key release.
-
-This issue was found by our static analysis tool under development.
-
-Fixes: cd99758ba3bd ("mfd: Convert wm831x to irq_domain")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-
----
-No hardware testing.
-
-diff --git a/drivers/input/misc/wm831x-on.c b/drivers/input/misc/wm831x-on.c
-index 891f498ea..f8e49ac27 100644
---- a/drivers/input/misc/wm831x-on.c
-+++ b/drivers/input/misc/wm831x-on.c
-@@ -25,6 +25,7 @@
- #include <linux/interrupt.h>
- #include <linux/platform_device.h>
- #include <linux/workqueue.h>
-+#include <linux/devm-helpers.h>
- #include <linux/mfd/wm831x/core.h>
-
- struct wm831x_on {
-@@ -72,9 +73,12 @@ static int wm831x_on_probe(struct platform_device *pdev)
- {
- 	struct wm831x *wm831x = dev_get_drvdata(pdev->dev.parent);
- 	struct wm831x_on *wm831x_on;
--	int irq = wm831x_irq(wm831x, platform_get_irq(pdev, 0));
-+	int irq = platform_get_irq(pdev, 0);
- 	int ret;
-
-+	if (irq < 0)
-+		return irq;
-+
- 	wm831x_on = devm_kzalloc_obj(&pdev->dev, struct wm831x_on);
- 	if (!wm831x_on) {
- 		dev_err(&pdev->dev, "Can't allocate data\n");
-@@ -82,13 +86,11 @@ static int wm831x_on_probe(struct platform_device *pdev)
- 	}
-
- 	wm831x_on->wm831x = wm831x;
--	INIT_DELAYED_WORK(&wm831x_on->work, wm831x_poll_on);
-
- 	wm831x_on->dev = devm_input_allocate_device(&pdev->dev);
- 	if (!wm831x_on->dev) {
- 		dev_err(&pdev->dev, "Can't allocate input dev\n");
--		ret = -ENOMEM;
--		goto err;
-+		return -ENOMEM;
- 	}
-
- 	wm831x_on->dev->evbit[0] = BIT_MASK(EV_KEY);
-@@ -96,43 +98,28 @@ static int wm831x_on_probe(struct platform_device *pdev)
- 	wm831x_on->dev->name = "wm831x_on";
- 	wm831x_on->dev->phys = "wm831x_on/input0";
-
--	ret = request_threaded_irq(irq, NULL, wm831x_on_irq,
--				   IRQF_TRIGGER_RISING | IRQF_ONESHOT,
--				   "wm831x_on",
--				   wm831x_on);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "Unable to request IRQ: %d\n", ret);
--		goto err_input_dev;
--	}
- 	ret = input_register_device(wm831x_on->dev);
- 	if (ret) {
- 		dev_dbg(&pdev->dev, "Can't register input device: %d\n", ret);
--		goto err_irq;
-+		return ret;
- 	}
-
--	platform_set_drvdata(pdev, wm831x_on);
-+	ret = devm_delayed_work_autocancel(&pdev->dev, &wm831x_on->work,
-+					   wm831x_poll_on);
-+	if (ret)
-+		return ret;
-
--	return 0;
-+	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL, wm831x_on_irq,
-+					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-+					"wm831x_on", wm831x_on);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Unable to request IRQ\n");
-
--err_irq:
--	free_irq(irq, wm831x_on);
--err_input_dev:
--err:
--	return ret;
--}
--
--static void wm831x_on_remove(struct platform_device *pdev)
--{
--	struct wm831x_on *wm831x_on = platform_get_drvdata(pdev);
--	int irq = platform_get_irq(pdev, 0);
--
--	free_irq(irq, wm831x_on);
--	cancel_delayed_work_sync(&wm831x_on->work);
-+	return 0;
- }
-
- static struct platform_driver wm831x_on_driver = {
- 	.probe		= wm831x_on_probe,
--	.remove		= wm831x_on_remove,
- 	.driver		= {
- 		.name	= "wm831x-on",
- 	},
-diff --git a/drivers/input/touchscreen/wm831x-ts.c
-b/drivers/input/touchscreen/wm831x-ts.c
-index 32b03889a..3651c2cd4 100644
---- a/drivers/input/touchscreen/wm831x-ts.c
-+++ b/drivers/input/touchscreen/wm831x-ts.c
-@@ -255,14 +255,11 @@ static int wm831x_ts_probe(struct platform_device *pdev)
- 	 * If we have a direct IRQ use it, otherwise use the interrupt
- 	 * from the WM831x IRQ controller.
- 	 */
--	wm831x_ts->data_irq = wm831x_irq(wm831x,
--					 platform_get_irq_byname(pdev,
--								 "TCHDATA"));
-+	wm831x_ts->data_irq = platform_get_irq_byname(pdev, "TCHDATA");
- 	if (pdata && pdata->data_irq)
- 		wm831x_ts->data_irq = pdata->data_irq;
-
--	wm831x_ts->pd_irq = wm831x_irq(wm831x,
--				       platform_get_irq_byname(pdev, "TCHPD"));
-+	wm831x_ts->pd_irq = platform_get_irq_byname(pdev, "TCHPD");
- 	if (pdata && pdata->pd_irq)
- 		wm831x_ts->pd_irq = pdata->pd_irq;
-
-diff --git a/drivers/mfd/wm831x-auxadc.c b/drivers/mfd/wm831x-auxadc.c
-index 6280d4f38..e3357918b 100644
---- a/drivers/mfd/wm831x-auxadc.c
-+++ b/drivers/mfd/wm831x-auxadc.c
-@@ -285,3 +285,10 @@ void wm831x_auxadc_init(struct wm831x *wm831x)
- 	if (!wm831x->auxadc_read)
- 		wm831x->auxadc_read = wm831x_auxadc_read_polled;
- }
-+
-+void wm831x_auxadc_exit(struct wm831x *wm831x)
-+{
-+	if (wm831x->auxadc_read == wm831x_auxadc_read_irq)
-+		free_irq(irq_find_mapping(wm831x->irq_domain,
-+					  WM831X_IRQ_AUXADC_DATA), wm831x);
-+}
-diff --git a/drivers/mfd/wm831x-core.c b/drivers/mfd/wm831x-core.c
-index df8e76e00..008e19f33 100644
---- a/drivers/mfd/wm831x-core.c
-+++ b/drivers/mfd/wm831x-core.c
-@@ -662,14 +662,6 @@ static const struct resource
-wm8320_dcdc4_buck_resources[] = {
- 	DEFINE_RES_IRQ_NAMED(WM831X_IRQ_UV_DC4, "UV"),
- };
-
--static const struct resource wm831x_gpio_resources[] = {
--	{
--		.start = WM831X_IRQ_GPIO_1,
--		.end   = WM831X_IRQ_GPIO_16,
--		.flags = IORESOURCE_IRQ,
--	},
--};
--
- static const struct resource wm831x_isink1_resources[] = {
- 	{
- 		.start = WM831X_CURRENT_SINK_1,
-@@ -876,8 +868,6 @@ static const struct mfd_cell wm8310_devs[] = {
- 	},
- 	{
- 		.name = "wm831x-gpio",
--		.num_resources = ARRAY_SIZE(wm831x_gpio_resources),
--		.resources = wm831x_gpio_resources,
- 	},
- 	{
- 		.name = "wm831x-hwmon",
-@@ -1030,8 +1020,6 @@ static const struct mfd_cell wm8311_devs[] = {
- 	},
- 	{
- 		.name = "wm831x-gpio",
--		.num_resources = ARRAY_SIZE(wm831x_gpio_resources),
--		.resources = wm831x_gpio_resources,
- 	},
- 	{
- 		.name = "wm831x-hwmon",
-@@ -1160,8 +1148,6 @@ static const struct mfd_cell wm8312_devs[] = {
- 	},
- 	{
- 		.name = "wm831x-gpio",
--		.num_resources = ARRAY_SIZE(wm831x_gpio_resources),
--		.resources = wm831x_gpio_resources,
- 	},
- 	{
- 		.name = "wm831x-hwmon",
-@@ -1306,8 +1292,6 @@ static const struct mfd_cell wm8320_devs[] = {
- 	},
- 	{
- 		.name = "wm831x-gpio",
--		.num_resources = ARRAY_SIZE(wm831x_gpio_resources),
--		.resources = wm831x_gpio_resources,
- 	},
- 	{
- 		.name = "wm831x-hwmon",
-@@ -1622,27 +1606,27 @@ int wm831x_device_init(struct wm831x *wm831x, int irq)
- 	case WM8310:
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num,
- 				      wm8310_devs, ARRAY_SIZE(wm8310_devs),
--				      NULL, 0, NULL);
-+				      NULL, 0, wm831x->irq_domain);
- 		break;
-
- 	case WM8311:
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num,
- 				      wm8311_devs, ARRAY_SIZE(wm8311_devs),
--				      NULL, 0, NULL);
--		if (!pdata->disable_touch)
--			mfd_add_devices(wm831x->dev, wm831x_num,
--					touch_devs, ARRAY_SIZE(touch_devs),
--					NULL, 0, NULL);
-+				      NULL, 0, wm831x->irq_domain);
-+		if (!ret && !pdata->disable_touch)
-+			ret = mfd_add_devices(wm831x->dev, wm831x_num,
-+					      touch_devs, ARRAY_SIZE(touch_devs),
-+					      NULL, 0, wm831x->irq_domain);
- 		break;
-
- 	case WM8312:
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num,
- 				      wm8312_devs, ARRAY_SIZE(wm8312_devs),
--				      NULL, 0, NULL);
--		if (!pdata->disable_touch)
--			mfd_add_devices(wm831x->dev, wm831x_num,
--					touch_devs, ARRAY_SIZE(touch_devs),
--					NULL, 0, NULL);
-+				      NULL, 0, wm831x->irq_domain);
-+		if (!ret && !pdata->disable_touch)
-+			ret = mfd_add_devices(wm831x->dev, wm831x_num,
-+					      touch_devs, ARRAY_SIZE(touch_devs),
-+					      NULL, 0, wm831x->irq_domain);
- 		break;
-
- 	case WM8320:
-@@ -1651,7 +1635,7 @@ int wm831x_device_init(struct wm831x *wm831x, int irq)
- 	case WM8326:
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num,
- 				      wm8320_devs, ARRAY_SIZE(wm8320_devs),
--				      NULL, 0, NULL);
-+				      NULL, 0, wm831x->irq_domain);
- 		break;
-
- 	default:
-@@ -1676,7 +1660,7 @@ int wm831x_device_init(struct wm831x *wm831x, int irq)
- 	if (ret & WM831X_XTAL_ENA) {
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num,
- 				      rtc_devs, ARRAY_SIZE(rtc_devs),
--				      NULL, 0, NULL);
-+				      NULL, 0, wm831x->irq_domain);
- 		if (ret != 0) {
- 			dev_err(wm831x->dev, "Failed to add RTC: %d\n", ret);
- 			goto err_irq;
-@@ -1689,7 +1673,7 @@ int wm831x_device_init(struct wm831x *wm831x, int irq)
- 		/* Treat errors as non-critical */
- 		ret = mfd_add_devices(wm831x->dev, wm831x_num, backlight_devs,
- 				      ARRAY_SIZE(backlight_devs), NULL,
--				      0, NULL);
-+				      0, wm831x->irq_domain);
- 		if (ret < 0)
- 			dev_err(wm831x->dev, "Failed to add backlight: %d\n",
- 				ret);
-@@ -1708,7 +1692,10 @@ int wm831x_device_init(struct wm831x *wm831x, int irq)
- 	return 0;
-
- err_irq:
-+	mfd_remove_devices(wm831x->dev);
-+	wm831x_auxadc_exit(wm831x);
- 	wm831x_irq_exit(wm831x);
-+	return ret;
- err:
- 	mfd_remove_devices(wm831x->dev);
- 	return ret;
-diff --git a/drivers/mfd/wm831x-irq.c b/drivers/mfd/wm831x-irq.c
-index defd5f173..200802612 100644
---- a/drivers/mfd/wm831x-irq.c
-+++ b/drivers/mfd/wm831x-irq.c
-@@ -595,6 +595,8 @@ int wm831x_irq_init(struct wm831x *wm831x, int irq)
-
- 	if (!domain) {
- 		dev_warn(wm831x->dev, "Failed to allocate IRQ domain\n");
-+		if (irq_base)
-+			irq_free_descs(irq_base, WM831X_NUM_IRQS);
- 		return -EINVAL;
- 	}
-
-@@ -606,10 +608,20 @@ int wm831x_irq_init(struct wm831x *wm831x, int irq)
- 	wm831x_set_bits(wm831x, WM831X_IRQ_CONFIG,
- 			WM831X_IRQ_OD, i);
-
--	wm831x->irq = irq;
- 	wm831x->irq_domain = domain;
-
- 	if (irq) {
-+		ret = request_threaded_irq(irq, NULL, wm831x_irq_thread,
-+					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-+					   "wm831x", wm831x);
-+		if (ret != 0) {
-+			dev_err(wm831x->dev, "Failed to request IRQ %d: %d\n",
-+				irq, ret);
-+			wm831x_irq_exit(wm831x);
-+			return ret;
-+		}
-+		wm831x->irq = irq;
-+
- 		/* Try to flag /IRQ as a wake source; there are a number of
- 		 * unconditional wake sources in the PMIC so this isn't
- 		 * conditional but we don't actually care *too* much if it
-@@ -620,15 +632,8 @@ int wm831x_irq_init(struct wm831x *wm831x, int irq)
- 			dev_warn(wm831x->dev,
- 				 "Can't enable IRQ as wake source: %d\n",
- 				 ret);
--		}
--
--		ret = request_threaded_irq(irq, NULL, wm831x_irq_thread,
--					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
--					   "wm831x", wm831x);
--		if (ret != 0) {
--			dev_err(wm831x->dev, "Failed to request IRQ %d: %d\n",
--				irq, ret);
--			return ret;
-+		} else {
-+			wm831x->irq_wake = true;
- 		}
- 	} else {
- 		dev_warn(wm831x->dev,
-@@ -643,6 +648,15 @@ int wm831x_irq_init(struct wm831x *wm831x, int irq)
-
- void wm831x_irq_exit(struct wm831x *wm831x)
- {
--	if (wm831x->irq)
-+	int i;
-+
-+	if (wm831x->irq) {
-+		if (wm831x->irq_wake)
-+			disable_irq_wake(wm831x->irq);
- 		free_irq(wm831x->irq, wm831x);
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(wm831x_irqs); i++)
-+		irq_dispose_mapping(irq_find_mapping(wm831x->irq_domain, i));
-+	irq_domain_remove(wm831x->irq_domain);
- }
-diff --git a/drivers/power/supply/wm831x_power.c
-b/drivers/power/supply/wm831x_power.c
-index d4e85c233..c5914f13d 100644
---- a/drivers/power/supply/wm831x_power.c
-+++ b/drivers/power/supply/wm831x_power.c
-@@ -616,7 +616,7 @@ static int wm831x_power_probe(struct platform_device *pdev)
- 		}
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "SYSLO"));
-+	irq = platform_get_irq_byname(pdev, "SYSLO");
- 	ret = request_threaded_irq(irq, NULL, wm831x_syslo_irq,
- 				   IRQF_TRIGGER_RISING | IRQF_ONESHOT, "System power low",
- 				   power);
-@@ -626,7 +626,7 @@ static int wm831x_power_probe(struct platform_device *pdev)
- 		goto err_battery;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "PWR SRC"));
-+	irq = platform_get_irq_byname(pdev, "PWR SRC");
- 	ret = request_threaded_irq(irq, NULL, wm831x_pwr_src_irq,
- 				   IRQF_TRIGGER_RISING | IRQF_ONESHOT, "Power source",
- 				   power);
-@@ -637,9 +637,7 @@ static int wm831x_power_probe(struct platform_device *pdev)
- 	}
-
- 	for (i = 0; i < ARRAY_SIZE(wm831x_bat_irqs); i++) {
--		irq = wm831x_irq(wm831x,
--				 platform_get_irq_byname(pdev,
--							 wm831x_bat_irqs[i]));
-+		irq = platform_get_irq_byname(pdev, wm831x_bat_irqs[i]);
- 		ret = request_threaded_irq(irq, NULL, wm831x_bat_irq,
- 					   IRQF_TRIGGER_RISING | IRQF_ONESHOT,
- 					   wm831x_bat_irqs[i],
-@@ -686,10 +684,10 @@ static int wm831x_power_probe(struct
-platform_device *pdev)
- 		irq = platform_get_irq_byname(pdev, wm831x_bat_irqs[i]);
- 		free_irq(irq, power);
- 	}
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "PWR SRC"));
-+	irq = platform_get_irq_byname(pdev, "PWR SRC");
- 	free_irq(irq, power);
- err_syslo:
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "SYSLO"));
-+	irq = platform_get_irq_byname(pdev, "SYSLO");
- 	free_irq(irq, power);
- err_battery:
- err_usb:
-@@ -701,7 +699,6 @@ static int wm831x_power_probe(struct platform_device *pdev)
- static void wm831x_power_remove(struct platform_device *pdev)
- {
- 	struct wm831x_power *wm831x_power = platform_get_drvdata(pdev);
--	struct wm831x *wm831x = wm831x_power->wm831x;
- 	int irq, i;
-
- 	if (wm831x_power->usb_phy) {
-@@ -710,16 +707,14 @@ static void wm831x_power_remove(struct
-platform_device *pdev)
- 	}
-
- 	for (i = 0; i < ARRAY_SIZE(wm831x_bat_irqs); i++) {
--		irq = wm831x_irq(wm831x,
--				 platform_get_irq_byname(pdev,
--							 wm831x_bat_irqs[i]));
-+		irq = platform_get_irq_byname(pdev, wm831x_bat_irqs[i]);
- 		free_irq(irq, wm831x_power);
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "PWR SRC"));
-+	irq = platform_get_irq_byname(pdev, "PWR SRC");
- 	free_irq(irq, wm831x_power);
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "SYSLO"));
-+	irq = platform_get_irq_byname(pdev, "SYSLO");
- 	free_irq(irq, wm831x_power);
- }
-
-diff --git a/drivers/regulator/wm831x-dcdc.c b/drivers/regulator/wm831x-dcdc.c
-index 2036735f0..5ce7cbb36 100644
---- a/drivers/regulator/wm831x-dcdc.c
-+++ b/drivers/regulator/wm831x-dcdc.c
-@@ -470,7 +470,7 @@ static int wm831x_buckv_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "UV"));
-+	irq = platform_get_irq_byname(pdev, "UV");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_dcdc_uv_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-@@ -481,7 +481,7 @@ static int wm831x_buckv_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "HC"));
-+	irq = platform_get_irq_byname(pdev, "HC");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_dcdc_oc_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-@@ -608,7 +608,7 @@ static int wm831x_buckp_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "UV"));
-+	irq = platform_get_irq_byname(pdev, "UV");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_dcdc_uv_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-@@ -726,7 +726,7 @@ static int wm831x_boostp_probe(struct platform_device *pdev)
- 		return ret;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "UV"));
-+	irq = platform_get_irq_byname(pdev, "UV");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_dcdc_uv_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-diff --git a/drivers/regulator/wm831x-isink.c b/drivers/regulator/wm831x-isink.c
-index 5afd3094b..5c1cbaf66 100644
---- a/drivers/regulator/wm831x-isink.c
-+++ b/drivers/regulator/wm831x-isink.c
-@@ -160,7 +160,7 @@ static int wm831x_isink_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq(pdev, 0));
-+	irq = platform_get_irq(pdev, 0);
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_isink_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-diff --git a/drivers/regulator/wm831x-ldo.c b/drivers/regulator/wm831x-ldo.c
-index 34a6d6cf7..7c91edb3f 100644
---- a/drivers/regulator/wm831x-ldo.c
-+++ b/drivers/regulator/wm831x-ldo.c
-@@ -279,7 +279,7 @@ static int wm831x_gp_ldo_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "UV"));
-+	irq = platform_get_irq_byname(pdev, "UV");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_ldo_uv_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-@@ -490,7 +490,7 @@ static int wm831x_aldo_probe(struct platform_device *pdev)
- 		goto err;
- 	}
-
--	irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "UV"));
-+	irq = platform_get_irq_byname(pdev, "UV");
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					wm831x_ldo_uv_irq,
- 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-diff --git a/drivers/rtc/rtc-wm831x.c b/drivers/rtc/rtc-wm831x.c
-index 1943cb1eb..35b09747d 100644
---- a/drivers/rtc/rtc-wm831x.c
-+++ b/drivers/rtc/rtc-wm831x.c
-@@ -402,7 +402,7 @@ static int wm831x_rtc_probe(struct platform_device *pdev)
- {
- 	struct wm831x *wm831x = dev_get_drvdata(pdev->dev.parent);
- 	struct wm831x_rtc *wm831x_rtc;
--	int alm_irq = wm831x_irq(wm831x, platform_get_irq_byname(pdev, "ALM"));
-+	int alm_irq = platform_get_irq_byname(pdev, "ALM");
- 	int ret = 0;
-
- 	wm831x_rtc = devm_kzalloc_obj(&pdev->dev, *wm831x_rtc);
-diff --git a/include/linux/mfd/wm831x/core.h b/include/linux/mfd/wm831x/core.h
-index 511bcad87..0e34a39b6 100644
---- a/include/linux/mfd/wm831x/core.h
-+++ b/include/linux/mfd/wm831x/core.h
-@@ -368,6 +368,7 @@ struct wm831x {
- 	enum wm831x_parent type;
-
- 	int irq;  /* Our chip IRQ */
-+	bool irq_wake;
- 	struct mutex irq_lock;
- 	struct irq_domain *irq_domain;
- 	int irq_masks_cur[WM831X_NUM_IRQ_REGS];   /* Currently active value */
-@@ -418,6 +419,7 @@ void wm831x_device_shutdown(struct wm831x *wm831x);
- int wm831x_irq_init(struct wm831x *wm831x, int irq);
- void wm831x_irq_exit(struct wm831x *wm831x);
- void wm831x_auxadc_init(struct wm831x *wm831x);
-+void wm831x_auxadc_exit(struct wm831x *wm831x);
-
- static inline int wm831x_irq(struct wm831x *wm831x, int irq)
- {
-
-
-On Tue, 10 Nov 2026 02:32:49 +0000, Myeonghun Pak <mhun512@gmail.com> wrote:
-> Hi Lee and Dmitry,
+On Mon, Nov 9, 2026 at 6:25=E2=80=AFPM Brian Masney <masneyb@kernel.org> wr=
+ote:
 >
-> This series fixes WM831x IRQ resource mismatches and follows Dmitry's
-> request for managed onkey IRQ/work cleanup and MFD-provided mapped IRQs.
-> The provider and consumers are converted together to keep their IRQ
-> resources consistent.
+> Hi Rosen,
 >
-> Changes since v1:
-> - Use managed IRQ/work cleanup instead of storing the onkey IRQ.
-> - Move IRQ mapping into MFD and update all platform consumers.
-> - Reject failed mappings and unwind consumers before removing the domain.
-> - Retain polling for release detection; the chip only interrupts on assertion.
-> - Drop the previous Reviewed-by tag because the implementation changed
->   substantially.
+> On Mon, Nov 09, 2026 at 05:36:40PM -0800, Rosen Penev wrote:
+> > The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
+> > arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers every
+> > clock before the driver core is up. This series replaces it with a new
+> > driver in drivers/clk.
+> >
+> > Only the reference and CPU clocks are registered early, with
+> > CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate from
+> > plat_time_init(). A platform driver bound to the same node registers th=
+e
+> > DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early provide=
+r
+> > returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
+> >
+> > Patches 1 and 2 move the two remaining non-clock duties out of the arch
+> > clock code, so that it only uses its own registers and the clk API: the
+> > QCA956x timer interrupt workaround, and the reference clock that is
+> > read from the bootstrap pins when the device tree has no rate. Patches =
+3
+> > and 4 add the UART1 and PCIe PLL clock IDs. Patch 5 adds the new driver=
+,
+> > and patch 6 removes the old code.
+> >
+> > Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The CPU,
+> > DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match those
+> > of the old code. The serial console, both GMACs, the PCIe PLL with a
+> > QCA9880 behind it, and the WMAC all work, and no devices are left
+> > deferred. The other SoCs are not tested on hardware. For each SoC the
+> > rate calculation was compiled in userspace together with the old code
+> > and fed 2 million random register sets. The results are identical,
+> > except where the old code overflowed 32 bits with register values that
+> > no real setup uses.
+> >
+> > Changes in v2:
+> > - Post the new driver as one patch, instead of moving
+> >   arch/mips/ath79/clock.c to drivers/clk and cleaning it up over six
+> >   patches (review feedback).
+> > - Register only the reference and CPU clocks with CLK_OF_DECLARE, and
+> >   the others from a platform driver (review feedback).
+> > - Describe the SoCs with match data, and read the CPU, DDR and AHB
+> >   selection of AR934x and later with one function.
+> > - Keep mapping the AR934x SRIF block from its fixed address. It lies
+> >   inside the wireless MAC registers, which ath9k claims, so it can't be
+> >   a reg entry of the PLL node.
+> > - Drop the clkdev registrations, which have no users.
+> >
+> > Claude Code (Claude Opus 5.5) was used while preparing this series. It
+> > wrote most of the new driver from the old one, together with the
+> > userspace test of the rate calculation. I reviewed and tested every
+> > change and take responsibility for it.
 >
-> Compile-tested with LLVM, W=1 (arm64), for all 11 changed C objects.
-> No hardware testing.
+> 40 minutes elapsed from when I asked for changes to when a fully formed
+> new driver was posted with major changes. Your cover letter says this
+> v2 was tested on real hardware, however I am honestly a bit skeptical
+> given the short time frame. On top of that, that's not enough time to
+> also go through what all Claude did for you. Please slow down!!
+This was tested with a linux-next kernel on an Archer C7 v2 hooked up
+through serial and two ethernet cables (LAN and WAN). There's no
+difference that I can see between the old and new driver.
+
+That being said, I only have two pieces of hardware on which testing
+can be done. Both are rather new relatively speaking. Older version of
+this series is currently live on OpenWrt with seemingly no ill
+consequences.
 >
-> Previous discussion:
-> https://lore.kernel.org/r/atJycIEnUZKVdTjW@google.com
+> I'm going to pass on reviewing this version. I want you to take some
+> time to test this on real hardware, and understand the code. If after
+> that you truly have no additional changes, then I'll reconsider
+> reviewing this version.
+Sashiko had two complaints. I'll fix those in v3.
 >
-> Thanks,
-> Myeonghun
+> Also, if you want to help, then consider helping with reviews on patches
+> from other people, in particular with the large series for the new SoC
+> vendors. It's a lot of work reviewing the flood of patches from
+> everyone. You can see the backlog for the clk core on the kernel.org
+> patchwork server.
+I agree. It's quite unfortunate and have no solution to it.
+>
+> Brian
