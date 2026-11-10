@@ -1,104 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325381;
-	b=a9KrWB6Lxt8wIjJUNW7OEPKFRY+SR8DYXrc+R0AdbX8PQoRssxAnmzWXmQ7hjsXmPM6q
-	 rgbWAZWoJGOpLIfXAw9uFPOhsRY4PP2WdrehmJSmi5zhzfSPdbQnkOhqCBd8EP+zWEMBl
-	 QyJoi2zRPEHSz8Ze6kH746DOBvNUxWvVprMHuDG8+t99VpHEDBh1xXTUHuBBUd+ngIiVS
-	 /z90mjdWgJLRfNRAbwE6rUha2g43ujxPwoVfBZPrEXQK03uBgP5t9e3OVpcpKl9I9kEK9
-	 LXGEzkvnIH7EoR65HWYrcJrq5a9KCrL6vnhCYU8hHcq5n18G3LmXWDWjxpGiC3egm1w==
+	t=1794325402;
+	b=5eODHhfW3Ffwn5TbRxPvYNPqCohiWfkIUev4o9QkQrjpo67P7jq4SsRwhyFamQwcxbMO
+	 uxrDLLjR1VkI7958ipjuFaghgMtM4mqcNueW1al9kRqi2kzYrP/BqsEi9pFiHVB6enSov
+	 dQTD/vRuMS8DAz9O57Yc2xjpAgR+XQaaKil4wbdzYXaFCVu5mBbmRM3lxyRcHZnDT+aqV
+	 dCqeEJE5/2qdahZfI2wR3LYJGuPwXZGsnvQlTX5mbvcPfHqBzGreHbJjH5S7Cifz8rl2i
+	 L7N5m79gcP50wZuQKNggGlYkFFf34XSwnHdbh88ZWVPWDJjC3xhdM9TWkQn6NfStRSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325381;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mcH0VH9d1TflRVvDyREb8NEQ6oBVJ5eOfoPTcpv7Fok=;
-	b=rsuDaJaE2LgzHJXBtEChsTMHLJJbr56GEy8ZEUYyYmPY9Yi+9jv90GGmfn+oDY7mFcEK
-	 cOleREtNYeixYKQ0nbI20VrlJXyEBfjzbf48PgU7KVzsw15wBYwR0bZy+iupbXDQtILDI
-	 iq9QWHUFvGQPKJoNnWeMnV2rKAOezxAbWdq65glsd9UVhSgO3da/da4+IiXSFHdDf14NI
-	 59ymUy+wD/wlYigA2yIh2BSW90/X/iwT/fBlCpbR/ALh10fIM8uYBEkxz6Qxc5/RAZPuM
-	 IrlQusjRVLxSgzmejYiYVJP5gYoMllEBwCW3eAB8lJKJYhqyyZpka5fXdNYTXzWx1Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325402;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TQtG4o/ML/2sB0MvTtvE7H8moOh6q/FDtaR4iqmNY1g=;
+	b=0w8qHwXAJ7vG7M175gNNkC2kmAaysal+4/9jfu+UHCplTNxrat98puFUK+Gum9V4SFAu
+	 /eRBjwiUDK7E/QN8AGmcHNIXdcb6Mvzw2Mt230bf9p6zCtLY4L+Pg+84xsAvP7149CzIJ
+	 LGbsMP5WIyEfPPCMSrkfdosWt3xk+ieDM+EDlTFFgOqb2WS7xkrOuThTwfT25z0QZ3sOM
+	 r9stqwCh2otTCk5tC/SLoyHqeWXl6J01Xp72SerXM5AEg2R5vqw2B5PyoFRqk/FoCrg1g
+	 wkIzA6vI9bAjiOhhRwZFcxw9Ijr0fKlrlErhSn/rLc4NstC5Ln17kanBaZ39owJc6SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=andrewgigena.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juPNybO9;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881EC606D762
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881EC606D762
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3537E60A260B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:43:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3537E60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juPNybO9
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3aced9804e8so18801771fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:43:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794325380; x=1794930180; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mcH0VH9d1TflRVvDyREb8NEQ6oBVJ5eOfoPTcpv7Fok=;
-        b=juPNybO9ob3cWcrZLpGvPTYrhVk12lb5syJQk4janFfUd2bd2ELKI82pjVPIWTcz0B
-         PvncSwO8k5BJg9+a1rWN+agfrvu7xWYAgGv06+hhQuwu7cOKId5DsTYN3pQ3mH9BdOrg
-         8YD6u91iV+RBapoG4c1sk63alTFIJUMGy+W7cnEVyc/MbixacMqy/HiOM1TxHvwzyFTr
-         KNMoEmLyCCJYaR6LfSS542oid00zkMjstykGx8JNKFmTjlJA2Gz+rnnVyTP34OlVNy6U
-         EdF3edsZ4t618mW0x09KicJsr0Pdh81Ed2BuV3olYmf+dJIFb8/4+yeGLrC/GoF3DIxC
-         Azug==
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdb9d5c1c8eso1098500a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:43:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325380; x=1794930180;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mcH0VH9d1TflRVvDyREb8NEQ6oBVJ5eOfoPTcpv7Fok=;
-        b=lnePzB3sTCjk5++FCvV3f7zP5r8hT6/AGLMJm7mBCMB2MT9l6jP9to2t89KMFm74kR
-         1TVcu/+9TkZsLy/c8/CcgVkzI5UobxtPYiT1MkvRnhuVCZfN6g5mNbraJwaUMgcYORQ8
-         yfVJt3jxGyJF6jgRV2qyPIeqlmbe2+yPfz4/q2p/IsWC7u3Tx/QcJdPx3HWml6jTT4s5
-         D9ZPbZfEAyZQTD/hNFantjiQNnHDIt6b9YPk8xYddLzkPxI3JoZK7HMGnXsixmY6b3KN
-         eTHSMiN3Epvawu5yJrVfjWxZsYAkaCerVoqJzVBvXcouLHdTI6iacf5SxwU2J+LHmy7t
-         RnBw==
-X-Forwarded-Encrypted: i=1; AL+hErGRl2YpmH9DP0hJRZghbeWemi3+2D1QBV4UtCX9NOdEypW8C2e0RbPXwT00IBYg4lE2z27s2MONd29QJ98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5TZmt6ch+MbLQ7C9AZVwsymUaLzGimYphvA8fX2duhHWxmGEd
-	5FLJrjPWS0kQeT30dTe5Cz0qkeZFufhJVFDGEcR30fHvNbFNV+1/pZH4
-X-Gm-Gg: AYBFou2wpSzEFMbcEGRmZ1nSbJefmXyhpCaEuJATsPgH4kzPYQjnNLBCNDuHsp87tfV
-	VD8/qqMMCpWEW5zZZTg3CLmLlT8Fb4gDTan5fgNJ845VyqhUgRjp2Ei67j8V6NkLzz1vS7iJndB
-	ATQnvvNUPKosegEZsCVcHMUr7uMz7kSGYbV+kVJLJj7zPJvelMuYEGkMtWA6HC4QUyf4M7fdy79
-	UEAAt/p4LnhFVYEkrGYtQW4iz6bTil3v2HCQgsKtxCyrv46ObjbO1lkbmjCIjfo1XxWmTwSj1QC
-	LkWXRVX3NfSNw7DFd079E8E5DLYpHntIDIhrdb5EZLffbVcNlgwFBfeliuAFud7P2O9Dsx9M7tk
-	pU24X7GGb7Eh4nWvRpvH1u3en7Lt6g9JcldYCJ8Iz0X70a6KAjN49W6pxYOmNLlmx3mDhVaVYCf
-	CDx77AES3i0+cZ3R0fBtVgkciMIlkeNDOI0sdbPRY7UbaoKT6LjNCJ9Bad0SJuxvPaLr9qc4g7E
-	mpecUwqNzpFD8uq9/EQVrD5/hG4A9Z0+TqGg7LzLLiH9exuUzEbQmK43jgTuwig5K5UjgGPIx+G
-	ZY4RkEtysCHvDemy+4erCeZW42/zgUuTpUVXBbVsWmEKobBprD/3fYQZy/4rugzNlqTGZhY3Y+g
-	1vPI3VJmj0yP+rYUYnmLdhYycIDmgHAl8mL5q/w==
-X-Received: by 2002:a05:651c:1608:b0:3a6:10d4:61c4 with SMTP id 38308e7fff4ca-3ae0964783cmr6048041fa.28.1794325379385;
-        Tue, 10 Nov 2026 07:42:59 -0800 (PST)
-Received: from yantra.. (nekmmqt3kfwnocz4ivv-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:453b:19fe:80e1:2b9b])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae0923d583sm5751481fa.21.2026.11.10.07.42.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:42:59 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: iio: pressure: infineon,dps310: Add interrupts
-Date: Tue, 10 Nov 2026 17:42:53 +0200
-Message-ID: <20261110154254.39092-2-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110154254.39092-1-zoone.rupert@gmail.com>
-References: <20261110154254.39092-1-zoone.rupert@gmail.com>
+        d=1e100.net; s=20260707; t=1794325401; x=1794930201;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TQtG4o/ML/2sB0MvTtvE7H8moOh6q/FDtaR4iqmNY1g=;
+        b=pXi2SH6dqAj3FcxwKX6ieq2YYVQGj6SEDZ2+XZNwzhaW+mplQMT6eIvSGhpPoTFRyc
+         V61jxWOfEBDCCkqY2qWYZeVOP4g8Zbx+/udcj758IR+W6Cmt3uj8tBF4qrpxofWCCUET
+         66VP6J/LNt7Typt7/isRYM/33Lie69k/iVfVsstn7G1V3kuwAj5uEm1pxTuiRnpuUF35
+         b3NaTJakq+rTw5flyakJd9/bca0HnxEICP4S7Ndi7seNPwO2nAVV24A4LNV9+oE5HSCb
+         d/7+ACpTp0e0awwHognw0HrO7yNdRUcLqdlGpmIlbrcKz8OzKBVa5M7KYFH9AZyaYwkQ
+         3fcw==
+X-Forwarded-Encrypted: i=1; AL+hErEjHPkpNuxtdppwd0BmRc38KAUddoILqGG4OfYlBjITC60bLZCW5NJyNaQoUD3flc3hxlR2VPUwvTdpzmo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/4rITRot57M8dJAjKrCavgnzYQlYtI5P4YUfMVpOyn3EzQlUa
+	eS2es4jZ1OGeONPLQS13Dp4QpuVixzSJSsr05kC/jp7GGohvPzmu9b95
+X-Gm-Gg: AYBFou1v6kQgDlsrFE7QEezqBtJOfI+/Qct1ZuO4bwPFyF8gQ6m74tvA5AcG/U27Jmd
+	1XpYL3rP6a40kmE5piPbpKjre33q0eU/0YaBddpQRzcwHfUSWylR7AqqRpz3OhOUAzc/8NGE4m5
+	VAM7ZVWxjDlWK8ezJVHif4unt5NDNkGMxk24ZqiF0X40EXpg0FehCeRNXkTegoSs4stUvsb5NS5
+	9wU/mdwG7q4BYegKMTzSFEgwgVwMKYV3mO9r+GbTd4zLh8Ev5kfugtSwlXBF2GkZxZEkeoYjYdm
+	rld5bl4//RaQJGxeq6b9BLAMmDuKkLvdh+StVGou8FB9iDlA0ygj1Cu+r6uYiyzUp9tsJnmcwih
+	m9PREAUCOfOrY6B05k8aWKp5TQLLib6iKO+/VEC6hkAgIrPyiQ30NyWq6jviEp10CVLCtFOoZPD
+	lzOPvcTnFj/ORJ4mdk9Smno9ajwNg5AHKjS3vbHz7a03NnMM1p232toxDckATM94xAOn/Opw9kZ
+	u8EdjDTKcB/yUel/ZjRmH4Qz9ha9C7Yu/UJ3KD/gBKYk4UjFcr8kBYB0KSqxefUHBlJGBLt0u6f
+	1+5HfDAsU6RN+FSw+kB+X9TEvgyFJeKUXBUTAxjBGWir5+cTLmKCdfItQCeHTJVZXDrSi2cw
+X-Received: by 2002:a17:90b:288a:b0:3b0:a9de:9886 with SMTP id 98e67ed59e1d1-3b166cc035emr3111438a91.12.1794325401459;
+        Tue, 10 Nov 2026 07:43:21 -0800 (PST)
+Received: from ?IPV6:2800:a4:890:2c00:14b6:ffbd:f8b2:d9f2? ([2800:a4:890:2c00:14b6:ffbd:f8b2:d9f2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d5e830dsm891469a12.4.2026.11.10.07.43.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:43:20 -0800 (PST)
+Message-ID: <987c1008-d0ab-4508-82a2-1a26104a47c8@andrewgigena.dev>
+Date: Tue, 10 Nov 2026 15:43:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,54 +75,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-phy@lists.infradead.org
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
+ <20261109-slick-transparent-ostrich-28ddad@quoll>
+Content-Language: en-US
+From: Andrew Gigena <mail@andrewgigena.dev>
+In-Reply-To: <20261109-slick-transparent-ostrich-28ddad@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DPS310 signals new results and a full FIFO on its SDO pin. In I2C mode
-the same pin sets the address LSB, and interrupt polarity must be the
-opposite of how SDO is strapped.
+Hi Krzysztof,
 
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
-Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+First of all, apologies for the late reply and for not following your review
+advice earlier - that was my mistake, and I should have responded to your v2
+comments individually instead of letting them carry over.
 
- .../bindings/iio/pressure/infineon,dps310.yaml         | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+I have now gone through your v2 and v3 comments again and addressed most of
+them locally in a v4:
+- reg/reg-names moved to the top, redundant minItems dropped, property order
+  aligned with writing-schema.rst, example cleaned up, ports use
+  patternProperties, bus-type dropped from the CAMSS binding, etc.
 
-diff --git a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-index 416117dfd927..cded6e0af147 100644
---- a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-+++ b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-@@ -23,6 +23,12 @@ properties:
-   reg:
-     maxItems: 1
- 
-+  interrupts:
-+    maxItems: 1
-+    description:
-+      New result or full FIFO, on SDO pin. SDO also selects I2C address, so
-+      interrupt is active high at 0x76 (SDO low) and active low at 0x77.
-+
-   "#io-channel-cells":
-     const: 0
- 
-@@ -42,6 +48,8 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-     i2c {
-         #address-cells = <1>;
-         #size-cells = <0>;
-@@ -49,6 +57,8 @@ examples:
-         dps: pressure-sensor@76 {
-             compatible = "infineon,dps310";
-             reg = <0x76>;
-+            interrupt-parent = <&gpio0>;
-+            interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
-             #io-channel-cells = <0>;
-             vdd-supply = <&vref1>;
-             vddio-supply = <&vref2>;
--- 
-2.43.0
+Regarding your v3 question about the order of reg/reg-names/interrupt-names
+(vfe0, csid0, vfe1, csid1, ...): I took it from qcom,sc8280xp-camss.yaml,
+which uses the same paired VFE/CSID layout and is the closest reference for
+SM8150. The entries are also in ascending register-address order in the SoC DTS.
 
+If you would prefer a different grouping (e.g. all CSIDs then all VFEs, as in
+sm8250), I can reorder the binding, DTS and driver resource table. Please let me
+know which ordering you prefer. I would like to hear your feedback first so I
+can adjust anything needed before sending v4.
+
+Best regards,
+Andrew
