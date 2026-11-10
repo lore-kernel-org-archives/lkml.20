@@ -1,52 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351207;
-	b=j9LcV6tBDfjok7/bnyot/T/ktbCQ0tNulmYPnAJS2NiPhKkCo29veOLr3IHmTOHevmWM
-	 8lUBeT993gyNejR+joJIq9YJtzDC2r4Pcs0mVAEJCXMoondrAOpZ18B6tmeYQN82wv98R
-	 5oZ7UWB7OSyb73y9srMUenNOIbXWJngTRKsGV0VfJqwo03Z9LSbysvFq+vgLOHCwh67uq
-	 XLjFvbH7QBZ+YLhurh0Q4wuizM0gCKjzrJ42QQUGDAFJ8JNjdpZQeKnbafh4iFP3aLOPD
-	 lGWyPh0SM8E0ebypUzhSE3Nq0KGFre2AONUXtcjc+v2py2ERi/DBpPzI9rHHXGqw0Dw==
+	t=1794351287;
+	b=PINF8Ru/xVZ7d7TUO1rGnQTgre++a5K831FA/HQoY7PXrCpcUwH67QgoxVxsVFyh3hSn
+	 z/d9vUXFAcc69f3deILgRfsH8L4MZYBpWuNBh3+9FChBY7Curr6/2QJrpTi0h6nZCvjf3
+	 qQjS0tkbLFJDjp52fyvYgmBl73pVtg4stm1JKSAXfBYkib7AL+2BP9yaFvfyf9npudryS
+	 cI+uQm7lmCeA02IqdcYBkXrjDZ6WspftqFVFwbTHoPkNcJmA/jpYDDTZUgs2B3bWeUD29
+	 P7apRfWlHYxPtJyo3SQvvGkkJOp+8wbh9A0Yu9aCoZhkFUflsFkrMFW/bapjSKwIB2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351207;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=qbpNJXzYoqPd4VfqV9VFB8azfuYpEDyQvQ4rjCYOYeg=;
-	b=PyTlNqzCDxr4kpZdNwE1fCFwRrK1TRKHfaQdI0jBj9SXjmQ+gHb6jRfQ+k+Ez2Yhq0ig
-	 oaE8JL29aKUHSqZVwGRcjXgRHWb5VgPfffXmlXdcyDu8rkBX9iV6aijx8LCTGcKG2YqkI
-	 BWCfea/AfZvE1QjKX2qQxMF0Eb4B8daUi4HCOVSXaO/MjdQZ77psVz6QGLHI0Y3Nl5+kA
-	 q/TAn37sxFxdBK+Iu0IsTu50dXZdSPzBmeTeZFl2OYd+yJ8PXk835AT6FzIKGtTJ+AOtE
-	 b8dNFHpzOhwCn9gmEzLTlZiCtqXZ+/bXtJNoTZGTTVdXqX2YCRm3ML0B46meK7vgQQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351287;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vXuGtK5krbBCur3qg+VgvLf8G+IVJJVcv2zNy5XnaUs=;
+	b=hWEUo1StUOHTw4MVjJzYI6qsUGrt+ep38wbfa1xQZKBSRHZ2lnoqFzR4eTop6RhTEX53
+	 /sII46MLPeQt3w9CLI+rdPcvSb3yAzgQWwN7vw4G8bgHZp1tc90ztjzeHs0CCrJTddoxM
+	 EOYU4SVNw8PKAyqw52hf3NJwlK3PlOwqAIPACLbKxbwSvQCaoLhVqA5ppeSioBB1JkzAK
+	 hEFUyVk5KvYo/I/M577ID97YNpvcHT/ABLg6IltRxmStD0Cb4kIHHgRMWQSqlWajdz6St
+	 J8mCtafhZk23Oaroo2XK+b4nqvPcYfXFalgdNtHtmF2hWkqlhO2kxUCnVp6973uCWMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eg77k85J;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59EFC606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59EFC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+Qn7Uey;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fmj1hNU9;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FE2606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FE2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eg77k85J
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B060B1D34;
-	Tue, 10 Nov 2026 14:53:23 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 87C6D3F85F;
-	Tue, 10 Nov 2026 14:53:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794351206; bh=km9gKyPNIEGHowwbPNAwa8hxGTvimZnmSsS4JYV4E0w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=eg77k85Jdy0+R16HKJh9Lw6CgTedDXPN5B/c/9QnFId7wsvE4FclWxbYLQvd3ybje
-	 u6xtwEDg0GQdaBTIHac/ZHyGCKYvZvuZqt/cI12SfuyhLaSKejsqjPSY+ghPYgabc2
-	 TdyGJYgyH1CssbFRkK5hmDp1SSU3KF+XhRNfmiAY=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Tue, 10 Nov 2026 22:52:56 +0000
-Subject: [PATCH v4 6/6] mm: gup: batch PTE-mapped large folios in
- gup_fast_pte_range()
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+Qn7Uey;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fmj1hNU9
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAMKgdC1113763
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:54:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vXuGtK5krbBCur3qg+VgvLf8G+IVJJVcv2zNy5XnaUs=; b=E+Qn7UeymNps67d5
+	wrvFa7hBA91ezSgAP2Nj1NnYtcT0IIJBDCANmprLkW0s+C9UUyAivV/UM5EHTJKx
+	raR4xn46utCvdckjtofqC/oGelTlmcFImAnqpr1Jbop3njDt/xgeGVTamzdN2TPG
+	3FhHoZPSrRELKajEZ2IWF0X9N3DI4P8k+i7WHCuLatQgVv3jJtAEKcAXe3xwrCFl
+	DZHcz+CUF8A/ddXTDcul0jZcdmk/mkOSVwWfJt9R5U1SBBF49J/RqfnYHRsmF93l
+	e4TZ0MeWzzEE/SlQ6qf40ZQRru3/kL9KCBjMIim/Ib0eT1MXOIm+HFjqkMtFEIoA
+	rN8qRg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97c8tvc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:54:45 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36ecd5db581so3778050eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:54:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794351285; x=1794956085; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vXuGtK5krbBCur3qg+VgvLf8G+IVJJVcv2zNy5XnaUs=;
+        b=fmj1hNU9AOcj3v0oFUpHsQIxu5hhOTrTCxToJVL+QfjoTCMrvnmTwRjxixIJXqmKnS
+         Xnr3atkeabDtwkPgay2V9BqIThRtDNKt7ilewROnHfcd3v26deR5o0MSOtmVV7VsIt+i
+         ON2eBt9iSN2qEjBF70hrDIlZIniXR9Q7WHNbDHiEEF9P0akd5EP95QgqXv735osjgRf5
+         XlQMKkG03Vel5lKdWtDKrKe2U/knEFP+nELut26ByL+Kx5qj6hRrrr6h+jkCtVOgrJe6
+         TesanRQ1lzLtDtsKyOODiI/JPO9jHW7RjZt/V6cWR01Ih82mOH5btHQU00ZOuacIYWp/
+         R1Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794351285; x=1794956085;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vXuGtK5krbBCur3qg+VgvLf8G+IVJJVcv2zNy5XnaUs=;
+        b=2R/KYeURehC7z+0JDgZofijzXY6hzjMLR4fNAS/P7pM+94LyZgfrAQ/GaxhnofUK8d
+         sgn8c7YDLs6BR3974+tRz/7Rl788O02QG7apxNaiMZ0Vzr8cJGrTcynlxvTTn4lhupNa
+         DC9RsP6dZkVl0pH6WE3kdF8WZW7NygBZxqjUvJYY+gkgKuUWTl0rHtk8EV5QSy1Pw7Zf
+         9CURJkr4SAWZmk2wcmYYNtdM17qz/k3EpnqYuRvUTvM8uHkLQQv6jI/Oaff7iMVA49oW
+         Ts4dbUCT57eWfsf6Iyhw6kqI3hHOI4M7qKOHltnJLKRRpqfw4vL16UBkA5krB5tJ4PuQ
+         u1KQ==
+X-Gm-Message-State: APuU4Z+eWwVb50QwmO/yYZ5K6zc2zGOaDyMucRbyaQ7l4gh0l4zkzsVk
+	yn7eqGYKlIUpHu9YVYyQbaA5ZUsOY3AqmG0U2wPE3PkhEy6OJK+3O0l3PMZBCTEJVGAZl7G2vdq
+	/LcbhIN6BhALqXHAFDOvtaXvK4LOEaqctM0j2NoAgzsPUUkR5CliKSNyUuG4kbpClMXg=
+X-Gm-Gg: AYBFou1J2aI0rqaBKUAx5I4uL5AmEsEq/vudpgaqvzCX8q1UzfeSkbhCOUunwn+fIsE
+	Xxgq0XDOVORzGCmJTuQCjd7+dfX2VYQem+SsL9vtMdtM2x82Erspr9SrDS6eMEyFrZlNkPqeGqB
+	CQOBKcDqePIfJQh6Ci45MBRbNiV45K/0i/oBwAjnYS0RXo5AVfiUYADA1mzIJDDQYbFqVMVe7Wf
+	t1qZ1UzIW17LQWzz37ej0i+bNpuc9zlDAacqQ7ykiqb+S4/+U6f3yjKwGkNTzEduJcAGDGtPXKX
+	Bi+N49Uw2FOo1u4h3TSZDrWSbeRlPHNg7nwp1GJInVS4GIYNimABiKqpmZ7d6eN1zHcPe26HBwc
+	/3lWu+JUOiAonfNTDDTxySYxyIJkXI1ox5qh1qll5FTgDowH1FWd5lzxGrFfWNhODkzmlcsRMM2
+	wwaplviZSIzkE/w/FJgWQ/ZBCUMu0=
+X-Received: by 2002:a05:7300:51c3:b0:351:207d:bff4 with SMTP id 5a478bee46e88-37683b487admr1199205eec.4.1794351284563;
+        Tue, 10 Nov 2026 14:54:44 -0800 (PST)
+X-Received: by 2002:a05:7300:51c3:b0:351:207d:bff4 with SMTP id 5a478bee46e88-37683b487admr1199160eec.4.1794351283882;
+        Tue, 10 Nov 2026 14:54:43 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe07dsm10131788eec.20.2026.11.10.14.54.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 14:54:43 -0800 (PST)
+Date: Tue, 10 Nov 2026 14:54:21 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 25/35] firmware: arm_scmi: Add Telemetry debugfs
+ SHMTI dump support
+Message-ID: <20261110145421.00002a62@oss.qualcomm.com>
+In-Reply-To: <20261109091221.2532706-26-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	<20261109091221.2532706-26-cristian.marussi@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,221 +131,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-refactor_gup_fast-v4-6-e779a7674274@arm.com>
-References: <20261110-refactor_gup_fast-v4-0-e779a7674274@arm.com>
-In-Reply-To: <20261110-refactor_gup_fast-v4-0-e779a7674274@arm.com>
-To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Yuan-Hao Hsu <aa9736195201@gmail.com>, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7028; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=km9gKyPNIEGHowwbPNAwa8hxGTvimZnmSsS4JYV4E0w=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq86BU67PUYgzIaGvlXWmCR42RxyK2ZX6Tz05Wz
- QEq16IwK2eJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCavOgVAAKCRBt1cPRWsUx
- M7kzC/9dOSoDeMINM4IeowxVidTgidaBqPtBNywryTkYP8YvLFcq0nk//vvMBMmuY3l4NGAPYc2
- zIS/2L7dyjEKiirwdWzVLPT8M86NqRwZ15nf5ufrBtDg59TkDDn+Y+CtudSCu7aXeto3ZUAErG9
- SGiC9s2RTa0QaLqkOCue03D8cnisMk0/IIPgs1tt/Yt1JM68l8j1SZ2SaveW20zjjyypEbkoiZt
- WcPbQjuU2mvfqEBA4b5OcKZtCkRoIjM+Gq/DVm7HxMDiDVwkzA/SdeqDmGrR4owCdHZ8Syf48Cm
- oBuqKx7ECAXJ7zqnhnWOAU84g9P/uhId1eZvXGgwbpGV3p7+N+Beec7nuhEmjHObNuP3pLGEcme
- kduut8e9HR988nZhvPsWxFPUb9opwzvFCVEDnQbMEapX70k3O8Ly8gDXPvQYyYwoNFn6yROJ09+
- BYNEmLzMGSrvJtrtRtAJ0EA0viYbOZxdcAkRP7TJks8CjnMETpxJy2hEAG0ea0aAauXtw=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA5MSBTYWx0ZWRfX6ni+Pjl/ozO1
+ ZilyB+CoCkYGLjCj9lhuF1f2hXtSo89BdEcqBXnhdn0bXn0XPAdmMqmLx9PtIX/XdHbzVZdmdAH
+ RrwqnA2Y5UuYCGwJ7mFZHUbrcPoULr9wVwDwiSBw5eVcWqYHCiWVTpB3FwR9oejFztdsJXiqr1e
+ TQ+LZjrpuPhF2h8ZnzTpot6GuN7HfZ5CXdcHfSzyfkVUaJQqlcmIgSETwqDn5/CiKn+7lLLUCJe
+ 4/hQ3Gvd0pDQZtMExicoQH2+gfQ+gOoVufgJI8LhDdaoJLgL4xntUjCo8CSdJbBFIgNV8zu5qtl
+ mIhQ12g7EWCf+p57HHvLbzAzSmgrgTgPqDAuaP7FfrePzG3PY39/p1cy3yakyeW0UuMJentaCKr
+ QSkJEMpafHpqvwwaFip/1k3eDvXKFLhTYq42ptMppBGMw1ac/o6tlZ7qCvHSO7Nlicy6O1sn12s
+ EzIMqQtFfs0ZXILDGQw==
+X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af3a0b5 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=7CQSdrXTAAAA:8 a=CKzkSn0JwAB8-U6WE24A:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: wNtmXBIbhyBA761OtpOjFLylp4cWU4De
+X-Proofpoint-ORIG-GUID: wNtmXBIbhyBA761OtpOjFLylp4cWU4De
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA5MSBTYWx0ZWRfX4KXsoSFAuyJA
+ yqIqOAjFiOX6B9TPpjnWkK8SWzAoW0C9gs6G0p4QwYMPHx9TGbTkoBdEYafNuIEMdkZ0W0WjxtS
+ uiAEeQf5KIh7aOUUgnVdDKfdDzXlxIQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100091
 
-GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
-costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
-atomic, a full barrier and a node stat update for FOLL_PIN), a
-gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
-pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
+On Mon,  9 Nov 2026 09:12:11 +0000
+Cristian Marussi <cristian.marussi@arm.com> wrote:
 
-The users are the hot ones: iov_iter_extract_user_pages() pins every
-O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
-buffers through it, and so does RDMA memory registration.
-With mTHP those buffers are PTE-mapped large folios.
+> Expose one debugfs entry for each discovered SHMTI that can be used to
+> dump the related SHMTI in binary form from TBGN up to TEND markers.
+> 
+> No processing is done kernel side, beside using proper accessors for
+> device memory.
+> 
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
 
-After the head page has been grabbed and verified as before, extend the
-run to the following PTEs that map the next pages of the same folio
-with the same protection bits, take the remaining references for the
-run with try_grab_folio(), and fill pages[] from the run.
-The PTEs of the run are read while the reference on the folio is held,
-so the folio can neither be collapsed, freed nor split underneath the scan.
-A read-only run of an anonymous folio stops at the first page
-that gup_must_unshare() rejects, so the per-page exclusivity guarantee for
-FOLL_PIN is kept.
+Seems fine, one trivial inline. I find it hard to care about this
+particular option though.
 
-folio_pte_batch_flags() does the scan.  It reads the entries with
-ptep_get(), which is not safe without the page table lock on
-CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
-and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
-Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
-site, so the other callers do not change.
+> ---
+>  drivers/firmware/arm_scmi/telemetry.c | 103 ++++++++++++++++++++++++++
+>  1 file changed, 103 insertions(+)
+> 
+> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+> index c21700bd1b43..7582fe295a23 100644
+> --- a/drivers/firmware/arm_scmi/telemetry.c
+> +++ b/drivers/firmware/arm_scmi/telemetry.c
 
-The order-0 path keeps its instruction sequence.  The folio flags are
-tested before folio_set_referenced() on purpose: a load of the flags
-right after that locked instruction cost about 25% on order-0 pages in
-the gup_test benchmark below, and reading them first brings that path
-back to the baseline.
+> @@ -1683,6 +1694,91 @@ scmi_telemetry_enumerate_common_intervals(struct telemetry_info *ti)
+>  					ti->info.intervals);
+>  }
+>  
+> +static int scmi_telemetry_dbg_shmti_open(struct inode *inode, struct file *filp)
+> +{
+> +	struct scmi_telemetry_dbg_shmti *sblob;
+> +	struct telemetry_shmti *shmti;
+> +
+> +	if (!inode->i_private)
+> +		return -ENODEV;
+> +
+> +	shmti = inode->i_private;
+> +	sblob = kzalloc_obj(*sblob);
 
-gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
-per call, median of 15 runs, two baseline boots / one patched boot, on
-an x86-64 VM:
+Use some __free magic then appropriate no_free_ptr() after
+it can't fail any more.
 
-                       get_user_pages_fast()   pin_user_pages_fast()
-                       before       after      before       after
-  4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
-  64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
-  1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
-  2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
-  2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
+Trivial but might as well.
 
-fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
-buffer in 64 kB mTHP, median of 15 five-second runs:
-
-  bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
-  bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
-  bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
-
-IORING_REGISTER_BUFFERS of 1 GB, median of 15:
-
-  64 kB mTHP           6179/5998 us  ->  1599 us
-  1 MB mTHP            5790/5801 us  ->   893 us
-  4 kB pages           7173/6741 us  ->  6763 us
-
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Co-developed-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- mm/gup.c | 65 +++++++++++++++++++++++++++++++++++++++-------------------------
- 1 file changed, 40 insertions(+), 25 deletions(-)
-
-diff --git a/mm/gup.c b/mm/gup.c
-index 8ef41353afe8..b0a0019de80a 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -2936,7 +2936,8 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 		unsigned long addr, unsigned long end,
- 		unsigned int flags, struct page **pages)
- {
--	unsigned long nr_pages = 0;
-+	unsigned long nr_pages = 0, nr_batch;
-+	struct folio *folio = NULL;
- 	pte_t *ptep, *ptem;
- 
- 	ptem = ptep = pte_offset_map(&pmd, addr);
-@@ -2945,7 +2946,9 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 	do {
- 		pte_t pte = ptep_get_lockless(ptep);
- 		struct page *page;
--		struct folio *folio;
-+		unsigned long i;
-+
-+		nr_batch = 1;
- 
- 		/*
- 		 * Always fallback to ordinary GUP on PROT_NONE-mapped pages:
-@@ -2955,13 +2958,13 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 		 * permissions.
- 		 */
- 		if (pte_protnone(pte))
--			goto pte_unmap;
-+			goto out;
- 
- 		if (!pte_access_permitted(pte, flags & FOLL_WRITE))
--			goto pte_unmap;
-+			goto out;
- 
- 		if (pte_special(pte))
--			goto pte_unmap;
-+			goto out;
- 
- 		/* If it's not marked as special it must have a valid memmap. */
- 		VM_WARN_ON_ONCE(!pfn_valid(pte_pfn(pte)));
-@@ -2969,7 +2972,7 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 
- 		folio = try_grab_folio_fast(page, 1, flags);
- 		if (!folio)
--			goto pte_unmap;
-+			goto out;
- 
- 		/*
- 		 * Recheck the PTE after grabbing the folio to detect concurrent
-@@ -2980,19 +2983,25 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 		 * would not detect that we are walking a detached page table.
- 		 */
- 		if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp))) ||
--		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep)))) {
--			gup_put_folio(folio, 1, flags);
--			goto pte_unmap;
--		}
-+		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep))))
-+			goto out;
- 
--		if (!gup_fast_folio_allowed(folio, flags)) {
--			gup_put_folio(folio, 1, flags);
--			goto pte_unmap;
--		}
-+		if (!gup_fast_folio_allowed(folio, flags))
-+			goto out;
- 
--		if (!pte_write(pte) && gup_must_unshare(NULL, flags, folio, page)) {
--			gup_put_folio(folio, 1, flags);
--			goto pte_unmap;
-+		if (folio_test_large(folio))
-+			/*
-+			 * The reference acquired above keeps the folio stable
-+			 * for the following checks.
-+			 */
-+			nr_batch = folio_pte_batch_flags(folio, NULL, ptep, &pte,
-+							 (end - addr) >> PAGE_SHIFT,
-+							 FPB_LOCKLESS | FPB_RESPECT_WRITE);
-+
-+		if (!pte_write(pte)) {
-+			nr_batch = gup_pages_not_requiring_unshare(NULL, flags, folio, page, nr_batch);
-+			if (!nr_batch)
-+				goto out;
- 		}
- 
- 		/*
-@@ -3001,16 +3010,22 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
- 		 * see Documentation/core-api/pin_user_pages.rst for
- 		 * details.
- 		 */
--		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio)) {
--			gup_put_folio(folio, 1, flags);
--			goto pte_unmap;
--		}
-+		if ((flags & FOLL_PIN) && arch_make_folio_accessible(folio))
-+			goto out;
-+
-+		if (nr_batch > 1 && try_grab_folio(folio, nr_batch - 1, flags))
-+			nr_batch = 1;
-+
- 		folio_set_referenced(folio);
--		pages[nr_pages] = page;
--		nr_pages++;
--	} while (ptep++, addr += PAGE_SIZE, addr != end);
-+		for (i = 0; i < nr_batch; i++)
-+			pages[nr_pages + i] = page + i;
-+		nr_pages += nr_batch;
-+		folio = NULL;
-+	} while (ptep += nr_batch, addr += nr_batch * PAGE_SIZE, addr != end);
- 
--pte_unmap:
-+out:
-+	if (folio)
-+		gup_put_folio(folio, 1, flags);
- 	pte_unmap(ptem);
- 	return nr_pages;
- }
-
--- 
-2.43.0
+> +	if (!sblob)
+> +		return -ENOMEM;
+> +
+> +	sblob->shmti = shmti;
+> +	sblob->buf = kvzalloc(shmti->info.len, GFP_KERNEL);
+> +	if (!sblob->buf) {
+> +		kfree(sblob);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	mutex_init(&sblob->mtx);
+> +
+> +	filp->private_data = sblob;
+> +
+> +	return 0;
+> +}
+> 
 
