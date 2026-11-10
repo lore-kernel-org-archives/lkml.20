@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323007;
-	b=1lsLVUvRp1YJpo902oiglmjG3qI6BHqU+xiiMvoNBGL49/bOfNTuLCDh4XZDvQB+8mLm
-	 BFE9l8o2bGNJor+bp1DhQ4Ir39g+l7p2i2eAZtgqIaSTc3WRw+i/Bukb9xK2MYGv9mslK
-	 S+mRzjlfwkPQiULhDs2CpqL8vUgT1u4vIJIma5gbe2p3pbcBGf4RG7vQMBGhNlRdGbJXu
-	 6+I1tnV7tL+0Ql5vX58loRrw0kX1kS/Hh/4gCsTm6Tr12N3UiZ/TZEd1TgTEAMt2su2RT
-	 luWNqYvUM/Ci5lqMSr7JC3/FPqvV/a7eAiEReC/jM5xAufO+f5XbXA24Z3mwQvhVaUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323007;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=8IfQhFatm69/QzUFwynlM3k1WKbnUbQP37INwDNgvZQ=;
-	b=iNPt9PGLK8oaes1Rzc32MULKLDEhxarSLzZ8oOtglpCURzW/w24gwPcynU5V0Kk9WOX2
-	 ezMU53WK1pSq8ocOpW3tQGcHc0XC+ma5A/B+qt9tBeHyUmIak8Yw1BOrJRPxZjo2Tsp4i
-	 wCpihitMnqi8/XRni77K/Z12mVeaI/fyr+JIehd56sjRIFSuii7fDQYplkK7pNqKHJ/vB
-	 OZ+mnb5A3bNwlVti6yGUypqEpe7wSkfS4iWFfyjQlf/gUx4hsp+Nj62jJZ/BoIxLK4sqn
-	 uAGl6htNxqtM2qdyKMNZxCBBwbbGi5sIstn7lRFlhfXYbfeZR9tfTR8XojBfQfIvzaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FJNalWXa;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794323009;
+	b=IA6mJcDcSz4ZI1krmuJiYIcPzQn5ejgdOTVr+iyHoBZn0M3aQwLoIJss8HvGLFx2i35u
+	 bYjiEjKmrejfEi7AEVyBaB83sPq8JmU8kJ8I0c/zA5D0YUWijEnkxTQRGSo33Usen7P7r
+	 D0hJkwb1WgHPGgFd29dHpwgdt7m01N8SmIBDVaznHxo+Ew6ELfN2AO4ga0A/B8sem09Ph
+	 nrYNo3nkOJmdDLHX3VYEKOkCv2tf794FFKY9w5eQwQLkE9AtMRa7w3ksShjXXm+7d139u
+	 a6OJh5yL4x6sjSmwAOI0CLjLgEi8p7gF56yjkE11G5Ff8xJa35oojQCiRbfOrnAtxow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YlUiTNXIMjlXgOTEsBKhouLB5i+QwsG/rXvMprRtGXk=;
+	b=n8iADll2snHBzpZowppSKLLX01ld+3DiUta6ARZGt1/TQXGe9zn2Bm6NwbimK8FG9r+w
+	 XmLdpLnLGb6j8AYVSiESk477soD5uUyL8l+Hd5dRd1Ixxq3yA/8IuqTR1A8lK12cg8wdC
+	 mEdgrETnPdcqcsddlIh4u7UG5HoVzLTaMvUiJkVyKdHD1Kl3WEg2zsCYdM3FVVOxPIK46
+	 GbUU0Aj9bRAIJTrWVfoFygwyG97Reo+6A3MW1AKeZc9uEZiSbV0ZhauXi2KbW2fGlDs/+
+	 1ErmC4Z57C9v7UE9mhXflmUsXDgwx7mOPO8iYK2nDtERuFoV2tpgPZMjVW+hYgVaFFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z69LtUaA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937C3606A338;
-	Tue, 10 Nov 2026 15:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 937C3606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFBC60A3833
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:03:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFBC60A3833
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FJNalWXa
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8zW1PKtz4xPS3;
-	Tue, 10 Nov 2026 23:03:19 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794322999;
-	bh=IBidnU3G++uWwfv2iMzuGg55NnOYFg7OCGfTXFLXIjY=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=FJNalWXaS5WB708ZczLwpF4u2QcRYHnKAjt+JHENSuf7TdbOmKU+wyZDarmXkw54Q
-	 oOmWZHK2mh0DSpZqE8Xf75W+GmTYJBglQ+aJZytRN1y+s2TUoJLqBzK0z3A6KNZ1ZF
-	 oR2Ei/Zm9sIfY0I7lreVzFk0HmSXOxVEDoG6nm/foJjrVleYy6pLGZkzJY2BT3T4kw
-	 SCl4YDsvfOoyyuBW8EZiyVlGC8NfYKb1/cIRlY2I3zd1cJxtWmjKv0dsLDp858ucrn
-	 0murj3y+j3konWnqR/DD1S0PAYJL57t5j57T5kcNpVSEhmMc867GtI4e2o24f238gc
-	 2SeqOA3/ePzpw==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6AAF3DJO011153;
-	Tue, 10 Nov 2026 23:03:13 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 23:03:16 +0800 (CST)
-X-Zmail-TransId: 2afc6af332343da-01a1e
-X-Mailer: Zmail v1.0
-Message-ID: <20261110230316687z-VG9wgpFwmzFNKVnMGKY@zte.com.cn>
-In-Reply-To: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn>
-References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn
-Date: Tue, 10 Nov 2026 23:03:16 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z69LtUaA
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ada7d53082so23365661fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:03:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794323007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p8q8CwiKfAXueCocNg696X4M0kuR2jM2bVWEPSEoRKiGmCoxxz0gDM+gJp0qsJ+EmN
+         JBjf1DKBEyibno7FbeI5UFskcG8n90pF3yzDZ9R+Og9/IoU3uh+XdSFfZ45ohnjszn/h
+         77AVTxCDgJJDn7ODDJD5XktFWD1ztZpDIhVfo3mhkgISVLFEeAIGnR6lnGKuydstl+1J
+         8fUgNB0ui9WLns+FQW83Ywf3MvavOtBYol0Mr5Y7s9Rqg81jA20fHM4qFyrdbKYmbRp5
+         A29h9PUx0yLsHrEcKV6QatRUTeDc8AV034IbrS7P+no9F/UeI/GyKDNFTTSD2zKoeDi6
+         v2tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YlUiTNXIMjlXgOTEsBKhouLB5i+QwsG/rXvMprRtGXk=;
+        fh=iFzfW2SYBAdq+g+8c8LNYFXxHtnqS6bdWnMzvvB5upo=;
+        b=Qc8G9QmLd/bh0AgEJ8Txnn7xJa/hFodaG4tHLz+gt9eAClMF0cZG3o3NhmQuytmAxl
+         A46s8cqux11be0mRyeeBCIHUFrM1c07Xb7/BAJ5+D16JdjjRMw6KwtsRIPMJrjxhssWn
+         QarZbp02lpUvn+rkfAAMmotAB/ovGHCr0oJY14ajWv38CApHHKKG6nIpbaVIWJkB2eLp
+         g/QhylWOZIMnQG39icCfF1NJbxZ5sxgTnsbnlqsxNWYQHtPdnxc45YTFLjr/ZpB7yOxd
+         ZS4Y7lPAUEQZnoFPYaxShpDCnjvojnDIrO9bPJxVpGRgqULoByIARuM4i6EVWvos2/BL
+         4uEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794323007; x=1794927807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YlUiTNXIMjlXgOTEsBKhouLB5i+QwsG/rXvMprRtGXk=;
+        b=Z69LtUaA9Qm+rVdhWfCFDz3R4Jvj/oYM1wH4pvR8qQmIbqpdlIqN5KMOyRP+/Gsd4O
+         3t4a1XJMCzrv7jmqHKRion0JdOCNnxkSyxTAAmOkGwCVkl4QWpp12Y2nPS6WrACK4VcU
+         u0xc1i/MYputcHQdWyykehcf+lnh3FUrdQQTkyj3S/e1mpCjzp6c1Cq9+vaDT69k9wl3
+         4pmGYg7IB1Yc/La1UJBMJwtCtCiR1aUQCAPo6cfM8g5xnJmniBK0nLtredDasbiQf7xy
+         GG1TbThSakK0OYMl0R5OMB/iDErwEU4KiZkU7jsiUmECMocybm6wGdqf4DGAx+gmVyiR
+         WWZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323007; x=1794927807;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YlUiTNXIMjlXgOTEsBKhouLB5i+QwsG/rXvMprRtGXk=;
+        b=MYCiIrvfrHpJ/shk2xvN7aOMLjnuNuikSjCEs5cDM9i/U4JC8KR9BPiijvl0nrtK2i
+         mJG39WfPBkt144DoEsk6yyphX2KF+BDxxFXwRbyFBdNWTrN8CQouIUVwuV4xQQABBfiv
+         W+NW6U2WUydkODPucRmhDFgxvr8KKTwh5JZFABd06DYM+6eVgj0QYiCyR6JKBe6d3aNM
+         ZR2wz+iDGH+Upu8Dm5JzmQsPLwh9Pu1zLEOGpNGeCnZXMpeO+tb/ViqWkLrBxwbHqSm5
+         glhSFYTU/gMsOqC25uNRUWmPCtz8czRL5lL4YoroXdHboQz2zIme+qeGBCrKfwwUpWr5
+         Yfyg==
+X-Forwarded-Encrypted: i=1; AL+hErGKtBXWrbAwmpjdEZAH0gBgcxQJ+NrtyOz6dprY8Xji1U/GOpqmnAgh3CfAcARgBVEBxEfvWwUIrfI8qSc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WfFUWgnOC9xEYE/ttrepwNc9YzxBWxCbpYiwoO5xKdw9Mx7OK
+	hjnhj3mNBL5VY/KrOTgxfloRAojc4j1fRtcpiT+YwrWjFgynf44wbT11CUfpquNdsch3J58oJOb
+	RIkq+5FjxGG6yz8O9fTalN8RI2E6OlZo=
+X-Gm-Gg: AYBFou0avWvD6u1kFSoRT1SBTgDTSeOEC7pVIXdGWOVVHzaonib4qpcwFCKNsMcTfE/
+	yvu1sxs1YrLed0L2JdCftHw41h8yivqbMaemMKa6I4lfidGqjPYR3krxXLHm7/EyrkZm7Ui/7/J
+	QKWCv72tyB5xIhN2pqcl6EQYwR19y1tmLL16HNKrHpboWJZ1g31cxSoRRsAR10HsnuRNbDi7YbU
+	0wl+xu4yJo/Pc9ju2M+MoncDxLYZgnwrEpOWxb4iY0+j8hp730tuyEn4ecouPJsxj6wT6yJykxz
+	Wkrc1glkEhVUNm/RlYjG2/H/kjABU2X9/dqRBXmUQM57js4T+6jTfGYTahFru3QGQzgalaAVcFD
+	/6Q80ye5vxg5ZQJUFTfWcdQwcLjTpz41DrMJ0UGa/dqB9H++PgpipAhbUCOHUMuGRgS8ZVxJULe
+	0jdLcay9iy6WZzyabM3FCzvNjnqkQp/8rliZkAKc7lVjPS34hY9fIH
+X-Received: by 2002:a05:651c:2109:b0:3ac:43b3:d926 with SMTP id
+ 38308e7fff4ca-3ae096294d7mr5021961fa.8.1794323007374; Tue, 10 Nov 2026
+ 07:03:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,70 +104,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDYvNl0gbnZtZXQ6IHJvbGwgYmFjayBxdWV1ZSBiaW5kaW5ncyBvbiBjb25uZWN0aW9uIGZhaWx1cmU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AAF3DJO011153
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 10 Nov 2026 23:03:19 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF33237.000/4jP8zW1PKtz4xPS3
+MIME-Version: 1.0
+References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com> <20261109-zsmalloc_stat-v2-3-caee41684aba@gmail.com>
+In-Reply-To: <20261109-zsmalloc_stat-v2-3-caee41684aba@gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 10 Nov 2026 08:03:14 -0700
+X-Gm-Features: AclHuK8U6EjSJrA4lsG52yvDTvd52iwZkoWxsdfsxr-TxwaKQPnCzHoNe4WNlDk
+Message-ID: <CAKEwX=NEw=T6xWuu3Pv+v3Yh1BvfkGKRj-Xd3xxn1Ci_fkA9AQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] docs: zsmalloc: describe statistics with CONFIG_DEBUG_FS
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Mon, Nov 9, 2026 at 5:59=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
+om> wrote:
+>
+> Zsmalloc statistics are now available when debugfs is enabled. Replace
+> references to CONFIG_ZSMALLOC_STAT with CONFIG_DEBUG_FS in the English
+> and Chinese documentation.
+>
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 
-nvmet_install_queue() publishes the SQ controller pointer before
-claiming the CQ. If the CQ is already connected, it leaves the SQ
-pointer and the controller reference taken for it behind on failure.
+For the English documentation:
 
-An install_queue() callback failure also leaves the CQ bound after
-clearing the SQ pointer. The reference taken in nvmet_install_queue()
-is in addition to the one the caller already holds: the caller's put
-releases the reference acquired before the call, while this one belongs
-to the CQ binding. It is not released on this path, so the controller
-stays alive and a Connect retry on the same queue keeps finding the
-stale binding.
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
 
-Clear the tentative SQ binding and release the extra reference on a CQ
-conflict. On a transport installation failure, destroy the CQ binding
-as well, so its controller table entry and reference are released.
-
-Link: https://lore.kernel.org/all/20261106015842.3534898-6-kanie@linux.alibaba.com/
-Fixes: bb78836b3a7c ("nvmet: fabrics: add CQ init and destroy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
- drivers/nvme/target/fabrics-cmd.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/nvme/target/fabrics-cmd.c b/drivers/nvme/target/fabrics-cmd.c
-index fc626c2fd2c9..6f0fc695e649 100644
---- a/drivers/nvme/target/fabrics-cmd.c
-+++ b/drivers/nvme/target/fabrics-cmd.c
-@@ -216,6 +216,8 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 	if (old) {
- 		pr_warn("queue already connected!\n");
- 		req->error_loc = offsetof(struct nvmf_connect_command, opcode);
-+		req->sq->ctrl = NULL;
-+		nvmet_ctrl_put(ctrl);
- 		return NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
- 	}
- 
-@@ -242,6 +244,7 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 
- err:
- 	req->sq->ctrl = NULL;
-+	nvmet_cq_destroy(req->cq);
- 	return ret;
- }
- 
--- 
-2.27.0
+(but I'm mildly certain the Chinese one is also correct :))
