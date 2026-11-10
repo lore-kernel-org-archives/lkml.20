@@ -1,102 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316231;
-	b=JmfZWf1mDabhd/yMeNsH2OewKl19gIbEM93O9czDxoi5WWh0XaS0eqUgOpywN33V0mHr
-	 Abci7YXCBSonqvpsJ0I2s1ucJeL/qoCW1WvUNEe9AGtSqwu4Le7zdATnr2WsFJlf8I1b+
-	 ONmiEfHRAhUr3nd84iJzZoHGJWwn6vmnK3ZppTc3bbNtgS176c3fkCIzwlrgeJP/piGX6
-	 /K3fShoLT2fQd3BXWsw5J5bwnyer6NMcwTMfiiRxi6AfqLe2JKStzzUliKiJ5D2ncf8EK
-	 fGyVidL8i9auZ8amzPdLjhp+HPckZfy+UfwCrw9vZFgHW2sCPbqa5lh45JjnRKSdUSw==
+	t=1794316224;
+	b=c+AxsGvehOejrzPsklAt9vudfbPwUovm2sJyKDiDrejfa1HEDslQjFXFTZQeZUFms3mO
+	 wIuEvGtyT8Ts7RWndapvtF5IbRRbRnRfIJe/bLRNHydMn/W+gAj47w+mmR9XsTVCKW/8X
+	 hFIJqyFiN2McEDdeVJdsggNJoIUjuYkztrnotlIV29SjBJNpdbiUU3EqTpUxJH+CrV0kE
+	 2Os0QCJqZBjkHDXMJRx+c31KvbQobj1C5X/t0kycNWxzw0ZIlUOHQQI2rrZeo1AC1Z+Ud
+	 kUXnbdFMg0q2khd5OfX5PfnI9JGNC3+LlZQ2z5jPiDxkrXZEoE6y8NqAnlmAfEFlPNg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316231;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
-	b=2z/9bP/uY8LqL37EGDx04Ozp5wIn2jc2Qp9vZIACl1lW4hp0s62FQWFr7GKaIOAAkynP
-	 eCk9CJXARPXj9+UAz0put2QPA3czoeuEPyojHkxnEfiBtuUCzmIcoe79n58ZXdbjnJCVT
-	 R6lTfO6ldHJSEEyLyJ6Zkl5a0/pfDbVCX5L+KmDbu3RbYtcfLcY8Ff/5XR91qgqXbAOta
-	 u4dsIuQMYiqz34mFYJBboiUum8ojmWg5fLtw2C+hXYEKw88UOQgpUa1n93sapFflJlgD/
-	 Vzto1QPB/X/gd1okcL/ZCcXBAIu77Tc51Zkp97vudtgFDHHq4wvz9Bxtekz9gZ1N3sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316224;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=Wf6FI8o1Tmvt6MPDSJKVt2QYAFo7R4D0jsMuZlMzEGg=;
+	b=Cg1rjl5LG3CtE/RCpc0l4KnmthLnZMoMY2r7dFxQ2LFStpKquFs8HTovA5Z1TrIbM4IP
+	 rrSvMS7sFlsbIiVqCbTtR4QeIXQ6HJjQXBfnhqyeksKd/pLfk88vXMQRTNbEOMe4/t6OK
+	 HOWrKJMR82Tka8GjIaKl+oGaALkPdxTxTh3RhTG1QlRx7B1fsCyYKLjs2FfCVsA+pd66Y
+	 SxRJ/LI75eI9Vyz5+vryYEFt7f+5Am9iFyn6jg0Mkncf/HN1PwhCoKxLe+gkL5RR3B9+7
+	 O9N8gG0qeNopDwaMvze+zq85/4sgGSgDca8NC80DKZR2jp3AJMiRtx6Gi8so6wvqHbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nc5us+5V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011062.outbound.protection.outlook.com [52.101.70.62])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b="Y28A7/A8";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D19606E45E;
-	Tue, 10 Nov 2026 13:10:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D19606E45E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76898606B2E5;
+	Tue, 10 Nov 2026 13:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nc5us+5V
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uVr6BniGqJGv0CkKmol5L3u2AyYlSO+sQNEF+1uHnwlmzreKkjUojfH0XVJ1cBWxpX7OSgBAJSuD/bO56rW5INyrgcxv3wDYgQCtxa/8/4O99bbbk6x2DJilHfm8CQ5sick6/Uga1Q8n1baJ1qKroWB8Ft1gOy88rEkjmisjGx0v6EmAgBf9//2fnwHQCFj66yLEGTg2trZnObOTfsxq8ZOLhbfO55+J9P6QwnUX05pMLS50ZX2qS8+vYZg+rUTkQlYMBqw0B0Fi5i3hhqs6omMpLeC3Q/u7vBISffXY45d6IaKD2qGGDzWqA3/iBxX/8P66A1LU3I5QI/GHBIbJ2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
- b=S5WTCNLOQyrThTsWXqs9lxJEYwYN18Q1kPfaL0gimW7GynZFv55yy9XFsUTz09aOjpNGEG6LvMiOhcGQ6/OeJLo2gtosVAGBZy5fNHcTTtFR1Js9/95fIqWgHU7ZNdvNJZZemraTJte1cvSUzn2OORtZKMbvHoRHUo1O4OPub98Tw4HLQK/druj7lHTzTQ1/NfyfXjWjnG+OekzSGIN7kUjGbI4sIYdVK2tWXclP/tGo4lsy0AQMIgIBki3zDhagLDcbVOumvQP/ct3w7+8Xd7k88WJRO5Vfs+F9xT8GGXBpKb/LpN+pQ5g8/zdSQU2O76e5k50c7Cx7a28AWLyA8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
- b=nc5us+5V5CZ7afhfCqY+KbRhLb3aPz7Bi1nRe+oPmwCbYjjlkY+4LLCKLwPHVWD/CrRhe7YyC4YTffFAZQdl/jgcdYHT8JzFiYTC4lzJUlVp/cJsCTM02MQE9KuADfrsUmMm1+LDWxChkEf0DcUeTpGL6aEGbNBreyZQCHEKVTdgI/2JXi/k6hF2Q4jLIO97SjypvZmk0WJyUpSqAZ3+zDarJ8RRQUFtV9bVUj7Wdl3b7JjCeaKtvci9mIXCV0Kx3ZzPAl5r+/VHN0WekbeuCfeu+xrQI5CN1d0SCDYTPBz3J++7Sxyyrua2OFjp2XT9n19dJ1UB01qZv7UP7ImpSA==
-Received: from DUZPR01CA0047.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::16) by DB8PR10MB3800.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:10:167::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 13:10:25 +0000
-Received: from DU2PEPF00028D04.eurprd03.prod.outlook.com
- (2603:10a6:10:469:cafe::53) by DUZPR01CA0047.outlook.office365.com
- (2603:10a6:10:469::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 13:10:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D04.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 13:10:25 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 14:11:21 +0100
-Received: from localhost (10.48.87.14) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 10 Nov
- 2026 14:10:24 +0100
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Tue, 10 Nov 2026 14:10:24 +0100
-Subject: [PATCH v2 4/5] arm64: dts: st: add LTDC pixel clock controller on
- stm32mp23
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=Y28A7/A8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794316224;
+	b=u96ctbK15fimvpEwFSCsKBblMwwlygJD6MHK+NnVU5Cp/Ij1szYtkFGAgNX8rrnTmUHm
+	 oIuGTqFaiXpAqn1T5p+d4fUFWlzqAHLfJeGi54/mtZIPDiWyb5No/fFdTx7MqE2MyhY1S
+	 //PdXe9WFMRK8ya1Atr2izahdRaN4su0p5Nqv1Ym9viOV6TP94qWeqAL/OjRdhKwMWVOR
+	 0n9+BPzE+Z9nIm3vhhu+cJFcY4t+JBeKhet5nBWTGgDGnrd1OB4z6l0enfM1BB0AFYbp0
+	 FXfJblJ7tFZj/4qIbOxwbcfHdU9dEBobJn5upAb1oTuXN5eZ872GGCQ1gf4uJ+mGuEA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794316224;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
+	bh=Wf6FI8o1Tmvt6MPDSJKVt2QYAFo7R4D0jsMuZlMzEGg=;
+	b=GvZ9lpMcGuqgAj7AiiOgMbci7/5la+43CZdNo/NH3l328RnxTC5fCIHgRLY+bwGd4D3O
+	 pGdSXjZlbhrK68FxbGuFdMFHrt/qIVEWR83hVxp5XPnjJSGsoEqxMgCeUXOPar/ZCLZu1
+	 qn+ssFp3fQRfek589CcDYEep6ObElidU/thCNp3Bh99ORu7rQQTSPJPFmbSaHPlHudpVa
+	 Db+p0zTO+2QubYr78mg37a0jXU1F2w124jZ0Lh1qaQgqTDIGo+S7Ml7RL4MdIQxnZS022
+	 AOgTxdS1WBLhOrSrN68Mh29xL4TIHqxgGwaevk5nCvi7XjkDQT4C7KXIRWt+qdiIK9A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4F6F31F008BD;
+	Tue, 10 Nov 2026 13:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
+	t=1794316224; bh=Wf6FI8o1Tmvt6MPDSJKVt2QYAFo7R4D0jsMuZlMzEGg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Y28A7/A8UFD8O77GCIzFcrZ8ts//ln1zP7UboCXErbGumATp9JewvS+uLCqoLbt6h
+	 aCBYj8QL2uFc7VwQto9zheVXWV0DV06X1B5Q5VRdqy8aL6tR94PV7TZo0xAVx51yEN
+	 zahmJm9HsSNcL2vQvwiUolbrjkS7QPFh6Jbi+LfM=
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6DBF348B82;
+	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
+From: Richard Leitner <richard.leitner@linux.dev>
+Date: Tue, 10 Nov 2026 14:10:17 +0100
+Subject: [PATCH v3 8/8] media: i2c: ov9282: harmonize dev_err_probe usage
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,124 +79,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261110-ups_mp25_clk_syscfg-v2-4-624559bb8ec7@foss.st.com>
-References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
-In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>
-CC: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	<linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316221; l=2481;
- i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
- bh=J3VoNyzLZYqMQiYBHkizPxPBu93SdONk+DBtz+5ogUY=;
- b=25y0vmUISgKDTFsY0ZcE+jYqxi+ywrdHrdlttKk3nOsHAq6bGuarSHYj6zs7Wr9Ug+/9NUFsc
- yMvxorMOnlQAb04zbGD+LLQvvkm0RnD0aU62JHibiv5Y+S06uGjP10Y
-X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
- pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D04:EE_|DB8PR10MB3800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10e4e4cb-7e32-43d9-a343-08df3f2bfbfc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|22082099003|18002099003|10067099003|11063799006|261102123227099003|261022105027099003|261026140227099003|261021123027099003|261021135927099003|261021121427099003|261009223027099003|56012099006|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	237G31NBytgSTkKiGFKJS1Zt4bOojILF04bQ+L7T5KW3H2OzBIDUpJ/QNmM4Fr+bC7XK2XITscOSLnxAOxPpMGWplaK4brd1IJhlvUFwElGKn/7miiX/GS3tyZnnvChZKjBfkhbIk78xAaqQoiZ8vsIGfQSwaHbvq17LvJbr5iz9Z1X9Csu6xwWjQinv1Ij75CysT+otSsbqA2do9kk6pK8IpXhvDpBV8dh0iADzIfEcfgn9LGTHF8DzwqQoV11nbwchZHCpByG3ZpREC5XEIRO2njr/kNARWnr0XdR+aL9YRLUpeaI6qT7MI9giwM9C4gQd4Yv3ULQoRVib+IV8fJ4QuIcOdlRgt01fgB8sCb/+MAP1WW15oxySl+rzHMgOrIzkQ5zW7G2iF2GVUnA/jCgIdssjsipcnirrE4Je3cf6ClJ0pZ/WAAnQtXLkSOtwwyuh1vwvQqsNwdUScUMfnAm0sHMIEcL0tmLa8CRCE/O6V64Oxw19OmkVHjd2UiAQIEX8SDaXBB9Rd2DjSRAmW/PE7JtVCIYI0yv7ukV1sm4iGiydLymfgiKOHRkznOaMBFGbr3uSO8V8BIpapmsFknhnjuD0ucBcfthxsvZuXYSyj5luuxkLtDMd7rGeHzO8vJfLptwsi7ibAmSZYJSnp8H2NxEMKBFBxDcFukX4Ow9qye8L6T1u79iK2mkTdnyYbjsWOIk4CyUlq0gg7N5nYQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(261102123227099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021135927099003)(261021121427099003)(261009223027099003)(56012099006)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IS5r25kMWPEBmPtpsiF/+7M+fSmk1zB/vDaBbhHijfFi9HMbl04iIg1Ti8Sjs8YymV+HzIJ/72smwZYGSZs6MDm3NdLA+l3sWRxkCfzcPMTgR3JVU2E+BBo+mgQBXUoc9mhkOtiszwF5Q2HBKVSKyyPsZhqfZrs2kRMiwsHmKRPDi5gtmNHS8lQ6nThczwlXHePYRPZL4wzMUfTBz+q8qIPHiUZJPnT6iUlW9A/4J0W//cVmmP0dArGCk4HSozyUR0lKcIcLOIcAYxu8lzbX4cEAG4BhueTv6ap1jv9woPQIvsdnRGXXLUrKpxonWkZuROtiotqQb1UGvnqO3BQElVXpSf7sTiGjTZ7/UDrK2zCEb0CBomz4RG3D2iZTqC57ZFU0RbfbGOFo0yJNCPYW+TvAxoeT1Pi4ik3vNitRqRLGfRpGXxYf24Buc0dmp1Jj
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 13:10:25.2558
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10e4e4cb-7e32-43d9-a343-08df3f2bfbfc
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D04.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3800
+Message-Id: <20261110-ov9282-fixes-v3-8-cb6df80cbc22@linux.dev>
+References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+ "Paul J. Murphy" <paul.j.murphy@intel.com>, 
+ Martina Krasteva <martinax.krasteva@intel.com>, 
+ Richard Leitner <richard.leitner@linux.dev>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Jacopo Mondi <jacopo@jmondi.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=3822;
+ i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
+ bh=AdqD65jRSys4ZCILKgwTUAa4BvnkFI00p9DtzkspV4U=;
+ b=vY6obKzzB7mkF9EVat+K65QhCPlMcS2aBpZNjG+iXyj/bbb046O7I8bIrhZ81c99VnApqRL6x
+ yR3YbrKwzFVBn09mzPYpJ76CT5MpIqpZrhB0vgngDsVnEoCaQ+1Gbmb
+X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
+ pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
+X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
+ with auth_id=350
 
-Describe the LTDC pixel clock multiplexer of the SYSCFG as a
-clock-controller sub-node and use it as the LTDC "ref" clock instead of
-the SYSCFG node itself, whose deprecated "#clock-cells" property is
-removed.
+Use dev_err_probe() for all error messages during probing. This ensures
+there's a common "look-and-feel" in the drivers source code as well as
+the system log.
 
-Only the LTDC kernel clock is available as parent on STM32MP231; the
-LVDS and DSI clocks are added on STM32MP235.
-
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- arch/arm64/boot/dts/st/stm32mp231.dtsi | 9 ++++++++-
- arch/arm64/boot/dts/st/stm32mp235.dtsi | 8 +++++++-
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/media/i2c/ov9282.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index fefbf6f4f153..df446f0c1539 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -4,6 +4,7 @@
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
- #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-+#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
- #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-@@ -1121,10 +1122,16 @@ exti1: interrupt-controller@44220000 {
- 		syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp23-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
--			#clock-cells = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
+diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+index d24fcdd4bcc33..59443b18d83cc 100644
+--- a/drivers/media/i2c/ov9282.c
++++ b/drivers/media/i2c/ov9282.c
+@@ -1079,9 +1079,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+ 	ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
+ 						     GPIOD_OUT_LOW);
+ 	if (IS_ERR(ov9282->reset_gpio)) {
+-		dev_err(ov9282->dev, "failed to get reset gpio %pe",
+-			ov9282->reset_gpio);
+-		return PTR_ERR(ov9282->reset_gpio);
++		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
++				     "failed to get reset gpio\n");
+ 	}
  
-+			syscfg_clk: clock-controller {
-+				compatible = "st,stm32mp25-syscfg-clk";
-+				#clock-cells = <1>;
-+				clocks = <&rcc CK_KER_LTDC>;
-+				clock-names = "ltdc";
-+			};
-+
- 			usb2_phy1: phy@2400 {
- 				compatible = "st,stm32mp25-usb2phy1";
- 				reg = <0x2400 0x24>;
-diff --git a/arch/arm64/boot/dts/st/stm32mp235.dtsi b/arch/arm64/boot/dts/st/stm32mp235.dtsi
-index 7a87c344a4fe..0ef5f2cdd18e 100644
---- a/arch/arm64/boot/dts/st/stm32mp235.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp235.dtsi
-@@ -7,10 +7,16 @@
+ 	/* Get sensor input clock */
+@@ -1097,8 +1096,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
  
- &ltdc {
- 	compatible = "st,stm32mp255-ltdc";
--	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
-+	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>,
-+		 <&syscfg_clk CK_SYSCFG_PIX_LTDC>, <&lvds>;
- 	clock-names = "lcd", "bus", "ref", "lvds";
- };
+ 	rate = clk_get_rate(ov9282->inclk);
+ 	if (rate != OV9282_INCLK_RATE) {
+-		dev_err(ov9282->dev, "inclk frequency mismatch");
+-		return -EINVAL;
++		return dev_err_probe(ov9282->dev, -EINVAL,
++				     "inclk frequency mismatch\n");
+ 	}
  
-+&syscfg_clk {
-+	clocks = <&rcc CK_KER_LTDC>, <&lvds>, <&clk_dsi_txbyte>;
-+	clock-names = "ltdc", "lvds", "dsi";
-+};
-+
- &rifsc {
- 	lvds: lvds@48060000 {
- 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
+ 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+@@ -1114,16 +1113,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+ 		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+ 
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
+-		dev_err(ov9282->dev,
+-			"number of CSI2 data lanes %d is not supported",
+-			bus_cfg.bus.mipi_csi2.num_data_lanes);
+-		ret = -EINVAL;
++		ret = dev_err_probe(ov9282->dev, -EINVAL,
++				    "number of CSI2 data lanes %d is not supported\n",
++				    bus_cfg.bus.mipi_csi2.num_data_lanes);
+ 		goto done_endpoint_free;
+ 	}
+ 
+ 	if (!bus_cfg.nr_of_link_frequencies) {
+-		dev_err(ov9282->dev, "no link frequencies defined");
+-		ret = -EINVAL;
++		ret = dev_err_probe(ov9282->dev, -EINVAL,
++				    "no link frequencies defined\n");
+ 		goto done_endpoint_free;
+ 	}
+ 
+@@ -1354,8 +1352,8 @@ static int ov9282_probe(struct i2c_client *client)
+ 
+ 	ret = ov9282_parse_hw_config(ov9282);
+ 	if (ret) {
+-		dev_err(ov9282->dev, "HW configuration is not supported");
+-		return ret;
++		return dev_err_probe(ov9282->dev, ret,
++				     "HW configuration is not supported\n");
+ 	}
+ 
+ 	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
+@@ -1366,12 +1364,12 @@ static int ov9282_probe(struct i2c_client *client)
+ 	ret = ov9282_power_on(ov9282->dev);
+ 	if (ret)
+ 		return dev_err_probe(ov9282->dev, ret,
+-				     "failed to power-on the sensor");
++				     "failed to power-on the sensor\n");
+ 
+ 	/* Check module identity */
+ 	ret = ov9282_detect(ov9282);
+ 	if (ret) {
+-		dev_err(ov9282->dev, "failed to find sensor: %d", ret);
++		dev_err_probe(ov9282->dev, ret, "failed to find sensor\n");
+ 		goto error_power_off;
+ 	}
+ 
+@@ -1381,7 +1379,7 @@ static int ov9282_probe(struct i2c_client *client)
+ 
+ 	ret = ov9282_init_controls(ov9282);
+ 	if (ret) {
+-		dev_err(ov9282->dev, "failed to init controls: %d", ret);
++		dev_err_probe(ov9282->dev, ret, "failed to init controls\n");
+ 		goto error_power_off;
+ 	}
+ 
+@@ -1394,7 +1392,7 @@ static int ov9282_probe(struct i2c_client *client)
+ 	ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
+ 	ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
+ 	if (ret) {
+-		dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
++		dev_err_probe(ov9282->dev, ret, "failed to init entity pads\n");
+ 		goto error_handler_free;
+ 	}
+ 
 
 -- 
-2.43.0
+2.53.0
+
 
