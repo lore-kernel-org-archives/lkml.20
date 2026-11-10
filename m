@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794295003;
-	b=qAkYZq1c0a9DtG+mXvhMTmHVx70s8Pk5Ugit7VPtrHH7J+U42YzGjC0CGlRovZXl4mha
-	 D+c/wxsIWY/ArHaYwd+ot/wqvaENx+2XtAOSq8LDxsgbYOmRWpIcvUz4boya7pJc4iJSf
-	 Bs8cHk+C+xa9o/z1bmAN/0LFbcBX9RIYh5o+XkCX9Ocfe9OqkjoXCw4mWrgpWrJ91scY+
-	 xZnYWsHM+e9uULtJzELBYw+qDpagfWZR7JrTx9xOZHp0BDalstOn5iWtk7UN8JLlmiGYV
-	 HWRCgWhaeuvXocu6KqWrtXXilpk1AZHbYlYr9EenC/90KLahbAI6pqVGlsk7qd1Ta4w==
+	t=1794295004;
+	b=DyYxsduzjfgsqTHU1dAR4zwbFneIacSMY21WrDWpIkN7AlXa+tpIrAeKNwEj/IXwYvWo
+	 tTdV2HLs1AHgWpfs9fLpkGTZtO3P0jfK5JB/+j5qQfRLct8KeODQdToUHm5VfOWFFiTH4
+	 ovu227U3F1ymlUVXBonhLrYeqd/usmHzfyl/u9Q6V1WBZiDDgGvfs3MXBtKiyjCOFtiR5
+	 ptljA7YSBhd1JNYHC4R3iQCRcEc8C6x5LAqXJ8f5SWMyICa8QDg+1/wfVzqrryEz/I/qI
+	 TrTtq/W8sxkuNTxHgudV4wydZGS84vmCmarw/AXj2t/xtWLoP0k1nptsFEVsQ86OPbQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295004;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
-	b=WGnEhLrDT551b2uDKGrcJ99ui7WDHvdAUJpF0ZAYXPd2ikRPtpEHBJRLDS0LQGFyuwog
-	 xJYE5fIqOGYeBOG+GiDL7NpaIrmi4nHTezU9O1gM/zzb0VkeM2EMKgAArHN8dyo6LsNtD
-	 ZQi3skxkBl6b/H+2xfcACTO2dLNJ04WYBaCN+hpjaHQyqajv448YTQL+7fpqWzI3dC6B4
-	 uqJaFrETgzE18rjxokCtA64zxKT8NHlW8I1nwY2S103MmtobFB4sZPUrVu0SkHByJbsgq
-	 hk1jS/JhrkLkjwxwJgCiLWjzPesM41Nbz991h/NFK9ZdxMffUDa5AKyd4F/MBEf4VOg==
+	bh=qpV0pz12woDsNWDVu0NdvtRfQjvhuOSbkbw+V52/SDk=;
+	b=5p1L8agv6kzsAPXykovhJZV2bpozz8yDNUd8j1425/cJHEa5h+h2ugRo780cMLOi9dQI
+	 AB0aPOGl2FSvCOnTgPP8Mx+xk3EUvTeA/6lMq+KIDZmQ/3fmV457XlE9iU2kyk1T6kSKW
+	 83yotwzvbiYDiHCnF/BfIlJLWS0Uqm33rfGMgJ/F1n/ThnV1WJ3jRRQibLoiLTIWfaNIq
+	 EF9ARttoagygAC6u9zlpdSd6e+hTxAxeLm+72rdli+1BUCfStU1JeP8/bRSLkCTMj5I4S
+	 /wmtpbngKI1zhBZWnHB7GWNRSYAquChc6A6ueZuizJNx1Warf4WimK7Pp+AKhzi9Ykg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2bh61aT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSvCxfym;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A51606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EEF606A333;
+	Tue, 10 Nov 2026 07:16:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2bh61aT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSvCxfym
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794295002;
-	b=gM5488e2uoT86yhwhmByI9RIsje39KGozq4bid0bGK1M5BtTMKWd9j3oo8iK7I0L+zFN
-	 T/VZo6vlV4e/x47R3FWSaQxj06MPUM8fQ4zYo+wZvDvygGXly5D38zafBfwQdYFP0PJds
-	 gzYj9EgElqcfYqDkFfrz1FtNvutTsGfiK+GtyarIJTyEl1XNZc0bFJwbCR7Ov5SJ5MBtk
-	 ZXYRedUkIM1S9UQF+S14t38GFIX0LBYeysyxXFK23o2sI8xNJDRxEjGjFwdKljRQGA966
-	 SxaZR7K1kj30ZG1GPLsTjCJSylp5J+isBBmfmyNxEcv3du0I2/d/Iz8QAWLgAq5LE0w==
+	t=1794295004;
+	b=z0HD/eRyvB+kYN+nSiyRqfZ5CR2nRYaYNh3n44E8YI797n/U1yAjuI6ZCUijr7gasaeB
+	 YaTLzqnuz4HZGyZ+/JLgBfDKCvljVc4avbSIqUpPROmd/R00rBnv6Q1/w3uhy2VZ7jqfK
+	 YGMLwCDEb00Bfms7NnCnf8xeE52e4f3urFJHqvsAdkTnb0fwOYolPcR82Bg2r2BdaFSo/
+	 j8E1hWOjLn91hXnH+WoY4pPpSijxZSA1LjkujM8N8QNl4iRUlwgNXz3znKUKbWMhGeeNR
+	 CfZfXtQOtuMVR+WyQXvwU64UYOeTbRiK0GFuMQh9S5ITZh8J5eTM9BacUApVHUUDm0w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794295002;
+	c=relaxed/relaxed; t=1794295004;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
-	b=U1jrm3VyX7G4w61bWcxvwhlMmQlJ1schpNKEFUydSFmO+JsKQe9esB9f+CPb+ZJfIoWV
-	 5MrMELn2IVgj3k8/0y/xeksLohHU4T4izZQWACG3Gbv6sm276wZ+MS4uS+W6IjjpvKllW
-	 sGlOgLvh7b+xIASdJB4MrlFfvRxIbCiMUu48QE9ky86meiwfNeE8HaOmeH1M3mxHIifde
-	 NBxhtd/3q3h4aoCHzan2VaJ8P96uwbrlthR0UCSEpO0Hn3a02fYDK1uvvn06NR6b1sIr1
-	 xS4iiUK4+OYCZEokugEM63NI0NB0i3RxUKmndw4xdnKixLBOsN7fIGCP29Db8a9YcgQ==
+	bh=qpV0pz12woDsNWDVu0NdvtRfQjvhuOSbkbw+V52/SDk=;
+	b=LC56TaLZUUzzxEdHiy9NX+TuBg3MQNP86aE2Or9w9XBxK3RpIwidsyhw/DQh8XjGku6P
+	 nNs3PZEEkC9bk0zC7aDcQnmuTv9SSDmh4GWrZf7ijF+DXyaMRYrGLY22TiPydEfIGB+9+
+	 8ceEHOkp7taLdGpTfFZ6qJyrgkYaf+bSlT43aKWuVGjTrSM/IqUZoqpKQcL9VzhLsGsQZ
+	 r2Wuov1b7NEMwrwm8dujvFStUuqYcndFgoPbfKFmaeB7VQqwnfqXR1W+F/NZQ8esNTmkz
+	 g0NAm6kwPyn2L2KUqcYAKpjAkfjFQDQVaPvNg79Cmr8JdqcZ5TeiXe6KVbpfULHjmog==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D7A081F0089F;
-	Tue, 10 Nov 2026 07:16:41 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 903061F008A4;
+	Tue, 10 Nov 2026 07:16:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295002;
-	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=l2bh61aTSJkrKQoGwcOkj9FfnEONOptUG9qmHCIMarWMrFVJVDiqfOp6ojzZTPJH7
-	 LQGSW1MQT8hzjCOOjHce5nDDA6vZNrhrnwvxV/teTgXLgTw4jqEp/UgccTAcy3hUZN
-	 wXSR5TEW8sk4ZAPea1EPZ9aR1sQFo13MjXJqLULy+N/dCqKQia7FY+XAAb6HPBNrRI
-	 ZhXSwYLmxcRC/tyWA6jL9jrcZBY1OO/ajxDvuRoVOFg9S5WNuh5s+0UFjofm0+TDe4
-	 b66uANiddjPxfdov7VJt/v+Rm3ejcEvf4Xi74dDq6unbBx2wa30rIhTImG+9UWoo44
-	 QnG6LfpHuiNKA==
+	s=k20260515; t=1794295004;
+	bh=qpV0pz12woDsNWDVu0NdvtRfQjvhuOSbkbw+V52/SDk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=TSvCxfymhRBWkpFI9HPE9tTwdqpZ1/vfoRTA1sIc8ClnALR6eD04BgKnecxjtSxG2
+	 s/5Bm0c/Y9OfJfbtIME/Q2j3snWXcW/r7ltj7KzJSKzWRAx902r2Wcu4xxRmMg+7ug
+	 IZBtgwby3OjJJUvU/1LiCuNBhcgP+Q4pJeZ9ISlaKgcqAR3w0eyw7GlF26D6uiJ8D9
+	 cZXdbMEk8K6zlvfsPQU5QFX4ZP4jesS4teLZIvAwbZDwMWtanEYxhoxf3PpfLACHqt
+	 WZg+PtdnVPLdsIi8cMDhV8aw8s07RQfkYCUsToNF6S3FGBCPCNpccbvFfidmUJLf/s
+	 TSUwAkk8nilkw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5677F4891A;
-	Tue, 10 Nov 2026 07:16:41 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 1E23348964;
+	Tue, 10 Nov 2026 07:16:43 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:16:41 +0000
-Subject: [PATCH] phy: rockchip: samsung-hdptx: Power down the lanes on
- phy_power_off()
+Date: Tue, 10 Nov 2026 07:16:43 +0000
+Subject: [PATCH 1/2] usb: dwc3: Tell xhci-plat when the core lost its state
+ on resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,24 +84,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hdptx-lanes-pwroff-v1-1-c2f85b7e06a4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBA0V+RWTtgUnTRXyku8pjUKSWGjI+A+
- O+NdnkW9x4glJkEns0BmTYWnmOFahtwk4lvQvbVoDs9KKU6nHxaCn5NJMG05zkE7L13Az2CsVZ
- DDVOmwOWevsa/ZbUfcst1gvP8AVjUIdd2AAAA
-X-Change-ID: 20261110-hdptx-lanes-pwroff-5ddc6e3fabb2
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <20261110-dwc3-s2idle-v1-1-2ef4cc3f8130@gmail.com>
+References: <20261110-dwc3-s2idle-v1-0-2ef4cc3f8130@gmail.com>
+In-Reply-To: <20261110-dwc3-s2idle-v1-0-2ef4cc3f8130@gmail.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295001; l=4329;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295002; l=4289;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=9zRGlMGjmoLlgrDvFR8/ToCDMVtXPZbT51yULKbcMq8=;
- b=6fx2PKWiYRVDjs7I0iNhOex9Fyzd6QVNJbps4tjjwXUS6cM3JvtMx1U8AaTN6EHtjQ6dKlxro
- ghkAys44cnwDqKkz5wDNuNDP16/vM5N5cK3WGXJV0vZ8bGKkCft4wAW
+ bh=jNMsntzexEFNYfvDvDfuJ1KLAm+5KZPCiIvtScpupXE=;
+ b=QO7vX1Lcl0MQX0fO7sobHVSzRC745nTiR5dLX9At9xSg2WDjOEM4+yKaJ2RVG8AoRUEBSUUlK
+ irImipT+BBlDEFN6RazPmOo407/JtCyBE7WnpvmM6+TVM3bv01C+t0b
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -112,99 +106,120 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Since the PHY became a clock provider, rk_hdptx_phy_power_off() does
-nothing but drop the shared usage count, and the PHY is only really
-disabled when that count reaches zero.  The count is also held by every
-clock consumer of the PHY PLL, so with a clock reference outstanding
-the lanes keep driving the link after the HDMI controller has asked for
-the PHY to be powered off.
+In host mode without wakeup, dwc3_suspend_common() tears the core down
+with dwc3_core_exit() and dwc3_resume_common() initialises it again, so
+the xHCI registers are back at their reset values when xhci-plat resumes.
+xhci_resume() is not told about this: it writes the saved operational
+registers back and asks the controller to restore its internal state
+(USBCMD.CRS), which cannot work on a freshly reset core. It fails with
+USBSTS.SRE, and xhci_resume() only then falls back to a full reset:
 
-On RK3588 a clock reference is almost always outstanding: the VOP lists
-the PHY clock among its clocks so it can source its DCLK from it, and
-the Rockchip power domain driver puts every clock of a device under
-pm_clk, which prepares the PHY clock (i.e. bumps the usage count)
-whenever the VOP is runtime active.  As soon as any other video port is
-in use, e.g. a DP output, switching the HDMI CRTC off therefore leaves
-the HDMI lanes enabled and the TMDS clock on the cable, so the sink
-never sees the link go away.  The lanes stay on until the whole VOP
-goes to runtime suspend.
+  xhci-hcd xhci-hcd.1.auto: xHC error in resume, USBSTS 0x401, Reinit
 
-The lanes belong to the PHY consumer alone, whereas the PLL is shared
-with the clock consumers.  Hence disable the lane output and hold the
-lanes in reset in rk_hdptx_phy_power_off() regardless of the usage
-count, and keep leaving the PLL to the count.  This is the state the
-PHY is in between PLL and lane bring-up anyway, and the next
-rk_hdptx_phy_power_on() restores the lanes through the regular
-rk_hdptx_post_enable_lane() path, so no additional PLL re-init is
-needed.  The vendor driver does the same: its power_off callback only
-clears the lane enable bits, leaving the PLL to the clock refcount.
+xhci-plat already has a way for the glue to report this:
+xhci_plat_priv.power_lost, which cdns3 sets the same way. Set it from
+dwc3_resume_common() whenever the core was re-initialised (and clear it
+when it was kept running for wakeup), so xhci_resume() goes straight to
+the reset and re-init path.
 
-The DP mode is left untouched: its PLL is not exposed as a clock and
-the lanes are torn down by rk_hdptx_dp_reset() from the usage count.
-
-Fixes: c4b09c562086 ("phy: phy-rockchip-samsung-hdptx: Add clock provider support")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-The problem was found on an Orange Pi 5 (RK3588S): with the HDMI output
-switched off, clk_summary still showed clk_hdmiphy_pixel0 at
-prepare/enable count 1/1, held by the VOP through pm_clk, so
-phy_power_off() never reached rk_hdptx_phy_disable() and the PHY lanes
-stayed on across DPMS off. Rockchip's vendor kernel only clears the
-lane enable register (LNTOP_REG0207) in its power_off callback too.
+ drivers/usb/dwc3/core.c |  3 +++
+ drivers/usb/dwc3/core.h |  3 +++
+ drivers/usb/dwc3/host.c | 29 ++++++++++++++++++++++++++---
+ 3 files changed, 32 insertions(+), 3 deletions(-)
 
-Tested on the same board: a trace of the PHY register writes shows each
-HDMI CRTC ACTIVE=0 commit writing 0 to LNTOP_REG0207 from
-rk_hdptx_phy_power_off(), the lanes staying off for the 3 s off window,
-and power_on writing 0xf back with the picture returning. A run of 102
-off/on transitions over a range of TMDS modes, checked with a camera on
-the TV, gave a correct picture every time, no "Failed to get PHY lane
-lock" message, and three suspend-to-idle cycles resumed normally. The
-patch has been in the board's kernel since.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
- drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-index 6879eecc5a9f..751bb503dcfe 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-@@ -1768,10 +1768,25 @@ static int rk_hdptx_phy_power_on(struct phy *phy)
- 	return ret;
- }
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..2b31f146e43f 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -2639,8 +2639,10 @@ static int dwc3_resume_common(struct dwc3 *dwc, pm_message_t msg)
+ 			if (ret)
+ 				return ret;
+ 			dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_HOST, true);
++			dwc3_host_resume(dwc, true);
+ 			break;
+ 		}
++		dwc3_host_resume(dwc, false);
+ 		/* Restore GUSB2PHYCFG bits that were modified in suspend */
+ 		for (i = 0; i < dwc->num_usb2_ports; i++) {
+ 			reg = dwc3_readl(dwc, DWC3_GUSB2PHYCFG(i));
+@@ -2672,6 +2674,7 @@ static int dwc3_resume_common(struct dwc3 *dwc, pm_message_t msg)
+ 		dwc3_otg_init(dwc);
+ 		if (dwc->current_otg_role == DWC3_OTG_ROLE_HOST) {
+ 			dwc3_otg_host_init(dwc);
++			dwc3_host_resume(dwc, true);
+ 		} else if (dwc->current_otg_role == DWC3_OTG_ROLE_DEVICE) {
+ 			dwc3_gadget_resume(dwc);
+ 		}
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index f3dabb37f806..862818e081af 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1677,11 +1677,14 @@ static inline void dwc3_pre_run_stop(struct dwc3 *dwc, bool is_on)
+ #if IS_ENABLED(CONFIG_USB_DWC3_HOST) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
+ int dwc3_host_init(struct dwc3 *dwc);
+ void dwc3_host_exit(struct dwc3 *dwc);
++void dwc3_host_resume(struct dwc3 *dwc, bool power_lost);
+ #else
+ static inline int dwc3_host_init(struct dwc3 *dwc)
+ { return 0; }
+ static inline void dwc3_host_exit(struct dwc3 *dwc)
+ { }
++static inline void dwc3_host_resume(struct dwc3 *dwc, bool power_lost)
++{ }
+ #endif
  
-+static void rk_hdptx_lane_disable(struct rk_hdptx_phy *hdptx)
+ #if IS_ENABLED(CONFIG_USB_DWC3_GADGET) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b2b0..fb09b4f58414 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -14,9 +14,7 @@
+ #include <linux/usb/hcd.h>
+ #include <linux/bitfield.h>
+ 
+-#include "../host/xhci-port.h"
+-#include "../host/xhci-ext-caps.h"
+-#include "../host/xhci-caps.h"
++#include "../host/xhci.h"
+ #include "../host/xhci-plat.h"
+ #include "core.h"
+ 
+@@ -223,6 +221,31 @@ int dwc3_host_init(struct dwc3 *dwc)
+ }
+ EXPORT_SYMBOL_GPL(dwc3_host_init);
+ 
++/**
++ * dwc3_host_resume - tell xhci-plat whether the controller lost its state
++ * @dwc: pointer to our controller context structure
++ * @power_lost: true if the core was re-initialised during system resume
++ *
++ * When the core is torn down in system suspend (dwc3_core_exit()) and
++ * initialised again on resume, the xHCI registers are back at their reset
++ * values. xhci_resume() must then reset and re-initialise the host instead
++ * of trying to restore its saved register state with CRS, which fails
++ * (USBSTS.SRE) on a freshly reset controller.
++ */
++void dwc3_host_resume(struct dwc3 *dwc, bool power_lost)
 +{
-+	regmap_update_bits(hdptx->regmap, LNTOP_REG(0207), LANE_EN_MASK,
-+			   FIELD_PREP(LANE_EN_MASK, 0));
-+	reset_control_assert(hdptx->rsts[RST_LANE].rstc);
++	struct usb_hcd *hcd;
++
++	if (!dwc->xhci)
++		return;
++
++	hcd = platform_get_drvdata(dwc->xhci);
++	if (!hcd)
++		return;
++
++	hcd_to_xhci_priv(hcd)->power_lost = power_lost;
 +}
 +
- static int rk_hdptx_phy_power_off(struct phy *phy)
+ void dwc3_host_exit(struct dwc3 *dwc)
  {
- 	struct rk_hdptx_phy *hdptx = phy_get_drvdata(phy);
- 
-+	/*
-+	 * The lanes are owned by the PHY consumer alone, hence shut them
-+	 * down right away.  The PLL is shared with the clock consumers, so
-+	 * leave its fate to the usage count.
-+	 */
-+	if (phy_get_mode(phy) != PHY_MODE_DP)
-+		rk_hdptx_lane_disable(hdptx);
-+
- 	return rk_hdptx_phy_consumer_put(hdptx, false);
- }
- 
+ 	if (dwc->sys_wakeup)
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-hdptx-lanes-pwroff-5ddc6e3fabb2
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
