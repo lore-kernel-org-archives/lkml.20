@@ -1,68 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323668;
-	b=BzYS0+f06G4nezi1gfk0EVZlAV4wRyVimJWovp2PLWqTeC51yXXA4SxCWwhWJNi9wP24
-	 JydY4ZaiFuF4l93Tz41ZJf+PADXj5FuOMCpQepuhCss6DN41M/R+xOUuLwRDW+VeZDpjw
-	 K4wk2cB70PBR9n94ozCeTnffBn+CUs1JjATTP1bz8f0pq4SiuGgFiHSmCOP20Qoa6ho3T
-	 yPkwAWMDPJr62yKPyKPW3wHYf5Vbor1G2hSgUpvBnRU3DowigtIPN4G0fPeYfv6FGaqnf
-	 CEC4niC4EbZjelqrxZHnww5zFlWiZ29OtzUjkxK34Ncf4TSSbPJJ5tz3kCVjyjB5tQw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794323689;
+	b=V3GidQbZ7Mpisi681OB52Q2RuIPLWR2Tt48cSoGyEzQW+bQuKixMy89HAWDdQvj92575
+	 UBtbUoQu3Vqe2GbpCQ+gbpffnJoYoFVV1fGBdY6v3Ey3XO25UT0beNNsS2yU4rW+io8YA
+	 56+QnzgciExZ4pzabwmwK4a5MBmStYpvqyJSF98obL02QTj2hzUZJ5BLO0mESVgNIRJFK
+	 WezYZjCyZ7vVUD9+DpDR0ntFV+qABsEAxsk5oT91izV45I8pSW0JV0PFUmdI0LIQxCxC5
+	 6N5rsO3q/Qocgf716QmmBQHeWIocmxPGglxQPTGYOcCd6IshgFuXxZoHvHr0ZhtvryA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323668;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=;
-	b=wlVLb0Xp5gPtIjxAtwI5afYt/+YUugPQci+RKMSAB4I5iBWsfwbwsWnaqX8XPLqeTZTf
-	 nWn31wN9oEAYm+XGmOLZqsakUNODSPl1zJKybV5aRiKk158BHQYIfuSzyElnact2cNrtx
-	 QhyKojRiweCTfsNoeNcbv4HBc6qqyEaZwlLFMeownbniXNgBehktKQVO2c/mDsEIaT8Ft
-	 4mRaD+PPGFvGXRoHYWuQ4+KNFJak70QOdy8s3RRmX6QfQ6fb//ko43Si50knz86xBEikC
-	 iiQc8/yMJXYx+N518GhiDX/2N7CGbE2IIgWotiwwENtmPkavW8n40tNtlWJKBfPGxlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323689;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=TMQpbWXRMXvMDMJ+QMM/RAAdpW1HCOkEavEIrrS7hZ8=;
+	b=Xp7epo92qvcwdADA3MRaqY3FwfUDYX35OdjfMID+KJmg4CxD/gpMhANOpIsMs4L+I7XG
+	 q9xga4BywIlsJbt1ceSree8qC6SZt3A0GeW5PhIJDkKdLY//WJALsDhTuqnLwctZy/qwp
+	 Fq3IE7h4ldhJHFfiRR2L++MMNFCIbbxZNFhBeJdBe/qjeyXPKSKBfC2AlClzZL0WBTAu4
+	 rQickk4GvW0Wj+kYXodY/bYjo3gmVySLaHwDXQMXtupYiAIx25ijYk836Xqf9OCz9Jzza
+	 Qyr2jiofEBQ6Q8XdXYPQwjaVGxw57xf1O9lsEiPY5AJXxZVllZpO/akplA8QnFfIoJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TIHnyEb2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IODdf578;
+	arc=fail smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C46606A33B;
-	Tue, 10 Nov 2026 15:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C46606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8042606A338;
+	Tue, 10 Nov 2026 15:14:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8042606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TIHnyEb2
-ARC-Seal: i=1; a=rsa-sha256; t=1794323645; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lJe5WwfPQsboU9jabFq1Vhi5ZfpWQL282ERr2ptHz//+dM4i6Bc2YFDCXyugFvqgHH3nFHnCmDWnITQ/qh+WtyNmQmuilitgdMuQDOM4CzV++xQuYXlY29dqnp0s9ltOt68wysZMvrO9B8zQuWFalhOg6OoBwyJMo5oc2qYXm+M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794323645; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=; 
-	b=iCeL2J52dTRD0dWv0gR8dcKEIusicoe+++W979gN3D6e0FZCXbfpwNQVDMjprd/vyEUR72npI3rZ532I/kpwbW5uM8XmIuvk9D2pblS6pVoHS4nUD3Lm8lN1hYqZMcsZImciiJ5vveDIqsgeDAu7ZQr43ITNoBWlkkRN/Ncsi1s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=TIHnyEb23ivDdlDaTZ23hgRBxU6pCSlmo4+pnq+FIf3oLa5YXU+wP+8Ie7Zo+WbWMwIW7RKOejdeUD8YdqSOTFhxEgzsP7NCKIEotA3WzUUkaNdPKf6Qcu/qwaX4cnnnKvKe9+JoxoQpuy+tEDxNibVJi3lPSv60bTpZca+Mftw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Ca7+Dqd4E/749T+VRqLM/gfMqPGBPdrU7OyQ5kokKWw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794323644960444.4158919867489;
-	Tue, 10 Nov 2026 07:14:04 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 3EDC5180354; Tue, 10 Nov 2026 16:13:49 +0100 (CET)
-Date: Tue, 10 Nov 2026 16:13:48 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
- RK3588 PCIe SMMU
-Message-ID: <avMzjsG_Zl8Gh0wJ@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IODdf578
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794323688; x=1825859688;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=AJvuzfsogg/vm9OBwFqRHyUMhF2t2Cyi7alQUsc0tag=;
+  b=IODdf578mp4/g+n283470wnGBxMmzlfT4ELffB7aeyoqX74q+mnvHAyK
+   qp6V4qC7w61HoAbknrB2qLuKLjynzMa2YVoq1YLRCx6mm5WEY/ganw/jh
+   46ZRSRB4WA68i+zZodO/vCGSXKAejWDqeGrcQXxDA8lGMGhoux4bYnhZh
+   Hfx8HOfTvjttGP3edX9yTSHk8FC6VQ7/7mPCqxcv3JQ2FtL8n3U97mG/S
+   3rZnQpfZr2mG/+ex+jhUC5S2sv1hSXshHDDGQO/2NRfxHF0KzwGKNnAFS
+   JcQG5Q4VDTl/e1cabAflOhaxrcpWaFAIOakiyACOvIDqL2E/l+TfNIzas
+   w==;
+X-CSE-ConnectionGUID: yPpBMva8QVemxgxb6Bvgmg==
+X-CSE-MsgGUID: NecTzN3MQGunf4OraOAwwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2961317"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2961317"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 07:14:47 -0800
+X-CSE-ConnectionGUID: 13A8pPafS6S6IxlqoSLKKQ==
+X-CSE-MsgGUID: bHAY97L6S7qWaaiDLKu4pQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8195771"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 07:14:47 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 07:14:46 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 07:14:46 -0800
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.14) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 07:14:45 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k/0Iyh89WZWycUQwKQmvaaLtzxydZBT6CPBAwfwXE5ERS4cLRg/GYyPyHMO8p5pIiSIi1u/Fu0WQG8e2grkqNjtajh57smHjq755X7z5IZWCxkjB9E/byW7+L1OE5W108iX694qqj9Ezqt2r59LGNDMGvoyA9PbW4P/pVo6sldh5kphWIufgkO5V3qk/l+FoukhEEc1QwFG5mcmlORtPR46CGV9Dh6+30zGUJREeYvp5M6EGnKv1mQX8kpXO3V/EXDi0icg+L9Yi3nmBhhPs3PJsWmOpgXmyNY03NsQwo4dT8K96MohGsfmpunMXLUyIXDuLvbxy1O10D+dA7rgkvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TMQpbWXRMXvMDMJ+QMM/RAAdpW1HCOkEavEIrrS7hZ8=;
+ b=pAqnG+wAj1Mykvq2+fGn814bo88F43WnU4sr/wmTK5bgZOz9bimlBVPhk/2C2DafHBKKY5uyc6b6I2Szdnz9/GBSlWLLukQV3sxeCdUu51cjn2J2Nv4CpfGvItJZj+1QGoiR8y+Tsic4an3h8MYKYehhVbdDdXpIqMXGQxzZoWz+eb1TdyWwT9Ki0/D07jMvs9eJeEaovpcR7hFquSRnlP+jXme8ejnCbhYqghXUHTKLM76s05OOZoIfEU12KOYoHMoaMhyvq7tBbB1vLTt8zarP+vx3bEz8qRaq5wwWc/1rNoNpaT0kcjs5EYObANba4xYy68BXsjmSd3xZgCOReQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
+ by PH8PR11MB9722.namprd11.prod.outlook.com (2603:10b6:510:3a5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 15:14:43 +0000
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c%4]) with mapi id 15.21.0592.009; Tue, 10 Nov 2026
+ 15:14:42 +0000
+Message-ID: <3d14c32a-62cc-40cb-bd60-2dc13b9a2e41@intel.com>
+Date: Tue, 10 Nov 2026 16:14:33 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-next v3 0/2] libeth, idpf: use GFP_KERNEL for the
+ initial Rx ring fill
+To: Luigi Rizzo <lrizzo@google.com>
+CC: <intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>, Tony Nguyen
+	<anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Luigi Rizzo
+	<rizzo.unipi@gmail.com>, Brian Vazquez <brianvv@google.com>, Joshua Hay
+	<joshua.a.hay@intel.com>, Larysa Zaremba <larysa.zaremba@intel.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261103162326.3615979-1-lrizzo@google.com>
+ <1cfe950e-50af-4120-87c8-375f67eb3e01@intel.com>
+ <CAMOZA0KTYjRGuD3axNKaNb-o5=c8Zt=zG4Q3JFxPbWuBVu5MKg@mail.gmail.com>
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
+Content-Language: en-US
+In-Reply-To: <CAMOZA0KTYjRGuD3axNKaNb-o5=c8Zt=zG4Q3JFxPbWuBVu5MKg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TL0P290CA0001.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::15) To DS0PR11MB8718.namprd11.prod.outlook.com
+ (2603:10b6:8:1b9::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,102 +142,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="24vzfqtpamx44f6c"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.7.7.1.5.4/291.452.71
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|PH8PR11MB9722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b06ff0f-7fc4-4155-912e-08df3f3d5845
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|261026121527099003|261028144727099003|11063799006|4143699003|56012099006|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 37o/CD21WQWsiT2D072o20hXWHde3d57EQRveVbdPd8baCO9KYUeYeMEzYJMzLV/2F/GGox+vNhJRjIwHrLo5B0Lgyw/nAmi7EirsncZ/BWs0G2+eByLcJOJRhD57c3D8FM7nt2MWD9/4uJpNNccI37JDzE6ju3tq1AzYZ5MJfR9uJqHuQ5QoWMc9anQVYgAKlvhhaH8p+P7wyk7zcZrH9UiU/vN1HzKL6QgwN10ZGiKNWSc6FteNxxvep4sKBZoU4b5JA1su3TqMFx9gofuEfzXlDCO59ppCDCSE/vbeOZjbMx410SP+xPRma5bet4TzCoBl3PWYNSAoKb1Hg1TlLQiXmcFcHR9R05AGjZSw6RWeum0z/ijNVRMg3fD7qItT4N+NtossJ6Lj+5MClqbO/ItHCXNvQBbfS5PmIdIa0gcNJjrk0Cvz+s/SfNlh5/Ytt5yM/A9L/Gzi8bPnNlNGY4Qgp4JL7d/ejLkzI6YH0+w3NOItV5gZckx7WgzsnzNqDuML3430xRQp+4eMM3H47Nqwl9Qy3m4fP0WUABHWBqIkjkpZG2zU6pYj6pULRM2Qq4P6DDsiUeGGGKKnNWvONQV4RdSABknRURVhsM7YD8qpnwVG5t9lrXMiXxXcr44
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8718.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(261026121527099003)(261028144727099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3pZSGhGQmtGYWhiQ0w4ZWtKMzQwbzhzYXNGWFQ5UHBZcWNaNHU5YjQ3V1NK?=
+ =?utf-8?B?a3BoVlJzZ094VGdLK0RzMG9oTmltVzdCRTZJU09RNzBHV1BTMFZkNXZLK2do?=
+ =?utf-8?B?N3h6M1VvYUlMdSs1WjF4UVJER1g2VU1JdEZLN0NQL0IraTFVVWVpemRnN0tH?=
+ =?utf-8?B?QkhSR2NSckZ0SCtrM1gwZUpkY00wYUdMUlJzU0FYMFFuNkVyZ0ttRU52ZG5x?=
+ =?utf-8?B?L25nb1RvVEZvZmEwVS9NZ3cxWUwvcndBcmNlWnYyY3FleFlBNXRTdnFmQVBk?=
+ =?utf-8?B?Qkg2VlRta2xRRWExTkM1dldPUXVXMHRpclVFSVFhazZsY2IzTWs5MEJOb3NU?=
+ =?utf-8?B?RlJpQTUwYnl0UEhpdk04R1MwZHdqOUFKWk9nYXdCTzVZdS9aZ0FjZy9oUjJL?=
+ =?utf-8?B?NkQ3Q2FVS3kvd2JHTlhkZGhoMURJWDl6aUlyRXVYVFJXblJIS3VkOTJWZmRI?=
+ =?utf-8?B?b05MZEpjZTAvTUkrRnFFdVhxQ3dEYnlDVDhLY2hjZUU4MWhQODFIL1J5eHdP?=
+ =?utf-8?B?VVF5YnlGZDVrTWdCcitxSitRZVdET2tWb1g0ZUZSZDFQeXJLQWZaTnZuK1A2?=
+ =?utf-8?B?VUpSRWJweENKVWxUQkxzZUtkbGxJdWRsbE1Cd2hvdHN4Q1l0YmhNNGdSdnZY?=
+ =?utf-8?B?emFKS3dnemR6VkNseWtTR2hHeXRSOVcwejB3blh6SkZGZDUzNFl4VDg5MVhH?=
+ =?utf-8?B?bkVrSDRXSFA2Sm1MYzNSemNtbHlicHNQRVVTRVdJSE9RK1lFWktNZVFPMEtv?=
+ =?utf-8?B?d2hGZmRvTUNDUkUrSGd4RDZ6WFNESi9ndjIzSWE3YTFSQUc0Qm5KWWxidzdT?=
+ =?utf-8?B?OFJmRi9URG0yU0F3bTFiSzVDRGdwUWt0bHhteWhSamc1N1EwdWlMUEw3RmJQ?=
+ =?utf-8?B?ZDRHaFUvRnFLa0VaME5UK1VrOEN5ZVhFYWxNSlBpYitydXJiKzdGNG84SURt?=
+ =?utf-8?B?NHV4ZjlHdDRzVm0zWEZ3SVNVRTl1Ry9RS3BLV2xYUVpIK2hEZDlsckFhYm14?=
+ =?utf-8?B?UFErMXBRYXRuU2R5OGFIRElzQ0hpK01XTTJYRG9EWnZkM1BuYS8zNTBmOEdT?=
+ =?utf-8?B?R1FRSlZFeTdBbVUwbFcyRG90Qmd1RnJxcnJQMlZISDFHdVpDNUhSSUIvSlRH?=
+ =?utf-8?B?NWZOKzdOKzZzZVR1dlBzd1NlNnptdmFHU2pBRDN4RkE2ajBVWlA0UDVHcVFZ?=
+ =?utf-8?B?bzBMVmx3NE8xWmJ2czVJYWdtWUYzbWdQaUJtTkVvTldGRVVwL29XUU95enRu?=
+ =?utf-8?B?Smd0blN5dXowajdTRGJVeEhCeGtQZkViT1hZZ2laaWxYUDQzUFVGRm5VVEJq?=
+ =?utf-8?B?dU5qR2dha3dzRHluWGpZek9ZbnZTUDg2a0tmSGExUnljNEhuUVJ5dkY2WWFO?=
+ =?utf-8?B?NEptZ1lWVEZrQkZJYUNBU1FJK09vRzJhWHJic2Y0azkreC9kMC9qUm5DMk1x?=
+ =?utf-8?B?YnFTSXVvL05OeW1IQWxoeTB4Y2pCbUUrVFZKTHFFNm5YZHh3b1NEaW9wUmla?=
+ =?utf-8?B?VWJsTW1ZandoN212RGVrNnczeGtjZmpmMjNoMHVMc1h5TFUzWnNUbXBoZS9l?=
+ =?utf-8?B?TDBkV3RZTlBIRDAxUW92K0d4U3QxWU9oUUNCdHFlM1F3Q3Eyamo1L2JiUGkv?=
+ =?utf-8?B?UmxMTVZzdHU5TEpGM3Vpb0JFNGQyS2xQbGxyS3hCbHprZStRUUIwazJUNys2?=
+ =?utf-8?B?N2NyeWw3NjFXQms0aFhqeHpEU3pwcXVYY1pOeFJ5MGV4TFdqMGhpR0tlc0o2?=
+ =?utf-8?B?R3k3UTU5Nmc0TEV4MEpPNHppVk1ZdlByRTlsL0NaMnJmS0NVTlJlNkladkVM?=
+ =?utf-8?B?TmtHOFJHbWxvVUNVSmZoRllCRHJTN01OU3A1K1lBTDljckpaaVZBa1l5TmNO?=
+ =?utf-8?B?T1VFV0txTDBpNHFHaFlUVld4VTNicVQ0S1Y1WTR5c1RaWkJQYTM4akp2Z01E?=
+ =?utf-8?B?WHRsRW1EZ2syb3ZONmVINHRXTVVJa3VnZjc0SFZWM1BmK0F1djB1MGZZemtS?=
+ =?utf-8?B?MXp4VHBwWVd5STdyTm12TVgybEkzZjV0ZEcrWlZiaTZDOHpUa2dmSmpidVVp?=
+ =?utf-8?B?SFo2NmgxMVd5T0NxYWdjd2FwcUJHRXVCNU12NkNPTXVzVTBkNzNEaHJ1Z2ZY?=
+ =?utf-8?B?WkN1Y1ZVSUhuaHJoOWtGYis0N0NFRXZMLzFrYVg3YnNRZmR0ZXNHbDVvZEk2?=
+ =?utf-8?B?N2pidVcydW8vellJeDBNZFBCY0ErZlowWFltNUkzQmRGODQwb2JZZ01kYWRV?=
+ =?utf-8?B?U1VjWVBCdllzeWJTVkNMNmZucTc5MXkzbXkxemFjbXpCbVBJODVaUXdyb2tE?=
+ =?utf-8?B?N2s3dVpmdEdDNXZUT1dJb29UVHRIM0lTUW1uMHE0S2w2Q2dtelBvQkdxVnMx?=
+ =?utf-8?Q?Ky/cLYAtuKJuuMso=3D?=
+X-Exchange-RoutingPolicyChecked: UIJlz6RQTVGZiOHom+LG4dBm0e+D8Zx21ApTk92sATVxnzhmHKh/wOYDyYxQfDumuQJBD4sq/CQ6EIt1qNqhbr1tVJBFpMADHpN2uGUqO6kokxNoK0A62i29tAh+T1BBSzy7iqu5AVVirQHGndShFUqzMayPFLMupHTkVLJvju/CAr8iYzSzMAOlemeqJgIu1o5tC03W7TuMVPbUtnX3JwW7Cc2xnUFCnDPOfy/uTE1sDPJgfHkgM5WjJkxvl5J6gTLQOVhkW68A/EUZgncMIsB62bplrznRhhgrDH6lPo/nHCT9xEPWLMDOLSwx4BWiOCORpvoditHFYdN9ANJl0A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b06ff0f-7fc4-4155-912e-08df3f3d5845
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:14:42.0411
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WVTfcPUEuMhOugqO3MVYlVVkPrLVWlyEoSlNINMs3tsOqHRZLjp/3KeTm7dIX5Flj4u4xLSCYXWvKGzFWTfDSF00gY039G5o2erDi0Dcv6U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9722
+X-OriginatorOrg: intel.com
 
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Mon, 9 Nov 2026 15:53:55 +0100
 
---24vzfqtpamx44f6c
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the
- RK3588 PCIe SMMU
-MIME-Version: 1.0
+> On Thu, Nov 5, 2026 at 7:08 PM Alexander Lobakin
+> <aleksander.lobakin@intel.com> wrote:
+>>
+>> From: Luigi Rizzo <lrizzo@google.com>
+>> Date: Tue,  3 Nov 2026 16:23:23 +0000
+>>
+>>> libeth_rx_alloc() always allocates with GFP_ATOMIC, including when a
+>>> driver fills its Rx rings at open or on queue reconfiguration. That
+>>> fill runs in process context, right after page_pool_create() and before
+>>> the queues' NAPI is enabled, so it may sleep, and GFP_ATOMIC is
+>>> needlessly restrictive there: it can neither reclaim nor compact, while
+>>> the initial fill can allocate tens of thousands of buffers across all
+>>> queues.
+>>>
+>>> Patch 1 adds __libeth_rx_alloc() taking a gfp_t parameter and turns
+>>> libeth_rx_alloc() into its GFP_ATOMIC wrapper.
+>>> Patch 2 switches idpf's initial Rx ring fill (both splitq and singleq)
+>>> to GFP_KERNEL.
+>>>
+>>> v3:
+>>>   - rename libeth_rx_alloc_gfp() to __libeth_rx_alloc() and put the gfp
+>>>     argument on its own line in page_pool_alloc_netmem() (Alexander Lobakin)
+>>> v2: https://lore.kernel.org/r/20261019210604.2433620-1-lrizzo@google.com/
+>>>   - split into two patches (libeth helper and idpf consumer)
+>>> v1: https://lore.kernel.org/r/20261016151835.2500807-1-lrizzo@google.com/
+>>>
+>>> Luigi Rizzo (2):
+>>>   libeth: add __libeth_rx_alloc() to specify allocation flags
+>>>   idpf: use GFP_KERNEL for the initial Rx ring fill
+>>
+>> For the series:
+>>
+>> Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
+> 
+> Looking further at the problem, gemini pointed out that libeth_rx_alloc()
+> is called in a way that makes it easy and robust to tell when it
+> can use GFP_KERNEL. This would greatly simplify the patch.
+> 
+> Alexander, do you like this version better perhaps ?
+> 
+> cheers
+> luigi
+> 
+> diff --git a/include/net/libeth/rx.h b/include/net/libeth/rx.h
+> index 5d991404845e6..38c0e5066f0ef 100644
+> --- a/include/net/libeth/rx.h
+> +++ b/include/net/libeth/rx.h
+> @@ -104,10 +104,17 @@ void libeth_rx_fq_destroy(struct libeth_fq *fq);
+>  static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
+>  {
+>         struct libeth_fqe *buf = &fq->fqes[i];
+> +       /* fq->fqes is zero-allocated and pre-filled in process context for
+> +        * indices [0 .. fq->count - 2]; slot fq->count - 1 is first allocated
+> +        * in NAPI. Use GFP_KERNEL for initial pre-fill and GFP_ATOMIC after.
+> +        */
+> +       gfp_t gfp = (buf->truesize || i == fq->count - 1) ?
+> +                   GFP_ATOMIC : GFP_KERNEL;
 
-Hi,
+The fact that `fq->count - 1` is only allocated from the NAPI context is
+idpf's detail that doesn't belong to libeth.
+Even though this is way shorter diffstat than the original series, I
+prefer the original as it doesn't change anything for drivers other than
+idpf and allows specifying GFP flags manually without such guesses. This
+change introduces new branches on hotpath for each driver that uses libeth.
+> 
+>         buf->truesize = fq->truesize;
+> -       buf->netmem = page_pool_dev_alloc_netmem(fq->pp, &buf->offset,
+> -                                                &buf->truesize);
+> +       buf->netmem = page_pool_alloc_netmem(fq->pp, &buf->offset,
+> +                                            &buf->truesize,
+> +                                            gfp | __GFP_NOWARN);
+>         if (unlikely(!buf->netmem))
+>                 return DMA_MAPPING_ERROR;
 
-On Tue, Nov 10, 2026 at 07:11:47AM +0000, Arun Iyengar via B4 Relay wrote:
-> The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
-> (mmu600_pcie) is enabled for every RK3588 board, but its node describes
-> neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
-> (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
-> why nobody noticed: on a board that enables no PCIe controller in that
-> domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
-> board without PCIe), genpd powers the domain off and the clock framework
-> gates the clock as unused after boot, while arm-smmu-v3 stays bound.
-> At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK on
-> the dead block, the interconnect stalls, "reboot: Restarting system" is
-> never reached and the board only comes back ~90 s later when the
-> watchdog fires.
->=20
-> Patches 1 and 2 allow power-domains and clocks in the arm,smmu-v3
-> binding (arm,smmu.yaml already allows both for the earlier SMMUs).
-> Patch 3 makes the driver get and enable the clocks of its firmware node
-> before the first register access, for as long as it is bound; nodes
-> without clocks (and ACPI/IORT systems) are unaffected. Patches 4 and 5
-> describe the power domain and the clock in rk3588-base.dtsi. Both DT
-> patches are needed: with the power domain alone the clock is still
-> gated and the shutdown still hangs.
->=20
-> Related: Pranjal Shrivastava's "iommu/arm-smmu-v3: Add runtime PM
-> support" v11 (2026-09-29, 20260929034510.2023173-1-praan@google.com,
-> not merged) adds pm_domain-based runtime PM and resumes the SMMU around
-> shutdown, but has no clock handling. This series is compatible with it:
-> once it lands, the clocks from patch 3 should move into its runtime
-> suspend/resume callbacks.
->=20
-> Tested on an Orange Pi 5 (RK3588S) with the M.2 slot in SATA mode and
-> the root filesystem on the SATA SSD, where every reboot used to hang:
-> three consecutive reboots printed "reboot: Restarting system" and the
-> boot loader started 0.6 s later (previously ~89 s, from the watchdog);
-> clk_summary shows aclk_mmu_pcie enabled with iommu@fc900000 as consumer
-> and pm_genpd_summary shows PD_PCIE on; the SMMU probes as before and
-> SATA keeps running at 6.0 Gbps without errors. With patch 4 alone
-> (power domain, clock still gated) the reboot still hung at
-> "arm-smmu-v3 fc900000.iommu: shutdown" on the serial console. Boards
-> with PCIe enabled are already in the state these patches describe.
->=20
-> This series was developed with Claude (Anthropic) as a coding assistant:
-> it wrote the code and the commit messages, and I reviewed and tested
-> every change as described above.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-
-While at it, maybe also add the reset line (SRST_A_MMU_PCIE on
-RK3588) to make the hardware description complete? See also the
-MMU-600 TRM, that there is one clock and one reset line:
-
-Link: https://support.arm.com/documentation/100310/0202/Signal-descriptions=
-/Clock-and-reset-signals?lang=3Den
-
-Greetings,
-
--- Sebastian
-
---24vzfqtpamx44f6c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzNKwACgkQ2O7X88g7
-+prULQ//VEgh6N9Y3WLpzFsig1dhiT2LoeoOtAVe85S1Tbd7/c3fTMzrhVzWhVFq
-W3WBHB+HGc66sORyvrmexq2QVFCcwp10rhrgc78z+K2d84NJilMXrnB2YcjCRWtC
-8m5sCiP0PA64jV41kv/NQ7++CBG2MVSkXZdqJvua7BCSW6jBtxEx0H6hAYsomNkK
-tJb7BKs2XbWg7Evz/zQmSNSAZLCSu938nBIrX+eh1Z3vFrvWx6Z1TK5vn5IDD6LT
-p6Oy1i8suyCXOus6c/LLUy/saeg3QoksFYWMV7TcCZk0mplPGDdyzjjH4W/yihqi
-CvgBkzOxY6AZfTkzhJZ94LzuuhdbKZQemaHaE9sBZQ6Zs6+RCjlWBLnKsOy7Ut55
-ZbncW/uK5OFJTfGgsrG5cNwTN+GJGKXlVdqmgjh6mo7ItQrbK91XoZH3oAC02ZDy
-+F75j6CS57Cb/QtObqTakXOiyBlwB393eeVhVmBnHb5xmt7vmmR9h4w4I/sxwokO
-5Vbg7RFZuS38HrbtRXOMkCZAOvDvBJ4zQ8dWGI6rMdrfMffpfLGd7sjIho/vZJo7
-wta4vE2aYvEguH9aoEGrztvW0UgjqMOGfI+txG3u7Mxv6O8ZujV8tR6QOLx8pCAd
-sDav3IQ9EtmrV4NTZnIcVtkZ4Go3kbrhPlVfDSXQtZqBI8rGQAY=
-=DQeM
------END PGP SIGNATURE-----
-
---24vzfqtpamx44f6c--
+Thanks,
+Olek
