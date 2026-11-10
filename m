@@ -1,88 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320715;
-	b=jeBe1ROKpYdEVCU7rJa1/EXzfsPIw7q/BJXxyLBChRN8QT00Ci8RPHBG8ldFaZK1jOLt
-	 oFfd9qdlprcuoH0zFPIDGdoSezj55PzRRODSTJ/CqHyEboxD8d/ntsfbqJIMmfiI0SYzX
-	 UGFJBX4dYvtkFRRiGGriQ2dDFHbTldBaSorO2oLzZeHT/sz2s3YenQkz5DAuBhYBDEMXj
-	 YH1wXjwixSMbgffoMnEUvaaMvXCRVmYl4RO4XPMPONW23W8219VA8FtlSLf0l+v22RXOs
-	 S73LwqgbtNx6kT1oNmJj4D8jzTwj9dLW35huvjHpdcA0NSeGUfvcQIOjseBEkikh4JA==
+	t=1794320737;
+	b=Jrw+1RLgkXJ38qxJen9urO6SzVW7Cp7QRm8oB8T40Ono7IT/aKez8tGjJBgFgKUA+cwt
+	 uRsEBS/qbGGoZWHTFnkpmU2Uhh7UNL3j3G4mP45VABekzRhhDo2Pvv2uYIt44XfXQO4Lg
+	 y74Q8HFP6GMMMr7DF8ubQjSMjGxPjXg5PgKTqpQcoAi5RKPuFttU/vy1HZ8Zc0l54fyx8
+	 3YEgw7PcTvci3+ORnyLMMC3DrxrU3gmdMp2AVMh1vQYCaifG3LxXksdXXhMjV3PdufGty
+	 G6KjDhAsbnd0Enez3hJiy6PM+8xYGHaVXxcgPiOIIrgKHQ53WwFgvKi9WcU2ohNktnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320715;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320737;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=pcyTIIwBPjmyAElj9Plr/S42lIJXiadAytcA81h3A/U=;
-	b=mgn8CmlD8kvhrxVFKyNoViGrajXS7r4Gv/XsqsIuAuwG3AzJtvxXJC9r0xDjwGgOsgDN
-	 70wfAY2nEQKwTm/G8Hsi8PSh/fhxWpgOSdFyUp8QG33RqOCq4L83BkS6y4bL6ghs+Lp2u
-	 oLBBR4FsHln0ekvyqGGAVI1F+tlZs7uz//xVRZ7Tum0S3lQjKtvvZCo7e/+B0yrz/REcG
-	 fAzdCtaZ7PIYdf/G0DtnepmK3EqeR0w7hXo0lz5bvIcQvRv71Yl0yWCyzviXCikkb05Sq
-	 2BsPalvpqUOyJ0v0CcIEYUaPkNqGywgdX+FT/db8ZpuRX8ydTkHDWG1IXvAC0AeaZcw==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=lkAP1m7U86A6D3jq5FI3LtbBiJBALHf/XTrdqm7iRv0=;
+	b=Y+gZC13sjzdfDw/AnujyZR19Ead6svX/0clm5jywUNK1Uw4MuT5eFMz1rpmI6rEAElc6
+	 9QMtfBwFfxCZ8m9tZ7ac76d/B2kPqKhN1gCJFnIm9HIzVGARC+MknbwWj96NpwLC+OfNg
+	 l+/ikpxVSTtqvaU5NJ8HZvJv21pF2OYxCEBE4gykosFj4k7rGmR/EQisnVQUsOxTMhkG8
+	 5RzkRVzaFQn0uD6nOy07crmFOUYU6XVYzm7n+vok7/t9YBbdrtSLIRZbsRXeoxPIx2JZd
+	 dO6c8apGdsv4CzVmxATzFJO05M3lhEXQHcc03dNeMIRfELHwD3C9Vssc++WDuZfIVMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=fJd+3mar;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YHCNwWvx;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE75960A6F6B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:25:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE75960A6F6B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE21606A9BD
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CE21606A9BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=fJd+3mar
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-535179e995bso22137251cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:25:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YHCNwWvx
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91ea43af0caso21046776d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:25:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1794320714; x=1794925514; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pcyTIIwBPjmyAElj9Plr/S42lIJXiadAytcA81h3A/U=;
-        b=fJd+3marC+EMsRC/1xy8JJMSfX+zrYIEaqvT9qehJSqaYPV/tTmzr6PktTBIwPY6PF
-         j2Z6auoTPzI4XNNqWS5IQp89CwMJvQ/2HY/PljtkoyzIw76HV3mme4JvPLmYXUltAkp6
-         2e2pfjg6riBRJ7M3gVw+z8mnT939ypCmngLPYNXxxhoDlQgF9CqRhOLEozNvnCEu1P6p
-         1iPXTiqHNGzBtudNJ6rNODrsnIhaN5i8/ALhjMWFf275ZMrcw1IBqPkYcxjgcYRwknrj
-         elYn4H7d4XZBGrm/eH+eBrOKjmugEegPE6VZDFNToBPj3RPikmOO3bIy7QrELZPhVbwU
-         /qbw==
+        d=ziepe.ca; s=google; t=1794320736; x=1794925536; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lkAP1m7U86A6D3jq5FI3LtbBiJBALHf/XTrdqm7iRv0=;
+        b=YHCNwWvxZ2i5OqHQ+YUqQLCC1rzv2GgovdQMVYEwKh33tRosyn7GSIJuDa41qmh/kW
+         zi7LyeKhFQOPYEl+gUniDWgNdaawKzYRwoS7Dq0Cx9eafD18pzSWOBgk0COIE+DG118i
+         S5bwR2UJTtx2uoqYAeHAyK/dxjo4bAnlVjVlKAp5uCve1qemG+leX9AgPW5FTMSGevza
+         aK8L0rcHuwhC3z9DNrC7UjQwC0QG7d3DQfBuriogPZkFVd264tz+6Hml+iB06xl4HH1G
+         y8/vRZyBHrGKwiKkupF3SKK0bECjiQV15fzHQ3Z56gBpctujXKC1iL8VZGRRSe6K9b4t
+         6xPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794320714; x=1794925514;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794320736; x=1794925536;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pcyTIIwBPjmyAElj9Plr/S42lIJXiadAytcA81h3A/U=;
-        b=iH5pid7MEr4oj57KxzQARNzAazM/opmCP2mKHNnA9aurTEpX3YsYyvuCzRyuXu1ltp
-         xmCQQ5due/qt13hAwB5q5iDJsmUx223pdwAZSv2E3E67+x6ebLTV6t2akqhM1vQPnlwx
-         G0oq33NnY6ZaG/A+j1sOlq3GsyszCQEl7HrLeHt7q/UMK/tvKCtBToKKLav8XKr4tuUD
-         NHMb27t0sTuxxdj/kLWuzEyW0IjV8mscEl3S0hvs7Fq2dCg8u/I0T9N+w68eS7ZRN2WH
-         UCcnBvlixgW4iBUj70AQrt9G/IiZDe4RYew178H15H1DqtFehmvfEGjvQZTsWkE0aGFi
-         LwRQ==
-X-Forwarded-Encrypted: i=1; AL+hErGkT1uE76AWhp6PM0jtt8LnC6AAvYIN57fuXpzVzMZjz6xA7Ppt+34IPo8gEC9unDcDEu9zEQfXOBYY4sw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UK7RG6PNkSVK+zRfEguQPewRmrZOF82D344ChB4AuCLwhvSSb
-	nljc/mljXVEKH2Mqf69kpjhFduDiEQwxnvs8bBRnScT9bRoRMcE95vS/fJWFukGVPJU=
-X-Gm-Gg: AYBFou3479NdknHtKIJpG4LBHFWHYBKnnXFvVR1QnrAcJQEFVA05nRsYq5KTVdF67Fv
-	4aN2pkkOMSwi0VzUAPGSmA7WpuxuVYrPaifKorb49erD2DEbYLdVramy+YLRJUWz5ueHPDeX0Xc
-	DywrgfcWLt7LUCPYcc/unFPJ9z9qeTSQ//EvfVl0l1AXzC+sObuSTIyiFb61Q/IePl9UKMTCmKp
-	rvQl7IFkBBLiibk4/pr1LQYMKOkkmaii8Pq/IZwJbwu/zqzKmoMx+GS/X5tMS2VwDZAdam+3deI
-	3Ji4SiOtOitnspjDckN5mYLxFeoNl1nBJzqAW9JNbOnIqQHjxrVNzXYVDAUgY/2HgRUX1iOzL80
-	zcJa93SWN58bfHQPeA/MXFM5MnRkTWBmVxwkjWSQUBjkLteDHPHZFrALIAp9OhClLivy/kDjHHf
-	3SgKdJjuhOW9cRQk7HHFpjGjR4kslifUc+nD8Ohmx7tXBC9lwGMVXk8x34IUCcWX4RQv6VQbiBl
-	GH18i5/5/O2wPMOE2AG9vKTSzCmOtMP9Qt9Pjhj2voM0sccl4Yvb8xbEdy2T0irW9/yAaxoE1Ko
-	4NQNlX4eCzNj1ZeVI2jVRJC5fzONvpaqC7idv4BWMZ6rLQGIoAi8RExEsWTJ7h8UwX4=
-X-Received: by 2002:a05:622a:53cc:b0:535:a20:8277 with SMTP id d75a77b69052e-5552609b27fmr38562291cf.10.1794320713629;
-        Tue, 10 Nov 2026 06:25:13 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef0543c8esm22168616d6.40.2026.11.10.06.25.12
+        bh=lkAP1m7U86A6D3jq5FI3LtbBiJBALHf/XTrdqm7iRv0=;
+        b=h+z5CQQM88DzT+owphBOLwbQGeVr0ycH8IWNYPHsSfy5yZEVnFXfk+8Osh9/u/7OdY
+         v1SBROfw5kZfCVzpf7Kgnuc8OX7CH2uWmDoO1t2m5u1Uq0GdYo8d3ST+0jXF9qMYtDYl
+         A03laahwNQdFkLQlgf3jJ7CPJKLZwQh9qMsY7w/Y4dpm3udxXNA1yKXgF+6UHRwyrGJm
+         geKKtOJ7/2SDlTznnKTZ+FN0Dqnk3BbHcg3SWJmwm0xQNEI1EzRFj2UjNL0ytSM60sXJ
+         4taoE1l2KSZTNa48NPM1qqh3yzVCMyclLy5SDR82wIaETb+DJdhxKovFmjBFRUV2Q/a6
+         2Gwg==
+X-Forwarded-Encrypted: i=1; AL+hErH1kx9F3RM/SSOXonbOi6v9jSUv5gunCYtpsautAo5Bq9Q8SJ6EmnJTN3Tmk+7tTqFP6WtPISAT9kNm9uE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86JG/bFacahoq77vRiZz0Knlmz3fvOfhX7KKjWiGgNieS0oY1q
+	akxC19rAk+9h/tBFFpURa9tHJrUSj3csCDobpPF6yDQ0w6Y6eMAWbFbJE2ytvgZEIew=
+X-Gm-Gg: AYBFou3yMQvRQikPl7PBvbFW0mqMHq/T4P/GimENYkF9huoK2pII6jQNuWyaoh44e0H
+	f3Rur+P3AWLNYQ9P6iQK5uq9s8FT6W6Z5kJvsm14eGNiC6hl3WoqCK4agdprsSOse94+v9ejjZz
+	BCQQjp71V+sYzyZuTBEnbeHyI70MP0SZ6pbWPU2nHJVwQMZ152akdK4RPtM888V6VtxCWoO++Ej
+	PC7sPE/LXSIrpsDtc2+MAh2PSOciKlYeHiGHHBBZPvO/0bLqlFNClGbmY2Zdydz9VMhRW2kUK+r
+	xHm3xzXK7l+YcfJbnWi4cf3JzW9k8qUTecyjoLMHwrBMi78wVJkzq2XYDYIzjZ3IXLUeT1tfDtd
+	MksjLt204FSmhId+eLFIaMk81s/u0V9LniReld0VIeI6+52Y13NOO+hEYihy4eyGSbtpp7YaH4m
+	QiPcQOoDJR3gQf4aKqiBVcXzEXEeSStsRwIfK/0jLr8RJNwViLYUt4qrCwnvnZh6LFxbP5UOC/U
+	t4BSIgA7vSJbWR99jFJHOtEyOQol7M1Uovqfuv2dlH2canefUMTM+3GtljRv2RAKX2loBHg/5Bz
+	22Va6H8LyZyiY3Djsqh7oWvWIdt8xe73HKn9l/0YHUcaTyLeq674F5qccPa4nJx5PgfHkfI/Fbu
+	ipwOR6/0DqfyP
+X-Received: by 2002:a05:6214:5281:b0:91b:87cc:6d3e with SMTP id 6a1803df08f44-91eef628900mr47274136d6.1.1794320735682;
+        Tue, 10 Nov 2026 06:25:35 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef0501c1csm21854426d6.30.2026.11.10.06.25.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:25:13 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 10 Nov 2026 14:24:57 +0000
-Subject: [PATCH v6 9/9] ovl: implement containerized syncfs for overlayfs
+        Tue, 10 Nov 2026 06:25:35 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xQmn0-00000005tbF-1WYc;
+	Tue, 10 Nov 2026 10:25:34 -0400
+Date: Tue, 10 Nov 2026 10:25:34 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
+Message-ID: <20261110142534.GY663069@ziepe.ca>
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+ <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
+ <d0999161-3b27-4c3b-9d66-1d117c4836fd@arm.com>
+ <20261110122237.GG8635@unreal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,154 +134,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-b4-ovl-containerized-sync-v6-9-43d1be16a4d6@toxicpanda.com>
-References: <20261110-b4-ovl-containerized-sync-v6-0-43d1be16a4d6@toxicpanda.com>
-In-Reply-To: <20261110-b4-ovl-containerized-sync-v6-0-43d1be16a4d6@toxicpanda.com>
-To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Christoph Hellwig <hch@infradead.org>, Chris Mason <mason@kernel.org>, 
- Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Chengguang Xu <charliecgxu@tencent.com>, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1794320698; l=4798;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=Xo2M5cHMBoiidKt8p5NTtHZ9BfQZnZy1FRZYhPiv9Fw=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHLN7kEC1SQEmeJVgeJNARdJzVGyGiG5xdAwugZHdHFZRG/vffQgzIfpxxH0BSODqWKaSmXur4L
- +1nj/jncZDg8=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110122237.GG8635@unreal>
 
-From: Chengguang Xu <charliecgxu@tencent.com>
+On Tue, Nov 10, 2026 at 02:22:37PM +0200, Leon Romanovsky wrote:
+> On Mon, Nov 09, 2026 at 01:53:02PM +0000, Robin Murphy wrote:
+> > On 09/11/2026 7:33 am, Leon Romanovsky wrote:
+> > [...]
+> > > diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> > > index b486b8bbd1fcd..8be2a246d4903 100644
+> > > --- a/drivers/iommu/iommu.c
+> > > +++ b/drivers/iommu/iommu.c
+> > > @@ -1879,7 +1879,7 @@ static int iommu_get_def_domain_type(struct iommu_group *group,
+> > >   static int iommu_get_default_domain_type(struct iommu_group *group,
+> > >   					 int target_type)
+> > >   {
+> > > -	struct device *untrusted = NULL;
+> > > +	struct device *restricted = NULL;
+> > >   	struct group_device *gdev;
+> > >   	int driver_type = 0;
+> > > @@ -1901,14 +1901,15 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+> > >   		driver_type = iommu_get_def_domain_type(group, gdev->dev,
+> > >   							driver_type);
+> > > -		if (dev_is_pci(gdev->dev) && to_pci_dev(gdev->dev)->untrusted) {
+> > > +		if (dev_is_pci(gdev->dev) &&
+> > > +		    pci_dev_default_is_restricted(to_pci_dev(gdev->dev))) {
+> > 
+> > I think this should be the generic device_is_adversarial(gdev->dev) now - in
+> > fact probably all the dev_is_pci()/to_pci_dev() stanzas aren't conceptually
+> > PCI-specific, just an artefact of the current "untrusted" flag being so.
+> 
+> I wanted to do the same, but iommu_get_default_domain_type() may be called
+> before the PCI device's trust level has been set. At that point, we are
+> still in "disabled" mode, whereas device_is_adversarial() checks for
+> "adversarial" mode.
+> 
+> The below is from AI, I asked to present me the path for that:
+> --------------------------------------------------------------------------------
+> For a newly discovered PCI device with an available IOMMU and a new IOMMU group:
+> pci_scan_single_device()
+>   pci_device_add()
+>     device_add()
+>       bus_notify(dev, BUS_NOTIFY_ADD_DEVICE)
+>         blocking_notifier_call_chain()
+>           notifier_call_chain()
+>             iommu_bus_notifier()
+>               iommu_probe_device(dev)
+>                 __iommu_probe_device(dev, NULL)
+>                   iommu_setup_default_domain(group, 0)
+>                     iommu_get_default_domain_type(group, 0)
+> 
+> For a device whose initial policy is adversary, its state during that call is:
+> dev->trust_policy          = DEVICE_TRUST_POLICY_ADVERSARY
+> dev->trust_level           = DEVICE_TRUST_DISABLED
+> dev->trust_committed_level = DEVICE_TRUST_DISABLED
+> dev->driver               = NULL
+> 
+> device_is_adversarial(dev) = false
+> 
+> The active level changes later, during binding:
+> really_probe()
+>   device_trust_prepare()
+>     __device_trust_prepare()
+>       WRITE_ONCE(dev->trust_level, DEVICE_TRUST_ADVERSARY)
+>   dev->bus->dma_configure()
+>   call_driver_probe()
 
-Now overlayfs can only sync own dirty inodes during syncfs,
-so remove unnecessary sync_filesystem() on upper file system.
+The ordering here is wrong, this is a consequence of splitting this
+into different series. I don't think we need to fix it in this series,
+but as a followup. For now I would aim to make 'no functional change'
+and still follow the ACPI selection during default domain creation.
 
-Do that with fsync=relaxed only.  Call sync_fs_and_bdev() on the upper
-filesystem instead, which is what sync_filesystem() does after it has
-written the inodes.  Do the same for a read-only remount.
+The long term goal is to detect that the trust level is disabled
+during iommu_probe_device() (ie we are running in a secure booting
+mode), attach the device to BLOCKED (which should be a NOP) and defer
+allocating the default domain.
 
-The root inode of an overlay is not hashed and cannot be on a dirty list,
-so write its upper inode every time.
+This would preserve the DRTM iommu & ATS blocked behavior through
+until driver binding, giving userspace a chance to do an attestation,
+turn on link ide and so on before exposing the system to DMA from the
+device.
 
-Upper inodes that have no overlay inode, like whiteouts and the work
-directories, are not tracked.  It is up to ->sync_fs() and the block device
-to get them to disk.  ext4, xfs and btrfs log all metadata, and ext4
-without a journal keeps it in the buffers of the block device.
+Once userspace sets the trust level and binds a driver then we can
+allocate a default domain using the user set trust level and avoid the
+above problem.
 
-With many containers on one upper filesystem, stopping one of them no
-longer writes out the dirty data of all the others.
+For the CC VM use case today there won't be a vIOMMU, and there is an
+indepenent control for DMA ENABLE in the TSM driver so this doesn't
+matter right now for CC.
 
-Signed-off-by: Chengguang Xu <charliecgxu@tencent.com>
-[josef: everything after the first paragraph, no wait_sb_inodes() on the
- upper filesystem]
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- Documentation/filesystems/overlayfs.rst |  2 +-
- fs/overlayfs/params.c                   | 14 +++----------
- fs/overlayfs/super.c                    | 36 +++++++++++++++++++++++++--------
- 3 files changed, 32 insertions(+), 20 deletions(-)
+Probably put this detail in the commit message
 
-diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
-index 1a59500834a1..34fc4e6f8a84 100644
---- a/Documentation/filesystems/overlayfs.rst
-+++ b/Documentation/filesystems/overlayfs.rst
-@@ -830,7 +830,7 @@ Traditionally, syncfs(2) and unmount of an overlay sync the entire upper
- filesystem, including the dirty data of other overlays that share it.
- Overlayfs can be told to only write back the files that were modified
- through the overlay, and then ask the upper filesystem to commit its
--metadata.
-+metadata and write its block device.
- 
- On traditional local filesystems with a single journal (e.g. ext4, xfs),
- fsync on a file also persists the parent directory changes, because they
-diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
-index 549fc1e83ac9..6de99e79eb6b 100644
---- a/fs/overlayfs/params.c
-+++ b/fs/overlayfs/params.c
-@@ -774,22 +774,14 @@ static int ovl_reconfigure(struct fs_context *fc)
- {
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ovl_fs *ofs = OVL_FS(sb);
--	struct super_block *upper_sb;
--	int ret = 0;
- 
- 	if (!(fc->sb_flags & SB_RDONLY) && ovl_force_readonly(ofs))
- 		return -EROFS;
- 
--	if (fc->sb_flags & SB_RDONLY && !sb_rdonly(sb)) {
--		upper_sb = ovl_upper_mnt(ofs)->mnt_sb;
--		if (ovl_should_sync(ofs)) {
--			down_read(&upper_sb->s_umount);
--			ret = sync_filesystem(upper_sb);
--			up_read(&upper_sb->s_umount);
--		}
--	}
-+	if (fc->sb_flags & SB_RDONLY && !sb_rdonly(sb) && ovl_should_sync(ofs))
-+		return sync_filesystem(sb);
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct fs_context_operations ovl_context_ops = {
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index a0fb85405f68..570e2ea6af93 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -270,18 +270,38 @@ static int ovl_sync_fs(struct super_block *sb, int wait)
- 	/*
- 	 * Not called for sync(2) call or an emergency sync (SB_I_SKIP_SYNC).
- 	 * All the super blocks will be iterated, including upper_sb.
--	 *
--	 * If this is a syncfs(2) call, then we do need to call
--	 * sync_filesystem() on upper_sb, but enough if we do it when being
--	 * called with wait == 1.
- 	 */
--	if (!wait)
--		return 0;
--
- 	upper_sb = ovl_upper_mnt(ofs)->mnt_sb;
- 
-+	if (ovl_should_sync_upper_fs(ofs)) {
-+		/* Enough if we do it when being called with wait == 1 */
-+		if (!wait)
-+			return 0;
-+
-+		down_read(&upper_sb->s_umount);
-+		ret = sync_filesystem(upper_sb);
-+		up_read(&upper_sb->s_umount);
-+
-+		return ret;
-+	}
-+
-+	/*
-+	 * sync_filesystem() has already written the dirty inodes of this
-+	 * overlay through ovl_write_inode().  What is left are the last two
-+	 * steps of sync_filesystem() on the upper filesystem.  They have to
-+	 * take care of the upper inodes that have no overlay inode, like
-+	 * whiteouts and the work directories.  Do not write the inodes that
-+	 * others have dirtied on the upper filesystem.
-+	 *
-+	 * The root inode is not hashed, so it is never on the dirty list.
-+	 * Write its upper inode every time.  sb->s_root is gone during an
-+	 * unmount.  An error ends up in s_wb_err, like for any other inode.
-+	 */
-+	ovl_write_upper_inode(sb, d_inode(ovl_upper_mnt(ofs)->mnt_root),
-+			      wait ? OVL_WRITE_WAIT : OVL_WRITE_START);
-+
- 	down_read(&upper_sb->s_umount);
--	ret = sync_filesystem(upper_sb);
-+	ret = sync_fs_and_bdev(upper_sb, wait);
- 	up_read(&upper_sb->s_umount);
- 
- 	return ret;
-
--- 
-2.55.0
-
+Jason
