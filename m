@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298728;
-	b=N97tV9PKW66jBghI8nN6QpKYKNxowrXqAz4G7RNUSd7+yi3iAAah9KZ957c8Wh4dJQfZ
-	 Dnbtff0YQ3xPNY8ohF8CiO5D6NCqbbjEqm26HQNT1WVft/aHC8CplCuBKUAe1OVGwRnQa
-	 WLwNDBsqzj47kfrOKHgot0PhnyRXc3pFPEGPXZiUEtAjocAe9W24zz063vmbOuSxTtxWD
-	 UloTI56heC8q3jjVc+DUnC36zwdWFuxoRITB5fFuonDouk45AWkbYsXcHEJ+ZCi/lR3pY
-	 LDkKkROUgC5j7QVZI2HA73Egfet/oCH2tfCSxVg3kLy0TjKPqrMx71/kDO/qE2P1VFg==
+	t=1794298720;
+	b=bqMGnjcMYHXGkpqSRzF05vGYO8B2gerclILRAjBmHwa+9E5cUhQKYG0NkR59+nDfJhW3
+	 K8mFydQuy6A4OakXnWg7GhFMMTXSwtDKXMfJ4G8jnwFQJTu3sVoyfIWzjYRa7R58D0yUQ
+	 ghJ41qhDVM95vMSjHV+UBflla4QN6KuFepgC0OEb8pTsDyEPWRITnE9Xkv4hoXTdyRrb8
+	 lRcL/x++quRt/v8ohnx8yvU2eEK0D7VDQPpMPkP6raYfTJcabeSzv1wWjS8GeFQtd2A0F
+	 +T0hMjpjkct2VLmsPh5vZsI1+HzZw6hkPyi0Z4yhhkF+ESNuN9aE7QDwYxmypAXVoPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298720;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=jXCW++VVO806qSYM/VOtniyWY+nkvvMGcOGUW1ghuaM=;
-	b=N/EQK226SOKLOglS2PxhCVTcD/iXzAqWoT6woPMWHv5oAr6R/i4okHBcnUUnDYwpVt9z
-	 xQJL4ZpMRC0MUy/WwzmB9YHhxfaHMkcw7oUnH+CuBtwicdpjQiDHSXZDESGStnViFj0NT
-	 xDRf19Gpo5nkup1BldNAFIgiWBIJazgkFukFgBlw/lCsuMf8UU6W0EgMkxp4LjmVAFNrl
-	 Rnzm7/RTj3Jq9+/D514mkkRDqesgzeONEz6UWZ/3nCm0EB+ZGWVtOaxfr3ldppyU+Xeep
-	 cAlSYyE9mGB8hygAHmAXhwzp0tqabfH8Rx/9LoWt4c9S00CM9pM/LCkjbk2snsKXAcw==
+	bh=AJjN4yOJO47ZPiYrwc/9QIPNcniGJgIrcFp8qD1WpVk=;
+	b=VWwoPQrkPitRrbFdEIxIJvO6PkTaMyns9rksbno6M2M4MIIYdLwA4mBVJXifJyyS5fck
+	 liWpkTKA4V3lsnBYWQymysknfWcdC1BkJs3YyZsXAvUMvBsAMKUtvjlJeyjJVeachZaFU
+	 RjYcjbv6Row3tb2HPFQ4PnQKs+j9+G0YH22QPZCxeR2a4NxMSYhuwG8f1ahs3hCrpEO7w
+	 sRVNr0BaqyGMDU7tW02Pybknhr2SGWu1qjLIWazro0gRiL1SULRX4dzjsWZWFL4zXheoE
+	 Uj6DbfdkuvXyGibqIbZojxdUZXp+/uUtYvcRXE+QcskzhE1fMmTNmsu3Co8l5AV8fQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJYEtkEi;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRxMP17B;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93D160A3810
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93D160A3810
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E164F606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E164F606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJYEtkEi
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3ae17c535so44838c88.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:18:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRxMP17B
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36e2b1db9bfso204191eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:18:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794298727; x=1794903527; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794298719; x=1794903519; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jXCW++VVO806qSYM/VOtniyWY+nkvvMGcOGUW1ghuaM=;
-        b=QJYEtkEiKtmq2GEeZvBTGRWBvgjLbbOWmlitgLMK12B50B4dxaiK47EndQlLbxv+6y
-         bIMXCLP2rAxXFmhc+18bPCoLbIYG/5RmmJh5IDb5hyVFI+ev2yoDuFKuompGSZJka8NR
-         0C3ltVQlyjafi8hUGqUF5E7DiuYOwC/e/c6EUA7DnuwPpY6GCBpy286NoflMeHbYfb+4
-         ioRcwGjxFvTqFp8JBN6L12rEbLHgpIxYLKlWnzQHlwmWPjPhHqAQzqVyxGUML3Er4lc9
-         aRvWC5v11c937ulccLPkWpMAsnOXTRmT1J3DV5QsxBG6dQ7zE3vMJK5Jm1avXzvt2DlY
-         7WHQ==
+        bh=AJjN4yOJO47ZPiYrwc/9QIPNcniGJgIrcFp8qD1WpVk=;
+        b=jRxMP17BmWpIjo4oI3xzNJiK0Lr+h7IrJdoOpgyyai6FudWgmyYQ3IqBxsnNociTBF
+         GLtNs2RJo1N6vYOIbEt4JIMkODhYRzcK9S0ylgos7SU0XQDtCNcQFn+XziDR+BJh3QtF
+         85N291oOAWR2nKTd5iegUZLlv3ReDRdhlWUrAaDidTcn7q4H44EezVLGRppBRYGuYCro
+         7aMQrDceC5EV8I7LMqMfiT8avDS7bLUMhX8XjndlT1rkwDDKpLBYFEGxvoEPrp0+4Wzi
+         RSIXGbSZ369HtbHIBktGTyWT01//7A9KkawJCpi02K9P/+dw9gpbN8Qz2O5KWjx8DZVh
+         30Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794298727; x=1794903527;
+        d=1e100.net; s=20260707; t=1794298719; x=1794903519;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jXCW++VVO806qSYM/VOtniyWY+nkvvMGcOGUW1ghuaM=;
-        b=NU/eoHmQa5ccGkVI2qakAfgl95XkIpvHtXReyBkmYRYbUCPAN98viDKqrk0dhq4efN
-         ZHOpgk9PEvxFW6ZvxDnviMWfLn1AcLrKob+TB5DvD2t6YOThpvnpkRlSsPBqfkP5bRNm
-         TtycdBvhksFEys2Zj3b+yfq0Qx6jgC63yacQYJGPo+R3E71RmfcENYR31v02l3Q+I8W0
-         BjAwuU4jRzyauFP/R/aZQDfw1ur4DF+91p6oojHPD9oSR9w1WXYP0kO6UGxrTgdV+baa
-         CyP2ekDVxZEYrg3eDop5jLhoQ1AbnK3mGq3r97w+wKkA+6WO45A8QUfIn3rDYbDizM8f
-         UqBQ==
-X-Forwarded-Encrypted: i=1; AL+hErGlNvbIqXBniMcJML1DTs7Y+9GZNiZB2EWJqF1K22JAID5YMfVGXGjni0xjvSgdidxbR4J+AVvkxsWMT7M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d79R7+fZ3aNxyWYBIwuZ/5/fGZKJEjL9iys5Lzn7W0fOYls38
-	c9fBUNQabH90ygCKRpejTAyFGhAguSxB0dAFehzlMe718+wyjUia+0nA
-X-Gm-Gg: AYBFou3tqTQwepjv+u0199lgv4aBe1/MNvKjL8vXRdPKr8qkY2pd+YJ+aoAhrtbmIbC
-	lPK9Ea45vSKxIJVfx7aj1YG6oOdRKM6DfRhWaKyRMOSPHqge4khRA7TZtAGiY6UjnS9gdPIMXX0
-	VZonygJkYqNE2SRa7Znt9FtC3q0uHNC28BTiY3rMnz4oBMfNLoksyFM+mgucxtbw7f2SowCtIwK
-	GDnZItx37Ar1jrN99tDa+Bdh3dE1zD+QrocddyK9dOHZp/iJO78qG4uR4NdsbpImd4hChBSRmdw
-	VDvi3aNSgPvUYoeuU2pOZnpm+XOY+2NrAV5983N5qYDBXitRADnUMwnujng/mt7WgAdR1uznNLe
-	7kJ1MAG0Lrikwlc+t+pYkDiXnlgQJuUGRq4K0IYelJbyRHGKd4S+ljvAOLhx82kwwCM8IKuTHmE
-	YIbDVhmz6Re5qUe4zMOthoOqRWASAUmakm61zr23CAHOA4kQRS+D6ihnTarFRPW4ouqu53ERIY2
-	jh6DW6agwXMlVlZSnkqcutM77qFijNE72s6M+u/cKe83ufdAcZt9NoUIb9+Flw4MQ97Wk+eqD+3
-	TXEA78hfS5QmUBZbiiGGwjG7Cj7i/kv9z1g1gKztFwwygvurIy5Aea9mT6Dl
-X-Received: by 2002:a05:7022:f502:b0:17f:641e:7f6b with SMTP id a92af1059eb24-1b3b5fbb37bmr3714465c88.1.1794298726441;
-        Tue, 10 Nov 2026 00:18:46 -0800 (PST)
+        bh=AJjN4yOJO47ZPiYrwc/9QIPNcniGJgIrcFp8qD1WpVk=;
+        b=ALsJSQ3fjKMfC/wgw3U8jJpWn1/LBijdZnTr7/NIqPqnf67DQgtLhwSCk5/m2FfSz8
+         HiDFWXtt2lZFIeMRVGrte2PSMdoNBjRXoVIGq2Ylr9SshWNXrJdHhw5iCs51nlBWT0GJ
+         gmYuMCT16MWT8oB+hp+NGyEoIE6uQyMAPfCf7jmsPfQuBf0LyPeJ5cMRRk3oJXGHsZuC
+         j/lf6uauFp7gGP5jM6j+pLDg/HImoc+sEtNx6wNA1Cul0hAHR5YhYxCHz8l8f4R96Mx9
+         hDdn6bHdqE50bpVNKkhjJY26xMnC+1EMFZS6/RDOrJU0eSWsFKftYjV4eH1sx97UJjRq
+         ihjw==
+X-Forwarded-Encrypted: i=1; AL+hErF0kwKggZ2VC7/urM53/SmtK6q9Mpd+XcH3qwjKW+dREfY5lct/Yq6QUf76iE1O/VBaTJGQsdAhEvCx2C8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CJdYotfW2H7SCXGteupqiYwE+vTv5zWoHIFC4Px4wVvJFAoBm
+	LpY+pTCK8vct4m6ITMuB+Zv2rj9Z8yJHDuQ3IG42XD6BwuD4mkQCqcZO
+X-Gm-Gg: AYBFou2e7PcDfW3A2nCfWrPZPnpU0f+O7zF9DbJstuhCi9EaswmMRzGmxhQsm1XjWwu
+	mVxjcwlg5PFsCOkEd192A43G5eNZtq8HSlIXsYPfrm+SO1EaPe+U1fEbJExrctOMdVAd7ZS5ixP
+	dg39aJtUj+97yATsvoS8G5HaNLnzgWfersybSVb4GCTadR22JjMRht9Tvk9Xincc1jSnHlVajCA
+	B+WxVc392WNetFjjWgeXT151t7plpmATmsDtmi7JnxSEKgpuIHgHBQ0TsM05Rds2TsExoLmDgO0
+	zBNvev38fzHMu7rsivgS5c2oONm3Lnr9CZ8wM4b/NeDozK01vTozQTBB+1XAyTWuPEQGYOor2YF
+	mFcVq9Pit0lfv7DEdQ/SzW2JR12dWfEMXCPY/Gnqnsv1R49jmf+chNEI3NI5fTF4FVpTRn9kQ3J
+	7b0w6BSeQ/HceCj2cbePxuLKHz0epikonqe7Z3GnrjyIXYjgp59u0kUUIdxtV6FT65MY0+Jzllf
+	x9+SdUUNlsezVWDWM7l5o6SVzw970M1wVQESDcmCzbo2JVlmh4304y1VkcDfMQh1ez4mi8GEZpI
+	3SSSevTqbhkKrKpE62aXfEDotP9j8NUKsQgRbK7zXXvBBmWMkyM9TInFSPQw
+X-Received: by 2002:a05:7301:d193:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-3751eb8d9c1mr3960604eec.2.1794298718342;
+        Tue, 10 Nov 2026 00:18:38 -0800 (PST)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm5236759c88.12.2026.11.10.00.18.42
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm5236759c88.12.2026.11.10.00.18.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:18:45 -0800 (PST)
+        Tue, 10 Nov 2026 00:18:37 -0800 (PST)
 From: Jason Yang <jason98166@gmail.com>
-Date: Tue, 10 Nov 2026 16:18:10 +0800
-Subject: [PATCH v6 7/9] phy: rockchip-samsung-dcphy: Support the new
- phy-type and direction binding
+Date: Tue, 10 Nov 2026 16:18:08 +0800
+Subject: [PATCH v6 5/9] phy: rockchip-samsung-dcphy: Move block-level setup
+ to runtime resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-dcphy-rx-v1-v6-7-d681ba20b36a@gmail.com>
+Message-Id: <20261110-dcphy-rx-v1-v6-5-d681ba20b36a@gmail.com>
 References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
 In-Reply-To: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -112,102 +112,75 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794298692; l=3244;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794298692; l=2404;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=MPlZcYdBOTjm8N+T+zD2aiKGVlTXPixFaSZAXRG0uQg=;
- b=XVX/t4VGDXdsU4HAGnmDCJBr3P5Q0oy9IN4FMcahsrkLVyV+WADTyFODqoZvgPE50AThjSsY1
- ikf+XRGvmjbDHUXbklTj1jfDUcwtwaj85cfRiGe8zNBMKCeJSDQxIOb
+ bh=mM+rLgEKgftG4Li8VSkT3B5/6VzsZyoCu0+g9BozRtQ=;
+ b=MhBIYlgHOfxIY0JdSsH11bY+ntMFX2QUl/Z+iUhq/Sj47py5uFQSNEZQ1a0S+/TDMphNcVUxz
+ /PMKTJMSDxOBRnNExGVQFfBDNfshgq7qCsOxLRZAFzlsGMu2EG+KYGb
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 
-The binding now selects the PHY with the cell and the mode of the block
-with the phy-type property of the provider. Read phy-type in probe,
-D-PHY by default.
+The APB reset and the BIAS references have to be treated as block-level
+[1]: both the transmitter and the receiver need them, and they only have
+to be programmed once. They are programmed from the transmitter's
+power-on path today.
 
-of_xlate() returns the transmitter for PHY_DIRECTION_TX. The deprecated
-PHY_TYPE_DPHY and PHY_TYPE_CPHY select the transmitter as today, so
-existing DTs are unaffected.
+A later change registers one struct phy for each of them, and a second
+consumer coming up would then reset the block underneath a PHY that is
+already running.
 
-A phy-type other than D-PHY or C-PHY fails probe. A deprecated cell
-value that does not match phy-type gets a warning, and the transmitter
-then refuses to power on, as in C-PHY mode today.
+Program them from runtime resume instead, where whichever of the two
+comes up first brings the block up and a second one no longer resets it.
+
+This puts the BIAS writes ahead of the per-PHY reset assert, where the
+TRM's worked example has them after [1]. That is safe: neither M_RESETN
+nor S_RESETN covers the BIAS registers, and the values written are those
+registers' reset defaults.
+
+[1] RK3588 TRM: sections 22.4.1 (address map), 22.4.2 (reset values),
+    22.6.1.2 (reset) and 22.6.4.1 (D-PHY transmitter start-up)
 
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 ---
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 32 ++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 7 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index c40c84791eca..e8e229fc4856 100644
+index 7a009d87a665..d6acc3e2d448 100644
 --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
 +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -297,6 +297,7 @@ struct samsung_mipi_dcphy {
- 	struct reset_control *grf_apb_rst;
- 	struct samsung_mipi_phy tx;
- 	u8 type;
-+	bool legacy_mismatch;
+@@ -1346,7 +1346,6 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
  
- 	const struct samsung_mipi_dcphy_plat_data *pdata;
- 	struct {
-@@ -1376,6 +1377,9 @@ static int samsung_mipi_dcphy_tx_power_on(struct phy *phy)
+ 	reset_control_assert(samsung->m_phy_rst);
+ 
+-	samsung_mipi_dcphy_bias_block_enable(samsung);
+ 	samsung_mipi_dcphy_pll_configure(samsung);
+ 	samsung_mipi_dphy_clk_lane_timing_init(samsung);
+ 	samsung_mipi_dphy_data_lane_timing_init(samsung);
+@@ -1373,10 +1372,6 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
  {
  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
  
-+	if (samsung->legacy_mismatch)
-+		return -EOPNOTSUPP;
-+
+-	reset_control_assert(samsung->apb_rst);
+-	udelay(1);
+-	reset_control_deassert(samsung->apb_rst);
+-
  	switch (samsung->type) {
  	case PHY_TYPE_DPHY:
- 		return samsung_mipi_dphy_tx_power_on(samsung);
-@@ -1549,13 +1553,21 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
- 		return ERR_PTR(-EINVAL);
+ 		return samsung_mipi_dphy_power_on(samsung);
+@@ -1667,6 +1662,12 @@ static __maybe_unused int samsung_mipi_dcphy_runtime_resume(struct device *dev)
+ 		return ret;
  	}
  
--	if (samsung->type != PHY_NONE && samsung->type != args->args[0])
--		dev_warn(dev, "phy type select %d overwriting type %d\n",
--			 args->args[0], samsung->type);
--
--	samsung->type = args->args[0];
--
--	return samsung->tx.phy;
-+	switch (args->args[0]) {
-+	case PHY_DIRECTION_TX:
-+		return samsung->tx.phy;
-+	case PHY_TYPE_DPHY:
-+	case PHY_TYPE_CPHY:
-+		if (args->args[0] != samsung->type) {
-+			dev_warn(dev, "unsupported phy cell %u with phy-type %u\n",
-+				 args->args[0], samsung->type);
-+			samsung->legacy_mismatch = true;
-+		}
-+		return samsung->tx.phy;
-+	default:
-+		dev_err(dev, "invalid phy cell %u\n", args->args[0]);
-+		return ERR_PTR(-EINVAL);
-+	}
++	reset_control_assert(samsung->apb_rst);
++	udelay(1);
++	reset_control_deassert(samsung->apb_rst);
++
++	samsung_mipi_dcphy_bias_block_enable(samsung);
++
+ 	return 0;
  }
  
- static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
-@@ -1566,6 +1578,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
- 	struct phy_provider *phy_provider;
- 	struct resource *res;
- 	void __iomem *regs;
-+	u32 type = PHY_TYPE_DPHY;
- 	int ret;
- 
- 	samsung = devm_kzalloc(dev, sizeof(*samsung), GFP_KERNEL);
-@@ -1620,6 +1633,11 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(samsung->grf_apb_rst),
- 				     "Failed to get system grf_apb_rst control\n");
- 
-+	of_property_read_u32(np, "phy-type", &type);
-+	if (type != PHY_TYPE_DPHY && type != PHY_TYPE_CPHY)
-+		return dev_err_probe(dev, -EINVAL, "unsupported phy-type %u\n", type);
-+	samsung->type = type;
-+
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
 
 -- 
 2.43.0
