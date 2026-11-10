@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332205;
-	b=YHxYXQRvT3B2gPZkJ1GEUKd0h6gZ1RXft6LrGyofaKMnetP+wqAWFam87StLH8lLTGba
-	 7gmnOneWABdcV7bvO5yqrrppzdRfKvqEx7bvaqxO2RFIlc5nACTUKxeDy2CMG6+KVLG9U
-	 ahpdav+ZM0rU0ecegd0h+L+sNS1F7CItepA+tjLTelVzSblvJQK1ua7k+z/vizDnLHM0S
-	 IVNivVI46kPdWXCe95ckS73kv4NHY/RM6uM5rVGe/WZvR0LdmmZ4/oAZCTv/Dy/1hFu/n
-	 hwhGGXdNCtLoc7qcYtjJCpIVzvZvAAdWjMfFJrtTZhn2QsT3dY3KBSGocZrb6EfxcQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332205;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=o15bVl2NPmsMHAkRA8VnBe/GHoz1nq9rW0/fvlACR98=;
-	b=HjIpjkoHRHtmhC9164LRXAnPmv1YAVvB5j08A78BvL39vVeZApi3cBFMh37rMZaJY7os
-	 FraiKYzLoADiKrOrF+APy7058Vn2YLOLd2Gt4Y3VaSriySkuZUc3RnhUHeP5yxsmGS0H0
-	 rHLBdiooA0w376c7FuVxc4i7sW4BUZAcxvsd07BX9fFZ7n5lH2hJSQcRPM0hmzJmUvhak
-	 /pXoq2TpZSXSKa7mVvhvyCZb31GaCwlWg9P+iX2THh3yEoxu25r2VY2zE88EnhO7XZ7or
-	 jzEM9vzhqbxLOWHX+qKu4JLDLsBAowz02+zLHntQENj/VBj2p7v+QBrd/+OcbTpwluQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794332238;
+	b=0xO3OrO3W9Nk0oML+4926R8xYlKYSdNDx26PqWVuEky2JMLsW8oDCkHQogPU0UYVedRX
+	 vYMuKGrpCLDv2RrpB/ScFfB4+wHuAVjIYmXA/IEWSfkE+GGQ2sBl60B3QV2QXqNp9NY7J
+	 ll12BEIl/SZaJP75xxfXu9h/Utu7jSUwTMZedDaSwQbzWgzo7NL24jOaYrnJRUZxChfUK
+	 KTXFTjwnlCSSjJPNNGa9UWUxVrg2T58LJw7GVLeNN3L1cYS2GGI//1u+iJK9VIWwQKPi+
+	 vEqwojtMrXxAowSfPch62j2YM363AUvY08W4bpB9eI9Sv0KsnfDBOwBrvvMLykkbIhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332238;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aTj3qd6Vt1MRZaASDWxaes19J99UpofFOdzQAHbhsTI=;
+	b=I/SgD/N+hIYGDo0Qph0hNCGorFOyg0RHXf+CdGkwAk4kSW+t5AkrQ9X6SuqqC58YHOWl
+	 XCkXCHn0YJ/l4A85f/gRAxuzYA3EL+zfnEWu/CSMVJkJm5+K7XTOUn4dA5iTb3XyWCnZS
+	 kqRseXnaymYrOSoJzRU9G10xkMs8ECbD2OB6ku6k2veekl2gGKDNc1p5vLxhSQAMpL8rh
+	 7bHWB3OzJrQk7XimhTYhp4Cu7efZJbPCe6gkBdLvUBc52jj4W3PbOC8zYgJUGKeoYdAKP
+	 /gXN6Dp7gjYBCfqfZ7Fn39DSIxMbrInfux6w1n1CJZVIMgfD4KVWQWikv50UkNZke1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IALzEI6U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB4C606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB4C606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f4612a1a5cso2518412b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:36:44 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C99A606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:37:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C99A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IALzEI6U
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso2058368e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:37:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794332237; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F45i9qvh8Xe+iJJ2yfRclcuJkd+YhGeBdvryksTVTm4TUb+P33IB+acByKnek2zRsZ
+         9L/mkidtMppHl6wCCZPcbseYigguFZXCv+XcBGFzmv4fanjbMOgnpGzeVZRcqxB6x3Ia
+         ziTKJtCqPBwlSckxeiSpaAeeynCVK/dqWW7QjvODhoCz6ReJgYPSJhpN82hEDEhnoSWm
+         MtMcFxvKKzv5svZoANZSp9GfWLS8yo6TJWmQwb5RZRQ8ioq71m0YFB2PmZ9PpltfKZXB
+         w0rVQ2pn6l1gJrcI+roDu/INz+qfCck6Gb6ZS86GPTl+nDn8guZYchijgcNzzfsV2aqf
+         nT5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aTj3qd6Vt1MRZaASDWxaes19J99UpofFOdzQAHbhsTI=;
+        fh=9I0BytsWWzEo8FQhxpEieJoojP89c1YA3id9Ra6bDF0=;
+        b=ruq66YyYACNotmFF5QX5t/ivZeRvPbPT40ablrDLKU/CANaLkmevpp36S3TbmRE/Mi
+         ICNB5HjSWGLAI+nc3W9K8PmWw/5wnw7zQlH9cKTzossKLliREjfDKaOOLMNolnvYee/n
+         h6ihQweup7afsE7fm/fZh55eZZcSkm/SoPOXiXqbNnTqIfSi7Qk7MvhUIop5SfOCjoNU
+         0MB4Dhkz48p6max6Q6FjLCc9i2+EMssbmNlzV8VnVDr0jiXdJR5umT2+aviLgXNq4oc+
+         N5Kr4U0Dbut6J0uSQ4EPqQzgxEaSn09p46WrV43ZN+t45AnwmTahGU7RhMXOGbwrgVU+
+         pjuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794332237; x=1794937037; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aTj3qd6Vt1MRZaASDWxaes19J99UpofFOdzQAHbhsTI=;
+        b=IALzEI6U9cts48X2+tWtXmvjKgMvF5xWHwrbRtgsrZ8/yQd9AzRsTBHK6GBRTB9V2Z
+         TB7KRiyhzAIfOASyMGLyElUeCHPztvFDKxfYo8pdZv+AdUH6C1zSjsdXds3cS68RnmFo
+         EasI+pOD/DYYWg51m1D+Qx+pSRU71B6nDD9LQNtKZfBtuD6hmFcXb/lzK/zaFPtEJrn5
+         a4S7SzWDlPf2aA3+zfwi3KaIdonbqmwIcFtGO7OsyIq8NQPcNU8CEfuMJ8yX7LB9kO/N
+         1TZpD75ylGMmOSTIoSvEnmyCZEaafUFiyHojb3BZ5MjxdZ/7hJf9LpEpG/HeVWHoS02Q
+         VQvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332204; x=1794937004;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1794332237; x=1794937037;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o15bVl2NPmsMHAkRA8VnBe/GHoz1nq9rW0/fvlACR98=;
-        b=QOxA9b3dI5ibPaQHwrS0JFT8L7yD6+5hArFcXFQqUzYluCXJfCWFo3zDEu3eULhkQm
-         zhNFZibKayi9la9AiMBmlHxEsraRcHGTIbrNKvxHr2+iN19MW8IT7MjntpFrkLodoz0x
-         /Q53olAc7UrN0ONQWPTRF94MuX82b+bw+pnla2BPzscUEJM2Cfz2emjXwJKqkZHR2W1v
-         E/M/IRS3yeDdy3L0K0LfVjta9aTbIE90BsZWE7M+TQP78E62vX7gLCPH8ApcSLjOkBAB
-         EoYlPiiMWR/ZIPJDhD2Vp7xUlD1XKd9mPmuNWrv2/grwc2tfF3hS1+bBcWM4QbV64uVs
-         wfnQ==
-X-Forwarded-Encrypted: i=1; AL+hErGbyiQBppd5iOFUkJXEcyiE8oiseCizCL143sUSw0jpMLsJr2d1l1DLmgOiJvt0JLfWLz3/2vBwKkM68ts=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NZegFywsWvO7weJ1yCAMGycz40X/9o/wOhvlyh0f5J//rpvTu
-	KRQD/yLxvzHWUxgWChqKx95JLwmnB2jMsxjnZnIJJ5075HvIy5Psv9tY0ZM3XJM9MjLJ7liKV4K
-	kTKcOvNRpe5tzl7CSDmwkmY4+ioTXQ5P0JJ7+rRxwhkrd9zwarAgD/nTDIp8=
+        bh=aTj3qd6Vt1MRZaASDWxaes19J99UpofFOdzQAHbhsTI=;
+        b=rxZ3VuztOkI1qwkhGgudWD0NBfSc6qsFjflpaaSCB9R8Uc9qylKwB3UK8Vg8MQjUNV
+         EHf4TxQrqaHvDRkqiM44snBw8pSEiPcN7D6Wm+UvdX/v0wK0k5ZK8+gtKgL6PmZB8Adv
+         HcS3tqJbRo8kUr1zNVMV+zGpWHSc0pDC1P+OoYwN4RDERuPjn73BZBp90LbJUVyZtaIO
+         0TnO4bA0vDMWdynUBLmrN3dOmlG4vKJdmPfK3/CpbNl4SBJuPeqJFa4f9sffwHmXb25U
+         UI07r7nH9b9ANtEwKD2PP4uMsqQk0k58bgTh4mwMUB8WcWioBxNFR27BGR02lkhHMkdQ
+         TI1Q==
+X-Forwarded-Encrypted: i=1; AL+hErHJscMQv9jxZq2y5GzXZgf1bTUlBs2hQq5W0RQ5+X6p1t7mCpi3HT7EE4QzrtUYkym3DSwvPcYGffglNBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/+5xcqRqeFGLGVGDQKrYzG5yvlVQIjxnaltQFI405+EXc+ksp
+	hi+UPLTT6bxboaJSJaePmLfZJWeM7kisdwG4YJjaQgEyvoN/NT1v8TtTGcpipjDQhFgWXMrdvLz
+	CBRtpH+5weEBb4u49la0t9dQGAZCcO0A=
+X-Gm-Gg: AYBFou2btuxeAWYz6Tj6vPdQy0em+xAhCfbTdMvHSZzSfU3Y7qMsOo/PrmRo64kcOQK
+	Q7p49Gi5QfOXYxTY9qMnmE3XLplCsfwvDiabjf/JuVle3LY8NZf5+tOkauAwTKmm9TvPbEPiPjK
+	vxhZCMsvZcWGPjggpoOxDOWg7sBvu9l/pyZwD+lcPP+SOwumqI4N09ThVGGeM23qOZrZuS2KFWR
+	4I2jTOWwE53NlNXcIZgI5KScf5P6a+J75auwles4AdNi2e768l0seYbN8jCVEv8Ha1kST7LysLu
+	qy+mEGHeDUlY9pBNOL8FuobE47m/pndsBzs9iLHSKVXmx+IytUcBDkULPN9o4SES/gL+41pm0Rl
+	POrcYXfEZESTzW1SC119JH72IlkJ7i2qkt2UvDj5nZWQ2T7nZ1vcUoFpfdAYxXpyHC6I8LuTWy9
+	BzNbgNsJbMKqJNlpMoxtMxRrgLHaxu+WA2dDwWo0EYLKWSBihJYpIe
+X-Received: by 2002:a05:6512:3d1a:b0:5be:5dfc:864f with SMTP id
+ 2adb3069b0e04-5c156edbe56mr956551e87.50.1794332236347; Tue, 10 Nov 2026
+ 09:37:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +105,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c1cc:b0:4ea:935e:43d6 with SMTP id
- 5614622812f47-568813afb63mr1698457b6e.45.1794332203769; Tue, 10 Nov 2026
- 09:36:43 -0800 (PST)
-Date: Tue, 10 Nov 2026 09:36:43 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3562b.17ff5aea.1b027f.0196.GAE@google.com>
-Subject: [syzbot] [dm?] WARNING in integrity_commit
-From: syzbot <syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com>
-To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20261110054836.1515030-1-senozhatsky@chromium.org> <20261110054836.1515030-4-senozhatsky@chromium.org>
+In-Reply-To: <20261110054836.1515030-4-senozhatsky@chromium.org>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 10 Nov 2026 10:37:03 -0700
+X-Gm-Features: AclHuK9LQ0vxiDk2KIYMiT7GhqA-_skur47RligP3Oz7EqQzE4-EQhLXbRXuiB0
+Message-ID: <CAKEwX=N44K-0d1KMV_iURtJU+xSuv-X_x2R=g1tBUt_QBEx1Fw@mail.gmail.com>
+Subject: Re: [PATCH v2 03/11] zsmalloc: return handle from obj_allocated()
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org, 
+	Yosry Ahmed <yosry@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Mon, Nov 9, 2026 at 10:48=E2=80=AFPM Sergey Senozhatsky
+<senozhatsky@chromium.org> wrote:
+>
+> Allocated handles are valid kernel addresses and never 0, so let
+> obj_allocated() return the handle directly (or 0 if unallocated)
+> instead of returning a bool.
+>
+> No functional change.
+>
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-syzbot found the following issue on:
-
-HEAD commit:    7475ea8b5861 Linux 7.4-rc2
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=135bf8ad580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=94dac3c75477e184f0b0
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-7475ea8b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/db4e8a9a4461/vmlinux-7475ea8b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/2abcfcabee20/bzImage-7475ea8b.xz
-
-AI-generated root cause summary:
-In drivers/md/dm-integrity.c, journal accounting variables (including
-ic->free_sectors, ic->free_section, and section counts) are initialized
-exclusively within replay_journal() rather than during target allocation in
-dm_integrity_ctr(). When a dm-integrity target configured in journal mode ('J')
-is resumed, dm_integrity_resume() checks whether the on-disk superblock was
-modified while suspended; if superblock_changed() evaluates to true, it logs an
-error and jumps to skip_writes, completely bypassing replay_journal(). When the
-device is subsequently suspended or receives a flush bio, integrity_commit() is
-scheduled and calls pad_uncommitted(), which validates that total journal
-sections match the sum of uncommitted, committed, and free sectors; because
-replay_journal() was skipped, these counters remain zero, causing the invariant
-check to fail and trigger the WARN_ON.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=94dac3c75477e184f0b0
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-ic->journal_sections * ic->journal_section_entries != (ic->n_uncommitted_sections + ic->n_committed_sections) * ic->journal_section_entries + ic->free_sectors
-WARNING: drivers/md/dm-integrity.c:2885 at pad_uncommitted drivers/md/dm-integrity.c:2885 [inline], CPU#2: kworker/2:1/64
-WARNING: drivers/md/dm-integrity.c:2885 at integrity_commit.cold+0x6/0x75 drivers/md/dm-integrity.c:2917, CPU#2: kworker/2:1/64
-Modules linked in:
-CPU: 2 UID: 0 PID: 64 Comm: kworker/2:1 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: dm-integrity-commit integrity_commit
-RIP: 0010:pad_uncommitted drivers/md/dm-integrity.c:2885 [inline]
-RIP: 0010:integrity_commit.cold+0x6/0x75 drivers/md/dm-integrity.c:2917
-Code: ff e9 4d b2 63 07 48 8b 7c 24 58 e8 a1 b3 23 01 e9 e7 fe ff ff 48 8b 7c 24 40 e8 92 b3 23 01 e9 21 ff ff ff e8 78 48 a9 00 90 <0f> 0b 90 41 54 8b 8c 24 d0 00 00 00 89 da 44 89 f6 41 89 d9 45 89
-RSP: 0018:ffffc90000d27a68 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: 0000000000000050 RCX: 0000000000000001
-RDX: ffff8880212bcb00 RSI: ffffffff81653888 RDI: 0000000000000004
-RBP: 0000000000000050 R08: 0000000000000050 R09: 0000000000000000
-R10: 0000000000000003 R11: 000000000000776b R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000001 R15: 1ffff920001a4f6a
-FS:  0000000000000000(0000) GS:ffff8880d4671000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fd7a3d25ff8 CR3: 000000005b7c4000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
