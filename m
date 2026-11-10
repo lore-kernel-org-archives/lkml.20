@@ -1,67 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289997;
-	b=owLnWDfAfvCdSKmAVJUqMo6WADmVdr5oGwvtLsemvXhropYIA8EsGfnq28rVm8LseEWW
-	 jdRDb1vaxWMPpC5gmc/cynYdBSPFOh77QJyjvR5bZ2M36qIEt4C/q+q+sMR7qkPCZOZ0e
-	 wMlSy5HkxW7luncgVlPtbFh7pFvxfHdy/a0mM/SuMustRuti4A84Ph/fN3IriuI2PbFBh
-	 ZoE6Gq9REwdHeB1U5PW4ralsmuFk6+Dz8vDNCYVOpze4IKkU63WWga52ZjrSrIPazEice
-	 XsVx65et+qwCSb0pXh3qWAQsWGKZYb0apTtyszyu0PJIAjacyCpG3iJWmr9rlXKiWPA==
+	t=1794290000;
+	b=KKxBg+BwNx0M0ohQrO6dQb8xcsiPEy+WnGx1P58xzWrbS9rTpCv0IpWMiI7Xb/qtBl/O
+	 aex8ySMgJBfoKRwzco4xgxNaCRhnfV7x2tVVNCOOLzpw9PPoyeI/mq5RUB4DkShpgTwqq
+	 2wXIQQdWybTHl5NJA/HKnJtzMeV3EELcZHGAMTjDDM0smdG4JPaqDkS0ak7NCSZjktqAK
+	 petx8+iwx5eSIyaHdvBwa3G4KUrddmtJFEXK1PR7W7JUQh6GN8Ya88XDIj87ezvpm3Fb+
+	 Oz5zaFoyJTfCud03FYLS+1es11nFONjW0w+Pc2HDiic1YEi4M7nqpOyyHAkH6xMB0yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289997;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=YnyI1E/tXADZNI0XTbGcSGGT3VaZrgmrn187FtfBb6I=;
-	b=gb64hfJzhR4K8gIoyes/kcJfKYMCcepoyE1I5bROkwTXcvpXRtEAXidxMrm01ffS5UjU
-	 qUQFGI2PrpeI+GVnXAx9QJsgQhymfqlNgEhH1Mta6Ci2GEOPbPKnorwmMMj0yOjLPJs77
-	 V7siuS53btZda6ddXbKNd8hPC3AAQOsmlPXJ37s4Q/dIPBdvlsec0DGZNcY9SckJ7HEpy
-	 3JWb9KLybQIMsbkIJA8D1iMkkPYuQTavG0srGaIFx/R12YaAgWTmZNxVLYWaou+AUsdto
-	 xssUk3f3RzWxKh14M1FcQcDysDklUjwiUSyjNKijUmlKkkRxci9vlM3an+8nykU8NwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290000;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z89xSOnIYbQe/BnbwEDddihQE8DlZZ6KBDFpfIcDInE=;
+	b=E7UQK56IF1CRdYnM2A0egTNzONHiwrTEYb/J6XQh6yb2v1c21FpFqQOCJDCk2+8v3r+a
+	 FvKz52ZgaUti7bWWjlPDdPb+XgUGk4AK76Pb0HHzpWloyoy9O23yWSbA4IZ9FH3HoM/I9
+	 ozc+JlLeSySpIdK4OcjKMFzVrpM4CK19kR5OPA6rxvmFL+7hQiB0YQfi3Sc/6McOphzv9
+	 FEWjL6vDdjl66HfnMmkUE2oId1VlrDEtu7YNmgf7Gc6U2jSrUN/lWN8yr2JZk+tm5lYKB
+	 GSoRvT0VMQkdZp8rVJ9dewMn4elK2VtfmH05Qp9KyysnkbpKBv+RIadgnm53ZsMd57Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RlMcej0s;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lyQ9UJ+R;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73250606A321;
-	Tue, 10 Nov 2026 05:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73250606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70C2606A33D;
+	Tue, 10 Nov 2026 05:53:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=RlMcej0s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794289987;
-	bh=YnyI1E/tXADZNI0XTbGcSGGT3VaZrgmrn187FtfBb6I=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lyQ9UJ+R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FC11F008A1;
+	Tue, 10 Nov 2026 05:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794289999;
+	bh=Z89xSOnIYbQe/BnbwEDddihQE8DlZZ6KBDFpfIcDInE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RlMcej0sH+YHRrPEV9YJUIDy+wr6QvgUvUSjUzl4ynFK/1A8o78bX9qhhf4hLaJBE
-	 Cgvy6tJbLtFjESxgLDfQ5jUWGX9jCHJ7J99aQUIh2oDdIx9ZD40yjfvfqs584FmjMN
-	 AO5kC+oLKBbDRMRfWNuLN3ER0TVOFagPaKoEAaNG7Gb6060YCs37/NL/sB6jvovceY
-	 St82FWpxTZKZa9eOIBQWuhF5VmbeDPF+ycRnUkJaiyNVqvmK6DUak+/7QGwsJWCiFv
-	 +WKdv8aHB3CcR/0EsGkGqEcxiX+udLc9ycwIKHIGblQlXb0O08pdPPuuWYBKBfM/rc
-	 fIITpQN0q2Vlw==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C4AAC64C3C;
-	Tue, 10 Nov 2026 13:53:05 +0800 (AWST)
-Message-ID: <fff90721f7892c0285f4fed7fed460c7c1e183cb.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
-Date: Tue, 10 Nov 2026 16:23:05 +1030
-In-Reply-To: <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
-References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
-	 <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	b=lyQ9UJ+RnJfZYHoAs6Z6tYh7JPfwTK3ToP1JPzFXHVxRoGly7DdXrxmH8BkTgETl/
+	 Obeh0mUbgS/9wHFArLQHNJbDUBgCKXQSlvTaWY79Ji4XmGotyU05XuFkzwhC4WBCzj
+	 +9+UuLPufHMh9G0g5ohqhboSCWLSpUGD7a+jna9Fs/VkP+pzpv5mAlQUTLJJFd4I+q
+	 e8dDiUk75aoT2UJ9hFCSJWvRtlwGTmKa8naEaX8es02v59SLHeqnzJq9+z6rhjZ5wq
+	 k3Pv1LDYHv/WqQJZFk3Wj3opFF2+oCRjqFjIG4XzRUq5ucUrD7lUfqbJ+GtqEZNDS1
+	 wzIkaWWQN7pGw==
+Subject:
+ Re: [PATCH net-next 01/14] ipv4: annotate data-races around ip_rt_* sysctls
+From: netdev-bot+sashiko@kernel.org
+To: jiayuan.chen@linux.dev
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ razor@blackwall.org, paul@paul-moore.com, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, ja@ssi.bg, achender@kernel.org,
+ marcelo.leitner@gmail.com, lucien.xin@gmail.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, mjambigi@linux.ibm.com,
+ tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, bridge@lists.linux.dev,
+ linux-security-module@vger.kernel.org, mptcp@lists.linux.dev,
+ lvs-devel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
+ linux-s390@vger.kernel.org
+Date: Tue, 10 Nov 2026 05:53:17 +0000
+Message-ID: <179428999715.994134.14310277652030711794@kernel.org>
+In-Reply-To: <20261109025425.328445-2-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-2-jiayuan.chen@linux.dev>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,23 +75,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Mon, 2026-11-09 at 18:41 +0100, Dawid Glazik wrote:
-> AVCRP is an Intel x86 server platform equipped with an ASPEED
-> AST2600 BMC. The BMC is used for out-of-band management, platform
-> monitoring, and system control.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-It's probably my fault to some degree for not providing a better
-explanation of what I was after on v4, and for merging changes from
-others in the past that were pretty lax on the description, but what I
-was hoping for was something more like e.g:
+Low priority / nit picks for your consideration:
 
-- f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM"), or
-- bc83b7353d2b ("ARM: dts: aspeed: Add Facebook Anacapa platform")
+- [Low] In __ip_rt_update_pmtu() (net/ipv4/route.c), the patch adds two
+  separate READ_ONCE() loads of net->ipv4.ip_rt_min_pmtu.
 
-Are there more details you can provide? If there are, I'm fine if you
-reply here with them, and if there are no further concerns I can update
-the commit message while applying the patches.
+--
 
-This also applies to the JNCRP patch that follows.
+ipv4: annotate data-races around ip_rt_* sysctls
 
-Andrew
+This adds READ_ONCE() to the lockless readers of several ip_rt_* route
+sysctls in net/ipv4/route.c. Their sysctl handlers write them with
+WRITE_ONCE(). The change was prompted by a KCSAN report on
+net.ipv4.route.min_adv_mss in ipv4_default_advmss().
+
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index d0a5f6d77094c..83f49b2d4c36a 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
+
+[ ... ]
+
+> @@ -1063,14 +1066,14 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
+>  
+>  	rcu_read_lock();
+>  	net = dst_dev_net_rcu(dst);
+> -	if (mtu < net->ipv4.ip_rt_min_pmtu) {
+> +	if (mtu < READ_ONCE(net->ipv4.ip_rt_min_pmtu)) {
+>  		lock = true;
+> -		mtu = min(old_mtu, net->ipv4.ip_rt_min_pmtu);
+> +		mtu = min(old_mtu, READ_ONCE(net->ipv4.ip_rt_min_pmtu));
+
+[Severity: Low]
+READ_ONCE() is volatile, so __ip_rt_update_pmtu() now always does two
+separate loads of ip_rt_min_pmtu. If net.ipv4.route.min_pmtu is written
+between them, can the check and the clamp see different values?
+
+For example, take old_mtu=1500 and an ICMP FRAG_NEEDED carrying mtu=300:
+
+  first load sees min_pmtu=552   -> lock = true
+  sysctl write sets min_pmtu=68  (accepted, extra1 is ip_min_valid_pmtu)
+  second load sees 68            -> mtu = min(1500, 68) = 68
+
+update_or_create_fnhe() would then store pmtu=68 with fnhe_mtu_locked set,
+and it stays that way for ip_rt_mtu_expires. The old setting would give
+552 locked, and the new setting would give 300 unlocked.
+
+Before this patch, the compiler could merge the two plain loads into one.
+Only a privileged writer can trigger this, because min_pmtu is not exported
+to netns owned by non-init user namespaces. Later patches in the series
+don't seem to change this.
+
+Could the value be read once into a local? This patch already does that
+in ip_error() with burst and cost.
+
+A smaller case of the same pattern affects ip_rt_mtu_expires in the same
+function. It is re-read for the freshness check:
+
+	    time_before(jiffies, READ_ONCE(dst->expires) -
+				 READ_ONCE(net->ipv4.ip_rt_mtu_expires) / 2))
+
+It is read again for each nexthop in the multipath loop, and once more for
+the single-path update_or_create_fnhe() call. Could nexthops updated in
+one call get different expiries?
+
+ip_rt_redirect_number is also read twice in ip_rt_send_redirect():
+
+	if (peer->n_redirects >= READ_ONCE(ip_rt_redirect_number)) {
+	...
+		    peer->n_redirects == READ_ONCE(ip_rt_redirect_number))
+
+The second read only gates the "ignores redirects" warning, so there the
+only effect is on logging. Should these be loaded into locals once as
+well?
+
+>  	}
+>  
+>  	if (rt->rt_pmtu == mtu && !lock &&
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109025425.328445-1-jiayuan.chen%40linux.dev
