@@ -1,82 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281755;
-	b=tEfb8/yMwjymG6ROGILoOQqy1q+PtfMmtz9FZ693SLRIGVodcmRBFuNHL0JtD0d4KYk6
-	 aafXw9VSR58iWmM36WeoV7oEAEGOx3BkXmHxtgk2JoAlUHyoeGPBnsT2KK78sEXYdlBKi
-	 JrHfQZwfSa1Kqk/y8C7NjhcMpKLbFPBLmkY4PcKoR+IWDs68eoTOtDHouVYkrQd1G4F1H
-	 N3cEWVs3OODiUXZk6WQAhGzkN/meYf8YQm63VHuC/CRiuHmraSxejzo/ouEhz8Ka2PWTJ
-	 rB20Fe5ivGcNdMc0NynFtAo8dLTnRtgwGNPVRMAf9saUJ2M5SwfnyUPnmrjP/dK8Xcg==
+	t=1794281789;
+	b=cTMZ4jQhDBrMSqEQk5+X6z15tF75BIdx4w9JQ6rj13NF8n2MELgDY+aAa5Um66N6xOe6
+	 cyovdRxD1W0kVbKHZuHnTkDCvPb9DyADFNo6PzFohCEqBZFVLKvUgeWEIZxGtHWCNwNPe
+	 ebf9YR6sNkh56XUve/2i0sn5fdL3QazkycOZiFoJgBc80ROkEME0YvRtlIJ5aVeGq5tTn
+	 GEf6h132wXNm2hSmtqZYdthpSsxBRPycniNlwOZkqBS97En76/c2LG/igZMLKuwfQ00lH
+	 SjjqwiuWRjt6HppP6vqhrBIZWUuhUKKzFzPvtf40lectv99GSP8+/546KUQ8dsspSSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281755;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lCplubZ3KW5IAPzFP2BWcswNJnUw6KB2HzBlQqEKJ9c=;
-	b=BZQs/K87+cGI6wRCSYUzBaJ7gng3fYHmcSK8E9cib09EF71HcELgRRTprakppmiP9AMU
-	 y+Kd5xsbuThiiW4HXx6gZsUDzuPGDp56r1cR96qI8PbVRw7Lu5uawlXrOeCOiJNbgzTJx
-	 Zl3VoohUvrb6s+Hu3wESp8/X1l5suXYQ9v4pZr7wg3uq2SFxO14IFsqIVfwq5hOeJcnZ/
-	 UgbejPpX/G/jLtnKF7lCgP6y+/gdaf3ydyX6bv6/87og14e6NaUBpiWmttyWtmqisbzoo
-	 oRU5iNPb5tj2DMrNlKjR+X+U8jdQdP/NS9+LL8dAENXYrQD7HG3TgRpScPBBKJumgjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281789;
+	h=DMARC-Filter:DKIM-Signature:Date:Message-Id:X-Original-From:Received:
+	 X-Mailer:Mime-Version:X-Change-Id:Content-Transfer-Encoding:
+	 X-B4-Tracking:Cc:To:From:Subject:Content-Type:X-Lms-Return-Path;
+	bh=MdV1iw1oXPABltdcxTTrq3FhwCi0ueZwwK+wh2OJ4xs=;
+	b=B/fdrKrstd8eZ4zzaRKleWBn93izzKaWnIpoal1+Jlf1j+ziNBWVXY6Mda+x1EFA5+5+
+	 Dtq9+UcinAzdCVkP5rxf8obs3f8ea0gQ0jokrwZP+2Rfpgsx+4Y/RfUGLEpxYh27CxTP1
+	 B0hjf0laTF8nukembfZ3TQai9nge8TvycS8z1mBUouN8CXUJqMYU5Frx22QcVA2/XXdvE
+	 IY9LhysxA8dJTFzy+oQPyCJNhE5uR1xGS7Vet24cSG1DXrW4A3HrWIUtEzFskiSoqc1FB
+	 fnN4nyDzlj6uNeXW/rFfX9D+0PHAfIacMYO6oeETQ0ll+5YBYCfkKcSRgREarFj1C2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p5zCNWHN;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=aSoarAY1;
+	arc=none smtp.remote-ip=209.127.231.59
+Received: from va-2-59.ptr.blmpb.com (va-2-59.ptr.blmpb.com [209.127.231.59])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461E8606A31C;
-	Tue, 10 Nov 2026 03:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461E8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F17C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F17C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p5zCNWHN
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0iWMW3906794;
-	Tue, 10 Nov 2026 03:35:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=lCplub
-	Z3KW5IAPzFP2BWcswNJnUw6KB2HzBlQqEKJ9c=; b=p5zCNWHNRKRKmx3b/mAjvM
-	G59tZ19hSQvMODtcrLi/69iN7KAN5MIP/M8zBl9lwyoQkVXK5Yz6d+ND8i8RI5a7
-	9wVXSoydj9d9ZQOu+iOA1k+cUiDEQJk3OnS1DirElu6CmtEX8j0caAMXOzmvTUnB
-	yhb5i9DKmVSJL3OmvBlvg/aSF1Lwib8PVkSPQsIfLt353pdJEn6E6D1KAqufWXjd
-	TKIwKRIVDBPQuKCekbN9gQIHnuHwbWuiSMqfxFomIUgtrp2RrvGnpxbm1BFonSE9
-	sPixbEpc+cZc2QxBK213URYt6FV4CnbTV4dkjGwfjh8ep3uTrMyoqAObyyHZjuxw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdg2jwr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 03:35:38 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA14pZv1043053;
-	Tue, 10 Nov 2026 03:35:37 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepvw2uf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 03:35:37 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AA3Za5e30278160
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Nov 2026 03:35:36 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7833558056;
-	Tue, 10 Nov 2026 03:35:36 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10F4D5803F;
-	Tue, 10 Nov 2026 03:35:31 +0000 (GMT)
-Received: from [9.123.14.23] (unknown [9.123.14.23])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 10 Nov 2026 03:35:30 +0000 (GMT)
-Message-ID: <219b1f33-7bb8-43be-bbd1-7e7a5f805ad0@linux.ibm.com>
-Date: Tue, 10 Nov 2026 09:05:29 +0530
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=aSoarAY1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794281781;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=MdV1iw1oXPABltdcxTTrq3FhwCi0ueZwwK+wh2OJ4xs=;
+ b=aSoarAY1N7nykvD0mvVJXBEGXim0UVefv5YiJ0tT8jiK0LUvO8mDvp7KFMoeM4STG8ynbZ
+ wKghSO7RUu5obEW1B4dURcHApQK42SmyA83i1A7P3HV/06ZVbdY/sHavhgXtCjz4gIM3sY
+ CW7n40bv1e8lVxgFRxuDrfq5bfR0wsVPu9OSFk9SqUeVtmeayLlAdQp6EV+z1uQbwGFV+3
+ Z89ad9xngujbFOucrEuBRj58u4pMMxPG7hVx5zkdWNXdOXvkHS3f1dmFV+NpgQsMW0vXi6
+ /IuZ0vBvLRLXURRMNY/tRPWnpoEGX897DpFAIa/h93nMvD6YhlB10z3X7fWpew==
+Date: Tue, 10 Nov 2026 11:36:01 +0800
+Message-Id: <20261110-mips-ntlb-only-vtlb-v1-1-41a40980f072@oss.cipunited.com>
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 11:36:18 +0800
+X-Mailer: b4 0.17-dev-ce4c1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,106 +56,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/9] keys/trusted_keys: propagate wrapping key
- generation errors
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com, mpe@ellerman.id.au,
-        npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-        nayna@linux.ibm.com, rnsastry@linux.ibm.com, stable@vger.kernel.org
-References: <20261105144320.357260-1-ssrish@linux.ibm.com>
- <20261105144320.357260-2-ssrish@linux.ibm.com> <auy4vLV8CRJB2hKt@kernel.org>
-Content-Language: en-US
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-In-Reply-To: <auy4vLV8CRJB2hKt@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+X-Change-Id: f0ec6aac-mips-ntlb-only-vtlb-e1d248e397f7
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af2910a cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=x0mFdGU97Ue3yh8tahEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAxMiBTYWx0ZWRfX5XELAtYD/6ZT
- wQfVNAWINDMlyr8XpqZOz7CDOEzV7Tss9lrXD8t+1/xXMSMsR21cdMQ1HsFXSNdCUkBuRhQwZjv
- kjzO7i+24zlcKUWng3TtT0IWzz6L0NLz4JxKx16QUAq4OqWqKvKrDLhBROtqYtfhi9VyDls5PRC
- nOAbedfvl3wTLZ7NjP4Er/YABoq4kTWK1RSx1SQxkyo5xoYIOuVdflrlu2pGnmE0iPTIEF8ctVo
- 0ETxRjdzw4rPVEG7dK29zCse5hlnogzV2Uc/mk8vaVmr2qB/T8wy3u8zmlU/2tAleDU+3/an3fn
- epTzg0NPHOkPHL6mf70voQxXiXRynH2Bem9hQp95GZbjNFA7Y/B0bOrJR+g8MNAls2WU9F7woY6
- bUc8m295oVSvyHso7wzlfiZcXQcCumOPYommejBAUQ8NNxqcCBTZRzPuty8GAYYO25ZCpXy84cw
- 9heh5pAWmlPI+pV7AQA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAxMiBTYWx0ZWRfX8jDfyhclgVLd
- Cj0RxyVmt4od8yAh89vjeRlSJLgwW3QEPNpr7UWU6TO4VbSWDr52T6/Uc50vWDknIFq1Dr/4bBo
- DdzRHg10B6/ApTre8eHi44e18Th8xPE=
-X-Proofpoint-GUID: vk_w2uHnWXnxc3jjNBFmR4eSdao1W_3T
-X-Proofpoint-ORIG-GUID: bKv5OHUKM3cO6NFS6wbb7XorwYGzM8oY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100012
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche3YTECPiqxgOpUxhDRTSBaIhv LtFbvMd5t9IEQRKz2SjgFVURh+RXRKynfEtWJpocins3RjLg0zKfu5rHn3/5fVYyJrr7YG8LFx B8TkFOPn8q6/qtC71G3Y+UrTvP0RzGpx3AAAA
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>
+To: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, 
+	"Markos Chandras" <markos.chandras@imgtec.com>, 
+	"Paul Burton" <paulburton@kernel.org>, "John Crispin" <john@phrozen.org>, 
+	"Leonid Yegoshin" <Leonid.Yegoshin@imgtec.com>, 
+	"James Hogan" <jhogan@kernel.org>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Subject: [PATCH] MIPS: tlb-r4k: Only apply 'ntlb' option to VTLB
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26af29133+2a7ce6+vger.kernel.org+rongrong@oss.cipunited.com>
 
-Hi Jarkko,
-Thanks for taking a look.
+FTLB entries cannot be wired and thus are inapplicable to the 'ntlb'
+option.
 
-On 11/5/26 10:41 PM, Jarkko Sakkinen wrote:
-> On Thu, Nov 05, 2026 at 08:13:12PM +0530, Srish Srinivasan wrote:
->> plpks_gen_wrapping_key() returns a negative errno when default wrapping key
->> generation fails. However, trusted_pkwm_init() returns -EINVAL for all such
->> failures, discarding the original error.
->>
->> Propagate the error returned by plpks_gen_wrapping_key() unchanged.
->>
->> Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
->> Cc: stable@vger.kernel.org # 7.0
->> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
->> Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-> Nit: I'd put the SOB as last.
+Print a notice message when FTLB is enabled, and ignore any ntlb value
+larger than the size of VTLB.
 
+Fixes: 75b5b5e0a262 ("MIPS: Add support for FTLBs")
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+---
+ arch/mips/mm/tlb-r4k.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-Sure, I will make this change.
+diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
+index 78bafa317fa6..288fcfb8990a 100644
+--- a/arch/mips/mm/tlb-r4k.c
++++ b/arch/mips/mm/tlb-r4k.c
+@@ -839,8 +839,17 @@ void tlb_init(void)
+ 	r4k_tlb_configure();
+ 
+ 	if (ntlb) {
+-		if (ntlb > 1 && ntlb <= current_cpu_data.tlbsize) {
+-			int wired = current_cpu_data.tlbsize - ntlb;
++		int tlbsize = current_cpu_data.tlbsize;
++
++		/* Disabling FTLB will suppress the message. */
++		if (current_cpu_data.tlbsizeftlbways && current_cpu_data.tlbsizeftlbsets) {
++			pr_notice("FTLB is enabled. The 'ntlb' option will only apply to VTLB\n");
++			pr_notice("Consult 'noftlb' to disable FTLB when desired\n");
++			tlbsize = current_cpu_data.tlbsizevtlb;
++		}
++
++		if (ntlb > 1 && ntlb <= tlbsize) {
++			int wired = tlbsize - ntlb;
+ 			write_c0_wired(wired);
+ 			write_c0_index(wired-1);
+ 			printk("Restricting TLB to %d entries\n", ntlb);
 
-
->
->> ---
->>   security/keys/trusted-keys/trusted_pkwm.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
->> index bf42c6679245..422f752598e1 100644
->> --- a/security/keys/trusted-keys/trusted_pkwm.c
->> +++ b/security/keys/trusted-keys/trusted_pkwm.c
->> @@ -170,7 +170,7 @@ static int trusted_pkwm_init(void)
->>   	ret = plpks_gen_wrapping_key();
->>   	if (ret) {
->>   		pr_err("Failed to generate default wrapping key\n");
->> -		return -EINVAL;
->> +		return ret;
->>   	}
->>   
->>   	return register_key_type(&key_type_trusted);
->> -- 
->> 2.52.0
->>
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-
-Thank you for the Rb.
-
-
->
-> Br, Jarkko
-
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: f0ec6aac-mips-ntlb-only-vtlb-e1d248e397f7
 
 Thanks,
-Srish.
-
+Rong
