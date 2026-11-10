@@ -1,77 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794273781;
-	b=eIc8cBkHvaZEVf657cM9T9olBxkfVz3Wvm50qC3C78QSoUISUbWAeHyiRTNf/CujdvU6
-	 R49DhZBlEUzSZdBL9PRFy4yvtbf4xU0TeGP3VDsAANG7R+C0nCdPCxdJ7QvfGRP/9RgZl
-	 82kxRyglDHkPfplpTYJlQLpEXXwiPu2cyBDqNtobwNvgK3khcIzpe+/6juw3uoJASLxEZ
-	 ERMkDVBguOnzC392s3OUfGRt81loT13cIFZAO8+NIqB01yZchKNDNFmu7nBEN+iovXMuy
-	 +YDE15myuu3jHZOVPafFFzr2e7SDPj3JKRqdp4U3SUgfi5+ve1hC0/OVdWNPKbuINBg==
+	b=K0ReZMRZrwceWLhCok5F/SY77m9/lVGK9JBUrofx3xqbAFYH8uG2/f0k4iqegnjt3rZ1
+	 fprwpiFlGWH9MuHaz2//GToi4GY3cSGuXo0xUcLiG/KPs6LrCzN2d5eHK41ERvxBCEq6f
+	 uXQ85kPk7Z24el8f1/qCyFvwTKoK8cMyCbkiF9rFokWaVbfThhaLYGVOubesP6kal1xar
+	 mXkjPisuZ0g2fNW0koaH8UZ4Dsj5IJ58yESuzlz4vn7xceSo31xRqJtAXEOegVmutz7+b
+	 FxV60K1g0Zv1HA6FMWPRjsZfW6iE7sDX10qVxpKE3ynxhnwcPZffaR4TaZAMtCdT4BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794273781;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6ikOY1QtqE20RvpK7jFWoW7yVGQoHNL7uN7yLyDwl0o=;
-	b=xQamPsGqGboGoyt9b2+PhfZkOI0WPWJtpgGAhecDtl3VhzFQF+fS3AKykPctl1SHy7fu
-	 +KYgsmWkAMNeIzs2BSaP6+tyS2jd6PITPqQHyH5uhlX13HR/bqAwMWPfOUmaPfK0spXLq
-	 HnAWxbygH6PB6/IuVugsl3491qo9o/PhFYiAPof2s5VEH4/ipWFEuuwM6SOlasOyltyr0
-	 Y82fe2aP+dsj5Zc1nz/dFnMd0UYQVMcR2egT8FLAKFQi7izYWjA5HmaHICbHGqTXdnzyK
-	 t/MRba8U3hLOyP1RCuorOf74djy3HKjDhmT+6YqUgcGRj2Nlpwxa+0lkY+NVwSmKHmg==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zDcWjEiuTeWEvpP/9tc/MwWduB+JGfUQadQax8dMPQY=;
+	b=oSqoN1QJhzavsNFTMBtmg6BXmIvN4SmjYLlyPqJFyjdhHJpsZk4uoTufq8DfZSPfrBCE
+	 gp7gZvhN7Ak0CG7I5WZgzKai5LG4HAqAuEJFCd2wcoIWIfIs3voOXfyDuhHwT2L+LpDHF
+	 uN7Fo0XGrho9snUTbAOYbtBbtoYuqx1JjlrvZCzYub3yuoIyM60iDMzBWvxMYNncnLi5n
+	 j4nVbaJa/OsSJFbIANwGxJdzV+74l/a7X/VgaxeOEqJslcLvaAHnz0ayaq5smmMfW/Uvs
+	 O1p6m9JJbOAPQk5lTM0t1az04WUAzi37JVdnVnUWFqJof3euaSk3Pcm8VMsV61E8oLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=QvCCZnSZ;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Cs29LN2V;
+	arc=none smtp.remote-ip=95.215.58.17
+Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57B060A3810
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57B060A3810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDEE60A6F52
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDEE60A6F52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=QvCCZnSZ
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id CEED740E04D0;
-	Tue, 10 Nov 2026 01:22:57 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id U3d-J4j9N6Rs; Tue, 10 Nov 2026 01:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794273773; bh=6ikOY1QtqE20RvpK7jFWoW7yVGQoHNL7uN7yLyDwl0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QvCCZnSZDa/dgEVnXBnwTDTJy0LvOTxeevkFHiny6MenRW5ln5sHwqxnIr/33oned
-	 J8cSQqo13ie3ddTClO7/BRza7nKpUU8Az1PQ7NmgFsJJd4mOmQRSHCTHDUjeNWa84r
-	 K7PQe5Ai0PIDc4kaEQsfoWK4HVu6j92ftaTrupWGgr+Gh922TBsD2t6jzFRdc0s+wi
-	 W9wE5Kg5SNb3jmcRaKAkdrM4503wW46Bnt11e0XZNq/YQDPECbUA0RTKDIjjSHuLbm
-	 nuaqhMIHZElfsLa9PgDAmjpn/p93UGk4KgSwX29CBGwFpImC1UTlcl+oqH1rA0K2uq
-	 932Nc5BTCP4kVhbltIGB0fVY1rsfC6qFfqm0LeEqyTgKvYWfwiWQraVKnWrEqEbha/
-	 92Gu9yYjZPepIBZ7Ks6+ZoeYMEuMs4hI8g0TLksWnaQA5+AU9Gfda6tXHNni/SAhBC
-	 dtMkiwIVevIYTLg3Qifj+lShquImiC4pUi3AAMVLdesWpdlbEaN2wExObTXNyRjon4
-	 9QzlQIIxYakfPePLF0PO2XM696I2ealW++DFg8uZMHhnlOGn4ofWTvC3V+5bLMidCx
-	 v7+Z9XulK4jVqAjyE2MhrIHZdtBCi5HxcnpI9qWWQkEyzpE5pixx7F3H1TzJbS9Bqr
-	 W3kymcEucSYlSIfJ/ucoC0EI=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 537CD40E01E1;
-	Tue, 10 Nov 2026 01:22:45 +0000 (UTC)
-Date: Mon, 9 Nov 2026 17:22:42 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, peterz@infradead.org,
-	david.kaplan@amd.com
-Subject: Re: [PATCH v4 1/9] stop_machine: Refactor multi-CPU stop glue code
-Message-ID: <20261110012242.GFavJx4qqoioeVSZ1M@fat_crate.local>
-References: <20261104182322.578066-1-chang.seok.bae@intel.com>
- <20261104182322.578066-2-chang.seok.bae@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Cs29LN2V
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=B8IHCXgmRdg1OYPmSUOl1x4rvW8jBb9fhzbRGWNLTsM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794273779; v=1; x=1794878579;
+ b=Cs29LN2VHlAOEjnMd3Gru4jSkSiDLqmKvlECKk9+WEUqQTAxpk0Ydjl1qntxQHcq0ojBh7R/
+ GdkG3PuyxOiBui1dNP3zOp26WWCyg9Jvd2KNk4s1kGbOfXKMeUU9O/2VQajlimu98U7glguSp/A
+ QUL3lHHpNQ+dAWDBtCFWHSOw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 492985442f232e3a;
+	Tue, 10 Nov 2026 01:22:58 +0000
+X-Mizu-Trace-ID: 492985442f232e3a
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: dennis@kernel.org,
+	tj@kernel.org,
+	cl@gentwo.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	boqun@kernel.org
+Cc: longman@redhat.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	ast@kernel.org,
+	andrii@kernel.org,
+	daniel@iogearbox.net,
+	acme@kernel.org,
+	yonghong.song@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	llvm@lists.linux.dev,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [RFC PATCH 2/2] local_lock: do not put btf_type_tag on the lock guard type
+Date: Mon,  9 Nov 2026 17:22:35 -0800
+Message-ID: <20261110012235.1024461-3-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110012235.1024461-1-vineet.gupta@linux.dev>
+References: <20261110012235.1024461-1-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,45 +87,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104182322.578066-2-chang.seok.bae@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 06:23:14PM +0000, Chang S. Bae wrote:
-> stop_machine_cpuslocked() currently configures struct multi_stop_data and
-> invokes the multi-stop operation. An upcoming stop_machine() variant will
-> have different configurations but the latter part will be shareable.
-> 
-> Extract the common part into stop_multi_cpus() to highlight each unique
-> front-end.
-> 
-> No functional change.
-> 
-> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-> ---
->  kernel/stop_machine.c | 35 ++++++++++++++++++++---------------
->  1 file changed, 20 insertions(+), 15 deletions(-)
-> 
-> diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
-> index d085ba1f4b44..8dcd5be67b85 100644
-> --- a/kernel/stop_machine.c
-> +++ b/kernel/stop_machine.c
-> @@ -582,18 +582,8 @@ static int __init cpu_stop_init(void)
->  }
->  early_initcall(cpu_stop_init);
->  
-> -int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
-> -			    const struct cpumask *cpus)
-> +static int stop_multi_cpus(struct multi_stop_data *msdata)
+local_lock.h applies __percpu the same way the per-cpu declarations do,
+and hits the same problem as the previous patch:
 
-Waay too many combinations of "stop", "multi" and "cpus" in this file, with
-different ordering, causing me a headache.
+	DEFINE_LOCK_GUARD_1(local_lock, local_lock_t __percpu,
+			    local_lock(_T->lock),
+			    local_unlock(_T->lock))
 
-Call that function __stop_machine() instead as it looks like it is going to be
-the naked, no-locking, version which is internal only.
+	local_lock.h:86:1: warning: ignoring attributes applied to
+	'struct local_lock' after definition [-Wattributes]
 
+which -Werror turns into a build failure, four times over: the same
+pattern is repeated for local_lock_irq, local_lock_irqsave and
+local_lock_nested_bh.
+
+local_lock_t is a typedef of struct local_lock, and DEFINE_LOCK_GUARD_1()
+hands its second argument to cleanup.h, which forms a typedef of it and a
+guard struct holding a pointer to it. An x86 defconfig preprocesses the
+line above to
+
+	typedef local_lock_t __seg_gs
+	__attribute__((btf_type_tag("percpu"))) lock_local_lock_t;
+
+	typedef struct { local_lock_t __seg_gs
+	__attribute__((btf_type_tag("percpu"))) *lock; } class_local_lock_t;
+
+Both put the tag on local_lock_t, an aggregate: the first on a typedef of
+it, the second on the pointee of the guard's member. Every variant of an
+aggregate shares one DIE, so there is nowhere to record it, exactly as for
+DECLARE_PER_CPU() of a struct. clang writes the annotation into DWARF
+without complaint, but pahole does not translate it from that position,
+so with today's toolchains it reaches BTF from neither compiler.
+
+Use __percpu_var here too, which leaves
+
+	typedef local_lock_t __seg_gs lock_local_lock_t;
+	typedef struct { local_lock_t __seg_gs *lock; } class_local_lock_t;
+
+Sparse keeps the __percpu address space, and the __releases() casts to
+"local_lock_t __percpu **" further down are unchanged, so the pointer
+spelling the tag exists for keeps it.
+
+Unlike the per-cpu declarations this changes no BTF at all. A tag in that
+position was never recorded, so there is nothing to remove, and the one
+percpu TYPE_TAG that does reach a local_lock type comes from those casts,
+which keep it. An x86 defconfig built with clang is identical with and
+without this patch: 152551 BTF types and a 6828300 byte .BTF either way,
+and .text is unchanged. The patch removes a GCC diagnostic and no more.
+
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+---
+ include/linux/local_lock.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/local_lock.h b/include/linux/local_lock.h
+index b8830148a859..9d3d62e46007 100644
+--- a/include/linux/local_lock.h
++++ b/include/linux/local_lock.h
+@@ -83,13 +83,13 @@
+ #define local_trylock_irqsave(lock, flags)			\
+ 	__local_trylock_irqsave(__this_cpu_local_lock(lock), flags)
+ 
+-DEFINE_LOCK_GUARD_1(local_lock, local_lock_t __percpu,
++DEFINE_LOCK_GUARD_1(local_lock, local_lock_t __percpu_var,
+ 		    local_lock(_T->lock),
+ 		    local_unlock(_T->lock))
+-DEFINE_LOCK_GUARD_1(local_lock_irq, local_lock_t __percpu,
++DEFINE_LOCK_GUARD_1(local_lock_irq, local_lock_t __percpu_var,
+ 		    local_lock_irq(_T->lock),
+ 		    local_unlock_irq(_T->lock))
+-DEFINE_LOCK_GUARD_1(local_lock_irqsave, local_lock_t __percpu,
++DEFINE_LOCK_GUARD_1(local_lock_irqsave, local_lock_t __percpu_var,
+ 		    local_lock_irqsave(_T->lock, _T->flags),
+ 		    local_unlock_irqrestore(_T->lock, _T->flags),
+ 		    unsigned long flags)
+@@ -100,7 +100,7 @@ DEFINE_LOCK_GUARD_1(local_lock_irqsave, local_lock_t __percpu,
+ #define local_unlock_nested_bh(_lock)				\
+ 	__local_unlock_nested_bh(__this_cpu_local_lock(_lock))
+ 
+-DEFINE_LOCK_GUARD_1(local_lock_nested_bh, local_lock_t __percpu,
++DEFINE_LOCK_GUARD_1(local_lock_nested_bh, local_lock_t __percpu_var,
+ 		    local_lock_nested_bh(_T->lock),
+ 		    local_unlock_nested_bh(_T->lock))
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0-Meta
 
-https://people.kernel.org/tglx/notes-about-netiquette
