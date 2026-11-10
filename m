@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794341724;
-	b=Gq/I7EuTvmrrMGozieMbLezqVsJthoEz/8phsu2ECotZAb3OLwWjSHveW2+2va1Lwu4f
-	 zkExXvbRdk5ueRwaaNbEiHshtW6RKM0uLLczKIZy6H6bYxlebv1RYYVsZihDIvDR8ZYeN
-	 i/WqoTaEQ0YSA2n0FAseELKDj1qPKwNDUcqOQh5PDCNchq8ibvgUI9S0hfVeg64ZuJa4g
-	 ba9lbI8FeLzxxSswcKNISWmycL9vKb4tXECcI93Dw/YAx1shx5o7tSx0818vi31gf5ldN
-	 WAF9tH4iM5QA9DZyXO1j2MCT38n8i8V+9r3IQ6QxJv6J4c5NoLF3U7x5F7j1uSuEqTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=lJiT+8IpY9D/26sFc0x6AV66fD9LP1gmMsQhUCQo140=;
-	b=z+UodW+osAMq1+fOwf5tbytQaErwA+tcSvXmBBgAEMfWNS5Fuh/mMrNLRryXxxZ3hdJJ
-	 qeKvmyf1TGDDaRUm+umd6nQ9Ouqo8MvEQ0lRuqW3z6gsEEpoDwAtHAHTi6j4A1lzkCkR7
-	 nFS4eh8sEnX26E89rmgIyXyR0VFE5xxzrRWVrI0op2HU3gsuioyL4M87ibeeKnUaSN7yj
-	 2yGJRcA1FQscfgoOL2BQIjCFNo7UPC0SvsMMbP8UlKUyF6csWTK6NZBUD28/R3alqZWO6
-	 4jgEmOTrr2sjR3SWqMzN+MDhuteRQtIqX8y0eXPkoNGYvPLfR7LaO0soU0pWr1SwPCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vi0rRR86;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794341808;
+	b=bZbEKHT9YA5F3jBcYxIBEe0AOJdx7mz76K2rDdnyd/0YyczaRSrUDGZvtLHeXLFCKEId
+	 KIQXJzwwleBrLOFRypv9ZxSt1bl8akvfKJBoD2OrCdpVbjz97DiVkpZHh65IneFdsv8pJ
+	 SFLLMBt7I/ZonTxfO1QHJG3jbaC7/pKjrYQ5NFcGQHOS3RoAQcFPT4VaPkjGsl4Pvstq5
+	 0rP2xChEXq2P2URpSQ1xte6GgaXA6et/LTJCgmzUwH0hxue4PKFyJcO130aSq7AvAcOt6
+	 ARYXf7lZ/N/jOg6Ye1Yo3wg6M5QX/njgUMr7wjOW66L+ckrud/bFARVlsjysnFg+WnQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341808;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Content-Language:To:Cc:From:Subject:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xMoe48qPntPCouip6vp6PY9I604DIpbtJ391w7p+qs0=;
+	b=kpSSYGQrhfSb0fhiBRht4DHwOu8GUsXFcZX7HBQP8fSWiYvabykDxBnyBpdRtrkakQx2
+	 38TTPsGYvdqsfzG3cV0fYvHJtj1h6wQe/MQjS2EBUGJCFR1prSg3fLpI4HnMwjSIdUa5E
+	 qMlJoY/3MRhhriANbqeZNPv4WnbP9MLY4i/Y/LU9jG7M0hZ9iPHMAMCfrTleL6xrju980
+	 jEDuxGkgcC/Uud2uyFdQA+RGXZVQZGZ9nlkWzKsyt/e55/cItcRq9fGGEbPLXLVFsgYjX
+	 IiZwyMX1igS2jkeGztN4T+88KDGLeGAErtDzL1oa+Cqk71NtDD5ckgHlWgMCxSdMByg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=S30neKvo;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304FA606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 304FA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237AF606A321;
+	Tue, 10 Nov 2026 20:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 237AF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vi0rRR86
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67be4686827so1991304d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:15:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794341723; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SGiP7PzKZfXjZg578jb6ACooTSYJ+VRw0DTgW7OitEiaI8dcA3iCaHXh5tWJMR/Wc/
-         z+wHTCRFjzh/4Mp7t+de2pdGFxe4o7tX26i6OYwpoDTt1zt4h7uIAw706t73l9kj6pRm
-         +OOuSZ8+MIz0wYV9LD2bk51HTP3pmIWWxBVawCvoebMlxr4KO+pLmVMfwpfB9UX7wUqr
-         +Cy1KkgJYehT5nZ9hLR54RqB/ZF4T6iGlCPfmNLdrxHH2Esv0/fSOXAScd54ecmFaCct
-         kB3bsnp8A99W2zam5lEgSJYbWi6AN2m13aoZLiDtspDT6FILnRVUJ0+clKWsv8gL6+F0
-         5wjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=lJiT+8IpY9D/26sFc0x6AV66fD9LP1gmMsQhUCQo140=;
-        fh=D3hwaB/c7DxOEFiKotyKaBjtougLePBYchq5ZADDnSE=;
-        b=ptSuf2dUxwwB1SeR+fn4rVuWclSgA6aXgf3owxc67ngJI1Iglnetxk0bzs6IjeY/MB
-         mEHAxL0JLdxEyo9KNSSzLC0jxMw4S2WqbuVm+1NsxKX5gbtwxSoI2ChRv+P0tQpA118w
-         AVjFbc/5gOUxYxo7O0xtWURkWMHUZrPoZ7gec8hmyNPBLc4XubT6/HW4xp0QIhnkctxb
-         IHthl52Ym3uPGyPqdk8shCFvSOqqerxuVqCFOqMOnPsNJ2HvrLzFT0gXZz2cOaJ75Jw9
-         epzKS0xfWyoGtoxSCUCdvHT/o9fdYlEupgef4d+ZK7xfvUB0rPikdJtWh14w5EzZh3X2
-         BjdQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794341723; x=1794946523; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lJiT+8IpY9D/26sFc0x6AV66fD9LP1gmMsQhUCQo140=;
-        b=vi0rRR86rLgaCrpxolO2NCtTdCGuzamlnVzJOpe33bEraVmDP6+GWqGypTu5hO4688
-         gzEf8o0cDiBwAhmSQXGSlZTrXEjGYDy14awolWCbz0qTb2KMpsGWyR6DYNYmAUgTlDCU
-         CMk5thnnAmX3TK0NBjNMaxg7r/AvXoH82dYxq6HhkeOnfsPrf3IJ4y2ksurH/ID/+ju3
-         aPYuRRCxfQ/ZZFhAwNy64a4/HX3546ldnSlmP32BJeTvbP5dbFyY9n7nb5IUAc7TFP+F
-         jUsQUR3zZp0w1VanZ4zM2Ju+hQ+5r+2XmtEcx0BCwY5E5KUAtMw4H0Iy6GvLsAGB7idx
-         7w7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794341723; x=1794946523;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lJiT+8IpY9D/26sFc0x6AV66fD9LP1gmMsQhUCQo140=;
-        b=XgxjSUyWWUklA1bmWh/txhVN8kQ/Vyrk8nvVnqvxaoA8YkG8L/OgkzGqlrV9IXRwP+
-         5hQmseE4JNFWRNuWXBXwUTHWikG21Z8ETjzC2v8kG2cEB7UOv2saDvhgep/D4yBYzJeo
-         8Jrtq3/yuLCl0HbARJIPXRSs75NszHFvFIH5igw84ZraNw5O3JOtyteUj43SToPlRL/5
-         dekVJtUmYhGr+33Aruny4XJAfqfaRDfOgVtYLBkEPVMXwiclcHkad8YpZWoo5dKGqy4I
-         ePEZodyvobQLn/tPC9+deQTu8o7poF+GJJcPC8b0tnR9ADCKGCYMi+29bPOx3/+gZfHY
-         SxCA==
-X-Forwarded-Encrypted: i=1; AL+hErEUv6dvKCmJZW1bi/lJS6IHgwEcvkIfU5GBJYb5sRCJ3RvBacI7vi5sNlgE1lyUsNx1q51xN5WkgQj1EdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9W8p+Zrmr37w524gRqvWzAo9Qy5S5dOW2DUFLebNHZ1l/RQFIM
-	G2v6tELrCLViFxNzTJUzw9hPV0oI05u8M0h3a5CQC+Ryxieeht7bo9Pj0hjiI5GH3CPRGNwU2CJ
-	3A7zkrSWkUGpgMmHy7DI9bEsLueIna2w=
-X-Gm-Gg: AYBFou3ghw2gONlsuz9VrWH/qRESrPjL1vLcNUxoKZR4fHmG0QITvbQzTGmNuJlzdke
-	5dT53E6denKwh5x/pFrKzJ4EegSPuv3s9IHTnJaX3IOC4KuXQ5iz9QAxR/wmtR7uGCsgXEPlSaf
-	C0ZKECWZPtt8YjX+PA4nmek5l7PZxNQSTBnb+wQ5P/SxxHwcOQbJhnde5NOuylx22FNRjcaScbg
-	0l5+ComouTvK3a1y3mLEu1LixmUJHrQniiNurYOMY/4W6u4KyXTUMkaEqWHfiBix/mVoCpZfAtE
-	QK4AwrAJ0XDO3p4qVo1tPugo8ACtS7JaEWBLwzSDIcjqE3P4BFnZ5ylCNAziroC/2Pxp67tzF5+
-	xWlEI8lc0M0lBDZaYtPBawdbaNERpW8i3wXG1t3rZHHgK1cJ/We/QIUAitNugDGZ6yKdc09ffNG
-	a2BmmvZ550LJHrmp6WK3IxM9QwZ7Y80MTMvlPcO+/qeqN1ZcKW5vsVVFglnlywRTwt//EEcsyel
-	dM86p1qwQ==
-X-Received: by 2002:a05:690e:43cd:b0:67c:28fd:8f1f with SMTP id
- 956f58d0204a3-67c67f77ab2mr227205d50.57.1794341722999; Tue, 10 Nov 2026
- 12:15:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=S30neKvo
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAJEDOF1521824;
+	Tue, 10 Nov 2026 20:16:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=xMoe48qPntPCouip6vp6PY9I604D
+	IpbtJ391w7p+qs0=; b=S30neKvowgWiasAjDMS0pwJnBZY9lIbdOsnPfShLDq/S
+	SIpsNuvbgnJ0itxFzAd0CObg8iDWXijxayjzEBbfRtNF3XEu3n2bGlZYJlU4xZox
+	eR0Omikd/CsqnB7/5Lwnpb6Rz8QYhhPblRKwVLT+w+VRG4E6MoKz8EOjE2vuOS3d
+	YquHo28zy0Tb8cWbsJU3HPzqPsp/HpWNyKhVNmTJHb8SQrnPB+UwTuwA19/7X4qB
+	B/ki932DtOHaoxOFaJe2Wrz5/h5EeHG79QLgLXtXkqsilSq+rY59h1jbS5RtWtT/
+	LN6Zuk+jNvgU6ldQ5dXU/hel0rK1uN2Qm02Qy+25/w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsunt70ce-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 20:16:40 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAJ6vml2228217;
+	Tue, 10 Nov 2026 20:16:39 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepw095m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 20:16:39 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAKGdqD65798520
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 20:16:39 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1015258055;
+	Tue, 10 Nov 2026 20:16:39 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8BBE358043;
+	Tue, 10 Nov 2026 20:16:38 +0000 (GMT)
+Received: from [9.61.112.67] (unknown [9.61.112.67])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 10 Nov 2026 20:16:38 +0000 (GMT)
+Message-ID: <e893d431-79ef-4fae-bca4-38903fc8f49d@linux.ibm.com>
+Date: Tue, 10 Nov 2026 14:16:38 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,51 +84,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109210146.57766-1-sidchintamaneni@gmail.com> <avI7g14oGpFKlJnV@ashevche-desk.local>
-In-Reply-To: <avI7g14oGpFKlJnV@ashevche-desk.local>
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Date: Tue, 10 Nov 2026 12:15:10 -0800
-X-Gm-Features: AclHuK-s036JOQbw6HtDykqOqg4xoznKSez1GVAhjg431vKNmBxRayoAL0gmlkM
-Message-ID: <CAE5sdEg3VKZuGqpt1Sm22Dsuh8HUFi-9w2GWEAicALS4ECXQ_A@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] i2c: designware: Add ACPI ID MSFT0006 for
- Microsoft Cobalt SoCs
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, 
-	Mika Westerberg <mika.westerberg@linux.intel.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Len Brown <lenb@kernel.org>, linux-i2c@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, apais@microsoft.com, rlmenge@gmail.com, 
-	hargar@linux.microsoft.com, Jarred White <jarredwhite@linux.microsoft.com>, 
-	Jeff Kirsher <jeff.kirsher@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, mkp@kernel.org
+Cc: Paul Ely <paul.ely@broadcom.com>, msmurthy@linux.ibm.com, hare@suse.de
+From: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+Subject: [PATCH v3] scsi: lpfc: Fix race conditions in ELS retry handling
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4MCBTYWx0ZWRfX6XD663Bb65CO
+ SPjr1B0t0SE1LpTWBvU7zv47WmTrJagNTwS554I1zSmquXFUvKXAuEfU+dlwqw/qEnHL3XSUbua
+ dB4CSwa4v5XNuO9f4L5InGkXUzUThCXMlB3S7XVxASa987DS6HkbmXVd3XoQG+3N4rw8S0Cyw1R
+ owZwSUAh2y/wMCWxl/oM9rTQoeJbx9+h4GjYReOsSiYc5qWZMjAN224KPfBthW8pl8IQ8okVM+9
+ +Mzp3KTEldlin780xQrfPRPmGQ37g4ecgtxxijudE0c4+amUdkv3kHw+6aTCm4X5RkmOtX2ursJ
+ hWZTRFt1w1zmp1c+GQB+ZDNDy39YuMKEOGWay4DTynSyGQqOpMeT5Rxuwug5vP2BWpWLf8KKYtr
+ N5EtXp4UdO9N9w3Yw26rap2oPzHqGQwcnGwLD4W7pfQAApQ/BioqUf79VkHEmbUhMilfAg6wCLe
+ sjkKi60CD7mhzl+kz9Q==
+X-Proofpoint-ORIG-GUID: ivBoNhzCCOzghoJbd9fD2yjfDd5LNatR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4MCBTYWx0ZWRfX+bAoCPZX/o/a
+ tgI6B7z9J8gDQSMCLpW6yvrS4vLx11HR0950ba90975xorcth6OEBVfkBkB+s8vni+Bnhr/tcgB
+ T1JIi9FuE/YAV4+8Iiv869Oh8lNfeos=
+X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af37ba8 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=HiiFMaum0WKSXYThIFcA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ivBoNhzCCOzghoJbd9fD2yjfDd5LNatR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100080
 
-On Mon, 9 Nov 2026 at 13:30, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Mon, Nov 09, 2026 at 09:01:46PM +0000, Siddharth Chintamaneni wrote:
-> > Add the MSFT0006 ACPI ID for the DesignWare I2C controller integrated
-> > on Microsoft Cobalt SoCs, along with its 300 MHz input clock description
-> > in acpi_apd.c.
-> >
-> > Without an explicit MSFT0006 entry, ACPI device matching falls back to
-> > its _CID (APMC0D0F), which configures a 100 MHz input clock instead of
-> > the controller's actual 300 MHz clock.
-> >
-> > Acked-by: Jarred White <jarredwhite@linux.microsoft.com>
-> > Acked-by: Jeff Kirsher <jeff.kirsher@microsoft.com>
-> > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> > ---
->
-> Where is the changelog?
+This patch addresses a race condition in the lpfc driver's ELS retry
+event handling that can lead to a use-after-free in the
+lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
+before acquiring the lock to check if the retry event is queued. This
+creates a window where the timer can be rescheduled and fire, causing
+both the cancel path and the worker thread to release the same reference,
+resulting in a double-put and use-after-free.
 
-Oh I just dropped cc tags.
+Moved capture ndlp and clear evt_arg1 under hbalock while dequeuing
+LPFC_EVT_ELS_RETRY in lpfc_work_list_done().
 
-> Haven't I given a tag already?
+Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+---
+Changes since v2:
+- Capture ndlp and clear evt_arg1 under hbalock while dequeuing
+   LPFC_EVT_ELS_RETRY in lpfc_work_list_done(). A requeue by
+   lpfc_els_retry_delay() could cause a NULL dereference in the worker.
+   (AI review)
+- Whitespace and line-wrapping cleanup.
 
-no, I thought you were suggesting that I repost it.
+Link: https://lore.kernel.org/lkml/29073ebc-b616-475b-bc05-384da09fbb54@linux.ibm.com/T/#u
 
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Changes since v1:
+- Leave test_and_clear_bit op and timer_delete_sync at the beginning of
+   lpfc_cancel_retry_delay_tmo() outside of lock. (Paul Ely)
+
+Link: https://lore.kernel.org/lkml/1c8a764c-fce1-4ce1-b797-47ac328cf3f2@linux.ibm.com/T/#u
+---
+  drivers/scsi/lpfc/lpfc_els.c     | 29 +++++++++++++++++++++++------
+  drivers/scsi/lpfc/lpfc_hbadisc.c | 11 ++++++++++-
+  2 files changed, 33 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
+index 6f6394a0047c..98d1824aefe1 100644
+--- a/drivers/scsi/lpfc/lpfc_els.c
++++ b/drivers/scsi/lpfc/lpfc_els.c
+@@ -4477,18 +4477,35 @@ lpfc_issue_els_edc(struct lpfc_vport *vport, uint8_t retry)
+  void
+  lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct lpfc_nodelist *nlp)
+  {
+-	struct lpfc_work_evt *evtp;
++	struct lpfc_hba *phba = vport->phba;
++	struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
++	struct lpfc_nodelist *arg_ndlp = NULL;
++	unsigned long flags;
+  
+  	if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
+  		return;
+  	timer_delete_sync(&nlp->nlp_delayfunc);
+  	nlp->nlp_last_elscmd = 0;
+-	if (!list_empty(&nlp->els_retry_evt.evt_listp)) {
+-		list_del_init(&nlp->els_retry_evt.evt_listp);
+-		/* Decrement nlp reference count held for the delayed retry */
+-		evtp = &nlp->els_retry_evt;
+-		lpfc_nlp_put((struct lpfc_nodelist *)evtp->evt_arg1);
++
++	/*
++	 * If retry event is queued, remove it under lock and consume
++	 * its payload to prevent double-put. The event holds a reference
++	 * to the nodelist that must be released exactly once.
++	 */
++	spin_lock_irqsave(&phba->hbalock, flags);
++	if (!list_empty(&evtp->evt_listp)) {
++		list_del_init(&evtp->evt_listp);
++		/* Take local copy and clear to prevent reuse */
++		arg_ndlp = (struct lpfc_nodelist *)evtp->evt_arg1;
++		evtp->evt_arg1 = NULL;
++		smp_wmb(); /* Ensure NULL visible before unlock */
+  	}
++	spin_unlock_irqrestore(&phba->hbalock, flags);
++
++	/* Drop the event-held reference outside the lock */
++	if (arg_ndlp)
++		lpfc_nlp_put(arg_ndlp);
++
+  	if (test_and_clear_bit(NLP_NPR_2B_DISC, &nlp->nlp_flag)) {
+  		if (vport->num_disc_nodes) {
+  			if (vport->port_state < LPFC_VPORT_READY) {
+diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c b/drivers/scsi/lpfc/lpfc_hbadisc.c
+index 4c673dffa671..75457f19d4ea 100644
+--- a/drivers/scsi/lpfc/lpfc_hbadisc.c
++++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
+@@ -840,12 +840,21 @@ lpfc_work_list_done(struct lpfc_hba *phba)
+  	while (!list_empty(&phba->work_list)) {
+  		list_remove_head((&phba->work_list), evtp, typeof(*evtp),
+  				 evt_listp);
++		/*
++		 * The ELS retry event can be requeued by lpfc_els_retry_delay()
++		 * as soon as hbalock is dropped. Consume the payload within the
++		 * hbalock to prevent reuse or double-put.
++		 */
++		if (evtp->evt == LPFC_EVT_ELS_RETRY) {
++			ndlp = (struct lpfc_nodelist *)(evtp->evt_arg1);
++			evtp->evt_arg1 = NULL;
++		}
+  		spin_unlock_irq(&phba->hbalock);
+  		hba_pci_err = test_bit(HBA_PCI_ERR, &phba->bit_flags);
+  		free_evt = 1;
+  		switch (evtp->evt) {
+  		case LPFC_EVT_ELS_RETRY:
+-			ndlp = (struct lpfc_nodelist *) (evtp->evt_arg1);
++			/* ndlp was already captured under hbalock */
+  			if (!hba_pci_err) {
+  				lpfc_els_retry_delay_handler(ndlp);
+  				free_evt = 0; /* evt is part of ndlp */
+-- 
+2.55.0
