@@ -1,99 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268867;
-	b=lhPufqHKEmvu7hgv6+sl4KHUZWADbDCfwnlib6+1N0CDU8dZutjAl7RL+2KuBQdgBmML
-	 tTdg2nsjNSlGQ3GIoBhPewnH2epagdu4yG7VnBKCss7iDrpQ3ZxX9yTc1G5Dh5L5f2LnA
-	 xSnx3udO6CwR1HLyZYliVxM79JKZrlkX7cRspF3t3TkYBHct2LJebtdxABmJNKzRpXcAm
-	 4tq+VowZKHRE5gaVcfFYk2BlscdYZb2vulnt3JMIitpS49z46I/Eha9xNRMNeUtmYGCVm
-	 ZpIv1eV6COqs+YcKX3Oguli7vgFmTbN7SYYsc0xBD+H+KpiQpBVHGR0b+Bs4J0qr6Jg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268867;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
-	b=G1CVneqR1ZrsTPOYsYdEQYEXqk8dp9sr7Imlm5OYy1ItvhukeilNBwMYsnYfuRE/5WTF
-	 0qn+qzdyMipJIojbCf6IcwH2MJzqyQrONmcmyiedGPDf2URbkGS6MLxGrW41cOl2mqfZM
-	 nt6q4uoKfojuy89iVzrQW8W3G1XAbrzOm5sEpIR45lAeWCE5vDimArJNqpZGzsUvm/zOF
-	 hcVyLUFkMBUvSvXZ8FpG/A4psXUB8vf97ET+Df7BNzFJbpKOHPCSfpj/rGd30OMH3IWsx
-	 3FK6vxFGP48KtXFczmlbq7Qg9wO3T2BqC0BQ9oXWZGqd97oJDBy4qyh1PmBvp8Svcmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWMxmg6g;
-	arc=none smtp.remote-ip=209.85.167.175
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.71
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794268863;
+	b=jF0yyORrewMQgndOUHKJ2Mxy6yLLG84pzxKvXuo3xsSMJIYjGVOYmVRPTslI7mGUyxqj
+	 dLnm3ohm8DzinwtWEhcBNFXS8Dprio9itdpSUm8wut3J1VVBGroxT1UIeTztd3IXRuvHa
+	 HEoUmlORa9oaeuLXdTxYm+Lb8NS94JG5d1iVtfVAHsNUaN7yqA87I501DDKh4JKBngHiM
+	 PkCKTOfOFPa9gFoMWhMlrROQrF+CIiUHMJrNzsng+h9DQcU90jzzH0EuRvE7tFZ/IWCwE
+	 dQGQxFYRmCAz/mANHwsTBrCV0+meZlmyfD/QCKkS8vUrA8IJ03En6hprELRwV/mcAjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268863;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Wisc_ValidFrom:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ZH9bbD9GUjDERPZclHvZ0zM1gWko4W23XI1Szikzv14=;
+	b=rW/lOsp5kb3DvDJF/96DbEajUWEqid8UJps+t7XM1/TuyWEal2f7buzhCDNhPZFkrYjO
+	 q/UP9yjgHqHz5dzMoHN6i2BQAzoL8P1nqU63QUzTIPlGPsktwOlrnS9uNtxv0Y9CKB2ES
+	 fLpxtxqT6JH9E9oKJ54WwUxGIg4BmNT9v3eaKx0h5K/7FYzOisrNLm1w1+iw5zU9QIXHX
+	 MAdDubKGzzfT5v6wwdhiXMBi9XNQouluaDhX416lvC/sxd616m1sLt1nnpwRTQ12XbZgu
+	 NoAE4x4oWbXcZuxdwdAlR8Zu92jacD9WUNVTEjpJ+9LqvUjCYlVmDo2mX4CmWbQlgqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=wisc.edu;
+	spf=pass smtp.mailfrom=wisc.edu;
+	dkim=pass header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=pps1 header.b=Y5i1QXCA;
+	dkim=pass header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=selector1 header.b=sewpQ7Zz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.71
+Received: from mx0a-007b0c01.pphosted.com (mx0a-007b0c01.pphosted.com [205.220.165.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB8360A2610
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB8360A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCE660A262D;
+	Tue, 10 Nov 2026 00:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCE660A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wisc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wisc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWMxmg6g
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-53ec2cc397aso816558b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:01:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794268865; x=1794873665; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
-        b=CWMxmg6g2abgyUL5n3vZf/Z9PKy3GyA5VprFxK1HtxhTnu7L0zo6Kl9i5Dco9q4JYe
-         L45BL6POyL/UOgpR+NESp6BFYJd1egU9vqKj9v7LjGw2XzDIYKCkPUFSL48hRpNONyma
-         Cpp66jfSduBkNvP9xWrkTi67/KuKkHPdM9N9cy7J/vul4YdaROCfUQnNMDJhqHnhO7Bj
-         pexc6Kurpan5ou39HoL0Txe4yzqXCisy8qrstnDtzT4kN0cY7ckG2RxIdwougbkz7z+l
-         NetBoFnVtmBvxAlLcCdQwVydp2nVwYgHpdqKudef0OBb9KCGazMx92HZaHwkxCH8PX1/
-         lvPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268865; x=1794873665;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AMaxqg7mFW30l8DXrD6/F4a8xmqD4FuJt5pJtPbHk5M=;
-        b=sJVuoIY+FePUzXK0ZtnPd79AjhtkoEXYPjYUeyRkeOANQvik+3Bq69CSl1+1cZjquV
-         6NWgNy1QcFH3xM4B38m7WJYpTfJbNzK0oIG+J0Ek2CrDeplp9UxrVFYDYIrdApPP/4mJ
-         jlq7is1+F2xvVJjwHSWgGdTEKtRhiEdoeD0ZeiyY3pEzJw/7IZCAnc/g2/QsSge180y8
-         7aTf8omfbFgdbRSfuYWqUkLpZJjzTTtM4fWZcNHJvqaov89V3go84WxHOcQbJZfmUQWt
-         Z4RVoedqKuubtSxehtkeVvEm77mMHYbJGE3XwOJieUTtBq+rUxcplnfc6LIN/JSQyBxf
-         a1iQ==
-X-Forwarded-Encrypted: i=1; AL+hErGyTNd6jr+g50s2C/oT2Bk0InEvahb6VuFM54AWappxvOFBj6zrETRpxmZbaTxkxYF9qsLdauD/oD8NTFA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Nlgo0APouAIr7sVyet3uL39LzDiKHUi+Gp/ve2NqwBei2SNv9
-	/CZhZz1K6fN0Suy9zOEJ3DBacS+4fB3QbpK+24Ic0Cg3eoKjFmYjDwna
-X-Gm-Gg: AYBFou1DY42OcVZAVmOW7TYjpRu+hlicm/4l1bYbm8JfzeUDREsK95ZP0qKrs7pWrKk
-	mWFS82j+CipJ5ZMCGb0dzQn9Z9vlgZun/qsbiv69uU2V0TvdGyPj5f7v2c+drTma+OjxWk69Rzx
-	l+ohqbnWJvHsigbE/vvmM3m0AaNr9f5Ib9KoVKNlLcXk01tpchEe8z4PiuSDqHPz6P40hPmLr4K
-	TSKkz55Mzr8BOLS1L4PN8HqVWj+PBHjKTb71341gzDkW1Xpu5b/sIWggNTkE9LsFoJgnrf7Mtj1
-	7pfO3mVXi8hBaMeW7qJTH3hmTbVdi/pEcecEhRpAgYhGc9Ej6q5Nbs4rM0pio0So+YkV8OoPdt8
-	JSViFNRKRtXwcQs9jxJlIr+1wS1Swhnh6Isq1EEOKc/GEwmza+tyTNDk3b1DcLDAh8koWL0uvdf
-	AfgjxJWKT+JMVTaPL162PB90i4E1lEr7nJTbV+yUlCv/HuSpenzk0EouHtg/A4y7UWJasCk8+VX
-	9ZJuRzZISGd4MGxdjmpwCaRG7KPS02scwkAyoijeCMUw7KqliOC/wQ+21aDBPRrNeDXcrF7HqcW
-	LVICVh+lQKZrRhgMsP45mV8c5tsc9tkmykiMQHF+j8s=
-X-Received: by 2002:a05:6808:c123:b0:55c:844:98ff with SMTP id 5614622812f47-5683cd4858fmr845306b6e.34.1794268865523;
-        Mon, 09 Nov 2026 16:01:05 -0800 (PST)
-Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905735edasm623697b6e.7.2026.11.09.16.01.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:01:04 -0800 (PST)
-From: Leizhen Zhang <lzsx618@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: masahiroy@kernel.org,
-	ardb@kernel.org,
-	rostedt@goodmis.org,
-	hpa@zytor.com,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH v3 5/6] sorttable: avoid pointer arithmetic overflow when locating sort_needed
-Date: Mon,  9 Nov 2026 18:00:02 -0600
-Message-Id: <20261110000003.1719966-6-lzsx618@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110000003.1719966-1-lzsx618@gmail.com>
-References: <20261110000003.1719966-1-lzsx618@gmail.com>
+	dkim=pass (2048-bit key) header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=pps1 header.b=Y5i1QXCA;
+	dkim=pass (2048-bit key, unprotected) header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=selector1 header.b=sewpQ7Zz
+Received: from pps.filterd (m0316040.ppops.net [127.0.0.1])
+	by mx0a-007b0c01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9L7LHn3196546;
+	Mon, 9 Nov 2026 18:00:12 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wisc.edu; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps1; bh=ZH9bbD9GUjDERPZclHvZ0zM1gWk
+	o4W23XI1Szikzv14=; b=Y5i1QXCAvbB42FzDDXs6WUK2wfh47n+MUpCmbgpGDsz
+	7UJAY6cghHJwrBHgxcL5dqhiWPfAKVe1eK4D3kxICuyuYI7E8n2MbaSNr36s3SkQ
+	1La2FnB+ruTEF8jPlNr+7GaANPPzYWPx340GEB1Fzivcu5wdUNq7ePxVaaCdLlRU
+	+xq+GOJwMx1TpUSxz0EYjWVWElDlTPqvqYTT9B/0hIVp8CuI/pk4zlWyNCum2yut
+	M94tLWFwZJipI1icnuwbx8o96YMz7nU26sMxN/OfBA3e44J4UJVSRkB67RkQFa+w
+	7YbDgu6A/lz7p5ib4vzUakj26y9S3mIKBtz9CPpO1og==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012069.outbound.protection.outlook.com [40.93.195.69])
+	by mx0a-007b0c01.pphosted.com (PPS) with ESMTPS id 4humm8hym6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 18:00:11 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N/cSY4RtAFkbEuKeGfjwslcW26e7hOtgywBip4WFqYTsik7hPWvlZOq5nw/Ey+7IZO3NCvR5ZdNuVGh6Pu51b+pwCqlzDJ+lRib0TvlrmVyLmVCHeQpHON40V0R6y0FQsLYjzZ8vU02hbIEfyl5LGjTnbovtjGGb2DpfTOHdgC8FjjX/0Lg5uBmrYjwFbTQ6HAAfef6x7GqCT7sPByaLEjzrplz9xfZAl/3GaixNbqyuK+8/LpLiwzl9ub6lU2dB51iDrnZl0w8Cgausa8xGu9bsHozvi/oUMqxcMhDxC0LRHJWVTq2doWSuDukc3A/XIRNysSqAswUaLCl2wOJNlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZH9bbD9GUjDERPZclHvZ0zM1gWko4W23XI1Szikzv14=;
+ b=G4blHXJuFUx/O95WsGxhCQCz/v9sn23L1+6oFjRSRlEwyCwbzlQCAHlELvviIfjGdNMkhU9gK6DhlURhes0nJ2GrvxIi+kcsxhYl/GCtTisKXihC/saoX7h2FcfJC6tpQ3YZF36MBfKzUYG6z/sLTzCvRePho44RlixoXvvwy7y3fi9YZSA6RzEWT92H731MjeCktH6DvFFSFJ6MpLrBuAqZ3+nyirpJyY3z1sNGI1PuzatdyVOuu8GP4odzIRH5LsY+dCDDRiUS8ic3D+u5ymx9pevj3w20aCVtJQQpfmmdeC1OrOOLM55Shzdgtp1HGDFfnJ9Xayq2UmLRi8LkZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wisc.edu; dmarc=pass action=none header.from=wisc.edu;
+ dkim=pass header.d=wisc.edu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wisc.edu; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZH9bbD9GUjDERPZclHvZ0zM1gWko4W23XI1Szikzv14=;
+ b=sewpQ7ZzOLGcH63XZ8pr+Q0vsIF/D76D3fhKFm3i8eqeyUJUwBQYRZ1nnDSInIkVfQwGAHeWrY8UlFnkqm2ncGI1BVRF1o/RGB05H4xn2QE8z9AUNZxWShH9nXoD4RoxDnZVepx3mVHVClywJd9Ng+db+DytZ+8kdQO7VCZrJgpgMqPThBPYJwsJsDSUPXtQ5kwPy0FiL3QHqRUDfKBGsWwMxWf9Zq4KhB4C7ey0TKorYJbHutuUDUHJ5ya6KeJ26rCC4f3GqU6UAACKKmTDGwbRf6ZhBVc6V8CQF56z006pQdUrwwy3zl+h1ijXlguAHc9haQ+cJk4YjhUIuiuBDA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wisc.edu;
+Received: from MN2PR06MB6639.namprd06.prod.outlook.com (2603:10b6:208:20a::22)
+ by DS8PR06MB656475.namprd06.prod.outlook.com (2603:10b6:8:446::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
+ 2026 00:00:09 +0000
+Received: from MN2PR06MB6639.namprd06.prod.outlook.com
+ ([fe80::c7c1:6e17:5f9d:1245]) by MN2PR06MB6639.namprd06.prod.outlook.com
+ ([fe80::c7c1:6e17:5f9d:1245%4]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 00:00:09 +0000
+From: Seunghyun An <san55@wisc.edu>
+To: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, David Hildenbrand <david@kernel.org>,
+        Vlastimil Babka <vbabka@kernel.org>,
+        "Liam R . Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
+        Pedro Falcato <pfalcato@suse.de>, Matthew Wilcox <willy@infradead.org>,
+        Jan Kara <jack@suse.cz>, Dave Hansen <dave.hansen@linux.intel.com>,
+        Suren Baghdasaryan <surenb@google.com>, linux-kernel@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+Subject: [PATCH 0/2] mm: avoid redundant reads of the vm_refcnt cacheline in anonymous faults
+Date: Mon,  9 Nov 2026 18:00:00 -0600
+Message-ID: <20261110000002.1834454-1-san55@wisc.edu>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH0P220CA0021.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:610:ef::11) To MN2PR06MB6639.namprd06.prod.outlook.com
+ (2603:10b6:208:20a::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,42 +120,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR06MB6639:EE_|DS8PR06MB656475:EE_
+X-MS-Office365-Filtering-Correlation-Id: d37a3a7c-4b4b-4695-065d-08df3ebd95f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|786006|56012099006|11063799006|5023799004|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Wyt0kKfrMPE8mMsH9lFu87rBInYn65hj54e0nAknoYlwGToKzZMdcrctWsp0nk3+FHEU1CR4gMPH0jfqyvm9XHLU5wBcz+i/8yfAiFxclHkTH96EgAxifdbv2NvKTk0G+n1KLQ+tYm0SikOZPiTVtxG3gfBPx21pGfFuePnLxt5+OZfPwmMHXhQlYM1SUnuGgjjWeEcSoj4SvFteBZPC18KSIkD83kNHohAPzmqH3X4IJ6L/ozCfEySxiamWZuvnFlfaDgUQNbfCICn43qpeGOl62oiVwrOQKBMNZoZcBLIzL+ShsbcFfkTZGM+h3+h6EXAzgRUYBvoLtQYxlx+31RWV4MdyH3uUFtOpv+JQ2FvrlU3i1wGukKucbIbfPawuFYz2pM/EVLtbZwRUJzkdXl2DZ58iMJbpRAQSpCcdOsiJ7W1LW06RJtEbL7HMlezhtQkwglL52fKP7ecuSr8ZkSGXqQ+1B6pOC6KN1YJtXOB9jRJyqqvGdz3FwupnljscL6upYsNoo2osU+2Mvy53gPsKtKrQs0Np2AecZzfgxUcp7QgnCYfl9pIYVFcaIFYQocztGm1a5QESQhpLLM5b95Q1rFFlkvkF8rN0NxKdnhoJgM0NrsMTtRq5IVyuN2E+Z5iqyn2O70e0OlvUqF/YKjk5wNW07Z5/IqT0wCrQ8qI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR06MB6639.namprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(786006)(56012099006)(11063799006)(5023799004)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ItglMz0uQ82I5wwxDyqiFxSeBaEGFC89aGs0XzFa4/+QDldEU0IYX0S6p/S+?=
+ =?us-ascii?Q?YNlW1Neo6CFNa7z2ZOikUMRBcL4ZnaMLoddIT2MmM6DwkHQpzQcvxRLnfqWE?=
+ =?us-ascii?Q?PeS75HYJwk65YhQMEMJ/trFw5VYFPw/gRz10ZBSC5F6CmQ+CIVKvye6PYqdN?=
+ =?us-ascii?Q?OlGpSmUAhpgvOHeBGhwhmKuxOQF+RrVVgwmmKXCgskRTUzKNQ6bOxMrxuKK/?=
+ =?us-ascii?Q?0AH7YgnkWdQeKUyDXiNQLCyiUL2am74wDifsnPgJkBVDbfUTpqegeJIZzBeE?=
+ =?us-ascii?Q?ZIId4mVl9TzCH2YUUdFnCenWreKeeBEiXv4QdxvtxRx8WHG3yOX9VM0T8zTe?=
+ =?us-ascii?Q?AdRLh1dErT1duSh8MuqjNgoNSZKKq1of7vBPLWNOMXxiMOxkowk54IjV0bWJ?=
+ =?us-ascii?Q?LePOMuaMpln+qCH4X7DtNNTrCWtZ+DVnB6vJroT8sOLhTVtbsSPxV0HU7cKY?=
+ =?us-ascii?Q?Cr9NS75xo5B4Vavh8RzOT9+jjMWAnhGmgYFlcllyrVzoJaDMZixL4Yzky0U2?=
+ =?us-ascii?Q?17seSXS54AaGccHdkfUhwwpjzW7gfSjygNBmonNw7p+x6SeXmHRo86SCuaYL?=
+ =?us-ascii?Q?N5e/Ftc0OcZgl8fff5nClS8fABV4pTVUPVtNOyRPwPJavXjHqHN1JTsDgBEX?=
+ =?us-ascii?Q?LVECeNdC2PziGTyVHy590prdmd8gZIU35Nk3PXp+pLDfaLWPhu4P2Vq91ErR?=
+ =?us-ascii?Q?gojupKbOrlRUEAlI04DQ4mdNZPa22I6aKTgzIvHkKW5fXT1+Rjd2P0oSf0m0?=
+ =?us-ascii?Q?I5+ibsfnXh0NDyxR+sWjLXxTRDJMax5zF3+6bguVitptgR75Fe89oq+VKpL0?=
+ =?us-ascii?Q?i0VDoEBgr+FUGAXy6U/CNk+LVDDU9z/Q4FH+VvIa/j2CwcQPr1ULmUJ8ekws?=
+ =?us-ascii?Q?wEdqa2ZdD6fn7VXOrM6ugZ9xAThbYclRopLciU5UUQuN5A64THc10139lvvU?=
+ =?us-ascii?Q?W9yOavfGnOX0+xTl6H7BpfkBwhOvZskUuJ1wyEu/Mey8WIqRqtM8wAIzO9cy?=
+ =?us-ascii?Q?k8dKBy37nldU9Kd08FEpk/axL+i+dAtZaMPgdcDKnwtC9kZ5kJneOZPcF3+Y?=
+ =?us-ascii?Q?Ok7qN9V7QN0x+oixSZMo+AbAp2Fz2AKdQp7oQI1wcjZihFX5n1KReInlD2UM?=
+ =?us-ascii?Q?8Xdytai4yhu1cYBltcZlQ9aM73dKCO/S0eC6/YqnShYStxVZ6R7h9KD32eLo?=
+ =?us-ascii?Q?rkvXrSIoTem7OuIfqPG5965HpMZpOyAyRzqqDvHCQYr6swMpVMDkdV2N4/DK?=
+ =?us-ascii?Q?vMbNz+R0ug6el+0d7IoS/AT16wQNRy+tuKzFyX9UAmmraY8+TcO2RdcmMCj0?=
+ =?us-ascii?Q?Q659ihxZVdxBdVAJVfdACuwX9GIc4J/qc3zGXlxyVV8muiK81Hv/7XJ3hp9H?=
+ =?us-ascii?Q?TmePzWzcvR3+QIcBH7rKeSu6xk+/bdJxUej+Dk7wQBOWqnuZyLhZMlZb5QHO?=
+ =?us-ascii?Q?yNGTG9EHrJQRYLlN7yXTcTuE4DglVaYvyrFPb+kVrQZibd510MOjBxRWbdeW?=
+ =?us-ascii?Q?qhdSMVaUO+C6YAoOUcMb1cuzgV5DCR4gtdjCGv2VoMEmed1F+hos6fb6VP4o?=
+ =?us-ascii?Q?2LDzhKm/KMON1oUi7niI31dpQcFu7xqiUwEQvxchKJmHKHJ8IMpHtYsQYQ9p?=
+ =?us-ascii?Q?AUgXubL4cLRNgDh0Mw8Rxk+M/pLIlZWqg9thmVajkHPn4XNhTTKgynK5wViB?=
+ =?us-ascii?Q?SjUqzXpXtC12MKk40B1+ufRkm8tRKYWD+2I5uFcV/HGZYijH?=
+X-Exchange-RoutingPolicyChecked:
+	5la/NIbdyJvvpMsb35KbJy+7YdiDGGVAirLQESPDsTHZkcHYatL16MJIoFJD6qfmJky2azGzxRNwFhjDBqD9V95PSef99xE+zO4YDBknzfV0yYyGPOevd3LbFiqZFUJ3KKi2qZb3Jj5DM1n7pTZxlpOEhuNK7sYLo4kAHKxoQ/FH911Rbr6EYlX8qVAKFisxfZK3U+goNZU+TFOkB02YFusdnaKi0MEh+MJfOS9BV8f/NB/fEJOUUwwzSERCfVCGo8sUKc6EjTGMhLYEV+/G1PlJj6iIJ2lta6S00bNE29XKHEIF6HXgNUiaGSgvtx/dNAXODBSmnbRw6txbnT0Bqg==
+X-OriginatorOrg: wisc.edu
+X-MS-Exchange-CrossTenant-Network-Message-Id: d37a3a7c-4b4b-4695-065d-08df3ebd95f7
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR06MB6639.namprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 00:00:09.8055
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 2ca68321-0eda-4908-88b2-424a8cb4b0f9
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dNYdquUPrQcNlo13yPy0GdjLhGYDYgPg2LrLUq8hDsr5XGtXG0PCAeyXsu8C9q0B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS8PR06MB656475
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA5NSBTYWx0ZWRfX561l+BtIzLiG
+ 9/P1WaYpjUEs6mevRlppxJQGzyqwdYUOscjTjBP/0vbvdvHamVpmKiLn3r0/pcPvfkh7FV96FCY
+ NkQd8JLD8xEDzImD839H3pN/HIJ74YM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA5NSBTYWx0ZWRfXyvSeSZvlYUWr
+ z6ToDN13I37TzbsljdybgAMe/EOTnZWWn/LC7UBEY/kpkRwjpBzKKrSkXtyP66mc8akqslmuUuM
+ YXXf3+y5AnnJxqJfWsiXyGfrSFG2l0cdiGSLOvH3ZA68H2NcLS9Y0xH079+bNztRlxLvEfMb7UX
+ TdLzdQCj+X+GnhtKRRqprtlTfJs9+j1A1uZR9fzgsccBDelG1RxrunIqFYqSVv7omhC/2NRUJac
+ b+3Qs73B24LQHzZLiDKxvMXx0VqYGe7gNFojVfYPOf9MXX8sc///1S+M0CxMba5tUL0nihfGm0u
+ FHHpy3ndTDA9IlZPKep7Nl2sCWU8gFmVfpmYSICtIm6fJqUfBSPCp1B7WqaTUNNna9KQJcgwC+b
+ uoY5+lju6Dm62Vu5Ri1YTfzpl83hZ/gpM8KZRnlDnLPpRos9tNPGkT0T2TSnQ1ZS3zj4+gl4+fn
+ 5Rt+d4G6ZjbfflMkcMg==
+X-Proofpoint-ORIG-GUID: fWeqYPGxtbYvUyg3ju4BtpP2E4gX5Z8J
+X-Authority-Analysis: v=2.4 cv=HtDjiETS c=1 sm=1 tr=0 ts=6af25e8b cx=c_pps
+ a=LyZwXkN/zJaPlZXKe3eCLA==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=U-hppK1rdbEA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=ZyELlZqCvD1aXIDzc3I-:22 a=-L2uzytrI8BeDALVFixt:22
+ a=NEAV23lmAAAA:8 a=9ycx-N_BlWucs53SZHIA:9
+X-Proofpoint-GUID: fWeqYPGxtbYvUyg3ju4BtpP2E4gX5Z8J
+X-Wisc_ValidFrom: true
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 malwarescore=0 clxscore=1011 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090095
 
-The location of the main_extable_sort_needed variable is computed as
+On the per-VMA-lock fault path, each anonymous fault increments
+vma->vm_refcnt in vma_start_read() and decrements it in vma_end_read().
+When threads fault on the same VMA, that cacheline moves between CPUs
+anyway. On current mainline, extra reads of the same line
+happen in between:
 
-  (void *)ehdr + shdr_offset(sec) + sym_value(sym) - shdr_addr(sec)
+ 1. __folio_set_anon() reads __vm_anon_pgoff_hi (offset 132, next to
+    vm_refcnt) via linear_anon_page_index(), since the anon pgoff series.
+ 2. __vmf_anon_prepare() -> vma_has_anon_rmap() runs vma_is_attached() and
+    vma_assert_stabilised(), which load vm_refcnt (and the mmap_lock
+    count) even with CONFIG_DEBUG_VM=n, on every anonymous fault that
+    allocates a page or breaks CoW. This came with v7.4-rc1.
 
-which first adds the symbol's virtual address (e.g. 0xffffffff8...) to
-the pointer and only then subtracts the section address. The
-intermediate pointer overflows, which is undefined behaviour and is
-reported by UBSan.
+These reads can miss, and they also make the following inc/dec more
+expensive. Patch 1 computes the anon index from vm_pgoff for anonymous
+VMAs. Patch 2 makes the assertion in vma_has_anon_rmap() DEBUG_VM-only.
 
-Subtract the section address from the symbol value first.
+AMD EPYC 9634 (84 cores, 12 CCDs), base is mainline d48723711bae (after
+v7.4-rc1), CONFIG_DEBUG_VM=n. Threads faulting on one shared anonymous
+VMA (each its own slice, zapped with MADV_DONTNEED), faults/s, median of
+3, all three kernels measured on the same day:
 
-The problem was found with UBSan, and the analysis and fix were
-prepared with the help of an AI coding assistant; I reviewed and
-tested the result.
+  CPUs                      base      +patch 1  +patch 2   gain
+  1 CCD,   7 threads        2.360M    2.369M    2.425M     +2.8%
+  7 CCDs,  1 thread each    1.738M    1.982M    2.215M    +27.4%
+  12 CCDs, 1 thread each    2.288M    2.548M    2.949M    +28.9%
 
-Fixes: a79f248b9b30 ("scripts: Add sortextable to sort the kernel's exception table.")
-Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
----
- scripts/sorttable.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+With one VMA per thread, or with processes, both patches together change
+throughput by less than 2%. In every cell of this and the next table the
+spread between runs (min to max) is about 5% or less.
 
-diff --git a/scripts/sorttable.c b/scripts/sorttable.c
-index 88e49a5c4251..0425e00c490f 100644
---- a/scripts/sorttable.c
-+++ b/scripts/sorttable.c
-@@ -788,7 +788,7 @@ static int do_sort(Elf_Ehdr *ehdr,
- 	sort_needed_sec = get_index(shdr_start, shentsize, sort_need_index);
- 	sort_needed_loc = (void *)ehdr +
- 		shdr_offset(sort_needed_sec) +
--		sym_value(sort_needed_sym) - shdr_addr(sort_needed_sec);
-+		(sym_value(sort_needed_sym) - shdr_addr(sort_needed_sec));
- 
- 	/* extable has been sorted, clear the flag */
- 	elf_parser.w(0, sort_needed_loc);
+pft (https://github.com/gormanm/pft), which was mmtests'
+config-workload-pft-threads until it was dropped there in favour of the
+will-it-scale malloc/brk tests, does the same thing without the zap: one
+anonymous region split between the threads. Same machine and kernels,
+faults per wall-clock second (pft's fault/wsec), median of 10 (of 5 for
+the last row), "pft -a -m <4*t>G -t <t>" (pft needs a one-line fix to
+accept a CPU mask that does not start at CPU 0):
+
+  CPUs                      base      +patch 1  +patch 2   gain
+  1 CCD,   7 threads        2.938M    2.955M    3.044M     +3.6%
+  7 CCDs,  1 thread each    1.938M    2.215M    2.704M    +39.5%
+  12 CCDs, 1 thread each    2.456M    2.673M    3.547M    +44.4%
+  12 CCDs, 7 threads each   4.132M    4.863M    5.196M    +25.8%
+
+With processes ("-n 7", 7 CCDs) the change is +0.7%. With all 84 cores,
+threaded pft reached 4.132M against 5.243M for the same run with
+processes (-n 84), 21% less; with both patches it is 5.196M against
+5.282M, 1.6% less.
+
+None of the will-it-scale tests mmtests runs now (page_fault*, malloc*,
+brk*) has many threads faulting one anonymous VMA. page_fault1 threads
+only shares a VMA when neighbouring mappings merge, and it is then
+dominated by munmap write-locking that VMA (the threads were about 45%
+idle here), so it does not resolve this difference (it also varies by up
+to 10% between boots of the same kernel). malloc* and brk* take almost no
+page faults.
+
+A real-world instance of the pattern: OpenJDK with -XX:+AlwaysPreTouch
+and G1 has the whole heap in one anonymous VMA and pretouches it with
+ordinary write faults from all GC threads (108 here, not pinned). OpenJDK
+25, -Xms32g -Xmx32g; time from exec to main() with -XX:+AlwaysPreTouch
+minus the same without it, median of 10:
+
+                    base      +patch 1  +patch 2
+  G1 pretouch       1866 ms   1653 ms   1658 ms   (-11.1%)
+  Parallel pretouch 1872 ms   1644 ms   1658 ms   (-11.4%)
+
+Patch 2 adds nothing there; with patch 1 the JVM already faults at about
+5.1M faults/s, close to what this machine sustains for 4K anonymous
+faults from all CCDs in the other tests. This is a one-time startup cost;
+once the heap is populated there are no such faults.
+
+Tested with CONFIG_DEBUG_VM=y and CONFIG_PROVE_LOCKING=y: the mm selftests
+(run_vmtests.sh -t "mmap mremap vma_merge rmap cow userfaultfd madv_guard
+ksm migration thp") pass with no warnings, and so does a test that
+soft-offlines anonymous pages faulted after mremap(), fork() and on a
+MAP_PRIVATE /dev/zero mapping. LOCKDEP=y with DEBUG_VM=n, and RISC-V nommu
+with and without DEBUG_VM, build without warnings.
+
+Seunghyun An (2):
+  mm/rmap: use vm_pgoff for anonymous VMAs in linear_anon_page_index()
+  mm/vma: only assert VMA stability in vma_has_anon_rmap() with
+    CONFIG_DEBUG_VM
+
+ include/linux/pagemap.h         | 19 ++++++++++++++-----
+ mm/vma.h                        |  8 +++++++-
+ tools/testing/vma/include/dup.h | 13 ++++++++-----
+ 3 files changed, 29 insertions(+), 11 deletions(-)
+
+
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
 -- 
-2.34.1
+2.53.0
 
