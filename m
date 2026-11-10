@@ -1,54 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.202
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310851;
-	b=btWBDXQgh0lFnvvBSA/P7uVTjsYBif4gvRpJlO5KuSGX4av3gweYKE39lb2Q7bh0SavY
-	 zNVmlqGziEVwIjDUZNIdzqrCqGRMY4rrRpogy2yJa4UHQCW20wwk4N88rG5GCEEAmKJHf
-	 sFiwSX2sUosfS+O0o3RA8FvDK8WTheumfQgwqN8CYUfFZWmsfPHXZxTndN15W9s2DoI16
-	 KcdyvQ2TyrBcyCOeUoVVGp8D4Fc3pSSUkkDFXBBzLsTgu8Wo7fV9Hs8wmj1bgQqLFnjUZ
-	 bUe8YCVuRHnzQIsKTHCahCevs5iGZru1/a8O0zprDHB1GCSkuEQ3ycfYsuvnC/SNJvg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310851;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aPaouAXbgLRUhT/xSgZXmX+UlEKNyTfIZUEDZ/uv2QE=;
-	b=oCV+8fvFfer1fuc1LujbXpaTWXwOxwN8sC8fu1uJwmC6wspGpAPRgd4EvgFdpkSlkns7
-	 8m34KL8gz03l97cc4jQ4xDw0+sRbXaZ/BDpmGKOjcjwqeNGdY9XmfKgNUyQvr/Sr+H8wA
-	 rwWs96oobvras0acPBfSmlmNPvFfsTr8KFVtlW5Wau0PwdIFJMyOFROwUiOa7aFY8Oq2k
-	 514xPW/aGivUjjn4fMl0B3A6dEB6179JBHhmE0DkS3EXwzPMi+6vzWd0rVzPuXn1IAlpX
-	 DGIb6/tw8ndUj2R1GK0Yu5VJXHNvxIsnSJTl9pQC7Z4evL7igOWOdA65zbmK+Yhg71A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DWQqkoOE;
-	arc=none smtp.remote-ip=95.215.58.202
-Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.38
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794310936;
+	b=tswaE6PjS1Id3d8SNdi/xFJjuRMgoPxU3+/u7U+NPrLZu/67qwKsZnj9s83g8HFpAnHG
+	 hjz6lzltZ6jPczMb5W8eiikNxyKt5m+JJkYzx4XfhqTbG1fz5P6MShhXkTAZ12HLFJNm5
+	 9Mq8hrbOWDCmmMAgKKAJmIuRDgxXbAHHLm+dwOIsLpGk4ZvSFMLsUnyKwaS/76O4/tSYR
+	 a7Z68gJwBN5qYQUb0wdIyHx4yL5w7nwJ+UfhrVtZD8qlM06MtCjbpM1I89hjqG6lKrpgq
+	 uVf7OAzS5w1CJcii7QtjefpH/Ai4I0sYdz9mBdc1VDrvXIiHImrE+poCz8C2e13y/lw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310936;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=biS2YXkL1LdqGm/e9eSFF9+/NJ1/4ChCJYArfIF9alk=;
+	b=4b1Qj3UXXzlgjZ3oFEciUWd0bPfhGnOfbXwbA9Q2KL/iqGOdrpZrz8GC3YV4p+YewpTs
+	 n+V/mkCbsFruk6IyC+v2drsPn7qBfB1uXzLeHSBz1HnJSNxGfRHUxwOtUtWBeKcWimmYX
+	 c8oAqdgNpSS97AARZm8WDkicmv4jWykGN4b58Iv6jyGF1z+AEyioOKKhkcD+QsnRZbLBL
+	 zQGUu2ZDPeovrmINP9cU6GHuNaZs/q0XWSumwkn1Hri0lJXKe1rT205abBnzUJ84A2umH
+	 KaY0dp0PBjhC50NVjP1itJpp06aX1pAiLclg9vCk5KQ4eu6Jx5EtSuH0AgpeB3IRfkg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HgjPPT+z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.38
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013038.outbound.protection.outlook.com [52.101.72.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FAC606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FAC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0ADE606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:42:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0ADE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DWQqkoOE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HaOqBACZfDFJv1t2HPP1x99f2DA/TbJHsxjAZEbN/bY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794310849; v=1; x=1794915649;
- b=DWQqkoOEn6unSYxAqYOiunEoWmA7J5PYL8JqA5Rwqzpvqy9wDaD5ti59E0FwVZKHLOZSt0ym
- WQNhQVVnkiH5Roias3P5v2hGvYhulgMKc/v0H4nDBB4hLG0r1W2jzky/Wp3/oN+HgwY8ZsGLHkn
- Iuct4c1pw6VbdkWBn8J6/TOE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 24b99d424b1b6eed;
-	Tue, 10 Nov 2026 11:40:34 +0000
-X-Mizu-Trace-ID: 24b99d424b1b6eed
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <aedd01b8-3f49-4916-b891-38e9c4ff3b06@linux.dev>
-Date: Tue, 10 Nov 2026 19:40:27 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HgjPPT+z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=heX+d9YLe87biONtpEIzt4J7bZ+NUtJ52l9CVEpTqwXTpi1GaSBd0igm/YeAkMHK9G/sSx8PsX+z9MdkqCJVhNoBrVPNwgZZK7Cteh119ZZYa9d7EVcwa8q+sOUXIsOPpNzDUYQdV+8b5qS4b7VS3oIkTK7JGeT+7thfiAZxugfSo0NeqqgXtVVAESxGweLqlQzN7fCuRFRnbFV71rFht0vyulXMnkcKeLpJQ2I7Nf5C+U2ARI2Guys3I0qZT+QWO+hJiJTr2XP0jSVVt0W7oR4xruOX/cBwT87Falwxsrd3lhNb+5v0AhJMyR1QbwPVaiuXyaSrR9AMmvmhuoFXuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=biS2YXkL1LdqGm/e9eSFF9+/NJ1/4ChCJYArfIF9alk=;
+ b=sp0zrZR8RGcfUBURxvgHHTedRakFAQz5Aj+L7Fe86zTMfCfczV964vfJA3wSpgDW+g+DlFXC56r5rvU8f7sGML+FU1I6kDtYybT7vkuVEB9YXaFW4+ZgMf484XMXzf3y+EHxg6OIbL2wV6Z/BuFNiK1p+AOqePrLMXY+B6XZKhblcbyhF+nFBp1VBaqcNuBGpe2w/UQwTTkBIlh9v5vwa9WPAKXrh7oGh9TnalOPOPwO9dqgdxcCJKrkmrq4PgNXmc1jxJXpR9Qoz86LcB8E+QxlyxAiy1jFosVlydrYRkek0RH+LcEV+GSVyxE8IMQUksYcAlkBK3OVGDcUs/6hwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=biS2YXkL1LdqGm/e9eSFF9+/NJ1/4ChCJYArfIF9alk=;
+ b=HgjPPT+zb4C1OTysMXWF+gKgC/82qr3BCp7+E6hkH2h8cEs9EX/XVLNvRmEZUSVMSc8+vEAbqWp+6OeAOJDWJxCO/kVScRbzIJoik1GORcJA1jm5vdBTezbo6Rzu7f4dB51tXHrsWi66tGXPSREOvoj6XokE3nbZnY9ccTB9s/KpCRRxRANN7x4j1RWTCjJNOBHW/MMusvaRbxW7kC9wuHWVuKlMWY15KF+g3pVh21aE//IbDNh4SYtHs87MBj8Lt6Yvn9SY8EuiArj/lW2D4Bi5b4PMFgYEBv9q1u+/1+kRX+1ANJStzWL2L3kUlu7IFEzE+5OyTfxbqyWAdWfE0w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com (2603:10a6:10:1e9::23)
+ by PA2PR04MB10087.eurprd04.prod.outlook.com (2603:10a6:102:40b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 11:42:12 +0000
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb]) by DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb%7]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 11:42:12 +0000
+Date: Tue, 10 Nov 2026 19:47:06 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Mark Brown <broonie@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH 0/9] regmap: clean up and improve __regmap_init()
+Message-ID: <avMEOkZDXc+2XbmW@shlinux89>
+References: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+X-ClientProxiedBy: SI2PR01CA0040.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::14) To DBBPR04MB7883.eurprd04.prod.outlook.com
+ (2603:10a6:10:1e9::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,133 +99,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 5/5] cgroup/cpuset: Correctly set isolated_cpus
- when switching partition state
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261109190955.1398611-1-longman@redhat.com>
- <20261109190955.1398611-6-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261109190955.1398611-6-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DBBPR04MB7883:EE_|PA2PR04MB10087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 087bf3c5-fcb3-48de-6812-08df3f1fa8f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|18002099003|22082099003|11063799006|56012099006|261028144727099003|10067099003|261022105027099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	9d7r21Z2CsrhZ40YHeB9YgJPPq25VNJhvg3+Z6wN9g/uLGJDs06YHhPY2MbKCn1cWgUsJUYil/1z3HC+eDLiEr9QAHv5YFnoeGmKkWxchZPp7hZG4aGoqbFyJH4xp0kNrE9xsTNEQcFaMHYFL8dyEh3l0nb+F9jYRXtmLGAK9JE8FMQ8JrdH+kYWvEWtywzTfpbb7GG2OtUhW164HwJ69HlFG8ZkTNSDZnsYjrulTE7nQnwc5ubqhlROGBPlogQjmLQnNa57s1IKOquw0wkP0Fe3DxlPZ7ioakMJcC4T6qAG6DOEZZKD3mSw9kH76T672AQ6ZlSOR7WahjrFYcIlXFvRm9q+rt/Cyg1oOBLNkwWAJnRZCCkZSJvxiqVyssouG0spUFVCfK+uLuCSBIxbecE1PKX2A+v4Jo2XcKmKA14LpZaJ4ZxCjKHu9nujMQXfPB9d0RnHYpst+Il+oQFLu+KGcRvVmVq7Q60mV0u+VDwMudWu7+XbGCL4WeNOHz7b/wUrN+Bg7z6bA2aVEBLYYUkQlapfVJUSSnXabFlkP9ksRivvZuyfJDov8Sq+ss+srL4PU/qRvEURfRTFrVdEexnWdZlkuUYYbdHlFVc5fDc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7883.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(261028144727099003)(10067099003)(261022105027099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2YN+PjscW7YDFAHZw0XWzxDjDL84seUhMej8pPrF2I3WFIzOSAVs7o7eFD/X?=
+ =?us-ascii?Q?X0tXJSbw24lxOcZsLXHFT1HDhV8veHNdw/LK/2IgvWH7MqEXSX9KCnH1WQPP?=
+ =?us-ascii?Q?lTUMTWMDhRrhnzyJ/GSMCX2M3DQ5//IL22bX3l6qqbK0KndyaGGgkkwlHhSy?=
+ =?us-ascii?Q?RSYMoP8reN12hUnFmhzFx3nipiA6qjCp7QYsaXTX8dEf92QcphrYTW0zKaZq?=
+ =?us-ascii?Q?XoVuMRrfCxwostllwdrM8soaX0BFpllvbROzldR4SHWnN0KbSGSpDxAvaOY/?=
+ =?us-ascii?Q?3Wkxe0GWk3m1mltKpCo90kn0SdjBABMRYiWyS5NPQLU6+Dco0AbgLgZ9rOT1?=
+ =?us-ascii?Q?zkvpnkFA9/v5Wem9Z0m6dBlwCieS6Tmgf9MdTLfGuR4WpLxk2rTYIXp9Ml3u?=
+ =?us-ascii?Q?AtSj/5FmSTg7GBN+mKmh+XzmineeC1BuF5jonkRN6tB9OB+ZPVu4NW2kopdb?=
+ =?us-ascii?Q?Y0Ht+CL0Patdfj4Z17VYpxr+Lz3HUW5CF2FmxHQn06i7GJpUrXZpH5EDL2Yt?=
+ =?us-ascii?Q?qG73UvH0ljw9mwrJe1L2dbX+lI29PaiBzvrQkhyhS3gnXuNPGhAO0ku4RHTf?=
+ =?us-ascii?Q?3MNwQvvjsobz7Aoo5grXLzl8oQ5F5CCASL1rMVv+dHJ4XIHmcgzqMF6utfwL?=
+ =?us-ascii?Q?p/R8AAnwIBv4tiZ9dTppcCWXpruXNEQxympC9jnGy6z9Vlc8J5geXnyedojF?=
+ =?us-ascii?Q?Y/z/7JwIs2svYFIfl+U5ZfmXt+oKt1uuQLKwRBGQoMfIRvqWcxGRPxPj89QV?=
+ =?us-ascii?Q?yOtpeQowETcJRx8J73+br2ObaNDku/NbWBRoZhnXReFtznxGgAkE4DCRtFRm?=
+ =?us-ascii?Q?M921wZlPUCv+zXrVIgCjFz0UAR6lWU9645WuYv2qkiLZ3HFDmCPW5XqzlB4P?=
+ =?us-ascii?Q?M7H3SWERVgZTc4+QRJ5w/3aGMMhfMxM633QOMtrX6z+3nTndp0DRWG7SMQyW?=
+ =?us-ascii?Q?6p8H57vfYEA9JTWa/RC04xqVHtiUxWeoj9vhP/+gcyDnPiupEn7MvyemqLND?=
+ =?us-ascii?Q?7FoAssMMsIfUpgnTX7cANcmsIw8NbE5KB2kqCO/d16irF/LdikIyu0dm23Ct?=
+ =?us-ascii?Q?9cRGlZV07k6JTas0ESHg+mJTadyNsXf0Rai86aIDPDtpIPBgN/OBXyiQGfBc?=
+ =?us-ascii?Q?Oxr3ErBD6CXj8BPZmPv+Ra2no1YpI7S9UpAFEwAM4ulDfA2C1VVPn/fpohw1?=
+ =?us-ascii?Q?2HtjIGvuI/SLwHyfSp72N8tV/5XNMjwQN3kksRL4i30t+CoN95MSelHVhCbu?=
+ =?us-ascii?Q?yjcu7dLZOkaQIe7XdnSm+DSgAvAVHFgXlbOnu9LUyheyFD+yw2YpoihII5hK?=
+ =?us-ascii?Q?xzjZpNHH9HmprGZKxE6jfDv7NFBX7Phy55l4iNffZktZafmuKFFTemlY+0C6?=
+ =?us-ascii?Q?e3EHqFcRPKTBvUAtfs2Z7M0m4+6MVI2qyUzgL0NvSL8p16N7xvJc1225lc/8?=
+ =?us-ascii?Q?52JCFN3idyika8bJ0ACpIjjpFSJD/fsLGB1Pt4JemaHFtd/4MzUAPrCjqppB?=
+ =?us-ascii?Q?QcMV0fkzYQGH3gsXPZO8GtuEJ5PkjslkzEIQq9dAWJvERz6CwZ9SdcxpCKvb?=
+ =?us-ascii?Q?wzLrtCYyd1xWTGf9YpHOeCb1aY+E9ejJVG2Of6ij9KITGtcTRnAhVYJqEmMU?=
+ =?us-ascii?Q?D+LfUN/cGmNfri0+CtE2X0QeUiucaCjhMDpAaVzKb8SVST1msJZ3ZcOMz/U8?=
+ =?us-ascii?Q?BV4XBTiCx4gyR2TdXg2G/fkHvCgVVUkB9HDHuwpArJ/Z5nYoe9gsaFRnHAj/?=
+ =?us-ascii?Q?gRjGZ4JMdDrTnENzUyMExCN3A+LxrH8GA/hu9yITFVV1cC4QW3bn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 087bf3c5-fcb3-48de-6812-08df3f1fa8f2
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7883.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 11:42:12.2207
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hDt1AbTIETGqlhvNKftqC/vOLmQZGtwgsUK4Ih9R30smPXnDj1PbaCu0MBCO5HYR32wEuU60w91zsOxkrArEq3HdWxKPZ2WTxUtD0uVt7NKb6eRZiOSrL34TIAArCL6r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10087
 
+Sashiko reported a few findings:
+https://sashiko.dev/#/patchset/20261110-regmap-improve-v1-0-3a76b6c10ec6%40nxp.com
 
+I will address in V2, so please wait V2.
 
-On 11/10/2026 3:09 AM, Waiman Long wrote:
-> When update_prstate() is called to switch the partition state from
-> root to isolated or vice versa, the whole effective_xcpus is passed to
-> isolated_cpus_update(). However, if there are child partitions present,
-> some of the effective_xcpus are dedicated to those child partitions
-> and their partition states will remain the same or get invalidated in
-> the case of child root partition with isolated parent in the latter
-> update_cpumasks_heir() call. In the latter case, their exclusive CPUs
-
-update_cpumasks_heir
-
-> will be returned to their parent.
-> 
-> Therefore isolated_cpus may be set incorrectly with child partitions
-> underneath. Fix that by excluding their exclusive CPUs in computing
-> the correct cpumask of exclusive CPUs used by that partition alone.
-> 
-> Add new test cases into test_cpuset_prs.sh to test for such cases.
-> 
-> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c                        | 30 +++++++++++++++----
->   .../selftests/cgroup/test_cpuset_prs.sh       |  7 +++++
->   2 files changed, 32 insertions(+), 5 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7aa614c6ac4d..41048997a955 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -3054,12 +3054,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   						  cs->effective_xcpus, NULL))
->   			err = PERR_HKEEPING;
->   		else if (parent_prs == PRS_ISOLATED)
-> -			err = PERR_ISOPARENT;
-> +			err = PERR_ISOPARENT;	/* old_prs should be isolated */
->   
-> -		if (!err)
-> -			isolcpus_updated = true;
-> -		else
-> +		if (err) {
->   			disable_partition = true;
-> +		} else {
-> +			struct cgroup_subsys_state *css;
-> +			struct cpuset *child;
-> +
-> +			/*
-> +			 * Need to scan child partitions, if present, and
-> +			 * exclude their effective_xcpus from cs. In the case
-> +			 * of switching to isolated partition with child root
-> +			 * partitions, those child partitions will be
-> +			 * invalidated in update_cpumasks_hier().
-> +			 */
-> +			isolcpus_updated = true;
-> +			cpumask_copy(tmpmask.new_cpus, cs->effective_xcpus);
-> +			rcu_read_lock();
-> +			cpuset_for_each_child(child, css, cs) {
-> +				if (!is_partition_valid(child))
-> +					continue;
-> +				cpumask_andnot(tmpmask.new_cpus, tmpmask.new_cpus,
-> +					       child->effective_xcpus);
-> +			}
-> +			rcu_read_unlock();
-> +		}
->   	} else {
->   		/*
->   		 * Switching back to member is always allowed even if it
-> @@ -3093,7 +3113,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   	if (!is_partition_valid(cs))
->   		reset_partition_data(cs);
->   	else if (isolcpus_updated)
-> -		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
-> +		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
->   	spin_unlock_irq(&callback_lock);
->   
->   	/* Force update if partition is disabled & update effective_xcpus */
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 2d4744f2d6ac..741a13bbeda7 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -556,6 +556,13 @@ TEST_MATRIX=(
->   	" C2-6:X2-5:P1 CX3-6:P2 \
->   	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
->   
-> +	# Switch PRS state (root <=> isolated) will properly update cpuset.cpus.isolated
-> +	# even if child partitions are present.
-> +	" C1-6:P1 C3-6:P1 C5-6:P2  .       .    P2      .      .     0 A1:1-2:A2:3-4:A3:5-6
-> +								       A1:P1|A2:P2:A3:P2 3-6"
-> +	" C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      .      .     0 A1:1-2:A2:3-4:A3:5-6
-> +								       A1:P1|A2:P1:A3:P2 5-6"
-> +
->   	#
->   	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->   	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
-
-We hit the same issue in our testing earlier (an isolated child partition
-loses its isolation when the parent is switched from isolated to root),
-and this is the same fix I had in mind. I also ran a few 3-level nested
-cases (root/isolated combinations, switching the parent and the middle
-level) on top of this series and cpuset.cpus.isolated is correct in all
-of them.
-
-Nits: The first line of the two new test cases lacks
-the trailing "\" used by the other multi-line entries. It still works
-as the newline is just treated as a field separator, though.
-
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Tested-by: Ridong Chen <ridong.chen@linux.dev>
-
--- 
-Best regards
-Ridong
-
+Thanks,
+Peng
