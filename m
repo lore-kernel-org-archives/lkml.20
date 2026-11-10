@@ -1,94 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310123;
-	b=C3Cv0OopIXQCAxzO94qQkOu0Q4tRcuc+BeGu6CQoW06BocnB962siKS8hlV7tLR68zXD
-	 rBDWltJconO3kDJ75KZQH1YxLkL+gogLvny/rKyUkn8iji5ZpErBb/BPRuDRaTjj2WmKb
-	 B+OCmNKDz8c5Omzvrnr63EeLazsM2QTTKLP7YZHgeVj9XBEcvxuurEmhWQtF3jZVJAPPU
-	 sREIyNotYgXZiMqJNMO1U7X8gZ2Ze+s9fpTVj7J743tzlapEvxUfbSzTHMoHQOgOEh0JJ
-	 pKefPEDDecfwpvVytlFAcdVcNLnfqZSpfDpXCtqC1MCFMfGA/5EeoOLZrOQHLD9cyEQ==
+	t=1794310214;
+	b=W4jVj8ul/1O8NbpQUh8609e2g1rI3JP7jZMkkft6eAxjS6NATjhW8JNxHti8OKWvqv5Q
+	 5otLR6aawmizEB/k0mPvgEBj5/pnMd3UUj/9VE1nrKO7WkEfS3Bk9uBNviIbbgdAqD3BP
+	 oo37YMof2tE8megCff9TOQqqD4vrdBNwLM1i2ia4fak08XIwrekDFePyIYpk9PkR+vg3e
+	 lufvlfpCMyiutDuAKqBwW8LB0aD8MgxDkNv3D+rcX/tJ8XayxB3yMqqnDxDzmbXQx5DGF
+	 tJ19nDfmuFaypHzsqq6dfGA+iOm7SOfPYF1avp92+CGbaI4fph+4yNneS9CM4yCaOYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310123;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=lT9XeouHm2xun5PDGSP7Yyje8lCMCUG86DD7BR3eof4=;
-	b=OCYwFLRsl/GErJHaqx8zpFR2yBYxGuIWH0520IxNCmPKCnYThBrcdOR6j18HXFXAmmeD
-	 7Kw/g004Py1KuZutmmCS1p53AgF6D5+cpZGClAT870nKjMQ5At9JzFH17EOoOCPNdJKy5
-	 pI78jQfnaQio319ixeiBbXyi9ks52tVFU8f5RdLvNJo0/HHsSLCVuZpSnOO6AwkBymKqs
-	 mTWJg3jW3pvXw+57pp3UD++Y9/moxbOnolHlfZaL81lzZQQSIpbLeWiDdt4OlBYMNWGMY
-	 JarnxYRukIxCgBHXabClvgQw+w9QPVR2n4GDSd/xO0zem3dgyl0a3/IF+mmBMrIplKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310214;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=K5H0dz5dbsDGoWuCekRcv1POB5vy3nZkuRXCnhU7kPI=;
+	b=rDwbceb9LIj+8t20ZChFosHtKHLv9EbHbkau5AiWhYy9YHF1/eFwz30SZ52A7GU1D5JR
+	 JwAOlZ+pWg13DY7cJq0+l+AliWxdQfDf6Wj1X2QtLeVchORkrLk32Pf2d6+E3jEMbbqvt
+	 1FM75H3zLkjxdTSdPr1Zwfm5WsT2JqelB0PjAmww/+9MBWkZx/pziubZdqwrUPIQd1Yse
+	 Zvjr2VHBqIHnqVusDvgAc7Ute3/HD0pnaIr9x/rqDvnSSFX0v/+bLE6G2nqrlIX50v2Pi
+	 Ynu2yunS+j39wrOz2EezGeyuOjJPO27HHFnl/Nq8SSBC3Y04gMt8lH03OJGG6/B9yAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JQqWWpQE;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB7F606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB7F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="ixmJ/hV/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0F74606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F74606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JQqWWpQE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794310121;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lT9XeouHm2xun5PDGSP7Yyje8lCMCUG86DD7BR3eof4=;
-	b=JQqWWpQE5H75o72Hc64+Qf1NUv5kajkhBssf6/BX/1lqDTa7Sh3JwhSOh/AvwDcwki8g1v
-	PRKm0KYyDaBwcBBfi7iSZ1+ccSi353FVwWrePFJ1/TxcVMAcS0pHjAg0FCwgtWKJ4pBnZ6
-	lKn6hAAsDcQ3XtS6eWLV695AzL2hU7g=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-196-r0ger4WmN_SN3Nb2RT54qw-1; Tue,
- 10 Nov 2026 06:28:38 -0500
-X-MC-Unique: r0ger4WmN_SN3Nb2RT54qw-1
-X-Mimecast-MFC-AGG-ID: r0ger4WmN_SN3Nb2RT54qw_1794310114
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9824E1955F02;
-	Tue, 10 Nov 2026 11:28:33 +0000 (UTC)
-Received: from pabeni-thinkpadp1gen8.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ECE793001DA0;
-	Tue, 10 Nov 2026 11:28:27 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	woojung.huh@microchip.com,
-	linux@armlinux.org.uk,
-	Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com,
-	geert+renesas@glider.be,
-	magnus.damm@gmail.com,
-	edumazet@kernel.org,
-	richardcochran@gmail.com,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa driver for LAN9645X
-Date: Tue, 10 Nov 2026 12:28:21 +0100
-Message-ID: <20261110112822.235243-1-pabeni@redhat.com>
-In-Reply-To: <20261103-dsa_lan9645x_switch_driver_base-v16-4-781c96d735cf@microchip.com>
-References: <20261103-dsa_lan9645x_switch_driver_base-v16-4-781c96d735cf@microchip.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ixmJ/hV/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E89C1BF3
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:30:04 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 48E243F882
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:30:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794310207; bh=rsCGYOGTSBUcdVShCpc2QjxywBTq8SQYSTxbo5VBt2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ixmJ/hV/1ezStHTDHdBf2V1LO4mJz7XW03BLVeXs4cMDh2n9ssT5JBiaeqtEtpBGt
+	 RcTXDrUJlZ43N2kmYEhzLkTr1sbZtK0zlO9IJX2R8F5fnTApTFUW+ZGWbVKw5hKU32
+	 kF+ZXAL/+pz+OueuSmYKRWj8H7rTZY1wkGP4kH0A=
+Date: Tue, 10 Nov 2026 11:30:01 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Chris Diamand <chris.diamand@arm.com>
+Cc: Akash Goel <akash.goel@arm.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Florent Tomasin <florent.tomasin@arm.com>,
+	Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+Message-ID: <avMAOa8ujH5Qrf7D@e142607>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+ <20261030144805.667158-1-liviu.dudau@arm.com>
+ <6ce83db8-f696-4507-88e1-0e113b8da8a3@arm.com>
+ <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,217 +68,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+In-Reply-To: <42f8e9e9-858a-4a0a-bbf7-daaeba368736@arm.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
---- Patch [4]: [PATCH net-next v16 4/4] net: dsa: lan9645x: add basic dsa driver for LAN9645X ---
-commit 2bc50b43f8638df7f8c7d09bfad9a789fecdd370
-Author: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+On Tue, Nov 03, 2026 at 12:40:54PM +0000, Chris Diamand wrote:
+> On 03/11/2026 10:58, Akash Goel wrote:
+> > 
+> > On 10/30/26 14:48, Liviu Dudau wrote:
+> >> We now have more people that can do reviews and contribute patches
+> >> to Panthor, so add their names to the list.
+> >>
+> >> Signed-off-by: Liviu Dudau<liviu.dudau@arm.com>
+> >>
+> >> ---
+> >> v2: Forgot to add Chris Diamand to the list, fixed.
+> >> ---
+> >>   MAINTAINERS | 4 ++++
+> >>   1 file changed, 4 insertions(+)
+> >>
+> >> diff --git a/MAINTAINERS b/MAINTAINERS
+> >> index 89ea35a35c680..ef92c462a8381 100644
+> >> --- a/MAINTAINERS
+> >> +++ b/MAINTAINERS
+> >> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
+> >>   M:    Boris Brezillon<boris.brezillon@collabora.com>
+> >>   M:    Steven Price<steven.price@arm.com>
+> >>   M:    Liviu Dudau<liviu.dudau@arm.com>
+> >> +R:    Akash Goel<akash.goel@arm.com>
+> >> +R:    Karunika Choo<karunika.choo@arm.com>
+> >> +R:    Lukas Zapolskas<lukas.zapolskas@arm.com>
+> >> +R:    Chris Diamand<chris.diamand@arm.com>
+> >>   L:    dri-devel@lists.freedesktop.org
+> >>   S:    Supported
+> >>   T:    githttps://gitlab.freedesktop.org/drm/misc/kernel.git
+> > 
+> > Acked-by: Akash Goel<akash.goel@arm.com>
+> > 
+> > Best regards,
+> > Akash
+> >
+> 
+> Acked-by: Chris Diamand <chris.diamand@arm.com>
+> 
+> Thanks Liviu!
+> Chris
 
-net: dsa: lan9645x: add basic dsa driver for LAN9645X
+Pushed to drm-misc-next.
 
-This adds a basic DSA driver for the LAN9645x switch. It covers switch
-init, named regmap requests from a parent device, NPI, CPU and front
-port setup, and phylink MAC configuration. Only the internal CuPHYs on
-ports 0-4 and RGMII on ports 7-8 are wired up, and the parent MFD
-driver that provides the regmaps is left for a later series.
+Best regards,
+Liviu
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> new file mode 100644
-> index 0000000000000..f91e825343353
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> @@ -0,0 +1,453 @@
 
-[ ... ]
-
-> +static int lan9645x_tag_npi_setup(struct dsa_switch *ds)
-> +{
-> +	struct dsa_port *dp, *first_cpu_dp = NULL;
-> +	struct lan9645x *lan9645x = ds->priv;
-> +	struct phylink_config c = {};
-> +
-> +	dsa_switch_for_each_user_port(dp, ds) {
-> +		if (dp->cpu_dp->ds != ds) {
-> +			dev_err(ds->dev,
-> +				"NPI port on a remote switch is not supported\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (first_cpu_dp && dp->cpu_dp != first_cpu_dp) {
-> +			dev_err(ds->dev, "Multiple NPI ports not supported\n");
-> +			return -EINVAL;
-> +		}
-
-[Severity: Medium]
-[Finding: main-1-1]
-[Sources: opus-5-5]
-Can the "Multiple NPI ports not supported" branch in
-lan9645x_tag_npi_setup() ever be taken?
-
-dsa_tree_setup_cpu_ports() runs before .setup. This driver has no
-preferred_default_local_cpu_port(), so that function gives every local
-user port the first local CPU port:
-
-net/dsa/dsa.c:dsa_tree_setup_cpu_ports() {
-    ...
-		dsa_switch_for_each_port(dp, cpu_dp->ds) {
-			/* Prefer the first local CPU port found */
-			if (dp->cpu_dp)
-				continue;
-
-			if (dsa_port_is_user(dp) || dsa_port_is_dsa(dp))
-				dp->cpu_dp = cpu_dp;
-		}
-    ...
-}
-
-That makes dp->cpu_dp != first_cpu_dp unreachable. A second CPU port in
-DT is accepted without any message, and only the first CPU port goes
-through the phy_interface_empty() check.
-
-If the second CPU port is port 5 or 6, probe would then fail later in
-phylink_create(), and the driver's "Port %d has no usable interface
-mode" message would not be printed. The commit message says:
-
-  "Declared as a CPU port there is no such fallback, and the probe
-  fails, and our driver logs an error including the port number."
-
-If the second CPU port is port 7 or 8, DSA sets it up as a CPU port and
-attaches its conduit, but lan9645x_npi_port_init() is never called for
-it.
-
-Would it work better to count ports with dsa_switch_for_each_cpu_port()
-and reject anything above one?
-
-> +
-> +		first_cpu_dp = dp->cpu_dp;
-> +	}
-
-[ ... ]
-
-> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
-> +{
-> +	u32 val = 0;
-> +	int err;
-> +
-> +	/* The parent must reset the whole chip before instantiating its
-> +	 * children, so the switch core is disabled when we get here. The
-> +	 * sequence below must not run more than once: initializing the
-> +	 * memories on a running core corrupts pointers inside the queue
-> +	 * system, which eventually fills up and stops passing traffic. If the
-> +	 * core is already enabled the chip was not reset, so skip it.
-> +	 */
-> +	if (SYS_RESET_CFG_CORE_ENA_GET(lan_rd(lan9645x, SYS_RESET_CFG)))
-> +		return 0;
-
-[Severity: Medium]
-[Finding: fable-5-1-7-9]
-[Sources: fable-5-1, opus-5-5]
-What happens here if the register read fails? lan_rd() discards the
-regmap_read() error and returns 0:
-
-drivers/net/dsa/microchip/lan9645x/lan9645x_main.h:lan_rd() {
-	u32 addr, val = 0;
-    ...
-	WARN_ON_ONCE(regmap_read(lan_tgt2rmap(lan9645x, t, tinst), addr, &val));
-
-	return val;
-}
-
-If the read over the parent regmap fails (the intended parent is an SPI
-bridge like ocelot-spi), the result looks the same as CORE_ENA == 0. The
-RAM_INIT sequence would then run on a core that may already be enabled,
-which the comment above says corrupts the queue system.
-
-lan9645x_set_feat_dis() uses the same pattern:
-
-	feat_dis = lan_rd(lan9645x, GCB_FEAT_DISABLE);
-
-A failed read there gives num_port_dis = 0, so the SKU port count check
-in lan9645x_setup() is skipped without any error.
-
-Should these two reads check the regmap_read() return value and fail
-the probe?
-
-> +
-> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
-> +	lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
-
-[ ... ]
-
-> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
-> +	 * use the same masks. Control frames are redirected to CPU, and
-> +	 * the network stack is responsible for forwarding these.
-> +	 * The dataplane is forwarding according to the offloaded MDB entries.
-> +	 */
-> +	lan_wr(ANA_FLOODING_IPMC_FLD_MC4_DATA_SET(PGID_MCIPV4) |
-> +	       ANA_FLOODING_IPMC_FLD_MC4_CTRL_SET(PGID_MC) |
-> +	       ANA_FLOODING_IPMC_FLD_MC6_DATA_SET(PGID_MCIPV6) |
-> +	       ANA_FLOODING_IPMC_FLD_MC6_CTRL_SET(PGID_MC),
-> +	       lan9645x, ANA_FLOODING_IPMC);
-
-[Severity: Low]
-[Finding: fable-5-1-2-5]
-[Sources: fable-5-1]
-This isn't a bug, but this comment in lan9645x_setup() doesn't seem to
-match what the patch does.
-
-lan9645x_switch_ops has no .port_mdb_add or .port_mdb_del. Nothing in
-this patch redirects IGMP/MLD control frames to the CPU either.
-
-The comment also says "Control and dataplane use the same masks", but
-control uses PGID_MC and data uses PGID_MCIPV4 and PGID_MCIPV6. These
-are three separate PGIDs. They only end up with the same value because
-of later writes in lan9645x_setup().
-
-Is this comment left over from the bridge and MDB patches that were
-dropped in v16?
-
-[ ... ]
-
-> +static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
-> +{
-> +	const char *resource_name;
-> +	struct regmap *tgt_map;
-> +
-> +	for (int i = 0; i < NUM_TARGETS; i++) {
-> +		resource_name = lan9645x_resource_names[i];
-> +		if (!resource_name)
-> +			continue;
-> +
-> +		tgt_map = dev_get_regmap(lan9645x->dev->parent, resource_name);
-> +		if (IS_ERR_OR_NULL(tgt_map)) {
-> +			dev_err(lan9645x->dev, "Failed to get regmap=%s\n",
-> +				resource_name);
-> +			return -ENODEV;
-> +		}
-
-[Severity: Low]
-[Finding: fable-5-1-1-2]
-[Sources: fable-5-1, opus-5-5]
-This isn't a functional bug, but can this driver probe on any in-tree
-configuration?
-
-lan9645x_request_target_regmaps() needs 17 named regmaps from
-dev->parent, and lan9645x_reset_switch() relies on the parent having
-reset the chip. Nothing under drivers/mfd/ registers these regmaps or
-creates a child with the "microchip,lan96455s-switch" compatible.
-
-The commit message says:
-
-  "The MFD driver will come in a later series"
-
-Until that series lands, this driver and the tagger it selects can be
-built but never bound. Would it make sense to merge this together with
-the parent driver?
-
-[ ... ]
 -- 
-This is an AI-generated review.
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
