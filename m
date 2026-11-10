@@ -1,86 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329364;
-	b=2xiEIX9g4dFKcCWxF9yuA6GM9lBdVZZyztcZ+S/yXrMpbHHkovma2ZKvqeyJFcS9N5mX
-	 rb0lTkjYowpmSKATMeBMExs9+k0D7jQ0WwJ+Wp/V3a5nGJ1jOZPe0C+a0atEbSevfLrYq
-	 LOCEx0Sa6oOfbDSVhB57j5BqQ/Js3Iu1bFbxLzUBrF0LkMmsWJbr1Mqn2l70HJnneKZz7
-	 fkC358DxV1beLNybGAeh9Lrm3hzACpgK19mctXl7Pu45GYGs6gvHUwREQrwWPH1EvAJmp
-	 2I4B0uZaabBIclFKOb2fpDFesgjykMjlzr/D/M3P//UuJZkg7lovS438v4i0/deNYQQ==
+	t=1794329392;
+	b=UDebyCUX9oM9QRddU5GZaAwURsBubWEHeRRhu8jJDSSJ22DTiqprbHHDmrGs69VFvY2x
+	 fn1OAQE8zJnqf2nlVdM9Gisu6/eCEk2f7fey2d5OSsiUowaU+ZxuQOAh8euCOJd1cqf5G
+	 R9JTJIkr3+nLwlMXg4Iv6cyPAqnD71HEHxfFSh02TF8bxBFFWjaGfRRiqxGrnh77zgy5W
+	 EhMuX6SYKoi+e7DdNjocOZzV1Ywzm5MJ6MTHoluqQhRf/xgGOa3T6M3e+97iI9YstNMXl
+	 ymrSqLOIQWzu2MpEZ8auOaqu68BF03YJEz2gJeld4inswDpIQ0R6WuPNvn4sHTpLOnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329364;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=nPtrbd2Pn3rK1sw5Bc8c1fg7SY1qBfAR8Azz15uZZXI=;
-	b=Uj5OcajhQTWa0FSfrrwHH+o96MpGPO4gSXj1KEB3EhmSSc//I+0vtgealONyf4aIIi7w
-	 et/LOP9q/CQew1Tq3kJv6J0XRjtx1llbW1EqqJBk/kByHAPMNw818MTGIxZbJXB2vet5R
-	 JYyZeXG8AtMwLtL1LqrVzr7RLAV9jJwCv2krCgBG3xZYHxnUg3v+Sg6RXFuzDM8Z6Ps6T
-	 hSYH7rxdjgPdKFjDgAqgINKkcbJoR78c810fV3aQBMIA4u/7tf2rfdskhZMkfNxsHAa7c
-	 bklmqAJGNEe9zDltCPGPQp6Dya6RI7YhPAiuA/iAeyB4e1MGVd18dfcmPP0HR9DjBYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329392;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=N26Uk1NkuKePon1mqO4zlHCcQyVbLRJYKFZf4bc0oHo=;
+	b=m+pRv8wxTzeSBwp2SNfU9ryy0g6iWw6fO6O5wBMO8sMslvjF7BJV+SWQc82k3z6kL6CL
+	 VJLmq6B3EkX9+FLEDRXSIPSjG6fKk5JAL2yLBRfpoJP8KHqgXjQrj538z0sXvn2G4AaE6
+	 JxroRfGir3DKOV4GD/Cz+r1oS5TcSqIwXVNFwl/vJ/jDbQz735DW+asXbFS/FFB/IJUJ8
+	 RR3dCVGGkFDASlj2P44yjQqn99zM98wvobS+ACRyvLgDc67b77vj78QoBgIKLN4OZCF0X
+	 OOx3Z7+qte1TVs4z9K2eObA4tWgDyMNRQEvcUiH6i5XmglpGByf2ONNT1r8QVMNiiug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POE2dKJi;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wn2ZSEZB;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72DB606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:49:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C72DB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43242606A31C;
+	Tue, 10 Nov 2026 16:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43242606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POE2dKJi
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-18818daa3e7so659548c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:49:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794329363; x=1794934163; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nPtrbd2Pn3rK1sw5Bc8c1fg7SY1qBfAR8Azz15uZZXI=;
-        b=POE2dKJio14LyaDVkR+BmbhlmJfL3c+ppSMEYXAn68Zh1qMJQkRRgYrFpfcjoPIdxe
-         LKNTJZ+qLl5KycuQa/KBAa0V7qCYDceZ72rU4/d7aIOqMEqb76zw8F2kBmFjv/dkSrts
-         8KeVMjltoTlxis9vnEKSzF/mz0U2xBpQzv/CUbpoABR8TmmaIhAtN95GBKAYj0bQ5y4K
-         WTflcwHcbLFOlptFw+pVwlZcd51SidZ/s0KEYDXY1vnyaH6k3oFribB2jbDeLWBn3Dei
-         8tpKh9Mhgze0pDpKuFNQ/iUQl12ffQjfbg9Z47WfuKSCBcxZHxrCfv+ORkavKx8ydT5n
-         yrSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794329363; x=1794934163;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nPtrbd2Pn3rK1sw5Bc8c1fg7SY1qBfAR8Azz15uZZXI=;
-        b=U8zRVqg+kIE1cYGpwxerb+/qgIBXKLP1gZGd6toou7dNkXPsUDTKa6386ZdOPJBwJ1
-         AmjXJPufTVSyos9qBzzuHO3X8KROXCMhJ/AdUu48DMpbeW6EYGdknEzlAdHoqtloIUGR
-         HhWnwsNOYqv45VxLEs7xl1sFd2fVgAKaAwecYwBpy4AuLNSKvk0pYTfmTFaPSvfH5t8B
-         H3KqDflxAbSbzCFWzDFsaTXbDgKMDsdUmd0hFSnjvmKKZcS3T80gRujXRrjzIdpEQHtC
-         V5dbNi8X+67wybUkEjZjRPFFMOKIisiUTtKJMUU05/YUIdbbdAwjCEsSXysa1ghKxcs8
-         Bc5g==
-X-Forwarded-Encrypted: i=1; AL+hErFLBE1it871Y26CXfMd/YUaDWpEYcSkYy5710LGLTO+58ImDmiQ9azF4DwB5LspeWDAbeAs2SH4vIJqrjs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96hoUJnLD24+n9M2OIXUYxjWJ4+pnVFFsHw68+ew2lI+5h8eiQ
-	TwYt5jtNhDVYb/5gjwpbDSkF85Ez+XuQw5/lD4uv+JnWwbmRnnV48j/U
-X-Gm-Gg: AYBFou3cb+E2F5BPBkU5giwB9lWHrg8uqt1hVov0dfTQRdq40fFLYaFJwfxonGA2xpt
-	Ux4jSSlKR+aQIQs2xK1tMSJh7RgBPVAf6dEc2XHZzZptGt8IJmJ5GJ22ihKiObYnh6IhDoKZg1f
-	NX+lpu3BGv/sRPDyd8TYtVjoqajHZOdE0g8QAevIVSqcMup3wb3c2qLWr9OC4V/s2BFV+W7L1TP
-	kIHRDL/FITWK7AsyqeFAnpSO6BMMzFcTb8Cq7nVtY/Ozrd1MuyZUFigzTUhcqWWnrLrPTVbcyio
-	LGUXm5Ik1TmTuG5uRi7v4rflZEV2oMmg7crhFNqfwGrFPb82l9eplm82fdCr5Vuas1+T3yB5da9
-	Mk3Dn+3SzfQx1JIk31yoQxVN/UD1yD1wOYhugScVyyzUFqq2HNwrFyj/wz+TNJ4aOvzXmuzMIWf
-	3ARGt0fcuBylry1FCkhjcn7KwhwVJu/m5WRu+a0iHYHW6B81sU+3XcsoiauO/YDXzaoPoC0zf5M
-	JlX48myrltOz74XZLfnw1hZLh6hy0quvb1jR44PnZ2TMClJk48mdA9Y86RWiSCNGbfJUYOmQxJO
-	cFPVuSWbZxsC5DvS1E1Tn8lKFkXXCgbifM9hty+eD9aWgVH2fYZwDoyVGGf9z9o/O3o=
-X-Received: by 2002:a05:7022:1586:b0:14e:d0ba:75af with SMTP id a92af1059eb24-1b3bee94f73mr67874c88.6.1794329362760;
-        Tue, 10 Nov 2026 08:49:22 -0800 (PST)
-Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5ba8426sm7208003c88.23.2026.11.10.08.49.18
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 08:49:22 -0800 (PST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wn2ZSEZB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794329392; x=1825865392;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2MVq+GLrDjvX7XOBix1Tlg4+fDQBae2i9R/65kTAv+U=;
+  b=Wn2ZSEZBPWuO2rJOYeYPgsc6oVstR6Cio9xcV0YVjiZOJHjqcWYMpRe3
+   jXXYnS+4n2WahROUIFU/Pq763dgVvFoLKyHiNQ5acscMml0gTqA8D+sp7
+   pRJ6tPeqsoCnXCF5cxhKDhqrvuhv+y00nhxXw+nY2bidow/m4BjlMZGq5
+   35N3n1+e3q63pPvMBuBg0q0uukRNvbepGmBZHIHJbCWnxjq9Yhr/YDN0w
+   rDa7JagadIudc+7tRY3FSGoS/GWgx9n/iXwDXTWPdu/iQiFrGGUkhToIU
+   PCqjAKonwIXT6KGFBNEpCHJbMYQzk21edrzTWZ/s5wet0n2yBkl1Fobv8
+   A==;
+X-CSE-ConnectionGUID: RX3GToWwQhyqWSzCoayjJg==
+X-CSE-MsgGUID: xYGvmuDwSCqsgua7nOlnGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2953152"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2953152"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:49:51 -0800
+X-CSE-ConnectionGUID: Sp0lt0UURUCUT5YJZfRSWw==
+X-CSE-MsgGUID: 3lJ6EDzTTB6NhhqplwbXpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8536994"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:49:47 -0800
+Date: Tue, 10 Nov 2026 18:49:45 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yury Norov <yury.norov@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	jorge.lopez2@hp.com, hansg@kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	platform-driver-x86@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [PATCH v1 1/1] string: Export strnchrnul()
+Message-ID: <avNLKe2X6ulRFnUR@ashevche-desk.local>
+References: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,49 +82,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH net-next v3 3/4] selftests/net: packetdrill: add TCP black
- hole detection test
-From: Esko Mobius <echoowall@gmail.com>
-In-Reply-To: <CADVnQykoJWJL+vZ9GC=RqZuiSEypNtmTONBzV7XRQ1jsXy0X_A@mail.gmail.com>
-Date: Wed, 11 Nov 2026 00:49:06 +0800
-Cc: davem@davemloft.net,
- edumazet@kernel.org,
- pabeni@redhat.com,
- shuah@kernel.org,
- kuniyu@google.com,
- horms@kernel.org,
- kuba@kernel.org,
- netdev@vger.kernel.org,
- panweiping3@gmail.com,
- linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <18B3E417-AC3D-4A70-88BD-4ADA9003ACAF@gmail.com>
-References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
- <20261110-mtu-probing-series-v3-3-dedfab25d641@gmail.com>
- <CADVnQykoJWJL+vZ9GC=RqZuiSEypNtmTONBzV7XRQ1jsXy0X_A@mail.gmail.com>
-To: Neal Cardwell <ncardwell@google.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> So I'd suggest renaming this case to be something like
-> tcp_mtu_probing_blackhole_no_tlp_retries1_is_1.pkt.
->
-> Then I'd suggest creating a test like this, but with only the =
-following setting:
->
-> `./defaults.sh
-> sysctl -q net.ipv4.tcp_mtu_probing=3D1`
+On Tue, Nov 10, 2026 at 05:41:50PM +0100, Andy Shevchenko wrote:
+> Export strnchrnul() for users that may be compiled as modules.
+> 
+> Reported-by: Armin Wolf <W_Armin@gmx.de>
+> Closes: https://lore.kernel.org/r/1969fb5a-38ef-4b4b-9d2f-cb9a4348b968@gmx.de
+> Fixes: 0bee0cece2a6 ("lib/string: add strnchrnul()")
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+> 
+> Assumed to go via PDx86 where the first (wow!) module user wants to use it.
 
-Thanks, Neal. That makes sense.
+Actually with the given Fixes tag it may go usual way to next -rcX.
+So, whatever appropriate the respective maintainers think...
 
-I renamed this case and added a test that only sets tcp_mtu_probing=3D1
-on top of defaults.sh. With the default settings, the TLP and the first
-three RTO retransmissions keep the full size. The fourth RTO falls back
-to tcp_base_mss, about 4.8 seconds after the original transmission.
 
-The new test passes in all three IP modes on x86_64 KVM. v4 has both
-tests.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks,
-Yongjian=
+
