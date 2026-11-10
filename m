@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794285167;
-	b=IgIpF6PV50QNM1J//YWC+SSbJbQyqnmDpnZV7DONEXVAPPA8DbTw/mHetpf//6vwCjPa
-	 M5jKSyMK/yhIbqv7MRzN4PxkvphvNOxz2q8MqD57gy1+bE1msBtSC6g4fwjRKYR4yBhqB
-	 c6GHSW1pccjzGhXdvzkUnMtG0ACwSpq0hmxw2kotULDzqItRxnkkAk5fWOZ+fKSESV77b
-	 OCZ14nbJXK7E1l96AiZrKg8YOwAK4jJDHCUhXTfa7rM3BcFdUR9Lai2Hwj7zU3ZaHYNlM
-	 HyNRYlfGHbNaCZP3AByNHFUZZy6ORFG8UUtFgpo5VtaQv+uO9dZe6zxDPuPt6t+Apag==
+	t=1794285170;
+	b=lIEWO/gQBQc3Cjo/SMAGrq9WwsSKJyesq3B0WqQSWal3awiV8aQiZH7EaYrnDhg78PA6
+	 7p7X5Bz0F/invfZfbVL1vc6/SC1e42AhmUy90TcNCVwBRD3GWoklzImGuo05P0xp1w1ZX
+	 1oGy5pNVoEB67sxrp3NtOtpduqFBXOVyDKVwP/QUqMAdS2YKdVpoSMR3iX73RCYx1y10m
+	 aJzzRtBhKYWJkswtTRvwS5kwqtIAxDmQDX5K+cyLQ/xvaqLlF+gG+k2V3UnMvB9uwGjzz
+	 vk2qfJqH+o6aHeyBx3JzGMfN5TxZ1aTINMg6QQ/7L3NjB69LgwqVQbHLLfynMFt4YRQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285170;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
-	b=OkJ7nXMPuct4uK9nxJzh4070eON21eljqzL8rvPMb4G9Tn1IYPasvlrFCQu7LzMveTq4
-	 J42QTs989vRnZ4kL9eCqRXOjkgnga6/AVjXPThRzGDiXS/7GkmTm+kVtttTC/UOU34P7D
-	 dhRtkefPwI4HJEzFi8KvRYDFcL3/T9O72Ou7QUwyoFcTJGZGYuUdM/vvwcz6b6OJu7h8n
-	 c0zcNzQIWg2ao0aLYeUJdiiHXIRZVPeebXEvnZl81oCnU/JePM170xlHSP/xv5rW88e2Q
-	 jwKHepNF8WhGyepWN/hY4r/udMS/CcEuiVXi8QrxHs07NANzZN6BWZ93oEc+QXQUM6g==
+	bh=lpMIYvYM4e1N5ncXBt5rAZ4BpSgX8FAu5IJ/N7zbfqE=;
+	b=KnTx6SHtVUwxuz9QLS08le5EyCvh7e5L1z2nCAaIqLI/AVz7WsT0S+MmzB37w24HAfIB
+	 gCTX7deETPJ1qyO9xCMtldie+S+p9tKs6KVNjSFSYwnW+LtDKHi8fKHgfyWyKmdRxsE3n
+	 ja6iVJq8sAHd2RGLG0Q8JEy0pZLRRZq0RfaFTcXAtF7tDETcbUtHqCqmMGs8YAmYnWxKQ
+	 sYt2IFFO+UUDFIAg4vXRloyrzXNAAF+XsCPFqbBvxXX998Td0od+gjDkWCdc0t6e0R4Zq
+	 2jCm+F/7gQbgOM0t6pc9GyN3RMF0RMCjUf1nhDNV1orKy2BKeZ8Pn7cb84mc18EcafQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6fGGLds;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEFYHxAO;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADAC606A334;
-	Tue, 10 Nov 2026 04:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E1960A2633;
+	Tue, 10 Nov 2026 04:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6fGGLds
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEFYHxAO
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794285166;
-	b=1BSjJkYNuVnN4vum8SXQ5lWPd0XtbJ88+86K/y8dO4SCGhPoACQyvPclzXKm2XzL5kcd
-	 LEAgv3TjzV9tq3JFbtSxoEOlhi5h0P/0Hgl+EaaVPPcUgNV0f4G5PTTO05IvhwlUSfhgC
-	 UIHaymGMAicf1bVMkVTVWxBC1Oj2r87vCcWaTrxaPzWZ/F1OInoe4reuQA8S+goZaHjFd
-	 9KYhl/9zn6pAC2cKiu1SS8hXiPoQ6V0SvhiwDz3mssgW/lr8tZ/LUHNpJo4eWuCSXqXkw
-	 U0n6JKjMv2Gjz/xdFcXFd3swx202YWe4JTpDT5wArIdlebK+Ft3tY4xtXG5pkl5rqwA==
+	t=1794285169;
+	b=qxs8GlZvpuUe1JmoN93IULoNJlPKHnflfXWO0z0xNABvBl6mfeN2NuBIfdY9rJ/83dly
+	 Nk1P0ZIpm/6XMaOljpYrvdL7uXhPrqp6ylieMicR6S5HTwRzQmqx9GOwL9AbiZAbUxqft
+	 CIL7MG+moy/nlDUdOimba3PDrd57EDVGF36ck5DE0B0a1T+eCOkgS813gGf91pemOxMdL
+	 2pthDW69gLurDrPZFegut60rMELV30T6P9tig8NmpJlJHVR9pB7FmLYaRhfU5LiixA57D
+	 n+H1BXLPh2XJwGzbDbH4ffqa5CIQ750yIVO9vKooguY8sj80uIlk9lO1WQF7MqiaiRw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794285166;
+	c=relaxed/relaxed; t=1794285169;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
-	b=igvmpmmVJq1/GYodj5Zn6xPRhiqy1qDMJMrWW8O7FtHLAtXphChITlnW7w/fsR/HpNr7
-	 j9le5N2Y07+6+ey9wMvb5IaQ6RF7PRKOuhjs+/yqrRPqLsGt5dwECJ8sKYSSi7hpKGH59
-	 mH/UXqikDI9eSi7qD4e0uFQpEanErmg0DByHnPiQ0CnZVuj9ADEwhKsZUOYv+s7bOP10r
-	 5xe2YVaoNKH1OKUxU4WJ0v2AyNpJvkYoOR0ixIZ8pI6JT7W/ZM/R4lDqqDn55kLHtDVBG
-	 FSvUfYGjPktCuO47cdqZh6f/QRpgwDPq+FF5UwvBIu+VJpeWrb2IMdUTun9+my2Pgtg==
+	bh=lpMIYvYM4e1N5ncXBt5rAZ4BpSgX8FAu5IJ/N7zbfqE=;
+	b=T+KkusY8pQ5tdw+Zvd9+pnSyIIBHj0su4rEgxY9jfxzz6pK8ASkCUmXTTT5AwgEBNNbg
+	 Zwmb9o0lM6Qy7fm1eXF/FBtJ5xdje9eRvPuCxgglKQus9s02vJJd0SEwoD1W/0q8mlZIk
+	 SivnQW6akSuepqAVwTzTCofAHdHY6w4k9MQmNxw5xz+kzjv9XPTTOteKd00wwmGE4N+vr
+	 R8n2taUEzGsW1wzZpgNNi8lv9DhHClHbiScZoQlOqN+ma0elGZ4iiYWzVmB0h4v1B0tdh
+	 Fj1rtb4cbhJQjtO6Xmom1DqWoAajAhLeTBla5YEpMEGvHo+rGQzovqhZM7cy2Uqj7yQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1711A1F008A1;
-	Tue, 10 Nov 2026 04:32:45 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 11A2B1F008AB;
+	Tue, 10 Nov 2026 04:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285166;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
+	s=k20260515; t=1794285169;
+	bh=lpMIYvYM4e1N5ncXBt5rAZ4BpSgX8FAu5IJ/N7zbfqE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=f6fGGLdsLBvYbaMw0pk5B+GLv67csbQuODztRr5M7Ezm5a3BBmkuN4I5JxGlOIVxk
-	 wAwUVlfnj78VevhwUMTlPSPApwASHLhudQKSTOROZZt3+8E4s21IqvY1wtBd/Q2tdd
-	 h1Yo/ddTgJ7DlGgG0iWuuHA90QrYZcz2wXzhpc2M9nXPUDIgImGzxbPDVqREmj2+/H
-	 XRvNJKAlCG+1d7NdoQGsZJ1/PD3kr8fyRAY6vBq7Mrpp194oSACWBeYF+BzyIRfQNJ
-	 280sn7hpe8XdNTUUSabMHutJd6Gm7nemCHPGyFSdxAsSqZYdL3wk1UlhtR7OucCqs7
-	 MUUdexrMsrO3w==
+	b=aEFYHxAO5cOwOrIR6IeTh7O925BVrDY0r8rvDiRqc8ObTO+GNqfwFeOU/dhIo8wx4
+	 yMJcQ9e1fH07OpZyuCLg9Xg8RCwH9JOuBYxe1Q6xv1jWmUPbeNZl5iX8p7vRn0isOF
+	 4KKIeZyYg5mCUWRYbg7bbAnvIeuQSEKgHFQ+/dAztt34ZT7rnjf7VrzBKaLhLGHK6z
+	 alg4kECcYtHaQTTKf+QtEK7aBaaLd/rUz0cVaWjiCvrgYqm/1ROQuHe568/Hxs+pQ7
+	 Kmq1OQ2V5a7qfCUpnn/KhI8R3aVp+g7+lTzPTTH1w4CBr1wPzbu4PQj+0HeAQC5AxV
+	 6OS5cdPWDt3hQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8F8A648851;
-	Tue, 10 Nov 2026 04:32:44 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 2A86F48871;
+	Tue, 10 Nov 2026 04:32:45 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Tue, 10 Nov 2026 12:32:26 +0800
-Subject: [PATCH v14 01/14] dt-bindings: gpio: pl061: add Ambarella CV75
- variant
+Date: Tue, 10 Nov 2026 12:32:34 +0800
+Subject: [PATCH v14 09/14] gpiolib: request ACPI GPIO events for external
+ IRQ domains
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-cv75-gpio-v14-1-e586aad0467a@ambarella.com>
+Message-Id: <20261110-cv75-gpio-v14-9-e586aad0467a@ambarella.com>
 References: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
 In-Reply-To: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
@@ -96,13 +96,13 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
  devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
  Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>
+ linux-acpi@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=2175;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=1264;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=ecrzSAMMaNZiFiJHNHyvnNwBNYVIUrMbREC+e46Wpqs=;
- b=H6GUr2Z/7COpyrIR13z6KmzvMPIPlforcPHrCAJALcgCcQehYUrJX9q5s0UzoE/BhFoYva+iA
- 2dik2rOoTXQDr7mbDNnyMX0h34AIrScO8BxJsNab/g/olOqLybRXLoV
+ bh=gVUCgjHCS9XSHiZkFjkz0b69YEv686PKlJ2HzVnAOZ8=;
+ b=EjnEQ7Yq459Wok73+IUHDlSh2Q9ZdqLbv1+aWGH0JAYWUzg/OICQIvAuzW19xwsfpvw8Z5H0H
+ dBA28Iy6tHZCnsVBaE5Bew4i4T+EN/6Vi4i+/KzKeWnhriKGuHz7V4s
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -113,75 +113,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Long Zhao <longzhao@ambarella.com>
 
-The CV75 GPIO is a modified PL061. The basic registers have the same
-names and roles (DAT/DIR/IS/IBE/IEV/IE/MIS/IC). Each bank is 32-bit
-and 32 lines and adds MASK and ENABLE, so it is not
-register-compatible with the ARM PL061 and arm,pl061 must not be
-used as a fallback.
+gpiochip_add_irqchip() requests GPIO-signaled ACPI events after
+installing the irqchip. A gpiochip that gets its IRQ domain through
+gpiochip_irqchip_add_domain() never goes through that path, so _AEI
+events, such as the power button on ARM64 ACPI platforms, are not
+requested.
 
-The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
-compatible string. These blocks do not implement the standard PL061 ID
-(0x00041061) in the ID registers, so arm,primecell-periphid is required
-and is fixed to 0x000e8061; the driver uses that ID to select the
-Ambarella layout. gpio-ranges is required because each bank is a slice
-of the SoC pinctrl pin space.
+Request them here as well. gpiochip_remove() already calls
+acpi_gpiochip_free_interrupts().
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Acked-by: Mika Westerberg (Intel) <westeri@kernel.org>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
----
- .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 +++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-index 4d970e55104b..c22dd8a1d2c1 100644
---- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-@@ -15,7 +15,9 @@ select:
-   properties:
-     compatible:
-       contains:
--        const: arm,pl061
-+        enum:
-+          - arm,pl061
-+          - ambarella,cv75-gpio
-   required:
-     - compatible
- 
-@@ -25,7 +27,9 @@ properties:
- 
-   compatible:
-     items:
--      - const: arm,pl061
-+      - enum:
-+          - ambarella,cv75-gpio
-+          - arm,pl061
-       - const: arm,primecell
- 
-   reg:
-@@ -64,6 +68,21 @@ required:
-   - "#gpio-cells"
-   - gpio-controller
- 
--additionalProperties: false
-+allOf:
-+  - $ref: /schemas/arm/primecell.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ambarella,cv75-gpio
-+    then:
-+      properties:
-+        arm,primecell-periphid:
-+          const: 0x000e8061
-+      required:
-+        - arm,primecell-periphid
-+        - gpio-ranges
+---
+Cc: linux-acpi@vger.kernel.org
+---
+ drivers/gpio/gpiolib.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index e5fb60111151..c708d81ef243 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -2353,7 +2353,14 @@ static void gpiochip_irqchip_remove(struct gpio_chip *gc)
+ int gpiochip_irqchip_add_domain(struct gpio_chip *gc,
+ 				struct irq_domain *domain)
+ {
+-	return gpiochip_irqchip_add_allocated_domain(gc, domain, true);
++	int ret;
 +
-+unevaluatedProperties: false
++	ret = gpiochip_irqchip_add_allocated_domain(gc, domain, true);
++	if (ret)
++		return ret;
++
++	acpi_gpiochip_request_interrupts(gc);
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(gpiochip_irqchip_add_domain);
  
- ...
 
 -- 
 2.34.1
