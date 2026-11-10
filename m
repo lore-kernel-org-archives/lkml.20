@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794316648;
-	b=1z5GcP8PevkSCedITx/xHZIOuhP5LWipurTYGBdk8QfBnBSuuNsIOGgL4WhXu5x0Wqoz
-	 MVKisCeInxBB9wDKfQHcGU91XoetbTa6KmqzGfJXFXt58w5NG0h0jQri3emkXePyrgyv5
-	 3rAhvSaAPoOvPeg/QSdrKZXkfVV8t6LMFgXlMxa2ZLNS8ionqlw8ALmSqtQuyqsc5bQCF
-	 2r0/EDbpS6sNon6itFsQQRAL9Zos5rDJBtrnb1Mf60jeknWKa7uQUY0eu+Ez9wdK1FFtC
-	 rGMFZ7sA1J6syIR3Xgv33Uw8oXN+32DbBxfffjf0NEyopMjpZEwuiMjQz22yS9uaJQA==
+	b=zPrt0mzZpgXfapfAicCO0IGsVYyxEOhSPTbgBRfY761SaxUWmXxsM8e6jEt3T++UA1Gn
+	 oB8+SHj2qEO/5q/tHaxBjWo+1qWUgVLlj1UmbxKGoRITc0TgKhboKL0kC9WMCD7So5tL7
+	 hqXNWH+YY4WfRbD13Mk7aftv73L/8lgLj19PR8RAP9zDSzNLCt3whMzbjyLvBB4qcZk/a
+	 n9ZdpELpQa13fOg2zz0Zyrk7CwNYSS2+0q9Sjpi+6TgoZIMKyc3LoWOc7MscZsiMkpsm+
+	 ilSQMKGxE97jwBfDC82aOPlWB77v9faC3ijEoQAYMEax8pa9s0sdtkQvzQdSJnOQGHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794316648;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
-	bh=Xz69vwdlgbH2AiksoxbbdfVj3ichWtpOW5WINr/u1E8=;
-	b=bfNE6mkhWLWVDagMNrzScOwKLPswKR96SqS0U7Ot5eYCLY5x4nQN9BFaPLMxZlQ4gTgW
-	 hx4TzqC5wjRLy2HtlWch7YkLDrHdwEy74mO/VnWMIwn32f6qLCFzFhqI63ZG3OgDdmOOE
-	 UUQS3oSzVu4UXCdw6z4diLc4nVHpn/bz/ABSzs/qxFTEY6OUdLnOp4awLYx8BKD0n5uW1
-	 8z9s9ZAUnLa8X/5LB+QKkUaXLBS/OP2yra9wTAhPR3gYY/mp6axWhqPUJqs2Ic74fwPxy
-	 fniFkhF88DgYfeqFo/NqiHh63Gf3GnYl5V7Anqc2r+DufGX8Jgq9dcNPIIyfpKkG0ow==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wYslcRexAqYsTQr6XAo48lObPwNop7Xx/VHJGBH6Ypo=;
+	b=0xyyCXGcOwBtODQqEVKeixUvMjJFeRlqLLps8b2YsSiZjASV+quxwWnyarh/Ojzw1gxn
+	 r5khJKLzCz9hF65X86xZr3l94rK2CX1Gzg22wtnfDr2AKplvy8zkhUwcyPFOfeX+1WJ5f
+	 dxDGFjnRhbpJzMcSRL3PkrddZA/vnXeIjFF/nxjWeNWXZ46CDHiaoayBAWMJwGxuNlkxc
+	 k/9FPqREFMeplCf7iXL0AioDIwIX6Xb9oXmfafOwIkb6VVqcyhxWqMiJE4kJyun4KdnDz
+	 9J34wlw63lzZdgM9DeAm6L8tngex2/otKoMa7Ib3FjR8b99ym02WHxr90jLXGGajj2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=qEMbmOVZ;
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ddJE9tOl;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52B36071E51
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:17:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52B36071E51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5210D6071E65
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5210D6071E65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=qEMbmOVZ
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 2451360D0F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:17:18 +0100 (CET)
-Received: (qmail 18734 invoked by uid 990); 10 Nov 2026 13:17:17 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Tue, 10 Nov 2026 14:17:17 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: netdev@vger.kernel.org
-Cc: leonard@lausen.nl,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Shuah Khan <shuah@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 0/2] ipv6: honor rule suppression in raw FIB lookups
-Date: Tue, 10 Nov 2026 13:16:36 +0000
-Message-ID: <20261110131638.15004-3-leonard@lausen.nl>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ddJE9tOl
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so1075772a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:17:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794316648; x=1794921448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wYslcRexAqYsTQr6XAo48lObPwNop7Xx/VHJGBH6Ypo=;
+        b=ddJE9tOlxv8auuIIyDtHpiXFuRaeATRkIZKBSkg2hIKtmNOIGoxU0cLQFGDJww8p3Z
+         XzX1F5GwsmJ9aYld0QyR/SR4915LTdTUup1mgkhRzIZWGdlnL6hCdpzTlxx+PI7XoP9J
+         WTESIoyd7at/67EGo1MTa4GZlpUWVwhN7cdHRKJyZs5tm8Ow34Jt+IflRad+ntnmA/nC
+         ukuyz+OUA0DhHBWiK3tBMvYYnupFqoRJR7qlSDu1NDLOrOk4h5DUeBYvMe1S9NW9sd/J
+         uqJYQvSe6jX0snl08oUZ6eAvgycT5AYrUu9xduaXe43wvIDN9xzGora0WWXOdcweTyON
+         p+og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794316648; x=1794921448;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wYslcRexAqYsTQr6XAo48lObPwNop7Xx/VHJGBH6Ypo=;
+        b=KCzYB7+R+Dqr2+OHmSO4feLnBCptSBOPv71qIwmWevVprT7uJFgpbAr+OcNeZTKRvR
+         kFecKGagjwhupExN4bujVf76SyTrFhXqHWXGeOgYEP48C9yDQpJUxsvf9AipTeDwF9c8
+         w5xp2y9UDcAEepYI2zb9CJH4WUwuINkre4SFRiTuh0vzzFCUF17cT1XguTdMX/+i5kX9
+         QLwc6aiK9CyNxBsCMp6rnBpqgmxDseiuWvT05zD+N/w2687PKJQul5GSqIdnOEHE/9WN
+         JFwOwda9OmZ9l2DOzh/7qRuY1wbnfjeZDaq21E4c5LUfV74RNvWOc0nemazm5yZ7AUtn
+         3bvg==
+X-Forwarded-Encrypted: i=1; AL+hErGUNYZeZcaKBnyXvUbYqzflKGp9FyT3JJfZW2yJ68QtBdHaXlCtsQRpRiOk+BrENRCbQKqnm3c3WDEZ8RU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xO+ZK5BtAiqF3TBlImHBqQXAlg+Iwid/+tEGpuDyFxkikgTGM
+	iXYWNNhX7aNQNB4kSFQ+iBdmbCM8k7kzNyCqgWjjO6A/+Vsot8D3LUAy
+X-Gm-Gg: AYBFou00suQkuXf5dTmMkZZ0uNLIU2JMU/USu1XdfOWNfAur3OSpdE0oxh0fOdstpGp
+	3Mf1OuQft9/Fwctxj9KbFUa0V0CnxrTuPxgjrGxz33PL3Sx2zQ/+aggY6cVlEZr1x/2VDzC8ykt
+	dk+jSm51nBzPP4OY/w4LV2M10GONWBWWtYpi0nxOFVfTeaQa7yF579g46MSIrSizxu0UR8x4BtK
+	YZaOyLmeX3xoCOrgq2DMlONGFX7dqBvF9ikzNo3tlW2EbQZ9VVqmOjy55/FXMqVghU7lHXa9qPj
+	dsiJvOQm86cF437SAsN4N0UhQjmUzu0ZuA2oZytsF8UvU3KBf9g8pxYrxwFK5DUh5Dei43v7Mh2
+	eLOuH8j44hE+u2sEes1BNR9xkE3nI+VUoDwh3DUNZLUceCqJ+PK8DtmQor6qNjm0v+mUCTUi4Ya
+	YUJM7vv6oR0AvpvAnIftUSy3RwkESVt+U+dQhURnwcppWs//WyNDAG173wXbllx8L3MRjCtvIy0
+	RRuH9fFO24E88N4vB/JzmMEg+RwUTsc0IT9DDoLvLPHWcbquQhq5dYkpSjhdmLsLWTIqxFXaU2U
+	0SmsNiMGl3lKWQZa3uO95tP8TxNoa3Q=
+X-Received: by 2002:a17:90b:2ec7:b0:3a6:d850:bf16 with SMTP id 98e67ed59e1d1-3b1679a3218mr1654613a91.23.1794316647670;
+        Tue, 10 Nov 2026 05:17:27 -0800 (PST)
+Received: from cryptic.lan ([2001:569:7077:be00:8191:2bfc:aa6d:704b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.17.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:17:27 -0800 (PST)
+From: Allen Pais <allen.lkml@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Allen Pais <allen.lkml@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Stefan Roese <sr@denx.de>,
+	Frank Li <Frank.Li@kernel.org>
+Subject: [PATCH v4 30/33] dmaengine: altera-msgdma: use channel BH helpers
+Date: Tue, 10 Nov 2026 05:13:30 -0800
+Message-ID: <cdab3a18232b5371f09f3df30ab855e3b4ba46c0.1794315350.git.allen.lkml@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794315350.git.allen.lkml@gmail.com>
+References: <cover.1794315350.git.allen.lkml@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,68 +104,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -
-X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.996444) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -1.596444
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=4jabfNk/+Si/BEhfu5MnAq/+ZlUBEjAIZzdfp/sdPnU=;
-	b=qEMbmOVZF0bxGo/52K9MwG4xc0nsDg9y6Jfdko5itxLM892vRRoqMGTAgEkd2mg2XPc0d1taCA
-	r157Erj6MXjgvg5dgPYR/t9+g+TMInPbnPbLSUX8tqgEfog8idPABSa/BoSnlImaz40hMCfwvVzr
-	/gl5qS37QzAWMcc8Zo7/CXXCJtyVkMcdhQhZd2uYgihhxFNnDXmXj4FCopPgVxDhDeX0tX43he9B
-	ysU7D1cDSQNeIpjcGG3wcpVQFlLI/3Cmh6EGxoCa6/aCSk27dSk6MDGn9NwTNQNIFPS4L3xR8X/f
-	ZIKwqHqcaM6rI8m6o9DODamoMgMAXEPGccoROX5CsKR5SBAtTkrY54p43qbps0E4YIv82jzxae/y
-	WMkzuNJYUtCDC0FH749MgHZhaiWMMbEkUMBkzCUZVF37o4YwHkg7aW94+efbp5X3OxjbxJOQ6N/o
-	p15f7WdDVKJHA+XYgqKtGajHVAa5VVrOPlcLi/POG08L1etIbhasycdQle4NbStWA9IAD++WplNw
-	CnEW1/0jYmE6V99nUp3QjzBhcFnbyhBmkJK5JrAHi9iDAZwmZglKC99bufx4N9wEOnf2mgA8OEeX
-	xlkVYxoHbqjJg5T3k4+V91NnioG286wLGTudqxd5RkZrQt4B5ieX6s3JhZ8oe+OGcJT3AwiBS5ui
-	Q=
 
-IPv6 raw FIB lookups ignore suppress_prefixlength and suppress_ifgroup
-because the suppression callback only examines the dst-based result.
-This can make nftables select a suppressed main-table default instead of
-a VPN route, causing strict reverse-path filtering to drop VPN replies.
+Replace the device tasklet with the per-channel BH helper so completion
+handling runs via dmaengine_*_bh.
 
-Patch 1 supplies the prefix length and output device from the appropriate
-result representation. It preserves reject results: raw lookups can
-return success with RTF_REJECT set, whereas dst-based lookups report an
-error and skip suppression. Destination-reference handling is unchanged.
+Signed-off-by: Allen Pais <allen.lkml@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/dma/altera-msgdma.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Patch 2 extends the existing nft_fib.sh fixture with unicast suppression
-and retention checks, plus a loop covering all three terminal reject
-route types under both suppression attributes.
-
-The series targets net and is based on v7.4-rc2 (7475ea8b5861).
-
-Validation:
-- The original VPN failure was reproduced on unmodified v7.4-rc2 in QEMU
-  without kernel instrumentation.
-- The final fib6_rules.c compiles without warnings with the laptop's
-  existing configuration. Its extracted suppression callback passes 17
-  ASan/UBSan checks, including reject results from blackhole nexthops and
-  destination-reference handling.
-- On the rebuilt v7.4-rc2-based laptop kernel, all ten added selftest
-  cases pass and nft_fib.sh exits successfully. A separate twelve-probe
-  test confirms that blackhole, unreachable, prohibit and blackhole
-  nexthop results remain terminal with no suppression, prefix suppression
-  and matching interface-group suppression.
-
-OpenAI Codex assisted with investigation, reproduction, implementation,
-testing and these descriptions. The prompts asked it to investigate the
-VPN failure, validate on v7.4-rc2, simplify the series and preserve
-terminal reject routes. Both patches carry Assisted-by: LLM.
-
-Leonard Lausen (2):
-  ipv6: honor rule suppression in raw FIB lookups
-  selftests: netfilter: cover IPv6 FIB rule suppression
-
- net/ipv6/fib6_rules.c                         | 32 ++++++---
- .../selftests/net/netfilter/nft_fib.sh        | 68 +++++++++++++++++++
- 2 files changed, 90 insertions(+), 10 deletions(-)
-
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/drivers/dma/altera-msgdma.c b/drivers/dma/altera-msgdma.c
+index 567aea0fac38..9a0741642a7f 100644
+--- a/drivers/dma/altera-msgdma.c
++++ b/drivers/dma/altera-msgdma.c
+@@ -170,7 +170,6 @@ struct msgdma_sw_desc {
+ struct msgdma_device {
+ 	spinlock_t lock;
+ 	struct device *dev;
+-	struct tasklet_struct irq_tasklet;
+ 	struct list_head pending_list;
+ 	struct list_head free_list;
+ 	struct list_head active_list;
+@@ -684,11 +683,12 @@ static int msgdma_alloc_chan_resources(struct dma_chan *dchan)
+ 
+ /**
+  * msgdma_tasklet - Schedule completion tasklet
+- * @t: Pointer to the Altera sSGDMA channel structure
++ * @chan: Pointer to the Altera sSGDMA channel structure
+  */
+-static void msgdma_tasklet(struct tasklet_struct *t)
++static void msgdma_tasklet(struct dma_chan *chan)
+ {
+-	struct msgdma_device *mdev = from_tasklet(mdev, t, irq_tasklet);
++	struct msgdma_device *mdev = container_of(chan, struct msgdma_device,
++						  dmachan);
+ 	u32 count;
+ 	u32 __maybe_unused size;
+ 	u32 __maybe_unused status;
+@@ -748,7 +748,7 @@ static irqreturn_t msgdma_irq_handler(int irq, void *data)
+ 		spin_unlock(&mdev->lock);
+ 	}
+ 
+-	tasklet_schedule(&mdev->irq_tasklet);
++	dmaengine_schedule_bh(&mdev->dmachan);
+ 
+ 	/* Clear interrupt in mSGDMA controller */
+ 	iowrite32(MSGDMA_CSR_STAT_IRQ, mdev->csr + MSGDMA_CSR_STATUS);
+@@ -766,7 +766,7 @@ static void msgdma_dev_remove(struct msgdma_device *mdev)
+ 		return;
+ 
+ 	devm_free_irq(mdev->dev, mdev->irq, mdev);
+-	tasklet_kill(&mdev->irq_tasklet);
++	dmaengine_kill_bh(&mdev->dmachan);
+ 	list_del(&mdev->dmachan.device_node);
+ }
+ 
+@@ -847,7 +847,7 @@ static int msgdma_probe(struct platform_device *pdev)
+ 	if (mdev->irq < 0)
+ 		return -ENXIO;
+ 
+-	tasklet_setup(&mdev->irq_tasklet, msgdma_tasklet);
++	dmaengine_init_bh(&mdev->dmachan, msgdma_tasklet);
+ 
+ 	dma_cookie_init(&mdev->dmachan);
+ 
 -- 
-2.55.0
+2.43.0
 
