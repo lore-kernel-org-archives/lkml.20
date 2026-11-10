@@ -1,62 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272767;
-	b=3/rIIao8U/3XG3VHwmai8dgAJLWbBrt+QNtLLGoBiVI48JFGSUdkm29oC4J6cLjdh3ok
-	 jafNj3PpelA0+zWA2TowzalPAkdOaT6AEn5DOZlIWdhkx/QMuMBeubWI02ETMZ70LNZ5i
-	 NscQj40PsS64ShiuVmhVcQ1h+cMpu92JCaqbt/nCL4odt05ZQU44LUcZ3++z33ekPbLEC
-	 +ddsPQui4TFg+5OIJswjOUdIg5gDos7BrpBYCNW+jPsVasbHGiz6kapV77cWTTdLwDNSX
-	 t6YM2/rk9YuMo53ojT5Jnblfrqgy3+vaVuWsw6rHfXV4OBu4U32EY8EVytWcw8jvIOg==
+	t=1794272819;
+	b=fNVC1mIJ/CaBbxnmwFJJQ5TxerNgY+chpH2CeZPCgCjcKOSVI2aWaHEzG4tuFanvZPwO
+	 ilggUaabKequNIFmaDRZND6prwWQGOwQWJZLCXlx3RussqSKCSOXQ2ydyiCY2GJC/yDam
+	 fMNPROte2sHvGz0n222xfB2474gaGMowXpE6aBi9fq2HDnxj2x98Vz7uF43URSYKs6k4M
+	 4e9kipGOIkUC/WirU7ubW1fmOwTGdsWU4t2jm3YYkQTRhFUDEty68qel/oF7erz745Hti
+	 FLoJXESuYGm2qLUCypsYj9okk9uTQ1Qxyy565JxpXsXqYR2VvUCMTUCpTPSNvXfnfJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272767;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WnZqF6L3cakkpOkBPQ3GBgvr6hmKQH8Z7qMlUUiyM4U=;
-	b=E8yNL+47AOHWQ/hPX0siv8fCjJ9ZawUyjH3/Jmb7Cu9vkIKcnIgd9pDyrSVUBQcswRBR
-	 BddhRG4PWxLYQ/oHNIYzmzev8BxgU0Wcj20KaL8xQE0rng2ZtBQNkkNE1Qf84qp+ZFjlj
-	 tIw8e0Sq8vaxuraulXvVo1GfQls7lpk5zubXTD1FSl5VFUIrZu48NsDUMDECBjXnjqGA0
-	 rWsA8yJBvnvpkMJGVduZ5I6SAjL0J/5c3fwXTGdqibx2miBzlW1DsVga1qRHhojjj9TYg
-	 MWMP+2qSp2m86LFchcRpJPAGUSgNV1eTtZ+VpRXuPY+bRWDIxQleM9k1DLMBkqX1iNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272819;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=YPYW5J/jQVp8/KcH9ay/6N2DrSqixuZWGsZQEI4iHbo=;
+	b=cw0GanAkOqE77KIWbIgczqUPmiGnDCgJFp8m4rsdKY4qWy5CgZoQpoVII5G9aCIySWub
+	 9hnWD0rvYyxnYQEelpEI9Hn2caaVLIUZm0VMa2Tbd1lzuEQFg3eIuApQO7AJ88f0HEWz1
+	 NYbt29wqbxWdoA7drlVG9ZMyKVA81FApmzxOv+yVhR0rDUa0Ibkliug7h/AfybweKB6Bc
+	 x/fNsqN5HXUhNstIEa/GLSTO0xaZLYRW3SfVMcIyBgglOyy/dyGgwqsf/NYm8AwTrcdt6
+	 XMLuKlFXKpLKm96o67yj8zkMVYqe+HYCbrUF4ud3eP6OvWicrrcNrgpkvVmM3cfULPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ7GIrC6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b="B/VfCzn7";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fErgId5b;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016C1606A326;
-	Tue, 10 Nov 2026 01:06:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672D0606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672D0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ7GIrC6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425151F008A4;
-	Tue, 10 Nov 2026 01:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272766;
-	bh=WnZqF6L3cakkpOkBPQ3GBgvr6hmKQH8Z7qMlUUiyM4U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RQ7GIrC6oQitZJAS2Cilru5She+e9VUU9yjN58IVZ8n2zsdlYUvQqqYuHEWBQbnCD
-	 b3MHGaB24x5nPUUeUJrls3KIDZX/YPf25eF32VjoO99Vy12dnKbENksWixVcZeed2N
-	 UpNF2TRN+95z8Ep2ilNoG9UEiLwtODLFR5JdN02vupSxq9NyfycpQiG+2AcUPvyJT5
-	 cgkp8p4Jv6ymVWkzMNT6fq7JT7VNVpc4wr2d6ui/+U2tRZUoJbpNt2FrXRWy9lqlej
-	 46BiC9eIEPa2UyWlEPpoqeJTdUZDOWRS8523zAxG/LasRcwGBHDnwK54OScaT9gCT/
-	 VCw9s0O+WBIDQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Aveline Noir <jm5905938@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 2/2] Docs/admin-guide/mm/damon/reclaim: improve language
-Date: Mon,  9 Nov 2026 17:05:57 -0800
-Message-ID: <20261110010558.104905-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110010558.104905-1-sj@kernel.org>
-References: <20261110010558.104905-1-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=B/VfCzn7;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=fErgId5b
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id A14507A01B6
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:06:58 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 20:06:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794272818;
+	 x=1794359218; bh=YPYW5J/jQVp8/KcH9ay/6N2DrSqixuZWGsZQEI4iHbo=; b=
+	B/VfCzn7o92CoXxLZO+A4nKMyJ1k3Is9Sbp5qd7uJUM9K9A8RhpYgQ3DrJvwoCTv
+	ttr1r5m+xosnzXxn+Khjd5EncyLqyAYTxTlA2OJ3CZECTFi9+KbupWQBlBIxQDd9
+	gRs4i1Y0ZJsB8NdiWYYkKkDK+/1jNutaFaeKYQHM1O6StXqUxRCflHRIhtDGyVsi
+	mzOH/5MHLlQmgpn/aX/hVRVGqsbgpVPSXydMqaL/uxItIskbZdpenvbEItsMhxvW
+	VLgnN2ch2Jsn5Imxc82GiQ7/+7zvjCq2Yv3x1u5EbZPpLK0Nai4kMDCvCBIxmLpI
+	XrysCA3kgWCff6T3Y0dk7Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794272818; x=
+	1794359218; bh=YPYW5J/jQVp8/KcH9ay/6N2DrSqixuZWGsZQEI4iHbo=; b=f
+	ErgId5bFvKiJ8picMNC69wLqfcukhyTei6wJ8v8doQgwUEXp0ZClOjp+BrOovPzw
+	KuRjKkHTq0wSEoqH+REdZ8MqhgQ5FUK/sgY63KiRbbM8zn9Po4pRM8STR+NDSAsh
+	hYa9prAbzwGKFNbFUKFsYnECBjcNDrw4HoJns84lqT22RqlwolAtWRjJW+TbnDp2
+	Va/PPX51xoR7TF1sUFh2YC2WedAWUpEpnXu4arEQYmfyDn96LYBdbF5sqwE/u3eA
+	AP3iJu9PBgRKk9dZsGq3Qfdt1hRP8IT7GKiNm8thXq+OIh5J8yb1g7XzOcyavJhd
+	SNKkom4J+9+EttWRfuDLg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794272818; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:cITyZs00GESgq0cJL+8fkfwe6fufnN0EGM8S9zE3dip4dtm
+	f2hd8kiZwFv7YScsOH/21Se3p5+4Jnah/Kc10Ez3GsC2LuTJIuTambxBNtvaG75H
+	JV7NLvhaxwJERDk6aMDRZNmBmRbsyrGzhdFfZQknw7bPSLPYzF9VqsZZ+V4sTCl/
+	tlOYOX4d6HdyU/qo/Ux2N9CMXQNPpgc7RloJ5VMvu+YCtYwmRdMSYrR5v29A1ug3
+	9MGS4n1pNoHbxSbIQerGOKcfs+Xhc+B77s+M6Q4q2Ou4eowlvgEfmWFCKc4r1ShG
+	FNsG2e325x6HTJWyfdO3sl96DDHYz9r27AIuYgg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ihsp2KObF2wwyV1mtPDfeoeaZ2byTKAI5MB0uXn8ncU=:TB8/06C/nXFEhlp4Jq/SRv2KNAh2Bqw4zTmeLb9p7Yc=;
+X-ME-Sender: <xms:MW7yaqR3V4O68U5DKJj6Ro06Ac6u4KsNUnfSmRnAkN7TISmIm3B3DA>
+    <xme:MW7yaqkceuAjDQoyOlhGpWFKNVSvbgho8u_kiJU-atXdeKti1J9iAyEcsu0BRiRto
+    JosJn0aMgQwPaurQHFYjUIMQ5fcDVROQtUzdGNgiNcZ_rq-DrWRGZmv>
+X-ME-Proxy-Cause: dmFkZTGv9vdl60/iBVRnZePH3FHjJbIzTPcHqgskZDTeiHlLcxTCTz+KZ6RtCXjSniAmc5
+    XNFWb2k40zc+0oYHW4cvqRsty7dUUMdiGODiHISl1JNfqjZfFzsLXJhIJFq3N4kIzT9cRO
+    eeIyFhVJMYxXTjkvsvNz3unK+wwnZ22BZc/yFnxxPTJCvgK2J6yk2NYO2BqSxV437+hiTy
+    2QTGtfNv2kSAedEEXRyzh0Du8JARkxJI/LBN2COscYwikZNWEJ7gZaLXzinmgLkToqhBT+
+    KoE/tii41GPnxVozn4isPB/upnRvId/AUu0givtk2P1s43eoBQsisvFyqmOXQIvNQ36wZz
+    o7b4d9G+ALV+SMibRpdBuAOoSBfErXIbJiOCVA4QChpJ+gSlMPIwL3feFAHASmDB+FZ688
+    Ndy98XYWX4rUu1t6z3c815MyMjr01rBu1T8VDnUEodSkTTKfrZ1wE1UjtwfjredGSCLhYH
+    rRHVBWi/ZDqIDzpwYnH7TcmBhuqk0YXb7md0COAtFfzFoT+v6hTWTzI3AIX+ZxFBGK8fBX
+    cvm8RBPw3ralhFeqPYK5UNwlWRLLYeWdJSR5tMeIqjauBuJwe4sqvGNgTbHMJC6dNFCGLC
+    vnCse7NAqZJojd6i9ceoq0n7Oqzr9eQ5tfLveYaLJlUUR6w4Lac+bB8LxBYQ
+X-ME-Proxy: <xmx:MW7yau34PCmgGfYng8Lr3NgEQ4Jk5sFfM9BpluacmOUWkP1znwf5cQ>
+    <xmx:MW7yajXv5FU1qFCA1a_InZcLgYDGHBrSMCd_UCIGGjSTg4dKwxgROw>
+    <xmx:MW7yapJTg6fSeghpR7H6urIkV4EPIghGIoDi4apuAbLTcnuKQ_gV7g>
+    <xmx:MW7yal0vR4XDUr4HqtlhObrf2LwbcfnFeKILOEsuU7Saf1rMMZdxWg>
+    <xmx:Mm7yagaG4EYWSQzlXBPb-kQLJUbXkRzVATWzcNOZOPmhkcPjtP-Zc_-->
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 8678B2C00085; Mon,  9 Nov 2026 20:06:57 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,166 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A3LsSXLBOciw
+Date: Mon, 09 Nov 2026 20:06:37 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: qvkap <qvkapp@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Ike Panhc" <ikepanhc@gmail.com>
+Cc: 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <b7428de0-c009-45a3-a2c8-0722ed7bce6e@app.fastmail.com>
+In-Reply-To: 
+ <CAABLQ8qdSC1r=-et0y6qnEjNE-FCvoT8wxbo6R9vmW5=bUOSgA@mail.gmail.com>
+References: 
+ <CAABLQ8qdSC1r=-et0y6qnEjNE-FCvoT8wxbo6R9vmW5=bUOSgA@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86: ideapad-laptop: add no_rfkill quirk for IdeaPad Slim
+ 3 16IRH10
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Manuel Ebner <manuelebnerli@mailbox.org>
+Hi,
 
-Fix upper case.  Fix tenses.  Replace 'set as' with 'set to'.  Add space
-after sentence to make it double space.  Rewrite and refine complex
-sentences.
+On Mon, Nov 9, 2026, at 12:02 PM, qvkap wrote:
+> Hi Hans, Mark, Ilpo,
+>
+> On newer IdeaPad models such as the IdeaPad Slim 3 16IRH10 (83K2), the
+> EC/ACPI firmware reports erratic rfkill radio states through
+> VPCCMD_R_WIFI / VPCCMD_R_RF, causing periodic soft/hard blocks of the
+> native Wi-Fi/Bluetooth interfaces (iwlwifi) without any user
+> interaction or physical hardware switch.
+>
+> This patch introduces a no_rfkill quirk and adds IdeaPad Slim 3
+> 16IRH10 to skip registering defective ACPI rfkill devices. Tested and
+> confirmed working on live hardware.
+>
+> GitHub: https://github.com/qvkap/ideapad-slim3-rfkill-patch
+> Raw Patch: 
+> https://raw.githubusercontent.com/qvkap/ideapad-slim3-rfkill-patch/master/0001-platform-x86-ideapad-laptop-add-no_rfkill-quirk-for-.patch
+>
+> Signed-off-by: qvkap <qvkapp@gmail.com>
 
-Cc: Aveline Noir <jm5905938@gmail.com>
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v3
-- v3: https://lore.kernel.org/20261103120043.100887-2-manuelebnerli@mailbox.org
-- Apply two Sashiko suggestions.
-- Collect R-b: from SJ.
-- Rebase to the latest mm-new.
-- Wrap commit message for 75 characters limit.
+I assume posting a link to a patch is not going to be acceptable (I almost didn't bother looking at this one because of that because I'm behind on my overflowing inbox) but I'll let the experienced maintainers comment on that.
 
-[v3]
- Combine both patches into one
- Incorporate SJ's feedback
+I've been looking at a similar issue on Thinkpad's but have been trying to gather data on which platforms are impacted. We're finding the same thing there where the kill is powering down the device and it's never recovering - and we've been fixing FW for the last 3 years to make the APCI method a no-op where it has caused problems. Recently the FW team complained as the ACPI method is used for debug testing...so trying to find a better long term solution.
 
-[v2]
- https://lore.kernel.org/all/20261027185938.2526259-2-manuelebnerli@mailbox.org/
- Include suggestions from SJ and Aveline
- Split [v1] into
-  [1/2 v2] Docs/admin-guide/mm/damon/reclaim: improve grammar and style
-  [2/2 v2] Docs/admin-guide/mm/damon/reclaim: rewrite complex parts
- Fixed an upper case and a missing double space -> [1/2 v2]
+I'm not a fan of the DMI approach as I don't think it's going to scale well - it means every new platform is (likely) going to need to be added; which is going to get really tedious fast.
+I don't think it's really a FW issue and more a fact that device drivers have caught up and the ACPI rfkill is no longer needed - but I'm guessing a bit. For Thinkpad I did get confirmation that it's not used on Windows FWIW.
 
-[v1]
- https://lore.kernel.org/all/20261015080623.808458-2-manuelebnerli@mailbox.org/
+I have a patch that is almost the opposite - I was going to disable the rfkill mechanism unless a module parameter specifically enabled it. 
+My logic is maybe some older models will need it - but so far in my testing newer (5 years or less) seem fine. I've been unable to determine the cut-off so far.
 
- .../admin-guide/mm/damon/reclaim.rst          | 45 ++++++++++---------
- 1 file changed, 23 insertions(+), 22 deletions(-)
+If anybody on the list has opinions let me know. Gathering data on the impact is taking time (sadly in short supply)
 
-diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
-index 028947f5da8ec..0ef784df98680 100644
---- a/Documentation/admin-guide/mm/damon/reclaim.rst
-+++ b/Documentation/admin-guide/mm/damon/reclaim.rst
-@@ -4,7 +4,7 @@
- DAMON-based Reclamation
- =======================
- 
--DAMON-based Reclamation (DAMON_RECLAIM) is a static kernel module that aimed to
-+DAMON-based reclamation (DAMON_RECLAIM) is a static kernel module that aims to
- be used for proactive and lightweight reclamation under light memory pressure.
- It doesn't aim to replace the LRU-list based page_granularity reclamation, but
- to be selectively used for different level of memory pressure and requirements.
-@@ -30,12 +30,13 @@ guests could mitigate this problem.
- How It Works?
- =============
- 
--DAMON_RECLAIM finds memory regions that didn't accessed for specific time
--duration and page out.  To avoid it consuming too much CPU for the paging out
--operation, a speed limit can be configured.  Under the speed limit, it pages
--out memory regions that didn't accessed longer time first.  System
--administrators can also configure under what situation this scheme should
--automatically activated and deactivated with three memory pressure watermarks.
-+DAMON_RECLAIM finds memory regions that have not been accessed for a
-+specified period and attempts to page out those.  To avoid it consuming
-+too much CPU for the paging out operation, a speed limit can be configured.
-+Within the configured speed limit, it prioritizes regions that have been
-+idle longer for reclamation.  System administrators can also configure under
-+what situation this scheme should automatically be activated and deactivated
-+with three memory pressure watermarks.
- 
- Interface: Module Parameters
- ============================
-@@ -55,10 +56,10 @@ enabled
- 
- Enable or disable DAMON_RECLAIM.
- 
--You can enable DAMON_RECLAIM by setting the value of this parameter as ``Y``.
--Setting it as ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could do
-+You can enable DAMON_RECLAIM by setting the value of this parameter to ``Y``.
-+Setting it to ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could do
- no real monitoring and reclamation due to the watermarks-based activation
--condition.  Refer to below descriptions for the watermarks parameter for this.
-+condition.  Refer to below descriptions of the watermarks parameter for this.
- 
- commit_inputs
- -------------
-@@ -66,9 +67,9 @@ commit_inputs
- Make DAMON_RECLAIM reads the input parameters again, except ``enabled``.
- 
- Input parameters that updated while DAMON_RECLAIM is running are not applied
--by default.  Once this parameter is set as ``Y``, DAMON_RECLAIM reads values
-+by default.  Once this parameter is set to ``Y``, DAMON_RECLAIM reads values
- of parameters except ``enabled`` again.  Once the re-reading is done, this
--parameter is set as ``N``.  If invalid parameters are found while the
-+parameter is set to ``N``.  If invalid parameters are found while the
- re-reading, DAMON_RECLAIM will be disabled.
- 
- Once ``Y`` is written to this parameter, the user must not write to any
-@@ -88,10 +89,10 @@ identifies the region as cold, and reclaims it.
- autotune_monitoring_intervals
- -----------------------------
- 
--If this parameter is set as ``Y``, DAMON_RECLAIM automatically tunes DAMON's
-+If this parameter is set to ``Y``, DAMON_RECLAIM automatically tunes DAMON's
- sampling and aggregation intervals.  The auto-tuning aims to capture meaningful
- amount of access events in each DAMON-snapshot, while keeping the sampling
--interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this as
-+interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this to
- ``N`` disables the auto-tuning.
- 
- Disabled by default.
-@@ -113,10 +114,10 @@ quota_sz
- 
- Limit of size of memory for the reclamation in bytes.
- 
--DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
--window (quota_reset_interval_ms) and makes no more than this limit is tried.
--This can be used for limiting consumption of CPU and IO.  If this value is
--zero, the limit is disabled.
-+DAMON_RECLAIM charges the amount of memory which it tried to reclaim within a time
-+window (quota_reset_interval_ms) and stops trying to reclaim memory when this limit
-+is reached.  This can be used for limiting consumption of CPU and IO.  If this value
-+is zero, the limit is disabled.
- 
- 128 MiB by default.
- 
-@@ -137,7 +138,7 @@ quota_mem_pressure_us
- 
- Desired level of memory pressure-stall time in microseconds.
- 
--While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
-+While keeping the caps that are set by other quotas, DAMON_RECLAIM automatically
- increases and decreases the effective level of the quota aiming this level of
- memory pressure is incurred.  System-wide ``some`` memory PSI in microseconds
- per quota reset interval (``quota_reset_interval_ms``) is collected and
-@@ -223,7 +224,7 @@ monitoring.  This can be used to set lower-bound of the monitoring quality.
- But, setting this too high could result in increased monitoring overhead.
- Please refer to the DAMON documentation (:doc:`usage`) for more detail.
- 
--Note that this must be 3 or higher. Please refer to the :ref:`Monitoring
-+Note that this must be 3 or higher.  Please refer to the :ref:`Monitoring
- <damon_design_monitoring>` section of the design document for the rationale
- behind this lower bound.
- 
-@@ -267,7 +268,7 @@ This parameter is for setting and getting the :ref:`address unit
- 
- ``monitor_region_start`` and ``monitor_region_end`` should be provided in this
- unit.  For example, let's suppose ``addr_unit``, ``monitor_region_start`` and
--``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respectively.
-+``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respectively.
- Then DAMON_RECLAIM will work for 10 KiB length of physical address range that
- starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
- 
-@@ -284,7 +285,7 @@ skip_anon
- 
- Skip anonymous pages reclamation.
- 
--If this parameter is set as ``Y``, DAMON_RECLAIM does not reclaim anonymous
-+If this parameter is set to ``Y``, DAMON_RECLAIM does not reclaim anonymous
- pages.  By default, ``N``.
- 
- 
--- 
-2.47.3
+Mark
+
