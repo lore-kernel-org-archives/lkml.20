@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341942;
-	b=KSjElKu85t4MIpOvO2EcD1+JntV3D+xG9a7Kr13qs3mnQ+UbOFv2sRYeevzY0K9c/Zl0
-	 f7jbTS2ltPBp5oGqO+ipOKguJUFTkuCP19ErNWzynbdXHv7+u5890KleagiWmQlodIOn2
-	 f1yyzaUUB0YW/89dMLayq2F6wyMQFAYEQdreOWesiX8dMJ+TarA72eeso7LLmLkQ5nXei
-	 zn6t0QZ/VhL224wk+r7jp/iG734OT1tAN+gbkGOt4iqm1Owxc5jhEFRjUl+Tlqx27lIo+
-	 1Lnfm4TjeAW8moUtrZw2WsA1xdwmrF9WHVRjpF3bEVLRNZb5KVwZdAdlRE2+CevvWAg==
+	t=1794341941;
+	b=tkxiO41ArDoGZ6l1V/oqO7IW8t37GVMq1Re5NQSyMCBYkh1U56WmOY3UjIipcKl1BUnS
+	 8vtGxPueTe6Y2/48Mos5mqSdiecIfBzSk15x7o9SiHeiUofoS8VebGnIv2ohMLJy3l/vq
+	 jUWWD0Om9STKjYHjQH3gNpj64x/ZGh9R3Rl6Jo9CT5kwWI+2D1z55klo6eVxJlxBhdNnb
+	 3ekPpg+Us5eHdIsXvOMjygzieqy+CS2+qAFLaqOAWqx0d1XhWBSwuQzmJvR8lLrxRVL3a
+	 6sGVmLVJgMIq74T+khZms9s768v6RGovFI2cM8hM2oKUi1+JfAmtXHIbE9PE7Qji3bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341942;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
-	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/95DCKLnTjjSvDhq1lx6rNnEdA1D65FoSfzmnFJ5zBw=;
-	b=Qa3d06DmylYIoeiXrD8H2JSVzMJKMXfqD554jD+iOgIY4BYDXD3dYY9LfR60tIu0n3CJ
-	 mDOxKDZhnBtSetXK+OygOcat3+vKPQ+7LaXzOeZA2n/ve5DFArMRKu1mq+vYSGvkqnwsH
-	 x/ruxCrfyGLTzl1dI9nWv9sjSLfGYnJ+KfgfibdqePrbn76yEvyBQxUhtNlnJTvGQHxDV
-	 udc+xEC21vu8pxI0M6wGSSRqhByinuvOA+vOv920ElQpMcdb4XOTBo67ghIB2PqaKIKE8
-	 7zgjHpNCaPX8Kut9rJwPWb4xRjJGTvKuDCGfaOTDkPhZ6Y+S0QOnKl4A4sQlRbKWUxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341941;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=juK68wZhByXSKADyyYfPmjuuJBwSajAS7el5mvid4ZY=;
+	b=aizZBbjJ+cdFhiVtfRw0wzUw8ee0+KSDN4ErdXXn9KhGqU/3Vs77rYJOnN6V3vTT/xWi
+	 En6nN5+KqlyEsBzufHUQ9UKCi713zrOPZkSt4BLv71FnlwimyGB4Ss5hI7fRQ33gfMDcF
+	 EtZLOFsBvLXCNef+5q/BuW0QN2hBtDt7yobCdWujEF9pDQ48JxFx8X+/Fkr3/t8MOnxGy
+	 3E69Q2jzxwHMMVTADGQrRyQqb+gjrQv3XXABjecJS69M0Jm4NXcwyr3WENpaFxp02xBMD
+	 1iLq1GEgOqvuzsmPLV/nrwAO8iMXkKGL+OkZMHwJ4vLBvn4bMmBf3HwlBO4XXRFh+Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=VhW9qk50;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TrF6p9up;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7078606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7078606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4537606A31C;
+	Tue, 10 Nov 2026 20:19:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4537606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=VhW9qk50
-Received: from ehlo.thunderbird.net ([172.59.161.232])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6AAKHuUT285035
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Tue, 10 Nov 2026 12:18:05 -0800
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6AAKHuUT285035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026102901; t=1794341892;
-	bh=/95DCKLnTjjSvDhq1lx6rNnEdA1D65FoSfzmnFJ5zBw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=VhW9qk504QfVWNDRqC3QQ7xPaIx+qquriOzz6Ea+ClKoiRF3ZQZiNsWfDFJ4wKUVG
-	 cx9WDodcNwKMXV6flih73TARDeHGunGu2N+6LOWZKnawU4t6lH6sdIgOBxEUXE4V1e
-	 3k/LmL+lGnbQJWo47xQn9Mee0zirictONqJBbjRpwqhiWP+zpjmWinQFL3VN1Jf9kg
-	 LPGbRaMd60RIXuUtXM4r18nsS2XCGaAB+d9FfzwcrQq85SaaX2C5IPGgiup2Ob3pDn
-	 bxfDFGZGex+nzgIhz5qrnKc7SxXiR75chJJv3/1X5gZaYF5rpyLd2qu+QxpTVd+1Op
-	 Op3u/79mBDDBw==
-Date: Tue, 10 Nov 2026 12:17:51 -0800
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-        Usama Arif <usama.arif@linux.dev>
-CC: david.laight.linux@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com,
-        dsterba@suse.com, linux-kernel@vger.kernel.org, mingo@redhat.com,
-        terrelln@fb.com, tglx@kernel.org, x86@kernel.org, kas@kernel.org,
-        hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
-        kernel-team@meta.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_x86/lib=3A_Use_REP_MOVSB_for?=
- =?US-ASCII?Q?_large_memcpy=28=29_on_ERMS_CPUs_without_FSRM?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-References: <20261104222806.1826508-1-usama.arif@linux.dev> <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-Message-ID: <719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TrF6p9up
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794341941; x=1825877941;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xSTSWZR6Nw1Z+uKRJrpUe5ksHZNU7RF77FI0Rq6jAFw=;
+  b=TrF6p9upz55gT8BQeYYjjNpJle9fkjhw5+HTKzUgDf9aYr3L9XemR8Wy
+   GwMC8p+Fa4XvJxWdXa/rbWr3pIXqmHOGooQjp70KTkW/FM9MXvryBDR/I
+   XGDlsfzONY9wCmdbE1BFyI2jasCVQrjyHkWDQZ9IuYe7fNnLRIKLhvWHw
+   qb0PFm9/ZlcRJUj7qQwpM+e/bmC1pz76/02VTn301IAcqpHj4SPys4Myf
+   3kLFW3ebxRSHYzIx+KPDYzQjWziP52kGRqPjKxlwCHQ7qPud4rWhZ5hnY
+   ALdUdzfw57t0n48wZa5ZW2aJZSlxCDEzAOFWQWM+NWTrozOUx0gO9TMto
+   g==;
+X-CSE-ConnectionGUID: f8w3ZVrORkGwTxhFEadvIw==
+X-CSE-MsgGUID: 1fOKeKYcQT6Ra0JxYZYWeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3097340"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3097340"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 12:19:00 -0800
+X-CSE-ConnectionGUID: 19vcfB1bRk6BSkk74uN2TQ==
+X-CSE-MsgGUID: YIXuxEJYSZG7ApbTiRH9ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8555566"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2026 12:18:56 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQsIu-00000000xRr-14R8;
+	Tue, 10 Nov 2026 20:18:52 +0000
+Date: Wed, 11 Nov 2026 04:18:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andreas Kemnade <andreas@kemnade.info>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Wolfram Sang <wsa-dev@sang-engineering.com>,
+	Paul Walmsley <paul@pwsan.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Sicelo <absicsz@gmail.com>, linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Andreas Kemnade <andreas@kemnade.info>
+Subject: Re: [PATCH 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+Message-ID: <202611110448.h78DkY1D-lkp@intel.com>
+References: <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,24 +96,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-i2c-sysc-v1-1-8945eb1d38f0@kemnade.info>
 
-On November 10, 2026 9:53:07 AM PST, Linus Torvalds <torvalds@linux-foundat=
-ion=2Eorg> wrote:
->On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama=2Earif@linux=2Edev> wrote:
->>
->> +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb =2ELhandle_tail), =
-\
->> +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM
->
->Let's not do that=2E
->
->Putting magic things like RET in alternatives is just a bad bad idea=2E
->
->               Linus
+Hi Andreas,
 
-Why is that, *given that it is in assembly*?
+kernel test robot noticed the following build warnings:
 
-For C (or Rust, or C++, =2E=2E=2E) it is obviously bad chicken=2E
+[auto build test WARNING on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Andreas-Kemnade/bus-ti-sysc-fix-I2C-quirk-for-OMAP3-variants/20261110-114612
+base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+patch link:    https://lore.kernel.org/r/20261110-i2c-sysc-v1-1-8945eb1d38f0%40kemnade.info
+patch subject: [PATCH 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+config: arm64-randconfig-1000-20261110 (https://download.01.org/0day-ci/archive/20261111/202611110448.h78DkY1D-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110448.h78DkY1D-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611110448.h78DkY1D-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/bus/ti-sysc.c:169 struct member 'revision_doubleword' not described in 'sysc'
+>> Warning: drivers/bus/ti-sysc.c:169 struct member 'revision_doubleword' not described in 'sysc'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
