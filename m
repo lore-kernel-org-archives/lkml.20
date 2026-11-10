@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299560;
-	b=flUY/Ng1fsXZPf33RcZRj770KRBBgZbscsLVkhns2hZp6CT6UuHuND8/bLbIeodaoTpq
-	 U0K6KyQxqiDzanW66xCq4vIC2ncbZaG2v23uYSAD3fHUsVlubrhsJboq62qXWTdlAu7wZ
-	 QF22jWXzW+JqTdCgD0ykLX4w2E+T9DNyu5jOeXQVK4iRF9k7rRWQWZjAWP4kYwXRIFq3A
-	 abhxnS2X7ie3u3/U5VJZnC3pb5xPHWN0E30b91E3GTrqzqP7S+8JxzDJR4/L8X60dMboP
-	 eiKA0h/DsiWvW8wWh9gf+By/5F5040/SMDOwfBSoC8ILrK5zexZ5D/7vBlKh7/4CWlQ==
+	t=1794299578;
+	b=UODA6I+c8xVqj7TFRb1fq4w+Fd1DxpzcEtEVoGQNdIohGTREWS1IazuffW58z1KIuzy3
+	 uvPIgXxI+2S2FFnrdTRWjy5aN/7HqwoR9bIbWgANcsoPkcYsU4ZYKljBKrNHiyuSH91fq
+	 OzeEEmBXeZXByXOMB+aqPhNbiSaE2xQeZaOQSv+0WiYCkXV6HNrJbysQuONFxi2aY5LGf
+	 pM72psdWhV6OoLzfcXWwZDSqlUTsuOXL5GdNX8H3wniy4xHHQLLlIGWcedAhWff56H+Va
+	 LjHj3lETh38rVB5P5qHK4FnSEebbFrufyQPp0/so7g2JPLJK67cJAp4AyLL2weNYIBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299560;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yWoENu3vdPAXkVmF04rFciz3oscKPZMb928MIrltCNQ=;
-	b=wuXXvxBrNvmSybdYBHotr7lOlcCpq72OAgu6sYb6cvQBBECmYjy1pA71N68iRMKDhz5z
-	 R034Tsg3rE3NecHEfswZD9EQVmnSIOG8A0hOuq3p5VX8oKF4aeBd1bgKnjOzkiyYMY+fl
-	 uYlcU6snCeayObpXinI3YhYINSSHZaQUZ+PafmBvVz8Bj54lJJlIFAEpx/PMJaZwOvgOo
-	 ATfgPdbMmGZzxU4qcMhjdfasIObo0tC5WbHWxpGYVghllYQewenShsU2FoPvLA+Ztz/Iv
-	 u5oLiIZaV/AnRU3NJc6Ef4Ynqx6IikLmNtjqFdxf0pdN/HLGv3Beq2RPywYTaNUihzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299578;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xh8F630yN77eRVLFRW+731lWzZ0fRCWqNCGE0dp/ZXc=;
+	b=O7U3Y+0XmttZHK2hY0C4WTUvMKFtD4mssUEdOLAp2aSM4Gj3umba53atsLL5l6ixBCYp
+	 uoL+ruAAkEay5SY2g90cDwKIE/fZ9pwfwqnK46Y3J52etDwevAhRK2tAC7LEsMs1vxpx0
+	 pyqw6TqFysHVZEtoQ/eFKm2Rrz17oAC3R84QF98RoaiRUytE67erKxLyGnnI39uHy5Kyt
+	 MeevctvzCXNyi5UpnCYVW6PtxN0TcI0NZlvPLNFH4O4j2pWNGq/IWqHhk3WHUy7tQ7HEj
+	 riRSw0a0n8AnWmC+/NJv4r6h14GkFQTTZ/t2jy5N35/vRm2MzdMfrrQn5xur6QsgsVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUjDp199;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026E0606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:32:39 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ItYCH+sa;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3BE2606A326;
+	Tue, 10 Nov 2026 08:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3BE2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUjDp199
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820851F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:32:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794299559;
-	bh=yWoENu3vdPAXkVmF04rFciz3oscKPZMb928MIrltCNQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NUjDp199rgoMf15I6BwY1khUUUkpxVvOx5cV7Tlg2V55/WlmlIZzomXent7fnmJWl
-	 C3FjpDwoQL1E92bh0dWZi0G6mI53pnvVirZnaOLnFdRCDhlzNlEgHERh/enCZracdv
-	 A/dyYrMr20ra7QC+cK46BhdyifM5IjXoav0KyJbZpqzcuWAjntHatrQCpvM8fjtSBc
-	 IM2/7PRYSl9RHs3GykS2lN6cab13dhAWY5+cF3ZKPqKCEB2gKRDhnN+TYBRZ8Hg1JA
-	 pbxOScD/MlL9lj4AUYWTQdrkljrYpbnRYVisbbodiqiF2YWCVr3wECpRJcn8jhfyUi
-	 Hn3w+Kv23NviA==
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-702dedeb70dso876226eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:32:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHx9UoT8CabMFECehlmETBVwu67nw83nNlOpclqwy1vsn8XglqPqvOk/cQqOnZf796IGg3Bjt3bW8JtSTg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Kw9X6ulnJH//vTQ1U8nJrmepU10y3FEb8bSSrDaIIUYTfDOJ+
-	mYrxnT1zWfb6UXhDZfRMk+HLqOcx6Iw7FJ9XUgCihp+IUlwtv0HrCgiEEjgHtXKQQNmEqOtzQEr
-	jLmgJIhXHXIyr/m61Dm+wMgcsnX015Vk=
-X-Received: by 2002:a05:6820:a703:10b0:70b:af3d:2b6d with SMTP id
- 006d021491bc7-718a2a44c83mr565319eaf.3.1794299558721; Tue, 10 Nov 2026
- 00:32:38 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ItYCH+sa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ItYCH+sas3HlcRu2sLhhlP5SXir0JwIAk4K2qif0N60G2LLd13VUdHoBXVkn8YFW9VNnh48Hgb6Su
+	 au7Pm9dN61xf5+hZecirANgBN87z3DYyaVvrHq5ABY+ieT5qv+7keswx5XmN1ZeW0JwLsiFVE2jn38
+	 XEcG386r1dbxm8p8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af2d6b6447-cdcde;
+	Tue, 10 Nov 2026 16:32:55 +0800 (CST)
+X-RM-TRANSID:2ee76af2d6b6447-cdcde
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af2d6b551b-ae357;
+	Tue, 10 Nov 2026 16:32:54 +0800 (CST)
+X-RM-TRANSID:2ee46af2d6b551b-ae357
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: antonio.borneo@foss.st.com,
+	linusw@kernel.org
+Cc: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH v2] pinctrl: stm32: Fix reset control leak in stm32_pctl_probe() error paths
+Date: Tue, 10 Nov 2026 16:32:52 +0800
+Message-ID: <20261110083253.1525-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,291 +73,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110080008.26112-1-juanagusnicco@gmail.com>
-In-Reply-To: <20261110080008.26112-1-juanagusnicco@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 10 Nov 2026 09:32:27 +0100
-X-Gmail-Original-Message-ID: <CAL4WiipniV9TJh8S+Ab220eZ5MYRP464j8DuHcU_t5z8FLRmLA@mail.gmail.com>
-X-Gm-Features: AclHuK99lUFen8SFcVLfifXn3KKnfmNdlM5jzxBpYposVoovQ4A5o0h_6Bk2Qxs
-Message-ID: <CAL4WiipniV9TJh8S+Ab220eZ5MYRP464j8DuHcU_t5z8FLRmLA@mail.gmail.com>
-Subject: Re: [PATCH net] tcp: Fix the SO_REUSEPORT bind cache admitting a
- conflicting socket
-To: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	ncardwell@google.com, kuniyu@google.com, josef@toxicpanda.com, jbacik@fb.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le mar. 10 nov. 2026 =C3=A0 09:00, Juan Agustin Niccolini
-<juanagusnicco@gmail.com> a =C3=A9crit :
->
-> Since commit 637bc8bbe6c0 ("inet: reset tb->fastreuseport when adding a
-> reuseport sk"), inet_csk_get_port() skips the full bind conflict check
-> for an SO_REUSEPORT socket when sk_reuseport_match() finds its address
-> covered by the port's SO_REUSEPORT bind cache (tb->fastreuseport and
-> tb->fast*).
->
-> In the FASTREUSEPORT_STRICT state that cache holds the owner, family,
-> IPV6_V6ONLY and address of one socket on the port. The assumption is
-> that if the cached socket conflicts with nothing on the port, neither
-> does a new socket whose address it covers. That assumption is wrong and
-> it lets an unprivileged process bind to ports already in use by other
-> users and hijack their traffic.
->
-> The assumption would only hold if the two sockets agreed on everything
-> else the conflict check reads, and the cache falls short of that in two
-> ways.
->
-> First, it does not record, and hence does not compare, either the bound
-> device or the cached socket's SO_REUSEADDR. A socket bound to one device
-> passes the full check against another user's listener bound to a
-> different device, and becomes the cached socket; a later socket on the
-> same address with no device is covered by it, skips the check, and binds
-> and listens on that listener's address and port. This lets an
-> unprivileged process take over all the traffic of a service bound to a
-> device. The missing SO_REUSEADDR fails in the same way: two sockets with
-> SO_REUSEADDR do not conflict while the existing one is not listening, so
-> a socket with SO_REUSEADDR can pass the full check against another
-> user's bound, non-listening socket that also has SO_REUSEADDR, and
-> become the cached socket; a later socket without SO_REUSEADDR is then
-> covered by it and skips the check that would have refused it.
->
-> Second, it records the family and IPV6_V6ONLY but does not require the
-> new socket to match them. The address comparison in sk_reuseport_match()
-> lets a dual-stack wildcard socket match a cached IPv4 or IPv6-only
-> wildcard socket, although the dual-stack socket also accepts the other
-> family. A socket on the IPv6-only wildcard passes the full check against
-> another user's listener on the IPv4 wildcard, 0.0.0.0, and becomes the
-> cached socket; a later dual-stack wildcard socket is covered by it,
-> skips the check, and binds and listens on that listener's address and
-> port. This mistake lets unprivileged processes hijack traffic from
-> services that listen only on 0.0.0.0, which is very common.
->
-> Fix this by only using the cache for a socket that matches the cached
-> one in everything else the conflict check reads: family, IPV6_V6ONLY,
-> bound device and SO_REUSEADDR, besides the owner and SO_REUSEPORT, which
-> sk_reuseport_match() already checks. A cached wildcard still covers a
-> new socket on a specific address of the same family: once those
-> properties match, the conflict check treats the two sockets alike except
-> for the address, and every socket the specific address overlaps, the
-> wildcard overlaps too.
->
-> Note that, as this patch intends, bind() and listen() now fail with
-> EADDRINUSE in cases where the cache used to admit them, including for
-> sockets of a single user. For example, a user who binds an IPv6-only
-> wildcard socket without SO_REUSEPORT and then an IPv4 wildcard socket
-> with SO_REUSEPORT to a port previously could add a dual-stack wildcard
-> SO_REUSEPORT socket; that bind now fails, matching what the full check
-> would do.
->
-> The FASTREUSEPORT_STRICT state was added to speed up one workload: a
-> service binding many identical SO_REUSEPORT listeners to a port that
-> holds, or has held, a socket without SO_REUSEPORT, such as an earlier
-> instance of the same service that did not set the option. Without it
-> each of those binds compares the new socket with every socket on the
-> port, under the port's lock; it was added after a load balancer
-> restarted this way on a port holding about 100k TIME_WAIT sockets and
-> hit soft lockups. This patch keeps that workload on the fast path:
->
->              N     current   full check  this patch
->            256     0.13 ms      0.58 ms     0.15 ms
->           1024     0.63 ms      8.07 ms     0.69 ms
->           4096     2.63 ms    154.32 ms     2.83 ms
->          16384     9.80 ms   5874.11 ms     9.86 ms
->
-> N is the number of identical SO_REUSEPORT sockets, bound after one
-> socket without SO_REUSEPORT so that the port is in the
-> FASTREUSEPORT_STRICT state; the times are of their bind() and listen()
-> calls from a single thread, median of 5 runs on a build without KASAN.
-> "Full check" is the simplest alternative to this patch: never skipping
-> the checks. As N grows the full check slows down sharply, while this
-> patch stays as fast as the current kernel, so it keeps the benefit of
-> FASTREUSEPORT_STRICT.
->
-> Sockets that differ from the cached one in device, SO_REUSEADDR, family
-> or IPV6_V6ONLY now take the full check, so binding many such sockets in
-> alternation on one port is slower; the common mix of wildcard and
-> specific addresses stays on the fast path.
->
-> The two new fields, fast_bound_dev_if and fast_sk_reuse, fit in existing
-> padding: struct inet_bind_bucket stays 88 bytes on x86_64 and arm64.
->
-> Fixes: 637bc8bbe6c0 ("inet: reset tb->fastreuseport when adding a reusepo=
-rt sk")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-> ---
-> Here is a minimal reproducer for the issue addressed by this patch. Line
-> 10 should have failed with "OSError: [Errno 98] Address already in use"
-> but it succeeds. It works independently of what process or user created
-> the victim socket. An unprivileged process can exploit it to hijack
-> traffic on ports that are already in use by other processes.
->
-> import socket
-> P =3D 29341
-> v =3D socket.socket(); v.bind(("0.0.0.0", P)); v.listen(1)
-> s =3D socket.socket(socket.AF_INET6)
-> s.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 1)
-> s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-> s.bind(("::", P))
-> h =3D socket.socket(socket.AF_INET6)
-> h.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-> h.bind(("::", P))
-> h.listen(1)
->
-> Skipping line 3 and setting P to the port of another process that
-> listens only on IPv4 (P >=3D 1024) works as well. With one such socket
-> the attacker answers the service's IPv6 clients; one copy per CPU
-> with SO_INCOMING_CPU also takes its IPv4 clients.
->
-> I conducted several tests on the patch to assess that it fixes the
-> vulnerability, that it keeps the workload the cache was added for fast,
-> and that it only changes the behaviour it intended to change. The tests
-> and results are available here:
-> https://github.com/AgusNicco/tcp-hijack-patch-testing
->
-> '1-attack' is the attack scenario where an unprivileged process exploits
-> the bug to hijack TCP traffic from other processes and users. It also
-> tests that the patch successfully stops the attack.
->
-> '2-reachability' tests how often the code modified by this patch runs,
-> to assess how much it could matter for performance. It runs during
-> startup and not during traffic.
->
-> '3-bind-behaviour' tests that the patch only changes the behaviour it
-> intended to change. It compares behaviour across 29.8 million tests
-> among 3 kernels: unpatched, patched, and one with an alternative patch
-> that always performs a full scan. The full scan kernel and the patched
-> kernel behaved identically in all 29.8 million tests. The unpatched one
-> behaved differently in 697,367 tests.
->
-> '4-performance' tests and confirms that the patch does not regress the
-> performance benefits of the commit that introduced the bug. That's where
-> the results shown on my commit message come from.
->
-> inet_csk_update_fastreuse() has filled the tb->fast_* fields in two
-> places since 637bc8bbe6c0, and this patch adds the two new fields to
-> both. A helper would remove the duplication, but I left it out to keep
-> this fix small for stable; the duplicated code is minimal and predates
-> this patch.
->
-> This bug was found by an LLM-based bug discovery pipeline.
->
->  include/net/inet_hashtables.h   |  2 ++
->  net/ipv4/inet_connection_sock.c | 15 ++++++++++++---
->  2 files changed, 14 insertions(+), 3 deletions(-)
->
-> diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.=
-h
-> index 6e2fe186d0dc..44b7e39a1245 100644
-> --- a/include/net/inet_hashtables.h
-> +++ b/include/net/inet_hashtables.h
-> @@ -87,6 +87,8 @@ struct inet_bind_bucket {
->         __be32                  fast_rcv_saddr;
->         unsigned short          fast_sk_family;
->         bool                    fast_ipv6_only;
-> +       unsigned char           fast_sk_reuse;
-> +       int                     fast_bound_dev_if;
->         struct hlist_node       node;
->         struct hlist_head       bhash2;
->         struct rcu_head         rcu;
-> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_s=
-ock.c
-> index e56beec43877..70b8662b3004 100644
-> --- a/net/ipv4/inet_connection_sock.c
-> +++ b/net/ipv4/inet_connection_sock.c
-> @@ -420,13 +420,18 @@ static inline int sk_reuseport_match(struct inet_bi=
-nd_bucket *tb,
->                 return 0;
->         if (!uid_eq(tb->fastuid, sk_uid(sk)))
->                 return 0;
-> -       /* We only need to check the rcv_saddr if this tb was once marked
-> +       /* We only need to check the fast_* fields if this tb was once ma=
-rked
->          * without fastreuseport and then was reset, as we can only know =
-that
-> -        * the fast_*rcv_saddr doesn't have any conflicts with the socks =
-on the
-> -        * owners list.
-> +        * the socket they describe doesn't have any conflicts with the s=
-ocks
-> +        * on the owners list.
->          */
->         if (tb->fastreuseport =3D=3D FASTREUSEPORT_ANY)
->                 return 1;
-> +       if (tb->fast_sk_family !=3D sk->sk_family ||
-> +           tb->fast_ipv6_only !=3D ipv6_only_sock(sk) ||
-> +           tb->fast_bound_dev_if !=3D sk->sk_bound_dev_if ||
-> +           tb->fast_sk_reuse !=3D sk->sk_reuse)
-> +               return 0;
->  #if IS_ENABLED(CONFIG_IPV6)
->         if (tb->fast_sk_family =3D=3D AF_INET6)
->                 return ipv6_rcv_saddr_equal(&tb->fast_v6_rcv_saddr,
-> @@ -455,6 +460,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
->                         tb->fast_rcv_saddr =3D sk->sk_rcv_saddr;
->                         tb->fast_ipv6_only =3D ipv6_only_sock(sk);
->                         tb->fast_sk_family =3D sk->sk_family;
-> +                       tb->fast_sk_reuse =3D sk->sk_reuse;
-> +                       tb->fast_bound_dev_if =3D sk->sk_bound_dev_if;
->  #if IS_ENABLED(CONFIG_IPV6)
->                         tb->fast_v6_rcv_saddr =3D sk->sk_v6_rcv_saddr;
->  #endif
-> @@ -482,6 +489,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
->                                 tb->fast_rcv_saddr =3D sk->sk_rcv_saddr;
->                                 tb->fast_ipv6_only =3D ipv6_only_sock(sk)=
-;
->                                 tb->fast_sk_family =3D sk->sk_family;
-> +                               tb->fast_sk_reuse =3D sk->sk_reuse;
-> +                               tb->fast_bound_dev_if =3D sk->sk_bound_de=
-v_if;
->  #if IS_ENABLED(CONFIG_IPV6)
->                                 tb->fast_v6_rcv_saddr =3D sk->sk_v6_rcv_s=
-addr;
->  #endif
->
-> base-commit: 19a227903e65c7a9c179156485660a4e017575fe
-> --
-> 2.43.0
+stm32_pctl_probe() acquires an exclusive reset control for every GPIO
+bank with of_reset_control_get_exclusive(), but none of the error
+paths release them again: the bank loop returns directly on
+-EPROBE_DEFER and on a failed clock lookup, and the
+clk_bulk_prepare_enable() failure and the err_register path also
+leave the already acquired reset controls behind.
 
-OK, but
+On success the reset controls are kept for the lifetime of the device
+and are never released either (the driver has no .remove), but that
+is harmless.  On a failed probe, and in particular when the probe is
+retried after -EPROBE_DEFER, every attempt leaks another set of
+reset control references.
 
-1) The changelog is way too long for human use. I would suggest :
+Release the acquired reset controls on all error paths.
 
-When the port is in the FASTREUSEPORT_STRICT state, inet_csk_get_port()
-skips the bind conflict check if sk_reuseport_match() finds the new
-socket's address covered by the socket cached in tb->fast_*.
+Also release the clocks of the already processed banks on the
+-EPROBE_DEFER path, which was missed by the earlier clock leak fix
+dfd8259507c5 ("pinctrl: stm32: Fix clock reference leak in
+stm32_pctl_probe()").
 
-This is only safe if both sockets match on everything
-inet_bind_conflict() reads. The cache misses some of it:
+Fixes: 2254e77665d5 ("pinctrl: stm32: defer probe if reset resource is not yet ready")
+Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+---
+Changes in v2:
 
-- It does not record sk_bound_dev_if or sk_reuse.
-- It records the family and IPV6_V6ONLY but never compares them with
-  the new socket, so a cached v6only [::] (or 0.0.0.0) socket covers
-  a dual-stack [::] socket.
+- Point the Fixes tag at 2254e77665d5, which introduced the reset
+  control acquisition in the stm32_pctl_probe() bank loop and the
+  -EPROBE_DEFER return path; bb949ed9b16b only replaced the child
+  node iteration helper (suggested by Sashiko AI review).
+- Also release the clocks of the already processed banks on the
+  -EPROBE_DEFER path, which was missed by dfd8259507c5.
 
-As a result, an unprivileged user can bind and listen on a port that
-another user is listening on, for example a dual-stack [::] socket on
-top of a 0.0.0.0 listener:
+Link: https://lore.kernel.org/all/20261110065722.1340-1-laixiangwu@cmss.chinamobile.com
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-  victim:   bind(0.0.0.0:P), listen()
-  attacker: SO_REUSEPORT + IPV6_V6ONLY, bind([::]:P)   /* fills cache */
-  attacker: SO_REUSEPORT, bind([::]:P), listen()       /* should fail */
-
-Only take the fast path when the new socket matches the cached one in
-family, IPV6_V6ONLY, bound device and SO_REUSEADDR. Identical
-SO_REUSEPORT listeners, the workload this cache was added for, still
-skip the scan (binding 16384 of them: 9.80 ms before, 9.86 ms after,
-5874 ms with the full check every time).
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 98cf9c6f4..2a54a0176 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1966,15 +1966,18 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 		bank->rstc = of_reset_control_get_exclusive(np, NULL);
+ 		if (PTR_ERR(bank->rstc) == -EPROBE_DEFER) {
+ 			fwnode_handle_put(child);
+-			return -EPROBE_DEFER;
++			clk_bulk_put(i, pctl->clks);
++			ret = -EPROBE_DEFER;
++			goto err_put_rstcs;
+ 		}
+ 
+ 		pctl->clks[i].clk = of_clk_get_by_name(np, NULL);
+ 		if (IS_ERR(pctl->clks[i].clk)) {
+ 			fwnode_handle_put(child);
+ 			clk_bulk_put(i, pctl->clks);
+-			return dev_err_probe(dev, PTR_ERR(pctl->clks[i].clk),
+-					     "failed to get clk\n");
++			ret = dev_err_probe(dev, PTR_ERR(pctl->clks[i].clk),
++					    "failed to get clk\n");
++			goto err_put_rstcs;
+ 		}
+ 		pctl->clks[i].id = "pctl";
+ 		i++;
+@@ -1984,7 +1987,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 	if (ret) {
+ 		dev_err(dev, "failed to prepare_enable clk (%d)\n", ret);
+ 		clk_bulk_put(banks, pctl->clks);
+-		return ret;
++		goto err_put_rstcs;
+ 	}
+ 
+ 	for_each_gpiochip_node(dev, child) {
+@@ -2009,6 +2012,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 
+ 	clk_bulk_disable_unprepare(banks, pctl->clks);
+ 	clk_bulk_put(banks, pctl->clks);
++err_put_rstcs:
++	for (i = 0; i < banks; i++)
++		if (!IS_ERR_OR_NULL(pctl->banks[i].rstc))
++			reset_control_put(pctl->banks[i].rstc);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(stm32_pctl_probe);
+-- 
+2.50.1.windows.1
 
 
-2)  The reproducer is about 10 lines and would fit in
-tools/testing/selftests/net/bind_wildcard.c
-     or next to reuseport_dualstack.c.
 
-3) We do not need details and LLM generated GitHub, any LLM
-  can build this instantly just looking at the commit.
-
-Thanks.
-
-pw-bot: cr
