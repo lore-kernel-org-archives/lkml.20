@@ -1,108 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.74
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794310987;
-	b=F3GiJ7ykJRYPChjKrUU6KXKz2lCqDITGq7QZeDtto+rQS55KEghD0aSm/PZISarZ2zT2
-	 Q4zV/Brkx1VJkUMGQQ08rohWu1UhyCZoVmQKJf6SFwNASHtjKoRdqR+3l6s4YAYyxU3RX
-	 c3wdCs9mXJEGkM2N3UaeXCGDPuB+Psq4Q3iStEw4rpy+746XO4bjEbcSgPv+6pIhs8Y4F
-	 t4LsgYjRMyYtYYeUTHAGWlKHA7WwyxC6CK+Y0td50vLao/yV7yThFyBRToAwnumOvQ2wP
-	 0PHznBfjieFj4+hdichwimdPv4dVpolQQCOSfkP0shnCuFODq37o470Qu+Qmy8ZYnew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310987;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
-	b=OeIt7DwprE0MgAWKu+IibTyRu0wHlxSpcyfgENHN590cEeK/V2XkxZ9rAtkKiC15P+QI
-	 bK73B7yVNb7qOwbDFoAVIIVOYHwsr13/aEngSAJ85i2HXmvX5zaqw0G/5M6M06rv0VC2i
-	 FgiiPejwZdglBYJbGrcMOAgvzmpfaHb7+yeOmV2onH42ockEE4SRQsTPDQ/qsqYrM9LI1
-	 0SyTcWZXW314M4zHmbCat8YgaskhXF3kV0Yd8FT540+6YaGIh2fk57sbTHlMhS6cdvs0W
-	 mHIriByv+bmfnA111TYaEMYLIeJr1+ExgnykiS6df38+/5rWfNnwBCerEOpUfeeO3jg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=hQ7dvdCY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.74
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023074.outbound.protection.outlook.com [52.101.127.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794311003;
+	b=jdYuBTZxrhAeE5pzZw2iZfyLY6Rl8LuGSxulniXzQp8ZhFm7LzzTOUjB2w8buD6Jp8Q3
+	 c7kj0nQQicIECskVXWcJH+hyK3NJLbgc3s58iRf3ngjxs6gyrOz0dVxe2r90AFC3uKr55
+	 4ACOAzpuk76m1Uc2anqYm5JOdMVksG//OjwtDnZbD+jJbprp8Mz7VcWdTuPNHjeHJZl8B
+	 CYdpvBfnb31NQZNZ1KpRr2nX4bdHs/CwY6SvpD34/SpDy3u8RwBhqkT+sRZpWEzzZ0QpG
+	 I20GaXb0sydM5Om822jNO1v2LpaJkrTywo5XqGkmme2pbe7T+Op9zBtkqqSZ1NL8bng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311003;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=Dwo3NODYrC8lH9+/ED/zyRctWxyQsy+gkPSiaqjxgzM=;
+	b=S4S/ziMpEBE8DUM3UiJNElm1uhQffjzb4NCYXJUCLVbweM4Z/lfRVQ6XI2cVLSkFbTfw
+	 3VPg/lICzMcG/cYypGieZUDL0J/jiGe0SrmSV82MGv2ou5w3vqTJ9l5Vne4KD/SUgI7lV
+	 4io1JUk7XwJBtt9c+PmsoOH7UMovoW1Ujea6ZCWsQG8PozkwtNNnXXgATuiNyuQuTt1FP
+	 L+0DNTDc6B0TqcPQ9dqzM+7Lgy3ZpLdOimjUMg/i0MdI85/pXkxt1U4+T3r2m/eCIuNYL
+	 FhBPWzW2FDbbBga+nYKGX7F8ee9gmxLBP3UWNvGsAhYR+PMULUprEe+9/1HXDMDEiTg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JdpvIJcW;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D998606A331;
-	Tue, 10 Nov 2026 11:43:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D998606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9F8606A31C;
+	Tue, 10 Nov 2026 11:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9F8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=hQ7dvdCY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=unqZkoNpeem/VQHgRElIFlk0GOisZhzZy0MiJ6e52AI8SCOctYuY+54OE0lpvmhNp+La8ZJfwhsxij6LlWvD41TkMGRmpKtsM3wgmvk3bagCEVhWy7QdGvPDgWEBX3vTZ9hdxQ1NZEG0jPaJorA0U9c7xvT1uJa2wurg5AEA6QyrS9xsUL7S2quU9PlIns300Sr1VJT6s3HJmqpSMQENPmR28NdpNt6QcqJUHxRPnzdZB0ods/4Wl3hdyQ0NvzFYRDEmzS9ljXwWfOFD67kIHQhg4d3ZR6SUu2VN5q4bQadELv5nuO1xH+DkkurqUtckzGSz6AVsxs/BR3LNkF/OnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
- b=FY/GeYcXiu0fTLJFiVOYzhTFzMYY5jqWmTy1/ezJyL0gJ+GrVqg3JRy+0abZpE2XmzvuGMmDLQozA+ugcG/C0JiXL2CnYIrB5xnaBBsdDqU/dEyF25G9THvpmV2T1aoe1p1ENuEiTi3Cv33fD53E5vYVuSVhUUqB6ExaO0Y6PAXJ6Z/JXNyZy6VZeQK8RD+lJfbAQLqx4nVhex8yjdT9ckf3poekrTDtEiZMyjbOVoj4GlAsgfmYnNRoNlo2NGHW8raHBZbr8zb2cM1T5uxGdgYIYXq9UeCHWdJXKM+Hkrhh8Kv41+6SWDKeCVJlv9CVzlaZBCWaEHklRaHwY6UxoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
- b=hQ7dvdCY33Jq1DDXJZ0OYbrGm+iekadDqKaZKBP6RU2HgyMIvFUwuE2I/naM/mtP70zjBdPJPqlZ/kpMYlv3eTXFWsR5/8+UyOrdMon+q3MZnxLS8rejPk1BvfKt20G3EoLiHvzyHeFJWg6qk7H8IC23lgJsWs/0KIeUD1nE6VJiMhrRODj/TrxZijAb57neloip22j0+UfAEegGmn1xj+Uhvha0MTzxmgOSjjnIMQPD5UkLWG8JoxPWVrHyr9DEbyi3Txgn2uJi7gAZBQXoo8Yb+DgwFNq+Kibq9j9O4pniWVus/sLpZycQiGNICzzbFiYTEgBPDGAUuffnW8qgFw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by JH0PR03MB7853.apcprd03.prod.outlook.com (2603:1096:990:33::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 11:43:02 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 11:43:02 +0000
-Message-ID: <bbe0dedf-4b02-4cc6-97be-accfc06baa10@amlogic.com>
-Date: Tue, 10 Nov 2026 19:42:55 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-To: tanure@linux.com
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261103163715.385394-1-tanure@linux.com>
- <20261103163715.385394-3-tanure@linux.com>
- <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
- <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
- <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0040.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::13) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JdpvIJcW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794311001; x=1825847001;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=fFlYzKZx6d7zbItcdPrIhfKRGk6oxCXe/4WPWbITVJw=;
+  b=JdpvIJcWXyu6v7dcmlx3TuMZLrr5BLdjcE9T7JuxYANe/eCPtVQ24ZE9
+   dXhCu+q9gKFHWqzCW76EIJUDfAT3iIeC+wEOprPjzZjRO/Boe2rx3OMyt
+   l1rnLrmdX+OJz4O9VnrP4wKmkHiSKj4iW0RyeQlNbw88VUsg/Mtk6CuhG
+   ZCZcLZrkfhKdk6+1CHtU7vQZsFy2GJSJ+tmADPHvb4qrJeNP9AaOb/ODK
+   edfDdoUdjnFcLQa6Zoh33uqPSdMQyb9EttrOccAV84pn5GPJaIsq7U7hy
+   CFMjy35IZtMD3M2wwj3OUwqHiY9ScqOwLTb+V0kzK1S8eKIqgQCUpbJ4L
+   A==;
+X-CSE-ConnectionGUID: /aZWI9eTRJaZV00/Pmvf6g==
+X-CSE-MsgGUID: /KnxLu+ITFyEk/B3z3+1GQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3136973"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3136973"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:43:20 -0800
+X-CSE-ConnectionGUID: LZa1K/XxTqqy4Ut7m3heoQ==
+X-CSE-MsgGUID: E6/vOvLBQkqely5eF00TxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8145256"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:43:18 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 10 Nov 2026 13:43:14 +0200 (EET)
+To: Denis Benato <denis.benato@linux.dev>
+cc: Bartu Alev <bartualev@gmail.com>, 
+    Corentin Chary <corentin.chary@gmail.com>, 
+    "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
+Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+In-Reply-To: <9d9e53e5-aede-46fe-b0cb-747b95a816fd@linux.dev>
+Message-ID: <31f09d55-2920-e80e-435e-00679996afc3@linux.intel.com>
+References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com> <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com> <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com> <9d9e53e5-aede-46fe-b0cb-747b95a816fd@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,235 +82,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|JH0PR03MB7853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6351b656-5a9d-4269-52d5-08df3f1fc6ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|4143699003|11063799006|56012099006|22082099003|18002099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	+UevEOhqQfR/thcKvJmA5gT0pu7eoGYwNsQIaRRV16rnomwNhL606OLIp4rQEXKtQ58bOS4EcJYzxuiU1pVzQvUH2bfUIXDmYUoSZVCu2oV6+dm4JxyECp5rO0LqkIJLA07gxtOGm6/tLHu6rJL+YE0+DgG8ApGdV39t5j2xoHnCzNSZyeMlrq+Z1Hq7GXpiy6ChuUXSoS7LScRu3QlSjbc0Z5CKROv2ACHaM+czzgsyyAU2/NhWeaPs3o82Frt4WdUc+A/VqbSZi9/OGJls/N2JZSHXj9euj2gIkMDe/jzXF/kN0BkifSUQ4P3eXbrFUqwG05j2enBVSnRzRUtEJ9zIPtXcogqMtQN7dejwdYvstfjlsl8+Am8uT9oy8rfvnkPC8wcf8YjJ61p9mYg+HPWbx1AQXSzvgjFE0w4opy1HZ6f6hW2c47nuX6F0BriUW3R1wvHemLGacbznDdeTI1IRf6/eTv/thX76F3Ed6sQkR777QyWpaXSGE+z8S+NEwMwZQtSpyh0oyEu68qxRyZ943PVlvQjBmQ0U4FkodFjVatrHppVO9gtakCFtFrmgT9lrN44eN5wk6Rk6Q8c3BcjPbxdEoR3dXrTNx/8wksHSbbWm+YQiwCZrF0LEQtWS
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WmhDYk96c29VTXNTSUVNVllZRERiWU9lTGNxNkxWMFIrS25odUJjMDkwQks2?=
- =?utf-8?B?SitBc0ZmcHMvVSs1UjhCbTJwazBHb1FjcEdEZHo1ZTgzWUxSSTU4eGhaYzlp?=
- =?utf-8?B?UFQ2MjhobjBCcmVQMmpzT1RtRGpCa2l3T1ZWcnd5azRhZmpZbXFUSG1pTVdO?=
- =?utf-8?B?d284c3dRaXg0S2NZVDBRVGNOTzZnU0NTOWFNSkxWSVRYVFZFUTJWZUx5QUxE?=
- =?utf-8?B?ZUwrUi9iQlRMdmhQcTZaelU5OWZ6Z0pnUHpMbUhYUzhBYkFlVUszSnZRUkFl?=
- =?utf-8?B?emV4VDdnTlQ5UER0SXF3QmhJbEN2V1kvWlg5SlQxaUJ5b0dZOXBIc2d5ZTdq?=
- =?utf-8?B?SWJVNTlDa1ZpQnkySys3MUIwNFRiNmo0L1FyZTFUeVdXL1R0U2xFTjhBQlBY?=
- =?utf-8?B?bXo1bXNvS1RzdnpFOGFldTZhQ3Zxd2xZWVNFOE1BemhlZ2VFd2cxUFh2RTZL?=
- =?utf-8?B?RkNnUk1yTEVTUTg1QWRpYkwwUnlhRTdvc1ZVVy9xUDVzS3BnSmpvckxWL2ty?=
- =?utf-8?B?T1kyZTNIL0ozUUhESnVTYlYrQWRSYWswYzBXWENBVWRNMWhoZUU1Ti9WZ1lV?=
- =?utf-8?B?VkdyaVpKM0pmek5ibEw0YityNmlCdEJORldqV0NtYTI5OHQyQWdrbndtZFZ1?=
- =?utf-8?B?clFUV1E2YnZienNRS0s3V3F3dUs5QmFtcEkzMkRMaDlwbUlxcWJjY0RKVVF4?=
- =?utf-8?B?eFZ5TVpCdG9BZ3JicHk4aXBueGFqZDdJVVNjUEk2NHFLNXJjMDY2dUJKeEU1?=
- =?utf-8?B?UnI3cUhKU2pVVnhRUmp0M0lmSlFOck1mdTN6a2xIOEVIWEtDMFE2L0VuL2tW?=
- =?utf-8?B?MVUyeU5adnVEREdYcDBGd0tjU2piOFltMElYSFA3bHVVd01RT3RrcWJuSFlz?=
- =?utf-8?B?bGtwSy80ajlIZllqOUl3SFliaUFFZnNoTVJGaDdoWkFBZUgvZUlaTWZjQ3da?=
- =?utf-8?B?cndyTGtTcWd5ZDVOdGFHeVBiN3RWNHU0NzcwUTZhaWhsL01DS3VCMkw3dFln?=
- =?utf-8?B?dm5Nci9JcmUwZkFCL3dGR015MkZkZTFjVWVtWElmTDBuZWIvN3l4Z3N5bmNS?=
- =?utf-8?B?VjZ6Zk8xelVEdjg2aVlDdm05ZC92L2lWSVBIZHRaT2dGaW1JS05hY0pNaW1Q?=
- =?utf-8?B?Y0J2UDRxRldDaVFHaWJ2UjJ1MUFyTU9xVWh2QzhLLzZMcGVSUVREbjFOUmRx?=
- =?utf-8?B?VFo0ZWVZWUhieUtjekdLT1E3SlBHckVZK1FOUVBZUDZJM2lFSlZ5NHNLM2k3?=
- =?utf-8?B?OUswSTh3RDI5RkR0dmQ3ZmJwYmVVZFlBT0JyZUhYRitNRTVraXVKaUJsWmdZ?=
- =?utf-8?B?R3BtMCtNSDZUT3ZUOWpqZ1ZMelZ6U2pMdlVrNStwTFA0eXRuakVPWlZPOXNj?=
- =?utf-8?B?R3BrTnY5ZCswNjlVeS9Ua1FOVXRlL1VXL2JsYlR5cW1hSlp4b0MxTkh0djhV?=
- =?utf-8?B?ejJtYWVZdFRZV0Z0aHM0SHgrTkhPQTQ2VTI0VW1rUHA0RG96cSswaDFYYXlR?=
- =?utf-8?B?WGhkMkM3UkhCb3gzYW1ZYzR0WjlRRmVudlRqU2ZTYVQ4dkR4SmZTN1VraW41?=
- =?utf-8?B?NWFvc09lSzlpQnBWcWszRDRKcU56amtnK1F1cExFUE11RGhJMUh2UlJ1Y3Va?=
- =?utf-8?B?bUgyTmwzQmhkOWY2NytFejh6WUNLdEVOSDdtcFcwWWFrakg3VURWRUg1VDFV?=
- =?utf-8?B?Y1ZWSWlvT2VuT01iSEgzNTY3MWJrbEU2aUdWQjFZc3ZBeVVoWDNGcm1EQUFm?=
- =?utf-8?B?Njd3T3pFQUlyaHB6bDQxaldZSFFuRmo3ZGExSit5Rm84ODU1bTdvWHZTbGFj?=
- =?utf-8?B?RWROY1dEVk83c3dXcHMzZFZ3dWRsbmRvOWR0c25sZjQ4NXNTMmZmYWMxejBL?=
- =?utf-8?B?dHM2V0w5RGRPaThLYUFKRCtkYzlZcFY0VXZ3Q2UwWWxkMDl1U05Dc2hqOEtm?=
- =?utf-8?B?MmhGaFlLYmsvSzhJb2tWeERnbXFqUFFJcWliMlFYWnIzSkhDMmo4dVRoaGQz?=
- =?utf-8?B?T2N4MTFhZlV3U0tWQTA5TVVMK3Yyd3h3aEtzMEFIS29WbCtMbWczL2RORW5p?=
- =?utf-8?B?M3RBQ0dCeW9vdGNncmhON3B6QTRSYmxWdjFBOEpyUFFzaVFybndFWHorK0k1?=
- =?utf-8?B?ekFSeEFsREtDY1VRNDltWElHSkloZHVtdHQ5UWZ1WjZuZ1B5aHdIbmhhNnpk?=
- =?utf-8?B?NzBScE1la3NkSmJHalM2SGFXbjdyZisyd1pPWFd5dGZuN2VyWlVtTW9LRkdK?=
- =?utf-8?B?QTljV1Q2bFJ0anVubjFsM0swNkMvc25kNjdWYk44RUlIbVZxQms3THRPbGcy?=
- =?utf-8?B?YkpBTkIvTnBhZXdaSWJUZ2xPbm5OU1MrbDFhSjl0SG9pc1FESXZVdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6351b656-5a9d-4269-52d5-08df3f1fc6ba
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 11:43:02.4824
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WBu5W4ichdR5Y1ByL2JbCtVRXdKnh+YjL7kJwHAD9S0yW2cc4ZQimBH6HVaJJ9dTuz3xgSKymyVYs8fbfG8NIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB7853
+Content-Type: multipart/mixed; boundary="8323328-1592355462-1794310994=:1229"
 
-Hi Lucas,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 11/9/2026 11:43 PM, Lucas Tanure wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Fri, Nov 6, 2026 at 3:16 AM Chuan Liu <chuan.liu@amlogic.com> wrote:
->>
->> Hi Krzysztof, Lucas,
->>
->> On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
->>> [ EXTERNAL EMAIL ]
->>>
->>> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
->>>>
->>>> Assisted-by: LLM
->>>
->>> Drop this one.
->>>
->>>> Signed-off-by: Lucas Tanure <tanure@linux.com>
->>>> ---
->>>>    .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
->>>>    1 file changed, 59 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>> index e769c9bb70d8..6de013e3e8f6 100644
->>>> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->>>> @@ -23,6 +23,7 @@ select:
->>>>              - amlogic,meson-gxbb-dwmac
->>>>              - amlogic,meson-axg-dwmac
->>>>              - amlogic,meson-g12a-dwmac
->>>> +          - amlogic,t7-dwmac
->>>>      required:
->>>>        - compatible
->>>>
->>>> @@ -57,6 +58,59 @@ allOf:
->>>>                - const: clkin1
->>>>                - const: timing-adjustment
->>>>
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            const: amlogic,t7-dwmac
->>>> +    then:
->>>> +      properties:
->>>> +        clocks:
->>>> +          items:
->>>> +            - description: GMAC main clock
->>>> +            - description: First parent clock of the internal mux
->>>> +            - description: Second parent clock of the internal mux
->>>> +            - description:
->>>> +                clock of the pipeline stage inserted in the bus path between
->>>> +                the controller and the DRAM. Without it, the controller cannot
->>>> +                complete DMA transfers.
->>>> +            - description:
->>>> +                clock of the register block holding PRG_ETH0 and PRG_ETH1.
->>>> +                Without it, the block reads as zero and ignores writes.
->>>
->>> This sounds like you take clock from other block. That's wrong, that
->>> device should take its own clock.
->>
->> I see that the clock in the dts patch corresponds to <&clkc_periphs
->> CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB Bus
->> of the ETH PHY controller, and this clock will affect the register
->> reading and writing of the ETH PHY (including the ETH_PLL). See section
->> 15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
-> 
-> Thanks. That section is the PHY block at 0xfe028000, the region of the
-> mdio multiplexer node. The registers in this description are PRG_ETH0
-> and PRG_ETH1 in eth_top at 0xfe024000. On the VIM4 the same gate feeds
-> them too: with it off they read as zero and ignore writes. My datasheet
-> revisions do not say which clock feeds eth_top. Can you confirm it is
-> this one?
+--8323328-1592355462-1794310994=:1229
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-The information I can confirm is:
-   - The base address of eth_phy is 0xfe028000, and its corresponding 
-APB clock is <&clkc_periphs CLKID_SYS_ETHPHY>.
-   - The base address of eth_top is 0xfe024000, and the base address of 
-eth_mac is 0xfdc00000; their corresponding APB clock is <&clkc_periphs 
-CLKID_SYS_ETH>.
+On Tue, 10 Nov 2026, Denis Benato wrote:
+> On 11/9/26 19:02, Ilpo J=C3=A4rvinen wrote:
+> > On Thu, 29 Oct 2026, Bartu Alev wrote:
+> >
+> >> The TUF keyboard RGB attributes kbd_rgb_mode and kbd_rgb_state are
+> >> write-only, so userspace tools keep their own copy of the lighting
+> >> configuration and lose track of it whenever the EC changes state on it=
+s
+> >> own: after a firmware reset or a boot into another operating system th=
+e
+> >> tools show a stale configuration until the user rewrites every field.
+> >>
+> >> DSTS device 0x0010005B evaluates the DSDT method EC0.KBLS(), which
+> >> snapshots the EC's host-visible keyboard state into a 16-byte buffer:
+> >> lighting mode, red, green and blue levels, animation speed, and the
+> >> four power-state flags.  The first byte is a constant 1 written by the
+> >> AML, which distinguishes a KBLS reply from any other object the method
+> >> could return.
+> >>
+> >> Add kbd_rgb_read_status() to evaluate and validate that buffer, parse
+> >> it through a packed struct, and convert both attributes to
+> >> DEVICE_ATTR_RW.  The read returns the write format with "n/a" in the
+> >> command position: the command word belongs to the write verb (apply
+> >> now or save to flash) and both verbs update the EC mirror the same
+> >> way, so there is no state to report there.  The three EC speed codes
+> >> map back to the sysfs indices 0 to 2.
+> >>
+> >> Readback was verified against the EC firmware: the status bytes mirror
+> >> EC RAM at 0x0B22 to 0x0B2E, and the speed codes 0xe1, 0xeb and 0xf5
+> >> select animation step thresholds of 30, 20 and 10 ticks per phase,
+> >> which matches the slow, normal and fast labels.  Tested on a TUF
+> >> Gaming A15 (FA507NV).
+> >>
+> >> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> >> Signed-off-by: Bartu Alev <bartualev@gmail.com>
+> >> ---
+> >>  drivers/platform/x86/asus-wmi.c            | 83 +++++++++++++++++++++=
+++++++++-
+> >>  include/linux/platform_data/x86/asus-wmi.h |  3 ++
+> >>  2 files changed, 84 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/as=
+us-wmi.c
+> >> index b33ebdb21aa2..054d1d684bb0 100644
+> >> --- a/drivers/platform/x86/asus-wmi.c
+> >> +++ b/drivers/platform/x86/asus-wmi.c
+> >> @@ -1062,6 +1062,65 @@ static DEVICE_ATTR_RW(gpu_mux_mode);
+> >>  #define TUF_KBD_RGB_SPEED_SLOW=09=090xe1
+> >>  #define TUF_KBD_RGB_SPEED_NORMAL=090xeb
+> >>  #define TUF_KBD_RGB_SPEED_FAST=09=090xf5
+> >> +/* TUF keyboard RGB status readback *********************************=
+**********/
+> >> +struct asus_wmi_kbd_rgb_status {
+> >> +=09u8 signature;
+> >> +=09u8 mode;
+> >> +=09u8 red;
+> >> +=09u8 green;
+> >> +=09u8 blue;
+> >> +=09u8 speed;
+> >> +=09u8 state;
+> >> +=09u8 unused[9];
+> >> +} __packed;
+> >> +
+> >> +static int kbd_rgb_read_status(struct asus_wmi_kbd_rgb_status *status=
+)
+> >> +{
+> >> +=09int err;
+> >> +
+> >> +=09err =3D asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+> >> +=09=09=09=09=09   ASUS_WMI_DEVID_TUF_RGB_READ_STATUS,
+> >> +=09=09=09=09=09   0, (u8 *)status, sizeof(*status));
+> >> +=09if (err)
+> >> +=09=09return err < 0 ? err : -ENODEV;
+> > What do you (or Denis) think on sashiko's mention about=20
+> > asus_wmi_evaluate_method_buf() casting integer.value to int which might=
+=20
+> > end up aliasing high-bit on return values with errnos?
+>=20
+> Hi Ilpo,
+>=20
+> I don't see the sashiko response neither in my mail nor in the lore,
+> but I think I understand the problem.
 
-The CPU reads and writes the registers of these peripheral controllers 
-(or Processing Units) via the APB. Consequently, the registers of these 
-controllers cannot be read and written properly if the corresponding APB 
-clock (sys_clk/clk81) is not enabled.
+Hi,
 
-> 
-> Thanks,
-> Lucas
-> 
->>
->>>
->>>
->>>> +
->>>> +        clock-names:
->>>> +          items:
->>>> +            - const: stmmaceth
->>>> +            - const: clkin0
->>>> +            - const: clkin1
->>>> +            - const: pipeline
->>>> +            - const: pclk
->>>> +
->>>> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
->>>> +        # The RX delay line of this glue is fine tuning in 200ps steps,
->>>> +        # added on top of what phy-mode describes. The TX side has no fine
->>>> +        # tuning: its only step is a quarter of the clock period, the full
->>>> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
->>>> +        tx-internal-delay-ps: false
->>>> +
->>>> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
->>>> +        # properties instead.
->>>> +        amlogic,tx-delay-ns: false
->>>> +        amlogic,rx-delay-ns: false
->>>> +
->>>> +  # Delay definitions for Meson8b and newer
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            enum:
->>>> +              - amlogic,meson8b-dwmac
->>>> +              - amlogic,meson8m2-dwmac
->>>> +              - amlogic,meson-gxbb-dwmac
->>>> +              - amlogic,meson-axg-dwmac
->>>> +              - amlogic,meson-g12a-dwmac
->>>> +    then:
->>>> +      properties:
->>>>            amlogic,tx-delay-ns:
->>>>              enum: [0, 2, 4, 6]
->>>>              default: 2
->>>> @@ -106,6 +160,7 @@ allOf:
->>>>              contains:
->>>>                enum:
->>>>                  - amlogic,meson-g12a-dwmac
->>>> +              - amlogic,t7-dwmac
->>>>        then:
->>>>          properties:
->>>>            rx-internal-delay-ps:
->>>> @@ -142,6 +197,10 @@ properties:
->>>>          - items:
->>>>              - const: amlogic,meson6-dwmac
->>>>              - const: snps,dwmac
->>>> +      - items:
->>>> +          - const: amlogic,t7-dwmac
->>>> +          - const: snps,dwmac-5.10a
->>>> +          - const: snps,dwmac
->>>
->>> I see no such hunk in the code, so not sure how to review this.
->>>
->>> Best regards,
->>> Krzysztof
->>>
->>>
->>> _______________________________________________
->>> linux-amlogic mailing list
->>> linux-amlogic@lists.infradead.org
->>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
->>
->> --
->> Best regards,
->> Chuan
->>
+https://sashiko.dev is the goto place where you have them for all public=20
+submissions covered.
 
--- 
-Best regards,
-Chuan
+It's intentional that we don't encumber (spam) our first time submitters=20
+with gazillions of pre-existing problems sashiko finds. Many of which are=
+=20
+largely irrelevant/low value for platform drivers anyway (what user would=
+=20
+remove a platform driver? or probe() rollback path issues; nice to fix=20
+those as well but nowhere near urgent or important level).
 
+Sashiko has gotten somewhat better in not spamming the submitters with all=
+=20
+such pre-existing issues but tries to filter only the ones somewhat=20
+relevant to the patch so I might reconsider that.
+
+Sashiko's review emails together with using LLM to create and update=20
+patches also have a tendencity to cause undesirable rapid patch respinning=
+=20
+cycle no human reviewer wants to see in their inboxes so it's a=20
+double-edged sword. I don't want to see v10 in a week or two from=20
+starting, it seems counterproductive as it's discouraging to human=20
+reviewers.
+
+In this case you need to read between the lines as the report is for the=20
+Documentation patch, whereas I think it's an indication of a more generic=
+=20
+problem in the code that isn't a mere documentation issue.
+
+> What I think is that we have been lucky.
+>=20
+> ASUS probably chose the presence bit high enough not to cause
+> troubles when they have to report a status to armoury crate
+> and they don't use negative numbers, but yes I agree that the
+> return value is more to be seen as a bitfield (with some-bits
+> fields as numbers) rather than ints.
+
+So if there's only the FF..FE return with high value, it doesn't seem=20
+problem because it's explicilty checked for but I recall there was also=20
+FF..FF somewhere (no longer sure if I remember even what driver it was=20
+but the numbers seems suspiciously close to ones used here), it's not=20
+being checked in ..._buf() case and casting that to int makes it to alias=
+=20
+with -EPERM.
+
+> I have actually spotted this on a commit from Marco that was not
+> being sent on the lkml (because he touched that code) and I didn't
+> like what I saw (I didn't like what was already there).
+>=20
+> Those commits were about modernizing the use of mutex
+> and __free where appropriate and I kinda liked them, will
+> ask him to revive it...
+>=20
+> But proper and coherent error handling will touch basically
+> a large part of supported hardware and asus-wmi core
+> parts,
+>=20
+> I am a bit hesitant to touch that code because I might break
+> some old and not widely known device: it's the only reason
+> I haven't (yet) acted in this regard.
+>=20
+> > The other caller seems to also return that value directly out of _store=
+=20
+> > function().
+>=20
+> The other caller got lucky exactly as the rest of driver.
+>=20
+> setters in wmi don't even report the presence bit so there
+> is even less "incentive" to actually check it.
+>=20
+>=20
+
+--=20
+ i.
+
+--8323328-1592355462-1794310994=:1229--
