@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337116;
-	b=UtcWYYXzQ6czW4WzLiMO3p/JEEhJwW4uGVVzKb4lJseBUhW+Hd0mtb0v8X4aal4ECkMS
-	 GhpS4Wt4uspUsR33lG87TAuV5d9+bF7XMywetrlGULWwlfOzdXZA0kBaYdfXtRWfeNs/7
-	 J3GYAJwfptEsceWl5RHDMiWOkrFh7r8curk9PGxZYt32ue3teXntVcHzZbSo/gJNOhQRh
-	 DVMlNg0KeJM4yN+cQjugE9wUizeOoDla/9G+chBQUiyG9j4w7Jomv1P2hnB+0cgdYlSDX
-	 xD+FNoMT+vS/Qe6H1ZWTxVt8gczvpClUj6jFWiMQZV7gFQB8FZWAxPdWN7i5MroKWZQ==
+	t=1794337145;
+	b=CSaHDmoe8to8Aayov8s0bhezAnzyosziFPeRPZzNdfd9GyMw/K3tKjjeTAcBIrk3DKg+
+	 A23U3DvhrMEZ4TUSaXwVygRMSBWSKAYRAAwaGY0yNJ2U1QplH9fSK92qrj+dDSVhk5spa
+	 EtdcIFpK8jgpd5WY9i3L54qlLeNirH3BjgRj0dUHT//0v5GVocuSrGaCxdpQsJ8EbV9U7
+	 hzhmWq2L6dhQx8qQJWdu8qbfY5g1Oes/Wthp+iASw2RNHbG7AJ8Ic+rlscjiPJEz/gQMk
+	 dyIn0BAearVKZpmZe+3W6/pyS3S2ndpKt0qq7k336lgK/kYB9vzMS/7bx4sMsmZGksw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337145;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yXBR4nSuR7ncsnkQ7nHWqyhXuViQEk7eAKifs6Evowg=;
-	b=tuFwCwMpnJHh9Wot0UCM+Hw3ovjUyqCfo143bJrjnk+iISOCDsDcHvYitudusgduvOhp
-	 goDtycN1FHVbwMziCAcYP4LuFa2BPoIkZEpeMWhU/PEO2iRtaWmihf4UXFmYGfa5rrv8Q
-	 x/BmOfxcos6SgAdlYHtAhvi1574s7MAnPtCmPdJxExAePzIjC5EngX7/19EB5ZDUF1UDd
-	 mGDIOUmteclUIfj05v/XNGr5c8aagsPAI8yAAO3Jvljx2zA2aUg8m/j9KnkgKHSwhcL3s
-	 TGl/nk/GpfRZf+Z1RUAOlJQrWBq3VrgFPYENJSV9o1Vy3+MOW/e/L6GsGhsEYEkutdQ==
+	bh=3+Ll2YF7cP/FlHHtxkvTmmRg2Zv+2hxybwAXwgDSfLg=;
+	b=NaqQ3s1HbYFXGBJbq+M+EKDMicZaqxOwaagz5y71MLK+EXZfSPmk7dcw4ujoIr588P+B
+	 UsG3PwSn63EC8hOTwcrVJ5qkYfQ6rWYn/RgZlnNhy556XZ+cDXi1m2hpGGDT2vAMaeNrU
+	 4AoVY9QWLQBtT57RfQx9deoVGRgGR+Oz6PQ2mqq1ZmPZp1bpcA/t8pTU9ytH2syLDD5kU
+	 VGBFk/LnRjh5VhWnvZSC92VFkLBPeyd3mi4L0X6j632/6Ty2fqOyN7Mlo1/U2386HJTa5
+	 IOmo0oGutrpzF0z2wCfBxrkhCIjd1ZdT5A7DubU6SrSLMCmrUxAdzMvZuOCaXoPO5+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hHCviO5e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSN1TWvs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693E8606A31C;
-	Tue, 10 Nov 2026 18:58:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86D5606A320;
+	Tue, 10 Nov 2026 18:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hHCviO5e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49FD1F0089F;
-	Tue, 10 Nov 2026 18:58:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794337116;
-	bh=yXBR4nSuR7ncsnkQ7nHWqyhXuViQEk7eAKifs6Evowg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSN1TWvs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847051F008A1;
+	Tue, 10 Nov 2026 18:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794337144;
+	bh=3+Ll2YF7cP/FlHHtxkvTmmRg2Zv+2hxybwAXwgDSfLg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hHCviO5eLEwPg9unugj5/9gIPwWd30F7cpV7KEuKgLd7XZwsGzp4B445sRGuhWPPa
-	 hB5k6JQMlUhXBV9zmw4wUc6l6XLDDtsIQzUSXjx6JVl/g/UQT76fDuKfH19sITNbo+
-	 gxiQEAn7T2K70X05MQgyGPKOyMjRCUTNxpd5SqW8=
-Date: Tue, 10 Nov 2026 13:58:34 -0500
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Dominik Brodowski <linux@dominikbrodowski.net>
-Subject: Re: [PATCH 2/3] PM: add sysfs attributes for additional
- suspend/resume metrics
-Message-ID: <2026111004-landmine-residue-a660@gregkh>
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
- <20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
- <2026111023-padlock-deluge-4173@gregkh>
- <20261110195020.7d07ae63@systembl0wer>
- <2026111027-purifier-revolver-37c3@gregkh>
+	b=nSN1TWvsgJIFATur6WlNmPE/Ea6BhJ013bSAFHPeOyu++ooRpdmgP7xOB6smAQvlN
+	 ZOtPn6HuilVksOwLYRCHRY0/Pe3aPQFWAgT9cGimnbJQ9ousI3NgIjQpt8THcyr4qm
+	 FcuswLkBGa16w6X8xsWgerGCLoi4B/hZ71XLUDAlQe5IrOkEE6uCcHpoLOCzQgUU2Z
+	 uPNiNrRARLit1QOjTL4u/69xu1Ev1QJsvSAppIn4vCli1BJR4VjN6XOwOFHMNwP4AU
+	 SmqmhMGHUXxARA2xBDpgGwfItlAg4mDpR9+9oWDiB+tDWKr9/OZlDEAPDJ3nzN2vCo
+	 j0E62NYSCBClA==
+Date: Tue, 10 Nov 2026 18:58:59 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Rong Zhang <rongrong@oss.cipunited.com>
+Cc: Keguang Zhang <keguang.zhang@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: watchdog: loongson,ls1x-wdt: Add
+ ls7a-wdt compatible
+Message-ID: <20261110-barterer-pandemic-e4c658cac7c4@spud>
+References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+ <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,40 +67,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DcPnR+w8m8amSTyQ"
+Content-Disposition: inline
+In-Reply-To: <20261110-mips-ls7a-wdt-v1-1-968bb85122e6@oss.cipunited.com>
+
+--DcPnR+w8m8amSTyQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026111027-purifier-revolver-37c3@gregkh>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 01:54:05PM -0500, Greg Kroah-Hartman wrote:
-> On Tue, Nov 10, 2026 at 07:50:20PM +0100, Joshua Crofts wrote:
-> > On Tue, 10 Nov 2026 12:29:11 -0500
-> > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> > 
-> > ...
-> > 
-> > > > +static ssize_t runtime_resume_count_show(struct device *dev,
-> > > > +					 struct device_attribute *attr,
-> > > > +					 char *buf)
-> > > > +{
-> > > > +	u64 count;
-> > > > +
-> > > > +	spin_lock_irq(&dev->power.lock);
-> > > > +	count = dev->power.resume_count;
-> > > > +	spin_unlock_irq(&dev->power.lock);  
-> > > 
-> > > Why is a lock needed at all?  The value isn't going to "smear", it will
-> > > change right after the lock anyway.
-> > 
-> > On 64-bit systems an aligned u64 read is atomic, but on 32-bit systems it
-> > gets split into two 32-bit loads. Without locking, the read can tear
-> > between the upper and lower halves.
-> 
-> Are you sure?  ANd if so, is that so bad?  The value is "best effort" as
-> it can, and will, change right after reading it.
+On Tue, Nov 10, 2026 at 03:02:30PM +0800, Rong Zhang wrote:
+> The Loongson-7A has a watchdog, which is similar to Loongson 2K0300,
+> except that it has no clock controller.
 
-And even more relevant, what specific 32bit system are you using that
-this new api is going to be relying on?
+I find this hard to believe, the device seems to be getting a clock from
+somewhere that the clock-frequency property is providing the rate of.
 
-thanks,
+Why is that clock not represented in devicetree?
 
-greg k-h
+Confused,
+Conor.
+
+>=20
+> Add "loongson,ls7a-wdt" compatible as well as a conditionally required
+> field clock-frequency.
+>=20
+> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> ---
+>  .../bindings/watchdog/loongson,ls1x-wdt.yaml       | 31 ++++++++++++++++=
++++++-
+>  1 file changed, 30 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt=
+=2Eyaml b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
+> index 50a9b468c4a3..cb93e9578f82 100644
+> --- a/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/loongson,ls1x-wdt.yaml
+> @@ -18,6 +18,7 @@ properties:
+>        - loongson,ls1b-wdt
+>        - loongson,ls1c-wdt
+>        - loongson,ls2k0300-wdt
+> +      - loongson,ls7a-wdt
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -25,13 +26,34 @@ properties:
+>    clocks:
+>      maxItems: 1
+> =20
+> +  clock-frequency:
+> +    description: Frequency of clock in Hz
+> +
+>  required:
+>    - compatible
+>    - reg
+> -  - clocks
+> =20
+>  unevaluatedProperties: false
+> =20
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        enum:
+> +          - loongson,ls7a-wdt
+> +
+> +then:
+> +  properties:
+> +    clocks: false
+> +  required:
+> +    - clock-frequency
+> +
+> +else:
+> +  properties:
+> +    clock-frequency: false
+> +  required:
+> +    - clocks
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/loongson,ls1x-clk.h>
+> @@ -41,3 +63,10 @@ examples:
+> =20
+>          clocks =3D <&clkc LS1X_CLKID_APB>;
+>      };
+> +
+> +  - |
+> +    watchdog@100d0030 {
+> +        compatible =3D "loongson,ls7a-wdt";
+> +        reg =3D <0x100d0030 0xc>;
+> +        clock-frequency =3D <50000000>;
+> +    };
+>=20
+> --=20
+> 2.55.0
+
+--DcPnR+w8m8amSTyQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNpcwAKCRB4tDGHoIJi
+0rRaAQCsd/xFDmpZxHcOoc6LRDHiAbgMmTxm6UJYk4dulCZVjAEAuwdw4mSAb9Vw
+TPUtVK7itzEhmaBrdgGu4P471tUx6gs=
+=S73F
+-----END PGP SIGNATURE-----
+
+--DcPnR+w8m8amSTyQ--
