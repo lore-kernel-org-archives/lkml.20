@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300362;
-	b=zaamZTAVBJ5xtNHIL2n5QXhsFyHGX6A5BmPcmMz5c/wsENkeCdfMLPxVxOhrP9/VrXKh
-	 bMNh6+X0ZE+4en9PzFmwPfd86c6SrWSWcmP6uR4hqm2HAYcQp0YrxbCNL0fh+h7Xfc+ol
-	 lVMKFZwiJanBvdryVBmsq26KsQu0nCptDkPrlS2mjOrroBEAriuJ2VxKZnAswmDpJXyWl
-	 zE9V5GahxMCqGT/rziAQLlFFcAivxQlpOt5wYoA4AHxAFqNqZ8INZHrQmpM9dYfoOt0Br
-	 YZgpsdGxADO41gwBtTBml1lfiWi4ytEft+9mS6eKt/j4caEpX4LQ2dFWm305Hq5y1pA==
+	t=1794300387;
+	b=rVbuB2Lf8dDcNIwwnQuc4IagY4VNZYuDJ/IE5jqr3bhhd5g2K7x9IzDOeyRHADN/Ylc1
+	 XzBO7PqNkiFB40zTvJH8LBuKvWaanrtt2zgiPmQOJaiMlTwPZYB6De4H6mRzOsaYlTzHU
+	 2dVS1ihUJRBa0ERO4NrPHCs1E+lOIgqELGaMQwzJlvn2uX2PHaycr1w9bDJef3YuZ2zur
+	 S+94kc8jsaoGEnSZnUT0G4dv3BMVdrXZ4KEO5WUcbUoGT1WZFuhpHDiMhJR8kh0lUcjyy
+	 HgUxJrO3hLZMfSGjK+QVSrvZd4fbnz9hJt7ptIwFF+LHsXm/ryak1rIxAtbyQEA4Lvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300362;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pDdwdwnPkDpwaUGvrR+GyxsXOY4KK8QRKqRhYcUlZH8=;
-	b=41ocnZEAYskoFrZQPj1a9QCrmh8s+PcwU1bocNqWOaWW8bjStr+CQxWBkaRFkb5pmCxp
-	 ytMrVxJRz/q/6MTTfBatjM/PTW/w/GlJaFxu6C1NWG/lDTCd2INUKkaA8OuZGlgTd3vkD
-	 CVDHssSiY7jgPlpNZV4evling3F6UjXK1yAmUfeRGWWt+EqMAJt/pWGsPLxGSmd4+MFD2
-	 /NkCTrJ26GZGqmB6/6o4396OWTv484uwd3nM/K94ejF4FJbdy+Ce5Vq/ber/aFvGjOrzk
-	 PlnkYGL+o2ZLmLK/4N4ZOVyXIc0c191w1REIyzZXrZRXNsv72DTXaQ6c03/uxF5wfdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300387;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=+GhJ9fs5NbjgmK1djHLrHpGVl3Bo/x6xoGUKT1hzhQM=;
+	b=r2JrMMdi1Rvjmg15TD1w5owZGfz5SdesJg2ZZpP1/VZXOgQKMn8FBJRMAzF/lPSMtz1o
+	 wIwA3Zz/lRToHV6/5DSZMQnuN8eqJM9hNLMItzR+6RHE8Prf1QNi/22P9n//s3UQRVmf3
+	 59UqmxAhTVfxynv60kjd81SSepu2dH3ZjVZydXsiXN1XhAw6o0NioA/7+rovXrqWbJWlR
+	 2/0g4Tb9YkFnEGGL96rEoWZVm9Ybwq+2sryispNWFNitgM4HM4z/+BlGprOzWAJB2mlhx
+	 qsfYLLjU3Mid1/3pWaJNcF1fE7BcTSAHCqL85WFpd0nFCXg7cZKmWoUdm2I+eH7LzUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iSwEv4VA;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1950606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1950606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iSwEv4VA
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b467581b98so15869215e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:46:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794300360; x=1794905160; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pDdwdwnPkDpwaUGvrR+GyxsXOY4KK8QRKqRhYcUlZH8=;
-        b=iSwEv4VAOCNwexBeds3LoDqqNpNPJtJRAc5qW0O4SH38oz11qIz/2QOO3Uhhml1uYi
-         4nglexAY/UNX+dEP9HT3j/7fU+TTwV56CiizORNNurqaFo85i4nB3fkbP4TKMkRLLfXJ
-         BKJSEH/OMUG6c1XijG0s6oRzBvovdqdoAnXn0+zxNXSmADa9LGNzPTbcDOJne5bBfxl7
-         Rfj+ynSyWm3KVA145YonhbTY9M+fyiDDsJebMn5Qc51eMjfC0aFUR9dpnAY7+BMDmCL7
-         epFru3XdjFeWXhaPjqqYPFmOKEdvSZgyy23OulKGkzOz1cBjZ28sRRmF0Wq1l+RS4ONX
-         fB1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794300360; x=1794905160;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pDdwdwnPkDpwaUGvrR+GyxsXOY4KK8QRKqRhYcUlZH8=;
-        b=0qYquYEDTxy8eOkSPEynUt18ae7xGEuvCwvY3WYCK8t4KpU1Hh7nVmxe+xWy9g4mOT
-         9Tv1EaxDRi9eOijZf+M993uQHoYmbnXyoF1rMNej7UOCLtte5p8mI9JTaGkG1RiU9TLJ
-         SEkzbXSYF48VFk838V/N7N4yJGVT76Lsp8nRx9maB0P8CxoH/c2C9koLZAIyqAdZFmnq
-         t2nt7yHoGgmW2vgyCg9xkqpIjYUMnVz1frRZV8AA/gU25cWE3SocXJ7F2ppEPxk63sFr
-         Aeo+RCpjTbfLMWHHp2JDNloepmJJgLle+fSce3doDkEv0Wx1D1W9jnbWLhepJjRHrzQH
-         v76w==
-X-Forwarded-Encrypted: i=1; AL+hErFVsfW56IXfeqqok5tQSvzn6aAvg2UalVPdh72D9ag9O9GJIFiugh5KyUriRZVQ7c5nyQ+RL0brdIQoFsI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jLLPAgoX4/vE5bUOqBfo9peD4QbXCu1uHRK9gQG0F37iyK97z
-	zhjfy6yv7u0H4SpvSXbFJFtV43l0Df+kixBVk4ohN0RHHb2IzQqwCAScknToTxWT
-X-Gm-Gg: AYBFou1keTjK/aMJslEVEzyUbR17rZgzGeqiA9qy8BdRfOflskc9wiVrHEIG7G79aYC
-	0wx0H6GcHVhW5T5fRetKrGbTx7HTKKQmhh/8eHLjAEKQRUMw/hYmgvUH2nXUwhw/Rk9MnXUvvHl
-	5D5WidyQ2iga105dVnDSV8QlnMT9Ic54FerVK56A9AET6hbiSxaDN5D/MKp5gL5hakpVfqUYwzI
-	TTXUuIgX+/BsfSnMKu35kNwzi9rvlr2TjDIxWXCgx0KE5lwsYsd6Nuyfrjmrcccf0qd3AHzCrrR
-	Q+8caDtrokB1kBQ5p0AOrlg7bh1kpRo9fwxa3qFpVSFXWrkrGkzHxZqyp+zUohc6PysYhUVG4sm
-	tQlzucF4MwlsGTg7hJhb/1ruYRlcTnYixSEcMkbAu4SQ5QX5++kfzaK0gnE4ph+Mc40MBP6ga83
-	Hd9cri3x1vNbIQO50vSrx/EMlCpyDdiDWBUQ6GQsOXnF7xz/vzLscRIfiNV16WmIx3YlpiquRw0
-	inRoba8ECsHExqkNB8JxPkh45FMqaL3rwt3t5ucXKFle82Sntjq0+8ocqkScgaEZOWNtLJ40vZW
-	oz2/PZNKC3ljfAFG8N4IYftVcxwMHUVoKJBJoA==
-X-Received: by 2002:a05:600c:4e41:b0:4a1:a45a:88f with SMTP id 5b1f17b1804b1-4ba02346e39mr25356735e9.20.1794300359821;
-        Tue, 10 Nov 2026 00:45:59 -0800 (PST)
-Received: from foxbook (bfj76.neoplus.adsl.tpnet.pl. [83.28.47.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm3700351f8f.39.2026.11.10.00.45.58
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 10 Nov 2026 00:45:59 -0800 (PST)
-Date: Tue, 10 Nov 2026 09:45:53 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 11/22] usb: host: fix a few spelling mistakes in
- comments
-Message-ID: <20261110094553.05e693e4.michal.pecio@gmail.com>
-In-Reply-To: <20261110075825.24946-12-shishunbo@cmss.chinamobile.com>
-References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
-	<20261110075825.24946-1-shishunbo@cmss.chinamobile.com>
-	<20261110075825.24946-12-shishunbo@cmss.chinamobile.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F6F4606A332;
+	Tue, 10 Nov 2026 08:46:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F6F4606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8DxpvDf2fJqcB8eAA--.21567S3;
+	Tue, 10 Nov 2026 16:46:23 +0800 (CST)
+Received: from localhost.localdomain (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJCxe87e2fJqWXMzAA--.22061S2;
+	Tue, 10 Nov 2026 16:46:22 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>
+Cc: Len Brown <lenb@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	lixianglai@loongson.cn
+Subject: [PATCH 0/2] ACPI: LoongArch: Fix IOVT table parsing and add checksum validation
+Date: Tue, 10 Nov 2026 16:46:11 +0800
+Message-Id: <20261110084613.2746641-1-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,36 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxe87e2fJqWXMzAA--.22061S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-On Tue, 10 Nov 2026 07:58:14 +0000, Shunbo Shi wrote:
-> No functional changes.
-> 
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+In acpi_iovt_init(), hdr is already a pointer, so passing &hdr is
+incorrect. Pass hdr directly instead.
 
-Hi,
+Also add checksum calculation/validation for the IOVT table.
 
-Not 100% sure, but hasn't Greg KH indicated no interest in such patches
-for drivers outside of staging?
+Bibo Mao (2):
+  ACPI: LoongArch: Fix incorrect pointer argument in acpi_iovt_init()
+  ACPI: LoongArch: Add checksum support with IOVT table
 
-I don't like them either, IMO the noise added to git-blame is usually
-more annoying in practice than original errors.
+ drivers/acpi/loongarch/iovt.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-> - * long delay for the handshake of STS_HALT is neeed in xhci_suspend()
-> + * long delay for the handshake of STS_HALT is need in xhci_suspend()
 
-> -/* Mult - Max number of burtst within an interval, in EP companion desc. */
-> +/* Mult - Max number of burst within an interval, in EP companion desc. */
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.39.3
 
-So words that don't exist have been replaced with words that exist.
-But the text is still wrong.
-
-These are just two random examples near the end, I haven't read even
-a fraction of the whole thing.
-
-Another issue I have seen in those patches are fixes to comments that
-aren't even true anymore, but the author has no idea of course.
-
-Regards,
-Michal
