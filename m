@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=8.221.36.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296753;
-	b=mjLovA/clSTar50OmGbZCetA71f8ScdbBkQRQA3hYnR5H7U1wx3AaQ8L9o7XgDqQ0+QW
-	 KK/zJ1IcFQlNmNYXQacMTE3zejsFGvynfQQJ3aDxBBXFVP7NgXfwnFjhbMVTN14sH4xKD
-	 BglKKzUhOeGoshgTbZZfOKqxafeRKVtTMtVaHPpD+dSKF9MJtyX/Du9qwddelN8skhUxf
-	 GKiYEMaMn1ScLLu6CBaA6atiiq4lQcmxoLvw4kDBIZyJkfbUld+S++OlB4zuHGmY/f+si
-	 DQYgPE95Qk1ZeesOTv2qm2qEKgK+LXlTf3J/eKEHcFuwmJsXMRJRzP4gJClPt95FEHw==
+	t=1794296754;
+	b=A5I0NbRKYKziZA6HVm7SECav40BFGX0oMFaoxXUV+q5FZHh1311Gbo7Y1evZ49O0yXPN
+	 76GT+hO0sSqMBBd7VzCOMMronITOApolZM96XEZ6yCR3MYCvOj2+fIJIJRLajwzSJZNPv
+	 eCeEvVncK8D7AZEvkH7fawApw2qlfSjDTigdNDPlooLEuTJYkOxrcpONbHT+BxwS11Dbw
+	 QJlK6yUArf72mXxIMhrpsJp4MFX3QHZYnq1f5tkByAFLHlRhSkeD9Qh8tcb6pROGP+zqa
+	 UG9hafVnd4V4NdDoZek0sgpMYbAcmjQaWwkCYaAng+LjdPTXdnMbc1xptgPOCxvLCww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296753;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=97mnfbHxocAhpCaQIusVnq6M8kRtn24K9aSi/cKW7BI=;
-	b=yByouIz7pXzJLKkpkrUGHK/zQDjZGVT0KZR4xBCnWSN/jTQzI1LFY2pFcrbyN7PC05Zm
-	 t6IapdrY0h4MI/epWZ5hYEPgbUXMFyTRFniHXyC0gWZVUgDyCYD/3EbrE1XJFrj5kD3xm
-	 +tBCey5hJA43DxTagwgNbXFDn+q5Y/qPjwkYgBZfJzWQubowIUvBSnpjo/yw4l2drkO6H
-	 m7CXYRhcs6oKFdXfosJNjfNPltVh3pSO7XbCxhlmhygk0CQ+J2YFkERzlh4USXciSr1zA
-	 AAh+sr1Q3gIO3Spar5xZQAQ9GhgUt5epgmn46wNyBd90sy1JIUE0L02b0wFbHyivdKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296754;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=z3zcGefP/ImEsmdAlTDnpQ/14sBuInMfCFAd504HG5Q=;
+	b=Fartz6MPAXNWaI0eHWfw6c9akZQDOkxDvd2L1o/dtDcOBdv/ymqBguG43banJPMH2dAJ
+	 htD+ffTPvJX6IewRZmhhL4h3hA+ft3+I4IFWi/w6PjUGgAaGdfVQZtVnBMNkJOraZK1j/
+	 co3cuKyX7S7QgU97O9VmJLg0fC7DgecJrmMMP+gXPzCf1Rw9CvQmP3FdEr+qYsW0+Whmh
+	 aBGjh5NouJFpcrYldCxPmNs2eqpITk7PiyBiPr29ARr77AU4PjBEFEIHj6SmLLcCCjffQ
+	 UwfLzGA40Mcap2ZnaObpQwkXwyQ/Lg69LUtrw2U+STLUStZdIhU+8A3Aldt/Q2e7Z9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CGkBLCdy;
-	arc=none smtp.remote-ip=91.218.175.1
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=F04h+i5Y;
+	arc=none smtp.remote-ip=8.221.36.233
+Received: from mail-m822136233.xmail.ntesmail.com (mail-m822136233.xmail.ntesmail.com [8.221.36.233])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5552960A2617
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5552960A2617
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2379607555A;
+	Tue, 10 Nov 2026 07:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2379607555A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CGkBLCdy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1opsdpS+bzNavYjufxeQTvMtfH316Seppf9uslprEeo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794296750; v=1; x=1794901550;
- b=CGkBLCdyeAdmRQaMpYwOsFXQLR9CJ6tNn0SgokvVmqCHlrJNmlAeu0kPYyUKT7nJ2O+nRkEN
- xbm8PFIKoHAso4/v468DBUq8GxVQhz8qFDOOVXo3k9ax9eBrq9KLzP8HiPX/P9BE2cf80gcQ2b2
- 3Mye2KctND06Vm86NdcDvAP0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 8b40bb022d5288ba;
-	Tue, 10 Nov 2026 07:45:50 +0000
-X-Mizu-Trace-ID: 8b40bb022d5288ba
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: akpm@linux-foundation.org,
-	chengming.zhou@linux.dev,
-	corbet@lwn.net,
-	david@kernel.org,
-	link@vivo.com,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=F04h+i5Y
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 542170ae8;
+	Tue, 10 Nov 2026 15:45:39 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	odys.yuan@gmail.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	tujinjiang@huawei.com,
-	vbabka@kernel.org,
-	xiao.wang@vivo.com
-Subject: [PATCH 4/4] selftests/ksm: add test for only_merge_zero_pages
-Date: Tue, 10 Nov 2026 15:44:51 +0800
-Message-Id: <20261110074451.220524-4-xu.xin@linux.dev>
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Date: Tue, 10 Nov 2026 15:45:31 +0800
+Message-Id: <20261110074533.4052196-2-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
+In-Reply-To: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,161 +70,187 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c46b771c03a8kunm3f9229952eb2d7
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUtKVkpIQ09OS0JIThpOQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	JDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=F04h+i5YOdJj+eYumMaoHEpQ/Y9uPBnFxpIVcFtHUV8q1/w6Ldkls9udjkG6jXZr/IK57dmfyuYmDnUxqm19j6NvANHvEaHou7FjAh12zj3aamx9LSu84tlB5BwlZ07jspMI+2dwQQY0hbz+jYW3yH5/CNnSbCV+rG1e+CnbB9s=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=z3zcGefP/ImEsmdAlTDnpQ/14sBuInMfCFAd504HG5Q=;
+	h=date:mime-version:subject:message-id:from;
 
-Add a functional test that enables use_zero_pages and
-only_merge_zero_pages, maps a 2 MiB region with the first half filled
-with non-zero data and the second half with zeroes, and verifies that
-after KSM scanning reaches steady state:
+Document the eDP transmitter PHY with Naneng IP block found on the
+RK3568 SoC. The PHY has its own register window inside the eDP PHY GRF,
+so its node is modeled as a child of the eDP PHY GRF syscon with a reg
+property describing that window.
 
-  - ksm_zero_pages equals the zero half (merged with the kernel zero
-    page)
-  - ksm_merging_pages is 0 (non-zero pages never reach the stable tree)
-  - ksm_rmap_items is 0 (non-zero pages are skipped before rmap_item
-    allocation, and the zero pages' rmap_items are freed once a scan
-    finds the merged pages are no longer anonymous)
+Also add the "rockchip,rk3568-edp-phy-grf" compatible with its own
+binding schema, so the shared Rockchip GRF schema is not extended with
+per-device conditionals.
 
-The test skips if the only_merge_zero_pages attribute is absent.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
 ---
- .../selftests/mm/ksm_functional_tests.c       | 117 ++++++++++++++++++
- 1 file changed, 117 insertions(+)
 
-diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
-index 2ffb97ae3120..764ead3425cb 100644
---- a/tools/testing/selftests/mm/ksm_functional_tests.c
-+++ b/tools/testing/selftests/mm/ksm_functional_tests.c
-@@ -257,6 +257,122 @@ static void test_unmerge_zero_pages(void)
- 	munmap(map, size);
- }
- 
-+/*
-+ * Enable or disable /sys/kernel/mm/ksm/only_merge_zero_pages. Returns 0 on
-+ * success, -errno on failure.
-+ */
-+static int ksm_set_only_merge_zero_pages(int enable)
-+{
-+	int fd;
-+	ssize_t ret;
+Changes in v4:
+- Add the reg entry for the PHY node and the ranges/#address-cells/
+  #size-cells for the parent syscon node.
+
+Changes in v5:
+- Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
+  the PHY node, matching the updated driver.
+- Split the "rockchip,rk3568-edp-phy-grf" syscon node to its own
+  binding schema, instead of extending the shared Rockchip GRF schema.
+- Rename the reference clock to "ref".
+- Drop the example from the PHY binding schema, as complete MFD
+  examples belong in the GRF binding schema.
+---
+ .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 46 +++++++++++
+ .../rockchip/rockchip,rk3568-edp-phy-grf.yaml | 80 +++++++++++++++++++
+ 2 files changed, 126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
+
+diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+new file mode 100644
+index 000000000000..06dd1d19dca2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	fd = open("/sys/kernel/mm/ksm/only_merge_zero_pages", O_RDWR);
-+	if (fd < 0)
-+		return -errno;
++title: Rockchip eDP Transmitter PHY with Naneng IP block
 +
-+	ret = write(fd, enable ? "1" : "0", 1);
-+	close(fd);
-+	return ret == 1 ? 0 : -errno;
-+}
++maintainers:
++  - Damon Ding <damon.ding@rock-chips.com>
++  - Heiko Stuebner <heiko@sntech.de>
 +
-+static void test_only_merge_zero_pages(void)
-+{
-+	const unsigned int size = 2 * MiB;
-+	const unsigned int half = size / 2;
-+	const unsigned int half_pages = half / pagesize;
-+	char *map;
-+	int i;
-+	long zero_pages, merging_pages, rmap_items;
++description:
++  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
++  registers, therefore the PHY node is expected to be a child of the
++  eDP PHY GRF syscon node.
 +
-+	ksft_print_msg("[RUN] %s\n", __func__);
++properties:
++  compatible:
++    const: rockchip,rk3568-edp-phy
 +
-+	if (ksm_use_zero_pages() < 0) {
-+		ksft_test_result_skip("write /sys/kernel/mm/ksm/use_zero_pages failed\n");
-+		return;
-+	}
-+	if (ksm_set_only_merge_zero_pages(1) < 0) {
-+		ksft_test_result_skip("write /sys/kernel/mm/ksm/only_merge_zero_pages failed\n");
-+		return;
-+	}
++  reg:
++    maxItems: 1
++    description: PHY registers within the eDP PHY GRF.
 +
-+	/* Stabilize accounting by disabling KSM completely. */
-+	if (ksm_stop() < 0) {
-+		ksft_test_result_fail("Disabling (unmerging) KSM failed\n");
-+		goto restore;
-+	}
++  clocks:
++    items:
++      - description: Reference clock from the PMU CRU
++      - description: APB clock gating the PHY register window
 +
-+	map = mmap(NULL, size, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANON, -1, 0);
-+	if (map == MAP_FAILED) {
-+		ksft_test_result_fail("mmap() failed\n");
-+		goto restore;
-+	}
++  clock-names:
++    items:
++      - const: ref
++      - const: apb
 +
-+	/* Don't use THP. Ignore if THP are not around on a kernel. */
-+	if (madvise(map, size, MADV_NOHUGEPAGE) && errno != EINVAL) {
-+		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
-+		goto unmap;
-+	}
++  "#phy-cells":
++    const: 0
 +
-+	/*
-+	 * Fill the first half with non-zero data (all 0x01) and the second
-+	 * half with zeroes. Under only_merge_zero_pages the zero half should
-+	 * be merged with the kernel zero page, while the non-zero half must be
-+	 * skipped entirely (no rmap_item allocated, no stable-tree insertion).
-+	 */
-+	memset(map, 0x01, half);
-+	memset(map + half, 0x00, half);
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#phy-cells"
 +
-+	if (madvise(map, size, MADV_MERGEABLE)) {
-+		ksft_test_result_fail("MADV_MERGEABLE failed\n");
-+		goto unmap;
-+	}
++additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
+new file mode 100644
+index 000000000000..852420798f06
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/*
-+	 * Run KSM until steady state. Each ksm_start() waits for two full
-+	 * scans: the first records the checksums, the second merges the zero
-+	 * half with the kernel zero page. The second ksm_start() waits for
-+	 * more scans so that the rmap_items of the (now merged, no longer
-+	 * anonymous) zero pages are freed and ksm_rmap_items settles at 0.
-+	 */
-+	for (i = 0; i < 2; i++) {
-+		if (ksm_start() < 0) {
-+			ksft_test_result_fail("Running KSM failed\n");
-+			goto unmap;
-+		}
-+	}
++title: Rockchip eDP PHY GRF on the RK3568 SoC
 +
-+	/*
-+	 * Expected results (steady state):
-+	 *  - ksm_zero_pages: the zero half (size/2 pages) is merged with the
-+	 *    kernel zero page.
-+	 *  - ksm_merging_pages: 0, because the non-zero half is skipped before
-+	 *    it can reach the stable tree, and zero pages are accounted in
-+	 *    ksm_zero_pages, not ksm_merging_pages.
-+	 *  - ksm_rmap_items: 0. The non-zero half is skipped before
-+	 *    get_next_rmap_item(), so it never allocates an rmap_item; and the
-+	 *    zero half's rmap_items are freed once a scan finds the (now
-+	 *    merged) pages are no longer anonymous.
-+	 */
-+	zero_pages = ksm_get_self_stat("ksm_zero_pages");
-+	merging_pages = ksm_get_self_stat("ksm_merging_pages");
-+	rmap_items = ksm_get_self_stat("ksm_rmap_items");
++maintainers:
++  - Damon Ding <damon.ding@rock-chips.com>
++  - Heiko Stuebner <heiko@sntech.de>
 +
-+	ksft_print_msg("ksm_zero_pages=%ld ksm_merging_pages=%ld ksm_rmap_items=%ld"
-+		       " (expected %u/0/0)\n", zero_pages, merging_pages, rmap_items,
-+		       half_pages);
++description:
++  The eDP PHY GRF is a dedicated register file on the RK3568 SoC,
++  holding the registers used by the eDP Transmitter PHY with Naneng IP
++  block. The PHY itself is modeled as a child node, with its reg
++  property describing the PHY register window inside the GRF.
 +
-+	ksft_test_result(zero_pages == half_pages && merging_pages == 0 &&
-+			 rmap_items == 0, "only_merge_zero_pages: zero half merged, "
-+			 "non-zero half skipped\n");
++properties:
++  compatible:
++    items:
++      - const: rockchip,rk3568-edp-phy-grf
++      - const: syscon
++      - const: simple-mfd
 +
-+unmap:
-+	ksm_stop();
-+	munmap(map, size);
-+restore:
-+	ksm_set_only_merge_zero_pages(0);
-+}
++  reg:
++    maxItems: 1
 +
- static void test_unmerge_discarded(void)
- {
- 	const unsigned int size = 2 * MiB;
-@@ -827,6 +943,7 @@ int main(int argc, char **argv)
- 
- 	test_unmerge();
- 	test_unmerge_zero_pages();
-+	test_only_merge_zero_pages();
- 	test_unmerge_discarded();
- #ifdef __NR_userfaultfd
- 	test_unmerge_uffd_wp();
++  clocks:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++patternProperties:
++  "^phy@[0-9a-f]+$":
++    type: object
++    $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#address-cells"
++  - "#size-cells"
++  - ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rk3568-cru.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      edp_phy_grf: syscon@fdcb0000 {
++        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
++        reg = <0x0 0xfdcb0000 0x0 0x8000>;
++        clocks = <&cru PCLK_EDPPHY_GRF>;
++        ranges = <0x0 0x0 0xfdcb0000 0x100>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        edp_phy: phy@0 {
++          compatible = "rockchip,rk3568-edp-phy";
++          reg = <0x0 0x100>;
++          clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDPPHY_GRF>;
++          clock-names = "ref", "apb";
++          #phy-cells = <0>;
++        };
++      };
++    };
 -- 
 2.34.1
 
