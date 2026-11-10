@@ -1,66 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.111
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302696;
-	b=rhwyPdPOEwpg7C6/nGsR7I6lHg2JjrHqao97joScuHni2iQu9Vcc85SSnku4wR689DoO
-	 1yj3YtUVhz4I9oY9d1s0vUW5BKufrXPnW+wFw/n61HSsbT4mXoOoQgVN4kY873sAVSAu6
-	 URTq4AS+fHekoXsUWtR9ZHdfCiU2HM11GGG8OdFGpjfBkilwVY3EHref2mOX23UCBb5qq
-	 YXWw5kimR9IQYw8klJlgSKABLkQkb0aIF+hGgC8HnhbZg+9NIoZsp4rQw6iAL4zMqTMtf
-	 FZxcqmwawo8EI1ovjSo5umaajJU/9WRyvQVKZZFNJuk9xV1dnwJZgP6rSF4xdg533PQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302696;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g59WXbMEVAC+rwbfPbusgYn9rCMYzsS/Ea1X6BmPoQk=;
-	b=g+VhfphjRTSno8RNChgKlrdJ4cjyFVGVltjdWYt5ioJ+SeRtqVvUOvHA1CueYiS+ycAp
-	 nUxDaI2x2bE7bdn/K4ve0VmUlwbp6Vm56MLq9Z14w7+WRZDlplmt1Alz4gntTAmXbwSV7
-	 zVbHZ/ttfS/heQA58ua6KYPWPh/c/bBr0hVmrtJdajKaQ3VJo/N03njzloBAO4vl0CDbq
-	 WuTD+KN9v8QFDPQHUsj5lbQiAnQmY91qaOlBuPII6Ssrz6rpB25M2LLO4acchXvH6tap0
-	 KUyxAtX9jQmWQCcr6ZDEDhtvdCxHQI7vetV2BHkPgOWpygmWkFnCJ4se6J3nF32rVeQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jsjkEliL;
-	arc=none smtp.remote-ip=95.215.58.111
-Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794302716;
+	b=n/6U5nAl8F5wwLdMlJgqJYLDvan2Rvd7RDM9dxIu9iNs+FMLZFtH45mh5J93ZBe2v84E
+	 8/fiYtiESWcJiVeYtZRFlAqTQXxIOnN1FuE4L4PG68OS5/I6BiTgKfJzdODC5d9kOQTK5
+	 ZYW2aCyfeIuBTAVYJ796M9lJy16hB+Xqo1ShhycFpBuOfAxtufAjokf7163/HaI6CgpRQ
+	 cZ0ktihcPYlfgaqCkx3r/UK9N3tDro48MVkmOaq7xzIyqUzlJRxe2UHangnB2Q3SGo+o3
+	 Tn3yo+p3poD4GAeMjK6ku/kUCo5wrUOG4RlyCvrnHnrpuS7IHWxEdiRA2aUpt+wRV0Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302716;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=YhvIJXuyquHMGSngmZ4O4PsxJ4Wvcj08h08CfdMbZgg=;
+	b=Kem22eL5G1fQsyDlQ+aPt+wMZ2HEP7Buqmm7/ueN7d96b9ikm51qIwNhSbaIYeK6TR+Z
+	 nj9RKAHgAChUwe+bQMPJCmX2iLx2YNlFBFtNbomQyHdjVKmaiVMIs2vRk800LFaXOiioa
+	 3fhiGfKM5/vhaXxsEUIKlj2KkA5Q2z13NTLI21JVZ4jDKBGMn4dkzJc4wREwGy029Kvvv
+	 zOFkx2W9cWdOxGKLmBeVq9G4+8DXefgMSYpV6pO/pUHwKh1wRjEy8DD31Kjljz+TMn6ZJ
+	 5yqdBXi9VHBpUOWQYMTAbbWD/W6o6gBgaXg8zG4Ou3hwS2dJDapcY+8IE5e6U8uXxJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=thegoodpenguin.co.uk;
+	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
+	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n7slP0Ke;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDAA6070FE5
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:24:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDAA6070FE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4206070FE5
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:25:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F4206070FE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jsjkEliL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NrDs8IswZxyvOKP1XWG0B7QQ4QtrBkDyBDj9/5w4lmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794302693; v=1; x=1794907493;
- b=jsjkEliLZ/+yssR9wR9O/Lh9syF0w9ilKzRDQ5vPbWVYAWBOdZ+G3T6Qfc8chLQrangeWieq
- 30du1DjzhNlX++VixVcv2j7Ywd0tph/Y+PoVDz0n+z7kgCx/cYcW2Pv544dHzbVSvfGon63eIdY
- LOiAAoL6HgjOZoCKHUf9URdE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1ee9f6a1fae2868a;
-	Tue, 10 Nov 2026 09:24:52 +0000
-X-Mizu-Trace-ID: 1ee9f6a1fae2868a
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 17:24:33 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Stephen Hemminger <stephen@networkplumber.org>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] selftests: net: netlink-dumps: test dump of route
- larger than skb
-Message-ID: <avLi0W-uqKJvJeCR@fedora>
-References: <20261109012115.11898-1-stephen@networkplumber.org>
- <20261109012115.11898-4-stephen@networkplumber.org>
+	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n7slP0Ke
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91ea5600c9cso23186646d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:25:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794302715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=srOoCRP8RrJl8hD4H6CHjbcjhDSxJbGe0oqqYLYRd6XHxeSW65IDt6h7DG8y3S0+yF
+         kSog6dzMx5WAfWc052L9Ak4mIRgLgEQGqRI5+jdXtz6UN4PODyYwDFEDYu4R6R5UOMPQ
+         SrlEXUVHfVBMZmvYBziJ0aRfoUVpfd+Zc7cfYL6g4KJq8U9HKhp8pXCNLIbA7CKBsfRm
+         Ccd5vbL3hr0eN9mrfbiM3pH5W3xDjuQG6C680HfQdXXpZpta54h8HQV6aIOXIBjDzVbG
+         b/eyeafcXT+yyVx1Rbv7yUOoSEEjdGQHkKQgLOMkVw94BdUGMu6G3Ml/QciEJzcTbxR+
+         IY8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YhvIJXuyquHMGSngmZ4O4PsxJ4Wvcj08h08CfdMbZgg=;
+        fh=B8nng9SlSecuybeX+ALDDuKJobpztYzdk0noFF4NIdU=;
+        b=fiBhKd3qOViSrf4FCGVnlqP91jqMUPSpFK1nNRY435phMOOdfiBkZ85Bo7qflZTHbc
+         Ze5iR6Yc/iAFgTlhf8Th6S9AHan98PkpC3YO6ORRoGQlkqVcCpcPyHc5DHpNLe1GP0u2
+         2bHDP8VI5MUP8DX7HYiaBszN8SnbS2YLnMKQaeXhQMQ4DF5BOjjFKdZGq2xNXojDqWT2
+         2W/6DP/c+F8Id93COgIGS4rrn/04W7NF2gdSxDUczctf298YJK5UhJ0b1xvVusDiuiHK
+         VX9XrvdVIu/VpyOzrbRcHJQ8xmtEicn2f97BTuFbnJysD+WgzAIBB/eM5t7wjlxfGlsL
+         8H6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1794302715; x=1794907515; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YhvIJXuyquHMGSngmZ4O4PsxJ4Wvcj08h08CfdMbZgg=;
+        b=n7slP0KenygAoCjVBvNuZsNg0b05HgsqPIttZGI+TGQZh2jwunKhFZgD1PTL4T9GpU
+         DMlD+KGamGZIOrNvSvKQa8pguHk+4rAoEcTOEGUlvibglchaR8BpCVTlod3OK6eAhcVW
+         TbvH3KxeqNjcckSp9lc1PyYn3/4Vvw16xFdv7YYtjtZz2bBpOqai6apx41ZchTcjJ6t8
+         KrRSmhTb3GBQNdr8qMq0Psu3+oQqeC6n40apriiDxTibwQ3P1UQNp0XAXjHdjulwiseT
+         5LaKKs2BhVCavBESP9OX9I46JxAD+eKBvozPYNZoo3Y2BjtR10zm5/UoX4CUVBJwaBqP
+         miCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794302715; x=1794907515;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YhvIJXuyquHMGSngmZ4O4PsxJ4Wvcj08h08CfdMbZgg=;
+        b=QGbtPtlsGCi3UkSFxnpYryZ6DA5wJY4mtAyAnHTJpqcNTosC8GMceQ8saX0KmP//nm
+         mJjcUTv0Rp5uceFy7M/P3EOCo+aEGyN5QyK/DbSlJtYgewFC/0LeZE8FU2wVL+7+JFT9
+         M9UDgxQ2MDICr4Jc3v6V/GZw57qqIdQZ5fSYc8eHQXzw4PJyyyveZfbMs+znG6WIEvUM
+         dVot65KBhnL4mJ32iMPzPnO0E+P9qNFJ9hpVMSeSFL0TVEy1aocxU74fl4CZQHJd9Wkg
+         ahQI1twWqn5SID8xapwTv17LslTgW6bd9jd3JWqO3qz7uZaocwOE0jCW5O1Uwdskn1H+
+         2GRA==
+X-Forwarded-Encrypted: i=1; AL+hErEVgn8HWc8kxCHYLejLSLYpGyeJRbcithO3hYfa4uPScLLzONYg0HZQei78ckVN7CBGLBiEywabVlubeoo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MebHitk+lUP0tCIdDBXLwLww0ZCYbiHqSS6VSyDrp04zUY8vj
+	/AZpWiUQIy7BBWRoPj/rPXiv5Q+Sn5z48ol5gyqnMT+dDn+ghRBgrz1KInXP8fxUBgxbr9EUEtJ
+	HmWY65fHh/TjZ/JmqObtO87t7nF0G0gC73DAtO0cKYA==
+X-Gm-Gg: AYBFou3gt3LUUBpGBvDMxU9Qz5K6M+zNMu+F/EeergGtfFKpcI1xVQq9NAGBwnwtLm9
+	df7NZPYA4haev/wjCAD4M2xoKq387LHdEMTmbgzw32QColns/3GiKS5oEJxVARzqV3BXS6kK4Bh
+	zots7fQay1wycbQEZ3q3KJgXlL4zWBoqPR68zc6fgXFoER+Fw3f1Xs1c00AZU9AAiHE0K80ssI1
+	61M6GXs1+ZQ/HLEShhfft6iSyIRcxSA6k2XCFkVkAiozdil4I2t53lkc+1FooqL3IIoZu0xBRQ0
+	U5azbN5Ti7JAaaPuaXlARY+L51TlolZQfxX2eROXe6Jsf6VlmUUHusMOY8sLpwtLIb6uNFWjDZ+
+	01T4W3hlT3DSPcUK1KI/V7Tv1J+NwzvNtKFhcSFJ8P9KVf9L3MpTXDmdZS0qayXuGkvBT9I2k
+X-Received: by 2002:ad4:5aed:0:b0:91e:7939:dda5 with SMTP id
+ 6a1803df08f44-91ef04aae41mr26184836d6.23.1794302714950; Tue, 10 Nov 2026
+ 01:25:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,350 +103,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109012115.11898-4-stephen@networkplumber.org>
+References: <20261106-acpi-mmc-v1-1-00934babd69e@thegoodpenguin.co.uk> <2ba59618-e537-4593-a840-744b2f26eb4b@intel.com>
+In-Reply-To: <2ba59618-e537-4593-a840-744b2f26eb4b@intel.com>
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Tue, 10 Nov 2026 09:25:04 +0000
+X-Gm-Features: AclHuK_6-XdyXM_BOekPeBuf7gmeMV5bzRDqK9Cg_lReAyOew94cN51o5FgzEf0
+Message-ID: <CAA6zWZL1bSYNkOsRpANDwHSAK+Cp8GvbXnNHiP9fecA3ZP+Ctg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci: Use named initializers for acpi_device_id
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Hu Ziji <huziji@marvell.com>, 
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 08, 2026 at 05:13:14PM -0800, Stephen Hemminger wrote:
-> Add IPv4 and IPv6 multipath routes that do not fit in the first dump
-> skb of a fresh socket. The dump must return the route or fail with
-> -EMSGSIZE, not end with status 0.
-> 
-> IPv6 nexthops cannot use lo, so create a dummy device and generalize
-> lo_set_up() to if_set_up(). Add the IPv4 routing options to config.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
-> ---
->  tools/testing/selftests/net/config          |   3 +
->  tools/testing/selftests/net/netlink-dumps.c | 271 +++++++++++++++++++-
->  2 files changed, 270 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-> index d4416f8bdcfd..e2f136274e6d 100644
-> --- a/tools/testing/selftests/net/config
-> +++ b/tools/testing/selftests/net/config
-> @@ -29,6 +29,8 @@ CONFIG_IP6_NF_MATCH_RPFILTER=m
->  CONFIG_IP6_NF_NAT=m
->  CONFIG_IP6_NF_RAW=m
->  CONFIG_IP6_NF_TARGET_REJECT=m
-> +CONFIG_IP_ADVANCED_ROUTER=y
-> +CONFIG_IP_MULTIPLE_TABLES=y
->  CONFIG_IP_NF_FILTER=m
->  CONFIG_IP_NF_IPTABLES=m
->  CONFIG_IP_NF_IPTABLES_LEGACY=m
-> @@ -38,6 +40,7 @@ CONFIG_IP_NF_NAT=m
->  CONFIG_IP_NF_RAW=m
->  CONFIG_IP_NF_TARGET_REJECT=m
->  CONFIG_IP_NF_TARGET_TTL=m
-> +CONFIG_IP_ROUTE_MULTIPATH=y
->  CONFIG_IP_SCTP=m
->  CONFIG_IPV6=y
->  CONFIG_IPV6_FOU=m
-> diff --git a/tools/testing/selftests/net/netlink-dumps.c b/tools/testing/selftests/net/netlink-dumps.c
-> index 4a94a25167e2..43f63f3f2289 100644
-> --- a/tools/testing/selftests/net/netlink-dumps.c
-> +++ b/tools/testing/selftests/net/netlink-dumps.c
-> @@ -263,11 +263,11 @@ TEST(close_with_ref)
->  	usleep(100 * 1000);
->  }
->  
-> -static int lo_set_up(int sock, bool up)
-> +static int if_set_up(int sock, const char *name, bool up)
->  {
->  	struct ifreq ifr = {};
->  
-> -	strcpy(ifr.ifr_name, "lo");
-> +	strcpy(ifr.ifr_name, name);
->  	if (ioctl(sock, SIOCGIFFLAGS, &ifr))
->  		return -1;
->  	if (up)
-> @@ -321,12 +321,12 @@ TEST(dump_with_queued_ntf)
->  		       sizeof(addr)), 0);
->  
->  	// A large read makes the kernel attempt large dump skbs
-> -	ASSERT_EQ(lo_set_up(inet_sock, true), 0);
-> +	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
->  	n = recv(netlink_sock, buf, sizeof(buf), 0);
->  	ASSERT_GE(n, (ssize_t)sizeof(struct nlmsghdr));
->  
->  	// Leave one notification queued, then start the dump
-> -	ASSERT_EQ(lo_set_up(inet_sock, false), 0);
-> +	ASSERT_EQ(if_set_up(inet_sock, "lo", false), 0);
->  	n = send(netlink_sock, &dump_links, sizeof(dump_links), 0);
->  	ASSERT_EQ(n, sizeof(dump_links));
->  
-> @@ -362,4 +362,267 @@ TEST(dump_with_queued_ntf)
->  	close(inet_sock);
->  }
->  
-> +#define BIG_RT_TABLE	100
-> +#define BIG_RT_IFINDEX	100
-> +#define BIG_RT4_NH	1500
-> +#define BIG_RT6_NH	500
-> +
-> +static const struct {
-> +	struct nlmsghdr nlhdr;
-> +	struct ifinfomsg ifm;
-> +	struct nlattr name_hdr;
-> +	char name[8];
-> +	struct nlattr linkinfo_hdr;
-> +	struct nlattr kind_hdr;
-> +	char kind[8];
-> +} new_dummy = {
-> +	.nlhdr = {
-> +		.nlmsg_len	= sizeof(new_dummy),
-> +		.nlmsg_type	= RTM_NEWLINK,
-> +		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-> +				  NLM_F_EXCL,
-> +		.nlmsg_seq	= 1,
-> +	},
-> +	.ifm = {
-> +		.ifi_family	= AF_UNSPEC,
-> +		.ifi_index	= BIG_RT_IFINDEX,
-> +	},
-> +	.name_hdr = {
-> +		.nla_len	= 4 + sizeof("dummy0"),
-> +		.nla_type	= IFLA_IFNAME,
-> +	},
-> +	.name = "dummy0",
-> +	.linkinfo_hdr = {
-> +		.nla_len	= 4 + 4 + 8,
-> +		.nla_type	= IFLA_LINKINFO,
-> +	},
-> +	.kind_hdr = {
-> +		.nla_len	= 4 + sizeof("dummy"),
-> +		.nla_type	= IFLA_INFO_KIND,
-> +	},
-> +	.kind = "dummy",
-> +};
-> +
-> +static struct {
-> +	struct nlmsghdr nlhdr;
-> +	struct rtmsg rtm;
-> +	struct nlattr dst_hdr;
-> +	__u8 dst[4];
-> +	struct nlattr table_hdr;
-> +	__u32 table;
-> +	struct nlattr mp_hdr;
-> +	struct rtnexthop nh[BIG_RT4_NH];
-> +} new_route4 = {
-> +	.nlhdr = {
-> +		.nlmsg_len	= sizeof(new_route4),
-> +		.nlmsg_type	= RTM_NEWROUTE,
-> +		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-> +				  NLM_F_EXCL,
-> +		.nlmsg_seq	= 1,
-> +	},
-> +	.rtm = {
-> +		.rtm_family	= AF_INET,
-> +		.rtm_dst_len	= 24,
-> +		.rtm_protocol	= RTPROT_STATIC,
-> +		.rtm_scope	= RT_SCOPE_LINK,
-> +		.rtm_type	= RTN_UNICAST,
-> +	},
-> +	.dst_hdr = {
-> +		.nla_len	= 4 + 4,
-> +		.nla_type	= RTA_DST,
-> +	},
-> +	.dst = { 198, 51, 100, 0 },
-> +	.table_hdr = {
-> +		.nla_len	= 4 + 4,
-> +		.nla_type	= RTA_TABLE,
-> +	},
-> +	.table = BIG_RT_TABLE,
-> +	.mp_hdr = {
-> +		.nla_len	= 4 + sizeof(new_route4.nh),
-> +		.nla_type	= RTA_MULTIPATH,
-> +	},
-> +};
-> +
-> +struct rtnexthop6 {
-> +	struct rtnexthop rtnh;
-> +	struct nlattr gw_hdr;
-> +	__u8 gw[16];
-> +};
-> +
-> +static struct {
-> +	struct nlmsghdr nlhdr;
-> +	struct rtmsg rtm;
-> +	struct nlattr dst_hdr;
-> +	__u8 dst[16];
-> +	struct nlattr table_hdr;
-> +	__u32 table;
-> +	struct nlattr mp_hdr;
-> +	struct rtnexthop6 nh[BIG_RT6_NH];
-> +} new_route6 = {
-> +	.nlhdr = {
-> +		.nlmsg_len	= sizeof(new_route6),
-> +		.nlmsg_type	= RTM_NEWROUTE,
-> +		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-> +				  NLM_F_EXCL,
-> +		.nlmsg_seq	= 1,
-> +	},
-> +	.rtm = {
-> +		.rtm_family	= AF_INET6,
-> +		.rtm_dst_len	= 64,
-> +		.rtm_protocol	= RTPROT_STATIC,
-> +		.rtm_scope	= RT_SCOPE_UNIVERSE,
-> +		.rtm_type	= RTN_UNICAST,
-> +	},
-> +	.dst_hdr = {
-> +		.nla_len	= 4 + 16,
-> +		.nla_type	= RTA_DST,
-> +	},
-> +	.dst = { 0x20, 0x01, 0x0d, 0xb8 }, // 2001:db8::/64
-> +	.table_hdr = {
-> +		.nla_len	= 4 + 4,
-> +		.nla_type	= RTA_TABLE,
-> +	},
-> +	.table = BIG_RT_TABLE,
-> +	.mp_hdr = {
-> +		.nla_len	= 4 + sizeof(new_route6.nh),
-> +		.nla_type	= RTA_MULTIPATH,
-> +	},
-> +};
-> +
-> +static struct {
-> +	struct nlmsghdr nlhdr;
-> +	struct rtmsg rtm;
-> +} dump_routes = {
-> +	.nlhdr = {
-> +		.nlmsg_len	= sizeof(dump_routes),
-> +		.nlmsg_type	= RTM_GETROUTE,
-> +		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_DUMP,
-> +		.nlmsg_seq	= 2,
-> +	},
-> +	.rtm = {
-> +		.rtm_table	= BIG_RT_TABLE,
-> +	},
-> +};
-> +
-> +static int nl_request_ack(int sock, const void *req, size_t len)
-> +{
-> +	struct nlmsghdr *nlh;
-> +	char buf[4096];
-> +	ssize_t n;
-> +
-> +	if (send(sock, req, len, 0) != (ssize_t)len)
-> +		return -errno;
-> +	n = recv(sock, buf, sizeof(buf), 0);
-> +	if (n < 0)
-> +		return -errno;
-> +	nlh = (struct nlmsghdr *)buf;
-> +	if (!NLMSG_OK(nlh, n) || nlh->nlmsg_type != NLMSG_ERROR)
-> +		return -EPROTO;
-> +	return *(int *)NLMSG_DATA(nlh);
-> +}
-> +
-> +// Dump table BIG_RT_TABLE on a fresh socket, so the first dump skb is
-> +// small, and count routes. The table holds only one route, too large for
-> +// that skb. Returns the status from NLMSG_DONE or NLMSG_ERROR.
-> +static int dump_big_table(struct __test_metadata *_metadata, int family,
-> +			  int *routes)
-> +{
-> +	int netlink_sock, i, ret = 1;
-> +	char buf[32768];
-> +	int one = 1;
-> +	ssize_t n;
-> +
-> +	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
-> +	ASSERT_GE(netlink_sock, 0);
-> +	ASSERT_EQ(setsockopt(netlink_sock, SOL_NETLINK, NETLINK_GET_STRICT_CHK,
-> +			     &one, sizeof(one)), 0);
-> +
-> +	dump_routes.rtm.rtm_family = family;
-> +	n = send(netlink_sock, &dump_routes, sizeof(dump_routes), 0);
-> +	ASSERT_EQ(n, sizeof(dump_routes));
-> +
-> +	*routes = 0;
-> +	for (i = 0; i < 100 && ret > 0; i++) {
-> +		struct nlmsghdr *nlh;
-> +
-> +		n = recv(netlink_sock, buf, sizeof(buf), 0);
-> +		ASSERT_GE(n, 0);
-> +
-> +		for (nlh = (struct nlmsghdr *)buf; NLMSG_OK(nlh, n);
-> +		     nlh = NLMSG_NEXT(nlh, n)) {
-> +			if (nlh->nlmsg_type == RTM_NEWROUTE)
-> +				(*routes)++;
-> +			if (nlh->nlmsg_type == NLMSG_DONE ||
-> +			    nlh->nlmsg_type == NLMSG_ERROR) {
-> +				ret = *(int *)NLMSG_DATA(nlh);
-> +				break;
-> +			}
-> +		}
-> +	}
-> +	EXPECT_LE(ret, 0);
-> +
-> +	close(netlink_sock);
-> +	return ret;
-> +}
-> +
-> +// A route that doesn't fit in the first dump skb must either be dumped or
-> +// end the dump with EMSGSIZE. It must not end the dump as if complete.
-> +TEST(dump_large_route)
-> +{
-> +	int netlink_sock, inet_sock, i, ret, routes;
-> +
-> +	ret = unshare(CLONE_NEWNET);
-> +	if (ret && errno == EPERM)
-> +		SKIP(return, "Needs CAP_SYS_ADMIN for a netns");
-> +	ASSERT_EQ(ret, 0);
-> +
-> +	inet_sock = socket(AF_INET, SOCK_DGRAM, 0);
-> +	ASSERT_GE(inet_sock, 0);
-> +	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
-> +	ASSERT_GE(netlink_sock, 0);
-> +
-> +	ret = nl_request_ack(netlink_sock, &new_dummy, sizeof(new_dummy));
-> +	if (ret == -EOPNOTSUPP)
-> +		SKIP(return, "Needs CONFIG_DUMMY");
-> +	ASSERT_EQ(ret, 0);
-> +	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
-> +	ASSERT_EQ(if_set_up(inet_sock, "dummy0", true), 0);
-> +
-> +	for (i = 0; i < BIG_RT4_NH; i++) {
-> +		new_route4.nh[i].rtnh_len = sizeof(new_route4.nh[i]);
-> +		new_route4.nh[i].rtnh_ifindex = 1; // lo
-> +	}
-> +	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route4,
-> +				 sizeof(new_route4)), 0);
-> +
-> +	for (i = 0; i < BIG_RT6_NH; i++) {
-> +		struct rtnexthop6 *nh = &new_route6.nh[i];
-> +
-> +		nh->rtnh.rtnh_len = sizeof(*nh);
-> +		nh->rtnh.rtnh_ifindex = BIG_RT_IFINDEX;
-> +		nh->gw_hdr.nla_len = sizeof(nh->gw_hdr) + sizeof(nh->gw);
-> +		nh->gw_hdr.nla_type = RTA_GATEWAY;
-> +		nh->gw[0] = 0xfe; // fe80::<i + 1>
-> +		nh->gw[1] = 0x80;
-> +		nh->gw[14] = (i + 1) >> 8;
-> +		nh->gw[15] = (i + 1) & 0xff;
-> +	}
-> +	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route6,
-> +				 sizeof(new_route6)), 0);
-> +
-> +	// The ACK reads above used large buffers, which raise the dump
-> +	// skb size for this socket. Dump on fresh sockets instead.
-> +	close(netlink_sock);
-> +
-> +	ret = dump_big_table(_metadata, AF_INET, &routes);
-> +	if (ret != -EMSGSIZE)
-> +		EXPECT_EQ(routes, 1);
-> +
-> +	ret = dump_big_table(_metadata, AF_INET6, &routes);
-> +	if (ret != -EMSGSIZE)
-> +		EXPECT_EQ(routes, 1);
-> +
-> +	close(inet_sock);
-> +}
-> +
->  TEST_HARNESS_MAIN
-> -- 
-> 2.53.0
-> 
+> Why is there a different explanation above the "---" than below "---" ?
+ b4 will put the cover letter in the dropped section of a single patch
+series, for more information please see [1]. There is no requirement
+for them to be equal. The answer to your question is in the cover
+letter itself: first series is a refactor pass to allow for the future
+intended change in the acpi_device_id struct to go ahead without
+triggering build errors. Describing future events in a git message
+makes no sense to me.
 
-Tested-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> > Unify the list terminator to have a single space between the brackets and
+> > no trailing comma.
+>
+> Why?
+This seems to be explained in the paragraph above in the commit
+message? I can repeat myself if it's not obvious.
+
+[1] https://b4.docs.kernel.org/en/latest/contributor/prep.html#what-if-the-series-only-has-a-single-patch
