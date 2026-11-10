@@ -1,53 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310454;
-	b=co44LnKy7DmZEUMiLlgtfVoCygnOOV3drsYUSIEox+BLkmwmM+wcNjBQD7fq48MFgYgh
-	 Da3F09XTr3e2uZ8EMmiaZkSfJWVkjVc8zn3w+FiIccmHhMcLuvoO8Xvygc+Iz8eHeDQJX
-	 I0MKqJHe5V84CzGTSY/LpjF1oCqxMMB08gI2COkiMYifcOcXYtb7s6NOpxNLaOSAVi1LQ
-	 5TNCYsDYqOytmQJqKICNDIfTFlwogFLIpnl58uOLuF2wvz+1K2XdJU0isdmgXsAg0fLZ6
-	 rIkEWDdnSSBzcYI9CNhBNmsBH7vuamTcgK9gzKYOlMVIsPGgaP8vgYtx2zLAtj6DuFA==
+	t=1794310463;
+	b=Z0RqT8JpPrS/fulOTQjw2qFMzQAVEj1NGg5tFVGFbYeBbzFvwkoKwKK53kXm15YDofc2
+	 Oqdxm7YHASaVK3lfYd+ijgnp+C2i63xiWusUFZ1nrVR/esEdQ5RnCdcIDG/5/CZx51ceG
+	 kyS1Rso4ngFYkDB+w6BhmhIJhHUMEHek6juX4U2hNsNzIBxodv4TJtA8KR1gxWefb53im
+	 BsDaz5Qhfw5hR0VzmoS8xDWkQHalCauP7q6Qw5XNOFwWNMoKIen2lfz+7dgd6PogRpENC
+	 rBOXyRolcnt/Rx+dx1++hg+gi2yt+b2SBr4aHOJkm4jojurxM4/O6oTnE2g0sa6Q3kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310454;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=LP1JJWFqckiSbwneonbW0UUwPHduz/LFH8DNG3f1WuY=;
-	b=KmqM1JLFfZqLs0e5N2juNcmSBFLyjUN/AaPrjgb26XRaoWiiizh/Sq9QK4u3CAvYxB1v
-	 E3nJ6U23HRsntNZDfBUDAEPd7PmZxQJykce/S2PhGjoFn24A3Zcllfk6BkoCcrgDBf609
-	 nBeOR20gq6eTK+YokgMOwwNp4uN2KM1YyL/GbhrcHbDvm8ho4cxrWRGFwvYhaV+x/CZnn
-	 CuRY9szMfeq1AibHs1EWDKSrq6bBsZ5xn8Z+O1zE3VMad+Ib8dz+mDC70dCOYzvebhTFo
-	 EuGoYeJeKnCALVT135bjbiuhvXXIfmUw5CUoDwuWX7cA5iSG5KqbXn4rPZmTNKgdY9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310463;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=A1iRNpBx9Vkn6KLemQ9yb2w9fus6xXpTWWEZmDoLP8k=;
+	b=YnBPcoLySAJ57m13PgpW2sRew63g7y6O8/GgEEZe2GqVj/W85+aHnIuP2joDuvvRKWML
+	 w5LnTyTYxE70LZYfHxPIFDhz7mNzCqxPUrUozHJips25qATPH0Ve+lVVAfqB8+TzclGsw
+	 4KgzSYVLBhGUTJO95UfJrx3dP9zI1XqIaN1bVB4vV5aI5hlY/pF8FGvUkjFiRZ3aSeMAY
+	 VRB2/xTSx//yUzq4Dac+Q+Gf/178SJLGQLi9OUwCSceqqNBDGGboB1V6gkU9nlQpcj4Of
+	 tPH02rxw/l3L4V08mIEKhKHZYOFoW9F/Fm/NbOj79t3x/z9d8J4Z5Ob1YZ7NQ8oTdRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.69
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQp9MOed;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D27606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D27606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-83c2311eb1dso2768980a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:34:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794310453; x=1794915253;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LP1JJWFqckiSbwneonbW0UUwPHduz/LFH8DNG3f1WuY=;
-        b=PgY92mzGYBRe/xpNqJeSFV0f0J+JsuFbd8jMs+gUh/Dr5zFUeiO0z03f7ZmIOaMrbw
-         XUCdrPx5CVVrkEtYYCuOlz+GULaHkf5tHO8un8OMxD8IiUvyxhGM56/xFP+f8t+vJLhO
-         158bJPPjdsehKk+NDvJ1W9Hzp9/lwLAE3LKHo7y/drFUoomMvBwMR8GIRkj+7ptlj8/2
-         EPhOTiL3DjJy3wY+KMSQyuKsp8WinIhdIxSrMevJ4Sixg/WKxz5SDU1jahMQ7f7WjLAt
-         4ERB0T8UNC4XjQjdmgLu0qUnhV4dAhzX8bu1yPzz9zt3smkSUWBJESXmXIwtn2Qo4O+D
-         0eHg==
-X-Gm-Message-State: APuU4Z+Oow0sJeKpZ1h40M0bhfjj2EUmeJfRkd0XWf9SUvtdDrr0rSgi
-	BbDUyzQq8bVa8YkYdXpgCwDzABxrFiWsOE88qaRKCh20SX4pTxR5fDE9SkuwXhRxv8QljDCv62C
-	JAPjYA7ZcuBRodaXxvzB5lRNC9n54+SaKOaAjq/BLaYp3lZK5V/1CxjcKKrY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A871606A31C;
+	Tue, 10 Nov 2026 11:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQp9MOed
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09521F0089F;
+	Tue, 10 Nov 2026 11:34:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794310462;
+	bh=A1iRNpBx9Vkn6KLemQ9yb2w9fus6xXpTWWEZmDoLP8k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kQp9MOedjTa4T56aPO+6PIF4YtII/xxEgWNtQmI7qbATWmTF3vffiS0nezH8jdZst
+	 o6LNStAURcGZCYwDsrWnhej8000etRyTvI0FnTzChoG6z3fp4ktaRYdsHxE2AyhYtl
+	 m+jZYIyKGQ3whMDNcXuCcOhYuLVj5SBYeNyUwUw5jP84D/MO8uW1ua51ygqAw1TTxW
+	 UMOFNtOMkzUfBWMKfmOUm8P7/eiAcYzwufWOXln672/6GPtogqHQob9sZuHf4BtDGf
+	 /GEHvkJLno+nP5+1pMHzUddiYk2nXQxVU8Vzt47KQkJvUMerExUmUfltZ8DXcoUU9z
+	 eghOZE5id0iOw==
+Date: Tue, 10 Nov 2026 12:34:19 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Sergey Lebedev <lsa.uz@pm.me>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, 
+	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, 
+	Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+Message-ID: <20261110-normal-ingenious-kakapo-f8c479@quoll>
+References: <20261109093353.3757-1-lsa.uz@pm.me>
+ <20261109093353.3757-2-lsa.uz@pm.me>
+ <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,27 +65,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4feb:b0:503:8f9d:f11b with SMTP id
- 5614622812f47-5683cde8478mr1952293b6e.43.1794310453100; Tue, 10 Nov 2026
- 03:34:13 -0800 (PST)
-Date: Tue, 10 Nov 2026 03:34:13 -0800
-In-Reply-To: <6a8c5208.dbb3a75c.7844.0005.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af30135.c2a1e073.10a5a1.116d.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Mon, Nov 09, 2026 at 11:28:35AM +0100, Benjamin Mugnier wrote:
+> Hi Sergey,
+>=20
+> Le 09/11/2026 =C3=A0 10:34, Sergey Lebedev a =C3=A9crit=C2=A0:
+> > The VD55G0 is a monochrome global shutter sensor with a 644x604 active
+> > array, sending over a single MIPI CSI-2 lane, with the same supplies,
+> > reset and strobe GPIOs as the VD55G1. Its MIPI rate runs from 750 to
+> > 1200 Mbps (UM2829, 13.1), so its link frequency starts at 375 MHz, and
+> > its I2C address is set in its NVM rather than fixed.
+> >=20
+> > allOf moves below required to carry the if/then for that minimum.
+> >=20
+> > Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> > ---
+> > v3: no change.
+> >=20
+> > v2: the VD55G0 joins this file instead of a st,vd55g0.yaml of its own,
+> > with allOf below required for the if/then, as Krzysztof pointed to. It
+> > is Peter Marshall's 01/11 and 02/11 of his vd55g1 v2 squashed, as
+> > Krzysztof asked there, with the VD55G0's description added:
+> > https://lore.kernel.org/all/20260918221705.323510-3-pm@petermarshall.ca/
+>=20
+> As vd55g1 and vd55g0 are two different drivers I think they should be
 
-***
+We do not split bindings files just because drivers are different. If
+bindings for a device are exactly the same - and they are here - they
+should be in one file, for simplicity and less of code to maintain.
 
-Subject: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-Author: gbughunter8@gmail.com
+Best regards,
+Krzysztof
 
-#syz test:
-https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-nfs-1110-b8ee9ef
-4f0f68fd25633fe8a8f1f884e3618736e116f1f7
