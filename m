@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794294664;
-	b=i7884rdSyluJv5lTMrzHHxfGO8ElxHHIpEekh3VIkV485gGe4IGJysz/rsNBNZ51OXB1
-	 7DpIVRvALliqFclCUmfPMEbbJld3Yv4aUI3aPgYhij68CIkKIEyE22ub1wz4EyYTshIUv
-	 csGGRz/NOgLMmTpoCu8RkWu3hR9L2bmsulW8+4iOQz+R/cttJeYJVhaOn2cT2oKP/ovJh
-	 GiVv77UMPYm6QaktX1bJbdzTMBHr7lo+jtFW3sWr7zYiNElS4tCd2slZhtWMGiK3SBdNf
-	 dtpw8CMGPkD28+/rkHSHq75sIiq817G+MGn35RQP3XlnvWr81UJKU17hwHCvihEUGVg==
+	b=renJEotFODIUAhPUJUNW9HjlMHz0QXPW8LOy6U5FZFBPG+f0VWFcgcx81a2p0yAa+Iol
+	 lcXCix31OXD22yRp2PUn8j4sDf5K1a9EtL8IbT7ihSYOs3/Qw4XTTBBw7eR0sKnqlAa0/
+	 pa9FeIp0RI9G6+iYrolsIzXHI43PM9HWc4ki9G7jLhBgb+lT7MUHoHm9GNGeFNkdI0ZH+
+	 hMdY9kib7tiAEPxO9uzNFRkPyspKgECgeTFRhOVT8EoPUSogU6bB33Gv6AWTliORD8LhE
+	 AMU2wg48IDJGjB6GQRSWwpgegx7maFTIoYx/J1iBiSJZWXMwfEf282LAAa78WGu6CNQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794294664;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
-	b=Qcr5pwjOsGg9JuyC9ujmccX4aGLozMDVRdyz+Kxf8THSY4H/JLAg+KYnoKSVdH1vjUOg
-	 nnY6nBDeryoRcRaIhAIoJWIgcQ8l91v2X80QOx13FzUJ9NnQoaDo2QAueFAJuWFnWfD3A
-	 qX3Xb5XiM3MoaBURwRQfuRCTjOQFrZQmF0gAkUspHdvaCkUMNiluBLoX4oXJUVhHN1Qjl
-	 KiLnOmz0Bw24c0Y5muQG1oZKsUO/P7lqNTQhBuVYzLiraTZeaYiX2jnSEcJlsgXHEOJR0
-	 yirDUnqrrskkDdbyuY+RuPQxkpgIHaxLuSjUnMowfuC0RMSFqAvta7aOETBQHxFRcnA==
+	bh=/+ec1nGNsTtnGXo1yv9fJGM8ok/p++iw8VVpMIqUvkg=;
+	b=Sl9cuUfRzAe5oARSioP08JpP5fjCZm0OJ4ABDuKACZnntX3E+Nh6a/3cKicyLYjE2M1l
+	 s3SeujbMNMxzBJqI3P50HyZqlLS2GctwjsUPO1TDdIOmY3WVS+LSA4AEAY1pzqBE8FCt/
+	 /SfwlWlZ+x+JiTlKBXRvOBnAw+FQVNU87wonMm1m+p49YYusM+7kBNO+0O7HjvOjAfQfi
+	 LrBBcTmq9JalxwqZN4bek1XHnPPNwn5HypRcAvnaAkDHRwj7P1EdKVfsbcCUY52lj+bN/
+	 B47xxHgWKSj78TALfeeomypLR+o1r6n0My7LSql+wtxJv3e0KpoQij+iSjHSjpEa2ug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXKgqdVE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jk4qw5Ug;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C41606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA3F606A32E;
 	Tue, 10 Nov 2026 07:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXKgqdVE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jk4qw5Ug
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294663;
-	b=SX6INuHZBHNSpwJJ+VfaG2KvZIHxyqnmknY8ldwvTW1DiJDBQIR7Sr3pXL5FMkAy52kQ
-	 aUm6KIvQ4rYGM20LJ1Z8/LcupCS/pLnyZFS9n8suT4eBnLL0yFiRBS2rzobr5xQbQI1x0
-	 X4ByuUOfz9jLk9NOcZ5jXaGQ7faKhpn6UcqFWys+O2s8NYnRJjLaPtIQC1XdMQVAtzwFr
-	 2npBeHJ0jqkoJhAK3o7bI9A7+Frys4AVUXY0D6u0VeCUO4wNGlfKjYqCy0PkJ7mo2eRrO
-	 SFlLzLPJdl5lFA9XUEH9S+wjLzT9kPOmdMRlDX0aj82HeTixP8iHFeR6SUQxxiPd6qw==
+	t=1794294664;
+	b=BZ72T9ZWxsfkj4a5TrCLT1boyneFXi0ICYGTS0UfRB0aV+sEI/EQaAbkU4JFdjEySuVO
+	 gSisF2EJGWR9qGEgrQF6ND7C09H+5XMma5WJISURHYAto092+L883pFWFqOMQB0BbHWH5
+	 i9S5E6gzHNLDrbusxSH+UusBlnD2SCWeZZRMKmhPYkYJ2zok2Hn9+cZgKP6pcUhErLc8u
+	 i8jBBh9dLxzwH1hLBAL2/VP5VF0VY+3gXDtZdwaNVahFTmSt9e07Mf61UAsgP5HwuTpmh
+	 sEnaddG5Lhogr0RLRVlVLsG5m9T1d4RcdLPEIcMSzGh6TEIg5ZgoZkSwJ7qPJJLNSzw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294663;
+	c=relaxed/relaxed; t=1794294664;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
-	b=thkeD0VVL8jPE84hjmEEqj07ZmvxGQ+OY0qWPNBsmZ1pMxOEKAg7JLtmU7FE/OXblkOk
-	 Hxfx075kk2aZ3s9G+Ev/DYr2uq32a4VH/tRsTMDBsY3JSaRdNWy2qZUHvlHoDAM/Y7jdN
-	 WoXpqTK/e5RR9pgQCME9l4YwrDECITBPKkU0EecNICRzia2udign573dagGVDU4QdMR68
-	 l1Eh3BA51N42qV7cNrycQuOYqtvVhYEyeNTj9TVCDYCCgIZ+/tpBcEXpFUL5dzf/43vxo
-	 bTD0reJpCQzh9gdhoAJ5tu9Nl/YnELwI02Gm0k8vFQscjPXdP8fUnY5CA2WDxlIQBCg==
+	bh=/+ec1nGNsTtnGXo1yv9fJGM8ok/p++iw8VVpMIqUvkg=;
+	b=PSBLDwTxDvuKiE5CIcGhoDZ2QdZMP0w9CJao22GKVMXPvAWYRZDPxdR1AyeYElk/EytA
+	 iTOoO4Dw2uJj5Vi5FE1AM6ZSciytfQ9GY9qP+qp6Ootv5NUOae3bltFUr82f3EoLs0aJK
+	 if9PMFWS0QScwZt49GRvUMLIipzP69VqOy1+WB3g/DSqRDwC38nLEis5De2ncef2rVTQJ
+	 xjYPiiC/fIg96atytWN7hDCWWm/uLxCoVBgbdmGLddIybewiNpbd52/gBl5yvA+F2EkOx
+	 l99Ax+VwDAlP156Bzy/NNiDx3LLvvLC12jKq3mjtAZdgZCt+Dp6vF5WXBt24K34hbqw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CA3061F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id D2A1E1F008A2;
 	Tue, 10 Nov 2026 07:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294663;
-	bh=xQ4jMpFd0ALOYGpQB9FG46MLH0S7oU+ejuWtGKhW7Jk=;
+	s=k20260515; t=1794294664;
+	bh=/+ec1nGNsTtnGXo1yv9fJGM8ok/p++iw8VVpMIqUvkg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WXKgqdVEkC65IBksa+cC+H9ZtfNbYQE2nFyPRzEPZRe79GJJGUV3i64XhS+xb09XN
-	 GbnoSW2Gr/QW4Xwiis/sDh96ZNkfDej9D5ea6MzG1j8g6XKBf3rw+KN1DDLODvXxzh
-	 8dine03TaaP3zcVC2DqPBdUxH7lNJCWHBl7/NX1lT5PvrRoc/h4A69O5jMGlcXJ3su
-	 AqUAKCjYaAejbvz6AnDv++VYfs0TEh60XkcbD2Z33K4qy2YagU/0b+CFOk3ax4aHQe
-	 Kkr8HI/bxfou1c0Q+joos7ZxB4xrqluPy48tCoKmjT+FuYGvCkvwlXSrG/wp0qheDq
-	 kIztTn+iom8pQ==
+	b=jk4qw5Ug7OXZgn+muoyjTfZoFcaZcox67BHeE379A7TRG9dfmPaBOcEkNj5YOiziC
+	 VnQVZOYuxhgvKdmN2SO3GIQFkQjksXMzeQDq/rQTXcrl50IED+mCvvk7fDLDK25fPj
+	 mAp6vTNvJaDoxYgo5ZEJViuFZNwNMm/vbZ4rwK6Q3d0Vd0gkL96XeH3R4l8sgoQUIe
+	 gKYNFyItP+vEzfvl4ZA8/cm68282yGoDNBQiSR2NtCLalLKa7DsswwRUESXwdDyPnB
+	 XsUyleqVz7xSBIaRzXnfQRMVjPoz0Mk2zSp1Y+42asoF2/yvFiEW48SOu1hNp1mE7x
+	 K/BY/a1xadhKA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 510B548926;
+	by lkml.kernel.org (Postfix) with ESMTP id 626A848929;
 	Tue, 10 Nov 2026 07:11:02 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:11:02 +0000
-Subject: [PATCH 1/5] iommu/rockchip: Don't walk a page table that a reset
- took away
+Date: Tue, 10 Nov 2026 07:11:03 +0000
+Subject: [PATCH 2/5] iommu/rockchip: Rate-limit the page fault reports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-iommu-rockchip-faults-v1-1-b1dda574dbb8@gmail.com>
+Message-Id: <20261110-iommu-rockchip-faults-v1-2-b1dda574dbb8@gmail.com>
 References: <20261110-iommu-rockchip-faults-v1-0-b1dda574dbb8@gmail.com>
 In-Reply-To: <20261110-iommu-rockchip-faults-v1-0-b1dda574dbb8@gmail.com>
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
@@ -93,11 +92,11 @@ To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
 Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294661; l=2142;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294661; l=4219;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ToGf1ObH2yGo1OMq0C57Okydv2han7Kmp00MrNYUTIY=;
- b=vqEYjTZrW9gc7C8emgS8qlnnnYJOcO/kFRASz5eG+NVNvNmDn9iyaZcTnYLO1wAW6NxEhyFRS
- 44usyRyEK44ADSHnskRvuD6Y5MDdVSpbvtbO18Lq7pWquTbkZBnC2+D
+ bh=Mh9yYDG5bU5JM98WHSJZQsM8WG0/aD2uijwgqmqZNAQ=;
+ b=hvRoaQcV/e2QkSmbd5XIjnuU5jTIsV8joll+zB/7lLnUC4EgLhCL//AZveTkRCYTL/aG+IjfQ
+ yKDQwU5454GC9FcA5kvpFHC4OYoIFqgd4AnAOhpwWaMfFJYB4N0O+lc
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,52 +107,111 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-When a page fault is reported, log_iova() reads the directory address
-back from the MMU_DTE_ADDR register of the IOMMU and dereferences it
-through phys_to_virt() to log the page table entries of the faulting
-IOVA. The IOMMU of an RK3588 video decoder core is reset with the core:
-by the core's own soft reset, which the hardware also does by itself
-when a job times out, and by the core's AXI reset line. A fault taken
-just before such a reset is handled with MMU_DTE_ADDR reading 0, and
-log_iova() dereferences the physical address 4 * dte_index:
+rk_iommu_irq() prints three lines for every page fault (the fault, and
+log_iova()'s two lines with the page table walk) from the hard interrupt
+handler. A master that keeps accessing unmapped memory faults again as
+soon as the fault is acknowledged, and on a board with a serial console
+the handler then spends its time waiting for the console.
 
-rk_iommu fdc38700.iommu: Page fault at 0x0000000013400200 of type read
-Unable to handle kernel paging request at virtual address ffff600000000026
-KASAN: probably wild-memory-access in range [...0130-...0137]
-...
-rk_iommu_irq+0x490/0x758
+On an Orange Pi 5 (RK3588S, 115200 baud console), a VEPU121 JPEG encoder
+core given an unmapped input address took 149 faults during its 2 s
+timeout; the irq_handler_entry/exit trace events put 2.02 s of that in
+rk_iommu_irq(), up to 17 ms for one call, and single faults took 18 to
+27 ms each. The core's own timeout work could run only between faults.
 
-Only walk the directory if the register holds the address of memory, and
-say that the page table was lost to a reset otherwise. The fault is
-still acknowledged (zap, PAGE_FAULT_DONE, INT_CLEAR) as before.
+Print at most DEFAULT_RATELIMIT_BURST reports per
+DEFAULT_RATELIMIT_INTERVAL and IOMMU. report_iommu_fault() is still
+called for every fault, so its io_page_fault trace event keeps the full
+record.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/iommu/rockchip-iommu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/iommu/rockchip-iommu.c | 31 ++++++++++++++++++++++++-------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 21af2f621c76..d40e2a26b7be 100644
+index d40e2a26b7be..c3c3502db27d 100644
 --- a/drivers/iommu/rockchip-iommu.c
 +++ b/drivers/iommu/rockchip-iommu.c
-@@ -564,6 +564,17 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- 	mmu_dte_addr = rk_iommu_read(base, RK_MMU_DTE_ADDR);
- 	mmu_dte_addr_phys = iommu->rk_ops->pt_address(mmu_dte_addr);
+@@ -23,6 +23,7 @@
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/ratelimit.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <linux/string_choices.h>
+@@ -116,6 +117,7 @@ struct rk_iommu {
+ 	struct list_head node; /* entry in rk_iommu_domain.iommus */
+ 	struct iommu_domain *domain; /* domain to which iommu is attached */
+ 	const struct rk_iommu_ops *rk_ops;
++	struct ratelimit_state fault_rs; /* for the fault reports */
+ };
  
-+	/*
-+	 * A reset of the master can reset its IOMMU too, between the fault and
-+	 * this handler: DTE_ADDR then reads 0. Don't walk a directory that
-+	 * isn't in memory; the caller still acknowledges the fault.
-+	 */
-+	if (!mmu_dte_addr || !pfn_valid(PHYS_PFN(mmu_dte_addr_phys))) {
-+		dev_err(iommu->dev, "iova = %pad: fault while page table lost to reset (MMU_DTE_ADDR %#08x)\n",
-+			&iova, mmu_dte_addr);
-+		return;
-+	}
-+
- 	dte_addr_phys = mmu_dte_addr_phys + (4 * dte_index);
- 	dte_addr = phys_to_virt(dte_addr_phys);
- 	dte = *dte_addr;
+ struct rk_iommudata {
+@@ -608,6 +610,7 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
+ 	u32 int_status;
+ 	dma_addr_t iova;
+ 	irqreturn_t ret = IRQ_NONE;
++	bool print;
+ 	int i, err;
+ 
+ 	err = pm_runtime_get_if_in_use(iommu->dev);
+@@ -632,11 +635,22 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
+ 			flags = (status & RK_MMU_STATUS_PAGE_FAULT_IS_WRITE) ?
+ 					IOMMU_FAULT_WRITE : IOMMU_FAULT_READ;
+ 
+-			dev_err(iommu->dev, "Page fault at %pad of type %s\n",
+-				&iova,
+-				str_write_read(flags == IOMMU_FAULT_WRITE));
+-
+-			log_iova(iommu, i, iova);
++			/*
++			 * PAGE_FAULT_DONE below lets the master go on, and a
++			 * master that keeps accessing unmapped addresses faults
++			 * again at once, until its own driver stops it. Printing
++			 * every one of those faults from this handler keeps the
++			 * CPU in hard interrupt context for as long as the
++			 * console takes to print them. The trace event of
++			 * report_iommu_fault() still records every fault.
++			 */
++			print = __ratelimit(&iommu->fault_rs);
++			if (print) {
++				dev_err(iommu->dev, "Page fault at %pad of type %s\n",
++					&iova,
++					str_write_read(flags == IOMMU_FAULT_WRITE));
++				log_iova(iommu, i, iova);
++			}
+ 
+ 			/*
+ 			 * Report page fault to any installed handlers.
+@@ -646,14 +660,15 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
+ 			if (iommu->domain != &rk_identity_domain)
+ 				report_iommu_fault(iommu->domain, iommu->dev, iova,
+ 						   flags);
+-			else
++			else if (print)
+ 				dev_err(iommu->dev, "Page fault while iommu not attached to domain?\n");
+ 
+ 			rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
+ 			rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_PAGE_FAULT_DONE);
+ 		}
+ 
+-		if (int_status & RK_MMU_IRQ_BUS_ERROR)
++		if ((int_status & RK_MMU_IRQ_BUS_ERROR) &&
++		    __ratelimit(&iommu->fault_rs))
+ 			dev_err(iommu->dev, "BUS_ERROR occurred at %pad\n", &iova);
+ 
+ 		if (int_status & ~RK_MMU_IRQ_MASK)
+@@ -1270,6 +1285,8 @@ static int rk_iommu_probe(struct platform_device *pdev)
+ 
+ 	iommu->reset_disabled = device_property_read_bool(dev,
+ 					"rockchip,disable-mmu-reset");
++	ratelimit_state_init(&iommu->fault_rs, DEFAULT_RATELIMIT_INTERVAL,
++			     DEFAULT_RATELIMIT_BURST);
+ 
+ 	/*
+ 	 * Take every clock the devicetree provides.  Most IOMMU instances
 
 -- 
 2.55.0
