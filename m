@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794279903;
-	b=fIGSzbS0o5MSvaR+1/za1xFRkcq2kPfvxheN7DoOB/sIK0TsEKMoETLy+aOouumgYFOz
-	 YoTqGKYwzyFSAZFd0/giE0dk3/Zho7dmZQwDPBGSZErcr84TCyBu8OHblqdtMRr9RcJX3
-	 xw70laLZf+VA7UMc5Iw+u3sMj5zTyMZb2c5CpLzNyCJPw5MWdDB6jMIcwA04GTmxkkqOt
-	 4oQY7tRRQDHuiSUXICkFSNfrV++zp35SxYjgWLUIJ+yuuN2PqFdo9TiB1zLKjcZcvVoKN
-	 jNMsR6ToueN9cEeiaRtZAPnU73PKs8W4XSq8zOlW0KoJqTf1/grqNio2ztet/zVQ71A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279903;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FhgIbf74ii0aoairS6dk2/fiibwc/iueYL1fLd9erDw=;
-	b=TtR31NyBtmlUoamBTHPJNS4dprmpSbfCPG401LjVfsUV5y5IH8FxJ0kzjRaAfpUheWUv
-	 TpX977ETX5DLokR/Uf7stt1rg7PNyDaDX0ACNGNXVmn0qHvBZAt8872qO0t4B2EMoc0C0
-	 oAHpGwe8Jxzhvqy+sDdruUzaF6OJAwco0ftWOV7R4BdzJ3cmT+CGCb/2ZfYwXhYgEZANm
-	 9dK189K4SZbf05GwCKZbfQDrGAqiPSlK19Cf2pbmONrjJ+MlME1TqJiRKdFo4V059C0rg
-	 1lUWr4MpBaYyGKHK648bxt1sN98TdJ8Ca/9gJxiQDx4gnjWyZNISpUmz710h7lStMAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msFydHBi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794279925;
+	b=gzsq3O1WnS+ilcTgk2GI20z7UodDsUEv/NTjIliU9HblkPlFs1K58j63f8vPA6hvZP+Q
+	 IJRt4Z9USIOkALUEbSAa6/bd1ebBI/SvwDyXEGqLRj5nsuT6QpD5yRpz1jqvEs0fR1Uj6
+	 iIXOI8UgZ2RV12Gsi24vhERE1dhHQxPDgd5mi/zLpb/Sz4UHt2ZNJlLqlyRMUhycehA4i
+	 xO+euq+uU6hJRj4kN1bfg1hgFibIM468J3/gK6Rc/eIUgE6EKxBSJ8BwHOT0tPPRKWWBy
+	 leJwVYIafU7lcFN4A2Xlh8FCxRml5gYqO8SkOHQU6eMxVof48F2hhIDpTt8sVvGBRfw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279925;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/6BHI52ERTPfI4/6NKaL9AW/hxZtgzX02Qh7eA7Qxj0=;
+	b=tqo0hQ5rS8y5gBQGTkt4N1KLMVPDX/xMy0r9zaHdNMw71wdSiOG+P90dM5CjyJWdOqQs
+	 l3lt8ad2or6t9nL0PEWyM4GcrWo4GU8w6fmYySSgwQYHQZQLSq1ovCCP9QNeZ8YHytqQl
+	 tYq8y2T744m/qPGsK5fGUhwynbOAQA3Dxu16BzR7jch8faJD+xOB7POrcG9VhrW6vlOUQ
+	 4RtiHyu/0sg1DzsGHdPcwCAOWW5Bs65sOOqeZNNsX/FN/mB+8qkscQNTJGJId+urNES0Z
+	 LZXx9O7VUy4z8YTNv5fPidJViTXw2TyJQM35FtjTrC7t6rmHHThQQlRP2mrQNHUJM0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nya8mIpR;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3294A606A321;
-	Tue, 10 Nov 2026 03:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BD8606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msFydHBi
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794279902;
-	b=fhzL2WI5Iyu/7udvswoskby5K/JKEDyYeKEHObHMhCLaKXDD0PYJf9rrmfYbKgwR3zU3
-	 TG/wqeKeyLAaB6v6WdMjos61oSEihUKtqnJqcr+xN3WRxQHjhw1GRGEa7EsBQEBMN3tfY
-	 CkpCxsLKUYQF/AtFNHtEA7HTa39u1d/c7V03gFfUxQ7c0vyiggYLy4jk8ZPMQGQVQjHwj
-	 PEpCZPXIvPmvVxSlmO0/Db2pxJbwvUeq+pAXApt307peylx8QdViiWVoGzi4HKyDaesQX
-	 Rl7C6Mk2IYR47lkfmBqSOKIRCoUlQ0ukKJ1oFKT5WxyH1oNB1yv1s5bUZjjuMrj9DCQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794279902;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FhgIbf74ii0aoairS6dk2/fiibwc/iueYL1fLd9erDw=;
-	b=fiAAlKt2tVyvIV8/a5yfirc8TR82WfqBnNRF5NOW3fagFrq1OOMRCpq0Y1BaXnNk2gJS
-	 LqF7WcvtFnDK+gHT8DUUOgh74BTkBgpEBoIJgWwdS3HjDGSYjAeNB50+ZIBqmkJ8820N+
-	 qD0iSgpzn/PJL7M3vp6ZIylauSJpqw44i9bgWL7kzprFSZ542VONULHNP4g7B6NJDG3d7
-	 pvhgkWmplt7jqI9YRLRIs5/Lr3v7nngUiLTHDSVT2Sn+RFjN5qpbQmw4y6eX1DQrIfZ+P
-	 DJaur5gIt5T9j4AHgqyHPLi06s13pz96hON2eyWmw6+nlEDWz65ayaGIcdrHShZ9QiA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 486711F0089F;
-	Tue, 10 Nov 2026 03:05:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nya8mIpR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E688D1F008A5
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279902;
-	bh=FhgIbf74ii0aoairS6dk2/fiibwc/iueYL1fLd9erDw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=msFydHBipMijEno8AX+quUfnrnhztqBBNx6lcSA3ND92Da4/HT+tWp52/3OtQU1mW
-	 ITBTnzoByc34NrUgO7fdZGOQU7ultJ/mahLZ990Ndyq3NRuw8qcdBZ9JHh3UBULQPm
-	 RAiOtt6mI841zlhQafuJo091ylkUkHFgVtmSeRE9hn/JhfU788UlRt95Q4n6zfNEL8
-	 nan4MviWmNBiDh1uZ4yRlnl+hQfgdQiX8ZD026tvF3uvL9g4gJ0D+hj4f33p7fUcyp
-	 kJtFWK7ZB6UT53JrZatACi4XCskBB5bzLzweKojrgvrstrrDb0tLAnoZ1sJ6p2w06v
-	 M180EI3TXY3XQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 980224879F;
-	Tue, 10 Nov 2026 03:05:01 +0000 (UTC)
-From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 11:04:59 +0800
-Subject: [PATCH] perf parse-events: Don't report unreadable tracepoint
- globs as unknown
+	s=k20260515; t=1794279924;
+	bh=/6BHI52ERTPfI4/6NKaL9AW/hxZtgzX02Qh7eA7Qxj0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nya8mIpRrn+ztEKdEwyDZiWPELNzvOi83hG7jczhRjnJeid8jbiUvZpHjuSnMxQZM
+	 CZ/gGkr3Yp6lxM81PxHK6XrOiTj2WcMFdPWRrlCA6L5BxbMzBYowZbSaiU/CrSzyW9
+	 KaQvzLZ+0nV5AYDbjdnHtHdeDdUNpr8OLwL5FY8PJYe5cuBD4atSWuCXvifmlRPqBA
+	 Xxuu62z8whV7T9dFlJnHZKaREa0ej7RC3G5HPhPArZ7wjuIJusEaQSjQUTQevhLuAa
+	 Q0dIhJnx4DMb+zRfmV0zP7JG0m+R7JWOKG+CE/GVQ8CEiAo1lu3dQ0qIJ48y9A/8j2
+	 r9DZRU+jhufqQ==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14f7768acso1174825e87.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:05:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFL8cFC46531GSwuNE1Kls0IrhXuzL0v0vqG8NZsUrXADWDPCAobjXSCDA9DAYTzxOCXsBsfdY/LOy3qfY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sYY4FBq5lpIXnj/8ihGrqMx4ujyZc+3jMv9BqsYiC5QzrEd87
+	eah47Gko0myKlUSYrBw4yg80OLHYv7qqEFxtcCAt1J0kJybR8GqId++J2l/RdZwOfKTIFHHJtL0
+	wIPYDgQ69FAwWPqVz47DK+1xXBPb6hzw=
+X-Received: by 2002:a05:6512:2342:b0:5b0:c95:cdb9 with SMTP id
+ 2adb3069b0e04-5c156e7eccdmr331630e87.23.1794279923598; Mon, 09 Nov 2026
+ 19:05:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,97 +59,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-tp-glob-errno-v1-1-6c2cb609c590@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNNh1a8ijhYjRqQVlIRQXp3i
- +Mb/n8hswpn6JsXlG/JkmIFtQ3M+xQ3RlmqwRrriMjgdeJ2pICsGhM6b3kiDr5zAWpzKq/y/L9
- hLOUDxtgMZV8AAAA=
-X-Change-ID: 20261110-tp-glob-errno-672ea1eb786b
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hang Zhengyang <hang.zhengyang1010@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794279900; l=2440;
- i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
- bh=Z9hAImHuDRxUoABhn8rkY6eaA7NrOxV85HdeeidRhWg=;
- b=oEMG3CJWJVJ6V6xWRWQ+xm27XiPnWV0rDQ0DoRdyme5FYv07EkjpJK+G1VWdGqTW9BQg0BhdR
- mUh0IjxB4ilCbxHELMbXP4SC6lD3BUX1q/rOxu6Uy1WP8IPc765LZGY
-X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
- pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
-X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
- with auth_id=1133
-X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
-Reply-To: hang.zhengyang1010@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <1794274310.6AF27406.001.4jNpzB4CVLzch9@fangwg01>
+In-Reply-To: <1794274310.6AF27406.001.4jNpzB4CVLzch9@fangwg01>
+From: Xiubo Li <xiubli@kernel.org>
+Date: Tue, 10 Nov 2026 04:05:11 +0100
+X-Gmail-Original-Message-ID: <CAOuZWzy9ro0r4RhYqKEBVPLnjNueQGCAV9bTGpN_PtArbY6soA@mail.gmail.com>
+X-Gm-Features: AclHuK98pgQWvgrz-2fuLZ-hDjU0FUEf9dCbLSOqbk8mNjaT65KUEvCFdnB2c6o
+Message-ID: <CAOuZWzy9ro0r4RhYqKEBVPLnjNueQGCAV9bTGpN_PtArbY6soA@mail.gmail.com>
+Subject: Re: [PATCH] ceph: drop stale dentry when ceph_unlink() gets -ENOENT
+To: zhangdaolong <dlzhangak@isoftstone.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+On Tue, Nov 10, 2026 zhangdaolong <dlzhangak@isoftstone.com> wrote:
+> When a synchronous unlink, rmdir, or rmsnap request in ceph_unlink()
+> fails with -ENOENT ...
 
-When the events directory can't be read, a tracepoint glob like
-'syscalls:*' is reported as an unknown tracepoint, with a hint about a
-missing CONFIG_ option.  A plain tracepoint name reports the permission
-problem instead:
+Hi Daolong,
 
-  $ perf stat -e 'syscalls:*' true
-  event syntax error: 'syscalls:*'
-                       \___ unknown tracepoint
+Thanks for your patch.
 
-  Error:  File /sys/kernel/tracing//events/syscalls/* not found.
+The change looks fine to me, and it matches what ceph_async_unlink_cb()
+already does on failure. But I think the commit message should be
+narrowed down.
 
-add_tracepoint_multi_sys() reports ENOENT whenever nothing matched and
-ignores the error returned while reading the directories, which got
-lost when this code moved to tp_pmu.c.  Report that error when there
-is one.  As a normal user 'syscalls:*' now gets "can't access trace
-events" and the remount hint, and perf test 5.1 is skipped again
-instead of failing.
+I tested it with two kernel clients against a vstart cluster, with A and
+B removing the same 2000 files (and 2000 dirs) at the same time. The MDS
+returned -ENOENT to about 2000 of the requests, but even without this
+patch A was left with no stale dentry: stat returns ENOENT, readdir is
+empty and every name can be created again. B's unlink revokes A's
+dentry lease and the parent's Fs caps before it completes, so A looks
+the name up again anyway.
 
-Fixes: d002aab87de8 ("perf tp_pmu: Factor existing tracepoint logic to new file")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
----
-Found running perf test as a normal user.  Tested on perf-tools-next
-13a8d580433a.  As a normal user, 'syscalls:*', 'sched:*',
-'syscalls:sys_enter_open*' and '*:sys_enter_openat' now report the
-permission problem, perf test 5 passes with 5.1 skipped, and the rest
-of perf test is unchanged.  As root, 'nosuchsys:*' still reports an
-unknown tracepoint, 'syscalls:sys_enter_open*' counts, and perf test
-5.1 passes.
+The case that really leaves a stale dentry is .snap: there is no lease
+there, so after a failed RMSNAP "stat .snap/s2" still finds the
+snapshot and "mkdir .snap/s2" fails with -EEXIST. Your patch fixes that.
+With the d_revalidate change from the other patch the RMSNAP is not
+even sent any more, so what is left is the window between d_revalidate
+and the RMSNAP. Please describe this case in the commit message, and
+call the regular-file part hardening rather than a bug fix.
 
-The issue was found and the fix and changelog drafted with Claude; I
-reproduced the issue and reviewed and tested the change.
----
- tools/perf/util/parse-events.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Feel free to add:
 
-diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
-index f3ba70d4f76b..8a6d5a13863d 100644
---- a/tools/perf/util/parse-events.c
-+++ b/tools/perf/util/parse-events.c
-@@ -572,8 +572,10 @@ static int add_tracepoint_multi_sys(struct parse_events_state *parse_state,
- 		ret = tp_pmu__for_each_tp_sys(&args, add_tracepoint_multi_sys_cb);
- 	}
- 	if (args.found == 0) {
--		tracepoint_error(err, ENOENT, sys_glob, evt_glob, loc->first_column);
--		return -ENOENT;
-+		if (!ret)
-+			ret = -ENOENT;
-+		tracepoint_error(err, ret, sys_glob, evt_glob, loc->first_column);
-+		return ret;
- 	}
- 	return ret;
- }
+Tested-by: Xiubo Li <xiubo.li@clyso.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 
----
-base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
-change-id: 20261110-tp-glob-errno-672ea1eb786b
+Thanks,
+- Xiubo
 
-Best regards,
--- 
-Hang Zhengyang <hang.zhengyang1010@gmail.com>
-
-
+zhangdaolong <dlzhangak@isoftstone.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=8810=
+=E6=97=A5=E5=91=A8=E4=BA=8C 02:31=E5=86=99=E9=81=93=EF=BC=9A
+>
+> When a synchronous unlink, rmdir, or rmsnap request in ceph_unlink()
+> fails with -ENOENT (for example, because the target was already removed
+> on the MDS by another client or a snapshot was already purged before
+> the request reached the MDS), the MDS replies without a dentry trace.
+>
+> Currently, ceph_fill_trace() only invalidates the parent directory when
+> result =3D=3D 0, and neither ceph_unlink() nor the VFS layer unhashes the
+> dentry on error. As a result, the stale positive dentry remains hashed
+> in the dcache and the parent directory may retain CEPH_I_COMPLETE.
+>
+> Fix this by clearing the parent directory's completeness and calling
+> d_drop(dentry) when ceph_mdsc_do_request() returns -ENOENT in
+> ceph_unlink().
+>
+> Suggested-by: Xiubo Li <xiubli@kernel.org>
+> Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+> ---
+>  fs/ceph/dir.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+> index 6eb5b1cb039b..f4c0521f3bcc 100644
+> --- a/fs/ceph/dir.c
+> +++ b/fs/ceph/dir.c
+> @@ -1473,8 +1473,12 @@ static int ceph_unlink(struct inode *dir, struct d=
+entry *dentry)
+>         } else {
+>                 set_bit(CEPH_MDS_R_PARENT_LOCKED, &req->r_req_flags);
+>                 err =3D ceph_mdsc_do_request(mdsc, dir, req);
+> -               if (!err && !req->r_reply_info.head->is_dentry)
+> +               if (!err && !req->r_reply_info.head->is_dentry) {
+>                         d_delete(dentry);
+> +               } else if (err =3D=3D -ENOENT) {
+> +                       ceph_dir_clear_complete(dir);
+> +                       d_drop(dentry);
+> +               }
+>         }
+>
+>         ceph_mdsc_put_request(req);
+> --
+> 2.48.1
+>
