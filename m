@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.231
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794299375;
-	b=ci+FQVtwweDGaX08c3yjotMqqmuatqXCNx/Z39Uuyur5mAbvdwgxx+WTfKv359pRNHm6
-	 cPArapkZSPEeBpuCxjjhrG2J5qouDKkOj+FSPVdG729hY+6An3zO5Q7B9Oe24SNqlOoFE
-	 4Q5S32FtCxCLfbAhb88gmTrtAfKrX/XWqm2IhTkyQQNcJvRdHEnXTviisILlX4/j5UykE
-	 T2FdyVFckhv4WxfrMZrsQFWM0NSzr646sw43EvHqcDWUH4McY9tuVNUACeHnBk8aKlQre
-	 +guUn/wLiyf5LkoL3ElIsgRRCdncpsTgyc6QXUaowZrpHTEDNGFAhX+gQ5SXb+BFQZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=1wOeF5YlWotJsGCHjbNfdlWtsAh7bbzPOi405XvwX6dAZqg/BvnZ3iRE8CgR8YZNnP9k
+	 VGU2FWvV4quxRpjNbSkCB/cmr0BP43V9Yb7hoF9GTq4qcXOi3pWN9b6ANfvbgqE0eli9S
+	 wnZaUBMl05YHzm1XV3gduJN6QHtvVviPSkAkRqc3hb1Ipyj70MAJ+NVWblHQeOkJSAL2U
+	 9KYL2uxx0uhsFqfwBqF3KRo453Hj7YbU9gnxWVrGshIy8iL4/7heSNm+nhXUPKvYLZr8A
+	 84/VzquQvmGHhqummHbeSQQyVy2cKq9TrrFHHKmRq2W6iBFxycL3gRhv6z5k9Ggu0zA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794299375;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sMM+T5GEhu9fkfAwXt62zQyOIJEcXYyVkwTeWLursjY=;
-	b=uPySf/a01m2G5/jT6gNCzSSfN0zFNzWjAyxznO/Sn4Bbhaz/y9Q2QSq8xg+jCyxPDWCx
-	 wUIR2pW1eVhn7FL6D0Rx2bDZXGkCiSiOCiZkE5NEUCn+MKwi3D+xboO4CkTki/7ZvGo8C
-	 SLxJts1fy4+lYezSULrfcvQoOIGysOiGaH/kxWxsPX1SXEX2Y5qZaOBnka0yZyDzLH3B8
-	 yXf2VeLclkJkwDr+B/Bz2PPEEJcwTFeIW9zqAkRwPCryLcfjy8Dl0lp98WdhK6uY3wK4F
-	 KS2oa4VHsFJXzBsoehImYzvIt8Te22B2oegqIEZw+SVxAird+4351kQdnqXQGJiOmQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nYroIqpW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.24
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011024.outbound.protection.outlook.com [40.107.130.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=szVNT0grwG3mTP35gATUs8Ippqwk85souxdiSFEcKGM=;
+	b=BhspIqX0FFZWb4fvH/tn1SG0mWL4cxRY2bnAetpxcd1FhGOPVaSuwSIqQI1qTeM5Ld+C
+	 050hocc/MErNDung1RqiA3mfK4/W2PgUXpsZuEnAdGi23DjvA+Xr1xKh/5quRnicrk6ig
+	 BRN06QBHh2w7biorojOgCRRNFP3tHBSlld2vh2WSOBIdjzfn8baLwc/pvm+GpGNFlv1mY
+	 Jkkdlw403gQ1gnC2eIGlWQ/3ws2yXV9SujoqovsjO3j+/acl/zW1eoa+1sHHIfGdrB8vx
+	 4NmddTrn7e544xjPJIdd6x94rY2GEYe58fT7WyJXAL84yhHgBuJ3cXmTOIkavYI15+g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WK+p6kww;
+	arc=none smtp.remote-ip=91.218.175.231
+Received: from mta0.migadu.com (out-231.mta0.migadu.com [91.218.175.231])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C57606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E546E60A2627
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7C57606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E546E60A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nYroIqpW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r/FJGPpC4JO7aTUvKwDlBnv5qj8dbHAw8xmJb2HKuSmVYrKcK7uM6/w7lEj20c2+T/PuVnDGgleVpUcx30DnhgLrnX5ACicvb2iWSclJKSvBZ2TuxQLaZiB0+elRuU1WWCpJhART36bew38rO3qeKBn9+E+vDg9UH5t6mn2R/k80N8YBP714smo6oxewgHclLrPhqSMgK3SWRZXFEkjzP85nMwcgBZ7F8cpvDikWRQRgQht8+guVwEYHOMqsUXim5j4b2YJOb2XTl/xqOg/lmov1Eem6LZ9gm6fvv2JJoJ9y99khFtJuUmJ4d1FBSRGmrBAiq8otrMonGC6dU8utkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sMM+T5GEhu9fkfAwXt62zQyOIJEcXYyVkwTeWLursjY=;
- b=zQOZwRnyC0BwzjhWQOdqxRVxkFImjvgnu5eudWtDOecSdB/463tkcCjAGZYbY+7+1FWj+fseYmy3vlmXK0IwdjLeJo+JnScXTDKtCo02MhKjeLgtJCNQsKPlXq7j67Ar7F7QvgXNactyiCNixhb/5jP9N6aocDJ7RNLDE+ITvl4l2trmIRd75YuJ7lqJPoR69JhOKx0NwyuqJ4H7CISADfZ2ccurk8iUvljojYLz8pFh2zCgw2o864jdjjSVj4wBdOGsZdR4J37tnrpJIEZAZmt7MTVxV8FbE0Sg0tZMj6q9do9uJD4lNn7b0zV6QZdK1Tyb+N0iCrV7xBpKt5LKlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sMM+T5GEhu9fkfAwXt62zQyOIJEcXYyVkwTeWLursjY=;
- b=nYroIqpWTvhnnOK91+DNKreUyfeFPu3Aeth4fUea/lQPQ9+CioB0uLJ2GIjxf1f98n8U+P+VZKF9koiRcnvXL+34egWYWMOLUQKmIHogwr6l/yBI973HZM4ZXN6FhwLZnqhzvAPhfkYNu+Fv3hJyxQSS056VJZZmnHyk5lFKPG+1e71VNFMo25CcIfCj2yTQVtR70g6JqS13LL1++m74JKNZauj8v7mD5fJfEVwTRiVQSf5xjrsyMB3hYw04pYGLoZ/ZOfuQwapE59gZzpRIxkDC1sUYmltIkGW1z/RvbGLRc8AaSqPuQ/3rdN3i8ULNG0n5tcePFgOe8IbFf3M/hQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DBBPR04MB7883.eurprd04.prod.outlook.com (2603:10a6:10:1e9::23)
- by FRZPR04MB12430.eurprd04.prod.outlook.com (2603:10a6:d10:1cc::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 08:29:32 +0000
-Received: from DBBPR04MB7883.eurprd04.prod.outlook.com
- ([fe80::3a91:cf25:36c9:c3bb]) by DBBPR04MB7883.eurprd04.prod.outlook.com
- ([fe80::3a91:cf25:36c9:c3bb%7]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 08:29:32 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 10 Nov 2026 16:25:28 +0800
-Subject: [PATCH 4/9] regmap: factor out regmap_set_lock()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-regmap-improve-v1-4-3a76b6c10ec6@nxp.com>
-References: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
-In-Reply-To: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
-To: Mark Brown <broonie@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, 
- Lucas Tanure <tanureal@opensource.cirrus.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: MA5PR01CA0151.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::11) To DBBPR04MB7883.eurprd04.prod.outlook.com
- (2603:10a6:10:1e9::23)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WK+p6kww
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=K//5Ik7wskKatJRGJ9iF9SEC4Ckl+uH7I1j64ytvQA8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794299373; v=1; x=1794904173;
+ b=WK+p6kwwntpzxxncg4KMVBC1zPN3wYaT5mXIVflTth/Clczz8KW6MizKYl5mcJnlqjcT0wxi
+ QKoqFgDbU2qAc9eWvFGzzf3epBIfit89Vg6lw8M7/VCJ+3BjFBQyvnMQejqkqSYJdLiimLxGE8z
+ eexAlGWg6Pg2OL0733TetIt4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a92e251f632d5e1a;
+	Tue, 10 Nov 2026 08:29:32 +0000
+X-Mizu-Trace-ID: a92e251f632d5e1a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <68fe056b-7351-4033-81ac-3dd346154842@linux.dev>
+Date: Tue, 10 Nov 2026 09:02:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,259 +58,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7883:EE_|FRZPR04MB12430:EE_
-X-MS-Office365-Filtering-Correlation-Id: afe7f740-994b-48c1-1b5f-08df3f04bec9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|261009223027099003|10067099003|261028144727099003|261009221727099003|11063799006|56012099006|261022075727099003|261021121427099003|261021123027099003|261022105027099003|261026140227099003|261009220027099003|261026121527099003|261009223327099003|261009221227099003|261102130727099003|261102123227099003|261102124527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5VGOHVe8Jj40hVVfuPg3VtdBP6Ug/IewJ0UGT6cWtrarQoso1jpXjGTCYxxYFPQuXqTKmraCDkEnyy6GCG4hACs9wx0b+iXAV9iox2covohzxLsWHP5VA9D8Qa7EcKnYg97/I2SkVNaIPwto1Vv5NMj/vJS1z6iX9fxCdsW5Pu2yqwrAS1Buty3HhFxt35BWUqJ3CR8NLPSNltZhazP/VgGO4A81fF439Ku7M80uiKHmlqMJos1mhy412bVuz7L4wzqn8joJVT64NEu9/lgQb9BvjunpJc0+30psYBARIAAUiMKuGul+KvZ1HsLgJR5lCoHEPsiAG3PvmuEXOLnPc2ehvgcXBLkvRlAUq/PYjq4gHcCIyWSNrMghXgJdqrE98C/yF0eeWprhIHYE0YH1vE6HkC6TGsGSKpRkAJHnUgNDWfNV/LoHf0WOJJi5kjplL2sVrAZWAZOKU0PsAYJipMGcQOvqKWluM1Jcgx5zuK6h3mxKCM9eUqXK/3PtnDqkvoByTPIsrAAew7OEBN3kcscMIUnRzy3ntf3dUiR+keb/SsrQ9w2oxB7N/JJBykWLjtOi3Nt6uUQ+gvfssmKM9xMApVLS2zFR/MRIuN41RYsoQysWe4cNbQaUZImyJLIgU9qdCPNDQ88eGyVAuUUN70AHVLjAwtt6nr2WUmiCkPM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7883.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(261009223027099003)(10067099003)(261028144727099003)(261009221727099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261026140227099003)(261009220027099003)(261026121527099003)(261009223327099003)(261009221227099003)(261102130727099003)(261102123227099003)(261102124527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aC8yVWg4VklyTk00eTFsbU5vODdCUk12d1hIcWlNaFU4NVNIeGJjQWNWOWZO?=
- =?utf-8?B?OXZ1Ri9RUWEzM2VzVGNvMnhhUFBEMVZEVllyZEp5ZFl4U3RQNFE1UjZJc1k0?=
- =?utf-8?B?TC9BZ2lKMDY0aEhsdDZrcm9nd2ZzcXdLQWpaOXF6NE9BYkwvSWpsamlTWEpL?=
- =?utf-8?B?d3BMWjRqWG9PcmZIVjJWZ0JKQit3RDkxeDhCd29lcWNDQWxOTmt6NUp5MEFU?=
- =?utf-8?B?Ky9KdGRRaEZGVnlUQWFvY2FuT3kzT01rSWhxMi9LOWM1SUN5RmJ4d1JXbzIr?=
- =?utf-8?B?RkRtbmtITW0zQXNKS0NObFoxR1pPNXBKNlprb0hIRUI3VzVSK3laSWJzZFVB?=
- =?utf-8?B?WHJFSTNSb1FlOU9vUUlMT1NvUHZPcUVsYWg3VHlvMWllZFpxaUdvUThTV3Nv?=
- =?utf-8?B?MEJqVVdNOE92QkZNTlBvdHh2b1Nqci9Nbm4rTWpwd1hxNzE5VmRiZ2F3cUNZ?=
- =?utf-8?B?dzBSMk9QMElqc2x1d0hoL1FWOWY3bUVGc1ZEcStWWmdDRUk5bFM1U1lnR2ll?=
- =?utf-8?B?S3dCd3pSOGhzV2lMcGhWNzBCTk8zVDV3VlV0VjBZZFY4ZlNOcm90YnZ6ckIr?=
- =?utf-8?B?VVp0QU1LV3NPNExVdGh2bURxcWJNdWQyeC8zQ1FWamYwU0hiR1ZvV0dCYWR6?=
- =?utf-8?B?VlBtU1EzWjF3dmxGa3F3aGw4NXhVd295VXIySFZqQ1QvM1BEdkpva3FQSjBB?=
- =?utf-8?B?WGtuY3JKMkNxTGdGbDd6VlVPeW5lL2lKaUQ0YnI1eG55WjRqcmhHK1NWaDVu?=
- =?utf-8?B?UW0ra1dzQnl2c2tiWWprNHNwRHVTSjB2bFhMUGpuY2lvOVg1cStFMXA2QzZn?=
- =?utf-8?B?blpLdjVwYUlaNmF5QkhjZnVqT1FXWWdCTjlYbW1mNXRiRmQwNmIrL0VxY2tV?=
- =?utf-8?B?NlVON01qaGR3d2ozcU15a1o3c0hLbGZYN09vcGpsdnFHQ1A0NXVrWVRGejhQ?=
- =?utf-8?B?dklRQjR5TjBSVll4c3pRSkt2MGR3UVF1VDM5cm9GR0RlQzFhNG1NQXNmS09Z?=
- =?utf-8?B?c01sWldyRFJTWTkrZkVZSmpML2ZtZ2lrQWFZM3JjNHdXanpYUFhFbTEzeWdy?=
- =?utf-8?B?MFpxNVlvRHlqUHJuUG54bVgvT2xDNi9QNFUzTWI4cS93WU13YVZTMkFRT2Uv?=
- =?utf-8?B?dERyR0Y1RXVCNm8zL3ZIMWN1RnRvL0ZHT0tnWU9GNWpHRjNsTmcvdFFPVGxt?=
- =?utf-8?B?UDdwWEtFRUYxMjg5TkxqNG95bE1PMjNNdnQxc2c0UFhGNnV6N1MrbXJ5bDFv?=
- =?utf-8?B?T1kvNXh3cm9sbG1jZ0s4RHhxeTBzakNjUVJDVVFaQ3lVWFpWWFpHcTF1bTVH?=
- =?utf-8?B?MjA1UHBNNTBlbjEzMEx2SXRuY2doZytqSk9Wc0o3QjBmTHBMNzAxQ2p5a0pG?=
- =?utf-8?B?ZEE4Mm5TakJ1ZkNHbHpuL01vWU5iSkg2L0xSY3VvTS81blhZcml4eTRZODFC?=
- =?utf-8?B?Y1RJamo4K1VDeVloVy9GeHMzdTdJR2pPV2VvbzV1WStFeHVtTE9ld0d1Z21y?=
- =?utf-8?B?K05HcEJsemJDckx2UFBKTkR3REhwZUdMc2t3NFc3UFFGNHo5Z0lRbGdPU1NT?=
- =?utf-8?B?QlBhdzlXR05sTHZoNE02ZkF2ZVl3aXZJcHBTa2lmVVVnTk5KTVpFMTJYSW5E?=
- =?utf-8?B?YVVwazNmSDdyOWk3NGFFZjczYUFudkRKS29iNXAveU1NOFVEL3VwTERDQkMz?=
- =?utf-8?B?OTlVOGRjamRtTkQrcDZUZmhLbHpFOXF3ZS9EbllnNmt5UVdDQkthNU43S09a?=
- =?utf-8?B?WkY4MFVpYW96eHFkczQydkRKcFVTMndTR2s5M0ExcVJBTjhvU1Q5bW1MUVE0?=
- =?utf-8?B?VXcySldqd0VPUGVINk82dUdzSHhOalI3eWI2S3ZTNG1ZQXdkUFR2NEdBTnFE?=
- =?utf-8?B?TGhuUkljY0VISUE2aUZvcjNNNEVvQVpVMUp1aG4zNy9xWVpJKzVZY3ArWkJS?=
- =?utf-8?B?WFU3OThnd3h4ZHRyQ0VDek91dFVjR2tIZ1Jlcm1nWldVVnd6KzRqWkFMcENF?=
- =?utf-8?B?R3UxVUp0WW5DZW11VmdXbHBsVFJ4U1FWV0tJUTBBNDFpQkh3aFRMQUlKZnE5?=
- =?utf-8?B?TGFDa05lMmo4OFVzb3FvVkVSRmZsVWFaZjJkdG1ZR2lnMi9Xb3Z2MWw3ajRy?=
- =?utf-8?B?MG9YQm9XcUNhUC9GdWVVWjFqZFBwNmo0WDRlYXBCMmJCWGN0NldMRkxHblAv?=
- =?utf-8?B?MHRHbFYxL2cvSnh3enVEOHBvamJMbWorWDJKZkxDZG0vZUtiRU9oT0VjTHJn?=
- =?utf-8?B?OWV3S25nbmpwdHM3SWZlUlRITGhHTGpHR2FlVldSZllybzlPdk1WSk83WDE5?=
- =?utf-8?B?Z2NybzYyU3JTYW4wbnlWR0w0bGN2K2t0MGhTZElCOGFCNmZpbkxlUGwyTjA4?=
- =?utf-8?Q?pvOX9+zRWOFnzNnvXfxGmEzcP47FHhtmbr+S0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afe7f740-994b-48c1-1b5f-08df3f04bec9
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7883.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:32.6674
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vVMF7cc3WjHVJ49FaFQkUdPhrw60d8uEnaZBGnk0IfrLSNZR+jvaAIH6heRntkyamUJA/uU6fu8sBARNAlDltGNwUvp220Ex5HBJUCgPq801sMfYrg/OQ88f2lSPcX/O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR04MB12430
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] ASoC: Intel: avs: SoundWire PCM BE operations
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: broonie@kernel.org, tiwai@suse.com, perex@perex.cz, amade@asmblr.net,
+ linux-kernel@vger.kernel.org, yung-chuan.liao@linux.intel.com,
+ vkoul@kernel.org, "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+References: <20261106121557.2338556-1-cezary.rojewski@intel.com>
+ <20261106121557.2338556-8-cezary.rojewski@intel.com>
+ <fc911031-2367-4bb9-b0eb-f795965e629e@linux.dev>
+ <5fa0ba39-cd95-4644-8b7c-8327a3e75f7e@intel.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <5fa0ba39-cd95-4644-8b7c-8327a3e75f7e@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Peng Fan <peng.fan@nxp.com>
 
-The locking scheme selection in __regmap_init() is a self contained
-~60 line if/else ladder covering six cases: locking disabled, caller
-supplied callbacks, hardware spinlock, raw spinlock, spinlock and
-mutex. It has no interaction with the rest of the initialisation
-sequence beyond the map and config pointers.
+>>> +
+>>> +	pdi = sdw_cdns_assign_pdi(codec->bus, dir);
+>>> +	if (!pdi) {
+>>> +		ret = -EBUSY;
+>>> +		goto err_assign_pdi;
+>>> +	}
+>>> +
+>>> +	/* Fulfill the codec needs by setting the sdw_stream. */
+>>> +	codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+>>> +	snd_soc_dai_set_stream(codec_dai, sdw_stream, substream->stream);
+>>
+>> That absolutely does not scale to the case where you have multiple
+>> cpu_dais and multiple codec_dais.
+>>
+>> Please take a look at the sof_sdw machine driver (same solution used by
+>> AMD), and please use the sdw_utils library to deal with all the stream
+>> management.
+> 
+> 
+> I believe you are talking about aggregation.  No intention to support
+> that with this code.
+> 
+> After reading the read I have an impression that the expectation of this
+> patchset is: full brown SoundWire support.  I wish I could agree with
+> you.  The reality is: standard PCM over codecs with and without SDCA.
+> If I get a user and an external release on top of that, I'll come back
+> and revisit.  The code present here provides simple implementation of
+> the goal, basically mirroring what's done for HDA in pcm.c nicely making
+> it easy to follow.
+well, I find it interesting that you are suggesting changes that impact
+existing to SoundWire *products* for what appears to be an experimental
+setup that will have to be changed *again* if and when there's a user.
 
-Move it into regmap_set_lock(). The only error case, a failed
-hwspin_lock_request_specific(), now returns -ENXIO to the caller
-instead of jumping to err_name directly, and each branch returns
-early rather than falling through the ladder.
+It's ok to push background changes ahead of time to prepare the future.
+I am not sure what to think of your approach.
 
-No functional change.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/base/regmap/regmap.c | 134 +++++++++++++++++++++++++------------------
- 1 file changed, 77 insertions(+), 57 deletions(-)
-
-diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
-index dff6511ab50e..b079921287c2 100644
---- a/drivers/base/regmap/regmap.c
-+++ b/drivers/base/regmap/regmap.c
-@@ -673,51 +673,33 @@ enum regmap_endian regmap_get_val_endian(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(regmap_get_val_endian);
- 
--struct regmap *__regmap_init(struct device *dev,
--			     const struct regmap_bus *bus,
--			     void *bus_context,
--			     const struct regmap_config *config,
--			     struct lock_class_key *lock_key,
--			     const char *lock_name)
-+/*
-+ * Select the locking scheme for the map. The fast_io argument tells whether
-+ * the map has to be usable from atomic context.
-+ */
-+static int regmap_set_lock(struct regmap *map, const struct regmap_config *config,
-+			   bool fast_io, struct lock_class_key *lock_key,
-+			   const char *lock_name)
- {
--	struct regmap *map;
--	bool fast_io;
--	int ret = -EINVAL;
--	enum regmap_endian reg_endian, val_endian;
--	int i, j;
--
--	if (!config)
--		goto err;
--
--	map = kzalloc_obj(*map);
--	if (map == NULL) {
--		ret = -ENOMEM;
--		goto err;
--	}
--
--	ret = regmap_set_name(map, config);
--	if (ret)
--		goto err_map;
--
--	ret = -EINVAL; /* Later error paths rely on this */
--
--	fast_io = (bus && bus->fast_io) || config->fast_io;
--
- 	if (config->disable_locking) {
- 		map->lock = map->unlock = regmap_lock_unlock_none;
- 		map->can_sleep = config->can_sleep;
- 		regmap_debugfs_disable(map);
--	} else if (config->lock && config->unlock) {
-+		return 0;
-+	}
-+
-+	if (config->lock && config->unlock) {
- 		map->lock = config->lock;
- 		map->unlock = config->unlock;
- 		map->lock_arg = config->lock_arg;
- 		map->can_sleep = config->can_sleep;
--	} else if (config->use_hwlock) {
-+		return 0;
-+	}
-+
-+	if (config->use_hwlock) {
- 		map->hwlock = hwspin_lock_request_specific(config->hwlock_id);
--		if (!map->hwlock) {
--			ret = -ENXIO;
--			goto err_name;
--		}
-+		if (!map->hwlock)
-+			return -ENXIO;
- 
- 		switch (config->hwlock_mode) {
- 		case HWLOCK_IRQSTATE:
-@@ -735,33 +717,71 @@ struct regmap *__regmap_init(struct device *dev,
- 		}
- 
- 		map->lock_arg = map;
--	} else {
--		if (fast_io) {
--			if (config->use_raw_spinlock) {
--				raw_spin_lock_init(&map->raw_spinlock);
--				map->lock = regmap_lock_raw_spinlock;
--				map->unlock = regmap_unlock_raw_spinlock;
--				lockdep_set_class_and_name(&map->raw_spinlock,
--							   lock_key, lock_name);
--			} else {
--				spin_lock_init(&map->spinlock);
--				map->lock = regmap_lock_spinlock;
--				map->unlock = regmap_unlock_spinlock;
--				lockdep_set_class_and_name(&map->spinlock,
--							   lock_key, lock_name);
--			}
-+		return 0;
-+	}
-+
-+	if (fast_io) {
-+		if (config->use_raw_spinlock) {
-+			raw_spin_lock_init(&map->raw_spinlock);
-+			map->lock = regmap_lock_raw_spinlock;
-+			map->unlock = regmap_unlock_raw_spinlock;
-+			lockdep_set_class_and_name(&map->raw_spinlock,
-+						   lock_key, lock_name);
- 		} else {
--			mutex_init(&map->mutex);
--			map->lock = regmap_lock_mutex;
--			map->unlock = regmap_unlock_mutex;
--			map->can_sleep = true;
--			lockdep_set_class_and_name(&map->mutex,
-+			spin_lock_init(&map->spinlock);
-+			map->lock = regmap_lock_spinlock;
-+			map->unlock = regmap_unlock_spinlock;
-+			lockdep_set_class_and_name(&map->spinlock,
- 						   lock_key, lock_name);
- 		}
--		map->lock_arg = map;
--		map->lock_key = lock_key;
-+	} else {
-+		mutex_init(&map->mutex);
-+		map->lock = regmap_lock_mutex;
-+		map->unlock = regmap_unlock_mutex;
-+		map->can_sleep = true;
-+		lockdep_set_class_and_name(&map->mutex, lock_key, lock_name);
- 	}
- 
-+	map->lock_arg = map;
-+	map->lock_key = lock_key;
-+
-+	return 0;
-+}
-+
-+struct regmap *__regmap_init(struct device *dev,
-+			     const struct regmap_bus *bus,
-+			     void *bus_context,
-+			     const struct regmap_config *config,
-+			     struct lock_class_key *lock_key,
-+			     const char *lock_name)
-+{
-+	struct regmap *map;
-+	bool fast_io;
-+	int ret = -EINVAL;
-+	enum regmap_endian reg_endian, val_endian;
-+	int i, j;
-+
-+	if (!config)
-+		goto err;
-+
-+	map = kzalloc_obj(*map);
-+	if (map == NULL) {
-+		ret = -ENOMEM;
-+		goto err;
-+	}
-+
-+	ret = regmap_set_name(map, config);
-+	if (ret)
-+		goto err_map;
-+
-+	ret = -EINVAL; /* Later error paths rely on this */
-+
-+	fast_io = (bus && bus->fast_io) || config->fast_io;
-+
-+	ret = regmap_set_lock(map, config, fast_io, lock_key, lock_name);
-+	if (ret)
-+		goto err_name;
-+
- 	/*
- 	 * When we write in fast-paths with regmap_bulk_write() don't allocate
- 	 * scratch buffers with sleeping allocations.
-
--- 
-2.51.0
-
+a) Mirroring HDaudio is not the goal, if that comes with a substandard
+way of using the SoundWire subsystem and capabilities does all this
+belong in the mainline? My take is that support for two amps is a
+standard feature, be they on the same link or not.
+b) At the very least you should have disclosed your goals, limitations
+of your approach, and be mindful of reviewer time.
