@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326237;
-	b=kP0Ndlt5pN8N+UjAC3mn2jc8g0H/3lFcM/DA+UyDYkZdZn4pG5XAbMLi9wKHkjwXRSna
-	 Cz1EcaBXAfeanbTUG+UlKi4VPFkztW+WOwSAE2fOMpRqeqA/Xoy0S8sLYuXSbKlHxaOyr
-	 k89SnaF+d6koGdnEcqK6z7F4DDU7cZ2zlNdcep6S85zl4SCCm5ict/9zj8Ej8cyS+6HVG
-	 YNoVmg7y4kR3E9i1x8sv5LeVFx7jR75GPqReKI7cZGM4KqpIrX/Q6a2x27qpe7npiZZBW
-	 I0jJ+u3J6PpCVG1agF7tEUvv0tMFPM1gcSO4XdvDpfIidHrcbVkbcDkNIALZqpZXA3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326237;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.134
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794326257;
+	b=Lfx9eGCqUbUKy3nAd4Akn3oRIwYfP2Kim8WPt6+7fv7oMqvWDftn8iROBDcucaXiRGb0
+	 AVCtVMYhW3KGIu0pgKMDiLXh0k+MwNKNyTGskFrpiaUy0tZzNSA+6mWvRtD2z+Q3VBXbv
+	 ELbvpDwRLGBrxdZ4PcHx1vOQCIcE0HRfJzyAwSFsI1HNCM71ryeXgGoDpM+wtuUeOWJS/
+	 EZFQkp3I1MHNNFCySiuvRwQDbVAJbLYS0/wK2grIn41z3Ml7NiptUCC14cdIf9+S6IbOn
+	 PvRMEIUl7QCX9gFO5Z9M5+ZWU1FBp6bsu8ir8G1DGrqD+HKB71yov3gFqpHaVvANLgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326257;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=RWEG02ii2Bekn4jxdEeI8vIwOKDAIYsvyu7g0S6lfUI=;
-	b=K9x13ttS+zDPcsv5jNHJ7C3xF5IVeofiPosjPdB6Or0t+mysKBrskd0FBMAYDS3a0/yk
-	 /GjqgMqmfjvhIS32Hw8ulSAKlUPo0oEIZufseribV0csMhE2PyN7ez88J6whBaZYzfN/d
-	 5AeQLGYuZgMIOi7STen+PI4HD2AEj/XFoXfQZRUTgamBz3DT0nzohC2zGe2OS+CTwnbfA
-	 VM48my7Zr6+WxH93eaxCOmdmphPOZR5/gRU/KSHE6mG4sZ0IpYB1dp64E7CKKmsepNT/0
-	 +GIhcXlZx1qUhSP2zXnLdpjNrHWgehpGVnJWzTH0+eZ5MPZiZeIdPNXw2rLiK+6VYWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AqOIoaAagfF8f+5anLVjn5ybzEQ34T4RWG7tiFaGW54=;
+	b=y0jfvIQlfEQrteNxAu9QAkP23z4CiWd0ocdOq8H/nd03JNcBs+KMx87XFXembupV9VoQ
+	 B0xemjjrMADZV3/ohDEp5UjWKHshzWpEXy0Gl08Ak1JeceY54FH5WCL5DmP+MgsDyONor
+	 4LEQPxCji+oBXWG4Axb4WQ6wr7J0bC8ALKVT+hMGSbULsuDfPEhHDorb1Yrre/yE7x4ra
+	 8whKWjblqhi4HdStQWBt3gl9OPdBLEBMuOyy/7DtDxcEQIZMNb1T+87Uj02pfuDtzHHqQ
+	 lmeT3lLGYPkv1nKw9RaFRXMW51DOz0m3QLVWr/mAJDIR5/cNT3H8YVh/bN9wdg3ytQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VZExvN5k;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSOQpBSt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.134
+Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E39C606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E39C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0B9606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0B9606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VZExvN5k
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so14657585e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:57:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSOQpBSt
+Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c50515c3ba6so45817966b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:57:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794326255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C7Gh1uf8TYB/pLPbj3OIEqOz0gSYxGAII0IueXPfNLuFo2BxJazzmp7QgBw3PIJwXd
+         N6nRxpaO0GgoP+CqOPVfcKJBUwiu0V46hIujup6GdyHjJgPD1BXgf7iVQ/2tTCUAubk6
+         DJk382UuE2Y0XoFu0h2VllfdbpS03Bki+Duefwks8/kc+w8LSXB6ayjbkUb1B+zulIOj
+         6KpYABSrdHbRzBMY6ZuExCv20aWzhleixOEr1YQh/l0PhlCZAyUfZ6/i5swTPgtdDHAo
+         KBq8z48l2qwQ9GJ74IPG/LurNGhfiM4EmUfIkEBGjnSpu6UQ5vG67gpwFQmlzjXyncix
+         l2Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AqOIoaAagfF8f+5anLVjn5ybzEQ34T4RWG7tiFaGW54=;
+        fh=YEMif1OPekMpljv3NXo3j2WZ84h3Q/zVVRmpLzNImsU=;
+        b=eIfa0FiQYTLgHFVRtxZrzC826LRMtNb7gDRYvGQd7L0y6vwtL3jd1/riiCqANuMYxI
+         IRUXc2I86oaW4ED4mGPioZySeHv6kY5V/oeSX17CgKSwNxwX1M7s/YxNSnwZBbl26AHA
+         2BBQHdASSHf6Xjm4/Zh7MvSXrxwBtZOwBQ0LGryfoakeawrtwGclFFzPoxM2BaAIhBu6
+         sJvveJ9PCsYJuUqaP9biu6G9tgoqjnDqpzl1SnXsVRX+1Fu8BlwCEFU5x4/dP+wUF9ZJ
+         wG16W8x01VmCLZMffApYby4CM9QWBBgr8lcN3vqxi38s82z0q1CzUG1ef3upMcpXkaLQ
+         sRnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794326235; x=1794931035; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794326255; x=1794931055; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RWEG02ii2Bekn4jxdEeI8vIwOKDAIYsvyu7g0S6lfUI=;
-        b=VZExvN5kuJ0d2/dlZ/+SumROpUETm4YWleyxygMe/Xsa5GJkPCIOEwp7jHoqHEpktk
-         xW7wEUn71VE5RedIc6b7+xHys21fWni86TM7h3AxRjwwcaKhloiicxQr/IZAsh/w3W5R
-         qju69PjrjvEtOJ5uZZka2jpVTBjCWBX+nDb6Mm3xSAAiTvF5Tu8MzGar39Byx7ToJwyl
-         gmQxdvskNcBG4D9jNGJ+NRxsZdNTwVg/C18aau0bm+BsEtePDBQN6m89s5BQC6tez7p9
-         BAcObCc+z6h34sxpqjvZSn3w+NTQTcNQBWP2dd/x8J3GsR6WreFLk4oDjeu/NOhTrTAu
-         DVUQ==
+        bh=AqOIoaAagfF8f+5anLVjn5ybzEQ34T4RWG7tiFaGW54=;
+        b=wSOQpBStCUApCy7WJpLLQG5A99C+sWei/oRKlu/GydyS1WNk+UJ86gb8atryq23src
+         aPSg5bmOVbddSnXQfvymNjhtEpawuribD3vlA+xkOU42fFpoOjzJJITnvPGVS/wOqsY8
+         KEBW5XjvpM8RobxWFMZUh0RypjQiKYZA5ZBbDhPyGqUER6i2uGcyg41bCI7smZVrOm3B
+         DU1TmPtRCb2lOi+jPU1cvB/Bu2HOzfkLxWpLznt9h3UGY9PW/LqkK1PpXwKbUiMfIYoU
+         3xj2jCwkvF34fGQLH4eQszfsaalN27A4XuqXMWnxscReXNDpJwJz7VVTtVeEMkQ0eSKl
+         UFPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794326235; x=1794931035;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794326255; x=1794931055;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RWEG02ii2Bekn4jxdEeI8vIwOKDAIYsvyu7g0S6lfUI=;
-        b=HVs//69HeBRu9oJlmHeMhXXPH2nSh3r1kOHgAiZNdtX0AHU2VXPerWaatbqwEYoX0V
-         9BmrQpknRiIFv2ChME6QBX3jo5yswzN+xNyUaWylV5Y37Lg331LvKPKEfDQe6ysbFd3G
-         oXlp2MY7DpX5rTwiMT1njSltGTvNCNvMum83ma8NNpc8ys22HIYioSvA7nVpzWcjHb8b
-         IlSk+SfKvS3g4Gy24K6ULYZDW2AzkFEuXuRs3X4oHOOeRTEdwdxzjHBieAHADtzqWE88
-         kWu7M1UnaVXoXyieHZzLivf+7eVT8BBlS7qWn8s25DnRItwPPc/8D97zcH3dPS0U/5Kl
-         boww==
-X-Forwarded-Encrypted: i=1; AL+hErH2oD85Fw/Xe9QycGdk4G9fo5wjU9T2AJP9qKtJK03bw4BzKZoFwonQIlboHFbPIHDrny7WD/nwubKOXJk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aarPpFRpShRhLXqMFkK1h9oc1QIs3TDTcOqQqnkuD5C0y2HGK
-	2xN1/GXC8IBtyLmfcjzZE4ri6x4Pe05wKpoRYZrQdm4XmYCk3M+lyy7g
-X-Gm-Gg: AYBFou16aqAuGSk344BkCpJUy72Qu48J9c0hXHwN16pqVhS3Za3kfjrtz4kqHJ8HkKU
-	i4HLCQ19PEmbEG8KgjXd6SIGVvrTByBZKwgP8LTS+hZX9F0ExxUuBw48H+CM0DUBiiWUf3Jb4pm
-	OgPl32SBLmsdHdCOBNwuaJW8HTwz/oRAnj2WO1Gjy8YwDhKhQfRHjqdny6I0UpTbgSApNAD3VKA
-	CewXBV4QwVUelwPsOpB0kKx1J2YdfPrzngPtnofyyWrhFfvTzcA9UpzOgYRtKUejiD7xwvJ51u9
-	aLE9+/ZhYQPaPSgc106Apx/TsSxPljzwipwTIpI+/kt9OFau+ZoSA4HyrEWeDNw+wfKBK5NQDO7
-	UjEZ4WtSgA/B7PWx4Gn4T03GYvQVPr+KkrRV+6QQn8Mfg1N9OzAj2ulYZywPm8jkFuFayzlcwKX
-	Q5FPGEpOE5H9DAA3D+dZ3HkONhKoAMrWhJISi1049R8ZClMr8NBDrKEV/kdabFJCQ7vAoneqNbR
-	s4IDzABtyoWdvgfTE2CNg9D+9eBB3N7Q1rbcqVUeLP0o21stSVrykKMXbQggvWZq/t+6cBJYJft
-	/Pe855dE5B+yEXRzr6+Uv890ltgiPxyueeoPPOiCqvfkPIk2gdlYP5TbBLuZHDtThYZ/sn5rC1l
-	nQqeaWji6tin48b4v8kl5vDsKyR2NSMHGXZICyufUKFoP3T+PdS+fatR5GmeeFpoBwIitQow4ID
-	7zE+LGmoVogPEdHlZM0waEmRjmBxfIlgyXtS6HKKrqvsLlVCd+ndOPd5G6okOAgn/JfuqZ6BF3l
-	e9GAUtS5Ma8ox+5p9i3Vr/XKwM5GN9ih4BRA/Wsr4SU6QdR8frREL11+073lHs=
-X-Received: by 2002:a05:600c:46d0:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4ba023052c9mr57287525e9.4.1794326235267;
-        Tue, 10 Nov 2026 07:57:15 -0800 (PST)
-Received: from jernej-laptop.localnet (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0236f03esm56975655e9.3.2026.11.10.07.57.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:57:14 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
- Andre Przywara <andre.przywara@arm.com>, aiyengar1990@gmail.com
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 1/2] clk: sunxi-ng: h616: Fix the EMAC 25 MHz clock parent and
- divider
-Date: Tue, 10 Nov 2026 16:57:13 +0100
-Message-ID: <jHidiYvvSNm_NWg1iHXN0A@gmail.com>
-In-Reply-To: <20261110-h616-clk-emac-spdif-v1-1-e5e36e8963e4@gmail.com>
-References:
- <20261110-h616-clk-emac-spdif-v1-0-e5e36e8963e4@gmail.com>
- <20261110-h616-clk-emac-spdif-v1-1-e5e36e8963e4@gmail.com>
+        bh=AqOIoaAagfF8f+5anLVjn5ybzEQ34T4RWG7tiFaGW54=;
+        b=siNAU1FtBxz0Cm3nIuS9wBBKAKqD4S4MaNTu49Pc3GHcNT5cecVjnLMtgJh12npCGL
+         ZkRkQelnneU/fS8HogD4SA2PpsX2ecRWCN+S8itRUJ4z+ptDQMJQ3RljWOV1wR9VU4IR
+         u54gCPm4//tEhINvj20UgEJBmDQxCCv2JAf3PNZ5jF0cat5wkLbdbVVatmKxb+v25ZDK
+         5xk6fGU5bUNDrBG+qtSxzFUFPx/+OqZ5NHnR/cauvva5uzV3dM52m1SXHVYTW+DVFCMR
+         GnlmIG1p9juCXayfCTZrFOhbagKX0GUj1LaUF6uY2yNr7Rt5BSINWWTnpR70LAMnPHgA
+         D7Vg==
+X-Forwarded-Encrypted: i=1; AL+hErE5u+yoeXGnsx8FrB6NmryP7pFSGGwguIGy+ibu5evv7Hkkvp0btX8IFRrfnJlJdHjffexvxDSf/+8Wumg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8I8tpr/h3IRTvayX+l/9OAfIbowySQ3VfGtFPcFyZrOSRWxCwh
+	aM3gjXHFoGNmt9AFzTja39Odjiyc32yPKM6TFIHwFvYW0Lna+nyCO1WNs8al8NuHreh6l25zyrY
+	Dh8p/exeG8HHHxCJ93z5SPUBxzKz7Hno=
+X-Gm-Gg: AYBFou0fiWV5TiYI6/mRlAzuL2Q5VOKuqjgCMueSfQoX+OQJXkxXezMxh5L/Q8aQm3W
+	xF1FZ7N5qhsuHScOWzrmlwT1mQXozs6N1UYDVlRoMpz6bOhL3Tg6QoC7CO8u0LyrUbhRtSJKdsA
+	GbwWNWD/hyhaAKMNgt8T9Nm5ehlhzJSS00ei/Dgp8L0O15DgVtup4UTt3in1KnbDGf5ErUa/A+m
+	fmo20muiUUPQ7gZv5T3bcX7AEFoF/DDwZeOGKlrV1YUpMldy1qRbXl+nXZHOFLCjUPAmK4vVq0r
+	r7pgRBPcBk4e+KjRX3z6qjN7gD5QvkPd7ydYdkXO3a/Utw659qfVbAjfWCsLRa/SB4NyfkgiqZS
+	JN3PoPRhc2W9DvfqWtpAykxntoqdfzOznkNGkODs7NLQDvQOaxUGdmyqKr///xT8imY3GA0LZ
+X-Received: by 2002:a17:906:f58d:b0:c46:7ec3:fdfc with SMTP id
+ a640c23a62f3a-c5049655093mr330817366b.34.1794326255020; Tue, 10 Nov 2026
+ 07:57:35 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,71 +104,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261102212506.3348537-1-coiaprant@gmail.com> <20261102212506.3348537-4-coiaprant@gmail.com>
+ <1754e4c8-3b6e-4983-a7fb-d3444c1156c1@redhat.com>
+In-Reply-To: <1754e4c8-3b6e-4983-a7fb-d3444c1156c1@redhat.com>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 10 Nov 2026 23:57:21 +0800
+X-Gm-Features: AclHuK8jzcDwnWHZT9BxNPqc1Y_PBqiAP6DVGP8roGJ07xtaPAuYBnsbVsZu0DY
+Message-ID: <CALj3r0h5yTq41tQnGo4ECCmoAx5_2B7VFkYq62aA8e+qjKJ0tA@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/2] net: pcs: xpcs: make supported_interfaces authoritative
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Jiawen Wu <jiawenwu@trustnetic.com>, 
+	Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Heiko Stuebner <heiko@sntech.de>, Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+	Fabio Baltieri <fabio.baltieri@gmail.com>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Dne torek, 10. november 2026 ob 07:03:00 Srednjeevropski standardni =C4=8Da=
-s je Arun Iyengar via B4 Relay napisal(a):
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The H616 user manual (v1.0, 3.3.5.86 EPHY_25M_CLK_REG, 0x0970) gives the
-> EPHY 25 MHz clock as PLL_PERI0(1X) / 24, with bit 31 gating the output
-> and bit 30 gating the PLL_PERI0 input. The driver models it as a plain
-> gate below ahb3, so the clock framework reports the AHB3 rate (200 MHz)
-> for a clock that runs at 25 MHz, and the clock tree does not show that
-> the PHY clock depends on pll-periph0 rather than on the AHB3 bus.
->=20
-> Model it like the D1 driver does: a gate with a fixed /24 pre-divider
-> below pll-periph0. The register writes do not change, only the parent
-> and the reported rate do. On an Orange Pi Zero2, emac-25m now reads
-> 25000000 with pll-periph0 (600 MHz) as its parent.
->=20
-> Fixes: 88dde5e23da1 ("clk: sunxi-ng: Add support for the Allwinner H616 C=
-CU")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Paolo Abeni <pabeni@redhat.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=8810=E6=97=
+=A5=E5=91=A8=E4=BA=8C 22:41=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 11/2/26 22:25, Coia Prant wrote:
+> > diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-r=
+k.c
+> > index 6f0a110e32d2..25fdc9c6b72c 100644
+> > --- a/drivers/net/pcs/pcs-xpcs-rk.c
+> > +++ b/drivers/net/pcs/pcs-xpcs-rk.c
+> > @@ -483,6 +483,7 @@ struct dw_xpcs *xpcs_rk_create(struct device *dev, =
+struct device_node *pcs, int
+> >       struct platform_device *pdev;
+> >       struct dw_xpcs_rk *pxpcs;
+> >       struct dw_xpcs *xpcs;
+> > +     DECLARE_PHY_INTERFACE_MASK_ZERO(supported_interfaces);
+>
+> Please respect the reverse christmas tree order above.
+>
+> >
+> >       if (!of_device_is_available(pcs))
+> >               return ERR_PTR(-ENODEV);
+> > @@ -536,6 +537,15 @@ struct dw_xpcs *xpcs_rk_create(struct device *dev,=
+ struct device_node *pcs, int
+> >               return xpcs;
+> >       }
+> >
+> > +     /*
+> > +      * The RK3568 XPCS supports 1000BASE-X, SGMII and QSGMII.
+> > +      */
+> > +     __set_bit(PHY_INTERFACE_MODE_1000BASEX, supported_interfaces);
+> > +     __set_bit(PHY_INTERFACE_MODE_SGMII, supported_interfaces);
+> > +     __set_bit(PHY_INTERFACE_MODE_QSGMII, supported_interfaces);
+>
+> Sashiko thinks this last statement is a no op:
+>
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102212506.334853=
+7-1-coiaprant@gmail.com
+>
+> I don't think this is 'net' material, I suggest resubmitting for
+> net-next.
+>
+> /P
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Hi Paolo,
 
-Best regards,
-Jernej
+Thanks for the review.
 
-> ---
->  drivers/clk/sunxi-ng/ccu-sun50i-h616.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c b/drivers/clk/sunxi-n=
-g/ccu-sun50i-h616.c
-> index 955c614830fa..d2625fec651a 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
-> @@ -489,8 +489,17 @@ static SUNXI_CCU_MP_WITH_MUX_GATE(spi1_clk, "spi1", =
-nand_spi_parents, 0x944,
->  static SUNXI_CCU_GATE(bus_spi0_clk, "bus-spi0", "ahb3", 0x96c, BIT(0), 0=
-);
->  static SUNXI_CCU_GATE(bus_spi1_clk, "bus-spi1", "ahb3", 0x96c, BIT(1), 0=
-);
-> =20
-> -static SUNXI_CCU_GATE(emac_25m_clk, "emac-25m", "ahb3", 0x970,
-> -		      BIT(31) | BIT(30), 0);
-> +/*
-> + * The EPHY 25 MHz clock is PLL_PERI0(1X) / 24, gated by both the special
-> + * clock gate (bit 31) and the PLL_PERI0 input gate (bit 30).
-> + */
-> +static const struct clk_hw *emac_25m_parents[] =3D {
-> +	&pll_periph0_clk.common.hw
-> +};
-> +
-> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(emac_25m_clk, "emac-25m",
-> +				      emac_25m_parents, 0x970,
-> +				      BIT(31) | BIT(30), 24, 0);
-> =20
->  static SUNXI_CCU_GATE(bus_emac0_clk, "bus-emac0", "ahb3", 0x97c, BIT(0),=
- 0);
->  static SUNXI_CCU_GATE(bus_emac1_clk, "bus-emac1", "ahb3", 0x97c, BIT(1),=
- 0);
->=20
->=20
+1. Reverse Christmas tree: My bad, I will move the
+   `DECLARE_PHY_INTERFACE_MASK_ZERO` declaration to the top of the
+   function to comply with the variable ordering.
 
+2. QSGMII no-op: Sashiko is right, it is currently a no-op. The core's
+   compat table does not have an entry for QSGMII, so the intersection
+   (phy_interface_and) filters it out. This actually demonstrates the
+   intended behavior perfectly: the glue reports what the hardware can
+   do, and the core filters it based on what it actually supports. If
+   the core adds QSGMII support in the future, the glue will
+   automatically pick it up. I'll add a brief note in the commit
+   message to clarify this.
 
+3. Tree selection: Understood. I will rebase and resubmit the series
+   for net-next.
 
-
+Coia
