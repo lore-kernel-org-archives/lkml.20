@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327636;
-	b=P4wJXUsSUPmKPSkJifvt4bN9LljKfC8xgfkCp6Av2MxPH0zQkSCyW2RGd66vDQbx1DEU
-	 xso4DWCIdw5/Un4OcFmO089rn2VJzpHijDHtU1o7apN+eIYoKx1RazBFiUWkW1dH7g5B7
-	 VRqvjidvBHVAHkb1DlImJaBbP+gyx5vRumgvKtcP/3ToXGm/c0/+N0nMNb1+0cguUcOnR
-	 kKobQxfK/ZEA7GBTexXTCJUbNwTkVaYyYcx5zUmUow8DKYSR1cMwZ14Csdu+PkBmJ7v+g
-	 dcqiEw1LqXDvlNSL8IU3wKHPhHowxb0UK7cC1pg2tYxZdQYv+hak2NBOCBu3200f5Iw==
+	t=1794327696;
+	b=ZY+tRGqphY5uyRO6CrKB73FydMvYYIbIDgioudeP44WTmhWvBaKW4cVYbk3SDhgYC1tQ
+	 zESmHkdq3jmRgUJGj268KDb4LvR/pSRAGWyOav7LGiSe+YrwB7pn84MB0i2C18RFelBCM
+	 FfNcOgVUm8ed8Pki7D+4JVjH1KSMEQGqwIqACoUpVc5RY9dY7iJjTlgaQGucf1K+Hn1mc
+	 12d28Nw1Yr0avtut4Ik9RNBXPAaVe2Z4rKLa8/ICF6twJFkJfLTFZeR9kSMuS1vtbSpd1
+	 MBTsaHvlA0sdtNuvK1d4ho2EDV0Lqgt4NsLGKf1zw85HwayI3mOrP4QGH5vCkue4tpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327636;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
-	b=P6BMMVnosF09uTTCwOD002hK/rPLTeb7xcmOiUxQah9TBXUSZWb7tFKzmeS3HDc+d+7Z
-	 g1NlEbh5xbqQ2JgK+QJgUho7sduNjQJyUoXMQWxiOvy5H/fF1YztjWYefIkVQmJYR+7ce
-	 Zaa9TU7pvrb1IntlShS1XQgo4v6eYglN9l/HrIkThdYnnetyWHu/OgvRLCQZCm3apSS0z
-	 o9iH2uBpbBruRJ2pWfVw9QM0XxcY1fGLD/cCp/HzsHBD02gi0FJVaBM+BSzhu1E51CrAp
-	 aWb0Y2mPquBCuNpLq4f0ydJgdS+z3h8bqzqP8xDcHh3n9dkHAsyYN6itXhbO2a0nBYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327696;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bP5wdLNpyiJ9+ruTpF6sR5/wEnB1y9H630XlBE2DLdQ=;
+	b=F7VKwlzn36Mbc6JTKu0pYTJm7gBHN2mO1N0qJeOz40fy5WeA/IN9+afg1TbU5oS5d6h5
+	 ARSO+aPXIV7AGvKjaFVmaOheSg0+EeLG9BqMLJf5UJH9I8EpqTtHF0QphoOGwmUFiqAvE
+	 czX3Gq3D6xiBAEY6nmMDOc+YLpzlQcSUNFiUBw4n+Jo+ngOt06Vih8zVv/9a3qiFfT6IQ
+	 SVte1E7bDNbDkca3LESicO32ec9lYPx+/WMmYcrloqQGnUToUCWzicYAtzccihjnYmaZq
+	 qJseg/mmZ5LNLqOHHcUZ2J8K63vKEBbqw4nAOBbGfqTGvpmHiKXEVxd7biIlBvux2WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zx2c4.com;
-	spf=pass smtp.mailfrom=zx2c4.com;
-	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oMYGPlhN;
-	arc=none smtp.remote-ip=209.85.160.232
-Received: from mail-qt1-f232.google.com (mail-qt1-f232.google.com [209.85.160.232])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTGfbKd2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91CE606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91CE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A73606A320;
+	Tue, 10 Nov 2026 16:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oMYGPlhN
-Received: by mail-qt1-f232.google.com with SMTP id d75a77b69052e-5363c8de563so22054321cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:20:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327634; x=1794932434;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
-        b=i6xITlxqIx9jVTAb9sxUnCDA/7EZThQouL0hS172UtYuIo8g6JfENK/mmkT0/t+O+R
-         QuR07JJajcizha6YPS96xDmep4KgOudxogSwCu2fIPmjtOTuRLFTOlqnGZrNTI+zHzsd
-         XBKxscY+N4lgLkEgBuSb0EAgiWclNADG6GNPlzKkOY7V0OY7T9qjwsjvfKIfWfYEnfrN
-         RJfWY6UDFjOSnI7l0cYPKwN3+HCig3Q0RvthR+txEEMn8rl15od1Pyx/x/qjSCFxOArG
-         7YuElaYe7if9TbtxrZxztiIEZBAEWzv+5I8eqnJqSrb2Qge5IM2b6PhrU+D85PxmjGR6
-         5TIA==
-X-Forwarded-Encrypted: i=1; AL+hErEQ8bh/VlsRYzXlGG0czHtJf3YzIsza9ds8NzSL6zcgCJ+vxSEIYen6FOsEAZt098mE4Cte/EjLhLQhMSA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tIrykT6Lb+7z+ii+Joiv8aKZEAovT9Ew+1zsTVW1ZimdXcVma
-	WH1PYrWCbIsTXpAGHBPDvEfhLyDbcH9JMzwQdBK2Mqvj2NyKEKa6Exn0AfN3fsjiN1ptkb28iJW
-	QbqqA5CGKJ3Xg0rtHr7iACIzSfKV80mX9UmHCEcQ=
-X-Gm-Gg: AYBFou3o38bJ3FTyNmGrayUrz556gR1YG8hHNWnuIt2s0D4U7ZytQ+BFaub6Flx1onh
-	drW/gZOlXfED5N2jey7lLD48JigiKjWQAOnbvikvaLDhBkEEzGXOCidpsk2hsXSfEb57du8TZfX
-	qi47vE36bBwnxMtVQCUSieYXrWsBerz4NJZURZAzh/Vs5iqi4I/I1pX5VePn1U3j0JzTIrpnRK8
-	VJhN5IBTbCtNsI0mFFNoRedw9IO0BBPXsiqxGpHzxzGEoLTmFk900XaYsJhnsSgOi60BsOykaGl
-	ndMI/f25XE48x5t1G9F7NvX3wFK5R1GirpFyjNIWFWzGD2l0aiJh0j5Drch5FvOvr+YQCi5VAJe
-	6yg==
-X-Received: by 2002:a05:620a:26a1:b0:93f:1e3c:4a31 with SMTP id af79cd13be357-9479f337933mr473994085a.61.1794327634556;
-        Tue, 10 Nov 2026 08:20:34 -0800 (PST)
-Received: from zx2c4.com (mail.zx2c4.com. [104.131.123.232])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9479efb239csm35618885a.10.2026.11.10.08.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:20:34 -0800 (PST)
-X-Relaying-Domain: zx2c4.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1794327631;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
-	b=oMYGPlhN+9g4AeBDfpCGTBZvu9Avf73LXYnRU6qvPzJzuBsQ3shkH5vxk/jmMg8gWGzwbl
-	iRS9Y/grD05nLAnzDqY6ePcGBUuSJekQMzyZ7RF8Z1y6YzzHA0AyatbgR2FGsdiWhRAshw
-	xeD1NXhYrsxQ+z6vA0sPv74b16eUe6U=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id cd041934 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Tue, 10 Nov 2026 16:20:31 +0000 (UTC)
-Date: Tue, 10 Nov 2026 17:20:28 +0100
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, wireguard@lists.zx2c4.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+de9701a2cad597c14d34@syzkaller.appspotmail.com
-Subject: Re: [PATCH net] wireguard: mark racy persistent_keepalive_interval
- accesses
-Message-ID: <avNETK_9e7sr-JSB@zx2c4.com>
-References: <20261011102322.355167-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTGfbKd2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45351F0089F;
+	Tue, 10 Nov 2026 16:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794327695;
+	bh=bP5wdLNpyiJ9+ruTpF6sR5/wEnB1y9H630XlBE2DLdQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JTGfbKd2jUS4VPVhdDdly/iy8wv65CnMHH+paZDTMqxrPURLhYqh8+dlyT/KoAc8y
+	 KFHIePGE/iaUd2Bp4HDpKPw+QT/oIjrpRkf44ON2CuFDW7ZTjlIF5SL2X5AHk6m6eP
+	 6Eby4xYgGaEay2rXmCfdQi3oIjCbBenzGIQsbQFXJ9VA109Xo6Kv/GX19HjXNP52qb
+	 tpwLWp4ocPqZbJcu0lTXwD9/3ZSLs689Ffhz9ED5AXWRVNT9ptrcEkwxQnac671Jx3
+	 q/WMEHxrdrl4NlVyPxeVMU9//QT+82C2U2tLXqDqykMv8p7NQ9oqZsB+sbtRDczRd6
+	 E6o5a0YVNbIxg==
+Message-ID: <eb9fdef7-2cef-425b-a62e-c28b7dbe1596@kernel.org>
+Date: Tue, 10 Nov 2026 17:21:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,29 +51,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261011102322.355167-1-ngocthang2710.1999@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] watchdog: tegra_wdt: Support Tegra20
+To: Artur Kowalski <arturkow2000@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-doc@vger.kernel.org, clamor95@gmail.com
+References: <20261110-t20-for-upstream-v1-0-5923449951fe@gmail.com>
+ <20261110-t20-for-upstream-v1-3-5923449951fe@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110-t20-for-upstream-v1-3-5923449951fe@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 11, 2026 at 05:23:22PM +0700, Nguyen Ngoc Thang wrote:
-> wg_set_device_doit() updates peer->persistent_keepalive_interval under
-> device_update_lock, while the RX/TX paths read it locklessly in
-> wg_timers_any_authenticated_packet_traversal() and in the persistent
-> keepalive timer. KCSAN reports the race:
+On 10/11/2026 13:39, Artur Kowalski wrote:
+> +static int tegra20_wdt_init(struct platform_device *pdev, struct tegra_wdt *wdt,
+> +			    void __iomem *regs)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *np;
+> +	struct resource res;
+> +	int ret;
+> +
+> +	/*
+> +	 * RST_SOURCE belongs to the clock and reset controller, whose driver
+> +	 * doesn't use it. Map only this register, without requesting it, as
+> +	 * the region belongs to the clock and reset controller.
+> +	 */
+> +	np = of_find_compatible_node(NULL, NULL, "nvidia,tegra20-car");
+> +	if (!np)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "clock and reset controller not found\n");
+> +
+> +	ret = of_address_to_resource(np, 0, &res);
+> +	of_node_put(np);
+> +	if (ret)
+
+Looks like doing syscon here. This in general is more fragile.
+
+...
+
+> +/*
+> + * Tegra30 and later list "nvidia,tegra20-timer" as well, but match their more
+> + * specific compatible string.
+> + */
+>  static const struct of_device_id tegra_wdt_of_match[] = {
+>  	{ .compatible = "nvidia,tegra30-timer", .data = &tegra30_wdt_soc },
+> +	{ .compatible = "nvidia,tegra20-timer", .data = &tegra20_wdt_soc },
+
+Why in reversed order?
+
+>  	{ },
+>  };
+>  MODULE_DEVICE_TABLE(of, tegra_wdt_of_match);
 > 
->   BUG: KCSAN: data-race in set_peer / wg_timers_any_authenticated_packet_traversal
-> 
->   write to ... by task 3648 on cpu 1:
->    set_peer+0x...  drivers/net/wireguard/netlink.c:457
->    wg_set_device_doit+0x...
->   read to ... by task 3652 on cpu 0:
->    wg_timers_any_authenticated_packet_traversal+0x...  timers.c:217
->    wg_packet_consume_data_done+0x...
->    wg_packet_rx_poll+0x...
-> 
-> The race is benign, but the reader also loads the field twice, so the
-> zero check and the timer expiry computation can see different values.
-> Load it once with READ_ONCE() and mark the writer and the other
-> lockless reader accordingly.
- 
-Applied, thank you!
+
+
+Best regards,
+Krzysztof
