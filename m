@@ -1,80 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320132;
-	b=xUApseu1aQDwkBQMdUqtJkgRVJGOW/w0S11duKgXFCmTRdPT1kVp6AvudSY6iuaibaDa
-	 eAhSjwCdMwJw4D6HsswZeu133qPSzEq0KZUb4leowcKzQrAofxpXL4WaPpkLAQw0LTwaK
-	 3hmPkqeClRruI7yrPgbOIqanTMSaUNeVSl3cwbfhTIIFZn2Oun2YgLdDPrKQ9MI0jE5Sq
-	 XQEP9/IhBlGLZ2srJTeeso6HMVH6cWRDeHnOR3BU2vUBtY6LIWVXDE+LGIryFQJhjlRgJ
-	 A5B7yLVuqNI2xXCO8mIQ/ZHo4quiCx46Gzy/7zq3zxjdZEpV5JliePguiHpw5TPwxGA==
+	t=1794320152;
+	b=znDxW/ldMAcUxxBGeryKJni4M9vZQoQ46S3vZYXE5xJLN7nWfIc5/3eLgcCg5CysdcmT
+	 SmYELFkFcaR+20PQ9Gtma1N8QCEVBbSeZUHhSw8TuLtganejuAqmAXxqC8Ny4dLhVKPN4
+	 Zy1ZcZf5h2BG9PFmUIgUuLz4HSAXi38SfjjKyBIuOJejWRx5te0ZHDo+ygW1SSGVV9WFt
+	 ZzRQe0QnuyJwAGlgvPWHuVRnzrNaqj6zFfokqd8SQGMab5mg1bFkWFqvGtn4s+NRdHWR0
+	 NZy1tR8A1Qg8yzIFxMvWebdBdV8kK0IGmCDwa5KXsCDTCZiKBltAvsJK+7YfFWPD0Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320132;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=GxIvKSga2N66MM4PPKy/zEU2KBU8daUXspv11nGly7g=;
-	b=nK4J39nQDeKUUV8qfE0c3OuLKUCJNPWlE6krjyQXf9orwN/no5SAT+sYXwoGf3w9F6Uu
-	 R6SevGsA5tms7Fiy1Z+5vLE417e3+ZVXOAGDCTueJNwnVzy5Lu1cB5Am6sdWnpGDFgIZ1
-	 4ILoSvWsrKvxZKKcbGol4MfgjaMEoT2hC3/TcHVqJs/JkTodVJl1RLDcTY7puKR004nnI
-	 O5YQAcqTSZBejdx4cQ5X1jofRrkX6mLUyf7SlWn4+GtgNDW0ozOcURspiiPTiCRyx0mW2
-	 m6L4VZAOa7puAvl2VqUypCnvyI7cC4RAFyPEz37NcoxfXqk35n/Msy7i6U7Q9G0JA5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320152;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ds7kNgZUPfXWm6W3cqj/9lr9L7V5tdvs1wli0L1Uyho=;
+	b=rMBC75hP7bd8yaNxLRgAqkX0J6hzFhOsdxY9f4HRbDz7mzPUcc9DltOEfvVW/y/1vQyu
+	 SLarG7F0eUvzvgoDPXHtdNZi6xrWtV1KhKP7ZgIRNqNMo+8y2GV96SRx7W8/jTki4zBkJ
+	 /Q5NMqNbODMjS784lJuXD9KEVU5ZPWu47sPwaNezlnJvMzkxfVRTo7orPPcPN7BqH5Zfe
+	 gDym+D7pQeqmn79OB36sJ2OokqVun/7f/kE/XO7gcQuZHq8Nz/8IzvRjw4wiwy7QeQPd7
+	 9RR0ffMPtQkcXBSWP3G3uKG5NQ6HuZtbGyMTmg/AxN5I7ADF6ipLmhfVoBfb25P4LZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GxARJiRs;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oA7y27wc;
+	arc=none smtp.remote-ip=91.218.175.192
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00F8606A321;
-	Tue, 10 Nov 2026 14:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C00F8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E66606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79E66606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GxARJiRs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794320132; x=1825856132;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TmN61axYmllJcj7cTJcrh3bkPcrCqfZguo5XcJlLpcc=;
-  b=GxARJiRs9Go5BP5+n0QGo1EpP9k7UO0SRaAkTUfYZTcZjuzbnM1/O9g1
-   awac/OkyZ1cZ7yuxuXy/4jJvjOZxlLFny2IXLM2O3PuiEOmUsHSVGggRl
-   XxoMlmlDTUbQifnQE+g8B8TWLmyiY48Gon6NV9P1nF9yi/pklffD8m33D
-   hBBHQBpilr+z0surG4yH3IVNY/N206VMxNnoec2w/QMK0MJvv9BWZQVy7
-   +nb5y0vFgv97n2Ga63lwt5bJZQ8E/kYADQ/svJQV46xwrxn3ZZpiBnoaV
-   N3zeOKwdcXkR+fe8AqcnyrRw9Qp5dfhDTLwvgE75EBV5fd7ZabjPEuQcZ
-   A==;
-X-CSE-ConnectionGUID: Ypqqyf9OQACwO9R7XijXTQ==
-X-CSE-MsgGUID: zYH9iI/AQ8CHo5BHXL+x/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3082567"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3082567"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:15:31 -0800
-X-CSE-ConnectionGUID: Scheq46MTLWRyxadEA8KpQ==
-X-CSE-MsgGUID: 4kTFNcGLS8eqjxHmDzBYGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8039505"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:15:27 -0800
-Date: Tue, 10 Nov 2026 16:15:25 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: liuc63@xiaopeng.com, gregkh@linuxfoundation.org,
-	akpm@linux-foundation.org, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	khtsai@google.com, fangxy@xiaopeng.com, rdunlap@infradead.org,
-	dbrownell@users.sourceforge.net, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] lib/net_utils: allow mac_pton() to take a custom
- delimiter
-Message-ID: <avMm_f2-2PZOU9v5@ashevche-desk.local>
-References: <20261106030605.576584-2-liuc63@xiaopeng.com>
- <179431528628.994134.9205744622940373491@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oA7y27wc
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nbIdV6Ekrwky+WTmgp4OyxXE9Kai2xeE0z34n5bAiq4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794320149; v=1; x=1794924949;
+ b=oA7y27wcHOORrMchFx1gImknWxCyRBj4zZOzjxhpduQBTjb9Y8dCA3MSvBMq4+0s57v/3jnZ
+ qIp76t1EzxXvxr3G7ov2JoE3oEnfVmLgeA3gPJLODOh2jMo5S4QOGMm2qDjFr53Logq2MWvLRKG
+ ALCbDYbHOLwbfqWXONSMqu9g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3f650de13b867266;
+	Tue, 10 Nov 2026 14:15:49 +0000
+X-Mizu-Trace-ID: 3f650de13b867266
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <323e1f32-4127-4121-a1d1-3a7e43ca5ce6@linux.dev>
+Date: Tue, 10 Nov 2026 22:15:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,63 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179431528628.994134.9205744622940373491@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Suren Baghdasaryan <surenb@google.com>, Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Uladzislau Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ rust-for-linux@vger.kernel.org, Daniel Almeida
+ <daniel.almeida@collabora.com>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Benno Lossin <lossin@kernel.org>
+References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 12:54:46PM +0000, netdev-bot+sashiko@kernel.org wrote:
 
-> > +/**
-> > + * parse_mac_pton - convert a MAC address string using a custom delimiter
-> > + * @s: string to be parsed
-> > + * @mac: buffer to store the result, left untouched if @s is malformed
-> > + * @delim: characters accepted as a separator between the byte pairs
-> > + *
-> > + * @s must be MAC_ADDR_STR_LEN characters long and use a character from
-> > + * @delim at every separator position, e.g. "aa.bb:cc.dd:ee.ff" with ".:".
-> > + *
-> > + * Return: true on success, false if @s is malformed.
-> > + */
+
+On 2026/11/10 20:03, Lorenzo Stoakes (ARM) wrote:
+> Given the current throughput in the kernel resulting from AI-generated
+> series, I unfortunately lack the bandwidth to generally be able to offer
+> review except in those areas I maintain.
+
+yep, with the AI flood these days, inbox zero just isn't happening :(
+
+> I have separated the patches into areas maintained by David, Andrew, and
+> Alice + Danilo, so each can take the patches relevant to the subsystems,
+> for convenience.
 > 
-> [Severity: Low]
-> This isn't a bug, but does this kernel-doc describe what parse_mac_pton()
-> actually does?
+> Apologies for doing this, but given the current trends I'd like to do
+> something to make my inbox a little more manageable :)
 > 
-> The only length check in the function is:
-> 
-> 	if (strnlen(s, MAC_ADDR_STR_LEN) < MAC_ADDR_STR_LEN)
-> 		return false;
-> 
-> strnlen() is capped at MAC_ADDR_STR_LEN, so this check only rejects
-> strings that are too short. The parsing loops read only s[0] through
-> s[16], and nothing checks that s[MAC_ADDR_STR_LEN] is '\0'.
-> 
-> So input such as "aa:bb:cc:dd:ee:ffJUNK", or the 7-octet
-> "aa:bb:cc:dd:ee:ff:00", returns true and fills @mac with the first six
-> octets. That doesn't fit "@s must be MAC_ADDR_STR_LEN characters long"
-> or "false if @s is malformed".
+> Also add a CREDITS entry for THP, as, since Zi's rightful and well-earned
+> appointment as co-maintainer there, I have no fear of needing to step in
+> there, and so would like to record my time in that role.
 
-> The runtime behaviour is the same as the old mac_pton(). The current
-> callers (the mac_pton() wrapper, and get_ether_addr() in u_ether.c later
-> in this series) don't depend on long strings being rejected. However, a
-> new caller that trusts this doc could skip its own end-of-string check.
+Thanks, for real, you've done a ton for THP, and it shows :D
 
-> Could the doc say instead that @s must have at least MAC_ADDR_STR_LEN
-> characters and that anything after them is ignored?
-
-Yes, this needs to be fixed in v5. Adding two words "at least" into the
-mentioned line of the kernel-doc.
-
-> The other option is
-> to reject strings where s[MAC_ADDR_STR_LEN] != '\0', but that would
-> change behaviour for existing mac_pton() callers.
-
-Yep, that's why it's a bad idea.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Lance Yang <lance.yang@linux.dev>
