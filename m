@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305121;
-	b=bXr1jhviHHgMqvkHuckxCSvVB92hHFhIQVYRbHpM8JjY0urvv68Uowz1+WYgjSrYZMas
-	 JZBv9bl5aDdP2Yb2nysrMei+GEi3bxUEkytb6iXx0nE7WWG2JnQWVf3fcCGIsygdCxLwI
-	 ho0UoA9DvCaBFW2m/9Ko3b4u4oTKZrNJgMuC0KQ9zqOKRTqA3BOLHVpwlfPOPiP3ihLeQ
-	 tp3awz6sJJu/+xjZtAHAfLQR2lgfM3doVbtofSZnHH/TN4TiVJeDF6E48Y6hhwBSUEYM8
-	 D/iqcPGh6JxJRq1GgZ/3Flic8CqHCsrdevtKpr8hYZgBPm5o3Edm2UneOeReWtXN87g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305121;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fXxtM4mrSqwdm5z48R0tc1I4MlDBeNm231VHL0aDjD8=;
-	b=vOTQ+UC2pIoO6oDILilqnU2qI2fFKgAGzihsV1Cpj+l5lkMPkZWywKaKytG4HWBUZixr
-	 ef+nDRcgZsqyw5VIQKxGyXaR6+Ddsj0OI2IUCwz7Og+KgLZJkztaf2KVK08jWVbxuCeCF
-	 OcZ3mmyuX43F3bANqPcb9ZObnAEQuIJpNfIXkiW9yE2/X+eurMi89t8PeMFcMuGjOCUNV
-	 7VPUMs2o1gB70/zxbyKdKL9hOMlAEcVLkOQxFwQhVOAU+902nXL9AxXQTLh6urlaZ2C+9
-	 ytb2KsNGzN2owK8QqzCo/LNkv4i4KPp9AKCQFFlP8zhVl+Cr/HSPiF1H0NXSEDRQ11g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeFttKFm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794305128;
+	b=qfzwGt/WHxGUOXV3rG15Q2aCmYmQnb+yfiAGJx4mqc28CpyyKB5BRYwZ01pqfgJoJbk2
+	 9zp8W7u6dMeKpS0XDTOq1pUNu7XNYy7+RPJoICuSamCBPK7f9V92YQmwDpGG9VBZeF4t0
+	 UF/FuTTFDZbHzBPrI9ws/3juruXD+sWiV53u5eKcRMYrZ4QcTFS+OTgGjkBITu46KgdEL
+	 /iQ0ZjdvKR1lBMR4FUNk3cvdK9I6g/DSrSsYyxmSNCXIOuDnY62j3ZQXEyDQniInqJXwR
+	 qbkCFgg0PZLn2ya7gp2LRmy4yobdbe0ETrv//5oWyw/DEORbAmNsADOuBMp+GYLVDsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305128;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=n7JHToNvmvovrxsCT+NsYxHL5scA7i94JGOHZjSN1bs=;
+	b=CO1fHrHDqlVOv8bctm7n1qABBv9X8Ld9r8JS/Q0RjLKARtZ2hME6v+PqNpYEpo3VX6OZ
+	 +akMEChCTFJYW/ku09bVv90a9yBg35or1Ae0y3lhCx4yPNw0ZgfhutoNZ3tlVvGNqtbUc
+	 uhiKDM/UaliCbV9auENIytpXNRAc4dFovnIgIsIgG7qxwxAtOK0CVidtQKptc7BlUxjiv
+	 Km5pNodEw7w/3iHVEmrr/0Sa7SD+UyJTM1GfTQWVYjhpF7URcyneKBCcfBnJwGJF88ih/
+	 m2frblpYXKPYJnfw/JISYj3x2i/35Uo0Jk6NDNh01EalirCh3TFbR+Cm4euDSvi0akA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkxRLQKe;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8264860A260F;
-	Tue, 10 Nov 2026 10:05:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F9D60A2603;
+	Tue, 10 Nov 2026 10:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeFttKFm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305121;
-	b=pGXTlflAwa5cepTVBovWQ9nchbiC7qEhXHIl8tc4OU10vN/YIomKib02a6rwX1MBia8B
-	 U8rnvqfkkUqhuoI2DV4jUH8DzVMh49Wt6M0oB4vVvJ6c4mv5E4qlkhLFQiX9p7E46taSq
-	 85mp+WmMGNp+Lfw/In3LQbEFFHrd+XmPseD0CYNm/Ek6Vr41DmdW00P1vmykEJIXJ6xmd
-	 /pVqEJFwjKMxBod6q74gXpMy655Ep3SsK6XRlEqsdli/VEGYFI2ZmL7UjwqPjaFzGgbTb
-	 MMNg5SFacrbrwrMxG3KNe443aqsCF4jwji1G4OjphaVPO5mVOxQUKl1JYDMfP4P6vCg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305121;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fXxtM4mrSqwdm5z48R0tc1I4MlDBeNm231VHL0aDjD8=;
-	b=GIjZnGDeNaqvMnpgZt/HsdW4cVfC/U76sl9fn0lqIoEPTESlgep0tZKvP296B7cHv0Dv
-	 LriUHVzK/BmC7DokXrF7sdBJheIE86xNciKk4rhsua2EYrn3KHaZli0mgPfV8PNKHgeC7
-	 fskXOpOAqnqLnHFgNrnUDnDYYGnHWbqIyYXjz7LXIPlwFasANzFMCdfzqZXReR1vUzB5S
-	 DovcSnKm2JvC0LbAZN7V9U3kWSpPYIxTOqSQLpVSqYZcs5uDvTjwJS3uPWxUFJdOz4YSY
-	 PZaGfnUueEj37RjgNcGD8kAcJBnXgyVNRzag2Tlc1KqL12mLYXriITtDfIcZDLFpfZA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 39AFC1F008AB;
-	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkxRLQKe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD241F008A4;
+	Tue, 10 Nov 2026 10:05:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305121;
-	bh=fXxtM4mrSqwdm5z48R0tc1I4MlDBeNm231VHL0aDjD8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NeFttKFmIfceEJorlopOzhttMEz/nuYXGApkDYARIFriHVSWGQd+1y5goWtRQThLq
-	 znSLL/BolZCI5zc793J2Ima3BFaNojzUEPiWEWDN5llG6Ylme33fZoY3R64xL53nzC
-	 ysB6VyaUrlkzYVt7S9UDULOek2rR8K2SSyJI5/lrnv4Ztm/YBrdaC7xT9V8OhsofNF
-	 X6NBvwgR6VE9OygudDKgJUPDEPTEI8VOAo+QNUcrjPgfmxT2Ltr+ZVfAXboQL6xUVA
-	 3ncYhCffg04UjBNkHak5X5zP13b/BPnLmFnYx+gTHt6700B8gNrQW/f9+aDwORImmZ
-	 k/+fvdkdJcJpA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EE95748A92;
-	Tue, 10 Nov 2026 10:05:17 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+	s=k20260515; t=1794305128;
+	bh=n7JHToNvmvovrxsCT+NsYxHL5scA7i94JGOHZjSN1bs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FkxRLQKe2exp2p0YBuRQCorQW8fK+JO16bZr31sSfbbg66nXkxqHsgponQcdBK0jX
+	 DavDBSPy277+yZXKBuTxwIBFw44WRdpUQ63FuWtJJLKGi7WUV5STiwvF1mgjz+D+s9
+	 2R3Zw5dfR3kp3fgXtxCypQsKsIjuRwRiI2Q5KT525LpWnU9ICcu+uzDOiLYFpvxkAU
+	 vtn+DgLDVhMLMXx3dM1BGJ6IVMrSmMzlUlOag0e4HVtvDX8dhJHzkpfejT26Pf9LSJ
+	 odI8MM+xQgHW8NPsi+f9yRInvQzSygij6hL4uFUzd9HXeq1XBPygQHUrwSKyNM524Q
+	 LhEEWntTWrKqw==
 Date: Tue, 10 Nov 2026 10:05:20 +0000
-Subject: [PATCH RFC 06/11] media: v4l2-core: Bound the I picture size in
- the encode CBR rate control
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net, 
+	david@kernel.org, link@vivo.com, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com, tujinjiang@huawei.com, 
+	vbabka@kernel.org, xiao.wang@vivo.com
+Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages
+ under only_merge_zero_pages
+Message-ID: <avLrHrnpP3tuXXPZ@gremlin>
+References: <20261110074312.219847-1-xu.xin@linux.dev>
+ <20261110074451.220524-1-xu.xin@linux.dev>
+ <20261110074451.220524-2-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,270 +62,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h264-encode-fixes-v1-6-7a64486df499@gmail.com>
-References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
-In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Paul Kocialkowski <paulk@sys-base.io>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=9619;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=YS6Z381I0eqa6cgdBfWgmwtIwZkhdIpklFlbUIrYFtE=;
- b=TaRgevff76CqvLjGMdOHEoZ6Ltqb6e8dQqMSW06bm2j8x+l+mH03aDDrwOMfmwZBc87insqqr
- TcwP2JAKip6BAAMdg4ZVhBoS1q9SOlXVUYBDBVog70PZeJe6GuResva
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110074451.220524-2-xu.xin@linux.dev>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Tue, Nov 10, 2026 at 03:44:49PM +0800, Xu Xin (vivo) wrote:
+> When only_merge_zero_pages is enabled, ksmd only ever merges empty
+> (zeroed) anonymous pages with the kernel zero page. A page that carries
+> data can never be merged, yet the current code still allocates an
+> rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
+> decides to skip it.
+>
+> On workloads with a large amount of non-mergeable anonymous memory this
+> is a real cost: every scanned non-zero page pays for an rmap_item
+> allocation, and the rmap_items accumulate in the per-mm pending list.
+> For example, a MySQL instance with hundreds of gigabytes of anonymous
+> memory (mostly buffer pool pages that cannot be merged) ends up with
+> ksmd creating rmap_item metadata for each candidate page; the metadata
+> overhead can wipe out any gain from the zero-page merging and even turn
+> the net benefit negative.
+>
+> Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
+> get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
+> checks whether the candidate page is all zeros. A non-zero page is
+> skipped entirely: no rmap_item is allocated for it, and any stale
+> pending rmap_items below it are freed (as get_next_rmap_item() would).
+> The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
+> counts it as scanned and continues, so the pages_to_scan budget is
+> preserved.
+>
+> The all-zero check (pages_identical() against the kernel zero page) reads
+> the whole page. For a non-zero page this is a net win: the extra page read
+> is cheaper than the rmap_item allocation and the stable/unstable tree
+> operations it would otherwise trigger.
+>
+> A page that is zero now but is written before cmp_and_merge_page() runs
+> is still handled correctly, because the checksum-based decision in
+> cmp_and_merge_page() (added by the previous patch) is the authoritative
+> one.
+>
 
-The constant bitrate rate control codes I pictures a fixed QP delta below
-the current QP state of the P pictures, whatever their size target. On
-content whose P pictures get very cheap (static scenes), the state drifts
-down over a GOP and the next IDR picture comes out far above its plan:
-up to 33 times the nominal picture size at 1080p60 and 2 Mbit/s with
-HEVC, 2.6 times its target and a third over its share of the GOP at the
-largest I/P size ratio the plan allows. The P pictures of the GOP pay for
-it in the end, but the bitrate over one second rises to 1.5 times the
-target, and IDR sizes swing by up to 3 times from one GOP to the next.
+Please re-write this in your own words.
 
-Do what the Rockchip MPP library does for both codecs:
+It's rambling on and never gets to the point of _what this patch does and
+why_.
 
-- code an I picture at the mean of the QP state now and at the previous
-  I picture (weighing the current state 70% when it rose from 33 or below
-  to 35 or above), so that a drift of the state over a GOP moves the next
-  I picture by half as much;
-- after an I picture larger than its share of the GOP at the largest I/P
-  ratio (30), raise the QP of the following I pictures by up to 4 QP per
-  picture, in all at most a quarter QP per QP step below 45, and take the
-  increase back as I pictures come out below that share.
+I'm not interested in reading a novel to understand the code :)
 
-All-intra streams are unchanged: their QP state follows the I pictures
-directly.
+It seems very LLM generated, LLMs are _terrible_ at writing commit messages
+and commits, please re-write all of that.
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/media/v4l2-core/v4l2-enc-cbr.c | 98 +++++++++++++++++++++++++++++-----
- include/media/v4l2-enc-cbr.h           |  8 +++
- 2 files changed, 93 insertions(+), 13 deletions(-)
+> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+> Co-developed-by: Jinjiang Tu <tujinjiang@huawei.com>
+> Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
 
-diff --git a/drivers/media/v4l2-core/v4l2-enc-cbr.c b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-index 5bd10d494054..32f98052e981 100644
---- a/drivers/media/v4l2-core/v4l2-enc-cbr.c
-+++ b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-@@ -4,7 +4,12 @@
-  *
-  * One QP state is kept for the stream: it is the QP of the P (and B)
-  * pictures, and I pictures are coded a fixed number of steps below it, so
-- * that the quality of the reference pictures stays even across GOPs. Each
-+ * that the quality of the reference pictures stays even across GOPs. The
-+ * I pictures take the mean of the state now and at the previous I picture,
-+ * so that a drift of the state over a GOP (static content, where P pictures
-+ * are cheap) moves the size of the next I picture by half as much, and an
-+ * I picture that exceeded its share of the GOP at the largest I/P size
-+ * ratio raises the QP of the following I pictures until they fit. Each
-  * picture gets a size target from a GOP plan, in which an I picture is
-  * "ratio" times the size of a P picture, with the ratio and the IDR period
-  * measured on the stream. The difference between the coded size so far and
-@@ -39,6 +44,15 @@
- #define CBR_RATIO_INIT		160
- #define CBR_RATIO_MIN		24
- #define CBR_RATIO_MAX		480
-+/*
-+ * The I QP increase after oversized I pictures: at most 4 QP (1/256 units)
-+ * per I picture for an I picture twice its largest share, and in all at most
-+ * a quarter QP per QP step below 45, up to 6 QP (more where the QP is low,
-+ * where a QP step changes the size by fewer bits).
-+ */
-+#define CBR_INTRA_ADD_STEP	(4 * 256)
-+#define CBR_INTRA_ADD_QP_END	45
-+#define CBR_INTRA_ADD_MAX	(6 * 256)
- /* P pictures after an I picture when the I/P size ratio is measured */
- #define CBR_RATIO_PICS		4
- /* QP errors up to this are corrected by 1/8 per picture, 1/256 units */
-@@ -85,9 +99,9 @@ static u64 cbr_nominal(u32 bitrate, const struct v4l2_fract *timeperframe)
- 				  timeperframe->denominator), 1);
- }
- 
--/* Planned size of an I or P picture of the current GOP */
--static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
--		    bool intra)
-+/* Planned size of an I or P picture of the current GOP at an I/P ratio */
-+static u64 cbr_plan_ratio(const struct v4l2_enc_cbr *cbr, unsigned int fps,
-+			  bool intra, unsigned int ratio)
- {
- 	unsigned int gop = cbr->gop;
- 	u64 p;
-@@ -98,13 +112,43 @@ static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
- 	if (gop <= 1)
- 		return cbr->nominal;
- 
--	p = div_u64(cbr->nominal * gop * 16, cbr->ratio + 16 * (gop - 1));
-+	p = div_u64(cbr->nominal * gop * 16, ratio + 16 * (gop - 1));
- 	if (intra)
--		p = div_u64(p * cbr->ratio, 16);
-+		p = div_u64(p * ratio, 16);
- 
- 	return max_t(u64, p, 1);
- }
- 
-+static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
-+		    bool intra)
-+{
-+	return cbr_plan_ratio(cbr, fps, intra, cbr->ratio);
-+}
-+
-+/*
-+ * QP of an I picture: the mean of the QP state now and at the previous I
-+ * picture (the current state weighs 70% when it rose from 33 or below to 35
-+ * or above: content that got much harder), plus the increase after
-+ * oversized I pictures, less the I QP delta. All-intra streams use the
-+ * state alone, which then follows the I pictures fully.
-+ */
-+static int cbr_qp_intra(const struct v4l2_enc_cbr *cbr)
-+{
-+	int cur = cbr->qp_q8, ref = cbr->qp_intra_ref_q8, q8;
-+
-+	if (cbr->gop == 1 || ref < 0)
-+		q8 = cur;
-+	else if (cur >= 35 * 256 && ref <= 33 * 256)
-+		q8 = (3 * ref + 7 * cur) / 10;
-+	else
-+		q8 = (ref + cur) / 2;
-+
-+	if (cbr->gop != 1)
-+		q8 += cbr->qp_intra_add_q8;
-+
-+	return DIV_ROUND_CLOSEST(q8, 256) - cbr->qp_delta_intra;
-+}
-+
- /*
-  * Start QP of an I picture from its size in bits per luma sample:
-  * 20.3 - 6 * log2(bits per sample), clipped to 15..45. This is the relation
-@@ -165,6 +209,7 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
- 	if (!cbr->bitrate) {
- 		cbr->ratio = CBR_RATIO_INIT;
- 		cbr->qp_q8 = -1;
-+		cbr->qp_intra_ref_q8 = -1;
- 	}
- 
- 	if (cbr->bitrate != bitrate || cbr->nominal != nominal) {
-@@ -190,6 +235,9 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
- 		cbr->qp_q8 = clamp_t(int, qp, qp_min, qp_max) * 256;
- 	}
- 
-+	cbr->qp_pic = intra ? cbr_qp_intra(cbr) :
-+			      DIV_ROUND_CLOSEST(cbr->qp_q8, 256);
-+
- 	/*
- 	 * The buffer holds the coded minus the nominal sizes. Within a GOP the
- 	 * plan expects it to go up by the excess of the I picture and back
-@@ -214,6 +262,9 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
- 		 cbr->nominal, cbr->plan_bits, cbr->target_bits);
- 	pr_debug("  buffer: %lld bits, expected: %lld bits, gop: %u, ratio: %u",
- 		 cbr->buffer_bits, expected, cbr->gop, cbr->ratio);
-+	pr_debug("  intra: %d, picture QP %d, I state ref %d/256, I add %d/256",
-+		 intra, cbr->qp_pic, cbr->qp_intra_ref_q8,
-+		 cbr->qp_intra_add_q8);
- 
- 	return 0;
- }
-@@ -227,12 +278,7 @@ EXPORT_SYMBOL_GPL(v4l2_enc_cbr_begin);
-  */
- int v4l2_enc_cbr_qp(const struct v4l2_enc_cbr *cbr)
- {
--	int qp = DIV_ROUND_CLOSEST(cbr->qp_q8, 256);
--
--	if (cbr->intra)
--		qp -= cbr->qp_delta_intra;
--
--	return qp;
-+	return cbr->qp_pic;
- }
- EXPORT_SYMBOL_GPL(v4l2_enc_cbr_qp);
- 
-@@ -248,9 +294,11 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
- 		      const struct v4l2_fract *timeperframe, int qp_min,
- 		      int qp_max)
- {
--	s64 limit = cbr->nominal * CBR_BUFFER_SECONDS * cbr_fps(timeperframe);
-+	unsigned int fps = cbr_fps(timeperframe);
-+	s64 limit = cbr->nominal * CBR_BUFFER_SECONDS * fps;
- 	unsigned int ratio;
- 	int err, step;
-+	s64 cap, add;
- 
- 	if (!cbr->bitrate || !cbr->target_bits)
- 		return;
-@@ -285,6 +333,30 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
- 		 * estimate: only all-intra streams steer the QP fully with it.
- 		 */
- 		cbr->i_bits = bits;
-+
-+		/*
-+		 * Above its share of the GOP at the largest I/P ratio, an I
-+		 * picture is more than the P pictures of the plan can make
-+		 * up for: raise the QP of the next I pictures by up to 4 QP
-+		 * per picture (at twice the share), and lower the increase
-+		 * again as I pictures come out below the share.
-+		 */
-+		cap = cbr_plan_ratio(cbr, fps, true, CBR_RATIO_MAX);
-+		if (cbr->gop != 1 && (bits > cap || cbr->qp_intra_add_q8)) {
-+			add = div64_s64(((s64)bits - cap) * CBR_INTRA_ADD_STEP,
-+					cap);
-+			add = clamp_t(s64, add, -CBR_INTRA_ADD_STEP,
-+				      CBR_INTRA_ADD_STEP) +
-+			      cbr->qp_intra_add_q8;
-+			cbr->qp_intra_add_q8 =
-+				clamp_t(s64, add, 0,
-+					clamp((CBR_INTRA_ADD_QP_END -
-+					       cbr->qp_pic) * 64, 0,
-+					      CBR_INTRA_ADD_MAX));
-+		}
-+
-+		/* The state the next I picture takes the mean with */
-+		cbr->qp_intra_ref_q8 = cbr->qp_q8;
- 		cbr->qp_q8 += cbr->gop == 1 ? step : step / 4;
- 	}
- 
-diff --git a/include/media/v4l2-enc-cbr.h b/include/media/v4l2-enc-cbr.h
-index 6b66d121b0cc..c47e459a1d1e 100644
---- a/include/media/v4l2-enc-cbr.h
-+++ b/include/media/v4l2-enc-cbr.h
-@@ -18,6 +18,11 @@
-  * @bitrate: bitrate the state was set up for, 0 before the first picture
-  * @nominal: nominal picture size in bits (bitrate times frame interval)
-  * @qp_q8: QP of the P pictures in 1/256 units, -1 before the first picture
-+ * @qp_intra_ref_q8: @qp_q8 when the previous I picture was coded, -1 before
-+ *		     the first I picture
-+ * @qp_intra_add_q8: QP increase of the I pictures after I pictures larger
-+ *		     than their share of the GOP at the largest I/P ratio
-+ * @qp_pic: QP of the current picture
-  * @ratio: I/P picture size ratio in 1/16 units
-  * @gop: measured IDR period in pictures, 0 until two I pictures were seen
-  * @since_i: pictures coded since the last I picture
-@@ -39,6 +44,9 @@ struct v4l2_enc_cbr {
- 	u32 bitrate;
- 	u64 nominal;
- 	int qp_q8;
-+	int qp_intra_ref_q8;
-+	int qp_intra_add_q8;
-+	int qp_pic;
- 	unsigned int ratio;
- 	unsigned int gop;
- 	unsigned int since_i;
+Why are this and the other patches in-reply-to 1/4? That's not how you send
+a series in mm.
 
--- 
-2.55.0
+> ---
+>  mm/ksm.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+>
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index 49f3728a3d03..e641c37ee096 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -2535,6 +2535,69 @@ static bool should_skip_rmap_item(struct folio *folio,
+>  	return true;
+>  }
+>
+> +/*
+> + * Determines whether a candidate page should be skipped entirely when
+> + * only_merge_zero_pages is enabled, before an rmap_item is allocated for
+> + * it.
+> + *
+> + * A page that is not all zeros carries data and can never be merged with
+> + * the kernel zero page, so there is no point in allocating an rmap_item
+> + * for it. Skipping it here avoids the rmap_item metadata cost that full
+> + * KSM would otherwise pay for every non-mergeable page.
+> + *
+> + * @rmap_list: head of the per-mm pending rmap_item list
+> + * @addr:      address of the candidate page
+> + * @folio:     folio containing the candidate page
+> + * @page:      the candidate page
+> + *
+> + * Returns true if the page should be skipped (and any stale pending
+> + * rmap_items below @addr are freed), false if it should be processed.
+> + */
+
+This is a really weird mix of kdoc style + not kdoc style while not being a
+kdoc, for a static function?
+
+> +static bool should_skip_non_zero_page(struct ksm_rmap_item **rmap_list,
+> +			     unsigned long addr, struct folio *folio,
+> +			     struct page *page)
+> +{
+> +	struct ksm_rmap_item *rmap_item;
+> +
+> +	if (!ksm_only_merge_zero_pages)
+> +		return false;
+> +
+> +	/*
+> +	 * Pages already merged by KSM are handled by cmp_and_merge_page();
+> +	 * do not skip them here.
+> +	 */
+> +	if (folio_test_ksm(folio))
+> +		return false;
+> +
+> +	/*
+> +	 * An all-zero page is exactly what we want to merge with the kernel
+> +	 * zero page; process it.
+> +	 */
+> +	if (pages_identical(page, ZERO_PAGE(0)))
+> +		return false;
+> +
+> +	/*
+> +	 * The page carries data: free any pending rmap_items that are below
+> +	 * it (they are stale, as get_next_rmap_item() would), and skip it so
+> +	 * no rmap_item is allocated for it.
+> +	 *
+> +	 * Compare the masked address, unlike get_next_rmap_item() which
+> +	 * compares the raw rmap_item->address (which may carry the
+> +	 * UNSTABLE/STABLE_FLAG bits). That is intentional: a pending
+> +	 * rmap_item at the same address as a non-zero page is stale and must
+> +	 * be freed here, not returned for processing.
+> +	 */
+
+We don't need a prose version of the code, and it reads like AI slop, we
+don't want AI slop comments, thanks.
+
+> +	while (*rmap_list) {
+> +		rmap_item = *rmap_list;
+
+Why is rmap_item function-scoped when it could be block-scoped here...
+
+> +		if ((rmap_item->address & PAGE_MASK) > addr)
+> +			break;
+> +		*rmap_list = rmap_item->rmap_list;
+> +		remove_rmap_item_from_tree(rmap_item);
+> +		free_rmap_item(rmap_item);
+> +	}
+
+This code is very ugly.
+
+Newline...
+
+> +	return true;
 
 
+> +}
+> +
+>  struct ksm_next_page_arg {
+>  	struct folio *folio;
+>  	struct page *page;
+> @@ -2737,6 +2800,16 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+>  			if (tmp_page) {
+>  				flush_anon_page(vma, tmp_page, ksm_scan.address);
+>  				flush_dcache_page(tmp_page);
+> +
+> +				if (should_skip_non_zero_page(ksm_scan.rmap_list,
+> +						     ksm_scan.address, folio,
+> +						     tmp_page)) {
+> +					folio_put(folio);
+> +					ksm_scan.address += PAGE_SIZE;
+> +					mmap_read_unlock(mm);
+> +					return ERR_PTR(-EAGAIN);
+> +				}
+> +
+
+I don't love just shoving more logic into an already massive function. No
+to this.
+
+At some point technical debt has to be paid, clean up this code first please.
+
+>  				rmap_item = get_next_rmap_item(mm_slot,
+>  					ksm_scan.rmap_list, ksm_scan.address);
+>  				if (rmap_item) {
+> @@ -2839,6 +2912,15 @@ static void ksm_do_scan(unsigned int scan_npages)
+>  		rmap_item = scan_get_next_rmap_item(&page);
+>  		if (!rmap_item)
+>  			return;
+> +		if (rmap_item == ERR_PTR(-EAGAIN)) {
+> +			/*
+> +			 * A non-zero page was skipped under
+> +			 * only_merge_zero_pages: it was examined but not
+> +			 * merged, so count it as scanned and keep going.
+> +			 */
+
+Similarly schloppy.
+
+> +			ksm_pages_scanned++;
+> +			continue;
+> +		}
+>  		cmp_and_merge_page(page, rmap_item);
+>  		put_page(page);
+>  		ksm_pages_scanned++;
+> --
+> 2.34.1
+>
+
+All in all adding far too much complexity in a cycle which is
+fix-focused...
+
+--
+Cheers, Lorenzo
