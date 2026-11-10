@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285309;
-	b=4BlznEhjOSNS1jJxaqMwzwAjGpl0a4o61NS375073szjYkm6yiqab4rKy75/VttZVANk
-	 APkWLH8Brgnj/faqoMWxP7Gm5TImfyTKT6cDQDS4K+XsadlBSGf/V4VEMnwUGGfPD4ee9
-	 zybdBfuNGzxjd0ApoU2m4mFQiqV4wlpWimZ7oxLUSPT5GnqhC9PMi83vaZuc4yQw86Plc
-	 mnMgefWuKtcOYsfGOgH/dfbynVaAH2EeC/aslAD+hc0fyVJRStkmYzl5pAvHTH5tZm/1A
-	 dDAccUC8DCZbTkMcumcR7+uyd2ees0K7fSzqUDu+wwz/CyIKUMPWFEqLhbQv01ESXjQ==
+	t=1794285315;
+	b=DR9KCJb/xzSoEsFLBUk6BaNldDCAriz28R+ebDr5O2d1i8yFcfMXXVro87tYWbULQoKS
+	 u3pWW9TGX3oqkCnPcIP+xxHW5lWtpxm/x9g5igBtg04R/lOm6L+McZFHqjQ7WbVZ7nNCS
+	 oNsHTihXJGybyELZS6azGcxMafQGWTlVr+jiNHEAro7qOOf7xTAXUCCnCmRcrATc9rfAv
+	 E3lA/kGi2i/1zypyUEbn9Fj+G3yrG8QOaSBGSjLqcTIa1oaFmzmerlOglp84zRqYFhOBY
+	 SKmDgyX2CBhrWGacuKSsgyfINxzuJxQOxAPVM6D2kzYJIWhnxvfXFw6FFr32/61mXLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285315;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=crZyUUQE2/M84BqAMX/aRkPV4MGGeswqi3566mAlMu8=;
-	b=gx643+SL+Cy0JlT0EUJ0z+ESaflNNMJ/Rcyu4boLYxGO3QiSTdyy+sz2SIZnnNVDVHDr
-	 dQze1fUIdRa9ywWokVDraQi1qrzujUj2kktvK/B/aZojJmhrt3CGRZsrqoJIJkO1kd4as
-	 FmYcQ0DuUapEV3nffFeVK3JN0PtNArfhVx8dpCsMRQkD9Bz1hw3mGfSW2g/HwXLARcyRK
-	 bshkaRvaUAyPdGmmLmtMRGvMlzD3C4Ao/foAmMPMi4VC4mPC4I27flL67V/RgQKpYEbGn
-	 spIE7lCmmQFBlDimItnqHiU8A0xC6k1Bsodi3Isvvjcbkk8KPs/UQWPQmUvYk4cesmg==
+	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
+	b=4XfDLfhqdzaoH6rZTgqc5/ZW+odsecuGpldIPW7iSnlZ4QvbZ6g/L5+iOIVYNPzuDs4q
+	 MR+may369tNXoNgFiY2UdWsoTJsl2bSV+iqNXt0zcKzPNcpNE7WjoKNQwDwhRgxS0qsyf
+	 huAdnDZ7ma/OTEaYsCrIzGxNH4RF7t3iR43kDF8JUmH9ZN3MCO0mXWntoezPL7mf9A5FP
+	 PWoUABCf8LEzAG64J+voq7IkSy6NEIIiG431/XxkXDYimNX08HZS7EhcWHhlx5k0jMlP2
+	 n0huG5T7zCX6brYxb5IfQdN6c9CH3tgybWgSVByOqosEEkwAXJGk3edKzIsSyryO9oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aef4mJfG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB08606A8A5;
-	Tue, 10 Nov 2026 04:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937B260A2616;
+	Tue, 10 Nov 2026 04:35:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aef4mJfG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281061F008A5;
-	Tue, 10 Nov 2026 04:35:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAjRDM1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3191F008A5;
+	Tue, 10 Nov 2026 04:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285308;
-	bh=crZyUUQE2/M84BqAMX/aRkPV4MGGeswqi3566mAlMu8=;
+	s=k20260515; t=1794285315;
+	bh=Y+y+dw/7F9ePtYFx0DkrH6qgsrA6IQQMbAKMyMiMpck=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aef4mJfGx+XssVDlJ1KOAg/Kb8wAewcHECZaUx+eC3pMppBvB7tIbChyWGzId7mUc
-	 lAOqTCumx3uOpJ2WykgTHeL1Tt6tKcaIFnHslp+pW3mE2Dc5+nNAr2nVI0Wbrog2Vw
-	 135couv7z/J7Nifjd4+ZGCn3uLjv69gEC3y58xEv+CBlCvQJMYtWOsDvz1ACj/aXwe
-	 qMAnLH4Ptvc70QSRxTOatC7BQQ93i6ns7Vx5bcHFYHczcvLXYcFVvxLfPOhVSkbmU5
-	 cvtYkQr8uF7KsoztVcq4gkYWVdYCoMlBT1fi9WMHhIkwjqCEty+wleGO6EKitY14PF
-	 s1wj/Ilpg/hgA==
+	b=QAjRDM1ZQ2uWIew7HTdjExTJeN/CQ5VzvY2lLry0aYesvqxZN4eGLnI2ymJ47oigj
+	 uGxSlGoMC+sTxCG0iZynv9ln2vK+KjGPrPcWlItocyqzPt6FJGFLBM/Hf3GBh9G4Ng
+	 KxSTblbJsnTIk97+AYmHSzgxkTebV2Lxo1dVF5sIOwNYdU7RwoLjYmowzUsA8KXwlP
+	 nQ6V7CN1z7t2YIgBkiPrn/wvYf9g2dwoO6C0maVNxVPYxRdLol9+N8x/C4rvQvm8n8
+	 olaincQ2UPhkVscKMh+YauAiVUgkeT4+dm9Drp3qW5ZLA10NRUudu+rRkxRevTQJA9
+	 1N76Z/QSgjj1A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	Paul Sajna <sajattack@postmarketos.org>
+Cc: David Heidelberg <david@ixit.cz>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: msm8994-octagon: Remove ad7147_captouch
-Date: Mon,  9 Nov 2026 22:34:49 -0600
-Message-ID: <179428529345.1061455.14300631403027340638.b4-ty@b4>
+	phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
+Date: Mon,  9 Nov 2026 22:34:56 -0600
+Message-ID: <179428529344.1061455.14898677998626512432.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-topic-lumia_drop_captouch-v1-1-6f92f1f3c6d3@oss.qualcomm.com>
-References: <20260911-topic-lumia_drop_captouch-v1-1-6f92f1f3c6d3@oss.qualcomm.com>
+In-Reply-To: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,16 +71,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 11 Sep 2026 10:43:47 +0200, Konrad Dybcio wrote:
-> This node lacks dt-bindings, producing warnings and is reportedly only
-> present on prototype hardware.
+On Sun, 06 Sep 2026 14:11:08 -0700, Paul Sajna wrote:
+> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
 > 
-> Remove it to get rid of the warnings.
+> Downstream dtsi for reference:
+> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: msm8994-octagon: Remove ad7147_captouch
-      commit: 895f14315d636dcb313db8dccfa100b53c361b13
+[1/1] arm64: dts: qcom: sdm845-lg: Enable NFC
+      commit: b115248511aedffd43b82e1cae196c6836fcfe83
 
 Best regards,
 -- 
