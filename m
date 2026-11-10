@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794299317;
-	b=xtjMC+6AVjLP45WpnUxcsEoUxCOq7U5Xqi9K6zxOaGju4gMczwTcHsgsoMJE8ud+wV9z
-	 M7uWPNe+jloDd9nOekAZ9VEp+wQFHuWpGrYJaEdyx0vap69G2yABB8x6WDUBvGhakcYwY
-	 LmCXnOf6Z9c/st7w94Jpkw9BvDCZBGfo1dcrG+pmKH/EjEjdoE3/N6N2rvfH6OvxqLwYN
-	 WFRVXis6zirx5pvbJWMi+slFo9jlStoXGdp3k95z9G+TjqzLdxOWxHKkez5KRKGx+SMy4
-	 eYh4WcSxb9f4sGDIX92xA2y+Nfed4TN1lKbMAXesUATCNA4Rjb0uu/He9YBsjZa38mw==
+	b=4ZKmCInksEbsJbI5ufOZ2evomtkqcTLkKur00fjQhWTrNUVPo6Tqfpf/vf8/kX2MJkVq
+	 iyE34yN4ip4zGLmE1WTpWhsPu25e4slU0Kxafp5fHf03fiojE4VaFQf6SX72JAZz7PoOI
+	 U2XC9cEtIzc/3tzEPeZ3IPtmMz57GUhmvQFnA3q8R41ZyQxTP3Y09STWx8AHqTXCiYb44
+	 rDQyfnBniAEaDZRAFRxKjwFOnbW2LaS+FDzPN6ZVbQVUIfhaJxA0tbjL9A/lSLFqzQdaw
+	 7j45j9kLnQcRrC9c2acAbfjr1Yko77VfRHWhHHju6YhzBcSAYW+PYh1dK4rDudAYQhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794299317;
-	h=DMARC-Filter:DKIM-Signature:X-Mailer:X-Original-From:To:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Cc:From:Subject:Message-Id:
-	 X-Lms-Return-Path:Date;
-	bh=yZ9y+wWVNhxK2/TjJWeGSAm5ULB6ROdb4idQMsF4aRs=;
-	b=dAkAlllvRfDmWOPIQwyV3Xmro5R4Xesbrv2eNdyPNnEE4aTleRotuNZWSQGSFvqqJXw2
-	 Mrki1nMsC56ZQCHmg62/h5XLqkYo2XosSUhEbNK57D3WzOjQN7tFaK7IpR62NHgNDqyO8
-	 Rq9AzT/ph5CXrJ2gZ9gXCGQu9MP8+VxIS+KFCWCqu0MBzdjQlgrnTQYJu/RZwChkKf72g
-	 05vNVHomzvXkvlaLWs0P7CzmrblNggbqQo4rUw4+fRFx0kvLT/bwYBUFTYP9O1ZfxyvIc
-	 g4E3/+C7dYjilw/dOb++yiUPR53IGuovRGxhjO88Raw7vBYvr9LN/DQ0VDCGEedWtvQ==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UXWSddbnxoIoGsiCn3Ri/uMZNROiH7zZ5ZghjrWmXBQ=;
+	b=SMnVOvTT1e5i75CIXG1CeyH8J0md+8W1gkA3i/RbQp11MNQc2HVPefXcZ4Ur5LEyCV9z
+	 hWVhkGWSA0KkW4xrZo9UBP2lxyvdDmBboTdu6Z8FA/E8+zYYBI2cTUMpe3znJZelhFGvG
+	 vYcU/mLhzMKv4PJKdb6T1EcRDbA6tO4iMpq2XzPOUg22ZZMw5KWH0AgDKWiYoKuBqq0F1
+	 iDedNeUovhUVrD4Vzj3ZSEvKqtLWn/gvXG1b3vB3uCfWOeT4YpROPmf3dGWzrPYrbJDgC
+	 duQTM8ksg/mQtFWvTRZNWf2a8CMRUG7gWHyYDbrK5+TKrM6rorpvYeO+vNN/8rmD0RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=o6HF+l7n;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v3i+y+BP;
+	arc=none smtp.remote-ip=91.218.175.214
+Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D6F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D6F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F47F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F47F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=o6HF+l7n
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794299310; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=yZ9y+wWVNhxK2/TjJWeGSAm5ULB6ROdb4idQMsF4aRs=;
- b=o6HF+l7nTdG2Dgy7WFilMDXZNpieNIvkKSE9sD7zRFl+K0yQwvMpYciNbFE1DoSXEcSmcJ
- ER9YIPZVPp/tOuO1muKAQCvoDrAs1s6iOyF/JGoFpcuq8HZym/UoHAj3SlSXaKWHfAQJsz
- DgslYJMkViXjGnY0SXvA5IhOZH7wqaXDz9TW6nhDJkUJ+59j2yv0blO92t98noFEahgv1D
- bdOL308gBxwNwAmFFMKVAM+Ob+RlD9v6XkKvJgrcf1ODWG7U6/X4/88WdyULKIPHncfTLf
- A4K2C06OO+v+wJmGSlzsy1hKe0RbA9UR84E2fbiBlvpEIleL1aEWvmFnASf5JA==
-X-Mailer: git-send-email 2.20.1
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
-	<nadav.amit@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v3i+y+BP
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=m8rf5DYN0i2d+usWteyvNzrEUNWAD6DpiRcNC6PhNxw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794299314; v=1; x=1794904114;
+ b=v3i+y+BPQo3lEubyTKtmTu0ePONXZEWZYyqC8Nz7Y7UN/ZRRmpRd9lTG4+Hg/hDQkVhO0vJF
+ vKUgx+LUJUKNF4bHgNhmwgTtnyTma4JSZ39mOMoX4t+df0ABAl6pEsm4luDCju/6Oye3Izm3xNr
+ BJHmSA1ibELc2sVztzPyouMs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 31d984c00931474b;
+	Tue, 10 Nov 2026 08:28:34 +0000
+X-Mizu-Trace-ID: 31d984c00931474b
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 16:28:25 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] ipv6: return EMSGSIZE when first route in dump does
+ not fit
+Message-ID: <avLVqWNqjN88WVRN@fedora>
+References: <20261109012115.11898-1-stephen@networkplumber.org>
+ <20261109012115.11898-3-stephen@networkplumber.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,113 +69,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: [PATCH RESEND v3 0/5] x86/mm: Allow preemption while waiting for kernel TLB flushes
-Message-Id: <cover.1794235715.git.zhouchuyi@bytedance.com>
-X-Lms-Return-Path: <lba+26af2d5ac+76278d+vger.kernel.org+zhouchuyi@bytedance.com>
-Date: Tue, 10 Nov 2026 16:28:01 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109012115.11898-3-stephen@networkplumber.org>
 
-Changes in this resend:
-  - Rebase onto a v7.4-rc2-based tree.
-  - Add Reviewed-by from Sebastian Andrzej Siewior to all five patches.
+On Sun, Nov 08, 2026 at 05:13:13PM -0800, Stephen Hemminger wrote:
+> If a route does not fit in an empty dump skb, fib6_dump_node()
+> suspends the walker and inet6_dump_fib() returns 1. rtnl_dumpit()
+> then returns skb->len, which is 0, and the dump ends with NLMSG_DONE
+> and status 0, silently dropping the route and those after it.
+> 
+> This became reachable when multipath routes started being dumped as a
+> single message with an RTA_MULTIPATH attribute; a wide enough route no
+> longer fits.
+> 
+> Return -EMSGSIZE in this case, as IPv4 does. This depends on the
+> rtnl_dumpit() fix in the previous patch.
+> 
+> Fixes: beb1afac518d ("net: ipv6: Add support to dump multipath routes via RTA_MULTIPATH attribute")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
+> ---
+>  net/ipv6/ip6_fib.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
+> index e1d49897d6ab..1025267992f0 100644
+> --- a/net/ipv6/ip6_fib.c
+> +++ b/net/ipv6/ip6_fib.c
+> @@ -755,6 +755,12 @@ static int inet6_dump_fib(struct sk_buff *skb, struct netlink_callback *cb)
+>  
+>  unlock:
+>  	rcu_read_unlock();
+> +	/* The walker stopped before adding anything, so the next route
+> +	 * is too large for this skb. Report that instead of letting an
+> +	 * empty skb look like the end of the dump.
+> +	 */
+> +	if (err > 0 && !skb->len)
+> +		err = -EMSGSIZE;
+>  	if (err <= 0)
+>  		fib6_dump_end(cb);
+>  	return err;
+> -- 
+> 2.53.0
+> 
 
-Changes in v3:
-  - Patch 4: Retain struct flush_tlb_info in the kernel range helpers and
-    initialize start/end directly, keeping the shared descriptor for
-    future consolidation of the kernel and user paths (Nadav).
-
-v2: https://lore.kernel.org/cover.1791179421.git.zhouchuyi@bytedance.com/
-
-Changes in v2:
-  - Patch 2: Reuse flush_tlb_all() for kernel ranges promoted to a full
-    flush and remove kernel_tlb_flush_all() (Sebastian).
-  - Patch 4: Drop the explicit TLB_FLUSH_ALL check on the end argument.
-    Callers pass actual address ranges and can use flush_tlb_all() for
-    unconditional full flushes (Sebastian).
-
-v1: https://lore.kernel.org/20260921095359.3784458-1-zhouchuyi@bytedance.com/
-
-This series follows up on the IPI completion preemption work [1] and
-addresses the deferred flush_tlb_kernel_range() changes. The generic SMP
-completion waits are already preemptible, and commit a5a162fe1ae1
-("x86/mm: Re-enable preemption before flush_tlb_multi()") allows the mm
-flush paths to use them. The kernel-range change was deferred during
-review [2].
-
-Container teardown and BPF map destruction can trigger kernel TLB
-flushes through reclamation of unused per-CPU memory. Services that
-spawn and reap many workers can also trigger flushes when vmalloc-backed
-kernel stacks are reclaimed.
-
-On the IPI backend, flush_tlb_kernel_range() flushes the local CPU,
-sends flush requests to all other online CPUs, and waits synchronously
-for completion. The target set is system-wide even when the container
-or application is confined to a small subset of CPUs.
-
-The synchronous wait can become longer as the number of online CPUs
-grows. Completion depends on the slowest participating CPU, so a remote
-CPU with interrupts disabled can delay the entire operation.
-flush_tlb_kernel_range() keeps preemption disabled throughout that wait,
-delaying higher-priority tasks on the initiating CPU.
-
-The kernel path still uses init_flush_tlb_info(), which initializes
-initiating_cpu with smp_processor_id(). Simply removing the outer
-preemption guard would allow that initialization to run in a preemptible
-context and could trigger a CONFIG_DEBUG_PREEMPT warning. An earlier
-revision of the IPI preemption work used raw_smp_processor_id() to
-suppress that warning, but this also removed the CPU-pinning check from
-the shared initializer used by the mm paths.
-
-The kernel callbacks consume only start and end. This series initializes
-those fields directly in struct flush_tlb_info and selects full or range
-flushes with the shared threshold predicate. This removes the unused
-initiating_cpu initialization while retaining the shared descriptor for
-future consolidation of the kernel and user TLB invalidation paths.
-The smp_processor_id() check remains in the initializer for the mm paths.
-
-Removing the outer preemption guard then lets higher-priority tasks
-preempt the final IPI completion wait when the calling context permits
-it. Both flush backends remain synchronous, and the INVLPGB helpers
-keep their required preemption protection.
-
-The changes are split into five patches:
-
-  1. Account for kernel TLB flush requests in NR_TLB_REMOTE_FLUSH,
-     including ranges promoted to full flushes and both IPI and INVLPGB
-     backends.
-
-  2. Remove kernel_tlb_flush_all() and use flush_tlb_all() for kernel
-     ranges promoted to a full flush, sharing backend dispatch and
-     accounting while counting each request once.
-
-  3. Extract the range-to-full-flush threshold predicate without changing
-     its arithmetic or the existing flush policy.
-
-  4. Initialize start/end directly in struct flush_tlb_info for kernel
-     range flushes and use the shared threshold predicate to select full
-     or range flushes. Keep the outer preemption guard and the existing
-     kernel helper interfaces.
-
-  5. Remove the outer preemption guard from flush_tlb_kernel_range().
-     Keep the INVLPGB range loop and TLBSYNC protected inside their
-     backend helper; the full INVLPGB helper already has that protection.
-
-[1] https://lore.kernel.org/lkml/20260709122933.4021501-1-zhouchuyi@bytedance.com/
-[2] https://lore.kernel.org/9cd743e8-4d60-4a5b-906f-07e4ae82dafb@bytedance.com/
-
-Chuyi Zhou (5):
-  x86/mm: Account for remote kernel TLB flush requests
-  x86/mm: Share the full TLB flush dispatch
-  x86/mm: Extract the TLB range flush threshold check
-  x86/mm: Initialize kernel TLB flush requests directly
-  x86/mm: Re-enable preemption before waiting for kernel TLB flushes
-
- arch/x86/mm/tlb.c | 34 ++++++++++++++++++----------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
-
-
-base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
