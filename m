@@ -1,55 +1,199 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312953;
-	b=m9ly5hUQBy9GLPaUDxGEUginsI7AsSsnsG2uoy7fy0lCEJNhHfU+nhe5LlPmUioiQMu8
-	 zCnun3t8K5gpdJ5dT6SRO1buuC9i93NTNqH2zt12i3OtCkEuypz5165+dkwBQjxcHHud8
-	 HqBvVfo53vm3h0Jm0VEW8OW9mybliSVYKb+oSiHa+XKdH2ZjDQ1gV1Nx1mrbHMTKCtXzE
-	 pj/ffkz06D1p8aOml7btHiD2l01w6oXs4S4GAqO9f8kpiKyi0qYF+C8Q0Aosjqb6Zupr7
-	 lVgUOWtjJbxzMbbLZdKIU9gWJCOqFKZ0GyCC4OZlRGt9UlCRxs/6fxpfQcTItk1pzLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312953;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5hOITWXir7kny7IKdUAWvpDSOoIC1UGozOF9nqauv6I=;
-	b=w8pwtFyGUAck2Ujl7X5i84wwi1i7U6mPavWRgKHeMSeXzY4ntC1tuxEOeq67kSWuBC2s
-	 o6l1ZQnRAoqpXg4DZ20p1GTeFiquhzal0rYBxQz7Rtm41bJEbKfZNCmEzLnP7uU332loB
-	 65lzN7y7Uhu+uTDQ0RsiUAcA5cXywIot4aUdRG1q2mk3KausphU7gRokQBZXF64vl3CMm
-	 /qTuojTKEUnNuz/kGSRo2w3j4gMg3zDsHD22VJ2yduKJHWmq3AliL91uhjwQ+gUPYAy8C
-	 oF3q2cLLu41Z05n7SyVaAsZcQjDBnx7iQRMZmZ6PNYVpCwx6IAWH6vERkKsRGGvs76A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zz3fdush;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=148.163.158.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794313044;
+	b=g/iIt/2YM8855qnsY+gkSHAOO+xXvNoT5Pei31wIn1QkrGyg6gQRPYprtdGLsRNNqrbq
+	 z9yjSrP7z5jIv/oS+ogFdwB8ZZXD5xX+k9wekg28TMK0Z1rwHJR3ARD2v+wvTDP+ojjrz
+	 UL372RIVhqlickMPXvE/hwtIXHrU+XjtOKtlx4G0kkItpVA0+TPHIXW+kVlHc+8aA3d+p
+	 zQ/fFukrzbUyuNKhjTwkwsuVZCGViHSMxbVpOWVZ/ifgrTcK/w0exwvU7DNwdftQgCHkq
+	 K9/aXxG3pwXFmGOXmh5O7Q/XTpG+W/Ylhw4jVHf0DPNkRVgVW8HuE6Retw3Vzot29Dw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313044;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:Received:DKIM-Signature:Received:Received:
+	 X-SNPS-Relay:From:To:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:Accept-Language:Content-Language:X-MS-Has-Attach:
+	 X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+	b=RPvH7MuLzPncmkg+vIuMbbfzv9/jN5oW3EVyyYAWA27kl4u4g+2IWk7t42uAqHU1L5bP
+	 GRdkioTz2cOofO1eCB+UhTnkTDgpni34zqzfmH964AgNfVX3oS9ncVvQBZme6ruQ5e4Y/
+	 vPc9BoTijzX09Onny+ZYK3VNSDzsl+FlsbMIKqkDR/N8N9wdayyoZ1IgQVL8UzpM2ovt5
+	 HUgSWHoC4CLqpwNeXB0svbMtSqz5R22Jemj3u7y5jSPLfjwui0+OxT+iD/MT+1o17Rigt
+	 teSdsgZGVEfKE+Iy98pl+2Bc//OTal7a66+6CYyrIgff3kClnedCVrLiKEWuxhI8LUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=synopsys.com;
+	spf=pass smtp.mailfrom=synopsys.com;
+	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=oJRlRrCH;
+	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=PPouQlpG;
+	dkim=fail reason="signature verification failed" header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=kpfbzNb3;
+	arc=fail smtp.remote-ip=148.163.158.9
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21B5606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0875C606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0875C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zz3fdush
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0141F008BD
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312952;
-	bh=5hOITWXir7kny7IKdUAWvpDSOoIC1UGozOF9nqauv6I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Zz3fdushU502exI+atrd9blr+XX1n00PdrDajjxMg4DuEerrCBwvfTANY9vmqedyl
-	 YRY90Wh09uTB3iirUfqQTfYe2YcNc6NqfTvG2BMF/WhkxsFSMzWfQLh7qpwqyHD0ju
-	 EKsjes9HfdBToTgmUzyGloO7RvMV8I/GMjQr9DGLliAMKNYig991wAtCrc9OZoS2ob
-	 lrjArMK9oqFzOfqSjYDke/104n/dM3kie3VBfRT7ffGpUZzYV8RDA9cT4/M1B7rLyA
-	 1sKHdXHMSi0y+fv/8E95CXRcWTPpgdNYIHX5qukkjcgJKDix/CPU2P+AggUR1XPDbt
-	 pda14wS8L9+Xw==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c126f80426so1384953e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:15:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG18jtebzQgYHLLg0oIAJd+x8uzAk57ldIu7/a5V9ViYl7R3IgHPaVOhxWPF6snOvqS6vNuJyxvN5702fM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iIKFhun3S/AycHqm0dCzt2bsLLewhfzestONrBXtPZSxAgUoZ
-	UXjyZSmEw+LLtPleiagSArJzg4TkqG1b7JNLd89JEbJ0MuMedw1N8cpE22ifZGd/+62YY6RjswL
-	hkwncghiTtzEqJnXbHK4p+/pj+VyrwjE=
-X-Received: by 2002:a05:6512:3b21:b0:5bf:e7af:8dc8 with SMTP id
- 2adb3069b0e04-5c156ece655mr949807e87.58.1794312950826; Tue, 10 Nov 2026
- 04:15:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=oJRlRrCH;
+	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=PPouQlpG;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=kpfbzNb3
+Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAB87LL1621985
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:17:22 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfptdkimsnps; bh=bIkL3j1SUti+mxRknWX
+	sGzjEHfZ++LfAOrCAj6OvBfk=; b=oJRlRrCH7UIDdZYiw9Ra5EEZ4rlg8/jcZux
+	42aefQnFOPrJkgtJpKn5f7yJ7HPx/J4Kp8pYsn96ecPsBt50ds0itMfMI688mIHn
+	DAUT7+mgkhe1UXt2Ywg8jYNyj06GoiKEyd4Ri9yCm6IPfz1Yn87VpBP3MPvx5S/J
+	6zNta60pl2ZW5vuQPSoFwCIRciwMPLMukVaK1tYZEZOLWXaRLgGT6QE+G5vh/8D/
+	uts82beTw5Getbkf7OHphOm/uhq8CMQkh2hYSei5s5UUUlv0wmu61Qfc9Sm6L7Vx
+	zRF610TyJ4KOYi0gdKQcmoTt6U6MIeJ5QlUtVZoNiVvu/kDxzGg==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4huh926xmq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:17:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1794313041; bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+	h=From:To:Subject:Date:From;
+	b=PPouQlpG6gT/KWGGp8V7JHePu/mE30cCd85OHfOc6LjstMSlBfux9goOLfPwAV9Av
+	 BcKTkYt2y09mSugpysvKuCfEmlElHZrOJUEGwGx0rYYfJw1C7E3OOGl9vNqz/bpLVV
+	 e9Crhl8uQ4v3ACeCCN2+uhmUCnwFjQVpGxY6p4KZSUCDX/16mlYc1sui1ZcDL5j6CB
+	 EInpUzE7UIzBn5OHhEkbPCBaspPA6VR8iFwZDTluFIXUVblNcKmS7d62P4Oh3jXS0V
+	 e9T8DnnLqE9W68RbB9d65Shm9rFb7YiAiOIasbSGaoSoj/dDKwjj//vOZUHe/uidwF
+	 3xrEDcqbow55g==
+Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 1ECB140517
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:17:21 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com [10.4.161.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id 09E5EA0079
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:17:21 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=kpfbzNb3;
+	dkim-atps=neutral
+Received: from SJ0PR08CU001.outbound.protection.outlook.com (mail-sj0pr08cu00106.outbound.protection.outlook.com [40.93.1.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id B467E40235
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:17:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XPWvVYZHHBpNVEHhEdREV8duAQc4iSHfvqsSHU/6Musvv0PC8Nv6bPZWJKyDWHM+q366OvgKNF1UmfjKqoIf9S72VXgAqwvZ+KQ8p/4pas+7VbIgCr/RGD8DAR92EkvUH35KKT4iSfmolAK6CikNzbH/c7+HhvrdeS49br05nq3gk4hPg9mtsBvnGxKtFht2C3aCJeKze8032TSwa555uRV+aXzywE/0TQzcPHaaU9oFqES2lJMVhG0tUQOv2w2cdu0uD7GtFZmD3Jm/D+GZBPeAvk7LZBB7ZOzi4DuDG5iqwEgfjSHBPXcC3KjLVcLOhrhP0ZVLAit44+uwIifuuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+ b=h7R6IVRMOJLHfytQeE2CS+yWTBdHfTjLWmrs50HaWW2X0C1mMzmpffZMoHfDQjp/Ray1Mr4MYD9rhcDoOp7be/zDLmgulyESF7gxgZhd7fHggmFXWLVp0hHyVac3qGfHB11OkMCDdra6I0qrLhJhhK9s0bVehkk66EOX2YgOB89KhT1VztvkmWHNRFwkDt7LYpD2vc+LQagonXE0M5wdIvxmZVKj4EbbGw/sCkI9c9j5pNhaPm5pGa0DJCZaKZ5YFkS48MiANtxhvoM1vANaemIApHD/7tHdnniLgXVs7ldeD5jnt85eortY6K43wZU0ttQIyZIR3xjcJpdRJHSvyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+ b=kpfbzNb3bDg47SH/RAO6gp0MSx9ZkYvFJuZ/YwdJdZEN3mR2tWseh8xrhRSkQXV4VteKJkpfaIZQZiKrK8AWBLtWh/NEdm98nFiJiCf4TJ5EZhwiPUUAConBLxWwJFdCQvVrb/mCYjGmMa0Timlp8ct/M+OuNzIlNM0EUDQAmN4=
+Received: from CYXPR12MB9279.namprd12.prod.outlook.com (2603:10b6:930:d5::7)
+ by BL4PR12MB9508.namprd12.prod.outlook.com (2603:10b6:208:58e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 12:17:15 +0000
+Received: from CYXPR12MB9279.namprd12.prod.outlook.com
+ ([fe80::c083:3694:3cd1:61bc]) by CYXPR12MB9279.namprd12.prod.outlook.com
+ ([fe80::c083:3694:3cd1:61bc%7]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 12:17:15 +0000
+X-SNPS-Relay: synopsys.com
+From: Prakriti Sharma <Prakriti.Sharma@synopsys.com>
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: subscribe
+Thread-Topic: subscribe
+Thread-Index: Ad1xDWfP59e2NpXVTCSOpgNw97m2Nw==
+Date: Tue, 10 Nov 2026 12:17:15 +0000
+Message-ID:
+ <CYXPR12MB9279ACB15D1AFE1DC9C00100B9722@CYXPR12MB9279.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=synopsys.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYXPR12MB9279:EE_|BL4PR12MB9508:EE_
+x-ms-office365-filtering-correlation-id: 181dc493-6a42-4ead-3ecc-08df3f248eac
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|18002099003|10067099003|38070700021|11063799006|56012099006;
+x-microsoft-antispam-message-info:
+ 9qS+bnWDxuVVRHEUccL3rU/Wkesmu9I4kZbseU0/BYye3qRjqyQ6mXYmnIi5JFZbhmAjmD9hxdfJ/10Y2/M6MSVOgeRN60B6RaX9NRg+lmFgpjcin3shfZKIwOf4V5tFWUVM7f+fiE3wjrDQ4/SAVQSV7tLnBhJzwFcLsPZ0cP22KqPkLOexfRKyFl4Xzvkeb655U/IKq/1K42CF3ydlOE5j3hdbcRH/NgXp4DAXqfADMWbStaEJdgeQZjQ2J8hs8qFzBWkfZUv0abUZWcuj24v/FG16Ny6V4gBugGrBv9oEsMrQl9RnQPjqesMut7bOSG7V1Vg7Tnz5sfIePLdmtNBBC2TLgpKde3+8tWj6JcSOiqZfksNHVZzoh9ah7nmk0c3ZJz47JAby+xzOly4IpQd+E2oaSTHGMeC4Nu8aQwIwMnTi3NSFStoHhq3pbwrvEqI2CfcoElvmaUWg/urwJw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYXPR12MB9279.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(10067099003)(38070700021)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?2Bb1Qm8KbXXEG2r/3xtMI9I9vcBpnxrGo1Ey1Hh+W4BbI8E7hE/hjgDoQi7e?=
+ =?us-ascii?Q?GdhI0ouYIYA+AjZ0Rkt7Ap3wceOgCvqQfWOFIuvCC8VxFynit3vqWf46oknE?=
+ =?us-ascii?Q?gUpLO6VwqXPUFqStIC0WVj7ZRyGCYAMHwx7M5om3Z2A6J9PqbP2xLSYpcB3V?=
+ =?us-ascii?Q?6gNBNloXQ4552bKNkmWeQcFo8vIWVv/Z9wfRxmBTUSzyqSWZY18SVfrjezVx?=
+ =?us-ascii?Q?nXZMWDD/6l/KtEr0CjNgI9OF+1t1IOLtDKJ6aWhYERszYCcFw2WArePYtDEq?=
+ =?us-ascii?Q?3SYxzjtHlFzhJpfGFpjG8IsHeI+TZFSTElvgxPP10WE6AkslX5Ut/muRFTSN?=
+ =?us-ascii?Q?2XAsvF5KjlpfzYkdeRWadxC/XbGWWrRZXEUCCXn+CWcwyeW/t8vRUH7Fa8k0?=
+ =?us-ascii?Q?EW5FnDrOg9RNwGQqoFoUC91zG8T3f8D0nE1PO+kMRoGkLGMIcr+vUnyD0AkA?=
+ =?us-ascii?Q?gt4WaKit4HeNVjCeOq+6HluV32+htkd1DduTkJllPZQHb4AslFV7sjvwkLQh?=
+ =?us-ascii?Q?B/GNESR9LuqE5f2jcYZq5WokvT3z89P8LuXBmdNbxjtUG4JOLlyU9NzA34bD?=
+ =?us-ascii?Q?Wl4Mpel4wH/zY7ecMqnp+U/4PFWdwA4Oi/w5IA8fTcxdo/wCdraFhHzRID2w?=
+ =?us-ascii?Q?XAm/46qk7yIBY9GSwPM3EfcSrGKP81tMexTzFC91CfnYyov/jBEGyXt6TaNr?=
+ =?us-ascii?Q?DGrotShHXMHckklVbffFVIh5R43haMKkssa9dyK6dI6A5jpsY/wCUcFnjokH?=
+ =?us-ascii?Q?nzxFP0WFPS4PMBNDzE3OyhTilKv89YHXgWlDVfhUkAI7IWQN6yMOhxwMwJjh?=
+ =?us-ascii?Q?9AeSBsvAeD6q1ZYjDvOjFaD3/xDOPUl3074TRGcBBd/A5Dmhfgc1ODUjM7qB?=
+ =?us-ascii?Q?OR9q3cPO4OKWWZRTlEttXet1x8bJMnTwWzCFs4iwafFAMgCe5X1QYzDhJ8MK?=
+ =?us-ascii?Q?RxPvSe822pTmLBlKCMiZRj4reY/jD+RksUrA2ky8KQQevBZoGSAdgJE7LoFF?=
+ =?us-ascii?Q?IJT6GLBnyIwPAX7MAKDmlWf9WHkYsg1XSrvH+Vo3Mzh83wW+vffdjBeCBim+?=
+ =?us-ascii?Q?w53pQYcEj0R2wmaY2xXq5gEITR2i+jlAVkfUet991c8g4b55BIpV+V4iZHWX?=
+ =?us-ascii?Q?VNkzN11H+zXVBMjIThEneo+2e6q/JpzwviZDC+IULW+bpmEzG8c6HFDn2MBE?=
+ =?us-ascii?Q?YDO1YYALNNaqLUOm2+4geC0dwCEls8rc5ei19z6u5DWL640z1N6rzBO3zQ2T?=
+ =?us-ascii?Q?3Qrmtty57NynA0EjB8DMp46BRnfMXm7liBQNJVPy/mn8uUdKCjtatJLSlCRl?=
+ =?us-ascii?Q?4nyHP2QkoXjgqidkKD1+oWUgSPS3QlniiHTGO757xi1gT1OrkREkQaGacBk5?=
+ =?us-ascii?Q?+SS7Wfnvyj/D400IC3HmjAs1a99O9e6FthiE09TAFbc/N6IJPfDI7kvGyfsd?=
+ =?us-ascii?Q?TZkVTg4URybdviBnnnH4bZ3ruMukHbmmjmWJU+PNAEFxedCw3vSAIS/MFLxB?=
+ =?us-ascii?Q?O6o61+vwKk+siGRXQo1IILaT53XO37HtBavNc9031gYjBeHimRF6fQzKOzAO?=
+ =?us-ascii?Q?b2k6zis7BrMlgXBzUt4DhMluo9qBV7CMGILeyouMiuxpQeGwnmpNuS3Njr6S?=
+ =?us-ascii?Q?lDgj6w2xbpiTYTmzMz0rELUw4VHT5ID0OKRyhcB3XFtjKmRFDp+eWRDxFZVL?=
+ =?us-ascii?Q?oReTFYQkQLbLWr53MEw5wSVQxOLouN5Pbm6Rc4nQzlYfDiWci2Cb/weNJvWq?=
+ =?us-ascii?Q?P83ke8k7ow=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,253 +203,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com> <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com> <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
-In-Reply-To: <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 13:15:37 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
-X-Gm-Features: AclHuK9ZLEAPkvvEAm9cRuOlTdQ1KKTPJ64KYDiiOwhZqZAGkBN8s4gQExD7A8I
-Message-ID: <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency ranking
-To: Lukasz Luba <lukasz.luba@arm.com>, Guo Chen <guo.chen@oss.qualcomm.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, Vincent Donnefort <vincent.donnefort@arm.com>, 
-	Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, 
-	tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com, 
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked:
+	umBtK7MWB5t3vEjvn3N2452wVhG5dyyf4LKi5PpHDPRjUGn+VTRVUVcy2J5e5z3e/lT4j4B5v6HkRP7t9zHGzjruLG6x8Py67i7Ks8Na9vxRhNX1PTtPbaqEgdYkE+g9RDECmclk8bF/woPt1MBVhIGt4VCFRTm6vJqFXRZvqWNM5pLFoZAw2ZrSDLtw/DChNz5N0rJe2deMwRdsa6PYnq4svYQGt5AI2LkDFPnqfV7IuIfG/3ig++bKgfeokwjekMYciCEwCS9w0EAz/pCU2mgs/D/PebT7QgoXRNttfJaX0vs7ud0wy333Dw1Q6jW92C12tbtSP86icfOUW8uMOw==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	UYnCxUZsjuLAFxAkJ+jEq4ljuVKSjE6l0/oinafw5XmTDGVSPkEi+ISs9zoOY288AIjOddpmwIxEI3oQ+36ZW11j++TLuJ4TQ81wLhTFSo2R5e1O1IWP9vLV6csI9BofYVQIem9jY1zLBVLQcxgt6/eEQeeeNcL3meymiwF16val3gQEk716QSJclQ3ZT7HqoA93HE6Y7nVrYICdNzUwSVO06MKgprDjaX+bXLQBxrlYLjBbMJFlFdZAdDBxxpgBnQzoeC2cHr1OYVwDmfKiQtem4KuM2uaPCRuJLVG4s8U1bHTQIp6lhI1Hnlhz5ykEJxbHY1N/AunBqFIWLEKVi6az5l9H0T8gh2BMArMremJcGVa+27B+YXIAHajmbMiW/vrDlFuSjSzz48SRBi/Ux5SBN6xze4kxxfXDgwMm/cwwWo7kbu9Cn9ulb/SB77f3jA8LUkXlGRszN7DQMKZ73ANHyPPaYy9GmWAtpWYIxfJgmOZHer/VhTba4HYn8GQnyTvSGrgO7LsZltFVC/3M4LzTcl1e9GXKfcbtzIJrVIYdKlxSGZhCgrfoLtWAh2APZ4Qhq9HdtI8Fx0Hhdugiu2WKMWUSnVFuWd/16QEeHpMXoliYbe0D5jRoDQhtw69SMY4EVZNA9rRRPYdMYcC3dw==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYXPR12MB9279.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 181dc493-6a42-4ead-3ecc-08df3f248eac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 12:17:15.4329
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0ueYVnAKURUy3pXGGMKQCHzLDkPFkYzWXjFwbu18fkJKrM0JWF3qy1QwAmsvdGCcNmDILVgM1jOXpllyreg/kg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9508
+X-Authority-Analysis: v=2.4 cv=HMBWhYtv c=1 sm=1 tr=0 ts=6af30b51 cx=c_pps
+ a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22
+ a=JV2eVSZHMSyV4Tj97bsA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA0OCBTYWx0ZWRfXyiChOf3mvwQ/
+ zB3YMElvyD+hyiHOUdzOTDH07F3tyJhCQbCrtxkdzioHYhfTT1GUtU45BUimDN+JgoxoAEcFPEZ
+ XB2AauI2AISdn+YtkAG7hbKtyAdE++6qtYPqptZuYHbxs/J5jjqii2/t5pEHNPd0xF83pGmqx0Q
+ lq6icgJ5L92xS9yEOSe/lq+1GUi3RBACKRCqRHA3+0+R0ZVqQHNt0HYVrhvxXSR5NTF+ztfz27x
+ HkkRYbd4PDZwb/Oeznuu8E657z4JI7RNrz0ionlNPAo77u4sjWvi5zMoB8XOF89+ZFmCtwZCePM
+ FGFJA4GpcdzBG87UYnE/ZLdPfqU9eOBqfO8P8KVnJJOVcVNGIYHAE1u4giNDgoKnKfqqkYs42An
+ yivf4fSdmTBhGZJpStXH40EfQ3MUtP47KhRghymjXycUGscOQsPVknoiFFizu1bjNiiK3ZH8ftn
+ 21h5HqQF3A+zWh+bbbA==
+X-Proofpoint-ORIG-GUID: oaIbyyu_mmMSRxsOXEjzxLgWILgn8wFs
+X-Proofpoint-GUID: oaIbyyu_mmMSRxsOXEjzxLgWILgn8wFs
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA0OCBTYWx0ZWRfX2MSA/Wnnyuf6
+ dugZ7U6qAGmzZ3HuWYLDI9wYH/5oQe5wOD9Xh+UnQPSgZ02G7jAj51pV8KBDIu2HMUl3592m1Wk
+ VTSYAQKm9exxN/NgZgup//JGrsAy/t8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 bulkscore=0 impostorscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100048
 
-On Tue, Nov 10, 2026 at 10:58=E2=80=AFAM Lukasz Luba <lukasz.luba@arm.com> =
-wrote:
->
->
->
-> On 11/10/26 09:49, Guo Chen wrote:
-> >
-> > On 11/9/2026 5:40 PM, Lukasz Luba wrote:
-> >>
-> >>
-> >> On 11/9/26 06:47, Guo Chen wrote:
-> >>>
-> >>> On 11/6/2026 11:15 PM, Rafael J. Wysocki (Intel) wrote:
-> >>>> On Tue, Nov 3, 2026 at 12:21=E2=80=AFPM Guo Chen <guo.chen@oss.qualc=
-omm.com>
-> >>>> wrote:
-> >>>>> em_compute_costs() ranks all the frequencies of the table, boost on=
-es
-> >>>>> included. A non-boost frequency can be marked inefficient only beca=
-use
-> >>>>> a faster boost frequency has a lower or equal cost, e.g.
-> >>>>>
-> >>>>>    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
-> >>>>>
-> >>>>> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is stil=
-l
-> >>>>> skipped by governors rounding down to efficient frequencies (e.g.
-> >>>>> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead o=
-f
-> >>>>> the best selectable frequency. Several frequencies can be affected.
-> >>>>>
-> >>>>> Exclude the boost frequencies from the ranking in
-> >>>>> em_compute_costs() and
-> >>>>> keep them all efficient, using the highest non-boost frequency of t=
-he
-> >>>>> CPUFreq table, returned by the new helper
-> >>>>> cpufreq_table_max_nonboost_freq(), as the boundary.
-> >>>>>
-> >>>>> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
-> >>>>> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
-> >>>> Please see Sashiko's feedback regarding this patch
-> >>>>
-> >>>> https://sashiko.dev/#/patchset/20261103-em-rank-boost-separately-
-> >>>> v2-1-5a13d1b38d37%40oss.qualcomm.com
-> >>>>
-> >>>> and tell me what you think about it.
-> >>>>
-> >>>> Thanks!
-> >>>
-> >>> Thanks for the review.
-> >>>
-> >>> I did consider this case. If no policy is found, max_nonboost stays 0
-> >>> and
-> >>> the new logic is bypassed, i.e. the ranking falls back to the old
-> >>> behaviour, which looked like the least intrusive option. I also thoug=
-ht
-> >>> about warning and returning an error, but most of the in-tree callers=
- of
-> >>> em_recalc_and_update() ignore the return value (e.g.
-> >>> em_adjust_new_capacity() and exynos_asv_update_opps()), so the update
-> >>> would
-> >>> just be dropped without anyone noticing.
-> >>>
-> >>>>> ---
-> >>>>> Changes in v2:
-> >>>>> - Drop prev_boost and keep all boost states efficient by resetting
-> >>>>>    prev_cost for them, as suggested by Lukasz. Boost states are no
-> >>>>>    longer ranked against each other.
-> >>>>> - Retitle the patch to match the new behaviour (was "Rank boost and
-> >>>>>    non-boost frequencies separately") and reword the commit message=
-.
-> >>>>>
-> >>>>> Link to v1: https://lore.kernel.org/all/20261030-em-rank-boost-
-> >>>>> separately-v1-1-238a6b2bb888@oss.qualcomm.com/
-> >>>>> ---
-> >>>>>   include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
-> >>>>>   kernel/power/energy_model.c | 16 ++++++++++++++++
-> >>>>>   2 files changed, 40 insertions(+)
-> >>>>>
-> >>>>> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> >>>>> index d3d0d9d02aa4..c93316141a11 100644
-> >>>>> --- a/include/linux/cpufreq.h
-> >>>>> +++ b/include/linux/cpufreq.h
-> >>>>> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct
-> >>>>> cpufreq_policy *policy,
-> >>>>>          return -EINVAL;
-> >>>>>   }
-> >>>>>
-> >>>>> +static inline unsigned int
-> >>>>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> >>>>> +{
-> >>>>> +       struct cpufreq_frequency_table *pos;
-> >>>>> +       unsigned int max =3D 0;
-> >>>>> +
-> >>>>> +       if (!policy->freq_table)
-> >>>>> +               return 0;
-> >>>>> +
-> >>>>> +       /* The table may be unsorted, scan all of it for the
-> >>>>> highest one. */
-> >>>>> +       cpufreq_for_each_valid_entry(pos, policy->freq_table) {
-> >>>>> +               if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos-
-> >>>>> >frequency > max)
-> >>>>> +                       max =3D pos->frequency;
-> >>>>> +       }
-> >>>>> +
-> >>>>> +       return max;
-> >>>>> +}
-> >>>>> +
-> >>>>>   static inline int parse_perf_domain(int cpu, const char *list_nam=
-e,
-> >>>>>                                      const char *cell_name,
-> >>>>>                                      struct of_phandle_args *args)
-> >>>>> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct
-> >>>>> cpufreq_policy *policy,
-> >>>>>          return -EINVAL;
-> >>>>>   }
-> >>>>>
-> >>>>> +static inline unsigned int
-> >>>>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> >>>>> +{
-> >>>>> +       return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>>   static inline int of_perf_domain_get_sharing_cpumask(int pcpu,
-> >>>>> const char *list_name,
-> >>>>>                                                       const char
-> >>>>> *cell_name, struct cpumask *cpumask,
-> >>>>>                                                       struct
-> >>>>> of_phandle_args *pargs)
-> >>>>> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_mode=
-l.c
-> >>>>> index d19a65461ae8..5b1d095fd376 100644
-> >>>>> --- a/kernel/power/energy_model.c
-> >>>>> +++ b/kernel/power/energy_model.c
-> >>>>> @@ -255,15 +255,24 @@ static int em_compute_costs(struct device
-> >>>>> *dev, struct em_perf_state *table,
-> >>>>>                              unsigned long flags)
-> >>>>>   {
-> >>>>>          unsigned long prev_cost =3D ULONG_MAX;
-> >>>>> +       struct cpufreq_policy *policy;
-> >>>>> +       unsigned int max_nonboost =3D 0;
-> >>>>>          int i, ret;
-> >>>>>
-> >>>>>          /* This is needed only for CPUs and EAS skip other devices=
- */
-> >>>>>          if (!_is_cpu_device(dev))
-> >>>>>                  return 0;
-> >>>>>
-> >>>>> +       policy =3D cpufreq_cpu_get(dev->id);
-> >>>>> +       if (policy) {
-> >>>>> +               max_nonboost =3D
-> >>>>> cpufreq_table_max_nonboost_freq(policy);
-> >>>>> +               cpufreq_cpu_put(policy);
-> >>>>> +       }
-> >>>>> +
-> >>>
-> >>> The lookup can be made more robust though: on the update paths dev-
-> >>> >id may
-> >>> be offline while other CPUs of the performance domain are online. In
-> >>> v3, if
-> >>> dev->id has no policy and the performance domain already exists, I
-> >>> will use
-> >>> an active CPU of the performance domain instead, as
-> >>> em_cpufreq_update_efficiencies() does, and only warn and fall back to
-> >>> the
-> >>> old behaviour if that fails as well.
-> >>>
-> >>> I did not use the performance domain for every lookup because at
-> >>> registration time dev->em_pd is not assigned yet (it is set after
-> >>> em_create_perf_table() has returned):
-> >>>
-> >>> policy =3D cpufreq_cpu_get(dev->id);
-> >>> if (!policy && dev->em_pd) {
-> >>>      cpu =3D cpumask_first_and(em_span_cpus(dev->em_pd), cpu_active_m=
-ask);
-> >>>      if (cpu < nr_cpu_ids)
-> >>>          policy =3D cpufreq_cpu_get(cpu);
-> >>> }
-> >>>
-> >>> if (policy) {
-> >>>      max_nonboost =3D cpufreq_table_max_nonboost_freq(policy);
-> >>>      cpufreq_cpu_put(policy);
-> >>>   } else {
-> >>>      dev_warn(dev, "EM: no CPUFreq policy, boost states are "
-> >>>                          "not excluded from the ranking\n");
-> >>> }
-> >>>
-> >>> This makes it much less likely to miss the policy, but cannot rule it
-> >>> out:
-> >>> the CPU can still go offline between picking it and calling
-> >>> cpufreq_cpu_get(). em_cpufreq_update_efficiencies() has the same
-> >>> limitation.
-> >>>
-> >>> Would that work for you?
-> >> I also thought about that possible racy corner case, where
-> >> CPU can go offline (or already be offline). Although, in current
-> >> usage this should be OK, since we do this in boot phase and
-> >> platforms are sane.
-> >>
-> >> We can can add that step with 'cpu_active_mask' to play safe,
-> >> but no hard promises it would be atomic.
-> >>
-> >> The warning also would help, for bring-up phase, so engineers would
-> >> notice it and address the racy hot-plug booting system when it's there=
-.
-> >
-> > Thanks Lukasz,
-> >
-> > I=E2=80=99ll add the 'cpu_active_mask' check and the warning in v3. As =
-the
-> > overall approach is unchanged, I=E2=80=99ll keep your reviewed-by.
-> > Please let me know if you=E2=80=99d rather have it removed.
->
-> That's fine, please continue.
-
-I have a couple of questions though.
-
-First, why is the ondemand governor mentioned in the changelog?  In
-the mainline, the ondemand governor cannot work with EAS, so it
-shouldn't matter for this issue, should it?
-
-Second, why is the issue regarded as a defect in the code and not in
-the energy model?  Arguably, boost frequencies should be more costly
-than the non-boost ones.  At least the idea behind the boost is making
-higher-cost OPPs temporarily available.  If they are sustainable,
-treating them as boost OPPs is rather pointless.
-
-TBH, I'm too comfortable with looking at cpufreq frequency from within
-the EM code.  If that needs to be done, something is amiss at the
-design level.
+subscribe
