@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317631;
-	b=Qirm9l7iDA0y0zJ/wlgRsm7u9wDKVSwSubj96e9WaXEHHTHLSqwAPV8tQq8I+zSpOs3f
-	 BFUqhR7OBuhP8Yf2UxL5c+xZoN3ZP652qqwGzNAOzBm+rZM4yPR4hZwWk5SJna+JYIxrM
-	 9K+CLlhuD4lXbXHMGBtrAm8ycz5Nv9ZffsQvVtNHYLhJzzn3QeXFdR+FzRDA/X3ULlCYk
-	 tRN+SwSbsh8J7MwvY4HZlhDxhYgX94yYijck0NVeO81+67av4kTsdyu18E0XNZ5Z7BlTv
-	 Mg+wQ/m0nOYgoux2DT4SQYfXLGpScyoxVl6NNa53D5YPRMbxPGWBoExMesRiXmqCSOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317631;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=469C7cxwQ8pRb1askRJV+4cr7ISUSoEqexSz4jUQ/l4=;
-	b=kbVqWNKMz4Ac3HeAJbKzyWdB/VePbs9fKZE1dbV2IthKioVVlfuy6NthmexCn1JUqHd0
-	 on/MtV35ETzZPE4mE+Y4iaRU74ModqjaolA6KdIqb10ljpWTv+qsVcUGWHxGtMtl8SKJv
-	 7ELWVJpv25OCXWlW8WD48ewwQoE5S/A1yrYBHUrsZHY9k8DHi1RYq+VzEKyYEP9ox5cle
-	 pb+2LT0kpoqZGa/n6ehfNSjU2I0hAMZlWTrnWAeRwxkNK1uttHA5KD0nZd5ef9eFpG3BJ
-	 nJdcyammrW43GABY+7lf1JF8OrLsxOGJeUXGmgWXan78u0fL5WR2/YMPFHi1Em/jO0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SbPs9s1z;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794317635;
+	b=o+PcZelgLVQ71llyh/EVfWkSGIH1i9blODjFmH1JWCdVQrzoq/eD+mHxXg+OakWVSfCr
+	 h/FF+KELtJiekbom8g6ieLIqGxYQN+KOtMxhCzNmN5QhVyJHKp4OG+x/YX+OF3GMDIqsQ
+	 ubPaHMUam4DxOroUyRPLGFub+RZ70DN8bcygNTGtu6cIqCZ7MBVkWi4HZIPEWxNyiaZjz
+	 ImQ/pQTQdLm/5viWcNmTr+CwqtapQgR7bMRwuG8sXMnojm/a9+YBRPvRzuoEdAwyoMavF
+	 2fuf6aPbv5fh3o+4SBCKYGCbntmCNp6Eg+rsUoaAuUbD/x/r7gqp0b5f8xtvfXZFFrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317635;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=X61eP2Ihn7qgYJ/jch6hAGpV6brxyelEfH9o/K5zbm0=;
+	b=TsI8ONs4kA5Fogp7Rp7n8OlozgLUBNbO1bZbdA3ByiGc5mINMoFBKKHY95MjkQusJ4r/
+	 0TXkO2SPGnG3hFo0EwI6oFSX1wD+h88a1xCrB8SefNNeIYZBGw0xGZ3GQ/TpzcyRbDsKq
+	 suMmiybXsWo81pp6o/BB5SmMDZPPfC4P2esEcAuMXlroa8AWAQuZvpbR0JRhdVVAn7cJg
+	 eDDUeqkzEgTPXL/uW2ePOI0Yv3hl9P5IE41XS1OlYxXW3oKmxZG4zbw31SghHsUV0ZPAW
+	 5Ns15oKl6Do8pvaUUPTegvluIHRayQxbKaKnzKgHN5fhlLVl++jhb8uwoVCt6JdBc0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ousVbo5T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.174
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94935606A7DA;
-	Tue, 10 Nov 2026 13:33:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94935606A7DA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98C0606A7DA
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98C0606A7DA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SbPs9s1z
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=469C7cxwQ8pRb1askRJV+4cr7ISUSoEqexSz4jUQ/l4=;
-	b=SbPs9s1zT9LKQrhQRLSyVO8ow6ONaX4jHFvE2dv2wFraSEG/vjhq4VivxIp2K6Pb0idx/eil4
-	cv+Zck5YLsYYMWWjdO9JkPYJnuG/+6WF8UN08zTmbr3piifah7LJVmBAwQtPxIxcAaB6kUfNOWy
-	7KqGtKbI6osxqptm19A/F/c=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jP6zs2xf8zLlTt;
-	Tue, 10 Nov 2026 21:33:29 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1DBC940565;
-	Tue, 10 Nov 2026 21:33:44 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 21:33:32 +0800
-Message-ID: <a5468087-7965-4650-87bc-71811cd4ab14@huawei.com>
-Date: Tue, 10 Nov 2026 21:33:32 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ousVbo5T
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4f14642adb4so1117758b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:33:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794317634; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qYq+lCrVxhDlpNv7cCRkmB3DAqGZYAZBIOyGfHNYADdztqBHj1PzkDKZou9S6GlkYs
+         WxhviJmD+dTKTG25MBGnsZbySju/2hpk2tl0198GsFMYH7zBsOfg30j3WxSKMENCXK3Y
+         ByWh8nfuR+DdhZKnC3kFqsVHO9NzOGHX1beTp/5wAUhEInqzGooIg0qDX0Vt1r9rHMsZ
+         pX2avtvVr5h9UAbOnqQlHaqpIcZoNnPhMQfcMabzDD92jzjU6mqyju12bqwPLs5a8l6X
+         pArdIkKgS5YsKg4Px1Yn2pGNsLMg7Naa8X4C2wawb7ZHpO/vxrR2tpiqXby1M6/4hCAg
+         PDdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=X61eP2Ihn7qgYJ/jch6hAGpV6brxyelEfH9o/K5zbm0=;
+        fh=284b1Gt0JlQcXGrEmYZKh/1xFFpTTu1CoSVK8UDA0EQ=;
+        b=J2pKGZk/SXDlSBL8SYRQXvMJXUuGeE7U4/NBzbNQ41n1IOZ/qZIeTe3Y5np4A2bXpu
+         4GGnMMudBmwfI07DjKtPiI3PLuC4xedklnVy3ZoNEQlXYnmpyhGoOMETkXwJQnKBXZlR
+         hTqdSSQWIn33S6p9PXSQbubJre5bQMlF6KGpiPFzyukiFX9+5Vhab8zQIn1+L1qxySu+
+         2hs6ecf7/VSq/pJ/qulBwVyWlNJu2tL42nglp+TtxeAQQyVLJiyg8Pmz9pW17zh18Mor
+         jcFrC5oCohjUcjhv9sBJDyngZEubuENOcazz8ChtVEJufVlDZp7jItll93aO4mL8wg1U
+         aN/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794317634; x=1794922434; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X61eP2Ihn7qgYJ/jch6hAGpV6brxyelEfH9o/K5zbm0=;
+        b=ousVbo5Tc9DHtDdynM/uFuJyGIu0s09bGCwGXcD3Wj6iDQMfNVsdn+CqPFGtVOcTnB
+         5bKRk6Refz/qIeUA7DZzVZ0pxv4009+Fse+VV3ssr1csDf0pr8DjUPLLFPhr7wZqVcX7
+         rY5Kp+tQWbcZ3ubHMSpsCvPqgOZK1uQGnq/ugZQTtr6cFEtrGUPwa6YsBjJNcR6pmSFU
+         ysYMXh3VRKe0KZmSO4JcWRHS9OdeJ7E+RmbWRO761WiXLdSdODexWRwKjqY1SWoHaLo1
+         sSWoRr0rHESgOJTykl3U5CoEU3LtC5dCaVYOfcTyw+3ypjj4UsJY4EwBO1xw/2/17Idv
+         WywQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794317634; x=1794922434;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X61eP2Ihn7qgYJ/jch6hAGpV6brxyelEfH9o/K5zbm0=;
+        b=D9vdTENVd2zafPFSAasLyuY4Hbpu94ZdjqEzFEdYMMsTk7UQ7xDZERw6sVc3B23BbI
+         NKT8Xvl5HidwXbLqhnKp/j5Tl4dDSqxPPtCVrozYkhw8F96eBeTAy8lhmdqgNoA22wmL
+         E7qlCcnViMdxBxXZDpXemfV1HUTLJ4UpXbvDtkGAxzmO7wwvEugLylshQX1fqkFFEU/x
+         8jE3SNV2ZVOZO9LKkT+P1QfYlga25GU1RA+mldqnVm34OFuArbhTupRRQRE68Hyg0krn
+         olrtKS/+w4Mm9joG+Wv+T2qZ+N8YGQQB4zVMxJ6j0oZm4sTzQSFydubyQkLmJFqWUDSx
+         uAwA==
+X-Forwarded-Encrypted: i=1; AL+hErHmli+bOs+kTy8H8IdstudP09ZGdMPNQMs+ohRUNz+TMtQmttyNVb3r2lnSB09nAvzApKdhYjhEu+/9y7s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PZ4s4fev63scQgwJ5CxrQxr1rpHqlssNgqufFTVGoL+kxoIse
+	BiAvN9zmYqKCXj06QVgbwiueh35TQ2ec5dKn0dPEERgVukFbuGU/pd29NaJuOH/StcXCihl45vp
+	9R+7WzXUV+3rmZMFaoKYJAogqqZ6+s+Y=
+X-Gm-Gg: AYBFou29ZgE0Y3jVdImSQzAKpqwTT3H7pkUmxMRTKLqkrnPMgqnMEUO8uF9BR5Zx+JB
+	U+6dPhjqRhNVLGx8N1P7W0cnD8TPbSGyLhcVd0koxxXXj+qvrgZD2xbP9/lvBRUr7PJcC/UGJ7n
+	DNfXUfJ/Laweu/ovKoG+8xa7NI+F/Wn9Z3+04ttI7S0aBuxuruE+wQGdpxf2TrjmRO9xmxDia+W
+	1CZM+wM0ve0p2jDd787wY8FU+lQjZzSFqzy1QPW4l7/8Y/bEpcg/89UCtvfL2HI6XLTr/5rjC+D
+	dY+Jx3xfRm8rOicZqKQdgLaGZ1JJlZiiNT9JLgpZaj8WzdUriP4RCtT1ILQlmJBaIgtpGzl593W
+	EI1f5w/8QHQ/um/jz8R6QOOTS+oLEsbkJBYyS+GVnuy1T9vlAG3qEYPCK9SLrSaMk+pBg
+X-Received: by 2002:a05:6808:6415:b0:4dd:18c7:544d with SMTP id
+ 5614622812f47-5683c9d4bcdmr1886915b6e.31.1794317633794; Tue, 10 Nov 2026
+ 05:33:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,104 +104,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] fs/resctrl: Report a temporary RMID shortage per
- CLOSID
-To: Jinjie Ruan <ruanjinjie01@gmail.com>, <babu.moger@amd.com>,
-	<ben.horgan@arm.com>, <bp@alien8.de>, <corbet@lwn.net>,
-	<dave.hansen@linux.intel.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>,
-	<gshan@redhat.com>, <hpa@zytor.com>, <james.morse@arm.com>,
-	<jic23@kernel.org>, <mingo@redhat.com>, <rdunlap@infradead.org>,
-	<reinette.chatre@intel.com>, <skhan@linuxfoundation.org>,
-	<tan.shaopeng@fujitsu.com>, <tglx@kernel.org>, <tony.luck@intel.com>,
-	<zengheng4@huawei.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-References: <20261110132054.3702-1-ruanjinjie01@gmail.com>
- <20261110132054.3702-2-ruanjinjie01@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261110132054.3702-2-ruanjinjie01@gmail.com>
+References: <20261106114551.212675-2-amaan.cheval@gmail.com> <179431229760.994134.9605192478932025271@kernel.org>
+In-Reply-To: <179431229760.994134.9605192478932025271@kernel.org>
+From: Amaan Cheval <amaan.cheval@gmail.com>
+Date: Tue, 10 Nov 2026 19:03:41 +0530
+X-Gm-Features: AclHuK-uXx_1zJMXTZbtuw3oLLha1LOdSp4g6XMU_QQFDYEGasPY6t5aAdtAMuU
+Message-ID: <CAG+wEg3+7SdyKxN=Uidg+RugMwmmedRibkTekOyAF3Kn-8eVcg@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/2] gve: block XDP on the DQO-QPL queue format
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com, 
+	przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com, 
+	pkaligineedi@google.com, maolson@google.com, csully@google.com, 
+	willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
+	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
+	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Transfer-Encoding: quoted-printable
 
-Please ignore, will resend.
+On Tue, Nov 10, 2026 at 5:35=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The patch is incomplete for GVE_GQI_RDA_FORMAT.
+>
+> --
+>
+> gve: block XDP on the DQO-QPL queue format
+>
+> This patch adds a queue_format check to gve_verify_xdp_configuration()
+> that refuses XDP program setup on DQO-QPL. That check was lost when
+> d8a8ca14c937 enabled XDP on DQO-RDA. The DQO-QPL RX page accounting can
+> free a page that is still DMA-mapped when a redirect target releases the
+> buffer synchronously.
+>
+> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
+thernet/google/gve/gve_main.c
+> > index 2437cd8ba6331..4e9e692a0ed0a 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_main.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> > @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct n=
+et_device *dev,
+> >       struct gve_priv *priv =3D netdev_priv(dev);
+> >       u16 max_xdp_mtu;
+> >
+> > +     if (priv->queue_format =3D=3D GVE_DQO_QPL_FORMAT) {
+> > +             NL_SET_ERR_MSG_MOD(extack,
+> > +                                "XDP is not supported in DQO QPL queue=
+ format.");
+> > +             return -EOPNOTSUPP;
+> > +     }
+> > +
+>
+> [Severity: High]
+> Does this leave GVE_GQI_RDA_FORMAT uncovered? The commit message says the
+> check removed by d8a8ca14c937 "refused every format but GQI-QPL", so it
+> blocked GQI-RDA as well as DQO-QPL. Only DQO-QPL is added back here.
 
-在 2026/11/10 21:20, Jinjie Ruan 写道:
-> From: Jinjie Ruan <ruanjinjie@huawei.com>
-> 
-> An RMID that is freed is held in limbo until its cache occupancy drops
-> below the threshold, after which it returns to the free list. A request
-> that fails because of limbo is thus temporary and worth retrying, which
-> resctrl reports to userspace as -EBUSY. A request that fails because
-> every RMID is in use is permanent and reported as -ENOSPC.
-> 
-> Where an RMID is only meaningful together with a CLOSID, a request can
-> only be satisfied by an RMID belonging to the requested CLOSID, so the
-> distinction has to be drawn per CLOSID. Instead it is drawn system wide.
-> -ENOSPC is reported when the free list holds no RMID for the requested
-> CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
-> when the free list is empty and another CLOSID has an RMID in limbo,
-> even when the requested CLOSID has none. Userspace is thus told to give
-> up on a shortage that may clear on its own, and to retry one that cannot
-> clear until it removes a group itself.
-> 
-> Architectures where the RMID is independent of the CLOSID always match
-> the first entry on the free list, so neither case arises there and only
-> MPAM systems are affected.
-> 
-> Draw the distinction from the number of RMIDs the requested CLOSID has
-> in limbo where the RMID depends on the CLOSID, and from the system wide
-> count otherwise. Drop the separate test for an empty free list, which
-> the search handles on its own.
-> 
-> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Babu Moger <babu.moger@amd.com>
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> ---
->  fs/resctrl/monitor.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index 04e4ea612b7c..b8f4e1ff4083 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -207,9 +207,6 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
->  	struct rmid_entry *itr;
->  	u32 itr_idx, cmp_idx;
->  
-> -	if (list_empty(&rmid_free_lru))
-> -		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
-> -
->  	list_for_each_entry(itr, &rmid_free_lru, list) {
->  		/*
->  		 * Get the index of this free RMID, and the index it would need
-> @@ -225,7 +222,17 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
->  			return itr;
->  	}
->  
-> -	return ERR_PTR(-ENOSPC);
-> +	/*
-> +	 * No free RMID matched. If this CLOSID has RMIDs in limbo, return
-> +	 * -EBUSY so userspace can retry. Otherwise, the CLOSID is genuinely
-> +	 * out of RMIDs. When RMIDs are not per-CLOSID, any RMID in limbo
-> +	 * delays the allocation.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
-> +		return closid_num_dirty_rmid[closid] ? ERR_PTR(-EBUSY) :
-> +						       ERR_PTR(-ENOSPC);
-> +
-> +	return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
->  }
->  
->  /**
+pw-bot: cr
 
--- 
-Best regards,
-Jinjie
+v5 addresses this here:
+  https://patchwork.kernel.org/series/1205920/
 
+>
+> GQI-RDA also falls into the else branch of gve_set_netdev_xdp_features():
+>
+>         } else {
+>                 xdp_features =3D 0;
+>         }
+>
+> and gve_xdp_xmit() rejects it too:
+>
+>         if (priv->queue_format =3D=3D GVE_GQI_QPL_FORMAT)
+>                 return gve_xdp_xmit_gqi(dev, n, frames, flags);
+>         else if (priv->queue_format =3D=3D GVE_DQO_RDA_FORMAT)
+>                 return gve_xdp_xmit_dqo(dev, n, frames, flags);
+>
+>         return -EOPNOTSUPP;
+>
+> On GQI-RDA, though, every remaining check in this function can pass:
+>
+>   - GQI has no NETIF_F_GRO_HW.
+>   - Header split is DQO-RDA only.
+>   - packet_buffer_size defaults to 2K.
+>   - GVE_RX_PAD is only subtracted for GQI-QPL.
+>   - The rx/tx queue count condition can be met with ethtool -L.
+>
+> Once verification passes on a running interface, the path is:
+>
+> gve_xdp()->gve_set_xdp()->gve_configure_rings_xdp()->gve_adjust_config()
+>   ->gve_queues_start()->gve_reg_xdp_info()
+>
+> On GQI-RDA, gve_is_qpl() is false, so gve_reg_xdp_info() takes this
+> branch:
+>
+>                 else
+>                         err =3D xdp_rxq_info_reg_mem_model(&rx->xdp_rxq,
+>                                                          MEM_TYPE_PAGE_PO=
+OL,
+>                                                          rx->dqo.page_poo=
+l);
+>
+> On a GQI ring, rx->dqo.page_pool is NULL because gve_rx_alloc_ring_gqi()
+> memsets the ring. __xdp_reg_mem_model() therefore returns -EINVAL. By
+> then gve_adjust_config() has already closed the old queues, so it logs
+> "!!! DISABLING ALL QUEUES !!!" and turns the device down.
+>
+> Before that failure, gve_queues_start() has already set:
+>
+>         priv->tx_cfg.num_xdp_queues =3D tx_alloc_cfg->num_xdp_rings;
+>
+> and nothing rolls it back. A later ifdown/ifup goes through
+> gve_open()->gve_get_curr_alloc_cfgs(), rebuilds the XDP rings, and fails
+> in gve_reg_xdp_info() again. Does the NIC then stay down until a device
+> reset? If the interface is already down at attach time, gve_set_xdp()
+> installs the program, and every later gve_open() fails with -EINVAL.
+>
+> There is also a NULL dereference that only this failure hides.
+> gve_tx_fill_xdp() uses tx->tx_fifo.base and
+> tx->tx_fifo.qpl->page_buses. On raw-addressing GQI TX rings these are
+> never set up: gve_tx_alloc_ring_gqi() skips the FIFO/QPL setup, and
+> gve_can_tx() skips the FIFO check. That dereference would become
+> reachable if GQI-RDA mem model registration ever succeeded.
+>
+> Would an allowlist (accept only GQI_QPL and DQO_RDA) be a closer match to
+> "matching the features the driver advertises"? Checking for
+> NETDEV_XDP_ACT_BASIC in dev->xdp_features would also work.
+>
+> With the Fixes: d8a8ca14c937 and Cc: stable tags, backporters may assume
+> that regression is fully closed. The later patch in the series ("gve: fix
+> RX page refcount overflow from the pagecnt bias") does not touch
+> gve_verify_xdp_configuration().
+>
+> >       if (dev->features & NETIF_F_GRO_HW) {
+> >               NL_SET_ERR_MSG_MOD(extack,
+> >                                  "XDP is not supported when HW-GRO is o=
+n.");
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261106114551.212675-1-amaan.cheval%40gmail.com
