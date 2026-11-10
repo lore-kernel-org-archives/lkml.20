@@ -1,119 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302435;
-	b=gCiCkGYYzYzPJ181IXehIL+9XHmi+fhM8lOKcmLRwAPJjlCgDFKpaWvhBlhJF1rhGc9L
-	 QNp3uOqzqdx2c3RGDjE3BZFhohaeCl0hRviMr2Gpdrbs4nE3TxtIQR2Rq5T/dczS339bp
-	 Xxe5h0ZcHLiaUScQBpIA0OaD44tIZNLtyuvofVzHV5j2VAiWDeCiHMaIWx5rVN3aGqj/k
-	 gGw+QyDCnHOBJkxCkDPNcycQG+PAeYqP5gCz8Utj5glGUhWAv+cuJn3POEYBgQYJBWwT0
-	 DiI9PXVCUoys4ivxcP1GbBBKQZ64OY+2eDPmxRhhe9tGtDl16+d6QiX4Ge0yqAFSrXg==
+	t=1794302438;
+	b=p9bbHDRa+q/8BaTm//T7QL283vusT6022sAVoICvYy2g7OaeGV3Yk7EBCdswOvdMRcB7
+	 kRQ+IkuNg8QeIstQuRAknxN8VH1SLb8aejgnhM53XsInOMdNQ1jOPdHpD/cDOig5RgcXy
+	 R/MhPtfGxzhjXj5izilOJACVkHK9rHW0J9ZJkpW6nWjmV3mcsIPAZJ4L9zPjEEIhinBQx
+	 +3aI3+/AKCIIkKYOsoCISsCkvEszf5aZDhjkgWzWsLF0aJqY/ZIby7ZR9I0DgiL6aPrRP
+	 kPDfXo9P4VvM49cbk/Q6OXVd/b4t9TtZRLTQAhVUSMfI0EC/NgKIqK7j9aS+AAB3JHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302435;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=gZQw57RehtWmejjEg4uC9nGAwlmTjZh7csJ2dxc7a6o=;
-	b=20VW2L4pKby55uk/22Li/U5JP9itUEmcL8rMUJmdEeWyE7aUsugzMImxOX6H0re4In5I
-	 3vDNqc7HTEpSVm7jAdlk/xl0Iq0l2lxgs1i4NH4ae7GtiW9fCl7YAW7YrXaUaCFxy3h+y
-	 QlX+hoetuEIIKPBezsUVDuDfaD8RGpSV6C1FVZNYVx+ACBQ5kki8nrbYE6VAWBhYPzCr/
-	 y5l649dZUiY0xjTpZuhDFpG+iqj0fDvxf8v61XehLbMfK34uGY9RmGepu9U1nmxifuuqe
-	 epuyFZA7XeBobaEAuTJ+KbW+MVesvBoUslORnyyh6T8wFkzyiP06YZIWN6kXgKzDjAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302438;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=z1EiYiesShrPXkvDVgUvtrE7Nbx28aPk1xRDvgjsVXE=;
+	b=DIRcYbiDdoSxGulx45oEKYPNS6Irxx+/f2HC1nIv0LmmXiJyw0gNRo4ddJOXVEjVW44L
+	 5x4OfA/w38sgpT05rOrKRHm/k9PPs7zCXHTOYhX1l88MpImkhvGoeocUqUG24DYGcSC+c
+	 xZ9+86oWQBQN9pIU/UhUP4x4xe/rZQxiDhdNE3bo84okk1DxbYXLcwOO6lYgE//27NRyP
+	 ffrUjYX8V3cpXRHkjctynil0yX3pmvp+U6iXbJmsWeY1XZI7fKeELWAWV3q+Af3eYnwc9
+	 WKc7Avjk55KBHuDV1imKZ0IajKkL4eYddIDyp83iTUiQYlAkgz9uCLXiZUgJn43yEYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WKaZIXrJ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="XFQC/C5y";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k6eHQsY1;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F8607D5A1
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:20:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A1F8607D5A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8553607E063
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8553607E063
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WKaZIXrJ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XFQC/C5y
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l8SI3392427
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:20:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gZQw57RehtWmejjEg4uC9nGAwlmTjZh7csJ2dxc7a6o=; b=WKaZIXrJWWr+SioL
-	g+HhtruzxhNcwbnvhTfd49Bs+V/aknUU6SQSPT1ZAmpwMDK0GAIM/yV081f7OP6e
-	/WyJct3aQt5rOFe+gWGQ8go4RahDElA3LRl+tNXkbXa6vuWEVjYMy5o8SeucWi+d
-	GdwbecxgZxIUM8CpcrEkfEXdKpFFDLLvnxZyqJDgLDw1cR1lE2e15AN7kIuQba+y
-	9/D3J31G2xIl8vv7DdHY6VgM1fjFDOhtpjEtO1hsPm5RE6pLDfJRI0ONMWBS7ypw
-	U7ajerg9PyrByOvwCPvzDUO2OqqYx+8kc/JY95oFBJfwI8NrCqPIMv96n4Dek6iV
-	7XbKew==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg2s9u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:20:33 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844e383so356750185a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:20:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k6eHQsY1
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so21065845e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:20:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794302433; x=1794907233; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=google.com; s=20260707; t=1794302436; x=1794907236; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gZQw57RehtWmejjEg4uC9nGAwlmTjZh7csJ2dxc7a6o=;
-        b=XFQC/C5ykZreMMovwQYN/dzO7bpOI0wif6JrucGKYajzlaaINUqx3IoWWUklZ+TrZh
-         PoE0WnVhoU0M3ygRVTyW2JxsA84dAY7mXnZmamhhxLLsV8+KD926gKN3XfZ9Jm7QuCeI
-         t3sYOKOTI+DhTS+2FmeNfv07s3GKu17cDjuF9nknfcpX5c3tvl8vqlCFitmLUm/gMAl8
-         nJg1wCgcAOQ/wZIa1rZ685b9Q9ZUgAzsoxVt39wZ84jbDr/ZXX4cuFiJuS/B4UpkzhY8
-         RNrACpMbSZrC+ORUUpOJ6jBUZ03jejQdIzHTAuIHhhG9p2SWkiiqY0XV8lLwxDyGnItb
-         oVYw==
+        bh=z1EiYiesShrPXkvDVgUvtrE7Nbx28aPk1xRDvgjsVXE=;
+        b=k6eHQsY1X6QQ/El21/AD/NhQWepkxbQs0Z4pcenOpTF8VNpjnD3wecM54LzkjpJwOR
+         cIkLGa9opH+fd5tFsP4ykKkn45rFc00CtEvtTjXgPj58K+1wCtWwTbYXu31hzhd0o9L2
+         4LrnRcXgAAosQAB610IJf1fZWHo7lFzyPCRzofHZ/IeRmW+TIuChBDDWDF2dGLq8CJP8
+         FRPpV7WOOC/iHylG5DIl/z/NSbP1DZT8+AHSO92538hXBakHktb4LmrTqPkzN9HEHhKK
+         R9b9FXA3X/AsT1BHQamAkPLcv2rpLSc3waLABkYOTrNE8i29smevM5in3h1KMOul+qng
+         KYUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794302433; x=1794907233;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794302436; x=1794907236;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gZQw57RehtWmejjEg4uC9nGAwlmTjZh7csJ2dxc7a6o=;
-        b=P+gbC/TDQp1CzyaE07OFa9gyptt6uK3W8ixNPt1Li/WapgcXso0nO8LI6opubVh4jr
-         GgIGpBhO66gX1C9QoVTouWHu9MnqS3ciwOeCnBvAKk3dPxtsrnfjdT3DRA1ILJqbt/ju
-         LbH/tKEbS7K53BeWIQJWSiafLVaWgFLozYMvOOXamdk9Ko07NEu+OhLM654O+Wywctm8
-         F7uWz6UCGJ5oppc4IArPYE/meV4ie4ezZH6FUuvtjRX8jwf2BZDsUyqci/dGshHVunLW
-         x8JXzBfM4Chv97Y5oA+KyGnk4Pmnf+PEyQbuU+BnU+ePt3OKQCWDBNKIe2jKw3zaw9Aw
-         UCrA==
-X-Forwarded-Encrypted: i=1; AL+hErGERwY/8ernkjxF4Dz1K26dNpbbE8n0AM1g8erlc0eFztFhjBhUPt4Fd4wTzuoGUvbJOlexFQhdLcrtnpU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9amJWwcVWC5POfHZ0gvUu1bVHiKQwBpC6kWsGhVooVYFrcNMT
-	qP9WLOp1IzQaTqSILTqh/VPFAhHGbIbka1NGhZdDjArH+LyHA3p1mNOTaxRjQqybZYYPg/mbbLZ
-	QvJKF3gNhitar5oPgXnvsky5IznBqYWy/QuNVOCde+JJj84S1aSlT9uZYtP6cUbLM3Js=
-X-Gm-Gg: AYBFou0dcKazkCqAU3UuejxVJ6FhD5+AYgAwn9fXjLFDDNhMTI2D/+GWJist/oPaoDI
-	zCaftm+fA4naIxJyeE5TmfrAMObB2vVR/TGM2w2jH/NsXc4IUQTxZFhPBQV3BsKdoSdq834UEMX
-	LDr1asp1Nfm5Lokuw7TQoZV8nhYnYWdKLzqQsycPCjqAPV4+JPVOuLhUhUZHJUEI64S4vABnj3g
-	ofcLpKnTqdGxq2NmgHac4o9H5tf8FP4RQwdjB34msTns14qIhqMhrENTsRibjMp6MzSxsoaZMtj
-	QzUug11n/uFfslqTfiROnDRdvTHncwhIQvsTSCyfsdRZzJuCADQauRYf8VaGPTfZi0uuynB/OBy
-	3XTvTT17QvED+hhuU3s8WOBboBV9HBl0hJU6MHIS2H53fgoVLL7TeTw+i9NNxcXiCy3gJay/kZz
-	eO0aI0PnO+PaXQel37xpMrp2HzvVbVKKcJIeca7c0C8+j2V7Zo3/wwimq0IkJPoA==
-X-Received: by 2002:a05:620a:199a:b0:93f:265a:c609 with SMTP id af79cd13be357-9479f40bf87mr313749385a.69.1794302432802;
-        Tue, 10 Nov 2026 01:20:32 -0800 (PST)
-X-Received: by 2002:a05:620a:199a:b0:93f:265a:c609 with SMTP id af79cd13be357-9479f40bf87mr313746185a.69.1794302432401;
-        Tue, 10 Nov 2026 01:20:32 -0800 (PST)
-Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0203a6b0sm55209975e9.5.2026.11.10.01.20.30
+        bh=z1EiYiesShrPXkvDVgUvtrE7Nbx28aPk1xRDvgjsVXE=;
+        b=MDBBjy1iqgXjWBI3Nou1f7NgX+ZKCSB/8vF0CummHRmSUeLRm2xGIBJlBYDAzav4+y
+         SYzGi64d3YlDutlt4FEtj4k5J352l93lVTGWoCnpS3yi+D0lYj80Ooq87JNJ2zAWFIhx
+         74VGZmxXFHeAspBJdCAPrwNhSphheXjiSQqFjWNpoPo49udYWp8HG4/iZkDKm+7dJYkV
+         R82xlAOHcwQ+Jm+cxgMZMHS2AQ8r8lW7TJAaY6RCOfpNqWtdUQbm8K5h459qkrTtnpBO
+         D0HK7Ng6OLCnMM0uNA241RKI/lbULY+PsTKlcD9A5VfI4Ro4AovKZG071Gds7ksuNANy
+         Errg==
+X-Forwarded-Encrypted: i=1; AL+hErFFJgBy7jSsyCTWis50rUNSy6UifWoYCrvjXU6VcK4MiQczWrGpIh0eILRjRsbNc79Pf/7bUC2gjhy4NVM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9PxD0+kMJCcQax79jCDG+1DvDFIUygH+GcCvPK0ij+vbjioJn+
+	qhtj61Ks/yp8YU0S8pZ5S3pYdqpqlUq/lRiWZrx0aTpEoZxP+p+NGJIdQfMl8AQTpw==
+X-Gm-Gg: AYBFou2oGsirlPFu44q7ZunnU5NK5sz4+6GsY0rsIeS0Ak9a6zC0Q2SPUC2bGfSwcgQ
+	RdPR+8bgHCIoX5I/FjJIWEAaYNgkEwQAjRZJjr22s18MnZMq7DqK3Qwy+9rWS3qr1XLyOWQGai4
+	lXENsuWuBU4/KCWqvhVCEEITVQ2Pd9AsRXSIOwid81DVC3esTnePrTMxDNQoSzTWHzCuTSOM84S
+	9sbHS9YQnHZq1hpJKUZ9+KbrEFi9zBcNjeBriQOXCQF5CEehsVdhHC0+Bb0ZYrwJGV3GnWkJirI
+	9iALOgT6AKk9dno75TzKYKzFE581/vjN2zVPB+O23szxuuPJdbbNSoPYH9LMNJxPLzFiVd8kdrL
+	segnn4BIwpxviQJnMO9xfMGyTG1SSQ2FFvFTjya9ZEqjrzHBT3Famzmr2KNUrbS6t1PSBSUgOxl
+	lk3M+VogwyrLgv1p//lTPvLg7rPr9QbciA8MWqwpyRxzc+J+Xysk7cYlQdgAOPDnwdPT27I3BzV
+	mBAREEpMICR6QvXzQvMmyOrJwCDrBe5Vlrc+VBJCRRwEsQ1Al934z5/a3tAhMVCH2wBjFvxNgew
+	2tfrEevogYwa6l5Pa25jCVJuGqLNqX3ti4iWmATBl9Sp5dsjaPd5oqXAPRGVgt/vEw==
+X-Received: by 2002:a05:600c:6990:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4ba0233e86cmr29624555e9.14.1794302435405;
+        Tue, 10 Nov 2026 01:20:35 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fef675sm50469705e9.14.2026.11.10.01.20.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:20:31 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: virtuser: fix interrupt leak and UAF
-Date: Tue, 10 Nov 2026 10:20:29 +0100
-Message-ID: <179430242703.6893.16466062017492438837.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261106-gpio-virtuser-irq-uaf-leak-v1-1-ce9772d8ad0d@oss.qualcomm.com>
-References: <20261106-gpio-virtuser-irq-uaf-leak-v1-1-ce9772d8ad0d@oss.qualcomm.com>
+        Tue, 10 Nov 2026 01:20:34 -0800 (PST)
+Date: Tue, 10 Nov 2026 09:20:31 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: xuheng@cs.columbia.edu
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Don't replace a valid hyp block mapping
+ with a table
+Message-ID: <avLh32oF-TnQrxtz@google.com>
+References: <20261109-hyp-block-map-v3-1-bd70e67eb0bf@cs.columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,53 +106,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzNyBTYWx0ZWRfXxpV1B8v4NRTb
- scK8esjSJNxd+QcSG5fbWglB11tWz1If4RSs2gF5O1/uqm7OggE7KFs9+YsX8NQPrdcHE0dfSQ/
- FeHHlU5PwQWYnZmE8W2xeu/YIQjGmDxP4u2kCWezYjJvcOK3CIFUkJpXN33au4XtTqERkRdWclM
- l/0e+4BE6vvqDwojsrZzd6T6oCg422pVoPXx69FPZeCygXzbsZ4rjQWXyVaj2tbX4ardRzpYP1m
- bBFqqEeTDbwIrlUp2IhgwV6aPJCNY6aAH9YOBwyCE55QmWLv8HLvjoD4AV7kx+cOavfDMc1jYpr
- ZGxIm0DjLJCpw/hUfilgX75fcKCuS71u20yAfSdygKhocUYlNBR23U7/1ODXtfadwBi2oNLPTgt
- iIQn4kQhOcw0WvGE/x9MndpNj3448cUM0KFRE+Zlm5bXam/8ZgoxRw41uFknRgyh34HhD/eYa0A
- C3IprTqP4SEOCSzwrzg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzNyBTYWx0ZWRfX8hFyr7U6pM+z
- ouAdF9w4RRgefiNzr8ZBAAWVf4uyfNBIMZYB7sOwxRw9yA4WvgvCnpfoUKLGpr0wfDiSCB+bfsi
- KLTD0e3LJVduOlEX0KX+TcBtjZ8CX2Y=
-X-Proofpoint-GUID: k2K468zGVRxSfzpJdECVlRHL4Yo5JExP
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af2e1e1 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=-0yr5wKWe5apWyn0pTYA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=zZCYzV9kfG8A:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: k2K468zGVRxSfzpJdECVlRHL4Yo5JExP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100037
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-hyp-block-map-v3-1-bd70e67eb0bf@cs.columbia.edu>
 
-
-On Fri, 06 Nov 2026 16:33:45 +0100, Bartosz Golaszewski wrote:
-> When configuring interrupt handlers for GPIOs requested by virtual
-> users, we never verify if an interrupt has been previously requested and
-> just leak it if it was.
+On Mon, Nov 09, 2026 at 10:13:35PM +0000, Xuheng Li via B4 Relay wrote:
+> From: Xuheng Li <xuheng@cs.columbia.edu>
 > 
-> We also never free the interrupts at device unbind. This is both a leak
-> and a potential UAF bug.
+> When kvm_pgtable_hyp_map() is asked to map part of a range that a valid
+> block mapping already covers, hyp_map_walker_try_leaf() declines, as the
+> request cannot be a leaf at the block's level.  hyp_map_walker() then
+> allocates a zeroed table and stores it over the valid block entry.  The
+> walk descends into the new table and maps the requested pages, but the
+> rest of the block is now unmapped, and the valid block was replaced
+> without break-before-make.
 > 
-> [...]
+> No in-tree caller maps into an existing hyp block mapping today, so this
+> cannot be triggered in mainline.  Fail such a request with -EEXIST
+> instead, so that a future caller gets an error rather than silently
+> losing the rest of the block.
+> 
+> The same check now catches a conflicting remap of an existing leaf, so
+> drop the WARN_ON() from hyp_map_walker_try_leaf(): every caller checks
+> the error, and a WARN is fatal at EL2.  Do the check before the
+> last-level WARN_ON(), which is kept for internal errors, and update the
+> kernel-doc of kvm_pgtable_hyp_map() to match.
+> 
+> Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
+> ---
 
-Applied, thanks!
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 
-[1/1] gpio: virtuser: fix interrupt leak and UAF
-      https://git.kernel.org/brgl/c/24cafd9580627f9f066296f4a6ce1b282a3f425d
+> This is patch 3/3 of v2, sent alone: 1/3 is superseded by Mostafa's
+> "KVM: arm64: Use consistent type for pool size" [1], and 2/3 is dropped.
+> 
+> With the WARN_ON() gone from hyp_map_walker_try_leaf(), a conflicting
+> remap through the EL1 path (__create_hyp_mappings()) also returns
+> -EEXIST without a warning, where it used to warn and return -EINVAL.
+> 
+> [1] https://lore.kernel.org/r/20261106172750.2678873-1-smostafa@google.com
+> ---
+> Changes in v3:
+> - Drop the WARN_ON() from the new check and from
+>   hyp_map_walker_try_leaf(), and update the kernel-doc of
+>   kvm_pgtable_hyp_map() (Vincent, Fuad).
+> - Do the check before the last-level WARN_ON(), so that a conflicting
+>   page-level mapping returns -EEXIST instead of reaching it.
+> - Link to v2: https://lore.kernel.org/r/20261105-hyp-pool-and-map-v2-3-44a6ca90190b@cs.columbia.edu
+> ---
+>  arch/arm64/include/asm/kvm_pgtable.h |  2 +-
+>  arch/arm64/kvm/hyp/pgtable.c         | 10 +++++++++-
+>  2 files changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> index 1c9c57cd6..6d6ed8596 100644
+> --- a/arch/arm64/include/asm/kvm_pgtable.h
+> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> @@ -508,7 +508,7 @@ void kvm_pgtable_hyp_destroy(struct kvm_pgtable *pgt);
+>   * If device attributes are not explicitly requested in @prot, then the
+>   * mapping will be normal, cacheable. Attempts to install a new mapping
+>   * for a virtual address that is already mapped will be rejected with an
+> - * error and a WARN().
+> + * error.
+>   *
+>   * Return: 0 on success, negative error code on failure.
+>   */
+> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> index 9c83837b1..94a59f29a 100644
+> --- a/arch/arm64/kvm/hyp/pgtable.c
+> +++ b/arch/arm64/kvm/hyp/pgtable.c
+> @@ -414,7 +414,7 @@ static bool hyp_map_walker_try_leaf(const struct kvm_pgtable_visit_ctx *ctx,
+>  		return true;
+>  	if (!kvm_pte_valid(ctx->old))
+>  		ctx->mm_ops->get_page(ctx->ptep);
+> -	else if (WARN_ON((ctx->old ^ new) & ~KVM_PTE_LEAF_ATTR_HI_SW))
+> +	else if ((ctx->old ^ new) & ~KVM_PTE_LEAF_ATTR_HI_SW)
+>  		return false;
+>  
+>  	smp_store_release(ctx->ptep, new);
+> @@ -431,6 +431,14 @@ static int hyp_map_walker(const struct kvm_pgtable_visit_ctx *ctx,
+>  	if (hyp_map_walker_try_leaf(ctx, data))
+>  		return 0;
+>  
+> +	/*
+> +	 * A valid entry here is a leaf that conflicts with the request.
+> +	 * Replacing a block with a table would need break-before-make, and
+> +	 * would leave the rest of the block unmapped.
+> +	 */
+> +	if (kvm_pte_valid(ctx->old))
+> +		return -EEXIST;
+> +
+>  	if (WARN_ON(ctx->level == KVM_PGTABLE_LAST_LEVEL))
+>  		return -EINVAL;
+>  
+> 
+> ---
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> change-id: 20261109-hyp-block-map-0c19f8e9424b
+> 
+> Best regards,
+> -- 
+> Xuheng Li <xuheng@cs.columbia.edu>
+> 
+> 
 
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Vincent
