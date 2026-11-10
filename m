@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313982;
-	b=eIv9/23D7e8UJ24kS/ynrBe9kgL7b1k5IDbLQEmN3gofk//JjSxTM2A7nEUSo6DxOjus
-	 5D7smqfKxTmWeiCXa76cIqrmu17XL0Ljj2Kt/c1vDNbk5xeMwMooOCgt4xKFR6tcRCgPb
-	 IwH8qXbjoNcmkwJ1lrSVTgsN+lUArnk8LkVwUW+XEyvLPQG8Ejsowfj8B5s9gm2j5ftjr
-	 lemnZMo40EPUFRKAD1wHXfZKhEYsHu68TMuPjB6aTrtNdIjwCLwllH1TIvpnrufU2Meud
-	 aZLWX+9ERESFmFwK9C9F5i+ar/lJEunD1GvJGHlZFYUjDmWdP4z5Aw5wQE0bzpIpFOA==
+	t=1794313983;
+	b=jpUYPuwmNK/6oh+DuhqyCvxPJYP5lpxIP/vFkVHWusVZIXCSU0c84Yf0gs3OVN+++TVu
+	 2F8SCgs1zC0+ktacmo9HZc9/THr7eOVIHilf2bRlFz3VDM4gNJBZi7BywcXzRzR/Ak0v8
+	 DmHFN8BbYMsDtQXU6S0DV8P479s+ruopRSP+v5kNUP8s+j9JbEkNlQHJt08zWRQ99t671
+	 Nanos3qbQEGYs7tg5cwm6dr64OZQaEo7EUQr9/JGnHVvg5Tmzx4NbGj7LTvxnt8AK2vIO
+	 m+Bylw6EDscWLaaGqaRJwErc0JeuJ5wC2NNDULzMdKBIJEkUdU9PJQGgxN+iankOKuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313982;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=FZ5FFlHQL7j8baPJSvGmXmKdOgI4vorQKtT9ZrZsiwc=;
-	b=s+ihuYXz18Vx6+hEP0cSwpZk239QxCSpiTzKIJcwilqsUk7B0gSHnzZeUJmAmpuXnenr
-	 +QAogQMdRErUqnXCbII/6UUVpXcvaWvf1bq93qXRVTnUQm+8Ro43VFFtSVCzmWsHCRdye
-	 67fHTniFZlOnY7Qq3/5aun3zmqGtHgdcnxaI+gux/awzacVxnO4/HrXXu+2hRMqzTZ35L
-	 yrF0/UXQHIfw8vdsCd0dfL0h2ZCzPon4APqbTLgXVumwnQ7O03Vw0GSL12Tyc585Ek4yD
-	 RzP6A7BvBcEPg1kYxzlXqx5VYQJUn2TDIFCK13TrkqxFlw7VRLhP2VN03eJwVoiZ3KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313983;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=uXHrdWcqiHpJ/+X7spV4X+YSqEs4YGoqydo4TrppAyA=;
+	b=gXxrFHATUSuSYHTdZJ8PbJks86IDdb85/ViHd+gYAet2jvgJK1s4RrhZnm7RaTwop8E1
+	 IOHaij0NFEW+IDKfkIOrz4F5SeJYKoA66ZM7ByuKx0vNVYs8Cow3vdbAM1W5vylAxrXNq
+	 UDEMZC7PsRZyQOpzAtkdOWfMe2bgB2N2D1NaWWKiuZTmG/xBF/X25mmy7LYMp1xS5YwBM
+	 0z2JzHmSWd569HMyk6Psw2UAKCg/1G875Fug70T0QTTG7IN9txZb3602bFegvwfoFnx9S
+	 l1YweXG3qT3uhVH5O4PnHIsQ7TSnNGghmRARyzHE8MwQsVNWVQv2Qsq+cfwWMhIC2JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJlizn0t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="suwBrA/n";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED07F606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BACE606A326;
+	Tue, 10 Nov 2026 12:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BACE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJlizn0t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F831F0089F;
-	Tue, 10 Nov 2026 12:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313981;
-	bh=FZ5FFlHQL7j8baPJSvGmXmKdOgI4vorQKtT9ZrZsiwc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EJlizn0tvmKilnMc/pUeIZZjk8kEV89QnhAodf4KFZQQHaD+DuDwKF8hmXqcXvj0z
-	 NAay+rOC4ofaKPXwHMQhMxk0FyBvoLzf6daJ6d/7HIsF+EadDvJPz3eyK90Cu0VZV6
-	 vMQhFF3jHmYPoapUcz8g8xD4ve6Zmsc9VNzo+4RgHv1hxX6948qg3+zjgbbnlBmBLa
-	 3pHkBJ2mF7pOWlTxnV5BGnB1BcvluU5E5UvXAGged1MDaDE98uhh6j8AoOxlnQ7Aye
-	 yV+lsMlQ1cmiFeHeUHD+W9400zgPIp6TQtZnyTg5hSiGHxU7y3P0edqOvsqnRKDm/f
-	 5Vo41jFuG3Pgg==
-From: David Hildenbrand <david@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Shivank Garg <shivankg@amd.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
-References: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
-Subject: Re: [PATCH] mm: remove unused clear_flush_young_ptes_notify()
-Message-Id: <179431397811.3951.2634081114462730604.b4-ty@b4>
-Date: Tue, 10 Nov 2026 13:32:58 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=suwBrA/n
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=uXHrdWcqiHpJ/+X7spV4X+YSqEs4YGoqydo4TrppAyA=; b=suwBrA/nAsthm2JS9BiVooHsyZ
+	VmGmrgtUn8GSiRlcSV8Bn7v4lkqYoSzypMnCvGkwESfSmjDRl+X+2ezZhc9slm4hVDdu15a1oqC8y
+	FQ5WsAHx99+UI67Hv3vZHjrV9Nfs9l30fKxquAH86xlFzTEYRhM3D+3OuzPeVZplI6YeqKj//B4zG
+	QN5Ml3Id34TXvSkkMz1XvtvCKAtrEY8ftyxXrC6dmxZm3d7WfNNuVbE55e/AXX8Sx4+PVRrn7936R
+	hujqIkNiKWlgSc8ql2gP1z7JeBRbqhviJ9vnRvbF5zP3eDMiuSnv40ZfLDl+mrY88fb6plA9X2PXx
+	u6CMO4qg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQl21-00COyt-2d;
+	Tue, 10 Nov 2026 12:32:58 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 10 Nov 2026 04:32:25 -0800
+Subject: [PATCH net] selftests: netconsole: enable the targets created by
+ the torture test
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,42 +65,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Message-Id: <20261110-netcons_selftest_fix-v1-1-86643b837216@debian.org>
+X-B4-Tracking: v=1; b=H4sIAN0O82oC/x3MYQqDMAwG0KuE77cFW52wXmUM2bpkC4w4miKCe
+ PeB7wBvh3NVdmTaUXlV18WQKXaE8nnYm4O+kAmpT1OMsQ/GrSzms/NXGnubRbcwlqdMw5CuFxZ
+ 0hF9l0e1sbzBuuB/HH/DU14drAAAA
+X-Change-ID: 20261110-netcons_selftest_fix-4cbf633295ef
+To: Gustavo Luiz Duarte <gustavold@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1706; i=leitao@debian.org;
+ h=from:subject:message-id; bh=zSq8AOVPqKnj/9CHTFOYb9X/z7p6pl2TpOdMOIPN+og=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8w71zvOB+X5okMZEU9Ai0aXgzKngHTwprGRqF
+ FostGn+XC+JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavMO9QAKCRA1o5Of/Hh3
+ bW1kD/4i/esf76C3fPut8KLl6FD9Ac8fm3Tn/C6cUztJyqnqwfd43nVET+taoAitIB5dKCDOxNf
+ 6UzzV4s2+Q9CIiA6LbhTZkajmI/LIuRzhDl9FkKWiDIpfVkASUb757A/DORDkNLbiWYeuFtDcsp
+ vKdkMR7bC9dptkdiC8FZLSs8KsUZqxoAFfYscoMK+lzraP3r05bddR+Oz6cunEvsyW+HdEFGRyp
+ 5mmTQSn5u8QkToZR9LPI1tWBl8tgWxwkMXmJ5jPGvJ8Q9o2dGas7bYKA5HajuVR1gvb3nfog8AM
+ wz4yxC4pCa5U4VkveHcLzz7IBkz26xZVvM4/YwxDMErQ8MMpko3RA4AE7p5cEEKrv1EiSBTIRa0
+ 1Nw9f75hmYP1pssPGiSS4cMaJ28LMVz95nGMUjAPzinlVsE6gX1wvlA5TXJ/vJ5DxcSV+CspaoF
+ AHR5rJKS9N7TbdNXtqCExLwx66tlVIoMP6FeghV9zgSkwJAAGisEIQNKktxCk2VvokSFOCz7sJG
+ HjL4nbG1UB28fuUIYGezCbV4M5Sx0fi+uZMHJjsC9lRnRrwVmRfMowcddwjON9JEE6jpv0elrp1
+ B6uc6QJZ7CCFQs+xuDa2WYmEU92JGOFi22iCB1d1US0MbuqftDpI/u5edGl42nlHq7T+xqQbcwI
+ GHGVwN3fa/oUD9A==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Mon, 09 Nov 2026 18:41:55 +0000, Shivank Garg wrote:
-> clear_flush_young_ptes_notify()'s last user was removed in
-> commit f3c493d2f42b ("mm/rmap: handle device-exclusive entries in
-> folio_referenced_one()"), which open-codes clear_flush_young_ptes()
-> and mmu_notifier_clear_flush_young() in folio_referenced_one().
-> 
-> Remove both the CONFIG_MMU_NOTIFIER definition and the
-> !CONFIG_MMU_NOTIFIER alias.
-> 
-> [...]
+create_and_delete_random_target() is meant to create, enable and remove
+targets while messages are sent, but it only creates and removes them.
+The helper it calls, _create_dynamic_target(), stopped enabling the
+target when the bonding test moved that step into
+create_dynamic_target().
 
-Applied, thanks!
+Enable the targets again, so they come up while messages flow and are
+disabled before being removed. Like toggle_netcons_target(), ignore a
+failed enable, which would otherwise end the function and leave the
+targets behind. With a console per target, this also registers and
+unregisters their consoles under load.
 
-tree: mm/core.git
-branch: core-7.5.misc
+Fixes: 236682db3b6f ("selftest: netcons: add test for netconsole over bonded interfaces")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh | 1 +
+ 1 file changed, 1 insertion(+)
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+diff --git a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+index 33a44adb6f8f3a..3dfab0bf1b0756 100755
+--- a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
++++ b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+@@ -46,6 +46,7 @@ create_and_delete_random_target() {
+ 
+ 		# Basic population so the target can come up
+ 		_create_dynamic_target "${FORMAT}" "${RND_TARGET_PATH}"
++		echo 1 > "${RND_TARGET_PATH}"/enabled 2> /dev/null || true
+ 	done
+ 
+ 	echo "netconsole selftest: ${COUNT} additional targets were created" > /dev/kmsg
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-netcons_selftest_fix-4cbf633295ef
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm: remove unused clear_flush_young_ptes_notify()
-      https://git.kernel.org/mm/core/c/c6d408f2
-
--- 
-Cheers,
-
-David
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
