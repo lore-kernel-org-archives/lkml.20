@@ -1,69 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322848;
-	b=FT6xWxpTC+pZmx0iN2ASR7J46IiAOGyzvMG14ae4x3CGmrW3beYcXpcMO5Z8in/QecJC
-	 ryM1PPIrFEXDhGUGXlAqHaI3bEMdi2pk2eW9MZ+IxWzEh7pV1D9T7cKNGE0F0UZBCmHyn
-	 Z13CQ+ichn/KA2XGF3PT6HfboKfPFyjZttj4M3eV+/BfMWInnrwO0FoAh8JbGKVhRioEu
-	 pH43cpLoxzJP/1cd6IuwSOr74mMX5EtbNKD9cM2uXmogw1Z56uK7lGghm/FqV2JOjluQW
-	 huYeD1E962HxTlnRnVJXMzEwbB23Pb/t6nCCbxToZ7sk7cVDhN859hgWAKYvVL2I8yw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322848;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=;
-	b=3odu2V2AM1zZMo6NXB7VEY9oI5nIScUOv9rIQBnLDqmFjE7kz3DG/x/VqK9kVOnPyhk1
-	 6qeIcdrDnNSCUUFpwrokmtq3rmNCdpN87mnFioiv09KrOfD4R66ZH+roIElcPQz29Jhsn
-	 0LaI8YD0y0tHmKnrdS3Xzt3+IqJ436DycGffow9Xj6lI+xG4EyEVuHRIH8RqxQH/X3lLu
-	 oWLBbYMLw3LnWAU7JwxrYIhozKVvFWXKO5nLyRo3PbOCBCJAdad3jpXuckPOFfdZS1pB2
-	 nVJgBNIE8KEDDqEphJo0tYqJSVaaDKL8l+EjryQRNzNRbQyHBVcUJtYCyQh24pkN2sg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322853;
+	b=M59ynB9VHGgTEJG+U1ZBgI/oxIiyRSnemH2wij3bFJjcpUc1ZrmJwwCbK46zFr3dY1mN
+	 w9mgEybT4EQldzLXpfDhzwMG9U5scbi3/wy9lsyAtPpTZ3GCp3SFxs8u+ztlIfrp+gkL1
+	 sUESXiRcONHuanuJ9qvGJ4kekz3/CT8cV7eojJilHR6B3ztbioWnHidoCip5rMid6UyMz
+	 EohOpByDpWJgRS/gbhiNjb6B3e3ke67uEKYBOvN26RdAaWAEosBimXSoYANrm3l8YwHyS
+	 C3kWFqjMK+/RpTIsdWJcdghBd8oz7WEB/uT4LZvhZAWR9fgN7QrcDR8TsFu6BA4WcvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322853;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=LUXVKyaf2YBA+Itk4l0dA4eJy7yJqBsYFAOw9EDLcDY=;
+	b=lkfGsgKF2jkQ/wKbqHTwQh9l8spGHcMoWrc9i2UHF4GLAOfSquTTKyEx6mza/rtwcAbA
+	 dFbkX1gmCQFJaW28j4u8FC0LJUZGjYKJMtSSugkwWGWOP4JQBUTLSdepv06fhPOygkT5B
+	 DHZt+ZL1SazwWz0Lq5ot9rA5536W59vaN+lkmRKcwf2GHI3B6nW0tfuPlYA6AiVkauZIZ
+	 5S4PPmrdNk4PqzulEssnxIQTLP4A8lXjKl7B2AYmiutiB4u/HjJQCtHO5CXD8o9wIjkLw
+	 0txdcqkIK5zx/OlDlCcfqTujrLPWdU/ODxhzpuopwyJ5WEzl+proKNjt6h3YWmTO+Jg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McBVjdYf;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8665560A5BC8;
-	Tue, 10 Nov 2026 15:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8665560A5BC8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A66606A32D;
+	Tue, 10 Nov 2026 15:00:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A66606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gDpkEvFJ
-ARC-Seal: i=1; a=rsa-sha256; t=1794322829; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Eb0p/omXtaq1k5nxNfO+ujP/HRbgPhXxnjYl+jPdYc33Yc4CrkysC7ePkukgW8NK5IKc5RY+vhGMiAznLn97L7pksj0kVP0VZ1zSIMSmmfMe1WNC4FF183uIUlrKrPSETt5Z75rc6eSv7KOMulct6Wto+FSqVTG4EzDTjhT+YMM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794322829; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; 
-	b=G9ld2mFn+L16/WrbrJefoNJzbBywfBEPAo+iqStgHa6C6TF5jHufoDYvw2tnQhDwUgHu4Zl7LC2qACeUO5z0i0bWjSMDNeEZG7n6jsKYHlAgvNB7ThslS4sN+7ErElweraMVKzr0KRYQGd5GilNe5cFtg3BEkanr62mXWRAWPpM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=gDpkEvFJvIQrrlLE8Kbk9F2ORW97VzC+pAoFvwtWAdavuP8rXp7dDxdBG0pvOYEzPRLWJag0ME6Wb/fcmYkLCkagSxHhVF32qTeT1los1whzDp4eLXfbMyslEUXbKBlIA+InyXnlx12Js13nHIYPDnzuc94GNosGA4yZb2G+fVc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Xb1y+ovOhvBI3PPY14V/QFdhBDvdbmq7VXJJdsVP7cU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794322827521487.8316939248318;
-	Tue, 10 Nov 2026 07:00:27 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id D82A2180354; Tue, 10 Nov 2026 16:00:17 +0100 (CET)
-Date: Tue, 10 Nov 2026 16:00:17 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
- the RK3588 PCIe SMMU
-Message-ID: <avMwk16cTHMQIwmC@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McBVjdYf
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2B3E10DAD8;
+	Tue, 10 Nov 2026 16:00:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794322840; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=LUXVKyaf2YBA+Itk4l0dA4eJy7yJqBsYFAOw9EDLcDY=;
+	b=McBVjdYfg+4PlVwZi6G6TaAYJMn9xbIG2ErO8vi5HnxqefugD7oVSGDk1yA8fJn2AYQc1G
+	3a8R7ErWAHqLrcNfWoLsWDSD6tc6QejX8ZS3fteo2Jdh7D0XQL2IA7kbUNeDkVwXBdCCQv
+	Hj1VOcsrDIOrktM7YAd0n21/YUkevW11qjRFAVikVmlzjyJSVpq/ngzu6YYRUD2TbHEGAU
+	IBQMOJz3t8USHaWj4RXjlUmvdIHi9rBbTiXToxoLINYZuEOzuL0Bm1uzfcq8aQaqC51lgh
+	YQYNpc+xP3FCX3amH/wEWF+mWxVUQxBr8U4ndHIvSSD4IiXZIBwrOmvcXo8Gng==
+From: Lukasz Majewski <lukma@nabladev.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lukasz Majewski <lukma@nabladev.com>
+Subject: [PATCH] dt-bindings: arm: fsl: Add an entry for Cloos CBASE board
+Date: Tue, 10 Nov 2026 16:00:24 +0100
+Message-ID: <20261110150024.1530988-1-lukma@nabladev.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,101 +67,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yvnwakyswhfsguxx"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-4-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Add an entry for the i.MX8MM Cloos CBASE board.
 
---yvnwakyswhfsguxx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: add the PCIe power domain to
- the RK3588 PCIe SMMU
-MIME-Version: 1.0
+Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hi,
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index c8290a83205b..3aee85026f6c 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1102,6 +1102,7 @@ properties:
+         items:
+           - enum:
+               - cloos,imx8mm-phg           # i.MX8MM Cloos PHG Board
++              - cloos,imx8mm-cbase         # i.MX8MM Cloos CBASE Board
+               - tq,imx8mm-tqma8mqml-mba8mx # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM on MBa8Mx
+           - const: tq,imx8mm-tqma8mqml     # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM
+           - const: fsl,imx8mm
+-- 
+2.39.5
 
-On Tue, Nov 10, 2026 at 07:11:51AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The MMU-600 for the PCIe controllers (mmu600_pcie) is enabled for every
-> RK3588 board, but its node does not describe that it lives in
-> RK3588_PD_PCIE. It only works today because TF-A leaves the domain on at
-> boot and, on most boards, an enabled PCIe controller holds it on later.
->=20
-> On a board that disables all PCIe controllers using that domain (the
-> Orange Pi 5 with its M.2 slot in SATA mode is one), genpd powers
-> PD_PCIE off as unused after boot while arm-smmu-v3 is still bound. Then
-> at reboot arm_smmu_device_shutdown() writes CR0 and polls CR0ACK on the
-> unpowered block, which stalls the bus: the kernel never reaches
-> "reboot: Restarting system" and the board only comes back once the
-> watchdog fires.
->=20
-> Describe the power domain, so genpd keeps it on for as long as the SMMU
-> is bound.
->=20
-> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU =
-on the rk3588 SoC")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk3588-base.dtsi
-> index aa69fd3793fd..bcd342c025c9 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
->  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
->  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
->  		#iommu-cells =3D <1>;
-> +		power-domains =3D <&power RK3588_PD_PCIE>;
-
-The TRM says the power domain of MMU600_PCIE is PD_PHP, not PD_PCIE.
-See Table 7-1 RK3588 Voltage Domain and Power Domain Summary around
-page 1096 (depending on specific TRM version).
-
-Note, that PD_PCIE is a child of PD_PHP, so it makes sense that
-PD_PCIE also works.
-
-Greetings,
-
--- Sebastian
-
->  	};
-> =20
->  	mmu600_php: iommu@fcb00000 {
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
-
---yvnwakyswhfsguxx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMYEACgkQ2O7X88g7
-+prfPw/9H7V6CFJtfI0s9f5zQ1tXpHmng97aGYhRQAxloE/LcvZHpFI8zHFOAL+3
-/BQfGKhYVHxw0VEO4VSVrIbaLWag1mtFtYfjINdR5/uT6937ctWfyskTfMuKf/35
-O3nOwz8Uihhq3ZbA+AFJ+DLbUiRs7+Ka7rn4IxvDE/YEZrVPFJIRmU/iJ5NZTiDs
-u8AVATgGiVEmYXFkrqUr3siaEB5QiITUOkv8F4y5i9xYcrqnRr+9LrwjXVsjVpn+
-cySgWnAySJ13eX55L4XktWLXiqd26EaK7dRTcWsNm6mACod8BP1sGtDJkS310fFv
-Utzx30B9Qh7ThWXF2HwdmeqSGfzWFc54k8IHtmx7PcpKkxmOFXG5+e7gOw1IMCE0
-Ro9SQxIwJ44twPtPyuQyA/nzqvui8ZmzFhZ9TmuKjyuR1tOLmg1546WVLJroN3+B
-ceLNYAhT94Xopbf4C1WAA8WWOSEuhU7ILyyDB+LqVQEG8YtaP6d9wFq0vRDxKbXj
-WITuytLrKkMWWjwXtq2qWko1HLDCHv1SV/1lmw7Vxye2Gx8mLIjnrRXgRVfhcmZA
-TC7g/FJ3/oEvKSbf9OrE5LglaqBWGgwbzN+e/g7UCoQnfHKOwHB9phFeOj7nUTvW
-/zzCKbC+DQ+HjRbMKlP9bEw/GgJebMSK+fDAM7d68zim0FCJ5Jo=
-=Q6ux
------END PGP SIGNATURE-----
-
---yvnwakyswhfsguxx--
