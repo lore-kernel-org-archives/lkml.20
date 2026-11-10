@@ -1,109 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318801;
-	b=HZ5RIF81ax8EYr6rpwPp+JZxebPAXKjwFLY3iTnP2sQ1Fnp8uN/EmUwch41jO5786Tom
-	 a/LCyrDDB6AEi0vMSW/4pgZsdOYYwYc4+dBzdJLzfbIUJrdyrwMrHdtevnkmX6CnIaTJX
-	 RpihIm1WwXskWe32ZiE5Xpk7wmJH5ATNaLqxLxmUWAjuljAspsulY+8bGGUXWk7vwOdYQ
-	 TLkoDQOvSrZjmClxa+pvk4dgKqvVH+4TTZfk8QDWJV75JpvsQD0kNzHPv+bnGHVPkxNCo
-	 LLF3I9trO5FLNGnCInvBt/O2Sv/AWI7BMwt/y1BUZFo2Nz7xRyhfHQR6sJA1fpnu28Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318801;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
-	b=h/wymOxk0jqLL8H30tCrzm2TPGLUCOAo+CMX1kyb6MaiOPUh2s+KZIy1t89bbfr5pCtp
-	 AsE2LkQp9Ywi1SDWl9RcuRGZOL8nUc6UJEnNSkG5Nubu02okQ+PWZPdgu8mHMTYUpnCDr
-	 NtBFOOpvg7ZBDWm6gIfeawfx5SoSJwHfD39hJ+GpSPWdF1SbpRnHFA92m2DD7WoABndUd
-	 51ZHc01MQ5YNW6VaCZF4kr7Lccq9E9Z8335NHqFtxzMGWQWdsJ58kpF+0NtcuQfGeX3Mh
-	 bd7mSP0PZhDi/Lcxr6IR3zb86Q87+it4EypwIGe9PmO8Iu1Wgt6G18N1ghnuIGplrDw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=QgUUViqV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DTFvvSvR;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=swYBA4Ja;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ujMwJ2Ho;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794318814;
+	b=a362unbxMNLtfB417BiWXmLmM1aiz2CGKMtcJJWE9DpO3uPjmBZ6hggJ5bjfCLDGoH3g
+	 7epVfu/GPZ2Nwxxo3gptk6nkpzy7L7ntH9uQpPSZM1jkT5cfgmSouO2ImIyoK8D6+Mcz6
+	 y6prrXH15ss6wqI00Ss4zLQkJGkgLwq23Zc4GwZcFH8voNuMdHXjMi+ER6mlMNpisIvQC
+	 WhIdrDSPaXxFH4/agH/1d4IPRPG/qeWsj4pABqcI3Xu7Vj/br7+6tOWVD4sWLHBk77NUL
+	 qf7yNrcMWf7D9a38GZAARnWnBA49SWMtQnAn95FBXlNLjhgp1Pjn7peoclfGHijW3vQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318814;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ROawDgIsZuj09CmxgITfWhQtZ737OqBj0FNBYbqmbO0=;
+	b=Sezv4V7Iq1RMKhg0pYkAsjKTIkKvDvc3Pg37kCSE8KkllMlTK0KquNMe3Y+6wJJpBYJg
+	 KqkNo7PdE16S5PmR4W7GJ2HhaeHjLdkTvNDC0QjjZ566dY/lBsX9qPNR/Vgnru9q9g2F5
+	 m46eIKjtLK7JtOUO4FLyGDS2CGU9zH9EEzCNR9L7qQTPynsgJfYyg0ihtF3Vz2yfmKgcP
+	 FqfcvJ7gf6c5Zti8Hzv3UuVNGJkysXFM5jMAZfzF054TJP6ZUCDHw37EQ1np7IXgaqF4X
+	 ryZKsBfkY0aPXAezDvLKlGZOGzkT/ujbaoBBJmAIGQAKPxRs7bp5qLnfA4zTG77jK7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=tqlqr6Ns;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.23
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azolkn19012023.outbound.protection.outlook.com [52.103.10.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C56606A33C;
-	Tue, 10 Nov 2026 13:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C56606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1503C606A321;
+	Tue, 10 Nov 2026 13:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1503C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=QgUUViqV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DTFvvSvR;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=swYBA4Ja;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ujMwJ2Ho
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C461021E68;
-	Tue, 10 Nov 2026 13:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794318799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
-	b=QgUUViqViWCMY15ugNChFv3abQjhR0uVHD/mNm2xAI6hXizLOON7KbCxBRMn+Q7qx1Zd/+
-	3qxHP6EzoKtTueeVE9Z+gQRnx96xpDn8BlwYqAfVSUVpXc54rN+klU8AqSHZo+OnsWxvLa
-	R6W4nNqX/hdq9yBvnn5xvzixKZK6QVk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794318799;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
-	b=DTFvvSvRIVl0YFEtqQr5KB4edvgx8y6PdCUR48rHCmH2cDjd82wBkfA7lpwefWONspUH4N
-	JjMCaDYCoX/xCrCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794318798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
-	b=swYBA4JaEWYZe6/pZZCl2ZydZAx+XJLdjEntlW7iIabs9RFjPiEcIup8fyTHn71UupdCxf
-	AxUIfuYOX3Q3MPmzP2tAirCTHRiPS++/CKbUkf3LPJQcmKL1/7kcUUd+vG0W/bEDBh60Bv
-	SeQXZBeVzjMSLyPtYg0APXwT/UW/npg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794318798;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
-	b=ujMwJ2HoR7JnVj9DpENaei73/ZLgzQaEOocb2UseRJBKNMbQEP5DWJzT2SBTtRDVGi8sYH
-	cIp78rA38DQHsrCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A68713479;
-	Tue, 10 Nov 2026 13:53:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LOSuGc4h82oXfgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:53:18 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 1ED802251E; Tue, 10 Nov 2026 14:53:14 +0100 (CET)
-Date: Tue, 10 Nov 2026 14:53:14 +0100
-From: Jan Kara <jack@suse.cz>
-To: Gopal Malaviya <gopalmalaviya53@gmail.com>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev, fujunjie1@qq.com, vishal.moola@gmail.com, 
-	roman.gushchin@linux.dev, Trace <tracekotae@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/filemap: restart mmap readahead on sequential faults
- after many misses
-Message-ID: <jwg2p4bjzkacnx6fkifkb5jbe7ah6btuecpcpulbkym6e23v6x@mh35p6yafmqi>
-References: <20261105192517.228523-1-tracekotae@gmail.com>
- <20261109091444.128521-1-gopalmalaviya53@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=tqlqr6Ns
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i0WYc3VwVgKYrjuuL+pJ050ifeKVNFFZLO8Hjy2M2z/XBvz/xkPLPQK+FFZWikvlVJwPjteDqqOYlwIxd+9a2DXA2l349+J6eoaSEp5uRKt42AQa03Iv1kCsntSJcnyME6OqFmG/4Modi9R3acHu5IrPmK+rTbtFEBodiHjVdi3XkpfcHvfc4sxXNyMra6HT/E2xFIzQ2v4TCWkyn3/zqV3YSwOrw1njP+qgMQ7VZJLXQL+SAyDaqJl3QjPXsUnqPjl8E2wMW3P1+Wb45Xs/hJM+TjtXd3Cf0sEWwBvNyhH8lcT7LTpfMH6k0Abgg0DVbI7I117kRZyZMUPBI0toAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ROawDgIsZuj09CmxgITfWhQtZ737OqBj0FNBYbqmbO0=;
+ b=Lzo3iaUaFy/pwdPexECN7hpxiRCwC07Pbl2mmcucnrHuoFNevwIUuwW1nx36blTzn529Z8m7V1ZNH0/eP6bwl6PolzmNm4cU0Dyo3HoYOO47PRF8s9Pvs9epX0jjcIEo5Ev7qnbNxx3aexlPuZM63Ii4JPLPsnjTYCihRCJKPBsQ1wzThe2K2Sb290PIno7I5jQrp5vSXEPkXYk1TmmmL9XCNE9Gd8nbIFnUKOuIJgE6AyvcTP+yUsRN5XaTI3BlRCf3IUWwUhIg0jfGShP2BWIggUFWTJ6X1UpFg/MA3iACGYMZ5Rpx3xyw2rSDva4K7Vl/53gZfcqHbj+9FyTH6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ROawDgIsZuj09CmxgITfWhQtZ737OqBj0FNBYbqmbO0=;
+ b=tqlqr6NscOb9AHvC/xcmkagfXimztwPq8abQf6Z0M+G3203kT+N5JhyE4QGkbnXFSX5QYPDGqHryZ3Y+uSbmvE8wVXWueFns7wbPvvAZFCy8CF2Wd0HqNOKR9iIDqvFwuLNKeg3UeenQlsvE1pPD0RyxxCEqRlB8vCQeF4rvjCPhEJ8DM0N4mJJoChcMyc5bnO9By9iHcTBX3y9Uwc2/o5B2kGfidE8nQUm/lJL0uTEyu6CTogzqgwjl+HH6v8ohfk57RHYaLTbfxLcSqv9Yik1g0N4CqfflXoyZAyDSvcEPM8buydq6GvUxQSBfwutzv2PBJuNLSLqYiEutpYooRg==
+Received: from SA3PR11MB7435.namprd11.prod.outlook.com (2603:10b6:806:305::6)
+ by CH0PR11MB5313.namprd11.prod.outlook.com (2603:10b6:610:bc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 13:53:32 +0000
+Received: from SA3PR11MB7435.namprd11.prod.outlook.com
+ ([fe80::3585:3aa0:2453:837f]) by SA3PR11MB7435.namprd11.prod.outlook.com
+ ([fe80::3585:3aa0:2453:837f%6]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 13:53:32 +0000
+From: zhou xu <Aurel1501@outlook.com>
+To: Shuah Khan <shuah@kernel.org>
+CC: "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] selftests/ptrace: Fix error handling in peeksiginfo test
+Thread-Topic: [PATCH] selftests/ptrace: Fix error handling in peeksiginfo test
+Thread-Index: AQHdcRrfY3gtImYIp0eMigFGKptXUQ==
+Date: Tue, 10 Nov 2026 13:53:32 +0000
+Message-ID:
+ <SA3PR11MB74354D963936E8B70B80F3DBB6722@SA3PR11MB7435.namprd11.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR11MB7435:EE_|CH0PR11MB5313:EE_
+x-ms-office365-filtering-correlation-id: bd92ea14-5d4d-4a6a-60cd-08df3f3201df
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|2604031031799003|12121999013|25010399006|4140399003|20031999006|38102599003|36102599003|39105399006|15080799012|5062599005|19110799012|8060799015|8062599012|41001999006|40105399003|30101999006|102099032|440099028|3412199025|26104999009;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?zmNnORanJdBCj0O1SIsGDqf3VdEJjifnKGa4hnecmUOYbflQtPgeuLpApMD1?=
+ =?us-ascii?Q?L6RadEpbC/uVM+wxP9veKuEReULnW5t7+qkdB2XTuLId4PbfXIlZ/2tSGWxw?=
+ =?us-ascii?Q?XRi72Iblz/GBCZavjfnm8JBryTtxfPyZcoKj+YuvRpwar0jY/1BUC5nWCnxx?=
+ =?us-ascii?Q?37T6HNPiJraXyvzQdxUmq5qzwXp+fqryWjb92ZV1KYE38VcUqG/xvBNjoEqu?=
+ =?us-ascii?Q?NOG5VXfKsBcdN04f1uvfE1WJbIaO0svyr5ZwhLXXJbGR6fE0f1LcHNlfmx4L?=
+ =?us-ascii?Q?PcmkzJi2+sz3guevDKopu9+wG/t6eKJlxL35j1Jc6nU4+J7XrkTOCEk0Qstd?=
+ =?us-ascii?Q?MArrH/IYrq8T922HRw2D2AG+F8/JNVbIlHcLIw6ib81Y+dEwDq/E4Ypkg8eg?=
+ =?us-ascii?Q?E3UYw29qqwkRb3I/gsu/RjNoCMh2mvygsjcMFt1rzQnExgfZ/jARQVpJ66LF?=
+ =?us-ascii?Q?7D4g840BYyQgPaqHL7czAukcZOYFJ3eArBpyep58ZhMlk5z8pHuyQhV0n3Pb?=
+ =?us-ascii?Q?6bmhra4r+mzy/ujjJBiVpvEbVWAj8ADZdCvsB44t3ly7AezhgxiuLV8pZFZd?=
+ =?us-ascii?Q?Ae11jHCp3C0aywixzt251658yv9XR3prj09Z1BQy8GByab2CbBYIoEjAG/vy?=
+ =?us-ascii?Q?Pg7RxgPUDfnz4Bx2F6ST7yWCoELGogzgvFJMG78fUwqDsMBhXoop5JZuL+Hx?=
+ =?us-ascii?Q?aBGCw2WRfL8ICcYjA7T8yR8BDIAeXOuOH/U4TbPBicL8FPnk62FV5/HZvdYd?=
+ =?us-ascii?Q?Xj+gCR/Xrj+aUrBtmxftCc+YQQCpVK1ntxEpPxXuZCoop5UwYVt4p3BXdOYU?=
+ =?us-ascii?Q?i/bcvyqEKUDMtxPXWe3wCTwPsfm31cqcSQxwIi7jNWWGqD6NjIilvaFL6+Ib?=
+ =?us-ascii?Q?o0WmkWHPcGZaW2Hy0MXf/wzz3oVoYxBNQ2WQqmtVMVuRcrw5fFIDkQAndBD/?=
+ =?us-ascii?Q?Nr1Q1+4xYYVPv0PzCRU7R1lCUCRJG2dQbZnHbc535Q5DqrM11dih7M8UAeF2?=
+ =?us-ascii?Q?/M0wLJ+DPVVBYVFyvzzqh+AK0jnJ1O+gBqdcVMLl6aMJcwW0/P02fqLmfjfP?=
+ =?us-ascii?Q?5jhfhrCj1Zfg10NAvLmxIOIpNf6XTn81teUTyCxoe2qIw9A1sWkZveDrG8gP?=
+ =?us-ascii?Q?1SpCCp+MtdDeMScvy5NSCPzYlEMWw7fUIb3TQ8UZSzMr8xYubGCgu7M=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ibWwzLd3B6GMK2h7z8tkR1FBnMkVxlUJLoc2uBmytbFqyTS3estN/Y9V0aNX?=
+ =?us-ascii?Q?GHBoGxT6BzjdjLkMELMfaUaKo1v4COD41YASOh9SUtdaW0DZX2C6Z4DcCNNX?=
+ =?us-ascii?Q?8qcnqqyEdQNgaB24KagUKxtB1C6vkV/mepCT1MTPANYabI7+CFGHXKLmIQ2W?=
+ =?us-ascii?Q?xxPKj5F7bnCBpXRancj3vNqvlZaCe8j3ZnJ5sQtOMjvBOV9ajRCk7ghJ0pyt?=
+ =?us-ascii?Q?xVFM2qBoWsAXwUthscWSG4A9EiS6xA7xsHwm16SuoG7GFfrU6QTqH9CAurpK?=
+ =?us-ascii?Q?5kBv5GWs8307eKUVN1JQCOlKaSC/SYM5VNFeqEWYltt62Yi6D+ResF5AXADL?=
+ =?us-ascii?Q?Nhngh3L0Xce94R77+yMv+df+8tiniGRdKNcDnh4ZH1ae9ehH1dTh5ISjumeu?=
+ =?us-ascii?Q?Uy7k7B1d7OfemNj1LvHg1MQI70JV5Rme+ab5UmJqnqDMw3z3/UWWJC9lr0FG?=
+ =?us-ascii?Q?1pvWXQKC9CJRjp6DBvxhi5Dne54yBGYs4ONe0U+2HO3og8zYYABWWnBGZMVR?=
+ =?us-ascii?Q?kqLC0icFjpHscSVEGpC7ynEnZ+iU5zWrBRCVx0nYqnIeLASPEbT91wTv6Lye?=
+ =?us-ascii?Q?AZWNDkK8HqUXTeYoOQi5PbFmTLOSdGHU1l22SvcyBQqjApxmk2aHF2UZzd3T?=
+ =?us-ascii?Q?Edjga9n1xQCdO7C+wh7lq8pdR3VbH7i+e9Ga1lbws2fKnmO0pNub8/Zuf/Lx?=
+ =?us-ascii?Q?B39qS+NaJ7EG2OPSBMonjR5qZPHP1b9D5zjjqC/LuIrStavH6CJOWaG1mX3F?=
+ =?us-ascii?Q?IyjyP3VbvgobyG42GIGB7N8Y85qHE27Fl94AV2ZAA4L60z9XM2ymNjThgnhT?=
+ =?us-ascii?Q?3n+ga/tC7bVl99dQa4BEsI355img9noI8B/LGljr/QKG9pCXwK4DT27ezYjg?=
+ =?us-ascii?Q?grjLNBQgkkC6cvjN9C572BJZSdUh9Owrp74GxeADJqFWD5jOFzkCdkJplLyu?=
+ =?us-ascii?Q?YzgElv6ayT9DMZpQfvZXm86vLAbkyFkcEcS9BevveRvcrSpxqLJbaNIgnASp?=
+ =?us-ascii?Q?9b832MwohsBdUwnm8VHX83070G1nxheaeAuOXLMY90n9npuXFANC3gSNOikI?=
+ =?us-ascii?Q?0OVy9Bnpb2brgO40NjHb2DW3YRl4PD9t4vTz3BTtryyU4NBIdN+YCs7zmY1V?=
+ =?us-ascii?Q?HYCJ7rKUe2GRMt71Pbi0lMTZvDXiKSAwX9Ngw+NQ2O1BXiMHBTzhmuWafoJm?=
+ =?us-ascii?Q?wpFpapaHi1mMllTucPNTP/6qrGmxMlEPupujrYaQdVj/dzSKCkpUbm8Ymapm?=
+ =?us-ascii?Q?AMhRnR7xVZ2pdXlHzzTt6GFWYyBrSB5iOdcxDttoh9lJUi4+YdlCfYMOBk03?=
+ =?us-ascii?Q?PuxwgJC0FK0eq1Ts0ggUo4TZpRBm1nAPmOUKW/lnDIXD8vbCJ7OYakYKa5IM?=
+ =?us-ascii?Q?nB18ORaHaOWcwVhBOErEHF6uZKLe?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,99 +147,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109091444.128521-1-gopalmalaviya53@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,suse.cz,kvack.org,vger.kernel.org,lists.linux.dev,qq.com,gmail.com,linux.dev];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -11.30
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7435.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd92ea14-5d4d-4a6a-60cd-08df3f3201df
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 13:53:32.1648
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5313
 
-On Mon 09-11-26 09:14:44, Gopal Malaviya wrote:
-> Since commit 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED
-> retries as mmap hits"), about a hundred sparse mmap faults push
-> mmap_miss over MMAP_LOTSAMISS and turn off mmap read-around, as
-> intended. But mmap_miss only comes down on hits on pages that
-> read-around brought in, and with read-around off there are none. A file
-> that is then read sequentially gets a synchronous single-page read for
-> every page until it is opened again.
-> 
-> When a miss above the limit is on the page right after the previous
-> miss, start readahead the way a sequential read() miss does, with
-> page_cache_sync_ra(), and keep mmap_miss at its cap so that hits on
-> that small first window do not bring back full read-around for random
-> access.
-> 
-> Tested in a KVM guest (x86_64, 2 vCPUs, 3 GiB) with ext4 on virtio-blk.
-> "base" is mm-hotfixes-unstable. "95b8e" is commit 95b8e432265f ("mm: use
-> zone lock guard in __offline_isolated_pages()"), the last one before the
-> series of 9b0fcac3cfe7. Commit 0b9c0aeba938 ("mm/filemap: count only the
-> faulting address as a mmap hit"), the first of that series, gives the
-> same results as 95b8e for the reproducer.
-> 
-> Reproducer from the report, read_ahead_kb 128, major faults:
-> 
->                                          95b8e    base  patched
->   sequential only                            1       1        1
->   sparse pass, then sequential               1   16384        2
->   sparse, MADV_SEQUENTIAL, sequential      512     512      512
->   sparse, close and reopen, sequential       1       1        1
-> 
-> Touching 1% of the pages of a cold 20 GiB file, larger than memory,
-> MiB read from disk:
-> 
->                        read_ahead_kb 128        read_ahead_kb 8192
->                       95b8e  base patched     95b8e   base patched
->   random               5656   215     215    344731   1032    1032
->   stride 2053 pages    6545   216     216    419003    992     992
->   random 2-page runs   2992   215     528    173093   1099    2248
->   random 4-page runs   1570   216     594     86797   1266    2301
-> 
-> After the sparse pass, reading 32 regions of 2 MiB in turn takes 512
-> major faults per region on base and 2 with this patch.
-> 
-> Not tested: NFS, the GPU workload from the report, and other
-> architectures and page sizes.
-> 
-> An AI assistant (Claude) helped with the analysis and the approach, and
-> wrote the test programs and drafts of the comment and this changelog.
-> I reviewed, implemented, built and tested the change.
-> 
-> Fixes: 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED retries as mmap hits")
-> Reported-by: Trace <tracekotae@gmail.com>
-> Closes: https://lore.kernel.org/all/20261105192517.228523-1-tracekotae@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
-
-I think this [1] looks like a nicer solution to your problem.
-
-[1] https://lore.kernel.org/all/20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se/
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+From: Zkingom <15024777017@163.com>=0A=
+=0A=
+check_error_paths() expects PTRACE_PEEKSIGINFO to return -1 with errno=0A=
+set to EFAULT when the output buffer is read-only. The current condition=0A=
+uses &&, so it only reports a failure when both expectations are violated.=
+=0A=
+It accepts -1 with the wrong errno, as well as an unexpected return value=
+=0A=
+when errno is EFAULT.=0A=
+=0A=
+Use || so that either mismatch causes the test to fail.=0A=
+=0A=
+Verified all four return-value/errno combinations with syscall fault=0A=
+injection into check_error_paths(). peeksiginfo also passes on x86_64=0A=
+WSL2 (6.6.87.2). The full ptrace suite has the same two failures before=0A=
+and after this change: set_syscall_info returns EIO and vmaccess.attach=0A=
+times out.=0A=
+=0A=
+The requester supplied the suspect condition, proposed replacement and=0A=
+required return-value/errno cases. OpenAI Codex assisted with the history=
+=0A=
+and code checks, applying this one-operator change, drafting the changelog,=
+=0A=
+and preparing and running the temporary fault-injection and selftest=0A=
+checks.=0A=
+=0A=
+Fixes: 17afab1de422 ("selftest: add a test case for PTRACE_PEEKSIGINFO")=0A=
+Signed-off-by: Zkingom <15024777017@163.com>=0A=
+---=0A=
+ tools/testing/selftests/ptrace/peeksiginfo.c | 2 +-=0A=
+ 1 file changed, 1 insertion(+), 1 deletion(-)=0A=
+=0A=
+diff --git a/tools/testing/selftests/ptrace/peeksiginfo.c b/tools/testing/s=
+elftests/ptrace/peeksiginfo.c=0A=
+index 2f345d11..46fed27f 100644=0A=
+--- a/tools/testing/selftests/ptrace/peeksiginfo.c=0A=
++++ b/tools/testing/selftests/ptrace/peeksiginfo.c=0A=
+@@ -89,7 +89,7 @@ static int check_error_paths(pid_t child)=0A=
+ =0A=
+ 	/* Read-only buffer */=0A=
+ 	ret =3D sys_ptrace(PTRACE_PEEKSIGINFO, child, &arg, addr_ro);=0A=
+-	if (ret !=3D -1 && errno !=3D EFAULT) {=0A=
++	if (ret !=3D -1 || errno !=3D EFAULT) {=0A=
+ 		err("sys_ptrace() returns %d (expected -1),"=0A=
+ 				" errno %d (expected %d): %m\n",=0A=
+ 				ret, errno, EFAULT);=0A=
+=0A=
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1=0A=
+-- =0A=
+2.53.0.windows.1=0A=
+=0A=
