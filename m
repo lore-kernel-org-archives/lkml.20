@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794295111;
-	b=34KUdtjvMCtWwxXcnwGgHTb2CafA7Kc94d8hGwM+48kFCvcYBmjv0dJXTaPsJPntvmiE
-	 YzTJSPUu+ugE/sDTV0feCY4Ymx4pB7Zg1n5EExulp74UbEeoYnZ+pUs7gAxKSUmcq7k4r
-	 znLxB+reJbb2m2H4N8XqTMnqMsm0BxkUYGwaTi0MhMFINUfTXz3ZvYZutasBEkcuWobs5
-	 P0gJBUxx+q4HQDq9C/hgi9hxJDwYjiqzm01/Ql9nfbk46N+bB0hAFpKoM8mkuCTl1zrkP
-	 CyXZx2IEXbfBYDKphORMRN1CefqzUyNKNXC9Zwmv958z8R8IHj//BqWVaesN53/xLkA==
+	t=1794295109;
+	b=gimBcg3c4OTYlfroX5QoAYfOXEYy0rvMIvfIx9zXxhlEKSsXHs2u56yKnubOTGY8zNRE
+	 P1n0aWbU4lD4RAjsqr7QOCLOjr/sqnOyTbDKgPUiQ5rM20W/bJsWkwXibCBuF97BaS52D
+	 URH/GlNFzIERTN2tx6/5+y7i8k426qyao7HrE0rSjKrXTBzKwyWEtyYKGYMq+n43zBguJ
+	 uIFf/cNtBomNkYf/yBFdwdInMfre/TxMGTsKmnFWjQiKzDH+SAuBJinf9BrCVPi8d9Smd
+	 kTRGTvYpITIn8CytI43dZhuOb6ZWBqs/VIxlKecs++0Dn+v9+zp1nyqYA9zwVje7Bww==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295109;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CXcWjb7Nzc+RNDNk2ZDTJ59JBkPVPgLcutR3s53+teE=;
-	b=kqG6bBrmBVEKk/m0UsjGerXaFqDXIEbuPI0Pho/kW4ucCLOpNC9iXJgRl8GXBsdvViM4
-	 /Cr14y5f65bv5twq6UrXGcOTi41S51JF/G9zJ/pZo+Y1XPJztVV6tS1tnpcT3o6lD1sRz
-	 URHMt9NvtP5mgGGXOePe9iWaL9rtXGyo+kfRdpWppqkvh4VRaCt5m3dAqfDKULR5cO2Ni
-	 epOwMKGjCrYUttNLbouUiiJM4kN+d8DxWzX6xw2Ei/gmg2n0hqTI0gEYXQ3pC9uuYQNFU
-	 gSm5r1qxoXJugJbjU8hVuLtYWpDHSG7EGWnTxcv6WQFkIgOPXI9i7Jp6svi4lpXGvwg==
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
+	b=uw/FpPnCeJz/aVkfKHMUukBsz+HU2+AFbY7QS5q+i0RVPDzL4PRy+9d4Yg5nI/EK9Zj6
+	 /Q0j13sKFmD+ZoT1X6T6NvkrThnjxx/pjj1Y2joACY4DxIBfbZhpIAZHE0CsFGIap+X9R
+	 mvQcOZnNUx3JZ1SiA8MbQ30vvuVFtHTucVduLhnKFXKmi3/c7jFuP8Y5p4vfMioVmooAR
+	 KNKiy5INPeznLHw441BFOl7CSYQfOaVduy4qbrIV09DYUjN6HrMfbW+5YbfyQX1ta/UWK
+	 8dQVAXBmJ9Ij8AMIRtkh4wMDUZgMUv3Rr1zmHodpF7ES0b+TlhHzfPmpkQF9bLRsHbQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ennfD2TT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968DD606D63C;
-	Tue, 10 Nov 2026 07:18:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA05606A337;
+	Tue, 10 Nov 2026 07:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ennfD2TT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794295111;
-	b=c3bwBFdvJihoE3uK253J/ZgYQHs13MDojSWvLIKs3wQ1VAUMyvapUAag9VN39HJTFsRt
-	 DD15aGd1xvpJCX9nCGuzCtdNFz1qmEH6fGeQXl/f/dof9qMjoFRcVIGuHODJKM1488ft0
-	 FNpD+HkG0qs26U6UsOMOYFbo35lbMVZvK88wwdlntfn/go1ZRa85DdE05TMCBC+o6jU6P
-	 8EaMj15I0hDPGmhk6+Og1f1jID+e2GV+9lFNj/RKhiJcUkswnJh97+u30S+saqnAcFHFj
-	 KR0w/DevEJ8fLfJsendZH1QX2RnYiL+bX9567+FPXhh9FKjo5n8nWtW6aTPXw7HXkZg==
+	t=1794295109;
+	b=g/yoGwLfsWfa3IXeFqiholfUNZKt2EGIt/df8K9QKsFqOiWY7cQHAHXXAePJs5Sg+dRO
+	 So9KP2o/WuWftIa1AjBC9tkCEyK59tEK4iJRZKOztNbzq++ocvxzMirB1qXL1TbOpBkZO
+	 ee+5VbTuaQvikg3NHb2+z8RDWmU1HligOPcI7ghmP9cLG1kmoD1J3L2KVOSOA+35+Dcde
+	 qPkdiMS0ghPUISs6Uu0TM2oHn1a2+Xgt1769NWhsGSJ/I7GDSGo4jUQAsiIFzL6PS3is7
+	 tLUMfC5iXOip2FNJjmyQnPdb0JovGdRKMjyPcsQBI43t5vYThjJiWgFI26y8USgiVWw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794295111;
+	c=relaxed/relaxed; t=1794295109;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CXcWjb7Nzc+RNDNk2ZDTJ59JBkPVPgLcutR3s53+teE=;
-	b=Fqpm0Wg4NbrFSmmEspeThQfoW62o5veiUdKWS9U3W1LM3mYiAoPfZKM3AbeuhXBEFXB+
-	 ABLKBtxf3/uzK/yqK03ue2fy6I1CUhM/wro1bKjfJC88gkNrVruZhvZ/2kahXMwPlTodL
-	 IRewTYn+6n2aLeuNWz7qWjbfAM0QXXXlP8Qix1fqTX1RQAjk1n5To0k59dN671dYHS2o3
-	 XDEaCekpr4w2yNwdOVButwJIRg7XTcinqG3oL5GZHZgGv1EH5UbGvyswe8BjJLIoloNog
-	 ALQH0l0PDCiGhXyECmj40B1FEGz4KbkZna+yxxut4sff6QjwGZBUFq+cTpv/HDRJYLQ==
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
+	b=TJsFEhYexWoHqgBQpFZWqyINRhXoZWWvR+GHwpHBNGXrJkVxjKFXwyYqZwL7AW5q1dZA
+	 ZGuRTJNPHl83eGh8n+zraBG4QpNGQ+HaGyKXVbWkQGad9BwG70vnrDl2kE0bfJxAjVf3g
+	 l7pFAPzvNLSm2bg6vOYziokkbEUrc8i2p8MshmdPiwxbXEQAdNtxH6r+v/gDA2jglmI5r
+	 XYR655oMk7LXdj8cRDnNOwQK1FAg4mh4WlHAwUn0c31V4Sb6m0fmSg61XHI1beE02D2BZ
+	 i3+6Ged/s2G9I22B4kKFy+79bJMxVHcBz3jMa+cI+7gUMhtVZWDIWhvV8wAoe9u668g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D55871F00930;
-	Tue, 10 Nov 2026 07:18:30 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4D86A1F008A4;
+	Tue, 10 Nov 2026 07:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295111;
-	bh=CXcWjb7Nzc+RNDNk2ZDTJ59JBkPVPgLcutR3s53+teE=;
+	s=k20260515; t=1794295109;
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ennfD2TTAsOfpeAlqcSaIQwU/x56IET8kytZAIprxiDaX11qufathM7zeLyymBjfx
-	 zPmsDHE0Mzg8ABWqvqPbWqo+g7I2hYsXejl0+8hNMADCMVOGrwBurwJjA2O/aY9CYD
-	 BOmVx2eWxbgVrbpDKKoG5Yiw5rtz573/VYrx1OisTn8+KXqvbS33OiuTuLmub1Ms8F
-	 UelErpSYwZ81kai6J/Xbm3foGQ03QZ/3rDtELDMN9wv7pOAy3F/EZK4EU4vi0C2BJg
-	 Ff+XBB11mlSqlYsdPzNyRXxfJCw4prfzcBxSc4CzStKHrped9MD1L4ChHtcrREHdD8
-	 FXATjt1hTGBQA==
+	b=PQTNjxpdmFfyeqRL82uP0aXDLlP010hsPTwQzVvM01tEoRYD86r9NklwFyZpxky+5
+	 qgY0MBCikCRiyObPfSvzEqBHfmwhlvO4K7CA+wuhxYIAW3MDP7CU+Q1DYinGWZQDEt
+	 g93b+t4XIawcotOxUbUhc6VtzK6H+bWuID6Rbu688QR24A+vrkIAdezgebJl39RNhC
+	 yEzk10FGNiIqb6rWpZT4IICJZI4ctMzkmsWHDYP+dB1OfJK62FqWEOoRot742r3CPm
+	 mYmcu/iYvwZM/wPczm2xF4mbEdJN8KPFiQQc6vrMJviZc5IPa7dnzCDNkJyxFSAHzF
+	 SyIZXZiSRNLvA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69174489AD;
-	Tue, 10 Nov 2026 07:18:30 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id D6B87489A5;
+	Tue, 10 Nov 2026 07:18:27 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:30 +0000
-Subject: [PATCH 1/2] media: rkvdec: vdpu381: Compress the co-located motion
- vectors of H.264
+Date: Tue, 10 Nov 2026 07:18:29 +0000
+Subject: [PATCH 3/4] media: verisilicon: Don't offer VP8 above 1080p on the
+ Rockchip VDPU2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,21 +84,27 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvdec-colmv-v1-1-012b84ea43f7@gmail.com>
-References: <20261110-rkvdec-colmv-v1-0-012b84ea43f7@gmail.com>
-In-Reply-To: <20261110-rkvdec-colmv-v1-0-012b84ea43f7@gmail.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+Message-Id: <20261110-hantro-codec-fixes-v1-3-0fd5372ce831@gmail.com>
+References: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
+In-Reply-To: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>
+ Sebastian Fricke <sebastian.fricke@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Jeffy Chen <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295110; l=4313;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295107; l=2123;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ybXnDgp5I8D2JJsP+6qloNGqCzU5IJqFRabb2XdAB/Y=;
- b=HaXOWx//OEJFbzyvP1ryFMhNtoiX9Vl9j4SpdcMcbIXsZVkjTKblV4ft4iZDUIWhKlkZfVL8g
- r7a8M1zPurnDz3MSOd9OlUMaQ5ZmLQqgXZBtyrM4c2dWQNi5YLlegx/
+ bh=EXI8QBEeHs1R1u0NRn+cDDndC1H6YMS5/uVvMAcEFAg=;
+ b=m4jnbHaknfIBjsaMF7gll6ze3KeL+9wDGhUJowJvUWrLufyEswgM3m6nX5sHrSaksG/83qNC2
+ jyJ2Yoqy9NxCbqgeusDMt43iYdOG9tPyDN2VW7BiVS6wMBmkyprlDYJ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -109,99 +115,56 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The VDPU381 can store the co-located motion vectors of a frame
-compressed (reg012 colmv_compress_en). The vendor code (MPP,
-hal_h264d_vdpu34x.c) enables it for H.264 streams without field
-pictures or MBAFF, and for HEVC. Mainline never does.
+The VDPU2 decoder format tables (RK3328, RK3568, RK3588 VPU121) and the
+RK3399 one let the VP8 OUTPUT format go up to 3840x2160, but their only
+CAPTURE format, NV12, stops at 1920x1088, and the CAPTURE size is
+clamped to it. A 4K VP8 stream is therefore accepted on OUTPUT and then
+decoded into a 1920x1088 buffer: on RK3588 GStreamer v4l2slvp8dec runs
+into "gst_video_frame_map_id: assertion 'info->width <= meta->width'
+failed" for every frame of a 3840x2160 stream and none of the frames
+match FFmpeg.
 
-B-frames are what limits H.264 decoding at 4K: the core is 99% busy,
-and a B-frame of a 48 Mbit/s 4K stream takes 16 ms of hardware time
-against 10.8 ms for a P-frame and 7.0 ms for an I-frame. Storing the
-motion vectors compressed cuts that memory traffic. Decoding the same
-240 frames to fakevideosink on RK3588 goes from 65.4 to 68.4 fps at
-3840x2160 (+4.7%) and from 214 to 234 fps at 1920x1080 (+9%). The
-decoded frames are identical (same checksum for all 240 frames, and
-bit-exact with FFmpeg).
+Nothing above 1080p can be decoded with these tables, so don't
+advertise it: limit VP8 to the 1920x1088 of the other codecs and of the
+CAPTURE format. Userspace that checks VIDIOC_ENUM_FRAMESIZES, and the
+S_FMT clamping, then know that a 4K VP8 stream needs another decoder.
 
-The compressed layout is made of 64x16-pixel segments, each with a
-header and up to 1 KiB of payload. How much of that is used depends on
-the content and can exceed the uncompressed layout: the hardware wrote
-up to 556128 bytes compressed against 522240 uncompressed for the
-motion vectors of a 4K HEVC stream. So reserve what the vendor code
-reserves for the compressed layout on VDPU381, which is twice the
-current 128 bytes per macroblock: 8.3 MB instead of 4.1 MB per 4K
-CAPTURE buffer.
-
+Fixes: 73fb5bfa53e9 ("media: hantro: Support RK3399 VP8 decoding")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c     | 10 ++++++++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c        | 18 +++++++++++++++++-
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c
-index b961fddc8583..06d83a6ed617 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c
-@@ -237,6 +237,16 @@ static void config_registers(struct rkvdec_ctx *ctx,
- 	regs->common.reg011_important_en.dec_timeout_e = 1;
- 	regs->common.reg011_important_en.pix_range_det_e = 1;
- 
-+	/*
-+	 * Store the co-located motion vectors compressed, as the vendor code
-+	 * does for frame-only streams. This cuts the memory traffic of
-+	 * B-frames and the hardware time of 4K streams by about 5%. The
-+	 * compressed data fits the space reserved for the uncompressed
-+	 * layout. Field and MBAFF streams use the uncompressed layout.
-+	 */
-+	regs->common.reg012_secondary_en.colmv_compress_en =
-+		!!(run->sps->flags & V4L2_H264_SPS_FLAG_FRAME_MBS_ONLY);
-+
- 	/*
- 	 * Even though the scan list address can be set in RPS,
- 	 * with some frames, it will try to use the address set in the register.
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index fbcd0f175ad3..5f7e876da6eb 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -20,6 +20,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm.h>
- #include <linux/pm_runtime.h>
-+#include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/videodev2.h>
- #include <linux/workqueue.h>
-@@ -93,6 +94,21 @@ static u32 rkvdec_colmv_size(u16 width, u16 height)
- 	return 128 * DIV_ROUND_UP(width, 16) * DIV_ROUND_UP(height, 16);
- }
- 
-+/*
-+ * The VDPU381 stores co-located motion vectors compressed, in segments of
-+ * 64x16 pixels, with a segment header (rows padded to 16 headers)
-+ * and up to 1 KiB of payload. That's the bound the vendor code allocates;
-+ * how much is used depends on the content, and can be more than the
-+ * uncompressed layout of rkvdec_colmv_size() takes.
-+ */
-+static u32 vdpu381_colmv_size(u16 width, u16 height)
-+{
-+	u32 seg_w = DIV_ROUND_UP(width, 64);
-+	u32 seg_h = DIV_ROUND_UP(height, 16);
-+
-+	return ALIGN(ALIGN(seg_w, 16) * seg_h + seg_w * seg_h * SZ_1K, 128);
-+}
-+
- static u32 vdpu383_colmv_size(u16 width, u16 height)
- {
- 	return ALIGN(width, 64) * ALIGN(height, 16);
-@@ -1700,7 +1716,7 @@ static const struct rcb_size_info vdpu381_rcb_sizes[] = {
- 
- static const struct rkvdec_variant_ops vdpu381_variant_ops = {
- 	.irq_handler = vdpu381_irq_handler,
--	.colmv_size = rkvdec_colmv_size,
-+	.colmv_size = vdpu381_colmv_size,
- 	.flatten_matrices = transpose_and_flatten_matrices,
- };
- 
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..2b6242c1fb86 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -274,10 +274,10 @@ static const struct hantro_fmt rockchip_vdpu2_dec_fmts[] = {
+ 		.max_depth = 2,
+ 		.frmsize = {
+ 			.min_width = FMT_MIN_WIDTH,
+-			.max_width = FMT_UHD_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
+ 			.step_width = MB_DIM,
+ 			.min_height = FMT_MIN_HEIGHT,
+-			.max_height = FMT_UHD_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
+@@ -315,10 +315,10 @@ static const struct hantro_fmt rk3399_vpu_dec_fmts[] = {
+ 		.max_depth = 2,
+ 		.frmsize = {
+ 			.min_width = FMT_MIN_WIDTH,
+-			.max_width = FMT_UHD_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
+ 			.step_width = MB_DIM,
+ 			.min_height = FMT_MIN_HEIGHT,
+-			.max_height = FMT_UHD_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
 
 -- 
 2.55.0
