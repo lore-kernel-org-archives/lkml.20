@@ -1,121 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284369;
-	b=Rlo3FukJeHC4YFXHJhW32ZdLM01g7uaTKyb0UrmN5JgaBt7CTIOwIElXOAfXJ/gK+Ir8
-	 Tq0yOLnrZvOBFoxO72qQaaeVWMKUhc10hbksin5Tr4oRbx/wy3RIENKihT5c5GfJkHxgE
-	 1Bt5fqSjD5Z7FrjZroS3FULTGnUYEpA09D0kBMnTH3y8tXnB/FjQK5vy7JtLwE2843kVb
-	 vI2jk04tCUUnShS/pohjEH4S6vDHVXy5JK0Dmxje1N37hGtdXaLtpY5wYVPupByiqGY44
-	 AFG9rhFSrHheOvOWyKpeOr84AwKvedQEarDttZt3B52oybjROQS1eGfUi9va7FvKNFw==
+	t=1794284359;
+	b=PlKMDbN/1CQRTnPXiLk5IGPSePQtQfQBsJu70BAw9qVysXgUUc+2c0nSHgRT6lDsZYM1
+	 wDvXonMh066U6aioLEnlCrS2Lyk7z1fc9NZncEeyhU4g+R1aDnqqmWEvUizqEPuVCEbFL
+	 waB7ZD894KDVndby4pkvAZSebPn/ALmdHA/SdKpsdnST9FOtwdRPF4ORJ9Lxjl0g/5hn+
+	 TEj7U1yOr4WCEcjs8DNDuSaKKFbjBlCkOJisi8jeL86kW2tU25s2OZ9X3GXlaZZidc4a+
+	 VoCnbASziEmQ8EOgche/Zvwqbqk/R2ZTiujJ0B+WehRkuJ27tZird9VG27IkVa5V8xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284369;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284359;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=DF2GX2Vr9/zlICZewnCnHZ+XwMhrVOLtr9YXmakaBJ8=;
-	b=c9OUgwBvV7Visn7plrStZzPhC+gJLGEYT7ijl1oaVzeC2SA0GO/ZgdkMkj8LVee2FpCt
-	 6b2AWsla2uu9K16klxomc4eoZgjXFyQAc/sUK2S0rDgGsDshWsuwZRDudX56YIORpINHS
-	 krs8vrC43Wux7Kd0tGVSWRLp3/yi6xD6uAipI+MeEMWeerQpUxdRb6Vhmf9i5m4oHfzF4
-	 btV1pYktcEX7Ey6YE3kb+1rB2pjo8AEqX/SPQtncZoFm7yTBT/KnzWltETM2r+fFPIea5
-	 Hwe5pDYr74Fk9jaD8kAUeYNwu/UAGBn3xe9FWjIBHXb8diF2P0IyM95Tdhv8G7sdhjg==
+	bh=9UdVGg/h64QrJFmMdvc8IRX8SR/hJQXPD1E3diwN+do=;
+	b=nYv6d4XXNi90WgVCkQb1L/QuW+BSrEeJoioFsCPH+95GMwv7bsdj81OYYl+k8q3iPNuo
+	 TkzoDXbw7i+wU8K8IWI3+Y1irAvzIAru9DLkPKYST9hpxPVXNPfSESQyiquMKJW33S+4d
+	 bFCtGMVXElstxZrCmqAPAI/5aJdHZ0EK9ovji5tfsiIhrV+jhXb44A4JaHyYIjkD6gih3
+	 zFR7JYjp0QJvrGn7JatTVjpwY5V2U/+FFYas/ykbRaEtGEOz7uPVuejrj+3E8FGyOCFoW
+	 MV+17AvYwF7ZRayfPBh3n4WEJVEKKCQ81zuAvnckOfLK0HMbb3eA7Iwbuvz0v7Ij9CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RWXI6nx2;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kjRI09v+;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A840860A5BD3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A840860A5BD3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D189606A339
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D189606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RWXI6nx2
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so2710006c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:19:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284368; x=1794889168; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DF2GX2Vr9/zlICZewnCnHZ+XwMhrVOLtr9YXmakaBJ8=;
-        b=RWXI6nx2GRh58cVQ3eVAqSiKzpFdhkGcuKrUVqZBTguWwL8ORLFBkqpFpvsZzQAr6f
-         X/Bv16dT0jJgVH8v9tpsi8ml2u3NKo3LG84JzfyJR+PNTP6Vz4FBCEnh3wE/VrulnPoN
-         d45MtlsnuEnECG87c1Lr5YwwY3DTHN2Y60/Z6kamzxkXxCoV5ICJIbfu3b1QLPPJpv0h
-         bvDjZJ6ql5VEcKz2loy1jpu1R4doD4KIYOe8o8dMdZTwysoc63QTufoThjEcBPmF2tVA
-         h1vkE846+i+TR+k5UutlaqiTFcqY0tjUa52de2g4aTAD4MWmzmbYCS6vyViMR2XhakZb
-         4O+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284368; x=1794889168;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DF2GX2Vr9/zlICZewnCnHZ+XwMhrVOLtr9YXmakaBJ8=;
-        b=EOKqPxWQvvHpJJuG+odpL1kTIbYhwmj9jVtLKWA7QVQiLMwkBlXuJi75J0q7oUyXO/
-         9H3vfdgxzgf5TOWXm86em1oQwRXHEJ8f9i+/buVHodLqH+HT7I6o3iIn6eUSP2DU3h80
-         aGwm4uwvWZPy7qknie+Zr/pVERGTuaH2NjOv/gWCDZnwuvWowXbslMbeP4FUco0FH7W8
-         +p1Qgdc5Ih6pnz00xCb+jATAoKGu+i/WLf5uT7rMVxsAVy3uWyiRmY2H16BP0z40Na/h
-         7Pq/eOfhAhmgPVDtbF7hf+HoeJfjGpTsDH7Ruxy+R48yjWpWClOLEKzXRDpghGnu0QN0
-         kQYg==
-X-Forwarded-Encrypted: i=1; AL+hErE02eF7n+lmDMgoCRNFPI0f61IbHgL44Bk2TLoVzO9lXutDsv8w2JuPwmbFLWEKl25MCmcgomPa+NRTjiY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kiFUUJ8RwEaaYnsQkXxjKxyi2kOFz4og/Qn7y6BCqLdj1toM5
-	ObiRngbx9UnLrMtnf7k7pR9VZBoet67mGMa1uEIYR22EztCAb0Hmd7xx
-X-Gm-Gg: AYBFou0+8sSsHepfnDDr+pqfyN8d51ynIpKuxeCNlwkebWcfok798hOUOUVhrOnureC
-	NTycoRI0nibf30lILbdGiFjlV0GRHPzp8xJfygnVpwJJxGzCUPDiozDYZ7/7xTIWDhYfV4o3dUu
-	n+mCbV7mQvcAEUXibM7GQ34pCmHnROZ023+ltGeDVfqEDgKlUHZceKujqENSiSG8CLPe1oPsBkp
-	v99YAVRalDBCf+2pfQos9wy0e/6/8tMpUe3qzpHkkyZ3M6V/QtWFBb/7nwFJxiptqu92l/nmwId
-	DMU6f2CxaGed20LEFpAo3ObmjdQw6q4yFILUAnXVuLkHL5CP0LDuPicpEckWILkQXpkrJfNTTqb
-	n3wkIGjV8V8Ijua6+nNbqnYoMsugAtR2Gm8Em3kNd/YQECucN9uSjO/ipKCJYDOU5SstnD1521c
-	jcBCEzC0MDtFm0FuFC29OAI/LwKZynEKbEqTXWjjV6dbngPYAp548ze+DImnwi6icLcwkbDiy2D
-	SsYaGnmw+6OdUBlFAjManMKFam8AS+Ov1qGwPzx8LidDmC2PwV0dh6riAhWvCIDI2lHaTEGayWJ
-	WExTLk3/DPEacDO5q7PQ8V6rt6tltSkKGcFMd18759SVOVY=
-X-Received: by 2002:a05:7022:ea55:10b0:1b2:6cba:7f7c with SMTP id a92af1059eb24-1b3b605183cmr2161968c88.37.1794284367571;
-        Mon, 09 Nov 2026 20:19:27 -0800 (PST)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.19.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:19:27 -0800 (PST)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: bhelgaas@google.com,
-	lukas@wunner.de,
-	bvanassche@acm.org,
-	linux-pci@vger.kernel.org,
-	alistair@alistair23.me,
-	linux-cxl@vger.kernel.org,
-	linux-coco@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kjRI09v+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794284356; x=1825820356;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=8dfFjAyH1NZ5O/UsFja1Hvgmiui6X/KQMbG0P2/bo+I=;
+  b=kjRI09v+5MtAwkG+6h5qCj6XGZrrhcEHQg7LjrljFDn4klPP2IkaJZ0R
+   2RKuOXg3vWlRBnBcfvGlK6NuEHyZDJARWNRkiTobN3w5wBryKwJ0E7w0j
+   gicvnmUQklAX0e+IwRXUa0fs1TkLcVkWnbRtQofVq5euo2XtRmll/nSaA
+   69yNbRiByIgiML3KrsUlzGOnzonmO8+4mTtb5bNfnNE5U87LPLBdAvNIv
+   WvND/4W91mINDXBIP7R8BmUNC1YFHvEPnHtXKKf81Wf7FwJE/6NXz1ypq
+   cZyL0YLThzYNzDkNIJXQoiGAR5TfqwWbDwkFWmF62mEY6jrJfQ3cXFaQ/
+   A==;
+X-CSE-ConnectionGUID: GG+Icgg3TEaLqG6vAoYLrg==
+X-CSE-MsgGUID: 13Vm3OtySjyd3CwIfTrBhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901287"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2901287"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:14 -0800
+X-CSE-ConnectionGUID: V2ig3Z3cTsuv9u0S8wjhJw==
+X-CSE-MsgGUID: skpaQYrwT4aODqJeOZQhDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7856908"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	fenghuay@nvidia.com,
+	ruanjinjie@huawei.com
+Cc: tony.luck@intel.com,
+	yu.c.chen@intel.com,
+	babu.moger@amd.com,
+	fustini@kernel.org,
+	tan.shaopeng@fujitsu.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	jgg@nvidia.com,
-	akpm@linux-foundation.org
-Cc: gary@garyguo.net,
-	a.hindborg@kernel.org,
-	wilfred.mallawa@wdc.com,
-	tmgross@umich.edu,
-	ojeda@kernel.org,
-	boqun.feng@gmail.com,
-	alistair23@gmail.com,
-	gregkh@linuxfoundation.org,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	benno.lossin@proton.me,
-	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH v6 05/25] X.509: Parse Subject Alternative Name in certificates
-Date: Tue, 10 Nov 2026 14:18:12 +1000
-Message-ID: <20261110041832.1730924-6-alistair.francis@wdc.com>
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH v3 1/8] arm_mpam: resctrl: Add a helper to find the component counting an event
+Date: Mon,  9 Nov 2026 20:19:01 -0800
+Message-ID: <8635f50f938afbe3f58dcd69966c2dd45e2394cd.1794283825.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
-References: <20261110041832.1730924-1-alistair.francis@wdc.com>
+In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
+References: <cover.1794283825.git.reinette.chatre@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,63 +91,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+resctrl_arch_cntr_read() and resctrl_arch_reset_cntr() both drive the
+monitors MPAM pre-allocated for bandwidth counting. Each starts with the
+same sequence: check that MPAM is enabled, reject cache occupancy and
+events without a class, then take the component counting the event from
+the monitoring domain.
 
-The upcoming support for PCI device authentication with CMA-SPDM
-(PCIe r6.1 sec 6.31) requires validating the Subject Alternative Name
-in X.509 certificates.
+The duplicated sequence has to be kept in sync by hand. Only the failure
+handling differs: one reports the failure to its caller while the other
+has no way to do so.
 
-Store a pointer to the Subject Alternative Name upon parsing for
-consumption by CMA-SPDM.
+Add find_mbwu_mon_comp() to locate the component, returning an error
+pointer on the failures both callers test for. Ignore that error in
+resctrl_arch_reset_cntr(), which cannot report it.
 
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Reviewed-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Acked-by: Dan Williams <dan.j.williams@intel.com>
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+No functional change intended.
+
+Suggested-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
- crypto/asymmetric_keys/x509_cert_parser.c | 9 +++++++++
- include/keys/x509-parser.h                | 2 ++
- 2 files changed, 11 insertions(+)
+Changes since RFC v2:
+- New patch.
+---
+ drivers/resctrl/mpam_resctrl.c | 62 ++++++++++++++++++++++------------
+ 1 file changed, 41 insertions(+), 21 deletions(-)
 
-diff --git a/crypto/asymmetric_keys/x509_cert_parser.c b/crypto/asymmetric_keys/x509_cert_parser.c
-index bfd10f0195e01..c3ec2846695a5 100644
---- a/crypto/asymmetric_keys/x509_cert_parser.c
-+++ b/crypto/asymmetric_keys/x509_cert_parser.c
-@@ -596,6 +596,15 @@ int x509_process_extension(void *context, size_t hdrlen,
- 		return 0;
- 	}
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 5468367776e2..1b1e724ae040 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -7,6 +7,7 @@
+ #include <linux/cacheinfo.h>
+ #include <linux/cpu.h>
+ #include <linux/cpumask.h>
++#include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/limits.h>
+ #include <linux/list.h>
+@@ -541,26 +542,51 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+ 				 closid, rmid, val);
+ }
  
-+	if (ctx->last_oid == OID_subjectAltName) {
-+		if (ctx->cert->raw_san)
-+			return -EBADMSG;
+-/* MBWU counters when in ABMC mode */
+-int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+-			   u32 closid, u32 rmid, int mon_idx,
+-			   enum resctrl_event_id eventid, u64 *val)
++/*
++ * find_mbwu_mon_comp() - Find the component counting @eventid in a domain
++ * @d:		The monitoring domain to search.
++ * @eventid:	The event to find the counting component for.
++ *
++ * The counters reached through this component are the monitors MPAM
++ * pre-allocated for bandwidth counting. Cache occupancy is not counted by
++ * those monitors, it is read on demand via resctrl_arch_rmid_read().
++ *
++ * Return: the component counting @eventid in @d, or an error pointer when
++ * MPAM is disabled, when @eventid is cache occupancy, or when no class was
++ * picked to count @eventid.
++ */
++static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
++						 enum resctrl_event_id eventid)
+ {
+-	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+ 	struct mpam_resctrl_dom *l3_dom;
+-	struct mpam_component *mon_comp;
++	struct mpam_resctrl_mon *mon;
+ 
+ 	if (!mpam_is_enabled())
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
++	mon = &mpam_resctrl_counters[eventid];
+ 	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 
+ 	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+-	mon_comp = l3_dom->mon_comp[eventid];
+ 
+-	return read_mon_cdp_safe(mon, mon_comp, mpam_feat_msmon_mbwu,
+-				 USE_PRE_ALLOCATED, closid, rmid, val);
++	return l3_dom->mon_comp[eventid];
++}
 +
-+		ctx->cert->raw_san = v;
-+		ctx->cert->raw_san_size = vlen;
-+		return 0;
-+	}
++/* MBWU counters when in ABMC mode */
++int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
++			   u32 closid, u32 rmid, int mon_idx,
++			   enum resctrl_event_id eventid, u64 *val)
++{
++	struct mpam_component *mon_comp;
 +
- 	if (ctx->last_oid == OID_keyUsage) {
- 		/*
- 		 * Get hold of the keyUsage bit string
-diff --git a/include/keys/x509-parser.h b/include/keys/x509-parser.h
-index 8b68e720693a6..4e6a05a8c7a66 100644
---- a/include/keys/x509-parser.h
-+++ b/include/keys/x509-parser.h
-@@ -38,6 +38,8 @@ struct x509_certificate {
- 	unsigned	raw_subject_size;
- 	unsigned	raw_skid_size;
- 	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
-+	const void	*raw_san;		/* Raw subjectAltName in ASN.1 */
-+	unsigned	raw_san_size;
- 	unsigned	index;
- 	bool		seen;			/* Infinite recursion prevention */
- 	bool		verified;
++	mon_comp = find_mbwu_mon_comp(d, eventid);
++	if (IS_ERR(mon_comp))
++		return PTR_ERR(mon_comp);
++
++	return read_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
++				 mpam_feat_msmon_mbwu, USE_PRE_ALLOCATED,
++				 closid, rmid, val);
+ }
+ 
+ static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+@@ -603,20 +629,14 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+ 			     u32 closid, u32 rmid, int cntr_id,
+ 			     enum resctrl_event_id eventid)
+ {
+-	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+-	struct mpam_resctrl_dom *l3_dom;
+ 	struct mpam_component *mon_comp;
+ 
+-	if (!mpam_is_enabled())
++	mon_comp = find_mbwu_mon_comp(d, eventid);
++	if (IS_ERR(mon_comp))
+ 		return;
+ 
+-	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+-		return;
+-
+-	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+-	mon_comp = l3_dom->mon_comp[eventid];
+-
+-	reset_mon_cdp_safe(mon, mon_comp, USE_PRE_ALLOCATED, closid, rmid);
++	reset_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
++			   USE_PRE_ALLOCATED, closid, rmid);
+ }
+ 
+ /*
 -- 
 2.56.0
 
