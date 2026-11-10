@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336595;
-	b=D8zgNp4gQvG+/vx5hOEhwjaVRUdoNCm1a97MrA4CNVRuVOiNi258yRrrBiQ+Jk0i8wuS
-	 nYAqrPZfTJx9aqIssipssGEEypOeOmVZ+9ROx7PFF8wLuX4yJ3Y9OdgR7WkIFU5VUgDzW
-	 u6kKkjpUFabfonPFJeWtaE1r7bkeBwStQdp/VHQ8mTWRZ0Nr7Xs5N065C2NtJD6l9WXNK
-	 +Ua3ztKQLVpgpGYYf/a+b0NIA/+VGkXuVzTtnH60/Zlnv9IbdOKxIzg66gNBhl3Ngmv6C
-	 jjfO375M+y9Bm1hEQKvXWMrpSNsTwVX67MHpVDXMJwVkrnJlF7Rf7/OeSjgvw04XvdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336595;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
-	b=3fE0V1cuo0uQ/VGdl31CcoZHl91VG9+vuR90iYe/DRQ7GlR9qzUd93K7R1Fo4tI0dnmH
-	 Tt0cLhd4NwrPny11J3QixJUe6OBHI3+yAZfC5gp/303tgytHbZisqGK1BZecaxuy51QKx
-	 rs4zm2NHL8Hw5GNRkEKTFY3pxpK0Va72gowjcVoxOv3KTRvwFxyuNwZtQglvCY6T/V8wP
-	 ykuAuKeNJCxwcf5SJv1+ixHz7MshIXHUbYl1Ai64f0Ln03CzEbfq57Do9lLLl9PVhD0ml
-	 /fWTyTMgay7p9ADCQJdMORgdRqHvr+Yw7MLcTyoTVmFLSt8wQSpljZ8n3x7Ho6r+IjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="f5//jZDt";
-	arc=none smtp.remote-ip=74.125.225.134
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794336614;
+	b=brzsaqLGaCGU8J3YvTJAZm1HUEZOgUCUT43LF9eUsLvqc1YRHmdg7xOfHxyoLXG1whEy
+	 mhF792he5148CMQFIge+XyI//2KSCtv0mUKvHOIl6TCSGXXN3mvFDFmRqFM0xfkWyflV0
+	 zEHSRE3sNSv8OTrFjyGMUAAoftpGEmfCQNdJruXszXolgLhZ1zYaRIZN7qg6stwhD+zPI
+	 KxrJSFa9BUHRzmSGJH/8mmSqwwPCwgJcY6utvVUuJVY8vXcczK+yFKYBVAmk98K53mWL/
+	 mdL1hqgXEifeDMtslUmGGczHJ/CT0ecjWP05mR+YLl6tpVxJ0JFLo5ZtBvvyH1iJA9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336614;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=p2IbextAHNaW3yc1BxVBn2/aGRXQasAMIeuG3rdCjBk=;
+	b=5km2jG0imW0Q4vjlaScHit/frfhgXNlu6PmxCEZvJsmLDrmpqwNnZ2TA+B0MlAW8YWuM
+	 TrCOHQ3zmeI4eNjUvsATjC6Fxv5L/hSOrEdI8BW96Sq/3xfhe7MWerNyz6Q+pLDPGyjH6
+	 Imd7mFl8ylz55n18Yb3iWJ8ZhrQH+QhweUK49TXpn553W31/aB7Wf8XXkJcoYZgd7KDAl
+	 u8tAeF2GhbpT18v2X5on5reFZU1QvDVitjD5Zz/L/R7OOsSKI8AUPojwiIuQ8uYV1AeJg
+	 7QqNSlLRUREWQcbMoAGd1+VXkXoX7/HDOrKeD+b5ECSvW6l/oEmKbP6X+qv7YWBMivQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=a1KoB3Dw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A7E606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A7E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FBA606A326;
+	Tue, 10 Nov 2026 18:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13FBA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f5//jZDt
-Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-4a35d5b19baso4577005e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:49:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794336593; x=1794941393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
-        b=f5//jZDtKK02V8eR8mpdCFDFbnVmVKniTu4kwBXWGWP6yS44Ri8CWupwJ8EuG+yNkv
-         y3x2epNv143R+FWQr7yTyWgFLCweIXvfmTSln9OjuANTLKMlNJCYPyCcrGDHaREQ3Ynb
-         2OcFmpjgLqeZuT1jjdHSCcWuBD9Bquk//S5bw63Ti4WPoB8UDjcT9vWX2CDUJMFvRoY7
-         1lE3+rsikEh104WGVQP0h1kkBrodY3qZD+zGWEJCNuEhIWS7SEWkFykOZ21N6EH+UDGq
-         pZEI7gtqbxs7aP+USMbvDvljB0FQHTKF86LkkYWYZwRwpWxJNPFLWZztBwJTFjeorPL3
-         mq6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336593; x=1794941393;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
-        b=I906e/n4KIc6LlklzFwMdwJhdhfU4eHCFM5A4/kYnrfttgsyemVZUegw1R0mTRMsZG
-         YAeOL1gLpceLXLmGdrdBLet2TOQZjkudcJ9OCMcK1j2s2G5XLm/W9NRBti0v6dEHBRlJ
-         sWyEH8x33yLGGeTVs7iFQ5j1kN57vjXW02eQb4UKaLG/l4L9MfBk+g8Wb9I6soQ5yML5
-         vshoJa4/qvrkA7BfA0ztkT+ZC5gWtO5JcSaz36RDOyyDazuC9K2cBO5vxaQhM+7JGFK5
-         7DJKID0httF16GYijf3fifY3grNwUYPdkkuSXYVttP0HoCK9JE24eMEtIMhwXkNfrHYe
-         fMGA==
-X-Forwarded-Encrypted: i=1; AL+hErG1uwgxV+W11WjlwmGe0gqEfLJA3RHw9tj9ytnrP05h6ju3JHoRmTmm7kz60qLT+0GTCYzCGwRXQphRtOU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JiyRK4S8WI4HwxvKa2J5YpgRPt9HIqTmqY259TDBtsxHWz7sj
-	gdW0DA5dqc9/IX6VBAednNLmC3bGaMJjHxW4mDy9Rzi12PCY4UiO4hTf
-X-Gm-Gg: AYBFou2V0Vs2m3LwhZsnqoGelDl1Po/gB5xmZpAJr3WkAtrKkh2iepWPZKxkxjpH1iA
-	M9LUBHqyYge4XmY8KurC+3mpUyGmUMaJvFo4JV9Gz0SlZQdTiWjMTbeWNQeB0XWxDbwlsfiz9B7
-	sPqhHrXqYEwWT1+j9DRRfmmIzrkDvabZbTPcsFL4MqdR+8GykRpyfo+aauq5vCr2DY4WJAVSOCN
-	mKH9Df8vqlh4iQ/EqyzBwIkgpbseXapiCb9VbwbW6R+vn27CfgpnZvGlkNwjXKmTr7j2n+6b6kU
-	oAUpVgb0vB7X0w5D77AttUZh0v1yQowERBYRV9cWFUANxOIzBcqwHXNicfoGY3p15CUYwfSZnog
-	WkFlIex6RAudWcVi4CQcfYFJnEpVR4UhFW3kG4OkSrYQmx5eZPoiPQksCFfcaqmUNAJPTxLjLJu
-	coQEYigaDgeZMUPN5X/rXrTAYbmnqswuNBwvbbno1KNGXT5Gpk8djWse3nPcS+6BG8/SQuFx1JQ
-	IZg5C6vLszc1nN/3nqy1fxsxOGt1u3s5EZ231tgX8bXYKYkms5qSyBXvDwX/Vd0CYtyjR5faawo
-	0Yxib/NvSVPnb1kZW4xerH6D+GJgitq8yJkQOc73X58YzREYrYltLyqp
-X-Received: by 2002:a05:600c:3544:b0:4a2:1655:87e2 with SMTP id 5b1f17b1804b1-4ba0938dbf9mr328175e9.19.1794336593063;
-        Tue, 10 Nov 2026 10:49:53 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba023a1fcfsm34094085e9.4.2026.11.10.10.49.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 10:49:50 -0800 (PST)
-Message-ID: <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
-Date: Tue, 10 Nov 2026 18:49:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=a1KoB3Dw
+ARC-Seal: i=1; a=rsa-sha256; t=1794336601; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=grDPv7SKgQrSFE9gJixDo7BJDMd+dbW4ThlRpU+fB1bESKAja6qLRVdJ9bn0J7hbxJgcjHAWAthHyjjwFOKQF621UX8qRkUwo6U6QNpf0h9YyyNgsvZZ1lNp39OAGKRjV11hwQKTaOdrMmAtgCCUEQW4df9iteJcEL2Dv0emwIY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794336601; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=p2IbextAHNaW3yc1BxVBn2/aGRXQasAMIeuG3rdCjBk=; 
+	b=C2LfQDYpC2Dcm32kzPNBz+sVr43JZN8VYpopXy/y/OfDktTLANEc/8ORuEmE5Bafvk/MjSSg4G7cCu9dIqP0fVORos7VZB/6/UeOVy0qvUvtPARCnTjKsLDt0LazHPU2CEYPv9vf+oAvipFEviLh/dRiAOIwMQ+UMu4DLehIHEU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=a1KoB3DwCGJyzDX5CqezHEy2zXPS02WcBI4SE2OmYdMAnlDH1gwcBNgZ0es5Uj80j5SzvvuMgrCwybXxAaErw/U/mMhnUV0WIursHzH0DUFZ96JEkOltmcFN44R5OHjOW4MGXcOIUSf/S7NDBKZfk3Pw3gxOts44J57wX3Goyzhs8ahuwMCI6XwY+qT6Gb38rTEzvh8HUPfPcR0uFQr90XEebzfwr5XxdVmX1+SN2YFSc/5ZjtLhfXsV+CsvJcWej9D4ZNHUofUDcGQX45AlECBz9N4DsCIqt9/OuH+UMNp2O+mMO3oDUvrsR5exc8g1yQ91x15UUxh7jjKnE7mbTA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=p2IbextAHNaW3yc1BxVBn2/aGRXQasAMIeuG3rdCjBk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794336598712503.7128319877977;
+	Tue, 10 Nov 2026 10:49:58 -0800 (PST)
+Message-ID: <4d0153a209a7c54ff513eabd3fd87445269279f0.camel@rong.moe>
+Subject: Re: [PATCH RFC 1/2] platform/x86: ideapad-laptop: Ignore keyboard
+ backlight hotkeys
+From: Rong Zhang <i@rong.moe>
+To: ciro.pedrini@gmail.com, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc
+ <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>,  Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Jiri Kosina
+ <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, Aaron Erhardt
+	 <aer@tuxedocomputers.com>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261109-legion-lighting-rfc-v1-1-a87e1db8c5e3@gmail.com>
+References: <20261109-legion-lighting-rfc-v1-0-a87e1db8c5e3@gmail.com>
+	 <20261109-legion-lighting-rfc-v1-1-a87e1db8c5e3@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 02:44:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,117 +74,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-On 09/11/2026 20:34, Alex Deucher wrote:
-> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
->>
->> When driving multiple displays or tiled panels with identical timings
->> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
->> Core's program_timing_sync() aligns the CRTCs into a timing sync group
->> in hardware during dc_commit_streams().
->>
->> However, on DCE < 12, Display Core leaves
->> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
->> informed that the streams have synchronized vertical blanking intervals,
->> SMU7 prevents MCLK switching at idle or causes modeset underflows.
->>
->> If all active streams belong to the same timing sync group
->> (timing_sync_info.group_size == params.stream_count), report
->> all_displays_in_sync = true to PowerPlay after committing the streams so
->> SMU7 can safely downclock MCLK at idle.
->>
-> 
-> Looking at this a little deeper, the function bw_calcs() in
-> dce_calcs.c already calculates all_displays_in_sync using the helper
-> all_displays_in_sync().  Can you look into this and figure out why
-> that is not working as expected?  My concern with this patch is that
-> DCE and DCN have different logic for handling mclk switching so I'm
-> not sure it's safe to call dm_pp_apply_display_requirements() directly
-> from common code.
-> 
-> Thanks,
-> 
-> Alex
+On Mon, 2026-11-09 at 22:50 +0000, Ciro Pedrini via B4 Relay wrote:
+> From: Ciro Pedrini <ciro.pedrini@gmail.com>
+>=20
+> On the Legion Pro 7 16IAX10H, Fn+Space (backlight effect), Fn+Up and
+> Fn+Down (backlight brightness) emit WMI fn-key events 0x21, 0x1a and
+> 0x19, which the keymap does not cover, so they reach userspace as
+> KEY_UNKNOWN. The keyboard's USB controller handles these keys itself: it
+> switches the effect or changes the brightness, and reports the new level
+> on its own HID interface. Ignore the three events, as is already done for
+> FnLock and Esc, rather than mapping them to KEY_KBDILLUM*, which would
+> make userspace change the brightness a second time.
+>=20
+> Tested on the 16IAX10H with 7.2: with the change, evtest shows no events
+> for the three keys, and the keyboard still switches the effect and the
+> brightness.
+>=20
+> The change and this changelog were prepared with Claude Code (Claude
+> Opus 5.5), from measurements on the laptop (evtest on the "Ideapad
+> extra buttons" device); I reviewed and tested them.
+>=20
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
 
-Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
+Acked-by: Rong Zhang <i@rong.moe>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -31,6 +31,7 @@
- #include "dmcu.h"
- #include "core_types.h"
- #include "dal_asic_id.h"
-+#include "resource.h"
- 
- /*
-  * Currently the register shifts and masks in this file are used for dce100 and dce80
-@@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
- 	struct dc_state *context)
+Thanks,
+Rong
+
+> ---
+>  drivers/platform/x86/lenovo/ideapad-laptop.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platf=
+orm/x86/lenovo/ideapad-laptop.c
+> index 91a8d11c79c5..8b6c08b21c8d 100644
+> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> @@ -1336,6 +1336,10 @@ static const struct key_entry ideapad_keymap[] =3D=
  {
- 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
-+	int j;
- 
- 	dce110_fill_display_configs(context, pp_display_cfg);
-+	pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
-+	for (j = 1; j < context->stream_count; j++) {
-+		if (!resource_are_streams_timing_synchronizable(
-+			    context->streams[0], context->streams[j])) {
-+			pp_display_cfg->all_displays_in_sync = false;
-+			break;
-+		}
-+	}
- 
- 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
- 		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
-
-Richard
-
-> 
->> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 74cd88d8d580..b4531383437e 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->>         dc_exit_ips_for_hw_access(dm->dc);
->>         WARN_ON(!dc_commit_streams(dm->dc, &params));
->>
->> +       if (params.stream_count > 1 &&
->> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
->> +           params.stream_count) {
->> +               struct dm_pp_display_configuration *pp_cfg =
->> +                       &dm->dc->current_state->pp_display_cfg;
->> +
->> +               pp_cfg->all_displays_in_sync = true;
->> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
->> +       }
->> +
->>         bool frl_stream_found = false;
->>
->>         for (i = 0; i < params.stream_count; i++) {
->> --
->> 2.55.0
-
+>  =09{ KE_IGNORE,=090x02 | IDEAPAD_WMI_KEY },
+>  =09/* Esc (handled by the firmware) */
+>  =09{ KE_IGNORE,=090x03 | IDEAPAD_WMI_KEY },
+> +=09/* Keyboard backlight down, up and effect (handled by the keyboard) *=
+/
+> +=09{ KE_IGNORE,=090x19 | IDEAPAD_WMI_KEY },
+> +=09{ KE_IGNORE,=090x1a | IDEAPAD_WMI_KEY },
+> +=09{ KE_IGNORE,=090x21 | IDEAPAD_WMI_KEY },
+>  =09/* Customizable Lenovo Hotkey ("star" with 'S' inside) */
+>  =09{ KE_KEY,=090x01 | IDEAPAD_WMI_KEY, { KEY_FAVORITES } },
+>  =09{ KE_KEY,=090x04 | IDEAPAD_WMI_KEY, { KEY_SELECTIVE_SCREENSHOT } },
