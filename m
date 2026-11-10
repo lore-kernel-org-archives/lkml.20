@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794326250;
-	b=h2b8gatAwHvrlkflV2lo66TWBQV6MXiBTyEgiMc5j64TGGVCHYPaK0MGqY478WeDJSSL
-	 xUS0fHEF0/iU5NfRImGJ87XYZkEY2BkLiTdIy9fXzWvCLM/Uei+LlNRJHoFj5We/SyApy
-	 60zq5JZAu4EL8mQYKCXjrfFkdJ+e1x7S2y3bGcyZ7G7jDMx8bMwbFb9SoFaZ/vpl4ca5Z
-	 piGfZpcNDJ1lHlxrVG47T90qipwpz6dOKDZKJUjXnrc/5WEq/45ZSNq1qdE8zNDSUHyHW
-	 bYMJvo6KDeL4yfSgulTDr4ad5PDfMq5MV9x/1VqIsNrxbFg4ygmo+mM2OgbLX7mvjNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326250;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=39uN6QVnkekX33X3HSTIkP3ZnGG9y+02IyW7mJHRFNc=;
-	b=3xvXh6VmrY0qJ6afXjziytPx2vby9OB0YYeAVd93V6MTx7ziSLNVAg2qzW8YWUYCLMPv
-	 AzYZdhCrL6QALtItlMAQLi2ec6He9uzoJo6qq7rllEiEE24sW6az2STpjUcB5mEfpuvRW
-	 BcV1/Bcz81RhbZxfpWmLgzItNz8zhcoJ2Yp6wqHrghiHvmcN27rHIsNlXNoxQUKS0DSQU
-	 RdlMJ2J9PYRoK8bYJcTGJL2o2B9bcm3w3lTBp25wvDPoj6WTI6XF6m9XkudFUL7bE/A7O
-	 1PjU4Ke3RK84aGugcAe8bAvLe+Ffl7RbcZCikOi4ENUahBIJL2dWHrjeB+VytHN3rPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juvJTzo9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794326265;
+	b=WyQQy68/y/P5o2UuQe4DDsT/Gajpca2ax+rSH6+8bQKuuGwijzR2dImL/B7q9iVRdXJK
+	 kLd6TRwo9b2O0UaJwLVwLOQ0HXHTXCAt7G49wU8xSAh+F/lUNYfj6rOwXnH/BC6goKR07
+	 CQeuNRZiBlMXTCvTtDDDN8PZeKgu01vPUxPGVNXbEVVxgpVRbsVMQa261hOw93USxBgly
+	 SuUgIPpV1M3w35fi12JwyOc3FFOTKQd7S406z3gmPwYs97Gs4rFR42A3bdSr/mSgqVM0h
+	 zW0FkVT5ojZ5Vx5B1/RtRx2OVjVr8m/U8GWVnJxsAxDfb6Y7ZPrI8Z0pAbrQc96Nn6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326265;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XJwsefjVaveYZaUliYO/CZG3zDAU8kboouxJy1sNukw=;
+	b=MmnC1TlKimLtfTXHeEI/xFdl8NyKF2GGaVw4Hp8n031MxfaG2GJkN/wDKLM/NhVcHELh
+	 eqzyMRqyBqeViCHECpyF2iE2wVsx8oaWdlSChFM+2WvU/38D+R8Pp2VRlfxSMEWibJF5O
+	 uOoC0icQSToDvzO+B4TjPrneV1U9rPaIm8QQjAwUqBzSKEtcSWtF1mhUyM069ed/VxEBx
+	 DFcDnvLP8eM1HyVAR5PCgNgZlmM5lBtofu3ZfICbMBX6p/XuwzDMjlMGTp93lX505wk/7
+	 NcAC7iIsE/cg/qGQ/PiNYe+hmrxFTuOFBVXoYbBvmMNwrY9B5Jjzu/ippc02+c8yFlQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3hlURjL;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0494606A31C;
-	Tue, 10 Nov 2026 15:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9F5606A330;
+	Tue, 10 Nov 2026 15:57:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juvJTzo9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794326249;
-	b=wXC+NY7GBXS49Z7I9it7wrEuNfPgWB6XNMZLSpIT/sOPprphOgTMzENqRJYwddGTbnLb
-	 y5gWf2oXiaOdBrwOeq/VYnQsRNqEN5lYJDC4ZXL8Ypge8mSEQtLUs8K8Uic6TnEg2Dc8t
-	 hnTDfkPIAIf10grfjG2RFxwpWL9P2sl/WckJKqeS6RTWNMXTuOIqjhUK4+ru79vAkc9B9
-	 pmnIjINKHpE6EG6nZdRLCzhrvH9zDFnBBkuOGJ0ryZcFzTXCIcYNH//3hgI7O4Lggo3Fi
-	 qKSpklI69Fes8J+fvXb++dZ3VM//ecHEXgUOdxvOLftdyYCF0rDls4IFmYN9AbxJfZg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794326249;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=39uN6QVnkekX33X3HSTIkP3ZnGG9y+02IyW7mJHRFNc=;
-	b=A5PaY8FGVVd+RXEkUlxlMo8CSpJnOqxKI2NN7fZ8pwrl2Ls3EqZHS+1QaopH9tvDBqLb
-	 8YBXCFQZmkJG5GynVhBRQhgrytCnU/m8tiDczKlHfM9ah9VkbtmKZ/F3UyC29knW4gI+0
-	 tYdHQTbomr8x7svQEEoHroTIELSgwgZn6PK9yqjYIa/rX5k+3LAoHLPJWFRlde/ZV8oL1
-	 OVQBBVBypj+1OLMsZk1Qbnf9zAHDFdd2QE853Q/jUOa4TqKtwPkwfBgAac0RdW1AveADz
-	 cy1u2N3cIOg0zlns+HTOeqxbttxpn+S2pmci7ygeeDl3uGUAnUSfQ0Uv6+p58ToNfAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ACEDD1F0089F;
-	Tue, 10 Nov 2026 15:57:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3hlURjL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C081F008BE;
+	Tue, 10 Nov 2026 15:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326249;
-	bh=39uN6QVnkekX33X3HSTIkP3ZnGG9y+02IyW7mJHRFNc=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=juvJTzo9eNzna8ByYEiU1P6Jh9l2FWGz0IhbEtmf+VJYrv1DWCDV3LE8xMHYZJ/PB
-	 hXkIe1xGh4d9jAZ5N0etiFaUaAdrWRLZRctDpHS0orqKjWDjJlO5k+v7jzhm3Viyva
-	 O0rIsSVw3YJ7nsjmyak519+tyTjA7W/zXS79X00lVrv/hQ6XcuAL1CpgeVVgnbwbPR
-	 dLZrVW6sHZUh31cXnlje5nOfYcxjfcd5TF4ONp89+gNPcgLlGeAlFAvVUUuCzPMm9W
-	 onQZgKAm3AUpyWxy2gZWU1aP0y82eyMnqIuT+jtXQIH8d8D5LIrVgAMf6iEngSlBle
-	 E58HddBCp0HYg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 12BC948BC5;
-	Tue, 10 Nov 2026 15:57:28 +0000 (UTC)
-From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Date: Tue, 10 Nov 2026 16:57:17 +0100
-Subject: [PATCH v2] iio: imu: inv_icm42600: update gyro start and stop
- delay
+	s=k20260515; t=1794326264;
+	bh=XJwsefjVaveYZaUliYO/CZG3zDAU8kboouxJy1sNukw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f3hlURjLe6WtMd1ogimfqcw5Fy5jhN0/5fGaM9qQ1j71lr5gyWspl8BX6XdY/mgfv
+	 NAtItad9jotkAVbrbqn5HjD8gDv9DBAm5qPCxVkNzwUGW0CnQa4ivlYKO8K+AAbc+o
+	 6M0c3y2PVvOKQmTha6q4iyKrb9UQrPww8ppZGxlk6ez7ZutpJpmSskCjD6jqs3Fb5g
+	 cZgot1B1WaQneHRwD59XrlWaxDesOlnWmzVkNN+FcCt0XivIKw60DKzJUvFrQsl0VV
+	 1iOkTwSegXSamFk9u0pUlL1+rhsXOH5PQyY6/FZ+7sZT2H1M8boAjN99RVdP9dcIM6
+	 MGJHnVnXg5faA==
+Date: Tue, 10 Nov 2026 15:57:37 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Will Deacon <will@kernel.org>
+Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
+ full dirty ring
+Message-ID: <avM9i8xWNZ2fU8_2@gremlin>
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-3-fuad.tabba@linux.dev>
+ <avMoubwqgXbpflwM@gremlin>
+ <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,80 +65,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v2-1-c6f5d35290d4@tdk.com>
-X-B4-Tracking: v=1; b=H4sIANw+82oC/52OQQ6CMBBFr0K6dkzbYCOuvIdhUdsBRoWStjQSw
- t0t6Anc/OQlf+b9hQX0hIFdioV5TBTIDRnkoWCm00OLQDYzk1wqwUUFRA6on4CGBGT6UirOYRq
- tjgjt7B2EqH3M6Uaw+NIzqLPVDQrFpeAs/x09NvTenbf6y2G6P9DETbQ1Osrnft5HJbH1fn7J/
- /AnAQLQnqSsuC6NLq/RPo/G9axe1/UDm5J4ogIBAAA=
-X-Change-ID: 20261019-iio-imu-inv-icm42600-update-gyro-start-stop-delay-68dafe160210
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794326247; l=1876;
- i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
- bh=wbjCfT8lL7PclacDYR3DRKYlOUIY87724PnXNhJLve8=;
- b=6wUpx8Kg5KkPuhX+hmbhxqIfwB80/mW6VjatkPKupXnqAS8x+G1WNdRGgYGtZGokSNi1LlGeL
- ndBOIuVJGPTAS0HS9n7AEKQuqulhEyV6/C+LgEbILYyqdHWOb5Lwn3+
-X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
- pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
-X-Endpoint-Received: by B4 Relay for
- jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
-X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reply-To: jean-baptiste.maneyrol@tdk.com
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+On Tue, Nov 10, 2026 at 03:37:05PM +0000, Fuad Tabba wrote:
+> Hi Lorenzo,
+>
+> On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> > On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
+> > > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
+> > > holds, and check that each call stops before the ring overflows, that a
+> > > retry returns ENOSPC without progress, and that the harvested entries
+> > > are the pages in order. A read pre-fault can map a page read-only, or
+> >
+> > Are we asserting an invariant that prefaulting happens in address order
+> > here?  Is that explicitly presumed in the prefault API, or just how it
+> > happens to pan out?
+> >
+> > I wonder if we might decide for whatever reason in future to do things
+> > differently there. Bit nitty I know, but wonder if it's asserting an
+> > implementation detail?
+>
+> Yes, the API doesn't guarantee an order. I'll assert that every page
+> is reported exactly once instead.
 
-From internal specifications maximum start time for gyroscope is 45ms.
-Stop time is required for letting gyroscope mechanical structure settle
-down before enabling it back. 50ms is a sufficient value for that.
+THanks!
 
-Update values to these numbers.
+>
+> [...]
+> > > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+> [...]
+> > > +static void test_pre_fault_dirty_ring(void)
+> [...]
+> > > +    /* Populate the pages, so that pre-faulting can map them writable. */
+> >
+> > Reviewed below, but I wonder how x86 could then read fault these?
+>
+> KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
+> writable when the host page is, and marks it dirty, unless it falls
+> back to access tracking (below). Populating the pages makes sure they
+> aren't backed by the zero page.
 
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
----
-Changes in v2:
-- Do not refer to datasheet since these values are not available.
-- Link to v1: https://patch.msgid.link/20261020-iio-imu-inv-icm42600-update-gyro-start-stop-delay-v1-1-ed52290a4ca4@tdk.com
+Ack.
 
-To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/iio/imu/inv_icm42600/inv_icm42600.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> [...]
+> > > +    while (range.size) {
+> >
+> > NIT: n could be scoped to this block instead.
+>
+> Will do.
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600.h b/drivers/iio/imu/inv_icm42600/inv_icm42600.h
-index 3737e79dbcc1..c4a928fd3b8a 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600.h
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600.h
-@@ -439,8 +439,8 @@ struct inv_icm42600_sensor_state {
- #define INV_ICM42600_POWER_UP_TIME_MS		100
- #define INV_ICM42600_RESET_TIME_MS		1
- #define INV_ICM42600_ACCEL_STARTUP_TIME_MS	20
--#define INV_ICM42600_GYRO_STARTUP_TIME_MS	60
--#define INV_ICM42600_GYRO_STOP_TIME_MS		150
-+#define INV_ICM42600_GYRO_STARTUP_TIME_MS	45
-+#define INV_ICM42600_GYRO_STOP_TIME_MS		50
- #define INV_ICM42600_TEMP_STARTUP_TIME_MS	14
- #define INV_ICM42600_SUSPEND_DELAY_MS		2000
- 
+Thanks!
 
----
-base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
-change-id: 20261019-iio-imu-inv-icm42600-update-gyro-start-stop-delay-68dafe160210
+>
+> [...]
+> > > +        for (n = 0; ; n++) {
+> >
+> > Could this loop forever if cur->flags always == KVM_DIRTY_GFN_F_DIRTY? Or
+> > is that guaranteed not to be the case?
+>
+> It can't. Every harvested entry is set to KVM_DIRTY_GFN_F_RESET and
+> stays that way until KVM_RESET_DIRTY_RINGS, which runs after the loop,
+> so one pass stops after at most a full ring.
 
-Best regards,
---  
-Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Ack OK.
 
+>
+> > > +            cur = &gfns[fetch % entries];
+> > > +            if (smp_load_acquire(&cur->flags) != KVM_DIRTY_GFN_F_DIRTY)
+> >
+> > Is this and the below release paired with equivalent stuff in the dirty ring code?
+>
+> Yes, the acquire pairs with the smp_wmb() in kvm_dirty_ring_push()
+> ahead of the flag store, and the release with the smp_load_acquire()
+> in kvm_dirty_gfn_harvested(). dirty_log_test does the same.
 
+I know it's test code, but general kernel practice is to add a comment saying
+what memory barriers pair with so it's easier to track, could you add those for
+these?
+
+>
+> [...]
+> > > +        /* A read pre-fault can map a page read-only, or access-tracked on x86. */
+> >
+> > Hmm under what circumstances would that happen? Is there no way to ensure pages
+> > are dirtied by prefaulting? I imagine not though!
+>
+> No, it's up to the architecture. arm64 maps a read fault read-only
+> while the slot is logged with a bitmap, and x86 with EPT but no A/D
+> bits maps it access-tracked. Neither pushes anything to the ring.
+
+Right, OK, makes sense.
+
+>
+> > > +        if (!n && !harvested && !range.size) {
+> >
+> > Hmm, so !n && (harvested || range_size) will pass this, but then you assert
+> > n immediately below, so it seems like n is an unconditional requirement.
+> >
+> > So I wonder whether this should just be !n in this conditional or maybe the
+> > assert afterwards should be dropped?
+>
+> The skip is for when pre-faulting dirties nothing at all: the first
+> call maps the whole range without pushing a single entry, so there's
+> nothing to test. Any other empty harvest is a bug, which the assert
+> reports, so I'd rather keep both as they are.
+
+OK I see. Really the assert below is !n && (harvested || range.size), maybe
+clearer to be explicit but it's also a bit noisy so not a big deal.
+
+--
+Cheers, Lorenzo
