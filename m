@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794332460;
-	b=T44gJq8b9s61M9kNo/NGuVWJxhhAIWPNeKlE146xro8CjWfzN4Nb9aokmJzCMbl9CWYk
-	 Xv9QRMXR6NcEl+g0N2AjVGrFE5tGTO3lrKCbWFo2RWjmwe84EkvxGfwO+oYPh8wlzihLN
-	 LA1fM94XWdvdFk0WmENBNUVVifkS1C7typ80rXAD9vOpupdMCi6EKGmHi98h92fVNW3Rt
-	 ZGsqTNLrKtJDMrGD+BVJCeQF9ibRA3pzdvrXH+HsL9wlc+T2Ijty0QOdmHDusCbwELZ/5
-	 gntSTiccLFh4WcCfEtXfDi7tESEIkrMOeouZwX8QhZNkXcM0jfOKhgK0z0OBweE9SMQ==
+	t=1794332474;
+	b=bIn0eDuZOqHu1Ks5+qaPcu34wn3PBJFmemqOSVAFi/mzuzKj86hxmYvvDvJL4ZyMYFSe
+	 2DyZPHjVGMYAiadJisG0qqf/46rKfYskiOemJuQ4Z0JKdnm1IjnK3YtHATpP5NyY0utlW
+	 TZrS3hrho1l4MAaobHuseZLLt0o0xWO2RNTLRUbA6yCPw1dKu76JqX1sNTh0fWIZL/pDk
+	 VuEaQ6PKn5ski+QtzqHylRf8dL3pdFb2eXLMPWLwRKGZwP6mAe/0slbFHzTe/W0DFZ+Mb
+	 ca3bVOZM2wi0IyQ7ScrgFr1xHKRAlktA2Fjtp0UHXHS0lMF28Mzb83bRqdysj8M1+fw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332474;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
-	b=KfIo+9xk3AS+KYyYxJOCoD3Ebv8NsL4oCLxsh/KZ4UiH/agSRSy+zudkvorQ+df+ckwR
-	 qBhpRxqszupakvzgRnaVO5H4MyQly/u6y4JupU2BSRN49wf0nB0rxIIz9sE90kMXZV5nc
-	 /61pZ0j2PfhskqwiiL9zKr9dvKhGernMdT3i56iuWeP1XQPnqV/Ite568cw949StScd3v
-	 WUJwTqo9+TJ4Ll4w14t+sf2LdErQhZ5YFZ9RMyPA8m+JKM0XS2YrKsmocGoCs9AWk3unT
-	 dMcpeHq4mBeIQWwFhm1C1l1x3MoN54rzSvw/fz7V0Mvk0GqZE5tE+sZ3YCuib8HVDPQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wCfuXsU+jGX9D3S+uWIcLeSkVcle/hWcfEI/8sFir7k=;
+	b=x09ShdTBFrGZSUtdJgwzthlzr45+qy41LOF6qnPLqIuvvB0ta/GdnokVwI/d7+uG+O2a
+	 yIiw7uEChoVRwDKGKYtxft5jX/p31D8q9O/q5Hu+GWjtjV/oNr0H4v4sKZXisW6wWrx6t
+	 4nxa2Aq9vjI6sWQt3sU+Dydf9sS1vi6n/6hJK2ur3DSXpLbqtMH6QpB9r34zKY9Odr14B
+	 zkqosNbT5CMTqL90mgVAtObKZQomslFCsNIAVTQkjXjvnpS2wiAFDkLnq76h/yQPBF0ng
+	 3b7Ym5tvSealCePRQLTP24xRzE11RTafOD8cRlC4quTQqfBPw79y+LOw6gE1mAmkUuQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwV8IN18;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tqyUJ9mD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8102606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8102606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29DC606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C29DC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwV8IN18
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c14f3dab0cso1756344e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:40:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794332458; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tqyUJ9mD
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab4354db11so20124391fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:41:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794332472; cv=none;
         d=google.com; s=arc-20260327;
-        b=T5akactMHku5JeT4GUpYNYo7eLnm1KWgoZjfFzq44sLE/TMIC9omrpagI8/SXp700N
-         GjPf6cXpwOo3DQDKb6C7eRYVMgJEIDtHtCTF2Twe8snjBpbp7PPIbSrb4Ff6EI9gZI84
-         GBIDucupbojkkGswda1XLKZ2Oabdc01j1VfQjdcxks53nU4GCZJAXA+xGapRpC5JqMQl
-         8+broFw32dVvbhbHBbmiAGY4k4Ew2ibIcnl1N/+/4oQTcrUXSeGP7s9L8hC12M5qFmMB
-         l0STcXDuMOOBdY95wg5804R550BGW/8zx4UBALizPyMMHyOtQDOqRv/MOfYbTtA+LEHZ
-         hn7w==
+        b=pwozXUgOxi8tmMyFSecBbYfrrCpFkUX1gweSp+cFMAyeR/xmCLjQ2+B350RQsoka5b
+         tOIG0d0meUqqNc4nIPmDHxqKP/Waep+8iUZZt1rXUrXwxQGFn3jAFqTG6RWiU2MYBWkw
+         4RNdK4tfzzkYPT621ATshm6gBykAJWVXN1l/Td9XvPdRBzXOQ1MbOBoYhrP2KW+gWPB7
+         iux62/yugwNCwQG7RcamQLBnvE4lmQG8LNq4baERdmhItR7KBcOo1zIEaA8DsErTypIV
+         IKI8fM3otntIR9zFtb8CqlClNNdqZlVgmnlmI9ZKSmNanMSIqAz0o0WbsC7w1ab8ftb6
+         6g+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
-        fh=ZJ6NUahn58eGSCwdt0kmPIiR9FmyXr1pb4FQqUKl0Rc=;
-        b=Pp41EjOqZRHODG0HGCTm0UVj/L6xidjkD22KMweN+cRiobI5YDSn9ML0dkPEp1UoDV
-         HKL6azyJJWqW2+kFzuQiKPqyoQ9MHbABn1G2OYWznV2votQgPOwoKwYD/5VN1IpveRrD
-         hWqSjz2JepbujALelC/476oL28QgVoq0d9x0zng6NvJJV7h/LlkZAxpluxL55k1zQbNb
-         2t+NfQ8+RnX+sChHW4rcvh+Bjfs76J3hZGNVdz+qne6iCMhEnnlL0NM/Dh4JLXCLJTES
-         6r7UPhjHfd22Jmddb/LpkTGNE4mLQhRHXJnS2TYLxwyYzt+qS/es1oz1oHyYHvnO/j7q
-         Pzfg==;
+        bh=wCfuXsU+jGX9D3S+uWIcLeSkVcle/hWcfEI/8sFir7k=;
+        fh=+EkHVdStwtii5wkzgUNAZeXPjCx95tlIXWplKyPL+Wc=;
+        b=OUb/GrfAYWxT4DYyqdWKKYt1dbceHCO4CQbnxwpFbsDFrBQaEh2aCcZr5BztMUUpWx
+         PtbYUwE9eWaJg0+LhozkCfsKn4iLwEYVsUXut7oKb/CFHAMcKalCnmOWyXqYnuspYe1q
+         JHwWuKDxCDgjyXNudG6L24vctWiD9Dtb1Lvcj8t3Bc5RMVGNTEjDmOJvHa6Jyjp5RIzX
+         MlORlag7X16CZKykNfjnnImYJFfALBRMEZGCFdLgW8XpF5h/8eRAVZnySx/xvAWuBbEW
+         NmbrRkh0jq+qXvBxiVdWTYRh111AbS0A+/3bHA7Xk1FV/Xq70n+YipBT6xNtpNkq4iDS
+         +Y0Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794332458; x=1794937258; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794332472; x=1794937272; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
-        b=OwV8IN18ChH9GSyAvCZytPW9z+0QGo+xoXMH/dcrIGwjwXuydP4VNR1ynqT3YWa8sQ
-         tTXOrS0CkkFj/bTEWiZqqKnN920fD1pjkYuTaNVmc83vUWHAdTC0fUC3Ki6Ir69HhzRA
-         61dvfN21vPzpv0DwVrmkai/NOcSpwr2lJR7y+YHvlpahCSjpxh7VRHrWr4LF8hb4eCCv
-         WyyH0v91Eiioy5v6Ox7ph3wcO3OX+ZQjsvUyH+tA/gkVOh97WvKfjUTN1cozhH0fYD5/
-         F7KSuv+XQBNYtskZwwH/zbeNvymdKva031bKsXwIRrNatOqW/jYCORQ613WRx7xWxhRg
-         ZSQQ==
+        bh=wCfuXsU+jGX9D3S+uWIcLeSkVcle/hWcfEI/8sFir7k=;
+        b=tqyUJ9mDV57DDUQ4jmGKqHQ5P9unPBh/usQ9PY6yFQZDjdjmmqfCJikNQjrf7Nwvz6
+         Ccc0XeVJnKc+HU7HQ3lwalkVZfe2xi+KzqOzBEBZ86s/40P9Ugq75oB6AcGJNY6UPOTY
+         xgCMDRojnOqDubf00+ZoE2WaobSCWpBueO6xnpWSeCW7QcjzI02bbQ7w52lRpUWlQiqG
+         IZzYekkTvg1MH7xYrYy9ptFo6L/nvKzx9Q+c0pEFO4wRC94lIUhSezF3SxBcQqaIqVtu
+         2NNOfA+ExFtYU3Ip5fZuP3kBpEkETCezfSOpB6mpY7habrogPr9ToKoCgpU+6HudT0Xv
+         oiWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332458; x=1794937258;
+        d=1e100.net; s=20260707; t=1794332472; x=1794937272;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
-        b=RZWk5YyS6WvQP/obUTHY8rDozkYLRgswVUC5wc0YWGJQr49q7AzwsMHVXrGIbCfwuG
-         I2OBgTPdxmmKI52os4FhVlM2ti47rvH1tN2cZu9mjK10WE7kcyDelhq4g3/rnwnI2Scc
-         ASbW7zn7F7IsIb5xXh0pMTzcA3zRBMF2t3457M+JUzIdi2IoZDU08O70hcTqlXa8Wy5t
-         98GZFXn7qmnQm/Lgz3HRUhZEB5dQlZ8CUN788YPOFOyRqFlajynfv+Y5B2SBRpVImv4b
-         l8sBbjJ26DNIF9S9Dya+2Rv+BZ0JzWGqkVHLiuq/57RIMDbX5FO6sOWHNJZxvE/43S0v
-         6b2g==
-X-Forwarded-Encrypted: i=1; AL+hErFPoesQ3IMEea+tJmOHp2p597WWBjDK0Tg3vIGMIveqquDmNm3p8fyEUoOhaep8dwfXub8tgEwONHG1+NY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82Xb29BO6zxFmc/O/EYAKIrdJov3loRKAdZlFnxUGFj/+YDNzp
-	NteXID/u1jUMPkPWWeBYUPmOp7v0adwnkvKGaEomZExxcAU3DDpGms/S7vc3C+MNn8C3MpcPQWS
-	MCxuG/w4kTqvsajl2Rd/tLj5Z/dQ0510=
-X-Gm-Gg: AYBFou3qukFCL2hrJZGXU2DnIqMzBTGzt5tWdUZZDBhheyxfQNelOI4dZXya1JyzEk+
-	KLxs+weQQXbmJeyoQUfi8p+sE8KqUCZNIribECKeqOmgBqxuvfWGpnoz9h04sCF/ImG9cPvo/Rd
-	UUT4ZJJPunAGFdQMTxJrJVr5gNZ7b2moZSdjxpmiZLZfjXESY3/N1UC/XT+W1TQdtInTKh2ZABW
-	l7SoPLS3vjkTEQN42Dm1L8yHcnALy3X0dfIk6LpybF9+RXilAxKDuxqqvlX4VhKYiQ22MFt4xwB
-	ns0mvvtf49jBu57Caia/BmuX0s2pCacyOkmo9cfGBOOtsOru46JOz/92kpuioUgrTeT7rKBfq6m
-	H1VJyxZaAuezft7j4odiOaSljFr6j4urrfSn+DiQYdRu9kD2klG94gqzKUA4F/jwSiVhja2h87a
-	L6nFXo5Tkba9Vjd35KhF6nNxB8uIshuaucdgsaTIYQsPgvDskWZZZG
-X-Received: by 2002:a05:6512:1256:b0:5c1:4bbc:45cf with SMTP id
- 2adb3069b0e04-5c156ed1806mr917830e87.48.1794332457809; Tue, 10 Nov 2026
- 09:40:57 -0800 (PST)
+        bh=wCfuXsU+jGX9D3S+uWIcLeSkVcle/hWcfEI/8sFir7k=;
+        b=w//VJ7wnHnkkrMlCOJ8CrI0fx+Z1ahpOA8g+Mo6HkRRClhhI02uTVoHH8elhjXIr20
+         jksg5JwNnmNZb+d9GcwzqjOaSmLGTxEsLq20A/kz/o4kCNQKly97Rbz+x5tSepYYLGFR
+         +dl3ZP1qB7eF+iihCQt0rPWfyqiu/5mXnYRR52OWTIJ3dKFNHO8hv5vi0MAuMpAZGFQ8
+         EyeOu3GRTbd1nbhUzPVPgHkOLsGBE004SNIaTeytjhBWzx4Pch2BZwcmDGsdQeNAxbCn
+         XyYUrjkw4nEepzQ9XHGFaw3gIqfFFaII0bpcCzyM/BWCWkYMdTkHuWxgV8jve+hAwVGK
+         Fqlg==
+X-Gm-Message-State: APuU4Z+kTmwuRokTsSlZjxSeZbXlm9ZvIcztMZinYgg2hhuFmGrndHkw
+	O+7doOzkIX8KaeImfvwJUTEfR7dXsnw6MxIzYEVLV1OsjS53UCOQaMf/sggYupAWeaaptJ+KPNn
+	d+Hmgy/Wc2i+8WS7WqIJJpqLT0Sy93Q7E8w==
+X-Gm-Gg: AYBFou3iehRflKkr7GyMkbnQr6OPqOalBJLvFaVOV6w/0yalu2H6Xsoagu/MoPyAMa+
+	7XyRZDcKEytT+/2ladwf6qLzrUZTSQxMjopUS35WZazT/zqYepl61Nf53D4Rp2lGIgn57UP67RF
+	f/5E8sPgvy/Qk1f0oeCvVAHcWsZe4Rqeaj1OWMJW7EFGs2/FC80YkQNjvgV8R+X81WxeFAlZs/m
+	4QQuMAtWgbUhyzGI3jSKpMOVfggyCi4SNtzMa2Mqn+N5wo3IPBcrTZHZHWIR+S1DBdByYx7FKfv
+	vG1EAWgECJTn5BpW3eoFYXSj7a1zTVaK5g5jdeCvnbyFrIB3xYJKw79wN8S++awhLKsJ4wh8ae0
+	gF4iO1c1uRt+0ceoH34sSAUecveC1x1hlnCtZ/Q==
+X-Received: by 2002:a2e:bccc:0:b0:3a9:d9db:61b0 with SMTP id
+ 38308e7fff4ca-3ae0969b9a4mr7013331fa.24.1794332471806; Tue, 10 Nov 2026
+ 09:41:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,33 +103,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110054836.1515030-1-senozhatsky@chromium.org> <20261110054836.1515030-5-senozhatsky@chromium.org>
-In-Reply-To: <20261110054836.1515030-5-senozhatsky@chromium.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 10 Nov 2026 10:40:45 -0700
-X-Gm-Features: AclHuK9g-rt6zF29XhO_FN13akwxVP6MwcYrtYAv2oyltJQHd3ALM1tNti6L_YM
-Message-ID: <CAKEwX=MWLim2q7RaSchFRZ215avMfW161hKAKhxs888NgRRMOw@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] zsmalloc: switch handle type to struct zs_handle
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-mm@kvack.org
+References: <CAHnbEGLHGX2rMnf=S6CasoNyc939DTe-whcsjt9WhSWG920OoA@mail.gmail.com>
+ <434f6474-b960-4383-8d61-0705632b4c33@oracle.com> <CAHnbEGJq-w4CMS1dg8UBraV+6kLMkmC-hO4Dq7f4z8Af6maitA@mail.gmail.com>
+ <41e9ed40-311d-42ee-9fe2-5af3ecda67d4@oracle.com> <CAHnbEGLuYq6vYqq9M3w+W0iR-r0OOeCfSD3cEV-yekAbo-yAQw@mail.gmail.com>
+In-Reply-To: <CAHnbEGLuYq6vYqq9M3w+W0iR-r0OOeCfSD3cEV-yekAbo-yAQw@mail.gmail.com>
+From: Sebastian Feld <sebastian.n.feld@gmail.com>
+Date: Tue, 10 Nov 2026 18:40:34 +0100
+X-Gm-Features: AclHuK9oBNYvTMxhqSPOa2z3Dz-d_QvBWMj-KqyAMHtDJLmXCt35I1DZU94hoZs
+Message-ID: <CAHnbEG+qCwHRptvTGYDY_PeCN+61DVQRf+UcGDnhB+m6H9Np1g@mail.gmail.com>
+Subject: Re: fattr4_hidden and fattr4_system r/w attributes in Linux NFSD?
+To: Linux NFS Mailing List <linux-nfs@vger.kernel.org>
+Cc: open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 9, 2026 at 10:48=E2=80=AFPM Sergey Senozhatsky
-<senozhatsky@chromium.org> wrote:
->
-> zsmalloc handle is an unsigned long that holds an address of a
-> handle_cachep object, so zsmalloc and its users have to cast it
-> back and forth.  Introduce struct zs_handle and switch zsmalloc,
-> zram and zswap to struct zs_handle pointers.  Functions that only
-> read the handle take a const pointer.
->
-> This is a preparation for embedding struct zs_handle into zram and
-> zswap entries.  No functional change.
->
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Yearly reminder that this is still not fixed.
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Sebi
+
+On Tue, Jun 17, 2025 at 9:59=E2=80=AFAM Sebastian Feld
+<sebastian.n.feld@gmail.com> wrote:
+>
+> On Tue, Apr 29, 2025 at 3:45=E2=80=AFPM Chuck Lever <chuck.lever@oracle.c=
+om> wrote:
+> >
+> > On 4/29/25 9:10 AM, Sebastian Feld wrote:
+> > > On Mon, Apr 28, 2025 at 4:15=E2=80=AFPM Chuck Lever <chuck.lever@orac=
+le.com> wrote:
+> > >>
+> > >> Hi Sebastian -
+> > >>
+> > >> On 4/28/25 7:06 AM, Sebastian Feld wrote:
+> > >>> I've been debating with Opentext support about their Windows NFS4.0
+> > >>> client about a problem that the Windows attributes HIDDEN and SYSTE=
+M
+> > >>> work with a Solaris NFSD, but not with a Linux NFSD.
+> > >>>
+> > >>> Their support said it's a known bug in LInux NFSD that "fattr4_hidd=
+en
+> > >>> and fattr4_system, specified in RFC 3530, are broken in Linux NFSD"=
+.
+> > >>
+> > >> RFC 7530 updates and replaces RFC 3530.
+> > >>
+> > >> Section 5.7 lists "hidden" and "system" as RECOMMENDED attributes,
+> > >> meaning that NFSv4 servers are not required to implement them.
+> > >>
+> > >> So that tells me that both the Solaris NFS server and the Linux NFS
+> > >> server are spec compliant in this regard. This is NOTABUG, but rathe=
+r it
+> > >> is a server implementation choice that is permitted by RFC.
+> > >>
+> > >> It is more correct to say that the Linux NFS server does not current=
+ly
+> > >> implement either of these attributes. The reason is that native Linu=
+x
+> > >> file systems do not support these attributes, and I believe that nei=
+ther
+> > >> does the Linux VFS. So there is nowhere to store these, and no way t=
+o
+> > >> access them in filesystems (such as the Linux port of NTFS) that do
+> > >> implement them.
+> > >>
+> > >> We want to have a facility that can be used by native applications
+> > >> (such as Wine), Samba, and NFSD. So implementing side-car storage
+> > >> for such attributes that only NFSD can see and use is not really
+> > >> desirable.
+> > >
+> > > I did a bit of digging, that debate started in 2002.
+> > >
+> > > 23 years later, nothing happened. No Solution.
+> > > Very depressing.
+> >
+> > It's a hard problem.
+> >
+> > Focus on the recent work. It appears to be promising and there have
+> > been few objections to it.
+>
+> Do you have any reference to that work? Are there status updates?
+>
+> Sebi
+> --
+> Sebastian Feld - IT security consultant
+
+
+
+--=20
+Sebi
+--=20
+Sebastian Feld - IT security consultant
