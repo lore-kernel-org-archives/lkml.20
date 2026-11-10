@@ -1,48 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323095;
-	b=u5x7byb4Y0S7p++aY6egtbydXVgqoKD1r5jHV1M+L9bg930ssf2V22sak3MYN+X20VQ7
-	 rkEuPgzN7Ddm+oxS8Lj6WWx97G5xzXOhwcQ0VZ0eDAWx++wKQvvnGNvh2Q17ldsjdYjOZ
-	 89yEGc5kOTetlMqUJO3zSGUTaDzVcaG2w3A+ImcKnE0/gezmEjPuCtCd2MZggnOlngvgo
-	 Eu2X8OifZybTuR5Dr2+ljRddjcCkUKEkAUrQ3qWJcbv+lmEWmQbUGiTM2TtRnafuA0i2y
-	 3Il4Q7geMW4D+1YboYfVtgm8IeKvoQtv5QNZT6NmP692ZUStnm389rmsPuGxTSoklPQ==
+	t=1794323102;
+	b=4/oerYgS9dLWRvP5VM+9SRB5GFuCamJD9CI9nUd0xROrSFQcJ5Tt+dpe5z4KtNoaz3r/
+	 ODjzSoi30VFk/Qf4YjVp+Z/T9zj985XSSbyR1AF72TYr2fLy0qHHUBAY+2/13rU+8yYzB
+	 WCNHs37VmWUtFxSm5OicNfIrk69iQaVD/E6DDsAEikfJZQ/VxDYAVkKnNjI2LLSqiQwEe
+	 yVILrcEYRPp+8y/cb4mq+P+r3gl4yz9pUWqkMcErSvA2LpRjzJT/WQ3NknXSAPPBqVmwa
+	 d8AzOkwcWx0/YJ2KNoqSWiKa/pl3jT/lDWOd72ncywgOH3Woh1DrqL1JCoox72fU1vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323095;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=I9eNLNHnnsZymMi+Ov7Sf3KUgE/w+/e3nuXMzPXdo7A=;
-	b=BKYiH9hdsRxPGC2uLZ1JN6B9dDfHKdzKuPP1kDbPjGefbP6gWrpP4FraVKZ2WDm4Qhnd
-	 KYcYr4AtSp9VC6YU6B+ZVU2iWrgrQZ+TbSoZz+EwQIx/Ag3s6x6WkGlq5f9CRnAaPSQ+W
-	 XvDvlDsVv7tlvAKOlaMSj8rBxeCtQ3KdsEm4hkM1H07UvdbWfm5xdO3dX2tnMGYsEA+Mg
-	 3sqiRhYYU4IyqccuQZ23Qnd+XjvsBnjdMUvq31aREO2r4LiHw/Lawf7KiH8zxoAxWWijF
-	 jrxCUJN42ah5AnT7Ii2B05hleNF7XTKxSw38e1jhE5LakX1YJ9AlHrgTpLg6RclMHXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323102;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+	b=r0tHAEn6Tvrqks9Ush0w45YJYj00jVm6QHmGyS672tEyCBGCxTQnecsXuQ/UbNRLwuQZ
+	 PncvQd/YQEMqtU+FeCi3/Bvxa460io/p5oB56qhirFdJARXJu+vIo7CfmSsnVMcr7iHFn
+	 hdOFYBqH2zl179BYbuU1AONY05ANUnoVoS9qCopFPEKA/NKbA6XPGs2IymRfwsHEpS6sk
+	 2UwhkvIJWwgarnPafvNaC8xyvZra7HKRXk+wBqfU2Jzlj2TIQJ0ba+DHrmW+tixLprN8Q
+	 rOKd/BPo7s4l2V/eWUAJuTgVLf/5cTaQ0aAE0xcMI41IGkJQL1Mcj2/5DiWEPC7wMIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d31qrwmQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OeAfKayF;
+	arc=none smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9163B606AA7C;
-	Tue, 10 Nov 2026 15:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3C260A2635
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA3C260A2635
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d31qrwmQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A004E1F00935;
-	Tue, 10 Nov 2026 15:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323095;
-	bh=I9eNLNHnnsZymMi+Ov7Sf3KUgE/w+/e3nuXMzPXdo7A=;
-	h=From:Date:Subject:To:Cc;
-	b=d31qrwmQaRvK/ADa3U0zOM+VzAuREe6D7CuqyI4wn7eIoIWsiJowlhGpP1tO7EC4l
-	 OtPyU6NlkxUOon36x2BTMdPqIzkLQLvwU7+G+n8ljd32Nf3/cpnLsa4l8zIjFKm1h8
-	 2Xavaph0dvYw0BhpbsOXHGDhufOvzQ9FSM+5iaPR/0TjD9LSDUoOBo/zMYa006tKIC
-	 /9EaTGMhaDfCGx4P5AZ0SKp4ow5rzMwxXkoSrUQ+riWDCT/SIrlzKjmf7TEs5El0d7
-	 BKxdId7pwoQ8E4CbbdSh+O5RRcJIpOiTxFrTxDkIDmMDdhfEYJ6TTXzrx5vplGxAo/
-	 7BbdJ4q5ADu7g==
-From: Troy Mitchell <troy@kernel.org>
-Date: Tue, 10 Nov 2026 15:04:49 +0000
-Subject: [PATCH] riscv: pci: allow write-combining mmap of PCI BARs
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OeAfKayF
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91eb3fea2a9so20106246d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:05:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794323101; x=1794927901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+        b=OeAfKayFw/U8tXt5+8PF5aWc1zYYuu9pB5Vj1H962RidOXYXTsiG3wR/DVlxvk3H+l
+         MlemwIPzI1Y5jf46zQFgEOeOB7YvK4K0OwbZ8RaBCi6F02UXyEq2HPJxmbflGr1tEyat
+         zRr6tz/9CoxDvwENnPBzrVxlNNeT+H5POsUJcnLwUSL1UO8TYaCyosrPyQIHd9QXCgFt
+         Wt+V+mH833LajUHFjMj70lrCVX+zcjGwZFT6NWZu2W7x3f081sdvVvVEouogFtKp0JSU
+         tdm+Us8+0eZIfuQ0zpttREeKLvR7ihFt1MxG2CUvC3yhry8s3MpD27q0xjWR97zKbAtT
+         /zBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323101; x=1794927901;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+        b=M2Uh5DtocNBLDue/jH2E1tYaWmgwjYU0UH9uOURyZhalhyL3aPfvQWuzIN6al0UjES
+         3qetwY9rV694vcb5ctWTtC1YPaHLDhLk1qv+ETVLT7/2mBOIegxrbgIMzfFFbcR91S3i
+         WefFVB1QrbsV5lZUG42/LirmzWcWNLaBV9qZynaZoN6wI1raceVJOhWV7XVMSal9AtKi
+         anWhobbyh3YTtOKYWOGcBJvsiqIIRObQ2y5tdOlTUDexTPpefElHJUqo/+79iVzR+/YB
+         lvoPh4NEO8j+hwhIpVVZ8JO39HVZsQ3fB27At5I/MBAfu3h2ok9mxiMhBIKuReZEPbE/
+         y9Fg==
+X-Gm-Message-State: APuU4Z/gQfZuF6D9QeaaLWsK8AKrr25oBH8QfoEnkQoL4IBQCn1Bfz+F
+	90W3Bno02TG1REh/6LexYtLfZjXjjzqRaDbDGS/r72ikj8Td6ZxxdySw56HrkAzihPc=
+X-Gm-Gg: AYBFou1NhaS5ZJiEV/Syro5BhUCZUgbhwCypoIrLj03TfzYwxruChUs6aazIgMeYMFP
+	6P431cYpinlrdVB8oQDqlBeUw6Piqx8nPQYvl969DIWK708TgeKBgmxfsWLtqS+EQg6tmo5Q9sF
+	JhyuhCd/yw4DR485p7HBTnn5uYY7djhaHzzgIKHZrIqzXbSG4yNDQGwokiU1EqT0BLNHICsidB8
+	kW0EkgeTuVOiiHHpbuoc6bw5tBSdqlw77I9h0tZL2s8P0IorZ8WFeZ4v9mGZMGZzsVZTmAi8qCd
+	o3NMf9pbiPGRsGrdJrGTH+O/Hiegc+FHwZRIPsVoVf+gVSpPeYCVrRoBhlh9f0PEzB8yszZQW/s
+	mCDG8tH8GDY9x154xbnhuWcPr3i6rNdr365tb+AnsE1YviEt9O6iqkqfZzFNn2zbOfr/zB2bMgH
+	/zQfKBHzdtI0D1JYz97T1tWYulkrdlv9XPM5Kj/UhYykJwBgnV0Bs6gaB+TE6mcVF2grtP8wRxf
+	BcKnu6BabjhgjkbAoTCtLa1a1daRkQUe3PL2cdNcDRDohLYcZCw8GrDDWLWO2B3B2MV22g5ltME
+	LygOHWDll42KZHvsh/2b+h888LQtlmsK8MLKVJ/3LXEwUiQdUCKDKasHJW8v3Z6IBmcuRYw18aJ
+	2ZPRXMWMqzRx8JMU=
+X-Received: by 2002:a05:6214:3d07:b0:91c:78cd:3496 with SMTP id 6a1803df08f44-91eef963041mr42647946d6.30.1794323100558;
+        Tue, 10 Nov 2026 07:05:00 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef031c7dasm22902406d6.1.2026.11.10.07.04.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 07:04:59 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@techsingularity.net,
+	mingo@kernel.org,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	matthew.brost@intel.com,
+	byungchul@sk.com,
+	apopple@nvidia.com,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hannes@cmpxchg.org,
+	osalvador@suse.de,
+	raghavendra.kt@amd.com,
+	stable@vger.kernel.org
+Subject: [PATCH v5 3/7] sched/numa: scan read-only file mappings in tiering mode
+Date: Tue, 10 Nov 2026 10:04:42 -0500
+Message-ID: <20261110150446.2452975-4-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110150446.2452975-1-gourry@gourry.net>
+References: <20261110150446.2452975-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,81 +137,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-riscv-pci-mmap-wc-v1-1-1d16fb8c74b4@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQBGLRq0gXdhztCNGQaVUQ7
- 260y7f4fwflJKxQFzskXkRlnjLsowD6tNPAKF02OONKa02FSZQWjCQYQhtxJex9yeTZOu+fkLu
- YuJftfjavv/X3Hpm+1wiO4wRWHpRMdQAAAA==
-X-Change-ID: 20261109-riscv-pci-mmap-wc-f56ec5e12557
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Troy Mitchell <troy@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2058; i=troy@kernel.org;
- h=from:subject:message-id; bh=zLbxZxQzl4eEu3cEA0QdNlkw29aWNgLaoGnwM3MjuRo=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFmfjSYr3/vT7b2Vx/M5zybhwAlvXRbflziZe8te7cLir
- Oh39+WUO0pZGMS4GGTFFFm6H/BsK/CJsi0QKPSFmcPKBDKEgYtTACain8fIcOGk9F7D4uKJpvd1
- nRQN5nXeFe263eB+dB5Dc1zQxcU2FowMy839/okaxyetu9Y544GP4cPoR3UW74WPnzA+rT1R2nc
- HPwA=
-X-Developer-Key: i=troy@kernel.org; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+Content-Transfer-Encoding: 8bit
 
-Define arch_can_pci_mmap_wc() for RISC-V, so that the PCI core can
-create resourceN_wc in sysfs for prefetchable BARs. Without it, the only
-sysfs mapping of such a BAR is resourceN, which uses pgprot_device():
-with Svpbmt or XTheadMae that is the IO memory type, where every access
-is strongly ordered and nothing is merged.
+Commit 4591ce4f2d22 ("sched/numa: Do not trap hinting faults for
+shared libraries") excludes file-backed read-only VMAs from NUMA
+hint faulting to prevent east-west placement bouncing.
 
-resourceN_wc is mapped with pgprot_writecombine(), which selects the NC
-memory type when the kernel uses Svpbmt or XTheadMae. Without either,
-_PAGE_NOCACHE is 0 and pgprot_writecombine() changes nothing, so
-resourceN_wc would get the same PMA-defined attributes as resourceN and
-no write-combining at all. Make arch_can_pci_mmap_wc() true only when
-_PAGE_NOCACHE is non-zero. On 64-bit this is a runtime check, as
-_PAGE_NOCACHE is chosen at boot from the CPU extensions; on 32-bit it is
-always 0, so nothing changes there.
+This filter hides hot file folios on slow memory from promotion.
 
-Signed-off-by: Troy Mitchell <troy@kernel.org>
+Scan those VMAs when tiering is enabled, but make their scans promotion
+only to retain the existing restriction. Keep the historical VMA
+predicate unchanged for backport-ability.
+
+Decide the walk type for each VMA from the balancing-mode snapshot
+taken in task_numa_work(). A VMA gets a placement scan only when normal
+balancing is enabled and it is not a read-only file mapping. Otherwise
+the walk is promotion-only, and without tiering the VMA is skipped as
+before.
+
+On a host with 768 GB of DRAM and 256 GB of CXL memory running two
+database services using ~430GB each, 169 MB of their shared 185 MB
+main binary accumulated on CXL and was permanently stuck there.
+
+With the change, the binary tier residency tracks its runtime hotness.
+
+Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- arch/riscv/include/asm/pci.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ kernel/sched/fair.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/arch/riscv/include/asm/pci.h b/arch/riscv/include/asm/pci.h
-index b2f91abebd61..2b2db5533576 100644
---- a/arch/riscv/include/asm/pci.h
-+++ b/arch/riscv/include/asm/pci.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/dma-mapping.h>
-+#include <linux/pgtable.h>
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index e353d3d3012ea..c0b7271f1bce8 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4272,22 +4272,21 @@ static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
+ static void task_numa_work(struct callback_head *work)
+ {
+ 	const unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
++	const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
+ 	const bool balancing = numab_mode & NUMA_BALANCING_NORMAL;
+ 	unsigned long migrate, next_scan, now = jiffies;
+ 	struct task_struct *p = current;
+ 	struct mm_struct *mm = p->mm;
+ 	u64 runtime = p->se.sum_exec_runtime;
+ 	struct vm_area_struct *vma;
+-	unsigned long cp_flags = MM_CP_PROT_NUMA;
++	unsigned long cp_flags;
+ 	unsigned long start, end;
+ 	unsigned long nr_pte_updates = 0;
+ 	long pages, virtpages;
+ 	struct vma_iterator vmi;
+ 	bool vma_pids_skipped;
+ 	bool vma_pids_forced = false;
+-
+-	if (!balancing)
+-		cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
++	bool placement_scan;
  
- #include <asm/io.h>
+ 	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
  
-@@ -32,6 +33,14 @@ static inline int pcibus_to_node(struct pci_bus *bus)
- #endif
- #endif /* defined(CONFIG_PCI) && defined(CONFIG_NUMA) */
+@@ -4375,13 +4374,22 @@ static void task_numa_work(struct callback_head *work)
+ 		}
  
-+/*
-+ * resourceN_wc is mapped with pgprot_writecombine(), which gives the NC
-+ * memory type only with Svpbmt or XTheadMae. With neither it changes
-+ * nothing and resourceN_wc would be no different from resourceN, so only
-+ * offer WC mmap when there is an NC type to use.
-+ */
-+#define arch_can_pci_mmap_wc()	(_PAGE_NOCACHE != 0)
+ 		/*
+-		 * Shared library pages mapped by multiple processes are not
+-		 * migrated as it is expected they are cache replicated. Avoid
+-		 * hinting faults in read-only file-backed mappings or the vDSO
+-		 * as migrating the pages will be of marginal benefit.
++		 * Shared library pages mapped by multiple processes are limited
++		 * to south->north migrations as it is expected they are cache
++		 * replicated. The benefit of east-west migration in this case
++		 * is at best marginal and may be harmful due to TLB/cache
++		 * invalidation.
++		 *
++		 * Allow promotion as a cold page incurring many cache-misses
++		 * under cache pressure can drive considerable bandwidth.
+ 		 */
+-		if (!vma->vm_mm ||
+-		    (vma->vm_file && (vma->vm_flags & (VM_READ|VM_WRITE)) == (VM_READ))) {
++		placement_scan = balancing;
++		if (placement_scan && vma->vm_file) {
++			if ((vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ)
++				placement_scan = false;
++		}
 +
- /* Generic PCI */
- #include <asm-generic/pci.h>
++		if (!vma->vm_mm || (!placement_scan && !tiering)) {
+ 			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_SHARED_RO);
+ 			continue;
+ 		}
+@@ -4461,6 +4469,10 @@ static void task_numa_work(struct callback_head *work)
+ 			continue;
+ 		}
  
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261109-riscv-pci-mmap-wc-f56ec5e12557
-
-Best regards,
---  
-Troy Mitchell <troy@kernel.org>
++		cp_flags = MM_CP_PROT_NUMA;
++		if (!placement_scan)
++			cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
++
+ 		do {
+ 			start = max(start, vma->vm_start);
+ 			end = ALIGN(start + (pages << PAGE_SHIFT), HPAGE_SIZE);
+-- 
+2.53.0-Meta
 
