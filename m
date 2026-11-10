@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286049;
-	b=11Y2LcD9hFYNMxbn3blKgGfQResV9K+Cg7lppp40Bu6i+O2MbqE4Tzag/XMpQT940fD3
-	 yw5RzGLZeIkxKNSRxZGwo+6NOoillOF718KPNmp/brl92DD7cfP3zm89njUAiWGcist4d
-	 vczgCK65ss7W5ZjhbWieXfojX16NoJH0MQeMTnwe2OLmTXHtmqR0xuTio+KuzyPVQsfNv
-	 lO5GLyeX8Gknw2yF47vYwW4/RIklId871SSYu5V8n2ssFt2kgUnZARzhKmwfSr8VeYfXU
-	 WbRrudOClVyh1/cmnKa8u31pIlPzwZlGRTRcnMPiBR7dpWsvMnpUvhfBoGnhzIn+t+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286049;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794286167;
+	b=jmk6LT99fsjRCBGG225sjOPh2s2asdd2eMy6IaCLwUoigu7wet9Il6lYn39K3EE+kahG
+	 jzoUGRpOf/7deRZJYxO/yerHtkfJ8qLxPxLoGL3091QIJatSb4JsRT+pzIaoKlUOJBjkS
+	 By4JCE0pRJrxstGG53OSBqU+IP6bXTtjhQCkb+vsRAJpge9/EZHEv8dySVW950E8f0V4c
+	 RNa11k+vNDzZ/5quCZh8+6HpSiMlzkItk65v9ZNrgkZIgcM1xMhvDxngdJnGlNNlcDxrE
+	 vCumKXWq+2jGNHOX2bqW53qNGr91R8p3wu5dU3aY4qx3Y6YN/CgFSSR8N22IRlhdyBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286167;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IqXwC3pMxk6g7+TWqeDTzs7FinmxAK4PGG891U1+a7c=;
-	b=svwMXwcYFs+uAPuybbBbo6oy7JpJmTWDqWp4Wr+Jg8dqUHm1/u/5bs/nUCOQVJBLlRrt
-	 3+Ri1KVVAZ1uKKunXtvnLXeSG3VXdWEg+W+lO+tMDwSZ+FHKOOmW4ao6f6NiqkxyO/vRU
-	 de3OAIuxMC8+IujMXbBr+bC0ISYQ3i69wo8zfvtAwte/yDqXpfvgsDXhD7IyHPV3McX0q
-	 Q59azFci98KGP61BXdKToWlv0KI/mwktpT80BCT4Ttdt7Pm5UWfLPeAFH20OFZzqPzbLM
-	 BRrClpmWstmDHRTRYL1s+GtbcQfl4Yrmbclf8sWF4WxV+vFvJ33DMTZc5JUeVTo6BLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
+	b=LNHKosW2+6ZRkL8P06m8uQ/Uxwh3W0DzBBGDpZfpLhk8dC/Ek1Ltptj6QTBlc6sT6ic5
+	 lCej5YeKKp7w3PeNusY5zDTEfFUzUPi9W2FZP9WQPS8xl3bLgiDnJ5NRuyX3kgLcHZX/7
+	 Hpjau9BiWbte2HNAwaVKER7+XCrEP8SnZDmdwXEY9hD8DxejAySSU37ixYM6MDYA/b/mn
+	 4H/1uD85QuIbF0xk2ZGnLNvFd0DIBc+zUIVLUvB6oaAdqANnCOXkPUXIg9wbX5aj7+u9v
+	 RFMPU+5ox9u561CXpXWJqH8J2U+GY34yLoGl3qLYmr5qnou8l8TDeJes4WlbH0Nk4ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AZly0ZuU;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNAj7Hna;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B181C606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B181C606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C824C606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C824C606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AZly0ZuU
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9441591aa5cso181860885a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:47:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNAj7Hna
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c434376dbebso302190466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:49:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794286165; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n9DHfZnzsO9wgOa+omme0FefOd9OEHUbCExWOYj8rNZ0wD2NpiHUlXBIRyQzBxyJix
+         dyh0XheEpXw/syajRGTIa7OrzmRVpznmhT8KlrEHh42NodG3qGe959GiO7hi0INFKI67
+         xdzVoZASuS3u0JZP0Waww5osjcAnnCzgLwVuZBzxo8oQVD8SKrs5kbyImLK1VbFLiIrm
+         uuxXubFpVNAm6zUfW1VyE1vK8CSSNFWe+v5xm+e9g3NWShi5Q5YD5Mi51HKCb8VJtalj
+         qtPDLj4dM+GV3GlBI2gCHCI6GMKnbR9Jnbf0YjqMd5m/imauZZU8ecHjQvzzP5CWUmz7
+         zbZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
+        fh=G9fHAib7eO2hi7/vvrVYV3+MB0EU7/T2DgFNhYjDRq8=;
+        b=c45ceR8KututhU97YXN4peA+YDlb2Pq6xutpfqXJQgN/Yr7C0YhFjg3BChYZbti0Gk
+         XDe8qkJObSxHaj7hJRPukc6gV/hjIaZt9OZUO8moPgbjR4S2RkbEsh1q6WOURzmlLrdT
+         HzWY1logZLdVgxVJBwJc9QNzC73ll1WwgTN6nOfX5d7q6fa8QHKholFT7EcFHGn2Rxtt
+         5w5XABT405v4dPcy6V+5sUzE9NDJ8LCAERml2RqPWDzq/kj8lh8eq0Qh/GdMBUmQxS43
+         Ivh+0XV8v2b28UAefQhENyWhLyphp0/PM5uOmVjcvKTYD3HCowMb5uM60DT10If/KE1S
+         epNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794286047; x=1794890847; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IqXwC3pMxk6g7+TWqeDTzs7FinmxAK4PGG891U1+a7c=;
-        b=AZly0ZuU6Uiuk4kHv8pspfqBNz2vE91Tl2vaAv1CnxhNeu56Yd+XMYB+t+QqyJFLdf
-         mUOi/rt1pS7HTcoPcFmk/DI2+wdtF52qAkkIhDIGFb0g6LFOZTHp+yNcl5mnUnoXka7i
-         buP3mEfQtOgJGubP8RQ2GKdFqz+Z1+wGZ+1KVptLemmq9vv2B2WfFkfjFTU8U1WJaY2z
-         ujnCwHHHP9U4uEjKP2Ve/OVxc8ZzoWacWpDy4Y8eTBMpwAdQcw0XHPmt9MsIBP50xygF
-         /HnuqjAuv9mSFGZ+3vGA21cu7b7Q1V8eU/zhGJ1ZXaYFHiM2GVMGbbO4hXVRgbFbNGWD
-         4HTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286047; x=1794890847;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794286165; x=1794890965; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IqXwC3pMxk6g7+TWqeDTzs7FinmxAK4PGG891U1+a7c=;
-        b=NhW90IHoO77MeZZQ5DVyVrm7zc5oRGbCqzNBdAIdUo7MOI4Kmc5XQwOyVC97/7uhvD
-         x+yaX+1iT45abCDesEj3zySbUTN6aoZb6XzYPPPwsC15CA62X3zwLJO/rbV8ZDJeuU0b
-         /ncWMtYlTApeFFgoiIJpQnfLEzneipBvHoDPXe7Bxg1isqWbSsOGT6bjRVyRQ95Mo41S
-         Mt2iCkArodX7sTWXI/Yc1VaLwAQsc4HRZ4W8NJy08vPLcES727KmuusoJtnB8yGsl/F2
-         lFgXFYIO2CYstAVy1x7BSKbc9HOlJQ1xrb/FacvAlYJQfki/Q+/GmQxYAVyS4vmFcLNx
-         KEDA==
-X-Forwarded-Encrypted: i=1; AL+hErFR7zfXQAa2NCirKb0TP7tszGAfP1aT2exmjzODbzXGILpEnnzftbOhTWSblsrZlQDeoT/ADMAa4Sh9PYw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sWQAlQPHyd/MrW81e0Iqh0+O/MeDi8eV9z8a0NbWTYzfFzFZD
-	sWcy2tlf6Qx2hnEr3ihOep8LZcwgOUsv3uSZaGEKmaY1IhGZnGr2c8g=
-X-Gm-Gg: AYBFou2dNP0CeaFWOhYroV3ZhiL/XAXIbdWCigsVTW9CkTRMR68Ul2+/DHmoMwogZqw
-	q9TBF1xugABYBV58/sLbh+3//u56gXd9jPPJC5cFVtV5NOJ+C9PvNkfoKZs4yoyGo3VdQcyzTbw
-	RPTQ0WCPD3zveiokO/3NiouZIRP+e9LUxvSphDk01Q3518ffkR8LTej9uRbKkEu9Dw5jtcYWM6o
-	sAz9hnaHQ2CVbzd5aIMop+5VOBxsCEcdMiFNpc+DcuN6fa2QbTkV52nh0v3wStEIgyVM9+BjJeT
-	hWVhZ2CesydTkRGZf8gweELDnggNt+HK3SZEAYdXcboWqEesFddnHke4FUH6RY6obQcwkLNKuys
-	ivD+RN10rEYUJAOxyP8+jKKVmE51CNgdlPQlqJ8/W1lEzqa2tME1qj+qXgRAICAeXS66WhGv9C5
-	l5mNHyGJO4XO/VNfS/v8iKCIhMsmNOXsZhmH+z5yBHaFrB5Bt3/MNWiTNE7/6Qe//lXxWsc+AYy
-	rSWZ4Jv0H28Sd3JZTGGE0r7rUwMXj+kzmmWh07hN9ORPqS72eIefl5e8GsOdpgzJxBv7B9pdE4u
-	jm54vMiYAFRg8XHIp9IjNHgW5Y4ti5O5rm8zPqVXEFegZijVvcU23dFBFP/k1jIhZz84ChpwTcP
-	rvOfntkrWgW8wDsYRbUssX9u4M2sTmMjZXtUvKvJ97U3tlA2hWQcU1JlDKGTmEuBi
-X-Received: by 2002:a05:620a:371f:b0:93f:21b9:862b with SMTP id af79cd13be357-9479f315930mr236813185a.1.1794286047443;
-        Mon, 09 Nov 2026 20:47:27 -0800 (PST)
-Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73ab4bsm137920185a.14.2026.11.09.20.47.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 20:47:24 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2 2/2] HID: intel-thc-hid: quicki2c: quiesce IRQs during teardown
-Date: Mon,  9 Nov 2026 23:47:19 -0500
-Message-ID: <20261109-thc-rebase-v2-2-mhun512@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
-References: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
+        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
+        b=kNAj7Hnam86gLl8THKLqXdVh0C1qrr1kxLtviI7/vCTsNqfeZxlmCyoWeGx/0zTCpF
+         6umq9a1wq1Bc9+eOQ5j1SlGEAwbWdZ5jhMvn82c1glJoiwGJamNNdkb6wAq7CbKKpcGV
+         BuD6VO6w3Hn6rfI2rNLarxBsFhE41NxYrLT8vRCKREfisA6tclNBTDhgSHAR/3NPezGy
+         uDeMpfa5SOiLB3PPrZIhk0m46d7Ti3WQYLMSJj2a+1QM2CmnMal4shqDBZZyXhIbRK8R
+         oFOhliLrOfisx8JhUDyrIExFXI3ZSsba8nuxYxEilLXt2IqmJ4pJ/XA0dM2my5FRDtNj
+         qmfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794286165; x=1794890965;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
+        b=1GGOV5Vbgmaz1i7jv0Prtqt3ZPoiCK9CMx2RPEOmnAPG0b+5+RyEyjw9VlH+PZxDG0
+         Yp2b1iKJ1K2zCfDCWJyTx22Da/rLDnrgZG7FW1DoAVsSrJiPxJNsAV1lYLLqOJn4X0kj
+         hqOBUut9rYJfZy/+Q014FDSW8Yqp4z0EOwsGr7abAjhzGHOf/OifvesB8vGK/3I/WY6H
+         XpIWObVQs6NyhPvt1yvN0Lxh46UPCgf4v/agbjsGRgagsuCfzwR1hUOYe5fmbUlBlXdH
+         aeEI+ONNu1j7KHTL0awPaojAaA+EyD9ZfgO84TxuEpmoK+qHllLMvyEpRBMrvrfgj6sV
+         5i7Q==
+X-Forwarded-Encrypted: i=1; AL+hErFtiXmiSl+dVgzWPdsk224fBfENTw4vqiQ2L/hHf5cU9xCu7/PkACqGwWOsju1GoApAOm0rgqW3JXBt/p4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g4A31cNQuUPFRcLviUFHFzAO6jN1P3HU5O+XfGek8z2K/I7e3
+	mITbPFtnzcOg846a8eMTkk4UkAoBQUCN39ID4HT6SFSyLX2wIw1pqWNaeXvgHix16HLEVflQvtF
+	oRwcQ3e+tGasZkESPwjmfgl4lUAOsxixAc2y5Sg==
+X-Gm-Gg: AYBFou1IE++oOOc8HBRmw4Kfu6DjMUSO2ysWwnHYGPut9XJCeCIYlonKnUQsPh1Nvt2
+	1jQ2oE84bSD1NPNis2iUSnFSBYo5Z7w+EyG/mF/aPVLhp/6gvloWnMxgEwCPXt+qrXoJ4lZq9bO
+	UtcvNudVVfZO1Jx5egvzSlagQkL6xFrnDZ6a+ACWk4jboA0OTbBXjOTccpkmXwBO5xwc/FOUfc8
+	UTaPchhKjg//tCLwn1YMlE8hnN4a/Z1ht2/pzQSbYJPyVrqN3XM/f6RMecvagVJDwxg+TrVcZrA
+	7QLC6lKEC0DCjUe0SeZ9zO8cbHZoEn9U0QSGbpkqwhbea45kpr4pdDPsGeS/TPxnBwSMTdoNSmy
+	8pyDW+xJfQGjBwe1AUnEsjq91fyq/nqRQoRovrire6johDOBhh26bb5BxEytTfjttB4bFmASzlE
+	VZo5MY9Hdf2SkwMl5cKoPqjlrj4WoqpTXTQdh72ppWBYycjVk=
+X-Received: by 2002:a17:906:240f:b0:c41:4512:560d with SMTP id
+ a640c23a62f3a-c5049699729mr80819466b.16.1794286164826; Mon, 09 Nov 2026
+ 20:49:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,124 +104,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <gm-top10-20261015191529-g65-295aa0ac5211@mhun512.gmail.com> <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
+In-Reply-To: <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 9 Nov 2026 23:49:13 -0500
+X-Gm-Features: AclHuK9dEbOFpKZBzF18DRp2ysCfTdn-dJEdIFaJ5Bm7I0rvJVmVsW64xtISAdQ
+Message-ID: <CAGEsz8F3XkYkLOzrncnLVNHSgfC3tZ_zYdVrTR4xavq+h9anhw@mail.gmail.com>
+Subject: Re: [PATCH] media: aspeed: acquire IRQ after reset and clock resources
+To: Jammy Huang <jammy_huang@aspeedtech.com>
+Cc: "eajames@linux.ibm.com" <eajames@linux.ibm.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
+	"joel@jms.id.au" <joel@jms.id.au>, 
+	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, 
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The managed IRQ can access HID/DMA buffers or queue recovery work while
-remove or probe unwind tears down those resources.
+Hi Jammy,
 
-Disable and synchronize the IRQ, drain recovery work, then mask THC
-interrupts before freeing the IRQ and releasing HID/DMA resources.
-Track IRQ/DMA initialization for conditional probe cleanup.
+Thanks for the review. I will address your comments and send v2.
 
-Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and
-release outside the shared hibernation helper.
-
-This issue was found by our static analysis tool under development.
-
-Fixes: 66b59bfce6d9 ("HID: intel-thc-hid: intel-quicki2c: Complete THC QuickI2C driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-No hardware testing.
-
-Changes in v2:
-- Rebase on mainline b3dfbde62cf1. No source changes from v1.
-
- .../intel-thc-hid/intel-quicki2c/pci-quicki2c.c    | 28 +++++++++++++++++-----
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-index 29319b6227f3f6b14f3206d15b544b050b9bad1c..a3e98e0faff83ba90efcbfd244ed641688718342 100644
---- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-+++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-@@ -652,6 +652,8 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	const struct quicki2c_ddata *ddata = (const struct quicki2c_ddata *)id->driver_data;
- 	struct quicki2c_device *qcdev;
-+	bool dma_initialized = false;
-+	bool irq_requested = false;
- 	void __iomem *mem_addr;
- 	int ret;
- 
-@@ -704,6 +706,7 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 					qcdev);
- 	if (ret)
- 		goto dev_deinit;
-+	irq_requested = true;
- 
- 	ret = quicki2c_get_device_descriptor(qcdev);
- 	if (ret) {
-@@ -722,6 +725,7 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		dev_err(&pdev->dev, "Setup THC DMA failed, ret= %d\n", ret);
- 		goto dev_deinit;
- 	}
-+	dma_initialized = true;
- 
- 	ret = thc_interrupt_quiesce(qcdev->thc_hw, false);
- 	if (ret)
-@@ -742,13 +746,13 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	ret = quicki2c_get_report_descriptor(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Get report descriptor failed, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	ret = quicki2c_hid_probe(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to register HID device, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	qcdev->state = QUICKI2C_ENABLED;
-@@ -763,10 +767,16 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	return 0;
- 
--dma_deinit:
--	quicki2c_dma_deinit(qcdev);
- dev_deinit:
-+	if (irq_requested) {
-+		WRITE_ONCE(qcdev->recovery_disabled, true);
-+		disable_irq(pdev->irq);
-+	}
- 	quicki2c_dev_deinit(qcdev);
-+	if (irq_requested)
-+		devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+	if (dma_initialized)
-+		quicki2c_dma_deinit(qcdev);
- disable_pci_device:
- 	pci_clear_master(pdev);
- 
-@@ -788,9 +798,12 @@ static void quicki2c_remove(struct pci_dev *pdev)
- 	if (!qcdev)
- 		return;
- 
--	quicki2c_hid_remove(qcdev);
--
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
- 	quicki2c_dev_deinit(qcdev);
-+	devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+
-+	quicki2c_hid_remove(qcdev);
- 
- 	quicki2c_dma_deinit(qcdev);
- 
-@@ -815,6 +828,9 @@ static void quicki2c_shutdown(struct pci_dev *pdev)
- 	if (!qcdev)
- 		return;
- 
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
-+
- 	quicki2c_dev_deinit(qcdev);
- 
- 	/* Must stop DMA before reboot to avoid DMA entering into unknown state */
-
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
--- 
-2.53.0
+Thanks,
+Myeonghun
