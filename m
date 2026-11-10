@@ -1,65 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343896;
-	b=DuyXqbiSZW2cuJN0n9xtx9IaV4Yk/Y/OcmTixbbnydlQtt21ZYuQbDxKTQwTHTKSkypr
-	 LTK1HXriaL2SSpWTbiFXdK10dpy0xnE0KN+8+yorkl78FlygGp8aak1gYgko7arNhLkjZ
-	 q6X/pqtEcclv1ymetrhlsVS0hPYpwUmFgM1GgpauFpASweaO8YtGj8k6B/XgYdQ0NErgC
-	 FrCOcJCCvD7LpfYoMG3y5XvMJA0dX0IZ+N7UjbbpcQnRENH5Z57IjRNZX1w1PV3Hjnfsx
-	 3C5XdWk69lpwAiel5v3AkVteFsRbScyqMT/YIZ4WO/sd7wY3tWu0bKc4TIe9CHdbzFA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343896;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pmm933fIc9TKQDco3Q+vmfaeRrJIn57BcrNsnRJf6/8=;
-	b=LFbZzTlrT/nuhAqYqh10G8H1JjoiuSt1HrfpqgwR3a+UfEE45EdebT/uLzGz1sVTX017
-	 XgDAoejB0ZahrtA3ic2TQK54S8W2wXPh4k1ZrjJt1r7VxJQbtRFGmYOH3l7Wmnh5CpJ4U
-	 z/IkWzDPpCqxJecGWNs8GBPsymJVVkDcqIKKd8kSCPsRrBWXKwTff+Uj/xQxTmd6hxLFL
-	 acXNKZa/ueQkdpm79KlNUzk/eF2SsbJa7XkZCHeWPVhuXPJvtw/6ZNgZj4obIv6zfRsiP
-	 WqFlakpk5ZmcaUuXUr5eGKjgVriTn7eQ7EqzPqQ3b4C/P2wHWo4azcMAPb/uhKXQMyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kik.pw;
-	spf=pass smtp.mailfrom=kik.pw;
-	dkim=pass header.d=kik.pw header.i=@kik.pw header.a=rsa-sha256 header.s=key1 header.b=F9D6V5fP;
-	arc=none smtp.remote-ip=91.218.175.51
-Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794343982;
+	b=EHbVVKOVvfBvff5gaMCd7zagI6ILQNLVEOtObKsK/v/H1iLvZr9uR8xjYiYHG3ftOjCs
+	 q7HlWvBzEGqHhPYtLKsUnofBKJAbQiJvp9G082UbOGF/7pnhVLSb9S5qSeEap+sX2QCLk
+	 sS39hVj31SKiSVwVHeSoSXq21HJqFswkJ3jz+pYlQY2Xfee01Fua6cOFU/jYTLRY9hpIJ
+	 1TiLsEd1c8g4qcB3ZS1qnm9VUlcU3EB2NODFJu8tCadp4ufIS61w7MyecTG+1BXzF875L
+	 jnfvf0x/+CevOJUQ8jMaJH6G3t4ke7jYpZdtrxYAN3dDNnCdbdm9m766IFvDvcTX/gA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343982;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=scItakQm3yepmIn47zTuOCWQZ5Y0fi9/NW8TRndwjgM=;
+	b=rHWbqrbh1O4X37ePUvAas8X2Aic6IwtSx9Mn8wf1lbvVcxQ6mvOlr5HntvRFbddmtpez
+	 DsnAoklpf5tTDtL3rjhbGqLS+4ErqFsxrrincvCBeRclZS8USANR8RnygBR706erOOI2O
+	 04VST01TsA6zmcH6Mx3hhM+L4OkOHpDug2djc6lx5z6nUFY5+oALUrVJ3SkwhPscQrN/d
+	 /ywACbwM35eBKnbN7FvPMsqYnS/zb4BBWAFQryrZVN4zousNwFji4MCftdQMyfJItt+rG
+	 Ce9zgjk/TX6bTzEWIRIYRWHXB0PATT3s7IqJ8TRddNGpIPlwK70cPxYQzq1eFp4atrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n4eqWG9S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.44
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010044.outbound.protection.outlook.com [52.101.193.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A509606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A509606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kik.pw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kik.pw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475E0606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 475E0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kik.pw header.i=@kik.pw header.a=rsa-sha256 header.s=key1 header.b=F9D6V5fP
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Pmm933fIc9TKQDco3Q+vmfaeRrJIn57BcrNsnRJf6/8=;
- c=simple/simple; d=kik.pw;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794343892; v=1; x=1794948692;
- b=F9D6V5fPxCutkCSzFAK5D6VA2F5ixsN9PEXq91RFrUDqIzt+XX3m+fwQm2tWLsiCbi9VBIMo
- uv2ZEw9n6964tDrQ35vFsyv2p55DnMfqHXmE8McB3o1Hw4xE0Qa7blP68nv1R57V+jnt3yPHEjT
- bxa6nOvokk9OOKW1JCEuZbfbPyl1T4OtF5TatsEBUrFHio7ghnIWqYKkyKeAalwTJnxx9Wn6ktT
- LAVSPEE7JAYhE5hIV6+Uswee0DpSn1G8Vgf+oC8/MD664RoEdrzw1oaFj370O7pWlN0w0r4xywH
- J4FnvWJnvcz5DDOvYS8SWLJD4gVjjT4IwaeSp9v6Wx2pg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0847aaf9939602f1;
-	Tue, 10 Nov 2026 20:51:32 +0000
-X-Mizu-Trace-ID: 0847aaf9939602f1
-X-Migadu-Flow: FLOW_OUT
-From: Alwyn Kik <alwyn@kik.pw>
-To: jdahlin@gmail.com
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net
-Subject: Re: [PATCH 0/5] hwmon: (nct6683) Fan control for ASRock B850 Steel Legend WiFi
-Date: Tue, 10 Nov 2026 21:51:28 +0100
-Message-ID: <20261110205128.18197-1-alwyn@kik.pw>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260825092546.669450-1-jdahlin@gmail.com>
-References: <20260825092546.669450-1-jdahlin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n4eqWG9S
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O5g5IskTcYDsWzAsL0gd1BqjSy8gjvwB/lsBjyALJmiQBQ+8lF4dNUQkyuV8GiryGvymAPZFsIn0PPU2/OirrHbOJ+qOC2eslP8nNLFwR3HCV1drS+mHT9afQoOk+AlUPlpBienDL1wGEmWhhaBMQ/mNy+Zk+qX/Y9TsTmg2ZOq4na/gwLCLYjh6U+CBq8Qxg/AvMBaDAx45es9LZuz904eJYfTk8yjdG6AB0UVwQG8wMf4k1VWNtI+O5TlZ2lEAz3iyUQGi6RQU9PFQeu3p9hrJcs7T8Bte6ynDQ6Bc/GdSGBNQdcjw2ouMWmxdBB4X2CD28tbo3WiFAolRvJ1Qsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=scItakQm3yepmIn47zTuOCWQZ5Y0fi9/NW8TRndwjgM=;
+ b=BHuioM6KeoTC4TUrGrhKtJi5Pp5oO5/guQLWHvjys5EamvtydoU7AqV7uTvslQuVhye4N9nuBPphGnNUWIgTlkASmO/1CO2A1NE2F6HfKT2jjeiGMn4AIz5lQTx6nZ2RKxoW+eZXuqrNy6vUAVeUbDQJiH6wlG13tvelyTDhA57oTHAxvg1efufXKVWAn/i2Qpx+L+XLpnoTzDtf2LOAI9/ORuY7aLdbnA2e7e2t6ixFv1DiuvYPjtYUiJ/b5xlv1k8pdZQNvrfQh4Y/iOHhgWFJtvcwtWQOp/zq6RSDjIwiQTNE37g1q3QekpQrdrPw4v++kZsDc4a8FQyc4PUuvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=scItakQm3yepmIn47zTuOCWQZ5Y0fi9/NW8TRndwjgM=;
+ b=n4eqWG9SlzHwj+abVZynRZIiOBG0qQQ2VN1wctm0g4eaEHXVxN7yiBnrJzDUFnuMa2oynevNCZn3fa2Xx5HDlFRzMPnxaf6sWnDQf3nW6PyRIHB3tfaF1mNpDgk3/FgZNUOWjMY4Omp/OiC4VKBGEkGBcyEsPMaoBR3k2y7runb21wUXZE51Nx/BG4TCctssNbOydHgzmIqUWVDOKSbu0muJf32K+P7j9dL2stMJkgWq/DhH/ktYGAGZFpS61PyXvuGSdANnQ84ZTFGlcl3FTXU4YcN1MYyP86QsEpGqH4wWAe77+zL096a+ykJpLm4Bi/Kc9FlgYhvLjGHWyBXVLA==
+Received: from BY5PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:1d0::29)
+ by PH9PR12MB145095.namprd12.prod.outlook.com (2603:10b6:510:415::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 20:50:56 +0000
+Received: from PH4PEPF0000B60E.namprd21.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::6a) by BY5PR04CA0019.outlook.office365.com
+ (2603:10b6:a03:1d0::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 20:50:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ PH4PEPF0000B60E.mail.protection.outlook.com (10.167.243.89) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.0 via Frontend Transport; Tue, 10 Nov 2026 20:50:55 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 12:50:35 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 12:50:34 -0800
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Tue, 10 Nov 2026 12:50:33 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, <rafael@kernel.org>, Danilo Krummrich
+	<dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
+	"Mostafa Saleh" <smostafa@google.com>, <linux-kernel@vger.kernel.org>,
+	<iommu@lists.linux.dev>, <driver-core@lists.linux.dev>, Sonang Patel
+	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
+	<shameerali.kolothum.thodi@huawei.com>
+Subject: [PATCH v3 6/7] iommu: Park TDISP T=0 devices in the blocking domain
+Date: Tue, 10 Nov 2026 12:50:11 -0800
+Message-ID: <6620f49a3bb96837034aba24b5131a9d8c7eec8c.1794343501.git.nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794343501.git.nicolinc@nvidia.com>
+References: <cover.1794343501.git.nicolinc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,35 +123,177 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60E:EE_|PH9PR12MB145095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65aba2c8-ebc7-47ee-6008-08df3f6c5107
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|7416014|1800799024|18002099003|22082099003|10067099003|11063799006|261026121527099003|261021121427099003|261021135927099003|261102123227099003|261021123027099003|261026140227099003|56012099006|261022105027099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	tfcPGKds1aIIKy4KAovgXSFah3KKZ9yAwDJ9iWcDiCLZdO/CTRnp2b7BoD2IGP5RaSiJNMOecs5cxLg5jJO+XI1B1OXNLG3K0xgwML0jx+vhM62ayqjNm4MG3m2zL2w0io9Y//Sh0B+zzmsi2PuIorc8T12qYlm/FnJ5ZFiGlEOgLROIOzbDk25sIk0HqXJXQhQ9ub3MhubkiFGSOzs5gJgNKukNR6y2tRQjOgIQR1UrErqhsK44tX34RPdMXxuBfaNC8pNQH1p4aKmzvYrmguBaCB7QsktYVpJNkIybxI+ZYJ6MLarB55NSurrubWFigCW+vR9b8JXOOqw2+LRBNb54k/PpQEYNnHD9S4JvuGUBddXGIOq9iK+m1POZaWz5ub0oayH0A3ZYlJHwhVNuNB0DiuofKjLwyfsD3iq5XrpPup/3gfsw8kKGA5higv08EGOl0ZOHdSg+UTdEN0M9jjq7XIjlo5iNcGzGNA368NEvyV+qBOTfjZcf874pz+TOhw8YerNWZ7txwix5SuOLIXk4vti2SctAbWOY7e7TTJQEuu3J85I2oS0tSxcWywjDbm+IXqpbuNOCGHhcYqlK1mvkaiBQpJM01R3PVoAtEngZGEkiXxgVZzcqXuTI0O64Pd8HA+yCZMFP4i5Ejt8HtfejAoLimgd10SxDhtM8nU4YCo1PlI3Qey1U+K8PVTp/wk2C2JjhY7svkGdMD6MzBQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(7416014)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(261026121527099003)(261021121427099003)(261021135927099003)(261102123227099003)(261021123027099003)(261026140227099003)(56012099006)(261022105027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DfHYXfNKJHYfF5F2OS6jxFhhfMzIfUWqMc25S8zRwvq+AU99omB2u4FvD/iCFu7RnvIVWqPWnadyWHv2UN/rIkKRUlIOnEMBjnKU0A6oOVUJW3npwCX/OZnQRgYviTGQe8e/+q5k3/JJde8q+QXrVSc1RRUR4hD16A4Wt0gSN/QKKrLQvxbg1Sc4VEqKZ+awqBOsOrnwyacRs9/gqnU8OwYPnhVxH106EXfNpFYTieHzXVut7eytByaloZviAsFqUHZC+Bib7K8uT3K2Kzrqf7s+85uQIojSahY6S/x5pr30/cUxJ7jlY1LFEbHk6PxA9okD8gHSIO4hNIim1A2YYnAvExGHdI45Ho9Rw2eUqS4aYLdNmvLJ65Ha7BX12sxPGsvpQxNnImYcqkRup0RY9gBnMKnBYl3rr7LkGv4kEdOIu6CAf+OKSLHFQduqEKZT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 20:50:55.7506
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65aba2c8-ebc7-47ee-6008-08df3f6c5107
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH4PEPF0000B60E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR12MB145095
 
-Hi Johan!
+A TDISP T=0 device stays associated with its guest T=1 vIOMMU, yet doesn't
+use that IOMMU for DMA translation. Instead, park its guest-visible stream
+in the driver's blocking domain.
 
-I have the same board in my system so I wanted to help out:
-ASRock B850 Steel Legend WiFi, BIOS 4.10 (02/10/2026), NCT6686D EC
-firmware 1.0 build 10/29/24.
+Linux's model requires a device to either use T=0 or T=1. Aside from MSI,
+it cannot use T=0 for normal DMA once moved into T=1 mode, since the device
+will have IOVA's that are not valid in T=0.
 
-Tested the whole series twice: on 05441d697f7f (7.4-rc1 + 132), and on
-7.4-rc2, both without issues.
+Select the blocking domain before normal default-domain policy is applied.
 
-Patch 2/5 needed git am -3 because the docs changed in 04f4079ee61a
-("hwmon: (nct6683) Add more MSI boards to list of tested boards").
-The driver probes without force, and pwmN_enable reads 2 after probe.
+Direct-map reserved regions are still fine, because the T=0 stream always
+goes to an identity mapping. Skip them here, as recording the request would
+only refuse the device its blocking domain.
 
-Manual control works on CPU_FAN1/2, AIO_PUMP and CHA_FAN1/3 with
-fanN tracking pwmN.
-CHA_FAN2 is untested (fan cable too short) but by elimination it should
-be fan5/pwm5.
+Reject sysfs domain changes, driver-managed group attachment, and any PASID
+attachments that would install a translating domain. The state is uniform
+across each group because all devices on a confidential IOMMU start in T=0.
 
-Also tested patch 4/5; a fan in manual mode at pwm 255 went back to EC
-control on rmmod. pwm6_enable read 2 after reload.
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+---
+ drivers/iommu/iommu.c | 54 ++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 51 insertions(+), 3 deletions(-)
 
-I didn't test suspend/resume, or the retry path in 1/5 (I never caught
-a lost write).
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index a7464e155e55a..992aeee8f9294 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -1238,6 +1238,14 @@ static int iommu_create_device_direct_mappings(struct iommu_domain *domain,
+ 	unsigned long pg_size;
+ 	int ret = 0;
+ 
++	/*
++	 * The direct-map reserved regions are still fine because the T=0 stream
++	 * always goes to an identity mapping. Skip them: recording the request
++	 * would only refuse the device its blocking domain.
++	 */
++	if (iommu_using_t0_stream(dev))
++		return 0;
++
+ 	pg_size = domain->pgsize_bitmap ? 1UL << __ffs(domain->pgsize_bitmap) : 0;
+ 
+ 	if (WARN_ON_ONCE(iommu_is_dma_domain(domain) && !pg_size))
+@@ -1790,11 +1798,22 @@ __iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+ static struct iommu_domain *
+ iommu_group_alloc_default_domain(struct iommu_group *group, int req_type)
+ {
+-	const struct iommu_ops *ops = dev_iommu_ops(iommu_group_first_dev(group));
++	struct device *first = iommu_group_first_dev(group);
++	const struct iommu_ops *ops = dev_iommu_ops(first);
+ 	struct iommu_domain *dom;
+ 
+ 	lockdep_assert_held(&group->mutex);
+ 
++	/*
++	 * When in T=0 mode the T=1 vIOMMU must always be set to BLOCKED to
++	 * release control of ATS.
++	 */
++	if (iommu_using_t0_stream(first)) {
++		if (!ops->blocked_domain)
++			return ERR_PTR(-EINVAL);
++		return ops->blocked_domain;
++	}
++
+ 	/*
+ 	 * Allow legacy drivers to specify the domain that will be the default
+ 	 * domain. This should always be either an IDENTITY/BLOCKED/PLATFORM
+@@ -2399,6 +2418,10 @@ static int __iommu_attach_group(struct iommu_domain *domain,
+ 	    !domain_iommu_ops_compatible(dev_iommu_ops(dev), domain))
+ 		return -EINVAL;
+ 
++	/* A domain cannot be attached while using the T=0 stream. */
++	if (iommu_using_t0_stream(dev))
++		return -EINVAL;
++
+ 	return __iommu_group_set_domain(group, domain);
+ }
+ 
+@@ -3325,6 +3348,12 @@ static ssize_t iommu_group_store_type(struct iommu_group *group,
+ 		goto out_unlock;
+ 	}
+ 
++	/* Default domain changes are not allowed while using the T=0 stream. */
++	if (iommu_using_t0_stream(iommu_group_first_dev(group))) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	ret = iommu_setup_default_domain(group, req_type);
+ 	if (ret)
+ 		goto out_unlock;
+@@ -3690,6 +3719,12 @@ int iommu_attach_device_pasid(struct iommu_domain *domain,
+ 		goto out_unlock;
+ 	}
+ 
++	/* PASID cannot be used on the T=0 stream. */
++	if (iommu_using_t0_stream(dev)) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	for_each_group_device(group, device) {
+ 		/*
+ 		 * Skip PASID validation for devices without PASID support
+@@ -3783,6 +3818,12 @@ int iommu_replace_device_pasid(struct iommu_domain *domain,
+ 		goto out_unlock;
+ 	}
+ 
++	/* PASID cannot be used on the T=0 stream. */
++	if (iommu_using_t0_stream(dev)) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	entry = iommu_make_pasid_array_entry(domain, handle);
+ 	curr = xa_cmpxchg(&group->pasid_array, pasid, NULL,
+ 			  XA_ZERO_ENTRY, GFP_KERNEL);
+@@ -4017,6 +4058,12 @@ int iommu_replace_group_handle(struct iommu_group *group,
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&group->mutex);
++	/* Like attach, replacement is not allowed when using the T=0 stream. */
++	if (iommu_using_t0_stream(iommu_group_first_dev(group))) {
++		ret = -EINVAL;
++		goto err_unlock;
++	}
++
+ 	entry = iommu_make_pasid_array_entry(new_domain, handle);
+ 	ret = xa_reserve(&group->pasid_array, IOMMU_NO_PASID, GFP_KERNEL);
+ 	if (ret)
+@@ -4294,8 +4341,9 @@ int iommu_dma_prepare_msi(struct msi_desc *desc, phys_addr_t msi_addr)
+ 		return ret;
+ 
+ 	mutex_lock(&group->mutex);
+-	/* An IDENTITY domain must pass through */
+-	if (group->domain && group->domain->type != IOMMU_DOMAIN_IDENTITY) {
++	/* An IDENTITY domain or a T=0 device must pass through */
++	if (group->domain && group->domain->type != IOMMU_DOMAIN_IDENTITY &&
++	    !iommu_using_t0_stream(dev)) {
+ 		switch (group->domain->cookie_type) {
+ 		case IOMMU_COOKIE_DMA_MSI:
+ 		case IOMMU_COOKIE_DMA_IOVA:
+-- 
+2.43.0
 
-Is a v2 planned with the requested changes? Happy to test it!
-
-PS: this is my first time on the kernel mailing list, pointers welcome.
-
-For the whole series:
-
-Tested-by: Alwyn Kik <alwyn@kik.pw>
