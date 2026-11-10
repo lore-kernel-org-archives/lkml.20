@@ -1,81 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303508;
-	b=NFN0Go2wuAbVW4EAPvUvGO8F7LuspT52fCrY0mWFFCQ1/4oMnCsbx9tRWhfh5z+vC+sz
-	 hg6dxL+mRa5c1Tn6YnUlH6j/LRAIQW7sxqKx4TMR/wqvF6iylzoVsH3dBgJB6RHRUgB+J
-	 b0fDDQNBnk9o6Ds3rXzuoNk93C/i9Fy7BdU60j39Nra8cNdTHxODiw2oE9YAcSuJJIHM7
-	 tFDgyVlcjQWqxUfJf+4GNRBT1B8MXo/aDcrLd03DC7NXo7pyL0nWyDkyNkxzjaQ8GgJJL
-	 H+1ceeUsnvYX/2VXKA+Ka2M+LaaUzji6nBofO6Wp227cKysSpiEolJDwW1xOXaZty6w==
+	t=1794303527;
+	b=dywwhR/LL/1XqZikMvr67wTrfG67QKOH65+nhqeBRHZKtdxv65WUsKMJ/h93v5c2g5RJ
+	 dQjSx2v5XTBLOVnkH/KwlK7vNWLR6VNwMMHVkQsxM4j7ywdVzhY1c4SOUG4T+qEdUkBKZ
+	 mEkCd4sJ8m6zod9nEeZdlg8NCTmN+UchvBwkvJwN4WsXHqJ7QvfnqJegtaXelAcdrynqa
+	 4UPtytUe/J4vnLt5gHwVAkKoKBQqgr1rjrVP5YbP/6NCji2qseRE0lhSdgbtVY+QCrIWv
+	 7T79HLKapGreDlU2pI9s5ty63wfZ+b4hN07Gqox5mRURoxtIWiXlxqFzSeG9vpGrhJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303508;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=soIcd3rUx4/jiC2klzoUd5iGOQj53t5mg7c5bMYOoZM=;
-	b=bGcq2+2BxRqkeR2++X3Yj9k6aUErz4taYKPDyx5Z8ZC9k/4eLsvRWrmmn/LfW0o8JvO7
-	 4vSMeOawaUeg+KUqEjWL0FtjLcZLrzcV64aqOuOZkW/YOFDoPO3UidKS7MmGOXpUkfyV3
-	 jBhTg8+eFi6hzKk7mGJC2bt3XfWjPcOG7C+2cDnc6PBfJkE4YHj1Bodjn3Azh8xYL1Y75
-	 verFrLP/p7FabsTxDB27nTJzCYFTBHaRhLMePatSy/n3GIL2DAj+gE0KjJeWTLrupbz5O
-	 Z/rN3lBLS/Y/Fmx178mGMTFnch1Qu+00xsBZZZPHv6s54zcfGlH18dvqhny+xq4muEA==
+	bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+	b=R4k5NDQPipdVL93ewbIrihoTdKcEY36Jak0Tfm1MmGuo6wFIqkMqqyRn2JO5inh4Jugb
+	 7Vw2ODrVxXQpV+iBHuSkLk13Q5wcjry5i0P0cFWYq+TJ0RBkY5JVbtF8ERPlyt1QGisGv
+	 a7s6E9krKNvlGsNxcpjCL6tVP4DCPShWLLeafvVIs7WuNJuVSWsxnEwTuk+725oh5nWKh
+	 N6hxxVBGsBF/sb3mZ4YWppO6cXk5m4uYoQIyxdEzMtdag22ii2qt8uXHObHAABPSpsEps
+	 mqsONRFHdoRnntbdGn9D6KqOlVtmMzy4PlNiH1nVrZmUWhvSIZoCYIlN37t8HTKeztg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jl5PVfdP;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aeiS47eX;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F67C606A99A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F67C606A99A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B10F606A930
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B10F606A930
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jl5PVfdP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794303507; x=1825839507;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=fYEHP3H6dl2AlwUfY3uxUWjcJf4gmcOuQGAvPXqF/Qc=;
-  b=jl5PVfdP+69yEi5NIUv2U+IFza+COIU5X5Rsi2NCGnExIVGYriY5dCng
-   yStOAX8ajVscIMiooCZXO6ZYqplxTZV5Smbu59qjFtIEKDYBTc3fG/M2O
-   l6BBy2zmpq/iAiRNdm+7c+8ntjhTYmiXYg/oJbsKPt09KKawKyvV2eDBH
-   UPDjhZY7ZYzgaN5we7wBhsSLJPqdoFG+8eVZyqjHt8bZKImRq6QvED07g
-   8th0ww94woNrgJKJi33oMMv5P5ZclPb0uhN4SgkX+OtKKSBTS9dRzEQlv
-   RXbei8Ls2POiX3wirHO0iD1Sj+j18+OkZs2juTCvK0C5d9dQ4gSSEVz4y
-   g==;
-X-CSE-ConnectionGUID: R0KriWDJSlCD4xts9kGvLg==
-X-CSE-MsgGUID: 0/FOjK5jTMGk0JF7yLT7cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2961811"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2961811"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:38:25 -0800
-X-CSE-ConnectionGUID: 623ppO9uQQKjqqr/inrOiw==
-X-CSE-MsgGUID: 93y9gQlYTXSvS2uYCouirA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7975223"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 10 Nov 2026 01:38:24 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 1E1E499; Tue, 10 Nov 2026 10:38:22 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aeiS47eX
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so2664525eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:38:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794303526; x=1794908326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+        b=aeiS47eX2RAlloEV5TbLKxN8HadOSwzbwZxfrumaatbz9mTX8YhdUMlIVqyh2SZ9zN
+         gHNzBBrJSYM/5iQ8UCoJ1Myhq+WTgi/3nM5+dBl33le91DIY6ChPiene272uJNyGcULt
+         6aaEWz4ScHNiqT4CRS6OW3zUhmZhw5WBrmt5geSwk45+LMRdExhjHo5t8OhQjg/xbjLf
+         YZkwzwvSRfEoDjVyD2uY814yAwBusqCi3tSPBmXY7FCZmnucSgXBCV+1wiXHqUjdB71h
+         4ZJw7EE5VFbTTCpf0/jig1sCt7yEPG2I2fwZsWatIOXFMTXMQDD5hHlVOKntpel8S2Zo
+         8x/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794303526; x=1794908326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+        b=jA+9873ZHZISn9brRJaepjIhyfa/6NFhx5jbDoUnk63L5rcydftkrtK97CE/CTiPaf
+         InTDrFaNQITYjb6EVBRobRLfO3FsQk5qzmfa6wPUojqbVhoCgZin8b8ybFLIJySVc9lQ
+         mOFJmQDcmjpi8waAqzNJPD9gcN//QvLH+/ouOZiWk5lO2QkO/j3UGeT6B1PjWzbSRmDS
+         M5coobiAvts2pX6gnGcn94QiATCJFBLR8H2n9BZ7xJqPXGnLN334kiEMnsSRhfaw7U5m
+         WuI5qTHaFx4P/8+cKvgnSml3iAE54AlTZbDcUSNNKII0o2Y2ik+XTBluvwwe5MiqAbQX
+         Y/yw==
+X-Forwarded-Encrypted: i=1; AL+hErErKwD6ul84QyzJ/LSEPTOqB34dnfxkNnZ0RyRn8BWAzdPp+d8xExXq6pGISlD7bgOcbBDUuyHk5AA/IV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8f7tRu5tS6iTn9hcQuBm0EIiO6BOcz+YBj8b6w8SxZtinJEdN9
+	gdM2AvXtPKgHpHx30fd93W+ZLTVi9tdXB5Utdt72p3Rg36BQ5ResmYwE
+X-Gm-Gg: AYBFou2+EP26M0WRVnyUJc16TLQqXhmTjTb0LgCQ0rTAYmKCO2iXWF+d2MuWj2/cPMT
+	wFSu3mGsz+FMZulhjnsA/h/bA9FtCbyBZLbGzgVBM0FHrN7OkjXkjbaa4dZ6oMCvImk+cwz5vW+
+	9Tl64DUrbAn4ZGm4Dy0Z+5Hi4ABamTeQOu02Vf8+zx/TI5HgBlsnYq4Xta7qItXyehSnzlr+D+/
+	Y/T9D623oZwl6boei4d2l5Ia6e4MA96CjBBaC6KFeb0yA+g26u2sVj+OFMq75ms6SHv+zKxUgYT
+	xcv6E6ybxvC0Y58fUz72VKYZ2Zu9A7w6B9RSYkt3EfhCSrx2utnPVqZiMllTHvjQC1ZrGyZexfV
+	4xeLdvtt8A53obws+SCEr7ugqLn31LjXpUesJzyu11yBxSe0YD6v5pf7kFFhpIXsz3o5oKRkSHj
+	2Re2fPCWFtPiVOfIVI88pDqQbJiSk9pSuO4R0lafzS9T6xvyCVaIJY2HyE5CAgWIaIGBlNJxP9J
+	gtP9721O+utKw1MSYdGbSGW22ufdChRS227tU/RJKtkoiQoXnIOc4QqS1XHUQdckua/lFloYqyE
+	BnvI7pdnDjGVIiNidgeNEUkXnPcFbiGPGpeX
+X-Received: by 2002:a05:7301:488c:b0:369:ff7d:840 with SMTP id 5a478bee46e88-3751ef7bbefmr3078034eec.21.1794303526196;
+        Tue, 10 Nov 2026 01:38:46 -0800 (PST)
+Received: from hanzj-mi.. ([157.185.136.247])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm4996931eec.0.2026.11.10.01.38.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:38:45 -0800 (PST)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>,
+	jfs-discussion@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 0/4] regmap: a small set of cleanups
-Date: Tue, 10 Nov 2026 10:36:58 +0100
-Message-ID: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	syzbot+6cc93ec9a4035badb85f@syzkaller.appspotmail.com
+Subject: [PATCH] jfs: hold a page reference on log pages while I/O is in flight
+Date: Tue, 10 Nov 2026 17:38:41 +0800
+Message-ID: <20261110093841.2470586-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,19 +98,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a mini-series of a small set of ad-hoc cleanups.
-Read individual patches to get the idea.
+syzbot reports a use-after-free read in copy_folio_from_iter_atomic()
+that has been reproducing for almost a year:
 
-Andy Shevchenko (4):
-  regmap: Switch to use kmemdup_array()
-  regmap: Drop never used devm_regmap_*_free() APIs
-  regmap: Defer assignments to the later in some cases
-  regmap: Drop duplicate ret assignment
+  BUG: KASAN: use-after-free in copy_folio_from_iter_atomic
+  Read of size 4096 by task kworker/u32:9
+  Workqueue: loop0 loop_rootcg_workfn
+    lo_rw_aio
+    shmem_file_write_iter
+    generic_perform_write
+    copy_folio_from_iter_atomic
 
- drivers/base/regmap/regmap.c | 62 +++++++++---------------------------
- include/linux/regmap.h       |  3 --
- 2 files changed, 15 insertions(+), 50 deletions(-)
+I reproduced the same KASAN report with the C reproducer from the
+syzbot page: the loop worker reads a log page that jfs has already
+freed.
 
+The jfs log code builds one-page bios for its log device in
+lbmStartIO()/lbmRead() and adds the page with __bio_add_page() without
+taking a reference on it.  The lifetime of the page is instead
+guaranteed indirectly: the lbuf that owns the page is kept alive until
+lbmIOWait() observes the lbmDONE flag, which lbmIODone() sets when the
+bio completes.
+
+That guarantee is not sufficient when the log device is an asynchronous
+stacking device such as loop: log writes are pipelined through
+lmGroupCommit(), and lbmStartIO() marks the sync-point write REQ_SYNC.
+The block layer may complete the REQ_SYNC write before an earlier log
+write has been processed by the loop worker, so lmLogShutdown() can
+free all log pages while an earlier bio is still queued inside loop
+and about to read the page it references.
+
+Fix this by the book: take a page reference before adding the page to
+the bio and drop it in the completion path (lbmIODone()), so the page
+is guaranteed to stay alive for the whole lifetime of the bio.  This
+is the same lifetime rule every other filesystem follows for pages it
+submits.
+
+This bug was found and analyzed with the help of LLM tooling; the fix
+was authored and verified by the signer.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Link: https://syzkaller.appspot.com/bug?extid=2cec257b63d85bb983fc
+Reported-by: syzbot+2cec257b63d85bb983fc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2cec257b63d85bb983fc
+Tested-by: Zhijian Han <hanzhijian1991@gmail.com>
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+---
+ fs/jfs/jfs_logmgr.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
+index 306165e61438..ef9ef11ddb1e 100644
+--- a/fs/jfs/jfs_logmgr.c
++++ b/fs/jfs/jfs_logmgr.c
+@@ -1971,6 +1971,7 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
+ 
+ 	bio = bio_alloc(file_bdev(log->bdev_file), 1, REQ_OP_READ, GFP_NOFS);
+ 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
++	get_page(bp->l_page);
+ 	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
+ 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
+ 
+@@ -2117,6 +2118,7 @@ static void lbmStartIO(struct lbuf * bp)
+ 	bio = bio_alloc(bdev, 1, REQ_OP_WRITE | REQ_SYNC,
+ 			GFP_NOFS);
+ 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
++	get_page(bp->l_page);
+ 	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
+ 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
+ 
+@@ -2184,6 +2186,7 @@ static void lbmIODone(struct bio *bio)
+ 		jfs_err("lbmIODone: I/O error in JFS log");
+ 	}
+ 
++	put_page(bp->l_page);
+ 	bio_put(bio);
+ 
+ 	/*
 -- 
-2.50.1
+2.43.0
 
