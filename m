@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794332553;
-	b=KWFEPBFw2hbmZ4OnWaWLQIVtDDYENuPR0kh27ZOKW+KzUgQA/91Qfz03bajLGLWc9YqU
-	 q7Wqs7m9bniNa5l0bk8IfssOmOiAu5Vfa72YHgacGmM6PHPHQ4qa5Sxn0E2TEGORfLP8A
-	 jnsKLS8Ou3xBUN9U673Esk0D/7CMCVP54pyPWQ76hfM/HcyYXVhT7AChsuP8bIkAxUzWb
-	 qM2JU8C5xw4aMAtjXLqZ2MnE8Pja2LbE2n3AFduUvJCoaBXx+3xNS4ooCIekciXnE5h2m
-	 K6pkxAyUFocNC8rv/uDtWJXWwz6Hg9zEJU6J4WLxnp6HI59aeGHYqh6wGEeWR+ErXxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332553;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
-	b=Zg4nxGQK1HG5dps3twUW+rImjiSj2pWJFJgqQOiauyXiLYK58zYM0SAnzLHupx7V7deV
-	 53iRjOz/8iLyo8PyWUQcjWrb47jS6GdAwHTpE0YN4kTfyTBRffsjbA/nvDMtT+RGhNT3j
-	 4T5Q3Pw6TTCo7mLsQtF673jfKNTxO5lX/9tHL0D/9S1UUSW0yW7Uc8OEIv3lPaztUHT/J
-	 dgDSsISG0KtXm57XkifGfpDs7QFldyhwnea9w19wbD8oTUL97ZiQPYy2a3QGpgT8/C8pS
-	 UCKI+BCBCaGbVN91LOcNNIX7hfoRY6ZsL2a2UWh9ww+4IVyG22LIfNMzXewmyl/4Mjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0q2clSQd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794332549;
+	b=NtiYeZwRW6a1mlHEvLUmAbAKLKyetdZYBskNRnPGrzLJOyCLbbzjdsI/YkmFPX6nSluG
+	 F/5T42/n/vm1bGMtGxlsM/LfbRM9dr+uUeB/Rbzm6p6BsohpQ/z2y5xBCPgToskQS46G9
+	 Fb73d3qO5xzk6Y0jngCPhJamsvmTFCWIpNnPfB0lumLNeFcwjkvicm6Z7FzfP0vPowm24
+	 apC7am2qMzZ3rq7RepZwT+sID7nsoTBfnQVo4uAGtntgWFZ5xu6Dl0q0nxkyQ2XwiDc1y
+	 LXqC8QfIBPv3nOjNgFIRUGlbb3neTqfzh+urbmzaKNeInLwleLkNgMgU/O3lldOypTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332549;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
+	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
+	bh=hf5uGQ76nIf9peYYN6KISN8YdEFht+pVkF+Chj50WQU=;
+	b=GWfV1NvJogr68FR4lfj0bBpd7kYziIl9oNLG1FhToiBYSBMUQkEQR5KTSLp8o591FRRr
+	 WAgYT7rWtKgbxl8SgV3IxC6lhfdDl7TkircsmyGqa2vAxB1Ah7Bjb1c7N4uZog2y7R4tD
+	 ccMWlv2DRCUT0datngB3FFCKCCRK7Xv5mvpsaoXR9K7QxRGZe2CscoQ098P+k79tffYWs
+	 V4D2WaxamwVWTfKhyYhficgaMHap8Dszkhn5JgQQTOjSjDwgruGIAnrOdu1EMFkYgNT2Q
+	 QrH+YevmfvV4G1N6ywMy5r/3u0BoHgBi1Plt3nVhz6jb0pk/p7mb8aNtGYg9O++ERcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=deltatee.com;
+	spf=pass smtp.mailfrom=deltatee.com;
+	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b="ClH044S/";
+	arc=none smtp.remote-ip=204.191.154.188
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59134606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59134606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E16606A33A;
+	Tue, 10 Nov 2026 17:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5E16606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0q2clSQd
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3adef977ad9so17180921fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:42:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794332551; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nVNrBObThwcwUe8NO9yrdo9mIZykc8NQ+LDYAt/ZmwoKR5iRs2VW+v2K6v+gJXUn9y
-         RZUsHpjCERuhdFXTWvCMrJUEs+OQrvca+XJDnicXnDV/KLZTFy3QEAYuvcu9geFseBgH
-         1l/8D4YnIah4IMnV6B7zP+yoPmTygm4Q3gPTY/RhUsPXm4o4ajTDcilLcTE3/NBPnL7i
-         U6C2HhFPt57qwFQbfDxupzqUF1gf1G9AjNMqwQPP07NjnjvNOPtihRJgLATZn5oJWldu
-         htBxG0+ErqF9hoRlfYUIq66Ujddh9HnXD4teS8WwONNcfOalr8phikkZmQaglAYIPMPz
-         A74Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
-        fh=KkVSKqeT3qUpERDVm8brl/6OduME81qJovVrXYEMVHg=;
-        b=QmFjsJz1pGY+5kS+UYekTnNKQihWlHvrTgpkFFhiP+1UM/AlKjPK9EcW8x1s/2OeJc
-         6WK3hpVf2Jf4LR3T2BXKUCJtGsGg+FKNvVKcbHe8cFC9PP19+j1E1wwQaw1yRkTrwgTx
-         UJbzstdwmKbgmYv61BJR47BfSu7/pkcBYRG9SNCeNDuWsVehWkOHt75mD4F6SRyebDFx
-         9BrprhJVT2EfGI4qXP9ef1UrQD8XO/BcTEWrKSIDUWIDrWsd22KnkqmLocrb/DrEiFwZ
-         FMNPI0ZFyZAGWEYxqQiP3wry8y53i2GhUmzkV7IW7FeKyFLHT8jTj7aQ671Qk5AG+xEF
-         MoMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794332551; x=1794937351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
-        b=0q2clSQdX8ZXdvOcyhWvyl/+Un60UOtu/PtASKo56ajfRYY8xmcCJvg6WNROL4CaLs
-         dDO/+lMfgpxXYDzA8GBzWbYK79Oyj8Vb7QKai84sHrGnSHLQieMceEt0W6ca7Mkp1tWn
-         zv0/wfqNjy9P5E4VKZKw2tkTXjH8NqnF0WTxIggVR3aq6+O6Y+GGpsgoDxf+cd8Pa636
-         aV5mFJ0Vxrwy8wAq4mk3bnmnAsRmOeVUl4HHkpmBHstOLd3jTqEp/3OiyYdKT+IdCIV2
-         US0/j9nih6jcmku34qzV0BQFVcLnjqr4AE7g1FX5A94s+i8tkEaexwmQDiK20U8VFdyq
-         Kjag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332551; x=1794937351;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
-        b=BRps8B7z4pGzOTt0yZHWNS7QqZEoHdOXt9jhfDTl8pXQOMqVHM2s1I9Mt0AX5G00Yg
-         LQpsGWta4+4dIS9NrztzXVpAc4F6X6Fx1AnS8a9ElTBOUKHQhMPO2a7phmlJoqvLLMzC
-         JE7a1muIlJehg/G3RpSUP0GSK/QnYdF+OFUcfwAaBnz8ZDOxb+QQkQqWc6KbavmfKe8/
-         tTMJv4pgI7EtQ72frVcgjiDgFY4iVDO0F45RUwGIJU3KpTxKk0xVKafkgOR0STG/QO7v
-         WeJYjjU3/YueZt8+AiMbUTEQN3sdQsFe+idvXOhw8WuIqGnt7XWQWLt3h8ZwsK9rNeAA
-         7iwQ==
-X-Forwarded-Encrypted: i=1; AL+hErE/xeBSUAhn4d5kH5FZEYk9bc0UTH+IFQ4FtTV6DqDGjxYjeaWEiU/L5mT0o15jxjCIy1ONMyYj1e7Vk9U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8faMUn7NGyhbN7ohf+jhxQc8UJf+ceRDFaekJ1bYTclQrOUl+z
-	r6og2zgusHUEh8sveJx1s0oavjL1Sw3erzclF+uSXFDTFh7gAJMOU4BwgOt+3OV7a6gnNjjDglN
-	xLFZ6/KBiOlkSd8O/vvoOp9ho5LdODSI=
-X-Gm-Gg: AYBFou0Akn+uOtvDPhbmllCj7kyIvDZQzDxMr3zrhA5o/t80DC+m4+MG80twFqJtckh
-	JpJQrlbM2E1vivmnpbi5niA9S8ucsbVBAT2QE9acSKAXy2oyl7ajPqMXBCPKW8x2LTIXNZI27jI
-	x+vukqDZITgksfp71JgrpInj9CjqnIpIxrPJa0yz+HPeE3sPhrrrVYgUNRnrp3qmZOiINMY9j8a
-	8WpDzXLPZX/N3Cy3CIdqG5nlSBSvT5Py90IwydSrnW/T/+yR9WRs3RLUZPSyX16ITJ55w9SJvK4
-	0RIGMrs4ADmIdYK31L14/DqRVWaqXLDDnXzqdRdJZfiIYtePfe6Zprde27+Spm0ThWjH7TrbdZ3
-	gPOLkzZnkogRBMclgpqlBbo9FPtieS5TDot3vO+7sbwqkn9kL2yWWkphvOR9y+T3ImoC8Z84tO7
-	k2IbjqYkPyQ+AX7gr1D+TNWRmHYZEb6Pbtdwgiiqk2Ag+V44pRihe6
-X-Received: by 2002:a2e:a5c8:0:b0:3ac:e4b6:b93d with SMTP id
- 38308e7fff4ca-3ae0960e26amr7913321fa.8.1794332551177; Tue, 10 Nov 2026
- 09:42:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=ClH044S/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Cc:To:From:content-disposition;
+	bh=hf5uGQ76nIf9peYYN6KISN8YdEFht+pVkF+Chj50WQU=; b=ClH044S/7xNbJj24dp9kLxi0fn
+	qxN5aOVuaHzXuxVdTPH/gbLxgJ0SCyOW9m/fGOYwRU+l9pXa0e1BeBU1kGJQPYYxkk3zHPnzBv3Ig
+	N98PQqfzbqpaoddK1CgPhy2vqXE0LfS7O6bsoDnWmlWegu0Zn0OUlQydGRK8qec3rs5oC4xUvX9Qs
+	PccnC5AVCeB7BJiDoyVK+CMJuw7hUi3T1r30xR0n85YL9DGp4L+3dbqERmkvE7mPLjDykpAB4ocbO
+	06pJPThlbnZjgn/T2Yqffnb6WK44dSE44w/qkE469Rhe5y8Z0a33cCTyqFjNahim7Z2vcfyz2xdOo
+	VI24WwIA==;
+Received: from donard.priv.deltatee.com ([172.16.1.31])
+	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xQprX-00000000o7U-04ir;
+	Tue, 10 Nov 2026 11:42:27 -0600
+Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xQpqg-00000002cVn-18uG;
+	Tue, 10 Nov 2026 11:41:34 -0600
+From: Logan Gunthorpe <logang@deltatee.com>
+To: dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.li@nxp.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>
+Date: Tue, 10 Nov 2026 11:39:23 -0600
+Message-ID: <20261110173927.624629-3-logang@deltatee.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110173927.624629-1-logang@deltatee.com>
+References: <20261110173927.624629-1-logang@deltatee.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +76,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110054836.1515030-1-senozhatsky@chromium.org> <20261110054836.1515030-8-senozhatsky@chromium.org>
-In-Reply-To: <20261110054836.1515030-8-senozhatsky@chromium.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 10 Nov 2026 10:42:18 -0700
-X-Gm-Features: AclHuK_zSUkyB2sjWErWCiaaONj2fSjizGjk85ueR6Sb_actx7ETkPPr0xK7p08
-Message-ID: <CAKEwX=OtCcMak2gshXXDpiXiVK7v0H+gXQpQ-4D4BNvWSbvWHQ@mail.gmail.com>
-Subject: Re: [PATCH v2 07/11] zswap: do not free the entry if its pool is NULL
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-mm@kvack.org, 
-	Yosry Ahmed <yosry@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 172.16.1.31
+X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, logang@deltatee.com, vkoul@kernel.org, sashiko-bot@kernel.org, Frank.li@nxp.com, Frank.Li@nxp.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: [PATCH v2 2/6] dmaengine: plx_dma: fix descriptor ring leak in alloc_chan_resources()
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Mon, Nov 9, 2026 at 10:49=E2=80=AFPM Sergey Senozhatsky
-<senozhatsky@chromium.org> wrote:
->
-> zswap_entry_free() warns if the entry has no pool (which should never
-> happen), skips zs_free() and then frees the entry.  A subsequent patch
-> embeds zsmalloc handle into zswap_entry, so zsmalloc object will point
-> to the entry, and we cannot free the entry while the object is still
-> there.
->
-> Bail out early and leak the entry, its cgroup charge and stats instead.
->
-> Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+If the device is removed between plx_dma_alloc_desc() and the pdev
+check, the error path frees hw_ring but leaks desc_ring and every
+descriptor in it.
 
-Acked-by: Nhat Pham <nphamcs@gmail.com>
+Add plx_dma_free_desc() and use it here and in
+plx_dma_free_chan_resources().
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
+---
+ drivers/dma/plx_dma.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
+index 0a7ad2473cb1..bfccbb0c70e8 100644
+--- a/drivers/dma/plx_dma.c
++++ b/drivers/dma/plx_dma.c
+@@ -404,6 +404,16 @@ static int plx_dma_alloc_desc(struct plx_dma_dev *plxdev)
+ 	return -ENOMEM;
+ }
+ 
++static void plx_dma_free_desc(struct plx_dma_dev *plxdev)
++{
++	int i;
++
++	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
++		kfree(plxdev->desc_ring[i]);
++
++	kfree(plxdev->desc_ring);
++}
++
+ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ {
+ 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
+@@ -424,7 +434,7 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ 	if (!rcu_dereference(plxdev->pdev)) {
+ 		rcu_read_unlock();
+ 		rc = -ENODEV;
+-		goto out_free_hw_ring;
++		goto out_free_desc;
+ 	}
+ 
+ 	writel(PLX_REG_CTRL_RESET_VAL, plxdev->bar + PLX_REG_CTRL);
+@@ -443,6 +453,8 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
+ 
+ 	return PLX_DMA_RING_COUNT;
+ 
++out_free_desc:
++	plx_dma_free_desc(plxdev);
+ out_free_hw_ring:
+ 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
+ 			  plxdev->hw_ring_dma);
+@@ -454,7 +466,6 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
+ 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
+ 	size_t ring_sz = PLX_DMA_RING_COUNT * sizeof(*plxdev->hw_ring);
+ 	int irq = -1;
+-	int i;
+ 
+ 	spin_lock_bh(&plxdev->ring_lock);
+ 	plxdev->ring_active = false;
+@@ -474,10 +485,7 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
+ 
+ 	plx_dma_abort_desc(plxdev);
+ 
+-	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
+-		kfree(plxdev->desc_ring[i]);
+-
+-	kfree(plxdev->desc_ring);
++	plx_dma_free_desc(plxdev);
+ 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
+ 			  plxdev->hw_ring_dma);
+ 
+-- 
+2.47.3
+
