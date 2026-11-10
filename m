@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301403;
-	b=QkGje+RySVYG0zXOfzVOdGVbAdr5xGXxNS5zoKrAjH9pw/6OnQBMud1dS2FPgWlRWBXD
-	 aeJgQvSQpbWmry3JHdQPCckyJlGZbZzUQnj/00leTT2sEFvpQ7mNePUYxOfzc8KZ6ecYM
-	 8nXZMaQPWH1KBDFL759QUXc34Zk8NaJ9o6WNpG9gtOtEE6NTBhsefVZNep5DvjpuO7uzE
-	 10ANH4EIIfaZhge4zg1SysafhZQpHlaCGzv5vzvVMza7ZKAPIU+3u7tR/Vw4yT8vipgf1
-	 uDzh+7rqsvLQG/UCpOwfaqS0aRsigaqOs9xLuu6X0erL+C/FUATiOgnQZy0hXwU60dg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301403;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
-	b=sP817ChxJMqX/FDu+t7hcx5kCCecOlB7hdfN/hPshLjR+Xp+RXO7HJmQG7/tzU2mVZjv
-	 HBfb83m7SklWqJS0zJGX9sTnUFhetwIwqIm9km6SEvaD0soSIhDydf3hu8M7wS4TmeqAQ
-	 TFWM/GyFFqg5jtoFNtnKJSmtzuhxBKmW37lt9rChXlKMk97wjdZviF/yhkrxg9AvKoDzv
-	 IE3pCvjEBisytbSzjApVVwIA5/xyZ5uKfd0nTJh8OFUqedM8mKOtKPAkFW8OH3y7NQJ2w
-	 WJ8inbziLpubk3Dq/DfS/Z1Jycg9z8jrCU5pgd0K928V8uUNIMUTquJC4+OXhCeBCkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.0
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794301395;
+	b=bFqc/bWtoK34qKy7ML4C+VKG5vCgOhKbNf9pZC/cCnFUjM23Szj+hpod64gd54IdqO6B
+	 dDpw5FTTPsvpABOSjJV8AzVlB0QhzgcUgQkD98nH9tdS5h+tnNXk4QKr9s+/2Ev2IxlR5
+	 lmCjCs3m2Kazhh/GZ258fWD6viMfam4QC0Jh1pxws5lP/g4VbMMs+5pMD+IMPDe+i9Omz
+	 ykdbiZsPvspPnmmceJr/OFk9LVfToK094aHzJZNCLu/aYgVHIKj0PwE3kDKkVrDQziPSe
+	 Y2CpVvYF0gOFN6XPOc1FwoUWASSM3NV6VnWT87Zbp9YDvVmd5j5FtFj3lpqZsy2w1rw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301395;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xhVES0F8QslaLPw1cnToI5+f8lYqrrPoRFMEFrT0zjY=;
+	b=ss67k3Isdz+h+D1/5N2xauX/LbqV/eoOtgfXfuuObc6oeRPjFcTClrkTGJts+tM6ddZR
+	 YhkSQWCpYBR7jIW4tCifVGV+Ep1FDJikgm8iKk2ZcD9JKeeSdPLSGsrAajvgjZ9/hhGmn
+	 n8o9EtcBsMtSutALzij/D7RGZHaLRGxpOek2ZGt2eDKZfkNlpQkI+sXgR5hLdL0m/CKcU
+	 xykaiOjz/MWU3pCCQJk4Rmd4Awqg5vy31KxLLMtn50w0rZUZfq2PzTTcyPcQhj2xmbT/M
+	 XZ1zqkLvyThoT2XEN4M3/YfuGnanG73LoDiM0BUx8tfWqpk3KYY1i/DPUhFv0+Qkuxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="h/UzpO+L";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011000.outbound.protection.outlook.com [52.101.62.0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4CB606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:03:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A4CB606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4391F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4391F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b244fb7fffso2223292c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:03:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794301401; x=1794906201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
-        b=aQa8NbCIL5iROR1xv9a893vuA9VKs+H4UP3noZWQVQc6eHiZUFmGQ19+107lwy8Hp2
-         e9ypF7OCdmIIc25iDGMH7Xw1pnCfj/8fyNFIEb2WGQLkgvCdjP8MBZwconVQJlUXYoi1
-         yDAtJErHd09SKjykRmQNmGs9Vu1Rmqu1U2+ba+1noReQUUo0c/9G9afr8Te1Yuw+iFne
-         vfgEoWL045JiXncdLEqUhBzR/5xH0eTNb/e/w+EXdu/LQK1Lxo6Bxv4avKBJJd4vdbVw
-         XGT0uQrgoTRt7PHMwafIP/Ur8zqyYCDaQo37i50bQO1NU1wGdFiO42y/dJp/nqvvSiit
-         9ZRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794301402; x=1794906202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
-        b=z1ZKKnN9KmGb6xWv8+y3WKygWsTg32fIsLY/lRQ7/26tCX0IKNOO/0Q3ybPJq9KzEa
-         QcI8OUakuCxyxBXYzW41QfSmwoibYzyr77tgfoK/FW+YgyGa0Gfi0JJrZe1RhTSHyX4O
-         YsnitpA7gLX9wjRjbLQRx6jpTrfxpOrJdUP2kSh1K2oemeoSAO4X1ZqQCOyzT7tca+1X
-         TsVozCt6andkzTb8eG08rLjNDOM4H+ttCW/4+dsl3OpHl47V9KdwWWzQLX2nlWIAQlkN
-         RVcAD/caATk8Up6w2LHZkuPHejXQsNigyqeTvex8xgiS+cx5DAnxAkFTLe4mRBU4cwkA
-         KXVg==
-X-Forwarded-Encrypted: i=1; AL+hErErwUvHNRF8z1r4yT9qm1uEy1GqbqCkOWsYSdU4XMnFyMBZp0MJCkf2UFUrZ8BaCu57o9RpvitT430AtHE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TBvlJko5gpGFbiPWLSZ59zXH2AH6MiTpZES7Sf8LNStAR10j9
-	fzlXpy3/lJ2oT+39IOxtnwuWrdCrhqipCpT7mwL82hZOmqpAcWI0VAZbiieFudEX
-X-Gm-Gg: AYBFou0fbpR0G/J+RtskfEwY8LNMOjE0lpDmXI7SEvoQFX3By3wPd0ENMht2cG2++On
-	fDwVGtCy+pCroRNDWyR3vOv9hVEIsjTiKq61Eo3viKuNKG4SoRNQzPZMOMAll/HP8mytzA4kyg7
-	t/gOVhjQ33RanxvUnDcHtEUVA59hsQ6zu/G1081dc1GrQLomUck2h+quwpkP4t6ouR4yTsOk100
-	x2GnyFf02oNaYE+4BI8+GgWYp3zUrrCg4tHHtDCrFsH1vr66cF2IQcZk+U6K1cToXjyj2F6wopf
-	FRBtfKeL7XW096MD+a7yr6+RU/uw3WFvavwPcJVxJn9pFBE8tOhwn53ATIwtUaIXUzVlNEKM/YE
-	hT8lpsiEgEK/E0nHX7Gj/38KyZ9SnrlM34b5czIaRyPgf+nXPT5QDbH0QroyAqxSnhGc5WGwOC0
-	2RcT9ms2Vo/zWAfugIC9kIU19oMPJaqVBoWHOMHG6qLpbSAE2hqZKHzU5CZHgZnkfAUJnXvgoxu
-	XdxuC1oPHCtuEK9Gji/muyrGbci0Lh6m6qA/AWS/dQ9h/E50QCEDr1UI61vGozunvrtSSiLWb/P
-	HT0SHA1BQuWnEvm4blOLJFAfdewAlTwcDnbRKWY0vv69sXV7rAMyCefzY+rSmSylvie48g==
-X-Received: by 2002:a05:701b:2704:b0:16c:3408:760b with SMTP id a92af1059eb24-1b3b60097bemr2296116c88.32.1794301401116;
-        Tue, 10 Nov 2026 01:03:21 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm5762557eec.7.2026.11.10.01.03.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:03:20 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v3] ata: libahci: delete the SW activity blink timer on port stop
-Date: Tue, 10 Nov 2026 18:03:03 +0900
-Message-ID: <20261110090303.2415681-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h/UzpO+L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=egEp316AEWNkBOlZ6/WU0E477hQW0e8pPnx1e7GrFsbhOkVIsLtYgTJkYXMyJSIiaTbdqh73LAdJ6mBr4ph3y485EKEQX6HltDCTLQENnk+JTxrqXxYIxzi67CqN/mKWiYwi2yOUai6VAmgNzQVbN+ZvXo4M+1qtTXeT9gl2wJsM51uOEyPLj9JlKn3QnvAZQCOecpSnTMA7pUVMr05kD2DLwR97m4PumQBgjzrgpLVJ6Uhn+dRXhXqG2545uK1CgpSGLW0dOCfIOS8z+bXFShaUq8EYsrOVoRidNqhaYMibSXV1B0G4Fj1NITZ3btXjDlPEXGAdz/KtMl4LumoQNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xhVES0F8QslaLPw1cnToI5+f8lYqrrPoRFMEFrT0zjY=;
+ b=Bx4nnEBCiJZ0+Jwy8QeG4wrsVdC2W1Nt87nufH7AsVGi3kjJWNjn612TsQz/ZBRyOx1ziIJAEkTVOzMqCxWlXHNgVJsmeVy9+smxx2bBwyfLaKQ6xLACXi9HKCSyhfjoStNtXB9HV9xYqakkSrRmAIMPJQI45jDvrnLoq+rAzW5eM8gA9fLySvEW/eBl255gMIa9H+nKkYfoj8ucgI0thj7/uBmLb8JoSaxjlqlxy2nR3z/Jz8cY2I8MTLvq/uZrzxPKrnjSOpce1Sbp9ip5P94Wi9E7Mmm1WPLgZwccfLsXlvfR4tpzTSn2p+Rgf7rMmHxtaINpIfrK8jM8Ihr0WQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xhVES0F8QslaLPw1cnToI5+f8lYqrrPoRFMEFrT0zjY=;
+ b=h/UzpO+LbtSRQ/cK3gvLWA7/UR9sdv1MvlTdYwU0KOv64BbsR2gwjTCAhgd9ZduuZJwaR/M7R26vvGeHBHoyOMb2kr0YQ5YB8FmUZTbpbxvTgKojqHnjATEGkAlGB/chP69rXndEOYajZNLifFOcHhodnOQlBt1FDy+yqIIYaDw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS4PR12MB077728.namprd12.prod.outlook.com (2603:10b6:8:506::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 09:02:41 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 09:02:41 +0000
+Message-ID: <cd8be687-8876-4232-b85b-c1eaca2f0222@amd.com>
+Date: Tue, 10 Nov 2026 10:02:36 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/6] drm/amdgpu: always clear stable_pstate_ctx in
+ amdgpu_ctx_fini
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Sashiko-bot <sashiko-bot@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261109171333.4329-1-pierre-eric.pelloux-prayer@amd.com>
+ <20261109171333.4329-3-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261109171333.4329-3-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0067.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ce::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,75 +100,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB077728:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1dae92c9-e388-4a40-2ada-08df3f096013
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|261026140227099003|261021123027099003|261021121427099003|261028144727099003|261009223027099003|261022105027099003|261102123227099003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PNL2uimGSp0uwA4rv300nFsgOyBQKnwLJgED3XZH+Ugiz7w200UVWbQoVYAEwNx4E7OF5a4xqIZ8CNROjLzhkhYmLjQkmCNiPk/O5k9ffmJUSGK7IloSy8uxsgutkb/UoH4JwcIW/BJQyOdHbqYYvTdHCfLMikqPJ9f54veJhd/ykFCvhrnhEHccrUKtPKVI6397snFK1Il0jW6Q1OSS6RMfYs7sXPBJRCzFB5eJ6kj8TnzC2dHijrPkNHAnUXdinbY2z1mD+u2dzvmDrUKJ+hKjK1aIpQjVSnhDd+h/uLyEflBDXbU+TO8VSplRwh1mE2w82Z74sDxuKHYqQzZfbnCtuK6w5WnbSFjvndY9scqiPHw8xZRwuxM7yjaM259jggBS9eT0IUBM1ODL4XzCzF1B/r3hQFILzd/oqC2ZE+8TdnIFYNpprZJumi8QwRsE10BDIF50anqM1a1JTE8mp+t8F+LX1N9qkBpAQMzwcBtJqMouMxWAzCBbNkB6WAFDpLev9WY8stfe3bI9L7Ib371gFogwarqFC54GP4z8/k6OLgpPb4OOw2IUq6o4NkxTRgMSm7vDVj8hfVF/6z5vEQZP7UJiMl7sR0IWv5OmWy4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261026140227099003)(261021123027099003)(261021121427099003)(261028144727099003)(261009223027099003)(261022105027099003)(261102123227099003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dStUbW9HS3NrQmJ6WEdvb3dEdjlpNkg1anJZTjJvenpDRnErd1VJWm5iYjZr?=
+ =?utf-8?B?ZmhKVEY5VDd5TmtHVG9TcWJFMmM5aWhNU0ZNYmk0RHh3cmVNNWx0dE9JZkxF?=
+ =?utf-8?B?Ym5HS2lGd0pOS3QvaGNDK21UY2RPUjY1dTZQQ1pqeklwYUpXVXppR1YraFJz?=
+ =?utf-8?B?MVE4K1dVQTNvYzZCeGFHN1FCVytadDV3dy8zeXZERVZjY0dVVXE0QUgwRkZK?=
+ =?utf-8?B?T0RZcWRjWWlLR2djdWkzbmcyeVpLblFjUVpsZTF4S2JtWHJHSXNWS0VBSWlv?=
+ =?utf-8?B?R0N3d1FqTXIveXNLRnJlMExzTk1Ed3lvdHBnSGJSb1kzSG1FNUYxa2ZxekI3?=
+ =?utf-8?B?ZjRSbmhEZWtNRTVhZGkveFlaZi81UjhvK2VBMWthN1dISnprb25IdVRITnA5?=
+ =?utf-8?B?MnFDTXoxYmhvVCtVSEhOZ3hxRWdPbGRXelJDcWlmSTd4dEI4L2RDTUNKMEhm?=
+ =?utf-8?B?alFwZnYxckIyRkliY2VBTWxlcWJ1ZkEwZFdxK0ZVSzRGRGZhMzNhb3RBY093?=
+ =?utf-8?B?L1pBbjdKcEhYMXpFdWJiVWVqdFl5cm5jUktDSC9TN1F2QytUYlREd05NMFNI?=
+ =?utf-8?B?NUZ5S0czK1QvMnhlOUVxRmxKYlJ5MkgrZjgyY2hieDJaYndldUNiWkU1OFp6?=
+ =?utf-8?B?Vi9OYWRaQXRBRGhMMlhNYS9VVDJJWm1IaXVNKzRZTU9WeXdyRlhwbG1qeDF3?=
+ =?utf-8?B?ajR2bkg5bTVpM0Joc1Q2SFI5QU5laVBSbDAxdVBXcjY0Wk5ScDI2NXJHTEor?=
+ =?utf-8?B?YkVPdng2UWJuZlErUzJLUWsxU0lPbTkxazhxTE5SaVpoYkUvckhMVFEzTmM4?=
+ =?utf-8?B?R3Q3MUY5aWRTMWFRSGhLRUhYY29KODJHZEYxNWs0TkNRMXF6R1JkR3RER0M3?=
+ =?utf-8?B?djgxZFNyc2g5b0UxeGJ0MXBpRFJsVkt3ZmtVOTMxNm54Ym81T0Jud2hId3oy?=
+ =?utf-8?B?QVNrZWk2YWRjdEZPcTJkb05UNGR5QUFkN1FXTWZIVGlWVGF0WXpHMk9pYTRt?=
+ =?utf-8?B?Sy9lZFFOeDkwMXVwcGZoZjdGcDRBN1RtczZmZkFFQWRCS1drSnpUbUlHM3Uz?=
+ =?utf-8?B?TVNMVGlTb1BSQmNWRXZQUTR3amZIWCt0YlNLSUZicE14NXlZWG9yMW9IaHB4?=
+ =?utf-8?B?NHRvVENBWWFhbFk0dzd2Q1B0cXlpYURNT2RjOHlzdFRPS0pNV25vcldtRnN1?=
+ =?utf-8?B?SEZpRElnU3ppOWE5Qkc1Z1FTYTIrbEt0eVk0WjA5NmVhREljcU5QU0l1RUd0?=
+ =?utf-8?B?U0NCV2E0TG5vZWxUbEFuU0RuRWpnVUpzNWhOT1FoQ1MxYVM0eWFhbDRmaDhD?=
+ =?utf-8?B?ejFDL0hjakZNbGNrNWhzL0FBY29lV0hUeXhVTWxYQmVtRFEyWW1Ga3ZCd1hm?=
+ =?utf-8?B?QXZPNFJlSGlpTHhoaVU0N2E3b2VrVWJMTkU2cUcrMFZObTlNdTNaMEpDdEly?=
+ =?utf-8?B?aEc0ODgxalRrdXpHRjBzQlpVazViQXdISFErY3hNbmorVTRpVHFEcExRdU9P?=
+ =?utf-8?B?Q214dkFIb21LREV6NEdxdG9IVmJhakx6eC9YK3l4RngwZlB3TFFLWjB5Y0dR?=
+ =?utf-8?B?YUN2NTRDL0lPREtYNEpnSThVa2JBdFJRaFI4OTdBWm1Hakd3elN4UWtweWlZ?=
+ =?utf-8?B?dTduVDdxMDNnWTVqSUhXcUd6UzFnd2FJdm93YWhabVFzQkxoZXgwaG5zOCt1?=
+ =?utf-8?B?Y2xQaEhnblMrWDhIL3VVM2tNZTcxOGpTQ3lnTTYrb2pXTk1ZOXJ3TmEybFZ2?=
+ =?utf-8?B?eUs1OFQ3d1BYZm9pTjZ1SjIzdGhtNExQa1UyTFV6eWtIajNSaXc2eis0UXQ3?=
+ =?utf-8?B?VzcwdXdaamZNQ2tEU2V4ZHZ0MjRDTzlLOHJvRkgvMmR4Y2dYU09ZUTg4UWsr?=
+ =?utf-8?B?L243WU5BR0szVmxleUppelRGV1NMcHVKN2RraVNpS1FIbndFeWpBTkdiaGh3?=
+ =?utf-8?B?S0NsR0pHaXo2cGVYZEFxVDEyVnBUV2pIem1vakdFeFZaTGFpNjgwdHhBTlU5?=
+ =?utf-8?B?SFlqc3JkdTdXUHBucVM2Z3JkN3BmbDNGSHYxYWVEKzJ5Y0paK3dBU1hvR2kx?=
+ =?utf-8?B?MUVaZHZuTE9ydDJBSnZlL2VmNzVrVmRKaTRIVWpPaWw5Wm1KQUlZVklIaVVK?=
+ =?utf-8?B?NXlyN0VUTmJ0RTNHbTI1ZjRXa3FYQUMwUEFnZXViYlVtTGMxTFdtdzdUODRK?=
+ =?utf-8?B?RXBYY2lJcGZLRHZpamZvOVNmOE5CSXR0WTdmVEp0c1QrOW5vZDcxaVExcmVK?=
+ =?utf-8?B?bndRSTFvZ2pjWkpYbVdVU0crck1mbVRET1IyL2JaY2xmUmV1QVFGdnhKNVVZ?=
+ =?utf-8?Q?kS26EeUQLojeV+mg+U?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dae92c9-e388-4a40-2ada-08df3f096013
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:02:41.2831
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dCjpsrn9+5sLeFe4bFxLgplhbIi/YUIs/pCsLgHmDPecZ9uIOoCT9sMEzfGRRur1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB077728
 
-The software activity LED support arms a per-EM-port timer (emp->timer,
-ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
-callback re-arms itself while the LED is blinking. The timer lives in
-struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
-with devm_kzalloc() and freed when the port is torn down.
+On 11/9/26 18:13, Pierre-Eric Pelloux-Prayer wrote:
+> Even if the hardware is not available we should clear the pointer when
+> the owning context is destroyed, otherwise nobody will be able to
+> use this feature again.
+> 
+> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com?part=5
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-ahci_port_stop() never deletes this timer - nothing in libahci does - so
-when the SW activity LED is in use and the AHCI port is stopped (driver
-unbind / module unload) while the blink timer is still pending,
-ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
-dereferences the freed ahci_em_priv (use-after-free).
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Shut the timers down in ahci_port_stop() before the port private data is
-released, only when ATA_FLAG_SW_ACTIVITY is set and skipping em_priv slots
-that ahci_init_sw_activity() never set up. Because the callback re-arms
-itself, use timer_shutdown_sync() so a concurrent re-arm cannot resurrect
-it.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> index 25b1cf7dc988..2b318ccc9aa6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -426,15 +426,15 @@ void amdgpu_ctx_fini(struct kref *ref)
+>  		}
+>  	}
+>  
+> -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+> -		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+> -		if (adev->pm.stable_pstate_ctx == ctx) {
+> +	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+> +	if (adev->pm.stable_pstate_ctx == ctx) {
+> +		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+>  			__amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
+> -			adev->pm.stable_pstate_ctx = NULL;
+> +			drm_dev_exit(idx);
+>  		}
+> -		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+> -		drm_dev_exit(idx);
+> +		adev->pm.stable_pstate_ctx = NULL;
+>  	}
+> +	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+>  
+>  	kfree(ctx);
+>  }
 
-Not tested on real hardware (needs an AHCI controller with SGPIO
-enclosure management and the software activity LED enabled).
-
-Fixes: 365cfa1ed5a3 ("ahci: Move generic code into libahci")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-Changes in v3:
-- Shorten the code comment (Niklas Cassel).
-
-Changes in v2:
-- Gate the shutdown loop on ATA_FLAG_SW_ACTIVITY and skip em_priv slots
-  whose timer was never set up (emp->timer.function unset), so
-  timer_shutdown_sync() is not called on an uninitialised timer
-  (Sashiko AI review).
-
-v2: https://lore.kernel.org/linux-ide/20261109060709.1231946-1-hj351016@gmail.com/
-
- drivers/ata/libahci.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 001a6f5..873645c 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2605,9 +2605,24 @@ static void ahci_port_stop(struct ata_port *ap)
- {
- 	const char *emsg = NULL;
- 	struct ahci_host_priv *hpriv = ap->host->private_data;
-+	struct ahci_port_priv *pp = ap->private_data;
- 	void __iomem *host_mmio = hpriv->mmio;
-+	struct ata_link *link;
-+	struct ahci_em_priv *emp;
- 	int rc;
-
-+	/*
-+	 * Stop the SW activity blink timers before devres frees pp, skipping
-+	 * the slots that ahci_init_sw_activity() never set up.
-+	 */
-+	if (ap->flags & ATA_FLAG_SW_ACTIVITY) {
-+		ata_for_each_link(link, ap, EDGE) {
-+			emp = &pp->em_priv[link->pmp];
-+			if (emp->timer.function)
-+				timer_shutdown_sync(&emp->timer);
-+		}
-+	}
-+
- 	/* de-initialize port */
- 	rc = ahci_deinit_port(ap, &emsg);
- 	if (rc)
---
-2.43.0
