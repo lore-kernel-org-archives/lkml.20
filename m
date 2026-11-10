@@ -1,80 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271447;
-	b=wLEAU+phl23wCQF783H1UHTISIidrWDmuKuyD3JA3OtVbUADdpZwmAsZdh2VAPkVFIRE
-	 ZpKe+tXXScseF2xzx3qX1qArsEGaZ5FkHAAM3x4EmJtYFIK1GtxuHRd5dxvDd/Y6KM4rm
-	 yLFoCksSCkuYJrPQyn3Pg6AQc23KqS1olBrGOLjePLbZuV+Eep0slSDDGnID1RVL9Iowa
-	 mzwssE+pDre6Bs/BI9luXK0ceMX+if+CpyZJGbnNRBBq9lkr3zjB7A4SIxxdCFwNwNyNH
-	 35+shRjdW5bQ4LfQO02zU0VaaVhdLf0/P8N/bw/HntJEIuO9lPpyTf+VUXRPZjUotWA==
+	t=1794271554;
+	b=BsY4WG+0lUijB7qe7eziplSLLad5xDj8Df0zQlzBWWNU8sLHthU25HawVZol2a5F9maJ
+	 GgyZelsajTb7aTuwAgpitFU9BuzcQn+eVbEG9D/3l/6FXEwVsUAerTkEYMIQoBud09FKO
+	 RCCjrWJp/8OIlsheWii2QZGPj8N9j7XCm8BeqPgLS3gNxp1VcKh8YWAzEJ8ioDlT4uVfE
+	 BTmn+3UdhRhOp1ZVw899icQLmmnjx/FX4UOVbBVebAcJJPI2oF6vKXAilz8OAL2Zd5i4l
+	 PbAswe/FrqNtWZtcNoMcCwyzZ5TV7rvy2b8iD3BtupwTX8Ikmyj1Nx29kKVIu1gNMhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271447;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ddjaJaPjxNLNyiRqNTSjbULu8NmHHhaMKMYL9tWiOOQ=;
-	b=U1+JJe8c9yBSM5b+n3s37jL7otndG2jrK8c3zBX994geYsqzPPllZf6KggFxcOk7XgYV
-	 UiXugj/tYD4bUxDDHjjGQcQ/jy/Kxf1++oWmV5u6FLvjMoQz77xRE/g3vQ47BFgfO7Hoo
-	 erGWJH7+ILI5I/p8cuYzTjz55fACKw09s3FoVOLhUWSpKd5UiJCr/IK9mza1mZV3MtFp1
-	 S5mGg+vfHzxDWwVHo42XwPLn34rgioqSBkfihvEsBKumtx7g+PNPgCVX/NmMGan8sLLW/
-	 r8BdqJBDR4SRahHf7Go+LTpa31c/mbNpSNM9tEcws4l+pkB583x998Z1iTrRKa3W30A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZkmTpzpvYUC7ntJzmKPOJ6Gzor9QviyvVoNYRgK5Xt4=;
+	b=HZ+anQfw96Dd66qr1SBLeLp3pl3XwKU7MLFSClwSv/FwW9L8W4NybK/KYcHRNpfxZPBd
+	 xqHvaJCBFLvfT8ShggIsvdruUT2HKjIngSjIbufbyUIPnB2cqtGgIvIJjOTcqZujaQGUw
+	 A2ow5MmDiGr/TZ2iNh4XmcedBjvRjbHeC3/49DGafj1X8x1dzzdkSilCZVoRfBCnnIqFG
+	 4LcxqbKjJqIv+s5qJ7LZGnesuA++3QMuxhvNqWxiEicWhO5/7ZLZUxKnLGpXjxpSszJqo
+	 jisaR85L5xWItZsTVfpZ9FNC/GUnKuKFKOupWx3vXipMiXtBS0YqmpVC8c2Q9Yk6CMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mKM1IkyC;
-	arc=none smtp.remote-ip=162.62.58.211
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=KENk10Ex;
+	arc=none smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C183B606A321;
-	Tue, 10 Nov 2026 00:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C183B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE78606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE78606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mKM1IkyC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794271440; bh=ddjaJaPjxNLNyiRqNTSjbULu8NmHHhaMKMYL9tWiOOQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mKM1IkyCyDIecTnR/sxNNi7cDDvr6OMlYV65VmNXn0gfKLQ+aeFzD6APz9JpYbpj6
-	 dV6ayjuj/VP3JQyWjq+srFzoeIbg4f2q4Ec6WV4Xi/4pOs3fppmIiJduy2YWomtpgQ
-	 smqtr8W0LIL7ugSf8J4aTf1pb4PCmHgeE9NP8puw=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id AF9B90CB; Tue, 10 Nov 2026 08:43:57 +0800
-X-QQ-mid: xmsmtpt1794271437tv6z0ngxe
-Message-ID: <tencent_1C167779F22602DC6831E109767739693E07@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XbXZ2D+oNSNFNR0xf9DZNuPtlvnA+EtADWRuYqgcYsVcluyvcGX
-	 iMLeOVcpM5kIQrh9yTKNaASpyZsQIvKhQeqn/u6G8DVim13ed73yoKQUK1uizOTW3SA5FwECGmbB
-	 VMTeVsb6v8/9WY8K7ichETTlwKF28Gzh7U3oN6F1NIuHoMqJl+1RVh+BQP1yjE4XKP8trBtYU8JW
-	 kkTPZ14y2RH7XTevuuXIhftyt7w1HKcrzbSdr2DczquxtSvQkJvsxn4RXFjp6JgCnRw/f1gSNT2P
-	 Y+l7OTcU3OG0UgDOYgVPEK42UgdOwRALa/pshdv+5tsukafkfBVAu2fB6u3UVUGhQP9wtH6cKhwl
-	 bU2uaL26t1/bZuCxVyW4RrFnI1nbaCNViPWzsbA2eju9VYVw0Mk6pkwv41L0DOfhrDOx74KRHPA3
-	 sC3iokxOH9sin+f/k+veonsrZ6urs/U5GU+wxVt9wYJ8otsF6WxVtica7mla99Lx3pytS/OnbBJW
-	 9LZicBGRm0mZbaXivwoVVdqhNZrmwFXR68R61GksrG7LeRD6Kb3iJZVV/KN4Fet1AWRHynTGCg3q
-	 /WSnq3UE87K9rh1Vb9yHmvpP2/v2l4Kkw1pCTfbmDLqBdUrdZGmlCnpfYOoopG3yNQerpY9ML1hv
-	 PlN0ZcQVhfe043KTreXBjOayQhIl4/S1KsYNs1PakGRWTWqZk5z7GrTA+wmt41g26KGSaWo6RBM9
-	 qCJFed9RT/rqt/9kMeCBjW4Wm8YIthO+8hbYsRCHtCnUX0RaHXAgs/udLmUsHDvd/Jo1yAUMF8N0
-	 aGYlnj7HCLFlUa2OI3/fhbWcmQ2IR21UvDIN62bdKlmK5lJteK1aBmvmWKYv6/Zz1Q1AW6c1bKO5
-	 cJHokgwXIHALZZqrDOoDWdon2pnhqU1NxPBvzzQfnVomXgYg9CuwPqtBbrn3jUHHqeOiHmy7syk8
-	 Vcs3fFF0MRk7CVB2ymaMcJtvS7rMxliPXCatNj3HFU7ujZM6kXX2rJYhC3vI8+orlBnvAtqMccaF
-	 UJ9yhIY5kGrDk3nv5exeQEfWSd36b0AJ3IqfeQyQ==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Shuai Liu <847807867@qq.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: linux-spi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	broonie@kernel.org,
-	ojeda@kernel.org,
-	dakr@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: Re: [PATCH v6 0/3] Rust abstractions for the SPI driver subsystem
-Date: Tue, 10 Nov 2026 08:43:57 +0800
-X-OQ-MSGID: <20261110004357.496377-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DMQTSR52MFG2.HUM8KW5WEE8Z@garyguo.net>
-References: <DMQTSR52MFG2.HUM8KW5WEE8Z@garyguo.net>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=KENk10Ex
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53653e30353so19251871cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:45:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794271552; x=1794876352; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZkmTpzpvYUC7ntJzmKPOJ6Gzor9QviyvVoNYRgK5Xt4=;
+        b=KENk10ExSThPjvJIbaRaSz12k7D0dwtjtTSi8PUD6FLJH49GtS9Y6UtKu9xmF5uxwO
+         eI+rY9S/jjkWoOzplgjXCMqTcClA0ndKp35QlMr6KWBTpmFf9OsInuafRL0utB+LlIBU
+         /vdJUikbjsT7x6f4H3veFQHzkOFyfCqId1BwR74P3uhqroyQc0kb2gIo5q+u1ZVXwhEK
+         fjp2LYYz/3ukm0c7tvaGhqCCZ7o6z9mw7DifmV/xvMwNpi8yeNpAkh2/XRhyS16xLrdJ
+         jBgXCYfzW8pci3DknpzuhmuQyFXC4miXUUHjOC3zP3ZqF9wUmlM5lrxmkUs21LJ/ZL+n
+         ddbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794271552; x=1794876352;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZkmTpzpvYUC7ntJzmKPOJ6Gzor9QviyvVoNYRgK5Xt4=;
+        b=RJpdXly8E3G8MGpyM8JYtD7BA6LN6/L6/2zECbkYvxbTxKLU3+fE51BAzTM9bNYt6/
+         1YU2etfAxgERJBm+TYzF+nnOTChtPZTGZqInuEfgytr0uXqoYhnDoLd5AI6dmEQneSgi
+         +sddy+QePsGxc+HGKr9pEMSOa+fQ+HYk0TdpDVBMKi45JOIzMlHomuK22Wd4w4wSvEsr
+         i4/s5l0L0EVe5r2OWwP9uhqk9aGgUbskt39cJnswOs/E55KCv8jDL6s70gfnFqaa5bvh
+         eGqS8quRei1xAwjlCCbAedOMeoP5bKecRrK2/N47jJbPs+dIOvggONPaL0G1scBG0WrR
+         Ngjg==
+X-Forwarded-Encrypted: i=1; AL+hErHYHDmvTvAr8h1Pb7tCuc93X0n7UrJBeNxYbT8zJgvYsErA25TDD2hSKhmhOaieGfyRKpyR5DHwJV8nf9Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++fX9yIaIp9GvoVSnV55jy0fhNEuFGF7wocF5HuHmfgbEmj6UE
+	GMkuNkexgocTGnJeh31MEueHE+aQt6Gnqvw/DKa2WqTDggx9MmxyqMpxodP8y4S4g2c=
+X-Gm-Gg: AYBFou1L41Bc/1y9ucQSUe1vc/sztDfFg8ypXQnzgwfLqRhZ5++4UwSvasmQNWTMH2Y
+	pC5gvuYf7BSiySumjUu/M2bfpAaM2M8cbnIYdPW0gGCefw3+CBsS0+sNBiRvliUeHJ1IL6w2JSo
+	5SUkngKiYLbGU0uAMhAYJ3uwgxF27Z9qPU0sS1fav7pk/DsKzf/ZqA9e+n4sFyDnNqxaEY/n3Me
+	IHhaVuzIsf4znW4+3LDBOIJuu3w8ee/GYLuwvichMbbjRs8kvid3DmzvVW8wRV61V18QgkirWBP
+	WtwFjsqMZ0ayS6+gM8gApbbJ/jJ+t168p3+fUCGqcg8VCXLTm2iTmGyQFAohJGyoZoDcAzNSPZO
+	xtbEuBuhamPuxPAU2FISq0+hFRqkV3ov77J1DIkX2G+l9wIbyp9fIF4b9qXjtejvfGrcDkmwkzk
+	hzu+/TxJl1PXHu4J9OyNOMOmT2JcXDR/4ZIQNOzzVij3BVpIXZrwAi/95CAnbnrND5A6r/o2hSt
+	UzIND5J5Z3qDm+edAvX3pJi7+X/cd+J/dzhGNtEedafytjDy17Tm0DqGSfa2eK2wu9icWZEwNB6
+	nuc1gi0QySo7C3E6vbkmwEdTlpaXkeHlOI/xrREKD4p8MWCLGC5Cl4xADeG6AUw4oAXlXUDJwHf
+	D4gcLEGmSmDWmcpCICN3dhUCLoDCExseR
+X-Received: by 2002:a05:622a:17ce:b0:538:10e7:da7f with SMTP id d75a77b69052e-55528109297mr16657431cf.46.1794271551944;
+        Mon, 09 Nov 2026 16:45:51 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b9425c5sm10544221cf.17.2026.11.09.16.45.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 16:45:51 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xQZzi-00000003MI6-1peu;
+	Mon, 09 Nov 2026 20:45:50 -0400
+Date: Mon, 9 Nov 2026 20:45:50 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: leon@kernel.org, hemanth.selam@gmail.com, yishaih@nvidia.com,
+	edwards@nvidia.com, mrgolin@amazon.com, michael.j.ruhl@intel.com,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
+Subject: Re: [PATCH] RDMA/uverbs: Fix radix tree node leak in uapi_add_elm()
+Message-ID: <20261110004550.GT663069@ziepe.ca>
+References: <20261106013908.21789-1-kartikey406@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,18 +103,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106013908.21789-1-kartikey406@gmail.com>
 
-Thanks for the report!
+On Fri, Nov 06, 2026 at 07:09:08AM +0530, Deepanshu Kartikey wrote:
+> syzbot reported a memory leak of radix_tree_node objects allocated
+> while registering a siw device:
+> 
+>   unreferenced object 0xffff88810d78f488 (size 576):
+>     radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
+>     radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
+>     uapi_add_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
+>     uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
+>     ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
+>     ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1503
+>     siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:433
+> 
+> radix_tree_insert() can fail with -ENOMEM after __radix_tree_create()
+> has already linked intermediate nodes into the tree, leaving them with
+> no entries. uapi_add_elm() frees the element on failure, but nothing
+> frees these empty nodes: uverbs_destroy_api() only removes populated
+> slots, and radix tree nodes are freed only as a side effect of
+> deleting an entry. The nodes are therefore leaked when the uapi is
+> destroyed.
+> 
+> On -ENOMEM, populate the same key with a dummy entry and delete it
+> again so that radix_tree_delete() reclaims the empty node chain.
 
-Root cause confirmed: my SMTP provider (QQ mail) rewrites outbound
-Message-IDs (the original one is preserved in the X-OQ-MSGID header),
-so the In-Reply-To of the patches pointed to messages that never
-existed on lore. This affected v2 through v6 of this series.
+That seems like an absurd thing to do, can we fix
+uverbs_destroy_api() to free the entire tree rather just populated
+slots somehow?
 
-I have installed b4 and will submit future revisions with it, verifying
-the resulting threading on lore before sending any follow-ups.
-
-Thanks again,
-Shuai
-
+Jason
