@@ -1,96 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301119;
-	b=yv4r633HQ2YuH9AS5l6dv3lvcmSkUhGZ/bpG4JikN69SxiXat71c68m6zJ/9z3sGmCac
-	 WZlELR5HnUucfcgwNjVVoj7FZgYAL5IzPvasVE7bpNYZSZ0KCP7q/PatBTvBzabXZS7vG
-	 kdZCco8rsbv2vC32p+UO0G6N0CjPfIZV7FWcy6dKy2WlvA8b7YRJmGLld5jKEFvb4z+sX
-	 ahVjkz47JKDtAAvbsjyihq0IZpSIAgeNisc+P3Ndf0UR+J2BFtZxU370jfjJ+6+YnYPRp
-	 1Rcmz5VJiL1OL++whv5Tc8MPSmHct1c5faG63SrOLVS/DCvnNzl7w/fDTVh6jxZptug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301119;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Cyhw9F+rYdwsMy4FzXD0Z2KPqp9LEkxDZ0WIEMmISc4=;
-	b=fmOPIJ5YwZ/4G57km+kHA/+8W8W2HKXMIRWq1tc7ZE47K3qpfJEfI0KkYruni8mF2WsE
-	 jQjdPnyPSY682AwsldZ6M2rJBrukyIArsQjX+0UEuQlvflzWOaNX8Q3LkDcsHyFtNhaAY
-	 cVmmQWltoXfnuFJq1h6OYTtR+5MZIQUecnw3h3ubHXtGgCzxEudPusSoIkZxuSf+dupgO
-	 AHoue5ntLc8hF9p18RGYLVmp+datvT3XPKU6PFx7aqe6LR4yFmpCa73JR+zZI/uMTRE/A
-	 4wLzlR0RRg1BEYGakSwu+oGpqNzH+c7fnGiF1WSzJAsp1IX4wNUA0QJQXoCCfSEZkvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=srRqMCSN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.15
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012015.outbound.protection.outlook.com [40.93.195.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301125;
+	b=K0nZObVc1kVnzT17CKBdPFKdw5jxC0K1yFqGpeUXm72WA+3Tr8s7q53Z4NXEPdO8H/Aj
+	 Lc9opqOVRJSsOaLavyA7zKKe6A6qZibh3qOkbxBYT5Ht96Swo+ZjDhnlndlDz/9qZs/+G
+	 89ibyR6nmL/6IsQExm/37eyZqxABwz3PmXQyhudQbwlIiGD0Jcv1HTGC2H9vjFfvd7PCD
+	 Dr8+MkjSE4REvz4Njo2IAQuy2/w9MscCrs3ON/Swuna3U6rNHt2gPLUYUwpVDgZ7MiBS/
+	 g/QQjrZoCMPaI6JGc9C7T24slMeq+EWdqmFj6vK4bwsweWS8xEeuNuydXpWwLS7WPBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301125;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=ZHR54X8B1Vi2Dy1CLjO9HYKEflDtZiTBnQwfHnLfqBc=;
+	b=AUt577lFxb3XvKqqqlff3s/Tuj9NAg+hftfS6uKSqZHxznFFk4Eb6F3GUalRLP63dyBU
+	 HSPqPA3DzefNHw5NRqw8MoAJIvgQepPuVQwmHkO/Ub2+pXAq6LQvurUP8tKTZS4CZugUv
+	 wwsq1Yr6u5WJhqAbKNga15HCaurJzX5mjk/evpcBCrenVmsxVpxvwQqbfCvVaT5eFtspq
+	 TWdqN5O1C032JUA0RRGqAe70nK/HM7twZtlqpvdA92++Jzz4fF1Up15FSgD1YaUOyiZCW
+	 elywNID7VEvDH8zHyL7GX7/3H/4MfhQPa9OBKy5JtWQ701uC0VCxXsu93/Ecl5Udmmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC78F606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC78F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=srRqMCSN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jjetczZCR2LuSCTPhc6DAn6BdkAYHLPxxrWqz65GUQn6eIlPwczqcjHZvQf0KQlxNbLpQKaWn84cJaLK0Be/8IZRt2iMKkv3ieiNF/+HDCkd75/8jvhHCL3fXLK69FYZ1bOhmpznStf/qG87eiGWwDf/fT6JdGmzBR3PoXRTBr4ajWBB6XhIea2okHUBXLe4ty3bZqOM8xtmjRZFnfUvdgYgqnWtgARfgW24F9p318EZeK0mHYIAFyOeZuNFjj6iDPc75tbpYIEExH3B/hVV3elTriU1moj4gcy7CWAjXA6Tbeaeak6LLgW661Mfqp7Zg0bU3gZypehPxYiGa323SA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cyhw9F+rYdwsMy4FzXD0Z2KPqp9LEkxDZ0WIEMmISc4=;
- b=qRe1Z3P7j7MJGSSNMG+wkirshyNMiK1kqJv2t30G5ZQ9l0LtwgBMxSwPNdk0g/3nUiOEms8JloIwQn8kVIemmucn9HtcUhHVomI4/+g0tvXKFqG+PUhKgzPn7DKL5o8EI2LIhw/1vrK7WEV8GvbJMGbnTvd71l2RjeIjMEbZVcEQViwQ5yUICBs/RqupqUHMsZZP9dZvVUF4BB2ZfjpKqOW7StgrjChcpOsaBB427849iD7kfIulde7engGTnL6b8QUcrHQ8zXC4dssWe2fvXW+lBej/+JUSIHcSCZG9C7H+pby1L64CW2vnuf/Ss9JN7YsxPEi7TWRDPO2SLAHyjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cyhw9F+rYdwsMy4FzXD0Z2KPqp9LEkxDZ0WIEMmISc4=;
- b=srRqMCSN2tgUSD8p/sxQ4Y+twP4pKe8SR9vm3qVQIq04aZ6JGJsSIe88XhD6FwyNZoSuzu2rLFDBoywtFMJmBXOGhPXdIQh5kEw6Bes/uEowDM3m+Aa8w0dlH7Tk3X+q68/uwr/5T6tn4a2543t4Iq0DCyE0gHVVlRARRnE31ac=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8878.namprd12.prod.outlook.com (2603:10b6:610:17e::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 08:58:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 08:58:34 +0000
-Message-ID: <aaa316ae-3fd5-42ad-b1b9-287a8628f246@amd.com>
-Date: Tue, 10 Nov 2026 09:58:29 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] drm/amdgpu: use pci_set_master in
- amdgpu_device_mode1_reset
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Sashiko-bot <sashiko-bot@kernel.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261109171333.4329-1-pierre-eric.pelloux-prayer@amd.com>
- <20261109171333.4329-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261109171333.4329-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0071.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA56C606A321;
+	Tue, 10 Nov 2026 08:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA56C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1794301114;
+	bh=xewJGJe/xTvyxFDlC5jYEKEScDnfgx77/g3hJ9ja8vk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZJpyIHekl7Rbxi/JLu0BqTdrvzht3hCK8VuY0L4AsipzUl41eoLcn5NAfqKBGhKfY
+	 QNgZl9fyPqPAGOF+9fo6pF7hS+8vheNsWOHRgCmoRlsBCbg0lLsbyVqksajUApWGw4
+	 V8hExTCgxv6D0Y9/Bhu2kIABwge1afthrGxhfcmwoOCv605d2Ysyj61455Svk4z8mV
+	 gjbdWFtsv+4cASYVVBg1QNCBSXCeCeDwYKOs2OITcMD5HjHE0BpZqb3mdbUHvaSaXE
+	 bsTzoriJ80ANUgo4AxNHlnh4wR9S7SAth4dy4ck0p7QgS7QeH2i1NBG5NI3mI8VMln
+	 xBQYG+0aFYLLw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C76982681F;
+	Tue, 10 Nov 2026 11:58:34 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 10 Nov 2026 11:58:34 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.16.187])
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jP0td4ZGxz2ST;
+	Tue, 10 Nov 2026 11:58:33 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] btrfs: qgroup: fix a wrong length calculation in qgroup_free_reserved_data()
+Date: Tue, 10 Nov 2026 11:57:59 +0300
+Message-ID: <20261110085801.1915-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,99 +81,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8878:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8f0bb26-c375-40b5-2d78-08df3f08ccfd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|11063799006|4143699003|261102123227099003|261022105027099003|261026140227099003|261021121427099003|261009223027099003|56012099006|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	lvXOtKrUlh1ocwhAA2Lg1PseJf4r4HTQiZhBEEuVRzKti2GDD50b+ju/pThWvuhZgfU+yGjPX2iklhTbcFY19T3ebLde/gXTiLer7pKuqeUCuO50YOrzRmPR783gRqIwujdJFaB6xqwqxnP47DO6TfFp7g572gs95EBuZJAidreQP4mH9kf0kmX96fwCYPIIqvio5uXsJ7qi4KCtiCHioHsMpYdqb6LMCK7d2Aw1T5YEsd4wIBFjDJfiDDvmDnK/Urh5I+obksSYB/dgHlov59j0qBcfIwoerEai6tc3fZ2xpsHRuEEzOiBmYdPaoubzKLAa9TlUTn3/5SpFjFuyJSoyk7zacIZIRBv3rO+kkrobTAo67D2R/cti6tf8oQwLAjJaALXurXldEObqqWeB7eX4bbt5cI3IiSQ0Hyoiyh547CiGLqNjFPOT8a6KwdTdgspCJlSeTUZPQ3stlhrEwr9GSE1AVZcAydoyri0eBF2HffesdlV4TxtV7VDAXL1txA/D55vH5rtW8F0IBwqgI6KR2KBkiBP/hhU/L6XYKzv6ADCCa+gAvD+DVAT9PebQr0vyd0Z33DkIMe7EdCmURuRwDiko9bobXTquMSxy96U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261102123227099003)(261022105027099003)(261026140227099003)(261021121427099003)(261009223027099003)(56012099006)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWlVK1JrYWZEYW40ckYvQndySmwyZzlEZ3ZRek5sb2xLaW80NGQwb2FtMU8y?=
- =?utf-8?B?ZkpvREovZmFGRWVoZzBPeXkwVllGUkxHN29neWZXMUtsZXY2NmhXdDZScVFT?=
- =?utf-8?B?U1pNRlpScE9mRGhqd0h3NkRDM0dHdk1USFJIV24rU2kxR2ZwdWJTMU9abFo0?=
- =?utf-8?B?bGUzRUYyUnlCNzFUQ2FCMTk0RTBhN3VQWTBFcExaWE1tT0dRT3ljSmZWNmtU?=
- =?utf-8?B?S2E4enM1ZHhrWXpoUkhseG1QU3FVRFNZUDFBYnlLdE1JcWpzU1FRS2RqQUw5?=
- =?utf-8?B?SGlDWUlVK0dHYysvK0lONVlPSE1yNVhhUmtPV1hsbDJtMzcyMVRaNzVQZW84?=
- =?utf-8?B?MCt4WWpMSTMrcW4xeS90QTJrRUJYM0k5V2cvVnJSRm5IVEFlSnh6OFZETFVM?=
- =?utf-8?B?U1VIVkdYNExRWVVES2kzRlpUU1cybHdOb2JlREdsVThmVzlPbmdOLzVUYm5m?=
- =?utf-8?B?TmxVcEV5WmFwa21hc3hrTmpMU010UTY2N0pMcm11bWpSWFNsNGlSQ3dLRzBu?=
- =?utf-8?B?OWxlT3dKMUhabytaMXRydDIxeXplWnNpSnpGM3dDcm9wMEV1ZlRZSFF0cjJn?=
- =?utf-8?B?eTFVQytuUWtjMit4Nnh1Z0o0QWl3eEhYUlh6M0QyM2pIM1NpRzJEMFJHZDBh?=
- =?utf-8?B?akkrVkFJQmVkMUoydElkZ3EvR1A0UWRtMCtOWmV5UVA5cVNZaDlRbHZDTkZw?=
- =?utf-8?B?Z0Z2SGE5WmpMQWVhYUdhaFNvUG4yN0YwSGJrUjFQUVZLR0xxUnFiUkVsdDdC?=
- =?utf-8?B?ZmtqejN4R0ZLOWZoZFF6M3pxYTdTQmRqRFJJUE1heDJ0dkdCS25qOWRZcFps?=
- =?utf-8?B?MEsyYVF0VFdWTHpsMlREWVcycWM4TWlKZFFORVFZMFNMRlRZY0JwS09hVy9y?=
- =?utf-8?B?R1U3dzZPenJUQ0M0bW9MTTBkLzN0MDBPclFKcFJHelFXU3QvMVgwWU5pakJS?=
- =?utf-8?B?UFB3b1hFcTRORlFsWnR1SCswcTl6WmxmcHJOcjh4eFVXZzlHK3A5a3ZFbWE4?=
- =?utf-8?B?eFV1K1FZcHV4dE9rUDczY1lYQ21GNXJ4Q1ZtUTNPUHNXSmppcWpQT1k1THRV?=
- =?utf-8?B?UUhPWVg0V0daZTJMNS9EbWlzbG9SbE9RVml3OWJBTWhMaldnenFEWmNEVEUy?=
- =?utf-8?B?ZjZVMGhRNlZzVFMwdkZldUdyeFJ6SStVT2hnMXpreWllcWRaVDFjZjR3OWh4?=
- =?utf-8?B?d1BGZE90SUVnajVCOUxQR080V1BNRFdFbmlMYUFVa2RHVGlXdGJvVFJndVlD?=
- =?utf-8?B?ejhpQUhqbVF1SjI5b0ZsWFJUMXJpZURsY3FmYTUwWDJrK0dmQlJjenIya0s0?=
- =?utf-8?B?S1JkTFJuSHRiWTA4TktBZzdGOHU3S1JRbUFFbW0xUkg0M2V5ZnI3YTM4MWd6?=
- =?utf-8?B?NHJ4V0l3b2I4N01sL2lWL0I0N05JSkNScllldkpvb1BzeHNqRGJQOTVFTVFr?=
- =?utf-8?B?Y3V6bG03M1U4aWxLTmViVEs0M0lBTUttLzFiL1ZVQk5YTklGS29oZ2x5TGky?=
- =?utf-8?B?Q0ZCRUpkMmFBbjZuYVFBOTVrSTNCMFRMOXdVdGR2V3BpN0FrMW1OMElySnA5?=
- =?utf-8?B?UXRYb1VxQkg0VVhFOGdEczdxK2cyaUw0UGNlQlVqRWxGQWQvOVRubGlVRkZE?=
- =?utf-8?B?Q3NydE50dUdJRnNpa3h6R3B2WEI0M2YvV2g2d3ZTV1NzK3lWQ2xFVXZ2RWMx?=
- =?utf-8?B?ZWlscU54Y3RlYjdEL2lvdSsrYjlyOTh6OGN3dlJWaktKS3l3NE1CUjEyQnAy?=
- =?utf-8?B?akR1TVBOSHhyRkY3QWJyWlk2RDZzck9vVzRjR2hmU0NUTDF2dC81b29hc0l0?=
- =?utf-8?B?akFxMm5tbEdVWERpWHVpZmk2ZUd6bHhwTjRmcXBmcVVONlQ2MTNJd3Nlc2VB?=
- =?utf-8?B?MWRFRGNicm5rbDJvbWlWVldabUtYTEN6K2k2TkdvcjRuOHFkVGhEUVlaREFU?=
- =?utf-8?B?NE1kT0J6bHMzK09vbHNQSkltQWNZV0xya3pVK3FEMC9PNFVmdkhXMEhMZmd6?=
- =?utf-8?B?Z0lUVVpGZDhLOElsbzZFellEb0RnTk5wY0d0MmhQaHdIdkRTTnRKWmkxckFY?=
- =?utf-8?B?czVhRTAxaDdQeVdGUThTY2MvYlh2QjczVWVyUTlEc2ptZzdZQWtMNlFZaUk0?=
- =?utf-8?B?aXR0eUMzOTBybTlVNTBVUzhpRjBXQXh2dVl4SXBVZXo2TVhOVkFpd20vdlpF?=
- =?utf-8?B?TkltYU9VZTd3YkcrWkRDRkJWZG9KNnNKdlF3L1lOVnJLWFZCYkl6QWpkMDln?=
- =?utf-8?B?ZWh0MWV6UkFxMkRtU3ZvRlF6di90UTFYWSsrODBSR2tmYTIvQ0pueHI5NWVl?=
- =?utf-8?Q?xwsNzrX20QvQWU7rCF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8f0bb26-c375-40b5-2d78-08df3f08ccfd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:58:34.3414
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sbcEW5LwBScIxLpG0VmJ7WE+tzW62riZ9L0MODPKAt3JXGIjlIMhsjNuYtiKc5pk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8878
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207361 [Nov 10 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/10 08:21:00 #28832117
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On 11/9/26 18:13, Pierre-Eric Pelloux-Prayer wrote:
-> It's explicitly disabled above but never re-enabled, assuming
-> that amdgpu_device_load_pci_state would restore it. But if
-> pci_clear_master was called before entering amdgpu_device_mode1_reset
-> the saved state won't have the master status.
-> 
-> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com?part=4
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+From: Qu Wenruo <wqu@suse.com>
 
-Acked-by: Christian König <christian.koenig@amd.com>
+commit 9102b179512e11644fb0489ae62010a09afa199c upstream.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5069042b5279..730e9e93d078 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4981,6 +4981,10 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
->  	smp_mb();
->  
->  	amdgpu_device_load_pci_state(adev->pdev);
-> +
-> +	/* enable BM back */
-> +	pci_set_master(adev->pdev);
-> +
->  	ret = amdgpu_psp_wait_for_bootloader(adev);
->  	if (ret)
->  		goto mode1_reset_failed;
+In that function, we round down the start position and round up the
+ending position.
+
+But during the calculation of @len, we use "round_up(start + len,
+sectorsize)", which is the rounded up end position, not the rounded up
+length.
+
+Which results a much larger length, and later we are still using
+"start + len", which is completely incorrect.
+
+Fix it by declaring a local @aligned_start and @aligned_len and use them
+instead.
+
+Fixes: bc42bda22345 ("btrfs: qgroup: Fix qgroup reserved space underflow by only freeing reserved ranges")
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[mdmitrichenko: Rebase the first hunk onto extent_changeset_init()
+ and the existing int freed declaration.]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-90259
+
+ fs/btrfs/qgroup.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
+index a252f6cca0027..41edb8e0c5a3c 100644
+--- a/fs/btrfs/qgroup.c
++++ b/fs/btrfs/qgroup.c
+@@ -3819,12 +3819,13 @@ static int qgroup_free_reserved_data(struct btrfs_inode *inode,
+ 	struct ulist_node *unode;
+ 	struct ulist_iterator uiter;
+ 	struct extent_changeset changeset;
++	const u32 sectorsize = root->fs_info->sectorsize;
++	const u64 aligned_start = round_down(start, sectorsize);
++	const u64 aligned_len = round_up(start + len, sectorsize) - aligned_start;
+ 	int freed = 0;
+ 	int ret;
+ 
+ 	extent_changeset_init(&changeset);
+-	len = round_up(start + len, root->fs_info->sectorsize);
+-	start = round_down(start, root->fs_info->sectorsize);
+ 
+ 	ULIST_ITER_INIT(&uiter);
+ 	while ((unode = ulist_next(&reserved->range_changed, &uiter))) {
+@@ -3836,12 +3837,15 @@ static int qgroup_free_reserved_data(struct btrfs_inode *inode,
+ 
+ 		extent_changeset_release(&changeset);
+ 
+-		/* Only free range in range [start, start + len) */
+-		if (range_start >= start + len ||
+-		    range_start + range_len <= start)
++		/*
++		 * Only free the range within
++		 * [aligned_start, aligned_start + aligned_len).
++		 */
++		if (range_start >= aligned_start + aligned_len ||
++		    range_start + range_len <= aligned_start)
+ 			continue;
+-		free_start = max(range_start, start);
+-		free_len = min(start + len, range_start + range_len) -
++		free_start = max(range_start, aligned_start);
++		free_len = min(aligned_start + aligned_len, range_start + range_len) -
+ 			   free_start;
+ 		/*
+ 		 * TODO: To also modify reserved->ranges_reserved to reflect
+-- 
+2.43.0
 
