@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284522;
-	b=wvBncLvuPz2RPWeONMxyF4ePwYb3Eoo9na/b7yRFTlIxGEH8aCyOKnkUdHEH+F0jXASy
-	 YQVhuJ2FZ1H8+oGVSC+WFa3R/V5aBdXNNdtMBqwQtAwgTh7kJ5m9PJ2xuwKMOjVRLjP66
-	 /4l4V9l1z51KE4na1P7odq2NTsp7efgDGsYx89O8ot2ADewJpGAjnezWn8zOv+O/puApS
-	 O7RYr4cnrfa8KxxGVagj3sX06i2YNZ0D11ZLqDNuiou+N7HPSVg/3foVHf4YIjaYCuNO4
-	 +iCHnci1v47ZErlkuINwlVYaNPaIRNBiKzIZnWgASEZWSR5Gj2lJJUU8Pldsts4+2Yg==
+	t=1794284531;
+	b=5aXwJYh+eYIgUyOuVAcK7+TQo6CVwh0GyslE8yuagz85dr9eABW0/4fL6htuLiWG7qMT
+	 4S2gKQuJhKpvYntwQkl/+HdL6zJRAZ1xOEySA0leI/qIYVOw7ooNpsyeDW7WuXkZ/RFiv
+	 wMLvOSEbZqm5fIYt2jccbZdhVXRFmQIgsvgnGlU2cy5hLoj7+dHP7MP4vxuf/vdmYcD5c
+	 X7IZUyELqYk7A1p0526NWYRfzJXtHZ0CJVd13jtHsHC98M/be9VHHWBB43XDI+KU69c0f
+	 MEXLLTTFHYs5ItQ6PLhgpIydr0y1kr93hfkUmhuThHQXDOk/jeuvo3Fvh2ZVyavlbEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284531;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U4I5SZDyaCY1uRTy13J/8BxFiRq3MLupUvdwxlQnj24=;
-	b=NLpupU20hsMPMGpiabCeQzI4knCvlAt64yyNLc5Al7o6BUBYL8+ZwAdlpL4xtyQqgNI/
-	 ztmfu9e6Ipn0dtNNfhErSO6OUecE0qXalczTiaefGnVl6SeNiXFp0KZtrq/lSQgeunIsM
-	 6GHYziIQYSwsNpWsL8yyYc9xJ0WsJYpSjW4amo3twwMBol5N4ij5Hc2xuqWiBX+8TjdzS
-	 +DEbqKG3YjZwR++BcQXz2ypRRNsqqjIFHvyXJiIemQmHsbBKd3uPTS42idXztwB2m8cem
-	 Cfb8bynzihLU+RivcyNW68EhX/Yb0m4BWEeDzNrirIySqprimEodW3tnpskDS5RzgPg==
+	bh=hElMjptUOt7t67BL+1cimQWcisWptb+S2Cms/oh/gUI=;
+	b=I3OvKngeICES2uI5/zAOIax03Kxvf3x1ZerS0VRKhcuvRT+TY6prVDueSUnhxkV25khT
+	 yoin9hxE8vsuSs1TefYxgYXcF2xIVzHigXIDfj6HzafS667Pzrgr6VMDrX64hFUEkyA2I
+	 LWbAxy2PAap4nbNtcNTs089QBWv7zmVSe1ax7BblUFH/eYmvVg84lwY2mV6ntqAMfechU
+	 h6EJp5GdZQENttEu2fw9L180DEXled/1VuyJhgNF8H7PhEk1QZSX1QNl+ZNbhQARHcSXt
+	 hFCmMMVIdcJdch+HDrg8bTYW8qKYNsnPYpUOrMPRXGhf5fkeKg0RUr09lOYdNKpu6Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JLT9UBZG;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="L2i2ifc/";
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F8D60A261C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F8D60A261C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2692B606A712
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:22:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2692B606A712
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JLT9UBZG
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b1ce85287aso1644582c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:22:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L2i2ifc/
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso2463247c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:22:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284521; x=1794889321; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794284529; x=1794889329; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U4I5SZDyaCY1uRTy13J/8BxFiRq3MLupUvdwxlQnj24=;
-        b=JLT9UBZGYzReCUbCGKaL26tXCAG3w6CotFr420xFf+b3VCCdat4kZyIMJiGt8xTLYG
-         gmvrtwh2yJ3/7+3GDa3dQHsh8KJXFmSXaTYDRzw507iokEbLono9lxtEFtxlerTKv9Br
-         S3KJtXUCWThoIoEH6hZzeoTXLl1YKtUXIetnVOLFuR+5N09/nTHo/qbluYF/0mN2RuvS
-         DpZq4V1L75DS4apuWy9eKk6nlck3hFviyJX1CXzNJCIGtUW12ggvIPvNr8gsG911iF+F
-         N5X8256ZMcQQIWMceqHPsjmw5bIIVS2JcVhCze5NaeGd3xR1Hp9TpKZoo2RAN/umWiXn
-         3gdw==
+        bh=hElMjptUOt7t67BL+1cimQWcisWptb+S2Cms/oh/gUI=;
+        b=L2i2ifc/1MRyuJOahGMZGz1QyhrPCpyGs/qHpXMbAD0EK0iOT/D/juMf+9dbSBLoIB
+         P5kpH6KfvlFg8ikFV2uhM2LMI5DQLwXiS5tRm3z1u90iBKmuPoRfXFAcAqbZXMbTlwcr
+         XuvwOZPOwU6WqkOECWjuwya/ox3QvPjttEqtnHmp7pTt/ngKwrzX7lsYY1Js15aLiaU6
+         BBkfwUYt9Dk4tAxVeoc2oX3LCEvb4/srBh+JFNJwAN/gVxr6TAOMtZYCStSjqtNH5HqP
+         SyUNinAr9cKkPJ2mSmTwcSWi1dsF438ZJU8QNNF29GNtYi7mrS7qmFSc95vBHvVbdhdH
+         DWpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284521; x=1794889321;
+        d=1e100.net; s=20260707; t=1794284529; x=1794889329;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U4I5SZDyaCY1uRTy13J/8BxFiRq3MLupUvdwxlQnj24=;
-        b=h5RLTtZMRgtel1A8GXkKauNFTUa8JUNpFdWn5MmEMhF5CYTBSDCsdVp9Wvj/vMF7HQ
-         LBazkVG8ab8MEa7z2jxBotPjPCDT109KL4WLBT+4tHndVKq9bzk35EcjfAMW6kw6mNhA
-         9ptOBrQ9qZNk8xywOthGK/SSyVFmrFELodsSgvK10C34Uh581+IjoQwTiH1JRvtMMF2P
-         nmGpWPB6Ix/En7i8TvpPhArKxzd6TgBwEKr9Q1rOkcMq521cObSvnzJ8eSTsGj86Lvki
-         Icu0YuUI2lSe0M5Zo/KczPLWsMx5QXVDPBtBRehewFBHTeCqLYSBAWKAepSR4jauDPTF
-         hKQQ==
-X-Forwarded-Encrypted: i=1; AL+hErGvOwi4mZKjqFE16Y7cYCEgLnAkaQ5YZOiDPAi3/+Bc4tQH3w46orDNY1/gFMxuKCleUd3DuG/FUl8DNaY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SGfJdpjmZJpKWN4Gdwx1omlYnQ+KEMuBxtM/OXnMDt5BJn46V
-	lbiSsKwkpb02AaWJ35hG8XwI9JgMdBdYyQ407EU6bmiSeFHuKJFf8bC6
-X-Gm-Gg: AYBFou2LEU+4CCJXuVvyf6PBfC+SdsbtnkXD7CT/nyk+SSIpqRoj5m1qQCWDR8lZsQm
-	kpuy4haZNzLW9lm/0ZFHmhw6LvrrdnsYMhU/zkOAywGpjLiEDdaTNfKd1eYxPSOrdZ4JQbQruIT
-	tCzSKf0KA1McxdT5rV74AjIglNu7jrhr/hRp3+FojEg43xqVzweHYrY55JQD9OH6ZXwiH6DQT0Z
-	ZIiw0nPo/GXmqSjNgVc6GmhUAwtTyzqaT7kf/s0L5sylni+/GOOf+4uxzm+ft78L7oJmfKA4Z3V
-	BPaybXI3jOEY511RE5eLE0D+a1VNzWlStXsBfDDGZfyyQsmclN8kAInXBYG+oserTssItd6ZSE8
-	aYIYxaC64w5vIhc20Z39RmTRsdUPEKZ9SETivQ//Znj4HfAyIx7OkM1EyroFbQ+cmNDWU2JH/uE
-	ZIkA1M7MRx3jHk225IgE55tH0WYezLkXdMi7rxDsQW8WTHWZjWYzStvmDGSFaW7FX69atSKKR6S
-	NGasCy2+rJBOlUv78q9uSAXgJ1VfXR+uaYwZwTJlBIrGKN2VNESe13HaSHEiUOjwgP9EQtaGSd8
-	uql30LBKfhd0gISYPgRJFMaEgj7O0Ua0Fq2jxlkePsgBl8es77xXYdWKvednDAWOmmQ9
-X-Received: by 2002:a05:7022:b90a:b0:1b2:6cba:7f88 with SMTP id a92af1059eb24-1b3b619ab8emr2013609c88.44.1794284520534;
-        Mon, 09 Nov 2026 20:22:00 -0800 (PST)
+        bh=hElMjptUOt7t67BL+1cimQWcisWptb+S2Cms/oh/gUI=;
+        b=oN3DwH5PbwJCMtbYe58fy84qYYZumKrbpihcvA0K4QPg37gHqKoNtjYUUAbJP78ctV
+         P9/i1siXIHyuGHmXIWcsI55QtLn0UxxWtFYSVZlM6HecfnpHz/vpaoCr6yiB7L1bVqGI
+         HZjwsoo6bpSz2rp57/8GJ/lu7aF3bAhHti2D7UTn7Cv+zpB1Ql2HJ7lWVt4j700PthIV
+         Wy0LCoTau0DoFX8ouzBx06I5E3j1ZPbrf9I7MZzpR+zsigPGBBg3esRl8K8+BjdZWtXR
+         U3cESimqJ7BeJfymRu233WBAKg+3h1D/DfRxb6WrsFibaCLElqmOLQT9U0vaUOeTU+8q
+         /U7A==
+X-Forwarded-Encrypted: i=1; AL+hErGQYIkvC2y3mx6epEh25x5mL1aBMvQZ4qAA+7B5iNTtEVrjwpZuAk6PRgwxtKZm1Xaa+nE340HNoBhnaUs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Nq6vSh/7YGZISJIYUj1AX2R5KtpdYXbgU/q/bMkRuMG/iuLd3
+	KmnRiFb9O0ot5mvK/6PZQ0B1msBIR50eMbuK0vTQVLeEtsertZd6mdJx
+X-Gm-Gg: AYBFou12QniJgh0GwlBp/JA3HgF2+Tyx5nlvVx09ctniOGHKznJUCIVebippO3XxnqZ
+	V0taZnyGKi25NT+5rnC7nQoXIXPYEcQxe7i1j6bmASH5ppCy3p5/9+oGrBRt3JkbMcINsTLqX7t
+	uoAl4O5qj1LSbP6UncsZg0w0l7uXwSg3yG1KU6Hdbwwg/je7LXGQ7eWkPEERCn1kj29CWpNihTD
+	zryL2yTvgt0PFzLifjfZH2ARM0/K1s78It7nink/5xCFE5kdXNbLuereQink0ZvDq0tVznunh6U
+	IPFqpmcbqjRSPDHSnj780PBq/7dEAsS5C7SS7CapA3OTZrzGieoziibq3Wh6b1BKMWrMV81Z0VW
+	Whnxtq2hAGiW2cc6k+zm6p21HmRObW/x0Rz81onCGoP238oF4BJLFhKKzPvalHEICeDpD8LYJO5
+	8fsqEOLOD92XDPITd2J2CgpQTOQYFNWz5t7w4tI5On0VLX4kyyuOgqBezxCsD/s+8c43vJojjb5
+	J08z2emwB4yIu+WxkRT7/jHkQyM1MPFjaDVoo3Emr61ENkUNiwpVceJ7tCodgNhIRNjDujqWnXs
+	PQ8Pb7m6CpfG5suO5HO+gtKOJP/WIX0CeJ/RUAwxBgx7e5W6+oqgxqWot8G+Sxbub0Dk
+X-Received: by 2002:a05:7022:ea55:10b0:1b2:6cba:7f7c with SMTP id a92af1059eb24-1b3b605183cmr2168503c88.37.1794284529052;
+        Mon, 09 Nov 2026 20:22:09 -0800 (PST)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.21.52
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:21:59 -0800 (PST)
+        Mon, 09 Nov 2026 20:22:08 -0800 (PST)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: bhelgaas@google.com,
@@ -105,9 +105,9 @@ Cc: gary@garyguo.net,
 	benno.lossin@proton.me,
 	alex.gaynor@gmail.com,
 	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v6 23/25] lib: rspdm: Support SPDM certificate validation
-Date: Tue, 10 Nov 2026 14:18:30 +1000
-Message-ID: <20261110041832.1730924-24-alistair.francis@wdc.com>
+Subject: [PATCH v6 24/25] lib: rspdm: Support SPDM challenge
+Date: Tue, 10 Nov 2026 14:18:31 +1000
+Message-ID: <20261110041832.1730924-25-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
 References: <20261110041832.1730924-1-alistair.francis@wdc.com>
@@ -124,268 +124,622 @@ Content-Transfer-Encoding: 8bit
 
 From: Alistair Francis <alistair.francis@wdc.com>
 
-Support validating the SPDM certificate chain. This only performs basic
-sanity checks on the chain before we continue on. This does not ensure
-that the root CA is trusted, we leave that for userspace to check and
-enforce. Instead we just make sure that the chain is correct, uses
-supported signatures and that it isn't blacklisted in the kernel.
-
-We then store the first leaf certificate for use later.
+Support the CHALLENGE SPDM command.
 
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- lib/rspdm/lib.rs   |  12 ++++
- lib/rspdm/state.rs | 172 ++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 181 insertions(+), 3 deletions(-)
+ lib/rspdm/consts.rs    |   6 ++
+ lib/rspdm/lib.rs       |  10 +-
+ lib/rspdm/state.rs     | 206 ++++++++++++++++++++++++++++++++++++++++-
+ lib/rspdm/validator.rs | 156 ++++++++++++++++++++++++++++++-
+ 4 files changed, 365 insertions(+), 13 deletions(-)
 
+diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
+index b76bab8894b9e..0807788055f0c 100644
+--- a/lib/rspdm/consts.rs
++++ b/lib/rspdm/consts.rs
+@@ -87,6 +87,8 @@
+ 
+ pub(crate) const SPDM_GET_CERTIFICATE: u8 = 0x82;
+ 
++pub(crate) const SPDM_CHALLENGE: u8 = 0x83;
++
+ // If the crypto support isn't enabled don't offer the algorithms
+ // to the responder
+ #[cfg(CONFIG_CRYPTO_RSA)]
+@@ -115,3 +117,7 @@
+ pub(crate) const SPDM_HASH_ALGOS: u32 = SPDM_HASH_SHA2_256 | SPDM_HASH_SHA2_384_512;
+ 
+ pub(crate) const SPDM_OPAQUE_DATA_FMT_GENERAL: u8 = bit_u8(1);
++
++pub(crate) const SPDM_PREFIX_SZ: usize = 64;
++pub(crate) const SPDM_COMBINED_PREFIX_SZ: usize = 100;
++pub(crate) const SPDM_MAX_OPAQUE_DATA: usize = 1024;
 diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 440589ff66b5f..44fab9caf1877 100644
+index 44fab9caf1877..6bfe1eedc4121 100644
 --- a/lib/rspdm/lib.rs
 +++ b/lib/rspdm/lib.rs
-@@ -295,6 +295,18 @@ fn from(code: SpdmErrorCode) -> Self {
+@@ -11,8 +11,7 @@
+ //! from other subsytems.
+ 
+ use crate::bindings::{
+-    spdm_state,
+-    EPROTONOSUPPORT, //
++    spdm_state, //
+ };
+ use core::ptr;
+ use kernel::prelude::*;
+@@ -307,7 +306,12 @@ fn from(code: SpdmErrorCode) -> Self {
          provisioned_slots &= !(1 << slot);
      }
  
-+    let mut provisioned_slots = state.provisioned_slots;
-+    while (provisioned_slots as usize) > 0 {
-+        let slot = provisioned_slots.trailing_zeros() as u8;
-+
-+        if let Err(e) = state.validate_cert_chain(slot) {
-+            pr_err!("Certificate in slot {slot} failed to verify: {e:?}\n");
-+            return e.to_errno() as c_int;
-+        }
-+
-+        provisioned_slots &= !(1 << slot);
+-    -(EPROTONOSUPPORT as i32)
++    let provisioned_slots = state.provisioned_slots.trailing_zeros();
++    if let Err(e) = state.challenge(provisioned_slots as u8) {
++        return e.to_errno() as c_int;
 +    }
 +
-     -(EPROTONOSUPPORT as i32)
++    0
  }
  
+ /// Destroys an SPDM session.
 diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index f1a55da1f1cfa..dfe2f8becfb74 100644
+index dfe2f8becfb74..059398e95b92d 100644
 --- a/lib/rspdm/state.rs
 +++ b/lib/rspdm/state.rs
-@@ -11,12 +11,17 @@
- use kernel::{
-     bindings,
-     device::Device,
--    error::Error,
-+    error::{
-+        to_result,
-+        Error, //
-+    },
-     hash::Shash,
+@@ -19,6 +19,7 @@
      page::PAGE_SIZE,
-+    public_key::PublicKey,
+     public_key::PublicKey,
      str::CStr,
++    str::CString,
      sync::aref::ARef,
--    validate::Untrusted, //
-+    validate::Untrusted,
-+    x509::Certificate, //
- };
+     validate::Untrusted,
+     x509::Certificate, //
+@@ -26,16 +27,19 @@
  
  use crate::consts::{
-@@ -102,7 +107,6 @@ pub(crate) trait Transport {
- /// it does not need to stay bound to its driver. `T` is data and an
- /// exchange function owned by the caller, so the borrow checker enforces
- /// that the transport data outlives `SpdmState`.
--#[expect(dead_code)]
- pub(crate) struct SpdmState<T: Transport> {
-     /// Responder device (reference counted). Used for error reporting and
-     /// passed to `transport`.
-@@ -161,6 +165,9 @@ pub(crate) struct SpdmState<T: Transport> {
-     /// Hash of each slot's certificate chain, as reported by the DIGESTS
-     /// response. Empty `KVec` if a slot is not provisioned.
-     pub(crate) digests: [KVec<u8>; SPDM_SLOTS],
-+    /// Public key portion of leaf certificate against which to check
-+    /// responder's signatures.
-+    pub(crate) leaf_key: Option<PublicKey>,
+     SPDM_ASYM_ALGOS,
++    SPDM_COMBINED_PREFIX_SZ,
+     SPDM_ERROR,
+     SPDM_GET_VERSION_LEN,
+     SPDM_HASH_ALGOS,
+     SPDM_KEY_EX_CAP,
++    SPDM_MAX_OPAQUE_DATA,
+     SPDM_MAX_VER,
+     SPDM_MEAS_RESP_CAP,
+     SPDM_MEAS_SPEC_DMTF,
+     SPDM_MIN_VER,
+     SPDM_MULTI_KEY_CAP,
+     SPDM_OPAQUE_DATA_FMT_GENERAL,
++    SPDM_PREFIX_SZ,
+     SPDM_REQ,
+     SPDM_RSP_MIN_CAPS,
+     SPDM_SLOTS,
+@@ -65,6 +69,8 @@
+     SPDM_HASH_SHA_512, //
+ };
+ use crate::validator::{
++    ChallengeReq,
++    ChallengeRsp,
+     GetCapabilitiesReq,
+     GetCapabilitiesRsp,
+     GetCertificateReq,
+@@ -84,6 +90,8 @@
+     SPDM_CERT_CHAIN_HDR_SZ, //
+ };
+ 
++const SPDM_CONTEXT: &str = "responder-challenge_auth signing";
++
+ /// Transport for exchanging SPDM messages with a responder device.
+ ///
+ /// This trait abstracts the bus-specific message transport (for example
+@@ -154,7 +162,7 @@ pub(crate) struct SpdmState<T: Transport> {
+     base_asym_enc: &'static CStr,
+     /// Signature length of `base_asym_alg` (in bytes). S or SigLen in SPDM
+     /// specification.
+-    sig_len: usize,
++    pub(crate) sig_len: usize,
+ 
+     /// Hash transformation for `base_hash_alg` computation.
+     crypto: Option<Shash>,
+@@ -168,6 +176,16 @@ pub(crate) struct SpdmState<T: Transport> {
+     /// Public key portion of leaf certificate against which to check
+     /// responder's signatures.
+     pub(crate) leaf_key: Option<PublicKey>,
++
++    /// Concatenation of all SPDM messages exchanged during an authentication
++    /// or measurement sequence. Used to verify the signature, as it is
++    /// computed over the hashed transcript.
++    transcript: VVec<u8>,
++
++    /// Requester nonce to be used for the next authentication sequence.
++    /// Populated from user space through sysfs. If user space does not
++    /// provide a nonce, the kernel uses a random one.
++    pub(crate) next_nonce: KVec<u8>,
  }
  
  impl<T: Transport> SpdmState<T> {
-@@ -193,6 +200,7 @@ pub(crate) fn new(
-             crypto: None,
+@@ -201,6 +219,8 @@ pub(crate) fn new(
              certs: [const { KVec::new() }; SPDM_SLOTS],
              digests: [const { KVec::new() }; SPDM_SLOTS],
-+            leaf_key: None,
+             leaf_key: None,
++            transcript: VVec::new(),
++            next_nonce: KVec::new(),
          }
      }
  
-@@ -268,6 +276,9 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
+@@ -217,12 +237,14 @@ pub(crate) fn hash_len(&self) -> usize {
+     /// The data in `request_buf` is sent to the device and the response
+     /// is returned as untrusted data to be validated by the caller.
+     pub(crate) fn spdm_exchange(
+-        &self,
++        &mut self,
+         request_buf: &[u8],
+         mut response_buf: KVec<u8>,
+     ) -> Result<Untrusted<KVec<u8>>, Error> {
+         let header_size = core::mem::size_of::<SpdmHeader>();
+-        let request: SpdmHeader = Untrusted::new(request_buf).validate(self)?;
++        let request: SpdmHeader = Untrusted::new(request_buf).validate(&*self)?;
++
++        self.transcript.extend_from_slice(request_buf, GFP_KERNEL)?;
+ 
+         let length =
+             self.transport
+@@ -240,11 +262,11 @@ pub(crate) fn spdm_exchange(
+         response_buf.truncate(length);
+ 
+         let response: SpdmHeader =
+-            Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(self)?;
++            Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(&*self)?;
+ 
+         if response.code == SPDM_ERROR {
+             let error_rsp: SpdmErrorRsp =
+-                Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(self)?;
++                Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(&*self)?;
+             dev_err!(&self.dev, "Error response: {error_rsp:?}\n");
+             return Err(error_rsp.error_code.into());
+         }
+@@ -272,6 +294,8 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
+         // Reset all negotiated session state as we are re-authenticating
+         self.data_transfer_sz = self.transport_sz;
+ 
++        self.transcript.clear();
++
+         for digest in self.digests.as_mut() {
              digest.clear();
          }
+@@ -287,6 +311,9 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
+             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+             .validate(&*self)?;
  
-+        // Clear the leaf cert as we are re-authenticating
-+        self.leaf_key = None;
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
 +
-         let mut request_buf = request.to_bytes()?;
+         let mut foundver = false;
+         for &entry in response.version_number_entries.iter() {
+             let alpha_version = (entry & 0xF) as u8;
+@@ -340,7 +367,11 @@ pub(crate) fn get_capabilities(&mut self) -> Result<(), Error> {
+             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+             .validate(&*self)?;
  
-         let response_vec: KVec<u8> = KVec::from_elem(0u8, SPDM_GET_VERSION_LEN, GFP_KERNEL)?;
-@@ -593,9 +604,164 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
++
+         self.rsp_caps = response.flags;
++
+         if (self.rsp_caps & SPDM_RSP_MIN_CAPS) != SPDM_RSP_MIN_CAPS {
+             dev_err!(
+                 &self.dev,
+@@ -451,6 +482,9 @@ pub(crate) fn negotiate_algs(&mut self) -> Result<(), Error> {
+             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+             .validate(&*self)?;
+ 
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
++
+         self.base_asym_alg = response.base_asym_sel;
+         self.base_hash_alg = response.base_hash_sel;
+         self.meas_hash_alg = response.measurement_hash_algo;
+@@ -496,6 +530,9 @@ pub(crate) fn get_digests(&mut self) -> Result<(), Error> {
+             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+             .validate(&*self)?;
+ 
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
++
+         let mut deprovisioned_slots = self.provisioned_slots & !response.header.param2;
+         while (deprovisioned_slots.trailing_zeros() as usize) < SPDM_SLOTS {
+             let slot = deprovisioned_slots.trailing_zeros() as usize;
+@@ -535,6 +572,9 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
+             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+             .validate(&*self)?;
+ 
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
++
+         if (response.header.param1 & 0xF) != slot {
+             dev_err!(&self.dev, "Invalid slot response\n");
              return Err(EPROTO);
-         }
+@@ -568,6 +608,9 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
+                 .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
+                 .validate(&*self)?;
  
-+        // The chain must match the digest reported for this slot by the
-+        // DIGESTS response (DSP0274 "GET_CERTIFICATE" certificates).
-+        self.verify_slot_digest(slot, &certs_buf)?;
++            self.transcript
++                .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
 +
-+        // Verify the RootHash embedded in the chain header against the root
-+        // certificate it contains (DSP0274 "SpdmCertChain" table).
-+        self.verify_root_hash(&certs_buf)?;
-+
-         self.certs[slot as usize].clear();
-         self.certs[slot as usize].extend_from_slice(&certs_buf, GFP_KERNEL)?;
+             let portion_length = response.portion_length;
+             let rem_length = response.remainder_length;
+ 
+@@ -764,4 +807,157 @@ pub(crate) fn validate_cert_chain(&mut self, slot: u8) -> Result<(), Error> {
  
          Ok(())
      }
 +
-+    /// Hash `data` with the negotiated base hash algorithm.
-+    fn digest_data(&mut self, data: &[u8]) -> Result<KVec<u8>, Error> {
++    pub(crate) fn challenge_rsp_len(&mut self, nonce_len: usize, opaque_len: usize) -> usize {
++        // No measurement summary hash requested (MSHLength == 0)
++        let mut length =
++            core::mem::size_of::<SpdmHeader>() + self.hash_len() + nonce_len + opaque_len + 2;
++
++        if self.version >= SPDM_VER_13 {
++            length += 8;
++        }
++
++        length + self.sig_len
++    }
++
++    fn verify_signature(&mut self, signature: &mut [u8]) -> Result<(), Error> {
 +        let crypto = self.crypto.as_mut().ok_or(EPROTO)?;
++        let leaf_key = self.leaf_key.as_ref().ok_or(EPROTO)?;
++        let hash_len = crypto.hash_len();
++        let sig_len = self.sig_len;
 +
-+        let mut digest: KVec<u8> = KVec::new();
-+        digest.extend_with(crypto.hash_len(), 0, GFP_KERNEL)?;
-+        crypto.digest(data, digest.as_mut_slice())?;
-+
-+        Ok(digest)
-+    }
-+
-+    /// Verify that the digest of `chain` matches the digest reported for
-+    /// `slot` by the DIGESTS response.
-+    fn verify_slot_digest(&mut self, slot: u8, chain: &[u8]) -> Result<(), Error> {
-+        let digest = self.digest_data(chain)?;
-+        let expected = &self.digests[slot as usize];
-+
-+        if expected.is_empty() {
-+            dev_err!(&self.dev, "No digest reported for slot {slot}\n");
++        if self.transcript.len() <= sig_len {
 +            return Err(EPROTO);
 +        }
 +
-+        if digest.as_slice() != expected.as_slice() {
-+            dev_err!(
-+                &self.dev,
-+                "Certificate chain of slot {slot} does not match its digest\n"
-+            );
-+            return Err(EKEYREJECTED);
-+        }
++        let mut m: KVec<u8> = KVec::new();
++        m.extend_with(SPDM_COMBINED_PREFIX_SZ + hash_len, 0, GFP_KERNEL)?;
 +
-+        Ok(())
-+    }
++        // Generate the `unverified_message_hash`, which is the hash of the
++        // `unverified_data` (Chapter 16 - "Signature Verification").
++        crypto.digest(
++            &self.transcript[..(self.transcript.len() - sig_len)],
++            &mut m[SPDM_COMBINED_PREFIX_SZ..],
++        )?;
 +
-+    /// Verify that the RootHash field in the chain header is the hash of
-+    /// the root certificate contained in `chain`.
-+    fn verify_root_hash(&mut self, chain: &[u8]) -> Result<(), Error> {
-+        let root_hash = chain
-+            .get(SPDM_CERT_CHAIN_HDR_SZ..SPDM_CERT_CHAIN_HDR_SZ + self.hash_len())
-+            .ok_or(EPROTO)?;
-+        let certs_start = SPDM_CERT_CHAIN_HDR_SZ + self.hash_len();
++        // Must be in scope whenever `sig` is used
++        let mut mhash: KVec<u8> = KVec::new();
 +
-+        // SAFETY: `chain[certs_start..]` is a valid slice; the function
-+        // reads at most the DER certificate length within it.
-+        let root_len = unsafe {
-+            bindings::x509_get_certificate_length(
-+                chain.get(certs_start..).ok_or(EPROTO)?.as_ptr(),
-+                chain.len() - certs_start,
-+            )
-+        };
-+        let root_len = usize::try_from(root_len).map_err(|_| EPROTO)?;
++        let message = if self.version <= SPDM_VER_11 {
++            &m[SPDM_COMBINED_PREFIX_SZ..]
++        } else {
++            // `M` shall be the concatenation of the `combined_spdm_prefix`
++            // and `unverified_message_hash`. We use `M` for pub/priv
++            // signature verification below.
++            // (Chapter 16 - "Signature Verification")
 +
-+        let root = chain
-+            .get(certs_start..certs_start + root_len)
-+            .ok_or(EPROTO)?;
++            let major = self.version >> 4;
++            let minor = self.version & 0xF;
 +
-+        if self.digest_data(root)?.as_slice() != root_hash {
-+            dev_err!(&self.dev, "RootHash does not match the root certificate\n");
-+            return Err(EKEYREJECTED);
-+        }
++            // Generate the `spdm_prefix` (Chapter 15 - "Signature generation")
++            let prefix = CString::try_from_fmt(fmt!("dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*"))?;
 +
-+        Ok(())
-+    }
-+
-+    pub(crate) fn validate_cert_chain(&mut self, slot: u8) -> Result<(), Error> {
-+        let cert_chain_buf = &self.certs[slot as usize];
-+        let cert_chain_len = cert_chain_buf.len();
-+        // We skip over the RootHash
-+        let mut offset = SPDM_CERT_CHAIN_HDR_SZ + self.hash_len();
-+
-+        if offset >= cert_chain_len {
-+            return Err(EPROTO);
-+        }
-+
-+        let mut prev_cert: Option<Certificate<'_>> = None;
-+        let mut cert_count = 0;
-+
-+        while offset < cert_chain_len {
-+            let (cert, cert_len) = Certificate::parse(&cert_chain_buf[offset..])?;
-+            cert.check_accepted()?;
-+
-+            if let Some(prev) = &prev_cert {
-+                // Every issuer in the chain must be a CA allowed to sign
-+                // certificates, and the signed certificate's issuer must
-+                // match the issuer's subject (RFC 5280). An absent keyUsage
-+                // extension places no restriction on the key's usage.
-+                let flags = prev.key_ext_flags()?;
-+                if !flags.is_ca() {
-+                    dev_err!(
-+                        &self.dev,
-+                        "Certificate issuer lacks the CA basic constraint\n"
-+                    );
-+                    return Err(EKEYREJECTED);
-+                }
-+
-+                if prev.raw_subject() != cert.raw_issuer() {
-+                    dev_err!(
-+                        &self.dev,
-+                        "Certificate issuer does not match the previous subject\n"
-+                    );
-+                    return Err(EKEYREJECTED);
-+                }
-+
-+                prev.verify_signed(&cert)?;
++            if prefix.to_bytes().len() != SPDM_PREFIX_SZ {
++                dev_err!(&self.dev, "spdm_prefix length is incorrect\n");
++                return Err(EPROTO);
 +            }
 +
-+            let _ = prev_cert.replace(cert);
-+            offset += cert_len;
-+            cert_count += 1;
++            // Build the `combined_spdm_prefix` (Chapter 15 - "Signature
++            // generation") directly in `m`: the 64 byte `spdm_prefix`, zero
++            // padding, followed by the 36 byte `spdm_context`. `m` was zero
++            // initialised above with the `unverified_message_hash` copied
++            // in at offset SPDM_COMBINED_PREFIX_SZ, so only the two
++            // non-zero portions need to be written.
++            m[..SPDM_PREFIX_SZ].copy_from_slice(prefix.to_bytes());
++            m[SPDM_COMBINED_PREFIX_SZ - SPDM_CONTEXT.len()..SPDM_COMBINED_PREFIX_SZ]
++                .copy_from_slice(SPDM_CONTEXT.as_bytes());
++
++            // Generate a hash of `M` and use that for signature
++            // verification (RSA or ECDSA)
++            mhash.extend_with(hash_len, 0, GFP_KERNEL)?;
++            crypto.digest(m.as_slice(), mhash.as_mut_slice())?;
++
++            mhash.as_slice()
++        };
++
++        // Finally verify the generated signature against the public key
++        leaf_key.verify_signature(signature, self.base_asym_enc, crypto.name(), message)
++    }
++
++    pub(crate) fn challenge(&mut self, slot: u8) -> Result<(), Error> {
++        let mut request = ChallengeReq::default();
++        request.header.version = self.version;
++        request.header.param1 = slot;
++
++        let nonce_len = request.nonce.len();
++
++        if !self.next_nonce.is_empty() {
++            let request_nonce_len = request.nonce.len();
++
++            if self.next_nonce.len() == request_nonce_len {
++                request
++                    .nonce
++                    .copy_from_slice(&self.next_nonce[..request_nonce_len]);
++            } else {
++                return Err(EINVAL);
++            }
++
++            self.next_nonce.clear();
++        } else {
++            // SAFETY: `request.nonce` is a valid buffer of `nonce_len` length.
++            unsafe {
++                bindings::get_random_bytes(
++                    core::ptr::from_mut(&mut request.nonce).cast::<c_void>(),
++                    nonce_len,
++                )
++            };
 +        }
 +
-+        // A chain must contain at least a root CA and a leaf certificate;
-+        // a single certificate would receive no signature verification.
-+        if cert_count < 2 {
++        let rsp_sz = self.challenge_rsp_len(nonce_len, SPDM_MAX_OPAQUE_DATA);
++
++        let mut request_buf = request.to_bytes()?;
++
++        let response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
++
++        let mut response: ChallengeRsp = self
++            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
++            .validate(&*self)?;
++
++        self.transcript
++            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
++
++        if request.context != response.context {
++            dev_err!(&self.dev, "Mismatched challenge context response\n");
++            return Err(EPROTO);
++        }
++
++        if (response.header.param1 & 0xF) != slot {
++            dev_err!(&self.dev, "Invalid slot in challenge response\n");
++            return Err(EPROTO);
++        }
++
++        let crypto = self.crypto.as_mut().ok_or(EPROTO)?;
++        let mut hash: KVec<u8> = KVec::new();
++        hash.extend_with(crypto.hash_len(), 0, GFP_KERNEL)?;
++        crypto.digest(&self.certs[slot as usize], hash.as_mut_slice())?;
++
++        if hash.as_slice() != response.cert_chain_hash.as_slice() {
 +            dev_err!(
 +                &self.dev,
-+                "Certificate chain must contain at least a root and a leaf\n"
++                "Certificate chain hash mismatch in challenge response\n"
 +            );
 +            return Err(EKEYREJECTED);
 +        }
 +
-+        let Some(mut leaf) = prev_cert.take() else {
-+            return Err(EPROTO);
-+        };
-+
-+        let flags = leaf.key_ext_flags()?;
-+        if flags.is_ca() || !flags.digital_signature() {
-+            dev_err!(&self.dev, "Invalid leaf certificate constraints\n");
-+            return Err(EKEYREJECTED);
++        match self.verify_signature(&mut response.signature) {
++            Ok(()) => {
++                dev_info!(&self.dev, "Authenticated with certificate slot {slot}\n");
++                Ok(())
++            }
++            Err(e) => {
++                dev_err!(&self.dev, "Cannot verify challenge_auth signature: {e:?}\n");
++                Err(EPROTO)
++            }
 +        }
-+
-+        // The leaf key is the same for all slots (MULT_KEY_CAP == 0),
-+        // so just store the first one.
-+        if self.leaf_key.is_none() {
-+            self.leaf_key = leaf.take_public_key();
-+        }
-+
-+        if let Some(validate) = self.validate {
-+            // SAFETY: Call the `validate` function provided with a valid
-+            // certificate pointer, which the callback must not modify or
-+            // free.
-+            let rc = unsafe { validate(self.dev.as_raw(), slot, leaf.as_raw()) };
-+            to_result(rc)?;
-+        }
-+
-+        Ok(())
 +    }
  }
+diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
+index dad8482525794..1d02d0d2d6d34 100644
+--- a/lib/rspdm/validator.rs
++++ b/lib/rspdm/validator.rs
+@@ -10,12 +10,14 @@
+ use crate::consts::{
+     SPDM_ASYM_ALGOS,
+     SPDM_CAP_SUPPORTED_ALGORITHMS,
++    SPDM_CHALLENGE,
+     SPDM_CTEXPONENT,
+     SPDM_GET_CAPABILITIES,
+     SPDM_GET_CERTIFICATE,
+     SPDM_GET_DIGESTS,
+     SPDM_GET_VERSION,
+     SPDM_HASH_ALGOS,
++    SPDM_MAX_OPAQUE_DATA,
+     SPDM_MEAS_SPEC_DMTF,
+     SPDM_MIN_DATA_TRANSFER_SIZE,
+     SPDM_MIN_VER,
+@@ -145,7 +147,6 @@ pub(crate) struct GetVersionRsp {
+ }
+ 
+ impl GetVersionRsp {
+-    #[expect(dead_code)]
+     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
+         self.raw_bytes.get(..self.length).ok_or(EPROTO)
+     }
+@@ -402,7 +403,6 @@ pub(crate) struct GetCapabilitiesRsp {
+ }
+ 
+ impl GetCapabilitiesRsp {
+-    #[expect(dead_code)]
+     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
+         self.raw_bytes.get(..self.length).ok_or(EPROTO)
+     }
+@@ -592,7 +592,6 @@ pub(crate) struct NegotiateAlgsRsp {
+ }
+ 
+ impl NegotiateAlgsRsp {
+-    #[expect(dead_code)]
+     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
+         self.raw_bytes.get(..self.length).ok_or(EPROTO)
+     }
+@@ -768,7 +767,6 @@ pub(crate) struct GetDigestsRsp {
+ }
+ 
+ impl GetDigestsRsp {
+-    #[expect(dead_code)]
+     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
+         self.raw_bytes.get(..self.length).ok_or(EPROTO)
+     }
+@@ -937,7 +935,6 @@ pub(crate) struct GetCertificateRsp {
+ }
+ 
+ impl GetCertificateRsp {
+-    #[expect(dead_code)]
+     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
+         self.raw_bytes.get(..self.length).ok_or(EPROTO)
+     }
+@@ -992,3 +989,152 @@ fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<T>) -> Result<Self, Se
+         })
+     }
+ }
++
++pub(crate) struct ChallengeReq {
++    pub(crate) header: SpdmHeader,
++
++    pub(crate) nonce: [u8; 32],
++    pub(crate) context: [u8; 8],
++}
++
++impl ChallengeReq {
++    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
++        let mut out = self.header.to_bytes()?;
++
++        out.extend_from_slice(&self.nonce, GFP_KERNEL)?;
++
++        if self.header.version > SPDM_VER_12 {
++            out.extend_from_slice(&self.context, GFP_KERNEL)?;
++        }
++
++        Ok(out)
++    }
++}
++
++impl Default for ChallengeReq {
++    fn default() -> Self {
++        ChallengeReq {
++            header: SpdmHeader::new(SPDM_CHALLENGE),
++
++            nonce: [0; 32],
++            context: [0; 8],
++        }
++    }
++}
++
++#[expect(dead_code)]
++pub(crate) struct ChallengeRsp {
++    pub(crate) header: SpdmHeader,
++
++    pub(crate) cert_chain_hash: KVec<u8>,
++    pub(crate) nonce: [u8; 32],
++
++    pub(crate) opaque_data_len: u16,
++    pub(crate) opaque_data: KVec<u8>,
++
++    /// `RequesterContext`, only present in SPDM 1.3 and later, zeroed otherwise.
++    pub(crate) context: [u8; 8],
++
++    pub(crate) signature: KVec<u8>,
++
++    /// The actual length of the SPDM message. `raw_bytes` might be longer
++    /// as it includes transport specific padding.
++    length: usize,
++
++    /// Entire response, used for the transcript hash.
++    raw_bytes: KVec<u8>,
++}
++
++impl ChallengeRsp {
++    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
++        self.raw_bytes.get(..self.length).ok_or(EPROTO)
++    }
++}
++
++impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<T>> for ChallengeRsp {
++    type Err = Error;
++
++    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<T>) -> Result<Self, Self::Err> {
++        let header: SpdmHeader =
++            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
++
++        if header.code != SPDM_CHALLENGE - 0x80 {
++            return Err(EPROTO);
++        }
++
++        if header.version != context.version {
++            dev_err!(&context.dev, "Invalid version response\n");
++            return Err(EPROTO);
++        }
++
++        let hash_len = context.hash_len();
++
++        let nonce_offset = mem::size_of::<SpdmHeader>() + hash_len;
++        // MSHLength (H) is always zero as we don't support it
++        let opaque_len_offset = nonce_offset + 32;
++        let opaque_offset = opaque_len_offset + 2;
++
++        let mut cert_chain_hash = KVec::new();
++        cert_chain_hash.extend_from_slice(
++            unvalidated
++                .get(mem::size_of::<SpdmHeader>()..nonce_offset)
++                .ok_or(EPROTO)?,
++            GFP_KERNEL,
++        )?;
++
++        let mut nonce = [0u8; 32];
++        nonce.copy_from_slice(
++            unvalidated
++                .get(nonce_offset..nonce_offset + 32)
++                .ok_or(EPROTO)?,
++        );
++
++        let opaque_data_len = u16::from_le_bytes(
++            unvalidated
++                .get(opaque_len_offset..opaque_len_offset + 2)
++                .ok_or(EPROTO)?
++                .try_into()
++                .map_err(|_| EPROTO)?,
++        );
++
++        if opaque_data_len > SPDM_MAX_OPAQUE_DATA as u16 {
++            return Err(EPROTO);
++        }
++
++        let opaque_end = opaque_offset + opaque_data_len as usize;
++        let mut opaque_data = KVec::new();
++        opaque_data.extend_from_slice(
++            unvalidated.get(opaque_offset..opaque_end).ok_or(EPROTO)?,
++            GFP_KERNEL,
++        )?;
++
++        // `RequesterContext` (8 bytes) is only present in SPDM 1.3 and later.
++        let mut req_context = [0u8; 8];
++        let context_end;
++        if context.version >= SPDM_VER_13 {
++            context_end = opaque_end + 8;
++            req_context.copy_from_slice(unvalidated.get(opaque_end..context_end).ok_or(EPROTO)?);
++        } else {
++            context_end = opaque_end;
++        }
++
++        let signature_end = context_end + context.sig_len;
++        let mut signature = KVec::new();
++        signature.extend_from_slice(
++            unvalidated.get(context_end..signature_end).ok_or(EPROTO)?,
++            GFP_KERNEL,
++        )?;
++
++        Ok(ChallengeRsp {
++            header,
++            cert_chain_hash,
++            nonce,
++            opaque_data_len,
++            opaque_data,
++            context: req_context,
++            signature,
++            length: signature_end,
++            raw_bytes: unvalidated,
++        })
++    }
++}
 -- 
 2.56.0
 
