@@ -1,63 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316970;
-	b=SXV4tTwS4wr8XqBhPaKTz8lb4LrtYQ5N3iHck4zo7CLqZ938oNJbUKNuvu968Jilwth/
-	 k9+7UIJt9lxk0yGxx4xbW5eol7dgFyxKAiBXmg5wSZO8Z9VHBlP8MmNu1DPgNy6U9SKyq
-	 4M7a7yriPVqwHnf3hCrg+dcBD3FZesT1N2zUmD8OosiHLeGfu1OjjSIM+j37xfuVOOxY7
-	 D9c/LYSzpwtgMgk1tGKUc6DtbYu/DT2JteT0lmxFzf1ZJpCNmE9d8oGpB3zKlaSY3ITEw
-	 F/HA4xUKZ7mkpiE7/9Ipwgu65XaaXSiyRdWmdcCBzDMESQ0MqPp/JnVg15dS7xj1LtA==
+	t=1794316982;
+	b=uPSTIAkVLZbmUquDrEWGTpfjbHSXmiDnoqh3uQuGNtppaaGOyrjtPCrdmrWTHG0eVlmO
+	 faHNDpmx2RTOLUSm4QFdnpuSKSMliBL6x/JKjk7TIm3ihEKb7dS22hIbJhN56Rv9cg35L
+	 0aUUZmuE6Gw6xRiB3i+ayNbk1OJybxpLneYm/iq6X5xjmVlL0Djiw6ZHeBEhiLwIyFpIn
+	 5VObIuWB8mWTRh4c+FZ2K/VmRvva+gh94LZhKwdbwkbuYTGreeA+Apl0rTs6hI6CRjgng
+	 spvwhl82p7ee+BpzgPUcX3ojrRcH/k7IPZRIYdHDQcDDPUJYPQCbnB/MN1rrYPrnSRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316970;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KtBx36UBDrfpFx+VxUMkQATj5rmFEq4BGC1xm5D4fac=;
-	b=2tCJ4P1tYpoJeGlzXWVmg03HXVFZR55qG6bm1xQEIvfy7icAUWtxw7OQd35+6n5HAGOf
-	 afbbKu7/RwBBdss4OZU1q8SXr5cvb6HxY0HgoxX3y0nvSutXi7/3lmx18xRwBPxcZmU1H
-	 8gtFzLmIEk1Y1eUsDuoX+4go3SvL0eAZyK2s7Z3kMpdWVFyzzl/2j8pQ53YLAmnjT3FFw
-	 +0vpLEcbEUFd7JMsZuP86q5yMwOVRmvqmMV0csaN+5b1OFpIYzhRRZofeIcUyR0gPOUXV
-	 f1OtCpOW0WIR+ZkhYzMpsKjvVx2jLhxcY5u3E8uxCfjUg7YEe1sAz+sm8Ru/q0uFNMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316982;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=y2cdaINOWN6BB46Q7wwKG1TihseiJncktr/TfMMhw0g=;
+	b=k2jabjiCepLJFiiC4sOfZiSmTvyuEKW8iam3StOCkfccbK3a67oR79rX3fiwyyaYcv/Y
+	 NzZe8w9Q8WRBCIUSoz/RGtRnFa0+TCKUFJoBMk6g7ymtNfGhaLQ9MjDP2ABBMUPzGEaYq
+	 VlWWULTI2O4ReL8bv2o5XXO4AXYeSK7at7hvSJJEbfs5XuYQDzU3vI/O2YfUfLGaeNmJr
+	 ccHPvZ4a+UpuNx0ZDogfy3EMMsahP9urLZsZjWFGXTPkzrIgpe4ZFP4tihhbBEK2dRL+D
+	 iCJ8T1vuwa73LdXjdlk5E1a636dvfFDx5nQAVR10dXHKfSaiLzbfk+cJdQsGQg4Nbuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izFZQUIj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E15B4606B2D5;
-	Tue, 10 Nov 2026 13:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izFZQUIj
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3CC8E1F0089F;
-	Tue, 10 Nov 2026 13:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316969;
-	bh=KtBx36UBDrfpFx+VxUMkQATj5rmFEq4BGC1xm5D4fac=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=izFZQUIjNGDTgyp5H8Lj+/KfWVP9QkshatS6aySNYvVvIkxgaJFnSDsf/aIXtQBti
-	 LGOoT2zSR86wBAnLb3xa63h3EHnLm9oLb17Vft8x4w+jphOiYE/3viywZJB/pm5VGt
-	 uv4LwW/bt2a9VaXec+UVRDUmUttYVtZkX+qN4aRw8f+PmMOaQGwpIOQ5poHrP3HPoS
-	 s+uJ0OaDiN5TOVxBe+oMBezKYCKgv77GMhT3nLT/gPVaT8ygtpABc8b8XB2I3XsHlT
-	 75f0mefDjWbNJtIi/lKAUyfriTrvlKD/433F+VGqgut10Jtc8t5gA4Mu059iFibcc9
-	 2Ux+T5B9ePIJw==
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Nicolas Schier <nsc@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: apm-power - remove driver
-Date: Tue, 10 Nov 2026 14:22:39 +0100
-Message-ID: <179431695096.1779189.14927773083935970456.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
-References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 419A860707AF;
+	Tue, 10 Nov 2026 13:22:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 419A860707AF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794316986; x=1825852986;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=Iv6D6e7CRfaO746bD1hJJNYyxNaP1nv/4CHWfaTQ1+0=;
+  b=Rz4my6uW4QPG75pjdXoRmyED/zqLaRQa6Ka0VRS7UPvCfMk+oTODrJs2
+   uAWfHstIivZLK6rXpNhtGT0m7NkaWdfusnW9rp3eNZINvFiwWsfO9GQWo
+   msacSw1r6pNr4ljHgywRetMZF7L69Iisbn8lBVAo86kxceTCyabOxDyz2
+   X5UFTKYIPetG0gkxjf7clJkLdlarXQ4lmkpOdxolrN4AL6eKxHQ82q8Rp
+   rlIqw9kNRfJkOEQqoiGKnh7fGxlCvvsNl7NzF+6ag8xJ0DMfXjmfV+07Y
+   EE53sv62g3cqRXFME1nHEjpE9tkWHMl7I7CoZeA+Mtt64wxKp6q3UBEeZ
+   Q==;
+X-CSE-ConnectionGUID: K5U7yhEJQkKn19s3N8BCXg==
+X-CSE-MsgGUID: bVOdbvznQCCogYHFmGefzA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 15:23:02 +0200
+X-CSE-ConnectionGUID: lg/nxsEvSIea7AHEBlpmmQ==
+X-CSE-MsgGUID: BAkxBH2aRMW+u4xpuWpZ/g==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces03_data.me-corp.lan with SMTP; 10 Nov 2026 15:30:50 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Tue, 10 Nov 2026 15:22:54 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Tue, 10 Nov 2026 15:21:00 +0200
+Subject: [PATCH v6 3/6] riscv: accept the atomic extensions this kernel was
+ built with
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +67,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-lrsc-only-v6-3-bafc3cc0fcae@mobileye.com>
+References: <20261110-lrsc-only-v6-0-bafc3cc0fcae@mobileye.com>
+In-Reply-To: <20261110-lrsc-only-v6-0-bafc3cc0fcae@mobileye.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>, 
+ Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Chao-ying Fu <chao-ying.fu@globalfoundries.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, torvalds@linux-foundation.org, 
+ olof@lixom.net, aleksa.paunovic@htecgroup.com, arikalo@gmail.com, 
+ Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Vladimir.Kondratiev@mobileye.com, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Charlie Jenkins <thecharlesjenkins@gmail.com>, 
+ Nam Cao <namcao@linutronix.de>, rust-for-linux@vger.kernel.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.16.0
 
-On Mon, 09 Nov 2026 00:09:44 -0800, Dmitry Torokhov wrote:
-> The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
-> events to queue APM_USER_SUSPEND via legacy APM emulation. The only
-> in-tree platforms generating those events are legacy Sharp Zaurus ARM
-> machines (spitz/borzoi/akita and collie), none of which were converted
-> to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
-> deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
-> board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
-> mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
-> of the remaining ARM platforms or other APM_EMULATION targets
-> (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
-> enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
-> already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
-> CONFIG_INPUT_APMPOWER=m entry inert.
-> 
-> [...]
+riscv_early_of_processor_hartid() rejects a hart unless its
+riscv,isa-extensions property contains "a". A hart that lists "zaamo"
+and "zalrsc" instead of "a" is rejected, and so is one that lists only
+"zalrsc", even when the kernel was built to use only LR/SC.
 
-Applied to kbuild/linux.git (kbuild-next-unstable), thanks!
+Accept "a" as before. Without it, require "zalrsc", which every kernel
+uses for cmpxchg, and "zaamo" when RISCV_ISA_ZAAMO is enabled. The
+default build therefore needs "a", or "zaamo" together with "zalrsc";
+a kernel built without Zaamo needs only "zalrsc".
 
-[1/1] Input: apm-power - remove driver
-      https://git.kernel.org/kbuild/c/7f705c0a
+The legacy "riscv,isa" fallback keeps its rv{32,64}ima check.
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped,
-reverted or modified (e.g. trailers).
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/riscv/kernel/cpu.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-Patches applied to the kbuild-next-unstable branch are accepted pending
-wider testing in linux-next and any post-commit review; they will
-generally be moved to the kbuild-next branch in about a week if no
-issues are found.
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index 3dbc8cc557dd..9ba0d49c87bc 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -82,12 +82,29 @@ int __init riscv_early_of_processor_hartid(struct device_node *node, unsigned lo
+ 		return -ENODEV;
+ 
+ 	if (of_property_match_string(node, "riscv,isa-extensions", "i") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "a") < 0) {
+-		pr_warn("CPU with hartid=%lu does not support ima", *hart);
++	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0) {
++		pr_warn("CPU with hartid=%lu does not support im", *hart);
+ 		return -ENODEV;
+ 	}
+ 
++	/*
++	 * Require the atomic extensions this kernel was built with. "a"
++	 * covers both; otherwise LR/SC is always needed and AMO is needed
++	 * when the kernel uses it.
++	 */
++	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0) {
++		if (of_property_match_string(node, "riscv,isa-extensions", "zalrsc") < 0) {
++			pr_warn("CPU with hartid=%lu does not support zalrsc", *hart);
++			return -ENODEV;
++		}
++
++		if (IS_ENABLED(CONFIG_RISCV_ISA_ZAAMO) &&
++		    of_property_match_string(node, "riscv,isa-extensions", "zaamo") < 0) {
++			pr_warn("CPU with hartid=%lu does not support zaamo", *hart);
++			return -ENODEV;
++		}
++	}
++
+ 	return 0;
+ 
+ old_interface:
 
-Best regards,
 -- 
-Nicolas
+2.43.0
 
