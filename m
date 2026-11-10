@@ -1,107 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331042;
-	b=xwCLhH1GGLd9aFT+500m4sXvnvkfspkJV+O9Rdw+HOd8+MIH1pcocqc6hHS+87OIs40Z
-	 jySEHlH/hdZ5M7Ip6eGOIu5izxx59FA5cRhX8YCuUQRatWC78dp7vfWyVPPoibTS2pr51
-	 4tcmHxb4SHLb0IrBXXaGX8EFsMQmObFgfnWS+358vAY3SP6g+Ez6rwFn+O68qNvnPgbTe
-	 YC+BEgRSpMkOEhKaEhyBPm4rLn1HzbXlTSz9ueZy4TMbXbZ3yjzqE33cKo7Csz5sTuJHv
-	 6eBDfUeEAsHa6QciQZcF236eSoDwrcZ3+EDrR/YnNJ/ackFg0MX5Rphs59XtwpoFzOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331042;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794331058;
+	b=PlFJHdniVS8yrn0sWTocd0Vu3sgSABs1RSpm5is2jI2Y0Dd1W+O5FWuhk8zgS6fF7Ois
+	 FvKey5t7suS6Dg4P+3JzjPLHACxj6YYupkLSQwoKQaEtsRmvyNHDANF4191aiklidpWxR
+	 hX1PlJMKU18nbC/yHjYUX8vH8XSvdR0e+tVg482ApB4wi71AquXWwTOwJUE9eNCq+rFQq
+	 kuSTtfjaWtAf6oIUYgxpCl0aPikJGp2Fixnfy5YfxSf9+KlBGRc0PxDkKJ3BgAhEMyppR
+	 322I88Jcl57jq55N9zDbGf0A4l57VdS0Id5TYl4TF5Vw4XVl3QE9cQqDPKaLxsi1IEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331058;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=anu/2F6mroicCWt3l+8C2jxZSamPe+b0q+OPEpgFtcQ=;
-	b=JZzQ4jHP3NNsaIeb3yO/8yQTl/sUGjnqihgiZ16Rpaxx1yZUzTX1uHobXOm1DBIyGC6C
-	 pRP0OsKPhZ01F+iMW9Ox5g4cQJqStCmG2fQo13ehuOz+E5C1cyyzeyFdMCukw9aUqSq9D
-	 Ff+YpdGGayQ1Cvk4IRCA5it+5+C330AwdYjymF5hWXdNdDVoFKaT8rfTNhnxL4HmtcH4b
-	 2luQkWFlePqcJt4ninEO4tuY+2jqnZvmndPnewZ0fVG7usWbcESXhMueonVvZliG8ALhj
-	 /sDQnW4NE6kIk5xw3Wng/s+E5LXMCsWF2bEBctzR58VrLikrd5Un19MxWJRVYyO7c7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=skPANznjPtDn5QOojVCJqck1MgtHRW3A9WW6+mK5vTY=;
+	b=D6GVRdEUhD7Mr9XHdso5BviveR3GPt3IPZ6Xkjp/zjeOxHUbSssS5vXOBuEOe10kbkhn
+	 w7CmfCvIkCPjreb1CZeLPSsb3DLV4dJy3a2uYrWt7ORXF2ER8I4c+RwmC+O25bZEBFUGA
+	 sW9Mxk3nV3a8NWlOlaaREd205xYD1tAJ7W1Qm/RflmX2Rv7KGGESgKJ7zWSgq9JOTSew/
+	 RSx7uhRV7EMX6Pc/Hxy8f2+Y1Xjy6VnfaGoterlLM7FriQl2A4ZTviIKBhEijAhnm2GTy
+	 aOlnY+Iu7weGgMBYgSSgKfSGTX0hflZQPgw5GU++d/jFfaLfRUZvs3fa5FvBgkicDAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKKCrJA9;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7pNqlcK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFD3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECFD3606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD06606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD06606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKKCrJA9
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ec6f271883so1384979e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:17:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7pNqlcK
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4af81963f35so1050484b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:17:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794331057; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mrsi8KQNiI6B6A1Ak6CFCUKhkg3mzT3iaBTaAPS1HyAMxQ96hHIKqhXdMjQibtZOfp
+         6lJ9lDyw5Xb3IvhTL38vx1TW4b0vnLgcqWnHUf6Pg33a0yUpqke7Jb7VPfZadRttiV21
+         1kNb2EKYJQpBAScyXOLWSoYXxeIRXeEuFx1C5JjzXrDzRKfonDF+jkfr2nxFrarSmGw6
+         et4OmVZ7N7mkpoKqK4Ix27yhzyKdm4ztw3cOWVS9v/sby2P+58nr/Pe5u3cL749T/5fY
+         smi+BBlldDPCabYCVxiiOpTZ+HdaTsYzBx4pKbK88vdfNlNqGgi96S0Ns6UNt+jvHjH2
+         vVew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=skPANznjPtDn5QOojVCJqck1MgtHRW3A9WW6+mK5vTY=;
+        fh=jnSnSP6onqV53p6IsFJPm4CHyNIje/m3c35akiZhsfQ=;
+        b=Bz11CAvSvI84XjtL6ppgT4LPgr+PgSRqICmXxAQbGSmSE60dmV5DpFzakZwLhytlkp
+         FEVQhbrU9dNicY3xVAMyTSB9S6IuXjrWnbmU7NDnVP5jSfPFFybj6yANQbtrNZs9u2mV
+         sDZ/7HGfR/gF7BmlEdzDV0WiGB9cGh4Lz7CD36hA3IYiBsMG8zlN7HffwgVBalQOSXRg
+         Rpf+QV+oW69Wo/7HuemcV7KPeU/Po5nfVloj7xArnxpmwiJk4xKFptHx379DrtCWSjIT
+         9a+YYS8O4lUyOiFPwSWsrEJ4jLKqFIko01e7bz3Bmu/ab6xEnlDls+JKDaUNf4XwM+ZB
+         MIfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794331041; x=1794935841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=anu/2F6mroicCWt3l+8C2jxZSamPe+b0q+OPEpgFtcQ=;
-        b=NKKCrJA9g8WcA1Ou1yzg2Qhs61lb8dcLj5MZUxusyhRetSjLQ36Zg04UidHm6J9a2J
-         ZVt6Sgq+0eCGLFC3Y7PwAt2B+DLaYU3sLlrlveXZp8FtmrHS6UUmfRgujvJ6b8Ch6QDr
-         85GUlFDvlsOibkvJsJvKQF4d5qTHlVT3s14fPoFbRd/CdmjDO7i7xGUD7JcMpZeGMGea
-         QPyWeoKJXsSlgySEFMDNjA3xLGFRuLjZa2I+f3uwbTasnpqZjxiN/ErJxiXE7hhUR/vs
-         mNpMtW3q2HCePxE8ZMaRIddfrjsD4mR+rip5SVcDsSJ9Yybgu7C/pFbER85AWofvgUdZ
-         XcRw==
+        d=gmail.com; s=20260707; t=1794331057; x=1794935857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=skPANznjPtDn5QOojVCJqck1MgtHRW3A9WW6+mK5vTY=;
+        b=r7pNqlcKIdxME3fk1XxU8EbALJRZdEoV9A6oZvUCTg41kr1rjCF7OfgB2DiEsmw8cL
+         FNsvYlAF+5fv/gZxh/pAUznVxLYZ6Kfw8hqhi8TWBekXu90e756jM5FRfR6WjHNLk3Gv
+         X8AAPPCL/ZxyRnT0/8FNyf5MnpUHEB6j8ZQu9mXzWeFqKt0VyZh2+Hke1ukeMEGkHgSu
+         SZU0G8htJbbiWBvJN0DqSsshzjsCv3yWhB14ula8RdcjAV8h1EMI1Jlo4QuuBUFTtD09
+         n+P4HeYZDundwVJaW+JAIDuyyX+sYRJr3Oimw489irjV+pWohqs4ktH9+3Vk4B9UwvSv
+         aQGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794331041; x=1794935841;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794331057; x=1794935857;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=anu/2F6mroicCWt3l+8C2jxZSamPe+b0q+OPEpgFtcQ=;
-        b=RhGrJseDGd5irMn4+qL6leWV9ia/RuK62K7q52eA0ZJgTdSlhE1y6APclxOLGOp0yh
-         N86W3HjnDNF69HuCmcIMpKVjI/yLUNUVtWWv5MmKBUZG0hlnMBs7A4mPkCNkRzvhqfv6
-         6L21XJmpmIxLF0Z9ESNVmyv1dRqZRTG3RlBsVyc+M3hGbn31J2zOYH137qQ/xexrn305
-         PsFAjuJIC4SNhLXU9mseiuVdd+frZekCA+7nbR6lDoIIr8rG8EZSAzvRSo+BkzmgWZly
-         JbodZv4zxibtC92sGtdLR+K76RvPl+C+XKbj853a9BEru2r8m1NhbtSHs+WufNzi4+AY
-         vZ5A==
-X-Forwarded-Encrypted: i=1; AL+hErHpf6bzd2ocZtV9tbIIegG1rbloy8qhPJ3+5GMvw4NFTBgN2OYcHIQd7TLipu7FOla1N20Q5Xv7FWOxcLw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+npjPNKVCCYk6bJIFr3lckohpL8xCMnTlWeEw0REVHuH6hr2E+
-	EObcEP50Aakjl34LV01mZo3Ly3Q8+yTVe2IMXHXiHsUfmMXHPcSxNvo/
-X-Gm-Gg: AYBFou2fg5aLqdEZGKNQ5YH9IGj011sYjLb6rFRLRCP9KrQc2J3uCyOWJIaWtnk5rPw
-	jPvr6dLVmGgibJByrMHSgh553uPJjHAg8lCAfE8yXVKcdh4EyV+kroUWhDEVeDr1qJaM+3ocfkz
-	EdCABnAj/1YPuRaQPrYoiNp3uf6TO3tsOcmh9g2WiFdbxzzkSk+k35hcBPCGP5nIVYKzG+MNx5I
-	0pxOs6VmGMKg+3z/Z76rNtQmBBjmCcBZOyK2G4acy6hakWFJhqHQ0WvY/ekbWzXjjrd3rc+k01u
-	e88jhub/LUTIidv7BRIna3bp9XFaCG8jkprdwBmWYlaQBprXUpeNejWycibEGH4lDriVg/66cbQ
-	4zWTm6O1MEwVhCIP8/SWS1QJ/ZL6w4Au4w9ALEFMs5cKKSVsbNrvSlWKSqba1IKK7zHo47ESHNs
-	RYxBl+STEu3yjwUcA9GpGkZGkTv5TiNiMUfZemO2nPySE6l4KHeQuakTNWni0vePvb5hgRza6PR
-	savrjmfl8RnKwd32wIdoxDE+i9GTL+6i2feUCNBV00c2j3MAnQ/f555Q7gz/mxFxtQAllQAiejc
-	aC4aA/1byGbukywoFCvS4lVj8VdZv2YTLbHoul6IbPl3tjpeLQqj/bDxu7qXXlX6AyEXeyC8i9d
-	d5yyITFBKm86CWzVEOvcU8eKA0NtOFbrwYMH92J9IB8NET+vdVW6Jcwyynwr1lbWqqWm85/A=
-X-Received: by 2002:a05:6122:210a:b0:5ea:c722:b3a with SMTP id 71dfb90a1353d-5ee0d0d51d8mr1334938e0c.7.1794331040981;
-        Tue, 10 Nov 2026 09:17:20 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5dace7sm2095563e0c.12.2026.11.10.09.17.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:17:20 -0800 (PST)
-Date: Tue, 10 Nov 2026 12:17:19 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Jingxuan Xie <jingxuanxie@deeproute.ai>, 
- netdev@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- =?UTF-8?B?6Z+p5bCR6Ziz?= <shaoyanghan@deeproute.ai>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev
-Message-ID: <willemdebruijn.kernel.33a00c75cd53e@gmail.com>
-In-Reply-To: <20261110072221.24701-1-jingxuanxie@deeproute.ai>
-References: <20261110072221.24701-1-jingxuanxie@deeproute.ai>
-Subject: Re: [PATCH net v4] af_packet: avoid waiting for TPACKET_V3 copies at
- retirement
+        bh=skPANznjPtDn5QOojVCJqck1MgtHRW3A9WW6+mK5vTY=;
+        b=aX6Hi12EFpEDm2KHKbmgLccW2r6MnLdGFtp4fpsqyCVdDCC4zgzqDN/8riEmawNFfa
+         d5wYknID0NclNaZFiIgF3j9O+3I9WIihycNB5LrzTuewOUSSPauDgi2ZLZdGUtGZWcwp
+         XlU7AAlu3ZCrd6j0p5vgrFSdiGEw9E9B2m3qqwiyvuB38VjgUSBJj5TsX17JKma5valG
+         n0lenBV0fjctiejpdeoEFeP2DY6FtcqydhHJcwxlrvI5RArZSmxui31vpX5U62zAQuSa
+         sJRc1Rj5rb0/qYlKQ955PzvONsbbbyfVLmag5CDvIy19s7equO/HfGsa8TJnFDNsehWb
+         0onA==
+X-Forwarded-Encrypted: i=1; AL+hErH7W6IlNG6AsGo3aKufl8bVb1gwmFSWtItpnA1KYV2pbPvRsKmXlitGH3mZI+MDq9V69OATvGwbnL7Jpuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XeDjqMlb2UKn6Nf4hqi3RLSwdx0P2XOtg+c/yenPd0TpPNUnB
+	HtRD+GnMg9dgUqyC0WSMkoO3j1zBnZHAsu5QBuBcg4+3ucBttFlm1eD39UAQozMilYICSBLc9Hp
+	SkxcEvQO0907LShnJnR44vWlYB+YX5F8=
+X-Gm-Gg: AYBFou0tgSIy7cF+/+MeTTr235MMkjQpyR/m1dpcjZbzvylo+mKRytgjTpZYuCrbEKD
+	/2HuGUzTPZW67B5gVWHyLuewPDW04BvOj1LVyat4+2/F4lC1wwjWGVJiYnrSw8aeZBiWRhKEjNT
+	e9gAAAp/ilK17ELcBtnM1uTm+jmftEdZlidoIVZBKBxiU4i2I4F2geatHtrvqOoEq2GRgQgXlor
+	z65g2lHVuvs8OLcVw0IGZL8B5vyjJcUbMJaZMWMPEZJw7nnjLOfWrK5nPhj+YjrffPvTmmvwKtf
+	GEyXEi/F3x7RD3T5JLoYu73Y/8C9Aubcq+91Zyv5/Ytbsm2jGtInjrIq/+9GD32KIBxRkSZ7Yi9
+	+bYhcjmASpLY4iRlO0zchsHiRBYYREVIKODPJIxxMJ2wX1Tdv3RI/hGI1pTzu3Be/eHWP8XDToH
+	15aH/iH5tIY9VwAQ==
+X-Received: by 2002:a05:6808:3308:b0:4d6:9133:23fb with SMTP id
+ 5614622812f47-5683ca7938cmr2559632b6e.49.1794331057255; Tue, 10 Nov 2026
+ 09:17:37 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,53 +105,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+References: <20261107132040.1066996-2-mmyangfl@gmail.com> <179414774671.994134.1756882573318817305@kernel.org>
+ <84b7c0d7-c167-43ab-9384-869c0bb40ea5@lunn.ch>
+In-Reply-To: <84b7c0d7-c167-43ab-9384-869c0bb40ea5@lunn.ch>
+From: David Yang <mmyangfl@gmail.com>
+Date: Wed, 11 Nov 2026 01:17:00 +0800
+X-Gm-Features: AclHuK_bFk1zwMxZ9cWyZioiWUDcgfOkH6aV-uAJmktOrVSJXdkDEZNkQyyDFew
+Message-ID: <CAAXyoMMHbXoBQexDyuVQ1rEzXvrX=fNPy_VfJbsmg9QrdjSMaw@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/4] net: dsa: motorcomm: Fix stats64 error
+ counter mapping
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jingxuan Xie wrote:
-> TPACKET_V3 retires a full or expired block while holding
-> sk_receive_queue.lock. prb_retire_current_block() takes
-> blk_fill_in_prog_lock for write to wait for in-flight skb_copy_bits()
-> before publishing the block.
-> 
-> On PREEMPT_RT a read lock can be held by a task that has been
-> preempted or is running on another CPU. The packet path or the
-> retirement timer then blocks on the write lock while holding
-> sk_receive_queue.lock, and the receive path resumes only after the
-> copy completes. This was observed as a receive stall of hundreds of
-> milliseconds in a PREEMPT_RT deployment; manual inspection found the
-> same unconditional write_lock() in both the full-block and the timer
-> retirement paths.
-> 
-> Try to take the write lock without blocking on PREEMPT_RT. If a copy
-> is still in progress, leave the current block and its metadata
-> untouched:
-> 
-> - the retirement timer re-arms itself and retries after the configured
->   interval;
-> 
-> - packet allocation returns NULL, so tpacket_rcv() drops this capture
->   record and accounts it in tp_drops, while the original packet remains
->   in the network stack;
-> 
-> - a later packet can retire the block once the copier has finished.
-> 
-> Do not dispatch the next block while the current block is still open.
-> The existing lock order and completion ordering are preserved, and no
-> new state or worker is introduced. The trade-off is a higher capture
-> drop rate while a copy is in progress; original traffic is unaffected.
-> 
-> Non-PREEMPT_RT kernels keep the unconditional write_lock(): there
-> read_lock() disables preemption, so the writer only waits for the copy
-> to finish, not for a scheduled-out task to run again.
-> 
-> The stall was reproduced on QEMU arm64 SMP PREEMPT_RT by delaying a
-> copier after frame reservation: without this change the next sender
-> blocks until the copier is released, with this change only that
-> capture record is dropped.
-> 
-> Fixes: 632ca50f2cbd ("af_packet: TPACKET_V3: replace busy-wait loop")
-> Signed-off-by: Jingxuan Xie <jingxuanxie@deeproute.ai>
+On Tue, Nov 10, 2026 at 9:21=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > [Severity: Medium]
+> > With the tx_fifo_errors mapping removed, TX undersize events are no
+> > longer counted in any rtnl_link_stats64 field, and that includes
+> > tx_errors. Is this intended?
+> >
+> > The tx_errors kernel-doc in include/uapi/linux/if_link.h says:
+> >
+> >  * @tx_errors: Total number of transmit problems.
+> >  *   This counter must include events counter by @tx_aborted_errors,
+> >  *   @tx_carrier_errors, @tx_fifo_errors, @tx_heartbeat_errors,
+> >  *   @tx_window_errors and other errors not otherwise counted.
+> >
+> > A runt frame may not be a FIFO underrun. Could tx_undersize_errors stil=
+l
+> > be added to tx_errors as an error not otherwise counted?
+>
+> It should not be possible to send runt frame, i expect either the
+> hardware, or the driver to pad them to 64 bytes. So i don't think what
+> the LLM is saying is valid.
+>
+> However, it would be good to get this counter reported somewhere.
+>
+>          Andrew
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+Probably, but it should be counted into tx_errors nevertheless IMO.
+I've sent v2 covering this.
