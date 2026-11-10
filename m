@@ -1,89 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794321948;
-	b=R7KYLv4YF7gNb/ePGc4iOyjb3jCgB2n95wjL5kYzpDo6B0/iLoY3+14Xs3avaCFi3Vsp
-	 kaAFRbaL/QL/uoAb3H3aTZS6Mp8rQg+8izXD+2w6JA3GxZXYGdMnHx7VDu60m+QQ5+6Aj
-	 ZacmqDeADULejMOX26L1gBT6psWnULFzRGzZBCUmX62EateJ2NyW7/3JVqBcEb0FzmfKG
-	 j6RHbDYd0ajirFsckqjWntXEjot+AathKntu/1eLjcHYa4Mn+3xD0EMVQFjugxD27LWzN
-	 HpOu4L5DU4t7RwOFp9jRoevb3/Wkf9pEwAEfeNT/Wpf/1NlEbM1PZuIeL3PJjtylKsQ==
+	b=ahWrs3hNiT0LFpwFKlHMMsm1SuEB8z9zEFAf845tGYZJfajsZVaFyLZiChj5KQ3gOvwg
+	 T6kEyp3LD2fTca75fyw1YSZ+h2LOnFiRbonV3vx4sHzJq3MEpxUz+GYmf/fij53N1gFXi
+	 +JXumg8ECTVeDucgYjrieU53VHc9C3cREw7a1NqGiwAXOGnh/LfOGglQp/AYxrkoCibVu
+	 HsGX4tgvwh1oX9AWDRB4LUVJy4MWlV4b65p5cv6Npt8jl8ZiyuRK2Q+iqt0IUI6KJcZmZ
+	 U8TD2X8iOaeCJ2zjUHOJgRZCc3kLM0mi/VeK0ULHhEAEBQttWrckl03QdxzFGFYHGIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794321948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
-	b=3GFHsg+a//fDdC3Cksyo+85kL8BY2tRKcJH2B6qNFbJB5abB4y2spg6fuA7ek9n+2+2h
-	 zlOg8ahlNAd2VJa1HouvrJgUGx+CYgGdSExndULKEV08l8PDun5gCi9jYFruCuc2410Fa
-	 pB7UWfpGq1SGBj8M6braZrrn53Q5fsx6Xu/nZpzVV4qVPFDMTlQQ4O984pt9sMukaQPsU
-	 VJbXMjlTAY+kzZRZOe81aAXmlkcDaqlPL8EynBhjJOMB1ULxzT9E+dQf7owQ90Gg1f7Sy
-	 164eYRitfuyioKSY4OJ79Ii3nyiuzhQGe2vgjt/IJjXnEE1TgEAzmhrg0Ry8YcuWwTw==
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=R9lBEoIWVZ1hq7v8fJDQt0mB70S3ebuyMNcxrw2vw24=;
+	b=zbxIDKcbqtolISbXuZxCJoK4QksXzz6hI3tvv/WhtPxMOdK9ONyNijpUkVR4jThjaPwT
+	 lkOPfTs9cjznMIJ9H9gYPVKKAnjdtlphFeCslHkoFlEWVFWwDj3FUR6GfcwrbN+dg9blm
+	 0T0jTBmcUnFszt5E0CCExBeuM/cApL4DyM4eAodUg0SBc06okqxEIjjtygPup0djFmiNr
+	 5Suq45pFimavTW8M95Hp5NwkTVQ0Q9UvZc4CItOO+vHNxLuna46vukvCxXwO8NXyzVCs4
+	 3OTu7KWb1xuSuUUIXV8NZ/ARC3ZUyUkgAW2i16d92tV9Fsn2nMnzqjhuIzims2G2YsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=A4QYkVdj;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CrmBV/WD";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151CD60A262A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 151CD60A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CF060A3819;
+	Tue, 10 Nov 2026 14:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=A4QYkVdj
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so1400673f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:45:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794321946; x=1794926746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
-        b=A4QYkVdj6QsIg6y/7whUfEp3RADSoFj6acoAjkv5/Rv/06V5aFl8cgx+A4lxCYl3zC
-         nyQ+EygbyNm5Eke+OqXnuDHC/AebKcULAHM7a29PxkGKhrYyr3y+7FrGAFjrdZUkIwEB
-         CbrdWO0TgYxHeLr7cNb7OryBNKlFKV3Mq+vRH2thgFjhI2DdA0CBxEx2JfwNIWVhAPpS
-         9dvpAEvJM7IP9rPNQEfQj0YLGr6H9LRSOG2o3dPmfkPWDu7+2GtB0wmmF0nOJmZ6hd4L
-         Sn6HbGEKqL6LIa9xhb56o6znkK58IY4F+YYdlUelrlUNY6px5YaKBLTwclLm3h62fV5m
-         Grxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321946; x=1794926746;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
-        b=oQ5/OBJXxNTVzV/x077POWRwLljh0/bSBg++dxivGngKsxU3RkwGHVlg+KnDwYxV/4
-         +/z6+Y9OuYvZahOeV92H88LMIJJ4DzuKrecQ8ql4XMi4vKbmGDfeI244aBVMUl1xeVqA
-         wxntBaZ8Ssla+2BA/wv26cdI41WclaA4K1y49v3Xa01oCoe8KrAfiA9DaOaxz+nExCui
-         76uHFRNl6SIKLW02/kzL+bvxHbqUTallbRjuSSWqxTdICbK4L65kEQopYr0Xekz/wqhF
-         HDKnZLnLDcjoWG3kAZjt0kxktUFfjPMlovX20wNviCedZ4IAFxZHnOVGZF+l7O4Lla6e
-         KOfA==
-X-Forwarded-Encrypted: i=1; AL+hErEePVVRK3EJ4a2KQC3GH2BrxALQgm8T2hVfR+AYtgixfK4W18rSpPaBssycZGIPRFgCdDST6i1CrDMROH4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/v92VKVWk283z8VM1mRgsbl/uQUwBZsjXZxaTeb3wfMU0RZ10m
-	8ueYTqrht+zoLUThMcXhFo1ARtJjuy/IrWXpP7WQTrT34tc/9tTL7oUhPMXFs/d6Dvc=
-X-Gm-Gg: AYBFou2WBbErmVXFJYlz+Xowp6McKDTMZleBnOOEJ+iZkqsL04n74YgImD+da/tNBnk
-	2ULg49s7l59itVLJawdGfkNwy8dSbddvbsWuYFBVKWsJ6hXSK0uzMHxObxDgQt1CJoNe06rtoL0
-	a97u2YenO8T8vvgqMmMsKf3s0WILCWPojbLzVXrKxDyVzOjZZiC98Ryrin9k69Ikh5+PIFajahU
-	63r1NV9q8/Wh22pPl6QHkNKU7pH2Z4W0Bnk+hizBoIZBBcB+KhW5QxPDpZSWBCrYLKneyhUQGKh
-	2YlENJQl22hgFFzi/wRkh10jC5+g6nP5LucYNKSPUZWOV780XClIYYxJjnlfqs1LuBrmzinyBLX
-	aeFCcCPHZsPtH+hqxKeA/4WmEeydv9v1cWv6Uzf2CN42cAP9+UFcKrPo31CZmJWTUFEHrflmnLY
-	uhAftIJSQTJwqVaEqD6EELqjSvV+ix+oDdPr8bF3MAgrsbzspYAGK9NNilM8ImJaS2tx9LDtsaA
-	PxP0DdJno19rHDdvWp+uc1u6MiuVGHltI0BjpevChL2a6uYe0L7m/9iMwvV4dwUrN9IqEETtdzP
-	HLOSeVigOgyQ3pY7I0kjSFWIE3lrG4Ovc7suxDF9R/u5wZnuqSqG0DJ6bWfiwJrqfHvcA+eFS1J
-	fL9g=
-X-Received: by 2002:a05:6000:46c6:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-4982e82c2d8mr3373380f8f.16.1794321946400;
-        Tue, 10 Nov 2026 06:45:46 -0800 (PST)
-Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm3848234f8f.14.2026.11.10.06.45.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:45:45 -0800 (PST)
-Message-ID: <1300fdd4-b4b3-4a89-a37b-ea0d18e3c055@baylibre.com>
-Date: Tue, 10 Nov 2026 15:45:45 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CrmBV/WD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF241F008AB;
+	Tue, 10 Nov 2026 14:45:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321947;
+	bh=R9lBEoIWVZ1hq7v8fJDQt0mB70S3ebuyMNcxrw2vw24=;
+	h=From:Subject:Date:To:Cc;
+	b=CrmBV/WDDK8s7UxUEco04Menz3UIYnabxTXaDbMSrbR0SKNsyJ0WadwsoNIU3JuVN
+	 HpJ3q1W262L4Qs/2+dmakPhpJ0JLP5TWa2+EXLwNfzVBQFRZFKO8Q8LRFe/wdXdQ6s
+	 U2GVUzu3GxqpHqTE+jDXBOej/b6lNgvFfGHXJEoUf5dcCTrcewP948gfK8gmL68xB2
+	 2BleWlGDj0aI3tCGkS2cn06GHkojl7fgrokDvCiXbZNgGS0/46b4adQ9n58EzFwS1+
+	 lHtvt+a65Pvmf269FpQdTNQZPPYHHiGribnwyrvFywjptDZ1yyWmxYSQqvpCTfzVda
+	 QPgT6CBFIbTmw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Subject: [PATCH v5 0/4] rust: byte-wise atomic copies between `Page` and
+ shared memory
+Date: Tue, 10 Nov 2026 15:44:18 +0100
+Message-Id: <20261110-page-volatile-io-v5-0-a91ef252c24b@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,62 +54,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
- requests
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Cristian Marussi <cristian.marussi@arm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
- Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
- <avMg5XmU8uSzPR4s@pluto> <avMlrXeemXOSR3ng@ashevche-desk.local>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <avMlrXeemXOSR3ng@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMIt82oC/33Nz27CMAwG8FdBOS+T4/wp5bT3mDikjQPRqgalK
+ AJVfXdcLmyimnz6Pss/z2KikmgSh90sCtU0pTxysB870Z/9eCKZAmeBgA6UBnnx3NU8+GsaeJk
+ l2Bhtay00QQs+uxSK6fYkv4+cz2m65nJ/fqhqbf/BqpI8bdRB0z6is18/VEYaPnM5iVWr+BJQ4
+ YaALHjt+q5tgrI9vgn6t6A3BM1CcGD2TQcmGHgTzEtwYDcEI0ECoWpC20Wl/B9hWZYHqP1u1Xc
+ BAAA=
+X-Change-ID: 20260130-page-volatile-io-05ff595507d3
+To: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>
+Cc: linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3532; i=a.hindborg@kernel.org;
+ h=from:subject:message-id; bh=YOVunpKh8rriMHxdsM4btTJnoAAZxpp6z69TlPOEWpw=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq8y3JUG0x1nePgD55NR6MXTFhwklev6GpT7O63
+ jSLg5bIyAaJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCavMtyQAKCRD6UCkIqsW9
+ 0AOyD/45gUocLa+Lkb1gFgkWEP2yD2p6y0Pz+rdDUBXXjQDs+HePIJeJMsF3xvvVj8DQI20ZkBl
+ GFVSfsQsMDw3yWtNCs13S4MIu4crVcNdryWmNUW8q7X7DB81wNJDWQVj+nFKjBy5u86/gXgW5jl
+ 2ZPm1JxnoRpdI7AIOIAZ0bc/qBlSxFSfHd+rGDNhkrjY8/gMDih/qIxs+W8VnU3On9h96RebNjm
+ nG2u8Nrq/r2YYbm5U5kDlXN9kEDZKp3LzEFPkjUlFy/WH2MB+DO8lbc1OZCVLuPt2IuwO75BpP8
+ 8L2oH+shax6LvpS7ctTBELUHEFLvstzkG3G+c9dcHeLVwtOS+txAoueU819rpDYI0j0B9UdHROs
+ WbC5w/HCC1J9p2eqaWMik2SwMiIZOLNkmoMfesOUzPT1RBsTMOJsTK2TjbDrYxu6KUNvccg7RZw
+ m4x8laMxeVy7jrizDnWomsRPsj2Ojiut4DHpkeplcwq3W7Cwtjpf2muyeCIs08DZICw/r8yMnWi
+ uS3lIpVwI79gBJs2bhBNAAhl7FsLvjD1om3Vlqip5+9rtpimPVUpnFtgASnJhfHzjoy1Q14RiFL
+ 9EGC0NWji7qL6WddMIch3gExiqXyMRRyqeSXjY/elz8vZxWazOzi/5oxBecgp6I2avTAsko2hXA
+ L42uTiv9se6aarA==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-Hi Andy,
+This series adds a way to copy data between a `Page` and memory that is
+shared with actors outside the kernel, such as user space threads or
+hardware, without introducing a data race.
 
-On 11/10/26 3:09 PM, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 01:49:25PM +0000, Cristian Marussi wrote:
->> On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
-> 
-> ...
-> 
->>> +static int pinctrl_scmi_gpio_mux_set(struct scmi_pinctrl *pmx, unsigned int pin)
->>> +{
->>> +	const unsigned int *elems, *pins;
->>> +	unsigned int nr_elems, nr_pins, i;
->>> +	bool pin_only, gpio;
->>> +	int nr_functions, func, ret;
-> 
->> Beside nr_functions, cannot all of these variable definitions be moved
->> inside the scope in which they are exclusively used, i.e. down inside
->> the for-loop ?
-> 
-> While it can be done, it's not most recommended style. Is it already in use in
-> this driver elsewhere? If not, don't do it in a single function. Same if it's
-> used in like one or two out of dozens of cases. TL;DR: be consistent in the
-> first place.
+The copy is built on `SysMem` from `kernel::io`, which already accesses
+system memory with volatile or byte-wise atomic operations. The series
+first makes the requirements of `SysMem` explicit by requiring freedom
+from plain accesses for the lifetime of a view. It then adds
+`atomic_per_byte_memcpy()`, a wrapper around the kernel's `memcpy()`
+with explicit safety requirements, and routes the `SysMem` copies
+through it. Finally, it adds `Page::{read,write}_bytewise_atomic`, which
+take a `SysMem<'_, [u8]>` view of the shared buffer.
 
-I'll try to be consistent in the v2
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+Changes in v5:
+- Rebase on v7.4-rc2.
+- Build on `SysMem` from `kernel::io` instead of adding raw pointer
+  based helpers to `Page` (Gary).
+- Add a patch that requires freedom from plain accesses for `SysMem`
+  views (Gary).
+- Route the `SysMemBackend` copies through `atomic_per_byte_memcpy()`,
+  so that the requirements of the `memcpy()` call are explicit.
+- Let `Page::{read,write}_bytewise_atomic` take a `SysMem<'_, [u8]>`
+  instead of a raw pointer and a length.
+- Drop the claim that `atomic_per_byte_memcpy()` is volatile.
+- Add a non-overlap requirement to `atomic_per_byte_memcpy()`.
+- Add examples to `Page::{read,write}_bytewise_atomic` (Alice).
+- Link to v4: https://msgid.link/20260605-page-volatile-io-v4-0-0e217d9bf11a@kernel.org
+
+Changes in v4:
+- Split `atomic_per_byte_memcpy` out into its own patch (Boqun).
+- Expand `atomic_per_byte_memcpy` documentation to explain the
+  concurrent-safe semantics and to note that the kernel's `memcpy()`
+  uses byte-wise atomic load/store instructions (Boqun).
+- Clarify the src/dst asymmetry in the documentation of
+  `Page::{read,write}_bytewise_atomic` (Boqun).
+- Use the "valid for atomic {reads,writes}" shorthand in the safety
+  lists of the new methods and of `atomic_per_byte_memcpy` (Benno).
+- Drop the redundant data-race bullets that v3 added on
+  `Page::{read,write}_raw` (Miguel).
+- Link to v3: https://msgid.link/20260213-page-volatile-io-v3-1-d60487b04d40@kernel.org
+
+Changes in v3:
+- Update documentation adn safety requirements for `Page::{read,write}_bytewise_atomic`.
+- Update safety comments in `Page::{read,write}_bytewise_atomic`.
+- Call the correct copy function in `Page::{read,write}_bytewise_atomic`.
+- Link to v2: https://msgid.link/20260212-page-volatile-io-v2-1-a36cb97d15c2@kernel.org
+
+Changes in v2:
+- Rewrite patch with byte-wise atomic operations as foundation of operation.
+- Update subject and commit message.
+- Link to v1: https://lore.kernel.org/r/20260130-page-volatile-io-v1-1-19f3d3e8f265@kernel.org
+
+---
+Andreas Hindborg (4):
+      rust: io: require freedom from plain accesses for `SysMem`
+      rust: sync: atomic: add atomic_per_byte_memcpy
+      rust: io: copy `SysMem` with `atomic_per_byte_memcpy`
+      rust: page: add byte-wise atomic copy methods for `SysMem`
+
+ rust/kernel/io.rs          |  72 +++++++++++++++++----------
+ rust/kernel/page.rs        | 121 +++++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/sync/atomic.rs |  35 +++++++++++++
+ 3 files changed, 203 insertions(+), 25 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20260130-page-volatile-io-05ff595507d3
 
 Best regards,
-Clément
+--  
+Andreas Hindborg <a.hindborg@kernel.org>
+
+
