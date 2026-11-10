@@ -1,69 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323000;
-	b=pYkcx157tQV5QRgb4GCw27TJU441NObLYQkyyztEqBzMIcGF8QcPl5prVqb3e308KfKl
-	 KkFAn98/RT5j72MM32Lz/Xlr+eWQ4M7dJbWVR/MbUBQ6OvayILRUwsH4hzwD8X8zNug31
-	 GIv3cIvbOjXLMLhZsYtBO57QfzDWEB7aDYyfft1/fnk4nN1qCUOqVwLnCPARoMpRC3k9J
-	 rYC7wFC9By0yi+ewoGxZY/09AotS2lWi0xZ6pHMPMTsvJQVC5jiAcjSopKpTW4lQ8WrBC
-	 Hfb6c5NzKpsP7jY9g2nfUr/y8gkPX+NoKEVAES/fLtHEIKTxt2I9c4ifeqLzB7/AIqw==
+	t=1794322996;
+	b=jCt+ZYs1AGD6m2CbCZAl1Az9Mpokx0v/VZta13jyfjNI4b58OHRXgmHKYGFPKBhlFlQI
+	 j0hWD8monGoDycw8O0pBLJ4fgNBSJuRf6TMj/MRg/HTRK9+rN0fJbeER2xnvTMPhFkoEU
+	 r5bwuj5UG+TzHqJ/0R7nyPh4huHq3MTdfcR4ga7iIcoIel4pzCeR6mSxsGbJnG4cTMQDS
+	 t6sXNAyo0h0Qtegbu1rq0Mv0mGkOppHfLpoiiDzBhM3qL/diudpBEm2LtEBueuuNBrKay
+	 +c9nnowWVINMT+2euPbo2un+ctAGuGKA5joZwgdl1ss1rgDP4xKK2Pl7ZM5eR4UxrFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323000;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=QJvVyV94Cv8OIUbiM+u2kGZe6Vw+3fdgWvqCgG/0qUs=;
-	b=hKB3jzVsov+f1xICneX+vGeULhkit+Sofh4ZW0NN1V04ODV9L8g7//EDO4EZRWNF+6mi
-	 H1QmDRSzqyCetAIBanDldd4a3k+NG/RAQ2tLWZLyLU+12Wf9ycZq5Wr9AJ2s1YPlqTSge
-	 k6OQ0MZk0Ied8cOpPXj2u0GfVcNqxmqnfTgAUDGB/ZRJ+FeTSb3lDGS937hbJWL6EPk48
-	 iDX54xISNQIkXH+SxBwhpayTsSlXWEQpwYCTTiF5XbjkApbM2jYtNWG0R0/M15hQgHow2
-	 UWihtM3erdM5DKXgBxcyYgWa/ffmEE5R66tVd2Qho7yWx9miRCplI0ImXQDnsEZbFhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322996;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
+	b=obAvA78PWMFbzp55rHGwrVI62qQFlu352CWwFrCTHCAzf5MOueRP5SWsy5zcIcX4V22Y
+	 W4DUeSZ1TsGkdVb2RdKd3cwPBW1jdOkMQQjwUrsec3fBOSLC/FNAV5f0z8zJVmiOo5NXw
+	 UhFC792IKtO07RrooPn/pc/Ctvsp6Gq+CRXYJBQMxlFfC/YelXrVBcRnS7VHZOilRkfqK
+	 7Ppc8wy73wUKM31p+/5Y8fhnOFiafIw9UJUIcOyFc660UmRt2JPK5hW7hyI3VrRXEIrOW
+	 m8mECnO862uNqmrGq1LYvLK+XztTuWd1woViUkwWBCcX3aE95IRrLMlYlgvaDqUgDiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5NTgfbxf;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF8YbUT4;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D253860A2603;
-	Tue, 10 Nov 2026 15:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D253860A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E56A606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E56A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5NTgfbxf
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8zL1r0cz4x6DD;
-	Tue, 10 Nov 2026 23:03:10 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794322990;
-	bh=piI42uDP8SRa2CG5qbL2WUZAnmWJlreP3bqJtI3YcSs=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=5NTgfbxftbLMd9Aj53xQAjJ85GU74Li0as3fTbM29q1iJ9I+AFTEj9l/i/KKeQOwx
-	 VEmOXJ/UEICfPxsjVH+mBdsnmVnRbUc13sEda5XUth8PHMB5sAGEajLj498LXE49Ei
-	 bzNlOlBzANYqj6y1D5v6zcSoZOaX/UKaWquHkIv7w41KAzF/IASiY632c3j+4x+70a
-	 udBoBIxXoQHRRO7LrPJWKo7mAyJSQ9FtVLaCpV5bohXFIh58iQ4LONodVtO2OScGYe
-	 vXJg5XmY7YJmOQxF3N1YfK+WAHEWRLQTzKzInURk+D2J0g/Id8xlZw8Rnh4uVZeJo2
-	 EgyNMSP55S1IQ==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6AAF396F030665;
-	Tue, 10 Nov 2026 23:03:09 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 23:03:10 +0800 (CST)
-X-Zmail-TransId: 2afb6af3322effc-0763b
-X-Mailer: Zmail v1.0
-Message-ID: <20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn>
-In-Reply-To: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn>
-References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn
-Date: Tue, 10 Nov 2026 23:03:10 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF8YbUT4
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so8397885ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:03:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794322995; x=1794927795; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
+        b=GF8YbUT4kkYPeGMf4netEe+aEvR7wOD4d0XiCn2vAK+eVVkfDAUESiuA92dWI4ViOQ
+         4tdv8PMLxDBmA+pb83MaRtAaAIufDA0Iq3Li3QW4S6cjHDH+NBlE1V5V4u0s7EAxrK6n
+         u5vRo1OHva4CnjNLL+nNM5UFD++wTmW6Iwrmif0XGtIF2h7wLbhF5K3EItq1mFbu/6Fr
+         npIDHLuRbxvV81CKFRQJEp32rs6/WYgW9n0LPoaLwBMM161ShcrPVAxnt2cG355NsxM6
+         Ze5ZuXAaGxKOC1T5bJL/iv7ripDYfJS5aBjr/vSUyIFmTS49c36axWanAAmcU35Wot0s
+         e6Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322995; x=1794927795;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
+        b=LQhJkY08WnAy3X1IyeRRlJqnbbLJ/wzQ59bvr1rigDw0fp6cjaIm2uP0D4l9t3fMXj
+         Y9oraOQVyKZMdC2FjR2+rASz700BeNuYyiTmJo7DiJ+2BgoIIRjCre2fYk7CEmFyWaTU
+         MeN0kcHo0BA7rr3ajfuf9VHTdStH+7xGvN4Q8oM6mKIjXtYhr63Lc3L3Fm5Ehv0pOK/X
+         5pmLD+ratkGUB4JokvxPutf0hcFucM/uk4zdsT0wHF1HAEPffnOf56nADKFhQdFasiy5
+         4C6vQ/EeiFkbYt21AKOrZJX1N5RhgmvsRbkTpSWOQu+8LCSfd7nd6Ab1HR0BSxa7nap/
+         FxbQ==
+X-Forwarded-Encrypted: i=1; AL+hErGEjRDFpSkkDwjofane8jco+2RblJCelXTG/j/qZUN4xevu4/5Lgk7drzgvzmq0w0h26lPXDSs6OZ2WUgE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qu+M/jrmoCst3vBcwgi9F4tz+aMatvVXzI5Gu56NNVltR6h3K
+	5csLiqCzk3BDMO22EhvKO46T7HSxOhMn91+KsFTq0WcAiYOGdY1gjFYTHzvYrqzz
+X-Gm-Gg: AYBFou08UyNmvyyUln7GtNXeVJo9/s2OJY+8Jk55NbZ/iq372h+d2FWZsi3S70d2/S9
+	5+MPf7b5JglZiOm21iFuEZ0t7mZ4X02xC6IzOhmnzN12rvZEjTc0hcx9pagb4reYc558afGjs8P
+	XDgisLhKtuUzwbDuCTz74yjEaV6t1rbPyoO4MQ8mOajy2Ay7YqPcyhhs3bkySTyRXakmpctZrQz
+	Q9q6RoMBIyuK68CL/6p2BLdTbSP/hzfO14FpbJ/fN3WmKJnCCqVS6bt0L6k4tQUXs+jTe5wQSLy
+	JyzHbv/NIVwlhJAXT2lDU4KYMHkv8QRCC5FFFhyVDtptSFB0ukYR3pH1ZyQTSQvqr42g9u282nt
+	6x4yRNXcgnS0ePmzG0kLDzxDn8GpIidXDTP4f7f7lhnyOCZV1+MuHURJ+EZg4TVm5kZyp8D9Is0
+	CfdELmhHR8kHdlgNjR+uCj7UrdDI77KMbPNITDWeZM3LGaZP6P14OnWH9azigI7f6m+Md28sipK
+	x+zbjFVz+CqmH/Kgr9Gfhq75QpJxS2Y7vy3hXoWitM5PZD5APAzenLjkcN9PFgo0bYl6pipQ1qE
+	hSxhitgEOz1mkpUcqAYrKzunc1geGZOq1zxDRNAIOg7W+VeOB5valueLYxN6T5Y=
+X-Received: by 2002:a17:902:f644:b0:2e2:f379:82b9 with SMTP id d9443c01a7336-2edb924c692mr24302405ad.61.1794316877150;
+        Tue, 10 Nov 2026 05:21:17 -0800 (PST)
+Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4a31esm8861065ad.22.2026.11.10.05.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:21:16 -0800 (PST)
+From: Jinjie Ruan <ruanjinjie01@gmail.com>
+To: babu.moger@amd.com,
+	ben.horgan@arm.com,
+	bp@alien8.de,
+	corbet@lwn.net,
+	dave.hansen@linux.intel.com,
+	Dave.Martin@arm.com,
+	fenghuay@nvidia.com,
+	gshan@redhat.com,
+	hpa@zytor.com,
+	james.morse@arm.com,
+	jic23@kernel.org,
+	mingo@redhat.com,
+	rdunlap@infradead.org,
+	reinette.chatre@intel.com,
+	skhan@linuxfoundation.org,
+	tan.shaopeng@fujitsu.com,
+	tglx@kernel.org,
+	tony.luck@intel.com,
+	zengheng4@huawei.com,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: ruanjinjie@huawei.com
+Subject: [PATCH v5 0/7] fs/resctrl: Fix some resctl bugs related to mpam
+Date: Tue, 10 Nov 2026 21:20:47 +0800
+Message-ID: <20261110132054.3702-1-ruanjinjie01@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,131 +114,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvNl0gbnZtZXQtdGNwOiBvbmx5IHdhaXQgZm9yIGluLWNhcHN1bGUgZGF0YSBmb3IgaW5saW5lIFNHTHM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AAF396F030665
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:10 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF3322E.000/4jP8zL1r0cz4x6DD
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-nvmet-tcp decides whether to wait for in-capsule data using only the
-write direction and SGL length.  A write using a transport SGL can fit
-within inline_data_size without carrying any in-capsule data.  The
-response path then withholds its R2T, leaving the command stuck.
+Fix resctrl RMID allocation to report a retryable -EBUSY only when
+the target CLOSID actually has RMIDs in limbo.
 
-If request initialization fails, the same length-only test both
-withholds the error response and attempts to drain inline data that
-will never arrive.  This can also consume the following PDU as data
-or a digest.
+Split the domain-offline path out so it releases busy RMIDs without
+allocating a monitor context it never uses.
 
-Require an offset data-block SGL in both checks.  Share a helper that
-only uses command and port fields, as the completion callback can run
-before nvmet_req_init() has finished.
+Also unmount resctrl with the CDP state it was mounted with to fix
+another bug with mpam cdp.
 
-Fixes: bdaf13279192 ("nvmet-tcp: fix a segmentation fault during io parsing error")
-Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with nvmet-tcp over
-loopback.  The standard nvme-tcp host driver only sends in-capsule data
-with an inline SGL, so it can never produce the triggering combination;
-the test instead drives a minimal user-space NVMe/TCP host that crafts
-the ICReq/Connect/command PDUs itself.
+And do not allow monitor group move when the RMID index changes.
 
-It sends a valid 4 KiB write with a transport SGL (type 0x5A) on an
-enabled controller and I/O queue:
+These fixes are split out of the v10 Narrow-PARTID series below.
+        https://lore.kernel.org/all/20261020134239.3921377-1-ruanjinjie@huawei.com/
 
-  unpatched                            patched
-  no R2T, write hangs                  R2T received, H2CData sent,
-                                       write completes (status 0x0000)
+Changes in v5:
+- Update and split the patch as Reinette and Ben suggested.
+- Adjust the commit message.
+- Add Reviewed-by.
+- Link to v4:
+  - https://lore.kernel.org/all/20261105070934.2258613-1-ruanjinjie@huawei.com/
+  - https://lore.kernel.org/all/20261105123524.2282090-1-ruanjinjie@huawei.com/
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index 8092ce4914b6..a8a435aaa163 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -269,6 +269,23 @@ static inline bool nvmet_tcp_has_inline_data(struct nvmet_tcp_cmd *cmd)
- 		!cmd->rbytes_done;
- }
- 
-+/*
-+ * Check whether the SGL of @cmd carries in-capsule data that the host
-+ * will send right after the command PDU.  Only the offset form of the
-+ * data block descriptor is in-capsule; a regular transport SGL is
-+ * fetched through an R2T instead.
-+ */
-+static inline bool nvmet_tcp_sgl_is_inline(struct nvmet_tcp_cmd *cmd)
-+{
-+	struct nvme_sgl_desc *sgl = &cmd->req.cmd->common.dptr.sgl;
-+	u32 len = le32_to_cpu(sgl->length);
-+
-+	return sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
-+			     NVME_SGL_FMT_OFFSET) &&
-+		nvme_is_write(cmd->req.cmd) && len &&
-+		len <= cmd->req.port->inline_data_size;
-+}
-+
- static inline struct nvmet_tcp_cmd *
- nvmet_tcp_get_cmd(struct nvmet_tcp_queue *queue)
- {
-@@ -625,25 +642,19 @@ static void nvmet_tcp_queue_response(struct nvmet_req *req)
- 	struct nvmet_tcp_queue	*queue = cmd->queue;
- 	enum nvmet_tcp_recv_state queue_state;
- 	struct nvmet_tcp_cmd *queue_cmd;
--	struct nvme_sgl_desc *sgl;
--	u32 len;
- 
- 	/* Pairs with store_release in nvmet_prepare_receive_pdu() */
- 	queue_state = smp_load_acquire(&queue->rcv_state);
- 	queue_cmd = READ_ONCE(queue->cmd);
- 
- 	if (unlikely(cmd == queue_cmd)) {
--		sgl = &cmd->req.cmd->common.dptr.sgl;
--		len = le32_to_cpu(sgl->length);
--
- 		/*
--		 * Wait for inline data before processing the response.
--		 * Avoid using helpers, this might happen before
--		 * nvmet_req_init is completed.
-+		 * Wait for in-capsule data before processing the response.
-+		 * This can happen before nvmet_req_init() has completed, so
-+		 * only look at the SGL descriptor itself.
- 		 */
- 		if (queue_state == NVMET_TCP_RECV_PDU &&
--		    len && len <= cmd->req.port->inline_data_size &&
--		    nvme_is_write(cmd->req.cmd))
-+		    nvmet_tcp_sgl_is_inline(cmd))
- 			return;
- 	}
- 
-@@ -981,7 +992,6 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
- static int nvmet_tcp_handle_req_failure(struct nvmet_tcp_queue *queue,
- 		struct nvmet_tcp_cmd *cmd, struct nvmet_req *req)
- {
--	size_t data_len = le32_to_cpu(req->cmd->common.dptr.sgl.length);
- 	int ret;
- 
- 	/*
-@@ -991,8 +1001,7 @@ static int nvmet_tcp_handle_req_failure(struct nvmet_tcp_queue *queue,
- 	 * otherwise we will need to prepare a buffer and receive the
- 	 * stale data before continuing forward.
- 	 */
--	if (!nvme_is_write(cmd->req.cmd) || !data_len ||
--	    data_len > cmd->req.port->inline_data_size) {
-+	if (!nvmet_tcp_sgl_is_inline(cmd)) {
- 		nvmet_prepare_receive_pdu(queue);
- 		return 0;
- 	}
+Changes in v4:
+- Fix the unmount resctrl bug as Reinette suggested.
+- Adjust the commit message.
+- Add Reviewed-bys.
+- Link to v3:
+  - https://lore.kernel.org/all/20261031063634.1678345-1-ruanjinjie@huawei.com/
+  - https://lore.kernel.org/all/20261031094616.1691026-1-ruanjinjie@huawei.com/
+
+Changes in v3:
+- Add Reviewed-by.
+- Local varibles uses reverse Christmas tree style.
+- Update the commit message as Reinette suggested.
+- Link to v2: https://lore.kernel.org/all/20261030092144.1233551-1-ruanjinjie@huawei.com/
+
+Changes in v2
+- Update the commit message as Reinette suggested.
+- Link to v1: https://lore.kernel.org/all/20261029081513.924019-1-ruanjinjie@huawei.com/
+
+Jinjie Ruan (6):
+  fs/resctrl: Report a temporary RMID shortage per CLOSID
+  fs/resctrl: Do not allocate a monitor context when releasing limbo
+    RMIDs
+  fs/resctrl: Clear the CDP state after the cleanup
+  fs/resctrl: Stop the limbo handler while resctrl is unmounted
+  fs/resctrl: Release the limbo RMIDs when the CDP state changes
+  fs/resctrl: Add info/moveable_mon_group
+
+Peter Newman (1):
+  fs/resctrl: Disallow monitor group move when the RMID index changes
+
+ Documentation/filesystems/resctrl.rst |  15 ++-
+ arch/x86/include/asm/resctrl.h        |   6 +
+ drivers/resctrl/mpam_resctrl.c        |   9 ++
+ fs/resctrl/internal.h                 |   3 +-
+ fs/resctrl/monitor.c                  | 151 ++++++++++++++++++++------
+ fs/resctrl/rdtgroup.c                 |  50 ++++++++-
+ include/linux/arm_mpam.h              |   1 +
+ 7 files changed, 196 insertions(+), 39 deletions(-)
+
+-- 
+2.43.0
+
