@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315878;
-	b=mEIPzYGhiuJCY1cJ8pa4tqEtgH5JySCmgtHMZ5zkexUcDRoZf7PBI2TmeCNhRjFljeBZ
-	 VW8b+U1DE2YgMQmOcB17ry++bpuJRgh8Mi8UUPFQrhcPrYqJKAXAVq9XA6+1g0MuG5zsd
-	 4gKbHbHKQV1HrVElXPPfW/wv9eINANW/n6YjIaTcmuklJTPbpG9jFvzlrQ4A/giIbQ1Bv
-	 Tof0H7Csok1mK9iNO0eszeoMOooTI+H6BkaGVHVSuPVNnNLCXKCZVpgUG9hXeMzULaEW1
-	 XIxHdpWxNmeZ2zlrNWuV9r/fyfjlxLnUjh2Ki0SBw75KqqUZvfG/1OcT4XAYLfs+xwA==
+	t=1794315916;
+	b=op6iOVdzVKmfQ3MzmeRYnF/aY2fZ8p97wf4wsAlUwO/+Sym15FVEq1PVNdOGDtBs6Q2k
+	 5E79k9dr8kqS6vwnpujjb53QL8ofeKJokPFVOOUZ2JJcRQyXmOwpDVOgQCNpRgBijzk5M
+	 X5O8vpKydUljTcNVKfTlJfOyxKnjB7c4n+V8ojl9ctPE+VKLIsz90oimSWIbsigJadbAS
+	 Y1vt1wOxdM3O9MD2CgYAgvp7Ye8/lSzk3DXON64EMhFRJohsWyVor55IjzG1EHaqj//0S
+	 gFPUjiPgfiOE/M8uiLo2eAjf1k7MkCv1DIEZggs+wSMAP00LqU7SRMI+IrZsa8DSuJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315878;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=EnWbVDYQ/6puggi0QqXD0bxXsZrTtGcnJLqSymIBlOI=;
-	b=tTYli00ylTVCfTL1+M2Rc4/LLmdQw+0EG8G/9Nv6tVrfJ9fljmJc19G64mIyjwkmLz33
-	 kVKVLVqDGHv/4qwK+QuEdWpzhLwZJTyHdoqU4dkd+ucPfUmTPJQJ3RoigFCfKesYqi104
-	 qkDX3INJVSGpIzi6jCy+m2dnRb3jRIDhe4RZn//0mprHnKNcJ0/zhzQ17b1thrROtFjSy
-	 7sTXHahw38IG9tIMZUUgb1ltL1VJ9t07bDDWyduHsYzcSRYGW0Orknt8H8J5Xgzw4rmgH
-	 PXYm27s9CTlQgWxkXZIq0lqAcetRZMV05wIwN50MuxBbh4E9F5BZUK1VvxyxbT92/5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315916;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MBoMybViYwhw6nSYk7WOZTfocy/4HWn5nwGt1dyl8yY=;
+	b=rQZmGkiGDfIeCcLXfbO9gjWGwaQT54GdnNFquHTIJYSfQA6JkN49SxnP+Bf+BmPw86p8
+	 kpsohK+awjsUDpyvyZGu+Czwvw8Y1EEHnyucJvx3kQzi7gRO0n1eSGBwSQX2tDF6IAGqM
+	 93BJFkFxpNEJxjLZGMI+K8FF2PHBPvxhUOksqJufb1cQvqUGijQzdVtkzib8D8fDz+SKI
+	 EjuK+JppTdytm7QVL95JwNnAysILUKsuJ9piM4O0HzLiocGGoaV57/I3VGA8isXrarc3V
+	 /auc9OFNwttk4VH9KyVagtXGq6YxpXAl0TyQmYiqqRQHmeMWaiA5nKNuZprLJb3K4sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDw8Liv9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuu3b3LC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4E3606A336;
-	Tue, 10 Nov 2026 13:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0307606A336;
+	Tue, 10 Nov 2026 13:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDw8Liv9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459E01F0089F;
-	Tue, 10 Nov 2026 13:04:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuu3b3LC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027DF1F0089F;
+	Tue, 10 Nov 2026 13:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315877;
-	bh=EnWbVDYQ/6puggi0QqXD0bxXsZrTtGcnJLqSymIBlOI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lDw8Liv9Ggm6qVu6iULhp3dA8tGCXo1zz7IlG3Z1ClryFeLIADN2w499Nvu34XeKI
-	 tlcdHc+3bb1iQp4Xs4EEV32OVK/zqc0JXsl5qRJJr2F9tbjSG5JO27KHxUBL3nPyU7
-	 2KkatvBT/FN4EQDfUoITl3Boswqr44ktlPlA6N+x1AuqmugRrACbB/k7uWZ/al2DTn
-	 OFwhNNUr42DYI+72hCCzrLGtpZWMuNYpP8v/iKQZ2i8a/TA2bTNwqWjLpdhduLhZDU
-	 DRSEibh9cMMf/OyGpG+rTUaJKPoQu/P5mFo/s3fz9Sy2+B2qw80vhoD1pbuLqu2b9Z
-	 2l29J8hWdPOGg==
-Subject: Re: [PATCH net] vlan: prevent cross-netns MII register writes
-From: netdev-bot+sashiko@kernel.org
-To: dennylin0707@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, n05ec@lzu.edu.cn, ylong030@ucr.edu,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
- stable@vger.kernel.org
-Date: Tue, 10 Nov 2026 13:04:36 +0000
-Message-ID: <179431587680.994134.9895439231970781828@kernel.org>
-In-Reply-To: <20261106124639.12584-1-dennylin0707@gmail.com>
-References: <20261106124639.12584-1-dennylin0707@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794315916;
+	bh=MBoMybViYwhw6nSYk7WOZTfocy/4HWn5nwGt1dyl8yY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vuu3b3LCWUv0/eF3lz7jUcEZVs9jqVhBsDLONVZGlavb/6XHlC5bjur5b5gMphmuf
+	 KEBt/T3I7FmSCjgryFiCneLA3aeYVdBQqaDTcSTgJZ+7lIqqSW732cn3+1jK7wZagT
+	 x/QC/ajdeZ7tQsAN9MVf3ZFvTcAIbk/+GKpCx2qeSZWJWAeCOr10meax0f7ucCrwih
+	 /C30xxGahUS1/4rq9SCtlIX1qXGSxgr6g08yb2SKm0pTDLYXKQ2ev+z5jnHcTVmjTU
+	 vFQm/jRWPHmKJDvxnWldoWZpmKNOu+hV8L9BzRzUm/DCoWmwKcUv+CdOyS2zGZK48d
+	 KCOTiaXJyioCw==
+Date: Tue, 10 Nov 2026 14:05:13 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 00/14] Add DRM driver for Solomon SSD16xx e-paper
+ display controllers
+Message-ID: <avMWcdpHuf8CX41p@houat>
+References: <20261019213726.4145532-1-devarsht@ti.com>
+ <xlv1o6bweu88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,116 +63,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="klwijyhaeml73kht"
+Content-Disposition: inline
+In-Reply-To: <xlv1o6bweu88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+--klwijyhaeml73kht
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 00/14] Add DRM driver for Solomon SSD16xx e-paper
+ display controllers
+MIME-Version: 1.0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Tue, Nov 10, 2026 at 01:39:19PM +0100, Javier Martinez Canillas wrote:
+> Devarsh Thakkar <devarsht@ti.com> writes:
+>=20
+> Hello Devarsh,
+>=20
+> > This series adds a DRM driver for the Solomon Systech SSD16xx family of
+> > e-paper display controllers (SSD1673, SSD1680, SSD1681, SSD1683), start=
+ing
+> > with support for the Gooddisplay GDEY042T81, a 4.2" 400=D7300 black-and=
+-white
+> > e-paper panel driven by the SSD1683 controller.
+> >
+> > The driver is designed and architected keeping the bi-stable nature
+> > and low-power requirements of epaper display based systems in mind
+> > along with having adequate flexibility to support varying use-case
+> > requirements for the e-paper display use-cases.
+> >
+>=20
+> [...]
+>=20
+> >   drm/solomon: ssd16xx: Expose refresh mode as plane property
+> >   drm/solomon: ssd16xx: Expose color mode as plane property
+> >   drm/solomon: ssd16xx: Expose session management as plane properties
+>=20
+> There is a fundmental issue with these 3 patches. They are adding custom
+> device-specific plane properties, but the KMS/DRM subsystem requires all
+> KMS properties to be generic and standardized:
+>=20
+> https://docs.kernel.org/gpu/drm-kms.html#requirements
 
-- [Medium] The patch only partly isolates the host PHY from the VLAN's
-  network namespace.
+And with an established open-source project using it.
 
---
+Maxime
 
-vlan: prevent cross-netns MII register writes
+--klwijyhaeml73kht
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This commit makes vlan_dev_ioctl() reject SIOCSMIIREG when the VLAN
-device and its real device are in different network namespaces.
-SIOCGMIIPHY and SIOCGMIIREG are still forwarded across namespaces on
-purpose, and writes are still allowed when both devices share a
-namespace.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-> index bca0a3693636c..0d0904103302f 100644
-> --- a/net/8021q/vlan_dev.c
-> +++ b/net/8021q/vlan_dev.c
-> @@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
->  	ifrr.ifr_ifru = ifr->ifr_ifru;
->
->  	switch (cmd) {
-> +	case SIOCSMIIREG:
-> +		if (!net_eq(dev_net(dev), dev_net(real_dev)))
-> +			break;
-> +		fallthrough;
->  	case SIOCGMIIPHY:
->  	case SIOCGMIIREG:
-> -	case SIOCSMIIREG:
->  		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
->  		break;
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavMWiAAKCRAnX84Zoj2+
+dkIwAYC0DtJkAVBm+J23hxDPYN3LOErIFEidODLDtg7h0aQi3Z2BFQwO+PCQIoXo
+gjP2Z0UBgJVG3tdXOtdyDLFW8PcuEpwqiWW8o07FpgWwqLlSGNUwqc4yhb5dSKLk
+/nOenbrRCg==
+=ZC+S
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-Can the VLAN's namespace still change host PHY state through
-SIOCGMIIREG?
-
-The commit message describes the threat as letting the VLAN namespace
-"modify PHY registers on the host's real device". It also says the
-patch will "Preserve MII reads across namespaces". MII reads are not
-always free of side effects, though.
-
-For phylib drivers, the read path ends in phy_mii_ioctl() in
-drivers/net/phy/phy.c. That function does a raw bus read at a phy_id
-and reg_num chosen by the caller:
-
-drivers/net/phy/phy.c:phy_mii_ioctl() {
-    ...
-	case SIOCGMIIREG:
-		if (mdio_phy_id_is_c45(mii_data->phy_id)) {
-			...
-			ret = mdiobus_c45_read(phydev->mdio.bus, prtad, devad,
-					       mii_data->reg_num);
-		} else {
-			ret = mdiobus_read(phydev->mdio.bus, mii_data->phy_id,
-					   mii_data->reg_num);
-		}
-    ...
-}
-
-The BMSR link status bit is latched low, and genphy_update_link() in
-drivers/net/phy/phy_device.c depends on that latch:
-
-	/* The link state is latched low so that momentary link
-	 * drops can be detected. ...
-	 */
-
-Vendor interrupt and event status registers are also often
-clear-on-read. A read from inside the container could consume a
-latched link drop, or acknowledge a pending PHY interrupt, before the
-host's phylib state machine or IRQ handler sees it. Would the host
-then miss link-change events?
-
-The read also isn't limited to the PHY attached to real_dev.
-mii_data->phy_id can name any C22 or C45 address on the host's MDIO
-bus, including other PHYs or switches unrelated to the VLAN.
-
-The only privilege check on this path is in dev_ioctl() in
-net/core/dev_ioctl.c, and it is against the VLAN namespace's user
-namespace:
-
-	case SIOCGMIIPHY:
-	case SIOCGMIIREG:
-	case SIOCSIFNAME:
-		dev_load(net, ifr->ifr_name);
-		if (!ns_capable(net->user_ns, CAP_NET_ADMIN))
-			return -EPERM;
-
-Container root can satisfy this check once the VLAN has been moved
-into its namespace.
-
-The write side here follows the vlan_dev_hwtstamp_set()/get split,
-where only set has a net_eq() check. Hardware timestamp get has no
-hardware side effects, but MII reads can.
-
-Should SIOCGMIIPHY and SIOCGMIIREG also be rejected when
-dev_net(dev) and dev_net(real_dev) differ? If not, could the commit
-message explain why these cross-namespace reads are acceptable?
-
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106124639.12584-1-dennylin0707%40gmail.com
+--klwijyhaeml73kht--
