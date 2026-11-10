@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326642;
-	b=sQRq1cN0XzDaZRKRP8GkN5tQZCJmJkbf5MwviAVlT9QxbpNOB8NtaN5xT5Bda5CabF+7
-	 g3kCNSU2+AfRnhpkDxVwWtqGujqVng4iXi5AiIfjg61BL2KXhp2mkvWQfjPkYXAxE9WnX
-	 /fRRP7oVeuQ3XiibXuCMY+TwyDc70NugSi360MTgJ2Un5XLo6GfPhKluVMTxlxNtZgXpZ
-	 wkd37Sj436tos01EE/RGthTIN0TK/e/yhcTxkcBjOdK9eaAneAnwsjUubZBcF3Mw/OZPI
-	 iV3YYB4E460hddxv2AMjVDMl0zhcOl3GO6GDwoOowfE2qhAm7NsdCYro6QeFl5jVjYg==
+	t=1794326650;
+	b=ePfQ1JIu7WP1BMPymK7vzJbLnWbDtPS5nQnq2MYLteKy5SH2JbNPrp3lGYQXWUmpl30B
+	 +vpSxVDUFrRgc7L+p3lj1z90YiBgGmX2FV5CIFlOt9XKhxqDVXbR+YTyp5Qvqp8lIIRxf
+	 ToztH51orK5etCl4B839lmOiUfhaPbzrClZ/RGi9jIjY7yBFFxTJmxyQXy1tu3TAALyqd
+	 HqE8qdusjatLZ8IUi10NsGKVQa6hY3BChtVXpQNoIV7Dr4cmsqASPkHeuH3jgynPBWHPn
+	 /BCJDkRwGX037/OynNepBrIllbYfcag6D/tr8WAcWxb3bvfy51j0fKq1YB56jmNMDwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326650;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=w7agHuXtBJI6ahKZzHDMUpFWZT/q/VA7pg0wHCd8yCY=;
-	b=J8mUXAetFn/ONHHPmC1kdAn6VK5VUr0wpGRghDLqmXbFQVqHZssFIPHaWOixGpWh+xcX
-	 lQgKpR+LNsv7RIY8gUm3u42UdrxPl0UE/4peQk88D6qcJBFODw76e7Y/OQOdMKi80TAxu
-	 gJW5iu2UV/iDY2WoOgcADtQl/LD1pZc8uDAQJ7WGv8AgAou4pt4RTyQIQeZjI7kPcVrOV
-	 eDIpcyLbGcftyl5B1IPq3ARu/u5Ysj/5mpg2lcjueUP5E0HC30ymQw4yKZYo+CTgFsobX
-	 73bUYaGkuNDIuWWG/ePKUbyvgirlt0VVPvrK9iS9sMqrxgizXuJqE9awCMy0LQxZwjQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=xKekDk65ciGsHWTkKV1pMmbrXvFgDyBbXHhz+tAUJ3M=;
+	b=m9zcRaEXxrot7xir5LzZNGD/p/xWNDC5fLPvaZhDkutOOTXWekxLSJ97t60Yy+4iiH14
+	 d5CVH1/+Gnwaa6fdQyHdV2u9UP/4zRkKHRHDmx/bbANBt6n9PJi8u2qViSOQyff7bBtUw
+	 ThCdKGx/lTxt7xUfYZFDyj4vzNRm0A3jJUDA/P/I+iISa/J8ZCzvmPP724073aFi4nMXp
+	 1hMMPIZVBdNN+P/Hach0vfCdJe75kDJVdcBm09LV9zkg2wpatErpQcarZMeacZzp2Y0VU
+	 ak2xozPLE0RMtAv/fPrrrszR4zwl7EFbvEg7a1CKvpbv8KUS6iqvhmBGCbtpiCL8BCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHaj9GV9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIA++qQz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1075606A323;
-	Tue, 10 Nov 2026 16:04:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54853606A323;
+	Tue, 10 Nov 2026 16:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHaj9GV9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56E91F008A1;
-	Tue, 10 Nov 2026 16:03:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIA++qQz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA32D1F0089F;
+	Tue, 10 Nov 2026 16:04:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326641;
-	bh=w7agHuXtBJI6ahKZzHDMUpFWZT/q/VA7pg0wHCd8yCY=;
+	s=k20260515; t=1794326650;
+	bh=xKekDk65ciGsHWTkKV1pMmbrXvFgDyBbXHhz+tAUJ3M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kHaj9GV9K5ZCAeq/HZGYZvkFdn1diYI98q6gPGdcdwPXWecqeV7sjrMMve5SKyC4p
-	 ubzJkBkk9ykKSRVUG7s7Eq627ohVLzvhTg96tatx1yC4yeLWal3gXlHUyvoFjTysK4
-	 KbGW43ZLPBHbaNMlvNuRrNj8nVtv00LDmjRYbs/V7pu1M6aSc6xCQdjM6+OMZvPsOZ
-	 J7rEV7axlH04+Wb40eJcbUoK+fH1DbFaWscG9vkyX78Mf7f0yv+Pyz5kWD2Y3ClUrd
-	 uFP2ZkUbCQgQvAceT41SkYHN3O5kf55d1C7FRGGYiwQLEc9D4lUXs/jv9xbzfNTf2d
-	 fyiPA+dVdQH/Q==
-Date: Tue, 10 Nov 2026 17:03:55 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Vincent Mailhol <mailhol@kernel.org>
-Cc: Jens Axboe <axboe@kernel.dk>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-efi@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Dave Hansen <dave.hansen@intel.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Matthew Wilcox <willy@infradead.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 0/7] init: discoverable root partitions
-Message-ID: <20261110-fachlehrer-anhaften-unkenntlich-86fc48b56f8f@brauner>
-References: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
+	b=AIA++qQzu27iDtqtghDQXe3eEMEtfW0pUmP1pw87hOPcbha/du/cYArpw3l9qOsQr
+	 u6fuI8ol3G/cmTB7H0eq3cIZXkNRoak+psa1ttDOEBXrQ2XqbhBAzb6+Xi+xLPBqJ+
+	 vdq62d3xZ808Gpm3yT0qE39ickLYELwfVwHjod2sH/2WuJQj1Wmcb1zuVo5IpVsHpN
+	 fzsAA5EiJ77pKhwrDbnizdsWb2eW+bXCHwWYertEV0c1pCWX1KA4ZPVNfgsXCDcNmM
+	 YfPXVjPGubGdfRRQWNMfUcJmFhhL2khzvsZ/cpado/dtESG+T+jyf0Hf9KhV/VnCkK
+	 AHgdAarCDLtPw==
+Date: Tue, 10 Nov 2026 16:04:06 +0000
+From: Mark Brown <broonie@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, pjw@kernel.org,
+	samuel.holland@sifive.com
+Subject: Re: [PATCH v2] spi: sifive: clamp the clock divider to the register
+ range
+Message-ID: <b3828c22-e7ea-4858-96b3-51ecdfee3a89@sirena.org.uk>
+References: <20261110225741763HzyrdGiR7ZOAU1NiFmCCZ@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,15 +59,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ris94nVe1DPqFLM3"
 Content-Disposition: inline
-In-Reply-To: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
+In-Reply-To: <20261110225741763HzyrdGiR7ZOAU1NiFmCCZ@zte.com.cn>
+X-Cookie: You can't take damsel here now.
 
-On Mon, Nov 02, 2026 at 10:29:07PM +0100, Vincent Mailhol wrote:
-> This series adds root discovery directly into the kernel so that people
-> who are not using an initrd can still benefit from it.
 
-Nothing has changed since
-https://lore.kernel.org/r/20260617-irritation-rollen-wirst-7d636cbfec92@brauner
+--ris94nVe1DPqFLM3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
+On Tue, Nov 10, 2026 at 10:57:41PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>=20
+> sifive_spi_prep_transfer() divides by t->speed_hz, which can remain
+> zero when neither the device nor the controller provides a maximum
+> speed. For a nonzero but very low speed, masking the divider to 12 bits
+> can also wrap it to a small value and program a much faster clock.
+
+This was previously part of a series of five patches, I see you've
+resent two of them as independent patches when I was expecting the
+standard workflow which would be to revise the series.  This makes
+things difficult to track, I'd discarded the old version waiting for the
+new one.
+
+--ris94nVe1DPqFLM3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzQHUACgkQJNaLcl1U
+h9B8tAf/WW4JG4AfkqK+sYp6AE8ZYaj60LYNZSkeWChcZGOTaQE/osIvlFkxcZ6W
+M+czT7towwaX009L5ftrxgXGY7174plvvZn00TiNaiCLFxN3DxehTVLZDR19P2Pm
+3imwmP5nt4B7k5HD4P/0DUnitMuFyKz8HxwNN25qieX94aYnfIdphFn0PGsZbtVY
+1FWhLrVfWUAZFzIy/AU97OWp+2I3PGQ1za5MJmEY83lsgf/yiFtYqqtReK5TkdU8
+JkPDTCDGpWsW8kw4mh6uwFTnimbyPNYXohW/4chQliouicGCnCo90RwS2rAnr5sS
+QBYzgJfkucGlInyzQS6qtHeeaWYL6Q==
+=aqqg
+-----END PGP SIGNATURE-----
+
+--ris94nVe1DPqFLM3--
