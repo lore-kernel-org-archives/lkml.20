@@ -1,57 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344923;
-	b=XDbICQdqo6bDycE2sxAo/J4bFFwPMwxVot/7wMxupTTcZ+SAPbqP2uETZnoEw7l7wUPv
-	 WkDq6gzC6eqnkFoZWCxt+HnvHMdbLn1NExSCVqulSAsGcnXiVj37TXMhtyhGsGzZJEt33
-	 UScFlucaFBblT0MjGrbyUYaNYrJRmZFbS4vWxITwmTYFTSzF1NX0/mlzeBCGmxH71Mgjz
-	 anbOM4gUaJmZi4j+cFV0DqRTXt6grGFZvSlDwzNggrTnX3bHj6ahVFkDhdo8UhSCxIfcW
-	 rmRrPM/+iETERBZcpnmq5Bmz36en4SDq2GLPO17786UskMCvFQimyLohWNwIy7LcYUQ==
+	t=1794344994;
+	b=joRohw9k/D/4OVUu3EKI2UQwJFh6x0GLXCRI0k+k0OHvr7B0MWPxkFMQdjRpKs/c1B11
+	 cmDHHHfok6w2DACaYWVSWUrhUqZckHj39EuTz44188glCbGIRxVheEhvwwheVlbZ09LKT
+	 ECxReWtPtVDHZqM/pbFRf5rS65Tq5eYmnsXoVvFt47s5viHi0AX9rLcKM7ZvuLltPtTlK
+	 mh/8paG0E18qrz/li/vcoYXmvtxTfHY1JMUzcIMo3J0U2NxfVYb7S6/gWd+4eoCUh+SVf
+	 ow6DEl9/3mXi1x9FlK6awAxDfVZkhoZ7m14rfrOm0E4pTLP8fSkw4aVVAuByZOumeGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344923;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Wihr2MrF2FO793dTKH7ddHpRfNQ9adLzPWYI0Gv/j84=;
-	b=V5oUhhcV43KuLX3R/Ia2/Ktq3k5C6UXQYyi8nAvIwNHh3KGfKtMsP+hO6Ov143AUAjWQ
-	 1ZdzHLzP4HajSPaSDA3tRturzm96j31BO80/GMEv8gjk4axjgjC3vMT95eDRxf95oIE+H
-	 3zEvRpMTcItRKUrsC1bpzrzrYYWbAiSeR8G6qMxIZFKrYLJL/gNjeu7toUECAx8YVaiy2
-	 wpImnjza3xSVlyo6kCcwjgSMIjVdCiwC5MpCdLYTvFd9jEEzbxg/TTEFlin3hS4D+GhWF
-	 gK8YqeW1LtK+O+oT08/fkMNYOLUQMnyIz0Ojl7lPjR0+a8rLMJ5PmCyTuoaBl+bH50A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=7cECixYNr0OovLH4QYoKXkxOvB4WVLsH4r6Oh+9diE0=;
+	b=X96kSzgx7bvxaMRVCHxoQM3LQC/+k2YeMfDR1uhfE+iUrZgpbLmUTiCH0tAc8srtARvy
+	 pGNCT6EtbZPa2fpvKzfRAu7qthU6GJlxjLsc2yPFXPJomGYo0Z03Smx6htjR+Jt9BcP1N
+	 g8iZBiC4/W0F7WogCLKf50iHydCbSSR5Tl2bbmpidGktqXlhqWgE8Y9YPCDYq/TEjDikg
+	 knay4j6P3QNhJR91CUxmXS6aKqJqAI/vzG1lBWMmnhP+METpr+ZMnkdtRdeHwONt/5AF2
+	 trCejE/GwS+J2Q/Oc0V9EGCEWJgW/QjlWX0HwXgvQOn3pAvNvhG41maft1WYzrhD2IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMVAf3zz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JD7sJLCz;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D46606A321;
-	Tue, 10 Nov 2026 21:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B04606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:09:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B04606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMVAf3zz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4EB1F0089F;
-	Tue, 10 Nov 2026 21:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344922;
-	bh=Wihr2MrF2FO793dTKH7ddHpRfNQ9adLzPWYI0Gv/j84=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YMVAf3zzQ0uqmVL+VbTBt+1JwkrNK+Qw1g08kq63UdwgwteUdVwp20F+rr1emd7Vt
-	 IvMeVGLIbRV9oE6BEbzcDenCSC3DirWr9GhZJLjENk4g51cUp/DpJzRwygXyzFX6VW
-	 1HNSZQaAbAU7dSw9W5Di8cYnz712D2Ae5jk0XTeOguq4TUxW6KnWHGSALSsypJEICZ
-	 wtBaRKiKo1RI3Hmk4D8OXQDpRgdrOc9HJwOr+czsitqPSshhWE8TX0MWO5nVrl4RP1
-	 SRy2vqLTkcGVCqwTjXDhahGcBbe9vg2BW03u2PtMbhRdo5N50kZW1Spftp6CcNWQbM
-	 2gg5qJFmHgYqQ==
-Date: Tue, 10 Nov 2026 13:08:40 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto/arm64: sm4 - Drop cpu feature table for PMULL
-Message-ID: <20261110210840.GB1907@quark>
-References: <20261109161052.890682-2-u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=JD7sJLCz
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so1673236f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:09:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794344991; x=1794949791; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7cECixYNr0OovLH4QYoKXkxOvB4WVLsH4r6Oh+9diE0=;
+        b=JD7sJLCzFe6dDR6grClfiQYXK7ZmLbR1MW9kwSTkhxEUiW21oOEd4LxucDBC5mdI1O
+         j6pwJ5xhvGYkHYTR5NZa56V8djk6ACX1uPxbJz5Ps+jsHBMstWLAnu0YdA6WnV42zDWS
+         YKgW/eSMnxjQi7nym2drzrIw9/Ga6PmpNOrvpxwGChkTkLEnMJ651nCoO4gq1N78ovge
+         Xfz1r+TCcJNbdQhvR1Eg5XeFj878zzFlF0DUU1Gx+lMZTdpI1QhM3zAMbID3hlxatRJm
+         15R+0gsdxf7z53S/a68kcPkfZxVVsr+8aGN6eyFZNThWhHjk2rPYPRIREaAyGibzYV3L
+         AoBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794344991; x=1794949791;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7cECixYNr0OovLH4QYoKXkxOvB4WVLsH4r6Oh+9diE0=;
+        b=ypKB2soadzUhglgl7dJfHzkEKaz6gDHOoDhp2I0GjDlaWAvfZhPSn496awUZAmRL1i
+         WrKDvf/vade9gNHkrwyJwhtlcKT/i6RyuGJ/7Qcpf9vyPaes9Ow63eT8ceQR+cATi9Ov
+         plk+v+V8DSsVWjDg5rsGLBDt2DkpfIWLjeZ4LioCGhYR1XZ+B7OhsR19j9u3skMRtGs/
+         1LUkPZ5M4JxsqWXiKK55VMlZnEV86+gVZpc6FzqxeiVdgHz4TLaUJgBYv3Bz9bK+x3bG
+         MC4OsDoA/UogslqsOuUODDi/CyAOwF0k36JphcY+bTtaSAc51FD4Hrl/XHRa9XW8AzEW
+         WU4w==
+X-Forwarded-Encrypted: i=1; AL+hErEh3adyw0FjXb695+Z0h9Opn1mLj/kYLb+aQ7v4gwwtvVJRyme/clzP6cLw6myvjvfwKT5mIuD18QmoGpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vGlf6qdnjyZZ3bkVzKWKhFb1VHhrWIqiCmsLNYpGKW+xCTXV8
+	MqRumZM5n0IR85MzeuYq9rrnnr9F/hyO21kCgbvtErhbSF6vezZ4YSt8Jrds3E2w884=
+X-Gm-Gg: AYBFou0XOJOAFkW+j86LZfGaFWKYtqUNsJDNFaf/5TQvVN0MBmoztCRYjVgaG0FMPkl
+	f9wlVjcvvtrWz0eBrcvuwrd3veM8vwy1BgNBntXb9cUkUFkf63xZlNyBrYPfSq5qaZceCrbRl6t
+	OwDNan3vBKToCc6mVArMyXWUiVdzOIe6RjZQiC8zKY2oKUfpbD1QiYUVV9dgRK/JmPPqvz3S8s0
+	iOWUSr/DMPArySoNZKz71ZYPPtNPu3mG9BmPCb8Mtk8wGshCJJhoHBxKXxbbeiWzhWNy2T/THmg
+	qMWTCl9neWfmFzLMG19piB0ay41ZiNXFV0EjiBlV9YdukNhwX2rmYhUrJTXaYrshfYcqE2cBdiY
+	vKrCE38KxnOXRav97MEqCTYXnG7NaMnxniPjU1bIzcEDNs1nFFFhU3eIskRzvqByuvb+5nAI1B9
+	HNCxoesmOviklgoY1jTkCRuN6Qq22y4SHtwUWvJjhIgY9u/B1VBy/EEIoIlj4YmOQCunuOLlVFK
+	Y52IunCazqdXGvjzWapTKRZ0H7IRGfytjH0otahP5rr2DJKZww7IgJk+gePoK02HhHA1DYLMqSc
+	gUK93Ipf99TXjgJwSQnI2ZDF+Ww71z4qrCL0zf0BUJU=
+X-Received: by 2002:a05:6000:3103:b0:493:e0db:b520 with SMTP id ffacd0b85a97d-499c38baf87mr327184f8f.8.1794344991489;
+        Tue, 10 Nov 2026 13:09:51 -0800 (PST)
+Received: from localhost (109-81-94-245.rct.o2.cz. [109.81.94.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4984e26f8e3sm6223895f8f.1.2026.11.10.13.09.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 13:09:51 -0800 (PST)
+Date: Tue, 10 Nov 2026 22:09:49 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+	Hugh Dickins <hughd@google.com>, Carlos Maiolino <cem@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org, Liu Chao <liuc63@xiaopeng.com>
+Subject: Re: [RFC PATCH 3/3] mm: enable filesystem page-cache large folios
+ without THP
+Message-ID: <avOIHeOpjryn5DVd@tiehlicka>
+References: <20261110035205.3036-1-fangxy@xiaopeng.com>
+ <20261110035205.3036-4-fangxy@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,35 +114,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109161052.890682-2-u.kleine-koenig@baylibre.com>
+In-Reply-To: <20261110035205.3036-4-fangxy@xiaopeng.com>
 
-On Mon, Nov 09, 2026 at 05:10:52PM +0100, Uwe Kleine-König wrote:
-> The result of having that table is that the sm4-ce-gcm module is
-> autoloaded if the CPU supports the PMULL cpu feature. However that
-> module is only usefull if there are both SM4 and PMULL. The module is
-> already auto-loaded if the CPU has SM4 and calls sm4_ce_gcm_init() then
-> which fails without PMULL.
+On Tue 10-11-26 11:52:05, Fang Xieyan wrote:
+> Ten filesystems already opt in to file-backed large folios by calling
+> mapping_set_large_folios() or mapping_set_folio_order_range() from their
+> inode setup, unconditionally.  Every accessor that reports those orders
+> is nevertheless compiled out when CONFIG_TRANSPARENT_HUGEPAGE is
+> disabled, so the opt-in silently has no effect today.
+
+The reason for disabling THP on RT configs (as introduced by
+554b0f3ca6f4) was:
+:  There are potential non-deterministic delays to an RT thread if a
+:  critical memory region is not THP-aligned and a non-RT buffer is
+:  located in the same hugepage-aligned region. It's also possible for an
+:  unrelated thread to migrate pages belonging to an RT task incurring
+:  unexpected page faults due to memory defragmentation even if
+:  khugepaged is disabled.
+
+How is the same prevented for the page cache? If the reasoning above is
+not generally applicable then would it make more sense to make the
+conflict less strict?
+ 
+> Gate the page cache order accessors on CONFIG_LARGE_FOLIO in addition to
+> CONFIG_TRANSPARENT_HUGEPAGE.  Both conditions are still spelled out even
+> though CONFIG_LARGE_FOLIO defaults to y when TRANSPARENT_HUGEPAGE is
+> enabled, so that file-backed large folios do not silently disappear if
+> that default is ever relaxed.
 > 
-> So dropping the PMULL cpu feature table has the only affect that on
-> machines with PMULL but without SM4 the useless module isn't loaded any
-> more.
+> PREFERRED_MAX_PAGECACHE_ORDER is left as it is.  Deriving it from
+> CONFIG_PGTABLE_HAS_HUGE_LEAVES would let HUGETLB_PAGE raise the ceiling
+> on its own, to HPAGE_PMD_ORDER capped by MAX_XAS_ORDER.  On arm64 with
+> 64K base pages that works out to order 11, a 128M folio, eight times
+> what an LF-only build advertises today; the figure is arithmetic, not a
+> measurement.  Without THP such folios cannot be PMD-mapped, so keeping
+> the existing order-8 limit avoids substantially increasing the maximum
+> page-cache allocation size without an established use case.
 > 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> CONFIG_LARGE_FOLIO no longer only builds the split machinery, so its
+> Kconfig help text is updated to match.  The default also carries a
+> comment recording why THP must keep pulling this option in:
+> mm/folio_split.o is built from CONFIG_LARGE_FOLIO, while huge_memory.o,
+> built for THP, calls into it.  XFS also gates mounting
+> block sizes larger than the page size on
+> mapping_max_folio_size_supported(), which means large-block-size XFS
+> cannot be mounted at all when CONFIG_LARGE_FOLIO is disabled; the
+> rejection now points at the missing option instead of only reporting the
+> block size as unsupported.
+> 
+> shmem keeps its THP dependency.  shmem_alloc_and_add_folio() forces
+> orders to zero without THP, so the mapping is only opened large-folio
+> capable when CONFIG_TRANSPARENT_HUGEPAGE is enabled.  Advertising the
+> larger order while allocating order 0 would not be cosmetic:
+> generic_perform_write() sizes its write chunk from
+> mapping_max_folio_size() and passes that length to ->write_begin()
+> before clamping it to folio_size(), while shmem_write_begin() rejects
+> pos + len > i_size outright for F_SEAL_GROW.  A cross-EOF write would
+> then fail as a whole instead of being partially satisfied up to i_size.
+> THP=y kernels already behave that way; the point is not to spread that
+> behaviour to a configuration which gains no large folios from it.
+> Enabling shmem's large folios -- allocation, swap and split alike -- is
+> left to a separate series.
+> 
+> The stale comment on mapping_large_folio_support() is updated to match:
+> large folios are now gated on CONFIG_LARGE_FOLIO rather than on THP, and
+> CONFIG_LARGE_FOLIO is a default rather than a select from THP.
+> 
+> With CONFIG_TRANSPARENT_HUGEPAGE enabled the generated code is unchanged.
+> Without it, file-backed large folios become reachable for the first time.
+> 
+> Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
 > ---
-> Hello,
+>  fs/xfs/xfs_super.c      |  2 ++
+>  include/linux/pagemap.h | 17 +++++++++++------
+>  mm/Kconfig              | 15 +++++++++++----
+>  mm/shmem.c              | 11 ++++++++++-
+>  4 files changed, 34 insertions(+), 11 deletions(-)
 > 
-> PSA: I don't know what these cpu features are and what the sm4-ce-gcm
-> module does. I just stumbled over that MODULE_DEVICE_TABLE(cpu, ...) and
-> convinced myself by looking at the code about the above analysis. It
-> wouldn't be a big surprise to me if I missed something relevant. So
-> please apply some distrust before the patch.
+> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+> index 5a06132aa..29548faec 100644
+> --- a/fs/xfs/xfs_super.c
+> +++ b/fs/xfs/xfs_super.c
+> @@ -1864,6 +1864,8 @@ xfs_fs_fill_super(
+>  			xfs_warn(mp,
+>  "block size (%u bytes) not supported; Only block size (%zu) or less is supported",
+>  				mp->m_sb.sb_blocksize, max_folio_size);
+> +			if (!IS_ENABLED(CONFIG_LARGE_FOLIO))
+> +				xfs_warn(mp, "CONFIG_LARGE_FOLIO is not set");
+>  			error = -ENOSYS;
+>  			goto out_free_sb;
+>  		}
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index 73af18a37..2102733c1 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -393,7 +393,8 @@ static inline void mapping_set_gfp_mask(struct address_space *m, gfp_t mask)
+>   */
+>  static inline size_t mapping_max_folio_size_supported(void)
+>  {
+> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
+> +	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) ||
+> +	    IS_ENABLED(CONFIG_LARGE_FOLIO))
+>  		return 1U << (PAGE_SHIFT + MAX_PAGECACHE_ORDER);
+>  	return PAGE_SIZE;
+>  }
+> @@ -418,7 +419,8 @@ static inline void mapping_set_folio_order_range(struct address_space *mapping,
+>  						 unsigned int min,
+>  						 unsigned int max)
+>  {
+> -	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
+> +	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> +	    !IS_ENABLED(CONFIG_LARGE_FOLIO))
+>  		return;
+>  
+>  	if (min > MAX_PAGECACHE_ORDER)
+> @@ -459,7 +461,8 @@ static inline void mapping_set_large_folios(struct address_space *mapping)
+>  static inline unsigned int
+>  mapping_max_folio_order(const struct address_space *mapping)
+>  {
+> -	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
+> +	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> +	    !IS_ENABLED(CONFIG_LARGE_FOLIO))
+>  		return 0;
+>  	return (mapping->flags & AS_FOLIO_ORDER_MAX_MASK) >> AS_FOLIO_ORDER_MAX;
+>  }
+> @@ -467,7 +470,8 @@ mapping_max_folio_order(const struct address_space *mapping)
+>  static inline unsigned int
+>  mapping_min_folio_order(const struct address_space *mapping)
+>  {
+> -	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
+> +	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> +	    !IS_ENABLED(CONFIG_LARGE_FOLIO))
+>  		return 0;
+>  	return (mapping->flags & AS_FOLIO_ORDER_MIN_MASK) >> AS_FOLIO_ORDER_MIN;
+>  }
+> @@ -500,8 +504,9 @@ static inline pgoff_t mapping_align_index(const struct address_space *mapping,
+>  }
+>  
+>  /*
+> - * Large folio support currently depends on THP.  These dependencies are
+> - * being worked on but are not yet fixed.
+> + * Large folio support is opt-in per mapping and requires CONFIG_LARGE_FOLIO.
+> + * It does not depend on THP; CONFIG_LARGE_FOLIO defaults to y when
+> + * CONFIG_TRANSPARENT_HUGEPAGE is enabled.
+>   */
+>  static inline bool mapping_large_folio_support(const struct address_space *mapping)
+>  {
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 9f97ad698..7bbed71af 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -831,13 +831,20 @@ config LARGE_FOLIO
+>  	bool "Large folio support for the page cache (without THP)" if !TRANSPARENT_HUGEPAGE
+>  	depends on MMU
+>  	select XARRAY_MULTI
+> +	# Keep LARGE_FOLIO enabled whenever THP is enabled:
+> +	# huge_memory.o is built for TRANSPARENT_HUGEPAGE and calls into
+> +	# folio_split.o, which is built for LARGE_FOLIO.
+>  	default y if TRANSPARENT_HUGEPAGE
+>  	default n
+>  	help
+> -	  Build the folio split implementation for page-cache large folios
+> -	  even when transparent hugepages are disabled.  Transparent
+> -	  hugepages imply this option; this option alone does not enable
+> -	  large folio allocation, it only makes splitting them possible.
+> +	  Enable page-cache large folios even when transparent hugepages
+> +	  are disabled.  This option defaults to y when transparent
+> +	  hugepages are enabled.
+> +
+> +	  With this option enabled, filesystems that opt in per mapping get
+> +	  large folios in the page cache, and those folios can be split.
+> +	  Without it, page-cache folios stay order-0 even when a filesystem
+> +	  asks for a larger order.
+>  
+>  menuconfig TRANSPARENT_HUGEPAGE
+>  	bool "Transparent Hugepage Support"
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 4686875a3..399c8c9f1 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -3327,7 +3327,16 @@ static struct inode *__shmem_get_inode(const struct mnt_idmap *idmap,
+>  	cache_no_acl(inode);
+>  	if (sbinfo->noswap)
+>  		mapping_set_unevictable(inode->i_mapping);
+> -	mapping_set_large_folios(inode->i_mapping);
+> +	/*
+> +	 * shmem large folios currently depend on THP:
+> +	 * shmem_alloc_and_add_folio() forces order 0 without it, and
+> +	 * advertising a larger mapping size makes
+> +	 * generic_perform_write() pass a length that shmem_write_begin()
+> +	 * rejects wholesale for F_SEAL_GROW before the folio size is
+> +	 * known.
+> +	 */
+> +	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
+> +		mapping_set_large_folios(inode->i_mapping);
+>  
+>  	switch (mode & S_IFMT) {
+>  	default:
+> -- 
+> 2.50.1
 
-I guess this and your other patch look fine, if Herbert wants to apply
-them.  Note that we've actually been moving away from having separate
-modules for the architecture-optimized crypto code, and when that
-happens to this code the MODULE_DEVICE_TABLE will go away anyway.
-
-- Eric
+-- 
+Michal Hocko
+SUSE Labs
