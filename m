@@ -1,65 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292880;
-	b=WAOIWpMp8i4d8ukSPoWQCom0uifRTtXzGgQF3lKzyTZEtZzooKxOFKaDtd629uJfH80W
-	 3bRoJ3I4Bo0dslOjMqS5nbP94U9xaqZlrEDmnx53ZsEDlfn0vjE8Yyvqzb7rZo8T7PJU0
-	 HsXUJqL8AEwrYtebr2yMbmK0iQk1+ujybWPF7rMWbpq2lf0GVWI6Y19Z1X1z6ZhF7xo+J
-	 nDd9i/jdH2p/scfFaXP2Fxg4QQyli/i0LRq5+r6kX1hZiCYwmnbW617qrEB2SMeicn5Lr
-	 HbXbYz4htlMTAwiJv3C3MbDYos/SMcvnrvpxv4yjQDvwCbYpRGviXHZDhTn8JcUcMgg==
+	t=1794292885;
+	b=IKHqE5CLhFwXeSAe8e1WhyO6NB3br0e01MSTAqZwLbIiBbQEH9dDP3JuRn+e79c1B2t4
+	 CzNca+yk50G36XGJ5I8yZB67hc4whez6rwSPE4I5PSAbMhr3uQQsedB5dwTCU7pTtLW5Z
+	 UvMTT0SNZNhu4D9wTXpBxm4y04eNEcn0Z9zYOmZMfZXwX+Telbhkj7kzeLOrRfrQIYM8Q
+	 fXtlFOWIl4d8w8OH1+tRg5C8y1ryoVjo4rBNh5AG3Mh9fd7/00+zrwKTbduSu2Xm1z4bb
+	 3iqCQl2l/LefGjnpVuYghzKODbkDbRJr5rRZ5THToig1LKaiyB/LaiA9jIVuP56rV5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292885;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TpoFMfBEKNmv/ZRxvPnDbtx47PzSrWE39balC9JkGA8=;
-	b=ZwvVNiJo2HYTKpoqEsvNJtLkOeLUCXftD/5BH1knFIPIoUCShQYUZ+gAsILTRLSF4FxL
-	 lwxwQi4xftJk1u6k2TgPwszBPd/LiEDXtkh0uVs1J8nJ/EXjS+v3pt3rG8iuRtSSuorub
-	 QZqrW+rHT1aftjcvBLknW5MQAsq3SE6zy+jyrxENOwxqhmyJALOgg8fPS6lpNLpnj6E00
-	 lg+e3/agO/Z6jwSlhEZ8sC8ld4u9gjCveYNgsx1mIx03wkns0bNG3nAIh/BTdw1OiC5+7
-	 UFn+f/mIZ9rS4rMYIKKcu2Mfk9ST/7RFhexubETJ8b3ynHPnaKWsdhf0UiAwJNbJ7Qg==
+	bh=nqrKlaQeTl4WKKKVqA7nnyA6CfFqXKex3ZpEO+A2IBE=;
+	b=fEGmqMhHucoQKyzhyUrjUr0ZdxHzoBLswz6hPT2CkwjaaGyx7+gPKRf2PyvVMpS0Qsi1
+	 L4VmrImMOMtYOwkfnvr9bn83iAsQYG7sCDFdCuqRv12uZjie0sH4CHqnTegfZOPagvBc4
+	 soUrA/Tfx/8n4Bm0sJRwSWZfGeQFV14k/SzbNRLr58HOgaBe3ZXrO+tJwhCseEUCJCADC
+	 yKszzh8i8lp67wBQ4xfRsG7cJ2xPeHOsnYyR8kjiH+LqMVfVaMtegMLWQBmyeenw1Ytan
+	 r34Ca928peJBdbarcl0E1YUbqrY6dz44+ad/6d9rWi/2bcQ39VLho4B08AKEt8oJyoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yqlQK6h+;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F3DE60A2614;
-	Tue, 10 Nov 2026 06:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F3DE60A2614
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="gANfaS/U";
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E12160A6F70;
+	Tue, 10 Nov 2026 06:41:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E12160A6F70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yqlQK6h+
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gANfaS/U
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=yqlQK6h+NKVAlN2VMbiR+K0iRDNPIBM/WucNVnIPndkvTzSMdU25/R8RvV8xTF6KYXFrD3B1rVywm
-	 MMur5Rt2aubk7XX8EFTcjbEQp4sa8HBmr8Ll30UFQrCXwagmMi6t2Y0LnPgq8U8bWPe5n9CDvemoyT
-	 oWO1tpyq1x3dHZzY=
+	b=gANfaS/UWWdXR08x+aDCE54qPEJ4CfFC6jv2c/+eRudejEQ1i6KPOJ91D1bUIizMIXj+GSMA/jA4d
+	 AI8KTa3FqGHaJHAsMb+Vi8AegNapLbLhy8bVrG4nEAWveSGIhN4Wq+w/XzePr8IAlY6LjkIiy9U2sY
+	 IHDORU3LkeUfpD2M=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af2bc8d840-6b656;
-	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
-X-RM-TRANSID:2ee46af2bc8d840-6b656
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af2bc92205-a75f8;
+	Tue, 10 Nov 2026 14:41:22 +0800 (CST)
+X-RM-TRANSID:2ee16af2bc92205-a75f8
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa11c;
-	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa11c
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 14/22] usb: misc: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:40:57 +0000
-Message-ID: <20261110064105.20335-15-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
-References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
+Received:from  (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af2bc8e8a1-aa5d7;
+	Tue, 10 Nov 2026 14:41:22 +0800 (CST)
+X-RM-TRANSID:2ee66af2bc8e8a1-aa5d7
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	danishanwar@ti.com,
+	rogerq@kernel.org,
+	jan.kiszka@siemens.com,
+	diogo.ivo@siemens.com,
+	haokexin@gmail.com,
+	horms@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH v2 net 2/4] net: ti: icssg-prueth-sr1: Fix device_node refcount leak in prueth_probe()
+Date: Tue, 10 Nov 2026 14:41:15 +0800
+Message-ID: <20261110064118.1138-3-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
+References: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,56 +83,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No functional changes.
+prueth_probe() takes references on the eth0_node/eth1_node device nodes
+with of_node_get() and stores them in prueth->eth_node[]. If either of
+the "ti,mii-g-rt" or "ti,mii-rt" syscon regmap lookups fails, probe()
+returns -ENODEV without dropping those references, leaking the device
+nodes.
 
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Jump to the existing put_cores label so the error path releases the
+eth0_node/eth1_node references like all the other failure paths in the
+function do.
+
+Fixes: e654b85a693e ("net: ti: icssg-prueth: Add ICSSG Ethernet driver for AM65x SR1.0 platforms")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 ---
- drivers/usb/misc/emi26.c | 2 +-
- drivers/usb/misc/emi62.c | 2 +-
- drivers/usb/misc/ldusb.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Changes in v2:
 
-diff --git a/drivers/usb/misc/emi26.c b/drivers/usb/misc/emi26.c
-index 24d841850e05..a0fd80082043 100644
---- a/drivers/usb/misc/emi26.c
-+++ b/drivers/usb/misc/emi26.c
-@@ -198,7 +198,7 @@ static int emi26_load_firmware (struct usb_device *dev)
- 		goto wraperr;
- 	msleep(250);	/* let device settle */
+- Collect the two independent fixes into one series (suggested by
+  Simon Horman).
+
+- No code change since v1.
+
+Link: https://lore.kernel.org/netdev/20261030085851.2019-1-laixiangwu@cmss.chinamobile.com/
+
+ drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
+index b8115ca47..ef1dc32ff 100644
+--- a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
++++ b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
+@@ -963,13 +963,15 @@ static int prueth_probe(struct platform_device *pdev)
+ 	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
+ 	if (IS_ERR(prueth->miig_rt)) {
+ 		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto put_cores;
+ 	}
  
--	/* return 1 to fail the driver inialization
-+	/* return 1 to fail the driver initialization
- 	 * and give real driver change to load */
- 	err = 1;
+ 	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
+ 	if (IS_ERR(prueth->mii_rt)) {
+ 		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto put_cores;
+ 	}
  
-diff --git a/drivers/usb/misc/emi62.c b/drivers/usb/misc/emi62.c
-index 3eea60437f56..d29b5312f627 100644
---- a/drivers/usb/misc/emi62.c
-+++ b/drivers/usb/misc/emi62.c
-@@ -211,7 +211,7 @@ static int emi62_load_firmware (struct usb_device *dev)
- 
- 	kfree(buf);
- 
--	/* return 1 to fail the driver inialization
-+	/* return 1 to fail the driver initialization
- 	 * and give real driver change to load */
- 	return 1;
- 
-diff --git a/drivers/usb/misc/ldusb.c b/drivers/usb/misc/ldusb.c
-index 71132a15e771..1072abab9659 100644
---- a/drivers/usb/misc/ldusb.c
-+++ b/drivers/usb/misc/ldusb.c
-@@ -2,7 +2,7 @@
- /*
-  * Generic USB driver for report based interrupt in/out devices
-  * like LD Didactic's USB devices. LD Didactic's USB devices are
-- * HID devices which do not use HID report definitons (they use
-+ * HID devices which do not use HID report definitions (they use
-  * raw interrupt in and our reports only for communication).
-  *
-  * This driver uses a ring buffer for time critical reading of
+ 	if (eth0_node) {
 -- 
-2.53.0
+2.50.1.windows.1
 
 
 
