@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.235.229.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271832;
-	b=njkAkC+GyPch71XllaWVLHLpvKt2izKJLpSj3isks0Ofr1QyW//LOhdY/T8tmEkLHfUC
-	 MXiQoRsRiLiy+4RKTrzV8F+oSCG9iYYXx5u1nSS79w8S2E+HS//yGU8LpzhIbTEErQVta
-	 QIIYff3vXricUhwUO6Q6Zv0pLAqA1G9vGxEpukZ1d04qvWfQL672kAnChXAk9w0/WP/3D
-	 mMhqcRgrXt71l2MgNN59OaaiMAgKzR8bPGwoAkSUZe78D0OdAdNpmKZDm8cT57Zt+YVdJ
-	 15PSGo8PsYffZVJH80lZs4Zjt0TpITM/U/EO0DIkxqsaGUFdlzqlB3KVG6AW0GhuQCA==
+	t=1794271828;
+	b=t9HjsA73HxnMlh1mfvP5v7hP5zWtcEuiEaT2s8p2As0YtiVs4DyjU0xPp4n1+8aO7QUb
+	 M8P+iTQGFA9VrsPik/AroyvQHWE8ujIWPrvPdXq03gwQCU4AI0xdI69qY9FqUNQGHfe8H
+	 oRdewTITApTB9cbFR7FuiNDHQivT42rhzjqcK+e9BVrg07T0ql9Psxborf/B0fL1LbwNG
+	 BPq5640yQVaR3/foGzv35rt+XfHYmmDrpV6x9Jj1jv1U7QDprg6VT++86jBitxMd/mDmC
+	 5wmBREU9cmyNgmyTrLkTki6pDYdTAmdp8nGTzMM2DMJ38zFV+1ZmmDyKkTPbkeHIOaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271828;
 	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=F9qSyn3S9D7/qS4kiEuuUWRJEUxjpjZGEXQBvqhMx3I=;
-	b=QZ3A3y+1KrjXc1lmcUDNgzCE6C/xvhHyYDr45m+0tJhCJPRy/50J8SRhBWdA+S29so9V
-	 IBPmkH56iV2Z06zB+aDGJaJZIKEEdBSad0okqnBp66WppCKYkhAkgg90nbG4mIQhj9TD0
-	 a48QUrhRGhT05W/uP4Qq1qMFARuzlig3EmAhE+DzKusQ2AFJGs5DWgyZlIULW8Ci2l0MY
-	 ChmSlCRyEXWH0rt2gDyYs50jSgYMNbTcrZXfhK5oLAC6jL14OqNOUyn5iIKecYisrj89X
-	 ziQWtxJ6/6ORFt0BcOW485mFM8GCkHhrUY4fZqjBofeYIVn9wugoLpHeUxyJb4HpJFw==
+	 In-Reply-To:X-Chocolate:X-Operating-System:X-Uptime:User-Agent;
+	bh=ldQ3qeBmydFhieFaL8KfkuaD+7PjtokDguyKmldrn+Y=;
+	b=Gi6RPVnu/2ifOlfCTQu3QDViuk5o72RxX/5UBdOz3tm4ZTTa94SZmQpq6N2pnHxexFN2
+	 kW0q8eHrn1XbuMVCg5OBPCFGny3dmR1a8+M9btOfqf3/LnT34/mpJ1MfmbXjOa07uZPLW
+	 0WrNNgKkCVgfsIBxg7cgo/QU6i0VwNnER5ePn5mqGMXwfrtEnCvXp/CYl8n/sV+lMfAlt
+	 JmKIZGkVnWpt9bvOLm0BndqhSDtiHvXxRQoavCSb5WykrDCILWppGeeEw5MT1dL4fSR8v
+	 PSNfiPzfuJpCf662eaSe4Eu5Gf1Iw7cJUHjFo0bm/4bPHbRoc9rKc9L1Aqv7uBsgu+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=iY9Yaepe;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dmarc=pass header.from=treblig.org;
+	spf=pass smtp.mailfrom=treblig.org;
+	dkim=pass header.d=treblig.org header.i=@treblig.org header.a=rsa-sha256 header.s=bytemarkmx header.b="Ozhe/Xs+";
+	arc=none smtp.remote-ip=46.235.229.95
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6C1BF606A331;
-	Tue, 10 Nov 2026 00:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1BF606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243D5606A321;
+	Tue, 10 Nov 2026 00:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243D5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=iY9Yaepe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1794271828;
-	bh=F9qSyn3S9D7/qS4kiEuuUWRJEUxjpjZGEXQBvqhMx3I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iY9YaepeD/mIWWNXtz+Ou28+E44059RzxLWtUr912mXqTwRRUjf/YIerbc2jg+Ytz
-	 9j6lKyDiEFU2uMkHqGtMWat/vyTsxa3j6uY78M/h8lplury4wMf+WON40wfQnXiPKx
-	 ot2CVcoy/wcCz270JqVxE48eAznmmxWcT5ZjFrGV+F0QPz6CnyvnkQcEk0toFdZLOC
-	 H/zOCL85fbj6Wfh0kbr6vw2k6MW2QSjJc71nABTgERbmxjqvfIkRbCMF3Rb/3WI4u1
-	 wETAeFik0p56wZGmHLteGEc/bSEl6OhzjE3zADylmVqnScMnMPesiHGBes4RJFOn+1
-	 xdEZOOjptpG7w==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id C2E666007C;
-	Tue, 10 Nov 2026 01:50:28 +0100 (CET)
-Date: Tue, 10 Nov 2026 01:50:25 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: fw@strlen.de, phil@nwl.cc, vladbu@nvidia.com, ozsh@nvidia.com,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] netfilter: nf_flow_table: defer pernet stats release
- to last flowtable teardown
-Message-ID: <avJqUf4_aBq_zkRo@chamomile>
-References: <20261105065509.94627-1-q.h.hack.winter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=treblig.org header.i=@treblig.org header.a=rsa-sha256 header.s=bytemarkmx header.b=Ozhe/Xs+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=ldQ3qeBmydFhieFaL8KfkuaD+7PjtokDguyKmldrn+Y=; b=Ozhe/Xs+A9vQzn5n
+	QAZvsAbHW0aCCLnu7jPmOVxYwqwzMsfkTDCq11sdynkVB4YjlNRoCe1f2UjMdlgekJFq+57t8qIkf
+	OMr9q8kldJ89QAfNPcuk7phEOFd+doeEP3jWDdHUwXkzEnWyehFNX/oQvlpoB8WFxyaJmeU+EEWJE
+	6ygugV7P1/4FOv5awrGEbHrys/9dWctZreqMSoSUwy30/duF4FyvuoV9BSi8Jhy/Z2DGZwjAII0Wd
+	Pz7vicfKx7H2zfTjLJD+6/RhGldkyLE3b9GO7iiJT2iPFHTquP7rSGU0XQcIToTOHaqeje3jHD1cY
+	RGJJSGftD0ZHBpYa/Q==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+	(envelope-from <dg@treblig.org>)
+	id 1xQa43-00000002uth-0bHs;
+	Tue, 10 Nov 2026 00:50:19 +0000
+Date: Tue, 10 Nov 2026 00:50:19 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: "Jesper B. Christensen" <jaytersen@gmail.com>,
+	jens.glathe@oldschoolsolutions.biz
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	jikos@kernel.org, bentiss@kernel.org
+Subject: Re: [PATCH] HID: asus: support the Zenbook A14 (UX3407RA) keyboard
+ backlight
+Message-ID: <avJqS5WjagHUo84q@gallifrey>
+References: <20261031215710.11126-1-jaytersen@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,191 +64,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261105065509.94627-1-q.h.hack.winter@gmail.com>
+In-Reply-To: <20261031215710.11126-1-jaytersen@gmail.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.115+deb13.1-amd64 (x86_64)
+X-Uptime: 00:48:01 up 7 days,  3:26,  3 users,  load average: 0.00, 0.00, 0.00
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-On Thu, Nov 05, 2026 at 02:55:09PM +0800, Qihang wrote:
-> The pernet flowtable statistics (net->ft.stat) are released when the
-> netns exits, but the flowtables attached to a dying netns are torn down
-> asynchronously afterwards: the tc conntrack action frees its flowtable
-> from an RCU-delayed workqueue item (tcf_ct_flow_table_cleanup_work()),
-> and nf_tables releases flowtables from the transaction release work.
+* Jesper B. Christensen (jaytersen@gmail.com) wrote:
+> The ASUS Zenbook A14 (UX3407RA), a Qualcomm Snapdragon X2 Elite
+> (Hamoa)-based laptop, carries its main keyboard on an I2C-HID device
+> with the ID 0B05:0220. Its Fn/media hotkeys are emitted as vendor-page
+> (HID_UP_ASUSVENDOR) usages on report 0x5A.
+
+Hi Jesper,
+  Just to let you know this also works on my X1 Zenbook A14 UX3407QA.
+Very nice!
+
+Dave
+
+> In addition to the the standard I2C keyboard quirks and the keyboard
+> backlight quirk, a few new have been added:
 > 
-> nf_flow_table_free() ends with a garbage-collection pass that queues
-> offload works; flow_offload_queue_work() increments the pernet counters
-> when scheduling them and the handlers decrement the counters again once
-> they complete.  The flushes in nf_flow_table_free() only drain those
-> workqueues when hardware offload is in use, so after free_percpu() the
-> stray workers still this_cpu_inc()/this_cpu_dec() into freed percpu
-> memory.
+>   QUIRK_KBD_REPORT_SIZE: The UX3407RA seems to only accept 64 byte
+>    reports
+>   QUIRK_KBD_OOBE: Refactor existing Out-Of-Box mitigation into a
+>    quirk.
 > 
-> Account flowtables at init time and defer the release of the statistics
-> to the last nf_flow_table_free() of a dismantled netns, after draining
-> the offload workqueues.  A netns without flowtables keeps the
-> synchronous release.
-
-Looks like a duplicate of:
-
-https://patchwork.ozlabs.org/project/netfilter-devel/patch/20261029230657.302417-1-pablo@netfilter.org/
-
-> Fixes: b038177636f8 ("netfilter: nf_flow_table: count pending offload workqueue tasks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+> The keyboard backlight is software controlled. Since WMI is not
+> available on Snapdragon based platforms this change registers a
+> separate led device that sends hid reports to the Embedded Controller
+> (EC).
+> 
+> Signed-off-by: Jesper B. Christensen <jaytersen@gmail.com>
 > ---
->  include/net/netfilter/nf_flow_table.h |  1 +
->  include/net/netns/flow_table.h        | 11 +++++++
->  net/netfilter/nf_flow_table_core.c    | 44 ++++++++++++++++++++++++++-
->  net/netfilter/nf_flow_table_offload.c |  7 +++++
->  4 files changed, 62 insertions(+), 1 deletion(-)
+>  drivers/hid/hid-asus.c | 88 ++++++++++++++++++++++++++++++++++++++++--
+>  drivers/hid/hid-ids.h  |  1 +
+>  2 files changed, 85 insertions(+), 4 deletions(-)
 > 
-> diff --git a/include/net/netfilter/nf_flow_table.h b/include/net/netfilter/nf_flow_table.h
-> index 5b22d31cb1407..91ffa3072a0cc 100644
-> --- a/include/net/netfilter/nf_flow_table.h
-> +++ b/include/net/netfilter/nf_flow_table.h
-> @@ -376,6 +376,7 @@ void nf_flow_offload_stats(struct nf_flowtable *flowtable,
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index c38a2b3b33d9..072df9816e50 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -66,6 +66,7 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+>  #define ASUS_FAN_CTRL_KEY_CODE 0xae
 >  
->  void nf_flow_table_offload_flush(struct nf_flowtable *flowtable);
->  void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtable);
-> +void nf_flow_table_offload_drain(void);
+>  #define SUPPORT_KBD_BACKLIGHT BIT(0)
+> +#define EC_KBD_MAX_BACKLIGHT 3
 >  
->  int nf_flow_table_offload_setup(struct nf_flowtable *flowtable,
->  				struct net_device *dev,
-> diff --git a/include/net/netns/flow_table.h b/include/net/netns/flow_table.h
-> index 1c5fc657e2675..6d2dc0d1f06c7 100644
-> --- a/include/net/netns/flow_table.h
-> +++ b/include/net/netns/flow_table.h
-> @@ -2,6 +2,9 @@
->  #ifndef __NETNS_FLOW_TABLE_H
->  #define __NETNS_FLOW_TABLE_H
+>  #define MAX_TOUCH_MAJOR 8
+>  #define MAX_PRESSURE 128
+> @@ -100,6 +101,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+>  #define QUIRK_ROG_ALLY_XPAD		BIT(13)
+>  #define QUIRK_HID_FN_LOCK		BIT(14)
+>  #define QUIRK_FILTER_CAMERA_COMPANION	BIT(15)
+> +#define QUIRK_KBD_REPORT_SIZE           BIT(16)
+> +#define QUIRK_KBD_OOBE			BIT(17)
 >  
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
-> +
->  struct nf_flow_table_stat {
->  	unsigned int count_wq_add;
->  	unsigned int count_wq_del;
-> @@ -9,6 +12,14 @@ struct nf_flow_table_stat {
+>  #define I2C_KEYBOARD_QUIRKS			(QUIRK_FIX_NOTEBOOK_REPORT | \
+>  						 QUIRK_NO_INIT_REPORTS | \
+> @@ -169,10 +172,12 @@ struct asus_drvdata {
+>  	bool battery_in_query;
+>  	unsigned long battery_next_query;
+>  	struct asus_hid_listener listener;
+> +	struct led_classdev kbd_led_cdev;
+>  	bool fn_lock;
 >  };
 >  
->  struct netns_ft {
-> +	/* Protects nr_ft and exiting. */
-> +	spinlock_t		lock;
-> +	/* Number of flowtables attached to this netns. */
-> +	int			nr_ft;
-> +	/* Set at netns exit; the statistics are then released by the
-> +	 * last flowtable teardown.
-> +	 */
-> +	bool			exiting;
->  	struct nf_flow_table_stat __percpu *stat;
->  };
->  #endif
-> diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-> index 0d72dc8ae47a1..de0a9f0e4f7b9 100644
-> --- a/net/netfilter/nf_flow_table_core.c
-> +++ b/net/netfilter/nf_flow_table_core.c
-> @@ -715,6 +715,7 @@ EXPORT_SYMBOL_GPL(nf_flow_dnat_port);
+>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+> +static void asus_kbd_illum_toggle(struct asus_drvdata *);
 >  
->  int nf_flow_table_init(struct nf_flowtable *flowtable)
+>  static const struct asus_touchpad_info asus_i2c_tp = {
+>  	.max_x = 2794,
+> @@ -469,6 +474,7 @@ static int asus_event(struct hid_device *hdev, struct hid_field *field,
+>  		case KEY_KBDILLUMDOWN:
+>  			return !asus_hid_event(ASUS_EV_BRTDOWN);
+>  		case KEY_KBDILLUMTOGGLE:
+> +			asus_kbd_illum_toggle(drvdata);
+>  			return !asus_hid_event(ASUS_EV_BRTTOGGLE);
+>  		case KEY_FN_ESC:
+>  			if (drvdata->quirks & QUIRK_HID_FN_LOCK) {
+> @@ -576,15 +582,23 @@ static int asus_raw_event(struct hid_device *hdev,
+>  
+>  static int asus_kbd_set_report(struct hid_device *hdev, const u8 *buf, size_t buf_size)
 >  {
-> +	struct net *net;
->  	int err;
+> -	u8 *dmabuf __free(kfree) = kmemdup(buf, buf_size, GFP_KERNEL);
+> +	size_t alloc_size = buf_size;
+> +
+> +	if (QUIRK_KBD_REPORT_SIZE)
+> +		alloc_size = (buf_size > FEATURE_KBD_REPORT_SIZE) ?
+> +			buf_size : FEATURE_KBD_REPORT_SIZE;
+> +
+> +	u8 *dmabuf __free(kfree) = kzalloc(alloc_size, GFP_KERNEL);
+>  	if (!dmabuf)
+>  		return -ENOMEM;
 >  
->  	INIT_DELAYED_WORK(&flowtable->gc_work, nf_flow_offload_work_gc);
-> @@ -733,6 +734,13 @@ int nf_flow_table_init(struct nf_flowtable *flowtable)
->  	list_add(&flowtable->list, &flowtables);
->  	mutex_unlock(&flowtable_lock);
+> +	memcpy(dmabuf, buf, buf_size);
+> +
+>  	/*
+>  	 * The report ID should be set from the incoming buffer due to LED and key
+>  	 * interfaces having different pages
+>  	 */
+> -	return hid_hw_raw_request(hdev, buf[0], dmabuf, buf_size, HID_FEATURE_REPORT,
+> +	return hid_hw_raw_request(hdev, buf[0], dmabuf, alloc_size, HID_FEATURE_REPORT,
+>  				  HID_REQ_SET_REPORT);
+>  }
 >  
-> +	net = read_pnet(&flowtable->net);
-> +	if (net) {
-> +		spin_lock(&net->ft.lock);
-> +		net->ft.nr_ft++;
-> +		spin_unlock(&net->ft.lock);
+> @@ -702,6 +716,38 @@ static void asus_kbd_set_brightness(struct hid_device *hdev, u8 brightness)
+>  		hid_err(hdev, "Asus failed to set keyboard backlight: %d\n", ret);
+>  }
+>  
+> +static void asus_kbd_set_brightness_cdev(struct led_classdev *led_cdev,
+> +				    enum led_brightness brightness)
+> +{
+> +	struct asus_drvdata *drvdata = container_of(led_cdev, struct asus_drvdata, kbd_led_cdev);
+> +	u8 level = (u8)brightness;
+> +
+> +	if (level > EC_KBD_MAX_BACKLIGHT)
+> +		level = EC_KBD_MAX_BACKLIGHT;
+> +
+> +	asus_kbd_set_brightness(drvdata->hdev, level);
+> +	drvdata->kbd_backlight_brightness = level;
+> +}
+> +
+> +static enum led_brightness asus_kbd_get_brightness_cdev(struct led_classdev *led_cdev)
+> +{
+> +	struct asus_drvdata *drvdata = container_of(led_cdev, struct asus_drvdata, kbd_led_cdev);
+> +
+> +	return (enum led_brightness)drvdata->kbd_backlight_brightness;
+> +}
+> +
+> +static void asus_kbd_illum_toggle(struct asus_drvdata *drvdata)
+> +{
+> +	if (!drvdata->kbd_led_cdev.brightness_set)
+> +		return;
+> +
+> +	u8 current_level = drvdata->kbd_backlight_brightness;
+> +	u8 max_level = EC_KBD_MAX_BACKLIGHT;
+> +	u8 next_level = (current_level + 1) % (max_level + 1);
+> +
+> +	asus_kbd_set_brightness_cdev(&drvdata->kbd_led_cdev, next_level);
+> +}
+> +
+>  static void asus_kbd_wmi_fan(struct hid_device *hdev, struct hid_raw_event_data *data)
+>  {
+>  	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> @@ -956,7 +1002,7 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+>  	if (!(kbd_func & SUPPORT_KBD_BACKLIGHT))
+>  		return -ENODEV;
+>  
+> -	if (dmi_match(DMI_PRODUCT_FAMILY, "ProArt P16")) {
+> +	if (drvdata->quirks & QUIRK_KBD_OOBE) {
+>  		ret = asus_kbd_disable_oobe(hdev);
+>  		if (ret < 0)
+>  			return ret;
+> @@ -972,10 +1018,28 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+>  	drvdata->listener.brightness_set = asus_kbd_backlight_set;
+>  	ret = asus_hid_register_listener(&drvdata->listener);
+>  	if (ret < 0) {
+> -		hid_err(hdev, "Unable to register kbd brightness listener: %d\n", ret);
+> +		if (ret != -ENODEV) {
+> +			hid_err(hdev, "Unable to register kbd brightness listener: %d\n", ret);
+> +		}
+>  		drvdata->listener.brightness_set = NULL;
+>  	}
+>  
+> +	// Non-x86 architectures do not have WMI, just register a led
+> +	// device directly
+> +	if (ret == -ENODEV) {
+> +		drvdata->kbd_led_cdev.name = "asus::kbd_backlight";
+> +		drvdata->kbd_led_cdev.brightness_set = asus_kbd_set_brightness_cdev;
+> +		drvdata->kbd_led_cdev.brightness_get = asus_kbd_get_brightness_cdev;
+> +		drvdata->kbd_led_cdev.max_brightness = EC_KBD_MAX_BACKLIGHT;
+> +		ret = led_classdev_register(&hdev->dev, &drvdata->kbd_led_cdev);
+> +		if (ret < 0) {
+> +			hid_err(hdev, "Unable to register kbd brightness led: %d\n", ret);
+> +			drvdata->kbd_led_cdev.brightness_set = NULL;
+> +		}
+> +
+> +		asus_kbd_set_brightness_cdev(&drvdata->kbd_led_cdev, 1);
 > +	}
+> +
+>  	return ret;
+>  }
+>  
+> @@ -1372,6 +1436,9 @@ static int __maybe_unused asus_resume(struct hid_device *hdev)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_kbd_backlight_set(&drvdata->listener, drvdata->kbd_backlight_brightness);
+>  
+> +	if (drvdata->kbd_led_cdev.brightness_set)
+> +		asus_kbd_set_brightness_cdev(&drvdata->kbd_led_cdev, drvdata->kbd_backlight_brightness);
 > +
 >  	return 0;
 >  }
->  EXPORT_SYMBOL_GPL(nf_flow_table_init);
-> @@ -771,6 +779,8 @@ EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
 >  
->  void nf_flow_table_free(struct nf_flowtable *flow_table)
->  {
-> +	struct net *net;
-> +
->  	mutex_lock(&flowtable_lock);
->  	list_del(&flow_table->list);
->  	mutex_unlock(&flowtable_lock);
-> @@ -781,19 +791,51 @@ void nf_flow_table_free(struct nf_flowtable *flow_table)
->  	nf_flow_table_iterate(flow_table, nf_flow_table_do_cleanup, NULL);
->  	nf_flow_table_gc_run(flow_table);
->  	nf_flow_table_offload_flush_cleanup(flow_table);
-> +
-> +	/* The gc pass above can still queue offload works whose handlers
-> +	 * decrement the pernet statistics.  Drain them all.
-> +	 */
-> +	nf_flow_table_offload_drain();
->  	rhashtable_destroy(&flow_table->rhashtable);
-> +
-> +	net = read_pnet(&flow_table->net);
-> +	if (net) {
-> +		bool release;
-> +
-> +		spin_lock(&net->ft.lock);
-> +		release = net->ft.exiting && !--net->ft.nr_ft;
-> +		spin_unlock(&net->ft.lock);
-> +
-> +		/* Released by the last flowtable teardown, see
-> +		 * nf_flow_table_fini_net().
-> +		 */
-> +		if (release)
-> +			free_percpu(net->ft.stat);
-> +	}
->  }
->  EXPORT_SYMBOL_GPL(nf_flow_table_free);
->  
->  static int nf_flow_table_init_net(struct net *net)
->  {
-> +	spin_lock_init(&net->ft.lock);
->  	net->ft.stat = alloc_percpu(struct nf_flow_table_stat);
->  	return net->ft.stat ? 0 : -ENOMEM;
->  }
->  
->  static void nf_flow_table_fini_net(struct net *net)
->  {
-> -	free_percpu(net->ft.stat);
-> +	bool release;
-> +
-> +	spin_lock(&net->ft.lock);
-> +	net->ft.exiting = true;
-> +	release = !net->ft.nr_ft;
-> +	spin_unlock(&net->ft.lock);
-> +
-> +	/* Pending flowtables still update the statistics from workqueue
-> +	 * context; the last one releases them, see nf_flow_table_free().
-> +	 */
-> +	if (release)
-> +		free_percpu(net->ft.stat);
->  }
->  
->  static int nf_flow_table_pernet_init(struct net *net)
-> diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-> index 4365859220e6a..6ac28802ef632 100644
-> --- a/net/netfilter/nf_flow_table_offload.c
-> +++ b/net/netfilter/nf_flow_table_offload.c
-> @@ -1180,6 +1180,13 @@ void nf_flow_table_offload_flush(struct nf_flowtable *flowtable)
+> @@ -1502,6 +1569,9 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		}
 >  	}
->  }
 >  
-> +void nf_flow_table_offload_drain(void)
-> +{
-> +	flush_workqueue(nf_flow_offload_add_wq);
-> +	flush_workqueue(nf_flow_offload_del_wq);
-> +	flush_workqueue(nf_flow_offload_stats_wq);
-> +}
+> +	if (dmi_match(DMI_PRODUCT_FAMILY, "ProArt P16"))
+> +		drvdata->quirks |= QUIRK_KBD_OOBE;
 > +
->  static int nf_flow_table_block_setup(struct nf_flowtable *flowtable,
->  				     struct flow_block_offload *bo,
->  				     enum flow_block_command cmd)
+>  	/* Laptops keyboard backlight is always at 0x5a */
+>  	if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+>  	    (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+> @@ -1539,6 +1609,9 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> +	if (drvdata->kbd_led_cdev.brightness_set)
+> +		led_classdev_unregister(&drvdata->kbd_led_cdev);
+> +
+>  	asus_worker_stop(drvdata->worker);
+>  	hid_hw_stop(hdev);
+>  	return ret;
+> @@ -1551,6 +1624,9 @@ static void asus_remove(struct hid_device *hdev)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> +	if (drvdata->kbd_led_cdev.brightness_set)
+> +		led_classdev_unregister(&drvdata->kbd_led_cdev);
+> +
+>  	asus_worker_stop(drvdata->worker);
+>  	hid_hw_stop(hdev);
+>  }
+> @@ -1673,6 +1749,10 @@ static const struct hid_device_id asus_devices[] = {
+>  	{ HID_I2C_DEVICE(USB_VENDOR_ID_ASUSTEK,
+>  		USB_DEVICE_ID_ASUSTEK_I2C_ZENBOOK_KEYBOARD),
+>  	  I2C_KEYBOARD_QUIRKS | QUIRK_FILTER_CAMERA_COMPANION },
+> +	{ HID_I2C_DEVICE(USB_VENDOR_ID_ASUSTEK,
+> +		USB_DEVICE_ID_ASUSTEK_I2C_ZENBOOK_A14_KEYBOARD),
+> +	  I2C_KEYBOARD_QUIRKS | QUIRK_USE_KBD_BACKLIGHT | QUIRK_KBD_REPORT_SIZE |
+> +	  QUIRK_KBD_OOBE},
+>  	{ HID_I2C_DEVICE(USB_VENDOR_ID_ASUSTEK,
+>  		USB_DEVICE_ID_ASUSTEK_I2C_TOUCHPAD), I2C_TOUCHPAD_QUIRKS },
+>  	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUSTEK,
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index cb7f16d75fce..a992c0aabd45 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -221,6 +221,7 @@
+>  #define USB_DEVICE_ID_ASUSTEK_T304_KEYBOARD	0x184a
+>  #define USB_DEVICE_ID_ASUSTEK_I2C_KEYBOARD	0x8585
+>  #define USB_DEVICE_ID_ASUSTEK_I2C_ZENBOOK_KEYBOARD	0x4b42
+> +#define USB_DEVICE_ID_ASUSTEK_I2C_ZENBOOK_A14_KEYBOARD	0x0220
+>  #define USB_DEVICE_ID_ASUSTEK_I2C_TOUCHPAD	0x0101
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_KEYBOARD1 0x1854
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_KEYBOARD2 0x1837
 > -- 
-> 2.54.0 (Apple Git-157)
+> 2.53.0
 > 
+> 
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
