@@ -1,112 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307074;
-	b=I0Z4S+xdeBlnX/TjhGRaXaWSDlv+Ln+mZhUX3+scGCjPbOY7cOMWvAAMZySBeHs8Zdmf
-	 w+8I5pRiDB2Rubk+hzeN2ygAfHVAXz1cKce3uReTVoBc74p8tQ1MhCmQ6rQnMBWVC2Q1Q
-	 nj4cKujU9GCFcA0gcoRt6DVMjUoslvJKKdwifSRgzfWpkV7rrsYLnoWEIVHvvr8dTRYCu
-	 2h4CJbVb7PG5AdJw/6Qy75quATFSaXqUijIzcdh9vcez4cxFApswPnmT2WOc2MnHXUegy
-	 bBJBFSlql7YdGW63t7eS/U7LNy1v0aAdJGRhNTHSMdnTInQdNgNVf8fQs7wrv0Ckpaw==
+	t=1794307062;
+	b=3UiU6zrnve/uC7xjxqi45Gtec1k/PUQu1uqqm6zfEnNVdn6GPYBsWgus+Jv19PF1ONWM
+	 r/6P5mRdZ5tCZZLIegOJr+RfhF1TPdRD7t8Nyenwtrb/AaFKNwhYz7kkEUnFC2nD3LPcy
+	 jweO0L+IG6R27xF9isrEkCDPagsR9h8DNwVKIs9wNhDNloytrunrQhtBcacpD4HwLT2fn
+	 zvQaVWclhkJkfgZJ/FCfwyXcxWt0W/qMVO/UDssyg9qoMLby7GCSbhL8QlTLSl2HoBOcd
+	 EpRmL1Wejh8Mk8wInQby3wQjenkzr8nAiUolFUGTDJBkS3yicV2E+LGTb7J/DXIyJUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307074;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=UlV+p7Ntb3+w27D9HU+z/TWwQDK7MyawCat5dRFi5NM=;
-	b=LULMD410PX8/baK0jTJ0ax8z/jfaXbrvb6JaGmdeNvjPZxBua0EEhJ6FlP8iEM3d5rb/
-	 HLmzL/MQEJn5mHoyxy/KdDHEMNn4wq+27zqyBhyIwWDGrE6FuFftdGjJMXZCFl3tVwjlQ
-	 vYmpGCLMKxUmUEUcoud05K1hov+liTzA0oAI1DqeU7hpB7G0+CtexAS78IDEpb49gh6JW
-	 nwvqaBWr5HdzIBGsgirvckCaTPCPF7Yf4CHteWkM1z1h27uKd6J7ikHZMNTcaFdmQXEv0
-	 XGcicg7kKoDbI0Yo9p5hmTWHesGNIUa93rbmmg2s8GmF8HMAE4CNK+HWluKqZDh+NKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=UWfUyS5pNdj6oGPmU6Tego6EBeTteaLYVvaKra+iOlw=;
+	b=GnCW/CjmQV6ZbnbXlyQJ+Jb6OnDkrXWfUzc+FSbBDJ+3kSay2VIVnlKaUQzXniXfWk6M
+	 nYKm2x8DxS/QTRsqsjbHPXT+Rv5dvhKFLm4EN6V53I9WceP7f8i42TgVMQeIXkqiARafn
+	 fySRjxVhEa1z8M3+z6FD2bj5SpVtiNbV80dujxh9ssSJdfAMDXOy+CduBd8md+lVrxmrE
+	 Ho2iY/P9ivMN5LeckRe2t1pCbolG83YxdsPEwphRNnbnP3qGtMa8BLIUMl7y/VLvSJd9i
+	 UUzah7GCdbzsvO4Ovu/vWJxCjzOwu5ImMb9I7xQXD/4ICGWpx5v0+OrZrI+oN+3kfuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=li9W2jHU;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RTsnqhdh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tovQQbFU;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z1UIzdV2;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMXrt5F0;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213A6606A331;
-	Tue, 10 Nov 2026 10:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 213A6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE24606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:37:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE24606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=li9W2jHU;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RTsnqhdh;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tovQQbFU;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z1UIzdV2
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E701D21D9F;
-	Tue, 10 Nov 2026 10:37:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794307072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UlV+p7Ntb3+w27D9HU+z/TWwQDK7MyawCat5dRFi5NM=;
-	b=li9W2jHUQBd8RF/mnIdAvDFGeOiTFnpMBUfryhtYKGN+o/AboED3XJpT6teCcrfnBljg06
-	VIMmX88Fmu9f4dJoEcCcB8uw3XAm+FJ8TKFBfOL25wXa04QWnGhgmdYoYzlR29eURCk+Sv
-	Gx61YrQxgt2Bw4QvTvCK2Oj0lGykOxE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794307072;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UlV+p7Ntb3+w27D9HU+z/TWwQDK7MyawCat5dRFi5NM=;
-	b=RTsnqhdhTgKVgkdt2CCeVQ6GrHLrS/wKLyJEGkbvqXQYZQ8BcZY4hh3cif5ogfotYB2Z+D
-	tiooSCRlFQZyCsDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=tovQQbFU;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Z1UIzdV2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794307071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UlV+p7Ntb3+w27D9HU+z/TWwQDK7MyawCat5dRFi5NM=;
-	b=tovQQbFU/F6wNXLEsnCezRZ9VBPvbjiXFYg/arT6r3gP1F0Ha7TVBbDTX0EmcF92VQaPN+
-	eHCAl3qCl+XE8CjXLTpE7WPQnk5Xavez9V3lCqc1Roj5OaV+RLFBTd3gh62njXYPZl9+85
-	sn4rnpsSmuRrK+DEpgVbPz+l4pu+B64=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794307071;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UlV+p7Ntb3+w27D9HU+z/TWwQDK7MyawCat5dRFi5NM=;
-	b=Z1UIzdV28HX3HA/oFk93aVP0slCgu+1wQXXSLucK19h1jFXZRVVHKNky5zmkLo4HxAv82X
-	zyNbKYs8l+AbThBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDF0A1339F;
-	Tue, 10 Nov 2026 10:37:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZrdcJv/z8moPNQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 10:37:51 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 4FFCF22485; Tue, 10 Nov 2026 11:37:47 +0100 (CET)
-Date: Tue, 10 Nov 2026 11:37:47 +0100
-From: Jan Kara <jack@suse.cz>
-To: Alireza Haddadi <alireza.haddadi@it.uu.se>
-Cc: Jan Kara <jack@suse.cz>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vishal Moola <vishal.moola@gmail.com>, fujunjie <fujunjie1@qq.com>, 
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>
-Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
-Message-ID: <vna2y3gpsdkntml6fzfvhf55vjbetoitnqv5bitfkh24gfecz6@iihzrvi2g2kf>
-References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
- <gewwqi2kcu4nsitueyw2nd6g6eqjb3wqh4mks5lqcbkc6re4sn@eaqpgn2hxls5>
- <5310BD2F-6626-44C9-A156-3B985552030A@it.uu.se>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMXrt5F0
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so14202275e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:37:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794307060; x=1794911860; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UWfUyS5pNdj6oGPmU6Tego6EBeTteaLYVvaKra+iOlw=;
+        b=sMXrt5F0qVWXeoWNYGKl9tNuxKHgK49EsgCbR47Fb6TJIYHmUahrGXrsOpg85q2+1O
+         g1CqV8TYrU98E8sTMPAcF15bnvDTmNwr2uJDapMlHEAqEouUUMopU8ocuwQn+vvTPOZa
+         u8Ota0bb+WC4oJefzbjxGqHQtpN+9VkUXCkhDpmnygB8+HUHLf/Lh+TIfDc4ZeUR6JiL
+         27Z0FcnWj7c6G+iPF0cf+0lNvRceyi5LxbU7bOwcpJ/+NUvUDLsczKmTX4/YXoZF2jvC
+         fTladr7vVtdb2jKtSvdON+BuFmo3U6j7CLHx/QBCsbkG7mFZHmkMIb41MnjFi107Tkcv
+         D0tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794307060; x=1794911860;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UWfUyS5pNdj6oGPmU6Tego6EBeTteaLYVvaKra+iOlw=;
+        b=HMdTZxXtC32xCDXu79oivg/z9wsN9As7l7pRtE1FVuLeJSSlSP3ud53J5zjEVlM3o8
+         1HakqPFUT3lGPyuUF7l2TgUJWBXrecm3EppgpfZSkgmm/3N+SxFvEDo5UMlZtoGEiIe6
+         sFFpfGVsuE8xKEE420uPghbIUxa4iJ4TdSuY1m/nbigVoMcHkMb3F1rhT66PiPcJQuXz
+         3zP7WfCPReKAP6d5ZC/35Wd7ul685tCivlMTIQMMmwKIaXgYG4FwmIblom/vMMbayM3V
+         jGi+U2Ab/C1rzilsOMA/YN9wx0bkjPSMs/aJCVuywHfm8lVQOQEM6bkSLmNZuSrUtYeK
+         Atmw==
+X-Forwarded-Encrypted: i=1; AL+hErG5clQiONDcELkdORbsimI6MSIzNEoxhSuR6m0WFBjYBsM+jXRZgTSACpO7lzVqhCYyw8XbNOkkSX5PWBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EjtDzbAYz7uDLJsDouyMUyVstL3+GBGiA7vlWlYlpDb6pzvZw
+	fSNq7Nmy6PEArepM6UXkQKKZeRj2wbkwVDn+c144Kxh8CG79sSIQHNbM
+X-Gm-Gg: AYBFou3WOUPHjzowrdglUoycH4ZR+M6MZZHGdeImmpvwYcLYRR7hy+Yvi+Q487del1M
+	2psqxkb9ksJkbYpe5r94E+fXgJ+3ysP4/imE4+bvorGqwk5CMi2EV37yM7VWd0MyLgu8R8ln0ZC
+	gEQXE3F1dllKeIBz2R3YLhqO/RPp2JinzsZ81uenP/ryVP9Vrn2IqODpueVLr+KcsEZWMnAhQVS
+	E9qKS1HZAVscl6oz1I6Xg6fGA+3wdbmiT4EOy9uRGwk1LvkFqG+Lp2MgLllNuDt3acJHv2gjmbQ
+	qBLNeKEKECrtje8bL48dH+dRgb/eyu8LOxXMTa+c2p5FWNMkovcpnIbZK2Gfrs6gYd/GT0XwJsZ
+	IC0O6OfR6PVexUU97gJurlLwP4FSOSLrvZkfvjP5SYGgbSWY+RJEA+5oo4yK47fWJBw+/vTw49E
+	lJydNU6Wc0HqsQNWOGkamxpjxU6JIoVTD4hRdqOD3pDSvYCp6JHvESCFQdffscRl083lQ8HRrjl
+	B+JgqGGaCzIq+gUe91hs2TkW7pfLkw8kZTL4A5Tgvw2PFgvVvwgSKoui6ntV5Ntwqx2l5SMc0UF
+	GsY=
+X-Received: by 2002:a05:600c:4f10:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4ba023410d8mr40201335e9.16.1794307060048;
+        Tue, 10 Nov 2026 02:37:40 -0800 (PST)
+Received: from krava ([2a02:8308:a00c:e200::25dc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2c5asm90643975e9.5.2026.11.10.02.37.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 02:37:39 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Tue, 10 Nov 2026 11:37:38 +0100
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH 04/13] kprobes: Maintain an rbtree of registered probes
+Message-ID: <avLz8k0gdZwYTeA5@krava>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
+ <20261109195517.1090787-1-jolsa@kernel.org>
+ <undine-1794298339502831052-1b6960b8f9b38e7d@undined.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,71 +108,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <5310BD2F-6626-44C9-A156-3B985552030A@it.uu.se>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,infradead.org,linux-foundation.org,gmail.com,qq.com,vger.kernel.org,kvack.org,linux.dev];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E701D21D9F
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <undine-1794298339502831052-1b6960b8f9b38e7d@undined.local>
 
-On Mon 09-11-26 20:23:29, Alireza Haddadi wrote:
-> As Sashiko noticed, with a minimum folio order (large block size
-> filesystems), the 2-page request ends up as a single folio with the
-> mark on the faulting folio itself. That folio gets mapped in full on
-> the retry, so the mark is never hit and the readahead does not
-> restart there.
+On Tue, Nov 10, 2026 at 08:12:19AM +0000, Masami Hiramatsu (Google) wrote:
+> On Mon,  9 Nov 2026 20:55:17 +0100, Jiri Olsa <jolsa@kernel.org> wrote:
+> > Add an address-ordered rbtree for registered probes. Keep it synchronized
+> > with the hash table when probes are added, removed, or replaced by
+> > aggregator probes.
 > 
-> I checked it myself, and it's right. In v2 I'd read two minimum-size
-> folios instead and mark the second one:
-> 
-> unsigned int nr = mapping_min_folio_nrpages(mapping);
-> ra->size = 2 * nr;
-> ra->async_size = nr;
-> ra->order = mapping_min_folio_order(mapping);
-> 
-> With a minimum order of 0, this is the same as now. The cost stays the
-> same in proportion: a miss that follows a cached page reads two
-> minimum-size folios instead of one. I'll also test it on XFS with 16k
-> blocks before sending v2. Would you be OK with me keeping your
-> Reviewed-by for that, or would you rather look at v2 first?
+> Could you tell me why don't you use hlist (get_kprobe) instead?
+> I would NOT like 2 different lists which is basically doing the
+> same thing.
 
-Yes, I agree with this solution so feel free to keep my Reviewed-by.
+The speedup comes from finding the first relevant kprobe, then iterating
+over the remaining probes in address order. The hash table supports
+exact-address lookups, but it doesn’t provide that ordering.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+I agree that maintaining both indexes is less convenient. What do you think
+about centralizing their updates as in the change below? untested
+
+jirka
+
+
+---
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 371ecc7d5b54..7868d8610b5f 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -435,6 +435,30 @@ static void kprobe_tree_replace(struct kprobe *old, struct kprobe *new)
+ 	RB_CLEAR_NODE(&old->rb_node);
+ }
+ 
++static void add_kprobe(struct kprobe *p)
++{
++	lockdep_assert_held(&kprobe_mutex);
++	INIT_HLIST_NODE(&p->hlist);
++	hlist_add_head_rcu(&p->hlist,
++			   &kprobe_table[hash_ptr(p->addr, KPROBE_HASH_BITS)]);
++	kprobe_tree_insert(p);
++}
++
++static void remove_kprobe(struct kprobe *p)
++{
++	lockdep_assert_held(&kprobe_mutex);
++	hlist_del_init_rcu(&p->hlist);
++	kprobe_tree_erase(p);
++}
++
++static void replace_kprobe(struct kprobe *old, struct kprobe *new)
++{
++	lockdep_assert_held(&kprobe_mutex);
++	INIT_HLIST_NODE(&new->hlist);
++	hlist_replace_rcu(&old->hlist, &new->hlist);
++	kprobe_tree_replace(old, new);
++}
++
+ struct kprobe *kprobe_iter_start(struct kprobe_iter *iter, unsigned long start,
+ 				 unsigned long end)
+ {
+@@ -751,8 +775,7 @@ static void do_unoptimize_kprobes(struct list_head *unopt_list,
+ 			 * for synchronization, these probes are reclaimed.
+ 			 * (reclaiming is done by do_free_cleaned_kprobes().)
+ 			 */
+-			hlist_del_init_rcu(&op->kp.hlist);
+-			kprobe_tree_erase(&op->kp);
++			remove_kprobe(&op->kp);
+ 		} else {
+ 			/*
+ 			 * Keep on cooling_list until the quiescence period
+@@ -831,8 +854,7 @@ static void optprobe_finalize_generation(struct optprobe_generation *gen)
+ 			 * Unhash it now and move to cur_gen's freeing list so
+ 			 * it will be reclaimed after the next quiescence period.
+ 			 */
+-			hlist_del_init_rcu(&op->kp.hlist);
+-			kprobe_tree_erase(&op->kp);
++			remove_kprobe(&op->kp);
+ 			list_move(&op->list, &optprobe_gens[optprobe_cur_gen].freeing_list);
+ 			kick_kprobe_optimizer();
+ 		} else {
+@@ -1116,8 +1138,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
+ 				if (kprobe_unused(&op->kp)) {
+ 					if (!kprobe_gone(&op->kp))
+ 						arch_disarm_kprobe(&op->kp);
+-					hlist_del_init_rcu(&op->kp.hlist);
+-					kprobe_tree_erase(&op->kp);
++					remove_kprobe(&op->kp);
+ 					list_move(&op->list, &cur->freeing_list);
+ 				} else {
+ 					list_move(&op->list, &cur->cooling_list);
+@@ -1132,8 +1153,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
+ 				 */
+ 				if (!kprobe_gone(&op->kp))
+ 					arch_disarm_kprobe(&op->kp);
+-				hlist_del_init_rcu(&op->kp.hlist);
+-				kprobe_tree_erase(&op->kp);
++				remove_kprobe(&op->kp);
+ 				list_move(&op->list, &cur->freeing_list);
+ 				kick_kprobe_optimizer();
+ 			}
+@@ -1188,8 +1208,7 @@ static void kill_optimized_kprobe(struct kprobe *p)
+ 	if (!list_empty(&op->list)) {
+ 		if (kprobe_unused(p)) {
+ 			if (optprobe_queued_unopt(op) || optprobe_queued_cooling(op)) {
+-				hlist_del_init_rcu(&op->kp.hlist);
+-				kprobe_tree_erase(&op->kp);
++				remove_kprobe(&op->kp);
+ 				list_move(&op->list,
+ 					  &optprobe_gens[optprobe_cur_gen].freeing_list);
+ 				kick_kprobe_optimizer();
+@@ -1709,11 +1728,9 @@ static void init_aggr_kprobe(struct kprobe *ap, struct kprobe *p)
+ 		ap->post_handler = aggr_post_handler;
+ 
+ 	INIT_LIST_HEAD(&ap->list);
+-	INIT_HLIST_NODE(&ap->hlist);
+ 
+ 	list_add_rcu(&p->list, &ap->list);
+-	hlist_replace_rcu(&p->hlist, &ap->hlist);
+-	kprobe_tree_replace(p, ap);
++	replace_kprobe(p, ap);
+ }
+ 
+ /*
+@@ -2052,16 +2069,12 @@ static int __register_kprobe(struct kprobe *p)
+ 			return ret;
+ 	}
+ 
+-	INIT_HLIST_NODE(&p->hlist);
+-	hlist_add_head_rcu(&p->hlist,
+-		       &kprobe_table[hash_ptr(p->addr, KPROBE_HASH_BITS)]);
+-	kprobe_tree_insert(p);
++	add_kprobe(p);
+ 
+ 	if (!kprobes_all_disarmed && !kprobe_disabled(p)) {
+ 		ret = arm_kprobe(p);
+ 		if (ret) {
+-			hlist_del_rcu(&p->hlist);
+-			kprobe_tree_erase(p);
++			remove_kprobe(p);
+ 			synchronize_rcu();
+ 		}
+ 	}
+@@ -2191,8 +2204,7 @@ static int __unregister_kprobe_top(struct kprobe *p)
+ 		 * !disarmed could be happen if the probe is under delayed
+ 		 * unoptimizing.
+ 		 */
+-		hlist_del_rcu(&ap->hlist);
+-		kprobe_tree_erase(ap);
++		remove_kprobe(ap);
+ 		return 0;
+ 	}
+ 
+
