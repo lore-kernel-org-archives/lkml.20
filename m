@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269022;
-	b=m1EKq8M9Bf0OvR12dMb2qz+s7TMjmJzACKL5ygiMcpd/I+1RnXbenqaVjgZtDYZt1uha
-	 zsi3IZXamGOk621fxOKkdUThuxN/JBMuaD6QohmtSn7MALk8UZsCyNYncKMwFCddu/x/F
-	 28rX/YzaeEAL3ESDGlExcJHn55Htr02abD6O/lvav2o71xHfKoyqvI0FC1sukiAzA/hcs
-	 R9oRC9i/R7d0y/jIhxjbbdwVTatbDUaavrlHXXI5cndiyYMy702tPb+U3RRI1LRForfsK
-	 ESdmqIwsmKrAQxFuWuCGmXgJm/YDmoYZB7h1j+WTsYw8bo6GeyUB8sWF1GuLjwiiZBQ==
+	t=1794269024;
+	b=j+26CPiysNorJ698lTHqfunGY+g1J0j/VsmJhSkJBgTWjp2855Xb27Cfq7ZieHHactYK
+	 YWtdXC07si6BXSz7Jl3p1rgEOPs5zB9VTyx2tMlhCsBl8jIuLplFZO/DvBJyDccEc+hzx
+	 xZzHtFpCgPBY7n9IdllUTgP7zAs1acOwTmYQtN3v6Tt4GXT2jw5pNqlhoADOzQ8u8CRns
+	 Dn/wYpEKEFqsU/h34jul3QRz/RHTedQN/m1SYKiVhvtK69A3nUidwoR5jJDyrDT9axK8D
+	 /EUR0jgLa6oNgMFSnFImAjnfl4xZrSf1GCvEnndgvwfXUXW+XdEQcVUvyIQH+Imxu5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269024;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=A1ekNc0B2q5hqHVaqyrrPmobu/u9RVnhuIQihIy7wRk=;
-	b=SWha+iB6V08crQzmpBOh/3y7FiIHM60X4jHzVNfBfRuhE1ITlVQtCFltpEUvbsXZsMmo
-	 lgZgXa4rQQ7kPwBnvenY510eyeHCr+Rd25WtxIYbybxU/3awBPvB+qLF8H5mVUlshOcWO
-	 ILAaUVxFu+/y4F+74nscAIG2JX5XrDRh6DN27FOkkWxfOp0MJCrzFmQMWog0W4xS9Xk4X
-	 eyGcygYoinOsJXG6eWCOaJgAIIjLjoAHxCc+tyNrttI7tbqVc+GRTzVByBi3yVjb8hOkf
-	 RMiVhaorB+xA5WsUHrHMLbsgWPD29+W7xtYCwH7ODcenA46+zmoz4KZuTrfv7PjYBJw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
+	b=jKAx8mJZEJ6T1b+IpV7DFiGDa2wNHOK92FuedHqLr3+oDvGWC1PCLypca7LEzBlRUEey
+	 gdXuaziBJSHxDUA0zZqMAhNJy3OHdZtJFzis53lwmYgj2W/MzTJw3k3Dr99N6DEouix1A
+	 JXGWlF8E5yChm9V9zGCPMfIJraECwcWiAAxa84xQXTNHh+9DST8Ep1WFAsxqfpGUWZMZY
+	 E/MNFDlchkSdsUvjL0ag/Bcv/7anrgaNb/qjhhBXA82gbE+VwBExXeN/itNlx1ICyHxW4
+	 klC8E3hqj8wqYTY7BdBGwoQlqeHJIe2IkOFWBfWFsJZjHabdM8TL8nW+dFnO4O5Xk2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CBAhUf2y;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIyyEQr3;
 	arc=none smtp.remote-ip=209.85.161.51
 Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32018606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32018606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E857E606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E857E606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CBAhUf2y
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6f8a519e215so1201785eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIyyEQr3
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6d68de53053so996995eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794269020; x=1794873820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A1ekNc0B2q5hqHVaqyrrPmobu/u9RVnhuIQihIy7wRk=;
-        b=CBAhUf2yn6WZIgPwxB7XEigl0wX0r9hxr59yeWTDVVxOzRp6j/qlJ6iS77GCPYvMq4
-         dlhTzAu+VUm2rZwKeqD3GOh2PNpBn8DRaA41kGLROs58U2OQgMBRGYx6q99QSJ7jrs0B
-         0lo1Jfk0J2jjJ9sstyPXByjWwWam2RD+FCLWi4TzINp0b/rqfny6dWOPlb8bdKPNtcdx
-         BssVG6UXxnHpuk/i/7Ma8nwUX4X17/TG662XmvEfffyWvpzRIbpc57KV4VZQh/qjlIhc
-         SsId39xPCupfmo1GiHebZtXKoGmUubsdXiu/fo9IFh6Kuca7cl18GzQN/fxTeAK0qYu3
-         tdnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269020; x=1794873820;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794269023; x=1794873823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A1ekNc0B2q5hqHVaqyrrPmobu/u9RVnhuIQihIy7wRk=;
-        b=rmj6VR6sc7TrDN1u2WriuZpUdCrAsWHXCDh2Ff9nhhCB8NpHqkJqjfyStixaPSBxAq
-         JYOfXH+HkRLGSYUhN3h8u/FjdxP9zSDny6YOG6KT1E5d7X6cCYbTbKUx4tc7gyTaW7/N
-         XDOAL7cCnX8nAhf8Q3p9jgElBIemfKIynDTC4cGuC+SffEMbrBE33ocQnX51wOrYLll3
-         Uhr2cOSSO9DOSmsxF0SC0f2feH4Jt4QETtlYikSFIQ09hCTVWaGOOK5GzbasI8VKz1ew
-         5+JlipmvSxJXREkbIaJzp8DVpZmOxM8jyMJuMQpK0jRdCXn5N0YbOfeyBSBcX4+be4Z/
-         avKw==
-X-Forwarded-Encrypted: i=1; AL+hErHzXelPBnGAXcd5/7EIHCzvwI/lj/ONAGM2ScRVLiVrXn7Np7gq+wgKBggU3MLPbTCNpRST8VeoQnq+za8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DdzjJpVhKrZToSDBJbBwqKG/dyLiZ/wm58xhHDVyxcu1W3rD+
-	mR8Flxl+Ae2jqgNTpJM4E9afTcQgtut7NMCJMcj/8/AmUzRA/BdJmdAO
-X-Gm-Gg: AYBFou2BaAh52au1XtWJwku4MSsZMHaCK1PfgNjjALYDMg/315fOvnmPQbEFusHQZa/
-	QFkc1Ujgdb6+qAqEJ1w9GfCrwUYf7KR7VRXgOA2tBGH4A99Kts9gxnHBGTmD+zaIqlSJEPOkqod
-	LSf0UesJclRR0Y35Gl9ma0d4Xj7BpeuRBjxmv/ghiVL6aV74WokUnCkVaj8den2aS3E/r2OzRas
-	MPZm96Lpu1e2N0a0ZpX1Xw5dyzyNVmTjDvkSOhSuiUteHjDUJsrcDzwk+f7ek7bD7NwqURBiIPF
-	+AiE4fVZfan0v7SPYuaPa9WXNyYGksKttJq2LVHyP8xmCn8aBXRidbPPkCD13sGzuE1X9BvMfq1
-	sgvb50Ee55/K/0eYDEsmShxLTkSLh4rFiT0QBxIcKy5zbn+1KM/ysdfavj6JpUWjtULuyoE5FPI
-	ar6MtQhG2ku+8WrUVmUsidD6to546FSN6WnNKWLAgjw8KbGnGQLZ/uSWxOKO+ZdG+QgqXl4a5SX
-	VsSKWBUwFrmJM4EXl2hbRU3tWCMIvTu/wRgdLJzcdvtyYezCEFkYAJSiRTcB4cqmQNPFejvAxIH
-	BQk/ZsX1RSH21HKkCprWqDNr61Idp8qi1psiTKUztBg8BYY6gzT2FIpQsCyFxQne
-X-Received: by 2002:a05:6820:a711:20b0:716:e9e0:542e with SMTP id 006d021491bc7-718a528656cmr220220eaf.12.1794269020089;
-        Mon, 09 Nov 2026 16:03:40 -0800 (PST)
+        bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
+        b=VIyyEQr386njSjYzUQ7Q00OWsSdpmWsfy72Y9mA6pZGJtvTbNQLrCYlMGYn30EqU/m
+         CPjSDLEjTv4c/z+XCt/H0OWcgbnC9ABGDwWNrc3+mrKiFt5clvk/Qh0SmYe0YhgEY6XM
+         BqS/xMn6oIX/0ym0dCPICKBnR+doCzmUQeFbGh/c1B8LlmPdK/YFOr4InSwO740OEJro
+         aP8/X+IE2cPjZywMFmr8p9GUJf6WB8Z0LzhhQ3BlZbXDdhLKA7IZU0YHkpBgYYsUNrVi
+         bX45fahueSIpAD2aEY4ZmmZEBF5Rb+3QLfZvOZceCbPbssKmXZCqfONQM3fgkk6BkvLe
+         96UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794269023; x=1794873823;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
+        b=hsZKucLr9PXw4MgJFmZSQnWGrYKQ2UhpcW/vR8Cl+4T4XRkzfR36zKR0LrZo17fopk
+         wiFDH37YN+RzZWxpUaT1Xd5PXLAU09CyAwKKH5O69xteY8pzXUZRt+CJkEPKlXXC6PCE
+         s/tDZk1bmLtV460YSRLTe81HZjJaw24vxP6jFB36TjoxeFJh1DsCJnPFTm01UMH9K9q5
+         XoZSOZ+Li9oSZpL3nsRSxSuKH3yHs/D5cKj89OOENOL5cFK1bPfr5VOsRww5v43TfSSk
+         S7aF87lleV99XLlJU6fEvxux+QbshoCN3hLqStkcDZtTGqb/uFJPMQUTNYFIu3yf59ov
+         Fn1A==
+X-Forwarded-Encrypted: i=1; AL+hErF1amnSkFjOshpbBA+ukhypiqjsLrM91ZuUbNdKrkePzo57tvWHCglcRbvXt3GePRy6farDpCowxaXnXxM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xIJOYjpJVcptPjUD3nfMV6gdRzC/u20qQehlSPnC50Tn813Ex
+	wPInQmAHoQkribHxm4+ccVaUXi4CkFlkBabpYrXod2cHxQcjSucpNLVl
+X-Gm-Gg: AYBFou09hdjjJyE/jwcxokWVvKqVzenVJRyikHctbL1LQVm5qpnYJfBuKMVQ4TMEAXg
+	dJQ1g4bZTnO+TQIdD4hFbk6XKiC7WUwa2ai5+ne4XL1ju9wlvZZeZNABB/R7y3MuLZZHFbhSwzY
+	XIwjk35ltMNwin8tsJ8uoR+1PZJk0KxAxzDm8fAG9PdBdd9Vj2sSPG5Qky+B+lgWtRpQrPPvEqZ
+	BKR5z2sszWZk8ClDhUMJ7jnQbohHw7yn/tMQAhBjqzLERh2eZF177ZqgmVFn5uZqZKwBsqzKNJT
+	7YWgEdqCf+P4CY/oub1p8iso55zAWFRLITu/WlY4ZuojinJnVdjGWp0E5TCHwFbpIJ3VvWzHcKP
+	HyEPGrvsOuu8DN5b14LDShY19c2J+zb1zbQYaBYHqU9Hzi8aveTpKW7Hw3Pqoue7h6QJJEY55Hf
+	dHaI0/QbtvFg8780HNj1VZLdoCrP2xDHo9AGA4ij9B7rjruPz2MWZe21jsS4w4C/hMTgOYqIzu3
+	BfdtTgBcOGJYarlAbeJt7P8UxVlYvgdiOdT/fwF27UH/d6ZOLQyLp6OKzT8p7WvVxc9CTp13jEa
+	nbJVpL5NE+Df6fdWHGML6i7D3u09Occ2fwVQeL2j7MU=
+X-Received: by 2002:a05:6820:60f:b0:6f5:a96d:cbb with SMTP id 006d021491bc7-718a644c319mr420980eaf.45.1794269022914;
+        Mon, 09 Nov 2026 16:03:42 -0800 (PST)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.37
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:03:38 -0800 (PST)
+        Mon, 09 Nov 2026 16:03:41 -0800 (PST)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: jpoimboe@kernel.org,
 	peterz@infradead.org
@@ -86,10 +87,12 @@ Cc: yangtiezhu@loongson.cn,
 	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH 0/3] objtool: Fix undefined behaviour reported by UBSan on a defconfig build
-Date: Mon,  9 Nov 2026 18:02:52 -0600
-Message-Id: <20261110000255.1720945-1-lzsx618@gmail.com>
+Subject: [PATCH 1/3] objtool/x86: Move the cfi->regs access after the NULL check
+Date: Mon,  9 Nov 2026 18:02:53 -0600
+Message-Id: <20261110000255.1720945-2-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110000255.1720945-1-lzsx618@gmail.com>
+References: <20261110000255.1720945-1-lzsx618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,45 +104,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An x86_64 defconfig build of v7.4-rc2 with objtool built with
--fsanitize=address,undefined (GCC 12) gives two UBSan reports from
-objtool, both on the normal vmlinux.o pass, no unusual input involved:
+init_orc_entry() takes &cfi->regs[CFI_BP] before it checks whether cfi
+is NULL, and a NULL cfi is an expected case: the comment right below
+says it happens for unreachable nops/traps and for
+STACK_FRAME_NON_STANDARD functions.
+
+Forming a member address through a NULL pointer is undefined behaviour,
+and since the dereference comes first the compiler is free to assume
+cfi != NULL and drop the check that follows.  An x86_64 defconfig build
+of v7.4-rc2 with objtool built with -fsanitize=undefined hits it in
+every objtool run, on vmlinux.o and on each module, all through
+orc_create():
 
   arch/x86/orc.c:11:18: runtime error: member access within null pointer of type 'struct cfi_state'
-  special.c:84:18: runtime error: load of misaligned address ... for type 'unsigned int', which requires 4 byte alignment
+    #0 init_orc_entry arch/x86/orc.c:11
+    #1 orc_create tools/objtool/orc_gen.c:72
+    #2 check tools/objtool/check.c:4939
 
-1/3 fixes the first one: init_orc_entry() takes &cfi->regs[CFI_BP]
-before its own "if (!cfi)" check.  2/3 is the same pattern in the
-LoongArch copy of the function; I compile-tested objtool for LoongArch
-but have no LoongArch object to run it on.  3/3 fixes the second one:
-the feature word of a 14-byte packed struct alt_instr is read through
-an 'unsigned int *', so every odd-numbered entry is misaligned.
+Take the address only after the NULL check.  Running objtool with and
+without this patch on the same defconfig vmlinux.o gives byte-identical
+output.
 
-Testing: I relinked vmlinux.o without objtool and ran the old and the
-new objtool binary on two copies of it, with the arguments Kbuild uses.
-The old one prints both reports, the new one prints none, and the two
-resulting vmlinux.o files are byte-identical.  A full rebuild with the
-patched objtool is also clean for objtool.
+The report was found with UBSan, and the analysis and fix were
+prepared with the help of an AI coding assistant; I reviewed and
+tested the result.
 
-None of this is a security issue: objtool only processes objects from
-the build itself.
+Fixes: 8b946cc38e06 ("objtool: Introduce CFI hash")
+Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
+---
+ tools/objtool/arch/x86/orc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-The two reports were found with UBSan, and the analysis and fixes were
-prepared with the help of an AI coding assistant; I reviewed and tested
-the result.
-
-Leizhen Zhang (3):
-  objtool/x86: Move the cfi->regs access after the NULL check
-  objtool/LoongArch: Move the cfi->regs access after the NULL check
-  objtool: Fix misaligned load of the alternative feature word
-
- tools/objtool/arch/loongarch/orc.c | 6 ++++--
- tools/objtool/arch/x86/orc.c       | 4 +++-
- tools/objtool/special.c            | 4 ++--
- 3 files changed, 9 insertions(+), 5 deletions(-)
-
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/tools/objtool/arch/x86/orc.c b/tools/objtool/arch/x86/orc.c
+index eff078ecc945..b688afcc4ffc 100644
+--- a/tools/objtool/arch/x86/orc.c
++++ b/tools/objtool/arch/x86/orc.c
+@@ -8,7 +8,7 @@
+ 
+ int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruction *insn)
+ {
+-	struct cfi_reg *bp = &cfi->regs[CFI_BP];
++	struct cfi_reg *bp;
+ 
+ 	memset(orc, 0, sizeof(*orc));
+ 
+@@ -22,6 +22,8 @@ int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruct
+ 		return 0;
+ 	}
+ 
++	bp = &cfi->regs[CFI_BP];
++
+ 	switch (cfi->type) {
+ 	case UNWIND_HINT_TYPE_UNDEFINED:
+ 		orc->type = ORC_TYPE_UNDEFINED;
 -- 
 2.34.1
 
