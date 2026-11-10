@@ -1,104 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344752;
-	b=S9+N/k1/alhFa7gGaH0eGeMPJXRWbUgxY6n3mphGNvOaUpdyDiZi87C6mMjwxd5PqPP+
-	 tXmATjfP2RwD3Nxl5fhEmuWaHrQWgQv/bLeRoSwvQ4hYq86z7eTZZJCla8SOMtTy8eM7D
-	 KznvDZcD0mcxUqMS1k6lK38wqS71s7jTGQiihaJXzhxe8KamYhqAhNOjXy/A8xv+yskKJ
-	 AT68fie4afMS/FM/5ldto9FDchyon4UmcD8PUQACk0BMOGagMq8qDTobLKt9/Kerfn1Zp
-	 fabtV+epRSMgxCrB/Th0FhI7RUQkKWyWtQsawGtDRuQJxiPo6mlFyCF5fO5VrpV3yHw==
+	t=1794344820;
+	b=gi2tEVPNRJ4XdoIzgpeYcde/g3AsTEs3jspGPXWPEvRcZF8ZdTX/KSTe0RQOEtjQxmsw
+	 t6flUU3ioEjPapY+gvRbO80S73q7CO/X2CNQw0pCDu95ax1gdn3KOjXiFgoKqjYKDcY+2
+	 jIrYoVWaLC5rMRrLC0H/wWo8GXluow7O+bnt1qq16sUz1Q44wF44NVglBSiSMYNo9v1VL
+	 WFjFKPRjxb7HS2gJ7aHpTjL59Q0ujMKVcuWEa8zmZtcKtAvHTNosf6URvvyIVJYedJofK
+	 hJN54j4fT7jJuD7IDGDDbqZ/F6pNJ+gZTOWAJRlSmgjEX70hsb53XnP9Wi9nD/DUYbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
-	b=UzqhH3bUz6EEp3mimG5fU/UyUmAQcWCscRt17KsoRpRkb/7W3cqmi022vJ+nd+8rAu9o
-	 3gKVgDP8PDQ4eX9r4zTzRqzm//Y86+OcdO6pVmTY9g+SkDihj2ksGRxOvlDD1pETIJw/Y
-	 dqQ2UW6j63cIlCBlQuuhikkYSBBM9sLoXoCf2tf7DhTjgiwNF2jQhiOnw7rNtxol/v2QH
-	 PLCGXPZctfOdISRPwYNCH3nFJWOKfMmEslAhOdI2K1CJzN0U6Fn0SS2T4tHz/YK4ONyGP
-	 n+6n+LBp6bofFesuKSe9seyyhWQDMAKWSg1sYQICQxI/1pQOGuPz8ZZedb1IPonE/8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344820;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=DpnP2Mak7ClK0iGLIA+5g0n2afYfskurGZa8VAsvA5Q=;
+	b=LQ0UKkoj3ctGT6BG5y1218JDbTuV15a8UpVrWrR+zLTILsI94m0Fjk/uaFHI3VSFYNMP
+	 lZ1T3a7Or5aEBaaRStIrIMAM7P8G0/5LOm6PnKv6rXFFKnlv2U6fqznP8jQbrm3hlNEr/
+	 XppU8PrZYCcKn6CdAnhZUd4Yyhl2jm2s07aVPUGPU1VGl4ISlCbejyojb5Kk/AObidM/r
+	 b28DVw8htTlOCQVf9C4xaPDSKxO4bv36d8D9xWXozvF8XKGlXC0Fnv0znKYW7Til2EXYR
+	 potTftiuXU/btGHCnTBxqz5dsu0BjV9FYuskKpsMaRGYLFYxthLOBCCbSV6eta7ZsLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=blockcast.net;
-	spf=pass smtp.mailfrom=blockcast.net;
-	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b="PFKGTh/x";
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wx6NcXCp;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B87160A382C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B87160A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6F5606A320;
+	Tue, 10 Nov 2026 21:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E6F5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=PFKGTh/x
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3acec6677so3870692c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:05:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1794344751; x=1794949551; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
-        b=PFKGTh/xcQl+W0yBVx+SaOfczow99hFdO6cJJoZJNuz6AXxmdoWFbZ3Y9pmgR3Fvzq
-         oZaYe7Znzz5zqaXwBkNJyt9JoQDKbVb28mfc/D6mAHcvttw7pRl+Bu4g7rFzwE25OWb9
-         dW267fUD7hXxaHrg7UewdnzTD8UxA8YRf6+9IdM7vSjWaZ1yJkNp7RAbRe3j41nAw/d3
-         vCg5UHVxkLGk2ROIRaSAtvHhWcpg4huyFEW+Y2i+8TgBJ9TQhU9LXbTbymmxVhmgmLTc
-         kwO6YFnVO755/P19vG4cBGk8AMltMylGgh5CeK/yic3SWZSbK8zRZmJi51AP0MfLhx/6
-         JfmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794344751; x=1794949551;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vVZVlJz2xvnsRRciHhmJHZpeRfn5b7Ccf+nD0x4TgnE=;
-        b=WmV6QZUpXc3qTkbp8aHKgmZTNtux9sPotre2TaDTkpIUpOsOf9Sx2Lmn8Ivx8mfGbi
-         uQkfexvPWrECIe8ZwXXuETurtLQ/hghtK/nIvzwPFykZc7CgctPTuC9eBsDvjVH9uJdT
-         VGzZwzStjJLqIjYNiX1dv5YrItsN6blNDGPLmeDrBxo9zYx/JowTmD3LUHZP2sGgZk5o
-         MkQFpb83BNMwG+72Pa/Q660NvA/yeNFuhy0FVCOmF8XwWGkB0dpFMMuxxYgSScXpW8RB
-         K67gzbNJA+l2i+2Aw61HwHnujwGBJdeaw1PfQxiKsoxr7uOPq6MlYzMxEA9ewUzOvDet
-         CqnA==
-X-Forwarded-Encrypted: i=1; AL+hErGXvpZrVT0OuLRPvoRuBRl+fto35VYd+besF2C0cvyJx+0ifE9Lpt5EYSKe/cD+PwP2gCrRi9swGe9DBJs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lLNQC/7ZihvAStRa9Y8/08KXQEAazaCdQUbDhzvfW0GxrA8yH
-	7CCrXIdT3QuOIlGbvlhg2h20yG4+4y0G1tPeUOKNo1PuiQAfJKOpB5cmwEjM1SZg7V0=
-X-Gm-Gg: AYBFou01ZJHsDMVaEouUDGgcWv90HGLFjJ+SPJBsibi46y83Vv9GRRlkCFRR7u5Odza
-	YVJNSOgaFjMUyKe/LuGtwK/ZKjvLWNbrnU68KcBqAGhIx6x0tDogi5OxhbxVbLJm2eEtAnm7vz1
-	Eb9Z55dtltu+1506oTS3TT936OYsp1kDgQBoCaX1FcV+HiWjFD8SMLRf9Sk2Nw2/tdxTtBkeAGr
-	vJQzTfUERbf7Yl4+tQ7zevbUFLvXXOWI1bMOblsXHY5Epa7flXFWtt0Fcuu4bG6hyN6yBu3pxwH
-	p1It+VpGoCes98WxJgcfiLi5muj32V8BfXJA4Nl0i39CNdQn1Jl/p9LsB3bZYeK3aX4NhOu9o6z
-	kSLIPz07MvBt82gmhcLzHFsVVy2YZao1HsVs7dVuzk+kTV2/XTOampmazITQkGR0YXTgJcyEq7u
-	ApodGkJDpNaN8OPxcSGP0uD1vdTEt5Jdt3S6BaYV6XdThyFjgMEl2lVyIz7u+wJGRPEo+MHWKdz
-	iuql6ome1uUXlpBEWK5YX6rB6CRA+M4peNS1HeZFxRZjUyUbGMQS0vHdSNlVdiUsNCffqBvfWFw
-	NZfNwA27NdsTZWZ6F9LDigPO303IcEmTJU/DGSKdWTrq4Yym8ZHdbSk1VPJuF6sms9GmFi0=
-X-Received: by 2002:a05:7022:ed07:b0:188:ea93:6cf9 with SMTP id a92af1059eb24-1b3c0359347mr89087c88.43.1794344751021;
-        Tue, 10 Nov 2026 13:05:51 -0800 (PST)
-Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm10464097eec.17.2026.11.10.13.05.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:05:50 -0800 (PST)
-From: Omar Ramadan <omar@blockcast.net>
-To: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-rt-devel@lists.linux.dev,
-	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH net v7 5/6] amt: make pre-query report drops visible
-Date: Tue, 10 Nov 2026 21:05:36 +0000
-Message-ID: <20261110210538.217936-6-omar@blockcast.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110210538.217936-1-omar@blockcast.net>
-References: <20261110210538.217936-1-omar@blockcast.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wx6NcXCp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794344819; x=1825880819;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VepGlO4JaVIwZk/LYRXN0gv6O3En9kw6cam+UtiCf4Y=;
+  b=Wx6NcXCpkjSGnKK2eLLpzDP9XoMcTKRPsVHJh3/yyonHj16GDln2UL5j
+   MxgNub0hey1JaHxJ/zAQkidqzSyYQIxxq5LdD9V92k5EZgpnru2z4+Rbw
+   6c8WDer25uKfUfVhF0k127Zo2lgoGnlH+vThSKmEJS2Yqi1GURiRfb9QQ
+   EBBakHpchH449eNv/CSeD6dSBlwiYGPNkbEDPRaerpMcN6ObKjMJ9HSB3
+   2nL1mmw6RCu3M0y0oe1gSdI82YZGfKGNkHlahELWLRmcgeu+SmEFGf5yA
+   B+qO5zHwgcf6Q2Us3tcsfpJJX8q8Zv+7w69VPIjcvYASbbvqqeH4OouGt
+   Q==;
+X-CSE-ConnectionGUID: ON0iHAdwS8KalNUj+UqLvQ==
+X-CSE-MsgGUID: H7HFSmKhRjqxTOewE9brjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3004963"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3004963"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:06:11 -0800
+X-CSE-ConnectionGUID: ylWqEV9DSp62yHh3wXL4qg==
+X-CSE-MsgGUID: i0cp5d5LStKfGbjkkOZj0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8341426"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:05:22 -0800
+Date: Tue, 10 Nov 2026 23:05:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	apais@microsoft.com, rlmenge@gmail.com, hargar@linux.microsoft.com,
+	Jarred White <jarredwhite@linux.microsoft.com>,
+	Jeff Kirsher <jeff.kirsher@microsoft.com>
+Subject: Re: [PATCH v2 1/1] i2c: designware: Add ACPI ID MSFT0006 for
+ Microsoft Cobalt SoCs
+Message-ID: <avOHEJxZG49tICa8@ashevche-desk.local>
+References: <20261109210146.57766-1-sidchintamaneni@gmail.com>
+ <avI7g14oGpFKlJnV@ashevche-desk.local>
+ <CAE5sdEg3VKZuGqpt1Sm22Dsuh8HUFi-9w2GWEAicALS4ECXQ_A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,199 +87,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE5sdEg3VKZuGqpt1Sm22Dsuh8HUFi-9w2GWEAicALS4ECXQ_A@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-A gateway cannot forward an IGMP or MLD report until it has received the
-relay's Membership Query for that family.  The Query supplies the
-response MAC the Update echoes, so dropping an early report is required,
-but doing so silently leaves operators with a dark multicast path and no
-indication why the join never happened.
+On Tue, Nov 10, 2026 at 12:15:10PM -0800, Siddharth Chintamaneni wrote:
+> On Mon, 9 Nov 2026 at 13:30, Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Mon, Nov 09, 2026 at 09:01:46PM +0000, Siddharth Chintamaneni wrote:
+> > > Add the MSFT0006 ACPI ID for the DesignWare I2C controller integrated
+> > > on Microsoft Cobalt SoCs, along with its 300 MHz input clock description
+> > > in acpi_apd.c.
+> > >
+> > > Without an explicit MSFT0006 entry, ACPI device matching falls back to
+> > > its _CID (APMC0D0F), which configures a 100 MHz input clock instead of
+> > > the controller's actual 300 MHz clock.
+> > >
+> > > Acked-by: Jarred White <jarredwhite@linux.microsoft.com>
+> > > Acked-by: Jeff Kirsher <jeff.kirsher@microsoft.com>
+> > > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> > > ---
+> >
+> > Where is the changelog?
+> 
+> Oh I just dropped cc tags.
+> 
+> > Haven't I given a tag already?
+> 
+> no, I thought you were suggesting that I repost it.
 
-Emit a family-specific debug message before taking the drop path.
+Okay, it's fine to me
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-tx_dropped could not show these drops either: amt_dev_xmit() reaches the
-same tx_dropped increment after amt_send_membership_update() has handed
-the report to the tunnel, so in gateway mode every forwarded report was
-also counted as a drop. Return NETDEV_TX_OK directly once the report has
-been sent, so a report the tunnel accepted is no longer counted in
-tx_dropped.
-
-The device is LLTX, so amt_dev_xmit() can run on several CPUs at once;
-use DEV_STATS_INC() for tx_dropped and tx_errors, there and in the
-control-message senders that update the same counters, so concurrent
-increments are not lost.
-
-Found by code inspection while debugging an IPv6-in-IPv6 forwarding
-failure in a selftest for the AMT IPv6 outer transport. This drop can
-leave one address family dark, so it was a suspect, but that was not
-confirmed: the failure was later traced to the selftest, which sent a
-single datagram without waiting for the relay's multicast routes to
-converge. The drop has not been observed in production, and there is
-no oops or trace. The Sashiko AI review of an earlier posting found the
-tx_dropped miscount and the non-atomic counter updates.
-
-Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
-Assisted-by: LLM
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
----
- drivers/net/amt.c | 42 +++++++++++++++++++++++++-----------------
- 1 file changed, 25 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 99cce0a14..de5b7dbe3 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -735,7 +735,7 @@ static void amt_send_discovery(struct amt_dev *amt)
- 				   IPPROTO_UDP, 0,
- 				   amt->stream_dev->ifindex);
- 	if (IS_ERR(rt)) {
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -745,7 +745,7 @@ static void amt_send_discovery(struct amt_dev *amt)
- 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
- 	if (!skb) {
- 		ip_rt_put(rt);
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -790,7 +790,7 @@ static void amt_send_discovery(struct amt_dev *amt)
- 	ip_send_check(iph);
- 	err = ip_local_out(amt->net, sk, skb);
- 	if (unlikely(net_xmit_eval(err)))
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 
- 	amt_update_gw_status(amt, AMT_STATUS_SENT_DISCOVERY, true);
- out:
-@@ -826,7 +826,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
- 				   IPPROTO_UDP, 0,
- 				   amt->stream_dev->ifindex);
- 	if (IS_ERR(rt)) {
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -836,7 +836,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
- 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
- 	if (!skb) {
- 		ip_rt_put(rt);
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -883,7 +883,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
- 	ip_send_check(iph);
- 	err = ip_local_out(amt->net, sk, skb);
- 	if (unlikely(net_xmit_eval(err)))
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 
- out:
- 	rcu_read_unlock();
-@@ -905,7 +905,7 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
- 
- 	skb_pull(skb, sizeof(struct ethhdr));
- 	if (amt_send_membership_query(amt, skb, tunnel, false)) {
--		amt->dev->stats.tx_dropped++;
-+		DEV_STATS_INC(amt->dev, tx_dropped);
- 		kfree_skb(skb);
- 	}
- }
-@@ -949,7 +949,7 @@ static struct sk_buff *amt_build_mld_gq(struct amt_dev *amt)
- 
- 	if (ipv6_dev_get_saddr(amt->net, amt->dev, &ip6h->daddr, 0,
- 			       &ip6h->saddr)) {
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		kfree_skb(skb);
- 		return NULL;
- 	}
-@@ -993,7 +993,7 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
- 
- 	skb_pull(skb, sizeof(struct ethhdr));
- 	if (amt_send_membership_query(amt, skb, tunnel, true)) {
--		amt->dev->stats.tx_dropped++;
-+		DEV_STATS_INC(amt->dev, tx_dropped);
- 		kfree_skb(skb);
- 	}
- }
-@@ -1353,7 +1353,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
- 		group.ip6 = ipv6_hdr(skb)->daddr;
- #endif
- 	} else {
--		dev->stats.tx_errors++;
-+		DEV_STATS_INC(dev, tx_errors);
- 		goto free;
- 	}
- 
-@@ -1366,12 +1366,21 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
- 		/* Gateway only passes IGMP/MLD packets */
- 		if (!report)
- 			goto free;
-+		/* A validated report can only be forwarded after the relay's
-+		 * family-specific Membership Query supplies the state echoed
-+		 * by the Membership Update. Log this readiness failure before
-+		 * the shared drop path accounts it.
-+		 */
- 		if ((!v6 && !READ_ONCE(amt->ready4)) ||
--		    (v6 && !READ_ONCE(amt->ready6)))
-+		    (v6 && !READ_ONCE(amt->ready6))) {
-+			netdev_dbg(dev, "drop %s report: waiting for Membership Query\n",
-+				   v6 ? "MLD" : "IGMP");
- 			goto free;
-+		}
- 		if (amt_send_membership_update(amt, skb,  v6))
- 			goto free;
--		goto unlock;
-+		/* Sent: the tunnel consumed the skb.  Not a drop. */
-+		return NETDEV_TX_OK;
- 	} else if (amt->mode == AMT_MODE_RELAY) {
- 		if (!data)
- 			goto free;
-@@ -1400,8 +1409,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
- 	return NETDEV_TX_OK;
- free:
- 	dev_kfree_skb(skb);
--unlock:
--	dev->stats.tx_dropped++;
-+	DEV_STATS_INC(dev, tx_dropped);
- 	return NETDEV_TX_OK;
- }
- 
-@@ -2777,7 +2785,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
- 				   IPPROTO_UDP, 0,
- 				   amt->stream_dev->ifindex);
- 	if (IS_ERR(rt)) {
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -2787,7 +2795,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
- 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
- 	if (!skb) {
- 		ip_rt_put(rt);
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 		goto out;
- 	}
- 
-@@ -2833,7 +2841,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
- 	ip_send_check(iph);
- 	err = ip_local_out(amt->net, sk, skb);
- 	if (unlikely(net_xmit_eval(err)))
--		amt->dev->stats.tx_errors++;
-+		DEV_STATS_INC(amt->dev, tx_errors);
- 
- out:
- 	rcu_read_unlock();
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
