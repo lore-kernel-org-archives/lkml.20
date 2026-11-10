@@ -1,101 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794280492;
-	b=vv+vG97ohLtMC7hTIIIDjXaezusR0CD1j+6H/z2hSv1iUYGkL+fzy1pmUVd6A7GW4GHZ
-	 MVNqmpw3wehEemzUMmG/M/I1YZ80veJLm5HNg7stCUjHR46DPcpWxeo580pBzT8EcnpvO
-	 kVJDA293IYB6v39qTiUjPHsrJ32F7+jE+81yA6z/Mfjz161Lubuq9WIZ3e19EDDC8crTk
-	 MJuh5+uNznad+sBqPt0BLHC+JrEDEqlzYa5r4Gg2UKPadhUMZC7E9XQKJrQR+OmYpR8hB
-	 Ean9nP4WELxrqBZ0olddY/79obSbsgasaL+W4Y93KNW08lHgdWQbiENuNlf5AIKbNAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280492;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=10bXjumd4aYRm5KnqRRDDbg7QCzoBbS3+a68vxw6Ngw=;
-	b=zVLnY+R+KfomsVVJfYlxeXbgGSyMNKN5zroDSrCq/sqIeMOJsYNYdW7XO4jWSejViwdo
-	 EVQ80tp/fXFv88BEA/fZOwvZ22q6FzmD/3zfYZi4Fn8x5L5f441jd0C8f/Q6TmEhkyTl/
-	 XZeBgZuF77nPQOLCrgGpKY73cf9phjxLdOqpLrCBTdJz1Btu55FWJpXFVZu9LodZIK38u
-	 +7/CkMJa9Z1hmLpshvcEPdaafrz+1VvjxhTOsT87K9jnCH9qEMbvs6T8qTWVtiiBB3UCG
-	 JcmeE+LPidU9yCHbL9MlucPwn4s7VC511/Hd/6Dy06cvJGTSI7GbasnRDCGmg8/betg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=skiOgzVN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.17
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011017.outbound.protection.outlook.com [52.101.65.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.117
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794280504;
+	b=OseeYtl6wcX9bYO6vAuByjMejaWjWG8O5OGp6/8yMTeeRW6ZuGkgQ5ZUOUPjjqOSY7iC
+	 TUIIy+kCQFKROJ/NOiAIzdY+zTaIgRnnCPhRXYwQwGwzcEb4vGW5Exiusv/M07mRtYlVP
+	 wg1IjQ9ERg2XYGUyM7APAZEDUTJ9Oee5w6LaUP6G+txhEjLs0Mnqq04iBj0LmeO3z1ZBS
+	 W+0R3LxxaLaQCc8GDum03sSe2ldYcPKj1P6u0urngxQA0H1j0850V0QlAIAzd6pSZtr5N
+	 O+TlbCWey+2Ocj1VbBqnBzXeFhHC1n9a0NiWJ/oi7KW76PJGzJsVAVAMIv9VGEG2jAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280504;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Yc92nR+ZtJSpwPuVQqN1gY6tzDX+6fRy+1ap3ZVgDXs=;
+	b=FeGhxcPY89qLae6Uinky0nmCx9tTfniCRmUDGCOvGKnl5Bs1KnIMA+uN2Az3clXNQWWb
+	 ZkyQ2ZlAAGVTfGxmGdTBb5UpjAr2ES+Gf0KKvEyZNpa1J2lAB4EUkdEawLO/vrn2Fh4uU
+	 30qMFx9g4Mqk/zlrvDbaP7xIQ9mVGFkimylmQOhsoVDYt/5q46+STZ4v0MVKDsUVIOIlB
+	 Qz3EEdjSOBucds70uywRibI/9najHf6rVgX9TN33jmLzXjIH8gHa5L65Sfoe3K6n8ehJW
+	 UFAUoBkxwjuRedLkQkckYbQTzBCbfg+EEGZY8X7mcH11hVMS2pOWuSqBswIGYjV3C5Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GM+FmXY5;
+	arc=none smtp.remote-ip=91.218.175.117
+Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5F5606A321;
-	Tue, 10 Nov 2026 03:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5F5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CBF606A33C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:15:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1CBF606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=skiOgzVN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PpNUvhwShOKRk4EbthCSRW/XO/5ejZAhN0aHZa/PY7MqDEAUvgNZ5vGtptcleqaLH7hmA6rrYZi7I5AqoCbt+Xl9/BxwCup9nMSxWE+PX5fFMtQmEeU7SHPMeQgT1oaO92YwqgvIZ1Zofb4ubQ65tIZgLWD5CZScNLsJDB2QI0eKiVI6pu5vAR8UrvaAQPzpoCwy9k009ldfJnqWiwfG8QZiRHGfiOQMhLZPOI1lcsRMmJ3KpBBsXi9x7md1cjGcgnLiQG8FIt/olljD5Bd3BJUjPMItbkwF8Nxtu+T/PgkIDwFAt6Zr42coYInq1iG7oRj1ycywiXVIbM6t6fC2eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=10bXjumd4aYRm5KnqRRDDbg7QCzoBbS3+a68vxw6Ngw=;
- b=MLvBi/doscYDH7hKNOpUmM15BFNBVq3CcFV8hG/1VVEajjAcgE18Utj6bRJ43208ddEYROTYSsG34TvJzDRWb2YoeRfcx/4JT5w0uGl37oysCOaMAuHDRaHVFoR4sPUPo7erhhTZvjhKvQtEMyVx5RMnmmg3Up2q68kipGMgTz73qZ2tHw9S2O6jVBO0IN8d5xg9NN5dtO3AdK3DXittdORgh8t8Ge2hrmcZI1+msRsTEDALeLDoiUzm6oMttEpL9y6gYjjp9OCJtP69DdhlcaP4E1BVSupL0eALHjmIaU2HFSkvTiArC02USmGXXz3dsqacGI9zHaCH0V0MFY/u6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=10bXjumd4aYRm5KnqRRDDbg7QCzoBbS3+a68vxw6Ngw=;
- b=skiOgzVNWs+S8a0SuNFQdSmEhtjCsZ+o+iTg/iZ+Qc2SqFfIBQtVi2l09Nu+qhWgvlEJIRdYPVftXp0jMYSAzR+Z8JEUAdchBBJcFySrx8yVFUL0pcgP1WiB1W/kBSrHYsx9uQ5zSfhphfmKVbQI+VeyDn6q93favhzZXEiDBbVUDoYWCfiIN4G9o3Brw61xkUAF0AqxmqTbmnIAKa6X8oPpikWRAd6wP5DgGpdWWcw4vusJIKasadDu2k0gBIijGNg9HPklPDvosWLANqsaJ4rQXMUqbSA7V8eoHTANxRxw6J4gwGq1ocTbBc6aZNs/iy2pG3c/oin/01YqqFyDXQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by DU0PR04MB9227.eurprd04.prod.outlook.com (2603:10a6:10:352::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
- 2026 03:14:49 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 03:14:48 +0000
-From: wei.fang@oss.nxp.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com
-Cc: wei.fang@nxp.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: imx943-evk: enable NETC switch
-Date: Tue, 10 Nov 2026 11:19:18 +0800
-Message-Id: <20261110031918.89948-2-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110031918.89948-1-wei.fang@oss.nxp.com>
-References: <20261110031918.89948-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0007.apcprd02.prod.outlook.com
- (2603:1096:4:194::23) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GM+FmXY5
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CGy1YhWkj+TZqSZNz9Xif6iMkjyIARS5VzADbWjKyPc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794280500; v=1; x=1794885300;
+ b=GM+FmXY5Yg8VPlm6bK6mGT9vVSuUhQCINf6GzcGpRFgY00lOKkcoZ8oTFMVnTDlVaVSM1seP
+ VX7nijgQadBbYGW16aSM161nNUtGM9BU81E/PPp5IIRawvzSRUqd0u5lfdugXXtYS4xXDAup/CA
+ GYc86XMFhG5faeVDgFxGCRh4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ee5ed155d89689d;
+	Tue, 10 Nov 2026 03:15:00 +0000
+X-Mizu-Trace-ID: 7ee5ed155d89689d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fe49691f-54d9-410e-9110-bf2522ab17e8@linux.dev>
+Date: Tue, 10 Nov 2026 11:14:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,212 +58,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|DU0PR04MB9227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00cabf13-da7f-42aa-c9d9-08df3ed8c726
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|22082099003|18002099003|10067099003|11063799006|261009223027099003|261028144727099003|261102123227099003|261021123027099003|261022105027099003|56012099006|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	+pa196uIJtEhddzPdRkoaheHS6QWw6PKyK4a/xYn6za9dpb/6d/M0A08uOSohnK/lvCfyL3MeyopMoIH1avkn5MrHSbmtOUfO6BWqdQNUykVTWDtglinV0hMCPR2zRNKJ7Ll37x5ukfLzUaSCZVw5skt3p3GJ9GDJX+TCkJBtjGnV9Hz5he3KZ5cZCCu8hTATsO6eZkx1bcZ8CzfR2jxvd8vynZy6DBQPjAFrFusFbyfaH9wfCsPp8oLmdhex2I0Y86/WqgyM5WS2P0MfUa6TOCmwOfxMgtJ33ZeHZItMJ5s6TGUFVeR6KINeGeL4jqgXqkEYwar4o7VuBbxutYZxhfsbKUec7dVEXT5HoxsIlYrEwbOwCAePQugtwcvhmjonqn1g0XYMjP5cCVTqerfCqaQsWYCEbhWY5pQsCwb/zxfPZGGVugXCHA2dltDkXIxToH/v4vWSvUmrqGLaBa1hIPKDrYOP3EgnJ1Mi64CNzQzD0ujnzIwrG6Hgz8b8E7VxWWGg7kwied+Vl7HlcJl+FAPIJTXF+cysNZ4OrJip9NXjsTQXR5FhRmxI/tkQkWAQsHSqJ+QyqzboaKUPw8tYBhI47NjZSp8KxA8bWrk+LnSSelMuaOiFUPuvlTJCA8RGkeAmQOh+pPPcYJb63SwwW3nE1Xe1A9O4wH6Ld5YTyk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(261009223027099003)(261028144727099003)(261102123227099003)(261021123027099003)(261022105027099003)(56012099006)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XtoSD4KMTQ7u3bXgmCCvcn4dgdRxCdOoP6PrT17JiwIj3s73JxX1OIVx2xqL?=
- =?us-ascii?Q?l9q6mSAqXy3eNrkyYdmPxaLEY7tTeGkNaEUc5CR1TajQLJ3Op1Zgai5B7Ica?=
- =?us-ascii?Q?ehGL9tU4IdsyunY1jpmS0B3YtZum7p6KA/2zYeea+inKwPD4lcaG8Cx9YhwH?=
- =?us-ascii?Q?Z3OCcBhAiUD0KydS3HXCsSHZ8lA7ObcfWYv6lKxfcmo1vjabwntj5bd+kmoF?=
- =?us-ascii?Q?i8DBix9dKrwG+Puxz7FS0Xxv0UwuHfdDd2O1eMqCZA1Q7amIEGt5q58EA5MI?=
- =?us-ascii?Q?sRPZjJQMzHVn/VhcuOXzdK4rJMmjhZa/wQ+KZVS9/UsGRv+1agewzOC/sJPz?=
- =?us-ascii?Q?wyZQ8IETclQDdvHBs5hOyAy7AlpgQdPpe1KDpyqZsFHyJYlEPjiGf4ggbPpL?=
- =?us-ascii?Q?5xbXvc87Xcg2erSK1ZLVDis4Ui7dcwtX3Mw5G0o77ypqXHgwtQDp2Gy+RDJ0?=
- =?us-ascii?Q?vn1tMIveBquwsvwlxGmbMjsM3dWD/Zbgh7ZGhL/pjC5hRevnyHtnbUaFPSA4?=
- =?us-ascii?Q?B/63R6+FMbc/hYih5K+Rzwth9w8MarT80O8B6cly5Qyur5gb3mD9gyCA3gFO?=
- =?us-ascii?Q?+umkGDeU1i24gng48uE3WspWAtvtLSuF33OWeoyI6xhPqfwd35G79mHDGnMg?=
- =?us-ascii?Q?3zNTQEhUFsuMOTmmQ3H8sPcYQYxXOURCfwHPWWjvEq+je6JiGvR/ZTJWGviP?=
- =?us-ascii?Q?YV7sITWCkzYxXcEZS9/24dON2tCQ/L5m0rwYW+mxCCYxDcm/c7dr4J73Qjk3?=
- =?us-ascii?Q?zwYLQNgLlmaEK3RV8OCQ5AZtzjc4vexW7COll7S4s2xgEENxacKRs0xV+Q/M?=
- =?us-ascii?Q?Spz+KfttSVdHU2iQDI/1QK7hAIuLUXcpwKmn38C4AiJ0qnTPHNjE5AWnk54n?=
- =?us-ascii?Q?FiYMB1zwkfdug4ERi84c4crnsMPyyV9FGxF5Re1bV/XgrbN1R7Dmmh4pn1TC?=
- =?us-ascii?Q?pM8heFU06McG8l5eEs2qZfmtmXh+z63dk+XK57BMp+/cln31LyXUETiptwis?=
- =?us-ascii?Q?oUXxnL5JicdvnH3Y2KHFzr7DSnkhCp6koCCLRY1KBggEykEals0P2RGB/PHh?=
- =?us-ascii?Q?JiSKe2oIamzHOVi9hImeLxJ9FSTtgJlbh9SfH/H5ptxGnsNGBNfmIBPYjywr?=
- =?us-ascii?Q?kIxiPC7+mlBUjm9YZqvHgtdIrCFh1gsqgTczvlvMT34PH10IpHm5AUHNX66p?=
- =?us-ascii?Q?Q6tYGVyMW7EwowhAwORL2f9Xsz5rncEV/FKQM+Rv8rDN6aUojl+CH2YSc7f/?=
- =?us-ascii?Q?kmpHaV8ge5buEmCkguHzB55YfUpQPOefS3iKpLPvXW/ytfwocK/K9G7BL3NR?=
- =?us-ascii?Q?nY9Ns/lWJPHjKJCr1Jvhd247SaJ1yk+Wvf75ax7sYA6XXO7MV6qDrJU4Cfpu?=
- =?us-ascii?Q?hTSCyRj8zEsBGlwrOrO2iitEaxYioBxzFPFytwMhhmhNVxVPg7Rqx8cfm2KG?=
- =?us-ascii?Q?CiHYl2H1VVXFt1BTMPuWzVGzVH/YbBQYju1snT/6NNMAjmmm/tElT39nqXgn?=
- =?us-ascii?Q?rFF8zDWvn7+qVURoo20leMe9AENjubv/rCxpImDyBc3/qmS5QZ632dBAifsu?=
- =?us-ascii?Q?VIVR5d883RDwZTEg2GSDzPbm/BgdJx9Ee6B/sdtErehvtjCMWsPCdl+ISkop?=
- =?us-ascii?Q?rz3fxuBFHbLrizJwn18a0lvK0mHHfngoxVgR7eW1Z/U+TPO+DRQwDpogrtlb?=
- =?us-ascii?Q?zhSMn1EBInPMQ+UOmVdsTTjcUUB/QZn12ws+I3QqPXCgwvTd/bKZn1s9MgNJ?=
- =?us-ascii?Q?8wCdCEVJD5tpuZ0lVujsA/TiwYYgzBZy/GapNTCc+zP8cC623VS2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00cabf13-da7f-42aa-c9d9-08df3ed8c726
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:14:48.8006
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nQu2P5xNjYJ569gso3jNpBX4R8//xCQDo/F2dyKMBJovt2PoGBIsSbg2Mzsot7Iy+GnlRZA63EVkqrFSnALm/gkgXdJA5y7O2X1e6XQZoS0RQF/Pq1yYhobv+Ba7JQRM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9227
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] cpuset: settle isolation state when CPUs are given
+ back to parent
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261107120100.3587595-1-ridong.chen@linux.dev>
+ <20261107120100.3587595-4-ridong.chen@linux.dev>
+ <09c033dd-41dc-4503-9def-4e662e946dc4@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <09c033dd-41dc-4503-9def-4e662e946dc4@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Wei Fang <wei.fang@nxp.com>
 
-Enable the NETC switch on the i.MX943-EVK board. Configure swp0 and swp1
-ports for MII mode and swp2 for RGMII mode. Add the necessary clock
-assignments, PHY nodes and pinmux settings.
 
-Note that switch port 2 and enetc 0 share a parallel interface, and they
-cannot be enabled at the same time. Therefore, only switch port 2 is
-enabled in imx943-evk.dts.
+On 11/9/2026 10:51 PM, Waiman Long wrote:
+> On 11/7/26 7:00 AM, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> partition_xcpus_del() only updates isolated_cpus when the partition that
+>> gives back the CPUs has a different state than its parent. CPUs that were
+>> further distributed to descendant isolated partitions are not taken into
+>> account, so isolated_cpus_release() has to be called afterwards in
+>> several places to walk up the ancestors and fix isolated_cpus.
+>>
+>> Make partition_xcpus_del() always set the isolation state of the given
+>> back CPUs to the state of the parent that receives them. As the
+>> effective_xcpus of a partition covers the CPUs distributed to its
+>> descendants, the isolation state of those CPUs is settled at the same
+>> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
+>>
+>> compute_partition_effective_cpumask() invalidates a child partition
+>> without going through partition_xcpus_del(), so do the same there: the
+>> CPUs of the invalidated child take the isolation state of its parent.
+>>
+>> As the parent may be shrunk and its effective_xcpus not updated yet,
+>> only do so for the CPUs the parent still owns. This is to keep the
+>> isolation state correct for now, the in-place invalidation here will be
+>> removed later in the partition rework.
+>>
+>> isolated_cpus_update() assumes the old and new states are different,
+>> which no longer holds now that partition_xcpus_del() proceeds regardless
+>> of the states. Drop its @old_prs argument and the WARN_ON_ONCE() so that
+>> it simply sets the isolation state of the given CPUs, and use it
+>> everywhere. The state check in partition_xcpus_add() is dropped as well,
+>> as setting the state is a no-op when the states are the same.
+>>
+>> isolated_cpus_release() is no longer needed and is removed.
+>>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   kernel/cgroup/cpuset.c | 98 ++++++++----------------------------------
+>>   1 file changed, 19 insertions(+), 79 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 85e5b529d144..fc9de6e16ff5 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1244,17 +1244,17 @@ static bool isolated_cpu_update(int new_prs, int cpu)
+>>   }
+>>   /*
+>> - * isolated_cpus_update - Update the isolated_cpus mask
+>> - * @old_prs: old partition_root_state
+>> - * @new_prs: new partition_root_state
+>> - * @xcpus: exclusive CPUs with state change
+>> + * isolated_cpus_update - Set the isolation state of @xcpus
+>> + * @new_prs: partition root state that @xcpus will belong to
+>> + * @xcpus: exclusive CPUs whose isolation state may change
+>> + *
+>> + * CPUs isolated at boot time are kept isolated.
+>>    */
+>> -static void isolated_cpus_update(int old_prs, int new_prs, struct cpumask 
+>> *xcpus)
+>> +static void isolated_cpus_update(int new_prs, struct cpumask *xcpus)
+>>   {
+>>       bool updated = false;
+>>       int cpu;
+>> -    WARN_ON_ONCE(old_prs == new_prs);
+>>       lockdep_assert_held(&callback_lock);
+>>       lockdep_assert_held(&cpuset_mutex);
+>>       for_each_cpu(cpu, xcpus)
+>> @@ -1263,45 +1263,6 @@ static void isolated_cpus_update(int old_prs, int 
+>> new_prs, struct cpumask *xcpus
+>>           update_housekeeping = true;
+>>   }
+>> -/*
+>> - * isolated_cpus_release - Remove the relevant CPUs in @xcpus from isolated_cpus
+>> - * @cs: the current cpuset
+>> - * @xcpus: the set of effective xcpus to be considered for removal
+>> - *
+>> - * This function is called when an isolated partition is invalidated or when
+>> - * some of its effective xcpus are to be removed from isolated_cpus due to
+>> - * changes in parent cpuset. The given @xcpus must be modifiable as the function
+>> - * will update its value to determine the right set of CPUs to be removed.
+>> - */
+>> -static void isolated_cpus_release(struct cpuset *cs, struct cpumask *xcpus)
+>> -{
+>> -    struct cpuset *ancestor = parent_cs(cs);
+>> -    struct cpuset *iancestor = NULL;
+>> -
+>> -    /*
+>> -     * Search the furthest isolated partition root ancestor available
+>> -     * until top_cpuset or a remote partition root is hit.
+>> -     */
+>> -    for (; ancestor; ancestor = parent_cs(ancestor)) {
+>> -        if (ancestor->partition_root_state == PRS_ISOLATED)
+>> -            iancestor = ancestor;
+>> -        if (is_remote_partition(ancestor))
+>> -            break;
+>> -    }
+>> -
+>> -    /*
+>> -     * If a furthest isolated partition acnestor is found, use it to
+>> -     * determine which of the CPUs in @xcpus should be removed from
+>> -     * isolated_cpus. Otherwise, all of them will be removed.
+>> -     */
+>> -    if (iancestor && !cpumask_andnot(xcpus, xcpus, iancestor->effective_xcpus))
+>> -        return; /* No CPU should be removed from isolated_cpus */
+>> -
+>> -    spin_lock_irq(&callback_lock);
+>> -    isolated_cpus_update(PRS_ISOLATED, PRS_ROOT, xcpus);
+>> -    spin_unlock_irq(&callback_lock);
+>> -}
+>> -
+>>   /*
+>>    * partition_xcpus_add - Add new exclusive CPUs to partition
+>>    * @new_prs: new partition_root_state
+>> @@ -1325,9 +1286,7 @@ static void partition_xcpus_add(int new_prs, struct 
+>> cpuset *parent,
+>>       if (parent == &top_cpuset)
+>>           cpumask_or(subpartitions_cpus, subpartitions_cpus, xcpus);
+>> -    if (new_prs != parent->partition_root_state)
+>> -        isolated_cpus_update(parent->partition_root_state, new_prs,
+>> -                     xcpus);
+>> +    isolated_cpus_update(new_prs, xcpus);
+>>       cpumask_andnot(parent->effective_cpus, parent->effective_cpus, xcpus);
+>>   }
+>> @@ -1355,9 +1314,8 @@ static void partition_xcpus_del(int old_prs, struct 
+>> cpuset *parent,
+>>       if (parent == &top_cpuset)
+>>           cpumask_andnot(subpartitions_cpus, subpartitions_cpus, xcpus);
+>> -    if (old_prs != parent->partition_root_state)
+>> -        isolated_cpus_update(old_prs, parent->partition_root_state,
+>> -                     xcpus);
+>> +    /* CPUs given back, including those of descendants, take parent's state */
+>> +    isolated_cpus_update(parent->partition_root_state, xcpus);
+>>       cpumask_or(parent->effective_cpus, parent->effective_cpus, xcpus);
+>>       cpumask_and(parent->effective_cpus, parent->effective_cpus, 
+>> cpu_active_mask);
+>> @@ -1612,6 +1570,7 @@ static void compute_partition_effective_cpumask(struct 
+>> cpuset *cs,
+>>       struct cgroup_subsys_state *css;
+>>       struct cpuset *child;
+>>       bool populated = partition_is_populated(cs, NULL);
+>> +    static cpumask_t xcpus;        /* Protected by cpuset_mutex */
+>>       /*
+>>        * Check child partition roots to see if they should be invalidated
+>> @@ -1640,14 +1599,15 @@ static void compute_partition_effective_cpumask(struct 
+>> cpuset *cs,
+>>               int parent_prs = cs->partition_root_state;
+>>               /*
+>> -             * Invalidate child partition and update isolated_cpus
+>> -             * if necessary.
+>> +             * Invalidate child partition. Its CPUs still owned by
+>> +             * cs take the isolation state of cs. effective_xcpus
+>> +             * of cs may not be updated yet, so recompute it.
+>>                */
+>>               spin_lock_irq(&callback_lock);
+>>               WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+>> -            if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
+>> -                isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
+>> -                             child->effective_xcpus);
+>> +            compute_excpus(cs, &xcpus);
+>> +            cpumask_and(&xcpus, &xcpus, child->effective_xcpus);
+>> +            isolated_cpus_update(parent_prs, &xcpus);
+>>               child->partition_root_state = -old_prs;
+>>               spin_unlock_irq(&callback_lock);
+>>               notify_partition_change(child, old_prs);
+>> @@ -2080,22 +2040,8 @@ static int update_parent_effective_cpumask(struct 
+>> cpuset *cs, int cmd,
+>>            *
+>>            * A partition error happens when parent has tasks and all
+>>            * its effective CPUs will have to be distributed out.
+>> -         *
+>> -         * For an isolated partition with a shrunk root partition parent
+>> -         * we may need to return some or all of its isolated CPUs.
+>>            */
+>>           nocpu |= cpumask_empty(tmp->delmask);
+>> -        if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
+>> -            cpumask_clear(tmp->addmask);
+>> -            if (nocpu)
+>> -                cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>> -            else if (!cpumask_subset(cs->effective_xcpus, parent- 
+>> >effective_xcpus))
+>> -                cpumask_andnot(tmp->addmask, cs->effective_xcpus,
+>> -                                 parent->effective_xcpus);
+>> -            if (!cpumask_empty(tmp->addmask))
+>> -                isolated_cpus_release(cs, tmp->addmask);
+>> -            /* Expansion of parent's effective_xcpus is handled below */
+>> -        }
+>>           if (nocpu) {
+>>               part_error = PERR_NOCPUS;
+>>               if (is_partition_valid(cs))
+>> @@ -2341,18 +2287,12 @@ static void update_cpumasks_hier(struct cpuset *cs, 
+>> struct tmpmasks *tmp,
+>>                   /*
+>>                    * When parent is not a valid partition root,
+>>                    * child partition roots become invalid too.
+>> -                 *
+>> -                 * For a to be invalidated isolated partition,
+>> -                 * call return_isolated_cpus() to remove the
+>> -                 * relevant CPUs from isolated_cpus.
+>> +                 * The isolation state of their CPUs has been
+>> +                 * settled when the parent gave them back.
+>>                    */
+>>                   if (is_partition_valid(cp))
+>>                       new_prs = -old_prs;
+>> -                if (old_prs == PRS_ISOLATED) {
+>> -                    cpumask_copy(tmp->delmask, cp->effective_xcpus);
+>> -                    isolated_cpus_release(cp, tmp->delmask);
+>> -                }
+>>                   WRITE_ONCE(cp->prs_err,
+>>                          is_partition_invalid(parent)
+>>                          ? PERR_INVPARENT : PERR_NOTPART);
+>> @@ -3108,7 +3048,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>>       if (!is_partition_valid(cs))
+>>           reset_partition_data(cs);
+>>       else if (isolcpus_updated)
+>> -        isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
+>> +        isolated_cpus_update(new_prs, cs->effective_xcpus);
+>>       spin_unlock_irq(&callback_lock);
+>>       /* Force update if partition is disabled & update effective_xcpus */
+> 
+> The code change looks good to me. However this is not just a code restructuring, 
+> it also includes a bug fix. I wonder if we should clarify that and maybe add a 
+> Fixes tag.
+> 
+Hi Longman,
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx943-evk.dts | 101 ++++++++++++++++++-
- 1 file changed, 99 insertions(+), 2 deletions(-)
+Thanks for the review. You are right, it also fixes the isolated CPU
+leak reported by Guopeng [1]. When a root partition with an isolated
+child partition is invalidated, partition_xcpus_del() gives the CPUs
+back to the parent without updating isolated_cpus as both are root
+partitions, so the CPUs of the isolated child are left in
+isolated_cpus.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/boot/dts/freescale/imx943-evk.dts
-index 39e819c536cc..1c98948d2fe7 100644
---- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
-@@ -790,11 +790,13 @@ &mu15 {
- };
- 
- &netc_blk_ctrl {
--	assigned-clocks = <&scmi_clk IMX94_CLK_MAC4>,
-+	assigned-clocks = <&scmi_clk IMX94_CLK_MAC2>,
-+			  <&scmi_clk IMX94_CLK_MAC4>,
- 			  <&scmi_clk IMX94_CLK_MAC5>;
- 	assigned-clock-parents = <&scmi_clk IMX94_CLK_SYSPLL1_PFD0>,
-+				 <&scmi_clk IMX94_CLK_SYSPLL1_PFD0>,
- 				 <&scmi_clk IMX94_CLK_SYSPLL1_PFD0>;
--	assigned-clock-rates = <250000000>, <250000000>;
-+	assigned-clock-rates = <250000000>, <250000000>, <250000000>;
- 	status = "okay";
- };
- 
-@@ -803,6 +805,19 @@ &netc_emdio {
- 	pinctrl-0 = <&pinctrl_emdio>;
- 	status = "okay";
- 
-+	ethphy0: ethernet-phy@2 {
-+		reg = <0x2>;
-+	};
-+
-+	ethphy1: ethernet-phy@3 {
-+		reg = <0x3>;
-+	};
-+
-+	ethphy2: ethernet-phy@5 {
-+		reg = <0x5>;
-+		realtek,clkout-disable;
-+	};
-+
- 	ethphy3: ethernet-phy@6 {
- 		reg = <0x6>;
- 		realtek,clkout-disable;
-@@ -814,6 +829,39 @@ ethphy4: ethernet-phy@7 {
- 	};
- };
- 
-+&netc_switch {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_switch>;
-+	status = "okay";
-+};
-+
-+&netc_switch_port0 {
-+	label = "swp0";
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "mii";
-+	status = "okay";
-+};
-+
-+&netc_switch_port1 {
-+	label = "swp1";
-+	phy-handle = <&ethphy1>;
-+	phy-mode = "mii";
-+	status = "okay";
-+};
-+
-+&netc_switch_port2 {
-+	label = "swp2";
-+	clocks = <&scmi_clk IMX94_CLK_MAC2>;
-+	clock-names = "ref";
-+	phy-handle = <&ethphy2>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&netc_switch_port3 {
-+	status = "okay";
-+};
-+
- &netc_timer0 {
- 	status = "okay";
- };
-@@ -996,6 +1044,55 @@ IMX94_PAD_GPIO_IO47__SAI3_TX_DATA0	0x31e
- 		>;
- 	};
- 
-+	pinctrl_switch: switchgrp {
-+		fsl,pins = <
-+			IMX94_PAD_ETH0_RX_CLK__NETC_PINMUX_ETH0_RX_CLK		0x58e
-+			IMX94_PAD_ETH0_RX_DV__NETC_PINMUX_ETH0_RX_DV		0x50e
-+			IMX94_PAD_ETH0_RX_ER__NETC_PINMUX_ETH0_RX_ER		0x50e
-+			IMX94_PAD_ETH0_RXD0__NETC_PINMUX_ETH0_RXD0		0x50e
-+			IMX94_PAD_ETH0_RXD1__NETC_PINMUX_ETH0_RXD1		0x50e
-+			IMX94_PAD_ETH0_RXD2__NETC_PINMUX_ETH0_RXD2		0x50e
-+			IMX94_PAD_ETH0_RXD3__NETC_PINMUX_ETH0_RXD3		0x50e
-+			IMX94_PAD_ETH0_TX_CLK__NETC_PINMUX_ETH0_TX_CLK		0x58e
-+			IMX94_PAD_ETH0_TX_EN__NETC_PINMUX_ETH0_TX_EN		0x50e
-+			IMX94_PAD_ETH0_TX_ER__NETC_PINMUX_ETH0_TX_ER		0x50e
-+			IMX94_PAD_ETH0_TXD0__NETC_PINMUX_ETH0_TXD0		0x50e
-+			IMX94_PAD_ETH0_TXD1__NETC_PINMUX_ETH0_TXD1		0x50e
-+			IMX94_PAD_ETH0_TXD2__NETC_PINMUX_ETH0_TXD2		0x50e
-+			IMX94_PAD_ETH0_TXD3__NETC_PINMUX_ETH0_TXD3		0x50e
-+			IMX94_PAD_ETH0_CRS__NETC_PINMUX_ETH0_CRS		0x50e
-+			IMX94_PAD_ETH0_COL__NETC_PINMUX_ETH0_COL		0x50e
-+			IMX94_PAD_ETH1_RX_CLK__NETC_PINMUX_ETH1_RX_CLK		0x58e
-+			IMX94_PAD_ETH1_RX_DV__NETC_PINMUX_ETH1_RX_DV		0x50e
-+			IMX94_PAD_ETH1_RX_ER__NETC_PINMUX_ETH1_RX_ER		0x50e
-+			IMX94_PAD_ETH1_RXD0__NETC_PINMUX_ETH1_RXD0		0x50e
-+			IMX94_PAD_ETH1_RXD1__NETC_PINMUX_ETH1_RXD1		0x50e
-+			IMX94_PAD_ETH1_RXD2__NETC_PINMUX_ETH1_RXD2		0x50e
-+			IMX94_PAD_ETH1_RXD3__NETC_PINMUX_ETH1_RXD3		0x50e
-+			IMX94_PAD_ETH1_TX_CLK__NETC_PINMUX_ETH1_TX_CLK		0x58e
-+			IMX94_PAD_ETH1_TX_EN__NETC_PINMUX_ETH1_TX_EN		0x50e
-+			IMX94_PAD_ETH1_TX_ER__NETC_PINMUX_ETH1_TX_ER		0x50e
-+			IMX94_PAD_ETH1_TXD0__NETC_PINMUX_ETH1_TXD0		0x50e
-+			IMX94_PAD_ETH1_TXD1__NETC_PINMUX_ETH1_TXD1		0x50e
-+			IMX94_PAD_ETH1_TXD2__NETC_PINMUX_ETH1_TXD2		0x50e
-+			IMX94_PAD_ETH1_TXD3__NETC_PINMUX_ETH1_TXD3		0x50e
-+			IMX94_PAD_ETH1_CRS__NETC_PINMUX_ETH1_CRS		0x50e
-+			IMX94_PAD_ETH1_COL__NETC_PINMUX_ETH1_COL		0x50e
-+			IMX94_PAD_ETH2_TXD3__NETC_PINMUX_ETH2_TXD3		0x50e
-+			IMX94_PAD_ETH2_TXD2__NETC_PINMUX_ETH2_TXD2		0x50e
-+			IMX94_PAD_ETH2_TXD1__NETC_PINMUX_ETH2_TXD1		0x50e
-+			IMX94_PAD_ETH2_TXD0__NETC_PINMUX_ETH2_TXD0		0x50e
-+			IMX94_PAD_ETH2_TX_CTL__NETC_PINMUX_ETH2_TX_CTL		0x51e
-+			IMX94_PAD_ETH2_TX_CLK__NETC_PINMUX_ETH2_TX_CLK		0x59e
-+			IMX94_PAD_ETH2_RX_CTL__NETC_PINMUX_ETH2_RX_CTL		0x51e
-+			IMX94_PAD_ETH2_RX_CLK__NETC_PINMUX_ETH2_RX_CLK		0x59e
-+			IMX94_PAD_ETH2_RXD0__NETC_PINMUX_ETH2_RXD0		0x51e
-+			IMX94_PAD_ETH2_RXD1__NETC_PINMUX_ETH2_RXD1		0x51e
-+			IMX94_PAD_ETH2_RXD2__NETC_PINMUX_ETH2_RXD2		0x51e
-+			IMX94_PAD_ETH2_RXD3__NETC_PINMUX_ETH2_RXD3		0x51e
-+		>;
-+	};
-+
- 	pinctrl_typec: typecgrp {
- 		fsl,pins = <
- 			IMX94_PAD_GPIO_IO44__GPIO3_IO12		0x30e
+I'd like to describe it in the commit message and add the following
+tags in the next version:
+
+Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+Reported-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Closes: https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
+
+Does that look OK to you?
+
+[1] https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
+
 -- 
-2.34.1
+Best regards
+Ridong
 
