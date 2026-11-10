@@ -1,59 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332654;
-	b=bBkajsBJajJD3jmWlkzepnMdgWjk4i0aiOO8y2BhVLMfDAkRfbDghMUY+fpxoj3cTOYd
-	 ik27RoK3St9iV3pva5eSz8/T7nwppG/Blm5u27sHxhNmwK3dbi5Svg2GpYtFroAZY3uLt
-	 0uhj6XKc9alqXyPpPsqmPrKrOUmbkfFtAYCq48Imr++4FoGA6TJyIwTdL1r2jTNrilt3r
-	 dOABs1UFe7CDq/1qG4qD6+eto/1aIfgcvBBFFs7u0BI1Wepokx07yIhFvTxfY8KBog+08
-	 qr3NB2/807T9AgLno8KITqGjULepwtaJu6x8/48CVuTmeNMtVoM98Q8BGmeU71M2UdA==
+	t=1794332694;
+	b=CP+R6rNWxB7OlljkN/RP+jtO1xLPxFbfqb6wlb4Hyimwqti68GJNqiVuMNCcUaoynBLo
+	 i8AzQX/fl+P/T/idb+4MDUKuTpzKWoMFJkbcyq9d9ngjyAlK1ONmjVCTMYrPOBjbKWyO4
+	 O9dgtQpheo2rytrdrXEgG4BzaKno4e6ej58WQrkUY2mHb+dwXn3aFsAy/qZwSCPVxGHjx
+	 o4cp0pOghfh5OvEkmsJmjJnyxHm/S+524OiVvwJGNz78x7kFeJKgBSXQCOHLlNf9plH3t
+	 nF7GfLIMwBF4a9Q0/1RLzrxeDcQk9EaZcC84Av109shl7yKVZEc+bK93a6u7BVJ+QHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332654;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=Fulrg35l8yGwvpvq8cPY9YnUHn/OJvxhodbRy0q5+gI=;
-	b=XLT3OJM+LfcnUQKhznd/3clKYj66m3N2Ug0rV1ql9SG6QJcGj2vkh7EdRisGKE4wph8u
-	 QJAuzL4JeA6Gx//ecz346rd6jizOX6xHeo65qOb2ZHtsMtMh6tb2Wf/oVQD5+paEa+lln
-	 qEqXk5eMnCvS4iPJwxiUAleoM+cry5XfcKMLmolWxmpfCV84bPv0pugiAFO1H1Gh38bn2
-	 UfBfsAGj4vtdHbFP4pT+yv9j0JYh3fxg1eN9fdbF/2O4XUysbi+Wfigd3DYnkyTpluY2v
-	 PhflvxPUM938Vkb2hS5kXnS/jio0d4ave8Os7eQv8Zz+zThL55n740bnEX/hQg/BuMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=3b10iqj9NgJm3ESQWec+Z0XHiKgw63wK+Jzo5Ml+tdc=;
+	b=PX/lJE8QCM8+5G0HzpzGh2m1K/KSKZ1h2cq0kMwrEeaD0F35i4GpuuvSLAkiPfefOzV+
+	 c5bxB8YNkx5215a2gkwIaZbrduxpjnYOTYMoruT5TMAdHH+aNpkxIslio5ynmz/huc2r4
+	 fITRX/Hdb5Mzs+7n5uqdo1JpcGOpEFf/Ylj8B+HmQW/myl7osYnyHymEZQM3wabf3SFCj
+	 eoNxBq5WTqFijmhV5Fp+JpcJ7HmRDRoIoGbH8yFj/DlZF99xXFxf6s/k73jjCo+ns8ARS
+	 Ymo9yEw+sLuZdcM3auqYnIR7UFhsUej5laaZWTMxzuD+zKtbgC8hToHEgGRSbOffyaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIrrzKib;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QY21QHR3;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5F2606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FE3606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54FE3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIrrzKib
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B35D1F0089F;
-	Tue, 10 Nov 2026 17:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794332654;
-	bh=Fulrg35l8yGwvpvq8cPY9YnUHn/OJvxhodbRy0q5+gI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=DIrrzKibIe7LMcyHZ/CBt/f3kkB050KIX7QvR3SdZ/cydQJymBTzfBKZobEaAU9FS
-	 AQPpwd69AgUgqddeKluymH1MgZworh5C2kzPXb6ipLMj/S8C8n11LY31oO8mmXtFk8
-	 mh9nvu5cYFu2ZpOei+19puwSA8Lg7RWpYU/MqCIGxMwgs/XYzlxP5SYfd5ULfBsH0p
-	 ctMi4gIX0c6ZTJPwKz/6fT4a9RnBFgdnOz0HtRmxlhqxOJwyPgWMmUf9I+6B4RF2o5
-	 7R/d3E4EMW1XJeNCFKrx0V8ozF9R+YgZkiLrad7/FCRWMAbMLWn8ioq+EhBII0BH5n
-	 oZ5+J1fIzQxHA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Mike Rapoport <rppt@kernel.org>,
-  Andrew Morton <akpm@linux-foundation.org>,  Samiullah Khawaja
- <skhawaja@google.com>,  kexec@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  linux-mm@kvack.org
-Subject: Re: [PATCH 2/2] mm/memfd_luo: keep memfd frozen until finish
-In-Reply-To: <179373810485.663454.3013535045194073890.b4-review@b4> (Pasha
-	Tatashin's message of "Tue, 03 Nov 2026 15:35:04 -0500")
-References: <20261103181916.2462825-1-pratyush@kernel.org>
-	<20261103181916.2462825-3-pratyush@kernel.org>
-	<179373810485.663454.3013535045194073890.b4-review@b4>
-Date: Tue, 10 Nov 2026 18:44:11 +0100
-Message-ID: <2vxzo6bwh990.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QY21QHR3
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so1382206eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:44:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794332693; x=1794937493; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3b10iqj9NgJm3ESQWec+Z0XHiKgw63wK+Jzo5Ml+tdc=;
+        b=QY21QHR3pDY5puOY/RAbgM75JOeHua8ZTcuC7FM9/JfJ6UebYXCI2E7rq8XBKyXXuJ
+         mo540OclIQJ3jdhTXhbmB5qIMj+xuqdC2TOriS7w/S8d+S6/mQwRqX9bYVEopcEae7cp
+         8ItD/fflYcoB1j0azPfU60Cq1J1HUYazpHDTNxOKH8X+NAtsdX9jDOcrVqsOcp1/6OgK
+         VpipNZGlR3BptxupgyO/tl1PD1guiw6iO2xxeDlfQxHd4iTiLkd9JqPXFN2jgfa+rgui
+         XdisXp6oN+mpiffEcDSZQ3j3+hOKBfPO0VsaDdjwmQt9ZIikq2DXO/a8wowEB4yZLqZf
+         Rl1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332693; x=1794937493;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3b10iqj9NgJm3ESQWec+Z0XHiKgw63wK+Jzo5Ml+tdc=;
+        b=gGXUkY0sbGeB6D1ITmomt1LUicsEvfnnczUFI+BRh/mbL5o8l+xjnONtc0Kc0tFlwN
+         VNGcz5YhBZUF+Gwhbp3nlbYcC3upqv6/P3o5Phopw8E6LF9Yl4OJfv+IAIwPD0MRRbby
+         wA+MHTMt9NL9KAEi/gJaKbSicUMDP+8DDLKkX5DEdZ6XvufS/1EkE5lYm6/2GM2Q5yL/
+         0dE1l1MFzUc73/iMtTr6vl2WGjZDONMF2zWow4FcbFFEJaodis/MLTpRXnrqAgB1GCHg
+         3P3vBgqTtlWSx8pl+64+obsfFod4hmL8MqDr+K51Oh8KG9kPoTlOymw/0RmQsMIzqWsH
+         VIQw==
+X-Forwarded-Encrypted: i=1; AL+hErHXu6xaZOjef4pICOdU+hp9fmm0ou7R0PI2fF8d0aUKHNoh0WYzz83pON3kx7EHy2zH/Y8aWw3CmNFBdno=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IiiQoRMWXfRjBBVOXSgRcvOM51JaRXu7J3mYzcoU4ptMWGqGb
+	rTmMQT6pwCUM9heG5umYLReH7J7vl9FWJzUWO+zLMKoLKnf/4h66gHK4qDV49h1u
+X-Gm-Gg: AYBFou1M9pXMFq0Qfk11N1NWwifACnabqxjyXdYjrWr1xamJZ+fRMCfNXxw1do7casz
+	mt4syzahVDYgYzNMpuo8RhUAP731MH361c6rDpxJeCvQIdDudVbc9pbghflWxFK5GZh3nSuJh9j
+	jPoU16eLjBzeohFH5+6Mv6if+/raikAaB8qGgTmuJRawlaJvGHOzXtHKkgIB47jtSmsrp3Df+C6
+	8oBr2o9ETJRuaOc89xUmtUigbj2xNBXgTFEEiNj3waS9Q8Iyyfca1G0bs06rL15wuppooAG+CmX
+	OO0PJqmXQE+7iUPRUHBs0y8yRppTQg3ubkw1xgBLOOSQZyY+i8gg73MuHc2U+HWFGD9n0zgLeA0
+	039bgs/9mtJ4J0vTAVcBBltCRHFNRuVRjEv6C3vFP6DhqpHcs1eEmzqO+Vc/85P2ajkIOyoIYlW
+	71K3xvvKPTKPOBvxWhALXPxXeyjie/QX82lyc9A6CAOfUI+hpOPx/lQmR/xyVjVKXVsGrGIkIZn
+	s5smzMOdkh7B+o3zQskSxWsbYpcQnKIBVfPXXjcL2+x9x1tEucoUlje6iGRb80bXi7sko4xIXqh
+	3b5jdnnHlTUy9aVR/mqV1vaNGsEGlKTC1K85Hu4qRcDr+4vW3OBQnNmVynA=
+X-Received: by 2002:a05:7300:d211:b0:372:eab:d700 with SMTP id 5a478bee46e88-376831886c3mr29671eec.1.1794332693343;
+        Tue, 10 Nov 2026 09:44:53 -0800 (PST)
+Received: from [192.168.29.85] ([2405:201:8026:213e:7392:6aad:f285:27fa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm7305349eec.0.2026.11.10.09.44.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 09:44:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,125 +88,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] char: xillybus: use stream_open for stream semantics
+From: mdshahid03@gmail.com
+To: Eli Billauer <eli.billauer@gmail.com>
+Cc: mdshahid03@gmail.com, arnd@arndb.de, gregkh@linuxfoundation.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <24af6daf-dbf3-5c47-beb7-077c4473ea7e@outbound.gmail.com>
+References: <20261031083610.87160-1-mdshahid03@gmail.com>
+ <24af6daf-dbf3-5c47-beb7-077c4473ea7e@outbound.gmail.com>
+Date: Tue, 10 Nov 2026 23:14:34 +0530
+Message-Id: <179433267498.153154.14194819686748523311.b4-reply@b4>
+X-Mailer: b4 0.16.0
 
-On Tue, Nov 03 2026, Pasha Tatashin wrote:
+Hi Eli,
 
->> After a memfd is retrieved, it immediately goes back into "normal"
->> operation. The file comes back unfrozen, and its pages can migrate, it
->> can be truncated, and so on. If the memfd is depended on by something,
->> like iommufd, that can open a window for folios to move around before
->> the consumer can re-establish its references.
->> 
->> Finish is the conceptual point when a retrieved file can start to behave
->> as "normal". So take an extra reference on the folios and freeze the
->> memfd on retrieve until finish.
->> 
->> Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
->> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
->> Link: https://patch.msgid.link/20261103181916.2462825-3-pratyush@kernel.org
->>
->> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
->> index 6b68220275eb..5abb9c0956af 100644
->> --- a/mm/memfd_luo.c
->> +++ b/mm/memfd_luo.c
->> @@ -55,6 +55,14 @@
->>   *   Only seals known to this LUO version (see ``MEMFD_LUO_ALL_SEALS``) may
->>   *   be present; preservation fails with ``-EOPNOTSUPP`` otherwise.
->>   *
->> + * Restrictions
->> + * ============
->> + *
->> + * While a memfd is preserved, and after it is retrieved until the session is
->> + * finished, its size can't be changed and holes can't be punched in it.
->> + * Operations that would do so (``ftruncate()``, ``fallocate()``, writes past
->> + * the end of the file) fail.
->> + *
->>   * Non-Preserved Properties
->>   * ========================
->>   *
->> @@ -383,33 +391,56 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
->>  	}
->>  }
->>  
->> +/* Drop the references retrieve() holds on the folios added to the file. */
->> +static void
->> +memfd_luo_put_retrieved_folios(const struct memfd_luo_folio_ser *folios_ser,
->> +			       u64 nr_folios)
->> +{
->> +	for (u64 i = 0; i < nr_folios; i++) {
->> +		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
->> +
->> +		if (pfolio->pfn)
->> +			folio_put(pfn_folio(pfolio->pfn));
->> +	}
->> +}
->> +
->>  static void memfd_luo_finish(struct liveupdate_file_op_args *args)
->>  {
->>  	struct memfd_luo_folio_ser *folios_ser;
->>  	struct memfd_luo_ser *ser;
->>  
->> -	/*
->> -	 * If retrieve was successful, nothing to do. If it failed, retrieve()
->> -	 * already cleaned up everything it could. So nothing to do there
->> -	 * either. Only need to clean up when retrieve was not called.
->> -	 */
->> -	if (args->retrieve_status)
->> +	/* If retrieve failed, it already cleaned up everything it could. */
->> +	if (args->retrieve_status < 0)
->>  		return;
->>  
->>  	ser = phys_to_virt(args->serialized_data);
->>  	if (!ser)
->>  		return;
->>  
->> -	if (ser->nr_folios) {
->> -		folios_ser = kho_restore_vmalloc(&ser->folios);
->> -		if (!folios_ser)
->> -			goto out;
->> +	if (args->retrieve_status > 0) {
->> +		/*
->> +		 * Retrieve was successful, release the folios and unfreeze the
->> +		 * file so it can be used normally.
->> +		 */
->> +		struct inode *inode = file_inode(args->file);
->> +
->> +		folios_ser = args->private_data;
->> +
->> +		inode_lock(inode);
->> +		memfd_luo_put_retrieved_folios(folios_ser, ser->nr_folios);
->> +		shmem_freeze(inode, false);
->> +		inode_unlock(inode);
->>  
->> -		memfd_luo_discard_folios(folios_ser, ser->nr_folios);
->>  		vfree(folios_ser);
->> +	} else if (args->retrieve_status == 0 && ser->nr_folios) {
->> +		/* Retrieve was not called, discard the preserved folios. */
->> +		folios_ser = kho_restore_vmalloc(&ser->folios);
->> +		if (folios_ser) {
->> +			memfd_luo_discard_folios(folios_ser, ser->nr_folios);
->> +			vfree(folios_ser);
->> +		}
->
-> Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
->
-> Side note (pre-existing, not an issue with this patch):
->
-> Initially, I wondered whether we should disallow auto-finishing an 
-> unretrieved memfd, in case a preserved device still had this memory 
-> mapped for DMA. However, if we reach this point, can_finish() has 
-> already passed for every other FD in this session, which means any 
-> possibly dependent FDs (e.g. iommufd/vfio) have already determined that 
-> this FD was not needed to be retrieved for their states.
+Thanks for the detailed explanation and testing in HW.
 
-I think that is still a problem in a different path.
-memfd_luo_retrieve_folios() frees all the folios on error. I think it
-should hold them until finish(), which would give IOMMU or other
-dependents a chance to block the finish.
+I think, if this doesn not break anything and using stream_open()
+for these channels more logical ,then ,it make sense to use it.
 
-But yeah, that would be a separate patch.
+Thanks
+Shahid.
 
--- 
-Regards,
-Pratyush Yadav
+On 2026-11-02 12:23 +0100, Eli Billauer wrote:
+> Hello Mohammad,
+> 
+> On 31/10/2026 9:36, mdshahid03@gmail.com wrote:
+> > Use stream_open() to mark these channels as streams and
+> > disable unnecessary file position handling,
+> 
+> The difference between stream_open() and nonseekable_open() is that the 
+> former sets FMODE_STREAM and clears FMODE_ATOMIC_POS. I made a quick 
+> test run, and FMODE_ATOMIC_POS isn't set in either case. As 
+> FMODE_ATOMIC_POS is clear, no lock is taken while updating fpos either way.
+> 
+> So in effect, the only difference is that FMODE_STREAM is set. Frankly 
+> speaking, I'm not sure in what way this matters, if at all.
+> 
+> > allowing read
+> > and write operations to run concurrently.
+> 
+> I checked that with hardware. There's no problem running read() and 
+> write() concurrently even before this patch. And I don't see why there 
+> would be a problem.
+> 
+> It seems like FMODE_STREAM was supposed to replace FMODE_ATOMIC_POS 
+> somewhere back in 2019 with Linus' commit 0be0ee71816b ("vfs: properly 
+> and reliably lock f_pos in fdget_pos()"). That is where he urged the 
+> move towards stream_open(). But then he reverted it with commit 
+> 2be7d348fe92 soon afterwards.
+> 
+> All in all, I don't know what to say about this. Calling stream_open() 
+> does sound more correct, and nothing broke with this patch. But I'm 
+> generally unhappy fiddling with code unless it fixes something.
+> 
+> Regards,
+>     Eli
+> 
+> 
+
+
