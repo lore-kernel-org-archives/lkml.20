@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310285;
-	b=DJFtdLM0DUKVPWtp+phXU4cLAXbPNu5PwnXAR4RLs3Hg/WJYJ16yp0FuzIPBZwbaOEUL
-	 zyuVOxwqUhy9mWRgHi9CQpFgyIq9ClHqOxzuJlQRXNsnkgps1QSzfJhc8INKi/Ip2S6U5
-	 wqAaf3BlHhoKXorYJ/YgZZ/i2cT1rH4P8UQDSsY/IqHJe099RDDDa4ALYbRh1sZF/l9SV
-	 2G4VUo3sZvdrdjxMv2dEnUWb2iNfQalfuDkcffA6BgwHzYUbpG42g6Z83ef3k/NuI+Oip
-	 5vvlQiGJSW9HdDXuXPxPqMhoyCpRSMpEbM6ryxak5wTRrB5UuumNKBfGQIAnKRHi+fw==
+	t=1794310290;
+	b=RwGBs5s3ri0HNzLmH2AuqauFz6aSh6yYXGqB727bj4Zn6sAYy0GRWBZa+jc7YKWGIA1Y
+	 VCmy1Zf54dD+uTfeJIfpIPY+FhzYAODslIbECh0FJHkbY3u/1jUhsWRcMZuaqHWyli76/
+	 uuD7IuNZ3x0Gg8XSy0jXwAb8mP8XCZ0wSn+4pQKQkh+/YZ5KnBKQRbatJAweYPCoAYutz
+	 iXWH4HjifTQEj2tXfHfFTSTF1bNxN4vAkUT+lRnEk9DZL5wzr9LvOxXzJtB0ukzDDDNbJ
+	 f6FH+T83FEBU7n8rqS9Xr6s/k5uiBhOL5H/yhqYLuj5SHqMvicOdpZpzxKrcTW57cFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310285;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=YNvbDX5GZoykBGORHisupVHuAa7wnlS0Wpxyq/NqfE4=;
-	b=0sryxz7DSY3UQr9K8gpDAapoQ6yXRPDAxEsFsbeLcZcwepfHoVRKqYduShn+LyiUDJkU
-	 MBIKOEw/ZSyRh8wEaFlaNFZZP5gNjmW/S5++20JaDg/DJkjYP5HoJpHlghfLA08s3wa4P
-	 8/mQLttlIDpgVg4icgj521XjK5jkzGmPAcQssvzvz8yWS5hO3p6Xjh1sCe7Y86cP64XAu
-	 yhlurv+hPbtUa2/Blec0M4FqX7O9O6vM6UJJnTPyXw1uUYvNQ8jm/Hh0ZazozNK6sQpr9
-	 sIkOE+r5/fbZd1divI75F5i+K5P3kWljDksHZ9AyRDbBqQi9WbHZVO2VVlwn1uExzJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310290;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=C0n3nQ0/EkPhfIZ0bOLKgEtCzma4TypL5QzeO1dwihU=;
+	b=XVynIqzWwFgGSmO0KIl5CJexK+dnTsfNPElzs01197/8AIohqoo0r5mwyd5Oe6Ar4v6p
+	 c0YN/kWL5e325uCwmcOM+kOHi07nNfw1zVuqZwKbXESlNYTlRV555A4ujW+7Ir3ebRmTL
+	 wGAYmXf1DhEBHJXP/9To1D6iZ3t7n8+a6wpW1fBUZKPB0pfTxjnAStyTXtKnwMcPzwzF5
+	 e6ZLYd8pFdgX44OswP5Q4BtLl48llgPosAnUa/Ae5p+zvV2+NUGToyiFhihMZhTR8TScf
+	 aVZQo2qo/PKrJ3UnY5e748bG01pJ7gqQATDmUhtvbGvMtrhwz+rcKRJaTsatKEKb8Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTdrh3xj;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsFIg8OW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE70606A325;
-	Tue, 10 Nov 2026 11:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE70606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D942606A325;
+	Tue, 10 Nov 2026 11:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTdrh3xj
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=YNvbDX5GZoykBGORHisupVHuAa7wnlS0Wpxyq/NqfE4=;
-	b=aTdrh3xjFkqdQyfNv2eUk72tdmzzxQBJtM/7OkJqmED5lm/CTKuu8X/BWqApKUIe5Q1nLnHrY
-	Vqunuh+a5yRElVNyYZTHWxC9aPZFy4rge0xnLB9l9DnuA69Q+CJo/gRCJm5i3iG5wvt5Wy13QzT
-	WmVMa5gKtea2ZaLz40CFqHQ=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jP4Gk4SYgz1K96b;
-	Tue, 10 Nov 2026 19:31:10 +0800 (CST)
-Received: from whupemp200008.china.huawei.com (unknown [7.152.184.21])
-	by mail.maildlp.com (Postfix) with ESMTPS id 53D8A4058E;
-	Tue, 10 Nov 2026 19:31:19 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.93) by
- whupemp200008.china.huawei.com (7.152.184.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 10 Nov 2026 19:31:18 +0800
-From: JiangJieHua <jiangjiehua1@huawei.com>
-To: Paul Moore <paul@paul-moore.com>
-CC: <audit@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Eric Paris
-	<eparis@redhat.com>, Ricardo Robaina <rrobaina@redhat.com>, Florian Westphal
-	<fw@strlen.de>, Pablo Neira Ayuso <pablo@netfilter.org>,
-	<netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
-	<zhangchangzhong@huawei.com>
-Subject: [PATCH] audit: fix incomplete NETFILTER_PKT records and return void
-Date: Tue, 10 Nov 2026 20:29:39 +0800
-Message-ID: <20261110122939.45373-1-jiangjiehua1@huawei.com>
-X-Mailer: git-send-email 2.33.8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsFIg8OW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8671F0089F;
+	Tue, 10 Nov 2026 11:31:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794310289;
+	bh=C0n3nQ0/EkPhfIZ0bOLKgEtCzma4TypL5QzeO1dwihU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jsFIg8OWxyx/Zjto9ZQGcoA58L6P6CQ+P3y+vc7P7OA8YIKFLi2TRBxUvhUZY1C+1
+	 bpVQL2GKJe1PovLcBfSjY+3XgGXJ/Qqa1CTvTBCfWXasirIL/R3smnCBVfsxYLrK5s
+	 cJT0QtEmWt3nDNk9YqQrR3t8cPwVeKnkk9upNaX+dAW9z/DSsjHzCgxhsVPoH5NHp1
+	 tj27C2o9Hd3G2/D9WeKKor1V+uzoQuvkr9z9cemEeGJVOog2biBAuDcOlK6E5DGYfa
+	 +ndhHfyEPstIa3PSPEyKd5XRZ2jT1dr8+X6eDxvFESfanmdIvBcYUBNltYKO3189r8
+	 06KFhoQNaQTKA==
+Message-ID: <a3557629-d86d-42f6-b181-bf8540dc1982@kernel.org>
+Date: Tue, 10 Nov 2026 12:31:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,300 +51,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+ <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261109-fix-split_folio_to_order-race-v3-1-1cdc509e34be@nvidia.com>
+ <5a7bb477-5392-404c-a748-4748cec2c84f@kernel.org>
+ <940CBBBB-D564-4D4F-9C8A-A9A272F08064@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <940CBBBB-D564-4D4F-9C8A-A9A272F08064@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemp200008.china.huawei.com (7.152.184.21)
 
-Commit f19590b07cb6 ("audit: add audit_log_nf_skb helper function") and
-commit 15b0c43aa621 ("audit: include source and destination ports to
-NETFILTER_PKT") introduced audit_log_nf_skb() and its transport header
-parsing.
+On 11/9/26 22:05, Zi Yan wrote:
+> On 9 Nov 2026, at 15:21, David Hildenbrand (Arm) wrote:
+> 
+>> On 11/9/26 20:32, Zi Yan wrote:
+>>> __split_folio_to_order() calls prep_compound_page() on each new head page
+>>> to create a compound page after clear_compound_head(). prep_compound_page()
+>>> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+>>> and frozen and no one else is supposed to modify the folio's flags.
+>>>
+>>> However, code calling migration_entry_wait() can reach the folio by PFN,
+>>> then access its flags. It is because softleaf_entry_wait_on_locked() used
+>>> by migration_entry_wait() sets PG_waiters concurrently without taking a
+>>> reference and the frozen refcount during split cannot block it. Meanwhile,
+>>> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+>>> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+>>> __SetPageHead()'s read and before its write.
+>>>
+>>> One example code interleaving:
+>>>
+>>> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+>>>
+>>> 1. clear_compound_head(new_head)
+>>>    new_head->compound_info = 0
+>>>    (page_folio(new_head) == new_head now)
+>>>
+>>>                                            2. migration_entry_wait()
+>>>                                              softleaf_to_folio(entry)
+>>>                                              page_folio() -> new_head
+>>>                                              (not the old head any more)
+>>>
+>>> 3. prep_compound_page(new_head, new_order)
+>>>      __SetPageHead(new_head)
+>>>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+>>>
+>>>                                            4. folio_set_waiters(new_head)
+>>>                                              set_bit(PG_waiters, &flags.f)
+>>>                                              enqueue on waitqueue, sleep
+>>>
+>>> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>>>        <-- store; overwrites step 4, PG_waiters == 0 again
+>>>
+>>> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+>>> and CPU1 can remain blocked indefinitely.
+>>>
+>>> Fix it by setting PG_head along with other flags in new_folio->flags before
+>>> smp_wmb() and clear_compound_head(). The remaining compound page metadata
+>>> is set after clear_compound_head(). In that way, after
+>>> clear_compound_head() makes new_folio visible, nothing overwrites the
+>>> PG_waiters from softleaf_entry_wait_on_locked() by modifying
+>>> new_folio->flags non-atomically.
+>>>
+>>> While at it, use data_race() to suppress the KCSAN issue reported by Ye
+>>> Liu's patch (the second Closes) on reading ->flags during a folio split.
+>>>
+>>> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+>>> Reported-by: David Hildenbrand <david@kernel.org>
+>>> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+>>> Reported-by: Ye Liu <ye.liu@linux.dev>
+>>> Closes: https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+>>> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>> ---
+>>> The issue was raised by David when reviewing Ye Liu's "mm/huge_memory: use
+>>> READ_ONCE() when cloning folio flags during split" [1]. This patch also
+>>> supersedes Ye Liu's patch.
+>>>
+>>> [1] https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+>>> ---
+>>> Changes in v3:
+>>> - set PG_head before smp_wmb() like Kiryl suggested instead of
+>>>   prep_compound_page_atomic().
+>>> - used data_race() to suppress KCSAN reports while at it.
+>>> - dropped Lorenzo's ack, since the patch is changed.
+>>> - Link to v2: https://patch.msgid.link/20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com
+>>>
+>>> Changes in v2:
+>>> - renamed __prep_compound_head_and_tail() to __prep_compound_page().
+>>> - added comments to prep_compound_page() and __prep_compound_page().
+>>> - Link to v1: https://patch.msgid.link/20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com
+>>> ---
+>>>  mm/huge_memory.c | 32 ++++++++++++++++++++++++++++----
+>>>  mm/internal.h    |  2 ++
+>>>  mm/page_alloc.c  | 17 +++++++++++++++--
+>>>  3 files changed, 45 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>> index bd44d58e86845..99b48d7c988db 100644
+>>> --- a/mm/huge_memory.c
+>>> +++ b/mm/huge_memory.c
+>>> @@ -3714,6 +3714,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>>>  		 * Don't pass it around before clear_compound_head().
+>>>  		 */
+>>>  		struct folio *new_folio = (struct folio *)new_head;
+>>> +		memdesc_flags_t new_flags;
+>>>
+>>>  		VM_BUG_ON_PAGE(atomic_read(&new_folio->_mapcount) != -1, new_head);
+>>>
+>>> @@ -3730,8 +3731,16 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>>>  		 * unreferenced sub-pages of an anonymous THP: we can simply drop
+>>>  		 * PG_anon_exclusive (-> PG_mappedtodisk) for these here.
+>>>  		 */
+>>> -		new_folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+>>> -		new_folio->flags.f |= (folio->flags.f &
+>>> +		/*
+>>> +		 * ->flags are stable since the folio is locked and frozen.
+>>> +		 * data_race() is used because reference-less writers,
+>>> +		 * 1. PG_waiters from softleaf_entry_wait_on_locked() and
+>>
+>> Hm? I thought that case would be handled by your patch? How can they still write
+>> to the page?
+> 
+> This is V3 of the patch. Instead of using prep_compound_page_atomic(),
+> PG_head is written before clear_compound_page(), after which new_head
+> is visible to the reference-less writers.
 
-The helper returned early with -ENOMEM when skb_header_pointer() failed for
-the network header, and the later port parsing did the same for the
-transport header.  Such an early return skips the remaining fields, so the
-NETFILTER_PKT record is emitted with only "mark=" and without the address
-and protocol fields.
+I'm confused, how is it then valid to have PG_waiters set concurrently while we
+read new_folio->flags.f? Because that's what your comment states.
 
-Log the address and protocol once the network header is available, and
-route the error paths through placeholder logging: a missing network header
-logs "saddr=? daddr=? proto=-1", as the pre-refactoring callers did, and a
-transport header that cannot be read where one is expected logs
-"sport=? dport=?".  The same "proto=-1" placeholder is used for an
-unknown bridge ethertype and an unknown nfproto, which previously printed
-"proto=?".
+> 
+>>
+>>> +		 * 2. PG_hwpoison from memory_failure(),
+>>> +		 * can still write to it.
+>>
+>> We lose PG_hwpoison left and right when racing with non-atomic updates. It needs
+>> a fundamental fix. Is this really something we should take care of in this series?
+> 
+> IMHO, memory_failure()’s reference-less access violates the frozen
+> page contract and should be fixed. 
 
-Validate the IP version and the IPv4 header length, since bridge packets
-can reach the audit hook without the receive path validating them.  Locate
-the transport header from the network header instead of relying on
-skb_transport_offset(), which is not guaranteed to point at the transport
-header.  For IPv4, a non-first fragment or an unreadable transport header
-logs unknown ports; protocols without ports are unaffected.  For IPv6, a
-non-first fragment leaves proto at IPPROTO_FRAGMENT (44) and a negative
-offset from ipv6_skip_exthdr() means the extension header chain cannot be
-parsed; in both cases the transport header is not available, so keep the
-addresses and protocol and do not log ports.
+Exactly.
 
-Both callers ignore the return value (net/netfilter/nft_log.c and
-net/netfilter/xt_AUDIT.c), so make the helper return void instead of
-inventing error codes for a value nobody consumes.
+> But I do not think it needs to go
+> along with this patch. We discussed HWPoison flag race with
+> Michael S. Tsirkin and Miaohe before [1]:
+> 
+> 1. Miaohe proposed to reset HWPoison in memory_failure() as a best effort,
+> 2. mst used RCU for all non-atomic flag accesses,
+> 3. you also proposed to move HWPoison out of ->flags.
+> 
+> So memory_failure() needs a separate and proper fix series after
+> we decide the right solution.
+> 
 
-A packet whose network header cannot be read now logs:
+Vlasta raised the idea to set hwpoison only after we actually managed to
+isolate/grab the page. Which might be the proper fix.
 
-  before: mark=0x0
-  after:  mark=0x0 saddr=? daddr=? proto=-1
+So if avoidable, let's not add the data_race() here to silence something that
+needs an actual proper fix.
 
-A TCP packet whose transport header cannot be read now logs:
-
-  before: mark=0x0
-  after:  mark=0x0 saddr=10.20.0.2 daddr=10.20.0.1 proto=6 sport=? dport=?
-
-Fixes: f19590b07cb6 ("audit: add audit_log_nf_skb helper function")
-Fixes: 15b0c43aa621 ("audit: include source and destination ports to NETFILTER_PKT")
-Signed-off-by: JiangJieHua <jiangjiehua1@huawei.com>
----
- include/linux/audit.h |  12 ++---
- kernel/audit.c        | 114 ++++++++++++++++++++++--------------------
- 2 files changed, 65 insertions(+), 61 deletions(-)
-
-diff --git a/include/linux/audit.h b/include/linux/audit.h
-index 767e349d4834..8263257a010e 100644
---- a/include/linux/audit.h
-+++ b/include/linux/audit.h
-@@ -197,8 +197,8 @@ extern int audit_log_subj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
- extern int audit_log_obj_ctx(struct audit_buffer *ab, struct lsm_prop *prop);
- extern int audit_log_task_context(struct audit_buffer *ab);
- extern void audit_log_task_info(struct audit_buffer *ab);
--extern int audit_log_nf_skb(struct audit_buffer *ab,
--			    const struct sk_buff *skb, u8 nfproto);
-+extern void audit_log_nf_skb(struct audit_buffer *ab,
-+			     const struct sk_buff *skb, u8 nfproto);
- 
- extern int		    audit_update_lsm_rules(void);
- 
-@@ -276,11 +276,9 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
- static inline void audit_log_task_info(struct audit_buffer *ab)
- { }
- 
--static inline int audit_log_nf_skb(struct audit_buffer *ab,
--				   const struct sk_buff *skb, u8 nfproto)
--{
--	return 0;
--}
-+static inline void audit_log_nf_skb(struct audit_buffer *ab,
-+				    const struct sk_buff *skb, u8 nfproto)
-+{ }
- 
- static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
- {
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 631d6d4a23cf..c5997077a46b 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -2511,8 +2511,8 @@ void audit_log_path_denied(int type, const char *operation)
- 	audit_log_end(ab);
- }
- 
--int audit_log_nf_skb(struct audit_buffer *ab,
--		     const struct sk_buff *skb, u8 nfproto)
-+void audit_log_nf_skb(struct audit_buffer *ab,
-+		      const struct sk_buff *skb, u8 nfproto)
- {
- 	/* find the IP protocol in the case of NFPROTO_BRIDGE */
- 	if (nfproto == NFPROTO_BRIDGE) {
-@@ -2532,24 +2532,32 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 	case NFPROTO_IPV4: {
- 		struct iphdr iph;
- 		const struct iphdr *ih;
-+		int thoff;
-+		bool frag;
- 
- 		ih = skb_header_pointer(skb, skb_network_offset(skb),
- 					sizeof(iph), &iph);
- 		if (!ih)
--			return -ENOMEM;
-+			goto unknown_proto;
-+		if (ih->version != 4 || ih->ihl < 5)
-+			goto unknown_proto;
-+
-+		thoff = skb_network_offset(skb) + ih->ihl * 4;
-+		frag = ntohs(ih->frag_off) & IP_OFFSET;
-+
-+		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
-+				 &ih->saddr, &ih->daddr, ih->protocol);
- 
- 		switch (ih->protocol) {
- 		case IPPROTO_TCP: {
- 			struct tcphdr _tcph;
- 			const struct tcphdr *th;
- 
--			th = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_tcph), &_tcph);
--			if (!th)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, ih->protocol,
-+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
-+						&_tcph);
-+			if (frag || !th)
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(th->source), ntohs(th->dest));
- 			break;
- 		}
-@@ -2558,13 +2566,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 			struct udphdr _udph;
- 			const struct udphdr *uh;
- 
--			uh = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_udph), &_udph);
--			if (!uh)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, ih->protocol,
-+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
-+						&_udph);
-+			if (frag || !uh)
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(uh->source), ntohs(uh->dest));
- 			break;
- 		}
-@@ -2572,19 +2578,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 			struct sctphdr _sctph;
- 			const struct sctphdr *sh;
- 
--			sh = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_sctph), &_sctph);
--			if (!sh)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, ih->protocol,
-+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
-+						&_sctph);
-+			if (frag || !sh)
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(sh->source), ntohs(sh->dest));
- 			break;
- 		}
--		default:
--			audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
--					 &ih->saddr, &ih->daddr, ih->protocol);
- 		}
- 
- 		break;
-@@ -2594,28 +2595,36 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 		const struct ipv6hdr *ih;
- 		u8 nexthdr;
- 		__be16 frag_off;
-+		int thoff;
- 
- 		ih = skb_header_pointer(skb, skb_network_offset(skb),
- 					sizeof(iph), &iph);
- 		if (!ih)
--			return -ENOMEM;
-+			goto unknown_proto;
-+		if (ih->version != 6)
-+			goto unknown_proto;
- 
- 		nexthdr = ih->nexthdr;
--		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
--				 &nexthdr, &frag_off);
-+		thoff = ipv6_skip_exthdr(skb,
-+					 skb_network_offset(skb) + sizeof(iph),
-+					 &nexthdr, &frag_off);
-+
-+		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
-+				 &ih->saddr, &ih->daddr, nexthdr);
-+
-+		if (thoff < 0)
-+			break;
- 
- 		switch (nexthdr) {
- 		case IPPROTO_TCP: {
- 			struct tcphdr _tcph;
- 			const struct tcphdr *th;
- 
--			th = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_tcph), &_tcph);
-+			th = skb_header_pointer(skb, thoff, sizeof(_tcph),
-+						&_tcph);
- 			if (!th)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, nexthdr,
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(th->source), ntohs(th->dest));
- 			break;
- 		}
-@@ -2624,13 +2633,11 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 			struct udphdr _udph;
- 			const struct udphdr *uh;
- 
--			uh = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_udph), &_udph);
-+			uh = skb_header_pointer(skb, thoff, sizeof(_udph),
-+						&_udph);
- 			if (!uh)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, nexthdr,
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(uh->source), ntohs(uh->dest));
- 			break;
- 		}
-@@ -2638,19 +2645,14 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 			struct sctphdr _sctph;
- 			const struct sctphdr *sh;
- 
--			sh = skb_header_pointer(skb, skb_transport_offset(skb),
--						sizeof(_sctph), &_sctph);
-+			sh = skb_header_pointer(skb, thoff, sizeof(_sctph),
-+						&_sctph);
- 			if (!sh)
--				return -ENOMEM;
--
--			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu sport=%hu dport=%hu",
--					 &ih->saddr, &ih->daddr, nexthdr,
-+				goto unknown_ports;
-+			audit_log_format(ab, " sport=%hu dport=%hu",
- 					 ntohs(sh->source), ntohs(sh->dest));
- 			break;
- 		}
--		default:
--			audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
--					 &ih->saddr, &ih->daddr, nexthdr);
- 		}
- 
- 		break;
-@@ -2659,11 +2661,15 @@ int audit_log_nf_skb(struct audit_buffer *ab,
- 		goto unknown_proto;
- 	}
- 
--	return 0;
-+	return;
-+
-+unknown_ports:
-+	audit_log_format(ab, " sport=? dport=?");
-+	return;
- 
- unknown_proto:
--	audit_log_format(ab, " saddr=? daddr=? proto=?");
--	return -EPFNOSUPPORT;
-+	audit_log_format(ab, " saddr=? daddr=? proto=-1");
-+	return;
- }
- EXPORT_SYMBOL(audit_log_nf_skb);
- 
 -- 
-2.33.8
+Cheers,
 
+David
