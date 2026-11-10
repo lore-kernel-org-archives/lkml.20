@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321843;
-	b=JMwIb+ms/EOXW0i562Ykklou3UUHcPyfz7a0ABFTvregh5D3xEgU9hFFWm36MD5pIzzA
-	 NgYy3+ni2AI+RNlnPIZizyyYRhB/xDlRUsdfnSxQjuve8uoojR9d9yCrVmWwY53HHYYV8
-	 x/S8chdqPF3nicuwF7OlyE7tr1QNVz0S8eW3wa1sUJxNS3LybpTQ7gVSzDT0CyR+7l8FH
-	 D7NO6/ygdvPodn6JuSe6B+yjp0V3SAZu0J3dHnMUgsKA0LAseTn+Vh2ACWxjjluZQo/yQ
-	 DDY4LcxCWJS0dAbPIc4mC/t5wErBZFfYldqLA/w6g6qIzoqCX4tANXLwZzE9fSM2NPA==
+	t=1794321854;
+	b=AIDiUqtSeifsHDgYUHCQqx9pk9oeFXgeU4kRnaamemYZM6piMypDU1RLpxzjP+JXfaMZ
+	 Y9hKAEwjX9n8P3/UGS4JtddSP7Kz7n1iUyr3EETjxeBJCAOXeYcX2y6Sv5O7DbzKbfKsU
+	 LFRqYrlEkh7OY+z6fDHg2UcHGpOs+5Ly0UfADXJhq6kcaSVbBU6Pq6o7uwlJIRVocUFYR
+	 WKmabEVXgjUK0WGsIDqTrw64veyy8E7BBSqE9Zau1Sbh47E5OWHUIkvA6LaVCeNRh0MpA
+	 dBPSM5plAdAzQv+pZ41h6L+WQkqs96gK4+CdGJa2S9shaagFzpxuv9odacVbxMqE+ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321843;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321854;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
-	b=hddP7JA6glZ8GzNtDT7ednRmDbIp1zeHen7IRyj5YQKgJrNM7HoVx91GYI6kGWGGZD+Y
-	 Dv/oy6BOGRK6ldyjgZBI0ODW5EkRdFFpc1OXjzk2BGFYVc44Fz2E9+6TshTB12SKMOKSB
-	 Km11TTNYEfeHiuVmImfjHheFY8pJW8L4RGKTxdnJ+yV2lAayrswcSk0wjCd/KMtTtNq6o
-	 A/2WAhBnqvP0N3H8ej/N0lu9qitiD136Wo4IYiRTmaJNvAhD3WetFpA1A7QrWPgikre4K
-	 jbjNJHJ1gGn/wwCUX9bDLlIiRS549Xc9U09OH740nKJxlhchQukCtLsiTIwxNM4jtmQ==
+	bh=Vbv4D0/LEv4X185FkFGCxxtMC7jQyoiuqvpgmuYpp78=;
+	b=RIgXMiWkPDQHSdttuRcuTzsKxo/+KOdJN8+UOxykSRdAUE0bRlZCsWqsDCbqb0ot4QvG
+	 5s9ewEuDmCYoaE8uj7F4NCvB6dPXoTw5VteswxomX3WEayyZbcvonryPKB6FcJEcq5pK1
+	 bf9Ly8wlHkA4V2WGWFkfdFRZ9qGMSDN/V6By5SO3Kl87+ZTL/xNLmvW50IxBvMyfaKtgj
+	 2eM8BTdi4TO2luejJVheU7ILR+wwmmT7aPe6wnSfjO+ZlNz4f3dbd4spdJ7l8jI8JMf3K
+	 JzVhzp1X8kHyb5V0UhCExejV0okfrf7SrjHh3KqrvTcOyDlzaMj9gazjbMCxHPiP9iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jAI7mkNN;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998C4606A31C;
-	Tue, 10 Nov 2026 14:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FC960A261F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17FC960A261F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ECF1F0089F;
-	Tue, 10 Nov 2026 14:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321843;
-	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=b1AHjRT67qZpelhp9AkITROdM7TrDbd50xCsls1gixEEU601eqCIEVh/K8An+gLJi
-	 irdCs5NPnV8sCAS36C3t1ngEn+sLxsbK1WkfTH4NqZd65VtfZ1LpPD7QUuZQjyeSjm
-	 d5KM1TfX8ZdAs/J9GzGG5BQeP7dpRe+maWF+aV8yBxzVS+hnLgUsQYHsI6qOt6+loy
-	 k6UhEm2iO/6UKzqFAAvcgaQq4Hnn+u7bzoZtvOwVLR+wY/oVjOJ2yNzf0rVTrPkNlj
-	 ehs8iXKxjmBYJIwC9Oy/gHb5X9UW13HwcCl1fntQEBL7v39aPAFp8MKkyZ8Hz9sI46
-	 hFsdlPkzUZLSg==
-Message-ID: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
-Date: Tue, 10 Nov 2026 15:43:59 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jAI7mkNN
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490585eddfcso1653127f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:44:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794321851; x=1794926651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vbv4D0/LEv4X185FkFGCxxtMC7jQyoiuqvpgmuYpp78=;
+        b=jAI7mkNNr3iGaogAXzgrzjFkpz6l4rkoR3itlaI/74DFCZEcL5V2zkRp0eKdFTBB0r
+         vapPeQc5/P7TWQtnIbfBrymA7FrbIjYezy/k4K4aYmYKzuRzIpIZUaqOB9dWWbZGzoox
+         0blKviPrOQCw3QV9zwY7GQd6LPWWV4ajvakJ/OxOXMW5uhO9jVpliRNueGSPErXUbJRP
+         pWO+TYp/YvWHfz4vvQze567g5lHubu3WVu0y8+58Edcb1XxoWUl0w0jVuSoXsQsbxp59
+         DTFBTdu0IjtqrdThak1Yc/QWZmx4vOl/2f3ZvrP1BnGPZ5LwZG+8aj19zZnx7sIOQ/lD
+         TUhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794321851; x=1794926651;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vbv4D0/LEv4X185FkFGCxxtMC7jQyoiuqvpgmuYpp78=;
+        b=vuaLHeWVPltayxfMn2Eex9BeElX/ZhnFaNrYDeWCNQIXatARi/6QOq2pGWfLxYUKnG
+         HvrzOgQaZEhNOE86RPP/Ycx60Xl/cIjbRqUtqye1e5wsfBvfl2zKM1h+7S/6rMglrJGw
+         4gpXnDZKkC+x6U5Dt71h9QCFvwAFk1TxmvAha7kCscUWzxbetM6EfNc2chukg5CTVA7/
+         LxUYbjrv0xXjBzZwOp1FbCqE8dVtkAhViOgVCY2IZUnl+ybX2gzF8E1lAI+KzwW+NeZd
+         BsE9QYQJkO/VKWASg1p2EEUeBcEd9AwdZN037W0rc1yeoDKX6ceOfE+W+6SnJZK2ieoK
+         4LiA==
+X-Forwarded-Encrypted: i=1; AL+hErGak2RzfMZkHULnlt7gtv79bRYrdO4/6hRiRFXBqnyWOH60ztH53fpLUwwMineuQ+GSK/V4xwdXK9i5SL8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+woHKCPUog6Kq6tGwSq9wW+4hOKR+RL2sscdsxfbQPK9a5NoeE
+	N45oTK6jDxioBcvdbOmchF6G/kfmiBxD6tudOX2oqYfmXVYjbUUEXxGsgVRhL/e0iz0=
+X-Gm-Gg: AYBFou3qS9Jee6ZDqU6FUABKRSItKDyZFPHUzb6otsg0MMjorfDzg3nW2kpZdj9+JKZ
+	p9xl1DSgzhE8KMavNSq1EjuEQVgxnZA2nSzKTPNEhxRK5QuEoGKpMIeJfufZIP58UnpsK0mHX0/
+	0xyO49z5rcBOcDr2WfguGjljz5kQsO2UKLNcBLe5thoa0XI8odO3mkN9+1gFkCqMKtoIVh1fJPF
+	rlYRuiW+jLsz0D/DEl+7MByJH+hwyDqQA6hUZNw52ywPmUHHc9FvwPLjGDK1ttO5n/fwqdduRT/
+	YbfXjhcKieS1z4CTpYPnCPSESKeneYYt3jNcj1ShIS6Hg52h47FBqz75rTya89XsTZ0voZBaZeb
+	L3yICHoye4YIrFrb4v6U0h5a54Qbq2Y4pMI2JivE1424ZcYLi8ggNsaxtJkhsuYmoNxtJgMTsvu
+	Fs8Nw1hw3/p8JUZxCdKXuxKm3d5LymXrYH5OV4dQbMjKvW+M4d5OkUrrescBCPW5Z4sgR9Uh5Ej
+	MR7nrmrTVMlQPwGmchHqKSvGC4QVqAOWlDq7V7sYHHhwpHxwI6EaZf6QkU+1IPBwcoLMmp56U8/
+	MPLByNPLvhMq0H2eD8/E4yGfDJ+L21gQtT605pFzYj70YGrAM5UaDr98Cg==
+X-Received: by 2002:a05:6000:46da:b0:48b:e50:714e with SMTP id ffacd0b85a97d-498308b95a4mr3820299f8f.36.1794321851164;
+        Tue, 10 Nov 2026 06:44:11 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c027sm5439242f8f.24.2026.11.10.06.44.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 06:44:10 -0800 (PST)
+Message-ID: <9ab69228-a9f7-442b-9a2a-2e012f37668e@baylibre.com>
+Date: Tue, 10 Nov 2026 15:44:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,187 +93,124 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Riesch <michael.riesch@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
-Content-Language: en-US, nl
-In-Reply-To: <avMgJ7MFks0sKD7T@houat>
+Subject: Re: [PATCH 05/11] firmware: arm_scmi: stop reading past
+ PINCTRL_LIST_ASSOCIATIONS replies
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-5-52d92843ad97@baylibre.com>
+ <avLxpUd6cXuqUCbd@pluto>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <avLxpUd6cXuqUCbd@pluto>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/11/2026 15:17, Maxime Ripard wrote:
-> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
->> On 10/11/2026 13:33, Maxime Ripard wrote:
->>> Hi Hans,
->>>
->>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
->>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
->>>>> Hi everyone,
->>>>>
->>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
->>>>>
->>>>>> On media-centric camera pipelines, every entity is known at boot time
->>>>>> and described statically (for example via device-tree).
->>>>>>
->>>>>> The V4L2 framework assumes that every entity of the camera
->>>>>> pipeline is always present. This is a reasonable assumption for
->>>>>> integrated cameras in laptops or phones. However, in automotive systems,
->>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
->>>>>> When the framework assumes all sensors are present, a single missing
->>>>>> camera can prevent the entire pipeline from operating.
->>>>>
->>>>> This series has been discussed at the Camera & ISP "unconference" in
->>>>> Pragues (during Linux Plumbers)
->>>>>
->>>>> The notes can be found here:
->>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
->>>>
->>>> What is missing in this discussion is how userspace can indicate that it
->>>> actually can handle partially instantiated pipelines.
->>>>
->>>> Today if one or more parts do not come up, the devices nodes are also not
->>>> created. This is typically exactly what you want.
->>>
->>> That's very arguable? We have plenty of other examples where we allow to
->>> show a software representation of something that isn't available in
->>> hardware, starting with virtually any memory buffer allocation, but also
->>> disabled CPUs, swapped pages, etc.
->>>
->>> For things a bit more related to drivers, things like USB root hubs are
->>> also pretty analogous. The "root" device will always be created, even if
->>> devices connected to it are non-functional, missing or whatever. It's
->>> the primary interface that these devices might or might not attach to.
->>>
->>> So it's a bit hard to understand why the device nodes not showing up is
->>> exactly what we always want.
->>
->> It's simply how V4L2 works today: video devices do not appear until
->> all components are instantiated.
+Hi Cristian,
+
+On 11/10/26 11:27 AM, Cristian Marussi wrote:
+> On Fri, Oct 30, 2026 at 04:58:36PM +0100, Clément Le Goffic wrote:
+>> The transport cuts a reply larger than the receive buffer, but the iterator
+>> still reads every identifier the reply announces. Use only the identifiers
+>> that were copied and ask again for the others.
 > 
-> Sure but that's exactly what we're trying to change.
+> Hi Clement,
 > 
->> Most video devices consist of multiple devices (bridges, i2c devices,
->> etc.) and unless all are found and initialized, you can't capture. So
->> bridge drivers postpone creating the video/media devices until
->> everything is there.
->>
->> That also means that applications can safely assume that if a video device appears,
->> it is functioning.
+> thanks for these fixes...I'll start from this since it really intersects
+> my current work....
 > 
-> Ish. The only safe assumption you can make about this is that it was
-> functional at probe time. Anything after that is very much up in the
-> air. If the device broken after probe for example, or if we have no way
-> to tell if it's functional to begin with, that assumption is no longer
-> true. So sure, that's what applications have been doing so far because
-> there was no better way to do it, but I wouldn't qualify it as a "safe"
-> assumption.
+>>
+>> Fixes: 2145af01b9cb ("firmware: arm_scmi: Add basic support for SCMI v3.2 pincontrol protocol")
+>> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
+>> ---
+>>  drivers/firmware/arm_scmi/pinctrl.c | 12 ++++++++++++
+>>  1 file changed, 12 insertions(+)
+>>
+>> diff --git a/drivers/firmware/arm_scmi/pinctrl.c b/drivers/firmware/arm_scmi/pinctrl.c
+>> index 42cb1aef1fe1..69645ce73d9d 100644
+>> --- a/drivers/firmware/arm_scmi/pinctrl.c
+>> +++ b/drivers/firmware/arm_scmi/pinctrl.c
+>> @@ -261,10 +261,22 @@ static int iter_pinctrl_assoc_update_state(struct scmi_iterator_state *st,
+>>  					   const void *response, void *priv)
+>>  {
+>>  	const struct scmi_resp_pinctrl_list_assoc *r = response;
+>> +	unsigned int nr_fit = 0;
+>>  
+>>  	st->num_returned = RETURNED(r->flags);
+>>  	st->num_remaining = REMAINING(r->flags);
+>>  
+>> +	if (st->rx_len > sizeof(*r))
+>> +		nr_fit = (st->rx_len - sizeof(*r)) / sizeof(r->array[0]);
 > 
->> If we add fault tolerance, and you allow video devices to appear even if they are
->> not functioning (or partially functioning), then that contract breaks.
->>
->>>
->>>> But here you allow partial instantiation, and how does userspace
->>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
->>>> There are no devices yet, so that can't be used, so what alternatives
->>>> are there?
->>>>
->>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
->>>> I raise this issue, but I never received any proposals.
->>>>
->>>> This must be solved.
->>>
->>> Is there any way to? You're saying at the same time that we must not
->>> create the device, but that an application would need to signal to that
->>> device that it can indeed be created. It's a circular dependency that
->>> cannot be solved on a per-device basis.
->>>
->>> During the meeting, we had a discussion that the media device should be
->>> created as a "skeleton", and then as other devices probe they would fill
->>> in the blanks. How would that not work? Also what is your main concern
->>> exactly that makes you ask to not do that in the first place (or make it
->>> opt-in)?
->>
->> Applications today assume that everything works when the device nodes appear.
->>
->> If you change the behavior, then they just see a skeleton driver and how
->> would they know that they need to wait until all components are found and
->> it is ready for use? Or what to do if some parts are faulty?
+> As Sashiko kindly pointed out to me a few other zillion times O_o in my
+> Telemetry series, there were a couple of missing sanity checks in the
+> iterators core so in my last series there is upfront a generic fix
 > 
-> I really think that this discussion is not solely about probe. It's
-> something we discussed during the meeting, but I think we should try to
-> handle "my device was broken at probe" and "my device became broken
-> while the system was up" exactly the same way.
+> https://lore.kernel.org/arm-scmi/avLTkAtQQSzpgu2A@pluto/T/#me258191dd55db99d53b570be7c51901c31bc70cf
+> 
+> ...so we could at least avoid to check here and everywhere else in SCMI
+> iterators that you have at least a minimum size messages to work on.
+> 
+>> +
+>> +	if (st->num_returned > nr_fit) {
+>> +		if (!nr_fit)
+>> +			return -EPROTO;
+> 
+> My core fix above will discard the iteration upfront in an equivalent way
+> to this check togateher with the rx_len check above If I get this wrong...BUT..
 
-If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
-the only requirement in that case is that you return an error and don't crash
-the kernel. It's accepted that if the HW breaks, the application breaks as well.
-And you have to replace your hardware.
-
-It's been working like that for >23 years (that's when I started working with
-V4L). This also means that for >23 years applications have exactly this expectation
-of how video devices behave. It's really part of the uAPI even though I don't
-think it is ever explicitly stated.
-
-To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
-very useful for a specific type of use-case.
-
-But first we need a solution for this specific uAPI issue. Note that this is
-now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
-as well that modify the behavior.
-
-Regards,
-
-	Hans
+Right, v2 keeps only your check below
 
 > 
-> And while it's true that our assumptions currently deal with the former
-> fine, we just don't deal at all with the second, and everything you're
-> saying here could still happen.
+>> +
+>> +		st->num_remaining += st->num_returned - nr_fit;
+>> +		st->num_returned = nr_fit;
 > 
-> So, to answer your questions, I think it's entirely application
-> specific. A video-conferencing application would error out or might want
-> to wait forever for its only relevant sensor to show up. A multi-stream
-> dashboard in a car would just show a blank screen and show the other
-> streams. I'm not sure we should (or can) come up with a policy at the
-> kernel level.
+> ...why are you fixing and carry on ?
+> I dont feel that you can safely proceed at this point by just fixing the
+> returned and the remaining...
+
+Each request carries the index to restart from, so it stays in sync but it hides the DT misconfiguration
+
 > 
->> One solution might be that bridge drivers capable of fault tolerant behavior would
->> create a /sys entry called 'v4l-fault-tolerance' (just an example) somewhere.
->>
->> Applications that can handle this can find that entry and write '1' to it.
->> After that the driver will start creating devices even if not everything is
->> available. Without it it will just block (the current behavior).
->>
->> It's also tied to your use-case: for the same hardware your use-case might be
->> fine with the current situation (non-fault-tolerant), or you want to enable it.
->>
->> There might be other ways to implement this: e.g. a module option or a Kconfig
->> option.
+> ...the check is of course needed, but it should be an hard check
 > 
-> Yeah, I guess that could work
+> 	if (st->rx_len < (sizeof(*r) + sizeof(r->array[0]) * st->num_returned))
+>                 return -EINVAL;
 > 
->> Also note that systemd opens video nodes as they are created. It used to use
->> v4lctl for that, but that might be integrated now.
->>
->> So that should keep working. I think it just calls QUERYCAP, so that is likely
->> to just work.
->>
->> Regardless, I want to see an RFC for this, demonstrating that someone has
->> thought about it. If you think this can be done safely without an opt-in mechanism,
->> then explain so in the RFC.
+> ...because something is clearly wrong...indeed, learning from my current
+> telemetry madness the above scenario could be due not only to a buggy FW
+> BUT more easily to a misconfigured transport...if the transport size is
+> misconfigured (as it is mostly NOT negotiated, simply configured) any
+> message long enough will be silently truncated, so the fact especially
+> that you guess remaining it can happen to be completely out of sync with
+> the platform side...
+
+I've seen your serie but didn't check such details. I'll use this hard check in the v2.
+
 > 
-> ACK. Thanks!
-> Maxime
+> Are you fixing an existent known FW bug here ? in that case I would opt
+> for a quirk...
+
+No firmware bug, just the DT that had no arm,max-msg-size. Linux was using its default value that was not sync with my SCMI server value.
+Setting it fixed it, no quirk needed.
+
+Best regards,
+Clément
 
