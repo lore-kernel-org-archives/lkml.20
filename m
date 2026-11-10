@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.60
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321448;
-	b=E7paR+VdIU6r2k0/y47Sp0prM9DxE09DUgv9L/XQhJxUq6m+EMl0XRBKlJ/iSqGY836L
-	 DCU5RVHMzMgTAROj27N8W/c8UvsQ8/kF3+FluMTBm01sLFMc17QvrODQ2cOUFXy6hPzqB
-	 jcrnftbSoT/xNUzlBjzdUTYQMmEqD3RhDchSRZMmq1cIM7ljwIpD2DlWKiNQnr47294cQ
-	 A1hsn9bI7lcLYj/h++ntzkq6bXlcN//HZhjWvYSYeF92kxKcu3jgX50z4zpuggo8V8994
-	 ISHZkFPjjuYqEYYEy9BeY7NqJHXKoJu5rleGmM+WYJfnUaVsUwq5PE4Cq141O5EzHUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321448;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wwBd3t/fwKegvjYyHJ3qGX8rxto+Nf29p2WhgJO7ZDY=;
-	b=TMwxI9c1bp/+azU/e/ltJs3kvnLLQIIFnv7R2lBa3vG77giSfcawxYdejoNEffsuX8yw
-	 OsJQNfdgwmoVngcKtt3dMIY/hbZ9UTkjviQfyIxpi3UO3m3dWK0wxjCwkkLvKoClDk3V7
-	 Fj5MdYUewd/Dr9iQtqptMdtoDrlkYVxc8kZ0OiRLpeZ1WAfo8KhNG4mW9NBPnu7YZWscM
-	 o8/0vAxAU3wmOcKx/0d4I1mob/4LEcOIsMy3bEWDueZVDSe3vDU8d8nAa50rFuLMfZZfN
-	 cqrDgi0SmpVeDUXHInkvUzqCUtQmYWOHZ5A3OnpXTJUmpyIUGGbzcaYSPbJjtov4a9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y2JKktDQ;
-	arc=none smtp.remote-ip=95.215.58.60
-Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794321475;
+	b=3E0AETCBD6vR1j4AAs/ek1Wo9mWGVS7r8ZDqrTtGlXeu9NZBhxNcAJi4ownbuZi/3piM
+	 sybwXNmCQDBBXd04+nl6i9jnjYNXgy7fBxy9YJ3BuY8v8vTM/H9hregef//uIm9qoo9h+
+	 aJh5TVqsbMbE5L5MSkRjSIl1LaGtfjnMIsDfZyAZ5JbjOENubPU40ATYEEB4bhw561ei7
+	 ALRez5WsG6NJrbFvWEW4aLzaWOPojiUy3H+5aNKeAnGEAPlWBAqifiwzkwGGAgrUo2T7j
+	 1NoYYydnXDX943xi+opz6uf/ta2v921+cLGaRkGJ2wRCoOLyQkcdbiJyqSUnN43IAtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321475;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TH0RhbJ4444L2PfImVqZG0ogOGpAWT0oGQI0lbwLlys=;
+	b=zbsxuNaZIg+uT6dEU3b6TcXVFPDXryAT9wfOOwlAMzrMt5noR4D35laUWquzyGfWFM8t
+	 Mxl0DfsBpHTmHUkqBtBUihqxXBJZf9xl9PzxG9svcNWcewVpZFeninolFAQ6yBthFq50D
+	 5VAfyIzY0Ml4xMJYASM91i349f4Ig0TiP+KR7L0iea32ALC/6L5ffRCX1G+tyLQZrKKKE
+	 Im82szjMhSZJrwXiQcOh8p3LQex7fSh87/cy2szsdWKxtbkgdNwd73lHyMuy2Du6YqEHC
+	 l4qnQJPzd1yvacHDa3YTxn5RmKUI/rKX5hZLUy5F2GE6dSDob6eEMFxPiBBJRthIlYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzT62Hy9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73A7606A325;
+	Tue, 10 Nov 2026 14:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzT62Hy9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794321474;
+	b=Zs3dnLJjauRbws8/ITbmi0WZLIYeRYBCAFTjCNq/QCJj60OcV9WT0CoKRRUFyZSWDlbs
+	 pa5oW6RF4Vcbk+znw0jfytyBZUUp1JYZJs/i37w/P6bKbFSfUOrfyiFsQJ79nbXo0Zx+a
+	 BfKNnhFOe4oYuYRYOe6Ltdf/7eqknb7SPAiQuh5EVD+WR0KvBXox03pi380P8OwxqdvwG
+	 XNW1SDK6ihU8w0F1fexCsrDX7L7nyW9OR9NKAUDfW6MZPynDlmu5RQqCZH7Yu5eh97bcN
+	 ce9hqg6BC2DxLRPP53Ndp+Cq0RiCt8Q8axBUcYpybLBOkzGyUKBOo8eVAyjhRi2NWMQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794321474;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TH0RhbJ4444L2PfImVqZG0ogOGpAWT0oGQI0lbwLlys=;
+	b=wI8/Wm5k0ZsQl7hqrYaOVHzwW+3Qzfzp5fRuqA2g2ABKYIo+0Im/Yrh/h62xKaDJGDNp
+	 N/E/dN2T8FNofunwm8Oe0/zxNmT/Li2YxXxC3DFwR9JusBCLh9dR1kIye5fpzyxdb3xSW
+	 o2ujYmtDufcszHfgOyKmDTQoWL3cOdqUpaNon0wtTwXx4FAYHx2mEAV7j575bTDaCQ2F0
+	 +BAdmzbuVr6VrsYTpEbDJcqm96GSSAvERYcqGGWe0vNJkfVv8hhsNVZWydnmmC1N2aQC9
+	 oOC5+u1zlxCK+vjVvQvqHjXyeR4YTWWS0IuLLbDm3/9uwchZY5EvUGi2Hd0UMcHIBBg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6BD606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F6BD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y2JKktDQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y8URv/BoUUxJeCE3brxsR4XUJe568drCfoXFixTVCkM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794321444; v=1; x=1794926244;
- b=Y2JKktDQV1oQEpeKslmh1KET+OhcOr8AFn0LEf9znE7oN1GxOFy8hfbjOVmJQp+fdrzGPbj4
- V3TqspCmEd+4Gw0QcO2Bdw9jbfQ9WZxS3ZXYcd93A2+mn7xuo2q8AGuoWQYnKy2OrKZLY2I0im2
- sFr/hmBYzz96myOflPAt4+pU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d1f5f6f2264b66ef;
-	Tue, 10 Nov 2026 14:37:24 +0000
-X-Mizu-Trace-ID: d1f5f6f2264b66ef
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <105b2b77-7eb6-4b96-821d-51af94a2e21d@linux.dev>
-Date: Tue, 10 Nov 2026 15:30:43 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 52A531F008A1;
+	Tue, 10 Nov 2026 14:37:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321474;
+	bh=TH0RhbJ4444L2PfImVqZG0ogOGpAWT0oGQI0lbwLlys=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=TzT62Hy9N4yY0kJRuyflN2z2mecgmq5BuXoTRI+V6TxanGvJopkhwSCun0kCwxHyv
+	 2mEivQSQBKZKYg5tmWBA06WgSHOvAy8eWk9UG+G5wr9rjkri3w+Eq7lX4hy6ctPK9f
+	 pm9UznGpXX+U1xj5pCigZ7MbF+I4YV4Wu+mC9NqKKWc0q8KB3RNMXSvcCfPwoQbg75
+	 069JFhLp3m0CcmIqEXCPlZ8nCWJPO+epXCrscypMfrGceh1x4QdXCsDfNUb/3PySYI
+	 ZI4/febIuWsLWX4iND7KdIqLNnY/zfTGm1DTFUutdMg7rn9vmctkXjwNWOw6HSp8GG
+	 6oCj93VgS5Tmw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C0EBC48B8B;
+	Tue, 10 Nov 2026 14:37:52 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 08:37:52 -0600
+Subject: [PATCH v2 1/2] wifi: ath11k: simplify copying a peer's PPE
+ thresholds
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,87 +83,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] soundwire: Assume default maximum valid channel if
- not specified
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-References: <20261110113842.347883-1-ckeepax@opensource.cirrus.com>
- <20261110113842.347883-3-ckeepax@opensource.cirrus.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20261110113842.347883-3-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-ath-peer-ppe-thres-loop-v2-1-fced87507920@gmail.com>
+References: <20261110-ath-peer-ppe-thres-loop-v2-0-fced87507920@gmail.com>
+In-Reply-To: <20261110-ath-peer-ppe-thres-loop-v2-0-fced87507920@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>, 
+ Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ ath12k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794321472; l=1371;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=+v0/mtei21f+uWsVMg5ZCRb77EqWbxbixU5qhwUbCuI=;
+ b=T4WDyBltYopDh9pNqvEwmGuyvOV4RHN47HxHiexGgQTrBn6RmOIBzBRPZdqVwztDMwGny8RtK
+ HIc+nHYU2v8AVtVXU0y+hawhSJ9xXlLLJ+PAKhqJYa/zEn92c0MlGc/
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/10/26 12:38, Charles Keepax wrote:
-> The SoundWire/DisCo specification defines all the supported channel
-> properties as optional and states that in the case none are specified
-> defaults of min_ch=0 and max_ch=7 should be used. If both properties
-> are not present in the DisCo the current code results in min_ch=0
-> and max_ch=0. As min_ch and max_ch are both channel indexes, users
-> can't discern if they should interpret this as the default case
-> (1-8 channels supported) or the DisCo specified a single valid
-> channel of 0 (1 channel supported).
-> 
-> In the case there are no valid supported channel properties populate
-> max_ch with 7 as the specification suggests, to avoid the ambiguity.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
-> 
-> No changes since v1.
-> 
->  drivers/soundwire/mipi_disco.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/soundwire/mipi_disco.c b/drivers/soundwire/mipi_disco.c
-> index 259ad98b5b7a9..eadbda55f377f 100644
-> --- a/drivers/soundwire/mipi_disco.c
-> +++ b/drivers/soundwire/mipi_disco.c
-> @@ -284,12 +284,6 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
->  				"mipi-sdw-imp-def-dpn-interrupts-supported",
->  				&dpn[i].imp_def_interrupts);
->  
-> -		fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
-> -					 &dpn[i].min_ch);
-> -
-> -		fwnode_property_read_u32(node, "mipi-sdw-max-channel-number",
-> -					 &dpn[i].max_ch);
-> -
->  		nval = fwnode_property_count_u32(node, "mipi-sdw-channel-number-list");
->  		if (nval > 0) {
->  			dpn[i].num_channels = nval;
-> @@ -309,6 +303,14 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
->  				return ret;
->  		}
->  
-> +		fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
-> +					 &dpn[i].min_ch);
-> +
-> +		ret = fwnode_property_read_u32(node, "mipi-sdw-max-channel-number",
-> +					       &dpn[i].max_ch);
-> +		if (ret && !dpn[i].num_channels)
-> +			dpn[i].max_ch = 7;
-> +
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-this works, maybe with one possible improvement: in theory if
-"mipi-sdw-channel-number-list" is defined one can ignore the min/max,
-the two approaches with the list or min/max are mutually exclusive.
+ath11k_peer_assoc_h_he() copies each 6-bit PPE threshold of a peer's HE
+capabilities into the WMI layout one bit at a time, shifting it in from
+the top: val >>= 1, then the new bit at bit 5, six times over. After the
+sixth bit, bit i of the field sits at bit i of val, so put it there
+directly.
 
-Something like this:
+No functional change.
 
-if (!dpn[i].num_channels) {
-	fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
-				 &dpn[i].min_ch);
-	ret = fwnode_property_read_u32(node, "mipi-sdw-max-channel-number",
-					       &dpn[i].max_ch);
-	if (ret)
-		dpn[i].max_ch = 7;
-}
+This change and its message were written with Claude, an AI coding
+assistant.
 
->  		nval = fwnode_property_count_u32(node, "mipi-sdw-channel-combination-list");
->  		if (nval > 0) {
->  			dpn[i].num_ch_combinations = nval;
+Suggested-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/b60c4c56-483b-406e-92ab-643b0fdf2dc8@oss.qualcomm.com/
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+---
+ drivers/net/wireless/ath/ath11k/mac.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index 1a237adaa37d1..d7ae9e8747233 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -2496,9 +2496,8 @@ static void ath11k_peer_assoc_h_he(struct ath11k *ar,
+ 				if ((arg->peer_ppet.ru_bit_mask & BIT(ru)) == 0)
+ 					continue;
+ 				for (i = 0; i < 6; i++) {
+-					val >>= 1;
+ 					val |= ((he_cap->ppe_thres[bit / 8] >>
+-						 (bit % 8)) & 0x1) << 5;
++						 (bit % 8)) & 0x1) << i;
+ 					bit++;
+ 				}
+ 				arg->peer_ppet.ppet16_ppet8_ru3_ru0[nss] |=
+
+-- 
+2.43.0
+
 
