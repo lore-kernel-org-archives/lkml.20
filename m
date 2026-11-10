@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284359;
-	b=PlKMDbN/1CQRTnPXiLk5IGPSePQtQfQBsJu70BAw9qVysXgUUc+2c0nSHgRT6lDsZYM1
-	 wDvXonMh066U6aioLEnlCrS2Lyk7z1fc9NZncEeyhU4g+R1aDnqqmWEvUizqEPuVCEbFL
-	 waB7ZD894KDVndby4pkvAZSebPn/ALmdHA/SdKpsdnST9FOtwdRPF4ORJ9Lxjl0g/5hn+
-	 TEj7U1yOr4WCEcjs8DNDuSaKKFbjBlCkOJisi8jeL86kW2tU25s2OZ9X3GXlaZZidc4a+
-	 VoCnbASziEmQ8EOgche/Zvwqbqk/R2ZTiujJ0B+WehRkuJ27tZird9VG27IkVa5V8xQ==
+	t=1794284360;
+	b=owGsRCu5yo2yZ7TIzdWrpR+I0mEnmYvzFmrs+NOEPZx3meN9w6zdcc/is+XHkpnnIMoq
+	 mf2dAGW4nb5Qo3CRF387TQIISwGFseEdNXV+dxpbHUAYFYYzW2WQaLVFzA/xMReeGjrsK
+	 5EVfVGgTJQVGAXF6iIFmEojrILLF55OEQdYXCkquS3u22K5v2CzBtiJ8arh94YJ0yKp09
+	 A7VPJjjrLy71zPViKZOgp1Wh03E4K2FBSRfFmnHGej88ECNtUKbJsDoHKZxa58wtpGDas
+	 8WRv6yc7VVj2hVh/pMc03fP8/yM7Xh8PXVdIwfyItgSiqanalL8p5o0PaffhGxyJNrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284360;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9UdVGg/h64QrJFmMdvc8IRX8SR/hJQXPD1E3diwN+do=;
-	b=nYv6d4XXNi90WgVCkQb1L/QuW+BSrEeJoioFsCPH+95GMwv7bsdj81OYYl+k8q3iPNuo
-	 TkzoDXbw7i+wU8K8IWI3+Y1irAvzIAru9DLkPKYST9hpxPVXNPfSESQyiquMKJW33S+4d
-	 bFCtGMVXElstxZrCmqAPAI/5aJdHZ0EK9ovji5tfsiIhrV+jhXb44A4JaHyYIjkD6gih3
-	 zFR7JYjp0QJvrGn7JatTVjpwY5V2U/+FFYas/ykbRaEtGEOz7uPVuejrj+3E8FGyOCFoW
-	 MV+17AvYwF7ZRayfPBh3n4WEJVEKKCQ81zuAvnckOfLK0HMbb3eA7Iwbuvz0v7Ij9CQ==
+	bh=gG0BIsp3F32RveUGW6ul6/4p/lJVSGAIllfHJfCYFVQ=;
+	b=wDdKFmxPoW8fM4CUrQXUSxxyNk0nXIBxKObbarJ4ehLUM4PVqlDG4C5ZJsy8yl/B3hSE
+	 dzPyBRIpIkTBi1A9liTO9PRCGE39N7xTHpBXm2xo6HjoGs0jBgiymLKCMx27/+ko6ms16
+	 K5kAedjq3P5D3LJByg1Ueypb2L2UgjgIr1gwY5RXnpknU2L8cgV5lnX+0Y1Mw7rB2d2hi
+	 BZ9eh17vb6s9ted/H+08gcH38IQNNezsvRy5BCQSKOqr70rH3WhifTguBvHgSEgomRwO4
+	 /jRpwS6oi/uQLtqWU6b0KgDkZMWwJF/qVLgvIWYNxKxcqpww3IPZu3vNSWRxLwp9d+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kjRI09v+;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHmQP8E5;
 	arc=none smtp.remote-ip=192.198.163.9
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D189606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D189606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6989260A2612
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6989260A2612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kjRI09v+
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHmQP8E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794284356; x=1825820356;
+  t=1794284359; x=1825820359;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8dfFjAyH1NZ5O/UsFja1Hvgmiui6X/KQMbG0P2/bo+I=;
-  b=kjRI09v+5MtAwkG+6h5qCj6XGZrrhcEHQg7LjrljFDn4klPP2IkaJZ0R
-   2RKuOXg3vWlRBnBcfvGlK6NuEHyZDJARWNRkiTobN3w5wBryKwJ0E7w0j
-   gicvnmUQklAX0e+IwRXUa0fs1TkLcVkWnbRtQofVq5euo2XtRmll/nSaA
-   69yNbRiByIgiML3KrsUlzGOnzonmO8+4mTtb5bNfnNE5U87LPLBdAvNIv
-   WvND/4W91mINDXBIP7R8BmUNC1YFHvEPnHtXKKf81Wf7FwJE/6NXz1ypq
-   cZyL0YLThzYNzDkNIJXQoiGAR5TfqwWbDwkFWmF62mEY6jrJfQ3cXFaQ/
+  bh=OtdIqlJCzePoc/YWZ7W8qi5SoWYQ8adAJ9eFkSM+jz0=;
+  b=eHmQP8E5fxu9qAv98Gl5I6g5eFVMsRtTmXj+aEqLegazSOOs6dl1++Dl
+   zUuxHMmRX6hmMlJb4RINRS3c0407f+bfm/s2KnF6nAJSE6MBpZudPoiwL
+   1WoKgsdy9ubIt4Krzva4tGT005om7uYwiCwmgfzdt6jr2ES/Qcp5evFwo
+   MzGwaYuC8En/jDp3PFqi4ThnARkj4DyusjVdVVEq2nLDD+LFm9Cw2WN8Q
+   bUW/dHHBLpqhrDgxMpnzxi0sc+ZXTHDXq5xbp04afIq1j9T4rOMxoBUIe
+   SsEHTgTJP130E8Xhcs3NKHjCqfnXBgXGaAQSpslqhG07PUALjPYiCawYs
    A==;
-X-CSE-ConnectionGUID: GG+Icgg3TEaLqG6vAoYLrg==
-X-CSE-MsgGUID: 13Vm3OtySjyd3CwIfTrBhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901287"
+X-CSE-ConnectionGUID: zzi4lqw8R4eeCAhL2YsIsw==
+X-CSE-MsgGUID: MSS5DeeTTHiQOUxU7dycbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901296"
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2901287"
+   d="scan'208";a="2901296"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:14 -0800
-X-CSE-ConnectionGUID: V2ig3Z3cTsuv9u0S8wjhJw==
-X-CSE-MsgGUID: skpaQYrwT4aODqJeOZQhDQ==
+X-CSE-ConnectionGUID: bSY4sNg1QIyG4blghiHrWg==
+X-CSE-MsgGUID: jk+useGmQSm7G6c8Wi35wQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7856908"
+   d="scan'208";a="7856912"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
 From: Reinette Chatre <reinette.chatre@intel.com>
@@ -76,9 +76,9 @@ Cc: tony.luck@intel.com,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [PATCH v3 1/8] arm_mpam: resctrl: Add a helper to find the component counting an event
-Date: Mon,  9 Nov 2026 20:19:01 -0800
-Message-ID: <8635f50f938afbe3f58dcd69966c2dd45e2394cd.1794283825.git.reinette.chatre@intel.com>
+Subject: [PATCH v3 2/8] arm_mpam: resctrl: Use find_component() when allocating a domain
+Date: Mon,  9 Nov 2026 20:19:02 -0800
+Message-ID: <c79ae06f66ab31db3425c537e765813711f3ceaa.1794283825.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
 References: <cover.1794283825.git.reinette.chatre@intel.com>
@@ -93,131 +93,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resctrl_arch_cntr_read() and resctrl_arch_reset_cntr() both drive the
-monitors MPAM pre-allocated for bandwidth counting. Each starts with the
-same sequence: check that MPAM is enabled, reject cache occupancy and
-events without a class, then take the component counting the event from
-the monitoring domain.
+mpam_resctrl_alloc_domain() starts by checking that the resource's
+class has a component whose CPU affinity includes the CPU, and fails the
+domain allocation otherwise. When the resource supports allocation, that
+component also backs the control domain. The check uses an open-coded
+walk of the class's component list, while the same function uses
+find_component() to find the component backing each monitoring event.
 
-The duplicated sequence has to be kept in sync by hand. Only the failure
-handling differs: one reports the failure to its caller while the other
-has no way to do so.
+The open-coded walk duplicates find_component(). It also holds the SRCU
+read lock until mpam_resctrl_alloc_domain() returns. However, the SRCU
+read lock is only needed while walking the component list, and
+find_component() holds it for that walk.
 
-Add find_mbwu_mon_comp() to locate the component, returning an error
-pointer on the failures both callers test for. Ignore that error in
-resctrl_arch_reset_cntr(), which cannot report it.
+Replace the open-coded walk with find_component().
 
-No functional change intended.
-
-Suggested-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
 Changes since RFC v2:
-- New patch.
+- Add Jinjie's Reviewed-by tag.
+- Add Jinjie's Tested-by tag.
+- Shorten changelog. (Ben)
 ---
- drivers/resctrl/mpam_resctrl.c | 62 ++++++++++++++++++++++------------
- 1 file changed, 41 insertions(+), 21 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..1b1e724ae040 100644
+index 1b1e724ae040..a75f653031fd 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -7,6 +7,7 @@
- #include <linux/cacheinfo.h>
- #include <linux/cpu.h>
- #include <linux/cpumask.h>
-+#include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/limits.h>
- #include <linux/list.h>
-@@ -541,26 +542,51 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
- 				 closid, rmid, val);
- }
+@@ -1648,21 +1648,12 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 	struct rdt_l3_mon_domain *mon_d;
+ 	struct rdt_ctrl_domain *ctrl_d;
+ 	struct mpam_class *class = res->class;
+-	struct mpam_component *comp_iter, *ctrl_comp;
++	struct mpam_component *ctrl_comp;
+ 	struct rdt_resource *r = &res->resctrl_res;
  
--/* MBWU counters when in ABMC mode */
--int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
--			   u32 closid, u32 rmid, int mon_idx,
--			   enum resctrl_event_id eventid, u64 *val)
-+/*
-+ * find_mbwu_mon_comp() - Find the component counting @eventid in a domain
-+ * @d:		The monitoring domain to search.
-+ * @eventid:	The event to find the counting component for.
-+ *
-+ * The counters reached through this component are the monitors MPAM
-+ * pre-allocated for bandwidth counting. Cache occupancy is not counted by
-+ * those monitors, it is read on demand via resctrl_arch_rmid_read().
-+ *
-+ * Return: the component counting @eventid in @d, or an error pointer when
-+ * MPAM is disabled, when @eventid is cache occupancy, or when no class was
-+ * picked to count @eventid.
-+ */
-+static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
-+						 enum resctrl_event_id eventid)
- {
--	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
- 	struct mpam_resctrl_dom *l3_dom;
--	struct mpam_component *mon_comp;
-+	struct mpam_resctrl_mon *mon;
+ 	lockdep_assert_held(&domain_list_lock);
  
- 	if (!mpam_is_enabled())
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
-+	mon = &mpam_resctrl_counters[eventid];
- 	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
--	mon_comp = l3_dom->mon_comp[eventid];
- 
--	return read_mon_cdp_safe(mon, mon_comp, mpam_feat_msmon_mbwu,
--				 USE_PRE_ALLOCATED, closid, rmid, val);
-+	return l3_dom->mon_comp[eventid];
-+}
-+
-+/* MBWU counters when in ABMC mode */
-+int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
-+			   u32 closid, u32 rmid, int mon_idx,
-+			   enum resctrl_event_id eventid, u64 *val)
-+{
-+	struct mpam_component *mon_comp;
-+
-+	mon_comp = find_mbwu_mon_comp(d, eventid);
-+	if (IS_ERR(mon_comp))
-+		return PTR_ERR(mon_comp);
-+
-+	return read_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
-+				 mpam_feat_msmon_mbwu, USE_PRE_ALLOCATED,
-+				 closid, rmid, val);
- }
- 
- static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
-@@ -603,20 +629,14 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
- 			     u32 closid, u32 rmid, int cntr_id,
- 			     enum resctrl_event_id eventid)
- {
--	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
--	struct mpam_resctrl_dom *l3_dom;
- 	struct mpam_component *mon_comp;
- 
--	if (!mpam_is_enabled())
-+	mon_comp = find_mbwu_mon_comp(d, eventid);
-+	if (IS_ERR(mon_comp))
- 		return;
- 
--	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
--		return;
+-	ctrl_comp = NULL;
+-	guard(srcu)(&mpam_srcu);
+-	list_for_each_entry_srcu(comp_iter, &class->components, class_list,
+-				 srcu_read_lock_held(&mpam_srcu)) {
+-		if (cpumask_test_cpu(cpu, &comp_iter->affinity)) {
+-			ctrl_comp = comp_iter;
+-			break;
+-		}
+-	}
 -
--	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
--	mon_comp = l3_dom->mon_comp[eventid];
--
--	reset_mon_cdp_safe(mon, mon_comp, USE_PRE_ALLOCATED, closid, rmid);
-+	reset_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
-+			   USE_PRE_ALLOCATED, closid, rmid);
- }
- 
- /*
++	ctrl_comp = find_component(class, cpu);
+ 	/* class has no component for this CPU */
+ 	if (WARN_ON_ONCE(!ctrl_comp))
+ 		return ERR_PTR(-EINVAL);
 -- 
 2.56.0
 
