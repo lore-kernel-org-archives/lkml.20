@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305123;
-	b=JpZmz9siYWtZFnidqhgehU6nmakYmtrCuXKScOqNs/GHsZw3k7zGHnLkxGl+ds30EtsL
-	 DINovu3CoUo/U8vQhsyAE4K3BNIESrpGcX4AocStZPBAgsmUWt4UXp4KIQuCTVbFRy9dQ
-	 3KtFyCEaX9wcv7x4lMbnC4+WVq3STNZpghEkzbvCzK/NYp6CFPVz8u3JRD7We6Rhr3JP9
-	 BMpKbzNGL6fXZ8of2094P3ZixR2tO/kjxcL4g6TJOeS3QZ/mBb74gtcHb05UQy/ycpebZ
-	 NQN35agIvAGbicLnvhM8soQtTjXljo+Z0pn6q1Lz5mGv8jMQxan5xpIE8wRoUiuggjg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794305119;
+	b=MiFbOawKOiXYJav5cEg7xadKWvpoG+YuAlk96CtiFlq2ffuYXL/ozahJtZXs8bHUQrJO
+	 yiF7xenhpxqQYHyBqjEkWGKJkRfyY1iyfHd8cNI/1HwijzveRe0p/oMFShsHc9rwpZoAK
+	 pZBNtOr2xWHVQe4jmdX0ChfNZCB35wsF2GiouRvVUkoOT+Rlh8EDCSvBUXb2dPqYD1gDi
+	 9RxgWks/XgXC+dkVU+IlPfTGozOxEJaDUw8f95XzmvewaWu7pDxWgeWEOS/NHDnKqp/am
+	 mbGkJuu+8QNQnz3XEbgjq+mts85FJk29MF+23S1lZdmg1MkYLmXgniseAPLqyY3rp7A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305123;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MolGg9Khum2Gwks+dBfMBptLPcQ+MWVVyJoEEGJBT5s=;
-	b=gW8LisEh7TBOa3Xjry6JKl7OEh+T7Ko282kTlFYR1U/9HIvROBAv3Ac7TdHoQctIHZv1
-	 E/uDoq+U0Jy/zGZlNTagfim4B1UbFbCz3KoZXCW53xEUPlKmrOKvdPePVeuTcHeJDfoKI
-	 ta/POPn07MYvAIq/wMMotJPa1dJxft5DPp9pAUFkn84BVcfoueKlUXbOEVrCKJysxUj8a
-	 IWgh05XP9+wZMV5pEY+tbXWDAYDvc8J89fJkv+mUccowOQ4DrwIRLo4eIwVHOQxseHE9H
-	 mHCElPxqBBJ0nLEwFpZSViTPiEw5CUzQzE4FTL5Dt3xT8b+CmQ4yFoJqNE9DqOXs6dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305119;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=OrBmHPyKuOjYWnMAKK8x2/dwAGsPsbuLyxuPB63M0sI=;
+	b=MFzTmShZQPk6mT24RI7zrNpi31aZ13LHkQw/bZLfFT96pGvQ6KxAT5FutuV83SMp2+JB
+	 jSlJEhr5+dB5Q1yjKqOXg3sjh9LN7hAfspPrrMysQIASYONJYG76ZWTGmndFDRIz+PBsL
+	 UwQEbb/NTKZo9xnW32Dcgm7h1UHQYC0Yv02d3Rp5xu9Qk4/HFPbzeizIWbtZRJuDhVsI+
+	 Pi3TmpcMCzcprArbc+nFAtHG4KeeHGdrRLKJkzzlmJ9bmTjkOpUIcYnQI/HtUMGVOweP7
+	 alZDvtFgLF6ptVwSXARSKnsQdYi5UkA3OP35wZaIhPEhwcmAufmSs6mMMNkIRhx3pPg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bn+SzUuT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1b1ryDX;
+	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8A460A263B;
-	Tue, 10 Nov 2026 10:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454BB606A321;
+	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bn+SzUuT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1b1ryDX
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305122;
-	b=JJSjOUsvt3Cj8QOPtNkTYj/xLd1X40EWlLds5Ic5ZVOXB4/7S00VPr76A4zh9l28kFh0
-	 Tb1KEqxX0w44WzJVs6Zf2J4o6PJ2FxpItXpYVdWYaK2YrtFnuFB/5xLQYEJL5sDpSTjPu
-	 BBSCKzJRP57WG7ULlzP9e5c7cBxVud0Jn2yRRtJ4Y4NYnxb5q9rWALWkP73SwqBd/covx
-	 5tm+D1fhKpXvj7wfTYjL/wy7COeF9p1FxAPBHrXuIi1DurMlv7II94T+D5n1PcP2ugBBW
-	 T/8nTKQwV8YtD9xjHwcL2u75KKz7/6QT4lmF+NsQMgxx8yh6Mw5DQwuH3OjYl52HUEw==
+	t=1794305118;
+	b=BMmpYIjz+Xjoi8xzXPecQQIbzGE76GxIAkEU6oHKppkRrykKXA52/Tw6I4H+mXOd7AVt
+	 kkKHK/EgNOt8X/BcXgU+6XEf2KQIkuXEN7IBMfBk7c48k1pWiuFsiljrgup/4Rzz7QsjZ
+	 UxKmWAXKae2AC12FfBaTHr7mSnJ5K84ibYgW3plo3tuDuLOhrITZ4DiCUDMrK1Bgks+6H
+	 uFwvt0cqVbkJovwiYrFKxyspesrLa8543BZ2Ab+K8K86yDE6KT8FK+FI5ZBV8DGPQXq8o
+	 MhNdlVDTsmRLO5YOtGfpcxfkhL2n4Dg5KIx+jkX2jgvMCjloSUD098gTzu1NnAgG1Lg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305122;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MolGg9Khum2Gwks+dBfMBptLPcQ+MWVVyJoEEGJBT5s=;
-	b=xz/O3YQM7G3SFdFkc37PGS6IJCky1hMMy+UP23dH3MQQGUDOGw5+zzqWB7sDRxfDUHb6
-	 pT0A0JcKBhTEqXPtjsbjLGsQjLjbNrBFzRskIhZq+e+EI6bYVZK6FkI9lrCCJlGO2rn4a
-	 ah8g7qW702rZuYzN4a+bxMOvGKJFjlWfblIbBVlzhp4eT0GOqaEbhzARDLocMsbN3oXDV
-	 o3JErEWMy1ShjLBCxK2ygFVVYeq7h7DHmlwKn4Pk53hJzHi+iXBGgI8UKLYGIMcRoqKcV
-	 vkBfGtoNRmm+4ZZH/8H584KUXSJUBtsQvqvpTt0J30M2OKwo66u/xIl3AnYTb34aAww==
+	c=relaxed/relaxed; t=1794305118;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=OrBmHPyKuOjYWnMAKK8x2/dwAGsPsbuLyxuPB63M0sI=;
+	b=16FM4ZBXTqra/i/Lg/nOpLuwgg7ub0Ws83ItKKz+XjEQA0Ex5EptrCIJ/z3qmz/KolQw
+	 uCIr04TKHmrDG/xlipk+Efv2FIEkA1KJmYh46UFdteAc/+ZYjRjzIRfY0ans/qeUrClZg
+	 y7bv+mog7/S6cNV2M9Z58wg1QZdLpD87Ew/MnAPMQxlUZG9LpV8XtnL57FK11fPxJ0SZP
+	 e1XWvFXj6fKpuS/3cZrSJP4huYmJPLs/txPtUvv4/fPBOlwMKOwDnGitcJidT8ntCPL2P
+	 9lTODFzfxaSjcksSmFWedZQUQJyAtkfe/+F0WNr6jfJC7/nY4TwLDMrk6zyMJsK6TQg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3670F1F008A7;
-	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 187FD1F0089F;
+	Tue, 10 Nov 2026 10:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305122;
-	bh=MolGg9Khum2Gwks+dBfMBptLPcQ+MWVVyJoEEGJBT5s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bn+SzUuT8MXy6avzKceZ3eGR5evALPKj+veaFTvCRRrnGzAuZ1gYtYSEauQBWWUk1
-	 tl+i6tUjESFkBfuDFubvhM10Z7b4SfE5krGJVHV7g9wC8gXXIvNmiCUYd/yvtxwHxU
-	 9HWhngWZj3xWu/CYcD8xSZE7tE9P1bE2LkYx73waV7PaqUsBa54+HWWQeEhjDkrWeS
-	 dnDhErYgK72PpNXgP/Wtj9F3dS2bCVND73O4trM5rCQ3fpqbTKoMKR2DrOL9xjWIwC
-	 TKolBMySiCQ45K0CqYgWGSMDxIgutnHWH9ietIxoWje3HxkOl2ElpjLg46ao0reeQZ
-	 2B9y8dZ49mI9g==
+	s=k20260515; t=1794305118;
+	bh=OrBmHPyKuOjYWnMAKK8x2/dwAGsPsbuLyxuPB63M0sI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=n1b1ryDXPhWMjdhNp7JaEHpKvozi+lKC+R9zCVkO991R98LfgffOb9vVoGHts4wUB
+	 /aS4mHIKV+LsT/Xwtqekf+bGf0YK1qSx9y/troWg8/em9b/theDoB1CwfnCXR7KPks
+	 k508Q1B8tvEMtPp48AkgSNbOQFKmM8nOMTYz92cXUeRsHu/ta7irzTNqULBG2FfgJC
+	 AwLG/wejps4ibvmCsxbHbtlOr0X1gr8CC0clGLwWRUc/9HX/udzy07ot1Fvy11FpZ4
+	 Q2eNFrK6XoaiweUmqWsD9lxiv4q9ghC/HxTrJCXuegTTqd+a5lQrEUI9KxngD4DV9P
+	 pDGm2N/sNxPtw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DC53D48A8E;
+	by lkml.kernel.org (Postfix) with ESMTP id 6D32548A7E;
 	Tue, 10 Nov 2026 10:05:17 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:05:19 +0000
-Subject: [PATCH RFC 05/11] media: v4l2-core: Move the H.264 encode CBR rate
- control to a helper
+Subject: [PATCH RFC 00/11] media: h264: Stateless encode core follow-ups:
+ parameter sets, POC type 2, CBR and VBR
+Date: Tue, 10 Nov 2026 10:05:14 +0000
+Message-Id: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h264-encode-fixes-v1-5-7a64486df499@gmail.com>
-References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
-In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12RzWocMRCEX2WZcwb6Ty3JV0MeINfgg9Tdyk7Au
+ 87OOgSM3z2yYwLrY7fqqypaL8sely325e7wslzi97Zv59Mc8MthsWM7/Yh18zkvBKSICOuRVNY
+ 42dljHduf2FdDozEqYM1jmdzTJd4fJvZ9+fb1fnn4t9yf+8+w65vbh+wSv55n4vVD+9Sudpx5d
+ 4fhiAMrqeYkjt0F+lB0T47esjRwQzZ69/lPZcvhllmk1uKJIEYbuQuDVRhzMQUglm8p0VI9cob
+ o2G36Jnbt4Y2CKzlY6JiWfktBG25GUipFs5wZWB2Sl5FAIpl1TtH1U8MwK1I7MxUXrsoFBtgw5
+ pmqhuoU4FRuKdNZY55EM6jJZJWkSikwE2gUz52IW8CnrJrmtZICD4cMwFIVGrJSSNE8/wxJXOs
+ b1dseq50fH7fr3UGVSmQX007JimMZyJKCG81uWKi2FjlkeXh9/Qs9p3E0QAIAAA==
+X-Change-ID: 20261110-h264-encode-fixes-c1c2ff90197f
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Paul Kocialkowski <paulk@sys-base.io>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -95,804 +102,141 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Michael Tretter <m.tretter@pengutronix.de>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=26466;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=6899;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Pz4sB2i2X5pOAiqOU4ONU1OTjJWXNROdpcz4H007SRo=;
- b=Mph5HOfv94/lYy/h6ZX+WaNPvegNTHnpcQjwMvmNYqLxcFhzvpvI0NE+H/ImVeXzDf6CH43G5
- glPrfPLPgG1AcLAF+zmq7MVRMWlVuZKgy7cJDXS1AvkiBf4iCpbuTA4
+ bh=5TrgGHhotbPNvGgRX8BBgP7U78u5uxGT8X+sv1aYgpo=;
+ b=RJ8lRlZVwnaZvWwKDiD165cU4Z206OeBip9IDZe2y7nk6gDIoJr728YADk1FuKZonv57kmcTO
+ J+0yL22ZtnPACRCrAF2KApn4YmpY1dRQvkVmXut4NPPhs+JrArjJOOf
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Hi Paul,
 
-The constant bitrate mode of the H.264 encode core does not depend on the
-codec: it plans picture sizes over the GOP from the measured I/P size
-ratio and IDR period, and moves one QP state by the QP error 6 *
-log2(size / target), which holds for HEVC as well. Only the QP delta of
-the I pictures differs between the codecs.
+These are changes to the H.264 stateless encode core of your "media: Add
+V4L2 H.264 stateless encode and VC8000E support" series, v1 (2026-05-22):
+https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
+(https://patchwork.kernel.org/project/linux-media/list/?series=1099281)
 
-Move it to v4l2-enc-cbr, with the I picture QP delta as a parameter, so
-that the HEVC encode core can use the same model. The H.264 core keeps
-its mode callbacks and uses a QP delta of 2, as before. No functional
-change.
+They came out of three drivers written on top of the series: a VEPU2
+backend for the Rockchip RK3588 VPU121 in the Hantro driver and a driver
+for the Rockchip VEPU580 (both posted as separate RFCs on top of this
+one), and a cedrus encoder backend for the Allwinner H616 that the
+Orange Pi Zero 2 project carries (not posted). They apply on media next
+6628e7d4c6b2 (v7.4-rc1) with patches 1-7 of your v1 applied first; the
+prerequisite-patch-id lines below are those seven patches. Patches 2, 4,
+5 and 7 of v1 need trivial context fixes on v7.4-rc1 (the HEVC
+extended SPS RPS control declarations in v4l2-ctrls-core.c, the v4l2-isp
+line in the v4l2-core Makefile); the code is unchanged.
+
+As far as I can see on patchwork there is no v2 yet. I'm sending these as
+an RFC so that they can be folded into it or reworked with it, rather
+than to be merged on their own.
+
+Patches 1-3 are fixes:
+1. The SPS/PPS change detection in rbsp_update() is inverted: every
+   picture after the first gets the parameter sets again. Only write
+   them for the first picture and when they change.
+2. Encoders whose hardware writes the slice header cannot put a
+   pic_order_cnt_lsb in it: the Hantro H1 and the Rockchip VEPU1/VEPU2
+   only produce slice headers for pic_order_cnt_type 2. Accept type 2
+   (selected through state_constrain) and derive the picture order
+   count from frame_num (H.264 8.2.1.3).
+3. The SPS and PPS NAL units are written with nal_ref_idc 0, which
+   H.264 7.4.1 forbids (FFmpeg's probe gives such a stream a score of 1).
+   Write them with nal_ref_idc 3.
+
+Patches 4-11 rework the rate control:
+4. Rework the constant bitrate mode after the frame-level rate control
+   of the Rockchip MPP library: one QP state for the stream, picture
+   size targets from a GOP plan with the I/P size ratio measured on the
+   stream, and the size error spread over the next 8 pictures. The v1
+   mode stays 5-9% below the bitrate and overshoots several times on
+   the first P picture after each IDR picture (details in the patch).
+5. Move that model to a codec-independent helper, v4l2-enc-cbr, so that
+   an HEVC core can use it (the HEVC encode RFC does).
+6-9. Bound the I picture size, halve the QP increase of I pictures,
+   re-encode pictures far above their size target (for drivers that
+   can run a picture again; the H.264 core does not offer it yet) and
+   fix all-intra streams.
+10-11. A peak bitrate in the helper and a VBR mode
+   (V4L2_MPEG_VIDEO_BITRATE_MODE_VBR with V4L2_CID_MPEG_VIDEO_BITRATE_PEAK)
+   in the H.264 core.
+
+One more observation, not changed here: state_commit() publishes
+V4L2_CID_STATELESS_H264_ENCODE_PARAMS before rc_step() sets
+slice_qp_delta, so the slice_qp_delta read back from the request is the
+value before rate control. The QP used for the encode is the right one.
+
+Tested on an Orange Pi 5 (RK3588S) through the VEPU2 (Hantro) and
+VEPU580 drivers, on a v7.3-based kernel whose v4l2-core encode files are
+byte-identical to this series. 1080p60, 300 pictures of two clips (Big
+Buck Bunny and a natural one), every stream decoded with FFmpeg to 300
+pictures:
+- CBR at 4 Mbit/s with an IDR period of 120, 8 Mbit/s with 10 and
+  20 Mbit/s all-intra: bitrate within 2.2% of the target on both
+  encoders; the largest one second window is at most 1.37 times the
+  bitrate (a scene change in a P picture of Big Buck Bunny on the
+  VEPU580), 1.24 on the VEPU2;
+- VBR with the peak at 1.5 times the bitrate, the same cases and
+  8 Mbit/s with an IDR period of 120: bitrate within
+  4.5% of the target, every one second window within the peak (at most
+  0.94 of it);
+- the GStreamer v4l2codecs H.264 encoder (local patches) on the VEPU2,
+  CBR at 2-16 Mbit/s: bitrate within 2.5% of the target;
+- patch 1: a 60-picture GOP-30 stream carries one SPS and PPS before
+  each of its two IDR pictures and none before the P pictures.
+The whole series also passes on an Orange Pi Zero 2 (Allwinner H616)
+with the cedrus H.264 encoder: CBR and VBR rate control within 5% of the
+target (measured within 0.1%, every one-second window at most 1.2 times
+the peak bitrate), all-intra and GOP 10 streams, and every stream
+decoded bit-exact by the board's hardware decoder against FFmpeg.
+
+This series was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit messages, and I reviewed and tested
+every change as described above.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/Kconfig            |   5 +
- drivers/media/v4l2-core/Makefile           |   1 +
- drivers/media/v4l2-core/v4l2-enc-cbr.c     | 300 +++++++++++++++++++++++++++++
- drivers/media/v4l2-core/v4l2-h264-enc-rc.c | 246 ++---------------------
- include/media/v4l2-enc-cbr.h               |  64 ++++++
- include/media/v4l2-h264-enc-rc.h           |  35 +---
- 6 files changed, 387 insertions(+), 264 deletions(-)
+Arun Iyengar (11):
+      media: h264: Only write the SPS and PPS of a stateless encode when they change
+      media: h264: Support picture order count type 2 in stateless encode
+      media: h264: Write the stateless encode SPS and PPS with nal_ref_idc 3
+      media: v4l2-h264-enc-rc: Rework the constant bitrate mode
+      media: v4l2-core: Move the H.264 encode CBR rate control to a helper
+      media: v4l2-core: Bound the I picture size in the encode CBR rate control
+      media: v4l2-core: Halve the I picture QP increase of the encode CBR
+      media: v4l2-core: Re-encode oversized pictures in the encode CBR
+      media: v4l2-core: Fix all-intra streams in the encode CBR rate control
+      media: v4l2-core: Add a peak bitrate to the encode rate control
+      media: h264: Add a VBR mode to the stateless encode rate control
 
-diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
-index a88eaf8af48c..b8b849a44abd 100644
---- a/drivers/media/v4l2-core/Kconfig
-+++ b/drivers/media/v4l2-core/Kconfig
-@@ -44,9 +44,14 @@ config V4L2_JPEG_HELPER
- config V4L2_H264
- 	tristate
- 
-+# Used by the stateless encode cores that need v4l2-enc-cbr.ko
-+config V4L2_ENC_CBR
-+	tristate
-+
- # Used by drivers that need v4l2-h264-enc.ko
- config V4L2_H264_ENC
- 	tristate
-+	select V4L2_ENC_CBR
- 
- # Used by drivers that need v4l2-vp9.ko
- config V4L2_VP9
-diff --git a/drivers/media/v4l2-core/Makefile b/drivers/media/v4l2-core/Makefile
-index 81c5582d6a34..3aa0855d7be7 100644
---- a/drivers/media/v4l2-core/Makefile
-+++ b/drivers/media/v4l2-core/Makefile
-@@ -26,6 +26,7 @@ videodev-$(CONFIG_VIDEO_V4L2_I2C) += v4l2-i2c.o
- 
- obj-$(CONFIG_V4L2_ASYNC) += v4l2-async.o
- obj-$(CONFIG_V4L2_CCI) += v4l2-cci.o
-+obj-$(CONFIG_V4L2_ENC_CBR) += v4l2-enc-cbr.o
- obj-$(CONFIG_V4L2_FLASH_LED_CLASS) += v4l2-flash-led-class.o
- obj-$(CONFIG_V4L2_FWNODE) += v4l2-fwnode.o
- obj-$(CONFIG_V4L2_H264) += v4l2-h264.o
-diff --git a/drivers/media/v4l2-core/v4l2-enc-cbr.c b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-new file mode 100644
-index 000000000000..5bd10d494054
---- /dev/null
-+++ b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-@@ -0,0 +1,300 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * V4L2 stateless encoder constant bitrate rate control
-+ *
-+ * One QP state is kept for the stream: it is the QP of the P (and B)
-+ * pictures, and I pictures are coded a fixed number of steps below it, so
-+ * that the quality of the reference pictures stays even across GOPs. Each
-+ * picture gets a size target from a GOP plan, in which an I picture is
-+ * "ratio" times the size of a P picture, with the ratio and the IDR period
-+ * measured on the stream. The difference between the coded size so far and
-+ * the size the plan expects at this point of the GOP is spread over the next
-+ * pictures, so that the bitrate converges to the target.
-+ *
-+ * After each picture the QP state moves by a fraction of the QP error
-+ * 6 * log2(size / target) (a QP step of 6 halves the size): slowly for small
-+ * errors, so that the QP does not follow the size noise from picture to
-+ * picture, and quickly for errors of several QP steps (a scene change, a
-+ * poor start).
-+ *
-+ * The QP to size relation (6 QP steps per halving) is the same for H.264
-+ * and HEVC, so the model does not depend on the codec. Only the QP delta of
-+ * the I pictures is a parameter.
-+ */
-+
-+#include <linux/export.h>
-+#include <linux/int_log.h>
-+#include <linux/math64.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/printk.h>
-+#include <linux/string.h>
-+#include <media/v4l2-enc-cbr.h>
-+
-+/* The accumulated size error is spread over this many pictures. */
-+#define CBR_WINDOW		8
-+/* Limit of the accumulated size error, in seconds of the bitrate */
-+#define CBR_BUFFER_SECONDS	3
-+/* I/P size ratio, 1/16 units: initial value (10x) and limits (1.5x .. 30x) */
-+#define CBR_RATIO_INIT		160
-+#define CBR_RATIO_MIN		24
-+#define CBR_RATIO_MAX		480
-+/* P pictures after an I picture when the I/P size ratio is measured */
-+#define CBR_RATIO_PICS		4
-+/* QP errors up to this are corrected by 1/8 per picture, 1/256 units */
-+#define CBR_ERR_SLOW		(3 * 256)
-+/*
-+ * Largest QP increase and decrease per picture, 1/256 units. Decreases are
-+ * slower, so that pictures that are much smaller than their target, such as
-+ * repeated pictures, don't pull the QP down far.
-+ */
-+#define CBR_STEP_UP_MAX		(4 * 256)
-+#define CBR_STEP_DOWN_MAX	(2 * 256)
-+
-+/* log2(x) in 8.8 fixed point */
-+static int cbr_log2_q8(u64 x)
-+{
-+	unsigned int shift = 0;
-+
-+	if (!x)
-+		return 0;
-+
-+	while (x > U32_MAX) {
-+		x >>= 1;
-+		shift++;
-+	}
-+
-+	return (int)(intlog2(x) >> 16) + shift * 256;
-+}
-+
-+static unsigned int cbr_fps(const struct v4l2_fract *timeperframe)
-+{
-+	if (!timeperframe->numerator || !timeperframe->denominator)
-+		return 30;
-+
-+	return max(DIV_ROUND_CLOSEST(timeperframe->denominator,
-+				     timeperframe->numerator), 1U);
-+}
-+
-+static u64 cbr_nominal(u32 bitrate, const struct v4l2_fract *timeperframe)
-+{
-+	if (!timeperframe->numerator || !timeperframe->denominator)
-+		return max(bitrate / 30, 1U);
-+
-+	return max_t(u64, div_u64((u64)bitrate * timeperframe->numerator,
-+				  timeperframe->denominator), 1);
-+}
-+
-+/* Planned size of an I or P picture of the current GOP */
-+static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
-+		    bool intra)
-+{
-+	unsigned int gop = cbr->gop;
-+	u64 p;
-+
-+	/* Until the second I picture, assume at least two seconds. */
-+	if (!gop)
-+		gop = max(cbr->since_i + 1, 2 * fps);
-+	if (gop <= 1)
-+		return cbr->nominal;
-+
-+	p = div_u64(cbr->nominal * gop * 16, cbr->ratio + 16 * (gop - 1));
-+	if (intra)
-+		p = div_u64(p * cbr->ratio, 16);
-+
-+	return max_t(u64, p, 1);
-+}
-+
-+/*
-+ * Start QP of an I picture from its size in bits per luma sample:
-+ * 20.3 - 6 * log2(bits per sample), clipped to 15..45. This is the relation
-+ * the Rockchip MPP library uses for its first picture at 1080p, for H.264
-+ * and HEVC alike.
-+ */
-+static int cbr_qp_initial(u64 bits, unsigned int samples)
-+{
-+	int qp_q8 = 20 * 256 + 77 +
-+		    6 * (cbr_log2_q8(samples) - cbr_log2_q8(max_t(u64, bits, 1)));
-+
-+	return clamp(DIV_ROUND_CLOSEST(qp_q8, 256), 15, 45);
-+}
-+
-+/**
-+ * v4l2_enc_cbr_reset() - reset the rate control state
-+ * @cbr: the rate control state
-+ * @qp_delta_intra: QP of the I pictures below the QP of the P pictures
-+ *
-+ * The next picture starts the rate control afresh.
-+ */
-+void v4l2_enc_cbr_reset(struct v4l2_enc_cbr *cbr, int qp_delta_intra)
-+{
-+	memset(cbr, 0, sizeof(*cbr));
-+	cbr->qp_delta_intra = qp_delta_intra;
-+}
-+EXPORT_SYMBOL_GPL(v4l2_enc_cbr_reset);
-+
-+/**
-+ * v4l2_enc_cbr_begin() - set up the size target of the next picture
-+ * @cbr: the rate control state
-+ * @bitrate: target bitrate in bits per second
-+ * @timeperframe: frame interval
-+ * @samples: number of luma samples of a picture
-+ * @intra: the picture is an I picture
-+ * @qp_min: lowest QP
-+ * @qp_max: highest QP
-+ *
-+ * Sets @cbr->target_bits. The QP of the picture is then given by
-+ * v4l2_enc_cbr_qp(). A change of the bitrate keeps the QP state and the
-+ * measured statistics.
-+ *
-+ * Return: 0, or -EINVAL if @bitrate is 0.
-+ */
-+int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
-+		       const struct v4l2_fract *timeperframe,
-+		       unsigned int samples, bool intra, int qp_min,
-+		       int qp_max)
-+{
-+	unsigned int fps = cbr_fps(timeperframe);
-+	u64 nominal = cbr_nominal(bitrate, timeperframe);
-+	s64 target, expected = 0;
-+	int qp;
-+
-+	if (!bitrate)
-+		return -EINVAL;
-+
-+	if (!cbr->bitrate) {
-+		cbr->ratio = CBR_RATIO_INIT;
-+		cbr->qp_q8 = -1;
-+	}
-+
-+	if (cbr->bitrate != bitrate || cbr->nominal != nominal) {
-+		cbr->bitrate = bitrate;
-+		cbr->nominal = nominal;
-+		cbr->buffer_bits = 0;
-+	}
-+
-+	if (intra) {
-+		/* An I picture closes the GOP: its length is the IDR period. */
-+		if (cbr->seen_i)
-+			cbr->gop = cbr->since_i + 1;
-+		cbr->since_i = 0;
-+		cbr->seen_i = true;
-+	}
-+
-+	cbr->plan_bits = cbr_plan(cbr, fps, intra);
-+
-+	if (cbr->qp_q8 < 0) {
-+		/* First picture: start QP from the bits per sample. */
-+		qp = cbr_qp_initial(cbr_plan(cbr, fps, true), samples) +
-+		     cbr->qp_delta_intra;
-+		cbr->qp_q8 = clamp_t(int, qp, qp_min, qp_max) * 256;
-+	}
-+
-+	/*
-+	 * The buffer holds the coded minus the nominal sizes. Within a GOP the
-+	 * plan expects it to go up by the excess of the I picture and back
-+	 * down to zero by the savings of the P pictures until the next I
-+	 * picture. Spread the difference to that over the next pictures.
-+	 */
-+	if (!intra && cbr->seen_i)
-+		expected = (s64)cbr_plan(cbr, fps, true) - (s64)nominal +
-+			   (s64)cbr->since_i *
-+			   ((s64)cbr->plan_bits - (s64)nominal);
-+
-+	target = (s64)cbr->plan_bits -
-+		 div_s64(cbr->buffer_bits - max_t(s64, expected, 0),
-+			 CBR_WINDOW);
-+	cbr->target_bits = clamp_t(s64, target,
-+				   max_t(u64, cbr->plan_bits / 4, 8),
-+				   cbr->plan_bits * 2);
-+	cbr->intra = intra;
-+
-+	pr_debug("+ v4l2-enc-cbr: begin");
-+	pr_debug("  nominal: %llu bits, plan: %llu bits, target: %llu bits",
-+		 cbr->nominal, cbr->plan_bits, cbr->target_bits);
-+	pr_debug("  buffer: %lld bits, expected: %lld bits, gop: %u, ratio: %u",
-+		 cbr->buffer_bits, expected, cbr->gop, cbr->ratio);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(v4l2_enc_cbr_begin);
-+
-+/**
-+ * v4l2_enc_cbr_qp() - QP of the picture set up by v4l2_enc_cbr_begin()
-+ * @cbr: the rate control state
-+ *
-+ * Return: the QP, not limited to the QP range of the codec.
-+ */
-+int v4l2_enc_cbr_qp(const struct v4l2_enc_cbr *cbr)
-+{
-+	int qp = DIV_ROUND_CLOSEST(cbr->qp_q8, 256);
-+
-+	if (cbr->intra)
-+		qp -= cbr->qp_delta_intra;
-+
-+	return qp;
-+}
-+EXPORT_SYMBOL_GPL(v4l2_enc_cbr_qp);
-+
-+/**
-+ * v4l2_enc_cbr_end() - account for a coded picture
-+ * @cbr: the rate control state
-+ * @bits: size of the coded picture in bits
-+ * @timeperframe: frame interval
-+ * @qp_min: lowest QP
-+ * @qp_max: highest QP
-+ */
-+void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
-+		      const struct v4l2_fract *timeperframe, int qp_min,
-+		      int qp_max)
-+{
-+	s64 limit = cbr->nominal * CBR_BUFFER_SECONDS * cbr_fps(timeperframe);
-+	unsigned int ratio;
-+	int err, step;
-+
-+	if (!cbr->bitrate || !cbr->target_bits)
-+		return;
-+
-+	cbr->buffer_bits = clamp_t(s64, cbr->buffer_bits + (s64)bits -
-+				   (s64)cbr->nominal, -limit, limit);
-+
-+	/* QP error of the picture, 1/256 units */
-+	err = 6 * (cbr_log2_q8(bits) - cbr_log2_q8(cbr->target_bits));
-+
-+	step = err / 8;
-+	if (err > CBR_ERR_SLOW)
-+		step += (err - CBR_ERR_SLOW) / 2;
-+	else if (err < -CBR_ERR_SLOW)
-+		step += (err + CBR_ERR_SLOW) / 2;
-+	step = clamp(step, -CBR_STEP_DOWN_MAX, CBR_STEP_UP_MAX);
-+
-+	if (!cbr->intra) {
-+		cbr->qp_q8 += step;
-+		cbr->p_bits = cbr->p_bits ? (7 * cbr->p_bits + bits) / 8 : bits;
-+		cbr->since_i++;
-+
-+		/* I/P size ratio, once a few P pictures were coded */
-+		if (cbr->since_i == CBR_RATIO_PICS && cbr->i_bits) {
-+			ratio = div64_u64(cbr->i_bits * 16, cbr->p_bits);
-+			ratio = clamp(ratio, CBR_RATIO_MIN, CBR_RATIO_MAX);
-+			cbr->ratio = (cbr->ratio + ratio + 1) / 2;
-+		}
-+	} else {
-+		/*
-+		 * The size of an I picture mostly reflects the I/P ratio
-+		 * estimate: only all-intra streams steer the QP fully with it.
-+		 */
-+		cbr->i_bits = bits;
-+		cbr->qp_q8 += cbr->gop == 1 ? step : step / 4;
-+	}
-+
-+	cbr->qp_q8 = clamp_t(int, cbr->qp_q8, qp_min * 256, qp_max * 256);
-+
-+	pr_debug("+ v4l2-enc-cbr: end");
-+	pr_debug("  size: %llu bits, target: %llu bits, qp error: %d/256, qp: %d/256",
-+		 bits, cbr->target_bits, err, cbr->qp_q8);
-+}
-+EXPORT_SYMBOL_GPL(v4l2_enc_cbr_end);
-+
-+MODULE_DESCRIPTION("V4L2 stateless encoder constant bitrate rate control");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/media/v4l2-core/v4l2-h264-enc-rc.c b/drivers/media/v4l2-core/v4l2-h264-enc-rc.c
-index bbfe03febac8..c4f1718ead0e 100644
---- a/drivers/media/v4l2-core/v4l2-h264-enc-rc.c
-+++ b/drivers/media/v4l2-core/v4l2-h264-enc-rc.c
-@@ -5,7 +5,6 @@
-  * Copyright (C) 2025-2026 Paul Kocialkowski <paulk@sys-base.io>
-  */
- 
--#include <linux/int_log.h>
- #include <linux/math64.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
-@@ -162,116 +161,15 @@ static const struct v4l2_h264_enc_rc_mode cq_mode = {
- };
- 
- /*
-- * Constant bitrate mode
-- *
-- * One QP state is kept for the stream: it is the QP of the P (and B)
-- * pictures, and I pictures are coded a fixed number of steps below it, so
-- * that the quality of the reference pictures stays even across GOPs. Each
-- * picture gets a size target from a GOP plan, in which an I picture is
-- * "ratio" times the size of a P picture, with the ratio and the IDR period
-- * measured on the stream. The difference between the coded size so far and
-- * the size the plan expects at this point of the GOP is spread over the next
-- * pictures, so that the bitrate converges to the target.
-- *
-- * After each picture the QP state moves by a fraction of the QP error
-- * 6 * log2(size / target) (a QP step of 6 halves the size): slowly for small
-- * errors, so that the QP does not follow the size noise from picture to
-- * picture, and quickly for errors of several QP steps (a scene change, a
-- * poor start).
-+ * Constant bitrate mode, with the codec independent rate control of
-+ * v4l2-enc-cbr: I pictures 2 QP below the P pictures (the default of the
-+ * Rockchip MPP library for H.264).
-  */
--
--/* The accumulated size error is spread over this many pictures. */
--#define CBR_WINDOW		8
--/* Limit of the accumulated size error, in seconds of the bitrate */
--#define CBR_BUFFER_SECONDS	3
--/* I/P size ratio, 1/16 units: initial value (10x) and limits (1.5x .. 30x) */
--#define CBR_RATIO_INIT		160
--#define CBR_RATIO_MIN		24
--#define CBR_RATIO_MAX		480
--/* P pictures after an I picture when the I/P size ratio is measured */
--#define CBR_RATIO_PICS		4
--/* QP of the I pictures below the QP of the P pictures */
- #define CBR_QP_DELTA_INTRA	2
--/* QP errors up to this are corrected by 1/8 per picture, 1/256 units */
--#define CBR_ERR_SLOW		(3 * 256)
--/*
-- * Largest QP increase and decrease per picture, 1/256 units. Decreases are
-- * slower, so that pictures that are much smaller than their target, such as
-- * repeated pictures, don't pull the QP down far.
-- */
--#define CBR_STEP_UP_MAX		(4 * 256)
--#define CBR_STEP_DOWN_MAX	(2 * 256)
--
--/* log2(x) in 8.8 fixed point */
--static int cbr_log2_q8(u64 x)
--{
--	unsigned int shift = 0;
--
--	if (!x)
--		return 0;
--
--	while (x > U32_MAX) {
--		x >>= 1;
--		shift++;
--	}
--
--	return (int)(intlog2(x) >> 16) + shift * 256;
--}
--
--static unsigned int cbr_fps(const struct v4l2_fract *timeperframe)
--{
--	if (!timeperframe->numerator || !timeperframe->denominator)
--		return 30;
--
--	return max(DIV_ROUND_CLOSEST(timeperframe->denominator,
--				     timeperframe->numerator), 1U);
--}
--
--static u64 cbr_nominal(u32 bitrate, const struct v4l2_fract *timeperframe)
--{
--	if (!timeperframe->numerator || !timeperframe->denominator)
--		return max(bitrate / 30, 1U);
--
--	return max_t(u64, div_u64((u64)bitrate * timeperframe->numerator,
--				  timeperframe->denominator), 1);
--}
--
--/* Planned size of an I or P picture of the current GOP */
--static u64 cbr_plan(const struct v4l2_h264_enc_rc_cbr *cbr, unsigned int fps,
--		    bool intra)
--{
--	unsigned int gop = cbr->gop;
--	u64 p;
--
--	/* Until the second I picture, assume at least two seconds. */
--	if (!gop)
--		gop = max(cbr->since_i + 1, 2 * fps);
--	if (gop <= 1)
--		return cbr->nominal;
--
--	p = div_u64(cbr->nominal * gop * 16, cbr->ratio + 16 * (gop - 1));
--	if (intra)
--		p = div_u64(p * cbr->ratio, 16);
--
--	return max_t(u64, p, 1);
--}
--
--/*
-- * Start QP of an I picture from its size in bits per luma sample:
-- * 20.3 - 6 * log2(bits per sample), clipped to 15..45. This is the relation
-- * the Rockchip MPP library uses for its first picture at 1080p.
-- */
--static int cbr_qp_initial(u64 bits, unsigned int samples)
--{
--	int qp_q8 = 20 * 256 + 77 +
--		    6 * (cbr_log2_q8(samples) - cbr_log2_q8(max_t(u64, bits, 1)));
--
--	return clamp(DIV_ROUND_CLOSEST(qp_q8, 256), 15, 45);
--}
- 
- static int cbr_init(struct v4l2_h264_enc_rc *rc)
- {
--	memset(&rc->cbr, 0, sizeof(rc->cbr));
-+	v4l2_enc_cbr_reset(&rc->cbr, CBR_QP_DELTA_INTRA);
- 
- 	return 0;
- }
-@@ -279,148 +177,34 @@ static int cbr_init(struct v4l2_h264_enc_rc *rc)
- static int cbr_measure(struct v4l2_h264_enc_rc *rc, unsigned long *size)
- {
- 	struct v4l2_h264_enc_state *state = rc->state;
--	struct v4l2_h264_enc_rc_cbr *cbr = &rc->cbr;
--	struct v4l2_fract *timeperframe = &state->timeperframe;
- 	bool intra = state->encode.slice_type == V4L2_H264_SLICE_TYPE_I;
--	unsigned int fps = cbr_fps(timeperframe);
--	u64 nominal = cbr_nominal(state->bitrate, timeperframe);
- 	unsigned int samples = state->width_mbs * state->height_mbs * 256;
--	s64 target, expected = 0;
--	int qp;
--
--	if (!state->bitrate)
--		return -EINVAL;
--
--	if (!cbr->bitrate) {
--		cbr->ratio = CBR_RATIO_INIT;
--		cbr->qp_q8 = -1;
--	}
--
--	/* A new bitrate keeps the QP state and the measured statistics. */
--	if (cbr->bitrate != state->bitrate || cbr->nominal != nominal) {
--		cbr->bitrate = state->bitrate;
--		cbr->nominal = nominal;
--		cbr->buffer_bits = 0;
--	}
--
--	if (intra) {
--		/* An I picture closes the GOP: its length is the IDR period. */
--		if (cbr->seen_i)
--			cbr->gop = cbr->since_i + 1;
--		cbr->since_i = 0;
--		cbr->seen_i = true;
--	}
--
--	cbr->plan_bits = cbr_plan(cbr, fps, intra);
-+	int ret;
- 
--	if (cbr->qp_q8 < 0) {
--		/* First picture: start QP from the bits per sample. */
--		qp = cbr_qp_initial(cbr_plan(cbr, fps, true), samples) +
--		     CBR_QP_DELTA_INTRA;
--		cbr->qp_q8 = clamp_t(int, qp, state->qp_min, state->qp_max) *
--			     256;
--	}
-+	ret = v4l2_enc_cbr_begin(&rc->cbr, state->bitrate,
-+				 &state->timeperframe, samples, intra,
-+				 state->qp_min, state->qp_max);
-+	if (ret)
-+		return ret;
- 
--	/*
--	 * The buffer holds the coded minus the nominal sizes. Within a GOP the
--	 * plan expects it to go up by the excess of the I picture and back
--	 * down to zero by the savings of the P pictures until the next I
--	 * picture. Spread the difference to that over the next pictures.
--	 */
--	if (!intra && cbr->seen_i)
--		expected = (s64)cbr_plan(cbr, fps, true) - (s64)nominal +
--			   (s64)cbr->since_i *
--			   ((s64)cbr->plan_bits - (s64)nominal);
--
--	target = (s64)cbr->plan_bits -
--		 div_s64(cbr->buffer_bits - max_t(s64, expected, 0),
--			 CBR_WINDOW);
--	cbr->target_bits = clamp_t(s64, target,
--				   max_t(u64, cbr->plan_bits / 4, 8),
--				   cbr->plan_bits * 2);
--	cbr->intra = intra;
--
--	pr_debug("+ v4l2-h264-enc-rc: cbr measure");
--	pr_debug("  nominal: %llu bits, plan: %llu bits, target: %llu bits",
--		 cbr->nominal, cbr->plan_bits, cbr->target_bits);
--	pr_debug("  buffer: %lld bits, expected: %lld bits, gop: %u, ratio: %u",
--		 cbr->buffer_bits, expected, cbr->gop, cbr->ratio);
--
--	*size = max_t(unsigned long, cbr->target_bits / 8, 1);
-+	*size = max_t(unsigned long, rc->cbr.target_bits / 8, 1);
- 
- 	return 0;
- }
- 
- static int cbr_estimate(struct v4l2_h264_enc_rc *rc, unsigned int *qp)
- {
--	struct v4l2_h264_enc_rc_cbr *cbr = &rc->cbr;
--	int value;
--
--	value = DIV_ROUND_CLOSEST(cbr->qp_q8, 256);
--	if (cbr->intra)
--		value -= CBR_QP_DELTA_INTRA;
--
--	*qp = clamp(value, 0, 51);
-+	*qp = clamp(v4l2_enc_cbr_qp(&rc->cbr), 0, 51);
- 
- 	return 0;
- }
- 
--static void cbr_update(struct v4l2_h264_enc_rc *rc, u64 bits)
-+static int cbr_complete(struct v4l2_h264_enc_rc *rc, unsigned long bytesused)
- {
- 	struct v4l2_h264_enc_state *state = rc->state;
--	struct v4l2_h264_enc_rc_cbr *cbr = &rc->cbr;
--	s64 limit = cbr->nominal * CBR_BUFFER_SECONDS *
--		    cbr_fps(&state->timeperframe);
--	unsigned int ratio;
--	int err, step;
--
--	if (!cbr->bitrate || !cbr->target_bits)
--		return;
--
--	cbr->buffer_bits = clamp_t(s64, cbr->buffer_bits + (s64)bits -
--				   (s64)cbr->nominal, -limit, limit);
--
--	/* QP error of the picture, 1/256 units */
--	err = 6 * (cbr_log2_q8(bits) - cbr_log2_q8(cbr->target_bits));
--
--	step = err / 8;
--	if (err > CBR_ERR_SLOW)
--		step += (err - CBR_ERR_SLOW) / 2;
--	else if (err < -CBR_ERR_SLOW)
--		step += (err + CBR_ERR_SLOW) / 2;
--	step = clamp(step, -CBR_STEP_DOWN_MAX, CBR_STEP_UP_MAX);
--
--	if (!cbr->intra) {
--		cbr->qp_q8 += step;
--		cbr->p_bits = cbr->p_bits ? (7 * cbr->p_bits + bits) / 8 : bits;
--		cbr->since_i++;
--
--		/* I/P size ratio, once a few P pictures were coded */
--		if (cbr->since_i == CBR_RATIO_PICS && cbr->i_bits) {
--			ratio = div64_u64(cbr->i_bits * 16, cbr->p_bits);
--			ratio = clamp(ratio, CBR_RATIO_MIN, CBR_RATIO_MAX);
--			cbr->ratio = (cbr->ratio + ratio + 1) / 2;
--		}
--	} else {
--		/*
--		 * The size of an I picture mostly reflects the I/P ratio
--		 * estimate: only all-intra streams steer the QP fully with it.
--		 */
--		cbr->i_bits = bits;
--		cbr->qp_q8 += cbr->gop == 1 ? step : step / 4;
--	}
- 
--	cbr->qp_q8 = clamp_t(int, cbr->qp_q8, state->qp_min * 256,
--			     state->qp_max * 256);
--
--	pr_debug("+ v4l2-h264-enc-rc: cbr update");
--	pr_debug("  size: %llu bits, target: %llu bits, qp error: %d/256, qp: %d/256",
--		 bits, cbr->target_bits, err, cbr->qp_q8);
--}
--
--static int cbr_complete(struct v4l2_h264_enc_rc *rc, unsigned long bytesused)
--{
--	cbr_update(rc, (u64)bytesused * 8);
-+	v4l2_enc_cbr_end(&rc->cbr, (u64)bytesused * 8, &state->timeperframe,
-+			 state->qp_min, state->qp_max);
- 
- 	return v4l2_h264_enc_rc_stats_collect(rc, bytesused);
- }
-diff --git a/include/media/v4l2-enc-cbr.h b/include/media/v4l2-enc-cbr.h
-new file mode 100644
-index 000000000000..6b66d121b0cc
---- /dev/null
-+++ b/include/media/v4l2-enc-cbr.h
-@@ -0,0 +1,64 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * V4L2 stateless encoder constant bitrate rate control
-+ *
-+ * A codec independent frame-level rate control for the constant bitrate
-+ * mode of the stateless encode cores.
-+ */
-+
-+#ifndef _MEDIA_V4L2_ENC_CBR_H
-+#define _MEDIA_V4L2_ENC_CBR_H
-+
-+#include <linux/types.h>
-+#include <linux/videodev2.h>
-+
-+/**
-+ * struct v4l2_enc_cbr - constant bitrate rate control state
-+ * @qp_delta_intra: QP of the I pictures below the QP of the P pictures
-+ * @bitrate: bitrate the state was set up for, 0 before the first picture
-+ * @nominal: nominal picture size in bits (bitrate times frame interval)
-+ * @qp_q8: QP of the P pictures in 1/256 units, -1 before the first picture
-+ * @ratio: I/P picture size ratio in 1/16 units
-+ * @gop: measured IDR period in pictures, 0 until two I pictures were seen
-+ * @since_i: pictures coded since the last I picture
-+ * @seen_i: an I picture was coded
-+ * @intra: the current picture is an I picture
-+ * @p_bits: running mean of the P picture sizes
-+ * @i_bits: size of the last I picture
-+ * @buffer_bits: accumulated difference between the coded and nominal sizes
-+ * @plan_bits: planned size of the current picture
-+ * @target_bits: size target of the current picture
-+ *
-+ * Only @qp_delta_intra is set by the user, after v4l2_enc_cbr_reset().
-+ * @target_bits is valid from v4l2_enc_cbr_begin() of a picture until its
-+ * v4l2_enc_cbr_end().
-+ */
-+struct v4l2_enc_cbr {
-+	int qp_delta_intra;
-+
-+	u32 bitrate;
-+	u64 nominal;
-+	int qp_q8;
-+	unsigned int ratio;
-+	unsigned int gop;
-+	unsigned int since_i;
-+	bool seen_i;
-+	bool intra;
-+	u64 p_bits;
-+	u64 i_bits;
-+	s64 buffer_bits;
-+	u64 plan_bits;
-+	u64 target_bits;
-+};
-+
-+void v4l2_enc_cbr_reset(struct v4l2_enc_cbr *cbr, int qp_delta_intra);
-+int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
-+		       const struct v4l2_fract *timeperframe,
-+		       unsigned int samples, bool intra, int qp_min,
-+		       int qp_max);
-+int v4l2_enc_cbr_qp(const struct v4l2_enc_cbr *cbr);
-+void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
-+		      const struct v4l2_fract *timeperframe, int qp_min,
-+		      int qp_max);
-+
-+#endif
-diff --git a/include/media/v4l2-h264-enc-rc.h b/include/media/v4l2-h264-enc-rc.h
-index 72d78a594e40..76781fe2d844 100644
---- a/include/media/v4l2-h264-enc-rc.h
-+++ b/include/media/v4l2-h264-enc-rc.h
-@@ -10,6 +10,7 @@
- 
- #include <linux/types.h>
- #include <linux/v4l2-controls.h>
-+#include <media/v4l2-enc-cbr.h>
- #include <media/v4l2-h264.h>
- 
- #define V4L2_H264_ENC_RC_STATS_TYPE_COUNT	10
-@@ -83,38 +84,6 @@ struct v4l2_h264_enc_rc_stats {
- 	unsigned int index;
- };
- 
--/**
-- * struct v4l2_h264_enc_rc_cbr - constant bitrate mode state
-- * @bitrate: bitrate the state was set up for, 0 before the first picture
-- * @nominal: nominal picture size in bits (bitrate times frame interval)
-- * @qp_q8: QP of the P pictures in 1/256 units, -1 before the first picture
-- * @ratio: I/P picture size ratio in 1/16 units
-- * @gop: measured IDR period in pictures, 0 until two I pictures were seen
-- * @since_i: pictures coded since the last I picture
-- * @seen_i: an I picture was coded
-- * @intra: the current picture is an I picture
-- * @p_bits: running mean of the P picture sizes
-- * @i_bits: size of the last I picture
-- * @buffer_bits: accumulated difference between the coded and nominal sizes
-- * @plan_bits: planned size of the current picture
-- * @target_bits: size target of the current picture
-- */
--struct v4l2_h264_enc_rc_cbr {
--	u32 bitrate;
--	u64 nominal;
--	int qp_q8;
--	unsigned int ratio;
--	unsigned int gop;
--	unsigned int since_i;
--	bool seen_i;
--	bool intra;
--	u64 p_bits;
--	u64 i_bits;
--	s64 buffer_bits;
--	u64 plan_bits;
--	u64 target_bits;
--};
--
- struct v4l2_h264_enc_rc {
- 	const struct v4l2_h264_enc_rc_ops *ops;
- 	void *private_data;
-@@ -124,7 +93,7 @@ struct v4l2_h264_enc_rc {
- 	void *mode_data;
- 
- 	struct v4l2_h264_enc_rc_stats stats;
--	struct v4l2_h264_enc_rc_cbr cbr;
-+	struct v4l2_enc_cbr cbr;
- 	unsigned long size;
- 	unsigned int qp;
- };
+ drivers/media/v4l2-core/Kconfig              |   5 +
+ drivers/media/v4l2-core/Makefile             |   1 +
+ drivers/media/v4l2-core/v4l2-enc-cbr.c       | 593 +++++++++++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c |   7 +-
+ drivers/media/v4l2-core/v4l2-h264-enc-rc.c   | 294 +++----------
+ drivers/media/v4l2-core/v4l2-h264-enc.c      |  65 ++-
+ include/media/v4l2-enc-cbr.h                 | 103 +++++
+ include/media/v4l2-h264-enc-rc.h             |   3 +
+ include/media/v4l2-h264-enc.h                |   3 +
+ 9 files changed, 820 insertions(+), 254 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-h264-encode-fixes-c1c2ff90197f
+prerequisite-patch-id: fd11f19266754d1bd40bf61dd5d1da74a0dc13c2
+prerequisite-patch-id: 7c7edc7344998d520efaf7b430c90fd527c704c7
+prerequisite-patch-id: 4689de770eb1bcdc153d6beda2e392d0ce6f344d
+prerequisite-patch-id: 0afdcc24892eac773036d05d8f504e5ccb35eb62
+prerequisite-patch-id: ecc849b3328d4396380f0cfc331536c16d2e0d28
+prerequisite-patch-id: c62d0fd16706c4328624948805eb2f8d7b223ae0
+prerequisite-patch-id: e955d15603fd070034960a1362e4867c2f124d69
 
--- 
-2.55.0
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
