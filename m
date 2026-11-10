@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289741;
-	b=ycM8rXmM/11FKSNGek1wElOjYE65XL7acVN+QScGa/4ZsF+Uzq5zPCiEWluCkj7S6YdJ
-	 OMXkZRhVnyoC9htCd1hV48AsHtfZSrteInSgE401LtMSf115EYGfF5Ct7XBZRRUw0KQM4
-	 FzySttTM0pfttkanXqkIh47ye2YDRPXukls2Ss4VQORasKj0wm+Vzy0kMTTn9ynqLAWJ/
-	 /48eU57XBC/mVSudq2lgT/Q+VfHVLY288bSEwBpLpr4xQWVJzFm8b7ReaK92YRbD/ELRZ
-	 1Qzsz6AvqWhG6E5NqfN2dbrVbgvQT1cl9y9ogGQDrihn4VeoX3PN04tu+8bwtT3qOLw==
+	t=1794289744;
+	b=q6da/LuBi2EGCrTD5jmeTvvH8RF0Mbt7obG8f1qGura1QdgY2jTCK9aSOrPMvUkJk/py
+	 /grcMT/G+vH9QXYRhheLlXh+x6F3qhxk6WX+ErFqgWRlHxpeKSrHzLVlgsciejvn2JsrO
+	 Y5SXof/oSI47eV7cSFaFph1Z+kMnlYF9m9Tyri6Gj68kINP8B7XLqAPOr7YaYddFDjjZJ
+	 NPPBeuP2QyIXfrmVKYyP59Ex0pMK38RFnvZw0sfganap79LwEY4vclUZVwK/AlWkJ6hJm
+	 2Bhs02f0vaGZ4zH7AyX79OKJts4680Gltm6iPXJ1r8op5n1/cZcRBEtGy9n5OdCGhCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289744;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xEWSzx4ZGcyPZGxiCFnQgQ4OA1lpLc+LVHPbJjOB2UQ=;
-	b=rtGwG5VMxi191sh4csZS4O2y0fZeQNKhkLpY92vHZRExexRbvPXpOurUGa6NV5Jl2RB1
-	 Di8uEbC7ZFIBitq7NaNaJm40SXtFWY4ojxkulZaxn0QFAt4vMUeo5ehk8flbgEX7PbDye
-	 wnXQwmoa1VmJBwOf/m6GGDARRd8y+Odxyu1aNzNUcPWrygrl3/04K06+aEkQVgsip4Os2
-	 aM4RuaQPsNqKMPCn3/856ps7OjLJVFb3xQUDayMcwJMDWL70ir7t79JXlqDM+SZuhQTfp
-	 N9GWfS+hE9WGyYps3DpOHK6BRg1Bu42T6aJaoLDc3wEm94iiatLx/a0PrJn+y0PGFvw==
+	bh=X7J8W8iGMlxVtygfltgHoQnyuGwmlkD+WN19PoJbqGw=;
+	b=X4qSW40bDQGg8lGQ3amHHsA1ZSUzQ7APgvpFQUCHoGlwCU7uJoy/ma04VVnn8zpHakZr
+	 y0JYaqmOrYjU7ggIuNHSF2DLUgap/ziNK6AOUcuvLjzjBIg18LAURNNkk4nfG84a0JDze
+	 4Jnckz+FyAatDu9uAMPjCzlVor/3ZWdHV0eHVNpc63AYf2upeI5kFB6bnie6lGIAhhzJ6
+	 sTV/Q0l46F6bPebc+sOntdfsR+ScofBmZE/VAlR45JSxC4aVK8uxtk3fhYW7dDdvDVelo
+	 UEjgyoaVjke7SzZT3/rhEuiOesX3J8dZUVpFZ2y4n8oloXkqcwzaA2WYXZ4U0b8V5IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IR6wF7Di;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="G7j/r8SO";
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09964606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09964606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899D1606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 899D1606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IR6wF7Di
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a070781f63so709901b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:49:00 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=G7j/r8SO
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b8ecfa886bso742331b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:49:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794289740; x=1794894540; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794289743; x=1794894543; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xEWSzx4ZGcyPZGxiCFnQgQ4OA1lpLc+LVHPbJjOB2UQ=;
-        b=IR6wF7Did2sGiE/Vf2nG8/SuD2dZYjeiM6nhvGjMTSRS8m/AwT7K2RlgEPZQoQAEjk
-         nOIEPTCcDVfopg8xZe0JhAMbWqzTqrRwhPupKjVu+h8Zf54EMMdlAQjTcyfXTmdNfZWL
-         qOv1vpNBqoOPFPmKRg00gLY1HNHafoycGRQpc=
+        bh=X7J8W8iGMlxVtygfltgHoQnyuGwmlkD+WN19PoJbqGw=;
+        b=G7j/r8SO31RG6om+dY6mnb8eRzQMnVKt7r2QX9BCG96JNErEc1129q/wu2KssUcyu5
+         xsTjEPbXa4v4/zfw3eQRQfzBywB0P1c1TXVTcTFbnHNEG8ROELdMsWWFSR4YaSb/7WrD
+         k5N5NUo7Gxw0EuCcQOEcgjxT4cUmAFzSRTR2I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794289740; x=1794894540;
+        d=1e100.net; s=20260707; t=1794289743; x=1794894543;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xEWSzx4ZGcyPZGxiCFnQgQ4OA1lpLc+LVHPbJjOB2UQ=;
-        b=EGCcUddewDbn4S4RpGVcKspbOF972NnmkSvowRizx+mefByO5FwOWjT1/bU+63k61P
-         2RcNVZwwz7uxfJGwQ5hs2y1IDgnF0YnTXUfNZWGfKdGQ8MstN5mA9xyOTRJr4kTE6tJ/
-         86yt3YlNl7s/e6mOF6hkx0Y3sbt9No5sGblDwwtJKk+1xZJlLD/GxYRGeZeLH+Sbp0ZZ
-         udPkha6KlNLd+Rk/jhU9M5QydTyNC4mGcWqfdIfHThBzRCT5r+OZC7Kx6JKWT3JSVlTb
-         84Q5RNByqmcXhgseglffy3XO9qGtQEDe6NVTExgVLv/vUfZ6WqtNZl4/LemWmmTU0+Za
-         a6lA==
-X-Forwarded-Encrypted: i=1; AL+hErFFYRDawtF9JwclMxYGDrp/izX5F20a0Rz9is6R8ocFISVshDe30YydRQeNr7REIRxqKXOKKji14GujUmw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v8vyQEzOWdq/1Rug/XKUiSiSncphopBOKIe6PFkUXf/Xge2gH
-	MSG8zkPrJWc37N5/hbDdT5I/lbffvcBYI6matDuqG13w+TTZFIf551VaLyvNWdZ8oQ==
-X-Gm-Gg: AYBFou0gqjVMd9zpPpZ/AhbNBGt3WNviN+fn1E0oKHbMM++tN+POLF8z0cbyduWt32z
-	WRJ+XBh89vE8Z0xipLbGuGTxgww0Lc/DolwWzP3+eY6ly7lR5WiAkgCQqfn4s0l1kwB+yEbgmYT
-	P7pJHrRWEqzNLYhNuUoH6ZAr9KU57ovCyW1cJwNrkfSoWR2N0IDVbnMJSl/6iSgFRNsEmCeBvmJ
-	fUj2Pfs7WXT3nDYZQhLYZPRcSozUq6mSW2LguHe6AwPamrtz/pS/jSjuRjdcJX/EciEk0hwm0GG
-	IpKNzKEol77K9Rt79HjRPq65rA9cQjpZ7mRVR27Tyjat4YvrMEhwUMfm2YJS+NDJB50o8vRyucD
-	j17ATf3ph9Qh2BynYsuKMftcvNENUyPyTG2cXY52mDPMB2ACVagJ9jZxPvYFFNaogFdmC3pWb17
-	ECSNZe1Lo4oOsc837GKxuBO7UFtamqRViyIKmZ0Woedb7yjR8y4EmoEB+5aXVE4uxinSzi3RGdl
-	5Q1j7uLz0BZexCCl1h8OXOaGglTPFIGIeO2Fx+MGokOB9XdMWUWY4Zygp3DlvQ3X8AW8DiQwULv
-	o1nDNz8oL9mgnmGtgYal7V9IA62dB7E437Tpig5nnszTL7NqGHkSpFY8IDQh5zRYT6BDp8WAgLi
-	PJTMj+7CuHyeQt24wYQ==
-X-Received: by 2002:a05:6a21:6e04:b0:3e2:3392:53f1 with SMTP id adf61e73a8af0-3f18c6267ebmr1458477637.5.1794289740404;
-        Mon, 09 Nov 2026 21:49:00 -0800 (PST)
+        bh=X7J8W8iGMlxVtygfltgHoQnyuGwmlkD+WN19PoJbqGw=;
+        b=qTfoo8HUC8cXBOW80qKLP2N3ppyvvceEFSDoGhZK2YstCiPJAm3vyveybC12uCFmDj
+         73RausgxvRK5If5Laj5lTfyawN4/PiYWV8updpxRwUDlexQoMGmSx2yiFhs5BmzEpv5n
+         efX98C3dn6bN2QGru5edCzUIhouD2QGSHtYTUvNMed+63ZVvtIoHOEdCjMQSBkOWvt7A
+         9YYr30ckUsNz71yM8pk7tGle+u1SEERnrtEyxhL6oCw+Wy5BSnRRXWS5PhW5oLNBeoMP
+         K7pKnxNO8zx5qPLi7PK0gd5qeXKVZaC+sRb9zIK3P7b7RRExqOd0JP6afvsrWbRCuW8t
+         incg==
+X-Forwarded-Encrypted: i=1; AL+hErEeKTN3gXrRrsMfssLhr8Ks2kUISbK834twV01e4GtsN3NItf8ib6QYHZvFZRqKel+Y5Ythyrw0rwZ8CMU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ys1y2uOdYHEa7udGuowW9MgpvQaoJaK/zA2uEWK6Tx+mFJO4v
+	5mApSAJTtHMZO3EFkJDttCTPfxqxYfij5Zg6ihy2shLAaOm+AcUOf9fmutiGncW2QQ==
+X-Gm-Gg: AYBFou3mOgBUKTOyMYKWMv/xuAOjA6CThXMp92xjpQqAobEY91RLBhBqQ5eFvrHb/AK
+	+qFsvrqvSPghM1uFuF08dHkAXRYKnPYjtU7lMGvtj88QmIQIof44xceR5Kv5wGzD+eXLK8Eo31U
+	55ytt+FBY7KCR/4ECGbVb4VQOCASpzqFs668Xu5x6ts9pvn8Yj+p3ySwo+8oMPkA0IMO9vbfiZb
+	vSgyJYhX2VQXcC168qHe8eAVXN8q7wVg+V8uIofE6BpSmokbUILchF1p/zmt3Za1vC0uWq9OUAp
+	ZgUnNDrYh4sZ1xPPSMZDsYw1QGCJfbTrL/9uPbeu9EJGDeQzOgTBl+iORBpyhdCtcj4xAOKZ85j
+	auJE6WK63mmZPlFYR7nHepMlu1oY/b4vO5loK+6TCEVPlNR4mGUEmjdrjWOZS2TmXFfRhuQmRBv
+	k1RFvA5pGVq1rXhRTB/A97XK4UTdf5Rydyuu+dBCPvbGE2OT1D9+zpDCeIpl389idmAVL8xs6sJ
+	GbVwWCxalhnzqpGg0yY6fLDdyLdxMC/JAGrQa/leW5rKkACSgm4hrBqyGqbolA8ll7wuqmGQgN1
+	FmBdhGF5s4kH2XMzxQTIZ7gzPvUiPKOTxcD6b8WhREXD5cKfp8fGLMMRrQsfzhz99hNhVXMRgY0
+	plMT6Ce/11adiuSohOA==
+X-Received: by 2002:a05:6a20:2447:b0:3e2:2a4b:1bfb with SMTP id adf61e73a8af0-3f173738e45mr1398876637.29.1794289743309;
+        Mon, 09 Nov 2026 21:49:03 -0800 (PST)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d67e53asm444634a12.5.2026.11.09.21.48.57
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d67e53asm444634a12.5.2026.11.09.21.49.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 21:48:59 -0800 (PST)
+        Mon, 09 Nov 2026 21:49:02 -0800 (PST)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Nhat Pham <nphamcs@gmail.com>,
@@ -88,9 +88,9 @@ Cc: Nhat Pham <nphamcs@gmail.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v2 05/11] zram: check mem_limit before allocating zsmalloc object
-Date: Tue, 10 Nov 2026 14:48:10 +0900
-Message-ID: <20261110054836.1515030-6-senozhatsky@chromium.org>
+Subject: [PATCH v2 06/11] zram: allocate zsmalloc object under slot lock
+Date: Tue, 10 Nov 2026 14:48:11 +0900
+Message-ID: <20261110054836.1515030-7-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
 In-Reply-To: <20261110054836.1515030-1-senozhatsky@chromium.org>
 References: <20261110054836.1515030-1-senozhatsky@chromium.org>
@@ -105,104 +105,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zram_can_store_page() is called after zs_malloc(), so once we reach
-mem_limit every write that doesn't fit into a partial zspage allocates
-a new zspage only to free it right away.
+zram_write_page() and write_incompressible_page() allocate and
+write zsmalloc object first and take slot lock only to free the
+old slot data and set the new handle.  A subsequent patch makes
+zsmalloc store object location directly in zram table entry, so
+we need to free the slot before we allocate a new object for it.
 
-Check mem_limit in zram_write_page() before compressing the page and
-allocating from zsmalloc, and update max_used_pages after zs_malloc()
-succeeds.  mem_limit was never a hard limit, the allocation that
-crosses it happens before the check anyway, so now we can go over the
-limit by up to one zspage per concurrent writer, and writes fail early
-until enough slots are freed.
+Free the slot and allocate the object under slot lock.
+recompress_slot() already allocates objects under it, and
+GFP_NOIO reclaim cannot re-enter zram write path.
+
+mem_limit is checked before slot_free() (previous patch), so hitting
+the limit keeps the old slot data.  zs_malloc() can still fail after
+slot_free(), e.g. when we write from reclaim (PF_MEMALLOC), which is
+swap-out, so the old slot data (if any) is stale anyway, or when the
+writer is an OOM victim that has no reserves left.  The slot is left
+empty then, matching standard block write-failure semantics.
 
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- Documentation/admin-guide/blockdev/zram.rst |  4 +++-
- drivers/block/zram/zram_drv.c               | 25 +++++++++------------
- 2 files changed, 13 insertions(+), 16 deletions(-)
+ drivers/block/zram/zram_drv.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/admin-guide/blockdev/zram.rst b/Documentation/admin-guide/blockdev/zram.rst
-index 148b7cf3b924..db256c53b127 100644
---- a/Documentation/admin-guide/blockdev/zram.rst
-+++ b/Documentation/admin-guide/blockdev/zram.rst
-@@ -181,7 +181,9 @@ Set memory limit: Optional
- 
- Set memory limit by writing the value to sysfs node 'mem_limit'.
- The value can be either in bytes or you can use mem suffixes.
--In addition, you could change the value in runtime.
-+In addition, you could change the value in runtime.  The limit is
-+checked before zsmalloc allocation, so memory usage may slightly
-+exceed it (by up to one zspage per concurrent writer).
- Examples::
- 
- 	# limit /dev/zram0 with 50MB memory
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 2c2e11b2b663..d38b20a22595 100644
+index d38b20a22595..aa3ab88f1259 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -177,8 +177,9 @@ static void mark_slot_accessed(struct zram *zram, unsigned long index)
- #endif
- }
+@@ -2259,11 +2259,15 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 	struct zs_handle *handle;
+ 	void *src;
  
--static inline void update_used_max(struct zram *zram, const unsigned long pages)
-+static inline void update_used_max(struct zram *zram)
- {
-+	unsigned long pages = zs_get_total_pages(zram->mem_pool);
- 	unsigned long cur_max = atomic_long_read(&zram->stats.max_used_pages);
- 
- 	do {
-@@ -190,12 +191,10 @@ static inline void update_used_max(struct zram *zram, const unsigned long pages)
- 
- static bool zram_can_store_page(struct zram *zram)
- {
--	unsigned long alloced_pages;
--
--	alloced_pages = zs_get_total_pages(zram->mem_pool);
--	update_used_max(zram, alloced_pages);
-+	if (!zram->limit_pages)
-+		return true;
- 
--	return !zram->limit_pages || alloced_pages <= zram->limit_pages;
-+	return zs_get_total_pages(zram->mem_pool) <= zram->limit_pages;
- }
- 
- #if PAGE_SIZE != 4096
-@@ -2266,10 +2265,7 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
- 	if (IS_ERR(handle))
++	slot_lock(zram, index);
++	slot_free(zram, index);
+ 	handle = zs_malloc(zram->mem_pool, PAGE_SIZE,
+ 			   GFP_NOIO | __GFP_NOWARN |
+ 			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
+-	if (IS_ERR(handle))
++	if (IS_ERR(handle)) {
++		slot_unlock(zram, index);
  		return PTR_ERR(handle);
++	}
  
--	if (!zram_can_store_page(zram)) {
--		zs_free(zram->mem_pool, handle);
--		return -ENOMEM;
--	}
-+	update_used_max(zram);
+ 	update_used_max(zram);
  
- 	src = kmap_local_page(page);
+@@ -2271,8 +2275,6 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
  	zs_obj_write(zram->mem_pool, handle, src, PAGE_SIZE);
-@@ -2308,6 +2304,9 @@ static int zram_write_page(struct zram *zram, struct page *page,
- 	if (same_filled)
- 		return write_same_filled_page(zram, element, index);
+ 	kunmap_local(src);
  
-+	if (!zram_can_store_page(zram))
-+		return -ENOMEM;
-+
- 	zstrm = zcomp_cstrm_get(zram->comps[ZRAM_PRIMARY_COMP]);
- 	mem = kmap_local_page(page);
- 	ret = zcomp_compress(zram->comps[ZRAM_PRIMARY_COMP], zstrm,
-@@ -2333,11 +2332,7 @@ static int zram_write_page(struct zram *zram, struct page *page,
+-	slot_lock(zram, index);
+-	slot_free(zram, index);
+ 	set_slot_flag(zram, index, ZRAM_HUGE);
+ 	zram->table[index].handle = handle;
+ 	set_slot_size(zram, index, PAGE_SIZE);
+@@ -2324,11 +2326,14 @@ static int zram_write_page(struct zram *zram, struct page *page,
+ 		return write_incompressible_page(zram, page, index);
+ 	}
+ 
++	slot_lock(zram, index);
++	slot_free(zram, index);
+ 	handle = zs_malloc(zram->mem_pool, comp_len,
+ 			   GFP_NOIO | __GFP_NOWARN |
+ 			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
+ 	if (IS_ERR(handle)) {
+ 		zcomp_cstrm_put(zstrm);
++		slot_unlock(zram, index);
  		return PTR_ERR(handle);
  	}
  
--	if (!zram_can_store_page(zram)) {
--		zcomp_cstrm_put(zstrm);
--		zs_free(zram->mem_pool, handle);
--		return -ENOMEM;
--	}
-+	update_used_max(zram);
- 
+@@ -2337,8 +2342,6 @@ static int zram_write_page(struct zram *zram, struct page *page,
  	zs_obj_write(zram->mem_pool, handle, zstrm->buffer, comp_len);
  	zcomp_cstrm_put(zstrm);
+ 
+-	slot_lock(zram, index);
+-	slot_free(zram, index);
+ 	zram->table[index].handle = handle;
+ 	set_slot_size(zram, index, comp_len);
+ 	mark_slot_accessed(zram, index);
 -- 
 2.56.0.506.g506a7eabc5-goog
 
