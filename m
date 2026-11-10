@@ -1,72 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296857;
-	b=HPLnEeHiR4hLsO4c6vLJOrPKOz/lJBACIi3CPJ3qTARywQl5Cy+cQ3oZiry3MwCvK+cf
-	 xrfFHT46Fz9HTFb7pxKqHjttXEAznQgyrKEifK6QtLUo5ULMstUH55cCpUZLGlkTXVK7R
-	 RNkkKh/oFpN6wecWqbU1KdOXH9BI2oTm4IuW3wF6tfxuK0hI3DP+v2PhfVUhELGHLUNUX
-	 FCwcXXtzLuAiF9O3N8N7m3gUmUSMMwZNFEVMCAvgf/bBVFIYern7NlaAT/O80ynm9lBAe
-	 kWvct0p50KY6WtUTWTgH2CPIOCMTxz6zA7lXXzlmCeZ6VcD0IYKV5cgqQ3+exHuduuw==
+	t=1794296940;
+	b=NZhYHBgQUbxeNBRidYrWOk5aaSUhecg9KqZ6JIKXYCSSoYYDm9CSlpejoG/2Xjb8GRGt
+	 aF3pMlfYJVyAzvw7R0LzEoyy/kpJlIHKXsFKYlMDaArTfGcPsLuPsXMfKcltl+0iNBMyu
+	 QHQ64YlukCQzHUbuqm41Twu/cqgdHQfmQ9SspBFQeI+1p8jlYcAa4QPv9ex2ToY7ff4Iv
+	 Cvva7RX3tt9tMhi/esSHxnEnuX58GhDSX0hkS/el8UxPgb0Bb814AljrqkbzOouxLg0MM
+	 0HJ/4msQ/DdWt2678yEm9JNKAFhmxsSIKjqFpuiACmqE4N3yoHHpoMnGco4Mzwrz6Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296857;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=ZdOpelxHEyCF0gxFn3MQJ7SWUNe56C4I7f9Inm7VJXY=;
-	b=kJIrdb2J8ZdKUvmKEq+8P3iE4NrXqMNLeUwFcIkbASfykURMIF8r4euN5U0QIWaaIlvH
-	 IAOYxBZqOICu/GYnjN2Lj7k0ubZs95sK5YYrV74+1y3n5KqxldTwUHxllRrMmT9PkPAVf
-	 6K7WBAePo8kveAX9Wk7dZggBRmaLqxXNaIDAg8WmiUr/jFpOjywz8+tz6LoGrF9OytGH0
-	 jiB0Sg9N3kgfaO5122MM+vtjQRDo5uVXL44M64/0u3bbo1itGnCqO96kErVaRVzE7JVyo
-	 PbDC7kf9Cyy8dO6OSUhkSOCuB3wlHpeTGsFbDWhsJ95CCEinwl3wQK9LPHfdvQ0lkvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296940;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
+	b=uiEsHxNO1+PMFIzGQEjG/lYBnY3pL9bdzRa0YKhIKSyTiKwiGl8z+K6gxvKPWNgd4dap
+	 nLkwOxxVS+oE7dg93n1KrGrWQt/+XlTJZ8e+yszhqYUxA7FU+DLHc9bHViHA2vraOr3yq
+	 eekdNRLdBrCU3Qgx2yZnfdRHhwe7QERg0EuZBHy1AyfrvAEzEkjm+CR12ox7yW5zzMBpg
+	 PYN9+KRyQz9mWTashCYUhL3wMiGx8q0zy6vJ3rVFM79bJURZ9j1ooHVZsQ3ABem3zqu3J
+	 FolBoKim1HJGK2B9s1Qv1fLOP+elB+hAPxxYzn00PMjRsslHus6A12hL7YOQFB1L5hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="U2Cw/7TT";
-	arc=none smtp.remote-ip=44.202.169.32
-Received: from omta033.useast.a.cloudfilter.net (omta033.useast.a.cloudfilter.net [44.202.169.32])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4996D606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:47:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4996D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6911A606B539
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6911A606B539
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=U2Cw/7TT
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id QeOgxmKuEB830QgZmxA5Hd; Tue, 10 Nov 2026 07:47:30 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QgZlxy1ayxmi7QgZmxUfpU; Tue, 10 Nov 2026 07:47:30 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af2cc12
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=rxihhvIKAAAA:8
- a=igakLOeW_9eA_uLUBNUA:9 a=QEXdDO2ut3YA:10 a=vyXZNj8PikhivSrfMdal:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=ZdOpelxHEyCF0gxFn3MQJ7SWUNe56C4I7f9Inm7VJXY=; b=U2Cw/7TT81ID
-	O2OAzJ6ZhvN5ToA3vikuAdlPBfe8y8AoBRPL8PUiKOrPNt8Qn/inWHuO4GZbK/kG0yn+vOzSAqyYZ
-	toKMqKk/r1NQedBlT00k5MeTyHLEHSHtuEZDnJOraLrfApTNHffu4TmbmArlmLcXYoWsnomMLITc1
-	2TfSg2HjfLw13ubb5a+o8frHWD12hVjWhArW0bRcGVKsLaBQFtn3zFdeh+NMUtn6x4qKUIKnpPwCO
-	FjaGLOT4XrtDdtrK/tvGXVWO8UBmI1jkVJ+A0LU/9nAzoU61Os77s6p2gEi4OEbx6C3pMuztIlO0X
-	qMhbXeoDwlFmYdSGFyPxmg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51292)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQgZk-00000001A5f-2jf5;
-	Tue, 10 Nov 2026 13:17:28 +0530
-Message-ID: <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
-Date: Mon, 9 Nov 2026 23:47:26 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 988BE1A15F6
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6740060012;
+	Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1ECAF103293C1;
+	Tue, 10 Nov 2026 08:48:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794296934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
+	b=urXJOpg87txNoTM8b6wAa7VK8IhU/G4A7pDT3uu0Ono4971w0SPOdLaj9/MvUgAgfD8rPf
+	QgzBmO5zy4aXms3tzImzik5lZUQdoiLNtrqmQt4VDb5g/V25cvxvkaFAmHZcOF8QzjzAVu
+	ryxE6UOdir/pqouhVxARXWzqbZL8st0f9LyiQF/gueMuQNQaxu2cjhc1Iu4mSDN/oNOIKu
+	ioYajZRM//NRFSHQvjHhesdQvE6qABluQFXQSIpqR4kA2SFqau6eVNJqDlpHEX7OazZBdW
+	4hKoM7bWBZrIpEaCBDCcs+scT03+NRa2BHiNn8fijWoaH6l6uSNUNbFz2IzJPg==
+Date: Tue, 10 Nov 2026 08:48:53 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: aiyengar1990@gmail.com
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
+ down into the past
+Message-ID: <20261110074853cc5a8882@mail.local>
+References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,180 +67,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
-To: Rong Zhang <rongrong@oss.cipunited.com>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
- Icenowy Zheng <uwu@icenowy.me>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- linux-mips@vger.kernel.org, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
- <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQgZk-00000001A5f-2jf5
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:51292
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 7
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNeCZvV2M+NrZr1NR9Km7JBpEXtmmwNK+KNiZTzoakBOUEWsO7OICAgVotCatv2qOBz19uKh63cCtJBfmmj4GImF/R+t9hvl5hJFTPmqFwA5gdx8D3wE
- bpcmD62mir38bztQ8r6GbU5KdV60ZXidV45PBEw9wBm2nYwKh5p4eYVd+Y/7jSI/S3KBZJzAjj6n6oihQAYUkeS8czCw1GQs/d4XeR5T/u6mF786EjSjBVyA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/9/26 23:02, Rong Zhang wrote:
-> The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
-> has no clock controller.
+On 10/11/2026 07:13:47+0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 > 
-> Retrieve clock frequency from OF to make it work.
-> 
-> Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
-> 
-> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> ---
->   drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
->   1 file changed, 25 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
-> index 2811e7eab631..57b9e699c131 100644
-> --- a/drivers/watchdog/loongson1_wdt.c
-> +++ b/drivers/watchdog/loongson1_wdt.c
-> @@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
->   	u32 timer_offset;
->   	u32 set_offset;
->   	u32 wdt_en_bit;
-> +	bool no_clk;
->   };
->   
->   static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
-> @@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
->   	.wdt_en_bit = BIT(1),
->   };
->   
-> +static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
-> +	.timer_offset = 0x8,
-> +	.set_offset = 0x4,
-> +	.wdt_en_bit = BIT(1),
-> +	.no_clk = true,
-> +};
-> +
->   struct ls1x_wdt_drvdata {
->   	void __iomem *base;
->   	struct clk *clk;
-> @@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
->   	struct ls1x_wdt_drvdata *drvdata;
->   	struct watchdog_device *ls1x_wdt;
->   	unsigned long clk_rate;
-> +	u32 freq;
-> +	int ret;
->   
->   	drvdata = devm_kzalloc_obj(dev, *drvdata);
->   	if (!drvdata)
-> @@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
->   	platform_set_drvdata(pdev, drvdata);
->   
->   	drvdata->pdata = of_device_get_match_data(dev);
-> +	if (!drvdata->pdata)
-> +		return -ENODEV;
->   
->   	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
->   	if (IS_ERR(drvdata->base))
->   		return PTR_ERR(drvdata->base);
->   
-> -	drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> -	if (IS_ERR(drvdata->clk))
-> -		return PTR_ERR(drvdata->clk);
-> +	if (drvdata->pdata->no_clk) {
-> +		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
-> +		if (ret)
-> +			return ret;
-> +
-> +		clk_rate = freq;
-> +	} else {
-> +		drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> +		if (IS_ERR(drvdata->clk))
-> +			return PTR_ERR(drvdata->clk);
->   
+> For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds the
+> alarm down to the start of its minute, so that it never fires late. When
+> the alarm is less than a minute away and in the same minute as the
+> current time, the rounded time is already in the past.
+> rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
+> the timer from the irq work right away, and the hardware alarm is never
+> armed.
 
-Wouldn't it be much easier to just create a fixed rate clock and use it
-(as suggested by Sashiko in the devicetree patch) ?
+This is the expected behaviour, userspace has to handle the error
+properly: the alarm can't be set, set it for a later time or stop there
+and don't suspend.
 
-Guenter
-
-> -	clk_rate = clk_get_rate(drvdata->clk);
-> +		clk_rate = clk_get_rate(drvdata->clk);
-> +	}
->   	if (!clk_rate)
->   		return -EINVAL;
->   	drvdata->clk_rate = clk_rate;
-> @@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
->   	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
->   	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
->   	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
-> +	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
->   	{ /* sentinel */ }
->   };
->   MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
 > 
+> That loses every short wake alarm. With a HYM8563, which has minute
+> resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
+> software before the system suspends, so nothing wakes it: with the
+> alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
+> "alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
+> suspend-to-idle until something else wakes it.
+> 
+> Round the alarm up to the next minute when rounding down would put an
+> alarm that is still in the future into the past. It then fires at most
+> 59 seconds late instead of never. Alarms that are already in the past,
+> or that round down to a time still in the future, are handled as before.
 
+Never round up, you are going to miss deadlines.
+
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
