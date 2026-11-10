@@ -1,75 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315371;
-	b=NPCjZS+B2KXbAIojSN74tZoxHjHtCJkbFdeNhMo9kOydx1HxGV+bu7uXk1UyZetbSqAs
-	 X496qCfMH0ZNTSaOQ8s11WBqlIPg2R8fQpXcMOwZrLmf4gsVuJULechEmThPIdc06Ds7q
-	 QVk8aeBcs52vUfLZP0fXLLvf6FD5fWhR66br2L8sNWGsOh/FhlUS5H83W6D84Z5IgstX5
-	 YGH9QAWTd1VONyGwrzhJuKKzioDI5ePfMvZEMWjjPLd/CEZhAb7xt/GlbtiGL3kwiRMkZ
-	 FerGLEnutBrGN233dWcCiCxocNJSID0n6+SpQThb/mplAUvYkSQW1U70vXeyEXXG0fA==
+	t=1794315356;
+	b=uPwqAq4ZePNZcLVA1ilYtRdtXPi8DKAn3IAofGYNBbCeuwVI5c4BlQJ9QrP2IxuTjXZv
+	 WQGIu2xx8BDW/Ihn8vnNJCAonT/Jz6XVZe3yqY6FZve99ebS2Rp00Eg01Pb5crlsPQkQw
+	 BiuRgZqiriWshhy86XsVapN0PVX44lKkYhU3lURSXUX73cFvLzfoyi+AgxJ/VKQNi5QB6
+	 bJbXjq/ViZG5NT3DcpvRcdvmCjHf+08Egqxrn1n7Pr/OL+e679TO07eGghjwWga7Vd7wR
+	 1PM3tukC064uPqQDznJrcvyF2BvybwFOYl+FxAhP+T0mWhJD9MYa3VVK7sODJW4J7fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315371;
-	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Rspamd-Pre-Result:X-Rspamd-Server:
-	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
-	bh=QUEL7ami9tBt93YnGorfmeiZG+8AFflik0IQpbpHjtQ=;
-	b=1sgZERuv140u/C+7bU263loItogRNf3fZ9j1FVNTg/gNaDKMxAbuAM3pzcZdzQu1wAOz
-	 N/t3oNKovGUIVIr0rh6P0lwb7Gnbns+3TiqE53StHeXFlJqs92KkgPvAapRsOzZ+5296V
-	 FcFuMYxAUBnPi+3/JuGCao+aJaanNH01HMKmJ9apl5qIA3q4i7tEjjXhZbWvHhAQO/nRU
-	 MhbPA7fkeEZ7z/fq96kaHhVOLWhSOWNhP6bUl1N2sZWJSbUGygXZ3SgM1sed1ECxtb2mR
-	 0g5r7u6fLmAwt7mvs3dcE+PlYXt2VyPY7YkoFO7bjsKkrm3Omd4aIffEDMqdwWvPUWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315356;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=T2dWyS2c9HCj9HQ2w6QNE6Xzgrb9OoKtERWi7W6SZbU=;
+	b=SVnektij1thQUOQe00/wjO/qPevMpvJD1XlhNzV/sZs2pGQKEN95/uptmPmYwfiYOCtH
+	 c394n4Oo8SISKF1xB5q70WeM+WY5F5rujNSDfs68Ks4S4hQvQQVj1sVSKcU8+GqSGhSaw
+	 Ctfjzw3DZIxRtcTW1TGC/2x/VE0SWw0O4FGlQ1DsWvOLC/zi4cKbzm02fS4Lkb370kc6F
+	 vQxc0SuvR/mAJLSLLNjz7aw58GUo+lX6hMzJezWSRovbVK3YJLgwArotYl/BqJsYkDdh/
+	 HWSsSqqeAyXSp/1fEjz5pP9TFhwYomXs1Ji8uuywAOSd/4Xc5vjl2dCRmj0yLRPBXHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=nySpbsOQ;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F78606B2DC;
-	Tue, 10 Nov 2026 12:56:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8F78606B2DC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DB0C521ECA;
-	Tue, 10 Nov 2026 12:56:08 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AE1661339F;
-	Tue, 10 Nov 2026 12:56:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id o3haImgU82qJQwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:56:08 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 53F33224E5; Tue, 10 Nov 2026 13:56:08 +0100 (CET)
-Date: Tue, 10 Nov 2026 13:56:08 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
-	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 05/41] kernfs: use fc_init_pseudo()
-Message-ID: <bktltatbokowanmaf2kqhfcjg47gok7lbk4bs2mjsbwu33tvbe@gxd5dq25slfp>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-5-4c998976c6c7@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4EF606A33B;
+	Tue, 10 Nov 2026 12:55:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4EF606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=nySpbsOQ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=T2dWyS2c9HCj9HQ2w6QNE6Xzgrb9OoKtERWi7W6SZbU=;
+	b=nySpbsOQT9cafudOrzG91TTObxit+LIYM3JtT8zs6HTB47Uea2vFyCjBDRpHY6hXAzsNDl7nD
+	CvBLtODiu/qKVYJQB4T/DgE5WL3crgHPipGmLaiB0aRLi4UVFIM+j72y44Bk4UTQxc3XaGeFwww
+	zhnja4Vn7PnYedeFRcK2Tp0=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jP6881zV5zLlVP;
+	Tue, 10 Nov 2026 20:55:36 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id E90CC4048B;
+	Tue, 10 Nov 2026 20:55:50 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 10 Nov 2026 20:55:49 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <nicolas.bouchinet@oss.cyber.gouv.fr>, <xiujianfeng@huawei.com>,
+	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
+	<shuah@kernel.org>, <kalevi@kolttonen.fi>, <caixinchen1@huawei.com>
+CC: <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<lujialin4@huawei.com>
+Subject: [PATCH -next -v2 0/8] lockdown: fix the securityfs interface and add tests
+Date: Tue, 10 Nov 2026 21:28:10 +0800
+Message-ID: <20261110132818.2231593-1-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,75 +70,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-5-4c998976c6c7@kernel.org>
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: DB0C521ECA
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Action: no action
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-On Tue 10-11-26 10:14:21, Christian Brauner wrote:
-> Initialize all kernfs based filesystems as pseudo filesystems in
-> kernfs_get_tree() instead of raising SB_I_NOEXEC and SB_I_NODEV by hand
-> in kernfs_fill_super(). This adds SB_I_PSEUDO for sysfs, cgroupfs and
-> resctrl.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+The lockdown LSM provides /sys/kernel/security/lockdown, but the file is
+neither documented nor covered by a selftest.  While reviewing the
+interface, we also found a Kconfig bug and a few accumulated cleanups.
 
-Makes sense. Feel free to add:
+The series is organized as follows:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+  - patches 1-2 are small cleanups in lockdown_write(): stop scanning
+    after the matching level, and drop an update to a length variable
+    that is not used afterwards.
+  - patch 3 makes the LSM select SECURITYFS.  Without it, a kernel built
+    with CONFIG_SECURITYFS=n logs "failed LSM lockdown core initcall with
+    errno -19" and does not create the file advertised by the Kconfig
+    help text.
+  - patch 4 removes LSM_AUDIT_DATA_LOCKDOWN and its formatting code,
+    which became dead when the SELinux lockdown implementation was
+    removed by commit f5d0e5e9d72d.
+  - patch 5 drops an unused include and moves lockdown_reasons[] next to
+    its only user.
+  - patch 6 replaces sprintf() with scnprintf() so that the status
+    buffer
+    is bounded explicitly if more levels are added later, and adds a
+    BUILD_BUG_ON() that checks at compile time that all level labels,
+    their separators, and the terminating NUL still fit.
+  - patch 7 documents the ABI and adds the new file to the LOCKDOWN
+    SECURITY MODULE entry in MAINTAINERS.
+  - patch 8 adds a kselftest covering the read format, invalid levels,
+    the rejection of the current or a lower level, and an upgrade to the
+    next level.
 
-								Honza
+The only functional change is patch 3; the rest are cleanups,
+documentation, or test coverage.
 
-> ---
->  fs/kernfs/mount.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-> index a0be784bfb06..6b60d212b003 100644
-> --- a/fs/kernfs/mount.c
-> +++ b/fs/kernfs/mount.c
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/fs.h>
-> +#include <linux/pseudo_fs.h>
->  #include <linux/mount.h>
->  #include <linux/init.h>
->  #include <linux/magic.h>
-> @@ -298,8 +299,6 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
->  	struct dentry *root;
->  
->  	info->sb = sb;
-> -	/* Userspace would break if executables or devices appear on sysfs */
-> -	sb->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
->  	sb->s_blocksize = PAGE_SIZE;
->  	sb->s_blocksize_bits = PAGE_SHIFT;
->  	sb->s_magic = kfc->magic;
-> @@ -388,6 +387,7 @@ int kernfs_get_tree(struct fs_context *fc)
->  	info->ns = kfc->ns_tag;
->  	INIT_LIST_HEAD(&info->node);
->  
-> +	fc_init_pseudo(fc);
->  	fc->s_fs_info = info;
->  	sb = sget_fc(fc, kernfs_test_super, kernfs_set_super);
->  	if (IS_ERR(sb))
-> 
-> -- 
-> 2.53.0
-> 
+Changes since v1:
+
+  - The scnprintf()/BUILD_BUG_ON() patch now comes after the audit and
+    cleanup patches.
+  - The lockdown_reasons move patch has a corrected commit message: the
+    enum comment already pointed at security/lockdown/lockdown.c.
+  - The ABI documentation now mentions CONFIG_LSM as a way to order
+    lockdown in, and states that the FORCE_* options only take effect
+    when the lockdown LSM is active.
+  - The selftest patch moves the read-format string checks before the
+    active-level checks, corrects the no-downgrade skip message, and adds
+    an upgrade test.  Because that test irreversibly raises the lockdown
+    level, the test is kept out of the default run
+    (TEST_GEN_PROGS_EXTENDED and run_lockdown_test),
+    CONFIG_SECURITY_LOCKDOWN_LSM is enabled in the selftest config
+    fragment, and non-ENOENT read failures now fail instead of being
+    skipped.
+  - The break, decrement, SECURITYFS, and audit patches are unchanged.
+
+The upgrade test irreversibly raises the lockdown level, so lockdown_test
+is built but not run by default.  Use "make run_lockdown_test" to run it
+explicitly, preferably on a disposable test system.  The shared
+selftests/lsm config fragment now enables CONFIG_SECURITY_LOCKDOWN_LSM so
+that the test has something to exercise.
+
+Cai Xinchen (7):
+  lockdown: Add break in lockdown_write
+  lockdown: select SECURITYFS
+  lsm: remove unused lockdown audit data
+  lockdown: drop an unused include and move lockdown_reasons
+  lockdown: bound the status string with scnprintf
+  Documentation/ABI: document the lockdown securityfs file
+  selftests/lsm: add lockdown securityfs test
+
+Kalevi Kolttonen (1):
+  lockdown: remove useless decrement operation
+
+ Documentation/ABI/testing/securityfs-lockdown |  43 ++++
+ MAINTAINERS                                   |   1 +
+ include/linux/lsm_audit.h                     |   2 -
+ include/linux/security.h                      |   2 -
+ security/lockdown/Kconfig                     |   1 +
+ security/lockdown/lockdown.c                  |  70 +++++-
+ security/lsm_audit.c                          |   4 -
+ security/security.c                           |  40 ---
+ tools/testing/selftests/lsm/Makefile          |   8 +
+ tools/testing/selftests/lsm/common.c          |  35 ++-
+ tools/testing/selftests/lsm/common.h          |   2 +
+ tools/testing/selftests/lsm/config            |   1 +
+ tools/testing/selftests/lsm/lockdown_test.c   | 230 ++++++++++++++++++
+ 13 files changed, 375 insertions(+), 64 deletions(-)
+ create mode 100644 Documentation/ABI/testing/securityfs-lockdown
+ create mode 100644 tools/testing/selftests/lsm/lockdown_test.c
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.18.0.huawei.25
+
