@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304358;
-	b=tRznYmiWmNctRDdRokRdR8jCJaX/89ZiyqC1k0KT4rg1EZ3VuiSJOxchbD64t3fiVFBB
-	 UpJ5gwTt2zbYPq7sjwXebmFMtlis2f0/TZREDe4upFMfhpMNXz9z3ixWolKKO7dMnetZ2
-	 wfkew4dYkdksZBoe7qcNdqZNoiU68D4uWhpTXRJ6uQQWO3OcIqktmFIeik7mrW386N9GI
-	 TwKpaLDVJHLvM48UuEfcnLPhfKWMJxSwhqRpqXM9ryMgegobOxIAt5fFfwjTVvN1aEXH3
-	 bMsVhPzVhCwnozfW+LYKE0qLPvO32r9DhMunxrfp1ZzsFNxjjDU22/c6kBChEuQEVgg==
+	t=1794304397;
+	b=3+nOz14zOEITTY/0b3FtBNQkuiAJ0wJmKps7xfaMP0imr27XuYZHeEeMmw+zSNUcWnuC
+	 zwVPOTkDUigp8G4WV9vtqRPLZCZBvv9JFGbFM9bP90gOrY3kB7bGeM0ijJejiCbvnoL7v
+	 VAYdenFnXwkIdrBoqZE2+rt92SWzQWcJWNW0W/mJqvNMhF3MAW0yGqPKi8Tw+9fBAd585
+	 byiQnzeoEThSadLArFqHXyPZSkiHMTv8sBghB7WVLFuZAJnrPIUSNdwV8gFlnjX9s5+OB
+	 oAzl0FporSVtfy0V4N1BCpvd5AvSwyS6/NtjY8rpuF80VyyDKKEdeBsK+5Dqfmbv/IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304358;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n0D0+tx7FbyqEL0k4/TajM7uZjJ5rllM2A/2eggVTKc=;
-	b=Da2rvd+iRt4k344O52ayxllB3gqaN0xdUMtOU4QvISRXB9wzInnlGsDPKC4DORdwJEBW
-	 DmJp7YqY+qk7YS7tnEkOcC4A2kIuuzgDlE4f/7GFkcFlx1elXjo401HVLH1XFD5iMBP4x
-	 zJt5v74KvBRITN2GOympLMG7Q3GYAXWjdpG38vLEgCPcAivliQN2kqjlPDlDEMfeYPIZx
-	 hb9Za5doslZA/8cZ5FNt6l8IB+lRn/f0/XhvjW6NkeP8XkQA8kR0vjwKJRSPet41uUa2h
-	 jiR8CbyJt7/1HdObYZAbPE99SbBMW1Ow0vwgsN78hueM+cbSbE4ByzVR41U7i9mGUaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304397;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mEXSXYkyFGniiZMHCfKiWmZXRWV8IRfRZw7Qjxv3Fg0=;
+	b=KGvCJ6p/D5zNKz2CjyMOaJrxHM3xjbwd5jov5QIrqsFbbh40C7lM9UBj/j4kBm2SBn6W
+	 sznRg4bQ7KeITwL45ghOrGnVoPgFmO2CwY0oAoCH0yOKkhYdNzM9/a15ml40YWo5X9U/V
+	 m7+RK6Hn09hwKb/iDMliamlxQ46XVUIEQSaRWKXKRyLK88gfOuHWori9G3e1ALGTkM8UU
+	 aQ/O0+elnoxTVTVmbkONdLFC7kl95sTXM/G/1qwGPf20vsd/8sBcXo1rHfENMqO5qtrIA
+	 uHRURkxHWDc6vRNqa9wVa8jwrdfKc/POlr04VX11XPXzMHwhhSqrYm5Fa09REU/0dpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelriot.com;
-	spf=pass smtp.mailfrom=kernelriot.com;
-	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=IIflIg2E;
-	arc=none smtp.remote-ip=74.208.142.49
-Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O219Tw+0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF3A606B149;
-	Tue, 10 Nov 2026 09:52:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF3A606B149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F3C606B159
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=IIflIg2E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
-	s=kr2026; t=1794304357;
-	bh=OmSerbMpq8gn3IS3GN6ckwDmRq4C2MPhAgkxcbG8rmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:From;
-	b=IIflIg2EfwUPjp+E9jfJgmJyWG5mRTMPmDy/lrl2OeraBoKAvAo4jC360znMbuDNy
-	 v+qsloPdkEaIdJBwwfLnuNRQLvvO2AMF+D9yMzPhzQ6zvjArQqmtmgdDk4HDhRucL7
-	 0a4tDEdI1gQd31MAAl8FEczSjOzSRFgHl1L1W25Yk6yEJ9usOBC3DckCT/1KFesMvB
-	 wU5c2x+3uRiwrvLZwaxtood52WGXUjvKrZAsau/MittT5xXsiEhtMuv9a2sBFGQwwm
-	 oSnNRoxqgtLyQ7IM2jeX2SftUooSlFygvoVY1hqXrMi15eFnfDmv20Gx4oriJTCB84
-	 zgTht6z0VKkXw==
-Received: by mail.kernelriot.com (Postfix, from userid 995)
-	id 40D4F81428; Tue, 10 Nov 2026 09:52:37 +0000 (UTC)
-From: Magnus Leatti <magnusleatti@kernelriot.com>
-To: Paolo Abeni <pabeni@redhat.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
-Date: Tue, 10 Nov 2026 06:52:11 -0300
-Message-ID: <20261110095211.16184-1-magnusleatti@kernelriot.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <817d2bd1-64fa-4a6f-bec6-5a4dd4d3a76f@redhat.com>
-References: <20261103125430.962715-1-maxime.chevallier@bootlin.com> <179379704484.488856.2140619507341432623@kernel.org> <20261107100140.8279-1-magnusleatti@kernelriot.com> <817d2bd1-64fa-4a6f-bec6-5a4dd4d3a76f@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O219Tw+0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFEE1F0089F;
+	Tue, 10 Nov 2026 09:53:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794304397;
+	bh=mEXSXYkyFGniiZMHCfKiWmZXRWV8IRfRZw7Qjxv3Fg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O219Tw+0gQgtbh8myx0h+fAxqq9gpRZ6wwraMvxP5lNiGxivADhjo+V0kYMiQ9P6C
+	 S/cjRdnFTOYJYUqOuvCjDsPXT7If+daCVRTTQ1eLTJBilt7IpToBeOxDnLX1RvIzbe
+	 KYCc7GgLJ3fyzD1kTho3QBcc0zmzcgxPH+yMWOxXU9Zrzkw5Sz10gSBr4I+Li5NZYG
+	 dgErCIIYOUxA3I/00W5ymL/GoCl/Q+sWn90zsL/lH5ZkPbq0vn/m4pMsQ7fqMqGp/o
+	 BYozLQP38VBeIZdHfMiDOqIFNJ6AHGwYEYk+2D8g1BoCv5qnohbabF/ctcx1PeXTS1
+	 F29P9NALjLwAw==
+Date: Tue, 10 Nov 2026 09:53:09 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
+ LRU) update
+Message-ID: <avLpQhAv8MkaOevD@gremlin>
+References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
+ <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,45 +64,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
 
-On 11/10/26 09:30, Paolo Abeni wrote:
-> AFAICS 'statistics' here means accounting of some corner cases errors. I
-> guess this could be a preferable route.
+On Mon, Nov 09, 2026 at 07:31:53PM +0100, David Hildenbrand (Arm) wrote:
+> MGLRU is currently the only MM component without a dedicated component
+> maintainer. Fortunately, Kairui and Barry have been actively
+> contributing to MGLRU and have volunteered to take on more responsibility
+> by officially taking care of it.
+>
+> Given that Kairui is already an established MM component maintainer in
+> a related MM component (SWAP), add him as an MGLRU maintainer right away.
+>
+> For Barry, the idea is to transition him towards a component maintainer
+> role over the coming months, starting by moving him to the top of the
+> reviewer list.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Hi Paolo,
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Went and measured it, since my numbers from this morning only had RBU
-masked. YT6801@7.3.3, this time with RBU and RPS both out of
-the dwmac4 abnormal mask.
+Congrats Kairui and Barry! :)
 
-Floods first (4x 64B UDP, 3 runs): 0 MAC irqs and ~3.2M of 9.6M frames
-delivered, in line with v2 and with RBU-only. Still 0 with 8x UDP +
-TCP TX on top.
+I am so glad to see the proactive efforts people have made to get MGLRU moving
+forwards again, it's a real success story in mm.
 
-Then RPS: each XDP attach/detach restarts RX and raises it once.
-MAC irqs per attach/detach, 3 cycles, idle link:
+Thanks to everybody for their efforts in making this happen! :)
 
-  both masked:   0
-  v2:            2
-  RBU-only:      1.5k - 25k
-  stock:         0.9k - 32k
+> ---
+>  MAINTAINERS | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..e7ac319a570c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
+>
+>  MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
+>  M:	Andrew Morton <akpm@linux-foundation.org>
+> -R:	Kairui Song <kasong@tencent.com>
+> +M:	Kairui Song <kasong@tencent.com>
+> +R:	Barry Song <baohua@kernel.org>
+>  R:	Qi Zheng <qi.zheng@linux.dev>
+>  R:	Shakeel Butt <shakeel.butt@linux.dev>
+> -R:	Barry Song <baohua@kernel.org>
+>  R:	Axel Rasmussen <axelrasmussen@google.com>
+>  R:	Yuanchu Xie <yuanchu@google.com>
+>  R:	Wei Xu <weixugc@google.com>
+>
+> --
+> 2.43.0
+>
 
-The fun part: I expected RPS to take the board down the way RBU does,
-and it didn't. On stock and RBU-only it's a burst that goes quiet by
-itself, and the box stays reachable the whole time. My guess is the RX
-handler acks it on the next frame. I did not try an XDP attach in the
-middle of a flood...
-
-So both masked is the only one that sits at exactly 0 everywhere I
-looked. The price is rx_buf_unav_irq and rx_process_stopped_irq, which
-stay at 0.
-
-Scope: I masked them for everyone, like d3265c19b35d did for xgmac2.
-Masking only under multi-MSI would give the same result here and would
-keep the counters on single-irq platforms.
-
-Usual caveats: one board, and it's a 5.2 core so only the 4.10 mask
-ran.
-
-Magnus
+--
+Cheers, Lorenzo
