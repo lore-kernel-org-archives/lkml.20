@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294535;
-	b=Cs+z9PQlQm1RwipqomHuAtfmK2dGeekmseB9/Ai8j+W/N7XmOBPeGR0JB70tkXltVE8h
-	 UKQE0POa9NyLvB4MFQQzv/UJBd0oE5r/c5GOTlPHgXXkQIattrdMN70E7NU7YDdEKP3lz
-	 VlxZVElnfaY2MrLWEHsihotCzecC9jmszmm7FZ0sSQoDrtBR6/ELquU2gv+VO8xdyoKhY
-	 vAHisP2iqlOhQXgUGgh6ehYTqe9OqR7Lj20sAu/w4XxC5NAnQdKhqao/Qij5RBpWTSEI6
-	 0AvnOoXN92QAYR2W6Izc4DSb7CqqKJTJ0ng1zkYjcokXvaIbncjyzSU09/Zp+aI1RCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294535;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OpLzfSX/nDS/byczFTKxU2z4XNzaXDseodN60rHL/Gc=;
-	b=VFCjLcDi85Hrai/2TSDJoDhZ7Itn7o8kUigA5WVd3+C55+ZD5vQ+n0YJDQ5A6TgGbeJi
-	 hdbKun3OkIcvClZkFjtwAPLAtuupuBurb2/zEUcHulT9ftzWgwHVKGfwQxAB3JvjLipHW
-	 qY6oKJ+aF7Uc92lWhM+oZ/umEdHspGYxCre+cnGPEVYMonDcPm4ODYHQCeHoTxqjVuSx+
-	 n5tKVzm6VlDcowmz2nWbIsSRom1A8sCYNQ+A1xYB0IcTL9EIG5n7QQECKooFF1uOHTCzo
-	 4wnRkOH626VF2xIbdjDvliKN3NdyTbNG/VIZHFmR5FKlKMIR8fGonPI8NO2u/zRat1A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BasFEmq0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E36606A325;
-	Tue, 10 Nov 2026 07:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BasFEmq0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294534;
-	b=sS+dAVsvf/9la6pyNZG3Tdf0x2GyHOg3mRSBPvHWoiAd4Y/8wcpEfmXTEVlxZThRrpzd
-	 2mO8CtaL6mbJsk8rb5q/9AfHRX+oHZrimucSAXgbPwdClT6879eOV+IJMI3dwg9Oies9k
-	 82y4boc5FKHgOHaoy4+OIKmFKLmh/IxveEM0gLO6sYHZcY45MlTt20SSHBDyPCme1/LD2
-	 7S2+Jd0AfzFa7K+shDvV7Nis3Y0gZpd3bU93MRXjczZymViwwqhk3A6xeSvzTJKaE2PZM
-	 Eo0HZqjN9Cno7e1NPp4DFkyiu8tc3E98r2Ke75+Jh2H0M4ggAtQObF9u6wk8iRvY7NA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294534;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OpLzfSX/nDS/byczFTKxU2z4XNzaXDseodN60rHL/Gc=;
-	b=fLEOwh9i5CW96GXwIkgvRkSxzyEBU8LsOkzgs4A3rOocnrCHvOgSWrPfpDDatIdK11zy
-	 XDTuEtpbw+sr7r9NCOuiacczQrSoD2sWM0YMwYSxYXan2DpKdzNPFOCOr9xgGQSOxW/vM
-	 5j2l0JVW86MBMlg764V/w6YtHGEpXtHv3KNVj8mtvfi93/vtN0/AgOc71IyrpSjc93pK6
-	 7HVcv1Lbn2jxtQplByVRdtbvabuZVKarp3E6s9kLMMzblGwUit3tbMWs13y46iFMw5rIE
-	 0GjWPq8DHq4QELoanfFNaF2K/XvTrF0PT3+sV7MUlWNP+MIIJZuvAV3mo9T8jZbJbPA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794294583;
+	b=3T0UfV7CsIf1IfLCHusElU2wFPLQy1qPltJyPOnC1AF955jvPQt7USzGjMOgLZ06H0ML
+	 wbjJwZkX4Yn14SI7rZ+JT5OCXdBRMhSXWc8xrODcpBShknmKjq/wrL8i5ehc3zksApwah
+	 UUdJMdLVMhe6MVsF0WT0BoumgL1QfVFP81pKY9eQo2TLsYWqIsPxepd/OhfaePKDuXiZ3
+	 CB8u8fqRV+GEbQ5VF5WfvEH95vPbj7cHBuCZeH5+FgZZYSTF4iVD/Kd2K8DO5Q44fXcnR
+	 GQJzic24+GP12QewdYKsm1r74Oy/vJ3nXnvx6nT2IeqrdmSkjf+4JdwkqoYSgvt1pMA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294583;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
+	b=x9/E+wQwhV3lkXU8LnGttMH6RGpM7BrJJqUAJsV3w4HvaPHNhoGvjK02c7s43jA7uqEd
+	 HqPAQXvxH6HXudxe5ug0HfrHRpYv0GpXAiR+bcwiZpydYI43UONZxrMD/Tl7dWegsqZp+
+	 hmoZ0AD8CJFKjI/33fprEJ+3s0fz4rlSnX7YpZkBww9lwQAGRLRej6OqoWiwnGLx8alP+
+	 yLmtuLyDpUvU8ilQcjPROmlsfEnKOsf5v5CovsOCCrPEEt9O/tLSZGQp+S5Tz8P8vUNXL
+	 dlx3eWZVxMOrxYHwBkqreFu462aGBiYgc7UuiumVviUBn6+OIPtBDZsOCUOKGgwdNqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kux4lxYn;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1D8811F008A4;
-	Tue, 10 Nov 2026 07:08:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294534;
-	bh=OpLzfSX/nDS/byczFTKxU2z4XNzaXDseodN60rHL/Gc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BasFEmq0ArC5FnE8VgQsvxfn85Z10Ix3YyHrZBndlRDUbLZ1XsRQrbqzw1DS0sP3N
-	 2mV/QK+Iihzto+OkSoJFBWCKyglEORxe90rfVw7UiCjJ4JvvgjdZFCIZOx205YY7i2
-	 nyAw4k1xAzIqOxuFgPzWiW3fFNLORtxG98PIxhXzpTBWVgi498VgqQ22IX1vf3wjXZ
-	 5xH1GZolcKCrK6Ei8ccp3VnK8DYX9Lv8udeFlVNue10AGCMil9NlQBrry/puTuHUWp
-	 PbtuS40cwwzfb7oy1bFdMrH4SpQqMGPI15Xft19aA9OA0tta9Rk+FMK7qldkvCAgKV
-	 Yx5gUGsP9bFaQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A35364891E;
-	Tue, 10 Nov 2026 07:08:52 +0000 (UTC)
-From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 01:08:53 -0600
-Subject: [PATCH 2/2] usb: musb: sunxi: Unregister the extcon notifier in
- sunxi_musb_exit()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E65606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E65606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kux4lxYn
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so951994a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:09:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794294583; x=1794899383; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
+        b=Kux4lxYnLYf+9rdgdLp1Jq+goBmmTj84IJeCdAmoFuhtZDgFchrbQ8Csmw3IFzXiO6
+         M3ZDwCYyCPE3vs7cofIYnFA9H/O+5XfE6fma6KoyBNK+8KlUjnU8KHMB+5ooJYGfQQuu
+         qW5ev3Dl8EOxWvodbkUqRGp/ivEG141AdwNFD+P+qrs7S7064InRsV1hxvkiN1HGQO7a
+         nhkgj4uObbA5YUhEPQADVtMKHOB07eTja+CHLvOBTFVLfMg7bCTkEblIyjig8hm8hd0a
+         vvrKcCaAeVE18dLh/DPB/71JW3mlD1VgUfuT/iA8t2obokaQUUEZdFJyuOFmfT487wwF
+         VOcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794294583; x=1794899383;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8o8wjjmrwoQdO4Xnhs54i8QvAQRlpkIVByEC39d22TI=;
+        b=pcKeORNGMCEgN4ScWozrMMNKOTpTQLipiUszLxmSJWj0yiSJ3xp8mh/wyvQ5SBbJas
+         unEboCD8HvTTETGt2hYc2a9XYXzCrule8TN11WNd96CXxK/FLVhBjF/A7L1K+fEILzYi
+         CqkUiOTwA8SH1kXYcczq33tcwltwpEBw6cVzAw9Vj5Jhcm0d/r4s0xfE3GD+69+LSlE9
+         qGwtYAbz8Fe8NUih/TThxoOR86zWh46eB7gExoaC9Jcr814FIHKNkcnKJTQb0OqG03Lp
+         C4Og9Cjo08y2E9ER8FRRxhWbMImmXK5GuqTlAQeA1GL29Ah9PKYoUaHDFivxlaEV4LG1
+         ZTPg==
+X-Forwarded-Encrypted: i=1; AL+hErFTRPcmjrtlYFU+BmmjkWclY8H2S3zXxy+nnwiY/RvLH2rwUeGdiTIkLuL39wnSrNOZFu5nWq1S1fnmT20=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9PCge04YeH8kqxZANU5n2rfGZ+6AkQ9k/Le4oJhcwCSbVjsSHp
+	O9sazbNgvKjm5sooPthEJWG4yaJEJs/lnVkZhgGCiSdp+vCiJ9bhM8I1
+X-Gm-Gg: AYBFou3laH6bnAoPZhTRxOvRgjwEpbHfHb7id1tZ/jpedwnBWSRHdCMGH0oJ6Wp+P4f
+	rhq5ztw9YDfXXTva3vnq/HYVgN+oGxiQBVbmfvORtN82WlQZ5FABUW3RTQaoyInnv0xEiO4ze9Z
+	2CMZHWC9xd7UO9FGpodAvra3srWTnT8vRRQO2wEn2Pt0N3brWu/b9xwGwvNA2zDXSu5sEoxumbG
+	hy6dMONpw5aT/RkeBA+KPl7DDO98pHTqxO+kE3tPHDkaOTDrSOBIqQ56crY1+XzFvLFQ1tUZCcR
+	wZ4tVABe6q1IPDhCcKmZdcH5zNTbUcGkTvmfPnnht/n7+C8ZQt7UtzZShMeaL9ZYyNMpikCidDU
+	jZJnFZ7Ljg6AclnGkOaKbqHP/JTnq0bypldFH8W00I9kwopviKVg87mDpNO5KuVZ1NoYSmI37iP
+	jLOCnxmveqbhehIWbzsZX0yY/lp9NB8/mIv1uBeg/AVZd9bN0BP22Q0ObenPdtPy/a916cAHaa3
+	66wo73KQGWlokG9vsVu6B6F8ncVeZqPTOl0c76dkX9+ON3WlWBXlDHDcJhCVdXpOs35SUaJ+jcI
+	ggJYbMV14UO7rxYQZuBpZ5zDKiE=
+X-Received: by 2002:a17:90b:3844:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b16797724fmr1270966a91.18.1794294582592;
+        Mon, 09 Nov 2026 23:09:42 -0800 (PST)
+Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16771b08asm2648642a91.13.2026.11.09.23.09.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:09:42 -0800 (PST)
+Date: Tue, 10 Nov 2026 15:09:23 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Inochi Amaoto <inochiama@gmail.com>, 
+	Chen Wang <chen.wang@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Hiago De Franco <hfranco@baylibre.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] phy: sophgo: Add USB role switch for CV18XX/SG200X
+Message-ID: <avLC68zOj8WKuslb@inochi.infowork>
+References: <20261103085847.338613-1-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,132 +102,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-musb-sunxi-unbind-v1-2-d821584fc4a4@gmail.com>
-References: <20261110-musb-sunxi-unbind-v1-0-d821584fc4a4@gmail.com>
-In-Reply-To: <20261110-musb-sunxi-unbind-v1-0-d821584fc4a4@gmail.com>
-To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: regressions@lists.linux.dev, Zijun Hu <zijun.hu@oss.qualcomm.com>, 
- linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Rajan Yadav <rajanyadav0307@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294532; l=4095;
- i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
- bh=bZWjWO4qmuHUgam6/ZPpcz8gwogqcCZCYDKe6vCCA9A=;
- b=wKfVzErbcdvcU83jM0aWxFQUbpAvri86BapqOpv41VUu7uUe2s3QOfZlTfgzIOIHtY4aGTvN9
- fQaPbIuNbO1DVwzeAdvDg8JvZAjYrwKGdVNw7Ac2JDL2HNhsMSVU0G4
-X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
- pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
-X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
- auth_id=1391
-X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Reply-To: rajanyadav0307@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103085847.338613-1-chenyou910331@gmail.com>
 
-From: Rajan Yadav <rajanyadav0307@gmail.com>
+On Tue, Nov 03, 2026 at 04:58:44PM +0800, Chen-Yu Yeh wrote:
+> This makes one DTB work as both USB host and USB device on the Milk-V
+> Duo 256M, following the discussion in the thread "Milk-V Duo 256M: USB
+> peripheral mode works on mainline, how should dr_mode be handled?" on
+> the sophgo list. There, Inochi pointed out that a dual-role switch is the
+> right way and that the default should match the vendor image.
+> 
+> The usb-role-switch support in dwc2 hangs on this SoC. It clears B-valid
+> through the GOTGCTL session overrides while VBUS is present, and
+> GOTGINT.SesEndDet then fires back to back. The vendor kernel writes only
+> the ID override in the top syscon and lets dwc2 follow the Connector ID
+> change, and this works on mainline too, without any change to dwc2. So
+> the role switch lives in the PHY driver, which already owns those bits.
+> 
+> Test setup
+> ==========
+> 
+> Milk-V Duo 256M, vendor buildroot rootfs, loaded by hand from U-Boot.
+> Tree: v7.3-rc5 with these changes, CONFIG_USB_DWC2_DUAL_ROLE=y,
+> CONFIG_USB_ETH=y. The series itself is based on current master; the files
+> touched by patches 1 and 2 are the same in both trees.
+> 
+> Tests 1 to 3 ran with CONFIG_USB_DWC2_DEBUG=y and the DT properties
+> applied through an overlay. Test 4 ran with debug disabled and the
+> board DTS from patch 3.
+> 
+> In the logs below, 
+> R=/sys/class/usb_role/3000000.syscon:phy@48-role-switch
+> 
+> 1. Default peripheral, bare board on a PC, nothing done after boot
+> ------------------------------------------------------------------
+> 
+>   # ls /sys/class/usb_role/
+>   3000000.syscon:phy@48-role-switch
+>   # cat $R/role
+>   device
+>   # devmem 0x03000048 32
+>   0x000003C0
+>   # cat /sys/class/udc/*/state
+>   configured
+> 
+>   PC$ lsusb | grep 0525
+>   Bus 003 Device 009: ID 0525:a4a2 Netchip Technology, Inc. Linux-USB Ethernet/RNDIS Gadget
+> 
+> 2. Switching at runtime, same setup
+> -----------------------------------
+> 
+>   # echo host > $R/role
+>   # cat $R/role
+>   host
+>   # devmem 0x03000048 32
+>   0x00000142
+>   # echo device > $R/role
+>   # cat $R/role
+>   device
+>   # devmem 0x03000048 32
+>   0x000003C0
+>   # cat /sys/class/udc/*/state
+>   configured
+> 
+> The switch was repeated without an interrupt storm, then:
+> 
+>   # echo none > $R/role
+>   # cat $R/role
+>   device
+>   # devmem 0x03000048 32
+>   0x000003C0
+> 
+> 3. Default host, on the USB & Ethernet IO board, nothing done after boot
+> ------------------------------------------------------------------------
+> 
+> Only role-switch-default-mode differs from patch 3 here.
+> 
+>   [    3.409672] usb 1-1: new high-speed USB device number 2 using dwc2
+>   [    3.666655] hub 1-1:1.0: 4 ports detected
+>   [   72.484979] usb 1-1.1: new high-speed USB device number 3 using dwc2
+>   [   74.804484]  sda: sda1 sda2 sda3 sda4
+> 
+> The USB stick was plugged in by hand at about 72 s.
+> 
+>   # cat $R/role
+>   host
+>   # devmem 0x03000048 32
+>   0x00000142
+>   # devmem 0x04340018 32
+>   0xF300081E
+>   # devmem 0x04340440 32
+>   0x00001005
+>   # echo none > $R/role
+>   # cat $R/role
+>   host
+>   # ls /dev/sd*
+>   /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda4
+> 
+> 4. Patch 3 as committed, debug disabled
+> ---------------------------------------
+> 
+> Bare board on a PC, nothing done after boot:
+> 
+>   # cat $R/role
+>   device
+> 
+>   PC: usb 3-9: New USB device found, idVendor=0525, idProduct=a4a2
+>   PC: usb 3-9: Product: RNDIS/Ethernet Gadget
+> 
+> On the IO board, with a USB stick already plugged in at boot:
+> 
+>   # cat $R/role
+>   device
+>   # echo host > $R/role
+>   # cat $R/role
+>   host
+>   # dmesg | grep -E 'usb 1-1'
+>   [  415.464739] usb 1-1: new high-speed USB device number 2 using dwc2
+>   [  415.940738] usb 1-1.1: new high-speed USB device number 3 using dwc2
+> 
+> Before this series
+> ==================
+> 
+> With usb-role-switch on the dwc2 node, "echo host" hangs the board in the
+> SesEndDet storm, and so does boot without role-switch-default-mode.
+> 
+> With dr_mode = "otg" and no role switch, writing the ID override by hand
+> worked:
+> 
+>   devmem 0x03000048 32 0x3C0  -> high-speed RNDIS gadget on the PC
+>   devmem 0x03000048 32 0x142  -> disconnects from the PC, host side starts
+> 
+> Three round trips were all correct, and ping over usb0 afterwards was
+> 5/5. On the IO board, the hub and USB stick appeared after one toggle,
+> but not at boot, because usb_add_hcd() moved the PHY to host after dwc2
+> had already set up for device:
+> 
+>             at boot       after one toggle
+>   GINTSTS   0x05000023    0x04200021
+>   GINTMSK   0xd0bc3cd4    0xf300081e    (PrtInt masked -> unmasked)
+>   HPRT0     0x00021403    0x00001005    (ConnDet pending -> port enabled)
+> 
+> Test 3 above reaches the right-hand values at boot without a toggle.
+> 
+> Not tested
+> ==========
+> 
+>  - A USB stick already plugged in at boot in the default host case.
+>  - Running on a master based tree: all tests used the v7.3-rc5 tree.
+>  - Boards other than the Duo 256M. Nothing changes on them, since the
+>    role switch is only registered when the PHY node has usb-role-switch.
+> 
+> Question
+> ========
+> 
+> With patch 3, the hub on the IO board needs "echo host" after each boot.
+> Should the IO board overlay (sg2002-milkv-duo256m-eth.dtso) set
+> role-switch-default-mode = "host", or should it stay the same as the
+> vendor image?
+> 
+> 
+> Chen-Yu Yeh (3):
+>   dt-bindings: phy: sophgo,cv1800b-usb2-phy: Add USB role switch
+>     properties
+>   phy: sophgo: Add USB role switch support for CV18XX/SG200X
+>   riscv: dts: sophgo: sg2002-milkv-duo256m: Enable USB role switch
+> 
+>  .../bindings/phy/sophgo,cv1800b-usb2-phy.yaml |  11 ++
+>  .../boot/dts/sophgo/sg2002-milkv-duo256m.dts  |   7 +-
+>  drivers/phy/sophgo/Kconfig                    |   2 +
+>  drivers/phy/sophgo/phy-cv1800-usb2.c          | 107 ++++++++++++++++--
+>  4 files changed, 119 insertions(+), 8 deletions(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.43.0
+> 
 
-Binding the musb-hdrc child again after it was unbound fails on v7.4-rc1
-(KickPi K5C, Allwinner A133):
+NAK on this patch, I do not think fix phy is the right way for a
+controller problem. See my new patch:
 
-  # echo musb-hdrc.1.auto > /sys/bus/platform/drivers/musb-hdrc/unbind
-  # echo musb-hdrc.1.auto > /sys/bus/platform/drivers/musb-hdrc/bind
-  notifier callback sunxi_musb_host_notifier already registered
-  WARNING: kernel/notifier.c:24 at notifier_chain_register+0x98/0xf8, CPU#1: sh/312
-  ...
-   notifier_chain_register+0x98/0xf8 (P)
-   raw_notifier_chain_register+0x14/0x20
-   extcon_register_notifier+0xa4/0xe0
-   devm_extcon_register_notifier+0x64/0xe0
-   sunxi_musb_init+0x170/0x280
-   musb_probe+0x330/0x125c
-  ...
-  musb-hdrc musb-hdrc.1.auto: error -EEXIST: musb_init_controller failed
-  musb-hdrc musb-hdrc.1.auto: probe with driver musb-hdrc failed with error -17
+https://lore.kernel.org/linux-usb/20261110070627.217946-1-inochiama@gmail.com
 
-sunxi_musb_init() runs each time the child is probed, but it registers
-the extcon notifier with devm_extcon_register_notifier() on the glue
-device. The notifier stays registered after the child is unbound, and
-the next sunxi_musb_init() registers the same notifier_block again. It
-also stays registered while no musb exists, so an extcon event can
-still queue glue->work after sunxi_musb_exit() cancelled it.
-
-Commit bb1d1ce8c74e ("usb: musb: sunxi: Uses the resource-managed
-extcon API when registering extcon notifier") introduced this; before
-it, the notifier was unregistered in sunxi_musb_exit() and on the
-sunxi_musb_init() error path. Restore that, and unregister it before
-cancel_work_sync() so that the notifier cannot queue the work again.
-
-Tested on the K5C with v7.4-rc1 and KASAN. The bind failed as above
-both without and with the previous patch. With both patches, three
-unbind/bind cycles of musb-hdrc bring back the UDC each time, without
-warnings or KASAN reports, and unbinding the glue device afterwards is
-clean as well. This patch was not tested without the previous one, and
-the sunxi_musb_init() error path was not exercised.
-
-Claude Code (Anthropic) found the cause, wrote this fix and the commit
-message, and helped with the tests; I reviewed the fix and ran the
-tests on the board.
-
-Fixes: bb1d1ce8c74e ("usb: musb: sunxi: Uses the resource-managed extcon API when registering extcon notifier")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
----
- drivers/usb/musb/sunxi.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/usb/musb/sunxi.c b/drivers/usb/musb/sunxi.c
-index d880c3758c9..e9107ae9d34 100644
---- a/drivers/usb/musb/sunxi.c
-+++ b/drivers/usb/musb/sunxi.c
-@@ -246,15 +246,19 @@ static int sunxi_musb_init(struct musb *musb)
- 
- 	writeb(SUNXI_MUSB_VEND0_PIO_MODE, musb->mregs + SUNXI_MUSB_VEND0);
- 
--	/* Register notifier before calling phy_init() */
--	ret = devm_extcon_register_notifier(glue->dev, glue->extcon,
--					EXTCON_USB_HOST, &glue->host_nb);
-+	/*
-+	 * Register notifier before calling phy_init(). It is unregistered in
-+	 * sunxi_musb_exit(), as this runs again each time the musb-hdrc child
-+	 * is bound.
-+	 */
-+	ret = extcon_register_notifier(glue->extcon, EXTCON_USB_HOST,
-+				       &glue->host_nb);
- 	if (ret)
- 		goto error_reset_assert;
- 
- 	ret = phy_init(glue->phy);
- 	if (ret)
--		goto error_reset_assert;
-+		goto error_unregister_notifier;
- 
- 	musb->isr = sunxi_musb_interrupt;
- 
-@@ -263,6 +267,9 @@ static int sunxi_musb_init(struct musb *musb)
- 
- 	return 0;
- 
-+error_unregister_notifier:
-+	extcon_unregister_notifier(glue->extcon, EXTCON_USB_HOST,
-+				   &glue->host_nb);
- error_reset_assert:
- 	if (test_bit(SUNXI_MUSB_FL_HAS_RESET, &glue->flags))
- 		reset_control_assert(glue->rst);
-@@ -280,6 +287,9 @@ static int sunxi_musb_exit(struct musb *musb)
- 
- 	pm_runtime_put(musb->controller);
- 
-+	/* Before cancel_work_sync(), so the notifier cannot requeue the work */
-+	extcon_unregister_notifier(glue->extcon, EXTCON_USB_HOST,
-+				   &glue->host_nb);
- 	cancel_work_sync(&glue->work);
- 	if (test_bit(SUNXI_MUSB_FL_PHY_ON, &glue->flags))
- 		phy_power_off(glue->phy);
-
--- 
-2.34.1
-
-
+Regards,
+Inochi
