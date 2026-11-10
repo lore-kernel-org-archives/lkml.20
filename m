@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304278;
-	b=x8f66k33URo2f5mJtMbud5Bve1EvXwDPj/owWLMVK1iLxfnC6mPcgNPCXAw0csfa+Fo8
-	 81znBhKxKwk6gUQO8oMMcuc8qPQdXijx+VDgviXiMg3pcV+4wvHw53tTfNVlN7wXghhla
-	 4oFrNNz2qxaMCfw+typoCLRPYD9R5ld6rYVAQCx9MW6RDk6NA+SGoSNWevCJV2tYDjz5P
-	 ul6DkGEfi+EferWTiuieCAWC+GtxLjXGpvjIBy5g62svoVocIhWuYD9DekID5C0xU1F2c
-	 Jz0r+8/nbMLxt7gmSpzRd5IC/nRDU3frETtiRODtgZe/Ur7GT9DuvIiA3eyla2fadhw==
+	t=1794304330;
+	b=rqUWlKjK7fMjbafna0ykegbxssS5mDRKSRqKsHxa7bm05dHNqxSkHAX54oBM46rTyyFf
+	 3EC7F6CmLxc8B8QrTXX8vrARQCls4+7AQxCM2b8TvSZuy8QG3kuxtWadVnJFIavCxFXBg
+	 5/mJyDJLUYYknu1F9XDCOZ2/SlhAyVHMnvHi2B3xd7ODDk7i7lMuPVlmC8OjygfhVAYpz
+	 htyezzU8E3SBvmF6R6qOwzSdYdHfUrwaM6Jkl+bFgySVArcK+Y7nVziFYgSye+fLHawpn
+	 mWZlD09gISYhaz0p7KP9jXpR8BCBFn5OHImJsv2s9SGjwE437Hozbzivnmq+wliWBcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304278;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=YbxS4r3glnO7uNVQhRoODAC5fMs2dZeYVmrXo7/d8vw=;
-	b=RhH85ERq+nSHcFuZEL34BOTYpiIBTLEEevbCkfi1CW0v8oE4gB/zDyf8PIiPr2KcaVG7
-	 NZzYwDawfrxo7IGHgg61u/YQJwqZipPH12AiVrEeDI/sjlBPDV3A2+dIETVtM5JzQ5PnW
-	 D5PvKJ0v0dT0dxrbVPH39Y3InYOtJR7wJ/qzqWp7XfrfriSJUWDqSCg9VsJGKPVW9uDd0
-	 sI0z9lWuP1irZLWul2eiFyfKiyES4VSIazjd2AvV5sTDR/uWaFH14+U5DaN/AX6/mc7zv
-	 yo0S98EhnzeHhJzzuK/K5ASYqS+jY9rymovH5FVmyoFZ4lPi9jaq14fyF90LQ5YhXgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304330;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZLxgvwGyvbXEkWfR68oMjSG1/4NuLSfmoIF/+Ge58LA=;
+	b=J+Xs474y0SNr/gN5AyCmsd9jmZi6jWso6o5ZXXsvIDr2V2Lp4Q0SiksdwVLVprrI0/4N
+	 1dRLP/xoq4OaUCnNS8bj3zQv4xrom0ipyQOp6FKaXPOlDz383qz1kYGqtlP56rHAKPAz0
+	 3GHDbfyjgWtNqnD9JQHFGIRPVcZ+uorR+oOWAVVaO8jQRjXXyTqmWady53XQdrhctYi4/
+	 41FnSGZ6u8dttSEX/OAV/M/7QKO0OxmBl2wOSu9w8cdaU2/WR1Huwbbw43S2hWca5clwS
+	 QP+XlcdEQb1WdfVyoeYR6gH9JciaCA9ntA6GbJ0CZEGDCqeybP6R2LDZh0COkE/I+9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="OmAK/lUN";
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYBDMboP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBAC606B9D2;
-	Tue, 10 Nov 2026 09:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFBAC606B9D2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46226606A31C;
+	Tue, 10 Nov 2026 09:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OmAK/lUN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794304277; x=1825840277;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EQIiYTmm+SRmdC9RpdohF83EwIDHyO3vFfvlI99ygw8=;
-  b=OmAK/lUNYEwXB/u6NdVOH2LXeROc6sRYzntMiaHQ9R7YIozYUSrg77ha
-   /KbD0/PwnuLkGnASDw1heP36OgncSi/zrCW7T7TPEWLOLBQ/GAiwCjPAw
-   egvDmba9MDMRBuzVISeErqiSwwPbHx9S3+SR+QZacvzjPrWD/+rJC+/hZ
-   1azqSBXOCB3cAh/liepgWM5sRaWYU8o29RKRCd+y+ff2itYTIeZwjv0qf
-   KL3FQP1Iq4YBkSAXh2d7i/VOiXLIEypz2qiFHHVi0zd+jHefPbZ1q6q3m
-   h4Stp5HX4DyMqn6x1hdeww0V28GEyOWg7qaqGa0jMIclSS95KggY65W+U
-   A==;
-X-CSE-ConnectionGUID: 6wKW89E3Q6aCKhaVCei6FA==
-X-CSE-MsgGUID: M3KesH8TQWi1ct4x5U2p0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2933299"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2933299"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:51:16 -0800
-X-CSE-ConnectionGUID: wfDQNmQoQ1yMM5C8d4P5RA==
-X-CSE-MsgGUID: jZDpL9LPSZ+loOUSCVp40g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="9851826"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:51:15 -0800
-Date: Tue, 10 Nov 2026 11:51:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v7 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <avLpEA6CoZvicvDN@ashevche-desk.local>
-References: <avJZyb5S--smaHpX@ashevche-desk.local>
- <SN1PR12MB2528754241E5C6271A02734FA5722@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYBDMboP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0288D1F0089F;
+	Tue, 10 Nov 2026 09:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794304329;
+	bh=ZLxgvwGyvbXEkWfR68oMjSG1/4NuLSfmoIF/+Ge58LA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IYBDMboPemWW67RTq0xHWDmfQFMyh+8anHQrjn3SK0Pwfbaz1xX5rFUOrLtY62093
+	 RJ4R4mA8LvdccmeNOLEYTJiNzRtBjRgWxPnPWNE6HIhZERyw63GiDInJu8lsdosl3Q
+	 wCX59uadjCz3zVPgz4LgRLx/C6XFj7B6BfDFVYLQwTM+sRlNIglvuTN6S+He1wbBCp
+	 OTwOfHoqIJgkNVhE8K2lZ2FIaDS7BpXe87KRZZiNxvUDvviQ0bhPn9DrlKN4oR4+vl
+	 pGiUnGWFJUk7r0Q4YElWZPxjnAzD/baJYRfWZsDkksKXbt4NyiEYAPl07gkmF27MQG
+	 AldLvWSZM+t0Q==
+Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp state
+ for mixed channels
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
+ max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ciprianmarian.costea@oss.nxp.com, kuba@kernel.org
+Date: Tue, 10 Nov 2026 09:52:08 +0000
+Message-ID: <179430432849.488853.15448419304798286866@kernel.org>
+In-Reply-To: <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
+References: <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,43 +64,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528754241E5C6271A02734FA5722@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 09:56:44PM -0600, Victor Chernyakin wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-...
+Critical: 0 · High: 1 · Medium: 0 · Low: 2
 
-> > > +		return regmap_write(map, FDC1004_REG_OFFSET_CAL_CINn(chan->channel),
-> > > +				    (u16)DIV_S64_ROUND_CLOSEST(val64, fdc1004_calibbias[1]));
-> > 
-> > Why casting? Shouldn't it be handled on the regmap_write() stage based on
-> > the register / field description?
-> 
-> This was prompted by this sashiko review:
-> 
-> https://lore.kernel.org/SN1PR12MB252888B43D53AB1723952D21A5742@SN1PR12MB2528.namprd12.prod.outlook.com
-> 
-> TLDR I'm not certain the cast is necessary, but I'm also not certain
-> it's not necessary (if regmap does handle it, I couldn't figure out
-> where), so I've added it out of caution.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Yes, regmap core code is tricky in many places. So, as far as I read it,
-the I2C default bus with val_bits == 16 (if you have no custom regmap IO
-accessors) uses internal format operation regmap_format_16_be() along
-with format_write kept at NULL and hence defer_cache set to true (cache
-after formatting). The default working buffer for the data is work_buf,
-to which the above formatter puts the data, it doesn't put anything outside
-16 LSBs.
+- [High] The patch is meant to stop RX timestamp conversion from using an
+  uninitialized parent->tc when a non-TS channel is opened before a TS…
+- [Low] gs_usb_probe() (drivers/net/can/usb/gs_usb.c) declares `bool
+  ts_supported;` at line 1544 with no initializer.
+- [Low] The comment on tc_lock in struct gs_usb
+  (drivers/net/can/usb/gs_usb.c:335, `spinlock_t tc_lock; /* spinlock to…
 
-Since the code is tricky, please double check my way of understanding the code
-and confirm or point out any mistakes I made.
+--
+
+can: gs_usb: fix hardware timestamp state for mixed channels
+
+This patch moves the HW timestamp infrastructure setup into gs_usb_probe().
+It runs there when at least one channel has GS_CAN_FEATURE_HW_TIMESTAMP set.
+The patch also refcounts active timestamp channels in
+gs_usb_timestamp_start()/gs_usb_timestamp_stop(), and calls them based on
+each channel's feature flag instead of the number of active channels.
+
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> index 6327069f63c95..0a1cd14c940cc 100644
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -337,6 +337,7 @@ struct gs_usb {
+>  
+>  	unsigned int hf_size_rx;
+>  	u8 active_channels;
+> +	u8 active_timestamp_channels;
+>  	u8 channel_cnt;
+
+[Severity: Low]
+This isn't a bug, but the comment on tc_lock in struct gs_usb still says:
+
+	spinlock_t tc_lock; /* spinlock to guard access tc->cycle_last */
+
+gs_usb_timestamp_start() and gs_usb_timestamp_stop() now also take tc_lock
+around active_timestamp_channels. The lock also doesn't make the counter
+update atomic with timecounter_init(), because gs_usb_timestamp_read() drops
+tc_lock for the USB transfer. In practice both writers run from
+ndo_open/ndo_stop under RTNL.
+
+Could the comment be updated to cover the counter, or to note that RTNL
+serializes it?
+
+[ ... ]
+
+> @@ -988,10 +1006,10 @@ static int gs_can_open(struct net_device *netdev)
+>  
+>  	can_rx_offload_enable(&dev->offload);
+>  
+> -	if (!parent->active_channels) {
+> -		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+> -			gs_usb_timestamp_init(parent);
+> +	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+> +		gs_usb_timestamp_start(parent);
+
+[Severity: High]
+Can the RX path still use an uninitialized parent->tc here?
+
+gs_usb_timestamp_init() no longer calls timecounter_init(), and parent is
+allocated with kzalloc_flex(). So parent->tc.cc stays NULL from probe until
+the first gs_usb_timestamp_start().
+
+__dev_open() sets __LINK_STATE_START before it calls ndo_open. That means
+netif_running() is already true for this channel while open_candev() and
+can_rx_offload_enable() run, and both run before gs_usb_timestamp_start().
+
+If a non-timestamp sibling channel is already open, the shared RX URBs on
+parent->rx_submitted are in flight. gs_usb_receive_bulk_callback() only
+checks the channel range, netif_device_present() and netif_running() before
+it converts the timestamp:
+
+gs_usb_receive_bulk_callback()
+  gs_usb_rx_offload() / gs_usb_get_echo_skb()
+    gs_usb_set_timestamp()
+      gs_usb_skb_set_timestamp()
+        timecounter_cyc2time(&parent->tc, timestamp)
+
+If a frame for this channel completes in that window, timecounter_cyc2time()
+dereferences tc->cc->mask while tc->cc is NULL. That happens in URB
+completion context.
+
+There is a second window just after tc->cc is set. gs_usb_timestamp_read()
+drops tc_lock during the USB transfer:
+
+	/* drop lock for synchronous USB transfer */
+	spin_unlock_bh(&parent->tc_lock);
+	err = gs_usb_get_timestamp(parent, &timestamp);
+	spin_lock_bh(&parent->tc_lock);
+
+A reader can then see cycle_last and nsec still at zero and produce a bogus
+hardware timestamp.
+
+A compliant firmware shouldn't send frames for a channel before
+GS_USB_BREQ_MODE has started it. However, hf->channel is controlled by the
+device. The v3 changelog mentions a guard that skipped RX timestamp
+conversion and the delayed work while no timestamp channel was active. That
+guard is no longer present in v4.
+
+Would it make sense to restore a check in gs_usb_skb_set_timestamp(), or to
+make parent->tc valid from probe?
+
+[ ... ]
+
+> @@ -1526,6 +1541,7 @@ static int gs_usb_probe(struct usb_interface *intf,
+>  	};
+>  	struct gs_device_config dconf;
+>  	unsigned int icount, i;
+> +	bool ts_supported;
+>  	int rc;
+
+[Severity: Low]
+Should ts_supported be initialized to false?
+
+The only assignment is in the per-channel loop, and it only ever sets true:
+
+		if (parent->canch[i]->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+			ts_supported = true;
+
+If no channel reports GS_CAN_FEATURE_HW_TIMESTAMP, the later check
+
+	if (ts_supported)
+		gs_usb_timestamp_init(parent);
+
+reads uninitialized stack memory. KMSAN may report this as an uninit-value
+use, and the compiler may emit a maybe-uninitialized warning.
+
+>  
+>  	rc = usb_find_common_endpoints(intf->cur_altsetting,
+> @@ -1599,6 +1615,9 @@ static int gs_usb_probe(struct usb_interface *intf,
+>  		parent->canch[i] = dev;
+>  		parent->canch[i]->parent = parent;
+>  
+> +		if (parent->canch[i]->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+> +			ts_supported = true;
+> +
+
+[ ... ]
+
+> @@ -1616,6 +1635,9 @@ static int gs_usb_probe(struct usb_interface *intf,
+>  		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
+>  	}
+>  
+> +	if (ts_supported)
+> +		gs_usb_timestamp_init(parent);
+> +
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108-gs_usb-fixes-v5-0-d52dd4940d46%40pengutronix.de
