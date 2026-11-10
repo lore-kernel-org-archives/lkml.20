@@ -1,66 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350178;
-	b=4VQiTLrvPo3XemrYEZcBuqQw7d9AmcVBnKvICV2+tNRw7CSynuPWtXl9g3D+c74YcUKN
-	 9WIcVQ1hmqLHTcrEYP6tsCe80ek7rb+Cf2RXT3WEwHXK4BE7wQew5A6DsE0e1RUHlTBtt
-	 B1TG43YGEHeUP0ulF3mH1jkJP2QyktVR2hpzRixApU+XT1z/cm8oVV33v4M6sTdziuh3y
-	 RIcCf5BfbSC1eDPJ/QqawP4ZSYf0LU7831VvjFBISgr63g03ZJaiNbLRcFdnlCm8LDOvg
-	 elXmkDWHG+W5p1ZEgDxBOWxh79we4cwfqIoxjRUEMs6VWziTgyYv5yeeEsMQNH8H/jQ==
+	t=1794350218;
+	b=yKEh3T9p9+grcJnBfeB49knmnF+DhVPw7i/MHefzIYNwqp0oKownvBc6B2tnQxWWGMMs
+	 E3c4lccxQdPDCrwmRgBzd5xVi0vTftDPD4fXsP/dVjrbB4CkM/5/oy9j2JO6+QY1GWZny
+	 vuak6uFwouCjhbpmLw7KwQPYNjKsHeiwC13HIrCJKmKhoLO4PNYkSWKzBwylHLaT8/+rz
+	 11KTiV/5pSZWjzaENnZjkKalSXAEi4Q33EVBf3J/W46QKbGALDR6fq66I3p9D7zDAHi1j
+	 dgKuda6erieHi5xnVtvdb5lqysfpiLu9/f73cQ1xO4CaYkrbl3OT527NKio1nDQ5Wfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350178;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GFO5SgMs8ReKJKikz9lkRPOPcMKY8LAMToxS0clBDck=;
-	b=ndnSHi804GShSnA3099AOjO1l0rFeuSL66dWmukowdVeUyGMqJxdsKV7pgxh/xmbTsq0
-	 nmuGG3Mq02EA5QM3Y7IaDfHHP2Go3dhPO/bEKW4gmdYYPOTNCWpHmkKu85QVlTlm/+qTs
-	 zhT9O1DOxId0CHG2s2nkq42PXTlPF/QlRrhksrgYI3VvnXpIQaDz1gXYtlqlO/auETtSq
-	 gCA584OT0Wem4K+hOjNTZxfx1VialICZcy3JtGYXUWcyNictJ96wKSsjm38B4hVznV4it
-	 QtMikwjtTeUqrf9ccdSWGi2gUvrdwlCAgZ1GW4hVf4l4pE+RRnWbbD2/mKWzopXObjg==
+	bh=/4es+9r5XF9AYP6NJAJvSrimnD1eLpHb3VSUhrghCnQ=;
+	b=SsZzR9EYuWHeRs3x6tnwIBq36Tr3DFsFlFuvyfxwvGRl/tj8UZ73EII/c8y9Nq5hQ0Sw
+	 EIPgaLXFcAEyM0s2MBOj7Zb/wo+WpRIkGARZFQlqQ4Q5Hd8PmcBTKIqYy/Gccc9HTNALH
+	 929GT6DJNT8De/2M+nQ0OH77J5H1hacmexQfTflh37kGeiCmLIj2jW80fj1ww1ih2Qq29
+	 0iHFQIut4i5G/M4NcHLHqe7wvshOrQZSGXa1o/KEnxirXjU1VwkgoB9osVohDiQ/8PmKG
+	 UQhYl1lnplDLEIO9W/9njr/feFf2N8eXK8szu/vpk1CDPLgiPTY+YBE4Vpy8+99FEyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1bUdJnQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="sDBVko/L";
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4B1606A31C;
-	Tue, 10 Nov 2026 22:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9067F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9067F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1bUdJnQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6731F008A2;
-	Tue, 10 Nov 2026 22:36:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794350178;
-	bh=GFO5SgMs8ReKJKikz9lkRPOPcMKY8LAMToxS0clBDck=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E1bUdJnQlEXRrR7QwKxM8f/74VboDlP7DcSq6c1FP0RZH1JDytqc+nluEKFsPs84P
-	 E5umCdkWdxo/6HC5b3qc2cV/OOBCM1ink1Ul5+LiInafa7lCc6yPUSnHhtS0XrEw1Y
-	 boeMQhkDwhBDC/foVQuFvfuk7ye9QAzqJmvFaiQk/BoiTwH9W/fIrAyZ4yqCQT8LZd
-	 t8mUTO8JYNjEm0TN8w/lwk86hvlBuDY/DMqWXKGuxcCaigXhMpoXnLqrUcdlDki6zk
-	 r/t89iiRwxbB6kyh2nW5pIq3qkUN5EbS4cX4LQPIAuBeXfrps36IaCoVj3q2MDCKtg
-	 8a/W3Onh4mYow==
-Date: Tue, 10 Nov 2026 14:36:15 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, andrew+netdev@lunn.ch, edumazet@kernel.org,
- horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, michael.chan@broadcom.com,
- pavan.chebbi@broadcom.com, saeedm@nvidia.com, tariqt@nvidia.com,
- mbloch@nvidia.com, alexanderduyck@fb.com, kernel-team@meta.com,
- sdf@fomichev.me, dimitri.daskalakis1@gmail.com, almasrymina@google.com,
- dtatulea@nvidia.com, bobbyeshleman@meta.com, asml.silence@gmail.com,
- daniel@iogearbox.net, razor@blackwall.org, leitao@debian.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kselftest@vger.kernel.org,
- leon@kernel.org
-Subject: Re: [PATCH net-next v3 4/9] net: devmem: add a per-device netmem TX
- frag size limit
-Message-ID: <20261110143615.05f9adbd@kernel.org>
-In-Reply-To: <20261105222058.944293-5-sdf@fomichev.me>
-References: <20261105222058.944293-1-sdf@fomichev.me>
-	<20261105222058.944293-5-sdf@fomichev.me>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sDBVko/L
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1931ff67a29so3208304c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:36:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794350218; x=1794955018; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/4es+9r5XF9AYP6NJAJvSrimnD1eLpHb3VSUhrghCnQ=;
+        b=sDBVko/LfR8ln8Zr8Y38Pxzg51jwK2plYrNXW7n5mbgOGhNWe1kNBDthJyDN93EqGj
+         OunJ6aIz4kFCzVzGtn5uVdKcZBSgW7GHowvio1A7eSECbVBT6c9uNOtrMh78yf+LUzpL
+         Z1Yby87Ot3lkVAOrZNqy8fzeY3Zdy6fSs7sc8AOh92yVczhVFptoW3AcxMSJfuMk3qYB
+         Y6o3UwK7S+4gPRzRQRIsk2p3GzTj6LdT0+BvU++D9qk0Gwps+iSMs6cb1SZicrSzE2e4
+         859/9/bKGXfg7FiQs1Fnn5RDlJ77YDkFsgyFNQVzpHVdu8fdL8+sCo3wabIgqcq3I5lt
+         QOSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794350218; x=1794955018;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/4es+9r5XF9AYP6NJAJvSrimnD1eLpHb3VSUhrghCnQ=;
+        b=UK7jnCqRQ9iDHzZsC9mJH3J2Zmx2Akq579Vu2oYO3WimVLWMnYTV4IHGOr883vGg9Q
+         6znAHixyWbFU/ciTncII5MykLDfppDzJST/GGKmFJ3tRY/x6Q5FuFJI4ks7EySPcojig
+         N7B3SDvwKXj1KuokE2B0JD+7syaD4Al904DSygT5N+TyXze/69Q7Gpv+l3LFk0J2xPjQ
+         kuEnavJmIMuZbkqH5s1teYqZ8euf9jB+7wIkutWrL7fRcrueNziszcHHdaH/jMmm7/ni
+         rfRQax9gSx8MSWYEUb1RuwrjGAeklSKfTvI5JKtUQjulxDbzSJbgCdFgynk+vrfETjG/
+         mEKg==
+X-Forwarded-Encrypted: i=1; AL+hErG8o6bZXwm4J3kKRUURPz/09IfO61uSD0HEHsJ/9DDxUWmBW/PFkw+L+lFj7ewXgn6hnGt429whZqVRNJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WfOGCK//5qWkiLS/B6liM1xzRaWCDZ8t7yQCNTl0/oZdAWQew
+	WE7b82zLBK2P5NRqmULaLTmaMqWkaI9XycPXQXn4zF3GYXsH/8gaKl75
+X-Gm-Gg: AYBFou1jbOMKNl5XQr5irM8zBwEPWPX3euEK587Lc3Vk3Zjw0P2TA6ZkCmwbOiyBzLP
+	of+LB3gDH02K/ald7dN0zJbWRvJaLvsiFshbQ8EqgY4ktTH93XKef/TMF9tSR0RLVhnQS3LhnME
+	cWfJjjYz6YPmho8R6dKzhZzO1U5Wd8DuReS1fcoXcm5cUsk9xq3ep1z97R0Esv9yv/jTP56kmRC
+	cCLIsDuaYOAD6ag5On7XUaAAxcwAAl2om88J0WIVYI098TlkShITEllPlbFFVxmoAlcZFhysuIx
+	fG24k2HmK7aN3pXFJfvGEoMX89aoffQPzWVbwLwIDHlXuPp0hgeF7mJHFOixP6xp6OvNo7NFQb5
+	1rt9U8nbQix7kCoV25Ty2BjMDVv8eflecNArevrmU4N/iOi5ConyuJFRI5ILofUejMEz6wt4sUs
+	BPge55DU7RwmSCaR1QCGoru850EznHPxoz/jnAmEKWarxjFpS+Itbf2+Uipf6FY8GkJYSYiqW6R
+	afzrep7fSnlkCK6naLBwijShMXmv9iyeZA8RQV04LC5oA7suSroGqBYLAWBx82ID9d/OPfjg4KT
+	DWa7msIAFwcn1g8nktgB4/74gh13rw==
+X-Received: by 2002:a05:7300:560e:b0:376:972f:afa9 with SMTP id 5a478bee46e88-376972fb1dbmr671243eec.9.1794350217569;
+        Tue, 10 Nov 2026 14:36:57 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm11488863eec.19.2026.11.10.14.36.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 14:36:56 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: macro@orcam.me.uk,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] MIPS: SiByte: Add missing sb1_cache_error() prototype
+Date: Tue, 10 Nov 2026 14:36:49 -0800
+Message-ID: <20261110223651.2698860-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,14 +97,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu,  5 Nov 2026 14:20:53 -0800 Stanislav Fomichev wrote:
-> Devmem TX frags are bounded only by the net_iov size, which is about
-> to grow up to 2MB, more than some devices can describe in a single TX
-> descriptor.
+Fixes the following warning:
 
-How is this different than normal zerocopy Tx?
-Drivers already have to deal with long frags.
-Having partially applicable limit seems like a bad idea.
+arch/mips/mm/cerr-sb1.c:165:17: warning: no previous prototype for ‘sb1_cache_error’ [-Wmissing-prototypes]
+  165 | asmlinkage void sb1_cache_error(void)
+      |                 ^~~~~~~~~~~~~~~
+
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ arch/mips/include/asm/sibyte/sb1250.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/mips/include/asm/sibyte/sb1250.h b/arch/mips/include/asm/sibyte/sb1250.h
+index de4b352256c8..e42b3c9f4b53 100644
+--- a/arch/mips/include/asm/sibyte/sb1250.h
++++ b/arch/mips/include/asm/sibyte/sb1250.h
+@@ -32,6 +32,8 @@ extern unsigned int soc_type;
+ extern unsigned int periph_rev;
+ extern unsigned int zbbus_mhz;
+ 
++void sb1_cache_error(void);
++
+ extern void sb1250_mask_irq(int cpu, int irq);
+ extern void sb1250_unmask_irq(int cpu, int irq);
+ 
+-- 
+2.53.0
+
