@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308850;
-	b=TXt+Tgscqvm4nNoWpkjO6/nqM4Jf/KUcOdT6V4J043tesC3A9Mp+Y/gOyZR8THuBw9U3
-	 olayXGxuVWTa4zEtAVhnAtbazhyXDiNhCZw96JVWnVIXxE00BO/0lM/nC/3THerSDMAzo
-	 b90SRZqCoASnJskOlq9gM4fSaLe5wfHi65Xf0xE4naE+wVoSkDY0nB9/5lhKb25GEURQw
-	 L4xobpe3znXnVBap0FCiPFdHOsi55l07lw0u5Th9qK/dtAANwpGnmnPkR8+KkFuYEqQf8
-	 O4GXzqR/n68NqZeKSA+KJtlxYYdMbHImboS8NraILeBDzBgs78yCc07BAW/fqocxTrA==
+	t=1794308854;
+	b=aGzeOLZe6H9xPvUVjnPPY4dO+eGodPinRBmOVkUKUzdrSiGSaUBN1K/9E835sJxFuhqE
+	 u4bIz5dSebpce4im64f2U8wYOskbM5T0y0uZX5vIFxyUQRZHPoGHODeBvU4lGmP8B4yIg
+	 Ay3k8EGG7k+RXkpvLAgOpTcNgJjg3xnCBQ/CT5v+gCALq4+ZRbRA3xSb4Pb5urb213HTB
+	 8kAK5+hE76rQsGQDKkM7F1XV35VENMln+OmfWYxaBs0gXR6G1ant9SfYmwdrHyVdDwjKL
+	 wkUj2zJ3XXc2Tz5qHyP5GCHZBbqQmwv3/dkKmw99uWYrecVsCQJeMcwp+auTJrHrxqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308854;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Gk5/z5UHtpWXsmW1+RWmjFtC0T17jkciMDqpUKmwIl8=;
-	b=aHg+0HfZttOv+nQCmK9wt2GZ7smW8aJ/GwfV705/+YHjopQmZy/U6dCeJoVcx0sgoA+4
-	 v1wKlB1oJCnmfSHeF38eieyocXjQ+cqvQu4SNJQRCygl1Tdi/exVrXDkTfjzq2AluI+HB
-	 7wX11b3YOhozCcqoLht2T04ml4jtJn2kr7U83K8qXsqBPcd9+uH5dZrDf5LAPBllH+9Dx
-	 rEkevtIIUHAdgPma7p2ON4n3S/898RWUkfot4tt/bDkmNd3+Iq5IoCi9w1GlK0M/fy7n9
-	 RbVIJZEFWNCFUrkshWWA3uFadH/6Q5YqXXpilzQwDasesJuT67eF3O+vTZQmYUf6x+A==
+	bh=sDPsGKf/VHOUS0puZRKQwRQtzDRWIoWykff0y+QcUd4=;
+	b=RQY9VX5uwXYkDH7bnkGXCs+gRQDpLIcmIE3FduRV8kmyCzZhz6xjzmq+oEJIGFCitfYQ
+	 q69adFGFQehYziHgML/7ntpTUCOo4Ect4C/ssNbiCkyWXriDhHWwFnynTl8ydLz0pzfwz
+	 L0UVVozmrHRcBEZXwxclecJ5V25hq/DaX2/DcQQ+Y/IVS/jbtnP9SaAleaVBV2Z49DzUh
+	 EPCCkELGSIqEtOWS31URTb7B4OepkhpOc3PHBpc1LMqA5lUXQW+nhOKX8+YHEGOxuF5e0
+	 KUeAXequxius7QgmJZgpKSRwmZiO+Su6X7XMTpotUkOjt6IXQ4o13hvgxH+pfWuWjXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qXfWzAa+;
-	arc=none smtp.remote-ip=95.215.58.72
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mmnGMscn;
+	arc=none smtp.remote-ip=91.218.175.147
+Received: from mta0.migadu.com (out-147.mta0.migadu.com [91.218.175.147])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60883606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:07:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60883606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9707560A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9707560A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qXfWzAa+
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mmnGMscn
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BXrmF/fjfe9y8XP2JkR7Eemnuq82V/mUf87aDFH49v8=;
+DKIM-Signature: a=rsa-sha256; bh=wriFOBuWpa9rzFZvu7jWs3HxgvPj7gVRqFrspNzYI9Y=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794308847; v=1; x=1794913647;
- b=qXfWzAa+8dZDdq/ERMCS5bJOt9rypRbyzZpB+ChIlRsChLLryno7WD31lF5ziUkr2o6Bw9mn
- p5Pcqb/eM+mW0b3w+/Q7D30FKgLAGjg4iUIdnWpdePz93Iz7lRyf5uVWEiUVVfX/x4EnjaOhooJ
- lZ8lICA/WTSYDgXQHe04wJGA=
+ t=1794308851; v=1; x=1794913651;
+ b=mmnGMscnQKYXdSc+pcqmcMmSIPqWkCGejIFXNdogntlH3pO7Z595rnGNcCftoy2+aVnpyM97
+ 4UGHpbPYUOUUry2ZPqnmwJnGBEsG1MQgAhfvAWjWAPw+J7VPaB5YDWK3znxZ26Q0bMYb5mUAaP1
+ J+hskfdxFzlwvU7WqAZKE1Yw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ea7a5a5c9741bf1;
-	Tue, 10 Nov 2026 11:07:27 +0000
-X-Mizu-Trace-ID: 6ea7a5a5c9741bf1
+Received: by smtp.migadu.com with ESMTPS id 084a61cce26cb8b6;
+	Tue, 10 Nov 2026 11:07:31 +0000
+X-Mizu-Trace-ID: 084a61cce26cb8b6
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Paolo Bonzini <pbonzini@redhat.com>,
@@ -64,11 +64,10 @@ Cc: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev,
 	Wei-Lin Chang <weilin.chang@arm.com>,
 	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
-Date: Tue, 10 Nov 2026 11:07:23 +0000
-Message-ID: <20261110110724.3614412-2-fuad.tabba@linux.dev>
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a full dirty ring
+Date: Tue, 10 Nov 2026 11:07:24 +0000
+Message-ID: <20261110110724.3614412-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261110110724.3614412-1-fuad.tabba@linux.dev>
 References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
@@ -83,127 +82,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pre-faulting can map a dirty-logged page writable, which pushes it to
-the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
-before the ring overflows, but the pre-fault loop never checks it, so
-one call over more such pages than the ring has free trips the WARN in
-kvm_dirty_ring_push() and overwrites entries userspace hasn't
-harvested. On x86:
+Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
+holds, and check that each call stops before the ring overflows, that a
+retry returns ENOSPC without progress, and that the harvested entries
+are the pages in order. A read pre-fault can map a page read-only, or
+access-tracked on x86 without EPT A/D bits, so skip the case if
+pre-faulting dirties nothing.
 
-  WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
-  Call Trace:
-   make_spte+0x2cc/0x450
-   kvm_tdp_mmu_map+0x5e1/0x7f0
-   kvm_tdp_page_fault+0x12c/0x1b0
-   kvm_mmu_do_page_fault+0x181/0x250
-   kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
-   kvm_vcpu_pre_fault_memory+0xcf/0x180
-   kvm_vcpu_ioctl+0x455/0x770
-
-Stop the loop once the ring is soft full, returning the pages already
-processed, or -ENOSPC when there are none, since a retry can't succeed
-until userspace harvests the ring. kvm_dirty_ring_check_request() fills
-in a KVM_RUN exit, so test the ring's state directly. The stub for
-!HAVE_KVM_DIRTY_RING is for s390, which has the ioctl but no ring.
-
-Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
-Cc: stable@vger.kernel.org
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- Documentation/virt/kvm/api.rst | 9 +++++++--
- include/linux/kvm_dirty_ring.h | 6 ++++++
- virt/kvm/dirty_ring.c          | 2 +-
- virt/kvm/kvm_main.c            | 6 ++++++
- 4 files changed, 20 insertions(+), 3 deletions(-)
+ .../selftests/kvm/pre_fault_memory_test.c     | 85 +++++++++++++++++++
+ 1 file changed, 85 insertions(+)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d9..89eb6be9bc6e3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -6544,6 +6544,7 @@ Errors:
-   ENOENT     The specified `gpa` is outside defined memslots.
-   ENOEXEC    The vCPU has not been initialised (arm64).
-   EINTR      An unmasked signal is pending and no page was processed.
-+  ENOSPC     The vCPU's dirty ring is full and no page was processed.
-   EFAULT     The parameter address was invalid.
-   EHWPOISON  A poisoned host page was encountered.
-   EOPNOTSUPP Mapping memory for a GPA is unsupported by the
-@@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
+diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+index 3082fe09b95fa..18fc1d69acbf0 100644
+--- a/tools/testing/selftests/kvm/pre_fault_memory_test.c
++++ b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+@@ -5,6 +5,7 @@
+  * Author:
+  * Isaku Yamahata <isaku.yamahata at gmail.com>
+  */
++#include <asm/barrier.h>
+ #include <linux/sizes.h>
  
- When the ioctl returns, the input values are updated to point to the
- remaining range.  If `size` > 0 on return, the caller can just issue
--the ioctl again with the same `struct kvm_map_memory` argument.
-+the ioctl again with the same `struct kvm_pre_fault_memory` argument.
-+If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
-+and reset first.
+ #include <test_util.h>
+@@ -17,6 +18,8 @@
+ /* Arbitrarily chosen values */
+ #define TEST_BASE_SIZE		SZ_2M
+ #define TEST_SLOT		10
++/* Large enough for the entries every architecture reserves. */
++#define TEST_RING_SIZE		SZ_64K
  
- On x86, shadow page tables cannot support this ioctl because they
- are indexed by virtual address or nested guest physical address.
-@@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
- the dirty pages.
- 
- The dirty ring can get full.  When it happens, the KVM_RUN of the
--vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-+vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-+KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-+ring has been harvested and reset.
- 
- The dirty ring interface has a major difference comparing to the
- KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
-diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-index eb10d87adf7d5..88b4f2a009274 100644
---- a/include/linux/kvm_dirty_ring.h
-+++ b/include/linux/kvm_dirty_ring.h
-@@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
- {
+ /* Storage of test info to share with guest code */
+ struct test_config {
+@@ -281,6 +284,87 @@ static void test_pre_fault_memory(unsigned long vm_type, enum vm_mem_backing_src
+ 	for_each_guest_mode(__test_pre_fault_memory, &p);
  }
  
-+static inline bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
++/*
++ * Pre-fault more dirty-logged pages than the ring holds: each call has to stop
++ * before the ring overflows, and no entry may be lost.
++ */
++static void test_pre_fault_dirty_ring(void)
 +{
-+	return false;
-+}
++	const u64 entries = TEST_RING_SIZE / sizeof(struct kvm_dirty_gfn);
++	const u64 npages = entries + entries / 4;
++	struct kvm_pre_fault_memory range, left;
++	struct kvm_dirty_gfn *gfns, *cur;
++	u64 harvested = 0, n, size;
++	struct kvm_vcpu *vcpu;
++	int ret, stops = 0;
++	struct kvm_vm *vm;
++	u32 fetch = 0;
++	gpa_t gpa;
 +
- static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
- 						   u32 offset)
- {
-@@ -81,6 +86,7 @@ int kvm_dirty_ring_alloc(struct kvm *kvm, struct kvm_dirty_ring *ring,
- int kvm_dirty_ring_reset(struct kvm *kvm, struct kvm_dirty_ring *ring,
- 			 int *nr_entries_reset);
- void kvm_dirty_ring_push(struct kvm_vcpu *vcpu, u32 slot, u64 offset);
-+bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring);
- 
- bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu);
- 
-diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-index 572b854edf740..f73f92102cb7a 100644
---- a/virt/kvm/dirty_ring.c
-+++ b/virt/kvm/dirty_ring.c
-@@ -40,7 +40,7 @@ static u32 kvm_dirty_ring_used(struct kvm_dirty_ring *ring)
- 	return READ_ONCE(ring->dirty_index) - READ_ONCE(ring->reset_index);
- }
- 
--static bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
-+bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
- {
- 	return kvm_dirty_ring_used(ring) >= ring->soft_limit;
- }
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f1407..da1b76ceb65e3 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 			break;
- 		}
- 
-+		/* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
-+		if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
-+			r = -ENOSPC;
-+			break;
++	if (!kvm_has_cap(KVM_CAP_DIRTY_LOG_RING) && !kvm_has_cap(KVM_CAP_DIRTY_LOG_RING_ACQ_REL)) {
++		pr_info("Skipping the dirty ring test: no dirty ring\n");
++		return;
++	}
++
++	vm = vm_create(1);
++	vm_enable_dirty_ring(vm, TEST_RING_SIZE);
++	vcpu = vm_vcpu_add(vm, 0, NULL);
++	gfns = vcpu_map_dirty_ring(vcpu);
++
++	size = npages * vm->page_size;
++	gpa = align_down(vm->max_gfn * vm->page_size - size, SZ_2M);
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, gpa, TEST_SLOT, npages,
++				    KVM_MEM_LOG_DIRTY_PAGES);
++
++	/* Populate the pages, so that pre-faulting can map them writable. */
++	memset(addr_gpa2hva(vm, gpa), 1, size);
++
++	range = (struct kvm_pre_fault_memory) { .gpa = gpa, .size = size };
++	while (range.size) {
++		vcpu_ioctl(vcpu, KVM_PRE_FAULT_MEMORY, &range);
++
++		if (range.size) {
++			left = range;
++			ret = __vcpu_ioctl(vcpu, KVM_PRE_FAULT_MEMORY, &range);
++			TEST_ASSERT_VM_VCPU_IOCTL(ret == -1 && errno == ENOSPC,
++						  KVM_PRE_FAULT_MEMORY, ret, vm);
++			TEST_ASSERT(range.gpa == left.gpa && range.size == left.size,
++				    "KVM_PRE_FAULT_MEMORY made progress on a full ring");
++			stops++;
 +		}
 +
- 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
- 		if (WARN_ON_ONCE(r == 0 || r == -EIO))
- 			break;
++		for (n = 0; ; n++) {
++			cur = &gfns[fetch % entries];
++			if (smp_load_acquire(&cur->flags) != KVM_DIRTY_GFN_F_DIRTY)
++				break;
++
++			TEST_ASSERT(cur->slot == TEST_SLOT && cur->offset == harvested + n,
++				    "Ring entry %u: slot %u offset 0x%llx, expected slot %u offset 0x%lx",
++				    fetch, cur->slot, cur->offset, TEST_SLOT, harvested + n);
++			smp_store_release(&cur->flags, KVM_DIRTY_GFN_F_RESET);
++			fetch++;
++		}
++
++		/* A read pre-fault can map a page read-only, or access-tracked on x86. */
++		if (!n && !harvested && !range.size) {
++			pr_info("Skipping the dirty ring test: pre-faulting dirtied no pages\n");
++			kvm_vm_free(vm);
++			return;
++		}
++		TEST_ASSERT(n, "KVM_PRE_FAULT_MEMORY pushed nothing to the ring");
++		TEST_ASSERT(kvm_vm_reset_dirty_ring(vm) == n,
++			    "KVM_RESET_DIRTY_RINGS didn't reset %lu entries", n);
++		harvested += n;
++	}
++
++	TEST_ASSERT(harvested == npages, "%lu ring entries for %lu pages", harvested, npages);
++	TEST_ASSERT(stops, "KVM_PRE_FAULT_MEMORY never stopped for a %lu-entry ring", entries);
++	pr_info("Pre-faulted %lu pages through a %lu-entry ring, stopping %d times\n",
++		npages, entries, stops);
++
++	kvm_vm_free(vm);
++}
++
+ static void help(char *name)
+ {
+ 	puts("");
+@@ -320,5 +404,6 @@ int main(int argc, char *argv[])
+ 	test_pre_fault_memory(KVM_X86_SW_PROTECTED_VM, backing, false);
+ 	test_pre_fault_memory(KVM_X86_SW_PROTECTED_VM, backing, true);
+ #endif
++	test_pre_fault_dirty_ring();
+ 	return 0;
+ }
 -- 
 2.47.3
 
