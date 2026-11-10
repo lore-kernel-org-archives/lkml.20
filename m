@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280235;
-	b=Z3lg4/6DRRuJE64vH2z6gXP11dFxT21UdTHpDCNkxZCXbrOgirOrZl1hwRe+GfYGmiwA
-	 kK7aIyZNGaWRmB0R3qbfk98qCrdhVUMFSnvsXQh7sIGYmfi6laFHHACBep23JFUqkG1u4
-	 NnEnoNStOw4ND4nJRA8RMX7tYkZoWNGMIwd13T0oObSCo3viDNE2MU5m93HntHzyMs6IV
-	 lXqoW/A9YIR2mreKVWmLlM8RHzLK+Mbc9ABLZEn03Q9BnZqUTM4wfwp0ZhjmEENL0bOCR
-	 7YnPMMYgVe/KfvTx+ujn0akksyUkkahFHQCoD2wtSIpxmXTqTp0Sg2jL1um+v3cDLBw==
+	t=1794280345;
+	b=lXypVwgExwIJ2LdMq81n35M435dw04S2bm/bwEHPH7GiIdWQmMhTk5lSfFBhXVbN/C8S
+	 2COBQ6MA4dCoMBpBUSp6RQ3HrbLGjq/ZpSgnl2LBURRU5TlUsKFnQ2Gz7rf0JlWuVpvlM
+	 zaSJd4f11SzMcFpiyvw9gn5p3DCcsRQhxYE9XbzSCmTONfIOeNoIbamKBJ2L9e9/G7oEi
+	 +/YxFP6CzwEMXNnCToJgvDM77RnxVK/4O7l/wKKEKUGifefjKH5x4o9ToSto9u99gYFeL
+	 WkLl6M+De9b66Dfg8s0WoWIrqBv7PrAH+7XMFfkRE9tVa9EvxBavDqFyQnSI3SlToMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280235;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cD2q8lmayKZhvvc4jXyncva8Umu3E5o/3XQZXTEOLIE=;
-	b=aTYXCUrcBxyvo72AK5ZgCDXwtvQPs4YMz2+ifrPHQMH1XBLVV5bu7QlmJx7z3vQ+bwOO
-	 MjULNWqG7CLylv9bgN6jieVNuli5/aD2jBAw4ziv4r7hkB+N3gOPZL2ZyKCNq+ZMoKxel
-	 Z7TvbW9SKaJzE4gmUbHrouBsNEeJ1n3VXl46+/J86q4M2nOuDWbLDpm9gL8Qym7h7wtMg
-	 qpxmoNki3MauOUeTjCT5l8WDHr72wkzBRdFEOS1PbPUXCuHf2BU81MeqIKu62qsBnMRU1
-	 VApTzfQi75E27eHY+XfaP0yfonPvd4inscpyvv4/g0iHsSH/i711lfh3Q5SCJXiRF+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280345;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
+	b=2bm2PLFVDYik+Xu7gC4TCz8l3q/L/Ahu1EyaRji9DOgNmC4PhgzbIBnL5ECLX+/1HbBZ
+	 z01gopbVG6BmVkouQDlBC0BdfsLX2TSr3TbcFRzRWRj/CVPrRfJ9QpjrYCVSbgIKXPF9r
+	 O6A79awOuym2p6xgeBLINQ2cDi6K8Rjl7eX4/j42roXOmje6bgJf2z2jGVHdwhYwN9FYi
+	 Fw0BsoAjAq1p/W/cgPPsRkR9+whOzme+hION6ZBf12oBFSMZIjpVnOxHDHVbcnHvRvMUa
+	 WyIqWvKUYyGIZgsN/E29nptUOcGo0ID8ynpXeB84kUyZcphEj6w3HQ2e64eQR2lfX3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4lnsK5W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wx1ShSoX;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE47606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF603606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:12:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF603606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4lnsK5W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933A91F008A6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280233;
-	bh=cD2q8lmayKZhvvc4jXyncva8Umu3E5o/3XQZXTEOLIE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=J4lnsK5WGRiL7j24ISv/ubKvAWZnF0URwF8So3bgnEntJKYVgBisDlwTbQHRrFP+M
-	 NHzMFIQYf7trvvP6+pG4rHOB+fy6gNoOepcdmdu6ZV0FOQvdMQLF75Q5w6MrKlb0J9
-	 VVi7TeI68JIhuwdpd8vPzq8P+Zw36yMDlUuI+IgsCdwx3ocQ9HMrpHa8g9lFDljcCq
-	 IXK7ellFHvS4ekVsbtwx660juC0zUzad5fb3z6M4CABk9C+Zk68+WpPOnXxIzA/sWR
-	 260P3ACmnSA/WbQxW3Olet9093Xo4HTIpbVkw+iXa1X413n7v1C/rjoEMieInwb8QF
-	 OKAHlKbBoo4JA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c14f6f58aeso1333763e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:10:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHvwrqv9HLorUeKD+4K2CUmV8XwUFTQCp4hUj1CENhWhmbsVZuQSBph8y76t1J/+5wRZI2X63C0w5vmCGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T6768ZSvKtM//cCLnixK1Y+UUz4v7wlvqGOMXT/p3kX2/9rZT
-	CBbx1x6Qx7hZ5qOltRRCLlwM9OwBXgv3282dmnXUu5LDHJ7HO5y/KhUaDZ90e7Magsg119VCMjQ
-	lQ2eEGdPhXUGnZAZuXl2q1VJsCnpMbdA=
-X-Received: by 2002:a05:6512:3d03:b0:5bf:ce20:57e8 with SMTP id
- 2adb3069b0e04-5c156ebe560mr373613e87.40.1794280232302; Mon, 09 Nov 2026
- 19:10:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wx1ShSoX
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so704561b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:12:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794280344; x=1794885144; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
+        b=Wx1ShSoXMAULpOOweXrdNkTnioNB1UaRLWhDjgHh5/OMjYq5jR/knMAZqJsg8NC+T+
+         8hk3hYeCsTUgBudpyDMSnwvlyL4KoVvUoRti40/dKvmzmIl0WV2d4GFsRtt5XsFLbZCF
+         7nXhS1EDYuqRxEZ46FFkYkMqkdH+7wTd2lt88=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794280344; x=1794885144;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
+        b=Am4dhGQedTdEUxytgO8JZqvaW+WUAs5Fq9+ajNZzXgP7t+5P1eP+a3CUMMkw4JH2Qm
+         +4CosCblsMIMJ9KX9DeFdHC172fpNmlME9yUw0KAbhuq7zUFxF5QkO7Df/0KBfr8o/pu
+         L2b61N0HM7pn1COgpn8xdO4UcZXYac6o5hg/ukNmz2zpRD4z2k2rAGa+GL/UVXyK4bmG
+         I0KR1PwDNE/uplPwiOqIHoMJ7xw879qVW19ayf7CY5Zf6bPpFt8LDzA86pLQcVpNFUqw
+         /r/6Blu4cNzsuLJ8lFxocIr6IbytWqU8rSdzUP31gi7pgdi0tNw4aaOFMNuMJNjrD98e
+         dScA==
+X-Forwarded-Encrypted: i=1; AL+hErFWsgfodekOt2jar9k/CBNDwvQAYG+RbvMfUQDDxD/v7Evkqj3d99n+Eabj89leO3FxwxddAEK88Ct3gjU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+74ygOPmMc0S2fzLPgtbftBcku3BrmYaFObX6GgbkiRqWO2z/C
+	DQqChbqGSt++WUqm5B2tqKNHrUNqbzFmebs16lc2ZRgkJK5MNZMf79Yxu6xamhZGmw==
+X-Gm-Gg: AYBFou35jbz896GS6aGMtluKVDms0FitlAipHyOkEPHhZXuhH//zzJ9tCx7wcwBw62L
+	uj7vf/r74gi69ogWHnJVNxdEM5nx0ux90EA1/iT/7bxzPGdx8PSbJKXQo/Srq2G9frl10uDGTPw
+	EKAmU+OR3UIkv+SMKQO3NG2FZn0lbPF8+3v1Qx68gSq7i7WcogxA1oE6yw73Vvnk8o1PxaVAk6o
+	ImyyW8WvGJcshAPs4RehI9Jf0diwIuRgMJepd3qzyGMshMcn2WFV15uvfiRSCHNW1x+TL9A0r9z
+	vIcMxt8kDvSjtFjZEj9zM9zE3eriflPosTwXXiR5vrhtfhDSx013Yy3xJTHI6GsfyPGPNZttXRb
+	2qzgsNSCck+tElMrQhvKneIfpgbT9yRZreG2m6//2J06uxoCRQWcuCQoUZHp1W0RBXUU2++y/Cm
+	B1e3LgMM94hNkAld8JVdXoCRpSGkcs8fBTXcCH037+8kKsS3o6ENxqWQvxAt1xyD4iCPvchiTWw
+	eCgKuunC7o1kzOP2nwrmIqt7h5Uxwcfjkk/JeEoN+dJyba0Z+sz5z0dGBHpUPtSJEEdJvTX5x7+
+	jCR9hTcwyYtwTROITrPVpyLv7eLnunqH2ywO5s0zMQF/p0wi6ovqpPtjvW6lSHMJejWrqA==
+X-Received: by 2002:a05:6a20:3d1a:b0:3e2:e27:1d36 with SMTP id adf61e73a8af0-3f190b8c38cmr1165365637.59.1794280344125;
+        Mon, 09 Nov 2026 19:12:24 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7b6236sm301072a12.23.2026.11.09.19.12.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 19:12:23 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:12:19 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Yosry Ahmed <yosry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
+	linux-mm@kvack.org
+Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and zswap
+ entries
+Message-ID: <avKLRTmkNGU-wxmp@google.com>
+References: <20261105044752.1997895-1-senozhatsky@chromium.org>
+ <20261105044752.1997895-6-senozhatsky@chromium.org>
+ <auy22TkX0ADxP9WR@google.com>
+ <avKFc82JS4R9yU-N@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,190 +101,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAOuZWzx7eg1bNzyoY+kTP2CB4NqwwC23K1RC-etdWW1VyF01fA@mail.gmail.com>
- <1794209399.6AF17675.001.4jNLys3BPKz22sb@fangwg01>
-In-Reply-To: <1794209399.6AF17675.001.4jNLys3BPKz22sb@fangwg01>
-From: Xiubo Li <xiubli@kernel.org>
-Date: Tue, 10 Nov 2026 04:10:19 +0100
-X-Gmail-Original-Message-ID: <CAOuZWzx2Mpb2oa0zgMY_0P7EGNk9mYscQdowKROvyXH4HAM7qQ@mail.gmail.com>
-X-Gm-Features: AclHuK8sGXNDOQkNxoThiKTLItdc_bQUiTtZeN4XokLXlMVvF82ps0uFSfnyt9M
-Message-ID: <CAOuZWzx2Mpb2oa0zgMY_0P7EGNk9mYscQdowKROvyXH4HAM7qQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ceph: revalidate dentries under snapdir to drop stale snapshots
-To: zhangdaolong <dlzhangak@isoftstone.com>
-Cc: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
-	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avKFc82JS4R9yU-N@google.com>
 
-On Mon, Nov 9, 2026 zhangdaolong <dlzhangak@isoftstone.com> wrote:
-> - Note: Xiubo, please feel free to change Suggested-by to Co-developed-by
->   (with your Signed-off-by) if you prefer.
+On (26/11/10 11:51), Sergey Senozhatsky wrote:
+> Date: Tue, 10 Nov 2026 11:51:21 +0900
+> From: Sergey Senozhatsky <senozhatsky@chromium.org>
+> To: Yosry Ahmed <yosry@kernel.org>
+> Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,  Andrew Morton
+>  <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>,  Yosry Ahmed
+>  <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,  Brian
+>  Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>,  Richard
+>  Chang <richardycc@google.com>, linux-kernel@vger.kernel.org,
+>  linux-block@vger.kernel.org,  linux-mm@kvack.org
+> Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and
+>  zswap entries
+> Message-ID: <avKFc82JS4R9yU-N@google.com>
+> 
+> On (26/11/05 17:19), Yosry Ahmed wrote:
+> [..]
+> > >  Additionally, zs_malloc() does not return a dereferenceable pointer.
+> > > -Instead, it returns an opaque handle (unsigned long) which encodes actual
+> > > -location of the allocated object. The reason for this indirection is that
+> > > +Instead, it stores the encoded location of the allocated object in the
+> > > +provided ``struct zs_handle``. The reason for this indirection is that
+> > 
+> > Should we explicitly call out that zsmalloc will keep a back pointer to
+> > the handle and update it asynchronously, so the owner shouldn't modify
+> > it, and should keep it allocated until zs_free() (or rebind)?
+> > 
+> > Probably somewhere in the code comments too?
+> 
+> Yeah, perhaps.
+> 
+> > >  zsmalloc does not keep zspages permanently mapped since that would cause
+> > >  issues on 32-bit systems where the VA region for kernel space mappings
+> > >  is very small. So, using the allocated memory should be done through the
+> > > diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
+> > > index 693c9484b638..6c76fd10344e 100644
+> > > --- a/include/linux/zsmalloc.h
+> > > +++ b/include/linux/zsmalloc.h
+> > > @@ -14,6 +14,7 @@
+> > >  #ifndef _ZS_MALLOC_H_
+> > >  #define _ZS_MALLOC_H_
+> > >  
+> > > +#include <linux/compiler.h>
+> > >  #include <linux/types.h>
+> > >  
+> > >  struct zs_pool_stats {
+> > > @@ -21,16 +22,39 @@ struct zs_pool_stats {
+> > >  	atomic_long_t pages_compacted;
+> > >  };
+> > >  
+> > > +/*
+> > > + * zsmalloc writes object location into the handle and updates it when
+> > > + * the object moves (compaction, page migration), so the handle must not
+> > > + * be on the stack and must not be copied.  Use zs_rebind_handle() to
+> > > + * move an object to another handle.
+> > > + */
+> > > +struct zs_handle {
+> > > +	unsigned long __private obj;
+> > > +} __aligned(sizeof(unsigned long));
+> > 
+> > Is alignment guaranteed even if this is embedded in a packed struct? I
+> > wonder if we should have an explicit alignment check in
+> > zs_malloc()/zs_store(), and probably rebind too?
+> 
+> I guess only run-time check will work.  I can add those.  I wonder
+> if we actually need to worry about this, neither zram nor zswap use
+> packed entries, but I think it's cheap enough to make sure in run-time.
+> 
+> > > +
+> > > +static inline void zs_handle_init(struct zs_handle *handle)
+> > > +{
+> > > +	ACCESS_PRIVATE(handle, obj) = 0;
+> > > +}
+> > > +
+> > > +static inline bool zs_handle_is_allocated(const struct zs_handle *handle)
+> > > +{
+> > > +	return READ_ONCE(ACCESS_PRIVATE(handle, obj)) != 0;
+> > > +}
+> > 
+> > Can this ever give a false negative?
+> 
+> That's a very good question.
+> 
+> > I believe that's only possible with pfn=0, I don't know if this can be the
+> > case on any architecture. Should we use something like OBJ_ALLOCATED_TAG?
+> 
+> Yeah, I don't know, I guess would be better to not rely on "pfn cannot be
+> 0".  Let me look into this.
 
-Hi Daolong,
+Look what I found:
 
-Thanks for v2. The code is the same as the diff I tested.
+--------------------------------------------------------------------------
+commit 67296874eb1cc80317bf2a8fba22b494e21eb29b
+Author: Olav Haugan <ohaugan@codeaurora.org>
+Date:   Fri Nov 22 09:30:41 2013 -0800
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+    staging: zsmalloc: Ensure handle is never 0 on success
+    
+    zsmalloc encodes a handle using the pfn and an object
+    index. On hardware platforms with physical memory starting
+    at 0x0 the pfn can be 0. This causes the encoded handle to be
+    0 and is incorrectly interpreted as an allocation failure.
+    
+    This issue affects all current and future SoCs with physical
+    memory starting at 0x0. All MSM8974 SoCs which includes
+    Google Nexus 5 devices are affected.
+    
+    To prevent this false error we ensure that the encoded handle
+    will not be 0 when allocation succeeds.
+    
+    Signed-off-by: Olav Haugan <ohaugan@codeaurora.org>
+    Cc: stable <stable@vger.kernel.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Thanks,
-- Xiubo
 
-zhangdaolong <dlzhangak@isoftstone.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=889=
-=E6=97=A5=E5=91=A8=E4=B8=80 08:30=E5=86=99=E9=81=93=EF=BC=9A
->
-> When a snapshot is deleted on one client node, its corresponding
-> '.snap/<snapname>' dentry cached in the VFS dcache on other client nodes
-> never gets invalidated. As a result, on another client node:
-> - recreating a snapshot with the same name fails with -EEXIST;
-> - removing the already deleted snapshot fails with -ENOENT while leaving
->   the stale positive dentry in the dcache;
-> - if the deleted snapshot is recreated with the same name on the remote
->   node, the local client still reads the file contents of the old
->   snapshot;
-> - a removed ancestor snapshot stays visible as '.snap/_<name>_<ino>' in
->   child directories.
->
-> Since commit 2817b000b02c ("ceph: directory operations"),
-> ceph_d_revalidate() has unconditionally trusted all dentries whose
-> parent directory has ceph_snap(dir) !=3D CEPH_NOSNAP (later written as
-> ceph_in_snap(dir)). Because that condition matches both immutable
-> snapped directories (ceph_snap(dir) <=3D CEPH_MAXSNAP) and the mutable
-> virtual '.snap' directory itself (ceph_snap(dir) =3D=3D CEPH_SNAPDIR), it
-> unconditionally sets valid =3D 1 when dir is CEPH_SNAPDIR, rendering the
-> CEPH_MDS_OP_LOOKUPSNAP revalidation path added in commit 200fd27c8fa2
-> ("ceph: use lookup request to revalidate dentry") unreachable.
->
-> However, simply falling back to CEPH_MDS_OP_LOOKUPSNAP for every dentry
-> under CEPH_SNAPDIR would cause every path walk through '.snap/<name>' to
-> send a synchronous LOOKUPSNAP request to the MDS, because the MDS issues
-> no lease for dentries under '.snap', the snapdir only has CEPH_CAP_PIN,
-> and a snapped inode has no real caps.
->
-> Instead, introduce snapdir_dentry_is_valid() to validate cached dentries
-> under CEPH_SNAPDIR against the snapped head directory's snap realm
-> cached_context. Because the MDS sends a snap update to every client
-> holding caps in a realm whenever a snapshot in it is created or removed,
-> we can keep trusting a cached dentry under '.snap' as long as we hold
-> real caps on the head directory and the snapshot's snapid
-> (ceph_snap(inode)) is still present in its realm's cached_context, and
-> only fall back to CEPH_MDS_OP_LOOKUPSNAP when it is not or when no caps
-> are held on that directory.
->
-> Fixes: 2817b000b02c ("ceph: directory operations")
-> Link: https://tracker.ceph.com/issues/81579
-> Suggested-by: Xiubo Li <xiubli@kernel.org>
-> Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
-> ---
-> Changes in v2:
-> - Add snapdir_dentry_is_valid() to validate dentries under .snap against
->   the head directory's snap realm cached_context when holding caps,
->   avoiding unnecessary LOOKUPSNAP round trips on cache hits (Xiubo Li).
-> - Drop the ceph_unlink() -ENOENT hunk (to be sent separately).
-> - Update comments in ceph_d_revalidate() and point Fixes: to 2817b000b02c=
-.
-> - Note: Xiubo, please feel free to change Suggested-by to Co-developed-by
->   (with your Signed-off-by) if you prefer.
->
->  fs/ceph/dir.c | 64 +++++++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 62 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-> index 6eb5b1cb039b..21983e14cb67 100644
-> --- a/fs/ceph/dir.c
-> +++ b/fs/ceph/dir.c
-> @@ -1979,6 +1979,58 @@ static int dir_lease_is_valid(struct inode *dir, s=
-truct dentry *dentry,
->         return valid;
->  }
->
-> +/*
-> + * Check whether a cached dentry under .snap still names an existing sna=
-pshot.
-> + *
-> + * The MDS issues no lease for these dentries, but it sends a snap updat=
-e to
-> + * every client holding caps in a realm when a snapshot in it is created=
- or
-> + * removed.  So as long as we hold caps on the snapped directory, its re=
-alm's
-> + * snap context tells us whether the snapshot still exists.  Without cap=
-s we
-> + * cannot tell, and the caller has to ask the MDS.
-> + */
-> +static int snapdir_dentry_is_valid(struct inode *dir, struct dentry *den=
-try,
-> +                                  struct ceph_mds_client *mdsc)
-> +{
-> +       struct inode *inode =3D d_inode(dentry);
-> +       struct ceph_vino vino =3D {
-> +               .ino =3D ceph_ino(dir),
-> +               .snap =3D CEPH_NOSNAP,
-> +       };
-> +       struct ceph_snap_context *snapc =3D NULL;
-> +       struct ceph_inode_info *pci;
-> +       struct inode *parent;
-> +       u32 i;
-> +       int valid =3D 0;
-> +
-> +       if (!inode || ceph_snap(inode) > CEPH_MAXSNAP)
-> +               return 0;
-> +
-> +       parent =3D ceph_find_inode(dir->i_sb, vino);
-> +       if (!parent)
-> +               return 0;
-> +       pci =3D ceph_inode(parent);
-> +
-> +       down_read(&mdsc->snap_rwsem);
-> +       spin_lock(&pci->i_ceph_lock);
-> +       if (__ceph_is_any_real_caps(pci) && pci->i_snap_realm &&
-> +           pci->i_snap_realm->cached_context)
-> +               snapc =3D ceph_get_snap_context(pci->i_snap_realm->cached=
-_context);
-> +       spin_unlock(&pci->i_ceph_lock);
-> +       up_read(&mdsc->snap_rwsem);
-> +       iput(parent);
-> +
-> +       if (!snapc)
-> +               return 0;
-> +       for (i =3D 0; i < snapc->num_snaps; i++) {
-> +               if (snapc->snaps[i] =3D=3D ceph_snap(inode)) {
-> +                       valid =3D 1;
-> +                       break;
-> +               }
-> +       }
-> +       ceph_put_snap_context(snapc);
-> +       return valid;
-> +}
-> +
->  /*
->   * Check if cached dentry can be trusted.
->   */
-> @@ -2002,12 +2054,20 @@ static int ceph_d_revalidate(struct inode *dir, c=
-onst struct qstr *name,
->
->         mdsc =3D ceph_sb_to_fs_client(dir->i_sb)->mdsc;
->
-> -       /* always trust cached snapped dentries, snapdir dentry */
-> -       if (ceph_in_snap(dir)) {
-> +       if (ceph_snap(dir) =3D=3D CEPH_SNAPDIR) {
-> +               /* a snapshot under .snap may have been removed by others=
- */
-> +               if (flags & LOOKUP_RCU)
-> +                       return -ECHILD;
-> +               valid =3D snapdir_dentry_is_valid(dir, dentry, mdsc);
-> +               doutc(cl, "%p '%pd' inode %p under snapdir, valid %d\n",
-> +                     dentry, dentry, inode, valid);
-> +       } else if (ceph_in_snap(dir)) {
-> +               /* snapshots are immutable: trust dentries inside one */
->                 doutc(cl, "%p '%pd' inode %p is SNAPPED\n", dentry,
->                       dentry, inode);
->                 valid =3D 1;
->         } else if (inode && ceph_snap(inode) =3D=3D CEPH_SNAPDIR) {
-> +               /* the .snap dentry itself */
->                 valid =3D 1;
->         } else {
->                 valid =3D dentry_lease_is_valid(dentry, flags);
-> --
-> 2.48.1
->
+ static void *obj_location_to_handle(struct page *page, unsigned long obj_idx)
+ {
+        unsigned long handle;
+@@ -441,17 +446,21 @@ static void *obj_location_to_handle(struct page *page, unsigned long obj_idx)
+        }
+ 
+        handle = page_to_pfn(page) << OBJ_INDEX_BITS;
+-       handle |= (obj_idx & OBJ_INDEX_MASK);
++       handle |= ((obj_idx + 1) & OBJ_INDEX_MASK);
+ 
+        return (void *)handle;
+ }
+
+ static void obj_handle_to_location(unsigned long handle, struct page **page,
+                                unsigned long *obj_idx)
+ {
+        *page = pfn_to_page(handle >> OBJ_INDEX_BITS);
+-       *obj_idx = handle & OBJ_INDEX_MASK;
++       *obj_idx = (handle & OBJ_INDEX_MASK) - 1;
+ }
+--------------------------------------------------------------------------
+
+I guess I'll do the same + 1 / -1 trick.
