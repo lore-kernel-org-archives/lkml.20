@@ -1,164 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794310853;
-	b=cFWMw3Rrg7LZ2q07v+QiRcWzJw/vhPPCl8cx+WUGEEFwFf3kOX18b8ZZkGLkKCyq01NO
-	 RH57/TDzKKK3IvFNGMZnL32VzzfyU92Wqsi77561GPMGNqdOh1oYE49XXH4KjtkreXoED
-	 31rN5JogMNZ7x8Y+Vl39PTQ4R/Do4odOemWHu5OU6T1gcjpDL7kLItAneIfn1eA3oQ4AM
-	 pUMIK9W7aE1aV2IRDoOVawdf3HkzBiYLuGR0d5sWsHsRg0MoRSc5GTuNaUzbw3lJOAdn7
-	 3UtPvtqxOjDeqS1p00k2tEXxgSCUeLTBtmGlUwmZQGiUsbPJq4OJgE16zBkUN5vr+cA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310853;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vGoWfjD43iXBphEGvoWJbo1Y8/vexMojq0Bsetb94Aw=;
-	b=3u0vLic5Od3SDsaZUvmMFAcytbK72QEqJNVojgEEdvabc+e9HcZq00hXK4mXrxBZZfYk
-	 Bi8+bvQimAX1isizGqAZNn5C5cS5zUJZWAPeUtsQ5Z7HPJkZhWe0z/9MivRdf98NAr5bZ
-	 08hhZecrZvMrF4LC88SWZlx2DGju+NNYp/MY4uS4qC9USiU0qjME8z/tQ9BHlxO1u93Ze
-	 +UCAQbkxbm0bSzEtpGw3r3RFRHxWlfAyGhXFx9Fy1fLT+NEOtI/2mcrDT6uKWJvn2OMJv
-	 6QvAb6zBXXScLP/Q4+JC/uF3suCdCaReV2L8v/TCPA1VcnEh4yPFWn7oZq/71jn3Yew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=S+mflxit;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.66
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010066.outbound.protection.outlook.com [52.101.229.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.202
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794310851;
+	b=btWBDXQgh0lFnvvBSA/P7uVTjsYBif4gvRpJlO5KuSGX4av3gweYKE39lb2Q7bh0SavY
+	 zNVmlqGziEVwIjDUZNIdzqrCqGRMY4rrRpogy2yJa4UHQCW20wwk4N88rG5GCEEAmKJHf
+	 sFiwSX2sUosfS+O0o3RA8FvDK8WTheumfQgwqN8CYUfFZWmsfPHXZxTndN15W9s2DoI16
+	 KcdyvQ2TyrBcyCOeUoVVGp8D4Fc3pSSUkkDFXBBzLsTgu8Wo7fV9Hs8wmj1bgQqLFnjUZ
+	 bUe8YCVuRHnzQIsKTHCahCevs5iGZru1/a8O0zprDHB1GCSkuEQ3ycfYsuvnC/SNJvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310851;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=aPaouAXbgLRUhT/xSgZXmX+UlEKNyTfIZUEDZ/uv2QE=;
+	b=oCV+8fvFfer1fuc1LujbXpaTWXwOxwN8sC8fu1uJwmC6wspGpAPRgd4EvgFdpkSlkns7
+	 8m34KL8gz03l97cc4jQ4xDw0+sRbXaZ/BDpmGKOjcjwqeNGdY9XmfKgNUyQvr/Sr+H8wA
+	 rwWs96oobvras0acPBfSmlmNPvFfsTr8KFVtlW5Wau0PwdIFJMyOFROwUiOa7aFY8Oq2k
+	 514xPW/aGivUjjn4fMl0B3A6dEB6179JBHhmE0DkS3EXwzPMi+6vzWd0rVzPuXn1IAlpX
+	 DGIb6/tw8ndUj2R1GK0Yu5VJXHNvxIsnSJTl9pQC7Z4evL7igOWOdA65zbmK+Yhg71A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DWQqkoOE;
+	arc=none smtp.remote-ip=95.215.58.202
+Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9325B606A335;
-	Tue, 10 Nov 2026 11:40:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9325B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FAC606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FAC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=S+mflxit
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NDnDS4W4nUY45i5XB2YLVcOe2Bm1Y1SZAUcq3CjGCq+pF5o+9tT8qPr+rYoIqNfREtpgSKo7esjOzYL267vaJAWVGwPiYTTUd2ZU2FYSgNSZnsI7nOxOt/SfSf/ga8aBnBMrm3gYIU7r5FjFedZFA420w51fHuYCZvjdL+SRRw1R8VUhE27zp5IW26QY0a0tLG8ROEST/3xV8PAgmrdl5FBWborR/dPDU3TfLK99Yapy0GMl8eblTdOb22DtghsYfB0fVntXYC/PzNiXRwyFx62HntDKfTrbsRSXVyzQPNM8B6pN6sDFhFB2v2daS0cirPigv0qVPzeyziPJ/aXLKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vGoWfjD43iXBphEGvoWJbo1Y8/vexMojq0Bsetb94Aw=;
- b=APkMCQlUisRD9pkAJA0i8QJC+CUXzSbKjvuoBo+xxsjVe3oRwrTCTAV8SXbwDcJ8SHZK7wud66h+TM9IlBm+rFq/SDUzxcach4ZuafdLMXKBfn1+lT2nxA2aheJOwPxq2S7rQHLL19THPBqxNYfGmKVbdawoWxG+9pyAvhfJDOx1J2ozQiBHKjzEqlwgb0Rt3a7gchQZF6sa9e2zBK2np167DtwTh/8dvF72G2UbvdIBSDSbyXnXRlZ+qTKVq+NW+gkvVUXmEWhuK4cIWuvqQac9LQG/CmXPrQQH7qLT4yqjBm7wsMWXVcfjG2wfeEGzFmK7wHEcInLMOWd/rU4l8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vGoWfjD43iXBphEGvoWJbo1Y8/vexMojq0Bsetb94Aw=;
- b=S+mflxittHpCPLLT1Jw5KE1tLvb7K7ZP0PpvLYo2xN9xg8NCMAfUEr9pWwLzveWsmyhIMJGrCqniCGawTWoZZcfQKM5P3CVT9FNpkfSaipkpeg6S2fKM7zAia762OhRCfRwCxTElE8hhQ1wN9i6W/5DVT0X3X1t86ud5TxP7Z8s=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB13340.jpnprd01.prod.outlook.com (2603:1096:405:1c9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 11:40:47 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 11:40:46 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: geert <geert@linux-m68k.org>, Marc Kleine-Budde <mkl@pengutronix.de>
-CC: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, "mailhol@kernel.org"
-	<mailhol@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>, Fabrizio Castro
-	<fabrizio.castro.jz@renesas.com>, "Claudiu.Beznea"
-	<claudiu.beznea@tuxon.dev>, "linux-can@vger.kernel.org"
-	<linux-can@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Claudiu Beznea
-	<claudiu.beznea.uj@bp.renesas.com>
-Subject: RE: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
-Thread-Topic: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
-Thread-Index: AQHdcQPq+biG69jEFUiO0W/B028fhLcnKxqAgAAC5YCAAAB3IA==
-Date: Tue, 10 Nov 2026 11:40:46 +0000
-Message-ID:
- <TY3PR01MB1134685B707947CCC7A0ED12286722@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
- <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
- <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
- <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
-In-Reply-To:
- <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB13340:EE_
-x-ms-office365-filtering-correlation-id: e55cdc63-b4c2-4443-aed9-08df3f1f7603
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|366016|18002099003|22082099003|10067099003|38070700021|4143699003|11063799006|261009223027099003|261026121527099003|56012099006;
-x-microsoft-antispam-message-info:
- 85OBaBr4W8+59EjpIXBBQrYb96bE7KgRKAocaKrMFC71LZOQqCmWm2PvtrO3zlNJTPvN3m1dg+ze/7JEByMG0in0po7roPwPCrTB26BYTqPAUymdh1cJggtRj3zWlm4ZwBmfb2a+Iym23idw5dTeIVXjl6rTf1IWqBcbe/pcAR99RKg0IByZ4FoCekRfUI3GYLn8Xo0cPYRA4imVl0Lj9hhGQv2tQAzvbt7mXvzx1POmyVVeQ5k6P1EOPGeEzq2hC07mepOwkj1raV0iE3tQqysCO1MeqsEarr+cyxSDl58iZ9VCZu3aII5t+QCMMzEKnat/62UdEkvL7+sqSyaBkpm4Yb1bWzgXf2eGDVVrmLg8Qv5y9Z80Wgtpee8+HqHspopbdv31bQJxnv+FMoyS1Jog1vFPeFtgQoBu1HmqlQrw6OvpC0isR8Rvto2xlpUURwG0w2Ua75JosqLcETdQchXjwy+H8+N7ZiSlieREkg30vivCqTbhI757yZOdtxRRtrQpFCC7f/UR6uvCoE8I5uCZIECkSQpGCaQ5awz04zXRz197otf8zVRVzlATb/HbN2ciMIJdNKw6irX9tjgrWOKHzPEeMrxIlrUotS0Sh3D7IKN29d/qvOXQ0RyHlpuOD+o8POAz+5qgymUWUDsbVdNc2vodTCeZ5wHviB+2RRmp3qThhMuliVT9n2mlElHe
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(366016)(18002099003)(22082099003)(10067099003)(38070700021)(4143699003)(11063799006)(261009223027099003)(261026121527099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SzE1Q1pDZFVjbUZWUjRMSTExWFMzK1h6aFBwb1hpS3orVlpISHVIYXJrK2ZJ?=
- =?utf-8?B?RjZMdW5IUEllUkFDMDdCbk1DaGU1R2xSeTQ0M1kwM0h3QjJJdTg3ZmR4cHA3?=
- =?utf-8?B?b3ErOS9KckZxK2VJOWo2TUl0dDRPZG5hbFhSNFNCVEdaMThnVU52QzZNd3pY?=
- =?utf-8?B?L1V6MkdBSEhKNmg2K0xMOHhCQ2RKZndtTlk5UHFraWZUbmwrVmg4SkhPS2ZU?=
- =?utf-8?B?UExEcFBiTk4wK3pXeXdqREFLQjdoZ0RCMGNRazA0VS9PUmgyMHZlRzlCWExN?=
- =?utf-8?B?RGRRcGRhQzVsKzRrQVczWC9NYmVJcHIzVkkvRElSTEtpUXVGbUZoc2F0aVdN?=
- =?utf-8?B?OVJYcUNwQVZkbHlSOFZqUlhIZUo4VTRXcWxKZ0wrOG5HRkRzelhaN1JDTWxr?=
- =?utf-8?B?cVd6UlVJS3cwR3l1dXdOWEh6eUttVjMweTNBYUdBdnYrT2Z3bkc5OFluSVBZ?=
- =?utf-8?B?dFp3dS93VENKMnJmcUN3RUNoa3lnZGw0V2s1UWt0MEJNNTB5NkxUVUFIeHJq?=
- =?utf-8?B?Slp4U1lLVGRjOFVKbW9EeFZIZFVFWHk3S2VDaU54Ly9WbG5EOWhNZ0dzaWxF?=
- =?utf-8?B?d1pzSk05WStlMzBFU1hVZ2ZrakNkOHZWWm5nSVk5MEdWSUdJZDcxNFlWazA2?=
- =?utf-8?B?dmZ1dGhUUWhGc3YrWDhkN2dkSnRlZ3lrRTIxNEdiMUg5TmtIcDYrSWxxbmV2?=
- =?utf-8?B?blgyZER0cWM3K3FLS0MzUEJZMnpkcUFPaWR5ZHIxZS8xelNrdVVrYXppNlpL?=
- =?utf-8?B?M1ZDc0hESkZJaFFCaWl4dzVHMlhudWpmRm5UMFUxcDBiM1Q1NlJEQnN2Ylk5?=
- =?utf-8?B?V2VhSlpNWTVFS0tkRmYvUUpMYVRtK01LWWRDdllDRFgzdDNXbzhtZEhFaXU5?=
- =?utf-8?B?akR2RmVoNDNPb2FFVG5ENVR3OUpTNWtJanNRbUJ3NHoveUZVdnliOHF3aW5Q?=
- =?utf-8?B?N0RUMjBzUnNGTTlGRldCVGVhQjVtd2JsWldINGhYcFdrbWtWVWpRREVHOHBx?=
- =?utf-8?B?aGRkSGx0dHVtV1czcjJGaE1aRFFWbk11OUl3MTdEVlhLVW5tajNNbm1IM0h0?=
- =?utf-8?B?ZVY3U0tvS1JtYlAwdU9ScHNEK3FnRk1wMXlUczFwZjhBWXRFUDUzd0tzMmI4?=
- =?utf-8?B?dEgvZHlKc3JDZUUvWlVoTFJ1NkRrOUNUUm8zem4zWjhsdkpUcXFsdW9xSWlL?=
- =?utf-8?B?a3FzZ1Zmck45ZlNBdnFHaHp0R2FyOThMWjFCSUNwTGVBZWhiVGh1eFRHTnFV?=
- =?utf-8?B?SFBla0llSWFwTjRTdDRHRnlhNm5ZSnROaGVTVWpEZi9iL3c4YWFoWURKVS85?=
- =?utf-8?B?enRkOU5Xbko2M0V2SkxuTHdlWkhlaWVrOXNpbWxWcVhUOVdTUjUya2NkVlF6?=
- =?utf-8?B?TFhIVVZzTmpNSGNMK2FkNlBicVpHN1VEcWoxOUhidGxycWFGa1ZaMUJPUW5z?=
- =?utf-8?B?Y1JNT2toTmJ4VGZvbi9mOU1FaWhCYmg2ZndpK2hlaXZ2SzF0dUlsYjhIQ1d2?=
- =?utf-8?B?aEJkeUJHbDJpWXpSZWM0eHdGU3ppRm9LVXRaY1VtYXc3KzlzZUVNdi9JTWVD?=
- =?utf-8?B?RWU1SlNFaHVCNXByS1U5L2RTalF0alRoc0NKUkpzVVlhTXhYQmUzMjhNZkZt?=
- =?utf-8?B?WUtaZDVpYzQ5Y0ltYXlhUlE3eHdyYmZRdXBvR3BRV014d0s1NEVTNkNxUERO?=
- =?utf-8?B?WXg0NHJ2Qm9DMW9lRUJVczVrNlJ3V2dHU0Rmd0doVVdGQnFLMExteWZLdWxm?=
- =?utf-8?B?UHNGUkZGSnlVY1l1MENkbEprRzNDSkJnN1VLWDFOR0tYSURiNkVJY0N0MVdu?=
- =?utf-8?B?U0ZVR3Y3TlhRVmJ2RjJpMm1pRkJEY3BjclAzSCtBODJzYlVpY0RCMzdDSmJX?=
- =?utf-8?B?QlhHQ2tWOHlCc3hNK2lNT240cW5pZkpFMXZsVGVYLzVORjhGTmhyOVg2MW91?=
- =?utf-8?B?SnM2YTljTFdTQ2xObG1oK201SzExRmJabnhHR2RRSWJRd3c5VDJQb0tqZW1Q?=
- =?utf-8?B?eVNtaVJ6Sll6ekpvMGNVejZoRElpVEF3cDZsRnk5ZGwxOVNOSk9zdkIvUHNY?=
- =?utf-8?B?emxnQzJYUzQ5VzZQSDlGSk41ZzVsR0Q1R3g2WmZmeHFNSkFzVlV2L0RENXlR?=
- =?utf-8?B?MmdjMkk3S2MzRHVJREc3bTk0T1IzNzVidW13Y2ltN1lmQ1NYTjg3RFF1QUJG?=
- =?utf-8?B?Qyt6RklOV1NUK0FxeXFyTUlrOTM0azdHZnFuNGtpekpXZjB2RzFLUmR3VGZo?=
- =?utf-8?B?YWNWK0FYV2FuOUVFNkg3UjllTytyNnlJVHVDNTBqbjFSQWovajFNcGNXRjlZ?=
- =?utf-8?B?ajVsVzhyeHRXMDI1VGg5MGtvRm1vSXdhWW9ZZmxwQk40VFBHMlhhQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DWQqkoOE
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HaOqBACZfDFJv1t2HPP1x99f2DA/TbJHsxjAZEbN/bY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794310849; v=1; x=1794915649;
+ b=DWQqkoOEn6unSYxAqYOiunEoWmA7J5PYL8JqA5Rwqzpvqy9wDaD5ti59E0FwVZKHLOZSt0ym
+ WQNhQVVnkiH5Roias3P5v2hGvYhulgMKc/v0H4nDBB4hLG0r1W2jzky/Wp3/oN+HgwY8ZsGLHkn
+ Iuct4c1pw6VbdkWBn8J6/TOE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 24b99d424b1b6eed;
+	Tue, 10 Nov 2026 11:40:34 +0000
+X-Mizu-Trace-ID: 24b99d424b1b6eed
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <aedd01b8-3f49-4916-b891-38e9c4ff3b06@linux.dev>
+Date: Tue, 10 Nov 2026 19:40:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -168,42 +58,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e55cdc63-b4c2-4443-aed9-08df3f1f7603
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 11:40:46.5556
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M4Q0DY/M3sN/Vj6mIIGs4/yIfZyv5JrhaTy7xdDePYwMIM+QDDQ6aaakkxSHKKkgoP98j/UD7rgSZe41OPcQeDm73Ggvtcm5IybFnGX5hwY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB13340
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v2 5/5] cgroup/cpuset: Correctly set isolated_cpus
+ when switching partition state
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261109190955.1398611-1-longman@redhat.com>
+ <20261109190955.1398611-6-longman@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261109190955.1398611-6-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgR2VlcnQsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogR2VlcnQg
-VXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4NCj4gU2VudDogMTAgTm92ZW1iZXIg
-MjAyNiAxMTozOQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDAvN10gY2FuOiByY2FyX2NhbmZk
-OiBBZGQgc3VwcG9ydCBmb3IgUmVuZXNhcyBSWi9HM1MNCj4gDQo+IEhpIE1hcmMsDQo+IA0KPiBP
-biBUdWUsIDEwIE5vdiAyMDI2IGF0IDEyOjI4LCBNYXJjIEtsZWluZS1CdWRkZSA8bWtsQHBlbmd1
-dHJvbml4LmRlPiB3cm90ZToNCj4gPiBPbiAxMC4xMS4yMDI2IDEyOjA4OjQ5LCBHZWVydCBVeXR0
-ZXJob2V2ZW4gd3JvdGU6DQo+ID4gPiBPbiBUdWUsIDI5IFNlcHQgMjAyNiBhdCAxNjoxOSwgTWFy
-YyBLbGVpbmUtQnVkZGUgPG1rbEBwZW5ndXRyb25peC5kZT4gd3JvdGU6DQo+ID4gPiA+IE9uIDAy
-LjA5LjIwMjYgMTc6MTU6MzcsIENsYXVkaXUgQmV6bmVhIHdyb3RlOg0KPiA+ID4gPiA+IFNlcmll
-cyBhZGRzIENBTiBzdXBwb3J0IGZvciB0aGUgUmVuZXNhcyBSWi9HM1MgU29DLiBBbG9uZyB3aXRo
-DQo+ID4gPiA+ID4gaXQgYSB0eXBvIGZpeCBwYXRjaCB3YXMgYWRkZWQgb24gdGhlIENBTiBkcml2
-ZXIuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBNZXJnZSBzdHJhdGVneToNCj4gPiA+ID4gPiAtIHBh
-dGNoZXMgMS01Lzcgc2hvdWxkIGdvIHRob3VnaCB0aGUgQ0FOIHRyZWUNCj4gPiA+ID4NCj4gPiA+
-ID4gQXBwbGllZCAxLi4uNSB0byB0aGUgbGludXgtY2FuLW5leHQgdHJlZS4NCj4gPiA+DQo+ID4g
-PiBUaGFua3MsIGJ1dCBzaXggd2Vla3MgbGF0ZXIgdGhleSBhcmUgc3RpbGwgbm90IHZpc2libGU/
-DQo+ID4gPiBTYW1lIGZvciAiIFtQQVRDSF0gZHQtYmluZGluZ3M6IGNhbjogcmVuZXNhcyxyY2Fy
-LWNhbmZkOiBSZXN0cmljdA0KPiA+ID4gcmVzZXRzIGluIHRvcC1sZXZlbCINCj4gPiA+IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnLzIwMjYxMDA5LWhvbGlzdGljLXdhcnBpbmctcHVmZmluLTNiOTJm
-ZS1ta2xADQo+ID4gPiBwZW5ndXRyb25peC5kZQ0KPiA+ID4NCj4gPiA+IEFtIEkgbG9va2luZyBh
-dCB0aGUgd3JvbmcgdHJlZT8NCj4gPg0KPiA+IEkgdHJpZWQgdG8gZ2V0IHN0dWZmIGludG8gdGhl
-IGxhc3QgbWVyZ2Ugd2luZG93LiBGb3IgdmFyaW91cyByZWFzb25zDQo+ID4gaXQgZGlkbid0IGhh
-cHBlbi4gQW55d2F5cyAtIEkndmUgcHVzaGVkIGFsbCBxdWV1ZWQgUmVuZXNhcyByZWxhdGVkDQo+
-ID4gcGF0Y2hlcyB0byB0aGUgY2FuLW5leHQvdGVzdGluZyBicmFuY2guIEkgaG9wZSBJJ3ZlIGNv
-bGxlY3RlZCBhbGwgdGhlDQo+ID4gbGF0ZXN0IHNlcmllcy4gQ2FuIHlvdSBoYXZlIGEgbG9vaz8N
-Cj4gDQo+IFRoYW5rcywgTEdUTSBhdCBmaXJzdCBzaWdodCAoSSBndWVzcyBCaWp1IG9yIENsYXVk
-aXUgd2lsbCBzY3JlYW0gaWYgc29tZXRoaW5nIGlzIHN0aWxsIG1pc3NpbmcpLg0KDQpZZXMsIEFs
-bCBPay4NCg0KQ2hlZXJzLA0KQmlqdQ0K
+
+
+On 11/10/2026 3:09 AM, Waiman Long wrote:
+> When update_prstate() is called to switch the partition state from
+> root to isolated or vice versa, the whole effective_xcpus is passed to
+> isolated_cpus_update(). However, if there are child partitions present,
+> some of the effective_xcpus are dedicated to those child partitions
+> and their partition states will remain the same or get invalidated in
+> the case of child root partition with isolated parent in the latter
+> update_cpumasks_heir() call. In the latter case, their exclusive CPUs
+
+update_cpumasks_heir
+
+> will be returned to their parent.
+> 
+> Therefore isolated_cpus may be set incorrectly with child partitions
+> underneath. Fix that by excluding their exclusive CPUs in computing
+> the correct cpumask of exclusive CPUs used by that partition alone.
+> 
+> Add new test cases into test_cpuset_prs.sh to test for such cases.
+> 
+> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>   kernel/cgroup/cpuset.c                        | 30 +++++++++++++++----
+>   .../selftests/cgroup/test_cpuset_prs.sh       |  7 +++++
+>   2 files changed, 32 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7aa614c6ac4d..41048997a955 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -3054,12 +3054,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   						  cs->effective_xcpus, NULL))
+>   			err = PERR_HKEEPING;
+>   		else if (parent_prs == PRS_ISOLATED)
+> -			err = PERR_ISOPARENT;
+> +			err = PERR_ISOPARENT;	/* old_prs should be isolated */
+>   
+> -		if (!err)
+> -			isolcpus_updated = true;
+> -		else
+> +		if (err) {
+>   			disable_partition = true;
+> +		} else {
+> +			struct cgroup_subsys_state *css;
+> +			struct cpuset *child;
+> +
+> +			/*
+> +			 * Need to scan child partitions, if present, and
+> +			 * exclude their effective_xcpus from cs. In the case
+> +			 * of switching to isolated partition with child root
+> +			 * partitions, those child partitions will be
+> +			 * invalidated in update_cpumasks_hier().
+> +			 */
+> +			isolcpus_updated = true;
+> +			cpumask_copy(tmpmask.new_cpus, cs->effective_xcpus);
+> +			rcu_read_lock();
+> +			cpuset_for_each_child(child, css, cs) {
+> +				if (!is_partition_valid(child))
+> +					continue;
+> +				cpumask_andnot(tmpmask.new_cpus, tmpmask.new_cpus,
+> +					       child->effective_xcpus);
+> +			}
+> +			rcu_read_unlock();
+> +		}
+>   	} else {
+>   		/*
+>   		 * Switching back to member is always allowed even if it
+> @@ -3093,7 +3113,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>   	if (!is_partition_valid(cs))
+>   		reset_partition_data(cs);
+>   	else if (isolcpus_updated)
+> -		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
+> +		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
+>   	spin_unlock_irq(&callback_lock);
+>   
+>   	/* Force update if partition is disabled & update effective_xcpus */
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 2d4744f2d6ac..741a13bbeda7 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -556,6 +556,13 @@ TEST_MATRIX=(
+>   	" C2-6:X2-5:P1 CX3-6:P2 \
+>   	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+>   
+> +	# Switch PRS state (root <=> isolated) will properly update cpuset.cpus.isolated
+> +	# even if child partitions are present.
+> +	" C1-6:P1 C3-6:P1 C5-6:P2  .       .    P2      .      .     0 A1:1-2:A2:3-4:A3:5-6
+> +								       A1:P1|A2:P2:A3:P2 3-6"
+> +	" C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      .      .     0 A1:1-2:A2:3-4:A3:5-6
+> +								       A1:P1|A2:P1:A3:P2 5-6"
+> +
+>   	#
+>   	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+>   	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+
+We hit the same issue in our testing earlier (an isolated child partition
+loses its isolation when the parent is switched from isolated to root),
+and this is the same fix I had in mind. I also ran a few 3-level nested
+cases (root/isolated combinations, switching the parent and the middle
+level) on top of this series and cpuset.cpus.isolated is correct in all
+of them.
+
+Nits: The first line of the two new test cases lacks
+the trailing "\" used by the other multi-line entries. It still works
+as the newline is just treated as a field separator, though.
+
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Tested-by: Ridong Chen <ridong.chen@linux.dev>
+
+-- 
+Best regards
+Ridong
+
