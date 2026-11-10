@@ -1,127 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336590;
-	b=xjlicVE5f2hhU7n1CexaKwukY7TNW7pdcSlxpJNj8hVI4GIfHt48OWowpqHJZo5Uk53Q
-	 EzAfMvlggewJXLIPTNGEb+/WgAxMhR8emNfsaavt3Zbq0D8DKiFdDXn2WXwBQWAnj+98S
-	 XxzMw/FQCwhhYDr+V7mSB3P2DKQWUGOUODtcjlZcohDrT0MGOTAbU54pnsAoKWeGQoWuK
-	 43p1ew2B6eZd/9fllyGgE3ZQqi6NwlKkgui96Xw2NOBulnH2wl+TuRq56sCUr87NY6pL8
-	 RRD7l0m7TTfWvOaMYUV7bXzwC6gk55eTga9/zM+306KIoUKm8ZzMEvN+/LFy9kJ5IYg==
+	t=1794336595;
+	b=D8zgNp4gQvG+/vx5hOEhwjaVRUdoNCm1a97MrA4CNVRuVOiNi258yRrrBiQ+Jk0i8wuS
+	 nYAqrPZfTJx9aqIssipssGEEypOeOmVZ+9ROx7PFF8wLuX4yJ3Y9OdgR7WkIFU5VUgDzW
+	 u6kKkjpUFabfonPFJeWtaE1r7bkeBwStQdp/VHQ8mTWRZ0Nr7Xs5N065C2NtJD6l9WXNK
+	 +Ua3ztKQLVpgpGYYf/a+b0NIA/+VGkXuVzTtnH60/Zlnv9IbdOKxIzg66gNBhl3Ngmv6C
+	 jjfO375M+y9Bm1hEQKvXWMrpSNsTwVX67MHpVDXMJwVkrnJlF7Rf7/OeSjgvw04XvdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336590;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
-	b=oSVeZXhePoH5zTNkXdmtYZx5bVqjAIudOTpuSEtlmBbNLmHBr2nYsPag32GHpmGNnZDQ
-	 WUWEIUIaTY1UxCvBI0CtIW3mLiJcVVgyIo+RDVLP8h47j1Y7ROM+HUTYpCV3B3xDQSfBC
-	 vrmqMhgVHx43P2dqtRN7fZbP383hup2O9bM1tLnZOqjyTGJeN309M+L58OLwKJQhag+l4
-	 lS+H1SgTJxhmEIYlsOp2e6GJWwmwclTP9YvkehDE/iw22Tzc3p9svM7qWcsm2V2er+T2Z
-	 qBNgu1rtsgPgU32uclrVEQb35QOggG7SAJL1ds8hqUdGICLwZU8UpRj/TaXOxmyVzLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336595;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
+	b=3fE0V1cuo0uQ/VGdl31CcoZHl91VG9+vuR90iYe/DRQ7GlR9qzUd93K7R1Fo4tI0dnmH
+	 Tt0cLhd4NwrPny11J3QixJUe6OBHI3+yAZfC5gp/303tgytHbZisqGK1BZecaxuy51QKx
+	 rs4zm2NHL8Hw5GNRkEKTFY3pxpK0Va72gowjcVoxOv3KTRvwFxyuNwZtQglvCY6T/V8wP
+	 ykuAuKeNJCxwcf5SJv1+ixHz7MshIXHUbYl1Ai64f0Ln03CzEbfq57Do9lLLl9PVhD0ml
+	 /fWTyTMgay7p9ADCQJdMORgdRqHvr+Yw7MLcTyoTVmFLSt8wQSpljZ8n3x7Ho6r+IjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+XOPo5s;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CFhrGMPr;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="f5//jZDt";
+	arc=none smtp.remote-ip=74.125.225.134
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B576606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B576606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A7E606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A7E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+XOPo5s;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CFhrGMPr
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAIcMqX007338
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=; b=Y+XOPo5sh17BDAvJ
-	nfpDK75yQgj6nL0Xk2giaKLnNdnKo6OTUstdAfHMLjPDtuJegrWc6VzQTOJOlwTk
-	jediEOjLx4GjeE1F+UrlB22Pyiya0u7op6Lk/2pdCXc37PWVgZ2djhrh/MrNBRc5
-	FdrYSIG5IT7CIGgfE/UYVq4vqBHyfdZDFVPaK01QQ5Gx3I6JtYVQbbGVGrMAzPJD
-	dWX0szOzxXQlmEFe15FE7ZhP54hqQ2Vinzw87Py9rbC6yateKJ5BFOSGQXr/JqLS
-	1SfyfyNFilw+dcdvmkvu4T9AjU45omESi53oMEeWOUCv9CmTlW0DCMuhdpTmXLqz
-	z8EFzQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huvtdb81k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:49 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso3079494eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:49:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f5//jZDt
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-4a35d5b19baso4577005e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:49:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794336586; x=1794941386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
-        b=CFhrGMPrE69kpHXfP7J9rAvIxyurOxvyVZ0BmHa6VnZnqsrTRnak2RY407qsPqq6qz
-         mzt3BZ/tcPgVork+ACLG4J5DdUc7lOwMZ7LFr3oTwl8T8DeyhittDt1BXazI4UaIVokw
-         09ezWSOEcCmm42EB9bmRszFZBn+WfYmq2ll2+X/GsPWBg3gPE1zMQc8B5YO/HB8lKQkW
-         VBbId3nIQw9WaGlE2/hsP4CCDeO5syFp0TOO/Xnq1UtlwPD5JfZcsjd+Gn/Z/JU8vj0U
-         JAfu+HhxKYhYTJgv2jvyIVwVv64yzo8wxHEToJZICQV2Psoz+Ze1SNveuYy6B7hlMEvM
-         9vKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336586; x=1794941386;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794336593; x=1794941393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
-        b=JC1O9Wh1xA+MD2lB2waZ+1dp08s9PicrNDDdC1fYSuIn8AseG/mVxkpfEca7YwuQqS
-         V9P345BxDgulNoUjhxrhpD966GYU4IdeIm59u8yfveqEITZufMYLQQj3vW7caNG+2Eob
-         lWuOKpqrNg/N6NnEdut3NjPDXSiAx7volM0ujK50IeLUeHdGpd6Tig67lHZgY6Cn0B7C
-         9p/WVvlAO58APR9AclnTniH6YS2+vgiR6QKClaFVC6PF4uyLE11pK+A3PLeqlkhEagLa
-         KVbDfkOlSgzNd62iSRx8Gxxo2JaHvkW4kXYp2zH/u421GJ9pvgzaXWAjju4kMFfviKI8
-         nxvA==
-X-Gm-Message-State: APuU4Z/71aC/dkhZEtU5YgIkgvQ5GdZGfxBRFD9U7QG1QtvqkCx1+OH7
-	aB6D6o0Tr65/6vzPfYw47m1m655NWIJ/L09dZu5TM9kU2m7IqyCkUXiRlL2M+Z7iIUSS4y082nz
-	A1oNUA1k52/y/+UrtBKnfeuTQW+jlj5cOqZBA4ywQFwGXO6cTYZInHnzHq5UBwqf3znM=
-X-Gm-Gg: AYBFou3c4IPW9f06aC1R9mgQ+pm2K32uqJlf5HwMIf4yNINFsjSWXvR4sBrNnEV3STm
-	zeuE4hAocU/SGk095pYmLo/3jNVUD5v2OD4F16StW2/pHSbp11xa0OnwalyOmji4inLnQSGb0L+
-	TIHDNM69foeQD6t6mVJ29MDrCXSlai+ZRqu44LgE59Jt4R/mdUrNs/fk1hTLrLcOWRPzxb4LgzJ
-	QsTJ4VjEwEwuFqIgCLBoNMpIGsSAn7qneLmNCiM+iaaiqMUHAfgJepvRfku402/dU6rnNLsz5Ql
-	4ZlW7XiHlRkseSyhrG0ftj3BX6YRKVezPmjHbU34Qs2RCeYipzdgvozt7oGWJl0RaHAk1P/3MgF
-	guot8D8f4p9H7deZltNDtKHevAiSf50ha02hOv+4gY1eKTcz2qLZx3sF/3nU/8ow2T4Mj3C+H43
-	vT8UmisGUm2OURPEmlgr/mmG4EUn+L
-X-Received: by 2002:a05:693c:66d2:10b0:36a:1f:9b74 with SMTP id 5a478bee46e88-3768636e4b1mr198779eec.27.1794336585327;
-        Tue, 10 Nov 2026 10:49:45 -0800 (PST)
-X-Received: by 2002:a05:693c:66d2:10b0:36a:1f:9b74 with SMTP id 5a478bee46e88-3768636e4b1mr198736eec.27.1794336584648;
-        Tue, 10 Nov 2026 10:49:44 -0800 (PST)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm7990922eec.12.2026.11.10.10.49.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 10:49:44 -0800 (PST)
-Date: Tue, 10 Nov 2026 10:49:25 -0800
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-        f.fainelli@gmail.com, vincent.guittot@linaro.org,
-        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
-        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
-        usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 16/35] firmware: arm_scmi: Add Telemetry TDCF
- parsing for UUID lines
-Message-ID: <20261110104925.00001db6@oss.qualcomm.com>
-In-Reply-To: <20261109091221.2532706-17-cristian.marussi@arm.com>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
-	<20261109091221.2532706-17-cristian.marussi@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
+        b=f5//jZDtKK02V8eR8mpdCFDFbnVmVKniTu4kwBXWGWP6yS44Ri8CWupwJ8EuG+yNkv
+         y3x2epNv143R+FWQr7yTyWgFLCweIXvfmTSln9OjuANTLKMlNJCYPyCcrGDHaREQ3Ynb
+         2OcFmpjgLqeZuT1jjdHSCcWuBD9Bquk//S5bw63Ti4WPoB8UDjcT9vWX2CDUJMFvRoY7
+         1lE3+rsikEh104WGVQP0h1kkBrodY3qZD+zGWEJCNuEhIWS7SEWkFykOZ21N6EH+UDGq
+         pZEI7gtqbxs7aP+USMbvDvljB0FQHTKF86LkkYWYZwRwpWxJNPFLWZztBwJTFjeorPL3
+         mq6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794336593; x=1794941393;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qPkf5Dn97yVQ7A3K9LckCKOS5iiqVVbPOk75NoRmJew=;
+        b=I906e/n4KIc6LlklzFwMdwJhdhfU4eHCFM5A4/kYnrfttgsyemVZUegw1R0mTRMsZG
+         YAeOL1gLpceLXLmGdrdBLet2TOQZjkudcJ9OCMcK1j2s2G5XLm/W9NRBti0v6dEHBRlJ
+         sWyEH8x33yLGGeTVs7iFQ5j1kN57vjXW02eQb4UKaLG/l4L9MfBk+g8Wb9I6soQ5yML5
+         vshoJa4/qvrkA7BfA0ztkT+ZC5gWtO5JcSaz36RDOyyDazuC9K2cBO5vxaQhM+7JGFK5
+         7DJKID0httF16GYijf3fifY3grNwUYPdkkuSXYVttP0HoCK9JE24eMEtIMhwXkNfrHYe
+         fMGA==
+X-Forwarded-Encrypted: i=1; AL+hErG1uwgxV+W11WjlwmGe0gqEfLJA3RHw9tj9ytnrP05h6ju3JHoRmTmm7kz60qLT+0GTCYzCGwRXQphRtOU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JiyRK4S8WI4HwxvKa2J5YpgRPt9HIqTmqY259TDBtsxHWz7sj
+	gdW0DA5dqc9/IX6VBAednNLmC3bGaMJjHxW4mDy9Rzi12PCY4UiO4hTf
+X-Gm-Gg: AYBFou2V0Vs2m3LwhZsnqoGelDl1Po/gB5xmZpAJr3WkAtrKkh2iepWPZKxkxjpH1iA
+	M9LUBHqyYge4XmY8KurC+3mpUyGmUMaJvFo4JV9Gz0SlZQdTiWjMTbeWNQeB0XWxDbwlsfiz9B7
+	sPqhHrXqYEwWT1+j9DRRfmmIzrkDvabZbTPcsFL4MqdR+8GykRpyfo+aauq5vCr2DY4WJAVSOCN
+	mKH9Df8vqlh4iQ/EqyzBwIkgpbseXapiCb9VbwbW6R+vn27CfgpnZvGlkNwjXKmTr7j2n+6b6kU
+	oAUpVgb0vB7X0w5D77AttUZh0v1yQowERBYRV9cWFUANxOIzBcqwHXNicfoGY3p15CUYwfSZnog
+	WkFlIex6RAudWcVi4CQcfYFJnEpVR4UhFW3kG4OkSrYQmx5eZPoiPQksCFfcaqmUNAJPTxLjLJu
+	coQEYigaDgeZMUPN5X/rXrTAYbmnqswuNBwvbbno1KNGXT5Gpk8djWse3nPcS+6BG8/SQuFx1JQ
+	IZg5C6vLszc1nN/3nqy1fxsxOGt1u3s5EZ231tgX8bXYKYkms5qSyBXvDwX/Vd0CYtyjR5faawo
+	0Yxib/NvSVPnb1kZW4xerH6D+GJgitq8yJkQOc73X58YzREYrYltLyqp
+X-Received: by 2002:a05:600c:3544:b0:4a2:1655:87e2 with SMTP id 5b1f17b1804b1-4ba0938dbf9mr328175e9.19.1794336593063;
+        Tue, 10 Nov 2026 10:49:53 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba023a1fcfsm34094085e9.4.2026.11.10.10.49.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 10:49:50 -0800 (PST)
+Message-ID: <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
+Date: Tue, 10 Nov 2026 18:49:48 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,220 +92,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: A03xKfD7xEF8eBQWqjhrjhpvfgu5elhA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3NCBTYWx0ZWRfX39jOyaBmD4Xe
- NNSSPRy7NyQ4iNG6BFNUcwNjBIjC1uUw65i8FOg4zFDu20XAX/HnlMAza/pj9lasXaA03n0ucQU
- sAvAuWG1dO7mvv0H8ZPTz9OfR88ZL0w=
-X-Proofpoint-ORIG-GUID: A03xKfD7xEF8eBQWqjhrjhpvfgu5elhA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3NCBTYWx0ZWRfX45qAVDAchdLB
- ana/ZvfjHbwIOziLGLG4TB5llnUfi82YvLZyE6tFyKVDwK0wrmRsexFDx2w+xYZAke73HFNQTZ8
- pGKLO+zUxpGz3Zmh04zg10Snbx87EqYOAwPwtoyHc+J0UJPFxnjF8c6OMnqP3d4yY8zMIAm3+ZI
- bvMhxa1ccr9sSmr6ptuwDIObq+yHxde6lunACXts8rOSBRSWdAm0LpyUKEOQC37z+yEtZJNSSWM
- vMSArFTJ2AYN54uxM4MXMtDPEn7GlSS76v8ep+jC9Rw2AsB8zsz9dbNoO5NQXz4GVM/CQsM+cxC
- bMY34hrheTiEsXTtlPqKzfbV1+DDwU8fevRmO+GDNW2opLz/IRLFnMf9IZZCtmZ8wgdxX7nCbVa
- NJTUEt5OMQTXJslF42G5+WynMuFuBZlPViqX6Wdig5b+9LGk0v5DTno+D7Xo5P+P7tCxZbzeWPL
- Yfeo6jO6IXWKl8wvzpg==
-X-Authority-Analysis: v=2.4 cv=ArR7T+9P c=1 sm=1 tr=0 ts=6af3674d cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=7CQSdrXTAAAA:8 a=gDUTI9D6LIilfzPf5l8A:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100074
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
+ PowerPlay for MCLK switch
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
+ <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
+Content-Language: en-US
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon,  9 Nov 2026 09:12:02 +0000
-Cristian Marussi <cristian.marussi@arm.com> wrote:
-
-> Add support to parse, track and link TDCF UUID lines to the related
-> discovered DataEvents.
+On 09/11/2026 20:34, Alex Deucher wrote:
+> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
+>>
+>> When driving multiple displays or tiled panels with identical timings
+>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
+>> Core's program_timing_sync() aligns the CRTCs into a timing sync group
+>> in hardware during dc_commit_streams().
+>>
+>> However, on DCE < 12, Display Core leaves
+>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
+>> informed that the streams have synchronized vertical blanking intervals,
+>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
+>>
+>> If all active streams belong to the same timing sync group
+>> (timing_sync_info.group_size == params.stream_count), report
+>> all_displays_in_sync = true to PowerPlay after committing the streams so
+>> SMU7 can safely downclock MCLK at idle.
+>>
 > 
-> Maintain also a central list of discovered UUID lines.
+> Looking at this a little deeper, the function bw_calcs() in
+> dce_calcs.c already calculates all_displays_in_sync using the helper
+> all_displays_in_sync().  Can you look into this and figure out why
+> that is not working as expected?  My concern with this patch is that
+> DCE and DCN have different logic for handling mclk switching so I'm
+> not sure it's safe to call dm_pp_apply_display_requirements() directly
+> from common code.
 > 
-> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-Trivial stuff + a follow on about how you are handling the
-devm_ cleanup for the de and it making your code more complex
-than it needs to be.  I think a simple helper will get
-you to a better state (and my preferred approach of fine grained
-management is probably overkill!)
-
-Jonathan
-
-> ---
-> v14 --> v15
->  - use proper casting in tlm_collect
->  - use snapshots to collect UUIDs during full scans
->  - stop tracking UUIDs lines singularly..it's useless
->  - use UUIDs line hashing for lookup
->  - clarified UUID/DE binding are permanent
->  - fixed WARN_ON invocation on missing active_uuid
-> v13 --> v14
->  - split out of previous single patch implementing parse SHMTI routines
-> ---
->  drivers/firmware/arm_scmi/telemetry.c | 277 +++++++++++++++++++++++++-
->  include/linux/scmi_protocol.h         |   2 +
->  2 files changed, 277 insertions(+), 2 deletions(-)
+> Thanks,
 > 
-> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
-> index e3fbcb1e6ea7..38a94d66116f 100644
-> --- a/drivers/firmware/arm_scmi/telemetry.c
-> +++ b/drivers/firmware/arm_scmi/telemetry.c
+> Alex
 
->  
-> +static int scmi_telemetry_uuids_update(struct telemetry_info *ti,
-> +				       struct telemetry_uuid *uuid)
-> +{
-> +	uuid_t **cur_uuids;
-> +
-> +	/* Resize array if needed ... */
-> +	if (ti->info.num_uuids + SCMI_UUID_DB_THRESH >= ti->uuids_len) {
-> +		uuid_t **new_uuids, **old_uuids;
-> +		unsigned int new_len = ti->uuids_len * 2;
-> +
-> +		new_uuids = kzalloc_objs(*new_uuids, new_len);
-> +		if (!new_uuids)
-> +			return -ENOMEM;
-> +
-> +		old_uuids = rcu_dereference_protected(ti->info.uuids,
-> +						      lockdep_is_held(&ti->uuids_mtx));
-> +		/* Copy/move old allocated UUIDs */
-> +		for (int i = 0; i < ti->info.num_uuids; i++)
-> +			new_uuids[i] = old_uuids[i];
+Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
 
-memcpy?
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -31,6 +31,7 @@
+ #include "dmcu.h"
+ #include "core_types.h"
+ #include "dal_asic_id.h"
++#include "resource.h"
+ 
+ /*
+  * Currently the register shifts and masks in this file are used for dce100 and dce80
+@@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
+ 	struct dc_state *context)
+ {
+ 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
++	int j;
+ 
+ 	dce110_fill_display_configs(context, pp_display_cfg);
++	pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
++	for (j = 1; j < context->stream_count; j++) {
++		if (!resource_are_streams_timing_synchronizable(
++			    context->streams[0], context->streams[j])) {
++			pp_display_cfg->all_displays_in_sync = false;
++			break;
++		}
++	}
+ 
+ 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
+ 		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
 
-> +
-> +		/* Expose new UUID pointer */
-> +		rcu_assign_pointer(ti->info.uuids, new_uuids);
-> +		ti->uuids_len = new_len;
-> +
-> +		kfree_rcu_mightsleep(old_uuids);
-> +	}
-> +
-> +	/* Store new UUID reference into the globally accessible UUIDS */
-> +	cur_uuids = rcu_dereference_protected(ti->info.uuids,
-> +					      lockdep_is_held(&ti->uuids_mtx));
-> +	cur_uuids[ti->info.num_uuids] = &uuid->uuid;
-> +	rcu_assign_pointer(ti->info.uuids, cur_uuids);
-> +	/* Update UUIDs count */
-> +	smp_store_release(&ti->info.num_uuids, ti->info.num_uuids + 1);
-> +
-> +	return 0;
-> +}
+Richard
 
-
-
-> @@ -2362,6 +2554,7 @@ static int scmi_telemetry_resources_alloc(struct telemetry_info *ti)
->  	}
->  
->  	INIT_LIST_HEAD(&ti->fcs_des);
-> +	hash_init(ti->uuids_ht);
-
-Why init the hash here but the mutex at the caller? I guess
-maybe you wanted it to be obvious the mutex was valid, but to me
-just doing mutex_init up here is easier.
-
->  
->  	ti->shmti = no_free_ptr(shmtis);
->  	ti->info.shmtis = no_free_ptr(shmtis_info);
-> @@ -2427,6 +2620,37 @@ static void scmi_telemetry_lines_cleanup(struct telemetry_info *ti)
->  	}
->  }
-
->  static void scmi_telemetry_tdes_cleanup(struct telemetry_info *ti)
->  {
->  	struct scmi_telemetry_de *de;
-> @@ -2471,6 +2695,7 @@ static void scmi_telemetry_instance_cleanup(void *arg)
->  
->  	scmi_telemetry_groups_free(ti->rinfo);
->  	scmi_telemetry_tdes_cleanup(ti);
-> +	scmi_telemetry_uuids_cleanup(ti);
-
-See below.  The monolithic approach to devm cleanup is making
-your setup code harder to read.  Suggestions down there on how
-to avoid that.
-
->  	scmi_telemetry_lines_cleanup(ti);
->  	scmi_telemetry_resources_free(ti);
->  }
-
->  /**
->   * scmi_telemetry_instance_init  - Instance initializer
->   * @ti: A reference to the telemetry info descriptor for this instance
-> @@ -2563,6 +2805,8 @@ scmi_telemetry_resources_enumerate(struct telemetry_info *ti)
->   */
->  static int scmi_telemetry_instance_init(struct telemetry_info *ti)
->  {
-> +	unsigned int uuids_len;
-> +	uuid_t **cur_uuids;
->  	int ret;
->  
->  	ret = scmi_telemetry_resources_alloc(ti);
-> @@ -2571,6 +2815,35 @@ static int scmi_telemetry_instance_init(struct telemetry_info *ti)
->  
->  	xa_init(&ti->xa_des);
->  
-> +	/*
-> +	 * Always allocate at least one slot for the primary and anyway at
-> +	 * least enough to avoid immediate resizing, assuring uuids_len
-> +	 * always greater or equal to one.
-> +	 */
-> +	uuids_len = max(ti->num_shmti * 2, SCMI_UUID_DB_THRESH + 1);
-> +	cur_uuids = kzalloc_objs(*cur_uuids, uuids_len);
-> +	if (!cur_uuids) {
-> +		xa_destroy(&ti->xa_des);
-> +		scmi_telemetry_resources_free(ti);
-This sort of dance of not using a goto block because we
-have unified cleanup at the end always suggests to me one of two things.
-Finer grained devm_ callbacks, or a helper that can have a clean return
-to this outer function with no side effects, those having all been
-cleaned up via goto based unified error handling in the helper.
-
-I personally prefer fine grained devm with each element clearly
-being paired with the undo, but the helper is perhaps easier to
-introduce here.
-
-> +		return -ENOMEM;
-> +	}
-> +
-> +	mutex_init(&ti->uuids_mtx);
-> +	/* Expose new UUID pointer */
-> +	scoped_guard(mutex, &ti->uuids_mtx) {
-> +		rcu_assign_pointer(ti->info.uuids, cur_uuids);
-> +		ti->uuids_len = uuids_len;
-> +	}
-> +
-> +	/* Initialize the first UUIDs in the global list with the primary */
-> +	ret = scmi_telemetry_primary_uuid_init(ti);
-> +	if (ret) {
-> +		scmi_telemetry_uuids_cleanup(ti);
-> +		xa_destroy(&ti->xa_des);
-> +		scmi_telemetry_resources_free(ti);
-> +		return ret;
-> +	}
-> +
->  	atomic_set(&ti->des_enabled[ENA_STATE], 0);
->  	atomic_set(&ti->des_enabled[ENA_TSTAMP], 0);
->  	mutex_init(&ti->des_enabled_mtx);
-> diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-> index b7b8bd77b37d..3973779c0aba 100644
-> --- a/include/linux/scmi_protocol.h
-> +++ b/include/linux/scmi_protocol.h
-> @@ -981,6 +981,8 @@ struct scmi_telemetry_info {
->  	unsigned int active_update_interval;
->  	struct scmi_telemetry_intervals *intervals;
->  	struct scmi_telemetry_shmti_info **shmtis;
-> +	unsigned int num_uuids;
-> +	uuid_t * __rcu *uuids __counted_by_ptr(num_uuids);
->  };
->  
->  /**
+> 
+>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 74cd88d8d580..b4531383437e 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+>>         dc_exit_ips_for_hw_access(dm->dc);
+>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
+>>
+>> +       if (params.stream_count > 1 &&
+>> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
+>> +           params.stream_count) {
+>> +               struct dm_pp_display_configuration *pp_cfg =
+>> +                       &dm->dc->current_state->pp_display_cfg;
+>> +
+>> +               pp_cfg->all_displays_in_sync = true;
+>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
+>> +       }
+>> +
+>>         bool frl_stream_found = false;
+>>
+>>         for (i = 0; i < params.stream_count; i++) {
+>> --
+>> 2.55.0
 
