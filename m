@@ -1,67 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310691;
-	b=DBiVviEAvdQkNxw4qSTNwmFIC6YNeuYyQtrMqgJcxFu+2BqtBM33PukPlx1h3FUuZzr/
-	 p5wCWUnDKepbBcMn8/PDRWWOXOu1seL0uCzF99X8zxzyxWR3GpTy8IixCkrrR2k42sqCs
-	 RiwfJER0FbhEEBAD93wIhHhdHUtWaPA7HW1sm4cx1o4H48xBvlbNzE6aA6ZcKBxFuUDEy
-	 I9OZxdChgOPl7gij9PVD7NrGFbPEIx5IyEcJuI7qrDVE4OHBdHGRiqCjOektCTry+CtQR
-	 T9uPDk5soeaZkbnItlOkc0C125LCBIH2axIoOULzp93SgcPa9CdnFUQoI6Zt+bHyB2Q==
+	t=1794310727;
+	b=LXDfjyaBXNmFSdktoPiqoX0CV6WQF+OCFVyhuSZy9XFjSDshIr06L1BBUmU4dXlVHqwZ
+	 9m8IOt8vNQFGg1lf5T1f3H+SlhGqc5mPqt5RBG2ELmjgCPXUQu3BQ9HcWKqi4BCFhHQgP
+	 RvtopHe498dguArmBJT236XdKSiRaF+94rrrfByi+I100HlHCFNE1e/bLXqXRVHkkWuty
+	 NsiaIYTcSXxhg2Wd3F1ytz2O4Q9suQlVj49NOm4mtoa9ncVBSlhx53ymyNTJcIDspVtbQ
+	 aKDm1ITeIvzCQq+66Hqc8KylV9scPyHlYd6zfcJF2E8kAt0wP+vOogG0j3vbRAEoXNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310691;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=T2P/GAEk2otkWq/GcV9uWXOrUgzcWGATJfy8p7qWBJg=;
-	b=s9VfJOlmV0ve1IOB7V6wHDLQrsFsH8fxTN2nn4fT6eWL+MkwUAvk+llpG7+V1lMo9BVY
-	 IEP35bZdKnatkTg2aMhXsn+uRgX3P1dWyPg7r01ay8HHUEMwtqnMiOWRKFq8nFDfCxw7v
-	 fP3EeaJlQVhbOJfsGqRjr5i2F+mfWfwiz7dAk0p7crO/XkOTvfNqRncEza7FLMMMqF9uY
-	 2g9PgOiGo7Y0OW7VxA3G9jfkHQpKryPWFelugYAIRxxoVvANW6ydlkOHlFG1QzG03y2Ne
-	 1+SN8xI7iICZ78bl6w+YBVivSFO7kDAVlMSsnieow44QmJmi7FtDerA41Qys1SEzGUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310727;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=6I+JHeyZuaCKZLVFRW5Ed83CP01+3aMwrBoHmGNmzl8=;
+	b=CCRxw8aG9uY8bq8yTZO+Z+IiiGBHoeKSaoCD29EENA4u15jhm2N9WEeOyaxva2s4d+rv
+	 JG3uL3Hq5FiDsT0xZ0sNzXPuEDMiZS9TFau73gBWk4hN5/37UIyGIpTNVouhhs9OqqH4o
+	 IFt9nJKyjhqS5ACW4pOB2khbXRca4RqqPp5QXrZJ1pmi8JZ8Oi62aM7L8XRA261o2hCYI
+	 AeKHCtOwZuLzNNvH0dMbX/C+YwsrgxtNe8cs6Je18rD9/Zid2HKY1+9W3r7i0vCBwFHxM
+	 5Xx4GyLmI+7ec6mCSck+++LFtnIYvOzVsix8gcjm2peHeynLxlyB/odPhzwkdnwL3LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=birImCg0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.53
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F67C606A32E;
-	Tue, 10 Nov 2026 11:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=birImCg0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D351F008A1;
-	Tue, 10 Nov 2026 11:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794310691;
-	bh=T2P/GAEk2otkWq/GcV9uWXOrUgzcWGATJfy8p7qWBJg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=birImCg0ikfZlgymBPG1EQOVl8T4PvzPBJE3IkYSwyCAjX6vQwI65u9dOTVAFVIVt
-	 Jr4PKTv7nmKwXrj12EPxjnX54EDhza++N11jzeedzWLJV9phNHoC61SgwtI5RgdSk4
-	 IfpcIAJO3N+NPz4LziHzOcsznefoB07i+3jUEPXTN5G4V1f9MsFSrznT9QDgUE7DuQ
-	 3V+rvquAaKTbafZOKdinMDkCmmpo8zf65hLVbPMJFgHEVANzwn2/5aCC29En6T6hn7
-	 CMdn/xwxsklmImZWNlFx/SHbbnF8177DN3zJaSqolLxcAVpcgCeE2wzIZnqICN9XBt
-	 tR3aHyt/+QvvQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 8F31C310B6B7;
-	Tue, 10 Nov 2026 11:38:08 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Cyril Chao <Cyril.Chao@mediatek.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- llvm@lists.linux.dev, Cyril Chao <cyril.chao@mediatek.com>, 
- Project_Global_Chrome_Upstream_Group@mediatek.com
-In-Reply-To: <20261109032424.625004-1-Cyril.Chao@mediatek.com>
-References: <20261109032424.625004-1-Cyril.Chao@mediatek.com>
-Subject: Re: [PATCH v1 0/1] ASoC: mediatek: mt8189: Use AVOUT for DP and
- HDMI jacks
-Message-Id: <179427281919.3711751.4669554819271995706.b4-ty@b4>
-Date: Tue, 10 Nov 2026 01:06:59 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C33606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C33606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-999b2b06bd7so844365241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:38:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794310726; x=1794915526;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6I+JHeyZuaCKZLVFRW5Ed83CP01+3aMwrBoHmGNmzl8=;
+        b=XHW4UxgeX2w8Np2s+UWypHpifHiylPUmv5cqt51LXQ9OoNBBf4W1TWgZzlaOkRgXVQ
+         Gxn4cAa3kz1El+94R6lcRfIADqM/En9Hgd/U4HB2hI2ABiSIFL2t3fiff5IQ/nZ608EL
+         NLYMzXnaLqjwk2Rg/qNPRdpd6pkyk61PVp0ywaqDIOamh+P+W95i06ZKol3sNHHGmUth
+         DTI7Md+ljUrVzprrkoiYFka27r9daHNd+ONEXZ7NaCo6sBkyJVXUBfca9oLxo5N8ctFp
+         Q88GH/VZYc3eTz0PJqKBXyhTDAcSVAascuicVpOMxVVNO9e7j5k4e+ol/eRWc0eVbR3y
+         ezlg==
+X-Forwarded-Encrypted: i=1; AL+hErE/8hKStY2cx0czYG6FeQ8r9Hr443xRTaa25okD3mfJQDj0OUC5SeXUIlRXnN0yaOoKar3cJdFstUwiep8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Lm3x0OcpJT9VtWKZRnOsdek/cxAGnZccETbMOBD2i8GHOtSWe
+	Ud9txY1clHA+9Ohoabtlwc2WQwzvFYnZDbMDVkA9uoJ14ldS05Yjk1B5uoHe564lkRo=
+X-Gm-Gg: AYBFou068eQgUk0q8HVfmVbawfik8o2mcRbVvyLWZ8Dhk+iAeDag2b4atI8LeaL97lu
+	XM1kWzDYsbaLGjIcXe1JAetazWcxAcTkBvhLJjPnzLKG04Rafi3m25Ne+CxUMhzKcLhlN3HQG5o
+	sBnUb7xo7MXvuQ601l5EOZuUCQY7GhgHjDGPGSUvcuwOVJyoMHf/R3xvEYvRWZexsR+Xd8bQKdE
+	Ggdw7joYIUQwcKuaKtaotqtFR668a91dQJd80BDm/IRbiZvCgkalAwr2JezF91Fsj+EaSET4da1
+	JdBwwo73Mt9R45ggNmonkMhzuC1feNkI9F4h9c3VgrhFvpqwr317GfC/YEjfVA3E/6il0yiq9cY
+	uqsnovri1ArorVOTLGKnczmGPqXApmwdZTRBjzBMt7BBJLKm8D1HsexIkamQpgBoQwwPRVMpRJM
+	x7gaCAaZ2z5yW/2tJ+BUXHVNtp3LbAHg/759l2p7n5uzVQ2zCi432jacrD9e/rvyhxYLVi5yy5Z
+	DZn/zhJSi3LODFbJ7EhBoaX8sgrRgym13Hz7SHunAEDgKHcwcbqqggQLygTxw/9kYuYlylE+MH0
+	gaHqq4WeTqr9I0MzO8gIVDJhc3WRRATfS7FVB2mj+SlT+J+9u77ZXpS/46D52bGOBX24LmY=
+X-Received: by 2002:a05:6102:688e:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7d301c1a90dmr782425137.27.1794310725926;
+        Tue, 10 Nov 2026 03:38:45 -0800 (PST)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200004e7sm1687078241.3.2026.11.10.03.38.45
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 03:38:45 -0800 (PST)
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1222632e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:38:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGy1I9GvAz2nhncyPbLVA2EEK3oPHkCRGV2ZPFEv8+fsk4gd4fz/Xta7QKLtOxrmaVxAjADllsbejQZWKg=@vger.kernel.org
+X-Received: by 2002:a05:6102:688e:b0:7a8:1837:9eb9 with SMTP id
+ ada2fe7eead31-7d301c1a90dmr782422137.27.1794310725440; Tue, 10 Nov 2026
+ 03:38:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,56 +80,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1493; i=broonie@kernel.org;
- h=from:subject:message-id; bh=xSnEnBaKwOzWyBQ2Svyhe7l3mZBvUNDHRGh0ZFk7WrQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+Mym8lqtfYThp6fRXYmfMzI33fDycuu0Jk+H0d9lhQ
- XmlDznWd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiJY0M/2sPbpk47aLHqofX
- W4U25uY2l8zgm/+B5dSUBZefJKR5/xNg+KddJX8xILc3a89Rkedl/yJ3G1wVVzfiML2b9s9fYdN
- CEX4A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
+ <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com> <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
+In-Reply-To: <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 10 Nov 2026 12:38:33 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
+X-Gm-Features: AclHuK_lxOefaCYe09vBlve1NogRGIcO0y48-fj-2S6VLM4EBEDUoZvwulW0sXI
+Message-ID: <CAMuHMdX-jMZ+cxq54DdECVHTN+noavo0RfW8vv+GAgoxUyEkqg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, mailhol@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, 
+	claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 09 Nov 2026 11:24:08 +0800, Cyril Chao wrote:
-> ASoC: mediatek: mt8189: Use AVOUT for DP and HDMI jacks
-> 
-> This single-patch series declares the MT8189 DP and HDMI jacks as AV
-> outputs, matching the status reported by the HDMI codec and exposing
-> the video-output input switch when jack input devices are enabled.
-> 
-> It is based on ASoC for-next at:
->   c937f492dd40a8398d955cf0f4f9e11d7268bcb5
-> No additional patch dependencies are required.
-> 
-> [...]
+Hi Marc,
 
-Applied to
+On Tue, 10 Nov 2026 at 12:28, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
+> On 10.11.2026 12:08:49, Geert Uytterhoeven wrote:
+> > On Tue, 29 Sept 2026 at 16:19, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
+> > > On 02.09.2026 17:15:37, Claudiu Beznea wrote:
+> > > > Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a typo
+> > > > fix patch was added on the CAN driver.
+> > > >
+> > > > Merge strategy:
+> > > > - patches 1-5/7 should go though the CAN tree
+> > >
+> > > Applied 1...5 to the linux-can-next tree.
+> >
+> > Thanks, but six weeks later they are still not visible?
+> > Same for " [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict
+> > resets in top-level"
+> > https://lore.kernel.org/20261009-holistic-warping-puffin-3b92fe-mkl@pengutronix.de
+> >
+> > Am I looking at the wrong tree?
+>
+> I tried to get stuff into the last merge window. For various reasons it
+> didn't happen. Anyways - I've pushed all queued Renesas related patches
+> to the can-next/testing branch. I hope I've collected all the latest
+> series. Can you have a look?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+Thanks, LGTM at first sight (I guess Biju or Claudiu will scream if
+something is still missing).
 
-Thanks!
+Gr{oetje,eeting}s,
 
-[1/1] ASoC: mediatek: mt8189: Use AVOUT for DP and HDMI jacks
-      https://git.kernel.org/broonie/sound/c/1ab0585e7609
+                        Geert
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
