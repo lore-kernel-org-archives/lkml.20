@@ -1,108 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299466;
-	b=AkFWkQ3ctf6DqM7vZv7y9Jv+KrZXa7DP81cP/AkEVhtbAQdkjAhdhNlDLwjhOS7pjdAY
-	 zKcW6cZvVd0uc/5W13HkSXfPw1sQ+EZcaShUKBOlFKe9WQWA5x9nYKWwUwcNBOwZkH8y8
-	 YP1JgFQlFxB+MOxcFsiGCFDL4L9zuNkwtzYLiDe8WudZWuW8nginlAPncNUq5bLkBivzM
-	 ERdbEwgtN/ooCHZjs6tF8Awacjy09jHJwQWxCjJzc3J917d9EMvSt+aSk2lxOZeBW4e/N
-	 td/YbOBa7k1ZvuWiiBr79by8LO7NiN0crVwTFYj+hFO9EUsfxc5bIx2Lp1ydqTOfZrQ==
+	t=1794299491;
+	b=XwGYdSr9ik0mXqa2+irCynFz6Nps/vf73e8Vvlrd9/3XW6J7dnwCCiADtXt4GAlRO9pV
+	 kezi86OEuJHP9a9PFDrm5SNcGWSgihnVtqYXTwcp4Skur/wOlZLOMWeEUCkSJXjos+Jrn
+	 kQSAkq93MD1mRFLKm/dLXBDl7aflcN/l3FBV6FPQ2H6oTO+BmPihN1ybPxqslJsrhXI8D
+	 Kpo/LdXdlS+bqMfmwDmp0EWTaPvLqrUaD47FhDGhHksujMVq+mL/Oz+iDuukkYS/7DZjA
+	 2sBBffPmv2MaGuwAf7Zp1uCDvb1m9qtwmxd3DDKvwwNDSD/fOf2W25MWOM5wQ8e7djg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299466;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PI2PKfoJt0rvenbJLW+04PG2yF6v5rLbE6RaSFwnr3Y=;
-	b=L5em95J4clKDgQPqXxoQUa0Qcyu6L/0TtN6uLQ79Gs5/Vs0l2ji8hQrfxqwWp/TC3XJb
-	 49QGhsDPd3DaQMFrrN9a7Mt2h83PXhLRurR/OyTzSHNAD6gbpQn93HZvupZQIOSIpVnKC
-	 IPhuIouNFI4mKsup7Izs2Zp2pmIUfPYm+TJSZbN+0qwwe7yrFrIyNLtmDKxF7DcgpMYd3
-	 hqfBEdhLFAU0arxWo/TUIe48DaauVw+NsEofL7DiFsdpo7hMCtgyzNTXqCrQ2Nc8r08BU
-	 jlWMXhKL/2pX3eUNfnS7QAkC8JMmYZzZXi3SBt0pyN6RcXuc6E/mJ5bk0dWjk9oKs5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299491;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3XSbzMljJ03BDWYHqvs4qG/ftfBUXdLR9CxwKQCoib8=;
+	b=iD4yKAnK0W81i8U8adTE9bYRi6ikSeALVhTg9hPct/y/kPIuDvp/KOAZOlR5D7nfQ4gf
+	 we/3fPfDd3ob9Al+RLYnrUbJ5GXTneNsYhs7YrjgIrktLCE4kH/hIRSnMqoh/JgsmysBY
+	 v2hAnbThC+qfyTWIZvH/gr0Ka+dRXuL41bNuLfzMyMXl7vkFOU5F3FHlcrr6EibZeIbgN
+	 qrP56u87Vni8fi7H+bQSb/hoFbQJMImQlyTOx7LhM2hwU1JZsDcSKOc5K//sFXU2LF75m
+	 dO0exYAs48jqVXxcuP8R1G3e8ADGkuXO4idTsfki5WQS9JPmecusUZIVmmOexwraq0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KssVo+Za;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RlLSCZl1;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6313B60A3834
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6313B60A3834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rmkke7gy;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D58D6606D011;
+	Tue, 10 Nov 2026 08:31:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58D6606D011
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KssVo+Za;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RlLSCZl1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794299464;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PI2PKfoJt0rvenbJLW+04PG2yF6v5rLbE6RaSFwnr3Y=;
-	b=KssVo+ZaJ7rLj0MPnEMu3Fbeaq2N1FMfjXGHBOvvG0TKDI/D9eWAg6Xsn4rOqMk5m96MJ4
-	abyHI0N1t9nSae4nALFn1oRLWJgCTI0Gn5H0WpxtLk/LZeQJtp3a4cRXHQfSE28ZstiCos
-	8147xRtqW01MUTxiMHtTSMZERTCCBUQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-587-ck_VCfH6MrS5JpykNCNyZQ-1; Tue, 10 Nov 2026 03:31:02 -0500
-X-MC-Unique: ck_VCfH6MrS5JpykNCNyZQ-1
-X-Mimecast-MFC-AGG-ID: ck_VCfH6MrS5JpykNCNyZQ_1794299461
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a2063be141so16491165e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:31:02 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rmkke7gy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794299461; x=1794904261; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PI2PKfoJt0rvenbJLW+04PG2yF6v5rLbE6RaSFwnr3Y=;
-        b=RlLSCZl1f2ieYE0nuRo3ks6hpd/xhYiHJ8P5g0Ypa4rV99Nwm29STv/yE8VqrjVQQW
-         gLvPr0sYZ492EZnEKGfzu5V6dCA0GI48Z5QoHF/H0w3sXQKq80qq93ySsVEs26JkUcuV
-         rMV2fjCENBk8qtUKl6stIXvFt8T3FrH1n5Vv83wwYT79Scs8Vgof98GhCpbuv4PROwu+
-         YrlLHXzAFs23ih5xiuRwjbkJq/t4ujKhvqUrkvr8+2K93OCiCACkraSDz6J5PV+Lwrsy
-         t1DFw/829L9egt5kuG9BhyJKyiqtDjzywOlR7/xx/A0Xbd48JaFVfLSbSD6JvxbYZjJv
-         a8Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794299461; x=1794904261;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PI2PKfoJt0rvenbJLW+04PG2yF6v5rLbE6RaSFwnr3Y=;
-        b=Ud85cOfszMkvsAvCatELoajQvU+Cuts4tagc113ftZoTMPGk5+IWtwtFv9Q5EZQfCZ
-         fk45Bwas1CkwezS+szdif8TZEv1Zj4HCm7gBAaqTUm/YZke6q/ATC857FsZVvLVqKxcG
-         In6wMC9bqKQBGR0LIDgHquk1ESG6Ob2X6+3r1RAHpgeqSp8i3NE+5P8rupkNBypZ9rqw
-         o3FeXDT1XSzQTxMnhRXc4vqa/UWTjvPwbX9ojtfafGQrWq14I71r2g3Nqyu1HjRZ5+po
-         y2zuX7kItng8nEO10bErRszj72bRjLubj9Fu1FTfEgO7XMjh+rurbeqyaPYzAFgZPGw7
-         sbXA==
-X-Forwarded-Encrypted: i=1; AL+hErEYCB7dVgAQAO+fOhyF15E75OKO4qvu4wEcJBLr0rKugE0C7TZR5PETKreHp0A8s1Urt7D7eyTTZZFrfMc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Z+awZuqtiT5OX0dZIPc+rhrWPFfjFbiqCpnqSZnfHdN0GJwFv
-	/G0/TUXTdTBUCKlamEjUYL4fdb03hHUT3gLRkgX+xvvlb4PCb0DIq4R4NYtP488HOsOg7I92fJ5
-	SMcJsmi7o4c/jThn2+qEe6F41kaKAvEpnVe6elViXARV9IwxfFjwfrS8eKoQoQpUkSg==
-X-Gm-Gg: AYBFou2dHEqVye/iDIZYxvXbKBY9wGNAnLK0Yd/Ev84yuCVpJRDMUQZ255bpYtINckA
-	NRkuEaL/Y9Cpi/MkD5ZI5QZknPC1FRBtGN76d/LafYo22tgCoyQ1BDTw1gkKpqJGeRyRt0C6Z0m
-	f58fUXDnYqdF3x2bL5s19drfo0s21bAnaJdOKgvmj+4ciP4ntiBCASHQz9lJF0/Bbz3yowoAEfq
-	uOpgfYWOa11XVVCsQFE4lQdCixcWpiu5n6QAAheIdlEeKFS7zC4a8r2I4LMp4kadhiMT2uK6cEQ
-	+qHy0kBo85WtUheYlisYISFAP+Z//KTp3xGJiZCdrCkjd5s7uzRoq+7W/qevnNVUspzNHgukIKg
-	5fQTW2/tDlmSdSvVDtxdBroy628aVbGBPiIcIyKmyQ3TLIo5qmYCqVXvONhvVe7Gvq0hnhEOEPD
-	9fX0LcVM9PlPAAjGOh727kiKdgvKxrP5Re9y5nKd2gqlPM
-X-Received: by 2002:a05:600c:4f4b:b0:4b1:32c8:27db with SMTP id 5b1f17b1804b1-4ba0234bd12mr37428065e9.22.1794299461240;
-        Tue, 10 Nov 2026 00:31:01 -0800 (PST)
-X-Received: by 2002:a05:600c:4f4b:b0:4b1:32c8:27db with SMTP id 5b1f17b1804b1-4ba0234bd12mr37427425e9.22.1794299460813;
-        Tue, 10 Nov 2026 00:31:00 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204e22csm44017445e9.12.2026.11.10.00.30.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 00:31:00 -0800 (PST)
-Message-ID: <817d2bd1-64fa-4a6f-bec6-5a4dd4d3a76f@redhat.com>
-Date: Tue, 10 Nov 2026 09:30:58 +0100
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=rmkke7gyw7Pe009zwU6/+o26FWto+mHubHgGScjBrTYLmXLGM1b7BdtUezmaNR4H8eo/bvHXTQyb7
+	 0YTZNZ+OdaLNLqTY2vqhixruGCLNXZMvE8hGZdJHf/aHeaiSrNC3J+pIFoZzW7kbfaLs1/S4y52cPX
+	 G26RnLNWTXvUWl9Q=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af2d65fea9-99a4d;
+	Tue, 10 Nov 2026 16:31:27 +0800 (CST)
+X-RM-TRANSID:2ee66af2d65fea9-99a4d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af2d6503b8-ae1bd;
+	Tue, 10 Nov 2026 16:31:27 +0800 (CST)
+X-RM-TRANSID:2ee76af2d6503b8-ae1bd
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: yanhaishuang@cmss.chinamobile.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	almasrymina@google.com,
+	daniel@iogearbox.net,
+	willemb@google.com,
+	willemdebruijn.kernel@gmail.com,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	narcisav.kernel@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/2] net: do not run out of frags in alloc_skb_with_frags()
+Date: Wed, 11 Nov 2026 01:24:17 +0900
+Message-ID: <20261110162418.28322-2-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110162418.28322-1-yanhaishuang@cmss.chinamobile.com>
+References: <20261110162418.28322-1-yanhaishuang@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,54 +82,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel
- interrupts
-To: Magnus Leatti <magnusleatti@kernelriot.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Nicolai Buchwitz <nb@tipi-net.de>, thomas.petazzoni@bootlin.com,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
- <179379704484.488856.2140619507341432623@kernel.org>
- <20261107100140.8279-1-magnusleatti@kernelriot.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261107100140.8279-1-magnusleatti@kernelriot.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/7/26 11:01, Magnus Leatti wrote:
->> Should the Fixes: tag point at 1b9707e6f1a9 instead, or also include it?
->> As written, stable may backport this to 5.13+ trees that cannot hit these
->> storms.
-> 
-> A data point for the RBU case from the YT6801, same 64-byte UDP RX
-> flood, all on the same 7.0.13 kernel:
-> 
->    stmmac from 7.0.13 (has 6ccf12ae111e, not 1b9707e6f1a9):
->      no storm; the MAC interrupt never fires (4 streams for 10 s,
->      and 8 streams plus TX for 30 s)
->    stmmac from 7.2.11, built for 7.0.13:
->      storm, the machine hangs
->    the same, with only 1b9707e6f1a9 reverted:
->      no storm
-> 
-> So on this hardware the RBU storm needs 1b9707e6f1a9. I did not test
-> the RPS case.
-> 
->> Since RBU and RPS were enabled only for statistics, was masking them in
->> multi-MSI mode considered as an alternative?
+alloc_skb_with_frags() rejects data_len above
+MAX_SKB_FRAGS * (PAGE_SIZE << order) up front, but two things can then
+make it need more than MAX_SKB_FRAGS frags, so it fails with -ENOBUFS
+for a data_len that passed the check:
 
-AFAICS 'statistics' here means accounting of some corner cases errors. I
-guess this could be a preferable route.
+- It rounds the order down for the tail, so a tail of N pages is split
+  into one frag per bit set in N. With order 3 and 4K pages, a 516536
+  byte packet is 15 * 32K plus a 25016 byte tail, which becomes
+  16K + 8K + 4K, so 18 frags are needed although every page allocation
+  succeeded. Sizes between about 480K and 540K can be affected.
 
-/P
+- When a high-order allocation fails, it lowers the order for this and
+  every later chunk without checking that the frags left can still hold
+  the rest. With order 3, a failure on the first chunk leaves room for
+  at most 17 * 16K, so anything above 278528 bytes fails. These
+  allocations are made without direct reclaim, so they fail whenever no
+  order-3 page is free at that moment.
+
+Both came with the commit below. Before it, the limit was MAX_SKB_FRAGS
+pages, which fit at any order.
+
+tun hits this when vhost-net hands it a GSO packet of such a size from a
+guest. Nothing on the host limits the size of a guest's GSO packet to
+64K: virtio_net_hdr has no total length, and tun_get_user() sizes the
+skb from the descriptor chain. Today's virtio-net drivers stay at 64K,
+but a guest can send bigger packets by raising its own TSO limit, and
+the host must not depend on the guest for that. Worse, vhost-net treats
+-ENOBUFS from sendmsg() as transient: handle_tx_copy() puts the
+descriptor back and retries it, so the vhost worker spins at 100% on
+the same packet and the device stops passing traffic in both
+directions. On an unmodified host, tun_get_user() returned -ENOBUFS
+about 620,000 times per second, the tap's rx_dropped counter climbed at
+the same rate, and this went on with no traffic until the VM was
+destroyed.
+
+This patch only fixes the frag accounting for packets that pass the
+data_len check. A larger frame from a guest can still make
+tun_alloc_skb() fail in alloc_skb() and vhost-net retry it; that is a
+separate problem in tun.
+
+Keep rounding the tail down when the remaining frags allow it, and use
+one page rounded up for the whole tail otherwise. This is never larger
+than the full-size chunks already used. When a high-order allocation
+fails, only lower the order if the frags left can still hold the rest.
+If they can't, try the same order once more with the caller's direct
+reclaim (with __GFP_NORETRY, so no OOM killer), and fail only if that
+fails too. An allocation that succeeds today takes the same path; the
+extra attempt only happens where it would have failed.
+
+The tail case was triggered while prototyping >64K TSO for virtio-net,
+with a one-line guest virtio_net change raising its TSO limit; the host
+was unmodified. The fallback case was pointed out in review of v1. The
+fix was tested with that reproducer, with page allocation fault
+injection on the vhost worker, and with the KUnit test in the next
+patch.
+
+Fixes: 09c2c90705bb ("net: allow alloc_skb_with_frags() to allocate bigger packets")
+Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+---
+Base: net a45dbf182137 ("ipvlan: make outbound skb headers writable").
+The tests below were run on net-next 303d91a15925, where
+alloc_skb_with_frags() is identical. KUnit on net 30c71476d842: net_core
+20/20 (kunit.py, UML x86_64); with only patch 2 applied, the new test fails
+with err -105. allmodconfig W=1 build of net/core/ (arm64) on net
+a45dbf182137 with no warnings.
+
+Reproducer: x86_64 KVM host (i7-14700) running net-next 303d91a15925 with no
+local changes; vhost-net, a tap NIC with mrg_rxbuf=on and rx_queue_size=1024.
+The guest (net-next too) has a local one-line virtio_net change setting
+netif_set_tso_max_size(dev, GSO_MAX_SIZE), plus
+`ip link set dev ethX gso_max_size 524280 gso_ipv4_max_size 524280`; then
+a 10 s iperf3 guest -> host.
+
+Tail case, without this patch: iperf3 fails, one vhost worker stays at
+99.9% CPU, tun_get_user() returns -105 (31014 times in 50 ms, kretprobe),
+the tap's rx_dropped goes up by 34M during the run and keeps climbing at
+~690k/s with no traffic, and the guest can no longer ping the host until
+the VM is destroyed. With this patch: ~100 Gbit/s, no drops, and the vhost
+worker is idle afterwards; tun_get_user() handled 246783 packets, 237937
+of them between 480K and 540K, and none failed.
+
+Fallback case: CONFIG_FAIL_PAGE_ALLOC with min-order=3, ignore-gfp-wait=Y
+and task-filter set on the vhost workers, so only the order-3 attempts
+without direct reclaim fail. Failures of tun_get_user() during the run:
+
+  probability   tail fix only               this patch
+     0%          99.0 Gbit/s, 0              96.0 Gbit/s, 0
+     5%          92.7 Gbit/s, 240418         99.8 Gbit/s, 0
+    20%          72.3 Gbit/s, 1152801       101.6 Gbit/s, 0
+    50%           0.1 Gbit/s, 4077173        99.5 Gbit/s, 0
+   100%          iperf3 fails, 10573852      98.9 Gbit/s, 0
+
+With this patch the order-3 pages that the first attempt doesn't get come
+from the retry with direct reclaim (3546571 of them at 100%). Not tested:
+the retry failing as well, i.e. real memory pressure, and other callers
+of alloc_skb_with_frags() than tun.
+
+ net/core/skbuff.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index a7d555b3d2f28..da9025e6f0c3c 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -6906,15 +6906,41 @@ struct sk_buff *alloc_skb_with_frags(unsigned long header_len,
+ 	while (data_len) {
+ 		if (nr_frags == MAX_SKB_FRAGS)
+ 			goto failure;
+-		while (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order))
+-			order--;
++		if (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order)) {
++			unsigned long pages = DIV_ROUND_UP(data_len, PAGE_SIZE);
++
++			/* If splitting the rest into smaller pages would need
++			 * more frags than we have left, use one larger page.
++			 */
++			if (hweight_long(pages) > MAX_SKB_FRAGS - nr_frags)
++				order = order_base_2(pages);
++			else
++				order = ilog2(pages);
++		}
+ 
+ 		if (order) {
++			unsigned long smaller = PAGE_SIZE << (order - 1);
++			bool can_shrink;
++
++			/* Only fall back to smaller pages if the frags left
++			 * can still hold the rest. If not, try this order
++			 * once more with the caller's direct reclaim.
++			 */
++			can_shrink = DIV_ROUND_UP(data_len, smaller) <=
++				     MAX_SKB_FRAGS - nr_frags;
++
+ 			page = alloc_pages((gfp_mask & ~__GFP_DIRECT_RECLAIM) |
+ 					   __GFP_COMP |
+ 					   __GFP_NOWARN,
+ 					   order);
++			if (!page && !can_shrink &&
++			    gfpflags_allow_blocking(gfp_mask))
++				page = alloc_pages(gfp_mask | __GFP_COMP |
++						   __GFP_NOWARN | __GFP_NORETRY,
++						   order);
+ 			if (!page) {
++				if (!can_shrink)
++					goto failure;
+ 				order--;
+ 				continue;
+ 			}
+-- 
+2.43.0
+
+
 
