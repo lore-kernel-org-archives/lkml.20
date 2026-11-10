@@ -1,72 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338753;
-	b=oMxN5u37X2tJjuYY+FJdKg9L8GFW9PRukoL7WjtPDJme4rUTKS2TPaNeu6rZFBy1RowP
-	 og5GSWwUPpAZbSaQ+jnDHReDLjNqd4pgmWAEbKp+xXhBBHK/x4C5NEeEgUYln9A36R+aM
-	 oslR3JnDL+7jMTz2Da1lMXZuef/OQGJgF0hRVBt79lm9YUMWGq6HkTEZobh7B6hUbNV23
-	 d7gQPTfT67yU0Xazl03RbjcRt8lF/6kuQUkkTxTjytAQOYroHqTijplOlrnvrvA7lrgS9
-	 5rlvd3Crlvj/Bb4a3qIsPjN0xTjgo5BAI1+1+M/RZiFu1/EWD+REvxOZ9fdH1YI9SXQ==
+	t=1794338763;
+	b=wuiURtP3JlTSpxd1qu+DbR51y3kD4P5E5GVKMFaUlC2lgLufvBGESPYKo4Ty+AXalUQO
+	 4nTXsw00QzrO0admB30MSVAGWELEWIJuPQ3ttLXcRb+VfhPRWn1tzg252kO/AWEaJ6MOO
+	 iza0mmhhCYER9tsA3teFU4s7LRh7iJjbLZWD6JGekymYnJKj9U3Ncj0QEUTfQWB8S8+cw
+	 wbp5Y4Ae+PKXG5uwyXOIWHO+RruvDuUNp9ZIW0pfPHQQyhv2Kgtl72l04MZkgYR1KuMxi
+	 QKgM7uzStIZFbrgq4tribOaxaFBsqOV/17N4Re5+pArBwltMQu367r6a4aIhSB5Vaug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338753;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ExSFRNBdpFZqpaarK7S24/veHyaXPw+cAkj34YFoUsg=;
-	b=Nv2yHB4mK9TVE3Bai9gIrs5wijfsh2rxB5inqTBuwmWRwtBvPV0B9t1UEctLA+o/fm/H
-	 Sa2YGjqCFOFrXKqrA6xjNnwn60q+KP96+Bquvtxb/JPr+ywgyLlblm9GJGM2QxhpNx1bp
-	 00pD+K3aqt8A5W9vb7oqDpLRA4bpMdlRUCli1+KSq+3hvAUFsjn0y6cp94Fbjox/CqA2E
-	 SiceaTlvnZhKsWSxCmP+0Ru2J3/Du63F5xsRGKIhnuyH/l5q1EyGuzr/S6EZc5kmMjdmt
-	 0GAZac4RPZ3KeOUF1hZmCv/XSp9Njp3ZRTHtSWUNq5uwJoiS92XQ9zeSskm5YoG4B+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338763;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2I8vq1te86R5k4Yvi4aSwE2vl91WuDRteqWewLtKBQg=;
+	b=4x3OsVgRc6WMagFEo9C1HdWOr0IzedESrljcpCtxgxj1OwTjphvWvCC6bf3Hx+2WVuAP
+	 py019/4UKjBTkldMuNKTFDXRl4+FcL5nPDF3GV03Bv7yCZUs44VOVI8c1bj61YJtuHZpw
+	 6M85PP0//+jnAWJaLLdPzEoNQFTwveg0sCUNmoAwOPkn7iIKiaLFuxQ45O6e7ioWdYq8i
+	 3R5d76c0S5mO3OpduLiG+2W9xMjKQ3sioLGblabGcL/trfGAQUqZBvSduMaCDwm5GIrxU
+	 mM+3heDWi7a3VvzLinXAGTOM50GZ6cI6AE3uRiKAjzQwQ44OwVKwx5cJKleyWTZb4EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=mga3BmeB;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lQ/+0Nxm";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D2D606A320;
-	Tue, 10 Nov 2026 19:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09D2D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6395B606A320;
+	Tue, 10 Nov 2026 19:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=mga3BmeB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ExSFRNBdpFZqpaarK7S24/veHyaXPw+cAkj34YFoUsg=; b=mga3BmeBgZ2RPvRZvXlBQ7Q9tz
-	XouFPDsqvq8SAEQvaqGMv7iU2O+VEH9MG23DJWzJJzD+yrCHWUvM2L8PjOs9b5feXZXH4rEGw14rY
-	ZQ8X5cwp1Q4/g4sMooNR7ciLkpZqwN8zkW4at7wmvuvY1+F144VSMQlZn9QZW9aE72mlMJaeY8kVj
-	m8kRJbfcnClHz5IhKU8P5KjpVTb2yhuCvGELCXhuujyOho6cVXAlv87ukRNnq+P59eUjN5INC+SZU
-	EvQC8rPJfUWhs4w77LHL2DajB6bVUHL2EIJtSZyYCvNMUnwodQOCI7xx9XfanOhzIiU0qnTtCdEcq
-	yYulOyNw==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQrTV-00000000TR9-2wpr;
-	Tue, 10 Nov 2026 19:25:45 +0000
-Date: Tue, 10 Nov 2026 19:25:45 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2 1/2] mm/memory: recheck PG_uptodate after
- ->page_mkwrite()
-Message-ID: <avNvufn4HLIhVm2k@casper.infradead.org>
-References: <20261109120403.82361-1-kas@kernel.org>
- <20261109120403.82361-2-kas@kernel.org>
- <avItd6rDqP3GB6pL@casper.infradead.org>
- <avLzpIM1VdE31a-B@thinkstation>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQ/+0Nxm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20101F0089F;
+	Tue, 10 Nov 2026 19:26:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794338762;
+	bh=2I8vq1te86R5k4Yvi4aSwE2vl91WuDRteqWewLtKBQg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lQ/+0NxmYvHxSfnSIONTHNAPyURfbEWLrhrOoZJO+2LDWE5xgSmkLnzeiZkASZHeH
+	 5o23T5MNbRpKaR7CRy1zV7x68/7qCQQ/ba36ep08wwkca0Db/mEZn0dpmdrYuJTTGs
+	 /BW48Jh+fw2tDZFQn24sj/fKvnu7a+BdNcDp6ywgfHBDj6zQeA8ERNyjKEyYt0Rluz
+	 +4TvuWD8MGB8c7Ytwr1Wqv8zUMmOKNKcLhNI0NeQ0WGHmeAlMn+6FTZGuK4uyh7Zt/
+	 7tGKSdGa4byuApcbhVslzDwNy3HtdzHh31lywsBQWZeRql+bUmFKnm3sZbEpCeMeXs
+	 lNiwO/1U9ICFw==
+Date: Tue, 10 Nov 2026 13:25:58 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: pinctrl: sun55i-a523: one interrupt
+ per implemented bank
+Message-ID: <179433875840.1485523.100233134463965104.robh@kernel.org>
+References: <20261025142412.112216-1-pmazzini@gmail.com>
+ <20261025142412.112216-3-pmazzini@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,30 +67,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avLzpIM1VdE31a-B@thinkstation>
+In-Reply-To: <20261025142412.112216-3-pmazzini@gmail.com>
 
-On Tue, Nov 10, 2026 at 10:38:34AM +0000, Kiryl Shutsemau wrote:
-> On Mon, Nov 09, 2026 at 08:30:47PM +0000, Matthew Wilcox wrote:
-> > On Mon, Nov 09, 2026 at 12:04:01PM +0000, Kiryl Shutsemau (Meta) wrote:
-> > > do_shared_fault() unlocks the folio around ->page_mkwrite(). Writeback
-> > > can lock it in that window, fail, and clear PG_uptodate with the folio
-> > > left in the page cache. ecryptfs_writepages() does this when encryption
-> > > fails. filemap_page_mkwrite() relocks the folio and checks only
-> > > ->mapping, so the fault maps a folio that is not uptodate:
-> > 
-> > Filesystems that do this are buggy.  They shuld be fixed, not worked
-> > around like this.
-> 
-> Fair. What is your take on the way out?
-> 
-> Is there a timeline for the filesystem fixes?
-> 
-> Until they land, mm should still not map a folio that is not uptodate.
-> 
-> Would WARN_ON_ONCE() and SIGBUS, like the other checks in 2/2, work for
-> you? It flags the buggy filesystem instead of hiding it.
 
-It doesn't matter which way round the race ends up; if a filesystem marks
-a mapped folio as !uptodate, there are other VM assertions that will
-trip eventually.  This is one of those cases where we should ignore the
-bot because it doesn't quite know enough.
+On Sun, 25 Oct 2026 14:24:11 +0000, Pablo Mazzini wrote:
+> The A523 and A733 have no PA pins, the A523's PA IRQ bank is not
+> implemented, and the driver no longer counts it. Go back to one
+> interrupt, and one debounce period, per implemented bank: 10 for both.
+> 
+> This reverts commit 11f25ac56372 ("dt-bindings: pinctrl: sun55i-a523:
+> increase IRQ banks number").
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>  .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
