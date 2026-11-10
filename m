@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317305;
-	b=NBAkaT7rCzHvp4Hr5dlbwl2gSAiqFZxfCMbkL38Amu9mP4UemVizbhtVJyeWdn+WHnD3
-	 WtkEo8i6OEkYBFaWiIqS/MExKHNbvr7NZvrIRvA1tlpWF6nqWWRdUgSTR1s+WqrDLS5/M
-	 qSqGFl1sWJqSHAYanaI94Ic+ZOyEuVtrkpdnHC9Mr38nr10lS93/SboqrtpK4sl9zaZ1G
-	 UMZXiKFvP/gdwFsakcG34Pj6YVnp5zzoxnxWHERDbu1iF0eakfR3Vt0kMTVHmxNvWZSsi
-	 jMTLoGUBqJJ/fxRPnXZ9zDFQjcxp1Lnb3gl66ZyCbeP9hWBBDMYCHomKUSQ4IUxWblw==
+	t=1794317322;
+	b=iSypuaSCrLC2V9X2UCkp0QCVqcJY1crPvuwcXqVnfkMCcIXQd+3SdrKyF8D4GFxtv8ce
+	 MJhskmxBH1TyrfzlcL9KkWHGdFhNtVTDet6Kgn9dnUsho4GBbhYKNXciMQJ8vmv7lOypO
+	 rQDd0MtA0aj98DkGKFD1GaLsTpmfc7tYb9Cu3bDBqIYdX67tpVuHIaGhbCbnmwO5/BX/X
+	 F2e8lIZRTxIlrSPdADJpHMh8p9TBN43wFfZx93S0quhRNpI+tSlcsDJIlXTER4SXpjyH3
+	 coeK9YGbGI/MaQW7LrUjL6YAgCOzU4fT4783VKPl7t9QPbGgpnFiknNgkwPowmFkFoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317305;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=NjKqFsYHDe0kpWvSkOX9Vo+Ww2XtDII2dnV2pSzH82I=;
-	b=kIryQHNqqEIHylB/giNpMknJ8HFXVKvB6BVv9DBf/N1CTxIhs1Bqw3M4X3SfwCCpyxMe
-	 3F9AVBF6joS7UquNTiW8weiG5vwSaRQ3IFh5uFL57BOYCcK3Lp7GtCAek2SNnf7ISAlJG
-	 rOlUNPX7YI2dbZN7xhkDR0Cgw+nYfxvRhVgA35R+AVVCklnGo4ag2OPLjwtd7PSDBJZ5l
-	 qEfwulA515vWyPsQvGt7pLzLmHIuIe7pTZaR3n7LlCsOu0/IA/9yKEpkU+JNPPRjjr+di
-	 IbSZ7yXXh6v1eUAMYNCYAuEF2RcqS8d/SXz4NlO/M4D8s6BOi+fodJTatF4xm4joHnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317322;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9eKl7b8wHlyQNjxuLHQg1pgl93UvcYeRIZp5vfnXBA4=;
+	b=mh2ttkZK23eO+gTpmpakmpmiOqU55K2G7vAlIPOlW214QEtSdEDb9DuQ2wyf0KUrl2qv
+	 KvhcO7wH2j/8ctUPkl8uxpqZEWDLVmw7kCIDDzdK3Z5idAHRTS67oNt/LaEpXmEQ4ExMM
+	 wBzj/33gPSok2HsEwDjhyHeYeINm9lvBaHf10h0kajjkit6Vl+bPmImAPvD/qqiWoNVJB
+	 Feu+Qv97HsHaW5eEFCD2Uri9C37jL+iJUCH9W+C8P0BBO3oKYT+K3eYnLAxCA/B9k9bc7
+	 bqEsLEww33LIovOH2mA5TdQFgBBtpEnYaEejOzbpuvmF36jmt6aE1TuaYkOy6as6MWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=1wS4RB6A;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhVbHuz5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A54606A747;
-	Tue, 10 Nov 2026 13:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6A54606A747
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D1760798B1;
+	Tue, 10 Nov 2026 13:28:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=1wS4RB6A
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=NjKqFsYHDe0kpWvSkOX9Vo+Ww2XtDII2dnV2pSzH82I=; b=1wS4RB6A4qiYD3td9X5Rp0IkNu
-	viUA6ZWn4P6mP0tJNNDTE3bl1YfMG2KxG8B1VeZskEhd2HK0k+A9DLs9nLdsCdOCHgd9R4hCXE0jp
-	4mF5lJYGb/WK+gnUaJs0VYHFFu36MUD/xswY2MLqcj8d7POLSzfZ/R4xCt1J+hX2a0Wc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQltb-00FUEa-0t; Tue, 10 Nov 2026 14:28:19 +0100
-Date: Tue, 10 Nov 2026 14:28:19 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhVbHuz5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4F61F008A3;
+	Tue, 10 Nov 2026 13:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794317321;
+	bh=9eKl7b8wHlyQNjxuLHQg1pgl93UvcYeRIZp5vfnXBA4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DhVbHuz5pM73OJkt8de/TR7VboJXCLI3GHavDoVbf6/c+CUMVET06DBtqOBFRDZpB
+	 Sj0fz1g3JdaApgrdj5eLrxj1PL0TF+BchBmufMWx0kgbv0AYTd8z3Qs5kVHZjuY6G7
+	 DQGF8O26yPMZIewQF3Rovi2oUIFEXBjmt6gtaghphzYAuhSkqkqE8XyA0KQs784Bl3
+	 v/edUA5grLLJvrvQLLVLOL/9UhQxg/0Yrpuu/vD9JxmtMXqLJ1bssQvFLRU+pzRlEl
+	 B4uQL+KvACXup14SKlPR2wWN2ArP6uYnvN62nJav8KBAdHZD3sQeD1IEXp4Pmlljrk
+	 QbbVLRaWg/S6w==
+Date: Tue, 10 Nov 2026 14:28:38 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Prasad Sodagudi <quic_psodagud@quicinc.com>, Rajendra Nayak <quic_rjendra@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/2] net: dsa: motorcomm: Report error when
- FDB fails to add
-Message-ID: <4f5b92b6-7dfc-4065-90bb-3f5398b0f2a0@lunn.ch>
-References: <20261108094512.1285796-1-mmyangfl@gmail.com>
- <20261108094512.1285796-2-mmyangfl@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: qcom: Add qcom,remote-owned
+ for ownership update
+Message-ID: <20261110-modest-significant-ostrich-8dd408@quoll>
+References: <20261106-egpio_fix-v1-0-569d220a4748@oss.qualcomm.com>
+ <20261106-egpio_fix-v1-1-569d220a4748@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261108094512.1285796-2-mmyangfl@gmail.com>
+In-Reply-To: <20261106-egpio_fix-v1-1-569d220a4748@oss.qualcomm.com>
 
-On Sun, Nov 08, 2026 at 05:45:09PM +0800, David Yang wrote:
-> fdb_add() ignored any errors returned by the hardware. Return error for
-> that case.
+On Fri, Nov 06, 2026 at 01:29:41PM +0530, Pankaj Patil wrote:
+> Add "qcom,remote-owned" boolean flag for egpio capable pins since they can
+> be owned by remote island io independently of the selected mux function
+> even if function is non-egpio.
 > 
-> In practice the 4096-entry table is hardly ever filled, and since
-> fdb_add() will automatically expel dynamic entries, something bad will
-> definitively happen before you fill it up with static entries. This,
-> however, is in preparation for the upcoming static entry counters.
-> 
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+> Presently egpio is treated as a mux function level decision where as
+> hardware programming guide(hpg) specifies it as pin conf level decision
+> i.e setting egpio bit is independent of selected mux function, the
+> driver/apps claims the ownership of the pin if it's egpio capable in
+> case of mux function being specified as anything other than egpio.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+I don't understand this. If the pin is not owned by Linux, then simply
+do not list it. What is the point of listing a pin configuration which
+should be skipped?
 
-    Andrew
+Best regards,
+Krzysztof
+
