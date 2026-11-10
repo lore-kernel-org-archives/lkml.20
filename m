@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340389;
-	b=ES+t0Q0uOoEEFWsEyeW5glwEam/2MTMBidjCJ7557XWNHY7NygVRwq/rQCHsqQ0EqSTO
-	 kLETYx9T+J+rhIIluTHSX6jCerx1JiI3evTR/xnKVkWvXtvwsRjNuVWrxGwo33c0BkM/v
-	 Za/2Z/YRznLJnWdu2aoH2JjIa0q3NC0LJ5Zx4PjLZWoDQhIxv1Nzq4CWUF7e26ttGbric
-	 /vUjRN1LcCtnrz9LJe5sQGCtHcCWaFGVQRcz8oRpXaiuDDQkfTgZdGgim7ByZ8qrv/bF4
-	 yI+6t3lG82ZXEDem3243uMO7L2M+ikz2Gtti2BuJXgkqQpx2qgdmXBMSJgf/Hkma9lA==
+	t=1794340399;
+	b=FiJ2qQUWOjVdMSxzgFRKbjBrRF3R5e3zDAFpvcD6IpqSxq9GrOJ59mmgb2gZkENQrnj5
+	 gBh7vLc3tWdNWNDshsXxJgb1CXsqoyhNatpDaMuCeWZIOhzrs2WuZabe7Wf+W5Qm16eqY
+	 qGutbeB+zHuSa2txedZSVpeny8VC/52sFV+8QpvGyYxJ/P1ARupAfMAC+7SHzM4dN0NTH
+	 OM7HZ875lUJQgNX5W8+RP8wqv4euBD75sVEzifpDZQmu7BNA8PabdkDjZaqHPskizJL2C
+	 8+P2ehrukA6gjuvQlNxVIgOlULL915UnZFpM7j1LqZ7YmkCNUDpQI+YIwAjCFHvTvAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340399;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-	b=K5Ru+vzq1E99I2pK1TYJjabcVXFaSshRsEPAwM/HrHD6KXgyQelTs9NDLGdxyTbVjcxL
-	 xuQNqNIP2EFPsEYQg8nrhkBbf3OS3EM7hoYB+NVoES5qxBKPfOpvoslpQl0Br2/nWqclg
-	 EIsAyB399ncVmgKHZsfEfKO0SStZ1nfNa4w6ivvixNah2vTsY1gWycQF4HHmaORcwj4c/
-	 FlMLcSU6S+UxcbbNDcKWZKBoYYlTl/xf4mkNAnRHuBx4klNue/gOLMDq6EeHIsQrYbMyF
-	 pfx9YpVHbUOUyYf9d7NbwWVqph5VrXU3IxaPY5P5ObueOajluriOLYjchBjueHYMQVQ==
+	bh=bMjomd0jtFOusb4r+jQiPm04tLdqb5W0DB/94s0Gjp8=;
+	b=NZ2AETpkkx2KweJmsuYe7HTsyQESusyW5GlXPnSFmoH2pMm6uhD6Kg4TPogs5g24gmcF
+	 ztYOkSNyeiPQuLxwlAkPpXj76lUgfod3RN3MrRlNeSRMKKXbCalT6EMse7DTvGuKQOMrU
+	 akdpIx1oZxFo+dZoJrTwu06HCHbygehWSrh8MEx4MeOHUruvDo5chbhii8MI+yz0tpscb
+	 nrhmRSDF/38zfY7Tpj18Eo4MYfwDLweGea18WOnThmyrCF+6V1d6+Mnnhfcbmh5Qhn2/u
+	 1JYkZmaBp+WGpGCC4JjCEKTeh3O7JnnN8Vl+4jz2DCUM0hgluI+YI8ctvlPKF6agkCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J5l/iCaV";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KNmq6Glf;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2E8606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2E8606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C4B60A2626
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2C4B60A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5l/iCaV
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36dc4797082so346275eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:53:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KNmq6Glf
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-372cba0ecf9so232492eec.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:53:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794340388; x=1794945188; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794340398; x=1794945198; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-        b=J5l/iCaVj/L6+H5ov0FJz0p5e7rr/0JFjFNg7uedGUKahcImhk04lcJf3uhwT0M0Wx
-         Vdol1OBCMzAk29mjfTm2OsVU+4DTDUFwFn+Mvrgeltauje0W9PLJGF4ekFehP4dnkzYD
-         IVOj7AymgQYccUhEnl30tCvV4bNcnRJutdtvWpkt0Pngwv1UYqdyRA38OZ+cvKMs/pTn
-         aAASDx8K1kuzF9HiC2SoTBBH6b0T7m3Uhmv9i/80vu+sPXSgH8Wr5ka/RUwgudqE2jQk
-         nOWOT7jHUS3tYWwMpMH1ADpcH4eKjRHfKvfgInH9/eXZs9Tu9n/hV2SEXKfNlwQLB4o6
-         4n4A==
+        bh=bMjomd0jtFOusb4r+jQiPm04tLdqb5W0DB/94s0Gjp8=;
+        b=KNmq6GlfCII17HZE+AJjaHUons5D0oj6okIngpx/wla3vWVEXU5J9gr6TLWbCSCkNv
+         0Vw+wgVtfmfckoLXVNaLvezuUTj87YqcDM/+tcgED8kk7TZAEa05Ga30rj0riDh+obd8
+         vNqvmLLkqQQZCEgfwMcOk42iCUM5WeZXR6CPToOmSQ2qW2q8AWk0y+hxGHvM4thiJPHv
+         DBpr8+lGdsG3sHWTvY2pilxDdGXQhJ6jGmqOmqaBolLw9Sm72No8hoDcbQK+kXa1KfU5
+         6vk9zBIDasMCloANO3SG915OAxGrnGZwRK1TY/L7976gwnutBSXU2Os5f6x0KohUx95F
+         BLuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340388; x=1794945188;
+        d=1e100.net; s=20260707; t=1794340398; x=1794945198;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gQt7z0kPgD+299qyKsfe02moLDWp4KMca7T3a3EzzP0=;
-        b=ptNsneBIcAtZpwl426hKUsQuCyDzVu5yLsx0FI1GNyNDyIXUy8DoRobjfO9lE7ZUxm
-         BfVNcOPdArOzaBmZFjXcSn+zqrBbvTKC1J/7qhG0RSROsMTFCV+d7FNed1/KhMGm44ym
-         8y2G9RouD9JRWtHJkgoGLl7aktCUjfaFwpI5UautNXGM/LG9eXVmEu00w1WwhQNBa6se
-         eXqIGjcvycpxsqjiSGmDqWBrAEv/Prh9GGqH2EeRnx0Xgz30c9zbwk1RkzY6KJb4spmg
-         nT7zBKFTUUkUBLhuasmpLF0Gux1pzZjBFQnyNdcMxfNcJU94giRozaMMSPP9vYg4GtIW
-         032A==
-X-Forwarded-Encrypted: i=1; AL+hErEZiDBQhAioINyh//VlLTtYzoH5l4FTanbMNJoPky3Pq2/woeRGNfTnFArph/yCjVzHsn3nru2+lK9ljII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0WADpm/PvCg98ukVYFzZkXnJ8tJbHQL/cg7LymPvluGgsxW3X
-	heVj2bADicGFOrL/m1V8Br9uaUhwLRJy3lAMWlMqJVT6Mwx+C3bfxsQbFZghjQ==
-X-Gm-Gg: AYBFou2QzZubSDDWLor3rPXfOzfocXiAyYWLqyeYKWvNc7OJ5pktPTyE6mgago6uSvY
-	Agw4/0uxiEhX12y0Utk/ZjfrcHsIKl725K50K12vSGUYDBTaxYjPm9XwUtVMjBFLAOQOeJ4aheu
-	35HQ0s1CIaqdQhvvh8W8aeee9Bfc+seVoCrJdDUg/l0Wse2ZBZ1h6jDHvABQ1KfRU/JNpBwvkts
-	Im3OkiwV6BIcbNAFCvZdGz3iLN1PEguFjHKG4ztN9Yd4nxiZO5USLmhPm6Ce6T/CusuUeT9z7V7
-	rXERZEbtaAx4FDyXmybo2e3Hl8C9StuHBRU7DU7FEKXz4EuwI/64QO1MJw2/feoHAyPgKuULqSs
-	yHmaFxGkW1c8Y950OScGlxyPKx96jHgwSHjl+ff1wNZqIwzq7y+aAWaYjQgbYIzZfw+Ky7VQ4+K
-	1ssHl/kfyyrV9j1bQqmZfV71mMcnvlO5ocnHMm390TV5bwsW+4+xtEyenJPyXUE/FKGpTZkOSJA
-	zm6rOPIoau2TGrJGrwmpU3vam6Ua+NFB41IlbBPHCOHb7yKxBJ2EflMI83lNk/aaNgDNoc7SLLv
-	JrnTScOeBk3dPTLLoswBW8ehkUtQe1FmzD5yNqP0
-X-Received: by 2002:a05:7300:e9d9:10b0:36a:143d:98db with SMTP id 5a478bee46e88-376854ba2demr670711eec.1.1794340388437;
-        Tue, 10 Nov 2026 11:53:08 -0800 (PST)
+        bh=bMjomd0jtFOusb4r+jQiPm04tLdqb5W0DB/94s0Gjp8=;
+        b=Mleyhk4IxWYj3HZ6C8HUqlYSBHY5Mc1RsOTNV+3+wp1H4U2hmWItnRwaSAx1o/fagk
+         vuvE+xDASUDV4QTFqouhyZFPsTj5kgKsUTU8orhSEmXxz8fX1fkKAjx/lSzAmNKl9Qzp
+         rIlPn3867kND+3P1eXOD8jehfhI4YZ0PSCLJmXhWE0R5HZcuc3H8af/3ZUG9mistCKLy
+         u6Q7SyC4iG0tYax6ySMJa8bjn5pYgDu1UWMs/HvieO06f/Axej0QClr/iqT4EMINVl6Q
+         4RUXaLXD0hhRbiUYfwCM+934E4R4JDtCkS5gx0tTy9IiyFMl4XbgKw8sXD0gm5sa4IIW
+         ONcA==
+X-Forwarded-Encrypted: i=1; AL+hErG+XzksB6q0e/YzBxocE/8KhLQtT1qZCwOFg1Z01Up6XJ0X7r+CeFN96wdlxhKQcc7vrihJGU1qUoEDKno=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KXHbzXXJJJdHfo9K6cG4e5hJ5AyRn0Ty1KATCw6W+OSQn33bg
+	CjapoAvL/XlyCwkhX0AaIepNgudnbjXb7zAEIKoCn/485+EWxpfYTQg3
+X-Gm-Gg: AYBFou067Rh0VD0jbYofoW5msX/p65EPLrX8EJvvpbvY6yt/Y8/dClemwtHneq5Hp2H
+	jTeYjQHMsxYXapykpIUf8+cAqTvfaW06z7DqfH6UzJCHca9KrjnNUn5WMz1r7iweA+7xXPuPcQV
+	CtxM29dOadl1ToMIp6880t1JRxNmEa0mrt1NV8JsXImlZnUnwmCCaJk0IIws3UTX7c8F6aUelpH
+	gWWu8MSk3vuzBk/pzAcbBWfNQQX1hTiTINf6ggtbHhSvwA4tfC2vy3wO2tu1fFKRKll+oADchZw
+	Bjp5GnVUU0daFVpACNIGYOlk9bnH9D9XyLPOD1JsHdDO/lW4SpPEqmJnLriPxzdzJ21l+NaxMoC
+	Gm976+B/DCbToFTfd2h3F3MRj1acx/E+qHuM/pf7gEujHuVPMmn+rmKojrKUgA6YnIAh8oUM5MN
+	yCGOn73RsJ6/CLRnkSctRbZNI3qUCbQTKdh1GqkX619z5yVJPSMkR0Oc4iO7rzRiWCki35HHXjP
+	l/cLgygr8Y5SibT8/KS4YK74DivHs3NUBOcgi/Av2JdrW7nvMGOeJgY7F4z0s/7+JNsij5Japi6
+	JH9HVjHQvESSBeO5BVQojH9aBFOl3C8dB0NAdBjzlRpkRZgs7OWNZxzmiCkw
+X-Received: by 2002:a05:7300:f797:b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-376850ceb37mr593617eec.2.1794340397850;
+        Tue, 10 Nov 2026 11:53:17 -0800 (PST)
 Received: from [192.168.1.11] ([2401:4900:881f:d9bc:11f3:620a:3333:518d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.53.03
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm8834225eec.11.2026.11.10.11.53.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:53:07 -0800 (PST)
+        Tue, 10 Nov 2026 11:53:17 -0800 (PST)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 11 Nov 2026 01:22:35 +0530
-Subject: [PATCH 5/7] ARM: dts: ti: omap: am335x: add board compatibles for
- nano and pdu001
+Date: Wed, 11 Nov 2026 01:22:37 +0530
+Subject: [PATCH 7/7] ARM: dts: ti: omap: omap3: drop redundant ti,omap34xx
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-ti-omap-dts-fix-v1-5-19022d1ff4b4@gmail.com>
+Message-Id: <20261111-ti-omap-dts-fix-v1-7-19022d1ff4b4@gmail.com>
 References: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 In-Reply-To: <20261111-ti-omap-dts-fix-v1-0-19022d1ff4b4@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -106,51 +106,96 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-omap@vger.kernel.org, Bhargav Joshi <j.bhargav.u@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=1304;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794340358; l=3535;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=iiiNe2YmgDYbJuXDc3R3d+03XUkBIvy8dBS58FXrgXs=;
- b=3u7NS6WDKuDRZlRdtola0QbBGcSKerNcA9rN/jByJq2Q0w1OdePF/XoqfXao4Mamf79AFSdGW
- 5uP5Q5J6ezrA2Hjww7BldT8zzJ+v6WtM/bFkXGXzO0NbIN7HGejeqPy
+ bh=BYon5LDCHp9dtQh60TtA5CEBqyx60kTVIJ4v97FVd/E=;
+ b=S58DoGXGcWdkV+aVPGpG3paMqKurohdzVxoPc8uuX39+HJMn/z/MkBGIFLsYmSuooUlFisMVt
+ MdTLz9HD+qOA9S8hyk/CD65Ncqg2ZT49bJWNAAQYTTaS1CPtP1VxCqF
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-am335x-nano.dts and am335x-pdu001.dts only specify the SoC compatible
-"ti,am33xx", causing dtbs_check warnings. Add board specific
-"newflow,am335x-nanobone" for the Newflow NanoBone and "eets,pdu001" for
-the EETS PDU001.
+Commit 6ddf6c91e6f8 ("ARM: dts: omap3: bulk convert compatible to be
+explicitly ti,omap3430 or ti,omap3630 or ti,am3517") added "ti,omap3430"
+to but left "ti,omap34xx" behind. Drop the redundant "ti,omap34xx".
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- arch/arm/boot/dts/ti/omap/am335x-nano.dts   | 2 +-
- arch/arm/boot/dts/ti/omap/am335x-pdu001.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/ti/omap/omap3-cm-t3530.dts  | 2 +-
+ arch/arm/boot/dts/ti/omap/omap3-ha-lcd.dts    | 3 ++-
+ arch/arm/boot/dts/ti/omap/omap3-ha.dts        | 3 ++-
+ arch/arm/boot/dts/ti/omap/omap3-sbc-t3530.dts | 3 ++-
+ arch/arm/boot/dts/ti/omap/omap3-thunder.dts   | 3 ++-
+ 5 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-nano.dts b/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-index d51cdd6e1ab40..40e60e0abaa87 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-nano.dts
-@@ -8,7 +8,7 @@
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-cm-t3530.dts b/arch/arm/boot/dts/ti/omap/omap3-cm-t3530.dts
+index 0c6f14963e5ea..0a32ccc84e932 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-cm-t3530.dts
++++ b/arch/arm/boot/dts/ti/omap/omap3-cm-t3530.dts
+@@ -9,7 +9,7 @@
  
  / {
- 	model = "Newflow AM335x NanoBone";
--	compatible = "ti,am33xx";
-+	compatible = "newflow,am335x-nanobone", "ti,am33xx";
+ 	model = "CompuLab CM-T3530";
+-	compatible = "compulab,omap3-cm-t3530", "ti,omap3430", "ti,omap34xx", "ti,omap3";
++	compatible = "compulab,omap3-cm-t3530", "ti,omap3430", "ti,omap3";
  
- 	cpus {
- 		cpu@0 {
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts b/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-index 9f611debc2090..c36e1b7922c9c 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-pdu001.dts
-@@ -18,7 +18,7 @@
+ 	/* Regulator to trigger the reset signal of the Wifi module */
+ 	mmc2_sdio_reset: regulator-mmc2-sdio-reset {
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-ha-lcd.dts b/arch/arm/boot/dts/ti/omap/omap3-ha-lcd.dts
+index 94f6b7931e333..e231209be3a15 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-ha-lcd.dts
++++ b/arch/arm/boot/dts/ti/omap/omap3-ha-lcd.dts
+@@ -8,7 +8,8 @@
  
  / {
- 	model = "EETS,PDU001";
--	compatible = "ti,am33xx";
-+	compatible = "eets,pdu001", "ti,am33xx";
+ 	model = "TI OMAP3 HEAD acoustics LCD-baseboard with TAO3530 SOM";
+-	compatible = "headacoustics,omap3-ha-lcd", "technexion,omap3-tao3530", "ti,omap3430", "ti,omap34xx", "ti,omap3";
++	compatible = "headacoustics,omap3-ha-lcd", "technexion,omap3-tao3530",
++		     "ti,omap3430", "ti,omap3";
+ };
  
- 	chosen {
- 		stdout-path = "serial3:115200n8";
+ &omap3_pmx_core {
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-ha.dts b/arch/arm/boot/dts/ti/omap/omap3-ha.dts
+index 19e471eb3b4e1..d4d883f588eca 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-ha.dts
++++ b/arch/arm/boot/dts/ti/omap/omap3-ha.dts
+@@ -8,7 +8,8 @@
+ 
+ / {
+ 	model = "TI OMAP3 HEAD acoustics baseboard with TAO3530 SOM";
+-	compatible = "headacoustics,omap3-ha", "technexion,omap3-tao3530", "ti,omap3430", "ti,omap34xx", "ti,omap3";
++	compatible = "headacoustics,omap3-ha", "technexion,omap3-tao3530",
++		     "ti,omap3430", "ti,omap3";
+ };
+ 
+ &omap3_pmx_core {
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-sbc-t3530.dts b/arch/arm/boot/dts/ti/omap/omap3-sbc-t3530.dts
+index 1beefc3194224..c2b4c707cd9e0 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-sbc-t3530.dts
++++ b/arch/arm/boot/dts/ti/omap/omap3-sbc-t3530.dts
+@@ -8,7 +8,8 @@
+ 
+ / {
+ 	model = "CompuLab SBC-T3530 with CM-T3530";
+-	compatible = "compulab,omap3-sbc-t3530", "compulab,omap3-cm-t3530", "ti,omap3430", "ti,omap34xx", "ti,omap3";
++	compatible = "compulab,omap3-sbc-t3530", "compulab,omap3-cm-t3530",
++		     "ti,omap3430", "ti,omap3";
+ 
+ 	aliases {
+ 		display0 = &dvi0;
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-thunder.dts b/arch/arm/boot/dts/ti/omap/omap3-thunder.dts
+index c87956c59b083..a0cd06d4e39ac 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-thunder.dts
++++ b/arch/arm/boot/dts/ti/omap/omap3-thunder.dts
+@@ -8,7 +8,8 @@
+ 
+ / {
+ 	model = "TI OMAP3 Thunder baseboard with TAO3530 SOM";
+-	compatible = "technexion,omap3-thunder", "technexion,omap3-tao3530", "ti,omap3430", "ti,omap34xx", "ti,omap3";
++	compatible = "technexion,omap3-thunder", "technexion,omap3-tao3530",
++		     "ti,omap3430", "ti,omap3";
+ };
+ 
+ &omap3_pmx_core {
 
 -- 
 2.56.0
