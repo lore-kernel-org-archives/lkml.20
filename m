@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336629;
-	b=q6hhT2XhfZmKhBvJb1qNzvm7xDp8AHy+oWAWSsZ51zhgVB1fWRHKpW9M7FKW4Ma/Xg6/
-	 zpWRQvJCw5tr3triSE6D+R45HELUfK+n/UBCk0yMoXxZKAJMIbim6Xamwk/z4p2DNanz8
-	 eoyIW1uHE4xL1kmUE8HSMbnVxcdW2c1G2+kv6It+NCU95TbJLbXXyPpjOD4QIdAmSacOB
-	 4wvGc2BSRwWqwMvs7pLgtRCzMR0Mt7rfwP9zjPoDPhJ94cSs+G35eVEmgNByKJqg61pT4
-	 UiMrIDtK6fskztUDS/nwFbQ/K2UGdF45DvlLttNEe2LAC9G5COG6/ogaOS/zLzoecNA==
+	t=1794336638;
+	b=ShuKGj8nPnerCmSoGIv3tKNpH6hX+W9D7ZnSdLjB+aLHpbNyJdLVFyYeLkmZPFGe5Lhs
+	 T/CeS6W0QJbprFrGfYIn9spuKT2c0G/Jpq5QWA7pzWaG+mLytChME5A9cN9k3YeYLqeXp
+	 jxFBRS/2QbvO1V82DrXOA0MKoTJDE2te+O/EpodoTHf9NXOjHnppMlxrponu+p3uTSDyb
+	 9g7wtUvgoHb+WgunovuEiFdbIZ8p2mqiiscCWAiUV66AUduxXaN1LTWUeNjNrN1eURRUQ
+	 0uFL/L3qDG6Zg8gwKFQzibBOyJgiiPOv5XZmVbho9U7vnM0uzg5yYpfZd8ogxtpy01w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336638;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5YOvA9188zoishfCwYXS1Hp8AbcNhYvj9GRiJfG9rcM=;
-	b=SpAsHSTwGQnVpNg20AdaeihZI+aaA4NT83QTs+pZSabFeDazIoTw/K8zQ/65RLHm938S
-	 I9hv3pntTwIjBOgHqwge9PzLHOY26R3Jofc0cwHPAR+MufEN4i94mcdkHu83vUEejjz/G
-	 jg4W/HtL7zYkscqHGd9/O4JTBwL5pT2ceUP/fU3zzsQbaWp3jRXJ0DAgbOrG/za8AwZ5/
-	 mv7P4DG5BhsPMmnoJCqWpuXJl9XV2XujZevPbcIGPOOo1JfEO1YWOyfF3smbz5LvL4G1o
-	 z+AzbWNODUhk4827LJijqPC7yS6VPVDuOFUoBI3RatKRYpj9hBnR+HhHXQAc+jpdDBw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
+	b=k17WjBse6NdRbdgTh9CH+2UCi61oFZ1pspNar7iwN+aVZssrQBLBqFaS5kpKS8Fv9D5T
+	 06uPvV0Sx2BEEg2FFbARUO/BJirvFCOSfj69+WVoPSQf2PwKKGhAgiCe1mxZ5EEou6Ayb
+	 xYm8mHYaKR3ZpMq1RExXG07OGh1zLKCFEUIJNnIdJFLQIZhnLODoZik3s3unS4Dv7E8P8
+	 snXbROzxrfjOUQFBi+S6XcxpZUa9wT8sIbUo60FOh0hHkI3DWIo9PHPDhugPTJmA1sw4a
+	 pL40LtdZYaUhHhJfMGW8SQlhYyAcXN3bVW93Inn5X0qPqAmISc+RYrsVTYhlkciqlVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7XMkC9S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC99606A323;
-	Tue, 10 Nov 2026 18:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8F6606A33B;
+	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7XMkC9S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96CF11F0089F;
-	Tue, 10 Nov 2026 18:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kx2ZaO3z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566731F008A2;
+	Tue, 10 Nov 2026 18:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336628;
-	bh=5YOvA9188zoishfCwYXS1Hp8AbcNhYvj9GRiJfG9rcM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=j7XMkC9ShpvFWe+1z4e+VrcQ+jbZyEZnTk7d0I+Iez2DK4BgVKn5Tvj7Ufnntb/dG
-	 ZZTF94jMmvEAL03lhLEgjDQeZ5/mJqM1dupv8jS0QlCLfarIB39GpM2SFUOoDufJ+V
-	 cLXmfvVTgmhshzfzN02nYEYLCOEpEC6Z7uT4Hx9b7bBfphGCSbUQP103zyuZHZJWjd
-	 egziSufQc7ylCsennCkQkxoMrDNRqemCmB99vns3E+mlr7iUCAU26ykWmT4EmiqhLq
-	 5PfuP5LPQ6RTL8I5yQuETPKH0bxLkOcw6a0WanFoqyOxL4jCNRPdn0X6t6Go9kGx5T
-	 Vb30NZ1UmXutg==
-Date: Tue, 10 Nov 2026 19:50:20 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan
- Hovold <johan@kernel.org>, linux-pm@vger.kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, Dominik
- Brodowski <linux@dominikbrodowski.net>
-Subject: Re: [PATCH 2/3] PM: add sysfs attributes for additional
- suspend/resume metrics
-Message-ID: <20261110195020.7d07ae63@systembl0wer>
-In-Reply-To: <2026111023-padlock-deluge-4173@gregkh>
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
-	<20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
-	<2026111023-padlock-deluge-4173@gregkh>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=k20260515; t=1794336637;
+	bh=nVBZoi6/3BeA1E/nAUsBY+mM3R71b9Lch9KwKeBie0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kx2ZaO3znvu4YvmU84JU+Iyq4xCs5EF+0qqxwsv7Row54evB55RJqH6zZjZ2YTzQ+
+	 KH6d3TrAUB73sCg7Q4T8ypXYbrkMJ+f7ztTRCFp7X1Ta5vIntCe6skoAzfj1B/aNst
+	 XvaFfDfIz59yeRWjUCmhwHiJa8ugLfELWt6zQuawcKMqTkbJZnBIaDbriM8t/kINrw
+	 VNbS+DBr7usofeo/G9oKuoz5YkNWqwUOJ0KUAyTNIZKZIyV8m8Qp7xFy+bHtMetLOC
+	 EZjZd1GYO25xuVcTjsbN28QUu2N6kI0ISNCbTTLxHSEa0ajGl9mwxkTRvGZO7e3GM0
+	 IWu6/RQKO9MaQ==
+Date: Tue, 10 Nov 2026 12:50:34 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: linux-kernel@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-rockchip@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-phy@lists.infradead.org, Dave Jones <s.dave.jones@gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Message-ID: <179433663384.1318226.574453120666617957.robh@kernel.org>
+References: <20261110074533.4052196-1-damon.ding@rock-chips.com>
+ <20261110074533.4052196-2-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,38 +67,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110074533.4052196-2-damon.ding@rock-chips.com>
 
-On Tue, 10 Nov 2026 12:29:11 -0500
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-...
-
-> > +static ssize_t runtime_resume_count_show(struct device *dev,
-> > +					 struct device_attribute *attr,
-> > +					 char *buf)
-> > +{
-> > +	u64 count;
-> > +
-> > +	spin_lock_irq(&dev->power.lock);
-> > +	count = dev->power.resume_count;
-> > +	spin_unlock_irq(&dev->power.lock);  
+On Tue, 10 Nov 2026 15:45:31 +0800, Damon Ding wrote:
+> Document the eDP transmitter PHY with Naneng IP block found on the
+> RK3568 SoC. The PHY has its own register window inside the eDP PHY GRF,
+> so its node is modeled as a child of the eDP PHY GRF syscon with a reg
+> property describing that window.
 > 
-> Why is a lock needed at all?  The value isn't going to "smear", it will
-> change right after the lock anyway.
+> Also add the "rockchip,rk3568-edp-phy-grf" compatible with its own
+> binding schema, so the shared Rockchip GRF schema is not extended with
+> per-device conditionals.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> 
+> ---
+> 
+> Changes in v4:
+> - Add the reg entry for the PHY node and the ranges/#address-cells/
+>   #size-cells for the parent syscon node.
+> 
+> Changes in v5:
+> - Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
+>   the PHY node, matching the updated driver.
+> - Split the "rockchip,rk3568-edp-phy-grf" syscon node to its own
+>   binding schema, instead of extending the shared Rockchip GRF schema.
+> - Rename the reference clock to "ref".
+> - Drop the example from the PHY binding schema, as complete MFD
+>   examples belong in the GRF binding schema.
+> ---
+>  .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 46 +++++++++++
+>  .../rockchip/rockchip,rk3568-edp-phy-grf.yaml | 80 +++++++++++++++++++
+>  2 files changed, 126 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+>  create mode 100644 Documentation/devicetree/bindings/soc/rockchip/rockchip,rk3568-edp-phy-grf.yaml
+> 
 
-On 64-bit systems an aligned u64 read is atomic, but on 32-bit systems it
-gets split into two 32-bit loads. Without locking, the read can tear
-between the upper and lower halves.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> And if you need one, why not a guard()?
-
-Yeah, I realized this after sending the series out, nevertheless
-Sashiko flagged some other stuff so I thought I'd fixup in v2.
-
-Thanks!
-
--- 
-Kind regards,
-Joshua Crofts
