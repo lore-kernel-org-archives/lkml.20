@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305291;
-	b=bXjSUNIidSIBuxlcF+qzlSqjZ2T6sB4Rg5QYxA6VzfP4O0ugDofOKsyD0YCbFEr1yOqB
-	 0+khtbNxxOh/ya6N3LIBSF47qJhLvB/UiYaPcVouR9/70R0tJq5kjPx7iqOHWT8ESMxrK
-	 g8L3DTfiFCm+3dMBxpaEQqiw8uN8zrz6+lx0I0v0RA6oZUxvLxLKfZLUIwYXbQf+4buCf
-	 Y8E2FZfyqZsGo9GnQJZ21/qzNCNsWVnWjaMq3hVNLBPy/OTtTn8SGNbkTWvNCZP0zJY1m
-	 cmcIMRWUO8fmHx9oSQa3kYhEM4bRE1NjQtmKGMj8+CacTdVTlbn4hNM6K9G76zukV9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305291;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=1Vk6p6H20eKWgL+Ep4/xsxzbX1QI70sd4Zlr9S54X6+zgTfeGTOfmsEVr80RPCfv3YUr
-	 P9wjL4jrc5M9sTBselRco9lz37QyZt8MnnACSPQbDhMv5etpu+5UM2CTM7ptq6R8jMSBp
-	 HAsV5nQLwB+3gU14ZNqjQIyF4VTyNYjR8jCGxUpkVgOzbF5rl8oDROmYzF0N/lYhZ0LtE
-	 T6t8uP7JSCDZ2GgpkqVgiC4KwjQk6s7At4HZpMPR8x4oUDiPquZZ6rvgUGVUdeEDSol70
-	 E+t2XH85tz2miQ1MSjiZ139gkhCAIhOEHp+qKtGVUlFeJM6L3xR5WAP6LPuLT3MKxPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794305288;
+	b=1YifmAN55ep/Zf6RFAKAt7PFlAdkXi+xLShGqCwS9hcTVIggC7N0apwGuo5U4Gad9xV9
+	 h/RieHUqURhPhj8IkF8HoPo0/QOmM6s908gd+pQvr2p6N+QgQVEpOQFEG2XOwLVLxsEdx
+	 htcXvIn3QyB4LGIgLxpC2tkGvYdgqcaPRQA6nOXRv9c60TSzp9ZoJRKc+JD3USZ1PlLwz
+	 QiIy6v98pKSn6BmWycpHz0+MY+Bj7LRuz7NjvCU4ZP05KnAHiu15zr/3URxHzipr8T2dk
+	 bYF1iEqKvkX47ScaVObueTDjfGlNuidV4O6n8Bvyk8ufKLhGHGnV8xOCgNapzZXTbuQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305288;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=B48kL4WCEYqxwxvpvXJRGvWJeCoK9+ni3AEiglJSAP8=;
+	b=tXKuyiAA1YvIbq/4BnZ/gHBb+DVSY5a0pS/MSFe3DlG/Tvf/T1DzcspDIq31B9J8OQcT
+	 cdRGPAahcAWDofbXt7Cmr2VjBffwSe3HeXACsD8ZJnSQOBAWztKAv8kuwMABIGidp1l3x
+	 W1VJaJgjn4y97DMvveppmSY+WhjcjUiXPh0W2fdhwfHM9XuOVwSXF9SxZXpdBga0n06rC
+	 nResJ80BmH5XuuoD76jQ2nA0LGLsRi8sml2snOUbdWb/2XVtgHGO6/G8dP/5ujgLZdbts
+	 2ipnG1PCr3vFEmF4YIgZ5A+ywMvZk1io8drV/2txQpGAeAbUfTps+9ly7loBIonKKcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlID3jga;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBAE606B50E;
-	Tue, 10 Nov 2026 10:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCF1606AA55;
+	Tue, 10 Nov 2026 10:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305291;
-	b=3oU0SDBegbA21IVpz/wd/wLmf73gLyCSpODYunpZkYE4vo7c35Um5Fh5j1AbaoTnrfB6
-	 zPzfAFybxcjEN0MAkoCffLTgKz6gj4DmNmxG2Uax7jfVkh+sqZdQuwPD/iRVSDTvLKh8v
-	 yE64JDlDvmT5wOYAz476kAbxjkaHbFGTGvIp1S8P/pBSt4qqZ4COKYzzhewuqKe8Xl+Fz
-	 9yjXNWD5FkzRyKHo2bJJSTinuSY/gKvU5ELt78rQUqk2c8KOCcTIMJSzH78NcKe0BeKlc
-	 gmmvZzxORgprVOznIyDuO+lz39XvHr24L051djFbIJROsLbzdkmJDftVTtmCgoRNUcg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305291;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=wtTlIG20j+2SsiDpTOJjjKVjPuVK2jFIOi33QP47bvxZxNz/1BV5qHfEeHzUJXPYtci4
-	 Yq8Ml/Dx3AgcUbMQD5G+oeubs7vdd6Mhbyq+P1wRuOSNotaq4uNR4kcyaglECBb5Xlthe
-	 +1p0GPlYj6vW9acb58heox3WK1i2OswusVfvNL8GXrw3uAdbx5KaF69gTOZJE8qJbnhNL
-	 fXTF1eBlUfeFmjJxpWLUjt1gussRL5Wm7gfXtPaIUG9DfZIYU+PkFbHSTnTExztjn6+Ah
-	 aAuHNBYPc2Qsh09LR17OJzNMsSla7iGPD7gVK8YpNLxCzfbWUvmoCz61uTFljSoUShA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5CA871F008A2;
-	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlID3jga
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250681F008A1;
+	Tue, 10 Nov 2026 10:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305291;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hkElKgQCF9iJFu5nJZ2/fX0ANR7TzUr3kN9lcdSg699suV/Jx+BLLA9udQRtO9tY+
-	 //y9BRG5HQW3iRiGdg6wLQ/D8HOr0H7QxEMYEIKivTfDsBq9nh3Rp3IQ60YnrKGzOZ
-	 ZZegptyrjXGNj+LzsHPnXyO+8SSGJNtwG5cJyj9gjPFOOA2KO8VZ56zeKVGVXMBKcb
-	 aQizxFyuKe7mxGDBh96lc6nF7wyIixlQgAybx2ZwYImByj1THyIZr90u0nG2SjZlzT
-	 H/OV+dp7qdLoo0+AZtoxMXeaTTt+JKZmmyLHPHS1ngzUq2qTjwXpY5QylZQBYyip6c
-	 hfgcE8ZQkm/zQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 20ECB48AEF;
-	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:08:14 +0000
-Subject: [PATCH RFC 12/12] arm64: dts: rockchip: Add the VEPU580 encoder
- cores to the RK3588
+	s=k20260515; t=1794305287;
+	bh=B48kL4WCEYqxwxvpvXJRGvWJeCoK9+ni3AEiglJSAP8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AlID3jgam2bE0XzjRIAkHv5Kw4LKHa7v3jRobb3UN2iupex+SPzMdiMgESqD8vIxi
+	 Bpt5CdJKUEtbp0Yp7bgApOyN+MPv8BCOrVYL96TAH0ZZvu18390yWHMerUsXxgzLbS
+	 tyWW2MTSZ1Gx4rLGCKx5oQJxPPrlhRShYZgbOb/ntXTaOHdJR4K5otOfXWkYdWvLU1
+	 kwnsl/U2xFuKdk76yvqjD2i3NK0zQ6PUe2DwJY7V1YRqilMvIu1LbeSDbE92qpvEXr
+	 1bqjGQJEu+Ga+w0DkrJRo6iJsM9Rvqp9PAxStQMAXIK6KUKsE/4Kk5MjWOWE1YsRNy
+	 t8+datQwT5aEA==
+Date: Tue, 10 Nov 2026 10:08:00 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Jinjiang Tu <tujinjiang@huawei.com>, Qiliang Yuan <odys.yuan@gmail.com>, linux-mm@kvack.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Huan Yang <link@vivo.com>, Wang Xiao <xiao.wang@vivo.com>
+Subject: Re: [PATCH v2 0/4] KSM: introduce only_merge_zero_pages
+Message-ID: <avLsbZz0S7sRYIL9@gremlin>
+References: <20261110074312.219847-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,119 +61,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvenc-v1-12-ea8b47122d8c@gmail.com>
-References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
-In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=3181;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=kagifa6Lmg0J/Xo2eD/GKAYer7IvTfvqdz6aGlCXzQU=;
- b=Z55zyJzLXjk5M0iOHQBuQmkiC3qqZVinOuzqIhqBgV9OAHTjmiFRh0C7Jcn5sf5tp6ip/f6hn
- dUnPCBOY7WSCOjYQ4VM4zLV2TEaEVljLIwKq9tLlNcHjTz+3XVBALkU
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110074312.219847-1-xu.xin@linux.dev>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+All-in-all this seems to be adding more complexity to a current major AI bugfix
+target, in a cycle where we're not really looking for significant new
+functionality.
 
-Add the two VEPU580 (RKVENC) video encoder cores and their IOMMUs.
+So given [0] I wonder if this could be deferred to the next cycle? David, what
+do you think?
 
-Interrupts, clocks, resets, power domains and the clock rates (500 MHz
-AXI, 800 MHz core) are taken from the Rockchip BSP rk3588s.dtsi. Each
-IOMMU has two register banks and two interrupts, and keeps the BSP's
-rockchip,disable-mmu-reset.
+In any case the code is pretty rough from a scan (I reviewed one of the commits
+to have a mini-dig) and looks very LLM-generated.
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 56 +++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+It needs _human_ polishing before we could take it regardless.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..9c813e6475c5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1397,6 +1397,62 @@ vepu121_3_mmu: iommu@fdbac800 {
- 		#iommu-cells = <0>;
- 	};
- 
-+	vepu580_0: video-codec@fdbd0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbd0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>,
-+			 <&cru CLK_RKVENC0_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC0>, <&cru CLK_RKVENC0_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC0>, <&cru SRST_H_RKVENC0>,
-+			 <&cru SRST_RKVENC0_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_0_mmu>;
-+		power-domains = <&power RK3588_PD_VENC0>;
-+	};
-+
-+	vepu580_0_mmu: iommu@fdbdf000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbdf000 0x0 0x40>, <0x0 0xfdbdf040 0x0 0x40>;
-+		interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC0>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
-+
-+	vepu580_1: video-codec@fdbe0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbe0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>,
-+			 <&cru CLK_RKVENC1_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC1>, <&cru CLK_RKVENC1_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC1>, <&cru SRST_H_RKVENC1>,
-+			 <&cru SRST_RKVENC1_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_1_mmu>;
-+		power-domains = <&power RK3588_PD_VENC1>;
-+	};
-+
-+	vepu580_1_mmu: iommu@fdbef000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbef000 0x0 0x40>, <0x0 0xfdbef040 0x0 0x40>;
-+		interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC1>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vdec0: video-codec@fdc38000 {
- 		compatible = "rockchip,rk3588-vdec";
- 		reg = <0x0 0xfdc38000 0x0 0x100>,
+And additionally, you are shoving yet more logic into already horribly massive
+functions in dire need of rework.
 
--- 
-2.55.0
+Sorry but the technical debt does have to be paid at some point, so I think this
+would need some initial patches doing something about that before the rest of it
+anyway.
 
+[0]:https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
 
+--
+Cheers, Lorenzo
