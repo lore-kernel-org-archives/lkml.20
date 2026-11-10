@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323781;
-	b=GXmXxLFXuDylTY+L7bvcvlwjP822cqHTSWSfHx5yWMoWQRTJmL+EzKp9YDWQjcY8clbE
-	 Yfxjgke+eIMAdT5yim5pcFba3K1f6kFKhEYpsRQP5ntZ8+D15VWuopf1WqJttIGdCvt4/
-	 cuJAFu2/adBGoFfvI7sIQ7XJQh63zYPjfmOHOraXUBVPlDeIx3Roq+Uikw3z0osfMrilB
-	 hbK7A6CeIGw+s4Pf6rW684sag0+7Kk3aeKusNIGG3mp5jhyBR79qBO6oSF1OVh2aknj+e
-	 vSnAAHgdG7xmCVju8t+puUizxuajgXD+0AWiRacamyp3tLAhqm6GcgcLAHLoxOyEoaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323781;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xvBl9sRZyc0ZM+YkhN+XeMSl4+2u4RMdz2hWt5xJPNQ=;
-	b=fkGaMoNELPmF4JTaqn2TneZM9yKjo2RBksDEBmNf6RFswcqxBMZafzJFlszb+5bpHkCM
-	 zLQkCJLM1kXYQ2jIoPMGpTYUWrQ7LnFUmuh/CUOHKZOvGx8TR9XCG/zgGXd837MI2xaKU
-	 pRitcyX1rpdxceIXhtfUWThob6ulZL7zf5Q7G3wevV4L4bXt3kzMOArTgk8hNiiKk2UAB
-	 LhGaRRuXHuXkRn/1LbRDaoy1btzTopdbMRUaUD6PwaA3llrhxuX/LMfvJM4Q9ydWvUNQl
-	 v3SANbuksREpum0kXiqj1zQOTt7CtOGYFSMOlWNBe1NQy/Zilm5gQvh94Wsk54caDqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOgycG4R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323833;
+	b=io4bRdOgaq6CLhPgyFByEQJFb3N6GavbQeeqYi/OeRjZndgO0qedU3E2XnpYGt2bSaqd
+	 f+N/xPP/VXKW3JT905I+WZNRJldt4kQIotvpismPIa8HKWB+QvL5AVEweouP7R8PrS1Ik
+	 dm70UyYnxRXm1oMZr8VhYXzH02Pt5utUYE/+XPi0I72bJjI930L8jIZxL67vDf0dqEDHH
+	 kcmFGH2nJ4H36GS8okxCRMJbGBwyNgoilS93JMzDbVFcB92X1vCY4/kav2vJE81gus3S4
+	 LFO8ydK5Qg2Z9osMDD7H3DNPwjBb5MU6wtCZzwr2G7bVdWPrLKnxz4vzJJIqi1SzaVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323833;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DrnlJCczTM/MuGJVa3hJuzHOi7kI8idb71E/ayOYKUU=;
+	b=ZWSmUpO/rLKQXkiF+40+zzRkSzTTV+paXlTBD3AWb07I81XiM3vwerTKdxT5jwzC5jiY
+	 4cSU16CxkH4kvot9gYwgq0aBAo6wsNxMcULxWJ8vX2RCqynJhigSMi/fJ0Z2asE1SI/MP
+	 GfSGRKIQ6cpXMsos0OtxrD13SaTZwvXed79EFG6mQAXbARW4BtERG3EF1aV55IfjDu3V0
+	 TE2Uqo79zFqzfK3GEvjvT/JCfvQ2vnHa89I/fPhMWrqhhVvGjgX9XEv6G/yJNC5hFNmDS
+	 9WbaOkfpl82ZWLmc06Uc5rIfuQc+xPX3cfiJGCgR5gjyWSJR3utpW5lp2ojW807d+UQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YI6k6/kp";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FF2606A320;
-	Tue, 10 Nov 2026 15:16:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1F5606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOgycG4R
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794323780;
-	b=XF1ENQUfJCg9NC2cDxoF4aMLH5P022rkvmeWLP1NphptgzEVWWHzNM3ryxFls81xHrpF
-	 elkI0E1WCvcuJvYHTmTZcAdII4wUZmYobOqB34vgMGHUxJyaQtPZTWQcDnaEal/B8r3pJ
-	 B4rp+PqjAWFHtG9XDKKwaxvUvC79jXw541o65iTGu9+8VhLmDjyqaNXJy9nZHr1MAG8Nl
-	 zqjZiH7xgIV4iE7hI6hZE5e9vrOcf4KIWzTTDsi9p8SUi7jvg0JrXKSTlQDAzF1u7Yfsc
-	 Cn0mQMPB95odw9UcshlwEwufeeMjku0KH1xpwS0apwEaR1evy1VApUWzK7IWQTGkBnA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794323780;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xvBl9sRZyc0ZM+YkhN+XeMSl4+2u4RMdz2hWt5xJPNQ=;
-	b=CGrH91PIoi5AAZxSsTSldnvwxIFaTtlHS+kNlHlERLWXHxLBfCnCYiJiR6ZL6mX4krDN
-	 mWzga+VM/EZyRHgUnfOqAL1XkTeqP4T/WjT+M42j6KlYVfhZwENM8Rly7UDx4Ba8Rkd8Y
-	 Qsnc1ZEFFauESnDkNGDUEw2t/lZWSriOq0WR7FPPim42xfXLwjZlI+bj8EEo0052u0xBP
-	 MYdPqMOIaLSLHohTz5Vya9IMeLjk6CaUUZ0zav2rskJsR5ZHY9QVgG1HmOE/+meJwJggJ
-	 nTLP7AYPgdOG3TTmwYU7rb2SlmFb2P+gP5QsF1NtASYYB6Pj9wcdKo02xW9w/b1clvw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B310E1F0089F;
-	Tue, 10 Nov 2026 15:16:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YI6k6/kp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C2F1F0089F;
+	Tue, 10 Nov 2026 15:17:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323780;
-	bh=xvBl9sRZyc0ZM+YkhN+XeMSl4+2u4RMdz2hWt5xJPNQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=oOgycG4RvEfKBPAYn8+vHOaH0fjPS+egnHrhAvcEpP6yN9meo+EkAhonYBWDhuhpp
-	 pVOG1JHSmUi31hxXvx0yfy4YnKr2sHh64s7+nPvFu/wXRAfwmWy/1AoN3IB4wRUyWV
-	 g3osCANbDxMCpS64JslYpgG9y5Nhx15GtVTb3+u0qvAV0CNbeeOTpa42yOt/u6XYd0
-	 oyEg39gS9L9zNntPAGopZbozX2YY9NlwCwWlhYlZgb8br/g7vkZTC16Tc+cnXHBl2+
-	 NhRMBu+eFdN7wMCyBp+J0Sv7vhj7Zp7fGKQrxvnZkyLi1aSRJM3DVl/M/BLD7DRgfe
-	 rCToqcNNVs/SQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 13C7348BAB;
-	Tue, 10 Nov 2026 15:16:19 +0000 (UTC)
-From: Xuheng Li via B4 Relay <devnull+xuheng.cs.columbia.edu@kernel.org>
-Date: Tue, 10 Nov 2026 15:16:19 +0000
-Subject: [PATCH v2] iommu/arm-smmu-v3: Invalidate a new level-1 stream
- table descriptor
+	s=k20260515; t=1794323832;
+	bh=DrnlJCczTM/MuGJVa3hJuzHOi7kI8idb71E/ayOYKUU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YI6k6/kpdsOZXv6TVGy+1NgyuveofbEgWqWrX8bvrAXNAz2RP6yNfZCwNBpusDfqo
+	 3VVbO7y9AmERmV4cR66tvWcbuAQvZjn7e1+KIl1FsvO32qXVKHhxbs7xRE/RwlYsQy
+	 cf+0bvO0hyA7Yr7hPCbqbc1DRxor9IYmCJ9cMegkWVcXrhdph95lruauvRixTRwxux
+	 4NQOTOpU+31DqIaBudOyc1XsDStPZqgCxoEnCaDGb8vXbZhkJwlBgm9Rx40dOSlZmk
+	 p0TgXiSnvffuH3ilakdF3E6gzIQgb6Q1npb9zKoaSGLe2fHk+3Y5liFSpyZOaaHUrE
+	 KK4TxbZKj0Dyg==
+Date: Tue, 10 Nov 2026 15:16:59 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@techsingularity.net, 
+	mingo@kernel.org, vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com, 
+	matthew.brost@intel.com, byungchul@sk.com, apopple@nvidia.com, jannh@google.com, 
+	pfalcato@suse.de, hannes@cmpxchg.org, osalvador@suse.de, raghavendra.kt@amd.com
+Subject: Re: [PATCH v5 6/7] mm: use BIT() for change_protection() flags
+Message-ID: <avM1ZOdjf3w7yJjl@gremlin>
+References: <20261110150446.2452975-1-gourry@gourry.net>
+ <20261110150446.2452975-7-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,131 +66,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-smmu-l1std-cfgi-v2-1-dabcae9a593c@cs.columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNSwqDQBAFryK9Tos90QGzyj3ExTi22uAnTKski
- HfPxH2WVfDqHaAchBUeyQGBd1FZ5gjmloAf3NwzShsZTGYsUVaiTtOGI+naou96QU9l3hjnOnY
- 5xNUrcCfvq1jVkQfRdQmf62Cnn/3f2gkJbcGFye7OFmSfXlO/jNvUiEu53aA+z/ML38AmzrQAA
- AA=
-X-Change-ID: 20261109-smmu-l1std-cfgi-c194b2aafea4
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: Mostafa Saleh <smostafa@google.com>, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, 
- Xuheng Li <xuheng@cs.columbia.edu>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794323778; l=3915;
- i=xuheng@cs.columbia.edu; s=20261028; h=from:subject:message-id;
- bh=vrw2x4/NF30qA+HPgtOkavd6zjgXcD+1Xy7g1vNZRQw=;
- b=BhRfG6l6tXiOPUeBYvIBMfVP3wkb5KWA40Amo32/l2sUqL0Q8C3urNZOfxbCrgjmXtle8/qfq
- D2GfVoSPczaCXuMaMxYnYtFLdx4zTB4ldgFN1G7rgpAiCiuipLJoghk
-X-Developer-Key: i=xuheng@cs.columbia.edu; a=ed25519;
- pk=L1HVV+goqxYmEMO/OXakL6uf9isSpgk2QrLlFqyZ2Qs=
-X-Endpoint-Received: by B4 Relay for xuheng@cs.columbia.edu/20261028 with
- auth_id=1349
-X-Original-From: Xuheng Li <xuheng@cs.columbia.edu>
-Reply-To: xuheng@cs.columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110150446.2452975-7-gourry@gourry.net>
 
-From: Xuheng Li <xuheng@cs.columbia.edu>
+On Tue, Nov 10, 2026 at 10:04:45AM -0500, Gregory Price (Meta) wrote:
+> The MM_CP_* flags are individual bits expressed as open-coded shifts.
+> Use BIT() consistently for the complete block.
+>
+> No functional change intended.
+>
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Link: https://lore.kernel.org/r/9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org
+> Assisted-by: LLM
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-arm_smmu_init_l2_strtab() allocates a level-2 stream table when the first
-master in its range is added, and makes the level-1 descriptor valid. It
-issues no invalidation, and the attach that follows sends only the leaf
-form of CMD_CFGI_STE.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-IHI 0070 5.1.1 requires the non-leaf form of CMD_CFGI_STE when an L1STD
-changes, including when an inactive descriptor with Span == 0 becomes
-active. An SMMU that cached the inactive descriptor can keep terminating
-the master's transactions as if its StreamID were invalid.
+> ---
+>  include/linux/mm.h | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 55817dea7307f..da22750faddbd 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3572,21 +3572,21 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
+>   * because something (e.g., COW, uffd-wp) blocks that from happening for all
+>   * PTEs automatically in a writable mapping.
+>   */
+> -#define  MM_CP_TRY_CHANGE_WRITABLE	   (1UL << 0)
+> +#define  MM_CP_TRY_CHANGE_WRITABLE	   BIT(0)
+>  /* Whether this protection change is for NUMA hints */
+> -#define  MM_CP_PROT_NUMA                   (1UL << 1)
+> +#define  MM_CP_PROT_NUMA                   BIT(1)
+>  /* Whether this change is for write protecting */
+> -#define  MM_CP_UFFD_WP                     (1UL << 2) /* do wp */
+> -#define  MM_CP_UFFD_WP_RESOLVE             (1UL << 3) /* Resolve wp */
+> +#define  MM_CP_UFFD_WP                     BIT(2) /* do wp */
+> +#define  MM_CP_UFFD_WP_RESOLVE             BIT(3) /* Resolve wp */
+>  #define  MM_CP_UFFD_WP_ALL                 (MM_CP_UFFD_WP | \
+>  					    MM_CP_UFFD_WP_RESOLVE)
+>  /* Whether this change is for uffd RWP */
+> -#define  MM_CP_UFFD_RWP                    (1UL << 4) /* do rwp */
+> -#define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
+> +#define  MM_CP_UFFD_RWP                    BIT(4) /* do rwp */
+> +#define  MM_CP_UFFD_RWP_RESOLVE            BIT(5) /* resolve rwp */
+>  #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
+>  					    MM_CP_UFFD_RWP_RESOLVE)
+>  /* Whether a MM_CP_PROT_NUMA change is for promotion only */
+> -#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
+> +#define  MM_CP_PROT_NUMA_PROMO_ONLY        BIT(6)
+>
+>  bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+>  			     pte_t pte);
+> --
+> 2.53.0-Meta
+>
 
-Issue a non-leaf CMD_CFGI_STE after writing the descriptor. The RMR path
-runs before the stream table is programmed into the SMMU, and
-arm_smmu_device_reset() then issues CMD_CFGI_ALL, so it needs none.
-
-Fixes: 48ec83bcbcf5 ("iommu/arm-smmu: Add initial driver support for ARM SMMUv3 devices")
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
-Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
----
-Changes in v2:
-- Shorten the new comment and drop the one at the RMR call site (Mostafa)
-- Add Mostafa's Reviewed-by
-- Link to v1: https://lore.kernel.org/r/20261109-smmu-l1std-cfgi-v1-1-65e5203a6516@cs.columbia.edu
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 6d4520c47..e5c09aaff 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -2030,7 +2030,8 @@ static void arm_smmu_init_initial_stes(struct arm_smmu_ste *strtab,
- 	}
- }
- 
--static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
-+static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid,
-+				   bool live)
- {
- 	dma_addr_t l2ptr_dma;
- 	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
-@@ -2053,6 +2054,11 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
- 				   ARRAY_SIZE((*l2table)->stes));
- 	arm_smmu_write_strtab_l1_desc(&cfg->l2.l1tab[arm_smmu_strtab_l1_idx(sid)],
- 				      l2ptr_dma);
-+
-+	/* An invalid L1STD can be cached */
-+	if (live)
-+		arm_smmu_cmdq_issue_cmd_with_sync(smmu,
-+						  arm_smmu_make_cmd_cfgi_ste(sid, false));
- 	return 0;
- }
- 
-@@ -4261,7 +4267,8 @@ static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
- 	return sid < smmu->strtab_cfg.linear.num_ents;
- }
- 
--static int arm_smmu_init_sid_strtab(struct arm_smmu_device *smmu, u32 sid)
-+static int arm_smmu_init_sid_strtab(struct arm_smmu_device *smmu, u32 sid,
-+				    bool live)
- {
- 	/* Check the SIDs are in range of the SMMU and our stream table */
- 	if (!arm_smmu_sid_in_range(smmu, sid))
-@@ -4269,7 +4276,7 @@ static int arm_smmu_init_sid_strtab(struct arm_smmu_device *smmu, u32 sid)
- 
- 	/* Ensure l2 strtab is initialised */
- 	if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)
--		return arm_smmu_init_l2_strtab(smmu, sid);
-+		return arm_smmu_init_l2_strtab(smmu, sid, live);
- 
- 	return 0;
- }
-@@ -4333,7 +4340,7 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
- 		struct rb_node *existing;
- 		u32 sid = new_stream->id;
- 
--		ret = arm_smmu_init_sid_strtab(smmu, sid);
-+		ret = arm_smmu_init_sid_strtab(smmu, sid, true);
- 		if (ret)
- 			break;
- 
-@@ -5713,7 +5720,7 @@ static void arm_smmu_rmr_install_bypass_ste(struct arm_smmu_device *smmu)
- 
- 		rmr = container_of(e, struct iommu_iort_rmr_data, rr);
- 		for (i = 0; i < rmr->num_sids; i++) {
--			ret = arm_smmu_init_sid_strtab(smmu, rmr->sids[i]);
-+			ret = arm_smmu_init_sid_strtab(smmu, rmr->sids[i], false);
- 			if (ret) {
- 				dev_err(smmu->dev, "RMR SID(0x%x) bypass failed\n",
- 					rmr->sids[i]);
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261109-smmu-l1std-cfgi-c194b2aafea4
-
-Best regards,
--- 
-Xuheng Li <xuheng@cs.columbia.edu>
-
-
+--
+Cheers, Lorenzo
