@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279549;
-	b=V1SMCSY1lfoXEa8/2aPg6lGszUj41vcKScewwdDQuDJvF2idBVhwLmGdxH0g6PiTYt6Q
-	 P6wTJQq6Huo6ZGzWZf3mrGHc1K1Izm7dFbj4/QgeSR0ANQwySNxjd2Ms3skAEj86MIi8Q
-	 5R0MV9mh9JPqmxXxDQ8UTx3kuE8RT3OG1nOMrx9DFuaqRSAdo8bc64MgLxDkclSLeELfG
-	 zprmcbw2KO2aWYdM28DYT9rUbMBvUA/5PhDCx2gLArXdCWV6ISWBd/AIkVpwQ+V0+MdVx
-	 Rf+atVH2mGFkZhhqyGLbfzAhtkbWCuEgxqbmgpwcos8wWE+HVAJwzoIZXKB7nUSZsiA==
+	t=1794279633;
+	b=p2/oSARVcC09cuarLmrjfV9OBYOoWRdX/Bkk6bM7WnIcWHcfpiREMov51RUZTuK4aUFF
+	 o1Bphn1xnVp2e6DNzFaai5jaS41TtPNfUSZobDpqtRBmMOFatthKMZQBYia4vw8XhBAO9
+	 v465YYkMQg4ee5zWhj1Ches0eooDzhUjPdq1Ype+bIANFckhh1TaQxHg5DVTAUJLL+l+K
+	 opmx+dHes4pMTr9DIkcqI6fF5P1RGbIJPzAj79xL6CgOpfoHv4u4EkX1lTox+nthG2qZI
+	 lrdz6Z3WnAGm8IpQ3F/SzKTTQu3ebx0boRyHSgrRC0L9lBdEwtJ9TuKyfRsNRcX0UUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279633;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nGrmkDqvafTIDrI9ZJ867+6zF4oKvoOxGUyEpitlLog=;
-	b=SozVGdRJkpjiXltCirituBDM7xHjbc4I/hwmz8uaM5jXbB492CwV+ZSwajSxOs+dm5uk
-	 NX3tw2fSwFkdfZw+NDn/5nFUo9Hoa3H5oy+quCFle9C1rCFFA+AxfIkxz2H1Sjo9snOhu
-	 Xtorrj1XiDub0Rc3gRQLa3nO+uY/IzXhDHl0aeDnc4FxijjA/8Vyq+ZbkyfvRX+i1/Li/
-	 IwSMyeLMEF2JKnuHa+po8sbnzMF6JWTFTRtzTUuvwMiWY0GeCxbefK5kmbBehNAoq3vbF
-	 scZvhYK70ZfFG02qGMtt+2rYd7tUe05S5whjQ6Oaw9sALXLZlQQK7U1K9HCizGlQY5g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4wBXUZ6FpdwTYkG0jag9ba1skQI+CQfpR4wutPYZULU=;
+	b=jOu9anjvG3c7/7/0glu4rOtQtfU12ph0ZpcUuKoxj/sy9KdxYV8gYdTyAEQ8wzq2HqS/
+	 vTY3TZCMy+XPcat0DK+jr3Jmcbn6ZVp8tvWoev6YJLy7R2vO7Um5G3y4ZQNUrJ5Yd40xx
+	 JWwLWn+txoDFbq1UxkkzosWmOohUQgV3NbKtQc/YuwOex7sGBIHvpoEDrCCelf9oU1ON0
+	 Z65jRUfxNePAThfHwDayInrCf92in8F73D3yYTrm6RdWlScYnfrDv16FnYohOwmauZA2K
+	 6ms0wUo4Y8joGWrW3vRKS8oc7bR4+o0jexQsmxoey3+ApSsG6xeZ5SY44X1W796EJhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tVs11Bvb;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=pQmSb3gf;
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FC8606AA1B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96FC8606AA1B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E429606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E429606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tVs11Bvb
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53653e30353so20576331cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:59:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=pQmSb3gf
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e63ee7b4cso140591885a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:00:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794279547; x=1794884347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nGrmkDqvafTIDrI9ZJ867+6zF4oKvoOxGUyEpitlLog=;
-        b=tVs11Bvbn2d+gL5BWwC2m/viV4nrJeThHyuvCZDzw1Fvz4vCP0E4CmVRFsXywgJHIY
-         7LTSviGZ1TH20B7cqWPSnImrklhjzzXSicv358px46izZzvsVQBbXufQHCZex31NLJbV
-         1Yjqu7vKkr2sQr5GU2L7sVRoDf2Q5elBoQwKzbOiDy7mr3QzRgDLTrmevKYP3F8DmsE8
-         agMvIRPrZcSXmAJTdEh2fkLpIG4smUtofpVr7fzO0snW42MVbShD+ZXHAfITn7XFOMEZ
-         EIy4K5RboZwR6wZEonkflUS3wV0/xEQyuMEOSpthO7kX5F+LZJ65NH55+Oz4iWbrg4T+
-         Q58g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794279547; x=1794884347;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1794279632; x=1794884432; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nGrmkDqvafTIDrI9ZJ867+6zF4oKvoOxGUyEpitlLog=;
-        b=Nzib3TlmTBeQ1OuQEVhMoSBdjfZJhlAvsA81GtLBBjM+2Tn2mniGRTNHmYsmrdDP8W
-         m5fSoZzqNvrw7bTiVIt3PBTMIoWKmFUoB8dJbszgnhYOV0boyBFPzOjfjaQLrRKTKPrx
-         iXMW+wHADu3GF5zQltpnRmJ32pAgfret1m38JdvquD17UeQa2qsKr7kZkwCNC3geRbXQ
-         X1XBbepo2teVXtbLHnW4jO3ZWs7O01mBZvWDXeEfJLnWhDP8Lv+ytQZfOnoSDXSoNmky
-         QndRknisVKJ5NlkcQmunkR97SBPvs58kKbqSkDgi+rx4603QTollKJZ3/uLUhh8zSKdk
-         3CCg==
-X-Forwarded-Encrypted: i=1; AL+hErGVFq+/NiSZweLVxf/srLNcbJIMIMsv9azFR42wdOBVJC8rn3wZ407sIT0VhfxPqYjgwqxzmvAzeDfXiAM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yfsPchx6/YRn/bfjyF2lznVBVY5eyUc3SRDhF1jjUTvizodRU
-	jS+yWkG4l3Cdiq7QBCZ4Iv+PlqcYr70on0PBIhj82Uv5LVNJuKsZ78c=
-X-Gm-Gg: AYBFou15Jrhri1WjX41YNxg8Wjf3Se3Aadu8oOxj38tEeD9mhd52oq39fK0GxEUbwuK
-	IXeXQgnVqf6Dwd66SeYpOT9v2HlsHCsySmI7IKbgk8tcs1fTPALDf84cM3NrQmzYEB1OHf8UeG2
-	enCu5ypTdzHFwAd7RmLK/jDi7nnvU25Dnd16U+btqpyrQXKNllB7QrBsT8rKqI0wKuICOFI+Ubq
-	zWdC/vTGd8A7px3A+uO4F51xnDC/gRHF9frMYxt94ga1qZ98DjQTcIODuElV0ZXpF53Hqmpu1KQ
-	FwAbQlYVDxLKav+DoPqHsjuZ8pgik6rSWvN/DFvETUhTc67e3wXE0Q205ipLAwYr5hfZ5qbEdC5
-	bCgm80ZB9XXWqbfaOJJtMjZkX3TiHXqpg/iyrEZ6Kh1XEr/WebUi73ZEGMsK8iu/QzLuj7MRnAa
-	vG1sUjsQJOkTo2HJyEBCgI1yyWFPWR8T2J21HOzmDcgZviY+U6/aEdtPEEj9Y4Ous+Uq4bpSKt/
-	l+9SmCCgPIYTKt140iU/IirFoCcS//Kkqdh1uefeSy5yem0xg4xuv/v/bI8lEJqXczwxaLAa66y
-	/08WgAiprARc3noS/bHKwbO+46Ym7CTtbu/sLj17JEV45BTxNSPfzXGugnWeQX6rFB9d2IE2XOr
-	oCIgaZ5V2ip5fojaEDTdz8QaKflz6HK9FQELad+pgaTaYTt7dhoiymSr4yFC++/wo
-X-Received: by 2002:a05:622a:4c6:b0:536:6d2:2c0e with SMTP id d75a77b69052e-55527b1b214mr20635311cf.36.1794279547476;
-        Mon, 09 Nov 2026 18:59:07 -0800 (PST)
-Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550c21e1fbsm12601771cf.27.2026.11.09.18.59.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 18:59:06 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v5 0/2] media: rcar-isp: fix core IRQ and probe error handling
-Date: Mon,  9 Nov 2026 21:59:03 -0500
-Message-Id: <cover.1794278853.git.mhun512@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=4wBXUZ6FpdwTYkG0jag9ba1skQI+CQfpR4wutPYZULU=;
+        b=pQmSb3gfLqpuEfsLBm1LR5zUz9XYLmKQzpAiD5nGQZQWa8EMFU7bkUSQtaCJmU+Pl8
+         hUFh39i7QuRUOPA4YnZjm3jVwIGvrn12Tjruy8C/94/6dhkHViwJlNfAenaA2GDJN1HY
+         5pABHMLSWRgX/3mAXR6HOrozb5CcQgK1VGmbClFLcWLtSg20aqNFbiE8gaOLy5F4UPn8
+         FSOnDl5z8LlhZNPWePXLCXP20aPpPkYIEp6HPP5wBdT0v5EXOm7tTcA988JHZEPhgHeY
+         ZRU2qe/k40k5cNRwyFipHNiVogP/rgC+sP01NEv5otoocKnfI2PNSnq2A8Z97QHAYjLq
+         cQZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794279632; x=1794884432;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4wBXUZ6FpdwTYkG0jag9ba1skQI+CQfpR4wutPYZULU=;
+        b=ZVvLmFlyNJv/S8elpVc2ZS7buSAqqdut2Bpx2s6SkQHjbUVsHuLxtpWyOtIfgvFKEN
+         RbzNVcoR6QrMwkC/SlMakavIJqBgiKYItOsg60YyP8yYUIaGJtYsLz9iTabpaO3a+HEX
+         8w8+kRb/vxTldT/XMF1YjOd4JUqmSXWdSYdd2/pyRRmJ6rKKtE/U+VOtrNchDCp2VNFa
+         adeoMyc2ca2MtlxbLRl325cPP8jUOn7VEv8tzbAQEB9NEeyvaJIMtCh0Izj4RmqlZzkj
+         Td0hn/jH6olh3+7kvbTUqrX3jXlW68hQD9l/vYC6j5VtO4suJV0ltEk0KZ2z+4HALbVx
+         Fe6g==
+X-Forwarded-Encrypted: i=1; AL+hErELDSVyrrNSqNe5+7ua6tOcGzLqMrG71cI364c3auyUC3giE0y+1e0k2qR4sxpTgOaAmIpAqDYlcPmk4X4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rBZzXlSQJdTEZUrsBTXoVVzKblOEvNIf2B7OLwxre7g8xjcH2
+	Dmjl34un8x2qeD/M1gFW2Hb6YJyrNHKM9gPwe6tBhtZEdfnXKQvIeHzbQoEN8sFkMQ==
+X-Gm-Gg: AYBFou1+GqpRAOxMN0yRnXJunj4qsw2qWF6e5NcbTYYGD+wo1cx5d6xeN1v2mgd/08m
+	cZSX7iGlbp4bYBYTHH12KPc4TJGhwBze02y2o1T6ljCwJ6ha4vKdYstyh97+l4jP74vV7KIIOgf
+	WJmTxkuJcIC7qDAu8VjWZe2xdeMuRXb3m08rYXkPy0rDbnA7CGe8LFg2O/Ci1DyB+No7cUH19PG
+	DFTFpJyjmip0pnBeUOs7BNdu2bJspet1bZwdFfYyDXET90gp9EH3aTTUkWCYJBPUL80oHt7v/lz
+	zf4CIIbB/Jr/Bss91USG2RrTD7xcSbTKxrNg6GEP/rGVFkOT+vaKoGo0MnSj6tW0L7ckAFRKZ+A
+	P1Rq/hdG5Fyg6EEtWbXqaWC8+oOFHJoIv6Vq/I5GVRxgL28TWWWQA4PeRsugGFvK73u7EBHVyT/
+	/Su1AFrS8Qo6V9JL+I0y3xgU//24H+11grW4F7KnhssxPwDFfRFEuSZKNNg5WBehQnU6433Fdnx
+	E2RX3/j9QW2/js9jh6cxzEFH8JkqIetd+akVmp+Zmg1AyUe8IqNuTJrG3wwu3jdlg67I6OxzK2N
+	pVdzB+/Y0W7fB7X6THFIUyP2dCGJ
+X-Received: by 2002:a05:620a:890a:b0:939:5cd5:e243 with SMTP id af79cd13be357-9479f1b9ef3mr232773385a.6.1794279631842;
+        Mon, 09 Nov 2026 19:00:31 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7ae756sm121214985a.27.2026.11.09.19.00.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 19:00:29 -0800 (PST)
+Date: Mon, 9 Nov 2026 22:00:27 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, xuhaiyang5@hisilicon.com,
+	xuetao09@huawei.com, caiyadong@huawei.com,
+	suzhuangluan@hisilicon.com
+Subject: Re: [PATCH v3] usb: core: hub: Re-guess ep0 maxpacket size after
+ reset
+Message-ID: <1df531f4-380d-4762-ae01-4554acef2c89@rowland.harvard.edu>
+References: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+ <20261109093935.2634235-1-lvpengfei20@huawei.com>
+ <3daf18d4-4936-4ed7-8846-b67f1664be13@rowland.harvard.edu>
+ <20261109213437.5c693895.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,25 +103,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109213437.5c693895.michal.pecio@gmail.com>
 
-Fix the core IRQ lifetime before distinguishing absent optional cores
-from initialization failures.
+On Mon, Nov 09, 2026 at 09:34:37PM +0100, Michal Pecio wrote:
+> On Mon, 9 Nov 2026 11:05:30 -0500, Alan Stern wrote:
+> > Not here.  And not inside the retry loop -- ep0_reinit should be
+> > called only once since the maxpacket value is changed only once.
+> 
+> Sashiko pointed out that xhci-hcd may not perform ep0_reinit() properly
+> until address_device() or enable_device() is called.
+> 
+> So it's either this kludge, or dependency on an xhci-hcd patch which
+> didn't exist until today:
+> 
+> https://lore.kernel.org/linux-usb/20261109112846.04bfeb0f.michal.pecio@gmail.com/
 
-Changes in v5:
-- Regenerate for git send-email without wrapped diff lines.
-- Use media-committers next as the base; no code changes from v4.
+If you're asking my opinion, I say merge both patches.
 
-No hardware runtime testing.
-
-Myeonghun Pak (2):
-  media: rcar-isp: release the core IRQ before destroying RPPX1
-  media: rcar-isp: distinguish absent cores from probe failures
-
- .../media/platform/renesas/rcar-isp/core.c    | 44 ++++++++++++-------
- .../platform/renesas/rcar-isp/risp-core.h     |  2 +
- 2 files changed, 30 insertions(+), 16 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Alan Stern
