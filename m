@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794343357;
-	b=GMdTzIkAHIbzGrj2VFC6xhyjmyh9hhfbhyViIjxKiAkuiYUOCNhIDBrkdNcYYonxs942
-	 y1bSP6pITdXvA/iVp64y7QQ3QGuKzXczHF0LgxsDfWOq2LtgC06xmMXJfbrIfv+Cm3W8+
-	 cwPRCKoPi817TAfCe4I+ESPu91xiI49a7XuAItibucuhX2S3OmNKo2N4ycC74DrbtFjhX
-	 ZfaTZOYs2cc8rG+t4oIn4QaW3xKHzlYjFQvVqkPShXhrHm5koitPE0jz99OMYE2CAakVG
-	 S35/kuQB3XqpQJ54LaXccmT8er11f4jgcZl9Dd8nBLYuvBeWp1eKiqqdlz4JS1QBSJw==
+	t=1794343378;
+	b=G3lXt05+AzxhDjTUgoZaGhxkcK+iLq+R4JOMiLlCDxV5Qtxy9gsWvRokFS7CXMABUSN3
+	 0JfqmbNwMq1cmSIkOigOcAqcYHBhznP6nMAohgU70UX5Gk1pmuQ485G6lxxHtEMkKloWq
+	 wJ0yQAT4cJbzTNuzaTBhhRtSpkq/AReoa9CjgpMXiA/6G0Qtyvu17GywOunyYhIFjq7EU
+	 zzYIJc9BqeKDyKDGr4rslKtJe6++TppCHuCOXeLHSg/Xk4C9xvlJsrKCPC/Mob7AhLhHv
+	 3OHO7WBags3gOz9qmJgd3Ii0GGfPwq1tyiw54tcEsUUc69UnCosVQjxRMzS0MXvwcZQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343378;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/Uiww4ezFXi6VNr6G5FkaTJlTRK1KjfoprXIwdlqKmQ=;
-	b=XlzhtQtgQ3na+15rjJcOAwK4gsRc+SFbaGfLggupU494ZKlpUEUNSN70jeLnWjOuA76P
-	 DTG4/2L42sDN4gU3DiSaTfH1rR5k4NnK6fViSqrXTwgFU7LSkI61R/Myfq54vWetMcxuy
-	 m3GmRGDL0d59l1+wwDkTjLJN7sFVPH1VGL23ZczXhCvyt6sHdFK7CIB0YguOEA6aghGSI
-	 OX6eATtq0c8/D9jMnKaDju+qRYWeVYiMiNKG8uulBFHl7bIBFnpKeq8ot3JJ0KzE+V+pV
-	 OCwU6ynnGLf+BpkbOwkfdtmzbMSkaVvSD9CNQUGkDijB9Nyhrbah+cvF1fc9YUlGXjQ==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=6JIpC5xmZmVh3gHvpm6TlSXy64wN88S92afzeHcQ6Bk=;
+	b=aOujnrh/JZvdIEJJLTUBaglDpBH5UwAt++XF9vI3J+6xlsyWZpca5W/Y3A0VMeoOT8EX
+	 m4wvvBXn9T4SCqFw8xkno9Yu+MJKfDaiCFxXgGpLxwBeJCnHe4UxV98lj4ICOK8tCe5ti
+	 zvhW8Uen1wPYR07JtbBa6SUW+WTMd8KG0icTkSZXYam+p9MdOtZJIqXiEYSQOFfG9kaMF
+	 U46cUslqEM+Zz9HUquveiFZgmBtb9t3vwT3j3NhGJHH9IjK5ZimyUYzbbGoAsqae4ytJk
+	 fSE4MfhLA+k8gBBf1fTUn9EXWbO/KLTXvXiyROHEHMJ7Fgy8fS/ysaXVslfbu/4gxQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkYKGcSY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dmarc=pass header.from=sentinelone.com;
+	spf=pass smtp.mailfrom=sentinelone.com;
+	dkim=pass header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=T7WJ2m7V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F97D606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F97D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDE8606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:42:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DDE8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sentinelone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sentinelone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkYKGcSY
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so1235060b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:42:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794343356; cv=none;
+	dkim=pass (2048-bit key) header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=T7WJ2m7V
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so288960a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:42:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794343378; cv=none;
         d=google.com; s=arc-20260327;
-        b=q/93kDPaujDssEuSBRvbwjox1se0Zq1tRg21yhGteQDWenqFetp8xdNjOQA2NtWKEP
-         iP8TfWT17pHqEawQG+20x7dGR74c5C/h6X/DdhkXO5IR+lPYStn/YoaczfsgcTGv9R+Y
-         7Gd1SwnS09AArblLfRLpZpYlCOyEY4iFrt07RmfuXGr+jIEXfNHyel7XbrpUs/iAFMRt
-         E1q1HOM/fwGHDR2x7p/7C/iqN7WA1IAln2lgMOeUmsbQ8oQ1qppP7RCj8EOlJYZpsPrb
-         qgQnBSLgZwQ9TupyoNS+wE9lc+j00jdBwJLERX6vxfHGvp8RUdgL/2HVhMLuCQcG5Suy
-         FPow==
+        b=fNGDwkMYAgWsGPuTq68x+mu8KST2Y6Ah6WKcenX+ga2JFoW+fsuNPcG3+HNNOiIncS
+         Ee341gPFd0cItfYYqpxzCz8aBhfWSPoGhDlHeFY0WxrFG0wNQAON9zJS+6l85AsPwD1w
+         imaTIX+jzqfkygc1qa2fUJ1e4wp1KR7uBPwhveElm/kHoD4+qirGhih6mkdRP0AOv/8/
+         yDggDvuBlp0SITwfikQULuIkwiWDPHpS++9OQpdMWoakdcvUq40mPjlVTy2XBLViPbJm
+         IKycmt6hODNkW86CwK8gNp9xkjXqt/UO88J+ZMXnYpXDgZ+IC9x+rLlawxmcEVGiegOA
+         hMCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/Uiww4ezFXi6VNr6G5FkaTJlTRK1KjfoprXIwdlqKmQ=;
-        fh=IHwiJK2/+eXrLBbc0vol5AJUk+XzMZ49nXBWMx9UBdo=;
-        b=TAgfcotdh4cMM+PZ/gVvBH04UG/02QAJ5txR5Sx/vvzAMVXtVqjYqPB6Qja5ceo/L9
-         3o/iKsbCrkL5+/tZaG1JlxUAypbnRsZOXDyaXyq0scAdTUH8s/hIdCII5x9w/N/wgwoj
-         lNOLkLZ1gVxn72cC4T9qkUDjGM5d2nLWRUhxfBsMV4FS8IifRrqJkhLX/JtLtcNrapdz
-         KAcu4r9DYxV5HrpXpHoJxAGNS+OMmi4s0JQCMyIeMHtWuH+UOhIEc61k2ZdxBVKQ/Wco
-         +oy7upXdJ3mSDsqh6ciAez3Sq5NolVM7v25DC4MaTKpvbOsWdbxRGbv5O3hWBY/Gr6Zh
-         4Zkg==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6JIpC5xmZmVh3gHvpm6TlSXy64wN88S92afzeHcQ6Bk=;
+        fh=xwtksFqn2PmvYJEl/CPPGy8FoYmnzRjj+bHEu8bXoiM=;
+        b=GGQnx0LxTf9ahm2SLf5hdNblbSA018n6BqHj8muNWh5GrjE1omcnuyW/Y9xXkICTHB
+         DMWCLrKNzNe4ETMT+Z4YW0HVCnXFWhNYcg4ym7p5XYwKJBEOlNbwubSkGLMYm/jtbanP
+         VtcLGRb5psKJcumVEMg6EqKpk+0PBQR8/+YV742DbzpLd30DxvrLbdmpPyg3k1QKbk5u
+         upl6rTVFYxWk2+C9+WQ57e+AvCFRYNPkT1rl5qZuYcRv1Z6Ki5Q1dKVoy0wm2B2Vx2gF
+         FGB/b6BplBKRqDb5z8EgL2NFRp6LdS/GTUMYfSUKd2ye8iwsemwTtm9rNmplcBnIqn7l
+         N2hA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794343356; x=1794948156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/Uiww4ezFXi6VNr6G5FkaTJlTRK1KjfoprXIwdlqKmQ=;
-        b=PkYKGcSYMDN/AxLAIZEBQZtApqxXY1YTHtR1/pzU2W0HHe9kuHLmiz9SMfl+9Azmy1
-         AKBCGf4AvA7Zj5QGqvzGQRPEQAqVJhXBw7Fb7I99eMXQ6FqoFxKABqWHwmNK2wAYaTIk
-         eAhgxsO3elDxymBFgFncDG/08ywScsh4rv7fOmnf0aLVdt8qtsIZTdfxm7UBjFDk/+KQ
-         Pp0Ek3x1C1HFtm3IxInYYmXG9UF1iTrkn9WFpNAEjDvPicQ4PJ/gdMlu8HePQCnVr5rS
-         BUhdKzjTOqO6E77NWZzyWNPDyY4yVdXVM5Lw0FDlEs4BYjhVWoIHdqQt7al1HzbZVD+M
-         /2VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794343356; x=1794948156;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=sentinelone.com; s=google; t=1794343378; x=1794948178; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/Uiww4ezFXi6VNr6G5FkaTJlTRK1KjfoprXIwdlqKmQ=;
-        b=OmAU1r/r0TCzoHxJ4mgpweUkp7LXIwYSZaagLktcuj//wtFTBitm1+5aufq0K4JILA
-         rQ8Uexu1na0yVTOM8SO2s7DDVvhurNCOvky7pu37KkQhGw3wz0W/iYpgijCAEKwsXiGb
-         Llvu8eV6oZWbWdeR+PjXws9wnzhPG0OD+970VfvieiA8Hun9SGZGCyGwRf1VNX43E2lp
-         d16jcqAlN7BY7+nH+mXy0o9J0DfJt4a6EvLi08EoHZ3e+dVrfopUbEF7J7blglfQE5R+
-         eBv3WfPt2Zkc/nGVifTNEtHi5sthUNpkPA2ctzy1q9VyH7+erMtG7j+G7XrgyxLRb7oy
-         TChA==
-X-Forwarded-Encrypted: i=1; AL+hErGRx5NtuGQkyswjfdUfJsJziPFYjF9Oj7n/lf1YXzftM9IFkVsyGCMWX/OuVFfXgUv5jNjm+Ynfneb+VXw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cTYCLBfU2eHLEaXLbgpFNfYmpXtmSt8Dgfh1qfWgZHXqr1WK8
-	+N5LTZ6bfZRwUe2kwqkBH/ql0W4AIILn+bx2oFrd8QzhIIMzsCkseCyK/7KelQ1LHKYGlvidIf0
-	pUCs+prXNkgHs3GB+Y2I6EQKYkv1NUok=
-X-Gm-Gg: AYBFou3d27ONIZSmIiJ9X9EKPPrBNuO3QV3BrjsUo9tW87PMNKVDugTLegjqHNewWSu
-	/kCwhRRDFAtWVHwNz+ueWkWrgcMCR+sJKE124EQladenn2If5OH46VAeAYpvYbbEnOvZR4qcUUP
-	OMKQF0slQvTh5HsYTF436VaKMCVPiXyWdlAg5iSko4LmDJbEgc//+V34t0v53g+el2v0v3mmfoL
-	79D0ckPQyDFVajtzG+6Phkk/AGyTIHgzxmqhkPIA3kc4VavkV9bLaeMi3s8hGOSa6O1Y6t61ywx
-	gkFkdddIZmcufhKVVEQhD+Tp2bpGgQZdBK6qhELYrVMUvzzqgHAsMbZBd5icREwTVjV8QONIDgm
-	Rxjq2HMMp/ZRHV0kfXsYOVKIUW4kg93vgIXsI6NC90Z6lKf8QvLCop8A+Xy0U5FkQYhzeYOjCGC
-	aDpjrOs83bdCjMLkHPdG/bYIw1X71a9P6n6nc=
-X-Received: by 2002:a05:6a00:174b:b0:89f:e1e7:e7e8 with SMTP id
- d2e1a72fcca58-8bc1b6ff7e6mr297211b3a.18.1794343355486; Tue, 10 Nov 2026
- 12:42:35 -0800 (PST)
+        bh=6JIpC5xmZmVh3gHvpm6TlSXy64wN88S92afzeHcQ6Bk=;
+        b=T7WJ2m7VaHaycPzp1L93t6PmpJvwEL9FGoWohbAGj1iYUX1CR6XarTtPYB/bBhk8Um
+         LagqSEloR0bYPA2eaZJCwoc5tx9yoBWZ65R5HeA6oQH9apVJjYjqqnSh1ljb5VFU9Gl6
+         NbwsSzQiLhhrZuA6CDGs9QDbbaYYfaaFk5ILNynREdHh2ADNMPytwApQIZJ1oVgAnVik
+         s0pq9xPj915qRulK8eO1jUOHMmpS42aY2+sbf9lsXghSR0ZkYkdX9jMqIYUUjNCr/jrO
+         8YBlLaaB1t3It0i1HS7ZzhcG0MSmxetrUsQ6tvxJ51rOjwYqSAapwF73A+TQBejnGLyi
+         f7+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794343378; x=1794948178;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6JIpC5xmZmVh3gHvpm6TlSXy64wN88S92afzeHcQ6Bk=;
+        b=isUDvjbrxEjcQULL4qIM9fr62RhwsjsXAeaxs9WUdLbGyPCBUNuFmvmVzKV/UzauRm
+         PUODWWDsz1PJfMCsS5yjjqUxCl1H5zbAsUIqON9QB2sdv+ZOYjU3XP1jO8HfrgsKjHYj
+         zZX5MoNvAkgwHPaufYI7sH2mavFjuvf7E+W0TV8ca4MJ4os95VT11QGfU+60Vzjzhm0y
+         TwXQ/OYjuKgiudO6aJB3YMQP1WdJHqxweoTb2tkxvadDqYrkquVxd9L/iuaUn+CJrZdL
+         QWU9RtWYcNSQ5q3yhvhBjnmgrbO+QvXjEN8e3ENOVZmYNWRrCDBM+8PEJX38dErbaR7Z
+         B04w==
+X-Forwarded-Encrypted: i=1; AL+hErFT5fOc+5W/m0w+kzJxknBIJU8yqIVEIXaMJ9BNvsfRvZTqDCxSwBtK/l2MCnvOilZUJHazIgPrnmMinR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ixx77UgF3IvfT8Douv8rjoFUixqJ8Yh/FkP/lHBhok0PKMsA0
+	CMciFXnpSOjNQRF6pniPbWV7Vo7DQSZGnjY8t4erygpcESecu7W1gBtA4KXPwYtiIvCOkYuyHqs
+	X66nmkAmqtF0s4kPC1Q1AxjHpkpByegCQP2dx8C2KZg==
+X-Gm-Gg: AYBFou1AsxN+fgJ4CN4jmmkspTZwZM+qgMTRjlphU6Hfv30dd8HvNtQ/R4sr/ym70y6
+	CYyGwHXMJO2JnsEBF4pmzpH3d8Rxdx4kUQ1lCMK44lnmnw4SOI2eq0SKeSI6Upj6Lm9kjGwqTm4
+	YKJ5NU2Dn6hIbukSmg3oqsCxezZCFT/GKZPpboSVPdEEAmwjk4remYRjqYNvuVDzUUDWEPmvTxW
+	fXwT1Elt014O4mUTBVwEENsUzzzzTYxO0tG2vqWPAxWpqaezxesLJ+UuH9ZnoISe50OVPgM9gm9
+	5exrJFFhJVr4egqyoH6gfGfVCOEP6mHGamOS14XWel5z+UMbBMzX1mX9P8Gam0uE3oDHySaBnBI
+	UDm0vbWPlSfDTSoMXwr1qcsr1rFiwOdmD1H36qe79KMOePslBwRtl4WNs
+X-Received: by 2002:a17:90b:540b:b0:3b0:975b:2256 with SMTP id
+ 98e67ed59e1d1-3b182f9b9d4mr203359a91.4.1794343377444; Tue, 10 Nov 2026
+ 12:42:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,111 +103,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105050225.49292-1-tim.budding@gmail.com>
-In-Reply-To: <20261105050225.49292-1-tim.budding@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 10 Nov 2026 15:42:23 -0500
-X-Gm-Features: AclHuK8o0-xxEFoJvGfG6APBQwWLT1OmYN6Yn9riIkt6Sd9kIfeUFXq--mPOaSg
-Message-ID: <CADvbK_fcFqT+rFN25sG69piR_HDy6gTnXyL9m=R-m9xumOOh3g@mail.gmail.com>
-Subject: Re: [PATCH net v2 0/4] sctp: fix I-FORWARD-TSN handling with user
- message interleaving
-To: Tim Budding <tim.budding@gmail.com>
-Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	marcelo.leitner@gmail.com, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
+ <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
+ <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com> <CAPnbwjpQBR-KHwOMG2bo1uhdp22ZW_O5sUj3=vjazVu=Rdnb7A@mail.gmail.com>
+ <DMN0RC27TJRM.3KUSPS9QTBV4G@gmail.com> <CAPnbwjrX-ywbcgNQSZKE2jiggEOSVCRVw9OLfaksihiVSCoqvw@mail.gmail.com>
+ <CAEf4Bza0XDMTxxZeukwRXjvoOOruY49q66xBXnYnuncbeo_Oiw@mail.gmail.com> <95e07cae-85ee-4f14-b5f3-070803ee567e@linux.dev>
+In-Reply-To: <95e07cae-85ee-4f14-b5f3-070803ee567e@linux.dev>
+From: Mike Bazov <mikeba@sentinelone.com>
+Date: Tue, 10 Nov 2026 22:43:02 +0200
+X-Gm-Features: AclHuK-KEMNOlfWD0UWl6ryn4dajINfOogjLWWr7jApapLp0YR3rK8ycXvkFphk
+Message-ID: <CAPnbwjqw=uxd8UyhEgNjSrpK1DhbB+dex0mGVW=dwuoygqgRHA@mail.gmail.com>
+Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
+ cause false recursion drops in trampoline progs
+To: "JP Kobryn (CrowdStrike)" <jp.kobryn@linux.dev>
+Cc: Andrii Nakryiko <andrii.nakryiko@gmail.com>, 
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	martin.kelly@crowdstrike.com, andrey.grodzovsky@crowdstrike.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 5, 2026 at 12:02=E2=80=AFAM Tim Budding <tim.budding@gmail.com>=
- wrote:
->
-> With user message interleaving (RFC 8260), fragments of messages on
-> different streams share the TSN space. When a PR-SCTP message is
-> abandoned, the receiver still frees queued fragments by the
-> I-FORWARD-TSN's New Cumulative TSN, which loses fragments of messages
-> still being received on other streams:
->
->   TSN  stream  MID
->     0    0      0    B   64KB reliable message on stream 0
->   ...
->     5    0      0
->     6    1      0    BE  PR-SCTP message on stream 1, lost, abandoned
->     7    0      0
->   ...
->   I-FORWARD-TSN new_cum=3D6 skip=3D[sid=3D1 mid=3D0]
->
-> The stream 0 fragments with TSNs 0-5 are freed with the abandoned
-> message, are never retransmitted, and stream 0 stays blocked.
->
-> Patch 3 frees fragments by the skip entries instead of by TSN, and no
-> longer treats an I-FORWARD-TSN that reaches the highest TSN seen as a
-> reset. Such an I-FORWARD-TSN is then handled by sctp_intl_skip() alone,
-> which has two partial delivery bugs of its own: an unordered partial
-> delivery is not aborted when its own message is skipped, and
-> PARTIAL_DELIVERY_ABORTED reports the highest skipped MID rather than
-> the one being delivered. Patches 1 and 2 fix these first, so the three
-> fixes should be backported together and in order. Patch 4 adds a
-> selftest.
->
-> Patch 3 has a cost, as discussed on v1 [2]: an unordered fragment of an
-> abandoned message that first arrives after the last I-FORWARD-TSN
-> naming that message is no longer freed by a later, unrelated
-> I-FORWARD-TSN. It keeps its rwnd and receive buffer charge until a
-> later unordered skip on its stream, a reset, or teardown. Dropping such
-> fragments on arrival needs new per-stream state and is left to a
-> follow-up [3].
->
-> Changes since v1 [1]:
->  - Fold "sctp: don't treat an I-FORWARD-TSN as an association reset"
->    into the purge patch, now patch 3, as Xin suggested [3].
->  - New patch 2, from Sashiko's review of v1 patch 3.
->  - Move the unordered partial delivery fix first.
->  - Selftest: add leading_edge_nopd, reset_pending_srv/cli and
->    pdapi/pdapi_uo; wait for conditions rather than fixed times,
->    including all data being acked before the queue check.
->
-> Tested with the new selftest, sctp_vrf.sh and the lksctp-tools
-> functional tests, also on a kernel with KASAN, lockdep and kmemleak.
-> W=3D1 and sparse show no new warnings.
->
-> Initial bug observed in use, root cause identified with AI-assisted code
-> inspection. Related bugs found and fixes implemented with AI assistance.
-> All reviewed and tested by me.
->
-> [1] https://lore.kernel.org/all/20261024120627.837568-1-tim.budding@gmail=
-.com/
-> [2] https://lore.kernel.org/all/20261026052706.187296-1-tim.budding@gmail=
-.com/
-> [3] https://lore.kernel.org/all/CADvbK_du=3D-oT19kKBKYSjFKYscnQSH1mekRKMX=
-gmLPMXTEH_=3Dw@mail.gmail.com/
->
-> Tim Budding (4):
->   sctp: abort unordered partial delivery when its message is skipped
->   sctp: report the partially delivered MID in PARTIAL_DELIVERY_ABORTED
->   sctp: fix I-FORWARD-TSN handling of fragments on other streams
->   selftests: net: add SCTP I-FORWARD-TSN tests with message interleaving
->
->  net/sctp/stream.c                           |   2 +
->  net/sctp/stream_interleave.c                |  38 +-
->  tools/testing/selftests/net/.gitignore      |   1 +
->  tools/testing/selftests/net/Makefile        |   2 +
->  tools/testing/selftests/net/sctp_ifwdtsn.c  | 699 ++++++++++++++++++++
->  tools/testing/selftests/net/sctp_ifwdtsn.sh | 233 +++++++
->  6 files changed, 951 insertions(+), 24 deletions(-)
->  create mode 100644 tools/testing/selftests/net/sctp_ifwdtsn.c
->  create mode 100755 tools/testing/selftests/net/sctp_ifwdtsn.sh
->
->
-> base-commit: 6baae996ecf6a3f57b08ea6f6786e29af9260f51
-> --
-> 2.34.1
->
-Series,
-Acked-by: Xin Long <lucien.xin@gmail.com>
+On Mon, Nov 9, 2026 at 4:12 PM JP Kobryn wrote:
+> Before moving away from an in-kernel solution, can we consider the
+> direction this patch below takes?
 
-Thanks for the fixes and test case. You may also want to look into the
-pre-existing issue in:
+I haven't proposed moving away from an in-kernel solution. Your patch
+is the same design I proposed earlier in this thread ("This is what I
+have in mind for v2") with Andrii's bpf_ctx suggestion folded in, and
+it's what I've been putting together for v2 (unless someone comes up
+with a better direction), which is nearly ready to
+post, so let's avoid duplicating the work.
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105050225.49292-1-=
-tim.budding%40gmail.com
+beyond trampoline progs, v2 also covers raw_tp, tp_btf, syscall
+tracepoints, and BPF_PROG_TEST_RUN, and disables the per-CPU private
+stack for preemptible tracing progs since two tasks can now run the
+same prog concurrently on one CPU.
+
+a couple of notes on your patch:
+
+- Passing prog to bpf_set_run_ctx() churns all callers that don't do
+  recursion checks, and doesn't fit bpf_prog_run_array_sleepable(),
+  which reuses one bpf_run_ctx across all progs in the array. In v2,
+  bpf_set_run_ctx() keeps its signature and initializes prog to NULL,
+  and bpf_prog_enter_recur_ctx() sets it after the walk succeeds.
+- bpf_io_uring_submit_sqes() calls bpf_set_run_ctx(NULL), so
+  dereferencing new_ctx unconditionally will NULL-deref there.
+- Cross-task synchronization isn't needed: a task only ever walks its
+  own current->bpf_ctx chain (and any IRQ/NMI on top of it runs on the
+  same CPU and walks the same chain), so compiler barriers around
+  linking and unlinking the frame are sufficient.
+
+I'll Cc you on v2 once I post it (probably by tomorrow evening UTC).
+testing and review there would be appreciated.
+
+Mike
