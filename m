@@ -1,109 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331105;
-	b=EgLBTikJ7+7pd5xNtDS9ETMuPlVtEcMTJw1yKzaF+2U6CJqxQsJNeuBiQ1JOTNwj21/k
-	 8RByFgJYCRwfUP1TUrJ3lZnp4DOT2top4e/IhKNBEPtgv0Myiovf+dOIHJMMElVYIPfqf
-	 OY+/3MjRPpUye+KBWwCehPJbItGlWmgou8Cr3Xoj5bYfnioJDQ4VPDIskJp+lKULDR8Qm
-	 1VtyhEv7aXR6sbx0/0wB2IGawV3e86yU1x2A0KXqPzKRP8HYjOom8eFp2w8Jwc/1wvDSC
-	 g86b8PUuN+0SdN5OUqW1Y6aNN8UkfxkFVm8nhCL7L5KDDHnT3iFQnQ6jHhvw90+REqw==
+	t=1794331109;
+	b=gjnXzYVC3gTmqYUkEgEubfAjnIYTS9VStSlEHn3r4SM1LtCWG+I8OOc2/QuKqdqW2Tdc
+	 u4MHoHiytT2GdBRNNHwCRPsd0PB6RvqfvYjbU+WEKhcvwTN0kmxUgSKosW5XHCHzbyWMH
+	 w//V+OTuGYHKixd2096wuY3vIWKnHFjejNER+reP0K/C9bMaioP5o19WvLZo5fYKSSEut
+	 Mktxb51Zbi6pTcPY3RudHSSJDvPG0RdjMCq5ctFXbsmR+LuHvHl1S0rn7phe4YPNhgSW1
+	 4LoHwPUZsox481Bln0yOiibHR30r8IOYDtmXqNdaxK/fXN2pao1DOWz5jFmhV+JLYuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331105;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=34QYw2n+GlRTBEJeFEQ+DjmyCUzXKovo4AvPkqRFd88=;
-	b=usS5PLMR6m8/KNhMmBcbCUKBxFPz2sDhy1d/YRYooePk3BfZqIpHK4svDtwCz7Hmu+6r
-	 HUUGgM/n0YdNt5HyYbvneenAhJWXuVtApsg78EJzF3liB0MGC4lkdien/tsXumzIDjyI7
-	 4Jc2RU0vdSq5puMnL019rpfoAxzL/a3SOTL9kQ0dVm8cpHThBuE9cWFZLj3llT/oop9sH
-	 3IkCh6JAtDWWr4Cv5fDva8LHNULCIC6XzE584ie2MB1cjnPP1TMjmd3KO1N+bXIxVKlsJ
-	 AgUNvgxHyIOan2onYSZ/PmYEYtCIShRZNKNMI7oTfZ422N9GZyGBp1NUA20crcT/0cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331109;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JIZN06AjudKtw8P7z2AuVD9MjuRSapkzot3fClyAqTo=;
+	b=4kjlRqR633inhoIHaHUIHqQJmsCh61ka2LlmHkoBo/Vy0ipfFJlFQ+1OsEvqs7rZYbte
+	 ko3xtt27h7Ihx1wKtV3o/5GifBP6qnFAfa7NV13Fd3m+StxAOvxn3Yrt5mfrFEIB64vmT
+	 rb2mEWtdWMVsI3HMkV8Sr38MBrKDmHi3ulm+L7fEkcrdhfeWWDhxmI3qg6B/Etb4T1Bjf
+	 7wmEXaGuUfHZIpwEKuqkqFDlNy5Qx2gC9ewn4qDyEa29wzInSV5gz8NYgEGmk/gmXKXIn
+	 UJSAawDaY1KSjwVa6iWwJ9o9zgFna3+tq74JhTaqYWuPadPFCvtG5xSuCKZ2HnHj7oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NfCGhUWd;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrN31MBG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7550606A33B;
-	Tue, 10 Nov 2026 17:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7550606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491F4606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NfCGhUWd
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAFEKvv2596191;
-	Tue, 10 Nov 2026 17:17:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=34QYw2
-	n+GlRTBEJeFEQ+DjmyCUzXKovo4AvPkqRFd88=; b=NfCGhUWdZTwtX3fY6/fnNq
-	2EDJZIEkB592SOtuDgQsQl3pbC5oa7r5WQlV/k09jqN7dkem6I/QsV/UxbaILOHD
-	ZyVemLBMb1LWi/Pa3fikdMQsQAKnYhgB9sEra83YWE9mt+ex17r+n2ndB1MexmfP
-	RP98zI/7kDaRYLycYE90slZLQOaVyFUkLVGVWHM550DCQjMq1heDwgOKY9oP5hqy
-	OLnHwrG7KwWASAgwOWRudyjRU+pUsuJEOwiUsM7Pqh2qTsycBieAqFYFG4zYApEb
-	iq1EBEUpr6m3fHhfIZ6cngKk6w9+uZCBSTsimdDeSCPro9PT4DU3BDwvPIUFgtzQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hssdkp8th-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 17:17:17 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF4uCM1880658;
-	Tue, 10 Nov 2026 17:17:16 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hv332126v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 17:17:16 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAHHCR933554746
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Nov 2026 17:17:12 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 606B320043;
-	Tue, 10 Nov 2026 17:17:12 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 789A420040;
-	Tue, 10 Nov 2026 17:17:10 +0000 (GMT)
-Received: from thinkpad-T15 (unknown [9.111.27.248])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue, 10 Nov 2026 17:17:10 +0000 (GMT)
-Date: Tue, 10 Nov 2026 18:17:08 +0100
-From: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org,
-        chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com,
-        linux-mm@kvack.org, chenhuacai@kernel.org,
-        ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
-        willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
-        riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr,
-        kas@kernel.org, baohua@kernel.org, dev.jain@arm.com,
-        baolin.wang@linux.alibaba.com, Nico Pache
- <nico.pache@linux.dev>,
-        "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com,
-        Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev,
-        linux-kernel@vger.kernel.org, nphamcs@gmail.com,
-        shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
-        luizcap@redhat.com, kernel-team@meta.com,
-        Alexander Gordeev
- <agordeev@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
- <gor@linux.ibm.com>,
-        linux-s390@vger.kernel.org,
-        Christian Borntraeger
- <borntraeger@linux.ibm.com>
-Subject: Re: [PATCH v9 06/32] s390: mm: add PMD swap-exclusive helpers
-Message-ID: <20261110181708.1713b836@thinkpad-T15>
-In-Reply-To: <20261105183940.2236717-7-usama.arif@linux.dev>
-References: <20261105183940.2236717-1-usama.arif@linux.dev>
-	<20261105183940.2236717-7-usama.arif@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrN31MBG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CE61F008AB
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794331109;
+	bh=JIZN06AjudKtw8P7z2AuVD9MjuRSapkzot3fClyAqTo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IrN31MBGYEHoe3I+Id+zUv7JgXjuZvTiIdovupEvRZArRdaYpDQ5O1CGIaY1p60l3
+	 4xXNQTMCtGy30iK4N2vTuFXCXZlxmmGCB+kZSLdALJl8AHV/Y6lzffskqYKDchPf/I
+	 ySlqhKlA73pRbp7GsiEf6Fbqk5uwkDluawl+OXOGQBguzCwQWtxqzKx2LC6pGT2wRI
+	 HSL62kBQpb7dtei7FegSJMt+lIHoQ5R/CZzvhPK3qtF8jxgeO3AbB6VD98x4Zh+XLN
+	 ET+qOGVGNRspJZrt0+LdYxVhx0H0gYCLQfErvU+8JTprP/+SwoB09R1tpbHJHIHdKo
+	 oTqACdVzOEWTg==
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-714d57774d8so1434167eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:18:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHUYEOEAj0zMY58MZes1x35dDwUPnaE0/NeD6q4iSURYnPbCOVHJELotTiv4IEarvkIOkbF/f8bMNDnjuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SVxST9V/NQlS/xi4FlEHVWkxJQ+dFi3VmuIv/HcDoyzKUhsGt
+	COWoENmQsralunGrDa2ejdrJ16mhVaRTrrG7/TUzvPu/ydKEpDNzw3vBRZ1Eo8vEh69KvPqomat
+	IO8GtT++ekhqxYriwSXnRUMxXG2vqz7g=
+X-Received: by 2002:a05:6820:338a:20b0:702:f7c2:1937 with SMTP id
+ 006d021491bc7-718a7adc206mr1234230eaf.83.1794331108296; Tue, 10 Nov 2026
+ 09:18:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,131 +59,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=POqaavqC c=1 sm=1 tr=0 ts=6af3519d cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=4g41d8trx35e7M10UtoA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2OCBTYWx0ZWRfX1nyYYnc9Zf8D
- du45S4a7FrRkSUAtDI5KOSQkCeSLN7Dq5lGlGHiyOYcNoRKzMZ12WLAmCqRKYJytxdHGdBK+5/s
- q5W3D8T5Sjy5ZtmsKeK4DHmj0LGOB/LPQRiBmH65Kkw3VTPtyb8rfTnRoZ4wd5x1jwDsVZVD5tN
- IWulXnrZ6qf+EifdiDDzvCfZg0OvUCV8DDxgEAltllo2oibYbsD9AdBdvFWfcQA2cCTLVCljNi6
- PpfApjXSnds1TWNTsxtXmSeBNJnxM82ctqFLudVfIanF/G09qFPdhWwmjrrqWGOO1GgI5KTDhUM
- +KZPFwpBXiH+JEwNNrV0cuVmG8sGX28PJj6Ynpw+BnsStkJDu0MFVa3jfz3ynJERH2nYHOyIdiD
- AHcndrIogjpdztYsOlhCJ7jLdjgLg4uNtb3kBlOnQRcyKgKG6HMAvsGqV8ixdV0H6K65K0cxLAD
- ZzqRV4ri5mzlZQdZzEw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2OCBTYWx0ZWRfX+QdIRFNLmalI
- +GtJJhShocEC12dtfgMuBqXcn6yA0+CEeWr9W0mhis45wuudu3V1VWLKMaD04NMEvcJ4rmyedw5
- hENC38dcFaU0mwtbLghTYC/IYDQKu2c=
-X-Proofpoint-ORIG-GUID: chnieGMiAe7hH-KPCsz8GCzo2Y3VSnMa
-X-Proofpoint-GUID: Q4vxBTk2HZYJiPc3lOJwR1sDo2ByQqUk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100068
+References: <20261110162418.28322-1-yanhaishuang@cmss.chinamobile.com> <20261110162418.28322-2-yanhaishuang@cmss.chinamobile.com>
+In-Reply-To: <20261110162418.28322-2-yanhaishuang@cmss.chinamobile.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 10 Nov 2026 18:18:17 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiiq-_YiC-5avRy8k9_puGEGshba=Z95meBD=+pCS16T01A@mail.gmail.com>
+X-Gm-Features: AclHuK_BQdwGa-Kjt1YUj50YjvkFVskfrGku8EF6VXEo9uSUQ9fr9jS3lAruhgw
+Message-ID: <CAL4Wiiq-_YiC-5avRy8k9_puGEGshba=Z95meBD=+pCS16T01A@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/2] net: do not run out of frags in alloc_skb_with_frags()
+To: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, almasrymina@google.com, 
+	daniel@iogearbox.net, willemb@google.com, willemdebruijn.kernel@gmail.com, 
+	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
+	narcisav.kernel@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu,  5 Nov 2026 10:38:50 -0800
-Usama Arif <usama.arif@linux.dev> wrote:
+Le mar. 10 nov. 2026 =C3=A0 09:31, Haishuang Yan
+<yanhaishuang@cmss.chinamobile.com> a =C3=A9crit :
+>
+> alloc_skb_with_frags() rejects data_len above
+> MAX_SKB_FRAGS * (PAGE_SIZE << order) up front, but two things can then
+> make it need more than MAX_SKB_FRAGS frags, so it fails with -ENOBUFS
+> for a data_len that passed the check:
+>
+> - It rounds the order down for the tail, so a tail of N pages is split
+>   into one frag per bit set in N. With order 3 and 4K pages, a 516536
+>   byte packet is 15 * 32K plus a 25016 byte tail, which becomes
+>   16K + 8K + 4K, so 18 frags are needed although every page allocation
+>   succeeded. Sizes between about 480K and 540K can be affected.
+>
+> - When a high-order allocation fails, it lowers the order for this and
+>   every later chunk without checking that the frags left can still hold
+>   the rest. With order 3, a failure on the first chunk leaves room for
+>   at most 17 * 16K, so anything above 278528 bytes fails. These
+>   allocations are made without direct reclaim, so they fail whenever no
+>   order-3 page is free at that moment.
+>
+> Both came with the commit below. Before it, the limit was MAX_SKB_FRAGS
+> pages, which fit at any order.
+>
+> tun hits this when vhost-net hands it a GSO packet of such a size from a
+> guest. Nothing on the host limits the size of a guest's GSO packet to
+> 64K: virtio_net_hdr has no total length, and tun_get_user() sizes the
+> skb from the descriptor chain. Today's virtio-net drivers stay at 64K,
+> but a guest can send bigger packets by raising its own TSO limit, and
+> the host must not depend on the guest for that. Worse, vhost-net treats
+> -ENOBUFS from sendmsg() as transient: handle_tx_copy() puts the
+> descriptor back and retries it, so the vhost worker spins at 100% on
+> the same packet and the device stops passing traffic in both
+> directions.
 
-> Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-> swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-> PMD and not just in a swap PTE.
-> 
-> s390 is the one architecture where a swap PMD is not a swap PTE in
-> disguise: it is an RSTE with its own layout, converted to a fake PTE swap
-> entry for the common code. Give it its own exclusive bit rather than
-> borrowing the PTE-format macro, and document it in the RSTE swap layout,
-> where bit 52 was listed as unused.
-> 
-> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-> Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-> Cc: Heiko Carstens <hca@linux.ibm.com>
-> Cc: Vasily Gorbik <gor@linux.ibm.com>
-> Cc: linux-s390@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+This part is really a vhost-net/tun issue: handle_tx_copy() will spin
+the same way on -ENOBUFS/-ENOMEM from real memory pressure, including
+when the new direct reclaim attempt fails. Please trim this from the
+changelog (or keep one sentence), this patch is about frag accounting
+in alloc_skb_with_frags(), the retry loop deserves its own fix.
+
+
+Also, this changelog is far too long. Ask your LLM to reduce it.
+
+ On an unmodified host, tun_get_user() returned -ENOBUFS
+> about 620,000 times per second, the tap's rx_dropped counter climbed at
+> the same rate, and this went on with no traffic until the VM was
+> destroyed.
+>
+> This patch only fixes the frag accounting for packets that pass the
+> data_len check. A larger frame from a guest can still make
+> tun_alloc_skb() fail in alloc_skb() and vhost-net retry it; that is a
+> separate problem in tun.
+>
+> Keep rounding the tail down when the remaining frags allow it, and use
+> one page rounded up for the whole tail otherwise. This is never larger
+> than the full-size chunks already used. When a high-order allocation
+> fails, only lower the order if the frags left can still hold the rest.
+> If they can't, try the same order once more with the caller's direct
+> reclaim (with __GFP_NORETRY, so no OOM killer), and fail only if that
+> fails too. An allocation that succeeds today takes the same path; the
+> extra attempt only happens where it would have failed.
+>
+> The tail case was triggered while prototyping >64K TSO for virtio-net,
+> with a one-line guest virtio_net change raising its TSO limit; the host
+> was unmodified. The fallback case was pointed out in review of v1. The
+> fix was tested with that reproducer, with page allocation fault
+> injection on the vhost worker, and with the KUnit test in the next
+> patch.
+>
+> Fixes: 09c2c90705bb ("net: allow alloc_skb_with_frags() to allocate bigge=
+r packets")
+> Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
 > ---
->  arch/s390/include/asm/pgtable.h | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
-> index 2d5c2ab06de98..2c6b5205ee3bc 100644
-> --- a/arch/s390/include/asm/pgtable.h
-> +++ b/arch/s390/include/asm/pgtable.h
-> @@ -333,6 +333,7 @@ void setup_protection_map(void);
->  /* Common bits in region and segment table entries, for swap entries */
->  #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
->  #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
-> +#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
->  
->  #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
->  #define _PAGE_ENTRIES	256	/* number of page table entries	*/
-> @@ -893,6 +894,21 @@ static inline pmd_t pmd_clear_soft_dirty(pmd_t pmd)
->  }
->  
->  #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-> +static inline bool pmd_swp_exclusive(pmd_t pmd)
-> +{
-> +	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
-> +}
+> Base: net a45dbf182137 ("ipvlan: make outbound skb headers writable").
+> The tests below were run on net-next 303d91a15925, where
+> alloc_skb_with_frags() is identical. KUnit on net 30c71476d842: net_core
+> 20/20 (kunit.py, UML x86_64); with only patch 2 applied, the new test fai=
+ls
+> with err -105. allmodconfig W=3D1 build of net/core/ (arm64) on net
+> a45dbf182137 with no warnings.
+>
+> Reproducer: x86_64 KVM host (i7-14700) running net-next 303d91a15925 with=
+ no
+> local changes; vhost-net, a tap NIC with mrg_rxbuf=3Don and rx_queue_size=
+=3D1024.
+> The guest (net-next too) has a local one-line virtio_net change setting
+> netif_set_tso_max_size(dev, GSO_MAX_SIZE), plus
+> `ip link set dev ethX gso_max_size 524280 gso_ipv4_max_size 524280`; then
+> a 10 s iperf3 guest -> host.
+>
+> Tail case, without this patch: iperf3 fails, one vhost worker stays at
+> 99.9% CPU, tun_get_user() returns -105 (31014 times in 50 ms, kretprobe),
+> the tap's rx_dropped goes up by 34M during the run and keeps climbing at
+> ~690k/s with no traffic, and the guest can no longer ping the host until
+> the VM is destroyed. With this patch: ~100 Gbit/s, no drops, and the vhos=
+t
+> worker is idle afterwards; tun_get_user() handled 246783 packets, 237937
+> of them between 480K and 540K, and none failed.
+>
+> Fallback case: CONFIG_FAIL_PAGE_ALLOC with min-order=3D3, ignore-gfp-wait=
+=3DY
+> and task-filter set on the vhost workers, so only the order-3 attempts
+> without direct reclaim fail. Failures of tun_get_user() during the run:
+>
+>   probability   tail fix only               this patch
+>      0%          99.0 Gbit/s, 0              96.0 Gbit/s, 0
+>      5%          92.7 Gbit/s, 240418         99.8 Gbit/s, 0
+>     20%          72.3 Gbit/s, 1152801       101.6 Gbit/s, 0
+>     50%           0.1 Gbit/s, 4077173        99.5 Gbit/s, 0
+>    100%          iperf3 fails, 10573852      98.9 Gbit/s, 0
+>
+> With this patch the order-3 pages that the first attempt doesn't get come
+> from the retry with direct reclaim (3546571 of them at 100%). Not tested:
+> the retry failing as well, i.e. real memory pressure, and other callers
+> of alloc_skb_with_frags() than tun.
+>
+>  net/core/skbuff.c | 30 ++++++++++++++++++++++++++++--
+>  1 file changed, 28 insertions(+), 2 deletions(-)
+>
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index a7d555b3d2f28..da9025e6f0c3c 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -6906,15 +6906,41 @@ struct sk_buff *alloc_skb_with_frags(unsigned lon=
+g header_len,
+>         while (data_len) {
+>                 if (nr_frags =3D=3D MAX_SKB_FRAGS)
+>                         goto failure;
+> -               while (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << orde=
+r))
+> -                       order--;
+> +               if (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order))=
+ {
+> +                       unsigned long pages =3D DIV_ROUND_UP(data_len, PA=
+GE_SIZE);
 > +
-> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-> +{
-> +	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
-> +}
+> +                       /* If splitting the rest into smaller pages would=
+ need
+> +                        * more frags than we have left, use one larger p=
+age.
+> +                        */
+> +                       if (hweight_long(pages) > MAX_SKB_FRAGS - nr_frag=
+s)
+> +                               order =3D order_base_2(pages);
+> +                       else
+> +                               order =3D ilog2(pages);
+> +               }
+>
+>                 if (order) {
+> +                       unsigned long smaller =3D PAGE_SIZE << (order - 1=
+);
+> +                       bool can_shrink;
 > +
-> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-> +{
-> +	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
-> +}
+> +                       /* Only fall back to smaller pages if the frags l=
+eft
+> +                        * can still hold the rest. If not, try this orde=
+r
+> +                        * once more with the caller's direct reclaim.
+> +                        */
+> +                       can_shrink =3D DIV_ROUND_UP(data_len, smaller) <=
+=3D
+> +                                    MAX_SKB_FRAGS - nr_frags;
 > +
->  #define pmd_swp_soft_dirty(pmd)		pmd_soft_dirty(pmd)
->  #define pmd_swp_mksoft_dirty(pmd)	pmd_mksoft_dirty(pmd)
->  #define pmd_swp_clear_soft_dirty(pmd)	pmd_clear_soft_dirty(pmd)
-> @@ -1900,15 +1916,15 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
->   * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
->   * as invalid.
->   * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
-> - * |			  offset			|Xtype |11TT|S0|
-> + * |			  offset			|Etype |11TT|S0|
->   * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
->   * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
->   *
->   * Bits 0-51 store the offset.
-> + * Bit 52 (E) is used to remember PG_anon_exclusive (_RST_ENTRY_SWP_EXCLUSIVE).
->   * Bits 53-57 store the type.
->   * Bit 62 (S) is used for softdirty tracking.
->   * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
-> - * Bit 52 (X) is unused.
->   */
->  
->  #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
+>                         page =3D alloc_pages((gfp_mask & ~__GFP_DIRECT_RE=
+CLAIM) |
+>                                            __GFP_COMP |
+>                                            __GFP_NOWARN,
+>                                            order);
+> +                       if (!page && !can_shrink &&
+> +                           gfpflags_allow_blocking(gfp_mask))
+> +                               page =3D alloc_pages(gfp_mask | __GFP_COM=
+P |
+> +                                                  __GFP_NOWARN | __GFP_N=
+ORETRY,
+> +                                                  order);
+>                         if (!page) {
+> +                               if (!can_shrink)
+> +                                       goto failure;
+>                                 order--;
+>                                 continue;
+>                         }
 
-Nice, you found the last free bit in s390 RST swap entry, and made good
-use of it. Bit 52 would also be free in regular RST entries, but as far
-as I remember from PTE SWP_EXCLUSIVE, this will only ever be checked or
-set for swap entries, right? Otherwise we should also document and
-reserve for regular RST entries, but it should be safe for now in any
-case.
+can_shrink is only needed when the first alloc_pages() failed, but you
+compute it for every chunk, with a 64bit divide since the divisor is
+not a constant.
 
-Also did some basic tests with your series on s390. Couldn't see an
-increase in throughput yet, but my swap device was way too slow an a
-bottleneck itself. Verified that thp_swpout_pmd counter was increased,
-system runs stable, found no problems so far.
+Please move all this in the slow path, and use a shift. Something like
+(untested):
 
-I think this series could give s390 some considerable benefit, besides
-swap throughput, by saving the 256 IPTEs (PTE invalidations) for each
-1MB THP that doesn't need to get split before unmap and swap out. This
-could have a positive system-wide impact, not just for one guest.
 
-Great job, thanks for the effort!
+                if (order) {
+                        page =3D alloc_pages((gfp_mask & ~__GFP_DIRECT_RECL=
+AIM) |
+                                           __GFP_COMP |
+                                           __GFP_NOWARN,
+                                           order);
+                        if (unlikely(!page)) {
+                                unsigned int shift =3D PAGE_SHIFT + order -=
+ 1;
 
-Reviewed-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Tested-by: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+                                /* Can smaller pages hold the rest ? */
+                                if (((data_len - 1) >> shift) + 1 <=3D
+                                    MAX_SKB_FRAGS - nr_frags) {
+                                        order--;
+                                        continue;
+                                }
+                                if (!gfpflags_allow_blocking(gfp_mask))
+                                        goto failure;
+                                page =3D alloc_pages(gfp_mask | __GFP_COMP =
+|
+                                                   __GFP_NOWARN | __GFP_NOR=
+ETRY,
+                                                   order);
+                                if (!page)
+                                        goto failure;
+                        }
+                } else {
+
+I find this also easier to follow than the
+(!page && !can_shrink && ...) sequence.
+
+The tail part looks good to me.
