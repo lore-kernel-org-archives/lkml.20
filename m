@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304461;
-	b=CkkiMPkrF6PRhGKAzfQNHdQcANy2n+u7FYHSj5348ruwfojzwacBsntO8d+Hrt2G/vc/
-	 0WWs3pjlXz82hz4CjvEpDOFoasHjNTX7nD2H0c8A8C1WeQGHSOANQQAztPaZVqD30dPwV
-	 BBiGbFLMxgsmhdGDae3lssAxXf6IHlBwZwl/NJBjs6mDzpjZ4DccPv1jdwB8dyQOii4oe
-	 h5wJo1bYtdB8apO+qGOmkoXCy33+h3uapjW5kbVTiReiq6jPnnqRtLMi9fZZxM8jvdFhU
-	 W9tOnfHGvjX0KvB8HKOHD/xiXvuAIl414rKPl09wSbu51/32usEi6dqkRgTL0cAABUg==
+	t=1794304470;
+	b=VcFkV0Z2Rjd8xMxvBJ9Rmauxbj+X9clNia0Q98/rxJPAn6cwOI6KsOsCygWvYRg98UvW
+	 tfMtyYGgWLns0iwlQTMxSeLkOSVRSDlWwG6vpUkJI1wi1309lSvJuyo7BGjU23x4FiunP
+	 GI4pXlajXCs1ne8zBApUT/otjxrVFcXUIbElVVNmUolYWKfBCdjlSNZM05ckW17Y+iE84
+	 0gCLFBk+RuIaPolBw9tknJ1VnWrswUeas0+yBNgdtdCZjpw0172fmTd4YcFyBU9ziGJnR
+	 BCoEStPkfHerX9VdSzUpZTVQnEWgWFVjrkYnUSNQfdQ40Po9Vb2U1oFW7KZZouN/P2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304461;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dv+juQSa5jdjyDwYyEB7CxuxwRRYVallMJB1NLgyTUA=;
-	b=1WtI/K247TTtdVqTfUYi508jpifskov8F9F+XHz4+rOz8ZyvA/oYE7e4AAaaqwUUkGT8
-	 NoXk3X6x51CsPK2sSr2BgPPhBi3mwgHVv/5PS4wgrlE8wFbrPDEY1mssbiEdTimptILyV
-	 n+SiqHyu02NWDDQ90ruJJ6LIuLIIRC3Jgx8eTleCHNhs1SrT3+O+kKj9K7HAe4qvx9b0k
-	 ZuPQTfMaWIXnGOy2kUiDEQIw/QFIUuLj3DhyhmY8etq1mWdljhsiNuav7Y23Qsba+c7Rd
-	 MA4obd8qodNd4KqN9uGDlSaoebi/s13m6OU1MwQo7S7BTCtOay84BbG4VA+b8yknAHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304470;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+1i1sVyMH9ad9wsU8jFlrzIKrGOD1X4RL8nm+PYmu6A=;
+	b=AVPm9Em3Gwhv0bUDHKHgPKkHzr/qlqNjW3CCf3aYsQf/Mj2fPfKW0koiNpjW1cxFpTbb
+	 bJlVtXLL0jA8k0FXYj1Hvjj9LlRjgQKkGPRwU1fiwhHaYku1XJASbtT1Ve9ksEG0pLwt8
+	 SPLqhyFmMCnSN/0PbICmWxNQJ4JnqwFDkY6e+GOV/iDN5n1K8n1cpfrX9fPQQEs7mOxn4
+	 wW7+gXBAhFu0Bm/oB1iKIo/VQ3HqZf9zEgPuRtXy2U7uPQKURn1rKtgqnv+0JZd47WOUP
+	 w5GZuNZqnjPGanqSPNbntkubjtMAI0VGT8SromwV1yqrIRR8LlPh96K0d6B4rLzhotw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KND9vpqb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dxG7dKRj;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8152606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3B2606A900;
+	Tue, 10 Nov 2026 09:54:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3B2606A900
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KND9vpqb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEB61F008A6;
-	Tue, 10 Nov 2026 09:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304460;
-	bh=dv+juQSa5jdjyDwYyEB7CxuxwRRYVallMJB1NLgyTUA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KND9vpqbeujQxLQxxuvvJ3vk2yhiAk+oF4tUnVR8O719EClhHZ6/0kORrruacKOJD
-	 XybHdysDYPpiThqt8b6zTNhKYYxU0tRWlYEz6OCVH6pzQERdNH3jvWwgwfHJhXzul7
-	 8B5PK5gQ94MI43Jq02DKuQ8G1nMWlIA3S/uKLUxFiJY9KNHktT7AMD9NxNidtRzP9n
-	 3kZyhWE1kv1tluEljw6Z9egYEiEUdD8xbc3pnQrJlE0rquDv9Y8YrjFu3e13m4TA/I
-	 vi7z0IIrNbsHizoeoHqAX619sFiX7UlaCAIb/bz9D36dU9l7aotOp8GePcv0Ax0CpR
-	 ThQ3UOdJ1/WUw==
-Date: Tue, 10 Nov 2026 09:54:12 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] MAINTAINERS: remove myself from MEMORY MANAGEMENT -
- RECLAIM
-Message-ID: <avLppG5vGNIOo6zQ@gremlin>
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
- <20261109-maintainers_mglru-v1-2-c25e6de60bcc@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dxG7dKRj
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+1i1sVyMH9ad9wsU8jFlrzIKrGOD1X4RL8nm+PYmu6A=;
+	b=dxG7dKRjQbGQ7VRuW2iwYcZFB00Gynna4dL9BbZdnTflV/D1Wg/cpTkNn9dAnZ2hKAz8J4QjI
+	KPKEz1S6B3O3KKTsJLIY/ciq/IYEqpjZZCDDkY03eaKBWPYRrV39a++e65rCmS5GV/CWyDb0P7N
+	yv54i+EUDCR4VE0ISK3e4iA=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jP26n00cczRhT3;
+	Tue, 10 Nov 2026 17:54:08 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id CA43C40561;
+	Tue, 10 Nov 2026 17:54:18 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 17:54:17 +0800
+Message-ID: <46e25aa5-4db5-4322-961c-95ac8a2c40d4@huawei.com>
+Date: Tue, 10 Nov 2026 17:54:16 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +62,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-maintainers_mglru-v1-2-c25e6de60bcc@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/6] resctrl: Support mba_MBps on MPAM
+To: Ben Horgan <ben.horgan@arm.com>, Jinjie Ruan <ruanjinjie01@gmail.com>,
+	<babu.moger@amd.com>, <bp@alien8.de>, <corbet@lwn.net>,
+	<Dave.Martin@arm.com>, <fenghuay@nvidia.com>, <james.morse@arm.com>,
+	<rdunlap@infradead.org>, <reinette.chatre@intel.com>,
+	<skhan@linuxfoundation.org>, <tony.luck@intel.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+References: <20261109132621.3862497-1-ruanjinjie01@gmail.com_quarantine>
+ <dc1398f4-b81c-4ad8-b706-df89a1622e6c@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <dc1398f4-b81c-4ad8-b706-df89a1622e6c@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, Nov 09, 2026 at 07:31:54PM +0100, David Hildenbrand (Arm) wrote:
-> I don't really get to look at most reclaim related stuff. For things
-> that are actually relevant for me, I'm sure people will CC me.
->
-> So remove myself from the MEMORY MANAGEMENT - RECLAIM section for now
-> to have a bit less noise in my inbox.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Understandable! The ML is crazy of late.
 
-And... Hmm... maybe time for me to pare down some of my R:'s too :)
+在 2026/11/10 1:50, Ben Horgan 写道:
+> Hi Jinjie,
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Hi Ben,
 
-> ---
->  MAINTAINERS | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index e7ac319a570c..7dc8548236b9 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17808,7 +17808,6 @@ F:	tools/mm/page_owner_sort.c
->  MEMORY MANAGEMENT - RECLAIM
->  M:	Andrew Morton <akpm@linux-foundation.org>
->  M:	Johannes Weiner <hannes@cmpxchg.org>
-> -R:	David Hildenbrand <david@kernel.org>
->  R:	Michal Hocko <mhocko@kernel.org>
->  R:	Qi Zheng <qi.zheng@linux.dev>
->  R:	Shakeel Butt <shakeel.butt@linux.dev>
->
-> --
-> 2.43.0
->
+> 
+> On 09/11/2026 13:26, Jinjie Ruan wrote:
+>> From: Jinjie Ruan <ruanjinjie@huawei.com>
+>>
+>> Resctrl offers two ways to describe an MBA policy:
+>> - The percentage interface writes a fraction of the maximum bandwidth
+>>   into the hardware control register
+>> - The MBA software controller (mounted with -o mba_MBps) takes
+>>   an absolute target in MiB/s and adjusts that percentage based on
+>>   the MBM counters sampled once per second.
+>>
+>> The problem is that a percentage alone isn't enough. How much bandwidth
+>> a percentage actually corresponds to depends on the memory frequency,
+>> the channel count, how many threads are generating traffic, the access
+>> pattern, and the traffic of other groups. Neither MPAM nor x86 resctrl
+>> reports the maximum bandwidth in MiB/s. So an administrator who wants
+>> to enforce an absolute budget (a tenant SLA, a noisy-neighbour limit)
+>> has to measure and re-tune the percentage on every machine. x86 resctrl
+>> has had this software controller since 2018; MPAM has never been able
+>> to use it. This series makes it work on MPAM.
+> 
+> I see that you are enabling the software controller at the same time as
+> assignable mbm counters. This means that if you enable the software
+> controller and create too many monitor groups then the software
+> controller will stop working. Any user applications already using the
 
---
-Cheers, Lorenzo
+Thanks for the review.
+
+You are right, once the mbm counter pool is empty a new monitor group
+has no counter, the software controller cannot see it, and it can then
+raise the control above the user's target. The warn was not a fix for that.
+
+> software controller would be broken.
+> 
+> Would instead teaching MPAM about the mbm_default fixed allocation of
+> counters be better? If a platform has sufficient bandwidth counters then
+> we can ensure there is a counter for every monitor group. If necessary,
+
+Right, if the MBM assignable counter is assigned at the time of group
+creation, the MBps mechanism can be prevented from failing due to a lack
+of counters.
+
+> we can also reduce the number of CLOSID/RMID the driver reports so that
+> there is one per monitor group.
+
+I tried this method, and it works fine on QEMU.
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+>>
+>> What this series does
+>> =====================
+>>
+>> MPAM refuses mba_MBps in two places:
+>> - Its MBM counters are assignable, and supports_mba_mbps() refuses
+>>   the option when they are.
+>> - Its maximum bandwidth control is a soft limit by default, which
+>>   can't hold a single requester down to the target.
+>>   MPAMF_MBW_IDR.MAX_LIM reports whether the hard limit exists.
+>>
+>> MPAM also makes two generic defects reachable:
+>> - Writing the control register sleeps (smp_call_on_cpu()), while
+>>   the worker runs under the RCU read lock
+>> - A 16-bit fraction lets the minimum control value reach zero, which
+>>   divides by zero in the estimator
+>>
+>> The patches:
+>>
+>> - Patches 1 and 2 fix the two generic defects.
+>> - Patches 3 and 4 make the loop runnable on MPAM: the worker takes the
+>>   CPU hotplug lock around the sleeping control update, and assignable
+>>   counters are accepted with a fixed assignment mode.
+>> - Patches 5 and 6 handle the maximum: the driver sets HARDLIM and
+>>   records the MAX_LIM behaviours, and mba_MBps is refused where only
+>>   the soft limit exists.
+>>
+>> x86 has no assignable counters in the mode where the controller is
+>> allowed, and does not set the soft-limit flag, so its behaviour is
+>> unchanged.
+>>
+>> Testing
+>> =======
+>>
+>> With the MPAM MSC model in QEMU:
+>>
+>> - From a 9606 MiB/s baseline, a 7000 MiB/s target converges to
+>>   6888 MiB/s and a 9000 MiB/s target to 8766 MiB/s.
+>> - The memory-side MSC register shows MBW_MAX.HARDLIM set.
+>> - A modelled MSC that implements only the soft limit refuses the
+>>   mba_MBps mount, while a plain mount succeeds.
+>> - With mbm_assign_on_mkdir forced on while the controller is in use,
+>>   a write of 0 is refused, and the user's value is restored after
+>>   unmount.
+>> - The KUnit tests for the MPAM driver pass.
+>>
+>> Jinjie Ruan (6):
+>>   fs/resctrl: Avoid division by zero in the MBA software controller
+>>   fs/resctrl: Do not update bandwidth from a failed counter read
+>>   fs/resctrl: Take the CPU hotplug lock for software controller updates
+>>   fs/resctrl: Allow mba_MBps with assignable MBM counters
+>>   fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
+>>   arm_mpam: Program the hard limit for the software controller
+>>
+>>  Documentation/filesystems/resctrl.rst | 13 +++-
+>>  drivers/resctrl/mpam_devices.c        | 55 +++++++++++++----
+>>  drivers/resctrl/mpam_internal.h       |  4 ++
+>>  drivers/resctrl/mpam_resctrl.c        |  9 +++
+>>  fs/resctrl/monitor.c                  | 86 +++++++++++++++++++++------
+>>  fs/resctrl/rdtgroup.c                 | 48 ++++++++++++---
+>>  include/linux/resctrl.h               |  5 ++
+>>  7 files changed, 179 insertions(+), 41 deletions(-)
+>>
+> 
+
+-- 
+Best regards,
+Jinjie
+
