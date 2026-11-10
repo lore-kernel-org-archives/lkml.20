@@ -1,69 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322930;
-	b=uz6ZetfCuAReQEUy9kVuhOAEu2G5J2ADGbMY3RzjVXhEyZYYpSsO8nqLwkEqVDDp0tac
-	 52oVtwyWlH8vkaMdvP0bf5nwFgOgrX2DcO9s6CTzFLaVn292dssd6sWUL5tULuGLZOxfa
-	 JXFmVoYdKHwzN4pK51rDwqfbVzmYjIgnoPAeoHpPalQAAYuNbMUqWeQveI1IleSqX9egm
-	 kjdT4xoUDTLO4/FCABEMVI4IWnlE5UMskQRsNGEsDMRo+zwZsZiQGp7D6JTL84MzMKkdw
-	 0UwlsVSkCpBCeWHRRxlvgLNzmkIwftsJi7inuVxYWpuN0P2Fes2MpBrar2nl1qTOdsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322930;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=YGXeCKEd7KljuLVnW/YTZx2YwnHQN1kvggrL0pA/UuU=;
-	b=lAPEj9OftslOgCujeFlQeGtPF5X7VABfqDnoydEe90ub2Nuuo/GkR8oSbTL7pK3hI7P5
-	 ftqk1aC9G/fl9ja9/D2aCtthCegU/I5Ejo1k7xbsTj9Og9HZhrOI9+fUhycwN0ORrm5/V
-	 5ptCEQbwAjrTaIfd9tcEVS5xVCmUNYqPU6/iNUNDn1980ADgCxpLW6kYmUdHD0SURDEgR
-	 Vqgg5ogE3tgDhaLaSqOyecgg9SB2aLTvaCir8LCo2Rc/HQcNc+W6hdG1r54mLhGMdmgxl
-	 7hOCB8xo35x1P4/86o/i0XVdAR2FFe7vF11NzxtVUGJPQbmJ4V+BCswqOOo9QX/i+Vg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=K7bd9KQ+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322980;
+	b=4Y6rBqLIqhfUa/PyIczLVFM1C/03cvQqvgIOLe999YLNhQnTUWplKVFxZ9WqR4ohzjg9
+	 GCokX71zufs3s86ToW1/f7h7iB7QB6XL1HVqP8ZLJLWa2DnOzCCxTZLR3rFbwI1cGFkRw
+	 GY0Pu31wEpl5L4V5KC3p/S+ZkuDLSqcHHs6grSWZ8Cvm2ezE8hqaDh+0dOWqRjdcdxOkJ
+	 O6gyM4QJcSSlTKIGE0XxhZON+dItXUVfgOln9KEyvi/jMTiRxhkSXJ6MFCWJ5UzEa7j4f
+	 B+Xzs2l5kGL88CnBvF+rl/jnjNAWuNphFuC7R+TgvdxdB1D/lkF8Zf6JR+7KJ2bg8fA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Q67Hxg+0MYife6GtZIdwoZarR9f9DxzBGDp5ujmu0vc=;
+	b=Co2MIdQYxKY5yyAQUeBXqGE+0lr4IxxJ8BE6vkur0gcZg5QFeShfXLC3NhiwIifgc1wC
+	 QI5l9MKs+H8wagzpanghneNjv+Cobo/7t5ZIjN8NgqUJDU3qxVsnSFrsptOhbvwxKOX/F
+	 DnjLPrdjSX8jikyy7Nv+hf0uxPGTldRb3WInfdXur5IWJhbdlVEoaQkJoq2TytiQzJw0Y
+	 1jKLM6nZIrcFcbdYq/mua9PSFDES9kJxXxTMSLQQ0ezKHWexpijLPAUvaFgharTgxLAfq
+	 fKRTQXCTQ/bdUcQMLIIxxAMGnSqqoL1C5t8Cihh1xGeIPKGdxLgRNEeWwTlIuotkNKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1Fnf0wM;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9CC606A325;
-	Tue, 10 Nov 2026 15:02:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E9CC606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0F7606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD0F7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=K7bd9KQ+
-ARC-Seal: i=1; a=rsa-sha256; t=1794322904; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mc3e6j1dqQjSm4IDC4CdjbyZSyPjNEIBTt58c8v/VciLRC0cw49W0VWlIh8xsPOPKYWPNOjTr4fHnaWiIKBrYetpAh6IU1b2GFyFHPDcXVhhz4o2wyLQCOiHew87AJYtf98+e0BeamEF4KJApU1R6YXPbzGUSwR61I5zyjEX+Gk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794322904; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YGXeCKEd7KljuLVnW/YTZx2YwnHQN1kvggrL0pA/UuU=; 
-	b=Y+ckj40YkHnclBtz5O8AH/n/Tjcwj3NRyUvwAIhT5Nxye1Mc7y8MYkmjGADE3os85pGYcyuMiLIC00o9HUcKdmzfGBBJPEjSpspT5xretUme7/A9G/ONoHpyI+QqBv6inPfftybGUz2lknf2zPcbxGHzau34TS4wQh184OZpLYc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=K7bd9KQ+8YrVzfIWGdzn/Y+JtHcPM5HCdqxarEewcGdXgjB0ymjrt3FJfCraOUee2VygBJzyydD7Vv/rZzRQptiNe5MY0vtynnxtBfKdn1YtVctKmpZCy1H8iXg9o24j3F0vqEJFrW8MLnDBntmB6wVa//fKWKkNr32ooiwJhsi5KoDnK1V+H8q8UV5GKgE/dorqxUcROHE+s1Hg8PC4dBh5b06uHeowifKzQIzZf4prITla1e6JsOHOyqMwbD7eObNzUv4pq3acgtQoDsJrHUBGXrn8yfzDlwdLGn1U7qhYYUKYVXPZRzqr1YHRBNKJhtS6WUEhjyrccuS+Sw+z6g==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=YGXeCKEd7KljuLVnW/YTZx2YwnHQN1kvggrL0pA/UuU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794322901580143.9951405414024;
-	Tue, 10 Nov 2026 07:01:41 -0800 (PST)
-Message-ID: <71ecff766a91670d509b1286efd995b71efc21f4.camel@rong.moe>
-Subject: Re: [PATCH RFC 0/2] Keyboard lighting for the Lenovo Legion Pro 7
- Gen 10
-From: Rong Zhang <i@rong.moe>
-To: ciro.pedrini@gmail.com, Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc
- <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>,  Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Jiri Kosina
- <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: Werner Sembach <wse@tuxedocomputers.com>, Aaron Erhardt
-	 <aer@tuxedocomputers.com>, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <20261109-legion-lighting-rfc-v1-0-a87e1db8c5e3@gmail.com>
-References: <20261109-legion-lighting-rfc-v1-0-a87e1db8c5e3@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 22:56:24 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1Fnf0wM
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ea7987517aso11907455ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:02:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794322979; x=1794927779; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q67Hxg+0MYife6GtZIdwoZarR9f9DxzBGDp5ujmu0vc=;
+        b=h1Fnf0wMNRbWnbB6jZGwEwGodBchnjkok98JgdLi+EkdpSYbn4x0Vyzjl//fmrqfUT
+         JPHUQv0ombEfOtPoz49uAozdoZeNJNUn8ELEstiT1kmHu8eWhDh4SS2BFXaqBLHtqC1F
+         ws7yhN5JNShhW04yKjp/CFQcFaENKBOPx3NVt9aGEhvQGZKH5t6l3l/QscAzzWHmol6W
+         5U7iHFYtcB6+Yb0Arvz+2zWM6/v+d3Bcaa+4VpV10MYcQLtwM9aLIyvWEh6NZwuJheNr
+         eicvEroNSJ8nl/dVvTxaqglFvnIqAgGAeyOtYvGm+OIqZC0oHm01Gduff6uKT/WKud2a
+         D2Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322979; x=1794927779;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q67Hxg+0MYife6GtZIdwoZarR9f9DxzBGDp5ujmu0vc=;
+        b=HeIBlmZKO+tEYtuqyuZZh7EoZQ59FHny6bXUp14X1FlbGEdm2I2NflsWtbE9SuYUhu
+         t8D7zp8mBaL/LLq+vtj/g3vzyMLWW3QyiI8zM9XH8bKBemYTfv98fpcgUNVyCc2ITOmZ
+         QFaqgLRu3mOIlkBURsKAE+K9ohYRedDr1yBs3QWAKJ/8IDXNaR+bO1D0serQtBfuI+mW
+         DYdwAfHtyUAjhGNL3WpwyK6eUBHGB2/3Lxd4bAP4oJbWMaJyRpSfTwlQrJLOJ1EafCGx
+         O8PNwfPGLY3k+YWF5tmvaAe5a3Ewp92xprWOFW+PFFkO9T00i8CTif5pTIZBtvE2WhN8
+         0lPg==
+X-Forwarded-Encrypted: i=1; AL+hErEgrI/kVMRlJuKyS+cWWZgA++7RCBIAvzHLrHt2k1K3I369g6yozf0DOQw06JhIddoQJWC57CyZNYUTGSo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kJjmGm/6yZRG6xHhCEnzehbwzpcbCxJouenFXyjVgtV4kHcES
+	mtgNqfNC19aFOkVTl/Ryp9SXfZ1mdBTUa4h/P1Dw3id/s7S9S2DliBK6
+X-Gm-Gg: AYBFou1IBdvL00G8OSmGj6uLvwkzO/oJ4I5FfhLsIOB5G0ze5P8VCgkSMCOLiiUCXLU
+	TVvC/I6ZnnN3f5b5jrHT+OKqigZdnsz5dVQNcvYha+q8bGJJ6ouDy17e7pHVT41XEudqfgxArew
+	Iowa+AS50GmoboF2cgbYtU7pyTrsjDjDz8ZBuZ4rKP7eKZzGH2PCUfxX3UxztkInVcrpxr3qpSs
+	RlXGL3Few8pGhV7J1x46qVG+LzAz2WPQXeCSo3YgHKiq+gXIIEIULJjN9npRVOosLw4X0Hxv47D
+	ltFm1v2XsUYU75vmSeflRWQERJ3ksN3IRNcCMRDdfplFOSXKd6gJ3gSuTsCrnkMcezVMwwqSgoy
+	Cx7bfbdwFRH1FY3gbcW1/8wsqnRldqCwgdcwImrfcF8gah/E52n4fPg+xzuXhmCaA5sOvEj4BuV
+	fGA583DpWpqAQOknNhqtdNWYrETjUNyjSNz/TOV4Eqs15Mzhgqz2nya+29+VfGC6zSioma2Lk4N
+	4/SX5yM06xBF+g8+yVrjG9KXrAZgc1I5ggyxAXH93y6tedYbm8XvexeKSIepBPEkKoVW1YZQU0Z
+	3pJ1MtWNIufqsg5+ZBj2jfoV7WBrWs5iMoicNIbrSDFCk8aaXj0G
+X-Received: by 2002:a17:903:2a87:b0:2e9:8202:509c with SMTP id d9443c01a7336-2edb8f92d42mr26427195ad.7.1794322979043;
+        Tue, 10 Nov 2026 07:02:59 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d9ba8esm10233085ad.44.2026.11.10.07.02.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 07:02:58 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Luis Henriques <luis@igalia.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
+Date: Wed, 11 Nov 2026 00:02:46 +0900
+Message-ID: <20261110150250.71520-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,134 +97,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Ciro,
+inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
 
-Thanks for working on this.
+But inval_wq_set() can be called at boot or module load before
+fuse_dentry_tree_init() initializes the work, so __queue_delayed_work()
+warns and the work never starts.
 
-On Mon, 2026-11-09 at 22:50 +0000, Ciro Pedrini via B4 Relay wrote:
-> The keyboard and chassis lighting of the Lenovo Legion Pro 7 16IAX10H
-> (2025) has no Linux support today: on my unit nothing ever lit, because
-> the keyboard controller's brightness was 0 from the factory and nothing o=
-n
-> Linux exposes it. This series makes it a regular keyboard backlight.
->=20
-> The lighting is two USB HID devices:
->=20
-> - 048d:c197, the ITE 8258 keyboard controller: the built-in keyboard,
->   plus a vendor protocol on feature report 0x07 (960 bytes) with a
->   hardware brightness (0..9, stored), the controller's own effects
->   (stored profiles), and a switch that hands the LEDs to the LampArray
->   below (also stored). Fn+Up/Down/Space are handled by the controller,
->   which reports the result on a vendor input report.
+So defer scheduling the work until fuse_dentry_tree_init() sets it up.
 
-IMHO, the support for 048d:c197 is the only thing you should include in
-the series.
->=20
-> - 048d:c193 interface 1, a standard HID LampArray: 319 lamps (keys, front
->   strip, rear vents, lid logo) with positions and key usages. It shows
->   nothing until the controller hands the LEDs over, its colours are scale=
-d
->   by the controller's brightness, and after resume from S3 the kernel
->   resets it and it comes back in autonomous mode.
+Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate expired dentries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+QEMU based test result
+- booted with "fuse.inval_wq=5"
 
-IOW, do not add a device-specific driver when it could be handled by a
-generic one, i.e., the ongoing hid-lamparray series. While you can
-rewrite your series to make it work with hid-lamparray, it would be much
-easier to review and accept your series when it has no dependence on a
-ongoing work.
+1) AS-IS (before fix)
+[    0.011073] Kernel command line: rootwait root=/dev/vda console=tty1 console=ttyS0 nokaslr  fuse.inval_wq=5
+[    0.011114] ------------[ cut here ]------------
+[    0.011115] WARNING: kernel/workqueue.c:2704 at __queue_delayed_work+0x11a/0x140, CPU#0: swapper/0
+[    0.011124] Modules linked in:
+[    0.011128] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.4.0-rc1-00010-gab9787d7e66a #1 PREEMPT(undef) 
+[    0.011130] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[    0.011131] RIP: 0010:__queue_delayed_work+0x11a/0x140
+[    0.011133] Code: c4 08 48 89 df 5b e9 85 28 0a 00 90 0f 0b 90 4c 8b 42 08 48 8d 42 08 49 39 c0 0f 84 1c ff ff ff 90 0f 0b 90 e9 13 ff ff ff 90 <0f> 0b 90 e9 ec fe ff ff bff
+[    0.011134] RSP: 0000:ffffffff82e03e00 EFLAGS: 00010003 ORIG_RAX: 0000000000000000
+[    0.011135] RAX: 0000000000000000 RBX: 0000000000000040 RCX: 0000000000001388
+[    0.011136] RDX: ffffffff83a3f320 RSI: 0000000000000000 RDI: 0000000000000040
+[    0.011136] RBP: 0000000000000000 R08: 0000000000000082 R09: 0000000000000001
+[    0.011136] R10: 000000000000000a R11: 000000000000000a R12: ffffffff82c09fd0
+[    0.011137] R13: ffff88807ffcfb89 R14: 0000000000000000 R15: 0000000000001388
+[    0.011140] FS:  0000000000000000(0000) GS:ffff8880fa26e000(0000) knlGS:0000000000000000
+[    0.011141] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.011141] CR2: ffff888003a67000 CR3: 0000000002e30000 CR4: 00000000000000b0
+[    0.011142] Call Trace:
+[    0.011143]  <TASK>
+[    0.011143]  queue_delayed_work_on+0x6a/0x80
+[    0.011145]  inval_wq_set+0xc4/0xe0
+[    0.011149]  parse_args+0x299/0x3c0
+[    0.011151]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.011154]  start_kernel+0x3b8/0x7c0
+[    0.011156]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.011157]  x86_64_start_reservations+0x24/0x30
+[    0.011160]  x86_64_start_kernel+0xd1/0xe0
+[    0.011162]  common_startup_64+0x13e/0x158
+[    0.011165]  </TASK>
+[    0.011166] ---[ end trace 0000000000000000 ]---
+[    0.011173] ------------[ cut here ]------------
 
-Let's take it step by step, and submit a driver for 048d:c197 first. As
-far as I understood, the driver should be able to handle "hardware
-brightness (0..9, stored), the controller's own effects (stored
-profiles)," and "Fn+Up/Down/Space" by its own. (Please correct me if I
-misunderstood your words.)
+2) TO-BE (after fix)
+- no error while booting, and also fuse_dentry_tree_work works well.
 
-I am also working on a independent hid-lamparray implementation that is
-far more generic than=C2=A0Aaron and Werner's series. It still needs some
-polishing and depends on another series of mime [1]. I've mentioned some
-details of my implementation there.
+---
+ fs/fuse/dir.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-[1]: https://msgid.link/20261110-hid-haptic-kmod-v2-0-b835a067cb62@rong.moe
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index da23ccd8685c..6965a77a871f 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
+ /* Minimum invalidation work queue frequency */
+ #define FUSE_DENTRY_INVAL_FREQ_MIN 5
+ 
++static bool inval_wq_ready;
+ unsigned __read_mostly inval_wq;
+ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ {
+@@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ 
+ 	*((unsigned int *)kp->arg) = num;
+ 
++	/* Defer the work until fuse_dentry_tree_init() sets it up. */
++	if (!inval_wq_ready)
++		return 0;
++
+ 	if (num && !old)
+ 		schedule_delayed_work(&dentry_tree_work,
+ 				      secs_to_jiffies(num));
+@@ -224,6 +229,11 @@ void fuse_dentry_tree_init(void)
+ 		dentry_hash[i].tree = RB_ROOT;
+ 	}
+ 	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
++	inval_wq_ready = true;
++
++	if (inval_wq)
++		schedule_delayed_work(&dentry_tree_work,
++				      secs_to_jiffies(inval_wq));
+ }
+ 
+ void fuse_dentry_tree_cleanup(void)
 
->=20
-> Patch 1 makes ideapad-laptop ignore the EC's copies of those three
-> hotkeys, which reach userspace as KEY_UNKNOWN today.
->=20
-> Patch 2 adds hid-lenovo-legion, binding both devices: one multicolor LED
-> (<name>:rgb:kbd_backlight) whose brightness is the controller's, with
-> brightness_hw_changed from the hotkeys, and whose colour goes to every
-> lamp. lighting_mode selects "firmware" (default: the controller's effects=
-;
-> the driver leaves the LEDs alone, so a userspace tool can drive the
-> LampArray over hidraw) or "color". Per-key control stays in userspace.
->=20
-> This is an RFC because of its shape:
->=20
+base-commit: ab9787d7e66ac7e6e94fc975b37c5b56fff98ca9
+-- 
+2.53.0
 
-I am not going to review PATCH 2, unless your next revision no longer
-adds a device-specific driver for 048d:c193.
-
->  one driver spanning two USB devices,
-> paired by their USB bus.=C2=A0
->=20
-
-But I did have a glance at PATCH 2, things could easily go wrong when you
-invent your own mechanism to bind things. And it's not scalable anyway.
-
-Please use the component framework (not in your next revision, it should
-only add support for 048d:c197).
-
-> Is that acceptable, or would you rather have it
-> differently, e.g. a vendor hook in the generic LampArray helper that Aaro=
-n
-> and Werner are working on ("HID: generic: add LampArray support", v7),
-> which on this machine would register a kbd_backlight that does nothing
-> visible? The two patches touch two subsystems; I'm happy to split them.
->=20
-> Tested on the 16IAX10H (83F5, BIOS Q7CN77WW, Spanish ISO keyboard) with
-> 7.2, as modules: brightness from sysfs and KDE, the hotkeys' OSD, colours
-> on every zone, suspend/resume in both modes, a userspace LampArray client
-> in "firmware" mode, unbinding back to hid-generic. The series is based on
-> v7.4-rc2 and builds there with W=3D1.
->=20
-> I worked out the protocol from the device itself (usbmon captures, the
-> LampArray's attributes) and from analysing the vendor's Windows software
-> for interoperability. The patches were prepared with Claude Code (Claude
-> Opus 5.5), see the Assisted-by tags; I reviewed and tested them.
-> checkpatch reports those tags (non-standard signature, no email address),
-> and a MAINTAINERS hint for the new files that patch 2 already adds.
->=20
-> To: Mark Pearson <mpearson-lenovo@squebb.ca>
-> To: Derek J. Clark <derekjohn.clark@gmail.com>
-> To: Rong Zhang <i@rong.moe>
-> To: Ike Panhc <ikepanhc@gmail.com>
-> To: Hans de Goede <hansg@kernel.org>
-> To: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> To: Jiri Kosina <jikos@kernel.org>
-> To: Benjamin Tissoires <bentiss@kernel.org>
-> Cc: platform-driver-x86@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-input@vger.kernel.org
->=20
-> ---
-> Ciro Pedrini (2):
->       platform/x86: ideapad-laptop: Ignore keyboard backlight hotkeys
->       HID: lenovo-legion: Add keyboard lighting driver for Legion Gen 10
->=20
->  .../testing/sysfs-class-led-driver-lenovo-legion   |  20 +
->  MAINTAINERS                                        |   2 +
->  drivers/hid/Kconfig                                |  13 +
->  drivers/hid/Makefile                               |   1 +
->  drivers/hid/hid-ids.h                              |   2 +
->  drivers/hid/hid-lenovo-legion.c                    | 662 +++++++++++++++=
-++++++
->  drivers/platform/x86/lenovo/ideapad-laptop.c       |   4 +
->  7 files changed, 704 insertions(+)
-> ---
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> change-id: 20261109-legion-lighting-rfc-dc32165df52d
->=20
-> Best regards,
