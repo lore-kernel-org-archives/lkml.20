@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330359;
-	b=w7fcrRxdqQM+uOqrMkPFnHCxfFHlfA6ztC3mfC+AUYjvsV6d3bMdjpVNNid03cDeH1Be
-	 RGFaT5ArmGb5ucC715A5TtyoRa3rPng9NDd9DS8xBhDr9voXe2QIK+dOi04Oqm+S1tvwz
-	 HHVzu8gAUtKnGHt6jhUUaM4mYoP7QF4rroMapigXc+oCUbOIOL4lCur4uxWfWxT1aCyeS
-	 FxYVooN15a90onms6cQ7WIjtzS4REkAitZd2yrbtByjjhVL0C2jJJuLhLT1zJphdbFLa0
-	 vzG7bUaeuMKM9+cO+JxkXNhOPkr8Ur45dJnrSiHkyHCHzYUg5QxdFxvBTbREVBeog/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330359;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=cOkyLY+HHPV792y3EULbkq0WHoTNtx8PyIwoa+v2U74=;
-	b=AIFb6RYwpcEXKH9u0cxaT+5eKzJ0IyjtMml/u+F4ok/GM375P0BDCdUcQKOPTwO5aj8H
-	 o5OxqvMedpWniTTnhb2V3A5dcbd7SE1qmL58nM0R17+KP9KWwP+PZgM5zoDbCH5urwc+C
-	 gbZgfcLH8LG3VNGhF+go2upaUnTLiiaCKKFEl2fXCYCaC5k2Y/2J6L7nBKjrHOG6hYLWL
-	 +EkXSdBd2JulvdoyaShY8TLVA5UV3Kw2NoOcDer8KQaSE49jrB0w5uMGzjbI51yy176nN
-	 tf/e4jMtwE1X0EC1X+uC6jqLx2/Ej5rOItLU6TOvoewWt0HebpwBs8v6t/FXy+TMxfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxjiym76;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794330370;
+	b=Dg3P2yjWuplSJ5NC+hcIVEyf6er5Yql1ZT7UTDOm1CH7WuU0A47ew/iKoj/pyvYG9g87
+	 ERMO5VMKKQ0TudTQ0wdz5CWJM6oiBK9yFLlbcmzGq+ZKDoGs3caL7Y3XH2iA/o81RfUCy
+	 /YZWPavajMA/Yl5K9byRbHR2cRjtTnX2a0q/UAgrVR5Y8IeXm3KEiuNJBWQ4//3JYuKPZ
+	 JVhuV9GockRJ/Jsr3UUFvoLzLXmyyVlwfAYM0WKDtWW/zXnnHNXWkcIKaxaWQwwiI1l/9
+	 VmOqH8hKCDxjXhDDerZdrrTxPQCnFwrSMpWkIQ1Fm+CZi2G2BZ/K51yrkuTGwsXpDnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330370;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=65Ah5YI/pAP20PrwkJDJGUt+56BamBvAJbUHTvCEQA0=;
+	b=EIEIpe/TZWexuPjWo5DmHav50Q2CCy2tQ8eisj96es3x1F0AaNrX4kU46J7lTc/ySp+a
+	 9D+jUlmwWZIoiEbMz4qhn8fPNdXw6KnJdeKRfc9owy2plIyUNI9KMXRdO+i14MdMONFBf
+	 kFoRcsqMUXSw9d/fUg1WZ0WAvbKVFWpqA2WFn2Qs+ufjGJVJVV9Dn9A9j+k6IV/u6Q5mp
+	 D1XU5xBp64OV4fSdKaUNVGVNdAqH7RgqsfxhMvJ0nznr99YnW3PQ8s+CquJl5guvEwbLb
+	 /ZCyx2MBdh52Y1qo2aYtlQCQsxdDCCSupvMcMOZgEscFqKq9fHK7h/8+Eh9c8PKTsIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AptMlRAe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.3
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010003.outbound.protection.outlook.com [52.101.85.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C1B606A31C;
-	Tue, 10 Nov 2026 17:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C8C606A320;
+	Tue, 10 Nov 2026 17:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2C8C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxjiym76
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3281F0089F;
-	Tue, 10 Nov 2026 17:05:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330358;
-	bh=cOkyLY+HHPV792y3EULbkq0WHoTNtx8PyIwoa+v2U74=;
-	h=Date:From:To:Cc:Subject;
-	b=fxjiym76NZPxB+OK3srSzHcS/w9hTBnDIqw69BGPquQuc++VR6MUJbq1P6BTnH9BF
-	 3sYBN+RkXBNfXruFd43woqJXD59wgT+iLpi8+b0JZ53nuUpoTwOoXW2JYBGCu8cF/N
-	 r3l7v6D5DoAFgS7TSJ6g/kX/a36sad8O2xsf8gm2JgxPlvaqfGL6h/J4ktB400r07t
-	 1YTeYRcV+4ttwdqrIxkeXEafTNA0EzOYZQCR7SmKgxMmoJdYXKNM0YiponDWH4bd26
-	 qQXPsMx5w5jCcBFSR9BH7QV9s2Jn0sdzsVFjS4l+1sj8O0HV3PLBdR7mYFGJh+SGNB
-	 6ALkQSZKuWXHg==
-Date: Tue, 10 Nov 2026 17:05:53 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the bpf-next tree with the origin tree
-Message-ID: <avNO8cuAdnwv9D_5@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AptMlRAe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gRgnvBp4M3PwXqZyF5C8M/K2EQ9BPYWNhy8QZwu+gLAdXw/rGUtYAQL9GZCwt9Nfoo6Je9hk6uu/7s4vdn2WZVwEBaP4KD6n2BU0GpePXy1NdU0B/AzIjZhjUbfB59MimjdA1fMQrTIa1/UJwHYqMq/iyq1B0og6k3ZoqIEm1jmxe0YUQ4pzeoV/hf4c72DkhnF0wtqLqpTTWpH1d5s4CQFjPR/fWZAn11cw9/LbrHHJHTFajRK2d83DLkxCvlAeiQrsSXsuOnzeJdbMgmCnnMPyM6xTCkrC0GlFiBotzyhCnYTJhOyYqlNzX9HciYw/JNS5eiVuKpGnuMvOm5BCrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65Ah5YI/pAP20PrwkJDJGUt+56BamBvAJbUHTvCEQA0=;
+ b=SnV9kBE4y1hLG3v9FQFRZI5csvRUDwtbnjjecCpJwiqtGF3AVFXn+vmNBB2B4qJufRUpPqWFccBw7ATol1aj5wFdNUdgQiDibE9FIPRugVlpx1H/8RVHYQw56k/UaDBech5KxGs1c7799DVIvH0Brpv+zHKG84GkKb9aVtdS3KaOstu7guTUV+URg363673nSIc59SdNPMiBVgQ0sXLYIrvGhNoj/uKviLVmj2Du6CIUiEoTAVyukJ1i/RfToBc0XX6HqZsP5mkvXmr21TRjpULbKtPZ+k+yNRGqw4eQP2wV4gZ04wfYwSAfu7fNnj+afACl8r+Xcz9eNNE6NtrSkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=65Ah5YI/pAP20PrwkJDJGUt+56BamBvAJbUHTvCEQA0=;
+ b=AptMlRAe6hbS0yOcFUfSWTDlVLFd11odl6+S7VKvaKBtGmqCNX7aAaiS56nQ3LQXioOgWNi9/90EpN1gxLWE6xalFNbvjLwLVn4MHwE6dkzif4+QeS+7GlroksOYpYJ7niKLcMdwCvtZjZITuDWwIeWGpbrO70o3Vc1FpyTnetRwgtSgsBMcdAgAonMgXy54cJIkdNn1LDSj1qRJk+bBZhZX2uqfCuShjTd5rKVEljUO2SHNffwpRo0rHPqfQpFYQYclqItalmXUrl6tXEmK56S+uMzq1Tg5My17BDHILvFfJuFRqazc9vDKXfVzyFFIgDDjIVRLjJQTxwjB1eWsNw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
+ by CH3PR12MB578402.namprd12.prod.outlook.com (2603:10b6:610:34a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 17:06:07 +0000
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 17:06:06 +0000
+Message-ID: <a3616176-ba50-45d2-a0d4-46fd5f6379c2@nvidia.com>
+Date: Tue, 10 Nov 2026 17:06:01 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: tegra: Use non-HS timings for clock divisor
+To: Akhil R <akhilrajeev@nvidia.com>, Laxman Dewangan <ldewangan@nvidia.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Andi Shyti <andi.shyti@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Kartik Rajput <kkartik@nvidia.com>, linux-i2c@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261110162300.3834584-1-akhilrajeev@nvidia.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <20261110162300.3834584-1-akhilrajeev@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0063.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::27) To PH8PR12MB7110.namprd12.prod.outlook.com
+ (2603:10b6:510:22e::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,484 +100,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="L/Ic/TP4yfNtWQry"
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CH3PR12MB578402:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8e33120-7cc2-4278-98f9-08df3f4ce8b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|10067099003|261009221227099003|261009220027099003|261009221727099003|921020|11063799006|56012099006|261009223027099003|261009223327099003|261102123227099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	8UGwKokdGWTHx0xFCBOAhIPkPIj6Mjaq49kGnvlmWa4qnSIf9i761MM6hnv5jpwKvh6H857Q6w1O9r0WRvdTkhxW0JfdCQ1kmerMSwpEhbqWC9PuZvSVDIdGZspmYYoev4p4YXqGwAP/DHYCF1jHgZU17ysEKHtxFfwu5/tAC8DqmnlxQrlCWGBl0Al460fLHUJDYoSr+fNoKMCEkL4BThQuvgorRgZKuMqqW8zrTcw62xpnzXLkOzNBPjW1ndtJbS0EDKNVR6cbLd4qSyiToCdXtOTYmbiPIlB/nezNF8WWAk4S4yN+Mwt+YixOHK5MovIIPBQBlIFpUUBWQA1zJ18ULG3xw/AxrQuZtNeKRbIgsbz4mTdExQ0bBKjU52nRVh5UQ18Ir7r3DWcNw8O4nPLRHQJcAXsMV08YuuBmlkKEFmI4EmfDMZ4yd2ZM7nzQOBfvX0YBN4AHkbzBT0yhKWnZ/9/ShzkojvU2n5nP8eTZPQ+OnPs+FImDQtYin2Dqx0ScaMvvbUIc6QUA8R3/97sTlgimVe7Un5N9E5cZ5hYCI6pNaGdNtxAW5rYXatRSRVSj0NM+4pDZdczkDuPaZkS5KH+NVBI7l78pf+c6FCXu46Af4/EOpha9PtkOBZDLvk8R3HLpBif16qwn07GgkGCdYQ65JthbB2XHM/u9OkUdD5ZD8NuVXrZS3f7kUXVo5EVfxVP12Xtb9rA8+NP5mw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(10067099003)(261009221227099003)(261009220027099003)(261009221727099003)(921020)(11063799006)(56012099006)(261009223027099003)(261009223327099003)(261102123227099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WCtrb1lwYjEveUwyTE1OY1BiUFl0d0VpSlgvVEdObk9IeEc3M2tYUjM3ekQz?=
+ =?utf-8?B?Z213TE16UjJ5NmZkdWM0SU8yaGdhQ0Y4Y2tkK01LQXB3VVovZ0c4TlBpeDRa?=
+ =?utf-8?B?VHNTWGVyNnQ2N0pvNU54UmJ3STZFRnp0STdpMkVOeHhCclR6TklSZzFZNkts?=
+ =?utf-8?B?WGZtTU91dkFIUS82Y0VaRU9lVWlKaXNpMjFWWWg0NUltMXJoUEtNZDVGbzZu?=
+ =?utf-8?B?OGNoWDlDSzE5Rk1QZm9sb0RqdHFVa2l5blhhWXdmREdwUEJMbk9qd3NsTURk?=
+ =?utf-8?B?cUdxd2hiMlFtVXlxb2ZzTWFIV1NEd0p5QmtEU2ZaWEJ6UWFjWVk3aE9reDJx?=
+ =?utf-8?B?dTlhRjlseU1ydUxTSTFPTk1Qb2EzdnQ0RVBzd1B5Qzc2S0k5WXpDVDJPQVYw?=
+ =?utf-8?B?L042L3NvUDEvbTY0Z2owenFTVUpOY2VBWUpCb3NLY3JRLzFuVXV2R2QxS0RK?=
+ =?utf-8?B?c1BXRDNJODUxUGJXRkg3M2FoS3FhVUFtWjU5Z2VLUHJMbE0vZU5ZUEdLdjJr?=
+ =?utf-8?B?c3Zzb01pRFhzSEp0ekNsVmlZbmpGSVVqM0JSSjFUaDdvcm1uZ3NNZzJ6M3Rx?=
+ =?utf-8?B?U2Q5WmlYOHNNakNSMmswVS9tTUhRSDE3Zk9NY1A2aG5XNGhJUTljM3ZFUjNx?=
+ =?utf-8?B?OXQ1QWpXcXhnK2JjeGF5Mm0xTmF3LzFrd1o1YzQzTzVET2k4R0RlMmtRZ0Fk?=
+ =?utf-8?B?bmxlZzNwWnFrS1o3Qk13UU4wbUVvbWtjdU5YMnN1M1dsQUNYMjNMMmxtUngy?=
+ =?utf-8?B?SnZuTUhOVExqSFFDRkJXaHpyTGovNVZYS3NTZU5kTFovVVpHZGN5d1FiOFQ3?=
+ =?utf-8?B?b2pRV09SdkVDS09BdHJCVldCWU0zUU01NWVmaVd4dVJmNW9qaUZ1bXJTaDlB?=
+ =?utf-8?B?VlZ6aGEzWEFaKzl5dVBpbmNZMnljM3RQb0JhWTlrWmFCMGFWZSs1MXlrRW1Y?=
+ =?utf-8?B?Y291ejBrYjZadnZTN2FzMFAzZTlXWEpvWmgrM0Q0WE9Od2RWMUcvUHRoMzV4?=
+ =?utf-8?B?K0RsWWxTU1JOdkd6OWxXdk02RitjQXVHZzg1cjltQ0xvQnpuTFNsaVNqdm4v?=
+ =?utf-8?B?UFg0WlZ0UWRid2hpOGVGNkJiclNoMDIrOU5kSnR2VXNVbDlhV1lJWEc0Smhn?=
+ =?utf-8?B?YmtTL0VVTVErZEFrWWg1YkZOa2pZNEpaMDdFN2NHZkR2OTBNZnp6L2JVci8v?=
+ =?utf-8?B?dnloQnVud3VkU3haa0dZa3NyVUpoYmxQT3Vpako4cVdGcEFGcUZVNGRVbmEr?=
+ =?utf-8?B?R01OejJtQjlLZlJWTzNkQlVaaVJFRDhwVnptdGY4WnFJQ1lyOXQ0M21MZnk5?=
+ =?utf-8?B?Q0pyZ2FHODlKdWxkNjlwb015alFBa29kaHMwOEpTVnJMMnhMSFQ4Q3BhQ3lk?=
+ =?utf-8?B?cldqTkJ4UitKY3NXODVXUisrT0ZISkhOdlByQVZtWTBPQ0doeGpPWnVsdHRO?=
+ =?utf-8?B?c2grMGU1V3FWR3BpR2ZQWmhRa1FyaVdFKzRvUVpsQjJTaW1uYnIxNzJrSERG?=
+ =?utf-8?B?cUMySlJoQ2pLQWdkZXMrR2xhQ0U1Y3NJcndSUDgrdU1DUjRQb2h5TzZlUjVL?=
+ =?utf-8?B?eEVod1l4TmdFeS9HSW5CNlRkYWpxdjYyTVIyYUQvVHg1am91VUZNaWZHV1gy?=
+ =?utf-8?B?LzJ1K3lhVG9UWFV6VkIrQzB0b1YyMjVFN0NkN3hKQzQ3dVhYYlZKbG1UcDdX?=
+ =?utf-8?B?R05UclE2azU5NWk5eG5zT1JScUZxMHhjbUs5MEVUemI5OW9tTGpuQi9yRVcy?=
+ =?utf-8?B?Umx1ZmpXNWp3UHRBd3FOVU0yTEVTMG53K0RGQm43YVhTZXl2b2pCMk8yU0VB?=
+ =?utf-8?B?N2hWcFkvTThlOTg2TklDZXVDamFPTkpVbVVJbU9xRGlRbzlTMnU1OCtOTUFZ?=
+ =?utf-8?B?ZFU1YkVEMlczc1M4bCtMbkt0SS9OM09hako1eWt5YlpudjYzUEM1c3htbitN?=
+ =?utf-8?B?MXBZZ3pwQ2dJRUZuWkRBNnk5dUtRNGNBZXdqSXBsNmNHOUNzYk5sNnBUMWh2?=
+ =?utf-8?B?dmdzOWVXTkx3cUhhbENOaHJVdUovSWg2TDh6UEo1Q1dFemVYMFpnNW92OTEy?=
+ =?utf-8?B?N2ZONG9BdFRlQUhvUXp6RnN6Z1JOZ0RGbVJZaDgxSFk2U3JJT1NRTVNBTVJS?=
+ =?utf-8?B?Q2FjS29FZmlDZTVibnpEazF5bXNHbXdhVzlhbkp0aGtjLzM1ZUp6Uzh3dzdm?=
+ =?utf-8?B?djdPMlMweUpuUmY1dFVUc1RCYlBiU2hUU0oxeTlEU2FvYzN6UjFxRUJQTHNL?=
+ =?utf-8?B?L2ZSanJ3OHI4bkhPMUlNcnhlSmxma0FPa1A5QkpKMjIydWtQOEhDTi9Rb1g4?=
+ =?utf-8?B?S0JkMHYyZWZtUXZ0UlRoWFl3VktNbDY1dUkrUU5pY0tmY2VsclE1UT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8e33120-7cc2-4278-98f9-08df3f4ce8b5
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 17:06:06.5737
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UAP95xJzevQHiD3bQuq5fyHNWogIFKtZXLgppTqY2/nb2sYnDuUMgO0SMJeSITgF8J/0nce4BeRQMhjYZgxTaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB578402
 
 
---L/Ic/TP4yfNtWQry
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/11/2026 16:23, Akhil R wrote:
+> Programming the HS timing registers overwrites the local tlow and thigh
+> values before they are used to calculate the controller clock rate. On
+> controllers with HS support, this mixes HS timings with the clock divisor
+> calculation and sets an incorrect clock rate.
+> 
+> Calculate the clock multiplier before the HS register setup overwrites
+> the selected non-HS timings.
+> 
+> Fixes: 978b3ccbbac3 ("i2c: tegra: Add HS mode support")
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+>  drivers/i2c/busses/i2c-tegra.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-tegra.c b/drivers/i2c/busses/i2c-tegra.c
+> index 76d21bc51c618..6a98432734d37 100644
+> --- a/drivers/i2c/busses/i2c-tegra.c
+> +++ b/drivers/i2c/busses/i2c-tegra.c
+> @@ -976,6 +976,8 @@ static int tegra_i2c_init(struct tegra_i2c_dev *i2c_dev)
+>  	if (i2c_dev->hw->has_interface_timing_reg && tsu_thd)
+>  		i2c_writel(i2c_dev, tsu_thd, i2c_dev->hw->regs->interface_timing_1);
+>  
+> +	clk_multiplier = (tlow + thigh + 2) * (non_hs_mode + 1);
+> +
+>  	/* Write HS mode registers. These will get used only for HS mode*/
+>  	if (i2c_dev->hw->enable_hs_mode_support) {
+>  		tlow = i2c_dev->hw->tlow_hs_mode;
+> @@ -988,8 +990,6 @@ static int tegra_i2c_init(struct tegra_i2c_dev *i2c_dev)
+>  		i2c_writel(i2c_dev, tsu_thd, i2c_dev->hw->regs->hs_interface_timing_1);
+>  	}
+>  
+> -	clk_multiplier = (tlow + thigh + 2) * (non_hs_mode + 1);
+> -
+>  	err = clk_set_rate(i2c_dev->div_clk,
+>  			   t->bus_freq_hz * clk_multiplier);
+>  	if (err) {
+> 
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 
-Hi all,
 
-Today's linux-next merge of the bpf-next tree got a conflict in:
+Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
 
-  kernel/bpf/cfg.c
+Thanks!
+Jon
 
-between commit:
+-- 
+nvpublic
 
-  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
-
-=66rom the origin tree and commit:
-
-  6771f70a47332 ("bpf: Remove is_state_visited(), bpf_compute_scc() and ite=
-r.depth")
-
-=66rom the bpf-next tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined kernel/bpf/cfg.c
-index 1b04538351a1f,bbcf42eae9d92..0000000000000
---- a/kernel/bpf/cfg.c
-+++ b/kernel/bpf/cfg.c
-@@@ -75,21 -75,28 +75,28 @@@ static void mark_subprog_might_throw(st
-  	subprog->might_throw =3D true;
-  }
- =20
-- /* 't' is an index of a call-site.
-+ /*
-+  * 't' is an index of a call-site.
-   * 'w' is a callee entry point.
-   * Eventually this function would be called when env->cfg.insn_state[w] =
-=3D=3D EXPLORED.
--  * Rely on DFS traversal order and absence of recursive calls to guarante=
-e that
--  * callee's effect marks would be correct at that moment.
-+  * DFS traversal order guarantees that callee's effect marks are correct =
-at that
-+  * moment, unless the callee calls one of its callers: see close_callee_e=
-ffects().
-+  * Returns true if the marks of the caller changed.
-   */
-- static void merge_callee_effects(struct bpf_verifier_env *env, int t, int=
- w)
-+ static bool merge_callee_effects(struct bpf_verifier_env *env, int t, int=
- w)
-  {
-  	struct bpf_subprog_info *caller, *callee;
- =20
-  	caller =3D bpf_find_containing_subprog(env, t);
-  	callee =3D bpf_find_containing_subprog(env, w);
-+ 	if (caller->changes_pkt_data >=3D callee->changes_pkt_data &&
-+ 	    caller->might_sleep >=3D callee->might_sleep &&
-+ 	    caller->might_throw >=3D callee->might_throw)
-+ 		return false;
-  	caller->changes_pkt_data |=3D callee->changes_pkt_data;
-  	caller->might_sleep |=3D callee->might_sleep;
-  	caller->might_throw |=3D callee->might_throw;
-+ 	return true;
-  }
- =20
-  enum {
-@@@ -123,12 -130,8 +130,8 @@@ static int push_insn(int t, int w, int=20
-  		return -EINVAL;
-  	}
- =20
-- 	if (e =3D=3D BRANCH) {
-- 		/* mark branch target for state pruning */
-- 		mark_prune_point(env, w);
-- 		mark_jmp_point(env, w);
-+ 	if (e =3D=3D BRANCH)
-  		mark_jump_target(env, w);
-- 	}
- =20
-  	if (insn_state[w] =3D=3D 0) {
-  		/* tree-edge */
-@@@ -172,13 -175,8 +175,8 @@@ static int visit_func_call_insn(int t,=20
-  	if (ret)
-  		return ret;
- =20
-- 	mark_prune_point(env, t + insn_sz);
-- 	/* when we exit from subprog, we need to record non-linear history */
-- 	mark_jmp_point(env, t + insn_sz);
--=20
-  	if (visit_callee) {
-  		w =3D t + insns[t].imm + 1;
-- 		mark_prune_point(env, t);
-  		merge_callee_effects(env, t, w);
-  		ret =3D push_insn(t, w, BRANCH, env);
-  	}
-@@@ -439,14 -437,12 +437,12 @@@ static int visit_gotox_insn(int t, stru
-  		return -E2BIG;
-  	}
- =20
-- 	mark_prune_point(env, t);
-  	for (i =3D 0; i < jt->cnt; i++) {
-  		w =3D jt->items[i];
-  		if (verifier_bug_if(w < 0 || w >=3D env->prog->len, env,
-  				    "indirect jump from insn %d to %d out of range", t, w))
-  			return -EFAULT;
- =20
-- 		mark_jmp_point(env, w);
-  		mark_jump_target(env, w);
- =20
-  		/* EXPLORED || DISCOVERED */
-@@@ -521,19 -517,43 +517,43 @@@ static int visit_func_ptrs_insn(int t,=20
-  	}
- =20
-  	/* all functions are explored, their effects are known */
-- 	mark_prune_point(env, t);
-  	for (i =3D 0; i < cnt; i++) {
-  		w =3D ptrs[i].xlated_off;
-  		merge_callee_effects(env, t, w);
- =20
-- 		/* the same marks as push_insn() leaves on a branch target */
-- 		mark_prune_point(env, w);
-- 		mark_jmp_point(env, w);
-+ 		/* the same mark as push_insn() leaves on a branch target */
-  		mark_jump_target(env, w);
-  	}
-  	return DONE_EXPLORING;
-  }
- =20
-+ /*
-+  * A subprog that calls one of its callers is EXPLORED before that caller=
- is: it
-+  * took the marks that the caller had so far, and so did everybody who ca=
-lled it
-+  * since. Merge again at every call until nothing changes.
-+  */
-+ static void close_callee_effects(struct bpf_verifier_env *env)
-+ {
-+ 	struct bpf_insn *insn =3D env->prog->insnsi;
-+ 	struct bpf_func_ptr *ptrs;
-+ 	bool changed;
-+ 	u32 cnt, j;
-+ 	int t;
-+=20
-+ 	do {
-+ 		changed =3D false;
-+ 		for (t =3D 0; t < env->prog->len; t++) {
-+ 			if (bpf_pseudo_call(&insn[t]) || bpf_pseudo_func(&insn[t]))
-+ 				changed |=3D merge_callee_effects(env, t, t + insn[t].imm + 1);
-+ 			ptrs =3D insn_func_ptrs(env, t, &cnt);
-+ 			for (j =3D 0; j < cnt; j++)
-+ 				changed |=3D merge_callee_effects(env, t, ptrs[j].xlated_off);
-+ 			if (bpf_is_ldimm64(&insn[t]))
-+ 				t++;
-+ 		}
-+ 	} while (changed);
-+ }
-+=20
-  /* Visits the instruction at index t and returns one of the following:
-   *  < 0 - an error occurred
-   *  DONE_EXPLORING - the instruction was fully explored
-@@@ -565,28 -585,13 +585,13 @@@ static int visit_insn(int t, struct bpf
-  		return DONE_EXPLORING;
- =20
-  	case BPF_CALL:
-- 		if (bpf_is_async_callback_calling_insn(insn))
-- 			/* Mark this call insn as a prune point to trigger
-- 			 * is_state_visited() check before call itself is
-- 			 * processed by __check_func_call(). Otherwise new
-- 			 * async state will be pushed for further exploration.
-- 			 */
-- 			mark_prune_point(env, t);
-  		/* For functions that invoke callbacks it is not known how many times
-  		 * callback would be called. Verifier models callback calling functions
-  		 * by repeatedly visiting callback bodies and returning to origin call
-  		 * instruction.
-- 		 * In order to stop such iteration verifier needs to identify when a
-- 		 * state identical some state from a previous iteration is reached.
-- 		 * Check below forces creation of checkpoint before callback calling
-- 		 * instruction to allow search for such identical states.
-  		 */
-- 		if (bpf_is_sync_callback_calling_insn(insn)) {
-+ 		if (bpf_is_sync_callback_calling_insn(insn))
-  			mark_calls_callback(env, t);
-- 			mark_force_checkpoint(env, t);
-- 			mark_prune_point(env, t);
-- 			mark_jmp_point(env, t);
-- 		}
-  		if (bpf_helper_call(insn)) {
-  			const struct bpf_func_proto *fp;
- =20
-@@@ -606,21 -611,6 +611,6 @@@
-  			struct bpf_call_arg_meta meta;
- =20
-  			ret =3D bpf_fetch_kfunc_arg_meta(env, insn->imm, insn->off, &meta);
-- 			if (ret =3D=3D 0 && bpf_is_iter_next_kfunc(&meta)) {
-- 				mark_prune_point(env, t);
-- 				/* Checking and saving state checkpoints at iter_next() call
-- 				 * is crucial for fast convergence of open-coded iterator loop
-- 				 * logic, so we need to force it. If we don't do that,
-- 				 * is_state_visited() might skip saving a checkpoint, causing
-- 				 * unnecessarily long sequence of not checkpointed
-- 				 * instructions and jumps, leading to exhaustion of jump
-- 				 * history buffer, and potentially other undesired outcomes.
-- 				 * It is expected that with correct open-coded iterators
-- 				 * convergence will happen quickly, so we don't run a risk of
-- 				 * exhausting memory.
-- 				 */
-- 				mark_force_checkpoint(env, t);
-- 			}
-  			/* Same as helpers, if called in a non-sleepable context
-  			 * program will be rejected anyway, so we should end up
-  			 * with precise sleepable marks on subprogs, except for
-@@@ -649,18 -639,12 +639,12 @@@
-  		if (ret)
-  			return ret;
- =20
-- 		mark_prune_point(env, t + off + 1);
-- 		mark_jmp_point(env, t + off + 1);
-  		mark_jump_target(env, t + off + 1);
- =20
-  		return ret;
- =20
-  	default:
-  		/* conditional jump with two edges */
-- 		mark_prune_point(env, t);
-- 		if (bpf_is_may_goto_insn(insn))
-- 			mark_force_checkpoint(env, t);
--=20
-  		ret =3D push_insn(t, t + 1, FALLTHROUGH, env);
-  		if (ret)
-  			return ret;
-@@@ -759,6 -743,7 +743,7 @@@ walk_cfg
-  		}
-  	}
-  	ret =3D 0; /* cfg looks good */
-+ 	close_callee_effects(env);
-  	env->prog->aux->changes_pkt_data =3D env->subprog_info[0].changes_pkt_da=
-ta;
-  	env->prog->aux->might_sleep =3D env->subprog_info[0].might_sleep;
- =20
-@@@ -833,201 -818,3 +818,3 @@@ int bpf_compute_postorder(struct bpf_ve
-  	kvfree(state);
-  	return 0;
-  }
--=20
-- /*
--  * Compute strongly connected components (SCCs) on the CFG.
--  * Assign an SCC number to each instruction, recorded in env->insn_aux[*]=
-=2Escc.
--  * If instruction is a sole member of its SCC and there are no self edges,
--  * assign it SCC number of zero.
--  * Uses a non-recursive adaptation of Tarjan's algorithm for SCC computat=
-ion.
--  */
-- int bpf_compute_scc(struct bpf_verifier_env *env)
-- {
-- 	const u32 NOT_ON_STACK =3D U32_MAX;
--=20
-- 	struct bpf_insn_aux_data *aux =3D env->insn_aux_data;
-- 	const u32 insn_cnt =3D env->prog->len;
-- 	int stack_sz, dfs_sz, err =3D 0;
-- 	u32 *stack, *pre, *low, *dfs, *dfs_pos;
-- 	u32 i, j, t, w;
-- 	u32 next_preorder_num;
-- 	u32 next_scc_id;
-- 	bool assign_scc;
-- 	struct bpf_iarray *succ;
--=20
-- 	next_preorder_num =3D 1;
-- 	next_scc_id =3D 1;
-- 	/*
-- 	 * - 'stack' accumulates vertices in DFS order, see invariant comment be=
-low;
-- 	 * - 'pre[t] =3D=3D p' =3D> preorder number of vertex 't' is 'p';
-- 	 * - 'low[t] =3D=3D n' =3D> smallest preorder number of the vertex reach=
-able from 't' is 'n';
-- 	 * - 'dfs' DFS traversal stack, used to emulate explicit recursion;
-- 	 * - 'dfs_pos[k] =3D=3D j' =3D> the frame 'dfs[k]' resumes visiting its
-- 	 *   successors at index 'j'.
-- 	 */
-- 	stack =3D kvcalloc(insn_cnt, sizeof(int), GFP_KERNEL_ACCOUNT);
-- 	pre =3D kvcalloc(insn_cnt, sizeof(int), GFP_KERNEL_ACCOUNT);
-- 	low =3D kvcalloc(insn_cnt, sizeof(int), GFP_KERNEL_ACCOUNT);
-- 	dfs =3D kvzalloc_objs(*dfs, insn_cnt, GFP_KERNEL_ACCOUNT);
-- 	dfs_pos =3D kvzalloc_objs(*dfs_pos, insn_cnt, GFP_KERNEL_ACCOUNT);
-- 	if (!stack || !pre || !low || !dfs || !dfs_pos) {
-- 		err =3D -ENOMEM;
-- 		goto exit;
-- 	}
-- 	/*
-- 	 * References:
-- 	 * [1] R. Tarjan "Depth-First Search and Linear Graph Algorithms"
-- 	 * [2] D. J. Pearce "A Space-Efficient Algorithm for Finding Strongly Co=
-nnected Components"
-- 	 *
-- 	 * The algorithm maintains the following invariant:
-- 	 * - suppose there is a path 'u' ~> 'v', such that 'pre[v] < pre[u]';
-- 	 * - then, vertex 'u' remains on stack while vertex 'v' is on stack.
-- 	 *
-- 	 * Consequently:
-- 	 * - If 'low[v] < pre[v]', there is a path from 'v' to some vertex 'u',
-- 	 *   such that 'pre[u] =3D=3D low[v]'; vertex 'u' is currently on the st=
-ack,
-- 	 *   and thus there is an SCC (loop) containing both 'u' and 'v'.
-- 	 * - If 'low[v] =3D=3D pre[v]', loops containing 'v' have been explored,
-- 	 *   and 'v' can be considered the root of some SCC.
-- 	 *
-- 	 * Here is a pseudo-code for an explicitly recursive version of the algo=
-rithm:
-- 	 *
-- 	 *    NOT_ON_STACK =3D insn_cnt + 1
-- 	 *    pre =3D [0] * insn_cnt
-- 	 *    low =3D [0] * insn_cnt
-- 	 *    scc =3D [0] * insn_cnt
-- 	 *    stack =3D []
-- 	 *
-- 	 *    next_preorder_num =3D 1
-- 	 *    next_scc_id =3D 1
-- 	 *
-- 	 *    def recur(w):
-- 	 *        nonlocal next_preorder_num
-- 	 *        nonlocal next_scc_id
-- 	 *
-- 	 *        pre[w] =3D next_preorder_num
-- 	 *        low[w] =3D next_preorder_num
-- 	 *        next_preorder_num +=3D 1
-- 	 *        stack.append(w)
-- 	 *        for s in successors(w):
-- 	 *            # Note: for classic algorithm the block below should look =
-as:
-- 	 *            #
-- 	 *            # if pre[s] =3D=3D 0:
-- 	 *            #     recur(s)
-- 	 *            #     low[w] =3D min(low[w], low[s])
-- 	 *            # elif low[s] !=3D NOT_ON_STACK:
-- 	 *            #     low[w] =3D min(low[w], pre[s])
-- 	 *            #
-- 	 *            # But replacing both 'min' instructions with 'low[w] =3D m=
-in(low[w], low[s])'
-- 	 *            # does not break the invariant and makes iterative version=
- of the algorithm
-- 	 *            # simpler. See 'Algorithm #3' from [2].
-- 	 *
-- 	 *            # 's' not yet visited
-- 	 *            if pre[s] =3D=3D 0:
-- 	 *                recur(s)
-- 	 *            # if 's' is on stack, pick lowest reachable preorder numbe=
-r from it;
-- 	 *            # if 's' is not on stack 'low[s] =3D=3D NOT_ON_STACK > low=
-[w]',
-- 	 *            # so 'min' would be a noop.
-- 	 *            low[w] =3D min(low[w], low[s])
-- 	 *
-- 	 *        if low[w] =3D=3D pre[w]:
-- 	 *            # 'w' is the root of an SCC, pop all vertices
-- 	 *            # below 'w' on stack and assign same SCC to them.
-- 	 *            while True:
-- 	 *                t =3D stack.pop()
-- 	 *                low[t] =3D NOT_ON_STACK
-- 	 *                scc[t] =3D next_scc_id
-- 	 *                if t =3D=3D w:
-- 	 *                    break
-- 	 *            next_scc_id +=3D 1
-- 	 *
-- 	 *    for i in range(0, insn_cnt):
-- 	 *        if pre[i] =3D=3D 0:
-- 	 *            recur(i)
-- 	 *
-- 	 * Below implementation replaces explicit recursion with array 'dfs'.
-- 	 */
-- 	for (i =3D 0; i < insn_cnt; i++) {
-- 		if (pre[i])
-- 			continue;
-- 		stack_sz =3D 0;
-- 		dfs_sz =3D 1;
-- 		dfs[0] =3D i;
-- 		dfs_pos[0] =3D 0;
-- dfs_continue:
-- 		while (dfs_sz) {
-- 			w =3D dfs[dfs_sz - 1];
-- 			if (pre[w] =3D=3D 0) {
-- 				low[w] =3D next_preorder_num;
-- 				pre[w] =3D next_preorder_num;
-- 				next_preorder_num++;
-- 				stack[stack_sz++] =3D w;
-- 			}
-- 			/* Visit remaining 'w' successors */
-- 			succ =3D bpf_insn_successors(env, w);
-- 			for (j =3D dfs_pos[dfs_sz - 1]; j < succ->cnt; ++j) {
-- 				if (pre[succ->items[j]]) {
-- 					low[w] =3D min(low[w], low[succ->items[j]]);
-- 				} else {
-- 					/*
-- 					 * Once DFS for succ->items[j] is complete,
-- 					 * pre[succ->items[j]] is non-zero, hence
-- 					 * resuming at 'j' allows to follow the
-- 					 * low[w] =3D min(...) update branch above.
-- 					 */
-- 					dfs_pos[dfs_sz - 1] =3D j;
-- 					dfs_pos[dfs_sz] =3D 0;
-- 					dfs[dfs_sz] =3D succ->items[j];
-- 					dfs_sz++;
-- 					goto dfs_continue;
-- 				}
-- 			}
-- 			/*
-- 			 * Preserve the invariant: if some vertex above in the stack
-- 			 * is reachable from 'w', keep 'w' on the stack.
-- 			 */
-- 			if (low[w] < pre[w]) {
-- 				dfs_sz--;
-- 				goto dfs_continue;
-- 			}
-- 			/*
-- 			 * Assign SCC number only if component has two or more elements,
-- 			 * or if component has a self reference, or if instruction is a
-- 			 * callback calling function (implicit loop).
-- 			 */
-- 			assign_scc =3D stack[stack_sz - 1] !=3D w;	/* two or more elements? */
-- 			for (j =3D 0; j < succ->cnt; ++j) {	/* self reference? */
-- 				if (succ->items[j] =3D=3D w) {
-- 					assign_scc =3D true;
-- 					break;
-- 				}
-- 			}
-- 			if (bpf_calls_callback(env, w)) /* implicit loop? */
-- 				assign_scc =3D true;
-- 			/* Pop component elements from stack */
-- 			do {
-- 				t =3D stack[--stack_sz];
-- 				low[t] =3D NOT_ON_STACK;
-- 				if (assign_scc)
-- 					aux[t].scc =3D next_scc_id;
-- 			} while (t !=3D w);
-- 			if (assign_scc)
-- 				next_scc_id++;
-- 			dfs_sz--;
-- 		}
-- 	}
-- 	env->scc_info =3D kvzalloc_objs(*env->scc_info, next_scc_id,
-- 				      GFP_KERNEL_ACCOUNT);
-- 	if (!env->scc_info) {
-- 		err =3D -ENOMEM;
-- 		goto exit;
-- 	}
-- 	env->scc_cnt =3D next_scc_id;
-- exit:
-- 	kvfree(stack);
-- 	kvfree(pre);
-- 	kvfree(low);
-- 	kvfree(dfs);
-- 	kvfree(dfs_pos);
-- 	return err;
-- }
-
---L/Ic/TP4yfNtWQry
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzTvEACgkQJNaLcl1U
-h9BfYQf/YA8V7NBSbRzM9lidQpHtF1mN3KNcVG405b2VuAe3RO/HrF5i5Im9FqcU
-5pRrtmK2Ed8EcZxOd5t6a/2GA4A9mFvUVWW+rHCmr4uvcNYNB9gDjrDylzpp683A
-mhHQMp9Y96D1T4AYs5hWyC447qfMpLWtxVychkpGLHaweIVqa4IWtaxg5vUgoPob
-XoNK+YGkH3/TIiZ4oX48ET5oLhi/hQ9TnULOG6JYwsG2aHGLdDgY7WU64RSJIr14
-P5RAPTBQxz9Pt4upECv2LckTFoCkW1mFU9Or6qC1st1Ht1HkO5YQ1so4g3FW1gRV
-OxwvexG5veU27i2AQ2sY1fca9Szf4Q==
-=Z056
------END PGP SIGNATURE-----
-
---L/Ic/TP4yfNtWQry--
