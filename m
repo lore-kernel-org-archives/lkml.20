@@ -1,104 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316821;
-	b=OjEdkO0eZ224fVm+RfvNi7qRaUdimEXI0sok3Rcx+7beKeotffPEDwfTr803C8AS2qMg
-	 wWAqSH8ylL7ySUH8ZihWxulihxb3OH3j4vcWhhN/iHEkfzFHqfNvJUwQwDBCyakefStWO
-	 FYuXndKaFqCndLQyrpVuQIF0D+fFWabAGbPKpYgVXnl65vDlWp1CsAXPOpCbM9AcCukp9
-	 1IUOSGIEOHQKGO5O3GmBu3WyqqcT6ebHJqGT/k85uzeBh/KQVQQq6M9s65OOym5CJwGq/
-	 G2X1VkIjQl7MYiYzpQLXYB50zG8aLjwZvigTHaoPFATAM6SPFvUFJsDQc4owDLNAr9Q==
+	t=1794316816;
+	b=xqg6C2PkMq/rRU5x65NIdw935dRrt2qg7ycxteSESZpgjP5/ufQbtWPs9L7eol8MgN2c
+	 2ei3Rrd22qJJF1FXz0KTRytqFxet2N9fx3b+UIFRP+brX8KfA1gjN5RfFXA9tildVmsUS
+	 NSUfaFsqwh+XUGPb4kDXRJ0QlULlIIcRtJZnjy9eAoNoXF+ROuz4ZHggL71Y5mEjpzPgs
+	 OI2bIbvt+VUpvLl97weytBtEHvR2ifYRPq2OPAoS4Zje4jPSR6TUDs43Xej9zTqRveUv4
+	 Q482xiDQYc8cHwbJLZt+40TVN9j9WCuWhVG6UPCqrAVoAm2FJ8X2krqQtIHBMG6+oVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316816;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6Y7QVx7G1MN02E+ysgPRqko/xyke3gT627Z3+xepCco=;
-	b=R3c0GfOKh4GpIa30kxWaK0yxG3hUmMQu1/HlEHVzH49brRQRIC8tlfWJrd5ldjjMtMb5
-	 W4IQyOjHQButDNqKlJTRU3uXcFxMN9mcbqUtsGbe4fqjo6tfWd3GBadGKTApUliR6Gt0f
-	 aQnSTdtG1n+/XPNN7FBmJGjde1AqLnraQcTjXEzfD4nPcISugdS8zBUI+ZK8z/LotgzSs
-	 z/PLzSu8NfRYy3QUk3LLb61C6rcjCveqQHub9+t8jJScKx3DYTxsFDg/NoqXX+TN2BZ62
-	 S08ZJFAJTfW6BY/Nw1yH/D9tEc5+WDWxVPbjjMPF0E5q05/jq8BJAHEQgavEldfXeNg==
+	bh=V3SupQCUvShL5hemamw4OCFifD8mbsdvbkYgJ4KaD9g=;
+	b=F3BPxrXoyotMySi16jQo3ROrF92fOJE69vpN7crdYiLjHOVcu4ETf6uassbdiMeTy4F9
+	 wJCD8MXc0sUEoB3SLCEAZojUxE96TOt/je14leo+4xEffV3KkcbE61+rutwUu8CjO08Cm
+	 PPfud42uYnRAf/8Gw6woUOYnkA663FEYZgGuVLggXopCZiAzxVMKsS+mZ6OV2Ky+NKhHq
+	 li4LJEOX4R3KmpDgzXhSbTOrbuORBht0priXQeCopXYblbvIdQBdY+FvgRHMwMtbB/3ii
+	 eZ+U2bAmiyWEA8Is95FW+hvvIe5o4zsWXat2DYSJii3NgDR3mQf1l7gaCyrW6RoJDpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZFMNXJ3O;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=V+L4MQf2;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HZtbHEm8;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XGdwYZQo;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C8860A3814
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C8860A3814
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB67606BFEF
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB67606BFEF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZFMNXJ3O;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=V+L4MQf2
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HZtbHEm8;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XGdwYZQo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794316819;
+	s=mimecast20190719; t=1794316814;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6Y7QVx7G1MN02E+ysgPRqko/xyke3gT627Z3+xepCco=;
-	b=ZFMNXJ3OxS7HQux7XCCEquM9w1+KdrY001MLgr0XRLVafYRI9RtfYRk6SrieF1/R39FYBe
-	+wgGtifwEtXGRSEh2Pba8BANsPS2jGKRvJxqveolea0s7vame3J2GEYlYKbMawT5ReA/+p
-	emaPWA7FyjYNfPzbB1wGtxQqb3EiloU=
+	bh=V3SupQCUvShL5hemamw4OCFifD8mbsdvbkYgJ4KaD9g=;
+	b=HZtbHEm8HtajvcLk4rW8NuxkkFmlCz6D39OL5Qn4ig75/1wxXEC3imVeJbBQKmF3j0xZrz
+	2ODX9eLnxXjGbhcsu1G8x45qVgxRVz17ozaaEVZg4PhyBCo+Hseks9kOI8+hazGrlE5qGh
+	M7m8g/TB93llsSsjn8SHJrT85FK2Cw4=
 Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
  [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-184-mjmXNCQWOeO0c-tx4n6llg-1; Tue, 10 Nov 2026 08:20:18 -0500
-X-MC-Unique: mjmXNCQWOeO0c-tx4n6llg-1
-X-Mimecast-MFC-AGG-ID: mjmXNCQWOeO0c-tx4n6llg_1794316817
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25501f4aa2so274444366b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:18 -0800 (PST)
+ us-mta-636-yue2nH09Mr6UrKndybKNtg-1; Tue, 10 Nov 2026 08:20:11 -0500
+X-MC-Unique: yue2nH09Mr6UrKndybKNtg-1
+X-Mimecast-MFC-AGG-ID: yue2nH09Mr6UrKndybKNtg_1794316810
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c4d34d6082fso192488266b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794316817; x=1794921617; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1794316810; x=1794921610; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Y7QVx7G1MN02E+ysgPRqko/xyke3gT627Z3+xepCco=;
-        b=V+L4MQf2V/f8l+1hgny6XSIxT9epFwVQtd1EiYQrbbofwz6u7uNGPCKeMr2UcBX16C
-         /4EI2lOOflS2gsyoHKI/gpLYXkJ7o8MFPGYhmqXC6SCzeM+eCuzfxf57mPKlypH40qUh
-         YHqrpUUcytsH7QNVtR328ftiN/fZtjGg5F3m9pYchMjz5DtjQGEAtv46IK9yCmh9Cubp
-         yFYBESZROljsfmosnKdNRDVVpQjDlshhFDem99CG7soh4UB2Q2sM9HUJu9ZjYFN6ydoq
-         PtioevzmR7vn33EvRMBDGbhDNI7hOrPDp0PbSVWEwh7MhFigU80/AVSfzrMt16RxBHyj
-         61NQ==
+        bh=V3SupQCUvShL5hemamw4OCFifD8mbsdvbkYgJ4KaD9g=;
+        b=XGdwYZQoAXgJGr1dovvHtrSPdPG4lxeKUgqjap58HUwSQrVpQjE/cpavmV8xcLhZY3
+         vo74pdLgNB0GlB61R+HwDi1wSH3KO9pnJOOkWb2QFEIvr6Wx3dhLIWae7jL09Wz/vrZv
+         GARdMwEAEF2TkzBI35F+vSMd12MOaed68bKRtw9w58+TPSuqDBLSlQbucvOVUSiKJy+j
+         bUUU+a34JxJC/K7KTj2GYgeLEUFfFtWFZmny809Imfc8X66J89bcAqnVv09fMNhaZp+G
+         RdsNU0hpSWW62rlSZK5v9yxylI52twwE2/2+ueO9foY+OP1Bfc+BUVZHVYPFBSZ+KR+w
+         FAlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316817; x=1794921617;
+        d=1e100.net; s=20260707; t=1794316810; x=1794921610;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Y7QVx7G1MN02E+ysgPRqko/xyke3gT627Z3+xepCco=;
-        b=J1zENrOMXCr8+ZKbLf/l3b642vzX9+c5BWGLw1DwyPlhkYSGTjViIyH3PrE1vQ69eK
-         VtRRnQCMvIwDAe/SJSdSGgMhMOihgs3q6+Dnvou21FpT56iY1T8wKF5I8Pzt0b5I/cr6
-         TTv+3NFn8vwJwbOl7wkyqApuKjIROdFp/Hjg7HP7ITOvWhKG/vWq6Qy88NrYZ9zI3UZC
-         x4M/xTircTuzu08oUtvVUZbb/2vOb5rbuO87lIKy1/S/ztN1Yj7B4r4S+3s3tAWYAHyq
-         juYZSvd/Cz/SKUpuFROQOQdVj0qiXobU6H/FpkXwWiTUjp2tZ/YJ7c1FrL7bMWV1W3og
-         /zxA==
-X-Forwarded-Encrypted: i=1; AL+hErGK5KSRNw9/3IP8QlTnRcKkGy7cMmQTWxepanbRp6y8dT+rKUdAPHzzlx7+MlBNPNSX3mhuD75KAhBOdbs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kpFIB3zslt5bWVDu74aLYpC6bWx3rPsg0mMN0aV2w5tdi3E3q
-	OcAM5l7cg1Q5XBHlI9cbPrwkLk0ABuOKHagdOaQ2ZS1Jaz1ENqq+rCkHy2TU1yirup9CgjaBW+Q
-	HmLxNShSG4/Dw2+IhprbUGtH+ScpxWEHHqs1A/VdiG+Oa8fuL81aHE7/cm8KAXKcNRg==
-X-Gm-Gg: AYBFou2cfoQqrmPcrMIHWe4xR1vU2A1w1kAjdyxmIr+IAXPw/Wp6fQBwAqHcD0nRl9e
-	kTNy63qIb3kfq1igQ8rCEAX0fQyT0NwzjRMi/StJ8XpxizEY7iW1IX0xA5gPgzeMieRYDjLNu2V
-	QNAdAoPTupPI44VWPBHERnCihrusLyf+MPxgVOV4+LoGSEokKc0ed7jK64HLGLFTnyEMKJPdg2p
-	x4aLtK7CTaxLY+qYTvFZ/JqFNE6ZRuY6bbroF8k9PuVjSajnImetdQazI82ofrzdCTyZRJoyMLx
-	XGEUK3xX9TuwDCCiTT6B0oeePvdf4w8g31qvCgcLRI7ps36okWhujaCUQZaskipssb/J2jyE6gf
-	dAi2FYsK8kBNNUnXRIKlzvv5rBAjk2R4Hefpi4CcwtFliE2EYuGdXPIifx332+xccKqGCefTnvM
-	IdCSW8xWp01Px5xW6YAipVncU9u/yVJE6R57C5BCZWR24w4s1HwNs8ns+OYAyjN3NLUQ1yNk8el
-	xC/dh1/VSYdv7gBN46HoF8dpU99xpSOO/rRxGhQSADbr9oaxwre
-X-Received: by 2002:a17:907:9b83:b0:c2e:1b6b:8b19 with SMTP id a640c23a62f3a-c5048c13001mr207597966b.23.1794316817185;
-        Tue, 10 Nov 2026 05:20:17 -0800 (PST)
-X-Received: by 2002:a17:907:9b83:b0:c2e:1b6b:8b19 with SMTP id a640c23a62f3a-c5048c13001mr207594966b.23.1794316816822;
-        Tue, 10 Nov 2026 05:20:16 -0800 (PST)
+        bh=V3SupQCUvShL5hemamw4OCFifD8mbsdvbkYgJ4KaD9g=;
+        b=xTIwFFEPH/5Dujcydrb+u70KzD+DVI40XNNTe50HudeU/9mEJhbBzqsIYLGHMBBNum
+         2pYR3Dk6I8KO4Dc7t6jWc7xe4GZN1wFjcjjZ63DMr4Mp59Sd7BhSveT7+y56+VqXchFH
+         Ci21dkJBy2v9LVaIjYedZbQY14HJD3b0m2yMK0RD7qNXESmC51S2vRM5MFih8vYwicL+
+         Bw5KsKq5ymIoeYhO7/vu61UUHk3Es2JFQ0cuaOynzpl9qHKP5w9mhSvJPry8jiQYEaMf
+         C0WVRIMwMen6U4gh1LF1srHLc7ilJtDd6eijnL5ZiZYbrO7W7si7cBmMtseSRn0h4lQ3
+         Amgg==
+X-Forwarded-Encrypted: i=1; AL+hErGboHjobU0fpn0YC5kklTYBLQ2PhUpgr9LFUHmd8lVrL1tDtNfET7AMB9FwxMQUmKR0uw5UbBTArF9507w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84jWw5AizXPz7aC3GYN53kbK23FMBcSOAEjAGKFfFfkOKODu0q
+	suegQTNTLoR593jJ5dvUacrexe1qbVd7u+bewAZ+SCH1AZm4/TzLKoeP9h049WsiwIVpVThVN4j
+	XJ6Dc+fnD38wfrAFV26AwlyWr3CcNtw61Ut93DglWvdUftNzEmFq4xqJnybh4Bl7OlA==
+X-Gm-Gg: AYBFou0r+29NCL1kfhq1x6Kdg9hKvQO2JISrka8PtGOTcQFSJX9Z4PFWE9RxpdLN+L+
+	rpa/3FndgkwpYjN3xAVazxhHVDeoyad6gGQe1EOebuiuDAOIMvKLyodXPHda+JYpbqWZg4rUMqS
+	OsEiKXUJ3r3+ZI5qNvtHJrQXjDK6xMPXkJkHynnneeYNv48855fBbgl234plsGG533FqefHMwHs
+	6bvkeIlMBmR81hRp1+RY90Hqc29K3fGXpV+Xs0n6uuScyq3nHKGsHg4oM9e1JmzJYenQ3s4of3v
+	khRrAI/ifhKr//Ii7UzIkPWcXO7/MPxlQbC7xCuRWZCaDm9VdBmkDV27NrPunvxA5QcLHPbnur3
+	E7zK4mddNtMPDzphxqxlEnqs8+OODOZXwChhzcvr16XOXXz0Ujm5KHz1Rl6xj5SbQXVk3z92HZC
+	0wHyF58f4GsT5Bo0Q6ovB8mIYjcEmvqftNIjPqAqeUVHVBpR7dMpCQvQ4Em3hPqZYbNx89UyK7C
+	5jh7qZ8PPhcOzxAu7hPolUepkcBxg26HPItb0tTOq/ohM+GLo7i
+X-Received: by 2002:a17:906:794f:b0:c49:a539:aa45 with SMTP id a640c23a62f3a-c50496b6556mr199670066b.42.1794316810123;
+        Tue, 10 Nov 2026 05:20:10 -0800 (PST)
+X-Received: by 2002:a17:906:794f:b0:c49:a539:aa45 with SMTP id a640c23a62f3a-c50496b6556mr199666066b.42.1794316809640;
+        Tue, 10 Nov 2026 05:20:09 -0800 (PST)
 Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.15
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:20:16 -0800 (PST)
+        Tue, 10 Nov 2026 05:20:09 -0800 (PST)
 From: Alex Markuze <amarkuze@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -117,9 +117,9 @@ Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	netdev@vger.kernel.org,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 06/12] io_uring/opaque: allow rings to share a store
-Date: Tue, 10 Nov 2026 13:20:00 +0000
-Message-Id: <20261110132006.3280986-7-amarkuze@redhat.com>
+Subject: [RFC PATCH net-next 01/12] net: add an exclusive TCP receive claim
+Date: Tue, 10 Nov 2026 13:19:55 +0000
+Message-Id: <20261110132006.3280986-2-amarkuze@redhat.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110132006.3280986-1-amarkuze@redhat.com>
 References: <20261110132006.3280986-1-amarkuze@redhat.com>
@@ -134,152 +134,327 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A multi-threaded server often uses one ring per thread. Allow an object
-received or created through one ring to be used through another ring
-without copying its payload.
+The io_uring opaque object collector, added later in this series,
+consumes the receive queue of a TCP socket through tcp_read_sock() with
+its own actor. It reports stream offsets that count from the first byte
+that was unread when it attached. If another reader consumes bytes while
+the collector is attached, those offsets no longer match the data, and
+the application selects the wrong ranges.
 
-Add EXPORT and IMPORT controls to IORING_REGISTER_OPAQUE_STORE. EXPORT
-returns a close-on-exec anonymous-inode descriptor; IMPORT registers its
-store under a new ring-local ID. The descriptor cannot read, map or poll
-payload. Handles and stream tokens belong to the store and are valid
-through every ring sharing it.
+Add a receive owner to struct sock: a pointer to a struct sock_rx_owner
+that names a tcp_read_sock() actor and its data. The owner is published
+and cleared under the socket lock and sk_callback_lock. While an owner is
+set:
 
-Each registered ring entry and export file holds one user reference and
-one lifetime reference. The last user stops the store; the last lifetime
-reference releases its memory and accounting. An export file can keep a
-store alive after the creating ring exits. Import preserves the store's
-memory-cgroup ownership and original ring user/mm accounting and adds no
-backing charge.
+- tcp_read_sock() and tcp_read_sock_noack() return -EBUSY unless the
+  caller passes the owning actor and data. This also stops splice().
+- tcp_recvmsg_locked(), tcp_zerocopy_receive() and tcp_read_skb() return
+  -EBUSY.
+- sk_wait_data() also returns when an owner appears. A reader that sleeps
+  in tcp_recvmsg_locked() then stops with the bytes that it copied, or
+  with -EBUSY. The claimant wakes sleeping readers after it publishes the
+  owner.
+- tcp_disconnect(), connect(AF_UNSPEC), tcp_set_ulp(), sk_psock_init()
+  and TCP_REPAIR return -EBUSY, because each of them resets or takes
+  over the receive sequence. TCP_REPAIR checks the owner before its
+  permission check, so a caller without the permission also gets -EBUSY.
+- sk_clone() starts the child socket without an owner.
 
-Export reserves the descriptor and creates the file, copies the number
-to userspace, and installs it only after that copy succeeds. Failure
-unwinds the references and descriptor reservation. Import erases the
-new ring-local ID if copying its result to userspace fails.
+CONFIG_SOCK_RX_OWNER is a hidden option that the io_uring feature
+selects. Without it, struct sock does not change and the checks compile
+away. With it, struct sock grows by one pointer. Each affected receive
+path reads the pointer once with READ_ONCE(), and tcp_recvmsg_locked()
+reads it once per loop iteration.
+
+An optional data_ready callback notifies the owner independently of
+ordinary TCP low-water readiness. TCP invokes it under the read side
+of sk_callback_lock, which pins the owner and its data; the callback
+must not sleep. With receive ownership disabled, the helper is empty.
+
+This patch adds no user of the claim or callback.
 
 Signed-off-by: Alex Markuze <amarkuze@redhat.com>
 ---
- include/uapi/linux/io_uring/opaque.h |  3 +
- io_uring/opaque_register.c           | 84 ++++++++++++++++++++++++----
- 2 files changed, 76 insertions(+), 11 deletions(-)
+ include/linux/net.h  |  8 ++++++++
+ include/net/sock.h   | 46 ++++++++++++++++++++++++++++++++++++++++++++
+ net/Kconfig          |  7 +++++++
+ net/core/skmsg.c     |  4 ++++
+ net/core/sock.c      |  6 +++++-
+ net/ipv4/af_inet.c   |  2 ++
+ net/ipv4/tcp.c       | 22 ++++++++++++++++++++-
+ net/ipv4/tcp_input.c |  1 +
+ net/ipv4/tcp_ulp.c   |  2 ++
+ 9 files changed, 96 insertions(+), 2 deletions(-)
 
-diff --git a/include/uapi/linux/io_uring/opaque.h b/include/uapi/linux/io_uring/opaque.h
-index 692daa7d7e32..9a129b5da5af 100644
---- a/include/uapi/linux/io_uring/opaque.h
-+++ b/include/uapi/linux/io_uring/opaque.h
-@@ -16,6 +16,9 @@ struct io_uring_opaque_register {
- 	__u64 __resv[2];
+diff --git a/include/linux/net.h b/include/linux/net.h
+index e2a866fbcfa5..d8fe1812e02b 100644
+--- a/include/linux/net.h
++++ b/include/linux/net.h
+@@ -230,6 +230,14 @@ struct sk_buff;
+ struct proto_accept_arg;
+ typedef int (*sk_read_actor_t)(read_descriptor_t *, struct sk_buff *,
+ 			       unsigned int, size_t);
++
++/* Published under socket and callback locks; controls the receive sequence. */
++struct sock_rx_owner {
++	sk_read_actor_t actor;
++	void *data;
++	/* TCP receive context, under sk_callback_lock: must not sleep. */
++	void (*data_ready)(struct sock *sk, void *data);
++};
+ typedef int (*skb_read_actor_t)(struct sock *, struct sk_buff *);
+ 
+ 
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 173b37b2b8bb..4da1796b3b8c 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -326,6 +326,7 @@ struct sk_filter;
+   *	@sk_zckey: counter to order MSG_ZEROCOPY notifications
+   *	@sk_socket: Identd and reporting IO signals
+   *	@sk_user_data: RPC layer private data. Write-protected by @sk_callback_lock.
++  *	@sk_rx_owner: Exclusive receive owner under socket and callback locks.
+   *	@sk_frag: cached page frag
+   *	@sk_peek_off: current peek_offset value
+   *	@sk_send_head: front of stuff to transmit
+@@ -575,6 +576,9 @@ struct sock {
+ 	u8			sk_bpf_cb_flags;
+ 
+ 	void			*sk_user_data;
++#ifdef CONFIG_SOCK_RX_OWNER
++	struct sock_rx_owner	*sk_rx_owner;
++#endif
+ #ifdef CONFIG_SECURITY
+ 	void			*sk_security;
+ #endif
+@@ -617,6 +621,48 @@ enum sk_pacing {
+ 	SK_PACING_FQ		= 2,
  };
  
-+#define IORING_OPAQUE_REG_IMPORT	(1U << 0)
-+#define IORING_OPAQUE_REG_EXPORT	(1U << 1)
++static inline bool sock_rx_owned(const struct sock *sk)
++{
++#ifdef CONFIG_SOCK_RX_OWNER
++	return unlikely(READ_ONCE(sk->sk_rx_owner));
++#else
++	return false;
++#endif
++}
 +
- /* config/config_size select a size-versioned configuration on creation. */
- struct io_uring_opaque_config {
- 	__u64 hard_limit;
-diff --git a/io_uring/opaque_register.c b/io_uring/opaque_register.c
-index 9e39d1ee5072..472c739a17de 100644
---- a/io_uring/opaque_register.c
-+++ b/io_uring/opaque_register.c
-@@ -15,6 +15,50 @@ static void io_opaque_unregister_user(struct io_opaque_store *store)
- 	io_opaque_put(store);
++/*
++ * Notify the receive owner independently of ordinary socket low-water wakes.
++ * The callback lock pins both owner and data until the callback returns;
++ * publication and removal take its write side while owning the socket.
++ */
++static inline void sock_rx_owner_data_ready(struct sock *sk)
++{
++#ifdef CONFIG_SOCK_RX_OWNER
++	struct sock_rx_owner *owner;
++
++	if (!sock_rx_owned(sk))
++		return;
++	read_lock_bh(&sk->sk_callback_lock);
++	owner = sk->sk_rx_owner;
++	if (owner && owner->data_ready)
++		owner->data_ready(sk, owner->data);
++	read_unlock_bh(&sk->sk_callback_lock);
++#endif
++}
++
++static inline bool sock_rx_owner_conflict(const struct sock *sk,
++					  read_descriptor_t *desc,
++					  sk_read_actor_t actor)
++{
++#ifdef CONFIG_SOCK_RX_OWNER
++	const struct sock_rx_owner *owner = READ_ONCE(sk->sk_rx_owner);
++
++	return owner && (owner->actor != actor || owner->data != desc->arg.data);
++#else
++	return false;
++#endif
++}
++
+ /* flag bits in sk_user_data
+  *
+  * - SK_USER_DATA_NOCOPY:      Pointer stored in sk_user_data might
+diff --git a/net/Kconfig b/net/Kconfig
+index 76ab44aa439a..6ece51ab26ba 100644
+--- a/net/Kconfig
++++ b/net/Kconfig
+@@ -26,6 +26,13 @@ menuconfig NET
+ 
+ if NET
+ 
++config SOCK_RX_OWNER
++	bool
++	depends on INET
++	help
++	  Allow a TCP stream actor to claim exclusive receive sequence access.
++	  Receive paths reject competing readers while the claim is held.
++
+ config WANT_COMPAT_NETLINK_MESSAGES
+ 	bool
+ 	help
+diff --git a/net/core/skmsg.c b/net/core/skmsg.c
+index df385a5a961e..5c753bcb808c 100644
+--- a/net/core/skmsg.c
++++ b/net/core/skmsg.c
+@@ -754,6 +754,10 @@ struct sk_psock *sk_psock_init(struct sock *sk, int node)
+ 
+ 	write_lock_bh(&sk->sk_callback_lock);
+ 
++	if (sock_rx_owned(sk)) {
++		psock = ERR_PTR(-EBUSY);
++		goto out;
++	}
+ 	if (sk_is_inet(sk) && inet_csk_has_ulp(sk)) {
+ 		psock = ERR_PTR(-EINVAL);
+ 		goto out;
+diff --git a/net/core/sock.c b/net/core/sock.c
+index e7405be8941f..3fcdc56e624e 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -2614,6 +2614,9 @@ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
+ 	 */
+ 	if (sk_user_data_is_nocopy(newsk))
+ 		newsk->sk_user_data = NULL;
++#ifdef CONFIG_SOCK_RX_OWNER
++	newsk->sk_rx_owner = NULL;
++#endif
+ 
+ 	newsk->sk_err	   = 0;
+ 	newsk->sk_err_soft = 0;
+@@ -3389,7 +3392,8 @@ int sk_wait_data(struct sock *sk, long *timeo, const struct sk_buff *skb)
+ 
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	rc = sk_wait_event(sk, timeo, skb_peek_tail(&sk->sk_receive_queue) != skb, &wait);
++	rc = sk_wait_event(sk, timeo, sock_rx_owned(sk) ||
++			   skb_peek_tail(&sk->sk_receive_queue) != skb, &wait);
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+ 	return rc;
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+index 7677b0343abd..54c30a59bbce 100644
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -649,6 +649,8 @@ int __inet_stream_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
+ 			return -EINVAL;
+ 
+ 		if (uaddr->sa_family == AF_UNSPEC) {
++			if (sock_rx_owned(sk))
++				return -EBUSY;
+ 			sk->sk_disconnects++;
+ 			err = sk->sk_prot->disconnect(sk, flags);
+ 			sock->state = err ? SS_DISCONNECTING : SS_UNCONNECTED;
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index b9de7c302ba8..6de6ce153fda 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -1753,6 +1753,8 @@ out:
+ int tcp_read_sock(struct sock *sk, read_descriptor_t *desc,
+ 		  sk_read_actor_t recv_actor)
+ {
++	if (sock_rx_owner_conflict(sk, desc, recv_actor))
++		return -EBUSY;
+ 	return __tcp_read_sock(sk, desc, recv_actor, false,
+ 			       &tcp_sk(sk)->copied_seq);
+ }
+@@ -1762,6 +1764,8 @@ int tcp_read_sock_noack(struct sock *sk, read_descriptor_t *desc,
+ 			sk_read_actor_t recv_actor, bool noack,
+ 			u32 *copied_seq)
+ {
++	if (sock_rx_owner_conflict(sk, desc, recv_actor))
++		return -EBUSY;
+ 	return __tcp_read_sock(sk, desc, recv_actor, noack, copied_seq);
  }
  
-+static int io_opaque_box_release(struct inode *inode, struct file *file)
-+{
-+	io_opaque_unregister_user(file->private_data);
-+	return 0;
-+}
+@@ -1770,6 +1774,8 @@ int tcp_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
+ 	struct sk_buff *skb;
+ 	int copied = 0;
+ 
++	if (sock_rx_owned(sk))
++		return -EBUSY;
+ 	if (sk->sk_state == TCP_LISTEN)
+ 		return -ENOTCONN;
+ 
+@@ -2224,6 +2230,8 @@ static int tcp_zerocopy_receive(struct sock *sk,
+ 
+ 	zc->copybuf_len = 0;
+ 	zc->msg_flags = 0;
++	if (sock_rx_owned(sk))
++		return -EBUSY;
+ 
+ 	if (address & (PAGE_SIZE - 1) || address != zc->address)
+ 		return -EINVAL;
+@@ -2678,6 +2686,8 @@ static int tcp_recvmsg_locked(struct sock *sk, struct msghdr *msg, size_t len,
+ 	u32 peek_offset = 0;
+ 	u32 urg_hole = 0;
+ 
++	if (sock_rx_owned(sk))
++		return -EBUSY;
+ 	err = -ENOTCONN;
+ 	if (sk->sk_state == TCP_LISTEN)
+ 		goto out;
+@@ -2717,6 +2727,11 @@ static int tcp_recvmsg_locked(struct sock *sk, struct msghdr *msg, size_t len,
+ 	do {
+ 		u32 offset;
+ 
++		/* Ownership may have changed while this reader slept for data. */
++		if (sock_rx_owned(sk)) {
++			copied = copied ?: -EBUSY;
++			break;
++		}
+ 		/* Are we at urgent data? Stop if we have read anything or have SIGURG pending. */
+ 		if (unlikely(tp->urg_data) && tp->urg_seq == *seq) {
+ 			if (copied)
+@@ -3374,6 +3389,9 @@ int tcp_disconnect(struct sock *sk, int flags)
+ 	struct request_sock *req;
+ 	u32 seq;
+ 
++	if (sock_rx_owned(sk))
++		return -EBUSY;
 +
-+static const struct file_operations io_opaque_box_fops = {
-+	.owner = THIS_MODULE,
-+	.release = io_opaque_box_release,
-+};
-+
-+static int io_opaque_export(struct io_ring_ctx *ctx, void __user *arg,
-+			    struct io_uring_opaque_register *reg, u32 size)
-+{
-+	struct io_opaque_store *store = xa_load(&ctx->opaque_stores, reg->store_id);
-+	struct file *file;
-+	int fd, ret;
-+
-+	if (!store)
-+		return -ENXIO;
-+	fd = get_unused_fd_flags(O_CLOEXEC);
-+	if (fd < 0)
-+		return fd;
-+	io_opaque_get(store);
-+	file = anon_inode_create_getfile("[io_uring-opaque]", &io_opaque_box_fops,
-+					 store, O_CLOEXEC, NULL);
-+	if (IS_ERR(file)) {
-+		ret = PTR_ERR(file);
-+		io_opaque_unregister_user(store);
-+		goto put_fd;
-+	}
-+	reg->fd = fd;
-+	ret = copy_struct_to_user(arg, size, reg, sizeof(*reg), NULL);
-+	if (ret) {
-+		fput(file);
-+		goto put_fd;
-+	}
-+	fd_install(fd, file);
-+	return 0;
-+put_fd:
-+	put_unused_fd(fd);
-+	return ret;
-+}
-+
- int io_register_opaque(struct io_ring_ctx *ctx, void __user *arg)
+ 	if (old_state != TCP_CLOSE)
+ 		tcp_set_state(sk, TCP_CLOSE);
+ 
+@@ -3988,7 +4006,9 @@ int do_tcp_setsockopt(struct sock *sk, int level, int optname,
+ 		break;
+ 
+ 	case TCP_REPAIR:
+-		if (!tcp_can_repair_sock(sk))
++		if (sock_rx_owned(sk))
++			err = -EBUSY;
++		else if (!tcp_can_repair_sock(sk))
+ 			err = -EPERM;
+ 		else if (val == TCP_REPAIR_ON) {
+ 			tp->repair = 1;
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index e1f2d9765f81..2d17fcdf73dd 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -5637,6 +5637,7 @@ err:
+ 
+ void tcp_data_ready(struct sock *sk)
  {
- 	struct io_uring_opaque_register reg;
-@@ -38,19 +82,37 @@ int io_register_opaque(struct io_ring_ctx *ctx, void __user *arg)
- 	    !mem_is_zero(reg.__resv, sizeof(reg.__resv)))
- 		return -EINVAL;
- 	reg.size = sizeof(reg);
--	if (reg.store_id || reg.flags)
-+	if (reg.flags == IORING_OPAQUE_REG_EXPORT) {
-+		if (reg.fd != -1 || reg.config || reg.config_size)
-+			return -EINVAL;
-+		return io_opaque_export(ctx, arg, &reg, size);
-+	}
-+	if (reg.store_id)
- 		return -EINVAL;
--	if (reg.fd != -1 || !reg.config ||
--	    reg.config_size < offsetof(struct io_uring_opaque_config, __resv0) ||
--	    reg.config_size > PAGE_SIZE)
-+	if (reg.flags == IORING_OPAQUE_REG_IMPORT) {
-+		CLASS(fd, f)(reg.fd);
-+
-+		if (reg.config || reg.config_size)
-+			return -EINVAL;
-+		if (fd_empty(f) || fd_file(f)->f_op != &io_opaque_box_fops)
-+			return -EBADF;
-+		store = fd_file(f)->private_data;
-+		io_opaque_get(store);
-+	} else if (!reg.flags) {
-+		if (reg.fd != -1 || !reg.config ||
-+		    reg.config_size < offsetof(struct io_uring_opaque_config, __resv0) ||
-+		    reg.config_size > PAGE_SIZE)
-+			return -EINVAL;
-+		ret = copy_struct_from_user(&config, sizeof(config),
-+					    u64_to_user_ptr(reg.config), reg.config_size);
-+		if (ret)
-+			return ret;
-+		store = io_opaque_alloc(ctx, &config);
-+		if (IS_ERR(store))
-+			return PTR_ERR(store);
-+	} else {
- 		return -EINVAL;
--	ret = copy_struct_from_user(&config, sizeof(config),
--				    u64_to_user_ptr(reg.config), reg.config_size);
--	if (ret)
--		return ret;
--	store = io_opaque_alloc(ctx, &config);
--	if (IS_ERR(store))
--		return PTR_ERR(store);
-+	}
- 	ret = xa_alloc(&ctx->opaque_stores, &id, store, xa_limit_31b, GFP_KERNEL);
- 	if (ret)
- 		goto put_store;
++	sock_rx_owner_data_ready(sk);
+ 	if (tcp_epollin_ready(sk, sk->sk_rcvlowat) || sock_flag(sk, SOCK_DONE))
+ 		READ_ONCE(sk->sk_data_ready)(sk);
+ }
+diff --git a/net/ipv4/tcp_ulp.c b/net/ipv4/tcp_ulp.c
+index b58045df101e..77abc21bcb63 100644
+--- a/net/ipv4/tcp_ulp.c
++++ b/net/ipv4/tcp_ulp.c
+@@ -164,6 +164,8 @@ int tcp_set_ulp(struct sock *sk, const char *name)
+ 
+ 	sock_owned_by_me(sk);
+ 
++	if (sock_rx_owned(sk))
++		return -EBUSY;
+ 	ulp_ops = __tcp_ulp_find_autoload(name);
+ 	if (!ulp_ops)
+ 		return -ENOENT;
+
+base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
 -- 
 2.34.1
 
