@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333205;
-	b=yqxNMgDGfSePGV9DA1X34goilgZ2wixMUV0jC434/FE6yfd/4Abc82fNl2TRXfMb/1NG
-	 rKIdZnu0r1Z/gOIUIo3MOsuvUadPCfURMaba/rRiKDk3uhGx+Eca3aa5GCKMY5cQyryoS
-	 LsnlmD5CsNbuw9ot/m13HmQOFrbfPXFYQapsW76uB7LJDX2RbsXpVE2Sfos/eL6YIQx1X
-	 6vVKAazz0/0xBFtmiHdsKhvjoH/q5Y6HIdry3DzOcHD1P7PZfiod1813yWDcRs+EW1Bti
-	 YTslw8IrMhKAbKnOW3iF3gKpcto2qCtSQZgGwADO1EzL8FNjeHgmuF6s7bnouNV93Gw==
+	t=1794333203;
+	b=spzcs7wOQ1SotLnWrfl8fuqdFxqASLOf59BFvA1S+qPr5IpHYAV8Vhizz+GKnrNZ//+W
+	 t+01JCSOTtWMMv8Q6HeuhWk+AzWto8rqnXRtPVeV2pa1cwaTCXuwxfwPP37WPQZWlksgr
+	 vpF/KAcjHp16Pi1P7oZ41Em9a6hBE9MNvd/glSSN6Kw0YmG/wpd77NohJundBvmz2uGZw
+	 W6AjVfeM+fYSKX1yGvRFIFUtF0UtcHqjFfSL15X/tzchS8/2H1SrYa8HBb43qZQzmedP/
+	 9nDjqsb770xj0R8ASSzdQI9geE1Fh3f0GBGosMTSyFSdki1oSOqrANKYX/vCgVrpLHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333203;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ab568wwvPbStL1asXtzTrQ7hg5GKYsBt/+WIszdq9+A=;
-	b=auvAXNspw3kqXUOaPb6+eiZKsUB7sdvTgL5WW4jIc/woHoArsdXnFzE1YZGFCwM9kRVV
-	 fHKonuYNHISv6hKhxeNg42aQpF3htk8vFsMxie4KP54aL0EVfstKWs6EU4GARru0Z0Bf9
-	 V2hXyyr17LNsBhr/I/G/XzN+Q7/yIDY83vnkwX8sJiYnXQKho0eHgIBCWj0y8atjwCOAi
-	 e6FqBrmyvSDV2j8H4PWf3p6gglGbY2oTvQJx2rlgX0yGyKu9tl10BraphHxyO6r76Qrjr
-	 +3tZkfEwZlv8wo8y8lAqd2Mh7YxtZBN4HOFhvu9ZTVuoCPyvCaWAbsMBEjJ+S+lCgYA==
+	bh=vewQ1rC3gNo47kqP/Hx51b9scv8rhIYW439HT73ccWY=;
+	b=sEIaS5YIpBaotHFAkBaGUgkV9vzSTB4fXsK7JOu3X2emdhlm2l+t0i/sX0J5aLBMCwlV
+	 gmW03gOc6Cnh0kGntLOHc0XBuoCQA0JfufpCUpD5ym9k8yxb7kbCiPUM1WaQTZPVlqqdl
+	 gMplPnhTmvBWIzwKYN6Ouq2lacMZmSjJQJ+klWLioAOLRnVwCYO4E+0h6sFBL49XXrWUI
+	 +CtDFO2zhyAXQEDp15knpOj3TiRSt9h+0s1sl/WLM7VDghJcOQC4GV9bPM4h5uIehSgcF
+	 95TaMMq8tHnH5FcdGkvgNmyofUe2Q3hVjyy1SSRxOvhymp9iEJ3t1mA56H+zweCxkmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ruy9uac3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUmQjUpo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81D1606A327;
-	Tue, 10 Nov 2026 17:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B75606A331;
+	Tue, 10 Nov 2026 17:53:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ruy9uac3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0991F008A2;
-	Tue, 10 Nov 2026 17:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUmQjUpo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D721F008A2;
+	Tue, 10 Nov 2026 17:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333204;
-	bh=ab568wwvPbStL1asXtzTrQ7hg5GKYsBt/+WIszdq9+A=;
+	s=k20260515; t=1794333202;
+	bh=vewQ1rC3gNo47kqP/Hx51b9scv8rhIYW439HT73ccWY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ruy9uac35FNa/e9uIlj/CahwSyVHIhN0Ge8tMfWIqfdFhU3vJHMU1iZafxswC2obp
-	 N0isaOWEzLOhw3RCcWyrbI+izQTsqlALDv/G+/rlZNJdGj3EP1fYMzV8XwYyVicf3s
-	 DE+r414viPj+mUlqRj/5LlE+SAJ5Ac8yStGxLSJO/VlgiJxlKQDUHMq7qN6jNObrTo
-	 u23b1GglHX+rTp7fdfsyMGD9P1pv7w0JU6Ga8wzjVK1ZliyY5OwuDbGywnpM+gIuoM
-	 Ai6p5y2qWK+LmV6W0FJ/NBtw+yYQIL/QgBj9ReYwpr2f55trxItPQhi9Ee2eooI8Xq
-	 fqhEH+KU0CYVg==
-Subject: Re: [PATCH net-next 03/10] dpll: add domain object
+	b=PUmQjUpoKeuGYcTvVsLI8aIfuaSttlsA2XHp/0wiEgY9Ld5vXFlAH8p5lkEA5+VOi
+	 UMFR3NMc19579X5GFYdkY2qwikGztNB/TNKkas/T8GnDCdqfiMieQzAyeQI+/j0zOm
+	 9bwRsDAkE8cIxyNJejyh+NeSmlhTi+mPOmYbJJdbQbvNV7xlMsrpcg8n2R5qpoF+q4
+	 ia4UAI6T+n+/wxf6fhbtSfjnEAN8TX9iKByUh4qjj70BYdvoMJimAmU0aXlPp7mAwB
+	 QJlzaR2YToBw6UBNA8x0wNacddFsIuuY8szdqTh1LGmL/q0vzr1JpAy6tHrklI+s//
+	 eRco5r4T4R1jw==
+Subject: Re: [PATCH net-next 02/10] ice: dpll: serialize changes of the SyncE
+ CGU registers
 From: netdev-bot+sashiko@kernel.org
 To: ivecera@redhat.com
 Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
@@ -53,10 +54,10 @@ Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
  intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
  karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
  poros@redhat.com
-Date: Tue, 10 Nov 2026 17:53:22 +0000
-Message-ID: <179433320288.994134.11961533455589849486@kernel.org>
-In-Reply-To: <20261106121005.1327603-4-ivecera@redhat.com>
-References: <20261106121005.1327603-4-ivecera@redhat.com>
+Date: Tue, 10 Nov 2026 17:53:21 +0000
+Message-ID: <179433320107.994134.16333323653199953270@kernel.org>
+In-Reply-To: <20261106121005.1327603-3-ivecera@redhat.com>
+References: <20261106121005.1327603-3-ivecera@redhat.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,56 +77,59 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The comment on `lock` in the new struct dpll_domain
-  (drivers/dpll/dpll_core.h) says it "Serializes the driver callbacks of…
+- [Low] The commit fixes a race that already exists in the tree, but it
+  has no Fixes: tag and no stable Cc.
 
 --
 
-dpll: add domain object
+ice: dpll: serialize changes of the SyncE CGU registers
 
-This commit adds struct dpll_domain, which groups all dpll devices and
-pins created with the same (module, clock_id) pair. Domains are
-refcounted, stored in an xarray and freed along with their last object.
-It prepares for serializing driver callbacks per driver instance instead
-of under the global dpll_lock, and states no functional change.
+This patch adds a cgu_synce_lock mutex to struct ice_adapter, which all
+E825C PFs share. It holds that lock around the CGU R10/R11
+read-modify-write sequences in ice_dpll_synce_update_e825c(), and around
+the ice_tspll_cfg_synce_ethdiv_e825c() call in ice_ptp_link_change().
 
-> diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
-> index da8a369556ed1..6705e81bc11de 100644
-> --- a/drivers/dpll/dpll_core.h
-> +++ b/drivers/dpll/dpll_core.h
+> ice_ptp_link_change() does not hold dpll_lock, so it can already overwrite
+> an update of another PF. RCLK callbacks are serialized by dpll_lock, but
+> the DPLL core is going to serialize callbacks per (module, clock_id), and
+> each complex has its own DSN and so its own clock_id. With that change, a
+> test toggling RCLK pins of both complexes lost an update.
 
 [ ... ]
 
-> +struct dpll_domain {
-> +	u32 id;
-> +	u64 clock_id;
-> +	struct module *module;
-> +	refcount_t refcount;
-> +	/* Serializes the driver callbacks of all DPLL devices and pins
-> +	 * that share one (module, clock_id) pair.
-> +	 */
-> +	struct mutex lock;
+> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 
 [Severity: Low]
-This isn't a bug, but is this comment accurate at this point in the
-series?
+Should this patch have a Fixes: tag?
 
-In this commit, domain->lock is only set up and torn down:
-dpll_domain_get() calls mutex_init(), and its error path and
-dpll_domain_put() call mutex_destroy(). Nothing acquires it, so driver
-callbacks are still serialized only by the global dpll_lock.
+The commit message says this race already exists in the tree. Before
+this patch, ice_ptp_link_change() on one PF calls
+ice_tspll_cfg_synce_ethdiv_e825c(). That function reads ICE_CGU_R10 once
+and writes the whole register back twice.
 
-The later patch "dpll: take domain locks around driver callbacks" adds
-the mutex_lock() calls on dpll->domain->lock and pin->domain->lock that
-make the comment true. So the mismatch exists only in this intermediate
-commit.
+At the same time, on another PF, the path
+ice_dpll_rclk_state_on_pin_set()->ice_dpll_synce_update_e825c() does a
+read-modify-write of R10 and R11. Each of these paths holds only its own
+PF's pf->dplls.lock.
 
-Could the comment say the lock will serialize the callbacks, or could it
-be added in the patch that starts taking the lock?
+Both paths reach the same CGU. All E825C PFs share one ice_adapter, and
+the secondary complex reaches the primary CGU through
+ice_sbq_dev_cgu_peer. So a link flap on one port can write back a stale
+R10. That undoes a mux or divider change that another PF just made
+(S_REF_CLK, ETHCLKO_SEL, CLKO_SEL, *_DIV_M1).
 
-> +};
+Both racing sequences seem to come from commit ad1df4f2d591 ("ice: dpll:
+Support E825-C SyncE and dynamic pin discovery"). A related fix,
+bf6dbadb72b9 ("ice: fix PTP timestamping broken by SyncE code on
+E825C"), already has a Fixes: tag for that commit.
 
-[ ... ]
+Without the tag, stable kernels that carry ad1df4f2d591 would probably
+not get the fix for this race. Could you add the following tag?
+
+Fixes: ad1df4f2d591 ("ice: dpll: Support E825-C SyncE and dynamic pin discovery")
+
+Another option is to split this patch out of the series and send it to
+net.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106121005.1327603-1-ivecera%40redhat.com
