@@ -1,56 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330017;
-	b=XoeRf+u/ppS/uFPdgsVaeRJqQMTdaq9Ldp0xqRyVXCOMwCBu5ePQJ8OkwppduXde3Bw+
-	 gklotrxniUl4C1ZdjlQkQs4XSWUyGWgolt4VJ720BnLd9Q0pp1Xn5AJAd2oWvGMgql8GT
-	 cSH+if7rSdEBsN8GZl0ws2L7jUdaU7iRlaT9DKo0qQQrw0XWeKJAuAWbISBXBwxM6bswJ
-	 Tul4vIvrr0ZhBV0gfJQ4yt/8DN9YESJXPoyAr3wlASSVcR002LFggOI0ijmXJIFLuBqPw
-	 gxnk+JSmgNpphPaUKyXyDtawUSradpSQtdNsf5a+e1HB3rrJTPwmZTabP+Q/HzaUk+A==
+	t=1794330175;
+	b=5d0W7rE3b2NvFhU/jg/VhlnVpnRsWcg2Mfjdskk9gGaPfLf/06JmcKJh1rnRDBNnpWmX
+	 I1hQ3jmcdkzcmIMAmBx6Kfs9xA5zHz97MbDQvGecrYOB/7Ma0tHn/pUR6Ato6giNWlLNj
+	 2saQVt7hpdDDDv+A97/Ntdr9p1ewEcER9PkttbpoYZeN/qMO6X5oa1sMRNFpalR9BD+vU
+	 v1fXKfrTFdM2xECf8/hwos3/TNMA5UIchhYcpAJW+I+fnQG1r2+OiFAxsdG7ZErCXAGtw
+	 PI2oPR/q31P3Mj5cJJUWxZFe0XUjWe73EEWRm1EVGP5WtTAxqfzLALdBVcsHperW5gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330017;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=e9tGyPXz9xL70oEPM5OS0/SNYUGPcdfzb2vPyxxeOIc=;
-	b=PZmUpvScM+Pbe2mEakBh4oTxrf4k9IPHVffRVzPkkqeH0gm3Jfu72hZAkjhjcZoB9+33
-	 oprigc4N0erTmEc9LX8z2NgGJqmFYkBpuBIVh5bamfUKtUTQ55A352qpZbCp7M+IxS64i
-	 K0d0XXDnc09kolzLQylluAtOCo5bEoY2yDoeKElI90noWc7i7VdiYptbzY+eQ3DPfxB0g
-	 GjUM7Tvsa/60sJ8lwQq+oOcDGrPS7IjJxf0kYeUWtl4w71jIaNkWICf2qGx7TR7ixC7Zg
-	 36xxPOwlpCMqv5do2j3WRSPDs/gbYIEPiDE834il6yxnLGvWoCxYCH6g2Ouq8KhJ08A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330175;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:To:Cc:References:Subject:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+	b=ZSIp6RZH1dAx8A7sonYkLN+/2QjQtw1OgTlHjdnzwo90xM3bbjMVNHRlLAzDZNFyL7rN
+	 IPNkaVaS6E+yZZEfmkQZzRo6n3pTcSyWUitrHvbkcoXC65E0uXme8+/ACRGZ37KAtL3BI
+	 hjFbzp0zqWEVlho5J/J4DNK6kRfte0mltH5TZDPkGVua3eneeRKUQW9rwgEoTjjkPZqqT
+	 hJaBhsfrM2JDJIkSVhoAS0wVl65gSm/7ZO2HBjCdSjhLR6o1CM5sqeCvcshDMsguviDkv
+	 qnCuBkdZX4Ex3+6meHRJB6GR/BXjdqgtZbsFu14IrsohcjeE6FrstwMfh2p9/G8DCFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJjGS4aJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=hQD9mPgX;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C25606A81C;
-	Tue, 10 Nov 2026 17:00:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C313F606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C313F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJjGS4aJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6FE1F0089F;
-	Tue, 10 Nov 2026 17:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330016;
-	bh=e9tGyPXz9xL70oEPM5OS0/SNYUGPcdfzb2vPyxxeOIc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RJjGS4aJgoI4lZen2laaGmqFvmOokyg5KlyFv3ITPJzQK7nQoN1EH0vupyDu4eYdt
-	 mcgYPzP/L5UVUL1qt9J5GkXH7Q/3OFYCYebwiXqvEp5tT9oU9WeOwh5SEdlrt8oxfg
-	 WlQdNAQN5uJrxTdnbQjrhppykQ47HZ9CXAjKVIDX+aXA1M3OwXAJ0lQ8ecu4d1k7sm
-	 zws+3hX3Vq1FRf7CykYhr7msoJeGYx3JKUKxRrfP9USK4VqnBibHsXvxY/dRhoFKoo
-	 fNtKn8v0cneOg0aHwztoMu7E2uOUndOA4Vc0YhDLJh/7IS19X5XfwNRbT0Vzsm6JIN
-	 vzqxWiif6yw/g==
-Date: Tue, 10 Nov 2026 17:00:15 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 10/11] zsmalloc: fold zs_obj_write() into zs_store()
-Message-ID: <avNNjoQoBs7qIXd3@google.com>
-References: <20261110054836.1515030-1-senozhatsky@chromium.org>
- <20261110054836.1515030-11-senozhatsky@chromium.org>
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=hQD9mPgX
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 1ACBF3F9D9
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794330166;
+	bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type;
+	b=hQD9mPgXugfhtIhDcvsq4SZThekNRzFT3sMIjicEtPufbY6ARxAAxLQP9WwXgY4CC
+	 aR/wvfhIAOuf3xGqJZo7ygWk+aKNtZBVp7lmCnO9LJjMhM5KrxcmeB8bpIIiHRMrzY
+	 PrQkHf/lANfXuOSU36xUjcvWW5YuG7yc9cPxFeqpveHCwXebfEbaeOUTnysB/U1Bfa
+	 CPGExOBT+QlJol/ka/7z/wx722r0mcwCR5XGgD0Q5CsXjt2jIbL03XUfyNoMmsSoTh
+	 azWcf7ngIBV/oFBaUnd03Yo25hSnHRyOScMrPajLZzJy5tRQmcPlyGJChgcodsy58N
+	 FmaWQlVn+De1Ouo/qWit8uxUXwv+CoTiMTgzmtBj9+o9QGitYLGM8c7Q/jbx1Yas5Y
+	 Y/48ZWEGk1Yw3ZMsowhzD+KSuKGreYgOQSxMwuhcsT8w3gjGieQ12dOUI6ZXkWpzhG
+	 8sMIACnv7Y4gRSVmbu8/sq3RVbNdvF6kvTeBTqiOTSECV65jVm7E9GQMzEHXuE4I6+
+	 4yxISxem7RcOd1JlrFHtBjJWAIfBc13cDpxb24Pe6pnOiyz2sJ0yOQF8Nn30Xsj4Se
+	 9g6K+eeCapUKBWNEHlb7hd/cxrT1Mr+c02r8iPBVBUvKS9yvI67OBzeGZE5fHy1WgH
+	 wOfMNs7ArNDVqstymZ1zmUTA=
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48df02b91f9so1488683f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:02:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794330165; x=1794934965;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ozoC35JH09JXF0SoFXDETE/OXFxO44zArTqmVJlRrnw=;
+        b=0FFFgaj5jsqGqW4+ydO0KTTrVMDyvy8jsonCSTM2QLkUat9vXCCLo6zGIVnJhEyWlX
+         PYUr6CH5E3ohR3Sy7u+O1mqtiv5r9mwhibk/22RnYA/EDHwOwXnKuIlvM62S021NroIT
+         jmMh9Y5tozK7um6ceGL00LutoiEXObY6HKFCg6mPzPojkzB0eX+yuu9VbZtbHQyuyGow
+         cG+F7n5iM0Pnzc6+vEeqrns1WZJDxqplb0pmrLw03WVLmnJojgZsLw1SJo+xHCgN43QD
+         D1Ns5orEa88QB3FuFZFfpI9vkoFYctErD6yusT2XrCi9PEPQr24ycNPqSpw6kYeYWX1n
+         /Deg==
+X-Forwarded-Encrypted: i=1; AL+hErHkCCXczboIanC/LHimA63pYK+64008vXJAtQl4g7DQhlckGGyYC0EqjuPNv1yeyxl8KST7tNPFjq5WqqQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0DaWWIdKw1hN3jZTJKpUrSLvjmIVU5HS0YZDOj4CEZff9TALV
+	Y3zdFfIlTQqHCZKdgIk3tnXrLvGE9BfzI4GkoobZzJKqK72buMDsRy73PaaRcR+rNE68sD32CZA
+	QjePuBfpwitGf4iD+ySDNTmv9uq2rYJ1lcer7S52BEy4DTG5vvF/GWEjT8dEA+D/IYE0JP/JF/c
+	9T7Mv2ew==
+X-Gm-Gg: AYBFou14cP0igiY+k9FtorZiOi7rmKKkraqCXDxkjywmHx5I6tc/IpSPs8aGbJZgLzm
+	SuCbZn5+iYl//jE8YGlCZBPlCvXdPYuNgyvfssokKBzH0hr//ljdiUbLB/fL8wwWm5pSiURjtyE
+	w8wwua69cBoAN7+iL++ucpqxu7EcqAy4T8JdvkAlSgHGdMo6wy7cUtTCiuARv0ldL7Eh/MNcNyP
+	OGO6DoihlEBOujAlhjh2dwKqAuEoUf5lV96zh36jO6BXkkF3B7o4jWVpmfxgq8KeBw8OZFJeMt7
+	jep7N2jHXRhN60L48hLRWM7XaeED8XjQFplhY707qfu+i/bGGtvoa6y82rz7uA4xVe1nS24ftlc
+	jXuz2j+9CHt3XRlGLoR6lzL57rTZFUwkMy5DBWq7C5a8+Afl37IK5lfBBE7E+394Nt3UWOXgMjy
+	8ndYdj3oWhFtEA9P6KY7hIUgVnm9m0Aj3K58bKxS4tpnEaUBVaPu43
+X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-49992cc6a24mr288606f8f.8.1794330165615;
+        Tue, 10 Nov 2026 09:02:45 -0800 (PST)
+X-Received: by 2002:a05:6000:607:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-49992cc6a24mr288536f8f.8.1794330165190;
+        Tue, 10 Nov 2026 09:02:45 -0800 (PST)
+Received: from ?IPV6:2a01:cb19:9432:11ec::c98? (2a01cb19943211ec0000000000000c98.ipv6.abo.wanadoo.fr. [2a01:cb19:9432:11ec::c98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836c83432sm5386247f8f.58.2026.11.10.09.02.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:02:44 -0800 (PST)
+Message-ID: <546efd00-ddaf-47f4-9387-2635785a1bf5@canonical.com>
+Date: Tue, 10 Nov 2026 18:02:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +103,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110054836.1515030-11-senozhatsky@chromium.org>
+User-Agent: Mozilla Thunderbird
+To: devnull+codykang.hk.gmail.com@kernel.org
+Cc: airlied@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, codykang.hk@gmail.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dlan@kernel.org, docular.xu@gmail.com,
+ dri-devel@lists.freedesktop.org, heylenay@4d2.org, krzk+dt@kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
+ maarten.lankhorst@linux.intel.com, me@ziyao.cc, mripard@kernel.org,
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org, sboyd@kernel.org,
+ simona@ffwll.ch, spacemit@lists.linux.dev, tzimmermann@suse.de,
+ u.kleine-koenig@baylibre.com, vkoul@kernel.org
+References: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+Content-Language: en-US
+From: Sarah Emery <sarah.emery@canonical.com>
+In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 02:48:15PM +0900, Sergey Senozhatsky wrote:
-> zram and zswap always call zs_obj_write() right after zs_malloc(), and
-> zs_obj_write() has to take pool->lock and look up object location
-> again, which zs_malloc() just did.
-> 
-> Replace zs_malloc() and zs_obj_write() with one single zs_store()
-> call.
-> 
-> zs_store() takes zspage read lock under class->lock, before it drops
-> class->lock to copy the data, while zs_obj_write() used to take it
-> under pool->lock.  Compaction and page migration already take zspage
-> lock under class->lock, so this follows the existing pool->lock ->
-> class->lock -> zspage->lock order.  We don't need pool->lock there,
-> zs_store() doesn't look up the object via the handle, it already has
-> the zspage from the allocation.
-> 
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> ---
->  Documentation/core-api/memory-allocation.rst |  2 +-
->  Documentation/mm/zsmalloc.rst                |  4 +-
->  drivers/block/zram/zram_drv.c                | 42 +++++---------
->  include/linux/zsmalloc.h                     |  6 +-
->  mm/zsmalloc.c                                | 58 +++++++++-----------
->  mm/zswap.c                                   |  5 +-
->  6 files changed, 47 insertions(+), 70 deletions(-)
+Hi,
 
-zswap and zsmalloc bits LGTM:
+We have incorporated this patchset into the Ubuntu kernel for display 
+support on the K3 platforms.
 
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+During testing, we found an issue: the screen would display artifacts 
+all over, kind of like black lines blinking.
+
+I have implemented the following patch to fix the issue:
+
+drm/spacemit: map scanout buffers write-combining
+
+The K3 display controller is not DMA-coherent: the DPU fetches scanout
+buffers straight from memory while fbcon and userspace write them through
+a cached CPU mapping. The shmem helpers clean the buffer only once, when
+the sg table is first built, so nothing flushes later CPU writes. Dirty
+cache lines shadow what the DPU scans out, and erased fbcon text lingers
+on screen until the lines are evicted by chance.
+
+Add a gem_create_object() hook that sets map_wc on the shmem objects.
+The K3 harts implement Svpbmt, so the CPU mapping becomes genuinely
+non-cacheable and writes reach memory immediately; the one-time clean in
+dma_map_sgtable() still covers the initial contents.
+
+---
+  drivers/gpu/drm/spacemit/spacemit_drm.c | 16 ++++++++++++++++
+  1 file changed, 16 insertions(+)
+
+diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c 
+b/drivers/gpu/drm/spacemit/spacemit_drm.c
+index 12b2fe8b6fc99..fe354219b996d 100644
+--- a/drivers/gpu/drm/spacemit/spacemit_drm.c
++++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+@@ -12,6 +12,7 @@
+  #include <drm/drm_fbdev_shmem.h>
+  #include <linux/component.h>
+  #include <linux/of_graph.h>
++#include <linux/slab.h>
+
+  #include "spacemit_drm.h"
+  #include "spacemit_crtc.h"
+@@ -75,6 +76,20 @@ int spacemit_drm_mode_config_init(struct drm_device *drm)
+         return 0;
+  }
+
++static struct drm_gem_object *spacemit_gem_create_object(struct 
+drm_device *drm,
++                                                        size_t size)
++{
++       struct drm_gem_shmem_object *shmem;
++
++       shmem = kzalloc_obj(*shmem);
++       if (!shmem)
++               return ERR_PTR(-ENOMEM);
++
++       shmem->map_wc = true;
++
++       return &shmem->base;
++}
++
+  DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
+
+  struct drm_driver spacemit_drm_drv = {
+@@ -82,6 +97,7 @@ struct drm_driver spacemit_drm_drv = {
+         .fops = &spacemit_drm_fops,
+
+         DRM_GEM_SHMEM_DRIVER_OPS,
++       .gem_create_object = spacemit_gem_create_object,
+         DRM_FBDEV_SHMEM_DRIVER_OPS,
+
+         .name           = DRIVER_NAME,
+--
+
+I'm sending this here in the hope that it will be useful for a future 
+revision.
+Is there a v3 in preparation?
+
+Thanks,
+
+Sarah
