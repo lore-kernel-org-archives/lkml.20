@@ -1,65 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309930;
-	b=Dsf0I95WdSFHBoa8Q3LJegOpeYiMFkyprj/wen8xz6ezeZDPM8CsG9WDAcRjwpktpCMo
-	 cQaT/bwT/4w2xMOZKf64LUMWMdnq6ws/cDFiuHjL+/Fr1aP8Kshdjs+3r3IBTBhHOs3tA
-	 YexNAUMJnKQvpYeDXRqkCJKzz3IEuqYO/fcv81ASKk+UTtrcXxg59XZfjedDx3e1vKXqQ
-	 +N+xL1Yv1LxLhLySh4iF2smFk81A9TzBBqWR1cCMSkYfQPufc0/XzZnRyXimy3tF4/ZW8
-	 8ubMIzZgToUxOFtdzNbMU8zmKXiXyJn/RE0CrARW3I03YWrSuBOE5ID9AW4qQum3cLQ==
+	t=1794309938;
+	b=SqhAbl7Lizdjk+nYO1RO+9WgglhCUHPIvukcFqrHAXbQxurFQaPXMeKnJGs5svFaos+M
+	 uEV3mTNrpAW9LloKat68jkAHKp3Ekte6kJNffqjtnsrnadUH7nut5gsAoPXdfFw2I5539
+	 RdN/SlAUhc4MwN/0ZI/pd+qlR2Xi9z1RDa0mr/gpNepk6qc7fkweUdKaYqZ3z6DJ01qWN
+	 mAj3I0pfQ1EbFmRQSGKNJlToci43YblknPViSoSI1VzfFxbVmSHGtnhKr4tp5TY1vpJjc
+	 gK0luaJ4m+b0XjXxoMyQ2HeEiLhdurPA7R/ASoMcywhirLUNmz33R5wjhgal3HgFOJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309930;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=CceT9wfX1vncgrV/RpW14a0VXPyngwYFI/tpyYB9VI8=;
-	b=g6lKJ8ZDLryE5b+zxoHhMYnBvOLQJzvGo/jAK1aRjGhQRThwPwUEqHLGrEPm5XxuFxKy
-	 x1Mryg1c0gXtiaHj28WDHlFkvU76wOKztIXvgKdMAqa4FyBj2UP/RfAQ2WoU08L41MkK9
-	 hN18JaRbM/5mitKiTHlAzqvtlWdiM313xvKmiA5sKKCRV1C75JY9o5PZPYKG6k/EFzaor
-	 y7z17trSXqEQodLlWUlgUPoYS6MsZVVYxors4fvEIBsyMjD3vccqRcAghW7J6ua2LZJip
-	 MbkySmzOjGyitEOa5G9lQtNxhQSFSqSUFLqN+b5Eens8BGizTZPMsTBXZ/NQWFw7pew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309938;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=d8GPmNrrbDyVAn3i8pP3Irq5ZXZX7zbqtdgKc3xpyyA=;
+	b=VLPll8dXnK6f6EA7/kI5QV/Tz5hzWaZIuCeRZSTDFtMwM31GL6ZkyqndkHkdoa8KVE9x
+	 nVVnrEnv+ClXDNJ1gkDgFgwmGTeuGtSvCJPNR9SXIa0PsKgA8ZP0A8/DZBnZjCDdQWe2L
+	 V9MB9CMDHrGtUpeONWqfHvPJncWQ+/g91XH6kfiNih9dl0BCujuyt+fjfU1A4Lz6hQepi
+	 6YJ95GaT4+9kxDq9gbBMGJ4JpirC1HmFrZCNoPnD5ptjf7L54Vrvz9i1bhnxNaSvh8FQF
+	 dO5c6Zl+NLYqO7y9L84IpispWxvuw6BASDwnzzxofyno3FleWtKHNXDO5f3r7wp6cxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=E5uYlpKI;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QExuCrRi;
+	arc=none smtp.remote-ip=91.218.175.217
+Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA471606A32E;
-	Tue, 10 Nov 2026 11:25:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA471606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B338E60A6F41
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:25:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B338E60A6F41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=E5uYlpKI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=CceT9wfX1vncgrV/RpW14a0VXPyngwYFI/tpyYB9VI8=; b=E5uYlpKIS6IA7v3LirY3PfL+wX
-	90Gxhwb/2LRBIJ+TMvUu7simix86z7VbHXwnQpHzN1rBn26y1Kcghm8s+E+Rd5gSsflUTYDCq8SEx
-	EJGkr5IUhVqLeCysI0Ka1xE3ZR+c5bC5kRADsJHkVVxDawk/VYYZ+SaYDBsnn1PgG5WYkeoIwLUKe
-	5GsjEOfI6gulJjo/jOfYDB87pAvm0dX6NtT1pW4oKotRd68s/p047rsWzDQFu4Tm1A4kNPVldVzCT
-	d0LqLR32AqcWdqvZVPTHLAtzaC9i9Sc/trAaHe5KjmGU1r30B7T4fXYnjEf/YXmRBJ/MdL3VsVeKu
-	BakJpGtA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQjyP-00CMot-0u;
-	Tue, 10 Nov 2026 11:25:09 +0000
-Date: Tue, 10 Nov 2026 03:25:02 -0800
-From: Breno Leitao <leitao@debian.org>
-To: netdev-bot+sashiko@kernel.org, gustavold@gmail.com
-Cc: gustavold@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, john.ogness@linutronix.de, 
-	pmladek@suse.com, samuelcrossley@gmail.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH net-next] netconsole: register one console per target
-Message-ID: <avL-47QDYmOHN9Pv@gmail.com>
-References: <20261106-netcons_one_console_per_target-v1-1-c29dacdb9c1f@debian.org>
- <179427493788.994134.10458088525635523245@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QExuCrRi
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kV3VwCyfCvJMLMAaZdOv60N3vXq9IpfkDxA+THuP2XI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794309935; v=1; x=1794914735;
+ b=QExuCrRik614pK3Nj/KOJe1vbFP8k6CElmR9Dgf8TsNOov9e8LeC5EO77D9b6PKJboOK+lFo
+ 463b6I6kv05lBPHwC+AB+1iOCZa3/YFFRpdf/nI1Ys5KBlMHp0ZcrQb9Lj5OElSGUTmskUDxwET
+ TC4Bp32r9YoNH2mkU7501V7A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1ad4c6caf1eb501e;
+	Tue, 10 Nov 2026 11:25:31 +0000
+X-Mizu-Trace-ID: 1ad4c6caf1eb501e
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>
+Subject: [PATCH v4 8/9] powerpc: drop redundant unmaps of failed vmap mappings
+Date: Tue, 10 Nov 2026 19:25:45 +0800
+Message-Id: <20261110112546.261415-9-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,57 +84,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179427493788.994134.10458088525635523245@kernel.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 01:42:17AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> [Severity: High]
-> This isn't a bug introduced by this patch, but this patch now registers
-> a console right after this lockless store of STATE_ENABLED. Can the store
-> overwrite a deactivation done at the same time by a NETDEV_UNREGISTER?
-> 
-> By the time we get here, netcons_netpoll_setup() has published np.dev,
-> dropped the RTNL and waited for a grace period:
-> 
-> drivers/net/netconsole.c:netcons_netpoll_setup() {
->     ...
-> 	err = __netpoll_setup(np, ndev);
-> 	if (err)
-> 		goto put;
-> 	rtnl_unlock();
->     ...
-> 	synchronize_rcu();
->     ...
-> }
-> 
-> The target is on target_list during that window, so this sequence looks
-> possible:
-> 
-> enabled_store()                     NETDEV_UNREGISTER
->   netcons_netpoll_setup()
->     rtnl_unlock()
->     synchronize_rcu()               netconsole_netdev_event()
->                                       nt->state = STATE_DEACTIVATED;
->                                       list_move(..., &target_cleanup_list);
->                                     netconsole_process_cleanups_core()
->                                       netcons_release_dev()
->                                         do_netpoll_cleanup()
->                                           np->dev = NULL
->                                       target back on target_list
->   nt->state = STATE_ENABLED;
->   netconsole_register_console()
-> 
-> The next netconsole_write() would pass the state check and call
-> netif_running() with a NULL dev:
-> 
-> 	if (nt->state != STATE_ENABLED || !netif_running(nt->np.dev))
-> 		return;
-> 
-> process_resume_target() handles this race with the reg_state re-check
-> under the RTNL, but enabled_store() has no such check. Does it need one?
+vmap_page_range() and ioremap_page_range() clear the PTEs they
+installed when they fail, so the vunmap_range() in remap_isa_base()
+and ioremap_phb() has nothing left to remove.
 
-I understand that this one got fixed by Gustavo's commit f94b9640bcf22b
-("netconsole: finish enabling the target before releasing RTNL")
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ arch/powerpc/kernel/isa-bridge.c | 5 ++---
+ arch/powerpc/kernel/pci_64.c     | 4 +---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/arch/powerpc/kernel/isa-bridge.c b/arch/powerpc/kernel/isa-bridge.c
+index 5c064485197a..93029d85e6ea 100644
+--- a/arch/powerpc/kernel/isa-bridge.c
++++ b/arch/powerpc/kernel/isa-bridge.c
+@@ -46,9 +46,8 @@ static void remap_isa_base(phys_addr_t pa, unsigned long size)
+ 	WARN_ON_ONCE(size & ~PAGE_MASK);
+ 
+ 	if (slab_is_available()) {
+-		if (vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
+-				    pgprot_noncached(PAGE_KERNEL)))
+-			vunmap_range(ISA_IO_BASE, ISA_IO_BASE + size);
++		vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
++				pgprot_noncached(PAGE_KERNEL));
+ 	} else {
+ 		early_ioremap_range(ISA_IO_BASE, pa, size,
+ 				pgprot_noncached(PAGE_KERNEL));
+diff --git a/arch/powerpc/kernel/pci_64.c b/arch/powerpc/kernel/pci_64.c
+index e27342ef128b..f74269636d5e 100644
+--- a/arch/powerpc/kernel/pci_64.c
++++ b/arch/powerpc/kernel/pci_64.c
+@@ -139,10 +139,8 @@ void __iomem *ioremap_phb(phys_addr_t paddr, unsigned long size)
+ 
+ 	addr = (unsigned long)area->addr;
+ 	if (ioremap_page_range(addr, addr + size, paddr,
+-			pgprot_noncached(PAGE_KERNEL))) {
+-		vunmap_range(addr, addr + size);
++			pgprot_noncached(PAGE_KERNEL)))
+ 		return NULL;
+-	}
+ 
+ 	return (void __iomem *)addr;
+ }
+-- 
+2.25.1
+
