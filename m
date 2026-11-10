@@ -1,123 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278036;
-	b=oJuoXf78w3ZMzLdEzBdZbJ2perow53lVa0Ax+2vNJNDP7XH4/tWcaN2Sik7EuHEGPZEh
-	 bDLo+z4vA2fznWKI/+MC9exXu6954ApnJ8k4t35xUA7QAXPVCgI4U4zFd7xH3yk96LWv5
-	 t8uJCZws5emKqi1J9ekoUocAd8p0rkpi+T2JVTTaF13WiR2JeN+Buuo8XKYalj8ICNdYe
-	 EE7B5MbKDIGiXMC3Vk1hLv2m2x0vHcKtBD3uSlTJ2ROs+Y3HJE7oluzXguLpPXlPg1ZIk
-	 EUNvD4H5NImVb5TrXCr4A6msbXiuXYHD5i4auZutvKx9WpTeLDB7FpTAKFNkRS7P7yA==
+	t=1794278106;
+	b=1ztITSejN6eriOe4s0SurRRcVViQE0qx3KJPkZDGJM6c5xzpVNVjS8BnZattjMxLiFiZ
+	 wo/xSpFSL03YgsVjyddMOKwXmh9UEqaR+GLaLk/WiJEO2YlOFSk96fxU+zlqnBV6bnPU+
+	 qAJHc5gSNs6KMmGgN1LBOu6htcBBRdabt3VmCXsCK6+Va/7d1TGMADWDckL7kzwj8ntrB
+	 sd7JEl36iukxKpYa/yDq+AeF2Ia3sfcPv7pP+sWfHUnAAVtGcn6AR9YhYgvIluzEZtbYI
+	 jN9nmDvcf2MY3eYddH5rj9XBZ8lIiAKFbimv6wp+5O1pkdf3+ASVYHWwApk/vWXj6VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278036;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKqYqk+/4fE=;
-	b=Hq3Fdg54VAiQ3ynsvxW6wHJM036OnhKCddABmmOzhsvveCQs8Kt25W/ehBK6JyYU3Guo
-	 O+yjB9lM8GFAq2xi3n+R6E5DFKOk3+0btTs0+xTnBbaLmJC+d48JXA6ejGOcm5RSCPetq
-	 /tBJZLt7tKUorsZy13DpmcyZPFuKBtv7LF5lshqb5qmcJfUhcz8IU/2TU3jue9AIAQs+j
-	 VMJTrip0bV3B5t0Yzx2nGzgs6/Z5gb1VZyaq0IkW40mEkhtK6IY7LpABVH12kSOmdoS53
-	 mOOKF7XFijhfwSJ+8m4Jzu4T5heu16ZefyB8B+vAADUv8QeykVGFARcMAMwG7D3Gy1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278106;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=OJz1PFC5Hvp1agKJPLjYVAFN6KgFiQRbshJC7NAO0g0=;
+	b=D2Zb6d8mpcbXRfGCJAdQDO2i9b9lO5cLdE+q9u7difVWHFtAbyKN5udaKT9m3u18fziY
+	 GRVVHmtoNN8raefAf2MG8af6lJxufstA2Ls7pPSyFNXAiWOKgVUob0MGOAOdbzOw9EIsj
+	 1dIZU4rokSw1JwaweGhxJID9M82SzelJLuYzvJHRxKvoUQWjMpqqYXGS4ZZSDp/d/ZrRv
+	 JsT71VJzNF+52EZE2p/eHc5ff7DJ3pXdePEAgkP6ay/ZlZKet6POBdLwkonwssk5Tys8/
+	 7/2FD0JrzVP0Y7O5+2xv+Y8BNMQRkAU41vQtNL6Hw5AnystjGGomoP5gg3+rCiohVqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Rj+4iHia;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAF5606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAF5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE8F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE8F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9768EEC0584
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:33:54 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 09 Nov 2026 21:33:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnL
-	HOrtqqaZK6VFKqYqk+/4fE=; b=bXj8nXaohzoFelziePzf868blggMXjkn3fFaB
-	TWioAAfimNfjcAImsdDK04HlGQOUUqj6nc2pL4ziDM4HbyVZ6VEw4LjT8AHhmFfz
-	bystM9WZ9Zu/Etdn11YBPp8ypipJ6z18GRr+r8oSU2Xaus10ghsvN2bFgdcsAp2t
-	x1agSYOdu453w5//r/TSYD7dGcZ+onFw/MD7Anm2y2NSCGPik5CtWY3AfbV17Tbr
-	3PSZERX4YZIdTiiTvd1UDjBRniaWT1AKapfp5H1oyNAIzf0+waArqmCbO0OHH03D
-	Em7v7vj7L8W/HwKeCmAywUhYsA1Dp53Z9xiQSPcOV+/DN+uHw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKq
-	Yqk+/4fE=; b=jMVi2CE1TxaDXYqFBo4/thZmhetcJD7HexhKqPekN9byw2tUjfV
-	qJ3StqdgeK/giP/DfQ6b9A9QW6T2yAZCgihAZi32E99aaWH5ilIlGaAJeY8MS+lC
-	AR/9Aim2nFLZn3Roezx+aS5P5//u1XPXQkpAtLhZAm7LkuP1bphnPisNSm4NzZ5O
-	9J1cqSAFitBvRpXZh4V/Kn1dOJkurPgNwEUCrHf16LbM/e7guoi5KFmn9+qMZEfI
-	k1qcwcelJWZ2gxmGEbZmNwAHex8hXw7AN+xd5tJhx2v1vx1cg9VW5ZbQcZL0ESvO
-	ftUf5T24PNX3sZYtXDBDph3XxsKhqtzzS/A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794278034; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:KMSAFSQ/MFhscyNNsbswoyS4gJYi+orvN7mLIYD5SOIby84
-	CigKo/9xGMLNXuVrvUwwAehauhMlZNz6QLjHyAi3W5qummKMHQgR43fecUpsu7yV
-	vspnNOm3tIuN9ooAtyj+rd8CBsa7/ckNtHP65soSrXm5b7qDaEstBIjdtNgXTSkU
-	o2xzRqttHu3/PtoidzGa/NycDNP9PwirCPo8m012ymHlPFlnpzHJARsFsKZ5xSqS
-	IwtK4m822iGFWtHoQkEJ5VxFf+saWQhYRWtMN9ce/DUB+hAoMKBPQbVp7cBw1GhF
-	QGBw6eCaTnisMEaPXP1+jxOr4mcPOaUFPAlyEfg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:kMWAz0Y7LcfoM4kZwhM6zeRlTGJLvTg9J/ndnRR9zuM=:sG0Hqyd7/PCaADqMeTD+NKc9g3wk445JcBSTksY5AEg=;
-X-ME-Sender: <xms:kYLyak2SpphrsDGHgHi_zG1synKO2rSTajgKkWNXosZo59WkX7Nc7g>
-    <xme:kYLyavgu-1y2yuLOIUa1a9pWNhi019eU5WZNVM-8fYJfwGYbTPGebciNfxlq9BXyR
-    4Uw1yjBaA2kS3coQKZUkkiNKgnLGtGE8frMd2XCFGiQHSizioYKF-LG>
-X-ME-Received: <xmr:kYLyatnLzGjdqQ_B26sgqUfJlzC7QUOd_8gbby5l4UVyU2uMLItjbpVjXvQ6odtV>
-X-ME-Proxy-Cause: dmFkZTEaFI12Qo/RXtAOqBnkLtQHGnHF3OoWfQsLrjLl2B3nKseZbWYD1SlSSdLYdT6M+o
-    e8hnVKv2IA1quSLS0a1l1PpLXpODgHN4VcCJ9WoTKIq1WjgSRLm3GowCs7pYS30cp7MtUe
-    BYEHO17M2s0d+tj+GXIFjnmffkE7+g8EC3xvIigL/ydpa46T3Y+FPXzcsDAMlKkceYMykW
-    WWBFDuqK9pWlFelMeEvubbZ/9UgUxuDOVxrz3Ouni6rwUDOXHG7Dph3x9nLByj6FzCFCFn
-    Mvtx0HfMKKHE0uGqNXN01wCzdGg3kR+xZsb9M5+AdOuipFxxcUyRaFs9FQkLV/6aojAnqn
-    456z3MHg4CaXnU8SMVPMr3/Ez3Sc3sRRTiqQKC0yFdJSfjJkPMUASqwGVIcnePTq0OdoUL
-    M08KGvbdOblfzU8m8EwCwhA0SD7Xh1cb5ImOXxt7UVHAbgR9f30ADUztiq5X8wKVx/3DMa
-    erTmuZKKwjf0bbIC1VUxc/FT6kboeMDq0Qi2hOujQMmq/jMEQ81hNVOQcF8cUQR3qI70yQ
-    SGqIgf42tR1BGi2kuXwjuEhHO4icLs+1G+CknaoHOr3hWkpQhZDrWU/x+R0YJK41k035xh
-    +Q2H+v7WKdhly0GyVOl//KZzv7MewIXA69+RCKROK/chCsBb0bWy2P3QsL0w
-X-ME-Proxy: <xmx:kYLyalaoLzDAlroJXNqKbMXziVTww2WGupcqne2RtUJqqxCy6ZVdxQ>
-    <xmx:kYLyaoEpdow6vX0TeSPPwSeZCQx_kIBA82t6s70WmYf0k5BmL16SkA>
-    <xmx:kYLyakaT-kjGqL77QE9BH7mf5UIHmLdjczuC1QZdQWxrRJY0qr3yAw>
-    <xmx:kYLyasxwpwcSTV8QzA3TB8RJzkD4w4Iwx37ATu_wMBmnZJkGmYaejg>
-    <xmx:koLyatMymf-G8UNhPl_lVw5h1N8FX9hPa-yDvwK4PlXDLjK1azMGv6fd>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 21:33:52 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: keep group denials when a POSIX ACL entry decides access
-Date: Mon,  9 Nov 2026 20:33:44 -0600
-Message-ID: <20261110023344.2105916-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Rj+4iHia
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=OJz1PFC5Hvp1agKJPLjYVAFN6KgFiQRbshJC7NAO0g0=;
+	b=Rj+4iHia4kZRFM6MB8HNVe6nf0BrxS6N+TJT4BUKozw0XpLSc0QgaWKe0sHZmVhAR8oPpH4Ml
+	UiKCmDApEhdtQuCAw4uv+823pwkmZ6D4ek1sGHh0k8yOC6FJRtvRKfcCZKGtK3WRrbguAA6hv+n
+	ZcUcUm2nFb+qWQE/oKze5C4=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jNrMh3vGBzLlvc;
+	Tue, 10 Nov 2026 10:34:40 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id ED37E40565;
+	Tue, 10 Nov 2026 10:34:54 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 10 Nov 2026 10:34:54 +0800
+Message-ID: <34445bde-eb52-4334-a4e1-f0e61beb9001@huawei.com>
+Date: Tue, 10 Nov 2026 10:34:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,73 +62,353 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/5] KVM: arm64: Add KVM_PGTABLE_PROT_DIRTY
+To: Leonardo Bras <leo.bras@arm.com>
+CC: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad
+ Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden
+	<seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+	<yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Raghavendra
+ Rao Ananta <rananta@google.com>, liuyonglong <liuyonglong@huawei.com>,
+	"tangchengchang@huawei.com" <tangchengchang@huawei.com>, Zhou Wang
+	<wangzhou1@hisilicon.com>, <linux-arm-kernel@lists.infradead.org>,
+	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+ <20260901171558.2674031-3-leo.bras@arm.com>
+ <1f27bca8-5277-457e-87a9-784e130e53a1@huawei.com>
+ <avIQ-ZeVJWyETEb_@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <avIQ-ZeVJWyETEb_@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-When no ACE names the caller, Everyone or Authenticated Users,
-smb_check_perm_dacl() lets a POSIX ACL entry for the caller decide
-access. The entry's rights replace the result of the DACL walk. Deny
-ACEs for the caller's groups, and OWNER RIGHTS for the owner, are then
-lost.
 
-For example, a deny of FILE_WRITE_DATA for one of the caller's groups
-should refuse writes. A POSIX ACL entry that gives the caller write
-access still lets the caller write.
 
-Remove the requested rights that those ACEs deny from the entry's
-rights. The DACL walk already records them in grp_denied.
+On 11/10/2026 2:29 AM, Leonardo Bras wrote:
+> On Mon, Nov 09, 2026 at 10:27:36AM +0800, Tian Zheng wrote:
+>>
+>>
+>> On 9/2/2026 1:15 AM, Leonardo Bras wrote:
+>>> Second step of changing the encoding for the Stage2 PTE descriptor,
+>>> introduce the concept of dirty page, so we can have a writable but not
+>>> dirty (WC) page, and a writable and dirty (WD) page.
+>>>
+>>> In order to do so, evaluate uses in a per-case basis, and figure what
+>>> concept was important in each case (being dirty, or writable).
+>>>
+>>> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+>>> ---
+>>>    arch/arm64/include/asm/kvm_pgtable.h |  9 ++++++---
+>>>    arch/arm64/kvm/hyp/pgtable.c         | 23 +++++++++++++++++------
+>>>    arch/arm64/kvm/mmu.c                 | 27 ++++++++++++++++-----------
+>>>    arch/arm64/kvm/ptdump.c              |  6 ++++++
+>>>    4 files changed, 45 insertions(+), 20 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+>>> index 37baa86d6fd8..379031c74cbc 100644
+>>> --- a/arch/arm64/include/asm/kvm_pgtable.h
+>>> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+>>> @@ -258,45 +258,48 @@ enum kvm_pgtable_stage2_flags {
+>>>    	KVM_PGTABLE_S2_AS_S1			= BIT(1),
+>>>    };
+>>>    /**
+>>>     * enum kvm_pgtable_prot - Page-table permissions and attributes.
+>>>     * @KVM_PGTABLE_PROT_UX:	Unprivileged execute permission.
+>>>     * @KVM_PGTABLE_PROT_PX:	Privileged execute permission.
+>>>     * @KVM_PGTABLE_PROT_X:		Privileged and unprivileged execute permission.
+>>>     * @KVM_PGTABLE_PROT_W:		Write permission.
+>>>     * @KVM_PGTABLE_PROT_R:		Read permission.
+>>> + * @KVM_PGTABLE_PROT_DIRTY:	Dirty attribute.
+>>>     * @KVM_PGTABLE_PROT_DEVICE:	Device attributes.
+>>>     * @KVM_PGTABLE_PROT_NORMAL_NC:	Normal noncacheable attributes.
+>>>     * @KVM_PGTABLE_PROT_SW0:	Software bit 0.
+>>>     * @KVM_PGTABLE_PROT_SW1:	Software bit 1.
+>>>     * @KVM_PGTABLE_PROT_SW2:	Software bit 2.
+>>>     * @KVM_PGTABLE_PROT_SW3:	Software bit 3.
+>>>     */
+>>>    enum kvm_pgtable_prot {
+>>>    	KVM_PGTABLE_PROT_PX			= BIT(0),
+>>>    	KVM_PGTABLE_PROT_UX			= BIT(1),
+>>>    	KVM_PGTABLE_PROT_X			= KVM_PGTABLE_PROT_PX	|
+>>>    						  KVM_PGTABLE_PROT_UX,
+>>>    	KVM_PGTABLE_PROT_W			= BIT(2),
+>>>    	KVM_PGTABLE_PROT_R			= BIT(3),
+>>> +	KVM_PGTABLE_PROT_DIRTY			= BIT(4),
+>>> -	KVM_PGTABLE_PROT_DEVICE			= BIT(4),
+>>> -	KVM_PGTABLE_PROT_NORMAL_NC		= BIT(5),
+>>> +	KVM_PGTABLE_PROT_DEVICE			= BIT(5),
+>>> +	KVM_PGTABLE_PROT_NORMAL_NC		= BIT(6),
+>>>    	KVM_PGTABLE_PROT_SW0			= BIT(55),
+>>>    	KVM_PGTABLE_PROT_SW1			= BIT(56),
+>>>    	KVM_PGTABLE_PROT_SW2			= BIT(57),
+>>>    	KVM_PGTABLE_PROT_SW3			= BIT(58),
+>>>    };
+>>> -#define KVM_PGTABLE_PROT_RW	(KVM_PGTABLE_PROT_R | KVM_PGTABLE_PROT_W)
+>>> +#define KVM_PGTABLE_PROT_RW	(KVM_PGTABLE_PROT_R | KVM_PGTABLE_PROT_W | \
+>>> +				 KVM_PGTABLE_PROT_DIRTY)
+>>>    #define KVM_PGTABLE_PROT_RWX	(KVM_PGTABLE_PROT_RW | KVM_PGTABLE_PROT_X)
+>>>    #define PKVM_HOST_MEM_PROT	KVM_PGTABLE_PROT_RWX
+>>>    #define PKVM_HOST_MMIO_PROT	KVM_PGTABLE_PROT_RW
+>>>    #define PAGE_HYP		KVM_PGTABLE_PROT_RW
+>>>    #define PAGE_HYP_EXEC		(KVM_PGTABLE_PROT_R | KVM_PGTABLE_PROT_X)
+>>>    #define PAGE_HYP_RO		(KVM_PGTABLE_PROT_R)
+>>>    #define PAGE_HYP_DEVICE		(PAGE_HYP | KVM_PGTABLE_PROT_DEVICE)
+>>> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+>>> index ca49f1bd7c34..2ff33d3e371e 100644
+>>> --- a/arch/arm64/kvm/hyp/pgtable.c
+>>> +++ b/arch/arm64/kvm/hyp/pgtable.c
+>>> @@ -724,22 +724,26 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+>>>    		attr = KVM_S2_MEMATTR(pgt, NORMAL);
+>>>    	}
+>>>    	r = stage2_set_xn_attr(prot, &attr);
+>>>    	if (r)
+>>>    		return r;
+>>>    	if (prot & KVM_PGTABLE_PROT_R)
+>>>    		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+>>> -	if (prot & KVM_PGTABLE_PROT_W)
+>>> -		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>> +	if (prot & KVM_PGTABLE_PROT_W) {
+>>> +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+>>> +
+>>> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
+>>> +			attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>> +	}
+>>>    	if (!kvm_lpa2_is_enabled())
+>>>    		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+>>>    	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
+>>>    	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
+>>>    	*ptep = attr;
+>>>    	return 0;
+>>> @@ -747,23 +751,27 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+>>>    enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+>>>    {
+>>>    	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
+>>>    	if (!kvm_pte_valid(pte))
+>>>    		return prot;
+>>>    	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
+>>>    		prot |= KVM_PGTABLE_PROT_R;
+>>> -	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
+>>> +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM) {
+>>>    		prot |= KVM_PGTABLE_PROT_W;
+>>> +		if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
+>>> +			prot |= KVM_PGTABLE_PROT_DIRTY;
+>>> +	}
+>>> +
+>>>    	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
+>>>    	case 0b00:
+>>>    		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
+>>>    		break;
+>>>    	case 0b01:
+>>>    		prot |= KVM_PGTABLE_PROT_UX;
+>>>    		break;
+>>>    	case 0b11:
+>>>    		prot |= KVM_PGTABLE_PROT_PX;
+>>>    		break;
+>>> @@ -1282,21 +1290,20 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+>>>    		*orig_pte = data.pte;
+>>>    	if (level)
+>>>    		*level = data.level;
+>>>    	return 0;
+>>>    }
+>>>    int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>>>    {
+>>>    	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+>>> -					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+>>>    					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+>>>    					NULL, NULL,
+>>>    					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+>>>    }
+>>>    void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
+>>>    				enum kvm_pgtable_walk_flags flags)
+>>>    {
+>>>    	int ret;
+>>> @@ -1362,22 +1369,26 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+>>>    	kvm_pte_t xn = 0, set = 0, clr = 0;
+>>>    	s8 level;
+>>>    	int ret;
+>>>    	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
+>>>    		return -EINVAL;
+>>>    	if (prot & KVM_PGTABLE_PROT_R)
+>>>    		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+>>> -	if (prot & KVM_PGTABLE_PROT_W)
+>>> -		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>> +	if (prot & KVM_PGTABLE_PROT_W) {
+>>> +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
+>>> +
+>>> +		if (prot & KVM_PGTABLE_PROT_DIRTY)
+>>> +			set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>> +	}
+>>>
+>>>    	if (prot & KVM_PGTABLE_PROT_X) {
+>>>    		ret = stage2_set_xn_attr(prot, &xn);
+>>>    		if (ret)
+>>>    			return ret;
+>>>    		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+>>>    		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+>>>    	}
+>>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>>> index 9ba86450fe4a..9d4f70430bbe 100644
+>>> --- a/arch/arm64/kvm/mmu.c
+>>> +++ b/arch/arm64/kvm/mmu.c
+>>> @@ -1205,21 +1205,23 @@ int topup_hyp_memcache(struct kvm_hyp_memcache *mc, unsigned long min_pages)
+>>>    int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
+>>>    			  phys_addr_t pa, unsigned long size, bool writable)
+>>>    {
+>>>    	phys_addr_t addr;
+>>>    	int ret = 0;
+>>>    	struct kvm_mmu_memory_cache cache = { .gfp_zero = __GFP_ZERO };
+>>>    	struct kvm_s2_mmu *mmu = &kvm->arch.mmu;
+>>>    	struct kvm_pgtable *pgt = mmu->pgt;
+>>>    	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_DEVICE |
+>>>    				     KVM_PGTABLE_PROT_R |
+>>> -				     (writable ? KVM_PGTABLE_PROT_W : 0);
+>>> +				     (writable ?
+>>> +				      (KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY) :
+>>> +				      0);
+>>>    	if (is_protected_kvm_enabled())
+>>>    		return -EPERM;
+>>>    	size += offset_in_page(guest_ipa);
+>>>    	guest_ipa &= PAGE_MASK;
+>>>    	for (addr = guest_ipa; addr < guest_ipa + size; addr += PAGE_SIZE) {
+>>>    		ret = kvm_mmu_topup_memory_cache(&cache,
+>>>    						 kvm_mmu_cache_min_pages(mmu));
+>>> @@ -1571,21 +1573,21 @@ static int topup_mmu_memcache(struct kvm_vcpu *vcpu, void *memcache)
+>>>     *
+>>>     * Also encode the level of the original translation in the SW bits of the leaf
+>>>     * entry as a proxy for the span of that translation. This will be retrieved on
+>>>     * TLB invalidation from the guest and used to limit the invalidation scope if a
+>>>     * TTL hint or a range isn't provided.
+>>>     */
+>>>    static enum kvm_pgtable_prot adjust_nested_fault_perms(struct kvm_s2_trans *nested,
+>>>    						       enum kvm_pgtable_prot prot)
+>>>    {
+>>>    	if (!kvm_s2_trans_writable(nested))
+>>> -		prot &= ~KVM_PGTABLE_PROT_W;
+>>> +		prot &= ~(KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY);
+>>>    	if (!kvm_s2_trans_readable(nested))
+>>>    		prot &= ~KVM_PGTABLE_PROT_R;
+>>>    	return prot | kvm_encode_nested_level(nested);
+>>>    }
+>>>    static enum kvm_pgtable_prot adjust_nested_exec_perms(struct kvm *kvm,
+>>>    						      struct kvm_s2_trans *nested,
+>>>    						      enum kvm_pgtable_prot prot)
+>>>    {
+>>> @@ -1642,21 +1644,21 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>>>    	smp_rmb();
+>>>    	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
+>>>    	if (ret) {
+>>>    		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
+>>>    					      write_fault, exec_fault, false);
+>>>    		return ret;
+>>>    	}
+>>>    	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
+>>> -		prot |= KVM_PGTABLE_PROT_W;
+>>> +		prot |= KVM_PGTABLE_PROT_W | KVM_PGTABLE_PROT_DIRTY;
+>>>    	if (s2fd->nested)
+>>>    		prot = adjust_nested_fault_perms(s2fd->nested, prot);
+>>>    	if (exec_fault || cpus_have_final_cap(ARM64_HAS_CACHE_DIC))
+>>>    		prot |= KVM_PGTABLE_PROT_X;
+>>>    	if (s2fd->nested)
+>>>    		prot = adjust_nested_exec_perms(kvm, s2fd->nested, prot);
+>>> @@ -1674,24 +1676,24 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+>>>    		prot &= ~KVM_NV_GUEST_MAP_SZ;
+>>>    		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, s2fd->fault_ipa,
+>>>    								 prot, flags);
+>>>    	} else {
+>>>    		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, s2fd->fault_ipa, PAGE_SIZE,
+>>>    							 __pfn_to_phys(pfn), prot,
+>>>    							 memcache, flags);
+>>>    	}
+>>>    out_unlock:
+>>> -	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
+>>> +	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_DIRTY);
+>>>    	kvm_fault_unlock(kvm);
+>>> -	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
+>>> +	if ((prot & KVM_PGTABLE_PROT_DIRTY) && !ret)
+>>>    		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
+>>>    	return ret != -EAGAIN ? ret : 0;
+>>>    }
+>>>    struct kvm_s2_fault_vma_info {
+>>>    	unsigned long	mmu_seq;
+>>>    	long		vma_pagesize;
+>>>    	vm_flags_t	vm_flags;
+>>>    	unsigned long	max_map_size;
+>>> @@ -1977,25 +1979,28 @@ static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
+>>>    	 * and trigger the exception here. Since the memslot is valid, inject
+>>>    	 * the fault back to the guest.
+>>>    	 */
+>>>    	if (esr_fsc_is_excl_atomic_fault(kvm_vcpu_get_esr(s2fd->vcpu))) {
+>>>    		kvm_inject_dabt_excl_atomic(s2fd->vcpu, kvm_vcpu_get_hfar(s2fd->vcpu));
+>>>    		return 1;
+>>>    	}
+>>>    	*prot = KVM_PGTABLE_PROT_R;
+>>> -	if (s2vi->map_writable && (s2vi->device ||
+>>> -				   !memslot_is_logging(s2fd->memslot) ||
+>>> -				   kvm_is_write_fault(s2fd->vcpu)))
+>>> +	if (s2vi->map_writable) {
+>>>    		*prot |= KVM_PGTABLE_PROT_W;
+>>> +		if (s2vi->device || !memslot_is_logging(s2fd->memslot) ||
+>>> +		    kvm_is_write_fault(s2fd->vcpu))
+>>> +			*prot |= KVM_PGTABLE_PROT_DIRTY;
+>>> +	}
+>>> +
+>>
+>>
+>> Hi Leo,
+>>
+>> After reviewing this patch again, I found an issue with the current
+>> scheme: for a read fault in a logging memslot, we deliberately install
+>> the page writable-clean so hardware can promote it later. That breaks
+>> MAP_PRIVATE (COW) memory, which requires a write fault -> FOLL_WRITE ->
+>> host COW copy, so a read fault must map RO. Otherwise the guest's later
+>> write no longer faults and COW is skipped.
+>>
+>> In our sandbox tests, the re-fault storm caused concurrent_resume to
+>> trigger about 1.57x more faults (784K vs 500K) and about 8x longer wall
+>> time (~688ms vs 85ms).
+>>
+>> To fix it, we should restore the writable gate:
+>>
+>> ```c
+>> if (s2vi->map_writable && (s2vi->device ||
+>>                             !memslot_is_logging(s2fd->memslot) ||
+>>                             kvm_is_write_fault(s2fd->vcpu))) {
+>> 	*prot |= KVM_PGTABLE_PROT_W;
+>>
+>> 	if (... keep DIRTY logic ...)
+>> 		*prot |= KVM_PGTABLE_PROT_DIRTY;
+>> }
+>> ```
+>>
+>> Read faults in a logging memslot stay RO; only the first write fault
+>> installs writable, so COW breaks normally.
+>>
+>> What do you think?
+> 
+> The page has to be !dirty at S2 on a read at dirty_tracking, so we don't
+> miss a write. That being said,we can have a read-only (or WC) S2 mapping on
+> a writable host page.
+> 
+> So on this scenario of marking a page WC on a read fault while
+> dirty-tracking, we can just mark the host page writable.
+> 
+> What do you think?
+> 
+> (Also, keep in mind a lot of this will change with the next versions of the
+> PTE encoding patchset, maybe we should worry on refactoring that later)
+> 
+> 
+> Thanks!
+> Leo
 
-Fixes: 42ac1f1917ae ("ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261102200353.884509-1-icb%40fastmail.org
-Link: https://sashiko.dev/#/patchset/20261103150458.11591-1-icb%40fastmail.org
-Link: https://sashiko.dev/#/patchset/20261107062233.1579198-1-icb%40fastmail.org?part=1
-Link: https://sashiko.dev/#/patchset/20261107231941.1824289-1-icb%40fastmail.org?part=1
-Link: https://sashiko.dev/#/patchset/20261108182011.1888520-1-icb%40fastmail.org?part=1
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+Hi Leo,
 
-Notes:
-    A POSIX ACL entry that decides can still drop rights that ACEs for
-    the caller's groups grant. The implicit allowances that every
-    non-strict check adds are also unchanged.
-    
-    For MAXIMUM_ALLOWED, only the rights named in the request are
-    checked against these denials. Group deny ACEs still do not limit
-    the rights that MAXIMUM_ALLOWED adds, as on the other paths of this
-    check.
-    
-    Tested with KASAN on ksmbd-for-next 4ab80fd4d1f1, and over SMB on a
-    kernel whose fs/smb/server tree is identical to it. smbtorture
-    results are unchanged.
-    
-    This patch was developed with LLM assistance.
+Agreed on both points, and we can work out the specifics when designing
+the next version's scheme.
 
- fs/smb/server/smbacl.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 1b387c262d59..45f70a05e21f 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1764,6 +1764,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 					if (!access_bits)
- 						access_bits =
- 							SET_MINIMUM_RIGHTS;
-+					/*
-+					 * Only ACEs for the caller's groups,
-+					 * or OWNER RIGHTS for the owner, apply
-+					 * here. The POSIX ACL entry does not
-+					 * grant an explicitly requested right
-+					 * that they deny first in DACL order.
-+					 */
-+					access_bits &= ~(grp_denied &
-+							 requested);
- 					posix_acl_release(posix_acls);
- 					goto check_access_bits;
- 				}
-
-base-commit: 4ab80fd4d1f1c4363b336ddb3d8818ea37c4997d
--- 
-2.47.3
+Thanks,
+Tian
 
