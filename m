@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315400;
-	b=vT0fCA0oQpVp8Ou+bzDr4Os+k7CBWa4+xElbA3e5Aq/WBBNq931D+HJHQ9Cz55zihWnc
-	 iJXPmcMqIVf9O0OnYE9iU/0en1ZdxUeBHMkc9GEI0udUSGIL64UlZdHyWDOZESh9lkCue
-	 7LJb3nLdwI0+IVyRqbq04tBcvTAOsNts2azyP8GPQKYGlwO45NTXyaJ5RKQ9hRtYx0O4A
-	 46aIakZ6yVCIRTXfIa0KKvnkjybwVkoqJEon8PoxNFfjpViIrCe70z4UUdCD8LmgWYNNj
-	 Eflfuw5M6xnY/xyuJEzG/rdZHIUjpdGxKS1jQTyTIACNGJlrlbDBklHO7sqYmQttIRg==
+	t=1794315405;
+	b=XrKgUVR8lJcpmZ1UcbF8g1PChJT/k7KAm1hMSZEJLbojZTTEaErICqZaT/MfkzN9WAU+
+	 QgPAO192ive5RK6pTVjeBoI7XuCrQyUJS+mz0Lz0P+OJ0z4dYX31/XDlUup4MJmb53Jnw
+	 4K/Jvtp5MXc3FP0GZuZHikWTZVxR96QIoZ30x86XSzrWSbWJIkRVWfVSl1ZyizIYOrB4w
+	 XNUZZQKgySAcNv7hdzbyJa2fEHoG3yOU6bGBg05xfod30spXNQN8R9BTnG8zmuiikZ1WK
+	 DTRPAsHWqr4qQSMKM/07LWZKtVJhrZxQUnbDAsjX7vDuwfUyoksfuMyMRO7JifMPQ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315405;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
-	b=dlaLQ6SAQ0zjuHP52Sc1Y5N/B3GWznH0t5puI+wc9SDqcrcZ+VbdXhdHDPU6UVzwIxnX
-	 d2sCaYCbCdJ4Gl52mO4JoVz90wExeqNN4CjA12LyjFGFmsXpGld9Yqcyg87wE8x6CsJL1
-	 qCBlECnUNG09/vQvgO3EWUk9x04LqD7p/LbzMlP+KNSV+cZYxumAN6sLEsyXkufT2RSU5
-	 IFT+f2y0ufpC0wH1EtBVu4nNUVF3U7uiPTIBoDHZbKa01WAFlnXYDwW6LJAd3SGZlhY+T
-	 u/PhDHi2wsK9dNetqmbwcr7aEe9jHNPiKJdHy8Op7PmSUkxy1XTGiFdxH13GzugO+PQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
+	b=pHI/ASVObzA4y51C0v1Z+DnnoY2YfjvIDMNqILbt5VGe1c9RScST2T7iivr0H5lmz/AC
+	 OOpsem+JPbreRyOl+dCAVwZO4pITsTWjXQB6e3CYFR81t69Jx6brvBuVBRqiVAil83muK
+	 A5g/LFCzOauCnPTH1GzgTtWoN8ca4AwpKtPMsboIctT5Ozgr2yGkV7f8OimtUSI2jLYnY
+	 1SuIoFnQ5SjUAjhWpMoIgc1GzHpSH4QSDayTFvx7xGqux2447ecR502AlTfGLz60T8Ip3
+	 Lj4NRteh+zNTRFmlAVh5VFSa5XgXoOdrUf71VxxeB0LGF2xUwJWrU/QqAk+Wh39R6+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K5phAcJm;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=B3iJeP0V;
+	arc=none smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155A460A2618
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 155A460A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1585606D5D6
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1585606D5D6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K5phAcJm
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so3312010eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:56:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=B3iJeP0V
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ecde8e8e5bso547398e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:56:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794315399; x=1794920199; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
-        b=K5phAcJm1B3Qq7C5Yx4WZNv6uAmsrnxHCLSvhPo12QQ6f+wGCfo68y8SG2M1WjTBnr
-         briX/5JN7mdqOyHRi8v2SKVDrrlLIo2qAXR5uMbLbSMop8ncR+1VeXv2vrX7aRR6sgkE
-         TUg2Nwq+2uMQYUKxeEL2mmYBbBsLYEg5uDUjhNEmq9TG99tbCQhjHgAJSL1A2NSXIbND
-         YLIT3t44H9jKw9eQNrPWcjdKe7Is9I75BCFpzg+y136Fw4ZN55r07waCo24Ux+9rQuE2
-         OSrrwlSjRuemm2Li/XjVHeQmjYfsAWtMyFZPFvmMHwLUSFHkBLj+Ppr3gsCBGpCSbYVR
-         bXnQ==
+        d=soleen.com; s=google; t=1794315404; x=1794920204; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
+        b=B3iJeP0VqOibLx/oHU379JhvLuL5xoHtXPOSUDz1sWhQq3L6oFf2bvSFc1MOgJFpsk
+         RH7eI3twEeghXtQ/Gk0Jj8E/OIuyPJtOVIv5QU+CMQrlde3D4Zc/qL0Xz1umU76GfSvN
+         3W3Ys46pB5DBi7ADjnu72bDFF65QV+tmu7+yIYy48KqnK2nc00twgRldIQCpHQdU+c1T
+         ca3u4c3qGNmz9c/L+fD1jlkf/u+FY+feBQqAAdd+4GQC/efExzpnavMzwuladM5T9A1O
+         ChELZT7mPSGcLB7aLK/BGp2p0aZ/4WFMNh9MLPSeMdy5DOg6pitTxINH6bCR12ZxmaZ6
+         khCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315399; x=1794920199;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
-        b=ZhUdniTzWJfL8HQfiTAP2WMt8ockuvHpjE5EbcEvsTOdg+L2MPO9qnzvSUDy9dMy+8
-         UpR3chdpuuxURj+iINYaTHp69Zz0GJn/iz02zarpGw2JlCdJnxwTsBRhJf4hjOOlhKHV
-         p22pFOtRsti/UbJrP+Qki66he4FyvZjGf2zn3+b0CLNf7P/4m9Sm/oHueYUYBoRPaYQw
-         CoQg2LHln5hpRuQjXxL6Eaa1Cblsj2Tv5CF+GlfFalbevKirj4HhoAcErJfwvpNNmYxg
-         CVMGJTGh9kcscO5vf/Qa8DOCPaHZbePvDTfY6ifqvd7ze+L5dS813U7X1ju1LosR9NTG
-         Jswg==
-X-Forwarded-Encrypted: i=1; AL+hErHDBhtqr1sAsfDs4jJiQPv5Z6zkK/SGTScB8BYlkOcaVpixvlNjJMIBgWhwisSjYtFR7m+vr8DIkvOr28k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CFdm8OR+nQHx6XjEH6TnJWHGZywMO3biFq6Fg1jkyPFAUnM5o
-	gq9FeWbHKX3e9yqYO4fCH5+esPSlriQeL8/Tp4SbnmyJ+0c8GLefUhNpAzNSaBYPLI4r8qrZdfG
-	WjM3/53kpM0x+fUcshb3uz8IIUCsMlQ==
-X-Received: from dyr7.prod.google.com ([2002:a05:693c:4007:b0:36a:1148:43f8])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:d588:b0:372:3bad:c861 with SMTP id 5a478bee46e88-37521ab4025mr3558729eec.41.1794315398676;
- Tue, 10 Nov 2026 04:56:38 -0800 (PST)
-Date: Tue, 10 Nov 2026 12:56:37 GMT
-In-Reply-To: <18e6b051cffc7079.3137322e32332e3235332e313736.3fae83.0000sendgmr@google.com>
+        d=1e100.net; s=20260707; t=1794315404; x=1794920204;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K4NCnFvaGrDIOTRc5HujFwwUmTQ2N/bdVeWHbEi7j9U=;
+        b=enoAWvvyNr6eF34bGaUOLYUCsyuN6GdTWcmaJU3jbZUi1YLpuOpQN/ARG3G6DzJeZ5
+         ZaXg/G19iZyC0ILnnMn77lihVN2/lSHRnOz9CBchvGJiOprcH9wBPBXQYnsMvRPFBVy2
+         +NCWkS0XOdeOOdVrM2+NovjM0G2wOcijj2Rjbg1tHdp+/Lqavu4si0E0GEPqxVUxuYTx
+         7yst0RD7uRrC7bJVXyQKURGpxKEmfRPZcoFI65WCzn/OT1zkXYRug0YU9/NZIeLQxPpc
+         pfuS5BRJkIc2RTAtuEqswEJFjokCyTrBY5CpzdyiYbIeWtB5mqt1UwFVonnbjkgn+AGR
+         0P5A==
+X-Forwarded-Encrypted: i=1; AL+hErHCBAbt6lEs3EWnsg+bqsBj9Z56bdeHwjUAfbK6TMxaWkK238HMfuaaGKohtvfjNpLrfYGx7ulsysLkyBg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ptck7W4B5tcIG6Jk0wdyDeNgC6TzDlsS6z+aCnWAzdjBp6S7p
+	Rw/p/W+QChcswTXE+uHlc2ySo2N2nSMLIr90Y1j2u4EZvSijXKDjNoLH+Aef+kHaoKw=
+X-Gm-Gg: AYBFou349XCVNEmCTPWbY+ozix5nEnMZbZ40xCNtw95FOkrb5G3+UXGm01Ny0CB9vqQ
+	reXJvW4JSobu10pI8CKrMhdlN17N1/sAWZeexRE51yxT+/YCyIuG8zoINsnJN6+JvdVDryfU3Wl
+	a3Mvifq4u4g9VDYeAy9QO9vETZiWaC2jRqIHU6Y3jFNg1vF+Kz2KRFjS6TT7PK6K2/U7XJAqEDB
+	hrzf3HMBeoICoWhVVPoWJ6RymDgD3z9EkBFJJbN0uaM0rCEBZlYyVtt4NozTftbc/KOksQBGsUf
+	ZpS1LjdiIfHE2LZ/859AlH2sWi07W7NXQEkYvnq6TjxYQzuGMtXp4S6H8RFuZDbs/XhKy9It+aq
+	28KyoRIrht6AKCSV6mBI4x9XQeV0mZWhGUrNOkn5Ll5Opex0XYdntjMyKk8vnOivub8IRfDLPA5
+	WDFsK+GVLkK4wKrQhzZpD/cIaTelPy50wciejcULohxVLRkCK7vM7DHoFnXwNM15eIpvtG3fIrm
+	96cqZ9ECsItvKcI9R1FuzlxhlrqUgqQ6kuV6xLkLfZPeRAnAu23rK3PSkoXEy6mXc1wAr/u9Eu7
+	wYfyIR+rrXUiz0qM16cG/fxIjHFPL2wgEig5BmqcQrh0T4vvBDlGxE41EjBtDpHcnblX7HIJJtX
+	990gn/Qh89Qjwadn7DNrkmf7T2YrgHAQ/Of2XKBd7v+MgZw3BDKMn
+X-Received: by 2002:a05:6122:3407:b0:5ec:3e18:a8da with SMTP id 71dfb90a1353d-5ee0d14a2e5mr823009e0c.17.1794315403552;
+        Tue, 10 Nov 2026 04:56:43 -0800 (PST)
+Received: from localhost (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5b2233sm1547234e0c.10.2026.11.10.04.56.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 04:56:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,226 +89,251 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <18e6b051cffc7079.3137322e32332e3235332e313736.3fae83.0000sendgmr@google.com>
-Message-ID: <18e6b059306ac3f8.3137322e32332e3235332e313736.3fbfda.0000sendgmr@google.com>
-Subject: [PATCH v2 2/2] rust_binder: account for deferred work size in Thread::read()
-From: Chris Wiseman <chriswiseman@google.com>
-To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 07:56:41 -0500
+Message-Id: <DMRJQ42LR1D3.1GZKU9EX48KZU@soleen.com>
+Cc: <kvmarm@lists.linux.dev>, <linux-pci@vger.kernel.org>, "Pratyush Yadav"
+ <pratyush@kernel.org>, <kexec@lists.infradead.org>, <kvm@vger.kernel.org>,
+ <iommu@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <skhawaja@google.com>, <sagis@google.com>, <linux-arch@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 01/19] liveupdate, kho: Remove __packed from KHO, LUO
+ and memfd ABI structures
+From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
+To: "Tarun Sahu" <tarunsahu@google.com>, "Pasha Tatashin"
+ <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>,
+ <robin.murphy@arm.com>, <maz@kernel.org>, <will@kernel.org>, "David
+ Matlack" <dmatlack@google.com>, "Alexander Graf" <graf@amazon.com>,
+ <seanjc@google.com>, <jgg@nvidia.com>, <loganodell@google.com>,
+ <arnd@arndb.de>, <dwmw2@infradead.org>, <baolu.lu@linux.intel.com>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, <oupton@kernel.org>, <alex@shazbot.org>,
+ <gle.com@google.com>, <pbonzini@redhat.com>, "Andrew Morton"
+ <akpm@linux-foundation.org>, <kevin.tian@intel.com>, <joro@8bytes.org>
+X-Mailer: aerc 0.22.0-39-g5d7784875be2
+References: <20261110050202.529473-1-tarunsahu@google.com>
+ <20261110050202.529473-2-tarunsahu@google.com>
+In-Reply-To: <20261110050202.529473-2-tarunsahu@google.com>
 
-When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
-BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
-inner.work_list without setting inner.process_work_list. On the next
-blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
-returns true and Thread::read() checks only whether the remaining output
-buffer can fit a single transaction (4-byte command code plus
-size_of::<uapi::binder_transaction_data_secctx>()).
+On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
+> All structures in include/linux/kho/abi/block.h (struct
+> kho_block_header_ser), include/linux/kho/abi/luo.h (struct luo_ser,
+> struct luo_file_ser, struct luo_file_set_ser, struct luo_session_ser,
+> struct luo_flb_header_ser, struct luo_flb_ser) and
+> include/linux/kho/abi/memfd.h (struct memfd_luo_folio_ser, struct
+> memfd_luo_ser) have naturally aligned fields on 64-bit architectures,
+> with no padding holes between fields or tail padding. Assert both the
+> structure size and 8-byte alignment under CONFIG_64BIT at compile time.
+> Any future unaligned field addition should come with reserved field to
+> keep the structure aligned.
 
-If userspace provides a read buffer with 76 bytes remaining after the
-initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
-calls Self::get_work(), sleeps in Process.ready_threads, and receives an
-incoming synchronous transaction queued behind the deferred
-BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
-writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
-bytes, and iteration 2 exits the loop without delivering the incoming
-transaction, leaving it stranded in the thread-local work_list.
+Just state:
 
-Add a size(&self) -> usize method to DeliverToRead returning the maximum
-number of bytes that do_work() may write to the user read buffer, and
-reserve the initial BR_NOOP placeholder before checking the work queue
-in Thread::read(). When inner.should_use_process_work_queue() is true
-and writer.len() lacks room for both the queued deferred items and an
-incoming transaction, set inner.process_work_list when inner.work_list
-is non-empty so Thread::read() falls back to Self::get_work_local and
-drains the thread's deferred work items without waiting for global
-process work.
+Remove __packed, as it may break natural alignment. Instead, ensure that=20
+all padding holes are explicitly covered by reserved or similar fields,=20
+as is already done for KHO/LUO serialized data, so no functional changes=20
+are intended by this change.
 
-Suggested-by: Alice Ryhl <aliceryhl@google.com>
-Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
----
-v1 -> v2:
-  - Reserve BR_NOOP before checking the work queue and set
-    inner.process_work_list when writer.len() < 76 + deferred_size so
-    Thread::read() drains deferred items via Self::get_work_local
-    instead of skipping the read loop and returning only BR_NOOP,
-    and avoid the per-iteration work.size() dynamic call inside the
-    read loop when deferred_size is zero (Alice Ryhl, Sashiko,
-    Carlos Llamas).
+>
+> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+> ---
+>  include/linux/kho/abi/block.h | 10 +++++++--
+>  include/linux/kho/abi/luo.h   | 38 +++++++++++++++++++++++++++++------
+>  include/linux/kho/abi/memfd.h | 16 ++++++++++++---
+>  3 files changed, 53 insertions(+), 11 deletions(-)
+>
+> diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.=
+h
+> index d06d64b963be..36bdbaf9b3b8 100644
+> --- a/include/linux/kho/abi/block.h
+> +++ b/include/linux/kho/abi/block.h
+> @@ -12,7 +12,7 @@
+>   * pre-update kernel to a post-update kernel.
+>   *
+>   * This interface is a contract. Any modification to the structure field=
+s,
+> - * compatible strings, or the layout of the `__packed` serialization
+> + * compatible strings, or the layout of the serialization
+>   * structures defined here constitutes a breaking change. Such changes r=
+equire
+>   * incrementing the version number in the `KHO_FDT_COMPATIBLE` string to
+>   * prevent a new kernel from misinterpreting data from an old kernel.
+> @@ -26,6 +26,8 @@
+>  #define _LINUX_KHO_ABI_BLOCK_H
+> =20
+>  #include <asm/page.h>
+> +#include <linux/build_bug.h>
+> +#include <linux/kconfig.h>
+>  #include <linux/types.h>
+> =20
+>  /**
+> @@ -49,6 +51,10 @@
+>  struct kho_block_header_ser {
+>  	u64 next;
+>  	u64 count;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct kho_block_header_ser) =3D=3D 16);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct kho_block_header_ser) =3D=3D 8);
+> =20
+>  #endif /* _LINUX_KHO_ABI_BLOCK_H */
+> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
+> index 288076de6d4a..721949374fa1 100644
+> --- a/include/linux/kho/abi/luo.h
+> +++ b/include/linux/kho/abi/luo.h
+> @@ -58,6 +58,8 @@
+>  #define _LINUX_KHO_ABI_LUO_H
+> =20
+>  #include <linux/align.h>
+> +#include <linux/build_bug.h>
+> +#include <linux/kconfig.h>
+>  #include <linux/kho/abi/block.h>
+>  #include <uapi/linux/liveupdate.h>
+> =20
+> @@ -82,7 +84,11 @@ struct luo_ser {
+>  	u64 liveupdate_num;
+>  	u64 sessions_pa;
+>  	u64 flbs_pa;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_ser) =3D=3D 32);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_ser) =3D=3D 8);
 
- drivers/android/binder/freeze.rs           |  4 +++
- drivers/android/binder/node.rs             |  8 +++++
- drivers/android/binder/node/wrapper.rs     |  4 +++
- drivers/android/binder/rust_binder_main.rs |  8 +++++
- drivers/android/binder/thread.rs           | 36 ++++++++++++++--------
- drivers/android/binder/transaction.rs      |  4 +++
- 6 files changed, 52 insertions(+), 12 deletions(-)
+Please remove the two assertions above throughout this patch, as they=20
+are replaced later in the series. In general, introducing add -> remove=20
+-> add churn across a patch series is discouraged, as it indicates a=20
+lack of planning.
 
-diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
-index 69e058e6d818..5103bfac781f 100644
---- a/drivers/android/binder/freeze.rs
-+++ b/drivers/android/binder/freeze.rs
-@@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}has frozen binder\n", prefix);
-diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index efdafc202e27..4f4c892cba58 100644
---- a/drivers/android/binder/node.rs
-+++ b/drivers/android/binder/node.rs
-@@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-@@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<u64>()
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         let inner = self.inner.lock();
-diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
-index edfbccf6e6da..37826349eafb 100644
---- a/drivers/android/binder/node/wrapper.rs
-+++ b/drivers/android/binder/node/wrapper.rs
-@@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
-+
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 56c786475237..361f3a987235 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -163,6 +163,10 @@ fn do_work(
-     /// Generally only set to true for non-oneway transactions.
-     fn should_sync_wakeup(&self) -> bool;
- 
-+    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
-+    /// buffer.
-+    fn size(&self) -> usize;
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
- }
- 
-@@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}", prefix);
-         if self.skip.load(Relaxed) {
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index 763f0646a1e9..ded50a1c964e 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -1601,8 +1601,27 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
-             UserSlice::new(UserPtr::from_addr(read_start as usize), read_len as usize).writer(),
-             self,
-         );
-+        // Reserve some room at the beginning of the read buffer so that we can send a
-+        // BR_SPAWN_LOOPER if we need to.
-+        let mut has_noop_placeholder = false;
-+        if req.read_consumed == 0 {
-+            if let Err(err) = writer.write_code(BR_NOOP) {
-+                pr_warn_ratelimited!("Failure when writing BR_NOOP at beginning of buffer.\n");
-+                return Err(err);
-+            }
-+            has_noop_placeholder = true;
-+        }
-+
-         let (in_pool, has_transaction, thread_todo, use_proc_queue) = {
--            let inner = self.inner.lock();
-+            let mut inner = self.inner.lock();
-+            if inner.should_use_process_work_queue() {
-+                let deferred_size: usize = inner.work_list.iter().map(|w| w.size()).sum();
-+                if writer.len()
-+                    < size_of::<uapi::binder_transaction_data_secctx>() + 4 + deferred_size
-+                {
-+                    inner.process_work_list = !inner.work_list.is_empty();
-+                }
-+            }
-             (
-                 inner.is_looper(),
-                 inner.current_transaction.is_some(),
-@@ -1619,17 +1638,6 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
-             Self::get_work_local
-         };
- 
--        // Reserve some room at the beginning of the read buffer so that we can send a
--        // BR_SPAWN_LOOPER if we need to.
--        let mut has_noop_placeholder = false;
--        if req.read_consumed == 0 {
--            if let Err(err) = writer.write_code(BR_NOOP) {
--                pr_warn_ratelimited!("Failure when writing BR_NOOP at beginning of buffer.\n");
--                return Err(err);
--            }
--            has_noop_placeholder = true;
--        }
--
-         // Loop doing work while there is room in the buffer.
-         let initial_len = writer.len();
-         while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
-@@ -1800,6 +1808,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-             m,
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index 48ac942bb75a..6909d7a8a219 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
-         !self.flags.is_oneway()
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
-         self.debug_print_inner(m, tprefix);
-         Ok(())
--- 
-2.47.0
+> =20
+>  #define LIVEUPDATE_HNDL_COMPAT_LENGTH	48
+> =20
+> @@ -98,7 +104,11 @@ struct luo_file_ser {
+>  	char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
+>  	u64 data;
+>  	u64 token;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_file_ser) =3D=3D 64);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_file_ser) =3D=3D 8);
+> =20
+>  /**
+>   * struct luo_file_set_ser - Represents the serialized metadata for file=
+ set
+> @@ -113,7 +123,11 @@ struct luo_file_ser {
+>  struct luo_file_set_ser {
+>  	u64 files;
+>  	u64 count;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_file_set_ser) =3D=3D 16);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_file_set_ser) =3D=3D 8);
+> =20
+>  /**
+>   * struct luo_session_ser - Represents the serialized metadata for a LUO=
+ session.
+> @@ -131,7 +145,11 @@ struct luo_file_set_ser {
+>  struct luo_session_ser {
+>  	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
+>  	struct luo_file_set_ser file_set_ser;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_session_ser) =3D=3D 80);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_session_ser) =3D=3D 8);
+> =20
+>  /* The max size is set so it can be reliably used during in serializatio=
+n */
+>  #define LIVEUPDATE_FLB_COMPAT_LENGTH	48
+> @@ -152,7 +170,11 @@ struct luo_session_ser {
+>  struct luo_flb_header_ser {
+>  	u64 pgcnt;
+>  	u64 count;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_flb_header_ser) =3D=3D 16);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_flb_header_ser) =3D=3D 8);
+> =20
+>  /**
+>   * struct luo_flb_ser - Represents the serialized state of a single FLB =
+object.
+> @@ -175,7 +197,11 @@ struct luo_flb_ser {
+>  	char name[LIVEUPDATE_FLB_COMPAT_LENGTH];
+>  	u64 data;
+>  	u64 count;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct luo_flb_ser) =3D=3D 64);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct luo_flb_ser) =3D=3D 8);
+> =20
+>  /* Kernel Live Update Test ABI */
+>  #ifdef CONFIG_LIVEUPDATE_TEST
+> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.=
+h
+> index 08b10fea2afc..376a724a1d8c 100644
+> --- a/include/linux/kho/abi/memfd.h
+> +++ b/include/linux/kho/abi/memfd.h
+> @@ -11,6 +11,8 @@
+>  #ifndef _LINUX_KHO_ABI_MEMFD_H
+>  #define _LINUX_KHO_ABI_MEMFD_H
+> =20
+> +#include <linux/build_bug.h>
+> +#include <linux/kconfig.h>
+>  #include <linux/types.h>
+>  #include <linux/kho/abi/kexec_handover.h>
+> =20
+> @@ -20,7 +22,7 @@
+>   * memfd uses the ABI defined below for preserving its state across a ke=
+xec
+>   * reboot using the LUO.
+>   *
+> - * The state is serialized into a packed structure `struct memfd_luo_ser=
+`
+> + * The state is serialized into `struct memfd_luo_ser`
+>   * which is handed over to the next kernel via the KHO mechanism.
+>   *
+>   * This interface is a contract. Any modification to the structure layou=
+t
+> @@ -54,7 +56,11 @@ struct memfd_luo_folio_ser {
+>  	u64 pfn:52;
+>  	u64 flags:12;
+>  	u64 index;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct memfd_luo_folio_ser) =3D=3D 16);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct memfd_luo_folio_ser) =3D=3D 8);
+> =20
+>  /*
+>   * The set of seals this version supports preserving. If support for any=
+ new
+> @@ -85,7 +91,11 @@ struct memfd_luo_ser {
+>  	u32 flags;
+>  	u64 nr_folios;
+>  	struct kho_vmalloc folios;
+> -} __packed;
+> +};
+> +
+> +static_assert(sizeof(struct memfd_luo_ser) =3D=3D 48);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct memfd_luo_ser) =3D=3D 8);
+> =20
+>  /* The compatibility string for memfd file handler */
+>  #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
+
+--=20
+Pasha
 
