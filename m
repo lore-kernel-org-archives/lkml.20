@@ -1,101 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794340765;
-	b=3wacTidUKEB2oAjYRwgyMVYMDIZVWCyXatHocQkWeu6HtWMN8uEULfLwg4wmVRfb+O6B
-	 IqfaEl1G1LZbqQ9/+4xBp0HpzOg+chT6LAwUvM0fyDxDtV2/RbnFPJfMWFxXCU31zBJ/N
-	 /v/B76+OnJrOiCmsZ/LBp93LKm7XlghlW35ag9lb35j0ABP4OAvPt1GvBtkZraBcEoJPF
-	 6I2yf4nU+otORgUIsQbhvG8Q6hkltKhas7CgS1vBCTCHuijYdUDP3ndi7p21NkJhBU30c
-	 gDkluyZRm6EbO1bKsshKlhX0UOeMM5bMqVGZPshcrt6Nnb1hgvwPRjuw7wLu6e8o7Rg==
+	b=pv5MlCnt5d6QSqT8J8tFkZhzSMlcXN6gTBdwnIV5ALzOxp36tQGD6/biOj5PEO/SAZ/R
+	 Qysjj1+/1ORecvvn2cehqJWICX1DgztlxhffQM08D73mOs5jtR4zRauqf/4ZVd4bPyywr
+	 i3BADk6JFDDtHMmoAbxv78h69CK15CDDAXvjWK+kK0YLKmUzmD4+6fFsf292QRkb6GJjz
+	 VJXJrvpuzlnk89g33QqD/9aakjwAU2n0LKRbkfbtKtPEXo6OYWx06r9SVdpGzS0yudVzc
+	 2n44D3yP2BTxxIXyRqkoesX3UEZ92TD09Fvlm2Fm42ZN+Sr1z0oxcb0pDIuVaNyPi3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794340765;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5Nlz5a5EqJZ1B0jGIvjBXTPfp8CkOF6iXGCRont2Aco=;
-	b=n5rERMnj222urresicIUazm0QF6imOBgnMYJVuSKXk5oX3Nu7YdQbKi4eE6BsyWVes0m
-	 t/zfV3Xr/yDaYXeFfI9stWVu0pMSnPJju5Pf5Vf6CoGIjQbDbdVwOU6Z/6e/y4E9CvBs6
-	 nJYVJHooBaj2bKbLzkh75hx+5K1UBJID9GV6/Fs/DWMDAorqqCHXGgdun2PmAp8H/YMUr
-	 DQECPHXu7qHTNvAxkoW6VbA9yiJr/Z1XksHVx3m66105N/DNiq1EWfRcdJrVn+HcWXWX9
-	 jbBX5RQIibeQAQn2XlM4n0gj6YFzYWHMfbAso7rwRnpO9cmAU9HXkzbl+3r0ft9zyKA==
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=trvapBc7cNL/nadwszdsOEuVIj04JluHNvQMY7I5aCE=;
+	b=0sdVOt3T4ipE1Regurur/bM5tORbpbIyep8QyyjA8iCkDgCqjwLapfXDLUkmmDzEtkvA
+	 3+QJzsFFU3oZrDPxBRF4LjHBpY+N4u/QLHgfqlC27YU/XneltV2aucix+nXUxsOeXMBmm
+	 CgkVbGvnZ890FqByjb2W9YcQvVUwVh/ro0/uPc633LGAEJzIbcmTfKbUDQeqhT3Rru8iu
+	 dgoGG/LFNgYn6tGwOFqkLS7KWm/XIhXw0ne9VKkUYeqj/Xk0VYP0kT+DjjkRzDDXyRe4M
+	 Vr+2c0Dyekqw9LFv1J6HZuX00ooMdRrbgLhCS1S0v1RYkZd/BxNZWXrfEkHSjfKEi7A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=snblZNh1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kRtIbxmp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010004.outbound.protection.outlook.com [52.101.193.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368DE606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 368DE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81713606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81713606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=snblZNh1
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3acb1224533so257702a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:59:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794340764; cv=none;
-        d=google.com; s=arc-20260327;
-        b=d397EuyMkHVXKMHRBqEfHmEf1otQ8cm7dchaSpC3v/WIiGMVT4JxQl22p9L4+6DbHc
-         UW3F5w6FvoxdD2Q7hqkeu+rk0FAl3BQZO8V1W6dsAW65iVEOPFNKz/0gxuhArqekrQJ4
-         FH1U/pvpMZaGMJIsrBOiLEjLK+ygIts14LAJJiTzJM1u2zKTJ1h69WzOtfU1GemhST6d
-         l8+0CS7YVSbNaJqsS+LB+Un99DIHkaOqV2ZskXlqDmDkI8nhcB6+ZODsnm3GLPLH+WCP
-         RJ2kBeNdA3mVyY8cyfKN7Sdq33HTFvAB8HeKjLN7d6rB5Ac7PWpE8q+JRfZsLBv6+wwx
-         kSdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5Nlz5a5EqJZ1B0jGIvjBXTPfp8CkOF6iXGCRont2Aco=;
-        fh=D5fbEbeM7ey80XKhOjsfiuBiZ9QTabI4LmH0BFTO7Vg=;
-        b=Pn8Ul4vCCbfnlRt1fYCbgal3p4aKlbJFd116j4/76imoklKPL3IpohBl9K7m6Vw/zT
-         zL0jDMtlAlNF5+Ba9sG+xiYtcQ4v+YYo98IpKDNYeFTKmtQpK9rXXxTVPNr0xj9v65Q6
-         YNEBKQZywT3VnF6uQjtuGGcyMA7+wmzMVXAbd5D/GKRXTulJ0S8PwbPnbM5TAUf0UnlD
-         achC/veD4lYYsqNgaVg1z6MDhjlYA8B8XN5G+J9SjQcr1z2cAE1r8IdLYJcNJ71cL4Hn
-         G9coq9MY0yrR5FfDagnGEvrfHgy2c6639sEsAnB/L/NPfTcaosATOn+VY7HLOHsplOEq
-         z24w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794340764; x=1794945564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Nlz5a5EqJZ1B0jGIvjBXTPfp8CkOF6iXGCRont2Aco=;
-        b=snblZNh1trybP5Bn4yP/x5p2BwZDiJHRmL/kRYSD99g/9p8cOfLxnZhekrTQ++ErdU
-         X8vk+9vNKE3Phz7EG6m2qNy5bIPbmjSwAlGqINUGDZ1pNNkQGQQ909BZS/0jOTj3D1TH
-         fuY9QnoJtFjA8AfZ53kuyng9QYdNunxXKtUBVD8/S9qjnF8gWYxTBGvn7+EADnhtnbUn
-         5EhOWkOro8xTE0lh9ZI+OVHTKqjERvKwWI1dJ524o1OdXoXBPFc6DRM/Blp2tJWvFo2Y
-         OLXDf2yhbQRIba2zJ2DmEQShMBfWrRaKJoRaSROdEiDIcDjDNTCjh/ujr67yPoW4Yv+J
-         Ty6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340764; x=1794945564;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Nlz5a5EqJZ1B0jGIvjBXTPfp8CkOF6iXGCRont2Aco=;
-        b=xtO4tM5x3DdNxqMl7CfhLhZ0TGxuOLt3gYRFmtPw9celD07IJ/Qdu+z3CBDtmgK1Kn
-         GK+1pSwTOUbu8PohR7o1GS/7VOjE4jykGKTdXhH0Vt6oV9etPot2zvuCF+9Rl829GKtU
-         jxUZFDx/TuUmL8hgYn52zGelgck20BT8l/YycFKEhIos8TUgFsg/vFK8MACthesAG/C1
-         DceAKCd1l+4udpLEJsgxjwmB8qFZAsLD+zYfp96kM2/JGxHhU2e89SuzYG89c8DM8+fL
-         YJ0K+RhEkqTx0hAsCDSQWv0zMM+jQ8GLU6Lxhe4jooI2kuiBZTgM/L7yO3JmItl/J83w
-         bEMg==
-X-Forwarded-Encrypted: i=1; AL+hErEJOM1tI2NiGB6ViCnCRIkjME9LEn+IykeH6nG3m4JJUyMCJcl1MHKJaRu8Lay6L7q14F6fIrWosduMUIU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80s56LjJRpS14vaknu/1w974Sc1/Ul0+i8c1HV8kUa6LwdpO/Z
-	zj1RCaDQD85sz9tyRfK/Nmlovwmchhn9uLmBRQvS4VaUBh+1e9GbrrGxZmiaR0ESbDzsQiSxQEt
-	WFuPUJkcIXeXBHugFNg1QaTFInxDima0=
-X-Gm-Gg: AYBFou3XGV+a+UCft5AzJT8+1To+Se706gokMlP4tQc29t3vR5bGLzOLTsraGGNG30j
-	TKVdpqYg6WFQKCW7KV/170wV1cPeA4CD8GfTo+K4sYWim1oUWE7g4G3VUlWPv4/WbX1erSuPuIQ
-	najIZz4cOHSq9zaufmkFM7eoMIZTaAat63pAemmG5PVb1408L7+p9qFqR+SgImNtFb0GGPTiPgT
-	Atev9E8MpoM4FqNv9kSyFrNNkE+SvAjllNRs48nTAaAU6ArY0kBn2nH+sWG0i95335Gr25gOn1G
-	LCsBsAc8qixFwBAFyRRv75h9vHOmuJgJXwae/Axl5ICZftAe4J+eytVByzH5Gw39MyxQtei2jFv
-	eEPys0AL7+LBd54HtMJUdU+CTmE41JD4ytRGTFBUh6jnmSn4bqczScBaUpQqmhZEnsvPn/cnrKq
-	ZCvkds9FfQfFnKlhRxFdrLowHR6YXWjnNshb/TyNEL90i8W4iagfzT2PJA/HE=
-X-Received: by 2002:a17:90b:4b84:b0:3b0:9984:18c6 with SMTP id
- 98e67ed59e1d1-3b182f14e41mr40487a91.3.1794340764427; Tue, 10 Nov 2026
- 11:59:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kRtIbxmp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LW/JBrT5INPhGQUKpYs+7BazsuR7Z4s7U/w6gRcTve+PICBprvgH9C+JzO8t1dVUZ3J08tpXiixZIES0XIyXg2o2vqwrXxZeqAInAXhWZ5mIsUBM8u3S9B4fqTdIEY20SOna8+brCfnFwKecLqOnhUTjEiArxbypzpRN0ujoq62i5+QNQEDy/RlhFNQ353L99A7BY4/c64dVeO6yNwF413DZjeRn/Cc+0C8acr0ihXCc/IhVLHsH+cXf6rcIgIbDwbQxSTcyITZfSWnD3nLDjMnqcU9LshXYf0K1UG9jzQ7eemOA/9TiiNcvQ9D6qPOf6GJOXouZl03LMot+ZAHc2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=trvapBc7cNL/nadwszdsOEuVIj04JluHNvQMY7I5aCE=;
+ b=BolEn5QvjuA5EnsfxnHEnH3aSQlLo5CX1X92hekAdldYSeaUiGP/fQscuQhpJa5zX0MK2XLgkHJ+lSszag5DHn1K4eAPhoi4fF4UX5zI4p7o3+vT7hKR7688tYzDJRPRr9RPnu/CSeUTi1zvlpvof+bcwW4UDHWy2fFtgiM9L5mKRpMo0L3G2dEFOoMB5H2B567ogRH+bxD1ud9GElJXomFrfvVzw4jHzEDxPR45ydlzVCgCFevOzdbFt2yEr+KxY3VoHyfH8Oz2tX92/uykkb6DwCvDqGiUGfU8n6Jo+J1uMOpBwvhALIew2RFdOl4ugRLrKzzPpZqXoEkaoh0ciA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=trvapBc7cNL/nadwszdsOEuVIj04JluHNvQMY7I5aCE=;
+ b=kRtIbxmpkvwGpg2iF9iB76WQyz+skP0gJUjkKoqQCZE6C7LwV0C2kNgKENhxhUwJuL8kC21Xmm6DLZDy19x5FzevZBhG8roS/OLF3F16mz5gEEL79CMvtriKe62J+FLfL7gcVMAoElYnX50sBC4CnGe1EhqTUx0XRwe4Q4atSVXoL8R39BA4Yh5EzZVRYYg92ykWAwwQcVWRunX33hqU4IMOaGCAX1za22O46+Ltgqx/NJDk6+K3yX8UWpQInujwwAdWYjwkku0lyAHUVGUHMqbXQaL/ggeUmfDkuX5F6NKX1lTg6ATj2qu3ujCuImfwIjh5XS2ff6LT3bdPzai4dw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by MW4PR12MB5666.namprd12.prod.outlook.com
+ (2603:10b6:303:188::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 19:57:46 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 19:57:46 +0000
+Date: Tue, 10 Nov 2026 15:57:45 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"Tian, Kevin" <kevin.tian@intel.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+	"aik@amd.com" <aik@amd.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Message-ID: <20261110195745.GG738765@nvidia.com>
+References: <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
+ <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
+ <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
+ <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
+ <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+X-ClientProxiedBy: YT3PR01CA0083.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::11) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,144 +125,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com> <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
-In-Reply-To: <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Nov 2026 14:59:13 -0500
-X-Gm-Features: AclHuK9OzrGAjIUTVR5CQZwX7f-zGWFe7vL5DtJpWEOYzcy9aOUsEMrpOSQAIqo
-Message-ID: <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MW4PR12MB5666:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c10de8d-9b96-4940-43c2-08df3f64e3c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|18002099003|22082099003|10067099003|4143699003|11063799006|261026121527099003|261022105027099003|56012099006|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	puqsyYaLY6djscYIAvR4wjyzISgTlMJjMmDwHtQHuxP8dvGmMWeE05BG104CdL3frMGVT5EBo5sU16CoSfr5N0bEO/mDaqdtD62/+b0GNnGW6fezXPnoMEJs/0eV+l+8kzq16vEEhNmEBy556b2hmSU2ECLABApvgOcCj3Xr7AcO9n9xCOuhWum68uapm+18DjqCJeW331YVkToWNLmBgQixmV09Dk3usegMC0U1iN2ZwZCtGf0KALR1yUj3bl9cNscGe5HJdXB7+SgG7gwOL4X0kRcP4IfALZh46KOcW+aHy1StDy007PjEY7WWSbfR5brkq+v0UEv644potwtvyH8UlhHwbCwkadjPRR0V611PvIDU+153Sm5XH7y/QMWPIGpUyg9VIkL6IAbsToNtWlHTQxZ090uam3+K7Yf6IXzfhF8PkA9Od6P6P5R0gQIz8+14+H4x5UMFUam1S1ofuijUFN95MW3yyjKViJ92D6nKWNeTtIXkXFD7Mw5NeX4L+S/9PKlWLV9hwS16YYmOQfd+hBa96elm8pIyE9eOPAVKxxclYO0C+wzaj4XfYFxEOOWd5+rrCU11wo418hiHy/o7KvlWc4WXLBkgvqWHesVRY/8oWJEbMf5uIQfXc7TlkxypVIRy5Ki331UlC/zeXBagYRr4wlNZmYg5WfM3iHM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261026121527099003)(261022105027099003)(56012099006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?A79AE1Sx1Kt86Mx8TdHt7xx8dUgpiJuCNM5HSxgO/yphNT2Bnmxm/wwNn7tN?=
+ =?us-ascii?Q?KvS6nW8xAbXxQ0zxzWMAn8xO9xkfhmta+i/xBkAwtvX7cqJfrWhhRRZRr7QU?=
+ =?us-ascii?Q?QowuWXF+6npXu+p14FMmUyl+JWRUuVaL7QxpX7p+S77kyAGQRehsVoHKfqhY?=
+ =?us-ascii?Q?WOD+U4PODRrwk2BcUtDfBSh1PUAvQzzBv3AO+9yWzLkyLWwhF5vdKe0I+TQO?=
+ =?us-ascii?Q?eVi/mBoLnzSsH01OHQb6867VzYmEQwwXFAfCLSO1UnI29DnhQFaw7WfuOmLY?=
+ =?us-ascii?Q?qxQqz2uoOSiDdApjvJcd48Rw8/tWcv/hdAdKeANMpQ/CyQyMVNqPqYegvzIp?=
+ =?us-ascii?Q?GDToJvFOggdj0yCTdQBFtBg9Aobt8mV4sgluvaKGnzCxbvBDRMCC7mY9TBtL?=
+ =?us-ascii?Q?2AmBdG0tQn9DaYEWGdjCQL00W/aywbye9ey0cjKq8pIPxGfEFuPZbqpSh6h8?=
+ =?us-ascii?Q?rTkKH0y9yQa06J1F74WAU8tF8vNUXqimPgpGkFT01PIbJ1h0ry8YCV81V5kl?=
+ =?us-ascii?Q?dP7fLbuVODmQ6qrftCPK42XR2XO/k4mqAZouLMTFU6Ad8iC57puwZvjEWI3g?=
+ =?us-ascii?Q?l4K8/vWKzy5dFgDGhofxBxND8SWLU54+6Zxp3nov84+I9yjQXPjpiSKrsmyg?=
+ =?us-ascii?Q?hWktfBSYsTQIdJYwBNbCLXox1xXuSn2SsUVJr34b7XEfbkZbE6Cc5SdYV2aA?=
+ =?us-ascii?Q?kOpBTj7WfHh0S3rN99Ss3QH/L+OKiEsGrdL8jzzXanerKO0t8CvloZ5mJz+U?=
+ =?us-ascii?Q?wxdNBJcreda/7SjxAFy+xFFnQ2Z8mBX823gXv5IlNB/or/cyL7+Mt8+/3XKN?=
+ =?us-ascii?Q?gHlwIMeR0aHI4WdBuykWbliGmjI85LdkO8p5zGzRKYX+rwbMNfQ1Xvq4SsaW?=
+ =?us-ascii?Q?cBhfd5A3glLnQtzkgEejHGGepFAVAVl2jVqO+bU61kzl2rP1zZJRcwgUnxVO?=
+ =?us-ascii?Q?t5JBhfGIoHTBvH/Xo9d4jz3H/ttpTQf9bpn4uAFfNF91vE2KVv2Fgl1mH+CR?=
+ =?us-ascii?Q?9u2v531Um5i0EJM3Dq9/OV1M52hyVMRVzJY/n3o+g2miSLpcbZFYo24+IQ9Y?=
+ =?us-ascii?Q?q6WarsOTusGdI0mMQo4/FZaDoqj3eE7mePRzcpsCE4bF5I2uwt4+IjeTPe5l?=
+ =?us-ascii?Q?A30Cf5ZDQuehY2i8xazgppoij6RPSUuHo7MVy1q6jaYfUCGl0y+sUxjBXitA?=
+ =?us-ascii?Q?EzY0qq+Kzsv0P+nESUdWTJb+fIs16AuyGVf7W3eGifVt9wGo/+R+ccktTEft?=
+ =?us-ascii?Q?wGwtZ5VYjid2eSLYjrjhu+x1EdBDgZaEzgwryFDKOtCzbhD3BconkkbN2k1k?=
+ =?us-ascii?Q?EKzMJsdGDtV4u/QOKUP8ZH3Fe9mKvzfj2WoDHr1UOwHfSHVkwjayDyv2oAq7?=
+ =?us-ascii?Q?DPBv429ErGfr4V8AbGo4GiesQVobuRFjGn51+oMQBxfu0jT1i6ELu3aAtCRh?=
+ =?us-ascii?Q?N5TOiLvqeF/uqBPbjMpoUJUJpTmj3zZBW8Nl1gFOlGipwkYXJvqmP6nX2BPU?=
+ =?us-ascii?Q?LHwh7hK26PzZISg6L35PdLYPCJGPVVloURpLtoSIhvnNLmiWwajP9tBQq0ZD?=
+ =?us-ascii?Q?y+Hu4PdCzuBjARlsnQp8TtZvfBaUGa6UPfQNfoLVlkE+rypzD5xiTlsBDdvt?=
+ =?us-ascii?Q?Kj6QRVa8GbomPSaLSYXjKWX7g0M6DlYFraQX3LhGbfU7l34drXkbgtLXAld5?=
+ =?us-ascii?Q?aqOVpzCIbLnPofFca/4Fyy7/XkVM3eQ2fTBx5JxftmdE7Qg7?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c10de8d-9b96-4940-43c2-08df3f64e3c9
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 19:57:46.1903
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jIKk54gNIFrmsYqIqY4BMSQGcZyioVzdZW0GN1CPlHPZ3zXPvHSMLhR1Q69YouwH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5666
 
-On Tue, Nov 10, 2026 at 1:49=E2=80=AFPM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> On 09/11/2026 20:34, Alex Deucher wrote:
-> > On Mon, Nov 2, 2026 at 3:31=E2=80=AFAM Richard Lane <richardlanedev@gma=
-il.com> wrote:
-> >>
-> >> When driving multiple displays or tiled panels with identical timings
-> >> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
-> >> Core's program_timing_sync() aligns the CRTCs into a timing sync group
-> >> in hardware during dc_commit_streams().
-> >>
-> >> However, on DCE < 12, Display Core leaves
-> >> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
-> >> informed that the streams have synchronized vertical blanking interval=
-s,
-> >> SMU7 prevents MCLK switching at idle or causes modeset underflows.
-> >>
-> >> If all active streams belong to the same timing sync group
-> >> (timing_sync_info.group_size =3D=3D params.stream_count), report
-> >> all_displays_in_sync =3D true to PowerPlay after committing the stream=
-s so
-> >> SMU7 can safely downclock MCLK at idle.
-> >>
-> >
-> > Looking at this a little deeper, the function bw_calcs() in
-> > dce_calcs.c already calculates all_displays_in_sync using the helper
-> > all_displays_in_sync().  Can you look into this and figure out why
-> > that is not working as expected?  My concern with this patch is that
-> > DCE and DCN have different logic for handling mclk switching so I'm
-> > not sure it's safe to call dm_pp_apply_display_requirements() directly
-> > from common code.
-> >
-> > Thanks,
-> >
-> > Alex
->
-> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchron=
-izable() also works. Is that a solution?
+On Tue, Nov 10, 2026 at 06:55:41PM +0000, Edgecombe, Rick P wrote:
 
-I think that would be preferred, but in general, why doesn't the
-current flow I described work?  The function bw_calcs() dce_calcs.c
-already calculates the all_displays_in_sync flag using the helper
-all_displays_in_sync().  Is all_displays_in_sync() not checking
-something properly or is the overall call timing wrong such that
-all_displays_in_sync() can't properly calculate whether all of the
-displays are synced at the point that it gets called?
+> Additionally, we should probably see if Jason has any opinion on the types of
+> errors that guest TSM would like to handle.
 
-Alex
+Not at this point :\ And perhaps not at all.
 
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c =
-b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> @@ -31,6 +31,7 @@
->  #include "dmcu.h"
->  #include "core_types.h"
->  #include "dal_asic_id.h"
-> +#include "resource.h"
->
->  /*
->   * Currently the register shifts and masks in this file are used for dce=
-100 and dce80
-> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
->         struct dc_state *context)
->  {
->         struct dm_pp_display_configuration *pp_display_cfg =3D &context->=
-pp_display_cfg;
-> +       int j;
->
->         dce110_fill_display_configs(context, pp_display_cfg);
-> +       pp_display_cfg->all_displays_in_sync =3D pp_display_cfg->display_=
-count > 1;
-> +       for (j =3D 1; j < context->stream_count; j++) {
-> +               if (!resource_are_streams_timing_synchronizable(
-> +                           context->streams[0], context->streams[j])) {
-> +                       pp_display_cfg->all_displays_in_sync =3D false;
-> +                       break;
-> +               }
-> +       }
->
->         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
-zeof(*pp_display_cfg)) !=3D  0)
->                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg)=
-;
->
-> Richard
->
-> >
-> >> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
-> >>  1 file changed, 10 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> index 74cd88d8d580..b4531383437e 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm=
-_atomic_commit *state,
-> >>         dc_exit_ips_for_hw_access(dm->dc);
-> >>         WARN_ON(!dc_commit_streams(dm->dc, &params));
-> >>
-> >> +       if (params.stream_count > 1 &&
-> >> +           dm->dc->current_state->stream_status[0].timing_sync_info.g=
-roup_size =3D=3D
-> >> +           params.stream_count) {
-> >> +               struct dm_pp_display_configuration *pp_cfg =3D
-> >> +                       &dm->dc->current_state->pp_display_cfg;
-> >> +
-> >> +               pp_cfg->all_displays_in_sync =3D true;
-> >> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-> >> +       }
-> >> +
-> >>         bool frl_stream_found =3D false;
-> >>
-> >>         for (i =3D 0; i < params.stream_count; i++) {
-> >> --
-> >> 2.55.0
->
+Most of this stuff will end up routing through userspace so it has to
+be compressed into a errno.
+
+The various VMM to guest specs like GHCI are going to define their own
+contracts, and it is up to Intel to ensure that the full route from
+  this code -> attestation subsystem -> uapi -> vmm -> GHCI
+
+Preserves whatever semantics have been defined in the spec.
+
+I don't know the answer to the EBUSY question, other than
+TSM/attestation will return that to userspace. Can your VMM and GHCI
+sort it out?
+
+Jason
