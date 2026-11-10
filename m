@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.165
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794332434;
-	b=v4Lqx46t95+LqmttdDJ8fj0Nx2d+HROikiT7pkcq5SuApDq4TCYaWNRi1YBQIErCOUhe
-	 6bE/aQCqe33fl7NgedW7zid3cJ4y3m5IsvPRWbvbUjrmgYoWlhsbRqjpxya+TcUe4KiKB
-	 w/V13a5ZRKJXxYOZJEpo7Lhqk17YEiQBAejp/VAeeluVqbE6pgHRrKeWXDE5pp7Uip+rX
-	 kPMbS0efC7Xv1Ky124eBQoUUvQyjat6GNR4e+GyGuAYvf6uKpWgz2K1Nn9Nvbe+TRvUP6
-	 aMd5Gbx5/fvDNQpr9ANiBcMZJC/OfqInbnHIzP8kcwVuO6VlXN23VpYVQ3kxmdB7wWw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794332460;
+	b=T44gJq8b9s61M9kNo/NGuVWJxhhAIWPNeKlE146xro8CjWfzN4Nb9aokmJzCMbl9CWYk
+	 Xv9QRMXR6NcEl+g0N2AjVGrFE5tGTO3lrKCbWFo2RWjmwe84EkvxGfwO+oYPh8wlzihLN
+	 LA1fM94XWdvdFk0WmENBNUVVifkS1C7typ80rXAD9vOpupdMCi6EKGmHi98h92fVNW3Rt
+	 ZGsqTNLrKtJDMrGD+BVJCeQF9ibRA3pzdvrXH+HsL9wlc+T2Ijty0QOdmHDusCbwELZ/5
+	 gntSTiccLFh4WcCfEtXfDi7tESEIkrMOeouZwX8QhZNkXcM0jfOKhgK0z0OBweE9SMQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332434;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Subject:To:Cc:References:From:Organization:Message-ID:Date:
-	 X-Mailer:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
-	b=cJx8I6gOfhsW1pQC1zGNEqBJfAt/WUiFZmedfxu4BS4qlWNImMLp82E1QXZ7KrrIZLUK
-	 R5Pc1kKM1q9D/r0AO5dVAVUoX0TdMtVDKxj79rRMXL1PliJ+k4InYNi81otH7gysWe4UY
-	 ir9ChFqxO0upjCt8Q9+4AXJ9gS2AAX41dYVHJSkbXdjE9XglWwNG6mq5W0+7bE7V2ZvtD
-	 WdJy6TrDjXS53oQGEXNN+/H8z7ogK9vyXhwIXz0e3lAbxAaauJQDHgtQbkeH9yfd5plB6
-	 g0RVlsaGkQVcHhzUtW53TKuX3TubLRydcn141aaXdkwVA5dx2TdJzmGEroeYpQux2bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332460;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
+	b=KfIo+9xk3AS+KYyYxJOCoD3Ebv8NsL4oCLxsh/KZ4UiH/agSRSy+zudkvorQ+df+ckwR
+	 qBhpRxqszupakvzgRnaVO5H4MyQly/u6y4JupU2BSRN49wf0nB0rxIIz9sE90kMXZV5nc
+	 /61pZ0j2PfhskqwiiL9zKr9dvKhGernMdT3i56iuWeP1XQPnqV/Ite568cw949StScd3v
+	 WUJwTqo9+TJ4Ll4w14t+sf2LdErQhZ5YFZ9RMyPA8m+JKM0XS2YrKsmocGoCs9AWk3unT
+	 dMcpeHq4mBeIQWwFhm1C1l1x3MoN54rzSvw/fz7V0Mvk0GqZE5tE+sZ3YCuib8HVDPQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xenosoft.de;
-	spf=none smtp.mailfrom=xenosoft.de;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=LFB9YLC0;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VWAHcmuN;
-	arc=fail smtp.remote-ip=81.169.146.165
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwV8IN18;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAB8606A33C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FAB8606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8102606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8102606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=LFB9YLC0;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VWAHcmuN
-ARC-Seal: i=1; a=rsa-sha256; t=1794332395; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=sPHXkF/RBruqZgEMLsmbH7+0xniN5TVzzvtuEe1lYfaiFdNe0+FD5t9WFO+HefaAeI
-    fIpZ6l6SW8EQ+jWrI8uftQRiadYRDHiCEiyHh20kg12FHefwZr4xTs8kcHEzTymu4U0T
-    J3ZfTxcrq/rKzsYD+RcIcFXWvm/ZFHpha3WSN1UKnFiSHKGG6LYwZrFC2BalKiQgEZuv
-    0v1iAIjeamdWb4VG1gee5tRGlXwe63AXonxbyZUPqG388WpqAL9nyaPXX1/pmvkgQELj
-    zdiOmfMeaXD3Etn6adD7xWsipuIIv7JClB8JvG2aNuVyIevNNl8raCvQDFFsCfBWDIVF
-    XeuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794332395;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
-    b=m08KbpvwgsN2bx268zW9fXuyhLVGwcM8vy/gt/FUjSmK378Kc76Ui1+I9BLY1i1B0n
-    splNLdYy0THd99k9/BJqARnKxlAY9DLvq0S4jkjLVAQAqZmhHMEYPsJaLjPDEGLI5J+B
-    qXH0D55H4bk325VD7UFhJs/6MkOushJyrLAmkPi4dsBpaGZ7HcDRg87SzySCi7eF9aXO
-    LPnAhEcrgS0bDup0O9s0TzcrADglfhLIuHhkdK04SXsUhP2a4bLvFJt8RaWrNLDfimnc
-    8k09yYR619X6mjkm7aAMjxpD+eiIVCj43G3ACaKxXV83CgJdNOkmSq5clFZdAt7dEPdD
-    UoMA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794332395;
-    s=strato-dkim-0002; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
-    b=LFB9YLC0+d82j0Crw0Cj/NzFyDCb7IJhCvq2LJZhuwu5e8e6tG9U8m7cNFBQM7+SPR
-    Du3uvZtzkLhDWbKYc8jpMkFYwMgUbluZWu4FMO+GYaP5PhJzBlFZ6GGBdEdEoNJROIVD
-    h+mCpBCRec+xIYWZxFbMXoFgp1XoFWFZ3sj9okIVNy9gN86wcq9TMoaydbRmPwWYJ43l
-    e6huYo/16aYsyWWl+ELUwMLpyrwuVO/Cb6WVpZ9hqMOG1vCjlTjmS+DFQzDlunWDwRfX
-    xB7YgOp9NLze+eeyGIhvzzlJbEKz8L9ozx26ammgrqWDQE224P76cKlgG4l9PlF1bH+M
-    bvpw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794332395;
-    s=strato-dkim-0003; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
-    b=VWAHcmuNxt67l+OLByVVf+oFGjQtveIzuLDwfhBm1q6T8SQVIrRFp5+/mNaXrkO/4y
-    sThiQYB6+1Kvk6HG+/Ag==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIC+l5Bzg"
-Received: from void-ppc.a-eon.tld
-    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
-    with ESMTPSA id e825d92AAHdrhx0
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 10 Nov 2026 18:39:53 +0100 (CET)
-Subject: Re: [PATCH v2 0/3] KVM: PPC: BookE: Fix boot hang on preemptible
- kernels
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
- linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
- harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
- venkat88@linux.ibm.com, nnmlinux@linux.ibm.com, mkchauras@gmail.com,
- "R.T.Dickinson" <rtd2@xtra.co.nz>, mad skateman <madskateman@gmail.com>,
- Damien Stewart <hypexed@yahoo.com.au>, Christian Zigotzky <info@xenosoft.de>
-References: <20261110053238.3794500-1-sshegde@linux.ibm.com>
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Organization: A-EON Open Source
-Message-ID: <519cb2b2-5c3d-a75e-6919-d5d0784bae63@xenosoft.de>
-Date: Tue, 10 Nov 2026 18:39:52 +0100
-X-Mailer: BrassMonkey/35.0.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwV8IN18
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c14f3dab0cso1756344e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:40:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794332458; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T5akactMHku5JeT4GUpYNYo7eLnm1KWgoZjfFzq44sLE/TMIC9omrpagI8/SXp700N
+         GjPf6cXpwOo3DQDKb6C7eRYVMgJEIDtHtCTF2Twe8snjBpbp7PPIbSrb4Ff6EI9gZI84
+         GBIDucupbojkkGswda1XLKZ2Oabdc01j1VfQjdcxks53nU4GCZJAXA+xGapRpC5JqMQl
+         8+broFw32dVvbhbHBbmiAGY4k4Ew2ibIcnl1N/+/4oQTcrUXSeGP7s9L8hC12M5qFmMB
+         l0STcXDuMOOBdY95wg5804R550BGW/8zx4UBALizPyMMHyOtQDOqRv/MOfYbTtA+LEHZ
+         hn7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
+        fh=ZJ6NUahn58eGSCwdt0kmPIiR9FmyXr1pb4FQqUKl0Rc=;
+        b=Pp41EjOqZRHODG0HGCTm0UVj/L6xidjkD22KMweN+cRiobI5YDSn9ML0dkPEp1UoDV
+         HKL6azyJJWqW2+kFzuQiKPqyoQ9MHbABn1G2OYWznV2votQgPOwoKwYD/5VN1IpveRrD
+         hWqSjz2JepbujALelC/476oL28QgVoq0d9x0zng6NvJJV7h/LlkZAxpluxL55k1zQbNb
+         2t+NfQ8+RnX+sChHW4rcvh+Bjfs76J3hZGNVdz+qne6iCMhEnnlL0NM/Dh4JLXCLJTES
+         6r7UPhjHfd22Jmddb/LpkTGNE4mLQhRHXJnS2TYLxwyYzt+qS/es1oz1oHyYHvnO/j7q
+         Pzfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794332458; x=1794937258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
+        b=OwV8IN18ChH9GSyAvCZytPW9z+0QGo+xoXMH/dcrIGwjwXuydP4VNR1ynqT3YWa8sQ
+         tTXOrS0CkkFj/bTEWiZqqKnN920fD1pjkYuTaNVmc83vUWHAdTC0fUC3Ki6Ir69HhzRA
+         61dvfN21vPzpv0DwVrmkai/NOcSpwr2lJR7y+YHvlpahCSjpxh7VRHrWr4LF8hb4eCCv
+         WyyH0v91Eiioy5v6Ox7ph3wcO3OX+ZQjsvUyH+tA/gkVOh97WvKfjUTN1cozhH0fYD5/
+         F7KSuv+XQBNYtskZwwH/zbeNvymdKva031bKsXwIRrNatOqW/jYCORQ613WRx7xWxhRg
+         ZSQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332458; x=1794937258;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QgcKWslE/fvIIVroU82DW+IQYjBmplAQL93Fdoq2p50=;
+        b=RZWk5YyS6WvQP/obUTHY8rDozkYLRgswVUC5wc0YWGJQr49q7AzwsMHVXrGIbCfwuG
+         I2OBgTPdxmmKI52os4FhVlM2ti47rvH1tN2cZu9mjK10WE7kcyDelhq4g3/rnwnI2Scc
+         ASbW7zn7F7IsIb5xXh0pMTzcA3zRBMF2t3457M+JUzIdi2IoZDU08O70hcTqlXa8Wy5t
+         98GZFXn7qmnQm/Lgz3HRUhZEB5dQlZ8CUN788YPOFOyRqFlajynfv+Y5B2SBRpVImv4b
+         l8sBbjJ26DNIF9S9Dya+2Rv+BZ0JzWGqkVHLiuq/57RIMDbX5FO6sOWHNJZxvE/43S0v
+         6b2g==
+X-Forwarded-Encrypted: i=1; AL+hErFPoesQ3IMEea+tJmOHp2p597WWBjDK0Tg3vIGMIveqquDmNm3p8fyEUoOhaep8dwfXub8tgEwONHG1+NY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82Xb29BO6zxFmc/O/EYAKIrdJov3loRKAdZlFnxUGFj/+YDNzp
+	NteXID/u1jUMPkPWWeBYUPmOp7v0adwnkvKGaEomZExxcAU3DDpGms/S7vc3C+MNn8C3MpcPQWS
+	MCxuG/w4kTqvsajl2Rd/tLj5Z/dQ0510=
+X-Gm-Gg: AYBFou3qukFCL2hrJZGXU2DnIqMzBTGzt5tWdUZZDBhheyxfQNelOI4dZXya1JyzEk+
+	KLxs+weQQXbmJeyoQUfi8p+sE8KqUCZNIribECKeqOmgBqxuvfWGpnoz9h04sCF/ImG9cPvo/Rd
+	UUT4ZJJPunAGFdQMTxJrJVr5gNZ7b2moZSdjxpmiZLZfjXESY3/N1UC/XT+W1TQdtInTKh2ZABW
+	l7SoPLS3vjkTEQN42Dm1L8yHcnALy3X0dfIk6LpybF9+RXilAxKDuxqqvlX4VhKYiQ22MFt4xwB
+	ns0mvvtf49jBu57Caia/BmuX0s2pCacyOkmo9cfGBOOtsOru46JOz/92kpuioUgrTeT7rKBfq6m
+	H1VJyxZaAuezft7j4odiOaSljFr6j4urrfSn+DiQYdRu9kD2klG94gqzKUA4F/jwSiVhja2h87a
+	L6nFXo5Tkba9Vjd35KhF6nNxB8uIshuaucdgsaTIYQsPgvDskWZZZG
+X-Received: by 2002:a05:6512:1256:b0:5c1:4bbc:45cf with SMTP id
+ 2adb3069b0e04-5c156ed1806mr917830e87.48.1794332457809; Tue, 10 Nov 2026
+ 09:40:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,63 +105,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261110053238.3794500-1-sshegde@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261110054836.1515030-1-senozhatsky@chromium.org> <20261110054836.1515030-5-senozhatsky@chromium.org>
+In-Reply-To: <20261110054836.1515030-5-senozhatsky@chromium.org>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 10 Nov 2026 10:40:45 -0700
+X-Gm-Features: AclHuK9g-rt6zF29XhO_FN13akwxVP6MwcYrtYAv2oyltJQHd3ALM1tNti6L_YM
+Message-ID: <CAKEwX=MWLim2q7RaSchFRZ215avMfW161hKAKhxs888NgRRMOw@mail.gmail.com>
+Subject: Re: [PATCH v2 04/11] zsmalloc: switch handle type to struct zs_handle
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/11/26 06:32, Shrikanth Hegde wrote:
-> Christian Zigotzky had reported that preemptible kernels don't boot on
-> his FSL Cyrus+ board. The board freezes on running either full/lazy
-> preemption and has been an issue for a while now (years!).
+On Mon, Nov 9, 2026 at 10:48=E2=80=AFPM Sergey Senozhatsky
+<senozhatsky@chromium.org> wrote:
 >
-> https://lore.kernel.org/all/b897b0fd-90f2-4215-bcd4-3714e497d773@xenosoft.de/#t
+> zsmalloc handle is an unsigned long that holds an address of a
+> handle_cachep object, so zsmalloc and its users have to cast it
+> back and forth.  Introduce struct zs_handle and switch zsmalloc,
+> zram and zswap to struct zs_handle pointers.  Functions that only
+> read the handle take a const pointer.
 >
-> After 7.0, there is only preempt=full/lazy which removed the
-> preempt=none/voluntary workaround used to mask the issue. There was
-> challenge is getting the console logs which made the fixes difficult since
-> one couldn't know where the issue is.
+> This is a preparation for embedding struct zs_handle into zram and
+> zswap entries.  No functional change.
 >
-> Thanks to Michal for helping in getting the logs. That pointed at few
-> places where the issue could be. This series is an attempt at fixing
-> those.
->
-> Christian, I haven't taken the tested-by tag since patches have
-> changed quite a bit.
-> Please help in *testing* the patches again.
->
-> v1->v2:
-> - Re-order to avoid preempt count dance (Narayana Murty N)
-> - Do only hard_irq_disable on PPC64 to avoid second warning. On PPC32
->    use local_irq_disable to acheive the same. (Ritesh Harjani)
->
-> v1: https://lore.kernel.org/all/20260928110411.844582-1-sshegde@linux.ibm.com/
->
-> New API ppc_hard_irq_disable could potentially be used in other places.
-> There is similar pattern of doing both local and hard irq disable and
-> likely not all callsites need both. But it is a larger effort and due to
-> my time limit, it will be taken up subsequently.
->
-> Shrikanth Hegde (3):
->    powerpc/irq: Add ppc_hard_irq_disable()
->    KVM: PPC: BookE: Load FP and Altivec before enabling the interrupts
->    KVM: PPC: Use ppc_hard_irq_disable before guest entry
->
->   arch/powerpc/include/asm/hw_irq.h | 17 +++++++++++++++++
->   arch/powerpc/kvm/booke.c          |  7 +++++--
->   arch/powerpc/kvm/powerpc.c        | 14 +++-----------
->   3 files changed, 25 insertions(+), 13 deletions(-)
->
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-I patched the RC2 of kernel 7.4 with these three new patches and 
-compiled it again [1]. The patched RC2 preempt kernel works with KVM HV 
-without any problems.
-
-Tested-by: Christian Zigotzky <chzigotzky@xenosoft.de>
-
-Thanks a lot for your help! :-)
-
-[1] https://github.com/chzigotzky/kernels/releases/tag/v7.4.0-rc2-2
-
--- 
-Sent with BrassMonkey 35.0.2 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_35.0.2)
-
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
