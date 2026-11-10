@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292881;
-	b=PuueJnPZZpuBT2C/6MTOP7YtKMX+Zu53uVByVNUJ7P4tGbY3hqVF0rq0RFpiXefBdRWG
-	 w8iCoxIQAaq+lD5Ao8e6D26ZNmTATp8gj/4mEatPW070aYYULRNn/khLof0unN6UYTfMD
-	 rKe6zUbwcd7mv9CbxsWqOnyowoyaqt7VyR8vELgALiWDBVFZeJX87qy5iq+dsdmjUHbEH
-	 7gVUjtO/Elxessta1RwTSE8f7TimgNsFFFaUxuZRiw2CcF4IQ9z3QSEUqeHWjtgzqoUpi
-	 RHMWPCMkKO22ISHQQccQatHP0Jycrs4ZSk7ig9pw8x3PEzWOj/bmgtp4eLQ/3adaitg==
+	t=1794292880;
+	b=WAOIWpMp8i4d8ukSPoWQCom0uifRTtXzGgQF3lKzyTZEtZzooKxOFKaDtd629uJfH80W
+	 3bRoJ3I4Bo0dslOjMqS5nbP94U9xaqZlrEDmnx53ZsEDlfn0vjE8Yyvqzb7rZo8T7PJU0
+	 HsXUJqL8AEwrYtebr2yMbmK0iQk1+ujybWPF7rMWbpq2lf0GVWI6Y19Z1X1z6ZhF7xo+J
+	 nDd9i/jdH2p/scfFaXP2Fxg4QQyli/i0LRq5+r6kX1hZiCYwmnbW617qrEB2SMeicn5Lr
+	 HbXbYz4htlMTAwiJv3C3MbDYos/SMcvnrvpxv4yjQDvwCbYpRGviXHZDhTn8JcUcMgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292880;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2JFZFDYVdATotefp7Zy4yVOt+9nOnmZbJSkewmSL7Qo=;
-	b=4g8/mx4NKh1tltwyhEbN6OaUwIQCfBanhKJLBtmWSzSZTa0vN1uZM572r4G2JCG4t0o4
-	 NXRje37C5p72WC6aqt3Ofdzn8J99R+4L45pSuh4nborKiQXQ55w/IoabrFZKiLPOWNW3z
-	 go8aJ/52FzQbQH9qmZFaC6TybICWjHIow1FU/z0kKOArivzve1zyzAT9ga6PGF5Nk2sc0
-	 Jb3YBCVvjl3ehNvhedNbe5FUGIhdyApRkXtjMPNnknZ638GZt/QajRbIco3pA/SGCMB1Q
-	 lJwtIlwf+E5vQILubEQkwF4nKN/+zxgbJq6/lF0H5Va9YzeS5VlmM+oln8XpxDXRUPw==
+	bh=TpoFMfBEKNmv/ZRxvPnDbtx47PzSrWE39balC9JkGA8=;
+	b=ZwvVNiJo2HYTKpoqEsvNJtLkOeLUCXftD/5BH1knFIPIoUCShQYUZ+gAsILTRLSF4FxL
+	 lwxwQi4xftJk1u6k2TgPwszBPd/LiEDXtkh0uVs1J8nJ/EXjS+v3pt3rG8iuRtSSuorub
+	 QZqrW+rHT1aftjcvBLknW5MQAsq3SE6zy+jyrxENOwxqhmyJALOgg8fPS6lpNLpnj6E00
+	 lg+e3/agO/Z6jwSlhEZ8sC8ld4u9gjCveYNgsx1mIx03wkns0bNG3nAIh/BTdw1OiC5+7
+	 UFn+f/mIZ9rS4rMYIKKcu2Mfk9ST/7RFhexubETJ8b3ynHPnaKWsdhf0UiAwJNbJ7Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yqlQK6h+;
 	arc=none smtp.remote-ip=111.22.67.137
 Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20BAC606A31C;
-	Tue, 10 Nov 2026 06:41:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20BAC606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F3DE60A2614;
+	Tue, 10 Nov 2026 06:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F3DE60A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yqlQK6h+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=RR3z1RrYP4Q08RQCmTuRHQUrRpb85QVZVYMnd/IA5oIrUjOnCTpVpuRfS2zhYwZz8o1BZnpxmzHA6
-	 30yWC8GJkXyBqlhVZCgNGqV4aslty2Eo9mUOTWtLwdIbSOugjSKZDZ869EEJ6eUIUGHTtHp+ybC7qZ
-	 equqclaLL4FKzYRk=
+	b=yqlQK6h+NKVAlN2VMbiR+K0iRDNPIBM/WucNVnIPndkvTzSMdU25/R8RvV8xTF6KYXFrD3B1rVywm
+	 MMur5Rt2aubk7XX8EFTcjbEQp4sa8HBmr8Ll30UFQrCXwagmMi6t2Y0LnPgq8U8bWPe5n9CDvemoyT
+	 oWO1tpyq1x3dHZzY=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af2bc867fe-6b8f5;
-	Tue, 10 Nov 2026 14:41:10 +0800 (CST)
-X-RM-TRANSID:2ee86af2bc867fe-6b8f5
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af2bc8d840-6b656;
+	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
+X-RM-TRANSID:2ee46af2bc8d840-6b656
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa101;
-	Tue, 10 Nov 2026 14:41:10 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa101
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa11c;
+	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
+X-RM-TRANSID:2eea6af2bc812f6-aa11c
 From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/22] usb: cdns3: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:40:45 +0000
-Message-ID: <20261110064105.20335-3-shishunbo@cmss.chinamobile.com>
+Subject: [PATCH 14/22] usb: misc: fix a few spelling mistakes in comments
+Date: Tue, 10 Nov 2026 06:40:57 +0000
+Message-ID: <20261110064105.20335-15-shishunbo@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
 References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
@@ -72,96 +75,50 @@ No functional changes.
 
 Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
- drivers/usb/cdns3/cdns3-ep0.c    | 4 ++--
- drivers/usb/cdns3/cdns3-gadget.c | 6 +++---
- drivers/usb/cdns3/drd.c          | 2 +-
- drivers/usb/cdns3/drd.h          | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/usb/misc/emi26.c | 2 +-
+ drivers/usb/misc/emi62.c | 2 +-
+ drivers/usb/misc/ldusb.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
-index e29989d57bef..5d6d3616bfc6 100644
---- a/drivers/usb/cdns3/cdns3-ep0.c
-+++ b/drivers/usb/cdns3/cdns3-ep0.c
-@@ -643,7 +643,7 @@ void cdns3_check_ep0_interrupt_proceed(struct cdns3_device *priv_dev, int dir)
-  * @desc: pointer to usb endpoint descriptor
+diff --git a/drivers/usb/misc/emi26.c b/drivers/usb/misc/emi26.c
+index 24d841850e05..a0fd80082043 100644
+--- a/drivers/usb/misc/emi26.c
++++ b/drivers/usb/misc/emi26.c
+@@ -198,7 +198,7 @@ static int emi26_load_firmware (struct usb_device *dev)
+ 		goto wraperr;
+ 	msleep(250);	/* let device settle */
+ 
+-	/* return 1 to fail the driver inialization
++	/* return 1 to fail the driver initialization
+ 	 * and give real driver change to load */
+ 	err = 1;
+ 
+diff --git a/drivers/usb/misc/emi62.c b/drivers/usb/misc/emi62.c
+index 3eea60437f56..d29b5312f627 100644
+--- a/drivers/usb/misc/emi62.c
++++ b/drivers/usb/misc/emi62.c
+@@ -211,7 +211,7 @@ static int emi62_load_firmware (struct usb_device *dev)
+ 
+ 	kfree(buf);
+ 
+-	/* return 1 to fail the driver inialization
++	/* return 1 to fail the driver initialization
+ 	 * and give real driver change to load */
+ 	return 1;
+ 
+diff --git a/drivers/usb/misc/ldusb.c b/drivers/usb/misc/ldusb.c
+index 71132a15e771..1072abab9659 100644
+--- a/drivers/usb/misc/ldusb.c
++++ b/drivers/usb/misc/ldusb.c
+@@ -2,7 +2,7 @@
+ /*
+  * Generic USB driver for report based interrupt in/out devices
+  * like LD Didactic's USB devices. LD Didactic's USB devices are
+- * HID devices which do not use HID report definitons (they use
++ * HID devices which do not use HID report definitions (they use
+  * raw interrupt in and our reports only for communication).
   *
-  * Function shouldn't be called by gadget driver,
-- * endpoint 0 is allways active
-+ * endpoint 0 is always active
-  */
- static int cdns3_gadget_ep0_enable(struct usb_ep *ep,
- 				   const struct usb_endpoint_descriptor *desc)
-@@ -656,7 +656,7 @@ static int cdns3_gadget_ep0_enable(struct usb_ep *ep,
-  * @ep: pointer to endpoint zero object
-  *
-  * Function shouldn't be called by gadget driver,
-- * endpoint 0 is allways active
-+ * endpoint 0 is always active
-  */
- static int cdns3_gadget_ep0_disable(struct usb_ep *ep)
- {
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-index f4dfd0131708..ba10ef9ea656 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -452,7 +452,7 @@ static void __cdns3_descmiss_copy_data(struct usb_request *request,
- 			       descmiss_req->actual);
- 			request->actual = length;
- 		} else {
--			/* It should never occures */
-+			/* It should never occurs */
- 			request->status = -ENOMEM;
- 		}
- 	} else {
-@@ -1062,7 +1062,7 @@ static int cdns3_ep_run_stream_transfer(struct cdns3_endpoint *priv_ep,
- 
- 	if (!(priv_ep->flags & EP_STALLED)) {
- 		trace_cdns3_ring(priv_ep);
--		/*clearing TRBERR and EP_STS_DESCMIS before seting DRDY*/
-+		/*clearing TRBERR and EP_STS_DESCMIS before setting DRDY*/
- 		writel(EP_STS_TRBERR | EP_STS_DESCMIS, &priv_dev->regs->ep_sts);
- 
- 		priv_ep->prime_flag = false;
-@@ -1404,7 +1404,7 @@ static int cdns3_ep_run_transfer(struct cdns3_endpoint *priv_ep,
- 
- 	if (!priv_ep->wa1_set && !(priv_ep->flags & EP_STALLED)) {
- 		trace_cdns3_ring(priv_ep);
--		/*clearing TRBERR and EP_STS_DESCMIS before seting DRDY*/
-+		/*clearing TRBERR and EP_STS_DESCMIS before setting DRDY*/
- 		writel(EP_STS_TRBERR | EP_STS_DESCMIS, &priv_dev->regs->ep_sts);
- 		writel(EP_CMD_DRDY, &priv_dev->regs->ep_cmd);
- 		cdns3_rearm_drdy_if_needed(priv_ep);
-diff --git a/drivers/usb/cdns3/drd.c b/drivers/usb/cdns3/drd.c
-index 42f13757d904..7465a2a4fb2d 100644
---- a/drivers/usb/cdns3/drd.c
-+++ b/drivers/usb/cdns3/drd.c
-@@ -58,7 +58,7 @@ static int cdns_set_mode(struct cdns *cdns, enum usb_dr_mode mode)
- 			/*
- 			 * Enable work around feature built into the
- 			 * controller to address issue with RX Sensitivity
--			 * est (EL_17) for USB2 PHY. The issue only occures
-+			 * est (EL_17) for USB2 PHY. The issue only occurs
- 			 * for 0x0002450D controller version.
- 			 */
- 			if (cdns->phyrst_a_enable) {
-diff --git a/drivers/usb/cdns3/drd.h b/drivers/usb/cdns3/drd.h
-index 1e2aee14d629..0b134c1e5a49 100644
---- a/drivers/usb/cdns3/drd.h
-+++ b/drivers/usb/cdns3/drd.h
-@@ -160,11 +160,11 @@ struct cdns_otg_irq_regs {
-  * Value of the strap pins for:
-  * CDNS3:
-  * 000 - no default configuration
-- * 010 - Controller initiall configured as Host
-+ * 010 - Controller initially configured as Host
-  * 100 - Controller initially configured as Device
-  * CDNSP:
-  * 000 - No default configuration.
-- * 010 - Controller initiall configured as Host.
-+ * 010 - Controller initially configured as Host.
-  * 100 - Controller initially configured as Device.
-  */
- #define OTGSTS_STRAP(p)			(((p) & GENMASK(14, 12)) >> 12)
+  * This driver uses a ring buffer for time critical reading of
 -- 
 2.53.0
 
