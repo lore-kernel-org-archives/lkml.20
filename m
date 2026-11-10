@@ -1,92 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287226;
-	b=SkQtfJaSyXgQIozTGT4TKOhfIpNq28a8+1Ejcw/vpKOafxaAWCTM5PafkfcXO657EJBx
-	 6sTVUARAzsGXU/aOGySofWqeZEZwtfLm8MVQd2jKI5CYaN4x/K+nj2ew7vYlTp2hJQlyd
-	 8K5Awk7irIp7oppJVss9cZ8iuxcr/yR+gwwCGIeddudjq3Mge1MkD5Q1cRCtKf8tgOrED
-	 dbyyPhJWJvGzNhrjDa25k75WdbLTO6TuOplh6ae65HpsCVKVfRg41K+PcjEi/cD5SD1Gz
-	 mWPU0BGvgzen/pes7k2SggMrcyNB4kTXa2tO7llozRoc/KejWQ7G/jODeu/EJD1me3A==
+	t=1794287248;
+	b=kMM/5mloDI2I05obyVuA7TUNCAr8Xjox99UwX0EwK4S+OUEW58sRLPa0Ra/aTyCMx1Sq
+	 lZRoNuP8s/mdYUuN6FoDzX7Ph6gmicXpUZr9aceu6QF38of5AI52MyVn32bPTeKKnTpv8
+	 kieIT0xEcpXnOPWA1bZKk8Yz1QEmYSw183Va17LgDOYbQR2AmO5w8OCg155aREngAH8KW
+	 dWI1TmUGXYq4yd48pqoV/F4jpsO6EgOXIkjN+yJ5etmgFJ/UTeiuUG2tRFcR44rZ6dgyW
+	 sQImOwKwl0luq3pkByAPNo44WGrWGjGhMKiEZNHi/p1WDELKRsE7UG3+WzH9PrFXFlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287248;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=2seNUxR80lWFNHMOtGuOcjLvb6hw83oNlRxRNGGUWvE=;
-	b=g0vom2wiehOxniMN+zP8uAiG3u4K3uLZtQC4NvdIwTwWOUUI5bAnu19h8m7+G31vdqmb
-	 Iah/RrHfZpJ5uZ+yvT1WIC87TTP2M4o7VWnF9QnPPcOZnZL9fkaFhI7LyjXk3gXB+C7Ct
-	 StuuRAad0z5Z0mc4iMSPrN4ijgJN2A6+zkdeaZi9I+0mUesXUSSSn5wDdc7peQieUUCKt
-	 nd6ML9/X45XHVd3M/yAdQIcbZJQ6ilZhPUoVY1b56jqtNePnde2uvpi5Cqfq00OlHiV0g
-	 nfrD7DmIhx80mj4gg0JKTj42+QnrJ3GnPxxcbM7+F9RMTNCc0QD0lR0254V34XltGlg==
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=BC5Q69ueJVBYfSsdQ2qZHA2Rh61G6UD4sUcf6Ljc8BU=;
+	b=31kcpbcw5oDvnsNy6HgEv8UIAhcSLMhEbiIPHxgNth0HY1QohsjUaHrPbycIJ4ctEU76
+	 k7JNXGNwRuxGJiOdatx/S24HQ61m9NbD6yj1AekMXDrwxxDojcXPIshLL+KslDSW0eDJR
+	 ijvr44R73qL59oXCS9Xh2bh9oiX76m5w/Lp6l5PXokv1Ta7iaFn8erCCB4qxmS8drnDAd
+	 Fk3/qRNa9psnwMQtI22uVD25zK0+xBqjbA29jdDsWo/lk48Nw2bgShr2R8RUENJc0Ryy7
+	 cxIUYpbOmQZlu5jx2N/TgJy+QULFKXmZErcLz8DFN/9orOSok8Mk088Ew1ktp28aflg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cryspen.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EAE606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:07:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4EAE606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708E1606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:07:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 708E1606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dee593f18so961953f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:07:05 -0800 (PST)
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so19504025e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:07:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794287224; x=1794892024;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2seNUxR80lWFNHMOtGuOcjLvb6hw83oNlRxRNGGUWvE=;
-        b=RrHrfSaIVpM2K4HeISySsCLIZtTr3OAmsV/fbhIoDU9kdTR4n3neXbP0Zz05yXyFvu
-         E1Ui98TCx5k8HQ7m5cLPKzS+YyC/8LvUyjoC1nIa62L4rx2olkfYSuCWE5dQNGjY36EZ
-         fx5rK3W99cyX7FWcmgzvkJbjYc1x0ATkiO8OxONjJWo71U/kChncsbghmWuPOmV6UnZY
-         TkSZvDAM+YGF3IYdziOQkbzSMdhQYfIg1MYQnDEnklpG/wddvXRb8qId2/zFt9TpiUMh
-         QBd3xiQAllVLE8iGa6Tcjw/EViDA3uetNQbyL4EvD2UlmdG1/CvCqe0tW3w4ia/hntVY
-         vibw==
-X-Forwarded-Encrypted: i=1; AL+hErFMXWzEYJka0z5NhNAaW7JbW4zOjgiwQ3es+eIB0r7aRmUbm/YWiiG7VYZQ+Bt6uFa6D28Yrl9/K3LHPps=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eg7Y3feE7F6Jb23knYMqi3grWJXwXkyQc6RDGe8ZxrRIG2nOS
-	T0SE/j32TeRgikeRAVuB+2Gj3TnXZlZrUq0HxEaGByeJg9Hg4Y06jE2U
-X-Gm-Gg: AYBFou2JcmjdQFlaAOjtcLezFDYs1OsnTmSjlXIGW3BXWJL8HdxNbBsJ/7FTEhasSF9
-	NFtLvIiQxEh1AoNOoS1024Jr0lybXjPm4RqRu305LiuWo1uGmsY/u06UxfwvLdxVeJyt0Fcrul1
-	wuadAWwsG16nlt217AUGYx3wHUi3aY69qqV4ed5IOfEeirSm44jZ68WELwW3qUKYRPr0NdD4JPL
-	DVx6rb2ErKBxo3d3In6Il0fRa9BNbgLB2TGJ0PxErCKrDndMfcW4rCChHr54sWiCfuZrGBlK8Zb
-	V2mODrliC8lp0ea0V4C257WWzKXt3wvnf5T80GZg2cNN+oOgC17Do/ERpBbhsdJX7mx2+noX6zA
-	UJvLIqC69ew3x5LR6i6CnG3h2VLuEw2qalqlWLuzzRaFA2rlDERPFXZtz8V/jm3Qih5wDNyA4W+
-	BeWSrqXoekxgLkUCXKpON4tqq78mm1ey2IigbVZp6HyBBW5IrDoFtB/aXPCDxVQCpipxUj+S90v
-	y4OvM4AIauueP+5ONq5XvbzivlcLlioP+ty6rAzH5+l5oqu2RuReABquo9poNRYS+5Ex0VKoZ/R
-	2CoJUihxGOuyNw/XmQPNpnwIq5KU67i/6M1ITATN4y9IY5GgbHf7/bDpWyLZUK3oTWbh2WWNIYF
-	wm9rbaPICDkpIcmdDL2f2zoEpGkEa7/NkxC5ABrMsywIX1fG10S42ypflCVE74EOvJeSN7TFluX
-	luprHLFDlSIg==
-X-Received: by 2002:a05:6000:25fb:b0:48c:7f18:c85e with SMTP id ffacd0b85a97d-498305da14amr2288609f8f.45.1794287223902;
-        Mon, 09 Nov 2026 21:07:03 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794287247; x=1794892047;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BC5Q69ueJVBYfSsdQ2qZHA2Rh61G6UD4sUcf6Ljc8BU=;
+        b=I9jxZ8RFHP8dmo3AmGyKW+xewMFhwxNDzCOeNyNr58ITPw3HfTStaYSbMofjdT+eqy
+         gjd1wZD4WsTQ2CPq+Rs1H4wqsEpjaKnNtDbJnN/M2ZAXepgXUSb52s4kvwWJBfjyDL+a
+         78MAb/9ZcMwowtkAnUKsJK4PO1N8g1TvvuK19UDHrtr/UR7m4r6dLduztM4PtEslsKVl
+         QW9vqVXkgljazMOAkWJOpDGCFwXSSJvMjteoZifB7NGZSxfZlC5FXNdBiEvxAFa1RHOG
+         PgCCbwRQNXc4z49Ec4qu7hJawzRTUJZ/EloPG3l0ItCssmq3cXIYvHnFF3kxUwGljvBo
+         +bCg==
+X-Forwarded-Encrypted: i=1; AL+hErFoMsBxI7trGCNfRAArJ7SHmze3hU5CRaEu/yTVk4lFmaISuPr8OFPsKmU/Rk7qSioZEAJ9mvzSj2DOiXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hELXXeWrnyKDFlCiWVINBcNUwIS8jDgdoI/wuP4HwSdM0jhaQ
+	YZNnsytnr+xDkNVZ3MDb4VV6AC2sk6HBMyf73+Qxg0h8V4NPEn5SHe+x
+X-Gm-Gg: AYBFou2PtXVxDgUklmSy4sR22bx3q4Y6Wjr33CTsKExf7NfhIbdL/V9RjheC8Lq43rc
+	Deg3mYX9t7gKzoH29Od45of1IOK+I6A6nvs8yytsTTa8/QfUBx2ZXWpQ/I1eSw5owVd7VP+nRoO
+	KhO5clV0N6HNiEsB5GHShksG+pNRpqPmm4BSFdPcLByYSOjODxM2RqNKH4zbe37cNUi/RLJjqTs
+	j2iRiqMxaaOLBPEnNYTkwNjuWCT9WP3Va+dFBzSOSpTtsXDMVuSbBH9kA++EmyTcE1la/KTmakO
+	PlFE1nqxaAk99mHyloqeeOUAnPy9QhHPcgTxam9HOYpm970K93rYCyvzoCYc01QvWGaPuEq61h2
+	OVEunPY9RSAg7yH4GzdOIzKikJGPtWN9/wjxcIjOiZ3GTbQue9zd67ZwDi5VtzVbFYXdXBG6YsS
+	VPjtWrnDdQyuW38ntsIg6jTysMiF/sTZlmR+PgCBgL8Qn6YHuE2B21W6xKMt6ze+y/zICEwMBVv
+	ulzjVnTQBMNEQ2e3MACrFZWz9dbqtVOrZvrkpYMYzbAfN6vV82Z0UG5mQbV6VX3Z5mV4nu+tmRl
+	f7jJIY8NW7NpC2HArLnToGcCQSznWFpbD4uLfG257HGj25KrecZ9nrmhme/p8pS1rIkFxTjfkeV
+	xxrEP0MZiWE2gMd3pdbNuY0bQr0IMvIrAKdyVqFhGmjMBaYD9uK6Mx3cpvIWAg+DL
+X-Received: by 2002:a05:600c:1914:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4ba0233797dmr18691015e9.10.1794287246749;
+        Mon, 09 Nov 2026 21:07:26 -0800 (PST)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988bdef64dsm1332172f8f.20.2026.11.09.21.07.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba022fe1absm26105625e9.0.2026.11.09.21.07.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 21:07:03 -0800 (PST)
-Date: Tue, 10 Nov 2026 08:06:59 +0300
+        Mon, 09 Nov 2026 21:07:26 -0800 (PST)
+Date: Tue, 10 Nov 2026 08:07:22 +0300
 From: Dan Carpenter <dan@cryspen.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH] rcuscale: Constify struct rcu_scale_ops
-Message-ID: <avKmc-690MOAGJc5@stanley.mountain>
-References: <3f546f8e102ef271e7d5ac6d8b6a1f44d0fb20cb.1794085327.git.christophe.jaillet@wanadoo.fr>
- <20261108230623.GA3148953@joelbox>
- <2727df26-9f09-48c9-90b5-2d1416c3b2b1@wanadoo.fr>
- <730e60cb-30fd-43a3-8152-543b4ba5878e@paulmck-laptop>
+To: Eric Auger <eric.auger@redhat.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Carlos =?iso-8859-1?Q?L=F3pez?= <clopez@suse.de>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Jackie Liu <liuyun01@kylinos.cn>,
+	Christoffer Dall <cdall@linaro.org>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
+	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
+Subject: [PATCH] KVM: arm64: vgic-its: Reject ITS_REGS offsets above U32_MAX
+Message-ID: <f4b5c3247f88b9c469758f8e14a386364332f9f4.1794251681.git.dan@cryspen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,63 +91,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <730e60cb-30fd-43a3-8152-543b4ba5878e@paulmck-laptop>
 
-On Mon, Nov 09, 2026 at 10:44:16AM -0800, Paul E. McKenney wrote:
-> On Mon, Nov 09, 2026 at 06:32:15PM +0100, Christophe JAILLET wrote:
-> > Le 09/11/2026 à 00:06, Joel Fernandes a écrit :
-> > > On Sat, Nov 07, 2026 at 10:02:25PM +0100, Christophe JAILLET wrote:
-> > > > 'struct rcu_scale_ops' is not modified in this driver.
-> > > > 
-> > > > Constifying these structures moves some data to a read-only section, so
-> > > > increases overall security, especially when the structure holds some
-> > > > function pointers.
-> > > > 
-> > > > On a x86_64, with allmodconfig:
-> > > > Before:
-> > > > ======
-> > > >     text	   data	    bss	    dec	    hex	filename
-> > > >    45585	  24946	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
-> > > > 
-> > > > After:
-> > > > =====
-> > > >     text	   data	    bss	    dec	    hex	filename
-> > > >    46545	  23986	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
-> > > > 
-> > > > Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> > > > ---
-> > > > Compile tested only.
-> > > 
-> > > rcuscale is a test kernel module, is it worth adding boilerplate for
-> > > non-production code sighting security reasons?
-> > 
-> > Oups, now I better understand Bradley Morgan comments.
-> > 
-> > I didn't notice it was a test module.
-> > My patch makes no more sense, as it is not hardening runtime, so feel free
-> > to just drop it.
-> > 
-> > Sorry for the noise and not seeing it by myself.
-> 
-> Although the header comment does say "Read-Copy Update module-based
-> scalability-test facility", maybe there is something that should be
-> done to more clearly mark code that is not to be used in production.
-> And maybe to inform the LLM review bots of this.
-> 
-> But this is bigger than just RCU.
+The "offset" variable is a u64 that the user controls through the
+KVM_SET_DEVICE_ATTR, KVM_GET_DEVICE_ATTR and KVM_HAS_DEVICE_ATTR
+ioctls.  The problem is vgic_find_mmio_region() truncates the u64 to a
+u32, so it could return a valid region instead of failing.  Then we
+use the original incorrect value of "offset" to calculate "addr".
 
-Christophe has been constify things for years and years.  There is
-an argument to be made that it's just the right thing to do whether
-this is test code or not.  Someone might copy and paste it, for
-example.
+	addr = its->vgic_its_base + offset;
 
-Of course, everyone is overloaded with AI.  I feel like normal cleanup
-patches are more likely to get NAKed because everyone is just totally
-overwhelmed.
+The impact of this bug is relatively minor.  A user in the kvm group
+could potentially crash the VMM which they can already do without using
+a bug.
 
-regards,
-dan carpenter
+Fixes: 8331c23c28e8 ("KVM: arm64: vgic-its: Implement vgic_its_has_attr_regs and attr_regs_access")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dan Carpenter <dan@cryspen.com>
+---
+ arch/arm64/kvm/vgic/vgic-its.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 5ce485485a11..532a82bed24c 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -2018,6 +2018,9 @@ static int vgic_its_has_attr_regs(struct kvm_device *dev,
+ 	gpa_t offset = attr->attr;
+ 	int align;
+ 
++	if (offset > U32_MAX)
++		return -ENXIO;
++
+ 	align = (offset < GITS_TYPER) || (offset >= GITS_PIDR4) ? 0x3 : 0x7;
+ 
+ 	if (offset & align)
+@@ -2045,6 +2048,9 @@ static int vgic_its_attr_regs_access(struct kvm_device *dev,
+ 	its = dev->private;
+ 	offset = attr->attr;
+ 
++	if (offset > U32_MAX)
++		return -ENXIO;
++
+ 	/*
+ 	 * Although the spec supports upper/lower 32-bit accesses to
+ 	 * 64-bit ITS registers, the userspace ABI requires 64-bit
+-- 
+2.53.0
 
