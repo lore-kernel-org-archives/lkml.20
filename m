@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290472;
-	b=qQ0zsd6AUqLjI4majU40ZlcbNk9KsiWEkSfBDVms+mskfyoeoxI4Tw9HkaSGQ8t3eisY
-	 KHkCfTRGLuEDlMtMv3WUM2bZ5cty2kCtgfgN3AcfQ6NNN2nytT0WD83Ik/7Gjo3Xjq8T0
-	 i1mRT1y9HE5nAxRwmaQDws5Jhe/uyo4ehjbv9B74QBmdZbFYqYHl0O3ZRQVkV9usvQ36N
-	 0bLTfbaAKleE+jqcFKPx2lbVYiMsGemolsAvPg6EFV4nSR5AvXrzObbsvQCXrfI7FafAb
-	 JKlhTFFUOYeajvRXHWk7NumD/K5/ebFIvocjmrMCHvyHp13LZo0GQjLWwn9nXMSzTYg==
+	t=1794290504;
+	b=ss3MxkJaXx3VIaCII24xrOmWMLLrNRkg5qCDQwuZ00rQKSpijxdiWt91cr9aTUYdiBNc
+	 0RZft09XQstPHzVFbWpnrjQ6ksVVnl6BZ8fkbDrafUHq5KiFSnlyqV/19fM4Jf//LROpj
+	 ORHQ4QoeXtVVIHxAwE227wKpVvvJjGFGhqamPiuwQ5hby2t2Q2ZQ+za52G19bRpjfu2sy
+	 Zy8Xt+uo17sK4eSXDE403vec+ogARt0+4q6qNt2HDL8wPvs+RnQko75vXIveKGrmnSbby
+	 O/HxyYcUpaqWCaNAG4N850+YZUTSaGNBibCMx7REaYXr4wM19zQdUU+egGz5RphrMYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290472;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VLh8JQ8NDxlXvfdd8nmZgCeYY6KJkmD5D5lm9FmA80I=;
-	b=G4bwA+yKqtHN7tPJJ2cAx3IWMlndUrGvXHtqkpFL7+I651duUnLRou8bYfcQQIenWBzW
-	 6YiD2qUKh7AZJc+PIy6drihMQRBbLvztII3eV1UXQtJCm5eXhuvzABjLihW0jqpJMSrNr
-	 fAoR2k7vSOymfPBIIy8yjK2C7z7z0qhkGEc9VTGVke4PZRCHi0MZEl5xOjS2nBmBlk2tb
-	 WeaZ9clg+8zdNJqwR/MJUj/nksI2MWnxul11SMWwLttX9JGubeLRZnkDJntyJq5ac0eJJ
-	 /OsKl5jUwS1eVc/P1tMK9+im9dR86CNY1lqM51zSTBN2BYQhmVJFjtJoCLtea8Nzw+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290504;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JmICRKQID+0ulQo3yfMRoaH0uyFxjYtLwmbQRsLy1kA=;
+	b=wlEGgRalp/bNegK3LZswOHtljPnh5931jLUq6l7LStG86KozAq+/DYp96ZKOQa9hQR3W
+	 5G+F74JuV9EuDKInL50DQHozQhXGPGgL11i7OWE6rsntryWOvhbR+nnwcCmCvqKIa+zQ4
+	 9l621gz3dla1qj1BlR/AWgjTRb2+kMawPcnqCROuPiaEcwthXG+deX/zaCECrkH31BiGU
+	 +DDoX+OZaViOEdvP9s/dniF0iZubYXHS1OoVK+6hjHuAlcTkc4S+EgDw5nEtQ3E02VHii
+	 AfuOmfKZQiAhj1nj1luhMPtx099LiYY4F+IxUCG7uEiGacOuO7SDyqZZc7pGzElxJpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJjwAxu;
-	arc=none smtp.remote-ip=95.215.58.141
-Received: from mta1.migadu.com (out-141.mta1.migadu.com [95.215.58.141])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=C81mm3OD;
+	arc=none smtp.remote-ip=115.124.30.101
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB4D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB4D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37A5606A31C;
+	Tue, 10 Nov 2026 06:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F37A5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJjwAxu
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VA3K6iPo/olQKGrY3SmZDnY715mLMX0FXtR/KjMqe7Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794290469; v=1; x=1794895269;
- b=lXJjwAxuAyUigPchBpexbmn0zCmwp8bYRR0IhFKbYxZ6sAuSu9WOnlwmUqQmKmES4Zo6BmzD
- 1OUYjlLuHFgvRVo8XSG2TZ+w4KGzA0AAXSf9Yu+IIPxqIqKXATyhQattCvw1mKezI6I7/e+4gWJ
- Uw+GzuJvSc0FC0JFea1QJnQw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2ff0dc8c22bc786c;
-	Tue, 10 Nov 2026 06:01:08 +0000
-X-Mizu-Trace-ID: 2ff0dc8c22bc786c
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 22:01:06 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mingyu He <mingyu.he@shopee.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Muchun Song <muchun.song@linux.dev>, Yosry Ahmed <yosry@kernel.org>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, littleswimmingwhale@gmail.com
-Subject: Re: [PATCH] memcg: keep propagating stats updates to ancestors
-Message-ID: <avKy9oMwDRjKjfzm@linux.dev>
-References: <20260911032905.63683-1-mingyu.he@shopee.com>
- <aqRXqcynCx88D2QK@linux.dev>
- <CAAoBcuS=sqOAPFr9Gda9aTwuCMHMPzBMEee8qvPNHtNxrRWKuw@mail.gmail.com>
- <asy_L2s1TNcN7bOK@linux.dev>
- <CAAoBcuS5VJwsYyw9=77SaBUf3N1hL8NfRtGwpBhmyUUhT4+T8w@mail.gmail.com>
- <CAAoBcuRfhFf4p5qfWZnNs5=4foeE6jtGFggG5XHmMi6cXwje9w@mail.gmail.com>
- <20261109212410.ca24bffef1abcd50b3f58c13@linux-foundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=C81mm3OD
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794290494; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JmICRKQID+0ulQo3yfMRoaH0uyFxjYtLwmbQRsLy1kA=;
+	b=C81mm3ODPtW7jWMequR65auKje/UTnUUBiDmhUeveKsHonaFncoKFL7KlmaDs7o71xzo3eboapnVy6xdLEkGipwnsiLvkoTI7Uj8Tm/q6IdlJcIBPtq3StBGLu+nCH/lgsGzjv5M3jnUSpMsePf3ONpuly5qrSFMp3jvN/HXyns=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XEUDAMA_1794290490;
+Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEUDAMA_1794290490 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 10 Nov 2026 14:01:32 +0800
+Message-ID: <cb36df5b-ef41-4a2b-b8a9-848d5c12e44c@linux.alibaba.com>
+Date: Tue, 10 Nov 2026 14:01:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,16 +53,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109212410.ca24bffef1abcd50b3f58c13@linux-foundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: vmscan: allow writeout of swapcache folios
+ without anon mappings
+To: Nhat Pham <nphamcs@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+ axelrasmussen@google.com, baohua@kernel.org, baoquan.he@linux.dev,
+ brauner@kernel.org, chrisl@kernel.org, david@kernel.org, hannes@cmpxchg.org,
+ kasong@tencent.com, ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, shikemeng@huaweicloud.com, weixugc@google.com,
+ willy@infradead.org, youngjun.park@lge.com, yuanchu@google.com
+Cc: stable@vger.kernel.org, ryncsn@gmail.com
+References: <20261106160432.2552507-1-nphamcs@gmail.com>
+ <20261106160432.2552507-2-nphamcs@gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261106160432.2552507-2-nphamcs@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 09:24:10PM -0800, Andrew Morton wrote:
-> On Tue, 10 Nov 2026 11:17:37 +0800 Mingyu He <mingyu.he@shopee.com> wrote:
-> 
-> > hi, gently pin this email.
-> 
-> I think Shakeel is suggesting that the bpf caller be altered to also run
-> css_rstat_flush() regardless of the update threshold.
 
-Sorry for the late response. Yes, just always force flush.
+
+On 11/7/26 12:04 AM, Nhat Pham wrote:
+> Unfaulted zswap readahead folios can be dirty and in swapcache without
+> an anonymous mapping. pageout() rejects them before swap_writeout(),
+> so reclaim cannot write them out while their swap entries remain
+> referenced.
+> 
+> Allow swapcache folios through the filesystem folio check. They already
+> have swap entries and can use the existing swap writeout path. Anonymous
+> folios outside swapcache have no mapping and already return PAGE_KEEP.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/sashiko-outbox-181078@kernel.org/
+> Fixes: 84798514db50 ("mm: Remove swap_writepage() and shmem_writepage()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> ---
+
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
