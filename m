@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341983;
-	b=nOfIl6tnPis2Uaz+XZAR2HzDg3O/bDxCj1+vl3IVNlONMv+Kn6snxq4t0ULta+aE394T
-	 +XlpT5L+dbfiG7iOyet/1F26hFcbd+8UKdr7mkyLAbXjf8e2VdNB4v3P4Fyq2Oek6OX2I
-	 bTyc4s8DS7HGkGNpWTJMASXTiaQpu22pJaQnkPRDneu9fYYy20+evbCZPJfyMa/OyiNeq
-	 K+QZRh5dBrXmnrW/YR9MBawrwDC2JagNhdj0zQcgoGK3IwVWriJEtjUvHwnqrhsoIZM2A
-	 4ZIDi48cgszyoAZ0rsNtP4q1bxlwdAjk9i/6u5BjqJEQtZeaMa5ZUSXw/RuFPdHM8YQ==
+	t=1794341995;
+	b=k+Kb71FqPj3S0+FpEykjRA73BxeEErF5nb44SBWR22mxsKGFt1wBkKFIjvLRqxFN7d3Z
+	 GsSZh//rrsNwrn6DLYGClObgdWtEDaDTbzi+7LSORNDatJc124m2eBOfBjcMXLIZ7JU4O
+	 fYtS9XmFfDGo+zpgxwL1MCv4ShTV3o0iSOG2xmrIs0VJ5NhFSoTvAT+2CUayuYMETzKpa
+	 145GDfyWg6EUgy+7OZdvyHmEy4MuAfXePbcHP1HOL4td1KI/iS92Thky2hdGfD59lZJb8
+	 SzWMWrivRIP4wSHEOV94107yy2DzMBAc/iNDhKEGG862GzLvRO1r9R4b7hNvX4T+R/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341983;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Rqy05NhlUV5BjanU34c5iOE+GBzU8rBDGQIQzRYoUdc=;
-	b=cvqdQsHec/B0YKTWwNK5xQ5ltfCgC+RDu3a0biiHxYfcLWC4T8sp9quLO6qAWj/2RUtq
-	 DgShRwRxu7h8HNOQYn8RhEEIh5+e/xrhRNnN37qH6UkVgN7TpqicufFPuKjkCf8bjZLDq
-	 vK19ifJlH2OgouGLXXF4QRzSehV5FRCmFLABWvrYwPMPYvep3WRtbq1lwCPZj/I8e3iF6
-	 UBxc1o4vGABNoxilX9HLt4vyTtmuBOMS3MdgfNRA1X43mHhWNVqOBXPl5lbtm3tosCnx8
-	 uX+5qcnLXfeB2g6u5dN2S/CTf2ziuRhgSPQHOJAVZ55o6THr1bPPfWDiyUJnDuMQh4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341995;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sA+c0y1gtg/3n5Y+gL1JpZOKDFrA6DPjieeMuAQE0Nw=;
+	b=sY16h5OpDbMsSNXuZc5ZVzeMbYyN0o/tedvaxCJNXl6zzQJyAAqqaXBNibE/9ndr0pvj
+	 vn+ZjnT7sGNS5kxqqI5E/qsoAnIJ9ZpUOJ78xllG56X/h1gPhD6VMAnxi0bJYUWIX+Gw4
+	 5gADYU3Ky3nMRcE2YjqwiEAg3LSj1EvYUSbBRJRGIoUcm3WpiPaeQXVSmqTK7BjeBFKYH
+	 a4JJxhUIxuKmHLVEVEouRN8lTZ4k2VmapLr9XxVmXeswQkJeMxetoOeKaqNCXHgRCf1rX
+	 MutJROnrjxrtTdFz3dbMsPX2TUoXuyHOWth/sRr/PdurQ6cyt8ehd9CbboZWEponu8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K1lUGFZH;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CCC8E606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:19:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCC8E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aP0X0iPt;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E375606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:19:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E375606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K1lUGFZH
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD0591477;
-	Tue, 10 Nov 2026 12:19:37 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C22FA3F85F;
-	Tue, 10 Nov 2026 12:19:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794341980; bh=YcUtf8s3nEe4c07U3pzR0x25fAU/uZ4ZSOAodtFGIC4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K1lUGFZHGwG996BA9mqSWjm7RkxTjcA7UKIzyNKKoscn95BhhfZEQevkP0Ts6799j
-	 prdxvNx6p3ReV9oKcpz1q/0x7bK/EGQhE0O92mz9H5+v6yV2aZOAW9f/eyGD2SsAJD
-	 AAUHLa6OpYFXKbl5a9W1rpf3d9isIhoWnNuuE05Y=
-Date: Tue, 10 Nov 2026 20:19:36 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Rik van Riel <riel@surriel.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-Message-ID: <avN8WISVUF7u4bXl@e129823.arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
- <7627c0d90188b581e7740bf8d17c8dd07b460f89.camel@surriel.com>
- <avLqwIWHa5CAbHO2@e129823.arm.com>
- <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
- <699499e46ace0875fd0f32052399e665c8209ea9.camel@surriel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aP0X0iPt
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdd77f53db5so1275213a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:19:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794341994; x=1794946794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sA+c0y1gtg/3n5Y+gL1JpZOKDFrA6DPjieeMuAQE0Nw=;
+        b=aP0X0iPtBrwNmhdMirAtRHYzTNScUoza0tcUi09jz2/7DAeJrq2GSp2y1EWXDpGpf6
+         t+FoZ+jWY3xcdigvRR/oe2vxrnJcsD4GDSMCFvmqwGcoTb+b6x8Uoo4YcSTE5EbqIEy7
+         nv2NJyNk6nyHPmxgiZ8MY0JHInxmm2+tw1OeAmv7GtSi2+neoYEKw5vzF4+z9DL+nZT4
+         i0/2fS3s7Mz1VtKSFUpC/6CopEGZDoAtbP2KkTakh1JcZqkqFX5yRjhL7X74J2MxRE14
+         zwXfLstdzwXLoaEI+e7hSKHqRsz4B2JSJWP+dLjpApkiNS/p5JPglF1s+krjd0gNRv8T
+         2O4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794341994; x=1794946794;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sA+c0y1gtg/3n5Y+gL1JpZOKDFrA6DPjieeMuAQE0Nw=;
+        b=jcfL9JAqjiQx4fe52d1X9SCM4c6uBBwyyKZhx+R4wLrz+NV8Jco6qRRy7XH/Je3zdB
+         QXeCsAtdqbjuRjCWZLe4wEFYA7OWOaFcylRb6F6wC85F0myDIMIX7yrwPtprOilhElwu
+         +ARlverPa3g84tu3ooJiO5bEdmuMCX3tCmi0W6Ldr/2+QbR0hDxBeQK0w4PMmoiGZFqV
+         6hqpdLsBEF/2B/Y8nluFaMnBSGm9OgJSHlj38FI5815nw4LmyC6+fKddDbEHzF8qDQQc
+         Z873DURGRPC/BqqG+GfH8K6v++YrgWpurG4m8AauwwPp608Bo5cdqrtfDpCaYUvWw5Uw
+         PZ9g==
+X-Forwarded-Encrypted: i=1; AL+hErE5/gx+KxiHimTtvFh05obxPVAoHCNZPpZp1m3xNlo5A8uyabu16AYHymZAPflQoYhIgLtkgZ664x3VpSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HaUtYIUMj6oWz6f8AWZcE3I01mJA1/Wev6wYp/rBUAhzNI/XB
+	XQ7vf1R50SeaJfbn/peOFZJ9f5XB66AZL2I6KUjl1TjQQgt+LbCayN9pad5hDrELIgFVkJyJNi0
+	15N8M1A==
+X-Received: from pghf7.prod.google.com ([2002:a63:e307:0:b0:cd7:f985:396d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1446:b0:3e2:a849:64c5
+ with SMTP id adf61e73a8af0-3f2fc99f9aamr241125637.19.1794341993521; Tue, 10
+ Nov 2026 12:19:53 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:19:52 -0800
+In-Reply-To: <20261105020104.2507083-7-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,49 +79,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <699499e46ace0875fd0f32052399e665c8209ea9.camel@surriel.com>
+Mime-Version: 1.0
+References: <20261105020104.2507083-1-dwmw2@infradead.org> <20261105020104.2507083-7-dwmw2@infradead.org>
+Message-ID: <avN8aJIHiX4xyTNO@seanjc-mac.roam.internal>
+Subject: Re: [PATCH v2 06/20] KVM: x86: Request the guest TLB flush from record_steal_time()
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, rcu@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, Paolo Bonzini <pbonzini@redhat.com>, 
+	Paul Durrant <paul@xen.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Fred Griffoul <fgriffo@amazon.co.uk>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, 
+	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com, 
+	David Woodhouse <dwmw@amazon.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 02:21:18PM -0500, Rik van Riel wrote:
-> On Tue, 2026-11-10 at 14:04 +0100, David Hildenbrand (Arm) wrote:
-> > On 11/10/26 10:58, Yeoreum Yun wrote:
-> > > Hi Rik,
-> > > 
-> > > > On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
-> > > > > This is preparatory patch to make gup_fast_pte_range()
-> > > > > batchable.
-> > > > > 
-> > > > > Introduce gup_unshared_pages() to count consecutive pages
-> > > > > within a
-> > > > > folio
-> > > > > that do not require unsharing, and use it to implement
-> > > > > gup_must_unshare().
-> > > > > 
-> > > > Could gup_exclusive_pages() be a better name?
-> > > 
-> > > Yes. This seems much better for me. I'll change it in next-spin.
-> > 
-> > Not quite the right semantics. For pagecache folios we simply don't
-> > need
-> > unsharing in MAP_SHARED VMAs. That does not imply that these are
-> > exclusive.
-> > 
-> > So it's all about "number of pages that don't need unsharing".
-> > 
-> gup_no_unshare_len() ?
-> 
-> a little awkward sounding, but it describes
-> what it's doing?
+On Thu, Nov 05, 2026, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>=20
+> record_steal_time() performs a TLB flush on the guest's behalf when the
+> guest sets KVM_VCPU_FLUSH_TLB. With shadow paging,
+> kvm_vcpu_flush_tlb_guest() ends up in mmu_sync_children(), which can
+> reschedule via cond_resched_rwlock_write(). That is why the flush
+> currently sits between a user_access_end() and a fresh
+> user_access_begin(): it cannot be done while the guest page is mapped
+> for access.
+>=20
+> Raise KVM_REQ_TLB_FLUSH_GUEST instead of flushing inline, and move the
+> processing of KVM_REQ_STEAL_UPDATE ahead of where the TLB flush requests
+> are serviced in vcpu_enter_guest() so that the flush still happens before
+> the vCPU enters the guest. There is no requirement for it to complete any
+> earlier than that.
+>=20
+> kvm_make_request() on the vCPU which is running is nothing more than a
+> barrier and a set_bit(), so unlike the flush itself it can be done from
+> any context =E2=80=94 which lets the surrounding access be simplified lat=
+er.
+>=20
+> Note that the xchg() must stay where it is: it atomically consumes any
+> KVM_VCPU_FLUSH_TLB which the guest has set, as required by commit
+> b043138246a4 ("x86/KVM: Make sure KVM_VCPU_FLUSH_TLB flag is not missed")=
+.
+>=20
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260530061932.7849D1F00893@smtp.kern=
+el.org
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>  arch/x86/kvm/x86.c | 26 +++++++++++++++++++++++---
+>  1 file changed, 23 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 6a1f0404f029..3c26c0eb9865 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -2117,8 +2117,22 @@ static void record_steal_time(struct kvm_vcpu *vcp=
+u)
+> =20
+>  		trace_kvm_pv_tlb_flush(vcpu->vcpu_id,
+>  				       st_preempted & KVM_VCPU_FLUSH_TLB);
+> +		/*
+> +		 * Request the flush instead of performing it inline. With
+> +		 * shadow paging kvm_vcpu_flush_tlb_guest() can reschedule
+> +		 * (via mmu_sync_children()), so it could not be called while
+> +		 * the user access above was open. Requesting is just a bit
+> +		 * set on the running vCPU, and the request is serviced
+> +		 * before the vCPU enters the guest; nothing requires the
+> +		 * flush to have completed any earlier than that.
 
-Hmm, Wouldn't this name be semantically much the same as keeping
-the existing gup_unshared_page(), since both essentially convey that
-no unsharing is required from GUP's perspective?
+Argh, I completely forgot about this.  It throws a big wrench in my plans t=
+o fix
+a mishandled TLB flush without using a deferred mechanism[1].  I really don=
+'t like
+having to re-introduce deferred flags, but the diff is a lot smaller[2].  O=
+n the
+other hand, I still don't like the idea of delaying the MMU sync until the =
+nested
+VM-Exit.
 
-Anyway, naming is always NP-hard problem :\
+I think I'll see how gross it is to do something like add a KVM_REQ_PV_TLB_=
+FLUSH.
 
-
--- 
-Sincerely,
-Yeoreum Yun
+[1] https://lore.kernel.org/all/au0R41xbEJ_9W_9z@google.com
+[2] https://lore.kernel.org/all/auDkX94UTjrLNmqp@google.com
