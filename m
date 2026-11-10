@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279303;
-	b=STTLfgvx0obsnMQaBihtepnXsa4AMTw0j+kX839ypjMMEsL0iwp2vaqoSglTQCocVAYu
-	 Ori7r3RBYAHbe2C82LSia36pfCoz0B0vHSLrPdKCt7rSwZPQby5tCiKcXxAGaDtB1Ziro
-	 0RYBrTwT2CGtDbiTa7PNMAZEox7o/9pfVhJFDZjrEqcms1FciVa1OhtVXKE88/zvUWv5l
-	 gldchwSC5O7dJXhzM4MYR4ygTAFEfQTi2AykYi2BgtamdOO/HvvwzccEP6bCfz1qb8Grn
-	 4uS1X+g0XCIY9OhrH8Recd+mxxmKAQdYmli+u7bM7G8a0tEJRiuSy9ALX6UErz1Lb7Q==
+	t=1794279322;
+	b=vT39oNrMYo/zpcRrOztL6T3hCvZ0ReCjY2dMv7YkVLUj0eVGxWPVbU31J9b3+HsTocVA
+	 AZ3+4Cc7JPGjPzANOwjpUFpS+ENIu64dsi2UHeh4+SZfPry9C01ahgVXgVePqt+5zWy0F
+	 oxjkDKKZ5HbSXuJrXzAdwY2/9dvnoAQO787QuFCkABXBPbp1Dy6g4IWyGfcgIjyndb0HB
+	 CNJSQwxqGbqd6fY18IJHe4svACRTuxzLGEV94/RH81VuZUqobPuSUoalca9SREy7+ni9J
+	 48rjn4TYZUtAsrUAT4qFlIlZVTQD4CWWNIqiuSCe9MHuX2HpRbuW5Wl2t46ZdaFpu2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279322;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=dP0+wjyOwX9AjuPhQG9DeKIc+ii1jJ//qhhRI1Y+lHo=;
-	b=Z4UjfbR6ExhFb/ozB4C+/IXo4Vyxv6/rYkm702ul0ts2SLphwBZMfgNplcmcxAIlvsoo
-	 O2+EJ+zaTN9CJH4sHnEMe21soeHC3c/1Dk4daXCLwmcjMtaHX7wV3XDon2J1jiN38HW8w
-	 rEJODFx78DQ7BRq5MQi/fXSND5ofAlghzBlMXf/uxjE/4bdYTtViruNWAYoud47Ujtghq
-	 qA6IGiClPvRT2+clybTkkJ7dPjaBCKRQ8qas19YqbDUFYAuqS2SUWlPLeyRcFCleS9E4/
-	 vegBwwoaJT8fHfTImcok6l/Rksik+dOXXW8iP7YDv6zX9M5Fv7u6Fy5drju4dzfllOA==
+	bh=ZPBtGIOGFLrEbxTWvg5dr/Uvnp+M0Ms0sRfcLMTJMA4=;
+	b=3tDTBParEQB7sObpJZOXYcRwhV5ogp84Uo447SQaXGQKINcINOSgWib0+6VtLZu4QQ8F
+	 dxJHum+jCdocGoFv5j5z1mdmXynXl3pFOD5rNGvZXuI+zzcaNdTffz5/QOtFUDoy24CDF
+	 UgVghuwqHGzite19oQmnFri/14OiH4NahrowcFy3xwj/cgdGcag9CXVJEyjIKpUhrzsHi
+	 VgfjxjZDhyzYuajlT7uAIxXKWZQBDgdc/iUO7Y9NVF1KRzNp7dP0MC5IVDLZZZF3wJloa
+	 rTnqVqjXL1yi7pyJABfwq0MCWehDCWkzzA9NS70f7HFjb1KEUCAYWCNs+xo61HiLx/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJeN6jKQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAdyYYWR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82144606A338;
-	Tue, 10 Nov 2026 02:55:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5302C60A3807;
+	Tue, 10 Nov 2026 02:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJeN6jKQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86D11F008A1;
-	Tue, 10 Nov 2026 02:55:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAdyYYWR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF3D1F0089F;
+	Tue, 10 Nov 2026 02:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279303;
-	bh=dP0+wjyOwX9AjuPhQG9DeKIc+ii1jJ//qhhRI1Y+lHo=;
+	s=k20260515; t=1794279322;
+	bh=ZPBtGIOGFLrEbxTWvg5dr/Uvnp+M0Ms0sRfcLMTJMA4=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GJeN6jKQzhyj09OP6dHKracKVVZV0ist/9C/93qMZkV/rv+SZVIi4TVAXGWqNN/7V
-	 CMfG82PYV+UKsxkhKZInCbUoLG7g3wtWmr35dMdswBcIC8dNWsl997s2a1w4zlZwT5
-	 UiTwOrIlXTu7ztcgb0P20Zj3Xdq8gSdfHG3jtxlBvGJAErIZ3pgXqLd+Fwko4awBWG
-	 7+nEG0wYaf1XiY/yV6mmSALhNxqwQxONJPbgcre0QXd3H1oOrqajm4LB0fNh4UUYPz
-	 TGioHGJ/MWSr7gUSHaNvh2TXT7CwlQ+hrSwKtEdNwZNxdZBIEXdVKW7+Kw0MciHmeI
-	 5km3lt0HVvXaA==
+	b=gAdyYYWRpCq5zmeCxURVwSsstv+DgEkVOtd9ajI5cyFOwJkm0eSErbQT+3TFrupu+
+	 IBGYCW0fbQmfv9vFkQde/Br/xfKBo8TFtmxToqGLV4zNwOLid7tafrfqIZkRqjExyF
+	 /9vAXzdosoEbp7cfnO3cKxkL7Afxkx7GJK5/OQQnGQ1ZvnOTJUgWNM2l9/APFAmGDA
+	 Q1naPLX4llu+7mcZt76/4300ZfRkZ0sH8K8lMAgInjGTLsvWJrSGaFELFTOpsppiYV
+	 3ggd5oVSVlOclS1232HwKBDx45WDDZeNqyB+kILnhghOIRVIfw7p+TkuY5F+6FdkXh
+	 zxo+i6teP9i+g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D8359391AFCB;
-	Tue, 10 Nov 2026 02:55:02 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id E6323391AFCB;
+	Tue, 10 Nov 2026 02:55:21 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,39 +54,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2 0/2] ipv6: ignore link state in gateway check
+Subject: Re: [PATCH net] netdevsim: check the driver is bound in
+ new_port/del_port
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179427930167.3612825.11874749097898139774.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 02:55:01 +0000
-References: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
-In-Reply-To: <20261104195655.1406837-1-aroslavdudkov622@gmail.com>
-To: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, shuah@kernel.org, weiwan@google.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+ <179427932067.3612825.8436433275701655863.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:55:20 +0000
+References: <20261101135824.24484-1-ngocthang2710.1999@gmail.com>
+In-Reply-To: <20261101135824.24484-1-ngocthang2710.1999@gmail.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
 
 Hello:
 
-This series was applied to netdev/net.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed,  4 Nov 2026 19:56:53 +0000 you wrote:
-> IPv6 gateway validation can reject routes in non-main tables when
-> ignore_routes_with_linkdown is enabled and the nexthop device has
-> no carrier, even though these routes should be added.
+On Sun,  1 Nov 2026 20:58:24 +0700 you wrote:
+> new_port and del_port are attributes of the bus device, so they stay
+> reachable after the driver is unbound. nsim_drv_remove() clears
+> drvdata, yet both handlers pass it straight to priv_to_devlink() and
+> devl_lock(), which faults on a small negative pointer:
 > 
-> Fix this by ignoring link state during gateway validation and add a
-> regression selftest covering IPv4 and IPv6 route installation.
+>   BUG: unable to handle page fault for address: fffffffffffffeb0
+>   RIP: 0010:__lock_acquire+0x41/0x2de0 kernel/locking/lockdep.c:5140
+>   Call Trace:
+>    lock_acquire+0x115/0x350
+>    mutex_lock_nested+0x55/0x1d0
+>    nsim_drv_port_add+0x5a/0x140 drivers/net/netdevsim/dev.c:1760
+>    new_port_store+0x1a5/0x280 drivers/net/netdevsim/bus.c:96
+>    kernfs_fop_write_iter+0x3a5/0x540
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v2,1/2] ipv6: ignore link state in gateway check
-    https://git.kernel.org/netdev/net/c/b76bcf3fff93
-  - [net,v2,2/2] selftests: fib_tests: Add carrier gateway test
-    https://git.kernel.org/netdev/net/c/d1b6b27005b4
+  - [net] netdevsim: check the driver is bound in new_port/del_port
+    https://git.kernel.org/netdev/net-next/c/98aaf4da98d2
 
 You are awesome, thank you!
 -- 
