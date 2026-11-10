@@ -1,68 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311393;
-	b=b3dGKrOzhFqF56W4MvFTn40HDLQ2iy8Ez8ki3B0VFOCidAs74lRIg6Jsz38b5sPd5UEX
-	 JjYpODMmOoRAvygc6XrsVR0+HidARJAyvGyV4R9t+6PJ+hqBb47TnDkudcozy+XaJfsE8
-	 LEPX6Vqsy2wm1pZcKIgYVAunQnL/OcATlHBHf6WAKnnL0gCv2c83BL9sHPmyn1UZlfMVo
-	 OwGrMsxcVgxRTwL/seInFy1oeZau81J0lsdK1vBj4Ehq7ulaUQKzc5uJHkRTLklYKgedQ
-	 az5hTAls8j03e9RFWhb77Ym8d7W0vW8GJkS4nfmjHGZ/gWdJ3X+m60fXYgH2ZqlxCvA==
+	t=1794311391;
+	b=P5pzW7JLR7qzCPxNd1eSFZjTt1N2EqzW11VI1G8HUc+fWOYT4mCkBpipOxf2UTKzGn9N
+	 mVpVSC6QR1mX2KY+uC0pp5xqoGZTjSBMK61Rj9OqZn6/creTMyIA5U0i/1ENAonfbhSnu
+	 IPNxmwgymJnerJHykK81IAXmbH5/7GUlDDwJsHw+OpPHfSbv1UGuvwIihla/XnL1mkKax
+	 M99QmyZ2AlXf1iZ78G6NEzrFbSwAY4NZxQSxlVZXMolFDTI7u/Zcu2LdLQcSVa5tlI/zZ
+	 Jox0S4nSG6MNwz9plqIGwQWOA0jha+JpSpRnT6A+AadglzZ9mKf1PBpZ/33r4ppRgAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311393;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311391;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-MTK;
-	bh=9aNihLfspzcJmlfmEdJOtj5UX2p4wEHCG19deddpt3s=;
-	b=SEwZZ41CqCD+fZFj3nBjqTCvx6m8fZqbJMEftuaq6HpuTd+SiznwrO08wOjx38Wf4EYy
-	 hDgtdxW96q8MeTazokz1UjUcQjHxtYqSDfkaYcStWOCCiKrRLtNj8cDclpMkFSu8OKOOi
-	 LTHR5HDG9ak2czTj9+zQikVGp4UCQuRdywx8xE0CjrJPjzRptsXESLlxUOpdNIfh81pD1
-	 NHVbcmHzz0fZ0U2ueHSg033gSFOMqOx1Y5jrUEdpQJMuEDdP9d4GxJPdSBmeFVYynWUuu
-	 sfcUp1/J6yIwNji3/3EjD9SqnJ0CAwhVbNGb4zFEykj14ToRn8Hc5IvAzseirlyZ/eg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=9bPyGKj5EoonbYmsf3p5oTJawnP3BXim6BPgdU5RcTo=;
+	b=cN/msdUF+FrMGtOJKFxMYzT3/M3r9qXNkQJclhJTm/NMRXpBnd2CRFKkGPqRaoAzD0Rz
+	 9gE/FHzCXdPY2f6eHzTCl+PnS+Y2XgvfZ9xOInmDPvoyDotNgjQ25mSMjkF8NWawZX0Wr
+	 JryLP+d21kTN26fnik445i7TIqTnjuxGmXeaoH+HOe9+0piVYJa+arwnKlTqMTMRUwsVi
+	 wVp44QCG76H/7aXUa6OoWDqumc6rmsSrgiYivBda+rW95dHRAx6jMT3gjMBshx2xmsWm6
+	 qG98WvjVMVnhe14R0QsahZbYtI4p7VBcylm0xM5xXQysbeSWvIY+SrOx8FRULdC7jqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lQwPOTun;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="Rm/5N78V";
 	arc=none smtp.remote-ip=60.244.123.138
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4003C60A2616;
-	Tue, 10 Nov 2026 11:49:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4003C60A2616
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45316606A32E;
+	Tue, 10 Nov 2026 11:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45316606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=lQwPOTun
-X-UUID: d22cc4a6dcfc11f1b1788b6acf885367-20261110
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Rm/5N78V
+X-UUID: d2a7cd72dcfc11f1b1788b6acf885367-20261110
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=9aNihLfspzcJmlfmEdJOtj5UX2p4wEHCG19deddpt3s=;
-	b=lQwPOTunFVkz5z5bzUgITfWYkpENEbR8vGVHOI6xzMMVG+CylxON1SomTQZt41vYDtD38u2ZTq12wBUZymLHRkEHmmFf2iQFu7c/PYMEXXafiyTIiJlhvtohPhbhIMVlFzxRUq80odnHVTG/m8tELbw/O42dbLnhDYspi4lwwjM=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=9bPyGKj5EoonbYmsf3p5oTJawnP3BXim6BPgdU5RcTo=;
+	b=Rm/5N78VkzL00bJxgDT0XSOpyaqv2XvBZ/9CXvwsVPqOyuUCEilYcTvycdBH4EgXvha58OvtA6pzqUzvIIffxNhd6HszqMRlhC1BgOe4MWt6bUeNAUERDrV1u6ZR2jf2aBgaAf/wzzUAsADQ9fo5pujtmR40aLp/Yv9wnbVH1Lo=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:26e92a9f-cd36-4467-a3b8-94545144e8e6,IP:0,U
+X-CID-O-INFO: VERSION:1.3.21,REQID:05858302-5bc3-47cc-922b-669ae7e5b612,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
 	N:release,TS:-25
-X-CID-META: VersionHash:b0318ac,CLOUDID:86428d8d-b3e7-4795-ae33-b1b4d51e21d7,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:04221966-4b51-4c95-bb1b-80ac6aad9c96,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d22cc4a6dcfc11f1b1788b6acf885367-20261110
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
+X-UUID: d2a7cd72dcfc11f1b1788b6acf885367-20261110
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
 	(envelope-from <chunfeng.yun@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 741618514; Tue, 10 Nov 2026 19:49:44 +0800
+	with ESMTP id 1136918857; Tue, 10 Nov 2026 19:49:44 +0800
 Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 10 Nov 2026 19:49:42 +0800
+ 15.2.2562.29; Tue, 10 Nov 2026 19:49:43 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 10 Nov 2026 19:49:42 +0800
+ 15.2.2562.29 via Frontend Transport; Tue, 10 Nov 2026 19:49:43 +0800
 From: Chunfeng Yun <chunfeng.yun@mediatek.com>
 To: Mika Westerberg <westeri@kernel.org>
 CC: Andreas Noever <andreas.noever@gmail.com>, Konrad Dybcio
@@ -73,9 +73,9 @@ CC: Andreas Noever <andreas.noever@gmail.com>, Konrad Dybcio
 	<linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-mediatek@lists.infradead.org>, Chunfeng Yun
 	<chunfeng.yun@mediatek.com>
-Subject: [PATCH v2 3/7] thunderbolt: Make PCIe NHI support opt-in
-Date: Tue, 10 Nov 2026 19:48:51 +0800
-Message-ID: <20261110114925.722014-4-chunfeng.yun@mediatek.com>
+Subject: [PATCH v2 4/7] thunderbolt: add platform NHI driver
+Date: Tue, 10 Nov 2026 19:48:52 +0800
+Message-ID: <20261110114925.722014-5-chunfeng.yun@mediatek.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
 References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
@@ -88,529 +88,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="y"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-MTK: N
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Historically, the Thunderbolt/USB4 Native Host Interface (NHI)
+controller has been exposed as a PCI device handled by
+drivers/thunderbolt/pci.c. However, some SoCs (such as MediaTek
+mt8901/mt8992) integrate the NHI as a memory-mapped platform device
+described via Device Tree or ACPI.
 
-Currently, the USB4/Thunderbolt subsystem directly depends on PCI,
-tightly bundling the core framework with the PCIe-attached Native Host
-Interface (NHI) driver (pci.c) and the Intel Connection Manager (icm.c)
-into a single module (thunderbolt.o).
+To support platform-attached NHI controllers:
 
-With support for platform/SoC-attached USB4 host controllers coming in
-(such as on ARM64 systems), the core USB4 framework should no longer
-have a hard dependency on PCI. Furthermore, embedded or SoC systems
-without PCIe-attached host routers should be able to omit PCIe NHI
-support to reduce kernel footprint.
+Introduce platform.c to register a platform driver matching
+"usb4-nhi-platform" (OF) and "ACPI0015" (ACPI);
+Implement platform tb_nhi_ops hooks for pm, interrupts related;
 
-Decouple the PCIe NHI and ICM drivers from the core framework:
+Support an optional dedicated wake interrupt: on integrated SoCs,
+the MAC/PHY reside in a power domain whose clocks and power can be
+gated during sleep, preventing the primary NHI interrupt from
+acting as a wakeup source; so add an optional dedicated wakeup
+interrupt which comes from the always-on power domain.
 
-1. Kconfig & Makefile:
-   - Remove "depends on PCI" from CONFIG_USB4.
-   - Introduce CONFIG_USB4_PCI to build PCIe NHI and ICM support as
-     a separate module (thunderbolt_pci.ko).
+Clean up the unused nhi_enable_int_throttling() prototype.
 
-2. Driver Registration:
-   - Make the core thunderbolt module standalone by converting
-     tb_domain_init/exit() to postcore_initcall() and module_exit().
-   - Register the PCIe driver in thunderbolt_pci via module_pci_driver().
-
-3. Connection Manager Selection:
-   - Add an optional .select_cm() hook to struct tb_nhi_ops so that the
-     PCIe driver can invoke icm_probe() for legacy/firmware-CM controllers
-     without hardcoding ICM calls into the core nhi.c.
-
-4. Symbol Exports:
-   - Export necessary APIs required by pci and platform drivers.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
 ---
-v2:
-cherry-pick the patch of Konrad to fix the issues of this series, and
-also do some changes:
-
-* Renamed CONFIG_USB4_PCIE and thunderbolt_pcie.ko to CONFIG_USB4_PCI
-  and thunderbolt_pci.ko.
-* Updated exported NHI symbols to standard tb_ / tb_ring_ prefixes
-  (e.g., ring_msix → tb_ring_msix, nhi_msi → tb_nhi_isr).
-* Eliminated exports for nhi_mailbox_* and nhi_interrupt_work by
-  keeping them internal/static (handled by preparatory patches in v2).
-* Added missing trailing semicolon to module_pci_driver(nhi_driver);.
-* Expanded the commit message;
-* Fix cherry-pick conflict caused by .reset_interface();
+v2 changes:
+* Added CONFIG_USB4_PLATFORM to build the platform driver as a separate
+  module (thunderbolt_platform.ko), instead of statically embedding it
+  into thunderbolt.o.
+* Renamed plat.c to platform.c, renamed internal functions from nhi_plat_*
+  to nhi_platform_*, and updated the Device Tree compatible string from
+  "thunderbolt-platform" to "usb4-nhi-platform".
+* Removed domain lifecycle changes (domain.c) and PCI driver cleanups
+  (pci.c) from this patch, handled by previous patches.
+* Squashed the optional dedicated wake IRQ support (previously a separate
+  patch in v1) directly into this patch.
+* Replaced the custom local ISR with the shared tb_nhi_isr(), adopted
+  the renamed tb_nhi_probe() / tb_nhi_shutdown() / tb_nhi_pm_ops
+  interfaces, and added -EPROBE_DEFER handling for the wake IRQ.
 ---
- drivers/thunderbolt/Kconfig   | 11 +++++++++-
- drivers/thunderbolt/Makefile  |  7 +++++--
- drivers/thunderbolt/ctl.c     |  6 +++++-
- drivers/thunderbolt/domain.c  | 14 +++++++++++--
- drivers/thunderbolt/nhi.c     | 14 ++++++-------
- drivers/thunderbolt/nhi.h     |  2 ++
- drivers/thunderbolt/pci.c     | 39 +++++++++++++----------------------
- drivers/thunderbolt/switch.c  |  9 ++++++++
- drivers/thunderbolt/tb.h      |  2 --
- drivers/thunderbolt/tunnel.c  |  1 +
- drivers/thunderbolt/xdomain.c |  5 +++++
- 11 files changed, 70 insertions(+), 40 deletions(-)
+ drivers/thunderbolt/Kconfig    |   9 ++
+ drivers/thunderbolt/Makefile   |   3 +
+ drivers/thunderbolt/nhi.h      |   1 -
+ drivers/thunderbolt/pci.c      |   1 +
+ drivers/thunderbolt/platform.c | 172 +++++++++++++++++++++++++++++++++
+ include/linux/thunderbolt.h    |   4 +
+ 6 files changed, 189 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/thunderbolt/platform.c
 
 diff --git a/drivers/thunderbolt/Kconfig b/drivers/thunderbolt/Kconfig
-index 294b3227a545..605af440457a 100644
+index 605af440457a..846ab51df7ab 100644
 --- a/drivers/thunderbolt/Kconfig
 +++ b/drivers/thunderbolt/Kconfig
-@@ -1,7 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- menuconfig USB4
- 	tristate "Unified support for USB4 and Thunderbolt"
--	depends on PCI
- 	select APPLE_PROPERTIES if EFI_STUB && X86
- 	select CRC32
- 	select CRYPTO_LIB_SHA256
-@@ -18,6 +17,16 @@ menuconfig USB4
+@@ -27,6 +27,15 @@ config USB4_PCI
+ 	  To compile this driver a module, choose M here. The module will be
+ 	  called thunderbolt_pci.
  
- if USB4
- 
-+config USB4_PCI
-+	depends on PCI
-+	tristate "Support for PCIe-attached USB4 and Thunderbolt controllers"
++config USB4_PLATFORM
++	tristate "Support for platform USB4 and Thunderbolt controllers"
 +	help
-+	  Say Y here to add support for the USB4 and Thunderbolt host
-+	  routers attached over the PCIe bus, commonly found on x86 PCs.
++	  Say Y here to add support the USB4 and Thunderbolt host routers
++	  for a platform device on such as ARM64 SoCs.
 +
 +	  To compile this driver a module, choose M here. The module will be
-+	  called thunderbolt_pci.
++	  called thunderbolt_platform.
 +
  config USB4_CONFIGFS
  	def_tristate USB4
  	depends on CONFIGFS_FS && !(USB4=y && CONFIGFS_FS=m)
 diff --git a/drivers/thunderbolt/Makefile b/drivers/thunderbolt/Makefile
-index beb054c3126b..a563bf2b0345 100644
+index a563bf2b0345..334fa4ebdfc8 100644
 --- a/drivers/thunderbolt/Makefile
 +++ b/drivers/thunderbolt/Makefile
-@@ -1,10 +1,13 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ccflags-y := -I$(src)
- obj-${CONFIG_USB4} := thunderbolt.o
--thunderbolt-objs := nhi.o ctl.o tb.o switch.o cap.o pci.o path.o tunnel.o eeprom.o
--thunderbolt-objs += domain.o dma_port.o icm.o property.o xdomain.o lc.o tmu.o usb4.o
-+thunderbolt-objs := nhi.o ctl.o tb.o switch.o cap.o path.o tunnel.o eeprom.o
-+thunderbolt-objs += domain.o dma_port.o property.o xdomain.o lc.o tmu.o usb4.o
- thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o
+@@ -8,6 +8,9 @@ thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o
+ obj-${CONFIG_USB4_PCI} += thunderbolt_pci.o
+ thunderbolt_pci-y := pci.o icm.o
  
-+obj-${CONFIG_USB4_PCI} += thunderbolt_pci.o
-+thunderbolt_pci-y := pci.o icm.o
++obj-${CONFIG_USB4_PLATFORM} += thunderbolt_platform.o
++thunderbolt_platform-y := platform.o
 +
  thunderbolt-${CONFIG_ACPI} += acpi.o
  thunderbolt-$(CONFIG_DEBUG_FS) += debugfs.o
  thunderbolt-$(CONFIG_USB4_CONFIGFS) += configfs.o
-diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
-index 965988b18608..96717a0a94b1 100644
---- a/drivers/thunderbolt/ctl.c
-+++ b/drivers/thunderbolt/ctl.c
-@@ -9,7 +9,6 @@
- #include <linux/crc32.h>
- #include <linux/delay.h>
- #include <linux/slab.h>
--#include <linux/pci.h>
- #include <linux/dmapool.h>
- #include <linux/workqueue.h>
- 
-@@ -96,6 +95,7 @@ struct tb_cfg_request *tb_cfg_request_alloc(void)
- 
- 	return req;
- }
-+EXPORT_SYMBOL_GPL(tb_cfg_request_alloc);
- 
- /**
-  * tb_cfg_request_get() - Increase refcount of a request
-@@ -128,6 +128,7 @@ void tb_cfg_request_put(struct tb_cfg_request *req)
- 	kref_put(&req->kref, tb_cfg_request_destroy);
- 	mutex_unlock(&tb_cfg_request_lock);
- }
-+EXPORT_SYMBOL_GPL(tb_cfg_request_put);
- 
- static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
- 				  struct tb_cfg_request *req)
-@@ -575,6 +576,7 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
- 	tb_cfg_request_dequeue(req);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(tb_cfg_request);
- 
- /**
-  * tb_cfg_request_cancel() - Cancel a control request
-@@ -634,6 +636,7 @@ struct tb_cfg_result tb_cfg_request_sync(struct tb_ctl *ctl,
- 
- 	return req->result;
- }
-+EXPORT_SYMBOL_GPL(tb_cfg_request_sync);
- 
- /* public interface, alloc/start/stop/free */
- 
-@@ -1009,6 +1012,7 @@ struct tb_cfg_result tb_cfg_read_raw(struct tb_ctl *ctl, void *buffer,
- 		memcpy(buffer, &reply.data, 4 * length);
- 	return res;
- }
-+EXPORT_SYMBOL_GPL(tb_cfg_read_raw);
- 
- /**
-  * tb_cfg_write_raw() - write from buffer into config space
-diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-index 24611f05b3cd..114ddd5be25b 100644
---- a/drivers/thunderbolt/domain.c
-+++ b/drivers/thunderbolt/domain.c
-@@ -313,6 +313,7 @@ const struct bus_type tb_bus_type = {
- 	.remove = tb_service_remove,
- 	.shutdown = tb_service_shutdown,
- };
-+EXPORT_SYMBOL_GPL(tb_bus_type);
- 
- static void tb_domain_release(struct device *dev)
- {
-@@ -421,6 +422,7 @@ struct tb *tb_domain_alloc(struct tb_nhi *nhi, int timeout_msec, size_t privsize
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_domain_alloc);
- 
- /**
-  * tb_domain_add() - Add domain to the system
-@@ -514,6 +516,7 @@ void tb_domain_remove(struct tb *tb)
- 
- 	device_unregister(&tb->dev);
- }
-+EXPORT_SYMBOL_GPL(tb_domain_remove);
- 
- /**
-  * tb_domain_suspend_noirq() - Suspend a domain
-@@ -880,8 +883,9 @@ int tb_domain_unregister_unplugged_xdomains(struct tb *tb)
- 
- 	return ctx.n;
- }
-+EXPORT_SYMBOL_GPL(tb_domain_unregister_unplugged_xdomains);
- 
--int tb_domain_init(void)
-+static int __init tb_domain_init(void)
- {
- 	int ret;
- 
-@@ -907,7 +911,7 @@ int tb_domain_init(void)
- 	return ret;
- }
- 
--void tb_domain_exit(void)
-+static void __exit tb_domain_exit(void)
- {
- 	bus_unregister(&tb_bus_type);
- 	ida_destroy(&tb_domain_ida);
-@@ -917,3 +921,9 @@ void tb_domain_exit(void)
- 	tb_debugfs_exit();
- 	tb_configfs_exit();
- }
-+
-+postcore_initcall(tb_domain_init);
-+module_exit(tb_domain_exit);
-+
-+MODULE_DESCRIPTION("Thunderbolt/USB4 core driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-index 1e3a58636d3d..9662d1dd410f 100644
---- a/drivers/thunderbolt/nhi.c
-+++ b/drivers/thunderbolt/nhi.c
-@@ -546,6 +546,7 @@ irqreturn_t tb_ring_msix(int irq, void *data)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_GPL(tb_ring_msix);
- 
- static int nhi_alloc_hop(struct tb_nhi *nhi, struct tb_ring *ring)
- {
-@@ -1018,6 +1019,7 @@ irqreturn_t tb_nhi_isr(int irq, void *data)
- 	schedule_work(&nhi->interrupt_work);
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_GPL(tb_nhi_isr);
- 
- static int __nhi_suspend_noirq(struct device *dev, bool wakeup)
- {
-@@ -1175,6 +1177,7 @@ void tb_nhi_shutdown(struct tb_nhi *nhi)
- 	if (nhi->ops->shutdown)
- 		nhi->ops->shutdown(nhi);
- }
-+EXPORT_SYMBOL_GPL(tb_nhi_shutdown);
- 
- static void nhi_reset(struct tb_nhi *nhi)
- {
-@@ -1216,13 +1219,8 @@ static struct tb *nhi_select_cm(struct tb_nhi *nhi)
- 	 * USB4 case is simple. If we got control of any of the
- 	 * capabilities, we use software CM.
- 	 */
--	if (!tb_acpi_is_native()) {
--		/*
--		 * Either firmware based CM is running (we did not get
--		 * control from the firmware) or this is pre-USB4 PC so
--		 * try first firmware CM and then fallback to software CM.
--		 */
--		tb = icm_probe(nhi);
-+	if (!tb_acpi_is_native() && nhi->ops->select_cm) {
-+		tb = nhi->ops->select_cm(nhi);
- 		if (tb)
- 			return tb;
- 	}
-@@ -1327,6 +1325,7 @@ int tb_nhi_probe(struct tb_nhi *nhi)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(tb_nhi_probe);
- 
- /*
-  * The tunneled pci bridges are siblings of us. Use resume_noirq to reenable
-@@ -1349,3 +1348,4 @@ const struct dev_pm_ops tb_nhi_pm_ops = {
- 	.runtime_suspend = nhi_runtime_suspend,
- 	.runtime_resume = nhi_runtime_resume,
- };
-+EXPORT_SYMBOL_GPL(tb_nhi_pm_ops);
 diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index 3dd6ace6150d..65f9daf36068 100644
+index 65f9daf36068..ef5d24d81251 100644
 --- a/drivers/thunderbolt/nhi.h
 +++ b/drivers/thunderbolt/nhi.h
-@@ -50,6 +50,7 @@ extern const struct dev_pm_ops tb_nhi_pm_ops;
-  * @release_ring_irq: NHI specific interrupt release hook
-  * @is_present: Whether the device is currently present on the parent bus
-  * @init_interrupts: NHI specific interrupt initialization hook
-+ * @select_cm: optional hook to select a custom CM
-  */
- struct tb_nhi_ops {
- 	int (*init)(struct tb_nhi *nhi);
-@@ -65,6 +66,7 @@ struct tb_nhi_ops {
- 	void (*release_ring_irq)(struct tb_ring *ring);
- 	bool (*is_present)(struct tb_nhi *nhi);
- 	int (*init_interrupts)(struct tb_nhi *nhi);
-+	struct tb * (*select_cm)(struct tb_nhi *nhi);
+@@ -27,7 +27,6 @@ enum nhi_mailbox_cmd {
+ 	NHI_MAILBOX_ALLOW_ALL_DEVS = 0x23,
  };
  
- /*
+-void nhi_enable_int_throttling(struct tb_nhi *nhi);
+ void nhi_disable_interrupts(struct tb_nhi *nhi);
+ irqreturn_t tb_nhi_isr(int irq, void *data);
+ irqreturn_t tb_ring_msix(int irq, void *data);
 diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
-index 275389903090..9379c598a221 100644
+index 9379c598a221..698f47ec63da 100644
 --- a/drivers/thunderbolt/pci.c
 +++ b/drivers/thunderbolt/pci.c
-@@ -325,6 +325,16 @@ static bool nhi_pci_is_present(struct tb_nhi *nhi)
- 	return pci_device_is_present(to_pci_dev(nhi->dev));
- }
- 
-+static struct tb *nhi_pci_select_cm(struct tb_nhi *nhi)
-+{
-+	/*
-+	 * Either the firmware-based CM is running (we did not get
-+	 * control from the firmware) or this is a pre-USB4 PC, so
-+	 * first try using the firmware CM and then fallback to software CM.
-+	 */
-+	return icm_probe(nhi);
-+}
-+
- static const struct tb_nhi_ops pci_nhi_default_ops = {
- 	.add_links = nhi_pci_add_links,
- 	.pre_nvm_auth = nhi_pci_start_dma_port,
-@@ -334,6 +344,7 @@ static const struct tb_nhi_ops pci_nhi_default_ops = {
- 	.shutdown = nhi_pci_release_irq,
- 	.is_present = nhi_pci_is_present,
- 	.init_interrupts = nhi_pci_init_msi,
-+	.select_cm = nhi_pci_select_cm,
- };
- 
- /* Ice Lake specific NHI operations */
-@@ -552,6 +563,7 @@ static const struct tb_nhi_ops icl_nhi_ops = {
- 	.release_ring_irq = nhi_pci_ring_release_msix,
- 	.is_present = nhi_pci_is_present,
- 	.init_interrupts = nhi_pci_init_msi,
-+	.select_cm = nhi_pci_select_cm,
- };
- 
- static int nhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-@@ -713,7 +725,7 @@ static struct pci_device_id nhi_ids[] = {
- };
- 
- MODULE_DEVICE_TABLE(pci, nhi_ids);
--MODULE_DESCRIPTION("Thunderbolt/USB4 core driver");
-+MODULE_DESCRIPTION("PCIe-attached Thunderbolt/USB4 host interface driver");
- MODULE_LICENSE("GPL");
- 
- static struct pci_driver nhi_driver = {
-@@ -724,27 +736,4 @@ static struct pci_driver nhi_driver = {
+@@ -736,4 +736,5 @@ static struct pci_driver nhi_driver = {
  	.shutdown = nhi_pci_shutdown,
  	.driver.pm = &tb_nhi_pm_ops,
  };
--
--static int __init nhi_init(void)
--{
--	int ret;
--
--	ret = tb_domain_init();
--	if (ret)
--		return ret;
--
--	ret = pci_register_driver(&nhi_driver);
--	if (ret)
--		tb_domain_exit();
--
--	return ret;
--}
--
--static void __exit nhi_unload(void)
--{
--	pci_unregister_driver(&nhi_driver);
--	tb_domain_exit();
--}
--
--rootfs_initcall(nhi_init);
--module_exit(nhi_unload);
-+module_pci_driver(nhi_driver);
-diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
-index d22d8db8f890..7ff3da79da76 100644
---- a/drivers/thunderbolt/switch.c
-+++ b/drivers/thunderbolt/switch.c
-@@ -2396,6 +2396,7 @@ const struct device_type tb_switch_type = {
- 	.uevent = tb_switch_uevent,
- 	.pm = &tb_switch_pm_ops,
- };
-+EXPORT_SYMBOL_GPL(tb_switch_type);
- 
- static int tb_switch_get_generation(struct tb_switch *sw)
- {
-@@ -2571,6 +2572,7 @@ struct tb_switch *tb_switch_alloc(struct tb *tb, struct device *parent,
- 
- 	return ERR_PTR(ret);
- }
-+EXPORT_SYMBOL_GPL(tb_switch_alloc);
- 
- /**
-  * tb_switch_alloc_safe_mode() - allocate a switch that is in safe mode
-@@ -2610,6 +2612,7 @@ tb_switch_alloc_safe_mode(struct tb *tb, struct device *parent, u64 route)
- 
- 	return sw;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_alloc_safe_mode);
- 
- /**
-  * tb_switch_configure() - Uploads configuration to the switch
-@@ -3438,6 +3441,7 @@ int tb_switch_add(struct tb_switch *sw)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_add);
- 
- /**
-  * tb_switch_remove() - Remove and release a switch
-@@ -3483,6 +3487,7 @@ void tb_switch_remove(struct tb_switch *sw)
- 		dev_info(&sw->dev, "device disconnected\n");
- 	device_unregister(&sw->dev);
- }
-+EXPORT_SYMBOL_GPL(tb_switch_remove);
- 
- /**
-  * tb_sw_set_unplugged() - set is_unplugged on switch and downstream switches
-@@ -3828,6 +3833,7 @@ struct tb_switch *tb_switch_find_by_link_depth(struct tb *tb, u8 link, u8 depth)
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_find_by_link_depth);
- 
- /**
-  * tb_switch_find_by_uuid() - Find switch by UUID
-@@ -3854,6 +3860,7 @@ struct tb_switch *tb_switch_find_by_uuid(struct tb *tb, const uuid_t *uuid)
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_find_by_uuid);
- 
- /**
-  * tb_switch_find_by_route() - Find switch by route string
-@@ -3883,6 +3890,7 @@ struct tb_switch *tb_switch_find_by_route(struct tb *tb, u64 route)
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_find_by_route);
- 
- /**
-  * tb_switch_find_port() - return the first port of @type on @sw or NULL
-@@ -3903,6 +3911,7 @@ struct tb_port *tb_switch_find_port(struct tb_switch *sw,
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_switch_find_port);
- 
- /*
-  * Can be used for read/write a specified PCIe bridge for any Thunderbolt 3
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index e86845762e22..6dfdc47e05d2 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -768,8 +768,6 @@ extern const struct device_type tb_retimer_type;
- extern const struct device_type tb_switch_type;
- extern const struct device_type usb4_port_device_type;
- 
--int tb_domain_init(void);
--void tb_domain_exit(void);
- int tb_xdomain_init(void);
- void tb_xdomain_exit(void);
- 
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 2b911372001c..c92f181f181d 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -274,6 +274,7 @@ void tb_tunnel_event(struct tb *tb, enum tb_tunnel_event event,
- 	kfree(envp[1]);
- 	kfree(envp[0]);
- }
-+EXPORT_SYMBOL_GPL(tb_tunnel_event);
- 
- static inline void tb_tunnel_set_active(struct tb_tunnel *tunnel, bool active)
- {
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index b187a60663f5..af82b86a0348 100644
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -86,6 +86,7 @@ bool tb_is_xdomain_enabled(void)
- {
- 	return tb_xdomain_enabled && tb_acpi_is_xdomain_allowed();
- }
-+EXPORT_SYMBOL_GPL(tb_is_xdomain_enabled);
- 
- static bool tb_xdomain_match(const struct tb_cfg_request *req,
- 			     const struct ctl_pkg *pkg)
-@@ -2196,6 +2197,7 @@ struct tb_xdomain *tb_xdomain_alloc(struct tb *tb, struct device *parent,
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL_GPL(tb_xdomain_alloc);
- 
- /**
-  * tb_xdomain_add() - Add XDomain to the bus
-@@ -2211,6 +2213,7 @@ void tb_xdomain_add(struct tb_xdomain *xd)
- 	/* Start exchanging properties with the other host */
- 	start_handshake(xd);
- }
-+EXPORT_SYMBOL_GPL(tb_xdomain_add);
- 
- static int unregister_service(struct device *dev, void *data)
- {
-@@ -2270,6 +2273,7 @@ void tb_xdomain_unregister(struct tb_xdomain *xd)
- 	dev_info(&xd->dev, "host disconnected\n");
- 	device_unregister(&xd->dev);
- }
-+EXPORT_SYMBOL_GPL(tb_xdomain_remove);
- 
- /**
-  * tb_xdomain_lane_bonding_enable() - Enable lane bonding on XDomain
-@@ -2593,6 +2597,7 @@ struct tb_xdomain *tb_xdomain_find_by_link_depth(struct tb *tb, u8 link,
- 	xd = switch_find_xdomain(tb->root_switch, &lookup);
- 	return tb_xdomain_get(xd);
- }
-+EXPORT_SYMBOL_GPL(tb_xdomain_find_by_link_depth);
- 
- /**
-  * tb_xdomain_find_by_route() - Find an XDomain by route string
++
+ module_pci_driver(nhi_driver);
+diff --git a/drivers/thunderbolt/platform.c b/drivers/thunderbolt/platform.c
+new file mode 100644
+index 000000000000..3562b6c7ea7d
+--- /dev/null
++++ b/drivers/thunderbolt/platform.c
+@@ -0,0 +1,172 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Thunderbolt driver - NHI driver (Platform bus specific implementation)
++ *
++ * Author: Chunfeng Yun <chunfeng.yun@mediatek.com>
++ */
++
++#include <linux/acpi.h>
++#include <linux/interrupt.h>
++#include <linux/errno.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/pm_wakeirq.h>
++#include <linux/slab.h>
++
++#include "nhi.h"
++#include "tb.h"
++
++static int nhi_platform_init(struct tb_nhi *nhi)
++{
++	/* avoid device link fail for pcie tunnel */
++	pm_runtime_set_active(nhi->dev);
++	pm_runtime_get_noresume(nhi->dev);
++	pm_runtime_enable(nhi->dev);
++
++	device_set_wakeup_capable(nhi->dev, true);
++	device_enable_async_suspend(nhi->dev);
++
++	return 0;
++}
++
++static void nhi_platform_clear_wake_irq(void *dev)
++{
++	dev_pm_clear_wake_irq(dev);
++}
++
++static int nhi_platform_init_irq(struct tb_nhi *nhi)
++{
++	struct device *dev = nhi->dev;
++	int ret;
++
++	ret = devm_request_irq(dev, nhi->irq, tb_nhi_isr, IRQF_NO_SUSPEND,
++			       dev_name(dev), nhi);
++	if (ret)
++		return dev_err_probe(dev, ret, "request irq failed\n");
++
++	if (nhi->wake_irq) {
++		ret = dev_pm_set_dedicated_wake_irq(dev, nhi->wake_irq);
++		if (ret) {
++			return dev_err_probe(dev, ret, "set wake irq %d failed\n", nhi->wake_irq);
++		}
++
++		dev_info(dev, "wake irq %d\n", nhi->wake_irq);
++
++		ret = devm_add_action_or_reset(dev, nhi_platform_clear_wake_irq, dev);
++	}
++
++	return ret;
++}
++
++static void nhi_platform_exit(struct tb_nhi *nhi)
++{
++	devm_free_irq(nhi->dev, nhi->irq, nhi);
++	flush_work(&nhi->interrupt_work);
++
++	pm_runtime_put_noidle(nhi->dev);
++	pm_runtime_disable(nhi->dev);
++	pm_runtime_set_suspended(nhi->dev);
++}
++
++static const struct tb_nhi_ops nhi_platform_default_ops = {
++	.init = nhi_platform_init,
++	.shutdown = nhi_platform_exit,
++	.init_interrupts = nhi_platform_init_irq,
++};
++
++static int nhi_platform_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct tb_nhi *nhi;
++
++	nhi = devm_kzalloc(dev, sizeof(*nhi), GFP_KERNEL);
++	if (!nhi)
++		return -ENOMEM;
++
++	nhi->dev = dev;
++	nhi->ops = &nhi_platform_default_ops;
++
++	nhi->iobase = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(nhi->iobase))
++		return PTR_ERR(nhi->iobase);
++
++	nhi->irq = platform_get_irq(pdev, 0);
++	if (nhi->irq < 0)
++		return nhi->irq;
++
++	/* ignore error */
++	nhi->wake_irq = platform_get_irq_optional(pdev, 1);
++	if (nhi->wake_irq == -EPROBE_DEFER)
++		return nhi->wake_irq;
++	else if (nhi->wake_irq < 0)
++		nhi->wake_irq = 0;
++
++	return tb_nhi_probe(nhi);
++}
++
++static void nhi_platform_do_remove(struct platform_device *pdev, bool reset)
++{
++	struct device *dev = &pdev->dev;
++	struct tb *tb = platform_get_drvdata(pdev);
++	struct tb_nhi *nhi = tb->nhi;
++
++	/*
++	 * On system shutdown/reboot force a host router reset so the
++	 * CM asserts DPR on connected tbt3 devices before the router tree
++	 * is removed (see tb_stop()).
++	 */
++	if (reset)
++		nhi->host_reset = true;
++
++	pm_runtime_get_sync(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++
++	tb_domain_remove(tb);
++	wait_for_completion(&nhi->domain_released);
++	tb_nhi_shutdown(nhi);
++}
++
++static void nhi_platform_remove(struct platform_device *pdev)
++{
++	nhi_platform_do_remove(pdev, false);
++}
++
++static void nhi_platform_shutdown(struct platform_device *pdev)
++{
++	nhi_platform_do_remove(pdev, true);
++}
++
++
++#ifdef CONFIG_OF
++static const struct of_device_id nhi_platform_of_match[] = {
++	{ .compatible = "usb4-nhi-platform" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, nhi_platform_of_match);
++#endif
++
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id nhi_platform_acpi_match[] = {
++	{ "ACPI0015", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, nhi_platform_acpi_match);
++#endif
++
++static struct platform_driver nhi_platform_driver = {
++	.probe = nhi_platform_probe,
++	.remove = nhi_platform_remove,
++	.shutdown = nhi_platform_shutdown,
++	.driver = {
++		.name = "thunderbolt",
++		.of_match_table = of_match_ptr(nhi_platform_of_match),
++		.acpi_match_table = ACPI_PTR(nhi_platform_acpi_match),
++		.pm = &tb_nhi_pm_ops,
++	},
++};
++
++module_platform_driver(nhi_platform_driver);
++MODULE_ALIAS("platform:thunderbolt");
++MODULE_DESCRIPTION("Thunderbolt/USB4 platform host interface driver");
++MODULE_LICENSE("GPL v2");
+diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
+index 57502da29080..72497acac254 100644
+--- a/include/linux/thunderbolt.h
++++ b/include/linux/thunderbolt.h
+@@ -511,6 +511,8 @@ void tb_service_properties_changed(struct tb_service *svc);
+  * @going_away: The host controller device is about to disappear so when
+  *		this flag is set, avoid touching the hardware anymore.
+  * @iommu_dma_protection: An IOMMU will isolate external-facing ports.
++ * @irq: interrupt number of NHI.
++ * @wake_irq: optional dedicated wakeup interrupt.
+  * @interrupt_work: Work scheduled to handle ring interrupt when no
+  *		    MSI-X is used.
+  * @hop_count: Number of rings (end point hops) supported by NHI.
+@@ -532,6 +534,8 @@ struct tb_nhi {
+ 	u32 *interrupt_mask;
+ 	bool going_away;
+ 	bool iommu_dma_protection;
++	int irq;
++	int wake_irq;
+ 	struct work_struct interrupt_work;
+ 	u32 hop_count;
+ 	unsigned long quirks;
 -- 
 2.45.2
 
