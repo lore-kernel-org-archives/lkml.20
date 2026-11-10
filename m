@@ -1,66 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315356;
-	b=uPwqAq4ZePNZcLVA1ilYtRdtXPi8DKAn3IAofGYNBbCeuwVI5c4BlQJ9QrP2IxuTjXZv
-	 WQGIu2xx8BDW/Ihn8vnNJCAonT/Jz6XVZe3yqY6FZve99ebS2Rp00Eg01Pb5crlsPQkQw
-	 BiuRgZqiriWshhy86XsVapN0PVX44lKkYhU3lURSXUX73cFvLzfoyi+AgxJ/VKQNi5QB6
-	 bJbXjq/ViZG5NT3DcpvRcdvmCjHf+08Egqxrn1n7Pr/OL+e679TO07eGghjwWga7Vd7wR
-	 1PM3tukC064uPqQDznJrcvyF2BvybwFOYl+FxAhP+T0mWhJD9MYa3VVK7sODJW4J7fg==
+	t=1794315399;
+	b=h63yG1WwiMSX8Gp91tJDhR++0hZ9O53kAMH10FhH64eF4ly371b0WgoNbhJWfCjdMERY
+	 19GPkoeuS4bdIgLr6v0d27jdioEiXSGZddU5yh6tGUrNqEvWzKLCCM2SnyyzQuHhFAvJ1
+	 mMlzJxK+SqLAa+W/zWEaIT2nkLfHwVQtpVMU1gcXvWntZBCsAeIWtntLMHO4GHE4/kD3Z
+	 j10ZGUSleywYtTfdudodYnoClQD1YklJWiBNhK1rluMOkggHSHUUooterrh+VPfWK58sb
+	 e7+vu4kzgKnm22cI2BEPjqioG/gIdGYDDKoVfv/v4HpHLIeRAWxRWskPru+FDXaS8Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315356;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=T2dWyS2c9HCj9HQ2w6QNE6Xzgrb9OoKtERWi7W6SZbU=;
-	b=SVnektij1thQUOQe00/wjO/qPevMpvJD1XlhNzV/sZs2pGQKEN95/uptmPmYwfiYOCtH
-	 c394n4Oo8SISKF1xB5q70WeM+WY5F5rujNSDfs68Ks4S4hQvQQVj1sVSKcU8+GqSGhSaw
-	 Ctfjzw3DZIxRtcTW1TGC/2x/VE0SWw0O4FGlQ1DsWvOLC/zi4cKbzm02fS4Lkb370kc6F
-	 vQxc0SuvR/mAJLSLLNjz7aw58GUo+lX6hMzJezWSRovbVK3YJLgwArotYl/BqJsYkDdh/
-	 HWSsSqqeAyXSp/1fEjz5pP9TFhwYomXs1Ji8uuywAOSd/4Xc5vjl2dCRmj0yLRPBXHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315399;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=BPT5I+y8uo9yjpkzOY3Iko74xhOAFrTC4kK7nNK/IzM=;
+	b=1HimZ7hroCSjLtyheWWPMhWWJnxKqorWVQRd+nbbC42T3vsqBewwPQk335R2u6Ne17AB
+	 SsIEGHKGUxpm3VqQl0jC08EiZzOd3Ppg0g8ePDs647hkET5cQJ2P2fU58I3f4Rd9Uv9sc
+	 WuuLOQr3FSEtBsrnLkinvXpoYMQMLgEr2LefhA6eaX4L0n+udeA1hAW5h83jcU02Cz7fM
+	 2hPQc2dAAiF/c1tRiVuraXV6xq28xYwHbtbWR1Sa3zchjBHoFJcK2C4vgdQuQSYsmRcu6
+	 273qDsiIbKS8TzEvZq71Lsk1TqAk+5JdKAgT+lCZb+BECEI4cqkerxqYQJZhUgOx88Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=nySpbsOQ;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="NHvJhY/3";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="vwx43/zW";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fl9BUuuZ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UOMOAio9;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4EF606A33B;
-	Tue, 10 Nov 2026 12:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4EF606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709F260A260A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 709F260A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=nySpbsOQ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=T2dWyS2c9HCj9HQ2w6QNE6Xzgrb9OoKtERWi7W6SZbU=;
-	b=nySpbsOQT9cafudOrzG91TTObxit+LIYM3JtT8zs6HTB47Uea2vFyCjBDRpHY6hXAzsNDl7nD
-	CvBLtODiu/qKVYJQB4T/DgE5WL3crgHPipGmLaiB0aRLi4UVFIM+j72y44Bk4UTQxc3XaGeFwww
-	zhnja4Vn7PnYedeFRcK2Tp0=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jP6881zV5zLlVP;
-	Tue, 10 Nov 2026 20:55:36 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id E90CC4048B;
-	Tue, 10 Nov 2026 20:55:50 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 10 Nov 2026 20:55:49 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <nicolas.bouchinet@oss.cyber.gouv.fr>, <xiujianfeng@huawei.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<shuah@kernel.org>, <kalevi@kolttonen.fi>, <caixinchen1@huawei.com>
-CC: <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<lujialin4@huawei.com>
-Subject: [PATCH -next -v2 0/8] lockdown: fix the securityfs interface and add tests
-Date: Tue, 10 Nov 2026 21:28:10 +0800
-Message-ID: <20261110132818.2231593-1-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NHvJhY/3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vwx43/zW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fl9BUuuZ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UOMOAio9
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 69D9F21ECA;
+	Tue, 10 Nov 2026 12:56:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794315396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BPT5I+y8uo9yjpkzOY3Iko74xhOAFrTC4kK7nNK/IzM=;
+	b=NHvJhY/3Fq8U+z/HC1L1oLOsbIMa9q9z8IV4IsyovmsVYroa6xI8ZIsiOMsZNGVdmc6r8m
+	MnfTYraYybxLXsR+3FNBqJRzq3hKCFqygT6tMmz0H77YPRudpRMpWIlKEiFNJ2LB+vEqXZ
+	5ij6jZuzsgq5Gk3MnN/G8q/jCFa0Y+8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794315396;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BPT5I+y8uo9yjpkzOY3Iko74xhOAFrTC4kK7nNK/IzM=;
+	b=vwx43/zW7gJ7F5Ny7rLZGFoPhXOxZ7tTSSojTnV8mWQLj3hXHdCJEAJcBxqDLHLCKRTORE
+	jvZAf3PPjETx+qBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fl9BUuuZ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UOMOAio9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794315395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BPT5I+y8uo9yjpkzOY3Iko74xhOAFrTC4kK7nNK/IzM=;
+	b=fl9BUuuZocYsoopqQCW53BVGvAF7GUD7+Ejurj5fGtUuTHYuh9NBHJUaewlHlyMvANrnJT
+	q81yP5Y8DiYA9z7fbwcZshiG69Yr36ntkUczpHp6WvLfNhpAQjdIqyPnBKDG6KN3SMfRQg
+	chnuP4K/ma+5j/DyTROJQdVD67snKOo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794315395;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BPT5I+y8uo9yjpkzOY3Iko74xhOAFrTC4kK7nNK/IzM=;
+	b=UOMOAio9TMonEel8PAsU2Qd+GBFs4CrOTsAyEFZi5+Y5tsPLg/pKdCmNRvh0T6Lz4SMiVk
+	x6rgUPWB2q2CxGDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37D951339F;
+	Tue, 10 Nov 2026 12:56:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0SsVA4MU82q4QwAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 12:56:35 +0000
+Message-ID: <b0671c91-4fcc-4bea-a2c7-1029a54a53ad@suse.de>
+Date: Tue, 10 Nov 2026 13:56:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,96 +108,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemk100010.china.huawei.com (7.152.184.41)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmet: drop the redundant auth check in
+ nvmet_parse_io_cmd()
+To: shao.mingyin@zte.com.cn, hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
+ linux-nvme@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+References: <20261104211446891tN1QRJiKV3CLPQqfb7gJu@zte.com.cn>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261104211446891tN1QRJiKV3CLPQqfb7gJu@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 69D9F21ECA
 
-The lockdown LSM provides /sys/kernel/security/lockdown, but the file is
-neither documented nor covered by a selftest.  While reviewing the
-interface, we also found a Kconfig bug and a few accumulated cleanups.
+On 11/4/26 2:14 PM, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> nvmet_parse_io_cmd() calls nvmet_check_auth_status() and then
+> nvmet_check_ctrl_status(), which performs the same check again.  The
+> first call cannot fail either: this path only handles commands from I/O
+> queues, and nvmet_check_auth_status() returns true unconditionally for
+> qid > 0.  Drop the duplicate.
+> 
+> No functional change.
+> 
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+> index a8171b88035c..12b82bb7e412 100644
+> --- a/drivers/nvme/target/core.c
+> +++ b/drivers/nvme/target/core.c
+> @@ -1120,9 +1120,6 @@ static u16 nvmet_parse_io_cmd(struct nvmet_req *req)
+>   	if (nvme_is_fabrics(cmd))
+>   		return nvmet_parse_fabrics_io_cmd(req);
+>   
+> -	if (unlikely(!nvmet_check_auth_status(req)))
+> -		return NVME_SC_AUTH_REQUIRED | NVME_STATUS_DNR;
+> -
+>   	ret = nvmet_check_ctrl_status(req);
+>   	if (unlikely(ret))
+>   		return ret;
+> 
 
-The series is organized as follows:
+If you insist ...
 
-  - patches 1-2 are small cleanups in lockdown_write(): stop scanning
-    after the matching level, and drop an update to a length variable
-    that is not used afterwards.
-  - patch 3 makes the LSM select SECURITYFS.  Without it, a kernel built
-    with CONFIG_SECURITYFS=n logs "failed LSM lockdown core initcall with
-    errno -19" and does not create the file advertised by the Kconfig
-    help text.
-  - patch 4 removes LSM_AUDIT_DATA_LOCKDOWN and its formatting code,
-    which became dead when the SELinux lockdown implementation was
-    removed by commit f5d0e5e9d72d.
-  - patch 5 drops an unused include and moves lockdown_reasons[] next to
-    its only user.
-  - patch 6 replaces sprintf() with scnprintf() so that the status
-    buffer
-    is bounded explicitly if more levels are added later, and adds a
-    BUILD_BUG_ON() that checks at compile time that all level labels,
-    their separators, and the terminating NUL still fit.
-  - patch 7 documents the ABI and adds the new file to the LOCKDOWN
-    SECURITY MODULE entry in MAINTAINERS.
-  - patch 8 adds a kselftest covering the read format, invalid levels,
-    the rejection of the current or a lower level, and an upgrade to the
-    next level.
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-The only functional change is patch 3; the rest are cleanups,
-documentation, or test coverage.
+Cheers,
 
-Changes since v1:
-
-  - The scnprintf()/BUILD_BUG_ON() patch now comes after the audit and
-    cleanup patches.
-  - The lockdown_reasons move patch has a corrected commit message: the
-    enum comment already pointed at security/lockdown/lockdown.c.
-  - The ABI documentation now mentions CONFIG_LSM as a way to order
-    lockdown in, and states that the FORCE_* options only take effect
-    when the lockdown LSM is active.
-  - The selftest patch moves the read-format string checks before the
-    active-level checks, corrects the no-downgrade skip message, and adds
-    an upgrade test.  Because that test irreversibly raises the lockdown
-    level, the test is kept out of the default run
-    (TEST_GEN_PROGS_EXTENDED and run_lockdown_test),
-    CONFIG_SECURITY_LOCKDOWN_LSM is enabled in the selftest config
-    fragment, and non-ENOENT read failures now fail instead of being
-    skipped.
-  - The break, decrement, SECURITYFS, and audit patches are unchanged.
-
-The upgrade test irreversibly raises the lockdown level, so lockdown_test
-is built but not run by default.  Use "make run_lockdown_test" to run it
-explicitly, preferably on a disposable test system.  The shared
-selftests/lsm config fragment now enables CONFIG_SECURITY_LOCKDOWN_LSM so
-that the test has something to exercise.
-
-Cai Xinchen (7):
-  lockdown: Add break in lockdown_write
-  lockdown: select SECURITYFS
-  lsm: remove unused lockdown audit data
-  lockdown: drop an unused include and move lockdown_reasons
-  lockdown: bound the status string with scnprintf
-  Documentation/ABI: document the lockdown securityfs file
-  selftests/lsm: add lockdown securityfs test
-
-Kalevi Kolttonen (1):
-  lockdown: remove useless decrement operation
-
- Documentation/ABI/testing/securityfs-lockdown |  43 ++++
- MAINTAINERS                                   |   1 +
- include/linux/lsm_audit.h                     |   2 -
- include/linux/security.h                      |   2 -
- security/lockdown/Kconfig                     |   1 +
- security/lockdown/lockdown.c                  |  70 +++++-
- security/lsm_audit.c                          |   4 -
- security/security.c                           |  40 ---
- tools/testing/selftests/lsm/Makefile          |   8 +
- tools/testing/selftests/lsm/common.c          |  35 ++-
- tools/testing/selftests/lsm/common.h          |   2 +
- tools/testing/selftests/lsm/config            |   1 +
- tools/testing/selftests/lsm/lockdown_test.c   | 230 ++++++++++++++++++
- 13 files changed, 375 insertions(+), 64 deletions(-)
- create mode 100644 Documentation/ABI/testing/securityfs-lockdown
- create mode 100644 tools/testing/selftests/lsm/lockdown_test.c
-
+Hannes
 -- 
-2.18.0.huawei.25
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
