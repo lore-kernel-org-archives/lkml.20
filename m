@@ -1,112 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280186;
-	b=P7dldh+HR9PdzLJgqWG/+1SyFhUk5aMFAMVd9oFye34WXJN7BV7huG9RYW1wU2RFC5m0
-	 dPabRoNufF8m0iNfPymIe7mLnWoUI5VzpWNwnXVnw8bCFFuY3Ynl9a/Wv3Uf5SVhu3hEm
-	 zx7Xgw1UG39Pcqs7uHJMapqjMqhYjBgiFF8co6t29XNl9aIyJl/CoFqYB9tFG8KVQmqJe
-	 G8IwnHpA65zX18DEuhA+aOFHPhbSEk8TzgafL6tctFsHSKy/LT5vyYNLhNc2o6kiASloP
-	 XEnjOJoZWa3hq0q7maY10IAi37z3NM3iM0CwYtHAxo5gREt9L+mkZWRVM98D74jJCRw==
+	t=1794280190;
+	b=PrxgBsHw5eE3aYDN5eCkOa5lnEOEpVryWcYy/ZwpFWoE1kLYWpGx8yiJmE7+ErhFcgG+
+	 HrqQFbfpEyUmqk6mH1kh1pQmoLMah0h7gEAbMWyMB8ZpSZ5wbOz6J4IKjlMizhIDW8Zxg
+	 8tfjCHrWvkp+3hL65KtN4NpAI7xKCbVXplkbUDPGZnqGaflo43K0ZDLmUQcTBY2GPamiP
+	 qZ0MTi0YLCMKBUtDNuk/T3lx9lCfPd4n9RSI1ha61kmo5DUYkYb9BHWhGEWVofYM65ZLj
+	 Aq1XulIvNx6TeDmKLxIDumAA19pXNRw8B7UYrB+i8PMcFe3nxjGx+/Q4sqrZ2hFe5RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280186;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=PTsL5cLPUSLTpnCZzOaJvncyh24f9pvYBOUtBZUjJ0U=;
-	b=VDSzREvmk67xZJfCynoXl5KW3P3pshDbnhpjK5fCQ3dcUyon6+HzHYyO2W3i7R0gMAA8
-	 gkwikQzdFEAnq40UsrmNSn2Rg3but5ALIQEjm9vMtmVzcuMLVTFXKpmxXEKILnsuCXxnT
-	 3i6qyGds0MeZy/dd1QZTJuJo9MM37Ta6ZC8cE/rOQQ8jfo195MBs+PduOUEd6VcGXzQ1g
-	 xG4faKZaRpu0d71Z2yfpDvgox/U+68fN/iFnho7nIl3sH3N3HVYcDhD5cpwLPo9yuh7fU
-	 JcbZPrOY14O3rlsBPRaAfIjum4Fwmf/DEVaKE4E+xo8Bhy1Bl6JtZfvGC3KoTzIyv5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280190;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VUFq2C59ndwIVjZ+OIzzgnrcXIa9Z5t3JDYw0GWU3SA=;
+	b=STYAxu/9ZNsm8Zz1Kr41zGMgGdPkFTB+ixx7Ne7izKIblDrLnMztoM8rGpKW3MxOyLoP
+	 O6OPFpBt5nAR8aW+8xYvrZ8B1C6rFEJGFd3rgmaIW2a4tJI8tjmqcPlWwug4+jA0T/yoR
+	 gKERU+R9VvbJtn5NSkXplBIn+5NMHyZOuaI7GzDt5O8NoPQ79xc4ZrZ1Zg57a5Tum6FK1
+	 iVokQEzMau6FXIO4boNmAdL67sn9rJ+neIwFzafF7mnX2IDZLtlCs/iUDnsPbqj3Hp7r3
+	 o+RoS0K+hIY+iV5evskC00jShQ607tJ1LYuQZAbi1qxSzszpmJHqLuI9S9RFbvsg8Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZvrvHhQe;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IulHDfVe;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZ8Nkq1L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDDD606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:09:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FDDD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63913606A32E;
+	Tue, 10 Nov 2026 03:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZvrvHhQe;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IulHDfVe
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0itKh1850016
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:09:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PTsL5cLPUSLTpnCZzOaJvncyh24f9pvYBOUtBZUjJ0U=; b=ZvrvHhQe2GQLOtJp
-	cNm7eI4cj1LPIcaaVarLlrCQjCNAJwZpuOtC1PdwJrDn2XZcSs0tJ2/YnsnaPCxQ
-	wJYiK2xWMnwzI0my/vtr6TiNuPo4tnPyutg9+TlEd4GOo9V1ENlCivhxWLp6qzBa
-	gMVD9RfukottPjPnWNH0//8KbElm3lQRIzajHVQve89lhy7dI74roywm2NULlF4c
-	AVLUjERbm0Cnh1j/38+Rf9zAeZIq/GZqKl3EX+EPfFRXq+KxaubGxONs1aECALCl
-	ubULb1uUhiMaKrezzlkiW8kPgjUOnmREE1E+h4JzagOPcFzw73AJbOS8Vk6seT2w
-	aHjN4w==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucr5uajk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:09:45 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36d69ab3c2bso2213877eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:09:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794280184; x=1794884984; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PTsL5cLPUSLTpnCZzOaJvncyh24f9pvYBOUtBZUjJ0U=;
-        b=IulHDfVe9VEYK3zuvNVQAw31iEWzC7uL7NGuDMnXXyB7FSQyRwMI2mg2HGG2yLGvop
-         zPYtWxIQtW0fN/gujNqj27XhYUC8dNACK1DAjhe2BJFgwN6MIn+3W/EfcbTF9Z9iBQyY
-         I0O6pRzWoWQxrz2XJ6vGBDC7tH4/JhBSpjuwsd2fNdmZN3WwApwYVKhvdgfhuhTqrzaq
-         4sZpUoLFql81R1UCG8XcIX8pzIZHlpO8tnsfqPaIbwUgTuFkgN0dT6xqHnzigarULbFC
-         aQPBwdQJ+skx0IbzEqcZKMS4fTSCdnU4VeI7UCXMA+0S+8PfyCf0udKNwEZ6MimGPDgj
-         tYrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794280184; x=1794884984;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PTsL5cLPUSLTpnCZzOaJvncyh24f9pvYBOUtBZUjJ0U=;
-        b=cMyRrfzBt71JYPYd6fITbyA5c4SnG2m0eZBh0tlQASaS7BYZHGpZb12tCKIfbo4Nk0
-         CqkyvERLlwTzq3qH6l42BHSATTNoZoUOSsjZgqGEveMaCEs7Zz204hAtD+iVee4SRYtt
-         sik0WFA2C4B0pD6fU7PeIZFnjYvsOZrqnmjPHt2nhqVtAOwpGyZDfW5ic8DLGDnhRNPv
-         Ijik1Iyc3clX+zXdVKxeis4Z3pD6WqBXGK+/bgkpzPtAcy2Du6HsH764fplghrfDOWsR
-         V+ofMuZ/i9l0TfwjPbNriJzInMp1huFJ4lOZyh7QdPoEqUaWkrBshyBEIL7AjXLIQDg8
-         LKuA==
-X-Forwarded-Encrypted: i=1; AL+hErFULQJhlywek4QOEyamkCnrpdUr/caTVOemDxKRNm4nSh1hZH3IlC5+wPG5GVXUG+dxsD7HGEFRhLwC9pc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Y+/qKqdF4Oxy71k+dK2J/vpwxC7q7ZINzsB4Y4NXDh4iCkBkv
-	rKjEWdLAadDVTCNks7AJb9D6U+FWNQSIMuiJPg8UNDZGwyaA6cpg+lvp7idl8F48bKgDbfABITh
-	bodUgmGvH0L6PaeyJxPSi6PpT7wu87uQpgoDayJ3h2CkVHLo01Dq2W37hfNhIHH6A8kU=
-X-Gm-Gg: AYBFou3aCMKELzy7/uw2YUfwr7vW9j0vLnICEZ57F3wH8N0BAKe/9yYq6ENOvpuNveO
-	HiJPSumzs3xBwas+9fp6A2qQVxjy8DmwVvnwlt7ZosHah+3pNVUt8rWtXEotFMlo2vsAp1kPgBQ
-	RHOIOXYaaUqHiA12s7N5zzAMtNZtFHe3l7+s+PxJVkFign6ByotAFDMakwqaKHKM7UbmJHat/8G
-	2VhXgsdDT2daaa9+3fJvTXwS/2zgAPG5Ble7aRiYyF2ysGnvERIFiZMPBdPNSj9mhGMehoYzBh5
-	DqMQ1GPJ6aI+Hrgs3WLPvOkhv0HkKVltGFxXRlCOtvaxn7xV/YMY6x5VYT7TRMvCMEoxDshN8M9
-	MnSJDG16wpjx1Zwj5dAJJjfocUgjXcvDPCOl0bCNSNkzFVjSzQVbWPDHMoX+nO1alCKIkkIAjlV
-	ERvzHi
-X-Received: by 2002:a05:7300:c00f:20b0:369:1401:c5c2 with SMTP id 5a478bee46e88-3751f561930mr1731417eec.26.1794280184447;
-        Mon, 09 Nov 2026 19:09:44 -0800 (PST)
-X-Received: by 2002:a05:7300:c00f:20b0:369:1401:c5c2 with SMTP id 5a478bee46e88-3751f561930mr1731364eec.26.1794280183687;
-        Mon, 09 Nov 2026 19:09:43 -0800 (PST)
-Received: from [10.204.100.41] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm2980455eec.21.2026.11.09.19.09.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 19:09:43 -0800 (PST)
-Message-ID: <cb4cd5d7-492a-af47-6e96-33a7de6c4d41@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 08:39:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZ8Nkq1L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73281F0089F;
+	Tue, 10 Nov 2026 03:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794280190;
+	bh=VUFq2C59ndwIVjZ+OIzzgnrcXIa9Z5t3JDYw0GWU3SA=;
+	h=From:To:Cc:Subject:Date;
+	b=BZ8Nkq1Lt8V/1+6mAsxz3mNgJEE8KhFMy/ahrgjs+bLw7FnHeOP2dyas5MdoOxi2y
+	 Rchc+Na4uM5QB7y/DAvaqcPRUjBq+5/ZiIBRl0HRrT2mPKON3NVwJKmljuPpkT6tcL
+	 iZHU0qwXwBJXP9Xd+MD0Q6hryT5mEq9rCUypDBr+WDXHWh3iF6dV+jo70zeujG6xv7
+	 t/wZGIWpSH/3MZYN95tCQd8DFKfbXgmDp+2GjGfCyEv2QgTNyKGAf8fV2ubweNVyiv
+	 qdiZq7+rp1HrAk4CqMgVbzzZJug0FUgJnZQaIpZReJKFsIUNhFKhGO/pxfRXPpAqq4
+	 GdtT3t2Kj76hA==
+From: Sasha Levin <sashal@kernel.org>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"kernelci.org bot" <bot@kernelci.org>
+Subject: [PATCH] SUNRPC: Load the GSS module by OID only when the mechanism is missing
+Date: Mon,  9 Nov 2026 22:09:47 -0500
+Message-ID: <20261110030947.179738-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,137 +65,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 3/3] media: iris: Fix use-after-free on unbind with open
- sessions
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
- <2rWHCgRwgvQ8e4bhpYnYDjIzh1pjQNSNjdBFELmGe_h6iZzVLuoQDpUPAD64feN0mYHgyoDf3AYwIu-5ilkZdA==@protonmail.internalid>
- <20261017-iris-handle-unbind-v1-3-7809148eb90f@oss.qualcomm.com>
- <46e9506d-1eae-48d4-803d-d731d85fd376@kernel.org>
- <831090d5-57c6-46dd-559a-bd6abebb982c@oss.qualcomm.com>
- <7a2e44a7-41af-461a-96c6-ea91780bf524@linaro.org>
-Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <7a2e44a7-41af-461a-96c6-ea91780bf524@linaro.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAxMSBTYWx0ZWRfX6cm94AYXmuG/
- 5yfSBB5t54Kv2kH6WIeUIBbCbjQ6yGk0oeLMFY6zwAByHx0bSgGC6urw2duoyGIgFN9q+7z10Dm
- ypYvJZcs4FAY/GhYwFneRwC5EUMnlRA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAxMSBTYWx0ZWRfX31kj1ByN7HGT
- zQnjxq4RWyieS0tRCBNQ8Z6mCpAIJiCmQwwjzs/cBPgkrnxkLYZhjx+f0X0SHxuQtWHbOgCzhSe
- ceU8cNSjhJaQx7u7gpks+NRVie7KCsAp4+bNhp6PBgez9o4iFRo93L5+/GnuyEVYzmR5kBU9X1w
- ulO+1MkPwJxUAgFu2cirh+lgM+NtjGxjuA1u6LF34lpJBk/tgAuRCXmqnekfvNDmyfICNtAVimz
- eNYfkcOA8hyt16kgReqOPFUwdCuKHmZjxZH+Qr99YurqNHdO5Z0s8J6gVBiIReXgHIbIggvdna1
- LtCF3Jt3PJ/rpiPuczz+iO9SUzkE2Uz60cIlAdWvd9WhAY0VhoLXPtTzr1ganmvUf05D4GvIHTu
- DuUzbocwIAS6jmyjdstu7fRCO0tpxefyhPXO1dGoeVvx4X1hYWnrMWCGEnQ13KfO9jWQI8L2zTD
- 9l3e7WDj8LX13gbPOYQ==
-X-Authority-Analysis: v=2.4 cv=ErlHPicA c=1 sm=1 tr=0 ts=6af28af9 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=fbYITomgFRZv6I7M4EkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: Ze3UJNx-Z1O7KY8rG10KdzszsHKYEPdH
-X-Proofpoint-GUID: Ze3UJNx-Z1O7KY8rG10KdzszsHKYEPdH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 spamscore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100011
 
+gss_mech_get_by_OID() calls request_module() before it looks at the
+list of registered mechanisms, so every lookup forks a modprobe, even
+when the mechanism is already registered or built in.
+gss_mech_get_by_name() and gss_mech_get_by_pseudoflavor() only load
+the module when the lookup fails.
 
-On 11/9/2026 4:52 PM, Bryan O'Donoghue wrote:
-> On 09/11/2026 05:08, Vishnu Reddy wrote:
->>>> +static void iris_core_release(struct v4l2_device *v4l2_dev)
->>>> +{
->>>> +    struct iris_core *core = container_of(v4l2_dev, struct iris_core,
->>>> v4l2_dev);
->>>> +
->>>> +    mutex_destroy(&core->lock);
->>>> +    put_device(core->dev);
->>>> +    kfree(core);
->>>> +}
->>>> +
->>> What you would have here is an admixture of devm allocated stuff and
->>> hand-allocated, refcounted with custom v4l2_release() which might all work
->>> but, it's not obvious to me does work i.e. core is hand allocated while
->>> reg_base, response_packet etc are devm() managed.
->> reg_base and response_packet are safe: after iris_remove() the IRQ is
->> freed and the core is in IRIS_CORE_DEINIT, so nothing uses them. Only
->> the core structure must outlive remove(), so only that is refcounted.
->
-> Right and you can confidently assert that for clocks, regulators, power
-> domains and ICC ?
+The read handler of /proc/net/rpc/gss_krb5_enctypes uses this lookup,
+so every read() of that file runs modprobe, two per cat. The file is
+present in every /proc/<pid>/net/rpc and /proc/<pid>/task/<tid>/net/rpc
+directory, and LTP read_all gives each read one second. On a slow board
+in KernelCI its workers stall on this file and the test times out.
 
-Clocks, power domains and ICC are only used in the power on/off
-sequence and the clock/ICC votes. iris_core_deinit() powers the
-hardware off in remove(). Will handle this more precisely in the
-next revision.
+Look up the mechanism first and call request_module() only when it is
+not found, as the other two lookup functions do.
 
->
-> TBH I think this is pretty hacky and unlikely to be safe.
->
-> Another way I don't think this approach works is an ioctl() waiting on
-> firmware do do whatever. If the ioctl wakes up after the devres() removal -
-> then what ?
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Closes: https://d.kernelci.org/test/maestro:6af225865b429d354e253b9b
+Fixes: f783288f0cf4 ("SUNRPC: Load GSS kernel module by OID")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sunrpc/auth_gss/gss_mech_switch.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
-The wait times out and returns an error. That return path does
-not access the freed resources.
+diff --git a/net/sunrpc/auth_gss/gss_mech_switch.c b/net/sunrpc/auth_gss/gss_mech_switch.c
+index 78eab245f94a7..d8b6ff9505399 100644
+--- a/net/sunrpc/auth_gss/gss_mech_switch.c
++++ b/net/sunrpc/auth_gss/gss_mech_switch.c
+@@ -157,14 +157,9 @@ struct gss_api_mech * gss_mech_get_by_name(const char *name)
+ 	return gm;
+ }
+ 
+-struct gss_api_mech *gss_mech_get_by_OID(struct rpcsec_gss_oid *obj)
++static struct gss_api_mech *_gss_mech_get_by_OID(struct rpcsec_gss_oid *obj)
+ {
+ 	struct gss_api_mech	*pos, *gm = NULL;
+-	char buf[32];
+-
+-	if (sprint_oid(obj->data, obj->len, buf, sizeof(buf)) < 0)
+-		return NULL;
+-	request_module("rpc-auth-gss-%s", buf);
+ 
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(pos, &registered_mechs, gm_list) {
+@@ -177,6 +172,22 @@ struct gss_api_mech *gss_mech_get_by_OID(struct rpcsec_gss_oid *obj)
+ 		}
+ 	}
+ 	rcu_read_unlock();
++	return gm;
++}
++
++struct gss_api_mech *gss_mech_get_by_OID(struct rpcsec_gss_oid *obj)
++{
++	struct gss_api_mech *gm;
++	char buf[32];
++
++	if (sprint_oid(obj->data, obj->len, buf, sizeof(buf)) < 0)
++		return NULL;
++
++	gm = _gss_mech_get_by_OID(obj);
++	if (!gm) {
++		request_module("rpc-auth-gss-%s", buf);
++		gm = _gss_mech_get_by_OID(obj);
++	}
+ 	if (!gm)
+ 		trace_rpcgss_oid_to_mech(buf);
+ 	return gm;
+-- 
+2.53.0
 
->
->>> A much simpler solution to your problem is :
->>>
->>> static struct platform_driver iris_driver = {
->>>      .driver = {
->>>          .suppress_bind_attrs = true,
->>>          ...
->>>      },
->>> };
->>>
->> This was discussed in [1]. Dmitry noted it is a sign of a badly written driver,
->> and I agree: it removes the unbind interface to avoid the problem instead of
->> fixing remove().
->>
->> [1]
->> https://lore.kernel.org/all/
->> CAO9ioeUvV+3sME9P1bJTpDOSty=uojOKak659XCf337++vPVNg@mail.gmail.com
->
-> In which case I think you need to do more poving/reasoning here about
-> admixture of devm and hand-rolled allocations.
-
-Agreed, will explain more in the next revision which resources are
-devm, which one outlives remove(), and why the others are not
-used after it.
-
->
-> Like what's the use-case you are supporting here with the unbind exactly ?
-
-Unbind through sysfs is generic driver-core behavior, and remove()
-should be safe whenever it is called.
-
-This series started from the issue reported by sashiko in [1]. Will add reported
-by and closes: link to it in the next revision.
-
-[1] https://lore.kernel.org/all/20260926064921.976721F000FF@smtp.kernel.org
-
->
-> ---
-> bod
