@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304866;
-	b=MK8Gk4T0SVGBT0LgC98PBLPXikQqQqQ2DENsIL//mQeoxrZ1Us3sQ/ITH2D4K//i276c
-	 mWF7YDHdg2PnsF3WAHtpBBOOMVLZGblepmt6UwlrjlRO8E2aCHAajb5qQWjJOSZQqOAIP
-	 qmkgnjF9cTe4zS0jBxKjWr89R5vTAJQSPfmhI8N/DRx+wiegzSl8heYwlVkWkmq1MU2ik
-	 gLtDOxHNzCXAN8K6VvsUYW+onml4monn7eklo+IdAYMh4MNRKUZ29d4gBQea9teIrLY4Z
-	 cyFZQM3iCmZWNsL7descoLwu5AjrFSRCabYP9zzt4osNQEQPF+iZ3aDLXH9J/SLt5Cw==
+	t=1794304877;
+	b=AYn42H6+h7XKQMwAD+XjTAOJymAupRfOcf0BzF5a4k06s/J3/ZPCHxBrdTkln1I1YP1L
+	 IJVaWsrRohem3TphQsObBF2Y5wttksGAO4bdCkRhG0j+ayHaIjq6QHEO4IRfFzB4AXi7g
+	 Hv1OpjZwb4npCXreDlw2oAUn4Jgc5smeRMjgq7BVCQHHdopEcHaiC+gZygIOBTuws8oMM
+	 EFoZZyzEs6L66eF7mbL4Yi1n2/yu3D0qmSwtp8amyUCDJVbN2wVDYdok6h9vm6rxETFa7
+	 AeP+fX3iWplgW63B5zpsRTqPApYvMnDMaSBku7MklPwpWobsdGNUdrVSWN2VqVYtb7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304866;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=InjrUa8PtgxebaoPU5gAdUxBP+Q7iA9KZue8Z0bePJ0=;
-	b=VyPTafVDwLDAfqKTmG5Ejl9xxU2skaLCaQdwnvprhf+NOhhHRoOmXWPQBdZui5tQMkBB
-	 TCrJjMAbdt/0rmffqdEGOhyQDUkjL8zR/HQR3YTnHdNOEZAryNhsg4Z+aK21kT+641JRd
-	 tr4DvF5DYZYX2+yfOMOK0tnCYomraetbnLZg+KXcp18GDB4kZR156eS1h9+fOUnUna9b8
-	 hJTLJWX9yQpzuLtRHOj8zTT9NGCaFo5p/pKFrLeVSE9GnB6Q8payGX3K1LTcX4mflM5LL
-	 9tG6J+oNEHxZksgqvWJn1fRutyP1kKNrQ9P3b1IlU17++rSxb6jrub+DRg1ve0pJ+Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304877;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tZFpc/WkJMO9wikzVpCrn1g7Bbk+kpMUXbvDudScemM=;
+	b=PCIh1c7ZT1l9MmEonS4zxs8gEzzhXJr4Dd1g1wpp4ZrOoGJW1shzeoQX2t3fpjq9xvtg
+	 VP0OcUjGEa1tgKxp7IB2E/KegS3WFgKWy9KvM3eUvHCVcM37/C7+zhsZykHN10p3MZEXw
+	 JNh6zkDnob7HPK+xlIj3/6E/4wi3K5B9tqlQ53eddbmDMYSgKpkbt1kAcQ9EWJamPCTot
+	 l58FNYup+91u8QrocYEp5Zn8faCwGa57aWercgx8mIwcRY9ku2m8h7Lk7JoEZk/TbXihq
+	 4pqJBNud3cB4m47cLCgZNLidPa8i354/uZ6Ym2Y6bXZhJTJouI60s0WC//GGRCcL7Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+hfUJO7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KWEIKgPU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jnIlr7x8;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F7160A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2655760A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2655760A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+hfUJO7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136771F008A3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304866;
-	bh=InjrUa8PtgxebaoPU5gAdUxBP+Q7iA9KZue8Z0bePJ0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=K+hfUJO7sVbzoCoh+i1LFy+ufPpUI+d5dAtrssBx/TGKR0PeddorTjht1Ef9+5Mqz
-	 EBuXqLBI4C0xb/2o0t4XecOnWq43i/1z9OInIaDmW3Sot4Z7VWjR1KCPSWDBYEjnS+
-	 R6B5EjC88Ae9Nvq9gBtlEtQCQuu92xn1eJzaOCymhRBNVOcFDFrQTWkVapHl2WoEci
-	 SCxsi6tBkIyI/L7zbE/D2crP9b9TAZ7TKrjL79Yz/cT0F4yFLSHpFpkkKX3mn07f/0
-	 s+Y07IB4qT9OjKrj/dOjXFacjsuBoF7LG7Zkux4d7uzzt1hHyIVMs5cE9SABePpBbO
-	 yReDGAkO9gfnQ==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b56221d361so2209928a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:01:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHz1TIWrkVNAdme63rNg1cbLkeIahKALdiR00KB5qBQPM9nPwKnqyyifQXH/ZWj1gZyzbobL9dkot9cMyM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RnkleAOaRkZQ+ltEN5Z9tS0zwgXvVd9rg9vsbxIWvl5fc+7Y3
-	N752Nk2hRA7/jaRdBh2DUdMNCd7BzqSF/XloqxgLmyYhgH8cdXrDdasuAT2uQZKIPh3pCGr+wFh
-	8ATaxUUhrftDWSAcqrvNpvdmz8mGBah0=
-X-Received: by 2002:a17:907:ea89:b0:c4d:31cd:9dec with SMTP id
- a640c23a62f3a-c50495a3646mr156885666b.30.1794304864528; Tue, 10 Nov 2026
- 02:01:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KWEIKgPU;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jnIlr7x8
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l48e1154995
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=tZFpc/WkJMO9wikzVpCrn1
+	g7Bbk+kpMUXbvDudScemM=; b=KWEIKgPUzPqZa7IlXVpBuHgmrNM6zSxuRhm0PW
+	8vweXNxBn1LrryqNnsraBaKJKIRWzxYfit10cE9hkr+DkR1QzgqdhigW5oNIN+Nn
+	DZWfsy/TCDi+cgRHele+/CAvPJlbp91Iz3NeK8f+0rEHrX6L0OjGuQaMyfwNQ8bc
+	sYgxZQ6wXZ1cAdgI62H0EmiUul5PsEiN3UEfnjHm4KVMliS0Z3PS/J8/E+XIbfPc
+	IEfzWbep4Fr9DipxUclVrpXEmPk0EF9aPLtGmxUCYqXthFGgCaUNo/qDgffmEbXA
+	xRaWAZ9GXMmsKER/crHL9TluLT7ADm/FOMNBGzPREALgO9Wg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hutv49k6e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:16 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7d2d12c666eso389954137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:01:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794304875; x=1794909675; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tZFpc/WkJMO9wikzVpCrn1g7Bbk+kpMUXbvDudScemM=;
+        b=jnIlr7x8+rR6YtmaFc010dp2hNyxjv/aFI98ItO5EK6BeG9RHobc2pDMhkM12Jv1u3
+         PnzrwgmcIJGypmubT+XnoPvOYy5ZBibXHIZHaqKzxJl7usxuqNMNiK5/r4phHA2xmFjf
+         walrvHvPcgpstIUeEJJCZBe1vZfZ01ojWlEMwX0ZC3tRvvk1ZC40eaK3SE9q8gzFsKqF
+         A6malFBtREX3bxFjTigSepTBrOu6/KXcheoDmIYgbOb5GLdwKY9qCqiaNMuw8RDwhC7B
+         LRBmdQMYRyU2T+tAJ5eT+5QaimPTKR8+1CKnD7rYm5TPC4jSvweB9377xDsX2QJVjFEt
+         XZGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794304875; x=1794909675;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tZFpc/WkJMO9wikzVpCrn1g7Bbk+kpMUXbvDudScemM=;
+        b=i51ihX/wFU8UqxTa3CEmwVqdy5vftRXvlynyBuP/58+01PzSrfpCdr1OjCwSvrfFti
+         i0CAOytTtqeFPKaG1im9gYWOxGKTyCO02XzCxoUaqgYu9hOgEc+xyKdrAEl0BKixnBn7
+         BxAG/s8xz53yniWW8uTwsckbXnO2VhPydNCEDVJ5fJVLskbPCI2xhGS8a51vmcndM3GA
+         VBWyQORoO/jB+1p4b3/Lu0qwJqF+6SWcSasEYYqaCRBl1Mj+vMMWgL6zfRZv6XLG9ejR
+         X1KduupqeKKj3MMgfCgHUM/rxSFLA+7mZ1nJ4XLqRYT5/IdvMNAmBEoTW6Wt8X88r4vv
+         d73Q==
+X-Forwarded-Encrypted: i=1; AL+hErE1rMlzQRXt9ZAp2GTCsxUnFY6K3R39eMXEtWO3OXhw2XXCk87h/hxYlBinbs+8FEFnSI5QoQ/fGT1ThtA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uYq+19xycNgY/Zj5UVaXTQVCYQmF4kvqespgXS4Sjof2wtHAT
+	O+6hIsXsfjmnM16MmgLo9a4kxDaAvTmh3lUErn1RiCDlC4uIJ1tpjOSvPlu0AbCBIi5e5JEEOZ4
+	iu+c1/xB4Dv7lH9SR3FQ2CxynptRDfYei5gmwxf9LJ3JoKblVwsZpwRL/DDqTNDiq238=
+X-Gm-Gg: AYBFou2NvOaM875JlFbpgnSvjFk1Wxzcgil+WvzJWk6jmRuEnqnUVZ0hegA9cZ3688l
+	oZZA7ERwaT7L0G64UHT8aFXWVH4xPCK9DfOJvNMQs62Zf4BX0uSt5iN0OcbWGGTBotKNCgVpXmN
+	Mi+ko97TfB39+2vo40jaSpwIL+mlLy66Moi87CTY16Kl8EyczPAtNpxlzKD8JhuVWXrfSvN/P+M
+	70kdkco9u7Xkz/jaEJPB0+NPUezB3dQDEvzSUczyfrIGshxkJ3T2QeSGMIOQANZ+UQIzM9KlImH
+	+kJzCx6Ma3QYRFdu1gMB634mVAO1kO05n4DabRU3RYP9m4Snwww5D589b41/ckrovihCYD4fY/v
+	P98V+j9n2xQS4Bcr8dhBOZLdQcRV3TiH+EbLQdQkYDR6TP9cTKtjBIbwUUMCWpbXPG/yrdDX5+Q
+	mzWRZ1ED67X0b/+M+XLPjCktlVrrJKTwGH9JBDeWFjgWB4d5eVVqX0ZTjZlKt1DYk=
+X-Received: by 2002:a67:e706:0:b0:7c3:9daf:f949 with SMTP id ada2fe7eead31-7d301c09231mr582039137.30.1794304874961;
+        Tue, 10 Nov 2026 02:01:14 -0800 (PST)
+X-Received: by 2002:a67:e706:0:b0:7c3:9daf:f949 with SMTP id ada2fe7eead31-7d301c09231mr582034137.30.1794304874388;
+        Tue, 10 Nov 2026 02:01:14 -0800 (PST)
+Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02345d22sm62237715e9.1.2026.11.10.02.01.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 02:01:13 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 11:01:10 +0100
+Subject: [PATCH v2] gpiolib: fix stack out-of-bounds access in
+ gpiochip_add_hog()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,129 +115,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029033440.973077-1-wuqianhai@loongson.cn> <20261110090203.2631481-1-wuqianhai@loongson.cn>
-In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Tue, 10 Nov 2026 18:00:52 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
-X-Gm-Features: AclHuK-9P_C8nOOOdEbmYQVc8OO7W71bMN2RKSel305MdnvrCGkGtc7VDw_SrUo
-Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] LoongArch: Identify the firmware/boot display device
-To: wuqianhai@loongson.cn
-Cc: kernel@xen0n.name, tzimmermann@suse.de, deller@gmx.de, bhelgaas@google.com, 
-	ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com, 
-	loongarch@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAGXr8moC/42NQQ6CMBBFr0Jm7RAGaQmuvIdhUWqBieBgC0RDu
+ LuVE7j5yfvJf3+D4Dy7AJdkA+9WDizPCPkpAdubZ+eQ75Ehz3JNlCnsJpaBG+ylwzAb+0Ar3i/
+ THIdYnKnRRemMUhqiYvKu5fehv9WRew6z+M/xttKv/VO8EhKaojRtZRVVWl0lhPS1mMHKOKYxo
+ N73/Qui5ZMzzwAAAA==
+X-Change-ID: 20261105-gpiolib-hog-stack-corruption-431b647ea556
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2554;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=v/8X3F8vcqvN5Gf9Fy76dzQlU9NwDR0+nvzxjnY/wHE=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq8utoMgN6tcgZ9HyTE1Rqqepa8AIQhBKooR35c
+ jOZjVKqJdSJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavLraAAKCRAFnS7L/zaE
+ w6caD/9N3J6gWlPGfFR35AFO9PXblHaJnryYPrqM8XEwwAbXM+UvFVllzkTmbBQIXGBoEJGqz51
+ MJGZ+Z/mVhS0Sk5vHgJHCHfoE2m2EA3P8nWIJ3H9yaw4cLXJNIcgJBeUQoyXgT5Lbj4cSxSS0MM
+ d97/agdhWd/Tr53U9yD4weX1W+yPo9ZoJfH4Mq6f3hs7PC0eDOwlVf2FfcNrUr3wuydqYhdK0nm
+ 6wu2N+bFcNHFSNFtAA0n7Y0VfgJxWGQNPoAydVmU+qcio66PqJLduaKJVh/DKtGi4s+gaRn1F3Z
+ gHFLbP1CWPN/0hzrfNc4s4UquUszPq1Bk05WwgXHozpke4iBBFmihaMKDPxcWeCoW3K+y+Hf3vr
+ 4rT/Zkbq//6L0VXofN4DeLT85DtVZ6MkNxxRF/G4Tae3NGen7X18sOJrL3LYUzremWIVbumFsME
+ 3nvnkHPDB0mZ8GtsMIyIR8sx+iy1LXcHOBxiFJB/rautgDGTv6jaaxVjwcSrvquABlCSZ59/j+x
+ GFuNShbbSzxwaJh2CNcNYtYmXCNwIUi1Sz49h3m2rvRb+TKy7BVMnKIMMJhIZLDP8BT/IYYV6Do
+ y2CRmDFI1N4vxKRtQjKCHMGbQANriue3xu96KOJjEjFyvmqvVgDS09sAdoMZBCO9lD1UMsXOH8M
+ UVClq9i/nvcsoxQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfXxcjLPr8IyiK5
+ AsZwhwMYpottSbERajRYZckfo0GcnjX3sfrtGL1ahdiDn2GN62B5W9qFhKUEIKvHZtQwRvM5M2k
+ gjsRPr2TInOV9Y55r9imYivw8MFyjR0=
+X-Proofpoint-ORIG-GUID: fsrBJseK2pf7rYyXCi5LU5aIP94C3qNy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX0spH2YxUQYjy
+ GUjNyEsdiXKSVv0fsBd7fwIWZDDbVaP4smWD4PW3Iv1krQ3HQs4xeNfdjf6HpJgJt4VWQ0pVJY2
+ t5rdAkQSVGWeBvUR9UHP8SUSSP9lKvys6J5obsjA5ELeFG3oyl9WbNig/E32kRKv6wZsx9FyHCe
+ hSFc3DD2tbLeeHVj7NUYvE5ASd3SFQx/wCcPOXcnzx39vVcCyNoGv76xK0lfA+ohIWcm6sNu62w
+ z742o16D6rjY/TIyFEnfzYq8aScJXgf/F3bGYc5ZheXEKTrf34XuegTHRNCHL4JRwDoAra18yfl
+ mx8Z976vA3esHB8meAiGEic4zubsBFTUP7rhT7qlPF2kLyrIHfgaMefTJkZlIBxOTqyZP60Kd7r
+ Slncq9pWOkT3BQjT1s14/kQUA0e3h/nocZ0pBnCbacai+txNGjwSVuMezFGw9fy9o6eFZEc65Jt
+ KN81/NH2x4gbOSblHlg==
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6af2eb6c cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=c92rfblmAAAA:8
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=5PSmYxW4pD4NZdMEaB0A:9
+ a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: fsrBJseK2pf7rYyXCi5LU5aIP94C3qNy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100039
 
-Hi, Qianhai,
+In gpiochip_add_hog(), parsing a device tree with an excessively large
+"#gpio-cells" property causes a stack out-of-bounds write when populating
+the GPIO specification.
 
-On Tue, Nov 10, 2026 at 5:04=E2=80=AFPM <wuqianhai@loongson.cn> wrote:
->
-> From: wuqianhai <wuqianhai@loongson.cn>
->
-> On LoongArch the kernel cannot reliably identify the display device that
-> was set up by the firmware and used for the boot console.  Two code paths
-> need this information and currently get it wrong:
->
->   * The PCI VGA arbiter: vga_is_firmware_default() is compiled only on
->     x86, so on LoongArch vga_default_device() may select the wrong GPU
->     when several are present (for example an integrated display
->     controller and a discrete card).
->
->   * The framebuffer console: LoongArch does not implement
->     video_is_primary_device(), so with
->     CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=3Dy the console falls back =
-to
->     the generic stub that always returns false and binds to the first
->     registered framebuffer instead of the boot display.
->
-> This series fixes both by publishing the firmware framebuffer information
-> through screen_info on LoongArch and consuming it the same way x86 does.
->
-> Patch 1 always defines and initializes sysfb_primary_display, and always
-> provides its EFI stub alias, instead of guarding them behind
-> SYSFB/EFI_EARLYCON.
->
-> Patch 2 refreshes screen_info from the PCI resource-assignment path after
-> the root-bus resources are assigned, so the framebuffer address is final
-> before the VGA arbiter and sysfb_init() consume it.  The call is placed
-> in the LoongArch PCI scan path because only LoongArch has this ordering:
-> acpi_init() relocates the BAR before vga_arb_device_init() runs.  On x86
-> the screen_info address is still accurate at that point.  If you would
-> rather have the helper called from the generic
-> pci_assign_unassigned_root_bus_resources() path so that all architectures
-> share it, that can be done instead.
->
-> Patch 3 removes pci_fixup_vgadev(), which overrides the VGA default
-> device to a discrete card after the arbiter has already selected the
-> firmware framebuffer device, so vga_default_device() consistently
-> reflects the boot display.
->
-> Patch 4 implements video_is_primary_device() for LoongArch by reusing the
-> VGA default device selected by the arbiter.
->
-> Patch 5 lets the EFI stub link directly to sysfb_primary_display on
-> LoongArch, so the firmware framebuffer information is always populated.
->
-> Patch 6 lets the VGA arbiter use CONFIG_SCREEN_INFO instead of an
-> architecture check and makes VGA_ARB select SCREEN_INFO on LoongArch.
->
-> Patches 1-4 are LoongArch-specific.  Patches 5 and 6 touch generic code
-> (the EFI stub and the PCI VGA arbiter) and are placed last so they can be
-> reviewed and merged separately.  Patches 3 and 4 depend on patch 6 taking
-> effect, but are ordered ahead of it only to group the LoongArch changes
-> together.
->
-> Changes since v2:
->   - Split the screen_info refresh out of vga_arb_device_init() into the
->     LoongArch PCI resource-assignment path (patch 2), following Thomas'
->     suggestion to decouple it from sysfb_init().
->   - Drop the per-architecture check in vgaarb.c and the select of SYSFB
->     in favour of CONFIG_SCREEN_INFO and select SCREEN_INFO (patch 6).
->   - Always define and initialize sysfb_primary_display, and let the EFI
->     stub link to it directly (patches 1 and 5), instead of guarding them
->     behind SYSFB/EFI_EARLYCON.
->   - Remove the vga_default_device() override (patch 3) so the arbiter's
->     firmware-framebuffer selection takes effect.
->   - Implement video_is_primary_device() (patch 4) by reusing the arbiter'=
-s
->     default device, so FRAMEBUFFER_CONSOLE_DETECT_PRIMARY works.
->
-> Build-tested on loongarch64 with GCC 8.3.0.
->
-> wuqianhai (6):
->   LoongArch: efi: Provide sysfb_primary_display for screen_info users
->   LoongArch/PCI: Refresh screen_info after resource assignment
->   LoongArch/PCI: Remove vga default device override
->   LoongArch: video: Implement primary framebuffer device detection
->   efi/libstub: Enable direct sysfb_primary_display access on LoongArch
-Please fold this patch to the first one.
+The value read from #gpio-cells is used to copy the values into right
+places in struct fwnode_reference_args but that struct's args field is
+an array of size NR_FWNODE_REFERENCE_ARGS so a value larger than it will
+make the loop write past the end of that array.
 
-And your signature should be:
-Qianhai Wu <wuqianhai@loongson.cn>
+If #gpio-cells is 0, we can trigger a divide-by-zero later when
+calculating the actual number of hogs.
 
-Huacai
+If #gpio-cells is 1, we can also perform an out-of-bounds read of
+the "gpios" array.
 
->   PCI/VGA: Enable firmware default device detection on LoongArch
->
->  arch/loongarch/Makefile                       |  3 ++
->  arch/loongarch/include/asm/video.h            |  7 +++++
->  arch/loongarch/kernel/efi.c                   |  5 +---
->  arch/loongarch/kernel/image-vars.h            |  2 --
->  arch/loongarch/pci/acpi.c                     |  4 +++
->  arch/loongarch/pci/pci.c                      | 18 ------------
->  arch/loongarch/video/Makefile                 |  3 ++
->  arch/loongarch/video/video-common.c           | 29 +++++++++++++++++++
->  drivers/firmware/efi/libstub/efi-stub-entry.c |  1 +
->  drivers/pci/Kconfig                           |  2 +-
->  drivers/pci/vgaarb.c                          |  2 +-
->  11 files changed, 50 insertions(+), 26 deletions(-)
->  create mode 100644 arch/loongarch/video/Makefile
->  create mode 100644 arch/loongarch/video/video-common.c
->
-> --
-> 2.34.1
->
+Reject #gpio-cells larger than NR_FWNODE_REFERENCE_ARGS, lower than 1
+and make sure #gpio-cells is larger than 1 before checking the
+active-low flag.
+
+Cc: stable@vger.kernel.org
+Fixes: 802c51a83e9a ("gpiolib: fix hogs with multiple lines")
+Closes: https://sashiko.dev/#/bug/linux-fdec1c0e-c6e3-4eb6-8746-d68a3f951374
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v2:
+- Fix a potential divide-by-zero bug too (sashiko)
+- Fix an off-by-one bug for #gpio-cells == 1
+- Link to v1: https://patch.msgid.link/20261105-gpiolib-hog-stack-corruption-v1-1-a47af9c51965@oss.qualcomm.com
+---
+ drivers/gpio/gpiolib.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 9282d9874e1109b7f030a3e83598ad016c2bf629..a11e65be476142e082ce76ffd2788c3cbe82d08f 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -986,6 +986,8 @@ int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle *fwnode)
+ 	ret = fwnode_property_read_u32(gc_node, "#gpio-cells", &cells);
+ 	if (ret && is_of_node(fwnode))
+ 		return ret;
++	if (cells < 1 || cells > NR_FWNODE_REFERENCE_ARGS)
++		return -EINVAL;
+ 	if (argc % cells)
+ 		return -EINVAL;
+ 
+@@ -1041,9 +1043,10 @@ int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle *fwnode)
+ 		} else {
+ 			/*
+ 			 * GPIO_ACTIVE_LOW is currently the only lookup flag
+-			 * supported for non-OF firmware nodes.
++			 * supported for non-OF firmware nodes and it must live
++			 * in the second cell.
+ 			 */
+-			if (gpios[i * cells + 1])
++			if (cells > 1 && gpios[i * cells + 1])
+ 				lflags |= GPIO_ACTIVE_LOW;
+ 		}
+ 
+
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+change-id: 20261105-gpiolib-hog-stack-corruption-431b647ea556
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
