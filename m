@@ -1,119 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342201;
-	b=pYiG1VJoGMR1dlz82RgD3H2j14Tkex3nkOc9/SyxNmX/bXoeA/BVb/M/l/nGrTH3oudY
-	 +FOTbbQ0RUjWWgNPpcIds6nPIfMWm//PiADdoiMsOOoOcQr2NXTzUkWfkeTZaRx7stbu5
-	 s3UCrnhr2FatfC3r+ifKBvbKfE87R8DPG38IwjgfZYJ8mTgKzCVcrfleWe6Yyjjm4okAu
-	 fQ1wp8rzG27ju1dnjmGs2M8slskwKFXweBnL6Yq/txeMc/KwXwW1XpXeDLJ/RvwsqkPj+
-	 wDJrkDPyAB/MsGng5l8R146NcqAsPaU2I+cQhjMcI1IbxA2rt7rSGFC7tThAMLeHlkw==
+	t=1794342206;
+	b=o/Ll2GPe/TsAzRwaiJ/dyARiiSCcVFP+BDzmYJ2Vc6vVuUzQGb9qKSWUZovxs4vTLIs1
+	 00wzkdsHjCkWAon0+VHdVj8cYxCwT3P45UNCHfpUBNY/fd5OZxHYT3G3ENZ5QQKxjopxV
+	 8GaYS/7tWKVGt4gD30A56J3dx3XQXcu626lVD+PDDYWSk3lIoll8vM6BBIg9uPNh6i9mK
+	 YIePAvy/lFXZ6QW9DZy7HdooDrShI/W9UhS7FkeeLbFPXzAP3FJHu6Y0eRV/ZHpBKdNTD
+	 Ns1EyO19Yox+QqsMGWUNMSqw17temdUlJ/DOlleBP51UVP0jx+zizpCAdMiAPXVb/tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342201;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
-	b=ZitUFvvvN7/0TkZpRnWNDVabFWZn6JwyJqCa7Hfx7t0g+GK6eG/3WooHjbhtDycB5moI
-	 BJYi8ZsTMmwsZxm99LDHcYiwEhTooa4Xq8LujDqLvEagcq+C1v1IpBKKdlbkBznAz/4EV
-	 bvziaw2E3RxjbrIpxEstWLn3giC3siSwPo8Jd0Loizm1gc82FILMSxv/NVu83xAbZEXCt
-	 qUVnvuaQTRDB+cjdez3cxefUymVaDK3AktzlblvB2bdk/n5IyRilB7TPDg9MQRqSFqO08
-	 N3HD7Jz5iwmqreYY0BcyFugkN2sWhgwZ+hKAptTapQdQQz+g0KAUfqeJZeaVkzHiQyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342206;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=c7+UI0GUfDbfLEtSpboSlipdO1srQg2d508IiAHDWDw=;
+	b=ftQ1Xbo/l37ubuFs3V+b1JyPumMMX7Epd66IB3bpmA7slR8G1sjt6lFz0QGzbVbCoWqH
+	 KflPH3FjHKq9Q3/hVmpELASyx0zmYwwhrYVu9U25mlsynqy0nOquQ1SwcA99+W1FO7esj
+	 lSXxvatOzxgzAlJcVp4SSsvbsPy103piisuKLFKo1nDeCmYIP14bu6HkiiSfnqox4Zw/e
+	 assBY+JWrP9PPZn3gYJ1fCs2SthqQ72q6UFBOfxAqFLPfNWNoHi7+4bFmnxJffgRgngvF
+	 Avp1Io8GnV6MzZqV3IgLHtIwooVFaAcQ2brUm7XDKw6v3j9m2qIVgOVw6wqEWuZBIKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=armoriq.io;
-	spf=pass smtp.mailfrom=armoriq.io;
-	dkim=pass header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="mM7A/PG/";
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=m5n63kw2;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E2B606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:23:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E2B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F8C606A8B8;
+	Tue, 10 Nov 2026 20:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22F8C606A8B8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=mM7A/PG/
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so1706714eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:23:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=armoriq-io.20260707.gappssmtp.com; s=20260707; t=1794342200; x=1794947000; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
-        b=mM7A/PG/9Uk9fK/Jrh2TfmB/05D9oUgqUkYIaBhm81ACWuHUeGybpd9sjCv2uqxsFp
-         hP+54DI+fy9nzJ7v7hk8rjiQQTzmI/zdn5KweGrZN+nSkEMSmd8t9Jd56H2xhGaXXrY9
-         FJbpHjyPPembu5gdonohcpyWIvEq9KxR4EbyiR1BdFKe5eJ0c9+UItijTf9oAvxzYNr/
-         1brgT+3Ceh+r2Vg6BnjRYRjf//lMIQbSNi7tKUISSKISiKl4mSONNYDdWczzlIWe9wwY
-         /OiDzGdaBpreGqIRKhxI81H6efBOTb79xDe+XCS0gMxO2fc0VeJdSAxN25QDOtt4lhe2
-         zlIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794342200; x=1794947000;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
-        b=hAyDWeslPzd5S7GCKmpYJ1ZpICO1lm/JTIa3EmS1BfowsHmVPrkXTlnLo2jo1yakbo
-         awQsfhEXq8YXdhdxLB+qrAAlGFP3s6U+YLI1Ormq/qjT1RYjRX44uabmoc+tbAxoK8+g
-         G/h2VkjcHXEi97c1AHEwXA4+XC36NvLOdpqqvPRZpd7V29FBxz/QjQb0vYxarx8BizvK
-         26X+qD1jfe5Bx7PeHz0/jGfUO2a/LWqU0ChopDYrsa8qhCw838steCiuZpjDOvqbIhg2
-         7rOVn1fgbyZCIh7JgEinTJpcscntIecVjbJD3tnIe63a8IjKqBJFx5Qn9mf9UJRzA5jB
-         6PWA==
-X-Gm-Message-State: APuU4Z9i0/ju3zwM9EMmchskxjBaEDW3M57soSt/PpWJtBFlz2C3LRa+
-	Nwh1EVQjVEuUF5e10WhJvGJlgl/qNL0vmse7pSuJXRL2vy0QEnXQdN7YyjPEDJKABeHthLN4X+m
-	rUo235Lnj2MU=
-X-Gm-Gg: AYBFou1fwQuahccA8Cd+cFaQKBV0fRFPsF19hjsPI1LMYM5lEX+O3Ncuud44MdmEfer
-	9n9IMbvBiodDrF02ZU2URuZ9RRzS3g7Vm708NRLBP070PYVCILBZ3zcArW8uv5H+ZzuXnv5ki0G
-	hkWlRlLmFx9fvKwfGQW0b87rNAD/DhPRWeSqElmNLeVypTyA2GbUSeZ6p4TePZx2n6QQ0I7YgyS
-	GflsljkYcEjebacyCrFUpcLO3go+PkV3VQtrdIOC8N2n+ivVNXe/wtQeJnCGC4fcEVe5KKKbJWv
-	UpSRwvDb/z4GN9hjnPp+kDMtgAMCX7Pkm9ziRkjoE9OBp6FMYFObvHsztFjawFjWyW7+uutbkMY
-	zLqvCPayuBg71mvbFGXdlg/z3yZUEQKRkegKpURHslWSAOfkXuOyqhUT+um9Xdi0SMsO41EmBaH
-	CiZoLPFUW/sGm1D8iOKoXcd/AGovWgMtXYkQNvg93+iJpAfsb579eO7Hx6RjfP6q1gqqIN/Z60d
-	OEBGgHkiQ9bgNHH9fHPz1QKut7wkZtda+1W1d0Jw+RU7dnUVq0+nQTpD7h9IJ0ByQ/ICUWzQd9o
-	tk363Nk+DEM4QaAmA/wpYHg6Mus82opJC1dHaTwaBLifZ79lx8kGFB9RtM5aJ9cLVDIHEZkaREe
-	Gr1bqaK9Ki0haP41LE0009juOm2eFqfdJuKHkUcoxzxOeECnYvXbZTg==
-X-Received: by 2002:a05:693c:8955:20b0:36f:26a7:968e with SMTP id 5a478bee46e88-37686a4510dmr514261eec.40.1794342199582;
-        Tue, 10 Nov 2026 12:23:19 -0800 (PST)
-Received: from localhost.localdomain ([2409:40f4:147:2742:6545:702a:2431:7dca])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm10076615eec.21.2026.11.10.12.23.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 10 Nov 2026 12:23:19 -0800 (PST)
-From: "HARIHARA SUDHAN. R" <harisudhan@armoriq.io>
-To: linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	Kees Cook <kees@kernel.org>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Ben Segall <bsegall@google.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Ketan Bhardwaj <ketan@armoriq.io>,
-	bpf@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-mm@kvack.org,
-	"HARIHARA SUDHAN . R" <harisudhan@armoriq.io>
-Subject: [RFC PATCH v3 0/6] security: introduce Kernel Assurance Plane
-Date: Wed, 11 Nov 2026 01:52:40 +0530
-Message-ID: <20261110202246.274-1-harisudhan@armoriq.io>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=m5n63kw2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=c7+UI0GUfDbfLEtSpboSlipdO1srQg2d508IiAHDWDw=; t=1794342205; x=1795551805; 
+	b=m5n63kw2aKhqfKiUlCrrWCgthNDX/7nDoantdmNh8aWF5ModxkcHhbsyLqbhWdYcC8LozKYfI2K
+	4zMmU5hkc06IBHPPOlvK111SYkPZD+c4I0dC27xnInMIv3I9foHAS/XBg7G9FwMlaEHlFRxJrKkBV
+	gd2jzy5y5toZcgf7X6Xo2mJ4woXtMVZdha5+zPoiXURiPu0qvtewaGvaAXf0SOsZvnYglc+Q7UibB
+	bm6hR/RjTtA51Y08khVathBhjKqyKT8dsWkjrEOfeVmsx2F2IT68k4ULTv4w5eZJMQCA4yxsfciw0
+	QIHbpSyRIf62vEIXegvY5wrPZFbR8uI7ue+g==;
+Date: Tue, 10 Nov 2026 21:23:06 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, absicsz@gmail.com
+Subject: Re: [PATCH 1/2] ARM: omap: cpuidle34xx: balance cpu_pm_enter/exit()
+Message-ID: <20261110212306.39327765@kemnade.info>
+In-Reply-To: <7ha4ngv55s.fsf@baylibre.com>
+References: <20261028-susp2-v1-0-174b52857d89@kemnade.info>
+	<20261028-susp2-v1-1-174b52857d89@kemnade.info>
+	<20261028212302.75ec622e@kemnade.info>
+	<7ha4ngv55s.fsf@baylibre.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,76 +66,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Kernel Assurance Plane (KAP) adds an objective-scoped authority context as a
-kernel object. An Intent Lineage Group (igroup) is that object: an externally
-managed authority whose lifetime is tied to an objective rather than to a
-process, a thread group or a sandbox, that a trusted controller can update or
-revoke in place while unmodified worker tasks keep running.
+On Tue, 10 Nov 2026 11:48:47 -0800
+Kevin Hilman <khilman@baylibre.com> wrote:
 
-v1 [1] was the design document. v2 added the implementation and moved the
-control plane under securityfs. This version answers the v2 review.
+> Andreas Kemnade <andreas@kemnade.info> writes:
+> 
+> > On Wed, 28 Oct 2026 20:15:11 +0100
+> > Andreas Kemnade <andreas@kemnade.info> wrote:
+> >  
+> >> These calls are usually done in a balanced way, so allow notifiers to
+> >> assume that these calls are balanced under all circumstances.
+> >> Seen some spurios vfp issues probably connected to this.
+> >> 
+> >> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>  
+> >
+> > Looked again at some discussions with Sicelo testing such things:
+> > He had observed a NEON off count 1 but MPU 0 in /sys/kernel/debug/pm_debug/count.
+> > Probably more involved, but lets not freak out things here.
+> > So that is definitively a real problem fixed by this. vfp_pm_resume()
+> > would not be called to restore the state without a patch like this.
+> >
+> > So this is
+> >
+> > Fixes: 1cd96478cf150 ("ARM: OMAP3xxx: CPUIdle: optimize __omap3_enter_idle()")  
+> 
+> Even with this fix, I found on OMAP3 (beagle and beagle-xm) that there
+> are still intermittent failures, and the NEON vs. MPU count mismatch was
+> a good indicator to dig a little deeper.
+> 
+There seem to be different problems, cases where MPU sticks to INA
+but does not go OFF (reported on N900), and that spurios vfp crash
+I have seen on the GTA04.
 
-The review asked, in several forms, why this needs a new LSM rather than
-Landlock or a BPF LSM. The short answer, now the spine of the design document,
-is that path and syscall mediation is not the distinction: Landlock and seccomp
-already do that, often better. What they do not provide is an authority context
-that an outside controller can narrow or revoke, per objective, for a task that
-is already running, while a second objective beside it is untouched. The
-document opens with that and gives a two-objective example.
+> I think the fix here is to add the neon_clkdm -> mpu_clkdm wakeup
+> dependency before the clockdomains are allowed to idle.  Otherwise NEON
+> could idle immediately.
+> 
+sound same. I also looked at the wakeup dep, but only in the running system.
 
-Changes since v2:
+> With the patch below, I don't see any intermittent VFP crashes anymore
+> with early testing.
+> 
+Thanks for that patch.
 
-* Design document (1/6) reworked to answer the review:
-  - leads with the authority-lifecycle distinction and the two-objective
-    example, and states plainly that the mediation overlaps Landlock;
-  - raises the central question (question 1): should KAP be a minimal
-    authority-lifecycle facility that composes with Landlock and existing hooks
-    for enforcement, rather than a self-contained LSM with its own mediation;
-  - drops the incorrect "cgroup membership cannot follow setns" claim and
-    reframes the cgroup and BPF-LSM rationales around which lifecycle semantics
-    should be a shared contract, not which mechanism enforces;
-  - states the JSON subset is a prototype wire form, not the model;
-  - narrows the net (connect only), ipc (coarse Unix, no SysV confinement),
-    descriptor (file_receive only), procfs and io_uring claims to what is
-    implemented;
-  - adds the deployment and privilege model and the lineage-root trust
-    boundary (opaque, not kernel-verified in this version);
-  - reframes question 5 to prefer existing namespace-transition hooks where
-    the target tree has them.
-* Code (4/6): the only code change is removing an unused securityfs dentry that
-  the kernel test robot flagged (-Wunused-but-set-global). The code is otherwise
-  identical to v2.
+Then this ordeal comes to an end, I first thought that these are hw
+issues. But then maybe it is time to reinit my automatic testing stuff.
 
-The prototype runs as the guest kernel of Kata microVMs (Linux 6.18) and of
-Docker Sandboxes (Linux 7.0). In a Kata guest under nested virtualization,
-running the same binary unbound and then bound, enforcement adds 154 ns to a
-read and 787 ns to an open, while the unhooked getpid control does not move. On
-Docker Sandboxes, allow, deny and revoke were exercised on a real agent.
+> I'm still doing a few more tests, but will sent a proper patch with
+> changelog after some more testing.
+>
+I will do that too. And then time to do some bisect to catch some omapdrm
+bug. 8250_DMA also smells.
 
-Known gaps, where feedback is welcome:
+Regards,
+Andreas
+ 
+> Kevin
+> 
+> 
+> diff --git a/arch/arm/mach-omap2/pm34xx.c b/arch/arm/mach-omap2/pm34xx.c
+> index 9992549c7336..d11967c2f4bf 100644
+> --- a/arch/arm/mach-omap2/pm34xx.c
+> +++ b/arch/arm/mach-omap2/pm34xx.c
+> @@ -510,6 +510,20 @@ int __init omap3_pm_init(void)
+>  		goto err3;
+>  	}
+>  
+> +	neon_clkdm = clkdm_lookup("neon_clkdm");
+> +	mpu_clkdm = clkdm_lookup("mpu_clkdm");
+> +	per_clkdm = clkdm_lookup("per_clkdm");
+> +	wkup_clkdm = clkdm_lookup("wkup_clkdm");
+> +
+> +	/*
+> +	 * Add the NEON wakeup dependency on the MPU before the clockdomains
+> +	 * are allowed to idle: once pwrdms_setup() has programmed NEON's next
+> +	 * state to OFF/RET, an idle NEON clockdomain otherwise lets NEON power
+> +	 * down while the MPU keeps running, and VFP instructions then trap as
+> +	 * undefined until NEON is woken.
+> +	 */
+> +	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
+> +
+>  	(void) clkdm_for_each(omap_pm_clkdms_setup, NULL);
+>  
+>  	mpu_pwrdm = pwrdm_lookup("mpu_pwrdm");
+> @@ -523,11 +537,6 @@ int __init omap3_pm_init(void)
+>  	per_pwrdm = pwrdm_lookup("per_pwrdm");
+>  	core_pwrdm = pwrdm_lookup("core_pwrdm");
+>  
+> -	neon_clkdm = clkdm_lookup("neon_clkdm");
+> -	mpu_clkdm = clkdm_lookup("mpu_clkdm");
+> -	per_clkdm = clkdm_lookup("per_clkdm");
+> -	wkup_clkdm = clkdm_lookup("wkup_clkdm");
+> -
+>  	omap_common_suspend_init(omap3_pm_suspend);
+>  
+>  	arm_pm_idle = omap3_pm_idle;
+> @@ -562,7 +571,6 @@ int __init omap3_pm_init(void)
+>  	if (IS_PM34XX_ERRATUM(PM_PER_MEMORIES_ERRATUM_i582))
+>  		clkdm_add_wkdep(per_clkdm, wkup_clkdm);
+>  
+> -	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
+>  	if (omap_type() != OMAP2_DEVICE_TYPE_GP) {
+>  		omap3_secure_ram_storage =
+>  			kmalloc(OMAP3_SAVE_SECURE_RAM_SZ, GFP_KERNEL);
+> 
+> 
+> 
+> 
 
-* Whether KAP should keep its own mediation or compose with Landlock and
-  existing hooks is open and is question 1; the current series is the
-  self-contained form.
-* The authority wire form is a strict subset of JSON and is experimental.
-* Decisions are serialized by one spinlock, and those that resolve a path
-  allocate a PATH_MAX buffer before taking it. Both are prototype choices.
-* igroups cannot be removed yet, and kap.procs keeps the pids written to it
-  after those tasks exit. A task's binding lives in its task blob and is
-  released with it.
-* A thread created while its process is being bound can miss the binding.
-  cgroups closes the same race with cgroup_threadgroup_rwsem; KAP does not yet.
-* Control writes need CAP_SYS_ADMIN. CAP_MAC_ADMIN may be the better fit.
-* unshare and setns call KAP directly because they have no LSM hook in this
-  base (question 5 in the document).
-* There are no selftests in this series yet. It was built with and without KAP
-  and with networking, namespaces and io_uring disabled, and boot tested in
-  QEMU with lock debugging: the control plane, file and exec decisions, epoch
-  revocation of a running task and kap.default.
-* The LSM ID is provisional and is for the LSM maintainers to confirm.
-
-[1] https://lore.kernel.org/linux-security-module/20261021165748.19304-1-ketan@armoriq.io/
-
-Base commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907 (Linux 7.3-rc7)
