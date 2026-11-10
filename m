@@ -1,48 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297505;
-	b=LYGGrldRhbxta6wHYChr0MXsyM3YXFxmSALGDsDlO1vtcchPQ1mJ8iLKxnxP2kssTMB4
-	 wX1MC013rb4kP9evR/UuO4G8KxYqkpHRNClxDMOgtDREfHO6E59lfwi3vb6G+gm1QlpDP
-	 ZMVvXfUEfBlvjmj31V0vrsAdAISCfFMJ7M5l/qwOPpWzd4uJiBU0CUMFX2PJiZqWaQBtR
-	 bcVqBYW2SpSXub8DBkjtrcrewvOmmPJQlcaXp6GgI3iM7YhEQqs4/cB5X1NyaEFDGR3F9
-	 ZPlm/tWAfpMCs+XgMyOK4BhP2pe36Miurym5kHaTnJWWLFfy8IV1oG1ho5R570UGwOg==
+	t=1794297512;
+	b=GBxM87meYzYPuNnqo1mO7fWZdeXuYlU3MXVk01b5jTDP8yB/y74eQxEg3eRumqnd60Rh
+	 8unWBaQXmgF0PZC4bihbxblnRczyuG6XWTRmTN8/v941pehU/UlaYJhSobBeHhXiIbNvk
+	 CXQFgFHgZsqrJBHR/ai7FOky12UvG0XZl6jRxTGaoigb64zanHD6QIFw0mLyKq4wwOUDE
+	 t+6SFJbv57mDWc5Rz3glrz+gfDsyI43zZjA6WBZVm16FIoQc/06iMKiXSPw0OL62oMux2
+	 v+ia7KzB5bjFq4xPJbQGbpWFdS7RVV101Lju/uLsFwmqbVdy7nmrpzBdcKnJOaN1/jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297505;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=8SzBYWlrvwPCCHwu07tXjnrpYf5pl0jf1joi1XFugQ4=;
-	b=UZKi63RUcKkK5Oo8wbrRJd/6RH/E2s/4GHQnwo2mFJkPsp95fb4IlPx552Th3AStUeIL
-	 t1bXpwtDoOwenOAmv/0FT7Q84KuryHwx78muRi8aG2q4JeIyQqBVx/MaTCZqBmTDJvhBX
-	 g9Hl02qte2GsWHtTzviruGPHBzYxPsM/enyEg7mlY/czFpI5gE9lCqyJULz3iKEzOiyzB
-	 w4W/k6BiuD07q8W7Yq1wSTO4u7SUfh/EvhXYxDtFF/D74aufydAQX5wAcYjb5vLRuP3By
-	 DY8xcst42KdMmFkVa/OFJya2GZk5cOyzsvzT1Yj6lZGseNEOdxTflrLTo2sYJkLnNVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297512;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=E779vxBqds6yPR6ZwX/UxnHoDlIF7E6mtXjWmN/CZEc=;
+	b=I6eminrmahitMt41HB7iZn4ZzdfWl/5qgOpGnQ2ZoMLoq5lFQ9HhIXU6alJBvf4u0Kgy
+	 V2cD3KXpmVaulOTZWYp4nJcug21hTyNP2zYI3tNYdmt9t8V9PMycpt2LtCblm/Fo+Jfgg
+	 Z5yKC6M4/hNheHLCLhoTQ7ZnsCXS8dnNcDSqK4bxIiqBSUwkjIsjv3x7YhynzUucW+GDu
+	 XWtBD6JqxtfH0/99OCOReUUpJ8AYoYatHRYOV5GQPT5NpeET6xmRw2vQ7jscQQOP8moAE
+	 3v/CEM5wU5kLpNcCtfzbm+u3KCYhGUdQi6+HZg0QBg48/RLHKrLQIY37noL2c4sActQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJxMwXS+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8FA606A31C;
-	Tue, 10 Nov 2026 07:58:24 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WQebO8XU;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D3EF606A334;
+	Tue, 10 Nov 2026 07:58:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D3EF606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJxMwXS+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AEE1F0089F;
-	Tue, 10 Nov 2026 07:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794297504;
-	bh=8SzBYWlrvwPCCHwu07tXjnrpYf5pl0jf1joi1XFugQ4=;
-	h=From:Date:Subject:To:Cc;
-	b=IJxMwXS+Dt2bD2Czn6v3NdODkQ4R/YYkMPVrNOmvl5KL5xx2fSor9v9sAekXnrb/c
-	 k9XhL0QafsULb9NUOMCL2tQBzxhmcLiSr3WAD8rhOBvlATbpMbHXTCnq0sBZ4g6HTv
-	 x4wKSGTjjl0e8R+IwN1KaMbA2+JCBaYYdBvIFZ4bqZTC16/muA7FkApqCJSyDcOcnH
-	 PAcwhqaGJJ+MPIAsEuy9VgvMC2UW5mrNu23fyYZPIGpFMe5iUbzbfZyTVjE16ortka
-	 3ZUrz9/AIaE3qzx2Dm0zZZQtbBQggGV8rtcQO4B8Af2Zjv4ExlQDry79euzSfyAJ2x
-	 xyhmbwvQNvtWg==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 10 Nov 2026 08:58:17 +0100
-Subject: [PATCH v2] soc: qcom: socinfo: Add missing PMIC identifiers
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WQebO8XU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WQebO8XU7L9hcRWtZDeAWjU2C24xhIXLei58uCJQncUEgEfYAMdqtIVHbm5vmLsVazkzorpVxscMn
+	 sG0A2bv+SDLIvwLLBYdN37PefyA1ZVcpn5XYKFA0IESuyN3BqIet0VP2pGTLHvSwTgQdvQQFh5hy4D
+	 X97bb80ybvFak2cg=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af2cea5655-991f5;
+	Tue, 10 Nov 2026 15:58:29 +0800 (CST)
+X-RM-TRANSID:2ee66af2cea5655-991f5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af2cea2027-acdc6;
+	Tue, 10 Nov 2026 15:58:29 +0800 (CST)
+X-RM-TRANSID:2ee76af2cea2027-acdc6
+From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 01/22] usb: atm: fix a few spelling mistakes in comments
+Date: Tue, 10 Nov 2026 07:58:04 +0000
+Message-ID: <20261110075825.24946-2-shishunbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110075825.24946-1-shishunbo@cmss.chinamobile.com>
+References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
+ <20261110075825.24946-1-shishunbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,121 +70,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-topic-socinfo_pmics-v2-1-14811aa728c2@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4X0bAltFMET/2GIgWUra4TFLhAN4
- d8tePcyyUtm5i1K0BOKukSL8jiTEPcB7CFS0Fb9HTU1gZVNbGpMkuuRBwItDNQ7vg0dgWg4Q3X
- KMgd5Y1VYDh4dvffXa/ljmeoHwrhdbY2WZGT/2bWz2Xr/DbPRRiM0dQqQ4jFxBYvEr6l6AnddH
- EKV67p+AWtrLNnPAAAA
-X-Change-ID: 20261109-topic-socinfo_pmics-c7ca588fc9d2
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794297502; l=2565;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=MRA3pZrfDPUVroevO92pCHHZ6IS849mzcF4oIC6Rne4=;
- b=uhFuY/0Swh8C3zwK/tirYV/AgxBtaa5Dart1bC2jGlNj49UKv+I/y1eVNpetagUjiBC5afbZK
- EzGu10DB6+fD8AQFjhlo5DkUmkoFMyYgga0Z0RL10h2ubsxRGMMPfB3
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+No functional changes.
 
-Many indices within pmic_models[] were skipped. Fill out the ones I was
-able to confirm and leave comments for values which to the best of my
-knowledge are reserved.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
-Changes in v2:
-- Remove duplicate entry for PM8550VS
-- Link to v1: https://patch.msgid.link/20261109-topic-socinfo_pmics-v1-1-ecdb6cc6e40f@oss.qualcomm.com
+ drivers/usb/atm/ueagle-atm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/soc/qcom/socinfo.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index 61723e7ab351..d569ee93b493 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -2189,7 +2189,7 @@ static void uea_stop(struct uea_softc *sc)
+ 	release_firmware(sc->dsp_firm);
+ }
+ 
+-/* syfs interface */
++/* sysfs interface */
+ static struct uea_softc *dev_to_uea(struct device *dev)
+ {
+ 	struct usb_interface *intf;
+-- 
+2.53.0
 
-diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
-index 38efc5db7fa8..563f0e3750bb 100644
---- a/drivers/soc/qcom/socinfo.c
-+++ b/drivers/soc/qcom/socinfo.c
-@@ -154,15 +154,22 @@ static const char *const pmic_models[] = {
- 	[25] = "PM8917/PM8937",
- 	[26] = "PM660L",
- 	[27] = "PM660",
-+	[28] = "SMB1355",
-+	/* 29 is unknown/reserved */
- 	[30] = "PM8150",
- 	[31] = "PM8150L",
- 	[32] = "PM8150B",
- 	[33] = "PMK8002",
-+	[34] = "PMX24",
-+	[35] = "SMB1390",
- 	[36] = "PM8009",
- 	[37] = "PMI632",
- 	[38] = "PM8150C",
-+	[39] = "PM8150A",
- 	[40] = "PM6150",
- 	[41] = "SMB2351",
-+	[42] = "PMX55",
-+	/* 43 is unknown/reserved */
- 	[44] = "PM8008",
- 	[45] = "PM6125",
- 	[46] = "PM7250B",
-@@ -172,22 +179,39 @@ static const char *const pmic_models[] = {
- 	[50] = "PM8350B",
- 	[51] = "PMR735A",
- 	[52] = "PMR735B",
-+	[53] = "SMB1398",
- 	[54] = "PM6350",
- 	[55] = "PM4125",
-+	[56] = "PMX60",
-+	[57] = "SMB1394",
- 	[58] = "PM8450",
-+	[59] = "PMX65",
-+	[60] = "PM7325B",
-+	/* 61 is unknown/reserved */
-+	[62] = "PM1010H",
-+	[63] = "PM7325",
-+	/* 64 is unknown/reserved */
- 	[65] = "PM8010",
-+	/* 66 is unknown/reserved */
-+	[67] = "PMG1110",
-+	/* 68 is unknown/reserved */
- 	[69] = "PM8550VS",
- 	[70] = "PM8550VE",
- 	[71] = "PM8550B",
- 	[72] = "PMR735D",
- 	[73] = "PM8550",
- 	[74] = "PMK8550",
-+	/* 75 is unknown/reserved */
- 	[76] = "PM7550BA",
-+	/* 77 is unknown/reserved */
- 	[78] = "PMM8650AU",
- 	[79] = "PMM8650AU_PSAIL",
- 	[80] = "PM7550",
-+	[81] = "PMX75",
- 	[82] = "PMC8380",
- 	[83] = "SMB2360",
-+	/* 84 is unknown/reserved */
-+	[85] = "PMX35",
- 	[86] = "PM8750B",
- 	[87] = "PMD8028",
- 	[88] = "PMC1020H",
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261109-topic-socinfo_pmics-c7ca588fc9d2
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
