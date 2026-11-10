@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794295054;
-	b=pDSmoGOEg4ZDVcs0TelrkUrdB1d59cwqBMDaVgrdl8xXKemKz/NJPZn5pnpGez5wCr4j
-	 0Q6zACXfLFaz8s53a5jf3IlwJM7fBqYgVt82onAgdArwoM1f2cp4GyfVh/U5chlMB7r5i
-	 tmY5sP8mrQxoRka4ZgCXRRmTnLFt8wJvyl1wqmZ0UFEZPjF2djvkyJq8kpD8FC0Zft132
-	 E26l/IO6NVmM6ILXER0xkjCapUujBMJarCej1q4SkXgK8+qJxrYbFCm/k4byjxZdHZCCb
-	 J19YcKzamJ+p5i6867sNTIXx6qjcMIxbRbE138VkxcXVnXlmKvSp6490MU7ddhFq/nQ==
+	t=1794295079;
+	b=jiw4VFuZTn+wendkU3/x5mkULTv32viZhinrXZJ+jUCxxFRpitTKETZDnf7hc/XKd7j5
+	 d4NOyJsebt385klHcSzgC6qkJmKi4oxk8iGsxh6FzaRdi/LiCBptwJN3teSpiOVN2BbtY
+	 Q8uiLSGuWwbOET48dpuiRnkCOaarY9wFhm5eP14gSHYEXorozl/BeDAiFyBUdpSk+u4cX
+	 lJ1veFKtdjVfJQHxVlfiQ9QU+KS8VLcggQdE5hQri4UMcoCRajrdHPnj89oIOeSXRGBjO
+	 HRUv6l9jA6OrwLEWXlM+n6YdSyo6CBbKfk/PJWQPbdNKomTnmFZGKgRQm32F9e3ubEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295054;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295079;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hYdIK99YyoV+qpsVlozpdgDNLiqd/JPtUdtlAafVilU=;
-	b=UojGGK6LY9ljFBVGBbwKkoEGJFQYmCFKRq53j5vZua5FUfA6+DRarsUz+m6SYjhzlj/G
-	 Au0G1y0hHT8EDomy2MiyWzrraTgUQPToYXXwwXPSguNG+HTOdaLFZYlGBNoEhKFcSUJ8Q
-	 ODUDH+F7dsIhPms4mkcDFM7Jb5JzmUIbAY7Q77y0Pcx12PWzMPQ/ubcvsVCKXWJbfkt3K
-	 BXpCiOkeALAQebPTXxEtkHkcFKicDkIlQB+EUBD2Vvscj7oq9faD5hc4h4V2BFWdz2c50
-	 dslRYCGLBIwV5HmbkXr32wszvi6VTQQoTukzzXFJeato9jg2dn+NwW15Pace04+dDMw==
+	bh=tmHyG/dUxvOvFp8lO7nqG0nGDVsV7Z5Irxf5ljp7SEw=;
+	b=XBfQG2QQ4+Yf6jKNytqcxLdrlUZutWNT56u86noVSTGZsZ3vgI43sdoVTn99uKz3vgmh
+	 nu6tDTqUXq0wmQE6Aii1aYalQZ9lSrzT2gsdQ2FgAbURI+STSiBAgQNzK05YZY0or7ju/
+	 HXuDnLYyEEaoPH5xiW3SxVHzuB+kQ+apPdw41ndLUiQ8qG4UbOOedPd/XDVdbCoocNxm+
+	 c/RA/SGQTQGyTfGulmODQU1P2mEJ7GVRHtpJduyyiqz78Z1Ipu39E0d0bRJ77zpDHnTwv
+	 9at/GtstelnsZ7DRxfuxgmqn/iX0OJVD00sr7OF17jxtY6o8hYKHgpswIEhfITm53ug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxyCCPPm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SDqAmK/z";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B3760A2615;
-	Tue, 10 Nov 2026 07:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2530960A5BCE;
+	Tue, 10 Nov 2026 07:17:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxyCCPPm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDqAmK/z
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794295053;
-	b=FdrSrfsmgZ1lRk3my5h2YckolsOmooNf8jNlgQxhWlcrLBB3lX1cgDZrknEii1ZIKmb1
-	 98BBPsUG0Hrs8NYwvxQ0Vz5Lk9TnJ71dtaPGwiTpVtCjRhiVI2+Lk3aZ6I94rT/EyEdj/
-	 9P+N5UDktcGjU39P68f7iFunbjXKBL7o+XFkWQilaHj26ZdCzNhsR897857CDskLnKQ9C
-	 fOpP1K7Ng92pJANslkCEzNGE0XUcJedFcB3i+9hXPpjkROXAYJtZhb82SgxcSovjBbrxp
-	 2GvEiCkPouDO/XUyhrJ4gQTiR71r3aRvJpkKMYlzuMtsoEZ4PPZHYV9u+IeX5ihDXZw==
+	t=1794295079;
+	b=puIouzSzyy8+jrR1aKJ+s+e5lJ9wFBWLF7WtiHNLgRc8TqU0qLMzL4Pls7OKARIqKTad
+	 MYY6Dg6uPIPnm86vf7ua6fFYCs6nNCPL+iaih3yQSWU4tezlpaB19DsNckwoBs9KG9kYt
+	 KePrzNoSI8iApxczZlElTQ0jpBN+1vdUzcATMBj8AjDLDe7nc6bP1g+Pjmp5OLbtd/yyh
+	 Y+fDC7axt/UFAzsCD0vPYFu+ZgaUGxtmt1BnFqJ/ZvCZ2N4lxY77O/63vgL7KHFfAbljb
+	 JyeBYTs0IsUbC88oaJ1pmEBHkujkaGIos5zM7an9l3Wqt3T29hjXrOzSEbECpMXtWug==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794295053;
+	c=relaxed/relaxed; t=1794295079;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hYdIK99YyoV+qpsVlozpdgDNLiqd/JPtUdtlAafVilU=;
-	b=KKgdiafbSJ78v1hxpPZ+VnMhCdXy4QUaa35DJea8Kn7T5qyUQU3yg+reTLlN6xw+nDff
-	 HLjkc4crfoNcA3uXgQE3RHrYA0PDIuEFiWR6FQiOZv5JtRvkTpPBD3COM55nrbpsSohK+
-	 OYEoFAUVdptgXtpBhsjkB7ywnvK0TM09YWPA/TKFJqhW8ZsjywBJ9VTguFKIIrERPj6Mx
-	 gf0OF6hbp2nYINjpwZnhL/3n5AYsrx3TPdXLPQt+53hKoedohuP80F8HF/zWVQWZdslca
-	 wPfxuPIrTZVGI+kE1WY9Eh2uX/bGoJ4lydzKIayuwhjF5gs7k4pnlHbLH+nJ4igSFOQ==
+	bh=tmHyG/dUxvOvFp8lO7nqG0nGDVsV7Z5Irxf5ljp7SEw=;
+	b=eVOoUBunbsPiKBIcAlobMZIZARafxPN77wdkBl0KzYSRvftMXU8wcPTDVWBO/D1dDD92
+	 p7waJBVdyLHqYARrtxS+mnbB7f0EEXRMlz5z/0Hf/V+sfj4l+bHMFf7NbNVplinneXCr8
+	 +TMM9xt3xhxvMTB0P2UURKp1sfhKOteIFm5s3/+sJkZAIYrQIVclRODn9mk9uYqoJ1wui
+	 tjviAkorpiV+/pI7qiWjDYDl0tTVoPv4o2fD0XAnlAstf2D3qF2RXMO9aeMN1EQ0MxQL8
+	 t4kOWvFsBfjArjzqhIGuWSzpDFOhpz+oIao+vBOAwuTnKuGb/ALDHs1P7QgbrU/Ic8Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 113CB1F008A3;
-	Tue, 10 Nov 2026 07:17:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 95A631F00901;
+	Tue, 10 Nov 2026 07:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295053;
-	bh=hYdIK99YyoV+qpsVlozpdgDNLiqd/JPtUdtlAafVilU=;
+	s=k20260515; t=1794295079;
+	bh=tmHyG/dUxvOvFp8lO7nqG0nGDVsV7Z5Irxf5ljp7SEw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TxyCCPPmDFp/n06Iz8W7h9w0t1+k/6eEeM2sWlfBJCuMEgzmynMB8mWnq6mG+jQxU
-	 el032WDjfUCbbT1XIURMR3DqCsObIQ7eSaWgSWzZ8UQrHR93d/LPYOvTXbghJlLKk8
-	 FmkxnkHpheSvJpjrpINFEndXczqkVHwQDpe0BdbW3hiVKtwyRga9CZOoeR0JX6HCH6
-	 Jsg+CnRqW1LQ3/gCnIT4+tEwXByz/wFgBkcuxKsweyBw/VaV3xs6KYWsWXUZC5FVuU
-	 O0GjRO3hmG1CqRIcSIKqEkNBhCEdKSNoPmdb+UADdO5AyM6U1LSQM1B6pYjVlu5qor
-	 eAp7lw0vuaFcA==
+	b=SDqAmK/ztH2svN5R8xoJrG7CeQPxz4K0xPX9YTgNEbVwV50AerY+dKnvwfewBCtJJ
+	 EJkDOehyfEIab/C3SEg4ydgEF9FdfskJn3kCUjm9lxOj+tRtAv9Snscj4Fo8LueyZP
+	 LJk+tmomxTEa3S1TGrZRpEWN8SCrIsC82XWrDr/KOl050iensGki/eZDw6LFgBuIdf
+	 wQoGO/Jfy/ewcw3rVcnT9LqYoKXCRaFTHr4dJDmAJncMBZ6EKodkiFVKca6n3nQPdE
+	 IDnN7hsCwt2Tdcw8tIyZ/OLrkvriBI+pR+0pgSs31wJhDcjIzlk0c7dLwJUVxiP+QG
+	 YPdRQtPy4qDfw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8E9E24897E;
-	Tue, 10 Nov 2026 07:17:31 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 29EAA48982;
+	Tue, 10 Nov 2026 07:17:56 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:17:33 +0000
-Subject: [PATCH 3/5] media: verisilicon: Reset the Rockchip encoder cores
- on timeout
+Date: Tue, 10 Nov 2026 07:17:57 +0000
+Subject: [PATCH 2/6] media: verisilicon: Keep the encoder coded size in
+ sync with OUTPUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,29 +84,27 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hantro-robust-v1-3-6b6269c05bfa@gmail.com>
-References: <20261110-hantro-robust-v1-0-6b6269c05bfa@gmail.com>
-In-Reply-To: <20261110-hantro-robust-v1-0-6b6269c05bfa@gmail.com>
+Message-Id: <20261110-hantro-jpeg-enc-fixes-v1-2-fc4dc7e985d2@gmail.com>
+References: <20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com>
+In-Reply-To: <20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
  Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>
+ Boris Brezillon <boris.brezillon@collabora.com>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295050; l=3365;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295075; l=3508;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Ii56p0k233FnBuEWff4kj2GpZgLraSVcrE/YwPM2NZ8=;
- b=gvRF3RYSL3I78/jmqutif7iFPrK/2wtDBeN8PTyTuznOd0brf54ppGYrxucEH87bv1WSi/g9j
- 8ndax84LyTiAf7w39CtfRb99VJN0uYyVUTR4wlPoqOoY08r2UspBpnn
+ bh=8CL78lP1zbfblnuwBB1CozKPfWypLHdbDLFXHop9x3E=;
+ b=QaHOck0+KthvnjtsENcwU65wIMds6gwzLy02ycZ1p9iUovawZh5shgaxv3k3MGxal52dV8U85
+ 9KSWIbGQUcZDjVa0thDyvpViWcdd/Z3F8TahoFYexu9Qu0kruP/pT7P
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -117,93 +115,95 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On a job timeout, the Rockchip VEPU1 and VEPU2 reset operations mask the
-interrupt and clear the encode enable and AXI control registers. That
-only stops a core that is still responsive. On RK3588, when a VEPU121
-core reads an IOVA that isn't mapped, the IOMMU reports a page fault and
-the core never becomes idle again: its AXI transactions stay
-outstanding, the IOMMU can't be stalled anymore ("Enable stall request
-timed out", then "Disable paging request timed out" on runtime
-suspend), every later job times out as well, and unbinding the driver
-can lock up the system.
+On the encoder, setting the CAPTURE (coded) format resets the OUTPUT
+(raw) format to the same size, but setting the OUTPUT format never
+updates the CAPTURE format. Following the order mandated by the
+stateful encoder specification (CAPTURE first, then OUTPUT) therefore
+leaves the coded size at whatever it was before, e.g. the 96x32
+default:
 
-The driver already gets the optional reset lines of the device and
-deasserts them at probe. Pulse them in the encoder reset operations,
-after stopping the core through its registers, to return it to a clean
-idle state. The clocks are still enabled at that point, as the job that
-timed out holds them. This is a no-op on device trees that don't
-describe the resets, which is the case for all of them so far.
+  v4l2-ctl --set-fmt-video-out=width=1920,height=1080,pixelformat=NM12 \
+           --set-fmt-video=pixelformat=JPEG --stream-out-mmap ...
 
-The Rockchip BSP MPP driver resets these cores the same way, through
-their AXI and AHB reset lines.
+ends up with a 1920x1088 OUTPUT format and a 96x32 CAPTURE format with
+a 96x32 sized buffer. The JPEG encoders treat the difference between
+the two as the crop inside the last macroblock, which is expected to be
+below 16 pixels, and program the hardware with the full OUTPUT frame
+size. On RK3588 this results in IOMMU page faults, a frame processing
+timeout and a wedged encoder.
+
+The specification says that the CAPTURE width and height are set by the
+encoder from the OUTPUT format and selection rectangles, and that
+setting the OUTPUT format resets the crop rectangle to the full frame.
+Do that in hantro_set_fmt_out(): derive the coded format from the new
+OUTPUT size, re-applying the CAPTURE constraints, including the minimum
+sizeimage. As the coded format can now change from an OUTPUT S_FMT,
+return -EBUSY if this would require bigger CAPTURE buffers than the
+ones already allocated.
+
+With this, the coded size can only differ from the OUTPUT size by the
+crop set through VIDIOC_S_SELECTION, which is restricted to the last
+macroblock.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 30 ++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 26 ++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..0dced7515833 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/clk.h>
-+#include <linux/delay.h>
- 
- #include "hantro.h"
- #include "hantro_jpeg.h"
-@@ -468,6 +469,33 @@ static void rk3066_vpu_dec_reset(struct hantro_ctx *ctx)
- 	vdpu_write(vpu, G1_REG_CONFIG_DEC_CLK_GATE_E, G1_REG_CONFIG);
- }
- 
-+/*
-+ * Stopping the encoder through its registers isn't enough when it is stuck
-+ * on the bus, for instance after a translation fault in its IOMMU: it keeps
-+ * AXI transactions outstanding and never becomes idle, which also prevents
-+ * the IOMMU from stalling. Pulse the reset lines of the core, if the device
-+ * tree describes them, to return it to its idle state.
-+ */
-+static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
-+{
-+	int ret;
-+
-+	if (!vpu->resets)
-+		return;
-+
-+	ret = reset_control_assert(vpu->resets);
-+	if (ret) {
-+		dev_warn(vpu->dev, "Failed to assert resets: %d\n", ret);
-+		return;
-+	}
-+
-+	udelay(5);
-+
-+	ret = reset_control_deassert(vpu->resets);
-+	if (ret)
-+		dev_err(vpu->dev, "Failed to deassert resets: %d\n", ret);
-+}
-+
- static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index c022b978f72b..731182cde643 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -541,6 +541,7 @@ static int hantro_set_fmt_out(struct hantro_ctx *ctx,
+ 			      struct v4l2_pix_format_mplane *pix_mp,
+ 			      bool need_postproc)
  {
- 	struct hantro_dev *vpu = ctx->dev;
-@@ -475,6 +503,7 @@ static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
- 	vepu_write(vpu, H1_REG_INTERRUPT_DIS_BIT, H1_REG_INTERRUPT);
- 	vepu_write(vpu, 0, H1_REG_ENC_CTRL);
- 	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
-+	rockchip_vpu_enc_hw_reset(vpu);
- }
++	struct v4l2_pix_format_mplane coded_fmt;
+ 	struct vb2_queue *vq;
+ 	int ret;
  
- static void rockchip_vpu2_dec_reset(struct hantro_ctx *ctx)
-@@ -493,6 +522,7 @@ static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
- 	vepu_write(vpu, VEPU_REG_INTERRUPT_DIS_BIT, VEPU_REG_INTERRUPT);
- 	vepu_write(vpu, 0, VEPU_REG_ENCODE_START);
- 	vepu_write(vpu, 0, VEPU_REG_AXI_CTRL);
-+	rockchip_vpu_enc_hw_reset(vpu);
- }
+@@ -560,16 +561,41 @@ static int hantro_set_fmt_out(struct hantro_ctx *ctx,
+ 			return -EBUSY;
+ 		}
+ 	} else {
++		struct vb2_queue *peer_vq;
++
+ 		/*
+ 		 * The encoder doesn't admit a format change if
+ 		 * there are OUTPUT buffers allocated.
+ 		 */
+ 		if (vb2_is_busy(vq))
+ 			return -EBUSY;
++
++		/*
++		 * Setting the OUTPUT format resets the crop rectangle to
++		 * the full frame, so the coded size becomes the OUTPUT
++		 * size. Refuse the change if it would need bigger
++		 * CAPTURE buffers than the ones already allocated.
++		 */
++		coded_fmt = ctx->dst_fmt;
++		coded_fmt.width = pix_mp->width;
++		coded_fmt.height = pix_mp->height;
++		ret = hantro_try_fmt(ctx, &coded_fmt,
++				     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (ret)
++			return ret;
++
++		peer_vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
++					  V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (vb2_is_busy(peer_vq) &&
++		    coded_fmt.plane_fmt[0].sizeimage >
++		    ctx->dst_fmt.plane_fmt[0].sizeimage)
++			return -EBUSY;
+ 	}
  
- /*
+ 	ctx->vpu_src_fmt = hantro_find_format(ctx, pix_mp->pixelformat);
+ 	ctx->src_fmt = *pix_mp;
++	if (ctx->is_encoder)
++		ctx->dst_fmt = coded_fmt;
+ 
+ 	/*
+ 	 * Current raw format might have become invalid with newly
 
 -- 
 2.55.0
