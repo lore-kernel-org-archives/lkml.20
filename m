@@ -1,66 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353257;
-	b=BtyObp4fAXxDDpQ+AQ1QQJHVxAONEWb72Y08nS28Cv1upiFvjIvlWXxopbF4Pl+Lgr8/
-	 AqcwA1nWsqrR33kBxPiVc6MlmhqXdH7PALOiyILVDLyymoKi500fkk7GselrCB/wRcGQ/
-	 r7rf2h4tZczeLyZQl4hZ+ErIyY8241MW07YFXzLYjk5+uhcGczzjNeAjHDVUZJnQ9Eq3n
-	 YteeKX1fsuwQrmVJrbpgpv4f6dUmuYBNXNSlWqhz2eCrRSo3MzPr0wct0VcZT8XLcpCU8
-	 5xz26+ToX8wMV2B8fTItepj3abENlzfX3NbBkrVcreH1o2d+GtWA4xroOH/s9BTMsWg==
+	t=1794353339;
+	b=Jc1thpF3Z1WJ+iyiA2TmGs087YBiT4KMAYUwac+8XA6v8hzqfDjfRBArsKuVTULA3M+F
+	 xwdwR+fcO3q7ZyP2c7D1Oz5DeYYrrhfyhg2nLp0mxY3xpCcSxrbQUoNZdR+sS2xlulKCd
+	 2nNjXymq+yW+3CAvBtopYuSpUQfgqNqKaUQaXypFLxeUmZDzag8ifktEdYmPUC+7BMkma
+	 e19AgYwVh3KFGD94d89qvhehZYadnFFs0Sk8Y3zgLA8wgSHa1TEhOvQK5gBYv5iLuSs3t
+	 7f/WsqYpSkBZ/ih53B1FeE9C6u/G492sYI3kAgddnN6xIac68FMEYMng+Sdt7BxPIgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353257;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9SU31qE105wrvP2RpFtRMcpfeuKBum+yU6ILTSHS1GM=;
-	b=n02YznYzH4FldH63UE7+o/g+PNp7h0M4VbQifJu24VIBf1ozWZ40peJep8oS3Wv2I8LP
-	 wX6U0unwr2KF+gCOcqVsJLjjtgd/TQ8nBZXMMDenfxuIGxGMEoMKY+AIeFXJ9qY87A+wf
-	 mO/FefoISvkgCq9xiwG7Moj6/bp3QziVMk7d9woNVR9C6ULv0fpj9fcypHaYrwTEd5oV7
-	 iH/FMKmlgaUj7tlcBNbpvSKL7vTTSoxXha7VhM+EW8umGcUXoQFUHLfR1Ofm1XG8jVM9/
-	 WtoBpLX+hfsrTPqlFY9npmqwsqBGZgsUzmuFO4C/sIKByDqusS5K6laQtKJ46OZ/ncA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
+	b=Ihms5HIJvODZwGFLfCWC1zKDjYlv2hj6wsoIX+GnBfmlIx0ReMD2f5w0RltdmCpWwNBT
+	 uLG64+GgUw4hkiIphd8GvdPzJNOZ7rJIBYafdu3cz1hbDtZF624yBrcbMZRuvCQ3ctAmV
+	 OtxwgThNYMC4CDmm0kuwplHkSOrmhA0J7mci1nVHRcDNwXYIgCiNOoDDsEwJT8L4mzUVs
+	 C3QoMJCZaADw+1g3nqXtoNSRUs1oLNs2UBRL5DtsCWpvLsVIemvpBVVjizfvNtCh+eg8x
+	 LBH7XvsxSSG/Td+FQYCo1cEJ64rZzXusKwLUgU9UW/4i0I8SR76EoHeTag/wFUBxBHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ19FyuM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h07Ay6kK;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6135A606A31C;
-	Tue, 10 Nov 2026 23:27:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A424606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A424606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ19FyuM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160641F0093C;
-	Tue, 10 Nov 2026 23:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794353257;
-	bh=9SU31qE105wrvP2RpFtRMcpfeuKBum+yU6ILTSHS1GM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KJ19FyuMQ16mdsKO22OSo/lQFdDl2kxijdpfs/PF1yA76fI+By9ox3drrd/O0XSvA
-	 v8NjcftwFfKTxaSM5Xnh5Cywb5T2elzFBm9YYwZzhfuwUmxX+ObbaEYuBbsF6XzJWb
-	 +lT05RUof+xJFIWGEur+Dgt+EoY1Pmn2X1idZFZAsVNpDr9SlGuwDi9YyMwwNP8QC1
-	 YBk2jHRBSo3r5YVW3aFyBqXuTlAdATK8Az+lPxbfvj8MxuK0xFJTrbK/ihEKC3zpIw
-	 KGlCJ/lwbgrMAuyzQV/knVHSvNk/0aSmVJQ99Rg3sktRktx8jKxiR8HoXGFCLVA3cX
-	 ijdLNfc56ltkg==
-Date: Wed, 11 Nov 2026 00:27:28 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avOn57pfHntiwcaD@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h07Ay6kK
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e954d87b48so39160535ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:28:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794353339; x=1794958139; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
+        b=h07Ay6kKiqs/bNZ8GfvFs1KrZP6EFshDiQhOPI54SAezvPp49j9L97za2FiyBixRV+
+         lYIJjWy6z2E4cCKYTaTv/aCTD/E6P/jvLsd7AdOIxb/ppaqFUna3uqwNlmPWgIEy99cj
+         QihCA2v7WZk4xZAPazNr1YTx2967I71U8dlrsL4kcMgAxwmhkuPX14D0Tc32J4kvTnJV
+         b6rwDhq6Qgd/2wNoBY220AW6JyETO2NO/UAvoL5kX4LD+MOEd7oBZLPrXVy4ERWqwIih
+         XhCuueenyn4qYm73fv8wVEy/JSjDNRXoaOvGDxOQn/eR/hwGuJsnpB7Qzw/WTitqV8MM
+         JbFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794353339; x=1794958139;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
+        b=diQ51XNQ0lOwc4qJPP4hMGPyc+1RYg8XT5GHbj6m9NOtlUX8bwAmmYCrThsSg8pjq1
+         XsjKM1naj0/gpLQfyTDJ5265hCAn89FqElICNw3vlO86Irn9TjbQCE9Ezv2c1KfmcqoW
+         1WPFWLXC/ZKyZ/T6YKHYzqgANYssxyQAj43b2/HnDLWFBusuoGlaqQ5yGEOjuI9p85zp
+         hWuoarar2Gu/kXYPzfuukq2yIXwsiInH85Uui2n/Xs40uXd68KL062nCAs+mdp/6ShQO
+         GuF/GumF6uMaCdI8CY+R+Ri+JSPjSYXb3dKxU6R5rxVuPMZK3PmadxyOdpj+jYuFmWVX
+         dM4A==
+X-Gm-Message-State: APuU4Z/QznOfde4ecCtXO1p0HGRMXsABY8GwegeAMqqcetHwAdNVwfUO
+	/VRq1b1slNCErM8uvGGPEsgPDvvniu0eom7BsesI3DcQuEDZOuzARHTSn69vORqrDu1ANjP9ucQ
+	UTp8DBA==
+X-Received: from plfu10.prod.google.com ([2002:a17:902:e5ca:b0:2ed:40f0:5f81])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ce02:b0:2df:4876:50d9
+ with SMTP id d9443c01a7336-2edd76d1b3cmr7615645ad.18.1794353338477; Tue, 10
+ Nov 2026 15:28:58 -0800 (PST)
+Date: Tue, 10 Nov 2026 15:28:57 -0800
+In-Reply-To: <20261105164531.313849-5-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,106 +76,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b2kxsrve4gpqpi5u"
-Content-Disposition: inline
-In-Reply-To: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
+Mime-Version: 1.0
+References: <20261105164531.313849-1-pbonzini@redhat.com> <20261105164531.313849-5-pbonzini@redhat.com>
+Message-ID: <avOoucIBV59_ELE9@seanjc-mac.roam.internal>
+Subject: Re: [PATCH 4/5] KVM: x86: allow handle_exit_irqoff to return EXIT_FASTPATH_*
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Hillf Danton <hdanton@sina.com>, Steven Rostedt <rostedt@goodmis.org>, Harry Yoo <harry@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
+On Thu, Nov 05, 2026, Paolo Bonzini wrote:
+> Let handle_exit_irqoff() pass what it did to vcpu_enter_guest() and/or
+> handle_exit().  This will be needed to trigger async page fault handling,
+> and to suppress reflection of APF #PF exceptions, once vcpu->arch
+> will no longer have a host_apf_flags field.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
 
---b2kxsrve4gpqpi5u
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
-Message-ID: <avOn57pfHntiwcaD@devuan>
-References: <cover.1794323750.git.alx@kernel.org>
- <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
- <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
-MIME-Version: 1.0
-In-Reply-To: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
-
-Hi Joe,
-
-> Date: 2026-11-10 08:32:41-0800
-> From: Joe Perches <joe@perches.com>
->
-> On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
->=20
-> no commit description on proposed patch
-
-There isn't much to say, but I'll add something (the explanation of why
-the parentheses are needed around the function name, for example).
-
-> > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > ---
-> >  include/linux/string.h | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/include/linux/string.h b/include/linux/string.h
-> > index 9e59f9697c9e..55ca4cb5122c 100644
-> > --- a/include/linux/string.h
-> > +++ b/include/linux/string.h
-> > @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
-nst void *src, size_t count,
-> >   * *  @s+strlen(@prefix) if @s starts with @prefix
-> >   * *  NULL if @s does not start with @prefix
-> >   */
-> > -static inline char *strprefix(const char *s, const char *prefix)
-> > +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx=
-))
-> > +
-> > +static inline char *(strprefix)(const char *s, const char *prefix)
->=20
-> Why introduce a new coding style?
-
-It's not style; the parentheses are technically needed to avoid macro
-expansion, since the macro has the same name as the function.
-
-Alternatively, I could rename the function to __strprefix().
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---b2kxsrve4gpqpi5u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzqFoACgkQ64mZXMKQ
-wqnkyw//SMcrvLK94m7pGptAYwrkzsAjnS/ms1rp2DXVYYygDz590sAwqXuMmExR
-SIEeUlm5Tj25X3zVAAi1b1P9GPG96sKMz1xVWYrbr2rp5kTW6Ugzlh2lozAfCpn2
-KKR6o+yz5vrU0dor0jy6/m0FdiIuWUiDcAquAoNIuXP7xXJifq/YQiaXrqV7wGQw
-qPA7rP8WcEXGtStTMGyZMscwwkbEAkUOjj62u4LKIXEdBIT531d+tVgGo8wZDXYx
-yNQshQTqYa10OZGy3Yox8CukE6h70T9PSUSGp/hdGnriyUY4OlsgnSvbESvPbHM7
-Hogdw3SS+hEV2mPxVsiKhYdomgUe2OlMNFaXwocFYzG14kGSVrKHHSjgAOhiXuBT
-8Y/DdHRNaUwvk4n4M+JkjWsqBlBlEtOkwN/EiXoaXxjP2wfkJgK/XnkcxMERclrY
-gDUsM/wiP73wMno2RMb9kicpHFd17RjWMAvH1/57QW4Oypa3y/fCTCEIXPn+Zt2i
-GELd/ylruhm6vPAIN9bPC3vtBbrWs/PVUqK1ezgf6khXdJq+DdbFkFG8t/wesnm6
-utI5wPKRQ1moDEwIfqTBBCialEyod8Nh3a+hCUz5B4yg8EzbZxGuAG6ctjIEI8Mr
-99esL/VEmx5QoXEHdE1RhoejHLhmlfgk+4FKZHTXSbC0+Ty3o68=
-=AAVC
------END PGP SIGNATURE-----
-
---b2kxsrve4gpqpi5u--
+Reviewed-by: Sean Christopherson <seanjc@google.com>
