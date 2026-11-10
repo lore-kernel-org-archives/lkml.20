@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289763;
-	b=IvCpkXbD8m3C1oxeCTqJmqvVi8F/j1zD4vwzRlCIBHaW6wd6zOK/JTUSfA2V2yw94WWp
-	 a11b4w1UlFWT2wzgHD09twD3WGCThqHZ6KrFaBbWysJfDUgVG8eVzdzgR1ENi5ejwrKpf
-	 4BFyaOo7C53hfhUvLaDS3mV7SotlzqASny2BatU9DSQCZSvo+DCXHjQmK3xyFkfem1UMY
-	 N1nKAav/aa/lDnvj7Ggq+T9Y32/zgryDJVCiGSwOJLdkwUCQpADym40DQ7FQ8OrWDfWrw
-	 sGDHllAafidb7Sn/2dFOL6/4YvAc3808OfI9/60rYFTZ1dITuYGiA0R1qBFDjUI+F3Q==
+	t=1794289849;
+	b=RrKdD+FtO8I5qgpdb6uXHMBRaMqk6woM/STdKYM4nk3zG9BBz1JW0hb2uOD7UiRj2LiP
+	 esJSARCJhJfPQ/p46xr3IJWWRECDijBE4mjitxQXCz8DLiOJY9tdWr1xQ68IMhQ8Hm+fD
+	 UqUFwgSPsEZMw4KMPORCGBax5+koX+5laTLfBhA7nrsoWwrui98rcIeNOGbXLej18liXM
+	 GgtODKhnRXooVQ9OHTkVU7PEaN7RWaeQWvveKSZnzPK8A5NH27PKgrWMoRJZxHghBE8d/
+	 srjnLp5DbCpY0r8RKHWctyGUgAdPszVzgu/EvOW+ywFK1xuioVllg/2Jnxj5Ap5nnvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289763;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=e1CwuUVsSjZnbMobjwr4r9fMJTFxCCqI+vgT8IsHHyE=;
-	b=T7x7oTEtxzDOA23BXwttrQBXLutJ6t7qiKkbhTWHN8YsFxUKP1Bizujh4ZSdHCoF6hLI
-	 hIlIjrjEItPCz/BHcRcdwm4G1g5VagN0VFhT8HkHl0xKPPmtKpqgPTFv9UHXA3IqTwy9r
-	 egFojFpTaSQ/AFHH2tjTMyQuatv9zq5FVyWlVR8cy7adE65+6gcTCbnNilu6ti9M9Fk4e
-	 5rtv6HsXEa/RXaGum+Tipvosnip4PyeRhnz/2GH+Z0R/j0k5I0m/XaxeWAFNV+rlhWTvl
-	 QHo1heki87+0WSVvEQTzTac6tj/w385fZEB38OUfg6hwEZ5eePItDT0sDvKCvdLupNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289849;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=BT20worzG0ZlnN862p660bfUbOpsK47mpVvJf+3XDvo=;
+	b=BJHnkHpal+ToYk3fy/djyQ5ofTRLFZnx09YqIHVkpekqbHO/Ngk2lkQ2xupz1RVy5ZXC
+	 vNmVKcSFyVVzyWNt/F9eCd+HDaWKewBA6qFmP3Ifzl25b7m8u1EsvJCtWSB3eSP1+lL11
+	 xzXG/vcsQwzVS2lbsn9L1rzFdltajA4xE5YOnz2XYxSZyj1Z6JIgMwcfRckG48yZNdr/A
+	 ORtIATlSHfCtmZ1ySDvRLZ+fMwHR34ksCDaz9GDA/TFncnZv410IaRCh3m8FjnM0B9WL1
+	 KPRnnn4d17RnV8TdM4mmBsHXfTExtpWNXhSIBa5Vx2R/RfhDS/tecMYXRr57gqEqu4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ntx8of9R;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0F0606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE0F0606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ntx8of9R
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so6844115ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:49:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794289762; x=1794894562; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e1CwuUVsSjZnbMobjwr4r9fMJTFxCCqI+vgT8IsHHyE=;
-        b=Ntx8of9RtWT7VWFP+8UI2qGvxb7QsA9xAcmmQncetK5YIWQYal5uEtY/rivndaRZjy
-         rU0cwPplqFhBTIjuGAnTrn/domD/um+/F8BvTxnHmvYwK/K4HXYNZ0PzZWE+2pk3xLhB
-         8PbiiK6C6Lt2RBs1QMNH6sTgfIVwKTef1OQOY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127CC606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:50:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 127CC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-847e2926d94so3294339a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:50:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794289762; x=1794894562;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1794289848; x=1794894648;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=e1CwuUVsSjZnbMobjwr4r9fMJTFxCCqI+vgT8IsHHyE=;
-        b=g/nBOTjEiIrWzYroU8cZo38qJjfUmXxLvLukxL01kfkU1f4oASraP33u4V3+Dpgo+1
-         mxd2rlj+CdVG+KG4Hs1fxK15QroLPQd+GTAQgBWeBQGwU6J4qlpo1N+KDWjmW6oBFLH7
-         pdTUOTi9MQ+89zkdGsAaDfWWSyExuapBzjAeB1x/phBeX8SPMFrg6kGy9X6vn2UfJxcV
-         j6tKFYUoK4XWWdETQNgHLXWmHtH67EpEK6HNiAP+GjIeKSHEaun0kxLJSmBrR2JkM59y
-         Ugwg/Vg/0a0G2ZneZopEnYssQg533rZCGjoTQrkNuBPDyApOj1+5PFSyZmnd76np0lXx
-         Ky4w==
-X-Forwarded-Encrypted: i=1; AL+hErGzQrHItMGtQwJirwgJXgPLZmK3X0Sm2s1o2HrZPQ36S6p39xr4EPjGNhisQnRIELUOfPJ0xTqn7uJ4ljg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CARcPljAj+blhwkgUnaF42O4WjIJ/aPxXXzDhueFygQt1UeYb
-	Xy8VJ5NuDj9+dsvjG/aW43E5Kzx1nkymb6jkIZyWU0OrzCt+pq0UtrFxA8LjEqvzPQ==
-X-Gm-Gg: AYBFou0uzAf1aT6TOqUjmRfXkUNIEuJIQUVVcH9kUlln8ott1FLjjIIjEIrkKVrW5Pk
-	ZPC3B98TWSLDgULMhS7nXenjHJ99Gd+/MYnQ2Y2DBs8nW8tKaGFgUFBhoQdRihIBf9Moxo6b003
-	SOO65jgK9uzNpGiZ3WvF8aDDezIbm9KKXKCaZyKdJ3g28Wj6c49Ct1m0+CGvx5jrD6jjOo1hSiA
-	YaK/T12uZO/Mwy2qDsustVuvuFleJWHfXVwRQHnamOLMt1CENUggOTImV9CYLSE4H1vs1kqMoe2
-	RtWD9ViFnlFu+GodYYQQzF+6DksV1u17hsa948+si1kmIJ385t1w4rY+/pLIC8TXtVB+x+QO7X3
-	yO3q2Bb1Cqti0OeFmMsSqcC5tqYPIyjL+9GgGeWtKD8ZW3Ju4QNMu+cNQKcFRT7FWpKzKWUtR1a
-	50gJueQg3VZrTi/43zLUMs/aYtTVis0T+lVQNay4wT3tSYo0XHGsUYNIY+zZWtVVlbiVh44swmL
-	g+zWWldwBgLiluqw/TUag1Fg3PHdzzi6JdK6D421cmoESeTjPtqqIqauQ9KAHzeBuRmVVCL/tbn
-	gsbwnQFNC5V7Pzx//lEdqkN6YlL6jCw2biAGqwUJ5R2GlVCR1fZlVuFOtlvJU4V2E5Lk/w==
-X-Received: by 2002:a17:903:2a84:b0:2e5:e1de:9c3c with SMTP id d9443c01a7336-2edb91d9bfamr13050805ad.47.1794289762137;
-        Mon, 09 Nov 2026 21:49:22 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7e1c0sm4971905ad.34.2026.11.09.21.49.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 21:49:21 -0800 (PST)
-Date: Tue, 10 Nov 2026 14:49:16 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 0/7] zsmalloc: redesign object alloc API
-Message-ID: <avKwQ4IEOVfYm-8J@google.com>
-References: <20261105044752.1997895-1-senozhatsky@chromium.org>
- <auy9UfB30AlYabV8@google.com>
- <CAKEwX=Nao4jWtY04FXEjxiHUNUhJU2A6nCZLqhRRm-dPBZTmcw@mail.gmail.com>
- <CAO9r8zP_K0NF0gt71Emh+2dXmUh+C27uiu5TsyBcGUdLbCus1Q@mail.gmail.com>
+        bh=BT20worzG0ZlnN862p660bfUbOpsK47mpVvJf+3XDvo=;
+        b=wU1f23i9xV0H3wH6BYtDEHIzsB5XC52pFV32SlGQs9ZpjMg1+OXVdWoI1Uhs9dsJTF
+         jvFUWbX52NDWMNIb8C1uZSpa61mTVui9z0DCB4gqGHlcZpO/tzGdIIdCCMFms5JUdLtf
+         sVzAYBfaBPCc4u0sUibZ02ISpnHsSXypTgyh0bGhoThmaNgdhXC5iZS52UK0Iy3sbpJi
+         tz92FvYHYsQ7YIBjxZqLhJDF5C/XCi1/p3a2fm64Ta1nHP/9n4iZPjjf+wqBnsrqHWw/
+         f3gzj7YVgbZ67xQJlh54SrBkKkn33d9cWOS68vzJZbVKlp6TCjRqOSj9xp1d/z3CstAw
+         BLrg==
+X-Forwarded-Encrypted: i=1; AL+hErHZ4RPSdN3VGgHYbuayf3iFNAamzE/k7JuKMqej8zG9fNnOol6ci5W79ooF7RfLXxJY1jXweXumsuZIu4M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Yo/CiSys9K3umD1pogLlf54kqO9lNYgDlfxkmYxfCE4JECTn4
+	3iXyIrCw1cClb+CpqGBCb4EzN/QCUu6pQK45qQZcuPOXi0mGBViJxbwz7jyVEOROfr9EhU7Cq8f
+	p1kmX+As/TTxhPPQUhTCZvmxhvF5f27JmQkplWTc1em5ejqBCOqpKXmyv/ic=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,30 +58,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO9r8zP_K0NF0gt71Emh+2dXmUh+C27uiu5TsyBcGUdLbCus1Q@mail.gmail.com>
+X-Received: by 2002:a05:6808:c40a:b0:4f7:27ba:9db4 with SMTP id
+ 5614622812f47-5683cdd6dc7mr1212802b6e.60.1794289847956; Mon, 09 Nov 2026
+ 21:50:47 -0800 (PST)
+Date: Mon, 09 Nov 2026 21:50:47 -0800
+In-Reply-To: <6ac94026.70ed5d86.2ac85.0077.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af2b0b7.4dd4714a.f8d02.0021.GAE@google.com>
+Subject: Re: [syzbot] [media?] memory leak in vidtv_psi_pmt_create_sec_for_each_pat_entry
+From: syzbot <syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, matheus.aalmeida@inf.ufrgs.br, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On (26/11/05 09:39), Yosry Ahmed wrote:
-> On Thu, Nov 5, 2026 at 9:37 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >
-> > On Thu, Nov 5, 2026 at 10:31 AM Yosry Ahmed <yosry@kernel.org> wrote:
-> > >
-> > > On Thu, Nov 05, 2026 at 01:47:30PM +0900, Sergey Senozhatsky wrote:
-> > > > Both zram and zswap already have per-entry structures that store zsmalloc
-> > > > handles, so allocating a separate handle_cachep object per stored page is
-> > > > redundant.  This series embeds struct zs_handle directly into zram and
-> > > > zswap entries and drops handle_cachep, saving 8 bytes and a slab
-> > > > alloc/free per stored object (2MB per 1GB of swapped out 4K pages).
-> > >
-> > > I always hated that extra layer of indirection, thanks for doing this!
-> >
-> > +1.
-> >
-> > The mental load saving excites me more than the memory saving :)
-> 
-> Oh I am 100% supporting this just for my own mental wellbeing, the
-> memory saving is the icing on the cake.
+syzbot has found a reproducer for the following issue on:
 
-Thank you guys!
+HEAD commit:    b3dfbde62cf1 Merge tag 'linux_kselftest-fixes-7.4-rc3' of ..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=13cfd83d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
+dashboard link: https://syzkaller.appspot.com/bug?extid=3bb39e30be6cca84a865
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16436f35580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff8881112c8690 (size 8):
+  comm "syz.6.49", pid 6988, jiffies 4294945880
+  hex dump (first 8 bytes):
+    00 00 00 00 00 00 00 00                          ........
+  backtrace (crc 0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_noprof+0x3ce/0x510 mm/slub.c:5556
+    _kmalloc_noprof include/linux/slab.h:995 [inline]
+    _kzalloc_noprof include/linux/slab.h:1312 [inline]
+    vidtv_psi_pmt_create_sec_for_each_pat_entry+0x7d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1471
+    vidtv_channel_si_init+0x544/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:478
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:198 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:243
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1072
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x540 arch/x86/entry/syscall_64.c:89
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
