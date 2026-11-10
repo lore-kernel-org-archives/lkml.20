@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794344238;
-	b=HR6ss5gIOuBkhCWlipclTBqmgHT5FQPkPXUC4d48b9tFLtNLcL8b8DyVhZyZmFJHn6zA
-	 nsCvaiyl9QNHgMUE5VQmw61AyOKm7z3x9r3hvd2D8mjm2kfumxy6yxtzSx23np9QMonLN
-	 WzZ4PlNQ6IQhr2yv8sA7jjMwTCbIqo8hR0LwwGFN9OwkqAfBAYQPpWxXzW4ePXGbLPaV4
-	 dLg9knCjmLhtAzyhWEVdiw+lLHrnOh7BF+tBZjLyXrVZI12OzT3uVf0llS9qWfTfPtmZM
-	 suvg9UA8XAQm+spFowZx1e1HnbI20D5B7S8Cf107z+ibdVI/x/1flLLLHqTLEcp9Blg==
+	b=4Dti5+odXpknzbihthhkcNPZOmHX7yXsny+BATylTRQTU+2QJ0ymvmEJ7PafVj28RIaH
+	 hU5VO+3mB1fizABVOcwcyZoo7dx/CA2w2Op32k8KuMYSBuhtJLK8bJ79zBbmHPsbdLFtf
+	 cvanveFk3RFLvUyN8FBZ1GdrKeZBp/MdLppu66fpsBO/+9wcU2TVAxUbpCIy5s7d3eYec
+	 D1oT1iavF2QtHz66+ltT0Hz0mpDUP4ww60fxA5JexF5IV2AUfDW8nhCzCXHvwhoVzkPQ6
+	 4YKcH4RQNZHslscuWQpBnKlxrLPNPM1RPi/d20IawcIq33lghnyb0SN3pJ6YPXl52SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794344238;
 	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dXCuq2UUHkVfdRR2CGD3wUJ6wRiR6sYg6WrdOE8wYvA=;
-	b=KqLUDtN9QaNWIgAbqImnPkQFurA7vNx1M2HZjJE3//Yj3SIRA8s7HVQcqhfy8YQXDzis
-	 p//FrA4sGH70nHb+Xzxi8Iesr99sW1jgoIUy/ysdcs7i9X/4VOA5DoV53nLLBrY1z1y6h
-	 Td1VmMSkFYsG4nXKs+qFHEi4zMhoutnKmHtlIBf//bA4Bmrp1Df6hNpAn5qHnnk40RmxM
-	 K8FeSC6HKWyEPg5K8iCmPoQmtdSP+dyKaX3GpKEwNAlWng9DVWCzMzXVYOUHBix4p9O+T
-	 xz4C98apcIYA4tQM1mdCpShEzUWKsw6Ot1FP2UI7YFveucSqecdLvjsEC2hE+PiW60A==
+	bh=wZODk0x3yqzJBCDWpOPES/A5BYp24Qrx21fQgua+nqE=;
+	b=XfeHjFuFVY1OIa4c+7v064u5GVJBZnYY5AGIpNsftQbC1B5tNJ8eaZA/sJ9d1Ay964ud
+	 CXIBFSgXQcUQ+urqM7GWHkaMTrhDBEO8AL6mgFSehGLxppEFFP+ykLwf0kUPeQF8xGfFR
+	 mAqTVh5ybMDf+dB4OefBzRRFnfMSg7j5CCM+gjxEGLp7h5B1zNuFNQanBxkSC5zXI0if6
+	 9FOBR0W48bP0L/4iuSgQaB3UDLCuiXUxhDh0P/eeKsXOu/TC/op7x43Z2n0kPXFzDyiii
+	 3wUS8tvM0ZeKKCCf1OAK4zb9OVgrTPX8ATlettKuXpvo2jqDPhR+2rWDGLuj3G11D2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kemnade.info;
 	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=7NUqDWjU;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=mmGND9i6;
 	arc=none smtp.remote-ip=178.238.236.174
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C82E606A327;
-	Tue, 10 Nov 2026 20:57:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C82E606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0493D606A321;
+	Tue, 10 Nov 2026 20:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0493D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=7NUqDWjU
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=mmGND9i6
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
 	Reply-To:Content-ID:Content-Description;
-	bh=dXCuq2UUHkVfdRR2CGD3wUJ6wRiR6sYg6WrdOE8wYvA=; t=1794344237; x=1795553837; 
-	b=7NUqDWjU5uDdYd96AMTcqO42thZzO7UDGq1MVUTGaAzpJvtzapQTfTch5BXqPrJRdiY1+BwPjGA
-	I0EaXMmbtcd3vlF97x/WPqKkzvrzG59+ewqVmBR3kzXxFDH6Y/VBmfupwJaEZbC91HBk07rYkzUwz
-	74lkibp9qtMtB7cvjtDuDQKeMMTl9cu3Bde4KMzDz+4EqZldIHyGvxiH5ftiR8hsE3OC0v/jD35NR
-	lZC9p3zp4LCUIDTOTbBzRfyl+Wf8nTfzKVKOVjijN6SjZpE3r7zIa9y+szfKbKPBRigJgEuzXXYIb
-	lM/AY41n8oeu6Tgb+jgWJAcBIm9qsswvz69w==;
+	bh=wZODk0x3yqzJBCDWpOPES/A5BYp24Qrx21fQgua+nqE=; t=1794344237; x=1795553837; 
+	b=mmGND9i6wgr25Rgt7uBrnNMxVxCmVuIfvitRdqe7nFu6RnzryBNkeq10+5nBSNgRTChR6LEsfnl
+	Xd+2AIGyAiipmuufApkfvHfoZJlvqdImGUP5o07sYhvP3/l7CnNI9qjHnkAWVSo5J+jA2emza6pi6
+	m2hYGXL/6YsKHCQndReGK2qCyRGvDtBqkDS6QHoQhWjxFhXZXynGb31tMNRcPciz/Dj071bQV8QVq
+	uSYYWdmKom5OZTohUTVW/cN3CATmaBhgCf+nBZXHMu41t7v8WzqMVQDvkQY/0TJ4+1isvlq6gsBQ9
+	3zSmBXPAJgTlwq9Ieu8h/Ju1G6bhU3MVmXJQ==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 10 Nov 2026 21:56:03 +0100
-Subject: [PATCH v2 1/3] bus: ti-sysc: fix I2C quirk for OMAP3 variants
+Date: Tue, 10 Nov 2026 21:56:05 +0100
+Subject: [PATCH v2 3/3] ARM: OMAP2+: remove i2c from OMAP3 hwmods list
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,7 +56,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-i2c-sysc-v2-1-490cda69e350@kemnade.info>
+Message-Id: <20261110-i2c-sysc-v2-3-490cda69e350@kemnade.info>
 References: <20261110-i2c-sysc-v2-0-490cda69e350@kemnade.info>
 In-Reply-To: <20261110-i2c-sysc-v2-0-490cda69e350@kemnade.info>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -72,110 +72,181 @@ Cc: Sicelo <absicsz@gmail.com>, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, 
  Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3812; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=spK2D3wlMYUOw2UhQTPq3R1qCE5m8mwCgRebYbOUJKM=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBq84UBH3JOtoPn0jpL7rZWb1doXPYh9eVqc9OsG
- zD8eZWvn4mJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCavOFAQAKCRCEYUX6QCjc
- 8b2mD/4t7VfzQMH9GICTIWiuugS8srXdMMyjJ5v0HKTquv+yKMbnr5j8lL1BIOgpRWajgv4QZks
- 0UOzYbO1NPF7ZOZTy02uL4sql4nKHnp58kzoPdPP08Tl6/KlAe1cjWu6IZZt5+HgIcUnwACXzZE
- 3wzFYHN3g1V0xaAYGiD6j1JrDSVOSVxZBvJtVNWF3oex9RA6ZNKMkAR6cDSUTImqGgw2n1CKlJb
- CjV1af/8VqT8gP0HX+PsNvewlZg5KpvQwoNZxD/M5AtOIxoQ6JPHAH6sImRYLUszUlOJbTmhl9f
- TCN/KMcREj8w03UuI2+M0Ki4TSqxOaAvm98y5JlFirFv3WullWhj9FJGhKV2DXpqb3IlPm/+o89
- untRwHHLjKo/EZwJfTnLUSHU6ru4Q4qUELzjZGbcM0MSIO7fRolSa0NIZMc7xvzxY5XnqF/+hzx
- GV+svzlBoFasqANPXscDs0KS7RkKAGSeNifxhII8F8+Kn08bQLvwDOPqVii0+KSTDgvm31wEqFk
- XoEiLE4RMRw4kAJ5cXDfStfH6CApTnkrX9PgUvVQHcGlA+Fujl6daqSrpAtcCTU3FWeP3xGpDAf
- SaPKKYV046y02fjR/H7x4oT26u2VtsQnumiyof84iqIpoGTqdWvUaxlD48C0CcEfvEgytCulCCY
- T/zE33SN5T57hYg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4470; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=dJ7m5yFM4nPU3HLiIjt0TUzuu0qUiJjWRTDLZhcz+GY=;
+ b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBq84UIP8HhrdyMxF/4yM8sSKbSZgeAop7ENCA7i
+ keQe06z13aJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCavOFCAAKCRCEYUX6QCjc
+ 8dLCD/98X/tUcqTuGQJMv0QVoHfI/hFz6Y13KG3eognjaidL3WMJzZU2CPmp8b+b7bN49xJnXce
+ pGn01HRM8EJyKX8mbcvulT4ZKfGy5T+tAtC6UeSdiXlcfkzVQCR4nms3m6J/DrDI0R9QVwFrQiB
+ jPf1EUmMQEsHzpFNqDNOs8RfXfPrwo31lIJF2nJWhttDjA/k7JHJN7sFTsYryrJc6vlrpT33xte
+ j8IkbBQ6zhI6+ZStsFdKe2E2q3QtQuBSW9GMr7w8jKvnmpgyXbbJ6AhucDAYTZmPGH/E232gQoW
+ oRHomS9cgvLn0M7MBkZwhhUxs4Cgx4HI991Il7dpLNB10Qnsl+JqbppQLdP6aIp5Hh0eFGkjd9Z
+ Wuv5zK4HF4qjwH5Xs67qzLK42m9c2Fs+2YhhaGL8m5ePeHG5SLku5W34hb/UWbnpHsme14byl1J
+ Oycg6akZBfF8J7Jilvqiu2g7MBjkCCwRy1pWCIxq52n1AE2MKzQyQGg9gQfBeIFEWd90MKmQNgt
+ iCKgoy+z8fUuG8wmu8lvtil8D5jHCrgtkxiIMfxsznK2KeW2Ms3mLA699ZbJlAEFJnTWbJAJhx/
+ vUL9kE8Yhu71FhbDJsPsfFrhAeer3Hn4VhJ3RkI57/UpZOAa+wtbZ0tFSOajH57L10IKwYduL88
+ JpX2omp9pdbiQPg==
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-OMAP3 has only one revision register, not split across two registers.
-Do not try to interpret the interrupt enable register but instead
-use the size of the revision register as indicator.
-Specifying a fake 8 byte range and the original quirk only works if
-u-boot has not messed around with the interrupt enable register.
+Not need anymore due to ti-sysc transition, so clean up here.
 
-Fixes: 4e23be473e306 ("bus: ti-sysc: Add support for module specific reset quirks")
 Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
- drivers/bus/ti-sysc.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ arch/arm/mach-omap2/omap_hwmod_3xxx_data.c | 112 -----------------------------
+ 1 file changed, 112 deletions(-)
 
-diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
-index 12285ad9ef51f..400259d1fc2da 100644
---- a/drivers/bus/ti-sysc.c
-+++ b/drivers/bus/ti-sysc.c
-@@ -122,6 +122,7 @@ static const char * const clock_names[SYSC_MAX_CLOCKS] = {
-  * @cookie: data used by legacy platform callbacks
-  * @name: name if available
-  * @revision: interconnect target module revision
-+ * @revision_doubleword: revision is stored across two words
-  * @sysconfig: saved sysconfig register value
-  * @reserved: target module is reserved and already in use
-  * @enabled: sysc runtime enabled status
-@@ -153,6 +154,7 @@ struct sysc {
- 	struct ti_sysc_cookie cookie;
- 	const char *name;
- 	u32 revision;
-+	bool revision_doubleword;
- 	u32 sysconfig;
- 	unsigned int reserved:1;
- 	unsigned int enabled:1;
-@@ -179,7 +181,8 @@ static void sysc_write(struct sysc *ddata, int offset, u32 value)
+diff --git a/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c b/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
+index 5cbdf58ad59f7..022019ff4a398 100644
+--- a/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
++++ b/arch/arm/mach-omap2/omap_hwmod_3xxx_data.c
+@@ -299,18 +299,6 @@ static struct omap_hwmod_class_sysconfig omap3xxx_wd_timer_sysc = {
+ 	.sysc_fields    = &omap_hwmod_sysc_type1,
+ };
  
- 		/* Only i2c revision has LO and HI register with stride of 4 */
- 		if (ddata->offsets[SYSC_REVISION] >= 0 &&
--		    offset == ddata->offsets[SYSC_REVISION]) {
-+		    offset == ddata->offsets[SYSC_REVISION] &&
-+		    ddata->revision_doubleword) {
- 			u16 hi = value >> 16;
+-/* I2C common */
+-static struct omap_hwmod_class_sysconfig i2c_sysc = {
+-	.rev_offs	= 0x00,
+-	.sysc_offs	= 0x20,
+-	.syss_offs	= 0x10,
+-	.sysc_flags	= (SYSC_HAS_CLOCKACTIVITY | SYSC_HAS_SIDLEMODE |
+-			   SYSC_HAS_ENAWAKEUP | SYSC_HAS_SOFTRESET |
+-			   SYSC_HAS_AUTOIDLE | SYSS_HAS_RESET_STATUS),
+-	.idlemodes	= (SIDLE_FORCE | SIDLE_NO | SIDLE_SMART),
+-	.sysc_fields    = &omap_hwmod_sysc_type1,
+-};
+-
+ static struct omap_hwmod_class omap3xxx_wd_timer_hwmod_class = {
+ 	.name		= "wd_timer",
+ 	.sysc		= &omap3xxx_wd_timer_sysc,
+@@ -431,12 +419,6 @@ static struct omap_hwmod am35xx_uart4_hwmod = {
+ 	.class		= &omap2_uart_class,
+ };
  
- 			writew_relaxed(hi, ddata->module_va + offset + 4);
-@@ -200,7 +203,8 @@ static u32 sysc_read(struct sysc *ddata, int offset)
+-static struct omap_hwmod_class i2c_class = {
+-	.name	= "i2c",
+-	.sysc	= &i2c_sysc,
+-	.reset	= &omap_i2c_reset,
+-};
+-
+ /* dss */
+ static struct omap_hwmod_opt_clk dss_opt_clks[] = {
+ 	/*
+@@ -592,51 +574,6 @@ static struct omap_hwmod omap3xxx_dss_venc_hwmod = {
+ 	.flags		= HWMOD_NO_IDLEST,
+ };
  
- 		/* Only i2c revision has LO and HI register with stride of 4 */
- 		if (ddata->offsets[SYSC_REVISION] >= 0 &&
--		    offset == ddata->offsets[SYSC_REVISION]) {
-+		    offset == ddata->offsets[SYSC_REVISION] &&
-+		    ddata->revision_doubleword) {
- 			u16 tmp = readw_relaxed(ddata->module_va + offset + 4);
+-/* I2C1 */
+-static struct omap_hwmod omap3xxx_i2c1_hwmod = {
+-	.name		= "i2c1",
+-	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
+-	.main_clk	= "i2c1_fck",
+-	.prcm		= {
+-		.omap2 = {
+-			.module_offs = CORE_MOD,
+-			.idlest_reg_id = 1,
+-			.idlest_idle_bit = OMAP3430_ST_I2C1_SHIFT,
+-		},
+-	},
+-	.class		= &i2c_class,
+-};
+-
+-/* I2C2 */
+-static struct omap_hwmod omap3xxx_i2c2_hwmod = {
+-	.name		= "i2c2",
+-	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
+-	.main_clk	= "i2c2_fck",
+-	.prcm		= {
+-		.omap2 = {
+-			.module_offs = CORE_MOD,
+-			.idlest_reg_id = 1,
+-			.idlest_idle_bit = OMAP3430_ST_I2C2_SHIFT,
+-		},
+-	},
+-	.class		= &i2c_class,
+-};
+-
+-/* I2C3 */
+-static struct omap_hwmod omap3xxx_i2c3_hwmod = {
+-	.name		= "i2c3",
+-	.flags		= HWMOD_16BIT_REG | HWMOD_SET_DEFAULT_CLOCKACT,
+-	.main_clk	= "i2c3_fck",
+-	.prcm		= {
+-		.omap2 = {
+-			.module_offs = CORE_MOD,
+-			.idlest_reg_id = 1,
+-			.idlest_idle_bit = OMAP3430_ST_I2C3_SHIFT,
+-		},
+-	},
+-	.class		= &i2c_class,
+-};
+-
+ /*
+  * 'gpio' class
+  * general purpose io module
+@@ -1605,52 +1542,6 @@ static struct omap_hwmod_ocp_if am35xx_l4_core__uart4 = {
+ 	.user		= OCP_USER_MPU | OCP_USER_SDMA,
+ };
  
- 			val |= tmp << 16;
-@@ -761,8 +765,10 @@ static void sysc_check_children(struct sysc *ddata)
-  */
- static void sysc_check_quirk_16bit(struct sysc *ddata, struct resource *res)
- {
--	if (resource_size(res) == 8)
-+	if (resource_size(res) == 8) {
- 		ddata->cfg.quirks |= SYSC_QUIRK_16BIT | SYSC_QUIRK_USE_CLOCKACT;
-+		ddata->revision_doubleword = true;
-+	}
- }
- 
- /**
-@@ -1527,9 +1533,11 @@ static const struct sysc_revision_quirk sysc_revision_quirks[] = {
- 	SYSC_QUIRK("i2c", 0, 0, 0x20, 0x10, 0x00000036, 0x000000ff,
- 		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE),
- 	SYSC_QUIRK("i2c", 0, 0, 0x20, 0x10, 0x0000003c, 0x000000ff,
--		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE),
-+		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE |
-+		   SYSC_QUIRK_16BIT | SYSC_QUIRK_USE_CLOCKACT),
- 	SYSC_QUIRK("i2c", 0, 0, 0x20, 0x10, 0x00000040, 0x000000ff,
--		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE),
-+		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE |
-+		   SYSC_QUIRK_16BIT | SYSC_QUIRK_USE_CLOCKACT),
- 	SYSC_QUIRK("i2c", 0, 0, 0x10, 0x90, 0x5040000a, 0xfffff0f0,
- 		   SYSC_MODULE_QUIRK_I2C | SYSC_MODULE_QUIRK_ENA_RESETDONE),
- 	SYSC_QUIRK("gpu", 0x50000000, 0x14, -ENODEV, -ENODEV, 0x00010201, 0xffffffff, 0),
-@@ -1872,7 +1880,7 @@ static void sysc_clk_quirk_i2c(struct sysc *ddata, bool enable)
- 	u16 val;
- 
- 	/* I2C_CON, omap2/3 is different from omap4 and later */
--	if ((ddata->revision & 0xffffff00) == 0x001f0000)
-+	if (!ddata->revision_doubleword)
- 		offset = 0x24;
- 	else
- 		offset = 0xa4;
+-/* L4 CORE -> I2C1 interface */
+-static struct omap_hwmod_ocp_if omap3_l4_core__i2c1 = {
+-	.master		= &omap3xxx_l4_core_hwmod,
+-	.slave		= &omap3xxx_i2c1_hwmod,
+-	.clk		= "i2c1_ick",
+-	.fw = {
+-		.omap2 = {
+-			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C1_REGION,
+-			.l4_prot_group = 7,
+-			.flags	= OMAP_FIREWALL_L4,
+-		},
+-	},
+-	.user		= OCP_USER_MPU | OCP_USER_SDMA,
+-};
+-
+-/* L4 CORE -> I2C2 interface */
+-static struct omap_hwmod_ocp_if omap3_l4_core__i2c2 = {
+-	.master		= &omap3xxx_l4_core_hwmod,
+-	.slave		= &omap3xxx_i2c2_hwmod,
+-	.clk		= "i2c2_ick",
+-	.fw = {
+-		.omap2 = {
+-			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C2_REGION,
+-			.l4_prot_group = 7,
+-			.flags = OMAP_FIREWALL_L4,
+-		},
+-	},
+-	.user		= OCP_USER_MPU | OCP_USER_SDMA,
+-};
+-
+-/* L4 CORE -> I2C3 interface */
+-
+-static struct omap_hwmod_ocp_if omap3_l4_core__i2c3 = {
+-	.master		= &omap3xxx_l4_core_hwmod,
+-	.slave		= &omap3xxx_i2c3_hwmod,
+-	.clk		= "i2c3_ick",
+-	.fw = {
+-		.omap2 = {
+-			.l4_fw_region  = OMAP3_L4_CORE_FW_I2C3_REGION,
+-			.l4_prot_group = 7,
+-			.flags = OMAP_FIREWALL_L4,
+-		},
+-	},
+-	.user		= OCP_USER_MPU | OCP_USER_SDMA,
+-};
+-
+ /* L4 CORE -> SR1 interface */
+ static struct omap_hwmod_ocp_if omap34xx_l4_core__sr1 = {
+ 	.master		= &omap3xxx_l4_core_hwmod,
+@@ -2300,9 +2191,6 @@ static struct omap_hwmod_ocp_if *omap3xxx_hwmod_ocp_ifs[] __initdata = {
+ 	&omap3_l4_core__uart1,
+ 	&omap3_l4_core__uart2,
+ 	&omap3_l4_per__uart3,
+-	&omap3_l4_core__i2c1,
+-	&omap3_l4_core__i2c2,
+-	&omap3_l4_core__i2c3,
+ 	&omap3xxx_l4_wkup__l4_sec,
+ 	&omap3xxx_l4_per__timer3,
+ 	&omap3xxx_l4_per__timer4,
 
 -- 
 2.47.3
