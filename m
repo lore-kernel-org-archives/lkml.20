@@ -1,98 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339045;
-	b=YAXjE3//2Orh7y05wBxYzboo9/7nbTKO/jpb3HXjSF3HpcbThpQb3QG7mYvv0KBTQkXJ
-	 eqKX8WXcv8GRV5QlIWYD9zJwGREY71XodXj6//EZYmMPToDu6to/c3MNYgkuL9ENq0yim
-	 a0NHrzm4p5HiaRM/IVORhMEhADiq4OjtOUHz7QaYJhdVHTeTBjANzLg3HAhCtpxYTF7T7
-	 Y/fJRPA8NMmQ24sq6NfjnFa83eFf5bauYLM/NnMVudPYavlnWpmluicb7ODQNiD2JZKGN
-	 Zy5CCczSh5UA7ZqL9078PDZ8y5kIlYYIvdca2xn0KZyiOV2Cs7dGFaTAJ97k1bAwXwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339045;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794339049;
+	b=Up9rnj3WPHZ2T6kAS8W3W4es0H9h3qsDoL8Ec5XI9QFmflTnuWuJAV7QPM08gvQm3Sg8
+	 gQDd9pSZ8krel5Kfo8qY8aZ3mKH0QnSl8+8RoH4m//GpodDsCo8eXJImBDLuNIOzJocmm
+	 /Un7lfO0Of9QvnN9YvKgBOA0oHWc0NZGF5UyVNSMBwUvKKr5f7cwjvcw3yCrLk3sT1DMw
+	 VFQlnfshs4k7ZDMVJ0YOw7yZCwFcxa/LbxWonm51tmA7OyCvrppodCC8t9wpE3L0gEi0Z
+	 9q7kL3SH25Poz8CFmAMNwjjq5fFJUtG1A9gZR77cfnOAUOyMmjH2lPKa5RibcSf1LXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339049;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YVXKXdmO5pc+cT527r2SrlA5H/eJKB4pSKsUd9huCKU=;
-	b=vTMThGu9IMhYWLRUTj10Gmb413csJkpMYuqxiHwmt19uWxPZ3pgFu5QWwcAfclZ868Hw
-	 7CLMzVpjdvSYTpL076TEsC5/mbPDr9MdLMpcGFgz6oMRjo/phv+UgqFqS1Hd5ao4q/s4P
-	 Wt5QI3jY3aPexB56zrvHeAAeXN1Jx5jvmasA02Fv5rFWH3zFJb6vWQ+r5RT3ShgtS0WQk
-	 KS1Ubpob5saOeMZXb5rpLAifhWmPiPDGRh7ePRIKVB7G6LwHs9ynVHmsLo9jYz+jOdvMC
-	 c0Kzv9juJqhhabgj30eUmX1Uamkon2yI0jKPKdTw2pGs2RcaCXy4PXrdncMz8PebQwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=bxDwPFOXkyRkRlbGoiQb8iudRyw26lOximDKyM7mel4=;
+	b=JeLDWR2aJzF2QVZXfYVyonzkPmJAuBDMvCyngz95clMyYZRVos9HKAZAT1M+saqGWp1J
+	 0IHBUISYUYOgiX/lqcV5KGj7EuXnW53iwAZttlXfeu1xf8jxHkTSxaAamNvhm507cNZvm
+	 4xHIMvZfd1tcZ2b9GzfzyRu5i0VMefjGQ9yPdkjiHzbXMuKLFS2oRmAgiOWkkZVisOeZJ
+	 /rCOu6sBLsaPNt5LNDfu+fbA5hTTvVJ+M5Hwt3QN0Iq1x9L8dR5ygdF6QA6ghtSd8/zOI
+	 Pk2LZJk0bkkZZpmREKtrMUdAwYqC8hkb5fc9mWdxYTC+o/nKIFjUiIzZVp08M22EElg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrSiAL2u;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lCMkQx/c";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57466606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57466606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F02C606A33D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F02C606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrSiAL2u
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so2933145eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lCMkQx/c
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b30477a320so19356407b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:30:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794339047; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HsatkllBomVpk9tJqhYBFUJSvQLzIJ5fL885vG/0CSdZkZPgrn4IJHoYE8cMUK29zB
+         WC5LQp27lgZoAyCKi6NB36CDo9wN3RCrYi5aqyy29xZBEtuYS8MEUOE9/JDbWcDh876M
+         0dFsK1Hf8pcswun0+UtIB48x1//3lo0/UYuJ5a6in4aXJ204mNqPWruaPGPCiHo5OcHw
+         eK7OhQiyjWoUeQF6K3FbF5LX26MdADYAzBQpJ2OKE59Ds1jPrrB0uwH0j81Seeqr5YqE
+         yPMqfwxx+cEYjcFmPQcGdWHAHcDo1eOsykppd7mWswLWSoxqgbYdgU252zmT/sFxazJe
+         ONJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bxDwPFOXkyRkRlbGoiQb8iudRyw26lOximDKyM7mel4=;
+        fh=QXADKmOwaorv3VaolyGeZzYkiXpRP8Igze+BkVC3rdo=;
+        b=Bl62u6jZFW3ACJASGkae8NzpmKraH9GcbEGMVBAjTVPVXZi3Aqed376t/RQVl+oGel
+         IGjVS20usnbZxysTkJUp1dWpHWTHoUB0t8F6uG/SO2frBWh+Mexo4tc2bzU5/sb9Ekuk
+         qnJDcP7ilMiBzqRa69EZMMmRAxxoaSQg5NrRPwqgfutJ4F0Jodc19joqDMfLMaxWzSAh
+         lky88hUT7TOSjjScxJwjZtT1kGgDa7hNbwdKqzpi5kn03Kh+bHZqSzavA4FkYCs0jtNd
+         hAYM3z87uz3EG+/gnjPKGbA1UEKiZqPBJl6WnPHxc7qALOvimf7NFPJkW/O5hvS/xriI
+         /p/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794339044; x=1794943844; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YVXKXdmO5pc+cT527r2SrlA5H/eJKB4pSKsUd9huCKU=;
-        b=MrSiAL2uGYTU/l6E8S8dUeQUegimhb0iSDMpBQDMoG9c03g9hzCRGrI4ZptLAOl00c
-         fEudwN+wjxmA+uz0Jhh9mghykH767D2J1Fr9NyGJvD11eTG8820YMwedJymNN2zd/d9w
-         j8i/CrNZSKqGdRmCtR6biu6izrGt6aeT+ntyUCu4a+WKK5N+DNMIz7o9LxV7FqEtWgsr
-         to6NBnd/4XjofV6CG4a1JFoteIa+xDH7GGrRzYur9dMi9VD0TiTEHgaBgszXUnFg5I1V
-         UV9Q1K06CPyD/y7eE5orW5Ny7kDjdYSLBmntJH6I5CJMLuIhqKJUyR4aOJqmTVgK+lY1
-         4vzA==
+        d=gmail.com; s=20260707; t=1794339047; x=1794943847; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bxDwPFOXkyRkRlbGoiQb8iudRyw26lOximDKyM7mel4=;
+        b=lCMkQx/cZj1NAfy6KCYTYzp6/8rt5qKzirF4luXEwMlX15auMOwo4DXzGTYCJFsuhF
+         LdSMJPnmoMuvTRSAtAl0t6sB8Iy1zED/Y3Ocv3jPh7yB+k5tV7sPSQT3flZdd0KNIXtW
+         PFHTYQPN/UMIKrbvGsZ41ybtXUmtbryWrKi4kF9MzhyKWlIh+/lbxONEwQKzikfuUxH4
+         +c9LMpcV0Xb8ZM2ofRqI6gk4FVqvMSrhlcLPOMyUEGEUzN39EJxw08QElFAbKVcT9qEN
+         xr+XNcrmjfiDFxpP5BjKQFYEACIZOtbmqjJR0fo/FSQCU8QJBx8GBawJ6GHVNWzbSkai
+         38Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339044; x=1794943844;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YVXKXdmO5pc+cT527r2SrlA5H/eJKB4pSKsUd9huCKU=;
-        b=R8oHiGz9O2QkVRXfjzUEFzx7AJzl0kB4sej1i4YXLNA1L0pGs8KtlvjzjZ81PGZpmK
-         jLmuYmynHHNLQuixJL71crF3lKL/MLV9/pWe9dtWq7QA5McruHWbhXeM5LrX/u9KAB8r
-         7P/354SpkpiH1rzPvQS4uM4Hs5i2VeELRKLfGM+kaTwR/BoJol5pwZVrWHsBOcuzDOjO
-         iwNYF9vb4tVIK7lw2B4Q6vgL0Tbhi9R+PheeJL8fAnd5Hc2x4ClIZO7Cg8IwEhoLnVJ7
-         FPbR+NI7vyIWKadWGthff0p6RB5nz2MrWhKrqiYxxgXLOOj6mQy0FmIYpTner/urI8Jt
-         Vlwg==
-X-Forwarded-Encrypted: i=1; AL+hErHYP9aJR+MiCVb1HrDcYqIZ2QUltzsgAJxEiBrf+cW4UFDj2NNaXuZMa5SmW5jwoWg+1EkdAj2H37xZj3U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MjMwg8yP0+jWf2otroqD0yQZ5nt1972ouTuokxLRSU0t2+zVx
-	YskNaDbJsI/r7q3x8rYgRPEMb1coUvq020wkQsOC/VCueUsbZcwc0JfT
-X-Gm-Gg: AYBFou0upR3NHkuGFsh7Txad2/3cyul6EijLubZDpDbtlSJe2miSLUpYubrA6utBEV9
-	kCrKoaoMUrkLMmaRfyGM3Hqt3a1rIg8LOgD9aXhLvS5BFC1qbKc/JfcxhKkSBMgKEpOh3QTxfH7
-	l1EEON4YJWzddmw3wsRmjUMW2eeK1MjivQpnfGERy4n62YziK+K75rl6DRp/37P3uIFvxD2gOq3
-	R8hHHG5v/aKS/lPg1BN8diBeUAJld7TGTIxy2ltuF+XGbaSE8I2+msv4YgugINiQJOUzcO5QG4R
-	79u2BYJfWzq44yijEXU/pYjquxIXEZvfo0uyXsY8xDZW34raMNYMti3xrRNR9D/5EFL5bbtVKPC
-	qSddV4boAnFcjDeJNSxKTNWOswZgeyAUxG5cXR2+RxuBkDkP3AU2joWyi0z6BIoObjnGxV95igf
-	fR7McuoU5ezoZh/Hm9krcXM8tVVeYLTBCruSaVkhF92eq+r0tHhEA9JFAPbt5CGH39x2hkqiasx
-	FN2vTGNZVG5hkGOy4dM780GLo1BvjP+oAUQeJa8qwK98nNMRKBlUGMxlW0ztKKSHblbsslwKDt+
-	zHxTdTnJjULU4V1cem+m+C86GAfQZVlDPTYaIpA33x2GyMZl/w==
-X-Received: by 2002:a05:7301:d80b:b0:375:370e:f1ff with SMTP id 5a478bee46e88-37687214128mr374176eec.35.1794339043899;
-        Tue, 10 Nov 2026 11:30:43 -0800 (PST)
-Received: from AERO17.taila7786d.ts.net ([45.95.212.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm7730435eec.0.2026.11.10.11.30.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:30:43 -0800 (PST)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH 1/2] arm64: dts: rockchip: add USB-C PD support to LubanCat 4
-Date: Wed, 11 Nov 2026 03:30:27 +0800
-Message-ID: <20261110193028.512456-2-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110193028.512456-1-cyan2254650260@gmail.com>
-References: <20261110193028.512456-1-cyan2254650260@gmail.com>
+        d=1e100.net; s=20260707; t=1794339047; x=1794943847;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bxDwPFOXkyRkRlbGoiQb8iudRyw26lOximDKyM7mel4=;
+        b=QrhCwdEVBUXQNItns3SYYrSKJ3r25iLmgsSn7y4U8JqqGL7rWbOSBBvAO62JtkcdIN
+         K8QTAaQ9EYRuMd/zI1b9nrj1KcPEvlSl9jJBX/iwbCzTsbH7XrBm/BksasObWsmy/GOg
+         mAnf84lLlwRpD8KUj9s9FySdG08RQqawxSDpdOzmWr2+rvYcwBP3VcZJeWczmEA4Ni2b
+         MU3roTeF6rrgE3MIFGVIX81Y173Q30POkXL+J7oI5PpRkOAA0BJzGRmUdcI5Op62S7nz
+         A5n8ewxX4gjK3lPlESpMWTxRhw3wHtuujmNSj2dCp5ekec7YlXDY6EdjtNb2HbKFA89a
+         m57A==
+X-Forwarded-Encrypted: i=1; AL+hErFPgdq5UUKYENdXG1jIu2xJMEZY7f3rDAAWBcvVwntFW4yymVj7ZBmJUbOTdFfMnMvJoCuY8cONO1e8Rx8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oX0KrLN7ArCOa5MQY5fE+wNWbQOJy3yi4HSUJma43K23hA4nA
+	pMzIaXuhGbXpGqhOc6iSzHzIddWlrBdIL8sTqprSsVZ7dF9y9KogI2C1HaHytRlfkaIxSotrY1K
+	FuEc7f4fJcCoyUftr3EyET21cM0Q/SXo=
+X-Gm-Gg: AYBFou2yIpgFY+D1uNC+/wQ7FudeZ82zDoYzw3RAfOiShtk8MdSvTu05ebC+7a2Ak0Q
+	6Dz82L5LBqY+0pJ53ioUE4A+IxOTCx57CP4KXs6YMA1wROah0oSSqjENRTP3qLj3tuEdi/8TJtg
+	aOcALd+SsDuix+qNCBOIuO72uWQ13Kzd7O6iEfjr+6AcaTkd36xGPb/29PcHaphJZ12HVT7K0pQ
+	SFl+U7KcLDNyQ5QyId2WvioduxubfXvQSZmifxlmMU7fw6cyUPYp0FKh1h8ImqOkVrQeSFQDnDq
+	vSQ0+35w+W6KybLuy7IX20K9ZHnzRoPZBr+V7WtXA7lOBfVT8RSr8+QsFUUjcFJGazhvYUX4iKG
+	yRoQ8TLleo0aBxiZANdCN3TnKfT2eivMd4YLN2w==
+X-Received: by 2002:a05:690e:43c1:b0:67c:2804:fa9a with SMTP id
+ 956f58d0204a3-67c67fd7c9emr126041d50.36.1794339047361; Tue, 10 Nov 2026
+ 11:30:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,205 +103,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+In-Reply-To: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Tue, 10 Nov 2026 20:29:00 +0100
+X-Gm-Features: AclHuK-V5XriYQc7jPlMOpsvH2O8V3xAiSzCm-87ylsSLg9H0W8yUGZ1h1oG_o8
+Message-ID: <CABdCQ=N8afBsoZcTA7He3FOR9D2K-yieb9i4cAa=WksjoHm5aQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/2] riscv: dts: spacemit: Enable PowerVR GPU on
+ OrangePi RV2
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-The EmbedFire LubanCat 4 has a Type-C port on the front panel backed by
-a Fairchild FUSB302 Type-C controller connected to I2C1 (at 0x22).
-VBUS 5V power is supplied through a fixed regulator enabled by
-GPIO1_C1 (active high), current-limited to 2A by an LPW5209 switch.
+Hi all,
 
-Add the FUSB302 node, the fixed VBUS regulator, and the USB-C connector
-with dual-role power (source 5V/2A, sink 5V/1A) and dual-role data.
-Wire the HighSpeed data endpoint to usb_host0_xhci and the SuperSpeed
-data endpoint to usbdp_phy0.  Set usb_host0_xhci to OTG mode with
-usb-role-switch enabled, and add orientation-switch on usbdp_phy0.
-
-DisplayPort alternate mode support is added in a subsequent patch.
-
-Tested on LubanCat 4 hardware:
-- fusb302 and tcpm probe cleanly;
-- USB host mode verified with USB 2.0 and USB 3.0 peripherals;
-- USB 2.0 devices enumerate and transfer data in both orientations;
-- USB 3.0 devices enumerate at SuperSpeed (5Gbps) in normal orientation;
-  reverse-orientation SuperSpeed is subject to the known upstream
-  phy-rockchip-usbdp driver reinit limitation;
-- USB device mode verified via ConfigFS CDC ACM serial gadget connected
-  to a host PC with successful high-speed enumeration and bidirectional
-  data communication;
-- VBUS switch (LPW5209) enables in source mode and remains disabled in
-  sink mode with reverse current blocked.
-
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
----
- .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 115 +++++++++++++++++-
- 1 file changed, 114 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-index 0d28c6165..a94aaddb2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-@@ -8,9 +8,11 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/usb/pd.h>
- #include "rk3588s.dtsi"
- 
- / {
-@@ -116,6 +118,18 @@ vcc5v0_usb30_host: regulator-vcc5v0-usb30-host {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
-+	vbus5v0_typec: regulator-vbus5v0-typec {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vbus5v0_typec";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		enable-active-high;
-+		gpio = <&gpio1 RK_PC1 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&typec_vbus_en>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
- 	fan: pwm-fan {
- 		compatible = "pwm-fan";
- 		cooling-levels = <0 100 150 200 255>;
-@@ -286,6 +300,51 @@ regulator-state-mem {
- 			regulator-off-in-suspend;
- 		};
- 	};
-+
-+	usbc0: usb-typec@22 {
-+		compatible = "fcs,fusb302";
-+		reg = <0x22>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&fusb302_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+		status = "okay";
-+
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "dual";
-+			try-power-role = "source";
-+			op-sink-microwatt = <1000000>;
-+			sink-pdos =
-+				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
-+			source-pdos =
-+				<PDO_FIXED(5000, 2000, PDO_FIXED_USB_COMM)>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_host0_xhci_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy0_ss_out>;
-+					};
-+				};
-+			};
-+		};
-+	};
- };
- 
- &mdio1 {
-@@ -346,6 +405,16 @@ usb30_host_pwr_en: usb30-host-pwr-en {
- 			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
- 	};
-+
-+	usb-typec {
-+		fusb302_int: fusb302-int {
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		typec_vbus_en: typec-vbus-en {
-+			rockchip,pins = <1 RK_PC1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
- };
- 
- &pwm0 {
-@@ -748,8 +817,30 @@ &usb_host0_ohci {
- };
- 
- &usb_host0_xhci {
--	dr_mode = "host";
-+	dr_mode = "otg";
-+	usb-role-switch;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			usb_host0_xhci_hs: endpoint {
-+				remote-endpoint = <&usbc0_hs>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usb_host0_xhci_ss: endpoint {
-+				remote-endpoint = <&usbdp_phy0_ss_in>;
-+			};
-+		};
-+	};
- };
- 
- &usb_host1_ehci {
-@@ -765,7 +856,29 @@ &usb_host2_xhci {
- };
- 
- &usbdp_phy0 {
-+	orientation-switch;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			usbdp_phy0_ss_out: endpoint {
-+				remote-endpoint = <&usbc0_ss>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usbdp_phy0_ss_in: endpoint {
-+				remote-endpoint = <&usb_host0_xhci_ss>;
-+			};
-+		};
-+	};
- };
- 
- &vop {
--- 
-2.56.0
-
+A friendly ping on this RFC series. Any feedback or thoughts on this
+approach would be greatly appreciated.
