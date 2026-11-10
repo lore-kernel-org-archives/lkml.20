@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334986;
-	b=kkzg7vpUTq/MFCIClzPtO7VYKTnkWVMoU5t9LRnrNNWYbnqAdHKvxUZbYbl5Y9zgyVda
-	 qbtgFYiNnsj7LtFtKhmdARvO+oVrhVU8v6f22nwgN4w1rAng4Lcyq1J646vDjVXR4rYjq
-	 lm/HOx5NHDlv18Zq/iBK9W53h+LrLeJfPPw/JHnoCxnmzU5it8VAJK+26Z/zeSyeUsOA7
-	 SZheSME302+DTZomJnF37XXC7tqqDW2pN50+L+i10Z7fcijS7AbSD5nJzvcpDgZCp5mdu
-	 tIngeq9crqKiz31UhLIa09wGqGQ/qPTSuePy77m184ZoBUHFhiIzr1m8qmkAp09UPPQ==
+	t=1794334988;
+	b=Fyc3M4PtB5/UYtXiyRFkaeRoF/p2IFrfgsowKVNvSH9L7AT7lnFUFA2jrVTO6gfS5cRQ
+	 CnqF9pFpBqDKMh/UeiKYqeX8C2IwyxkOrOb4Xc52b60aB5nxsuF1w+USdEqE20JeREaJ/
+	 73yZ9ZuLA81mFZzanrFxtLmbakpPwx2TR4uwZt4SQKLLm6/rwRkYSIWNfHZoBdOAA7iy6
+	 JgBk243m9KwuGTr/RUCNKa/XaMrK87cg9+VH3+rSVG7z/e43Lpn9saj18uX85kci4a2dy
+	 1vmqih9/ogu/bY8ZAtDyjEPB6cL9UsGtLYnPiNujC7P7Du9yC7Nq2uFT5lZhEB8PTAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334988;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=9sE8gzaydrNHDIN+s0tYeRlNamt0qF0RhgBxRYsfIv0=;
-	b=ZcN7NZCrbmoETq80k2Gl2LRPYfLDUckwCkkyKSM3XfG9kfr1sFjRol7NdVmo6LXrbmnl
-	 5ND0QsIa8O9zdrNTP4UizvVB69krahH+iJbl4YfKrrF0k/X66ZM3oPZCANdNPRNHwfJSK
-	 jGL1qHIC1jk2Dw6APYBTqnS+ihM5eeApOV0zdk/VIsPMPbfrHdqvFMw+rspR8gFQKw8Tl
-	 8kkJ0YKVwvbkcKHvJd2+0TTqiIZOccU9HmWdCgf0WiH+0MYpUnvJw+AzvzgXhMXAJjNwi
-	 3JStBL9VKjYCzt0UrmWETRpeDabH0nPiOSJnmXO0jMFuuCTQri2cGqxpWoW6rlkyyrQ==
+	bh=gFIVP2ukIR57mtsLtodnC+ROcqefNTEt0BFqlHtqGTU=;
+	b=V7TLrD1wzNviifayqX9/vAPZNVeBTCoGssG1Uy39I/ALRalpiihiePGkpwh76FBU/5AT
+	 PrBxalrxsmJ02W6v0OI7CVCefs+yCssSljEdEe3KI5vWatNTleMq3jn3U2mR18TArhgKm
+	 +WPbBS04xRCyYgcKlOQsUhmh2ATjAH0X+X0JZvEFQMgyC1wzoWt2Nzq/0haQvYglzaEuC
+	 VWzV9SfcrMJpetIK9nLTTkidc7bjG1BpdA/g5XZM1oORA6+YE4HtYcdpP6E9AwBMdAyRt
+	 XPzjd1yBMah6PAOPImJLSj1ZQ6ZuVYf8/G5ojdlEu/py6WrTOOnxT7LB/jxeojFul+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIfL55HO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1Rf1BVO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8280060A2607;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691B760A2626;
+	Tue, 10 Nov 2026 18:23:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIfL55HO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0EA1F008A1;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1Rf1BVO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53051F008A1;
+	Tue, 10 Nov 2026 18:23:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334986;
-	bh=9sE8gzaydrNHDIN+s0tYeRlNamt0qF0RhgBxRYsfIv0=;
+	s=k20260515; t=1794334987;
+	bh=gFIVP2ukIR57mtsLtodnC+ROcqefNTEt0BFqlHtqGTU=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dIfL55HOXbwYPWyq6dX5QadDojD9GRw/005QwnPDkenjdFn4T84RpwI3O3tJn3pS8
-	 Df7unLDv/XnCWoSfAMNGidQLjlVLuWuNdoN1Nj+U2UFUKY/c8Gn2yReOxqqFCFey9Z
-	 o8dz8ghEZJl87qkwMSX7SXDtmkvnf9wES3Iu/z4GXS/MmHEgx1XSLqEl/O4t1z1rTT
-	 3FOaKGDdEwTOYNpyuV7WjDyY1d15V9qwCFbW7SL8e6d6qwmyssKMW8sPehJsZhT0ZL
-	 CO00WsxQbD4N5balZWdF8SACptEKMK6d3+5ijpA8Xmw7Bfw8yCmFhZ26BR8GlAF9+Y
-	 lW+ZLn2QvrLlg==
+	b=L1Rf1BVOphEmQaZiEKSRL11F60pJRSY1sAr2vINQtkQYjbS7fn2enAgbCpLjZ9efl
+	 xb7z5mk+YibdtVDBvH4CMqtDhmCPX8AMSOs+KQWv3yqpISW4quaSmeGjsVJqhdR6/H
+	 pCj0lhslhAIFRqhnxNmR43STVcnkT/mp8b8NlbUU9OlMbGjJ4fiSoRPD21NFDUS2xG
+	 jNzMa+lVTPOCnmUpnntyNI0/n5/qft8eyZRM5bUERiIpLUr4Ml6DzEVYI+O3YKE2aa
+	 /Xjn4JdLbaHD4/oriir7GaFLvN58NSeF6zkoZwvbuIxy/TyzXyTbXgk/3rtc8oEj7R
+	 tgjtgvWLFKQgw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210B939D608B;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B1C939D608B;
+	Tue, 10 Nov 2026 18:23:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,40 +54,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop
- phylink
+Subject: Re: [PATCH net v2] net: gro: avoid parsing headers from shared
+ fragments
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179433498467.4118637.205536379890905372.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 18:23:04 +0000
-References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-In-Reply-To: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, linux@armlinux.org.uk,
- o.rempel@pengutronix.de, stable@vger.kernel.org, byu@xidian.edu.cn,
- wencheng@xidian.edu.cn
+ <179433498617.4118637.14513799023465794368.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 18:23:06 +0000
+References: <20261031050752.31869-1-kylebot@openai.com>
+In-Reply-To: <20261031050752.31869-1-kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net,
+ linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun,  1 Nov 2026 00:52:13 +0800 you wrote:
-> lan78xx_disconnect() stops phylink before unregistering the net device.
-> phylink_start() is only called from lan78xx_open(), so when the device is
-> unplugged before the interface has been brought up, the attached PHY is
-> still in PHY_READY and phy_stop() reports:
+On Fri, 30 Oct 2026 22:07:52 -0700 you wrote:
+> When an skb has an empty linear head, skb_gro_reset_offset() can expose
+> the first page fragment directly to GRO header parsers. For an
+> SKBFL_SHARED_FRAG skb, those bytes may still be writable through a file
+> mapping. Headers validated during receive can therefore differ from the
+> headers later copied into the linear head and used during completion.
 > 
->   called from state READY
->   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
+> For example, changing an IPv6 destination-options length between the
+> short and full header fetches in ipv6_gro_pull_exthdrs() can make
+> ipv6_gro_complete() pass an out-of-bounds offset to udp6_gro_complete().
+> A userspace reproducer triggered a KASAN slab-out-of-bounds read there
+> on an unmodified kernel as UID 1000. The same completion path can write
+> the UDP checksum and length through the invalid offset. The packet has
+> trusted TCP GSO metadata and spliced file data, so it reaches completion
+> without an skb zerocopy destructor or a second GRO packet.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v2] net: usb: lan78xx: let unregister_netdev() stop phylink
-    https://git.kernel.org/netdev/net/c/928012824561
+  - [net,v2] net: gro: avoid parsing headers from shared fragments
+    https://git.kernel.org/netdev/net/c/44818c9a826d
 
 You are awesome, thank you!
 -- 
