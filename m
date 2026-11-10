@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292699;
-	b=vsPgwyoepQULKgreCaVc8OOmn+sPBW/EeuHL6/JNmSzjKSlm043JUpgDM5rkYydbCvko
-	 VHdWifxjrdw5h4Mw8jJFLnKTnRz/RV+mRXbGMayQBzjDcg5ecFm0B0lDLFquqlDtq59/j
-	 ZikdKR+2rU+CeGVA5evk+z/75H5005aqDHJxtJyGDUHwksM8KlBJ4ro6+lVpYkhK8xMIM
-	 D6YYQE7DWM8P2eEwBgeeZ4wzDl/A6KomZrc5dS1dZpnFOQFgFmsskXoUELv4/bhTku2Rx
-	 Cs4AfKXj0jb0oFmWv25eJb0Iv3jKR3d3V/yN7KeIqEOAi9Tth4NfaJ0tmjYAnCfFEYg==
+	t=1794292701;
+	b=pAKnVn0LIEdrKx5uB4iNo6+yY5vZ4hOiV/9jryH+tdH/QZEpSk0VzJpWOrf/OY5d2VVo
+	 1OA9MbFr1wd3Ydv7a7R0VBHBMnXnnG0uXOd4yFeE2VXHFdGreUDKVXvdHmTuWK5F1YBWf
+	 cKAbI2SBzFvhggnnYWwp4T6zxwAoK9PeIVmUzlqGo6F8N60eazO7HzYhgNOrlcIflMesP
+	 iMzNx9kXubP/E89fdUpxNkW0c0XbrkhQa2qz9f1RLeG14FBBtrJiZj7W1SzfJNEbVVZ3c
+	 F3+V2AD6LcuI+WiQmlkaImOI+GXLUqSa1GZcDrFeM13sbuX/5qthjPU9tZGOv8mQncA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292699;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=AgZ33A74N/3OfXAQhYF/jw8rO65lJKDN5faIKmJr/6U=;
-	b=e+obhwKX+lCzD+kN9wZKt1V6PYpYDDz1tZdxqjvveSiLP/kDnhnwusfdKxgD731+ee/K
-	 m/SNvP+4aalGQUTHkHsIA87Q4aff3EZmKIJkGrg3sG/IR6ceNCKgaSQaBAAF08XXfd9qS
-	 yBAKdNqto4b0o87ad1ACFrtYs8lyO5M9y7q1J1749Pb76XGbWs+R+ft0jenGXBTdhikmF
-	 k/qlKbsnfiv4f+Pq11JLEELxLDt2Cv06t0NItBVaztcztL6McW/AHvNLe9g2uUv3DTthc
-	 /kKSGYMp2IslzqS+cei7oQofRi2GmOE/rQsJv3ZEaoJPEpFY47xydBumptNwA9MOg5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292701;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=tb6492JbkmgtBmoAA1lWUlcjhbJx5wzf1aKynM8S9Rs=;
+	b=2teSafqQRAcCU68dzGT1zoD4+3/0VMcKM6/iRpuLZ9ChLasw5Ox5nf1FmPAB+OtAURPO
+	 q3WOd4FTfwqRycvKZBOkVe5FUs7eVpsGvJaMSv0Vyu9rZ6djagNab+ASw+SICxYtlWUIS
+	 Bj+IW2f4AdpaG5fIKpPKmolmiRc3vAeHYpn+k8ITgURadJoXc/hPv7wiS+gbR41TG+N9M
+	 nJzHn+HMcoEIG+dRzWNiiUfbioNwtOcdNTv+mYl93i5lAcjlF2aa27hK50xQXgqJz3YJF
+	 AD7wuOv2ZonybAtUxQaO+QcmUerhZhjnQUylbPx+FRiXfCAmt+wNPobrTvOv0NSzg5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jEBWeG4G;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUepMDTX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C74E606A32A;
-	Tue, 10 Nov 2026 06:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C74E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935D5606A334;
+	Tue, 10 Nov 2026 06:38:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jEBWeG4G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=AgZ33A74N/3OfXAQhYF/jw8rO65lJKDN5faIKmJr/6U=; b=j
-	EBWeG4G8etrjgTGMxOv4qJcQEMF4gblKfKqqxzdKTk2UrnO6GqarnbNJlmyNboPf
-	oJoJ9RmNzn484d+QkhwJKzipXxBdtZlOeK+Qn0LwRTfD59SmkRK8qVmIR0DltOhu
-	QLdpYjSNA3DwYjA3rSaZ/IL27oMzKmMNdkyOeYasN8=
-Date: Tue, 10 Nov 2026 14:38:04 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: INFO: task hung in dvb_usb_i2c_exit on v7.3-rc2
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2SBv6SvU4j4iCcbOkdmEsTju82UcS4ufQl245Xc+0Gpx/uxxgFbWVuH1zqy+aKERKnoRu9TDlC8s9YbKt+Jo4R6qGU3mEF0NYYiQev8g==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUepMDTX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCDB1F008A2;
+	Tue, 10 Nov 2026 06:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794292700;
+	bh=tb6492JbkmgtBmoAA1lWUlcjhbJx5wzf1aKynM8S9Rs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NUepMDTXMV1qSqxVZiGi7dTMF76kI6beGLfpgFoQm994HjHyQHhEo0pjgyNb2ThHM
+	 wXgUiUBUSxufsqt5BE8SrGxyRB43bLWCD0FDyJm0lgsh/IwTQBWro2gI7HS31ZqKoM
+	 h3PC3WQLXQkvmm9ZXljjtnJDGhTkoseoweHyUbq7RwzhATQ0OBH8Ko1QTaQHUK4QOY
+	 uuAucLUaaKv5yDEYu/APqwUDEbTZlFfg1rtJPmPQjM1jpNf0WZPKfWw0UEHhLdFtja
+	 34ytQjEC+WGd2G5jydmujjZnBa1E5CoqJjb1AApTCWEJYMTQE5m2mZUYNZGT8mVCTw
+	 Rq1qCSMykbTWg==
+Subject: Re: [PATCH net 2/4] af_unix: Fix scm_stat.nr_fds leaks for OOB skb.
+From: netdev-bot+sashiko@kernel.org
+To: sidchintamaneni@gmail.com
+Cc: kuniyu@google.com, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, shuah@kernel.org, willemb@google.com, jannh@google.com,
+ tkhai@ya.ru, apais@microsoft.com, rlmenge@gmail.com,
+ hargar@linux.microsoft.com, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 06:38:18 +0000
+Message-ID: <179429269890.994134.2299928525127713908@kernel.org>
+In-Reply-To: <20261106051905.218638-3-sidchintamaneni@gmail.com>
+References: <20261106051905.218638-3-sidchintamaneni@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,49 +64,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <182ccd7f.4ef9.1a1c42d951f.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kigvCgD3d4HMu_JqRRBrAA--.26W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3Qx5K2ryu8ysxgAA3G
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgaHVuZyB0YXNrIGluIGR2Yl91c2JfaTJjX2V4aXQuIEl0
-IGlzIHN0aWxsIHJlcHJvZHVjaWJsZSBvbgpMaW51eCB2Ny4zLXJjMiAoSEVBRCBkZjI5MDgwOTBj
-ZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3KSB3aXRoIGEgc3l6a2FsbGVyIHJlcHJvZHVj
-ZXIuCnN5emJvdCBvcmlnaW5hbGx5IHJlcG9ydGVkICJJTkZPOiB0YXNrIGh1bmcgaW4gZHZiX3Vz
-Yl9pMmNfZXhpdCIgb24gbGludXgtNi4xCihodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9i
-dWc/ZXh0aWQ9MmUwMzA3YjEyMWQxODBmY2EwODEpLiBUaGUgdGFyZ2V0IGNvbnNvbGUgc2hvd3Mg
-YSBtYXRjaGluZyBmYWlsdXJlIHNpZ25hdHVyZS4KCgpUaGUgcmVwcm9kdWNlciBwcm9iZXMgYW5k
-IHRoZW4gdGVhcnMgZG93biBhIERWQiBVU0IgYWRhcHRlciwgcmVhY2hpbmcgZHZiX3VzYl9pMmNf
-ZXhpdCB3aGlsZSB0aGUgaTJjIGFkYXB0ZXIgc3RpbGwgaGFzIG91dHN0YW5kaW5nIHdvcmsuCgoK
-T24gdGhlIHRhcmdldCwgdGhlIGtlcm5lbCByZXBvcnRzOgrCoCBJTkZPOiB0YXNrIGt3b3JrZXIv
-MToxOjQ0IGJsb2NrZWQgZm9yIG1vcmUgdGhhbiAxNDIgc2Vjb25kcy4KCgpUaGUgZGlhZ25vc3Rp
-YyBwYXRoIGlzIGkyY19kZWxfYWRhcHRlciAtPiBkdmJfdXNiX2kyY19leGl0IC0+IGR2Yl91c2Jf
-ZGV2aWNlX2V4aXQgLT4gY3h1c2JfcHJvYmUuCkl0IHNoYXJlcyAxOSBrZXkgc3RhY2sgZnJhbWVz
-IHdpdGggdGhlIG9yaWdpbmFsIGh1bmcgdGFzawpyZXBvcnQsIGluY2x1ZGluZyB3YWl0X2Zvcl9j
-b21wbGV0aW9uLCBpMmNfZGVsX2FkYXB0ZXIsIGR2Yl91c2JfaTJjX2V4aXQsIGR2Yl91c2JfZGV2
-aWNlX2V4aXQuCgoKVGhpcyBsb29rcyBsaWtlIHRoZSBpMmMgYWRhcHRlciB0ZWFyZG93biB3YWl0
-aW5nIGZvciBhIGNvbXBsZXRpb24gdGhhdCB0aGUgZW11bGF0ZWQgZGV2aWNlIG5ldmVyIHNpZ25h
-bHMuCgoKVGhpcyBpcyBhIGZvbGxvdy11cCBmb3IgYW4gZXhpc3Rpbmcgc3l6Ym90IHJlcG9ydCBh
-bmQgZGVzY3JpYmVzIGFuCm9ic2VydmVkIGZhaWx1cmUsIG5vdCBhIGJpc2VjdGVkIHJvb3QgY2F1
-c2UuCgoKUmVwcm9kdWNlcjoKwqAgc3l6IHJlcHJvZHVjZXI6CgpzeXpfb3Blbl9kZXYkdXNiZnMo
-JigweDdmMDAwMDAwMDBjMCksIDB4MjAzLCAweDg0MDEpCnN5el91c2JfY29ubmVjdCgweDAsIDB4
-MjQsICYoMHg3ZjAwMDAwMDAzODApPUFOWT1bQEFOWUJMT0I9IjEyMDEwMDAwNGI0MTQ2MDg2MDE2
-MzIwOWVhODAwMTAyMDMwMTA5MDIxZTAwMDEwMDAwMDAwMDA5MDQiXSwgMHgwKQpzeXpfb3Blbl9k
-ZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDAsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYo
-MHg3ZjAwMDAwMDAwMDApLCAweDEsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAw
-MDAwMDApLCAweDIsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAw
-eDMsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDQsIDB4NDAy
-KQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDUsIDB4NDAyKQpzeXpfb3Bl
-bl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDYsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJD
-KCYoMHg3ZjAwMDAwMDAwMDApLCAweDcsIDB4NDAyKQpicGYkTUFQX0NSRUFURSgweDAsIDB4MCwg
-MHg1MCkKc2VuZG1zZyRubF9yb3V0ZV9zY2hlZCgweGZmZmZmZmZmZmZmZmZmZmYsIDB4MCwgMHg4
-MDApCnNjaGVkX3NldHNjaGVkdWxlcigweDAsIDB4MiwgMHgwKQpzZW5kbXNnJG5sX2dlbmVyaWMo
-MHhmZmZmZmZmZmZmZmZmZmZmLCAweDAsIDB4YzAwMCkKc2VuZG1zZyRORlRfQkFUQ0goMHhmZmZm
-ZmZmZmZmZmZmZmZmLCAweDAsIDB4MCkKCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGVi
-aW4uY29tL3Jhdy8xTGEyQk01ZQprZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBz
-cG90LmNvbS90ZXh0P3RhZz1LZXJuZWxDb25maWcmeD02YTVjYmQyNjg0MDZiZjQzCgoKS2VybmVs
-OgrCoCBIRUFEIGNvbW1pdDogZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1
-NwrCoCBnaXQgdHJlZTogbGludXgtc3RhYmxlCsKgIGtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzIK
-wqAgdGVzdGVkIHRhZzogdjcuMy1yYzIKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRl
-dGFpbHMgb3IgdGVzdGluZy4KCgpUaGFua3MuCgo=
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] The commit message for "af_unix: Fix scm_stat.nr_fds leaks for
+  OOB skb." gives the wrong reason for the leak.
+
+Pre-existing issues:
+- [Medium] unix_dgram_disconnected() (net/unix/af_unix.c:616) purges a
+  datagram socket's receive queue with skb_queue_purge_reason() and…
+
+--
+
+af_unix: Fix scm_stat.nr_fds leaks for OOB skb.
+
+This commit adds scm_stat_del() calls on the paths that free or skip an
+OOB skb. Those paths are in unix_stream_recv_urg(), manage_oob() and
+unix_stream_read_skb(). Without the calls, u->scm_stat.nr_fds stays
+elevated after an OOB skb carrying SCM_RIGHTS is dropped.
+
+> Because unix_destruct_scm() has no reference to the receiving socket when
+> passed descriptors are not AF_UNIX sockets, u->scm_stat.nr_fds (reported
+> as scm_fds in /proc/<pid>/fdinfo/<fd>) remains permanently elevated.
+
+[Severity: Low]
+Is this explanation accurate? It reads as if the leak only happens when
+the passed descriptors are not AF_UNIX sockets.
+
+The destructor path never decrements nr_fds for any fd type:
+
+unix_destruct_scm()->unix_detach_fds()->unix_destroy_fpl()->unix_del_edges()
+
+net/unix/garbage.c:unix_del_edges() {
+    ...
+	if (!fpl->dead) {
+		receiver = fpl->edges[0].successor;
+		receiver->scm_stat.nr_unix_fds -= fpl->count_unix;
+	}
+out:
+	WRITE_ONCE(fpl->user->unix_inflight, fpl->user->unix_inflight - fpl->count);
+    ...
+}
+
+The destructor can reach the receiver through the AF_UNIX edges, but it
+only updates nr_unix_fds and unix_inflight.
+
+The only decrement of nr_fds is the atomic_sub() in scm_stat_del(). So
+these OOB free paths leaked nr_fds for AF_UNIX descriptors too.
+
+The oob_fdinfo selftest in this series sends AF_UNIX socket fds
+(self->fd[inflight * 2]) over MSG_OOB. It expects scm_fds to go back to 0
+only with this fix applied.
+
+Could the commit message describe the cause as scm_stat_del() being the
+only place nr_fds is decremented, whatever the fd type?
+
+> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+> index bfaab7c6d7203..44c0a81dd423a 100644
+> --- a/net/unix/af_unix.c
+> +++ b/net/unix/af_unix.c
+
+[ ... ]
+
+> @@ -2906,6 +2915,7 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
+>  		spin_unlock(&queue->lock);
+>  		mutex_unlock(&u->iolock);
+>  
+> +		scm_stat_del(sk, skb);
+>  		kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
+>  		return -EAGAIN;
+>  	}
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch. Is
+there a similar nr_fds leak in unix_dgram_disconnected()?
+
+net/unix/af_unix.c:unix_dgram_disconnected() {
+	if (!skb_queue_empty(&sk->sk_receive_queue)) {
+		skb_queue_purge_reason(&sk->sk_receive_queue,
+				       SKB_DROP_REASON_UNIX_DISCONNECT);
+    ...
+}
+
+Each skb on that queue was counted by scm_stat_add() at send time. The
+queue is purged without scm_stat_del(), and the socket stays in use. This
+happens when unix_dgram_connect() gives it a new peer (or AF_UNSPEC), and
+also from unix_dgram_sendmsg().
+
+Sending SCM_RIGHTS to a connected SOCK_DGRAM socket and then calling
+connect() on it before reading would leave scm_fds in fdinfo too high.
+
+This is fixed later in the same series by "af_unix: Fix scm_stat.nr_fds
+leak in unix_dgram_disconnected()". That patch dequeues each skb and calls
+scm_stat_del() before kfree_skb_reason(), and the dgram_disconnect_fdinfo
+selftest covers it.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106051905.218638-1-sidchintamaneni%40gmail.com
