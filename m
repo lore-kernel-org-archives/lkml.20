@@ -1,82 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327538;
-	b=ta6nfGdHcavXSLRp/qi9jbWRG1pE/yo6N304GMYL9UdkIBAzb4v228JfqI0O593UEog/
-	 hTD2tn0NBH/we03NvSvBNZqWQkf+mdb98Sz9nRXvih8z6HQhMYpBKkcbhm8LuyyZOy5Wp
-	 GcmTPAy18b9bDt0SNpsaovjc82dEocYM009k4Sit5KHW8fe/RxroN8Oy8XWeAxfhgskpo
-	 L8CUtBZuitHBG9GGQFJh9G/nu1cJLJ7vM31E9aunMsC4jJw1w8xWLpd+2D2wZj9+sUI+Y
-	 DqKODuiNEB5UdRiIgrG+78qbwFHBcCBhxWO7BaVmPO0wUZTb+wkMWxIsMr6fXpE4dYQ==
+	t=1794327554;
+	b=acHvxQbZ8TNzCUH9yB1fn9BBdQDkC4t0BqCw7R/bbSQUryTUrbPEcUkdFRSl2tno0f4K
+	 gRSOA7qTDv6plhGnNxC4cZM6g52/VsOJxwrLPGTpUiJyp3lAp5F2tVfrWA6dkQj/dZccB
+	 lw+IafwhiZYwTMB1nHjYBlCNkoIRSqJxFlYp3UBT7xoxjWpvatOnn7wzi3sXuFALwDw7J
+	 POZtikNddPJ2OIIWcBcehY1SKNEI9krC7FxG0zsFHbL8+p4Uyu2IruM7CY2+UCNilAcln
+	 UQZah68vHh9fAsx0ohRIB7CcPULPt2Yr+r1lkwYNbxQzXbb1mWy7izuA2wh16GqJTNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327538;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=yYskAYVnH6XbVjZCWrX9MMKwY8O7EPYghGutgzkZiEk=;
-	b=gYI8Ql1bq1A/TSE5fm5DQ+lTBSCnYbLHyLEo/tUuv9gMv367M1zR4GsvHHLZhYb2Jl+r
-	 5FocWLqHbRkzFNQM235LLFv6Go4cZFyECnNHjr7c8B8wz6coDLN1vIXMXSdV87N9knmWB
-	 mgMJNYyR4NIpd4iC8uXeeqKu6uutnSRLTUKGaVX50eg3w1TPn4V/e/pQZagcCyqLu0OSe
-	 eVx0uz9W40UDCN7D2+uDV++5uPdw78BAlNsd085XkE0KIRylznv2NrYoP94agYYH1Fjju
-	 ocVHKL4cYn/gNlvGCn8T/V9/NPf+35FrYH7cqafOt0c69ufgfHGjrujCQPY43lBMpXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327554;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=+gUgkeqPN8KtvPgyyfRup7ntfZjuArnwnmqcBVSu5t0=;
+	b=ta24ZvLMjTYbZWBIfHmI2mrZ0smC9JClGg+xWVn7DTwJl0gHEifmxJl43qQ1/E8JDMtM
+	 12eYVqPie9nDk+eyxtnFDFcGf/fdBqn/cab92nSZZ2/ALRldTDvQQ+j3WhonxhhazgTLZ
+	 cF3NxgSAYcETS1ItpWslo0UWficxGrO5s2KeMuwN3jGmhQYggrkE2ZuivOyPXP5MuGpk3
+	 lS4GGd93+5vEWXnxBykdHMWyRjEhpOAbo6mIHyGJFJ/0Zh9C6Nfe/nmBqvgrVFJe1PEou
+	 RCSIFMbxqB9Ie5DlJfrHNU6ECN9oZ66hhyPaTAtxEOHOfg1FU28NlI7thCRCDB/ameg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fsxeVPOQ;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meQ30PHe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483CA606A31C;
-	Tue, 10 Nov 2026 16:18:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483CA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFF4606A31C;
+	Tue, 10 Nov 2026 16:19:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fsxeVPOQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794327537; x=1825863537;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XLgFMvrq3yUqIfrDH4auZGnz7OE5EcbDwFNADMKNHJ0=;
-  b=fsxeVPOQii9m1JAsbbCsy2rwRi9H1dQxwy8u/nYR95aM/AkAsCgSJqlq
-   q5VhFMk9I4THSXMhz70Zyl9ZPPb4WhKvbN5iLCgrSGIjepRqOjsdNC3Eu
-   HqWAe7PtXD7asvPLgqm71IY2jVgOAUVbYxsQ1YDA/ICwEox/LCULFpAVk
-   e/k8tF6wfAntsA6fmZhw3yTGFpAdgS0FtY5m366PUuY84BfCOdKpPAj2W
-   78X82VcvgB9FocWq7L3CaMbPoCBv1ykWv46p8fkVI2Zwmbd/diH02ZSpk
-   ptLvfnvQhXqlKLStmbEEXDBUn8jUNKM64F1ysAN4uPs5Mi7GhxQf0AUZ6
-   A==;
-X-CSE-ConnectionGUID: U7OfC/ipRkaiQTnxWxvAGQ==
-X-CSE-MsgGUID: hChN51gfRj20k7r22eAgFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2979647"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="2979647"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:18:56 -0800
-X-CSE-ConnectionGUID: MneuRwbwRX2t1Z8hvWZwaw==
-X-CSE-MsgGUID: P73odN+YSh+sOAsPzzVs0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="9967128"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:18:54 -0800
-Date: Tue, 10 Nov 2026 18:18:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Subject: Re: [PATCH v5 09/16] iio: adc: xilinx-xadc: Add unit suffixes to
- macro names
-Message-ID: <avND64ZLHcSPFUkX@ashevche-desk.local>
-References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
- <20261110050201.1850399-10-dileepkumar.nagavarapu@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meQ30PHe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBC81F0089F;
+	Tue, 10 Nov 2026 16:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794327553;
+	bh=+gUgkeqPN8KtvPgyyfRup7ntfZjuArnwnmqcBVSu5t0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=meQ30PHetV1mSyl1bAQRdjVmMcYrkcra+2CsRTC3HHfOlkTxE0+GvZ5BAY2S6+N1f
+	 mA8cqpZoo+nM0EXgekISzOszrfvMzMzNcQNi9If43RFS/ok1jZRkvp95X7kURlFTU4
+	 wjUBHM8Uxs6novYHWIWHJuoFei966Ehy0PdIPmh0PASIIxvSRvDIJDEIBJ7pDrc/5h
+	 dYXhiRSiNAAH/fk9WvjsUvy8+b8XZ6yRgng7oXWK8VFTuNe/fPKG76hwRWTH57H4XS
+	 HbqBflbQeYN11hzDPulrBVuf2E1in+34u1W7hCQIkAEVwAz5KcUBQZwO6htPhfatj7
+	 hSRedQ/qsdX5A==
+Subject: Re: [PATCH net-next v6 02/10] bnge: add NTUPLE/ARFS VNIC
+From: netdev-bot+sashiko@kernel.org
+To: vikas.gupta@broadcom.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
+ dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
+Date: Tue, 10 Nov 2026 16:19:12 +0000
+Message-ID: <179432755239.994134.11238266136557206975@kernel.org>
+In-Reply-To: <20261106093524.838341-3-vikas.gupta@broadcom.com>
+References: <20261106093524.838341-3-vikas.gupta@broadcom.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,55 +65,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110050201.1850399-10-dileepkumar.nagavarapu@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 10:31:54AM +0530, Dileep Kumar Nagavarapu wrote:
-> Append the unit to the relevant macro names (_HZ, _MS, _CYCLES, _SPS)
-> so that the expected unit of each value is clear at the point of use
-> and to avoid ambiguity.
-> 
-> No functional change intended
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-...
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> -#define XADC_MAX_SAMPLERATE 150000
-> +#define XADC_MAX_SAMPLERATE_SPS 150000
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Not sure if _SPS makes it anyhow better, but you may use (150 * KILO)
+- [Medium] This patch makes the optional NTUPLE/aRFS VNIC a hard probe
+  requirement, and nothing degrades gracefully when firmware grants too…
 
-...
+--
 
-> -#define XADC_ZYNQ_TCK_RATE_MAX 50000000
-> -#define XADC_ZYNQ_IGAP_DEFAULT 20
-> -#define XADC_ZYNQ_PCAP_RATE_MAX 200000000
-> +#define XADC_ZYNQ_TCK_RATE_MAX_HZ	50000000
-> +#define XADC_ZYNQ_IGAP_DEFAULT_CYCLES	20
-> +#define XADC_ZYNQ_PCAP_RATE_MAX_HZ	200000000
+bnge: add NTUPLE/ARFS VNIC
 
-We have units.h full of useful multipliers, use them.
+This patch adds a second VNIC for NTUPLE/aRFS. The VNIC is always
+allocated, so the function now needs two VNICs and twice the RSS
+contexts. NTUPLE is turned on by default at netdev allocation time, and
+bnge_rings_ok() now fails the reservation when fewer than two VNICs, or
+too few RSS contexts for both, are granted.
 
-_HZ --> _Hz
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+> index 21f55ea056f4f..4f4c0a2f40bd2 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
 
-...
+[ ... ]
 
->  	div = clk_rate / val;
-> -	if (clk_rate / div / 26 > XADC_MAX_SAMPLERATE)
-> +	if (clk_rate / div / 26 > XADC_MAX_SAMPLERATE_SPS)
->  		div++;
+>  static u16 bnge_get_total_vnics(struct bnge_dev *bd)
+>  {
+> -	return 1;
+> +	return BNGE_BASE_VNICS;
+>  }
 
-Side note, you can get rid of one division.
+[ ... ]
 
-	if (clk_rate / div > 26 * XADC_MAX_SAMPLERATE_SPS)
+> @@ -222,8 +226,12 @@ static void bnge_copy_reserved_rings(struct bnge_dev *bd,
+>  
+>  static bool bnge_rings_ok(struct bnge_hw_rings *hwr)
+>  {
+> -	return hwr->tx && hwr->rx && hwr->nq && hwr->grp && hwr->vnic &&
+> -	       hwr->stat && hwr->cmpl;
+> +	/* The default and the NTUPLE VNICs each need a full set of RSS
+> +	 * contexts for the final number of ring groups.
+> +	 */
+> +	return hwr->tx && hwr->rx && hwr->nq && hwr->grp &&
+> +	       hwr->vnic >= BNGE_BASE_VNICS && hwr->stat && hwr->cmpl &&
+> +	       hwr->rss_ctx >= bnge_cal_nr_rss_ctxs(hwr->grp) * BNGE_BASE_VNICS;
+>  }
 
->  	if (div < 2)
->  		div = 2;
+[ ... ]
+
+> @@ -327,6 +338,10 @@ int bnge_reserve_rings(struct bnge_dev *bd)
+>  	bd->rx_nr_rings = rx_rings;
+>  	bd->nq_nr_rings = hwr.nq;
+>  
+> +	/* One ring group per rx ring, so rss_ctx is checked against the final
+> +	 * rx ring count.
+> +	 */
+> +	hwr.grp = rx_rings;
+>  	if (!bnge_rings_ok(&hwr))
+>  		return -ENOMEM;
+
+[Severity: Medium]
+Can a partial grant of RSS contexts or VNICs now stop the device from
+probing?
+
+bnge_get_total_vnics() always returns BNGE_BASE_VNICS, whatever the
+NETIF_F_NTUPLE / BNGE_NET_EN_NTUPLE state. bnge_rings_ok() now requires
+vnic >= 2 and rss_ctx >= 2 * bnge_cal_nr_rss_ctxs(grp). Before this
+patch it only needed a non-zero vnic and did not check rss_ctx.
+
+Earlier in bnge_reserve_rings(), rx_rings is trimmed by hwr.grp, by the
+stat/nq limits and by bnge_adjust_rings():
+
+	rx_rings = min_t(u16, rx_rings, hwr.grp);
+
+However, rx_rings is never trimmed to what the granted resv_rsscos_ctxs
+can cover. There is also no fallback that drops the NTUPLE VNIC.
+
+The default ring count from _bnge_get_max_rings() also ignores
+max_rsscos_ctxs and max_vnics:
+
+	*max_rx = min_t(int, *max_rx, BNGE_MAX_RSS_TABLE_ENTRIES);
+
+For example, with 100 default rx rings, bnge_cal_nr_rss_ctxs(100) is 2,
+so 4 contexts are needed. If firmware grants 2 or 3, this worked before
+the patch (one VNIC, rss_ctx not checked). Now the path is:
+
+bnge_net_init_dflt_rings()
+  bnge_reserve_rings()
+    bnge_rings_ok() returns false
+    return -ENOMEM
+
+bnge_net_init_dflt_rings() then sets the tx/rx ring counts to 0 and
+returns the error, so probe fails. With rx_rings trimmed to 64, only 2
+contexts would have been needed.
+
+A function that gets only one VNIC would also stop probing, even though
+NTUPLE is optional and can be turned off.
+
+The commit message says:
+
+    If it grants fewer, bnge_reserve_rings() fails with -ENOMEM and the
+    device does not probe, as it would for any other missing ring
+    resource.
+
+Is this accurate? The other resources are trimmed to a partial grant
+and only fail when the grant is zero. A partial RSS context shortfall
+fails outright.
+
+For comparison, bnxt requests the NTUPLE VNIC only when RFS is enabled.
+It also clears NTUPLE through bnxt_rfs_capable() when resources are
+short. Would something similar work here? Another option would be to
+trim rx_rings to what the granted RSS contexts can cover.
+
+This also looks unchanged at the end of the series. The later
+bnge_rss_ctx_capable() only covers additional user RSS contexts, and
+bnge_rings_ok() and _bnge_get_max_rings() are not changed.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106093524.838341-1-vikas.gupta%40broadcom.com
