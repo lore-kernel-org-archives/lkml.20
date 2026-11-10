@@ -1,65 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292887;
-	b=ny4YIPX1wHCzZQTpPInZshhoG8wBElv44hFso2gM1EyCgTa4D5gqzX68xX7lvAXwspbp
-	 8ueSnmfbu8bbHwxSpqz1+2wmaJ3w/pF0IWiKXYwruCSrbBNSU3KwiwHoHfYD0xGi5bkyl
-	 Ejo2XZlikJORYs07uSJVjn0sRmwRoXodXzbcGsmCZqkoQMkqS70FWSj44P8DfVawuIF7H
-	 kBR4RqqYfp/V4XauLrfuUgrslgRiuyuxWNai7t+JqGvsJxu/zPmHY10ZRLcE633MRnB+p
-	 GbAoMu85leAdqN8pD90V2vtfbldyKv5yOMWJY1GyIO1CHFN1weVWtCTiVjm7nKE80Vg==
+	t=1794292885;
+	b=N0WOpabirjb7sznATpfDZaz2JMTKTfGvzkJAsOmZ6ThF5RQseJJJljI+rh2H4wDyznPz
+	 ONk6NizUoUUUWuMB9TjFdpjTs0Q5nouB2tMXq7vgxaERAuA198JNpUOkiWlU10aItl4zd
+	 slza9vStzI3RHqptql/J1KTikiueKg+Vf1fOd4QZBUwMwaxp5DGMi5ifzATo4GKpYnhCg
+	 k7xWu6EOzLceGQjXcJLSL32IITVslpOHzPA2efzEsMbYIqMEvQugcDmw2OT17AlWDp0dY
+	 WUakwki/k6H/cgB93EsA7jVU0bKbWeoRMA0970ATgriA9PWvh/uMHt5TqyErkk/u4ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292885;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=NoBZTVv1shVwmkJvvV8aDCWMUpsFZmi4eqE2fdU6/kQ=;
-	b=tLX6x4/BCpZNZx1HJq8MJt4xy/q1sd9oSL69n/YzCan8DWjqlo+6l23DGfCloVstk1+k
-	 3i0dOuXeyEkRIdUo8iAIH651nXvczp03+K+RCj6AFmlcHQiOybnuK3P1GN5XrFvYKNUZX
-	 Cb6gQrOOReUlnzVdHBejyeHZeDPSD3YOvPFA815ulG5rqsy8JL0Q94ut7qcWOtxtDxFxF
-	 VGjSaUmb3zjDd7QaSJrhXPIM9TO6DGorSB+fUkKlHqfMcl5wJcXT+X87rXCRczTXlXG20
-	 9zIeo4pS8wIiKmdKFzXwk++drWgwcMqJaJWSp15pOBtJ6umMvSeCB1Lpzr49nX8vWdw==
+	bh=AcfouenU4KIPThaRw9r968DyKfyGZV3RnZDZtnqf6zo=;
+	b=dnJw6tFNBLY/y3a11edp/eDUmI2q2W40Bhnlfv4ustR9C5ulQ7QGpYWvlesgIqY439xS
+	 5YYxGnyqRHKPE0kZ1XaXgCBeze4Bke1XgLlgxOtdE/NN5YKRE1jm668/LJ/u46Z/8CTW3
+	 y+mJJkaurG9QMiBnmdBe8+mVR/+fox1d+2fSJAGcTwBpf4ybZq8K3d1DNhiECqvorl9Wc
+	 fdb7/Vppn2A56N/YGG8i54QKrsZo4VKrPPO3nGi8dVfum6YbWfiLoJVuWLkNEZwwbyP3m
+	 BSnfPd4+FIY2nH/Y87BlIJQhBBAAd1OYdfS0bZZ6xMMC9Wyt6z84QxOxC8dsFYS+BJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PwpMzumV;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5BB960A380A;
-	Tue, 10 Nov 2026 06:41:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5BB960A380A
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IzczfaiS;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC2D560A6F47;
+	Tue, 10 Nov 2026 06:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC2D560A6F47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PwpMzumV
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IzczfaiS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=PwpMzumV15M1q6vJ97fEFZH37xAytKL9YfjvE6kCPxilC1fWf8khqC3Cb3GYcbviOF/8OhatM2IcE
-	 h31Hmq6niUFdGwcZl7VC4IEufRhtC6JecCrEtL72tNyFIR6U5fVXx5fjTdvvhfFYHWjU4jXQv7jn9k
-	 QG67uLiSekDWMOj8=
+	b=IzczfaiSQgI6fDN+NLxxBudjE63hv/B1HxrUmpyqJQUosMdCB8+Qmcf9+vMejuj39WFeIrjMf/kNT
+	 ljrmm6jewS04cjn6MZVBkBdHrbBziMgQK8pds39uCJAI83rQPZzDAqy1ZaB63cn9nwT7oNoYns6rOB
+	 sey85DuNumvTLY8E=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af2bc8d1fb-a75ee;
-	Tue, 10 Nov 2026 14:41:18 +0800 (CST)
-X-RM-TRANSID:2ee16af2bc8d1fb-a75ee
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af2bc8e42f-97bdb;
+	Tue, 10 Nov 2026 14:41:21 +0800 (CST)
+X-RM-TRANSID:2ee36af2bc8e42f-97bdb
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa122;
-	Tue, 10 Nov 2026 14:41:18 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa122
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 17/22] usb: renesas_usbhs: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:41:00 +0000
-Message-ID: <20261110064105.20335-18-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
-References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
+Received:from  (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af2bc8e8a1-aa5d2;
+	Tue, 10 Nov 2026 14:41:21 +0800 (CST)
+X-RM-TRANSID:2ee66af2bc8e8a1-aa5d2
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	danishanwar@ti.com,
+	rogerq@kernel.org,
+	jan.kiszka@siemens.com,
+	diogo.ivo@siemens.com,
+	haokexin@gmail.com,
+	horms@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH v2 net 1/4] net: ti: icssg-prueth: Fix device_node refcount leak in prueth_probe()
+Date: Tue, 10 Nov 2026 14:41:14 +0800
+Message-ID: <20261110064118.1138-2-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
+References: <20261110064118.1138-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,60 +83,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No functional changes.
+prueth_probe() takes references on the eth0_node/eth1_node device nodes
+with of_node_get() and stores them in prueth->eth_node[]. If either of
+the "ti,mii-g-rt" or "ti,mii-rt" syscon regmap lookups fails, probe()
+returns -ENODEV without dropping those references, leaking the device
+nodes.
 
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Jump to the existing put_cores label so the error path releases the
+eth0_node/eth1_node references like all the other failure paths in the
+function do.
+
+Fixes: 128d5874c082 ("net: ti: icssg-prueth: Add ICSSG ethernet driver")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 ---
- drivers/usb/renesas_usbhs/mod_gadget.c | 2 +-
- drivers/usb/renesas_usbhs/mod_host.c   | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Changes in v2:
 
-diff --git a/drivers/usb/renesas_usbhs/mod_gadget.c b/drivers/usb/renesas_usbhs/mod_gadget.c
-index 0c7fe109d5c7..92f4f35f8bb1 100644
---- a/drivers/usb/renesas_usbhs/mod_gadget.c
-+++ b/drivers/usb/renesas_usbhs/mod_gadget.c
-@@ -852,7 +852,7 @@ static int usbhsg_try_start(struct usbhs_priv *priv, u32 status)
- 	usbhs_pipe_config_update(dcp->pipe, 0, 0, 64);
+- Collect the two independent fixes into one series (suggested by
+  Simon Horman).
+
+- No code change since v1.
+
+Link: https://lore.kernel.org/netdev/20261030085651.1944-1-laixiangwu@cmss.chinamobile.com/
+
+ drivers/net/ethernet/ti/icssg/icssg_prueth.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+index 591be5c80..9b971d1df 100644
+--- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
++++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+@@ -2258,13 +2258,15 @@ static int prueth_probe(struct platform_device *pdev)
+ 	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
+ 	if (IS_ERR(prueth->miig_rt)) {
+ 		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto put_cores;
+ 	}
  
- 	/*
--	 * system config enble
-+	 * system config enable
- 	 * - HI speed
- 	 * - function
- 	 * - usb module
-diff --git a/drivers/usb/renesas_usbhs/mod_host.c b/drivers/usb/renesas_usbhs/mod_host.c
-index f7ef3a9f82a4..1a35f54203c0 100644
---- a/drivers/usb/renesas_usbhs/mod_host.c
-+++ b/drivers/usb/renesas_usbhs/mod_host.c
-@@ -1319,7 +1319,7 @@ static int usbhsh_irq_attch(struct usbhs_priv *priv,
- 	usbhsh_port_stat_set(hpriv, USB_PORT_STAT_C_CONNECTION << 16);
+ 	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
+ 	if (IS_ERR(prueth->mii_rt)) {
+ 		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto put_cores;
+ 	}
  
- 	/*
--	 * attch interrupt might happen infinitely on some device
-+	 * attach interrupt might happen infinitely on some device
- 	 * (on self power USB hub ?)
- 	 * disable it here.
- 	 *
-@@ -1347,7 +1347,7 @@ static int usbhsh_irq_dtch(struct usbhs_priv *priv,
- 	usbhsh_port_stat_set(hpriv, USB_PORT_STAT_C_CONNECTION << 16);
- 
- 	/*
--	 * enable attch interrupt again
-+	 * enable attach interrupt again
- 	 *
- 	 * usbhsh_is_running() becomes invalid
- 	 * according to this process.
-@@ -1468,7 +1468,7 @@ static int usbhsh_start(struct usbhs_priv *priv)
- 	usbhsh_pipe_init_for_host(priv);
- 
- 	/*
--	 * system config enble
-+	 * system config enable
- 	 * - HI speed
- 	 * - host
- 	 * - usb module
+ 	prueth->pa_stats = syscon_regmap_lookup_by_phandle(np, "ti,pa-stats");
 -- 
-2.53.0
+2.50.1.windows.1
 
 
 
