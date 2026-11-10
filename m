@@ -1,96 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276808;
-	b=GqxOluv0Anv5nIxZTgSrNEDJlmpZxX5FRVGikbiIIWgAdUdccInMjhgzhQ4t78XsC/Pf
-	 2aGYklTsaZJVYws9031EqbrTgedJxoNGF8uGNPuBVgzQq05FTTz/cEmh3MMLlPj6Fvrr4
-	 wrAfpsN02UhdkwYXHPZKb4d3EaG10KfzcL46yE8E/QpXgsyTmpTCJDWMgvZvO3zky+qIr
-	 8Vv7Jp+xUmrUzPdeMRQrt6dbrQUGoELDgN/hkvSujbo20K+m9zyrQOVYd9X0epmDv5YSB
-	 HY1viqIAZ4fE+OFkl1Lp/4xIJGG8SfVG7jA4QKgKhScRQ6Rbd2aCZawB+YvSNE5FGfw==
+	t=1794276969;
+	b=MJ41hs3xOhXhleeJg9af0swQz1a54WhsjsVmuxLeC9bGfgxbHUfxJVNtgaDhoqJlMSWT
+	 QueZK5yATTr3+sHeBi8hZLWjOpta5JPjTHYhHwgG39PO3KhvKV7laDn3pDNYNawjPzgQw
+	 YD1WaQQn0tflgStl2RobKNerAAvqNAzefeo9ZYVwTAHIi6tZRmmGmGmrl2tFLEJCnLV2z
+	 ZAEs1DfPZcgFSuDu/XeL1WNIBRZD0/qKSxwlVObWcrbMxP6owRdUM9FSPK7EHqLT7ZLIn
+	 saL9X4atw83nbKk+8u/l/omFqOhGKuWFGOGD/8iYAKpDakXES2wGrfFE7qOD3oVenYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=fvx5Ms/VNPVQifdamFB9/asAfNuvb6utXEi4ao8hwQ8=;
-	b=fFCKlJK/HeNgG//Uo/BU7QupyywJrFAtjI8W7szasKuYPh00xjBVR2kxuBTDRabZs8Tx
-	 c9pXhkoHSL+899RtyoYcZjo3m5aNe8Xodq3Xz0R5++T4zxTDl/2ECs9PAsjLIxLuWe8Cy
-	 IsVxc45FsPz0uz/9GEjR7wTIe8C+a7Zai5DaFgTgYngi4JKythWNQ4Fof43Uh+Yi3knI4
-	 B4+AY/Etiz83XzKrkMu0jtOJpPLLpMey8JblCgoZxzbO6L5yhUSLp3IH8zqJo3kUsN0vW
-	 K6FK4JJEJkbfIEhPVodrEt6BJsp29D8787dZQhqziRBCzwTkXQ3U8RTnLbmZgMpvWgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276969;
+	h=DMARC-Filter:DKIM-Signature:From:Content-Transfer-Encoding:Subject:
+	 Mime-Version:Message-Id:X-Lms-Return-Path:X-Original-From:In-Reply-To:
+	 To:Cc:Date:Content-Type:References:User-Agent;
+	bh=9HIPwNYvbOarmnCqPR7DA23o7bO4fjUXE8B8nsiUVuw=;
+	b=t3OpgWmq0FAITWhNsgAynZjXHP9Hdn+JCQE0zUYZeZ7O4mAH1LsDz/zcPYInyhrZjh/Z
+	 102AjEA3Gm6qWRAf+tPG1lsiWIzJu4e116l3gPyrPMiNQo4XjlD8pVzjzVhPLIHXySGKR
+	 a1qfpZz+Uc2L1vJNHZNsRK86aDnMP511jx65OWo7N+/i+5Lt29AaLvDaQEPcA5Nw08at2
+	 pPSKfwDeih9YfGsqEPfxxhrn122HUv228Ez6NmSChkVddai59PIoG5EQlU67yD7odq6WX
+	 NJH8bqRH2nstyWuFwsU/0a14fAiFvV+apOA0xgoeFvi4F5t8igTYOPcTCpr0MG8G+4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rX51piuF;
-	arc=none smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gCUC3LYO;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BAA606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05BAA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F20F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F20F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rX51piuF
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4ed6d69bdfaso880109b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:13:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794276807; x=1794881607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fvx5Ms/VNPVQifdamFB9/asAfNuvb6utXEi4ao8hwQ8=;
-        b=rX51piuF8Yovy/WH9Kd7V1SaTO8wV2M9lvCViy6In/uwBPTJ9QU46X9nCCJuqTKpys
-         xsI4JlEP1DqBExZ6uJPSM3fAzSB/9194yWxkDTvK6v3/AqWg7BnptCjGDK3oWIK1Z4PK
-         AKNtmRvWxrsMNDrzU9FhWf8RvQNBfhTnnRxXpbC+ZwZUAS5gDdd4vvwV4g1cViSqzo53
-         8U9yGpPKBPPSUergEZMGzlZt7HVt4vN4UTkE+bKSSpubsN9UNb8Lfk4GEXAW9p+YKJcZ
-         vZbD+l50xoCXIDy2b3oWobmYDNNxvLNjtkIUxzWREC0kwkqKcfAAPtf9HERVCNfIeju4
-         7vSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794276807; x=1794881607;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fvx5Ms/VNPVQifdamFB9/asAfNuvb6utXEi4ao8hwQ8=;
-        b=l0PSLi5DvZ0tifr7fVEczbQFr93iPNT0hUBZVa0/Qyq7M9sf4kWZceif/r+KN8iYuF
-         neeYNUKEjMTMt+EBVctSvzQKsqbzGqw/F5Hpd2/4IKW12iiyutk7soxRv0MKpXuLDZfR
-         D0/kGEm0/K3qZTmKjjJv3zmcK/XJg6/np7g4wW2as1znVciCfB15jVy2pYz2Q5aOdmCX
-         qPXljv6UH9TCjKozW2HdF7OpX5Kayay+pSSNa0TTwEt3wc/EARjLTIWSiX8zb5vr+e5/
-         tzIyMt7ukCwtZ/Xd4ynqGBOoQk51aZEMP/PCGaAGkTgM+ygGolC5UK65/l6OguZcTTJn
-         GlEw==
-X-Forwarded-Encrypted: i=1; AL+hErFtEEeHSzBTKlrt9MD/YJBZ916Y30m6ptBB++lFGA3ZUJK3UwCrbaOAfi1FoCUkiy/24MUWbMOSja56KGQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FmkoQeIQgc1dhyDqPRCFjnsyPaXrRthJiZQtv48cnEin42rmR
-	PosnUM0T321SjNvhSXAJsnRBvx/BgEZjL5fiP6i4QXZ1hlrAd/3UKArVjq6FOw==
-X-Gm-Gg: AYBFou2WzY0o3uphbPbMq0mIs8+tXpixsDpNaCK8SwtkuXGtMAXL30TIxIF2dTid2+f
-	uJcTsyj75Y8zEslLgPwNU2bdh9Gwnbp2ig0gnGe4oCl+vLO9ER8dL+m75JUBLYrp2G6JkWRNKI8
-	XbLE3wmyzm5O/WiGAohb6hBQae4WK1TmObe9mHLaAjbeSJVqSGo5PDr/qabxSjlgEoZkmWc3OJa
-	+NXi8kNw1BcU6VqkiJcaLes4Gu0doXBN7rzYPSR2kN2TOhMjUvc56zkieHLGVY4FYZAnHBWMoML
-	xXgJwA46OBpwUAWE1uJx5CA6sKrOU17cOIhOhpmxXFFubIsjnDuBMWQVEB9rHmLWj6rOF+k49lL
-	sxCAkkGILLsQA8OsnGEBtFFB8EVwBWvJrxUnQZaapkUEXHsCBn3HCSiYIj/8JQvLF64eLcLecDo
-	NPqTePFLob3uN8teicav/hdSosHAtDUZqyDLI/KFMDVeVdMmV6renSJDvBsf7FpFX2voYQyCj3N
-	X5u13YvVF9VwLO6o7jGxReyIcIs/J//jjAQifXGO8SxQSe7gd8Zqo86EZRgS7Y+GzQwD97OsNuw
-	LsT0ZREBwar/X0BLVKspZdgNeT7x04YXuvJcA0BxtTReAA==
-X-Received: by 2002:a05:6808:c40a:b0:4d5:27da:a498 with SMTP id 5614622812f47-5683cd76353mr967405b6e.50.1794276806963;
-        Mon, 09 Nov 2026 18:13:26 -0800 (PST)
-Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905f2faf5sm867656b6e.13.2026.11.09.18.13.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:13:25 -0800 (PST)
-From: Will Porter <mrwillporter@gmail.com>
-To: Christian Ruppert <arc@gmx.li>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>
-Subject: Re: [RFC PATCH 13/16] ALSA: mixer_audient: Add enumerated controls
-Date: Mon,  9 Nov 2026 20:13:02 -0600
-Message-ID: <20261110021302.1077745-1-mrwillporter@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <avJJgGbAVnVrUlPM@khmer.arcnet>
-References: <avJJgGbAVnVrUlPM@khmer.arcnet>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gCUC3LYO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794276957; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=9HIPwNYvbOarmnCqPR7DA23o7bO4fjUXE8B8nsiUVuw=;
+ b=gCUC3LYOsR+wYxX/DzTp99RfgGOUN0Yg5EZV0Aag13kLWls0TEv2azhQ34y62yh4khWxEI
+ s5e3+F580AOsIhYrktNRcEP5dgGTO4VExo7pezOxN2JT7pmqOFupUEEcqyUfYOdAXd/czW
+ Zx+NfmJhL5fB5nuygggfn9/jmE30HyOlyubB9M24g8byqtBcC6h/xWo4ejkddacVa3r2WF
+ c3xGV3+gji+yc/nxjlvqgvzM5GiF6627AnqD5GIgD2xRbuY952JvGCsun1JSSftfgSiNto
+ vACtI4TlJkRwh73CO7Drfgz2WSQVtWiPklhZ5Xt6EkaeXSq5RkD3+jTu3ATUrw==
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,88 +54,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-Id: <c82be2c1-b890-42dd-9966-72e6c7a95b25@bytedance.com>
+X-Lms-Return-Path: <lba+26af27e5b+635ad9+vger.kernel.org+lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+In-Reply-To: <avGvlDENwtgUWv-4@kernel.org>
+To: "Mike Rapoport" <rppt@kernel.org>
+Cc: "Balbir Singh" <balbirs@nvidia.com>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>, 
+	<apopple@nvidia.com>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+Date: Tue, 10 Nov 2026 10:15:39 +0800
+Content-Type: text/plain; charset=UTF-8
+References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-3-lizhe.67@bytedance.com> <au2qhlsxQt3SRwIu@parvat> <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com> <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com> <avGVNISvj-v8IN3g@kernel.org> <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com> <avGvlDENwtgUWv-4@kernel.org>
+User-Agent: Mozilla Thunderbird
 
-Hi Christian,
+On 11/9/26 7:33 PM, Mike Rapoport wrote:
+> On Mon, Nov 09, 2026 at 05:52:19PM +0800, Li Zhe wrote:
+>> On 11/9/26 5:41 PM, Mike Rapoport wrote:
+>>> Hi,
+>>>
+>>> On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
+>>>> On 11/9/26 11:01 AM, Li Zhe wrote:
+>>>>> On 11/6/26 6:23 PM, Balbir Singh wrote:
+>>>>>> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
+>>>>>>> Boot-time HugeTLB allocation has to initialize tail struct pages it=
+self
+>>>>>>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.=C2=
+=A0 For
+>>>>>>> gigantic pages, this can cover a large number of tail pages. Most s=
+tate
+>>>>>>> installed by __init_single_page() and prep_compound_tail() is ident=
+ical
+>>>>>>> for every tail page in the same huge page; only PFN-dependent field=
+s
+>>>>>>> need refreshing.
+>>>>>>>
+>>>>>>> Initialize the first tail page normally, copy it into a local templ=
+ate,
+>>>>>>> then initialize the remaining tails from that template with
+>>>>>>> memmap_init_page_from_template().=C2=A0 This avoids repeatedly doin=
+g the
+>>>>>>> full
+>>>>>>> __init_single_page() and prep_compound_tail() sequence for state
+>>>>>>> that is
+>>>>>>> identical across tail pages in the same huge page.
+>>>>>>>
+>>>>>>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugep=
+ages
+>>>>>>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+>>>>>>> initialization time improved by 36.43%, measured with a temporary
+>>>>>>> jiffies-based printk modeled after the existing timing in
+>>>>>>> memmap_init_zone_device():
+>>>>>>>
+>>>>>>>   =C2=A0=C2=A0 base:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 318.4 ms
+>>>>>>>   =C2=A0=C2=A0 with this patch:=C2=A0 202.4 ms
+>>>>>>>
+>>>>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>>>>>>> ---
+>>>>>>>   =C2=A0 mm/hugetlb.c | 23 ++++++++++++++++++-----
+>>>>>>>   =C2=A0 1 file changed, 18 insertions(+), 5 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>>>>>> index da5d04edf7c1..987f16a5ea27 100644
+>>>>>>> --- a/mm/hugetlb.c
+>>>>>>> +++ b/mm/hugetlb.c
+>>>>>>> @@ -3219,19 +3219,32 @@ static void __init
+>>>>>>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum zone_type zone =3D folio_zone=
+num(folio);
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int nid =3D folio_nid(folio);
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page =3D folio_page(f=
+olio, start_page_number);
+>>>>>>> +=C2=A0=C2=A0=C2=A0 struct page template;
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long head_pfn =3D folio_p=
+fn(folio);
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, end_pfn =3D hea=
+d_pfn + end_page_number;
+>>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order =3D huge_page_o=
+rder(h);
+>>>>>>>   =C2=A0 +=C2=A0=C2=A0=C2=A0 if (start_page_number >=3D end_page_nu=
+mber)
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+>>>>>>> +
+>>>>>> Can this actually happen?
+>>>>> No, current callers always pass a non-empty range. I kept this to
+>>>>> preserve the old for-loop no-op semantics for an empty range, but it =
+is
+>>>>> not needed here. I will remove it in v2.
+>>>> I need to correct this. A local Sashiko run pointed out that the bootm=
+em
+>>>> fallback caller can pass an empty range on SuperH.
+>>>>
+>>>> SuperH supports a 64M HugeTLB page size, and with 64K base pages
+>>>> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
+>>>> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
+>>>> 32-bit SuperH configuration.
+>>> If the only difference is unnecessary initialization of the template on=
+ SuperH,
+>>> we don't care and you can drop that if.
+>> It is not only initializing the local template. The code first
+>> initializes one page with __init_single_page(), prep_compound_tail(),
+>> and set_page_count(), and then copies that page into the template.
+>>
+>> So if start_page_number =3D=3D end_page_number =3D=3D pages_per_huge_pag=
+e(h),
+>> the old loop is a no-op, but without the check the new code would update
+>> folio_page(folio, start_page_number), which is outside the HugeTLB
+>> folio.
+> A recent patch to arch/sh indicated that hugetlb is never used on sh:
+>
+> https://lore.kernel.org/linux-mm/auJI2blzfpFD9yLe@kernel.org/
+>
+> And it seems none of upstream sh defconfigs can hit it.
 
-Thank you for squashing the fix and for testing it on 7.3.3.
 
-> patch 12:
-> - I would declare snd_audient_int_max, snd_audient_int_min and
->   snd_audient_int_from_ctl as inline [...]
-
-Done.
-
-> patch 13:
-> - I would have snd_audient_enum_item return the negative errno
->   instead of e->items and then propagate it.
-
-Done. It returns the item or -EIO, and get propagates the error.
-
-> - I wonder if it would make the code more readable if we refactor all
->   the if-statements snd_ctl_audient_info has grown into something
->   like DIFF 1 below?
-
-Done. snd_ctl_audient_info() now uses a switch.
-
-> patch 15:
-> - snd_ctl_audient_enum_get uses ctype->init which is not set by the
->   ID14_ENUM() macro. Is this intentionally always constant 0? In this
->   case, could the logic be removed?
-
-I think the logic is still needed, because init is not always 0.
-ID14_ENUM() builds only the readable enums: Mono Mode and the four
-routing controls. They have no cache entry, so
-snd_audient_raw_get_one() never returns -ENODATA for them, and no code
-reads init for them. The three write-only enums (iD key function,
-talkback source, optical mode) do not use the macro. They set .init
-explicitly, to 0xffff, 0xff and 1. A comment on the macro now says
-this.
-
-> - Not sure if this is relevant for the iD14 but we might want to
->   apply something like DIFF 2 to make update events work on the
->   replaced controls 11 and possibly 60 [...]
-
-I left DIFF 2 out of my patches. I have no objection to it, but I
-cannot test it. The audio control interface of the iD14 MkI has no
-interrupt endpoint (bNumEndpoints is 0), so
-snd_usb_mixer_status_create() returns before it creates the URB. The
-device sends no status interrupts, and a knob change shows only by a
-read. On the iD14 the diff only moves the table-created controls from
-id 0 to their unit in id_elems and in the usbmixer proc file.
-
-Two things in sound/usb/mixer.c may matter for your EVO4 events:
-
-- snd_usb_mixer_interrupt_v2() skips an element when the unit has more
-  than one element and info->control differs from the control selector
-  in the message. Our elements leave control at 0. Would the event
-  reach them?
-- The notify paths clear info->cached of the generic mixer, not the
-  mixer_audient cache. Would a cached control report its old value
-  after the event?
-
-Could you carry DIFF 2 with your EVO4 event change?
-
-> - In mixer_quirks.c: Fallthrough case statements seem to be used
->   almost everywhere else, [...]
-
-Done. The two case labels share one call.
-
-> patch 16:
-> - can we rename 'create' to something which makes it obvious from the
->   name that the callback is optional, e.g. 'extra_init' or similar?
-
-Done. It is now extra_init, with a comment that it is optional.
-
-With these changes each of the five patches builds with W=1 without
-warnings, and checkpatch --strict reports nothing new.
-On the iD14 (stable 7.2.15) the read and write checks of the controls
-pass with the new version.
-
-For the next version: unless you would like another RFC round, I
-would send it as a normal series, on top of your four mixer_evo fixes
-as before. Does that work for you?
+Thanks for the information. I will drop the empty-range check in v2.
 
 Thanks,
-Will
+Zhe
+
+>  =20
+>> Thanks,
+>> Zhe
+>>
+>>>   =20
+>>>> In that case the old for loop is a no-op. So I will keep the empty-ran=
+ge
+>>>> check in v2, before creating the seed template.
+>>>>
+>>>> Thanks,
+>>>> Zhe
