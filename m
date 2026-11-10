@@ -1,67 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309751;
-	b=yMKuZ9ZUvMQpCX2ZABRcMEnbEH1bfm6DF94FQrVaH2ZTX5thUd+fxmcCyw0ML40vrwoL
-	 cj3BSo3xAPIAbqWsCRKzJxXZO4CkYq6ANzW7pY4TSvfd8yEni3o7M3/qYZjhHCQVlk1MX
-	 6cy6S+YsMGF/YRG2R4GsZcGtvqeUHW364HOw7gxzjFABGwAWJq8woZxW3ZkNOrmwWXxEg
-	 3w8dKxFMu69l2iaTHaXngQ97w8hLK0BEG+kTEMr6T52tt9Ewz1c0LE2SM0bLvjyhSeglC
-	 XXU439GcVaC1U5YdrIEbUrxV0aageOahWfIu4rovDRDxlbR9uTv89mcpZvof9CTCq2A==
+	t=1794309772;
+	b=rPFiluF72u0HCwkyNhGGSLImkwvKJZNV8MCBupCisooryvPdNCQLFi9aD9sveZ0USDQJ
+	 4tf1ICwFlQyAwjIMLHgT3wjiLdpy32JSZJxOvcFHimvMEug9WXuRh4j61DJSrFFGRCyxl
+	 kGgooWC77g5Tk/V3OIuNkXDMWz1GJhzPy0j1YqFRFEheudPfHGOUESX8BUc5cZefrkq31
+	 xZhQwaET+twm3LJULLlbw4/iIN2JJ0gFhSEUUvlHlMN1YnISuZhXFP7CwK9/534aL9eu1
+	 jpgoKbG25PYIb4o6Cf7JB1KjdPdE0eSe+MV2e5rVYBByl7FQlMPly+BbJmzL1b9+VRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309772;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gr0Loj1l7QJmya8XzBVn5nKxenToThw/bSNGb0oeKBE=;
-	b=BQ6GiOF5V3CgSGdZc4MhvD9W2A0gqEm/g7v6EeCcIjs+Dffr8FXjkgQ+DQuOUU83A0eI
-	 GQn76yBATXCkvNe0ucskC/3vrhY0RbHPUdgTh6nLAUTIWsVHbDIxYKfH68jQtCS6F97OU
-	 rWY+ytviRivHnngFsiXx3prrsJ7iNHG6fggya0obZUiPzvACbMvRmb7aySuAA/+/7N9p5
-	 l84KxC4oJqI6eSsUw6pAVhlZ3mvmArB7fzLKfZQpWq/czJCg/CE16mYq+NKogMFD6JgAm
-	 0x5MJ4Ka/SFIzukB09xSU/aOYMOES0e7FEpnm6Tz9pTjeqUxrf9OibDlNWIqo4kOHoA==
+	bh=MA1GC1yRDgfd6kvrSMr4DQdcsKWFP2O2N2316AIcr94=;
+	b=gVwk2JL3YJ4QVNfqqtD7yro8TC3kTSsDfVl6u/1iqaO6eCZMlKga0YWzXAOJ5Buyo8Mf
+	 1T9Kkzz/hzh8fXogfmLF21/iPPOJwcSWRNk1rs72k7sKsAj5mUVwDAROBUhT6S0I4HjEw
+	 ya4EeINwtJutT4fAT+W8/7Phc9yPOKs2s5y0q7v6Z4kAUQrlvHNFmSdBtsPCPi4CmLoE/
+	 iDFjOXCoAvqcNtaB+OJuGz7v/NgbGLGxM5v4ntKjWGm+QlJ9QdCoY9L2XwIVYKsMWi0ws
+	 KjEKjPdJPq8xGQZBYP7QWzN0IM0LWyt07zbhT49SHQr0rAYxi1+SJIVoM2dEXSLCZpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UBKJ7sW2;
-	arc=none smtp.remote-ip=91.218.175.114
-Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=P3oFmEoS;
+	arc=none smtp.remote-ip=91.218.175.123
+Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8263B606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:22:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8263B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC63B606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:22:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC63B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UBKJ7sW2
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=P3oFmEoS
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=F+1UAVXb+agKFYnFE0eZcwVLRxkbjSKhuGkJWx+TCO8=;
- c=simple/simple; d=linux.dev;
+DKIM-Signature: a=rsa-sha256; bh=gf0wBCYmSp2qDt0WBI/azgbTyIXjwytSr2pVYBP6fZI=;
+ c=simple/simple; d=wyuan.org;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794309741; v=1; x=1794914541;
- b=UBKJ7sW2M9yPqhVJlOC9FoA5d2I9puBmA6wSVHs3LB2Dj/PxaBSWSiTY8FOpmZfmK9/GoGk7
- Sy9qZVIsesLraUNgzP4QaQIMvQxa93kxm/ItOe0TGQFNVDnvhw0j6M6/JCUVBKIvKrJxAAlU4kv
- QAu5KDcVguWt0Xj8hHJNg7+4=
+ t=1794309769; v=1; x=1794914569;
+ b=P3oFmEoS70GBCWdAl/jm43mh7TWd18PLo5o1wWKZcuqey8dL6PGW/+00xd4d6NZvC9d2mfFi
+ 2HL3VWGcN/5R4Oi4aYLfon3w6PFbnNTgjApK060NJOtAKRkjQOoG5fLYNusiFD7drgLxHpKpjiw
+ rjRGYa14JN4Ol2skNnWUzWQpVL39w2LU83yJcRKkkiFr4E9jxDbureolYpBeiC+z+HOXlc42oX8
+ qn+gfEyT8OfWuWUdsphvRHZZyueV+wL1310yAB+v2rbAHp4hQZNZWxGVHWe8Hk+/AVLvEhZfiN4
+ McAXS8JUh/P14KJ9CgKqMZESaz8QTiErDvPu+DaZ+SXbw==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d3b4e8450789c000;
-	Tue, 10 Nov 2026 11:22:21 +0000
-X-Mizu-Trace-ID: d3b4e8450789c000
+Received: by smtp.migadu.com with ESMTPS id 89e0a6095e3c53c0;
+	Tue, 10 Nov 2026 11:22:49 +0000
+X-Mizu-Trace-ID: 89e0a6095e3c53c0
 X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 19:22:06 +0800
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net,
-	david@kernel.org, link@vivo.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org, odys.yuan@gmail.com, rppt@kernel.org,
-	surenb@google.com, tujinjiang@huawei.com, vbabka@kernel.org,
-	xiao.wang@vivo.com
-Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages
- under only_merge_zero_pages
-Message-ID: <avL+Xj5/Md58Gc98@dgvxl46587.localhost.localdomain>
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
- <20261110074451.220524-2-xu.xin@linux.dev>
- <avLrHrnpP3tuXXPZ@gremlin>
+Date: Tue, 10 Nov 2026 19:22:42 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 13/13] docs/zh_TW: process: add maintainers.rst
+ translation
+Message-ID: <avL-gswQcb-OD27Y@wyuan.org>
+References: <20261106113545.708896-1-chenyou910331@gmail.com>
+ <20261106113545.708896-14-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,234 +70,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avLrHrnpP3tuXXPZ@gremlin>
+In-Reply-To: <20261106113545.708896-14-chenyou910331@gmail.com>
 
-On Tue, Nov 10, 2026 at 10:05:20AM +0000, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Nov 10, 2026 at 03:44:49PM +0800, Xu Xin (vivo) wrote:
-> > When only_merge_zero_pages is enabled, ksmd only ever merges empty
-> > (zeroed) anonymous pages with the kernel zero page. A page that carries
-> > data can never be merged, yet the current code still allocates an
-> > rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
-> > decides to skip it.
-> >
-> > On workloads with a large amount of non-mergeable anonymous memory this
-> > is a real cost: every scanned non-zero page pays for an rmap_item
-> > allocation, and the rmap_items accumulate in the per-mm pending list.
-> > For example, a MySQL instance with hundreds of gigabytes of anonymous
-> > memory (mostly buffer pool pages that cannot be merged) ends up with
-> > ksmd creating rmap_item metadata for each candidate page; the metadata
-> > overhead can wipe out any gain from the zero-page merging and even turn
-> > the net benefit negative.
-> >
-> > Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
-> > get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
-> > checks whether the candidate page is all zeros. A non-zero page is
-> > skipped entirely: no rmap_item is allocated for it, and any stale
-> > pending rmap_items below it are freed (as get_next_rmap_item() would).
-> > The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
-> > counts it as scanned and continues, so the pages_to_scan budget is
-> > preserved.
-> >
-> > The all-zero check (pages_identical() against the kernel zero page) reads
-> > the whole page. For a non-zero page this is a net win: the extra page read
-> > is cheaper than the rmap_item allocation and the stable/unstable tree
-> > operations it would otherwise trigger.
-> >
-> > A page that is zero now but is written before cmp_and_merge_page() runs
-> > is still handled correctly, because the checksum-based decision in
-> > cmp_and_merge_page() (added by the previous patch) is the authoritative
-> > one.
-> >
-> 
-> Please re-write this in your own words.
-> 
-> It's rambling on and never gets to the point of _what this patch does and
-> why_.
-> 
-> I'm not interested in reading a novel to understand the code :)
-> 
-> It seems very LLM generated, LLMs are _terrible_ at writing commit messages
-> and commits, please re-write all of that.
+Chen-Yu Yeh <chenyou910331@gmail.com> writes:
 
-Indeed, the description was generated by LLM, but I thought that was clear enough
-to present what this patch do and why. Aparrently, you don't like that style, I'll
-rewrite that by handd.
+> Documentation/process/maintainers.rst consists only of the
+> maintainers-include directive, which renders the top-level MAINTAINERS
+> file.  The directive cannot be reused in the translation, as it would
+> define the maintainers and maintainers_table labels a second time and
+> duplicate the whole maintainers table.
+> 
+> Instead, translate the descriptive header of MAINTAINERS (the section
+> entry descriptions and the note on the maintainers list) into
+> Traditional Chinese, and point readers to the English page and the
+> MAINTAINERS file for the list itself.  There is no zh_CN translation
+> of this file to consult.
 
-The goal is only to avoid rmap_item allocation for pages that can never merge
-under only_merge_zero_pages. The implementation is simple.
+An interesting and appropriate workaround for me, looks good.
 
-I'll send a v3 with those changes.
+Reviewed-by: Weijie Yuan <wy@wyuan.org>
 
-> 
-> > Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> > Co-developed-by: Jinjiang Tu <tujinjiang@huawei.com>
-> > Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
-> 
-> Why are this and the other patches in-reply-to 1/4? That's not how you send
-> a series in mm.
+Thanks.
 
-That was my mistake
+> List the new file in the toctree of process/index.rst, under
+> "Maintainer information" as in the English index, and drop it from the
+> TODOList.
 > 
-> > ---
-> >  mm/ksm.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 82 insertions(+)
-> >
-> > diff --git a/mm/ksm.c b/mm/ksm.c
-> > index 49f3728a3d03..e641c37ee096 100644
-> > --- a/mm/ksm.c
-> > +++ b/mm/ksm.c
-> > @@ -2535,6 +2535,69 @@ static bool should_skip_rmap_item(struct folio *folio,
-> >  	return true;
-> >  }
-> >
-> > +/*
-> > + * Determines whether a candidate page should be skipped entirely when
-> > + * only_merge_zero_pages is enabled, before an rmap_item is allocated for
-> > + * it.
-> > + *
-> > + * A page that is not all zeros carries data and can never be merged with
-> > + * the kernel zero page, so there is no point in allocating an rmap_item
-> > + * for it. Skipping it here avoids the rmap_item metadata cost that full
-> > + * KSM would otherwise pay for every non-mergeable page.
-> > + *
-> > + * @rmap_list: head of the per-mm pending rmap_item list
-> > + * @addr:      address of the candidate page
-> > + * @folio:     folio containing the candidate page
-> > + * @page:      the candidate page
-> > + *
-> > + * Returns true if the page should be skipped (and any stale pending
-> > + * rmap_items below @addr are freed), false if it should be processed.
-> > + */
+> update to commit 45a92c0b91d7 ("docs: maintainers: add SPDX license to
+> the file")
 > 
-> This is a really weird mix of kdoc style + not kdoc style while not being a
-> kdoc, for a static function?
-> 
-
-Will simplify it.
-
-> > +static bool should_skip_non_zero_page(struct ksm_rmap_item **rmap_list,
-> > +			     unsigned long addr, struct folio *folio,
-> > +			     struct page *page)
-> > +{
-> > +	struct ksm_rmap_item *rmap_item;
-> > +
-> > +	if (!ksm_only_merge_zero_pages)
-> > +		return false;
-> > +
-> > +	/*
-> > +	 * Pages already merged by KSM are handled by cmp_and_merge_page();
-> > +	 * do not skip them here.
-> > +	 */
-> > +	if (folio_test_ksm(folio))
-> > +		return false;
-> > +
-> > +	/*
-> > +	 * An all-zero page is exactly what we want to merge with the kernel
-> > +	 * zero page; process it.
-> > +	 */
-> > +	if (pages_identical(page, ZERO_PAGE(0)))
-> > +		return false;
-> > +
-> > +	/*
-> > +	 * The page carries data: free any pending rmap_items that are below
-> > +	 * it (they are stale, as get_next_rmap_item() would), and skip it so
-> > +	 * no rmap_item is allocated for it.
-> > +	 *
-> > +	 * Compare the masked address, unlike get_next_rmap_item() which
-> > +	 * compares the raw rmap_item->address (which may carry the
-> > +	 * UNSTABLE/STABLE_FLAG bits). That is intentional: a pending
-> > +	 * rmap_item at the same address as a non-zero page is stale and must
-> > +	 * be freed here, not returned for processing.
-> > +	 */
-> 
-> We don't need a prose version of the code, and it reads like AI slop, we
-> don't want AI slop comments, thanks.
-
-Sorry, this is to clarify the difference between get_next_rmap_item() and here.
-Maybe too verbose to you ? I can simplify those words.
-
-> 
-> > +	while (*rmap_list) {
-> > +		rmap_item = *rmap_list;
-> 
-> Why is rmap_item function-scoped when it could be block-scoped here...
-
-You are right. Will fix it.
-
-> 
-> > +		if ((rmap_item->address & PAGE_MASK) > addr)
-> > +			break;
-> > +		*rmap_list = rmap_item->rmap_list;
-> > +		remove_rmap_item_from_tree(rmap_item);
-> > +		free_rmap_item(rmap_item);
-> > +	}
-> 
-> This code is very ugly.
-> 
-> Newline...
-> 
-> > +	return true;
-> 
-> 
-> > +}
-> > +
-> >  struct ksm_next_page_arg {
-> >  	struct folio *folio;
-> >  	struct page *page;
-> > @@ -2737,6 +2800,16 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
-> >  			if (tmp_page) {
-> >  				flush_anon_page(vma, tmp_page, ksm_scan.address);
-> >  				flush_dcache_page(tmp_page);
-> > +
-> > +				if (should_skip_non_zero_page(ksm_scan.rmap_list,
-> > +						     ksm_scan.address, folio,
-> > +						     tmp_page)) {
-> > +					folio_put(folio);
-> > +					ksm_scan.address += PAGE_SIZE;
-> > +					mmap_read_unlock(mm);
-> > +					return ERR_PTR(-EAGAIN);
-> > +				}
-> > +
-> 
-> I don't love just shoving more logic into an already massive function. No
-> to this.
-> 
-> At some point technical debt has to be paid, clean up this code first please.
-
-Emmm... I agree scan_get_next_rmap_item() is already too large and needs cleanup.
-
-But it is the main KSM scan path, and a refactor there is high-risk. The cleanup
-deserves a separate series with careful review and testing.
-
-> 
-> >  				rmap_item = get_next_rmap_item(mm_slot,
-> >  					ksm_scan.rmap_list, ksm_scan.address);
-> >  				if (rmap_item) {
-> > @@ -2839,6 +2912,15 @@ static void ksm_do_scan(unsigned int scan_npages)
-> >  		rmap_item = scan_get_next_rmap_item(&page);
-> >  		if (!rmap_item)
-> >  			return;
-> > +		if (rmap_item == ERR_PTR(-EAGAIN)) {
-> > +			/*
-> > +			 * A non-zero page was skipped under
-> > +			 * only_merge_zero_pages: it was examined but not
-> > +			 * merged, so count it as scanned and keep going.
-> > +			 */
-> 
-> Similarly schloppy.
-> 
-> > +			ksm_pages_scanned++;
-> > +			continue;
-> > +		}
-> >  		cmp_and_merge_page(page, rmap_item);
-> >  		put_page(page);
-> >  		ksm_pages_scanned++;
-> > --
-> > 2.34.1
-> >
-> 
-> All in all adding far too much complexity in a cycle which is
-> fix-focused...
-> 
-> --
-> Cheers, Lorenzo
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+> ---
+>  .../translations/zh_TW/process/index.rst      |   5 +-
+>  .../zh_TW/process/maintainers.rst             | 127 ++++++++++++++++++
+>  2 files changed, 128 insertions(+), 4 deletions(-)
+>  create mode 100644 Documentation/translations/zh_TW/process/maintainers.rst
