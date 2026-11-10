@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299269;
-	b=SiUOXVVe+MGbjZJeDFZFALEkfcu8G2/HW2OK1dYqM3Sd7yt8CVp8/td0/kX4w80BYW5a
-	 pvLBP42M3FsE1zmBrl1zgthtZemEKw8W46hLGtQ2IINBxyQfCl4DMIJc+YB+n8XKuk13y
-	 8FzqFw02aPGtTOF86UNroTNDoleHsqkC+LH3xrUrrpXGanxZ3oKXgI8MGGri+TjsZXIsI
-	 1i2UIVNKhQVJPRirP42Imq3OUcSYHOX/+kRb8LHj5uqYOKmljOwqf+PSe82ieDcfIvhkF
-	 wX+IDW7uHAKFoGsncmLirVszOo0Fhk1yIdXS2sGtZQaheg7IYHpUCm/7WRMEAkESKdw==
+	t=1794299264;
+	b=W6Jonf8lAIuMViWKFqITyz5+onHWqKrFMCcrGgl67PT48AiMPYmPeiEI8Gm9JQ/cWnQj
+	 CyTLdAue3PdnKfkEDDWId9vuUwzCuucA1P4+vY6VrCiwAtyxfeLV8LgkbO4ENh4NYKo2q
+	 juEbWlKRdx/gDjOC0YGBYu582cuPqYA/sQmRFfoU6FmIwJ4OK6ABk9Gj/1QdqLISPWj1n
+	 37kX6YoQ7CZBt2sFsi8bidotH7ctwJ1gZMm5DS2/9pXMCr3TGgd2btvwXvcTh3RNH5nhR
+	 otneauzod9Gw7sPq8LWnVDD1ZIMes4QPRN3uMqM7NAHNpre0wvjQ4HXeLIHwxmrIguw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299269;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
-	b=suAbjgtuXNS8YhtrVQ2FRQJLWJKICThgW8j4bxXB7xZMDNTi/hReDMg6IveT7C3BC9tA
-	 2fbEE8sVVw9QUDNT6ZKH629PRbZvuZl4e0sFUsitW+PDaCYqg0ydleoi8E6cDtxqwMapu
-	 zmH3esWO0z4QiDCjc/v9tecT4ttoPRS+e9+EKNgU+gcdIKxd0x1OmjP6yNO/k6B57KFAD
-	 +OC1y6f6Yacbp3EIxUb8kfYsoWHB6jBUq0cqE2L8muyGvo/ELdRkC5GNTwdF/NRY+S6gB
-	 AVsH6BN+2tH0pDJTYp04j4yHbQEFX0x6WgiI9dmsQNVEV54lkV0RJw6wiKSnA8VzuqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299264;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=z+n7GkR0pifD4/2RXbWX1AgFi3gIudpbZojDZ36ABEI=;
+	b=lw/FIaZq1sXuw4yvOKogkWDF0lS1c35CLIbnVAkosjXLSmOl9bGFzdEnkV464cpTX4ee
+	 kkbFqp7yh8Cy2KUlzles8EDTYK7NENDbZg3XHWJUYDMdje2/W7OYI1YnOCbKo06QFjR5k
+	 8YOfuc45vE13LlpvhEnO3mjUYkRFUM4LlKD/m8APdXoXj/yG/Hb7lNVHyXYxHOjEvmsaO
+	 d5je1qyhqzTqZihPekyfGSg94Cr5viYSZVRxOq4jfgKW/2mx8ki//kjUQK+WsNz3EIPS2
+	 zfjAsLeoO6mW8gS42HvSyOy8/WeFgBHib+Q5acdCenT29lyC/0PeCa3yLom5nQPQF9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtwkkRY2;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZmFI8GN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C7C60A260A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C7C60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4B7606A32E;
+	Tue, 10 Nov 2026 08:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtwkkRY2
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso4701195e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:27:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794299267; x=1794904067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
-        b=HtwkkRY2V+MO/y9G/rQZ0bDToA0n2FHZOXpaSG2p5JIUfMofrCjGSaafZNrL7Fm6CF
-         XTTcmHzdpna2PPqAWOErN0L6gAUhG+Yu1Hk41XfVRyKGE55BVflX4kw1Esq8GYeeoixE
-         lUFxY85TIRpWnNXVwzTsP8dznH4yJcDqYhhJGRWF4Ju5Kzel+goJE5z8nnJ7MVQtHIGo
-         V3Y4gF75aPCyo94XA3i92ZR/EnmpQO3B7p1WXqJSgZ3DOx34vQQ15Pe/Y2mAGhrrkUCb
-         vg050K3YyZGoDtL+3exSBXMZZAtNe+HrnRDXmB268Jcs2ktcGupbcBVDZ99h0YJpuLMQ
-         pHBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794299267; x=1794904067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
-        b=TLaKNtGQ+s3/iih5+7JfmHe3L/RIDKvNZetFLxoNmPgQ2Cqcjk9/jaEw1ITopTkK8F
-         9G+gni4Bl1qmMODE7cRNx7h/5YdDpBbzExBtPrdfswZFw/0/vWCREzpgtLWNKc1cdHWm
-         pKGIyarMZbf0+q3hTEQZdLiX9sNumPlJRNlgO2PqHpGUSTLEXEb87AgRBba5mC4O5GCG
-         kQ56jTW94fKeG6OiGcLBPlh2BwCcUONuZRni6hlSIXnQmm7D8fS4CVIR270ggx8HbhiD
-         fVIghRjenQRmXt+aKcYt8XJXiuAoBJLdznpMqgK8lWKxHaEX8JE+47MUVidKT+IV+Yps
-         19Iw==
-X-Forwarded-Encrypted: i=1; AL+hErHEIniLX5b9/Dv1vuRKvG+E1SK/y9R/5Fc64YFyA67qOPFzw5Pv2GkFOHqVoH9obPm91JALH9y0p7rUZN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99ifIpdBGmvcwN96CjOW++RaWRTwlvUUyyjjDbZZoC4xq60wyJ
-	ywG1fXSBEhmY3ftCoz7jcStJfz5FWAYIADc1VuM1locrzXIr/MgKDOxNMC/vUQ==
-X-Gm-Gg: AYBFou170K1WsDeWu9IakT5Pm+/JUFrIHFuyoNyeWflhbsqTacS3Ts3dvef8QIfpARs
-	yK65b+5N1Hlxuses6S5CVfek2EJgXjrqqv3nUA+zVKEaLJYAXFkI1dGy/JplItbJr8wFanY/zg1
-	uujvyqjlTsTVB8eSLpqlyJ8smGL6s26Zr4rHv4NN1eoILw3ShoYiU+9qYLLEPlkUUiOvzdHGIBL
-	OMjvGhJftuG5enbVxH3iKlSZxky6JsMeLE3cjvr+r9vJybPM4v+TAaiK+HFXoy+N0CdSb+9R11Q
-	dCRuM3tbRb+gWk6k1C640JOjuqqHbTZkJm6E6oxwbb2FnW3CDEt1qw+mgFht4WlQPhJqhGVX6DN
-	+d/P/td0hH4k2pdlM/rSnWakvhM+VStgkLxQfMemX0wQXbRVXtJC7QsSzMYLZeLtSKQJHNColkD
-	36SHK3tBQHwRm+NOtijJ2fqvWFwJuYCtwa9n+Mv4MDIFXB69QkSsgOALoOz9Q6l54w8lt6d2YNX
-	WKEW3nD4nGDUxxsJTRLeLx3lPNQ6mP5sEVGmJ8HMproAEaF6DkKM/Ez07rqH4yLv+u7AILr++wY
-	8M9OEHYPLlhAy0N/iBceRGfC/AQeL0egVqM5q2mZsZYRN8GuUg==
-X-Received: by 2002:a05:600c:13ca:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ba022c9d83mr18304505e9.0.1794299267228;
-        Tue, 10 Nov 2026 00:27:47 -0800 (PST)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585923bsm3885849f8f.11.2026.11.10.00.27.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:27:46 -0800 (PST)
-From: Itai Handler <itai.handler@gmail.com>
-To: mwalle@kernel.org,
-	pratyush@kernel.org
-Cc: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	takahiro.kuwano@infineon.com,
-	tudor.ambarus@linaro.org,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5] mtd: spi-nor: take the flash lock around spi_nor_restore()
-Date: Tue, 10 Nov 2026 10:27:07 +0200
-Message-Id: <20261110082707.556862-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261029210153.3986211-1-itai.handler@gmail.com>
-References: <20261029210153.3986211-1-itai.handler@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZmFI8GN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A511F0089F;
+	Tue, 10 Nov 2026 08:27:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794299263;
+	bh=z+n7GkR0pifD4/2RXbWX1AgFi3gIudpbZojDZ36ABEI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZZmFI8GNnAwgGco9NL4ZOKCriB1Tr+v9Rt7NPAbeQDLDiFDI+Dh2vLJEGXT7lqvOH
+	 HAZxaN+LTljukkAVoByTl4oLxcaSSK0WV7kGd6p5veY0hoH2pHSG45Mkw+QybHKM1+
+	 FwKwv3YhebrGYlRCiqUFpit5EHNkFc1hKTWYHcfIaIPPnFIm8IzuicAi6Vf5GkS5Vq
+	 RsYDb0eqWHV6ByFO8dLr44IBNYFdThXlNqHOMXaA4nm+lVN44gY/n0FSUT3ZOJ5qqY
+	 4FrWnY8t99X54Kj7g5O/a5wP7DlZck7U+EbSwvYwj5qgCK5a6f+9+ANNO7tNmK7fac
+	 NQbFDjJSnAD5g==
+Message-ID: <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+Date: Tue, 10 Nov 2026 09:27:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,15 +51,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+To: Arnd Bergmann <arnd@arndb.de>, Brian Masney <masneyb@kernel.org>
+Cc: Long Zhao <longzhao@ambarella.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-clk@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
+ linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michael, Pratyush,
+On 10/11/2026 09:23, Arnd Bergmann wrote:
+> On Tue, Nov 10, 2026, at 09:02, Krzysztof Kozlowski wrote:
+>> On Mon, Nov 09, 2026 at 08:22:33PM -0500, Brian Masney wrote:
+> 
+>>> - I can then merge patches 3 and 5 into clk-pile.
+>>
+>> You will have code depending on non-exisitng ARCH_AMBARELLA symbol, but
+>> if that's fine for you then sure.
+>>
+>>>
+>>> - The DTS folks will take patch 4.
+>>
+>> The entire platform is for SoC tree. This sounds ok for
+>> me, but I am not sure if Arnd was merging pulls with
+>> dependencies. If not, then worse case the arm64 bits will
+>> wait a cycle. Anyway, I guess you can take clock bits.
+> 
+> The way I usually handle new SoC families is to have
+> a separate branch for those beside the usual dt/driver/defconfig
+> updates, possibly for multiple new SoC families, and
+> possibly including required drivers. The idea is that
+> whatever we merge here has at least a chance to boot
+> into an initramfs with a console.
+> 
+> If it can boot without the clk driver, the easiest way
+> would be to just keep the clk and arch/arm64 bits
+> separate. If the clk driver is required to boot, I would
+> suggest having a branch with the two clk patches that
+> can get merged (not applied) into both the clk tree
+> and the soc/newsoc branch to put the other patches
+> on top. This would make sure we only have each commit
+> once, but still have a clean history that includes the
+> driver in both sides.
+> 
 
-Gentle ping on this fix. It still applies cleanly on top of v7.4-rc2
-and spi-nor/next.
+There is a build dependency - DTS needs clock binding header - so it has
+to be second, unless the dependency is decoupled.
 
-Could you please take a look when you have a moment? I'm happy to
-rework it if anything needs changing.
-
-Thanks,
-Itai
+Best regards,
+Krzysztof
