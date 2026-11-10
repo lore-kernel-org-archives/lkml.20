@@ -1,95 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336257;
-	b=Hq42SQ1CIkr9W/bwuWwaf2DZU25FWERYkkwxa3ZSlQ4AERrE/9oIIoTq8l+gRyZsO1q3
-	 7SvBqN8NklGQTSP287CaumKrhr2aI4SYFWXDOwRd08lnRA8VebNpzN9aSHPmWNtU5Qc+y
-	 xLnHHL7gHL+pn/UzP3vQKValS8OngvGTBbc/GLROC+iORK0S46RwfXsupcvTTRhS2iZO5
-	 S0Ecw+eu9drYA0YFyuACjwhIOxaRph1kgqHiICzIGxvjoa4YT40jaGC/W2HvoOrmcej3E
-	 QQ6AcS9TZ7CVferfCxor9s5FPUZE09+rk75ByMfJ/hkEICEmh5dgYGtBsAZg7n4kJYw==
+	t=1794336252;
+	b=oswJpgEZzgmJe5iWOt4l9R0t+XaAmlvMZ1rebNFpwkScGsT4ATFBOAb1Kn0Bvc/SDCpm
+	 ZG7dgc2QI+gld21OhzFrHA64GrKrp4mMo22XJ73hzr8NNYl5zEafWhmqhtsGGuU7N0yvI
+	 57pC9oUSqptGttAldVPm9pgm+MSmtq0fjggMaomWxSH8MLJVQPKiIoPKWtJQxpbXQJh9w
+	 JeEuAHOr9syQeRMW1Ymlv+NOZ5vLqx8g67ZI/YYgHbq3qZp6D23jwXiHCGJM0tcotJzoW
+	 5Z/9ZwmsAdNfti/VCmCQ3Nz5GDjoWJmGuBi6eHjHN3QuhWLRbvfr4Zfw0VRp9hHKPrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336257;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336252;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=w2wu38ysdtrd97F6AMOyDK4UQjaEdHbNL2Dl/OkwiJ4=;
-	b=qsNtfCrBbGCSulypuVmCNQivc5FeHKrfenEMsG+Eb2Oxyu1qbojIT3VfURpv7SU+F6jv
-	 VZF8aFeAXUgI5dVGXU3bQ8yh/g8/z7rbrHGgeacvlVPgH/AoWXDqTXsVbLRmSNvNhSQxz
-	 /XkGBWK7XL2rMfwqRJDTERn+LOZB2uBi7ztOP0o9WFvbx2J/EmjR6WiEEX5D9+ug0FzTR
-	 BGXZ9OUonKW3JJ9wAyyVXuVWW9oTkOMvHUrNOKS0lHx49cUVc1d9BoMrjPKNAu08ZoP4w
-	 KU16XiyI+P4QbO83UV6AW5CIIvHa4Mc3Jn3ftYBwwrpWEQDTMynp8uZkNb1wjnImBKQ==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/MHAqmpZVDf3RuRGxKwN/uRcmtCFuVXbXAFmMCLLjBg=;
+	b=H80flYGrNpFh/rZftRRM8q76EC0Xvcb9n5D28oLmWJCCtdmnbhVDTT1YRScBARXSw+7J
+	 4ADI3nTdDnJPsrpaOJF4V2zJB339aKpczW9tA558nZ770KXI1LuWiku3ddGctYESzqAzc
+	 /7zReAmMtlsk5wLICshoXPVgyAcUFqA2gSxNi5PIry4DG+rIyFH87ReUP28j+RZ3Djai3
+	 02NI0PF46WC6xUTJ3UomnhR6Lga+GkHT17/rWt7N5DDSGwP0lmaKnskYi57QzBqbAOxnm
+	 KpLmw6Aia4j/tjReyxjfiXoTNX3A69CpxcfA/ZfHbEBPgZ6cwEQ9yIzD0jzNpTYgn7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fanXBjdd;
-	arc=none smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qf7j0Rpr;
+	arc=none smtp.remote-ip=209.85.160.43
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D74A606B5A7
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:44:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D74A606B5A7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F1A606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43F1A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fanXBjdd
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6deb848ddd7so1426539eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:44:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qf7j0Rpr
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4ad60ec5eaaso2001852fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:44:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794336256; x=1794941056; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w2wu38ysdtrd97F6AMOyDK4UQjaEdHbNL2Dl/OkwiJ4=;
-        b=fanXBjddPNz1sRdILWcKLbXrA6LgQADpL5xMD0cLRIQcX0dr7zVN7jr+N9V3HHEwsi
-         S946WB7VzXT2tvdLuMPa46vLyTl+9Ynq+tJv8A5SuFtxte5v6WuJSfucSdPaOfT2Qf3U
-         4My8ovkVa3HFCidhbLcfgk54eZQFvpIVsSsvJQwdaV5EShj2fPr9LO3a2wypO52tao/j
-         ULfikoIrGV2fzOrNb997aJy3VG4yeoEFLqXQSR7j9GlepvvAlR3+ASnfpF9jb0/2bPSr
-         RIJ/8UKaEWg7VxfkZupw8k1rkIuAkCR/ritKdv5z31YdR2a75J4bPfKn377tjv37bzWD
-         9VRQ==
+        d=gmail.com; s=20260707; t=1794336251; x=1794941051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/MHAqmpZVDf3RuRGxKwN/uRcmtCFuVXbXAFmMCLLjBg=;
+        b=qf7j0Rprohyj67NfIPCudq7EmO4QjBIsOLiTyQwe9jBzpBIszrcjdygCpFZQecpGiW
+         E/VPoS+58sjZTnaEPm4wNSASOQK9jpb/yIeZTFhDi0jEnAwhIlEdzBYNlMby1mKek4fi
+         OY8iNRcoZC6HXemV21UtkYFi1fPood4ti+v6X51dK9XA4QYNgF5ngm/Ik2jGt27J+Yug
+         S7cGWLJS3JODOE5iWggWDSHqtbFM1V+8CKA7+6nfyak7SZn0I78T9SYEFTi69zjYggRQ
+         fjgzU77Hi6z2Y/uKIYL7OXNx1hJkh7uHdigOZI7RSK+2N69ekFFbWIK/HoPGbml/3YMV
+         bw/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336256; x=1794941056;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w2wu38ysdtrd97F6AMOyDK4UQjaEdHbNL2Dl/OkwiJ4=;
-        b=yID3qN2BiQG2IxHP/XQbsRYMHhZCAo/WE6xTrIHmpVV2NaYBDIomk2FQguZJvTsfOw
-         OAgNOmSbHYp2o1OhJflex7EOe22eTpFdWRKk39W+Nh67zwJm8QcWBh6FNecDyYdAfJZG
-         mQHeXnKPuc55oMshltZ2idmdtWPECsYT0dXVjPScD1K/Z7sVv2MNQAFxiWqdQsciRu2p
-         Ig3c7hP5N+KTzo/k3V8VFCz91FI2dMhOvNhK89yqbh/LQdgjs4SnesX+PycATQZQ0oNQ
-         TzdML8sN2RmGeW3TMoqBolH6tQtHchFoAwokBtffGa95Y821C5NuYTth/olKT4ZdF2Ei
-         6Gcg==
-X-Forwarded-Encrypted: i=1; AL+hErFB60t6Fi8KDc36pYMwmyZWDwUUYEVmWt6iP7nzJbZ49ZC5J9pqN50BxReaEGx3DG+tmS+BnDo82iYuLhU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/A6uH0Cxd41LmsmyAgGxNi4/97dJw7/uP/zA2kKzCCBXXHL9yZ
-	I6bJ9aZ82UB5ByzBf9c8w+cuwut5VWvUgZOA++iiEQ/yh2KXNlL9RJt/HjoKlZEcbFc=
-X-Gm-Gg: AYBFou3woAD2EyjxH91W53PTIUXsxgSWMRZrhuivLwCJIK5s9qLcyImeCdZz5uCMEku
-	UkiVO7MScCDRVIoeIzkfrYaLtIvgJM1DCXZqNjVbX29ad3QaqiWUl0qmK8rqV0thBaaElO0zfai
-	xr8Ifa0VoqZSGKuw40qePQhxu1EiYTr43zAMbV8SoqR2bidmcb0pU745dsNB8eOlb86g+igav1Q
-	Old7D1PqSFVRFS7LEp0P8NIy8l0YF0jmMehqHH8JA7hYtL9ma+Sv8a3o/GbP4I4UCwtiDHXldRb
-	ffqXe4PdyaB/eHIuQlFjNq4ZA3bgvYCu3f7F2kELwL2lLyvjqKmmwkdbQ5ODjg57sMAUYiIFm4C
-	Cb4oJzhLR4iZ1AKZjhdG17jnl5zC36e2PkWd39mIme8MOOh2FD39upsU1R4gbbaowPh+3yrTPcu
-	y27BBlEAn7zqL3btxzAKY09scQdeytI9JWBENj+pr2i+k8R0teCEe4biHtlcYOxpvkBuVLXLyxi
-	jHkqNeC28slOEWRZRPe/2u52GbH2+i1m9Tq7GRTA0vWafbIMVoqLJtA9+wf85xcsBFXa15ScAly
-	xJDCT6+myj2j+9G7yCYmnEGjubcHUcY2YA==
-X-Received: by 2002:a05:6820:508b:b0:6c3:19de:d1ef with SMTP id 006d021491bc7-718a5a583a8mr1411991eaf.20.1794336255585;
-        Tue, 10 Nov 2026 10:44:15 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794336251; x=1794941051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/MHAqmpZVDf3RuRGxKwN/uRcmtCFuVXbXAFmMCLLjBg=;
+        b=yoaY91EfjcI2UxgqUnfefJi7Ijrko+47kFCmk7+gaatRcxn4pB9424mREzhpOt2/a/
+         XZyS3ZA6qwZUYhng7ii8GPqb3+9eAPc+D/kxS8DfXJTm1qNm5UHafij9FHPZUsOwQOCF
+         Nun9tKL0Vm7SH2dVn3/8W2XNJyjwfvUuiEdynivKrMrG66MnhD5jPmhJW4I/zYFiV1wl
+         iftevP5J7hAF7eBHhLwSfEsw6BYL83G039uVz0pkFMhIzN3YxK7TY5alr6BaIr5BZwFY
+         5wDVXJxMU0vSh8pVhnUytV5fNnEyIh/w9egI4sGaTC+Yi9E/hdiNC+USH3SHcqt/iSuc
+         ocsQ==
+X-Forwarded-Encrypted: i=1; AL+hErGL6IrwIWACJ4YodzCJRSgpHrVohg7wcFTVOAiqcs2gTXIOTaKrm8hAfCbggf3wj6rDMGZHp5hdyjKI65k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ulclgc1f9wzxPKwlw9syMMXwmR8XlhRNG1dVnqPduSQXMPRkD
+	HBC5bwn1BryXTMpB2aBzVeKmJlydU+8JrsnwuI86Wc6izTE3oNO2dmOL
+X-Gm-Gg: AYBFou06MMV4J+GzlhhSYeqMZxVKVkBXE91XSSA6lMP1i7flpkWk1Z76Qb0bEQ9ySnD
+	1coXOOan/A9L6+/pPTsLT4Iq9l680irk+fXHY5amxLdJ765ZGeOZVxI1Z7zhYNq933TuH8XpgR0
+	YPh/+YUnUGx8DYeKsKgFOFATCP7GG6RaxegvTf2N7vmEDwqhxXsPgdKKlJKmFZYfApXvZsJm98X
+	7q5ZKJ921j7P3gg54hOuYDIA1/lXFjkKCc274eodrPq3kh3m6n1E2ow41DQu4QJ55PuSJIpKbEj
+	nM2H24z5ZtiCMMPnThcp5WFG2qlDJnCB3KZ3cZgd5J5xxBqU9dNx1E0Fa4JlF+eEZ5p8R0VXz6i
+	KvnpcZcEvGGg7uZ2DuETe5LZ+sxxQkkk1l3FVC58eUyDBF9EASqGWGvU8Rupcpzz0aNBO1lQPJB
+	OY+OXkDgVcYn8OePtwOtvs4uMXJkGldIIuNuKiZZsGxVTqE1Ca8IaShYP/dH9cE7HqIrcUUB1Ke
+	dToOEm+vX/1+RVbDTbKwk4xB9Ibvp2FvrOAdMs+dEKz+LyyhYromjXeNwo3gZQrjk+YXdIe9ph8
+	N+Dz24FJrAkJlkXiDh8UBmLv4ywJBOpgGw==
+X-Received: by 2002:a05:6820:f014:b0:719:1627:6c16 with SMTP id 006d021491bc7-71916277259mr109766eaf.12.1794336251088;
+        Tue, 10 Nov 2026 10:44:11 -0800 (PST)
 Received: from pop-os.. ([24.32.17.59])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718a8f660b2sm2225776eaf.4.2026.11.10.10.44.14
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718a8f660b2sm2225776eaf.4.2026.11.10.10.44.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 10:44:15 -0800 (PST)
+        Tue, 10 Nov 2026 10:44:10 -0800 (PST)
 From: Rishik Yechuri <epicrishik@gmail.com>
 X-Google-Original-From: Rishik Yechuri <rishik.yechuri.code@gmail.com>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rishik Yechuri <rishik.yechuri.code@gmail.com>
-Subject: [PATCH rtw-next 4/6] wifi: rtlwifi: rtl8192se: use ALIGN() for the H2C command length
-Date: Tue, 10 Nov 2026 12:44:07 -0600
-Message-ID: <20261110184409.42205-5-rishik.yechuri.code@gmail.com>
+Subject: [PATCH rtw-next 0/6] wifi: rtlwifi: replace the 802.11 header helper macros with kernel ones
+Date: Tue, 10 Nov 2026 12:44:03 -0600
+Message-ID: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
-References: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,70 +98,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-_rtl92s_fill_h2c_cmd() and _rtl92s_get_h2c_cmdlen() round each command
-length up to a multiple of 8 with N_BYTE_ALIGMENT() from wifi.h. The
-macro spells out the rounding by hand and special cases an alignment
-of 1. ALIGN() from <linux/align.h> gives the same result for a power
-of two.
+base.h and wifi.h carry a few helper macros that duplicate things the
+kernel already provides. The reserved page builders in the fw.c files
+write MAC addresses and the PS Poll AID into their frame templates at
+hand counted byte offsets, there is a private alias for
+msecs_to_jiffies(), a private rounding macro and a private frame type
+test. Some more are defined but not used anywhere.
 
-Use ALIGN() at both sites and remove the macro together with the
-comment block around it, which no longer has anything in it.
+This series switches each of them over to the kernel equivalent and
+then removes the macro.
 
-No functional change intended.
+Patch 1 uses struct ieee80211_pspoll for the PS Poll template. Its aid
+member is __le16, so this one is more than a cleanup on big endian
+hosts, where the old macro stored the AID in host byte order. On little
+endian hosts the bytes written are the same as before.
 
-Signed-off-by: Rishik Yechuri <rishik.yechuri.code@gmail.com>
-Assisted-by: Claude:claude-fable-5-1
----
- drivers/net/wireless/realtek/rtlwifi/rtl8192se/fw.c |  4 ++--
- drivers/net/wireless/realtek/rtlwifi/wifi.h         | 13 -------------
- 2 files changed, 2 insertions(+), 15 deletions(-)
+Patch 2 uses struct ieee80211_hdr and ether_addr_copy() for the other
+templates and removes CP_MACADDR() and the FRAME_OFFSET_* constants.
 
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192se/fw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192se/fw.c
-index 579b1789d6d1..0719d0bb2cac 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8192se/fw.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192se/fw.c
-@@ -431,7 +431,7 @@ static u32 _rtl92s_fill_h2c_cmd(struct sk_buff *skb, u32 h2cbufferlen,
- 
- 	do {
- 		/* 8 - Byte alignment */
--		len = H2C_TX_CMD_HDR_LEN + N_BYTE_ALIGMENT(pcmd_len[i], 8);
-+		len = H2C_TX_CMD_HDR_LEN + ALIGN(pcmd_len[i], 8);
- 
- 		/* Buffer length is not enough */
- 		if (h2cbufferlen < totallen + len + tx_desclen)
-@@ -484,7 +484,7 @@ static u32 _rtl92s_get_h2c_cmdlen(u32 h2cbufferlen, u32 cmd_num, u32 *pcmd_len)
- 
- 	do {
- 		/* 8 - Byte alignment */
--		len = H2C_TX_CMD_HDR_LEN + N_BYTE_ALIGMENT(pcmd_len[i], 8);
-+		len = H2C_TX_CMD_HDR_LEN + ALIGN(pcmd_len[i], 8);
- 
- 		/* Buffer length is not enough */
- 		if (h2cbufferlen < totallen + len + tx_desclen)
-diff --git a/drivers/net/wireless/realtek/rtlwifi/wifi.h b/drivers/net/wireless/realtek/rtlwifi/wifi.h
-index 21a294b80c5b..24c6db867421 100644
---- a/drivers/net/wireless/realtek/rtlwifi/wifi.h
-+++ b/drivers/net/wireless/realtek/rtlwifi/wifi.h
-@@ -2806,19 +2806,6 @@ enum bt_radio_shared {
- 	BT_RADIO_INDIVIDUAL = 1,
- };
- 
--/****************************************
-- *	mem access macro define start
-- *	Call endian free function when
-- *	1. Read/write packet content.
-- *	2. Before write integer to IO.
-- *	3. After read integer from IO.
-- ****************************************/
--
--#define	N_BYTE_ALIGMENT(__value, __aligment) ((__aligment == 1) ? \
--	(__value) : (((__value + __aligment - 1) / __aligment) * __aligment))
--
--/* mem access macro define end */
--
- #define byte(x, n) ((x >> (8 * n)) & 0xff)
- 
- #define packet_get_type(_packet) (EF1BYTE((_packet).octet[0]) & 0xFC)
+Patches 3 to 5 replace MSECS(), N_BYTE_ALIGMENT() and WLAN_FC_GET_TYPE()
+with msecs_to_jiffies(), ALIGN() and ieee80211_is_ctl().
+
+Patch 6 open codes the one use of byte() and removes it together with
+two macros that have no users left.
+
+Each patch builds cleanly with W=1 and sparse. I do not have any of
+these chips, so this is compile tested only.
+
+Rishik Yechuri (6):
+  wifi: rtlwifi: use struct ieee80211_pspoll for the PS Poll reserved
+    page
+  wifi: rtlwifi: use struct ieee80211_hdr for the reserved page headers
+  wifi: rtlwifi: call msecs_to_jiffies() directly
+  wifi: rtlwifi: rtl8192se: use ALIGN() for the H2C command length
+  wifi: rtlwifi: use ieee80211_is_ctl() instead of WLAN_FC_GET_TYPE()
+  wifi: rtlwifi: remove byte(), packet_get_type() and
+    FILL_OCTET_STRING()
+
+ drivers/net/wireless/realtek/rtlwifi/base.c   |   2 +-
+ drivers/net/wireless/realtek/rtlwifi/base.h   |  21 ----
+ drivers/net/wireless/realtek/rtlwifi/core.c   |   2 +-
+ drivers/net/wireless/realtek/rtlwifi/ps.c     |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8188ee/dm.c   |   2 +-
+ .../wireless/realtek/rtlwifi/rtl8188ee/fw.c   |  38 +++---
+ .../wireless/realtek/rtlwifi/rtl8188ee/hw.c   |   6 +-
+ .../realtek/rtlwifi/rtl8192c/fw_common.c      |  38 +++---
+ .../wireless/realtek/rtlwifi/rtl8192ce/trx.c  |   5 +-
+ .../wireless/realtek/rtlwifi/rtl8192cu/mac.c  |   5 +-
+ .../realtek/rtlwifi/rtl8192d/trx_common.c     |   5 +-
+ .../wireless/realtek/rtlwifi/rtl8192de/fw.c   |  38 +++---
+ .../wireless/realtek/rtlwifi/rtl8192ee/fw.c   |  58 ++++-----
+ .../wireless/realtek/rtlwifi/rtl8192ee/hw.c   |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8192se/fw.c   |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8192se/trx.c  |   5 +-
+ .../wireless/realtek/rtlwifi/rtl8723ae/fw.c   |  38 +++---
+ .../wireless/realtek/rtlwifi/rtl8723ae/trx.c  |   5 +-
+ .../wireless/realtek/rtlwifi/rtl8723be/fw.c   |  58 ++++-----
+ .../wireless/realtek/rtlwifi/rtl8723be/hw.c   |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8723be/trx.c  |   5 +-
+ .../wireless/realtek/rtlwifi/rtl8821ae/fw.c   | 116 +++++++++---------
+ .../wireless/realtek/rtlwifi/rtl8821ae/hw.c   |   6 +-
+ drivers/net/wireless/realtek/rtlwifi/wifi.h   |  30 -----
+ 24 files changed, 225 insertions(+), 282 deletions(-)
+
 -- 
 2.43.0
 
