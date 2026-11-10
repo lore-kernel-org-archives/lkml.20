@@ -1,105 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314282;
-	b=t5KDKkZr3Y7Q7O/x6L5kLf9hqhrJ8USOg5P11gGzDnsl1CrDTGCDpJEvuTExW+VkJoHu
-	 wzw4SyErmqPCvVE832fnvuw7XmWEe+4dkvAShGUxplmPyLXRqS4t3Mfav2MrD9jKDidbd
-	 A46RQ2fC9hJDnx12FLdu6n5oksdT5Miss+jBxQYs0CnHX5ZMmw1txJyRinWsclqUv5j9B
-	 4vnxfEAzdo+ikeQBhr1WmERWN+TFpNO/2tdoxjAIIvoqru1TRKFylZaPQ4Rw0Lh+fgZ/P
-	 Yqomv7KVA+19oAfHIyzi1FR6BqFniiQBF5REAxdnjJ2BhzVThVOqVUNOkjiCcUUL77Q==
+	t=1794314327;
+	b=cwYOCXXheQRq/MP78CktRqCF5gdJHLtsWLV6iU3uq3es4Ou8goyZ22Qg8EE0K+mEMtLM
+	 HgHwkX/JnIhVXUa/1BVGFUp5fqZnocW7ndmV67kbOEqjiiPgmXAV147SyNaEcSeivbOpU
+	 DpafHoHZfqB0PU93qa0QwkYQm1dJEFGJqgYTSh/CLhFFszQ+PvC1BtRbtbn5DXIXemBP+
+	 PGcll9sI8K+s52g8JT6FoPVrP494uHNp0xAMeOhPU6FD2KoykLaGKgXrOQL2InZk9ms/G
+	 GRUKad0j1g/wByaSHTYsRU75cUBAvzE3dIW2hwfLTyDR6glkHThM0YHFennpRgbvS6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
-	b=KwXvD2BtptHwyG4HKrHwhE7xscwnSn13l8Pdxx04BpfNCEbaNR7s8YBxP24dS/coZcNR
-	 L+B9QlZ80n5gGbZml0EuJdq3S57Px1ZI/nXRQr5vfX6fYrK2oqAmCskzntkX1XaGpWGL9
-	 qv5xBcCdeAxkY858jpAZxyrbdqap4bkU7SzywprUSw57sL9SoxHXHKQgK2j7fW3W4Wl22
-	 /HCUtwS3iNfVEFLCokZmeUFPFxV3TTjAUUR2CNaAtch+XluCaTuMw5K9/oPIT4alNgWuY
-	 jDd0/1KV4Lu5PbOrobDJoev0kYiqpTnqW1Mfa3M6pTZWZG5kzsgLS9H8Mg04LPWAQtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314327;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UtxQPNJVvCRCJ8xKxxB4BqMSxW31vYFHbHnKu/HOBlI=;
+	b=UBWo9DIbtPmC3OYNF6OJIH92Ahnn718U1RkkKG/y9xbH3osJM3f8WXQDpeQopaaFcEvY
+	 8vtCL0pSZQdcLjSZyXS7s9HbzVkYAfaClWWUJxucJUPU17ReBmIjvibJ+kyoPts8jTt+q
+	 Ujk0DJuXtGdUk/k/wlq4xCvCEijdDSjdcrS7HSJI/XDZu58gOdSN48dfofFqK7SnAxoA5
+	 KCgRK+7b0UctGZoZpUyIJxoiUh+b89De/k4dMo26T11mF3y0KEGn47O+wjq5chANTnp6I
+	 SPagRTp2U1G5Gd+Dj2nc34f/Di5CAy+nzJ5DMttW05NBNyECuJt4gUZuOPz2oL6O4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=metarealtyinc.ca;
-	spf=pass smtp.mailfrom=metarealtyinc.ca;
-	dkim=pass header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=RhEL56TW;
-	arc=none smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0wiSgDS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB9C606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:38:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCB9C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 178CB606A31C;
+	Tue, 10 Nov 2026 12:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=RhEL56TW
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7d2ee9e7093so628004137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:38:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc.ca; s=google; t=1794314281; x=1794919081; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
-        b=RhEL56TWvZBXkEIEDYfBQgetrfcsntdz9+ZDPeqE/R5D/l7VBDa8SbFKKD2SNgQ5x2
-         394OOvhKe/y5ClVwdIb1P4XsznMFbB/0VIcXtvPWj3i/xjUH7A5QtEYipC/c620fZvgk
-         4JFfpKE9lEufOGNsrIlYIhFHM69Y7biG82vOKYUkDXXUjChSkhEOiMsOERFtWzMKL0hS
-         0RQCfKzdyQEnlpDUHx3JgZ0MYIbzEEAt2LOE6yYkTIx8rY16niz2/wKaxfIpnlKS28Ph
-         xsjRZpmFpfaEY9B1gLvG3yAEWKjNJT64BKCf6xZuj8lsdPg+4htkegzdxmLfg5px8Q//
-         xCQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314281; x=1794919081;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
-        b=OPsvPGbGdxebr6DWOnT5oZXLk9/TBUVIkU0auyHIPKYlimfzOz7Dsa0ASz8jcBt5PE
-         VZqn2CKzzb42uRIFXQU169y/vc+gG03JKtr0efTdMpyVro8CukXyDn334qDTkKgdN/s1
-         1Vyol0jODW/4g1f/dRnawS1W4S6TO0yHgOulgVNBtfn+ZIY8nlSr3/JWZ+5pNvenPJUe
-         oA0h1VVBy/9KxWjoNqWfequPMnn9VG6Ic/vnQvysPB1j0CrV+4nOqn0wKoXlZxFlKKuT
-         Md1XltBIMmE+Xmr+8778c5NynV9c1ivbQ2FriC7bw7B7G+Yhb1uFhsqT1KAWITH7DJWb
-         ULgg==
-X-Forwarded-Encrypted: i=1; AL+hErFRbBEXddwxsvy9NqCWuFSKesZu+ZY9m9AKfP46TL7ePKA/plaWuLxe+rISjgpoLU1cI6Xziatd0WIz+1A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++C9GWRa5qGYVRRtXi/c0XlJmYKSbDaPE2Y+zpPj8QP9feISd+
-	uG2oz2EqrF9nXK9RJSjyQ93dfYBh/04d7EJPY+NuwMDqkuMhbAKUOelIzJfLfTVBXwo=
-X-Gm-Gg: AYBFou2lGUIWPKPJ0r1LbQFOKmOeEqqOLU0XLEr4ZV4Hdnwni5sdF2ic+88x7d4MJGY
-	n633qoi25XnC3OytpBiM4TaJsk3/b6Ph4xiqNmx41S0aylqruNfX2+N7Z6d4Mx0mJzM4YhVbpQP
-	jnopE3Zt98bMKd/Jtxv53Im6XZAIaNunKh68YldWRheMfInEmpE12jSncLNhTT9cJl5JTxqvprk
-	or9iJusRJ5oefX15ZubwvPMOZv9B/HtlummdxtR9yPfIhIqwCK9S8zjG2vXT6Mcvdgm4WqXNgZ8
-	cbezxsHyP0qh44oORQlHANuxtogO/1qRDs8XK83BZG0RlTQZKbDv2zN2/dxb1AUonZOeHA8cHXP
-	up7YsdSvWjJTT1UHRmU5Grg5CDwxX47FjxenDoGkx1KI00g7IAbkiylB7oYWHcxlqshTb5C2fsL
-	ugx/U9QfLUIppHnuFaBtPXG86fPfiXyDZsbJKbhs7MGbsZeMYKczOfpS4F1ELbyLz/9/85PGXrI
-	+sWXzF+v+piPSJKKSTtbkEEIMDbAQHEtVMTd7OVHdOlkvqWxIQXYrQimf8yInwzqHAbSLhldqKQ
-	hYpAv8a4em6m/s+RMp/VYuBr2XL82orr4j1dgunRiSB6FhQP/R35xeg9XCcqtgEZp8Tt3vK3tCc
-	aPiS/WDseFdGBe0lxyDpozhAKzpzgPl0ApgwRMmQEHsby2dmTN6VmQzzCsMAObrOiJJC+U4P+b6
-	hWkHuPlEC/cPl30Jqtm8jgWAa/zYf5HPVXi0hCP4vZFkntZjSlu//oTzC3HxvT8Qs7
-X-Received: by 2002:a05:6102:94c:b0:7c3:9b8d:5124 with SMTP id ada2fe7eead31-7d301ba5407mr716189137.18.1794314280680;
-        Tue, 10 Nov 2026 04:38:00 -0800 (PST)
-Received: from jake-laptop ([2607:fea8:c6:a700::879a])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d30209ff97sm1658194137.0.2026.11.10.04.37.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:37:59 -0800 (PST)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: arpith99@gmail.com
-Cc: sakari.ailus@linux.intel.com,
-	gvozdoder@gmail.com,
-	lixu.zhang@intel.com,
-	mchehab@kernel.org,
-	antti.laakso@linux.intel.com,
-	mehdi.djait@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	hansg@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH] media: ivsc: csi: Add sensor node in bound callback
-Date: Tue, 10 Nov 2026 07:37:57 -0500
-Message-ID: <20261110123757.730188-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103200226.100989-1-arpith99@gmail.com>
-References: <20261103200226.100989-1-arpith99@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0wiSgDS
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 643101F0089F;
+	Tue, 10 Nov 2026 12:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794314326;
+	bh=UtxQPNJVvCRCJ8xKxxB4BqMSxW31vYFHbHnKu/HOBlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n0wiSgDSjQhRE+F1u4BqIcKMjdYjyPkQzm+Vy7qwbabwEzH6f3+x1IlauoVCx78eq
+	 VJrex8fgvNtYbbw5ZDVDvWMMZKnXrUnfQVUwVFbTBCekAOs/AAXe2VW2aJaGyjXcea
+	 p+Nc9px3K3KbyDCdoRDq2Aj2pPjXX42NnJTd24pvrYe2RPIPNc7BbW5OmZllPxxGUU
+	 Z+PZNRZVKp6wJD7kDTUNtcyfDvCMPT/P5lJ6LcfVIA5UIIlQXfghFFMijn2Hh24udy
+	 8fjYcr6U17dTvxGx2r4LzLUKuMq8Xqs825f0LXTs4zuXbSS1B7GtujVGSfmXDrBF3y
+	 MNMoSH/C35DxQ==
+Date: Tue, 10 Nov 2026 14:38:43 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Dan Carpenter <error27@gmail.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] keys/trusted/tpm2: rename "bool" to "boolean"
+Message-ID: <avMQUxnlSwnSNYYJ@kernel.org>
+References: <avFcjHwnh9mrOEnz@stanley.mountain>
+ <20261110110034.0a46b9f7@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,18 +64,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110110034.0a46b9f7@pumpkin>
 
-(Resending, my first copy had a broken Cc list.)
+On Tue, Nov 10, 2026 at 11:00:34AM +0000, David Laight wrote:
+> Hmmm... how can that fail?
+> bool[] is just "\1\1\1".
+> I bet asn1_encode_bool() isn't inlined - where the compiler would optimise
+> most of it away.
+> 
+> It is a horrid variable name, asn1_bool_true[] would be better.
+> 
+> David 
 
-Sorry about this, the HM1092 ipu-bridge entry went in ahead of the
-driver. The change matches the CVS fix and looks right to me.
+Agreed.
 
-Reviewed-by: Jake Steinman <j@metarealtyinc.ca>
+ASN.1 deocoder (scripts/asn1_compiler.c) is ugly but elegant (it is) ;-)
 
-Sergey's VCM point probably still holds: a VCM instantiated by
-ipu-bridge only gets its node from .complete(). Sakari, if you'd rather
-not rely on per-bridge fixes until the hm1092 driver lands, I'm fine
-with reverting 4fdb0342f05e.
+Encoding side, well... It would for sure could benefit from some fresh
+thinking but more like a turnover than fixing up few variable names
+here and there, or addressing other cosmetic/minor details.
 
-Jake
+I'll put a remark on this to my personal TODO list. I'm doing a couple
+of such turnovers for keyrings ATM [1][2], which will keep me busy still
+for a while. This is my "post-LLM" strategy now at its core: "when you
+see a bug, fix the vector".
+
+If you have a great "big picture" idea on how to do encoding better
+overall, I'm happy to look at such patches.
+
+[1] https://lore.kernel.org/keyrings/20261110053323.2936729-1-jarkko@kernel.org/
+[2] https://lore.kernel.org/keyrings/20261108222719.304712-1-jarkko@kernel.org/
+
+Br, Jarkko
