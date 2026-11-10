@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323695;
-	b=2g5B1RvQjITfeTNotqt6wEf91GV8O+TbLUxVakxX2zTlVYUz/lvmXlXIDUkX7Onv3DyF
-	 6fuIb8RUmVZw1WhAn76ztIvzxqYnSOh3+StBOcOsI6s2fnoOvdljkAxZ1YLqZRBC7usW3
-	 Qu9Th+PKF6IujXdJTtxKrM6TJ1TjKONSebD5Fmax+lJSFbKi/GKGbTAGoRiXWTSzuQckj
-	 drX5Xw46JI09y757YLfABYsT3XsQKUTsJ9MP2a4gNpL4sXf1Dp7fzfA9SXcmQYst9kRbq
-	 vFhJJ2Y6KDR6JSdH3jVEnkVZUhFJt/mgvJdsCDQffevNgJqSPrQ/umIiBYKjCAwGgbg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323695;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=uSjAL93E3yJGenoOyrPC2KDPVIsqypHmHHFvbfTSyG8=;
-	b=N6iu+BlguUS1RXbV6KH6r7Y20D5fI74fKGE9ahFySZ8EI5Ratm4IYtCjaxSI9RTbBTCO
-	 nOcPFTwlIsRNIkC6OObPDIgdsPRX6UGq0lvsit6jIjkWSnSZLN7nHiFciWGc8FR6ippqA
-	 8TEsl2lUeBaBU416kTGsEzYKbKnue7WxdqmiKofAR2zpDz+KbDX1RKoXS7DbI3F/Fiady
-	 Nz8ovsx/kzGvfB50arLDJmF9DK5MQ+P6XFfuqmybB/JeP28yfbzVPlfrHm4i68ltdIswy
-	 oyyllTZlfbhuBD65GmVkrwHhN2EeUhYbAB28jX/ohOLap+bCoa6DkdiywHFnk3GLVKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=yLrQB47U;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.52
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013052.outbound.protection.outlook.com [52.101.83.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323723;
+	b=sdEZc5wZYs965ry62Jl6sml9xsHqD+jjNTVJjYZ81Xm3WbxF12EzOeuBzJRz5Ldap/Iv
+	 XpLKKKPw+aiRuu+G2N4vZWHbKpqBfRqSlZe0dX3UNS2ejdFC336CMVDLPjTnu6m1eI76a
+	 A8wNTaodUee2pu9Jx4EAjjyTimxMUlR3LJVJyY2T7pm1uuTyvaxKr8T3+WDdJzAuEWyOM
+	 P0oJRyKTdbC1g2gHN02KpXdGIY+xEMET/BrUf/Wm6qUZHSqXwg1yXtmd+4CaWLrZFWRDu
+	 3T/Hv/TfGnwLug5OK7yIfi9gQTT4Gb6a5Rm2NhTlIGcdNM5QOGz/w44nP0qn/gdDAQQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323723;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EDKPQGe+tcB83Gs3w6L12JnJZcjoeeHi9cz6bG12yVY=;
+	b=WQDyLJKN1no+meJDxZGiQL1aIkk1GTHLVH1X/K9lHWBzt7uMPokLb2jXpPAZ8CqUvEo8
+	 sFBlpSSWM3Y6fInbSqCwg46ebcznKtCUEoPeQyWz1nfqOL+ZAWrBw7pX7PKdft1Y8exg/
+	 afWjhHzzbMPzbZFsxgR2Yw2F/bJIJmWtGTriqrS3qKXE9dcQDi/eHs44hUNtNs9nVtDrI
+	 NHm0QjjVYCVIAP3xNIHbDQD/QPU0IP1ksrvCUax2MTLRVSM9d6agICoOitITkx5OsV7+7
+	 ZVQ5wQJXVjg6bIdAhCtSyG2XCcVU+KuQNX/bQe1n37wiCsKh+tKZaNNyboxMrnkf7Tg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgheBFY3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5686060A262E;
-	Tue, 10 Nov 2026 15:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5686060A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3B7606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:15:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=yLrQB47U
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l8zRPB/l3uuu9uRFgAOa2D5KS19Q3SItMIeE5jwGeWYoX9yVu+Hl86C08zW/6tufaIyHcUexqah9dZIrClvGKWqJVo0hw6eWhU1lFF+X4Iou7DRL9DUozVrOiE2CKphoLf8vvY0rqwnuHas87nodosJAxLQJp/7VeHxomjVdjMqwkqmT4NAirxskZ5Qo76yJgbpI6oMB4kDJT2OguEULI4xZfBSALM1No1F2JtwBYc38AUu2st7bm+MTmntkKlB4e/P0rrZO/hM+v7C2BFoV8hAJkhj6Ltjqk+PCWsElTHhfE6EkMf74cCtdMU5rhYd6NHH7v2MOW92HQOFVP+d5+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSjAL93E3yJGenoOyrPC2KDPVIsqypHmHHFvbfTSyG8=;
- b=syghrhsvcETe6/6yTFx1DQ9wgkk6p/BZV/iBZHPolQG40aNbZR3hiWOXUClsRmZqGO44q3lIf4PvQ35KQsjIzYxDfsOJGjhshW2cbFQBUw/kexf0VhXODTXxXw/PUYViuPhn57Uar1KHpErYszWVKk9H9t8vKIJBzAT4XYyZ+xhWUY31H1iTP9f/8UjjmtJvwubfwdyNIKgj1z+9zGQemkUKrq3kwXmdGFZKEJHvCY+nL/mn/jcZDJavFm8HTVn8nFiRtS0FCH+q/S9dbjMgX2cSMrvvIpJ59CUxTXia2ZSUqg+BMSMnfADHOH0eDzehAcP2U7aUlntvnUDzZn76ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSjAL93E3yJGenoOyrPC2KDPVIsqypHmHHFvbfTSyG8=;
- b=yLrQB47UA0ZZqC2msVxPEczGGZn4AT5vSWUpEjv+opJAx9qJdJ9jKo0j7prE7PcEYVbv/wm9+MmRmXk+xLRoCGA7I3+SY45FrRMTsU6ZcU5OhvEga0qDnJZX8+Fzq15fwWITlxRYQ75BA1FKSrjISFQihSyaLNSQRQ0vlnCt8cUK7twadWNy890Rt7F3kgSra8KNeoMJvKITHk06lvLQSyTpDgS02l2Pd0j9EOk2xAVNoQlxjx2695YFplPBjxYpjR7VlLtSv6NHmdHtCKFGjPR1HOVI1HrjK5mn1AcItZx8ZRZOez34yoTZ1r2Ytt6w0Z7NU7ZkNsczRICz7G0HEA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by OSMPR04MB11293.eurprd04.prod.outlook.com (2603:10a6:e10:93::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 15:14:50 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 15:14:50 +0000
-Date: Tue, 10 Nov 2026 09:14:39 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Stefan Ghetu <stefan.ghetu@nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, daniel.baluta@nxp.com,
-	linux-phy@lists.infradead.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	"Oliver F. Brown" <oliver.brown@oss.nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] phy: freescale: phy-fsl-imx8-mipi-dphy: Fix hs_zero
- underflow
-Message-ID: <avM033EsUfTpNrw7@SMW015318>
-References: <20261110120546.6247-1-stefan.ghetu@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110120546.6247-1-stefan.ghetu@nxp.com>
-X-ClientProxiedBy: QR2P297CA0005.MEXP297.PROD.OUTLOOK.COM
- (2603:10b6:3d0:6a::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgheBFY3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7AE1F0089F;
+	Tue, 10 Nov 2026 15:15:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794323722;
+	bh=EDKPQGe+tcB83Gs3w6L12JnJZcjoeeHi9cz6bG12yVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FgheBFY3GQOc/VIc4WFDSA+6EXBzYHSGFEpP2p9ihpidCpJN1y1AGj3uWpUGA2atu
+	 LjVtZg5CrpOdgJgxaI1HSlchN3kJIeZxl4qAbVDtpZmqVvq/kDbGsBRAkp0LnanRaH
+	 d0YlnHjI9Eq8DFMW4nFOY9naqiPWRetATDUUK9KkKVi93MJzjfAY9g8aDOXvZ7pyfJ
+	 ndYnyFpUyKD84G63bnGdwAnGS+HxAg+aHiTsAa8M2RmgDV6nGNDJSC2GV0KlCUsN86
+	 GlpeEG1Bv09QsznI0CtSahkW+zo+z0IrlchZUgwm4l1oB+DTtw3w7PiYSm4Jrlhrc4
+	 AHOO47KqfLGrQ==
+Date: Tue, 10 Nov 2026 15:15:09 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@techsingularity.net, 
+	mingo@kernel.org, vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com, 
+	matthew.brost@intel.com, byungchul@sk.com, apopple@nvidia.com, jannh@google.com, 
+	pfalcato@suse.de, hannes@cmpxchg.org, osalvador@suse.de, raghavendra.kt@amd.com
+Subject: Re: [PATCH v5 7/7] mm: use VMA flag helpers in NUMA balancing
+Message-ID: <avM0EbXsE7WyIPJE@gremlin>
+References: <20261110150446.2452975-1-gourry@gourry.net>
+ <20261110150446.2452975-8-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,116 +66,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|OSMPR04MB11293:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2172428-c9be-4be8-ae32-08df3f3d5d7f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|7416014|23010399003|56012099006|22082099003|18002099003|11063799006|10067099003|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	+UW8be1B6LfQ5FlhX0NjHwUMJpJiC5KxwdbhXIC0CZD6YqSuk36NeImgmBl37SbR07IXZmz2KAjvAO990KzzNFzQDFBwgDlPFNrOtJmJ0co64pD6TJROij6IyVCz+mL/qRBzt+E34WStcGqK7cxMP6QqvVl+jvdRr2hoaQQW+/WnYTWdvS1pHj5ppUrd4QDjgFfEohchu8PG/fzNLZzrhuvZPwfg1gDuypC8glA62GSWjpWvWlaaHqyHk++7FyF39wl2QXAyucXDlB4EhXqEXg2xlNUiasGWWPHQRrcaDlXZ9DUi8ZLFjC2wUanmgUaGtjh4n7x36fAyorPnt+yKAegGyI+kVtHhpRQuTp7/1dPUOKcQ836G1i0oFAGEcJBcupdNlLoe39jfOVo0pqP6mK3FkUFDwG/xrbSXsv5jZo8r5quOX1VgFEWPY5bfJBNKJ2GTF/4mA03uMeNXX+WErJEU+cxX1LNUObobj9bs6dBsjx02Ezvh3la4RkRQ6FFND4Hf1x26vO7fDhXeem6FPiFnvkkCjhg1jn/tHcg0BdvDzAJKDQBpa3j+oDbkg0gpKRKqXZR3QZBQ5vy78AzrYHbkiQFkmEgbscUAeQwS1oPAVpxLR5M3bPBLFw7qxLNN/VMjGXDv93Sf+XzDr1P6Ek/WPUSfpWDnDBeLHE1qSpQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(23010399003)(56012099006)(22082099003)(18002099003)(11063799006)(10067099003)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JtBDoLAwREhQPHqNb2XRxIOJhque8+V/mo+iRe6OyYLDom9IkFfUU5LnfXF/?=
- =?us-ascii?Q?M3FJZlFaj/UpIYDNDnroGSqAA3g3pyVIdhTQdkW431Q7fybDY7yEDoc0US01?=
- =?us-ascii?Q?B7cxnodErlQ0K3Lu7wWrFj4bicKijAozm6hVXkbXDJoaZyCLCtIU89lOxte2?=
- =?us-ascii?Q?2BFj2uxLijTG00pbY96RWr087V6t3ifQ1offDCD/X+embSIa5DCfx9sw4sUi?=
- =?us-ascii?Q?W/BvfxcwixKGpDHUWzTvUzY3AtIeLDSUm5/lna6PVGdoOhwRIB0TExOudvzd?=
- =?us-ascii?Q?wEZSAGOd45txBJV01i9fkYXzILkmUD8BQJAF7j81mN7sbEc2a5bJXGOZX9Ui?=
- =?us-ascii?Q?b95yuWwn3wOdsjvYF2OQB86yLA0JbpSsvGFGBodDQL+ZsaZo/WOosmZr2BV9?=
- =?us-ascii?Q?qIDvr3PXr3c6CFg6Wu1g2eizWFSquW6lE98EYMyO859A/wc2EOi77fIIMPp3?=
- =?us-ascii?Q?wSLOH8pbnkpqvrRgdGcPxXS54APjowDgshNih9lk7t1bFKXkcqgXhXFD6itz?=
- =?us-ascii?Q?ndrBP9X+9+uZy6S0PI0LR29+MMSE5ujls8uYIerjIhcQDmq51euWwvnBp3ZM?=
- =?us-ascii?Q?AAwSKGn1SkxmnVhuf7hJ0W1EKmsRucaxvscvUiIhSJMG4W31iW2K1GmwV2qW?=
- =?us-ascii?Q?HCdElKfCbOmm0afgpfID1WEQk6t12mpqdiRFtrGqYVu24MBf4pVXGwVq4+2q?=
- =?us-ascii?Q?xUTpzlUJwKdDIM+vlhG2u4iIc8i6Oe4KNPv4ajdc0CKeC154KBJWOzYTPhEu?=
- =?us-ascii?Q?bHvK0PG3jenkicYwNse7L0UpHcO+s+Vnr0WuDZUq8bCT7x3fOYc21s7VGXOE?=
- =?us-ascii?Q?Ynn6D7vcNyVV3lrDRBajVOMdPqhBrBk6emovbNtEkzgNiXoAdmTf10dxzOVh?=
- =?us-ascii?Q?0IXNDuD3ZP0O3zxXtwcBPHthyAXbdkJg/r53El4lbaO4k1dBOeZDnAyriXwA?=
- =?us-ascii?Q?DT3XfwUIqbFjukqslG95u7/fL7SAdXVgsZ+KBPZcUnolleEPbfIsr0C0ozyB?=
- =?us-ascii?Q?H1nBVBMMETQ6I4PtR+SGH25OaZv/f6oBYOalapWlGojFU8qmosxk9xq2BCvy?=
- =?us-ascii?Q?YZ3jt3nkTF3WI/dAsKL8TX63xZbJRT1LMS1fwkO4fg7CGe/6LMvRKs1mxA6/?=
- =?us-ascii?Q?6T7nCZoAKC4H6MzPu6eZjDRJvo2oHNKVmzm8wGiCdY7W56xrUg3OOkNGBDzK?=
- =?us-ascii?Q?uyjUuyBKm3WKhlovThJeStXB85MtTgzWYPfF1jrqEu26llZ4CRDG7bSm9APQ?=
- =?us-ascii?Q?fE7tnuy0pZcVisMghLCeNtzLBYjNTBMxLZxMQcLPSQFsKTkKvS2a2ctkJ8ZB?=
- =?us-ascii?Q?TtNzeCNqMCbVB4QWGvkghoTgqWJIt6pI1XQs3ce7vVTM6yHTOCZfiythnl0T?=
- =?us-ascii?Q?4B1oHPx3StWvP3afwFk+vjQdd1VxtKGDH400ah4e37HhQzSlMs6ghGg9VMPV?=
- =?us-ascii?Q?Lefiscu+3eDT+ZT2Ykk1Kd9gwVkQisZixnR9kmrso3EikoDvFL6cX34Ff2NF?=
- =?us-ascii?Q?lRO7KUc2ouOUKE9P7D6BQIDlGQJyEBsdZ2CUVVO/5XiYKKj/YkI2MLcvFvgW?=
- =?us-ascii?Q?pnACenvjteLfl5xhM2VvabXnYnacx1o4EXq/Q/hAoKXFl1+NLbvS5FBfeycC?=
- =?us-ascii?Q?a5l8EnYHXsk0QiXHAEuidgX6rW0bKQD4/QIvHIF7nZj1FEi33Jh17aeQ9KG4?=
- =?us-ascii?Q?gaCV1spq9AbeMd9SBI/YR2qi684mJZh7jqFM4XB/Wu4vQF8U8PmN3n5t9B6o?=
- =?us-ascii?Q?DoWUq3iMRD1cjP111QKrIcJYQvUS4LI1nEpo6LTmt5ZsZlk21EGh?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2172428-c9be-4be8-ae32-08df3f3d5d7f
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:14:50.5513
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RghfAP9KFuqiS61pbb8g/DxTm1tNCTeoqf46IaW+NczrxY5Th/seZRTYZpOAwY1b8Jz0ZJPX5htd+LSpQN5eo3mRd5tGp91NyJ8QpYYUkVkO+ZjSiDcXuZI+5BuDU8TZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSMPR04MB11293
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110150446.2452975-8-gourry@gourry.net>
 
-On Tue, Nov 10, 2026 at 02:05:46PM +0200, Stefan Ghetu wrote:
-> From: "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+On Tue, Nov 10, 2026 at 10:04:46AM -0500, Gregory Price (Meta) wrote:
+> Use vma_test() instead of accessing vm_flags directly in the NUMA
+> balancing code touched by the preceding fixes. Keep the existing flag
+> predicates unchanged.
 >
-> The hs_zero timing is computed as
+> No functional change intended.
 >
-> 	n = (144 * (hs_clk_rate / 1000000) - 47500) / 10000;
-> 	cfg->m_prg_hs_zero = n < 1 ? 1 : n;
->
-> hs_clk_rate is an unsigned long, so the subtraction is done unsigned and
-> wraps for any rate below about 330 MHz, where 144 * MHz < 47500. Because
-> n is a u32, the wrapped value is never seen as negative and the "n < 1"
-> clamp does not take effect. The garbage value is then truncated into the
-> 8-bit m_prg_hs_zero register field. At the minimum supported rate of
-> 80 MHz this programs 199 on 64-bit and 181 on 32-bit, instead of the
-> intended minimum of 1.
->
-> Make n signed and do the arithmetic in int so the clamp works on both
-> 32-bit and 64-bit. The divided rate is at most 1500, so 144 * 1500 fits
-> easily in an int.
->
-> Fixes: f4c8116e294b ("phy: Add driver for mixel mipi dphy found on NXP's i.MX8 SoCs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Oliver F. Brown <oliver.brown@oss.nxp.com>
-> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
+
+What a legend! :P
+
+> Link: https://lore.kernel.org/r/aq1FDhy00epXXtgd@gremlin
+> Assisted-by: LLM
+
+This tag is no longer required, in fact I think checkpatch should moan about it
+now.
+
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+
+Of course, LGTM ;)
+
+This clashes with my latest VMA flags series, but the resolutions should be
+trivial.
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  kernel/sched/fair.c | 2 +-
+>  mm/internal.h       | 2 +-
+>  mm/migrate.c        | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c b/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c
-> index 0928a526e2ab..84bd21aaf9e8 100644
-> --- a/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c
-> +++ b/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.c
-> @@ -191,8 +191,7 @@ static int mixel_dphy_config_from_opts(struct phy *phy,
->  	unsigned long ref_clk = clk_get_rate(priv->phy_ref_clk);
->  	u32 lp_t, numerator, denominator;
->  	unsigned long long tmp;
-> -	u32 n;
-> -	int i;
-> +	int n, i;
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 279bf12b74b64..cf3e3657e9533 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4378,7 +4378,7 @@ static void task_numa_work(struct callback_head *work)
+>  		 */
+>  		placement_scan = balancing;
+>  		if (placement_scan && vma->vm_file) {
+> -			if ((vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ)
+> +			if (vma_test(vma, VMA_READ_BIT) && !vma_test(vma, VMA_WRITE_BIT))
+>  				placement_scan = false;
+>  		}
 >
->  	if (dphy_opts->hs_clk_rate > DATA_RATE_MAX_SPEED ||
->  	    dphy_opts->hs_clk_rate < DATA_RATE_MIN_SPEED)
-> @@ -276,7 +275,7 @@ static int mixel_dphy_config_from_opts(struct phy *phy,
->  	cfg->mc_prg_hs_prepare = dphy_opts->clk_prepare > lp_t ? 1 : 0;
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 6e7c247781a16..7fc34d084697e 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1248,7 +1248,7 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
 >
->  	/* hs_zero: formula from NXP BSP */
-> -	n = (144 * (dphy_opts->hs_clk_rate / 1000000) - 47500) / 10000;
-> +	n = (144 * (int)(dphy_opts->hs_clk_rate / 1000000) - 47500) / 10000;
->  	cfg->m_prg_hs_zero = n < 1 ? 1 : n;
+>  static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
+>  {
+> -	if (vma->vm_flags & VM_SHARED)
+> +	if (vma_test(vma, VMA_SHARED_BIT))
+>  		return false;
 >
->  	/* clk_zero: formula from NXP BSP */
+>  	return atomic_read(&vma->vm_mm->mm_users) == 1;
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 50a0a2e11a353..796d98d1c116c 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2715,7 +2715,7 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
+>  		 * See folio_maybe_mapped_shared() on possible imprecision
+>  		 * when we cannot easily detect if a folio is shared.
+>  		 */
+> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio) &&
+> +		if (vma_test(vma, VMA_EXEC_BIT) && folio_maybe_mapped_shared(folio) &&
+>  		    (!folio_numab_promotable(folio) || !node_is_toptier(node)))
+>  			return -EACCES;
+>
 > --
-> 2.34.1
+> 2.53.0-Meta
 >
->
+
+--
+Cheers, Lorenzo
