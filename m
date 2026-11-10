@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311318;
-	b=m5D7QEMDboWD8OzaAtpBdvnTT3ubnhtLS4HCx+G3jw/doww2CvlPVMnQChji4k/EnUvb
-	 i1e/H2Sq0ejRHjvRrNRN3oTv4eDV3SU2MBgkyFOKwL+Tqxa/yVvnzt1ZS3eVLDMPtlV4l
-	 XHDIzIfm/yFviKB+ysFN1YNCA2EE5tiB2wXbXSsceVp+DdlUsR8wfDW2/Il4GqnlsjfrF
-	 NtyQSN6nCJ8RQbmsBGRmo9NLRlx4v1GbUjaRfl7nsWyR+zO0A7rGsoTFoU/KmgYBafzxN
-	 iL+QjKRxKBp6dl+1G6DNhTtOQb7fgxeqYuULlsXUDs5T/8jrs4ESLlS4f9g4eDFO6vw==
+	t=1794311342;
+	b=BtWWdlj1uf5wSMrrQ1IeYTnhDIdxaB/Pu+pTFa1ARzEDT3KJ5K68ffisHWCThMdD4WDJ
+	 LsXstWJNG9idJvq8Mqq7MiThf4WmvGqaEspJXDvQidQSxF/wmVkTI8+6iEbKIo9tq3ULm
+	 VKTDtqZh1vAcmJhxDFhJWhe0hNIwM2mns4b9SxISBIiWBGTvjydlgLpZKlesxD40vuls0
+	 QbKo4zwZt++YBgCbnOQSr8ZH+HoyGfSBS//mvxNWnW6QEXE3AxIs9/TVSK75vReOCWtE5
+	 YDNtTcQN4k6rA427XnkfQ4/muB7fxAw5oqDWh9NrrzXHxp9r27pLiSQc2lFjh4qD5UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311318;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=tSZhKAIK1EHxD3XnyhYBftCRX2avMBVk9Fjkswdk57s=;
-	b=5iqbsAvsnVg9Cq2rBtIChax81HGGhELUNm33lPBmbo/WZ9DKwrW/60WpwbGPguvxfc9V
-	 E/ZZXMZsq4c3D/K0rg+1dZ3SCvxRV+Fi+BSqdxpZ8IhlVT2OlVk9ZM1ew8N3ATJaBK01c
-	 A/A8cbq64LPKz+9tvTm5kyxAAVxCsM5skL9P7Ov3IHe74H3oeVNaXtqM57JFzIcVDa/ep
-	 Wnh9JGpwvh2P8OI9W6g2dLfiUMH3PW3zwYZxDdY2s+5VXTjIMQry2vKzE8ATqHEdfn2oN
-	 iNg2woDKMmfFIfDHzjYOHaVggAiZ4ezs/bFWQDR6HKHp16OG1DueYuJqkaXG9EQHFYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311342;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=XH2Psc0/RA0xHqjw/BmgXYna8gK5TSDyk/31rRsHXag=;
+	b=MkVjR93qmZDEgJU3iMDP3zGLgkYY/8GO8mlDJtkVd0UhWZUHpxldNNzXpUvBZ5WplirX
+	 waw/kVike/LOIQ3C7YccpMR/O8p9YSbxHEK9CyuLJiOrbiDEOKi3S0mEijNDvNlbZQmsI
+	 mI3JtZitZlmxlJGT2poh5jF47A8XHZwOJYJe2s1nGBy69ngpdYRgK/zybVrRkeaZPTtoz
+	 WYVkJL/ewIS68w0PS4GGVbSpW85tO2G5XjEQGbuTRRzG3WGGucoHWmHR0hh/l0ZvV1Z32
+	 3SN1y23w+XJr20P2vLmMlwrrSOI7Ucxr0qVGg2guhT7tp9IHZ/moUnbt+TMws+ol88g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qqtOx6p6;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC332606A321;
-	Tue, 10 Nov 2026 11:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC332606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gtRdmI93;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 927A4606A31C;
+	Tue, 10 Nov 2026 11:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 927A4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qqtOx6p6
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9D05D33D;
-	Tue, 10 Nov 2026 12:46:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794311173;
-	bh=tSZhKAIK1EHxD3XnyhYBftCRX2avMBVk9Fjkswdk57s=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qqtOx6p60ZFA7kfVRbtUBadyGZVACGSAhtNYhMG70e/xaOTbs1fvT3czoHy4nzOub
-	 rswa3AR9CdilC95o8FcHOvcnZBq7V55yydP3MsPFIO3VbbjkJcHCuIkgcQ2EJwbr+R
-	 rga9Ct3Bo23RZBe8A6a2U96VtderXVHXSRuYobC0=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gtRdmI93
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E43941516;
+	Tue, 10 Nov 2026 03:48:57 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E4FA3F882;
+	Tue, 10 Nov 2026 03:48:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794311340; bh=AZ4NvMO0DhplbnLnvBGhZhX6wT0BZLera84rlUdLLTA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gtRdmI9385we0i76Dbqp4XWv8SMqquN/p5CTy/nrl+UVL5dQjy0QcsbbaPgdmcBs1
+	 okrD76nZEA1xiq7c8fwInfEiM3WNuSjFAyjld2FL0HS0S/ks0t/7+q8mWNpKe51v/F
+	 VOfXa5RtXMULAo0NF4OlIGd1wP3Zm3+A0UC1X26A=
+Date: Tue, 10 Nov 2026 11:48:56 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 07/11] pinctrl: scmi: give no groups to pin-only functions
+Message-ID: <avMEqP_O5-R7m3-z@pluto>
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,52 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261110093954.GA129290@francesco-nb>
-References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com> <20261110093954.GA129290@francesco-nb>
-Subject: Re: [PATCH v3 0/4] arm64: dts: freescale: Add Verdin iMX8M OV5640 camera overlays
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Francesco Dolcini <francesco@dolcini.it>
-Date: Tue, 10 Nov 2026 11:48:33 +0000
-Message-ID: <179431131331.194410.16578072822295578866@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
 
-Quoting Francesco Dolcini (2026-11-10 09:39:54)
-> Hello all,
->=20
-> On Thu, Oct 22, 2026 at 04:31:24PM +0200, Ernest Van Hoecke wrote:
-> > Following feedback on the Verdin iMX8M Mini series, introduce a binding
-> > for the connector's sideband GPIO nexus. Add connector mappings to the
-> > carrier descriptions and stable labels for the SoM-specific CSI media
-> > nodes. This allows one pair of OV5640 overlays to be shared by both SoMs
-> > and all three carrier boards.
-> >=20
-> > The binding intentionally covers only the connector's GPIO signals.
-> > MIPI CSI-2 endpoints, I2C, clocks and supplies continue to use their
-> > existing bindings and are connected through stable labels in the Verdin
-> > device trees.
->=20
-> We have now an official page documenting this connector
->=20
-> Link: https://developer.toradex.com/hardware/hardware-resources/periphera=
-ls/toradex-camera-connector/
->=20
-> Ernest: if there is a new patch series, I would mention it.
-> Kieran: the danger note in the page is for you ;-)
+On Fri, Oct 30, 2026 at 04:58:38PM +0100, Clément Le Goffic wrote:
+> For a pin-only function PINCTRL_LIST_ASSOCIATIONS returns pins, but the
+> driver registered them as groups. Register pin-only functions without
+> groups.
+> 
+> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl driver")
+> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
+> ---
+>  drivers/pinctrl/pinctrl-scmi.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 
-Awesome. Lets hope the fire stays as imagery :D
+LGTM.
+Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
 
-I did get my 'camera dt-addon' compiling with Herve's DTC updates, but
-there's still (probably quite a bit) more work to do yet before we could
-have generic camera addons for connectors.
+Thanks,
+Cristian
 
-Looks promising though!
-
---
-Kieran
-
-
->=20
-> Francesco
->
