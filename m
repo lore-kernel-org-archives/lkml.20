@@ -1,49 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323456;
-	b=mEUPkCHpBfQYLqP0PDlff9DFSGniAq0qVfdU3MGQ56fiy+PXEBd78/H40Euf3rnB2dOR
-	 nCRYIIah4voEw4YS6PrZDydL2Nah6v2zajeMfnAuF5uQ7lb3HUx16TXH3gwH6+m7UjIsi
-	 US6QKyogS7EmNJfA8iqaPoiEsFH4/OByFcCaq6qmuCN1d7f+GnhkUFMudn7JhkL9J0kda
-	 ybaxrti7iE5rVzLRYc9VEV3Ds3oE2SFfwjQn6cAZloyhoN5nmAKmskggfhSsq8FVEgAfb
-	 8vFYTBdFrrK6ghCbWeb0FYVbH+18VxLG/5SivQw9WKxXTQyS/mYGII7I115SSq6SCXw==
+	t=1794323461;
+	b=hyLRUFay9yH10S/slMhDJfavvGR5qAAoKckDf49Lyv6Ewv0OF3AuM0n/fGHee1p0fP6R
+	 VenQei5NFWOLTK9RibG/JB1Tw9HJ1PiCKIsa9Lj/ykt7CFHK/HxqHOZSC2Fb8wqm9o3GQ
+	 diOQFomyiQCWeKqyQlGb2kVr7JDE6iAKRYuGYsW0qsVYKZCiKEgxebwblH/i9dinJKu2N
+	 pjQ+xZKtOKl8pnb1Dag5GWA7+awvvPvTuYgY9eMpFnD5hG/H6FZxsiYT7Pr0rer/r3lZ3
+	 LUZMln/U1oc3AKxbtR/VzUB3BF395CuebuR+S8fUYsqxO44r/d37xZdxLSfmx+VYOtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323456;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=D9yxkaw6ZrAXW+SO4mJkooT0uzl2j90D+9HSPrIHqSc=;
-	b=o7ikJwZkPU4jiDH94j1Te39HUpbRUkH1Ujige2sKRehwdXQyNIfdO0kWI1Mc9zWMEoF9
-	 S1oMHzqs9YLq/zCA0ER4qPOkuMXdg9X7U0BzFWcdLlN8RYsm+TaZBVCFWgX9QLgtBxsIH
-	 1oLXChpUDA64/sbdH/Vc6TFnaLcjfh20gPvFO9BQDXgHSmuDPlYNMtmd80n5wFOcD7Jq9
-	 EUpVrUs6KUBGD+y6JH/4T+y8tg2aLXMBATpdfPAwLeNkzYK2LoDrDc6Wey0hm3gJGoIuQ
-	 UvTaoACSMn9smgzxPu3uJFpkaLfNld/ciZSi2qhx5HRcRjIwCBDuYL3T2pkl2p5MfNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323461;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
+	b=WX8kUhDlzDRCnaPncaycSbA5N31RSKip9nwxx7ruFbpuc5ZtExxkHCrWaLVquXkQCpMS
+	 hOiN0L4+0JyhTuksXKZYN9JLpB3J2Vt1QPSz1EUTFsWIpPWwCxWa9OdYeLcayFc7iYeWz
+	 5LBWl2iDezYSl1amuPszThASbamfvc9rYoPpKTiCXhjgHqGqKcGp0zZMWqVHkxisXkExH
+	 p04GgBOY1tR8gh1mtdQpAuiV04c2U1Wh0fgqxYIPTv3VdeOHUryphZoWbwOYc/xNwrKuf
+	 g2fn/Rw8ppbH3IbMK/Hx0H8aDJTaFQXGnT6yW1Xs+PrD407AmvqtlN6tqPOGMD7/iPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UJKOM5j/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFF8606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:10:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1160606A31C;
+	Tue, 10 Nov 2026 15:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJKOM5j/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52E21F0089F;
-	Tue, 10 Nov 2026 15:10:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff3FmVsD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117751F008A5;
+	Tue, 10 Nov 2026 15:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323455;
-	bh=D9yxkaw6ZrAXW+SO4mJkooT0uzl2j90D+9HSPrIHqSc=;
-	h=From:Date:Subject:To:Cc;
-	b=UJKOM5j/qfm9UA57rKmDJPywu+1MpnR7psxvF5MztxtwTBfjw76xrroP/gApZ26Zl
-	 y+r6pEJIi7KQUnYtCM9GBAXco3ArXjQsPj7mq/NA9jRJ1/XZ3DfLNy3ds5+mXP8EBI
-	 4yU5SG0sqd3JiOOJXkVJTN4Q+YCKw92IOPVcCADPeekqQjyafEsYPIeMe09a7v9UuR
-	 7NzdR9uKtAmXZFLBbzm/sJhye6QjkVFoCdVhd3dxpFfvnY4Nv1OtEblDhjjzIzsAip
-	 rc57LzeqfPg1oijt9gK4fa5MI9S52bhM+3B3BQe3TjHv/7VXVY4Rr7lUBm0/GhdYlM
-	 MJIQpsIIKoz3g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 10 Nov 2026 15:10:40 +0000
-Subject: [PATCH] mm/vma: predicate vma_assert_stabilised() on
- CONFIG_DEBUG_VM
+	s=k20260515; t=1794323460;
+	bh=k+JfUV0QhaAHCSo5uKVNqubmDMHshz3Y0tNpTYgBNWE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ff3FmVsDnez4qfT39XX0kcfM/DNkc0rXxt/RVnKcZqMWRUtIVUZO3sY1Y1T/jrJAa
+	 LMkcjSntcqIt/Dbq3Xerko7WDpaJXndU2wUtOuoW2+uINMqX2Jsh+NPneCeq+ZzcTc
+	 y/10hlPv9GBW10fubJHi/KnE3+svfMF9H9xnKvALCEtFQgdn75smaq1BywPaQM223f
+	 lLXjmVkwU/bhZko1W7RzSFeDujo+89KOrwp2v8SoKRveZnQxtqZcT6qfBOCpXiNOJC
+	 WtdpzOM3P3/7d3roJBdk72LHb5u6IbqeBvAteyUJlQN8Vrn4anv8df/BaYyyG/q+C2
+	 W0F51h3lnQSGA==
+Date: Tue, 10 Nov 2026 16:10:54 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avMzoKHbsuMcZpW2@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+ <avL4LoCz2wc164zo@devuan>
+ <avMBNUEL9_V7WnK-@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,136 +73,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSwqAMAwFr1KyNmArqHgVcVFt1Cz80NgiiHc3u
- HiLgTfzgFBkEujMA5EyCx+7gi0MTKvfF0IOyuBKV1trS8ybx5nvdGKgMS3oRQuXoAuVa2bStRO
- ofUbS21/uh/f9AOziYEdpAAAA
-X-Change-ID: 20261110-vma-fixup-debug-asserts-2d327fe27f8c
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Lance Yang <lance.yang@linux.dev>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
- Seunghyun An <san55@wisc.edu>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3945; i=ljs@kernel.org;
- h=from:subject:message-id; bh=AjcoNBiXFjIr7zMwvTj45YNXUEW6Apq5OgXBX+VmZYQ=;
- b=kA0DAAoWz53NioHifxQByyZiAGrzM/yj/skJHnNSO9mo71dlXgNJiR357l9zRUrXoubw0APA3
- oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmrzM/wACgkQz53NioHifxT8yAEA0uwi
- mJOl7OZnM8yK+AUWEki7eb4lfSoCOVwQ2e+hrNIA+gKxTYPd93zkwj9lOKOXvw/H+brUbalFZnG
- uVh7J4eQL
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qpxgmtmgum7gp73j"
+Content-Disposition: inline
+In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
 
-I introduced commit 17fd82c3abe0 ("mm/vma: add and use
-vma_assert_stabilised()") with the intent of picking up programmatic bugs
-when debugging mm code, but kept the general practice of asserting even
-when CONFIG_DEBUG_VM is not set in line with existing code.
 
-However, it turns out doing so can cause performance regressions,
-especially when asserted in vma_has_anon_rmap() which is referenced in a
-number of hotpaths.
+--qpxgmtmgum7gp73j
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
+ fwnode operation
+Message-ID: <avMzoKHbsuMcZpW2@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
+ <auuhy40x1BMoW96-@ashevche-desk.local>
+ <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+ <avICwdxyi-W1Y3PD@ashevche-desk.local>
+ <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
+ <avL4LoCz2wc164zo@devuan>
+ <avMBNUEL9_V7WnK-@devuan>
+MIME-Version: 1.0
+In-Reply-To: <avMBNUEL9_V7WnK-@devuan>
 
-Since the intent was always a debug-only assertion, explicitly check for
-CONFIG_DEBUG_VM and do not assert if it isn't set.
+> Date: 2026-11-10 12:35:22+0100
+> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+>
+> > Date: 2026-11-10 12:10:57+0100
+> > From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+> >
+> > Hi Bart,
+> >=20
+> > > Date: 2026-11-10 10:00:42+0100
+> > > From: Bartosz Golaszewski <brgl@kernel.org>
+> > >
+> > [...]
+> > > > > > > +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
+> > > > > >=20
+> > > > > > Can property be statically defined somewhere? We might want to =
+also optimize
+> > > > > > these duplications with const variant (here or elsewhere, for f=
+wnode generic
+> > > > > > path, I believe).
+> > > > >=20
+> > > > > Please rephrase because I'm not quite following what you're sayin=
+g.
+> > > >=20
+> > > > Can prop->name come from something that is declared as
+> > > >=20
+> > > > static const ... foo =3D {
+> > > > 	... .name =3D "bar";
+> > > > };
+> > > >
+> > >=20
+> > > You can't know it for every instance of struct fwnode_handle, so the
+> > > answer is: no.
+> > >=20
+> > > PS: is there a way of using match_string() with non-const data?
+> >=20
+> > Given the definition here:
+> >=20
+> > 	$ grepc match_string .
+> > 	./include/linux/string.h:int match_string(const char * const *array, s=
+ize_t n, const char *string);
+> > 	./lib/string_helpers.c:int match_string(const char * const *array, siz=
+e_t n, const char *string)
+> > 	{
+> > 		int index;
+> > 		const char *item;
+> >=20
+> > 		for (index =3D 0; index < n; index++) {
+> > 			item =3D array[index];
+> > 			if (!item)
+> > 				break;
+> > 			if (!strcmp(item, string))
+> > 				return index;
+> > 		}
+> >=20
+> > 		return -EINVAL;
+> > 	}
+> >=20
+> > You should be able to call it with a cast.  It's dangerous, but
+> > technically it works.  I'm not encouraging it, though.  :)
+> >=20
+> > 	char **strings;
+> >=20
+> > 	...
+> >=20
+> > 	i =3D match_string((const char *const *) strings, n, "foo");
+> >=20
+> > This is a historic problem in C, which was solved in C++.
+>=20
+> BTW, self-correction:  it is solved for char *const *, but char** is not
+> convertible to const char *const *, neither in C++ nor in future C.
 
-Really all of the assert paths need to be predicated on this, but start
-with this one only, out of caution.
+Self-correction of the self-correction: char ** will also be convertible
+to const char *const *.  I was confused during a short moment, it seems.
 
-Additionally, since a detached VMA is trivially stabilised (nothing to
-stabilise against), check for this case at the outset, and update
-vma_has_anon_rmap() to not explicitly need to check for this.
+	alx@devuan:~/tmp$ cat const.c=20
+	#include <stddef.h>
 
-This also, importantly, avoids reading any VMA fields if CONFIG_DEBUG_VM is
-not set.
+	int
+	main(void)
+	{
+		const char *const *ccp =3D NULL;
+		char **p;
 
-Target the commit which introduced vma_has_anon_rmap() for the fix, as this
-is where the issue started manifesting in practice.
+		ccp =3D p;
+	}
+	alx@devuan:~/tmp$ cat const.c | gcc -x c++ -
+	alx@devuan:~/tmp$=20
 
-Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence KCSAN")
-Reported-by: Seunghyun An <san55@wisc.edu>
-Closes: https://lore.kernel.org/linux-mm/20261110000002.1834454-1-san55@wisc.edu/
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-Note that vma_is_anon_rmap() was introduced in 7.4, so no need for a cc: stable,
-just needs to be sent to Linus as a hotfix. Thanks!
----
- include/linux/mmap_lock.h | 19 ++++++++++++++-----
- mm/vma.h                  |  3 +--
- 2 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 9ccbbcbd7aca..9c3a9c6525c1 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -408,6 +408,11 @@ static inline void vma_assert_locked(const struct vm_area_struct *vma)
- 	vma_assert_write_locked(vma);
- }
- 
-+static inline bool vma_is_attached(const struct vm_area_struct *vma)
-+{
-+	return refcount_read(&vma->vm_refcnt);
-+}
-+
- /**
-  * vma_assert_stabilised() - assert that this VMA cannot be changed from
-  * underneath us either by having a VMA or mmap lock held.
-@@ -418,9 +423,18 @@ static inline void vma_assert_locked(const struct vm_area_struct *vma)
-  *
-  * With lockdep disabled we may sometimes race with other threads acquiring the
-  * mmap read lock simultaneous with our VMA read lock.
-+ *
-+ * Assert only if CONFIG_DEBUG_VM is set.
-  */
- static inline void vma_assert_stabilised(const struct vm_area_struct *vma)
- {
-+	if (!IS_ENABLED(CONFIG_DEBUG_VM))
-+		return;
-+
-+	/* Detached VMAs are trivially stabilised. */
-+	if (!vma_is_attached(vma))
-+		return;
-+
- 	/*
- 	 * If another thread owns an mmap lock, it may go away at any time, and
- 	 * thus is no guarantee of stability.
-@@ -454,11 +468,6 @@ static inline void vma_assert_stabilised(const struct vm_area_struct *vma)
- 	vma_assert_locked(vma);
- }
- 
--static inline bool vma_is_attached(const struct vm_area_struct *vma)
--{
--	return refcount_read(&vma->vm_refcnt);
--}
--
- /*
-  * WARNING: to avoid racing with vma_mark_attached()/vma_mark_detached(), these
-  * assertions should be made either under mmap_write_lock or when the object
-diff --git a/mm/vma.h b/mm/vma.h
-index 3fc3b47a954b..05300badd70b 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -278,8 +278,7 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
-  */
- static inline bool vma_has_anon_rmap(const struct vm_area_struct *vma)
- {
--	if (vma_is_attached(vma))
--		vma_assert_stabilised(vma);
-+	vma_assert_stabilised(vma);
- 	/* KCSAN gets confused about the optimistic check. Silence it. */
- 	return data_race(vma->anon_vma);
- }
-
----
-base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
-change-id: 20261110-vma-fixup-debug-asserts-2d327fe27f8c
 
 Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Alex
 
+>=20
+>=20
+> Cheers,
+> Alex
+>=20
+> >  I have
+> > a proposal paper for the C Committee for solving it as in C++:
+> > <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3987.htm>
+> >=20
+> > This paper will be discussed (and probably voted in) in the next meeting
+> > of the committee (which happens next week), so there's a chance that
+> > this will be solved for C2y, and thus the cast will no longer be
+> > necessary.
+> >=20
+> > The history of why this is not allowed in C but is in C++ is, as far as
+> > I've been told, the following:
+> >=20
+> > Back before C and C++ were standardized, C++ invented const, with rules
+> > slightly more allowing than what they are now.  This was going to be
+> > standardized first in C89.  But very close to the release of C89, they
+> > realized about the danger of converting a const char** to a char**
+> > implicitly.  They were so close to the release, that they opted for the
+> > safest approach: disallow any non-trivial conversions.
+> >=20
+> > Later, while standardizing C++98, they realized we could allow a few
+> > more conversions safely, and so they did.
+> >=20
+> > C could have taken advantage of that, and pick C++ rules in C99 or C11,
+> > but for some reason, nobody proposed that.  I'm proposing it now.  :)
+> >=20
+> > We've already discussed this proposal informally within the committee
+> > for some a year and a half, and there seems to be consensus that we want
+> > it.  We're only being careful about the specific language.  But I think
+> > I finally got it, and it will go in next week.
+> >=20
+> >=20
+> > Have a lovely day!
+> > Alex
+> >=20
+> > >=20
+> > > Bart
+> > >=20
+> >=20
+> > --=20
+> > <https://www.alejandro-colomar.es>
+>=20
+>=20
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--qpxgmtmgum7gp73j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzM/0ACgkQ64mZXMKQ
+wqm5Vg/9FMzxE1DzVEdsHiBQi+kE7cGOI4ma9sgDJoEjK6z5pi5vl41VIbj9mKII
+2gyshPP75e70Ee00CxPc7F1OEuG0DLkf7Rz9MfydiUWxowxGnZZmvwGjgknk3uZY
+TEq+UcZ4eJneqVtMT2O74AtskE0VxyxIrr0fBn/vn/3wxMd3atylcFUuZqSW1jiQ
+vUAiMxz6JNIKvtIvaK6FPdMJqP60PxQ5gtIXQtvFlnRx6y8cB2Qoq/wsPdo7RBqf
+kmx/lVrbl7Z+i7d3pjq7DkIMdpEYzozg3i0PrGJb3+XmXS4OnNN7GRQUHFZvGEXg
+We8350HB3xTkLK3uJTkJ2OO0Yx1Rvuc1x3qIoGlBhhmJirYwjO4smRXKIABqNjEM
+tZY+QdsyOgfIiAD+2HGpqyxSSznYC8nOZ8+XlhGVxwEdDeLjJzA3cBuGVQZVzwo2
+TXhd/ONWz3/s8yv63CnJINvJliYYJSedAf96xADYYUo+gJx7Nk93eepRxQDWIMI8
+jXvCFC4Q9bNXrS5t4lDPGzyiK35y//hBaz1r56nVjRPIiAaUnd5uKDAbY4elhUjM
+0GGBVUuPq/ucJ73OfL3fY/oWl8s5aF3AyyGJQRp6PVp8zEzpBIX/6mX2b4MIz2mv
++f+RIixqGWjFtWrhHpUqAN0MEqtmid9TfhEokNAKeWhIAhcZPfM=
+=i4c8
+-----END PGP SIGNATURE-----
+
+--qpxgmtmgum7gp73j--
