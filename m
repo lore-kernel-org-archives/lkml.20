@@ -1,73 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345283;
-	b=XyxHRhZdwBUXvH8/zsGsK88Cb0DKtbujxuVbA2Mhh1a2kZc39UQYEICHvqOgXCd8yUPK
-	 o0GRjsAF3A/keYPD9OR8c5OZDektAbW4HO3JhMTaxz4jS2IWFsF/FmfSCYn3ie558whQv
-	 tJ1K38XrAFdDx5/9yZyZ3VeGC/RPcUjM7WbqRbo1AUNIuWcMwxUg9cfjtyS7QGCqYtNc5
-	 sIVwN3+twXZ/Y0Y94NVPSDg1GBBvbGS3pjg1ifAS35LAMDlb783Ea2shWGF6e0JDNXPZJ
-	 1mjdYhX4J+K1HujpmR+xTAgHZUnEVmHSv/kV5wbhV99AJGUgKRyZ1csI5FtxaSUFYzA==
+	t=1794345303;
+	b=g8T3k6Xa0x1KuH2/UFz7JGjBiDagZr+mneTJQDy1qZJ1Se82Od74S3lQcmamMqqFfJMo
+	 ZHIk2fVpmMcjbaNxttGMUa/eQ9QhE3pWsVhWdC5iAML3TJQniq43CdwPQwDSmj71m550m
+	 ST4oUJdcDsaPlYDIRuf9wd6P7juD30lVJMonpdZ/NZJF9UVV7GJ55Igp8GKWup9iX85Zt
+	 W4uHXghNA6QtDBdAmajdRTranQvx/rRQ9WwaMLWVAydux/rkLm2auNYa0MeZcBOFE18x6
+	 V6gNVKVsgnDl8FVItlpP6dISfasXp76GEgsX5kryaNtLikgK6XyiFlog2/JhcxA732w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345283;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=QQrHnYDyygVgTjK8FaoUWk5CM7nixWrNnX9TzMFQ8J4=;
-	b=1jafEDAdltwih56JqyCmmZI7HhhNZJsRsZcVTRBTOtIuyzU29iIH+rMxQbEEpWHy615y
-	 W1LzE6QeONSPgnWJmkrB86BowzFgWEIfyiXdix0qlNevq0yMlHIZ5pBaY8XmE+afIKxkA
-	 OZVcU+l9h6gkIHBrkJX5BwTmTsrGAOq/ShKs5OPPrehBNA5EY5Let04BFn2ura5ubKODW
-	 ZPkloybykXD8sVR9TYldpLPRPfmG1Nc92TSXj7GwU8raD+dewHtN6aRM5Nu2qIuMADFAS
-	 HShlJGvE9IOY1ng4uVlL47icMdXN8AL+SSH04mRYUFpoj3AUs+Td5yYOhKafiiwGPqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nVARVyMM/7IfHWnXWeKDkhlyad2D80c3nx61nuy3dUo=;
+	b=PfYI68AdwadEOr0A50p7daA3NfVph/ixt0HETwK7ndEVstK/tdcrmiGmwbr0BQuYW8uv
+	 amm1EczGMOOxEizaePzfmpqoEUrFPnqR89ENd4Kx6V+272XQSzTmIG3TLxHFYrSkzjU4c
+	 /sxjfP7Xy88gi0VGUt9tOojf/KOAxyS7eEssGQhHDvk/z2671INCE0hvKQRCwHjQvVRim
+	 Kd70kFzrOegLhbON6zVSVlMHI1OP5lNR8GqdN+FVLhi63qFPZOu9J6KyIKkc9LW9x0JSF
+	 TkRMHvdPARLHefBey2eLe73i383LDktMZjJA0k9yKTHfhGM5Q7nzHOsUEHHqzrloO6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="IFBUK6/x";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=LGVYltrY;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE2F606A31C;
-	Tue, 10 Nov 2026 21:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EE2F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70242606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70242606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=IFBUK6/x
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=QQrHnYDyygVgTjK8FaoUWk5CM7nixWrNnX9TzMFQ8J4=; b=IFBUK6/xeWArcLZFycxYfzmDgi
-	PwfRXLKo2PvxTZ8mYB0Pj6PqKXFpFhpXrBA4Y+Jt6auQnhClZn/xyMfJhZ7ZayrFC9mVGj4xZlbw2
-	XJRIqfPeR0Wpux3IPHtLzs4OlnWS64ov+70DKxiU08eWrzRaBpMN8Cvvh0Z/UIaLY/khqMS49hdO8
-	X76ObEuNvC1/k1H4/GLk3k0u/9Y7SpaxvTon83u5Cn5gjtnVInkw3/g99WDUt2/nSTu48apqbWu9X
-	+fb0nGrebm1Ayb4f4h4oMsm/+g6EBWR//CI1mcUpRwRbZJGvdmVEcCoAhvuGUBl2Y+rb4ccH0x3fK
-	i3oTDI5w==;
-Received: from [205.251.233.52] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQtAl-00000001hqw-2Yls;
-	Tue, 10 Nov 2026 21:14:35 +0000
-Message-ID: <ccaa2d3b80a798e1513956fa436742c1e0fb50fe.camel@infradead.org>
-Subject: Re: [PATCH v2 06/20] KVM: x86: Request the guest TLB flush from
- record_steal_time()
-From: David Woodhouse <dwmw2@infradead.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, rcu@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, Paolo Bonzini <pbonzini@redhat.com>, Paul
- Durrant <paul@xen.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Fred
- Griffoul <fgriffo@amazon.co.uk>,  "Paul E . McKenney"	
- <paulmck@kernel.org>, Kunwu Chan <kunwu.chan@linux.dev>, Kunwu Chan	
- <kunwu.chan@gmail.com>,
- syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com
-Date: Tue, 10 Nov 2026 13:14:26 -0800
-In-Reply-To: <avN8aJIHiX4xyTNO@seanjc-mac.roam.internal>
-References: <20261105020104.2507083-1-dwmw2@infradead.org>
-	 <20261105020104.2507083-7-dwmw2@infradead.org>
-	 <avN8aJIHiX4xyTNO@seanjc-mac.roam.internal>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-9Cprd400OC3+mQXdbHGV"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=LGVYltrY
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso24688235e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:15:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794345301; x=1794950101; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nVARVyMM/7IfHWnXWeKDkhlyad2D80c3nx61nuy3dUo=;
+        b=LGVYltrYTJSBqJQ16JFNY9M5k6usX34WVr8KHF0BrAOgn6Sadz6xYSjfK+TNRa/2c1
+         OLgQd2aqThoYZya2pI1TW4v2hh3Ls3VNjy2P9ZKJDcxy/hxhTdQClx1o0zb3XMNlJqyZ
+         0dRvhduoCVLJH7O2jNpzGj06Ng9n/SjzMjQ1JHv9rV9eKEKic7/FcxA1TLAW9Sejx7tg
+         MHQrS6mCOpcaUOiOLzvHSuZkKM5L/3pZwEEFNl/Dc96Wbln0Oa+7pWl6dmUlAOE1q4uV
+         ayu4+N900yfydqYewMIe8mYYdNNqgVthCoHHtszUoAg+D6WAEXoF7uH0Zw4KSHfRem9E
+         aPXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794345301; x=1794950101;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nVARVyMM/7IfHWnXWeKDkhlyad2D80c3nx61nuy3dUo=;
+        b=QKsqYiKBt+m1Jm44tq8e5VtaT4WIc69/dcRo9PuCIaZ9lI0f+2WGajgRoKNSHYfV09
+         RRQyCoYNbytHf4pdz47mg5PCwC/+zTdeBQTy0PIoOe7a9OPYPKJJb52/0A8ayIywTIrQ
+         2lTat/7pyNrfQTIglempuo9xoiJ0IF6MtfcVypiUOpgG5J8zIPxup5dho1RmfaEPPIfX
+         0MIdWCFF2q3LTp2gRu6uGZZFEDa4dFZz/X0VFxPcvNqq1CFXBcNUtcmTcp7E0MTtFP7v
+         wHkHM6wAK9wOQ+V2XdbYn3ar4b5c4fJtqPmcBp1EybxzbmyHsbTjd8lN7TjcouLjIdO9
+         +xtg==
+X-Forwarded-Encrypted: i=1; AL+hErH/H/OnRIMCf2rxT9YG//bUI85pYCaZF1fJXxs86X8ZN/qovnMyUAHAI1Xzbgs/c2sSiXtAUvkrkxJQdAw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SOfFSD/QHxfX0t21YZwQi4KIsoptMESoLjIUang8gjq6PA0ti
+	10W5q9Axxq5dPScfnPp5XTNX+yOiOYyzvkz/JYnBKY/X1is5B/AgNK0Jhf0g5FaIsoo=
+X-Gm-Gg: AYBFou2J4q3QxvOllepHr4OrzTo0yoz0yyyD51uY8nqJJSTQmzQB9yxPbTYjk1Z1ATV
+	CpSwIM514k/SaP39BYAl8znYag4xlPw8x3nRzhKnbOfRosyGSBiVuFWIz4HEf7fW495ZNrU34Fr
+	A9Hl2be7f2a4JQMfpisfvr9nTuR22d2blSkMDWGLtC/RKGALwbXge0PabHarEWq8V8wb7rVLQn8
+	ImfuElWgteXgRFOUIHqaVX1pTitrhs4tZApZ0ZqkF3wmj048PChQavNbOPeU4Eh/UokxzE4Shbq
+	N4JsPNgafkbkRGSpzR+KAwGSOpNTS99K2SZv8pnFn4nkdTJtZo6X0shCCV6TLBCDulYpylW8C4Z
+	i7G6L5oPJUoySxmd753ikfawBDdTEjzX8HTaPITrbYZMsY2ztX6jINnutw1xCcOceBmNm3QzkdP
+	xrmNTgpX82RQKSp7sqDZ7Ge+eQTqnti1e+fY6he/PkXag2v1yUmNc9eRbPVHt+h1FV+vdTCn+i+
+	3k0a1p8aAJ7V9M1nkdAAXrruq9z1yrz5xVdGllbZUypyKNk47TOGfvs9ViZR098Tj+D9ozUzhFj
+	h8LeI7QAch0m3IwZDMyQQA==
+X-Received: by 2002:a05:600c:190a:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ba0936c0d2mr6059685e9.6.1794345300628;
+        Tue, 10 Nov 2026 13:15:00 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e51de3esm1157388a91.17.2026.11.10.13.14.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 13:14:59 -0800 (PST)
+Message-ID: <04ce4048-ed7c-4de3-9224-a3e2a9fdd867@suse.com>
+Date: Wed, 11 Nov 2026 07:44:53 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,224 +92,262 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] btrfs: wait for ordered extent IO in fast fsync
+To: Filipe Manana <fdmanana@kernel.org>, Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ Naohiro Aota <naohiro.aota@wdc.com>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, Boris Burkov
+ <boris@bur.io>, linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103-b4-btrfs-data-integrity-v2-0-577dc2690061@toxicpanda.com>
+ <20261103-b4-btrfs-data-integrity-v2-3-577dc2690061@toxicpanda.com>
+ <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---=-9Cprd400OC3+mQXdbHGV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-11-10 at 12:19 -0800, Sean Christopherson wrote:
-> On Thu, Nov 05, 2026, David Woodhouse wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
-> >=20
-> > record_steal_time() performs a TLB flush on the guest's behalf when
-> > the
-> > guest sets KVM_VCPU_FLUSH_TLB. With shadow paging,
-> > kvm_vcpu_flush_tlb_guest() ends up in mmu_sync_children(), which
-> > can
-> > reschedule via cond_resched_rwlock_write(). That is why the flush
-> > currently sits between a user_access_end() and a fresh
-> > user_access_begin(): it cannot be done while the guest page is
-> > mapped
-> > for access.
-> >=20
-> > Raise KVM_REQ_TLB_FLUSH_GUEST instead of flushing inline, and move
-> > the
-> > processing of KVM_REQ_STEAL_UPDATE ahead of where the TLB flush
-> > requests
-> > are serviced in vcpu_enter_guest() so that the flush still happens
-> > before
-> > the vCPU enters the guest. There is no requirement for it to
-> > complete any
-> > earlier than that.
-> >=20
-> > kvm_make_request() on the vCPU which is running is nothing more
-> > than a
-> > barrier and a set_bit(), so unlike the flush itself it can be done
-> > from
-> > any context =E2=80=94 which lets the surrounding access be simplified
-> > later.
-> >=20
-> > Note that the xchg() must stay where it is: it atomically consumes
-> > any
-> > KVM_VCPU_FLUSH_TLB which the guest has set, as required by commit
-> > b043138246a4 ("x86/KVM: Make sure KVM_VCPU_FLUSH_TLB flag is not
-> > missed").
-> >=20
-> > Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> > Closes:
-> > https://lore.kernel.org/all/20260530061932.7849D1F00893@smtp.kernel.org
-> > Suggested-by: Sean Christopherson <seanjc@google.com>
-> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > ---
-> > =C2=A0arch/x86/kvm/x86.c | 26 +++++++++++++++++++++++---
-> > =C2=A01 file changed, 23 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> > index 6a1f0404f029..3c26c0eb9865 100644
-> > --- a/arch/x86/kvm/x86.c
-> > +++ b/arch/x86/kvm/x86.c
-> > @@ -2117,8 +2117,22 @@ static void record_steal_time(struct
-> > kvm_vcpu *vcpu)
-> > =C2=A0
-> > =C2=A0		trace_kvm_pv_tlb_flush(vcpu->vcpu_id,
-> > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st_preempted &
-> > KVM_VCPU_FLUSH_TLB);
-> > +		/*
-> > +		 * Request the flush instead of performing it
-> > inline. With
-> > +		 * shadow paging kvm_vcpu_flush_tlb_guest() can
-> > reschedule
-> > +		 * (via mmu_sync_children()), so it could not be
-> > called while
-> > +		 * the user access above was open. Requesting is
-> > just a bit
-> > +		 * set on the running vCPU, and the request is
-> > serviced
-> > +		 * before the vCPU enters the guest; nothing
-> > requires the
-> > +		 * flush to have completed any earlier than that.
->=20
-> Argh, I completely forgot about this.=C2=A0 It throws a big wrench in my =
-plans to fix
-> a mishandled TLB flush without using a deferred mechanism[1].=C2=A0 I rea=
-lly don't like
-> having to re-introduce deferred flags, but the diff is a lot smaller[2].=
-=C2=A0 On the
-> other hand, I still don't like the idea of delaying the MMU sync until th=
-e nested
-> VM-Exit.
->=20
-> I think I'll see how gross it is to do something like add a
-> KVM_REQ_PV_TLB_FLUSH.
->=20
-> [1] https://lore.kernel.org/all/au0R41xbEJ_9W_9z@google.com
-> [2] https://lore.kernel.org/all/auDkX94UTjrLNmqp@google.com
+在 2026/11/4 04:40, Filipe Manana 写道:
+> On Tue, Nov 3, 2026 at 3:57 PM Josef Bacik <josef@toxicpanda.com> wrote:
+>>
+>> A fast fsync waits for writeback and then checks
+>> BTRFS_INODE_COW_WRITE_ERROR to see whether a COW write failed. If one
+>> did, it must wait for the ordered extents to complete before logging,
+>> since until then the extent maps of the failed range point to extents
+>> that were never written. Logging them puts unwritten extents in place
+>> of the data that was there before when the log is replayed.
+>>
+>> The flag can be set too late for that check. end_bbio_data_write()
+>> clears writeback before it finishes the ordered extent:
+>>
+>>    end_bbio_data_write()            fsync
+>>
+>>    btrfs_folio_clear_writeback()
+>>                                     filemap_fdatawait_range()
+>>                                     BTRFS_INODE_COW_WRITE_ERROR clear
+>>                                     btrfs_log_changed_extents()
+>>    btrfs_finish_ordered_extent()
+>>      set BTRFS_INODE_COW_WRITE_ERROR
+>>
+>> The write paths that fail before submitting a bio, writepage_delalloc()
+>> and submit_write_sector(), clear writeback and finish the ordered
+>> extent through btrfs_mark_ordered_io_finished(), which never sets the
+>> flag at all.
+>>
+>> Fix by dropping the flag and having a fast fsync wait for
+>> BTRFS_ORDERED_IO_DONE on the ordered extents it collected for logging.
+>> can_finish_ordered_extent() sets it only after recording any error with
+>> BTRFS_ORDERED_IOERR. The wait costs little, because IO_DONE is set
+>> right after writeback is cleared, not when the ordered extent completes.
+>>
+>> Fixes: f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents after a write failure")
+>> Fixes: a11d6912fdd9 ("btrfs: remove folio parameter from ordered io related functions")
 
-It's still OK just to do the TLB flush synchronously from the end of
-record_steal_time() after clearing KVM_VCPU_FLUSH_TLB and dropping the
-GPC lock.
+In fact, if we merge this one, it will also fix the encoded write bug.
 
-You suggested using KVM_REQ_TLB_FLUSH_GUEST in
-https://lore.kernel.org/all/aidiOemcna1Un9wG@google.com/ but if it now
-makes you sad, I'm happy to go back to the original approach (noting
-that it loses the coalescing of multiple flushes).
+I think if we go this path, I can revert the fix of "btrfs: skip fast 
+sync for inodes with encoded writes".
 
---=-9Cprd400OC3+mQXdbHGV
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Thanks,
+Qu
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-zkWWw3ewrC6+wtxtI7TdkuQAAAAAAAA=
+>> CC: stable@vger.kernel.org # 6.10+
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> 
+> The idea looks sound to me.
+> 
+> Sashiko found something and from a quick glance it seems valid to me:
+> 
+> https://sashiko.dev/#/patchset/20261103-b4-btrfs-data-integrity-v2-0-577dc2690061%40toxicpanda.com
+> 
+> Thanks.
+> 
+> 
+>> ---
+>>   fs/btrfs/btrfs_inode.h  | 10 ----------
+>>   fs/btrfs/file.c         | 52 +++++++++++++++++++++++++++++++++++++++----------
+>>   fs/btrfs/ordered-data.c | 31 -----------------------------
+>>   3 files changed, 42 insertions(+), 51 deletions(-)
+>>
+>> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+>> index f7aa0d145185..65ba8ec23258 100644
+>> --- a/fs/btrfs/btrfs_inode.h
+>> +++ b/fs/btrfs/btrfs_inode.h
+>> @@ -89,16 +89,6 @@ enum {
+>>          BTRFS_INODE_FREE_SPACE_INODE,
+>>          /* Set when there are no capabilities in XATTs for the inode. */
+>>          BTRFS_INODE_NO_CAP_XATTR,
+>> -       /*
+>> -        * Set if an error happened when doing a COW write before submitting a
+>> -        * bio or during writeback. Used for both buffered writes and direct IO
+>> -        * writes. This is to signal a fast fsync that it has to wait for
+>> -        * ordered extents to complete and therefore not log extent maps that
+>> -        * point to unwritten extents (when an ordered extent completes and it
+>> -        * has the BTRFS_ORDERED_IOERR flag set, it drops extent maps in its
+>> -        * range).
+>> -        */
+>> -       BTRFS_INODE_COW_WRITE_ERROR,
+>>          /*
+>>           * Set by reflink while it holds the source's VFS inode lock shared.
+>>           * Direct IO writes also take that lock shared; one that finds this bit
+>> diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+>> index f978c6524aa0..4ae9aed8993f 100644
+>> --- a/fs/btrfs/file.c
+>> +++ b/fs/btrfs/file.c
+>> @@ -1512,6 +1512,42 @@ static inline bool skip_inode_logging(const struct btrfs_log_ctx *ctx)
+>>          return false;
+>>   }
+>>
+>> +/*
+>> + * Wait for the IO of the ordered extents collected for logging to be done, and
+>> + * return true if a COW write among them failed.
+>> + *
+>> + * Waiting for writeback is not enough to know that: the end IO handlers clear
+>> + * writeback before they account the IO in the ordered extent. An ordered
+>> + * extent gets BTRFS_ORDERED_IO_DONE only once all of its IO is accounted, and
+>> + * can_finish_ordered_extent() sets BTRFS_ORDERED_IOERR before that.
+>> + */
+>> +static bool cow_write_failed(struct btrfs_inode *inode,
+>> +                            struct list_head *ordered_extents)
+>> +{
+>> +       struct btrfs_ordered_extent *ordered;
+>> +       bool failed = false;
+>> +
+>> +       list_for_each_entry(ordered, ordered_extents, log_list)
+>> +               wait_event(ordered->wait,
+>> +                          test_bit(BTRFS_ORDERED_IO_DONE, &ordered->flags));
+>> +
+>> +       /*
+>> +        * can_finish_ordered_extent() records a write error before it sets
+>> +        * BTRFS_ORDERED_IO_DONE, both under this lock.
+>> +        */
+>> +       spin_lock(&inode->ordered_tree_lock);
+>> +       list_for_each_entry(ordered, ordered_extents, log_list) {
+>> +               if (test_bit(BTRFS_ORDERED_IOERR, &ordered->flags) &&
+>> +                   !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags)) {
+>> +                       failed = true;
+>> +                       break;
+>> +               }
+>> +       }
+>> +       spin_unlock(&inode->ordered_tree_lock);
+>> +
+>> +       return failed;
+>> +}
+>> +
+>>   /*
+>>    * fsync call for both files and directories.  This logs the inode into
+>>    * the tree log instead of forcing full commits whenever possible.
+>> @@ -1615,7 +1651,7 @@ int btrfs_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
+>>           * IO of a lower priority task while holding a transaction open.
+>>           *
+>>           * For a full fsync we wait for the ordered extents to complete while
+>> -        * for a fast fsync we wait just for writeback to complete, and then
+>> +        * for a fast fsync we wait just for their IO to complete, and then
+>>           * attach the ordered extents to the transaction so that a transaction
+>>           * commit waits for their completion, to avoid data loss if we fsync,
+>>           * the current transaction commits before the ordered extents complete
+>> @@ -1627,7 +1663,6 @@ int btrfs_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
+>>           */
+>>          if (full_sync || btrfs_is_zoned(fs_info)) {
+>>                  ret = btrfs_wait_ordered_range(inode, start, len);
+>> -               clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flags);
+>>          } else {
+>>                  /*
+>>                   * Get our ordered extents as soon as possible to avoid doing
+>> @@ -1640,15 +1675,12 @@ int btrfs_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
+>>                          goto out_release_extents;
+>>
+>>                  /*
+>> -                * Check and clear the BTRFS_INODE_COW_WRITE_ERROR now after
+>> -                * starting and waiting for writeback, because for buffered IO
+>> -                * it may have been set during the end IO callback
+>> -                * (end_bbio_data_write() -> btrfs_finish_ordered_extent()) in
+>> -                * case an error happened and we need to wait for ordered
+>> -                * extents to complete so that any extent maps that point to
+>> -                * unwritten locations are dropped and we don't log them.
+>> +                * If a COW write failed, before submitting a bio or during IO,
+>> +                * the extent maps of its range point to unwritten locations
+>> +                * until the ordered extent completes and drops them. Wait for
+>> +                * that, so that we don't log them.
+>>                   */
+>> -               if (test_and_clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flags))
+>> +               if (cow_write_failed(inode, &ctx.ordered_extents))
+>>                          ret = btrfs_wait_ordered_range(inode, start, len);
+>>          }
+>>
+>> diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+>> index df74c75d6c29..27aca31866fd 100644
+>> --- a/fs/btrfs/ordered-data.c
+>> +++ b/fs/btrfs/ordered-data.c
+>> @@ -436,37 +436,6 @@ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+>>                                          uptodate);
+>>          spin_unlock(&inode->ordered_tree_lock);
+>>
+>> -       /*
+>> -        * If this is a COW write it means we created new extent maps for the
+>> -        * range and they point to unwritten locations if we got an error either
+>> -        * before submitting a bio or during IO.
+>> -        *
+>> -        * We have marked the ordered extent with BTRFS_ORDERED_IOERR, and we
+>> -        * are queuing its completion below. During completion, at
+>> -        * btrfs_finish_one_ordered(), we will drop the extent maps for the
+>> -        * unwritten extents.
+>> -        *
+>> -        * However because completion runs in a work queue we can end up having
+>> -        * a fast fsync running before that. In the case of direct IO, once we
+>> -        * unlock the inode the fsync might start, and we queue the completion
+>> -        * before unlocking the inode. In the case of buffered IO when writeback
+>> -        * finishes (end_bbio_data_write()) we queue the completion, so if the
+>> -        * writeback was triggered by a fast fsync, the fsync might start
+>> -        * logging before ordered extent completion runs in the work queue.
+>> -        *
+>> -        * The fast fsync will log file extent items based on the extent maps it
+>> -        * finds, so if by the time it collects extent maps the ordered extent
+>> -        * completion didn't happen yet, it will log file extent items that
+>> -        * point to unwritten extents, resulting in a corruption if a crash
+>> -        * happens and the log tree is replayed. Note that a fast fsync does not
+>> -        * wait for completion of ordered extents in order to reduce latency.
+>> -        *
+>> -        * Set a flag in the inode so that the next fast fsync will wait for
+>> -        * ordered extents to complete before starting to log.
+>> -        */
+>> -       if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
+>> -               set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flags);
+>> -
+>>          if (ret)
+>>                  btrfs_queue_ordered_fn(ordered);
+>>   }
+>>
+>> --
+>> 2.55.0
+>>
+>>
 
-
---=-9Cprd400OC3+mQXdbHGV--
