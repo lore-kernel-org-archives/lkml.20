@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346813;
-	b=uk17UJn/24JNnDpVUjkNE9aVVGmBFzVnCEUzS08hE4+gRRgMFf7pAek5reI/mwgsI1A8
-	 h4XGP6QY3fkx2PWxSdBuLenkg0OWnFmyt8DGyMh84b84lnYF2Aer7rOYaEzdy60cQj2gt
-	 1n5onF8kT5zaSliP8gr3eKU5O4uP9JB4lZCZJgPUsE36Od7WAChzi64hoOo/XnAPSa+FX
-	 tzqD/WUBFiKMBamZyxzWvG/piTJOGcWVm8lR5a4//1vmpWaRKz6KcxN8mRtP6BwTpbpp5
-	 Q0EMG/tT2RqNU55WVLPc3g94O5/dMPn0z6UTM6yKH83qW3Ptqi921XMov5EExa/ikLg==
+	t=1794346808;
+	b=Q9uTdF5Bws/WMqT4oZHxMiof51hzJ/skLUaghcHygd5aqcKug6kcOzDvSOdwXVUbDgaU
+	 TE3JKFmeN3Od4ASbJ7ssPBNIyv04A42z64kTQ9m+oi5fiBEqxkjUWupjcQlT8PlZGvARq
+	 LTFTO70n7NC3TgcrSjeQCkYlTK3yk087iF0UUX9uBp6v5lDp77OThqt3Ao3d5SXOFhjCO
+	 wDoaK5SGtA7HRj1muGAYphiLGlC+uinwjL1XqQdLWFHCTchHy3Gx3CoSEEejIKyVubSq+
+	 kUKNTxzVJluLqpAZ04BYQ8lwXq1ysHLxb5a6qTyygo+1TaH7Mr06+jbaLkr2vIF3Xmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346808;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=PDM5AgYQk1VEu2QNvRVlY3EllPW/RzaW6vtCCatFRG8=;
-	b=Ie8gAKiaDgA6X1fyxcd7SwAMZN94wtF5MgkyO57Ak72sckZrB+pxIMuDn9wdr1YkgnoY
-	 v5yDzZwnH2pVV4JaD+3vJaTxthDJQx8hoa6tYxRgpUveO5q/RZuo78E9JiSiyk1dIhyU3
-	 JXDjZB3W00Nc5hG88akDN6mVSG5JUfWpsZ32P+0kF5EqWL7f7O3ZwYPCLREsUwdJ/CI+f
-	 /KTnoCi4NcHErIQM+6J/Sfz0JgX9sJ4tF6gf/LXGe4POT5N6pnIH98C7aiW5jMiTThbfG
-	 4DEHlM867i3FlJ9MyG+pgKM5Wid/xzlQc19Oa5Cj4kRI1ZQmGcBMi9i9XTochwki8Ag==
+	bh=izWqIDu1MLZUfY7mHUtvRg3/UWowaZgxZTU46sEcixA=;
+	b=Cyuf0yBC3wksH0JCP6GCHs4nMVjMPFwPGoFT08rtGVaHp8WwNeJ4bzSs1NQnOk8fg9gK
+	 J21iHz/an/HludRhZseDgU+gz+4wP8awxMdfZmJFncnmZvWRUhJXc5lspE7LAcU4ScPXb
+	 Znm2HWzQtoJPo5WzuT7epETMSsF1ayYf8HDdJrbzfCTssa8HzKWHoiNccWo5SCjd/VEWQ
+	 Yjk6oRTd1aeOiIs9fAq3iCMK9Wk5duPBhdupSCXUM4d1QIc0GZpoA7RYDuU32+wMw8L4T
+	 4iGNTkWEnfmIVbIRCIQD3pJEsGMHOhR8DSfUN44YhT0qyZk6CW2CeqKwT6w8f7GuIKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=No6qXKuG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExuMp3AP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7342360A2608;
-	Tue, 10 Nov 2026 21:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5EA606A31C;
+	Tue, 10 Nov 2026 21:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=No6qXKuG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A670E1F008A4;
-	Tue, 10 Nov 2026 21:40:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExuMp3AP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50941F008A4;
+	Tue, 10 Nov 2026 21:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346812;
-	bh=PDM5AgYQk1VEu2QNvRVlY3EllPW/RzaW6vtCCatFRG8=;
+	s=k20260515; t=1794346807;
+	bh=izWqIDu1MLZUfY7mHUtvRg3/UWowaZgxZTU46sEcixA=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=No6qXKuGIgxW/umR4tQjz/YQzKEhccJssBOP1mPW9FDBPuWcodzTGiZGK8K8yY64/
-	 SWRm4u/otm2/UpeWUgPXtG1N85+bFCXbQk8dIepaEDLBBWanmM28UaPhH7/Vk4QCvv
-	 8xXHMFG0OlX4RSdPbdrhrgKn5WjfddxCLy7rbeycNcy+2EL2B+b7kp5pUmhwFEghEE
-	 +q7kx03FbZC1ii5Cp235LifrJBj3hyKV1m017rOEmDCddCDmkM7Nhay1oqTyrVZ/KV
-	 K91hxcjyuEK92cNXRFccqaHIbiPmUfpePxZBvrFz2AxVXp8GUMpmg74YcLPwlaMDjI
-	 iDaSWQ6U0zFzQ==
+	b=ExuMp3APC8DL6fpAH8LlnEHUAaZYSUf+6KLEGg4I9rPsDepuGBhcZKVf0kapCYMS5
+	 RjFuPwfVv66TEjQpOm/HfDFmdbX5FD1WE0VqHCbU+OdPhS7jMPGQahg8z99KOTNsJg
+	 039V8BOc5Spx7DLR/WHkiQ7XnknwLUC/G2I6N+vPGSC/DJBJzvGvIBGqQLaHkLwxbQ
+	 HvyFwoErMl8DSqkVeDv15uhed32RknCiKupqgivhFt8I0Q+HcbqQRi8rSf+KA4xJfN
+	 x5dv2AOH9l9JKfDwD2hgVO8xEMG/mnHyUBIhyi8sOgDvSn9fG+bEmWa/7bQtAJLvtd
+	 dTttKEnxdhxeA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B25139E8A40;
-	Tue, 10 Nov 2026 21:40:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B0EA39E8A40;
+	Tue, 10 Nov 2026 21:40:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,36 +54,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] sfc: avoid truncating MCDI hwmon attribute names
+Subject: Re: [PATCH net] net/mlx5: E-switch,
+ Restore host PF enable for ECPF that isn't E-switch manager
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179434681117.71955.13887158887547075759.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 21:40:11 +0000
-References: <20261105020115.278-1-xujiahao@cmss.chinamobile.com>
-In-Reply-To: <20261105020115.278-1-xujiahao@cmss.chinamobile.com>
-To: xujiahao <xujiahao@cmss.chinamobile.com>
-Cc: ecree.xilinx@gmail.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-net-drivers@amd.com, linux-kernel@vger.kernel.org, lkp@intel.com
+ <179434680618.71955.12887058500414499208.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 21:40:06 +0000
+References: <20261104184756.773910-1-tariqt@nvidia.com>
+In-Reply-To: <20261104184756.773910-1-tariqt@nvidia.com>
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, gal@nvidia.com,
+ leon@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ mbloch@nvidia.com, moshe@nvidia.com, parav@nvidia.com, saeedm@nvidia.com,
+ shayd@nvidia.com
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu,  5 Nov 2026 10:01:15 +0800 you wrote:
-> The name of each MCDI hwmon attribute is built in a 12-byte buffer as
-> prefix + 1-based per-type index + suffix, with prefixes up to "power"
-> and suffixes up to "_input".  With W=1 gcc reports:
+On Wed, 4 Nov 2026 20:47:56 +0200 you wrote:
+> From: Shay Drory <shayd@nvidia.com>
 > 
->   warning: 'snprintf' output may be truncated before the last format
->   character [-Wformat-truncation=]
+> The cited commit breaks host PF enable_hca when the ECPF isn't E-switch
+> manager. For example, when the link layer is infiniband, the ECPF isn't
+> E-switch manager, so after the cited commit enable_hca is never issued
+> for the host PF, it stays in initializing state and fails to probe.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next] sfc: avoid truncating MCDI hwmon attribute names
-    https://git.kernel.org/netdev/net-next/c/97ced2c090bf
+  - [net] net/mlx5: E-switch, Restore host PF enable for ECPF that isn't E-switch manager
+    https://git.kernel.org/netdev/net/c/4777203cc9af
 
 You are awesome, thank you!
 -- 
