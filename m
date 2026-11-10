@@ -1,55 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315797;
-	b=iHNfCrL7fiLgkhIXNprAkOe9rB0jgt0ySNcfGd4itz7QhtIYMDGI2CacHN33Hk2Dk7V9
-	 kS3emueMaYyamxKDXI1gDxE5SUkojN2oQqqRO1xZ+kqFzJXLR6+P6w+0lQKklJke9ikkV
-	 BVatcK7zp4Hf9XFrV94A02cHwfgerf+RRhpCQ6uEtZoq63GViU690S+j8kOoyd2P0JQE3
-	 hP2wZ5UduOQPQkkIp8n+Q0cIaa5CL6lehsW2HoLXNn0fpO+k5LquBNPC4KQkr1sQ4eHZp
-	 B+D6X9mOFsb9SBUIXXt9tng3WynJCYfqyjEqFWHZzEl0GNQfxvp2mQxp4EDo81yEp4A==
+	t=1794315802;
+	b=uCLByQljC/l08kH9TfWom6cjwV8PUXQI96SZL4kmTvEU+USMswxkiwcJGa8MMDrYoDqz
+	 dyG2oGVBnkR51sxAmC0I7Z+szOCVGYg3EDi65D5xqyc9B2kV3AvFvLDHqInWy4wCeoATY
+	 fIrxI6rykQq6X3d7OOXtJGAkXzSxz8BgvXADU6AcZH1NiWQ8TiK1rNR1w3gepktwokKn1
+	 u9LeFc4op7Uw5CIjTh16gVIIC3ZZpXHpBYweTkyZ2PL3fVdal2Sxb5fbL2ZTnsMBzC2Zn
+	 SZX0Sq2sDZGx1AAdtyXJZAHctd04/Hx/gKtUBiZ8ymI2v0sTfRx3y40yZKligA0gsjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315797;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6pwwepmjTUl49OHZ5STOt5SUhTuA3dLbSUXmCL5j6f8=;
-	b=jww4kW5vFbGT8dPcjIbQGzU2loS5EMyzAPvtLf/b4QWNn/cCwYzawQBk1k8Wh4pIBDbj
-	 9vl6pT+LAN3hIgelrqiWftEuJSJqO3Me2aBRoC7PWntmu5uwi5o8r1PM7tmBOwRv/J9bq
-	 qJRtXP9w3N6mofj4SG0O6wCsBlZRf/BJyXnMyUnoVq8QZtIdRQQ7D9v7xJ/hyW+QKDdv4
-	 Hnh+grPwOiEjohWfDtqwYVy2GwYbubh4WM/GJXgzyRtT8ytcEd5oiz0z+QPxpuLxk2Y8x
-	 a+E3WyUxEyDyqhfmM27dJdeF7NzUXP2grUpiNGsjNDzeRVsdMfa1f0bDlB4glf7a9yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315802;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=l0P34w8QQvLO5YW5vCLMJ84QpfDMX9/Bu1FrRmyy2v8=;
+	b=DFbQ+mz6Xx6CA3XASYaFPM6Yn6qN9Ub78vKEXY6qCm8Y0mdL/kLpahcnw+wk2hrJMdZw
+	 ia0qgYyFJaV4i9JOTeBVZZicZ0tm4VFaBIGta7Nv4XnzjF/rIH2iPXB717S13KbjHdV78
+	 B8h/yr/w5T8DrD+yiubMM8+Mh3vxXbu/3P4iuDboF03h+LwQtFJe/f3UNHp+69C4TblzO
+	 /0Zr4Aw+5dw8zTMvt1W9p6CgCAriSYFVjAXcjFtZ29PxNclgFC/RyJK4hqae4oKSyqjlV
+	 IAAqXRsqOhm+zwHCrjrnlvui3jAm7tCBmxfhXq7PwxrFvl3W6+MccduJGwGwMO9G6FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkHR4HPX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nU4XxgAL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Mnc4QrSZ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nU4XxgAL;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Mnc4QrSZ;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD135606A74B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A0C606A74B;
+	Tue, 10 Nov 2026 13:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88A0C606A74B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkHR4HPX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F7881F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315796;
-	bh=6pwwepmjTUl49OHZ5STOt5SUhTuA3dLbSUXmCL5j6f8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TkHR4HPXdLeZWl4ob3lLsA7fxwi24Ky1wvxbr1Xi949bri+a+BESgcpFXw25/dM94
-	 /7byIMt4yidx368FDyIHTDFd+1mrl46HyJSwqeea/T+3AaSAWVbnLIFLfz7jOM7zOX
-	 46A/uajQB4CN3cL3zEw3PEMkzYSCCPxiPV52YpAytJ8DOrllAVL51WlFBrGx2KibDx
-	 XZLeuNcBsoRurWJK9pJB0kt/7le3hEg6gc2GJ0QgCYSrV2rVR45CMk5yQEalkdsllB
-	 xW3dhXRm0LJzavOW6myULhzzfAdM6vvRkX39w5YcO3MVEL1I5/NhdlgcWD6x/lBORq
-	 Ifxm6/EHWRyNw==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c146cf35ceso1916365e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:03:16 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFRtIEUn3fnCKJ4pblUSpXLObu9jlH4u9x/5tFfc8rRG3FzH/hRnF+xr250dAxvKJbmI70PJi4FpauFc4c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CNFJaOplN6ZA4JVTL6CuZUSCMpbbssUzwqEtg91Gl25zPJ4Pf
-	AdWq5B10mVBwt/NPuXVO3jKzNrREqbC6ULL0XPw05V9adrSjs1E97d4FvPsTMYkv1BfB7L3zB6W
-	SOj2fgdoepJ372rJNQsc9wyLPKzSgmEo=
-X-Received: by 2002:a05:6512:39d0:b0:5c0:160:6dae with SMTP id
- 2adb3069b0e04-5c156e99541mr851697e87.24.1794315794795; Tue, 10 Nov 2026
- 05:03:14 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nU4XxgAL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Mnc4QrSZ;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nU4XxgAL;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Mnc4QrSZ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C0D9421F77;
+	Tue, 10 Nov 2026 13:03:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0P34w8QQvLO5YW5vCLMJ84QpfDMX9/Bu1FrRmyy2v8=;
+	b=nU4XxgALhU6j4K3Mxr5ngQH1kaedGJkQyEqwlGUplEx9hMxQ3fo4McMmOwr1ERv3Mkpxw3
+	gLCfI+EWYKzq/l9mRzhXb6GJ0h3nlI+5tsg9MpjQ2PJDBC1XC/U5s6EqGl5dlEXIEKPAnz
+	BBcKQlac9Q1+gcOvfNs3dKHhhfnARxs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315799;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0P34w8QQvLO5YW5vCLMJ84QpfDMX9/Bu1FrRmyy2v8=;
+	b=Mnc4QrSZrRmpafaJe4iOnLi1RuOTcqJe/GGSNdftVub9UNeD+cHjavH2Su/fUJ6PuunSLs
+	aVyAWefkY3MWbuCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0P34w8QQvLO5YW5vCLMJ84QpfDMX9/Bu1FrRmyy2v8=;
+	b=nU4XxgALhU6j4K3Mxr5ngQH1kaedGJkQyEqwlGUplEx9hMxQ3fo4McMmOwr1ERv3Mkpxw3
+	gLCfI+EWYKzq/l9mRzhXb6GJ0h3nlI+5tsg9MpjQ2PJDBC1XC/U5s6EqGl5dlEXIEKPAnz
+	BBcKQlac9Q1+gcOvfNs3dKHhhfnARxs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315799;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0P34w8QQvLO5YW5vCLMJ84QpfDMX9/Bu1FrRmyy2v8=;
+	b=Mnc4QrSZrRmpafaJe4iOnLi1RuOTcqJe/GGSNdftVub9UNeD+cHjavH2Su/fUJ6PuunSLs
+	aVyAWefkY3MWbuCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 960C61339F;
+	Tue, 10 Nov 2026 13:03:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id e3rfGxcW82q6SgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:03:19 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 35CB1224F7; Tue, 10 Nov 2026 14:03:15 +0100 (CET)
+Date: Tue, 10 Nov 2026 14:03:15 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 34/41] loop: refuse files on pseudo filesystems as
+ backing files
+Message-ID: <xlql7gc5uyvehjvin4ls3okfnv32xxdj45bjvamf2vdkrakvjx@u4iwy4ydmphs>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-34-4c998976c6c7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,234 +120,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108233900.4043941-3-ca@modelmiser.com>
-In-Reply-To: <20261108233900.4043941-3-ca@modelmiser.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:03:02 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iBKOgYeTHYvrzAR=URQX+gpmpF-S0JSJwzkfYBqQHL6A@mail.gmail.com>
-X-Gm-Features: AclHuK-54cehDMOrJTGpS_ib2FV9q8AklIT9qCi-8k6gpKsXn8vFETw18ma8yvk
-Message-ID: <CAJZ5v0iBKOgYeTHYvrzAR=URQX+gpmpF-S0JSJwzkfYBqQHL6A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ACPI: pfr_telemetry: keep the state until the last
- file is closed
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, 
-	linux-acpi@vger.kernel.org, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-work-loop-pseudo-v1-34-4c998976c6c7@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[31];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
 
-On Mon, Nov 9, 2026 at 12:39=E2=80=AFAM Chad Aldreda <ca@modelmiser.com> wr=
-ote:
->
-> struct pfrt_log_device is allocated with devm_kzalloc() and embeds the
-> miscdevice, so it is freed when the driver unbinds. A file that is open
-> on the node outlives the unbind and nothing holds a reference for it:
-> the next ioctl() or mmap() on that file uses freed memory. Unbinding the
-> driver needs root.
->
-> Allocate the structure with kzalloc() and reference count it: open()
-> takes a reference, under misc_mtx, which misc_deregister() also takes,
-> release() drops it, and a devm action drops the driver's own. The
-> structure also holds a reference on the parent device it uses. A call to
-> ioctl() or mmap() that starts after remove() returns fails with -ENODEV;
-> one already running finishes against state that is still valid.
->
-> The problem was found with a Coccinelle script that reports device nodes
-> in devm memory [1]. The fix, the reproducer and this message were
-> written with an AI assistant (Claude) and checked by hand. The bug was
-> reproduced and the fix tested in QEMU with KASAN, using an SSDT whose
-> _DSM stands in for the firmware: ioctl() and mmap() worked before an
-> unbind and, on a file held open across it, failed with -ENODEV. A call
-> racing with the unbind was not tested, nor was hardware with this
-> firmware interface.
->
-> Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.co=
-m [1]
-> Fixes: b0013e037a8b ("ACPI: Introduce Platform Firmware Runtime Telemetry=
- driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+On Tue 10-11-26 10:14:50, Christian Brauner wrote:
+> Currently loop accepts any regular file that implements ->read_iter() as
+> a backing file and any that also implements ->write_iter() as a writable
+> one. That includes files on procfs, sysfs and other pseudo filesystems.
+> For example, /proc/kcore attaches read-only as a loop device the size of
+> the kernel's virtual address space, 64 PiB with 5-level paging. sysfs
+> attributes attach read-write as 4096 byte loop devices. Writing a block
+> to the loop device of /sys/kernel/mm/transparent_hugepage/enabled
+> changes the THP setting.
+> 
+> That's not just nonsensical, it can be abused. Loop calls ->read_iter()
+> and ->write_iter() of the backing file directly from its worker which
+> runs with kernel credentials. But pseudo files enforce part of their
+> access rules at read and write time against current. Dozens of sysfs
+> ->show() and ->store() methods call capable(). Behind a loop device all
+> of these checks are done against the loop worker instead of the task
+> that opened the file. And setting up a loop device requires no
+> capabilities, only access to the device nodes. So on v7.4-rc1:
+> 
+> - uid 0 without any capabilities can't write to /sys/kernel/reboot/mode
+>   as mode_store() requires CAP_SYS_BOOT. Writing "warm" through a loop
+>   device works.
+> 
+> - uid 0 without any capabilities can't read the files in
+>   /sys/firmware/dmi/entries/*/ as dmi_sysfs_attr_show() requires
+>   CAP_SYS_ADMIN. Reading them through a loop device works.
+> 
+> - An unprivileged container that was handed a loop device can't change
+>   gro_flush_timeout of its own network devices as
+>   gro_flush_timeout_store() requires CAP_NET_ADMIN in the initial user
+>   namespace. Writing it through a loop device works.
+> 
+> The same goes for hard_offline_page, the md and sd attributes, rfkill
+> and others.
+> 
+> Refuse files on pseudo filesystems as loop backing files. Note that
+> file_is_pseudo() looks through overlayfs so stacking overlayfs on top of
+> sysfs doesn't get around this.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-There is Sashiko's feedback on this:
+Looks good. Feel free to add:
 
-https://sashiko.dev/#/patchset/20261108233900.4043941-3-ca%40modelmiser.com
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-please address.
+								Honza
 
 > ---
-> The Coccinelle script reports a devm_k*() allocation when it, or an
-> address inside it, is passed to misc_register() or a similar
-> registration function in the same function, or when the allocated struct
-> embeds such an object. It reports this driver for the misc_register() of
-> &pfrt_log_dev->miscdev.
->
-> Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). An
-> SSDT adds a device with _HID INTC1081 and a _DSM that returns valid
-> packages, and memmap=3D reserves memory for the log buffer. A process
-> opens /dev/acpi_pfr_telemetry0, uses SET_INFO, GET_INFO, GET_DATA_INFO
-> and mmap(), and unbinds the driver through sysfs with the file open.
-> Repeating those calls gives, without this patch, 15 KASAN reports in
-> pfrt_log_ioctl(), set_pfrt_log_level() and get_pfrt_log_data_info().
->
-> With it there are none. All the calls succeed before the unbind and
-> return -ENODEV after it, a mapping made before the unbind was still
-> readable after it, and the same sequence behaves the same after a bind.
-> Unbinding with the file already closed, or never opened, gives no
-> reports either.
->
-> No lock is added. A call that passed the removed check can run during
-> the unbind, against state and a parent device that are still valid; the
-> driver has never serialized calls from different files. Mappings of
-> the firmware log buffer outlive the unbind, as they did before.
->
-> kzalloc() rather than kzalloc_obj(), which first appears in v7.0, for
-> the stable trees.
->
->  drivers/acpi/pfr_telemetry.c | 55 +++++++++++++++++++++++++++++++++---
->  1 file changed, 51 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/acpi/pfr_telemetry.c b/drivers/acpi/pfr_telemetry.c
-> index 2387376832a1..5ab8baabcc60 100644
-> --- a/drivers/acpi/pfr_telemetry.c
-> +++ b/drivers/acpi/pfr_telemetry.c
-> @@ -15,10 +15,12 @@
->  #include <linux/errno.h>
->  #include <linux/file.h>
->  #include <linux/fs.h>
-> +#include <linux/kref.h>
->  #include <linux/miscdevice.h>
->  #include <linux/module.h>
->  #include <linux/mm.h>
->  #include <linux/platform_device.h>
-> +#include <linux/slab.h>
->  #include <linux/string.h>
->  #include <linux/uaccess.h>
->  #include <linux/uio.h>
-> @@ -62,6 +64,8 @@ struct pfrt_log_device {
->         struct pfrt_log_info info;
->         struct device *parent_dev;
->         struct miscdevice miscdev;
-> +       struct kref kref;
-> +       bool removed;
->  };
->
->  /* pfrt_guid is the parameter for _DSM method */
-> @@ -247,6 +251,9 @@ static long pfrt_log_ioctl(struct file *file, unsigne=
-d int cmd, unsigned long ar
->         void __user *p;
->         int ret =3D 0;
->
-> +       if (READ_ONCE(pfrt_log_dev->removed))
-> +               return -ENODEV;
+>  drivers/block/loop.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+> index c96e35c3ef42..1482580a1979 100644
+> --- a/drivers/block/loop.c
+> +++ b/drivers/block/loop.c
+> @@ -537,6 +537,9 @@ static int loop_check_backing_file(struct file *file)
+>  	if ((file->f_mode & FMODE_WRITE) && !file->f_op->write_iter)
+>  		return -EINVAL;
+>  
+> +	if (file_is_pseudo(file))
+> +		return -EINVAL;
 > +
->         p =3D (void __user *)arg;
->
->         switch (cmd) {
-> @@ -303,14 +310,17 @@ pfrt_log_mmap(struct file *file, struct vm_area_str=
-uct *vma)
->         phys_addr_t base_addr;
->         int ret;
->
-> +       pfrt_log_dev =3D to_pfrt_log_dev(file);
-> +
-> +       if (READ_ONCE(pfrt_log_dev->removed))
-> +               return -ENODEV;
-> +
->         if (vma->vm_flags & VM_WRITE)
->                 return -EROFS;
->
->         /* changing from read to write with mprotect is not allowed */
->         vm_flags_clear(vma, VM_MAYWRITE);
->
-> -       pfrt_log_dev =3D to_pfrt_log_dev(file);
-> -
->         ret =3D get_pfrt_log_data_info(&info, pfrt_log_dev);
->         if (ret)
->                 return ret;
-> @@ -337,8 +347,39 @@ pfrt_log_mmap(struct file *file, struct vm_area_stru=
-ct *vma)
->         return 0;
+>  	return 0;
 >  }
->
-> +static void pfrt_log_free(struct kref *kref)
-> +{
-> +       struct pfrt_log_device *pfrt_log_dev =3D
-> +               container_of(kref, struct pfrt_log_device, kref);
-> +
-> +       put_device(pfrt_log_dev->parent_dev);
-> +       kfree(pfrt_log_dev);
-> +}
-> +
-> +static void pfrt_log_put(void *data)
-> +{
-> +       struct pfrt_log_device *pfrt_log_dev =3D data;
-> +
-> +       kref_put(&pfrt_log_dev->kref, pfrt_log_free);
-> +}
-> +
-> +/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
-> +static int pfrt_log_open(struct inode *inode, struct file *file)
-> +{
-> +       kref_get(&to_pfrt_log_dev(file)->kref);
-> +       return 0;
-> +}
-> +
-> +static int pfrt_log_release(struct inode *inode, struct file *file)
-> +{
-> +       pfrt_log_put(to_pfrt_log_dev(file));
-> +       return 0;
-> +}
-> +
->  static const struct file_operations acpi_pfrt_log_fops =3D {
->         .owner          =3D THIS_MODULE,
-> +       .open           =3D pfrt_log_open,
-> +       .release        =3D pfrt_log_release,
->         .mmap           =3D pfrt_log_mmap,
->         .unlocked_ioctl =3D pfrt_log_ioctl,
->         .llseek         =3D noop_llseek,
-> @@ -349,6 +390,7 @@ static void acpi_pfrt_log_remove(struct platform_devi=
-ce *pdev)
->         struct pfrt_log_device *pfrt_log_dev =3D platform_get_drvdata(pde=
-v);
->
->         misc_deregister(&pfrt_log_dev->miscdev);
-> +       WRITE_ONCE(pfrt_log_dev->removed, true);
->  }
->
->  static void pfrt_log_put_idx(void *data)
-> @@ -373,10 +415,16 @@ static int acpi_pfrt_log_probe(struct platform_devi=
-ce *pdev)
->                 return -ENODEV;
->         }
->
-> -       pfrt_log_dev =3D devm_kzalloc(&pdev->dev, sizeof(*pfrt_log_dev), =
-GFP_KERNEL);
-> +       pfrt_log_dev =3D kzalloc(sizeof(*pfrt_log_dev), GFP_KERNEL);
->         if (!pfrt_log_dev)
->                 return -ENOMEM;
->
-> +       kref_init(&pfrt_log_dev->kref);
-> +       pfrt_log_dev->parent_dev =3D get_device(&pdev->dev);
-> +       ret =3D devm_add_action_or_reset(&pdev->dev, pfrt_log_put, pfrt_l=
-og_dev);
-> +       if (ret)
-> +               return ret;
-> +
->         ret =3D ida_alloc(&pfrt_log_ida, GFP_KERNEL);
->         if (ret < 0)
->                 return ret;
-> @@ -387,7 +435,6 @@ static int acpi_pfrt_log_probe(struct platform_device=
- *pdev)
->                 return ret;
->
->         pfrt_log_dev->info.log_revid =3D PFRT_DEFAULT_REV_ID;
-> -       pfrt_log_dev->parent_dev =3D &pdev->dev;
->
->         pfrt_log_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
->         pfrt_log_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KER=
-NEL,
-> --
-> 2.43.0
->
->
+>  
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
