@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269024;
-	b=j+26CPiysNorJ698lTHqfunGY+g1J0j/VsmJhSkJBgTWjp2855Xb27Cfq7ZieHHactYK
-	 YWtdXC07si6BXSz7Jl3p1rgEOPs5zB9VTyx2tMlhCsBl8jIuLplFZO/DvBJyDccEc+hzx
-	 xZzHtFpCgPBY7n9IdllUTgP7zAs1acOwTmYQtN3v6Tt4GXT2jw5pNqlhoADOzQ8u8CRns
-	 Dn/wYpEKEFqsU/h34jul3QRz/RHTedQN/m1SYKiVhvtK69A3nUidwoR5jJDyrDT9axK8D
-	 /EUR0jgLa6oNgMFSnFImAjnfl4xZrSf1GCvEnndgvwfXUXW+XdEQcVUvyIQH+Imxu5Q==
+	t=1794269027;
+	b=HjuStzvDFBWwdCtZxO2XeyrJE59G46Xwq2bQZjhDxjHq1LIc40NCVrPHKaWolozqNwy5
+	 IlkleaK5L8ZQMpcYMSnPZJfg0sCqju6c7VsA3aRNn/zQ26ezb7bNytcwfBqsa64B0O2QH
+	 S4eKhyWHV5JduuTVAnxIwqHDMXsgPTkZxGMFhLHfw/KORsoYPLeUUNqiwzZK4p8TuLe4D
+	 oe87z6wroQFQi7Rq0BCpXZL7NMHE6vozftd2bDDn1qUN0J22Bt6U10OtS/b4IMC1A8Cr2
+	 ZkJiievGZsfyvyrYFKpfWdM/hOekr6CYcKxLjoSPxqwfjAybNjhfRP4VQ2YoC1RMtXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269027;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
-	b=jKAx8mJZEJ6T1b+IpV7DFiGDa2wNHOK92FuedHqLr3+oDvGWC1PCLypca7LEzBlRUEey
-	 gdXuaziBJSHxDUA0zZqMAhNJy3OHdZtJFzis53lwmYgj2W/MzTJw3k3Dr99N6DEouix1A
-	 JXGWlF8E5yChm9V9zGCPMfIJraECwcWiAAxa84xQXTNHh+9DST8Ep1WFAsxqfpGUWZMZY
-	 E/MNFDlchkSdsUvjL0ag/Bcv/7anrgaNb/qjhhBXA82gbE+VwBExXeN/itNlx1ICyHxW4
-	 klC8E3hqj8wqYTY7BdBGwoQlqeHJIe2IkOFWBfWFsJZjHabdM8TL8nW+dFnO4O5Xk2Q==
+	bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
+	b=eTxwXqpad9D9zOVepD4qyEFn86tebEe5fygzI913elLkmJPyKSVVt4az/UmO/zHgvSD0
+	 4BWSti88B/6WmaCbf7bXfXIQ/o9VFWxvj9FYIbbKwtASCtZCC5+0V5tTqsahuiDiq38iD
+	 goNMLUbhsxH3c1pZKVrtbSHUIFb6/ABkOxNgeHAtw67DZjUZe3ZbaC7oElB5Au6FoAkmG
+	 1PJYvmX3KgFX5/1uux6NZgJRtU+OYA2Zj9H9IO021ejFkP5pwZHcIMrRPu4963js4XlYX
+	 JlbT+Z0oVGExMYOm8Qj9aa91J5EgLINcpV7YKcgN2P3IhqQ7nFQ6GlRFWjEanvmN/mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIyyEQr3;
-	arc=none smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H8SV8DZz;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E857E606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E857E606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70EF60A2604
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A70EF60A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIyyEQr3
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6d68de53053so996995eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H8SV8DZz
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-717034b331dso837557eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794269023; x=1794873823; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794269026; x=1794873826; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
-        b=VIyyEQr386njSjYzUQ7Q00OWsSdpmWsfy72Y9mA6pZGJtvTbNQLrCYlMGYn30EqU/m
-         CPjSDLEjTv4c/z+XCt/H0OWcgbnC9ABGDwWNrc3+mrKiFt5clvk/Qh0SmYe0YhgEY6XM
-         BqS/xMn6oIX/0ym0dCPICKBnR+doCzmUQeFbGh/c1B8LlmPdK/YFOr4InSwO740OEJro
-         aP8/X+IE2cPjZywMFmr8p9GUJf6WB8Z0LzhhQ3BlZbXDdhLKA7IZU0YHkpBgYYsUNrVi
-         bX45fahueSIpAD2aEY4ZmmZEBF5Rb+3QLfZvOZceCbPbssKmXZCqfONQM3fgkk6BkvLe
-         96UA==
+        bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
+        b=H8SV8DZzFQINAo/TgCYJcMD3Cp4XsBzuMofNQ6GbYDlxp4CrkPoMp5HWbOJTnmheAe
+         q+KiRMAheigLs+bq6l6D73817QHnle6z0L5ePB65zuWLbZsPVi5/i3oTrEju01IAqYmv
+         CNCJS2mGTQd7J0QhL4gQZP/ZFg7An/2VBHorAzAjqRxlTbYd5sOZ2l8I81XehL3R9iDt
+         bMyz0EN4DNwXrhOTEJ5jQHEDvTr+uPMwJcp759IchfR0OMce6G7Pp3OGbigKyRGISO7/
+         luL6syumiGph/HzsU4KTfeweBRxvaUSiE5v5JYyLNrirFpRvgZvnOmRBNOrn3n+oyFAs
+         Sjcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269023; x=1794873823;
+        d=1e100.net; s=20260707; t=1794269026; x=1794873826;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqapBShL7E9HAwIcfwxW3ioInnC6a/75KJwMddESkz0=;
-        b=hsZKucLr9PXw4MgJFmZSQnWGrYKQ2UhpcW/vR8Cl+4T4XRkzfR36zKR0LrZo17fopk
-         wiFDH37YN+RzZWxpUaT1Xd5PXLAU09CyAwKKH5O69xteY8pzXUZRt+CJkEPKlXXC6PCE
-         s/tDZk1bmLtV460YSRLTe81HZjJaw24vxP6jFB36TjoxeFJh1DsCJnPFTm01UMH9K9q5
-         XoZSOZ+Li9oSZpL3nsRSxSuKH3yHs/D5cKj89OOENOL5cFK1bPfr5VOsRww5v43TfSSk
-         S7aF87lleV99XLlJU6fEvxux+QbshoCN3hLqStkcDZtTGqb/uFJPMQUTNYFIu3yf59ov
-         Fn1A==
-X-Forwarded-Encrypted: i=1; AL+hErF1amnSkFjOshpbBA+ukhypiqjsLrM91ZuUbNdKrkePzo57tvWHCglcRbvXt3GePRy6farDpCowxaXnXxM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xIJOYjpJVcptPjUD3nfMV6gdRzC/u20qQehlSPnC50Tn813Ex
-	wPInQmAHoQkribHxm4+ccVaUXi4CkFlkBabpYrXod2cHxQcjSucpNLVl
-X-Gm-Gg: AYBFou09hdjjJyE/jwcxokWVvKqVzenVJRyikHctbL1LQVm5qpnYJfBuKMVQ4TMEAXg
-	dJQ1g4bZTnO+TQIdD4hFbk6XKiC7WUwa2ai5+ne4XL1ju9wlvZZeZNABB/R7y3MuLZZHFbhSwzY
-	XIwjk35ltMNwin8tsJ8uoR+1PZJk0KxAxzDm8fAG9PdBdd9Vj2sSPG5Qky+B+lgWtRpQrPPvEqZ
-	BKR5z2sszWZk8ClDhUMJ7jnQbohHw7yn/tMQAhBjqzLERh2eZF177ZqgmVFn5uZqZKwBsqzKNJT
-	7YWgEdqCf+P4CY/oub1p8iso55zAWFRLITu/WlY4ZuojinJnVdjGWp0E5TCHwFbpIJ3VvWzHcKP
-	HyEPGrvsOuu8DN5b14LDShY19c2J+zb1zbQYaBYHqU9Hzi8aveTpKW7Hw3Pqoue7h6QJJEY55Hf
-	dHaI0/QbtvFg8780HNj1VZLdoCrP2xDHo9AGA4ij9B7rjruPz2MWZe21jsS4w4C/hMTgOYqIzu3
-	BfdtTgBcOGJYarlAbeJt7P8UxVlYvgdiOdT/fwF27UH/d6ZOLQyLp6OKzT8p7WvVxc9CTp13jEa
-	nbJVpL5NE+Df6fdWHGML6i7D3u09Occ2fwVQeL2j7MU=
-X-Received: by 2002:a05:6820:60f:b0:6f5:a96d:cbb with SMTP id 006d021491bc7-718a644c319mr420980eaf.45.1794269022914;
-        Mon, 09 Nov 2026 16:03:42 -0800 (PST)
+        bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
+        b=gEjqcXI3egQKlcTH0lrxJJkoj/ywFR9As5QjwFDqiLiLX9CYTofceORBkltl8HSrpe
+         JHkUfYpzbqsuWe5lllTOLHtvNi77+tJ0Rno40SWA6dcah3k90/mhgvCzUTs3Y3ZdiMYg
+         r0Ij45FyMnQeNkdQR0exfRtAEnJCnNaSRMv4IZZgtBSW7HNCe49qMbOWIszJHPJi02ft
+         841d4QkUaI1GEBmUMDZVyI+wM9ELepiST13BV4AOfpT0R5VMmwBSjJuEh0/47aljD4vC
+         RG8sVHaDqgcIZdbzhapTgDiMj6PvGYqUAKg5O12IkZcnzAOTQSragIejFNa/Sz8p2i9w
+         7XYg==
+X-Forwarded-Encrypted: i=1; AL+hErGG42nkRQITShOLPtI3y4HTG8rXjxuKfO0f95sNqI6HyqjZaFAwyLrvkzvKVGs2c93+rPYlU1GozK2ZUtw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sx2hda5njV7d79OpQ5ERUR/4sslM/JC3QoVIpw4w67ztfV83P
+	5trIEfsZoDKcZcMV34b2WdUgTyqGQtn1cehPRbxb0L+QbFsMbhUAR8Dv
+X-Gm-Gg: AYBFou2s7fXOB7+LRTL6vNBYiXd2nvugMLpGnCrwo8Ey3X0+oOwBnXb34nMdATPA3Qo
+	MlkviWvZLeBfYgJtvTleoomhtU/4YJb6ZyL/o+AgEd1KugCMJAnFGEF/EOXrLSCFiyqo4i+jB2R
+	FvZVwAMiQTmRbASk/fj/PLM/2ijA+734hqBQHblLOrUG+HIWKBMWTFXTIpLLFJfALNSmWV1/JbQ
+	ncK36DJ6hRS1XBbM+tZdfQQKFJmobxztkb08XxXmuZ9bGX44r3EXy89wIKIwNvpVjz2BdnCmwhE
+	0+SX1FiLB8lDTNSVUa9Q4B7XOYAlkNwhSkPMGCEhhtrRIdMlUByiZkvG8OIW0ItoYk7HVkWvtSB
+	jGkNkz4WAILht/RRPiMZosoMNVR3lrBYMqiwOCz7wfVQvTDhK24UsZbye2faBBn+iVEoeKeyTZH
+	CFw/f4iQbYThgXDLLQCm6H17tF33xR0CZix1+3QzQkve8rvgwEU8SQp8f1knC1L5Uh20NEol4hg
+	JQwxKSmDw27EjYoJ0uZkzrMOasAH3/+j7ajrhEVAU523ROaTLCJFfUt5xp6/V51yn4zZBgSauF5
+	G5Ag7krpdu1qZ019Vuk4XoCeQJkZW+n10bRg/fJFV+XS8GvoWE+1cdxfUnhAjnI7
+X-Received: by 2002:a05:6820:248c:b0:70b:9808:a78f with SMTP id 006d021491bc7-718a5a5b6aemr331840eaf.51.1794269025678;
+        Mon, 09 Nov 2026 16:03:45 -0800 (PST)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.40
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:03:41 -0800 (PST)
+        Mon, 09 Nov 2026 16:03:44 -0800 (PST)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: jpoimboe@kernel.org,
 	peterz@infradead.org
@@ -87,9 +87,9 @@ Cc: yangtiezhu@loongson.cn,
 	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH 1/3] objtool/x86: Move the cfi->regs access after the NULL check
-Date: Mon,  9 Nov 2026 18:02:53 -0600
-Message-Id: <20261110000255.1720945-2-lzsx618@gmail.com>
+Subject: [PATCH 2/3] objtool/LoongArch: Move the cfi->regs access after the NULL check
+Date: Mon,  9 Nov 2026 18:02:54 -0600
+Message-Id: <20261110000255.1720945-3-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110000255.1720945-1-lzsx618@gmail.com>
 References: <20261110000255.1720945-1-lzsx618@gmail.com>
@@ -104,55 +104,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-init_orc_entry() takes &cfi->regs[CFI_BP] before it checks whether cfi
-is NULL, and a NULL cfi is an expected case: the comment right below
-says it happens for unreachable nops/traps and for
-STACK_FRAME_NON_STANDARD functions.
+init_orc_entry() takes &cfi->regs[CFI_FP] and &cfi->regs[CFI_RA] before
+it checks whether cfi is NULL, although a NULL cfi is an expected case
+(unreachable nops/traps and STACK_FRAME_NON_STANDARD functions, as the
+comment right below says).
 
 Forming a member address through a NULL pointer is undefined behaviour,
-and since the dereference comes first the compiler is free to assume
-cfi != NULL and drop the check that follows.  An x86_64 defconfig build
-of v7.4-rc2 with objtool built with -fsanitize=undefined hits it in
-every objtool run, on vmlinux.o and on each module, all through
-orc_create():
+and it lets the compiler assume cfi != NULL and drop the check that
+follows.  The x86 copy of this function has the same problem, and UBSan
+reports it there on every defconfig build.
 
-  arch/x86/orc.c:11:18: runtime error: member access within null pointer of type 'struct cfi_state'
-    #0 init_orc_entry arch/x86/orc.c:11
-    #1 orc_create tools/objtool/orc_gen.c:72
-    #2 check tools/objtool/check.c:4939
-
-Take the address only after the NULL check.  Running objtool with and
-without this patch on the same defconfig vmlinux.o gives byte-identical
-output.
+Take the addresses only after the NULL check.
 
 The report was found with UBSan, and the analysis and fix were
 prepared with the help of an AI coding assistant; I reviewed and
 tested the result.
 
-Fixes: 8b946cc38e06 ("objtool: Introduce CFI hash")
+Fixes: 3c7266cd7bc5 ("objtool/LoongArch: Enable orc to be built")
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
- tools/objtool/arch/x86/orc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/objtool/arch/loongarch/orc.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/tools/objtool/arch/x86/orc.c b/tools/objtool/arch/x86/orc.c
-index eff078ecc945..b688afcc4ffc 100644
---- a/tools/objtool/arch/x86/orc.c
-+++ b/tools/objtool/arch/x86/orc.c
-@@ -8,7 +8,7 @@
+diff --git a/tools/objtool/arch/loongarch/orc.c b/tools/objtool/arch/loongarch/orc.c
+index ffd3a3c858ae..960b59d5e566 100644
+--- a/tools/objtool/arch/loongarch/orc.c
++++ b/tools/objtool/arch/loongarch/orc.c
+@@ -8,8 +8,7 @@
  
  int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruction *insn)
  {
--	struct cfi_reg *bp = &cfi->regs[CFI_BP];
-+	struct cfi_reg *bp;
+-	struct cfi_reg *fp = &cfi->regs[CFI_FP];
+-	struct cfi_reg *ra = &cfi->regs[CFI_RA];
++	struct cfi_reg *fp, *ra;
  
  	memset(orc, 0, sizeof(*orc));
  
-@@ -22,6 +22,8 @@ int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruct
+@@ -23,6 +22,9 @@ int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruct
  		return 0;
  	}
  
-+	bp = &cfi->regs[CFI_BP];
++	fp = &cfi->regs[CFI_FP];
++	ra = &cfi->regs[CFI_RA];
 +
  	switch (cfi->type) {
  	case UNWIND_HINT_TYPE_UNDEFINED:
