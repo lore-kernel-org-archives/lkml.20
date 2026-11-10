@@ -1,80 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273773;
-	b=aBRa5FXdEO/0KdTIfTF3UJAj2ntkDWsp0BkNrCsizNrpM4vZDItaGnt42dVo62krdJkA
-	 +Kng8rMgKA9LEAl6EdM8t1REW5J2rTA1JFJlrqQPZyCXH6Q7Hj8T9uc2r14uTnuutQ7F9
-	 h7F5VN9z9hFW7tf+oURWgbsoxmafZPJ2qNcpiIiyeCX6IIn6tRkze4gDJQLty9aEj683i
-	 eO49NV9LRCWw3fFRo5OEPN+tROCUOisqrPyxnwyknrjWB1+rJ0AmXZXaN/Gm+J1/829LF
-	 JwdAKeWd3oRVfHE9DNSE178doKDIGgNII2J7qXR94dK07WVDqyS9GwW60XpqeKtg2AA==
+	t=1794273781;
+	b=eIc8cBkHvaZEVf657cM9T9olBxkfVz3Wvm50qC3C78QSoUISUbWAeHyiRTNf/CujdvU6
+	 R49DhZBlEUzSZdBL9PRFy4yvtbf4xU0TeGP3VDsAANG7R+C0nCdPCxdJ7QvfGRP/9RgZl
+	 82kxRyglDHkPfplpTYJlQLpEXXwiPu2cyBDqNtobwNvgK3khcIzpe+/6juw3uoJASLxEZ
+	 ERMkDVBguOnzC392s3OUfGRt81loT13cIFZAO8+NIqB01yZchKNDNFmu7nBEN+iovXMuy
+	 +YDE15myuu3jHZOVPafFFzr2e7SDPj3JKRqdp4U3SUgfi5+ve1hC0/OVdWNPKbuINBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273773;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=D+N2QRZvzfe+CFAvIEo6YK7+9V99UHaC8NPIhonyKWI=;
-	b=qQClF8cH0tvGelEXyQf3M/J7BADZz/r2Mm7JrkwlBgT1KXNx05tFLZbf30qLPpIqZtlJ
-	 OP6vC7kehlJRN3dF0v3twju7oSR7iDksupDtJpNF8dJpgAvCFMK4bvj9r6w5RbqLq/Mf0
-	 eRG7yVPn93GYM8cK9dCGC82OP30e6ycpehG458JXnVg6X63+mnf27ug8/NuT9Dw5G8fpZ
-	 uVVbZm1LuYy0wSTb6t1thShEy64UOnjjwaNUGwMjpK0bypwlV7TlZknM7FhRToSYn5vdv
-	 NpZp/E46NVEietwFeIHr44OlIsEGDX7rdFksYZTtqbFIkWLPJ+64R55SYG2jarGoOnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273781;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=6ikOY1QtqE20RvpK7jFWoW7yVGQoHNL7uN7yLyDwl0o=;
+	b=xQamPsGqGboGoyt9b2+PhfZkOI0WPWJtpgGAhecDtl3VhzFQF+fS3AKykPctl1SHy7fu
+	 +KYgsmWkAMNeIzs2BSaP6+tyS2jd6PITPqQHyH5uhlX13HR/bqAwMWPfOUmaPfK0spXLq
+	 HnAWxbygH6PB6/IuVugsl3491qo9o/PhFYiAPof2s5VEH4/ipWFEuuwM6SOlasOyltyr0
+	 Y82fe2aP+dsj5Zc1nz/dFnMd0UYQVMcR2egT8FLAKFQi7izYWjA5HmaHICbHGqTXdnzyK
+	 t/MRba8U3hLOyP1RCuorOf74djy3HKjDhmT+6YqUgcGRj2Nlpwxa+0lkY+NVwSmKHmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u1+vQ+IH;
-	arc=none smtp.remote-ip=95.215.58.1
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=QvCCZnSZ;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21861606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:22:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21861606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57B060A3810
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:22:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57B060A3810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u1+vQ+IH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aonwTnaVCS6JFQJm6qDOQX7pACUW5lsxK/707tA3EJM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794273768; v=1; x=1794878568;
- b=u1+vQ+IH3bB2gezV08+6cO0uTX02FrG5KALC3OLqIChFlm8vuk21aDXD+6oeTBssKnxOW+i+
- qjAAhymLdXgIkC5wBC6nlSHSmDRWMakSPkb9JFUpSBqCRy0ybrqgdpdos6hjbN1gUkKybsZ0UvR
- jQdHrphNv/s7dyerw+L1geAY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5640507009fcdc41;
-	Tue, 10 Nov 2026 01:22:47 +0000
-X-Mizu-Trace-ID: 5640507009fcdc41
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: dennis@kernel.org,
-	tj@kernel.org,
-	cl@gentwo.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	boqun@kernel.org
-Cc: longman@redhat.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	ast@kernel.org,
-	andrii@kernel.org,
-	daniel@iogearbox.net,
-	acme@kernel.org,
-	yonghong.song@linux.dev,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	llvm@lists.linux.dev,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [RFC PATCH 0/2] percpu, local_lock: drop btf_type_tag where no compiler records it
-Date: Mon,  9 Nov 2026 17:22:33 -0800
-Message-ID: <20261110012235.1024461-1-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=QvCCZnSZ
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id CEED740E04D0;
+	Tue, 10 Nov 2026 01:22:57 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id U3d-J4j9N6Rs; Tue, 10 Nov 2026 01:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794273773; bh=6ikOY1QtqE20RvpK7jFWoW7yVGQoHNL7uN7yLyDwl0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QvCCZnSZDa/dgEVnXBnwTDTJy0LvOTxeevkFHiny6MenRW5ln5sHwqxnIr/33oned
+	 J8cSQqo13ie3ddTClO7/BRza7nKpUU8Az1PQ7NmgFsJJd4mOmQRSHCTHDUjeNWa84r
+	 K7PQe5Ai0PIDc4kaEQsfoWK4HVu6j92ftaTrupWGgr+Gh922TBsD2t6jzFRdc0s+wi
+	 W9wE5Kg5SNb3jmcRaKAkdrM4503wW46Bnt11e0XZNq/YQDPECbUA0RTKDIjjSHuLbm
+	 nuaqhMIHZElfsLa9PgDAmjpn/p93UGk4KgSwX29CBGwFpImC1UTlcl+oqH1rA0K2uq
+	 932Nc5BTCP4kVhbltIGB0fVY1rsfC6qFfqm0LeEqyTgKvYWfwiWQraVKnWrEqEbha/
+	 92Gu9yYjZPepIBZ7Ks6+ZoeYMEuMs4hI8g0TLksWnaQA5+AU9Gfda6tXHNni/SAhBC
+	 dtMkiwIVevIYTLg3Qifj+lShquImiC4pUi3AAMVLdesWpdlbEaN2wExObTXNyRjon4
+	 9QzlQIIxYakfPePLF0PO2XM696I2ealW++DFg8uZMHhnlOGn4ofWTvC3V+5bLMidCx
+	 v7+Z9XulK4jVqAjyE2MhrIHZdtBCi5HxcnpI9qWWQkEyzpE5pixx7F3H1TzJbS9Bqr
+	 W3kymcEucSYlSIfJ/ucoC0EI=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 537CD40E01E1;
+	Tue, 10 Nov 2026 01:22:45 +0000 (UTC)
+Date: Mon, 9 Nov 2026 17:22:42 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, peterz@infradead.org,
+	david.kaplan@amd.com
+Subject: Re: [PATCH v4 1/9] stop_machine: Refactor multi-CPU stop glue code
+Message-ID: <20261110012242.GFavJx4qqoioeVSZ1M@fat_crate.local>
+References: <20261104182322.578066-1-chang.seok.bae@intel.com>
+ <20261104182322.578066-2-chang.seok.bae@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,79 +81,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104182322.578066-2-chang.seok.bae@intel.com>
 
-Hi,
+On Wed, Nov 04, 2026 at 06:23:14PM +0000, Chang S. Bae wrote:
+> stop_machine_cpuslocked() currently configures struct multi_stop_data and
+> invokes the multi-stop operation. An upcoming stop_machine() variant will
+> have different configurations but the latter part will be shareable.
+> 
+> Extract the common part into stop_multi_cpus() to highlight each unique
+> front-end.
+> 
+> No functional change.
+> 
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> ---
+>  kernel/stop_machine.c | 35 ++++++++++++++++++++---------------
+>  1 file changed, 20 insertions(+), 15 deletions(-)
+> 
+> diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
+> index d085ba1f4b44..8dcd5be67b85 100644
+> --- a/kernel/stop_machine.c
+> +++ b/kernel/stop_machine.c
+> @@ -582,18 +582,8 @@ static int __init cpu_stop_init(void)
+>  }
+>  early_initcall(cpu_stop_init);
+>  
+> -int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
+> -			    const struct cpumask *cpus)
+> +static int stop_multi_cpus(struct multi_stop_data *msdata)
 
-Currently PAHOLE_HAS_BTF_TAG is gated on CC_IS_CLANG and the goal is
-to allow CC_IS_GCC. There are GCC fixes (PR128479, PR125991) in the
-making [1] but despite all of them an x86 defconfig still emits ~40k
-instances of spew like:
+Waay too many combinations of "stop", "multi" and "cpus" in this file, with
+different ordering, causing me a headache.
 
-  arch/x86/include/asm/processor.h:232:36: warning: ignoring attributes
-  applied to 'struct cpuinfo_x86' after definition [-Wattributes]
-
-where one is enough to break a -Werror build.
-
-Making GCC stop warning here was proposed as PR128480 and rejected:
-the suggested answer was -Wno-attributes, which the kernel would not
-accept just to suppress this noise.
-
-And even if warnings were to be ignored, the build would still fail
-with 33 hard errors from a separate GCC bug, PR128477,
-
-  include/linux/percpu-defs.h:216:45: error: initialization from
-  pointer to non-enclosed address space
-
-These come from the same tag on the same declarations, so this series
-removes them too.
-
-The root cause is where the tag is applied. BTF_TYPE_TAG(percpu)
-records that a pointer points to per-cpu memory, but two places apply
-it where the thing qualified is an aggregate, which no compiler can
-tag (GCC or clang): every variant of an aggregate shares one DIE,
-so there is nowhere to put it.
-
-  - __PCPU_ATTRS(), so DECLARE_PER_CPU() and DEFINE_PER_CPU() put the tag
-    on the per-cpu variable's own type;
-  - the type argument of DEFINE_LOCK_GUARD_1() in local_lock.h, which
-    cleanup.h turns into "typedef _type lock_<name>_t".
-
-Nothing reads a tag in either position. The verifier matches "percpu" in
-btf_ctx_access() and in the member walk in btf_struct_walk(), and both
-check btf_type_is_ptr() first, so it only ever sees the tag on a pointer.
-
-The aggregate case is the only one that warns. Where the per-cpu variable
-is a pointer there is no diagnostic, but the record is wrong: GCC puts
-the tag on the pointee, so
-
-  static DEFINE_PER_CPU(struct bpf_hrtimer *, hrtimer_running);
-
-comes out saying hrtimer_running is an ordinary pointer to per-cpu
-memory, when in truth it lives in per-cpu memory and points at ordinary
-memory. clang records no tag there at all.
-
-The following two patches address this:
-
- - 1/2 provides a new variant of __percpu, __percpu_var which elides
-   the btf tag. Switches __PCPU_ATTRS to use it.
- - 2/2: Applies __percpu_var in local_lock code.
-
-Binary impact, x86 defconfig built with clang: patch 1 drops 280 BTF types
-(140 TYPE_TAG and the 140 pointers carrying them, none referenced) and 3360
-bytes of .BTF, with .text unchanged. Patch 2 changes nothing at all.
-
-[1] https://inbox.sourceware.org/gcc-patches/20261109213600.772524-1-vineet.gupta@linux.dev/
-
-Vineet Gupta (2):
-  percpu: do not put btf_type_tag on per-cpu variable declarations
-  local_lock: do not put btf_type_tag on the lock guard type
-
- include/linux/compiler_types.h | 8 ++++++++
- include/linux/local_lock.h     | 8 ++++----
- include/linux/percpu-defs.h    | 2 +-
- 3 files changed, 13 insertions(+), 5 deletions(-)
+Call that function __stop_machine() instead as it looks like it is going to be
+the naked, no-locking, version which is internal only.
 
 -- 
-2.53.0-Meta
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
