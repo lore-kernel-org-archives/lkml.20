@@ -1,58 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316344;
-	b=CLxMcT0wgHjAjBoiQD4D1ozuVFBszniO0o0VccIJs9awKefrusYOp7XbqIdpBre/CTaM
-	 Ohx/dD7mnlnbpg8LsQ5sRkO8rpyqyH7GXyrCI1n8TAg1KbDDS3tTtBh8Mbo0hRT09k/Iw
-	 7D9dH1i3TwC6KZYrdnk/PqR8wyU+Sp48jf06KeiK1jEoUALOa3SRiMF2oJBqXlU3sCM+Y
-	 vh6OM1UIlGWm7dNRcMgckkQDt+xGQBb/lUlfoCA8llucMA7unhA1JsTqH9zuwSlkOd0ia
-	 Z9qbie/rEHiwfsIMGGPg2JYbhmLfbBtdDXA9j6ZytX6lzwcBQUuiurZ2EPV982E+qFQ==
+	t=1794316353;
+	b=kuuVKDnYZcYw3SYjWBxfrkLUeOp7lWRW2nrK+ZGvwRhh0QMw0vCtf4vcbJ94xFxq0GtG
+	 zWEGoszuxHw/bvgJdxEDhS1yr/mTTCQc0kfiAO5QJiYbAUKEZZhuC8clMc4qTsswWjhbU
+	 HyE6ZfZcULoNEqLZqRgfN1uO1/GDGCdkTxjDRjiCxcTgnXa/m/ov2x6fm6yQwOnQZGrC8
+	 BUT8Zd947YOR4mh/hQ8NX7+yGyOMVoSNCvFlPLk+arYrcvnX4kScWrv76JNhCe+A3YF2y
+	 zwNhYcqa6XecFRaTWXQAw8v01SOlZ0hr2PdroOCw3IX+7WB811x/vdJPSJ81rJxmEow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316344;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=S2nIw72/QWiJcD7z728q9oZI514NbA30jujduMfr80o=;
-	b=c/pI6YeT/9tnHoQGaVuLDBbBLRJJ3n+5ijzhuUnjbridZmtgR1rbZRAibEgb5hBTBJss
-	 HClqIFoBr1/cacBcnF6Tx41OFnvtb+gNMYgHkR1XgkWKmT7pElRMNKJvaI9eIKFUWzwnP
-	 eYjmg/8KavcI26KzZ0BAtfUWLYL4k8GBeZHsbVJoFql0VrmFS9Fm4EMsDrFZGjPAh1dnt
-	 LXJUkRHGCWGYwErOJ5zTZCywDt4Oh9ctFoNDiiVeDFOPp1qp4EctOtQngm1bNCbkW8WGp
-	 we8QJgLRDHjLmpYa7CEXedPUW0oqVrCHbNy4g8lwivVM4v1UfovkNtSOIvvZweAy+vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316353;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=uN8v/ql7Ig3Q1kzcH3JlLyoHXVIkZ6u9pSBdR1rwWCg=;
+	b=aWhIjE1lsd+eg9SNIgQJyED1Kegmk0w0J3tp4ZQKW4z4iCgH7XEFbH9NVP652mmih51f
+	 U8t0EsX7bxz4Sd4ufsQAWcrM2oDqbvx2+cU7xerQzomzYLc5GUs/0iAzlShlWExcq05j1
+	 BoZbQtSD1FYNjTHt4g9oPzTgr2fvnxjvGXoO0aHu0fmfQCgv85ACqOAOlROns3yzTHm1A
+	 jyTcfsO8Q4yTtTy0ptRjoJRx++p4oHPUcyLYpkr7BvkP4Huzj9mzX0nqhzRFApZH7ECV8
+	 oCHL2UJ85g+8jfSpbp8xBvNn8RrSF3qcI/TeqDhprvZGUvrtFwUX0NxCSdXMfvXreDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="Y0/ih938";
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=t62pdt2N;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6CD606B6DE;
-	Tue, 10 Nov 2026 13:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6CD606B6DE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C506D606A7CF;
+	Tue, 10 Nov 2026 13:12:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C506D606A7CF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Y0/ih938
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=S2nIw72/QWiJcD7z728q9oZI514NbA30jujduMfr80o=;
-	b=Y0/ih938SBhWdy8NR5Dsd4/4u1sxJ4uY1ua38n9xF7DKPyhjG8dk1bPFmRBH4dmKPDrLWScyM
-	visal89sw93DF0TrBZEOizRnv413SjR+hXqoy1J05Wr6YSdSpc8FD5Kmyzsfno5Czk5CfPSV9IZ
-	9bkKiggwBlRZ5h+yFLG78Po=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jP6W36VDCz1cyRv;
-	Tue, 10 Nov 2026 21:11:59 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id DBECE4055B;
-	Tue, 10 Nov 2026 21:12:14 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 21:12:14 +0800
-Message-ID: <24a3bf90-48bc-4594-a242-a8f72f05edee@huawei.com>
-Date: Tue, 10 Nov 2026 21:12:13 +0800
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=t62pdt2N
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=uN8v/ql7Ig3Q1kzcH3JlLyoHXVIkZ6u9pSBdR1rwWCg=; b=t62pdt2NbyA0Rm8RsYb4nduog1
+	bDSBtA7ZYHqleUkTKEPRlFTIzt4Uu9JI47Br24O6URPnJSKyYQ+miajbzhp5ZFyJyhCOXQnydWkTw
+	88LSdaHDXTmJugXY9MjIJlHcBSIpCIRpjZPvwlddRyaXM3hnwV114qBTcdAssYzBkXIw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQleA-00FTwe-5i; Tue, 10 Nov 2026 14:12:22 +0100
+Date: Tue, 10 Nov 2026 14:12:22 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Michal Simek <michal.simek@amd.com>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v3 5/5] net: phy: dp83867: support setting
+ output-impedance
+Message-ID: <ab3b042d-dded-4349-b9c0-7b2678274275@lunn.ch>
+References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+ <20261106-v7-2-topic-dp83867-v3-5-45e1d3adf1bf@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,239 +73,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fs/resctrl: Disallow monitor group rename when the
- RMID changes
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<zengheng4@huawei.com>, <ben.horgan@arm.com>, <gshan@redhat.com>,
-	<jic23@kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>
-References: <20261105123524.2282090-1-ruanjinjie@huawei.com>
- <f7eb6666-049f-4739-966f-b4ba275c72df@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <f7eb6666-049f-4739-966f-b4ba275c72df@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-v7-2-topic-dp83867-v3-5-45e1d3adf1bf@pengutronix.de>
 
+On Fri, Nov 06, 2026 at 08:47:29AM +0100, Steffen Trumtrar wrote:
+> Currently the dp83867 supports setting the io impedance to minimum,
+> maximum, default or a value from a nvmem cell. In situations where there
+> is no backend for a nvmem cell, the value can not be set to anything but
+> minimum, maximum or default.
+> 
+> Add support for the ti,output-impedance-ohms binding, allowing to
+> specify the impedance in ohms via the devicetree. The PHY has 32
+> settings between 35 and 70 ohms. The datasheet does not specify the
+> impedance of each setting, so the value is mapped linearly to the
+> nearest one.
+> 
+> With this mapping, 50 ohms results in 0x12. For non-OF devices, the
+> driver sets 0x0f (IO_IMPEDANCE_MIN / 2) as the 50 ohm default "per
+> datasheet", which would be 53 ohms with the linear mapping. As the
+> datasheet only gives the range, neither value can be checked against it.
+> 
+> The binding does not allow combining the new property with the nvmem
+> cell or the boolean properties. The driver still reads the nvmem cell
+> first, then ti,max-output-impedance, ti,min-output-impedance and
+> ti,output-impedance-ohms.
+> 
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-在 2026/11/10 3:22, Reinette Chatre 写道:
-> Hi Jinjie,
-
-Hi Reinette，
-
-> 
-> Thank you very much for picking this fix up.
-> 
-> For the subject, since the RMID actually never changes, could it instead be:
-> 	fs/resctrl: Disallow monitor group rename when the RMID index changes
-> 
-> On 11/5/26 4:35 AM, Jinjie Ruan wrote:
->> From: Peter Newman <peternewman@google.com>
->>
->> A monitor group can be renamed into the mon_groups directory of another
-> 
-> "renamed" -> "moved"?
-
-Ok.
-
-> 
-> (Since this patch would still support rename of MPAM monitor groups.)
-
-Right!
-
-> 
->> control group to move its tasks to that control group's allocation
->> while keeping their monitoring data. Where the RMID is only meaningful
->> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
->> extends the PARTID, this move does not work. The rename succeeds, but:
->>
->> - The group's monitoring data is reset. Its counters are identified by
->>   the CLOSID and RMID together, so after the move the group reads the
->>   counters of the new CLOSID instead of the ones its tasks used.
-> 
-> Does this not also mean that the the monitor group is assigned an RMID
-> index that is never allocated to it? Sounds like this would cause issues
-> when the monitor group is removed and resctrl tries to free that RMID.
-
-Yes, will mention it.
-
-> 
->>
->> - The tasks are not moved. mongrp_reparent() sets the new parent and
->>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
->>   to update, and the search then matches on the new CLOSID, which none
->>   of the tasks carries yet. The tasks keep the old CLOSID and the old
->>   control group's allocation, and the group does not count them.
->>
->> The move has never worked on these systems, so rejecting it does not
->> take away behavior that an existing user can rely on.
-> 
-> Could this snippet please instead motivate why the issues with monitor
-> group move are not/cannot be fixed to help explain why this reject
-> is needed instead?
-
-Sure.
-
-> 
->>
->> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
->> group, and document the restriction in resctrl.rst. Where the RMID does
->> not depend on the CLOSID, such as on x86, the move keeps the same index
->> and is still allowed.
-> 
-> 
->>
->> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
->> Signed-off-by: Peter Newman <peternewman@google.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org> # 7.1.x
-> 
-> Looks like 3e9b35823aab was added in 7.1 so the range is not needed?
-> 
->> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
->> Link: https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
-> 
-> The changelog contains no references to these Link: entries? What are they for?
-> Looks like first is an earlier version of the patch so does not look to be needed
-> as part of permanent changelog related to this patch?
-
-Will remove it. Thank you!
-
-> 
-> Please see: "Ordering of commit tags" in Documentation/process/maintainer-tip.rst
-> on how changelog can refer to Link: tags.
-> 
-> The second Link: seems to be pointing to the decision that this user space request
-> needs to be rejected instead of fixed. Looks like the relevant message is
-> 
-> 	https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
-> 
-> you could use similar language as recent commit 
-> 	7782a6a8dfc0 ("x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot")
-> 
-> That points to the decision in a "Link:" tag and then uses text in changelog like:
-> 	"... as decided in the thread at the Link tag." 
-
-OK
-
-> 
-> Above is not actually what Documentation/process/maintainer-tip.rst documents but it
-> is what x86 maintainer changed it to after the original commit followed
-> Documentation/process/maintainer-tip.rst, so I guess either may be ok.
-> 
-> 
->> ---
-> 
-> 
->> ---
->>  Documentation/filesystems/resctrl.rst |  7 ++++---
->>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
->>  2 files changed, 17 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
->> index b52795e03303..9ae34aace0ff 100644
->> --- a/Documentation/filesystems/resctrl.rst
->> +++ b/Documentation/filesystems/resctrl.rst
->> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
->>  Moving MON group directories to a new parent CTRL_MON group is supported
->>  for the purpose of changing the resource allocations of a MON group
->>  without impacting its monitoring data or assigned tasks. This operation
->> -is not allowed for MON groups which monitor CPUs. No other move
->> -operation is currently allowed other than simply renaming a CTRL_MON or
->> -MON group.
->> +is not allowed for MON groups which monitor CPUs, and fails with
->> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID. No other
->> +move operation is currently allowed other than simply renaming a
->> +CTRL_MON or MON group.
-> 
-> merging the discussion in 
->  https://lore.kernel.org/lkml/113c13ba-e1de-44b1-9a6f-4bd94ecbd71e@arm.com/
-> 
-> To avoid user needing to understand the RMID dependency, how about:
-> 
-> ---8<---
-> @@ -566,10 +566,10 @@ will automatically remove all MON groups below it.
->  
->  Moving MON group directories to a new parent CTRL_MON group is supported
->  for the purpose of changing the resource allocations of a MON group
-> -without impacting its monitoring data or assigned tasks. This operation
-> -is not allowed for MON groups which monitor CPUs. No other move
-> -operation is currently allowed other than simply renaming a CTRL_MON or
-> -MON group.
-> +without impacting its monitoring data or assigned tasks. This operation is
-> +not allowed for MON groups which monitor CPUs, or when the monitoring data
-> +or assigned tasks would be impacted. No other move operation is currently
-> +allowed other than simply renaming a CTRL_MON or MON group.
-
-Will update it.
-
->  
->  All groups contain the following files:
-> ---8<---
-> 
->>  
->>  All groups contain the following files:
->>  
->> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->> index e6b64a5c9302..3c002b711024 100644
->> --- a/fs/resctrl/rdtgroup.c
->> +++ b/fs/resctrl/rdtgroup.c
->> @@ -4398,6 +4398,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
->>  		goto out;
->>  	}
->>  
->> +	/*
->> +	 * Moving the group changes the CLOSID. Where the RMID is only
->> +	 * meaningful together with the CLOSID, the RMID index changes and the
->> +	 * monitor state cannot follow the move.
->> +	 */
->> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
-> 
-> The above two checks look unnecessary:
-> 	"rdtgrp->mon.parent != new_prdtgrp" - this check is used to ensure that
-> 	these systems can still just rename existing monitor groups. In this scenario
-> 	the CLOSID will be compared against itself and the two encode() calls will
-> 	return the same index, no?
-
-Yes, the resctrl_arch_rmid_idx_encode() will equal, this is redundant。
-
-> 
-> 	"resctrl_arch_mon_capable()" - earlier in function the source is required
-> 	to be a MON group, which can only be possible if the system supports
-> 	monitoring.
-
-Got it.
-
-> 
->> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
->> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
->> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
-> 
-> Could this use same terminology as resctrl.rst to help user match documented
-> behavior with the error message? For example,
-> 
-> 		"Moving a MON group to a new CTRL_MON group is not supported\n"
-
-Sure.
-
-> 		
-> 
->> +		ret = -EOPNOTSUPP;
->> +		goto out;
->> +	}
->> +
->>  	/*
->>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
->>  	 * current parent CTRL_MON group and therefore cannot be assigned to
-> 
-> Reinette
-
--- 
-Best regards,
-Jinjie
-
+    Andrew
