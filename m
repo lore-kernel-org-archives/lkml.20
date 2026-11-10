@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297067;
-	b=ny5nt766H+Bpt9+Gku48gNBngBQatUAYK8XYqImXTGEPwOhKk0oLggdtop+Z8B14iBuW
-	 cigcjxHV6fiG+JhJSmTIDc+AlII4YOpg0iUfJfEiZbmoVpTWOF1nrk7mSo6Vsm8gmGrp9
-	 FT5SAFkQNoooxNQfywjyp/a8jM55vOlklui9kjuWzqjONRhK+aDu1s+k6XXpsnAMVTwiv
-	 OgNK6ufpq8kvPwjCj9Ry6ko+SdzALkO6QEiSVm2ALMxnHyO0++RlNkTtmaHUxugsUgjMY
-	 Kbsr0HWt5iuj2cQyaBZugplNmEsvIJuAUZDooVsUg0LmXARIMbkuB5rkrgzQcDSNNsw==
+	t=1794297141;
+	b=3ygovBQ8tKszFwu8Ci6/Ir0TecOwbcFwsfXho+JeJllQwQ7tKYAjlY19zPXNxWw8nI/q
+	 yKx4YbZ8IZx365lxLKGE9koTkqK6MRPhCtGsArFy3EyFtJCc1GTPWEpIH68NuuO0NwPA4
+	 KX9BjeVNcNGan/J0rcwnEenspYpKru+tsgc/lSluXa4laT7XEn6sxCZFAcjx5r3x2cQ8z
+	 bV6bQPR/gTaqAQc4TqR5vwexpEwf8ZSMd613ZV85GjZ/GNtewSiB+C1G4Dm82pg+RSiSM
+	 HxJPp7rTfnsseJtQEwcYqPPXxHyGZb2HtSVdAT+7aqYX2ULbNfGFyzmvMGzjO1zcMtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297067;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oCAnq9Ydyn9pzFtWZAL2uoxXAv5DcpFwU0HVA55B7zc=;
-	b=s2iSJkMmKB/e83WOqgBTrU/HPUcv5yadIeErajWPOXjcAyq9CtqBdhoHk7/f0rPN0PR2
-	 H/qjt070KVTb9xz1WKOYWWZ+q0o3cCBSDKl4aSJLiDBwIjM9sj3TaZv5RZCWHYjtqG9ER
-	 eFYG3LhElChzQvqmrvIhWyAe2mjhGA1CFnAGIqZqjUsu21VS/K1Cf9c44D/L1EnoT/+eo
-	 kJZCDikauyLSNn7MX2QcmRMZKRY1HS5/dS6OEZ/ugL2jK3k79t4sXyRvzjO2ddU4IClih
-	 uBl5pJwIJxXPtMCebI1NdSMMsMzDSDjvvVF6w3BuwO8FUTGQixovEssEnC53Kip4WEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297141;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=;
+	b=PeGn8Ho6Q/S8GWzZSWGQfXdPDZjAp02QMTXJ6KXD9UzQjLcldDfcgTtAP7kI4z07PXAk
+	 dQT83PDF5EYvA1c+VKdHs+qCLJzf5XNybKDA91mpYaU6qHqep6wTWYxRr5CX6++ZLmxdG
+	 ewiJCXa2tLnZT8Qu2J32H5VZKKtrpptbDoicDaDbvXqDnUiB1trA93OkTEEliSn2PeLVi
+	 fnfJ0EQYSXnm3W63FTEbnqjFxa4/U1/QptpQuMkjzk2Xsn0bFznbO0BFmBPLWPk4vmvAg
+	 gUGxucemTURr7kh1umB/r8rmNwCGmqlxC7Sd0vEjoEcZHiTUKcSApFX/jIQ0EcOAOTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Bt11K0DF;
-	arc=none smtp.remote-ip=95.215.58.228
-Received: from mta1.migadu.com (out-228.mta1.migadu.com [95.215.58.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1;
+	arc=none smtp.remote-ip=216.40.44.14
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65253606C637
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65253606C637
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B41606A334;
+	Tue, 10 Nov 2026 07:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1B41606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Bt11K0DF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VEYHcJJXdTr+sSu/VkSL5rhEFuBwOC/PnaSfhFDxgH4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794297064; v=1; x=1794901864;
- b=Bt11K0DFsGKbjUzn/HQN5vSqRNQbCITQzMqgzZSVPTK8Ks7/8ZCi1hZYj1vCJlS1KNqzmK8h
- OnM+Gmbeo3EQyaa0Oy2n0daXlzBnGKD1O6EN2UuNgZywnsbzN9SrVCZBp0/kkowynQkgbfCxr9b
- bZoVt616m4e1laAF5GMWGFnQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d983afd97fe96bab;
-	Tue, 10 Nov 2026 07:51:04 +0000
-X-Mizu-Trace-ID: d983afd97fe96bab
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9c767bbc-3189-429b-b008-021306426b7e@linux.dev>
-Date: Mon, 9 Nov 2026 23:50:58 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6959A140503;
+	Tue, 10 Nov 2026 07:52:12 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 1BA702002B;
+	Tue, 10 Nov 2026 07:52:07 +0000 (UTC)
+Date: Tue, 10 Nov 2026 02:52:02 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Breno Leitao <leitao@debian.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Steven
+ Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <20261110025202.78c8c03a@fedora>
+In-Reply-To: <avGQnBjyUMwunknT@google.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+	<20261105155729.0f9c7e4d@gandalf.local.home>
+	<avGQnBjyUMwunknT@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,77 +64,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/Kconfig: enable ROX cache in execmem when
- STRICT_KERNEL_RWX is set
-To: Mike Rapoport <rppt@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Borislav Petkov <bp@alien8.de>, Dan Moulding <dan@danm.net>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org
-References: <20250716075410.82578-1-rppt@kernel.org>
-Content-Language: en-US
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <20250716075410.82578-1-rppt@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 1BA702002B
+X-Stat-Signature: erqs333doy343w6acayxmgdjtkgouj9d
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+YQOdajhCDf1ZjZQfnHpfSD5rLF0zgf5s=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=; b=Wo0WadD1kJznyFIlA6jRp+DI7L2vl/XdShuuFurlVUnOZW8enSWCf4tTmX8XqPYhIYO+74AuaTtTUfTsxtk6eyVW9RZrG29QbG9n/6kOUVsBN48xeHTGhpLh3F8SHLikyRWKwLMOjIyzUX2hJlUozCfOqyvc3ya0n8MGTvAebyQ=
+X-HE-Tag: 1794297127-995168
+X-HE-Meta: U2FsdGVkX1+hTXjhiPB/SOj4L/XPStP7ECk2j9J4x/CsE0t8QgKNpm9izosUDHdljRIJTbLF4rRiA/aFukUGls7Y9P9meRaZDRHrmTc/xDDJdHrsuzRqcTU+YviHj0930OyYBGYD6NOguoAf1ebrXF1wnnqJ5356UB0WiNN+M6paW1SRvUgubYwabm7Po6e/6/zL0gkjPvzJ3QRW9zQPr8VOzhr/U5mcSJpcXaynm6/RKPuj8L5Db6hBNIX/85+RESUCtwW3UShT7Zrw9bTGeC3ViAdQxqVQDCfrmKq4a5ZvF1R6X7nAL6b5EQyTRdAvknI1oj35S5XMUGHaQFBvUYl52H0jLw/1
+
+On Mon, 9 Nov 2026 09:21:32 +0000
+Vincent Donnefort <vdonnefort@google.com> wrote:
+
+> > The issue I think you hit was that we have two HEAD pages, when interrupts
+> > come in. That is, we can get a state of:
+> >   
+> >   --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->  
+> 
+> How we can end-up in this situation? The cmpxch will only swap HEAD for UPDATE. 
+
+The cpu_buffer->head_page is only updated by the reader, when it did its last read.
+
+Let's look at it one at a time:
+
+                              cpu_buffer->head_page
+                     tail               |
+                      v                 v
+  +--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+Then the writer moves the HEAD page around the buffer while there are
+no reads happening
 
 
-On 7/16/25 12:54 AM, Mike Rapoport wrote:
-> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
->
-> Dan Moulding reported that kernel configured without modules produces
-> "Found insecure W+X mapping at address 0xffffffffc0247000" warining:
->
-> [    6.022847] ------------[ cut here ]------------
-> [    6.023020] x86/mm: Found insecure W+X mapping at address 0xffffffffc0247000
-> [    6.023200] WARNING: CPU: 5 PID: 1 at arch/x86/mm/dump_pagetables.c:246 note_page+0x6ec/0x790
-> [    6.023381] CPU: 5 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                T   6.16.0-rc6 #1 PREEMPT
-> [    6.023558] Tainted: [T]=RANDSTRUCT
-> ...
-> [    6.031153] x86/mm: Checked W+X mappings: FAILED, 10 W+X pages found.
->
-> The 10 W+X pages are the pages allocated for ITS thunks. With
-> CONFIG_MODULES disabled, CONFIG_STRICT_MODULE_RWX does not exist and ROX
-> cache in execmem is not enabled so execmem_restore_rox() becomes an empty
-> stub.
->
-> Enabling ROX cache when CONFIG_STRICT_KERNEL_RWX is set solves the issue and
-> makes ITS thunks memory properly protected.
->
-> It also ensures that memory containing ITS thunks is mapped with 2M pages
-> for kernels compiled without modules.
->
-> Reported-by: Dan Moulding <dan@danm.net>
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
->   arch/x86/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-> index 8bed9030ad47..d6d8050683ae 100644
-> --- a/arch/x86/Kconfig
-> +++ b/arch/x86/Kconfig
-> @@ -89,7 +89,7 @@ config X86
->   	select ARCH_HAS_DMA_OPS			if GART_IOMMU || XEN
->   	select ARCH_HAS_EARLY_DEBUG		if KGDB
->   	select ARCH_HAS_ELF_RANDOMIZE
-> -	select ARCH_HAS_EXECMEM_ROX		if X86_64 && STRICT_MODULE_RWX
-> +	select ARCH_HAS_EXECMEM_ROX		if X86_64 && (STRICT_KERNEL_RWX || STRICT_MODULE_RWX)
->   	select ARCH_HAS_FAST_MULTIPLIER
->   	select ARCH_HAS_FORTIFY_SOURCE
->   	select ARCH_HAS_GCOV_PROFILE_ALL
->
-> base-commit: 347e9f5043c89695b01e66b3ed111755afcf1911
+                              cpu_buffer->head_page
+                                tail |
+                                  v  v
+  +--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
 
-We recently hit this issue after changing CONFIG_MODULES from y to n in 
-our guest kernels.
-Did this patch slip through the cracks last year ?
+                              cpu_buffer->head_page
+                                    |          tail
+                                    v            v
+  +--> subbuf ----> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
 
-Could we get it merged?
+                              cpu_buffer->head_page
+                                        |                      tail
+                                        v                        v
+  +-HEAD-> subbuf ----> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
 
-I have verified the fix on 7.4-rc1 in a KVM guest running on an Intel 
-Cooper Lake host.
+                              cpu_buffer->head_page
+        tail                             |
+          v                              v
+  +--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
 
-Tested-by: Atish Patra <atishp@meta.com>
+Now, I'll break up the update part:
 
+                              cpu_buffer->head_page
+        tail                             |
+          v                              v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                       |
+  +-----------------------------------------------------------------------+
+
+                                 cpu_buffer->head_page
+        tail                                |
+          v                                 v
+  +--> subbuf --UPDATE--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+An interrupt comes in and moves the head even more.
+
+                                 cpu_buffer->head_page
+        tail                              |
+          v                               v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+Now  the reader decides to read again and starts between the UPDATE and the HEAD
+
+
+                                                 cpu_buffer->head_page
+        tail                                              |
+          v                                               v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+It finds a page with the HEAD pointer set but not the UPDATE pointer and does a swap!
+
+
+                                                        reader_page -----+
+                                                                         |
+                                                 cpu_buffer->head_page   |
+        tail                                                         |   |
+          v                                                          v   v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+Now the commit finishes and moves forward and will even hit a blank
+page but the last write is now on the reader page. This breaks the
+entire integrity of the ring buffer.
+
+Does this make sense?
+
+-- Steve
