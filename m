@@ -1,80 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440808;
-	b=2c/WHUU7xvVG9yWV/aAI9hiX8dVIarJigNrz42cnhVsgtcj4NNZ/a8PsyaJwVxpGdhvA
-	 sMUVtEHULVoohtXZ0KB/Mk3gnY51oxZNGYiZFIqGGTW3+lGXCixEHnv4v03UR812U6lIZ
-	 lXguAdXSTFQdxm2WyiQp0Wz9neQt1OVu+YjkHgGddwvIbEB/ZFJ5rWhx4l0XePWKNUnu6
-	 opi2jjE4wS31sfnic83boGUFKhvhUBesvyKLOrwmNJ7pTWHSoArc9lNRfPLlo+uUB2klK
-	 cHvUVeNqjnOuDhul2MYamGY4hBOJQYKkyi6kAFbwhlltpxLCiWzYoQ5cSHeereeldaw==
+	t=1794440836;
+	b=Cv+0XqL0a9w/AhotdlW0onlRIe+5yJIAZK1idHUApp5SCyWqY40LtXu2VK5lxiSZL5lT
+	 ylMhavhYV5v+gfUL76EEoccJnI6FmbRJ48GEib01rrQx15pRLQ5m2hRYDULufIzWEM4n2
+	 xzeu1t3eeK2Mh0NxwmeagSi+H5jifmRBFgj2i1+viyHjsFeBvRK9vwxtsv0ng3jVdkT4d
+	 nOA+KSijnlyA5RQEaqc/hGfeZSIODJyd3CmnUdBfxjW9Io5n2eZ2d6zEwyFoWNK4scJTo
+	 fxBWId9WUltlMLR3hTqeRXl6SYHZ9IPg7MzYmbcHBpLcL36RvhjXupXcvi2QN9pacaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440808;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8AZdaQqyQXPs5g0zywn6Yjq6k1JFMUQHaphCD5EDm/o=;
-	b=mt3hAnOq6bJmBDIJNWjw09E4J5IHmzQlwpDZNvNycBAW4lGOntx/xPs0jMOXXSr2JEyi
-	 01BYvZTRfLwnYhRycptLSjuWc4v7WYx+hV2v0IXHFB2QeT7FJUr8JqBsNo4G5GFm5zIwp
-	 4Zis8zmbUwelPg25PhTNrAlfn3+/SGFAQb1ObRSlsuXiDrwQS8U8U7sHUCpJTyYFRStPW
-	 ftPpr5ti9XjxAwVtJLZlRCrt3mR4Fj/XCpmPEBOe6elrfzAfKKIUeIwoQbuBlRSzYjM5G
-	 JvsTIvUnjy/yWZz1EUxNAHjs6MTvDoKdnv7b6gnRhiHqoXd2NhQUFRX12wiB3NtX3/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440836;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=xHbyHuioBIGf0RlIQt+BtCTaaBXKA9z4RA+h6F/Zyag=;
+	b=QKyxSJ5UNWA2vJOiHRryoQ1QrcSD2EnshdugvAswvDKNYT3IspcwmrZ0fzDX/JEX8QQI
+	 SnFLnzYOZ1AfG9Q4ufIAwMuYyLQQgntrMoY6EZzx+kOXySDtTpHLz/sOm6B8GpJyPPe0K
+	 OLq0JIopkMah/j4KCxoGqN+iU8zwlvT63nMuqpqpzvlbZOWCZZAIKcCi9imvXXBvlPtPH
+	 4P+x+ZV6qD4/C1wTqf6HzssODR7qEeTFXV91WzJ3VsqcJ7kfvr6PNQUdumt0mpPnohjNC
+	 YVfP0wERn1cG906jp9CB/Xg1888NBesioSe00anIcg7sFqK9ddY6OTGnFbEt5LBxqug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Nim5WA3o;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkKiQyvN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67DC606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:46:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D67DC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C57606A336;
+	Wed, 11 Nov 2026 23:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Nim5WA3o
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 531C140E021B;
-	Wed, 11 Nov 2026 23:46:44 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id voosb1uhMyQJ; Wed, 11 Nov 2026 23:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794440801; bh=8AZdaQqyQXPs5g0zywn6Yjq6k1JFMUQHaphCD5EDm/o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Nim5WA3o6dpIUXLZ4zkdIqoBMXYvHYNRlKVIdfR+w+yBlO8CZQMAZWcPnIgjsKp9B
-	 h3Yz449/YvKp8QWQmbJ+/7vG3xz+9cubgouUmCWNerwIqJVd2I1/0ESI9ZkPdJcdkg
-	 7ohk7mdfZN77yeP+u11vkslOMKbZy+jnEChbkIHHP5No6NughMw/1Zh38sCVGB0PcE
-	 USgleSFIW2UF97kWbprRHgYT8JGZ86C1qeAXetukveWm8jkBoER2iz8sVKeuHw5Wmb
-	 9XbUi+jYv/zi2apKlgfIpZVtzPKlciOhiysi6cNHk5k2+KM6Doxi2rS0HO1zUzvCSE
-	 YeaPc+IWuHaeT+24FdZnOIDC8Ja95cgRykoP+4MHX+F2QYBkEmPv3Wz9zJUecBOga/
-	 PXSVd232C+rxiEtXiMdJIDIVDtJ/cLc6QNSigZvPYVl6jDPpC+Ytuqwu0aZ2FRyGzQ
-	 dos1HicHgsrPIu6J4n9HMFbjPk9YFiFJLnfOHDMinkuD7RExEDpqsYPGP1NX9p4k1+
-	 wVK0OrWzi1pvt9+NsR5gOs9FZ6bbXHlKtfoByIekqbsGLB3h/bHQTxnH6HNvpl8Pd1
-	 ZsfSyxycs5bwTzYhJyuz61cX/rMRn2NzVFCmbUItT2r11mNCu6F8k2HXTxsXegb4W5
-	 4Xhpp379+UgkKdfwvvEQVnVM=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5675E40E0218;
-	Wed, 11 Nov 2026 23:46:24 +0000 (UTC)
-Date: Wed, 11 Nov 2026 15:46:08 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: david.laight.linux@gmail.com, dave.hansen@linux.intel.com,
-	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
-	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
-	torvalds@linux-foundation.org, kas@kernel.org, hannes@cmpxchg.org,
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
- CPUs without FSRM
-Message-ID: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
-References: <20261111132214.2979125-1-usama.arif@linux.dev>
- <20261111132214.2979125-3-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkKiQyvN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55FD1F00A05;
+	Wed, 11 Nov 2026 23:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794440836;
+	bh=xHbyHuioBIGf0RlIQt+BtCTaaBXKA9z4RA+h6F/Zyag=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=mkKiQyvN8ZZCMZfPxFad71oFuPH9BmsyREualtPqwgXmpqEiaqp96ftanjbsr7nw9
+	 s1dSL8+wXKzYvc9B7uUIZLGoYOwputC7BWQPI3bnqLdLjuVKEtSUZNIuIiJ4tK/JYs
+	 cmrHJks4CG+4uorDPpZb54gQ0pJPtVsqkVaFUPUEboRXhfJxxc7xj4vLxwgQFk3pmB
+	 SMkOwBfSHawJyeJbwD6Le9PO3nae2OuxeuIxfEDqiXvxcFGNO8e5Wh7IK0GAXx1XWd
+	 K5XkiYUNUtupfSKuQq2hUx+hgXCmQAhE9/TUbFXjnlYP8DaZ8F3QVhtDl41lXdxPhF
+	 EPrC6qkBecfBg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 344133180A49;
+	Wed, 11 Nov 2026 23:47:13 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+Cc: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
+References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
+Subject: Re: [PATCH] ASoC: soc-core: reset rtd->num_components after
+ allocation
+Message-Id: <179433275081.125181.11084186158708006210.b4-ty@b4>
+Date: Tue, 10 Nov 2026 17:45:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,71 +67,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111132214.2979125-3-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1138; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=fcs4qASP8MpkKr3Vxee85rgke2DVVAlTvbo68ARJbc4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+/Kv6ujjIY2uPUcTD/eInNlSZ+Fhx8C1X/unQtl5kn
+ tax2RnBHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIy3sM/+M53tlmtv/ZtWtW
+ AZPt55N1MuyXuVeq86meYDR5Kdy8sYXhn7beiykHzSfGK+rHfdjgZyChyGnxwCU8df36Sz47evW
+ leAA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Nov 11, 2026 at 05:20:53AM -0800, Usama Arif wrote:
-> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
-> index 7bb146c811029..5320862e0274e 100644
-> --- a/arch/x86/lib/memcpy_64.S
-> +++ b/arch/x86/lib/memcpy_64.S
-> @@ -27,15 +27,13 @@
->   *
->   * The 'rep movsb' itself is small enough to replace the call, but the
->   * two register moves blow up the code. And one of them is "needed"
-> - * only for the return value that is the same as the source input,
-> + * only for the return value that is the same as the destination input,
->   * which the compiler could/should do much better anyway.
->   */
->  SYM_TYPED_FUNC_START(__memcpy)
-> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
-> -
->  	movq %rdi, %rax
->  	movq %rdx, %rcx
-> -	rep movsb
-> +	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
->  	RET
->  SYM_FUNC_END(__memcpy)
->  EXPORT_SYMBOL(__memcpy)
-> @@ -45,12 +43,16 @@ SYM_PIC_ALIAS(memcpy)
->  EXPORT_SYMBOL(memcpy)
->  
->  SYM_FUNC_START_LOCAL(memcpy_orig)
-> -	movq %rdi, %rax
-> -	movq %rdx, %rcx
-> -
->  	cmpq $0x20, %rcx
->  	jb .Lhandle_tail
->  
-> +	/*
-> +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
-> +	 * Shift RDX to check length >= 2048 without destroying the REP count.
-> +	 * The 10-byte alternative fits a NOP without ERMS.
-> +	 */
-> +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
+On Mon, 09 Nov 2026 11:25:20 +0100, Emanuele Ghidoli wrote:
+> ASoC: soc-core: reset rtd->num_components after allocation
 
-Sorry, this is adding more JMPs in "conditional" alternatives code and thus
-turns this into a bigger and unmaintainable mess than it already is.
+Applied to
 
-The 2K limit looks like something conjured out of a thin air as it seems it
-work for your particular case. I'm sure we will have to whack it in the future
-because someone else will complain of the opposite.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-This needs to be done with alternative_call*, even at the price of some
-duplicated code but without turning what already is a mess, into a bigger one.
+Thanks!
 
-Or a static key or even with stop_machine_nmi() (currently in review) which
-patches the kernel even later, when it is convenient to do so.
+[1/1] ASoC: soc-core: reset rtd->num_components after allocation
+      https://git.kernel.org/broonie/sound/c/d00ba321499c
 
-Whatever it takes to keep this code readable and sane.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-But not this.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Sorry.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
--- 
-Regards/Gruss,
-    Boris.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Thanks,
+Mark
+
