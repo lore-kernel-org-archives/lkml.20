@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284438;
-	b=xudx4p3t4FsGn6ID1TUVem0DHgH9tdQ/DlH/HGyIDl0GouxcoUEUibTR9eppRhfbKb67
-	 OnNi6VSpFVaMZH2JGPauGmobDQzqp0egVO9ngz95GTw80DeT/mycvUhwk4jI7Ljfccbg7
-	 DM3kAxXZfMzM11a/GJiJMRhmuqFbfEXuQp+DoUHq2PcX8cmx227XLGZUku+r/dRplId59
-	 8SDYshPXxjBT/v32fDtV9QjLuaD69ZZNgsy4Vf1pbmOzRj8pxdTlz8VpAXBLSf9yhbjwT
-	 UUb6bITQYuZvZZZezNbZpcbGzh9tFfsi0VU96tl2QqX3W3BYcdRh1IJAsJOteioH0hw==
+	t=1794284446;
+	b=TvwF1PHsCAhAoKVO0eMei5EGMxEVUJXyB5GtD7coPuoJ1AnOLEetQIKgLp51uObI3OkR
+	 W1H8qMe2EdM+LFPAUzQs1QbRUpTa34WUDdKQu/yXGuZGFhqJEjUbaT9w4KzMiO0g54AnQ
+	 ZH3nCAGFRNhwXLaE7w6OT6u7X99E/WPF6hwNSztWuB/Ie8kacLAu+noaT4np/iJD2JRX8
+	 wzv+9VFmbCTxG5qA29KUA6bi0lR7lt0zp6yAjUrMAONE0aWRllXAmIq69jnsbZtXcMCXL
+	 uXLg26BygybrFsr2NxQTxgc6TVlI39bo0Jq72N6HJf9OSoOjICpqwMHaygbHsxvIAGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284446;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0+RTFl5Qa5SW/ve8wTc5MHTqhyuBwC9vc+CWPhIbY0g=;
-	b=eE6GAmiLj78Z+AvlVI3yQ5GanGy04EZtZkk4HNSZT08n7hsxvrH6ozosAWpCxFAnmRh0
-	 DAc2tS7WqYy8T7WbCixvYPlQQ3JWaznO0QHAAk5uC4oW1jWCHIR03rEBUJ6x1wlxCI1r9
-	 2g+avY48qopRs+Um8nmXWH/HiLSUvgxacXUn8fjqprFnYFTHGP4lZ2dLx9cksONU2jKtu
-	 qqbx+P9Zw1rh30g4vgLrQBHIkWBdwK7g4EYuh7/4uK64Fu1xEXs1sI/3rMcW5SyZ2u6vn
-	 Q1N0mNFpl2eaikg1C3zHTjsBxQDYXIljBEIkWcPAPGzG+ibAk8XBpHRr5nSkPZYlUQg==
+	bh=HrFSDojbDaesV6HtIZlkvVOjVzmaKFDGfU9+ooggeTo=;
+	b=XLTsdH3zM1/hXmOBTVLhhblHC0Ys1339MeZAkD9gaWrC2OLIyGa2hYAgpzl40R7VJ3Nq
+	 2yEJDTCs7PYUt3EOUBwbWYQWToGzh4IR9X/HNWcVRlpmRhIUCRb2n7nQ/60tdP+cPriQI
+	 HsCmCyNylqPJRzZoMkLA++5bh46uecEEBmFGr67pC5THttq8bMDapmvEempjNLHUNEtXa
+	 JTaE+Gw9+LwTO9n/9nqvNXjGsLzsl785wIjaLj9gyEa6Cmn8jQ16m7xmgqnzyJfteUq9h
+	 2ZuIhUzzz0gETG86rSKeqChmz8W9muWT4s3Vchnh0RitgreiUdJJjGsVo/zxqNrp5Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uQrAU7FI;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wvHnrrV+;
 	arc=none smtp.remote-ip=74.125.82.50
 Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3015560A2606
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3015560A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A6560A2602
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A6560A2602
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uQrAU7FI
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a3c08d6928so2881540c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:20:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wvHnrrV+
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso2159186c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:20:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284436; x=1794889236; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794284445; x=1794889245; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0+RTFl5Qa5SW/ve8wTc5MHTqhyuBwC9vc+CWPhIbY0g=;
-        b=uQrAU7FIjpA3+uQiScnpVcbqhV/fu+xSO2mQbPWaqRBfvBGwZWu/6D+WaJdkY05uTi
-         6SFVkl6S+QDaVfZHSSbi2/NOssUUNW7jjEwDnkEDeeyG1oIGIjIe7Cc8CbZhjMsyafr4
-         Dd6QV4JTceiZIdIzdOHZtnkU/M3nAqw1Lfs94a42LvQFbidf1ROO9+y2UvJNspoc6Nd2
-         2AILZ6KfpnnkGRo5y1cSXeC6DhgknFpPx3GjwLtWdOazGEKPznvWQpcmLsgJmyvY9aDq
-         XasTIIIm3GFkX6/V5Ob+dJ8q9IvoyLNzdBabLy+Q1fpVZMN9ge9tSj5if2YV846WsPE/
-         LK2Q==
+        bh=HrFSDojbDaesV6HtIZlkvVOjVzmaKFDGfU9+ooggeTo=;
+        b=wvHnrrV+iHBiBk55YGEa0ghkA4ON3iG0KnpRaeNYnUc3LWAEL1MhcCp6XyE/oM3Qbi
+         rqDhXLl1963Z71WxHgoMgjEe4Si1drYcO0JCFwmF1Pl3pgDJZsfYxLbo2NT+v9v77i12
+         AhLlZwFaazZgmmP6RaBkoTqvQ6s1O//IsNvp9VyXs5npUaxz9Vhl4qms+vGLJZujN7to
+         2oXi8EVN8PPOfJ9h7Du7gMp+P6govTwuFCEMg0gFkc0NXeHGselD3S0/+cbDjl5UNIcQ
+         HNMh+C4Y3x596IFpNTBeanyi4wO4/PezEeIdb+ly3m+EMvpFLJUfk1i+97YK8gkF+2ZE
+         uGAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284436; x=1794889236;
+        d=1e100.net; s=20260707; t=1794284445; x=1794889245;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0+RTFl5Qa5SW/ve8wTc5MHTqhyuBwC9vc+CWPhIbY0g=;
-        b=cat3kSAQEEsnNuRw9D9jYE0KoOTMFqCMt7Ke3Q1NqJwyObgmXCkeAZqc75dCqWNe93
-         /EuhtXr9zk2mqSHB7OfkiBGwkEk5tnxv7zF1sielCwhQV8Z6dBS+2JmDoyCspgx9AhBm
-         ux4WrJgv58g/JiMhyBkXKasBKpYfxp9F36cQj1KDwvFfhsPYBaop/L7C2xzqjtgnhvOA
-         OMZVxhGbcx6PbIcRNJNhYJmUjL9h/wys1VXMYocEgixQZohg1CueqNSI98mHlH8YaSVO
-         rNRKmXy95p5SxbJr8cWIdg/XtHXEkSf4drHXRwmdYtRPkW+86zTFC0nu4EyTcBk0hyNU
-         mwfg==
-X-Forwarded-Encrypted: i=1; AL+hErGUB/QCdl+m6fwkQRjDdUORKcDmapVWBCMSIu6qv0CSTlBTP7k5cqldKL9yoZuFnYvBM5kjOCdz1rawgq0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VTQJU+X5rbnvrLW2zxuJIYW69H/7fqxn/KLt/vXgS9Znkg2Im
-	e4tsoR9o5f8AKZYF0BUB/rF9i06a0gTnn5JyCHGU3S6nbMUKgVYyVw80
-X-Gm-Gg: AYBFou0ZdryhfR697jQZuhCGGeQYNqOnvH8YXjz0PjyXx1XpTiGfA2N9sJyQkysQud9
-	gz2ei5zqU8NMnbHA8Dy28l5bLzEMT3wiSHNJ9ealQgiqpiQk1TCSb9Hw8YCp7/273kPbvjL/rQr
-	J1ouu5pTh71XlHywhIx4pvvD4S1qMGfSTd/tFKsoQ3blIcMTqs/MHo7NzmkHaNb8XrPXWZuU6vv
-	LmTVY9x/SrrmgKedMYZ8u8YZsP42S1SUygrtlPL3eMS5Q6i7lkv8PjRD0yjZ5TqcNVmZU0TjNkj
-	a6QxCl2lBOltkQS+qrBWFt4ieeCFapNpfumZbmoN9/darxznj+pdqDD4DdsNHD2CBgONtXP4NmL
-	mxGQiA5bU2XLStqZFeYModLM5r7BINJcRO7KlfafAuUoiIniXYfv+XlM5L3Wy+UEqj0sZAuNsrD
-	qSZLAB5ygBX6tJqNhlFtshjUJCIR8Vt+IWOaoGRG/3kgtZdGbbwOnj72PJqGaoZgibbLmTBy1Am
-	2o1aeP8pSHExVVf6WIWwraRlJ6fz6MT0bSLkYA498fIL3BTzEQ9UjMXOdduksAVShVTY3S2dwbW
-	6f69eqEbixbfADFsF6SXPuoInh2CHWyPAeaoQVnC141hd+U=
-X-Received: by 2002:a05:7022:3f0e:b0:1a3:dbb2:478a with SMTP id a92af1059eb24-1b3b600f2e9mr2183556c88.27.1794284436124;
-        Mon, 09 Nov 2026 20:20:36 -0800 (PST)
+        bh=HrFSDojbDaesV6HtIZlkvVOjVzmaKFDGfU9+ooggeTo=;
+        b=rWEvHjHVOe4XlFkESi+ZXvdFs58CfNWMuCH22xFj9cLKoKTAFbee6NtXoT6dC3bYkC
+         GM2w6IPZqdMNpQvY/TtBXHItnysHDSnyZtH3bu1WKUBYnj9D5DVILRLdIA5c0RQEZ4gh
+         cMXFTQYKllI7obQ2+2IdAZN3h/lKzu2WhLqymeR0KNLPyQWsKMr+UQYCGW82mMRqi88u
+         f4QwlUOrZta9NZySWJNYF7qaNEvpJ4jz4RT8aTuSa+cq+l+NGaU565PAB5jf6c1Pm1rr
+         UMlJN710nsFzYxoad7FTEdiZe3qFDARjScWoVToj3NI0gF8lAXx5390nZNSmKMlEfN0C
+         YStg==
+X-Forwarded-Encrypted: i=1; AL+hErHvYeYY2lrhUO6PNvEOTqzN5/Nd7VrdvTdI+FvdMpXmOKwe2/oHI14UQv6xiVMBVKE7hcpaG6YXFKKpQxY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GIw3k6vVsRO42LLigvT1NFg7Vreh2fnswRtNeWb+L93A4tdZi
+	W6jQebPbCb/04Bi9qj6rYN4AadEIycauj8XWX/Sys67bRQOXw0epSGEH
+X-Gm-Gg: AYBFou3hQ9OPgmsOgVRsAUjpM8Tnf/cK+ELCZaECoAzQ/Z3MBNp5XTliw9CYsWfyjO4
+	NUzF6VRQr3Wb8HE4o8u86z2/T3yJruFLiEG00ZCmf54RKp851Nqj+96E/ssFsD2U4wpIZ6REsAk
+	/u/mMcHaDvtGemdjApFlKs8vTNhiJongZ196NO3dsZQA/z9mIkDBRE01deDxqFS1K1lU5jL8O9b
+	tDwoaWGEzLDWSMfwxLii/I7dPn/Uobxs4RkOW6P7fgRL65MCGuRFmXbn7IxfugyzyFENu6pHMQp
+	n3H2rMH4KXMeGWIOF8SczC8gr76i6UAmvnr4xWolcp18cwjYLJ+rS3KvFlpATM5jxeXLeAQnWYD
+	90dZnpgrbyL5wdS4AL0n60mbHrX2vB31qJ7tJEWioSpq6FcJIgwCva6DaeFxGhn8c4wtq13wB7A
+	/rDDmzOSk0XClsTv8luWYjFRywywp9Z83lNt8mTb7grNbf4+HvpPQVSqXvJ6PSH1jhSEjq3SGPp
+	p1BxTb1MBpalIq7dKDGLl7kEwKl/KFr7hNP7EmUW8iPQrJ7TLw60ZMw35Gc6JUC5TOQRcCn0h/a
+	y2Os0OCPwPxm2vcLXVjbirGV/o+fyj5gOqMXh50OxL+2RJk=
+X-Received: by 2002:a05:701b:42cc:10b0:1a4:3fa7:adef with SMTP id a92af1059eb24-1b3b619eeb8mr2108583c88.47.1794284444835;
+        Mon, 09 Nov 2026 20:20:44 -0800 (PST)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.20.27
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.20.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:20:35 -0800 (PST)
+        Mon, 09 Nov 2026 20:20:44 -0800 (PST)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: bhelgaas@google.com,
@@ -104,11 +104,11 @@ Cc: gary@garyguo.net,
 	bjorn3_gh@protonmail.com,
 	benno.lossin@proton.me,
 	alex.gaynor@gmail.com,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v6 13/25] PCI/CMA: Validate Subject Alternative Name in certificates
-Date: Tue, 10 Nov 2026 14:18:20 +1000
-Message-ID: <20261110041832.1730924-14-alistair.francis@wdc.com>
+	Alistair Francis <alistair.francis@wdc.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v6 14/25] lib: rspdm: Support SPDM get_version
+Date: Tue, 10 Nov 2026 14:18:21 +1000
+Message-ID: <20261110041832.1730924-15-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
 References: <20261110041832.1730924-1-alistair.francis@wdc.com>
@@ -123,322 +123,290 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+From: Alistair Francis <alistair.francis@wdc.com>
 
-PCIe r6.1 sec 6.31.3 stipulates requirements for Leaf Certificates
-presented by devices, in particular the presence of a Subject Alternative
-Name which encodes the Vendor ID, Device ID, Device Serial Number, etc.
+Support the GET_VERSION SPDM command.
 
-This prevents a mismatch between the device identity in Config Space and
-the certificate.  A device cannot misappropriate a certificate from a
-different device without also spoofing Config Space.  As a corollary,
-it cannot dupe an arbitrary driver into binding to it.  Only drivers
-which bind to the device identity in the Subject Alternative Name work
-(PCIe r6.1 sec 6.31 "Implementation Note: Overview of Threat Model").
-
-The Subject Alternative Name is signed, hence constitutes a signed copy
-of a Config Space portion.  It's the same concept as web certificates
-which contain a set of domain names in the Subject Alternative Name for
-identity verification.
-
-Parse the Subject Alternative Name using a small ASN.1 module and
-validate its contents.  The theory of operation is explained in a
-comment at the top of the newly inserted code.
-
-This functionality is introduced in a separate commit on top of basic
-CMA-SPDM support to split the code into digestible, reviewable chunks.
-
-The CMA OID added here is taken from the official OID Repository
-(it's not documented in the PCIe Base Spec):
-https://oid-rep.orange-labs.fr/get/2.23.147
-
-Side notes:
-
-* PCIe r6.2 removes the spec language on the Subject Alternative Name.
-  It still "requires the leaf certificate to include the information
-  typically used by system software for device driver binding", but no
-  longer specifies how that information is encoded into the certificate.
-
-  According to the editor of the PCIe Base Spec and the author of the
-  CMA 1.1 ECN (which caused this change), FPGA cards which mutate their
-  device identity at runtime (due to a firmware update) were thought as
-  unable to satisfy the previous spec language.  The Protocol Working
-  Group could not agree on a better solution and therefore dropped the
-  spec language entirely.  They acknowledge that the requirement is now
-  under-spec'd.  Because products already exist which adhere to the
-  Subject Alternative Name requirement per PCIe r6.1 sec 6.31.3, they
-  recommended to "push through" and use it as the de facto standard.
-
-  The FPGA concerns are easily overcome by reauthenticating the device
-  after a firmware update, either via sysfs or pci_cma_reauthenticate()
-  (added by a subsequent commit).
-
-* PCIe r6.1 sec 6.31.3 strongly recommends to verify that "the
-  information provided in the Subject Alternative Name entry is signed
-  by the vendor indicated by the Vendor ID."  In other words, the root
-  certificate on pci_cma_keyring which signs the device's certificate
-  chain must have been created for a particular Vendor ID.
-
-  Unfortunately the spec neglects to define how the Vendor ID shall be
-  encoded into the root certificate.  So the recommendation cannot be
-  implemented at this point and it is thus possible that a vendor signs
-  device certificates of a different vendor.
-
-* Instead of a Subject Alternative Name, Leaf Certificates may include
-  "a Reference Integrity Manifest, e.g., see Trusted Computing Group" or
-  "a pointer to a location where such a Reference Integrity Manifest can
-  be obtained" (PCIe r6.1 sec 6.31.3).
-
-  A Reference Integrity Manifest contains "golden" measurements which
-  can be compared to actual measurements retrieved from a device.
-  It serves a different purpose than the Subject Alternative Name,
-  hence it is unclear why the spec says only either of them is necessary.
-  It is also unclear how a Reference Integrity Manifest shall be encoded
-  into a certificate.
-
-  Hence ignore the Reference Integrity Manifest requirement.
-
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> # except ASN.1
-[ Changed by AF:
- - Fixup a few issues caught by Sashiko
-]
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/pci/Makefile         |   5 +-
- drivers/pci/cma.asn1         |  41 ++++++++++++
- drivers/pci/cma.c            | 123 ++++++++++++++++++++++++++++++++++-
- include/linux/oid_registry.h |   3 +
- 4 files changed, 170 insertions(+), 2 deletions(-)
- create mode 100644 drivers/pci/cma.asn1
+ lib/rspdm/consts.rs    | 17 +++++++-
+ lib/rspdm/lib.rs       | 25 +++++++++++-
+ lib/rspdm/state.rs     | 50 ++++++++++++++++++++++-
+ lib/rspdm/validator.rs | 90 +++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 176 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 16abfd0e17e19..882cbb1083646 100644
---- a/drivers/pci/Makefile
-+++ b/drivers/pci/Makefile
-@@ -41,7 +41,10 @@ obj-$(CONFIG_PCI_NPEM)		+= npem.o
- obj-$(CONFIG_PCIE_TPH)		+= tph.o
- obj-$(CONFIG_CARDBUS)		+= setup-cardbus.o
+diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
+index 6fe4dbdd67204..2470c7ac5e4d0 100644
+--- a/lib/rspdm/consts.rs
++++ b/lib/rspdm/consts.rs
+@@ -7,14 +7,27 @@
+ //! Rust implementation of the DMTF Security Protocol and Data Model (SPDM)
+ //! <https://www.dmtf.org/dsp/DSP0274>
  
--obj-$(CONFIG_PCI_CMA)		+= cma.o
-+obj-$(CONFIG_PCI_CMA)		+= pci-cma.o
-+pci-cma-y			:= cma.o cma.asn1.o
-+$(obj)/cma.o:			$(obj)/cma.asn1.h
-+$(obj)/cma.asn1.o:		$(obj)/cma.asn1.c $(obj)/cma.asn1.h
++use crate::validator::SpdmHeader;
++use core::mem;
++
+ // SPDM versions supported by this implementation
+ pub(crate) const SPDM_VER_10: u8 = 0x10;
++#[expect(dead_code)]
++pub(crate) const SPDM_VER_11: u8 = 0x11;
++#[expect(dead_code)]
++pub(crate) const SPDM_VER_12: u8 = 0x12;
++#[expect(dead_code)]
++pub(crate) const SPDM_VER_13: u8 = 0x13;
++pub(crate) const SPDM_VER_14: u8 = 0x14;
  
- # Endpoint library must be initialized before its users
- obj-$(CONFIG_PCI_ENDPOINT)	+= endpoint/
-diff --git a/drivers/pci/cma.asn1 b/drivers/pci/cma.asn1
-new file mode 100644
-index 0000000000000..bbc998c4e31be
---- /dev/null
-+++ b/drivers/pci/cma.asn1
-@@ -0,0 +1,41 @@
-+-- SPDX-License-Identifier: BSD-3-Clause
-+--
-+-- Component Measurement and Authentication (CMA-SPDM, PCIe r6.1 sec 6.31.3)
-+-- X.509 Subject Alternative Name (RFC 5280 sec 4.2.1.6)
-+--
-+-- Copyright (C) 2008 IETF Trust and the persons identified as authors
-+-- of the code
-+--
-+-- https://www.rfc-editor.org/rfc/rfc5280#section-4.2.1.6
-+--
-+-- The ASN.1 module in RFC 5280 appendix A.1 uses EXPLICIT TAGS whereas the one
-+-- in appendix A.2 uses IMPLICIT TAGS.  The kernel's simplified asn1_compiler.c
-+-- always uses EXPLICIT TAGS, hence this ASN.1 module differs from RFC 5280 in
-+-- that it adds IMPLICIT to definitions from appendix A.2 (such as GeneralName)
-+-- and omits EXPLICIT in those definitions.
-+
-+SubjectAltName ::= GeneralNames
-+
-+GeneralNames ::= SEQUENCE OF GeneralName
-+
-+GeneralName ::= CHOICE {
-+	otherName			[0] IMPLICIT OtherName,
-+	rfc822Name			[1] IMPLICIT IA5String,
-+	dNSName				[2] IMPLICIT IA5String,
-+	x400Address			[3] IMPLICIT SEQUENCE OF ANY,
-+	directoryName			[4] ANY,
-+	ediPartyName			[5] IMPLICIT EDIPartyName,
-+	uniformResourceIdentifier	[6] IMPLICIT IA5String,
-+	iPAddress			[7] IMPLICIT OCTET STRING,
-+	registeredID			[8] IMPLICIT OBJECT IDENTIFIER
-+	}
-+
-+OtherName ::= SEQUENCE {
-+	type-id			OBJECT IDENTIFIER ({ pci_cma_note_oid }),
-+	value			[0] ANY ({ pci_cma_note_san })
-+	}
-+
-+EDIPartyName ::= SEQUENCE {
-+	nameAssigner		[0] ANY OPTIONAL,
-+	partyName		[1] ANY
-+	}
-diff --git a/drivers/pci/cma.c b/drivers/pci/cma.c
-index 3f0c989b52c5d..2c4c35bda4646 100644
---- a/drivers/pci/cma.c
-+++ b/drivers/pci/cma.c
-@@ -12,6 +12,9 @@
- #define dev_fmt(fmt) "CMA: " fmt
+ pub(crate) const SPDM_MIN_VER: u8 = SPDM_VER_10;
++pub(crate) const SPDM_MAX_VER: u8 = SPDM_VER_14;
  
- #include <linux/err.h>
-+#include <keys/x509-parser.h>
-+#include <linux/asn1_decoder.h>
-+#include <linux/oid_registry.h>
- #include <linux/pci.h>
- #include <linux/pci-doe.h>
- #include <linux/pci-tsm.h>
-@@ -20,8 +23,126 @@
- #include <linux/spdm.h>
- #include <linux/tsm.h>
+-#[allow(dead_code)]
+ pub(crate) const SPDM_REQ: u8 = 0x80;
+-#[allow(dead_code)]
+ pub(crate) const SPDM_ERROR: u8 = 0x7f;
  
-+#include "cma.asn1.h"
- #include "pci.h"
++pub(crate) const SPDM_GET_VERSION: u8 = 0x84;
++pub(crate) const SPDM_GET_VERSION_LEN: usize =
++    mem::size_of::<SpdmHeader>() + 2 + (u8::MAX as usize) * mem::size_of::<u16>();
++
+ pub(crate) const SPDM_MIN_DATA_TRANSFER_SIZE: u32 = 42; // SPDM 1.2.0 margin no 226
+diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
+index 7d87d19c9b782..61f0a1ff4a1ca 100644
+--- a/lib/rspdm/lib.rs
++++ b/lib/rspdm/lib.rs
+@@ -244,7 +244,30 @@ fn from(code: SpdmErrorCode) -> Self {
+ /// `state_ptr` must be a valid pointer returned by a previous call to
+ /// `spdm_create()` that has not yet been passed to `spdm_destroy()`.
+ #[export]
+-pub unsafe extern "C" fn spdm_authenticate(_state_ptr: *mut spdm_state) -> c_int {
++pub unsafe extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
++    if state_ptr.is_null() {
++        return -(bindings::EINVAL as c_int);
++    }
++
++    // SAFETY: `state_ptr` was returned from `spdm_create()` which used `into_foreign()`
++    // to create the pointer, and it remains valid until `spdm_destroy()` is called.
++    // We only borrow here (rather than `from_foreign()`) so that ownership stays
++    // with the foreign (C) caller.
++    // The exclusive `&mut SpdmState` lives entirely inside the lock guard, so
++    // concurrent FFI callers serialize on the mutex and can never form
++    // aliased `&mut SpdmState` references.
++    let mutex = unsafe {
++        <Pin<KBox<Mutex<SpdmState<CTransport>>>> as ForeignOwnable>::borrow(
++            state_ptr.cast::<c_void>(),
++        )
++    };
++
++    let mut state = mutex.lock();
++
++    if let Err(e) = state.get_version() {
++        return e.to_errno() as c_int;
++    }
++
+     -(EPROTONOSUPPORT as i32)
+ }
  
-+/*
-+ * The spdm_requester.c library calls pci_cma_validate() to check requirements
-+ * for Leaf Certificates per PCIe r6.1 sec 6.31.3.
-+ *
-+ * pci_cma_validate() parses the Subject Alternative Name using the ASN.1
-+ * module cma.asn1, which calls pci_cma_note_oid() and pci_cma_note_san()
-+ * to compare an OtherName against the expected name.
-+ *
-+ * The expected name is constructed beforehand by pci_cma_construct_san().
-+ *
-+ * PCIe r6.2 drops the Subject Alternative Name spec language, even though
-+ * it continues to require "the leaf certificate to include the information
-+ * typically used by system software for device driver binding".  Use the
-+ * Subject Alternative Name per PCIe r6.1 for lack of a replacement and
-+ * because it is the de facto standard among existing products.
-+ */
-+#define CMA_NAME_MAX sizeof("Vendor=1234:Device=1234:CC=123456:"	  \
-+			    "REV=12:SSVID=1234:SSID=1234:1234567890123456")
-+
-+struct pci_cma_x509_context {
-+	struct pci_dev *pdev;
-+	u8 slot;
-+	enum OID last_oid;
-+	char expected_name[CMA_NAME_MAX];
-+	unsigned int expected_len;
-+	unsigned int found:1;
-+};
-+
-+int pci_cma_note_oid(void *context, size_t hdrlen, unsigned char tag,
-+		     const void *value, size_t vlen)
-+{
-+	struct pci_cma_x509_context *ctx = context;
-+
-+	ctx->last_oid = look_up_OID(value, vlen);
-+
-+	return 0;
-+}
-+
-+int pci_cma_note_san(void *context, size_t hdrlen, unsigned char tag,
-+		     const void *value, size_t vlen)
-+{
-+	struct pci_cma_x509_context *ctx = context;
-+
-+	/* These aren't the drOIDs we're looking for. */
-+	if (ctx->last_oid != OID_CMA)
-+		return 0;
-+
-+	if (tag != ASN1_UTF8STR ||
-+	    vlen != ctx->expected_len ||
-+	    memcmp(value, ctx->expected_name, vlen) != 0) {
-+		pci_err(ctx->pdev, "Leaf certificate of slot %u "
-+			"has invalid Subject Alternative Name\n", ctx->slot);
-+		return -EINVAL;
-+	}
-+
-+	ctx->found = true;
-+
-+	return 0;
-+}
-+
-+static unsigned int pci_cma_construct_san(struct pci_dev *pdev, char *name)
-+{
-+	unsigned int len;
-+	u64 serial;
-+
-+	len = scnprintf(name, CMA_NAME_MAX,
-+			"Vendor=%04hx:Device=%04hx:CC=%06x:REV=%02hhx",
-+			pdev->vendor, pdev->device, pdev->class, pdev->revision);
-+
-+	if (pdev->hdr_type == PCI_HEADER_TYPE_NORMAL)
-+		len += scnprintf(name + len, CMA_NAME_MAX - len,
-+				 ":SSVID=%04hx:SSID=%04hx",
-+				 pdev->subsystem_vendor, pdev->subsystem_device);
-+
-+	serial = pci_get_dsn(pdev);
-+	if (serial)
-+		len += scnprintf(name + len, CMA_NAME_MAX - len,
-+				 ":%016llx", serial);
-+
-+	return len;
-+}
-+
-+static int pci_cma_validate(struct device *dev, u8 slot,
-+			    const struct x509_certificate *leaf_cert)
-+{
-+	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct pci_cma_x509_context ctx;
-+	int ret;
-+
-+	if (!leaf_cert->raw_san) {
-+		pci_err(pdev, "Leaf certificate of slot %u "
-+			"has no Subject Alternative Name\n", slot);
-+		return -EINVAL;
-+	}
-+
-+	ctx.pdev = pdev;
-+	ctx.slot = slot;
-+	ctx.found = false;
-+	ctx.expected_len = pci_cma_construct_san(pdev, ctx.expected_name);
-+
-+	ret = asn1_ber_decoder(&cma_decoder, &ctx, leaf_cert->raw_san,
-+			       leaf_cert->raw_san_size);
-+	if (ret == -EBADMSG || ret == -EMSGSIZE)
-+		pci_err(pdev, "Leaf certificate of slot %u "
-+			"has malformed Subject Alternative Name\n", slot);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!ctx.found) {
-+		pci_err(pdev, "Leaf certificate of slot %u "
-+			"has no OtherName with CMA OID\n", slot);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int pci_doe_transport(void *priv, struct device *dev,
- 			     const void *request, size_t request_sz,
- 			     void *response, size_t response_sz)
-@@ -64,7 +185,7 @@ static struct pci_tsm *pci_cma_tsm_probe(struct tsm_dev *tsm_dev,
- 	}
+diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
+index 4f87441e84a67..e06578d204e74 100644
+--- a/lib/rspdm/state.rs
++++ b/lib/rspdm/state.rs
+@@ -18,10 +18,14 @@
  
- 	cma->spdm = spdm_create(&pdev->dev, pci_doe_transport, cma->host.doe_mb,
--				PCI_DOE_MAX_PAYLOAD, NULL);
-+				PCI_DOE_MAX_PAYLOAD, pci_cma_validate);
- 	if (!cma->spdm) {
- 		pci_tsm_host_destructor(&cma->host);
- 		kfree(cma);
-diff --git a/include/linux/oid_registry.h b/include/linux/oid_registry.h
-index ebce402854de4..113f4e802ec40 100644
---- a/include/linux/oid_registry.h
-+++ b/include/linux/oid_registry.h
-@@ -150,6 +150,9 @@ enum OID {
- 	OID_id_ml_dsa_65,			/* 2.16.840.1.101.3.4.3.18 */
- 	OID_id_ml_dsa_87,			/* 2.16.840.1.101.3.4.3.19 */
- 
-+	/* PCI */
-+	OID_CMA,			/* 2.23.147 */
-+
- 	OID__NR
+ use crate::consts::{
+     SPDM_ERROR,
++    SPDM_GET_VERSION_LEN,
++    SPDM_MAX_VER,
+     SPDM_MIN_VER,
+     SPDM_REQ, //
  };
+ use crate::validator::{
++    GetVersionReq,
++    GetVersionRsp,
+     SpdmErrorRsp,
+     SpdmHeader, //
+ };
+@@ -99,7 +103,6 @@ pub(crate) fn new(
+     ///
+     /// The data in `request_buf` is sent to the device and the response
+     /// is returned as untrusted data to be validated by the caller.
+-    #[allow(dead_code)]
+     pub(crate) fn spdm_exchange(
+         &self,
+         request_buf: &[u8],
+@@ -145,4 +148,49 @@ pub(crate) fn spdm_exchange(
  
+         Ok(Untrusted::new(response_buf))
+     }
++
++    /// Negotiate a supported SPDM version and store the information
++    /// in the `SpdmState`.
++    pub(crate) fn get_version(&mut self) -> Result<(), Error> {
++        let mut request = GetVersionReq::default();
++        request.header.version = SPDM_MIN_VER;
++        self.version = SPDM_MIN_VER;
++
++        // Reset all negotiated session state as we are re-authenticating
++        self.data_transfer_sz = self.transport_sz;
++
++        let mut request_buf = request.to_bytes()?;
++
++        let response_vec: KVec<u8> = KVec::from_elem(0u8, SPDM_GET_VERSION_LEN, GFP_KERNEL)?;
++
++        let response: GetVersionRsp = self
++            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
++            .validate(&*self)?;
++
++        let mut foundver = false;
++        for &entry in response.version_number_entries.iter() {
++            let alpha_version = (entry & 0xF) as u8;
++            let version = (entry >> 8) as u8;
++
++            if alpha_version != 0 {
++                dev_warn!(
++                    &self.dev,
++                    "Ignoring alpha version {alpha_version} of {version:#x}\n"
++                );
++                continue;
++            }
++
++            if version >= self.version && version <= SPDM_MAX_VER {
++                self.version = version;
++                foundver = true;
++            }
++        }
++
++        if !foundver {
++            dev_err!(&self.dev, "No common supported version\n");
++            return Err(EPROTO);
++        }
++
++        Ok(())
++    }
+ }
+diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
+index 2898b4c5ee412..234398734a536 100644
+--- a/lib/rspdm/validator.rs
++++ b/lib/rspdm/validator.rs
+@@ -7,11 +7,16 @@
+ //! Rust implementation of the DMTF Security Protocol and Data Model (SPDM)
+ //! <https://www.dmtf.org/dsp/DSP0274>
+ 
++use crate::consts::{
++    SPDM_GET_VERSION,
++    SPDM_MIN_VER, //
++};
+ use crate::{
+     SpdmErrorCode,
+     SpdmState,
+     Transport, //
+ };
++use core::mem;
+ use kernel::prelude::*;
+ use kernel::{
+     error::Error,
+@@ -31,7 +36,6 @@ pub(crate) struct SpdmHeader {
+ }
+ 
+ impl SpdmHeader {
+-    #[expect(dead_code)]
+     pub(crate) fn new(code: u8) -> Self {
+         SpdmHeader {
+             version: 0,
+@@ -41,7 +45,6 @@ pub(crate) fn new(code: u8) -> Self {
+         }
+     }
+ 
+-    #[expect(dead_code)]
+     pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
+         let mut out = KVec::new();
+ 
+@@ -90,3 +93,86 @@ fn validate(unvalidated: &[u8], _context: &'c SpdmState<T>) -> Result<Self, Self
+         })
+     }
+ }
++
++pub(crate) struct GetVersionReq {
++    pub(crate) header: SpdmHeader,
++}
++
++impl GetVersionReq {
++    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
++        self.header.to_bytes()
++    }
++}
++
++impl Default for GetVersionReq {
++    fn default() -> Self {
++        GetVersionReq {
++            header: SpdmHeader::new(SPDM_GET_VERSION),
++        }
++    }
++}
++
++#[expect(dead_code)]
++pub(crate) struct GetVersionRsp {
++    pub(crate) header: SpdmHeader,
++
++    pub(crate) version_number_entry_count: u8,
++    pub(crate) version_number_entries: KVec<u16>,
++
++    /// The actual length of the SPDM message. `raw_bytes` might be longer
++    /// as it includes transport specific padding.
++    length: usize,
++
++    /// Entire response, used for the transcript hash.
++    raw_bytes: KVec<u8>,
++}
++
++impl GetVersionRsp {
++    #[expect(dead_code)]
++    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
++        self.raw_bytes.get(..self.length).ok_or(EPROTO)
++    }
++}
++
++impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<T>> for GetVersionRsp {
++    type Err = Error;
++
++    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<T>) -> Result<Self, Self::Err> {
++        let header: SpdmHeader =
++            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
++
++        if header.code != SPDM_GET_VERSION - 0x80 {
++            return Err(EPROTO);
++        }
++
++        if header.version != SPDM_MIN_VER {
++            return Err(EPROTO);
++        }
++
++        let version_number_entry_count = *unvalidated.get(5).ok_or(EPROTO)?;
++
++        // Entries follow header (4) + reserved (1) + count (1) = 6 bytes.
++        let mut offset = mem::size_of::<SpdmHeader>() + 2;
++
++        let mut version_number_entries = KVec::new();
++        for _ in 0..version_number_entry_count {
++            let entry = u16::from_le_bytes(
++                unvalidated
++                    .get(offset..offset + mem::size_of::<u16>())
++                    .ok_or(EPROTO)?
++                    .try_into()
++                    .map_err(|_| EPROTO)?,
++            );
++            version_number_entries.push(entry, GFP_KERNEL)?;
++            offset += mem::size_of::<u16>();
++        }
++
++        Ok(GetVersionRsp {
++            header,
++            version_number_entry_count,
++            version_number_entries,
++            length: offset,
++            raw_bytes: unvalidated,
++        })
++    }
++}
 -- 
 2.56.0
 
