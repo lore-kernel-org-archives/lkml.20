@@ -1,111 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322996;
-	b=jCt+ZYs1AGD6m2CbCZAl1Az9Mpokx0v/VZta13jyfjNI4b58OHRXgmHKYGFPKBhlFlQI
-	 j0hWD8monGoDycw8O0pBLJ4fgNBSJuRf6TMj/MRg/HTRK9+rN0fJbeER2xnvTMPhFkoEU
-	 r5bwuj5UG+TzHqJ/0R7nyPh4huHq3MTdfcR4ga7iIcoIel4pzCeR6mSxsGbJnG4cTMQDS
-	 t6sXNAyo0h0Qtegbu1rq0Mv0mGkOppHfLpoiiDzBhM3qL/diudpBEm2LtEBueuuNBrKay
-	 +c9nnowWVINMT+2euPbo2un+ctAGuGKA5joZwgdl1ss1rgDP4xKK2Pl7ZM5eR4UxrFg==
+	t=1794323007;
+	b=1lsLVUvRp1YJpo902oiglmjG3qI6BHqU+xiiMvoNBGL49/bOfNTuLCDh4XZDvQB+8mLm
+	 BFE9l8o2bGNJor+bp1DhQ4Ir39g+l7p2i2eAZtgqIaSTc3WRw+i/Bukb9xK2MYGv9mslK
+	 S+mRzjlfwkPQiULhDs2CpqL8vUgT1u4vIJIma5gbe2p3pbcBGf4RG7vQMBGhNlRdGbJXu
+	 6+I1tnV7tL+0Ql5vX58loRrw0kX1kS/Hh/4gCsTm6Tr12N3UiZ/TZEd1TgTEAMt2su2RT
+	 luWNqYvUM/Ci5lqMSr7JC3/FPqvV/a7eAiEReC/jM5xAufO+f5XbXA24Z3mwQvhVaUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322996;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
-	b=obAvA78PWMFbzp55rHGwrVI62qQFlu352CWwFrCTHCAzf5MOueRP5SWsy5zcIcX4V22Y
-	 W4DUeSZ1TsGkdVb2RdKd3cwPBW1jdOkMQQjwUrsec3fBOSLC/FNAV5f0z8zJVmiOo5NXw
-	 UhFC792IKtO07RrooPn/pc/Ctvsp6Gq+CRXYJBQMxlFfC/YelXrVBcRnS7VHZOilRkfqK
-	 7Ppc8wy73wUKM31p+/5Y8fhnOFiafIw9UJUIcOyFc660UmRt2JPK5hW7hyI3VrRXEIrOW
-	 m8mECnO862uNqmrGq1LYvLK+XztTuWd1woViUkwWBCcX3aE95IRrLMlYlgvaDqUgDiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323007;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=8IfQhFatm69/QzUFwynlM3k1WKbnUbQP37INwDNgvZQ=;
+	b=iNPt9PGLK8oaes1Rzc32MULKLDEhxarSLzZ8oOtglpCURzW/w24gwPcynU5V0Kk9WOX2
+	 ezMU53WK1pSq8ocOpW3tQGcHc0XC+ma5A/B+qt9tBeHyUmIak8Yw1BOrJRPxZjo2Tsp4i
+	 wCpihitMnqi8/XRni77K/Z12mVeaI/fyr+JIehd56sjRIFSuii7fDQYplkK7pNqKHJ/vB
+	 OZ+mnb5A3bNwlVti6yGUypqEpe7wSkfS4iWFfyjQlf/gUx4hsp+Nj62jJZ/BoIxLK4sqn
+	 uAGl6htNxqtM2qdyKMNZxCBBwbbGi5sIstn7lRFlhfXYbfeZR9tfTR8XojBfQfIvzaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF8YbUT4;
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FJNalWXa;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E56A606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E56A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937C3606A338;
+	Tue, 10 Nov 2026 15:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 937C3606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF8YbUT4
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so8397885ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:03:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794322995; x=1794927795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
-        b=GF8YbUT4kkYPeGMf4netEe+aEvR7wOD4d0XiCn2vAK+eVVkfDAUESiuA92dWI4ViOQ
-         4tdv8PMLxDBmA+pb83MaRtAaAIufDA0Iq3Li3QW4S6cjHDH+NBlE1V5V4u0s7EAxrK6n
-         u5vRo1OHva4CnjNLL+nNM5UFD++wTmW6Iwrmif0XGtIF2h7wLbhF5K3EItq1mFbu/6Fr
-         npIDHLuRbxvV81CKFRQJEp32rs6/WYgW9n0LPoaLwBMM161ShcrPVAxnt2cG355NsxM6
-         Ze5ZuXAaGxKOC1T5bJL/iv7ripDYfJS5aBjr/vSUyIFmTS49c36axWanAAmcU35Wot0s
-         e6Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322995; x=1794927795;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rW7wY2dSAmljd85v6jjosIWS8OLneAfUfN99gDJ44Us=;
-        b=LQhJkY08WnAy3X1IyeRRlJqnbbLJ/wzQ59bvr1rigDw0fp6cjaIm2uP0D4l9t3fMXj
-         Y9oraOQVyKZMdC2FjR2+rASz700BeNuYyiTmJo7DiJ+2BgoIIRjCre2fYk7CEmFyWaTU
-         MeN0kcHo0BA7rr3ajfuf9VHTdStH+7xGvN4Q8oM6mKIjXtYhr63Lc3L3Fm5Ehv0pOK/X
-         5pmLD+ratkGUB4JokvxPutf0hcFucM/uk4zdsT0wHF1HAEPffnOf56nADKFhQdFasiy5
-         4C6vQ/EeiFkbYt21AKOrZJX1N5RhgmvsRbkTpSWOQu+8LCSfd7nd6Ab1HR0BSxa7nap/
-         FxbQ==
-X-Forwarded-Encrypted: i=1; AL+hErGEjRDFpSkkDwjofane8jco+2RblJCelXTG/j/qZUN4xevu4/5Lgk7drzgvzmq0w0h26lPXDSs6OZ2WUgE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qu+M/jrmoCst3vBcwgi9F4tz+aMatvVXzI5Gu56NNVltR6h3K
-	5csLiqCzk3BDMO22EhvKO46T7HSxOhMn91+KsFTq0WcAiYOGdY1gjFYTHzvYrqzz
-X-Gm-Gg: AYBFou08UyNmvyyUln7GtNXeVJo9/s2OJY+8Jk55NbZ/iq372h+d2FWZsi3S70d2/S9
-	5+MPf7b5JglZiOm21iFuEZ0t7mZ4X02xC6IzOhmnzN12rvZEjTc0hcx9pagb4reYc558afGjs8P
-	XDgisLhKtuUzwbDuCTz74yjEaV6t1rbPyoO4MQ8mOajy2Ay7YqPcyhhs3bkySTyRXakmpctZrQz
-	Q9q6RoMBIyuK68CL/6p2BLdTbSP/hzfO14FpbJ/fN3WmKJnCCqVS6bt0L6k4tQUXs+jTe5wQSLy
-	JyzHbv/NIVwlhJAXT2lDU4KYMHkv8QRCC5FFFhyVDtptSFB0ukYR3pH1ZyQTSQvqr42g9u282nt
-	6x4yRNXcgnS0ePmzG0kLDzxDn8GpIidXDTP4f7f7lhnyOCZV1+MuHURJ+EZg4TVm5kZyp8D9Is0
-	CfdELmhHR8kHdlgNjR+uCj7UrdDI77KMbPNITDWeZM3LGaZP6P14OnWH9azigI7f6m+Md28sipK
-	x+zbjFVz+CqmH/Kgr9Gfhq75QpJxS2Y7vy3hXoWitM5PZD5APAzenLjkcN9PFgo0bYl6pipQ1qE
-	hSxhitgEOz1mkpUcqAYrKzunc1geGZOq1zxDRNAIOg7W+VeOB5valueLYxN6T5Y=
-X-Received: by 2002:a17:902:f644:b0:2e2:f379:82b9 with SMTP id d9443c01a7336-2edb924c692mr24302405ad.61.1794316877150;
-        Tue, 10 Nov 2026 05:21:17 -0800 (PST)
-Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4a31esm8861065ad.22.2026.11.10.05.21.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:21:16 -0800 (PST)
-From: Jinjie Ruan <ruanjinjie01@gmail.com>
-To: babu.moger@amd.com,
-	ben.horgan@arm.com,
-	bp@alien8.de,
-	corbet@lwn.net,
-	dave.hansen@linux.intel.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	gshan@redhat.com,
-	hpa@zytor.com,
-	james.morse@arm.com,
-	jic23@kernel.org,
-	mingo@redhat.com,
-	rdunlap@infradead.org,
-	reinette.chatre@intel.com,
-	skhan@linuxfoundation.org,
-	tan.shaopeng@fujitsu.com,
-	tglx@kernel.org,
-	tony.luck@intel.com,
-	zengheng4@huawei.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: ruanjinjie@huawei.com
-Subject: [PATCH v5 0/7] fs/resctrl: Fix some resctl bugs related to mpam
-Date: Tue, 10 Nov 2026 21:20:47 +0800
-Message-ID: <20261110132054.3702-1-ruanjinjie01@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FJNalWXa
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8zW1PKtz4xPS3;
+	Tue, 10 Nov 2026 23:03:19 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794322999;
+	bh=IBidnU3G++uWwfv2iMzuGg55NnOYFg7OCGfTXFLXIjY=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=FJNalWXaS5WB708ZczLwpF4u2QcRYHnKAjt+JHENSuf7TdbOmKU+wyZDarmXkw54Q
+	 oOmWZHK2mh0DSpZqE8Xf75W+GmTYJBglQ+aJZytRN1y+s2TUoJLqBzK0z3A6KNZ1ZF
+	 oR2Ei/Zm9sIfY0I7lreVzFk0HmSXOxVEDoG6nm/foJjrVleYy6pLGZkzJY2BT3T4kw
+	 SCl4YDsvfOoyyuBW8EZiyVlGC8NfYKb1/cIRlY2I3zd1cJxtWmjKv0dsLDp858ucrn
+	 0murj3y+j3konWnqR/DD1S0PAYJL57t5j57T5kcNpVSEhmMc867GtI4e2o24f238gc
+	 2SeqOA3/ePzpw==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6AAF3DJO011153;
+	Tue, 10 Nov 2026 23:03:13 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 10 Nov 2026 23:03:16 +0800 (CST)
+X-Zmail-TransId: 2afc6af332343da-01a1e
+X-Mailer: Zmail v1.0
+Message-ID: <20261110230316687z-VG9wgpFwmzFNKVnMGKY@zte.com.cn>
+In-Reply-To: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn>
+References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn
+Date: Tue, 10 Nov 2026 23:03:16 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,72 +72,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
+        <paul.ely@broadcom.com>, <kch@nvidia.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDYvNl0gbnZtZXQ6IHJvbGwgYmFjayBxdWV1ZSBiaW5kaW5ncyBvbiBjb25uZWN0aW9uIGZhaWx1cmU=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6AAF3DJO011153
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Tue, 10 Nov 2026 23:03:19 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF33237.000/4jP8zW1PKtz4xPS3
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Fix resctrl RMID allocation to report a retryable -EBUSY only when
-the target CLOSID actually has RMIDs in limbo.
+nvmet_install_queue() publishes the SQ controller pointer before
+claiming the CQ. If the CQ is already connected, it leaves the SQ
+pointer and the controller reference taken for it behind on failure.
 
-Split the domain-offline path out so it releases busy RMIDs without
-allocating a monitor context it never uses.
+An install_queue() callback failure also leaves the CQ bound after
+clearing the SQ pointer. The reference taken in nvmet_install_queue()
+is in addition to the one the caller already holds: the caller's put
+releases the reference acquired before the call, while this one belongs
+to the CQ binding. It is not released on this path, so the controller
+stays alive and a Connect retry on the same queue keeps finding the
+stale binding.
 
-Also unmount resctrl with the CDP state it was mounted with to fix
-another bug with mpam cdp.
+Clear the tentative SQ binding and release the extra reference on a CQ
+conflict. On a transport installation failure, destroy the CQ binding
+as well, so its controller table entry and reference are released.
 
-And do not allow monitor group move when the RMID index changes.
+Link: https://lore.kernel.org/all/20261106015842.3534898-6-kanie@linux.alibaba.com/
+Fixes: bb78836b3a7c ("nvmet: fabrics: add CQ init and destroy")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+ drivers/nvme/target/fabrics-cmd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-These fixes are split out of the v10 Narrow-PARTID series below.
-        https://lore.kernel.org/all/20261020134239.3921377-1-ruanjinjie@huawei.com/
-
-Changes in v5:
-- Update and split the patch as Reinette and Ben suggested.
-- Adjust the commit message.
-- Add Reviewed-by.
-- Link to v4:
-  - https://lore.kernel.org/all/20261105070934.2258613-1-ruanjinjie@huawei.com/
-  - https://lore.kernel.org/all/20261105123524.2282090-1-ruanjinjie@huawei.com/
-
-Changes in v4:
-- Fix the unmount resctrl bug as Reinette suggested.
-- Adjust the commit message.
-- Add Reviewed-bys.
-- Link to v3:
-  - https://lore.kernel.org/all/20261031063634.1678345-1-ruanjinjie@huawei.com/
-  - https://lore.kernel.org/all/20261031094616.1691026-1-ruanjinjie@huawei.com/
-
-Changes in v3:
-- Add Reviewed-by.
-- Local varibles uses reverse Christmas tree style.
-- Update the commit message as Reinette suggested.
-- Link to v2: https://lore.kernel.org/all/20261030092144.1233551-1-ruanjinjie@huawei.com/
-
-Changes in v2
-- Update the commit message as Reinette suggested.
-- Link to v1: https://lore.kernel.org/all/20261029081513.924019-1-ruanjinjie@huawei.com/
-
-Jinjie Ruan (6):
-  fs/resctrl: Report a temporary RMID shortage per CLOSID
-  fs/resctrl: Do not allocate a monitor context when releasing limbo
-    RMIDs
-  fs/resctrl: Clear the CDP state after the cleanup
-  fs/resctrl: Stop the limbo handler while resctrl is unmounted
-  fs/resctrl: Release the limbo RMIDs when the CDP state changes
-  fs/resctrl: Add info/moveable_mon_group
-
-Peter Newman (1):
-  fs/resctrl: Disallow monitor group move when the RMID index changes
-
- Documentation/filesystems/resctrl.rst |  15 ++-
- arch/x86/include/asm/resctrl.h        |   6 +
- drivers/resctrl/mpam_resctrl.c        |   9 ++
- fs/resctrl/internal.h                 |   3 +-
- fs/resctrl/monitor.c                  | 151 ++++++++++++++++++++------
- fs/resctrl/rdtgroup.c                 |  50 ++++++++-
- include/linux/arm_mpam.h              |   1 +
- 7 files changed, 196 insertions(+), 39 deletions(-)
-
+diff --git a/drivers/nvme/target/fabrics-cmd.c b/drivers/nvme/target/fabrics-cmd.c
+index fc626c2fd2c9..6f0fc695e649 100644
+--- a/drivers/nvme/target/fabrics-cmd.c
++++ b/drivers/nvme/target/fabrics-cmd.c
+@@ -216,6 +216,8 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
+ 	if (old) {
+ 		pr_warn("queue already connected!\n");
+ 		req->error_loc = offsetof(struct nvmf_connect_command, opcode);
++		req->sq->ctrl = NULL;
++		nvmet_ctrl_put(ctrl);
+ 		return NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
+ 	}
+ 
+@@ -242,6 +244,7 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
+ 
+ err:
+ 	req->sq->ctrl = NULL;
++	nvmet_cq_destroy(req->cq);
+ 	return ret;
+ }
+ 
 -- 
-2.43.0
-
+2.27.0
