@@ -1,140 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794304862;
-	b=qQrM+MgTrWoVk32KIXjHytFpX6Rqh/63AfBsKzIvOzBwSAG3DmD7l50LDTXuxdNUipfw
-	 BNSSgDh5z+Tm4KF+LLBYw8WKJ3dfAl5QilpBhc3Sc8FzBwRp1UgzJrL1DMtZyykkrzxMs
-	 eOXWU/eyu7UNYdujZkQLbG0HVeM9ilhSZUve2BKuUYyxEYCDXuA2nNy4vpqAH4+ulyWF4
-	 i8BDU6jLeVyXPsP36B844qik3d3DmA05w3DSoDsmaQCXUGXjgsgeQBzqaWJbNyFNkxwji
-	 9A9pS1BX70PCikQZ2YI7atMQTf/wFQPgRq2OVOdsCpKwHn9SxMP6fnX0h93fP0IeX0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304862;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Cc:Subject:To:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
-	b=3XaKj4TuNWq3RsPij/zLG8sPoxbewT0Rg9la6svj3L8wuptv+zZrwBrwINEf9QU5ndkL
-	 xAHaRZBV1BiHOAqWHf9PUx9PqHCiePD9ZgTtPFjQllO64A2KuYL3A9DG4u49mow4QhOVY
-	 vSOyBeEwcp6QoaaELj/q05Zof/OJhvtJIGZ8n1LL6qdvmj/0n5yt5eG3/6JiTFQJDsnu1
-	 fYLQ3JQivDo56OZJ098ozPetqAqRCO+Va4YOxCyVZ9GQUVonnJ3RrfKz/iy6JKbH7fhZ1
-	 U8t8G0I6bA+yoZU0z23qIfI9sVAEV6CENWY4lm4CZBRajpHY3UyF8rEEoYfKZ+GdyIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=citrix.com;
-	spf=pass smtp.mailfrom=citrix.com;
-	dkim=pass header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=OM8KmlSa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794304866;
+	b=MK8Gk4T0SVGBT0LgC98PBLPXikQqQqQ2DENsIL//mQeoxrZ1Us3sQ/ITH2D4K//i276c
+	 mWF7YDHdg2PnsF3WAHtpBBOOMVLZGblepmt6UwlrjlRO8E2aCHAajb5qQWjJOSZQqOAIP
+	 qmkgnjF9cTe4zS0jBxKjWr89R5vTAJQSPfmhI8N/DRx+wiegzSl8heYwlVkWkmq1MU2ik
+	 gLtDOxHNzCXAN8K6VvsUYW+onml4monn7eklo+IdAYMh4MNRKUZ29d4gBQea9teIrLY4Z
+	 cyFZQM3iCmZWNsL7descoLwu5AjrFSRCabYP9zzt4osNQEQPF+iZ3aDLXH9J/SLt5Cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304866;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=InjrUa8PtgxebaoPU5gAdUxBP+Q7iA9KZue8Z0bePJ0=;
+	b=VyPTafVDwLDAfqKTmG5Ejl9xxU2skaLCaQdwnvprhf+NOhhHRoOmXWPQBdZui5tQMkBB
+	 TCrJjMAbdt/0rmffqdEGOhyQDUkjL8zR/HQR3YTnHdNOEZAryNhsg4Z+aK21kT+641JRd
+	 tr4DvF5DYZYX2+yfOMOK0tnCYomraetbnLZg+KXcp18GDB4kZR156eS1h9+fOUnUna9b8
+	 hJTLJWX9yQpzuLtRHOj8zTT9NGCaFo5p/pKFrLeVSE9GnB6Q8payGX3K1LTcX4mflM5LL
+	 9tG6J+oNEHxZksgqvWJn1fRutyP1kKNrQ9P3b1IlU17++rSxb6jrub+DRg1ve0pJ+Cg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+hfUJO7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F29606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F29606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F7160A2614
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=OM8KmlSa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/9jVqC35Vh94RZtA50zXUyrGR9vsB1QKqxtnTI/vMJNywUrX18t3GKf2Ll6o2VyBfujN+NqmyzVqYebUWE2yWE04ffnJ1KZNhAd3tiTHeQMtrc/uRCcTgPj7P0r5rtLJrxtzZVdaH4HNITT4d9pa/cppRiaQZxXTB8dPjOHGTrFRqQ5wMCWMfA84WMrZRpJBldzWHqQNm5sPRdDNz64BEKMY4UoDCdQd2xs5ZEHpzldC3rSIspao83/BCgLPx6PFEdKbJj3XB/bp+tyfxxtf2SeZY7PFvOWN81afsyw4NY9terXaBvxMQM02Jd1AuSCnUYTXqXCRsvSUFANNZyh7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
- b=MT2Yta0I99Wtljw/ARfB42k66ok7cPhYznbJcKQAJ/gLj8cSxVkgI204lEwE8Q5yQPL8Nl/XxwBA1Oj7B6jsSyS7ydmHR8hkpD3mhmDkk5BAeyCbqXVh3M2Qo7+IvKvFe4VnvfcyZNxkd4xp+xbB3xXcD9hUBgWnwgb5Z6UZR7qj3E42lQMBeHHvm2ndkjV4erDEWYh4MLXATZpWHsbrlowAh6nIlsRoMut+kF9ATKdtlGMKyeZtFaD/iRpsc/zFtVTXqoOdRgKogkaSwxzuVkxE4Gxm1Ub6m1Id8reiToc+e+3pQ/eksAb4Eo4eOFgEdKx/TTd+GMZ+0pFCbhlukQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ApQY+rvwxNNsWoZ6feCYer0DIPLTuIFvHJFEsF/6bfI=;
- b=OM8KmlSa7r40QsNV1mR9Tg+yEO+3QmX+Al5Mn0LE/NhldAbvsE3pDfIOxBZgQFC3R7ThV1nmZwxLlLVEdw0kAvZi1+tfIVYH3W/uoM62Ug9ACC7Cm0vmnd/b+zyjDT7o1fpDFbXnLp+f07QbU77OkPb6w6k6jpmULhBuzxbbZdc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by BY5PR03MB5348.namprd03.prod.outlook.com (2603:10b6:a03:21b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 09:59:58 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 09:59:58 +0000
-Message-ID: <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
-Date: Tue, 10 Nov 2026 09:59:53 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/2] xen: don't allow gnttab_dma_[alloc|free]_pages()
- in PV guest
-To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org
-References: <20261110095605.369848-1-jgross@suse.com>
- <20261110095605.369848-2-jgross@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20261110095605.369848-2-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PAZP264CA0090.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:1fa::17) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+hfUJO7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136771F008A3
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794304866;
+	bh=InjrUa8PtgxebaoPU5gAdUxBP+Q7iA9KZue8Z0bePJ0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=K+hfUJO7sVbzoCoh+i1LFy+ufPpUI+d5dAtrssBx/TGKR0PeddorTjht1Ef9+5Mqz
+	 EBuXqLBI4C0xb/2o0t4XecOnWq43i/1z9OInIaDmW3Sot4Z7VWjR1KCPSWDBYEjnS+
+	 R6B5EjC88Ae9Nvq9gBtlEtQCQuu92xn1eJzaOCymhRBNVOcFDFrQTWkVapHl2WoEci
+	 SCxsi6tBkIyI/L7zbE/D2crP9b9TAZ7TKrjL79Yz/cT0F4yFLSHpFpkkKX3mn07f/0
+	 s+Y07IB4qT9OjKrj/dOjXFacjsuBoF7LG7Zkux4d7uzzt1hHyIVMs5cE9SABePpBbO
+	 yReDGAkO9gfnQ==
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b56221d361so2209928a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:01:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHz1TIWrkVNAdme63rNg1cbLkeIahKALdiR00KB5qBQPM9nPwKnqyyifQXH/ZWj1gZyzbobL9dkot9cMyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RnkleAOaRkZQ+ltEN5Z9tS0zwgXvVd9rg9vsbxIWvl5fc+7Y3
+	N752Nk2hRA7/jaRdBh2DUdMNCd7BzqSF/XloqxgLmyYhgH8cdXrDdasuAT2uQZKIPh3pCGr+wFh
+	8ATaxUUhrftDWSAcqrvNpvdmz8mGBah0=
+X-Received: by 2002:a17:907:ea89:b0:c4d:31cd:9dec with SMTP id
+ a640c23a62f3a-c50495a3646mr156885666b.30.1794304864528; Tue, 10 Nov 2026
+ 02:01:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,96 +59,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|BY5PR03MB5348:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae85bf77-b04b-4f3f-4e13-08df3f1160c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|6133799003|10067099003|11063799006|56012099006|4143699003|261102123227099003|261026121527099003|261021121427099003|261022075727099003|261022105027099003|261028144727099003|261021123027099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	MZEuwYUfej0h3I705vq305U4QRsgW+GdDaRFewwuJar4U3Xy0N278gE7ns0UgWRrTU5+EKnPn/Um4GRgYCrapbQOX/e67Jz0c0SJV7jD5iEPPW1P9ewQI0ja7H2MDNC9XwJlWjLorUb0towE2jutsUb0gQbPP+7qb6qoXVEfLgrb24xtKrCm+Rs0CD2+2D9KXr0f2sc4EwABEBGyXZFeOedcsf8ZR3Jf5BEDnnxlOsTYSbGyzHNkh9n0+H6UZxSBhx4j9nzwnIEmwoJFK5+VrIQJLLkjLnjAzMV+zNcwMTjhIz7/izOKDvFmuG+1PLxJIG+TutB3Rh5HZJw2BzwXjvwpq/djBVYoeJ2LmYeFkcbetE1KwtatOnhFTSUhT1Nj20LLWGHRQNHEW6fcvD+Rwd4clKM7eS2T0VLrcOgZr3RDSeUslg6cX7sufGMLzZ7DABHh8WvgDZaVxuuibFBDr4K8h52y+pb7PlNxarrSYlLovP4x33ETv7mHJ0NaTtte37++B4Ck1jiOf721FeXNmOuDw67BsoUbUv0HiWigEzCJiXSFaxJ775MwLLQcBN5j0Kr5SHx1BGijpTHB4gimv+CbV6CHwGNN8Fm9Hi+4kPD1rlHty9lDG6L9N8riBzlq5vxxb/DVU7c0X/K4vGf8w9SVovbmH2LZLtYVwJmy3+o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261022105027099003)(261028144727099003)(261021123027099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZU01eTVwUWxOZ0xDNUhiZWl3OVkvelhQMjBteTRuQlhZdHdkcGRRR28yTGI4?=
- =?utf-8?B?NkFoMDBtNXZ6VFYzK3J6TFU2ZFFnV0I4M0FWdEVYR1o1RmRUNy9tYmd6bDM1?=
- =?utf-8?B?WTVIR0oxOVdtejdkY000aEM1L0xnTHFsUnFpbStuWi9VYnI4ZTk0b0ZBQTJN?=
- =?utf-8?B?dnNmRHkzTjJ0Zy8vWGdoNjk3Qkd0SU9nWFN6SEoxWXc3NXhkajNhRDlLTFVI?=
- =?utf-8?B?TUFjR09GSXcxd1BlcVFnY3YvcVRJOVV4MkJNTW9xR0dLaXBPcjExZGhJN0pq?=
- =?utf-8?B?dDNTVGZkQUpYb1k0dWVyTFdaNHM4anhrNFAyazI3RXIraFJlRlBaWnBxbGQ5?=
- =?utf-8?B?R3BCZzg4VHp6Vm1FcmFtTytpMVlKdmg2ZnhXbkxDclppMUFNVjE4ZWdrRTEr?=
- =?utf-8?B?VnRjTnhnekh0Yk5XdlVqVjNmLzV4T0YvTzMxbUo2N1ovTzNtaFZ6TjdNUlI5?=
- =?utf-8?B?M1VOMCtZazFDUWNwNkRlOXdKR1p0Y3ZKQURDYkZaczdLUFpPVTJMVWVQYXdC?=
- =?utf-8?B?djZGUCt4dE1JWWpoaVMxZDZhMDYzZ0NNZEMrb25UenVUK3ZGMHNPSEFnbExu?=
- =?utf-8?B?RjduL3VnS3BtUWhZYnpaVGdLamR4VHAzRHJGUHE5Mmg0dzEvclpyQVlickxD?=
- =?utf-8?B?dVZ1eWhMcCtlM1M0OTBGSktxSEVtRFMvTDlwdlpCbnlCQ09yY2YzakM3OXRC?=
- =?utf-8?B?d3lNRzBaTUNDcWhaOW9tTi9sUTZ4UHRKTU1YckMrcTJZbENkbFdOMmZSL2NF?=
- =?utf-8?B?Vml1Nm9BUWdXMi9pOFhFUG5GOUVQMkNhM3JCZCtQN0k5RE8vMUxFTHVmZjVP?=
- =?utf-8?B?NXZ4QWd3YkRiT3JBVjdHOHZxVTFXSjNxY09aN1lHbTAxY0E3amNUZ09YMzJz?=
- =?utf-8?B?Um9PLzFhT01QSXhJNDhLV01pVmo5SUZHYTZwVVhQa2RzbWc0citlUktFRGY5?=
- =?utf-8?B?L3JhNUZyY3BuSXhLMGxvQVVvSFpPVWR6c2IvVXZHN1FabXp3aHBZajQ3d2pK?=
- =?utf-8?B?VncyNCtLRkV0cVl4MkMxSEkwaUhacDVpYVhRNkM0bTJRRlZhdGM1eSt4TzFq?=
- =?utf-8?B?VS9TMWZqMTc2d2NZK3pLQWpyYW5kMW4yTTNOVWw4K1Q1MHY0aVJMclBkNyt1?=
- =?utf-8?B?NDYzZWJaWlFsWDBHa0k0TGlPZG1aUTlkRlBuUk5ucTBQZjlXTVpYelpIdFpJ?=
- =?utf-8?B?aGhyaHdycEFvbTBzOWQ4by8vWDN5VVBIdmZJR1pFZ0tGWkcxNm9UUXRoOXBP?=
- =?utf-8?B?VnhRWFZFY0Y1Ylg1Nzgzd0FjRjlDNStJeDM5YWxYbGJDckZZb0J2MGRJbTFu?=
- =?utf-8?B?SmhIbWNURkVYSldOR3RBSCtuSHM1RXoyeDRQczdwaGNQVlozVDRXQnNBbU1t?=
- =?utf-8?B?K2lpbDFXSjR4U1ZEdHAyVy9JK3I4VWdQYy93ODhPY2dJcE9rVzVRNEZxQUU2?=
- =?utf-8?B?Z1FqR05NMVgwanNnMXd3R2IrYzNPRkRmVVN3OG9XUENnRDFsMkFHNnNzalRH?=
- =?utf-8?B?eGtwQ2tzT2xOU3dHWUZ1SXFhMjFVZFpLRm9KcDY4MlMzNjdaSDlDSzRLaTJS?=
- =?utf-8?B?dUI3YU9UbERjSlZJWlpqQXN1M1NmRmtqUEtwNGN1ZGtndlFFTXNZUiszQW1U?=
- =?utf-8?B?d1dkZkU0aStEQ2RaRjIvdk0zeDF6OUxsQVNKRXhNRUh2c3dVUExYbDhHdVNl?=
- =?utf-8?B?eVBsUGVJMkorWVc1MXh6WDVTdnpXdnlDcXJVMzUwaEwrZ3JXQTNIdDhCRmFm?=
- =?utf-8?B?L2s5cTQvT2Q4amQ3UENPcFQ2T3FJK1ppRS8rOXNXQ0lkQ0Q5YlhJeTBuMDN4?=
- =?utf-8?B?emMxZEdhTjBCelZrRzVmWXVxRkFiMjg0WkZQbTVPNk5PcUFtVjJkLzBLQjVL?=
- =?utf-8?B?YU1QNEZRQmtxaUJ0cGtSc1FYNDJ5VlJUL0NqOVEyQVF4TGFVWnpBRW5jZjIr?=
- =?utf-8?B?a2hyWklJQWdnQnVVZUkvYktzTWhWdXB4ZnB3V2dndGx1UmxLRERGUFM0SC9a?=
- =?utf-8?B?aXlpeTNoVHI0ZDlxVXZreXE4U2dIb0EwQ3JVN1RrMml1amtFV3l2cm5PL3lJ?=
- =?utf-8?B?YmhROE1EcUp3Z1ExVVJENEp0M3ZZK3ZvTVBhUlRiZXpnZmsrblYrUVBkZXZY?=
- =?utf-8?B?K0w1YlNKUHZVOGE0anpPc3JORUtIOUlRWFNnakF5TVYzem14dkdLaml3a2Vz?=
- =?utf-8?B?K3BSV2J3QklaM1NNQm9vVUVvQmVOOGltcHdDUnY3ZFFaQ2dyekFmVFFDOHZ3?=
- =?utf-8?B?VzJKQnVwZks3azJlVWRXS0NIbjFma1lXOURtUS8xTkxucTdZUG9OcXBGMmd0?=
- =?utf-8?B?VWZHRWhJRlNEYnE1UUxwZGNMTU8zalpqdEJ6NnR6SXowNE0wN3VNUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae85bf77-b04b-4f3f-4e13-08df3f1160c2
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:59:58.1715
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DWbFE1w0xrfuEX8/4yHcs0fv7TJbuja9UYSvKTEeUawGXH3IsfyxIPJZZizHlSrUIdwHCzNCzAQfh12Ipb3jx3H1tbbatAXfioBmL9bvcEQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5348
+References: <20261029033440.973077-1-wuqianhai@loongson.cn> <20261110090203.2631481-1-wuqianhai@loongson.cn>
+In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 10 Nov 2026 18:00:52 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
+X-Gm-Features: AclHuK-9P_C8nOOOdEbmYQVc8OO7W71bMN2RKSel305MdnvrCGkGtc7VDw_SrUo
+Message-ID: <CAAhV-H6=7SbhLpzWOYFxi9MaM5f2BHfJXjWjQW-uBeLCKMHPVw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] LoongArch: Identify the firmware/boot display device
+To: wuqianhai@loongson.cn
+Cc: kernel@xen0n.name, tzimmermann@suse.de, deller@gmx.de, bhelgaas@google.com, 
+	ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com, 
+	loongarch@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/11/2026 9:56 am, Juergen Gross wrote:
-> Today gnttab_dma_alloc_pages() or gnttab_dma_free_pages are never
-> called when running as a PV guest, but this holds for in-tree callers
-> only.
->
-> Bail out early when being called in PV mode in order to ensure no out
-> of tree module or future use cases are violating this assumption.
->
-> This enables to safely remove PV-only code from both functions.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  drivers/xen/grant-table.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-> index 604c4eea5930..56a497987942 100644
-> --- a/drivers/xen/grant-table.c
-> +++ b/drivers/xen/grant-table.c
-> @@ -1063,6 +1063,9 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
->  	size_t size;
->  	int i, ret;
->  
-> +	if (WARN_ON(xen_pv_domain()))
-> +		return -EINVAL;
+Hi, Qianhai,
 
-This will get very spammy if hit.  WARN_ON_ONCE() ?
+On Tue, Nov 10, 2026 at 5:04=E2=80=AFPM <wuqianhai@loongson.cn> wrote:
+>
+> From: wuqianhai <wuqianhai@loongson.cn>
+>
+> On LoongArch the kernel cannot reliably identify the display device that
+> was set up by the firmware and used for the boot console.  Two code paths
+> need this information and currently get it wrong:
+>
+>   * The PCI VGA arbiter: vga_is_firmware_default() is compiled only on
+>     x86, so on LoongArch vga_default_device() may select the wrong GPU
+>     when several are present (for example an integrated display
+>     controller and a discrete card).
+>
+>   * The framebuffer console: LoongArch does not implement
+>     video_is_primary_device(), so with
+>     CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=3Dy the console falls back =
+to
+>     the generic stub that always returns false and binds to the first
+>     registered framebuffer instead of the boot display.
+>
+> This series fixes both by publishing the firmware framebuffer information
+> through screen_info on LoongArch and consuming it the same way x86 does.
+>
+> Patch 1 always defines and initializes sysfb_primary_display, and always
+> provides its EFI stub alias, instead of guarding them behind
+> SYSFB/EFI_EARLYCON.
+>
+> Patch 2 refreshes screen_info from the PCI resource-assignment path after
+> the root-bus resources are assigned, so the framebuffer address is final
+> before the VGA arbiter and sysfb_init() consume it.  The call is placed
+> in the LoongArch PCI scan path because only LoongArch has this ordering:
+> acpi_init() relocates the BAR before vga_arb_device_init() runs.  On x86
+> the screen_info address is still accurate at that point.  If you would
+> rather have the helper called from the generic
+> pci_assign_unassigned_root_bus_resources() path so that all architectures
+> share it, that can be done instead.
+>
+> Patch 3 removes pci_fixup_vgadev(), which overrides the VGA default
+> device to a discrete card after the arbiter has already selected the
+> firmware framebuffer device, so vga_default_device() consistently
+> reflects the boot display.
+>
+> Patch 4 implements video_is_primary_device() for LoongArch by reusing the
+> VGA default device selected by the arbiter.
+>
+> Patch 5 lets the EFI stub link directly to sysfb_primary_display on
+> LoongArch, so the firmware framebuffer information is always populated.
+>
+> Patch 6 lets the VGA arbiter use CONFIG_SCREEN_INFO instead of an
+> architecture check and makes VGA_ARB select SCREEN_INFO on LoongArch.
+>
+> Patches 1-4 are LoongArch-specific.  Patches 5 and 6 touch generic code
+> (the EFI stub and the PCI VGA arbiter) and are placed last so they can be
+> reviewed and merged separately.  Patches 3 and 4 depend on patch 6 taking
+> effect, but are ordered ahead of it only to group the LoongArch changes
+> together.
+>
+> Changes since v2:
+>   - Split the screen_info refresh out of vga_arb_device_init() into the
+>     LoongArch PCI resource-assignment path (patch 2), following Thomas'
+>     suggestion to decouple it from sysfb_init().
+>   - Drop the per-architecture check in vgaarb.c and the select of SYSFB
+>     in favour of CONFIG_SCREEN_INFO and select SCREEN_INFO (patch 6).
+>   - Always define and initialize sysfb_primary_display, and let the EFI
+>     stub link to it directly (patches 1 and 5), instead of guarding them
+>     behind SYSFB/EFI_EARLYCON.
+>   - Remove the vga_default_device() override (patch 3) so the arbiter's
+>     firmware-framebuffer selection takes effect.
+>   - Implement video_is_primary_device() (patch 4) by reusing the arbiter'=
+s
+>     default device, so FRAMEBUFFER_CONSOLE_DETECT_PRIMARY works.
+>
+> Build-tested on loongarch64 with GCC 8.3.0.
+>
+> wuqianhai (6):
+>   LoongArch: efi: Provide sysfb_primary_display for screen_info users
+>   LoongArch/PCI: Refresh screen_info after resource assignment
+>   LoongArch/PCI: Remove vga default device override
+>   LoongArch: video: Implement primary framebuffer device detection
+>   efi/libstub: Enable direct sysfb_primary_display access on LoongArch
+Please fold this patch to the first one.
 
-~Andrew
+And your signature should be:
+Qianhai Wu <wuqianhai@loongson.cn>
+
+Huacai
+
+>   PCI/VGA: Enable firmware default device detection on LoongArch
+>
+>  arch/loongarch/Makefile                       |  3 ++
+>  arch/loongarch/include/asm/video.h            |  7 +++++
+>  arch/loongarch/kernel/efi.c                   |  5 +---
+>  arch/loongarch/kernel/image-vars.h            |  2 --
+>  arch/loongarch/pci/acpi.c                     |  4 +++
+>  arch/loongarch/pci/pci.c                      | 18 ------------
+>  arch/loongarch/video/Makefile                 |  3 ++
+>  arch/loongarch/video/video-common.c           | 29 +++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub-entry.c |  1 +
+>  drivers/pci/Kconfig                           |  2 +-
+>  drivers/pci/vgaarb.c                          |  2 +-
+>  11 files changed, 50 insertions(+), 26 deletions(-)
+>  create mode 100644 arch/loongarch/video/Makefile
+>  create mode 100644 arch/loongarch/video/video-common.c
+>
+> --
+> 2.34.1
+>
