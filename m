@@ -1,136 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794284708;
-	b=INh3dn74jB2FdSUsQA2G/prhR5XrEZ4v1Uox1YxMkjK9yaXpIEf/ngO3JiIE+S0XH2AE
-	 bzSTJE7wZZ4tx7v97l8iFOKHM9VmrWZ9D2Jl6raZMGHw1U0nogu6x+6L6hU+2/df8AQrS
-	 TI84fHD7ymh3xmkdOH3/9vyrLiPDANtqwy8wispfPhaGae9Zn0xJeybVkd5mUNw2qmOKN
-	 z6ybtMQy06GkZ4kP4Y17jEeK3cFCJ9Aza5Zy/htQ+sulP7TuAMJ8WfXPObxH4/AJs61jI
-	 FEnQ6x7p9WpgVna3+BDIq6sxpH6r/pGYjTLUKSQmJr/I8KyTTcWjDXC1x4Zvj3bgMPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284708;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=lFsF2p9J4DKKrJKL/MNBrg05ltmGJlby9W+40Ft5NxM=;
-	b=4ShPC6YnCavDCqcO5bt5R/pOw2nPaubhPO5qdKzz7TiQxKrlvuj8JXaA1m6eDA0JQPlb
-	 Rxx8R5Oh9T1eqLVeUHVtt8ss1+akmW/vRsamx2bbQkaAQ+3Vcz/8SjdK8sBUAJRmiDiVG
-	 4kRhZW9567fzgPSdsMAbfJcZRhedF6sB3s4Oz8Gm5JsVK8M9Jx4D1heGU+l/tgNNnB1jK
-	 u4EGaQn/WeVAwtfyPWth9lVdIvNFZXZ6LnN5JCLgPwHhRE94PdosjxVbY64N/4ZldjFfS
-	 WOR2UPaEnRlQBZBoJs8pkQgqBt19rQL8PjruABA0Z0vdFJ8ynQdTsKzhhh4xnxnpD5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UMwLA+Oa;
-	arc=fail smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794284743;
+	b=10A4A+rhL/WzLamJnJzBSOMAJPNmtL86XM9B+GNXiSxB2v5/ZylkOnxq8S3O5EhY1ccX
+	 /S+CMNbUNcjFvg+KMgUgfmpA9hUhJSrCebemM3ADA/g5xhroxaRlU+HcsUzyfpo5sje6x
+	 JWhqdyQBsFO4F5lIfEkJy1cqmVaJIK9UgQixt1J8zHpO9mtd2gQUGrHV2GwKR+oIuaUQo
+	 tFChRJooGkecPFnWT6pgsb46iDhtnWBV7fwSa+uCMCQgGOnqMxaD43jZx3014uY6RJjOL
+	 mb4pl5wB5eVqxbNOLH8T/MooobIcqROjmSUblrSihbrvbEXe4865PP3fx2oG2oEeQ2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284743;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=1BVULNa/1Rp9ZXapIYSxxjj8wKCBqwmoVvQwQgDNj6o=;
+	b=oAJg/1Fq4wVEhytf9FTTXeVTqIiljw1qkhhCItty+IzGm+qAM3ShcT7/KkoMrxJZJp/B
+	 VKCmX88qCA4I6qPgdJZOIwZ2ZVan9iOWy9O8I3D0Z2THxoxgdwP/zgEfihvBT4cSHsn9u
+	 BWtocMxAMtEQs1bpuqVF4qIvy4R1lfuVEirS20sY/GfYywAtqz9uN1HldI25BLiiNLBQK
+	 6+6e84EGEMe8aZEttfR7by96lYpdFE9BfAmcduOCpOtFPeU408tk7/xS2jayUQblOd3fa
+	 2P08AEJ0WgalgIgEyj/CAucUA0Eofib4e6Spb4A2NqcQoNKJvMsDWEBrYD88zTC9JaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sifive.com;
+	spf=pass smtp.mailfrom=sifive.com;
+	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Wseanp9e;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A715606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A715606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8188D606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8188D606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UMwLA+Oa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794284707; x=1825820707;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=0hUuLZe2f4PsoYMWiNrkzSV2w/SoW2zKbSOehklcMq0=;
-  b=UMwLA+Oa/lblVPHFxv7TSXgaZEMhfwKYqLpB+68eJdryveTSPp2/COgO
-   M2wdXRKbzW1NLQ9nXb4cWdkK1JAfXELHh8Nm/gvYxvb/rsK4cJtdrjXMJ
-   sCiS62bp01s47vfwxwye+g0lxQMS0TsESbvGcblgZ8yArK2IGK+ktdLq0
-   mMBbRh0AU1X8WReQb+3eKJA8OkThxNSZ8BtxDvLahKdcahVDQI7s/6zfo
-   DOMIqxaFMZ6K9501oXEUaf8gd9g1YR/5l+fLPAKzsCaFBsLPsKqtKyJoI
-   2ww8OVjbU/DMb6EWeOfqMnLfWPP0iapwrsts+t2TYAIXUDNgiQU8oGbF8
-   g==;
-X-CSE-ConnectionGUID: KkHMSfQGS8ytVLSPqa+yYQ==
-X-CSE-MsgGUID: 9E/pfJqWSJ+ZeXJWAObeuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901896"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2901896"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:25:06 -0800
-X-CSE-ConnectionGUID: I1QbqUs/T/mAuBFLnN9Tmw==
-X-CSE-MsgGUID: yzX5KffWRGGeTGbITsWTNA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7913320"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:25:06 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 20:25:05 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 20:25:05 -0800
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.4) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 20:25:05 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=In49pA3QLosLuTrTi/qXkW4cexvAHBaX9ESSDBeme9CHv+CzPEV1Q73oinLvQuej9qeAqYfusmfkLonXhf9O4Um6HPg9oicys1xjkzwh0X03bYgzuqOKG/UmaHrGAzQH+06bVfgKixtqq9x6Ik61L6LrP2Zpt3WYh8mvod1lURN/YmAa5f1dBdQ3RZoQsqN0FSJ++nldXTSZm/fxRfIHDdwwD1pBiLgghGy4wD5U02obtpw0CNE22RclCwUwaEb4UN+bhmo1s220nX2HI0zAGjSNWcuKWBN5zMy46Dm1aZVL3fzxk3g/wn2Utb/xt2BtbodJ8KFNLPOtAioTHfrvRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KySfYpPewmyr4iOP6wjyabw0UVkMbg4kGhIiMGli41U=;
- b=xtyRH/k4SASZLI3ViFqClhJkbKgmmUGM7O35vwD89fqUpVb8dvPwbA0X847fVg41Os7foK5Z0KouQxKzGLaDQdFSDVrpy1C775GSu18FBx1+5wa1A400UDSBfZHgGdukhAI+YKa8Cac8yh7nxuho6l6l4mUJn4Zr7tRXUq8LrITzJNzQUKEkDsPGeMv55ApHgtFM6w04NIG5f41J+hORam+3XJZzct26tBOFEhQ1i+ivDergXk2AW/xvjJ6J0sDD32BdHqlH/2lQ6vZ1LokR4yWu3x6gq5AweQG7kW1bg8GQYCvUNJWi0XJ5lbPdSCz0fZ4MIItvjXQp+dax9uqcYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by CY8PR11MB7747.namprd11.prod.outlook.com (2603:10b6:930:91::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Tue, 10 Nov
- 2026 04:25:02 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 04:25:02 +0000
-Date: Mon, 9 Nov 2026 20:25:00 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 19/33] drm/xe: Skip self-copies for borrowed pages on
- defrag moves
-Message-ID: <avKcnNcgR_e0mXNN@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-20-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-20-matthew.brost@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0111.namprd05.prod.outlook.com
- (2603:10b6:a03:334::26) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	dkim=pass (2048-bit key, unprotected) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Wseanp9e
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1931ff67a29so397432c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:25:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1794284743; x=1794889543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1BVULNa/1Rp9ZXapIYSxxjj8wKCBqwmoVvQwQgDNj6o=;
+        b=Wseanp9exIs8Ef4kDq7IH5kK+CnWM7ac8MXfzlrCAd/RVTIIAve+Evzw/vf/8Szlq/
+         cBWNrDRLSEfKnJSDyD6mNAZsgR7AYC/25FQkAmzncE8UI7Enr6lULBk3F01C8C6o9+uF
+         /Hj2aKCHrIuB24Mexx3+wrdWFshW44/eJVDUC0Yw53YRjUZ+4mZ3oZMu7BjaGldqYTxb
+         rFreiiCA0M+WQv2ZfkN/lKrm2MDalQf8DKYLxoSzVovbIYuaAhwWqAn1oPbC7Y1JnDVn
+         b2xNaUH88U8xvgx9RPXFaGqarVpFqkGMyagwsGQLMrJEB13GRmqkzaqOYvg+uK6tPmXT
+         7PXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794284743; x=1794889543;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1BVULNa/1Rp9ZXapIYSxxjj8wKCBqwmoVvQwQgDNj6o=;
+        b=24LdOV5dIjGlt9iZm3jpSdNftNszXk1Pxkj3+pPWksyLQocR6vrOwBjkDWPWqtzqz5
+         DoOedPXlI2j+8vLIFBbhoHEYIr1D+mILHSsY09PLgVJxEoMs7jg9fj/0QQ8JHfZaZThw
+         gv2fkYwPOLqb7IU/1PR+UrHp9XJcdVLXrjIyYPRPl8jIvDNRWDa38iJ2zFNnfkbrhMOx
+         R/JvhnYx2+J0wCjXQpZ42yItFVIRrwZu15muIhzGj/CNoTpTAmvvYTKhbmt85fuerHaV
+         NXXgcwFdnknH08m0vRKVNI1oCEPkk1F+yRfJecMKxPytawvBY9Zf5O2azqTlBSi7Oea/
+         8Kjw==
+X-Forwarded-Encrypted: i=1; AL+hErH6M240qsV5sfsx1T1uh5fj0kM69YZgm9n328G7XCgQhi5v2Z83/sCvQaJlJF7GW0Zfv0P2sk+gAcOe3dk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/p7D0JMe94AU7bcdH3WFnWp+QavllEteSWM73rO+Uaqa8BqlSq
+	mShR8Qren8LBAx4Qjj3S/N90oxerT0aR9T0VIjnXmqUeVwrRHKZmS+iva9JwvJSBlj4=
+X-Gm-Gg: AYBFou3kA3Pq9C0qPZQGC61HN9v26gshmL3+pKGwdEYas/sAg8YUdJt4dZljurVjhIS
+	XnS1conVSAjRYG7zK16wcHf9h9C24hVZ2mqNcsYVYqSuBHVfzdsn2ui1fbMSS6dbPyfNmC5hfS9
+	SNlrywh1dpLR7Ks/3Tsa8egyca6rx4i9kuhBni2kCYvE+2Q0h+CzWuf4Au7Wc5vTkGDt64Agnpy
+	19ZJHg+RTv+q463hom+YQMWcQBH0NIftJl7z6Qxw8T3bB5SExwNX94YyD8O/RkkZQW2ZUvm/tjr
+	n3dhrMlMGrfoUkDTBdxqpDPNZU0yemmouJB4eUmC5fbfMLyQn4NgErLHMW+c+lZu5elRPlL408F
+	BkwgKVZebssFYb439qtCnWF9ie+wiHmsNLWG2z9Efn/l6ewovtkFNPwRsHVumKgyV44hHODgI6G
+	4mHRe/HYvZMoia6o3JUBx6auTJI0K1OCWsnu8kdUe3a8blkcVYD8GHhJ5EUuX7WwndXZZjBiNK0
+	PP6XjxGfbVZ8ZaIQdqwyl1H5UI0xO42UUtCWa7JThWacFo7OLo2M5ejpj5DCkO627sIw2JzDz7v
+	6Z0K9JrtpxefJLu0aoXZG8whLapvBvyyLQHFWZq3IDDa
+X-Received: by 2002:a05:7023:a4c:b0:190:f24b:9491 with SMTP id a92af1059eb24-1b3b6057539mr1957259c88.12.1794284742599;
+        Mon, 09 Nov 2026 20:25:42 -0800 (PST)
+Received: from sw08.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b72ce0sm3968811c88.18.2026.11.09.20.25.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 20:25:41 -0800 (PST)
+From: Leo Yu-Chi Liang <leo.liang@sifive.com>
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Cc: Leo Yu-Chi Liang <leo.liang@sifive.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mayuresh Chitale <mchitale@gmail.com>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Sunil V L <sunilvl@oss.qualcomm.com>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Anup Patel <anup.patel@oss.qualcomm.com>,
+	Zane Leung <liangzhen@linux.spacemit.com>
+Subject: Re: [PATCH v6 06/14] gtrace: Add RISC-V Trace encoder driver
+Date: Mon,  9 Nov 2026 20:25:36 -0800
+Message-ID: <20261110042537.2080084-1-leo.liang@sifive.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261001052243.3042627-7-mayuresh.chitale@oss.qualcomm.com>
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com> <20261001052243.3042627-7-mayuresh.chitale@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,473 +122,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|CY8PR11MB7747:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5be06526-ac49-462d-c2da-08df3ee296a8
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|366016|6133799003|18002099003|22082099003|3023799007|10067099003|5023799004|261021123027099003|4143699003|11063799006|261028144727099003|261009223027099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261102123227099003|261021121427099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Hi3lPdwJGK+6fUQL5s2xg9xelLDVATsr2hEGrdMHQqqEDj7bAzJzR8UtKb4D5YbCo1N613s79RmPXrPp089e8teAtLGiR6ahBscYLVM+LITzliezhXE7E2OA/jl/AeAx6MevxP5/FpA98dXguRHAUllsvV7uEBimvOvN5dYTx2YW2BzuFfWpAFdkRYnL6I0QmVPoeXnc3TX3AsFlHBSzLNS10WLzGvcNVKG0IyFYfx9/bmcjYd7MsQsbbfrX03m7DlAfeh5cKIXz50VPQyHe6X/FV1spZi5s59XXuHvqFK/NmBGIGtUfrIpe9Cr6Y+RvcnGopEjsgVUMXnS114UM8EERAcE1zdA7aG9OwTNw3z9wpwpv0jUyFUKTyXCd3OfPnkHgyX+J2zOU2BcHCckGaxiSHpawpqkIzAi0xRC8lrUcs52veh1ANpyAcB/s5fHeiXiVmtIAf7/cBDP7Z4dGT+LDenvr6Zi6hSaIYuiz7lkbDfkuRoLU+c1QBHUUrpEkCl/GU60itLrvAm1SYFyTDTP3LRnV3TYVAfvBc/n0xrl3NO45BlmmFvjzV4Fn3lqaZqg8isgpYaTx9lyEl26PMF3Syiurs0+Mt8O2IX9JR+TCvT7lkfY0EzISANgjWxg2XOphGc79k23KD2Rkl/1v4kuTBkSFeBAPz9QnzwuyIBw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(10067099003)(5023799004)(261021123027099003)(4143699003)(11063799006)(261028144727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261102123227099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?168RtIchvU0yMnYLamcLC0GQomsu0htG0CT5mLXyhtk1XLlb7od73pXs3V?=
- =?iso-8859-1?Q?zciLbcm9fFFpvrZqJE6PT6fzxoNapN32ECRVuy7nthiPpQn4JQJatOQG2P?=
- =?iso-8859-1?Q?lDBNkMaULHB7jteBLzG0mezzHJ8gg4m8Tx2JdsoNAU1FZbYwwG2ncoiosP?=
- =?iso-8859-1?Q?/jZyjadZ49N60pfnpv4B6VXDeiOEe2kfK73kxMrrAQ37gkaZKXi1wyCPYB?=
- =?iso-8859-1?Q?ldhATOKkMDeIwnssdSFXDt9CEYQ2LJgz7wcIgO1Dgavql4bU7sWDE8iq6u?=
- =?iso-8859-1?Q?QMmmXEvR7SWjcZApSBtBmkdCRUuqeE3rgzzqtM/gwFnHhS38egN9FiwMVZ?=
- =?iso-8859-1?Q?eF6CUTXuXTRfvw99svHExDN0+Lu6H90aN4I2YbWYHbZoEi6QEJHTO1RSoq?=
- =?iso-8859-1?Q?lqflrH25V+8AENC4Ad/pDIi76qy/i2fXidn58dNaxHDNMuIdhKVTth8RrV?=
- =?iso-8859-1?Q?sVmO7dB2wed7o669/6OyKZQ5y0Wmjh9tISSt0/OoeFhN8ctJiqFKjEgLl4?=
- =?iso-8859-1?Q?U3Zw81v80qzbZj01h77vyCjrMcCvFkz00sQuqHug3+NEvER+XxkLSI60cX?=
- =?iso-8859-1?Q?5+c6O1hY+XDsgCKKlkQzYJ/4JJfDrNXUcMv87bridZyg/3K4kPiHd1vsWB?=
- =?iso-8859-1?Q?hV22H+fYg3koCp5zG+iSXrYbJtzHwLNV9/AJeM1no/I8l/UzWblLMb1e3M?=
- =?iso-8859-1?Q?zlSksP2aQSel2Qrs+iDgvzLSW5ghgXFnqCOvqgGBLlciJCdZuYHs6raVNx?=
- =?iso-8859-1?Q?zfYF3MMWrGBaUeJ9+Hqcc36OwvNYz03pkeUsTwB2NsGMBkQguMRqcW4Mad?=
- =?iso-8859-1?Q?ipanLNsDfGP5q9ZPaDzlHmHorR3afmufoYNDYwEpzKAMgB7ehDMC1Puofv?=
- =?iso-8859-1?Q?+dlCLVmYsuiKj+4JK0il9Ap5Yq/Bswv7UMupSak0GG75gLqurQz1ZIdUEf?=
- =?iso-8859-1?Q?JFZ9KyW//VFA1NGpaByYBEpBoQl77Dpu64SSWlVDlUXQWQPJnMeH+Zs2c5?=
- =?iso-8859-1?Q?bW87xGrsznRxjh2l6I+LGLNQcV9wLj4HMqpHQaYFh/0KREuwyEd8Dste15?=
- =?iso-8859-1?Q?WrMAHuQ81Srh9zDBY6KgfkJ1K9qBG1Sd/zamrhf7VZ188R+0bIP24y/xMs?=
- =?iso-8859-1?Q?Ixv95nOXW1iY2IdBbrCMULSQcwH4TnabhZNd2r9FAKPWwt6ZKxgQ/3aHAJ?=
- =?iso-8859-1?Q?c3ZQsDkoR5qCT5gTLbeIZqoQqY/V044VEATpJj8uYY+lq2/39NFXGoKQ8Z?=
- =?iso-8859-1?Q?0RFWgzyyfFr4SBnaOtsa8lU1PZM26wU3+Vst8K78nf/nlw1Glvg3+T/3uL?=
- =?iso-8859-1?Q?NQ4XGz41qLlYP1Gyzu/mayxeH2qQ3h+D/y0k3XPHB7dtDmGaK9dz246S08?=
- =?iso-8859-1?Q?Vasg+oBWH6aimasZU14o29KuqV2omEiQwfiKOzHWuLQSrD15t7Qs38zi9D?=
- =?iso-8859-1?Q?iECIbetsnBMxXKbDthdpvqjZLmrk1W2uXKQzX5iXWcVIQV3KXtTaHbCTS/?=
- =?iso-8859-1?Q?aI/pHbS2iZcgv6niqb3jLuRFV3OPBC0CNUzSZhgSWNi84L+ybAwXMU5uKJ?=
- =?iso-8859-1?Q?aoq3un8QWoCRrWJGoHPh1JnUfQTZda8WTVmz4l6TlH/cgzJAJvR8hUJz6N?=
- =?iso-8859-1?Q?PMerhcI1nkhr9s5rW3uhXIIyCm3ONoekCuQFVLJh5mcl7ZNZdqvg20kcrd?=
- =?iso-8859-1?Q?EDzvSKjUcRi+vDY0rz/I4CPWvkHMhQx5kqGOyY9rdV6XJCnDbJluTdsZ5z?=
- =?iso-8859-1?Q?NkKEdaXoW84sTML8l2gHqVMqWqgs5yrZMn0f9a5SIib4U6mjC3ofiv6JK2?=
- =?iso-8859-1?Q?eq2aEpM/98Lo+T8Vca6+udZD+TQV9OSFN3rElFrN4Nsf633i45Mf?=
-X-Exchange-RoutingPolicyChecked: J8T9sSx81NIIzoBU6Irz2JGqkZNGOWOlvEctKm6sUGWpbmcrXBD6m81EU5l4e7NqDWtmgQWSpHYbaRINECt9MnRV1aVkwu4xdokvxxgltb8aHE765P0sHCqJ2Clz+IJJKxu6Gh+NgQo/NDjOVwUWx+Sfzz9Z0qOnSFYQEojDh32X7umhtEQ1e/YXwlJxaH/dIFEI/yvvran8pVvEzLWc4XiLTfMuSiyZvkU6oZKffdYFaKCIiNvop5u14N47aRSEc4zKTdPsxP7Rltl72nBOeYdzCI4sm0jJz3Oy+/fqkE+Vydw5TStrBX6a4P7sxSVWn6TLpU7kf9msZjo4s0WE8w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5be06526-ac49-462d-c2da-08df3ee296a8
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 04:25:02.3557
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c+661NeQUxqxv46VqLHxw0UWAqAPe6rxRovrM60u14PJ3jUv/bCESv9U1y4cpxdRKh5aEifQTeMVv5iPvcEzghZcDH4kWUoB5dhU/VB22ebeA9IoVwk/G3Qy8ZplaSpP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7747
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 10, 2026 at 07:56:05PM -0700, Matthew Brost wrote:
->A defrag move may harvest already beneficial-order chunks from the old
->tt, so the freshly reallocated backing borrows (references) some of the
->same physical pages. For those pages the source and destination GPU
->mappings alias the same memory, making the data blit a pointless
->self-copy.
->
->Pass the source (old) tt into __xe_migrate_copy() instead of just its sg
->table, so the data pass can compare the src and dst tt page arrays at the
->matching offset and only blit runs of pages that actually differ. A new
->emit_copy_chunks() helper walks each L0 chunk, skips borrowed-page runs,
->and coalesces contiguous to-copy pages into a single emit_copy(). It runs
->twice per chunk: once with a NULL batch buffer to count the blits for
->batch sizing, then again to emit them.
->
->When an entire L0 chunk turns out to be borrowed, skip it outright: no
->batch buffer is allocated and no GPU commands are issued, the cursors are
->just advanced past the chunk. If every chunk of the move is borrowed the
->copy is a complete no-op, so hand back a signaled stub fence.
->
->The comparison is a cheap per-page pointer test (src page != dst page)
->that coalesces contiguous to-copy pages into a single blit. PTEs are
->still emitted for partially borrowed chunks, since that setup is cheap and
->only the data copies are worth skipping. Only the defrag data pass is
->affected; the separate CCS pass still migrates all aux state.
->
->Since the Xe tt sg lives in the xe_ttm_tt subclass rather than the base
->ttm_tt, add an xe_tt_sg() helper to fetch it from a struct ttm_tt.
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-opus-4.8
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->
->----
->
->v3:
-> - Fix start_page page-shift and blit pitch for src-natural to
->   dst-packed copies (Sashiko)
->---
-> drivers/gpu/drm/xe/xe_bo.c      |  22 +++++-
-> drivers/gpu/drm/xe/xe_bo.h      |   2 +
-> drivers/gpu/drm/xe/xe_migrate.c | 136 ++++++++++++++++++++++++++++----
-> drivers/gpu/drm/xe/xe_migrate.h |   3 +-
-> 4 files changed, 142 insertions(+), 21 deletions(-)
->
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index bdcc9bed5d36..7f6ee9b8d12e 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -473,6 +473,22 @@ struct sg_table *xe_bo_sg(struct xe_bo *bo)
-> 	return xe_tt->sg;
-> }
->
->+/**
->+ * xe_tt_sg() - Return the DMA scatter-gather table backing a ttm_tt.
->+ * @tt: The ttm_tt to query.
->+ *
->+ * Like xe_bo_sg(), but takes the ttm_tt directly. Used by the defrag copy
->+ * path which needs the old (source) tt's sg table without a backing xe_bo.
->+ *
->+ * Return: The sg table, or NULL if the tt is not currently mapped.
->+ */
->+struct sg_table *xe_tt_sg(struct ttm_tt *tt)
->+{
->+	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
->+
->+	return xe_tt->sg;
->+}
+Hi Mayuresh,
 
-Assisted-by: LLM
+On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
+> +	if (!priv->srcbits) {
+> +		dev_warn(&comp->dev, "cpu %d trace will not carry source id\n",
+> +			 pdata->bound_cpu);
+> +		val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
+> +		val |= BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT);
+> +		gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
+> +	}
+> +	dev_set_drvdata(&comp->dev, priv);
+> +	return 0;
+> +}
 
-xe_tt->sg can be potentially NULL (though probably not in current usecase).
-Probably an explicit assert better?
+On a system with many harts it is hard to tell which encoders probed
+successfully. Today the only messages come from failures, and the
+gtrace_component device names (encoder-N) do not show the CPU or the DT
+node. How about a single dev_dbg() (or dev_info()) here giving the bound
+CPU and the source ID width, e.g.:
 
->+
-> /*
->  * Account ttm pages against the device shrinker's shrinkable and
->  * purgeable counts.
->@@ -1290,11 +1306,9 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
->
-> 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
-> 	} else if (ttm_bo->defrag_old_tt) {
->-		struct xe_ttm_tt *old_xe_tt =
->-			container_of(ttm_bo->defrag_old_tt, struct xe_ttm_tt, ttm);
->-
-> 		fence = xe_migrate_copy_defrag(migrate, bo, old_mem, new_mem,
->-					       old_xe_tt->sg, handle_system_ccs);
->+					       ttm_bo->defrag_old_tt,
->+					       handle_system_ccs);
-> 	} else {
-> 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
-> 					handle_system_ccs);
->diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
->index 4186cb51af87..32211016a722 100644
->--- a/drivers/gpu/drm/xe/xe_bo.h
->+++ b/drivers/gpu/drm/xe/xe_bo.h
->@@ -110,6 +110,7 @@ enum xe_madv_purgeable_state {
-> };
->
-> struct sg_table;
->+struct ttm_tt;
->
-> struct xe_bo *xe_bo_alloc(void);
-> void xe_bo_free(struct xe_bo *bo);
->@@ -547,6 +548,7 @@ void xe_bo_dev_init(struct xe_bo_dev *bo_device);
-> void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
->
-> struct sg_table *xe_bo_sg(struct xe_bo *bo);
->+struct sg_table *xe_tt_sg(struct ttm_tt *tt);
->
-> /*
->  * xe_sg_segment_size() - Provides upper limit for sg segment size.
->diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
->index 305c6e1942fb..9990a7144a9f 100644
->--- a/drivers/gpu/drm/xe/xe_migrate.c
->+++ b/drivers/gpu/drm/xe/xe_migrate.c
->@@ -811,6 +811,63 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
-> 		emit_xy_fast_copy(gt, bb, src_ofs, dst_ofs, size, pitch);
-> }
->
->+/*
->+ * emit_copy_chunks() - Emit the data blits for one defrag L0 chunk, skipping
->+ * borrowed pages.
->+ * @gt: The GT.
->+ * @bb: The batch buffer to emit into, or NULL to only count the blits needed.
->+ * @src_L0_ofs: GPU offset of the source pages mapped for this L0 chunk.
->+ * @dst_L0_ofs: GPU offset of the destination pages mapped for this L0 chunk.
->+ * @src_L0: Byte size of the L0 chunk (page aligned).
->+ * @src_tt: Source (old) tt providing the page pointers.
->+ * @dst_tt: Destination (new) tt providing the page pointers.
->+ * @start_page: Page offset of this L0 chunk within the tt page arrays.
->+ *
->+ * A defragmentation move may harvest already beneficial-order chunks from the
->+ * old tt, so the new tt references (borrows) some of the same physical pages.
->+ * For those pages the source and destination GPU mappings alias the same
->+ * memory and the data blit is a pointless self-copy. Walk the L0 chunk and
->+ * only blit runs of pages that actually differ (src page != dst page),
->+ * coalescing contiguous to-copy pages into a single blit.
->+ *
->+ * Return: The number of blits emitted (or that would be emitted when @bb is
->+ * NULL).
->+ */
->+static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
->+			    u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
->+			    struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
->+			    pgoff_t start_page)
->+{
+	dev_dbg(&comp->dev, "%pfwP: cpu %d, srcbits %u\n",
+		dev_fwnode(pdata->dev), pdata->bound_cpu, priv->srcbits);
 
-emit_copy() doesn't have L0 in parameter names. Probably it is worth keeping
-it consistent here also?
-
->+	u32 npages = src_L0 >> PAGE_SHIFT;
->+	u32 i = 0, nblits = 0;
->+
->+	while (i < npages) {
->+		u32 run = 0;
->+
->+		/* Skip a run of borrowed pages (src and dst alias). */
->+		if (src_tt->pages[start_page + i] ==
->+		    dst_tt->pages[start_page + i]) {
->+			i++;
->+			continue;
->+		}
->+
->+		/* Coalesce a run of pages that actually need copying. */
->+		while (i + run < npages &&
->+		       src_tt->pages[start_page + i + run] !=
->+		       dst_tt->pages[start_page + i + run])
->+			run++;
->+
->+		if (bb)
->+			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
->+				  dst_L0_ofs + (u64)i * PAGE_SIZE,
->+				  run * PAGE_SIZE, XE_PAGE_SIZE);
->+		nblits++;
->+		i += run;
->+	}
->+
->+	return nblits;
->+}
-
-Would it be good or possible to have similar counterpart for emit_copy_ccs()?
-
->+
-> static u64 xe_migrate_batch_base(struct xe_migrate *m, bool usm)
-> {
-> 	return usm ? m->usm_batch_base_ofs : m->batch_base_ofs;
->@@ -865,13 +922,15 @@ static u32 xe_migrate_ccs_copy(struct xe_migrate *m,
->  * @is_vram_resolve: Decompression (VRAM -> system) resolve; always uses the
->  * compression PAT index for the data copy.
->  * @defrag_ccs: Defrag move pass that migrates only the CCS aux state between
->- * two distinct page sets (old @src_sg pages -> new pages). The data blit is
->+ * two distinct page sets (old @src_tt pages -> new pages). The data blit is
->  * skipped (the data was copied by the @defrag_copy pass) and both the source
->  * and destination data pages are mapped with the compression PAT so the aux
->  * state is copied indirect -> indirect.
->  * @defrag_copy: Defrag move pass that copies the data pages between two
->- * distinct page sets (old @src_sg pages -> new pages) without touching the CCS
->- * aux state. The data pages are mapped without the compression PAT so the
->+ * distinct page sets (old @src_tt pages -> new pages) without touching the CCS
->+ * aux state. Pages the new tt borrowed from @src_tt (harvested already
->+ * beneficial-order chunks) alias the same memory on both sides and are skipped.
->+ * The data pages are mapped without the compression PAT so the
->  * (possibly compressed) bytes are copied verbatim rather than being
->  * decompressed and recompressed, and no CCS aux copy is appended; the aux
->  * state is migrated separately by the @defrag_ccs pass. The two passes need
->@@ -889,7 +948,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 					   struct xe_bo *dst_bo,
-> 					   struct ttm_resource *src,
-> 					   struct ttm_resource *dst,
->-					   struct sg_table *src_sg,
->+					   struct ttm_tt *src_tt,
-> 					   struct xe_migrate_copy_flags flags)
-> {
-> 	struct xe_gt *gt = m->tile->primary_gt;
->@@ -914,6 +973,14 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		!flags.defrag_copy;
-> 	bool copy_system_ccs = copy_ccs && (!src_is_vram || !dst_is_vram) &&
-> 		!flags.defrag_ccs && !flags.defrag_copy;
->+	/*
->+	 * On the defrag data pass the new (destination) tt may have borrowed
->+	 * already beneficial-order pages from the old (source) tt, so skip the
->+	 * self-copy for any page they share. Compare the tt page arrays at the
->+	 * matching offset.
->+	 */
->+	struct ttm_tt *dst_tt = dst_bo->ttm.ttm;
->+	bool skip_borrowed = flags.defrag_copy && src_tt && dst_tt;
-
-I think for our case src_tt and and dst_tt check is redundant here as they will
-always be set for defrag_copy. May be add an assert instead of checking?
-
-Niranjana
-
->
-> 	/*
-> 	 * For decompression operation, always use the compression PAT index.
->@@ -926,7 +993,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
->
-> 	/*
-> 	 * The defrag CCS pass migrates the aux state from the old pages
->-	 * (@src_sg) to the new pages with both sides accessed indirectly, so
->+	 * (@src_tt) to the new pages with both sides accessed indirectly, so
-> 	 * keep both src_is_pltt and dst_is_pltt set (no direct staging side).
-> 	 */
->
->@@ -938,7 +1005,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		return ERR_PTR(-EINVAL);
->
-> 	if (!src_is_vram)
->-		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo), 0, size, &src_it);
->+		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo), 0, size, &src_it);
-> 	else
-> 		xe_res_first(src, 0, size, &src_it);
-> 	if (!dst_is_vram)
->@@ -947,7 +1014,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		xe_res_first(dst, 0, size, &dst_it);
->
-> 	if (copy_system_ccs)
->-		xe_res_first_sg(src_sg ? src_sg : xe_bo_sg(src_bo),
->+		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo),
-> 				xe_bo_ccs_pages_start(src_bo),
-> 				PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
-> 				&ccs_it);
->@@ -961,6 +1028,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		u64 ccs_ofs, ccs_size;
-> 		u32 ccs_pt;
-> 		u32 pte_flags;
->+		pgoff_t start_page = (xe_bo_size(src_bo) - size) >> PAGE_SHIFT;
->+		u32 ndata_blits = 1;
->
-> 		bool usm = xe->info.has_usm;
-> 		u32 avail_pts = max_mem_transfer_per_pass(xe) / LEVEL0_PAGE_TABLE_ENCODE_SIZE;
->@@ -998,9 +1067,30 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 			xe_assert(xe, IS_ALIGNED(ccs_it.start, PAGE_SIZE));
-> 		}
->
->-		/* Add copy commands size here */
->+		/*
->+		 * Add copy commands size here. On the defrag data pass the blit
->+		 * is split into one command per run of non-borrowed pages, so
->+		 * size for the number of runs actually needed.
->+		 */
->+		if (skip_borrowed)
->+			ndata_blits = emit_copy_chunks(gt, NULL, 0, 0, src_L0,
->+						       src_tt, dst_tt, start_page);
->+
->+		/*
->+		 * If every page in this chunk was borrowed there is nothing to
->+		 * copy: don't build a batch or issue any GPU commands, just
->+		 * advance the cursors past the chunk. The non-vram tt cursors
->+		 * would otherwise be advanced by emit_pte().
->+		 */
->+		if (skip_borrowed && !ndata_blits) {
->+			xe_res_next(&src_it, src_L0);
->+			xe_res_next(&dst_it, src_L0);
->+			size -= src_L0;
->+			continue;
->+		}
->+
-> 		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
->-			       emit_copy_cmd_len(xe)) +
->+			       ndata_blits * emit_copy_cmd_len(xe)) +
-> 			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
->
-> 		bb = xe_bb_new(gt, batch_size, usm);
->@@ -1029,7 +1119,10 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		bb->cs[bb->len++] = MI_BATCH_BUFFER_END;
-> 		update_idx = bb->len;
->
->-		if (!flags.copy_only_ccs && !flags.defrag_ccs)
->+		if (skip_borrowed)
->+			emit_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0,
->+					 src_tt, dst_tt, start_page);
->+		else if (!flags.copy_only_ccs && !flags.defrag_ccs)
-> 			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
->
-> 		if (needs_ccs_emit)
->@@ -1088,6 +1181,14 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
-> 		return ERR_PTR(err);
-> 	}
->
->+	/*
->+	 * Every chunk of a defrag data pass may have been borrowed (nothing
->+	 * copied), leaving no job and a NULL fence. Hand back a signaled stub
->+	 * so callers always get a valid fence to wait on.
->+	 */
->+	if (!fence)
->+		return dma_fence_get_stub();
->+
-> 	return fence;
-> }
->
->@@ -1129,18 +1230,21 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
->  * @bo: The buffer object being defragmented. Both @src and @dst belong to @bo.
->  * @src: The source TTM resource (the old backing).
->  * @dst: The dst TTM resource (the freshly reallocated backing).
->- * @src_sg: Scatter-gather table of the source (old) backing pages.
->+ * @src_tt: The source (old) backing tt, providing both the scatter-gather
->+ * table and page pointers of the old pages.
->  * @need_ccs: Whether the BO has CCS aux state that must be migrated too.
->  *
->  * Used by the defrag path where a single BO has its backing reallocated at a
->  * more beneficial page order. The contents are relocated from the old pages
->- * (@src_sg) to the new pages (the BO's current backing) entirely on the GPU,
->+ * (@src_tt) to the new pages (the BO's current backing) entirely on the GPU,
->  * in up to two passes:
->  *
->  *  - Data pass (always): copy the data pages verbatim. The pages are mapped
->  *    without the compression PAT, so the (possibly compressed) bytes are copied
->  *    as-is rather than being decompressed and recompressed, and no CCS aux copy
->- *    is appended.
->+ *    is appended. Pages the new backing borrowed from @src_tt (harvested
->+ *    already beneficial-order chunks) alias the same memory on both sides and
->+ *    are skipped.
->  *
->  *  - CCS pass (@need_ccs): copy the CCS aux (compression) state. Both the old
->  *    and new data pages are mapped with the compression PAT so the copy engine
->@@ -1159,11 +1263,11 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-> 					 struct xe_bo *bo,
-> 					 struct ttm_resource *src,
-> 					 struct ttm_resource *dst,
->-					 struct sg_table *src_sg,
->+					 struct ttm_tt *src_tt,
-> 					 bool need_ccs)
-> {
-> 	struct dma_fence *fence2, *fence =
->-		__xe_migrate_copy(m, bo, bo, src, dst, src_sg,
->+		__xe_migrate_copy(m, bo, bo, src, dst, src_tt,
-> 				  (struct xe_migrate_copy_flags) {
-> 					 .defrag_copy = true,
-> 					 });
->@@ -1171,7 +1275,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-> 	if (IS_ERR(fence) || !need_ccs)
-> 		return fence;
->
->-	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_sg,
->+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
-> 				   (struct xe_migrate_copy_flags) {
-> 				   .defrag_ccs = true,
-> 				   });
->diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
->index e4f996942a6d..4094ea1c19c1 100644
->--- a/drivers/gpu/drm/xe/xe_migrate.h
->+++ b/drivers/gpu/drm/xe/xe_migrate.h
->@@ -13,6 +13,7 @@ struct drm_pagemap_addr;
-> struct iosys_map;
-> struct sg_table;
-> struct ttm_resource;
->+struct ttm_tt;
->
-> struct xe_bo;
-> struct xe_gt;
->@@ -137,7 +138,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
-> 					 struct xe_bo *bo,
-> 					 struct ttm_resource *src,
-> 					 struct ttm_resource *dst,
->-					 struct sg_table *src_sg,
->+					 struct ttm_tt *src_tt,
-> 					 bool need_ccs);
->
-> struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
->-- 
->2.34.1
->
+Thanks,
+Leo
