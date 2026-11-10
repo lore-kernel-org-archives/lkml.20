@@ -1,75 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794270279;
-	b=4b/vuhsefGztB8SZ04KYvK42m6TtUUxL1sHa/NSMOQI6MxWPNBz3p6NlxN0bm+dKuynl
-	 dAGrMlXo4SWs3wKQvGHpq+O+lIcfUbNPeE30NcvqrbVFqk4bnMnc7TOTQLZHoXXXtJ97E
-	 y21lu+YwHfbK7LDBt1Ue7LnHAiYphKteqm8ZXCFreYv8s6N/RHjOmOtCldffniTd1wPtZ
-	 6j5/txVnL4CNOLcBbvmfn+unopjaxyo2ONRweVuurbz3FFhYUI7q4SicijkZ328xl5l4n
-	 FfxGqHsVH5G5k4D/e0UBIu5e0lrZ+lhmpbZc7wsums+qCqlGpnU1PIwey8Wy2RtL5NA==
+	t=1794270326;
+	b=cmBRaJrLbK+NEmABl8QqBjrTcW2dg69UrMrj3IpcRyiNjV8IcotBpqdO8BS1FDYvSiVz
+	 Wuf3ts3WdCmBj65eueVGxReog6i6JVtjA2pajGWu0l5+q9fwdqX3F75OrD01QjcjJJQC3
+	 xPza9LUZCgG3TBnRLsVmBrmGyJczuzoqo7G5mBZukAhE2KlLDzxp0vPB3gfaNkWojuuE9
+	 lPxSliG5QP/wLUhs1MUkQ/fHHOXqb44o77hoEb9gIQeuEoce7dwS9Chh9Wm2FAj03r8oR
+	 Amjomt3RrD43sT1f2ewn5YYk5qHOET7v34+1k+LxYun/4oBlm1FpMkYwthBlW9k5c7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794270279;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=8R6psPcEpcxXBloXv1H5EoyGYGx6PRPHPE+vAtNfv8Q=;
-	b=fikTF5Vc+jwgtk5lmMq0Mz3rzuhSh44LKzm1IdQYdw7xDQ/aCkCqihcrxBMs+jMh5QZb
-	 I4ZzK+LnQUyjvOqisz8n/WdMOAIC/WdWfoAXkA9LcnZdA+sMsc5ppaRsSxfhewWZzbl9u
-	 fX88aS4+MnhlcZAhEc2NY4W3zBiCtNLBb3BGk93vDxiQU3u1Y5FszeN6hlvvjohNwnB5b
-	 mcATb2h2jq7iAPaLMnMRttyFR5wVZLGuRKeHM5QtjOpmMZrbmUf4mddq2eMlA+05FjfRN
-	 TchVq/EJnQvUrgnWJTLYo4h+wtVziV4AToSCLbjfyJnBHQ3EAacaM1ip0lD8v5+nuWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794270326;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=y0ysK1auGuUFCu9qoQQNCcNfYLTUBeRUgxBC82QBKzs=;
+	b=I8Ul/eiimtJDfd167EX1Cn1PPzjzJx3L/jtqVq6MlwLil+HLDgeZt8kuaqzx4GNWjCaB
+	 H7Zc66ASLNVvhKlRkYzqn4HNBnv43STBp4DfjJAJiFiD/xqIfJIWuaa2Md9nsnwcu837c
+	 Mnwsuw2MdwgiFoADZAC3rAwYwIrwdOnIdaCnQJkucr2RtJq0ctW1mt3NcwDVFR+5Gp2S6
+	 H7A0jT0hY0gpsBlmX7UEymmKESLf0qYF8DoMkAxlgxQMnKyynvX+ZtjlaFjJZmDTT7j+F
+	 viXrqMqch0Fo9udQEnAmFWJ4FhVi6isI8zC2ip4TewQeQOvaJMBiWLa7d7eiNPsQoSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TuVRyzuW;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYayyrAB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CFF606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CFF606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E19B606A31C;
+	Tue, 10 Nov 2026 00:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TuVRyzuW
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e954d87b48so23370075ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:24:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794270278; x=1794875078; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8R6psPcEpcxXBloXv1H5EoyGYGx6PRPHPE+vAtNfv8Q=;
-        b=TuVRyzuWUgVcsf9lNq678ixAFJhPOzvFG4t3LRHWBAlBem5Qaz6FmOVOsmGd4DW/L3
-         WU+Kwj6rfd2umV9dl9/VTCpXF/I9sEA96nbYfl9Oo5RqfmALRzU9IMLvz0Oh2MF8S+5r
-         +ZW/jM1G9O/WQVZme8EkVhftOC6lEUr4xRtvYPDvHvmL00PopnsM7nOyymLOgvQM/RnX
-         wLWpWi4iOC0GVGlmhfgGdoSlR9872llOD8o6fXNDODhkDXS9r5lTh0uAoht/UuGWphZF
-         Etf2c57hXs8kdFp4LjsVEqn9ikfHPTPyqnkwYPPvRGwHwZi2QwpE4jcn6alAxH2G7jX+
-         Dc3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794270278; x=1794875078;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8R6psPcEpcxXBloXv1H5EoyGYGx6PRPHPE+vAtNfv8Q=;
-        b=HTWAvi/Ya6SeXtEn7y1xpNWkWeHiheVOeN47FY+GWeKe9r6gJwwdBAPzXWkJ0KG5dy
-         yXfB9VwfXbPe97HEtZI8HfxgOeBaU0L4ucaTpYe8ZEwSnr2/mc5k4Iiw3M7PVDMv17sO
-         4mV9h+X2KAv+LgL4y7pNE0dimfVK91K82blCV7/eC8CV30NsGFCZwrQEXg9BFe1Yint9
-         6UmCTqW6vNy1tQSoi87zzNjqBVj035hXUPlKUvJOm99bpii/qRz8d1qI/noA30OE+F1s
-         B92U/d2DG8Z0gDwqBGmgQiplnWKtLYcy8E/l25dcPDZ0vzDgRvc8QWe7H1Ze2FaBKViK
-         dZuA==
-X-Forwarded-Encrypted: i=1; AL+hErFmZaoLdXjhm3pVmkczNG1xMng+OHStYtdglko0e9RkeudFGNDEfExBsxYU/EKRPHzkfZyEUc/cKFtIwtU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BM/sp8JEqpBwkmk5N/5bYq4L9bXXT5Ab6M0L+DLOA+BbF7idS
-	SySSsjbqxTYlhjfbmCWBWwPbhpiiYGm4e+cPKylOaDAwDw+P3hAV6mK59hJCaEKHrcUqjxfZ+l5
-	QcEkLEGdnD2c4NcMJTQpJMEYRGguKRrdEsA==
-X-Received: from plpb13.prod.google.com ([2002:a17:902:d60d:b0:2e9:6468:1ffe])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2302:b0:2e9:6f2c:71b9 with SMTP id d9443c01a7336-2edb8fa3768mr7596535ad.1.1794270278310;
- Mon, 09 Nov 2026 16:24:38 -0800 (PST)
-Date: Tue, 10 Nov 2026 00:24:37 +0000
-In-Reply-To: <20261012-pcie-link-endpoints-v7-0-36aba9c91f10@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYayyrAB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705041F0089F;
+	Tue, 10 Nov 2026 00:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794270325;
+	bh=y0ysK1auGuUFCu9qoQQNCcNfYLTUBeRUgxBC82QBKzs=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=FYayyrABreZyKrfs5GnxwDNXAG6qEw7pfhFJR/5gPW0GhgmDjj6jkJVO4NZYTIJWp
+	 dzyLuZYJzkHl+PkcF5M9FvSUwnxY65rqvV5qaOF3kscSm75aWr4CBaarqzNzss+Ipw
+	 wW8fS7kI3UsOS4lztVPhDKZincfA0wV/epcwZpMnY36BlmDeTemmfGSrwaCy9Rm/Az
+	 GHfDohxthV30BPgMZC8z1FOsa0zh4mD1mR/EmzCnFfpY2ahqs5w4yN6wYtaZepBNNN
+	 fbWvON2zKFVHWrN6ux78MLeswKm4g9nBFjAy84iLuIFi9OqR0LUo1zX78yoXQKOoJm
+	 shyzjLe2pS5MQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 298EFCE0C97; Mon,  9 Nov 2026 16:25:25 -0800 (PST)
+Date: Mon, 9 Nov 2026 16:25:25 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	rcu@vger.kernel.org
+Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
+Message-ID: <853d8469-94a4-4b33-a0d5-d6d2138fe3ef@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
+ <20261023181940.457424-1-puranjay@kernel.org>
+ <f785237c-ee5e-4ad3-8ee9-79474f5f45c8@efficios.com>
+ <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,35 +81,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261012-pcie-link-endpoints-v7-0-36aba9c91f10@google.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261110002437.2376944-1-rathodpriyank@google.com>
-Subject: Re: [PATCH v7 0/2] PCI: Add Lane Margining at the Receiver debugfs interface
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Lukas Wunner <lukas@wunner.de>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, linux-pci@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
 
-Hi Bjorn, Ilpo, Lukas,
+On Tue, Oct 27, 2026 at 09:13:17PM -0400, Mathieu Desnoyers wrote:
+> On 2026-10-27 15:57, Mathieu Desnoyers wrote:
+> [...]
+> > 
+> > E) Use a preallocated per-cpu rcu-txn slab, synchronize txn descriptor reclaim with
+> >     RCU (steady state) and hazard pointers (OOM)
+> > 
+> > This is basically just pushing idea (D) further to remove the need for sleepable callers.
+> > We surround the rcu txn proxy pointer resolve with both a RCU read-side critical section
+> > and a hazard pointer slab address guard, thus protecting the use of the txn descriptor
+> > with two types of critical sections. The resolve would run with interrupts disabled.
+> > The "resolve" path of txn proxy is not a fast path, so we don't mind the extra overhead
+> > too much.
+> > 
+> > On the "remove" side, we typically have plenty of preallocated rcu-txn from the slab.
+> > In the common case, we keep using RCU deferral to free the rcu-txn in batches. This
+> > would implement a custom per-cpu pending list to enable the following "stealing"
+> > scheme.
+> > 
+> > In the rare cases where a user empties the slab, we move to a more aggressive
+> > mechanism based on synchronize_hazptr: we "steal" the batched in-flight RCU txn
+> > reclaims so we can fast-track their reclaim after a hazptr synchronize. This would
+> > all be using busy-wait and the only contexts we'd wait against have irqs disabled.
+> > 
+> > The motivation for handling the steady-state with RCU is throughput (no synchronize_hazptr
+> > on the typical "remove" case). Hazard pointers then handle the OOM corner case without
+> > requiring sleepable callers.
+> 
+> Well it turns out that this approach has potential, but the hazard pointer
+> machinery is way overkill for this. We can replace my use of hazptr above by
+> a very simple RCU domain with the following characteristics:
+> 
+> - All RCU txn proxy resolves are RCU readers running with irqoff, protected by a
+>   per-cpu counter (incremented on read lock and again on unlock),
+> - There is at most one reader per cpu at any time,
+> - We use a synchronize RCU on that domain on OOM for the pending slab reclaim
+>   "steal" to do reclaim synchronously. This domain's synchronize RCU waits for
+>   each CPU until it observes either an even counter or a counter transition.
+> - We disable preemption across rcu txn (e.g. list insert, remove).
+> 
+> So we'd keep using call_rcu to handle the steady-state reclaim of rcu txn,
+> but use this specialized irqoff RCU domain for the empty slab case.
+> 
+> Thoughts ?
 
-Gentle ping on this v7 series now that v7.4-rc1 is out (both patches
-still apply cleanly to v7.4-rc1 and pci/next).
+Atomic SRCU within interrupts-disabled regions seems to fit
+this bill: synchronize_srcu_atomic(), srcu_read_lock_atomic(),
+and srcu_read_unlock_atomic(), which interrupts disabled across
+the latter two.  Maybe srcu_read_lock_atomic_irqsave() and
+srcu_read_lock_atomic_irqrestore() if that helps.
 
-In v7:
-  - Both pcie_get_link_endpoints() and pci_aspm_inhibit() are dropped per
-    Ilpo's earlier feedback, leaving aspm.c, pci.c, and
-    include/linux/pci.h untouched and using the existing ASPM API.
-  - Retimer receiver discovery and margining coverage (receivers 2..5 via
-    LNKSTA2) are included in the pcie_lmr kselftest.
-  - Both patches passed Sashiko review with zero issues.
+Or am I missing a turn in your requirements?
 
-Please let me know if you have any feedback or would like any changes.
-
-Thanks,
-Priyank
+							Thanx, Paul
