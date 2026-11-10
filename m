@@ -1,76 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311186;
-	b=JSVnJ7fmuDz0j4rzcCGObgDglfV9qlhhHZhOVlRrnpFv+d6cG2cRxmSdVOIzLFkvTlZn
-	 0j7WOVtu1eq6vpbGjO5QeWmDaF5ze6JVAGfjdMWYMmzdE13k+a0xxCWQO7uW6lc8PP6m8
-	 fzH3dWZ/IRh7o03smkOv0m+a0jLXxC5DL+5PtocDzL6syqzv28ahMS2clzCohI2fKYDIT
-	 BnxBS70/xisa3EGix6p6yNG0viJMyStll9Ra3nC7O78P7hBlm9GjM4tDSVyNw5oI7JJvG
-	 T0m3cyr9eByf/dnK342Wev9NQjMlUt1XQAyOjuxf8QlrkLK0MilV/1GZ/ga+8Q1bjQQ==
+	t=1794311191;
+	b=SLFDcQb1cQKCUy3CdAAXFFzpq9zSF4W521165w6v3oG/NuBkCBXTXLq/3OTKDN3Yk70o
+	 VdoKVVv0Tv8wTKswykMfNcA35XpeppTbCYzvEEoYt0cLu/d0llXEoBrTtjbNrsaE3Y9Qo
+	 QzM7isTS/vqavQDATdmmWrd6DnmF4Th2x5XqnohE/C1RUW8yk2kvB9rCIMyqf3H1imJV8
+	 BvsV6xrozZUzr4yMCf///U4BZ4Ak8/Nc+Bvk+7KfcevUk/LvN0dn8uKNmsAHiu7N3Ax7P
+	 75QaEOGz4eNEBf6VC/QYS2zVzLY7vI/GyKxKiMgA97UePGnrLz1vR39GUg02iFwzVTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311186;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GoCnwF1puEjsvclXDKRQ/PkJe7axbawtj4cctZJn2N8=;
-	b=rbEH2FWBFn1ljlw1lrxKBXHNytFuvrcGfAlPQro9xt0z4qSZvJH6sn+6N3ZbkYFUookr
-	 7kKElfgWOOoF1kqu7E2PlCS2kvDroe0q0iOTfuccaRpVq8J7QUmKnR9zFNp6JKso9iCq6
-	 qNMxfxYMLe2i5lzJQWw5J2URbyDiW4hOqS7yhMjn47D5pVU1AtyP7DIsz422ORquKQbbp
-	 DcVqo2BCLcvucZvhkc2ahcVnQMhh3kHnaELxgGoJslGD+oj54HgPsfT22R1pg8OSnnSJl
-	 /YW/Gyo8Wuxe6LXWV5W6du50qihostgy3vSsyKLfJC0OKCkmpGw8Vf0QPeu85uf5Pow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PBZCd6YdkJxJ064F291tmqCngK50lIQhQHSwEALjDEI=;
+	b=XTjp3uqsPiLs489pd/BimvScPVcTH3MUbvPzhBQ0IGUJXTTcD3e4JCGVX026CAvo590f
+	 m3ESsMw3impf/rJK1B8dCpXqq5oTb19aL964U91SFRVfiKIfV8RVMF5MoRlsBhCKNOTpz
+	 M5G6PU61cvYsXS4RIE6oZAjg4QiPAre92G5uS7a+0+tjH4eOS1EjeQ8lsm7bPbC/QC3uM
+	 2SMQ1uyOirUkb5i+4K2aZsfpuM393r9sPTIbnoaE6ksSRZovOBsTTgc7Io7z/jhfLXJ7E
+	 FPTHHIPSwmof2YoET2gx5fWuCVDFhYYvrNU6DBvOeO7PtIXhV0pE0i3+0cr5b9Igxgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="s+FQ+1/p";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76D9B606A32A;
-	Tue, 10 Nov 2026 11:46:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D9B606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2JmzX81;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B571A606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:46:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B571A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s+FQ+1/p
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E0FA1516;
-	Tue, 10 Nov 2026 03:46:21 -0800 (PST)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D1E983F632;
-	Tue, 10 Nov 2026 03:46:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794311184; bh=1KCGDNOweh5cRaCOrq0Ugdosxtb+ahsd5ag7b76Wa8Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=s+FQ+1/pvH0amBPGuFOfYpeNPht5igu72Kis1moza4Y2ZwmQeU1O/RcpRqkmM4S1A
-	 TNCz737d1tOTcjJlq71TdFyhynz+fupNXiOJA2jTdX3yif2pSOTaSsaP9xU5Fx5sgW
-	 N1K0r9FpkCXOdDXCTYjpE1+sITP53SoZurCT8HHw=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	linux-arm-msm@vger.kernel.org,
-	coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2JmzX81
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b147e06befso861374a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:46:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794311190; x=1794915990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PBZCd6YdkJxJ064F291tmqCngK50lIQhQHSwEALjDEI=;
+        b=N2JmzX81TKFRZTtMxYTh8ssnFayP2VMKsoCo0yuwYe1NM9HD3yDfiYxDSzTiYg5XnN
+         1KdPDK9jXLcjQGIBkrf/tCvdD4sgbLoJhfxHUw+fKnu7o+o7loe+qoV4ie/YBCm9UKyE
+         vNJ2JU8Uk4zngh8ucwUPqvBjfInsaNC9wUUDDRMRmvzUNe/l2P75WITa4XJZuwC2oK/r
+         HTt4HpG7EvdNGFkEIapT+1wQWRtD/MwIEftIWMZS3MA/01qf5sR0ji27YpxLIxkyHBQn
+         nh3pZinRzP9LabFySk6gr4M7XtwCLKxCb84vmV039TxI61xi1wUgfS7wnc6sceXPg22n
+         PZAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794311190; x=1794915990;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PBZCd6YdkJxJ064F291tmqCngK50lIQhQHSwEALjDEI=;
+        b=H+lERL0d4EytP7FPb6esNt4ZQ4fBhsnElG2upaS6lI7hVBXRcLfychEpbKfmIGPHHT
+         J3WlgDhiyZonSnRPwh8NSNx09WrHLBG+kVpV+t8kEba8KfQJtG3dcEEPMTHeu3aq7yNI
+         OWBup3gxdiYrlEB0bl9IJxloPUiU9+TPYMxMx+5mmjA9b2pbibHryASBrJtEVRKBekBx
+         nM6HSOGQDg8x7VvbFz0Jhdl1aMmW+kSXhR8vweMnfiCZywVkSm2HpiPahm1mP6cIl14h
+         Mw2Vq0ZKCj5hxgCtvyIrwsbp38ju0RNHwzKm6zj0TYP6Ft0psABO5fP60Ib/irfPiR3M
+         HsFw==
+X-Forwarded-Encrypted: i=1; AL+hErHfv4GADY7j+uXz2hB0IIHIF/kHNF1sX8qDCy2Mo5OBudAQtavYPiN2n42AZ5MXMRaVmY9x8Kcv9dC8kC4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AvQ1D1RYEfDD3qj/70NtXoThSFbg72Qy1z9QNFyvGdvIsekLt
+	IqhWJ/a7BxY3Nvx9dGGYMOi+eBWb/B+6p4/mk7mIhfiJfTphO8sigC9x
+X-Gm-Gg: AYBFou1ivB26NplGzioISyFzR2c6K2mETtNMc02loyZBbpXfkUMek87Lht7krgKPSFk
+	hCwnfb+fFov4v5rEWxMdFFHEsfUG/ltGqP92/6AKuK/eGAcFPk2Tz9UMmFqYwoCO3orXpmv6RF0
+	Vk3Qn3O3z4Wn1FLIg5yB7UXNLcZQg4O82Nwqb1rqleIan/jjdbLFWiulximBvaaAZfDl3cHdn18
+	OvjpETvzDpEnJKbdAZsSiR6RKyxHtUciKB69JqQvgUEJIXWGCPFE2vADjm9zPuDy2MGIuTFq6U0
+	QodqwC9Myckwxji2tUWyYREO4fKTb1E3jGTr2asd778yCInUHWWwjEidyB5K18psHUc65eTE4AC
+	09t6+feDV9DbMzufZQk6JQehttXqYNnlmar2YL0B7JEbL47gOQ99yZCJ9ECln7NeKtK1whg3qw5
+	jNnOaxHOZdrp0ixCJZe7rJAzlNuXkcvmCKmEwKRPH0/Oa3GnVjljzBIhGFvy5ZianJ5kZoaeGDt
+	cySQV2T6yru1JLLHZKu3slX0qUyj6KeYDmXuLwQwAO0E7p1rpPa12wdJdT0fnS59Qak85h6V3By
+	ODnxhu7oU3E96R2/02FRYtVlPkmXjfXKlyY=
+X-Received: by 2002:a17:90b:3142:b0:3b0:92be:ea4a with SMTP id 98e67ed59e1d1-3b166d14ebamr2280964a91.45.1794311189808;
+        Tue, 10 Nov 2026 03:46:29 -0800 (PST)
+Received: from localhost ([240b:10:ff26:df00:c666:4b57:9ddd:d960])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b167970669sm3391915a91.13.2026.11.10.03.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:46:29 -0800 (PST)
+From: Yasuaki Torimaru <yasuakitorimaru@gmail.com>
+To: steffen.klassert@secunet.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM platforms
-Date: Tue, 10 Nov 2026 11:46:15 +0000
-Message-ID: <179431113320.3326008.11214272306127557878.b4-ty@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
-References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+	Yasuaki Torimaru <yasuakitorimaru@gmail.com>
+Subject: [PATCH ipsec] xfrm: account XFRMA_MARK in xfrm_sa_len()
+Date: Tue, 10 Nov 2026 20:46:23 +0900
+Message-ID: <20261110114623.2659197-1-yasuakitorimaru@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,33 +101,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+xfrm_notify_sa() sizes its netlink message with xfrm_sa_len(), while
+copy_to_user_state_extra() appends XFRMA_MARK whenever the state carries
+a mark.  xfrm_sa_len() does not count that attribute.  Only the
+XFRM_MSG_DELSA path adds it to the length separately, so for a marked
+state the XFRM_MSG_NEWSA and XFRM_MSG_UPDSA messages are sized short by
+nla_total_size(sizeof(struct xfrm_mark)), 12 bytes.  The other length
+calculations in this file already account for the mark; xfrm_sa_len() is
+the only one that does not.
 
-On Tue, 10 Nov 2026 09:21:13 +0800, Jie Gan wrote:
-> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
-> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
-> forces the device onto the AMBA bus, where the driver must read the
-> peripheral ID from the device registers during probe. On several QCOM
-> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
-> never probes and its trace path is unavailable.
-> 
-> [...]
+Instrumenting xfrm_notify_sa() on an x86-64 KASAN build under qemu to
+print the accounted length while adding a marked state confirms the gap:
+accounting the mark raises the computed length by exactly 12 bytes
+(348 -> 360), matching nla_total_size(sizeof(struct xfrm_mark)).
 
-Applied, thanks!
+Whether the shortfall is reached depends on the skb allocation, which is
+rounded up: xfrm_notify_sa() fails with -EMSGSIZE only when that slack is
+exhausted.  km_state_notify() discards the return value, so such a
+failure would be silent.  This was not reproduced.
 
-[1/5] dt-bindings: arm: coresight-tnoc: Bind on platform bus instead of AMBA
-      https://git.kernel.org/coresight/c/76e192f4d40a
-[2/5] coresight: tnoc: Bind Aggregator TNOC on the platform bus
-      https://git.kernel.org/coresight/c/4d443f2e0956
-[3/5] arm64: dts: qcom: kaanapali: bind traceNoC on the platform bus
-      https://git.kernel.org/coresight/c/50e7796ab751
-[4/5] arm64: dts: qcom: sm8750: bind traceNoC on the platform bus
-      https://git.kernel.org/coresight/c/f599d281541e
-[5/5] arm64: dts: qcom: glymur: use Aggregator TNOC compatible
-      https://git.kernel.org/coresight/c/1352ce9c99bd
+Count the mark in xfrm_sa_len() for every event and drop the now
+redundant addition in the DELSA path.  The message content is unchanged;
+only the computed length changes.
 
-Best regards,
+Fixes: 6f26b61e177e ("xfrm: Allow user space config of SAD mark")
+Signed-off-by: Yasuaki Torimaru <yasuakitorimaru@gmail.com>
+---
+ net/xfrm/xfrm_user.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
+index a2587c7e796b..5c6ee35bc012 100644
+--- a/net/xfrm/xfrm_user.c
++++ b/net/xfrm/xfrm_user.c
+@@ -4046,6 +4046,8 @@ static inline unsigned int xfrm_sa_len(struct xfrm_state *x)
+ 		l += nla_total_size(sizeof(*x->encap));
+ 	if (x->tfcpad)
+ 		l += nla_total_size(sizeof(x->tfcpad));
++	if (x->mark.v | x->mark.m)
++		l += nla_total_size(sizeof(struct xfrm_mark));
+ 	if (x->replay_esn)
+ 		l += nla_total_size(xfrm_replay_state_esn_len(x->replay_esn));
+ 	else
+@@ -4101,7 +4103,6 @@ static int xfrm_notify_sa(struct xfrm_state *x, const struct km_event *c)
+ 	if (c->event == XFRM_MSG_DELSA) {
+ 		len += nla_total_size(headlen);
+ 		headlen = sizeof(*id);
+-		len += nla_total_size(sizeof(struct xfrm_mark));
+ 	}
+ 	len += NLMSG_ALIGN(headlen);
+ 
 -- 
-Suzuki K Poulose <suzuki.poulose@arm.com>
+2.54.0
+
