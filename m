@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279302;
-	b=JwHri6G0RSIOjejU8VTZHhItMARMvi0Ebx4RQvHgYppkOC9vlgbmLhQP+q+MTyNZ/O9U
-	 p8Z2pZv/PEgTXh6C3yq0Ux9IHiGqkIXiZfJIuUauTSQOG22B27xVEt1cGzEnW6OHzkMZ6
-	 HPcHTqgp3EdFHv4W3gvjJ5vKjFoKMRfuDHdC+qbOjwoRkLF41hXgzBnnPneG/sBqvcN07
-	 DcEzYnjpRIOmxbrrp5gIRbjfgjuZpVUg4j5GJoMNPVSrR+eGDV1IR3pvVVVv886iHwURV
-	 C5qShgzH3pF3ic13fg+LRD4nyMUykAbchbW47agDPzniN9Y2Ik1G0U092Zieipoaq4w==
+	t=1794279293;
+	b=Uu6y/Vqu4I0+2y8jxCKvCa9VcnAlVnpPSlSiAsozXd83IXZPqSpV9etIi1LuPvFHJ/k9
+	 q+Z/EQZD7mnuGHEIG2clHsxpNSwc5PIlwDjfHW+8YxCtPz1E5eg9dc++JN+FENQqT+CBQ
+	 3X4nyHP4LRNOf3/8V4HhkQgYEox6eg5Ar46IEKAGv3W0/rutcaaHP28U9ztcCfAnvd/Rq
+	 3U2mhQ+YjaFrjAZG0QKmA4F5hBtmPgwvh2i+jlCphdtO1VR9fxhAYOjHzkmg5P0lxKRTH
+	 8gagMSa1dqRzfzQd8fyuX1anEZFpFdpI5XFEQJnmt49Qke6C3M69WO9HTHV3smLm+Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279293;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=cTX3T6TMAJ5HwTT0XmoAC7cwn6bo+kfJagmFjRifLaA=;
-	b=WtfTek5vR56OPY+WPqzwGcTOPFXPMOA3cIHHmV9dr42tHR143ObOyDKdIcCC1Y+vIShE
-	 byzIEb9nkqp9veOaEYufHbrJ3b6CUbXd6LmYPE04Ck/72hqAdc3xE44Fbwv5p1Rx1t3YT
-	 FU5xsGwlI2+LnGG4jLUPB8NdVqRj4+MHXWdZc9w19V/4q/x/VIrqUzRDpyJVjPg3gt4EC
-	 kxz98KBFuZPErZ76YHKxufJcUdH0in1YjIxxzhmHMW2Y75Bk0Ed6rkiwXoIvK9yXu5pH8
-	 u1DkBuFUn56gWSlkO/PCpG9lfTJvn7YrBjheIXaLdVv8FkrbtJZTdP3RQL1KZOVVwHg==
+	bh=P35GSSNzzC0rRZvfy6DMvzwx7n6r2uQ1meu+ZQtPiJw=;
+	b=wm8IoWNFVyM1KS0NfW40O1+Y3vQbBhWdoUI8ZY88ZFTo7RhUyyWlVvT5Mi51wlqDyD08
+	 6eNvjXhVHVLylCxag8Vw6YsGeBhh5l3DTkBTEoAf2JuXIyD0Mp1+DxNjCl2j6+wJNWniv
+	 8JF2IxRQ5F5fZwphyAvZpmjQ8351ktdg1QAIepfc+HDM7lIaiks2VMh+tUK9oGVyti7uH
+	 IrvqtGKqYMJRbvDeJiMResnphjffMmdZKfVkACzxivCNVEEFuHFYgpAez/U8Clraa1Cgl
+	 1fK9ZljSiC5y93eIAvTkpe2iDaZPNstmnCByvlkSsB/3wv5arJZdT42A2q1J/QJF84Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIepXn9z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFpoR2YH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E667360A6F4B;
-	Tue, 10 Nov 2026 02:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E153960A3838;
+	Tue, 10 Nov 2026 02:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIepXn9z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7471F008A3;
-	Tue, 10 Nov 2026 02:55:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFpoR2YH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7311F008A5;
+	Tue, 10 Nov 2026 02:54:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279301;
-	bh=cTX3T6TMAJ5HwTT0XmoAC7cwn6bo+kfJagmFjRifLaA=;
+	s=k20260515; t=1794279292;
+	bh=P35GSSNzzC0rRZvfy6DMvzwx7n6r2uQ1meu+ZQtPiJw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=QIepXn9z7tGzZ8FubGGYm6oK+M7Xv0vahL6WaPAJgGRTA4jjmjuHBacrT57BlddNV
-	 jcSxKwFLmuzUhC/bNasnjjkJhWQLdFkPsHsGuxVO4IdrKK6QVpmvficT1di8XIAEO3
-	 DyWO85QuZs/tBqVYmDAVasljAkV9OQN+2JATBeQkfm/rpoQGchb3XXcjJvufZ4Sc8U
-	 P+BrwgaBBzwirZBAMc1G6MaNTMmr56lGr2nCzgY74uSo0gqfRBYnjm8Th1qtunYpxQ
-	 GxHWWhRQb4RfcGuD6tdmV4fxY20Y4jFk3GJlHdhu+CWa2cU3Uzcvi4JP6GRu5hX1w6
-	 ExXX5CNSzO/sQ==
+	b=QFpoR2YH2bx5ZEgzfMGcpbCOXcP0YwVlrwvDMl6NrAux0Bhomq6ASRusCtdVPqyBQ
+	 aGiutVslavhD3dRGZJTeJEBlFz77TJVuXchvCNrK7DKuhuMwI6Sp0Nb+KrvCRJbDbQ
+	 rLhueVRplCT1W/6OJUHndBDT3H0D8HnDnkKBsKQrvG076mzcXmkW2e7NmVlUiEuleF
+	 AMbEPO5HdZWeLaw0EGFVzPZYP/sz1HFx4pHNWOZIb+VFSmMhVAXm/Tertt+/HgHEwP
+	 +1Lf8rBYPd8HOJL+5vEqFX+vtLvhGIkK5PvtTdtUrMqDldvQtpTVTkrkjdV1oYbipQ
+	 R4mfZBv5a0W7w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B0CA391AFCB;
-	Tue, 10 Nov 2026 02:55:01 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B04C391AFCB;
+	Tue, 10 Nov 2026 02:54:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,38 +54,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] team: fix promisc/allmulti leak in team_port_add error
- path
+Subject: Re: [PATCH net V2] net/mlx5: Bridge, fix bogus MDB offload errors
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179427930017.3612825.2243864386050200403.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 02:55:00 +0000
-References: <20261104015217.2222-1-lirongqing@baidu.com>
-In-Reply-To: <20261104015217.2222-1-lirongqing@baidu.com>
-To: lirongqing <lirongqing@baidu.com>
-Cc: jiri@resnulli.us, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, zlatistiv@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, hangbin.liu@linux.dev
+ <179427929117.3612825.9836725011993171044.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:54:51 +0000
+References: <20261104183715.771390-1-tariqt@nvidia.com>
+In-Reply-To: <20261104183715.771390-1-tariqt@nvidia.com>
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ alazar@nvidia.com, bsoares.it@gmail.com, cratiu@nvidia.com, gal@nvidia.com,
+ jianbol@nvidia.com, leon@kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, maord@nvidia.com, mbloch@nvidia.com,
+ roid@nvidia.com, saeedm@nvidia.com, vladbu@nvidia.com
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 4 Nov 2026 09:52:17 +0800 you wrote:
-> From: Li RongQing <lirongqing@baidu.com>
+On Wed, 4 Nov 2026 20:37:15 +0200 you wrote:
+> From: Gal Pressman <gal@nvidia.com>
 > 
-> team_port_add() increments the port's promiscuity and allmulti
-> counts before calling team_dev_type_check_change(). If the latter
-> fails, the error path does not undo these increments, leaving the
-> port in promiscuous and allmulti mode even though it was not
-> successfully added to the team.
+> MDB add operations are queued on the switchdev deferred queue
+> (SWITCHDEV_F_DEFER), while vlan object deletions are handled
+> synchronously.
+> A 'bridge vlan del' can overtake an MDB add that is still queued, and
+> the vlan is already gone by the time the driver is called.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2] team: fix promisc/allmulti leak in team_port_add error path
-    https://git.kernel.org/netdev/net/c/ff618cb00a64
+  - [net,V2] net/mlx5: Bridge, fix bogus MDB offload errors
+    https://git.kernel.org/netdev/net/c/c714f324eac1
 
 You are awesome, thank you!
 -- 
