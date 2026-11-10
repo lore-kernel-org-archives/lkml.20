@@ -1,62 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315288;
-	b=Q/cNuOcqBaV+9k8PD1eblK37GR8q9DsgLuBRsIuWwhbRa0P+ZDm+MSJDIuWjqWW9RCgw
-	 0NjrpdwPtB63p3+VQtY+yZY8bn7itHttbuadaNjD3DL6OMwTwiOkrKXH8uFKBMe9uVt98
-	 W2j/1REcYq3dsFJTefia8fMEG8wsTCl4ZCCHq4J8mc7qubbz8ZHCpmKYJSJhSHWDH4KmU
-	 HoDnrRFzdnvILgKxpqxWRKOn+WoBSdiiqWF/bt7cJxzE+XB5mzHb9fPzt7mNHCspgvSpY
-	 JecYWNkQ2VxiCK+9wQxaaS3912ceZ+c3yov0+CDRKXq1A3hyseDyWS3ozOoIGRdbsOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315288;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=1+2k5LckoMlRz1UsGVfXPTvJfkXcF184agG+LHhQ6uI=;
-	b=elMIeUoLsCm+wGFifJcBh3aYOEFYtyz1hXZJObi7gzgUAE6/YCr/4h8OP8cKgdk2xoWl
-	 e/xmu5QzMGi21cVdUENa/D5Zr1zS7VyXQAmzkOl9fY+me57/8KIvnJpEPji7c9CkKAOqY
-	 VbqIaz9cuZB5qzfQi15br59/7doKi2XYnV/JzA98OGxeNxq7Q76xaxuK7jJSQ4yVeiHsi
-	 YZG/lKkeo+enzJoBJhnvpb9rRo4dI7h9ZvP24PxlHYkjHn1Aw9/wYyWS1H913Wpfg28+e
-	 KKdzQq5EaUg9WJNokDLn8AWiEuyyodY7vDl5DAUzljlcnlGw7CFGytkkv2NKs5v2DuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f/zSVM8/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794315307;
+	b=OXPwJKMwhudElEpL6uITLywXX+tQb4qqLNCp93vfxCRo5FpeWrXMkPq66bYEGAkH5w7X
+	 Wr46cdjq3WEgJ7NBYLNNQaYEwhPk3rx4QQCt0sqHYXsXJiXpZ1wgvlA9jylhpbv5XV4AZ
+	 6cZ++CyItO/IOSJ1VyVImsZTQmaE1Q11UbvPGFfVQzTnE5sz3Hiqkzxhdig0ZBf1s0OiZ
+	 jwaU/q59OqecDmkmay3h8q5Rpj7SRA65twaw2neqHv1SldBQrJUpIiuKmvzfFyit6166b
+	 InCIZSY/wySuKM1pRA8xF5dzpickZ0cwW2FoGpcPa+ca3DrOaeLewMwMJYRkyQPNSxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315307;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=;
+	b=5aXF/7t8CmzGoygj2F4C3Nc3ww622njZozBN0BlQOT5JK2JrK09gPM5NZHkmdiJEUPaB
+	 KuK63d1az04js9Fu1sgy56pQUGxNEgiHOIhKMaK/aV2JBO/qs+1kuggom44koZ9s5YsZk
+	 ts1X6tehlvp+gfxjKCoeFQvc/etojwkFdNx+Gw4pLBdPc38SwZ7qDGSMR24iw0wN9qhWM
+	 iW2MSzbRHLYBVpyrOqCNQQnygXVFUOiD1Bew/TSn40A2tV/bQeLc8+lMoNLLV3+Jw3KSW
+	 rheI33EHNC2XqjMmSCuj4qf/FoJ1/gDG029bCGUopRhSfwJ7zllkF0KmWp50e4EqI5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=I815BIk8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3464606A336;
-	Tue, 10 Nov 2026 12:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A576D60A2600;
+	Tue, 10 Nov 2026 12:55:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A576D60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/zSVM8/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F5D1F008A2;
-	Tue, 10 Nov 2026 12:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315287;
-	bh=1+2k5LckoMlRz1UsGVfXPTvJfkXcF184agG+LHhQ6uI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=f/zSVM8/aG5/mr1KV04vTH9V5U8+FsOb/Jzgzli3GSTfjY2Ch1qqMEg0reZipXUvj
-	 I5DWAFQMn/iYdo+zlXIveCaSxSkK2TKCLj9RGnH06zCE6QByvF9mKIdKdkvKRSuZEx
-	 sxMfN2kUl9ndSIn3jl3m0taYiDibWw5YHu1bwzgPoFRFXXdR+e+JyOg9JT4qUr76HR
-	 DkZGYcGE+n9yPol4hB7iM676ji6+LgDFd/s+KiArvaYW3DNh1fdXjhAbPP1kt8x/Nr
-	 DrLnwR+JO48GaFQ9lEcK0WnqGVwrkFJLEnMge8Jq+WnlX28iespYtHCM2yigBF28Z0
-	 99sHnlDcJMeyA==
-Subject:
- Re: [PATCH v4 1/2] lib/net_utils: allow mac_pton() to take a custom delimiter
-From: netdev-bot+sashiko@kernel.org
-To: liuc63@xiaopeng.com
-Cc: gregkh@linuxfoundation.org, akpm@linux-foundation.org,
- andriy.shevchenko@intel.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, khtsai@google.com,
- fangxy@xiaopeng.com, rdunlap@infradead.org, dbrownell@users.sourceforge.net,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Tue, 10 Nov 2026 12:54:46 +0000
-Message-ID: <179431528628.994134.9205744622940373491@kernel.org>
-In-Reply-To: <20261106030605.576584-2-liuc63@xiaopeng.com>
-References: <20261106030605.576584-2-liuc63@xiaopeng.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=I815BIk8
+ARC-Seal: i=1; a=rsa-sha256; t=1794315283; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Y94BJ/d0hu/ljQ4Yxrp6aA/BvOH34wxDNxYzHHDKhrnVdwxONwD6P/+T2AL7wT6+z+cOjh+D+jRcsCYlF4yjz0LDWPtww32bPIw5V8D16x0JhmfUglr9tC9wvAHa/yS1vXBqBiKlt3ZSHlsZTl8eMSZJ4lQ67RraBPTQXU9V+6A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794315283; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=; 
+	b=hjTGevDhhbrsiZPnVW8oeHzIW9l2DC2E2Cdvwkejm/CCd1oevNWYszDsDwbpBZbrcSIgzBWtGaMiTOZt7sVP4URJ545UU79FU6KXZSxTZnxAWW+QC3a0wxcp+FyjZguzVw0lGJNoxy6KKI04pm4jNPqhW6ePGipWPmq+s4uIxfA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: a=rsa-sha256; b=I815BIk8Ck01D+vSY1GW88Nk761IpiALPCQaTeYJateDDS83tBm4s55KwO5+3Sg7rvd1L0GcA9wSsgLaGzVfWHTAkFu9K1JKmGsKCDK9tpY6DE+Q4guO89Hts5LvyQOCDAqiV3luJoyXUg/vhlo6L7//CTmdXQiYoJAwc0olrrU=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=0GQ5O2kKwmrg6kcTaKBTkUBP6M692ED8CxCicZsiYMg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794315281413705.7572751268435;
+	Tue, 10 Nov 2026 04:54:41 -0800 (PST)
+Message-ID: <866cfed1-e55f-4f01-acbd-c29219f67e54@zohomail.com>
+Date: Tue, 10 Nov 2026 20:54:37 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,82 +59,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] cxl/edac: Mask DPA flags in the event record cache
+ key
+To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
+Cc: Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261108022022.3352-1-ai@linux.com>
+ <20261108022022.3352-4-ai@linux.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20261108022022.3352-4-ai@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227409f9b5e809833055c825ca500000bcf75c86c3758d1da631cda78326748a4312015d4a113cc6f:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
 
-Low priority / nit picks for your consideration:
+在 2026/11/8 10:20, Jongwon Lee 写道:
+> The low bits of the DPA field in General Media and DRAM event records
+> are flags. Bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace
+> events print the DPA with CXL_DPA_MASK applied, while
+> cxl_store_rec_gen_media() and cxl_store_rec_dram() use the raw value as
+> the xarray key.
+>
+> User space takes the DPA from the trace event and writes it to the
+> mem_repair dpa attribute. If the record has any flag set, xa_load() does
+> not find it and the repair fails with -EINVAL.
+>
+> Use the masked DPA as the key. Records marked NOT_REPAIRABLE are still
+> rejected, because the lookup skips them.
+>
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
 
-- [Low] The kernel-doc this patch adds for parse_mac_pton() in
-  lib/net_utils.c does not match what the function does.
-
---
-
-lib/net_utils: allow mac_pton() to take a custom delimiter
-
-This commit moves the body of mac_pton() into a new parse_mac_pton(),
-which takes a string of accepted separator characters. mac_pton()
-becomes a static inline wrapper that passes ":", so existing callers
-behave as before.
-
-Link: https://lore.kernel.org/all/20261105072147.3383565-2-liuc63@xiaopeng.com/
-
-> diff --git a/lib/net_utils.c b/lib/net_utils.c
-> index 215cda672fee1..011857cc978b4 100644
-> --- a/lib/net_utils.c
-> +++ b/lib/net_utils.c
-> @@ -5,7 +5,18 @@
->  #include <linux/export.h>
->  #include <linux/hex.h>
->  
-> -bool mac_pton(const char *s, u8 *mac)
-> +/**
-> + * parse_mac_pton - convert a MAC address string using a custom delimiter
-> + * @s: string to be parsed
-> + * @mac: buffer to store the result, left untouched if @s is malformed
-> + * @delim: characters accepted as a separator between the byte pairs
-> + *
-> + * @s must be MAC_ADDR_STR_LEN characters long and use a character from
-> + * @delim at every separator position, e.g. "aa.bb:cc.dd:ee.ff" with ".:".
-> + *
-> + * Return: true on success, false if @s is malformed.
+> ---
+>   drivers/cxl/core/edac.c | 16 ++++++++++++----
+>   1 file changed, 12 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index 42683b7c54..f627c73ff6 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -918,6 +918,16 @@ struct cxl_mem_repair_attrbs {
+>   	enum cxl_mem_repair_type repair_type;
+>   };
+>   
+> +/*
+> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
+> + * Records are looked up by the DPA user space writes back, which comes from
+> + * the trace event and has the flags masked off, so key them the same way.
 > + */
-
-[Severity: Low]
-This isn't a bug, but does this kernel-doc describe what parse_mac_pton()
-actually does?
-
-The only length check in the function is:
-
-	if (strnlen(s, MAC_ADDR_STR_LEN) < MAC_ADDR_STR_LEN)
-		return false;
-
-strnlen() is capped at MAC_ADDR_STR_LEN, so this check only rejects
-strings that are too short. The parsing loops read only s[0] through
-s[16], and nothing checks that s[MAC_ADDR_STR_LEN] is '\0'.
-
-So input such as "aa:bb:cc:dd:ee:ffJUNK", or the 7-octet
-"aa:bb:cc:dd:ee:ff:00", returns true and fills @mac with the first six
-octets. That doesn't fit "@s must be MAC_ADDR_STR_LEN characters long"
-or "false if @s is malformed".
-
-The runtime behaviour is the same as the old mac_pton(). The current
-callers (the mac_pton() wrapper, and get_ether_addr() in u_ether.c later
-in this series) don't depend on long strings being rejected. However, a
-new caller that trusts this doc could skip its own end-of-string check.
-
-Could the doc say instead that @s must have at least MAC_ADDR_STR_LEN
-characters and that anything after them is ignored? The other option is
-to reject strings where s[MAC_ADDR_STR_LEN] != '\0', but that would
-change behaviour for existing mac_pton() callers.
-
-> +bool parse_mac_pton(const char *s, u8 *mac, const char *delim)
->  {
->  	int i;
->  
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106030605.576584-1-liuc63%40xiaopeng.com
+> +static inline unsigned long cxl_rec_dpa(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
+> +}
+> +
+>   static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
+>   {
+>   	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
+> @@ -1131,8 +1141,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>   		return -ENOMEM;
+>   
+>   	old_rec = xa_store(&array_rec->rec_gen_media,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
+>   	if (xa_is_err(old_rec)) {
+>   		kfree(rec);
+>   		return xa_err(old_rec);
+> @@ -1161,8 +1170,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>   		return -ENOMEM;
+>   
+>   	old_rec = xa_store(&array_rec->rec_dram,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
+>   	if (xa_is_err(old_rec)) {
+>   		kfree(rec);
+>   		return xa_err(old_rec);
