@@ -1,110 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794289020;
-	b=QPI0PblGrjdzjRmI33IvPBi2ytHItFqtKQEneuCXocLpz3DrU8dS1Ugur8QFKkW1VndH
-	 6tqeTUcT1ACw67sk9yriXkrsBZZXu1CAlzsO6VeGRzhsLFMSQc0v45G34ko8qj6VijU/4
-	 X+FGABiuT86S0eHRO8Lqq0XgVpbbTWRXjIGFRq2Nvey/HuGrDcutBWVOIRTdEMeoETupc
-	 8lVu9pw4eisAuR/Dcuc+lho5XBH84SsjWLrqaacakxKdY2HRys9kPGrwHUjOJFPwXYq+a
-	 XKUnKj7acNWCxcY0uUG9a3WkNtTmsCkRiJxUs/8Yi8kgPc6xRTsi0Z62jByIWv+h5wg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=MKtRoakzgTAUSsAlhM/F2eOKSd3FjMQ5L1Fauxtx/4dUT+T0MzKozkKFBoCoxe8S6R6+
+	 w+q6gPvP5VHkQlz/TCSBubPz57olz2owF4QwbLbeo38B4BgBk+XvYmQnZ5uREw3Su3LB5
+	 WM7w3bdggYuFhJZm46XrBsN9EJ9gNG6dx5PDzSkEm1/J5JXRtlUjFrAc3lXdhnTkhmfus
+	 7fl5aaiH33lF8wnQ6gMfIQEIg12Fl5XLfUxfoMpxlN5IG0vzC4fAsr9PvqqhIHNaY6GRY
+	 HO/H68h3GCFlYYWFrHkV6zNT+sfTlbgV3rTs2lj7eRNvt5gI2Bp55Ppfdf+ouhgUMQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794289020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=upBQHvhIXS9jA4rn/T2U6OyiZNi8Uwc76Ij6dQGz7TA=;
-	b=rgoS27Q3SIZjfx7z3lw0jobEedg6tae02T180k2YtpsmWY6F0rZurkjiA5gvvdE3Vm66
-	 suPPm4DGd1yV7250MO9J0Oa2+YPERbPWG9kQPDRHpXPYKVE8/2vOfYa0ezU9qogTHAQj7
-	 GOlT6YfUJpIURyWKkpgDSGovnB447Vc/xWOp/rrkq9WibhM8bESf1gH9LBAbXe/F6pq5i
-	 3EUvU9vbZdN3MYiJsZmguzf9nvk7VynIE5W/uZsPtd6/HrQfHE7IiAXbO+IbbdEv/PVg1
-	 NQSeIJfWHQY9SMs3uy2IcZL3Usumbx6d3FFfSiOS53NmFNVN4zW5/WIISRFkQxDCEeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a20xVX7N;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6mbZCUTv70VlpZsgPw+uhGGcoEUvKC9H4qZpsqc1/Xw=;
+	b=jXZdyrJwUj+xeuolQE8NghHHJCQJs959qz1nvTgj4fySlze8qvNAg73NEWWw06fW8qD1
+	 ZrU3gui6Lh+fruLHBPJcWTtth5MyfBKM1cVkLdJxwvegpK3pxhLbLzlg5/4M4TUs1kxRg
+	 ZSI8fLa1vvmH77+8Z94W0q9kZithBbHkzMf5fGRmP406QVWA9d5tXqEw0mAZr2JSf7hHB
+	 0frDcOIpbt0Ey/GRxb58l9gErpCVtXY7uiMKcVLCq1drTK4rAdHfG4nMwiH/ScYCcIeOg
+	 cBdAcmAKUABnf49sAYrwTBfRvGLz9GBkLcNIA6eNnSmbBMgGHXmYFO+1v7uX8TAfAwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAFOsqt4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BADE60A2634;
+	Tue, 10 Nov 2026 05:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAFOsqt4
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794289020;
+	b=UXM3EKFCfzHumv5h23ND/bhgu4Y87AoTpmEPoq9w2Lw2Xh31zrmrIXtp40wjtbjtbOEF
+	 lIaCFX2E4jflGHLYjK7rJVRa13owij55By6qX1zaZwNiAKmiBBqfL/rdkbGUuAzt08x2p
+	 5Pc5mgJQLAy3NV+nPMiNDnAaohHRRdefO2wjPeFFM6/uPUpv4MxiuanTR04lBt5TYAgSe
+	 Qr2uk/0hH8VUB7YPi131ANoqRywFHN0IZhEwk+QRkoOrYv1uF4yu7Y+ylwPmWJkS9FwYL
+	 Gn9ivWqbG0VGbx/0L/soiHeZkrfugAYbPn1iiLAzN20W8a3jWLBYdrug8cXNcDCcLzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794289020;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6mbZCUTv70VlpZsgPw+uhGGcoEUvKC9H4qZpsqc1/Xw=;
+	b=bXymHt0ulRbgT55YzZVs2hefGdaNsgiK6kc88WocnZNN9jHeCfzC4JrM4nxpClALNwY4
+	 b7yhP1zdI0m/ArRT3UK2gSbpk7fa2X+wQ++WRjuLml1T8E7NMPAEm5bPXURpw2xlvfzSt
+	 lB405e1UT3bKzQKksrg8hSusvsXtEN05mB5I4E4K0jO3xoscALRyeYB8KxQMCsmnauvjX
+	 cQpP5VRrpnMsLaaAI2Z6yhe7Z0NFzrZeN/aIF8VsCTXoFAre+xna5N0wr/51PmzxhFhhz
+	 ltDU7EJhQ9IoRK6naVjMkysKOrNDv2dETAhMDDnr+zfmm050Oq5kh0PaFRVYCEvIrHg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E481460A261E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E481460A261E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a20xVX7N
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so684601b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:36:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794289019; x=1794893819; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=upBQHvhIXS9jA4rn/T2U6OyiZNi8Uwc76Ij6dQGz7TA=;
-        b=a20xVX7NeZjvXNyM41dYWvLkg80id1Mtm74DkyBWYfM0GGXgLb8i1+nApuqtrL8uLo
-         zE4qrJ3gNwkeUVWkpUNiFHGrdIzZeRo9Bur+lQwMh5IboV/ahqD2hnLAdr9gSwVdEq52
-         47ewJ4dnUp54hAJDfsvJlQHVaRbFtqFrQtWkI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794289019; x=1794893819;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=upBQHvhIXS9jA4rn/T2U6OyiZNi8Uwc76Ij6dQGz7TA=;
-        b=nR8E8Fs+l6e5GUAuBYHniw70sd43OBYGPCWUHDNWEI2BPxd6N8NOrhnsmw7pKYunA+
-         ARE/MNP7Mz8x7vS/owHWX3ofqq5hpMRBrxnq7h9sOe1LL2ewDNZeJPvysQEaWngIKHJu
-         +9904LSq3x6Cr3CgOOJjNvAQVlVVQzjEHaVPF0ZPb2OgXPUZyNSDOcxzSiX4PSzdkm8L
-         mfCrG+8ts3S74qmJLbvd5YqsvsPIgztHLGutF+96eQKknJd2C0DQglXOwHynJp8978+f
-         LKlgI49Nfci+m4YnAZ61zuOhDb3V62Tt1yVkdwfSCbrWW4h3fq+Y8wnWuQBBCcS2JgHY
-         Wkqg==
-X-Forwarded-Encrypted: i=1; AL+hErFbguLshs3RSwvd3oe3ZRXfUfqU+O+YodBjsivFACx6VlN7HFBojwmTZBWykOzffhtzTGsA6DfHyA2uftw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Bd2qG4LfAnyx9zuWRQ2Mvp1bvt+NQLscTLkJ+fASXNq1CfJGk
-	pwN06Uv7b/OFikDlKJvlLSj9Fo29OWKk7KBl9SYzfADDMFuQdIBGLx7ItVFiegW76w==
-X-Gm-Gg: AYBFou1VPcR8d1muraP85eaicwDQCfB9UIefJjVuJ82ugvKfhunM1v774+1Zkj6or5K
-	MrWcRoeO27EaJ6AiaQxHkQvfCwiLHKhpQvTo30oxqbH/0PlmEeQRaDVj3uXC0m8VFTb0a92ju8z
-	eDjqEvIhzJD+b9DXD2xGfkpaiaoq6nVdqjoBtFugWCnWk3M3LlMRCa6Jf79d+hg+gP015B0Vgme
-	2HZNZ1LranIRqpON4Bfvn4GKBnRSAfhma5vTRi/m+TIwh4locoLqtrUWyF/e4JiHV5ALPiHGmeJ
-	6TCJ+dhE5/z0kHpEI4GwkCISKdAXbDoEe1r1hulzuF4jnbxwjrAAKkEemSKngGT5r/NosG+7vEA
-	8MqGKHBUd8qI/OL6AiG4wMwmS4RwVj7+uCyTkJruHCBvGq+cLCfcTRjiu1E9afSnhaeGDbZUThn
-	7SQwoKslWcLcA/3tRHBE3pKPWm1A27tZIIfCpA1Fwzzk2GeCWpncu1vzW4LrokXsKCZL1mtlKy1
-	P4xVuO78RB2b3fHc6GpJJLAhj87KeQWJqZ7+MAShx4J5qmmxRVmBgOee0KNayRU9SmcJGDEBEdJ
-	4u+g5363pIBvipjn4qWdKHBLIQkH5K79GkEY+04WitoTrMOX0odKk8vg4O4EhhaO700eJg==
-X-Received: by 2002:a05:6a00:1492:b0:89f:5c84:46ec with SMTP id d2e1a72fcca58-8ba89661da0mr1558178b3a.40.1794289019108;
-        Mon, 09 Nov 2026 21:36:59 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab8dccc7sm405355b3a.52.2026.11.09.21.36.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 21:36:58 -0800 (PST)
-Date: Tue, 10 Nov 2026 14:36:48 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Russell King <linux@armlinux.org.uk>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Jens Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, 
-	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, David Laight <david.laight.linux@gmail.com>, 
-	Sungguk <sungguk.na@samsung.com>, Jaehoon Chung <jh80.chung@samsung.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
-Subject: Re: [PATCH v2 10/15] lib/lz4: switch the compressor to the vendored
- sources
-Message-ID: <avKs4_S7r6EiUVgC@google.com>
-References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
- <CGME20261106144305eucas1p17b3b27d403dc7d13b85cdd9a4bea83b9@eucas1p1.samsung.com>
- <20261106-lz4-vendor-upstream-v2-10-ee04c3f0d7dc@samsung.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 420E31F008BC;
+	Tue, 10 Nov 2026 05:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794289020;
+	bh=6mbZCUTv70VlpZsgPw+uhGGcoEUvKC9H4qZpsqc1/Xw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=JAFOsqt4xB3Qs3mhAFaSJK4B0oavTNdgo7NkIgwDCpOrFFVvR/p5nZhv74fKZGw/+
+	 0+hZRDgCTNbQc+Y/4rYa0QzaxLFN79rjEkT23cAVUcXmFOlyDfuCokTQ+JezwL8aD+
+	 BVPiKjETL2SAtr3Je/k1nORKPZUOXyzkpRYQVfnEh/DPbwFnHtJy8XiXGxZjYoHmXs
+	 bS29xzCN2FBEwiE6vxrEswc+VI0HsyFeEOOr8pmw2bLmxTjroW3Tlc3dSwlG4T0NOc
+	 FchvjVRBq1wLYN1ZBIHXMZgpZxp5E4Naz5pe6kegS6ncWYZWqwv0NL++incmgJ1Qa5
+	 TM6j0WvSwevOA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E952E488B3;
+	Tue, 10 Nov 2026 05:36:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 05:37:00 +0000
+Subject: [PATCH 6/8] arm64: dts: allwinner: orangepi-zero2: Enable GPU DVFS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,43 +82,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-lz4-vendor-upstream-v2-10-ee04c3f0d7dc@samsung.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-h616-zero2-dt-v1-6-05506d760f21@gmail.com>
+References: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
+In-Reply-To: <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794289016; l=990;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=5MPJQC1S+CHiR8Bt9vkp2Zk5ZwEghmC4r8Nx+9ugUME=;
+ b=8053UKYHfOqO54EdBf1xGwXwUhAAG8olofHNp/ByiYCdgJYl8axWDp8NLgo9hQQ0vnxphtsa5
+ +6qHMIMauqzBvoMNEJJfhMcbKPmNY2m1kyACcEh3CGFcHxLyV/cESHG
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On (26/11/06 15:42), Michal Wilczynski wrote:
-[..]
-> diff --git a/drivers/block/zram/backend_lz4.c b/drivers/block/zram/backend_lz4.c
-> index 1e4ad31d39a63f45b3bddd3d8a467d8d7d095beb..50265e3ce256490994cb6dae32a45da376e408e0 100644
-> --- a/drivers/block/zram/backend_lz4.c
-> +++ b/drivers/block/zram/backend_lz4.c
-> @@ -42,7 +42,7 @@ static int lz4_setup_params(struct zcomp_params *params)
->  	if (!params->dict || !params->dict_sz)
->  		return 0;
->  
-> -	dict_stream = kzalloc_obj(*dict_stream);
-> +	dict_stream = kzalloc(LZ4_MEM_COMPRESS, GFP_KERNEL);
->  	if (!dict_stream)
->  		return -ENOMEM;
->  
-> @@ -88,7 +88,7 @@ static int lz4_create(struct zcomp_params *params, struct zcomp_ctx *ctx)
->  		if (!zctx->dstrm)
->  			goto error;
->  
-> -		zctx->cstrm = kzalloc_obj(*zctx->cstrm);
-> +		zctx->cstrm = kzalloc(LZ4_MEM_COMPRESS, GFP_KERNEL);
->  		if (!zctx->cstrm)
->  			goto error;
->  	}
-> @@ -112,7 +112,7 @@ static int lz4_compress(struct zcomp_params *params, struct zcomp_ctx *ctx,
->  					zctx->mem);
->  	} else {
->  		/* Cstrm needs to be reset */
-> -		memcpy(zctx->cstrm, params->drv_data, sizeof(*zctx->cstrm));
-> +		memcpy(zctx->cstrm, params->drv_data, LZ4_MEM_COMPRESS);
->  		ret = LZ4_compress_fast_continue(zctx->cstrm, req->src,
->  						 req->dst, req->src_len,
->  						 req->dst_len, params->level);
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The zram code here is outdated, it has been reworked quite a bit
-(patches are in linux-next and Andrew's trees).
+The Mali-G31 on the Orange Pi Zero2 runs at a fixed clock. Include the
+H616 GPU OPP table so that panfrost registers a devfreq device and
+scales the GPU between 306 and 600 MHz with load. The voltage window
+of every operating point overlaps the 900 to 990 mV range of the GPU
+supply (AXP305 DCDCC, mali-supply).
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+index 719d6dadf7bf..ca78d094c431 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+@@ -7,6 +7,7 @@
+ 
+ #include "sun50i-h616-orangepi-zero.dtsi"
+ #include "sun50i-h616-cpu-opp.dtsi"
++#include "sun50i-h616-gpu-opp.dtsi"
+ 
+ / {
+ 	model = "OrangePi Zero2";
+
+-- 
+2.55.0
+
+
