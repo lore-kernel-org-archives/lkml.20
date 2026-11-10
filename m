@@ -1,61 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292304;
-	b=MHM4gCLJBkkBMjpVCoq7UUvmwCZhn0oIT6UFexdYd4Cha0VnEzlHwdK6WIR2/TjZxcQN
-	 7lhpAvGxmYDh45ZNGqT5ao0o3fuE2CzdZ7iGvpHc5D+EHxraQsDXv4wDKT951Uwleo1WD
-	 nVPoX16OWyH8F4eWyZwIr9j7s6sEhBiyZhfbidyd7YonvHVMg/HOO1JzslPpz8yK9OMQb
-	 lwBfgBzTdoBBGd3g+HDXe9cY3aUdYqLpU7VzHoL6P1lcx/YgeLbHXJbh2tGj9UpI2WrRW
-	 Xg7AJ6n9TGPBqBxPZFsyepzggVa6EmI+RKOxGKhaKwo75mjd9LvfzKUIslRZPkCSqjQ==
+	t=1794292360;
+	b=xnx1e+wPpSsL/XG9P7d9NyV33yqZ+iYg+IDskZpR+xCSS9BzNcXVviXQOPPZt3kqN585
+	 99zOVvnuTVFsm0SRflQ4zwpfSUke4FM6vbsD/W18898lOJwMwZOAAzRVC+qkLsm1deZBX
+	 3kxjLIwXva79zL2HMtDD1hnIXlBZtX08M664iW1alyDmr2vF8E1yNzZ0Zm1nh6ivRC4qJ
+	 lSsTXSoP1SQ4RVImH0qaxwGc8FUB8GEErICUkc2uQ/1tF1cLr8DRz7O/s1SZ07izBeEFO
+	 6EXYv0mU1teboMINlOu9Wl+Ns6nrppoBCfkgZ/oTgyUF2aIhsTQyinAjmLLIu3IHkBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292304;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=hCPqx5wj8Vej8QBG4Zxzq+0P7YhtDg24mAW+V+oPtyk=;
-	b=HGDQ1KtIonmsXzYmk+asjGjJLSEhQZQ17OMcyQhb6rb5nnaAj4UNH25EAWG9DuyKmE40
-	 tlP7HYIhgN/9E/UwHid/dnVXv0yZdzHp+rBiR2MVin8Z2Iz0fRpmEpJYsy6Few9/4iISY
-	 Qr3MgTEVGlphzMoMVcHYuloKq9AZPKUoOzOfIFT1JXwnj0byxgks9P89gMHV/YDr1giKg
-	 F/9Kkfcx1nTP2JScpoIPx70DFAYf5kEpMiilXl3Top1nfxeC1YCSbiR+T2ijIOXK8SZfp
-	 aYE1Abpavmg1DOz8/PurjYdO3TwpJjJMHZxTq29yed/bkwgOxaPVEBcF1j9DN14SfTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UtN3c9znOhlcLP7aT4zPmjzYTm/j7DzyRF8Arqw617w=;
+	b=XCr3cjT2sSMgWIcCXIPypg1xGYUopjplPelPi8Uv2q6n7zENUI4UeYKwRrDL8Cy0X+kl
+	 bat3ewhL9Wvolia4on6ErgPc7uhomppkrIVk+TQ5e4y1H3bJqD2HCT2X2c3zF7z1jEm7p
+	 j3wPDlaWt0mbBQH63kwFbnea5ghjYHfMfOAi9wMRIwDbrSsPXZrNQyffwox2X80FExCMY
+	 3JucuKrNe7pW1m7g+vyRKgM9w2aY5dA03vA1WWHi5kQwD/P809V5y6mha8Mnv/s5+98J5
+	 HTaY4hgepd1MZZnVpM8kIK60K5mfzRFaX4/MCd4rca3f/0R74dvCVA5q+eW+nENWBvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Gg9pCmBD;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVKNCRZA;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4EB606A339;
-	Tue, 10 Nov 2026 06:31:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD4EB606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9D1606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:32:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E9D1606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Gg9pCmBD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hC
-	Pqx5wj8Vej8QBG4Zxzq+0P7YhtDg24mAW+V+oPtyk=; b=Gg9pCmBDcxM2vgilSl
-	ZEMoju4SJ/qiiahklxrKjDCSzUkgZ9O+ITFG6UOYp1ydpJrw/VpCXUNVCIdqHYpS
-	ATLCQJhGgxqoW9vLUBVjdcxFKTviEG1W170fFsUzEUyR8LuBiYDDinSoiF0/O+Sh
-	XmqT+ax7gNfbX7I5SE0v+X5lo=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCH_6IXuvJqrGnjGA--.29207S2;
-	Tue, 10 Nov 2026 14:30:49 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVKNCRZA
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so939617a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:32:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794292359; x=1794897159; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UtN3c9znOhlcLP7aT4zPmjzYTm/j7DzyRF8Arqw617w=;
+        b=GVKNCRZACeNO80L6Ty9qoE+I3xsO1XjytthmqWgqoxCq1Lc7OMGZDkrxKGTJ7l53Ue
+         2WQHX7VFH+1z1K0pxCt04v3j5EeFcw0rf5ofHd6yeU2Q50S6KVOlTgxk0qgPJdHfl/e7
+         mCPwQafBIHm1KRFMGrsHm4rL4VPauHmgVujQEYcv1c5SD1KntpLoILsxMwms0/+diFME
+         A+gQyGIGM1AANva8jwJ/LoIegJybZTmQtTiXeQBaS9QiE6bN+Y80/BMPYNg5+r0bEmEZ
+         KHYvJAEU/vZI7BMokujjFXZSlhnU6d0WFoAl5rFZyJgMtIhCWrtMAS1ErO7f2+u2Fuif
+         5JHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794292359; x=1794897159;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UtN3c9znOhlcLP7aT4zPmjzYTm/j7DzyRF8Arqw617w=;
+        b=W9yZ4Q4b0VPAnGFpnq6pWaczqN/ohrH3t+lMw/6hD87A9Ok2YhtDF4S3gV59/fg4oP
+         trQVmRuLlsrFLZHL2ZBuMy9JPdonMlEX8SNHsHL7IhdVi/B63lbIYpwxAg1wid/mXF4b
+         e8NaLgEceI9lSf6U4yeUC+AznoWj2e+yNiUZ6+DDJtK6S0ZEif0TOQrP2XPMPRKeiQif
+         PyomlMfjBA2zw2Kr15zSMMd9/5WYmrv3k1iqLpq2Kqh1z/Rkc9mfV0UHrJyKI8FqefKA
+         RuqXelM8nArtka7L9EbkxxvZIwBu1Y+MSG2XStQuYFYcDA0Y34DrYn/xTMyY9zEySdl+
+         6K0Q==
+X-Forwarded-Encrypted: i=1; AL+hErHl8eQo/OTeD6x/1eGZSpC/HG3LTvHyA1Db5P3Qf3BO5TYDSoe1VgTFyRLmACQeOG+FotWyI7kHc+AgGzg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T8KC6flKeaqnz1RMRDIAq5WSTplo88158NF/ot4fuMGxf4BZh
+	zAdJb1UbzSVtV5lb4JzUPCrq6ESVRWvYKHVWPL9BygGtEZEozcoAFjpO
+X-Gm-Gg: AYBFou1DxW+7mBkdEaJxuZr02xe2kr5DZVX1XOfDAxh0e9yNEAjirYtyyQiunW4+Yet
+	l9ZIpP70dK25Kb0Wgfw4P6mGI4v7eK1t3jfG1wdwv+x6uCEn4GTll8ioA1K4EvKLnFUfQYP4ZmI
+	vTjsSlmSu8h/2GAjO9tzuCXS881ykUUOI0ZCrTP7zI5ZY9NWbEY34MmayInmrWsq0z+n3hvs4LE
+	NKBT4LL8HqNQm6a2SIyhV8GTIG3PCllL5Es4nfCco+tzdFU0a1O80syUKLZKzdwWF/uA3fHfGQH
+	PRAEQYmhB/UlANKKfRXnoGgQm28dATmnuxS60sKZyyWn3FmBF0C6bsN6wbcX8mSNtXG4ywCmHVw
+	8s8ZludB50Dekpel/wT/gqukGC608/wT7gyGmA62xvUMQcSeNVK76vDhbPG35vOFa33uRVsfkPc
+	Cnpb84U8VET4RznAM/Ax1F9HHVAP9EFO2s+Szq0YiE9EzW4jcM42EYL1TxoL8P0AdQDuLd8jwXz
+	WVYi10D9N0rxP89csOGisQ4bwrbdHtnjnMb0v5C+EFCcY/cyC2z2Jnsub3DX4cvgxLLlRGMTe/K
+	cIym8z3rxSafdiDDVNiMDEyqezNgl6Z6H+RkJv1YfuYhieIPqZQIJ+PLkd5znLQnUepTTenPMBB
+	7AK+McDSIW5w=
+X-Received: by 2002:a17:90b:564e:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1678cf0a3mr1313284a91.3.1794292358696;
+        Mon, 09 Nov 2026 22:32:38 -0800 (PST)
+Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm2478574a91.5.2026.11.09.22.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 22:32:38 -0800 (PST)
+From: Chipang Kao <prozac2734@gmail.com>
+X-Google-Original-From: Chipang Kao <chipang_kao@asus.com>
+To: ilpo.jarvinen@linux.intel.com
+Cc: W_Armin@gmx.de,
+	chipang_kao@asus.com,
+	corentin.chary@gmail.com,
+	denis.benato@linux.dev,
+	hansg@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3] md: fix sync_work vs array teardown races
-Date: Tue, 10 Nov 2026 14:30:45 +0800
-Message-Id: <20261110063045.912703-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	luke@ljones.dev,
+	platform-driver-x86@vger.kernel.org,
+	prozac2734@gmail.com,
+	scardracs@disroot.org
+Subject: [PATCH v5] platform/asus: Move ASUS platform drivers out of drivers/platform/x86
+Date: Tue, 10 Nov 2026 14:31:59 +0800
+Message-ID: <20261110063201.269513-1-chipang_kao@asus.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <23828a34-3d65-c123-f7c3-7c24ac636dfb@linux.intel.com>
+References: <23828a34-3d65-c123-f7c3-7c24ac636dfb@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,118 +109,526 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCH_6IXuvJqrGnjGA--.29207S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15AF4xZryfJr1ftw15XFb_yoWrCr45pr
-	WfXFn8GrWUJ3yfZ39Fga4DWa4jyw1SqrZrJryxWas5AwnYyF47WF1Yg3WUZFWDtas7ta42
-	va15tFZxua4v9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjtC7UUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+hoMumryuho9LQAA3+
 
-From: Li Youhong <liyouhong@kylinos.cn>
+ASUS WMI and related platform drivers currently reside under
+drivers/platform/x86/. However, with the emergence of ARM64 devices
+utilizing ACPI WMI interfaces, maintaining these drivers exclusively
+under x86 creates unnecessary architectural restrictions and Kconfig
+duplications.
 
-dm-raid tears down arrays via md_stop(), which cleared mddev->pers
-without waiting for previously queued sync_work. That work could
-then call remove_spares() with pers == NULL, or keep using mddev
-after raid_dtr() frees it.
+To allow non-x86 architectures (such as ARM64) to select and build
+the applicable ASUS platform drivers:
+1. Relocate all ASUS platform drivers and headers from
+   drivers/platform/x86/ to drivers/platform/asus/.
+2. Create dedicated Kconfig and Makefile under drivers/platform/asus/.
+3. Update drivers/platform/x86/Kconfig to remove duplicated entries.
 
-do_md_stop()/md_stop_writes() already call stop_sync_thread() before
-teardown. Do the same in md_stop().
-
-Also fix two related completion/freeze holes that made that wait
-unreliable:
-
-- stop_sync_thread() waits for !MD_RECOVERY_RUNNING before teardown,
-  but md_start_sync() could still use mddev after unlocking. Clear
-  RUNNING only after those uses are done, then wake_up(&resync_wait).
-
-- The read-only path in md_check_recovery() queued sync_work without
-  honouring MD_RECOVERY_FROZEN, unlike the read-write path. Check
-  FROZEN so freeze/stop cannot race with a new queue while
-  stop_sync_thread() drops reconfig_mutex.
-
-Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
-Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
-Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+Signed-off-by: Chipang Kao <chipang_kao@asus.com>
 ---
-v3:
-- Clear MD_RECOVERY_RUNNING only after md_start_sync() finishes using
-  mddev on the not_running path.
-- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
-  read-only md_check_recovery() path.
-- v2: link: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com/
+Changes in v5:
+- Modify author name
 
-v2:
-- Drop the pers NULL check in md_start_sync().
-- Call stop_sync_thread() from md_stop() before clearing pers,
-  matching do_md_stop()/md_stop_writes().
-- v1: link: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+ MAINTAINERS                                   |   8 +-
+ drivers/platform/Kconfig                      |   2 +
+ drivers/platform/Makefile                     |   1 +
+ drivers/platform/asus/Kconfig                 | 160 ++++++++++++++++++
+ drivers/platform/asus/Makefile                |  14 ++
+ drivers/platform/{x86 => asus}/asus-armoury.c |   0
+ drivers/platform/{x86 => asus}/asus-armoury.h |   0
+ drivers/platform/{x86 => asus}/asus-laptop.c  |   0
+ drivers/platform/{x86 => asus}/asus-nb-wmi.c  |   0
+ .../platform/{x86 => asus}/asus-tf103c-dock.c |   0
+ .../platform/{x86 => asus}/asus-wireless.c    |   0
+ drivers/platform/{x86 => asus}/asus-wmi.c     |   0
+ drivers/platform/{x86 => asus}/asus-wmi.h     |   0
+ drivers/platform/{x86 => asus}/eeepc-laptop.c |   0
+ drivers/platform/{x86 => asus}/eeepc-wmi.c    |   0
+ drivers/platform/x86/Kconfig                  | 152 -----------------
+ drivers/platform/x86/Makefile                 |  10 --
+ 17 files changed, 181 insertions(+), 166 deletions(-)
+ create mode 100644 drivers/platform/asus/Kconfig
+ create mode 100644 drivers/platform/asus/Makefile
+ rename drivers/platform/{x86 => asus}/asus-armoury.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-armoury.h (100%)
+ rename drivers/platform/{x86 => asus}/asus-laptop.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-nb-wmi.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-tf103c-dock.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-wireless.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-wmi.c (100%)
+ rename drivers/platform/{x86 => asus}/asus-wmi.h (100%)
+ rename drivers/platform/{x86 => asus}/eeepc-laptop.c (100%)
+ rename drivers/platform/{x86 => asus}/eeepc-wmi.c (100%)
 
- drivers/md/md.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..18d37413ffaf 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -7104,6 +7104,13 @@ void md_stop(struct mddev *mddev)
- 	/* stop the array and free an attached data structures.
- 	 * This is called from dm-raid
- 	 */
-+	/*
-+	 * md_check_recovery() may have queued sync_work; that work accesses
-+	 * pers. Wait for it here before __md_stop() clears pers, as
-+	 * do_md_stop()/md_stop_writes() do.
-+	 */
-+	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
-+	stop_sync_thread(mddev, true);
- 	__md_stop_writes(mddev);
- 	__md_stop(mddev);
- }
-@@ -10343,7 +10350,6 @@ static void md_start_sync(struct work_struct *ws)
- 	clear_bit(MD_RECOVERY_RESHAPE, &mddev->recovery);
- 	clear_bit(MD_RECOVERY_REQUESTED, &mddev->recovery);
- 	clear_bit(MD_RECOVERY_CHECK, &mddev->recovery);
--	clear_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
- 	mddev_unlock(mddev);
- 	/*
- 	 * md_start_sync was triggered by MD_RECOVERY_NEEDED, so we should
-@@ -10355,11 +10361,16 @@ static void md_start_sync(struct work_struct *ws)
- 		memalloc_noio_restore(noio_flags);
- 		__mddev_resume(mddev, false);
- 	}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..981eb3fdbef4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4226,15 +4226,15 @@ M:	Denis Benato <denis.benato@linux.dev>
+ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ W:	https://asus-linux.org/
+-F:	drivers/platform/x86/asus*.c
+-F:	drivers/platform/x86/eeepc*.c
++F:	drivers/platform/asus/asus*.c
++F:	drivers/platform/asus/eeepc*.c
+ 
+ ASUS TF103C DOCK DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git
+-F:	drivers/platform/x86/asus-tf103c-dock.c
++F:	drivers/platform/asus/asus-tf103c-dock.c
+ 
+ ASUS ROG RYUJIN AIO HARDWARE MONITOR DRIVER
+ M:	Aleksa Savic <savicaleksa83@gmail.com>
+@@ -4246,7 +4246,7 @@ ASUS WIRELESS RADIO CONTROL DRIVER
+ M:	João Paulo Rechi Vita <jprvita@gmail.com>
+ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+-F:	drivers/platform/x86/asus-wireless.c
++F:	drivers/platform/asus/asus-wireless.c
+ 
+ ASUS WMI HARDWARE MONITOR DRIVER
+ M:	Ed Brindley <kernel@maidavale.org>
+diff --git a/drivers/platform/Kconfig b/drivers/platform/Kconfig
+index 312788f249c9..aa004b0e4406 100644
+--- a/drivers/platform/Kconfig
++++ b/drivers/platform/Kconfig
+@@ -22,3 +22,5 @@ source "drivers/platform/arm64/Kconfig"
+ source "drivers/platform/raspberrypi/Kconfig"
+ 
+ source "drivers/platform/wmi/Kconfig"
++
++source "drivers/platform/asus/Kconfig"
+diff --git a/drivers/platform/Makefile b/drivers/platform/Makefile
+index fa322e7f8716..34e694e6da14 100644
+--- a/drivers/platform/Makefile
++++ b/drivers/platform/Makefile
+@@ -15,3 +15,4 @@ obj-$(CONFIG_SURFACE_PLATFORMS)	+= surface/
+ obj-$(CONFIG_ARM64_PLATFORM_DEVICES)	+= arm64/
+ obj-$(CONFIG_BCM2835_VCHIQ)	+= raspberrypi/
+ obj-$(CONFIG_ACPI_WMI)		+= wmi/
++obj-y				+= asus/
+diff --git a/drivers/platform/asus/Kconfig b/drivers/platform/asus/Kconfig
+new file mode 100644
+index 000000000000..4b79957f045f
+--- /dev/null
++++ b/drivers/platform/asus/Kconfig
+@@ -0,0 +1,160 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Asus Platform Specific Drivers
++#
++
++if X86_PLATFORM_DEVICES
++
++config ASUS_LAPTOP
++	tristate "Asus Laptop Extras"
++	depends on ACPI
++	select LEDS_CLASS
++	select NEW_LEDS
++	depends on BACKLIGHT_CLASS_DEVICE
++	depends on INPUT
++	depends on RFKILL || RFKILL = n
++	depends on ACPI_VIDEO || ACPI_VIDEO = n
++	select INPUT_SPARSEKMAP
++	help
++	  This is a driver for Asus laptops, Lenovo SL and the Pegatron
++	  Lucid tablet. It may also support some MEDION, JVC or VICTOR
++	  laptops. It makes all the extra buttons generate standard
++	  ACPI events and input events, and on the Lucid the built-in
++	  accelerometer appears as an input device.  It also adds
++	  support for video output switching, LCD backlight control,
++	  Bluetooth and Wlan control, and most importantly, allows you
++	  to blink those fancy LEDs.
++
++	  For more information see <http://acpi4asus.sf.net>.
++
++	  If you have an ACPI-compatible ASUS laptop, say Y or M here.
++
++config ASUS_WIRELESS
++	tristate "Asus Wireless Radio Control Driver"
++	depends on ACPI
++	depends on INPUT
++	select NEW_LEDS
++	select LEDS_CLASS
++	help
++	  The Asus Wireless Radio Control handles the airplane mode hotkey
++	  present on some Asus laptops.
++
++	  Say Y or M here if you have an ASUS notebook with an airplane mode
++	  hotkey.
++
++	  If you choose to compile this driver as a module the module will be
++	  called asus-wireless.
++
++config ASUS_TF103C_DOCK
++	tristate "Asus TF103C 2-in-1 keyboard dock"
++	depends on ACPI
++	depends on I2C
++	depends on INPUT
++	depends on HID
++	depends on GPIOLIB
++	help
++	  This is a driver for the keyboard, touchpad and USB port of the
++	  keyboard dock for the Asus TF103C 2-in-1 tablet.
++
++	  This keyboard dock has its own I2C attached embedded controller
++	  and the keyboard and touchpad are also connected over I2C,
++	  instead of using the usual USB connection. This means that the
++	  keyboard dock requires this special driver to function.
++
++	  If you have an Asus TF103C tablet say Y or M here, for a generic x86
++	  distro config say M here.
++
++config EEEPC_WMI
++	tristate "Eee PC WMI Driver"
++	depends on ASUS_WMI
++	help
++	  This is a driver for newer Eee PC laptops. It adds extra features
++	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
++
++	  For more information, see
++	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
++
++	  If you have an ACPI-WMI compatible Eee PC laptop (>= 1000), say Y or M
++	  here.
++
++config EEEPC_LAPTOP
++	tristate "Eee PC Hotkey Driver"
++	depends on ACPI_EC
++	depends on INPUT
++	depends on RFKILL || RFKILL = n
++	depends on ACPI_VIDEO || ACPI_VIDEO = n
++	depends on HOTPLUG_PCI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select HWMON
++	select LEDS_CLASS
++	select NEW_LEDS
++	select INPUT_SPARSEKMAP
++	help
++	  This driver supports the Fn-Fx keys on Eee PC laptops.
++
++	  It  also gives access to some extra laptop functionalities like
++	  Bluetooth, backlight and allows powering on/off some other
++	  devices.
++
++	  If you have an Eee PC laptop, say Y or M here. If this driver
++	  doesn't work on your Eee PC, try eeepc-wmi instead.
++
++endif # X86_PLATFORM_DEVICES
++
++config ASUS_ARMOURY
++	tristate "ASUS Armoury driver"
++	depends on ASUS_WMI
++	select FW_ATTR_CLASS
++	help
++	  Say Y here if you have a WMI aware Asus machine and would like to use the
++	  firmware_attributes API to control various settings typically exposed in
++	  the ASUS Armoury Crate application available on Windows.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called asus-armoury.
++
++config ASUS_WMI
++	tristate "ASUS WMI Driver"
++	depends on ACPI_WMI
++	depends on ACPI_BATTERY
++	depends on INPUT
++	depends on HWMON
++	depends on BACKLIGHT_CLASS_DEVICE
++	depends on RFKILL || RFKILL = n
++	depends on HOTPLUG_PCI
++	depends on ACPI_VIDEO || ACPI_VIDEO = n
++	depends on SERIO_I8042 || SERIO_I8042 = n
++	select INPUT_SPARSEKMAP
++	select LEDS_CLASS
++	select NEW_LEDS
++	select ACPI_PLATFORM_PROFILE
++	help
++	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
++	  Asus Notebooks).
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called asus-wmi.
++
++config ASUS_WMI_DEPRECATED_ATTRS
++	bool "BIOS option support in WMI platform (DEPRECATED)"
++	depends on ASUS_WMI
++	default y
++	help
++	  Say Y to expose the configurable BIOS options through the asus-wmi
++	  driver.
++
++	  This can be used with or without the asus-armoury driver which
++	  has the same attributes, but more, and better features.
++
++config ASUS_NB_WMI
++	tristate "Asus Notebook WMI Driver"
++	depends on ASUS_WMI
++	help
++	  This is a driver for newer Asus notebooks. It adds extra features
++	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
++
++	  For more information, see
++	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
++
++	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
++	  here.
+diff --git a/drivers/platform/asus/Makefile b/drivers/platform/asus/Makefile
+new file mode 100644
+index 000000000000..7bb25cba4853
+--- /dev/null
++++ b/drivers/platform/asus/Makefile
+@@ -0,0 +1,14 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Makefile for linux/drivers/platform/asus
++# Asus Platform-Specific Drivers
++#
++
++obj-$(CONFIG_ASUS_LAPTOP)	+= asus-laptop.o
++obj-$(CONFIG_ASUS_WIRELESS)	+= asus-wireless.o
++obj-$(CONFIG_ASUS_ARMOURY)	+= asus-armoury.o
++obj-$(CONFIG_ASUS_WMI)		+= asus-wmi.o
++obj-$(CONFIG_ASUS_NB_WMI)	+= asus-nb-wmi.o
++obj-$(CONFIG_ASUS_TF103C_DOCK)	+= asus-tf103c-dock.o
++obj-$(CONFIG_EEEPC_LAPTOP)	+= eeepc-laptop.o
++obj-$(CONFIG_EEEPC_WMI)		+= eeepc-wmi.o
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/asus/asus-armoury.c
+similarity index 100%
+rename from drivers/platform/x86/asus-armoury.c
+rename to drivers/platform/asus/asus-armoury.c
+diff --git a/drivers/platform/x86/asus-armoury.h b/drivers/platform/asus/asus-armoury.h
+similarity index 100%
+rename from drivers/platform/x86/asus-armoury.h
+rename to drivers/platform/asus/asus-armoury.h
+diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/asus/asus-laptop.c
+similarity index 100%
+rename from drivers/platform/x86/asus-laptop.c
+rename to drivers/platform/asus/asus-laptop.c
+diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/asus/asus-nb-wmi.c
+similarity index 100%
+rename from drivers/platform/x86/asus-nb-wmi.c
+rename to drivers/platform/asus/asus-nb-wmi.c
+diff --git a/drivers/platform/x86/asus-tf103c-dock.c b/drivers/platform/asus/asus-tf103c-dock.c
+similarity index 100%
+rename from drivers/platform/x86/asus-tf103c-dock.c
+rename to drivers/platform/asus/asus-tf103c-dock.c
+diff --git a/drivers/platform/x86/asus-wireless.c b/drivers/platform/asus/asus-wireless.c
+similarity index 100%
+rename from drivers/platform/x86/asus-wireless.c
+rename to drivers/platform/asus/asus-wireless.c
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/asus/asus-wmi.c
+similarity index 100%
+rename from drivers/platform/x86/asus-wmi.c
+rename to drivers/platform/asus/asus-wmi.c
+diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/asus/asus-wmi.h
+similarity index 100%
+rename from drivers/platform/x86/asus-wmi.h
+rename to drivers/platform/asus/asus-wmi.h
+diff --git a/drivers/platform/x86/eeepc-laptop.c b/drivers/platform/asus/eeepc-laptop.c
+similarity index 100%
+rename from drivers/platform/x86/eeepc-laptop.c
+rename to drivers/platform/asus/eeepc-laptop.c
+diff --git a/drivers/platform/x86/eeepc-wmi.c b/drivers/platform/asus/eeepc-wmi.c
+similarity index 100%
+rename from drivers/platform/x86/eeepc-wmi.c
+rename to drivers/platform/asus/eeepc-wmi.c
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index 9ce384e0475e..b2c6cc923694 100644
+--- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -213,123 +213,6 @@ config APPLE_GMUX
+ 	  graphics as well as the backlight. Currently only backlight
+ 	  control is supported by the driver.
+ 
+-config ASUS_LAPTOP
+-	tristate "Asus Laptop Extras"
+-	depends on ACPI
+-	select LEDS_CLASS
+-	select NEW_LEDS
+-	depends on BACKLIGHT_CLASS_DEVICE
+-	depends on INPUT
+-	depends on RFKILL || RFKILL = n
+-	depends on ACPI_VIDEO || ACPI_VIDEO = n
+-	select INPUT_SPARSEKMAP
+-	help
+-	  This is a driver for Asus laptops, Lenovo SL and the Pegatron
+-	  Lucid tablet. It may also support some MEDION, JVC or VICTOR
+-	  laptops. It makes all the extra buttons generate standard
+-	  ACPI events and input events, and on the Lucid the built-in
+-	  accelerometer appears as an input device.  It also adds
+-	  support for video output switching, LCD backlight control,
+-	  Bluetooth and Wlan control, and most importantly, allows you
+-	  to blink those fancy LEDs.
 -
--	wake_up(&resync_wait);
- 	if (test_and_clear_bit(MD_RECOVERY_RECOVER, &mddev->recovery) &&
- 	    mddev->sysfs_action)
- 		sysfs_notify_dirent_safe(mddev->sysfs_action);
-+	/*
-+	 * stop_sync_thread() waits for !RUNNING and may then tear down
-+	 * the array. This path still uses mddev after unlocking, so
-+	 * clear RUNNING only after those uses are done.
-+	 */
-+	clear_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
-+	wake_up(&resync_wait);
- }
+-	  For more information see <http://acpi4asus.sf.net>.
+-
+-	  If you have an ACPI-compatible ASUS laptop, say Y or M here.
+-
+-config ASUS_WIRELESS
+-	tristate "Asus Wireless Radio Control Driver"
+-	depends on ACPI
+-	depends on INPUT
+-	select NEW_LEDS
+-	select LEDS_CLASS
+-	help
+-	  The Asus Wireless Radio Control handles the airplane mode hotkey
+-	  present on some Asus laptops.
+-
+-	  Say Y or M here if you have an ASUS notebook with an airplane mode
+-	  hotkey.
+-
+-	  If you choose to compile this driver as a module the module will be
+-	  called asus-wireless.
+-
+-config ASUS_ARMOURY
+-	tristate "ASUS Armoury driver"
+-	depends on ASUS_WMI
+-	select FW_ATTR_CLASS
+-	help
+-	  Say Y here if you have a WMI aware Asus machine and would like to use the
+-	  firmware_attributes API to control various settings typically exposed in
+-	  the ASUS Armoury Crate application available on Windows.
+-
+-	  To compile this driver as a module, choose M here: the module will
+-	  be called asus-armoury.
+-
+-config ASUS_WMI
+-	tristate "ASUS WMI Driver"
+-	depends on ACPI_WMI
+-	depends on ACPI_BATTERY
+-	depends on INPUT
+-	depends on HWMON
+-	depends on BACKLIGHT_CLASS_DEVICE
+-	depends on RFKILL || RFKILL = n
+-	depends on HOTPLUG_PCI
+-	depends on ACPI_VIDEO || ACPI_VIDEO = n
+-	depends on SERIO_I8042 || SERIO_I8042 = n
+-	select INPUT_SPARSEKMAP
+-	select LEDS_CLASS
+-	select NEW_LEDS
+-	select ACPI_PLATFORM_PROFILE
+-	help
+-	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
+-	  Asus Notebooks).
+-
+-	  To compile this driver as a module, choose M here: the module will
+-	  be called asus-wmi.
+-
+-config ASUS_WMI_DEPRECATED_ATTRS
+-	bool "BIOS option support in WMI platform (DEPRECATED)"
+-	depends on ASUS_WMI
+-	default y
+-	help
+-	  Say Y to expose the configurable BIOS options through the asus-wmi
+-	  driver.
+-
+-	  This can be used with or without the asus-armoury driver which
+-	  has the same attributes, but more, and better features.
+-
+-config ASUS_NB_WMI
+-	tristate "Asus Notebook WMI Driver"
+-	depends on ASUS_WMI
+-	help
+-	  This is a driver for newer Asus notebooks. It adds extra features
+-	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
+-
+-	  For more information, see
+-	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
+-
+-	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
+-	  here.
+-
+-config ASUS_TF103C_DOCK
+-	tristate "Asus TF103C 2-in-1 keyboard dock"
+-	depends on ACPI
+-	depends on I2C
+-	depends on INPUT
+-	depends on HID
+-	depends on GPIOLIB
+-	help
+-	  This is a driver for the keyboard, touchpad and USB port of the
+-	  keyboard dock for the Asus TF103C 2-in-1 tablet.
+-
+-	  This keyboard dock has its own I2C attached embedded controller
+-	  and the keyboard and touchpad are also connected over I2C,
+-	  instead of using the usual USB connection. This means that the
+-	  keyboard dock requires this special driver to function.
+-
+-	  If you have an Asus TF103C tablet say Y or M here, for a generic x86
+-	  distro config say M here.
+-
+ config AYANEO_EC
+ 	tristate "Ayaneo EC platform control"
+ 	depends on DMI
+@@ -357,41 +240,6 @@ config MERAKI_MX100
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called meraki-mx100.
  
- static void unregister_sync_thread(struct mddev *mddev)
-@@ -10494,9 +10505,11 @@ void md_check_recovery(struct mddev *mddev)
+-config EEEPC_LAPTOP
+-	tristate "Eee PC Hotkey Driver"
+-	depends on ACPI_EC
+-	depends on INPUT
+-	depends on RFKILL || RFKILL = n
+-	depends on ACPI_VIDEO || ACPI_VIDEO = n
+-	depends on HOTPLUG_PCI
+-	depends on BACKLIGHT_CLASS_DEVICE
+-	select HWMON
+-	select LEDS_CLASS
+-	select NEW_LEDS
+-	select INPUT_SPARSEKMAP
+-	help
+-	  This driver supports the Fn-Fx keys on Eee PC laptops.
+-
+-	  It  also gives access to some extra laptop functionalities like
+-	  Bluetooth, backlight and allows powering on/off some other
+-	  devices.
+-
+-	  If you have an Eee PC laptop, say Y or M here. If this driver
+-	  doesn't work on your Eee PC, try eeepc-wmi instead.
+-
+-config EEEPC_WMI
+-	tristate "Eee PC WMI Driver"
+-	depends on ASUS_WMI
+-	help
+-	  This is a driver for newer Eee PC laptops. It adds extra features
+-	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
+-
+-	  For more information, see
+-	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
+-
+-	  If you have an ACPI-WMI compatible Eee PC laptop (>= 1000), say Y or M
+-	  here.
+-
+ source "drivers/platform/x86/dell/Kconfig"
  
- 			/*
- 			 * Let md_start_sync() to remove and add rdevs to the
--			 * array.
-+			 * array. Honour MD_RECOVERY_FROZEN like the read-write
-+			 * path so freeze/stop does not race with a new queue.
- 			 */
--			if (md_spares_need_change(mddev)) {
-+			if (md_spares_need_change(mddev) &&
-+			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
- 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
- 				queue_work(md_misc_wq, &mddev->sync_work);
- 			}
+ config AMILO_RFKILL
+diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
+index 229057234d00..88f45e03ee19 100644
+--- a/drivers/platform/x86/Makefile
++++ b/drivers/platform/x86/Makefile
+@@ -28,16 +28,6 @@ obj-$(CONFIG_ADV_SWBUTTON)	+= adv_swbutton.o
+ # Apple
+ obj-$(CONFIG_APPLE_GMUX)	+= apple-gmux.o
+ 
+-# ASUS
+-obj-$(CONFIG_ASUS_LAPTOP)	+= asus-laptop.o
+-obj-$(CONFIG_ASUS_WIRELESS)	+= asus-wireless.o
+-obj-$(CONFIG_ASUS_ARMOURY)	+= asus-armoury.o
+-obj-$(CONFIG_ASUS_WMI)		+= asus-wmi.o
+-obj-$(CONFIG_ASUS_NB_WMI)	+= asus-nb-wmi.o
+-obj-$(CONFIG_ASUS_TF103C_DOCK)	+= asus-tf103c-dock.o
+-obj-$(CONFIG_EEEPC_LAPTOP)	+= eeepc-laptop.o
+-obj-$(CONFIG_EEEPC_WMI)		+= eeepc-wmi.o
+-
+ # Ayaneo
+ obj-$(CONFIG_AYANEO_EC)		+= ayaneo-ec.o
+ 
 -- 
-2.25.1
+2.43.0
 
