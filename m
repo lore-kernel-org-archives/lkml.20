@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794348408;
-	b=uYjexaAvJ4vgX6RxmIz9+SEBglrytA/ke13U2ZrsXL1zcWSP1c08wTQk38j5fxA6HNTm
-	 Ukc7jdeOoWJcbQs8xJngfGXxuCIXrL0qnmqBPtzWft8iC0oY+U9P995WwVEOz96E3KHct
-	 ivb7oQoZT4013ERDbrtc9YKC4WhOeZXr6mG/XxsKG5qooIPh7P+uxE7TO3YHKyjPcoPl4
-	 Gvmx/HzJDdWtgkR/ksCCHgXsqzpfvIGs2AHOmAHwWRJ+MYfma7LWJ64CNaNOMI/z0uNi6
-	 Ro4URWeezAusRW59OODhmzDIqYajSnrsoWbnFMshNmHeWsB4PILvy743ES4e6xd344w==
+	t=1794348420;
+	b=2RBz5k9nX4zffpTOOwU5SR2QKJedjDUcit/OJ0PVT1d+tMJbTfD7OsZtddm1yLqozFU4
+	 O4o31C6D2uoEKZMRuM7iUyo9CZrRdyMoZV5VMwJJ5FAZa/Cc4GTybeVN5IAWQQW7WR7KF
+	 vNft77i2WsuNLpF9nz2Hc9fFd7sFze+5uOgXdDa5HJ0LW1/V/szqetIQqFCqxWgglLUGg
+	 tkGimrSafL9dLOI8pfPY+1B/QTva0OeLI5+DeLIjdDBbNurOzwJSxuohv/zFtK+5fU7P4
+	 Y4vS4uFoQvij4allogUzXGa4TSKBf6Nl45nLFSyp2IionkgpagZCPjILlor7xBvlczA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794348408;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794348420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=q+x0UCrqDyrT1Jj1zb5uFSfr382adKOKvNJsBuNz0ss=;
-	b=DwFfec9xmcD+Df0L7Lr62wyqks3OmHbtudiDW2nATl8p/Fl9vDYCsZVuHC0UF9PKT6dz
-	 bY5tBZ/m+Ikx2hWJ67LTGz7g/zbtmpkZRIBEFE3F0TsH9V+vcl0OFMn0eN7syECX1qJ6Z
-	 nzFo8NuoLrU0EzeY+PSJmUJktQ8yp9kPt9CihFSPdzlE73WtIlKfYpZcWD8BF9nYQqyFs
-	 G8zKlevINUdg6AZrGoNmR4XwZ0dD1VS0KNWzYGl3AiXh6gknSTRdYhjbIjSckMmKmU5yV
-	 x5kpyIDSINqczwEMd97V05CBBqYlQ1OWrh6/d/S9luZtPDRMLYZmrO/pcmQKH5Z2E1w==
+	bh=L1CME/PdqAtK6fTk+OjSyhi24vRJH8mOY9MTHCX4fQs=;
+	b=nLv9d06szzFAhXKbb89gLHTQ9Tvos/I8XGQkP66e7AFP3tv+Z+2fkFO8nI21D8OKjy1Z
+	 1IAiPuXqIh7/0BRJkipvUeozsjOJSlexLK+kmkRq0IhIcyWhBD0vB8xKSTtztaMDwo6S2
+	 G9Z1ASbCtzNoHykXC2VOCiAPiJMHnVo29EC/hKrO8Ybgcs6sbJjZbQmpoI5BFLusV81T5
+	 mfNLyYC3RvRsz0eJxVEZmRv/+cGSk3Jhtte6syADNe3Kb3RAdA/3XtGsn0k5nn/I6Kstc
+	 Afmsmj4mU8VJK4A0ixDH4+GtnwFyDmS2UrbCbnBjRCVvvkz0N45/80PcQ7wcrcGki9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="uUf/Ysrw";
-	arc=none smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu7chxr9;
+	arc=none smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA77E60A2602
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA77E60A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DED60A383A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90DED60A383A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uUf/Ysrw
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c6a0abc2eso81491d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:06:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu7chxr9
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b31448caccso20765867b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:06:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794348407; x=1794953207; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794348419; x=1794953219; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q+x0UCrqDyrT1Jj1zb5uFSfr382adKOKvNJsBuNz0ss=;
-        b=uUf/YsrwbHZ4Z4bz3qsSb8IBvpo819V7JYyzAGUJ12Ck7XfUHzJ0hkJ86smW4QeOZZ
-         Z9A/4BBslGyinBaX5rw/VFthrXzjMMGUL1fhuJfWH+P4Xhx5om1m3nLa+b4v6c0dY0KY
-         cfa6MvpsbyRX7vsOr/2usgorTvXY8giwhfl+K8+iaZeaC7hHuraQfNAK6srIQwpR7w3p
-         36WDWqJv2gU/cZngm+smlxH0qlsFxUZPdOX4qGDX0ut7bVbhVu9v7RKtywQeKmJKkyPc
-         WRyiSEB//8+mlJZFXgW2nICcSld3DIFAcBpWggwW/ENNR7RsiBiqrTE67dGGhU0pMDJz
-         SNQA==
+        bh=L1CME/PdqAtK6fTk+OjSyhi24vRJH8mOY9MTHCX4fQs=;
+        b=tu7chxr9lTHSpeArUj0qxc48Q3LyVi/yMAQXybtp0NFwktdNshnDRyg7n7wTG0zJoQ
+         bhIiH6ehNWKKhfnTuEOH1l5EfvkgY6akXzg9xIuTMzgPuYHBVQJU5YWWeWdUZ9uKP+qu
+         gn5Nxl45ecVb1jNGLU9mO35veAd6qCRZILpjMwZJbZVoOprZ8RxpaiFGkRbHAJP+RVZj
+         /fF8sMdbE6KXHjptFfjw7CYUDRroQGJ+jiVWzU5fmeFt17I7DYh53UqF9+ZID5YKUBKi
+         lUUMXkzvdOy2mKHBO+xhQS43XoaY+5GmVm0sqIiR0yd08x6bh3KJNGuvCoz301ETNdu4
+         2zWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794348407; x=1794953207;
+        d=1e100.net; s=20260707; t=1794348419; x=1794953219;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q+x0UCrqDyrT1Jj1zb5uFSfr382adKOKvNJsBuNz0ss=;
-        b=RIfw17ZiNmhwKkQ/EeO660X6jSQkXE2p75jXXCbOy+CMtu+4jbH6s27QIaTTkVbwD0
-         7W6xH4kLMt6sJRluF9CzXs7LsqS99FTIZtACxxjRMuL7uFapwScvhtuXSx9vfJkXLbgv
-         g0ex5ls8f1rBbFVHQ/zl4mISO2g/+MR5ABVOFhnbzcLcOjSosnQpDYE//IYh1xghdNEP
-         VdN7JNSD9erCzRZnmww6zWQoNBxfcIECPCea86kZ4NwPzI///Uo1qpthnEtfe3s3qOQ3
-         qE/VnTxrVB7HlJDB36UknYuX41WJ7ks6aUNfSq31WeOhPQMYjy8rTy/I8dBcARiwNQdH
-         brBA==
-X-Forwarded-Encrypted: i=1; AL+hErHK/xcv/nTgAcCNfRbTKUTy5FH83/wQH3wTn9XY/R6iYWzZn+/lISm0p2hPYA0c1JII40j+YOuPGWaDMUU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wo5fq9ik3aKpwf4dxUHxJZ99/khER+4IwIqkWeUncWK1nTTyF
-	9ecuQaIumWN21QhxRp7Pxe28xV/bjppg1K5KYB5mQm//eB+W+uNr3VhT
-X-Gm-Gg: AYBFou2POVc4L1G9DhoCq76A3NJxxxhtRrZ/cnU4RreHdSbsFuLaKDf0NV8k7Ts4e0h
-	K7sFcrfYHu4k9XBghI0dOOpLp//39GxnsJzAVIfYTy2/knkPei9yBlUxRJOm8BsWqZfbO/6O/eK
-	85nnnUmYa6dm9t4zVEbsFDvOz6V9H/5lahmB2BMa2dTuWibxiZyffZh9HnDEYpLr1GsSxM4FQg2
-	2F0oot8Rfxn14EPq1b5scMZLkZO91oxCkEgWDrrYhkeo8vE237b21rnCnvLhkRpLD0jIIC9oYsn
-	o/0Ygfb3p9fTU1DsMbizQIONTX9PZbrvV4oP+3jAv+O/HSY0H+dvqTrZ6R01OZTBagc5paPHQ/P
-	yYeitSEjmexkJn+Ijd32+Dl+j7ngi2jLhYeVND+p3JWRYGg6/8m+ErmmJH6m7ZGeEe0H4cbUFCC
-	+8kemzwHf4mJSZ2XV/hQNUJOcmEzfsjrYS+spPNfwLqCdEWX6af7c5c2mMqfRpb2KXVUV/xwu6N
-	1/5qHdmQBdH0VXB9z7G4fs9fpKIMKurIRxBaoN16rNGeypyorhSLH01itgj6WxvQg0jLDz7Do6r
-	L8xD7c4Lt6KUTG/61L4egeY5HXk=
-X-Received: by 2002:a53:ad4f:0:b0:67a:8c43:753 with SMTP id 956f58d0204a3-67c6802e579mr269100d50.97.1794348406850;
-        Tue, 10 Nov 2026 14:06:46 -0800 (PST)
-Received: from localhost ([2a03:2880:30ff:71::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589c6f24sm2938112d50.12.2026.11.10.14.06.45
+        bh=L1CME/PdqAtK6fTk+OjSyhi24vRJH8mOY9MTHCX4fQs=;
+        b=aKcYM+pF1iudQTijUpYX4ABzyIaoa8GZBOePh02dnoDprSjecC6WloQAVUt6AvddTT
+         g4waftIi0IIeWEZ/V+rH1GXvhASP5hbid4JYl4z5Ha/pSjJ6+pfUbHzBNysRdfPwj16t
+         K2IvERgSjehamI4l+gDGqI8Yc9VbvfOG2m9buvHk9JdLF2RfMW0hbtzMyWNkdbcF99c5
+         5khAnaM3Iw8Q8098YYju768DdmjnHZHSNm/o1udZ296tCfHqwOWr6plKAsmbVSRAJ7Bl
+         /MoldVMG1/pkW+rEB/kJQqFeu0g7WF0qtKq4GsZ67Ib1bIkEuQWjxMZdiojJcFhnxm1i
+         R9PA==
+X-Forwarded-Encrypted: i=1; AL+hErEWnoFnqJ4v1CMhZdNCgPRrv8WQsBdibT4DZnx7IAMqfDfIorfX1W5kV6AMSihAWbRlIt1PIGPZkzq22Uo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EAFNeEhfiAcvzFjV1orf4biX6YyrWGLMm52QbgWhg34e3zbql
+	SasXM+MiQmZNHXBYud2OQKTCVmKIp4ffOFyB1lmPWOQy4WQB07u3kBrR
+X-Gm-Gg: AYBFou2l8dxlL1WEVC97ovt2fFw02tONzpqswOTQzX2QTIenhORH8idujhVahZxum7f
+	P/dOaWh+/I6pmRl+LM1COOZg5Nq1fWSe8/B93PcKRjQ1WnU+v3k+UwSXai1hS5VIPWLA0Wn+A/9
+	k7XqqReS/xHQdlKPVZCYx2xpnEskIJFg2gDTlQ3C7oVob0+nEYeFL1kjIkmib5X1lpxW1GUBYfi
+	u8DM0fHpoVII4XsRzMV52CfxmAMqh3FdiRQj1DcjVo0+/Zj+qIoTZy60vZbww5Ynv5hdyY81hbT
+	pmmnHqtP/pUR7lFB7oFskbZj6OhOo/h+9yYwQlnZkWEEkavg//ByCjWnOqZnG+diZqXDZMvPz3a
+	Eyi2mdLOpwGsgcbXP86bQZkyYTH/SC6BR29FnYOkT+j5WpqUbfbAfmuGJbeF7cp5baocIdYc4w9
+	ZPnDShnOdUIcJ5yi6JOKstge3uDm54EvDJ054PowM4NSSK3A3rFuUzCr/vXjs/AY2q8z2MgBK7g
+	8WQD5E4kwL+zv60tQQlFghwtmcyiUB9YZzBwW45ZOC6+3smYEMTiQJBkpHwd8bLEsomLGToJU9B
+	cfDAuSUz1iivEZWu4FbRocLdHO0=
+X-Received: by 2002:a05:690c:113:b0:8b1:e7c:cdcb with SMTP id 00721157ae682-8b3a7fe6a1amr5656197b3.23.1794348418497;
+        Tue, 10 Nov 2026 14:06:58 -0800 (PST)
+Received: from localhost ([2a03:2880:30ff:45::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39324c076sm30025117b3.5.2026.11.10.14.06.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 14:06:46 -0800 (PST)
+        Tue, 10 Nov 2026 14:06:57 -0800 (PST)
 From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Tue, 10 Nov 2026 14:06:34 -0800
-Subject: [PATCH net-next v2 1/6] eth: mpnic: Tx checksum offload
+Date: Tue, 10 Nov 2026 14:06:39 -0800
+Subject: [PATCH net-next v2 6/6] eth: mpnic: add GSO_PARTIAL for other
+ tunnels
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-mpnic-lso-v2-1-ccd37b051d08@gmail.com>
+Message-Id: <20261110-mpnic-lso-v2-6-ccd37b051d08@gmail.com>
 References: <20261110-mpnic-lso-v2-0-ccd37b051d08@gmail.com>
 In-Reply-To: <20261110-mpnic-lso-v2-0-ccd37b051d08@gmail.com>
 To: Alexander Duyck <alexanderduyck@fb.com>, 
@@ -106,271 +107,109 @@ To: Alexander Duyck <alexanderduyck@fb.com>,
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-Support generic Tx checksum offload per NETIF_F_HW_CSUM. Propagate all
-netdev features to hw_enc_features, so CSO also works on encapsulated
-skbs.
-
-Add mpnic_features_check() to ensure that skb metadata can be mapped
-into Tx descriptor fields. The headers and offsets used have units of
-2B. The device also requires any headers modified to be in the first
-256B of the packet.
-
-Zero checksums are inverted by HW, matching the behavior of
-skb_checksum_help().
-
-Count CSO frames and report them via netdev qstats API.
+Tunnels that are not natively supported for segmentation can be
+supported with GSO_PARTIAL. For GSO_PARTIAL, the driver uses L3 type
+OTHER, which tells the device to suppress any updates to the l3 headers
+of the packet. As a consequence of this, MANGLEID is required when the
+inner l3 is ipv4, and for tunnels that have an outer l3 of ipv4, we need
+to check if DF is set in mpnic_features_check_encap_gso(), because the
+device will not edit the IDs of the wire packets.
 
 Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 ---
 v2:
-- use skb_network_offset() for the L2 header length in
-  mpnic_features_check(), since the mac header is not yet set when
-  called from the IP GSO slow path
-- also enable Tx checksum offload for encapsulated packets via
-  hw_enc_features (moved from the IPv4 and IPv6 in IPv6 patch)
+- derive the L3 header length from csum_start rather than
+  inner_transport_header, matching mpnic_features_check() and
+  mpnic_tx_lso()
 ---
- drivers/net/ethernet/meta/mpnic/mpnic_csr.h    |  6 +++
- drivers/net/ethernet/meta/mpnic/mpnic_init.c   |  2 +
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.c | 11 ++++-
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.h |  1 +
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 60 ++++++++++++++++++++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  4 ++
- 6 files changed, 83 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/meta/mpnic/mpnic_csr.h    |  1 +
+ drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  9 +++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 21 ++++++++++++++++++++-
+ 3 files changed, 30 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-index d6ab9df58168..62304be203e6 100644
+index 63282916eb13..03304e22d6ce 100644
 --- a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
 +++ b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-@@ -13,6 +13,10 @@
- #define DESC_GENMASK(h, l)	GENMASK_ULL(h, l)
- 
- /* Transmit Work Descriptor Format */
-+#define MPNIC_TWD_L2_HLEN		DESC_GENMASK(5, 0)
-+#define MPNIC_TWD_L3_IHLEN		DESC_GENMASK(23, 16)
-+#define MPNIC_TWD_CSUM_OFFSET		DESC_GENMASK(27, 24)
-+#define MPNIC_TWD_FLAG_REQ_CSO		DESC_BIT(36)
+@@ -29,6 +29,7 @@ enum {
  #define MPNIC_TWD_FLAG_REQ_COMPLETION	DESC_BIT(37)
- #define MPNIC_TWD_FLAG_DEST_MAC		DESC_BIT(43)
- #define MPNIC_TWD_TYPE			DESC_GENMASK(47, 46)
-@@ -305,6 +309,8 @@ enum {
- 
- /* NIC_CORE_TOF */
- #define MPNIC_TOF_TCAM_DEST_REMAP	0x7e3022		/* 0x1f8c088 */
-+#define MPNIC_TOF_MODE			0x7e302e		/* 0x1f8c0b8 */
-+#define MPNIC_TOF_MODE_L4_ZERO_CSUM		CSR_BIT(4)
- 
- /* PEMO_WRAPPER */
- #define MPNIC_OB_ATTR_RO			CSR_BIT(1)
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_init.c b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-index ace4124158fb..71d13bec7ec4 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
-@@ -298,6 +298,8 @@ static void mpnic_txglb_init(struct mpnic_dev *mpd)
- 	 * programmed with its addresses.
- 	 */
- 	mpnic_wr64(mpd, MPNIC_TOF_TCAM_DEST_REMAP, 0);
-+	mpnic_wr64(mpd, MPNIC_TOF_MODE,
-+		   FIELD_PREP(MPNIC_TOF_MODE_L4_ZERO_CSUM, 0));
- 
- 	mpnic_wr64(mpd, MPNIC_TCM_MEM_INIT_REQ, MPNIC_MEM_INIT_TCM_VAL);
- 	mpnic_wr64(mpd, MPNIC_TDE_MEM_INIT_REQ, MPNIC_MEM_INIT_TDE_VAL);
+ #define MPNIC_TWD_L3_TYPE		DESC_GENMASK(42, 40)
+ enum {
++	MPNIC_TWD_L3_TYPE_OTHER	= 0,
+ 	MPNIC_TWD_L3_TYPE_IPV4	= 1,
+ 	MPNIC_TWD_L3_TYPE_IPV6	= 2,
+ 	MPNIC_TWD_L3_TYPE_V6V6	= 3,
 diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-index 7fdf57f70151..d386672738fc 100644
+index 032a5ee92a08..198aad631c65 100644
 --- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
 +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-@@ -144,6 +144,7 @@ static const struct net_device_ops mpnic_netdev_ops = {
- 	.ndo_stop		= mpnic_stop,
- 	.ndo_validate_addr	= eth_validate_addr,
- 	.ndo_start_xmit		= mpnic_xmit_frame,
-+	.ndo_features_check	= mpnic_features_check,
- 	.ndo_get_stats64	= mpnic_get_stats64,
- };
- 
-@@ -200,6 +201,7 @@ static void mpnic_get_queue_stats_tx(struct net_device *dev, int idx,
- 	u64 bytes, packets, stop, wake;
- 	struct mpnic_q_triad *qt;
- 	unsigned int start;
-+	u64 csum_partial;
- 
- 	if (!txr)
- 		return;
-@@ -217,11 +219,13 @@ static void mpnic_get_queue_stats_tx(struct net_device *dev, int idx,
- 	stats = &txr->stats;
- 	do {
- 		start = u64_stats_fetch_begin(&stats->syncp);
-+		csum_partial = u64_stats_read(&stats->twq.csum_partial);
- 		stop = u64_stats_read(&stats->twq.stop);
- 	} while (u64_stats_fetch_retry(&stats->syncp, start));
- 
- 	tx->bytes = bytes;
- 	tx->packets = packets;
-+	tx->needs_csum = csum_partial;
- 	tx->stop = stop;
- 	tx->wake = wake;
- }
-@@ -237,6 +241,7 @@ static void mpnic_get_base_stats(struct net_device *dev,
- 
- 	tx->bytes = base->tx.bytes;
- 	tx->packets = base->tx.packets;
-+	tx->needs_csum = base->tx.csum_partial;
- 	tx->stop = base->tx.stop;
- 	tx->wake = base->tx.wake;
- 
-@@ -303,9 +308,13 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
+@@ -322,7 +322,15 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
  	mpn->num_rx_queues = queues;
  	mpn->num_napi = queues;
  
--	netdev->features |= NETIF_F_SG;
-+	netdev->features |=
-+		NETIF_F_SG |
-+		NETIF_F_HW_CSUM;
++	netdev->gso_partial_features =
++		NETIF_F_GSO_GRE |
++		NETIF_F_GSO_GRE_CSUM |
++		NETIF_F_GSO_IPXIP4 |
++		NETIF_F_GSO_UDP_TUNNEL |
++		NETIF_F_GSO_UDP_TUNNEL_CSUM;
 +
- 	netdev->hw_features |= netdev->features;
- 	netdev->vlan_features |= netdev->features;
-+	netdev->hw_enc_features |= netdev->features;
+ 	netdev->features |=
++		netdev->gso_partial_features |
+ 		NETIF_F_GSO_IPXIP6 |
+ 		NETIF_F_SG |
+ 		NETIF_F_HW_CSUM |
+@@ -330,6 +338,7 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
+ 		NETIF_F_TSO |
+ 		NETIF_F_TSO_ECN |
+ 		NETIF_F_TSO6 |
++		NETIF_F_GSO_PARTIAL |
+ 		NETIF_F_GSO_UDP_L4;
  
- 	netdev->min_mtu = IPV6_MIN_MTU;
- 	netdev->max_mtu = MPNIC_MAX_JUMBO_FRAME_SIZE - ETH_HLEN;
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-index 6711766ebc3c..94f7a3355c5c 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-@@ -16,6 +16,7 @@ struct mpnic_base_stats {
- 		u64 packets;
- 		u64 bytes;
- 		u64 dropped;
-+		u64 csum_partial;
- 		u64 stop;
- 		u64 wake;
- 	} tx;
+ 	netdev->hw_features |= netdev->features;
 diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-index 93abdec44642..65de6d999d54 100644
+index 839feb4716b6..af5e490c112d 100644
 --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-@@ -8,6 +8,7 @@
- #include <linux/slab.h>
- #include <net/netdev_lock.h>
- #include <net/page_pool/helpers.h>
-+#include <net/tcp.h>
+@@ -236,6 +236,9 @@ static void mpnic_tx_fill_hdrs(struct sk_buff *skb, struct mpnic_tx_hdrs *hdrs)
+ 		hdrs->i3len = skb_transport_offset(skb) - net_off;
+ 		hdrs->l3_type = ip_hdr(skb)->version == 4 ?
+ 				MPNIC_TWD_L3_TYPE_IPV4 : MPNIC_TWD_L3_TYPE_IPV6;
++	} else if (skb_shinfo(skb)->gso_type & SKB_GSO_PARTIAL) {
++		hdrs->i3len = skb_checksum_start_offset(skb) - net_off;
++		hdrs->l3_type = MPNIC_TWD_L3_TYPE_OTHER;
+ 	} else {
+ 		inner_off = skb_inner_network_offset(skb);
+ 		hdrs->o3len = inner_off - net_off;
+@@ -397,11 +400,27 @@ static bool mpnic_ipxip6_gso_ok(struct sk_buff *skb)
+ static netdev_features_t
+ mpnic_features_check_encap_gso(struct sk_buff *skb, netdev_features_t features)
+ {
++	struct iphdr *iph;
++
+ 	if (skb_shinfo(skb)->gso_type & SKB_GSO_IPXIP6 &&
+ 	    mpnic_ipxip6_gso_ok(skb))
+ 		return features;
  
- #include "mpnic.h"
- #include "mpnic_netdev.h"
-@@ -18,6 +19,10 @@ struct mpnic_xmit_cb {
- 	u8 desc_count;
- };
- 
-+struct mpnic_tx_hdrs {
-+	unsigned int i3len;
-+};
+-	return features & ~NETIF_F_GSO_IPXIP6;
++	features &= ~NETIF_F_GSO_IPXIP6;
 +
- #define MPNIC_XMIT_CB(__skb) ((struct mpnic_xmit_cb *)((__skb)->cb))
- #define MPNIC_TWD_TYPE_MASK(_type) \
- 	cpu_to_le64(FIELD_PREP(MPNIC_TWD_TYPE, MPNIC_TWD_TYPE_##_type))
-@@ -208,6 +213,34 @@ mpnic_tx_map(struct mpnic_ring *ring, struct sk_buff *skb, __le64 *meta)
- 	return true;
- }
- 
-+static void mpnic_tx_fill_hdrs(struct sk_buff *skb, struct mpnic_tx_hdrs *hdrs)
-+{
-+	hdrs->i3len = skb_checksum_start(skb) - skb_network_header(skb);
-+}
++	iph = ip_hdr(skb);
++	if (iph->version == 4 && !(iph->frag_off & htons(IP_DF)))
++		return features & ~NETIF_F_GSO_MASK;
 +
-+static void
-+mpnic_tx_offloads(struct mpnic_ring *ring, struct sk_buff *skb, __le64 *meta)
-+{
-+	struct mpnic_tx_hdrs hdrs = {};
-+
-+	if (skb->ip_summed != CHECKSUM_PARTIAL)
-+		return;
-+
-+	mpnic_tx_fill_hdrs(skb, &hdrs);
-+
-+	*meta |= cpu_to_le64(FIELD_PREP(MPNIC_TWD_CSUM_OFFSET,
-+					skb->csum_offset / 2) |
-+			     MPNIC_TWD_FLAG_REQ_CSO);
-+
-+	u64_stats_update_begin(&ring->stats.syncp);
-+	u64_stats_inc(&ring->stats.twq.csum_partial);
-+	u64_stats_update_end(&ring->stats.syncp);
-+
-+	*meta |= cpu_to_le64(FIELD_PREP(MPNIC_TWD_L2_HLEN,
-+					skb_mac_header_len(skb) / 2) |
-+			     FIELD_PREP(MPNIC_TWD_L3_IHLEN, hdrs.i3len / 2));
-+}
-+
- #define MPNIC_MIN_FRAME_LEN	60
- 
- static netdev_tx_t mpnic_xmit_frame_ring(struct sk_buff *skb,
-@@ -230,6 +263,8 @@ static netdev_tx_t mpnic_xmit_frame_ring(struct sk_buff *skb,
- 	MPNIC_XMIT_CB(skb)->bytecount = skb->len;
- 	MPNIC_XMIT_CB(skb)->desc_count = 0;
- 
-+	mpnic_tx_offloads(ring, skb, meta);
-+
- 	if (mpnic_tx_map(ring, skb, meta))
- 		goto err_free;
- 
-@@ -256,6 +291,30 @@ netdev_tx_t mpnic_xmit_frame(struct sk_buff *skb, struct net_device *dev)
- 	return mpnic_xmit_frame_ring(skb, mpn->tx[skb_get_queue_mapping(skb)]);
- }
- 
-+netdev_features_t mpnic_features_check(struct sk_buff *skb,
-+				       struct net_device *dev,
-+				       netdev_features_t features)
-+{
-+	unsigned int l2len, i3len;
-+
-+	if (skb->ip_summed != CHECKSUM_PARTIAL)
-+		return features;
-+
-+	l2len = skb_network_offset(skb);
-+	if (skb_vlan_tag_present(skb))
-+		l2len += VLAN_HLEN;
-+	i3len = skb_checksum_start(skb) - skb_network_header(skb);
-+
-+	if ((l2len | i3len | skb->csum_offset) % 2 ||
-+	    !FIELD_FIT(MPNIC_TWD_L2_HLEN, l2len / 2) ||
-+	    !FIELD_FIT(MPNIC_TWD_L3_IHLEN, i3len / 2) ||
-+	    !FIELD_FIT(MPNIC_TWD_CSUM_OFFSET, skb->csum_offset / 2) ||
-+	    l2len + i3len + sizeof(struct tcphdr) + MAX_TCP_OPTION_SPACE > 256)
-+		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
++	/* HW can segment inner udp4 with fixed IDs, but there is no UDP
++	 * analog for MANGLEID, so defer to SW GSO.
++	 */
++	if (inner_ip_hdr(skb)->version == 4)
++		features &= ~NETIF_F_GSO_UDP_L4;
++	if (!(features & NETIF_F_TSO_MANGLEID))
++		features &= ~NETIF_F_TSO;
 +
 +	return features;
-+}
-+
- static void mpnic_clean_twq0(struct mpnic_napi_vector *nv, int napi_budget,
- 			     struct mpnic_q_triad *qt, bool discard,
- 			     unsigned int hw_head)
-@@ -721,6 +780,7 @@ static void mpnic_aggregate_ring_twq_counters(struct mpnic_base_stats *base,
- 					      struct mpnic_ring *twq)
- {
- 	base->tx.dropped += u64_stats_read(&twq->stats.twq.dropped);
-+	base->tx.csum_partial += u64_stats_read(&twq->stats.twq.csum_partial);
- 	base->tx.stop += u64_stats_read(&twq->stats.twq.stop);
  }
  
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-index 52492e3f484f..a6dff9dc32d6 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-@@ -89,6 +89,7 @@ struct mpnic_queue_stats {
- 	union {
- 		struct {
- 			u64_stats_t dropped;
-+			u64_stats_t csum_partial;
- 			u64_stats_t stop;
- 		} twq;
- 		struct {
-@@ -168,6 +169,9 @@ struct mpnic_napi_vector {
- };
- 
- netdev_tx_t mpnic_xmit_frame(struct sk_buff *skb, struct net_device *dev);
-+netdev_features_t mpnic_features_check(struct sk_buff *skb,
-+				       struct net_device *dev,
-+				       netdev_features_t features);
- int mpnic_alloc_napi_vectors(struct mpnic_net *mpn);
- void mpnic_free_napi_vectors(struct mpnic_net *mpn);
- void mpnic_stats_attach_rings(struct mpnic_net *mpn);
+ netdev_features_t mpnic_features_check(struct sk_buff *skb,
 
 -- 
 2.52.0
