@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293159;
-	b=KQ5QEYfjNwUDR2XLFnaVu7ryCShSX2KPakKXG7TFdQ95gooGcUpTm+LEvXZtoomwTJ2F
-	 grpBonV5ek3IljirNp1izMTTq6JOvQtGQxI/xq+wJgUD2oP4cy67NR5Sgq3I0l8CYEOse
-	 xVqJg8LUq430suZQJpTFRlTRUOMuL1NGbfFXdSQm4m/v+0jtPHKG5lu7TN/o8pmJ8cVXi
-	 ye9xqiv2Qtov7r9mXLkHxaYjhzK0B3aSp1P0iZ8hrRsTReuuskYrt09Ke/bxV8sInGgEA
-	 YTJh1acaXuMlTchdgbrHbmQyEyZbZLUmhSY3W9ZSyHS08vct8Z22ZkzEk6T1cjT/MMQ==
+	t=1794293181;
+	b=cB/Wr238WmksOYEnCRbjFM6oNcsboEjDUJG1AomOjs6u2LP7mjo1sXffHYhHrXdBxX08
+	 V71boz3UQD6Ed7sLOv6vOZWHGz3RwFsuzES4AOThetjye/XqxxYrk15pM6pe1lO3ZiiVg
+	 Omuf5/cyylx4ZIpLUSoTiFvD5z/2kB8pVt/i7fNQ8wVWmdnzQThvByGkwjlCkb4detyEC
+	 BTMN4FY1EqgcMdIgyAVqeUD+Vh/B6bPYVghaRUCi9DWcCCFpcDYWMHMZQ8O1/ERf/heT1
+	 1IUyfhHgwgO2pu1TOCNDttVi7IoHuxPP36bcjzsBScn+g6q6z335hi79OevB8oXInTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293159;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=zVcHMSsusl1Ej7N/9YmP8osA54hse8QtuF0mZhuFuKE=;
-	b=LbVd2oF9YpLg6XcNbrYakqOl4KuB+EkGoG9bRCKNiSyyBHNtjBmFeGw+Cc1S4zL40fFR
-	 ErETh1fG3hD73ZRoVL48YA+PAbWLeJHj5eGb29P4JGEJMoAEgxFuiqrc6rkLJPsnP5WpP
-	 tciwPxpzza2n+1Fq8XkCUNSgLm2yopEcWZ7dO/9MxGjvpK14TOM3WFbEWyom7NwO3jF8B
-	 cmaFUlOmTCSy8ujkIfEoVq1FNZJ2wqFKw4Oaoep4ImYXl3zGQpWXSOnZuN3qOq/5/NhFs
-	 YUJPtYWtCZCLqtI02ehlsUcA1uE+xPU4+EyVO5Pj2wHckH4TvhoRb6zDK/gaS8osAaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293181;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=fj+VTmHbjqEKCK+zDYx+fQeMPI8EXdDT0yXf1Yy9/ds=;
+	b=BDJcjqURl+BvCeQL+NydHtcqBw/OiDuwqupIpyCOu1IjzYw+t9HtulfgZUpE7f/Tq5Cu
+	 5X3Rdr4QxoxI3K+2IvXzXdp57nCWn1ORNcGEtc1da7gy1QR6lBUcsQYGW0AHvJg/NNeON
+	 fODyiUfJhbgBWaIKuuehW1A2PZaANP0fpAc8JGUTpg9qeopymm7j2Ic0k6Ep30MUfqf0t
+	 Ay8ROweUGFp66bA8UChjcZwSIJfmMSs0iuNYA0oJ/iH/aQwtSLS6f+bpUR3vbzuOLe0nt
+	 T371A3/ke8+YTmc6Qr7R8t9cM+0XzffbqbxOTq2uDx+vvAAtWvto4/70xrLs4QFhXaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iKXIWz4f;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h3OlvaCP;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AB0606A649
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09AB0606A649
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C85606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1C85606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iKXIWz4f
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ea0fe07201so12262015ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:45:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794293157; x=1794897957; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zVcHMSsusl1Ej7N/9YmP8osA54hse8QtuF0mZhuFuKE=;
-        b=iKXIWz4f5+r9vNjEX1njp1JAE0DkemMvWqkFWMmG3Vjv1ZLOycapavc7kVSFLpv0WA
-         PsNPmLRxlONNp21iNG0QisN8PlO++GJPtHshY77ahqCn7ItMwytliqA1DhcAKvE2KmBO
-         7Jy+jiQo5Xwnk65oYSNtkD/4sFfJjtqtGqKOHsR8CUrqZ2zBkdQlEQOhZo3Udg9IVxwI
-         zc+SfBMN+8P38cESTNHsw6B9J1Epaio6O/ZozoBZ7rKezKKZnGKXVR1qiG3ZiTxWaJI/
-         KZ65SnaI23nwOWTRxUVgcparBkJ6QDAVGzXI5IUYZYv9wH1wull3D78cyskKidIRWjy/
-         RLYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794293157; x=1794897957;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zVcHMSsusl1Ej7N/9YmP8osA54hse8QtuF0mZhuFuKE=;
-        b=Ec0qQk/DxCgsh5cZ/9zXKEEQOzzo4iFZuTzfTGQAHE9x8AwmHRtXZPyUmmF1l1ZtJF
-         0hxBn4TZ/F8kvsF/DShLRPK5yqJYtitGB4N5uymRFsoA76xjoOnM/YOppkiX9JzQzA7T
-         i4GubDza6SdBbP1p3aG50YA2CbxwAcP13HAxC/iiL2jAt3Amba/nKI3FSDHdUOGQQn9a
-         cpqSXWUIi+JUXMe9bTXjFG8WaTEYA1gDxYo75sj1hUP6urX9O/imF4GHY6FoBpmoZz24
-         THSMRpQmEqPBUFUgX4+RIF/kwXaAHHTHc6lCIEi3y5ea/vhtcgx6tB9/JhEFLLICM/Jm
-         rYmw==
-X-Forwarded-Encrypted: i=1; AL+hErHtx+137PY6LtIF6c4dg/7n74PDq1/6rQ5UQs+JTVSrmAlJO8ba7aacmm4pAOvoxn4P4mbvdBAFVYqpliM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z871WllEM2LVK1b4fuaFNHd0RYBgSbenMCLiVWQy4DHRVN5lSrl
-	1qZYuqNMsxDuzJ8zBDKcOtv+BQfxkyT/u+7KGc2ki8dwHtTHCSlCOAUsTbU3y4ATo4DES72pwNu
-	Q7hIPLA==
-X-Received: from plbmm14.prod.google.com ([2002:a17:903:a0e:b0:2ed:5534:d103])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f542:b0:2e9:5714:6087
- with SMTP id d9443c01a7336-2edb8f95ddbmr16875455ad.5.1794293157096; Mon, 09
- Nov 2026 22:45:57 -0800 (PST)
-Date: Tue, 10 Nov 2026 06:45:56 +0000
-In-Reply-To: <20261106171442.31811-2-baditaflorin@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=h3OlvaCP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=fj+VTmHbjqEKCK+zDYx+fQeMPI8EXdDT0yXf1Yy9/ds=; b=h
+	3OlvaCPRt50iiValY4jxn/VkFBTo0nz7zojbHRUqtiT0Fcy+OD5ZMbgvxMqQ/Dqc
+	elZOAaLWObrOAosHRguLFd+87NDiy85g+r3gDZQFZA9dgV0SkwZLqVCjmemEKMJh
+	05J5U7Hbb8NnhSkEqyQ1YrOfinZ8O2D1nFzS0mPGJU=
+Date: Tue, 10 Nov 2026 14:46:14 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: aivazian.tigran@gmail.com
+Cc: linux-kernel@vger.kernel.org
+Subject:  WARNING in mark_buffer_dirty on v7.2-rc3
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SBv6SvEks4iaZYukdmEsTju82UcS4ufQl245Xc+0Gpx/uxxgFbWVuH1zqy+aKERKnoRu9TDlC8s9YbKt+z8YNuVZf7hMlkZN/JeZoBw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,81 +59,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106171442.31811-1-baditaflorin@gmail.com> <20261106171442.31811-2-baditaflorin@gmail.com>
-Message-ID: <avK8iXcNfXSt1_CQ@google.com>
-Subject: Re: [PATCH net-next v2 1/2] tcp: avoid false bind exhaustion with
- odd-sized port ranges
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Florin Badita-Nistor <baditaflorin@gmail.com>
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	shuah@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Message-ID: <1505d488.5126.1a1c4351165.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kigvCgD3l+i2vfJqXBNrAA--.64W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RbzpWryvbbc1wAA3F
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Fri, 06 Nov 2026 19:14:41 +0200, Florin Badita-Nistor wrote:
-> inet_csk_find_open_port() rounds the range length down to an even
-> number but keeps the original exclusive upper bound for wrapping.
-> For an odd-sized range, the two scans can therefore miss a valid port
-> and return EADDRINUSE while an eligible port remains free.
-> 
-> For example, restrict a TCP socket to IP_LOCAL_PORT_RANGE [40000, 40002]
-> and hold explicit binds on 40000 and 40001. bind(..., 0) always fails,
-> although an explicit bind to 40002 succeeds. Both IPv4 and IPv6 TCP and
-
-This is the reason of warning in set_local_port_range(),
-so kind of WAI to me.
-
-The change should be fine, but we should remove the warning.
-
-
-> MPTCP are affected. A namespace-wide odd-sized ip_local_port_range can
-> also trigger the failure without a per-socket range setting.
-> 
-> Keep the full length for the scan bound and wrapping. The two scans
-> then cover every candidate in an odd-sized range, with at most one
-> repeated candidate when exhausted. Even-sized candidate sequences
-> remain unchanged.
-> 
-> For odd-sized ranges, subtracting an odd remaining value when wrapping
-> flips parity. The first scan can therefore also select offsets of the
-> parity preferred by __inet_hash_connect(). Namespace-wide ranges with
-> same-parity endpoints already trigger a sysctl warning, while connect()
-> uses step 1 for a per-socket IP_LOCAL_PORT_RANGE.
-> 
-> This only fixes bind() allocation. The rounding in __inet_hash_connect()
-> for namespace-wide ranges is unchanged, so connect() can still miss a
-> port in an odd-sized namespace range.
-> 
-> The issue was triggered while developing port-range selftests with
-> Codex assistance, then confirmed using userspace reproducers on
-> unmodified kernels. No kernel instrumentation or fault injection was
-> needed. Booted x86-64 KVM kernels were tested against the regression
-> selftest, the full ip_local_port_range suite, and a Go net.Listen
-> reproducer. The Go reproducer fails 100/100 times per IP version before
-> the fix and 0/100 afterwards with a three-port namespace range and two
-> listeners occupying its first two ports.
-> 
-> Fixes: ea8add2b1903 ("tcp/dccp: better use of ephemeral ports in bind()")
-> Signed-off-by: Florin Badita-Nistor <baditaflorin@gmail.com>
-> ---
->  net/ipv4/inet_connection_sock.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-> index e56beec43..755fcea35 100644
-> --- a/net/ipv4/inet_connection_sock.c
-> +++ b/net/ipv4/inet_connection_sock.c
-> @@ -343,8 +343,6 @@ inet_csk_find_open_port(const struct sock *sk, struct inet_bind_bucket **tb_ret,
->  			low = half;
->  	}
->  	remaining = high - low;
-> -	if (likely(remaining > 1))
-> -		remaining &= ~1U;
->  
->  	offset = get_random_u32_below(remaining);
->  	/* __inet_hash_connect() favors ports having @low parity
-> -- 
-> 2.51.0
-> 
+CkhpLAoKCnN5emJvdCByZXBvcnRlZCAiV0FSTklORyBpbiBtYXJrX2J1ZmZlcl9kaXJ0eSIgb24g
+bGludXgtNS4xNS4gVGhlIHNhbWUKZmFpbHVyZSBpcyBzdGlsbCByZXByb2R1Y2libGUgb24gdjcu
+Mi1yYzMgd2l0aCB0aGUgcmVwcm9kdWNlciBiZWxvdy4KCgpUZXN0ZWQga2VybmVsOgrCoCBMaW51
+eCB2Ny4yLXJjMwrCoCBIRUFEIGExM2MxNDBjYzI4OWMwYjdiMzc3MGJjZTViM2FkNDJhYjM1MDc0
+YWEKCgpPYnNlcnZlZCBmYWlsdXJlOgpXQVJOSU5HOiBmcy9idWZmZXIuYzoxMDkzIGF0IG1hcmtf
+YnVmZmVyX2RpcnR5KzB4Mzg1LzB4NDEwLCBDUFUjMTogc3l6LjAuMTkvMTA1MzgKUklQOiAwMDEw
+Om1hcmtfYnVmZmVyX2RpcnR5KzB4Mzg1LzB4NDEwCkNhbGwgVHJhY2U6CjxUQVNLPgpiZnNfZ2V0
+X2Jsb2NrKzB4M2UzLzB4ZTkwCl9fYmxvY2tfd3JpdGVfYmVnaW5faW50KzB4NGI0LzB4MThiMApi
+bG9ja193cml0ZV9iZWdpbisweGE2LzB4MWUwCmJmc193cml0ZV9iZWdpbisweDMzLzB4ZDAKZ2Vu
+ZXJpY19wZXJmb3JtX3dyaXRlKzB4M2NjLzB4OGIwCl9fZ2VuZXJpY19maWxlX3dyaXRlX2l0ZXIr
+MHgxZjYvMHgyNDAKZ2VuZXJpY19maWxlX3dyaXRlX2l0ZXIrMHhlMS8weDM4MAp2ZnNfd3JpdGUr
+MHhiYWYvMHgxMTYwCmtzeXNfcHdyaXRlNjQrMHgxNjMvMHgxYTAKZG9fc3lzY2FsbF82NCsweGM0
+LzB4N2EwCmVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDc2LzB4N2UKUklQOiAwMDMz
+OjB4N2YzMjgxN2FlNDlkCjwvVEFTSz4KCgpUaGlzIGlzIHRoZSBhc3NlcnRpb24gc2l0ZSByZXBv
+cnRlZCBieSBzeXpib3Q7IEkgYW0gbm90IGNsYWltaW5nIGEgc3BlY2lmaWMgcm9vdCBjYXVzZS4K
+CgpUaGlzIGlzIGEgcmVwb3J0IG9mIGEgc3RpbGwtcmVwcm9kdWNpYmxlIGZhaWx1cmUsIG5vdCBh
+IGJpc2VjdGVkIHJvb3QgY2F1c2UuCgoKUmVwcm9kdWNlcjoKwqAgU1laIHJlcHJvZHVjZXI6IAoK
+c3l6X21vdW50X2ltYWdlJGJmcygmKDB4N2YwMDAwMDAwMDAwKSwgJigweDdmMDAwMDAwMDI0MCk9
+Jy4vYnVzXHgwMCcsIDB4ODAwOCwgJigweDdmMDAwMDAwMDEwMCk9QU5ZPVtAQU5ZUkVTNjQ9MHgw
+XSwgMHhmLCAweGFiLCAmKDB4N2YwMDAwMDEwMTQwKT0iJGVKenMxekdLd2tBWUJlQi9zN0NiZHB0
+RnNMQk80eDA4aWxocUkxYUs0QTNFaTNnVmo1RGV3aUt0aUNPWWlJaWRSUVQ1dm1MZ3pXUGd0Yk03
+YnJ1YklpS3RJbExSbWU3VDNXeStHQThuOVJsOHBDd2lmaU1pajRqZVg1MFBnN3I3YXZxeVdvN0s2
+dnY1OGMrNjliMEFBTURyc3VnLzVuTnFMazdOTC9BYS9tOTkzdkkrQUFBQUFBQUFBQUFBQUFBQUFB
+QUFBQUFBQUFBQUFBQUFBQUFBZ0hlN0JBQUEvLytkZnlpTCIpCnIwID0gb3BlbmF0JGNncm91cF9y
+bygweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDAwNDApPSdtZW1vcnkuZXZlbnRzXHgw
+MCcsIDB4Mjc1YSwgMHgwKQpyMSA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAw
+MDAwMDAwODApPScuL2ZpbGUxXHgwMCcsIDB4MTAxMTQyLCAweGVhZmYpCndyaXRlJHVpbnB1dF91
+c2VyX2RldihyMSwgJigweDdmMDAwMDAwMDQwMCk9eydzeXowXHgwMCcsIHsweDcsIDB4NSwgMHg2
+LCAweDh9LCAweDFkLCBbMHgyLCAweGM5NWEsIDB4NiwgMHg5LCAweDdmLCAweDQwMSwgMHg0LCAw
+eDdmLCAweDAsIDB4ZmZmZmZmZjksIDB4ZmZmZmZmZjIsIDB4NWYsIDB4YSwgMHgzLCAweGZmZmYy
+ZDNiLCAweDFkZDIsIDB4NSwgMHg3LCAweDAsIDB4ODAwMDAwMDAsIDB4NCwgMHg3LCAweDgwMDAw
+MDAxLCAweDNjNWIsIDB4MywgMHgyNCwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZSwgMHgxZjQ2MWUy
+YywgMHgyLCAweGU2NjEsIDB4MiwgMHg5LCAweDUsIDB4N2ZmZiwgMHg0Yzc0LCAweDIzLCAweDQs
+IDB4NywgMHhhLCAweDdmLCAweDcxLCAweDcsIDB4OCwgMHgzLCAweDAsIDB4NSwgMHg0MCwgMHg5
+MSwgMHg2LCAweGZmZmZmZmY5LCAweDMsIDB4YiwgMHg0LCAweDgsIDB4MCwgMHg4MCwgMHgwLCAw
+eGEsIDB4NiwgMHg4LCAweGZmZmZmZmY5LCAweDMsIDB4NDBdLCBbMHgxMDAwMDAwNywgMHhjLCAw
+eDEyZiwgMHg4MDAwLCAweDEwLCAweDgsIDB4MTI5NDMyZTIsIDB4ZiwgMHhmOSwgMHgzLCAweDJi
+ZiwgMHg2YzksIDB4OSwgMHhmZmZmZmZmZSwgMHgzLCAweDc2OTEsIDB4ZTQsIDB4NSwgMHg4MCwg
+MHhlLCAweDMxMiwgMHg4MDAwLCAweGVhNCwgMHhhLCAweDQsIDB4NDAwMCwgMHg4MDAwLCAweGIs
+IDB4NDAxLCAweDM5ZiwgMHg2LCAweGZmZmZmZmZkLCAweDEwMCwgMHgxMDA1LCAweDIsIDB4NWYz
+MSwgMHgzLCAweDAsIDB4NSwgMHg4LCAweDksIDB4NCwgMHg3ZmZmLCAweDgsIDB4OSwgMHgzZmYs
+IDB4NSwgMHgwLCAweDEsIDB4ODAwMCwgMHg2LCAweDIsIDB4N2YsIDB4OSwgMHg1LCAweDgsIDB4
+OCwgMHgxLCAweDcsIDB4YiwgMHg5LCAweDQ4YzkyNjkwLCAweDYsIDB4ZmZdLCBbMHg3LCAweDYs
+IDB4NCwgMHg2NGUsIDB4ZmZmZmZkZmUsIDB4ODAwMTAwMDIsIDB4OGQyLCAweDksIDB4MiwgMHg3
+ZWZmLCAweDAsIDB4NSwgMHhiLCAweDAsIDB4NDAwMDAwNSwgMHg1LCAweDAsIDB4MWVmLCAweDUs
+IDB4N2YsIDB4ODYsIDB4ODAwMSwgMHgxMDAwMDAwOSwgMHgzZTcsIDB4ODAwMDBiLCAweDUsIDB4
+MiwgMHgyLCAweGYsIDB4OCwgMHg0LCAweDZkMDEsIDB4NSwgMHgzYiwgMHgyMDAsIDB4MjAwLCAw
+eDcsIDB4MywgMHhmZmZmZmZmZSwgMHgxNSwgMHgwLCAweDYwMDAwMDAwLCAweDYsIDB4NTNjZjY5
+N2IsIDB4NSwgMHg2LCAweDU0ZmUxMmQwLCAweDAsIDB4MjAwLCAweGZmZmZmZmZmLCAweDQwMDAw
+MiwgMHhmZmZmZmZmOSwgMHgwLCAweDYsIDB4NSwgMHgwLCAweDYsIDB4M2UsIDB4MTIwMDAwLCAw
+eDMsIDB4NiwgMHg5LCAweDQsIDB4ODAwXSwgWzB4MiwgMHhiYjJmLCAweDAsIDB4NywgMHg1LCAw
+eDkzOCwgMHg2LCAweDYsIDB4MCwgMHg1LCAweGNlNywgMHgxZmYsIDB4NiwgMHg0MDEsIDB4Nywg
+MHgzLCAweDgwMCwgMHgxMDAwMCwgMHg2LCAweDdmZmYsIDB4OGZmZmYsIDB4NSwgMHgyLCAweDUs
+IDB4MSwgMHgyLCAweDE0YywgMHg2MGE3LCAweDYsIDB4NSwgMHhmZmZmZmZmZiwgMHg3ZmZmN2Zm
+ZSwgMHg1LCAweDgsIDB4YzgsIDB4MywgMHgzLCAweDYsIDB4MCwgMHg4LCAweDEwMCwgMHg0LCAw
+eDdmZmYsIDB4MiwgMHg5LCAweDYsIDB4MTAwLCAweDEwMDAwLCAweDUsIDB4MTg0ZDk5ZTgsIDB4
+MmI5MSwgMHhhMWYsIDB4N2QsIDB4OSwgMHgxLCAweDZjMWIsIDB4MCwgMHg0LCAweDI4LCAweGIx
+YywgMHg0YzQwMDAwMCwgMHgyMDAsIDB4ZmYsIDB4ZmZmXX0sIDB4NDVjKQp3cml0ZSRSRE1BX1VT
+RVJfQ01fQ01EX05PVElGWShyMCwgJigweDdmMDAwMDAwMGJjMCk9ezB4ZiwgMHg4LCAweGZhMDAs
+IHsweGZmZmZmZmZmZmZmZmZmZmYsIDB4MTF9fSwgMHgxMCkKcjMgPSBvcGVuYXQoMHhmZmZmZmZm
+ZmZmZmZmZjljLCAmKDB4N2YwMDAwMDAwMGMwKT0nLi9maWxlMlx4MDAnLCAweDQyLCAweDFmZikK
+d3JpdGUocjMsICYoMHg3ZjAwMDAwMDAxNDApPScyJywgMHgyMDApCnI0ID0gb3BlbmF0KDB4ZmZm
+ZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDBjMCk9Jy4vZmlsZTFceDAwJywgMHgyLCAweDAp
+CnB3cml0ZTY0KHI0LCAmKDB4N2YwMDAwMDAwMTQwKT0nMicsIDB4MjAwLCAweDIwMCkKcHdyaXRl
+NjQocjQsICYoMHg3ZjAwMDAwMDAxNDApPScyJywgMHgyMDAsIDB4NDAwKQpwd3JpdGU2NChyNCwg
+JigweDdmMDAwMDAwMDE0MCk9JzInLCAweDIwMCwgMHg2MDApCnB3cml0ZTY0KHI0LCAmKDB4N2Yw
+MDAwMDAwMTQwKT0nMicsIDB4MjAwLCAweDgwMCkKcHdyaXRlNjQocjQsICYoMHg3ZjAwMDAwMDAx
+NDApPScyJywgMHgyMDAsIDB4YTAwKQpyMiA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZmOWMsICYo
+MHg3ZjAwMDAwMDAwNDApPScuL2ZpbGUxXHgwMCcsIDB4MTAxMDQyLCAweDE1KQpwd3JpdGU2NChy
+MiwgJigweDdmMDAwMDAwMDE0MCk9JzInLCAweGZkZWYsIDB4ZTdjKQoKCgpBcnRpZmFjdHM6CsKg
+IGNvbnNvbGU6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy95cDZpYVJHMwrCoCBrZXJuZWwgY29u
+ZmlnOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS90ZXh0P3RhZz1LZXJuZWxDb25maWcm
+eD1lMWJiNmQyNGVmMjE2NGViCgoKVGhhbmtzLgoK
