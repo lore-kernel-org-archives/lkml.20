@@ -1,76 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283731;
-	b=zlhuD1L12TgqjDhy4Q5t1087nqCkY5H0AuCVgv1hno3/ZaDi+UyReHYYgu3M72EcKhly
-	 nPZP+TYfMKtJ6QT/9cWb47q6COFt1XfuEE/bvYhwMt/J4d5+t7F3VUJbjaIK0p7BZdtb9
-	 c/ZNT62wJVhW9QwcsvH27zKzW1Ktt7eQbKTYSHJpL1Z0ecEOoI04EwSQIhjRSIUaBBzQA
-	 MZbZzPMWW1KANaYXcP4cDSYn+BLzF250NIelUo6Yot875EIGCVU+NDdCFJb9LMul4r/9B
-	 3K9FqxGvbvUSeUQlpquKQd9iwBosmCkzWWrwnNv8PWwB43BLv31kGC2KixkeAYPpDKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0rub+xln4n/D2nMP5gbX7vqe3u4SS7wL4MYPrcjQOIM=;
-	b=rIOMPHBNINwvUpw0fkKgZV5RSSv/nL6jZjnqXeTdFX1DF918lVvH2fhlfh/AlYa3Obg2
-	 FBKR11XG3+S0m1+BHAqaEeBSP1zZ7406/q7QdRRjFZ/j7fhJZb/pbv43QEKwHwT/bzAd6
-	 1b7fKdX9Qq9nFeqLwi9XeXSLhQvxka6HwYmDJIYfyBf14yHcYTGP7EsAyZhI4mnCxLmUa
-	 OMk19Pv1uH+wVjHwhZIgcROC3ZvEGYnnkexO9Yfwyw6LyRQ5mFHTOEO43U0ogFdtIan5Y
-	 ZGVDw6XjcbvhHr0NGMW6Fj2tlssP5BHz5bqi5c4B1Pr2GgtojDoGGXVYkSH3R0C2Ugg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OPttbXyE;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794283769;
+	b=CnH/lTVGCTApu7NXI3BTeEZPXZlaFu+mz+zZLS5qT8XXqyBBa1TxTOkmU2Lzh/lNpmod
+	 mPhXOJ4BKWRIpERRMNLej3QS/vVx/b3JxC1rmw/dKFh4aT8FhVDiWUSceOlgAt5uB3Cys
+	 nPkpj+YFnymSSkTPE0ItJmaeabnYCzPT43tikBfx4MnHk7AkqPnFPkhDGuw+La1QMFiKC
+	 8ymo6VHa+r+1MeQmKq3E7c80N6L6nbQWHOfO2t8q1IEes6ycU5ZDCei8LQrR2CibezQ9j
+	 voaELeDGaYd3X4PYLAANPAH8tudvvfjBT/59tRqSZ/8YaPVEvg+ADbMlnfah/2vbh4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283769;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GHaRvOFqO5t6zE55sl155ofuDsWG3CQlOv9tkNhCBj8=;
+	b=CNkAvYiljzCmZ/kYM0d+UjVMIU/0h7D2W+gsXZAmM3p4GOjrlg1Dq7TuTE/e76myLbzt
+	 aOfSaaNfGoHwjn7yOpGM8PeAYD6L6UpaXoYhSVH0CR0odgtsHOxmoMIQloSx+LyVv6/Lk
+	 RWiO+zChh/NQ6vmeTvZRqT9qMRWIevDCBurr8G3kqfuYCxPGxjq6TMzTUckCgcQik8LIf
+	 XGeQThHOZvO60lW119csMoTqFFLUqF5/HjPSGN97i7QwdhLlDDQqwAJgxgOfuL0AWbu0/
+	 n1KMViYOYff9rRAyaXeFxSAhS9WTMh3jzwSuuiNjXPIdbd/RO8ZHvIhutyJGIdeBC7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wbEtQZr8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.62
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011062.outbound.protection.outlook.com [52.101.52.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57FC60A2619
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57FC60A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460DA606A31C;
+	Tue, 10 Nov 2026 04:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 460DA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OPttbXyE
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed02a00b24so16227125ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:08:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794283730; x=1794888530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0rub+xln4n/D2nMP5gbX7vqe3u4SS7wL4MYPrcjQOIM=;
-        b=OPttbXyEoLEyOe3TaUlNxY8cfx+Ks5JeotLDaWN+uunMmTvH9Nuko0Vv9+c9ODlg4g
-         9y8abkheToFbafvVhfwj2Kzu1WEE89g3LLRteEID21hVdmsFHMp9xruUNVHRGPMTLCrm
-         lnOo+0B23W0lGutBs2Qo8Rk/wgDM+CUdSQj6odqWKvaOKOPRcveyO40pXaFs8ldyHFoR
-         F0SsUziUsYDZxkzv1AEbqWaSRHN7F+51ObIlUcMU9NX2DiuQvSiUxDjsP7d3VXUA0viS
-         gbz/Chm9imu0zeWlE/mOysNfZrDUqbA6ZyiNEx1hR6aVTWCv0HVmv/1lHr35XnDhitR9
-         Ha+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794283730; x=1794888530;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0rub+xln4n/D2nMP5gbX7vqe3u4SS7wL4MYPrcjQOIM=;
-        b=QrSIXPE6iHRkgyyWq0aMNpO1BPlCoCRiYBNKQOk+E8TXzpONzofFDgcHvv+QrX2fzM
-         xABESocj5aMS7VhvzrCC84FyuQ+NHZO2a2+GL51jomM0s70bLKcUKkX+KZQ/3M675uRv
-         IqukUobi8qulsfkIrWG7brDsE6hs7BGT997CCZdAnvPTvABAxgPAKUWb6P7t5mdpJUn0
-         4tu7dfADu1UqvjyYH2KjWVmHZY9P8V+OCurc7Ctvrf3t6YNbfk29G+O75nkWW9ddxX5c
-         k6ZX0V6sWh/P81IEBN5fC/hDzYn55vKXGgc2eP2aLPkpsvJViZfg/XiD6P9gCrFNS61O
-         qEiw==
-X-Forwarded-Encrypted: i=1; AL+hErFDhfXT6bguZaL08yqGpN8kvDK8WveLkzTY4gkqkM8V/1VsLLAEVJwSWeiNnjw5Muo+Le+ZKWdTbUeIFEE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uyrubWb5x0YCQXvgM77M1asGr3wiZ38YcpR7R2uiFrqfvd2La
-	bWIU5SspCSLiiERa/TTh27zlaPODkBLXjbXRzoY+9vrw0sJH/G11IGGuqRdOWeBgCokVihfJUeg
-	ldpemLiZnJdgsvQ==
-X-Received: from plim16.prod.google.com ([2002:a17:903:3b50:b0:2e3:bd2:38ec])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:11d0:b0:2e9:a090:dd69 with SMTP id d9443c01a7336-2edb923d06dmr12701625ad.39.1794283729862;
- Mon, 09 Nov 2026 20:08:49 -0800 (PST)
-Date: Tue, 10 Nov 2026 04:08:23 +0000
-In-Reply-To: <20261110040828.1774343-1-skhawaja@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wbEtQZr8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wi5snCLLyoYgm3bRvT4vq5EHfYZElM90gMTXmz1NcBl6bswdM73nLpx1B15TEU05jkTMbzRoOQxBPPHbXVLyWdfnucwTTf+hUfOLMbuz2CSkWXyRTPLNJM17locijXMYVEqRO/tsxoasmpJQfxbFu6lz1mCGhok0ORvPLYrW6izETadMmqIjoYGJkXfWv+boqgPEzNlin7yQJ0Mi6WkDvX9rB6kufLhqFUaeIPg98kU3dGfoEd221Ecc3xJkrOgCxw1bmRIhhMnqb5z8tVJKqs90QsdPOhWnvVwdxvkF5kNY1ekQl0h91Mdrs1P0mcrwS2x79h+LKozfnC7AFlUZAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GHaRvOFqO5t6zE55sl155ofuDsWG3CQlOv9tkNhCBj8=;
+ b=duCwDTK6TrpxweycyOUjDjyrSD5hBasgkyn5t7cZ4M4dldY1TXdfK6i59fRXtOo+X9Y48Sp5NDxvpM9crnN9j1f0/J9d6FYcwHekDOEJnq27TP13a4ocuf1BRSlfNURxXvQCgJTXcTwXjyrt7+aFAU6fY5+qXsHXTwEvECUdGdiZhQug0NGLyi0w/ehVL6R6WmJnZ33q5fVmGX7o+EAvDyCh7H8gT1fyxobTSCZ3xpWuDF5k/gvKYsamMP0f7EMY0QD/9rGrf3rF7nCG9aIYsufBxEO2w/0mo3OaNG1lWdxMFGAAR92kFM0ZobfZ2Jn/AxNnUS6NIq7TBqoh8TqMBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GHaRvOFqO5t6zE55sl155ofuDsWG3CQlOv9tkNhCBj8=;
+ b=wbEtQZr84/9vElKH3TjH8SpIgawd8uGgpHdVPz9RgXrgaPvnn0uXh4x1psIhdYRXVcLi1DPNA8R3SSoVlMtjYlTbJ+BtV8EMb8qorsrdaGFakXrLfzuQ116wcPnmsc+A5nBCcKjSB7Ojkc16KHoyNCmSDK+aZwowO4eNvHmqUUY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 04:09:24 +0000
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d%4]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 04:09:23 +0000
+Message-ID: <76691c90-ab1f-4d93-b568-43670c07473b@amd.com>
+Date: Tue, 10 Nov 2026 09:39:14 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] dmaengine: zynqmp_dma: Add reset support for
+ Versal Gen2 and Versal Net
+To: Golla Nagendra <nagendra.golla@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Harini Katakam <harini.katakam@amd.com>,
+ Shyam Pandey <radhey.shyam.pandey@amd.com>, Abin Joseph <abin.joseph@amd.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, git@amd.com
+References: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0073.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::6) To CY1PR12MB9697.namprd12.prod.outlook.com
+ (2603:10b6:930:107::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,448 +104,148 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110040828.1774343-1-skhawaja@google.com>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110040828.1774343-18-skhawaja@google.com>
-Subject: [PATCH v7 17/18] vfio/pci: Preserve the iommufd state of the vfio cdev
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	David Woodhouse <dwmw2@infradead.org>
-Cc: Samiullah Khawaja <skhawaja@google.com>, Pranjal Shrivastava <praan@google.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	David Matlack <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8c8a14e-26a2-4924-6785-08df3ee06748
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|921020|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261028144727099003|261009223327099003|261102123227099003|261009223027099003|261026140227099003|10067099003|261009220027099003|261009221727099003|261009221227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	FtMPVrN5/mzvvURuzz9Rfy3sHkWsn+7O8aftZvGmFVtuFXsqq9WjP9JgU9lpSkLzgk7BwvGkGhNZ2pCFQOFVFpv3joppETFkBXMGJ0mtXrwO3gcLUz9IyNvxtOMr8nEWDuaG3zvtRG8h6QpeR+qz44XHLN1174HkZMtpy+dumEbdtuOt52EDjRmULVzYCegsB2he7fS1TFI1GGnaWDgaHZdsK1lM/JTsKyR++v0MrzYvq5mwQ2Hd+/jEfFLzJ0YTkfg3CLzVIehCNArq50oc9oWA35l4QaZM+bnXQc90/QQa78yskgCxiKiDJpFaXrggg4LhlNA530GKxkooth5yaxpB57Xc7oA2GFljwJXfC1MY3+H2VXCAZ5VY3aGztSTWr++F8TjORAEp5+z5a/UThsazjgOsnSGfL+/EljJ9X0ZWQsYineqo/BvlJvrAIMx3EZsA0kwwRhm6N809whwEncFhRYME94vd1lGlqQJARyL4UDsYxzDKbivaENuqrqbbHCyYTu+x6jqNPDZGKARtQquss6hnAmcF/ETNXgIE8XO9ZG05aIJzUjJmv6m5wjvohdUMhNMOR6QyVo1HVDmxlOfaxIQVPMx2rAt2qKw4510Rr3HqGrV8nFn2NNbcoiO6ieLU/u+1/jy+7nrQzyeJybR4isPm5i+tKuCkd+y2xSY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(921020)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261028144727099003)(261009223327099003)(261102123227099003)(261009223027099003)(261026140227099003)(10067099003)(261009220027099003)(261009221727099003)(261009221227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NGV6WkwzYzhlZzhEWFFIcnZ5dnV5ZXh1ZW5KWHBDMFJxdHFLUjlKQTFtU0dO?=
+ =?utf-8?B?MzdOT1ErSnhOTXlidzQvazdDWHcvWFBNYkZwUkgrbW9aMnc2R2pqU0pZN2Zx?=
+ =?utf-8?B?UWtIL3plbzhCMHczNS9OU3BDR0N2b3NjM0NpS2RVQmV5UzZsSkIxRUhGTFlj?=
+ =?utf-8?B?elJ2WjM1K2RQTHhWK3drSnBxazBodjNkTi9MUmNsSmpIWTVHSWowVEtnbnk0?=
+ =?utf-8?B?Y1ZqdE9OU2hJUWRhWlZUZVErOXZlRWMraFJwaXZwbVllTTNjQW1laVZJMjBs?=
+ =?utf-8?B?WnlCY3pIVUpXYm5DcHZXNjhpcXRtQjVlYW5vcHp3ZDNpU0FCbG85bnFiM09O?=
+ =?utf-8?B?VWRHRjIzYmNrUGRJQ3ZIaXBPeDlKcXN1RnJKZ0RUT2gramhmWFVJMzRVOW0z?=
+ =?utf-8?B?Wkt3cm0vblc4YjlaeHY0bTdTQ04vTnljVjNTT2JhQkViS2RiSVFVa000M2Qy?=
+ =?utf-8?B?TStYUEJxMnJsQ0RIc0R0WVZDZE1YMk43eWxMaTdWYTBtVnVaYmF1TzFxa2VV?=
+ =?utf-8?B?Y3hJK2hhVmNZV0x5OXQ1bGFYeDVYUmFsT0IwbURWZkRBaW5lblVqUFYxM1M1?=
+ =?utf-8?B?R3BRN2pSVE8vcHBIU0N6aUJUSDFKSkxNd2o2VzRqZUVjL3BaTjluNms5dU5W?=
+ =?utf-8?B?TTFOaUsyWEdSa0NycmlzNWsxT3N3bkk3YnJqS3hFL1Y2TGRBYmlnSXlNc251?=
+ =?utf-8?B?Ynd6OHNlTnRaamdiUnJ6ZEJJMTQ0S0Jxd0JMcW41SXJDTHY3Z1FRVlBMUE56?=
+ =?utf-8?B?cnhRcXMrZ2J4TnhQMno0dDVUZzNUbUlwU0thNFNKOWZmRDZKWldyWE5NVnVK?=
+ =?utf-8?B?Z05lN2M1UkMzNVBzSlBzM09OZmxnM1djSndiNXE0N3ROSkMrSlNCeXI3ZFQ1?=
+ =?utf-8?B?NENFem43VWhpOUlVMnhIVjVnT0FRelhieE5xQ2xkQUZxcGFES2laSmZFUG9G?=
+ =?utf-8?B?SWJCZWJJTWNqaXQyTVRTMi9tbUoyUHRSQ2ppbUljTVBjQXMyKzhGR1NISjJC?=
+ =?utf-8?B?VGNBekx4anVlT3NhcE1EdFJwWjBiaXVQdWVXYkUyd25sSDg0MXB6dTRmZkc0?=
+ =?utf-8?B?RXVwRkx1TG9hUk5TUjc0RFFONG5ydDdwOFY2M20vSUEvM2pRSyswWVVSUlAr?=
+ =?utf-8?B?MzFHb1JJWjZNeFdLUTV4Sm43NjBiY1B2aHJ1ei9XaFFiVDdSaW9FNnNuck42?=
+ =?utf-8?B?VWdOaGtQcElUcFkwOVBLL0J1cTMyYWxEMUdZYmc2UitjYWdrZ1RZRHpoLzRH?=
+ =?utf-8?B?ejFKNGVwR1hPd1RkNXdOUXlWZFVOOENPOG5Fa3Vnbis0WVhpclZUUUdBZnBH?=
+ =?utf-8?B?NjQ4bXFnV2V3YkNJTGQ0QU4rS1BRcEFnU0tXWjhkUi91OHl3RzRiUHlxbnlJ?=
+ =?utf-8?B?eVJ1K2tEMVY2NkpEbFkyUlhSM2V5MG11bWJnbG9xdVR4b2dnSzU3MStSb3N6?=
+ =?utf-8?B?ZS9yZGExNW9JSFNRNVBzV1EydmtGREVDNUxzcjVzU2xkRS94U253N0V5TW85?=
+ =?utf-8?B?WDU0RDBEL1dvMDArMWx0R05acHNMdDBTSDYrcSt6OEp5SnhRM0ZlSEQ2dFYy?=
+ =?utf-8?B?dzRhR2xwbXQ5Vm4wZ0dET2U0ZUVYL3JaZ2hEclI5MHYvZ1FUWUFQaUdyallz?=
+ =?utf-8?B?LzFUTStPRUJiSjUrZWxneFh6OFhubVdObExDbXdFU09DZ2x2NUt4dENmRTdH?=
+ =?utf-8?B?aXFJSWtGN09rbkpiMTJST2RheG9GTDB5bmxMazNiKzBFdjZtemxqMGEwZXNt?=
+ =?utf-8?B?SHFhYWFqNXN3RjhYaTlrZTVVYVhCeVJqbGJPbVhTcXpaZy9CS2pqOEJRSGdi?=
+ =?utf-8?B?c1NWRHIyWmhJSFl2VFNQZjBIRngzR2VYQ3IvUWYyVGUrTWt1Vmk2L1pZYVlG?=
+ =?utf-8?B?TU1Vd05VcXNIb2ZUREFQcG5QVWZLR0ovT1B4ZWRsU2UyNE1mWWFNWFptRmlo?=
+ =?utf-8?B?cUZ1MTF5N1l3dVRSVkFtZndJbm02MzNzdFZLQmpPQ3FSS25XdEd6TEUzbGFU?=
+ =?utf-8?B?bjF3Ky93V0ZHWHVmVVc0S2pOaW84N3c3M1M0OGdXaEI3MzlWSDlVdkp3YmtQ?=
+ =?utf-8?B?M3B2U3FtT244WlcreHFlekN4UXN0cmhUU3E4NmRwY2VORDQ2UGYwR1BnelVz?=
+ =?utf-8?B?YWxzOCtYKzRlZG5XZzN2bUQxdGp6OUFsNWYzZmJlVE9FYVNJNVBDN29iNzNM?=
+ =?utf-8?B?Q1BWZlc2a2hhZXFCRU1NRk5rOWxpRUVLK0dJSWY2TTRUaXZuVGorNnVtQ0JT?=
+ =?utf-8?B?Q1l4V3NobXAvVnVmVzZhMlo4Sit2OTZPN3lSWHBhYzZzVkdMbG41S2FaSFJs?=
+ =?utf-8?Q?rxddZ0Vq4Y4XcJWM2z?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8c8a14e-26a2-4924-6785-08df3ee06748
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 04:09:23.7252
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6m3z60bfzAAp+QX53S7iK+1ffFcXCgMJuICwY3RPYDO6hw8h9nsZLVDa+ZBwAYl9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 
-If the vfio cdev is attached to an iommufd, preserve the state of the
-attached iommufd also. Basically preserve the iommu specific state of
-the device and also the attach iommu HW unit.
+On 11/6/2026 3:40 PM, Golla Nagendra wrote:
+> This series adds per-channel reset support for Versal Gen2 and Versal Net
+> DMA channels.
+>   
+> Patch 1 requires the resets property for Versal Gen2 DMA devices.
+>   
+> Patch 2 adds the amd,versal-net-dma-1.0 compatible with
+> xlnx,zynqmp-dma-1.0 as its fallback and requires the resets property for
+> Versal Net devices.
+>   
+> Patch 3 adds the Versal Net compatible to the driver match table and
+> introduces match data to identify devices that support per-channel reset.
+>   
+> Patch 4 resets each Versal Gen2 and Versal Net DMA channel during probe.
+> Probe fails if the required reset property is missing or the reset fails.
+> Legacy SoCs skip the per-channel reset path.
+>   
+> Changes in V5:
+> - Drop the probe-time PM and unrelated IRQ-guard patches; retain only the
+>    patches required for reset support
+> - Split the Versal Gen2 reset requirement and Versal Net compatible into
+>    separate binding patches
 
-Once the device and its iommufd attachment is preserved, it cannot be
-detached or attached to another IOAS until it is unpreserved.
+Frank: Please review this v5 series. FYI DT bindings are acked by Rob.
 
-VFIO PCI live update currently supports only devices in noiommu mode.
-Lift that restriction for IOMMU-backed devices that are preserved with
-their iommufd state.
-
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
----
- drivers/vfio/device_cdev.c             |  10 ++
- drivers/vfio/pci/Kconfig               |  13 ++-
- drivers/vfio/pci/vfio_pci_liveupdate.c | 129 +++++++++++++++++++------
- drivers/vfio/pci/vfio_pci_priv.h       |  12 ++-
- include/linux/kho/abi/vfio_pci.h       |  15 ++-
- 5 files changed, 141 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
-index a53922adc388..edcec2824e18 100644
---- a/drivers/vfio/device_cdev.c
-+++ b/drivers/vfio/device_cdev.c
-@@ -316,6 +316,11 @@ int vfio_df_ioctl_attach_pt(struct vfio_device_file *d=
-f,
- 	}
-=20
- 	mutex_lock(&device->dev_set->lock);
-+	if (iommufd_device_is_preserved(device->iommufd_device)) {
-+		ret =3D -EBUSY;
-+		goto out_unlock;
-+	}
-+
- 	if (attach.flags & VFIO_DEVICE_ATTACH_PASID)
- 		ret =3D device->ops->pasid_attach_ioas(device,
- 						     attach.pasid,
-@@ -374,6 +379,11 @@ int vfio_df_ioctl_detach_pt(struct vfio_device_file *d=
-f,
- 	}
-=20
- 	mutex_lock(&device->dev_set->lock);
-+	if (iommufd_device_is_preserved(device->iommufd_device)) {
-+		mutex_unlock(&device->dev_set->lock);
-+		return -EBUSY;
-+	}
-+
- 	if (detach.flags & VFIO_DEVICE_DETACH_PASID)
- 		device->ops->pasid_detach_ioas(device, detach.pasid);
- 	else
-diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
-index 71289d8908f6..a9884d3ec864 100644
---- a/drivers/vfio/pci/Kconfig
-+++ b/drivers/vfio/pci/Kconfig
-@@ -44,12 +44,15 @@ config VFIO_PCI_IGD
- 	  To enable Intel IGD assignment through vfio-pci, say Y.
-=20
- config VFIO_PCI_LIVEUPDATE
--	bool "VFIO PCI support for Live Update in no-iommu mode"
--	depends on PCI_LIVEUPDATE && VFIO_NOIOMMU && VFIO_DEVICE_CDEV
-+	bool "VFIO PCI support for Live Update"
-+	depends on PCI_LIVEUPDATE && VFIO_DEVICE_CDEV
-+	depends on VFIO_NOIOMMU || IOMMU_LIVEUPDATE
- 	help
--	  Support for preserving devices bound to vfio-pci in no-iommu mode
--	  across a Live Update. It enables a device to continue working (DMA)
--	  while host kernel is going through a kexec live update.
-+	  Support for preserving devices bound to vfio-pci across a Live
-+	  Update. It enables a device to continue working (DMA) while host
-+	  kernel is going through a kexec live update. Devices in no-iommu
-+	  mode need VFIO_NOIOMMU, and IOMMU-backed devices need
-+	  IOMMU_LIVEUPDATE to preserve their IOMMU state.
-=20
- 	  If you don't know what to do here, say N.
-=20
-diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio=
-_pci_liveupdate.c
-index 00c008117259..86f532e4c9f1 100644
---- a/drivers/vfio/pci/vfio_pci_liveupdate.c
-+++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
-@@ -9,15 +9,16 @@
- /**
-  * DOC: VFIO PCI Preservation via LUO
-  *
-- * VFIO PCI devices in noiommu mode can be preserved over a kexec using th=
-e Live
-+ * VFIO PCI devices can be preserved over a kexec using the Live
-  * Update Orchestrator (LUO) file preservation while keeping the device ru=
-nning
-  * and performing DMA across the kexec transition. This allows userspace (=
-such
-  * as a VMM or userspace driver) to transfer an in-use device to the next =
-kernel
-  * without resetting it.
-  *
-  * .. note::
-- *    This support is enabled by ``CONFIG_VFIO_PCI_LIVEUPDATE`` and is lim=
-ited
-- *    to devices in noiommu mode (see Restrictions below).
-+ *    This support is enabled by ``CONFIG_VFIO_PCI_LIVEUPDATE``. Devices i=
-n
-+ *    noiommu mode are supported. IOMMU-backed devices are supported when
-+ *    ``CONFIG_IOMMU_LIVEUPDATE`` is enabled (see Restrictions below).
-  *
-  * Usage Example
-  * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-@@ -54,15 +55,22 @@
-  *
-  * The kernel imposes the following restrictions when preserving VFIO devi=
-ces:
-  *
-- *  * The device must be bound to the ``vfio-pci`` driver (not a variant d=
-river)
-- *    and registered in **noiommu** mode (``vfio.enable_unsafe_noiommu_mod=
-e=3D1``
-- *    with no IOMMU group attached to the device). Attempting to preserve =
-an
-- *    IOMMU-backed device fails with ``-EOPNOTSUPP``.
-+ *  * The device must be bound to the ``vfio-pci`` driver (not a variant d=
-river).
-+ *
-+ *  * A device in **noiommu** mode (``vfio.enable_unsafe_noiommu_mode=3D1`=
-` with
-+ *    no IOMMU group attached to the device) is preserved on its own.
-+ *
-+ *  * An IOMMU-backed device is preserved together with its iommufd state.=
- The
-+ *    device must be attached to a HWPT marked for preservation with
-+ *    ``IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE``, and the iommufd must be pre=
-served
-+ *    in the same session before the device. Otherwise preserving the devi=
-ce
-+ *    fails. After kexec, the device can only be retrieved if the iommufd =
-it
-+ *    was preserved with can be retrieved.
-  *
-  *  * The device file descriptor must be obtained by opening the VFIO char=
-acter
-- *    device (``/dev/vfio/devices/noiommu-vfioX``) and not via
-- *    ``VFIO_GROUP_GET_DEVICE_FD``, and ``VFIO_DEVICE_BIND_IOMMUFD`` must =
-have
-- *    completed on that file descriptor before it is preserved.
-+ *    device (``/dev/vfio/devices/vfioX`` or ``/dev/vfio/devices/noiommu-v=
-fioX``)
-+ *    and not via ``VFIO_GROUP_GET_DEVICE_FD``, and ``VFIO_DEVICE_BIND_IOM=
-MUFD``
-+ *    must have completed on that file descriptor before it is preserved.
-  *
-  *  * ``CONFIG_VFIO_PCI_ZDEV_KVM`` must not be enabled. This may be relaxe=
-d in
-  *    the future.
-@@ -189,6 +197,7 @@
- #include <linux/cleanup.h>
- #include <linux/errno.h>
- #include <linux/file.h>
-+#include <linux/iommufd.h>
- #include <linux/kexec_handover.h>
- #include <linux/kho/abi/vfio_pci.h>
- #include <linux/liveupdate.h>
-@@ -202,6 +211,8 @@
-=20
- #include "vfio_pci_priv.h"
-=20
-+MODULE_IMPORT_NS("IOMMUFD");
-+
- static bool vfio_pci_liveupdate_can_preserve(struct liveupdate_file_handle=
-r *handler,
- 					     struct file *file)
- {
-@@ -245,12 +256,11 @@ static int vfio_pci_liveupdate_preserve(struct liveup=
-date_file_op_args *args)
- 	struct vfio_pci_core_device *vdev;
- 	size_t saved_size =3D 0, total_size;
- 	struct pci_dev *pdev;
-+	u64 iommufd_token =3D 0;
-+	u32 flags =3D 0;
- 	u16 cfg_size;
- 	int err;
-=20
--	if (!vfio_device_is_noiommu(device))
--		return -EOPNOTSUPP;
--
- 	vdev =3D container_of(device, struct vfio_pci_core_device, vdev);
- 	pdev =3D vdev->pdev;
- 	cfg_size =3D pdev->cfg_size;
-@@ -263,56 +273,89 @@ static int vfio_pci_liveupdate_preserve(struct liveup=
-date_file_op_args *args)
- 	if (!vfio_file_is_bound_cdev(args->file))
- 		return -EINVAL;
-=20
-+	/*
-+	 * Devices that are not in noiommu mode are preserved together with
-+	 * their iommufd state, so that their DMA keeps being translated across
-+	 * kexec.
-+	 */
-+	if (!vfio_device_is_noiommu(device)) {
-+		err =3D iommufd_device_preserve(args->session,
-+					      device->iommufd_device,
-+					      &iommufd_token);
-+		if (err)
-+			return err;
-+
-+		flags |=3D VFIO_PCI_SER_IOMMUFD;
-+	}
-+
- 	if (vdev->pci_saved_state) {
- 		saved_size =3D pci_liveupdate_saved_state_ser_size(vdev->pci_saved_state=
-);
--		if (!saved_size)
--			return -EINVAL;
-+		if (!saved_size) {
-+			err =3D -EINVAL;
-+			goto err_iommufd_unpreserve;
-+		}
- 	}
-=20
- 	total_size =3D size_add(sizeof(*ser),
- 			      size_add(size_mul(2, cfg_size), saved_size));
--	if (total_size > U32_MAX)
--		return -EOVERFLOW;
-+	if (total_size > U32_MAX) {
-+		err =3D -EOVERFLOW;
-+		goto err_iommufd_unpreserve;
-+	}
-=20
- 	ser =3D kho_alloc_preserve(total_size);
--	if (IS_ERR(ser))
--		return PTR_ERR(ser);
-+	if (IS_ERR(ser)) {
-+		err =3D PTR_ERR(ser);
-+		goto err_iommufd_unpreserve;
-+	}
-=20
- 	if (saved_size) {
- 		void *dst =3D ser->data + 2 * (size_t)cfg_size;
-=20
- 		err =3D pci_liveupdate_serialize_saved_state(vdev->pci_saved_state,
- 							   dst, saved_size);
--		if (err) {
--			kho_unpreserve_free(ser);
--			return err;
--		}
-+		if (err)
-+			goto err_free;
- 	}
-=20
- 	err =3D pci_liveupdate_preserve(pdev);
--	if (err) {
--		kho_unpreserve_free(ser);
--		return err;
--	}
-+	if (err)
-+		goto err_free;
-=20
- 	ser->domain =3D pci_domain_nr(pdev->bus);
- 	ser->bdf =3D pci_dev_id(pdev);
- 	ser->cfg_size =3D cfg_size;
- 	ser->size =3D total_size;
--	ser->flags =3D vdev->reset_works ? VFIO_PCI_SER_RESET_WORKS : 0;
-+	ser->flags =3D flags;
-+	if (vdev->reset_works)
-+		ser->flags |=3D VFIO_PCI_SER_RESET_WORKS;
- 	ser->saved_state_size =3D saved_size;
- 	ser->reserved =3D 0;
-+	ser->iommufd_token =3D iommufd_token;
-=20
- 	args->serialized_data =3D virt_to_phys(ser);
- 	return 0;
-+
-+err_free:
-+	kho_unpreserve_free(ser);
-+err_iommufd_unpreserve:
-+	if (flags & VFIO_PCI_SER_IOMMUFD)
-+		iommufd_device_unpreserve(args->session, device->iommufd_device);
-+	return err;
- }
-=20
- static void vfio_pci_liveupdate_unpreserve(struct liveupdate_file_op_args =
-*args)
- {
-+	struct vfio_pci_core_device_ser *ser =3D phys_to_virt(args->serialized_da=
-ta);
- 	struct vfio_device *device =3D vfio_device_from_file(args->file);
-+	bool iommufd =3D ser->flags & VFIO_PCI_SER_IOMMUFD;
-+
-+	guard(mutex)(&device->dev_set->lock);
-=20
- 	pci_liveupdate_unpreserve(to_pci_dev(device->dev));
--	kho_unpreserve_free(phys_to_virt(args->serialized_data));
-+	kho_unpreserve_free(ser);
-+	if (iommufd)
-+		iommufd_device_unpreserve(args->session, device->iommufd_device);
- }
-=20
- static int vfio_pci_liveupdate_freeze(struct liveupdate_file_op_args *args=
-)
-@@ -486,6 +529,28 @@ vfio_pci_liveupdate_attach_incoming(struct vfio_pci_co=
-re_device *vdev,
- 	return 0;
- }
-=20
-+/*
-+ * A device preserved with its iommufd state can only be retrieved togethe=
-r
-+ * with that iommufd, so fetch it using the saved token and fail if it can=
-'t be
-+ * retrieved.
-+ */
-+static int vfio_pci_liveupdate_retrieve_iommufd(struct liveupdate_session =
-*s,
-+						const struct vfio_pci_core_device_ser *ser)
-+{
-+	struct file *file;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_IOMMU_LIVEUPDATE))
-+		return -EOPNOTSUPP;
-+
-+	ret =3D liveupdate_get_file_incoming(s, ser->iommufd_token, &file);
-+	if (ret)
-+		return ret;
-+
-+	fput(file);
-+	return 0;
-+}
-+
- static int vfio_pci_liveupdate_retrieve(struct liveupdate_file_op_args *ar=
-gs)
- {
- 	struct pci_saved_state *saved_state =3D NULL;
-@@ -513,7 +578,11 @@ static int vfio_pci_liveupdate_retrieve(struct liveupd=
-ate_file_op_args *args)
- 	vdev =3D container_of(device, struct vfio_pci_core_device, vdev);
- 	pdev =3D vdev->pdev;
-=20
--	if (!vfio_device_is_noiommu(device)) {
-+	if (ser->flags & VFIO_PCI_SER_IOMMUFD) {
-+		ret =3D vfio_pci_liveupdate_retrieve_iommufd(args->session, ser);
-+		if (ret)
-+			goto out_put_dev;
-+	} else if (!vfio_device_is_noiommu(device)) {
- 		ret =3D -EOPNOTSUPP;
- 		goto out_put_dev;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_p=
-riv.h
-index 2549a5321fce..a5f6c0d3085f 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -194,10 +194,18 @@ vfio_pci_liveupdate_check_noiommu(struct vfio_pci_cor=
-e_device *vdev)
- {
- 	guard(mutex)(&vdev->vdev.dev_set->lock);
-=20
-+	/*
-+	 * A device preserved with its iommufd state keeps doing DMA through
-+	 * the restored IOMMU domain. The IOMMU core claims DMA ownership of its
-+	 * group when it restores the domain at boot, and nothing else can own
-+	 * the group before the device is opened, so an owned group means the
-+	 * device was restored and can keep running.
-+	 */
- 	if (vdev->liveupdate_kept_running &&
--	    !vfio_device_is_noiommu(&vdev->vdev)) {
-+	    !vfio_device_is_noiommu(&vdev->vdev) &&
-+	    !iommu_group_dma_owner_claimed(vdev->vdev.dev->iommu_group)) {
- 		pci_warn(vdev->pdev,
--			 "Stopping device kept running across Live Update: not in noiommu mode\=
-n");
-+			 "Stopping device kept running across Live Update: not in noiommu mode =
-and IOMMU state not restored\n");
- 		pci_clear_master(vdev->pdev);
- 		vdev->liveupdate_stopped_early =3D true;
- 	}
-diff --git a/include/linux/kho/abi/vfio_pci.h b/include/linux/kho/abi/vfio_=
-pci.h
-index 3ace2c9d8a4f..33b410d9a026 100644
---- a/include/linux/kho/abi/vfio_pci.h
-+++ b/include/linux/kho/abi/vfio_pci.h
-@@ -38,7 +38,17 @@
-  */
- #define VFIO_PCI_SER_RESET_WORKS	BIT(0)
-=20
--#define VFIO_PCI_SER_KNOWN_FLAGS	VFIO_PCI_SER_RESET_WORKS
-+/**
-+ * define VFIO_PCI_SER_IOMMUFD - Device was preserved with its iommufd sta=
-te.
-+ *
-+ * Set in &vfio_pci_core_device_ser.flags when the device was not in noiom=
-mu
-+ * mode and its iommufd state was preserved. The LUO token of the preserve=
-d
-+ * iommufd is stored in &vfio_pci_core_device_ser.iommufd_token.
-+ */
-+#define VFIO_PCI_SER_IOMMUFD		BIT(1)
-+
-+#define VFIO_PCI_SER_KNOWN_FLAGS	(VFIO_PCI_SER_RESET_WORKS | \
-+					 VFIO_PCI_SER_IOMMUFD)
-=20
- /**
-  * struct vfio_pci_core_device_ser - Serialized state of a single VFIO PCI
-@@ -54,6 +64,8 @@
-  * @saved_state_size: Size in bytes of the serialized &struct pci_saved_st=
-ate_ser
-  *                    blob stored in @data after ``config_map``, or 0 if n=
-one.
-  * @reserved: Reserved for future use; must be 0.
-+ * @iommufd_token: LUO token of the preserved iommufd, valid only when
-+ *                 ``VFIO_PCI_SER_IOMMUFD`` is set in @flags.
-  * @data: Variable-length payload containing, in order:
-  *        1. ``u8 vconfig[@cfg_size]`` =E2=80=94 VFIO virtualized config s=
-pace snapshot
-  *           captured during ``freeze()``.
-@@ -70,6 +82,7 @@ struct vfio_pci_core_device_ser {
- 	u32 flags;
- 	u32 saved_state_size;
- 	u32 reserved;
-+	u64 iommufd_token;
- 	u8 data[];
- } __packed;
-=20
---=20
-2.56.0.506.g506a7eabc5-goog
+>   
+> Changes in V4:
+> - Patch 1: Use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead of
+>    pm_runtime_resume_and_get(), and fail probe immediately if the guard
+>    acquire fails. Add zynqmp_dma_probe_pm_put()/_fail()
+>    helpers so every error path releases the reference and gates the
+>    clocks without goto-based cleanup, and pair every direct
+>    zynqmp_dma_runtime_suspend() call with pm_runtime_set_suspended() to
+>    keep the runtime PM status in sync with the clocks
+> - Patch 2: Bypass the guard when pm_runtime_get_if_active() returns
+>    -EINVAL, covering disabled runtime PM and CONFIG_PM=n, so interrupt
+>    handlers keep servicing interrupts instead of bailing out
+> - Patch 3: Remove the IS_ENABLED(CONFIG_PM) condition from the guard
+>    error check, since patch 2 already handles disabled runtime PM and
+>    CONFIG_PM=n inside the guard itself
+> - Patch 4: Move the allOf block under the required field
+>    Add the new compatible string and the resets property in the example
+> - Patch 5: No change
+> - Patch 6: No change
+>   
+> Changes in V3:
+> - Patch 1: New patch - split PM usage count fix into a separate patch as
+> - Patch 2: New patch - add PM_RUNTIME_ACQUIRE_IF_ACTIVE() guard and its
+>    backing infrastructure to pm_runtime.h
+> - Patch 3: Use PM_RUNTIME_ACQUIRE_IF_ACTIVE() guard instead of the manual
+>    pm_runtime_get_if_active()/pm_runtime_put() pair from V2
+> - Patch 4: Use allOf:if:then: to restrict the resets property per-
+>    compatible with resets: false for non-matching platforms
+>    also expand to include amd,versal-net-dma-1.0
+> - Patch 5: New patch - add amd,versal-net-dma-1.0 compatible to driver
+> - Patch 6: Introduce has_reset flag in zynqmp_dma_config to gate the
+>    reset path; PM usage count fix split into patch 1/6
+> 
+> Link to V4:
+> -----------
+> https://lore.kernel.org/all/20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com/
+> 
+> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+> ---
+> Golla Nagendra (4):
+>        dt-bindings: dma: xlnx,zynqmp-dma: Require resets for Versal Gen2
+>        dt-bindings: dma: xlnx,zynqmp-dma: Add Versal Net compatible
+>        dmaengine: zynqmp_dma: Add new compatible string for Versal Net
+>        dmaengine: zynqmp_dma: Add per-channel reset support
+> 
+>   .../bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml   | 35 +++++++++++++++++-----
+>   drivers/dma/xilinx/zynqmp_dma.c                    | 18 ++++++++++-
+>   2 files changed, 45 insertions(+), 8 deletions(-)
+> ---
+> base-commit: 2576c937f7b442df7de8e39332ff585f08b666b8
+> change-id: 20261106-adma_per_channel_reset_v5-f826adb1314b
+> 
+> Best regards,
 
