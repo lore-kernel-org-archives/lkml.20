@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314532;
-	b=Yf1WbkxpdFprwrZd3k02n5RjJUfC9qK9Jx+87dPv++wqTOKHIG4/L2UuKmGj8cot8AeP
-	 yTnfTZblLq6mIOvOn3jt6ZuYcuAXdEwD0wQa20MR95dXL5e3I3aBFWZ5F6CAE5+MfNUhn
-	 SkcAEYQQ8bIWjfteSbgzTIKxuOSZdt8oNhuZOHM1owcM1A44fevzYtC9sk0gR4IW4RcPH
-	 TuIwOxjKTCjH6+FdJdicYwb4cIc3Yf65kl/3KZy6cLRzo2HkfD+X+3BX+dKTaiFIrizXh
-	 9uGaSt3UxKN42luaQ2luINbKtJAwS6dtQxsZz0wh7KJP6xECotlLLvSwK+ITE+BFkpA==
+	t=1794314544;
+	b=gKxl5Xa/MSMbtpIMgt0MlrnuJDeDYgOFlO4iiLi+Md6HJqH//EmS5p/jpJi+XreQq9Gr
+	 MjidZ5oAsnBvBWEgIgx0i8ad247WWEwvQlcNGexs10wJxgog0ITVuuYFoQiV3B7/YZ1KA
+	 M29DmUg6nq0popnN6KCO7jL6rveUuBtEiF8j0H0A+PQuvSh6zsUHY+qYdHTU8cXUn26Nd
+	 SmYXjGZaRlLLs5VVOBg1Sc/2PNiB4lD6MMmvtfuSa5NkyDx8Bp6voKyhqjaKxyBN4Aw2m
+	 hMmFqK7ai/qosa3mPEqNdciZ+IxPaYPYsQ7vklAnI9Oopx9LKDhfi2qm7z4e+WL7VjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314532;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aRoErpQ0qdoUbWw0nfuYgIwgrTUDpslGsShVaP/Z9BQ=;
-	b=DN2G4GDIoTbYSfky36WHDDWnXiyZmGCx12YEUnVDYOooxbKI92Pryg8llAztuZM2fqme
-	 oxvjdoobROgIjIeYOMOZfRSmcadrVF6a60vyZ/3wBkyyQbZib8dbjfx3W3K0CritaIVo9
-	 L7386b49hr8jEvkjABjpOY/6/nPvXj2l4OZ4XPJUeFfPRj+X/SF6GJRDJqGTUc8ueRRRh
-	 DeuP6/aP8zauKX2HvVFqqluaz59WWobjnW2mC2q/B/5kQ3fxBsjArxiVneH8IySZowe3j
-	 3K+au+xW0o6v+ilp7kzzQSMwHOYfbrM486jkuNohAPW544qZ0dUkUkMAwNr/2DeDySg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314544;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=MatU70aFGzUpefEfOY9ZfVcRCCMiI8u0W7ROj7FQCKI=;
+	b=HfaTcb8N/8TZhMEeJLy0TASSP9Ej+Nn7pVoi/vIPthQkRPqpNth/sWr5I7sBEAgE6089
+	 AGFvCknbXwXbXkyTDpAlwxZgWHz9MJch4OLqXnhQDGBBBV6iRf0DH/Bjs4ifSwz5PmJ+c
+	 5kZTz0oA9L1wPZSFjqoSBpGvVaxG1pjNtd6Ja2EUD9XDv2z/UI46t0LNLdYTsfxMg/Q9d
+	 wv99vlen1qeECyVGx9QQ+UbTDTr69MbV377ScNwNblTfblivOsnA0ZkxKC2UwNGZwM6lJ
+	 SIX6y4O5+QVBaRZwxHFDfpOyCuR8NRq5oAMTtMoq94YiTn6WVbMpjgkCw2hiUWXK9iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQK63Jsz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dfOkZ+eH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W8D6sfUo;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB909606A336;
-	Tue, 10 Nov 2026 12:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB24A606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB24A606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQK63Jsz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5EA1F0089F;
-	Tue, 10 Nov 2026 12:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314531;
-	bh=aRoErpQ0qdoUbWw0nfuYgIwgrTUDpslGsShVaP/Z9BQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jQK63JszJQWuuVVPMn7wOCpBAp5Qjsn9Ao4CS45p6vrYYXjwgXnuIlZAzNDlVU65t
-	 BAqNUAcIdkjZ3eYq2E8M5JSgJg665YMLxoUirn3QjqWZkwiuKHn8Zcadz5vRbE89/9
-	 X+vUwfAFfU5ajWYQ9DiDb7Dy1l4pIH9BFt5lc/MiLDCog2WGfxMqNDwNk5RzPWE+ad
-	 w3G0qVRmhefIXgDRJx/pCFFU/LtKpBMJ4EyaUIzuUd3nBwoHUE+zQ7eKfGLkCWCXMS
-	 DVmUOjRxd2gkSjyRefp8Jf3vJUewpZtJS4PgiWZb/GjiJvluv85aVpcRvjJqoPlaH5
-	 oBGgfF4Wfv8lQ==
-Date: Tue, 10 Nov 2026 12:42:04 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net, 
-	david@kernel.org, link@vivo.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
-	odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com, tujinjiang@huawei.com, 
-	vbabka@kernel.org, xiao.wang@vivo.com
-Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages
- under only_merge_zero_pages
-Message-ID: <avMKhCLDv-ybpmIZ@gremlin>
-References: <20261110074312.219847-1-xu.xin@linux.dev>
- <20261110074451.220524-1-xu.xin@linux.dev>
- <20261110074451.220524-2-xu.xin@linux.dev>
- <avLrHrnpP3tuXXPZ@gremlin>
- <avL+Xj5/Md58Gc98@dgvxl46587.localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dfOkZ+eH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W8D6sfUo
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABA2t03196043
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:42:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MatU70aFGzUpefEfOY9ZfVcRCCMiI8u0W7ROj7FQCKI=; b=dfOkZ+eHCzjaObQa
+	arqogdPgi6Sicmsw8s9UW74t1KaD3DEI8mGFbx26JErUorxPHUzWEhLVmrhGkgKc
+	SnSkCuZ10nJaQ4jut8xSzy6qwkEpRGQxeVOqvTow4lgJu2h9f6w1fSaC8VDskXE1
+	qekFaTr8/B4uo8/SSpYz3kcMzuum5Do0ar6cP+F1xDH3Sgz+EFIJbW4gprKmP3LV
+	+1Q45fBRG5pzz9b0q0Sq3NiN8WO2w8BLQ9n70oc38FEvFGghOVciXjt4RrrXPRp/
+	0rQ7TPy1mnCzCz5lIpbISeh+1TfLVm9bVfSGxzmDkFQn8Olvqg9vBn6RwBRcb1yu
+	TQh88w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv03crsp6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:42:22 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-943fffbc5dbso43003185a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:42:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794314542; x=1794919342; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MatU70aFGzUpefEfOY9ZfVcRCCMiI8u0W7ROj7FQCKI=;
+        b=W8D6sfUo2bQIKg5aF2sklGz63ow/C+u8Ml3CTAfn/IeTp79/hEBR8Dfiw01hBr3CvA
+         FNWcHluRpUzItXLMtYPonKIeYe9OjSPx7xlrkwermzAF5l82iJ8xSgbeZ0+Yr4EbBh2f
+         EKtKa9O4bu6YbqNEli6/IHUFOC8D9dRjeAWMqLmiz8yyeO2s//f10mXlg5LHuB13OHAR
+         rPn6OTP8dIRgVegLe+C4049aLMvQjCFIQTXpcUYUdGn/bVNAgt/oHYkAGfTcZ7HDyxHX
+         C1ORwljjeOhTYzLwbZM9MiTA8SLfZaRFYsOExiRY2ryIiLMyOn2JygktvRxJNTzbywaZ
+         zKhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794314542; x=1794919342;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MatU70aFGzUpefEfOY9ZfVcRCCMiI8u0W7ROj7FQCKI=;
+        b=EDoNPCdrIy3ptNUHXNroYPXGFjznwAFFkAMbK9gpA0Ef4ZQFsMcpeRAMBoPewBTgZh
+         uy7qM0hDwiiZwl7q7V41NuAk5kVI9reL74AJR+ciNojju3Sleg+5v40hz7PpmpJfSssd
+         WENbirMG5HqWoJlwVD+iNUy+xoQOnOhODBTChb273csqSZKvWaV3/T8fxwIf44af8WMi
+         go4NqaU/mwEwq88YFq57qLHteYVjILsGLT7I7dvbkycXxyxhTBDVg/Ux5R+PZJfu1zsn
+         gvVGc6kPPthVzK06S0af278GX6Z5usg22RVJ2OTiQzT/Rdmw6ECVYAYOWlvy9F5jDjvS
+         lmcw==
+X-Forwarded-Encrypted: i=1; AL+hErGNia31ZMANfvnWs3h3I/0BhAa+Mq7dT8YojGIVF2SsiW5SBer1yvc8wCNnwuEcOr0e16Kyo+x4biftlks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//Z0/i81dM25z75wiuvMpbCQ7JLyArbrDBHanQLkYAGF98T3k+
+	fdPqBqvvrCDssiIZcNHwPLsEdSnz8yaZBzuC23mKDtCqhsnYH5o5nWTZ5m1LyNxB0TWvROifOYc
+	H68DelgdpT/SD1U9qu3N9eonju0XbEh7sgBewqvzyL74ulfce3DLikzHtGR+gGnW95DA=
+X-Gm-Gg: AYBFou2yqUCrlfrvPRE0nhRUxSxayyaBV7vIY24/LnKz7LvqdMS9Vm1d04grRkUQd7m
+	o8WdzCdEesehRHRvj9M5IokZVNnUx1xvWnvGUs335dPYJcVJnYhrgC7OrkGO9Ihw1jQc/fK+C0g
+	RBPLVVzGwHK36pOuMHkIV4hw5oBMadxNXaWdew28GwCEz9iqa2SI3LIIE0Z/jiRfDPjEBNxgkjk
+	hDVwEnECdKCuhgzOVwZFGoMRjw4XHrJihQbaqpMI+/LoYKY5EfUFQZRKkuCOGMegvggsKnYfo58
+	jSBuFvhwBM/XxydihBHpJfeVKOAWLM4YjYDEqNtfuzWipuwGU+1DGRv7RdOYAPJWMP+mOclbsjC
+	G9om/TaIU1CpjxV4NXk/AyITprJUghNoTWDh9eIcr4ARIPnYqVhfOJ3F6/7Gq1wO/Xuuh+7M=
+X-Received: by 2002:a05:620a:a2d5:20b0:945:cfbe:816e with SMTP id af79cd13be357-9479f3d6b39mr351994585a.4.1794314542069;
+        Tue, 10 Nov 2026 04:42:22 -0800 (PST)
+X-Received: by 2002:a05:620a:a2d5:20b0:945:cfbe:816e with SMTP id af79cd13be357-9479f3d6b39mr351991585a.4.1794314541623;
+        Tue, 10 Nov 2026 04:42:21 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a3a66b9sm103217466b.9.2026.11.10.04.42.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 04:42:20 -0800 (PST)
+Message-ID: <7fb5ae20-c4f3-4aad-8d7a-a37a6ad15fb7@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 13:42:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,357 +115,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avL+Xj5/Md58Gc98@dgvxl46587.localhost.localdomain>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] thunderbolt: Prefix NHI core functions with tb_
+ and tb_ring_
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>,
+        Mika Westerberg <westeri@kernel.org>
+Cc: Andreas Noever <andreas.noever@gmail.com>, Sven Peter <sven@kernel.org>,
+        Yehezkel Bernat <YehezkelShB@gmail.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
+ <20261110114925.722014-2-chunfeng.yun@mediatek.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261110114925.722014-2-chunfeng.yun@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: D9V5OqjR_IhIFap7LEbsCHsMUulxYA-I
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MCBTYWx0ZWRfX7P4J7QUaqn31
+ addV6+2DYYROeCEMKP7yed7QoljQDRSO/iIlfWjXypLsgzghA66fjfoDRTicjpRt3kFtRghp94P
+ RGHhQTNQuxwWj+/VrvV1DtzYflU9q4Y=
+X-Authority-Analysis: v=2.4 cv=FuiQbGrq c=1 sm=1 tr=0 ts=6af3112e cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=e4OhxiAmdoAHhBioD_AA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: D9V5OqjR_IhIFap7LEbsCHsMUulxYA-I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MCBTYWx0ZWRfX6dolIc3AgmEx
+ Rflyv5WBCh38p4SgT5Ppo6oJzvYtE2dnG6zY6En2SrItxari/Hi1MwMEbtK7pgja7BrYSiuVefY
+ p47eNuKu0HWcyo35SEd3Z9y7a5joET9f1BYsLpi92qymFlo/BE9dzHU+y2QB3Mj6tb4bXhTXw+3
+ ZxCUcH2h+pW0qY7XeS7s4v5I2MdaF2uWaA1RkyoEuVsa9cUhlDIobr/IP9b4ojo4vzM5CxBXwvm
+ tx9ROBtdmz7Zgb07PIUYWbF+taIUqusV+opuAtSsg0Z5u23+uXAdmkcXu4Qc6yzTcOpEwN3qiqa
+ PP4KsNwvv9hjJ2isEsGZ/+Rh7mBFbjuhYDxcx5/zEjw5BlJerWsSxnxbfs6FLsbd9xRYWDqJMrk
+ baEfXKPVpBWEw4BjfS7JhIfiYFyV1ZoyFwRkgyvtD+8uzDmX9/EhS8I0t25ANmrfTyaAwFQm0Zv
+ oyYPJHc8rryl5hfJeDQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611100050
 
-On Tue, Nov 10, 2026 at 07:22:06PM +0800, Xu Xin (vivo) wrote:
-> On Tue, Nov 10, 2026 at 10:05:20AM +0000, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Nov 10, 2026 at 03:44:49PM +0800, Xu Xin (vivo) wrote:
-> > > When only_merge_zero_pages is enabled, ksmd only ever merges empty
-> > > (zeroed) anonymous pages with the kernel zero page. A page that carries
-> > > data can never be merged, yet the current code still allocates an
-> > > rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
-> > > decides to skip it.
-> > >
-> > > On workloads with a large amount of non-mergeable anonymous memory this
-> > > is a real cost: every scanned non-zero page pays for an rmap_item
-> > > allocation, and the rmap_items accumulate in the per-mm pending list.
-> > > For example, a MySQL instance with hundreds of gigabytes of anonymous
-> > > memory (mostly buffer pool pages that cannot be merged) ends up with
-> > > ksmd creating rmap_item metadata for each candidate page; the metadata
-> > > overhead can wipe out any gain from the zero-page merging and even turn
-> > > the net benefit negative.
-> > >
-> > > Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
-> > > get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
-> > > checks whether the candidate page is all zeros. A non-zero page is
-> > > skipped entirely: no rmap_item is allocated for it, and any stale
-> > > pending rmap_items below it are freed (as get_next_rmap_item() would).
-> > > The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
-> > > counts it as scanned and continues, so the pages_to_scan budget is
-> > > preserved.
-> > >
-> > > The all-zero check (pages_identical() against the kernel zero page) reads
-> > > the whole page. For a non-zero page this is a net win: the extra page read
-> > > is cheaper than the rmap_item allocation and the stable/unstable tree
-> > > operations it would otherwise trigger.
-> > >
-> > > A page that is zero now but is written before cmp_and_merge_page() runs
-> > > is still handled correctly, because the checksum-based decision in
-> > > cmp_and_merge_page() (added by the previous patch) is the authoritative
-> > > one.
-> > >
-> >
-> > Please re-write this in your own words.
-> >
-> > It's rambling on and never gets to the point of _what this patch does and
-> > why_.
-> >
-> > I'm not interested in reading a novel to understand the code :)
-> >
-> > It seems very LLM generated, LLMs are _terrible_ at writing commit messages
-> > and commits, please re-write all of that.
->
-> Indeed, the description was generated by LLM, but I thought that was clear enough
-> to present what this patch do and why. Aparrently, you don't like that style, I'll
-> rewrite that by handd.
+On 11/10/26 12:48 PM, Chunfeng Yun wrote:
+> In preparation for modularizing PCIe NHI support and allowing PCIe
+> and platform NHI drivers to be built as separate modules atop the
+> Thunderbolt core framework, several NHI functions and structures will
+> need to be exported.
+> 
+> Currently, several of these functions lack standard subsystem prefixes,
+> risking namespace pollution or collisions across the flat kernel symbol
+> namespace:
+> 
+> - ring_msix() lacks any subsystem prefix and diverges from all other
+>   exported ring functions in the driver, which use the "tb_ring_" prefix.
+> - nhi_probe(), nhi_shutdown(), and nhi_pm_ops lack the standard "tb_"
+>   prefix used across the Thunderbolt public interface (such as struct
+>   tb_nhi and struct tb_nhi_ops).
+> - nhi_msi() is named after PCI MSI, even though the ISR simply schedules
+>   the interrupt work and can serve as a generic ISR for non-PCIe platform
+>   controllers as well.
+> 
+> Rename these functions and symbols to conform to Thunderbolt subsystem
+> naming conventions before exporting them:
+> 
+> - ring_msix       -> tb_ring_msix
 
-In general we never want LLM-generated commit messages/comments.
+Maybe nhi_ instead? `tb` is used for the software connection manager-
+related functions
 
-I do however obviously appreciate and empathise with using it to assist
-non-native speakers. So that's fine, but ideally you would write it up yourself
-and then have the LLM do simply a polishing layer, keeping the length as small
-as possible, which should give us the best of both worlds. Thanks :)
-
->
-> The goal is only to avoid rmap_item allocation for pages that can never merge
-> under only_merge_zero_pages. The implementation is simple.
->
-> I'll send a v3 with those changes.
-
-Well let's wait on David's POV on this series for this cycle before a respin
-first thanks!
-
->
-> >
-> > > Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> > > Co-developed-by: Jinjiang Tu <tujinjiang@huawei.com>
-> > > Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
-> >
-> > Why are this and the other patches in-reply-to 1/4? That's not how you send
-> > a series in mm.
->
-> That was my mistake
-
-Ack, sure I've made all sorts of mistakes like that myself :)
-
-> >
-> > > ---
-> > >  mm/ksm.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> > >  1 file changed, 82 insertions(+)
-> > >
-> > > diff --git a/mm/ksm.c b/mm/ksm.c
-> > > index 49f3728a3d03..e641c37ee096 100644
-> > > --- a/mm/ksm.c
-> > > +++ b/mm/ksm.c
-> > > @@ -2535,6 +2535,69 @@ static bool should_skip_rmap_item(struct folio *folio,
-> > >  	return true;
-> > >  }
-> > >
-> > > +/*
-> > > + * Determines whether a candidate page should be skipped entirely when
-> > > + * only_merge_zero_pages is enabled, before an rmap_item is allocated for
-> > > + * it.
-> > > + *
-> > > + * A page that is not all zeros carries data and can never be merged with
-> > > + * the kernel zero page, so there is no point in allocating an rmap_item
-> > > + * for it. Skipping it here avoids the rmap_item metadata cost that full
-> > > + * KSM would otherwise pay for every non-mergeable page.
-> > > + *
-> > > + * @rmap_list: head of the per-mm pending rmap_item list
-> > > + * @addr:      address of the candidate page
-> > > + * @folio:     folio containing the candidate page
-> > > + * @page:      the candidate page
-> > > + *
-> > > + * Returns true if the page should be skipped (and any stale pending
-> > > + * rmap_items below @addr are freed), false if it should be processed.
-> > > + */
-> >
-> > This is a really weird mix of kdoc style + not kdoc style while not being a
-> > kdoc, for a static function?
-> >
->
-> Will simplify it.
-
-Thanks.
-
->
-> > > +static bool should_skip_non_zero_page(struct ksm_rmap_item **rmap_list,
-> > > +			     unsigned long addr, struct folio *folio,
-> > > +			     struct page *page)
-> > > +{
-> > > +	struct ksm_rmap_item *rmap_item;
-> > > +
-> > > +	if (!ksm_only_merge_zero_pages)
-> > > +		return false;
-> > > +
-> > > +	/*
-> > > +	 * Pages already merged by KSM are handled by cmp_and_merge_page();
-> > > +	 * do not skip them here.
-> > > +	 */
-> > > +	if (folio_test_ksm(folio))
-> > > +		return false;
-> > > +
-> > > +	/*
-> > > +	 * An all-zero page is exactly what we want to merge with the kernel
-> > > +	 * zero page; process it.
-> > > +	 */
-> > > +	if (pages_identical(page, ZERO_PAGE(0)))
-> > > +		return false;
-> > > +
-> > > +	/*
-> > > +	 * The page carries data: free any pending rmap_items that are below
-> > > +	 * it (they are stale, as get_next_rmap_item() would), and skip it so
-> > > +	 * no rmap_item is allocated for it.
-> > > +	 *
-> > > +	 * Compare the masked address, unlike get_next_rmap_item() which
-> > > +	 * compares the raw rmap_item->address (which may carry the
-> > > +	 * UNSTABLE/STABLE_FLAG bits). That is intentional: a pending
-> > > +	 * rmap_item at the same address as a non-zero page is stale and must
-> > > +	 * be freed here, not returned for processing.
-> > > +	 */
-> >
-> > We don't need a prose version of the code, and it reads like AI slop, we
-> > don't want AI slop comments, thanks.
->
-> Sorry, this is to clarify the difference between get_next_rmap_item() and here.
-> Maybe too verbose to you ? I can simplify those words.
-
-It is too verbose yes, and effectively writes out the code in comment form, this
-is not helpful.
-
->
-> >
-> > > +	while (*rmap_list) {
-> > > +		rmap_item = *rmap_list;
-> >
-> > Why is rmap_item function-scoped when it could be block-scoped here...
->
-> You are right. Will fix it.
-
-Thanks!
-
->
-> >
-> > > +		if ((rmap_item->address & PAGE_MASK) > addr)
-> > > +			break;
-> > > +		*rmap_list = rmap_item->rmap_list;
-> > > +		remove_rmap_item_from_tree(rmap_item);
-> > > +		free_rmap_item(rmap_item);
-> > > +	}
-> >
-> > This code is very ugly.
-> >
-> > Newline...
-
-In general I'd prefer a rethink though to make it cleaner.
-
-> >
-> > > +	return true;
-> >
-> >
-> > > +}
-> > > +
-> > >  struct ksm_next_page_arg {
-> > >  	struct folio *folio;
-> > >  	struct page *page;
-> > > @@ -2737,6 +2800,16 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
-> > >  			if (tmp_page) {
-> > >  				flush_anon_page(vma, tmp_page, ksm_scan.address);
-> > >  				flush_dcache_page(tmp_page);
-> > > +
-> > > +				if (should_skip_non_zero_page(ksm_scan.rmap_list,
-> > > +						     ksm_scan.address, folio,
-> > > +						     tmp_page)) {
-> > > +					folio_put(folio);
-> > > +					ksm_scan.address += PAGE_SIZE;
-> > > +					mmap_read_unlock(mm);
-> > > +					return ERR_PTR(-EAGAIN);
-> > > +				}
-> > > +
-> >
-> > I don't love just shoving more logic into an already massive function. No
-> > to this.
-> >
-> > At some point technical debt has to be paid, clean up this code first please.
->
-> Emmm... I agree scan_get_next_rmap_item() is already too large and needs cleanup.
->
-> But it is the main KSM scan path, and a refactor there is high-risk. The cleanup
-> deserves a separate series with careful review and testing.
-
-Completely disagree. By this logic we'd never improve anything, and even if it
-were true, it's valid to say there should be a feature freeze until that's fixed.
-
-Anyway, let's work through this a bit.
-
-At 50,000 ft:
-
-static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
-{
-	...
-
-	if (mm_slot == &ksm_mm_head) {
-		... huge block ...
-next_mm:
-		... of course, nasty non-linear goto logic ...
-	}
-
-	for_each_vma(vmi, vma) {
-		...
-		while (ksm_scan.address < vma->vm_end) {
-			...
-			if (tmp_page) {
-				... <-- you propose to add open-coded logic in
-				        the most nested bit.
-			}
-			...
-		}
-		...
-	}
-	... huge amounts of other code ...
-}
-
-Now very clearly you can separate out these blocks into static functions with
-no risk at all and eliminate most of this indentation.
-
-Digging into your proposal:
-
-			if (tmp_page) {
-				flush_anon_page(vma, tmp_page, ksm_scan.address);
-				flush_dcache_page(tmp_page);
-+				if (should_skip_non_zero_page(ksm_scan.rmap_list,
-+						     ksm_scan.address, folio,
-+						     tmp_page)) {
-+					folio_put(folio);
-+					ksm_scan.address += PAGE_SIZE;
-+					mmap_read_unlock(mm);
-+					return ERR_PTR(-EAGAIN);
-+				}
-				rmap_item = get_next_rmap_item(mm_slot,
-					ksm_scan.rmap_list, ksm_scan.address);
-				if (rmap_item) {
-					ksm_scan.rmap_list =
-							&rmap_item->rmap_list;
-
-					if (should_skip_rmap_item(folio, rmap_item)) {
-						folio_put(folio);
-						goto next_page;
-					}
-
-					ksm_scan.address += PAGE_SIZE;
-					*page = tmp_page;
-				} else {
-					folio_put(folio);
-				}
-				mmap_read_unlock(mm);
-				return rmap_item;
-			}
-
-Firstly, in context, this is:
-
-			...
-			if (tmp_page) {
-				...
-			}
-next_page:
-			ksm_scan.address += PAGE_SIZE;
-			cond_resched();
-
-Right?
-
-So this could be:
-
-			if (!tmp_page)
-				goto next_page;
-
-			... logic in block above ...
-
-
-With zero risk and immediately you remove one level of indentation.
-
-Since you're returning rmap_item anyway you could do:
-
-			if (should_skip_non_zero_page(ksm_scan.rmap_list,
-				ksm_scan.address, folio, tmp_page)) {
-				ksm_scan.address += PAGE_SIZE;
-				rmap_item = ERR_PTR(-EAGAIN);
-			} else {
-				rmap_item = get_next_rmap_item(mm_slot,
-					ksm_scan.rmap_list, ksm_scan.address);
-			}
-
-Then:
-			if (!IS_ERR_OR_NULL(rmap_item)) {
-				...
-			} else {
-				folio_put(folio);
-			}
-			mmap_read_unlock(mm);
-			return rmap_item;
-
-Which does the mmap_read_unlock(), address update and return for you.
-
-IMO none of this is risky, and this isn't even getting into bigger
-refactorings you could do.
-
-Adding a few of these kinds of things as patches early in the series really
-isn't that hard and improves things for everybody.
-
-I'd love for this to be an instinctive thing people did when adding new
-functionality to stuff like this. That way we pay down technical debt as we
-go :)
-
---
-Cheers, Lorenzo
+Konrad
