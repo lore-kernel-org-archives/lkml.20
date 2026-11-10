@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315998;
-	b=L/sHvpzQvq5dZbETy1c3y6Ljwfx0mSU7LZLCr5orPc8TbOO8AZU3HJ+5x9wTSrJSIXAT
-	 mth7TADF7e/U19phLMTVNy4cOd+I3qYKcJ9PvqBrrgp7nZ4Njc7XrS5tFHcnMFr4CgE0T
-	 HGNEM3ZlQePSs4wHhXZBX3reCvwjqFK1d9CMAJ3uWkmLvKNK1uudPEpdBK4dujCqrsK9r
-	 PvmnQRyci7K6iGwtYtkGaVIY8igShSlImX1qCURZHRVg3b+Ub3hQI2v7qNOYLUcQVFSU4
-	 PBFErncMfd3kNYCrFKQlOQ0uCCQYmJ7eW3o9D5A8oeQZF9KZVopU1QBYj9TYttFB0qQ==
+	t=1794316007;
+	b=UUQqueTfmdn82FTbYIsrrmoq8tBdmRh4YzaWJGTpt+wF4vlKBak9YlDWMkGJXZyiQAgd
+	 Y2SSyANUhUzGoOTtZ1IjsJ52zYff0PVGvXyHjCifAzaZtLd61L31Chn6VPLle84EPc6By
+	 hmZmIeI/dG80vGVczkbHdYro745aYTae6A/E9XFiaU6etsMuZ2Vgqk+T3iR3IfP2/iY9C
+	 rVn2TO3ftW3lKs5xI/vkC0irTaXNFVrooZsa83ZXfEplhlML+4sEViPPRoSnbY+phWmWL
+	 pLfFFDStv7EK2/qltTzlBfC0JyUXx7KfKtNmubhxtIjwjaQ0vEoioFezujDp3LhypCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315998;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pK3VqSg4+AHRpwPeJDStu8IPDFJWjmvhTQ7EFdoCBFI=;
-	b=fFOl2vqv1ObUyRmiZiYXwUmXlpm68ERX0fg8O7PPM7yiK2val6dl7Vbi9W1fHxQ85kjA
-	 sG+x5DI2YHpZ7dFOodBUw/xEb3BCpx1DC4gfYOlJTSmn+9EijRpWGCyB1o9x+0fvVHP++
-	 2q97YvvI6Xf6//89Rnc3y1b4BAfv5tJlm6F5uklHgYHDWsGhT04IRijzZrqRBukHMLoyB
-	 9KzDxn/RkCP6dfHNM5uztOFTW43yEvBP3RBrK3IgbDx9gJwwSEHorjcJPcdNr6nK7B8DN
-	 uyqaW6PN3mRE3/lMUYNBCSY1sNU8sJTKuFU1cDVi1osteoj6kD7sbDcROszHk5iaHjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316007;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=G0gFrTol3JHvOSBxRDipQZTJIRgF+SciwUJkiGxDaik=;
+	b=SXyFOi4fM8EDEkGMyKWfV/OTOCXLD7x3C4r3hTBAee2Ib8hJvebf4lA6hM6nEuh1SQLV
+	 A2kjp4ZSMOwEaP7MHlTWo8NVSLW9k8eowOPH5zY9gd4Z3DCjAQA9yipkD1lDcpQZNSMbR
+	 4TFw2epR0AlnezQh+irhwMinNGoc/w395lNjTDX/SsSHZC7f2G2+7K0SS00u+R6TZJVwe
+	 DWDllkYXnYW1eyo9rflHx4ZEHH7lFXah24dPWuxfy58rRlRa9EeLTw6meNfs2Wo/LRqS/
+	 1s/VSVF/tvAVpyLmJlKZ58WfYfLYdloZXDPkCKsKEv80MOn4Stbf8HOkPgtkJSTbAhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NU55q/eb";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hbFZtOe8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q99gpGJZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=F290I41H;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VoW0kdOp;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1185C606B2E8
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:06:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDBD606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CDBD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NU55q/eb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A701F008A6;
-	Tue, 10 Nov 2026 13:06:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315997;
-	bh=pK3VqSg4+AHRpwPeJDStu8IPDFJWjmvhTQ7EFdoCBFI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NU55q/ebrSoPO0qK/eDjxfhlUabcj1z7A2K4fdJ6Ze+P1hzNcD5RAeiuTQ5FO70b9
-	 3u88yzwzdOIOnM2d1uZDr0DPMejxdwfclnifYqLhDXsJ18TeyqgjxT2AgX6SdoczTA
-	 NPvAQ3zhsNAEsMKu03ieBTkG3jY0mUrsa0pf/X2fJO7SwkfZ/D2XeYbiJEw56YPa/Y
-	 iPhjXFYqoJU2gsASwx87ubQWCKhDzhWmEN9mg0yEZI4VZyzaOklsm/vXPW6FcN2IWy
-	 3GRLwJUnjn6X6GE2IskbREYdSAgo1ZkY35cAzgObl0rDwzvL+2DkKiFaZCMNBCf/z/
-	 PshgKYBHYFF7w==
-Message-ID: <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
-Date: Tue, 10 Nov 2026 14:04:43 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hbFZtOe8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q99gpGJZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=F290I41H;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VoW0kdOp
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8A6911F7DD;
+	Tue, 10 Nov 2026 13:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794316004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0gFrTol3JHvOSBxRDipQZTJIRgF+SciwUJkiGxDaik=;
+	b=hbFZtOe8SJy8FNXLt9bXvS/K3jrJhuRrdEHwmeg9wAabLvFMN4a3Hjggz/UET4OaMlBJol
+	Vd/9CzsinlDBoLphrEhPXNQ+B5rNHkPbvaygwNRLXnlJG01jshusEgHz2fCcNEcYd3A48R
+	sFb8MkHdTntD8IkDFlrHc0x1bNF/ca0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794316004;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0gFrTol3JHvOSBxRDipQZTJIRgF+SciwUJkiGxDaik=;
+	b=Q99gpGJZ//vFta9sXfYY+RtFkkf4Gt1pYfPCITD4K3GgymlOXP/k9sObOTCuv9WVSoCfS4
+	UlkLll6kyNtN8hAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794316003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0gFrTol3JHvOSBxRDipQZTJIRgF+SciwUJkiGxDaik=;
+	b=F290I41HBBaxuUMHcHl8pmgbhybuccfPTSd/nr2uqmwVyMP4opJHHQssJlJL2Ls0hytwh9
+	cMnVDM8cXTdtyX0l4ka9+4V9e8Rln1s8+qy7md1x8JqYBipcu3/zJnjV5WE6h8qGPdgMak
+	KEyZxK4I1KFxXIin2JYoXl0P7PSpxk8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794316003;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0gFrTol3JHvOSBxRDipQZTJIRgF+SciwUJkiGxDaik=;
+	b=VoW0kdOpCxxLDz9umW8IpbG87bIyTf8YTYlfUpnTgfcPKHwGheDzBL5pc11+gNfQg+ErHF
+	KtA3CL5NdxIivpCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4892B1339F;
+	Tue, 10 Nov 2026 13:06:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mD4mCeMW82oCTwAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 13:06:43 +0000
+Message-ID: <18db3394-8a02-4578-881c-aece94688c9c@suse.de>
+Date: Tue, 10 Nov 2026 14:06:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,92 +107,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Rik van Riel <riel@surriel.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
- <7627c0d90188b581e7740bf8d17c8dd07b460f89.camel@surriel.com>
- <avLqwIWHa5CAbHO2@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v8 1/2] nvme: add per-queue sysfs directories
+To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
+ nilay@linux.ibm.com, dwagner@suse.de, sgogte@purestorage.com,
+ hare@kernel.org, linux-kernel@vger.kernel.org, iyamahata@crusoe.ai,
+ kiyer@crusoe.ai, ganbalagane@crusoe.ai, sjpark@crusoe.ai, bchen@crusoe.ai
+References: <cover.1794015622.git.saravanand@crusoe.ai>
+ <ce12f1742ea7f8699d85666e4d9d8a2a9d77c90e.1794015622.git.saravanand@crusoe.ai>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avLqwIWHa5CAbHO2@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <ce12f1742ea7f8699d85666e4d9d8a2a9d77c90e.1794015622.git.saravanand@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-0.999];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[crusoe.ai:email,suse.de:email,imap1.dmz-prg2.suse.org:helo,grimberg.me:email]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 11/10/26 10:58, Yeoreum Yun wrote:
-> Hi Rik,
+On 11/7/26 10:53 AM, Saravanan D wrote:
+> Per I/O queue transport state, such as the nvme-tcp io_cpu, has
+> nowhere to live in sysfs, since the core has no directory for
+> individual queues.
 > 
->> On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
->>> This is preparatory patch to make gup_fast_pte_range() batchable.
->>>
->>> Introduce gup_unshared_pages() to count consecutive pages within a
->>> folio
->>> that do not require unsharing, and use it to implement
->>> gup_must_unshare().
->>>
->> Could gup_exclusive_pages() be a better name?
+> Add helpers that create the controller's queues directory and add or
+> remove one directory per queue
 > 
-> Yes. This seems much better for me. I'll change it in next-spin.
+>    /sys/class/nvme/nvmeX/queues/<qid>/
+> 
+> carrying the attributes a transport sets in the new queue_attr_groups
+> member of struct nvme_ctrl_ops. For such transports nvme_add_ctrl()
+> creates the queues directory. It holds a reference on the controller
+> device, so nvme_uninit_ctrl() deletes it before deleting the device,
+> after the transport has removed the queue directories.
+> 
+> The transport adds a queue's directory when it sets the queue up and
+> removes it when it frees the queue, so the directories follow the
+> queues across reconnects and changes in the queue count. The core
+> allocates each queue directory and its release frees only that
+> allocation. Removal waits for running attribute callbacks, so the
+> transport may tear the queue down once it returns.
+> 
+> Suggested-by: Sagi Grimberg <sagi@grimberg.me>
+> Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
+> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+> Signed-off-by: Saravanan D <saravanand@crusoe.ai>
+> ---
+>   drivers/nvme/host/core.c  | 12 ++++++
+>   drivers/nvme/host/nvme.h  | 25 +++++++++++
+>   drivers/nvme/host/sysfs.c | 90 +++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 127 insertions(+)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Not quite the right semantics. For pagecache folios we simply don't need
-unsharing in MAP_SHARED VMAs. That does not imply that these are exclusive.
-
-So it's all about "number of pages that don't need unsharing".
-
-Any idea for a fitting name ? :)
-
--- 
 Cheers,
 
-David
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
