@@ -1,122 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312110;
-	b=1b+W3RuKznNXPK3PojSfwhiowROKIMvepiptORJlzga9VXV6eLqZ/+vTM7gYWU3K3ZDJ
-	 dG1o+PDTXq3vMgVXOcCdYTwHsM3g6wnefs/L05tuRyb+0TfUVwi/9pVGU3c6OZVj6N315
-	 0R0QtF9Q0bzmcZ79vugb4oM+EIae6Kq/absZCY+4PKMZ8OBGXowhoEuTvUJoNNSI3JeTJ
-	 O7yU7mxaS7FkH1C9SBaRhsZrrBt5t0KRY7ChRhL2ZODvYIAEnd+M4S01b+CuHJC4KQTdn
-	 WdDBYpIAabbzJZcgcu8TwzFaMNE/ofIMOV41yuzzEfdurm4NJ0OrzIa10heMNFJt7IA==
+	t=1794312161;
+	b=AzRlnR9Wx+G4WP5LgKgLSDnhuPF0l+QB5fTldR97eE0w6DeutqK97ZotefBQ4Zu0TfEx
+	 aqoq7L8XWXGZm90oNIV+rjuDTw5DnxRVXAszoYiFIUIgL0It09bIt4iI7R8iOPTro/7QN
+	 ovmN37YdcnNsFEc+P+uJD7m0r6GT9zVvCjkDH/aguOVy0GZbPuKMihylPGzPu+Y7uUz6N
+	 2SUk9bBW8L3FnJREH6o3AtyVHMS45/PRckBtl+y3og/azEAFzswKs+o4dUezNHlM83Z1D
+	 rNy0/T6D/YZMBggV831YnJBKt9kYyuErwjyURw/8WeSEkPRGr688GP/2W9eBnzKYXvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312110;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=y2mCs42PJIUuMEiD6YfY8qAsrfrGeMWTNLTXg/MCmkY=;
-	b=wVxmh10gGdrn8E/cHz2Tu29j17iKbA/45770/8eW8MELhHNsjP3Fuwio7WrpEdSJmLfu
-	 7AHSZu5zerUXWiVHoxYDN5u5YVBin4BH0AmUQm0sc4W+WUD7bJggX5fFg1I2D5KUltFrM
-	 9ZSCj9nBH/iQxx+cIngjbQ5yEipM2PqxhvCCGEWLZqjrFehc2AKBCIeXs5jxtf3WakKJ4
-	 LiFMEe2ua86KXIdyc3hsg0zjQPLoWrargXZioGqerUjQbEnMFmSXC/RVzwKj9bsRUt9H6
-	 i7tiVM07se2Ux2YvqHZaY85/QWBz4aFNyNk3yYOFtJJOEsjf7PbCKUIA24YhniGrlng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312161;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=SH/FoN6uZbvhXWx+mjNqxG+5UNI9GCQnZ6S37gnELZA=;
+	b=fBwTqWAwvVLPfMMTc+2PDh+orDURJcBgvoXun4RhsnBltlvIvhai1e8+Kvd8LSK5bM4n
+	 OHv1JngOZRINR0ovhVybyEv1W3Td4DWWCga/QrIrbCI/dGpFrhwNXBimL0T5m9l/H7IGK
+	 VInh6A7W8iofLOy4C3S5Xq1OcV7pz3u1G8DyqCi+9Q596qzFuU15X0skg+HEM7sEU2/TV
+	 DRW4R5G0Js25aTUDh4E8deif3hjU5MUFEm1mIKae2t+jf1uTVhRV/2PCoSrJOwCI3/S/i
+	 P6XOUlhv5l5plrkp8UMJn7sAL5p7QJBUi+YZb5j6M9R7+XmLAadPCSk0i8S+vGQ0GVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N1z59eMg;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=as5VMT6y;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUZTMrNx;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD934606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:01:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD934606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB425606A31C;
+	Tue, 10 Nov 2026 12:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB425606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N1z59eMg;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=as5VMT6y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794312108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y2mCs42PJIUuMEiD6YfY8qAsrfrGeMWTNLTXg/MCmkY=;
-	b=N1z59eMg7DfRrMraSj/AJkpUou4Fb/0RYZWN1sm9+dF+NDJAI/abqWWi5pG0CM0XAWr3xT
-	ki83X36WU5NUTUaFzlupj6FrI77YDlQeNBAZ61Foh1YOpgg9xmEvf920WKos+pxKdooZ5h
-	qlT4zD0Zfast1gb2jiZwYEtAewxT3d4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-154-ThFxKHAKNx2npQjQhbfNzg-1; Tue, 10 Nov 2026 07:01:46 -0500
-X-MC-Unique: ThFxKHAKNx2npQjQhbfNzg-1
-X-Mimecast-MFC-AGG-ID: ThFxKHAKNx2npQjQhbfNzg_1794312106
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4ba078f26f4so1285785e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:01:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794312105; x=1794916905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y2mCs42PJIUuMEiD6YfY8qAsrfrGeMWTNLTXg/MCmkY=;
-        b=as5VMT6y7N5XBHdcqFis7NIrL6TgpFoKu7KZ2vNETUhuaowtXbpkOIdRrij4Yei/HS
-         4M2ZUgDGh8Rao+tHNoFpVRAJNqYCT3s40OtnmFw16/wiz/gavJ4MotiyKX0pJ63OInLg
-         CBjcQ3qJbcoV8U12qs8BqL2u73jLCsN4cwOuXeS05eM4/dMiNOhI9giPQfyqHgRhabG3
-         Gjee/pPsPW5kyTTLhFYSGU8LzzC4gf3O3px90x75KDEGlH4S80FM8BxaFpEinDsLgTwu
-         x6xCdLS1L2zUQHdLpnxUNO6PZxjzKJ1NriEPHKTTsN5w2dfnPT9Ukt9VwfZYcvGdsjaZ
-         kn5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794312105; x=1794916905;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y2mCs42PJIUuMEiD6YfY8qAsrfrGeMWTNLTXg/MCmkY=;
-        b=rghLhifDUG7yS9K93MwnNE5q4s+IDYM5SlMwsX5q30CLf0IwNrh1loWjjUpwtKuioY
-         lDkliHyjObFImcM8ZpcUvpkTDfQyXnTDxH2gAShsohPWs16/dGj7uRISAwr/zbnNbnbk
-         F0t/h5KwQ9YHytnPlESAgAsCN9uHHDMPuAaHsy6lBQPgz1+v5FrhJsXcSz7o4cXNVh6D
-         SLiSgRlkzR0mEJx2oNGpiD2QhpYMpDvZx2whPe4gU2IAM92pZZvkd+3Fk/rJmIv4qMRX
-         lFKAWumFM2I1QiNJ5DdL0JZ3pdhjnI7+AbHIY76brjnKqvwhJeflFsAz/sFiYfVbev6e
-         QgdQ==
-X-Forwarded-Encrypted: i=1; AL+hErF9nMDtK1WP3kQW80H5xVUpUl+UoQa802oFrq2yMpmjLj7rV8pzdqfdmQsh8W+LuF4MkfEmN1drT35WT44=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7sbjaz1I2i8s4GUpkRLcEAtLZNq1fu5DIxtJD2mFf76ylhcIk
-	gA7JXeAUTKLDS5RqjIXbyJwrm5SKFE+3AFp+3sUqepz+ozU7AqInh1PTfdwdoGWf14/6EaMdOVC
-	HOB0mWHA8ihQ3tFg0pFi+O+ySO6LmBuQF8Qgg0I4TR7qU9+0BcZab9n6MOOMgHIukkQ==
-X-Gm-Gg: AYBFou15SW4oPQks0pow2qULO1JL22OOXmggVOr6zDB0UUOfLxQ3dkbX96rDF+AFFOm
-	7u7agqYbcRoHxb/qreuZ1ve9BBxXSBip5Bthobl0qSiUjuU286yvTjhY+kE94ZBKfW6x7aNjslU
-	++gJVHrIVms3MHmwmyns6D3IqdDH0nJVVo1vbG+Ot9n7Pgk2TeBX68w9rtf0E7U2ELPfM/mjZ3s
-	isC5ShMZLFVUoVc4u/mpKLcVWMrN9BAM1KMkF23ae4JioJUmkjF8wz5Cd4fsR85fkAlbjQa5sHu
-	ruUOk/2QrcYG3qM6xcqJOBFWocIekbhgQFG2Lklwv+fjVvbn86IRsVy6/bY23HYYQnie9PA6r4C
-	qpMQO8iAXHvnvXyxoXE0sjH7b9LMGCX9LkzfLSflFnZAEhNn2a0k+ZjDbWw9QY+TWd+MzWAR/zD
-	DUJAWqGnBbq3Dl7EwaVdsS+lkhtxrRKzmsOve7tWc=
-X-Received: by 2002:a05:600c:8b21:b0:4a1:dfaf:f465 with SMTP id 5b1f17b1804b1-4ba023064e9mr38263575e9.4.1794312105088;
-        Tue, 10 Nov 2026 04:01:45 -0800 (PST)
-X-Received: by 2002:a05:600c:8b21:b0:4a1:dfaf:f465 with SMTP id 5b1f17b1804b1-4ba023064e9mr38262495e9.4.1794312104242;
-        Tue, 10 Nov 2026 04:01:44 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc9asm4366200f8f.29.2026.11.10.04.01.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:01:42 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Devarsh Thakkar <devarsht@ti.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero
- Kristo <kristo@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devarsht@ti.com, LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 04/14] drm/solomon: Add DRM driver for Solomon
- SSD16xx e-paper display controllers
-In-Reply-To: <20261019213726.4145532-5-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-5-devarsht@ti.com>
-Date: Tue, 10 Nov 2026 13:01:41 +0100
-Message-ID: <xlv1qzgsevyy.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUZTMrNx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794312161; x=1825848161;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=eMdM21hEmkcP8lpu6VNP1r22o5MSqJ/EL0i7jh9A8CU=;
+  b=kUZTMrNxJtILykmCCaIXMcwKq3QkLvaW0LIpMR1fXQY62mFaTQGHT5QD
+   rDBW0hlZwjAiw0z7w6xzqxUTfQzf/9a/oE23kojFP5LmugEEEp+1usTTd
+   kWe/Fb8xxlcsycjuEuBX8ZUMCWAcs1AkWOz82LahPdJkDHM0KBJ+mTGp1
+   kRYGV3H5qih5Crm/2YekOVHlwVrJSxhnIiEnxH1UGPO5SgB4vBMwg1h8x
+   8O7efVfrBV71obIM0mkE/FfS/Czz2Ygjj/6ds0he6rwuwvAbn410mCmEx
+   oMNuHk2pdC8+dLZJZIUk4cKFBQDxnfekP9JtTJ+in/eiaKsQ/VSN3XV79
+   Q==;
+X-CSE-ConnectionGUID: eVnBbn3bRc+y8uyAB+YlEA==
+X-CSE-MsgGUID: XhuOpTUeTUWURYnlL8hycA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3138909"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3138909"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:40 -0800
+X-CSE-ConnectionGUID: xGdkc45iT5eGhiHxJBsghA==
+X-CSE-MsgGUID: 6/P5oL78RfKEQtOZQyxoMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8459686"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:32 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 10 Nov 2026 14:02:28 +0200 (EET)
+To: Lee Jones <lee@kernel.org>
+cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+    Shuah Khan <skhan@linuxfoundation.org>, 
+    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
+    Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+    =?ISO-8859-15?Q?Marek_Beh=FAn?= <kabel@kernel.org>, 
+    Mark Pearson <mpearson-lenovo@squebb.ca>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>, Ike Panhc <ikepanhc@gmail.com>, 
+    Rong Zhang <i@rong.moe>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+    Jakub Kicinski <kuba@kernel.org>, Vishnu Sankar <vishnuocv@gmail.com>, 
+    Vishnu Sankar <vsankar@lenovo.com>, linux-leds@vger.kernel.org, 
+    Netdev <netdev@vger.kernel.org>, linux-doc@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, chrome-platform@lists.linux.dev, 
+    platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v7 00/13] leds: Add support for hardware-initiated hardware
+ control trigger transition
+In-Reply-To: <20261110090105.GA6323@joneslee-macbookpro.roam.internal>
+Message-ID: <b19ef65f-c563-07f8-1be8-9a0a0689da22@linux.intel.com>
+References: <20260921-leds-trigger-hw-changed-v7-0-fe3cdb6dec51@rong.moe> <179425319974.10927.7190572777719580956.b4-ty@b4> <20261110090105.GA6323@joneslee-macbookpro.roam.internal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,411 +91,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323328-1170544091-1794312148=:1229"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Hello Devarsh,
+--8323328-1170544091-1794312148=:1229
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Devarsh Thakkar <devarsht@ti.com> writes:
+On Tue, 10 Nov 2026, Lee Jones wrote:
 
-> Add a DRM driver for the Solomon Systech SSD16xx family of e-paper display
-> controllers (SSD1680 [4], SSD1673 [3], SSD1681 [5], SSD1683 [1]) based
-> e-paper display panels, starting with support for the Gooddisplay
-> GDEY042T81 which is 4.2", 400x300 resolution black/white e-paper display
-> using SSD1683 controller.
->
+> On Mon, 09 Nov 2026, Ilpo J=E4rvinen wrote:
+>=20
+> > On Mon, 21 Sep 2026 03:40:14 +0800, Rong Zhang wrote:
+> >=20
+> > > Some laptops can tune their keyboard backlight according to ambient
+> > > light sensors (auto mode). This capability is essentially a hardware
+> > > control trigger. Meanwhile, such laptops also offer a shrotcut for
+> > > cycling through brightness levels and auto mode. For example, on
+> > > ThinkBook, pressing Fn+Space ("shortcut") cycles keyboard backlight
+> > > levels in the following sequence:
+> > >=20
+> > > [...]
+> >=20
+> > Thank you for your contribution, it has been applied to my local
+> > review-ilpo-next branch. Note it will show up in the public
+> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> > local branch there, which might take a while.
+> >=20
+> > FYI [if applicable to your patch], as per Linus' policy change, also
+> > fixes are mostly routed through for-next unless the fix is for a
+> > commit introduced in the most recent cycle or is clearly a regression
+> > fix.
+> >=20
+> > The list of commits applied:
+> > [01/13] leds: class: Always protect brightness_show() with led_access
+> >         (no commit info)
+> > [02/13] leds: trigger: Move led_trigger_is_hw_controlled() to the right=
+ place
+> >         (no commit info)
+> > [03/13] leds: class: Remove hardware control trigger when writing brigh=
+tness
+> >         (no commit info)
+> > [04/13] leds: trigger: Move led_trigger_group to the right place
+> >         (no commit info)
+> > [05/13] leds: trigger: Add hw_offloaded() callback and provide trigger_=
+may_offload_to_hw attribute
+> >         (no commit info)
+> > [06/13] leds: cros_ec: Implement hw_offloaded() trigger callback
+> >         (no commit info)
+> > [07/13] leds: turris-omnia: Implement hw_offloaded() trigger callback a=
+nd declare hw_control_trigger
+> >         (no commit info)
+> > [08/13] leds: trigger: netdev: Implement hw_offloaded() callback
+> >         (no commit info)
+> > [09/13] leds: trigger: Enforce strict checks in led_trigger_is_hw_contr=
+olled()
+> >         (no commit info)
+> > [10/13] leds: trigger: Add led_trigger_notify_hw_control_changed() inte=
+rface
+> >         (no commit info)
+>=20
+> This is super confusing!
 
-[...]
+I know it is but it's how b4 thankyou mails appear.
 
-> new file mode 100644
-> index 000000000000..ca6550b5dd5b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
-> @@ -0,0 +1,1801 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * DRM driver for e-paper display panels using Solomon SSD16xx family co=
-ntrollers
-> + *
-> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.co=
-m/
-> + *
-> + * Author: Devarsh Thakkar <devarsht@ti.com>
-> + *
-> + * References: https://github.com/Lesords/epaper
-> + */
+> Where does this list come from?
 
-What is this reference about? I would just remove it.
+The list comes from the original series that b4 caches somewhere.
+I deleted the patches 1-10 and only applied mbox that contained patches=20
+11-13.
 
-[...]
+When constructing thankyou mail, b4 seems to take the cached list of=20
+patches the series had and does not find 1-10 applied into my tree by me=20
+so it says (no commit info). The rest appear as expected:
 
-> +#include <drm/drm_fb_helper.h>
+> > [11/13] platform/x86: ideapad-laptop: Serialize keyboard backlight trac=
+king
+> >         commit: d288a6f989b7b9e6a730140c601987b886af327e
+> > [12/13] platform/x86: ideapad-laptop: Decouple hardware & classdev brig=
+htness for keyboard backlight
+> >         commit: 7d6c073d181d7855561831cb4bba17dc9b7d4aa9
+> > [13/13] platform/x86: ideapad-laptop: Fully support auto keyboard backl=
+ight
+> >         commit: 5d805ca01382d63d54c9984e7f19922c4ae6f3dc
 
-This header does not exist anymore, check commit 6ccc5b5fc1d3 ("drm/fbdev:
-Move fbdev helpers into client library"). But I think you can just drop it
-no symbols from clients/drm_fbdev_helper.h are used as far as I can tell.
-
-Also, please make sure to use the drm-misc/drm-misc-next branch as a base.
-
-[...]
-
-> +struct ssd16xx_device {
-> +	struct drm_device drm;
-> +
-> +	struct drm_plane primary_plane;
-> +	struct drm_crtc crtc;
-> +	struct drm_encoder encoder;
-> +	struct drm_connector connector;
-> +
-> +	struct spi_device *spi;
-> +	struct gpio_desc *reset;
-> +	struct gpio_desc *busy;
-> +	struct gpio_desc *dc;
-> +
-> +	enum ssd16xx_model model;
-> +	enum ssd16xx_controller controller;
-> +	const struct ssd16xx_controller_config *controller_cfg;
-> +	const struct ssd16xx_device_config *device_cfg;
-> +	struct drm_display_mode *mode;
-> +	u32 width;
-> +	u32 height;
-> +
-> +	bool initialized;
-> +	bool init_refresh_pending; /* First frame after refresh_mode_init enabl=
-e */
-> +
-> +	int orientation; /* Display orientation in degrees: 0/90/180/270 */
-> +	enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
-> +	enum ssd16xx_color_mode color_mode;     /* Active color mode (BW or 3-c=
-olor) */
-> +	bool fast_lut_pending; /* LUT pre-load needed before next fast refresh =
-*/
-> +
-> +	/* Border waveform (as enum indices) */
-> +	int border_waveform_init_idx;   /* Border waveform during clear/init */
-> +	int border_waveform_update_idx; /* Border waveform during display updat=
-es */
-> +	bool border_refresh_on_every_update; /* Re-send border cmd each display=
- update */
-> +	bool border_waveform_pending;   /* One-shot: send border cmd on next up=
-date */
-> +
-> +	/* Display control */
-> +	int refresh_mode_init; /* -1=3Ddisabled, else use this mode for the fir=
-st frame */
-> +
-> +	u8  *tx_buf;     /* 1bpp frame buffer (mono + white) */
-> +	u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
-> +	u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
-> +	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI trans=
-fers */
-
-Another option would be to dynamically allocate them using kzalloc(),
-which already provides naturally cache-line-aligned buffers.
-
-[...]
-
-> +static void ssd16xx_send_cmd(struct ssd16xx_device *device, u8 cmd,
-> +			     int *err)
-> +{
-> +	struct spi_transfer xfer =3D {};
-> +	struct spi_message msg;
-> +
-> +	if (*err)
-> +		return;
-> +
-> +	spi_message_init(&msg);
-> +	spi_message_add_tail(&xfer, &msg);
-> +
-> +	if (device->dc) {
-> +		/* 4-wire SPI: D/C# GPIO low selects command mode */
-> +		device->spi_buf[0] =3D cmd;
-> +		xfer.tx_buf =3D device->spi_buf;
-> +		xfer.len =3D 1;
-> +		gpiod_set_value_cansleep(device->dc, 0);
-> +	} else {
-> +		/*
-> +		 * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
-> +		 * D/C# =3D 0 means the following 8 bits are a command.
-> +		 */
-> +		u16 *word =3D (u16 *)device->spi_buf;
-> +
-> +		*word =3D cmd; /* bit 8 =3D 0 for command */
-> +		xfer.tx_buf =3D device->spi_buf;
-> +		xfer.len =3D sizeof(u16);
-> +		xfer.bits_per_word =3D 9;
-> +	}
-> +
-> +	ssd16xx_spi_sync(device->spi, &msg, err);
-> +}
-> +
-> +static void ssd16xx_send_data(struct ssd16xx_device *device, u8 data,
-> +			      int *err)
-> +{
-> +	struct spi_transfer xfer =3D {};
-> +	struct spi_message msg;
-> +
-> +	if (*err)
-> +		return;
-> +
-> +	spi_message_init(&msg);
-> +	spi_message_add_tail(&xfer, &msg);
-> +
-> +	if (device->dc) {
-> +		/* 4-wire SPI: D/C# GPIO high selects data mode */
-> +		device->spi_buf[0] =3D data;
-> +		xfer.tx_buf =3D device->spi_buf;
-> +		xfer.len =3D 1;
-> +		gpiod_set_value_cansleep(device->dc, 1);
-> +	} else {
-> +		/*
-> +		 * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
-> +		 * D/C# =3D 1 means the following 8 bits are data.
-> +		 */
-> +		u16 *word =3D (u16 *)device->spi_buf;
-> +
-> +		*word =3D 0x100 | data;
-> +		xfer.tx_buf =3D device->spi_buf;
-> +		xfer.len =3D sizeof(u16);
-> +		xfer.bits_per_word =3D 9;
-> +	}
-> +
-> +	ssd16xx_spi_sync(device->spi, &msg, err);
-> +}
-> +
-
-As mentioned in a previous version, this logic is already partially
-covered by the ssd130x_spi_write() function (for 4-wire SPI mode),
-but that helper lacks the 3-wire SPI mode.
-
-Once your driver lands, it would be great to have a single transfer
-helper that could be shared by both drivers. And maybe even other
-KMS drivers could benefit from it.
-
-> +static void ssd16xx_send_x_param(struct ssd16xx_device *device, u16 x,
-> +				 int *err)
-> +{
-> +	if (*err)
-> +		return;
-> +
-> +	if (device->controller_cfg->ram_x_address_bits =3D=3D 8) {
-> +		ssd16xx_send_data(device, (u8)x, err);
-> +	} else {
-> +		ssd16xx_send_data(device, x & 0xFF, err);
-> +		ssd16xx_send_data(device, (x >> 8) & 0xFF, err);
-> +	}
-> +}
-> +
-> +static void ssd16xx_send_y_param(struct ssd16xx_device *device, u16 y,
-> +				 int *err)
-> +{
-> +	if (*err)
-> +		return;
-> +
-> +	if (device->controller_cfg->ram_y_address_bits =3D=3D 8) {
-> +		ssd16xx_send_data(device, (u8)y, err);
-> +	} else {
-> +		ssd16xx_send_data(device, y & 0xFF, err);
-> +		ssd16xx_send_data(device, (y >> 8) & 0xFF, err);
-> +	}
-> +}
-> +
-
-Maybe these two helpers can be consolidated in one? Callers can just
-pass the ram_{x,y}_address_bits as another parameter.
-
-> +static void ssd16xx_send_data_bulk(struct ssd16xx_device *device,
-> +				   const u8 *data, size_t len,
-> +				   int *err)
-> +{
-> +	struct spi_transfer xfer =3D {};
-> +	struct spi_message msg;
-> +
-> +	if (*err)
-> +		return;
-> +
-> +	if (!data || !len)
-> +		return;
-> +
-> +	spi_message_init(&msg);
-> +	spi_message_add_tail(&xfer, &msg);
-> +
-> +	if (device->dc) {
-> +		/* 4-wire SPI: D/C# GPIO high selects data mode */
-> +		if (len <=3D sizeof(device->spi_buf)) {
-> +			memcpy(device->spi_buf, data, len);
-> +			xfer.tx_buf =3D device->spi_buf;
-> +		} else {
-> +			xfer.tx_buf =3D data;
-> +		}
-> +		xfer.len =3D len;
-> +		gpiod_set_value_cansleep(device->dc, 1);
-> +		ssd16xx_spi_sync(device->spi, &msg, err);
-> +	} else {
-> +		/* 3-wire (9-bit): expand u8 =E2=86=92 u16 with D/C#=3D1 in bit 8. */
-> +		size_t i;
-> +		u16 *buf =3D device->tx_buf9;
-> +
-> +		for (i =3D 0; i < len; i++)
-> +			buf[i] =3D 0x100 | data[i];
-> +
-> +		xfer.tx_buf =3D buf;
-> +		xfer.len =3D len * sizeof(u16);
-> +		xfer.bits_per_word =3D 9;
-> +		ssd16xx_spi_sync(device->spi, &msg, err);
-> +	}
-> +}
-> +
-
-Is the ssd16xx_send_data() helper needed or could just this be used with
-len =3D=3D 1 ? In general I feel there is a lot of code duplication on these
-transfer helpers, and maybe you could simplify it a little bit.
-
-
-> +static void ssd16xx_hw_reset(struct ssd16xx_device *device)
-> +{
-> +	gpiod_set_value_cansleep(device->reset, 1);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(device->reset, 0);
-> +	usleep_range(10000, 11000);
-> +}
-> +
-
-This again is quite similar to ssd130x_reset(), not for now but these are
-the kind of things that I wonder if could be moved to a solomon-common.c
-library or something like that.
-
-[...]
-
-> +/*
-> + * Convert framebuffer to 1-bit monochrome for e-paper display.
-> + *
-> + * Supports XRGB8888 (thresholded via ITU-R BT.601 luma at 127) and R1
-> + * (native 1bpp, zero-copy fast path for aligned landscape frames).
-> + *
-> + * Output layout:
-> + *   0=C2=B0/180=C2=B0  landscape: row-major, left-to-right, top-to-bott=
-om
-> + *   90=C2=B0/270=C2=B0 CW portrait: column-major, rightmost column first
-> + */
-> +static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
-> +				       struct drm_framebuffer *fb,
-> +				       struct drm_rect *rect,
-> +				       unsigned int orientation)
-> +{
-
-Maybe you can split this function in two, one that does the XRGB8888 -> R1
-and another one that does the transposition. There is already a helper to
-do drm_fb_xrgb8888_to_mono(), but that assumes LSB while you want MSB. So
-an option is to add a bit-order parameter to that helper.
-
-[...]
-
-> +/* ---------------------------------------------------------------------=
---------
-> + * Plane Functions
-> + */
-> +
-> +static void ssd16xx_plane_destroy(struct drm_plane *plane)
-> +{
-> +	drm_plane_cleanup(plane);
-> +}
-> +
-> +static const struct drm_plane_funcs ssd16xx_plane_funcs =3D {
-> +	.update_plane =3D drm_atomic_helper_update_plane,
-> +	.disable_plane =3D drm_atomic_helper_disable_plane,
-> +	.destroy =3D ssd16xx_plane_destroy,
-
-why the level of indirection? You can just set to drm_plane_cleanup()
-and delete ssd16xx_plane_destroy().
-
-> +static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
-> +					struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
-ate, plane);
-> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
-> +	struct drm_shadow_plane_state *shadow_state =3D to_drm_shadow_plane_sta=
-te(new_state);
-> +	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
-> +	enum ssd16xx_refresh_mode saved_mode;
-> +	u8 saved_border_waveform_idx;
-> +	struct drm_framebuffer *fb =3D new_state->fb;
-> +	struct drm_rect rect;
-> +	int ret, idx;
-> +
-> +	if (!drm_dev_enter(&device->drm, &idx))
-> +		return;
-> +
-> +	drm_dbg(&device->drm, "plane_atomic_update: fb=3D%p\n", fb);
-> +
-> +	if (!fb || !device->initialized)
-> +		goto out_exit;
-> +
-> +	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect))
-> +		goto out_exit;
-> +
-
-Do you think that creating a big merged damage rectangle is better than
-iterating over the damaged areas and calling drm_rect_intersect() for each?
-
-The optimal approach varies per device and maybe merging a big rectangle is
-the correct thing to do for e-paper displays, but I thought that was worth
-to mention that other drivers do it differently.
-
-> +	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%d=
-,%d)-(%d,%d)\n",
-> +		rect.x1, rect.y1, rect.x2, rect.y2);
-> +	/*
-> +	 * When refresh_mode_init was set, use the specified mode for this first
-> +	 * frame only, then restore the user-configured refresh_mode so
-> +	 * subsequent updates continue with the configured mode.
-> +	 */
-> +	saved_mode =3D device->refresh_mode;
-> +	saved_border_waveform_idx =3D device->border_waveform_update_idx;
-> +	if (device->init_refresh_pending) {
-> +		device->refresh_mode =3D device->refresh_mode_init;
-> +		device->border_waveform_update_idx =3D device->border_waveform_init_id=
-x;
-> +	}
-> +
-> +	/*
-> +	 * Fast refresh (0xC7) omits LOAD_LUT on every update cycle and relies
-> +	 * on the LUT being pre-loaded upfront.  The property setter arms
-> +	 * fast_lut_pending whenever the user switches into fast mode.  Consume
-> +	 * the flag here (once) before the first fast-refresh frame so the
-> +	 * controller's LUT is in the correct state.
-> +	 */
-> +	if (device->fast_lut_pending) {
-> +		ret =3D ssd16xx_preload_fast_lut(device);
-> +		if (ret) {
-> +			drm_err(&device->drm,
-> +				"plane_atomic_update: fast LUT preload failed: %d\n", ret);
-> +		}
-> +
-> +		device->fast_lut_pending =3D false;
-> +	}
-> +
-> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-
-I *think* that you need to do this earlier, before the damage checks.
-
-[...]
-
-> +static const struct drm_connector_funcs ssd16xx_connector_funcs =3D {
-> +	.reset =3D drm_atomic_helper_connector_reset,
-
-This hook has been removed since commit ("27cae3ef0574 drm/connector:
-Remove reset"), instead you need to do the following:
-
-        .atomic_create_state =3D drm_atomic_helper_connector_create_state,
+Of course it would be much less confusing if it never showed those no=20
+commit info entries at all but unfortunately I don't think I can control=20
+that, sorry.
 
 --=20
-Best regards,
+ i.
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+--8323328-1170544091-1794312148=:1229--
