@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322676;
-	b=cA21jOm2igFxcEykE7KoZd0MVuyApK/GJXk+YMoDe0BdP59gHF92QhFHa5HlYagPmGfe
-	 qnhL8tAYH8Mcojw5ea5mUd2DcehTDbjpyVrTmHmTTZL1EAR251yz0U7CeMQNojYnqQRaB
-	 tBFVnNt094XKIUT81JF9WIiMwMkzrQwIrQo7MAoRixFySI8DyeZ5iyCPYHVHpphFIE+l2
-	 Y5NasMN5DOnHIdGpNQ6yd4kv49Hr9f+1iEPLeFWjsESBcdaPGfGz2jZp4C/2OwMgL3NWb
-	 m+fS5qQfdkTsoSy9POtyYsZqggmggdHtUZGC43uPZVJT189mxrAdeBrbOPvcikMKgaQ==
+	t=1794322694;
+	b=Yv6cDc3Yqd9ZHoX8YW+qyTINCwCPY/4Oanzj8NuHskrTfk1+r+0Da//X5MnuZdhv3/r2
+	 uo96v+EY3WXg43iMitXyo27Q3R26ZBx67Sas28tef2MoqKTgVBhnr1f5uApMmt00nzzhh
+	 bnT9JBkMiRpZr0MFlODQ2qqMtNPFttaEY4uccg/KgrVc1CY2CHGAST7gSsTG3wX/ynW4E
+	 UGmgP/TO6yanxR27V1eRxglOETImMQTC2t4AmmksId0jlKbuoV/kQmWIOi5aeWk4AfNZz
+	 qeMTTLGXUP3oLxGfLupvBD9D6osXxiY2WJ95e2F9u3ht9qnvAGhByp7kC22/755DXnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322676;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=Wnl3KD1B2sQrL3NWX/pTpwnXflH+rWTeS8tnM3XFXNg=;
-	b=ogp7mhiSNUMa27xI3jivT3tl5CZqwDUpvmUaR3OOTEGOO0GEKS8H4KHSwXxTns76G9T1
-	 NnwSNVRwEfFSw3r9y4Doqv1TDTj9WTFVlOAWFHsG3ebLRkYPDRzYAQHxtku0YjkjnPSQ/
-	 ojw3G7I8ipL8x1S9JiUskSEKusIONgwKwlQzWXUohiWXtSTWLuc34vTek32z61ZJGfBEI
-	 fwTpk4v2UcMnqOV/ipJNgclvcvtLkLrjlKVNjr/sBgRYyAQR5KxUJXjS9F2H1a0h2cdEn
-	 GcvmDhZILZ6DKhldVT2R+94HAxDIpMh5QarvwQFlXk/Nfam017uXru8SXzAMwF5xchw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322694;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
+	b=Drzk+JE9TdJesnFAlbkSdIKktuTD/nsZM/eftLERMjSGs1yCDwRFz09KTFBNFfosoxw3
+	 YuIo7RRUFcPjaoLAePqN7+Pmou7SazyXcziNysKegK3gQxmoudDPX0IEzDYhAAFDbz7m9
+	 NShPxT6hAJL5yCI7ZvIx2F16AEBkh5EY5PJVCapRIXYyJMrJQ6WopLFj1ccHK0PQ7thUz
+	 CBQd25hdPAd0A9F192TYs9ceCNh8vsvk5VWXiLxegeq6QZJAZtAf6SSoQypnzHZJMP9Nz
+	 OSlDZ5XbdocFAiFyw+hE6mIXnibHodIAt5KhVQxFb2V0hKu0in9aM9EsAG84y5RQhPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="f4QB4h7/";
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E930660A2603;
-	Tue, 10 Nov 2026 14:57:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E930660A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611B7606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=f4QB4h7/
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8s03SYJz57HS4;
-	Tue, 10 Nov 2026 22:57:40 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794322660;
-	bh=dqn1Jn0ErHB9uH7HxkRYY60ypmSrxKKbjunp47DpHy4=;
-	h=Date:From:To:Cc:Subject;
-	b=f4QB4h7/bBxOaZXy4RRZ9CqpyvvG297hfMUEd/oG0oL1vR358k34wTwIkY5YAXvl2
-	 95sz63C/oli27FLOi57ErEIMrfZyavuJzXAYr+W8cdk42+omq0SP3nk3RHzuTDhwuA
-	 PmuGWqzKOZCXTxLgGTbdjueuWh6jWcPkYkXbDRsagnokloGzElRq5igCiNEGOgQ+II
-	 VtbCpJut6n3adQ/2IAnIGJbGPyTIb7dAximdvsTIDXCwNx8ZOifwcmM3klZoBIBijj
-	 HYdFDkKNqxAO1uldmxDUyupw918hnIx08HAa/Fg+KdpBJWKFq842niDJ+vhEgp3Tra
-	 Ywv/7xPxhsqog==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6AAEvcma005940;
-	Tue, 10 Nov 2026 22:57:38 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 22:57:41 +0800 (CST)
-X-Zmail-TransId: 2af96af330e5ccb-fc314
-X-Mailer: Zmail v1.0
-Message-ID: <20261110225741763HzyrdGiR7ZOAU1NiFmCCZ@zte.com.cn>
-Date: Tue, 10 Nov 2026 22:57:41 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093E61F00901
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:58:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322694;
+	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EvPtbBbpY0MjDrJNm/qEfHVLVqDPeNiRukmRUFa4wWsRoo6sCSQw+dMYY0H3/TdIo
+	 5rGBDNsi9o8CXMflRBCr3XSY0eF6h4mL4dZFLwCe5xGnvbOpH/4YndZsn5IZLaOa/v
+	 iSkQ6Pr18uxngCNjGJnx8fe5XPUSAgFwzndWaN99yG0r66WVa89QAHjROZqlQzesFL
+	 r9DBjPRvtBZwST8/tzlm/7BHBGo04X2tKXGG+JlIRHGIigH/76hZVR4S8c5eLr/mn8
+	 cb7I1uW2JG21uHuTSx4xq5fmw1kzmKwZfpeEni0vRhWxHbjyov7ZyTXy3mat1NnXKT
+	 ymgwxGi3mFHHA==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3adef977ad9so15439711fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:58:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGzW//2W4tfvjZZ+YByrH26LDwwWd+Bhy/4SinV8YwHd8JztNftsRPgX/ek+xYJMbYPhA414n1lsAJCais=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZLH2O3QlzjI2FLDtfdWkuXvkOZtdb/cJMplkhIlrnBHginrzH
+	HLRlRmNo6T/CF/UIjmRcWJ5FmFn8e2aVEl+iiOdKFPAo/3Nojw+sYChXjSX6nvHbvmKV9gNbi0f
+	5NRbWSgPncGwAMVUvwTkfCWH1oLGZXpY=
+X-Received: by 2002:a2e:a9a5:0:b0:3ab:4f5e:3edc with SMTP id
+ 38308e7fff4ca-3ae09632513mr5987871fa.15.1794322692389; Tue, 10 Nov 2026
+ 06:58:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,77 +58,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <broonie@kernel.org>, <linux-spi@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-        <pjw@kernel.org>, <samuel.holland@sifive.com>
-Subject: =?UTF-8?B?W1BBVENIIHYyXSBzcGk6IHNpZml2ZTogY2xhbXAgdGhlIGNsb2NrIGRpdmlkZXIgdG8gdGhlIHJlZ2lzdGVyIHJhbmdl?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AAEvcma005940
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 10 Nov 2026 22:57:40 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF330E4.000/4jP8s03SYJz57HS4
+MIME-Version: 1.0
+References: <20261110101246.3665797-1-sumitg@nvidia.com> <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
+In-Reply-To: <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 15:58:00 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
+X-Gm-Features: AclHuK8X5hMi8jD3gHPYYnsPSCyrp4PzOzFf8JJiGs5yNkckX-k7Tw8xtv2KRhU
+Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: CPPC: Set CPPC Enable register in cpu_init
+To: Christian Loehle <christian.loehle@arm.com>, Sumit Gupta <sumitg@nvidia.com>
+Cc: viresh.kumar@linaro.org, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com, 
+	jbenc@redhat.com, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com, 
+	vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com, 
+	mochs@nvidia.com, bbasu@nvidia.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Tue, Nov 10, 2026 at 11:58=E2=80=AFAM Christian Loehle
+<christian.loehle@arm.com> wrote:
+>
+> On 11/10/26 10:12, Sumit Gupta wrote:
+> > As per ACPI 6.x s8.4.6.1.4 (CPPC Enable Register):
+> >   "If supported by the platform, OSPM writes a one to this register
+> >    to enable CPPC on this processor. If not implemented, OSPM assumes
+> >    the platform always has CPPC enabled."
+> >
+> > The driver never writes this register. CPPC therefore stays disabled
+> > on platforms such as NVIDIA GB10 that wait for OSPM to enable it.
+> >
+> > Call cppc_set_enable() in cppc_cpufreq_cpu_init(). Fail init if
+> > enabling CPPC fails. If init fails after CPPC is enabled, disable it
+> > again. The register is optional, so -EOPNOTSUPP is not an error.
+> >
+> > This relies on commit ab482f1bac6b ("ACPI: CPPC: Refactor register
+> > value get and set ABIs") from v6.16. Before it, cppc_set_enable()
+> > returned -EFAULT instead of -EOPNOTSUPP when the Enable register is
+> > not implemented. On an older kernel this change would make init fail
+> > on every platform without the register, so the stable range starts
+> > at v6.16.
+> >
+> > Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CP=
+PC")
+> > Cc: stable@vger.kernel.org # v6.16+
+> > Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+>
+> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 
-sifive_spi_prep_transfer() divides by t->speed_hz, which can remain
-zero when neither the device nor the controller provides a maximum
-speed. For a nonzero but very low speed, masking the divider to 12 bits
-can also wrap it to a small value and program a much faster clock.
+Applied as 7.4-rc material, thanks!
 
-Use the maximum divider when no speed is supplied, and saturate an
-out-of-range divider to the same value. Keep the calculation in an
-unsigned long until it has been clamped, so it is not truncated to u32
-before the range check.
-
-Fixes: 484a9a68d669 ("spi: sifive: Add driver for the SiFive SPI controller")
-Suggested-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-This patch supersedes 1/5 of the v1 series; 2/5, 3/5 and 4/5 are
-unchanged, and 5/5 is posted separately.
-
-v2:
-  - use the maximum SCKDIV directly for a zero speed, and saturate an
-    excessive divider instead of masking away high bits (Mark Brown)
-  - keep the divider wide until after the range check
-v1: https://lore.kernel.org/all/20261106234756882V9wUQNCEZAYUGTAbexMSL@zte.com.cn/
-
-Validation on x86-64 with GCC 13 and UBSAN: the verbatim preparation
-function ran with clock/register stubs over all representable SCKDIV
-values and the first overflow. A zero speed bypassed division and
-programmed 0xfff. A 1 Hz request needing divider 4096 programmed 0xfff
-instead of wrapping to zero; a divider exceeding u32 also saturated.
-In-range requests retained their original register values.
-
- drivers/spi/spi-sifive.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/spi/spi-sifive.c b/drivers/spi/spi-sifive.c
-index cee4d92e46f437319fa40f6377e5511e692d12c7..ca7b04520a682c3fffb070169ab0e3c485e323de 100644
---- a/drivers/spi/spi-sifive.c
-+++ b/drivers/spi/spi-sifive.c
-@@ -167,12 +167,15 @@ static int
- sifive_spi_prep_transfer(struct sifive_spi *spi, struct spi_device *device,
- 			 struct spi_transfer *t)
- {
-+	unsigned long div = SIFIVE_SPI_SCKDIV_DIV_MASK;
- 	u32 cr;
- 	unsigned int mode;
- 
--	/* Calculate and program the clock rate */
--	cr = DIV_ROUND_UP(clk_get_rate(spi->clk) >> 1, t->speed_hz) - 1;
--	cr &= SIFIVE_SPI_SCKDIV_DIV_MASK;
-+	/* Use the slowest clock if no speed is specified. */
-+	if (t->speed_hz)
-+		div = DIV_ROUND_UP(clk_get_rate(spi->clk) >> 1,
-+				   t->speed_hz) - 1;
-+	cr = min_t(unsigned long, div, SIFIVE_SPI_SCKDIV_DIV_MASK);
- 	sifive_spi_write(spi, SIFIVE_SPI_REG_SCKDIV, cr);
- 
- 	mode = max_t(unsigned int, t->rx_nbits, t->tx_nbits);
+> > ---
+> > v1 -> v2:
+> > - Fail init if enabling CPPC fails and disable CPPC again if init
+> >   fails after enabling it (Christian).
+> > - Move enable after the policy->shared_type check, so cppc_set_perf()
+> >   is the only failure after it.
+> > - Mention NVIDIA GB10 in the commit message (Christian).
+> >
+> > v1: https://lore.kernel.org/lkml/20261105123244.3132560-1-sumitg@nvidia=
+.com/
+> >
+> >  drivers/cpufreq/cppc_cpufreq.c | 14 +++++++++++++-
+> >  1 file changed, 13 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpuf=
+req.c
+> > index 957fa7775260..b2af24ae5008 100644
+> > --- a/drivers/cpufreq/cppc_cpufreq.c
+> > +++ b/drivers/cpufreq/cppc_cpufreq.c
+> > @@ -714,7 +714,17 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_po=
+licy *policy)
+> >               pr_debug("Unsupported CPU co-ord type: %d\n",
+> >                        policy->shared_type);
+> >               ret =3D -EFAULT;
+> > -             goto out;
+> > +             goto out_put;
+> > +     }
+> > +
+> > +     /*
+> > +      * Enable CPPC. The Enable register is optional - some platforms
+> > +      * may not support it.
+> > +      */
+> > +     ret =3D cppc_set_enable(cpu, true);
+> > +     if (ret && ret !=3D -EOPNOTSUPP) {
+> > +             pr_err("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret=
+);
+> > +             goto out_put;
+> >       }
+> >
+> >       policy->fast_switch_possible =3D cppc_allow_fast_switch(policy->c=
+pus);
+> > @@ -742,6 +752,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_pol=
+icy *policy)
+> >       return 0;
+> >
+> >  out:
+> > +     cppc_set_enable(cpu, false);
+> > +out_put:
+> >       cppc_cpufreq_put_cpu_data(policy);
+> >       return ret;
+> >  }
+>
