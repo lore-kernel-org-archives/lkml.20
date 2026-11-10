@@ -1,75 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290443;
-	b=I6bQBFPpOZN7MxuXZ1Ux6dhTE1e3DGom8yTs/WmqpHvaFZOUQXCDaFET3igLhDzsyRxa
-	 krl4c32ja6oOTVgq39Zi2z4GmCuKEp4k8RiZqR+zUfbz+/GUkOzdfKKgTlpWjWN0i3e+e
-	 s+bx5kZKEWsocHIRc8XV8hYeIR0uP37Hf6shsKPzDIXKfHOOZVsjv23OGj9r/MuhDLdsI
-	 WUrue5fR7Ktwl016da++C2iqcCdG2DKB6AFUZCOvtK6+1KSBziV2gKRXMHwE3kiRiinaK
-	 FYmrsxThC7jw/FBO2SlI4lqymqZUnMb2MYRBkJ0llxriMZwLf5Ar6TIa7V5g5gA+aEA==
+	t=1794290472;
+	b=qQ0zsd6AUqLjI4majU40ZlcbNk9KsiWEkSfBDVms+mskfyoeoxI4Tw9HkaSGQ8t3eisY
+	 KHkCfTRGLuEDlMtMv3WUM2bZ5cty2kCtgfgN3AcfQ6NNN2nytT0WD83Ik/7Gjo3Xjq8T0
+	 i1mRT1y9HE5nAxRwmaQDws5Jhe/uyo4ehjbv9B74QBmdZbFYqYHl0O3ZRQVkV9usvQ36N
+	 0bLTfbaAKleE+jqcFKPx2lbVYiMsGemolsAvPg6EFV4nSR5AvXrzObbsvQCXrfI7FafAb
+	 JKlhTFFUOYeajvRXHWk7NumD/K5/ebFIvocjmrMCHvyHp13LZo0GQjLWwn9nXMSzTYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290443;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
-	 References;
-	bh=HRSkNBNCGQP3+WWuKL4PepJWaawJY/A9pCIWUz3AJ1k=;
-	b=fW/p0uvwJVjInljMrxS+Fx2Gni9sVmvgrCVRbmvzJF4VS0dijFeeGZ2CGU6tR45ZpxzF
-	 QCSgcm1/zlXwzlJfgfYdg6qCOjcZI23wIwGA2SKyM10Vds18afAwtj6MosbS57nRQLpvi
-	 j+kHv+TXdFOFStWL+1brQu4u5BwLk/dJ/jkFORVl8+cUmkNRPbZ52IwEFYkRTGS89RhCJ
-	 /tUVo+EK90WvTKB3mcNSTkUAZodIXLzCvnhqx/PHhUlpMSGPBYPFAHFmoCWmyZwm+2CsX
-	 uWelUAsgTFPxEdf6UtYWytr4PkOUg+NUMrD7LTFgVqHKamRdAHFp/sJ0apLQcdvCByw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290472;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VLh8JQ8NDxlXvfdd8nmZgCeYY6KJkmD5D5lm9FmA80I=;
+	b=G4bwA+yKqtHN7tPJJ2cAx3IWMlndUrGvXHtqkpFL7+I651duUnLRou8bYfcQQIenWBzW
+	 6YiD2qUKh7AZJc+PIy6drihMQRBbLvztII3eV1UXQtJCm5eXhuvzABjLihW0jqpJMSrNr
+	 fAoR2k7vSOymfPBIIy8yjK2C7z7z0qhkGEc9VTGVke4PZRCHi0MZEl5xOjS2nBmBlk2tb
+	 WeaZ9clg+8zdNJqwR/MJUj/nksI2MWnxul11SMWwLttX9JGubeLRZnkDJntyJq5ac0eJJ
+	 /OsKl5jUwS1eVc/P1tMK9+im9dR86CNY1lqM51zSTBN2BYQhmVJFjtJoCLtea8Nzw+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=kzBdfRfG;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJjwAxu;
+	arc=none smtp.remote-ip=95.215.58.141
+Received: from mta1.migadu.com (out-141.mta1.migadu.com [95.215.58.141])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91898606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:00:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91898606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB4D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB4D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=kzBdfRfG
-Received: from epcas1p2.samsung.com (unknown [182.195.41.46])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261110060033epoutp0247db0b68ad790324a92945d4d7e17118~mmaR_z6x51975319753epoutp02Q
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:00:33 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261110060033epoutp0247db0b68ad790324a92945d4d7e17118~mmaR_z6x51975319753epoutp02Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794290433;
-	bh=HRSkNBNCGQP3+WWuKL4PepJWaawJY/A9pCIWUz3AJ1k=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=kzBdfRfGjn+JPeC1M9qDbAcZFOw+yh3EcWn6wRzN4HfuL9YQ19KW1EA14DA1qoiPl
-	 AhyMIg1LXtwIVZ1R85Fbix3Uc7hhwsoYH+2B3IIa901iNf1lX1cSK+5BS9C418oVCD
-	 Kqk6fW7HjtPjRhQ1q1G90XmSTvFWjNvEpFV9MXDo=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas1p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261110060033epcas1p3f16322cf7597964bea512dd529242333~mmaRrbJwt1479314793epcas1p3C;
-	Tue, 10 Nov 2026 06:00:33 +0000 (GMT)
-Received: from epcas1p4.samsung.com (unknown [182.195.38.116]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jNwxD49W4z6B9mQ; Tue, 10 Nov
-	2026 06:00:32 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261110060032epcas1p1a4de057d86d384387d0b8004d63ef331~mmaQzxQ980234802348epcas1p1F;
-	Tue, 10 Nov 2026 06:00:32 +0000 (GMT)
-Received: from VDBS1420.vd.sec.samsung.net (unknown [168.219.244.32]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261110060032epsmtip2a880c20583abe50f7ea0aa2017e23612~mmaQwqyF30109101091epsmtip2e;
-	Tue, 10 Nov 2026 06:00:32 +0000 (GMT)
-From: Gichoon Han <gichoon.han@samsung.com>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-Cc: Sinan Turunc <enscrpt@pm.me>, Edward Adam Davis <eadavis@qq.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Gichoon Han
-	<gichoon.han@samsung.com>, stable@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Drop capture packets with bogus
- actual_length
-Date: Tue, 10 Nov 2026 15:00:21 +0900
-Message-Id: <20261110060021.2146383-1-gichoon.han@samsung.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXJjwAxu
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VA3K6iPo/olQKGrY3SmZDnY715mLMX0FXtR/KjMqe7Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794290469; v=1; x=1794895269;
+ b=lXJjwAxuAyUigPchBpexbmn0zCmwp8bYRR0IhFKbYxZ6sAuSu9WOnlwmUqQmKmES4Zo6BmzD
+ 1OUYjlLuHFgvRVo8XSG2TZ+w4KGzA0AAXSf9Yu+IIPxqIqKXATyhQattCvw1mKezI6I7/e+4gWJ
+ Uw+GzuJvSc0FC0JFea1QJnQw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2ff0dc8c22bc786c;
+	Tue, 10 Nov 2026 06:01:08 +0000
+X-Mizu-Trace-ID: 2ff0dc8c22bc786c
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 22:01:06 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mingyu He <mingyu.he@shopee.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	Muchun Song <muchun.song@linux.dev>, Yosry Ahmed <yosry@kernel.org>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, littleswimmingwhale@gmail.com
+Subject: Re: [PATCH] memcg: keep propagating stats updates to ancestors
+Message-ID: <avKy9oMwDRjKjfzm@linux.dev>
+References: <20260911032905.63683-1-mingyu.he@shopee.com>
+ <aqRXqcynCx88D2QK@linux.dev>
+ <CAAoBcuS=sqOAPFr9Gda9aTwuCMHMPzBMEee8qvPNHtNxrRWKuw@mail.gmail.com>
+ <asy_L2s1TNcN7bOK@linux.dev>
+ <CAAoBcuS5VJwsYyw9=77SaBUf3N1hL8NfRtGwpBhmyUUhT4+T8w@mail.gmail.com>
+ <CAAoBcuRfhFf4p5qfWZnNs5=4foeE6jtGFggG5XHmMi6cXwje9w@mail.gmail.com>
+ <20261109212410.ca24bffef1abcd50b3f58c13@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,73 +71,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261110060032epcas1p1a4de057d86d384387d0b8004d63ef331
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 101P
-cpgsPolicy: CPGSC10-702,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261110060032epcas1p1a4de057d86d384387d0b8004d63ef331
-References: <CGME20261110060032epcas1p1a4de057d86d384387d0b8004d63ef331@epcas1p1.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109212410.ca24bffef1abcd50b3f58c13@linux-foundation.org>
 
-retire_capture_urb() copies urb->iso_frame_desc[i].actual_length bytes
-out of urb->transfer_buffer at the packet's offset, but never checks
-that value against the requested packet length.  A host controller
-reporting more data than requested makes memcpy() read past the end
-of the URB transfer buffer.
+On Mon, Nov 09, 2026 at 09:24:10PM -0800, Andrew Morton wrote:
+> On Tue, 10 Nov 2026 11:17:37 +0800 Mingyu He <mingyu.he@shopee.com> wrote:
+> 
+> > hi, gently pin this email.
+> 
+> I think Shakeel is suggesting that the bpf caller be altered to also run
+> css_rstat_flush() regardless of the update threshold.
 
-Commit 06be918062ad ("ALSA: usb-audio: Bound packet copies by the PCM
-buffer size") clamps the count to the PCM ring buffer size, which
-protects the destination.  The source slot is only ep->curpacksize
-bytes per packet, though, so the over-read remains.
-
-This was hit on an ARM32 system (vendor 5.4 kernel; the code path is
-unchanged in mainline) with a full-speed UAC1 microphone behind a
-high-speed hub, i.e. the EHCI siTD path.  sitd_complete() computes
-actual_length as desc->length - SITD_LENGTH(t); the controller
-reported a remaining length larger than the programmed one, the value
-wrapped to ~4G, and the capture copy faulted on the first unmapped
-page after the URB buffer:
-
-  Unable to handle kernel paging request at virtual address e8756000
-  Internal error: Oops: 7 [#1] PREEMPT SMP ARM
-  r3 : 00000000  r2 : 0001e700  r1 : e8756000  r0 : e878fc80
-  Code: ba000002 f5d1f03c f5d1f05c f5d1f07c (e8b151f8)
-
-A packet can never legitimately carry more than its requested length,
-so warn and skip it instead of copying.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
----
-Compile-tested only on linux-next.  The crash was observed in the
-field on a vendor 5.4-based ARM32 kernel with the same code path;
-I don't have a setup to reproduce the bogus siTD length on mainline.
-
- sound/usb/pcm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index c2f7b08607ac..57a26492dd61 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1337,6 +1337,12 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
- 					    "frame %d active: %d\n", i,
- 					    urb->iso_frame_desc[i].status);
- 		bytes = urb->iso_frame_desc[i].actual_length;
-+		if (unlikely(bytes > urb->iso_frame_desc[i].length)) {
-+			dev_warn_ratelimited(&subs->dev->dev,
-+					     "packet %d: actual_length %u exceeds length %u, dropping\n",
-+					     i, bytes, urb->iso_frame_desc[i].length);
-+			continue;
-+		}
- 		if (subs->stream_offset_adj > 0) {
- 			unsigned int adj = min(subs->stream_offset_adj, bytes);
- 			cp += adj;
-
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
--- 
-2.25.1
-
+Sorry for the late response. Yes, just always force flush.
