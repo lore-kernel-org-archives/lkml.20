@@ -1,58 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344644;
-	b=MSyTBhCpPWHplq3GZLQVI772HN6EYnBAJNXMvjGZQW0KgsKNsPIcGKMPj+OrGl/Mnllr
-	 JgyNL3UVSXxBurWAKlXvQ/qfVnnEUBq3LaTjZgfKs2cdiFVV0nCfjNILoNcRaFCdsetFS
-	 kayKr2KTG3/NeURjpayf4ENxLT2NY1EeDbMubMMDdWcmFOpDUu4s6BNZaZT6aOaWv4ZcK
-	 JSGiTSeMdEn1X6D2PgmdJablfLQl6tRRjUT8ZzzR/1IsUbBmhZsLthZ+Dc4sMIaj0hrBU
-	 uZWo0PkV5BIJ32JqVXDP6KJYYvIbZv6ipU06Ydl2Z/ntj0WeD2PGOrOg73nSQxjYFng==
+	t=1794344721;
+	b=jH6Z6ODqED6wx/er0/pNnjp6luAOkqq2eAerg45BeQ4/1EBk3KKFtr9helspX0mxgXB9
+	 mqvlB66vH0sKuLnJNW5SOGGn8/ZIKPrAcIy1ZYhuDCa3+hU3cVZKwUQqi8q/MLIMtu9FQ
+	 fj0VZL4eckIQxSwrFs9zdnvNjQccRMqWMxSEI8U5FwTCMcY60pPn/MQU42kttUcamx1LY
+	 CItpvcKqANFAPTWurxEaVU6KiN2FfVbNfcUtbOP1JA6DG66wcEGQKV2yJFzRe/nJvXQlb
+	 X5rqEeshnH69nNrir6mSuNi1S1wk3bitANp69WAe18NrRPl6ROwy4oViNeJtOc+Hoew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344644;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=AJaM8FShqYOfjiXuKYEbwlZHQ9kyAvg8ftbRyekTCCU=;
-	b=XVp/AjTsKQP6k1eowG15mlqyedwgx7Tpisxaw/spjadq7gaLFhRMImstgrxnNhD9OJxL
-	 IRRPXtC7Fzuf+hT2x69HHuuf052nmWK0w/ac48J4ZlSRlk93aBHSnWxtgu8MysLJhieh/
-	 c3+TfjPLlbotENRsXE8fw/vhEgj89MbORhDyu3RtIPxBI3Ey/lVRKnK2XpXqRXYilDFGN
-	 CVEAAnshSOh+6GXbFQAnkDHgOBCFe5k+YIuz5gGqztAlZPx9I7EOnqznn7FGbBfPyNGOn
-	 +dUB35x8XiZYmv/pUU9OI6LoDeH2mLaq4EQkXrkiIGKVUSLII29IGgrw/nfN0/PwvZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344721;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=r0F/G1/cCd6YtCyJox781fOcwZWIec41wc+ColCaqik=;
+	b=KWHv9p2O0pxt9De7OWUi8eVhtdiSaT2crvSUYV689YqiiibaLjJ0GHNb7UnWk/70+GN6
+	 nfKc3weZ2Bteb/u0xts+s8qv0J1oHXnXrJK3ZCyeIr47K5sGyzHAQNH8hsR8ySP/FEf/0
+	 75Enc5AM4I1TN7SYgjBgWrSLkiyrK0YTl3lzVAnAHX9uFf8jczV3eKaCYrxtFNIokGqFI
+	 IIYMc5biYDWOyTXHOcFaP5g3cHKLQ8HXzqMsdc+Iaw/Mhw9JlwQr0H93r+PzyvTmebFDk
+	 Ke+FvolXKC9pGQojB+ZIxUXzpcZ289kQWg09QV7FM4+WnNM85jSR1ekppGsPQiD/k4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hEg/9b3s";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="PZdH/bDB";
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84CF606A31C;
-	Tue, 10 Nov 2026 21:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57722606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57722606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEg/9b3s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AD0D1F0089F;
-	Tue, 10 Nov 2026 21:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344643;
-	bh=AJaM8FShqYOfjiXuKYEbwlZHQ9kyAvg8ftbRyekTCCU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hEg/9b3sd8epTX3sYG00r3EvzYWGbzw2bYMF9PfB3PNBHAZUQybBHaZWBoxpohSRe
-	 CHGsYkxB2LwHUmI4xfS1F8yyYUGZZw/ifTsXZHcL94w+XBb4mnafYiwUvvsbnoft1M
-	 ziraWFWM8xkoOojiXgHfcGHQBxWgx07tWBi8FNBiypfl9HZbisjitqi42EKTM2fhDf
-	 INRISDC9paQ8mQurj3P5ZmXe4FxcfVgP1J3TXbzzzQ8hST2rP8rlPt1GVjcn++h/FK
-	 VtOVevEXg6EupY0qMV65dc5de0OV7SvIaS8+SPwGka4P6z3P8TBJYSyqijfQtWrJly
-	 cdLOc0ldX6DEg==
-Received: by pali.im (Postfix)
-	id 9FB295E0; Tue, 10 Nov 2026 22:03:59 +0100 (CET)
-Date: Tue, 10 Nov 2026 22:03:59 +0100
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: dell-smo8800: keep the state until the
- last file is closed
-Message-ID: <20261110210359.upmeyc4b4xksfva2@pali>
-References: <20261107204950.88952-2-ca@modelmiser.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PZdH/bDB
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b8e2d8df4fso1497624eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:05:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794344719; x=1794949519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r0F/G1/cCd6YtCyJox781fOcwZWIec41wc+ColCaqik=;
+        b=PZdH/bDBU0lpZSlz4yodAHwL9jtp4rhFJ8Q1un4mwvO/Ewao3DxkA1kNgF5+cfG5o3
+         LufBZBRx1MhkyneStZl7gy+ur90mFuYctHSOJeuoc/CscRm/3ELlZtO49Twv/eVa60LP
+         Hqnk9yTRpBGM4BiBsPW15Ac9x6q6bxrizHrKg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794344719; x=1794949519;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r0F/G1/cCd6YtCyJox781fOcwZWIec41wc+ColCaqik=;
+        b=LHWwDE1RwJ/GSGFkPui1Hyom/Ke1UVl37N6a1xA7bs7zajIuucLNrGbMKMlr+Gxtph
+         UIiXr9QpyqMnPgvmQASdDco6RRDspqO+F23zU9nWvDAQZljT63xIW7Z4jatU/q++K7NZ
+         z5oeUQ9ysHj2JqEOGXnb67MmBaiaP8mcBu7kGBgqSS6ZvQDNDmlcyuIe6Vx0g4zYZ1Ej
+         7bPBgACp4S8vknAuI/25MgadbjVgJZK1s94pG/tY231DByt+bNi0i+7jpUuu1FgV2QQx
+         v0IKcai85/jXE3FPAb8RrWAyxjYDvCEnl2g44YVr4CxHPqrepLix5JETR/X+ENOkrkg7
+         hvZA==
+X-Forwarded-Encrypted: i=1; AL+hErFmuEgufjs46vq6a33uFVP0940ncJkLgR+1LH7XzHGUUEmVzPEMNs8q9OV3U5dH0ThKLl6Grlht0jYOHcU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CYJrm+3D/8SBcU3f7PQlT57G60bGUtbAw07BTYCsLWsz8zCwf
+	GW8Hg9hjNSb0VY3FH0FpCrO8gY252rILiRW2NrHXIlWrfczOkhw9MwYc8PmVBSFCNg==
+X-Gm-Gg: AYBFou0yFsdZdH9W0JkUqsmhjhIaU+AuG1ZPSIxdl+wtA/EjrieWPQ8JFUfbgbne8Ua
+	eW+1GcFrlGc7NsC+G2UUrlV35tRN/636AEfFMlrFcezFbfWiWCEDFt4/zyC0Uk/eANxYNr4dCOf
+	fQouAGO7VpEL/O40lMHvUhiw2n0fEi46ELVrxtLZqBCrHCubfNJayWR2NYsvFsjtFd5BZ7pLltI
+	t9R3cAHLdUsw+owgpBqXxMJ0K8RtWxqtmtu6fkXCAERI14f1E4hCAt+4uyqIF18omnN7Cj7iaBz
+	F+HMtrITMJF85r+lh0shJ7pHs5m/SNuEPwaMRqLI50b7Fb2Fx3xSpfBHvyhk0BAiXrL/BHH+mUe
+	+yoKkkkpeWqbWVCvYiTBBnpj+eRl8NeIBiLl5tF+GaT3CZFl5zeVBoiLXLbbV4+nHSDTqLO2B3t
+	/NDeve8dLaJ6awMFCn6eXGLgp1n3E23bsUri9FcVWHWUcPM1gXzXv67VchHIV073drOlVxgapxh
+	317QKqeV0rVZ7wkbuW1x4Diove9ay58+XJ0DjDHRZC3t8KqI3NSvtIrSIO5foNIPfN/gpqfR/6z
+	Z9EF3t8oaELltFybJU599x3C0jm4goCSgSjNSaRgg/QFomPeRnH1mvbsLI8LFbGJmk9AeFTuwSb
+	+rUn+w8djAzrKBe5qCVb0qZTxINifEAiwXz+ykg==
+X-Received: by 2002:a05:6820:c44a:20b0:6d9:979e:22ad with SMTP id 006d021491bc7-71917934e44mr119108eaf.54.1794344719257;
+        Tue, 10 Nov 2026 13:05:19 -0800 (PST)
+Received: from rrangel.c.googlers.com.com (57.128.170.34.bc.googleusercontent.com. [34.170.128.57])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcb62443sm2856553a34.6.2026.11.10.13.05.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 13:05:17 -0800 (PST)
+From: Raul E Rangel <rrangel@chromium.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Raul E Rangel <rrangel@chromium.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v11 7/8] serial: 8250: retire canceled RX DMA before reusing the receive buffer
+Date: Tue, 10 Nov 2026 14:05:14 -0700
+Message-ID: <20261110210514.1091741-1-rrangel@chromium.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+In-Reply-To: <20261109-submit-serial-8250-dma-cancel-v1-v11-7-6364edca63d6@gmail.com>
+References: <20261109-submit-serial-8250-dma-cancel-v1-v11-0-6364edca63d6@gmail.com> <20261109-submit-serial-8250-dma-cancel-v1-v11-7-6364edca63d6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,202 +123,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107204950.88952-2-ca@modelmiser.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello, I have not checked this patch too deeply, but I have feeling that
-something is probably wrong if we need to add a new manual refcounter
-around a whole device. Anyway, this freefall logic was originally copied
-from the lis3lv02d.c driver, which now lives in the file:
-linux/drivers/misc/lis3lv02d/lis3lv02d.c
-So if in the freefall device of dell-smo8800.c is some error then
-probably the same issue would be in the freefall device of lis3lv02d.c.
+On Mon, Nov 09, 2026 at 09:00:22PM -0700, James Hilliard wrote:
+> After one second of unsuccessful pause retries, stop the transfer with
+> dmaengine_terminate_sync() outside the port lock. An indefinite wait could
+> otherwise leave a request/response peer waiting for data that is stuck in
+> a partial DMA buffer. Report that recovery discards the pending payload:
+> without a stable residue it cannot safely be copied. Keep rx_running,
+> rx_pause_pending and rx_terminating set until termination has stopped DMA
+> and drained its callbacks. Then restore receive handling and allow another
+> DMA descriptor, without latching a permanent PIO fallback for a pause
+> timeout. This trades the stalled transfer's data for continued reception.
 
-On Saturday 07 November 2026 20:49:58 Chad Aldreda wrote:
-> struct smo8800_device is allocated with devm_kzalloc(), so it is freed
-> when the driver is unbound, but a /dev/freefall file opened before the
-> unbind still reaches it through file->private_data. release() then
-> clears misc_opened in freed memory, and a read() blocked in
-> wait_event_interruptible() is not woken by remove(). It sleeps on a wait
-> queue inside the freed structure until a signal arrives, and then uses
-> it. Unbinding the driver needs root. With KASAN, closing the file after
-> an unbind gives a slab-use-after-free in smo8800_misc_release(), and a
-> blocked reader interrupted after the unbind gives further reports in
-> smo8800_misc_read() and prepare_to_wait_event().
-> 
-> Allocate the structure with kzalloc() and give it a kref. open() takes a
-> reference and release() drops it. The device's own reference is dropped
-> by a devm action, which runs after smo8800_remove() on unbind and when
-> probe fails. misc_open() calls ->open with misc_mtx held and
-> misc_deregister() takes misc_mtx, so the device reference is held
-> whenever ->open runs. Once the misc device is deregistered, by remove()
-> or by the probe error path, a removed flag is set and the wait queue
-> woken. A read() blocked at that point returns -ENODEV unless an event
-> arrived first, and a later read() returns -ENODEV.
-> 
-> The problem was found with a Coccinelle script that reports device nodes
-> in devm memory [1]. The fix, the reproducer and this message were
-> written with an AI assistant (Claude) and checked by hand. The fix was
-> tested in QEMU, with KASAN enabled, using a test-only module that
-> registers an "smo8800" platform device with a simulated interrupt, not
-> on Dell hardware.
-> 
-> Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com [1]
-> Fixes: 4738d8aabe89 ("platform: x86: dell-smo8800: Dell Latitude freefall driver (ACPI SMO8800/SMO8810)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
-> ---
-> The Coccinelle script reports a devm_k*() allocation when it, or an
-> address inside it, is passed to misc_register(), cdev_add(),
-> cdev_device_add(), video_register_device() or v4l2_device_register()
-> in the same function, or when the allocated struct embeds one of those
-> objects. It reports dell-smo8800 for the misc_register() of
-> &smo8800->miscdev.
-> 
-> Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). A
-> test-only module registers a platform device named "smo8800" with an
-> interrupt from an irq_sim domain, so the driver binds without the ACPI
-> device, and a module parameter raises the interrupt. A process opens
-> /dev/freefall and the driver is unbound through sysfs. Without this
-> patch:
-> 
->   close after the unbind:                  1 KASAN report (release)
->   read() blocked across the unbind:        not woken; after a signal,
->                                            7 reports (read, wait queue,
->                                            release)
->   unbind, bind, then close the old file:   1 report
->   close before the unbind (control):       0
-> 
-> With it there are none: the blocked read() returns -ENODEV when the
-> driver is unbound, a bind after the unbind works, and an interrupt
-> still wakes a reader with a count. Not tested on Dell hardware.
-> 
-> An interrupt that arrives while remove() runs, between the reader's
-> count check and its removed check, is dropped and the read returns
-> -ENODEV. remove() frees the IRQ before setting removed, so no event can
-> be lost after that.
-> 
-> kzalloc() rather than kzalloc_obj(), which first appears in v7.0: the
-> patch then applies as is from v6.14. On v6.6 to v6.13 only the include
-> hunk needs adjusting (those trees have no dell-smo8800-ids.h); v5.15 and
-> v6.1 need a manual backport (remove() returns int there), and before
-> v5.15 the driver was an ACPI driver.
-> 
->  drivers/platform/x86/dell/dell-smo8800.c | 35 ++++++++++++++++++++++--
->  1 file changed, 33 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/dell/dell-smo8800.c b/drivers/platform/x86/dell/dell-smo8800.c
-> index 8872f9b57fce..8880bf39f895 100644
-> --- a/drivers/platform/x86/dell/dell-smo8800.c
-> +++ b/drivers/platform/x86/dell/dell-smo8800.c
-> @@ -13,9 +13,11 @@
->  #include <linux/fs.h>
->  #include <linux/interrupt.h>
->  #include <linux/kernel.h>
-> +#include <linux/kref.h>
->  #include <linux/miscdevice.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> +#include <linux/slab.h>
->  #include <linux/uaccess.h>
->  #include "dell-smo8800-ids.h"
->  
-> @@ -26,8 +28,22 @@ struct smo8800_device {
->  	unsigned long misc_opened;   /* whether the device is open */
->  	wait_queue_head_t misc_wait; /* Wait queue for the misc dev */
->  	struct device *dev;          /* acpi device */
-> +	struct kref kref;            /* device + open file */
-> +	bool removed;                /* the device has been removed */
->  };
->  
-> +static void smo8800_free(struct kref *kref)
-> +{
-> +	kfree(container_of(kref, struct smo8800_device, kref));
-> +}
-> +
-> +static void smo8800_put(void *data)
-> +{
-> +	struct smo8800_device *smo8800 = data;
-> +
-> +	kref_put(&smo8800->kref, smo8800_free);
-> +}
-> +
->  static irqreturn_t smo8800_interrupt_quick(int irq, void *data)
->  {
->  	struct smo8800_device *smo8800 = data;
-> @@ -60,11 +76,15 @@ static ssize_t smo8800_misc_read(struct file *file, char __user *buf,
->  
->  	atomic_set(&smo8800->counter, 0);
->  	retval = wait_event_interruptible(smo8800->misc_wait,
-> -				(data = atomic_xchg(&smo8800->counter, 0)));
-> +				(data = atomic_xchg(&smo8800->counter, 0)) ||
-> +				READ_ONCE(smo8800->removed));
->  
->  	if (retval)
->  		return retval;
->  
-> +	if (!data)
-> +		return -ENODEV;
-> +
->  	retval = 1;
->  
->  	byte_data = min_t(u32, data, 255);
-> @@ -84,6 +104,7 @@ static int smo8800_misc_open(struct inode *inode, struct file *file)
->  		return -EBUSY; /* already open */
->  
->  	atomic_set(&smo8800->counter, 0);
-> +	kref_get(&smo8800->kref);
->  	return 0;
->  }
->  
-> @@ -93,6 +114,7 @@ static int smo8800_misc_release(struct inode *inode, struct file *file)
->  					 struct smo8800_device, miscdev);
->  
->  	clear_bit(0, &smo8800->misc_opened); /* release the device */
-> +	smo8800_put(smo8800);
->  	return 0;
->  }
->  
-> @@ -108,11 +130,16 @@ static int smo8800_probe(struct platform_device *device)
->  	int err;
->  	struct smo8800_device *smo8800;
->  
-> -	smo8800 = devm_kzalloc(&device->dev, sizeof(*smo8800), GFP_KERNEL);
-> +	/* An open file can outlive the device, so it holds a reference. */
-> +	smo8800 = kzalloc(sizeof(*smo8800), GFP_KERNEL);
->  	if (!smo8800) {
->  		dev_err(&device->dev, "failed to allocate device data\n");
->  		return -ENOMEM;
->  	}
-> +	kref_init(&smo8800->kref);
-> +	err = devm_add_action_or_reset(&device->dev, smo8800_put, smo8800);
-> +	if (err)
-> +		return err;
->  
->  	smo8800->dev = &device->dev;
->  	smo8800->miscdev.minor = MISC_DYNAMIC_MINOR;
-> @@ -151,6 +178,8 @@ static int smo8800_probe(struct platform_device *device)
->  
->  error:
->  	misc_deregister(&smo8800->miscdev);
-> +	WRITE_ONCE(smo8800->removed, true);
-> +	wake_up_interruptible(&smo8800->misc_wait);
->  	return err;
->  }
->  
-> @@ -160,6 +189,8 @@ static void smo8800_remove(struct platform_device *device)
->  
->  	free_irq(smo8800->irq, smo8800);
->  	misc_deregister(&smo8800->miscdev);
-> +	WRITE_ONCE(smo8800->removed, true);
-> +	wake_up_interruptible(&smo8800->misc_wait);
->  	dev_dbg(&device->dev, "device /dev/freefall unregistered\n");
->  }
->  
-> -- 
-> 2.43.0
-> 
-> 
+Reviewed-by: Raul E Rangel <rrangel@chromium.org>
