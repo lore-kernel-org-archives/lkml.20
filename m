@@ -1,103 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794299378;
-	b=1g7EQlPS8ue97cg1Fs4koCPzX3gPZCXsHesFnEKDeKaSaOums3J1H7TZu2ZLCST/mOV6
-	 NIOr2Ppnr6d5+9phEDz1hI081K0WutG1rc+oazoKCCbSt4wermHbBaKoe1QNgdChQ03LJ
-	 PdDjY+b09qN7lEEvPrrQGdMt95It0hdr5nBKD826vSkgrUHByXhoXJpoyXETE2AXSdOZA
-	 whSEGTaHe73hdQ4EhquN4oefX+XvGFtYjPbI45zgXMM/5faoO4rJJvbKaBEwrm72iA24M
-	 gbihIGX1NeMqrgAGiv9jZ/PJ9o814UCDHmUiWlehhvThg86BTmZy7kwo867oaqyUEYg==
+	t=1794299384;
+	b=l9kCSwdh7L0rLBIyyyY8A+1pxFeALRQ8e9RpDk5+IPaieHuz63SEZcf9pwzft9x3pB51
+	 dnBvS2elVSpcuyz2qAgSbSwW2YrEcbMIYd03Bb5bjWCUgrNj0FwVgMG6XlMtxM7TUVr/D
+	 ZHO6iK5DMvpVl1GgQ2uwQnPEzCGwUfbBHDHhw4cMnjFZT9TWkyYrNJAFL4KkdSdruZdan
+	 q9jteuP/HxocsItCXJx4ipem9dQZto7htETjs1SCl7MLQAUcS7V/t1qxSZUm6+BEOWyDU
+	 8Krf/NPBJKI9niUlXCd/bB/aisWbWm38mnhZ3mq0e7Qd988uDJPvBNeFG3TbGd9B2LA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299378;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299384;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=P2Q+NEjTGGRtgTYwlU/xRst4WIfCPvlKiJkvZscRWGg=;
-	b=wPD6Zp5iMGWJD54mn/L2AljpugMx8WQjHcrwo4mXpuLoPB8W8pu7XmPwhqhtG1AzHnWd
-	 2q4ZZl5kP15AQJ4OFssWZHMZxk4InCKxUD08H/OWgDHdjrqvAmCpIB/Tgwwe0okW4OEXY
-	 9aEiAGFRiZz/8V8UCQHgj1uVM51lr9myJgPXcjJMWbxUMImTqArMROgsvjqULLJiVRjzS
-	 wdkyOYs+ftypkQGZCVLf83e+Gqxk6ShgKtR3MmSA+k827ZE4W607bYcX06iFvSIHns6AM
-	 Q18L2dO5kTJRycGFbsgkH8AclEyt5AiEXRt8ojZ7cugRF0xBCeB/ZcyQ41bonbnIJvw==
+	bh=c7hX6NPgiMXkbw4vHpOvki9EzCcN+XMYXKmh6avnXro=;
+	b=ePHr9MiRShvAoBW7tkXP4viSPqzG0rLAV02LaiQZa324BTX59LLWPg2VjV7P1iEOucPd
+	 0F2S949zq/gPmivj4dr+R6HneVXr0bdeTSdCEG+Br/3WqLQlH4pCLHymmRz/b0wx0Xbdw
+	 IubiOfkhZju0ch1WDS9VQkLDNyFp/3OBuoIF+iqjWW7ZkvK9LgiQyF3bXht2U0SjDz35R
+	 jzo5xQwTKvJ0aHXFlDmHbraAfPZgZKER5rREB/b2hffGKFIscSNdz0JK+YRYrh03QvK2+
+	 xhFf2nfXwfzGn7j7nruayfoVQH8yikziAEm4xJ1jffDXb6l6vZyDyEIHYr3PO4OyJPA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Fl4mESu9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GqITv5PV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.35
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013035.outbound.protection.outlook.com [40.107.162.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3058060A5BE8;
-	Tue, 10 Nov 2026 08:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3058060A5BE8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8752F60A6F4A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8752F60A6F4A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Fl4mESu9
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GqITv5PV
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PiKYFWgX8aw7cuvaANF9+A0v74dx8SKURm6fkDMsFsYMKQBKA8O0aAiFwpIAdYjZ5unsuMR5Ko+wrnNrDE0nOSbHbyHWcqO1WktbQsNmDorvT5+Y1Q2Fzc27N5OislQo2V2y0ZR2X8gJ3L2kqRqPRL/P6O1SxxIGk847cp3peTEptnPP5NUVUiOaXT51G27Xs1v1oEvxksVZNIH/amCerPAL/rj+2MPRVbmKQZ9C98q82JdfqWlhD6DF1bXRsqS8zj64PFjMpL3V9+VmdzTwooEKHIabyxRB/okJ8O/tnHE8xyK9F1bocaMm21qW1DXusPueTYCFwpxB68Cn6O/NAw==
+ b=vbK/1NKFg83IcNj4nlUVkdQycHcaU45os0hVt2GsDJhRj6CPTJSHPTwH2N0PS6ZBmObFqoFPuLCPMWoHu0Qur8MctcvyI5EKS056NKOqpjXTAiVtsEZE+KefdoHTglYXgOCR8g73t8Xh7bdWbV/gM22bfUX2haNCy8TCp5tRKccsy5XuFOYc3TSTwvRJ1SGe8um06lGtzDOneX8nHehylMphqBskt9QhYqkQp5lJ3GMZt+8jwKqFv/teseO0kr35R36xEfw0E73UfIEJFd4+kpqy9VmBZsIueAsUvN5apj6QcG0yuCGZqSNw2DBIipQrJD72Q5xvmEKB/gVbUySmFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P2Q+NEjTGGRtgTYwlU/xRst4WIfCPvlKiJkvZscRWGg=;
- b=vQeIrWR2CPcZJggBwzs/evdRyhBKmgAt5vNBpN5Y8MYgpiifZHLkuKqyP9d5mXVVKY+kmOIF8rU/HRDTtctySwAezUdWL2hcVPwGVrGIo8lP6pt/bv5Rz7M9H/zqvN8RF7JUmarkN0PmlfggnbnWxLRoLDTH2D57BZQeg9Vw3Pik9szhS35wi6cwgnVxlsQgcC2r8Kcs/Jg4h/kMINJOg/wXFbb9GMyEhelCSV03yG8ypD4mRqou4MgEIVwDV7TMXwO6d/UfzMl0zXmMbwbKAnwdWdjUHa1RZ40xbZD5rm4DJyU5HBgne9fgbmcdY9ViKdvWUK4DMPdB+27oCn2R1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=c7hX6NPgiMXkbw4vHpOvki9EzCcN+XMYXKmh6avnXro=;
+ b=eqI3wRYwoY7a2AgY9ZbvQA4Ye1Jro5duRBBiBn5e6JvY7kMfyDI9yeiIq5bSz78SDbuxVI6ls7ZMIxEP6W2UJ2J/3xyfS5Qj8MWf1aH8kfj80z82OL97WGzj5hD8+nA/20PPMa8DyLLqskSUbmHyyzVumbcYX75A31L86ueT0tcwjndDHbvfWk8jg2K6P5NF8xXrOHpb21yCvuPIx/K5uZhrDQ4+/Wp6RZZtvN4K/GnsrXY42l63cicuTgDXOBEFsej+ObP05WLlenb47HOv2flJOFcLczkr+/DpYmOtbd5KYlKdEpRhb0xRd1+lC7/kByYDHkzA/wFSklDUzC+8ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P2Q+NEjTGGRtgTYwlU/xRst4WIfCPvlKiJkvZscRWGg=;
- b=Fl4mESu9YO0YZVfsJGfWBA/4ixj5s2W1JDWpsryepKnLSM9bEOOzkGj0xx5YAGKBfO58O6yL3ooQWP7LVdECfV0i/e8V6BQdKzYhIGck9hIv1+GRe7Q2elJtFkOsnEu3PPQYuYF2W3BEmY5/uAWCpxZ1I5vOX+7AP0xj5x6oDQU=
-Received: from CH2PR12CA0006.namprd12.prod.outlook.com (2603:10b6:610:57::16)
- by BL1PR12MB5730.namprd12.prod.outlook.com (2603:10b6:208:385::9) with
+ bh=c7hX6NPgiMXkbw4vHpOvki9EzCcN+XMYXKmh6avnXro=;
+ b=GqITv5PVzoY0JUq8T7Baxaj88DNoVHGTtISeK8uHQTI9E2oc7F71OdAJ0iS+xD3gj2qYsNrfm/tVLF4ERpb4SY2C6HluODEm/HQBjiWOvKTHffcqObt6/Hlvrdl9lS1AenxQ3cVZoJXWdYZcwMVnBQStpBamDv2SUv5ui2LlavWpsVGsTTiovnwJ9eYMGXdN5bNUAjWRo3ebDZ1Z4AQBz+8912QpSkTj6FyIwus0lEDsNDwh1Ccqo8b7cUfA2Jp7MwWrhogNNls+ZJFk8dmiUeP5U6O6hs+DjnWJVa3KQ9uLEb4+Nl4oY5h/63tewrN8yQ2ylAUoNfp73L1ZGDvIrw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com (2603:10a6:10:1e9::23)
+ by FRZPR04MB12430.eurprd04.prod.outlook.com (2603:10a6:d10:1cc::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 08:29:31 +0000
-Received: from BN2PEPF000055DC.namprd21.prod.outlook.com (2603:10b6:610:57::4)
- by CH2PR12CA0006.outlook.office365.com (2603:10b6:610:57::16) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8
- via Frontend Transport; Tue, 10 Nov 2026 08:29:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Tue, 10 Nov 2026 08:29:31 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 02:29:30 -0600
-From: Melody Wang <huibo.wang@amd.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<bonzini@redhat.com>
-CC: LKML <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Joerg Roedel
-	<joro@8bytes.org>, Tom Lendacky <thomas.lendacky@amd.com>, <x86@kernel.org>,
-	Melody Wang <huibo.wang@amd.com>
-Subject: [RFC PATCH  2/9] KVM: SVM: Add support for Alternate Injection for the  SEV-SNP #HV doorbell page NAE event
-Date: Tue, 10 Nov 2026 08:28:47 +0000
-Message-ID: <26f0bd88dfca21d6f4b2e8cf3a34589764fe05be.1794295647.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794295647.git.huibo.wang@amd.com>
-References: <cover.1794295647.git.huibo.wang@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 08:29:41 +0000
+Received: from DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb]) by DBBPR04MB7883.eurprd04.prod.outlook.com
+ ([fe80::3a91:cf25:36c9:c3bb%7]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 08:29:41 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Tue, 10 Nov 2026 16:25:29 +0800
+Subject: [PATCH 5/9] regmap: factor out regmap_init_ranges()
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-regmap-improve-v1-5-3a76b6c10ec6@nxp.com>
+References: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+In-Reply-To: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
+To: Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, 
+ Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: SI1PR02CA0023.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::19) To DBBPR04MB7883.eurprd04.prod.outlook.com
+ (2603:10a6:10:1e9::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,192 +100,302 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|BL1PR12MB5730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5556ff38-6d0f-44b1-81b2-08df3f04be54
+X-MS-TrafficTypeDiagnostic: DBBPR04MB7883:EE_|FRZPR04MB12430:EE_
+X-MS-Office365-Filtering-Correlation-Id: dce18149-244d-41e0-633a-08df3f04c3d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|11063799006|56012099006|18002099003|22082099003|6133799003|10067099003|261009223027099003|261102130727099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261028144727099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|261009223027099003|10067099003|261028144727099003|11063799006|261021135927099003|56012099006|261021121427099003|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261102123227099003|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	/Al3N1tAYgrLLc8BO5otinqHpqpUq7rY5rCLGrrr+ve07FQKWoNh/jW+cqdSbJSS8AHMVopvKjezuSBgcSTK9XMrorGnof5tpAgAe7xPqnxryEw+A9wFgZokE/vZoL+g6j0AZfZVDBtZRxwBxR9k6lL+9TZViCgfvlYdKHjnjzdeY/hStq86LAKeyGTPHU6blrHgToCz6GmB3BacYfmoj7aeEDwIyRYmtN3z54d/qY2G4wste1Lp1XS0Aou+isLCX7V5i31+55SFHQROP8xmnLJC98FQL6f6gCbrvS+dUzML3WFpOmIETMr1xAaY6nvl/SOy+ZGgb8ya/qnXmddf5eubZlwE+v3p9oeGT0eM725BKF3MRd6hJ51rZAk7n4HR0aJYB/0gPDCjeDg8L0AOa2/cC0ttsRY7+Z4KxHPUFTJrnwSfrllewhKD3/Q+xl4W3raS65IU887RHV7gUMu93lmf1oIu1f31pjVq3MYCnANzqFRvwiXrOKiO8lwRd/Prq5HK/WddYOOyGMLSsLcmGPLoFM7tH0sWvwsgcVpQ+2hw/lnR56fIss3pcLvbrokpT9uRDqg9SB74E21fa+6lmCoBWdkCECf2/omnfFwgbJvg6bgQRTrR+9yXCUsIAVDinqaOrxPN+cFP3h9zindgbpEKeUZU8hQP+vEHA6x5dl1m6fubGuf8TkCOGDC1Ay+LvSzw9Io6oqkaet+u57J1vw==
+	ug7+ZLJep+zA+IgP6zk86todTVbSCpXvHSogDm2d1ZGGAh50yHKVKihuN2c0AihlH1fXZBRWwIycFaMplXxPxvHweAzARWj0BxDJ6TkbmWQRgay2kfb9xb/UX8mQoYa4Bq6mDdTPrXP50BklaekfXWpbuRKKK3H3ABd5uGKAsDv8UbAEV0PsG3fdPGbh+8XcQhsGA625NDroamMQeRC1pOrwJhIjGEfMRxIVJo7VqZl64u/foE4eXll1hcQWPiHNZoLoQcqiy+AJf30ixcmIjHW9UW0CBLc5Eng2v60ql/DHSDlsuqEBUyA9qdAOnOFD9TzP1He61MD6nTlrVK3D0NeQsU+iIC6jGDUjhzRfSmvgdDWrnt/uDHJl7bVWkqD61GyER2Mig6jukSuxaaTnflZT6v9Xyp5IdGt92CRe9ihWRSIT7CBtEtUZzHDCvPiGd8hRNcDLIfxVue0QssAxyjatNYJ1glZj0t+iej5w1b5cKCpbRrM41PhH7OxjmmWLzPWj3vJtbWyd8EJqXev8nW5Y18mTxcBQRjOQn/BgoO4RYQ8FbGFtQyTQ0ttURgLiLpN89DpT08nLk1eCvEjt+8ZEuLZXnrC+JVE/Ju3mL+31XOcsXWqzLfJbj6BGkQqRdQiL3L/7WfRsXVpfEJxayN/td2KUBG23AM7I/F55nA4=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(10067099003)(261009223027099003)(261102130727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261028144727099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7883.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(261009223027099003)(10067099003)(261028144727099003)(11063799006)(261021135927099003)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	VJDArK6S/3siBy6TUddB4wjRL90mT+iiYilmBjjuCJ4CXjnS1k0dzk3pBZbmY3D+/iqM6WfVZlLgVSPEBjGR42Rj3K5YnolrU0GQojWVP+OYFrswgQVF9vchv7G/WwbO7hyFTK9/Qn0uWppLyPvih2Og/BAI+kvBcG7t2+Evr0ojOhCgKZFyC+BjDvqeNKGeubpAiZzGsq7Kf1B4VZkNRFWzXupBB+naMLnfY+MMtVYu/CM3dFuoUuFvHdDdPwYTsRbvKDwUw/0OCS5vs6/wmK1LQmPoNC7ZxDrLpGHxKA4Ct7AeIpaA2edIoz0fVHMYrJhZqSgr+yJX/wRK/1EDqio726INbNdu9oUDV3HqwwziNGDkNzGS/1hlIKusS2Ia+GWL3bLZRW1Dor0QDWxFfpVSRK6KXyAiYK+CPKrMCQEQ0NsWRFFYlxk9UFf021Z0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:31.5094
+	=?utf-8?B?R0lKN3ZFMDhuRGhielFieUlxKzJvSXNiR25UdjZWN1RJSyt5V1FONC9xYzd0?=
+ =?utf-8?B?aW1tZ0NiVWZ0dGh1anpqdUQySjdwYlhKcy9JMGNPcXhvWU0zMU5NdkNvU3E1?=
+ =?utf-8?B?QW5lM0VDNGVuVGhtNmtHNDhxTlhGRVd2dU51WGh0WWFzUUF3Umlud3BrT2hs?=
+ =?utf-8?B?TE9lR1U4KzA0YldWbFp5OGJtb0hKdXlBVGl6bnZJNWNjcXdxM3FGa2xjM2dt?=
+ =?utf-8?B?YUpWVUNyYk4zZnRCRWxEMUU5TzJ6SnRrdGc1MGtNY25iUFAycVJ4SER6QVE2?=
+ =?utf-8?B?dmxKb2taVzk2WHVuTHN4aDRqMWIvMUdOZTZBRVprRnhJVVpIWDV3UjFLQnVR?=
+ =?utf-8?B?NXFFeFV3ZHNZVHpmV2U1WGlJdXdZOXEycFZtdmRISElXb0hUd1drMUtmbGJx?=
+ =?utf-8?B?alArR0ExVzlIYi9jaDdsRVNkSmtGM2xHVDBNc01meTFWMUdWbzNkZkV5SHZC?=
+ =?utf-8?B?RnAyWVhIdEFaZHlYTHgzb1NPVU1QYndENW9KRTY5N3d6a2dGYXpHbU1kZ3Ru?=
+ =?utf-8?B?VHVVQkptcUlnWHZYTmlKaUdycTN0Ky9aUjRxb09xVExxRDMyd05GSmprbm1N?=
+ =?utf-8?B?OThnVkxkL2ZoUTMxQVhNdE1zN1VJRm9tOU5mMXhwRWMyYXpVNlE5Si9YS3ph?=
+ =?utf-8?B?TWFvQW9WRUd5ZVJpQ1JFRytVRm8zc0MvYkhhVTN6elVSMUlqQkY2bU9yeUFJ?=
+ =?utf-8?B?a0wwamxscTZYajMvMXVKVXd6WjZwcC9XeXA5VU1MYmZ0elEwUGxVajl3YzRl?=
+ =?utf-8?B?bFIzQUZKTWUxRzhPTTJHUGNsYjNVUHVSNlJkdTQxUnRocGtWQXJjM0g3dmQ4?=
+ =?utf-8?B?VXc3QklxY0trcW5DSkRXZFQxMTNlQlE2NWRCRmRvWGJ3SmZkZG02SFN0dXR0?=
+ =?utf-8?B?K3Bid2dkbnh6dThoZjk2bGlZSGo5NmtGQ0E3b1IvYnZ2OGpUTlZ0TnJoVkpH?=
+ =?utf-8?B?UmFoVm9JaDNBME15YmZrOVdmZnFQVUovbXR3YVQvR0tnSTA3NjRlVVdhUW9j?=
+ =?utf-8?B?NGJqRStlM3dIay9LMEc2MzBYdExWYURWci9rQXpic1cvSnRxR1RLaFU0VXd5?=
+ =?utf-8?B?Um5sNDlYSXc1MXNNR2lER1lGNUxHbXhSdDd6eUxaL3AyRWU4Nkxrd1dUalQ0?=
+ =?utf-8?B?RlVaMTQ2UEQ0TVJvbmhQNThpL1dwbmsyaVMycWw2ci9YUTdkckkvNnMyU2cw?=
+ =?utf-8?B?ZUtkbExZSzZBcU01ZzVZN0RjME91L0FCZVdrd1k2eVdzYW1VS2dtYm1pdFNJ?=
+ =?utf-8?B?ZVA0NUVsNzJBSWZaQm0xWTZtakhpUFpOa3ZWS0FLVFc0QWdjUG5qYmFLSFBr?=
+ =?utf-8?B?bFdMK0hkdm9OZVVGUm1BT2o1NkJ0NmFkK1dLZ1NCYkhncjRUU0FyNXpnVm5W?=
+ =?utf-8?B?VmFETytSVUpvQVR4L3E4eHpMRHBPL2Q1RWh1cFFzVDI4T0hTcytSRWVWbHVG?=
+ =?utf-8?B?VWFuLzQvS0w0MjVYRHkwNW53MHBrREI1ZDdFVXFZdXhBblJXUDRmcVR6VVpC?=
+ =?utf-8?B?bFBuYWJjS1JDM0V1ZzZIbWFGS3ArL1N1SE5YUWhrWnNIL2hIbjdvM2d2NWtP?=
+ =?utf-8?B?MFU0azFscHJMVUYxT05yS1l5Z3RhM2xpdWh5dTMzNS9IYStiTGhmUWVsTlBl?=
+ =?utf-8?B?dE54M0ErNE5TN2wxc2lFOE9BRkJTRFZibFlFVEhWdzI1anh0eHhPMjdvNkk5?=
+ =?utf-8?B?QzNPbnRIcGhIbDVsbmhtRVNwcHZ1WmhMUVY1UUJXZUxXR1hzZk8vUVJLMEtU?=
+ =?utf-8?B?OXBLbEYydEQ2V3UrZWxBZGUvQmNvUkY4anNXYXBkUnBCM1diNm9CTHkyS3U1?=
+ =?utf-8?B?TnFQWnNOVWI0TnlrNSttMGh1THNFZ2YvRW90VW53WXF1OVlibmJrQ2VMcjB6?=
+ =?utf-8?B?U1l6cFhUd096WlU4N2p1cEF4a1dyMytaRDBZRU5WVGs2UjRpeXZZcUM5RFdQ?=
+ =?utf-8?B?TjkyNUxMcFhCMzhobGpyWmF1VGcwQVp6THVCcVA5OTlTY0NWSWxXbVd6MmEr?=
+ =?utf-8?B?VUVBNFdiM1Q0Z25DWHU3VndLbFlBTmhlL25SYWtTVHVheE5yK2ErN0s2NnN0?=
+ =?utf-8?B?ZGprdjlxNzBpSW0yVWZIekU1bXVvcGNKTzNZQkNON2lBN25zWTFQUzZOU0lI?=
+ =?utf-8?B?QXh2WnVjTFViVlNpUjNock5tbUtvUFc3eTRsVVZzdC91NEt6WnZTT0lHL1Jj?=
+ =?utf-8?B?WmlIdG5NRUUvK2ozeERkNFd0WElTQjV1ZEFVaGxuQklYcm5KS1lWcW9iOTBZ?=
+ =?utf-8?B?UXJSSXJMWUQvUlQ5Z3VxdWRWZzJsQ3lmZ1JIZ2dna1htcUV2QUlTNnhRTnkx?=
+ =?utf-8?B?NHBYQXVZanFHenVMYlNyT1dBOSsyNXBmTmg0MlhIV0ZaQloydFV6RXRsaUZt?=
+ =?utf-8?Q?LfJNPNX2CleL5tuRng0e8V37f1nUTcjNUq/eu?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dce18149-244d-41e0-633a-08df3f04c3d0
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7883.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:41.1638
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5556ff38-6d0f-44b1-81b2-08df3f04be54
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DC.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5730
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LZmIKy2kYjQq4L9Iovpk5mjtjUAdYwVYsDJdEFfFaVJlkdUcz90nSMCu3JzSPPS+mnmwdaVo2OjEJvTEzoJ6IGLT3/Ytn5Eu14NW6reMP/wHED9r3wAxULVGoG//vQTp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR04MB12430
 
-To support Alternate Injection, there are three new NAE
-events added in the spec:
+From: Peng Fan <peng.fan@nxp.com>
 
-1. "configure Injection Notification Vector": configures the interrupt
-   vector that will be used by the hypervisor whenever it needs to
-   notify the SVSM that the interrupt processing for VMPL1-3 is
-   required
+Move the register range validation and rbtree construction loop out of
+__regmap_init() into a dedicated regmap_init_ranges() helper. This is a
+mechanical code movement with no functional change apart from fixing the
+block comment style of an existing comment that checkpatch flags when it
+appears in the diff context.
 
-2. "Specific EOI" - requests the hypervisor to perform an EOI cycle on
-   level-sensitive interrupt, and
-
-3. "Disable Alternate Injection" - requests the hypervisor to disable
-   Alternate Injection for a specific VMPL.
-
-Implement the first two.
-
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- arch/x86/include/uapi/asm/svm.h |  2 ++
- arch/x86/kvm/lapic.c            |  3 ++-
- arch/x86/kvm/lapic.h            |  1 +
- arch/x86/kvm/svm/sev.c          | 40 +++++++++++++++++++++++++++++++--
- arch/x86/kvm/svm/svm.h          |  1 +
- 5 files changed, 44 insertions(+), 3 deletions(-)
+ drivers/base/regmap/regmap.c | 192 +++++++++++++++++++++++--------------------
+ 1 file changed, 101 insertions(+), 91 deletions(-)
 
-diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
-index 60b7a52f6f7e..786f50f33457 100644
---- a/arch/x86/include/uapi/asm/svm.h
-+++ b/arch/x86/include/uapi/asm/svm.h
-@@ -127,6 +127,8 @@
- #define SVM_VMGEXIT_AP_VMPL_SHIFT		16
- #define SVM_VMGEXIT_GET_APIC_IDS		0x80000017ull
- #define SVM_VMGEXIT_SNP_RUN_VMPL		0x80000018ull
-+#define SVM_VMGEXIT_SNP_CONFIG_INT_INJ		0x8000001bull
-+#define SVM_VMGEXIT_SVSM_SPECIFIC_EOI		0x8000001dull
- #define SVM_VMGEXIT_SAVIC			0x8000001aull
- #define SVM_VMGEXIT_SAVIC_REGISTER_GPA		0
- #define SVM_VMGEXIT_SAVIC_UNREGISTER_GPA	1
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index dc7a08831a54..9ebae1052f64 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -1543,7 +1543,7 @@ static bool kvm_ioapic_handles_vector(struct kvm_lapic *apic, int vector)
- 	return test_bit(vector, apic->vcpu->arch.ioapic_handled_vectors);
+diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
+index b079921287c2..c554079835f5 100644
+--- a/drivers/base/regmap/regmap.c
++++ b/drivers/base/regmap/regmap.c
+@@ -748,6 +748,104 @@ static int regmap_set_lock(struct regmap *map, const struct regmap_config *confi
+ 	return 0;
  }
  
--static void kvm_ioapic_send_eoi(struct kvm_lapic *apic, int vector)
-+void kvm_ioapic_send_eoi(struct kvm_lapic *apic, int vector)
- {
- 	int __maybe_unused trigger_mode;
- 
-@@ -1584,6 +1584,7 @@ static void kvm_ioapic_send_eoi(struct kvm_lapic *apic, int vector)
- 	kvm_ioapic_update_eoi(apic->vcpu, vector, trigger_mode);
- #endif
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_ioapic_send_eoi);
- 
- static int apic_set_eoi(struct kvm_lapic *apic)
- {
-diff --git a/arch/x86/kvm/lapic.h b/arch/x86/kvm/lapic.h
-index a9ede0e145d9..9d202ef3016b 100644
---- a/arch/x86/kvm/lapic.h
-+++ b/arch/x86/kvm/lapic.h
-@@ -254,6 +254,7 @@ void kvm_lapic_switch_to_hv_timer(struct kvm_vcpu *vcpu);
- void kvm_lapic_expired_hv_timer(struct kvm_vcpu *vcpu);
- bool kvm_lapic_hv_timer_in_use(struct kvm_vcpu *vcpu);
- void kvm_lapic_restart_hv_timer(struct kvm_vcpu *vcpu);
-+void kvm_ioapic_send_eoi(struct kvm_lapic *apic, int vector);
- 
- static inline enum lapic_mode kvm_apic_mode(u64 apic_base)
- {
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 0736e1c778d9..924c1b968fdc 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -3432,6 +3432,8 @@ static void sev_es_sync_from_ghcb(struct vcpu_svm *svm)
- 	memset(ghcb->save.valid_bitmap, 0, sizeof(ghcb->save.valid_bitmap));
- }
- 
-+#define SVM_SEV_VMPL_MAX        4
++/* Validate config->ranges and build the range rbtree. */
++static int regmap_init_ranges(struct regmap *map, const struct regmap_config *config)
++{
++	int i, j;
 +
- static int sev_es_validate_vmgexit(struct vcpu_svm *svm)
- {
- 	struct vmcb_control_area *control = &svm->vmcb->control;
-@@ -3566,6 +3568,21 @@ static int sev_es_validate_vmgexit(struct vcpu_svm *svm)
- 		if (!sev_snp_guest(vcpu->kvm))
- 			goto vmgexit_err;
- 		break;
-+	case SVM_VMGEXIT_SNP_CONFIG_INT_INJ:
-+		if (!sev_snp_guest(vcpu->kvm))
-+			goto vmgexit_err;
-+		break;
-+	case SVM_VMGEXIT_SVSM_SPECIFIC_EOI: {
-+		u8 vmpl;
++	map->range_tree = RB_ROOT;
 +
-+		if (!sev_snp_guest(vcpu->kvm))
-+			goto vmgexit_err;
++	for (i = 0; i < config->num_ranges; i++) {
++		const struct regmap_range_cfg *range_cfg = &config->ranges[i];
++		struct regmap_range_node *new;
 +
-+		vmpl = (control->exit_info_1 >> 16) & 0xff;
-+		if (vmpl >= SVM_SEV_VMPL_MAX)
-+			goto vmgexit_err;
-+		break;
-+	}
- 	default:
- 		reason = GHCB_ERR_INVALID_EVENT;
- 		goto vmgexit_err;
-@@ -4217,8 +4234,6 @@ static unsigned int get_ap_creation_apic_id(struct vcpu_svm *svm)
- 	return upper_32_bits(svm->vmcb->control.exit_info_1);
- }
- 
--#define SVM_SEV_VMPL_MAX	4
--
- static int sev_snp_ap_creation(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *target_svm = NULL, *svm = to_svm(vcpu);
-@@ -4953,6 +4968,27 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
- 		}
- 		ret = 1;
- 		break;
-+	case SVM_VMGEXIT_SNP_CONFIG_INT_INJ:
-+		svm->sev_es.hvdb_ai_vector = svm->vmcb->control.exit_info_1 & 0xff;
-+		ret = 1;
-+		break;
-+	case SVM_VMGEXIT_SVSM_SPECIFIC_EOI: {
-+		struct kvm_plane *target_plane;
-+		struct kvm_vcpu *target_vcpu;
-+		u8 vmpl = array_index_nospec((control->exit_info_1 >> 16) & 0xff,
-+					       SVM_SEV_VMPL_MAX);
-+		int vector = control->exit_info_1 & 0xff;
-+
-+		target_plane = vcpu->kvm->planes[vmpl];
-+
-+		if (target_plane) {
-+			target_vcpu = plane_get_vcpu_by_id(target_plane, vcpu->vcpu_id);
-+			if (target_vcpu)
-+				kvm_ioapic_send_eoi(target_vcpu->arch.apic, vector);
++		/* Sanity check */
++		if (range_cfg->range_max < range_cfg->range_min) {
++			dev_err(map->dev, "Invalid range %d: %u < %u\n", i,
++				range_cfg->range_max, range_cfg->range_min);
++			return -EINVAL;
 +		}
-+		ret = 1;
-+		break;
++
++		if (range_cfg->range_max > map->max_register) {
++			dev_err(map->dev, "Invalid range %d: %u > %u\n", i,
++				range_cfg->range_max, map->max_register);
++			return -EINVAL;
++		}
++
++		if (range_cfg->selector_reg > map->max_register) {
++			dev_err(map->dev,
++				"Invalid range %d: selector out of map\n", i);
++			return -EINVAL;
++		}
++
++		if (range_cfg->window_len == 0) {
++			dev_err(map->dev, "Invalid range %d: window_len 0\n",
++				i);
++			return -EINVAL;
++		}
++
++		/*
++		 * Make sure that this register range has no selector
++		 * or data window within its boundary.
++		 */
++		for (j = 0; j < config->num_ranges; j++) {
++			unsigned int sel_reg = config->ranges[j].selector_reg;
++			unsigned int win_min = config->ranges[j].window_start;
++			unsigned int win_max = win_min +
++					       config->ranges[j].window_len - 1;
++
++			/* Allow data window inside its own virtual range */
++			if (j == i)
++				continue;
++
++			if (range_cfg->range_min <= sel_reg &&
++			    sel_reg <= range_cfg->range_max) {
++				dev_err(map->dev,
++					"Range %d: selector for %d in window\n",
++					i, j);
++				return -EINVAL;
++			}
++
++			if (!(win_max < range_cfg->range_min ||
++			      win_min > range_cfg->range_max)) {
++				dev_err(map->dev,
++					"Range %d: window for %d in window\n",
++					i, j);
++				return -EINVAL;
++			}
++		}
++
++		new = kzalloc_obj(*new);
++		if (new == NULL)
++			return -ENOMEM;
++
++		new->map = map;
++		new->name = range_cfg->name;
++		new->range_min = range_cfg->range_min;
++		new->range_max = range_cfg->range_max;
++		new->selector_reg = range_cfg->selector_reg;
++		new->selector_mask = range_cfg->selector_mask;
++		new->selector_shift = range_cfg->selector_shift;
++		new->window_start = range_cfg->window_start;
++		new->window_len = range_cfg->window_len;
++
++		if (!_regmap_range_add(map, new)) {
++			dev_err(map->dev, "Failed to add range %d\n", i);
++			kfree(new);
++			return -EINVAL;
++		}
++
++		if (map->selector_work_buf == NULL) {
++			map->selector_work_buf =
++				kzalloc(map->format.buf_size, GFP_KERNEL);
++			if (map->selector_work_buf == NULL)
++				return -ENOMEM;
++		}
 +	}
- 	case SVM_VMGEXIT_GET_APIC_IDS:
- 		sev_get_apic_ids(svm);
- 		ret = 1;
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 7aba2cceb44d..d2e397542a84 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -287,6 +287,7 @@ struct vcpu_sev_es_state {
- 	bool snp_has_guest_vmsa;
++
++	return 0;
++}
++
+ struct regmap *__regmap_init(struct device *dev,
+ 			     const struct regmap_bus *bus,
+ 			     void *bus_context,
+@@ -759,7 +857,6 @@ struct regmap *__regmap_init(struct device *dev,
+ 	bool fast_io;
+ 	int ret = -EINVAL;
+ 	enum regmap_endian reg_endian, val_endian;
+-	int i, j;
  
- 	gpa_t hvdb_gpa;
-+	u8 hvdb_ai_vector;
- };
+ 	if (!config)
+ 		goto err;
+@@ -1076,96 +1173,9 @@ struct regmap *__regmap_init(struct device *dev,
  
- struct vcpu_svm {
+ skip_format_initialization:
+ 
+-	map->range_tree = RB_ROOT;
+-	for (i = 0; i < config->num_ranges; i++) {
+-		const struct regmap_range_cfg *range_cfg = &config->ranges[i];
+-		struct regmap_range_node *new;
+-
+-		/* Sanity check */
+-		if (range_cfg->range_max < range_cfg->range_min) {
+-			dev_err(map->dev, "Invalid range %d: %u < %u\n", i,
+-				range_cfg->range_max, range_cfg->range_min);
+-			goto err_range;
+-		}
+-
+-		if (range_cfg->range_max > map->max_register) {
+-			dev_err(map->dev, "Invalid range %d: %u > %u\n", i,
+-				range_cfg->range_max, map->max_register);
+-			goto err_range;
+-		}
+-
+-		if (range_cfg->selector_reg > map->max_register) {
+-			dev_err(map->dev,
+-				"Invalid range %d: selector out of map\n", i);
+-			goto err_range;
+-		}
+-
+-		if (range_cfg->window_len == 0) {
+-			dev_err(map->dev, "Invalid range %d: window_len 0\n",
+-				i);
+-			goto err_range;
+-		}
+-
+-		/* Make sure, that this register range has no selector
+-		   or data window within its boundary */
+-		for (j = 0; j < config->num_ranges; j++) {
+-			unsigned int sel_reg = config->ranges[j].selector_reg;
+-			unsigned int win_min = config->ranges[j].window_start;
+-			unsigned int win_max = win_min +
+-					       config->ranges[j].window_len - 1;
+-
+-			/* Allow data window inside its own virtual range */
+-			if (j == i)
+-				continue;
+-
+-			if (range_cfg->range_min <= sel_reg &&
+-			    sel_reg <= range_cfg->range_max) {
+-				dev_err(map->dev,
+-					"Range %d: selector for %d in window\n",
+-					i, j);
+-				goto err_range;
+-			}
+-
+-			if (!(win_max < range_cfg->range_min ||
+-			      win_min > range_cfg->range_max)) {
+-				dev_err(map->dev,
+-					"Range %d: window for %d in window\n",
+-					i, j);
+-				goto err_range;
+-			}
+-		}
+-
+-		new = kzalloc_obj(*new);
+-		if (new == NULL) {
+-			ret = -ENOMEM;
+-			goto err_range;
+-		}
+-
+-		new->map = map;
+-		new->name = range_cfg->name;
+-		new->range_min = range_cfg->range_min;
+-		new->range_max = range_cfg->range_max;
+-		new->selector_reg = range_cfg->selector_reg;
+-		new->selector_mask = range_cfg->selector_mask;
+-		new->selector_shift = range_cfg->selector_shift;
+-		new->window_start = range_cfg->window_start;
+-		new->window_len = range_cfg->window_len;
+-
+-		if (!_regmap_range_add(map, new)) {
+-			dev_err(map->dev, "Failed to add range %d\n", i);
+-			kfree(new);
+-			goto err_range;
+-		}
+-
+-		if (map->selector_work_buf == NULL) {
+-			map->selector_work_buf =
+-				kzalloc(map->format.buf_size, GFP_KERNEL);
+-			if (map->selector_work_buf == NULL) {
+-				ret = -ENOMEM;
+-				goto err_range;
+-			}
+-		}
+-	}
++	ret = regmap_init_ranges(map, config);
++	if (ret)
++		goto err_range;
+ 
+ 	ret = regcache_init(map, config);
+ 	if (ret != 0)
+
 -- 
-2.43.0
+2.51.0
 
