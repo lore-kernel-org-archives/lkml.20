@@ -1,66 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299246;
-	b=ySrjj3Ot3pKjfzEaRcUU19AI5LrshmVThqDUGCbzxkuKVjZezshxL/oSIdm64ma+t39c
-	 ++QLaPL1UBol+p02A//orX2qLYp9wm5KhZJqKZsGTchHHkpVpMpuYlgMnCC7crpaqrKtN
-	 IULfYuSPAVndcbP9oczMdQF79aIVUSkXBt8OGU20pMFH8OrgpERkYwljmuDsBBRbDRguy
-	 WfoRwCddfCX5pZHPkh7bEZZ2zkYqtKNDSJFJvnUTI2Jt577J7crvcNXuhcV6KiPy8PfEk
-	 bUfHVufgsxHnoGi6h3cCuAtrfUbBydOm/E8XVJ1oX68DMcFsn715L7RZG16Lw1vBKbw==
+	t=1794299269;
+	b=SiUOXVVe+MGbjZJeDFZFALEkfcu8G2/HW2OK1dYqM3Sd7yt8CVp8/td0/kX4w80BYW5a
+	 pvLBP42M3FsE1zmBrl1zgthtZemEKw8W46hLGtQ2IINBxyQfCl4DMIJc+YB+n8XKuk13y
+	 8FzqFw02aPGtTOF86UNroTNDoleHsqkC+LH3xrUrrpXGanxZ3oKXgI8MGGri+TjsZXIsI
+	 1i2UIVNKhQVJPRirP42Imq3OUcSYHOX/+kRb8LHj5uqYOKmljOwqf+PSe82ieDcfIvhkF
+	 wX+IDW7uHAKFoGsncmLirVszOo0Fhk1yIdXS2sGtZQaheg7IYHpUCm/7WRMEAkESKdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299246;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=smElB+v5YZUprs+9gXaadARMhHFqAhYG7NdRwP6D9JM=;
-	b=vBOosZUtCgwvYiBCIVJh2XroOgNlABSOM36H4hPU7jXSUDW/pFCnZD9CWeOxVSLAZlS/
-	 ADtU9T4UmfX3WZdgNAIkgqOGZ5gyxkptqAUZE1Lv2FsXbiSzyCTyDRnCak15y5O8sesjA
-	 kA3XQpZ4XJTtKb42SjNlFA0dLRr3bABIplhODiMlhfcWGA1xcwxrWTHO+a+HUTR5dl5gO
-	 0OrHY/ZaXjdDbGmxBMISEvlRTydN+XHRGQoIsV/rAt3DbF+mJIaodAukdx1ck5PfN8fk8
-	 3s/ldnYvWM4FPN1WX1zyINxRuxk6GiNKjpHxi56bSUkmz0xBEf0/7+0xaUkEaRhB+RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
+	b=suAbjgtuXNS8YhtrVQ2FRQJLWJKICThgW8j4bxXB7xZMDNTi/hReDMg6IveT7C3BC9tA
+	 2fbEE8sVVw9QUDNT6ZKH629PRbZvuZl4e0sFUsitW+PDaCYqg0ydleoi8E6cDtxqwMapu
+	 zmH3esWO0z4QiDCjc/v9tecT4ttoPRS+e9+EKNgU+gcdIKxd0x1OmjP6yNO/k6B57KFAD
+	 +OC1y6f6Yacbp3EIxUb8kfYsoWHB6jBUq0cqE2L8muyGvo/ELdRkC5GNTwdF/NRY+S6gB
+	 AVsH6BN+2tH0pDJTYp04j4yHbQEFX0x6WgiI9dmsQNVEV54lkV0RJw6wiKSnA8VzuqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YZGqvnmh;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2451E606A321;
-	Tue, 10 Nov 2026 08:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2451E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtwkkRY2;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C7C60A260A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:27:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C7C60A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YZGqvnmh
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 654211516;
-	Tue, 10 Nov 2026 00:27:21 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 02C0D3F85F;
-	Tue, 10 Nov 2026 00:27:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794299244; bh=OiH4/fPjG8Ry4ZmCXdz4mAOVD/Wuev+W0DjPiniPLjQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YZGqvnmhoFCwQhy0c9nOmLxhT29f6xcSqYFGrcvUvJ+aNNy0Wc5Uapq9jKkKI2kBv
-	 Z1GAkY0rVUvArwXYlOJqYTLZIjNRqOhssYXnylCVcT+UWkeuPJxfjnhBr/ow80O8A0
-	 zY7cd96ZltCtjHRj6sxN8POR22ktrv1YfLdhvB9Y=
-Date: Tue, 10 Nov 2026 08:27:18 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-	philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 04/35] firmware: arm_scmi: Allow registration of
- unknown-size events/reports
-Message-ID: <avLVZg-jqC5jXgY2@pluto>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
- <20261109091221.2532706-5-cristian.marussi@arm.com>
- <20261109140736.00007915@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HtwkkRY2
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso4701195e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:27:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794299267; x=1794904067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
+        b=HtwkkRY2V+MO/y9G/rQZ0bDToA0n2FHZOXpaSG2p5JIUfMofrCjGSaafZNrL7Fm6CF
+         XTTcmHzdpna2PPqAWOErN0L6gAUhG+Yu1Hk41XfVRyKGE55BVflX4kw1Esq8GYeeoixE
+         lUFxY85TIRpWnNXVwzTsP8dznH4yJcDqYhhJGRWF4Ju5Kzel+goJE5z8nnJ7MVQtHIGo
+         V3Y4gF75aPCyo94XA3i92ZR/EnmpQO3B7p1WXqJSgZ3DOx34vQQ15Pe/Y2mAGhrrkUCb
+         vg050K3YyZGoDtL+3exSBXMZZAtNe+HrnRDXmB268Jcs2ktcGupbcBVDZ99h0YJpuLMQ
+         pHBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794299267; x=1794904067;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XJd1FBKDVsSxZhIE6xre9cpQW3ehpWs32eSf98wT1Go=;
+        b=TLaKNtGQ+s3/iih5+7JfmHe3L/RIDKvNZetFLxoNmPgQ2Cqcjk9/jaEw1ITopTkK8F
+         9G+gni4Bl1qmMODE7cRNx7h/5YdDpBbzExBtPrdfswZFw/0/vWCREzpgtLWNKc1cdHWm
+         pKGIyarMZbf0+q3hTEQZdLiX9sNumPlJRNlgO2PqHpGUSTLEXEb87AgRBba5mC4O5GCG
+         kQ56jTW94fKeG6OiGcLBPlh2BwCcUONuZRni6hlSIXnQmm7D8fS4CVIR270ggx8HbhiD
+         fVIghRjenQRmXt+aKcYt8XJXiuAoBJLdznpMqgK8lWKxHaEX8JE+47MUVidKT+IV+Yps
+         19Iw==
+X-Forwarded-Encrypted: i=1; AL+hErHEIniLX5b9/Dv1vuRKvG+E1SK/y9R/5Fc64YFyA67qOPFzw5Pv2GkFOHqVoH9obPm91JALH9y0p7rUZN4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99ifIpdBGmvcwN96CjOW++RaWRTwlvUUyyjjDbZZoC4xq60wyJ
+	ywG1fXSBEhmY3ftCoz7jcStJfz5FWAYIADc1VuM1locrzXIr/MgKDOxNMC/vUQ==
+X-Gm-Gg: AYBFou170K1WsDeWu9IakT5Pm+/JUFrIHFuyoNyeWflhbsqTacS3Ts3dvef8QIfpARs
+	yK65b+5N1Hlxuses6S5CVfek2EJgXjrqqv3nUA+zVKEaLJYAXFkI1dGy/JplItbJr8wFanY/zg1
+	uujvyqjlTsTVB8eSLpqlyJ8smGL6s26Zr4rHv4NN1eoILw3ShoYiU+9qYLLEPlkUUiOvzdHGIBL
+	OMjvGhJftuG5enbVxH3iKlSZxky6JsMeLE3cjvr+r9vJybPM4v+TAaiK+HFXoy+N0CdSb+9R11Q
+	dCRuM3tbRb+gWk6k1C640JOjuqqHbTZkJm6E6oxwbb2FnW3CDEt1qw+mgFht4WlQPhJqhGVX6DN
+	+d/P/td0hH4k2pdlM/rSnWakvhM+VStgkLxQfMemX0wQXbRVXtJC7QsSzMYLZeLtSKQJHNColkD
+	36SHK3tBQHwRm+NOtijJ2fqvWFwJuYCtwa9n+Mv4MDIFXB69QkSsgOALoOz9Q6l54w8lt6d2YNX
+	WKEW3nD4nGDUxxsJTRLeLx3lPNQ6mP5sEVGmJ8HMproAEaF6DkKM/Ez07rqH4yLv+u7AILr++wY
+	8M9OEHYPLlhAy0N/iBceRGfC/AQeL0egVqM5q2mZsZYRN8GuUg==
+X-Received: by 2002:a05:600c:13ca:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ba022c9d83mr18304505e9.0.1794299267228;
+        Tue, 10 Nov 2026 00:27:47 -0800 (PST)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585923bsm3885849f8f.11.2026.11.10.00.27.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 00:27:46 -0800 (PST)
+From: Itai Handler <itai.handler@gmail.com>
+To: mwalle@kernel.org,
+	pratyush@kernel.org
+Cc: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	takahiro.kuwano@infineon.com,
+	tudor.ambarus@linaro.org,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5] mtd: spi-nor: take the flash lock around spi_nor_restore()
+Date: Tue, 10 Nov 2026 10:27:07 +0200
+Message-Id: <20261110082707.556862-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261029210153.3986211-1-itai.handler@gmail.com>
+References: <20261029210153.3986211-1-itai.handler@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,76 +104,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109140736.00007915@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 02:07:36PM -0800, Jonathan Cameron wrote:
-> On Mon,  9 Nov 2026 09:11:50 +0000
-> Cristian Marussi <cristian.marussi@arm.com> wrote:
-> 
-> > Allow protocols to register events with build-time unknown sizes: such
-> > events can be declared zero-sized and let the core SCMI stack perform the
-> > needed safe-net boundary checks based on the configured transport size.
-> > 
-> > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> > ---
-> > v14 --> v15
-> >  - better commenting
-> 
-> A few bits of feedback on the comments.
-> 
-> > v12 --> v13
-> >  - improve variable naming
-> > v10 --> v11
-> >  - account for ktime_t field when checking boundary
-> > v2 --> v3
-> >  - split out of previous patch on protocol notifier
-> >  - use max() instead of max_t()
-> > ---
-> >  drivers/firmware/arm_scmi/notify.c | 28 +++++++++++++++++++++++-----
-> >  drivers/firmware/arm_scmi/notify.h |  8 ++++++--
-> >  2 files changed, 29 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/firmware/arm_scmi/notify.c b/drivers/firmware/arm_scmi/notify.c
-> > index bc046f2f83a6..a30589c9b377 100644
-> > --- a/drivers/firmware/arm_scmi/notify.c
-> > +++ b/drivers/firmware/arm_scmi/notify.c
-> > @@ -595,7 +595,16 @@ int scmi_notify(const struct scmi_handle *handle, u8 proto_id, u8 evt_id,
-> >  	if (!r_evt)
-> >  		return -EINVAL;
-> >  
-> > -	if (len > r_evt->evt->max_payld_sz) {
-> > +	/*
-> > +	 * Events with a zero max_payld_sz are sized to be of the maximum
-> > +	 * size allowed by the transport: no need to be size-checked here
-> > +	 * since the transport layer would have already dropped such
-> > +	 * over-sized messages.
-> 
-> 'such' here to me refers to the first bit. That is, those that are "
-> sized to be the maxim size allowed by the transport.
-> 
-> I'd just drop 'such' and have
-> 	 * since the transport layer would have already dropped over-sized
-> 	 * messages.
-> 
-> as that avoids this potential confusion.
-> 
-> > +	 * Note that, though, while this protects from buffer overruns, it is
-> 
-> Drop 'though'. Doesn't add anything and leads to odd flow to the sentence
-> 
-> > +	 * no more possible at this layer of the stack to detect zero-sized
-> 
-> 'not possible at this layer ..'
-> 
-> The 'no more' refers to code that isn't here if someone reads this code
-> once the patch is merged.  So if you want to refer to what changed, keep
-> it in the patch description not a comment.
-> 
+Hi Michael, Pratyush,
 
-Thanks...it seems like the more I try to write clear and meaningful
-sentences in English the more I mess up :D
+Gentle ping on this fix. It still applies cleanly on top of v7.4-rc2
+and spi-nor/next.
 
-Cristian
+Could you please take a look when you have a moment? I'm happy to
+rework it if anything needs changing.
+
+Thanks,
+Itai
