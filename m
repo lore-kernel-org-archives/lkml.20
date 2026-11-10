@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324937;
-	b=x9FR6raU6YgOCg0ceq1B3QJ/ZXtUxXI5SHTnfwHzCxyVtTgcAf+R5++GWqJOrZCBD7+o
-	 xKCIJIcca/eqA/s7Pm1+rdt/btamoyEbwh+NvOShWX2LNTtewbX7Y434xRvo/eIJZ83Kr
-	 FERx5/uYjG7MoABkFRw7tIAC8Qn6XuUOnbDPvvLt1hBVjczKvousQVEIWrZU8i1Rj8fsB
-	 crIzAtYZE8AwOTPVHqdQ53FO3dHGL+kiLE4Tb/j1ITkXj/LoxKRWcQZEMcAJ8UmkT0HBk
-	 LXwf2uYuGIaC1AWbn9acZf5fL5jtLC3Cy4Zxl0NX0vyikhmf/t3PYhk7Efk/VO2stfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324937;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794324961;
+	b=1c8vGJbghIO1Ojt8wuNlQXVtaDbwTvuQkGErLS6uNId0w32UescB+VZrLBqZkXnv+oFD
+	 Tfcu539DrFCzV1+sooU3V2/I2FigbycfphjK+guld5+Q0qRTJI4yg1glzucnyCwQRidP1
+	 M/Jtlj1Hi25buPG/zkIbKIFob2QElBQVRkM5keSog9r7zbtfM2im5V78VR/EuHRkiv32M
+	 4ehDkY+OJ2u1vf6hEWM8/cZ87i4GSIIWRXSu/6Cw4FkcdMZUpVhmX6nGiWFMJPJH4Tfx9
+	 p3w3CrK1LqhRofzY12Gnumg+Ie4egdxWID5IQpYloSBVnTqXATT2wBqeXsVzaq7MwUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324961;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
-	b=pbNSfuq9LPJ4Kc3du9TKKrUeYNow/AHpywD7JTOTDk0/g6deL0aiiajNSQsMoklAM0wP
-	 6L9AqbHbuu2m8PdkyOSs9GH7Z5153DLu1KX71mjk+OBHLpsZQDUVjCivxNsFCi6JhSJPf
-	 eyL6XtkPYSeVD7uLalwKNFeaUrvBNXaQETVE0+HOC40+Tj1CCDjvVUShW2KP3TU2KMquu
-	 KgCcNP/VwkgQI9q045xzith9oE49pjqHvcdNNbDA5lpHC0Xui6cgUJWAh6YUIm8dKrpxN
-	 G4jIvcLFuW9I7Q5hfqVP5OT8FbhjiY7f1KVbwjwbR0s+dbBUtRvbmw0Fu7/TSydnkzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=k1OKKcB1;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7/dL633gU9pIAb5KV4i72n6S4H4LKkqe3A0a8gUulTM=;
+	b=OT2R0ZGTaNb6hln8h8cb9Fq/xB+Zi2m0MPWm0k+lSB2GP6cYTTGiS6+DzsHq6d0SHU18
+	 r7Z3+YD0zjDo8+OIuxUWg16Lbho6w2ekUcOPTb5eSmU+v9AbNIxjdvIqinz5wDV7Odfsh
+	 TSj1zUm9jJ8bJtR58Xza9HNXfEk933HfOceKLKbXmhYJVMYNxxKCmVsIYk6C8VvJq2xoP
+	 CgmSlGdsamUOnmTroT95cD2DmCuYlD1AUuN32hTC32qBTlOMl5cXF7R9fVnq1yJgSvn4v
+	 RuoCBXJwepudY9HP1MOmHaHJAaBsm664GoObBCDDlBXkf4ajIdmxAWgIzKIObaiX3Ng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="C0b2/jOh";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053CD606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:35:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 053CD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5E9606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5E9606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=k1OKKcB1
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso23346445e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:35:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C0b2/jOh
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c02c106e6so2424114d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:36:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794324960; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XMeV5f9q2uU3fxkXsfzsgMbo4qaoFeBjzzedpuBydIOvtiA86tHq/cGEJ62ewn6Jop
+         jwXv1mNtRq+wZ9OUJ3RBsMthPGkVkVErPEOvtw8DNIFbgpdPGnlcLRDH0h+Aq5Aj+hz4
+         +HY+ot1r8hf0946KzhABJ99ovemZYjaHFVJpPDUsQglW1dHUADcoEfvfGBU4jITdv4u7
+         7JkCxZwVspEM1T5qC3EJYrmcEyZw3LPYtH9NXMliEJZC78dLDjYLqLh0VeMIH/K213cG
+         wt3EZp1X6GyIZpFZZPRhorgXYCgIa/AeVzb2XGhEmOyPK006yBGMVOBJJK3t/+LzybIs
+         LzmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7/dL633gU9pIAb5KV4i72n6S4H4LKkqe3A0a8gUulTM=;
+        fh=ZL4WDVKw9kIIioEXrW16akfmJ6AZhtVO8v61mXxi45U=;
+        b=QenscpAzXyJRL3ywMU4HQloJQm5xPxuJ6kQ8WNHV0xKMjhcv7Ejk4R3orAvBKp/T/h
+         NsoPM7mmijNKRHg7Ok00ELjq5tFsZWT957z3bqsVYl/9HpfEP4lHhqszjS3eO1tkakbb
+         eUS51iWndrVbA2Pn/vRUAe7peJPoR492ThcXdOMxAXfC5kMhT+Ce3xc+eQsWFDwx8op5
+         /t+c3Zy+3GUB2IauBjbqYiUEmdh9fNg5HXMQ/luVviZBE4x242DTHV0Z11N6//zTntBV
+         LWdRF4MKPNF0D/FfPZmkxeOd2NoiPFUEADJQ9kLIeCjYBdOK7ow/KY2mNdS8h1+PEQOK
+         tBRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794324935; x=1794929735; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
-        b=k1OKKcB1omChioPEqSStN/fOkM0jIssQSBRfTpn57iC5UNisJwcb6BW/0/yeCadVqX
-         7kx0r6+Z6WIcv5h+5dQZhKAMAB892XC1wyk1BxXfs/RRM8gVyXX9G9uYvnuNbks92wXR
-         AB8Gzv4gYc9Bh3T/T0oLnvsHXumw7NJ54WhYzsi0Pp/X/+3xYcM0r1JR6YAvs1uRSsqY
-         fHRaqExItI4peC7dNJGtUKvkmc/aOEwU0NTK0ToxHByCHg2K16xvjqnqq3IHw3NF6iXF
-         u3ZrEFfhK8ZxD87vLYqNnnfu08HRvPNAJKlUkBdZHGh3WLhUgQhY6L7SQ7PttuHZpXfp
-         E0PA==
+        d=gmail.com; s=20260707; t=1794324960; x=1794929760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7/dL633gU9pIAb5KV4i72n6S4H4LKkqe3A0a8gUulTM=;
+        b=C0b2/jOhHCQhLU0HPLo28wTF/A4hUUwe5nuPjm1MCJF/9+1XobGxR0NwFuUdeeA/3q
+         AUkWOxGE/VnRP9NerWiQ01W6PI/zRpJpQ/Ptrye1Oh50gvsXI0IQw24svCkOR2ftNPbD
+         F+EiYp8RbSPxuil9HrYsf3tMcPF+/MfHB0MlHSOZLioN9xBGScYmkdMqASHqjCCSd4Qx
+         YFTurw0E4L+9i4ipnT/vSxx2wcZCY6vMCr9dwehOFJyH6BjEeEG772C/VPMRja8vdOGR
+         54w1pzPAh+mCd55AvMW/u6tWIHBlovkMp9WlB67TM4TVmlP2UwqWIqkOJaQu1NJFH63M
+         T+3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794324935; x=1794929735;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
-        b=KhF2elN/YF/NNa9ovGWtcDeMgsrfQ6m/xnCWkdfrKYdID3u2qBHFOczmnAlsvqP7a8
-         X56QCxleB/nahCExd/bNDjqv2PeimkoKHuq7lbKWVcTLQBthh3jQZSf70dQyMqbsXJOK
-         4+uAOlbMCI7UBLO+6iqqhD4P62r5xcpCcIrVVCPU2u7p8RZyy8oXKjQ4S8Q4YbMrPVku
-         pvfW/zI9d/yh7gcy0IfMK32tTkYPT+zfofYZrOXgUGdgNi09zoFQqtkxQtyuByvugbOR
-         jlu9KxMxTQHpg+ibd4EXtbwuwdQIioJHi9Omq3LwIfG9jzqiq1+GiLouUbCakHvU2uxe
-         IprQ==
-X-Forwarded-Encrypted: i=1; AL+hErHuHgFWu6Bj8DXEuSYV166kp4IVIuz9sB/kn1Y2FNyaSA4sdbl3EtGqb58ySGfj0amnGLcAFpCYhzyR9po=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95p/BPt8KZw+UUVj5/V6aamZgHCcAnUhjWeApU+6a4oRNXzD1Q
-	LR2F0fXn2SjkdTBFRjog0tO+sElYZyrn532wRbzh+0zlnL8p95yP+PDWnbjh54c2NAU=
-X-Gm-Gg: AYBFou3c7Qnthsjc+q3EUjzeQhLek4XMnMFk5mjMWgUC1/4T/bBKqVnaAJAqjQzs8sx
-	RrPmtvpiUG53Y7BCAJcoN0rEIEnokCr0ajr90ekPnvkJq/MypZnABzJz7fDFkt5+0RDNiBwh6FU
-	m8TQtOCQBYcMjM83y+s+8FNRgF4xi093phg3OUBP4GYDJ8dJHTjIUt1v6Wgk1Pqw0gGGLa54UVQ
-	ZewmFmCN1XFG77AirFlA+ktpQCcUSUKJRwMvJ3sLtXLLeGe1UKid0hVo87qOWLmZKceueQ/PoUr
-	Cz/yafkSRRMx8Ui08pd129t9afrS4HRch1RtxHcXFpZpPlMHiRzUwvYoQ0azJav1zSuR5RqV0iC
-	dL3MtPrsj7PlhzXEhxoCQMpJLBkYmHoxBQMI4Pmo9P8VObG3VkHgiOtWNY700LgVUS74PioNpzo
-	BqYXq/gVJFwbP2cAp2abH2EpHGcAcX0Gnb79IEAIbWVMHRBsLjAy5gWAOaWvBii65eK4jkLzcrh
-	XcOiJJbFlEhVynipm0/sY9WoZaoMkIni0hJJyXfQMZbcrXdJm4DhmhP7wUTqz+DPVxFepzBcBgl
-	hxf/ps5+YJnvVv1IjzUaVqK9ORk/tLsmHCA=
-X-Received: by 2002:a05:600c:3544:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4ba023053d6mr59691535e9.3.1794324935300;
-        Tue, 10 Nov 2026 07:35:35 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm5521925f8f.39.2026.11.10.07.35.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 07:35:34 -0800 (PST)
-Message-ID: <85fb9774-c61e-4811-a023-b3171a289e21@linaro.org>
-Date: Tue, 10 Nov 2026 15:35:33 +0000
+        d=1e100.net; s=20260707; t=1794324960; x=1794929760;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7/dL633gU9pIAb5KV4i72n6S4H4LKkqe3A0a8gUulTM=;
+        b=M/XiGti6DEx7Y80ai/AjUoX2g8SbXKmbgh7A46C74p1oO5EjySDHhu5fOyS/RMUlxH
+         +UTX8UmNxn4yJ2f5h4J59hhHbuAMuxDIEBEM3yeZkw7xDEq0a2EwrMvFZXKJOnE2bUBQ
+         oKWAmIDVtuz6iSqF/fCRFf+Beme9ULW7wk80/q752noOU9qDWQOI4kwpdXtfmGMNKu4G
+         qo7FXtk+5VrFB9vFW9SGlZiyHrN22QBYay+qR2ZY3kIleP1hzQmQVU2FDgbrvwFp8qg4
+         yd93/RPhDrcfYDYKtVmKUMwgO9gws+WQ5fW0BCFL2ynlA/u2DHQuBnmhoEkTlWp/v0rh
+         ZsBg==
+X-Forwarded-Encrypted: i=1; AL+hErFJbg/9Ytb8RZJ6FP3t/Y09Y1d5mID3dvuHtNcDItyCnSHIe/Qrk4B69WpGaV6QpQWv84r9kRpTfHQZKrw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EE/rvmdYcrStaB2GFAH/AsSgnk+YqW6FGq1RlKUJP05RK13hS
+	q4L1tl5ZoBXfgnfbWXHZo+nWnI5exG6EfqnBZLMO1/eEkvyJEdt60p/G8OdkYq8aACjEREKjHEB
+	leUNdeY+hrdTwr8DKzf7fFdAL3obDBq8=
+X-Gm-Gg: AYBFou0uOYhLUlC6bmviCweT8Ue9T2mnDNtdrCL1hTA0k1C+EDZE66Yyen5EO0HsmQR
+	Q5xmP9drjdjB1YhXio+G4I4fkvnjdfnY3Gd9GaPUGcz6LJfLBVYZDk6Ypu0dnCc9ZWZP+SurDoE
+	qiYLvzZZdsTemDW8YxLyuUNlyDLMvBr7TCRDJEldMzgCGLXn6GuadtLixjbnngF+W9R/hlUiYjh
+	dGzEUbNH9ZfoBlwegRKe+T4K4vtIoi8QHok96mHk6X7Q4aB+FRG7kYf+jOA1GwLI75JgeSUbZ4e
+	z7ZPBLwzXLUj1yXbanrTb7JK32cGlGUW7wHeMWbldiZswfeOcAkp/aVG6xuEbOOXvqpJvuR4epk
+	Bh9orVBk/WpnRHS9FopOyrVqLRW8CyjvdIPyhu59SZ2aFUaRMuXP5TUdfcti9q9fdCJFcx9+k0W
+	WOJgRxUjsyenHVxycmlc1vXPm5ZLNC+q1aUrrFp9bC5Oa0Uz5TNVa8lMw8Vg==
+X-Received: by 2002:a05:690e:1206:b0:67c:1d44:7887 with SMTP id
+ 956f58d0204a3-67c5643601emr1815642d50.13.1794324959329; Tue, 10 Nov 2026
+ 07:35:59 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,102 +105,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 23/23] coresight: trbe: Report trace gaps with PARTIAL
- instead of COLLISION
-To: Leo Yan <leo.yan@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAAUqJDt1pXQ2KVBvMoMiDrzz8ishonqhQ0nnQLEppot4nmv9Bw@mail.gmail.com>
+ <2026101814-strut-endnote-a0b5@gregkh> <atYj06gmgCa40q6T@google.com>
+ <CAEjxPJ4zV-YE9vRJ0=DgjuQY5gjXwRa8hcd0KpgVtyK_9AM+oA@mail.gmail.com> <CAHC9VhTzV-6FbwCimrdUHuyvVhmUfzwL8PtydKx7Xq3Jkp5mmw@mail.gmail.com>
+In-Reply-To: <CAHC9VhTzV-6FbwCimrdUHuyvVhmUfzwL8PtydKx7Xq3Jkp5mmw@mail.gmail.com>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Tue, 10 Nov 2026 10:35:47 -0500
+X-Gm-Features: AclHuK-QtaUGpHT8dJnVLLwqsnwfmgjvLZ9HoyrzUVY6mTTya84Y2fYg1AAygIU
+Message-ID: <CAEjxPJ5nfVfK+Ko4fp+4k-gWkx3dO87HkXs-jnMV14Zjquds5A@mail.gmail.com>
+Subject: Re: BUG: selinux-testsuite binder tests fail with CONFIG_ANDROID_BINDER_IPC_RUST=y
+To: Paul Moore <paul@paul-moore.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	Carlos Llamas <cmllamas@google.com>, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, SElinux list <selinux@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 2, 2026 at 7:47=E2=80=AFPM Paul Moore <paul@paul-moore.com> wro=
+te:
+>
+> On Mon, Oct 19, 2026 at 2:33=E2=80=AFPM Stephen Smalley
+> <stephen.smalley.work@gmail.com> wrote:
+> > On Mon, Oct 19, 2026 at 12:58=E2=80=AFPM Alice Ryhl <aliceryhl@google.c=
+om> wrote:
+> > > On Sun, Oct 18, 2026 at 06:53:49PM +0200, Greg Kroah-Hartman wrote:
+> > > > On Sun, Oct 18, 2026 at 06:36:04PM +0200, Ondrej Mosn=C3=A1=C4=8Dek=
+ wrote:
+> > > > > Hello Android binder maintainers,
+> > > > >
+> > > > > Fedora Linux has recently enabled CONFIG_ANDROID_BINDER_IPC_RUST =
+[1],
+> > > > > which turns out to cause the binder tests of selinux-testsuite [2=
+] to
+> > > > > fail.
+> > > > >
+> > > > > Minimal reproducer (no SELinux involved):
+> > > > > # git clone https://github.com/SELinuxProject/selinux-testsuite
+> > > > > # cd selinux-testsuite/tests/binder
+> > > > > # make
+> > > > > # ./init_binder.sh
+> > > > > # setenforce 0   ### <-- may be needed if SELinux is enabled
+> > > > > # ./manager -n &
+> > > > > # sleep 1
+> > > > > # ./service_provider -n &
+> > > > > # sleep 1
+> > > > > # ./client -n -c -r 3
+> > > > > Client ioctl BINDER_WRITE_READ error: Invalid argument
+> > > > > #
+> > > > >
+> > > > > With only CONFIG_ANDROID_BINDER_IPC=3Dy the last command succeeds=
+.
+> > > > >
+> > > > > The issue reproduces even on a kernel compiled from commit
+> > > > > eafedbc7c050, so it seems to date back to the origin of the Rust
+> > > > > implementation. I'm not sure if it's a bug in the new kernel code=
+ or
+> > > > > some bug/wrong assumption in the testsuite code - can you please =
+look
+> > > > > into it?
+> > > >
+> > > > Given that the "real" binder client works, perhaps the test is wron=
+g and
+> > > > should be fixed?
+> > >
+> > > Apparently there is a divergence of behavior if the SELinux permissio=
+n
+> > > `binder { impersonate }` is granted to a process, though Android neve=
+r
+> > > uses this permission anywhere.
+> > >
+> > > Thanks for the report.
+> >
+> > I would treat Android as authoritative here and fix the
+> > selinux-testsuite to match unless you think there is an actual bug in
+> > the Rust driver.
+> > We originally implemented the binder impersonate check just to make
+> > sure no one ever impersonated a different sender without us noticing.
+>
+> Unless someone knows of any other widespread Binder users, I tend to
+> agree with Stephen that we should treat Android as the standard at the
+> present time.  I may have missed it, but has anyone posted a fix for
+> the test?  We're at -rc1 now and we really should get the test fixed
+> soon ...
 
+I have now posted a fix for the selinux-testsuite at:
+https://lore.kernel.org/selinux/20261110153110.29256-1-stephen.smalley.work=
+@gmail.com/T/#u
 
-On 16/10/2026 17:55, Leo Yan wrote:
-> When a fill-mode wrap stops TRBE, the trace source can continue running
-> until software handles the stop. Trace generated during this interval
-> may be lost.
-> 
-> The overflow path now stops and restarts the trace source around buffer
-> reprogramming. This emits ASYNC packets so the decoder can synchronize
-> with the next trace segment. Use PERF_AUX_FLAG_PARTIAL to report the
-> possible gap instead of PERF_AUX_FLAG_COLLISION.
-> 
-> Set PARTIAL in both the overflow handler and the buffer update callback.
-> This also preserves the gap indication when event shutdown handles a
-> pending wrap, even if no further trace segment follows. Limit the flag
-> to stopped buffers.
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 29 +++++++---------------------
->   1 file changed, 7 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 6bc82d5b55539795059da37039d2929b4ea504e3..29a1882b1f3c2eb7166f71eeef37badece67039c 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -285,25 +285,6 @@ static void trbe_reset_local(struct trbe_cpudata *cpudata)
->   	write_sysreg_s(0, SYS_TRBSR_EL1);
->   }
->   
-> -static void trbe_report_wrap_event(struct perf_output_handle *handle)
-> -{
-> -	/*
-> -	 * Mark the buffer to indicate that there was a WRAP event by
-> -	 * setting the COLLISION flag. This indicates to the user that
-> -	 * the TRBE trace collection was stopped without stopping the
-> -	 * ETE and thus there might be some amount of trace that was
-> -	 * lost between the time the WRAP was detected and the IRQ
-> -	 * was consumed by the CPU.
-> -	 *
-> -	 * Setting the TRUNCATED flag would move the event to STOPPED
-> -	 * state unnecessarily, even when there is space left in the
-> -	 * ring buffer. Using the COLLISION flag doesn't have this side
-> -	 * effect. We only set TRUNCATED flag when there is no space
-> -	 * left in the ring buffer.
-> -	 */
-> -	perf_aux_output_flag(handle, PERF_AUX_FLAG_COLLISION);
-> -}
-> -
->   static void trbe_truncate_event(struct perf_output_handle *handle)
->   {
->   	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
-> @@ -917,10 +898,12 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
->   		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
->   		size = 0;
->   		goto done;
-> -	} else if (act == TRBE_FAULT_ACT_WRAP) {
-> -		trbe_report_wrap_event(handle);
->   	}
->   
-> +	/* Trace may have been lost before the source was stopped. */
-> +	if (act == TRBE_FAULT_ACT_WRAP && !is_trbe_running(status))
-> +		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
-> +
->   	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
->   
->   done:
-> @@ -1246,7 +1229,9 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
->   	if (buf->snapshot)
->   		handle->head += size;
->   
-> -	trbe_report_wrap_event(handle);
-> +	if (is_buffer_stopped)
-> +		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
-> +
->   	perf_aux_output_end(handle, size);
->   	event_data = perf_aux_output_begin(handle, event);
->   	/*
-> 
-Reviewed-by: James Clark <james.clark@linaro.org>
+I didn't cc the kernel binder maintainers since it is specific to the
+selinux-testsuite but certainly if any of you see a problem, please
+let me know.
