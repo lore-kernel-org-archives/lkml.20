@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306088;
-	b=HWO9iZv5Vch4ILbQ4Ghf+GP8hXi1yNOuzt2LuUYK9xQf2L88v8ymjwMKPFChbtYLOc2i
-	 dZdagDq16kQNbDRGQ2lzn8wcOW0qcDiUOsJd9FWQz0Tdv3zmeVsa1f3j5dt+xbjOzE4n6
-	 VOO89ZITN2NLBbOB45FCPFvAfvZPJvSRmKg8N6C55lJnWyfmG6Eccw7ns4wQdmHijpgbo
-	 xGiKH/+IT9u0LenYgbJPS8ZCFw4qbTtyFtaZnuiYBMlg8KbihznBBmRiEvLKbJImDxFH7
-	 44diqLsKhEJzQCY1ZX7enIU8z2pOIjD1OXhuA1ZX80xBcb7i2RdZ4Fdv6+TJ7UFOSwA==
+	t=1794306089;
+	b=Zc9tltpbz3mKCHMTXYK69xCrMm15AuxUkQ7zGnu3vw7H4deRNnjqrz233JHymljeU5pe
+	 qwNVM0RSItqh3VVbu5qwf+qYyb+I5UXz1c1B9JWWpI11jUXTpbSZjGLAPJ8a/SXd4V6yY
+	 tj8fZ81GgLJdj3OMdUmPo3dI/dJZrekm2NopeZl2nuZzXn5OpIag3xrcKX5AR5hPRMN3V
+	 nUsMzCr/8qIdh7lw6rSa0/aQaDTPagBmTvGnlB4TvxQWmLOOy8rZ10WpFAu3+hq1sVnJt
+	 Zcf8I7PRp8axwNho8VUi4MxxDJt51ix73uDXfYU/nbkRs2f8BpZmCxjpVSfTaslfvWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306088;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=q9Ko14fZ0oB2r+3VQCFyGunfijRF7UqfgRXvYxJLn8Q=;
-	b=u5tHRBRvVPCicEii7KQJy/KJ/XV0QXqP+ubPHMxTod47C10vH6v/ogpflgxirtHFc0h7
-	 Kh0krBiS7BtQVvybDQmo/lw8mnCA6MfaJQnpu1LX0B76CjDcfrK5HbGzXP6vFCKUGvPM8
-	 hlpaK+e5/rqP9ASvKKuFfjSNBmKt7K1vkDMTPCR9OX41YOngwtHoTJAMOlhpLnrD6rMW7
-	 4QS1uBabGiJATkp95tAvTVoWMa3d+fNK/2Zjigri4beNvmo3yspg7Lky6ardc45llZ9O3
-	 mluKhWfyAo93x3sRlRQVNT6dTyiGFMkD3/7PeCUHA7JW6Ki+ZBGrjbQUBXgl7H7YBbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306089;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3EhYz0LV+XgzV+iKzAI6YUF5VDNk4UHaeAjsQNOiOZE=;
+	b=21La4xrd+kKfW4Q+LEIscgylTs61k/3fKVazyJS0hEiY0d9NBrKDuFNynZ57sP4k2+wD
+	 r3NTWLwJgMTgSQ6H1YmkOLjDGyvboY1PcpxFZTyUTdptDjuJ4lODqroEM6oTqocL/i+/4
+	 9YQxudSdIpr/JlShbr/H5o45sINitR6vCWMsbE3WuT03h8/7dlLOELwGDuIwNbsO7QgUb
+	 Z6xC2CPPvlMAQFhK5PGusVnI8ZmZgUDhBKrNawyf9XT/Q+kqlmldQphPncW6w8fCW4IhB
+	 iwGwvROsdX6Fg6hGHr6S7ggPjvPUW/Ux0JEo948y02KGEoa0hn2wz2RQg4dFkH+G6ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.net;
-	spf=pass smtp.mailfrom=gmx.net;
-	dkim=pass header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=tpzxhh+Y;
-	arc=none smtp.remote-ip=212.227.17.22
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfSQTExS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E51F606A40F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E51F606A40F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890B2606A436;
+	Tue, 10 Nov 2026 10:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=tpzxhh+Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1794306070; x=1794910870; i=wahrenst@gmx.net;
-	bh=q9Ko14fZ0oB2r+3VQCFyGunfijRF7UqfgRXvYxJLn8Q=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=tpzxhh+Yml6eUX4hqcH7aTaLAF2b2BXgkzbIEIiGrUgNVEIb7cQudkjFMtQnHNQr
-	 EyK/THzzw0i7wnmWJiJ7nC3p3xZ/LcZTSvNQ+MPELgUaMi579aS6WXPVyJhZ6L2tN
-	 Caluy0hZtvz4rxMf2DbslQcm4MTv06uKGBxhRrQ/qIf27atM7FqSAwJE8TsyGMziu
-	 KZLs5ozp349ai8DTyhWTNHTY6hHutkzyLSFtQHix29hsvYByEdz02LmMcRl8/DRkH
-	 MQWHGk3s62i6UXgPRzQiGf73UqwCu72aWES1HxtbTkLnMUeR12TeaeEwPNkYjzd2q
-	 yQaJTRnAOCnU1QcAsQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MHXFx-1xDkYB0edV-00CixX; Tue, 10
- Nov 2026 11:21:10 +0100
-Message-ID: <cb7fdfc5-1690-4d41-b599-5381727c5f11@gmx.net>
-Date: Tue, 10 Nov 2026 11:21:08 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfSQTExS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565561F008A1;
+	Tue, 10 Nov 2026 10:21:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794306089;
+	bh=3EhYz0LV+XgzV+iKzAI6YUF5VDNk4UHaeAjsQNOiOZE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WfSQTExSq8Y+L4DPs4x0KIcmf45/g8mXQgth7hFvHK9zO/r28+ogycIQvR2KqdLFn
+	 1te8S7qzO6Sx5cC7fkni3AyemNQ7ToMsfzD3yROLs+CgfBJRgBOmCn5lRw5sK0tfWm
+	 YAALXaGDA1tszJb35SUlRuYRmhV2twlZ8RYfc7A8gXauRUEhqSRjkIhAaeIsNv8mp2
+	 MKx+p6yTr1cnRs/7CexrSX+EZXljouzjDg6LguxyOA5BiAtCiQyTQGc7bpsDSVBwTP
+	 aDkqBoKGtsD//7EIhui9KXhJccbsmIYAP6CuFHqPrCC6giKvXtLv/fjlxMb8j2Pssw
+	 rLjc82cz8YI+g==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	Mina Almasry <almasrymina@google.com>
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	David Wei <dw@davidwei.uk>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stuart Clark <stuclar@meta.com>
+Subject: [PATCH net-next v1 04/11] xsk: Allocate UMEM chunks through page_pool
+Date: Tue, 10 Nov 2026 11:20:25 +0100
+Message-ID: <20261110102039.1002605-5-bjorn@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110102039.1002605-1-bjorn@kernel.org>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,174 +99,394 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] firmware: raspberrypi: Store child devices in
- struct rpi_firmware
-To: Sander Speetjens <sander.speetjens@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>,
- Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
-Cc: linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
- <20261107-fix-raspberrypi-firmware-v2-6-5bfe605a5cc5@gmail.com>
- <63ecdac3-f8b3-4d44-9b0a-37346568d326@gmx.net>
- <17b8daee-c5df-4b03-a839-38b5ef3edf3e@gmail.com>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-In-Reply-To: <17b8daee-c5df-4b03-a839-38b5ef3edf3e@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:fx+R12LIAi3FfJm32MyQo1+Z8ga8UVeSXJAHniptDk7GsFasa7g
- LhOG/vds5pU0rasZr4MDseNZulxJ+wKPUDqgHXW8iBYU4Xed2OecJUU7wQPo5VizApLnLA+
- NhSoQliWUK7UBRtmwEVbtxD7gew4msZmP8wfmGREqWh+JzbG6IrDBzabaxs0BXsb+fBr/7c
- lF3PfPv0vSlM2Wq7nZL7g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:pbsSd/YX8u8=;cx0vgWawM4I6YOMn7mbg2TQbnue
- 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
- jVsmLiMaOECxwW6Q6V3rLc=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+AF_XDP zero copy needs a second RX allocator in every driver. A
+page_pool driver can take UMEM chunks from a memory provider instead,
+and keep its refill, recycling and DMA sync code.
 
-Am 09.11.26 um 06:55 schrieb Sander Speetjens:
-> Hi Stefan,
->
-> On 11/8/26 22:06, Stefan Wahren wrote:
->> Hi Sander,
->>
->> Am 07.11.26 um 19:21 schrieb Sander Speetjens:
->>> The hwmon and clock platform devices were kept in global variables.
->>> Move them into struct rpi_firmware so each instance owns its own
->>> children and their lifetimes are correctly paired with the parent.
->>>
->>> Also check the return value of platform_device_register_data() so that
->>> an error pointer is never stored.=C2=A0 The child devices are optional=
-; do
->>> not propagate registration failures so the main firmware interface
->>> remains available.
->>>
->>> Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
->>
->> the first version of this patch contained fixes tags, but they were=20
->> dropped without mention it in the cover letter.=20
->
-> I was not 100% sure if the commit needed them. If you say that it is=20
-> needed, I will add it again.
+Each aligned chunk becomes a net_iov, whose address netmem_address()
+finds without calling the provider. Userspace may post a chunk that
+the kernel still owns, so the provider tracks the owner of each chunk
+and drops such FILL entries. Chunks that a page pool releases stay in
+the kernel for reuse. Nothing installs the provider yet.
 
-imo the problem with the commit message is that it's not clear this=20
-change is a bugfix or a improvement. Please try to focus on the why and=20
-not what is changed.
+Signed-off-by: Björn Töpel <bjorn@kernel.org>
+---
+ include/net/netmem.h |  25 ++++-
+ include/net/xdp.h    |   2 +-
+ net/xdp/Kconfig      |   1 +
+ net/xdp/Makefile     |   2 +-
+ net/xdp/xsk.h        |   6 ++
+ net/xdp/xsk_pp.c     | 246 +++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 279 insertions(+), 3 deletions(-)
+ create mode 100644 net/xdp/xsk_pp.c
 
-In case this change fixes a real bug than it needs fixes tag.
+diff --git a/include/net/netmem.h b/include/net/netmem.h
+index b986ad616334..a3b67ef32b21 100644
+--- a/include/net/netmem.h
++++ b/include/net/netmem.h
+@@ -69,6 +69,7 @@ DECLARE_STATIC_KEY_FALSE(page_pool_restricted);
+ enum net_iov_type {
+ 	NET_IOV_DMABUF,
+ 	NET_IOV_IOURING,
++	NET_IOV_XSK,
+ };
+ 
+ /* A memory descriptor representing abstract networking I/O vectors.
+@@ -107,6 +108,10 @@ struct net_iov_area {
+ 	size_t num_niovs;
+ 	/* Each net_iov covers 1 << niov_shift bytes. */
+ 	unsigned int niov_shift;
++	/* CPU address of the first net_iov, or NULL if the CPU cannot read
++	 * the area.
++	 */
++	void *vaddr;
+ };
+ 
+ static inline struct net_iov_area *net_iov_owner(const struct net_iov *niov)
+@@ -119,6 +124,18 @@ static inline unsigned int net_iov_idx(const struct net_iov *niov)
+ 	return niov - net_iov_owner(niov)->niovs;
+ }
+ 
++static inline void *net_iov_address(const struct net_iov *niov)
++{
++	const struct net_iov_area *area = net_iov_owner(niov);
++	unsigned long off;
++
++	if (!area->vaddr)
++		return NULL;
++
++	off = (unsigned long)net_iov_idx(niov) << area->niov_shift;
++	return area->vaddr + off;
++}
++
+ /* Initialize a niov: stamp the owning area, the memory provider type.
+  */
+ static inline void net_iov_init(struct net_iov *niov,
+@@ -345,10 +362,16 @@ static inline void *__netmem_address(netmem_ref netmem)
+ 	return page_address(__netmem_to_page(netmem));
+ }
+ 
++/**
++ * netmem_address - get the CPU address of the memory behind @netmem
++ * @netmem: netmem to get the address of
++ *
++ * Return: the address, or NULL if the CPU cannot read @netmem.
++ */
+ static inline void *netmem_address(netmem_ref netmem)
+ {
+ 	if (netmem_is_net_iov(netmem))
+-		return NULL;
++		return net_iov_address(netmem_to_net_iov(netmem));
+ 
+ 	return __netmem_address(netmem);
+ }
+diff --git a/include/net/xdp.h b/include/net/xdp.h
+index 1105bb9e3292..5ab7802ac4e1 100644
+--- a/include/net/xdp.h
++++ b/include/net/xdp.h
+@@ -368,7 +368,7 @@ static inline bool xdp_buff_add_frag(struct xdp_buff *xdp, netmem_ref netmem,
+ 
+ 	if (unlikely(netmem_is_pfmemalloc(netmem)))
+ 		xdp_buff_set_frag_pfmemalloc(xdp);
+-	if (unlikely(netmem_is_net_iov(netmem)))
++	if (unlikely(netmem_is_net_iov(netmem) && !netmem_address(netmem)))
+ 		xdp_buff_set_frag_unreadable(xdp);
+ 
+ 	return true;
+diff --git a/net/xdp/Kconfig b/net/xdp/Kconfig
+index 71af2febe72a..c9c68d3b3712 100644
+--- a/net/xdp/Kconfig
++++ b/net/xdp/Kconfig
+@@ -2,6 +2,7 @@
+ config XDP_SOCKETS
+ 	bool "XDP sockets"
+ 	depends on BPF_SYSCALL
++	select PAGE_POOL
+ 	default n
+ 	help
+ 	  XDP sockets allows a channel between XDP programs and
+diff --git a/net/xdp/Makefile b/net/xdp/Makefile
+index 30cdc4315f42..6e9d60f9f7f1 100644
+--- a/net/xdp/Makefile
++++ b/net/xdp/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_XDP_SOCKETS) += xsk.o xdp_umem.o xsk_queue.o xskmap.o
+-obj-$(CONFIG_XDP_SOCKETS) += xsk_buff_pool.o
++obj-$(CONFIG_XDP_SOCKETS) += xsk_buff_pool.o xsk_pp.o
+ obj-$(CONFIG_XDP_SOCKETS_DIAG) += xsk_diag.o
+diff --git a/net/xdp/xsk.h b/net/xdp/xsk.h
+index 7c811b5cce76..4dab7b9a1487 100644
+--- a/net/xdp/xsk.h
++++ b/net/xdp/xsk.h
+@@ -34,6 +34,12 @@ static inline struct xdp_sock *xdp_sk(struct sock *sk)
+ 
+ void xsk_map_try_sock_delete(struct xsk_map *map, struct xdp_sock *xs,
+ 			     struct xdp_sock __rcu **map_entry);
++struct xsk_pp;
++
++extern const struct memory_provider_ops xsk_pp_ops;
++
++struct xsk_pp *xsk_pp_create(struct xsk_buff_pool *pool);
++void xsk_pp_put(struct xsk_pp *pp);
+ void xsk_clear_pool_at_qid(struct net_device *dev, u16 queue_id);
+ int xsk_reg_pool_at_qid(struct net_device *dev, struct xsk_buff_pool *pool,
+ 			u16 queue_id);
+diff --git a/net/xdp/xsk_pp.c b/net/xdp/xsk_pp.c
+new file mode 100644
+index 000000000000..fdd55265a6cd
+--- /dev/null
++++ b/net/xdp/xsk_pp.c
+@@ -0,0 +1,246 @@
++// SPDX-License-Identifier: GPL-2.0
++/* AF_XDP UMEM as a page pool memory provider
++ *
++ * Each aligned UMEM chunk is a readable net_iov with one owner at a time:
++ *
++ *   userspace --FILL--> page pool --release--> reuse --alloc--> page pool
++ *       ^                   |
++ *       +-----RX ring-------+
++ */
++
++#include <net/page_pool/helpers.h>
++#include <net/page_pool/memory_provider.h>
++#include <net/xdp_sock_drv.h>
++
++#include "xsk.h"
++#include "xsk_queue.h"
++
++enum xsk_pp_chunk {
++	XSK_PP_USER,	/* owned by userspace */
++	XSK_PP_POOL,	/* owned by a page pool */
++	XSK_PP_REUSE,	/* on the reuse stack */
++};
++
++struct xsk_pp {
++	struct net_iov_area area;
++	struct xsk_buff_pool *pool;
++	/* Protects fq, state and reuse */
++	spinlock_t lock;
++	struct xsk_queue *fq;
++	refcount_t refs;
++	u32 nr_pools;
++	bool dma_need_sync;
++	u8 *state;
++	u32 reuse_cnt;
++	u32 reuse[];
++};
++
++static void xsk_pp_free(struct xsk_pp *pp)
++{
++	kvfree(pp->state);
++	kvfree(pp->area.niovs);
++	kvfree(pp);
++}
++
++void xsk_pp_put(struct xsk_pp *pp)
++{
++	if (refcount_dec_and_test(&pp->refs))
++		xsk_pp_free(pp);
++}
++
++/* @pool must be DMA mapped and have aligned chunks. The provider must be
++ * the only consumer of its FILL ring.
++ */
++struct xsk_pp *xsk_pp_create(struct xsk_buff_pool *pool)
++{
++	struct net_iov *niov;
++	struct xsk_pp *pp;
++	dma_addr_t dma;
++	u32 i;
++
++	pp = kvzalloc_flex(*pp, reuse, pool->heads_cnt, GFP_KERNEL_ACCOUNT);
++	if (!pp)
++		return ERR_PTR(-ENOMEM);
++
++	pp->area.niovs = kvzalloc_objs(*pp->area.niovs, pool->heads_cnt,
++				       GFP_KERNEL_ACCOUNT);
++	pp->state = kvzalloc(pool->heads_cnt, GFP_KERNEL_ACCOUNT);
++	if (!pp->area.niovs || !pp->state) {
++		xsk_pp_free(pp);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	pp->area.num_niovs = pool->heads_cnt;
++	pp->area.niov_shift = pool->chunk_shift;
++	pp->area.vaddr = pool->addrs;
++	pp->pool = pool;
++	pp->fq = pool->fq;
++	pp->dma_need_sync = dma_dev_need_sync(pool->dev);
++	spin_lock_init(&pp->lock);
++	refcount_set(&pp->refs, 1);
++
++	for (i = 0; i < pp->area.num_niovs; i++) {
++		niov = &pp->area.niovs[i];
++		dma = xp_raw_get_dma(pool, (u64)i << pool->chunk_shift);
++		net_iov_init(niov, &pp->area, NET_IOV_XSK);
++		if (net_mp_niov_set_dma_addr(niov, dma)) {
++			xsk_pp_free(pp);
++			return ERR_PTR(-ERANGE);
++		}
++	}
++
++	return pp;
++}
++
++static int xsk_pp_init(struct page_pool *pool)
++{
++	struct xsk_pp *pp = pool->mp_priv;
++
++	if (pool->p.order || pool->p.dma_dir != DMA_BIDIRECTIONAL ||
++	    pool->p.dev != pp->pool->dev)
++		return -EINVAL;
++	if (pool->p.max_len > pp->pool->chunk_size ||
++	    pool->p.offset > pp->pool->chunk_size - pool->p.max_len)
++		return -EINVAL;
++
++	refcount_inc(&pp->refs);
++	spin_lock_bh(&pp->lock);
++	pp->nr_pools++;
++	spin_unlock_bh(&pp->lock);
++	return 0;
++}
++
++static void xsk_pp_destroy(struct page_pool *pool)
++{
++	struct xsk_pp *pp = pool->mp_priv;
++
++	spin_lock_bh(&pp->lock);
++	pp->nr_pools--;
++	spin_unlock_bh(&pp->lock);
++	xsk_pp_put(pp);
++}
++
++static bool xsk_pp_claim(struct xsk_pp *pp, u32 idx, enum xsk_pp_chunk from)
++{
++	lockdep_assert_held(&pp->lock);
++
++	if (pp->state[idx] != from)
++		return false;
++
++	pp->state[idx] = XSK_PP_POOL;
++	return true;
++}
++
++static u32 xsk_pp_alloc_reuse(struct xsk_pp *pp, netmem_ref *netmems, u32 max)
++{
++	u32 idx, n = 0;
++
++	while (n < max && pp->reuse_cnt) {
++		idx = pp->reuse[--pp->reuse_cnt];
++		if (WARN_ON_ONCE(!xsk_pp_claim(pp, idx, XSK_PP_REUSE)))
++			continue;
++		netmems[n++] = net_iov_to_netmem(&pp->area.niovs[idx]);
++	}
++
++	return n;
++}
++
++static u32 xsk_pp_alloc_fill(struct xsk_pp *pp, netmem_ref *netmems, u32 max)
++{
++	struct xsk_buff_pool *pool = pp->pool;
++	struct xsk_queue *fq = pp->fq;
++	u32 i, entries, cons, idx, n = 0;
++	u64 addr;
++
++	if (!fq || !max)
++		return 0;
++
++	entries = xskq_cons_nb_entries(fq, max);
++	if (!entries) {
++		fq->queue_empty_descs++;
++		return 0;
++	}
++
++	cons = fq->cached_cons;
++	for (i = 0; i < entries; i++) {
++		__xskq_cons_read_addr_unchecked(fq, cons++, &addr);
++		addr &= pool->chunk_mask;
++		idx = addr >> pp->area.niov_shift;
++		if (unlikely(addr >= pool->addrs_cnt ||
++			     !xsk_pp_claim(pp, idx, XSK_PP_USER))) {
++			fq->invalid_descs++;
++			continue;
++		}
++		netmems[n++] = net_iov_to_netmem(&pp->area.niovs[idx]);
++	}
++
++	xskq_cons_release_n(fq, entries);
++	__xskq_cons_release(fq);
++	return n;
++}
++
++static netmem_ref xsk_pp_alloc_netmems(struct page_pool *pool, gfp_t gfp)
++{
++	netmem_ref *netmems = pool->alloc.cache;
++	struct xsk_pp *pp = pool->mp_priv;
++	struct net_iov *niov;
++	dma_addr_t dma;
++	u32 i, n;
++
++	if (WARN_ON_ONCE(pool->alloc.count))
++		return 0;
++
++	spin_lock_bh(&pp->lock);
++	n = xsk_pp_alloc_reuse(pp, netmems, PP_ALLOC_CACHE_REFILL);
++	n += xsk_pp_alloc_fill(pp, netmems + n, PP_ALLOC_CACHE_REFILL - n);
++	spin_unlock_bh(&pp->lock);
++	if (!n)
++		return 0;
++
++	for (i = 0; i < n; i++) {
++		niov = netmem_to_net_iov(netmems[i]);
++		dma = page_pool_get_dma_addr_netmem(netmems[i]);
++		if (pp->dma_need_sync)
++			dma_sync_single_range_for_device(pool->p.dev, dma,
++							 pool->p.offset,
++							 pool->p.max_len,
++							 pool->p.dma_dir);
++		net_mp_niov_set_page_pool(pool, niov);
++	}
++
++	pool->alloc.count = n - 1;
++	return netmems[n - 1];
++}
++
++static bool xsk_pp_release_netmem(struct page_pool *pool, netmem_ref netmem)
++{
++	struct net_iov *niov = netmem_to_net_iov(netmem);
++	struct xsk_pp *pp = pool->mp_priv;
++	u32 idx = net_iov_idx(niov);
++
++	spin_lock_bh(&pp->lock);
++	net_mp_niov_clear_page_pool(niov);
++	if (!WARN_ON_ONCE(pp->state[idx] != XSK_PP_POOL ||
++			  pp->reuse_cnt == pp->area.num_niovs)) {
++		pp->state[idx] = XSK_PP_REUSE;
++		pp->reuse[pp->reuse_cnt++] = idx;
++	}
++	spin_unlock_bh(&pp->lock);
++
++	return false;
++}
++
++static int xsk_pp_nl_fill(void *mp_priv, struct sk_buff *rsp,
++			  struct netdev_rx_queue *rxq)
++{
++	return 0;
++}
++
++const struct memory_provider_ops xsk_pp_ops = {
++	.init		= xsk_pp_init,
++	.destroy	= xsk_pp_destroy,
++	.alloc_netmems	= xsk_pp_alloc_netmems,
++	.release_netmem	= xsk_pp_release_netmem,
++	.nl_fill	= xsk_pp_nl_fill,
++	.caps		= MP_CAP_READABLE,
++};
+-- 
+2.56.0
 
-Best regards
-
->
-> Kind regards
-> Sander Speetjens
