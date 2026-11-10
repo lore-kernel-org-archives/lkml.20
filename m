@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318646;
-	b=Tobtz3YDzf1H9LyGim83aj1lOph+E5K+CpiKZhF0wDNYHz54CxVTyzKVjZYtwPwY7sJI
-	 wLoEDowcDYZ61SEyzPqq4+gFKrAcTnYke8lKuqniIPRx1VPzbPjgOBQqyuldkx71S9M6r
-	 jbXgR/ZkqDPfl1fffRd5gHjXNWQ+ivVmat8kgo0wlPXVnT0H7eEB8wIBWJvykKaF7kSkS
-	 arO3pMiaK5vAtJBEsdHRtqJyN/2r9Pwa3vMoGFC93e8JZc/7VIGUfSTkuQu2dEnS9ityG
-	 Z8O/sZFKo9upl/wsxNNs4Gi+u98R7J3qrSEjvVHdnKv9+cUwt31Hi7k/OQrtBay3dSw==
+	t=1794318643;
+	b=j/8/0J+odkZDU2TH35Hn7RvGrTy5To4Z3qVK2cunCM7aOUPRAzRugyAwiNvL3h71pytF
+	 yqYkjCzCkhlmPnH6QpXUGKpMJr/l58VhQmMo1a16QCF8Jo/aS9yXgUhqOqR3B81wQg01Q
+	 GS4ScmIdGoCNvrasnDkDSTp7i+D8lQoHfBHCpL6ofSOQXM2mgKHUM045p+4V7vl4wcFAv
+	 SGPgernuHrw3EJ8x/+5t7WoNDulI7lC0Z0JiUU7pOHyeWtgiP9FQ2zM1G4eEKtDsWSCD4
+	 RhjyqDl8C0G91yfc8E4Abs7q8Yb/LodunDmf7Urx00MhjSGLkOtPPYDI2LA5kIEVp1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318646;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ZW/tbBBrHjT3jjY/yjl3yYsyzG/sHFMxCNU/gt0Dxf8=;
-	b=DklBGUAM0nNxEqDcKMNUEUOg+T+o56uuABNXeTDM8OWz/uPMFuCT++SZ4NLmWV85AN+X
-	 fUHU4sCs0bk3V5m0rHrxCo8e5BCIK1uPNcMqHRnDYOUT50fVI9VyLpj/x72OjSbRcZwAh
-	 LJBbImNGVFj4alF63QQutHocHdlPeIAm4SRP82BbsoCJukIH9Pg1RASoXfg8C/yXewT8c
-	 TbM3mM7ZmnrfBiizksUEhNB4xtp1S66SEZBAuDGQAJ7TMm+zXYlm0FNeNHQQchpcE+eB9
-	 kXY+6vDHGubs2zBCUXuD1ynaF3M1hTEjJO3YU1LSmXNpkgXbCFPFMH18gslrQxcMCNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318643;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
+	b=5th1HBBC2s3/eSHcCCFP0WZ6Wi2QVMO3JfKB5jk5mMIlrK7ofZ4RFb5nv8hEL/mH2Rtg
+	 Nwrtr2YpLk9HTHhIaetVNK5x33PV48iX7py1StBfGV7JnL47xW8INsYlVLr40f0KYnxsW
+	 syv9+xZ1FvuVHKDOUrpcSYAZLOhJ7kinX8eG4SdtE3K7A9wZfTfvdIIC31r9qHDOKMKDb
+	 7uA/42i0BWmwod3agRaSwUc/byFQe0UjpMpmXH+RXpcpEYf4Yol/MT+q8ZpcIqHxvhe7F
+	 6wp/bha5Hw+yCC/VDLRwkGua0a6QRZWHNkxH0Xc+9VjXod6UYDE0xO3c4sK2YobhNYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s0PlnXsi;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77F9D606A31C;
-	Tue, 10 Nov 2026 13:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F9D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CC606A321;
+	Tue, 10 Nov 2026 13:50:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s0PlnXsi
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0D0D143D;
-	Tue, 10 Nov 2026 05:50:41 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A882D3F632;
-	Tue, 10 Nov 2026 05:50:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794318644; bh=tBiEUzB5aLlq1e4ZXvazLtSz25kqr+pXX62Tu0eMJzk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=s0PlnXsiOHCb9aaZiL6/tHBCbdMb0Ze94Eg7TFY0qGVIphCfCTZtjXkkR2dx42oI5
-	 xaamkBZCYY9pnAhblcfBlAOU8YByOLz9rS/3rL6Xogq7q1Kc44ckQW7OvzbwMdkR/G
-	 zr195AE14ij6Y+91mwY+Ug32cuAmsFRYepx5LWK8=
-Message-ID: <e65a384f-602f-4bd3-9071-5816b2bd4a50@arm.com>
-Date: Tue, 10 Nov 2026 13:50:41 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B797F1F0089F;
+	Tue, 10 Nov 2026 13:50:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794318643;
+	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ARQaY0hkEu2mlYmzoDeCsETqRL70Rruf/IlDQMb8CRngH3xEQjbeKz+rJn/0MWFwx
+	 GnFk/07ysVGmgEmqyg3PntGLWDCFLnLCxGGE38F9vwSzToqlUNaapzJfSHDW1sRn5p
+	 12NYEd7Wno45uL6UBj91BsWCKVtD/CUiuNRAj2ObH943zdagznikm/PUpTmf0KSaEe
+	 20sUGuB0L0BzmpA0KRDHyo9v1Ujg4WrPmuvcNSXzv+Oef3wgcp2PMindf9iQ9tZTKx
+	 /WkBEJev9r8B3auYA1WRvdODvWQdIr5Jz39XqTOvyRsI/IiHRBqiGOSTGlgBa2aQqk
+	 HSJK14RYiPGcw==
+Date: Tue, 10 Nov 2026 13:50:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Hyun-Uk Son <hyunuk.son@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Ki-Seok Jo <kiseok.jo@irondevice.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
+Message-ID: <40646ae6-f6be-4408-aefe-521fb0ea9bee@sirena.org.uk>
+References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
+ <20261027093232.859755-3-hyunuk.son@irondevice.com>
+ <179318672062.199157.7461931531075403104.b4-review@b4>
+ <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,109 +67,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] selftests/resctrl: Implement cl_flush() and sb()
- for aarch64
-To: Richard Cheng <icheng@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>
-Cc: tony.luck@intel.com, x86@kernel.org, shuah@kernel.org,
- fenghuay@nvidia.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
- newtonl@nvidia.com, kristinc@nvidia.com
-References: <20261012074729.40042-2-icheng@nvidia.com>
- <847af89d-7b79-44b4-8273-243dfb51ef5e@arm.com>
- <9cccea63-397c-4913-95bc-eed38f0ebd66@arm.com> <aurOz7iGKInyjddW@MWDK4CY14F>
- <b94aa5e5-a4ab-4b61-a864-d10ff1ff2b63@arm.com> <auxM9hVAgp61Qbgv@MWDK4CY14F>
- <c58c397e-26e4-4866-be80-59d9bd861654@arm.com>
- <808923a4-0a6e-4d8f-8ace-d3573aa125e8@intel.com>
- <89549a38-4764-466b-b66e-98bab801fefc@arm.com>
- <0583dad3-f761-48d5-a9a2-f2ad39567a6b@intel.com>
- <avLF-PLcSFCDow5S@MWDK4CY14F>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <avLF-PLcSFCDow5S@MWDK4CY14F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-Hi Richard,
-
-On 10/11/2026 07:33, Richard Cheng wrote:
-> On Mon, Nov 09, 2026 at 09:01:18AM +0800, Reinette Chatre wrote:
->> Hi Ben,
->>
->> On 11/13/26 7:16 PM, Ben Horgan wrote:
->>> On 07/11/2026 00:29, Reinette Chatre wrote:
->>
->> ... 
->>>>
->>>> If you do end up using a benchmark I'd suggest to make the checks as forgiving as
->>>> possible. For example, instead of checking something like "LLC occupancy needs to be
->>>> X when bitmap is Y" it should check something like "LLC occupancy when bitmap is all ones
->>>> is larger than LLC occupancy when only half of bitmap is ones".
->>>
->>> Do you think it's too strong to say that a bitmap with n + 1 bits set
->>> has higher occupancy than one with n bits set? I think it has slightly
->>> more utility in that all bits of the bitmap are plumbed down to a
->>> working control but I'm ok with a weaker check if a stronger check will
->>> just be problematic and maintenance heavy.
->>
->> My comment was motivated by the recent change I needed to make to the CAT test
->> that uses cache misses measured via perf instead of cache occupancy. Originally
->> this test incremented the bitmap with one at each cycle but incrementing it with
->> two proved to be more robust.
->>
->> What you are proposing sounds more like an enhancement to the CMT test that
->> uses cache occupancy as measurement while following the same methodology as the
->> CAT test. At the moment the CMT test just uses a single cycle of a hardcoded
->> (unless user provides something else) bitmap with five bits set. Even with this
->> I needed add enhancements to make it more robust:
->>
->>  commit ca0ea39288c9 ("selftests/resctrl: Reduce interference from L2 occupancy during cache occupancy test")
->>  commit 7a214b4ec1c9 ("selftests/resctrl: Improve accuracy of cache occupancy test")
->>
->> As one enhancement highlights the accuracy can be managed better on a system that
->> supports L2 as well as L3 allocation. Not all systems able to run such test will have such
->> capability. Also, looks like CMT does not require there to not be interference as the CAT
->> test does but with MPAM systems having each cache portion as shareable this may also be
->> a big influence on accuracy.
->>
->> I am not able to judge if a test that uses LLC occupancy and relies on single bit increments
->> will be robust across all platforms of all architectures. Even so, I do see several risks
->> for such test to be reliable while I do not see how such fine grained increment provides
->> insight into resctrl kernel subsystem health.
->>
->> Reinette
->>
->>
-> 
-> Hi Ben, Reinette,
-> 
-> I am thinking what about thinking in reserve ?
-> Maybe narrow the test to detect an ignored or overly permissive allocation
-> resctriction ?
-> 
-> Imagine a small cache mask 0x001, and check whether occupancy exceed the
-> capacity represented by that bitmap.
-> L2 effect or lack of control for L2 thus won't be an issue here.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wBWp4atyzpScsPlD"
+Content-Disposition: inline
+In-Reply-To: <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
+X-Cookie: You can't take damsel here now.
 
 
-I expect there will still be inaccuracies here. Perhaps more so in architectures other than MPAM
-where RMID and CLOSID are disjoint as then monitoring and controls rely on different identifiers in
-the system. I am happy with whatever is simple and reliable.
+--wBWp4atyzpScsPlD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
+On Tue, Nov 10, 2026 at 08:41:57AM +0000, Hyun-Uk Son wrote:
 
-Ben
+> > > +	ma5311->adc4_pga_left =3D 0x10;
+> > > +	ma5311->adc4_pga_right =3D 0x10;
 
-> 
-> Ofcourse we still need to think of how to cleanup pre-existing occupancy,
-> or a whole new workload everytime that the pattern is guaranteed to be
-> freshly new.
-> 
-> Thoughts ?
-> 
-> Best regards,
-> Richard Cheng.
->  
+> > Like I said on v1 we usually leave the device with the hardware defaults
+> > to avoid having to decide on a specific use case in the kernel -
+> > presumably the defaults in the hardware were chosen for a reason.
 
+> I added a register initialization function because the factory-default
+> register settings are not suitable for practical use.
+
+They rarely are, but they tend to be safe and what is suitable for
+practical use will vary depending on the system.  A gain that makes
+sense for a line output will be unsuitable for headphones, and vice
+versa.  There are a few things, like zero cross for example, which are
+pretty much universally sensible and we do change those but for things
+that are likely to vary with use case we just go with what's in the
+hardware since that gives us consistency without us making decisions
+that might favour some users over others.
+
+> static int ma5311_rx_tdm_slot_put(struct snd_kcontrol *kcontrol,
+> 				  struct snd_ctl_elem_value *ucontrol)
+> {
+
+=2E..
+
+> Also, this control is essential because it allows the speaker output=20
+> channels to be dynamically assigned to different playback channels=20
+> during PCM playback.=20
+
+This would be better represented with DAPM routes directing playback
+=66rom the audio interface rather than a custom control.
+
+> > > +static int ma5311_reset_control_put(struct snd_kcontrol *kcontrol,
+> > > +				    struct snd_ctl_elem_value *ucontrol) {
+> >=20
+> > > +	ret =3D ma5311_reset(component);
+
+> > This might break the machine driver if it's relying on setting the DAI =
+up
+> > during probe()...
+
+> With internal verification, I figured out that synchronizing
+> private data to reset hardware register setting is enough,
+> because The driver does not rely on probe() for any essential=20
+> configuration and dai_ops callback functions always set
+> the essential settings including PLL, TDM slot, etc..
+
+The issue is that machine drivers often only reconfigure things during
+probe() (including the generic ones) so the dai_ops might not get called
+again after a reset.
+
+> On our target platform, the required DAI settings,=20
+> including PLL and TDM slot  configuration, are reapplied=20
+> when the PCM streams are reconfigured after a reset.
+
+Sure, it'll work for some systems but not in general.
+
+> > > +	default:
+> > > +		dev_err(component->dev, "%s: unsupported PCM format: %d\n",
+> > > +			__func__, params_format(params));
+> > > +		return -EINVAL;
+> > > +	}
+
+> > Don't we need to configure anything in the hardware for clock provider
+> > mode here?
+
+> Since the frame size is already calculated in ma5311_dai_set_tdm_slot(),
+> I don't think we need to configure the clock provider mode here.
+
+You shouldn't rely on set_tdm_slot() having been called, generally
+things should work by default.  Usually the result is the equivalent of
+a set_tdm_slot() based on the hw_params channels and widths.
+
+> Lastly, do I need to address all feedback from the Sashiko bot, or are on=
+ly=20
+> the "High Priority" and "Medium Priority" comments mandatory, with the=20
+> remaining comments serving as recommendations?
+
+If it's pointing out something valid/useful then of course update for
+that but there's no requirement to update for everything.  Your other
+suggestions look OK from reviewing them here, though I might spot
+something in context - in general it's a lot easier to just send the new
+version, especially if it's just implementing the requested changes.
+
+--wBWp4atyzpScsPlD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzIS0ACgkQJNaLcl1U
+h9Da1wf/bgkQCHFqKUYSzIoHpxGeMZXf+w8h+CHd5ZTxYCvfLl9ySXYFUDHgakxz
+nI4Wn1QFxeyaj/XuNMqnnSzZxFDaFDj4mNTwvOxLf1atQecJb3mZCGPqnNoC423W
+a/uUhWOUQq2z1/5qVNLyiQQ8BvWWn00cc96zst3cTQXPeJwry2CWpq5J8OTD50KM
+OZXR6g4AAeEJTqJIp4uFBqMPLQy8p3NaeJhe3toXjyB+3cDNjVKodkwjXdK0qCN/
+u3C6p04IUf+czG2/QMoexte6gjH6qyXdyLca2W9PdaVp/XVw5i+V6KBMzJaPnuVx
+z/g8aGOV9fwTq+Q5fXGK1e5L7Fonbw==
+=q/0p
+-----END PGP SIGNATURE-----
+
+--wBWp4atyzpScsPlD--
