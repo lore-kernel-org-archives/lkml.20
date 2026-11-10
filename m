@@ -1,101 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315745;
-	b=ez/RwwHXuz1yQrcXOt+gGN+/USiZ7cwMuPXq6m4qNsJKJQ41nGPOzHaXeOA0Lp9phwJw
-	 wSKzu7TkBlA+VovivxFHFZhnN4CFfY3QhGp49ipWp4yINaB7y6ezyuQ5d3rDcECNKIwjS
-	 qE2Ho5xC/Bt8Ngv0r0IhZjhXkLR6POxRoFj4LOhob9zXiGXDN7MBtZgzhm3gGz4eDz2sG
-	 6SveN5kpq1BvvgBpGD2CBBDFsOadaaZ4IUwOEv1rkNBNHm2j1G8UPzWNWo5zv5TzpTGU3
-	 RrFoIMo/snSM+C5pDlRfEOJ8paVidlUcNaRWqvFtNNLVzvyfu4zcK+3uNkmADFhXSww==
+	t=1794315763;
+	b=Le057ZzD5+KN2dTzAycOQoG92TbGEcKS52C+bXQX/7YYybDs/dEjFFxZemi0k4k/SHvx
+	 JDuA79sEBJ2laxMYOYJdqFLVOFVk1qBCGSIY1vOG995I1euh+bkoDWpzLFr2WRXuAdJZ0
+	 9zRRlIKO3prNt/gcDyFNC1vOb1mdMzHqIbCfSdlhhH4iMC6ueMjGfNgdN7CXzkmkwQSmO
+	 HA12yLzU9ZtbDGw7FTQMlqlMC9I2Q8TeM0+fTBX2qMtSUobdSvZzcr93PSamh/RRqLg17
+	 /nloHyo66vQZRGpbcdbXZGelq31IadqAE0Pw1Ne1cuXKM880RBblQ8s2VdSSSzuoPAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315745;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
-	b=0OKtWSAOZRjpyg2WNa9g/vtOz1F37d7B4OseApfR3RRAGA46gz+rVKsvlBSB1UUA1uZr
-	 wQFNC8ne3uU3x46c55RXim6R0KhxUjgy5K2t6BjYFlenNxr/oXHBCzBTxFPvMGe1OhL0m
-	 RHwiN0E8EZUMBY/itzX2WHS57LWMoBK9eaBZ032jq1B4pWFYO8rt6/Lup3Uo6+qANcSRZ
-	 wAKyVDvl/FfTDtziVQC7qD7aOeH7IDdC26AzjT5LEo5gnGElVCZIY+QJCBBAJKgd9FDrW
-	 lDTYMyvTeNgzwHU2HElU6NeVzXN6Lh4NAM7l8glgNbrHpZLnM7ED3qpH+R/ahr6cxkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315763;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=q+tN4z7NXWlR4na9D2C+xhqXnnvW2XxnASuccDLlZx0=;
+	b=WEIJV/XtRJ36BGVFNwQGmp7AxlfXJkbAM0+EgEhM1w4QVr6dAkDjIZ2jtkJ62SNW2jLR
+	 5P6d7lKdJA/z/cga8xdlfNEIe/N6gZn+yPWiSv0pU8XsAtipfPH2dYiE1sgO5GAg3g9IU
+	 PRFH4L+ydKo7kbNThs/vVHJs6oDg6in/L/h/+i1arMToKcjfiI2pyzjpUDqPWqLcxOD1h
+	 v/54tV8cXzorYaGkFsGmsRWUwahnsm1pfuDEW7ANYxcN/E/8Sekf6uoVNQkTAria38x8G
+	 wncvBhRbvEiD8ZvIEVGU27UOUalHnHI5qzKKHcO8sGgbPX3KGrbzFpmsZ3K232rDMrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PT6uxmeV;
-	arc=none smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OZH8i92z;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF12606BFC8
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CF12606BFC8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FA1606BFDE
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20FA1606BFDE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PT6uxmeV
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5e948e56af3so738309e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794315744; x=1794920544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
-        b=PT6uxmeVeP7Y8K6sMNunJNdKlUzDMU1Gd/89tgmqn4GRh1XL+8kzfBL7Nt4EFylQtj
-         RyQIfBxTkvlYeC4gCBbbK2P9nzZMBFyAQfxn55P+NISv4fCK2kAkbDACJarOZN7Vnb+B
-         6ggs6UzceUP5tzrt/A2r/dqcj4hod44cVSa1/aVqWVumHgdSdUKDJ5iREaeQVC1EMaNW
-         fqnWZ+gnH9fwkOVZ7T6Zoe3D0ebrvGx1v/e5xwQTApSZVS5iOmlirhBqTl1bklBLzdeD
-         x99fQMIqGp931QGCAAXl0vHIXkowv50lI6obi8m1VsW/FsEuguuRoJ0JMWBAQg+kFPtn
-         knXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315744; x=1794920544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SG1KLhu9vbPJolKGXXaQV+o4pMWgdOPqb2txYeFOXq4=;
-        b=SymuAa9E+VykVOsjXnjqU8+CwjO3I0de+TOkhIRa7i76GlY+gcroqB4VR5Xmg+udPA
-         xC66yyXXMcSt6OHVk6R3QVsVWAQdm/4GbLPqtoh32Pg43OKhsU70MfE+Y79S8MQesPGI
-         co7YE7ozaEwCcCUrtmE2A9DO5NbuI7aitHNzvkw/wFwKB1z3V8yuiCnF51dKFDOqUfAc
-         xz4jzNfSpY87oDivYlajI/cjhh1YljZ7oJgoeS/dDEuucZr/BIfv4QGAQRKT/V82Y4Mg
-         BIYiW6o99jxTwHBcYmEkgFDcfR/Bjqp8FkstTwzuGzCV6jnSJqnJyotPB635vd3O14H0
-         LpFA==
-X-Forwarded-Encrypted: i=1; AL+hErHuqTmKwvmleGes1JYlyh4VMr2NxFXwmrDNY/mjveJZ0e1A6mIR3C5j/nvmLQOJmU7mKkBBLjy1xZk+/bs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+37XmaYTPaT09q3m3bq2UTB4iaQ4w7H27HsxqHJ4BjDDGUpSd8
-	xMRRtd4p3fA7dkvGtnd3HyMCu/VkSpid5bLMpjmYucocDTF9kiHjWCxE
-X-Gm-Gg: AYBFou2TeZJEgO2wKYU8NJADgewSZvYp9xkrA4I2/eT6NlPhtDWLthExdLQpMk056ub
-	yUb7EeyT4nKjcxFxdGuRFzeoIDiYLW6agiVkquNMIlwoGqHh3nQ44vxcVWQMiBrNJGPS2VaHl4x
-	uCbxRI4ki02+tB+pPP8mB9TZD3NRdxT8ukpS7wUQGSUQEFbHs1KrOB4zfxsTA199MV/IQH7WEvE
-	8e+qliMfIjPSlZa4IGwYAXXodgOLOmuudaSYlqHT0z84E8DmDNQyx2dBJ/sjQ4BOmzvIC63UEPO
-	NJ9dN752/n5WmFNjKEdiivVojIDl2ugcs7/k4m3+fft9eIJBaoMT78N1JOocw3mfLUeMedeRbWd
-	gaE/wnlD+ncLk6Y367KY1wqLdHf0D45gqqjsUbzEGNC9jMk2ImR8HWxYu6y9m08lKarBf9v0+er
-	phHMdVlbqAT+hKysVitMx1kj5RSQU9sbjLqVYor2gDHNYdT0CPlb5xYMGrTd9J85p7j5QwVMveX
-	bTeYgzIATQibNvT2Jvcs4/A5XLRoAeVPGUFstokIfv6Y+oWsriRgWWHsR0hKnGuJe9YIGrmQS+E
-	/gud0BOqfKKEViM8/oVPTgeCKMv72eQuPUBc4qZnbQ/KcUcr1ZdL/22wzazxwBFQa6NRCJzuYSv
-	dnhuY612xKN5nhI8eAkj6DolYPbidzcJeYAQ/Qo0quTohkiGeVT4yR0MwrjJ4R5Y6oEIHnwxI1i
-	A=
-X-Received: by 2002:a05:6122:1d01:b0:5ec:c3ed:7d99 with SMTP id 71dfb90a1353d-5ee0d0a5264mr742890e0c.6.1794315734491;
-        Tue, 10 Nov 2026 05:02:14 -0800 (PST)
-Received: from MaquinaLab.. (189.27.147.77.dynamic.adsl.gvt.net.br. [189.27.147.77])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5fd00esm1573509e0c.16.2026.11.10.05.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:02:12 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	linux-gpio@vger.kernel.org
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Pablo Mazzini <pmazzini@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: sunxi: a733: do not switch the mux to read IRQ lines
-Date: Tue, 10 Nov 2026 10:01:57 -0300
-Message-ID: <20261110130157.112155-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OZH8i92z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794315761;
+	bh=lsfLnnAeFFIiJN/3WLIx+aewZN2Xynq+gqwio4jBfKc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=OZH8i92z3ufcDkzTosplCkdMNnC+QCeCEK2E8+YRBIhCmlJ6mDQ8uQPi45sSieKKh
+	 PuTfJWd00xBldkkvI+AxCRFhvxT52lQE2k2OmlNd+lbr8nzO/psQp4kops4Th1khiI
+	 pP6oOlTN/3r2TcMerXASVrCDjX+4wavoedpXhbgZv6S2Nmnnrx0iGcUl+sbB6YGmih
+	 ik4J3X+zsL3wdywi0fmMnEDCf0ioaw7SUJSY4FXn3LIkHambhnYO7KjKCvi8HoucMy
+	 VyS6k0DoN5YF0KMlmVEg7khjH2RXPFvaJcemQVdDgnd2rB8JivgbZLlCW3qUX51t4w
+	 wN6idlspv3yiw==
+Received: from fedora1.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CBB5B17E031D;
+	Tue, 10 Nov 2026 14:02:40 +0100 (CET)
+Date: Tue, 10 Nov 2026 14:02:32 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Cc: aiyengar1990@gmail.com, Steven Price <steven.price@arm.com>, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ Jonas Karlman <jonas@kwiboo.se>
+Subject: Re: [PATCH] drm/panthor: Do not change the GPU clock rate while
+ suspended
+Message-ID: <20261110140232.061d6844@fedora1.home>
+In-Reply-To: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
+References: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,45 +77,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The A733 description sets irq_read_needs_mux. When a GPIO used as an
-interrupt is read, sunxi_pinctrl_gpio_get() then switches the pin to
-input and back to SUN4I_FUNC_IRQ, which is function 6. The A733
-interrupt function is 14, so after the first read the pin is left on
-function 6 and its interrupt no longer fires.
+On Tue, 10 Nov 2026 07:15:00 +0000
+Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+wrote:
 
-On my board this breaks microSD card detection: the PF6
-card-detect line is read at probe, and after that neither removal nor
-insertion of the card is noticed.
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> From the start of panthor_device_suspend() until panthor_device_resume()
+> has enabled the clocks again, the GPU clocks are off or about to be, and
+> the GPU power domain may be down. devfreq can still call ->target() in
+> that window: a write to min_freq or max_freq in sysfs, a thermal cooling
+> state change or a PM QoS request all end up in update_devfreq() whatever
+> the device state.
+> 
+> With the RK3588 GPU core clock switched to the firmware-managed
+> SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
+> a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
+> GRF, which sit in the GPU power domain, and with the domain off that
+> access ends in an asynchronous SError and a kernel panic, for example
+> after
+> 
+>   echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
+> 
+> while the GPU is runtime suspended.
+> 
+> Only apply a rate to the hardware while the device is resuming or
+> active, plus the suspend frequency that devfreq_suspend_device() applies
+> from the suspend path while the GPU is still powered. Other requests are
+> still accepted and recorded by devfreq, which applies them on resume or
+> at the next governor update.
+> 
+> The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
+> carried in Armbian's linux-rockchip pull request 380) checked the
+> runtime PM status instead. That
+> status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
+> which leaves a window where the rate can be raised again right before
+> the power domain goes down. The devfreq suspend count cannot be used
+> either: panthor's first runtime resume calls devfreq_resume_device()
+> without a matching suspend, so the count is -1 while the GPU is active
+> and 0 while it is suspended.
+> 
+> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+> Tested on an Orange Pi 5 (RK3588S) with the GPU core clock switched to
+> SCMI_CLK_GPU and a 200 MHz opp-suspend (the configuration from the RFC,
+> not yet in mainline): writing min_freq while the GPU was runtime
+> suspended no longer ends in an SError, the request takes effect at the
+> next job (1 GHz measured), max_freq likewise; 200 suspend/resume cycles
+> with short GPU jobs and a 3 minute sustained load ran without faults.
+> With the mainline device tree (CRU clock, no suspend OPP) the SError is
+> not reachable and the guard only skips rate changes while the GPU is
+> powered down.
+> 
+> This patch was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit message, and I reviewed and tested it
+> as described above.
+> ---
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 42 ++++++++++++++++++++++++++++---
+>  1 file changed, 39 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4af..cab86e9c9d46 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
+>  	pdevfreq->time_last_update = now;
+>  }
+>  
+> +/*
+> + * Whether a new rate can be applied to the hardware now.
+> + *
+> + * From the start of panthor_device_suspend() until panthor_device_resume()
+> + * has enabled the clocks again, the GPU clocks are about to be disabled
+> + * or are off, and the GPU power domain may be down. devfreq can still
+> + * call ->target() in that window: sysfs
+> + * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
+> + * up in update_devfreq() whatever the device state.
+> + *
+> + * Changing the rate then is pointless, and harmful where the core clock
+> + * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
+> + * rate with the GPU power domain off makes TF-A access the powered-down
+> + * GPU GRF, which ends in an asynchronous SError. So while the device is
+> + * suspending only the suspend frequency, applied by
+> + * devfreq_suspend_device(), reaches the hardware, and nothing does
+> + * while it is suspended. devfreq records the other requests: they are
+> + * applied on resume or at the next governor update.
+> + */
+> +static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
+> +					 unsigned long freq)
+> +{
+> +	struct devfreq *devfreq = ptdev->devfreq ? ptdev->devfreq->devfreq : NULL;
 
-The A733 data register reports the pin level while the pin is muxed
-to the interrupt function, so the switch is not needed. The A523 and
-D1 descriptions do not set this flag either. Drop it.
+I'd rather use devfreq::suspend_count to detect if the devfreq
+component is suspended, since it gives us a better granularity than
+panthor_device::pm::state.
 
-Fixes: 0535bfbfa97b ("pinctrl: sunxi: add support for the Allwinner A733")
-Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
----
-Tested on a Cubie A7Z with the pending A733 clock, PMIC and DT series
-applied: before this change PF6 read back function 6 and card removal
-and insertion were not seen; with it PF6 stays on function 14 and one
-removal/insertion cycle was detected.
+> +
+> +	switch (atomic_read(&ptdev->pm.state)) {
+> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
+> +		return false;
+> +	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
+> +		return devfreq && devfreq->suspend_freq &&
+> +		       freq == devfreq->suspend_freq;
+> +	default:
 
- drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 1 -
- 1 file changed, 1 deletion(-)
+When PANTHOR_DEVICE_PM_STATE_SUSPENDING is set, not all HW
+components have been clocked/put out of reset. It's probably okay
+for power domains, because those deps are described through device
+links, and the dependencies are resumed by PM core before the
+panthor PM hooks are called, but this is fragile, and that's another
+reason I think we shouldn't rely on panthor_device::pm::state for that,
+but on devfreq::suspend_count (or any other internal panthor_devfreq
+state that tracks the panthor_devfreq component status).
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-index ca82f08a3a65..456d9170c2a2 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-@@ -23,7 +23,6 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
- 
- static struct sunxi_pinctrl_desc a733_pinctrl_data = {
- 	.irq_banks = 10,
--	.irq_read_needs_mux = true,
- 	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
- };
- 
--- 
-2.43.0
+> +		return true;
+> +	}
+> +}
+> +
+>  static int panthor_devfreq_target(struct device *dev, unsigned long *freq,
+>  				  u32 flags)
+>  {
+> +	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	struct dev_pm_opp *opp;
+> -	int err;
+>  
+>  	opp = devfreq_recommended_opp(dev, freq, flags);
+>  	if (IS_ERR(opp))
+>  		return PTR_ERR(opp);
+>  	dev_pm_opp_put(opp);
+>  
+> -	err = dev_pm_opp_set_rate(dev, *freq);
+> +	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
+> +		return 0;
+
+If you return zero here, the new frequency is assumed to be applied,
+and it messes up with the devfreq state (::previous_freq for instance)
+that was set on devfreq_suspend_device(). If we assume that rate
+changes should be rejected while we're suspended, this should probably
+return an error.
+
+>  
+> -	return err;
+> +	return dev_pm_opp_set_rate(dev, *freq);
+
+There's another race between devfreq_suspend_device(), which will
+restore the ::resume_freq, and a concurrent devfreq_update_target() call
+that's here to set a new rate. Using devfreq::suspend_count won't help,
+because this atomic is decremented before the resume_freq is applied,
+and the devfreq lock is only taken around the devfreq_set_target() call.
+
+Honestly, it feels like we're trying to address the problem at the wrong
+level. I would expect governors to stop calling devfreq_update_target()
+between the DEVFREQ_GOV_SUSPEND and DEVFREQ_GOV_RESUME events (which
+should probably be sent before suspend_count is incremented and the
+suspend freq is applied). And I'd also expect some kind of
+locking/synchronization to prevent races between
+devfreq_update_target() and devfreq_{suspend,resume}_device().
+
+>  }
+>  
+>  static void panthor_devfreq_reset(struct panthor_devfreq *pdevfreq)
+> 
+> ---
+> base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+> change-id: 20261110-panthor-suspend-clk-11d5604fe5be
+> 
+> Best regards,
+> --  
+> Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> 
 
