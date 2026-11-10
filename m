@@ -1,90 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333208;
-	b=fcpmqX3nSSnYUGSBU4rpYBDi/qh6OJFuRlekpVB2ARXnpNu9LY0xVWqCMiM7UNE/2j7r
-	 OQGvCZAVmhSm2SLN7DUr78aYaI5/cVylRL2MHv0Nc8RUATPzmpG8HhqPwv7m/otqcuWPC
-	 D6zeqBzLZ7+jNEF/wJoju1vsLr+1bfNWtLvtBVwIz72vkBQdxImgqUGtSrkj8VX9vDa4m
-	 XJ/PFzZIlfIOLSZmqCy9ct+n7LrUgNkqsBoUm2DodtgJsLtfy8J8rX9yVTzRFdfvnWmkm
-	 sd8oTZlXzdxkbO2VR+5BwX3I+Hdin1WTB0y3P+0KZEWnRkWjKwEKduoNX7cAEHkFfkw==
+	t=1794333209;
+	b=4fYjhTaCxP6tzTdhAsRh/NYO2QQLDowWuSxJlhCxvYo3WPBvQQ/pHS7V4W5ivZBMuBBf
+	 mZbDqGJxgvWBDRcKRn6QShiWsmc9lPR13D5gduXEjhSFxZI7LZB+gxPVcQ/NTzFw6JivT
+	 IJMC1oQj10WElbUIH73bDe1nk/iiufpOsIH7BNTdaKT+q8JTZnmZgo6KGB+T/0xEGfE/i
+	 x+dDd6XR7ptp1SZBsLVppExCEUMPYCLxZFTmkIBimYT9AECDDNUI0rEVgLkiyyNd3btLK
+	 5yhqSTTa/fqt1jAS/hSZnWfyE7GylqRkmaBXAmb2J+qa2FCpLH4VqzHriDfQKvWZ0OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333208;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
-	b=ypzxs5KrzjmBdpsIhOgGrKY/lIRFk0AyDZBStWkrbZgi51EM9b7FbCmk5PFTX+7vrH6u
-	 9kQKCpzeLxJdkNWVnkqsKrwQKAMXUXanpFza8SXFjzjPUImWnU5Qwg+n6DOJ8HGOcEzTY
-	 KitWPZrLhmGsWYep9qZZO4MXPJS/SO7rtjWji0ZHWTVNSAJLIOlYqBCLgsyXFEpgUu1u0
-	 9qsDjyRSuW1RIMVSX6TakFSwlYQbQg5vfDz9sFEwcQNwUqISpK15SIzuHnj/G1gUlTYuh
-	 Xb1blFFNG/rTO4kmnePFx7Ovkg1BUbzK9eJ4DG2rxnTjPHqCuVsCgh78VWv3hdgD1KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333209;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=H4LlDob9KtsWjhJ6bgkzIx99XQ1EqBXecgkfD3zBoZ8=;
+	b=ntres9qhO3R4mvEtABXGb7tgnR6WJIYy9mpODpLIPMwG0RgKuqjg4gJfB7LNTmgeitLj
+	 5i6bAsbSRJIXaayjgosRAcGy3+5Yg3M1DoEiKBxSe+8tWczUT2YWB8d1IUw6mEpaKSk3J
+	 /VxQ+5ydrMzGgfv6/iIGHDVP4HBORRmyaJsj3gWJZyTXcpOOuPW1CoEwFmg08WZRiNeLJ
+	 OpStPsabG/Lezhjs0cCg2XnMEn7ZJkeCyQarJiPxg/SmKlW+yszUjwRlFi64pnIOz79pn
+	 jxLCbLGDAZox8KTEQTZLhrC7ZL3hh6aU3acVON4Dr+DH3GvXA4kPQioVO6uFygFCdaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=QO67sRQc;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OaXb93M2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8494A60A2627
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8494A60A2627
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D493E60A3812;
+	Tue, 10 Nov 2026 17:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=QO67sRQc
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c506094fd93so67070766b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794333205; x=1794938005; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
-        b=QO67sRQc/F9GOOubFNOTdhUY0L7rrjJn9TvOFMFau9bZ6JyLa36MvY/4WJZlPVNh8L
-         FO3lTQBbwVQsQNdcOM/ISpiSdubGSK852XTvnAaUXLT5lkBPIxkjSiXav6EpoW7oA2rv
-         pqAmumELeKgVQK0j3Vk5Y4Jz+eKPD6BxsyCmg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333205; x=1794938005;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OD5cDY/EEXuw4DM9TicOzIzvxJs10BmzW2QNwQhu1nQ=;
-        b=LV7Nhp5I5GIim+e3DgdpbZLvLcxOoJraKhQEUhmu9zr/bBjvsElADKKw69nDqvdOY8
-         8SwboCmj1HhERZ9/jMkllAUFn5vNqrFW4lyzfU6bAKnLSy3F7XcXZ5FVmWxMo+JrzMM8
-         F8MO8Ri+jT3xmotCAJjxYrpaazmHmV+Zz+1mQcibnzJDRyhoCsmEwbXPc9uyh5sFGeGD
-         AECJumdevNuicN3hUzRm42UJJuVWRhIg2590LyKfWr2im59FO5JDy3M8pi9Y4tXpOwl/
-         myQFGHUgJeZ5TO/TEH8gz4ExVywILvbwTTIiOSusHKFv2G8rX1QGIlyJOwbzKx7xycz6
-         WJAw==
-X-Forwarded-Encrypted: i=1; AL+hErH+ubKckxfiDFqxFddhlsO/xFvdooartf3CkXM8bL+mtXGqyCz2Ajw/aK/r5k7PJDPro6VxNr0tP/blaXw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FYvigA4gEYX/ajipGhgygMo8vhkpGPN07XMl1U3g71FYL9OG3
-	NlNS6u+dxVzMg0pPK4jv8QP8cREXlKu4lvS92XE9b+J1k1BnqwuBeFMqcHf7+yFP67kcuQ4UeSW
-	TOCln5OA=
-X-Gm-Gg: AYBFou0ZmDAnTyU/c0CvNop/AjV+jFgd3emiNfo8sWMHCz8A9Y2dj+GU0TZCfi+n5Ol
-	s9JKCgXt0lnE6ZAFe2fvBYQswg9JOv+abhamOFD612T5qCZEUQhLo52ztw0FGCAdkkTcClnvqU8
-	IxuggbREMCbjgioTNIUWo5k3G9wJ2OUR3+3Ht5UWaKnvMCy9OBn9hyT5LGsDxmo44cvZ7SxK8K4
-	uq0dv7PAhhZic0FzUJA9XLGBLuUfdjFXkcGYsNwNyaOAej0DRNf1M1PhXCsbm7SVoelMhXIdLLx
-	pbVPBLqNzduwX4RVKrn1EpIiBu7ASS1XxB9yNyfW9qWT3z0dLzEY+TQqU7l9PK65LRigBrr+HfK
-	yzIkcXwdyCEmI6skfwJ8YJwMoIjwkfoRlFOJrLsYHRX7g5VRLw74vyyuYzwGR1DZ4dRtr5IoS5j
-	HMzPDgswcb8HAmlHxwE1P3y6WYaUq/pdLGn8eEO8ZsK02vFMfKxKlv/rKyVcEvBobqlLb52XREN
-	oLLv3VDge26IifN2aByvdplOJ+2nayFFWJcLj/KplBQMoJGAeycOkL/058xsmyezvNZVnh1grEo
-	B4Mc5kE8mwXAL9IRdqKi/UXsPVEB15fd6BlxnQYbgi53eOzg87qCwQyQnatIy4LPau+XFLlsNTH
-	NZ00=
-X-Received: by 2002:a17:907:f448:b0:c3f:84aa:af0d with SMTP id a640c23a62f3a-c50495703femr282601166b.18.1794333204687;
-        Tue, 10 Nov 2026 09:53:24 -0800 (PST)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a64f888sm139223966b.66.2026.11.10.09.53.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 09:53:23 -0800 (PST)
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso363176366b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF3sVxcd19t074aIvsgC29mdPP+Ks/qRWXKYLA7SWJWkBYjO6JIV1N1eI7CDBjnmPpVDGdYn8JoXCbI8js=@vger.kernel.org
-X-Received: by 2002:a17:906:eec7:b0:c24:4128:c19f with SMTP id
- a640c23a62f3a-c50495452d4mr284411166b.11.1794333203501; Tue, 10 Nov 2026
- 09:53:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OaXb93M2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9CE1F008A2;
+	Tue, 10 Nov 2026 17:53:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794333208;
+	bh=H4LlDob9KtsWjhJ6bgkzIx99XQ1EqBXecgkfD3zBoZ8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OaXb93M2qPN1jKc+CLbMNVqJHa6R2KifUhQQIXEM6mdwv23em48/HN7gKtNRh+D3N
+	 1zNSYtv4VxMnxEH1uYz0N9Cp3R1oGn4E3ion1nKZbPa7b96Uhg2+67Ixja/duVb9uE
+	 ctObYjhphhiHbZlFwgK86sd1iRnp3oggu4W1JullH2zWTAt7UEmgstbldbaw1T/T9j
+	 GVsMW90tWiEptCrU900jKzOJYux3WZAmXrglRkEb7ysZhBLiJIWQNYulWEhenwi0RL
+	 8Dec667jrXNrZ1o8gWKDRio1s6qW9vdyoIcYsK68kge4V6/wJAwNIP6cwmfL0wZ21+
+	 QDAko4JCtTKtA==
+Subject: Re: [PATCH net-next 06/10] dpll: add KUnit tests for core locking
+From: netdev-bot+sashiko@kernel.org
+To: ivecera@redhat.com
+Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, min.li@microchip.com,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
+ karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ poros@redhat.com
+Date: Tue, 10 Nov 2026 17:53:26 +0000
+Message-ID: <179433320676.994134.7049432410059447687@kernel.org>
+In-Reply-To: <20261106121005.1327603-7-ivecera@redhat.com>
+References: <20261106121005.1327603-7-ivecera@redhat.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,30 +69,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104222806.1826508-1-usama.arif@linux.dev>
-In-Reply-To: <20261104222806.1826508-1-usama.arif@linux.dev>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 10 Nov 2026 09:53:07 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-X-Gm-Features: AclHuK_YBuVUu8dldYSH0xy9GHb-ZW0uFjYPGcJH1YUucefKxO_Kk8UxiibHCPE
-Message-ID: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
- without FSRM
-To: Usama Arif <usama.arif@linux.dev>
-Cc: david.laight.linux@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com, 
-	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org, 
-	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
-	kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama.arif@linux.dev> wrote:
->
-> +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
-> +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Let's not do that.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Putting magic things like RET in alternatives is just a bad bad idea.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-               Linus
+- [Medium] In drivers/dpll/dpll_core_kunit.c, some tests set a blocking
+  flag before dt_req_start() has registered dt_req_release().
+
+--
+
+dpll: add KUnit tests for core locking
+
+This adds KUnit tests for DPLL core locking. They use a mock driver with
+several domains to check domain sharing, which locks callbacks hold,
+independence and serialization of domains, atomicity of multi-attribute
+pin sets, and notification ordering. The netlink pre/post doit and set
+handlers are exported for KUnit so the tests can call them directly.
+
+> diff --git a/drivers/dpll/dpll_core_kunit.c b/drivers/dpll/dpll_core_kunit.c
+> new file mode 100644
+> index 0000000000000..a58800eda5ff5
+> --- /dev/null
+> +++ b/drivers/dpll/dpll_core_kunit.c
+> @@ -0,0 +1,1471 @@
+
+[ ... ]
+
+> +static void dt_block(struct dt_dom *dom, bool *block)
+> +{
+> +	complete(&dom->entered);
+> +	wait_event(dom->ctx->wq, !READ_ONCE(*block));
+> +}
+
+[ ... ]
+
+> +static struct dt_req *dt_req_start(struct kunit *test, int (*fn)(void *arg),
+> +				   void *arg)
+> +{
+> +	struct task_struct *task;
+> +	struct dt_req *req;
+> +
+> +	req = kunit_kzalloc(test, sizeof(*req), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, req);
+> +
+> +	req->ctx = test->priv;
+> +	req->fn = fn;
+> +	req->arg = arg;
+> +	init_completion(&req->done);
+> +
+> +	task = kthread_run(dt_req_thread, req, "dpll-test");
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, task);
+> +	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dt_req_release,
+> +							req), 0);
+> +
+> +	return req;
+> +}
+
+[ ... ]
+
+> +/* Blocks a request of @dom in a callback, which holds the domain lock */
+> +static struct dt_req *dt_block_in(struct kunit *test, struct dt_dom *dom,
+> +				  int (*fn)(void *arg), void *arg)
+> +{
+> +	struct dt_req *req;
+> +
+> +	WRITE_ONCE(dom->block, true);
+> +	req = dt_req_start(test, fn, arg);
+
+[Severity: Medium]
+Can the teardown hang here if dt_req_start() fails one of its assertions?
+
+dom->block is set before dt_req_start() registers dt_req_release(), and
+dt_req_release() is the only cleanup action that calls dt_unblock(). If
+kunit_kzalloc() or kthread_run() in dt_req_start() fails, the
+KUNIT_ASSERT_NOT_NULL() or KUNIT_ASSERT_NOT_ERR_OR_NULL() check aborts the
+test and the flag stays set.
+
+The cleanup actions that were already registered then run, for example:
+
+dt_reg_release()
+  dpll_pin_unregister()
+    down_write(&dpll_lock)
+    __dpll_pin_unregister()
+      dpll_pin_delete_ntf()
+        mutex_lock(&pin->domain->lock)
+        dpll_pin_event_send()
+          dpll_cmd_pin_get_one()
+            pin get callbacks
+              dt_pin_enter()->dt_enter()->dt_block()
+
+dt_block() then waits with:
+
+    wait_event(dom->ctx->wq, !READ_ONCE(*block));
+
+Nothing is left that can clear the flag. The KUnit cleanup thread would
+sleep uninterruptibly while holding dpll_lock for write and a domain
+mutex. Every other DPLL user in the system would then block behind it.
+
+dt_test_stuck_foreign_device() has the same problem:
+
+    WRITE_ONCE(ctx->f0.block, true);
+    blocked = dt_req_start(test, dt_device_ntf, &ctx->f0);
+
+There, dt_dev_release()->dpll_device_unregister()->dpll_device_delete_ntf()
+->dpll_device_get_one()->dt_mode_get()->dt_dev_enter() would reach
+dt_block() on f0.block.
+
+One option is to register a cleanup action that calls dt_unblock() from
+dt_init(), before any flag can be set. Another is to set the flags only
+after dt_req_release() has been registered. Would either of these work?
+
+Setting block_prio_set early looks harmless, since no teardown path calls
+prio_set.
+
+> +	KUNIT_ASSERT_TRUE(test, wait_for_completion_timeout(&dom->entered,
+> +							    DT_TIMEOUT));
+> +
+> +	return req;
+> +}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106121005.1327603-1-ivecera%40redhat.com
