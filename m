@@ -1,73 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320030;
-	b=EvwQKR85Wzw0sVwlbrBcTRj4e8zfXixSozm5aMuL2AveD8VM+k+NSMU/NUiA/MqO3r+S
-	 HT+So5v/wZ9rr6OTCECcKyHmo3fwLwhWAMy3lsQjoiOkWmTQeC1oOEQYsSHS9KPutITZG
-	 Ia9Sc3xEFQmpJgTBsnEAY9eKZi9kvfyUeXTRlp3Y91EzMBvHI3qJW+SRI5LoDqkTW2Ftb
-	 bJqjbwkecsbbBH6HTTYoj19gqr7cyu0MBmQYaJ7FMJKwn47+nSSA139hP3Fi+XiJYvIa9
-	 52QxXUtZfm+C4YhqfwcnsxwdF5brqIsoRDQ1l/P5ygDwE+5gasPcvxQJHWxTG6hKfdQ==
+	t=1794320041;
+	b=xamPkmsb34oiN0nyoN3tceR8tIx68+0W4qsvlG8VbOQGcWicRWP/jZSc2d8oFw2Uzeu4
+	 RnCbKQ5aA7jT1Fxt3tQv4yYHICAkC+rAzO1QgNFBM4HjYUrSe74OGW84/5Uoqosk6lmsx
+	 reKNwAZDNl/AnYi6jzTWGgSXqS4lxUNDs5RqR8CgbgINeDxuWqqJHuokib6BZPongQTDo
+	 WfPfTVGtL7RwJIQf9d8X3DP++BUINQBG4EvLxG+IU5YRRTgHu0sqGFGO4Ii2rTOvnJ6ob
+	 llKCUOPjtLUXxcLZgeuzNUFTQqjSSQuVX/hlVXBCOC9ptxY0zKlIPlaNaydiAJ/U3gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320030;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=SB3rUG673jXG4Vj+317Do25EeGkV2iNNqDl371D64rg=;
-	b=TggMEqeKgqPcAGCsnt8tocPIAAUAdE/jyVlx+PgdDgZvkm/BM9K4SqNM6MO8+KS9UBTT
-	 j4JFHRp394unHdAdA4YvMoWkurx3QVKtHAMnoLE8LsvanTFhdRKxxntPciSAWDl0YVjjw
-	 b3MLjNoukEbt/WAV55sOU3EzB2aQUMdv/t1+V19H6wDgjJWPJ5wHAecyBKOQd18A2jasD
-	 8u9H/9bRkJM32751x5YRj+6pDNGDrKGnA56ZYYLn5K1Fo4APWZF8g78kqZp2Gy0xQKisf
-	 y4u5NXz3zoiZlNxf3DbsW73quLYGqEmH8IXpMLV6y99ECr+61S5dMg72Wxcq6RZOSmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320041;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ivmt603po3d3E2NVVoR2W5ORstU9Dg9rTKeWn3hg5so=;
+	b=eBC+rz4ytBZNY7R6ixW2MZymLDkbxu0KEn9XxwDt64js9GNMzC7ALSW5dNjkBIh8iw4r
+	 OCkGuYlg+uB8+o0ZmSJWGi3p5jbWZglf/5VM8eukoBbJpHLvwAPOhenYGoSnxpYNKGnAu
+	 0RsX9xl5ILPT9GyqfgDnmlPQqn/ht6r5TEsuTRuBrvckUU3UFxS45+bVQenH8nAzETFRZ
+	 Uky+R8ISw4Nu8HxlY6GkgGwb32ppFDNAPit3mcfkVHrF9aNyCA4x3u2kQgbfqXRbYJgbq
+	 axA6YJwcasEuZ4CjS/PcurGi5cv1qOtvlRLE+dJw1GxhjKUqm40wGSz65COAwLwDtoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nyCTn4ml;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jir9xEzU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376D3606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE85606A337;
+	Tue, 10 Nov 2026 14:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nyCTn4ml
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FB01F008A3;
-	Tue, 10 Nov 2026 14:13:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jir9xEzU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABAB1F008A2;
+	Tue, 10 Nov 2026 14:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320029;
-	bh=SB3rUG673jXG4Vj+317Do25EeGkV2iNNqDl371D64rg=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=nyCTn4mlDw2PL51UfwmKIVIR2VFQEGi8AVTF/ook9asBzX0oaJQd1oDDAzXlLewlt
-	 1UsE1sA+senk11xfl3Hkg6gN0jVuyjmjZNAvgtG4URg9hpynND62rUGPRuKIhsi3NE
-	 BV8pKUClskR6WmFnFcsnhnNMc01Q8gOp0WGB30dbP1k+N/2eyi7cJt8ZzhtZe81S+x
-	 NKJcyw7EcObq8oOZ4LZVyeOhVHmVDvMVGvN9xXxwee+BpjKs/KnlwaP+zrgnSCyHd7
-	 QdBiSVvTkJGmWLQ6zinlbq/6yC+WL0FivwKGR7KHu1bDUwXLd1v9a1fScpypjmcOw2
-	 aP2nX/hijI8JQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 306B1198004A;
-	Tue, 10 Nov 2026 09:13:47 -0500 (EST)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 09:13:47 -0500
-X-ME-Sender: <xms:mSbzam2woU5rDYxWYavOJtFUK9VBlTwbeek47UTOTxZX5ywuzvMmAg>
-    <xme:mSbzaj7gZMWeemxYpwx2mN2DZt1vdcF12Rp37yL4Fh1xB6kAKG9J4LWJ0uuJTfciR
-    ujferwl5zVe-_zOihT_lnCyGwfcznqnfTT9cb0id6KXEXghD4I_iCDK>
-X-ME-Proxy-Cause: dmFkZTETUIPcQO+7r1jL3zHMc2zDWEsdIsz6OTVQLHFZerN0uJ3l2e5Sf+iZDRrdvNjpzm
-    I80n0eWH3kmUk8O9X0qxOLwRZhGRkBBvUNR2Pvvms3GdHNlbJJzR0vp+56Cy6ZAtxdnlTu
-    4CZsjQ+VKjrPwcNwst8DaS8TwAVaGX+GoVu6plGGvacKAn9LYAVjQSP8A9WbCvyE61u3uw
-    TqOCoZHqEFTdAfo5Cpp3yHEO51r06MmJmBXWFJz9ABWbH66CB4tG/NEmcnzCc8yyTV4+tW
-    TWQT1tSOA88ldeeV3MaOW/A51Idztc92b0ENlGZ+7zoW1mWQFQqTVs1XlmgxPiFp0i0mjQ
-    1x+yR1Jdnw2lGVIKqS83fH06rCfwFJQKq4w1rlxmzxiBEiNydusjoeTXphm84IRPo6bjDl
-    HCY8CNccOU+zx0ZBvQRqGAxC/Ycs5t3BnEDKxo4GkQf2MH6L8/4nDSYotLlthCuD5/f/7b
-    yZzG5RFEzA4fWh1oudtCiRrt3VN5dmcP3wIgK+sxj+oTkQU2Sgi7QVjVJfyjdDJFp+2uqE
-    A4hebxIpA14b/2ETciLLep+9m8M35YW+8tABaMVKhnB60nyHq7kEZQRcHZsOf3htRP4all
-    yxj1+IOvMJJnSy8lJPrxLuTRf3uOVoiLUaRd0HbD2ZNAeWihwvMr1K+enKUg
-X-ME-Proxy: <xmx:mybzaubmxWfkXpLyE0qaUx6HGiakMeDaKMTY-sly8K_vz7ICaBD1Cg>
-    <xmx:mybzai8xbH__dNGk47XBYIUPYjKlZ2-XcVEGhGPBRkICddVfd6FmRQ>
-    <xmx:mybzaoPBH9XKlsKpDmJd2ubK3hv34pKFnHjbeMrY_-IaYwg-VRgS1w>
-    <xmx:mybzanHoI3BNp4eOvH3haO1S4YJEK6Gi8GkFm7RqxFYD-d81MzIQ3w>
-    <xmx:mybzauyL5BF6Y0gWfV_nyGtImYNTxRnPcWP2yJFKktlTLn4pvhpBPKtt>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5601DF80096; Tue, 10 Nov 2026 09:13:45 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1794320041;
+	bh=Ivmt603po3d3E2NVVoR2W5ORstU9Dg9rTKeWn3hg5so=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jir9xEzUa4uLP6tZoo+roz29YPgHORGT7V/V/D0xiwZU22ph1bKqdE78bL0dNUGNn
+	 lFjpngEiey7fMGra+q9S1NVnzbVDfEa7ZX6SIR4ff+lX3FoZSGG3Puhw/Xfa6DNGRQ
+	 LotPXVBtzyYJp6lYcrWSWcqKarHVtWVzf0rqc9qS3upIUt3nohdWAqM4PwxQc1V6SM
+	 +19rn4gp0RTNUmTnPFVJwmO3t84ctQpVwvZKxojsQG2ocpZume8rk9otqAe2Ew5pgr
+	 ZWh+i2qSW2Us59HlS0PjLklxdNYwS2RSwuT7xFbetacDE/MWvsUkxPw6o3gdc9TcPd
+	 fPf9OqmV1ukyg==
+Message-ID: <0a850ec1-d45d-463e-829a-e782290ef864@kernel.org>
+Date: Tue, 10 Nov 2026 15:13:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,51 +51,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AawJh95GV0ns
-Date: Tue, 10 Nov 2026 15:13:25 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: yoxcu <mick@yoxcu.de>, "Georgi Djakov" <djakov@kernel.org>
-Cc: "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <959a716b-c055-4fb5-8b37-04bcb2c382d5@app.fastmail.com>
-In-Reply-To: <20261013202611.3070778-3-mick@yoxcu.de>
-References: <20261013202611.3070778-1-mick@yoxcu.de>
- <20261013202611.3070778-3-mick@yoxcu.de>
-Subject: Re: [PATCH RFC 2/2] interconnect: qcom: sdm845: Own the ALC BCM to drop its
- boot vote
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] mm/compaction: stop repeating failed async
+ compaction on every THP fault
+Content-Language: en-US
+To: Qiliang Yuan <qiliang.yuan@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+References: <20261102-bug-mm-thp-async-compact-defer-v2-0-b407e974db54@gmail.com>
+ <20261110135824.3264904-1-qiliang.yuan@linux.dev>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261110135824.3264904-1-qiliang.yuan@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 11/10/26 14:58, Qiliang Yuan wrote:
+> Hi Vlastimil, Johannes,
+> 
+> Could you share your view on this series when you have time?
 
-On Tue, 13 Oct 2026, at 22:26, yoxcu wrote:
-> From: Michael Auer <mick@yoxcu.de>
->
-> On the OnePlus 6 the bootloader leaves a vote on the ALC BCM
-> (rpmh_read() on the APPS DRV returns 0x2000000f). No driver owns this
-> BCM, so the vote is never removed and the SoC never reaches AOSS sleep
-> or CX collapse (qcom_stats aosd and cxsd stay at 0).
->
-> Add a node without consumers for the ALC BCM on mem_noc. The provider
-> then owns the BCM and drops the vote at sync_state.
->
-> With this change ALC reads 0 after boot and suspend reaches CX
-> collapse. The average current in an idle push standby test (Wi-Fi on)
-> was 35.6 mA, against 43.7 mA with the ALC vote kept in the sleep set.
->
-> Assisted-by: LLM
-> Signed-off-by: Michael Auer <mick@yoxcu.de>
-> ---
->  drivers/interconnect/qcom/sdm845.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
+The series was nacked twice by senior maintainers. Due to dealing with
+urgent issues [1] we might perhaps find time later to see if it reports a
+real issue, and in that case fix it ourselves. We have currently no time to
+help those who need AI assistance to contribute instead of having own knowledge.
 
-Tested-by: Ard Biesheuvel <ardb@kernel.org> # Lenovo C630 Yoga
+[1]
+https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
 
-With this change (and a few others), my Yoga now suspends properly,
-to the point where it shows the pulsating LED in the power button.
-Battery seems much happier too.
+> One known issue in v2: the cc->mode != MIGRATE_ASYNC check added to
+> 2/2 blocks clearing stale skip hints once sync compaction is fully
+> deferred, so local THP may not recover after the pins are released.
+> I'd drop it in v3, but won't send one before hearing from you.
+> 
+> Thanks,
+> Qiliang
+
