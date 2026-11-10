@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323930;
-	b=Av7U0HEeMwVjPqGSfLppHXuhcFPCbgovrorrID05NS7sW6DlAtooyZ5NEB5L10cZlkg4
-	 gBaeV6CDaUbsvigyBZoSl9Cr/M9S6UyLUwKPTdeVhbOAuW0zONtouqEfSKb2UBMk3pjsy
-	 P3N4e6cqRk1geqfsKsMuezGAIK/U1BD/8bxSp+JFcDvRianDzlQ7TWgJlJ4xj3TCCAxtY
-	 OQrxwwG4YTVmeANDzH5WuqCB6wavvn8c1ZYSCPZEx9Hx3UdmyqGDJZ+SO+z2K5ig07Jfl
-	 v2wrjRVO7BvdjElZ0tQatwBdlSBRnIUieuvESLNrDGZpOVN9TvfpUNJWuV+E0V95wBw==
+	t=1794323934;
+	b=AjOccgTQj3Pe7O5jnw2zEz/hxLtPOuKtNTRXWU1/1uKIJQOQOLmsRGPLM58a8Equ8G1x
+	 6gB2dG2MYPVOo7U4sgqeBo2IsuV9Zf0DhI2lQk2/F6YtRRd+TlM6Ya+aqd7tHa+fHgUEw
+	 +QN6CU+RpLOIlOJSkx5ibo52hcKXByRdmcHWL/ZgLIW+lVqy1TmPgxfJXfD9P8eGtCBOG
+	 cssj6dgOLmLRaEHpbQyZV0oJ1jd8qr5FwRwVqO7cOT71mpsYi7Jgr6jdmYs1WY5BKj7/s
+	 Bact6ku/dYO6VUyJysNl3cdLHeYdRjCabtM3A+/CJKWLDUkO5jd8Oq24xalO+ecDZWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323930;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UtTsEOehZWzXX9jHg3ZJ2Q/XwMZXfo3Zzj8SutS32y4=;
-	b=ejYOftg6unUq1MNzRbnXcFNTFJwi7OZjPAq2rjur0Kj4xfe6KHCp6UHUWfCGhYPb9Mpv
-	 MUqcUVEdl/BvwrwOdlZnBsrjfL5bX7qlEH2uxOKRQyhXH6cuARNsFR1TmZbGeL5A5Lwdk
-	 6N6F7jaZm45aMAuLSz5qHZ8VUzZpif9pZY1J5lImw+rB0qo1qEqx4aokDUpwTVtnemw0M
-	 TF5cawX3Suy7pK1MfdwmGRmscsetnuinxKtY+ECRjatZ87Lm56P0fIyGTCLI8FowCFWoB
-	 Hw+ueu5oiwTRtaykpARyhxKetGlbpT/r7y7wZbi7kTkukEk/pws+xoM7q42e5YZyp+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
+	b=ZOI0p4JikDy7jU3XOW8pavKqhaDfpdX7+bLCGQAhf438GgcjEJxLOU5/rddY+by+AlpM
+	 jDLFNZd3GnBt5f2a91ZQLxnMUANev8e0MMV3XcGzMjm0ZD2xVi8pfk+oup018N/w/GSm0
+	 fZHzB2a6PhfA26OSk7x25YQ5hMhc64Bm+bKMzewQvNd2AUEqv4ozhrusLeB4hRQhd9jEu
+	 /szDpBWQMm+MqMF7K77mvlGyJmHRuNu967vdmgoc6gHSqlPNqNxNiRGEIRfgiTbo2S9qT
+	 e3pL9HxJzpPo3xEXH2J/nZ3HCT5/WqEd5BZVguj16HBnmpQ5teZzwgQMmwWf+2bE7Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I5D87ncb;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=HnKStyw5;
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A0F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A0F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED4F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED4F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I5D87ncb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794323929; x=1825859929;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=958ihYDe0QInunnhc/WOUh9gbKt7TWUipRjV+q/UDBA=;
-  b=I5D87ncbG9qwYF+9deKBi5TJo5Vmb8LOMxMzyJN8Sq1aaJOcGR/jrd7O
-   MeOaElzJCa1Ide/r/2O/YKealthwB6rQ1F2KBUUCCL/dv39JnScMVwPDR
-   6su3pYq+E126mCVGVyB2gZBFCgBu45Fy8QcS4v+PW3UX/V61fab9urLYz
-   gITFpggt536t7CF2sPPEHSslZutVvkC42/XbprEa5lMemya6nQ2dZcwZq
-   YdZjsUpGOBrjFK5BKdtkUamWs6AZKjlFiWiAidMcuI6TVTgTi5BPLSix9
-   OE034BQtV+Sigr6CsHJwmdudprmw5TXziSEhYFVTSR0ZzMu1sIjyHMq1p
-   Q==;
-X-CSE-ConnectionGUID: yFLZBh28QamGiTCVkAYlIw==
-X-CSE-MsgGUID: pepyCDMBQmqwdGYSTYEOqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3072847"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3072847"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 07:18:49 -0800
-X-CSE-ConnectionGUID: ke1MEca3S8aRbPeLaCw6qg==
-X-CSE-MsgGUID: 3u6jBIDZR0Gqirq+GmJLBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8177852"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa002.jf.intel.com with ESMTP; 10 Nov 2026 07:18:47 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id BD41E99; Tue, 10 Nov 2026 16:18:45 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: linux-kernel@vger.kernel.org
-Cc: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] pstore: Use match_string() helper to simplify the code
-Date: Tue, 10 Nov 2026 16:18:44 +0100
-Message-ID: <20261110151844.661926-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=HnKStyw5
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f22a8515eso173341085a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:18:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794323933; x=1794928733; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
+        b=HnKStyw5EJ2eGCPo7Z0CrYa9Ndf916KmXsE2Nca0VPt7vNluUfo07bahaJiiw7pSRM
+         lO4kD7KLyBgHyc9n5Zg2C3E06RwlBcSrCNN1t3nuyMTzid9DWL29d1XqN8vXj6lxkOTI
+         RJZEtUUbL/aE2R7IuQi8EAMN9OTluDBKAtYAEdSyO8R0BSzdqE5QlBTtR7LHPHjKJowC
+         ymo/0hmJbJg+RHZl9FeLHUxzWPgK5c8zsOmDmhpi6KlOlsrP/NbVNO2qFjtYD9Cx/S2H
+         mCLUeNDPL3lX0pDm54Jh6npc8WF46JpBRwwMJsTVCvaAMhHQlJM59Iym5mRuOn9aI4DC
+         vYnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323933; x=1794928733;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
+        b=EAslZraAkX5Kb/Oq+hGR9ZdsyxvBMb8+a0JbaHHEC+JgCf7EkByB6lcw1Pr7xFwBy/
+         x3YiPLkLIN2YLbWJ2rocrHmfaR5u3S881v6iB8cANMN0x1AQO84Ytp3fksYtt0DZsyZC
+         P4kb/Y9NMkB6kd4EN+VexWIMUEI6JGaD9fmjC1FZrVYPgWcQZPh5410/sfRHzF/bSMZD
+         SfYvsffwMGTZ1TSILeRzmJcWzbLI093zPO4y2jjeCSEDBDFCdyeu7zJw0V7RjXouu3ne
+         Otgs7d316BBQdLKc9qgun5oUCeDYDIP6PUHmF68cswZmWFyRVNRFll4dVL507xAPTRqN
+         b8DQ==
+X-Forwarded-Encrypted: i=1; AL+hErHilSEevG8FBljHTAqjHFD6YFFYFibgypCFNIUsofxEK6llAbY4Z9INJSVMqMDX/PGhT262bRUJN9A8p1A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81FLYtyEcPEOlrwYluop7LYZkxHKC1L6egzvXsx5L+Ve62ilw8
+	ZYVniUZVDjjDqR1bakV/saQbGd5nc4R5kybffE6guLs2QKG645s02gFO77vmES92tyM=
+X-Gm-Gg: AYBFou0nBSbR5nm8VksNcOO+Srploh64ySz+CWaCcuxliBTC7M51tTHxP4kAtxBPQsG
+	4tVgWM4SsEpZQ2ud+1JyJ5CxwyxU31RNIApBiZyotRWEMoU32yvFhvn3oB3vE0OkQtOfT8Zbjw9
+	1xn4w0CQtmqQEydagwu1RotcqqQGeIXLrZXNuTBjG/aoMwSwVk0QeL43FlfbP6BLL5McR+Cbzra
+	eci8EQVf6VCc5cW0/o/eXqqdiQpGleX1JZ50j6MvxVYxoHMbL3heFuGE00lbrKdBi+7vzYJpZEm
+	eboysbfm+ukVkIHxGMGc3KU9+Xv/o9oBWhMAwJ8EQldo+a1it7I/O7UKWm/g2yIs9oaPZHueANt
+	Rx6KseDEOT8S+qToxsBi/WKWhu9p4YaPiYmfu0P8+Rjba746V5pO8CZFuoB1NrqIpv75TYqnhEI
+	3V04qUSsz9LBsFaF5RZXVAko9qmY7T47cH6EZEUAOznU2E7iDpR/NnJbF5amHsEB4ZOQL0/5zqO
+	nn1A/rNgp4qeJw+YmzmhTdQZy8GxYdRtpCjWGBudA4YtiUqfXyE912klySMMkFZvnCCzqlqrpmy
+	dfLhOx6K3Oy00hOvXXE2UYP84lUcKG9m1Co+U0ggYO+Ms+xUfs3ZoZ88MYPHgIFLNt3+duZpUad
+	1kqu0oPsV55s=
+X-Received: by 2002:a05:620a:461f:b0:946:6:1298 with SMTP id af79cd13be357-9479f323170mr465893185a.52.1794323932611;
+        Tue, 10 Nov 2026 07:18:52 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04f89c1sm22998676d6.23.2026.11.10.07.18.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 07:18:50 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xQncX-000000063UD-2Q7t;
+	Tue, 10 Nov 2026 11:18:49 -0400
+Date: Tue, 10 Nov 2026 11:18:49 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: xuheng@cs.columbia.edu, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Invalidate a new level-1 stream table
+ descriptor
+Message-ID: <20261110151849.GZ663069@ziepe.ca>
+References: <20261109-smmu-l1std-cfgi-v1-1-65e5203a6516@cs.columbia.edu>
+ <avMxDbv6JE0dg93E@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,45 +106,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avMxDbv6JE0dg93E@google.com>
 
-match_string() returns the array index of a matching string.
-Use it instead of the open-coded implementation.
+On Tue, Nov 10, 2026 at 02:58:21PM +0000, Mostafa Saleh wrote:
+> On Mon, Nov 09, 2026 at 09:36:54PM +0000, Xuheng Li via B4 Relay wrote:
+> > From: Xuheng Li <xuheng@cs.columbia.edu>
+> > 
+> > arm_smmu_init_l2_strtab() allocates a level-2 stream table when the first
+> > master in its range is added, and makes the level-1 descriptor valid. It
+> > issues no invalidation, and the attach that follows sends only the leaf
+> > form of CMD_CFGI_STE.
+> > 
+> > IHI 0070 5.1.1 requires the non-leaf form of CMD_CFGI_STE when an L1STD
+> > changes, including when an inactive descriptor with Span == 0 becomes
+> > active. An SMMU that cached the inactive descriptor can keep terminating
+> > the master's transactions as if its StreamID were invalid.
+> > 
+> 
+> Looking at the spec it says:
+> 	An STE or L1STD that is successfully fetched might be cached by the
+> 	SMMU in any state, therefore any modification, commissioning or
+> 	decommissioning of an STE must be followed by a CMD_CFGI_STE command.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- fs/pstore/platform.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+I think the patch is pointing at this:
 
-diff --git a/fs/pstore/platform.c b/fs/pstore/platform.c
-index 1ad6e40f4952..4c0943a8e15e 100644
---- a/fs/pstore/platform.c
-+++ b/fs/pstore/platform.c
-@@ -17,9 +17,9 @@
- #include <linux/mm.h>
- #include <linux/module.h>
- #include <linux/pstore.h>
--#include <linux/string.h>
- #include <linux/timer.h>
- #include <linux/slab.h>
-+#include <linux/string_helpers.h>
- #include <linux/uaccess.h>
- #include <linux/jiffies.h>
- #include <linux/vmalloc.h>
-@@ -130,10 +130,9 @@ enum pstore_type_id pstore_name_to_type(const char *name)
- {
- 	int i;
- 
--	for (i = 0; i < PSTORE_TYPE_MAX; i++) {
--		if (!strcmp(pstore_type_names[i], name))
--			return i;
--	}
-+	i = match_string(pstore_type_names, PSTORE_TYPE_MAX, name);
-+	if (i >= 0);
-+		return i;
- 
- 	return PSTORE_TYPE_MAX;
- }
--- 
-2.50.1
+* Changing an inactive L1STD with Span == 0 to a non-zero active Span
+  (introducing a new section of level-2 Stream table) requires an
+  invalidation of the L1STD only. As no STEs were reachable for
+  StreamIDs within the span, none require invalidation.
 
+Which is really explicit what to do..
+
+> Which checks out. However, I am curious why this was not seen for
+> over 10 years with the current behaviour as I doubt any existing
+> implementation will do negative caching. Is that something that was
+> observed or found by inspection?
+
+Honestly I don't think there is much value in negatively caching table
+structure. Negatively caching the resulting leaf is good enough.
+
+> > @@ -2053,6 +2054,14 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
+> >  				   ARRAY_SIZE((*l2table)->stes));
+> >  	arm_smmu_write_strtab_l1_desc(&cfg->l2.l1tab[arm_smmu_strtab_l1_idx(sid)],
+> >  				      l2ptr_dma);
+> > +
+> > +	/*
+> > +	 * The SMMU may have cached the old, invalid L1 descriptor. Making it
+> > +	 * valid needs the non-leaf form of CMD_CFGI_STE (IHI 0070 5.1.1).
+> > +	 */
+
+All the versions are 0070, you should specify rev H.a if citing the spec
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+Jason
