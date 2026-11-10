@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299599;
-	b=IEr1t2UREjbDvHvNcra5HpnUvCknWPJybIsQO88+cnJO0WI4Umj1CJvRt7Ex+Y/M8RzA
-	 yfcIjXTswM97kDtQH778OxjE5VNkCp9DUuj8GfRKWnzk4jUNt3bRV0WSamcOC3zUz77TM
-	 1N6gOjN5X/fH3ytty6WyG/ibdc/F6MIVomnOMnsj/03RBVcQQPbikBKJsNaOk1ZtLJJwI
-	 JCtgpQcKD+akDXEftNGd4XZzUJcVsIm0Elub8MokOnn8OEi0ucbK6YiY3MNQTbJXskwHs
-	 CEVr/vDv7TU6RZM9qTCOf+Kh2cwcrbm2gI5YpnTjAzUmkbAbqOp/WufqTg+EVSDHlfw==
+	t=1794299670;
+	b=qfjLz72zhxbQ95rxMBkOViFQZypexw0whlYhWEJF7TQx2Xm5ws4J6lW7SdQ0uJEpA/xI
+	 JykVcHTJ+HSTHuTcT4hRdARZ417bfg30fyYA9UqzZ5Qq2dH+NoymYkli+ZM9eeSTnsJH5
+	 UmCI3a8ENr1wF7Zvp/Juxi3mJs8e6MKJChcuoA41+R5+d+LQiKXSzFuimPtuRfYElqT2O
+	 Htk1luFfweMO2aBpcuzBGV71tRH9K8Q/c3zLk2YDSVOAajo/jZDWKsttr95Woa6KkpWLz
+	 wi82s8fojVZOFJOqyFDap88e0BPFXJgq1C/PNZ1EYEwJiPMIwcYvMKpoxJWh2/UrT7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299599;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fw48QepAlyOvOOnt0H+YCFQ/jHXjozqXvldF7aHuCJU=;
-	b=eiy3oFM1+cJG/QIekt9ZMw/Dh0FJOW7huLoOv4BQeSTMMB1B8KC/rs1lN+hb+v68XWVm
-	 8iZk/JONh5dFeq82EpBvnmQSCkknHV8N0uMYZw89HJ9U0DAXqZcBOXUnIhq14WOLvdM9z
-	 DwY5HCDSZgo0YIqbNJIq+IXKnL/a1Asye6G6Lhe06Ts2665UhKqWgrXv+jJIULzCR1Lwl
-	 xmNmGQgxS4bFbLxhV7JxlAFBwb5LY8JV0OMkI+5515v9BZ5KTFk/717H78r6h1IWjt/HX
-	 FP3AMyJA8JGaoOrwEstHh/XSqP7iUANXjhKpPWM6ZPYt/mGJO1BnHyPavACxMRptCuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299670;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IoHg76qdWGX0YXGKv6gKymH4VgSnyA022n4X6S0GYTU=;
+	b=a/2VMteUMKVqlTjv9Y9c3qr1BEgilj9AmNIBRXuoFQaqM3PWabgHW/gbJUg+V1vd+hZ6
+	 DsuV7fEvw9iTjhSuwzBv2pDCD8hb5Mp+RM/iKtyZB93S2NeQ84dmf0CNTSybZqVe2ddue
+	 euU2NjEoUMm/yQySGaFdhLiBOge9PcpcF6dfymNfMlHA30xpkuqrkKtQ+2+k1y3PKWa/t
+	 8uJxLHQ9ED5Q+ZTBx2g3vPgz+YVKUIc8n3MSLqMXwwEvxwocVhEIOgFXfTRVjKXQsfak0
+	 jGRwSGFhpLXiqxJDq/+N2qxRgKFmEY/jfp8Ch6QkrD9GO+QFs/TySb768uKecIBa5AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K2nc1TQK;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxqFF+xr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AE3606A9AE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9AE3606A9AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AD0606A321;
+	Tue, 10 Nov 2026 08:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K2nc1TQK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794299598; x=1825835598;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=9oN95ZA4jEjnzxdU9ScDVMSmvNyC8EvdIzAKDGnxVZU=;
-  b=K2nc1TQKSJ3aBLr6BvOXH2s6fuW1JdirvB2AOP12IwQCqdDHdfAO71aX
-   BIhsF2orxY6SSR6lthXgaFJ9bmO7cnpb1WP1Tf6wlb1inIs5fR3WEmmoN
-   TrrPifGzPllSIgvVwzxO/vrIPqs448IftFU34drVEhP5gE3ZOK/NZDK3U
-   w0ZZittbFLnEWhqXLCezMfGFI68NsO730DCt1CaKIOlobrz0Zj6uT+eT7
-   nBxE7RgTS8WImrrfAKjTB8PX38xy9J8lxEF/9RjxSVZVzFBcQmLp3KLr+
-   dLmMR0cbJvd1ogSLIWqndBRgW7+sLTmE5kmaZL8XYX9AamKeiZdlRDRIb
-   w==;
-X-CSE-ConnectionGUID: KV78i4a7RMKGUSiWpGvqsg==
-X-CSE-MsgGUID: AGRQWmckR6WVVHp1ZNCw/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2917621"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2917621"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:33:17 -0800
-X-CSE-ConnectionGUID: syTa/s+/Slqv9eDthMs6PQ==
-X-CSE-MsgGUID: k4afLezBRsq5gMKRWziD8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8101890"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.114]) ([10.217.180.114])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:33:16 -0800
-Message-ID: <f585562b-dbdc-415b-a493-475cf545a092@linux.intel.com>
-Date: Tue, 10 Nov 2026 09:33:12 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxqFF+xr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B951F0089F;
+	Tue, 10 Nov 2026 08:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794299669;
+	bh=IoHg76qdWGX0YXGKv6gKymH4VgSnyA022n4X6S0GYTU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WxqFF+xr13/a/ySiR+kNLzUaa1Xs/h9B2YkHZXEvv7EByE9agjd1GbIdV07abAi1+
+	 8kVNCtn5MUV+bISGWuwiNjhqJaUT6Sa3FzaN/+Y8fjCtT1jWehSFbGGFHDS/0IHcTK
+	 GG1077WC7X00ODBSWKHfAswU2bagVTyTgawOl57DBvpSNQOWZg8o3er2CblBSXgWEt
+	 Aigvlwy4CSzv6nX+iXZ1+cT2KfxQEM0lCygnwOfy0jPDaIS4PzfQrDevlCsUwl65NQ
+	 MaGDQtA7A0vsb7qxKkc9qqRixUZghKeyJhJxP9Dmv7y1NDVTJfRVQvxZ31LudrR51F
+	 ooRTNPq9adiGA==
+Subject: Re: [PATCH net-next v4] net: phy: realtek: Add support for JLSemi
+ JL2101 and JL2121 PHYs
+From: netdev-bot+sashiko@kernel.org
+To: cyan2254650260@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 08:34:28 +0000
+Message-ID: <179429966829.994134.15582667508213020583@kernel.org>
+In-Reply-To: <20261105173350.159060-1-cyan2254650260@gmail.com>
+References: <20261105173350.159060-1-cyan2254650260@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,128 +63,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Disable recovery work on probe failure
-To: Daksh Sahni <swizzguy76@gmail.com>
-Cc: jacek.lawrynowicz@linux.intel.com, jeff.hugo@oss.qualcomm.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ogabbay@kernel.org, andrzej.kacprowski@linux.intel.com
-References: <20261107174215.15818-1-swizzguy76@gmail.com>
-Content-Language: en-US
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-In-Reply-To: <20261107174215.15818-1-swizzguy76@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 07-Nov-26 18:42, Daksh Sahni wrote:
-> If the NPU raises an error interrupt while ivpu_dev_init() boots the
-> firmware, the Buttress, MMU or WDT IRQ handler calls
-> ivpu_pm_trigger_recovery(), which queues recovery_work. When ivpu_boot()
-> then fails, the err_ipc_fini path tears the device down without
-> disabling recovery_work and probe returns an error. devres unmaps the
-> register BARs while the work is still queued or running, and the work
-> faults on the first register access:
-> 
->    BUG: unable to handle page fault for address: ffffcfc6680200f4
->    Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
->    RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
->    Call Trace:
->     ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
->     ivpu_boot+0x9e/0x270 [intel_vpu]
->     ivpu_resume+0xa4/0xd0 [intel_vpu]
->     ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
->     ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
->     process_one_work+0x1da/0x3c0
->     worker_thread+0x1af/0x340
->     kthread+0xfa/0x130
->     ret_from_fork+0x2b9/0x380
->     ret_from_fork_asm+0x1a/0x30
-> 
-> The work dies between pm_runtime_disable() in ivpu_pm_reset_begin() and
-> pm_runtime_enable() in ivpu_pm_reset_complete(), so the PCI device is
-> also left with runtime PM disabled and never autosuspends after a later
-> rebind.
-> 
-> Commit 5eaa49741119 ("accel/ivpu: Prevent recovery invocation during
-> probe and resume") stopped IPC failures during probe from triggering
-> recovery, but the IRQ handlers still can.
-> 
-> Call ivpu_pm_disable_recovery() at the start of the err_ipc_fini path,
-> as ivpu_dev_fini() already does, so the work is flushed and cannot be
-> queued again before the device is torn down.
-> 
-> Reproduced on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware
-> 20260219) by kexec'ing with the NPU runtime-suspended: probe in the new
-> kernel gets an ATS_ERR Buttress IRQ during firmware boot. With this
-> change probe still fails with -ECANCELED, there is no oops, and an FLR
-> followed by a rebind brings the NPU back.
-> 
-> Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-  Hi Daksh,
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-  Thanks for the report and the thorough analysis, it's correct. An error
-  IRQ that fires once ivpu_boot() has enabled interrupts can queue
-  recovery_work during probe, and nothing on the probe error path stops
-  it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  As Sashiko pointed out, disabling the work on err_ipc_fini comes too
-  late. By then recovery_work may already have run concurrently with
-  ivpu_boot(). It can also race with a probe that succeeds, which you saw
-  yourself in one of your runs.
+- [Medium] The JLSemi entry in realtek_drvs[] uses two incompatible
+  register-access models.
+- [Low] REALTEK_PHY's Kconfig help (drivers/net/phy/realtek/Kconfig line
+  6: 'Currently supports RTL821x/RTL822x and fast ethernet PHYs') was…
+- [Low] The concern says realtek,rtl82xx.yaml forbids LEDs for JL21xx
+  (allOf: leds: false unless compatible contains ethernet-phy-…
 
-  I'll send a v2 that addresses this along the lines you offered and
-  Sashiko suggested. recovery_work stays disabled for the whole of probe
-  and is enabled in ivpu_pm_enable(). A recovery requested during probe
-  is not lost. If ivpu_boot() fails, probe unwinds with nothing pending.
+--
 
-  If  probe succeeds, ivpu_pm_enable() runs the deferred recovery and
-  waits for it before issuing the initial autosuspend request. The NPU is
-  then reset before first use, and the autosuspend no longer lands while
-  runtime PM is disabled, which covers your second note too. The patch
-  will keep your Reported-by.
+net: phy: realtek: Add support for JLSemi JL2101 and JL2121 PHYs
 
-  I'm running it through our internal CI first and will post it once that
-  passes. When it's out, could you test it on your Meteor Lake kexec
-  setup and reply with your Tested-by? Once I have it, I'll go ahead
-  and merge.
+This adds a realtek_drvs[] entry that matches the JLSemi JL21xx model ID
+(0x937c4030) and reuses the RTL8211F callbacks. It also adds
+jlsemi_read_status(), which reads PHYSR from page 0xa43, and adds the ID
+to the MDIO module device table.
 
-  Thanks,
-  Karol
-> ---
-> 
-> Notes:
->      Tested on v7.4-rc1 (d48723711bae).
->      
->      Two things this patch does not address:
->      
->      The trigger is kexec with the NPU runtime-suspended in the old kernel.
->      The driver has no .shutdown hook, so the new kernel's probe sees stale
->      NPU state and gets ATS_ERR. A cold boot doesn't hit it. Whether that
->      wants a shutdown hook or a reset at probe seems like your call.
->      
->      In one of four runs that hit ATS_ERR, probe succeeded while
->      recovery_work was running concurrently. Probe returned 0, but the
->      autosuspend request from ivpu_pm_enable() landed while recovery had
->      runtime PM disabled, so the NPU stayed active until first use. Not
->      allowing IRQ-triggered recovery until ivpu_pm_enable() would cover both
->      cases; I can send a v2 that does that if you prefer.
-> 
->   drivers/accel/ivpu/ivpu_drv.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-> index 247ed6b2ff62..4fcccf78ec5d 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.c
-> +++ b/drivers/accel/ivpu/ivpu_drv.c
-> @@ -852,6 +852,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
->   	return 0;
->   
->   err_ipc_fini:
-> +	ivpu_pm_disable_recovery(vdev);
->   	ivpu_ipc_fini(vdev);
->   err_fw_fini:
->   	ivpu_fw_fini(vdev);
+> diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+> index 4927ee838de21..355135143fb98 100644
+> --- a/drivers/net/phy/realtek/realtek_main.c
+> +++ b/drivers/net/phy/realtek/realtek_main.c
 
+[ ... ]
+
+> @@ -1755,6 +1758,23 @@ static int rtlgen_read_status(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int jlsemi_read_status(struct phy_device *phydev)
+> +{
+> +	int ret, val;
+> +
+> +	ret = genphy_read_status(phydev);
+> +	if (ret < 0 || !phydev->link)
+> +		return ret;
+> +
+> +	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, RTL_PHYSR);
+
+[Severity: Medium]
+The commit message says that on JL21xx, reading 0x1a on page 0 returns
+0x0000. That is why PHYSR is read here through page 0xa43, and it means
+0x1a depends on the page select on this chip.
+
+Commit 650e55f224a5 ("net: phy: realtek: simplify bogus paged operations")
+changed every 0x18-0x1f access in this driver into a plain phy_read() or
+phy_modify(). It did so because only 0x10-0x17 depend on the page select
+register. The RTL8211F callbacks bound to the new entry still follow that
+model for registers next to 0x1a.
+
+rtl8211f_ack_interrupt() and rtl8211f_handle_interrupt() read INSR (0x1d)
+unpaged:
+
+    irq_status = phy_read(phydev, RTL8211F_INSR);
+
+rtl8211f_disable_autonomous_eee() modifies PHYCR2 (0x19) unpaged:
+
+    return phy_modify(phydev, RTL8211F_PHYCR2,
+                      RTL8211F_PHYCR2_PHY_EEE_ENABLE, 0);
+
+rtl8211f_config_aldps() modifies PHYCR1 (0x18) unpaged:
+
+    return phy_modify(phydev, RTL8211F_PHYCR1, mask, mask);
+
+rtl8211f_config_clk_out(), rtl8211f_config_clkout_ssc() and
+rtl8211f_config_sysclk_ssc() also access PHYCR2 with phy_modify() or
+phy_set_bits().
+
+Suppose JL21xx pages 0x18, 0x19 and 0x1d the same way it pages 0x1a.
+Would these accesses then hit the default page instead of the real
+registers?
+
+For interrupts, rtl8211f_config_intr() enables INER with a paged write,
+which does reach the hardware:
+
+    err = phy_write_paged(phydev, 0xa42, RTL821x_INER, val);
+
+rtl8211f_handle_interrupt() then checks the unpaged 0x1d read:
+
+    if (irq_status & RTL8211F_INER_LINK_STATUS) {
+    ...
+    if (irq_status & RTL8211F_INER_PME) {
+    ...
+    return IRQ_NONE;
+
+Could this return IRQ_NONE without ever clearing the latched INSR? On a
+level-triggered INTB line, that could cause an interrupt storm. The IRQ
+would then get disabled and link changes would be lost.
+
+For EEE, phylink_bringup_phy()->phy_support_eee() calls
+disable_autonomous_eee whenever the MAC supports EEE. It sets
+autonomous_eee_disabled as soon as the MDIO write succeeds. Could phylib
+then believe autonomous EEE is off while the PHY still has it on? The
+same write is repeated after each soft reset in phy_init_hw().
+
+The ALDPS and CLKOUT-disable paths would also report success without
+reaching PHYCR1 or PHYCR2. The clk_out path soft-resets the PHY as well.
+
+Now suppose 0x18-0x1f are not paged on JL21xx. Then
+phy_read_paged(phydev, 0xa43, RTL_PHYSR) is the same as an unpaged read.
+In that case, how does jlsemi_read_status() avoid the 10/Half downshift
+it was added to fix?
+
+The changelog says PHYSR, the RGMII delays and the LEDs were tested on
+hardware. v4 drops WoL as unverified but keeps the interrupt, EEE, ALDPS
+and CLKOUT paths. Were those also checked on JL21xx?
+
+> +	if (val < 0)
+> +		return val;
+> +
+> +	rtlgen_decode_physr(phydev, val);
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> @@ -3283,6 +3303,23 @@ static struct phy_driver realtek_drvs[] = {
+>  		.led_hw_control_get = rtl8211f_led_hw_control_get,
+>  		.led_hw_control_set = rtl8211f_led_hw_control_set,
+>  		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
+>  	}, {
+> +		PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID),
+> +		.name		= "JLSemi JL2101/JL2121 Gigabit Ethernet",
+> +		.probe		= rtl821x_probe,
+
+[Severity: Low]
+This isn't a bug, but rtl821x_probe() now parses vendor DT properties for
+this PHY, for example:
+
+    priv->enable_aldps = of_property_read_bool(dev->of_node,
+                                               "realtek,aldps-enable");
+
+Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml has no select:
+section, and its compatible enum only lists ethernet-phy-id001c.cXXX
+entries. So a JL21xx node (no compatible, or ethernet-phy-id937c.4030) is
+never validated against that schema. Its leds: false rule therefore does
+not affect JL21xx either.
+
+The realtek,* properties only do anything if a DT author sets them.
+Should the binding say that they also apply to JL21xx?
+
+[ ... ]
+
+> @@ -3527,6 +3564,7 @@ module_phy_driver(realtek_drvs);
+>  
+>  static const struct mdio_device_id __maybe_unused realtek_tbl[] = {
+>  	{ PHY_ID_MATCH_VENDOR(0x001cc800) },
+> +	{ PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID) },
+
+[Severity: Low]
+This isn't a bug, but the module now binds and autoloads a non-Realtek
+OUI. The REALTEK_PHY help text in drivers/net/phy/realtek/Kconfig still
+says:
+
+    Currently supports RTL821x/RTL822x and fast ethernet PHYs
+
+MODULE_DESCRIPTION() is also still "Realtek PHY driver". Could the help
+text mention JLSemi JL2101/JL2121, so that people building for that
+hardware know to enable CONFIG_REALTEK_PHY?
+
+>  	{ }
+>  };
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105173350.159060-1-cyan2254650260%40gmail.com
