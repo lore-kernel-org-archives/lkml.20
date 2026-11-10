@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276427;
-	b=nxHaimJNFXMvpioq7XPZJ5vEYtM2DZQHoXW133/NrUIxrRpAACZ3VlXhY9B0TDO6L+/t
-	 OGfx9IfuUEwOs1fmXwVGnHToryPooelSoZo+8lwOyoNP05rOVnCKrJONmO2xc769BRywh
-	 a7v/qOXNoqKtpzWkGQEPYg2LOyFGiJ7l0TkPpZCc5M59wySM3kbBxs1QXz9W0r+LovL5A
-	 PURDROz9bH7B01+jNbeEFydYfWq+aTrSH4SNfsuRpcjVmieucQnnIebvhDDLi3HSCbR/l
-	 xHSPXIb+Ge2Q2lpQM4tcBIknG4n4ERa3Hxg6qB88RiCgk1R8b34w2CH3lN6OWSo4FDQ==
+	t=1794276432;
+	b=Gu57c5iGqJ1m8Jwjc5rrc+pUCrIcO3baQUXtCF7q0FJaKiwC+4xuOS5u14dAghaudeq1
+	 WhM16I6GYT8ktUbM03LIwxebvB3LJ+Dk7AqZwoFjHw4FdMN8gM8pvlDnVzDd+JXB5aK0G
+	 vPgbSJXjbdfZh2qvYyRh1JLOdAsoyC71fHyzWfq8c08jmQsSbRUremaRPtrPd2zIr0ZoT
+	 r3Lr4hu+8v8sxLpzZc5mQ9gYX17O9i74w01L8heEGm14owUkVgQJoIcsYtH5dff121YHj
+	 SOQWBQfPbYEAEM05IBVA4TzQ96B0Er5+zOxt4lGKGOu1XpKpH4Q6zQV9m4g1Is3fKfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276427;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=K/av2BriCz8NVScOG5d/1bxoH4heIhLqhdIv82O1IyU=;
-	b=qSFD7FY9QGmpoM7lLszi14JYe8efxQ2I7ZcYk1vhn0QeR+MgHdbhVAi2qoBmoNcDNjga
-	 f+XVTHM7q2nhUTT1qI6v7qSr1haMBhdKIG4CgTawF88qvLXUhiWMnTR8adbwlJVlZdPZJ
-	 ifAeam/a0I13xBCmyx+l93NS9d3S3K+pYXAKvTpja8P01Avx0Bi2H4NZVRZNBc7mCDYq5
-	 JipBWQlgbIej3JsY73F/YFdjwSoJx+tuSxjZrrynoyNM55g6HjVjni4u0WDKUdS5T9l92
-	 K11ltm8Y20EkTc8uUhOr2Jgf1byVGwKgvCiPB9EMhZQ82o7f3zBSU/bz5I9nfZXlEEg==
+	bh=qQsJ/9pgSVKsYqZ3673A40BRQAwaP2YTgXdS7SpVQEw=;
+	b=hULUo8VOmbJxGn4blq0Jt++bydKhK+DmCgQEhkbmopTRhEES3ZXGCoi5266tWPLtWm91
+	 e+AOSw61TYxBZbIFEqZQeLi+Hca8DhVSQ/3xCmowUyqJ85mL/Yke3yb9RlZmJcyTgSm+v
+	 yApkme2bPBFqgHbm2bYdxtkRtiT3W0OrXiHmRCUtLh+r7aKOfQEed8O4ilSc4wBUtNkl3
+	 hE3e3dvGLDwoXnenlDfFMEumsph5SqkMPw0NqG18StlKodHWv53VOIBVypfBSzeNUhoA7
+	 aKqHjwdHkEo47B5EXtqyl3NcHuivQsNwdc2EJpohlPL/h7+Lcb/z1JF787riUwi1dZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--svv.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hSNHMond;
-	arc=none smtp.remote-ip=209.85.160.70
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=c0NU3g3u;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAD1606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:07:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AAD1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBB8606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BBB8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--svv.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hSNHMond
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4574f1cac98so2435482fac.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:07:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=c0NU3g3u
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-37390b2989bso3051434eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:07:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794276426; x=1794881226; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794276430; x=1794881230; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K/av2BriCz8NVScOG5d/1bxoH4heIhLqhdIv82O1IyU=;
-        b=hSNHMondnBYbIRLUWvCnfkTQAwILCHFpt5RjmAe4kPuRaI0Ort0tW1OnxYsMZ/ZHKe
-         y/AFnIOdwHHBlT1bntsIYWdrWg66wFvo1q4SsPVBiVSpTF+/tHYrYoTDOR2Mq2Z2eFut
-         HdxhEajo7Htux2STaBFs3h+EPlz3y4J9GZDqmYGuqegcy6DMcfkuL0VLeQE2YCMKXEhm
-         PqftDzUgchsO2a4Ln202VjnpbugpURuoAN2Zd09PxUxyvot/+VF102cZ5SX7uIvGVPLI
-         P1F1usBgexQi0aY7FTW9XfaDYooSX7Ua80ZZthRF4ncoxF8Rt7seP4GDKhOO0Zk+Jdfb
-         ndpA==
+        bh=qQsJ/9pgSVKsYqZ3673A40BRQAwaP2YTgXdS7SpVQEw=;
+        b=c0NU3g3ush7/biU8+xfPe774v9CMhNDBT1Ka0IVZGx2iTZWJJJUJ7D9fOQYFOTx6Dx
+         4nZKNaBh9PCML+bNJCmWCztk5S49vZdyYTH0X0+V/EsVv4/dm5oyxdxPZ0Srni3/dEBs
+         N9wA6gVoP5Y+sB7Te4dAMWBVyEFA8H5nLuGLBW4cK3Na1R4/i0uLvd1nItCA6QbelMfX
+         QohKcrxnzjGYU2J/eo2l6FQeINihpVFdNaTfl9PNJ4oQ1SqTrb/rTOST6o5cPprQJvbU
+         aq8wq+oBidEd519XXAUVWUqFsQNoMhuJnEc0lzxyVdx1vW2EgfW9etHUE3WBsScdbjr9
+         VOtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794276426; x=1794881226;
+        d=1e100.net; s=20260707; t=1794276430; x=1794881230;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K/av2BriCz8NVScOG5d/1bxoH4heIhLqhdIv82O1IyU=;
-        b=yS3r5k7YPx+7yXiBqbv0F5Up6Md3qRHFPIbqaYwWxyDkPyJc6TtdeSV1EoW3UogTw9
-         CU6tNf8S+blioBGAdd0PiCRvwhu1iGbMoFr0vaoX+yKSf0IoezfznDqw7A53vIYqZzIl
-         tOOjWG6bwQ3hDb0RWMNw4Zb9pyQkXdzSP25WzWDwGwe2bogEfjKs4+lYaOM+pbeFaFcU
-         cLUTC6f/nNRwek1rzqPFVgO1p+l5nXuWWFnZMGIyWEFyyrKDQ6NdVqtkujNATeVMhBou
-         y0Xxad75CinFrkT3avyH9PuKyBxt9oTaTHOD8TLmwnJ0ySHBH/Pkb0x/ssmMepwRwfdq
-         xT1Q==
-X-Forwarded-Encrypted: i=1; AL+hErE2xaMqLGMR2LmPTkDRf2EXiI1TJ/yijq5eGcXAu73KzzkWELgdg+hhiEXeRFA1Ra0qPbdAIK73qnlWaEU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nbvi7HOtB0dPZk5gekrPahaCSfyEgdwklGRcPaZyVs4SvDmrT
-	MDzAFnlxLsagOk5a453l+VoxwhATVkCw0FVRjWKWJLdTXrxUq2UckHUYX0RtD2Be2+xuSg==
-X-Received: from oacfi40.prod.google.com ([2002:a05:6871:e2a8:b0:4a7:13ab:40d9])
- (user=svv job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6870:c992:b0:497:4b0a:61fa
- with SMTP id 586e51a60fabf-4ae2261a569mr593185fac.28.1794276425788; Mon, 09
- Nov 2026 18:07:05 -0800 (PST)
-Date: Mon,  9 Nov 2026 18:06:31 -0800
+        bh=qQsJ/9pgSVKsYqZ3673A40BRQAwaP2YTgXdS7SpVQEw=;
+        b=PUialgCuYJO7IjO/PtbtaSY3lmJNcLLaLTJWBPUOYh8Ii5tCt2sslq7A3Ek99zvLrI
+         y0mapFx9O4ND9/4RRDOUBEj5cDIi8TH+2XJXaaIDecHNd9XufEfe0hQH1oXyp83NYvUs
+         9DhAowaNW5fILpsKj8k3z8STu6wMyWxdXCmwhCzezh8M8E2AxtY+sDr9sPCYq876XxDP
+         MzMwfIfub22bl73/BPEG8QuIHXBpCvgW2CSKmd8Ld/qIzraioG1asKaI7f0Ulj/LS080
+         t9LWS7ZHNGZToycDkzqm7IX19qcgdhWVPCztxtyIB3C9aPgURIzlN42mOpEf4hc9Gc4c
+         gfgg==
+X-Forwarded-Encrypted: i=1; AL+hErEBOeAHi5q9ClzRnMEs0FJLeASrLlxhmwgBlmxYcbBMNCJqcXdmhypQcu3nSun/7au6/n9l8vxfpcm+QiQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fWhg7GmhJQWNhXmN9OAZtEPNl/Q1+j6vGDT5EOokCLsUxeZ+s
+	TQw+6rycWlnNjo8fHEo+BGWeE+u0stR0bGfSySjc0v34UfI1ACgWvhyQqvw1EmboAY7qfw==
+X-Received: from dyboo18.prod.google.com ([2002:a05:7301:1e92:b0:369:739:9a00])
+ (user=svv job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:8244:b0:351:4866:255c
+ with SMTP id 5a478bee46e88-3751f9481a3mr1219703eec.32.1794276429735; Mon, 09
+ Nov 2026 18:07:09 -0800 (PST)
+Date: Mon,  9 Nov 2026 18:06:32 -0800
 In-Reply-To: <20261110020632.4003499-1-svv@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,8 +80,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261110020632.4003499-1-svv@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110020632.4003499-3-svv@google.com>
-Subject: [PATCH 2/3] HID: input: map Digitizers Twist usage to ABS_TWIST
+Message-ID: <20261110020632.4003499-4-svv@google.com>
+Subject: [PATCH 3/3] HID: wacom: report ABS_TWIST alongside ABS_Z for pen twist
 From: Siarhei Vishniakou <svv@google.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
 	Benjamin Tissoires <bentiss@kernel.org>, Ping Cheng <ping.cheng@wacom.com>, 
@@ -91,142 +91,128 @@ Cc: Jonathan Corbet <corbet@lwn.net>, Henrik Rydberg <rydberg@bitmath.org>, linu
 	Siarhei Vishniakou <svv@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The axis ABS_TWIST is used to report the "twist" (or barrel) rotation
-of a stylus.
+Historically, Wacom tablets reported stylus barrel rotation (twist)
+via ABS_Z because a dedicated evdev axis did not exist. Now that we
+have this axis, report pen twist on ABS_TWIST in addition to ABS_Z.
 
-Map the HID Digitizers Twist usage (0x000d0041) to ABS_TWIST
-in hid-input, and calculate its axis resolution in units/radian.
+Keep reporting ABS_Z to maintain backward compatibility for existing
+applications that support Wacom devices.
 
 Signed-off-by: Siarhei Vishniakou <svv@google.com>
 ---
- drivers/hid/hid-input-test.c | 87 ++++++++++++++++++++++++++++++++++++
- drivers/hid/hid-input.c      |  5 +++
- 2 files changed, 92 insertions(+)
+ drivers/hid/wacom_wac.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hid/hid-input-test.c b/drivers/hid/hid-input-test.c
-index 6f5c71660d82..6f1717c0cbe0 100644
---- a/drivers/hid/hid-input-test.c
-+++ b/drivers/hid/hid-input-test.c
-@@ -62,9 +62,96 @@ static void hid_test_input_get_battery_property(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, val.intval, POWER_SUPPLY_STATUS_DISCHARGING);
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index 614f2adab563..7676bc26a027 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -802,8 +802,10 @@ static void wacom_exit_report(struct wacom_wac *wacom)
+ 		input_report_key(input, BTN_STYLUS2, 0);
+ 		input_report_key(input, BTN_TOUCH, 0);
+ 		input_report_abs(input, ABS_WHEEL, 0);
+-		if (features->type >= INTUOS3S)
++		if (features->type >= INTUOS3S) {
+ 			input_report_abs(input, ABS_Z, 0);
++			input_report_abs(input, ABS_TWIST, 0);
++		}
+ 	}
+ 	input_report_key(input, wacom->tool[idx], 0);
+ 	input_report_abs(input, ABS_MISC, 0); /* reset tool id */
+@@ -981,6 +983,7 @@ static int wacom_intuos_general(struct wacom_wac *wacom)
+ 			t = (data[7] & 0x20) ? ((t > 900) ? ((t-1) / 2 - 1350) :
+ 				((t-1) / 2 + 450)) : (450 - t / 2) ;
+ 			input_report_abs(input, ABS_Z, t);
++			input_report_abs(input, ABS_TWIST, t);
+ 		} else {
+ 			/* 4D mouse 2nd packet */
+ 			t = (data[6] << 3) | ((data[7] >> 5) & 7);
+@@ -1411,6 +1414,7 @@ static void wacom_intuos_pro2_bt_pen(struct wacom_wac *wacom)
+ 				input_report_abs(pen_input, ABS_TILT_Y,
+ 						 (signed char)frame[8]);
+ 				input_report_abs(pen_input, ABS_Z, rotation);
++				input_report_abs(pen_input, ABS_TWIST, rotation);
+ 				input_report_abs(pen_input, ABS_WHEEL,
+ 						 get_unaligned_le16(&frame[11]));
+ 			}
+@@ -1935,7 +1939,7 @@ static void wacom_map_usage(struct input_dev *input, struct hid_usage *usage,
+ 	int resolution;
+ 
+ 	if (equivalent_usage == HID_DG_TWIST) {
+-		resolution_code = ABS_RZ;
++		resolution_code = ABS_TWIST;
+ 	}
+ 
+ 	resolution = hidinput_calc_abs_res(field, resolution_code);
+@@ -2332,6 +2336,7 @@ static void wacom_wac_pen_usage_mapping(struct hid_device *hdev,
+ 		break;
+ 	case HID_DG_TWIST:
+ 		wacom_map_usage(input, usage, field, EV_ABS, ABS_Z, 0);
++		wacom_map_usage(input, usage, field, EV_ABS, ABS_TWIST, 0);
+ 		break;
+ 	case HID_DG_ERASER:
+ 		input_set_capability(input, EV_KEY, BTN_TOOL_RUBBER);
+@@ -2522,10 +2527,21 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
+ 		return;
+ 
+ 	/* send pen events only when the pen is in range */
+-	if (wacom_wac->hid_data.inrange_state)
+-		input_event(input, usage->type, usage->code, value);
+-	else if (wacom_wac->shared->stylus_in_proximity && !wacom_wac->hid_data.sense_state)
+-		input_event(input, usage->type, usage->code, 0);
++	if (!wacom_wac->hid_data.inrange_state) {
++		if (!wacom_wac->shared->stylus_in_proximity ||
++		    wacom_wac->hid_data.sense_state)
++			return;
++		value = 0;
++	}
++
++	input_event(input, usage->type, usage->code, value);
++	/*
++	 * ABS_Z was used to report twist data, because ABS_TWIST was not yet
++	 * defined at the time. For compatibility purposes, also report twist
++	 * via ABS_Z.
++	 */
++	if (equivalent_usage == HID_DG_TWIST)
++		input_report_abs(input, ABS_Z, value);
  }
  
-+static void hid_test_input_calc_abs_res_twist(struct kunit *test)
-+{
-+	struct hid_field field = {
-+		.logical_minimum = 0,
-+		.logical_maximum = 3599,
-+		.physical_minimum = 0,
-+		.physical_maximum = 3599,
-+		.unit = 0x14, /* Degrees */
-+		.unit_exponent = -1,
-+	};
-+
-+	/* 0..3599 over 0..359.9 degrees -> ~573 units/radian */
-+	KUNIT_EXPECT_EQ(test, hidinput_calc_abs_res(&field, ABS_TWIST), 573);
-+
-+	/* 0..359 over 0..359 degrees -> ~57 units/radian */
-+	field.logical_maximum = 359;
-+	field.physical_maximum = 359;
-+	field.unit_exponent = 0;
-+	KUNIT_EXPECT_EQ(test, hidinput_calc_abs_res(&field, ABS_TWIST), 57);
-+
-+	/* 0..628 over 0..6.28 radians -> 100 units/radian */
-+	field.logical_maximum = 628;
-+	field.physical_maximum = 628;
-+	field.unit = 0x12; /* Radians */
-+	field.unit_exponent = -2;
-+	KUNIT_EXPECT_EQ(test, hidinput_calc_abs_res(&field, ABS_TWIST), 100);
-+
-+	/* Linear unit (centimeters) is invalid for ABS_TWIST */
-+	field.unit = 0x11;
-+	KUNIT_EXPECT_EQ(test, hidinput_calc_abs_res(&field, ABS_TWIST), 0);
-+}
-+
-+static void hid_test_input_configure_twist_usage(struct kunit *test)
-+{
-+	struct hid_device *dev;
-+	struct hid_driver *drv;
-+	struct hid_input *hidinput;
-+	struct input_dev *input;
-+	struct hid_field *field;
-+	struct hid_usage *usage;
-+
-+	dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	drv = kunit_kzalloc(test, sizeof(*drv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drv);
-+	dev->driver = drv;
-+
-+	input = kunit_kzalloc(test, sizeof(*input), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, input);
-+	input->absinfo = kunit_kcalloc(test, ABS_CNT, sizeof(*input->absinfo), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, input->absinfo);
-+	input_set_drvdata(input, dev);
-+
-+	hidinput = kunit_kzalloc(test, sizeof(*hidinput), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hidinput);
-+	hidinput->input = input;
-+
-+	field = kunit_kzalloc(test, sizeof(*field), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, field);
-+	field->report_count = 1;
-+	field->logical_minimum = 0;
-+	field->logical_maximum = 3599;
-+	field->physical_minimum = 0;
-+	field->physical_maximum = 3599;
-+	field->unit = 0x14; /* Degrees */
-+	field->unit_exponent = -1;
-+	field->usages_priorities = kunit_kzalloc(test, sizeof(int), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, field->usages_priorities);
-+
-+	usage = kunit_kzalloc(test, sizeof(*usage), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, usage);
-+	usage->hid = HID_DG_TWIST;
-+
-+	hidinput_configure_usage(hidinput, field, usage, 0);
-+
-+	KUNIT_EXPECT_EQ(test, usage->type, EV_ABS);
-+	KUNIT_EXPECT_EQ(test, usage->code, ABS_TWIST);
-+	KUNIT_EXPECT_TRUE(test, test_bit(EV_ABS, input->evbit));
-+	KUNIT_EXPECT_TRUE(test, test_bit(ABS_TWIST, input->absbit));
-+	KUNIT_EXPECT_EQ(test, input_abs_get_min(input, ABS_TWIST), 0);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_max(input, ABS_TWIST), 3599);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input, ABS_TWIST), 573);
-+}
-+
- static struct kunit_case hid_input_tests[] = {
- 	KUNIT_CASE(hid_test_input_update_battery_charge_status),
- 	KUNIT_CASE(hid_test_input_get_battery_property),
-+	KUNIT_CASE(hid_test_input_calc_abs_res_twist),
-+	KUNIT_CASE(hid_test_input_configure_twist_usage),
- 	{ }
- };
+ static void wacom_wac_pen_pre_report(struct hid_device *hdev,
+@@ -3741,6 +3757,7 @@ void wacom_setup_device_quirks(struct wacom *wacom)
+ 		__clear_bit(BTN_TOOL_PENCIL, wacom_wac->pen_input->keybit);
+ 		__clear_bit(BTN_TOOL_AIRBRUSH, wacom_wac->pen_input->keybit);
+ 		__clear_bit(ABS_Z, wacom_wac->pen_input->absbit);
++		__clear_bit(ABS_TWIST, wacom_wac->pen_input->absbit);
+ 		__clear_bit(ABS_DISTANCE, wacom_wac->pen_input->absbit);
+ 		__clear_bit(ABS_TILT_X, wacom_wac->pen_input->absbit);
+ 		__clear_bit(ABS_TILT_Y, wacom_wac->pen_input->absbit);
+@@ -3823,6 +3840,8 @@ int wacom_setup_pen_input_capabilities(struct input_dev *input_dev,
+ 	case CINTIQ_COMPANION_2:
+ 		input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
+ 		input_abs_set_res(input_dev, ABS_Z, 287);
++		input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, 0);
++		input_abs_set_res(input_dev, ABS_TWIST, 287);
+ 		wacom_setup_cintiq(wacom_wac);
+ 		break;
  
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index 6a1651f572e2..dc4bd2a579d2 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -291,6 +291,7 @@ __s32 hidinput_calc_abs_res(const struct hid_field *field, __u16 code)
- 	case ABS_WHEEL:
- 	case ABS_TILT_X:
- 	case ABS_TILT_Y:
-+	case ABS_TWIST:
- 		if (field->unit == 0x14) {		/* If degrees */
- 			/* Convert to radians */
- 			prev = logical_extents;
-@@ -1018,6 +1019,10 @@ static void hidinput_configure_usage(struct hid_input *hidinput, struct hid_fiel
- 			map_abs_clear(ABS_TILT_Y);
- 			break;
+@@ -3835,6 +3854,8 @@ int wacom_setup_pen_input_capabilities(struct input_dev *input_dev,
+ 	case INTUOS4S:
+ 		input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
+ 		input_abs_set_res(input_dev, ABS_Z, 287);
++		input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, 0);
++		input_abs_set_res(input_dev, ABS_TWIST, 287);
+ 		fallthrough;
  
-+		case 0x41: /* Twist */
-+			map_abs_clear(ABS_TWIST);
-+			break;
-+
- 		case 0x33: /* Touch */
- 		case 0x42: /* TipSwitch */
- 		case 0x43: /* TipSwitch2 */
+ 	case INTUOS:
+@@ -3855,6 +3876,8 @@ int wacom_setup_pen_input_capabilities(struct input_dev *input_dev,
+ 
+ 		input_set_abs_params(input_dev, ABS_Z, -900, 899, 0, 0);
+ 		input_abs_set_res(input_dev, ABS_Z, 287);
++		input_set_abs_params(input_dev, ABS_TWIST, -900, 899, 0, 0);
++		input_abs_set_res(input_dev, ABS_TWIST, 287);
+ 
+ 		wacom_setup_intuos(wacom_wac);
+ 		break;
 -- 
 2.56.0.455.g6c5a503b38-goog
 
