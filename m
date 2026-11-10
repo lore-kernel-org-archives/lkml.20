@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294311;
-	b=dTd9RcPPsnEJOyJSf6Oufp5RRFBiylC+YOYJkrxqUKSHJy1Rx3bazfkYZLdRF2Wqlic3
-	 tD+Qs2IQwPN7sd/yvGmCkf7vf60+A48j7VsfpmZz0rhfY92e3bv2Ri7bfv9HSmZ6O+q+H
-	 6lc+/mdP6G/UVoM9Hrkiat5Je1YcvEgmAzK/qyTHoxJkiohZpR07jyGMVOHSgt5vXVTYN
-	 7ML94zfntqhUBKWsheLzBnPXp2VCFrTyUbiAlBVv4axpAkLvWcPpwXh52zpeeRWgIIFUE
-	 XIkIz9pVnDFcxFtQK7FxnCo1ix80B9EQZEf/DVfEwSRIdtoi87vitnN7R5PaoINe7cw==
+	t=1794294348;
+	b=bASC2S88E2OQfBj+sg539aGf7gDZyUUoSJOPP9yigH4nc2QL4dq3P8+r5Jm2NwpA2iVQ
+	 cxX/6X1LOaL+nN+oeia33I0bLs/xWCYShKk8IlXz49m9Kf5+rinqgzVgecKfRdhJts4z2
+	 6NsBbXdv4rJSrgpCScKVJY1jHP3BzY+4K4wlkSSoT5JLTK1Qv/HBsvgK/9a5d6cCqL80r
+	 tCaZzriSJ2gnhPclxdzyEZ/3hTk/XF8syl+bkFvg0pJLAyvakhce6Y8814uCJ+cZpkYX9
+	 PyKOSP+pOCTt1lcNikWSKGdgVOoFHE874D1+CJiZPY2UgF0jTNJPzIUiAjSbI7CcL1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294311;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BnNedezTioyADzuMpCOdCnuZokX80G9WaFneDTb10vQ=;
-	b=S9Ygz0sIzNNBNPuhfQZ0K34v/WWT+Qcfr2X2n6bV29nrgO6ZgFaUEFZALLmNiU41AiJT
-	 Ohq2uZ0nSCilXDcE7fahriCbjNC8E3ej5kFZ3Vk7sox8vFNdyhu1n4P66rryAyL06fm00
-	 ncrurxG36K+zbqq8yJXdE1/sfbBPyMv4O7fGPWXEjb2X5/VdTAYgx3hw18P6f8X6BOlkZ
-	 B780v8FDrAGjVNUMZWiKTTfeogzXV/b/pcIZGgh5sS6+QfAEoM4oNnmdnG3nPAzCJVBeM
-	 GFtHhS6NwnwmoyU7y/X+HEiftstFzwKbUInm9mUYNd2GflKoyKzQfGmo/iEX0uRZRzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294348;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zZk3SsVUMy8xoTgawAV8jGI3OOcRbHbKMzszzz5dC0s=;
+	b=z+Ncqy7ihwM5TSg5bEG+5I9VDdm2g0cBvLscADtINmP5qOkU4g+WZry6+1KNdPalP1eB
+	 wqDoiaiv87tFRqkxGhyklQueCZg1oYzl5CPKUgt73YFZHTVi+e9J4Cxq/KsViHa0HxiHf
+	 xnNOdNpFZEQs1TNbkAJr1j3pToL2n2gpT2LSS4Ose7iX3Aa3FRz1n3x9LP2TCxo/ewBDw
+	 +gheG0snnuRcmA3mUZCBUjZEy2tYXTGN/uI5GoVm5JFCMNBt9jtWp/eVqzOmz/hO0ojmQ
+	 lal7uapC+W1cd5T1r6Dap2MQShA+U0GRMg5NnUnC85wWPltcZXGcVihxXlOzeOc8ejQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofIwHVx8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="uX/FQNF4";
+	arc=none smtp.remote-ip=91.218.175.249
+Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C983606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:05:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85504606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85504606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofIwHVx8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83B81F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:05:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294310;
-	bh=BnNedezTioyADzuMpCOdCnuZokX80G9WaFneDTb10vQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ofIwHVx8MbkgSNQVhfD72a+9EIzFn9QH/Ap9XuqX+xMBd/RDeIfHpR/hHjj3tRcMm
-	 lm7INK8ZwlFm6I6yTnJdORYxrdlj+FjPyf5Hr51UDTCmcd1xhoCFiJEYbiyE8VFBGl
-	 RdjeWt1LkEScnrP2YeG1s1mMUVFLBuqM55plz7yVN5Vbni+hzMzk0eGN0d6wQaQBLo
-	 3ac1wUXZUzTtaXupzznW6q89QWibbxEJGFX9DUpJ4sacp8PBfQJ5Zn4vnKKAK4h3K+
-	 usZBLbjJ30SWnbO1BiAdplljz95OGEMovLnKr9xy7o+9yOwGA+WxSJcfXfvoxTBIRW
-	 icZumDJwQV/lg==
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-7143451981fso1115802eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:05:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHjjcJ4hLNCS7UkI+NrKPVJXn4gG0FRTnW6xI3JgMG5Z6fDtKGbXBAq1CJGPKaDq/z6k5DRNNJn24BsvHQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lacKimTi4xtkmPyrmmgQ6S5lJ39XYQWMOatNgcgMTmwBU606p
-	IZOvWY2DYsqyj8W8ryH1EsTYAB3AyehQXQJIkHNGAXC7Zn8pUSjDPtrCI91grvCeYafO9dOqPEl
-	bGfD3cR5Gz77+c+7IjCpMQJYUNOG8gkI=
-X-Received: by 2002:a05:6820:240b:b0:6dd:9701:6305 with SMTP id
- 006d021491bc7-718a6e2ddd4mr641568eaf.65.1794294310126; Mon, 09 Nov 2026
- 23:05:10 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uX/FQNF4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PDz+qwYH/e/DPGEx5k9eJgKdIlMjdKtiXOXsonysk0k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794294345; v=1; x=1794899145;
+ b=uX/FQNF40xr/pIkkUgsE2UNKnZG75Tt6NWSf5BNLlae16iQAeBMtFrIU9GhpOqq/Euhb5aXY
+ euuyrcGDewk+jI62Yq7+p2mLv6DqABEtEDLGNMGy3wNBO17j1cUZsBPTnCsrB6BUimiEtWjhrgZ
+ mESlCW1ciTfPNgA3w+DJiY/8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6dea8860f641d184;
+	Tue, 10 Nov 2026 07:05:27 +0000
+X-Mizu-Trace-ID: 6dea8860f641d184
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 15:05:14 +0800
+From: Hao Li <hao.li@linux.dev>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	loongarch@lists.linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm/slub: Genericize x86-specific cmpxchg16b comment
+Message-ID: <avK8RqLl69zIkVY2@fedora>
+References: <20261109035906.10857-1-yangtiezhu@loongson.cn>
+ <DMQW32TTNOPX.24GN6Q7VI6QJR@gmail.com>
+ <145c23ea-bc4d-b235-c822-df94b00a647a@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +68,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106171442.31811-1-baditaflorin@gmail.com>
- <20261106171442.31811-2-baditaflorin@gmail.com> <avK8iXcNfXSt1_CQ@google.com>
-In-Reply-To: <avK8iXcNfXSt1_CQ@google.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 10 Nov 2026 08:04:58 +0100
-X-Gmail-Original-Message-ID: <CAL4WiioPRW-SxsKbOC3aOtZg8ZJpA28Xva0qM4375cTygfVHgA@mail.gmail.com>
-X-Gm-Features: AclHuK-NJxidM8lNPtjHGZ7TEVWKZvAA6snjm_p1ThNmdP7HN_Zn2F8YrWLmn4I
-Message-ID: <CAL4WiioPRW-SxsKbOC3aOtZg8ZJpA28Xva0qM4375cTygfVHgA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 1/2] tcp: avoid false bind exhaustion with
- odd-sized port ranges
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Florin Badita-Nistor <baditaflorin@gmail.com>, netdev@vger.kernel.org, ncardwell@google.com, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	shuah@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <145c23ea-bc4d-b235-c822-df94b00a647a@loongson.cn>
 
-Le mar. 10 nov. 2026 =C3=A0 07:45, Kuniyuki Iwashima <kuniyu@google.com> a =
-=C3=A9crit :
->
-> On Fri, 06 Nov 2026 19:14:41 +0200, Florin Badita-Nistor wrote:
-> > inet_csk_find_open_port() rounds the range length down to an even
-> > number but keeps the original exclusive upper bound for wrapping.
-> > For an odd-sized range, the two scans can therefore miss a valid port
-> > and return EADDRINUSE while an eligible port remains free.
-> >
-> > For example, restrict a TCP socket to IP_LOCAL_PORT_RANGE [40000, 40002=
-]
-> > and hold explicit binds on 40000 and 40001. bind(..., 0) always fails,
-> > although an explicit bind to 40002 succeeds. Both IPv4 and IPv6 TCP and
->
-> This is the reason of warning in set_local_port_range(),
-> so kind of WAI to me.
->
-> The change should be fine, but we should remove the warning.
+On Tue, Nov 10, 2026 at 09:29:04AM +0800, Tiezhu Yang wrote:
+> On 11/10/26 2:25 AM, Alexei Starovoitov wrote:
+> > On Sun, Nov 08, 2026 at 07:59 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+> > > atomic primitive is satisfied by different hardware implementations:
+> > > (1) arm64: satisfies it via LSE atomics ('casp' instruction)
+> > [...]
+> > > Update the comment to "double-width atomic cmpxchg", which provides the
+> > > following advantages:
+> > > (1) Accurately describes the cross-platform hardware invariant.
+> > 
+> > You ignored Hao's point about shorter commit logs.
+> 
+> If the following shorter commit message is preferred:
+> 
+>   mm/slub: Genericize x86-specific cmpxchg16b comment
+> 
+>   In __kmalloc_nolock_noprof(), update the comment from x86-specific
+>   "cmpxchg16b" to generic "double-width atomic cmpxchg".
 
-I would keep the warning.
+Ok, LGTM.
 
-It was added in commit ed2dfd900992 ("tcp/dccp: warn user for preferred
-ip_local_port_range") because connect() wants an even number of ports.
-This is still the case: __inet_hash_connect() rounds an odd-sized netns
-range down to an even size, so connect() can still miss one port there.
-
-The per-socket IP_LOCAL_PORT_RANGE case has no warning at all, and
-bind() can miss a free port there without any hint to the user.
-This patch fixes that.
-
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> 
+> I will wait for a while for more feedback from mm maintainers and send
+> v3 if necessary.
+> 
+> Thanks,
+> Tiezhu
+> 
