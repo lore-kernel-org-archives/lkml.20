@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332777;
-	b=2nLBk/YOAFS/5t0lPWZD7d0Bk+Mox1jiHuY/i2plfif3VgY/+XReZJNdt+6niKHBNZ3k
-	 +bpY9ZGQCqna2fRlchZNlPi9yBIz2tS6OLnIFsgYlSU5sCUUbwad4+Yhii6EgBjVzvhzY
-	 pVWNejlbVc/zVI3AAauf05i4kWWE00FqxV/FGfHmvvWm+nmJRy8KVj/jVyfAM82xs7Xy0
-	 Bx9J6stQ7Evr0Eh5P+bCQL6PAta6dKeLsvqPzIFLbAsGyNn/FufpfnipNRQqQkqx3wIyX
-	 QDFRRRiYBkYesuz0CHfJaLGjWgcDIbCMJTSuubLMd3fcnw1kmfKQD+9wpfJVDuj8eLA==
+	t=1794332824;
+	b=1lFTEao5RteisqMTGFXTKuAmfehE3J3GikvgRqXoqcqnt+XMeQpa/z85yhMv1/8tOUqP
+	 wbIyVzuLaADrf8Q0dR/UD8WG4OmrgJs19FGjxAxYwcdB4aEPwlgh448+fjEG4SmAUX1HV
+	 U63EIMHTcbSIVIIh5j46N6l6Yu9Lbv4ktDwfqzFsGySmTTVosz5vBP9NswkXfe45NmTul
+	 eb7+cNhTUs9Q+dim68twMCZOX7fA0SBaycsuNJM/qi7QDp9H8MPyQ/gbn9gn2+pl/6qtc
+	 qq9jRtX5QkzrxKuIxyMxP2jmsmrl+TkLdwnUc/rDfiS7vPIf9BMMOdzbyXd6yb+DGIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332824;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=DM4h2lDzZp3tp/QUxgywp2f4AF19bVDY9ONj3eT09Po=;
-	b=lxGV82fglPHFGcYQoiAP5futTWFuQ2LUjqI2eBaAgTXONOnKSoVQYyXVb0s1ollHSZrY
-	 v5w0veelQUgXQE1EnH8jU+h9c2pROvmhdCMZA3/ub/4ZE2rbFG7bmQorUs8+0A+9kVCmT
-	 8VIebj5zu/0NhdHfkfEZmpmVZpWY4o1dQwNGDb3YQNy6T5SIDs46W58f7UEKSk/cUdLSu
-	 VGEElKIvm5xVxB0w9ltA5/elpXPD3WVWZNcJAlaxuGdcB0KoASo8yAAOUy3vO23XZ60Y0
-	 5k2oFvEcZcDQUmuKYFJgrmoTWrlWxu1JzdAYNC6jcl9XPum2S53dLn1H9GHs1wAzWsA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
+	b=o2RsE1c2ozslRf3ktF8Vg8m7eG2ff2MmtAVU8U1q8xwzkshl55aBGuppN6VUQXLWPPqs
+	 fXQPygKSaNminsLf7Hz308lFxR9hGfjisH3nBCAQIjtZR0faFDHESkT6VGWuees2cAyEb
+	 ZmhVpH7qnpaQQCNVmaHcY1e9CP0UlzOic84gP+BpxFpayDipLDPyFh0lzr0PjTJMcZQQ8
+	 sfKxOMwlval75mPfj+fw8ThSs2/4fswLrUooVOVmvXCoOU9NB5VOEaReDyzK2kWFnr9ws
+	 UNYIHMx/K9W/UqgZQG6eUKIIgQs0AXcb5Jlc05x2D/6kWy+u/Y7bvBjP4I1nhxnm4AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HaXsInnn;
+	arc=none smtp.remote-ip=209.85.214.225
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDDD606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDDD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5641cd2cc13so2592798b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:46:16 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57A4606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A57A4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HaXsInnn
+Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso15151045ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:47:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794332776; x=1794937576;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DM4h2lDzZp3tp/QUxgywp2f4AF19bVDY9ONj3eT09Po=;
-        b=rsd8dAH8DXcKn5YHGdpZotCB7tRY85ckQItG8e89KVGvT4fw8+2qQfHUAztp1VJD6n
-         48HaDPiiY/bIbC3b6c2vYuOo9Y5SWsbRdTW4TJJU4KF3FDxzkg5VM/3+3bp2pemsSG2n
-         VhTGXA60yVSrouQ35N6ZZotw3RC6GihyH3fE+6ordOqp0AAYj6EUiZc93+/6JixpMkdO
-         bEHCfNYBDr+8OH9X+BAnSLC18gGXX1IwjfBWRF6cU8QA76J+VSH58rNZoGG2s7WHo3rm
-         3D1vn/YDJGpw4sEntMKF7oGG7YoI7nQ/IP8/gMx/tmi1ETpIRR9mwC1v/sEmnHjlemTc
-         k0Qw==
-X-Forwarded-Encrypted: i=1; AL+hErHRONPFeRAkKiP60mod2DsJXxuFTabjGA9dnHUddO71WbninlJ6+qTNzuZeckplzZUFjmWPcMrovf5VuCk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kDyIPfN/429FA+1qXFtoxH8IOWC6/pLXq3rPJ0Q85XtWMR1U3
-	7m4BVWsSyfOgslG+AZMY01S4MixLw+Zitov+evGcpNlsn/YmAtTcy/Bit1N3iXUE8Ig5LrsxMaL
-	KeHwuCh/Dn6QEAuOsaGgVQjrmeQL+x7LeDtCLOsFheCa7+Z1ZOzCMOUDRncw=
+        d=1e100.net; s=20260707; t=1794332823; x=1794937623;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
+        b=JBDi4espLeUufNbmVYxq9goePMm2iGjmljn6vxeXXHoeKVYw7VTOPxx0/pGieAfrwb
+         LXZJqfMfU2cpMzRX4P4YA4g6og3Y3KaPfRAIrGwIlMPLARkfwT/VtzaBC5mSDtxpeJGV
+         qctrQozY7YMcYns86H283KVUOl9+Nm+kKwKpdAa/xkMXcl7URz7r8x8OQC81g5U3wZ2Z
+         ksGeNxXGdXRRiMVJdrr92BZQtaNp0EGV4++QkL+o1ZJTCmEPQTIif9WFigGZSuA6VrR3
+         NKzXxAREmBrqwc0kqOaLRs7YdAL6JYchQ7CvKucjGMgRCkeUTEc1P+deCC9WzRD07ThM
+         SgkQ==
+X-Forwarded-Encrypted: i=1; AL+hErGNagP2D8yiE4htPAyK0UwQPrhffxdP+4oSONcfNBoTfspnbVdn4xCH3zq5C5el0oW7Q0T1HPPW9Re4MvY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QdjT3eCSUgEZx3bpLj/iVglpPQoz7xN5iR+FEBvt7z5gkXXTd
+	T1k/scMvsgVn26RP620a5hy0m4S/vzelighgWVN+h314gRW4yta3sZlTg9fkqSCpLgjV4cz8FxG
+	VlgfUd5W5Dm8OP0YNKPu8ny/YH9Iy6ImlVFSKm9Cju1y1y7DzIRKePfSd137H0NAXNyjX9o5VDN
+	ptXlJpfVHsGNGEUYczZmQa648xH6jvRh4mnJYmZoi5YkkeZvFoFrj+LY+U8TGqD/UB/cKGzWtfT
+	kOm4eifT6PT4khGNcex1oM3
+X-Gm-Gg: AYBFou30L3o1++D0H2bm9qtPAlQwyRFKkWhUl/0TW3SuPtbArG5wm0D4V4wbNeYk6/0
+	YIk0rPRxxCnkZAkPitWWT9N47nnI3et1BVzwkmz2dD6Ow3vPbDfDtq61hrS3124MFVrtmJF/1Vq
+	8fRS49voTb1K94EwQawWIZbaO/WTf1ebiweUr+NzcnXBjDNU9fkzzfBozvz+4SPYJph/RAKvsGo
+	HuqKBeHb0TBo43J2uIJC3X9BpPrPyBe6d4I6jvhdwcqRA1tyzFq8kcenxwL1r86rnPNwvEFvdJI
+	dACekU6cNrjNAjLcN6NmxkTwL6Mz126OOHDvitVilm2XjrLsWLxM+gqnVshMSQ9fGO6ijhdRYXw
+	unwdSVEwNNK6D4oH8mopbMMs/XQ90MeXXUPiz5/9ODOlC+7O4Fo9G2KCMLZoPWRTXir7r4GfRig
+	e0faXZPYUQWPX7wWB1DoXX2sKq4cs9BPUqo06BS2+R
+X-Received: by 2002:a17:903:3bc8:b0:2e9:64b9:a333 with SMTP id d9443c01a7336-2edb90b2f0cmr33605305ad.19.1794332823000;
+        Tue, 10 Nov 2026 09:47:03 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2edb64dd2ddsm650865ad.24.2026.11.10.09.47.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:47:02 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdb8c46e240so1195962a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:47:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794332821; x=1794937621; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jp+oM3z+TGlK20rj9Ru+iQ+Q6Mz3+Gb1zIaLcFJ+NLI=;
+        b=HaXsInnn/lUnuuaNml2GxjHTj3c2+TdW7y8ClsS+xVx/GVQmBoPUryC/kTFeOndrbP
+         McIMfLWOeso3chwKIfeW5bvjBIgHvdAXi2AKPypaBfi+j03CLCOq2gnfq4VwsafwstVf
+         VCcDlH0rZdtYs66Ft2fbYqtRI7/LABZ8i9p1I=
+X-Forwarded-Encrypted: i=1; AL+hErHawjMxP0F2XdWxhwOwflz9HYQA1hXTwlnnZAceAuu+cQP1RHuNN/OJMLwGyuXN5NA3jqQF56X1fSxvoJY=@vger.kernel.org
+X-Received: by 2002:a17:90b:2ec3:b0:3ac:9d14:feb1 with SMTP id 98e67ed59e1d1-3b166cd1576mr3597630a91.43.1794332820899;
+        Tue, 10 Nov 2026 09:47:00 -0800 (PST)
+X-Received: by 2002:a17:90b:2ec3:b0:3ac:9d14:feb1 with SMTP id 98e67ed59e1d1-3b166cd1576mr3597607a91.43.1794332820425;
+        Tue, 10 Nov 2026 09:47:00 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e203f8esm531433a91.14.2026.11.10.09.46.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:46:59 -0800 (PST)
+Message-ID: <79f827d9-8aec-49b4-bc70-117de314206e@broadcom.com>
+Date: Tue, 10 Nov 2026 09:46:55 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,23 +106,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bc6:b0:563:e8b6:c5d5 with SMTP id
- 5614622812f47-5683cd199f5mr2833462b6e.44.1794332775774; Tue, 10 Nov 2026
- 09:46:15 -0800 (PST)
-Date: Tue, 10 Nov 2026 09:46:15 -0800
-In-Reply-To: <CAO7_G+z5ZbJHY2aySMSo7qoKyQXEe-cAxPixK-=fbxRrR6zU8Q@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af35867.17ff5aea.1b027f.0197.GAE@google.com>
-Subject: Re: [syzbot] [dm?] WARNING in raid_resume
-From: syzbot <syzbot+8b22a0459202f76b4096@syzkaller.appspotmail.com>
-To: nenkov2004@gmail.com
-Cc: nenkov2004@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] pinctrl: bcm: Fix off-by-one and out-of-bounds access
+ in fsel_get()
+To: Wang Xiaolei <wangxiaolei01@kaihong.com>, linusw@kernel.org,
+ rjui@broadcom.com, sbranden@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, daniel@dragonzap.com,
+ iivanov@suse.de, andrea.porta@suse.com, phil@raspberrypi.com
+Cc: linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jonathan Bell <jonathan@raspberrypi.com>
+References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
+ <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+On 11/5/26 23:06, Wang Xiaolei wrote:
+> brcmstb_pinctrl_fsel_get() takes the value read from the pin's FSEL
+> register and uses it directly as an index into
+> pc->pin_funcs[pin].funcs[]:
+> 
+>          fsel = (val >> BIT_TO_SHIFT(bit)) & pc->pin_funcs[pin].func_mask;
+>          func = pc->pin_funcs[pin].funcs[fsel];
+> 
+> That is not how the register field is encoded. The setter,
+> brcmstb_pinctrl_fsel_set(), treats 0 as GPIO, 1..n_funcs as
+> funcs[0..n_funcs - 1], rejects n_funcs + 1 and above, and n_funcs is
+> always BRCMSTB_FSEL_COUNT (8). The field is therefore a 1-based function
+> number, while funcs[] is a 0-based array of eight entries.
+> 
+> Every readback is consequently shifted by one slot, and a field value of
+> 8 -- which the setter accepts, being the eighth and last alternate
+> function -- indexes funcs[8], one element past the end of the array.
+> 
+> This is reachable from userspace without supplying any invalid input:
+> 
+>          # echo "gpio45 alt8" > .../pinmux-select
+>          # cat .../pins
+> 
+> The write is an ordinary mux request that fsel_set() accepts; the read
+> that follows goes through pinctrl_pins_show() ->
+> brcmstb_pctl_pin_dbg_show() -> fsel_get() and triggers KASAN on
+> Raspberry Pi 5:
+> 
+>          BUG: KASAN: global-out-of-bounds in brcmstb_pctl_pin_dbg_show
+>          Read of size 1 at addr ffffa07c577ab2e8 by task cat/839
+>          The buggy address belongs to the variable:
+>           __compound_literal.62+0x8/0x40
+> 
+> A field value of 0 has the same root cause in a milder form: it is
+> reported as funcs[0] instead of GPIO. The mux itself is programmed
+> correctly in both cases, so this affects the debugfs readback and KASAN
+> rather than the hardware configuration.
+> 
+> Handle 0 and out-of-range values explicitly, and index funcs[] with
+> fsel - 1, so that the getter uses the same numbering as the setter and
+> the index can no longer go past funcs[n_funcs - 1]. The existing
+> fallback for func__ placeholder entries is kept:
+> 
+>          if (!fsel)
+>                  return pc->func_gpio;
+> 
+>          if (fsel > pc->pin_funcs[pin].n_funcs) {
+>                  dev_warn(pc->dev,
+> 			 "invalid fsel %d for pin %u\n", fsel, pin);
+>                  return pc->func_gpio;
+>          }
+> 
+>          func = pc->pin_funcs[pin].funcs[fsel - 1];
+> 
+> Tested on Raspberry Pi 5 with KASAN enabled. Before the fix, writing
+> "gpio45 alt8" to .../pinmux-select and then reading .../pins triggers
+> the splat above. After the fix the same sequence reports
+> "function spi_m" with no warning and no splat, and a register field
+> value of 0 reports "gpio". The register is restored to 0 afterwards.
+> 
+> Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller driver")
+> Cc: Jonathan Bell <jonathan@raspberrypi.com>
+> Cc: Phil Elwell <phil@raspberrypi.com>
+> Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
 
-This crash does not have a reproducer. I cannot test it.
-
-> master
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
