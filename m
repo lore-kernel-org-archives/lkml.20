@@ -1,95 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297719;
-	b=g5cfuL4/AuztVpRSlyfsjbiuZMKgLfauvZlw6MpUzM7W6+NuThyFaR0wmq12HYDuF4dk
-	 UdIt4nS2KiNr/Or0D+OsZgZmhkk5dYaBqlR32gW5Kts34Jo/9mkf0Z5JyNQ9tGMky6Zya
-	 byuX2k+96CQ/oP5/CsxGzuOWiQ+rsewjEi3RTJylvqWHOGbbGlZ3aUZgfEaXgh1r38Ihn
-	 aZ040f8+Nn9NPEBJWGnJCwsr+b8jTsmEdsyNlWMYg4z8BjhP1pAOY6SXE1BO8kSRSv1YW
-	 lWz3Qdgpb2juO3EJG0l9XVfQadMLDzJuDwyQrMQFh3Zx6h27f1mGHJvffJToKa3V3/w==
+	t=1794297720;
+	b=ZT3aZVj1gCMkgZ9tmo+vgOXu622lU3Ifb5OmRjevpwSpT5UffxfCxU0K92x5jJ52Urec
+	 e226GcS6Rr5A8z9fl2jCziJh1eD8qQoh7Bt8gSFgqY26EIGYvpd10kVc1tmRy2P4jUWY3
+	 O9nfXs6eB3X/MBdSDz8HECQWYDZ88PinVSK6jnine+5Ntoe+OPtIkwrgXSG46D+lOqIq8
+	 lI9cwjowdh3VzAh2s2LBMlgXgaoajXaOK9KEn4S7PKL3UYiiPMKbIn36vdaoIJIhZQQMx
+	 c2uEZ2yfyK91UmQE7eW9G4icaulsxiA7wwDbJ0nEAyGbRVy3Q79CRu8DZ7trjI5D90g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297719;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ge5RG0Etf1mIICPBU+Fr0TeBQ0djSo3YJCF0Cblf0n8=;
-	b=fw0ninNofXF/Tw6JYNmsETy7cN5Y6BWYd7/La8+zOHwyclOLXDrS1wBtirhCTK+jUY6h
-	 lBqQyfutbFVldFDt5z6XkEr9189ha8JvDibx9krvK4p44ugenXZLDerzIzm8z0qgZt8vS
-	 dJVzInO8IrKLZW2lKkHAF4cDurDj+4v4ku+U/fv6s90FJKs6W7Js2G9GBEKw8BB5z5N8a
-	 7uHPGLhIwD9Ep/+Jk9gz+W+gIbgxI4Xc5l1nwBtZVYX4nr2kndT4PtUyTeQ3TLPZGvTum
-	 ws4zd3iMLep7DiScqVz+qAu1sNhO6n13WBo8G88kzDvVpEE1uAX2kiW3eiEsJ//j5Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297720;
+	h=DMARC-Filter:DKIM-Signature:X-Original-From:User-Agent:References:
+	 From:Content-Transfer-Encoding:Subject:In-Reply-To:Message-Id:
+	 X-Lms-Return-Path:To:Date:Content-Type:Received:Cc:Mime-Version;
+	bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
+	b=I66ytB+7a2uivdvxXjT9tuunMaHsaCjsREnGUUUoN0jYAPtxXjwFnqZ7fOhxiNupR+BL
+	 NDtUpskkNZnpyAxZXMNlkpJkHOyow6/s6p0kB4XluzmF0DhvcOJ36Ot/yLYUdJVP2RVyo
+	 CYd1i/7jYCt885HWALehsDfnFxzKI9wW8ZqDAl6295qzsdscY/4T+c/RrpVYX8Pkrh3G+
+	 KRPYLuB6X+tm5TqySLPLt0u+kvImE9P6eIsxKqs1/oO2o1Ra0CkuGKbEyNcEz3QXRZ4J4
+	 w92SozbUqPotYJ6sognaz1opaFVh4on1vP2iDSxUVGsk0l6HooSzX4tLHVxmnG9oPnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFn30jJC;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=JjzClbGY;
+	arc=none smtp.remote-ip=209.127.231.19
+Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30764606B120
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30764606B120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271E4606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271E4606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFn30jJC
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso1102896a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:01:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794297718; x=1794902518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ge5RG0Etf1mIICPBU+Fr0TeBQ0djSo3YJCF0Cblf0n8=;
-        b=fFn30jJClst/P782GhsvLX4XDdp0cPqaYlBTugmsLdnT/D1QxxuQBWONUrAJLuhR/e
-         NHSEZsogPGggOYnFmHJADV9UYC0oc/rHS7x9pxpL+eLzTkB1mgym0DbroTAEXEzyX9f0
-         JeyhBLqGRV1N3jO8XnhZhmEqAZDGdNJyKCkV3alSyFSSY7emZHSxRIJoSKsbaQzPRX6m
-         Qeq0t2fnf/GZ51oVXb75JG2mI6cVVHOV1LEnneB+50vs0FgoY97t/JbVsFyvn3NSGOlE
-         GBwLHn08fybxycKUPw+kF0t/4iORB2SxmT3C93N4aYdzZ3KalX9B6o/v9DFwGpH4VlGW
-         eObw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297718; x=1794902518;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ge5RG0Etf1mIICPBU+Fr0TeBQ0djSo3YJCF0Cblf0n8=;
-        b=CPIvtuB3lnV7RcN3oKOYfk7UNWm8VursVIZ/jka7YoNkN0p7tJF/zLUCKTfie/HHWD
-         lU3r7qC0uwz1iOIovK9Zm8tiIo1v2PX9Ttvj8ivvISOnnsgn1XC3O82BvAVM5En9ryOK
-         xhzBUXRspYozOIkT7AN1HtyhlGrCJ6SVZ83tXwzaDceUBmsBy1HnrqemYh8wrAqEY+Vz
-         HjLKJNuCeKDB9E0DZibS2EA6typ9j0ghAmo1iTN2x3rht+O/Ne7ITL3gAe+jgzmq44uD
-         Lv1sqglBSRqNAPGm8Yc5OA1S8UL9E7RN3f85sNIH6aepn6Kk3gyCTdL8QdkSR3Agj6nj
-         M4XA==
-X-Forwarded-Encrypted: i=1; AL+hErFfGPsoTtsab1xz8tOSeMDb2yUK40ApSHQlyUhvXpD1q/RzLiu8nq1grPPO+5ogUxPmYNkd2pfqeGHRIkk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fxKaALULt+ILo40Oh9WXiv25Qddgoj9Nz2/yrWk1de4EwtW+G
-	FMr8x/qhVT3njDZowZMTaCrZWUwzWeWXq0qC5gMbsaNCM2+zMhQxtaN2
-X-Gm-Gg: AYBFou1Kqicz3SyTPho3CZQ7eHjBGx4+ZbHV6txYV0nCCoh4JqbADOJiCQQk1dedk6G
-	kqgKPT9XP3FxEUuykAAwbTNinMV0BldG1hH65n9WSob6BPqNww0BPfMqwBMam5tNlC+T411YUL+
-	tuts4KE5Lq4GczVPVGpLF/oUdFnDrrF85B7PY7/NAMmC0C21UtV0TUnJcGO5SIAmPmEGh8WyZtC
-	SpkSrX/nUT993tAXmyInqbL+Fn0//5DLYZ9tQYhP5B2jDnH6b+FeSMDO1qEL5ID+9X+HUVgaA30
-	SQHKggfc8dD1PjLG7nIlZ2g4ww+Vz/xQ+aAOLEdg9BgNfV6ZzP6n3tVuVWbP0lKvzz6sFV4fWlD
-	6WYNmrLToSyoqn18m6R1wWilIabWXsMhzJYEBry+ObEgOsYalW/DwDcZq+bVdBYcVKVG9Eeasya
-	77CtWcaWy2BKd3W2vzZik/T+wh6u/BsI6AswXyFhyl3FeNXE9lJmvCer7tF/yLJX8vsSHLwlrt6
-	nul0cd5CHaCvTSKdzTIK0E2JgCDhg/vuo86nnXO8AAqZGgzKiwHtbA9yXF84P2i9+8ohGnRFYPS
-	ny4FqX9os+vfIWdxwbo2PaWeeo3o61wbdpAlphQTa9YM2q+5KvbACaAWILfHPqzO8W8hzfgsHJV
-	duGWgUxw3
-X-Received: by 2002:a17:90b:548c:b0:3b0:a1c6:95ae with SMTP id 98e67ed59e1d1-3b1679e96e8mr1157275a91.31.1794297718399;
-        Tue, 10 Nov 2026 00:01:58 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:b87c:eff1:b55f:23de])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1678ceda0sm2906627a91.5.2026.11.10.00.01.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:01:58 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>,
-	linux-wireless@vger.kernel.org
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rtw-next v2 1/5] wifi: rtlwifi: rc: start no BA session for QoS null frames
-Date: Tue, 10 Nov 2026 16:01:37 +0800
-Message-ID: <20261110080143.1362021-2-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110080143.1362021-1-hjf3108@gmail.com>
-References: <20261110080143.1362021-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=JjzClbGY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794297713;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
+ b=JjzClbGYPqU1QXH/zjR7zOpITUgRYglVVIQP0fN4LKVW6psxR7bwsKKLZk05tJLfHAvcLb
+ lNnHk8YwwADmVNZKhOzB2LheTU9P21Aj091eWF9JA+hk+f3tIrAqmkc9Z1FmtzqnSfoR+F
+ P/BlcsXbnB+L4NF+oyTNlH8nbPCUr68OZY6MHBA+VDGXvmabqN916/nwaQxats7DYWif9Q
+ qXdBAZyKkzcXWkTO39TJ78dQCNJWaqVmvSN2M7nzhg5hOjS4mG/LUWKOfEmyqrJwhVosxj
+ U6wYcqmKo1qAI/B668U03mieD8p+FdwQhOVx9bNOFZmtdS2w2s2bGMHicj4LoQ==
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+User-Agent: Evolution 3.62.1-3
+References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com> <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com> <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
+In-Reply-To: <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
+Message-Id: <a1cae24c83e4b60bc6abfd1b387b3e92fe54c07d.camel@oss.cipunited.com>
+X-Lms-Return-Path: <lba+26af2cf66+7d6f78+vger.kernel.org+rongrong@oss.cipunited.com>
+To: "Guenter Roeck" <linux@roeck-us.net>, 
+	"Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Date: Tue, 10 Nov 2026 15:59:59 +0800
+Content-Type: text/plain; charset=UTF-8
+Received: from [192.168.8.156] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 16:01:40 +0800
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,29 +75,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
 
-Only start BA sessions for frames that carry data.
+Hi Guenter,
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
- drivers/net/wireless/realtek/rtlwifi/rc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, 2026-11-09 at 23:47 -0800, Guenter Roeck wrote:
+> On 11/9/26 23:02, Rong Zhang wrote:
+> > The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
+> > has no clock controller.
+> > 
+> > Retrieve clock frequency from OF to make it work.
+> > 
+> > Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+> > 
+> > Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+> > ---
+> >   drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
+> >   1 file changed, 25 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
+> > index 2811e7eab631..57b9e699c131 100644
+> > --- a/drivers/watchdog/loongson1_wdt.c
+> > +++ b/drivers/watchdog/loongson1_wdt.c
+> > @@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
+> >   	u32 timer_offset;
+> >   	u32 set_offset;
+> >   	u32 wdt_en_bit;
+> > +	bool no_clk;
+> >   };
+> >   
+> >   static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
+> > @@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
+> >   	.wdt_en_bit = BIT(1),
+> >   };
+> >   
+> > +static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
+> > +	.timer_offset = 0x8,
+> > +	.set_offset = 0x4,
+> > +	.wdt_en_bit = BIT(1),
+> > +	.no_clk = true,
+> > +};
+> > +
+> >   struct ls1x_wdt_drvdata {
+> >   	void __iomem *base;
+> >   	struct clk *clk;
+> > @@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+> >   	struct ls1x_wdt_drvdata *drvdata;
+> >   	struct watchdog_device *ls1x_wdt;
+> >   	unsigned long clk_rate;
+> > +	u32 freq;
+> > +	int ret;
+> >   
+> >   	drvdata = devm_kzalloc_obj(dev, *drvdata);
+> >   	if (!drvdata)
+> > @@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+> >   	platform_set_drvdata(pdev, drvdata);
+> >   
+> >   	drvdata->pdata = of_device_get_match_data(dev);
+> > +	if (!drvdata->pdata)
+> > +		return -ENODEV;
+> >   
+> >   	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
+> >   	if (IS_ERR(drvdata->base))
+> >   		return PTR_ERR(drvdata->base);
+> >   
+> > -	drvdata->clk = devm_clk_get_enabled(dev, NULL);
+> > -	if (IS_ERR(drvdata->clk))
+> > -		return PTR_ERR(drvdata->clk);
+> > +	if (drvdata->pdata->no_clk) {
+> > +		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
+> > +		if (ret)
+> > +			return ret;
+> > +
+> > +		clk_rate = freq;
+> > +	} else {
+> > +		drvdata->clk = devm_clk_get_enabled(dev, NULL);
+> > +		if (IS_ERR(drvdata->clk))
+> > +			return PTR_ERR(drvdata->clk);
+> >   
+> 
+> Wouldn't it be much easier to just create a fixed rate clock and use it
+> (as suggested by Sashiko in the devicetree patch) ?
 
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rc.c b/drivers/net/wireless/realtek/rtlwifi/rc.c
-index dcfaa98198..f475f1b8a9 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rc.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rc.c
-@@ -216,7 +216,7 @@ static void rtl_tx_status(void *ppriv,
- 	__le16 fc = rtl_get_fc(skb);
- 	struct rtl_sta_info *sta_entry;
- 
--	if (!priv_sta || !ieee80211_is_data(fc))
-+	if (!priv_sta || !ieee80211_is_data_present(fc))
- 		return;
- 
- 	if (rtl_is_special_data(mac->hw, skb, true, true))
--- 
-2.53.0
+Makes sense. I will take that approach (and fix other concerns found by
+Sashiko) when I resubmit this.
 
+Thanks,
+Rong
+
+> 
+> Guenter
+> 
+> > -	clk_rate = clk_get_rate(drvdata->clk);
+> > +		clk_rate = clk_get_rate(drvdata->clk);
+> > +	}
+> >   	if (!clk_rate)
+> >   		return -EINVAL;
+> >   	drvdata->clk_rate = clk_rate;
+> > @@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
+> >   	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
+> >   	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
+> >   	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
+> > +	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
+> >   	{ /* sentinel */ }
+> >   };
+> >   MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
+> >
