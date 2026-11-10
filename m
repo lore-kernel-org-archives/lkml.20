@@ -1,117 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315395;
-	b=0iaVo5ZVdMOS2zgCkG2WlUI+LM3nFPf4lI1PCTnlQ/i6wySWrNb3tSyzXwUtEP639PPR
-	 PeHJyjAGIRA3cqURlQR+XTHa9hI9qQUI+oMOJ4hFJjQxiHx+aK7RYE1QJjj6t0ppLG1ll
-	 xs8cCERKgPwTD6Swh7iqFXQAhc0GCA3EJfTClY1VVoHOlYrufOOV8coA3O6KLZSRQ10DK
-	 sdmbLa0zdTbEK10ksF/wbEgNR0AjytvPtMGPgPKoGxf17OzVitssFvpykMi2iuE7lM0Le
-	 QOFENc9JvkyCezTZD7PC7HDgE3gF1FQAc4dZ5YhUdpbz080iojBS89W8J8igLxPo1pw==
+	t=1794315400;
+	b=vT0fCA0oQpVp8Ou+bzDr4Os+k7CBWa4+xElbA3e5Aq/WBBNq931D+HJHQ9Cz55zihWnc
+	 iJXPmcMqIVf9O0OnYE9iU/0en1ZdxUeBHMkc9GEI0udUSGIL64UlZdHyWDOZESh9lkCue
+	 7LJb3nLdwI0+IVyRqbq04tBcvTAOsNts2azyP8GPQKYGlwO45NTXyaJ5RKQ9hRtYx0O4A
+	 46aIakZ6yVCIRTXfIa0KKvnkjybwVkoqJEon8PoxNFfjpViIrCe70z4UUdCD8LmgWYNNj
+	 Eflfuw5M6xnY/xyuJEzG/rdZHIUjpdGxKS1jQTyTIACNGJlrlbDBklHO7sqYmQttIRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315395;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=HPonFqTWiUmtrNs+Qb0D36Y6ciEfhMadviiHreNFwYc=;
-	b=FBgMzOlEDo/vA4W9a0b1iRMBBcuWSeo0Fyrju9GNAs1E+atEU/Su8RzkFEmgysHH+rd5
-	 goJqqDL4KeoNQrPGDxb2Q9ZRKtq5tOg4QQx0y8jdGkg1nhfmn3+hzqY6y6YvNVm38QGjf
-	 y8jOQfiFweatczhkaOSYo5k7UCBhkWCx4JbwRU5XzqXjLjjReFjUi6O2oZ/vBv9P4APtj
-	 Fkr8C2j970tZI4iOnZN0e/BDZ0jjhon/7bD/hqh6w+6lgg2iKs6btQNoAVWqO3xok4dsF
-	 UmVTwXdNBjoNurriwtJJJfO3vviVmzeKW/nmWQJOpksC5fpG28ZZurXwQYrMM+FyaKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
+	b=dlaLQ6SAQ0zjuHP52Sc1Y5N/B3GWznH0t5puI+wc9SDqcrcZ+VbdXhdHDPU6UVzwIxnX
+	 d2sCaYCbCdJ4Gl52mO4JoVz90wExeqNN4CjA12LyjFGFmsXpGld9Yqcyg87wE8x6CsJL1
+	 qCBlECnUNG09/vQvgO3EWUk9x04LqD7p/LbzMlP+KNSV+cZYxumAN6sLEsyXkufT2RSU5
+	 IFT+f2y0ufpC0wH1EtBVu4nNUVF3U7uiPTIBoDHZbKa01WAFlnXYDwW6LJAd3SGZlhY+T
+	 u/PhDHi2wsK9dNetqmbwcr7aEe9jHNPiKJdHy8Op7PmSUkxy1XTGiFdxH13GzugO+PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iI7ym2rR;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7Rq00c+;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iI7ym2rR;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7Rq00c+;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K5phAcJm;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D9A606A336;
-	Tue, 10 Nov 2026 12:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D9A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155A460A2618
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:56:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 155A460A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iI7ym2rR;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7Rq00c+;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iI7ym2rR;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7Rq00c+
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 76D2521F51;
-	Tue, 10 Nov 2026 12:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPonFqTWiUmtrNs+Qb0D36Y6ciEfhMadviiHreNFwYc=;
-	b=iI7ym2rRMMc3VrhaaAlN5WNcqZznLEHDbtpYqtRkG5n1tfi+3M5v/n/1WuSOFedMo1sqbz
-	Sc32CgTVFd7/opphYDcFWOT80BR/RRxVs/vkTtWjRDJpkb4OidIs7+B5BXeAuF4BOYbj/J
-	KLIaaDFlgWnKom1lHgtRS/Kk0HCzFnQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315392;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPonFqTWiUmtrNs+Qb0D36Y6ciEfhMadviiHreNFwYc=;
-	b=d7Rq00c+LDwkQJ8CY66ztb5ybwTC8KjmYM3gSgR5ZqtZLmPfIVg22YnOIpbxkR6cuLihJP
-	WLfQ9WIdsrYIm9Aw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=iI7ym2rR;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=d7Rq00c+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPonFqTWiUmtrNs+Qb0D36Y6ciEfhMadviiHreNFwYc=;
-	b=iI7ym2rRMMc3VrhaaAlN5WNcqZznLEHDbtpYqtRkG5n1tfi+3M5v/n/1WuSOFedMo1sqbz
-	Sc32CgTVFd7/opphYDcFWOT80BR/RRxVs/vkTtWjRDJpkb4OidIs7+B5BXeAuF4BOYbj/J
-	KLIaaDFlgWnKom1lHgtRS/Kk0HCzFnQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315392;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPonFqTWiUmtrNs+Qb0D36Y6ciEfhMadviiHreNFwYc=;
-	b=d7Rq00c+LDwkQJ8CY66ztb5ybwTC8KjmYM3gSgR5ZqtZLmPfIVg22YnOIpbxkR6cuLihJP
-	WLfQ9WIdsrYIm9Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B4391339F;
-	Tue, 10 Nov 2026 12:56:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7R2CCoAU82qzQwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:56:32 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E835D224E7; Tue, 10 Nov 2026 13:56:27 +0100 (CET)
-Date: Tue, 10 Nov 2026 13:56:27 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
-	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 06/41] proc: use fc_init_pseudo()
-Message-ID: <sqdczu46saxh7e2x5d7cuzkfqnlrp2naoqau374n2chx55ylpm@tirkx2qx4uju>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-6-4c998976c6c7@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K5phAcJm
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so3312010eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:56:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794315399; x=1794920199; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
+        b=K5phAcJm1B3Qq7C5Yx4WZNv6uAmsrnxHCLSvhPo12QQ6f+wGCfo68y8SG2M1WjTBnr
+         briX/5JN7mdqOyHRi8v2SKVDrrlLIo2qAXR5uMbLbSMop8ncR+1VeXv2vrX7aRR6sgkE
+         TUg2Nwq+2uMQYUKxeEL2mmYBbBsLYEg5uDUjhNEmq9TG99tbCQhjHgAJSL1A2NSXIbND
+         YLIT3t44H9jKw9eQNrPWcjdKe7Is9I75BCFpzg+y136Fw4ZN55r07waCo24Ux+9rQuE2
+         OSrrwlSjRuemm2Li/XjVHeQmjYfsAWtMyFZPFvmMHwLUSFHkBLj+Ppr3gsCBGpCSbYVR
+         bXnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315399; x=1794920199;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mbB3e7982UkOSbYBnDoSPTQDsHK093/mCqRMEDJYaDU=;
+        b=ZhUdniTzWJfL8HQfiTAP2WMt8ockuvHpjE5EbcEvsTOdg+L2MPO9qnzvSUDy9dMy+8
+         UpR3chdpuuxURj+iINYaTHp69Zz0GJn/iz02zarpGw2JlCdJnxwTsBRhJf4hjOOlhKHV
+         p22pFOtRsti/UbJrP+Qki66he4FyvZjGf2zn3+b0CLNf7P/4m9Sm/oHueYUYBoRPaYQw
+         CoQg2LHln5hpRuQjXxL6Eaa1Cblsj2Tv5CF+GlfFalbevKirj4HhoAcErJfwvpNNmYxg
+         CVMGJTGh9kcscO5vf/Qa8DOCPaHZbePvDTfY6ifqvd7ze+L5dS813U7X1ju1LosR9NTG
+         Jswg==
+X-Forwarded-Encrypted: i=1; AL+hErHDBhtqr1sAsfDs4jJiQPv5Z6zkK/SGTScB8BYlkOcaVpixvlNjJMIBgWhwisSjYtFR7m+vr8DIkvOr28k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CFdm8OR+nQHx6XjEH6TnJWHGZywMO3biFq6Fg1jkyPFAUnM5o
+	gq9FeWbHKX3e9yqYO4fCH5+esPSlriQeL8/Tp4SbnmyJ+0c8GLefUhNpAzNSaBYPLI4r8qrZdfG
+	WjM3/53kpM0x+fUcshb3uz8IIUCsMlQ==
+X-Received: from dyr7.prod.google.com ([2002:a05:693c:4007:b0:36a:1148:43f8])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:d588:b0:372:3bad:c861 with SMTP id 5a478bee46e88-37521ab4025mr3558729eec.41.1794315398676;
+ Tue, 10 Nov 2026 04:56:38 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:56:37 GMT
+In-Reply-To: <18e6b051cffc7079.3137322e32332e3235332e313736.3fae83.0000sendgmr@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,94 +77,227 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-6-4c998976c6c7@kernel.org>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[31];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLbde8anocd1dffa59fn6d5qp8)];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 76D2521F51
+Mime-Version: 1.0
+References: <18e6b051cffc7079.3137322e32332e3235332e313736.3fae83.0000sendgmr@google.com>
+Message-ID: <18e6b059306ac3f8.3137322e32332e3235332e313736.3fbfda.0000sendgmr@google.com>
+Subject: [PATCH v2 2/2] rust_binder: account for deferred work size in Thread::read()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue 10-11-26 10:14:22, Christian Brauner wrote:
-> Initialize procfs as a pseudo filesystem instead of raising
-> SB_I_NOEXEC and SB_I_NODEV by hand. This adds SB_I_PSEUDO.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
+BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
+inner.work_list without setting inner.process_work_list. On the next
+blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
+returns true and Thread::read() checks only whether the remaining output
+buffer can fit a single transaction (4-byte command code plus
+size_of::<uapi::binder_transaction_data_secctx>()).
 
-Makes sense. Feel free to add:
+If userspace provides a read buffer with 76 bytes remaining after the
+initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
+calls Self::get_work(), sleeps in Process.ready_threads, and receives an
+incoming synchronous transaction queued behind the deferred
+BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
+writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
+bytes, and iteration 2 exits the loop without delivering the incoming
+transaction, leaving it stranded in the thread-local work_list.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Add a size(&self) -> usize method to DeliverToRead returning the maximum
+number of bytes that do_work() may write to the user read buffer, and
+reserve the initial BR_NOOP placeholder before checking the work queue
+in Thread::read(). When inner.should_use_process_work_queue() is true
+and writer.len() lacks room for both the queued deferred items and an
+incoming transaction, set inner.process_work_list when inner.work_list
+is non-empty so Thread::read() falls back to Self::get_work_local and
+drains the thread's deferred work items without waiting for global
+process work.
 
-								Honza
+Suggested-by: Alice Ryhl <aliceryhl@google.com>
+Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+v1 -> v2:
+  - Reserve BR_NOOP before checking the work queue and set
+    inner.process_work_list when writer.len() < 76 + deferred_size so
+    Thread::read() drains deferred items via Self::get_work_local
+    instead of skipping the read loop and returning only BR_NOOP,
+    and avoid the per-iteration work.size() dynamic call inside the
+    read loop when deferred_size is zero (Alice Ryhl, Sashiko,
+    Carlos Llamas).
 
-> ---
->  fs/proc/root.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/proc/root.c b/fs/proc/root.c
-> index 7fbbe92bf73a..ca0e75081934 100644
-> --- a/fs/proc/root.c
-> +++ b/fs/proc/root.c
-> @@ -17,6 +17,7 @@
->  #include <linux/bitops.h>
->  #include <linux/user_namespace.h>
->  #include <linux/fs_context.h>
-> +#include <linux/pseudo_fs.h>
->  #include <linux/mount.h>
->  #include <linux/pid_namespace.h>
->  #include <linux/fs_parser.h>
-> @@ -265,8 +266,6 @@ static int proc_fill_super(struct super_block *s, struct fs_context *fc)
->  	if (ret)
->  		return ret;
->  
-> -	/* User space would break if executables or devices appear on proc */
-> -	s->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
->  	s->s_flags |= SB_NODIRATIME | SB_NOSUID | SB_NOEXEC;
->  	s->s_blocksize = 1024;
->  	s->s_blocksize_bits = 10;
-> @@ -350,6 +349,7 @@ static int proc_init_fs_context(struct fs_context *fc)
->  	put_user_ns(fc->user_ns);
->  	fc->user_ns = get_user_ns(ctx->pid_ns->user_ns);
->  	fc->fs_private = ctx;
-> +	fc_init_pseudo(fc);
->  	fc->ops = &proc_fs_context_ops;
->  	return 0;
->  }
-> 
-> -- 
-> 2.53.0
-> 
+ drivers/android/binder/freeze.rs           |  4 +++
+ drivers/android/binder/node.rs             |  8 +++++
+ drivers/android/binder/node/wrapper.rs     |  4 +++
+ drivers/android/binder/rust_binder_main.rs |  8 +++++
+ drivers/android/binder/thread.rs           | 36 ++++++++++++++--------
+ drivers/android/binder/transaction.rs      |  4 +++
+ 6 files changed, 52 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
+index 69e058e6d818..5103bfac781f 100644
+--- a/drivers/android/binder/freeze.rs
++++ b/drivers/android/binder/freeze.rs
+@@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(m, "{}has frozen binder\n", prefix);
+diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+index efdafc202e27..4f4c892cba58 100644
+--- a/drivers/android/binder/node.rs
++++ b/drivers/android/binder/node.rs
+@@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        2 * (size_of::<u32>() + 2 * size_of::<u64>())
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+@@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<u64>()
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         let inner = self.inner.lock();
+diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
+index edfbccf6e6da..37826349eafb 100644
+--- a/drivers/android/binder/node/wrapper.rs
++++ b/drivers/android/binder/node/wrapper.rs
+@@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        2 * (size_of::<u32>() + 2 * size_of::<u64>())
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index 56c786475237..361f3a987235 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -163,6 +163,10 @@ fn do_work(
+     /// Generally only set to true for non-oneway transactions.
+     fn should_sync_wakeup(&self) -> bool;
+ 
++    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
++    /// buffer.
++    fn size(&self) -> usize;
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
+ }
+ 
+@@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(m, "{}", prefix);
+         if self.skip.load(Relaxed) {
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 763f0646a1e9..ded50a1c964e 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1601,8 +1601,27 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+             UserSlice::new(UserPtr::from_addr(read_start as usize), read_len as usize).writer(),
+             self,
+         );
++        // Reserve some room at the beginning of the read buffer so that we can send a
++        // BR_SPAWN_LOOPER if we need to.
++        let mut has_noop_placeholder = false;
++        if req.read_consumed == 0 {
++            if let Err(err) = writer.write_code(BR_NOOP) {
++                pr_warn_ratelimited!("Failure when writing BR_NOOP at beginning of buffer.\n");
++                return Err(err);
++            }
++            has_noop_placeholder = true;
++        }
++
+         let (in_pool, has_transaction, thread_todo, use_proc_queue) = {
+-            let inner = self.inner.lock();
++            let mut inner = self.inner.lock();
++            if inner.should_use_process_work_queue() {
++                let deferred_size: usize = inner.work_list.iter().map(|w| w.size()).sum();
++                if writer.len()
++                    < size_of::<uapi::binder_transaction_data_secctx>() + 4 + deferred_size
++                {
++                    inner.process_work_list = !inner.work_list.is_empty();
++                }
++            }
+             (
+                 inner.is_looper(),
+                 inner.current_transaction.is_some(),
+@@ -1619,17 +1638,6 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+             Self::get_work_local
+         };
+ 
+-        // Reserve some room at the beginning of the read buffer so that we can send a
+-        // BR_SPAWN_LOOPER if we need to.
+-        let mut has_noop_placeholder = false;
+-        if req.read_consumed == 0 {
+-            if let Err(err) = writer.write_code(BR_NOOP) {
+-                pr_warn_ratelimited!("Failure when writing BR_NOOP at beginning of buffer.\n");
+-                return Err(err);
+-            }
+-            has_noop_placeholder = true;
+-        }
+-
+         // Loop doing work while there is room in the buffer.
+         let initial_len = writer.len();
+         while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
+@@ -1800,6 +1808,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+             m,
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index 48ac942bb75a..6909d7a8a219 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
+         !self.flags.is_oneway()
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
+         self.debug_print_inner(m, tprefix);
+         Ok(())
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.47.0
+
