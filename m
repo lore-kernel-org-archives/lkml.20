@@ -1,118 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309817;
-	b=HrnpkmX8M2M8DnatSEMJhho8PGqq66VISFYoXc80x6FsM/9t2vEYSwEUAQKRTCyDobpt
-	 1k8R1dnihOdl2kb2UHhmn5TN2CXGl5FWjLjlDU25LZeW7cPKvflPM+Zk+FTdHAjYWwQ1m
-	 JZSs2lj8xu4t+TDonteR7R72YTYDdHWTvvxRx25jnR1ilkT3esLA/qZ5xyk1mw1Y1GRGt
-	 xeS3a6nVKgXQ+QkcPESGgN3RzRxb2EzSo9hsEucETYVtE+id3kcAi/XVsK5AyLocvhn61
-	 cBxj4OGbXNUO+Zl9lvu9OA28ftl6pm0duC+y/CtS4B/+34dub4adqvBZnN+qNevnwbA==
+	t=1794309844;
+	b=GySpmd938dVShz6fcXii4phFxqnAi1lB3fHoquI1HfsBsXJsHagF9Od1FtaBjlzx1sM6
+	 Dzj3Mwc+5VnIjNvp4gRil1+ph12HWw1/LjW+V26hiMTQNQUdsAh8cym3oH5UneSMRLElh
+	 8tOGili5Dgkx7aT4vmEF3DamTcnIeMtwtaQ6tgUfCrZ2gorJxR3aW9N5ZOMa/SB9vvga/
+	 nVf2KSC1y6cj03Eq16dm9lCH3F1aPIfR4qALg3QeaEVmifeY0gNmkC8VG+bTwSHeB3Wkh
+	 ZWBy/w/31eRnNkdIJWI6EMQVA8hLkUumpCOB0aCBOLBDetavy1j7kShusqh/S2jLkgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309817;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FRqMllTEOoXf38Ur+jEqpl2zFBttJn4Z0H2rz9zpLxE=;
-	b=IlbKWJS6C0pNmbuo1WEEHvbb8SO9NCqQvEeZ855jHPxkPeK+dZ8DvgSFl2E6wFintdec
-	 2ckjWqjTENtryq4TQsw52xe7LxsALK511TLjBRPzevmcF4jIQe7dfYKwophdt58kWiAc/
-	 1amgtalKqahFfzDJxxocorUOyDfzLuCchDVxUvs4cn1JYAxkT84JSoGKpeYlP+ZtaWaui
-	 /ZsiArQ2NATR76cpJ6WPaPyjVUXx1fzT9nnXDTY+ept8niT5idT8aSJ1PHeEYK9RGn2/X
-	 l8gCLR5xoV56vYarsy5ObYP3tRVKg0nXp48UgT0NcXT42KcvIx6Wk7iZoTMlA/bUJXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309844;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=28tgvZD6jDuSjDvNE7CeCXO7pTXXWKJeJ62pTJpKuAw=;
+	b=VVc8XTGuMn1hlqYgR+qr+Bm67AiMBkNt41JpWBTxp/uijjXN0SgL+WrOM5VswlbRuntO
+	 roCp0wz56B3Of+J4P/+c6EWw3kylBnMkhDvFV6wqwulQPZDYuauKaySTP3w23Kx9p3Tgi
+	 GYbAzQrSFJpC6/g2oqlG0L2S+rqnNOOVBW6+CKVTpJ9hxTHLQ4O8gL+kN/BnCm49jcmkx
+	 ZZuqiV7TjEKEOI4B167H8BeTcsCOiSnFVTWA75dz1C4k0zlk3v7QyDcW+JZ0VgF0AkAdu
+	 T6FnMLPehKpw5v5IJlrklqwgUppyT5i2nZupltBgYm+kautAsy8Bm7OHmE6MNz1uiDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LhDCIGFM;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IOtlQFFT;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC9660A262D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:23:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC9660A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LhDCIGFM;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IOtlQFFT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794309815;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FRqMllTEOoXf38Ur+jEqpl2zFBttJn4Z0H2rz9zpLxE=;
-	b=LhDCIGFMiGIv/SFxU/zB0H9OlW++9EoXoa8Rfn5kXOA8O7VwkK7yPJgo5AU5ikwLcThcSA
-	GZv6M0WVUjRuGf1IyXkCkaX6oXPxxY78KyAHdinyUIO+UaPFKb8WVdLGXhGQnzB4fVCDnG
-	wPrJTymyWCCYpThNQRbTZd/DDj7MWwo=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-468-T5q-7BVzOvyhd4QHlLqX-Q-1; Tue, 10 Nov 2026 06:23:33 -0500
-X-MC-Unique: T5q-7BVzOvyhd4QHlLqX-Q-1
-X-Mimecast-MFC-AGG-ID: T5q-7BVzOvyhd4QHlLqX-Q_1794309813
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-536347602faso39836441cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:23:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794309813; x=1794914613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FRqMllTEOoXf38Ur+jEqpl2zFBttJn4Z0H2rz9zpLxE=;
-        b=IOtlQFFTPRypoQpqqtWsExkTtYKYL2sQY5dTaOdOnIBNjcYlnsvdoJmhgTQO1b2QU3
-         NQbupWDdoIB1TdS/NiE83Szx48XQwt1qLFTvUyko+oGDQGOBMGwWC+LORGbFFdBKQrXg
-         8i4WFp5ytwjVO9lay0H46S3QLuHGb2wpGbs+BBoOZBYgj5J8quZoN+NNI0R04xlXuXRb
-         nw2LK4SkTcw+JTHiwFGqJR/nl3QUBgPSCK4XnYpfBX/9spRQ0SIveS65Ra2LFrRHFKyi
-         7fNM/LK6KMOJqEO1eHzRg8fBJyJT+kgO7hAHix6+OH92+1BX5bgP6GF+JeOJ6djaVyOE
-         LPWQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FDE606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04FDE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so2250926b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:24:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309813; x=1794914613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FRqMllTEOoXf38Ur+jEqpl2zFBttJn4Z0H2rz9zpLxE=;
-        b=cV+vjp+HRO5fD3AolWMpzu10jeDQpJx0kal3BSNSReDjpnXzp+6jzlje//Ss8an4me
-         xTSYCaGlwVmjsojsMZKwUE27FNcsXUecPYc36TCTh4SFBk7aOfrqYGLeE+TtTH9LlRhL
-         xeLb3P2mQIMEpqp5pj8DRUr+kMlcPg984Y0boaLmIjQ9i3A4GnCEic8Yv4qT0SNIMldG
-         xOgT0GRM2vo+sHHIwB5OjEnPPWQ012vG0taPNh/eNVMq/9ssmVKNMX2iucWd8gJuzf7b
-         evBGewzk3ByfykbjAiodlWn13KY7n+P4+qqbti+6+wTuzz3cPKaa8CzVE6TdnzGgwKIE
-         2eEQ==
-X-Forwarded-Encrypted: i=1; AL+hErHOMgGytqUldkgBB4R7qCG42s+MupYRtGAfMCtjz7NGGKdkYED97+r7ST+ONmtgF19Y6EnAVS5LUVInNPo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8oLbjuoxtzGsdhYZIBQFifheGMX1LzwtspbZl+OVLB0OjDf2wF
-	IqgJEjaWgnQcGibrHZGaPX5llBK81q1N0FegxL3RYIQsWzECCQ8nwLuJ/P2+MwXIl2t5DwJBwcK
-	qDIZkvzQOe+O/sddw0tRRmIHI7rpp+uvU/8Y8iEuznJJTVADREQLtm7rr/yOM6RbuzA==
-X-Gm-Gg: AYBFou3LGAWmgEdjJAkPfExZIfA9E2PgI2RP/IFqJ6MFZ2R+U6ncmJ1RcDa68EwnoNQ
-	bVmPOVJ/z4t2HSkPS4MZL62ENVeycWrkeE74VI20rXwwfu2DFFKJ+SMu4rTXFpVyUZ8bSIX8LC+
-	uZAJ2Ift4+PB0Oy2EvbeYsixqvwF6UrIi09q/ImdctifXxizJqnz+pvQGk4ALxeNvvZT0UQoiH1
-	/0p+eNAFRCkxEn/tzxmkT5k7H8eo08Ks2UQFVqnZYIdbLIqsSua93o76CeguTRStWk0WGWKNnxg
-	lkcU3ZL8Btj3954fzQhqfEMN+HZzg5uFuJ10jJ2Fp97mIPEDNApmEqeTLElZVhKYR/fssQbGw8A
-	DEXjZVmHcvIZb5oRcM9NJftDG8mMjLxM96km8e9EI2cygUrHQT3HOZpJFr0E+HmWCThJrHJDTVa
-	Gx4HQ9l4ALc+DJ8WVtrv7FkgyEfJRiMkYPsUq38mNB/pmmFNnnOgnCiH8YM/TH6WQm2Is80noe/
-	pj1bE2Y4KKaRzaMLNAllocKM/Cv5M83uhioeaH9P6S9tyg3nwsS
-X-Received: by 2002:ac8:5e06:0:b0:535:a5fb:6459 with SMTP id d75a77b69052e-5552a06e5a8mr30912931cf.68.1794309813133;
-        Tue, 10 Nov 2026 03:23:33 -0800 (PST)
-X-Received: by 2002:ac8:5e06:0:b0:535:a5fb:6459 with SMTP id d75a77b69052e-5552a06e5a8mr30912491cf.68.1794309812421;
-        Tue, 10 Nov 2026 03:23:32 -0800 (PST)
-Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04e7315sm18569186d6.22.2026.11.10.03.23.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:23:32 -0800 (PST)
-From: Alex Markuze <amarkuze@redhat.com>
-To: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 3/4] net: skb_splice_from_iter(): walk ITER_BVEC segments directly
-Date: Tue, 10 Nov 2026 11:23:24 +0000
-Message-Id: <20261110112325.3263078-4-amarkuze@redhat.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110112325.3263078-1-amarkuze@redhat.com>
-References: <20261110112325.3263078-1-amarkuze@redhat.com>
+        d=1e100.net; s=20260707; t=1794309842; x=1794914642;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=28tgvZD6jDuSjDvNE7CeCXO7pTXXWKJeJ62pTJpKuAw=;
+        b=z1NV63+6otTxlksqJuHVPB0dQn/W50rXMse6NAHvrX7HaNEOUxaedv8Jvf2/I2BzDk
+         6PtH6RLvRSry3GMhqE0K3bH71rxAJx5pgEulS4prwvl+WDGrWSilR9oYsxak/mi3G5v/
+         bHCy1ul/iDl4v9Kx4txjjCaH20lRHK7uE7bqHLV/4Y9F/gpdYnlk9oxoHB89WzVbRciG
+         cqkJ0TjSbTlfY+B914zNrXOhcNTDA0Z5Q1OFnICR//8Jx+CsZJnjiFnSJtV0zIytdjuR
+         0BXdhzCaxeshp6n/Z6x/76I58bbj1xbD2jNkUQjV8xwl4wT64KGkjawSnlv673tEVXsD
+         Ez9Q==
+X-Gm-Message-State: APuU4Z8EVsZtuamaiBHWMPzXQvD+KPPWd+ElcvNGcMlpVIamq8/GhCfP
+	bCHaIXpt4hWZIAF7zckEwvhR/+hdhVbg7pIbrCIUkpPgL+N7la8XLa+Z0EvkCcMKqBIKNNSM+0W
+	k7hFYKk3V32JhLqau8uWchBewQI1l2Axg3uer+LbeJiTxkQypjXobAqOKyC8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,123 +57,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1307:b0:4f6:6041:f0a2 with SMTP id
+ 5614622812f47-5683cc18827mr1832149b6e.27.1794309842763; Tue, 10 Nov 2026
+ 03:24:02 -0800 (PST)
+Date: Tue, 10 Nov 2026 03:24:02 -0800
+In-Reply-To: <CAPVpPLsExzz8wh_b4WYpFqCHYhXq8w5OpvTSOssbF2UzuQpvtw@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af2fed2.ba456586.26086c.0000.GAE@google.com>
+Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
+From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	vrpcloudbughunter@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-ITER_BVEC already describes source pages and byte ranges. Walk its
-segments directly instead of extracting a temporary page array and
-reconstructing those ranges.
+Hello,
 
-Split at folio and representation boundaries, retaining page-bounded
-fragments on HIGHMEM. Reuse the fragment append and checksum helpers.
-Advance only by appended bytes, leaving a short request's remainder
-available for another skb. Compare a positive limit with the unsigned
-iterator count before assigning the bounded result to ssize_t.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-Other iterator types keep the page-extraction path.
+owned.c:1: error: VRP_SYZBOT_CROSS_ACCOUNT_NFS_create-b
 
-Signed-off-by: Alex Markuze <amarkuze@redhat.com>
----
- net/core/skbuff.c | 73 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 3a66a50513a3..189fe25293ac 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -7550,6 +7550,75 @@ static void skb_splice_csum_range(struct sk_buff *skb, struct page *page,
- 	}
- }
- 
-+/*
-+ * Splice from an ITER_BVEC by walking its segments: there is no page array
-+ * to fill.  Direct-mapped folio runs are split only at representation
-+ * boundaries; CONFIG_HIGHMEM builds retain page-bounded fragments.
-+ */
-+static ssize_t skb_splice_from_bvec(struct sk_buff *skb, struct iov_iter *iter,
-+				    ssize_t maxsize, size_t frag_limit)
-+{
-+	const struct bio_vec *bv = iter->bvec;
-+	size_t skip = iter->iov_offset;
-+	ssize_t spliced = 0, ret = 0;
-+	unsigned long seg;
-+
-+	if (maxsize <= 0)
-+		return 0;
-+	maxsize = min_t(size_t, maxsize, iter->count);
-+	for (seg = 0; seg < iter->nr_segs && maxsize > 0; seg++, skip = 0) {
-+		size_t boff = bv[seg].bv_offset + skip;
-+		size_t blen = min_t(size_t, bv[seg].bv_len - skip, maxsize);
-+
-+		while (blen) {
-+			struct page *page, *fpage;
-+			struct folio *folio;
-+			size_t foff, part;
-+
-+			page = bv[seg].bv_page + (boff >> PAGE_SHIFT);
-+			folio = page_folio(page);
-+			if (IS_ENABLED(CONFIG_HIGHMEM)) {
-+				fpage = page;
-+				foff = offset_in_page(boff);
-+				part = min_t(size_t, blen, PAGE_SIZE - foff);
-+			} else {
-+				struct skb_splice_frag range;
-+				u64 pos = ((u64)folio_page_idx(folio, page) << PAGE_SHIFT) +
-+					  offset_in_page(boff);
-+
-+				part = min_t(u64, blen, folio_size(folio) - pos);
-+				range = skb_splice_frag_normalize(pos, part);
-+				fpage = folio_page(folio, range.anchor >> PAGE_SHIFT);
-+				foff = range.offset;
-+				part = range.len;
-+			}
-+
-+			ret = -EIO;
-+			if (WARN_ON_ONCE(!sendpage_ok(fpage)))
-+				goto out;
-+
-+			ret = skb_append_pagefrags(skb, fpage, foff, part, frag_limit);
-+			if (ret < 0)
-+				goto out;
-+
-+			if (skb->ip_summed == CHECKSUM_NONE)
-+				skb_splice_csum_range(skb, page,
-+						      offset_in_page(boff),
-+						      part, skb->len + spliced);
-+
-+			boff += part;
-+			blen -= part;
-+			spliced += part;
-+			maxsize -= part;
-+		}
-+	}
-+
-+out:
-+	iov_iter_advance(iter, spliced);
-+	skb_len_add(skb, spliced);
-+	return spliced ?: ret;
-+}
-+
- /**
-  * skb_splice_from_iter - Splice (or copy) pages to skbuff
-  * @skb: The buffer to add pages to
-@@ -7564,6 +7633,7 @@ static void skb_splice_csum_range(struct sk_buff *skb, struct page *page,
-  * or a tail page of that folio and holds one reference on the folio either
-  * way.  On CONFIG_HIGHMEM builds a fragment stays within one actual page
-  * of the folio, because kmap_local_page() maps only one page.
-+ * A bvec iterator is walked directly, without extracting a page array.
-  *
-  * Returns the amount of data spliced/copied or -EMSGSIZE if there's
-  * insufficient space in the buffer to transfer anything.
-@@ -7579,6 +7649,9 @@ ssize_t skb_splice_from_iter(struct sk_buff *skb, struct iov_iter *iter,
- 	if (!maxsize)
- 		return 0;
- 
-+	if (iov_iter_is_bvec(iter))
-+		return skb_splice_from_bvec(skb, iter, maxsize, frag_limit);
-+
- 	while (iter->count > 0) {
- 		ssize_t space, nr, len;
- 		size_t off;
--- 
-2.34.1
+Tested on:
 
+commit:         b8ee9ef9 add secondary-owned shared NFS marker with sa..
+git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-nfs-1110-b8ee9ef
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
+dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
+compiler:       
+
+Note: no patches were applied.
