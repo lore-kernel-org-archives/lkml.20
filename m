@@ -1,62 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342206;
-	b=o/Ll2GPe/TsAzRwaiJ/dyARiiSCcVFP+BDzmYJ2Vc6vVuUzQGb9qKSWUZovxs4vTLIs1
-	 00wzkdsHjCkWAon0+VHdVj8cYxCwT3P45UNCHfpUBNY/fd5OZxHYT3G3ENZ5QQKxjopxV
-	 8GaYS/7tWKVGt4gD30A56J3dx3XQXcu626lVD+PDDYWSk3lIoll8vM6BBIg9uPNh6i9mK
-	 YIePAvy/lFXZ6QW9DZy7HdooDrShI/W9UhS7FkeeLbFPXzAP3FJHu6Y0eRV/ZHpBKdNTD
-	 Ns1EyO19Yox+QqsMGWUNMSqw17temdUlJ/DOlleBP51UVP0jx+zizpCAdMiAPXVb/tA==
+	t=1794342213;
+	b=YiLMvKGLAbfAubf0EIujQZv+GpSx4aD7RgFWMGGDdvYr11ep8gRj9L8AHKSxWyMDwNKa
+	 iY947CXrsBzFrccIOOSW6r2vRjAsvGF4KiRpDA6g4rjzMjQpdqgCCCAG7BhT00Va6t3tW
+	 N1CHv5VIOkicuF5BLYrcp4+z9XiQmsH7eu67ueWAUu8LECEhw3GNJl1k4tuvz2SiRpY97
+	 9Ty7Bn/HJJV1ZSa/6sNniixfybEqueG8G+4a4A4q9bHTb+Wl7vvcksar65NCl5td2jVI+
+	 sbxas2f6CoBch3r/OeA3k1WPfby5ZXhlXnz6iHXHLgEpfl5UI/aLvE9+ru0Gub4J1Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342206;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342213;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=c7+UI0GUfDbfLEtSpboSlipdO1srQg2d508IiAHDWDw=;
-	b=ftQ1Xbo/l37ubuFs3V+b1JyPumMMX7Epd66IB3bpmA7slR8G1sjt6lFz0QGzbVbCoWqH
-	 KflPH3FjHKq9Q3/hVmpELASyx0zmYwwhrYVu9U25mlsynqy0nOquQ1SwcA99+W1FO7esj
-	 lSXxvatOzxgzAlJcVp4SSsvbsPy103piisuKLFKo1nDeCmYIP14bu6HkiiSfnqox4Zw/e
-	 assBY+JWrP9PPZn3gYJ1fCs2SthqQ72q6UFBOfxAqFLPfNWNoHi7+4bFmnxJffgRgngvF
-	 Avp1Io8GnV6MzZqV3IgLHtIwooVFaAcQ2brUm7XDKw6v3j9m2qIVgOVw6wqEWuZBIKA==
+	bh=ofO7AY1iN5lpz+U3M2CbPQkAU3++HEg9/f+SJyXxtko=;
+	b=jkozK9PjRoZrrVxXxYa47I2CnZWsE4tWU1r3R4JWelV1tY6GqEuPbOAEngBNkp4BfNGY
+	 /cqDkd7ZnF0rBv5GZwJEE2p+EA3deCLEFo3DjV/DNVaWTuiOmKWu7JCcnKXhBbnEjENTE
+	 tHxM0v0S0Zx7BAknyiXkfSmJpxlXrEgt4v/AQkiogRnKgvDR6kxUMhBp9UW6grAOEcwOp
+	 HyH/8F1u7n3pPnR2zMvuRUNsCYkHKYxSnWWlGaPGLOqvfPkcbsoQqitUifP5PDUUvd+zL
+	 p9F0RPBJsHsUNZUWOjWiStzqXcIDLiiDdC5MtO87zcYZd3SC7gZHbWf8n1VQqg8DM4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=m5n63kw2;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=armoriq.io;
+	spf=pass smtp.mailfrom=armoriq.io;
+	dkim=pass header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eLbGt2tW;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F8C606A8B8;
-	Tue, 10 Nov 2026 20:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22F8C606A8B8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E484760A2615
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E484760A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=m5n63kw2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=c7+UI0GUfDbfLEtSpboSlipdO1srQg2d508IiAHDWDw=; t=1794342205; x=1795551805; 
-	b=m5n63kw2aKhqfKiUlCrrWCgthNDX/7nDoantdmNh8aWF5ModxkcHhbsyLqbhWdYcC8LozKYfI2K
-	4zMmU5hkc06IBHPPOlvK111SYkPZD+c4I0dC27xnInMIv3I9foHAS/XBg7G9FwMlaEHlFRxJrKkBV
-	gd2jzy5y5toZcgf7X6Xo2mJ4woXtMVZdha5+zPoiXURiPu0qvtewaGvaAXf0SOsZvnYglc+Q7UibB
-	bm6hR/RjTtA51Y08khVathBhjKqyKT8dsWkjrEOfeVmsx2F2IT68k4ULTv4w5eZJMQCA4yxsfciw0
-	QIHbpSyRIf62vEIXegvY5wrPZFbR8uI7ue+g==;
-Date: Tue, 10 Nov 2026 21:23:06 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Kevin Hilman <khilman@baylibre.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, absicsz@gmail.com
-Subject: Re: [PATCH 1/2] ARM: omap: cpuidle34xx: balance cpu_pm_enter/exit()
-Message-ID: <20261110212306.39327765@kemnade.info>
-In-Reply-To: <7ha4ngv55s.fsf@baylibre.com>
-References: <20261028-susp2-v1-0-174b52857d89@kemnade.info>
-	<20261028-susp2-v1-1-174b52857d89@kemnade.info>
-	<20261028212302.75ec622e@kemnade.info>
-	<7ha4ngv55s.fsf@baylibre.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eLbGt2tW
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso4615880eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:23:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=armoriq-io.20260707.gappssmtp.com; s=20260707; t=1794342212; x=1794947012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ofO7AY1iN5lpz+U3M2CbPQkAU3++HEg9/f+SJyXxtko=;
+        b=eLbGt2tWXmmTrn34UEU/tMsvZ6VHLQWmNA8W67+0JZaIJtHZy7DMEqZXwnr3NP68mp
+         UOkdXw5TVm3Wu2ZnoNWH9quRn9OLY1rAoID2uyTa+61eUz8JvNEAte9w/5kNsSC13S5t
+         l/5Qcmh1fLlbREj8k01KI8bzcvyK7/7dyrOXRXYh0HDDEFxAMB0I+rSI0KDRTbDSc8ip
+         fsJQGI8M4xOK9kkmuES+I8BMroIWDuA+FflxcfBH0a0XgGk8OmnMTNxJ0TEpNZaHSxct
+         nAmXugRjHTQfDpWUw8VQEItx5Q/xdg64zHs0s8AWCzJLHaPlZPkAFCPQ5VZBNdIucFbZ
+         CstA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794342212; x=1794947012;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ofO7AY1iN5lpz+U3M2CbPQkAU3++HEg9/f+SJyXxtko=;
+        b=AwzPeQH0NDkeq34vTmPMpyMMnYZw6iJcSkKsUFbkYyRPT7WsacanOVBd6cUVgWc00L
+         /sFbtQzcdNKpdKzfEbw9vnD/u7HlMntuGt6Bx12MbUM/uU484GIAJ0ErioUxpyKJx9AH
+         eP7WKXoQy4zbx4suyUcl5AHquDkHdW3bX7FplbWNvS0TfZF9ehoaeZ4ffBvAWtr8lN+7
+         uDtBWPWF2skkO76i02ufxAzMnU5MWg4shFbGIThU3jtLoGPao3K+HhE2ogeCf9fj5uy7
+         +OAcH3bE7GfSGZB6rYcVsqGD4dIYwPKL8N3q2Rr/C4KSSjpdsQsr4rHkCBMIB7MDEcvi
+         f5PQ==
+X-Gm-Message-State: APuU4Z93GjHIhCIg5TJNrj7e7fEVVKMbYEZqsOcX6aA1+tg0VZUWRBLb
+	obZ/KiFn+4eS6j4m8HQtun/Bmu89pvDBUasSwMlym7GQwyzE4SNftMbpEUinlCPbkdx679wyAiR
+	taWK5ChfHay8=
+X-Gm-Gg: AYBFou1PJnJgl3jd6ChxYLBQlQVYUq5ikdxOppDolgG7wiVjshroPSTC3QsvuJPDEbd
+	bTf3FkI3t0ryguxPot8gGqr1RCl6Be+vHvdbHPRpPWXUfd9Wovf58HCEw0HV/1Tkng0G6XfIz+B
+	rgYyG0HCd+Z6grMw2ZZqz6T/iu86Gl+IGgD+zq92qk0DFXcVkQACisvezG9nwmId2kyq7I1A6Sy
+	1Y09CpoBcGILQI9t5j8xZf1B55HqOzrbYOuiqIWJRCj5fTkr/kbyX4dsGe+Ff2eXMF+voEdHuHz
+	/0Iv/3NqPkDCYyFbBvBwCRNaZi3AIxawLUq06HZfYJHz7PwLDszVGdBgm9lbjeFhLGMQrMfVSVp
+	oWLaRqWvtdZx/SGoc+rRnwCFLA8tvTaT+oznxmT4gfaVuqkr4UsflxkbpMhREaniEDQEws/NaLn
+	dedn6RyQBv1ckYJMzwko0LEYiQfETw7eyLwfdbz+JpRAzjlLrjuuIXVU8MYzAlf4exBWjddciRK
+	tMWqY8fycc/n7Ng5Mtl8FD2uu8cpZrk6tCUQidX01Hk200kZuWXri2Bo7i6DWdNGLoQaqPiFQ16
+	GDEgwX4R0T8SV8BnJcRIwR1C8DxNpM9AFgztc27bJjXCnzD4MRGfkYHtlivmD+MewVJKmQAJJ1N
+	B4KCeNzaz8WS+fXoUL9YBwArQYk1QKMglSWRTIltsCxDor+N4l8Yf43lAlcIAkuiPdrJOgfQGeo
+	E=
+X-Received: by 2002:a05:7301:da17:b0:369:f97f:72c1 with SMTP id 5a478bee46e88-3768721429dmr484316eec.36.1794342211133;
+        Tue, 10 Nov 2026 12:23:31 -0800 (PST)
+Received: from localhost.localdomain ([2409:40f4:147:2742:6545:702a:2431:7dca])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm10076615eec.21.2026.11.10.12.23.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 12:23:30 -0800 (PST)
+From: "HARIHARA SUDHAN. R" <harisudhan@armoriq.io>
+To: linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Paul Moore <paul@paul-moore.com>,
+	Kees Cook <kees@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ben Segall <bsegall@google.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Ketan Bhardwaj <ketan@armoriq.io>,
+	bpf@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-mm@kvack.org,
+	"HARIHARA SUDHAN . R" <harisudhan@armoriq.io>
+Subject: [RFC PATCH v3 1/6] docs: security: Describe the Kernel Assurance Plane design
+Date: Wed, 11 Nov 2026 01:52:41 +0530
+Message-ID: <20261110202246.274-2-harisudhan@armoriq.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110202246.274-1-harisudhan@armoriq.io>
+References: <20261110202246.274-1-harisudhan@armoriq.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,114 +128,508 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 11:48:47 -0800
-Kevin Hilman <khilman@baylibre.com> wrote:
+Describe the Kernel Assurance Plane (KAP) design.
 
-> Andreas Kemnade <andreas@kemnade.info> writes:
-> 
-> > On Wed, 28 Oct 2026 20:15:11 +0100
-> > Andreas Kemnade <andreas@kemnade.info> wrote:
-> >  
-> >> These calls are usually done in a balanced way, so allow notifiers to
-> >> assume that these calls are balanced under all circumstances.
-> >> Seen some spurios vfp issues probably connected to this.
-> >> 
-> >> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>  
-> >
-> > Looked again at some discussions with Sicelo testing such things:
-> > He had observed a NEON off count 1 but MPU 0 in /sys/kernel/debug/pm_debug/count.
-> > Probably more involved, but lets not freak out things here.
-> > So that is definitively a real problem fixed by this. vfp_pm_resume()
-> > would not be called to restore the state without a patch like this.
-> >
-> > So this is
-> >
-> > Fixes: 1cd96478cf150 ("ARM: OMAP3xxx: CPUIdle: optimize __omap3_enter_idle()")  
-> 
-> Even with this fix, I found on OMAP3 (beagle and beagle-xm) that there
-> are still intermittent failures, and the NEON vs. MPU count mismatch was
-> a good indicator to dig a little deeper.
-> 
-There seem to be different problems, cases where MPU sticks to INA
-but does not go OFF (reported on N900), and that spurios vfp crash
-I have seen on the GTA04.
+Agents and other long-running tasks act on behalf of an objective that a
+user approved. Linux decides whether a task may perform an operation,
+but not whether the operation still belongs to that objective. Seccomp,
+LSM profiles, namespaces and cgroups cannot hold several objectives apart
+inside one environment, or revoke one objective's authority while its
+task runs.
 
-> I think the fix here is to add the neon_clkdm -> mpu_clkdm wakeup
-> dependency before the clockdomains are allowed to idle.  Otherwise NEON
-> could idle immediately.
-> 
-sound same. I also looked at the wakeup dep, but only in the running system.
+KAP introduces objective-scoped authority as a kernel subsystem. The
+document covers Intent Lineage Groups, the authority model and the
+control plane under /sys/kernel/security/kap, where igroups are created
+with mkdir as cgroups are. For each design decision it lists the
+alternatives considered, and it ends with the questions on which
+maintainer feedback is wanted.
 
-> With the patch below, I don't see any intermittent VFP crashes anymore
-> with early testing.
-> 
-Thanks for that patch.
+Assisted-by: Claude
+Co-developed-by: Ketan Bhardwaj <ketan@armoriq.io>
+Signed-off-by: Ketan Bhardwaj <ketan@armoriq.io>
+Signed-off-by: HARIHARA SUDHAN. R <harisudhan@armoriq.io>
+---
+ Documentation/ABI/testing/securityfs-kap | 111 ++++++++
+ Documentation/security/index.rst         |   1 +
+ Documentation/security/kap.rst           | 335 +++++++++++++++++++++++
+ 3 files changed, 447 insertions(+)
+ create mode 100644 Documentation/ABI/testing/securityfs-kap
+ create mode 100644 Documentation/security/kap.rst
 
-Then this ordeal comes to an end, I first thought that these are hw
-issues. But then maybe it is time to reinit my automatic testing stuff.
+diff --git a/Documentation/ABI/testing/securityfs-kap b/Documentation/ABI/testing/securityfs-kap
+new file mode 100644
+index 0000000..066de0b
+--- /dev/null
++++ b/Documentation/ABI/testing/securityfs-kap
+@@ -0,0 +1,111 @@
++What:		/sys/kernel/security/kap/
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Kernel Assurance Plane control directory in securityfs.
++		The ABI is experimental and intended for RFC review.
++
++What:		/sys/kernel/security/kap/kap.default
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write "open" or "closed". When closed, a task
++		outside the initial PID namespace that is bound to no igroup
++		cannot start a program.
++
++What:		/sys/kernel/security/kap/igroups/
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Directory of Intent Lineage Groups. Create an igroup with
++		mkdir, as a cgroup is created.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.install
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write the lineage root, authority epoch, optional expiry and
++		transition, and the authority as one key=value document in a
++		single write. The fields commit together or not at all.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.procs
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write a pid to bind that process, with all of its threads,
++		to the igroup. Reads return the pids written.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.lineage_root
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the opaque lineage root for the igroup.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.authority_epoch
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the current authority epoch. A lower value is
++		refused, and a write clears revoked mode. Bound tasks whose
++		recorded epoch is stale fail KAP checks closed.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.authority
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the authority document for the igroup, in a
++		strict subset of JSON, with a "predicates" array, each predicate having a
++		"kind" and "allow" and "deny" arrays of patterns. The
++		Kernel Assurance Plane design document lists the kinds and
++		how patterns match.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.expires_at
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the authority expiry in seconds since the Unix
++		epoch, or 0 for none. An expiry already in the past is
++		refused. Once it passes, every check for the igroup fails
++		closed.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.transition
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write a transition record whose sequence number is higher
++		than the last one, to prevent replay. Reads return the last
++		sequence number.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.mode
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write igroup mode. Supported values are "enforce" and
++		"revoked". A revoked igroup refuses every operation.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.events
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read recent KAP decisions as JSON lines with the fields
++		ts_ns, igroup, decision, operation, target, reason, epoch,
++		root and pid.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.igfd
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read the igroup's name, epoch and lineage root on one line.
+diff --git a/Documentation/security/index.rst b/Documentation/security/index.rst
+index 00650dc..937193b 100644
+--- a/Documentation/security/index.rst
++++ b/Documentation/security/index.rst
+@@ -18,6 +18,7 @@ Security Documentation
+    siphash
+    tpm/index
+    digsig
++   kap
+    landlock
+    secrets/index
+    ipe
+diff --git a/Documentation/security/kap.rst b/Documentation/security/kap.rst
+new file mode 100644
+index 0000000..e002a08
+--- /dev/null
++++ b/Documentation/security/kap.rst
+@@ -0,0 +1,335 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++======================
++Kernel Assurance Plane
++======================
++
++Kernel Assurance Plane (KAP) introduces an objective-scoped authority context as
++a kernel object. Intent Lineage Groups (igroups) are that object: an externally
++managed authority whose lifetime is tied to an objective rather than to a
++process, a thread group or a sandbox, that a trusted controller can update or
++revoke while unmodified worker tasks keep running.
++
++This document describes the design for review. It lists the alternatives that
++were considered for each decision and the questions on which maintainer feedback
++is wanted. The central question is in `Authority lifecycle versus enforcement
++mechanism`_: whether the novel part below should be a small authority-lifecycle
++facility that composes with Landlock and existing LSM hooks for the actual
++mediation, rather than a self-contained LSM that carries its own.
++
++What this is and is not
++=======================
++
++The distinctive part of KAP is not path or syscall mediation. Landlock already
++restricts a task's access to the filesystem and to a few other operations, often
++more completely than the checks here, and seccomp already filters syscalls. KAP
++does not try to replace or improve on either.
++
++What Linux does not provide today is an authority context with these four
++properties together:
++
++* It is **externally managed**. A trusted controller, not the task itself,
++  installs and changes it. This is unlike Landlock and seccomp, where a task
++  restricts itself and cannot be restricted further from outside once running.
++* Its **lifetime is tied to an objective**, not to a process, a thread group or
++  a sandbox. Several objectives can run in one environment, each held to its own
++  authority.
++* It can be **updated or revoked in place** by the controller, and the change
++  takes effect at the next operation of an already running task, without that
++  task cooperating and without killing it.
++* It is **inherited** across fork, exec and setns, so the authority follows the
++  work rather than a particular executable or label.
++
++Everything else in this RFC, the set of checked operations and how each is
++matched, exists to make that authority context enforceable. Those checks overlap
++with Landlock and with existing hooks, and the open question below is whether to
++keep them in KAP or delegate them.
++
++A motivating example
++====================
++
++Two objectives, O1 and O2, run as separate worker tasks in one environment. Both
++start with authority to read ``/workspace`` and ``/package-cache`` and to reach
++the package registry. They are bound to two igroups.
++
++O1 finishes its first stage. The controller advances O1 to a new authority
++generation that is narrower: no package cache, no network. It writes the new
++authority and a higher epoch to O1's igroup. O2's igroup is untouched.
++
++From its next check, an already running O1 worker is held to the new authority.
++It cannot reach the cache or the network even though it could a moment ago, it
++was not asked to drop anything, it was not restarted, and O2 is unaffected. If
++instead the controller revokes O1, the next O1 check fails closed.
++
++This is the behaviour that a self-restriction model cannot express. Landlock and
++seccomp restrict the calling thread and its future children at the point the
++thread asks; they offer no way for an outside controller to narrow or revoke the
++authority of a task that is already running, per objective, while a second
++objective beside it is left alone. That per-objective, externally revocable
++lifecycle is what KAP adds.
++
++Model
++=====
++
++``igroup``
++  Intent Lineage Group, the unit KAP enforces. An igroup owns an authority
++  snapshot, a lineage root, the current epoch, an optional expiry, a transition
++  sequence, its bound tasks and an event log. A process is bound by writing its
++  pid to the igroup, which binds all of its threads. Children inherit the
++  binding, and it is kept across exec and setns.
++
++``authority snapshot``
++  The predicate set for one igroup epoch. A deny wins over an allow, and an
++  operation that no predicate allows is refused. The snapshot is compiled once
++  when it is installed.
++
++  The snapshot is the model's authority representation; its on-the-wire form is
++  not. In this RFC that form is a document in a strict subset of JSON, used only
++  because it is easy to produce from the prototype runtime::
++
++    {"predicates":[{"kind":"file","allow":["/srv/work"],"deny":["/srv/work/keys"]},
++                   {"kind":"exec","allow":["/usr/bin/*"],"deny":[]}]}
++
++  The JSON subset is a prototype representation, not part of the model. Any
++  userspace policy format is translated to the snapshot in userspace, before
++  install. The kernel-facing questions are the representation's bounds, its
++  validation, and atomic install and update, not accommodating a configuration
++  language. A bounded, versioned binary form, or reuse of an existing ruleset
++  format such as Landlock's, is the intended direction and is question 4 under
++  `Questions for maintainers`_.
++
++  The predicate kinds, and the limits of each as currently implemented:
++
++  * ``exec``, ``file``: a path, matched against the path and everything below
++    it. File predicates also govern rename, link, unlink, mkdir, rmdir, mknod,
++    symlink and truncate, checked as the parent directory plus the name, so a
++    file cannot be moved into a denied path. A program is allowed by the path it
++    resolves to and refused by a deny on that path or on the name it was started
++    with. This is ordinary path mediation and overlaps Landlock.
++  * ``net``: connect() only, matched as ``address:port`` such as
++    ``192.0.2.1:443``, or ``family:N`` for a family other than IPv4 and IPv6. A
++    connect with ``AF_UNSPEC`` is not checked; ``AF_UNIX`` is checked as
++    ``ipc``. bind(), listen() and already connected or accepted sockets are not
++    covered. This is not a service-side network policy.
++  * ``ipc``: Unix domain checks are coarse: ``unix:stream_connect`` and
++    ``unix:may_send`` do not yet identify the endpoint. For a pathname socket
++    the resolved endpoint is the right target and is not yet used; an abstract
++    socket needs its own semantics. ``sysv:flag=N`` is only the flag passed to
++    ipc_permission() and does not identify the object, so this is not SysV IPC
++    confinement.
++  * ``descriptor``: a file_receive check on the resolved path of a file received
++    over a Unix socket. It is not a descriptor lifecycle model; using a
++    descriptor already held, and accessing a mapping already established, are
++    separate and are not covered by this kind.
++  * ``procfs``: path-based matching under ``/proc`` with the caller's own pid
++    normalised to ``/proc/self``. It is not a general procfs security model.
++  * ``execmem``: the path of the mapped file, or ``anonymous``.
++  * ``cred``: ``uid=U`` and the other id fields, ``groups`` or ``capset``.
++  * ``namespace``: ``TYPE:OPERATION`` for clone, unshare and setns. See
++    question 5 under `Questions for maintainers`_ on using existing hooks for
++    these instead.
++  * ``ptrace``: ``same-igroup``, ``igroup=NAME`` or ``unconfined``.
++  * ``bpf``: ``cmd=N``, with ``map_type=N`` or ``prog_type=N``.
++  * ``io_uring``: ``override_creds``, ``sqpoll`` and ``uring_cmd`` only. These
++    three checks are not a blanket disable of io_uring and do not carry the
++    submitting task's authority onto every asynchronous operation.
++
++``epoch``
++  Monotonic authority generation. Installing a higher epoch fails every task
++  still bound to an older one closed from its next check.
++
++``lineage root``
++  An opaque reference supplied by userspace that ties the installed authority to
++  a committed execution lineage. The kernel stores it and reports it in events;
++  it does not interpret or verify it in this version. Whether a refined snapshot
++  is a valid narrowing of its predecessor is a trusted-userspace responsibility,
++  not a kernel check.
++
++Deployment and privilege model
++==============================
++
++KAP is meant for a supervised agent runtime, not for an unprivileged application
++that installs its own sandbox. The task running under an igroup is not the
++authority for what that igroup may do; the fact that a user started the work is
++not itself a grant.
++
++A trusted, privileged runtime combines the task, its workspace, the tool
++contracts, credential bindings, administrator policy and any approvals into the
++compiled snapshot, installs it, binds the worker, and then runs the worker
++unprivileged. Writes to the control plane are authorised against the initial
++user namespace. The worker cannot widen its own authority; it can only have it
++narrowed or revoked from outside.
++
++Control plane
++=============
++
++KAP state lives under ``/sys/kernel/security/kap``::
++
++  /sys/kernel/security/kap/
++    kap.default
++    igroups/            created with mkdir, as cgroups are
++      <igroup>/
++        kap.install
++        kap.procs
++        kap.lineage_root
++        kap.authority_epoch
++        kap.authority
++        kap.expires_at
++        kap.transition
++        kap.mode
++        kap.events
++        kap.igfd
++
++``kap.default``
++  ``open`` (the default) or ``closed``. When closed, a task outside the initial
++  PID namespace that is bound to no igroup cannot start a program, so a bind
++  that failed cannot leave a workload running without authority.
++
++``kap.install``
++  Write the lineage root, epoch, optional expiry and transition, and the
++  authority as one ``key=value`` document in a single write. They commit
++  together or not at all.
++
++``kap.procs``
++  Write a pid to bind that process, with all of its threads, to the igroup.
++  Reads return the pids written.
++
++``kap.lineage_root``, ``kap.authority``
++  Read or write the lineage root or the authority document. A write to
++  ``kap.authority`` is compiled before it replaces the current authority; a
++  document that does not compile leaves it unchanged.
++
++``kap.authority_epoch``, ``kap.expires_at``
++  Read or write the epoch, or the expiry in seconds since the Unix epoch (0 for
++  none). A lower epoch, or an expiry already in the past, is refused. Writing
++  an epoch, or installing authority, also clears revoked mode.
++
++``kap.transition``
++  Write a transition record whose sequence number is higher than the last one.
++  Reads return the last sequence number.
++
++``kap.mode``
++  ``enforce`` or ``revoked``. A revoked igroup refuses every operation.
++
++``kap.events``
++  Read recent decisions as JSON lines with the fields ``ts_ns``, ``igroup``,
++  ``decision``, ``operation``, ``target``, ``reason``, ``epoch``, ``root``
++  (the lineage root) and ``pid``.
++
++``kap.igfd``
++  Read the igroup's name, epoch and lineage root on one line. The name is
++  reserved for future igroup file descriptors.
++
++Design decisions
++================
++
++Authority lifecycle versus enforcement mechanism
++------------------------------------------------
++
++This is the decision we most want feedback on, because it shapes the rest.
++
++The current series is a self-contained LSM: it holds the igroup authority
++lifecycle and also performs the operation mediation at existing LSM hooks. Most
++of that mediation, path access in particular, overlaps with Landlock and could
++be expressed with it.
++
++The alternative is to keep only the novel part in KAP, the externally managed,
++per-objective, revocable authority lifecycle with binding and inheritance, and
++to compose it with Landlock and existing hooks for the actual enforcement, so
++that an igroup's current generation drives a Landlock ruleset and other existing
++checks rather than a KAP-private predicate engine. That is a smaller and more
++upstreamable facility, but a larger change from this code.
++
++We implemented the self-contained form first because it is what runs today and
++makes the model concrete. We would rather present the authority-lifecycle
++facility that composes with existing enforcement if the subsystem agrees that is
++the right shape. Question 1 under `Questions for maintainers`_ asks exactly this.
++
++Where the control plane lives
++-----------------------------
++
++Igroups are created and destroyed by userspace, so the control plane needs
++directories that userspace can create. securityfs does not allow userspace
++mkdir.
++
++Considered:
++
++* A dedicated filesystem mounted at ``/sys/fs/kap``, the prototype's first
++  interface. It works, but puts security state outside securityfs, where the
++  other LSMs keep theirs.
++* securityfs with control files, for example writing a name to a ``create`` file
++  to make an igroup. This keeps everything in securityfs but replaces mkdir and
++  rmdir with a private protocol that every tool has to learn.
++
++Chosen: a small internal filesystem that the kernel mounts itself and links
++under securityfs, the approach AppArmor uses for policy namespaces
++(``apparmorfs``, linked as ``/sys/kernel/security/apparmor/policy``). Users only
++see paths under securityfs, and an igroup is created with mkdir, the way a
++cgroup is.
++
++Igroups rather than a cgroup controller
++---------------------------------------
++
++Considered: making KAP a cgroup controller, since igroups are created like
++cgroups and follow the process tree.
++
++Chosen: a separate hierarchy. Linux can of course group tasks, including across
++setns; the point is not that it cannot. It is that we want the authority
++lifecycle to be independent of the resource hierarchy. A container usually
++places all of its tasks in one cgroup, while several objectives can run inside
++it, each needing its own authority and its own independent update and
++revocation. Tying authority to resource partitioning would prevent that.
++
++An authority-lifecycle object rather than BPF LSM programs
++----------------------------------------------------------
++
++Considered: carrying the model as BPF LSM programs.
++
++A BPF LSM can enforce at security hooks, and a BPF implementation could carry
++parts of this, the per-operation checks in particular. So the question is not
++which mechanism enforces, but which authority-lifecycle semantics should be a
++shared, in-tree contract: how an authority object is created, attached to a
++task, inherited across fork, exec and setns, updated to a new generation, and
++revoked, with those transitions taking effect for already running tasks. Those
++semantics are kernel object state that we think belongs in one auditable place
++rather than being re-implemented per deployment. Which mechanism then performs
++the mediation is the subject of the lifecycle-versus-enforcement decision above.
++
++The kernel enforces the snapshot, not a policy language
++-------------------------------------------------------
++
++Considered: parsing a policy language in the kernel.
++
++Chosen: the kernel accepts only a compiled predicate snapshot. From the
++kernel's point of view that installed snapshot is the policy. Objective
++interpretation, authorization decisions and validation of the upstream
++artifacts stay in privileged userspace; the kernel enforces the installed
++snapshot and the execution binding, and compiles the snapshot into per-kind
++pattern sets once at install time.
++
++Questions for maintainers
++=========================
++
++1. Should this be a minimal authority-lifecycle facility (bind and inheritance,
++   atomic generation update, revocation, with lifecycle kept separate from any
++   sandbox implementation) that composes with Landlock and existing hooks for
++   enforcement, rather than a self-contained LSM with its own mediation? See
++   `Authority lifecycle versus enforcement mechanism`_.
++2. Is an internal filesystem linked under securityfs, as AppArmor does,
++   acceptable for a control plane that needs userspace mkdir?
++3. Should igroup removal follow cgroups, with rmdir allowed once no task is
++   bound?
++4. The predicate snapshot's wire form is a JSON subset and experimental. Is a
++   bounded, versioned binary format preferred, or reuse of an existing ruleset
++   format such as Landlock's?
++5. For namespace transitions through unshare, clone and setns, this series calls
++   KAP directly. If the target tree has, or would accept, LSM hooks for those
++   transitions, we would use them instead of calling KAP directly. Which
++   existing or proposed hooks should we build on?
++6. The LSM ID is provisional and should be confirmed.
++
++RFC status
++==========
++
++This interface is experimental. The RFC is intended to make the authority and
++lineage model reviewable, not to freeze the userspace ABI.
 
-> I'm still doing a few more tests, but will sent a proper patch with
-> changelog after some more testing.
->
-I will do that too. And then time to do some bisect to catch some omapdrm
-bug. 8250_DMA also smells.
-
-Regards,
-Andreas
- 
-> Kevin
-> 
-> 
-> diff --git a/arch/arm/mach-omap2/pm34xx.c b/arch/arm/mach-omap2/pm34xx.c
-> index 9992549c7336..d11967c2f4bf 100644
-> --- a/arch/arm/mach-omap2/pm34xx.c
-> +++ b/arch/arm/mach-omap2/pm34xx.c
-> @@ -510,6 +510,20 @@ int __init omap3_pm_init(void)
->  		goto err3;
->  	}
->  
-> +	neon_clkdm = clkdm_lookup("neon_clkdm");
-> +	mpu_clkdm = clkdm_lookup("mpu_clkdm");
-> +	per_clkdm = clkdm_lookup("per_clkdm");
-> +	wkup_clkdm = clkdm_lookup("wkup_clkdm");
-> +
-> +	/*
-> +	 * Add the NEON wakeup dependency on the MPU before the clockdomains
-> +	 * are allowed to idle: once pwrdms_setup() has programmed NEON's next
-> +	 * state to OFF/RET, an idle NEON clockdomain otherwise lets NEON power
-> +	 * down while the MPU keeps running, and VFP instructions then trap as
-> +	 * undefined until NEON is woken.
-> +	 */
-> +	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
-> +
->  	(void) clkdm_for_each(omap_pm_clkdms_setup, NULL);
->  
->  	mpu_pwrdm = pwrdm_lookup("mpu_pwrdm");
-> @@ -523,11 +537,6 @@ int __init omap3_pm_init(void)
->  	per_pwrdm = pwrdm_lookup("per_pwrdm");
->  	core_pwrdm = pwrdm_lookup("core_pwrdm");
->  
-> -	neon_clkdm = clkdm_lookup("neon_clkdm");
-> -	mpu_clkdm = clkdm_lookup("mpu_clkdm");
-> -	per_clkdm = clkdm_lookup("per_clkdm");
-> -	wkup_clkdm = clkdm_lookup("wkup_clkdm");
-> -
->  	omap_common_suspend_init(omap3_pm_suspend);
->  
->  	arm_pm_idle = omap3_pm_idle;
-> @@ -562,7 +571,6 @@ int __init omap3_pm_init(void)
->  	if (IS_PM34XX_ERRATUM(PM_PER_MEMORIES_ERRATUM_i582))
->  		clkdm_add_wkdep(per_clkdm, wkup_clkdm);
->  
-> -	clkdm_add_wkdep(neon_clkdm, mpu_clkdm);
->  	if (omap_type() != OMAP2_DEVICE_TYPE_GP) {
->  		omap3_secure_ram_storage =
->  			kmalloc(OMAP3_SAVE_SECURE_RAM_SZ, GFP_KERNEL);
-> 
-> 
-> 
-> 
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.53.0
 
