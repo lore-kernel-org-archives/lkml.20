@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302947;
-	b=1syV0o/TswXoiNtdFadHQCcj8xOyQ3KtwA3I9R+g6kZ245d820SU+d+KBDBi8Nqh386/
-	 KKgvySofJixlRoQPiRRwsCcCzsWtErCWHYZU2IZgKPzLR/bL9Tp4HhWcOop4qND5D79rl
-	 l2BUbk6WvfO00GyIxL2o1QcDcBVHdAhnNaG9TE0dM/T/tOJuWdHUpor++uLSyq9AdOuug
-	 M9sbSCTmBj9Y8zTZ0x2QO+t5tUU6D+6I3J8Q4iHfNTRfRc0T2c0HdgM4EBjfB+EcRZHv7
-	 6qLYinjq/NH5yrCcBfxJi6Cx3CiCnsWw/flZuFltRRdkXl35yxma9bajVQ4zbkWTUxA==
+	t=1794302979;
+	b=XZ/EC4BZN8LFdLIu/1zQE9siA5eGV9zfr935KeHq20yGnpHRuRmvtmGhhHeOzR7ABEEC
+	 SsuCQO+CPdMg9JHkNCUB8TQiOtENFMRWYS8E/zob28v9uBA7BQO732IaGuVtk6RPvXp1I
+	 bKuVG7imi+qnjxb6BGruPIgPMW6I0+xvZefKpC46KKVkG+WhkABVBRcbegpIQl4+8RIb5
+	 5Ph7Cpjmr0x74VRK/TngT1Tgpd+p9bFaPRu3eVwYQrRco+zbiBqnuqJ0Auja8dUsB41gM
+	 8arIzsK8m3E8Bsh+c38xXnGwU/yG4NVhVUKPGRZaIS4Xm/ze9LDIX05q/fXVxg8JRsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302947;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
-	b=sHct+bWjLUWh6RmUWqLrTR4vYjKHU0Adj1/AHq7ZrzumELY40lgLXaAzQbv4pLpOn2eZ
-	 D1mZX3X+4eQGqrGRBKHbO1pIsC0WMnQHVaEGX+fm3TyMoUr4CAkpSi9ie8RzXo8Pt5IUu
-	 An76mttoc4qG1pwRswCoWrPZemySDXvXBHkFwMpy4HSchDypDd74y5TAOdQJp3CiK8xrU
-	 w/R/AVIta9KP0HbdTaZNOhLWtby/LrsI7uXpZSWbv26buGHXcyI4Rd6CL8yFsEjuiNnvn
-	 kuH+LbLVURuTPhHI3eIWGwbjmNzpJ3Yfu+CTVnepbdS7LyPUNsAQd3NhfEn6L+I+wWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302979;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yscYkUexLWJfxvh+W/7HnXySz2cjzUF/oCyCwV+MFns=;
+	b=5lfsEtPGPapm6EnBnllW7hkJkwdfvss9m7d+RVhVpakIDO9QUDjQMdDhD8FxLpcDp+GY
+	 x+FpSyRGTU2rUBZIbFu4/z08BJ5uFyOIodVQLQOzyFulxGaJtski0GdYZX1kAOozWA3Ds
+	 2y9PaQwJJwC9Nrxy+K5YcvxqEw4kqMP6VpGDZkUKBOyy4yw2MuvLlY/HahZ1Szu8bcolu
+	 PKLQjfS3J2Oi9gzfCgh3exFzOypKzoAUZ+1XwVMbq88adpfjlYj2++Wz9qlSXN9x4CHH2
+	 PMkkbTgCKxB55AT69HGjQxyhn3cam8sXuAxWim7rrhy8BjifGU1MuoHt0AJ3b9VzsJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UDxXKQMo;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eELcwMWz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="akKAedr/";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94982606B147
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94982606B147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EC8606C65D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39EC8606C65D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UDxXKQMo
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so1130560f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:29:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eELcwMWz;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=akKAedr/
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA8ZPqI3850073
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=yscYkUexLWJfxvh+W/7HnX
+	ySz2cjzUF/oCyCwV+MFns=; b=eELcwMWzeM+to2VgT1HQOigHgksKzMfnZN9Qhu
+	CKvy254934GdSSfVJtwuEDgbwsfvmHwLK4b5ESZKMbcgJoMCp9T1Eacwz9ADFOYb
+	tCLw484LbXB32XlcFmytva3xKYxDu+nfti4+r2vKSNr8Dpaue5W9tJJx3b8x+mZg
+	5TLRh8BQxZLhaA8MoN20/T32bsY/kkiIqZztay9aHjNAbfqSM3bYRpmUBPzLvmmz
+	3KFc9ZZN6EjA5gxtjt9lk1wmCYHHMEF3Hcq94+KqxMSNjwkm3u3Yp2We4sxJ9Wl6
+	5q9a0nosvrDgFCcKQEiuifmJvMsWqA/8Q8cDNI2Fz4DnB4pg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyvwg6ry-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:38 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f20addba1so330944385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:29:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794302945; x=1794907745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
-        b=UDxXKQMoogTknpK1OPVncqXSm0G22RJgQ0FxIgPiMQaF2OJT500Q9tbbv+Tv+t5bOv
-         4w4+ZxmMhb/fgy0FHH4HvD6vfIxqnkl62PfN6mzqtCgRUnOREeSSWtOQWr/3RpfQuzP9
-         Ns9uxY/Hs523nHUL4cXA7tQPO+07rJxzz8OQ2lgiS3l53zWH2iYySdKiJjv9eoPrRR6+
-         HG2NtC3puEQ2q0fLaWcsrC35e7r6LIpBPxaymZalvjNPFLK2YQNupKVOcThyOqqmsdXh
-         NNTc4B1yrJzTS+OI2uma7W0eA97/oW3fgeNX2ntRzUoAQXjiYZXiIuGxDvrZXR6pSLpl
-         001g==
+        d=oss.qualcomm.com; s=google; t=1794302977; x=1794907777; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yscYkUexLWJfxvh+W/7HnXySz2cjzUF/oCyCwV+MFns=;
+        b=akKAedr/rjcEFJfGCjQuWjKGQTPyAfCzzsGjXUiOGHsoGZT8y3EC3k6kMmvnbVYD5a
+         q4K3RzhcrohhTz04liQAVgq9YoijGKYBwvj8wu/Sl/I0EYCNAvYPJO1pQ1Xa/M+Ltw6e
+         l19t7dSjfZX4f/vil8jOJDgUsfR3v2XBlV41v8S15uGGuBzFB5U+M1C+/a00Oqraj0SO
+         FxZOc7Vz7hSPsIaQvy1k40p4l6jikg3Vp87blMXiYo797d7He7uAwkEhm+r+Myeyjg4N
+         iH2lXdrSkx4xgd4vRg9SkXINSWiiNTW8hK/YymxK+R9yHJln9RN7Hs81JWK8TxCEqiFH
+         /A9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794302945; x=1794907745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s1yLVKZqUlNj3njloZ4RcEDWvW8KSQFnV995646mHlk=;
-        b=r0b6huk4xbh6W9Jfoq/fCroYI57TBtrtR7Kz0ouHsKc5rYUXAqXkgLQftX0xxV8F6f
-         AMeJ6ZNC8qfnXtr6ZOy64aXqzesycUSmkGwUAFyshB/+6+PpzqMVFRPS/TqbpQeHq9gF
-         fZEzZUb4xRdxqTktPVXOgfrbQNx5FL5CqJYv1LLP/41ExBoZiptJ60w5ZEV0q3cKWCKo
-         byM/6YrD2m/3aY/2JZaGPrHU15pz+E1JWgasXd20kxCY8GnFwfEhlPEwEBgh3ow82416
-         65nba+BxoSbKrZkB9Q/FbfQUxu25Cehf/JkVHZyt9wrbQWzbKIs58ckR86yf2i2+tt7P
-         Gqww==
-X-Forwarded-Encrypted: i=1; AL+hErE/yvtD0RoS/6tXgyF6Ozb58OnOOUdlVcAyqDlKhApVIjQs8Xk2GqrwUOHIEEgrw49C+hPzM4vomefRz5s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zeY+4KXLERd382jOttnydAZCRjyrcxOCmSizq7i9PmDRZMDEs
-	1hZN8bb37cIDyGZD3NjNEouF4FhH7SRI4+PrTTjAX44LiH6qVg2QZ+xA
-X-Gm-Gg: AYBFou2YbYj5lHlaM8zCP9Wi1y1StgO4kYlA39I1dSJwH1q0bptJ8UgAp/11eLE0yqM
-	IKiCzoXs9s/DVgYKRTw7bQsHbsh274eDhNCwHPX4JJCddTXDvWmFChpUtOn4UfsewlvAinMkn5W
-	2tATe5cYudp3pDe65JYsBRpyveVjxsqgvSCsYp8AVeSxbYQGvFZUBAq1M3SvJEIi2stHIAm89D8
-	ertQXb/c5ImM6PLiagYAtdy+eDV/yEeNv9XU3DUUufhtssccdFNs7mGSfDfQiS76aJMP1Ynm0Sm
-	WmBTdJPFYtMYUK08GFBUWuRkDH7LhHK5EhGy7f/ZY/chYCumcQvZl68YIevvPmep1VjrbwwXKgY
-	dgfoPCXqpdDnrKgPIFqntNvREmpaRJloqc4jnud6KhjsHXWQXcKeV0QCOkiJqAMhdmbSvuwO06h
-	1/llW7q41DVc22NaZn4+oJgmG2WvUGEvr/piyXFWYQ9oIRrx0lVosWFGGYMZbG6IV3Pio+pZoWu
-	D95ucqyRkQNm5QkzA9a85O4PkCRfRbjlFEdiK0afaGS+Oc4GOPQaJChy83xXNl4OKS7hD4MofX3
-	AobnowCAxLWbceFMAHSnORxndQ08B8xmuBmf
-X-Received: by 2002:a05:6000:3c5:b0:48e:f10:ceb8 with SMTP id ffacd0b85a97d-4982e641f90mr3524247f8f.11.1794302944660;
-        Tue, 10 Nov 2026 01:29:04 -0800 (PST)
-Received: from fedora ([154.182.80.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983f7801bbsm3839798f8f.5.2026.11.10.01.29.01
+        d=1e100.net; s=20260707; t=1794302977; x=1794907777;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yscYkUexLWJfxvh+W/7HnXySz2cjzUF/oCyCwV+MFns=;
+        b=ACn6X4wsU5BQ0GGKXZCOd4bAGqfMUp6bj70KooFSFzU1xFUmYYFhMcTeAuLFgm3gob
+         OhEtJ4I+m3Kw6TzG6t4PZmJwdAYKIQn0gzUko6fTWNgQPoEbUYtSg3K2FU2nMNApSBAr
+         5gnksMn6tWRMZWMpFrfOZrd5XaEv9INSpbBIb1bwiJCfnrH4DaILde8RPd3buntOQi9X
+         nqk37UFxEyJU2qtjLq9xw1GrvehDqgL0KItxanaGkJ7clALEcAiIPREUOTsUuUr9v1AJ
+         ee77U3epJO2HEZSYZepMlAboPbHWnIvgtIoGudd+Jg/cqSBsQSBVQx6BuENMj2NPPxYI
+         NGrg==
+X-Forwarded-Encrypted: i=1; AL+hErEcUpicbExumhxbYj0xrgNfhplBLjEWgDzQf97pYRal/gg8otj2DGNKu5pOwfOvNXCfdKwCMlDk/4VaOGw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jk2Owh1+on/31c3TgV1PKFHvgiIAnO/8oe11w4w2aRUM7EmwM
+	BFCC29Xf3oGO/5Yg2cpZg8/iRKHR42jjL2u/1R8EuyrTxNNVgqi5NtaZfy+ExWgyTuJ7d+PoHGi
+	/DPKeIYcj5835meY/ZujITgSQrN3kBDygJ4RhM0mvxb+6SYEC1h0fWNETDh00yOkZdfk=
+X-Gm-Gg: AYBFou3K8YKNbKK2JSvhWPK6SUtkLXxymNvEH27X84+g1f1+6vdZtGQevE1SBHlghvy
+	mURiEHfZxPeCtl5m1xba8vWY15IA/CaM6uO0go4B3py9IOhjvsBF67WEMONh6I/pKDkHRQkDSnn
+	lPYguz+q8tr/1uHySUahPnZ7R9pRe0L2LejAaJgmDMoIsDhpvYBSK2cZCPlAPuxIyLrmWzFUwXi
+	qE40i7dEKMdhAWIb0m9bI/Yt5ftYZWJve2s7HPplftpTgZMNd2jM5UN/WESb1us51PWpPM3Kmbw
+	GF28spRnvjoUg8zcLmGXRGB+leXkgNQXehkfWRIyX3W5SgHKf3r/MkIPSbaYesi0wb/p8zA4J0f
+	79MaGN6Er1PQ76+k2uqYGRKNDFqp/MtekOdPuPPxAotupJjIOfiDWF0AgRkaL+SJ5fT5JR2QZrg
+	6CV/XRlPCReOG+K3KHXBWZ+9DPVsLY+RjspeHf0J3NirOuGHDlCfMnZe5SAHwpDMM=
+X-Received: by 2002:a05:620a:c4d:b0:93e:c12c:4416 with SMTP id af79cd13be357-9479f42082dmr320113685a.82.1794302977564;
+        Tue, 10 Nov 2026 01:29:37 -0800 (PST)
+X-Received: by 2002:a05:620a:c4d:b0:93e:c12c:4416 with SMTP id af79cd13be357-9479f42082dmr320111685a.82.1794302977112;
+        Tue, 10 Nov 2026 01:29:37 -0800 (PST)
+Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c05dsm3891597f8f.25.2026.11.10.01.29.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:29:04 -0800 (PST)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev,
-	mripard@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH v2] iio: adc: at91_adc: move to devm_* to fix NULL pointer deref
-Date: Tue, 10 Nov 2026 11:28:48 +0200
-Message-ID: <20261110092848.141854-1-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 10 Nov 2026 01:29:36 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 10:29:34 +0100
+Subject: [PATCH v2] gpiolib: keep the line state workqueue alive until
+ device release
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,264 +115,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-gpio-line-state-wq-uaf-v2-1-ce6d8266656e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAP3j8moC/4WNSwqDQBBEryK9Tosz/qKr3CO4GLTVBnV0Wk2Ce
+ PdMvEA2Ba+gXh0g5JgEyuAARzsL28mDvgVQ92bqCLnxDDrSmVJRgd3MFgeeCGU1K+Frwc20SHm
+ cxFmaFsXdgB/Pjlp+X+Jn5blnWa37XD+7+rV/lbtChZqUzmoTJzpvHlYkXDYz1HYcQx9Qnef5B
+ WR0QKzDAAAA
+X-Change-ID: 20261109-gpio-line-state-wq-uaf-e7343655998a
+To: Bartosz Golaszewski <brgl@kernel.org>, Kent Gibson <warthog618@gmail.com>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2653;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=MWVJTIMmNEMqwOuajXFKHuQmIYtJhpU72NPWNNIzx9Y=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq8uP/58d7genk90ttA0p2qWwt+OyBxzCbbUeKx
+ 4/FYeBXtVWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavLj/wAKCRAFnS7L/zaE
+ w9PeD/4nw6H/XdZcD/cO0ilbNcICZxhjkddWj6elKnd1HRfMiqfgxE65SQ8TC9l5reJ8tSb61tj
+ 4u7LMifQgWIAx/ZgSVYkdiK1NyJe7Dui3/8yi8KUUrdSqg12/QfCHHvYpyyeUWCe6ZY+6tSe+Cp
+ Hnv/YxEGfB7eGteTMBtucb8OPHgT2HomJQegxIfPlC/ZYO/E/1+jAFkFqM8xskJ5XonhYTr9TI8
+ WP2QqZEo1RL4RbTNrO/XAZRk3n/sCaGTJ55FFQyDkH8R1n0D1QaeyMe0/PcBqCaHJJkZj9g80p5
+ MsaoRoJU+eMM8TL3tPCIyrkbJMjXpa+N+/VES/a1i4gQrgjbN2pgw9c2RA68i4Q61s4YxRlbdof
+ B3L87vHuSdQpHdVqICsFbdfUNaHBghHaqots9gCEfPsla8+HR1knKJr9AUoedZZnGOTwnZurn/b
+ Z+l1/0Sf40EfDNLCDNvuUn9CUjnB5wmyGx8ZwiudyncbPQb0rHyYaMv0bkWBkR4H42u6ysc9/ld
+ aXacVSAjKlkF/29nyF9yLC63qYhOjIFvWtQn2cGBTObsLcuMFoynYst2g7LVD7AYiDAMmfpEs5d
+ YpbRafuRxOvuMzCGq/FBhqdZLpEOuGfMCRqNDl+Ruv+0ni4MwpbmEiZfotBts+BswjNeS6uweK3
+ 1ljRGfS4TEa3gZw==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: 9jwyGLQdoSKEsV1hTmfbbO0yQ6hNuzdU
+X-Proofpoint-ORIG-GUID: 9jwyGLQdoSKEsV1hTmfbbO0yQ6hNuzdU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzNyBTYWx0ZWRfXx+8EgNUkYPUi
+ 5RMEI3UgMUWcOdXmFpIvmlEzmfPAESsT/lgAOBLEKdhzfT7xg9c7BRCpRUKF39z8p/dIgKEfddN
+ nRQWrztj4+rsJED9bAtEE5gC7uOC/PA=
+X-Authority-Analysis: v=2.4 cv=NNpAaE6g c=1 sm=1 tr=0 ts=6af2e402 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=c92rfblmAAAA:8
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KQQni2JmCJhbBse-3uIA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzNyBTYWx0ZWRfX8ed4TDR48BN4
+ ebdh49NSR81dA/zadU1skSIZPRzEG8JCYfz2hlKaYrfJHppW+gddbovvaBuyC2sHtAmh1sk5q5b
+ xx1kc5YFZFownm819/6x8rI2sc9EEHXrccg5kq1a8aHk/7IoaUayOwSWxptSbJ7AufYoEuWqhOf
+ B6VYSGrhHI29/1IbcEp8OR29lx/pFDFbEcLLK7Qc71vj8iQM6HI377/xnCMq85y5oAezDjnW7bx
+ wj0tYPaDMg5KS4QpiC22NIJv6vhyNLuBE4UQ/reJXUz1B+/NvO20zm/Gl3D1ny76nAuXpgcafpk
+ 1uZJq6BTPyjoWd1eorP0550VyLOtuU8z9hQ83UhBfnSqKrIgU2szyH9Lue5B1sA6tTu6WS/NOfa
+ UuqOHmqiwl2Wsj3RMjtQq8Zb9dob56/c2v4vn8h5/zHLJwXIraTOZIu9t38fKOV0zWmujEz9PWy
+ 9XaVRY6TyynGHjKO4VA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100037
 
-If 'atmel,adc-use-external-triggers' is not set in the device tree,
-at91_adc_trigger_init() leaves the external trigger slots in st->trig
-as NULL. The error paths and remove function unconditionally called
-iio_trigger_unregister() and iio_trigger_free() on them, causing a
-NULL pointer dereference.
+gpiod_line_state_notify() races with a concurrent gpiochip_remove() which
+unconditionally destroys the line state workqueue causing
+a use-after-free situation where queue_work() can schedule a work on a
+freed workqueue.
 
-Instead of just checking for NULL, refactor the driver to use the
-device-managed (devm_*) API for registration and allocation. This
-modernizes the code, eliminates the need for manual cleanup functions
-(at91_adc_trigger_remove, at91_adc_buffer_remove, at91_ts_unregister,
-and at91_adc_remove), and inherently fixes the NULL pointer dereference
-since the core handles the cleanup of properly allocated triggers.
+Keep the line state workqueue alive until GPIO device release.
 
-As part of this simplification, the remaining trigger initialization
-logic has been inlined into at91_adc_probe().
-
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Fixes: 0e589d5fb317 ("ARM: AT91: IIO: Add AT91 ADC driver.")
-Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: stable@vger.kernel.org
+Fixes: 07c61d4da43f ("gpiolib: notify user-space about in-kernel line state changes")
+Closes: https://sashiko.dev/#/bug/linux-d0e9e518-2348-4fe3-857d-f3d61a42f159
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-v2:
- - Dropped the simple NULL check approach.
- - Refactored the driver to use devm_* API as suggested by Jonathan Cameron.
- - Removed manual cleanup functions and error paths entirely.
- - Inlined remaining trigger initialization into probe().
+Changes in v2:
+- Clear the workqueue pointer on cdev_device_add() failure in
+  gpiolib_cdev_register() (sashiko)
+- Link to v1: https://patch.msgid.link/20261109-gpio-line-state-wq-uaf-v1-1-2e126ca3427d@oss.qualcomm.com
+---
+ drivers/gpio/gpiolib-cdev.c | 2 +-
+ drivers/gpio/gpiolib.c      | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
- drivers/iio/adc/at91_adc.c | 146 +++++++++----------------------------
- 1 file changed, 33 insertions(+), 113 deletions(-)
-
-diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
-index 0ac74ad92fca..911838150116 100644
---- a/drivers/iio/adc/at91_adc.c
-+++ b/drivers/iio/adc/at91_adc.c
-@@ -608,85 +608,32 @@ static const struct iio_trigger_ops at91_adc_trigger_ops = {
- static struct iio_trigger *at91_adc_allocate_trigger(struct iio_dev *idev,
- 						     const struct at91_adc_trigger *trigger)
- {
-+	struct device *dev = idev->dev.parent;
- 	struct iio_trigger *trig;
- 	int ret;
- 
--	trig = iio_trigger_alloc(idev->dev.parent, "%s-dev%d-%s", idev->name,
--				 iio_device_id(idev), trigger->name);
--	if (trig == NULL)
-+	trig = devm_iio_trigger_alloc(dev, "%s-dev%d-%s", idev->name,
-+				      iio_device_id(idev), trigger->name);
-+	if (!trig)
- 		return NULL;
- 
- 	iio_trigger_set_drvdata(trig, idev);
- 	trig->ops = &at91_adc_trigger_ops;
- 
--	ret = iio_trigger_register(trig);
--	if (ret) {
--		iio_trigger_free(trig);
-+	ret = devm_iio_trigger_register(dev, trig);
-+	if (ret)
- 		return NULL;
--	}
- 
- 	return trig;
- }
- 
--static int at91_adc_trigger_init(struct iio_dev *idev)
--{
--	struct at91_adc_state *st = iio_priv(idev);
--	int i, ret;
--
--	st->trig = devm_kcalloc(&idev->dev,
--				st->caps->trigger_number, sizeof(*st->trig),
--				GFP_KERNEL);
--
--	if (st->trig == NULL) {
--		ret = -ENOMEM;
--		goto error_ret;
--	}
--
--	for (i = 0; i < st->caps->trigger_number; i++) {
--		if (st->caps->triggers[i].is_external && !(st->use_external))
--			continue;
--
--		st->trig[i] = at91_adc_allocate_trigger(idev,
--							st->caps->triggers + i);
--		if (st->trig[i] == NULL) {
--			dev_err(&idev->dev,
--				"Could not allocate trigger %d\n", i);
--			ret = -ENOMEM;
--			goto error_trigger;
--		}
--	}
--
--	return 0;
--
--error_trigger:
--	for (i--; i >= 0; i--) {
--		iio_trigger_unregister(st->trig[i]);
--		iio_trigger_free(st->trig[i]);
--	}
--error_ret:
--	return ret;
--}
--
--static void at91_adc_trigger_remove(struct iio_dev *idev)
--{
--	struct at91_adc_state *st = iio_priv(idev);
--	int i;
--
--	for (i = 0; i < st->caps->trigger_number; i++) {
--		iio_trigger_unregister(st->trig[i]);
--		iio_trigger_free(st->trig[i]);
--	}
--}
--
- static int at91_adc_buffer_init(struct iio_dev *idev)
- {
--	return iio_triggered_buffer_setup(idev, &iio_pollfunc_store_time,
--		&at91_adc_trigger_handler, NULL);
--}
-+	struct device *dev = idev->dev.parent;
- 
--static void at91_adc_buffer_remove(struct iio_dev *idev)
--{
--	iio_triggered_buffer_cleanup(idev);
-+	return devm_iio_triggered_buffer_setup(dev, idev,
-+					       &iio_pollfunc_store_time,
-+					       &at91_adc_trigger_handler, NULL);
- }
- 
- static int at91_adc_read_raw(struct iio_dev *idev,
-@@ -924,9 +871,8 @@ static int at91_ts_register(struct iio_dev *idev,
- {
- 	struct at91_adc_state *st = iio_priv(idev);
- 	struct input_dev *input;
--	int ret;
- 
--	input = input_allocate_device();
-+	input = devm_input_allocate_device(&pdev->dev);
- 	if (!input) {
- 		dev_err(&idev->dev, "Failed to allocate TS device!\n");
- 		return -ENOMEM;
-@@ -951,8 +897,7 @@ static int at91_ts_register(struct iio_dev *idev,
- 		if (st->touchscreen_type != ATMEL_ADC_TOUCHSCREEN_4WIRE) {
- 			dev_err(&pdev->dev,
- 				"This touchscreen controller only support 4 wires\n");
--			ret = -EINVAL;
--			goto err;
-+			return -EINVAL;
- 		}
- 
- 		input_set_abs_params(input, ABS_X, 0, (1 << MAX_RLPOS_BITS) - 1,
-@@ -964,27 +909,14 @@ static int at91_ts_register(struct iio_dev *idev,
- 	st->ts_input = input;
- 	input_set_drvdata(input, st);
- 
--	ret = input_register_device(input);
--	if (ret)
--		goto err;
--
--	return ret;
--
--err:
--	input_free_device(input);
--	return ret;
--}
--
--static void at91_ts_unregister(struct at91_adc_state *st)
--{
--	input_unregister_device(st->ts_input);
-+	return input_register_device(input);
- }
- 
- static int at91_adc_probe(struct platform_device *pdev)
- {
- 	unsigned int prsc, mstrclk, ticks, adc_clk, adc_clk_khz, shtim;
- 	struct device_node *node = pdev->dev.of_node;
--	int ret;
-+	int i, ret;
- 	struct iio_dev *idev;
- 	struct at91_adc_state *st;
- 	u32 reg, prop;
-@@ -1140,11 +1072,23 @@ static int at91_adc_probe(struct platform_device *pdev)
- 			return dev_err_probe(&pdev->dev, ret,
- 					     "Couldn't initialize the buffer.\n");
- 
--		ret = at91_adc_trigger_init(idev);
--		if (ret < 0) {
--			dev_err(&pdev->dev, "Couldn't setup the triggers.\n");
--			at91_adc_buffer_remove(idev);
--			return ret;
-+		st->trig = devm_kcalloc(&pdev->dev,
-+					st->caps->trigger_number, sizeof(*st->trig),
-+					GFP_KERNEL);
-+		if (!st->trig)
-+			return -ENOMEM;
-+
-+		for (i = 0; i < st->caps->trigger_number; i++) {
-+			if (st->caps->triggers[i].is_external && !(st->use_external))
-+				continue;
-+
-+			st->trig[i] = at91_adc_allocate_trigger(idev,
-+								st->caps->triggers + i);
-+			if (!st->trig[i]) {
-+				dev_err(&idev->dev,
-+					"Could not allocate trigger %d\n", i);
-+				return -ENOMEM;
-+			}
- 		}
- 	} else {
- 		ret = at91_ts_register(idev, pdev);
-@@ -1154,36 +1098,13 @@ static int at91_adc_probe(struct platform_device *pdev)
- 		at91_ts_hw_init(idev, adc_clk_khz);
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index f68e33cbd7d4cd5153e82ad77768cf52a90601d6..2a27ff7ff4f8247d87284e5d6419ada26d86abdc 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -2758,6 +2758,7 @@ int gpiolib_cdev_register(struct gpio_chip *gc, dev_t devt)
+ 	ret = cdev_device_add(&gdev->chrdev, &gdev->dev);
+ 	if (ret) {
+ 		destroy_workqueue(gdev->line_state_wq);
++		gdev->line_state_wq = NULL;
+ 		return ret;
  	}
  
--	ret = iio_device_register(idev);
-+	ret = devm_iio_device_register(&pdev->dev, idev);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "Couldn't register the device.\n");
--		goto error_iio_device_register;
-+		return ret;
- 	}
+@@ -2768,7 +2769,6 @@ int gpiolib_cdev_register(struct gpio_chip *gc, dev_t devt)
  
- 	return 0;
--
--error_iio_device_register:
--	if (!st->touchscreen_type) {
--		at91_adc_trigger_remove(idev);
--		at91_adc_buffer_remove(idev);
--	} else {
--		at91_ts_unregister(st);
--	}
--	return ret;
--}
--
--static void at91_adc_remove(struct platform_device *pdev)
--{
--	struct iio_dev *idev = platform_get_drvdata(pdev);
--	struct at91_adc_state *st = iio_priv(idev);
--
--	iio_device_unregister(idev);
--	if (!st->touchscreen_type) {
--		at91_adc_trigger_remove(idev);
--		at91_adc_buffer_remove(idev);
--	} else {
--		at91_ts_unregister(st);
--	}
+ void gpiolib_cdev_unregister(struct gpio_device *gdev)
+ {
+-	destroy_workqueue(gdev->line_state_wq);
+ 	cdev_device_del(&gdev->chrdev, &gdev->dev);
+ 	blocking_notifier_call_chain(&gdev->device_notifier, 0, NULL);
  }
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index fbdeda2f278713a47c2e3d2a6640f387f6d92227..c954c7eec2bee3a8dd55b949ec9b92f31461b25d 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -28,6 +28,7 @@
+ #include <linux/srcu.h>
+ #include <linux/string.h>
+ #include <linux/string_choices.h>
++#include <linux/workqueue.h>
  
- static int at91_adc_suspend(struct device *dev)
-@@ -1333,7 +1254,6 @@ MODULE_DEVICE_TABLE(of, at91_adc_dt_ids);
+ #include <linux/gpio.h>
+ #include <linux/gpio/driver.h>
+@@ -898,6 +899,9 @@ static void gpiodev_release(struct device *dev)
+ 	synchronize_srcu(&gdev->desc_srcu);
+ 	cleanup_srcu_struct(&gdev->desc_srcu);
  
- static struct platform_driver at91_adc_driver = {
- 	.probe = at91_adc_probe,
--	.remove = at91_adc_remove,
- 	.driver = {
- 		   .name = DRIVER_NAME,
- 		   .of_match_table = at91_adc_dt_ids,
++	if (gdev->line_state_wq)
++		destroy_workqueue(gdev->line_state_wq);
++
+ 	ida_free(&gpio_ida, gdev->id);
+ 	kfree_const(gdev->label);
+ 	kfree(gdev->descs);
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261109-gpio-line-state-wq-uaf-e7343655998a
+
+Best regards,
 -- 
-2.56.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
