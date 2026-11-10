@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307690;
-	b=JLlRJ3fNc2uMfWaVdRgIY1LlL+sWlG5Uhr134gka6ZU75N2QJVleCCb9J5Mtp1hWjIxY
-	 hZK02b3HLIR0hVBmzH1nrDDibxt8+h8Xu2B9fcpRS0tNTo1mEq5lPNA3Rx6lCH7Ex5VQU
-	 ka/Kdts0SHHYNzi+wyjJMq3NQKsy2fKO/Hs2plE7zwIZoyQVAte/+pjUcaljKIxKd1Zv/
-	 13MWtB+UFUfUXurof8OadPrV7YJeIhjrvmyfAJCX+k1+xjk8jWyKgqT3NzOhj+cLq+NRs
-	 qgwvNqJHQnsg62tH1WkK7WCVt+54u6f68ij7iwM1ksvGod3jgLEWI8Ws0ojayzyEGKQ==
+	t=1794307704;
+	b=AUrR6mrugbkjpmHVVNFWhD6C9saK1NJdd6kG/chQec3eT4ArZf8lA3+Kz65NthlHhA0L
+	 A5Czdc/8JMqr2YlyeuGRatruPmX4pYWc69cPf3K8x+CSVqRUo3EZPfJjHe1kc1AOIZHjy
+	 N+igC1wu3x0PX/LbYIEFaaF02az+JfLlaG8r1Kn5yf82x1giRxn8tsW5TGvnkW2i+j8qY
+	 yuFlDwX1zQqKI2gr19DBv8t4R/ZUxt5tlY4CoAo+e+GGVtVjZPdV3OJkcbCNqFUDFPaXs
+	 w+RvFNImjOsXFwJNLS1FkX6Syl3QiKPaqKwNQpLgd5D6Zx7V8udsLoy96S+OSkx5idQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307690;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bShBu0yD41wmsU4ZUMjg7Q7N++uU9hwHuYVhHz6irRg=;
-	b=y01f7R1F6nPgHDl2WkKomxitBQpq9Tq+l1AzXclr6xlpgphMPStUKrydNK7yIwTOLHfq
-	 NIPfuGsPodYjF2LgwgMsBucYVJbdltDEKXBAaIBnxlWmRq3N58viqWiot+MJ0UghRUL5r
-	 3U6Y+Vlaj1EQCEp2r3BK7rQsXUDaV0c5dtrb3d6XU0rav5QQSXgxvZW4c7ki3SKkAZU3a
-	 GnSoZZwg/i5cZ0v/dKOaU/I20T6encO2jb2E7WI3s/+/aQFbsSgBYfpxh9slSC7/lW7rj
-	 98nkPncpjJN16isYOmYaT0PiTZn7jwZSoXME/SL1KsuVaIBwgtELXuybMM4TflRWaYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307704;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=k703M/piKyZ7PHvfHLHxgLKG63qKCWd6JJ43qPYVsb4=;
+	b=YZtoLOnmhSF1rqBc79DQiCz7p9TWjRVk22SJCwzBkH2m5Qj7Ssb6pYK7Er6nciiHwP0H
+	 YmYPN8WKLk/3syLMPw5Wufb5w6Ho9fzjo9ty6H6Py0RnJXuTCI98OjPcfxr0YlyWZv0rf
+	 roSMs9jpbD9lne6HFFoJSzd6377/akfz5PElr1C7wkwGLqKKVIx4y8kaPn9F990HyEExu
+	 FXWVUUeAbABcKX+C+8ZxHPjUo/v8QAB5vjBinYtKdxw9qAEku2tD91qk5RfhSCy0ayiuG
+	 Dp2nk3VefYfEltlP4skl2biA5LW6HSjpiB2RXTbd7ZXhZnO3QXj8V6/fb5XtTjFF5Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Z07oNWfE;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PEdBu6ae;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OJjryAXs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PEdBu6ae;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OJjryAXs;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC1D60A2606
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC1D60A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E71606A331;
+	Tue, 10 Nov 2026 10:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46E71606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Z07oNWfE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794307683; bh=bShBu0yD41wmsU4ZUMjg7Q7N++uU9hwHuYVhHz6irRg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z07oNWfEB982lPZSZoLfAtqzoLi699lrpzn2hGVop4IHPNR18eshqGFBl3B9hB/o6
-	 LuCH9jbhZU6cXhu1zqxuXHTA+Sd20OwqE3UIgySrtZKKJYb4ytu0A60k529OT5lHH+
-	 44QRfTpytQ5uIrR9qLNYwagATzuv0Y+rfsvhnztY=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id C00AFA4B; Tue, 10 Nov 2026 18:48:00 +0800
-X-QQ-mid: xmsmtpt1794307680tsf7kezr9
-Message-ID: <tencent_BD411EBE6912574EAC69E2C77D437A886505@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499uCwhGCaEyocW/O/HLBQRV/Z7h379jR+Zy38GydSpTC9SROyrdRz
-	 CBGjP5CksOrO4JSTjZYJBlnmZwgYvqMTXAXcd1EJrmRwWtUZ5pJPvOIm6S7pLIoFpPpWmMUi9uRe
-	 IhHvIZHe1owXYzeS6iiu+3uCs75fxzJLGJ4qfhBuBcLyjL09tfDyz79zTSKUkuAAT8vmQuJMZBou
-	 QJKJspgCktdpWdXBuaZwUEJlaEu3VzjUjz9xFYddMvIibJH3j27NCqDOi4iZfsYylAUZpyRxa2NL
-	 gNsDwqKdrJk1gWGdkEFCa+nXeB1HYSw9zRY+VAoINqfYrfG2jBT6iyluqNkM0YEtD23NrvaqHaU9
-	 VydxRIWx6hDAXS1xH4ozOBG2JWOU6G8F8Ol56y7mizC6uPSa8QNDSRL1UyzTMMmBBpwDdEvzufHd
-	 TawRqXqTy7lR1nznknqf+aH/UB8asoGhVph8VMB1UjHdBZVdBpDkchBsl0115SwHEJFLsRa8Kqeo
-	 z98pldJRwnyICyQZBUbRGio5DE0jyIN3SMYCRdMbhActG3D2wR52vOItY8awoKlcRmfugdxA1xB8
-	 T9gga+3JaSHqvCKhCmZSEfTwkBmh4j2NqNYr33HdXCVfhF1dk5JkBQu0Xfmdnyga7QOY1h6xEq5x
-	 VggtrdlPqGitZvkkb1gGLG+qIAK90HcsFDiWcUeKtMifv+SzZMvu0P3tC2NFaRAVa6xf2XQgnixP
-	 c95pJLLjDO03ki86nSXRgOkC7AR4CXGC0nMg1TfdI3kpdfhotYOStUq6D3UpSo96YLbqgdItfFku
-	 z3+SL0iD0H2DgLEBnrSdnjVxernLWg2yMsHCi5APq2zxaBOMqpbEFDjKdAnn5QE2WYhrPk878ZKT
-	 7w7asXz0GvDqxsTGzR2PI2gudeKJwHzbjif1Vzhp+SEKre35GUxlYshCq8j7CJDormChkb/cH9mQ
-	 veDYXXr/+HoV+5sofEuGZ1ZjmGo/KYPzrFFuF9s7wr01fRyYwuexFQ5c9nFGKGyM6wHT85UZIw4O
-	 A8yriKxBmRHl8AbpjRM5S6w4yX/6I/G4ryepQi42J0ya1xIxJKGk3mG1xYjPvdpm1yvcXDsRHdy9
-	 xFNh1i1RKkuS9sT2E=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Shuai Liu <847807867@qq.com>
-To: jfs-discussion@lists.sourceforge.net
-Cc: shaggy@kernel.org,
-	sj@kernel.org,
-	syzbot+ab18fa9c959320611727@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH] jfs: add dmap integrity check to prevent out-of-bounds tree access
-Date: Tue, 10 Nov 2026 18:48:00 +0800
-X-OQ-MSGID: <20261110104800.669438-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ae96436.abb90550.19e2c9.0000.GAE@google.com>
-References: <6ae96436.abb90550.19e2c9.0000.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PEdBu6ae;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OJjryAXs;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PEdBu6ae;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OJjryAXs
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7F7541F7A9;
+	Tue, 10 Nov 2026 10:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794307702; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k703M/piKyZ7PHvfHLHxgLKG63qKCWd6JJ43qPYVsb4=;
+	b=PEdBu6aeYbinim2tdZhleV9sVHQtfsHc+2YEfXh8P7eQa1FkwyOMvWaIXPDqdiXzrlL6I3
+	kHc0FDGi+XhThTkR476aT0+R8G5zIMLG428M104ofhhiZpXZ117Ka6AZCaknyCdQum1QI+
+	60rgQZL1KLWSszMtfRH+AJM2kyzzBbo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794307702;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k703M/piKyZ7PHvfHLHxgLKG63qKCWd6JJ43qPYVsb4=;
+	b=OJjryAXs/NBbOB58RfQ0ikLCN+TGmP9sGa1n4fHHnjy9FNcgrzLrvh5NGgKZbPuZdxXrZP
+	BDGtNEDT9t9fKbCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794307702; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k703M/piKyZ7PHvfHLHxgLKG63qKCWd6JJ43qPYVsb4=;
+	b=PEdBu6aeYbinim2tdZhleV9sVHQtfsHc+2YEfXh8P7eQa1FkwyOMvWaIXPDqdiXzrlL6I3
+	kHc0FDGi+XhThTkR476aT0+R8G5zIMLG428M104ofhhiZpXZ117Ka6AZCaknyCdQum1QI+
+	60rgQZL1KLWSszMtfRH+AJM2kyzzBbo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794307702;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k703M/piKyZ7PHvfHLHxgLKG63qKCWd6JJ43qPYVsb4=;
+	b=OJjryAXs/NBbOB58RfQ0ikLCN+TGmP9sGa1n4fHHnjy9FNcgrzLrvh5NGgKZbPuZdxXrZP
+	BDGtNEDT9t9fKbCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3FC9E1339F;
+	Tue, 10 Nov 2026 10:48:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HALuBnb28mpQPwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 10 Nov 2026 10:48:22 +0000
+Date: Tue, 10 Nov 2026 11:48:21 +0100
+Message-ID: <87qzgtufm2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: tiwai@suse.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	shuah@kernel.org,
+	alyandra5b@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/alsa: Add a test for the sequencer UMP conversion of RPN/NRPN
+In-Reply-To: <20261110012213.740288-1-sammiee5311@gmail.com>
+References: <20261110012213.740288-1-sammiee5311@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,168 +114,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,kernel.org,perex.cz,gmail.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Add check_dmap() to validate dmap structure integrity, mirroring
-check_dmapctl() which already guards the dmapctl pages.
+On Tue, 10 Nov 2026 02:22:13 +0100,
+HyeongJun An wrote:
+> 
+> The sequencer converts MIDI 1.0 CC and CONTROL14 events to UMP for
+> UMP clients. Add a test that sends such events from a legacy client to
+> a UMP MIDI 2.0 client and checks the RPN/NRPN packets it receives, and
+> one that checks that a UMP MIDI 1.0 client gets the CCs as they are.
+> 
+> The cases cover switching between RPN and NRPN, Data Entry sent with
+> nothing selected, repeated Data Entry, Null RPN and NRPN, and the
+> CONTROL14 path. Some of them come from the KUnit test in Alyandra
+> Zahran Nadhir's patch.
+> 
+> The test skips when /dev/snd/seq can't be opened or the kernel has no
+> UMP support in the sequencer.
+> 
+> Link: https://lore.kernel.org/all/20261107111056.667-1-alyandra5b@gmail.com/
+> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 
-A corrupted on-disk dmap page (e.g. a fuzzed filesystem image) carries a
-garbage dmaptree header.  The free path does not validate it before use:
-dbFreeBits() -> dbJoin() reads tp->dmt_leafidx straight from the on-disk
-tree header to locate the leaves, and dbAdjTree() then computes
-lp = leafno + dmt_leafidx into the stree[] array.  With the observed
-corruption leafidx = 0x5ff20055 (expected LEAFIND = 85) the computed
-index reaches 0x5ff20056, far beyond TREESIZE (341), triggering the
-WARN_ON_ONCE added to dbAdjTree() by commit a174706ba4da ("jfs: add a
-check to prevent array-index-out-of-bounds in dbAdjTree") -- a
-mitigation, not a fix.  The alloc path got a leafidx sanity check in
-dbFindLeaf() by commit d64ff0d23067 ("jfs: check if leafidx greater
-than num leaves per dmap tree") and the dmapctl pages are verified by
-check_dmapctl() from commit cce219b203c4 ("jfs: add dmapctl integrity
-check to prevent invalid operations"), but the dmap leaf pages
-themselves are still trusted.
+Applied to for-next branch now.  Thanks.
 
-Validate the dmap tree header (nleafs, l2nleafs, leafidx, height,
-budmin and the leaf values) in check_dmap() and call it when a dmap
-page is about to be modified: dbAllocDmap(), dbFreeDmap() and
-dbAllocDmapBU().  Return -EIO on corruption so the caller aborts the
-map update instead of operating on a bogus tree.
 
-Verified with the syzbot reproducer under QEMU (x86_64_defconfig +
-CONFIG_JFS_FS=y): without the fix the jfsCommit thread reliably
-triggers
-
-    WARNING: fs/jfs/jfs_dmap.c:2962 at dbAdjTree+0x2fa/0x3f0, CPU#1: jfsCommit
-      dbJoin+0x24b/0x2b0
-      dbFreeBits+0x170/0x8d0
-      dbFreeDmap+0x62/0x1c0
-      dbFree+0x266/0x550
-      txFreeMap+0x2d3/0xe10
-      xtTruncate+0x24fe/0x2e20
-      jfs_free_zero_link+0x262/0x4c0
-      jfs_evict_inode+0x40a/0x4a0
-
-with R12 = 0x5ff20056 (= 1 + corrupted dmt_leafidx), reproducing on
-every run; with the check in place three consecutive runs complete the
-mount and file operations with no WARNING, Oops or jfs_error report.
-
-Reported-by: syzbot+ab18fa9c959320611727@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ab18fa9c959320611727
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- fs/jfs/jfs_dmap.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
-
-diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
-index a841cf21da7de..4616ded254ba6 100644
---- a/fs/jfs/jfs_dmap.c
-+++ b/fs/jfs/jfs_dmap.c
-@@ -220,6 +220,74 @@ static bool check_dmapctl(struct dmapctl *dcp)
- 	return true;
- }
- 
-+/*
-+ * check_dmap - Validate integrity of a dmap structure
-+ * @dp: Pointer to the dmap structure to check
-+ *
-+ * Return: true if valid, false if corrupted
-+ */
-+static bool check_dmap(struct dmap *dp)
-+{
-+	s8 budmin = dp->tree.budmin;
-+	u32 nleafs, l2nleafs, leafidx, height;
-+	int i;
-+
-+	nleafs = le32_to_cpu(dp->tree.nleafs);
-+	/* A dmap tree always covers LPERDMAP leaves */
-+	if (unlikely(nleafs != LPERDMAP)) {
-+		jfs_err("dmap: invalid nleafs %u (expected %u)",
-+			nleafs, LPERDMAP);
-+		return false;
-+	}
-+
-+	l2nleafs = le32_to_cpu(dp->tree.l2nleafs);
-+	if (unlikely(l2nleafs != L2LPERDMAP)) {
-+		jfs_err("dmap: invalid l2nleafs %u (expected %u)",
-+			l2nleafs, L2LPERDMAP);
-+		return false;
-+	}
-+
-+	leafidx = le32_to_cpu(dp->tree.leafidx);
-+	/* Check leaf index matches expected position */
-+	if (unlikely(leafidx != LEAFIND)) {
-+		jfs_err("dmap: invalid leafidx %u (expected %u)",
-+			leafidx, LEAFIND);
-+		return false;
-+	}
-+
-+	height = le32_to_cpu(dp->tree.height);
-+	/* Check tree height is within valid range */
-+	if (unlikely(height > (L2LPERDMAP >> 1))) {
-+		jfs_err("dmap: invalid height %u (max %u)",
-+			height, L2LPERDMAP >> 1);
-+		return false;
-+	}
-+
-+	/* Check budmin is valid (cannot be NOFREE for a full tree) */
-+	if (unlikely(budmin < BUDMIN)) {
-+		jfs_err("dmap: invalid budmin %d (min %d)",
-+			budmin, BUDMIN);
-+		return false;
-+	}
-+
-+	/* Check leaf nodes have valid values */
-+	for (i = leafidx; i < leafidx + nleafs; i++) {
-+		s8 val = dp->tree.stree[i];
-+
-+		if (unlikely(val < NOFREE)) {
-+			jfs_err("dmap: invalid leaf value %d at index %d",
-+				val, i);
-+			return false;
-+		} else if (unlikely(val > 31)) {
-+			jfs_err("dmap: leaf value %d too large at index %d",
-+				val, i);
-+			return false;
-+		}
-+	}
-+
-+	return true;
-+}
-+
- /*
-  * NAME:	dbMount()
-  *
-@@ -2112,6 +2180,9 @@ static int dbAllocDmap(struct bmap * bmp, struct dmap * dp, s64 blkno,
- 	s8 oldroot;
- 	int rc;
- 
-+	if (unlikely(!check_dmap(dp)))
-+		return -EIO;
-+
- 	/* save the current value of the root (i.e. maximum free string)
- 	 * of the dmap tree.
- 	 */
-@@ -2167,6 +2238,9 @@ static int dbFreeDmap(struct bmap * bmp, struct dmap * dp, s64 blkno,
- 	s8 oldroot;
- 	int rc = 0, word;
- 
-+	if (unlikely(!check_dmap(dp)))
-+		return -EIO;
-+
- 	/* save the current value of the root (i.e. maximum free string)
- 	 * of the dmap tree.
- 	 */
-@@ -3338,6 +3412,9 @@ static int dbAllocDmapBU(struct bmap * bmp, struct dmap * dp, s64 blkno,
- 	s8 oldroot;
- 	struct dmaptree *tp = (struct dmaptree *) & dp->tree;
- 
-+	if (unlikely(!check_dmap(dp)))
-+		return -EIO;
-+
- 	/* save the current value of the root (i.e. maximum free string)
- 	 * of the dmap tree.
- 	 */
--- 
-2.43.0
-
+Takashi
