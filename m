@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.67
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794299354;
-	b=rp1Sm7NXw2SIeOKIbLnW6/KX6TAVf31cxxYtTXcGzMxQ7mxArfdO85rd/w/K590CXcjs
-	 ClsnnmlxvrClWFJvLubPDdN2Kl1f88XzcEIB5gs37hRWWdVahnzjsqYjVWyWXkJH1tnOM
-	 Gv5VJE7FcmGBWGc8FWgEcO0/heiwIVSV2HHGseswtYF/OgHZsl591eX+p1aXDU1rtO/Ec
-	 BkuU6pbOHwHLJZWhQcJjVPNMjSxz0d7/EpoaexZjoODgjsDriLb/bC5mi5JMa+mdMFrYe
-	 V5FBN4Z9OnDq6/C1/HEGSXtUjsnQzqbUJoa9lh7cDCDtnY34UebebzypoWkoPU2gfWw==
+	t=1794299357;
+	b=Aj0U8XklzhEOLzsYGKVNiN1nwQOmtVjsD5l0W7Jp+DTdaAuEDB5alBtJTq+3e2Kvrfxi
+	 y+G6ZVekqTgOlx7cAGTZpuROal8t/ot8+2b3RKzqWYBZML48cS77fH6WIiq7jCvpynoWQ
+	 MS13sPIn2dVouzSHmnAkiKIL/pHlXAl5XWOMH1ToJPDVR6gpxYqVU8EFQedI/XhZBDz77
+	 q30zwiL9h5yktQnjqv1RLmJ+80SMm1patyameo9Fhqa+/XbCzv6hCZfg83HZvkVmOMSYa
+	 CLjENqM+xCpgdGDqiTn9cE1Obj65XQHqXBQop6ja2o4hOQyx8UL7ZW9CKxAQaY5RD8Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299354;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299357;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6aaW2ruS26W/iUJQlf/616nxkO7We+j9F/Id5bVu5eI=;
-	b=FQaJg1xYtZuyCyp6jpK00429tEej2i8nBzwK6eMxSYpJ5AncLZiBDBVaBMCOR262KoMw
-	 9qnLzIEs7ektx0m95Fr+UmntB5m9S6vCNSsxKZwGtCXOXmhWDTpVatJUEq3+HEB1inOvr
-	 FEJqArieh0vAvSMEdCZbk7938h0CvFMb3upiNLi0oG0hMOmMuy0V77lYX09NII1mz89MR
-	 /M/UKMj14A1RYgnS36jQ6NVsElI0zT27VoOf7sXKmb6/PHwqru+3HZWA8rrgn4XflHhbi
-	 k15n/XHVV9e83EF5Akr2cVnvQxDVkBvNXqCXUUguDeu/Ov8iM7XuEQ9F1KGMqgu/I5g==
+	bh=d4ul4TR3d8G9S3jQwECaBBIKo1SrgFJv1eUxDEZNmG8=;
+	b=CKwwuMndDIbC+nDpzy0lnEYWMpHsLtRI8FmXSpu+kcIrhVPyGYHvAZorKnsOuVPA2sfj
+	 MIHcCppQEYXZhDwrA7iQ3HAmmdMtkO6W/xAj5ZOHYE+W/z30BWFcI4zaSB+Sle2VqQkxV
+	 rQ0kqBmOIzKnqf3W2Fypq34DjePwZ3y0xnUxCsFOFSixgSWYLSU8uU6fELvfJIqZpj42D
+	 X6FhmuxjsKh9lE+oxcNy71oXFCYJZFqvIfVJKctAYQzW7qOqmLoOQqUbv0uRFGsr/CLP+
+	 L8nHstCdYQKxh+HaQkib09dO6B/g9Jx+X0itboTXzSd71ClOyr1yYs45UlkPxFka0ZQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LJtdgQF2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.67
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011067.outbound.protection.outlook.com [40.107.130.67])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=menKALn9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.47
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AAE606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03AAE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA9460A260E;
+	Tue, 10 Nov 2026 08:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA9460A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LJtdgQF2
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=menKALn9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tyxxyvVwcMvU5KXpH2dC8M2aU+6a0HssBgFmanLUX6Kca98uVdxMjhbJNqq4UlzNiYiavqG3eKFFXCeCYX4cxLxeueCMlLX5E6i8OhZO0+CEAVGPMFTd9uG9u4rrgJHIPnwbQv2+SzRwzva8dIIPCGBitISJ2e0Atf3zaoSrKNm2LTM3xlo/SrhXFJXE6uuxzuR6ozxL/1HH2h1c5bkb4mEZpJ2k3jM6eZAz9CeMAwNRL0u+Wv90dh5c6Py/q8+1mJtRlcvWvkazDeIXsC5LsxzJfj1M5tnv5vwSgTZYYob63xWdnLgj4BIPhxMYA+4ZtNRBHx3BZCuAA5DinYqm+g==
+ b=Yh1Iq+oalIrCzeroAnVR/cx0OqfdxnpYFMBsDMp2xm1PyuCyPNGLrIWfvd8WV4coI6AoFIwjugWH512OXbxuwFraS6htziwnS/bUQ85Rzc5O17Uwtwf7BkYULMBpUu1VPvIonnE3NrC+t7al+gPGQ91H8IpvfRiAiY8y0q5Jr0fo5arttuh+/Wi7JWr8clRfYCACWiMuKnZS3R46+WK09pXRI8dvOSgEmv527ijShKrhRzXh1NI2n9hpfV7yBmx2Q1bW/4MCaLOxdzj8r9zWeSIzCh07JmPbmLW1quDf42Ez/pON0mkysPwmbNF8RQAjssQhs98ItQORHzejNSgB0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6aaW2ruS26W/iUJQlf/616nxkO7We+j9F/Id5bVu5eI=;
- b=AlODtRGS+8Q+Kq4mX+NjezopBWfjjGg2067NOyevVuAID8eYEKadJJ5xNkR8J9dFQ+aG4hwfl/WuEMfXe4Kx/sQT3DFCRivW7rYQCEMucelXWAmbS8HTaRAy73nq2UAWKPXnYTESi55X+7MrDDpwJJRLiOk8qw0SvmW1NINWwPr/g4wjbqzTWTQDCJlWGLWXTbVfcAdFQ3pJaUewb9FWhkewb5SALg+1x4/DeXOEEUgt5LEc0QiTv68NLS1gfYY+zRmzlQk4HuQUpE9CfFls2ydIiWGzC55vPP84Fetncc3idlm19hJ9NasDThZCVas4mj5DpONQ3GBnyMuWtGwtDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=d4ul4TR3d8G9S3jQwECaBBIKo1SrgFJv1eUxDEZNmG8=;
+ b=ngpeQwi4ue9PXLye1nVS4oUeZCbU0WFNKZ4Xu9NAAOG0dLVRkBsHi35paf5xbijMBHgZWzvB6Wz2Y9ZLEvjYyXMpv26bhb/I+Gtf1vbwTzTjjaudNwHOQftt3G9CzHl6hSpqAUOw227vHJrZ3qjBIdwA84GL84bntxTQACDwIVrU/eRsyoEaFaN41hyHb4d0vpQPnTh2Avids+kyE9eZF/TADBIvoSGTseG8/FJ+n70UH8AuIpGi17lWTTOyhQ89xbIiltHWpJLdtoolj2v6a3nTacVbk+MNhPxggwlD9L34jObaNFfLc8pDQh8EO66diLMUPczi7U0WXsHpNh87iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6aaW2ruS26W/iUJQlf/616nxkO7We+j9F/Id5bVu5eI=;
- b=LJtdgQF24pQC1uOImHppRazBqdwVmZepvxOP8nljVhZ5U6gA64KkUWIykljzDHHd1133iy+L4YH1Ltb7XHRFe6RMh3jXbgZX8VRDwS7T60VyNRUZa5hzC8/zJlsT7883qy6HJPnDM1hvE42xr8gk3sdSKx1PfJthYArufaUPCMu1rKPnZtMINGnoRy7bepes7XYxkzrQq61yXbBgINmtoEhQmRfOCsQWF/9To0RuphyGrIKHZT6j9WfSGtz5jZJL272pBRrDukVXDvRASShj2tw+Y/euSzN0d8qTg7Ii67DEkY3sN1cQ9vXEepxwE+ilJiY4iJCqxWIl2ZIkcaZ6Mg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DBBPR04MB7883.eurprd04.prod.outlook.com (2603:10a6:10:1e9::23)
- by FRZPR04MB12430.eurprd04.prod.outlook.com (2603:10a6:d10:1cc::15) with
+ bh=d4ul4TR3d8G9S3jQwECaBBIKo1SrgFJv1eUxDEZNmG8=;
+ b=menKALn98A6sIsxvFNhq5oIo6OjkgdWQVQUnwhNvRVjmWCV5Y4r2gOzBzvjo+nq29l6G1tBRvRuHCruUzy7tDpi/ufw2JV1pwURaoFge1td18s5YH0uMcp4n2Rsoj7v6+IYMYwOHqb96eXT45ghrIeW0fSDY0rBiHJKtieUHzHs=
+Received: from BN9PR03CA0274.namprd03.prod.outlook.com (2603:10b6:408:f5::9)
+ by CH3PR12MB8355.namprd12.prod.outlook.com (2603:10b6:610:131::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 08:29:11 +0000
-Received: from DBBPR04MB7883.eurprd04.prod.outlook.com
- ([fe80::3a91:cf25:36c9:c3bb]) by DBBPR04MB7883.eurprd04.prod.outlook.com
- ([fe80::3a91:cf25:36c9:c3bb%7]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 08:29:11 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 10 Nov 2026 16:25:25 +0800
-Subject: [PATCH 1/9] regmap-i2c: keep bus raw write limit when applying
- read quirk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-regmap-improve-v1-1-3a76b6c10ec6@nxp.com>
-References: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
-In-Reply-To: <20261110-regmap-improve-v1-0-3a76b6c10ec6@nxp.com>
-To: Mark Brown <broonie@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, 
- Lucas Tanure <tanureal@opensource.cirrus.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: MA5PR01CA0063.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b7::8) To DBBPR04MB7883.eurprd04.prod.outlook.com
- (2603:10a6:10:1e9::23)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 08:29:10 +0000
+Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
+ (2603:10b6:408:f5:cafe::7d) by BN9PR03CA0274.outlook.office365.com
+ (2603:10b6:408:f5::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Tue,
+ 10 Nov 2026 08:29:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.0 via Frontend Transport; Tue, 10 Nov 2026 08:29:09 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 02:29:08 -0600
+From: Melody Wang <huibo.wang@amd.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<bonzini@redhat.com>
+CC: LKML <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Joerg Roedel
+	<joro@8bytes.org>, Tom Lendacky <thomas.lendacky@amd.com>, <x86@kernel.org>,
+	Melody Wang <huibo.wang@amd.com>
+Subject: [RFC PATCH  0/9] Alternate Injection: Secure Interrupt Delivery for SEV-SNP Guests
+Date: Tue, 10 Nov 2026 08:28:45 +0000
+Message-ID: <cover.1794295647.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,134 +106,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7883:EE_|FRZPR04MB12430:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdd6013c-2beb-4d3c-732d-08df3f04b238
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|CH3PR12MB8355:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce54505c-c095-4c6e-cc8b-08df3f04b13f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|261009223027099003|10067099003|11063799006|56012099006|261022075727099003|261021121427099003|261021123027099003|261102123227099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|261022105027099003|261021135927099003|261021121427099003|261022075727099003|261021123027099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	loicXfpDMo6KUIXUb4cCoiDQYskL7KubEnQkMgbM6uXbjqfg4nEE4XtFMN6xnsF44eX2/6a7FfvveMYQAlLYTyobSRlDu33krZu/cPNUDbzqduCnej1YHLgHwWUTH+GEe/l+5I3EChXeMlxitnyIGzjWctgSqkIyU+2SQZUYWIC6OiHYxDkXicI7kVSaFbYcQsP/rj8L4Kktl6jdmpn/ZOqlDcmf/OY0zvFsuNGXSoe+MVF6gCa68DNE7ZFEtwUcFyJVHlfcAjCKTybgZV6RKNZ9LvMUxfkXb5g00F1iw9TWYkbodo4XaJKbC4NVMX0YHmYOA5LGiN5gVWL/XWITr/rhfK5P5LL7VQeLMi2VFZdhAHe3a2+fy3L1rmSzOSlUynu3qNOCPOYPAwXGZI8HiejNzMTFPnfk+NAwYAbtNpE5ZtkihWonIUg/SQoO5QWcY0TIW/3zwzttCNyt/J/OkQ4JJxtMTsy54sSUn26v55gg5G+Ia7K+93vsu4j6sUWzAdO7JFihYPAskUq6r8SgUKKsyK1jrg2np2kY9LnFCaLH7RFPeRmHrJGa/wLIgvAGuUTqhKTFw/Q9QQVtCtc5KifYFvUfXMsaXfHfmP6TT0nTvD5ATpCWm6KV33EWmaAzQiEOx2n+OpU9zy9FIMQ8ghl764pZyF3Vxu6baVs+wDA=
+	h4BgTrL7VuX+ilPqolFjbhkoq57qnPTx2Zlt3YCT18ElW5/OdDGqxxmO+QUeVIRlOGAWhjOQlpSKMZRuSLsDL44VHU1fkl+bxRTvc5IOnDux8MUtWtUj9CV8c7yhDD0JRPeGi4woRDUdJu1vfs94l3frA34HSpHdKj4trerGhTMqSHGD0n2jZZPydXUROV2iQA8/pnqaU7EjU/F88uHJR45kA9VDtDGd/n7a0+m/OHYk2qTK0iYGpPO0YNz3s5lf5uW5eNpAG6AKVjhZ/cW1R3Ta6jUqlckPGH0BEC9eUJIjsQWb+p6R+e1MduMV1MRtS4A3C7tb7il7VeETkO1DZsNMtTcOtaZjYdiAaNvsbdx+gTgLn3Qfm26e8S1I/wUU+UbXvQEHfGiBdgrthrsjG3Vzl/q4Bs8u1SqiP+Jz0ftXf/iJ+exRNk8FivlCtb+06BzQX1EJOgcOrAU6mvzj9tw0nDwGRyI8V2l4GJxiDH8kmKCj/89pLwt+GzMNIZn5VHeypAM1PR7zKWHtyU9qFmMItMgAtwUF60IIN/qCIBaCN1gdHfwwY4Ej1TYp/m1MlmaIp7q4bSb0dVVzaYFUB4Dw2+usLtqxmce0mu6lwEE/w2RT//3BS00Y1hfTAU0hRFsFoITJvo07Q+OkLET5yA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7883.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(261009223027099003)(10067099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021135927099003)(261021121427099003)(261022075727099003)(261021123027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OERacVhYbWJxbjFoT3FCRXNqcjFFUzF0ZngzTE1uNnBXeC9yUWVwRDVsWEFP?=
- =?utf-8?B?MDV5S3VsNXlQMWUrK0ZrTTBmNWRnbnM5TUFodHc2UXRKNXhiZ3VtTE1uQmR0?=
- =?utf-8?B?WUNiOXExYmk4REJMaU5DSWFsRGFrMWRYTmI0dndhVFhPYlBXUTU3QmV1eWNs?=
- =?utf-8?B?YnJlSEFKaEFKM29uMnl1V1VpblNRSUkwMkU0ZG1ORmQxUlgxWWJGdVFSOFFO?=
- =?utf-8?B?aVhyVzE4bkU1SVZlV3JGWm1JZFUvRGYxbjlaZ2FrT2lzSDVsdlM0RXhzTUM0?=
- =?utf-8?B?a3FKZ1doVU9RTWFJQkhkSEwwU21zbzBrMmg1T1I3NnN5ZUNvQWlTSUR6eEt0?=
- =?utf-8?B?UVhoVU5MazVxVG9hVFZXajB1L0VwUHJyNlJMNEdwV3lLVFJ5Z3dtYi9jZTA0?=
- =?utf-8?B?SUtRSWZsamYya1crSTkxVWg0dmVoVFcvQXNuRmxrMElTbE91eHFlRGpmQnRT?=
- =?utf-8?B?UnZ1c0E4V3pYS0l1YlpvYW1iWUQ1TmxGd1BiZGh0QTROZjQ2R0JBQSs2cUpF?=
- =?utf-8?B?ZDhXanN4MDUrMFBJdUlVY1pjS2k0bElZMlpvZlhQZjNlSnlFSW1pd1lEd1U3?=
- =?utf-8?B?R3ZQM2hKdVJOYWNOTlAzd0dOa0pOenZ4Ymx0T2M4OUZNdHIyeVJDUFBnUWlC?=
- =?utf-8?B?RHdQRlZDcytmcUYzVGI3cDR1OHArcS9CS2ExckdydGpZQW5UVnAwVEdoa3I3?=
- =?utf-8?B?SmUwNDltT3MxK1g4U2NFb1RBY2lGaXIwT2FMaVNJOFFIdGdmUnFjRmtOd3Bz?=
- =?utf-8?B?c083Z25PU1FReElpK243NzZOVVVLZzc3a2VkZGJaMHo3OUxzMzh5OTd0amZT?=
- =?utf-8?B?SnRMeFdXbXMrVXZuOWlpVEYyLzgxWWRXMVR5eG1FRlVEZGhmMXhvQ2x4QVFi?=
- =?utf-8?B?YWJ3L0JMR0hnQ0VyUXBBdjMxYTRRS2lSUlF3V0piREFnd2JhZm9JVEFIaWJO?=
- =?utf-8?B?N2lCWGFMSzR5aW9wZ1c2cUlaWkMvTHFWQjM5TVVDSmFMWVFBVXRwUjg5cjJL?=
- =?utf-8?B?aXU0RTZKYzd1UFRIYjhubTQ2cE9EakhDellCb0p0RkVieCtaR1dvT2FhWDl2?=
- =?utf-8?B?VkVVbnlDaEFDbUd4SkVja0xhNjI1N2ZSTlBKNFY2SWRUNmxPbUxab2JGbGk5?=
- =?utf-8?B?Qk1Bd2xiRGJ0QmYxQVpaZ3I1SGJ0QzB4MkxiRVFocTRiRFNGU3JFb3VidDRG?=
- =?utf-8?B?WFZYS3V0cDEvNWhLMk9LVlFtaFdsZ0tsTEtnbHl3MElPNjd6UkN2YnpWR1l0?=
- =?utf-8?B?L3VUMWpHeHBvd1hTcW1SOVBIamd0RzF0a24wK1NnN3dQaWhndkdocDEzNnR1?=
- =?utf-8?B?WFp2dmFlUW95bSszZnYrcnc2Y0NGTEFRY0N0RU4rRlF2RzRTN1AwRkhIT3BH?=
- =?utf-8?B?L2lvWWR1YmJwSEFGNUJheWdPRi94OW1UcmZ1dlpUVUxUbVJZMHZLd1VVK0ZM?=
- =?utf-8?B?V2lmZENvMWsxS1FmdjkvSG5SdjlBT1pHTDFlb2xBeWIwN3JYL0taaXV3aGI3?=
- =?utf-8?B?djdUNC82VGdFcjBPbHA0UW9zdWw2dGlsYitHWWNlTUdDajRyRVlqZWxrZEdP?=
- =?utf-8?B?cElBQmRtQTF0c1A4Zk9lVW5FK2ttN1MvcEMwM0gwdVhhekxjVDFaQXBUempy?=
- =?utf-8?B?Z29oVlJEU1VHL0ZPOG8xQVRhNm96aXdURDhNSnQwWERpR3pUUFpqcjhQelU1?=
- =?utf-8?B?SVRFMlFyZWV5NXFoeFI2d3creVU2dWtqOTVwckhQOCtyeEF1UWdmWXUybXha?=
- =?utf-8?B?S1diM29EOUtnamJpM1RyQU5kV0NiaEEvRUlhK2FYVzBsakl4WmdGbit2a3Zt?=
- =?utf-8?B?RGkzOFU0elNDN0FFbjY0VkpEcnJyaEdpN0RkYVpFYmk5ZGtCbjc2MEVhYyti?=
- =?utf-8?B?SEV4QnJMNXJsNys3YzlreWxzaFc1YnUzaWFqbXRpRjNuaEZPVnFSOG1jRTRl?=
- =?utf-8?B?c24vQWl4OW1JZFd2S0NXc3hpT29DazJ6OG5WNnBjRjdKWkYzMm5hYk1VODZR?=
- =?utf-8?B?TUQwb0ZGR1NEQjdCM2RBVE9QOFQ1U3lGbmtEemF5SGttTDM2SUdCZFNmdmpo?=
- =?utf-8?B?MnNSUWpqc2hWY3dQYUVySS9qV3loREJXc2tlaE1IZSs5SkVCaTNWZnBRcUNm?=
- =?utf-8?B?OElaMy82bzNWaks4ZlJ0eWZqbWhhbk9UZE9laG9pL0paTmF1SGFzeWh0elBF?=
- =?utf-8?B?WXJwY0l1aHBaWXlhUnY5QlJtVURkTjVhV2hpK0hOczdlcFkwT2xpc2ZScWNW?=
- =?utf-8?B?WjFwNXpZYjI4bnVEMDZxVDBDVGVxZFVxVk4zWENwTjJOZkc5VWVidW5lOEVw?=
- =?utf-8?B?dWF4bHpQR0sxNXRxcmZnUUF3dFd6b0tUd1pKVU53dSs2em5yWVpvOWpUSFVn?=
- =?utf-8?Q?yKYuU+xKr4SqSehrcY5d3s0ojPmIQ7xvq7fgt?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdd6013c-2beb-4d3c-732d-08df3f04b238
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7883.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:11.3583
+	/bw4M9POG48sLrqzVzyiqee8/0wAcLlrj6Nb8xBMUkTENvfXbJa/fIFHPdqKhIaNUgLoVTsVo7I2oda0Bs3UfxM0riCWaqwMY7D/QHw1eq/k6ddEUTxHdgHi/6pu87bknsUcEc48W+oovQS1OyqUVQo/I1QhjmusSYx4LGcWJTn3IIT/kcqufTtJn2b53YXbswtsaYMsxhDmeGBvQTvJc4dBXqiSk0ieTgOlEZ/fud0m8nZmnREPdSXFmIGhByk1hglFhodYiusoHsJwRRfKkK4O1ilbTqkVEvmkoRmSxPGRZyCpX37afUNcQsaelgnrafRiBhj2k7pxKx0u4rfu5Afsk66IYn+YgcfdlLTOFUUq+mPFTX75a9fEaz6/eU8elWWHT2/06X/RGPfj5nM9PcAlMyT0xlwTH/lAzqp72Qxo8m+uL5IX/5FWht6t7i28
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:29:09.5644
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iDMf5BfSbt6NY3SZO+bN7XfPGVmGpx74a9jHATSdMzbYx1DrVeMlg2y7vTWZJB4tKWgHMt67o9RGVgmm2SlJml3L1RdwMBuLGCpMUe3bGLkRWFmZPUeh3O7JnzuzARJp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR04MB12430
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce54505c-c095-4c6e-cc8b-08df3f04b13f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DF.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8355
 
-From: Peng Fan <peng.fan@nxp.com>
+This patchset introduces host-side KVM support for AMD SEV-SNP Alternate
+Injection, providing secure interrupt delivery for confidential guests against
+malicious or untrusted hypervisor injection attacks.
 
-regmap_get_i2c_bus() applies adapter quirks on top of the raw I/O limits
-advertised by the selected bus, but it starts from zero-initialised local
-variables and then overwrites both max_raw_read and max_raw_write of the
-copied bus. If only one direction is clamped by the adapter, the limit of
-the other direction is dropped.
+Background & Motivation
+-----------------------
+In standard SEV-SNP deployments, retaining hypervisor-controlled interrupt
+injection leaves confidential VMs vulnerable to unexpected or malformed
+interrupt sequences. Alternate Injection mitigates this by shifting interrupt
+injection control into the guest security realm. It builds on top of
+Restricted Injection, leveraging the established secure communication channel
+to interact with a Secure VM Service Module (SVSM) that handles APIC
+emulation.
 
-For example, regmap_i2c_smbus_i2c_block sets a 31-byte limit for both
-directions. An adapter that only reports max_read_len causes the copied
-bus to advertise 31 bytes for reads and no limit for writes, even though
-I2C_SMBUS_BLOCK_MAX - 1 still applies.
+Series Status & Dependencies
+----------------------------
+- This is an RFC patchset intended for early architectural feedback.
+- Rebased on commit 6efc8ea4653f8bfd4d59ea5fa9589d028e037909
+  (joro/kvm-planes-v7.1).
+- Tested against:
+  * Latest SVSM build
+  * SEV-SNP guest kernel (rebased to latest, with Alternate Injection)
+  * EDK2 (rebased to latest, with Alternate Injection support)
+  * QEMU commit 8db5273ca97f26043f64d1390f906e434c675db2
+    (HEAD -> qemu-planes-linux-v7.1, joerg/qemu-planes-linux-v7.1)
 
-Seed the locals from the selected bus and only replace a limit when the
-adapter quirk is more restrictive. Also only allocate the bus copy when
-one of the limits actually changes.
+Next Steps & Discussion
+-----------------------
+An alternative design approach has also been explored and will be presented
+at KVM Forum 2026 in the talk:
+"COCONUT-SVSM, KVM Planes, and Secure Interrupt Injection - Upstream Alignment" [1].
 
-Fixes: ea030ca68819 ("regmap-i2c: Set regmap max raw r/w from quirks")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/base/regmap/regmap-i2c.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Welcome review and comments on this RFC series.
 
-diff --git a/drivers/base/regmap/regmap-i2c.c b/drivers/base/regmap/regmap-i2c.c
-index 51a04961faf7..8663a4ec0a3d 100644
---- a/drivers/base/regmap/regmap-i2c.c
-+++ b/drivers/base/regmap/regmap-i2c.c
-@@ -353,7 +353,7 @@ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
- 	const struct i2c_adapter_quirks *quirks;
- 	const struct regmap_bus *bus = NULL;
- 	struct regmap_bus *ret_bus;
--	u16 max_read = 0, max_write = 0;
-+	u16 max_read, max_write;
- 
- 	if (i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C))
- 		bus = &regmap_i2c;
-@@ -391,18 +391,22 @@ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
- 	if (!bus)
- 		return ERR_PTR(-ENOTSUPP);
- 
-+	max_read = bus->max_raw_read;
-+	max_write = bus->max_raw_write;
-+
- 	quirks = i2c->adapter->quirks;
- 	if (quirks) {
- 		if (quirks->max_read_len &&
--		    (bus->max_raw_read == 0 || bus->max_raw_read > quirks->max_read_len))
-+		    (max_read == 0 || max_read > quirks->max_read_len))
- 			max_read = quirks->max_read_len;
- 
- 		if (quirks->max_write_len &&
--		    (bus->max_raw_write == 0 || bus->max_raw_write > quirks->max_write_len))
-+		    (max_write == 0 || max_write > quirks->max_write_len))
- 			max_write = quirks->max_write_len -
- 				(config->reg_bits + config->pad_bits) / BITS_PER_BYTE;
- 
--		if (max_read || max_write) {
-+		if (max_read != bus->max_raw_read ||
-+		    max_write != bus->max_raw_write) {
- 			ret_bus = kmemdup(bus, sizeof(*bus), GFP_KERNEL);
- 			if (!ret_bus)
- 				return ERR_PTR(-ENOMEM);
+Plan to refine and update the patches further following feedback gathered at
+KVM Forum.
+
+[1] https://pretalx.com/kvm-forum-2026/talk/ZB3GWA/
+
+Thanks,
+Melody
+
+Melody Wang (9):
+  x86/sev: Define extended #HV doorbell page structure
+  KVM: SVM: Add support for Alternate Injection for the  SEV-SNP #HV
+    doorbell page NAE event
+  KVM: SVM: Add Alternate Injection support
+  KVM: SVM: Add Alternate Injection path
+  KVM: SVM: Bypass lapic for VMPL1-3 guest with Alternate Injection
+    enabled
+  KVM: SVM: Inject #HV into VMPL0 with Alternate Injection enabled
+  KVM: SVM: Notify the SVSM an intercept happened during interrupt
+    delivery
+  KVM: SVM: Clear AVIC Enable when Alternate Injection is enabled
+  KVM: SVM: Enable Alternate Injection for an SEV-SNP guest
+
+ arch/x86/include/asm/cpufeatures.h |   1 +
+ arch/x86/include/asm/kvm-x86-ops.h |   2 +
+ arch/x86/include/asm/kvm_host.h    |   2 +
+ arch/x86/include/asm/sev-common.h  |   1 +
+ arch/x86/include/asm/svm.h         |  60 ++++-
+ arch/x86/include/uapi/asm/svm.h    |   2 +
+ arch/x86/kvm/irq.c                 |   4 +
+ arch/x86/kvm/lapic.c               |  10 +-
+ arch/x86/kvm/lapic.h               |   1 +
+ arch/x86/kvm/svm/sev.c             | 371 ++++++++++++++++++++++++++++-
+ arch/x86/kvm/svm/svm.c             |  66 ++++-
+ arch/x86/kvm/svm/svm.h             |  30 +++
+ 12 files changed, 531 insertions(+), 19 deletions(-)
 
 -- 
-2.51.0
+2.43.0
 
