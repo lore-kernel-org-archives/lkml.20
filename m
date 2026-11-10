@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276060;
-	b=r2UoettUj7stYr+MOxwENmjEuCk1HfDHL11Dt5J3F0Z2KL5TDsDk4AFZYO++gRSYomHg
-	 9HwxtGJPAYdPn+SH29XmP9W/MF+8eSNYFoT2pbKIux49w5ZmFN7scx/QRqhmBUfXNh4Ur
-	 YWtuKH250EJR8PTnbVanGnOWn303tqJQleW2AIFKvS7qincjZnD18JOgtTyIfgWL5ihxB
-	 w7PrW/GI3ik7CvZqPMox4JwD4iGN31ErBLyMRPWS278sfIqNo7ifiH7J8V+BqH8LftaZx
-	 0EYJv1qsM0L4yzDzbyemBVVIbtFuoguF55IxKMU3gSkYMLQCmH3ELpaZi1y8l6WFY4Q==
+	t=1794276058;
+	b=Qf0RFQf+fVt/+3h4oMJ/M1pWFHUKAVrYjQg9bCJxbumdasNu431xmud3F6LQoklG7JvU
+	 ZaOk727w0KH8XO9J1nN4tfZCyL3CYikcb6RnrvmAOl0Qm1dlsxJZtkVfXbIrmnG6li7xX
+	 j1nK3W9oEALcdxVR9+LvZU5WsvejUmflxOUudBV1dCohc2J3akIDAA8pgBgWXYbzDoHao
+	 1C8MvMC1u4BkdAHSiy9oF4IRCYA0dxpdiWcE3HZPkPhEbz09k3zr5uzHHQiV4sk/DuKla
+	 L3/lvgbuRWBEWpEbkmd85xPicHVOwHwnHPUFC+E2lUmYOu2Te/bTxgW5ralEJyVFKTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276058;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=l+a4zhFFhR/SLLTgrPxIj5R4DjUDrPPQ5OqEyLGWiGg=;
-	b=pk12MX+VI1cRZ6QmIIIyLJZDHR/bzfLC3Sba2CDaLembU8nTogZE+OEif4XGJpT0ptLr
-	 5HeXmuSsy8VcdtQmF7+0xtLThgWbjlZJI7X1ip3Jp5VDvcI7AskfBTiL3HDVL9D6nOx8l
-	 m4vOhuUPDVirP5pQYNjvVuyT1+bA8uNd+Bj9kkg9O+4X7SuFC7Rcql+mqqk8tayLCo1mM
-	 sa/9Mg5bYBUtRtZYkkSjPwB3WUe+72G9q2iydmfslYlsUUxB8qRAGD/S0u5ESBzjK6srZ
-	 c5gNw41CFU+ve6Mi6+YLC3CuzlhnJHqcapdCKgL06TMt5oqBkPmeREDHhbLOUPziNPg==
+	bh=71jfInJAfqGddTmlcqspLcvQb53FSaxHHvRNhKnpa5Y=;
+	b=hsj2oOfnQP36cXJg+47oVCgp9yBSjVj3xOm1WzWhY1NpfNbHBWTfQ6TCtnOSYdnbsBgb
+	 /IX4Rm1dChilel7HV9BBMUMyy4Q8FxEfEzaoyiL2+PztW9SuIxEMw/Z9Pl4EkkifgwQbW
+	 qB+08SXt4ptcLNeihq1t85ALnF2qfRWkUyEUJ1p5pxq7SsyCUvXEhxrEReRgRAPm1AM8i
+	 6NUJMDazmTF67m2tKcqWZMhK+N0Rimjdj56DKGapko9pcVImi1Dxqulu0eO2VX5GMfXxC
+	 ld9Uaq3cvUxM8mlFHyN6Y64tm5mWziZCAeIZ0DaMu7StLHfqaAPI3hz+HQDcANbsRDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SAh4hGxG;
-	arc=none smtp.remote-ip=91.218.175.161
-Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="WZSun4/p";
+	arc=none smtp.remote-ip=91.218.175.152
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA3460A3810
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA3460A3810
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06A60A263C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B06A60A263C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SAh4hGxG
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WZSun4/p
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CSsgimrWFM6hWZuLja0jYTIQJHJpXoyt2zYn8Wobba4=;
+DKIM-Signature: a=rsa-sha256; bh=ia9qdnGNxDyWihbRRSTSL01OFvsSZ5uOk0ivQVJMF84=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794276058; v=1; x=1794880858;
- b=SAh4hGxGElnwZr+xJ2txtszn3yhx7elLUokOREXp1lhwYlB0R9xjp/3641MmStddHgdD2Pig
- XpqjCLfO5ESv9iu6Ze8RL7RY4SLr1sWjU6KGXRnkTy3bjoPRP1ocb5yZypvPggIWapPh9I8ERFw
- 1EIn5BkGIGRieC5yEpmG3R6k=
+ t=1794276056; v=1; x=1794880856;
+ b=WZSun4/pBV7jLodFUlzfLUdn3WFlijEN9bmUC5n+HyEF5pDW9rZaPVh1E0CsRXcY1ZVwUQaj
+ 98pYh1hjzyjpp5saDAsdXX+IYwmzCTmjRMJD9U8dLLPtD/aZ+9gA/bB0wYxYMXar/47bpXpMilk
+ CsGlOpJZcTUp2GJRCni1JPdU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5201df2af4bce28e;
-	Tue, 10 Nov 2026 02:00:57 +0000
-X-Mizu-Trace-ID: 5201df2af4bce28e
+Received: by smtp.migadu.com with ESMTPS id c896d28349870a5a;
+	Tue, 10 Nov 2026 02:00:56 +0000
+X-Mizu-Trace-ID: c896d28349870a5a
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v15 08/18] HID: asus: add support for response curve
-Date: Tue, 10 Nov 2026 02:00:26 +0000
-Message-ID: <20261110020036.112884-9-denis.benato@linux.dev>
+Subject: [PATCH v15 07/18] HID: asus: add joysticks anti-deadzone configuration
+Date: Tue, 10 Nov 2026 02:00:25 +0000
+Message-ID: <20261110020036.112884-8-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261110020036.112884-1-denis.benato@linux.dev>
 References: <20261110020036.112884-1-denis.benato@linux.dev>
@@ -85,338 +85,214 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ROG ally devices allows configuring the response curve of both joysticks,
-therefore add the ability of userspace to modify the response curve by
-exposing relevant sysfs attributes.
+ROG Ally devices allow configuring the anti-deadzone parameter for
+the resistive joysticks devices as over time those develops drift,
+therefore allow userspace to configure the anti-deadzone by exposing
+relevant sysfs attributes.
 
 Signed-off-by: Denis Benato <denis.benato@linux.dev>
 Co-developed-by: Luke Jones <luke@ljones.dev>
 Signed-off-by: Luke Jones <luke@ljones.dev>
 ---
- drivers/hid/hid-asus.c | 266 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 266 insertions(+)
+ drivers/hid/hid-asus.c | 157 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 157 insertions(+)
 
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 85641e36c922..ea609ba43e0f 100644
+index 5b8b4e2a901e..85641e36c922 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -24,6 +24,7 @@
- #include <linux/cleanup.h>
- #include <linux/compiler_attributes.h>
- #include <linux/container_of.h>
-+#include <linux/ctype.h>
- #include <linux/dmi.h>
- #include <linux/err.h>
- #include <linux/hid.h>
-@@ -813,6 +814,18 @@ static int ally_get_endpoint_address(struct hid_device *hdev)
- 	return ep->desc.bEndpointAddress;
- }
+@@ -107,6 +107,9 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+ #define ASUS_ALLY_INNER_THRESHOLD_MIN 0
+ #define ASUS_ALLY_INNER_THRESHOLD_MAX 50
  
-+struct ally_joystick_resp_curve_param {
-+	u8 move;
-+	u8 resp;
-+} __packed;
++#define ASUS_ALLY_ANTI_DEADZONE_MIN 0
++#define ASUS_ALLY_ANTI_DEADZONE_MAX 100
 +
-+struct ally_joystick_resp_curve {
-+	struct ally_joystick_resp_curve_param entry_1;
-+	struct ally_joystick_resp_curve_param entry_2;
-+	struct ally_joystick_resp_curve_param entry_3;
-+	struct ally_joystick_resp_curve_param entry_4;
-+} __packed;
+ #define ASUS_ALLY_TRIGGER_RANGE_LOWER_MIN 0
+ #define ASUS_ALLY_TRIGGER_RANGE_LOWER_MAX 50
+ #define ASUS_ALLY_TRIGGER_RANGE_UPPER_MIN 70
+@@ -851,6 +854,9 @@ static struct ally_prefs {
+ 	u8 left_trigger_max;
+ 	u8 right_trigger_min;
+ 	u8 right_trigger_max;
 +
- /*
-  * Settings that must survive the controller powering off and coming back.
-  * No device or input pointers live here: every transfer uses the interface
-@@ -857,6 +870,9 @@ static struct ally_prefs {
- 
- 	u8 left_anti_deadzone;
- 	u8 right_anti_deadzone;
-+
-+	struct ally_joystick_resp_curve left_curve;
-+	struct ally_joystick_resp_curve right_curve;
++	u8 left_anti_deadzone;
++	u8 right_anti_deadzone;
  } ally_prefs = {
  	.lock = __MUTEX_INITIALIZER(ally_prefs.lock),
  };
-@@ -1480,6 +1496,234 @@ static struct device_attribute dev_attr_right_joystick_anti_deadzone =
- static struct device_attribute dev_attr_right_joystick_anti_deadzone_range =
- 	__ATTR(anti_deadzone_range, 0444, right_joystick_anti_deadzone_range_show, NULL);
+@@ -1334,11 +1340,153 @@ static struct device_attribute dev_attr_right_joystick_outer_threshold =
+ static struct device_attribute dev_attr_right_joystick_outer_threshold_range =
+ 	__ATTR(outer_threshold_range, 0444, right_joystick_outer_threshold_range_show, NULL);
  
-+enum ally_joystick_side {
-+	JOYSTICK_LEFT = 0,
-+	JOYSTICK_RIGHT,
-+};
-+
 +/**
-+ * ally_set_joystick_resp_curve() - Set a joystick response curve
-+ * @hdev: HID device the command packet is sent on
-+ * @side: joystick to program, %JOYSTICK_LEFT or %JOYSTICK_RIGHT
-+ * @curve: response curve to apply
++ * ally_set_anti_deadzone() - Send the joystick anti-deadzone values to the device
++ * @hdev: HID device the packet is sent on
++ * @left: Anti-deadzone of the left joystick
++ * @right: Anti-deadzone of the right joystick
 + *
-+ * Context: Caller holds ally_prefs.lock.
-+ * Return: 0 on success, negative errno on failure.
++ * Context: Caller must hold ally_prefs.lock.
++ *
++ * Return: 0 on success, -%EOPNOTSUPP if the device does not support
++ * anti-deadzone, -%ENOMEM if the command buffer cannot be allocated, or a
++ * negative error code if sending the packet fails.
 + */
-+static int ally_set_joystick_resp_curve(struct hid_device *hdev,
-+					enum ally_joystick_side side,
-+					struct ally_joystick_resp_curve *curve)
++static int ally_set_anti_deadzone(struct hid_device *hdev, u8 left, u8 right)
 +{
-+	const u8 payload[] = {
-+		side,
-+		curve->entry_1.move, curve->entry_1.resp,
-+		curve->entry_2.move, curve->entry_2.resp,
-+		curve->entry_3.move, curve->entry_3.resp,
-+		curve->entry_4.move, curve->entry_4.resp
-+	};
++	const u8 payload[] = { left, right };
 +	size_t buf_len;
 +	int ret;
 +
-+	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_RESP_CURVE, payload,
-+						sizeof(payload), &buf_len);
++	if (!ally_prefs.anti_deadzone_support) {
++		hid_dbg(hdev, "Anti-deadzone not supported on this device\n");
++		return -EOPNOTSUPP;
++	}
 +
++	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_ANTI_DEADZONE,
++					       payload, sizeof(payload),
++					       &buf_len);
 +	if (!buf)
 +		return -ENOMEM;
 +
 +	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set anti-deadzone values: %d\n", ret);
++		return ret;
++	}
 +
-+	/*
-+	 * Previous function returns the number of bytes sent, or a negative error code.
-+	 * From this function I only need either success or the failure.
-+	 */
-+	return ret < 0 ? ret : 0;
++	return 0;
 +}
 +
-+static bool ally_resp_curve_is_valid(const struct ally_joystick_resp_curve *curve)
-+{
-+	return curve->entry_1.move < curve->entry_2.move &&
-+		curve->entry_2.move < curve->entry_3.move &&
-+		curve->entry_3.move < curve->entry_4.move;
-+}
-+
-+/* Linear curve. */
-+static const struct ally_joystick_resp_curve ally_linear_curve = {
-+	.entry_1 = { .move = 0,   .resp = 0 },
-+	.entry_2 = { .move = 33,  .resp = 33 },
-+	.entry_3 = { .move = 66,  .resp = 66 },
-+	.entry_4 = { .move = 100, .resp = 100 },
++/* Indices into ally_anti_deadzones[] */
++enum ally_joystick {
++	ALLY_LEFT_JOYSTICK,
++	ALLY_RIGHT_JOYSTICK,
 +};
 +
-+static void ally_curve_defaults(void)
++static u8 *const ally_anti_deadzones[] = {
++	[ALLY_LEFT_JOYSTICK]  = &ally_prefs.left_anti_deadzone,
++	[ALLY_RIGHT_JOYSTICK] = &ally_prefs.right_anti_deadzone,
++};
++
++static ssize_t ally_anti_deadzone_show(struct device *dev, char *buf,
++				       enum ally_joystick which)
 +{
 +	guard(mutex)(&ally_prefs.lock);
 +
-+	if (ally_prefs.initialized)
-+		return;
-+
-+	ally_prefs.left_curve = ally_linear_curve;
-+	ally_prefs.right_curve = ally_linear_curve;
-+}
-+
-+/* Indexed by enum ally_joystick_side */
-+static struct ally_joystick_resp_curve * const ally_resp_curves[] = {
-+	[JOYSTICK_LEFT]  = &ally_prefs.left_curve,
-+	[JOYSTICK_RIGHT] = &ally_prefs.right_curve,
-+};
-+
-+static ssize_t response_curve_show(enum ally_joystick_side side, char *buf)
-+{
-+	const struct ally_joystick_resp_curve *curve = ally_resp_curves[side];
-+
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	if (!ally_prefs.resp_curve_support)
++	if (!ally_prefs.anti_deadzone_support) {
++		hid_dbg(to_hid_device(dev), "Anti-deadzone not supported on this device\n");
 +		return -EOPNOTSUPP;
-+
-+	return sysfs_emit(buf, "%u %u %u %u %u %u %u %u\n",
-+				curve->entry_1.move, curve->entry_1.resp,
-+				curve->entry_2.move, curve->entry_2.resp,
-+				curve->entry_3.move, curve->entry_3.resp,
-+				curve->entry_4.move, curve->entry_4.resp);
-+}
-+
-+/**
-+ * ally_parse_u8_token() - Parse one decimal u8 from a sysfs write
-+ * @buf: write buffer
-+ * @count: number of bytes in @buf
-+ * @pos: offset in @buf to start scanning at; on success it is advanced to
-+ *       the first byte after the token
-+ * @val: where the parsed value is stored; only written on success
-+ *
-+ * Skips leading whitespace, then parses an optional '+' followed by one or
-+ * more decimal digits. The token, sign included, may be at most 15 characters
-+ * long and its value must fit in a u8.
-+ *
-+ * The scan is bounded by @count, not by a terminating NUL, so an embedded NUL
-+ * is a byte in the write, not the end of the buffer.
-+ *
-+ * Return: 0 on success, -%EINVAL if there is no number at @pos, the token is
-+ * too long, or the value does not fit in a u8. On failure @pos is left at an
-+ * unspecified offset.
-+ */
-+static int ally_parse_u8_token(const char *buf, size_t count, size_t *pos, u8 *val)
-+{
-+	char token[16];
-+	size_t n = 0;
-+
-+	while (*pos < count && isspace((unsigned char)buf[*pos]))
-+		(*pos)++;
-+
-+	if (*pos < count && buf[*pos] == '+')
-+		token[n++] = buf[(*pos)++];
-+
-+	if (*pos >= count || !isdigit((unsigned char)buf[*pos]))
-+		return -EINVAL;
-+
-+	while (*pos < count && isdigit((unsigned char)buf[*pos])) {
-+		if (n >= sizeof(token) - 1)
-+			return -EINVAL;
-+		token[n++] = buf[(*pos)++];
 +	}
 +
-+	token[n] = '\0';
-+
-+	return kstrtou8(token, 10, val) ? -EINVAL : 0;
++	return sysfs_emit(buf, "%u\n", *ally_anti_deadzones[which]);
 +}
 +
-+static ssize_t response_curve_store(struct device *dev,
-+					enum ally_joystick_side side,
-+					const char *group, const char *buf,
-+					size_t count)
++static ssize_t ally_anti_deadzone_store(struct device *dev, const char *buf,
++					size_t count, enum ally_joystick which,
++					const char *group)
 +{
++	u8 value, dz[ARRAY_SIZE(ally_anti_deadzones)];
 +	struct hid_device *hdev = to_hid_device(dev);
-+	struct ally_joystick_resp_curve curve;
-+	size_t pos = 0;
-+	int ret, i;
-+	u8 v[8];
++	unsigned int i;
++	int ret;
 +
-+	/*
-+	 * Parse and validate the whole curve before taking the lock: a
-+	 * write is all-or-nothing and a rejected one must leave the
-+	 * recorded curve untouched.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(v); i++) {
-+		ret = ally_parse_u8_token(buf, count, &pos, &v[i]);
-+		if (ret || v[i] > 100)
-+			return -EINVAL;
-+	}
-+
-+	for (; pos < count; pos++)
-+		if (!isspace((unsigned char)buf[pos]))
-+			return -EINVAL;
-+
-+	curve = (struct ally_joystick_resp_curve) {
-+		.entry_1 = { .move = v[0], .resp = v[1] },
-+		.entry_2 = { .move = v[2], .resp = v[3] },
-+		.entry_3 = { .move = v[4], .resp = v[5] },
-+		.entry_4 = { .move = v[6], .resp = v[7] },
-+	};
-+
-+	if (!ally_resp_curve_is_valid(&curve))
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value > ASUS_ALLY_ANTI_DEADZONE_MAX)
 +		return -EINVAL;
 +
 +	scoped_guard(mutex, &ally_prefs.lock) {
-+		if (!ally_prefs.resp_curve_support)
++		if (!ally_prefs.anti_deadzone_support) {
++			hid_dbg(hdev, "Anti-deadzone not supported on this device\n");
 +			return -EOPNOTSUPP;
-+
-+		ret = ally_set_joystick_resp_curve(hdev, side, &curve);
-+		if (ret < 0) {
-+			hid_err(hdev, "Failed to set joystick response curve: %d\n",
-+				ret);
-+			return ret;
 +		}
 +
-+		*ally_resp_curves[side] = curve;
++		for (i = 0; i < ARRAY_SIZE(dz); i++)
++			dz[i] = *ally_anti_deadzones[i];
++		dz[which] = value;
++
++		ret = ally_set_anti_deadzone(hdev, dz[ALLY_LEFT_JOYSTICK],
++					dz[ALLY_RIGHT_JOYSTICK]);
++		if (ret)
++			return ret;
++
++		*ally_anti_deadzones[which] = value;
 +	}
 +
-+	sysfs_notify(&dev->kobj, group, "response_curve");
++	sysfs_notify(&dev->kobj, group, "anti_deadzone");
 +
 +	return count;
 +}
 +
-+/* Generates <side>_response_curve_{show,store}. */
-+#define ALLY_RESP_CURVE_FUNCS(side, SIDE)						\
-+static ssize_t side##_response_curve_show(struct device *dev,				\
++/* Generates <side>_joystick_anti_deadzone_{show,store,range_show}. */
++#define ALLY_ANTI_DEADZONE_FUNCS(side, SIDE)						\
++static ssize_t side##_joystick_anti_deadzone_show(struct device *dev,			\
 +						struct device_attribute *attr,		\
-+						char *buf)					\
++						char *buf)				\
 +{											\
-+	return response_curve_show(JOYSTICK_##SIDE, buf);				\
++	return ally_anti_deadzone_show(dev, buf, ALLY_##SIDE##_JOYSTICK);		\
 +}											\
 +											\
-+static ssize_t side##_response_curve_store(struct device *dev,				\
++static ssize_t side##_joystick_anti_deadzone_store(struct device *dev,			\
 +						struct device_attribute *attr,		\
 +						const char *buf, size_t count)		\
 +{											\
-+	return response_curve_store(dev, JOYSTICK_##SIDE,				\
-+					#side "_joystick_axis", buf, count);		\
++	return ally_anti_deadzone_store(dev, buf, count, ALLY_##SIDE##_JOYSTICK,	\
++					#side "_joystick_axis");			\
++}											\
++											\
++static ssize_t side##_joystick_anti_deadzone_range_show(struct device *dev,		\
++							struct device_attribute *attr,	\
++							char *buf)			\
++{											\
++	return sysfs_emit(buf, "%u %u\n", ASUS_ALLY_ANTI_DEADZONE_MIN,			\
++			  ASUS_ALLY_ANTI_DEADZONE_MAX);					\
 +}
 +
-+ALLY_RESP_CURVE_FUNCS(left, LEFT)
-+ALLY_RESP_CURVE_FUNCS(right, RIGHT)
++ALLY_ANTI_DEADZONE_FUNCS(left, LEFT)
++ALLY_ANTI_DEADZONE_FUNCS(right, RIGHT)
 +
-+static ssize_t response_curve_index_show(struct device *dev,
-+					 struct device_attribute *attr, char *buf)
-+{
-+	return sysfs_emit(buf,
-+			  "move_1 resp_1 move_2 resp_2 move_3 resp_3 move_4 resp_4\n");
-+}
++static struct device_attribute dev_attr_left_joystick_anti_deadzone =
++	__ATTR(anti_deadzone, 0644, left_joystick_anti_deadzone_show,
++	       left_joystick_anti_deadzone_store);
 +
-+static struct device_attribute dev_attr_left_response_curve =
-+	__ATTR(response_curve, 0644, left_response_curve_show,
-+	       left_response_curve_store);
-+static struct device_attribute dev_attr_right_response_curve =
-+	__ATTR(response_curve, 0644, right_response_curve_show,
-+	       right_response_curve_store);
-+static struct device_attribute dev_attr_left_response_curve_index =
-+	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
-+static struct device_attribute dev_attr_right_response_curve_index =
-+	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
++static struct device_attribute dev_attr_left_joystick_anti_deadzone_range =
++	__ATTR(anti_deadzone_range, 0444, left_joystick_anti_deadzone_range_show, NULL);
++
++static struct device_attribute dev_attr_right_joystick_anti_deadzone =
++	__ATTR(anti_deadzone, 0644, right_joystick_anti_deadzone_show,
++	       right_joystick_anti_deadzone_store);
++
++static struct device_attribute dev_attr_right_joystick_anti_deadzone_range =
++	__ATTR(anti_deadzone_range, 0444, right_joystick_anti_deadzone_range_show, NULL);
 +
  static struct attribute *left_joystick_axis_attrs[] = {
  	&dev_attr_left_joystick_inner_threshold.attr,
  	&dev_attr_left_joystick_outer_threshold.attr,
-@@ -1487,6 +1731,8 @@ static struct attribute *left_joystick_axis_attrs[] = {
+ 	&dev_attr_left_joystick_inner_threshold_range.attr,
  	&dev_attr_left_joystick_outer_threshold_range.attr,
- 	&dev_attr_left_joystick_anti_deadzone.attr,
- 	&dev_attr_left_joystick_anti_deadzone_range.attr,
-+	&dev_attr_left_response_curve.attr,
-+	&dev_attr_left_response_curve_index.attr,
++	&dev_attr_left_joystick_anti_deadzone.attr,
++	&dev_attr_left_joystick_anti_deadzone_range.attr,
  	NULL
  };
  
-@@ -1497,6 +1743,8 @@ static struct attribute *right_joystick_axis_attrs[] = {
+@@ -1347,6 +1495,8 @@ static struct attribute *right_joystick_axis_attrs[] = {
+ 	&dev_attr_right_joystick_outer_threshold.attr,
+ 	&dev_attr_right_joystick_inner_threshold_range.attr,
  	&dev_attr_right_joystick_outer_threshold_range.attr,
- 	&dev_attr_right_joystick_anti_deadzone.attr,
- 	&dev_attr_right_joystick_anti_deadzone_range.attr,
-+	&dev_attr_right_response_curve.attr,
-+	&dev_attr_right_response_curve_index.attr,
++	&dev_attr_right_joystick_anti_deadzone.attr,
++	&dev_attr_right_joystick_anti_deadzone_range.attr,
  	NULL
  };
  
-@@ -1756,6 +2004,7 @@ static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
- 	ally_vibration_defaults();
- 	ally_joystick_defaults();
- 	ally_trigger_defaults();
-+	ally_curve_defaults();
- 
- 	scoped_guard(mutex, &ally_prefs.lock) {
- 		if (!ally_prefs.initialized) {
-@@ -2082,6 +2331,23 @@ static int hid_asus_ally_init(struct hid_device *hdev)
- 			hid_warn(hdev, "Failed to restore anti-deadzone: %d\n", ret);
+@@ -1925,6 +2075,13 @@ static int hid_asus_ally_init(struct hid_device *hdev)
+ 			hid_warn(hdev, "Failed to restore trigger ranges: %d\n", ret);
  	}
  
-+	/*
-+	 * The MCU does not keep the response curve across a reset.
-+	 * A sysfs write validates the curve before it is recorded, so the
-+	 * cache always holds one the controller accepted.
-+	 */
-+	if (ally_prefs.initialized && ally_prefs.resp_curve_support) {
-+		ret = ally_set_joystick_resp_curve(hdev, JOYSTICK_LEFT,
-+						   &ally_prefs.left_curve);
++	if (ally_prefs.initialized && ally_prefs.anti_deadzone_support) {
++		ret = ally_set_anti_deadzone(hdev, ally_prefs.left_anti_deadzone,
++					     ally_prefs.right_anti_deadzone);
 +		if (ret < 0)
-+			hid_warn(hdev, "Failed to restore left response curve: %d\n", ret);
-+
-+		ret = ally_set_joystick_resp_curve(hdev, JOYSTICK_RIGHT,
-+						   &ally_prefs.right_curve);
-+		if (ret < 0)
-+			hid_warn(hdev, "Failed to restore right response curve: %d\n", ret);
++			hid_warn(hdev, "Failed to restore anti-deadzone: %d\n", ret);
 +	}
 +
  	return 0;
