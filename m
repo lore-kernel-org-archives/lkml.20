@@ -1,115 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315776;
-	b=bFyDcZwWiGl24ReJgOp9De4Lv0fvtFWoX+pvPKzsBAy3qlVSJw1a6K3+hXAUNzm7kprX
-	 +dO1MDwqf1Sctg1q501vT5ugPJzjEJaCqYaxCtktDwwte2GmthLLAlhg9qDfqXlnbjuzm
-	 9dxiINvYd0oq40OpEunpCJYhVFgqvHa59yPcRKE2ZrqwJJedaNG++1EhebLVGTDicNfNy
-	 aiVcmYDs6pO+a2dQDVj6K/mHBGf16xaFbPTJOavGicJm+ys4HfDdZmMJW5OyXPfFWV9S4
-	 K/6/nDPFR1TliuQ8L8dledHsxeQQLnsTPCht2tcxIkUlviPVrHlL0zZeZJrFjK/5AEw==
+	t=1794315787;
+	b=fVD+8nt2Dr7sTZoMuRMyVYcBMmH8avBsA1Pkv+rm6Tu1nX0ZPgp4F+onvpbiaGRr9Sfp
+	 Kb5eMAbnS9s16GdAUHBHD+O1tllCsqPe8QFcy/GP4WCAKvCHYqy1ZBu1Vq5fgDmnphXCu
+	 XFNC+Gj35eWQUMagPpuZBcqcUnpbSMmsW8KY/W00O4Obj6oyUzT5jfyktH81aYO9drRl8
+	 IGUUawMlVTKNPxJLmn7Gdcicb6jROUTMFGmg23ufLe0VgNayIZNZoQFcCQk0hfBc+BSC7
+	 FN+7vfUfCkvo1ZuuSUN0C/ovvV1wh7OyZT35iL+ApU9Zp22LpzzS7Mq0hUnMt81wDkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315776;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=USDR2iE5M2UEpaP+1GfJYI3TDuWZn3GdzCTDZovKwBI=;
-	b=3sa8A+HEosPJBhzcx76XgGWELLYAnxhdfYzfjeLwf1ry3vJF4rNuAnT/MsbgmJhNjkfH
-	 Q1dmPaCz8DXWq240QbqzXHm2wRmEJRjb6NjVXCpGlRlnQuYOMxH2C2IYGz/JnBwxmiINy
-	 U5/7bxgv7SA5a4xhqrJm4plIDKafB5GoUfQn9HjAOH/BTJ4yi2qUGczIcXHaWa8SfGKoG
-	 EpjAiFzWgWiLXz5QkhZlHQzO1DxFQCM9bxs2hB8yuVTluux9GyU1ie0bX3Bgofpd7zAP/
-	 R78VVTT5bzvcWKenN4gqreUQPPbMAI/SiKUku9I2G6PON8KLIkjCGm3vVXfXE7yqyZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315787;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=OALV8vUNInuby80JCyIJlfai0hgF0F+FwNbODqepVpc=;
+	b=utve9Te4mt8RNjeg+6nWtacl49S9uqiZkGwIF9XxVdy8znno7OPZfahrfnoQSDFznWg7
+	 Bl5hDdeDENB/PjidumjOpEsmzFKQ/daeV91h9gWenPoPp6zNfivdnEZG6WxDQu7VXtZ1+
+	 Hhk1F39QFxX1goxISmrH83chNZCa+4h9Gngj/Jh3h+LB+bcvFo50KAkVSGvy0QMtqLcMg
+	 VQrjQLBjyUXiqqqNfM8Jv4Am/wwdqgFydXKtM3alUp3c2dz1Hh/JkofPrhmSHRqjKn0io
+	 Q5YpFpGqvw1KC9h9JtkhURaxB0M1UwedrtaaSKQz4k4IPQCA2nyXyHK3Xylztyya8tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WWtetnZD;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yu1DhDEP;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WWtetnZD;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yu1DhDEP;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YvX39h4p;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QiZVWoRZ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8745606A334;
-	Tue, 10 Nov 2026 13:02:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8745606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC856070C92
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC856070C92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WWtetnZD;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yu1DhDEP;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WWtetnZD;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yu1DhDEP
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4CBE01F461;
-	Tue, 10 Nov 2026 13:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315773; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USDR2iE5M2UEpaP+1GfJYI3TDuWZn3GdzCTDZovKwBI=;
-	b=WWtetnZDdpY3CtAQ5P1ACc9FV+Q/S+5upWrfSvOHBVg/CDxzET4BPczhpbK/0nKTIvhIK1
-	bJoSZBBd6xKzhenae5FUv3Cjcv6lVOt9c7qqlxsD1mkbGXiYDtk869K+0cd3OPJSH5NxR+
-	UXFonm344KX222leLjP7xQc612byqXU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315773;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USDR2iE5M2UEpaP+1GfJYI3TDuWZn3GdzCTDZovKwBI=;
-	b=yu1DhDEPEx3W2fYEUxbPsnXt4QMtwAIEJLkOMN58QZdMiOL9l/WrEOFLFJ9XB9CeUk/K09
-	vhBCY/lPsE57BEAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794315773; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USDR2iE5M2UEpaP+1GfJYI3TDuWZn3GdzCTDZovKwBI=;
-	b=WWtetnZDdpY3CtAQ5P1ACc9FV+Q/S+5upWrfSvOHBVg/CDxzET4BPczhpbK/0nKTIvhIK1
-	bJoSZBBd6xKzhenae5FUv3Cjcv6lVOt9c7qqlxsD1mkbGXiYDtk869K+0cd3OPJSH5NxR+
-	UXFonm344KX222leLjP7xQc612byqXU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794315773;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USDR2iE5M2UEpaP+1GfJYI3TDuWZn3GdzCTDZovKwBI=;
-	b=yu1DhDEPEx3W2fYEUxbPsnXt4QMtwAIEJLkOMN58QZdMiOL9l/WrEOFLFJ9XB9CeUk/K09
-	vhBCY/lPsE57BEAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C287134F4;
-	Tue, 10 Nov 2026 13:02:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Nyb9LPwV82qMSgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:02:53 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 7F6C6224F5; Tue, 10 Nov 2026 14:02:48 +0100 (CET)
-Date: Tue, 10 Nov 2026 14:02:48 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
-	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 33/41] fs: add file_is_pseudo()
-Message-ID: <xy7rgmmpufyq4ls4obs5te3y4mrzblqst7heachjo7rrkmvhot@x5kxqkbsw247>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-33-4c998976c6c7@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YvX39h4p;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QiZVWoRZ
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAB9uaa3195889
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=OALV8vUNInuby80JCyIJlfai0hgF0F+FwNb
+	ODqepVpc=; b=YvX39h4pORto6tcpRFvnzK5hYYt3WBlKs/UU8rpssKijGYuCc0j
+	lrpk+ZcOd3zDJrWTm9zAUHkYArNm24IEABX4HFVQ4eWNj4cFFPMexV2lYJYboioj
+	EwJnRxIe7h4ru2S6gEwgRSR3Eshjo+cc+lNVzVyT4Vnt2rMA49rxUqLBhXx+oXnb
+	jHyj9oG3VePfLUjdM4PxF7aL996dQChZNfTViT5xqVfWqKK1dqEvhBHzrGKCHTeR
+	5pVGf48m1BOjBZufKnMAzhF5Bo1rGHu95gGO+3X0TO7ZYayHSxcL+/5cdMBFEC/u
+	eMGGvXlfIvGGeLbH8q5QHspKsPSuxM65LsQ==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv03crug0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:06 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ece56bfeadso1662572e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:03:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794315783; x=1794920583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OALV8vUNInuby80JCyIJlfai0hgF0F+FwNbODqepVpc=;
+        b=QiZVWoRZ6PV7R0nFyph/MQjzx86Dxu92HN4WaA4eeO6/5gtE6i4cl6y2ueqr1bMiq6
+         bio0mEUHQI+IjJtSIC6kQW6IBAySY6GZuB5IujnLA009xhkeEZR/qEB/xsFSO7r5jUBV
+         VrpYaFEtl0ZP0t1qP214mHba7oYFmzWZXEjFCTRTyIqml6Gv+ye9tQpBHTzjlViOPFoa
+         HrcfBRQcWZSGUzcpQFX+L3ZEXP7uuLbvjN9XGx8vY3vHocXKEiOKxb3KuYGmW0cqfbWK
+         5koTE4qa5cfZmFXqEkDVdCi7b+mqYCcHFpnIEbOwC9iGia0rPQj8YMXAENgKXkfHkJHi
+         wJNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315783; x=1794920583;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OALV8vUNInuby80JCyIJlfai0hgF0F+FwNbODqepVpc=;
+        b=2wZ+jtIIXxqSZj3F4rjJ22Jh9Q4YSptbjcEOllYEHscv7xhczJ8/TdYS6TCY9+Yl5x
+         JDQW8brYmMX2mAlWfHCGRS/ZHyoHaZEqjPMfM+gmPLYrdtj0sr58BRp/dlINx2UdC+cC
+         R2V1E6akLhFbazxwPyhIvXdaHcv4sp/y3up3RNAAoXPiLHmgzp8ImObt4S+jroAnmndq
+         GTzx+4gJrcn5x+fLEGxbBdsVj8ZU0eFO8bdvadmIM7vgLLcItX7K0oEJbogPAFxZvGiw
+         FBQqi1RhBTCZrS7KXOtOBbrABJU/NwJFeoxdP0G7dLzUYjuuZTSQmyKKe97wwvZuclTX
+         68bQ==
+X-Forwarded-Encrypted: i=1; AL+hErHvJrKBNlOeSZQxqSJ7LnBDUdhSLYqi1rwZRJr/NFh5ODj+m2aweMR95snKz6np4YsotSNXKA3h8XISRSw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8J0mi8p/7tAz42FzoHKCDz5D+3pr1HMbL+09A7IudLnXNXxg1
+	p5gUWr+xXWti855toc+6R59prMFYTAHptpAOsZpoL1p3QFNrVTxfqEBWZpI8IY8bwmXrXrVsez7
+	QsF4U3fYwsSY5QZJopHjgcnD2aDV+3Ap9sHcKJlzA5MV6NCZj84UohJW3cj0S+rn0m9k=
+X-Gm-Gg: AYBFou0idKjVXU/HkbBAXJNl+sQfwQZ0yIpS1OD3fNkJLMG4RpCXBiEJWpEwuKk0GcJ
+	ti8eq2Ssu74cqqGwwqxnGO8BfiYj8Zh+L809R60kshQIbrHEZyXVPD+1uFOJMEZ8Kr8ifsSjIZN
+	KrVTMMASDafznobeB7G1SZGx+GxhJEGvDdmM7o9JQkG83U5Z8rCTJeSRSYPhcbHLk7amSt/I8Bj
+	zhJbqcuPfT1KOkeo2D/64tuTC+ALVwieyahNwj1/i7Iqdft3ywCVQVzh4jm5LDwafhU5AARRvbj
+	T7Yr1eG+eNYaj8FPCyscGI6K/3+w7NO9rT3J3kugol/7tCAo9LM3/5eVQRBLyK35g3+3TVdsD6W
+	VvW8QnkUQSq9Nl++jp9xmZRu9Nvs9YUUIf3v3IDbWWNRDbYwR1VQeY76i2KnVXg==
+X-Received: by 2002:a05:6122:8c8c:b0:5ec:5f1b:f725 with SMTP id 71dfb90a1353d-5ee0d1eac60mr842140e0c.23.1794315782363;
+        Tue, 10 Nov 2026 05:03:02 -0800 (PST)
+X-Received: by 2002:a05:6122:8c8c:b0:5ec:5f1b:f725 with SMTP id 71dfb90a1353d-5ee0d1eac60mr842031e0c.23.1794315781206;
+        Tue, 10 Nov 2026 05:03:01 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0236f03esm49121585e9.3.2026.11.10.05.02.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:03:00 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: display/msm: qcom,sa8775p-mdss: Remove bouncing Mahadevan
+Date: Tue, 10 Nov 2026 14:02:56 +0100
+Message-ID: <20261110130255.134252-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,89 +128,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-33-4c998976c6c7@kernel.org>
-X-Spamd-Result: default: False [-16.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[31];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -16.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1082; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=gnpSXTmvxtdhncMRhWieLAr3GFCRnWpMUR0hNvdBVWI=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq8xX/gD2I5kvb1YaQbaK1Hj8UhSJ7L7MJAvGQJ
+ 7k1aiqFbcyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavMV/wAKCRDBN2bmhouD
+ 17/CD/sGFI/+wjlERaJ3BaT8xEiNlo4WsdazaWIt+yqGEwwmOGNnspemY6phkyMur0Ch/yEal3a
+ a0tuhSFEl1ZsKnrVf5TyrKwbM0tO1fwW9H4NX6Zk5TFnC7IQGqlgM4UFFMgnD5TxKhZqiNQiHF+
+ mW7ybexMFHJ2x5JAdfazGmya8YfXbrwUxGTFTVaEWdYhsocu4dHR3dcHaoKaUcr6Cjq5W4y7IW/
+ ipdwwqFuB1NzhcwepfHTokkewlD7NKUmng7EmN7H2/d+Q3fsHye8RHRec2VJU5JfE4C94KLkNON
+ zFaFlTJPRVevVce7u4pAmKFQTZoAbB0H5EoGP8Gkl4AE6yJ4+YGzKVetP69EHmnWx/NYl8rnwvf
+ j51L3lxJ+U9QaPmTSITfdaTWdBqW8xSFHMyu70gYKdTTqQqqRo8l522iB3DQIaJEVyFdPhSBQnm
+ 9TwE6DQVBakI2u7Wq6BdWA4zuiXfLZbTRD48o07rnK12NIQbIDI2HBFj7uJ4/Jdkje3tQ2bGu/c
+ f1F1d20nWvI1MipHiWB/kSDBH4TeA01f60/GpPIpHnxIKBD24cYH65wtnF8Dd1sHIeqxinWT4Ua
+ iaMIHCTyW3T8+7TGz0Viyro2IOAlOrBa34uluDdzL1rrzjccOzXbGRhRZzaPv7Y+uoBcGUC0TqR /VlewK6oh8hBQFA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: YzA_pkiWKmblBiPZg4vcxyuEPBLDX_VJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MSBTYWx0ZWRfX1y4/v/m0lPqY
+ 6NJ8y/tSQBfbZgSRF07ylmaj7lm6TrEfWRfzPYsXq7u8mQEeYgFm9YpkeW50JukTFOI0tB/nmFp
+ BH6R5LgVTcwu0+FX7h1L7nBipzJketg=
+X-Authority-Analysis: v=2.4 cv=FuiQbGrq c=1 sm=1 tr=0 ts=6af3160a cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=VwQbUJbxAAAA:8 a=pRY3rvhn6SD9K9aC0tYA:9
+ a=hhpmQAJR8DioWGSBphRh:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: YzA_pkiWKmblBiPZg4vcxyuEPBLDX_VJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MSBTYWx0ZWRfX07yg98OsnMAe
+ tUTOVeGHpRiZadGuFKor8j6a9s34x4UQQIhFR/ZN3xbr9US5B5yxBvb6A01/ntXNlTv3MoFGKdi
+ tEq9BM8dNx5kTPnfCLWZ0MCKuIiwKRJvvNAuiYmDWEHk2yEBzDeoQ5XjBmQ2sxGHbhXydkM9PRg
+ NynmloETw4rG3hihiGBj/wjlPVeE5yJwEMIhHQTqnrJ6Z3I/XP9HyxXlkHOWqe37+cV4pq0VcKA
+ mAzlMeWPnP5S4uPnP92WAneb2QWV+qOZw8ptectu3tDJUcSy848aQXrgI5hqwugCje2KKjsFvxp
+ enUS9w4fglwdvDnZ6uZoCJX8vntRMXgROTxwpJKXbZaOz6rdmZAIQsWRsNJWfTGln5WlI9huna/
+ J5cdD1XUWiNPS9zmR3L//LuRmqnjWU9Hyg8EPIQTUwSkSFMWWkuVjgL19fovKzYXoYghCasqJYq
+ tYE7bjiIFdmlWYKgDJg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611100051
 
-On Tue 10-11-26 10:14:49, Christian Brauner wrote:
-> Add a helper to check whether a file is a regular file on a pseudo
-> filesystem. Only regular files count. Device nodes on pseudo filesystems
-> such as devpts, binderfs or the block devices on bdevfs are what they
-> are.
-> 
-> Look at the inode that actually provides the data via d_real_inode().
-> overlayfs accepts sysfs, cgroup2, debugfs, tracefs, configfs and
-> securityfs as lower layers and reads of such an overlayfs file are
-> served by the file on the pseudo filesystem. Checking the overlayfs
-> inode would miss that.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Emails to Mahadevan bounce permanently (error 550), so change the
+maintainer to DRM MSM maintainers (Dmitry Baryshkov and Rob Clark).
 
-Looks good. Feel free to add:
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml     | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  include/linux/fs.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 99caef43ff3c..407ffb6342ec 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -2553,6 +2553,18 @@ static inline const struct inode *file_user_inode(const struct file *f)
->  	return file_inode(f);
->  }
->  
-> +/*
-> + * Regular files on pseudo filesystems are kernel interfaces and must not be
-> + * used as storage. Look through stacking filesystems at the inode that
-> + * provides the data.
-> + */
-> +static inline bool file_is_pseudo(const struct file *file)
-> +{
-> +	const struct inode *inode = d_real_inode(file->f_path.dentry);
-> +
-> +	return S_ISREG(inode->i_mode) && (inode->i_sb->s_iflags & SB_I_PSEUDO);
-> +}
-> +
->  static inline struct file *file_clone_open(struct file *file)
->  {
->  	return dentry_open(&file->f_path, file->f_flags, file->f_cred);
-> 
-> -- 
-> 2.53.0
-> 
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+index 4dc0055cd841..48dd897d5d5b 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+@@ -7,7 +7,8 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Qualcomm Technologies, Inc. SA87755P Display MDSS
+ 
+ maintainers:
+-  - Mahadevan <quic_mahap@quicinc.com>
++  - Dmitry Baryshkov <lumag@kernel.org>
++  - Rob Clark <robin.clark@oss.qualcomm.com>
+ 
+ description:
+   SA8775P MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
