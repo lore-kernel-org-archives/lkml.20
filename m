@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312174;
-	b=qP4EGtdp9bPfWsBlHcodQvpFXoZHLkTE7iAs+D2G3LacMXOOcqHOYhA6NTF48humVIej
-	 IS1sbY6CYEPdV13+FOSE0mtbzoXWHIqgFQzMqsL9XGyxTGizuWkeFgcN3z9S9blCQZlqM
-	 idVvSnj8vXV42PF1LCI18MHfrhuXyyZ+lvkBJo+aj2qNDFhVDGUU+qyvpgqYGW7q0mwLA
-	 gkVGuufDYSwf/y6om28NfFaB/r/zLqcFXjYU4ldEIe5Ri4EHuoNjgfnEVZGKSNOji0y8P
-	 sbbS5/I7G/Xklfs+QFu5c8hJmcjcK/Prg/tDFaJhzXKL4iBWlL2J+A08o2fk39NRF8g==
+	t=1794312173;
+	b=PvvgvNc/DySnYO5jJMoWww+fVtZJpOHcRCbJ/9LSuaSS7dnLelQiPrMfe57TjlknPr7B
+	 8L6mei/c0W7uDS9xPg/P0GwfwP2R483KZl1eWFnFLn9W/tfEPMU8h6cTV9oSTnoVw9EWc
+	 Z01/uWUKsJkGfV10JwIvUrV7ZndFbrzq3kHvOmogLflpCTD0DwMXEkmSwh2875qx2tHC0
+	 71xAbXHs8Q/TWj5Ij7Qp69bPMvExb7TcNg/eVH55CZpVe/itk9xpsbWTrGGbLxiavwTmO
+	 J4SNEcrC2HpWo9Q1kNKh0b0NU7Nv4ARRf9rXlbIN/BlbMxmt+WCfTAPWWx+Q8TEIgQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312174;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
-	b=xLob4lBHPEQdu72q3LqR2ONu7h9VGXTiVCABk6jkHB6xKtbRd+KT67B3QJg/IUGPQ8b0
-	 DpCO71AyhvaM0OI/jCnmGLP963SYA2TLgfghCbvs9w3d56aaXOEt9DYbmDe1IkuiV1fAq
-	 qpWJzF4GemruDT2MFYm2zKyRYnUR5+sdIsGO6tSj9felY/RvOneBQBX4UhhAdDGteW0tt
-	 yYNwXVvNKlA08lHtYG0DsY1+4OfRfLUo8mIm+PP9yIcQEPpy75xYIfZy1ivZz2S5o0nw6
-	 4+rcNi2c91K+iJW98idumMxCHEiYi0qIFYbRgzrU0aWjWG2kt0SMCe7ArvEv1jPl7Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312173;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=w5IMEhy4okHKxHyGpwkRamhqKC6oRcjh0YGoxUqp7KY=;
+	b=xtbIHdFi/QKsbS+vwakxWS2ZBHv5apvXKt+LORyTOna/gfF70RPDypSnHQWNSznJ+FPe
+	 ha9wJYyZtC1e8feJcU9x1HwvI+MyK0ONjGK3w9dsCW/99Mbw0hvlBAveEEp9wnVCtIWHM
+	 cBjr7zoylNWo0rXTmc+AqLig6TVF9FBNYBDncQGbQBIV7Dc7Br+JQv+vFuQwTavlrDLNh
+	 VdpkZvXMo5xyZPIamAyc2rMAEprHxYQ3TPeYL9Cj4d4yd+OaXwBQuhqqXvhNj/XGfgIiZ
+	 78DJmsRP2oj+DW109VtSnWpJC21myQS7qpT7W+/nA0kxggW50G+7SZIT15wGOJhKxhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="W4W3Ie/Z";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6559606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6559606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5C3606A332;
+	Tue, 10 Nov 2026 12:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5C3606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-372bdb942dbso2575122eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:02:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794312173; x=1794916973; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
-        b=jSDlQbfx3w+kTQrgktf6wDUFty1SLh6ECHjfH836acX0MKF0FcRwXmKfLDWc/YH6WU
-         F+AyTHmN2bvbrDYANH2na7AdjtN6sFOtW+yORrVemO9+MLHtbzSUeWyClojBl0glCvK4
-         nknss2LXWxE6eiiv4sOekf5Ht4/jPuhnTuhkUYisl8UZrU5q6INzIEvcl1Nns9SsrzQ3
-         QKWuvHb8HvCPSEpyfdiyxoVTbKUubufh9fzyFVuyfmQQflgTCt1d9PqXD01UN0FUkkBS
-         WbGFyO0mY6XBg/9feDU3URVoSCvRvna7kXi13CLZ0iLvAsiohrQT50zbt+WOGfmJ7Z4e
-         6a0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794312173; x=1794916973;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
-        b=g0c/oFE6A7jCpnhsi3Lp076S4J02E3tgjNjuOpdWquMuMckC6cXybBXAg7yB2fPNVH
-         tMn23DsgqDL8fOAKHpuo8LeMMdiGsCf8wX283PL8e/iQkrxmkOovl/MogrLmQsoBg5it
-         4sp5rPLwHttMC1E2f2RqhqQd52hTurMbEUncJkGQl0JGO3RaZ/fhP8OLfTqOnozx109q
-         iM7sIKg77w7ReIC95tRhbLqqvpH59tlUCGMPkGEkTUxzpMEMwjdAG2nA8r/i1Tx/bddU
-         jYtxqrnlZYktbXXjFXBU9/sc2K1ZgWBmFBI5BHmV4znbsSdW/ziWsVA+IyADOuMl3dL7
-         bn3g==
-X-Forwarded-Encrypted: i=1; AL+hErFLwScxlU5Wg+9OZcmFleTAxMTxNZf0bh3phfx9a59dMl+C4e9mn8b/LcpMBnGTqqy9l4dbjcFKV2m+Xlo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/O8DExgZtfUy1HVCRF7uxqFnRkLE81F9X2R7hBhA36FxDxiFHU
-	fPOS4aJ/3UZx9mMqcQvRJeD9pUIifI/oLJ8Xk5bAEEDRpsx6LJs+1k6q
-X-Gm-Gg: AYBFou0e5Z/1SI9yxAO4HxYoAaZ6htVOKa1I1rg2CEMjKmvTAcFXBWH10VnjBvRrdOr
-	QP8opNZNs5l+5P2fCFDkvvXKi2Ddhn92n5U1BHDSxPJJq+rEEz6LFqoPkrdXaueQGmoloZTq1Hc
-	v78H/6t4VsYn52e6EWt3JS/CdLRpWi6+sXnL1IZdRV+VJC1PkT0snq57tkiGlJk3jSFre7sJTBf
-	6O7/nllj0Ia0hPEgc80pMlBjgY2rYjCo+i07AwIxwL77Ik55PohEIVRbBZLZU3vfcKZvW3HaMcf
-	xPVnOnRtplGlukDtJ+mHzU8AMPLoxSU/aC0MhdvPm2SIv7sDx7V/wNwhqTw4K5EMUfj1fbo0u+A
-	TgKzYNq2Po347ZoGS8KYxQjf1l0AU2sMB0IPmlK2vvpA7APgOxq1Tw8DPRkTk6U5Q9Ix1xMXCr2
-	XIUsXBGfcRvRk9AnXXpfGUeybx5G87L4ZKkI93N41P93W4I48ecswHqLNlc9DNmJogWhXEIxWyr
-	xe+dIzzTNb6UqlOTm3Nj+MAZOZ1IN0uBAk7BMZAhGUizBQ3NTlb3SYdC6r/WIDHXDF9PhUeAVX3
-	TTEoEebaMkgZeDCkHFx20vZoqL6SlgXmk4X5LBwwVYJtPvf/
-X-Received: by 2002:a05:7301:fd03:b0:36f:f3b7:6dee with SMTP id 5a478bee46e88-3751ee7c2c9mr2880533eec.7.1794312172706;
-        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm5931001eec.0.2026.11.10.04.02.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Roland Stigge <stigge@antcom.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] usb: gadget: lpc32xx_udc: drain the pullup work on removal
-Date: Tue, 10 Nov 2026 21:02:43 +0900
-Message-ID: <20261110120243.2540098-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110114351.2524921-1-hj351016@gmail.com>
-References: <20261110114351.2524921-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4W3Ie/Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794312173; x=1825848173;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HhAUpNuzDozuVjdF12LqWeLLpGws7iUzN3G4eEtCwpk=;
+  b=W4W3Ie/ZTOhfDceUYt/hfGTR9WEnF3IxHLCZROpY0nzYhYadsW0UBL22
+   FJZMVpnqdZGL8YulX+F93KbHjrzM0s/dQsXWktfqmBAOydBOizj03Shz0
+   9+Ie+4gytcOFmzh/2qWXKB378vCqnsZJ2L6c8fUe9wL2ku/aYTiN4ELGK
+   BCDYqpcE2F6Y/KHOrN0HuBWMTjMotGO/WonZQ1GoY+BZOzx+CG7Zx7W2s
+   9jXxNH6dBpXb9afRxeScTYil3WsLKsFToTPsO0FkrN0G14Ms5zENofq88
+   kEW3RQdQ5mGJBD16qMeNgQWfPZQYX6+3mMA6mCRpAiSQ+gPpmuRV/Rhph
+   Q==;
+X-CSE-ConnectionGUID: 9xoshxrkT6Gfb1+SnOyFSw==
+X-CSE-MsgGUID: 3BTVNRAsTjuo04ME/zTAbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3156162"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3156162"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:53 -0800
+X-CSE-ConnectionGUID: ZqmuHCDMTKyLwUC/7lBmqg==
+X-CSE-MsgGUID: A8Fj9ojISPexeUfkUXUf7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8174905"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:48 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 0CCB6121B7B;
+	Tue, 10 Nov 2026 14:02:46 +0200 (EET)
+Date: Tue, 10 Nov 2026 14:02:46 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+	Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+	Caspar Adriani <caspar.adriani@proton.me>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
+ (OMNI13B1) board configuration
+Message-ID: <avMH5glolytc9L86@kekkonen.localdomain>
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ <20261103155313.114347-3-saif.elden.hatim@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,55 +96,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103155313.114347-3-saif.elden.hatim@gmail.com>
 
-isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
-isp1301 i2c pull-up access from process context. The work handler
-(pullup_work) dereferences udc and touches the isp1301 i2c client.
+Hi Seifelden,
 
-udc is allocated with devm_kmemdup(), so devres frees it after
-lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which
-queues pullup_job to clear the D+ pull-up -- but never drains it, so the
-work can run after udc has been freed (and the isp1301 client put),
-dereferencing freed memory -- a use-after-free.
+Thanks for the set.
 
-Flush pullup_job in lpc32xx_udc_remove() after the final pullup(udc, 0).
-flush_work() (rather than cancel_work_sync()) lets the queued pull-up
-disable actually complete before the udc and its isp1301 client are
-released, so the transceiver is left with D+ deasserted.
+On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
+> +#define AMDISP_OV13B10_HID		"OMNI13B1"
 
-Found by static analysis; not runtime-reproduced (needs LPC32xx USB
-gadget hardware with the isp1301 transceiver).
+Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
+"OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
+AMD? This is not the first time something like this happens but it would be
+good to avoid it from happening in the future.
 
-Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v2: flush_work() instead of cancel_work_sync(), so the pull-up disable
-    queued by pullup(udc, 0) completes rather than being dropped
-    (OTG1_DP_PULLUP would otherwise stay asserted after unbind) -- per
-    Sashiko review of v1.
+-- 
+Regards,
 
- drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-index 94355d3d930f..b98faf5b71e5 100644
---- a/drivers/usb/gadget/udc/lpc32xx_udc.c
-+++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-@@ -3187,6 +3187,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
- 	udc_disable(udc);
- 	pullup(udc, 0);
-
-+	/*
-+	 * pullup(udc, 0) queues pullup_job to clear the D+ pull-up over i2c;
-+	 * flush it so that disable completes and no work can run after the
-+	 * devm-allocated udc (and its isp1301 i2c client) are released.
-+	 */
-+	flush_work(&udc->pullup_job);
-+
- 	device_init_wakeup(&pdev->dev, 0);
- 	remove_debug_file(udc);
-
---
-2.43.0
+Sakari Ailus
