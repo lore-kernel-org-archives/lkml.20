@@ -1,108 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305680;
-	b=efpYMYqEMrc9u+6YK/Lj1YE5a7F9JJGwxq0ZD3ARhD8iogJHjNNQoUgz06SSOdoNrYlE
-	 hqWgAiOVUa1IJ8er8AnmtYY5enudHlKFSxPGlf9Rr2Nafz6zAXpXK7hrcyIwIcHoRSc2E
-	 S+FazpyggWI3GZbzC2xify4tptd0+GaA3sMWXegApUwWeKU0zMgNV7exhnDxlGym/Mu3L
-	 K8/Q3XeK5QeRHl3WlnHoVQv8WuvhWSEWsAM7h267BlAPC8rZ+HvcvlmzqWK81Etm4d4bp
-	 chE2nPfx9HYuqlyF/pP+jhpmKSYQyvDpwEYPI9itrpthdGIrTG9Z2kEfRBdMOVnuflA==
+	t=1794305709;
+	b=0XAr5e4uZ0ywvZv2Q9qZ3PgDLqJD5vVyMty8uOmEkTdZmcgxNM6QGDgUvxYy3wHdHjDE
+	 9OeXEPfRHITm739BJYW0x4c06FBYVcja37aHoUwo1AwE1i2mpBhYszGck+qyTGYkdSYd/
+	 x9Ggvr4CZNKK5ZcmE6nTsOUKd2KFptgH/skT6LQsG1LEPFAP5xaxLtzTTwynpmPs6kr3E
+	 vfFQdA+rJAf5SWgt7o9TfsH4eIWKEqTgqzD4cuWd+/2eisruAdEUhfaiid4fNlI20uubo
+	 KgzeYKSriKq2xcM4dg1HP0nLk+wvB06b6ucgfe680FCOSGXPwz94U/yEnfFcuTrwEKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305680;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9WFltYRvNkpM0HMxRLJxGiCTEiP83WtKPHu+oXy3KTg=;
-	b=YMYabg33AuCdqQfVeWH5D0XSry7E0LFqagqrDrn+b6WIjZS9m2pJj2UyDwXPxiae5tbB
-	 LGAj/xdgdkQEIwAIKH/dKKtsRDPFqUPbJVO8J4onND2WO+c6R1+ZTF9c4zkK7FwT0ZAgz
-	 g5mSyLA4fHRbubatLspaqiLEruWnjGRdP0+5ErW2CklH7P6RtlPkmA55U2x+O6GBPzrwd
-	 W9+lnoe5visenG73X0uFsNNWYC/BkYGasKsT/Gx/a+d7a9SJBmSlGimi5z7On6nOUsCHx
-	 Za8D21K4EMolB0BNTQtNKe0vrVW99b4HHu4iNandDkuQjzROORSoNc3Y43Jv35lGthQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305709;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=AZjTHPzFrx1imtDVWlCHLsplaoTB2DlJ7depLryWujo=;
+	b=BiwSPW55xxXcCIJlPhPP8BiOavVegqiljFwTEkR1KPrQCuwiImAroLpHAi4TfIMbKTA+
+	 pk3kVq1KUrxsugdf2hXW23mwDWQtP97l+OrNdCzoy4d9s+aaXec7oV+G8r+MqyNIWnamV
+	 ZSdDEngQAtKMUo/BWixs/w/x7dbNut2WND/X8MYBQhJ6E0PIsKZK36CqBMuQyEGUpbvqX
+	 d8Rv8AyJk/vWFOSRixyh9agOULCPxrtEzhH5ReG5mUKQryucoOdmsGEbEONonKChe5kyp
+	 DgiM9MwTpa72gVJD0bMie1W61HKWO0+SYEHae21ZREfFGmuQ6enWicG+w637yEW3J3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DrlQYRb4;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=rDp0++Jc;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93924606AA4A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93924606AA4A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D899C606AA51
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:15:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D899C606AA51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DrlQYRb4
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so271061966b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:14:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794305678; x=1794910478; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9WFltYRvNkpM0HMxRLJxGiCTEiP83WtKPHu+oXy3KTg=;
-        b=DrlQYRb4d+FJBQLFk4gip1vdMb9pZcbFm0QRoW/O9nsnnIGk5B/dcI7komCKzkv/uM
-         Uz0TTkL3EB0XOLA2v0TTxwYvqDOvah1wiwbB4uUsiRRXfj1OcdvtnHWnMQS6yfKTNN5Y
-         2S+sbZpFj/oUd6OIfB1K+t4luOgmpm8MRta8dNUBz+XdEb16ui6jztHrAySR2QYDDBtW
-         UcH7ksMk3kyTCuhLg24n4RSbgP43bR1MD63YWBBHbNHKba+s6Adtgd3r0iiTavTYgvkx
-         vCBmyxhjfzRfUpjuhY0K7x1CK/3uUIf/0FzbTbFW5bHu/k5G1xko0Cr6O3LrrObY61iA
-         y+ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794305678; x=1794910478;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9WFltYRvNkpM0HMxRLJxGiCTEiP83WtKPHu+oXy3KTg=;
-        b=OwP+CplYShdkz+iq6hK3ncaP90tA1kljuPwlipzZewh8a8R+HBL7gfrgUm1L484fuV
-         wrCY2Au4OjRi2HsUmc3ORSAMShcT0hlJLFVabi1OP4YZ/4kvUFhXbY87oFYgSiiNsDII
-         d1HFAAotpkyblu5NyTECzbA5EjZa20VsdEefWovBnwN1bYvMrRX2zCXiebYthuJ3SCkc
-         7psQ05PCpbtX/8QjiJM6GrarH84IviD+k1uf4ZQ38q911bdsAU4QoVgglL5yRBIhUHJZ
-         35kKAqxwjYaPxmU/HkO3MYDWd/meuJWyA1mdgyEZ8fx53er/NuQtpr56WyZdculVdOeP
-         xNWw==
-X-Forwarded-Encrypted: i=1; AL+hErHAdkypIr1FWQtpDZtZ6WTESAxhwdBQ/8st/3cIoKaYEPP7didpHwzVSNS4W0OikSyf2qY8T9vzZSZ/L9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fZmCleG1OH76c0C0CU37zSLZpfCkh6jwN9ExGZt3OADZPLQOd
-	/56baycRs7JW5ln3zX+8Xzw7y5Stdc8w33GQv+f1WdsYm32mjdW6PtG+
-X-Gm-Gg: AYBFou2rZ3X6NTpzETkdyKOVr8A0LlreqPZzHKqGklueOK6GzTnoK39tJtxD6+rnUJ+
-	nCQ2JOGkg2u+C7k8gLoXaN2+zUoYnXqE0vBJZJtkPAOAcPXcOHYDPoVT7wQHpjCgKrFMRongy8W
-	SrMePiRQDqvCVXWNfLifY7zSLzFT4Etf1em7isHSd5jj0WqLiCu/1vr/G1ezDUHEGhnMYO9Do4w
-	mrXfbawL8jkFhPAX/eIaLbLwivJoe2CrxuZlQNjC5ALkpP+xKs3AaBESAKbL2Z+qzBljw799nAa
-	Y/j4CMFdUK18w30K4lde6W8f3+9VQCzUmr3yOqIHVCe3apJd70b22wsBSYZxA8TIKaq0EH3Yz6g
-	BMb75pvUper1vcOpd/bL6x79eWrtBwo2E+pkiTSTZQTfioSKekDscWSxUpvIG5pLCxDYXdzVnZz
-	kPj4hJPHigcTiVy/y1KY+435U9T6Mu7ynBZiRJnigdtPG+uhGTI4xey5BlEDncjZ8hva3FBOPYg
-	AxuIICPZGHXYhApfBlkwThc+vWBlS6A+JDnWE4lSiD4e6pJ+XUB8bG2DwSlOKwyhdG7k+M2/PC1
-	YLEOxGGj3rMHtw/NH+h/o1HOBu14O1hkrinTQ4B07HIUIjH78fGFS5eO+0wdiR4ThuYH1+jA1Fx
-	yqkcUPNTrb7Nt
-X-Received: by 2002:a17:907:944d:b0:c41:4c20:5a80 with SMTP id a640c23a62f3a-c504963ce05mr189793966b.44.1794305677695;
-        Tue, 10 Nov 2026 02:14:37 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a593eacsm90433466b.36.2026.11.10.02.14.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:14:36 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:14:35 +0100
-From: Amir Goldstein <amir73il@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-mm@kvack.org,
-	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
-	fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org,
-	xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev,
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-usb@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 38/41] fuse: refuse files on pseudo filesystems as
- passthrough backing files
-Message-ID: <avLui6Mpf8GbKbtc@amir-ThinkPad-T480>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-38-4c998976c6c7@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=rDp0++Jc
+Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 44656404CF;
+	Tue, 10 Nov 2026 10:15:05 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 582C81A;
+	Tue, 10 Nov 2026 10:14:59 +0000 (UTC)
+Date: Tue, 10 Nov 2026 05:14:52 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
+ <longman@redhat.com>, linux-kernel@vger.kernel.org, Marco Elver
+ <elver@google.com>, "Paul E . McKenney" <paulmck@kernel.org>, Christoph
+ Hellwig <hch@lst.de>, Masami Hiramatsu <mhiramat@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH v2 03/14] tracing: Disable branch profiling for
+ COMPILE_TEST builds
+Message-ID: <20261110051452.49eabaf9@fedora>
+In-Reply-To: <30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
+References: <cover.1794250850.git.bvanassche@acm.org>
+	<30ea46a36f2985e32389067317977371e6776e27.1794250850.git.bvanassche@acm.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,41 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-work-loop-pseudo-v1-38-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 582C81A
+X-Stat-Signature: 74cr8q7sykmmhbaqg69kxff6km5uk44s
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19eNIUSaaXkWq5R1w3u1Z8R6ts9N16JT7I=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=AZjTHPzFrx1imtDVWlCHLsplaoTB2DlJ7depLryWujo=; b=rDp0++JcVOXc1tsFG4q1Gf9v5U6xOf9z54HUjfniyloP0J+MjbtjDpPziCt5XUu5KyIAyIXT00v0W5SfeJPJ5SPaOCdXryM8J4/QQgokgJoyfdYMZLxuES18WRxLtkqms+8Siz4MNfV7+p2Wv2WtG7Rf9vgrZSJH5PHJKp99Acw=
+X-HE-Tag: 1794305699-878203
+X-HE-Meta: U2FsdGVkX1/lmKBV947R/34Om7hVNgcFm6D3EgJUzsUTwEfK4EQmNN+uJ9XLvh+2m9Lb/8qunPtSwIbEDpDInUKLCD/Njj5FLQcY0jE2LYI5qPeMc+efpaMF4W0k4vaX4uN0JvCKvDTgfi2azXmVuxGR/cMehpVTbXpcTlMEyeGOhRHrnST+i3RRVgrxmmzePErvkrNvfTyF6d4n6iQW9XxX1RmbsszW/dCYTWWMU505JBOYcjng3NRBLz9Hz4gU1SmhVdrk6YstLnaQH0QPbap983T/wQ8Gnvm6HWrS6CysED/i1Zgug9VrZTpBKZvhLqOkRY+Yku4zlFbW+DjsSIzlSXiQwhaNa1qOyGQQdjxqoGcmP6jkH2tspF8U85m6/QZ7xBkgnbF4/KE8gH4fWg==
 
-On Tue, Nov 10, 2026 at 10:14:54AM +0100, Christian Brauner wrote:
-> The fuse server can register any regular file as a backing file. procfs
-> and binfmt_misc files are already refused by the stacking depth check as
-> both set s_stack_depth to FILESYSTEM_MAX_STACK_DEPTH. sysfs and the
-> other pseudo filesystems aren't. Reads and writes of the fuse file would
-> then be done on the pseudo file with the fuse server's credentials.
-> Refuse files on pseudo filesystems just like loop does.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  fs/fuse/backing.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/fuse/backing.c b/fs/fuse/backing.c
-> index 8c21a8a74efb..4e4fb810ddaa 100644
-> --- a/fs/fuse/backing.c
-> +++ b/fs/fuse/backing.c
-> @@ -147,6 +147,9 @@ static int fuse_backing_open_file(struct fuse_conn *fc, struct fuse_backing *fb,
->  		if (inode->i_sb->s_stack_depth >= fc->max_stack_depth)
->  			return -ELOOP;
->  
-> +		if (file_is_pseudo(file))
-> +			return -EINVAL;
-> +
->  		fb->type = FUSE_BACKING_PATH;
->  		fb->path = file->f_path;
->  		path_get(&fb->path);
-> 
-> -- 
-> 2.53.0
-> 
+On Mon,  9 Nov 2026 11:13:11 -0800
+Bart Van Assche <bvanassche@acm.org> wrote:
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> WARN_CONTEXT_ANALYSIS depends on !TRACE_BRANCH_PROFILING because branch
+> profiling instruments every if-condition and obscures control flow from
+> Clang's thread-safety analyzer. Make PROFILE_ANNOTATED_BRANCHES and
+> PROFILE_ALL_BRANCHES depend on !COMPILE_TEST so that allmodconfig and
+> allyesconfig builds do not enable TRACE_BRANCH_PROFILING and instead
+> enable WARN_CONTEXT_ANALYSIS_ALL.
+> 
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 
+Acked-by: Steven Rostedt <rostedt@goodmis.org>
+
+-- Steve
