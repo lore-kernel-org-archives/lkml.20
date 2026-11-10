@@ -1,97 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351975;
-	b=3qe7hOiHfvlU0gByabMOwZy7ikuhILKyJSoy9cXGSfjQVTE1eHva49RkhAS3RcUeToMF
-	 kBqOefPICXULoGZ+7mRr+LDyRQ46ax6Xxez5XicOz5FRJR3MmneJ5PezGX2+xkyzb+1yJ
-	 cD0musEJu/5tE3GxGa0en8e23+jIxsDYQjCbeFokuf4zkR7hG5eAVHEfceItLCueSC2Vv
-	 /OHs6toFXiA9tae/SnRhKEZFWMOaQvUeEEX7pzFqMcl9JpKR8IwxCWcZFcdHNwZKAZCna
-	 bvHn6LG1xAl8pcSIQbLcv/Ims0g1Cl68l6jLNlpeq+ofbWD5CRGDIyWrHuTBiAxbiSg==
+	t=1794352081;
+	b=kzzfpNmld2iOqDPIdJX6WI6CtVcr5MMGoACAZrSE9Httxpt7wjvv9YyO4eXEMnz72BCW
+	 H3i/GFaX872AUOpIAbQH5TLd3ksUBUP6NzfHsvAJDLYCsZ7Ez/a/WP8i6S5k8GP86RF6G
+	 1MLNWsB3Oqf2tJ5QCyaP046vscPkdmQh67UeETZYV/pEdGmjEwTgC3qy6Ba2EbwItfHmG
+	 cblAepWaUkiZLX2VdCH0VCJqHNB3DQQZlXQC4Vx9NMSrdTADktS0li5phDc5vkfMtkZZv
+	 RHX8LPJuQV7FIGzoa93/Er0nbKD2bQvycDvAXYWCZxUiS249uChRi7ISwFq7+ffHa0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352081;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=x/pvyTEDDINaCH2/Plef7rmiayj2JRdx93dQs90JIcQ=;
-	b=RMTSs7ghhFwILB/GevZ467EpARZcekhA4ofRPKDZfUyoJndRuCTp5xaKlWpEi1QQd7X4
-	 poIBC4IHWZJAUU8+LyrFuG4LQ7kwfr4SkkVgCzxd0t30Bcx74ey2b6aMfHD8h+VLl53nX
-	 AkfZHe6Xmi2ctry2q4UIL4idteEZACnYpAh5sK/7lN0wbc8yuhb2yYOGU0s9TMS3aVD9C
-	 f7f+Kmai5zqpEfjsoiU5Oab0LD9JuYAm27HGlEM4XpyVaaGiT1gm/vUMkfeoci2m+2UbT
-	 BHmuj/laJyHiVXJWpDei5CufSrL8SX2jufp83T+5RvJn+xijtjpFEpppg0rVXUFh35Q==
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=fVEFKKD3xKoYjscZTTZOnv3dy+z1R/lLnwgShBmxMt0=;
+	b=EoD2EpiCIAqlv54xygNlXAAiSmGkaz5u4ba461QmnpcfM6jsF13aAfFmykyQFwhIx79C
+	 f7PE9myCxomAUY8kbdK9xe/CKlFtXtkYu5jkibjyHQccCTNHQ/vSPl62UZ1OefNXn3kMh
+	 T2XqtUSclu5YRQdFXevINf9/VXUbCd34M/WbS6J06d+ugLy7WoayGIhHVFDkESj1EHRd6
+	 RCB3xpd/hwhypHwHW+h1gLmOZQdnZFIL+fl3Ma43V8ORxCRaveCGc5b3WJ5H85kGdL3I9
+	 ms2EcPeXP8zDnmPAvc86zPUc7msis/z2yG0bEGAVEROtLtC0FE5TP739UPX7ETHn6pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JYtpHh50;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dmarc=fail header.from=chromium.org;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cB+enRwR;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049B0606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:06:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 049B0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01ED606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E01ED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JYtpHh50
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4922dbcee23so1506015f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:06:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cB+enRwR
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so2002551b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:08:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794351972; x=1794956772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x/pvyTEDDINaCH2/Plef7rmiayj2JRdx93dQs90JIcQ=;
-        b=JYtpHh50jVlNZ9WITT6KjHyD/eQCT43momtC/hJgRqDwFDaAX+OGK5oMi9xNeIRoC6
-         5bjceO/QaqrQLty+BBADLbWKm3Zju53S5bq0HNQAL1EQCud+F3fOlhEe9BfNJxHJoZ4P
-         iC0yaQyA1i/ywWyryYlECV3EgXIsyvFxwr/FXMmxEocDRhQngdViK/wMkVXIFm0QWtBu
-         cslXVq/IbzZL3cKVNfne+CO4KxKWzQAxgiF89wFxR5g1ApSka0Wj4HQxHwCeH1Caul9o
-         P6LR8hIZV2Ov4sqhTRjGGmPp6qK3IX3pe0SJ/6z1LAbNl4z2QNfXTnojhxbtpA97ZOqZ
-         7HYw==
+        d=google.com; s=20260707; t=1794352080; x=1794956880; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fVEFKKD3xKoYjscZTTZOnv3dy+z1R/lLnwgShBmxMt0=;
+        b=cB+enRwRz6g2iMFhWCN+NyL7E1AO6er0Uz04tlmujKHtWpTW3sbsKxIsF2nNshn2KQ
+         R/IsJLVsVB2M0SoZgJbbNAT7YutCGpjJZEIGmETz87FmezkNL6hO+TJc1lV1UHxZ7PL/
+         dELK9iM+xfYCLJwCG6m8348YZ8Lgzbte8JgVmQgsgkgakpk5b0cTEN9frHWpnOXSF7Uz
+         J7zJ9xXsM05gmNYaFTjsc44pII3UwQuV6mc7XrQw2I99ewJv6HpDnURry4gVYpVonZTi
+         Y9cycn/rp5inNEfHIeVlNs2yQ7S9NHJANDnIzFfC7C9eocEC/a/ICf601fDjR5/X+VuT
+         lNlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794351972; x=1794956772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x/pvyTEDDINaCH2/Plef7rmiayj2JRdx93dQs90JIcQ=;
-        b=ysShwR8eeqMLHCKTI/aCxxiEpb/B5kkHLFsykUmgH0CgNAXQUlRoS2Ros5XTSHGv/s
-         8VaCR0azY1PR+LLfKBl6oWnsCYGcJUeevn4hKiq0P6WsZlNDEvo43+1SjxGKve7U9mWZ
-         Uq/09JZTJKESaDSrk+eFiLr56mA0grfp8ju5ZLc6RnZ49xc8LDFMcXfSQ5F8TW6Uvkp4
-         8OB/EdMaqT9dvRKUb8DWmFBg4Ofj5a3x2Lc7CuXSIWN+Txulx0Ay8dz1x50g2IaNSKjO
-         xUsei7uEOMe5K79G1KBhIm2PQW43E+hcFQQoOQq9AzR1wNdMOpqA6FxBpYI+dJoFyNSN
-         Fg7A==
-X-Forwarded-Encrypted: i=1; AL+hErHcjJee7MVCr+JluPwvQpcwogyZruaAdW3tyEid2xeR8BM2kzgXOVyGXxGyOGMBpW3aAlw00kje971I+Ds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vFXkeHwG6RqrcGTD8JSMD1nqUMUNG/+0vZWWb8gC3G2fUy8Si
-	RPIJaYhUNTnabQLBFzUGaJnI8gYFbFn13enhSR5/CIbQ2NvI1RHk5iM=
-X-Gm-Gg: AYBFou2fMiCRmid1oaZsBbFRx8DYtnX2hmDXJ+2xUKehf2ZmIrQcwJvp1kGqTkExFGE
-	NO7BSBKXa9wxValbdtTSIcBfKXAZfnXIwfEC+jSzyAaQT176S4kxZBLgp+CaI8i1zGh7/L3a8xU
-	13ZEHwEMBgJnTk4xFYDmwLRdoJv3eRCU+n71wwZCHPhsotkvjbWy1ZA7vl8yHzv4jh+tvWOYPlJ
-	rcKS6qWYHcmXUgTN3/FBwNrLdFbaHVx0WvIXEPyAp1E/XqG8DfmSB26uhV36tJCYnJgn4tm8rWW
-	T9wiapTVOlqgJtWnVKveYS6ZIdH2dgG9NUGryDF84kaiEPrYA/LUyx/CCeiUmpuAO4LCpyhKFg2
-	qXUCSnnBZkYgREUx4rzo2mbrzwiBIrP1PvUomYDhQKJelnUcHcU88o5tJ7aQHQEBKfC+d2D8kKH
-	kl6gpIMV3xZr50FLfJ/LTTpDePR357XjyLK0XP+UHA6PQW+G9SJRW/FqPBPgbbgyJLt3n1DgtX5
-	vzW2HDn6ZAGcRQ38TDFbiGhM8Nx2Lkb0jGe5jay9ju/XgMgOxxcXvLYxBE564xr+C80GbsXYlSx
-	uOvVDITGn4csFpC+w2rtM7aJ36A8
-X-Received: by 2002:a05:6000:4013:b0:48e:d27:bef2 with SMTP id ffacd0b85a97d-499c77414eemr523745f8f.21.1794351972234;
-        Tue, 10 Nov 2026 15:06:12 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49842f2a1f9sm7568795f8f.15.2026.11.10.15.06.11
+        d=1e100.net; s=20260707; t=1794352080; x=1794956880;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fVEFKKD3xKoYjscZTTZOnv3dy+z1R/lLnwgShBmxMt0=;
+        b=LbMWt6b3Q4j1MKwe8VbLTfXfe3iuZ80MiKX2h3MUln/+llGq3WKE6UD0qbYmN532Jp
+         BHDWdD3rhf+EkNrLHDOz+/hI5xvew6XAj3zoZYAXq7cXLd4Sp3+A55mJlcOg29GThLiz
+         pljfgTgz3T5CnD/Eh6CUNIegnO3QJ2TevBQAYkz0AbpJktkhhaBr9o3HPbx/qUJBwGcq
+         LxwseGJr5bozlTZU6DMPx5wOVWgu2bI1sRM+0Kfi+xil1KPWtIqJmc771ULfv/FmAK7h
+         XHG7beZwIEkHWUJImOWq1cdjI6kMkfUw7Dc4nkJO/YaXZtK7roNWIxf9M/Dmul0h2/pp
+         /BwA==
+X-Forwarded-Encrypted: i=1; AL+hErGAeOXukY92A/QWDpBK5NiCSNSskdjggvyrySMwbJR78uBlC6Ydvgx7nM41ZZXgGLeKlTj/kn7TOjTdlrY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8c6GPsGWf2CBjQ/3gviS3Pz5Fs9LfbfD9uWH5hqBz4DfAZpP2k
+	NL0RW7Eapn44g7yAQmLk+wwFEeZOyHpX7HaN3s9yBBxRzjk9INSibqWabjQP4c06KQ==
+X-Gm-Gg: AYBFou0NYDCJN8zqS/OJHPcF/0EgQE8aLq8oI4r9a/92Q/ouYoQ+PuGHgmMKhY0GxiX
+	7G9+wuc/+ratgr652oyz1IQZbgjAAXdOpMw2ZzY/U6y+bU9mRTrSP7ZNEYHzvqA5mJSW84zSwNR
+	rSttd6n9j1GTvEnoaBHcZ5thIyIha5dXmYjgn1k7ob83+0DNsIJtvyxiQI1aPI4Q462NdSy/cKH
+	hR4yjlgRrfiYJshlhax9/3vsMGYxarWYxifJtldvGCtVIp2Tp/Vcy/7yPNeJ/EgSHF3YQ8ckF2k
+	Yecs7JPc1tNBCqt+IWuSu0Se3U+Vaqqgsc6eJRt9KNjLWeVNHhnCkSJEbTz4506lQcn7EUVA90X
+	gFLYKyZ+2X4pUvppcdQGJT+AE0SPSq0YAkfUKPHgNc6PRCdV/bdcKqLuw/HKuwDF5L8r3vRHIDv
+	ucSpRJnG16klienZM5rFANL01MbB7pAmXLOxeV3ICpgi/TyXYlN4L6AVEsHzQE8nz6906R9xBB8
+	/HIMsNJJDmKnC3l+F5HcAMUTOP6RMDK/jiOGei2HvdZ1kRex9jZDaIM2mghDMs2mPg0XA18vGcK
+	cHbyph7uEzbFDs2QnCyydnU95rb4py2lm6shqSDyKweWUMM9s4YnxZRQDHnRRcYPlnhuD5vGgTE
+	Lszhn/AQXUn87k5r6AJPBSrmTY3EkIMqj9SXPn9d4zL0MWFJ9RdtFzQAmOEYVcKynv+x4pUrbAl
+	8C5zSryXhTuDkdAg==
+X-Received: by 2002:a05:6a00:2290:b0:891:3e34:e06f with SMTP id d2e1a72fcca58-8bc1c2a9279mr528151b3a.44.1794352079387;
+        Tue, 10 Nov 2026 15:07:59 -0800 (PST)
+Received: from google.com (196.126.197.35.bc.googleusercontent.com. [35.197.126.196])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa506bca4sm1426781b3a.0.2026.11.10.15.07.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:06:11 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v3] ASoC: rt5659: fix teardown order and stale state across card rebind
-Date: Tue, 10 Nov 2026 23:06:03 +0000
-Message-ID: <20261110230603.2110759-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+        Tue, 10 Nov 2026 15:07:58 -0800 (PST)
+Sender: Benson Leung <bleung@google.com>
+Date: Tue, 10 Nov 2026 23:07:55 +0000
+From: Benson Leung <bleung@chromium.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Lee Jones <lee@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v4 15/20] mfd: Use named initializers for
+ platform_device_id array
+Message-ID: <avOjy_fN7YtF3qfm@google.com>
+References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
+ <19b9b030217016ca7f4b0d9d9fc9ab915a8963f2.1794347059.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,165 +107,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="19MCwox2Lta4/77f"
+Content-Disposition: inline
+In-Reply-To: <19b9b030217016ca7f4b0d9d9fc9ab915a8963f2.1794347059.git.u.kleine-koenig@baylibre.com>
 
-The cleanup in rt5659_remove() does not reset hs_jack, jack_type, or
-the component pointer, and does not mark the regmap cache dirty after
-the codec reset.  On card rebind this leaves a dangling hs_jack pointer
-and causes regmap_update_bits() to skip re-programming jack-detection
-registers because the cache still holds the pre-reset values.
 
-Only clear headset detection state via rt5659_headset_detect() for
-JD3-mode jacks.  In HDA header mode the SAR, 4BTN_IL, and IL_IRQ
-registers are set up once during I2C probe by
-rt5659_intel_hd_header_probe_setup() and are not re-enabled on card
-rebind, so clearing them in remove would leave mic detection disabled
-after the next bind.
+--19MCwox2Lta4/77f
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reset the HDA IRQ polarity bits in RT5659_IRQ_CTRL_1 and
-RT5659_IRQ_CTRL_2 to their unplugged defaults before marking the
-regmap cache dirty.  Without this, regcache_sync() on rebind restores
-plugged-in polarity while hda_hp_plugged and hda_mic_plugged are
-false, so the polarity-flip logic in
-rt5659_jack_detect_intel_hd_header() never fires and subsequent
-plug/unplug events do not generate an interrupt.
+On Tue, Nov 10, 2026 at 10:54:40PM +0100, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> While being less compact, using named initializers allows to more easily
+> see which members of the structs are assigned which value without having
+> to lookup the declaration of the struct. And it's also more robust
+> against changes to the struct definition.
+>=20
+> The mentioned robustness is relevant for a planned change to struct
+> platform_device_id that replaces .driver_data by an anonymous union.
+>=20
+> This patch doesn't modify the compiled arrays, only their representation
+> in source form benefits.
+>=20
+> Also drop a tailing comma after a list terminator to match the common
+> style for these device-id arrays.
+>=20
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
 
-If the I2C device unbinds without a card bound, rt5659_remove() is
-never called and the IRQ keeps queuing jack_detect_work until devres
-frees the private data.  Register a devm action to disable the IRQ
-and cancel the delayed work on any I2C teardown path.
+Reviewed-by: Benson Leung <bleung@chromium.org>
 
-Consolidate the IRQ disable and work cancellation into a shared helper
-that always sets irq_disabled, so that rt5659_remove(),
-rt5659_i2c_shutdown(), and the devm action all follow the same path
-and cannot double-disable the interrupt line.
+> ---
+>  drivers/mfd/ab8500-core.c | 8 ++++----
+>  drivers/mfd/cros_ec_dev.c | 2 +-
+>  drivers/mfd/mt6397-core.c | 4 ++--
+>  3 files changed, 7 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+> index d5602b2f4a0e..8638fc8472f7 100644
+> --- a/drivers/mfd/ab8500-core.c
+> +++ b/drivers/mfd/ab8500-core.c
+> @@ -1252,10 +1252,10 @@ static int ab8500_probe(struct platform_device *p=
+dev)
+>  }
+> =20
+>  static const struct platform_device_id ab8500_id[] =3D {
+> -	{ "ab8500-core", AB8500_VERSION_AB8500 },
+> -	{ "ab8505-core", AB8500_VERSION_AB8505 },
+> -	{ "ab9540-i2c", AB8500_VERSION_AB9540 },
+> -	{ "ab8540-i2c", AB8500_VERSION_AB8540 },
+> +	{ .name =3D "ab8500-core", .driver_data =3D AB8500_VERSION_AB8500 },
+> +	{ .name =3D "ab8505-core", .driver_data =3D AB8500_VERSION_AB8505 },
+> +	{ .name =3D "ab9540-i2c", .driver_data =3D AB8500_VERSION_AB9540 },
+> +	{ .name =3D "ab8540-i2c", .driver_data =3D AB8500_VERSION_AB8540 },
+>  	{ }
+>  };
+> =20
+> diff --git a/drivers/mfd/cros_ec_dev.c b/drivers/mfd/cros_ec_dev.c
+> index 96aac158fd8b..3c7e7f1efd0f 100644
+> --- a/drivers/mfd/cros_ec_dev.c
+> +++ b/drivers/mfd/cros_ec_dev.c
+> @@ -379,7 +379,7 @@ static void ec_device_remove(struct platform_device *=
+pdev)
+>  }
+> =20
+>  static const struct platform_device_id cros_ec_id[] =3D {
+> -	{ DRV_NAME },
+> +	{ .name =3D DRV_NAME },
+>  	{ /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(platform, cros_ec_id);
+> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+> index e74936ac206f..385121867da5 100644
+> --- a/drivers/mfd/mt6397-core.c
+> +++ b/drivers/mfd/mt6397-core.c
+> @@ -435,8 +435,8 @@ static const struct of_device_id mt6397_of_match[] =
+=3D {
+>  MODULE_DEVICE_TABLE(of, mt6397_of_match);
+> =20
+>  static const struct platform_device_id mt6397_id[] =3D {
+> -	{ "mt6397" },
+> -	{ },
+> +	{ .name =3D "mt6397" },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(platform, mt6397_id);
+> =20
+> --=20
+> 2.56.0.rc1
+>=20
 
-Store the I2C client pointer in rt5659_priv so all paths can
-reference it directly.
+--19MCwox2Lta4/77f
+Content-Type: application/pgp-signature; name=signature.asc
 
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-v3: Consolidate IRQ disable and work cancellation into a shared helper
-    (rt5659_disable_irq_and_cancel_work) called from all three teardown
-    paths (remove, shutdown, devm action).  The helper sets irq_disabled
-    in every path, preventing a double disable_irq if shutdown fires
-    before the devm action.  Add regcache_sync in probe so the cache is
-    resynchronised on card rebind.
-v2: https://lore.kernel.org/linux-sound/20261107153543.6912-1-tristan@talencesecurity.com/
-v1: https://lore.kernel.org/linux-sound/20261105145204.5614-1-tristan@talencesecurity.com/
- sound/soc/codecs/rt5659.c | 50 +++++++++++++++++++++++++++++++++------
- sound/soc/codecs/rt5659.h |  1 +
- 2 files changed, 44 insertions(+), 7 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 68f7d5673e190..1b61323fc7ed6 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -3660,6 +3660,21 @@ static int rt5659_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
-+static void rt5659_disable_irq_and_cancel_work(struct rt5659_priv *rt5659)
-+{
-+	if (rt5659->irq_acquired && !rt5659->irq_disabled) {
-+		disable_irq(rt5659->i2c->irq);
-+		rt5659->irq_disabled = true;
-+	}
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+}
-+
-+static void rt5659_i2c_disable_irq_and_cancel_work(void *data)
-+{
-+	rt5659_disable_irq_and_cancel_work(data);
-+}
-+
- static int rt5659_probe(struct snd_soc_component *component)
- {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-@@ -3667,8 +3682,10 @@ static int rt5659_probe(struct snd_soc_component *component)
- 
- 	rt5659->component = component;
- 
-+	regcache_sync(rt5659->regmap);
-+
- 	if (rt5659->irq_disabled) {
--		enable_irq(to_i2c_client(component->dev)->irq);
-+		enable_irq(rt5659->i2c->irq);
- 		rt5659->irq_disabled = false;
- 	}
- 
-@@ -3689,17 +3706,28 @@ static int rt5659_probe(struct snd_soc_component *component)
- static void rt5659_remove(struct snd_soc_component *component)
- {
- 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
--	struct i2c_client *i2c = to_i2c_client(component->dev);
- 
--	if (rt5659->irq_acquired) {
--		disable_irq(i2c->irq);
--		rt5659->irq_disabled = true;
-+	rt5659_disable_irq_and_cancel_work(rt5659);
-+
-+	if (rt5659->jack_type && rt5659->pdata.jd_src == RT5659_JD3)
-+		rt5659_headset_detect(component, 0);
-+
-+	rt5659->hs_jack = NULL;
-+	rt5659->jack_type = 0;
-+	rt5659->hda_hp_plugged = false;
-+	rt5659->hda_mic_plugged = false;
-+
-+	if (rt5659->pdata.jd_src == RT5659_JD_HDA_HEADER) {
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_1,
-+				   0x10, 0x10);
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_2,
-+				   0x2, 0x0);
- 	}
- 
--	if (rt5659->jack_detect_work_inited)
--		cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+	rt5659->component = NULL;
- 
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
-+	regcache_mark_dirty(rt5659->regmap);
- }
- 
- #ifdef CONFIG_PM
-@@ -4328,6 +4356,13 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 				   RT5659_GP1_PIN_MASK, RT5659_GP1_PIN_IRQ);
- 	}
- 
-+	rt5659->i2c = i2c;
-+	ret = devm_add_action_or_reset(&i2c->dev,
-+				      rt5659_i2c_disable_irq_and_cancel_work,
-+				      rt5659);
-+	if (ret)
-+		return ret;
-+
- 	return devm_snd_soc_register_component(&i2c->dev,
- 			&soc_component_dev_rt5659,
- 			rt5659_dai, ARRAY_SIZE(rt5659_dai));
-@@ -4337,6 +4372,7 @@ static void rt5659_i2c_shutdown(struct i2c_client *client)
- {
- 	struct rt5659_priv *rt5659 = i2c_get_clientdata(client);
- 
-+	rt5659_disable_irq_and_cancel_work(rt5659);
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
- }
- 
-diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
-index e10b3844501b9..1118e6ab1887d 100644
---- a/sound/soc/codecs/rt5659.h
-+++ b/sound/soc/codecs/rt5659.h
-@@ -1793,6 +1793,7 @@ struct rt5659_priv {
- 	struct snd_soc_component *component;
- 	struct rt5659_platform_data pdata;
- 	struct regmap *regmap;
-+	struct i2c_client *i2c;
- 	struct gpio_desc *gpiod_ldo1_en;
- 	struct gpio_desc *gpiod_reset;
- 	struct snd_soc_jack *hs_jack;
--- 
-2.47.3
+iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCavOjygAKCRBzbaomhzOw
+wvFsAQC87smEjajHkfFGbCeGY6Cj/9mvC0xw3nuIrtpr77YwHgEA6ablXqCzLa70
+BlcM4GE7l2ZF2r9VzxPGW7WUD7O+TgI=
+=nN+Y
+-----END PGP SIGNATURE-----
 
+--19MCwox2Lta4/77f--
