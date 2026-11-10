@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340544;
-	b=O3We+ua/sEUODEQXRL5tFl0MKBgifuWu3eUUGwKeORWXMvySlN37nxDCzFTrpE4a4Sko
-	 iE4RLaJR6nGtFAfIg9UMJi8dSl3aZnnmCR5P8WmgyPWnjinJWsJjM29dK+9H/x5F3JW7v
-	 xuoQZWRSUiiYImI9TR5eJ541Ac14vGUEURS7FgramryTrnHTyrYO0PYCi6Rp7eUthaYUv
-	 qTex4iZ96l7vkjAlIHFMvr0leppJPyfiF3Ic22Q/fW1dAA+bZqeaPy5xv9sRwIoyUfITP
-	 pIRhN5w6/j58G3i95cwrbASpb+cpGIfdqq8aMUbd0D3ht1FIyIYuD+T4jH8qp+00Y7Q==
+	t=1794340558;
+	b=C5O0sSc0N4jHoBWXdcvk7sL8SJvbJ2sx6L/gs5nndQacEcBpbxrYkbCn1A9xh3zS70cA
+	 mWKL0LOpTM4/jauPkDyc9CUOhYJuvRX6Upj4Tqzex5yNMLsFKM2Iyri12vca/lm5wz6mx
+	 O+xUZC9w2pMXFUN6UE2Gie3NnJoUHRWukm0fm/AQ6N3vMGAJOp7RxXWuYke5yzvsKHTkk
+	 C7ZjvxZvo2PskRZRcYTxvYqLPNAkm/6bhtI/FE/2wRLfwi9stccMAWoyutZyHbR/sT1wb
+	 58n8diHznxkL0dEIyhaNZGw7EUsS29cMjrVrGiDCU/E5C9CqgF0m6Gu4WuqUZi+a54Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340544;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OSPH1DjCz3ytXCkSpwALhsI+V4Nz7XdAxrkt0DEPaM8=;
-	b=dWQYRj+TDE/vEirMvXtGabzsPRyoI1eNOj1YE1w9171xaVZKQ+jW2eD9J4EWxpLYNdF0
-	 tm18P9hnWW9/QRju7JnnJOZ0eGFNI0IvaLkPnYuhz/+LZ7IwDQY5cIJA7XbBSJ81Crc+P
-	 nWBjVxOErfYJ2qzSfRBoKMZOPDxrcOQ1qLaJMfqkNYidSk2gBiNHHcTs62XY9LR90XBr0
-	 CZI02H9AXD9NztxkYQ8Q08NqLA48iRuCAjzSWXvze3jMsRr5eUOxhxcXT54AOL1hCTtcE
-	 4TWp6iYz8FW1JpYsf7eBA1c/OHL7/Gtfi+05u3ZWHeIZk0X+WCBgT9D4tPNOGNxGXfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340558;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gdC4CUeQDUVnIicgDNaY6kPlV8f88uzB3vuy6ghKnKw=;
+	b=iq6eNzXdzFUFSLOzhpZdG4CjY2Gy/Hd+67fSIWLSBI4/o6S+NcTK3dINRmpOmDInfIN9
+	 6AFG47N4N6duRrsyHxsWgSLoFJOKqNe+/Y+vBeEsPrlPGKL7mHL3R2O5IzYfwkGL9OH1d
+	 0vk92DHzwsoCZN9DaB6vEnVm9tDdqXHoRTTeyt34HUfx1WqKLkpLj0MECCdTXYYbOk2UA
+	 kb7MxESRKQST96zy9SNa51g0aJe5EEGWD3JkMLObbFsh107f23d8MLrvquN7JRtNayF6S
+	 lwxMTmemgfDwFOD4a53dkf2cWYCWzdHvPq2xZj7Rw1a88O7PwrGDajSVe2dANXotwOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=UkT6q4kg;
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NibLxCoQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95469606A335;
-	Tue, 10 Nov 2026 19:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95469606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD025606A326;
+	Tue, 10 Nov 2026 19:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=UkT6q4kg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794340541; x=1794599741;
-	bh=OSPH1DjCz3ytXCkSpwALhsI+V4Nz7XdAxrkt0DEPaM8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=UkT6q4kgWgYrvFqdEYgK44pa+CUa36ijN1sqrmsmnIFwTgsc0ika+/UcAs83VYrQh
-	 f6oFZ5SPkNa2482tlPjji++LzVkO064uoW+YlKEIcn6FMJhuJ6vrk1CYV9Bgc9mJ5c
-	 dv4yUcsFOXIWFUmXLMzGhtbmWaKBZEHvvGc4O9mUvZMfR0uF1u8niFX8eMR498IqVq
-	 /Txb7pKRQ/NuyxsI5YvBDvxpAVuy+UT72tIZXZijcW67nYPp2Qa3qhi5NDtG1EtB/y
-	 alHyNERYOmGuY84DyoANmCKtu+9CaIOc/9p+jWl0SjmAo0ibjyHHeswKp7lStVTT6r
-	 S8ijCZ26ExMLw==
-Date: Tue, 10 Nov 2026 19:55:36 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 5/6] media: ipu-bridge: Index the sensor device properties as the endpoint ones
-Message-ID: <20261110195454.48176-6-lsa.uz@pm.me>
-In-Reply-To: <20261110195454.48176-1-lsa.uz@pm.me>
-References: <20261110195454.48176-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: e6d6dc47be8f214a639f15f9092d287ed3482731
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NibLxCoQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5FF31F008A1;
+	Tue, 10 Nov 2026 19:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794340557;
+	bh=gdC4CUeQDUVnIicgDNaY6kPlV8f88uzB3vuy6ghKnKw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NibLxCoQrsM0Iz8OxmTP8VeifWTq/1UoE4kMUFtao/LrnHwU59I24JyyLXCoQk51S
+	 oNGNXJoJA3OmMXEnOTgRW21MIv7LUzECfAtBhaqQlO86AhY0x8qJRWKfX4kDP+FnIr
+	 oWlbkE3qxZJZZdtFXc2RiV5C4N+SK/MgCNYA488et9e6iVK7AMfDG1fMoEG3d2lhxp
+	 yW1PpbpDKger3HIgEFtnd0n/b8bZbcB0+Zydj49rnOMa8sEFVTTBE99OQ8R6aDgXgO
+	 NY/7YR9Nv2N9/QaXtqWVFnHNGL42+aBAopB6Ep/HDMWkoQ+mX72ApMokcfHVVmxCL8
+	 +UfZ4c5+1GS+g==
+Date: Tue, 10 Nov 2026 11:55:52 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Song Liu <song@kernel.org>
+Cc: live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	jikos@kernel.org, mbenes@suse.cz, pmladek@suse.com, joe.lawrence@redhat.com, 
+	shuah@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 03/12] klp-build: Move patch processing to
+ klp-prepare-patch
+Message-ID: <avNz-_AbTGGlsP5o@jpoimboe>
+References: <20261028214534.1919398-1-song@kernel.org>
+ <20261028214534.1919398-4-song@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,99 +60,122 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261028214534.1919398-4-song@kernel.org>
 
-Fill dev_properties through an enum and IPU_BRIDGE_NEXT_PROPERTY(), as
-ep_properties already is, so that an entry can be added without
-counting slots by hand. No functional change.
+On Wed, Oct 28, 2026 at 02:45:25PM -0700, Song Liu wrote:
+> -apply_patches() {
+> -	local patch
+> -
+> -	for patch in "${PATCHES[@]}"; do
+> -		apply_patch "$patch"
+> -	done
+> -}
+> -
+>  revert_patches() {
+>  	local patches=("${APPLIED_PATCHES[@]}")
+>  
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-New in v4 (Sakari). The series that keeps what the software nodes point
-to out of the module image is probably D. Manresa's, recalled on v3; it
-changes the same lens-focus line, so whichever lands second needs a
-trivial rebase:
-https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
+I think we can remove even more cruft:
 
- drivers/media/pci/intel/ipu-bridge.c | 19 ++++++++-----------
- include/media/ipu-bridge.h           | 11 ++++++++++-
- 2 files changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index c99c85b7e6f..2399a3d52b6 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -570,7 +570,7 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09unsigned int i =3D 0, d =3D 0;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -612,19 +612,16 @@ static void ipu_bridge_create_fwnode_properties(
- =09=09=09SOFTWARE_NODE_REFERENCE(&nodes[SWNODE_SENSOR_ENDPOINT]);
- =09}
-=20
--=09sensor->dev_properties[0] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.clock_frequency,
--=09=09=09=09=09sensor->mclkspeed);
--=09sensor->dev_properties[1] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.rotation,
--=09=09=09=09=09sensor->rotation);
--=09sensor->dev_properties[2] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.orientation,
--=09=09=09=09=09sensor->orientation);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_CLOCK_FREQUENCY)=
-] =3D
-+=09=09PROPERTY_ENTRY_U32(names->clock_frequency, sensor->mclkspeed);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_ROTATION)] =3D
-+=09=09PROPERTY_ENTRY_U32(names->rotation, sensor->rotation);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_ORIENTATION)] =
-=3D
-+=09=09PROPERTY_ENTRY_U32(names->orientation, sensor->orientation);
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_LENS_FOCUS)] =
-=3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..284e0d6cc93 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -89,6 +89,15 @@ enum ipu_bridge_ep_props {
- =09IPU_BRIDGE_EP_NUM_ENTRIES
- };
-=20
-+enum ipu_bridge_dev_props {
-+=09IPU_BRIDGE_DEV_CLOCK_FREQUENCY,
-+=09IPU_BRIDGE_DEV_ROTATION,
-+=09IPU_BRIDGE_DEV_ORIENTATION,
-+=09IPU_BRIDGE_DEV_LENS_FOCUS,
-+=09IPU_BRIDGE_DEV_NUM_OF,
-+=09IPU_BRIDGE_DEV_NUM_ENTRIES
-+};
-+
- /*
-  * Get the index of the next property in a property array, with a given ma=
-ximum
-  * value.
-@@ -179,7 +188,7 @@ struct ipu_sensor {
-=20
- =09struct ipu_property_names prop_names;
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[IPU_BRIDGE_DEV_NUM_ENTRIES];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
-
+diff --git a/scripts/livepatch/klp-build b/scripts/livepatch/klp-build
+index 4796b36b5cc8e..b93e1227b4c03 100755
+--- a/scripts/livepatch/klp-build
++++ b/scripts/livepatch/klp-build
+@@ -19,7 +19,7 @@ set -o nounset
+ # This helps keep execution in pipes so pipefail+ERR trap can catch errors.
+ shopt -s lastpipe
+ 
+-unset DEBUG_CLONE DIFF_CHECKSUM SKIP_CLEANUP VERBOSE XTRACE
++unset DEBUG_CLONE DIFF_CHECKSUM PATCH_APPLIED SKIP_CLEANUP VERBOSE XTRACE
+ 
+ REPLACE=1
+ SHORT_CIRCUIT=0
+@@ -110,7 +110,7 @@ restore_files() {
+ 
+ cleanup() {
+ 	set +o nounset
+-	revert_patches
++	revert_patch
+ 	restore_files
+ 	[[ "$KEEP_TMP" -eq 0 ]] && rm -rf "$TMP_DIR"
+ 	return 0
+@@ -329,50 +329,14 @@ set_kernelversion() {
+ }
+ 
+ apply_patch() {
+-	local patch="$1"
+-	shift
+-	local extra_args=("$@")
+-	local drift_regex="with fuzz|offset [0-9]+ line"
+-	local output
+-	local status
+-
+-	[[ ! -f "$patch" ]] && die "$patch doesn't exist"
+-	status=0
+-	output=$(patch -p1 --dry-run --no-backup-if-mismatch -r /dev/null "${extra_args[@]}" < "$patch" 2>&1) || status=$?
+-	if [[ "$status" -ne 0 ]]; then
+-		echo "$output" >&2
+-		die "$patch did not apply"
+-	elif [[ "$output" =~ $drift_regex ]]; then
+-		[[ -v VERBOSE ]] && echo "$output" >&2
+-		warn "${patch} applied with fuzz"
+-	fi
+-
+-	APPLIED_PATCHES+=("$patch")
+-	patch -p1 --no-backup-if-mismatch -r /dev/null "${extra_args[@]}" --silent < "$patch"
++	PATCH_APPLIED=1
++	patch -p1 --no-backup-if-mismatch -r /dev/null --silent < "$COMBINED_PATCH"
+ }
+ 
+ revert_patch() {
+-	local patch="$1"
+-	local tmp=()
+-
+-	patch -p1 -R --force --no-backup-if-mismatch -r /dev/null &> /dev/null < "$patch" || true
+-
+-	for p in "${APPLIED_PATCHES[@]}"; do
+-		[[ "$p" == "$patch" ]] && continue
+-		tmp+=("$p")
+-	done
+-
+-	APPLIED_PATCHES=("${tmp[@]}")
+-}
+-
+-revert_patches() {
+-	local patches=("${APPLIED_PATCHES[@]}")
+-
+-	for (( i=${#patches[@]}-1 ; i>=0 ; i-- )) ; do
+-		revert_patch "${patches[$i]}"
+-	done
+-
+-	APPLIED_PATCHES=()
++	[[ -v PATCH_APPLIED ]] || return 0
++	patch -p1 -R --force --no-backup-if-mismatch -r /dev/null &> /dev/null < "$COMBINED_PATCH" || true
++	unset PATCH_APPLIED
+ }
+ 
+ do_init() {
+@@ -397,8 +361,6 @@ do_init() {
+ 	(( SHORT_CIRCUIT <= 1 )) && rm -rf "$TMP_DIR"
+ 	mkdir -p "$TMP_DIR"
+ 
+-	APPLIED_PATCHES=()
+-
+ 	[[ -x "$PREPARE_PATCH" ]] || die "can't find klp-prepare-patch"
+ 
+ 	validate_config
+@@ -806,10 +768,10 @@ if (( SHORT_CIRCUIT <= 1 )); then
+ fi
+ 
+ if (( SHORT_CIRCUIT <= 2 )); then
+-	apply_patch "$COMBINED_PATCH" "--silent"
++	apply_patch
+ 	status "Building patched kernel"
+ 	build_kernel "patched"
+-	revert_patches
++	revert_patch
+ 	status "Copying patched object files"
+ 	copy_patched_objects
+ fi
 
