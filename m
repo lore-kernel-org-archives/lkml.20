@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295633;
-	b=c2XmxToGFgsa0FK5K+xaDb/Xh28fQKA8FKQ1mof6CQ25RsWgPb7D4wsvG3CZ3auscHHP
-	 4a2Fk38afAzVA9nJgG/AbThs7KiRwJpoqDNfXHIKcrWCDlRowDRrSVYx0BhGVbbl4yVOx
-	 RreguUelGFsh5Je3jt+hz3yDTi0qmAdm63EATPxlGc557fbLYvCtCAYMJ9yV8GNkJYVod
-	 DkyG+04DPplg6B1avMvPCj+uApsEkDWGoqfmqbtOGoelrlRlJEOSZ6Bmg0Y0pmBTIVV6J
-	 A5/LcBgXJ4InTpOkeX9ULZsT/h/4CwETEEkJXQ+l71Li52sbHXBv9orh3dOS2JC4uXA==
+	t=1794295695;
+	b=xcQwZS/DosPwYC6pkIrPjLS28awrNTTDW61ZizT65x9f5qYaHlCbOfkq24AB8LNG7vGF
+	 I8RT1w+FnCeFYYMxnIXGsm4xvR0kr5nzwsgT92De662qDc9XlNsNlVpHSeY7jEbYsmork
+	 4fOrgCIjiRGgqeV2kT9y/vbF3nbSOH3zLEyOLQmW3PnUTFbpMsjWqLZKVY2XmrPxKYIuI
+	 ZtGrRWAtXliPKId9HGxmKWcy1oGm1inqzVzKLngBmhN2Iqbl7NNpzfUO3TNoRkmQknyC0
+	 gmd91XMaCsmLVBRYnrgvFzqcDRzTQcOxrlLVd2u+sA+k4armlMBOzy9Ui4kJ8Qv4XWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295633;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
-	 Message-Id:To:Cc:Subject:From:Content-Transfer-Encoding:In-Reply-To:
-	 References;
-	bh=Jlx3khHmYf11Kc5Nu+VRaLVD/aQQv854yonbfkQB8wE=;
-	b=bkCwc292Y/80o8IPzpyD25qoeiXOAUukQSf1GO0z6ozwC3WhT/GSyESL+sGaeiyIsP7P
-	 Bj8WR5PC/JlCZArkOfyiVTj9McUoAgNIrF9voDZCRnhsBfSk4E9avM6GJjxcyoj/HDx/M
-	 ksaV+l/cIh/olUY5fl6bTt3ttUljWBu7Esm3xih3DsQJc1wyXINTjICCelKXk6c0mJF9Q
-	 bFiaJ9QPBObvymb1j2j56pUtGrABQvgLO7RZ+2/rqcRM3MB8L+7KVHEcwgSYapfpeTJJU
-	 LZkxD/dcAEg22X6oY2DH1onjZxywUPACe6HZKCnsOMhYvGVMXebJTAd2K+i7O4k9zsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295695;
+	h=DMARC-Filter:DKIM-Signature:X-Virus-Scanned:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M4r2qj7P4QEx7t98vQMOBPu9orxS4AyICajawHUCaJE=;
+	b=hG30X1ijneadVl1JU5H2wV4rctWspJpzABhDbl2ZZyrbUDPS3LCYF3PLv96vDx5zao8W
+	 R3GMn9ih/S7JbaBdicKtpXZsy5dn+2rlra+Q4SS1AV8gsRb7drxTR1IERlWOyvFv1bMEL
+	 6Lfe48GVXCiZnZ6diiP1IXiwWUpmDt3jEeIMYZ7lCcyGe9QWDxMk3mn5BDn5q6JZ9+87L
+	 YVDD/rC7Jpu22Kft0UrydW+ajjaK3jr4IWn7Fo20+zbLv5QBD7xuAW3pJ/vTWxLVsiSi+
+	 rs3U5pyGTI2S9WhySHAaqSSQsVYQUpkXfBro8rT82t4KkngN5kQhKeIpB1DUS0RA3MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="k/0Z+8zO";
-	arc=none smtp.remote-ip=95.215.58.1
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	dmarc=pass header.from=tuxist.de;
+	spf=pass smtp.mailfrom=tuxist.de;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=CqRPeBZR;
+	arc=none smtp.remote-ip=173.212.254.19
+Received: from proxyplus-primary (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C74606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:27:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C74606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B08606A31C;
+	Tue, 10 Nov 2026 07:28:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11B08606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k/0Z+8zO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Jlx3khHmYf11Kc5Nu+VRaLVD/aQQv854yonbfkQB8wE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794295631; v=1; x=1794900431;
- b=k/0Z+8zOfgOMl6NA4BEOQ0qeKBitu62vgo/5NeIS+mb/A6RUrUwOXZPmtW9s+5rx3nfrmDwn
- djwe7x7oGcf5Wha9+pT2n+LPB2suxhSq1LcWHzUgxaprv1fE5tNqIIIemoTvB3BxKgDTfuGPbGV
- 1EEnxS0xRYXPtPrabdMqv9Jw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 354d447854a25624;
-	Tue, 10 Nov 2026 07:27:10 +0000
-X-Mizu-Trace-ID: 354d447854a25624
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=CqRPeBZR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxist.de; s=201705; h=from:to:subject:date:message-id; bh=M4r2qj7P4QEx7t98vQMOBPu9orxS4AyICajawHUCaJE=; b=CqRPeBZRTid32NIDO1Fo39yS3qxCXMTZoy8RV+och/8pD0WmpfZW6Ce4ilN6pQ/GzQ58wLz5I8hufLVplK3SxIxt4loiMZJq2TrS9Gkw3UxolFM6GJoY8FWSkTMLpPOxzllCgtv84EHi/PTBkGyTjPrHkRM4n1EmEBznFYzHxSp6Ktb/okJzYEwhd4FscwG1pF0jC0ZApDzurln6OT8SctaDL2GEq5v+EEBVcLyYTsntM316ec61U31yl9EFTrMSUt+lQfRJ/FBwOXIs/YvVCQ11EWs7nIVS+FpR58/ZLEsEBKbYEezlivgbZNbH7nLizVT8Vs8ckpDyqKuND3Wsog==
+Authentication-Results: proxyplus-primary; auth=pass smtp.auth=c0b31cfa-45fd-47d9-942d-1f6e173ca729
+X-Virus-Scanned: proxyplus-clamav builtin
+Received: from dibsi-vdi.intranet.tuxist.de ([94.31.110.105]) by proxyplus-primary (ProxyPlus) with ESMTPSA; Tue, 10 Nov 2026 07:27:35 +0000
+From: Jan Koester <jan.koester@tuxist.de>
+To: linkinjeon@kernel.org,
+	smfrench@gmail.com
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	brauner@kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 0/6] ksmbd: Windows SIDs for user and group ids
+Date: Tue, 10 Nov 2026 08:27:39 +0100
+Message-ID: <20261110072745.1546158-1-jan.koester@tuxist.de>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,92 +59,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 10 Nov 2026 07:27:07 +0000
-Message-Id: <DMRCPRZVNPGZ.3HTEULWLQ76YL@linux.dev>
-To: "Anup Patel" <anup@brainfault.org>
-Cc: "Troy Mitchell" <troy.mitchell@linux.dev>, "Thomas Gleixner"
- <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams"
- <clrkwllms@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, "Anup Patel"
- <apatel@ventanamicro.com>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-rt-devel@lists.linux.dev>
-Subject: Re: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
- work
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
-References: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
- <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
- <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi,
 
-On Wed Nov 4, 2026 at 9:59 AM +08, Troy Mitchell wrote:
-> On Tue Nov 3, 2026 at 11:52 PM +08, Anup Patel wrote:
-> > On Tue, Nov 3, 2026 at 1:34 PM Troy Mitchell <troy.mitchell@linux.dev> =
-wrote:
-> > >
-> > > Remote IMSIC state updates are deferred to a timer on the target CPU.
-> > > If that CPU has stopped its local clockevent and is waiting for a
-> > > broadcast interrupt, enabling the broadcast IRQ can depend on deliver=
-y
-> > > of that same interrupt. This can stall timer delivery when the broadc=
-ast
-> > > IRQ is unmasked or moved to another CPU, including during CPU hotplug=
-.
-> > >
-> > > Queue hard IRQ work to synchronize remote state independently of time=
-r
-> > > delivery. Keep synchronous updates on the local CPU and the timer ret=
-ry
-> > > for an unfinished vector move. Hard IRQ work also avoids depending on=
- a
-> > > schedulable worker when PREEMPT_RT is enabled.
-> >
-> > Using timer retry for local CPU and IRQ work queue for remote CPUs look=
-s
-> > strange. Why not use IRQ work queue even for local CPU ??
-> On the local CPU the sync runs synchronously, so there is nothing to
-> queue. The timer only retries an unfinished move, and by then the new
-> vector is already enabled, so it cannot stall on the broadcast IRQ.
-> Requeueing IRQ work from its own handler would just keep self-IPIing
-> until the old CPU catches up.
->
-> I'll add more comments and modify the commit body.
-That was not the whole story. The retry cannot stall, but it can be
-late. The local CPU is usually the one entering idle and taking the
-broadcast IRQ, and the timer it arms on itself there is not programmed
-because its tick is already stopped. Nothing tells it when the old CPU
-is done, so the move only completes on its next interrupt. On K3 with
-deep idle I see move windows of up to 0.5s.
+Windows names owners and ACL entries by SID; for a domain account that
+is its objectSid. ksmbd shows a file's owner, group and POSIX ACL
+entries as S-1-22 SIDs or as its server domain SID + uid, which a
+Windows client can't relate to the domain's accounts, and a SID a client
+sets for a domain account doesn't map back to an id at all. This series
+lets user space, which knows the directory, translate between ids and
+SIDs in both directions, for accounts that are logged in or not.
 
-So you are right that the timer should go, just not by requeueing on
-the local CPU. In v2 the old CPU will queue the IRQ work on the new CPU
-once it has released the old vector, and the retry timer will be
-removed. Move windows drop to about 100us. This will be a separate
-patch on top of this one.
+It applies on top of the UUID/GUID id RFC (uid_r v2,
+<cover.1792552161.git.jan.koester@tuxist.de>) and the NTLM pass-through
+series (<cover.1792345559.git.jan.koester@gmx.net>); the netlink events
+it adds follow theirs. Patches 1-3 are independent of uid_r in substance;
+I can rebase them onto mainline to go on their own if that is preferred.
 
---=20
-Troy Mitchell
+Changes since v1
+(https://lore.kernel.org/linux-cifs/cover.1793168155.git.jan.koester@tuxist.de/):
+- 4/6: the token's SIDs are compared with the ACEs' through a new
+  exported smb_sid_equal() next to compare_sids(), which also replaces
+  the private copy of the same comparison in idmap.c. compare_sids()
+  and its existing callers are unchanged, as some rely on its prefix
+  matching (Namjae).
+- 4/6: the SID mapping stays an on-demand lookup on a cache miss, as
+  discussed; no change there.
+- 4/6 also converts the smb_check_perm_dacl() caller in
+  smb2_handle_app_instance_id().
+- samba-technical dropped from Cc: it only takes mail from subscribers.
 
---ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb
-Content-Type: application/pgp-signature; name="signature.asc"
+1/6 ksmbd ignored the owner and group of a descriptor without a DACL,
+    which is what Windows sends to take ownership (and smbcacls -C/-G),
+    and still reported success.
 
------BEGIN PGP SIGNATURE-----
+2/6 After setting a POSIX ACL from a DACL, the following chmod used the
+    owning group's bits as the mask and left named entries without
+    effect.
 
-iI4EABYKADYWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavLHSxgcdHJveS5taXRj
-aGVsbEBsaW51eC5kZXYACgkQmAnvgPkzNC/vOAD/WlHPe+g+zvOYYsakVCaeWRP6
-QCEqDrKkV4pXEccSnO0BAI1kWUqD4O/X7XbtTiBVBJQEtacNA95laJHyT3AOg2EA
-=Q5bv
------END PGP SIGNATURE-----
+3/6 passes the domain of an NTLM login (NTLMSSP DomainName) to user
+    space in the formerly reserved room of the login request, so a user
+    space serving several domains can tell DOMAIN\user from OTHER\user.
 
---ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb--
+4/6 adds KSMBD_EVENT_SID_MAP_REQUEST/RESPONSE for a user space that sets
+    KSMBD_GLOBAL_FLAG_SID_MAP at startup: the SID of an id ksmbd shows,
+    the id of a domain SID a client sets. Answers are cached (mappings
+    5 minutes, "none" 1 minute, "couldn't say" never). Showing a
+    descriptor never fails on a missing mapping; setting one fails with
+    STATUS_NO_LOGON_SERVERS, STATUS_INVALID_OWNER or
+    STATUS_INVALID_PRIMARY_GROUP instead of being applied in part or
+    ignored. The session user also matches ACEs for its groups' SIDs,
+    like a Windows access token.
+
+5/6 shows classic users as S-1-22-1-<uid> instead of the per-server
+    domain SID + uid, and still takes the old form.
+
+6/6 documents it in Documentation/userspace-api/uid_r.rst.
+
+The user space side is sharedd (FenrirOS' ksmbd user space) with
+adconnect for the directory lookups.
+
+Thanks,
+Jan
+
+Jan Koester (6):
+  ksmbd: don't ignore the owner and group of a descriptor without a DACL
+  ksmbd: keep named ACL entries effective when a DACL sets a POSIX ACL
+  ksmbd: pass the domain of an NTLM login to user space
+  ksmbd: map user and group ids to Windows SIDs through user space
+  ksmbd: show classic users as S-1-22-1-<uid> on every server
+  Documentation: uid_r: describe ksmbd's SID mapping
+
+ Documentation/userspace-api/uid_r.rst |  18 +-
+ fs/smb/server/Makefile                |   2 +-
+ fs/smb/server/idmap.c                 | 315 +++++++++++++++++++++++++++++++++
+ fs/smb/server/idmap.h                 |  25 +++
+ fs/smb/server/ksmbd_netlink.h         |  62 ++++++-
+ fs/smb/server/mgmt/user_config.c      |  21 ++-
+ fs/smb/server/mgmt/user_config.h      |   7 +-
+ fs/smb/server/server.c                |   2 +
+ fs/smb/server/smb2pdu.c               |  37 +++-
+ fs/smb/server/smbacl.c                | 267 ++++++++++++++++++++++++----
+ fs/smb/server/smbacl.h                |  19 +-
+ fs/smb/server/transport_ipc.c         |  72 +++++++-
+ fs/smb/server/transport_ipc.h         |   5 +-
+ 13 files changed, 797 insertions(+), 55 deletions(-)
+ create mode 100644 fs/smb/server/idmap.c
+ create mode 100644 fs/smb/server/idmap.h
+
+-- 
+2.56.0
