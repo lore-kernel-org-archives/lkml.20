@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322057;
-	b=3n9T9yEQzE7ovupMnlXW09ulsrVG75I119wRRu8LwPfWx87i6voYqm5EsZH92fGlHPxQ
-	 6D77TEut8/1I9LjXgIn3inXpomELBv2UwcrGnZEkaaDn/t99mzJvMchAE+IxL8ToDs9xF
-	 FmCtQ5M+pJspAwHiIVDeTpTTai8T7a+czOJrbt2tl3OQw3eCOOo7D+dRFSPqWQBsiL0kg
-	 QR6G8fx/rGHbXhsn0ajhEq/NwoFQR8FHYvkfq4V74pi3nG+AFPaTCkcUdAVYgPJKVAqlZ
-	 ouD/8lrvGhURNyBVxil860UGhL1M/qPeNJw2D6RGE5UyyTX6iVBRyQxiQ+HVVCDQy+w==
+	t=1794322061;
+	b=qy9LNEo4QLWyVQwm8WYcnIFiJQ7ZXTVcN640Zn9Gx5jgJ3lXSeeRsfTkBBaJ+qVlFFFG
+	 P+O+G93X/gqfVIOCLSqJurhBH9kHRQadL2iHhX/aMH82wjuesp7WxcwJ7b7x8D6S7lBlC
+	 8qatVyMcCH6KJWTNyICh81P1XZNm3HQAI4m3rEZy/1P0medvdCtfApsv+AJpTr73m1Vbv
+	 lvqXQQa/HRWO+1jjY3RDBNLKoBYkQrBSj4nKCoJaqSi67kPnQr1aPb8I6k2Ml6Sssibpt
+	 L6+cWA6XLo3/kJ797WShoynKnBbvHjamM1+Hw27lSYHm/4b2mG7+MXV43roOybMqojg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322057;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
-	b=mN2TUCPnhty6I3UiQg8mbrglXm/8sY/aC7V1q01TLgy/f6/4WUNbqbGjBnYG1UlqdSg2
-	 avxr9INElE7MvWwQfI8UwJu4t+xEehATH0qneMqL9vDRBafs0ff3x1RY1ddrL/bQ+2w6Z
-	 TM2w7RjqsFaeLcSEY+3AtWklw064voOecLxdjrKVNpFoXZ5vilNpcl21wh62VJEAxSDNE
-	 TaGErqdFvCFXMxHDJga5M3lrcvtJ+0Ykr3QWtz6JP3OPn0lVbIEuUkFJWV4pj5Se2Te0D
-	 fhMoFFHFpxriwgl2KwDsiC2JwUauObryA8QOPt/fIG15q3Pq0XXl22zsAbMBfO1cLfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322061;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=KyXEQvhhvbYBNTKWxtCEeL0C1VjaH+7m5+BuhzMfTsA=;
+	b=XvLRtT+n5piY8hl9vgW8fADM5B0jdTIu31H2FeiByiXeeFb0zrZCbYQ18f3oeMX0MjBd
+	 5CsjxWjx/4o0TUDmSqAvax0xKN01fKF/6M3r6gC+8Z+Ht1ekof8YSx1f3VMoLgeHcax88
+	 JIBy9ngy3glQ2a0VsvtKDS415oMVcLxe42HKtcQWH/gY+6cq1wY41/VVp39akd6w/IORH
+	 A1z1wZGeRJVYCzKQ36XPMpdnzKKaB1qqHfVD9dvvLDubsDR9WQP2ZjA2ieRs656waxrCv
+	 bNq+RfDksAZmVkhNAYc3PbAJOYGIJB6M/O2ELD+LmGQTE0T9aSfCNginw81YD/oqRZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="lxQqOG7/";
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyoJY1r4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE0B606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE0B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00B760A2603
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=lxQqOG7/
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-490f38e9688so1680917f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:47:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794322054; x=1794926854; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
-        b=lxQqOG7/ja3vQA3ubzTTIQQXnhHfPS+0aO2YnX7lae2OVRufASV1+doafyCZBTaKNr
-         j+LVB34btw2XqAN9zO80UB04MX2wvWDSAaeIgqgzy09tS7K03khvWHJfsbJ3yE5fG7w1
-         V1Y2hyUUGrxfopBFqMceSlnDujFZCC7M4rETAOUwOtRgmyj9Dz2JqaENxkNpcTKvOCYJ
-         FOHoAKiTaLPRDLPo2MEqmTxxOSMRnZoSAp8o5sxRuz1y4ZYpS8h2JO2oPTuDHc8OyqpE
-         gdkdqPf5esqDTQBfb9CPFOQjrCFdLQE9c1uI9wEa2IRvjK9dLYjshru49vGfQPPYXEgg
-         yDoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322054; x=1794926854;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MO+byH4b4UJciY+YAuSXOwdIPo4Acff/hgRSnkQLcP4=;
-        b=DjzHMCVatAlzwBX35/SggLvSZPj3M2XWp7ZCt+CeLjL28b9KiECBL0OdiQMMkhkBCF
-         MI7NmQrSHqn0g3+Sbrvo23Ll1uuVzY/N0a4biHXwtioKUXVYILq5cca4w97ZywocFN/A
-         tDN/y2AY3NacfRYNqd3IE0Voc3PgHeojRixWkG3/IEOESM6kocn3ALSgQAm/I9CTJzLq
-         uEvn3Gex5KhHyYCWRiHPp5LOc0mbWGgEX64PA8Dp2shudZPER3REaTV8Xzh2E+9H5c0k
-         iNwqEt63TuLpLOoYqivf54Qlnslbg6dnYVigV6gI+sMf19c45pMoRF9kKotsC+IhVZGw
-         AMNw==
-X-Forwarded-Encrypted: i=1; AL+hErHhEXZE1bLFWqHgC9vnoWVKVvecH7G1YIFrjOY9vkfYZiojItJDq4MIplnBu7lBMOIeBooIy8gHUGtkMXc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9a1cF6oFy5JgCrN4r8ZlQ0NymLurdV2wK00Gp58Xb3rDajRP5a
-	TLmyB7+RJIui1TIlotR0Bf7bPfXAf//KTo28mGQMaD65d/5IOrn7DsM4aTyIiCk3vd8=
-X-Gm-Gg: AYBFou0s2iJot01aPYs9c5j93ZmFbIMA+FWc1D8c+69qAsDLoKYTyMX4IeYfAbmMuO+
-	Uq4WSaELqmA3zOgSza2S5MeyaE9k60yBTRDfFWkivkegBKgHpxUynzLgVhqiaD107OXAKjtYTM8
-	T7K+RUbunmbWIgWNc8z8DQM2wcpR4B0x8ANTlbQfhYLGUi+Kblw++XWx8e60vUMr8WYjjqRnLuv
-	XMfDsPToZNhiUyeniffCE23EvMDgaVmYWdbyD4HFJV1VEWjvmaPtlJunnNA6iDsXwjAfh7N1Ue7
-	baaB5ZO5dSt58FX6m5eWJ8411D6kmZUGDkFEEPSVv/QKDxblzQU8DorsyAqNnCt1EwC8UsglLtA
-	cX+MF+dKC2qJ+BFgrow2LPjtIS7CgeZ7StOhCvpbFSAl/ZW3IZ3784NSMX9kDVSBnDwH9sUu5f7
-	TYNl5De2Edo0X2LtHfMArqiz+Qh/y30zBhZQ9hNd1V9zYYdflzEpT8MQ7soDv0JoxDjKKLyuU2v
-	3h95ZPclB35ln1iNPc2mXZlVyO93HDZB1q4w6fzUPFVyVdfwMfMx1JuZI+gSWLdzcowtqt8R6Me
-	HPbEXp1c7ZYk2L8Rhr7womZfiJPNz1vNT7lTYzVD9fEgvf+U1/qNTdZHUQ==
-X-Received: by 2002:a05:6000:29cd:b0:492:aff5:da60 with SMTP id ffacd0b85a97d-4982e82c642mr3775637f8f.13.1794322054505;
-        Tue, 10 Nov 2026 06:47:34 -0800 (PST)
-Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm5253059f8f.55.2026.11.10.06.47.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:47:34 -0800 (PST)
-Message-ID: <7f613b00-bafa-4f4d-889b-4e37f5009b6f@baylibre.com>
-Date: Tue, 10 Nov 2026 15:47:33 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyoJY1r4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863A71F00904
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322060;
+	bh=KyXEQvhhvbYBNTKWxtCEeL0C1VjaH+7m5+BuhzMfTsA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hyoJY1r44Hfo4INbPlsaEsvNsouafEabkAWIXoqxv6HldmSF9wgi92NBH9mO/NXqP
+	 7ZS4K7tjFi+7pjONpCukTAKCDhaBwUkA8kiRvoF7yHAfX41EIIMigvkiei33wXssX4
+	 uzQcPUOQQDArgOnHRU0t5I19+eV/gAVW69lHZO3tXsRtYJiHFAebh44T5BS4Vwb0XR
+	 Q/NcabtsfRtTGr8c9BgE7i1Iq0aGQJao3PTPHEQQ1ApkndV6sueCbjGi1Zyuyh+FmF
+	 9DhXQUflheQoiGd84kl7TIBUb+cNwy6/tFV7HQXfEIyMoYTdNqW1ZVyHtB/wECog78
+	 Kv8e2HrnDUwbA==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1695188a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:47:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHNGXvWfA79s43L77i+QQ9FuHdbgz2UP9BoUbYNI97IxGYgFLJU5ex1gkoFk37pD7gS3qeGSeR6uyT3+SI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/d0fX5t6jMpPTiqbDS9ViRvF/CYYBAS3JRRUrOV3iCvlIOw/co
+	cCitkzK9/0XtLw44FUUE6FUO8B9v8EdvDvKgBGSyK6Z1ji1RG9p6jUpHxlU9+dsFFFiSifbW2gR
+	BI2KA59kaXN0D7l5snz3kYm46aRbR7pQ=
+X-Received: by 2002:aa7:d582:0:b0:6b4:16fb:b9ba with SMTP id
+ 4fb4d7f45d1cf-6b756b05b75mr1604589a12.36.1794322059147; Tue, 10 Nov 2026
+ 06:47:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,53 +59,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] pinctrl: scmi: report an off setting as not set
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
- Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-4-52d92843ad97@baylibre.com>
- <avL-4lquUqW9lUNh@pluto>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <avL-4lquUqW9lUNh@pluto>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
+ <20261109194144.22814-1-mike.michalo@gmail.com> <20261109194144.22814-3-mike.michalo@gmail.com>
+In-Reply-To: <20261109194144.22814-3-mike.michalo@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 10 Nov 2026 23:47:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9FgSFui-RLdywqyciBdxcU8_xZkfxap+qQK=evVqNYqA@mail.gmail.com>
+X-Gm-Features: AclHuK88dHBDDOu7sgSeVl2Sdnz_lJKjB9tYyeuwVC2odqDlQh0fO1-02CBID9E
+Message-ID: <CAKYAXd9FgSFui-RLdywqyciBdxcU8_xZkfxap+qQK=evVqNYqA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/6] ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Cc: stfrench@microsoft.com, icb@fastmail.org, senozhatsky@chromium.org, 
+	tom@talpey.com, chenxiaosong@chenxiaosong.com, ematsumiya@suse.de, 
+	lsahlber@redhat.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Cristian,
-
-On 11/10/26 12:24 PM, Cristian Marussi wrote:
-> On Fri, Oct 30, 2026 at 04:58:35PM +0100, Clément Le Goffic wrote:
->> A get of a setting that is on or off, the flags and the pulls, returned
->> 0 as a value, so every one of them showed as set on every pin. Return
->> -EINVAL when the platform answers 0, which is how pinconf reports a
->> setting that is not active.
->>
->> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl driver")
->> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
->> ---
-> 
-> LGTM.
-> Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
-
-I'll apply Andy remarks. Can I keep your Reviewed-by with those fixes?
-
-Best regards,
-Clément
-
+> +void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
+> +                        char *key, struct kvec *iov, int n_vec, char *sig)
+>  {
+>         struct aes_cmac_key cmac_key __cleanup(aes_cmac_zeroize_key);
+>         struct aes_cmac_ctx cmac_ctx;
+>         int i;
+>
+> +       if (signing_algorithm == SIGNING_ALG_HMAC_SHA256_LE) {
+> +               u8 mac[SHA256_DIGEST_SIZE];
+We can use SMB2_HMACSHA256_SIZE.
