@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.32
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.5
 ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794325286;
-	b=pN5TOaQdir+TBDM9cbpkQ8l2Q7H7WRAVbaK8S/RlW0e5BPgn50PiJaqIcpLJrB6Vj3kB
-	 gphC3zb1MaIv86R6apdJlnYEULIEAjiyqJ+87/0vWaRLZy8xIrEy+0/S2yOofqhcxgsLc
-	 og4PjGfQwFA4LRExSbtNoeXnx9hX2Rq5vBYOroOYVZYudMVA8H5f3VQuBP8jm5qYz663G
-	 GBr22EmqD6qxvRxSRuSUWqSyol9MzJKIdjTjuZBeI6atD7hERyFm8a1RmIz4BvRv3hbN2
-	 DFoycMlaDipoFCG/iZe3OGiinMK+gJhdxWE56y06CPFwBbEid1Rqq2Z7FWBaPnw9tIw==
+	b=pJJfEnn4PC5cBEzTdu3CMxbOhx45PS9lblfs27Ivs+FsMngt6FBPr8/8cSKbWqpqx+ic
+	 njGcNefSAcleSxys1QYemj4EsdSAQ5WQynP9eBa1Id7zMCtd811IOfXQ+UEIwOVqFZ8vT
+	 3CCvn3jM/JkbMC6g7j41PQmnpyNfyzfKCBtBcql2OPAmQFng0lKAP6tX6iUlO+0CU7mG1
+	 2XJujUzun9VElSeHzEGaEzm1kprvAxWs109vD7fT8VXuyf8Fp+I9WwBibVamyaVAN3nZt
+	 ICZ4Pp6EAjZG+Ll3fCweSVPSxkpS6U6VJlPcLryfwbwqxybWTLUipn2vAeH9EUYmROg==
 ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794325286;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
@@ -34,37 +34,37 @@ ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BleCIwvV5IJX57LAaUmGah+ltiG86jKokdddiP1ws4I=;
-	b=Gyw1xil4eWdSo9oMKHh6u67c4+zcSTzuYvW8srisBqQXC36MhNlo5WHTg1i5KTQvqBcU
-	 PTRyD3FqmTXYKKcXTFkE1YoH90Q/5QqN9BjmvD27azIhOO7TlWvQHbTkgjsfa2TRE5H2q
-	 ljF9U9/puQy+796kwuC+gUkSHQrbzl6hsADA/6yluBIo8JIJtLsrlL6kjNbo7ZYxsM6Mq
-	 CPlLAX4mn/nHjaFrcrxGnnhTybQrgTkdWhcBMty9C4GxzjCMbHN27Jdi6fv7hQyy+HItx
-	 +7RrgcaPrgTBlKEby6jH433Q+Svcfm07Bou6Tv53rR6jf77gstr9zrkCuTwdnSv1Tew==
+	bh=OPe9+0BZUtD/0aRSK2RoG13yuFMpVmWCIdgFGzMfoaU=;
+	b=gN2p2Oz66UxBHZD82PaS9GQr1quk5cikFQwBqwST2bHoJwPdPngtoe4HfuIDCUKwtIHL
+	 PmVw3L7aTQts/bMeC32otlJda8VaV240KiVgf5Ts8wRobMjWYyQGRvGxmDEhSBN+oJNbk
+	 Fw5/5t/s+HqxZT/5tnCgc7uUxk0nNAHxcUuXggZWOj75FnTrTMuoZ4KxPZl+mjkJpU4R6
+	 BOjCkvP93Zqsjm9dUCx3SX7G++radl5s6Ej5vC1hWxU/xW3Z1vGJbzaL0ZAxatyP4eEP/
+	 EyTvKwc45O7ZXE+7Q3ftfN9ZgUaIZtwwccBI3NrU5VODlhKSqPLikQkL/7csNL10W9A==
 ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=LkfEYA1+;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=LkfEYA1+;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.32
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013032.outbound.protection.outlook.com [40.107.162.32])
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=cWmaI2WO;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=cWmaI2WO;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.162.5
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013005.outbound.protection.outlook.com [40.107.162.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B4C60A2601;
-	Tue, 10 Nov 2026 15:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B4C60A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4BF60A2602
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4BF60A2602
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=LkfEYA1+;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=LkfEYA1+
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=cWmaI2WO;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=cWmaI2WO
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=aiOc+omLIRDL2K1ehpaNNfismoMmZ3eFZ4EzoW9HuRC6HeaNG8LS3pUb0noJ+SOwk6i2iykrQXvzIKykKa4PbjM2wZwTkIeEBbfpEvu7rEJ1PBf9hnOoOXYxWNJ6u8a41b4mU96W/OqRrlMDxKwcmGf0ghHypzPrbxYLLayQoCZugNupDhhxYR6JDCkMI8lxIQgCn6d7z3Wh3CCXMboIj1p86JP4gJUFWuCwnwmJqNl4KxaERcduD40YyUYI+E62qaNmDFSn0B0JgaWpYhaOdAsi5KM3ZUPZxMLILPG5J3yag5bb7lIwFzt0mlujCaEzq2OBdfApXKfTKadcVPnctw==
+ b=twPVBz8mjS7qWPER4PXhlerSb4+6wMgG3uz6UYCsUjsGoZxxWV9N6EPTyOBEB4Vh9W6b3tNn+Ez7s5Gchu/H4/AbMOa+XAF36GMMwCW5mlgaHcWUur4TEPtJQu3eTXIfzRDQsGyeO6ufC1+lBRvDW9atPIQwy5KtUZp2LVjTwyHTbiu/hFe7rcWHfLHr1xVlDygLNLso/4Yxlote/ELXvTouYGYXsV5msdzW+JDwb6X/jrrSU5jBMHlBAffAGpNtyadEm5p2bNeTqpxS+L5SvLeVkHARpxD0sMtXMloRYyG5/uRjCHc6n0OCySR9Y8/FS/wIaxe2EAFAcEgN5nwMSw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BleCIwvV5IJX57LAaUmGah+ltiG86jKokdddiP1ws4I=;
- b=NAqCefEgnkyH+qp1OywTRwBVoxmb9lQ5dvrV1+HMAwFQeLwN8k7yJJ3k8dsaYvj//VrjjFoARx+9h7/A1pNczE4RkIEXlU32pHlBYH5UYbNi5wnztL3v9uWt/B5IXih+YtfR3lZgV7SB3ltdxguUed54XgkwQiuAM9X9S8HdwRjLEReh8VI5Ab4C1kr9ITQjlVCl+pTXjQFbYJQUUixVbWt7N5K2c/ka8UFtiCmKDFEtkDiUbD2HJ66sM/dhVLQLenNaCx1/P+WgvJsD4y+nO3ngSad2KUQjq5ad2k2F9aYTH/SYt9fetknBDVWUPAf6yZcEjgTWxuGK9rAw/tFUnQ==
+ bh=OPe9+0BZUtD/0aRSK2RoG13yuFMpVmWCIdgFGzMfoaU=;
+ b=YL6x5bTy0s0E12RyvT0BIjukmcgZQlvinzeeclTIuWKbFIaW9DkPsQXrTxjsFyEX+rJY/hRKWV4aB5crJHDF2J3nXyOylil8WjBQb4qDI2+Jkxttvx4Z/TCT7DRbOJwUYUtG/fLapOcAUBqlt/gptNzGupJMH2Y6J6m6maV2fV9HLGXNVEfX8+seL1XJs7jBBdS4pZmoizqqdlLHkJgQuOR2n/HXwgx3HctYlMpet2jT+M8Oei7VxVLGupkPQF8S3JZGRoXgKfZh0CQa/IbQmx461bctoaVPju7Wx2SwA0aZ7m8OsPshZLS5ATHfqBCMw7XOCK32Rb55ZUsv7V6tRA==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -73,18 +73,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BleCIwvV5IJX57LAaUmGah+ltiG86jKokdddiP1ws4I=;
- b=LkfEYA1+2l1X2SsGYRe6m4KTPjly4x14j0ImwfKHrYCpYQox6rUq811J/xqwIGuE9SLUfoUeQsSRyLjFyOXL53jnqG4+HNz3iNaNO5Mi+RG3Ft7ryKgNac2pt30HF7/tbeAftEMVi50YC+R+RktSUCCEC8+s2JCwG0iMImuyq14=
-Received: from PAZP264CA0136.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::6)
- by AS8PR08MB6053.eurprd08.prod.outlook.com (2603:10a6:20b:292::14) with
+ bh=OPe9+0BZUtD/0aRSK2RoG13yuFMpVmWCIdgFGzMfoaU=;
+ b=cWmaI2WOmgnKKyyIQ2ZNJgAPOf4CVX2jUhdK+bVFgDLUPI0Y1s5gZGDm4dY+W4N7cbwaIJ+KHwCmL5LqJ9vYDCKBsvWM7yKLIrewOG1epiSZwfuUZeirM58t3ICel7Efe6+pVXsyqWIlm0g2GNu1rcB9bUsPXHNtk/hbVnmxRuA=
+Received: from PA7P264CA0091.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:348::10)
+ by AM9PR08MB6212.eurprd08.prod.outlook.com (2603:10a6:20b:285::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 15:41:18 +0000
-Received: from MI3PEPF00008496.eurprd03.prod.outlook.com
- (2603:10a6:102:1f8:cafe::30) by PAZP264CA0136.outlook.office365.com
- (2603:10a6:102:1f8::6) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:41:22 +0000
+Received: from MI3PEPF00008554.eurprd05.prod.outlook.com
+ (2603:10a6:102:348:cafe::27) by PA7P264CA0091.outlook.office365.com
+ (2603:10a6:102:348::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 15:41:18 +0000
+ Nov 2026 15:41:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -92,34 +92,34 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF00008496.mail.protection.outlook.com (10.167.240.181) with Microsoft
+ MI3PEPF00008554.mail.protection.outlook.com (10.167.240.8) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Tue, 10 Nov 2026 15:41:18 +0000
+ via Frontend Transport; Tue, 10 Nov 2026 15:41:21 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iaT1O+oV4nt+2rjcOcuVOHuKf+62s2PWlRZ1SURtVtGPBXDr3UhS7Xj3LtW40Yq294V1Lt9Dj4Af+BjqjoV7Uq48Zw2SZns4BBLxmiyzhjl2EXp9RSv2ybsHaZJs1jte2EfPwcl0VFknuTuCedprBxzXl0zOlspiCceVGIaFcCVafpB+WHHYQpVIa0K5zhwk64s843UCC76ovJXZ1oBXKFdw6wxmPxbSXcKSKq03RqB6CVq8ZfP4UNNlLE7YY51KDABim/To7UOeiROOaYUOFTWh0QBshLTAfkuCc7VudKyQt3KHDO+ZPNeLmt17jsTp+8x0Q4UMXmOjFtTf/ZmT0A==
+ b=F0ELq5ZCqrRVtOmo6S02wWcbNV6HZWMMxcjKGSfPQcBqfhWrxGuaO29jaoJCf1NAuViltvr4Ztw0x72kuGmHsC4Hk+bs4EBarexXtgQ1ojdjLW1dXIXTyULT2lbHCAfoTdENWdSxKMkZ79gMaMPhzUHF4OY5lxOl8tCPuiDCuLrHHj9BbdZ7Z7g3KswzIOsenpIYKB2do9kJZgwaB0v5R2BvW3ba+tmreJViUBetgdHcajFIs493Irkwzd0TnJqiwp2rVdgDnIixGWVa5w479KcBcceFgtlu4oTC8ZShCrKg7Xj7mRaQRgM3oN/kj6l2Rzp6UF4cbqcCg/X/8h3qbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BleCIwvV5IJX57LAaUmGah+ltiG86jKokdddiP1ws4I=;
- b=XiXdzAJ8t+Hn6tbgecIQqLNMYCarO91qj2SsCeHNlMa+/LziXmWHnVL9tfRAKPIRIWqUNgsPbGe/V2O0Qy0t5yEz1sZz4Y+V+CFyWI9VUx4pLQFnS17yK110qojHPBzyj5Yj/zTCKokT0nZ62c4fT6/ZmGzweY40MehbUz/kE0svHvHMVh3mnFblZ6GUw0FVOxmuvtt6VS9PKDWyQXGFX4pv1re5m/dxU7cPxhWd3l1z6wuW536aLjKgC6HUp32Pk+bvgZAFNZrx4LVN1kILwewRWBHoUdIC6wY35/IOiwjczl9w/eBDAD/rmLdwfLTjxokZ7v3siqICEjT0+I6F9g==
+ bh=OPe9+0BZUtD/0aRSK2RoG13yuFMpVmWCIdgFGzMfoaU=;
+ b=pFCaA8VdBG1oDQvGlOTux6HgrcYdHoJz30YSmWIHMkIGOaP0MQe+jwmIPbwJzi4LSgfJ/+UVVo5ZvpI7LD+a1YvGXOWGaKna5uBaaCOQRWTmFCrYA4cAu1P+NUETmHPpqxYeFx4wLls9zU9F8ToR68yUUEsw/aaeP9vf3RWqG8xhJnuf+uf36Bq7jSNdTJSQGVOf29GSOcdKAdmeVHGieO1qAWh6qNkZoGwRf0wnqlds6cTwBaP4LU7MC2NHpPeZqFWWMUAzJMTYWnVcnquvLI4Jp1ch2BqiiBq6rP7SR6WNgGukZbC6OVFPyaerJMxIOke82wB9sYiIX0Ly/EsDVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BleCIwvV5IJX57LAaUmGah+ltiG86jKokdddiP1ws4I=;
- b=LkfEYA1+2l1X2SsGYRe6m4KTPjly4x14j0ImwfKHrYCpYQox6rUq811J/xqwIGuE9SLUfoUeQsSRyLjFyOXL53jnqG4+HNz3iNaNO5Mi+RG3Ft7ryKgNac2pt30HF7/tbeAftEMVi50YC+R+RktSUCCEC8+s2JCwG0iMImuyq14=
+ bh=OPe9+0BZUtD/0aRSK2RoG13yuFMpVmWCIdgFGzMfoaU=;
+ b=cWmaI2WOmgnKKyyIQ2ZNJgAPOf4CVX2jUhdK+bVFgDLUPI0Y1s5gZGDm4dY+W4N7cbwaIJ+KHwCmL5LqJ9vYDCKBsvWM7yKLIrewOG1epiSZwfuUZeirM58t3ICel7Efe6+pVXsyqWIlm0g2GNu1rcB9bUsPXHNtk/hbVnmxRuA=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16) by AS8PR08MB10290.eurprd08.prod.outlook.com
  (2603:10a6:20b:63c::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 15:40:43 +0000
+ 2026 15:40:47 +0000
 Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
  ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 15:40:43 +0000
+ 15:40:47 +0000
 From: Karunika Choo <karunika.choo@arm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nd@arm.com,
@@ -127,25 +127,21 @@ Cc: nd@arm.com,
 	Steven Price <steven.price@arm.com>,
 	Liviu Dudau <liviu.dudau@arm.com>,
 	linux-kernel@vger.kernel.org,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 13/28] dt-bindings: gpu: panthor: Document panthor-arbitration bindings
-Date: Tue, 10 Nov 2026 15:38:34 +0000
-Message-ID: <20261110153907.3241978-14-karunika.choo@arm.com>
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2 14/28] drm/panthor: Add AM_PARTITION_CONTROL support
+Date: Tue, 10 Nov 2026 15:38:35 +0000
+Message-ID: <20261110153907.3241978-15-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110153907.3241978-1-karunika.choo@arm.com>
 References: <20261110153907.3241978-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0551.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:319::19) To MIWPR08MB568805.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0369.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::14) To MIWPR08MB568805.eurprd08.prod.outlook.com
  (2603:10a6:290:e9::16)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -157,284 +153,749 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-TrafficTypeDiagnostic:
-	MIWPR08MB568805:EE_|AS8PR08MB10290:EE_|MI3PEPF00008496:EE_|AS8PR08MB6053:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d6d12c0-e7c1-4845-890f-08df3f410ffe
+	MIWPR08MB568805:EE_|AS8PR08MB10290:EE_|MI3PEPF00008554:EE_|AM9PR08MB6212:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4cbc893-8bac-43ad-7791-08df3f4111d4
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|261022105027099003|5023799004|261102123227099003|261026121527099003|261022113327099003|56012099006|261026140227099003|261021121427099003|261022075727099003|261009223027099003|261028144727099003;
+ BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|261022105027099003|261102123227099003|261026121527099003|261009220027099003|261022113327099003|56012099006|261026140227099003|261021121427099003|261021123027099003|261009221227099003|261022075727099003|261009223027099003|261009223327099003|261009221727099003|261028144727099003;
 X-Microsoft-Antispam-Message-Info-Original:
- vgQTSlBXNAbSNAjVuEMWk1H530QuRttZAW5ba56hO4gjcraFyfUgaucaPnzM4Uyhqg4ioNQbq33lpsS9ISxq1Ia/W0L/6Za8USmafTfniP7K2+0kxnnl5GLDDN/JzmRp0rvN/fAoSEuLV5jXD88hKDXjggFB61ENNMRAnlBmLjyxiLeEgLAdPKlHI6Pw+L4i+WHKhaw2BXaxLxKt3XrGjVBn46zLH0feJ6g+RCbTDosC69tv7FvTJSXas9CcrmDfs2mUcM/dttOhOCua60S0dQ9YOu8ZaB0Rbq2hyc3KlACZSPXEct71WEvpVDHhLGzLh0e3ImwIBvXpNv2SBDmCg5QHZzjprZW8Zox6nRqXc27f8wbt7QIIpCjhHKx2mIZ5PLV+b6XnlSlcswNX11zE0QrMVHzP1/JXwptj5i19Gjh3OVYi2V4sAX18amX5+wHsdOdzAoN+nLMU0x10rCfva1pha/PWPyKtd5MGSLhLjaNAEih2YA3i9L7hGEbnjQDCv0itoNzR4WgWrTJfxhQtksuuwwNBp1ItiKxEEGa3uVw66deuaRpaNUWpYpiGqtZBdKmGUEH/3BYRuE4lts1thoAy+2u9PvR5eiyKSMMZ0IQ=
+ cGw1UHuelqHjXtxNNrSWyFgBCVjzU7I91GTq7CV8aMcjZaB97Lc9qHTbyVeR5uf4RF2LCA6NN5xCMnPU4KllAsCdSy+h9yd5DgvUTY8sJKMACe/8bKwloWwfLefFNOegA8egkqQSD14z5yQatxi/yOkitQojw5pQ5CU4h7mvNB6rXYdbXGQTQ7Qt1xFoV0nTnnykFp+Mdv177GmUSTWEAAT8pgImgzaUqeuXn2rhJWpIk3UBv7/LIkzY6f82gU2qEu5H6EmJFNDVQjTt6sJs1TCf9/lYjKmKqnjmA2N7bSU+1j64kt8+CnVi9G3IRpvtYcgjR7jZCBd048rBv9mge8FHN2pGtrfC4wMNclMwkSd2cZNKaEFvOkpOFcRlzFd0NWrOfueCXHn0aNoMsj9YI8ui9c3JEXb8b0T6PxWz0Bi4DnY64IAAjuIkhoe+2dEap74c51/DdngqLHyPLhVxOoFGOMRpW4Jw0gH+VPZT5JzMc+QmDbkPZktG7Uc+XZt1JHOOYgN6NxLC7biVsqCWzhvYYWlgmXRTlCCzJsGQyWDKJV7Wd2SHY4Uazmunc+F+gmRvYqiSFaolLehKOQDAFcjS4k5pOPiFgiCVFhVclaTrzdUYHxsj3MQrW4LKBktg
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIWPR08MB568805.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(261022105027099003)(5023799004)(261102123227099003)(261026121527099003)(261022113327099003)(56012099006)(261026140227099003)(261021121427099003)(261022075727099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIWPR08MB568805.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(261022105027099003)(261102123227099003)(261026121527099003)(261009220027099003)(261022113327099003)(56012099006)(261026140227099003)(261021121427099003)(261021123027099003)(261009221227099003)(261022075727099003)(261009223027099003)(261009223327099003)(261009221727099003)(261028144727099003);DIR:OUT;SFP:1101;
 X-Exchange-RoutingPolicyChecked:
- 4oxCAgmFcGNY9D9JgE1kZSmXCOb4zJ70qQCer8DWB5GXtVyA/taXJoevu/yOn5IAcIbDdDl3+ONbFjyEf4A4CXYgteWWAQ1GQ086CSjr/k/NvT0ULOKihgGsUEIQDUJ6lBtAYxhq9SVH1NZGo2KeLIbXtxUn0S71FlyMxSKOojuYbDlIY/yPXvrMtjenYxw4tp9IaV/4NHcAac7/DELMk9TwEL3jm7DK55qZhS3kwPF0AT0b7FNlTAUXMvL+AFfwqcY2BI5BuTmmINCnAyVv5xOhTi47v2dhvg7Un4qs1lDE2YrsbNPFpi8Cw4NZvXMQ7evVFCaD2vdj/9CbbEBy0g==
+ ZGux+VFeQgBKyRe0/CQR07pJQvI/j4MwdiJeDtLsKMz5jAIIVOKSJjLmWCQ0cHOi25eaR0UKM80RwasfR81/t6VHiczaulFa0G0Q6wA9yyLWZ9UfuOUy3mmjeqIeCPIhWIiKF1p3x9XlM4tyEB56IFoUNog7pMyjx2h6fLVjRDv2ImE9YGx/2UWYHzI3thkBqRCdg/NqEx0BPU7w9kCLFO0WbtFavp5GGHnWW0KxNl7jDH8Vii1Pkx1agM/e+JrGHUVZOWGJFG/D/pkwH698wZbcNwPMqjRu2uTjPSjTjBggEVW868EsGYDadrKKTOfDiaZEDJPRAfsI15V83+Kx0A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10290
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MI3PEPF00008496.eurprd03.prod.outlook.com
+ MI3PEPF00008554.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bd4dcc88-039f-48a5-c25d-08df3f40fb19
+	0773ea63-5968-44b0-9132-08df3f40fdbb
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|7416014|376014|35042699022|23010399003|14060799003|18002099003|22082099003|6133799003|10067099003|3023799007|13003099007|11063799006|5023799004|261026140227099003|261102123227099003|261009223027099003|56012099006|261022105027099003|261021121427099003|261022075727099003|261022113327099003|261026121527099003|261028144727099003;
+	BCL:0;ARA:13230040|35042699022|376014|23010399003|1800799024|82310400026|14060799003|36860700016|3023799007|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261009221227099003|261009223027099003|261009223327099003|261009221727099003|261009220027099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261022113327099003|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	M/AexcG+R2MIgz5eNNINN9vgX2G9ocm1mBYYV1GzI1r3IpfZ+OXY/vrZ7kpF3SFuQ2NHAKJl7dLRKizZEpGlXrbcA2ZB3Fvjtrc6EBi7PXLccskYbNTTJdFMlVACCe0FdWiTzAOf08gM+yd8K9Oaf6EEr29yk/uPa1RNXx+RoixIE+juM+4OtuF1tjYh60HDSIDmQxlqw3sqVdpgjRibJCNxhK8dcWOxEDZEJUNEBPTQFFDTKkY72SpdBhfapkGs+lVh8xiIg0LuHXqhCarOyhoiRf5Nx1zDCrhKeDgXJC0K2FJvz/aczipAmEtglRfbH3UNoQF46Ke3k2vJrHJPY7Ns6bUIsUPOlG/LBUlECII2Z8CCKqkWfNsmlUZllSGS6ygg/NEMV87AsIh4Tb2MMgaYe4ykY8++KHK/86FYY+FkpWYCIDNYsoPAWfRIDf092e2gVdqQ1AGlqeNe2Q8/9mHmjm5++W2emzOGZGVsnay4RpyBbqorPv1z5Kp+bTf8S1XYsCal18yvevt1zWHfOfnioZHWmIpul4QotoVDSwR86fSzubXVqRPo0FWELp97jIhjLz08VxuaTm8ktSvmnpHatt694GZd48xBE3Mt9j/lB45dDSZNbUOPkJO5QUT2EInyJXVCp0x6aRx6Wx4K1A==
+	89Qel6Q9tfeQKTXlAhQGy1/4lZC0r+bjf9q/G4CEetwecoTLNfuyqLcFbM45smIW+cR4G7NcIzY5NHalOPhcyG+g1mItL8ygDMipGYMUff4gMaJBvVsJEce691ZQu2qSPs4cwMR1KeRlyLamMu631Gr0YLF/zT34qG/r1nuCpZpGQ6wUMCpHzNnZC+0EefBTkiUYRpQigv5A0FeXE0hXbkZXvvQMCpUUZ04vxs4RYdXlRbNcbJxyh3AeefealNWHGKRFboCq6YvFb93FRtEx1lAOfRFwOIVAejw8dy+frr6KuVM1e8t67xo4FlAWE5TkVUAPDs2rDU2trkv1u3fNh/mpreF7gjwC0saw9tdZUzTWUQjMwvG5eZm8miXNmDqqKbCL4Lbg/AMDHTZQvAv/fPgLbSu8RV02a6y05XJaUIEMkvLNMKqscEFohjWM5ft2Wj8+dxC1OXru+M4+eWIXAQzyowc9P1RQK6fhc3iGbI76tfE/+Kx5fIdrvJh5hbdk23CXCJ19iAWEMjR6GDyKq1VR0FPSLT+IWmSs4dn6++HICErZ/cvqUWBqSg/owqBS1m5pmsRL22rYbW1OyxX5+Clzn6mX8VpxEiE45M6Vr8qolOzKfEb9bDABqivzFx/qgHi2Csa8k5WYO5TTJ5GmUBZ7Fy2goEg8C9frI6oIDzU=
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(7416014)(376014)(35042699022)(23010399003)(14060799003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(13003099007)(11063799006)(5023799004)(261026140227099003)(261102123227099003)(261009223027099003)(56012099006)(261022105027099003)(261021121427099003)(261022075727099003)(261022113327099003)(261026121527099003)(261028144727099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(376014)(23010399003)(1800799024)(82310400026)(14060799003)(36860700016)(3023799007)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261009221227099003)(261009223027099003)(261009223327099003)(261009221727099003)(261009220027099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261022113327099003)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Xup/krShyarn2hBEBuK/zGNHuu7CU7RpicU0OtBc69VXBSXOQoKcBDMFViEgXmAP7/+W60xw2MDyxyw2mGZ/sNRrvs32GgBQ9MCluf6F78MeyaiNO90SxaGvUosQ0UsoJuErTWa2CPeNz3WjOcqkfl6Xd0llaLk5TJxdSSvUHscnyKNQtoQ2lZbfV4Dd+gVCIQW9uJMG9rB/3WRn88VJbjIljsjLsoCF7f2RaUWneD/wqZ9gi4rwYmEOOOtgOymCdussSo23Pr1zv4q4UyuFPoM30YT/ltk+TjyX1UvlRLru6YgxUIwon+naE1eCWIB7+yDMVH2iQxohxb+Ku2ITA6dq3ZFf7Mq8ezMuvVZIp+PcSk63VXHXCxxExJzi1/AAi23iaJ72Jv0yClKJBQSW3SzqG3/pMvScVFMpUDIcJRgp/KvCkVJdPm4Js8SBv4qD
+	sKoJWNN9L3zw4JcsyOIf3jQiJCu11IkKD5upN11sSc9jKK79poEB1bP2QSoEqkR8u2gATZnqdiC3BNT5t4crypej7OgZ4oj6uZhb+NccwhY01ueq07wBJHEd5IqhsXU4NDV5ttP2tUBfjOIBFzAhDwYaTy0Y+zufX72KkfjHM/f4yn5iRBENezBh9d1CRzuAidbcQyTZTg+bntm2aGxRT+pKMaqy0gWW99eJtc96hLPKDFNzAXNc//+Ph2lcsvqPEwg2AsfIWuklepga8rP660/I23Tm3UruG3/XH/PRSlBhgZphHPbYEjw+X+AmFV+fGFn8RqPyb2Va4VfM3+N07nmGE+S39kMJtRpalmkED4jAUqxm9TP+L+XEhz1g5UHI5qK3lgpwGDCR3gki7ysLX5Te0774mnqfM4ev0hgA/0IKBV3OpRT3ONE2ZBaOk4K9
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:41:18.1708
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:41:21.2420
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6d12c0-e7c1-4845-890f-08df3f410ffe
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4cbc893-8bac-43ad-7791-08df3f4111d4
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008496.eurprd03.prod.outlook.com
+	MI3PEPF00008554.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6053
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6212
 
-Mali 5th-Gen AM GPUs expose partition-control and resource-group
-registers outside the GPU node.
+Mali v15 AM GPUs expose AM_PARTITION_CONTROL blocks to manage partition
+access windows.
 
-Document named register and interrupt resources in the arbitration node.
-The pcN and rgN names identify the hardware blocks.
+Add a Panthor arbitration platform driver and connect it to Kconfig and
+the build system.
 
-Document initial access-window and slice assignments in partition child
-nodes. The reg property identifies the partition-control index.
+Get partition-control register ranges and interrupts from named
+resources of the arbitration device. Use pcN names to identify
+partition-control blocks.
+
+Provide helpers to open, close and yield access windows.
 
 Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
 v2:
-- Return to using named register and interrupt arrays instead of
-  individual entries in child nodes.
-- Added register and interrupt entries for partition-capable GPUs
-  (rg[0-3], pc[0-3]).
-- Introduce partition nodes to define default access-window and slice
-  masks.
-- Point child Panthor device node to new arm,mali-gen5-am.yaml
-- Added partition-capable GPU example entry.
+- Revert child node discovery changes from v1 for register and
+  interrupts.
+- Fixes the following issues raised by sashiko:
+  - Use DEV_PM_OPS and MODULE_DEVICE_TABLE macros
+  - Change %llx to %pa for res.start
+  - Simplify and clean up runtime PM handling.
+  - Relax read_poll_timeout due to longer timeouts
+  - Extend pc->lock to state checks to serialize against state changes
+    triggered by partition commands.
+  - Remove implicit close during window_open.
+  - CLOSE_WINDOW during termination only when runtime PM is available.
+  - Add irq_lock to prevent MMIO access as a result of shared IRQ  while
+    GPU is powered off.
+  - Add check for allocation failure from devm_kasprintf.
+- Link: https://lore.kernel.org/all/20260922205802.1AC3E1F000FF@smtp.kernel.org/
+v1:
+- Updated DT structure and accompanying parsing to handle child nodes
+  instead of named platform resources.
+- Add child device population/depopulation.
+- Remove blocking waits on partition open, close and yield operations.
+- Adds YIELD_IDLE helper.
 
-v2:
-- Introduce assignment_lock to protect assignments allowing serialized
-  lookup without the need for READ_ONCE or WRITE_ONCE.
-- Add pending_aw_request_mask to track and replay pending requests
-  arriving before AW assignments are initialized.
+ drivers/gpu/drm/panthor/Kconfig               |  10 +
+ drivers/gpu/drm/panthor/Makefile              |   1 +
+ drivers/gpu/drm/panthor/arbitration/Makefile  |  13 +
+ .../panthor/arbitration/panthor_arbitration.h |  27 ++
+ .../arbitration/panthor_arbitration_drv.c     | 142 +++++++
+ .../arbitration/panthor_partition_control.c   | 379 ++++++++++++++++++
+ .../arbitration/panthor_partition_control.h   |  29 ++
+ 7 files changed, 601 insertions(+)
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/Makefile
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+ create mode 100644 drivers/gpu/drm/panthor/arbitration/panthor_partition_control.h
 
- .../gpu/arm,mali-gen5-am-arbitration.yaml     | 198 ++++++++++++++++++
- 1 file changed, 198 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
-
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
+diff --git a/drivers/gpu/drm/panthor/Kconfig b/drivers/gpu/drm/panthor/Kconfig
+index e17c93035e8b7..04b11b933290e 100644
+--- a/drivers/gpu/drm/panthor/Kconfig
++++ b/drivers/gpu/drm/panthor/Kconfig
+@@ -30,3 +30,13 @@ config DRM_PANTHOR_SYSTEM
+ 	  AM GPUs. This block provides GPU-wide control outside the main GPU
+ 	  register window, including reset handling and management of shared
+ 	  clock and regulator resources.
++
++config DRM_PANTHOR_ARBITRATION
++	tristate "HW-assisted virtualization for Mali 5th Gen AM GPUs"
++	depends on DRM_PANTHOR
++	depends on OF
++	help
++	  Enable support for the arbitration blocks found on Arm Mali 5th Gen
++	  AM GPUs. These blocks manage partition controls, resource groups and
++	  access-window scheduling, allowing multiple access windows to share
++	  GPU resources under hardware-assisted arbitration.
+diff --git a/drivers/gpu/drm/panthor/Makefile b/drivers/gpu/drm/panthor/Makefile
+index 488a5e03efbc4..5d4d0ae64952e 100644
+--- a/drivers/gpu/drm/panthor/Makefile
++++ b/drivers/gpu/drm/panthor/Makefile
+@@ -15,5 +15,6 @@ panthor-y := \
+ 
+ obj-$(CONFIG_DRM_PANTHOR) += panthor.o
+ obj-$(CONFIG_DRM_PANTHOR_SYSTEM) += system/
++obj-$(CONFIG_DRM_PANTHOR_ARBITRATION) += arbitration/
+ 
+ CFLAGS_panthor_gpu.o := -I$(src)
+diff --git a/drivers/gpu/drm/panthor/arbitration/Makefile b/drivers/gpu/drm/panthor/arbitration/Makefile
 new file mode 100644
-index 0000000000000..633dd823bd3d5
+index 0000000000000..b0b6b2e3edf8d
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.yaml
-@@ -0,0 +1,198 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++++ b/drivers/gpu/drm/panthor/arbitration/Makefile
+@@ -0,0 +1,13 @@
++# SPDX-License-Identifier: GPL-2.0 OR MIT
 +# Copyright 2026 ARM Limited. All rights reserved.
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am-arbitration.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: ARM Mali 5th-Gen GPU Arbitration Device
++obj-$(CONFIG_DRM_PANTHOR_ARBITRATION) += panthor_arbitration.o
++panthor_arbitration-y := \
++	panthor_arbitration_drv.o \
++	panthor_partition_control.o
 +
-+maintainers:
-+  - Liviu Dudau <liviu.dudau@arm.com>
-+  - Boris Brezillon <boris.brezillon@collabora.com>
++INCLUDES = \
++	-I$(src)/..
 +
-+description:
-+  The arbitration device manages GPU partition-control and resource-group
-+  blocks. Register and interrupt names pcN and rgN identify their hardware
-+  indices. Partition child nodes describe initial resource assignments,
-+  with reg identifying the partition-control index. Access-window and slice
-+  indices are global to the GPU, each resource may be assigned to at most one
-+  partition.
++ccflags-y += $(INCLUDES)
++subdir-ccflags-y += $(INCLUDES)
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
+new file mode 100644
+index 0000000000000..fc3610aefae29
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
 +
-+properties:
-+  compatible:
-+    const: arm,mali-gen5-am-arbitration
++#ifndef __PANTHOR_ARBITRATION_H__
++#define __PANTHOR_ARBITRATION_H__
 +
-+  reg:
-+    minItems: 2
-+    maxItems: 8
++#include <linux/ioport.h>
++#include <linux/fwnode.h>
 +
-+  reg-names:
-+    minItems: 2
-+    maxItems: 8
-+    items:
-+      enum: [pc0, pc1, pc2, pc3, rg0, rg1, rg2, rg3]
++struct device;
++struct panthor_partition_control;
 +
-+  interrupts:
-+    minItems: 2
-+    maxItems: 8
++#define AM_ARB_MAX_PC_COUNT			1
++#define AM_ARB_MAX_AW_COUNT			16
 +
-+  interrupt-names:
-+    minItems: 2
-+    maxItems: 8
-+    items:
-+      enum: [pc0, pc1, pc2, pc3, rg0, rg1, rg2, rg3]
++/**
++ * struct panthor_arbitration - Arbitration device
++ */
++struct panthor_arbitration {
++	/** @dev: Device pointer */
++	struct device *dev;
 +
-+  "#address-cells": true
-+  "#size-cells": true
-+  ranges: true
++	/** @pc: Pointer array to partition control data */
++	struct panthor_partition_control *pc[AM_ARB_MAX_PC_COUNT];
++};
 +
-+  partitions:
-+    type: object
-+    additionalProperties: false
++#endif
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
+new file mode 100644
+index 0000000000000..a27d24c3679fa
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
+@@ -0,0 +1,142 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++/* Copyright 2026 ARM Limited. All rights reserved. */
 +
-+    properties:
-+      "#address-cells":
-+        const: 1
-+      "#size-cells":
-+        const: 0
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/types.h>
++#include <linux/of_address.h>
++#include <linux/of.h>
 +
-+    required:
-+      - "#address-cells"
-+      - "#size-cells"
++#include "panthor_arbitration.h"
++#include "panthor_partition_control.h"
 +
-+    patternProperties:
-+      "^partition@[0-3]$":
-+        type: object
-+        additionalProperties: false
-+        description:
-+          Initial partition resource assignments.
++#define PANTHOR_PM_AUTOSUSPEND_DELAY_MS 100
 +
-+        properties:
-+          reg:
-+            items:
-+              - maximum: 3
-+            description: Partition control number.
++static int panthor_arbitration_runtime_suspend(struct device *dev)
++{
++	struct panthor_arbitration *adev = dev_get_drvdata(dev);
++	int ret = 0;
 +
-+          arm,access-window-mask:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            maximum: 0xffff
-+            default: 0
-+            description:
-+              Initial access window assignment mask. Bit N selects global
-+              access window ID N. Masks must be disjoint across partitions.
-+              If omitted on partitioning-capable GPUs, no access windows are
-+              assigned by default. Non-partitioning GPUs will have all AWs
-+              assigned to pc0 if value is 0 or not defined.
++	ret = panthor_partition_control_suspend(adev);
++	if (ret)
++		return ret;
 +
-+          arm,slice-mask:
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            maximum: 0xff
-+            default: 0
-+            description:
-+              Initial slice assignment mask. Bit N selects global slice ID N.
-+              Masks must be disjoint across partitions. If omitted, no
-+              partitions are created by default. This property is only valid for
-+              partition-capable GPUs.
++	return 0;
++}
 +
-+        required:
-+          - reg
++static int panthor_arbitration_runtime_resume(struct device *dev)
++{
++	struct panthor_arbitration *adev = dev_get_drvdata(dev);
++	int ret = 0;
 +
-+patternProperties:
-+  "^gpu@[0-9a-f]+$":
-+    $ref: arm,mali-gen5-am.yaml#
++	ret = panthor_partition_control_resume(adev);
++	if (ret)
++		return ret;
 +
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
++	return 0;
++}
 +
-+additionalProperties: false
++static int panthor_arbitration_probe(struct platform_device *pdev)
++{
++	struct panthor_arbitration *adev;
++	struct device *dev = &pdev->dev;
++	int ret;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
++	if (!pdev)
++		return -EINVAL;
 +
-+    gpu-arbitration@50000 {
-+      compatible = "arm,mali-gen5-am-arbitration";
-+      reg = <0x50000 0x10000>,
-+            <0xC0000 0x10000>;
-+      reg-names = "pc0", "rg0";
-+      interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH 0>,
-+                    <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH 0>;
-+      interrupt-names = "pc0", "rg0";
++	adev = devm_kzalloc(dev, sizeof(*adev), GFP_KERNEL);
++	if (!adev)
++		return -ENOMEM;
 +
-+      partitions {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	adev->dev = dev;
 +
-+        partition@0 {
-+            reg = <0x0>;
-+            arm,access-window-mask = <0xffff>;
-+        };
-+      };
-+    };
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
++	dev_set_drvdata(dev, adev);
 +
-+    gpu-arbitration@40000 {
-+      compatible = "arm,mali-gen5-am-arbitration";
-+      reg = <0x40000 0x10000>,
-+            <0x50000 0x10000>,
-+            <0xC0000 0x10000>;
-+      reg-names = "pc0", "pc1", "rg0";
-+      interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH 0>,
-+                    <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH 0>,
-+                    <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH 0>;
-+      interrupt-names = "pc0", "pc1", "rg0";
++	pm_runtime_enable(dev);
 +
-+      partitions {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		goto err_disable_pm;
 +
-+        partition@0 {
-+            reg = <0x0>;
-+            arm,access-window-mask = <0xf>;
-+            arm,slice-mask = <0x3>;
-+        };
-+        partition@1 {
-+            reg = <0x1>;
-+            arm,access-window-mask = <0xf0>;
-+            arm,slice-mask = <0xc>;
-+        };
-+      };
-+    };
++	ret = panthor_partition_control_init(adev);
++	if (ret)
++		goto err_term;
 +
-+    gpu-arbitration@60000 {
-+      compatible = "arm,mali-gen5-am-arbitration";
-+      reg = <0x60000 0x10000>,
-+            <0x70000 0x10000>,
-+            <0xD0000 0x10000>;
-+      reg-names = "pc2", "pc3", "rg1";
-+      interrupts = <GIC_SPI 95 IRQ_TYPE_LEVEL_HIGH 0>,
-+                    <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH 0>,
-+                    <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH 0>;
-+      interrupt-names = "pc2", "pc3", "rg1";
++	ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
++	if (ret)
++		goto err_depopulate;
 +
-+      partitions {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	pm_runtime_set_autosuspend_delay(dev, PANTHOR_PM_AUTOSUSPEND_DELAY_MS);
++	pm_runtime_use_autosuspend(dev);
 +
-+        partition@2 {
-+            reg = <0x2>;
-+            arm,access-window-mask = <0xf00>;
-+            arm,slice-mask = <0x30>;
-+        };
-+        partition@3 {
-+            reg = <0x3>;
-+            arm,access-window-mask = <0xf000>;
-+            arm,slice-mask = <0xc0>;
-+        };
-+      };
-+    };
++	pm_runtime_put_autosuspend(dev);
 +
-+...
++	return 0;
++
++err_depopulate:
++	of_platform_depopulate(dev);
++
++err_term:
++	panthor_partition_control_term(adev);
++	pm_runtime_put_sync_suspend(dev);
++
++err_disable_pm:
++	pm_runtime_disable(dev);
++	return ret;
++}
++
++static void panthor_arbitration_remove(struct platform_device *pdev)
++{
++	struct panthor_arbitration *adev = platform_get_drvdata(pdev);
++	int ret;
++
++	if (!adev)
++		return;
++
++	ret = pm_runtime_resume_and_get(adev->dev);
++	if (ret < 0)
++		dev_warn(adev->dev, "failed to resume during remove: %d", ret);
++
++	of_platform_depopulate(adev->dev);
++
++	pm_runtime_disable(adev->dev);
++
++	panthor_partition_control_term(adev);
++
++	if (ret >= 0)
++		pm_runtime_put_noidle(adev->dev);
++
++	pm_runtime_dont_use_autosuspend(adev->dev);
++	pm_runtime_set_suspended(adev->dev);
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(panthor_arbitration_pm_ops,
++				 panthor_arbitration_runtime_suspend,
++				 panthor_arbitration_runtime_resume,
++				 NULL);
++
++static const struct of_device_id panthor_arbitration_of_match[] = {
++	{ .compatible = "arm,mali-gen5-am-arbitration" },
++	{ /* Sentinel */ },
++};
++MODULE_DEVICE_TABLE(of, panthor_arbitration_of_match);
++
++static struct platform_driver panthor_arbitration_driver = {
++	.probe = panthor_arbitration_probe,
++	.remove = panthor_arbitration_remove,
++	.driver = {
++		.name = "panthor-arbitration",
++		.of_match_table = panthor_arbitration_of_match,
++		.pm = pm_ptr(&panthor_arbitration_pm_ops),
++	},
++};
++
++module_platform_driver(panthor_arbitration_driver);
++
++MODULE_AUTHOR("ARM Ltd.");
++MODULE_DESCRIPTION("Panthor HW-assisted virtualization Driver");
++MODULE_LICENSE("Dual MIT/GPL");
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+new file mode 100644
+index 0000000000000..330d0bf5fd375
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+@@ -0,0 +1,379 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++/* Copyright 2026 ARM Limited. All rights reserved. */
++
++#include <linux/bitfield.h>
++#include <linux/interrupt.h>
++#include <linux/iopoll.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/property.h>
++
++#include "panthor_arbitration.h"
++#include "panthor_device_io.h"
++#include "panthor_partition_control.h"
++
++#define AM_PART_IRQ_RAWSTAT			0x40
++#define AM_PART_IRQ_CLEAR			0x44
++#define AM_PART_IRQ_MASK			0x48
++#define AM_PART_IRQ_STATUS			0x4C
++#define   PART_RESET_DONE			BIT(3)
++#define   PART_INVALID_COMMAND			BIT(6)
++
++#define AM_PART_STATE				0x60
++#define   AM_PART_STATE_GET(x)			FIELD_GET(GENMASK(11, 8), x)
++#define     PART_STATE_RESET			0
++#define     PART_STATE_WINDOW_OPENING		1
++#define     PART_STATE_WINDOW_OPEN		7
++#define     PART_STATE_WINDOW_CLOSED		8
++#define   AM_PART_STATE_WINDOW_GET(x)		FIELD_GET(GENMASK(15, 12), x)
++
++#define AM_PART_COMMAND				0x100
++#define   AM_PART_SET_COMMAND(x)		FIELD_PREP(GENMASK(7, 0), x)
++#define     PART_CMD_YIELD_IDLE			0x10
++#define     PART_CMD_YIELD_NOW			0x11
++#define     PART_CMD_CLOSE_WINDOW		0x20
++#define     PART_CMD_OPEN_WINDOW		0x21
++#define   AM_PART_SET_WINDOW(x)			FIELD_PREP(GENMASK(11, 8), x)
++
++#define AW_UNASSIGNED				-1
++
++#define PART_CONTROL_IRQ_MASK \
++	(PART_RESET_DONE | PART_INVALID_COMMAND)
++
++#define PART_REG_POLL_SLEEP_US			10
++#define PART_STATE_TRANSITION_TIMEOUT_US	5000000
++
++/**
++ * struct panthor_partition_control - Partition control data
++ */
++struct panthor_partition_control {
++	/** @dev: Device pointer */
++	struct device *dev;
++
++	/** @name: Resource name */
++	char *name;
++
++	/** @iomem: CPU mapping of the partition control IOMEM region */
++	void __iomem *iomem;
++
++	/** @irq: IRQ number */
++	int irq;
++
++	/** @irq_lock: Lock protecting IRQ state. */
++	spinlock_t irq_lock;
++
++	/** @irq_suspended: Flag indicating if IRQ was suspended. */
++	bool irq_suspended;
++
++	/** @lock: Proctects partition control state data */
++	spinlock_t lock;
++
++	/** @current_aw: currently open access window */
++	int current_aw;
++
++	/** @closing: synchronous closing of the partition */
++	bool closing;
++};
++
++static void partition_irq_suspend(struct panthor_partition_control *pc)
++{
++	scoped_guard(spinlock_irqsave, &pc->irq_lock) {
++		pc->irq_suspended = true;
++
++		if (!pm_runtime_status_suspended(pc->dev))
++			gpu_write(pc->iomem, AM_PART_IRQ_MASK, 0);
++	}
++	synchronize_irq(pc->irq);
++}
++
++static void partition_irq_resume(struct panthor_partition_control *pc)
++{
++	guard(spinlock_irqsave)(&pc->irq_lock);
++	pc->irq_suspended = false;
++	gpu_write(pc->iomem, AM_PART_IRQ_MASK, PART_CONTROL_IRQ_MASK);
++}
++
++static u32 partition_state_get(struct panthor_partition_control *pc)
++{
++	const u32 state = gpu_read(pc->iomem, AM_PART_STATE);
++
++	return AM_PART_STATE_GET(state);
++}
++
++static u8 partition_aw_get(struct panthor_partition_control *pc)
++{
++	const u32 state = gpu_read(pc->iomem, AM_PART_STATE);
++
++	return AM_PART_STATE_WINDOW_GET(state);
++}
++
++static int partition_state_wait(struct panthor_partition_control *pc, u32 state)
++{
++	u32 partition_state;
++
++	return read_poll_timeout(partition_state_get, partition_state,
++				 partition_state == state,
++				 PART_REG_POLL_SLEEP_US,
++				 PART_STATE_TRANSITION_TIMEOUT_US,
++				 false, pc);
++}
++
++static int yield_now(struct panthor_partition_control *pc)
++{
++	guard(spinlock_irqsave)(&pc->lock);
++
++	if (partition_state_get(pc) == PART_STATE_RESET)
++		return 0;
++
++	if (partition_state_get(pc) != PART_STATE_WINDOW_OPEN)
++		return -EAGAIN;
++
++	gpu_write(pc->iomem, AM_PART_COMMAND,
++		  AM_PART_SET_COMMAND(PART_CMD_YIELD_NOW));
++
++	return 0;
++}
++
++static int yield_idle(struct panthor_partition_control *pc)
++{
++	guard(spinlock_irqsave)(&pc->lock);
++
++	if (partition_state_get(pc) == PART_STATE_RESET)
++		return 0;
++
++	if (partition_state_get(pc) != PART_STATE_WINDOW_OPEN)
++		return -EAGAIN;
++
++	gpu_write(pc->iomem, AM_PART_COMMAND,
++		  AM_PART_SET_COMMAND(PART_CMD_YIELD_IDLE));
++
++	return 0;
++}
++
++static int window_close(struct panthor_partition_control *pc)
++{
++	guard(spinlock_irqsave)(&pc->lock);
++
++	if (partition_state_get(pc) == PART_STATE_RESET)
++		return 0;
++
++	if (partition_state_get(pc) != PART_STATE_WINDOW_OPEN)
++		return -EAGAIN;
++
++	pc->closing = true;
++
++	gpu_write(pc->iomem, AM_PART_COMMAND,
++		  AM_PART_SET_COMMAND(PART_CMD_CLOSE_WINDOW));
++
++	return 0;
++}
++
++static int window_open(struct panthor_partition_control *pc, u8 aw_id)
++{
++	if (aw_id >= AM_ARB_MAX_AW_COUNT)
++		return -EINVAL;
++
++	guard(spinlock_irqsave)(&pc->lock);
++
++	if (partition_state_get(pc) == PART_STATE_WINDOW_OPEN) {
++		u8 cur_aw = partition_aw_get(pc);
++
++		if (cur_aw == aw_id)
++			return 0;
++
++		dev_warn(pc->dev,
++			 "%s: OPEN_WINDOW(%u): Already opened for aw=%u, state=%u. Closing...",
++			 pc->name, aw_id, cur_aw, partition_state_get(pc));
++
++		return -EBUSY;
++	}
++
++	gpu_write(pc->iomem, AM_PART_COMMAND,
++		  AM_PART_SET_COMMAND(PART_CMD_OPEN_WINDOW) | AM_PART_SET_WINDOW(aw_id));
++
++	pc->current_aw = aw_id;
++
++	return 0;
++}
++
++static void partition_handle_reset_done(struct panthor_partition_control *pc)
++{
++	scoped_guard(spinlock_irqsave, &pc->lock) {
++		pc->current_aw = AW_UNASSIGNED;
++
++		/* RESET_DONE from CLOSE_WINDOW */
++		if (pc->closing)
++			pc->closing = false;
++	}
++}
++
++static irqreturn_t partition_irq_raw_handler(int irq, void *data)
++{
++	struct panthor_partition_control *pc = data;
++	u32 status;
++
++	scoped_guard(spinlock_irqsave, &pc->irq_lock) {
++		if (pc->irq_suspended)
++			return IRQ_NONE;
++	}
++
++	status = gpu_read(pc->iomem, AM_PART_IRQ_STATUS);
++	if (!status)
++		return IRQ_NONE;
++
++	if (status & PART_RESET_DONE)
++		partition_handle_reset_done(pc);
++
++	if (status & PART_INVALID_COMMAND)
++		dev_warn(pc->dev, "%s: Invalid command", pc->name);
++
++	gpu_write(pc->iomem, AM_PART_IRQ_CLEAR, status);
++
++	return IRQ_HANDLED;
++}
++
++int panthor_partition_control_suspend(struct panthor_arbitration *adev)
++{
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_partition_control *pc = adev->pc[i];
++
++		if (!pc)
++			continue;
++
++		partition_irq_suspend(pc);
++	}
++
++	return 0;
++}
++
++int panthor_partition_control_resume(struct panthor_arbitration *adev)
++{
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_partition_control *pc = adev->pc[i];
++
++		if (!pc)
++			continue;
++
++		partition_irq_resume(pc);
++	}
++
++	return 0;
++}
++
++void panthor_partition_control_term(struct panthor_arbitration *adev)
++{
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		struct panthor_partition_control *pc = adev->pc[i];
++
++		if (!pc)
++			continue;
++
++		partition_irq_suspend(pc);
++
++		if (!pm_runtime_status_suspended(pc->dev))
++			if (!WARN_ON(window_close(pc) < 0))
++				WARN_ON(partition_state_wait(pc, PART_STATE_RESET));
++	}
++}
++
++static int partition_control_init(struct panthor_arbitration *adev, int i)
++{
++	struct panthor_partition_control *pc;
++	struct device *dev = adev->dev;
++	struct irq_data *irqdata;
++	struct resource *res;
++	void __iomem *iomem;
++	u32 irq_flags = 0;
++	char *name;
++	int irq;
++	int ret;
++
++	if (adev->pc[i])
++		return dev_warn_probe(dev, -ENODEV,
++				      "partition %u already present", i);
++
++	pc = devm_kzalloc(dev, sizeof(*pc), GFP_KERNEL);
++	if (!pc)
++		return -ENOMEM;
++
++	name = devm_kasprintf(dev, GFP_KERNEL, "pc%d", i);
++	if (!name)
++		return -ENOMEM;
++
++	res = platform_get_resource_byname(to_platform_device(dev),
++					   IORESOURCE_MEM, name);
++	if (!res)
++		return -ENODEV;
++
++	iomem = devm_ioremap_resource(dev, res);
++	if (IS_ERR(iomem))
++		return dev_err_probe(dev, PTR_ERR(iomem), "%s: Failed to ioremap", name);
++
++	pc->name = name;
++	pc->dev = dev;
++	pc->iomem = iomem;
++
++	spin_lock_init(&pc->irq_lock);
++	pc->irq_suspended = true;
++
++	spin_lock_init(&pc->lock);
++	pc->current_aw = AW_UNASSIGNED;
++
++	irq = platform_get_irq_byname(to_platform_device(dev), name);
++	if (irq < 0)
++		return irq;
++
++	pc->irq = irq;
++
++	irqdata = irq_get_irq_data(irq);
++	if (irqdata)
++		irq_flags = irqd_get_trigger_type(irqdata);
++
++	ret = devm_request_irq(
++		dev, irq, partition_irq_raw_handler, irq_flags | IRQF_SHARED,
++		devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), pc);
++	if (ret)
++		return ret;
++
++	adev->pc[i] = pc;
++
++	partition_irq_resume(pc);
++
++	return 0;
++}
++
++int panthor_partition_control_init(struct panthor_arbitration *adev)
++{
++
++	for (int i = 0; i < AM_ARB_MAX_PC_COUNT; i++) {
++		int ret = partition_control_init(adev, i);
++
++		if (ret == -ENODEV)
++			continue;
++
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++int panthor_partition_control_open_window(struct panthor_partition_control *pc, u8 aw_id)
++{
++	return window_open(pc, aw_id);
++}
++
++int panthor_partition_control_close_window(struct panthor_partition_control *pc)
++{
++	return window_close(pc);
++}
++
++int panthor_partition_control_yield_now(struct panthor_partition_control *pc)
++{
++	return yield_now(pc);
++}
++
++int panthor_partition_control_yield_idle(struct panthor_partition_control *pc)
++{
++	return yield_idle(pc);
++}
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.h b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.h
+new file mode 100644
+index 0000000000000..9a688d7bbdb1f
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.h
+@@ -0,0 +1,29 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
++
++#ifndef __PANTHOR_PARTITION_CONTROL_H__
++#define __PANTHOR_PARTITION_CONTROL_H__
++
++#include <linux/types.h>
++
++struct device;
++struct panthor_arbitration;
++struct panthor_partition_control;
++
++int panthor_partition_control_init(struct panthor_arbitration *adev);
++
++void panthor_partition_control_term(struct panthor_arbitration *adev);
++
++int panthor_partition_control_suspend(struct panthor_arbitration *adev);
++
++int panthor_partition_control_resume(struct panthor_arbitration *adev);
++
++int panthor_partition_control_open_window(struct panthor_partition_control *pc, u8 aw_id);
++
++int panthor_partition_control_close_window(struct panthor_partition_control *pc);
++
++int panthor_partition_control_yield_now(struct panthor_partition_control *pc);
++
++int panthor_partition_control_yield_idle(struct panthor_partition_control *pc);
++
++#endif
 -- 
 2.43.0
 
