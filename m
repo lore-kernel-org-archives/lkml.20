@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337799;
-	b=tbXDEVga1j8SxJeU2MKFhPxQuDhZitc5tMqOoqYJNc6dIZNxHHFOq26WnDrpnAlZ8qjd
-	 kqmbsR9taewhZSrz2bY8FLuSWkILCmrLHYOg2HopmtzAdq45au3krcF1Hefej4NN5F/0K
-	 qW7TOVRGodWwXXjJSIkH6NmdDvk7BgnAcLnLjLJCG0pr9irF+Cw1xciguDMVeDsFNqbzG
-	 wbPMGIQwq6HvlH2l5H9yhVK+fDf4+tQdou8W/XJD/6MyQSF+Nx71JIC+lHHg9IFDl9357
-	 hYMxww+hJ8wh0aa89Ghv7PtgVXWzkv1NLXHkwUgQu6SyCU2Yy5nYtgYpw7tQsLmE2QA==
+	t=1794337882;
+	b=bG2CsBjTYp4Qydwi33IOgbAJ26zoCMlUKzVPFJ5McSkwgDi8xK/aMz6Ns1ReS7gxlGBY
+	 e8JU9YamLKUQS/2hYuL5VCezt9/CzlcvMOBB0bGXt0RmgT668wtXsgsiJfZUhgBc3W36R
+	 LvHGhlVIydoj+uqZgFGuZaUo07pOCDFOTrwcGoCwFXT2S2dFhraG8qtLrfQccubQAEgpH
+	 XKwvlE+HC5HmcRqtNQbm7GX7ZeF/4FJjMRt7/3g4PsaeK7pSCvfO84EXCTIujQGxWnkoD
+	 TBw9qt0fneZjusC4V+RsaKq875zx06wqalsW1/emTKEpaACExut/iuvj8yA3fR3S4oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337882;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ooMQgbr/cid9Np9AOt8EZOiHcozOHCgOuAlmJBwsLqU=;
-	b=IxiEiMgFJaHxQU3IvFZlJtO4w2tk/OPmsbSKLk7OtZ4YzCSLtVOwWwBQAk344H8jVMGd
-	 N2ytEIC+nXPl3AqP6qQ1dcBNKHjzw4TEkgwO9KuonfThXhhLVCxbCCo0IgNvq40+dkYjP
-	 C9cGn9RFRxYzMRO2fg97HlRiA9qxfHWoux4G5LcAlUILWD3KInEWxe6cSMsqZroRWKGGq
-	 jazhhG8wyswQ3VcxJ6pPEpXSSrpkKET8+bZLrVhXtHsUuJWBk62vpZhrfcGdhZY418/P1
-	 iDfrmkeC1RjdcBAanAie8dHJntA9WG+urhzcy/FBr2YizJHnQFXK8ym9Wt4BTEjBytg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=XIGm2kAAxpVHsgl8rLVGtSNefegxgi/Yap4OiVfb9jQ=;
+	b=XQ4SnV/iWGsblQFN+0UYfhZ6Q5fAaA62gie+QIFQuQ21LHYJ38hUvzGksID2PzoouPJD
+	 UNvI7CDQ7rnSXa2wnKVa2vMg212iofyCWFAy54zxrd4CLRT0OIYSmxgbC0vecyJzPRkG1
+	 al+v+Pc7h2RbHC/UvaFr3dAgomgE0Wmb93l8Il7M27gETcjxW5zu/jlTyoGqjEMqlc1Hf
+	 rOhqSdtzHzhb4v3AlkQ82rhglyTiNB6y0/j4AMWkyt+eG2a1Zf1Bul6xFPm2DqENvKDB8
+	 cleFtDjtXwHP9E5wEB8m+5V9B83FbTYFIv7cFSbKIrTIo621aNbQjl3z9/z/Fyd+O7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I/0Wr5Mk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PymGmf2m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFF5606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674E4606A321;
+	Tue, 10 Nov 2026 19:11:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I/0Wr5Mk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9081F0089F;
-	Tue, 10 Nov 2026 19:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PymGmf2m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2CB1F008A1;
+	Tue, 10 Nov 2026 19:11:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337799;
-	bh=ooMQgbr/cid9Np9AOt8EZOiHcozOHCgOuAlmJBwsLqU=;
+	s=k20260515; t=1794337882;
+	bh=XIGm2kAAxpVHsgl8rLVGtSNefegxgi/Yap4OiVfb9jQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I/0Wr5MksLL9W7rJemxkrGsIAq81CuFPulq6SqedrfIz9l47Cc9XOwBlQIhg3Kb0A
-	 PanfpKM+qUA0tY7wda92a3K9gBLMN8frc2Yj9KwAXZ3mV007x22UXPytU6cvAjgB2s
-	 QdzrVXWzl1a7Y/FxKS7k2oWad1x7yS4uT0q7k7lj5H/m2ThxoSsaPfh3qctJEmz1MB
-	 NozXDZLc5qMGXbsBvOl9RY9yPheiTt7uZY7GKBODVvXnnC5AdLQtmcSdIxNqUFLtLa
-	 RAC+nhZrayuc/h+zHwYZnbYSirnKDmTFonJ7CU7fkjMqiylGxDvquL5MTSdje9Bkn3
-	 7tDT+hVGL8BYg==
-Date: Tue, 10 Nov 2026 19:09:53 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <avNrPKIoZ3JHiAjh@gremlin>
-References: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
- <20261110-khugepaged-latency-fix-v3-3-6eea743cf9a3@kernel.org>
+	b=PymGmf2mVPhJhqctWsPveAOhOEV9X65I+mS9VirXqxW4+XOogKbW3x60Q1MDPuLuD
+	 BBBkjK61t61k8l4f62sLzPXJg33M6iaAbI31wECJJleBC8wxcoLg1qJtkh+kLAa2y7
+	 xDJnaGUWMMRGA7Jk9B20RL63VZO8OJHPvORq6i8Tki4j9TAx6kUFq2GlQhRxWNi1WP
+	 SzJ6dFH895jVtFIbZrdXcW2J6oODS7G1ERypFC8P62C8P7dIFStASbZNXNKUBasHUZ
+	 RFr2JIStRF9Uf1m1NCxfJMByKjJe/9E4+G9ycRi+tKPvkymGc+BVJ4kh7oBvBJ7MbD
+	 z2SKORsQ0qB+g==
+Date: Tue, 10 Nov 2026 19:11:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: fixca <jaehoon1744@dankook.ac.kr>
+Cc: Vijendar.Mukunda@amd.com, shumingf@realtek.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/2] ASoC: amd: SoundWire audio for LG gram 16Z95U
+ (rt713 + rt1320), speaker still silent
+Message-ID: <14e136c1-431a-40d3-b9a0-a4b5f41f726e@sirena.org.uk>
+References: <20261110125459.3924-1-jaehoon1744@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,42 +58,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YYKW+HT9jAMWw2dC"
+Content-Disposition: inline
+In-Reply-To: <20261110125459.3924-1-jaehoon1744@gmail.com>
+X-Cookie: You can't take damsel here now.
+
+
+--YYKW+HT9jAMWw2dC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110-khugepaged-latency-fix-v3-3-6eea743cf9a3@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 05:19:13PM +0000, Lorenzo Stoakes (ARM) wrote:
-> khugepaged walks an mm's VMAs under the mmap read lock in
-> collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-> them if encountered.
->
-> It charges cc->progress 1 page against the /sys/.../pages_to_scan budget
-> when these are encountered, however only checking this budget once an
-> eligible PMD-spanning VMA is encountered.
->
-> It can therefore hold the mmap read lock for a long time if there are a
-> large number of ineligible VMAs present in an mm, over which time no mmap
-> write locks (and thus no VMA write locks) can be acquired.
->
-> Address this by checking whether the mmap lock is contended after 1-10
-> ms (depending on CONFIG_HZ), i.e. the granularity of jiffies. This is a
-> long time for a lock to be held, so is a reasonable compromise for
-> determining when best to do this.
+On Tue, Nov 10, 2026 at 09:54:27PM +0900, fixca wrote:
+> Hi,
+>=20
+> The 2026 LG gram 16 with AMD Ryzen AI 400 (16Z95U, ACP rev 0x72,
+> PCI SSID 1854:056c) has no internal audio on mainline: no sound card is
+> created. The same generation 15Z95U has been reported with identical
+> symptoms (https://github.com/CachyOS/distribution/issues/516).
 
-Oops I left this in from the previous approach :)
+This doesn't apply against current code, please check and resend.
 
-Replace with:
+--YYKW+HT9jAMWw2dC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	Address this by checking whether the mmap lock is contended after 1024
-	VMAs scanned. This was measured to take around ~100 us on a fast
-	machine, and given VMA eligibility checking is a light operation, it is
-	likely this will remain at the same order of magnitude for slower
-	machines.
+-----BEGIN PGP SIGNATURE-----
 
-	This therefore establishes a reasonable upper bound on how long a
-	contended mmap lock is held.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzbFUACgkQJNaLcl1U
+h9DgDgf5Aa48Ft2q8qW1SLCSPyNkc3HfSYCKIpyNaumSDn2Eirln9GBZgvgAOoSG
+Q3HqR/V4LQuISArHFZ2i2wbYL6zTPVQ6ORaReCqsKh+5RDiluPUqFDKLDch/svT5
+zWG398rkRhmezmjoUX5HIYocmAVT0pW/te6A8Q1ITxz4Hm3ftrr1IOLTrOKQ22Hz
+tDfy4HHL+EW0QRk9lPRaUjEaC5a6DFA7VybhYoQVNvH6hOp+dc96ryOeqFOyjJl7
+4zyt14L4bgx5alqb0gHQVJbHEQQrSshZfITEoV7LT3jWg8L0dsexOzQCbhlaECiz
+Cjn+poS3xPRMzqOBikdeMZiKyR5npw==
+=GPm0
+-----END PGP SIGNATURE-----
 
-Thanks! :)
-
---
-Cheers, Lorenzo
+--YYKW+HT9jAMWw2dC--
