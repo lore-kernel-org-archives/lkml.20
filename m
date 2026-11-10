@@ -1,106 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313534;
-	b=yVEv+AWKTLHrqxFOjhAio7/tHXAj7SKBZzaZtCl4jiptyjgeyn9ZTfHMK7euSZsN+wMb
-	 ye/Yzr5Rgc8iNp46HPdgv7/BHO/23tyG5dd+h9PPOKlazjAl5zdoVjvaE22qYFHLcByOv
-	 uzwYsFRhVCJvPSiOJt5lJxfO98Pf5s3krdCr1RTPiMF/a7nnyG4yHAqdZ0AEpiYnJb5uj
-	 AKdt1R6FD7l0BOnWKhIT+4DlweQE/jWfEJThQwsLr9pL9CJ8RT4025S+SEaZJ0c84GKfc
-	 3l8/GON2eH85L9DUA5K0gX4cj77vp4iP85Do3XdPCyv6FjpxDOI+/Ohon0mikDjRBAQ==
+	t=1794313536;
+	b=Slz9pHLSgfJDT+1dX4T4nZT+MIthv4+fCBkeM4R++VkbAvdS29UVHlnXw1rIW9zSZAMM
+	 XHHm5c/meI2nC/9XsEBQuPaawFl6j2DACsGfqUi4fYGkZdn9HI6j1IyvmWt57zzKg1ngJ
+	 h/zugw2FYEit68S5jjHYFdHNJ5508DSJEtMW4TI73J5FcePKaNMu927fpLaZzVmLpt358
+	 1wVbSPXLp/+p+3ipEBCyb2XRbB3dpIK/V/vcuW8GIqxzh+/HwmAeTIYAJrfM2bDOcSPYt
+	 EClQ1z4XCKFYNYcT2ITyE6ZaRlvwQnfsI1uKQumgj8TIz1xcWWhF+3YB4GfHuy643Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313534;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VQa/zF/czqRgBTE3EecGrylKNQt9LYXwl13l8Xprd24=;
-	b=b8w8CXvuhTrmeslW3a6cd7zIUkykn9AQxcuvOhRWwpE2t9tQ357K5YhqFgXBkpZ/FrLB
-	 x4dVIiei3T7NKM7AAV6J8LKb6VepjT7WFr3PUVbi4/HNc31WOmNb0zOKuw/0rQcqJ/xKU
-	 Vsimvgm2ZSxqWiDNWvPltMk6d6HZxOqwR4GRaKb6MfHAoF6ZY5zzzx6//S6tp76bG5MAz
-	 6PKwDnQSIQiEFOOQKR+S2euxykxEgAp4avqFNAZkzmWiM2//rvtpyYQsHBx6PvugJE+OY
-	 xhQw+HCpJKHvljJqxq1Oy0XvrikCvR4AT84ZjUNFYpvNeLFsvLZl3wvsO86bPN0vZiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313536;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
+	b=bm/4GTjkXfE+PK0RGXN4fZljO6A8yHcWyHwbhWp45n5Vsy58CQ6yxbAudx7fl77QyAfU
+	 rGVlFPd8M8Axgg8uN4VKLejYnCZJVErJXeOxofnXS+E8YA5xKWD2OpeuJi74Pb+e7f5O4
+	 f1OU/nX9UcRgK/Qnx2599t1IeNmf52KZw+fKuBlxV/3zj61fb0/U+hq9gxetk1MMVmOOf
+	 k/qDoKzX3MwfU+m3Gm6KLK1fJm1Dh/CDwzxe2uPhfBYmV1IFlUyyzfKpcvCIf4Sbb2sEp
+	 jZrvNgyEbSWfldaoi5jZSXalX86QITXJEfMvU/yrCdx3J9RedKba0wrYI5PMrC1busw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="gXlG/bcr";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=OZ5PTgUU;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915C8606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:25:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 915C8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E58B606A31C;
+	Tue, 10 Nov 2026 12:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E58B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gXlG/bcr;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=OZ5PTgUU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794313531;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VQa/zF/czqRgBTE3EecGrylKNQt9LYXwl13l8Xprd24=;
-	b=gXlG/bcrmVGPnJqhLR2SCNS7fXq8XE+l4PpmiwF6t4o/BkYVvcbswnBFB4xYOgqW7Ivh8U
-	0niTO3dE6umwzqqmFxDsW17uB9ENDjlvz2IwqFBa9jwMMVz6GfNJTc3KCHms+aVodNX1Mc
-	y0b5+tVlKdg/y4c9v92pSKLLVYoxgEw=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-634-uvFekjDtOLCO01qec_asSA-1; Tue, 10 Nov 2026 07:25:03 -0500
-X-MC-Unique: uvFekjDtOLCO01qec_asSA-1
-X-Mimecast-MFC-AGG-ID: uvFekjDtOLCO01qec_asSA_1794313502
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4ba078abd78so1169525e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:25:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794313502; x=1794918302; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VQa/zF/czqRgBTE3EecGrylKNQt9LYXwl13l8Xprd24=;
-        b=OZ5PTgUUrM/bCkP1D/FUAAlfZS3NzHyDd4Ak/fTk1dxj7r9esRupwQbuFptwyWTWTM
-         HmFsB3wa+Z9BcACzYh2q8cYDzIuD0MRqF4BQ+XxTFnWonPBhVcwwVvdEUATt2HR9QGsS
-         0gV0PYOvwiQmIb4fuEOVZcmRznMScEMw9hEW3zMtGHNkk2U3oeEjJDx4ITiB7k1jMVAs
-         rJSz/Bs6qu21SG+XZQk/Giv6yLd3PmIA7iMBexQ++qgOvaIejAy+3a5KOUXoaT52bHQ3
-         Ve+liNhvCYZwEGuQaqjHKN1rtzCFjC1pjxGmZcS4Nzv0/tdH3hiAc9kCsphoICbFhF3I
-         mWCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794313502; x=1794918302;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VQa/zF/czqRgBTE3EecGrylKNQt9LYXwl13l8Xprd24=;
-        b=VZ/eSPOq2hpPJwzYXq59iFyDQfISLnDuWUiQrTcCayh/VZs9nNhjKgXUVrrSZV1LS/
-         WF3v0EshhnLNvBDlAss0d8Q2LmePYlB5lJKMl3hvpUNq3/bYLegLVGokHtZlr0OQz2be
-         qDdZf76IXmDF+FGM6LsyH9N5OHTuPueXR7goLiFpQG3An6B6NcDD9VU7h2xsVLu2Lv/Q
-         mc/sQ5JHxzbLn7zLEovgUhN9fZOza+LGWC9m4NKpEe7RLtB0NwXG+dRDEjoqslQbh2Xd
-         2tGY9+zTYSYP+y9q/z7xwHgOUuGO/L/c3SRzhoEuzj/P8xQm8L7VbheWGU9ed9kugDKK
-         2WJQ==
-X-Forwarded-Encrypted: i=1; AL+hErG9ttn08Z1ivPn95TAo3FJQUKrRRxXmfiU+dWFiPszjtUU5JLK5SAggDhM1LDUNHyyEipgDmlXDdJq3haw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vuHMXG12GQlnkvQylFm7ORikdMbHa3nxRzMIA5AhuzwOhTiRC
-	TFjtZr+X21nSUiI9pJaskz0gRgrB8DiFB9v4iLJ4z/pK36b0T0tPCGABpHwNh/G5yCcspeNOUnM
-	nndKk2dtWLB5ydSO6bAAHg6GgA2vmX8PoRAbvt5qF6ljzlgRFbyFDkAf0mNCMIxk6+w==
-X-Gm-Gg: AYBFou3w/KKYMKIYHYXt+5+WoOB+ObT6jOhaLs5U0JClq/0AHciWNtPfjklPat28UP/
-	JARrt4UHvQ8Nln8FVbagqen3zPvo46PtmMAAeg8k4LPulBXAFLMxxduf6edhrjLVExELfBGIp3u
-	Qftpwmxp/X37Ug4ABLRr39xRss9E/FH+fnMt9WWQ+8dzcUht5RVzNoWgj3vMPtKyHsEm+nlDH2/
-	bhqHgXayUCqHljN2JsZ4sqQ0fLAf/4bCmpBCKvdTYEjuNHaCVY+jNLEl+EOGtVih+Fg8ehZPb67
-	WYv/IkZMOOchzyMJpYuCOz3pJAls1N9FH5eBGh2n9Hpc8J+68tfboVmBc357Fg/9Wc8ogSt+/Oj
-	XdDwQPeyastthKFFadddX8xr3iDOfPkKgnEE=
-X-Received: by 2002:a05:600d:82d3:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4ba0234ff73mr46627545e9.26.1794313501875;
-        Tue, 10 Nov 2026 04:25:01 -0800 (PST)
-X-Received: by 2002:a05:600d:82d3:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4ba0234ff73mr46626915e9.26.1794313501466;
-        Tue, 10 Nov 2026 04:25:01 -0800 (PST)
-Received: from [10.43.3.161] ([213.175.46.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c5b9sm4681271f8f.9.2026.11.10.04.24.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:24:59 -0800 (PST)
-Message-ID: <42c9a0b6-0828-42b6-ba9e-cd49fb9ef4bd@redhat.com>
-Date: Tue, 10 Nov 2026 13:24:58 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794313477;
+	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=SI4Wmh9iiZypCLWl2/XmG5ygxz0S3I5Z10l+nJIgGIVpILB4LN2UlWwSRzb31TfoQ
+	 x/B+HSOe+aDRdA5c9OzxJvq/SBnj3tP9j1rHR9EJEUjmEr5dxQvZON4ThYtB+Beu1H
+	 TBxAbaI6dNtJYDvkK+tHjnEdiyr/7dxfu37cS3GY=
+X-QQ-mid: zesmtpgz8t1794313460t52fdad64
+X-QQ-Originating-IP: 7YJuLs4em+I2CqTud3IbnSVjn7y41TF7S7cgnCx37EU=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 10 Nov 2026 20:24:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 10375027920850177401
+EX-QQ-RecipientCnt: 16
+From: raoxu <raoxu@uniontech.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	luiz.von.dentz@intel.com,
+	pengpeng@iscas.ac.cn,
+	pmenzel@molgen.mpg.de,
+	brgl@kernel.org,
+	u.kleine-koenig@baylibre.com,
+	lars@metafoo.de,
+	mike.looijmans@topic.nl,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org,
+	Joshua Crofts <crofts@kernel.org>
+Subject: [PATCH v3] iio: adc: ltc2471: Fix LTC2473 differential offset
+Date: Tue, 10 Nov 2026 20:24:14 +0800
+Message-ID: <B29B7229F9C3B748+20261110122414.373459-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,70 +80,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 08/10] dpll: zl3073x: update locking comments
-Content-Language: en-US
-To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Min Li <min.li@microchip.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- Grzegorz Nitka <grzegorz.nitka@intel.com>,
- Karol Kolacinski <karol.kolacinski@intel.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
-References: <20261106121005.1327603-1-ivecera@redhat.com>
- <20261106121005.1327603-9-ivecera@redhat.com>
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <20261106121005.1327603-9-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Nc4Sv39/e83WFeryTqrHNtJMOj01Y+f0ORTzGpEKG9K0/C7vSde8aTRX
+	y/qMc8n/tgq+FMlEVe/lRS9F0KkGjR3APk0ev9oxRLubtn3yqwsgYusnb8cVywJaE4UZvwV
+	i5E5xqio9BD2SAQA9BmhyHwIctS/G304cjq9Ompv9GKJgdwAHLT7J2BTpmJKcgknghVshgw
+	tkf5eFiuFk+CpFBnoshnkwle3c+keK+tQJIzLZbpiAH3VcUK/iSkdxgK+SG6ii+izKmNHoF
+	ulmGGT0f+0a7dYEWzI1I3AWepIao5fTPgXbVQWoho0de2byMm9OIKda7QMo8DkdXfzxk/A5
+	1+xquYHAlIXNwGmUJh33GCQmqD5ALlcMCbphGzXdiRVPcxET5YTlV0dRrbtdGagXSiS7Zy6
+	yR70M3Ec9jBLjTY+ZZsz04VWHgBAfbQRxdxKTUyg8vmIuSe8154gFZMvYewJnXUg2A88STa
+	jv0ddqh1t3FVg9TN+vYkH0kVdMcYhaqGZywYbEcIga/l4XuGiqiaNopkQEoztvzS58bbqv3
+	X3kZRDDRH+ywiABL53LcCmr9nf2g6PkkhqfKSw7f7TjW6tdITacG6LzVVOCIIcd25q4K1PP
+	baCGg3AIwvuHUdL8jdq++7xWjFSij+b/alWWX0dxd+Ct35wiuDcl5hr8x4NmwzxGZ96twF1
+	Xismda0KS0Ie09Pu7I9KswrbzhrOSbziulVOJQ5nT6L/GGQvUyK7+AqKY2zuYHNBaETd5UN
+	TadUTiXM2cq38YPRi8ul5RoyRWDcDCbh8w0oKywt/h46VNxODnr38k6+w+iIaAV+l/Q1RJV
+	go0t2TyLIhS5fLo3YYy3adv9TKUvE2N5nQXcACAs14e+EFjzrNw9YqbisSB2uu8/dTE3phq
+	t0OcPDPw6FWKf+EuBN9ISVASKVVXbHJ/IT4GWFUuYOtnTLejMSOKDmeIk5MUrmj9WP9xTNd
+	IDMT+p4Kw36e+p1Cbd27YC/1hl7cR+qQgFdP9/m+4C/gP652tXy+10VSmQmirXpmRuBf2Oo
+	QKXpkgkQx0SUUjhVtXqGegBCBtjX+PZOGz/poUvMQOvayUvoUmT+wS6IUnjpzpHUcdjQR38
+	fhES24ep8VKgzg0e8r1J/5oTLJNMnc/0+Nt8zPOgx2e
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
+From: Xu Rao <raoxu@uniontech.com>
 
+The LTC2473 reports its differential conversion result as an unsigned
+16-bit value spanning -VREF to +VREF. The IIO scale is consequently
+reported as 2 * VREF divided by 2^16.
 
-On 11/6/26 1:10 PM, Ivan Vecera wrote:
-> Callbacks are serialized by the DPLL core domain lock instead of dpll_lock.
-> All channels of a chip belong to one domain, so what the comments rely on
-> still holds.
-> 
-> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
-> ---
->   drivers/dpll/zl3073x/dpll.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-> index 1cdadb8e46fb2d..6e5e2bb41f55d6 100644
-> --- a/drivers/dpll/zl3073x/dpll.c
-> +++ b/drivers/dpll/zl3073x/dpll.c
-> @@ -349,9 +349,10 @@ zl3073x_dpll_input_pin_ref_sync_set(const struct dpll_pin *dpll_pin,
->   	if (rc)
->   		goto unlock;
->   
-> -	/* All code paths accessing per-channel reference priorities are
-> -	 * serialized by the subsystem dpll_lock, so it is safe to release
-> -	 * our lock here before iterating over the other channels.
-> +	/* All callbacks accessing per-channel reference priorities are
-> +	 * serialized by the DPLL core domain lock shared by all channels of
-> +	 * the chip, so it is safe to release our lock here before iterating
-> +	 * over the other channels.
->   	 */
->   	mutex_unlock(&zldpll->lock);
->   
-> @@ -2401,7 +2402,7 @@ zl3073x_dpll_changes_check(struct zl3073x_dpll *zldpll)
->   	mutex_unlock(&zldpll->lock);
->   
->   	/* Send notifications outside the lock to avoid ABBA deadlock
-> -	 * with dpll_lock taken by notification functions.
-> +	 * with the DPLL core domain lock taken by notification functions.
->   	 */
->   	if (dev_changed)
->   		dpll_device_change_ntf(zldpll->dpll_dev);
-Reviewed-by: Petr Oros <poros@redhat.com>
+IIO offsets are expressed in raw codes, but the driver currently returns
+-LTC2471_VREF, which is a millivolt value. This makes the processed
+reading incorrect: with a 1.25 V reference, the midpoint raw code is
+shifted by 1250 instead of 32768 codes.
 
+Return the raw-code offset so that the midpoint maps to 0 mV and the
+endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
+does not expose the offset attribute and is unaffected.
+
+Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+Changes in v3:
+- Add Reviewed-by tags from Nuno Sá and Joshua Crofts.
+- Move the AI assistance disclosure out of the commit message.
+- No code changes from v2.
+
+Changes in v2:
+- Replace the raw -32768 literal with the named LTC2473_DIFF_OFFSET
+  macro.
+
+The supplied fix was reviewed and this commit message prepared with
+OpenCode AI assistance.
+
+ drivers/iio/adc/ltc2471.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/adc/ltc2471.c b/drivers/iio/adc/ltc2471.c
+index 369af700969f..eb418c0fa732 100644
+--- a/drivers/iio/adc/ltc2471.c
++++ b/drivers/iio/adc/ltc2471.c
+@@ -25,6 +25,7 @@ struct ltc2471_data {
+
+ /* Reference voltage is 1.25V */
+ #define LTC2471_VREF 1250
++#define LTC2473_DIFF_OFFSET (-32768)
+
+ /* Read two bytes from the I2C bus to obtain the ADC result */
+ static int ltc2471_get_value(struct i2c_client *client)
+@@ -69,7 +70,7 @@ static int ltc2471_read_raw(struct iio_dev *indio_dev,
+
+ 	case IIO_CHAN_INFO_OFFSET:
+ 		/* Only differential chip has this property */
+-		*val = -LTC2471_VREF;
++		*val = LTC2473_DIFF_OFFSET;
+ 		return IIO_VAL_INT;
+
+ 	default:
+--
+2.50.1
