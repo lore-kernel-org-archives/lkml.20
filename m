@@ -1,131 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297240;
-	b=Mnd5c+YpYaDG8jEQwWrQedWsoZfliixpTObjSYeKaVWJB4W45mBtpwbELAkjP/v+kpqV
-	 sh/znMl2r6ERooF9dLZ4dzFQZZSCVPTLPJpODiOXTgc1tW+BakcziLFjyjhOrdPrgsZ/p
-	 VlxBQyI8Y8jGJM59buXNcnuC9rS6zqrz9yTyc6Isl4XhTP+ZJsbc5lhI7upqmm1mY+RDf
-	 sB1VtLEN7jtvwN9ZYd3sKvTegGBVLGmesOoGxWdQrH/jAGwwitwBfJD04OjHNAXqEO8bO
-	 CuCMCDsrx9o5hfeYqCucpw+4O/Bfx40E8aVT97ounIcXlcENHTMAm4OBx3a8l8nWXSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297240;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=k40nDh/DlGtTF2XbNI2TG8knC7Im/kFKhYdaLoOlitg=;
-	b=LRFFar2JK7Sq5BMwTlvqESsOWlAN3c5iNlAsAr47cPr0WMukwDLQWq588pIvgEhyBn3x
-	 hEaEVpVaXaUI+W73FhTRewomCMyqReteXrwRmpNjWLa35vi63b4kOdglV0VNmS9Qm+mUi
-	 WFr5vH2L4gzORn3/3KFyxTZCMgpsF9IgTsGBPEVvuLHPAnrU9LRlLx99/twMAgnlkKN5+
-	 W9jcZyF6HlnByXsOU4SQxC5RhjVrbp2xZ+9yq4cTYI0LYaFZZl9Ha0nvUvNpJeZy7SFYB
-	 Of03iAsDWx6TK6wDPO3Pg9+fTyk4VJyM5Vj2mQlW8e48KoaOj/HqgFA6+bmIcWfAlrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VDj1jSP6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QposB1Qj;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794297243;
+	b=sj0hUC/oZZrjMdIM2B/OcdOgqiVv1/r4Ox+TrciHtve0xEiQTEYYIIKYUqldqlLynCJa
+	 Ef7IW6/dJqZ6XnGldy2DB7n2u48Z1b94BZrwb0H8DJTbx5T3pjwyW6SvWWccbMmjXV+5x
+	 outIxcvurzJJlGr0JRSaQZYnOyeqpjr90ioGwFcUIiayhc2TxGNefu2Io0PtPTvciFfs6
+	 YgXBOFHcglKDSl5oKLqPKAxk2OpLSV1xnDXuaxhsX2UTuqxQyqZoFykO1Gyibf23TpBKK
+	 2lkNk4Ob7rW7UIwoYGnXsuuX7pNcgFpjChhIaBAVezo9e/aTdOVhnXuBdrZ2zf6Os7g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297243;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tRnQd2LIAHJZoonewpOl9i62ZvqjRvQNSGRPP0Ehga4=;
+	b=gA3fzWGhJ6kqDVe0vRLrvK8Lth0yDKf7ZpLQuFKaqw0T0W4NzD8rzN+pfArR+IPYvRmf
+	 4CJnpHK7RIO9UBPPYMQXri5CuvB1B3kIuSa8wgQH6JJKWfxeChegh1QuofWXYTKob/CY4
+	 /DbHNV0tJStTqXzLfRYJDaCw99KYMiC16cxO2BzLbBYtyUm366GLKW66zbSYjADr7jw7N
+	 K6ufAi/4nZOi6e0utkA6VKTFQIF6hz2Es2ImlrLseDPWVXVI4j/cp7eHBvQVUwnMJcwko
+	 ITqx5CXfcE9WOBDX7rVScAAX7OoIVFICFlnPeuSGj2Sgr0m/AWRwbyFy+iEuHaMMYGA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KR/ttua9";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16FB606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A16FB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906E7606A95B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:54:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906E7606A95B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VDj1jSP6;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QposB1Qj
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7kgw22779714
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:53:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=k40nDh/DlGtTF2XbNI2TG8kn
-	C7Im/kFKhYdaLoOlitg=; b=VDj1jSP6Kx57MAyoqGynoI6DZIi1eMpV4I3D5PCT
-	Y8OrPUOmNfA7IYtea0LpZf0cEdIq0RlZBDmBKI0uyVkPlON6WnPpLYW/xrzd4FLK
-	P9L70rL+NplPFkyaccPVHpf/CSQWIv9mLJBoKAZSZeTu9pv3GZFbak1yebUZ1YoD
-	vSQziQzMhn0HTPTv/cS/QsGpSllOKPNglnRfW8dlEtvuWEeaquMnmPjjKKOZv1U/
-	s4t0/e2SGPTd0hd5PLmafOz6SKBv8mfseWU1PL059TUanlLrqXiLDavzeJJ/HlQA
-	TCbmPiqRaY9Jr9jLceGVskvzhMaP/jPpSAUWKGw7SUhhpQ==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huy5d8126-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:53:58 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1a2af4c8cbaso1401074c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:53:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KR/ttua9
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5ee029fd76aso410385e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:54:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794297242; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aAymggtz/N6eMcPnlJbv7bpDFetkU+gai1QF+LPH8M+CDXYmSAEe/M+kB1ObZvAdBz
+         w0pm/S/oPfZxb32UdurXZqshNKvYxsNESPIZNvDaGbKVcnRmqnGbPzmDVMhwfYMWxa2e
+         VVxncSmwJuRWlyW5OerX37ILhvkzNQC8+PwmFfPUq1o33VO0eqX1/sdMUnEgcv2IXT8g
+         056ky3qC3foN3o+KQqDs3qNIVZRUft8ZezBZ7JzqiW4Uo0L6k8XMcbz7aapIeXD/6A9E
+         OYdWDC7HDIlwVJCFWZJPTyNw0sp5uoBB5B1TKhUt5ckC6d/tB7jJZbWZ1efmIQZzpk7F
+         CP8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tRnQd2LIAHJZoonewpOl9i62ZvqjRvQNSGRPP0Ehga4=;
+        fh=UldRcLzLC77UnsR+cOIVx221acOKRGdfSGPXRoGAggw=;
+        b=rhn2P7EMepihFCHxbcDaiKp+pvRN/X4lA583f0zigtrGy+ilA4boMNxaefDZY+z+p5
+         Jr4kn5tNd92OP1vgRAd13b3XpchJgy+HnI9cE5tRUUK9ZqZmVX3aPskMI/QUvr+iXbJg
+         VtQT1ANf48RourCxWkbO8Tahbl9L+u2efdJkQ8NhcFvtQ24HpFk9vvX1o/hnacCDHeva
+         1ZsYXU+0Y+UtJ1/vzg3ZtM+V1T5sUvLQJRYjpiX7OC393hPe2jvw7UmSx+HNijCZ7sKK
+         fWubkq0F3dT4lXEUvm8C/tTgrp5OGR2tVwD3YsU6eNhUZAkRAw5SgmLvvcjr/6+x1ULD
+         YHow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794297238; x=1794902038; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794297242; x=1794902042; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=k40nDh/DlGtTF2XbNI2TG8knC7Im/kFKhYdaLoOlitg=;
-        b=QposB1QjII3lL3fzvW6h4wIEP+05RkZ4QSU0mdx+ymeq/4PRw6t+oJhe9DJY69ZxfU
-         48wtFImqGKLrJvNs39fPvcqYWmVqpWdaKrJWgbbighTYM4nwAxNfaV66yD4KFwCYB5t0
-         7jQvDUxMVKy72GIZFVgviE0XItKeUJ/czqqPnlx1Y5WkJqxSzL2czgnoaFliTuldKf72
-         Ogxno8iBdGwIlBmXBnCZOUzsHrDktsRGfPkl9QCgsfVUKex+sdeH9KLIg8gk8vOTzhmS
-         sp+T/QtLm6zQ1b4r44SeqLC9mxkTDEjIE4kxJ7W5+j2cSFeESjrsgFu58a0P1WWhi0wT
-         AEUQ==
+        bh=tRnQd2LIAHJZoonewpOl9i62ZvqjRvQNSGRPP0Ehga4=;
+        b=KR/ttua9WVVtEV31IhwACzFjT/QUSzQb7hS5bfp6Hk/be6txNbSJyewt92CZTR3zYO
+         I1MUBS3/X7oQH971Iay8kcmo3nvdFu2pJ58dQ7j+VNNEwf82ukFKlAnvXDGVtP+CVktB
+         qAviX+/2agEGfaya918PKr/f3DJJWKqVF0EwrsiS0RZvvonXdKoG5aJG8rZkIN0iJuek
+         YOFpGxgy9m2/OmAUkJ5yxXQadkDAjiI2d9qLF7woUTR8lAjojBbUbHNFuX6Gm205/94r
+         eivXLSioxNCwDZEIO09v21ifl7z448SM5FSAAyfOIplhpdiSt+9fezWO19cOpWI+fB+Z
+         6jMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297238; x=1794902038;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794297242; x=1794902042;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k40nDh/DlGtTF2XbNI2TG8knC7Im/kFKhYdaLoOlitg=;
-        b=jMbkLkODpIgnN08NwEzmBDGBsJ7z4rQFDHGn7MtSEu4c7Bq1o3U/t4/bCe1XGipmek
-         I9midPylURxIzYazl2BePXlbzG4TvwuanIHs3ckM5c/SKlM3q+XxB+2NYz/AazzT7Nzd
-         18Aa3JRgBSeX0kLk/eUG40lYXluOF+y8deGTPP7vZHC2RcMNpQx1l2huDqWfw3QoYnqf
-         EQarA2bJBKCtddKLu6tXmKcdOSpAHkiW7m8EalxWL6kd4ydqE5fSoB6lsty1xBRmtEA6
-         LqI09vk6XoE2h8wForKdtIRVPnd5s/+ciVM15Fe4PLUiN1Qdrn2Y8iLbZ48IqZNBlCXs
-         2KgA==
-X-Forwarded-Encrypted: i=1; AL+hErF5kqlk5otgtK6M52QSSshXHoT68Cd//AZmctp/g9Aa/ZZ+TI/xMIdYZmQ64e3JPpcG29wrbQEHye7wuzs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FBiPwU3ez6/Yx2htf8jXvdevpl6CxOwrdl2ZKEgXVNAaNclDV
-	qRIAxOqi9lBVn1OckGy50eORc5Ze1ANBb0kQ4Zma3o2N1YUYnukpbsRkd/STRt1e5m+OKcVW1sd
-	o1QU2Ua2Lr9tETnQCcN/xY9n+ZbzHROIYQr9/xaq2gqktLsSkGT8NkhNo5rUbZM1QodU=
-X-Gm-Gg: AYBFou3dGIz6N5T78XWv6BYohaRNmbHHQbvnaHRtE00tCCCNkpbF6Xm7drf9SUMbljC
-	rqHX+XtwJHUEqBrBS6NF6h+iQ+OLoeDYIDzmC569ND6GniaWXKxBXwvRO9M1IolyNq6E30+WbHZ
-	Xx+wOnQXL4LJXqiqhgDHQ1us6/rqaQ3eNF3PosDndiS/tFlaHgTZTUdlc3xKOfdCjP+932iS3UP
-	0wpqAkhRBtPtYju3hEgwpQ6QgTrm6pxzmvvUtAJKUHhsFN8iszmz3AEyIJjl7jD6gJOZPGui4Dm
-	LdVtO9odl4dmV6ca4bN7czoMBm4KwCHU8HjrFqOZq7lWleefIEjxg05HmLQLRXF70dOrXwwbA3J
-	iH8ssJK0Cl+e9QRLFvaSnnnpZ7eFqefXyrN4bE4RkPRAispVgZIHa8LvKVqxFEcIUtIOvpYaoOC
-	sotReF2vfuTs9OFZqu9LC3JA==
-X-Received: by 2002:a05:7022:b052:20b0:191:ac4:55a7 with SMTP id a92af1059eb24-1b3b6025b98mr2771603c88.23.1794297238053;
-        Mon, 09 Nov 2026 23:53:58 -0800 (PST)
-X-Received: by 2002:a05:7022:b052:20b0:191:ac4:55a7 with SMTP id a92af1059eb24-1b3b6025b98mr2771573c88.23.1794297237340;
-        Mon, 09 Nov 2026 23:53:57 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm7259850c88.5.2026.11.09.23.53.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:53:56 -0800 (PST)
-Date: Mon, 9 Nov 2026 23:53:53 -0800
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Tapas Rana <tapas.rana@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Esteban Urrutia <esteuwu@proton.me>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
-        Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        prashanth.k@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] phy: qcom: carry live SS-link state without growing
- enum phy_mode
-Message-ID: <avLNkT-UPTsFeqsb@hu-petche-lv.qualcomm.com>
-References: <20261106082716.128968-1-tapas.rana@oss.qualcomm.com>
+        bh=tRnQd2LIAHJZoonewpOl9i62ZvqjRvQNSGRPP0Ehga4=;
+        b=MpoQa5ojrJchVS1ELJljekPEV5msbCuOVpXA4OiaDgNKglqbLwF3dXegeY4IQaMTnx
+         /JmAE8NZX9n4M79EoUP1McKVnaPN0PDrmZFMf+PtPJUUIvVicS/JK3opNXDChSgKybzp
+         IzvsbJRwghKp8ekx3cpUsYETZrRyXjkvO94wjagSfJ1hHoO4PHBoY6TXpESSDF3Fsbp7
+         TXDuzdOwBNNBZev+41jES2XiZAVcopv347TYzUdKY4HcEQLjyDfIFSrwfRU53fywmhO8
+         nZ3iQsLmqy1cGAzl3ksb9MRG9vCQBS4Ku9JEDb8rVZcqtYk6NvT8AKEZ6LNVAiURj9ea
+         hWdQ==
+X-Forwarded-Encrypted: i=1; AL+hErHKSw4dwrI+n7lptWPxA9K6e1cUz/JU7+xMUigsEXWjwBvceIJUyxPoFNJogPB/uqw7j0RrD+fUuHlJfVU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JVGFG/VWaIcu3K2ieSG+93k52wMtRWNbypDxUgYJZV5HA3d+N
+	HKTYF/tm9LpdulRp+7t9kv9Y89uHKhEuqp7Pa/vFNEzGLo25VrA35+6PGm0Boc6SsjjKb5pUq4f
+	XQBAmTIlnjbYT2G5UVd+6AI9T20l+oWY=
+X-Gm-Gg: AYBFou0CW3jTUyieIy/StV24U4LtNCXMyzJbd53z7q1/5hV3D5/CQ1tEfaA02Q0ffNV
+	Lbh2YMTDZ1UGoBJmVB69d7A284OJ6POdO/9+VqpfyyglMEs/52R+MAs1TkwNVaTlYEBCwXkL3md
+	7VhqizP8daMKIxteqqG/hkg+EgUdA6sCTvg7STPlOa/H9LfuMJ7m+t6+bPfPLHNDMrhf60bOfVF
+	HR7EkQXAtB6FYWN+CbV/wZeKHixH3jjFQjy1neGKmBDQBH7EPiC5jMl4IKT22KjIgscMv4jITam
+	6G66zBaBtEVlU80IZYci3jE12U04TRIhGf4bG1XPmWgIezB+cnOUwxJMREPIPDgPQkyG4kPLJQP
+	YG59oi6mOW3mGjIUqIWg6yDuKAQ/GA2esVsFus/yLL0vlXM9BPCkqRpIxnztpqx+rYXTYNORMb2
+	Qu8u1a1SqYaJZDuqU=
+X-Received: by 2002:a05:6122:4902:b0:5de:ee96:75b with SMTP id
+ 71dfb90a1353d-5ee0d0dd877mr666952e0c.12.1794297242226; Mon, 09 Nov 2026
+ 23:54:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,110 +105,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106082716.128968-1-tapas.rana@oss.qualcomm.com>
-X-Proofpoint-GUID: LoNL8oJoI2NdE9lecR6twNiwro6hwoPv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzMSBTYWx0ZWRfX5EzL25SG1q2Q
- 3O7hGzRT1NPbie3Tfw1ah6BRlQrAxUUxNGLBxkaerHa1HtyNPn0IsJnrdQ7Jivj+HPSfwEMfHKE
- k/8ln38zkEDM4HqWSR0nFG3f7LQwBBs=
-X-Authority-Analysis: v=2.4 cv=d+9gWhjE c=1 sm=1 tr=0 ts=6af2cd96 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=8fdUJlHZo7_b61wjJHwA:9 a=CjuIK1q_8ugA:10
- a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-ORIG-GUID: LoNL8oJoI2NdE9lecR6twNiwro6hwoPv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzMSBTYWx0ZWRfX22hzTXVgUm/2
- 6G7lOlwU0GJrpmcPoMYwbZDa23KEclIbuFW8laRK7VtPFlgFr34ycDT2vfy+uPFxsd/6xSyIBHB
- PbhjTrehOLLbrRht/zTDU3kmFwlMlOjSGM9cDJaICGcwyNeK9tkR9iwtF+iahHCB4M6KmuqP2ru
- jlulapNtTqhrq06cFbFQyi8Xp5UcOdT3CcpT7V3alz1QsRp17XXAHmYz9SWGwabV+LFo+MfMZPU
- MSXu8c7ZlLDIAR+s0IireuVcUnlkYBekepCWTXUPIC6DYPPfi6/hwBePo2XeF/FJ63nraLOeDTx
- krBH3wVS8h6Bgc0GYCoInghFLOvdOOOoDI2qwb2eGibPAnT95DRC6pxP2dZVAoefP/U7sff2QKG
- nwUVL8u2UCVT/x3XLvu8Z9M46EEqmpHErUWLzfKwpiz8Lmnbot0rCGNUmbsVGfV0j0QLLKmYDBf
- efS5THeUPSpCdG0bTZw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100031
+References: <CAABLQ8qdSC1r=-et0y6qnEjNE-FCvoT8wxbo6R9vmW5=bUOSgA@mail.gmail.com>
+ <b7428de0-c009-45a3-a2c8-0722ed7bce6e@app.fastmail.com>
+In-Reply-To: <b7428de0-c009-45a3-a2c8-0722ed7bce6e@app.fastmail.com>
+From: qvkap <qvkapp@gmail.com>
+Date: Tue, 10 Nov 2026 10:53:45 +0300
+X-Gm-Features: AclHuK9ctTwCxK72RVhcE_CebgxLAWqeNM-n7dc1E4dE3ZDjJNTKTbGvKZcSQvw
+Message-ID: <CAABLQ8qu5Wk0JpQwbSvNdQ_SWOtqHGA6HcQ_+xg013EcxxBK+A@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86: ideapad-laptop: add no_rfkill quirk for
+ IdeaPad Slim 3 16IRH10
+To: Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Ike Panhc <ikepanhc@gmail.com>, 
+	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-11-06 13:57:13, Tapas Rana wrote:
-> QMP PHY drivers always enable receiver detection (ARCVR_DTCT_EN) in
-> autonomous mode, and additionally enable LFPS detection (ALFPS_DTCT_EN)
-> when a SuperSpeed link is present; otherwise they fall back to
-> receiver-detect event selection (ARCVR_DTCT_EVENT_SEL). This choice is
-> made by comparing phy_mode against
-> PHY_MODE_USB_HOST_SS/PHY_MODE_USB_DEVICE_SS. However, dwc3 core only
-> calls phy_set_mode()/phy_set_mode_ext() with the base
-> PHY_MODE_USB_HOST or PHY_MODE_USB_DEVICE, never the _SS/_HS/_FS/_LS
-> submodes. As a result, the comparison is always false and the PHY
-> always falls back to ARCVR_DTCT_EVENT_SEL, the legacy USB2
-> receiver-detect path, regardless of actual link state.
-> 
-> Add a dedicated qcom_usb_ss_state submode and carry it through the
-> generic submode argument phy_set_mode_ext() already defines for this
-> purpose, instead of adding more values to the already-overloaded
-> phy_mode USB host/device submode list.
-> 
-> Patch 1 adds the shared enum qcom_usb_ss_state (UNKNOWN/PRESENT/
-> ABSENT) as the submode contract. Patch 2 makes
-> phy-qcom-qmp-combo.c switch on it instead of on phy_mode. Patch 3
-> makes dwc3-qcom.c sample live SuperSpeed child-device presence at
-> suspend entry and pass it down.
-> 
-> The contract is intentionally generic so phy-qcom-qmp-usb.c can adopt
-> it the same way for the gadget-side case in a follow-up series,
-> without a second mechanism.
-> 
-> Tested on an x1e80100 CRD. On a host port with a SuperSpeed hub
-> attached, suspended the system and then connected a SuperSpeed USB
-> pendrive to the hub; confirmed ALFPS_DTCT_EN is set instead of the
-> legacy ARCVR_DTCT_EVENT_SEL mask. Repeated the same sequence on the
-> USB-OTG capable port with the same result. As a cross-check, repeated
-> both suspend scenarios with a High-Speed-only pendrive attached, and
-> again with nothing attached, and confirmed the PHY falls back to
-> ARCVR_DTCT_EVENT_SEL in both cases, as expected when no SuperSpeed
-> device is present.
-> 
-> This series spans both the generic PHY framework tree and the USB/DWC3
-> tree: patch 1 adds a new header, patch 2 depends on patch 1 and touches
-> drivers/phy/qualcomm/, patch 3 depends on patches 1-2 and touches
-> drivers/usb/dwc3/. All three should be merged in order and ideally
-> through the same tree (or with an immutable branch) to avoid a window
-> where dwc3-qcom.c references a submode phy-qcom-qmp-combo.c doesn't
-> yet switch on. ARM/QUALCOMM MAILING LIST (linux-arm-msm@vger.kernel.org)
-> is Cc'd on all three patches since it covers both directories.
-> 
+Thanks for the feedback and clarification regarding the DCO and
+submission process.
 
-Is it really we need to do such complicated, why not just call phy_set_mode
-before suspend according to existed downstream port speed under root hub,
-it is normal requirement to finalize PHY setting according to connection speed.
+I have updated the patch to use my full real name (Ivan Vasilchenko)
+in Signed-off-by, removed the external GitHub link, and prepared a
+proper inline v2 patch below.
 
-Peter
+Regarding Mark's comment: I agree that modern IdeaPads/ThinkPads no
+longer need ACPI rfkill and that a broader solution (or module
+parameter) would be great long-term. Meanwhile, this quirk completely
+resolves the erratic Wi-Fi/BT disconnects on this platform.
+
+Please find the v2 patch below.
+
+---
+From: Ivan Vasilchenko <qvkapp@gmail.com>
+Subject: [PATCH v2] platform/x86: ideapad-laptop: add no_rfkill quirk
+for IdeaPad Slim 3 16IRH10
+
+On Lenovo IdeaPad Slim 3 16IRH10 (83K2), the EC/ACPI firmware reports errat=
+ic
+rfkill radio states through VPCCMD_R_WIFI and VPCCMD_R_RF, causing periodic
+soft/hard blocks of the native Wi-Fi/Bluetooth interfaces (iwlwifi) without
+any physical switch or user interaction.
+
+Add a no_rfkill quirk and register IdeaPad Slim 3 16IRH10 (83K2) into the
+no_rfkill_dmi_table to bypass ACPI rfkill device registration and let the
+native wireless driver handle radio state management.
+
+Tested and confirmed working on live hardware.
+
+Signed-off-by: Ivan Vasilchenko <qvkapp@gmail.com>
+---
+ drivers/platform/x86/ideapad-laptop.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/platform/x86/ideapad-laptop.c
+b/drivers/platform/x86/ideapad-laptop.c
+index 2c9e78a609d8..e393a525da5f 100644
+--- a/drivers/platform/x86/ideapad-laptop.c
++++ b/drivers/platform/x86/ideapad-laptop.c
+@@ -148,6 +148,7 @@ struct ideapad_private {
+  } fn_keys;
+  struct {
+  bool set_fn_lock_led;
++ bool no_rfkill;
+  } features;
+  struct {
+  bool initialized;
+@@ -1245,6 +1246,9 @@ static int ideapad_register_rfkill(struct
+ideapad_private *priv, int dev)
+ {
+  int ret;
+
++ if (priv->features.no_rfkill)
++ return 0;
++
+  if (!ideapad_is_rfkill_hw_present(priv, dev))
+  return -ENODEV;
+
+@@ -1588,6 +1592,15 @@ static const struct dmi_system_id
+set_fn_lock_led_list[] =3D {
+  {}
+ };
+
++static const struct dmi_system_id no_rfkill_dmi_table[] =3D {
++ {
++ .matches =3D {
++ DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++ DMI_MATCH(DMI_PRODUCT_VERSION, "IdeaPad Slim 3 16IRH10"),
++ },
++ },
++ {}
++};
++
+ static void ideapad_check_features(struct ideapad_private *priv)
+ {
+  acpi_handle handle =3D priv->adev->handle;
+@@ -1596,6 +1609,9 @@ static void ideapad_check_features(struct
+ideapad_private *priv)
+  if (dmi_check_system(set_fn_lock_led_list))
+  priv->features.set_fn_lock_led =3D true;
+
++ if (dmi_check_system(no_rfkill_dmi_table))
++ priv->features.no_rfkill =3D true;
++
+  if (acpi_has_method(handle, "GBMD") && acpi_has_method(handle, "SBMC"))
+  priv->features.conservation_mode =3D true;
 
 
-> Tapas Rana (3):
->   phy: qcom-qmp-usb-ss: add shared SS-link-state submode contract
->   phy: qcom: qmp-combo: Select LFPS detect only when SS link is
->     confirmed present
->   usb: dwc3: qcom: pass live SS-link state into PHY at suspend entry
-> 
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 27 +++++++++++++++--
->  drivers/usb/dwc3/dwc3-qcom.c              | 36 ++++++++++++++++++++++-
->  include/linux/phy/phy-qcom-qmp-usb-ss.h   | 17 +++++++++++
->  3 files changed, 76 insertions(+), 4 deletions(-)
->  create mode 100644 include/linux/phy/phy-qcom-qmp-usb-ss.h
-> 
-> -- 
-> 2.43.0
-> 
-> 
+--
+2.45.2
 
--- 
-
-Thanks,
-Peter Chen
+=D0=B2=D1=82, 10 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 04:0=
+6, Mark Pearson <mpearson-lenovo@squebb.ca>:
+>
+> Hi,
+>
+> On Mon, Nov 9, 2026, at 12:02 PM, qvkap wrote:
+> > Hi Hans, Mark, Ilpo,
+> >
+> > On newer IdeaPad models such as the IdeaPad Slim 3 16IRH10 (83K2), the
+> > EC/ACPI firmware reports erratic rfkill radio states through
+> > VPCCMD_R_WIFI / VPCCMD_R_RF, causing periodic soft/hard blocks of the
+> > native Wi-Fi/Bluetooth interfaces (iwlwifi) without any user
+> > interaction or physical hardware switch.
+> >
+> > This patch introduces a no_rfkill quirk and adds IdeaPad Slim 3
+> > 16IRH10 to skip registering defective ACPI rfkill devices. Tested and
+> > confirmed working on live hardware.
+> >
+> > GitHub: https://github.com/qvkap/ideapad-slim3-rfkill-patch
+> > Raw Patch:
+> > https://raw.githubusercontent.com/qvkap/ideapad-slim3-rfkill-patch/mast=
+er/0001-platform-x86-ideapad-laptop-add-no_rfkill-quirk-for-.patch
+> >
+> > Signed-off-by: qvkap <qvkapp@gmail.com>
+>
+> I assume posting a link to a patch is not going to be acceptable (I almos=
+t didn't bother looking at this one because of that because I'm behind on m=
+y overflowing inbox) but I'll let the experienced maintainers comment on th=
+at.
+>
+> I've been looking at a similar issue on Thinkpad's but have been trying t=
+o gather data on which platforms are impacted. We're finding the same thing=
+ there where the kill is powering down the device and it's never recovering=
+ - and we've been fixing FW for the last 3 years to make the APCI method a =
+no-op where it has caused problems. Recently the FW team complained as the =
+ACPI method is used for debug testing...so trying to find a better long ter=
+m solution.
+>
+> I'm not a fan of the DMI approach as I don't think it's going to scale we=
+ll - it means every new platform is (likely) going to need to be added; whi=
+ch is going to get really tedious fast.
+> I don't think it's really a FW issue and more a fact that device drivers =
+have caught up and the ACPI rfkill is no longer needed - but I'm guessing a=
+ bit. For Thinkpad I did get confirmation that it's not used on Windows FWI=
+W.
+>
+> I have a patch that is almost the opposite - I was going to disable the r=
+fkill mechanism unless a module parameter specifically enabled it.
+> My logic is maybe some older models will need it - but so far in my testi=
+ng newer (5 years or less) seem fine. I've been unable to determine the cut=
+-off so far.
+>
+> If anybody on the list has opinions let me know. Gathering data on the im=
+pact is taking time (sadly in short supply)
+>
+> Mark
+>
