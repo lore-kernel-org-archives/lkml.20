@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342034;
-	b=myw5w7kALDUNHvpVl6VX1IlFVQYO5tcfB+gxwK9ClwEpGuM+aOl9Pi63J0SZ3mQZRICu
-	 +ovxnr0kXegx4nKFKGzzJkHIBbKkDZYwWhjJah9HfG8PsDDGfUodT4RJnZr2+xKtGSC4c
-	 cJXpwiiiy5tUqbNPgBjWeC+7TlfZ3xQCXkjZ3ud6V+zzDPL6mASBgSVPSoyRPmKD6rmSI
-	 f4iW/OuNQtCrxFU10FW2T7AIA7OiCDWh3Q36SOhb2G++xmkaiTyF+43ubOlBZ0DjXueFY
-	 vB12DIz7MwxNdhJKdgft1hliflMhlnTaDNNTMHcsDw2zrigharu5Hi1CRh4WUl1CbeQ==
+	t=1794342041;
+	b=DQXsUkQu9530B/nhoBQ0zMsUyZDldnyTA+DC5h5o+D96iZeU5cGlvmSU/IU49U8EZwe0
+	 zMqa6AB9bZ1+dOlcL/Xu17eYuYzWMRsZzUWI1woA8y5Jp19/s/Kb9OWgi5WN/hLw1OViI
+	 4frkWI+ckhgN9LielTZ2oLj+BuJaEE2Q97fvZfoRvaSVXzOb7lBuqRu3peK0KaqThoW3T
+	 q2ikiBhTOCN+zDTtlya97igQVxa1VzDUcrI+YnvF/LrXdrjMInrtoeWJYjxmnY2jDfdZO
+	 CPAa1gg+ufYlJfx+n/QVQUVAX3DaLHc9dMenSvIHOXiX1MXsmFMhzPi2wpdhDe4dacA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342034;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nu0B1eopGv0aUO/omSfPZHl8ExvL8wF099XPbZRGuQ8=;
-	b=FO2Rm/jAbvQso35JGMCTIOsVwDRhOSUwzNaVUjqkphsIgJoPYjGHkDGvInr+bJV+ySu9
-	 qWCwM1gwwCHbnxt+4rPFNsc8G/umbD/TcLLSyTBC3oQTKwGF1YX7P6UNkbLy4oNCHq34L
-	 sZsSIjnHYaP6ogzPEzTiC9hepgOCntmhXo0zPmj8/4dxXWTInGa2CmP4JLDWVQJGovZr9
-	 c3QYgZveN0zuLzKCN2Q4gAcnJ/uCh6iH/nXDSrBY/VKSRVSVwiTKb/GX80JbnNzvkcG44
-	 TClhlFrZl3qmd7zjeanQyanfmlktI7vr1/ctSBwOVeZ5bVLXB4fdgnwQjgEFObVJ18A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342041;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XP8BVGG3k/SgxxucX4Qss0oWT0tMPudgWX8MpTd7f+o=;
+	b=a2dH3p4SEgEYuaof1a57sC+LrouXR3o1mrkuKZrkVI1uWTpR9rIOiymHLOfLCDBgl+3L
+	 p0B2Oi18AIdx2tBSZr9qGnClHo7ugvoKaPLIx83fxFLqK18sNATGCrcpmg5ygb9DNxlT2
+	 Q01535P3MexGjek0Yx7QDl1JlrcON+26BTD9HBnmp2SRKHD9L53uQun8eNx+rXxuzO7sB
+	 h5OLJUnh+NVDh0OVy+9ImCUaMOKjMF4JDIRU7D8H/Pd173IY+W9EhCTdRzYY5KTVHP0A5
+	 j+eWn/uPVfzuA/LbwRaRyZPw4rNMCIjjHLTu2VVzzvEjK6+URt37G3qDdTRJD67NM+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=THUspvVj;
-	arc=none smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P13YjycL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1F260A263C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:20:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB1F260A263C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DE160A6F4F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=THUspvVj
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so19915811fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:20:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794342032; x=1794946832; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nu0B1eopGv0aUO/omSfPZHl8ExvL8wF099XPbZRGuQ8=;
-        b=THUspvVjXGP2pkX0jnPrnPStqjtMMg+FPYcZNQQgBBgQjCym/Pi9puQ65aJY0tspA5
-         6JQlLOttlgmluYwqpQ3+P2azOHZv5tJLfl7JVOz6ADx7bw7a+dKj0f7NSOlXiYOLMsGe
-         Yqhwc1Ln8sFAQwdxxbDUesT3PVGrFoq3W7Ab1aEuS2VDXCJ9mJpI2yOLcnUnk9SImymW
-         QGCZqX5fWO9Zj/IxGcLUmVcW7fVZa9M0zTnNeuFx8HaEOkaOFtTH+I95PiEy/wNPLSMh
-         4onitrixFYbyebBQpMpBoXNzgf9bmnuv4KzAG9QjW+76CPyJyIIuS9YApeDlY43W5MeF
-         xtsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794342032; x=1794946832;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nu0B1eopGv0aUO/omSfPZHl8ExvL8wF099XPbZRGuQ8=;
-        b=uk33Tj6Blb65ptRz+MIvDAOu+Ge7ihKGjelYlyTq6uwQbYWS7ONGZ1PqVMeAGPHXpa
-         vMOO6C7pFOS30UMyTyl2Z5DDtvOxj/nGAx76bd6teNk3IgXjQyA0kUvK6w2kYOlzM9yu
-         JSAzzYvKcCRx2/64MPFK/6yNk/o7Dv3JT3Umrnp1JFf7jgx5nb0q6W5qCbJS7qfEY3Ad
-         qeJsnGzaMhzOCVC+/8BHiZHM8J6qyESAAtzYH4GqU+8lKpoSfD9PulWlxxgzBovi2qH0
-         mTa2VKufv9ilxon8IX7DU5oi///JqVsSDP3/EzluUWkrK4l6p2e0StLH4StrJfCKnSVV
-         3+sQ==
-X-Forwarded-Encrypted: i=1; AL+hErHHwqz34venIL52Vzro9lMC3CaTtEZRCgn7WIHqclk5RShCRMR15VSxQMTs5+zkrb6SlZWf1BBMQLwfnl8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dRyrv+UZWZ27fdKwpXMVUGo3iWKufq96L6kRAMYoRrShKBzJy
-	sDwBz/f3y0yiIu5M6GNErcf7tn9FMcx0kB2S+U3EndaGNl1AdRGgHNRc
-X-Gm-Gg: AYBFou1hIy69GiRhqM8d4MiItiCbi7M78B4pGvBZdkVCk+MgaICSrI2HvLYGR79Tn5w
-	3BlEzxrZy8hhtbtnmHicsgyhlRDuoD5HcPlwXvoFiQhj4Gb6AFU+A9+XA4Eh2qE8G/pb7A1FGmq
-	UxA+14uvGnGWBe+pZJtcgVX2fPvtQwmWYV4/ZdZBg782f3Fpsnm5kGU8BJDRLd+6pEBFneetsWt
-	mgBXbbW7eMcBEvplhsgc6ubmJdcXuH2O7f9nVZTsf13VjrGSb8gb1LMyG+ThF+qKIoInj35/1ji
-	53Rf6U4SXCkNGhyvS1Tgp3lW1NWtUPNXEV8y+F7YVnRTWd8ptmBW9GvFhhyxsyJjxiGy4fEmpVx
-	1efRWOA5AvoaGZPsyFHYlHC2mX8cP5ZE3s4P599kfKoWtHcW2qjwqWXWApzzBG+mp8OGGbrB0JJ
-	FCTjThaJvHaZ77ktkG7oLeuW1t6EPSBDCT10bR+vWy1fyNhppcytaDlLleZmbiAndGFdDxSl9GN
-	kKMhTrWQWl+KPkkpfN/L3wHCDVtMuHIDh+Q5+ZLO3WX4Ac8Y0rs3GlJeu99IoUofMxkAA2peMQr
-	zfsVbmMno88+Rl+los48ntMaS1F5EwokF2B/iBZQSWp4TaDmXQ+n5HvQ4Qv/LtQo6KikRkr9q+t
-	XiLjFd97MEZwwWbY5
-X-Received: by 2002:a05:651c:1a0b:b0:3a9:79d6:c792 with SMTP id 38308e7fff4ca-3ae0960e277mr9525951fa.5.1794342031956;
-        Tue, 10 Nov 2026 12:20:31 -0800 (PST)
-Received: from dau-home-pc.megasoftware.org ([95.139.137.59])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae090ea59esm5945401fa.0.2026.11.10.12.20.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 12:20:31 -0800 (PST)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v6 5/8] ip6_gre: add drop reasons to the RX path
-Date: Tue, 10 Nov 2026 23:20:18 +0300
-Message-ID: <20261110202021.821224-6-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110202021.821224-1-littlesmilingcloud@gmail.com>
-References: <20261110202021.821224-1-littlesmilingcloud@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P13YjycL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01B91F008A5;
+	Tue, 10 Nov 2026 20:20:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794342040;
+	bh=XP8BVGG3k/SgxxucX4Qss0oWT0tMPudgWX8MpTd7f+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P13YjycLN4F4N+zD38vWSxkt6HKL82woeFH/3wQ0qxOXtm7u3KffXFHkfHkmDPJZS
+	 tfYSVHjrhhJqJ8C9aG5U1no+kDK09JEao8rZzOGUHE0ytYlmMIHTORE14d7+GISbrA
+	 cVnCLkQ4XmoDZ93o6axAh7bDumtY3VptUIyaPbzqhl42raKoOQpkm0xP6HplEWn3Uz
+	 hwRN7qCqOMNLtoel7IGi0JUsHfS0eL8ifsfnzV1R1o6U5VGJg5mxLM/kbP2eNabEcR
+	 sIRLxehDzZQ/x962ZTEwOQKCosmyJC5gKH22risR7sCIXHDYgY0vr4IFGiBzSrH8dQ
+	 KK7FOND2vOxrA==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	Barry Song <baohua@kernel.org>
+Subject: [PATCH v6 01/15] mm/mglru: report evictable sizes per type
+Date: Wed, 11 Nov 2026 04:20:11 +0800
+Message-Id: <20261110202025.25736-2-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261110202025.25736-1-baohua@kernel.org>
+References: <20261110202025.25736-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,180 +86,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Mirror the previous patch on the IPv6 side. So far gre_rcv() reported
-the drops below as SKB_DROP_REASON_NOT_SPECIFIED, all from the same
-kfree_skb_reason() call. Now it reports:
+From: Kairui Song <kasong@tencent.com>
 
- - SKB_DROP_REASON_TUNNEL_NOT_FOUND when no tunnel matches,
- - what pskb_may_pull_reason() returns when an ERSPAN header cannot be
-   pulled,
- - what iptunnel_pull_header() and __iptunnel_pull_header() return
-   when the pull fails,
- - SKB_DROP_REASON_NOMEM when the metadata dst cannot be allocated.
+Change lruvec_evictable_size() to return the number of evictable
+anonymous and file pages separately instead of a single total, so
+that callers can weigh the two types independently.
 
-Unlike ip_gre, gre_rcv() calls the helper before the tunnel lookup, so a
-packet whose ETH_P_TEB inner Ethernet header or WCCPv2 extra word is cut
-short is reported as SKB_DROP_REASON_PKT_TOO_SMALL whether a tunnel
-matches or not.
+Update lruvec_is_sizable() and get_nr_to_scan() accordingly; the
+summed totals are unchanged, so there is no functional change.
 
-Like their IPv4 counterparts, ip6gre_rcv() and ip6erspan_rcv() now
-return SKB_NOT_DROPPED_YET where they returned PACKET_RCVD and a drop
-reason where they returned PACKET_REJECT. That leaves PACKET_RCVD,
-PACKET_REJECT and PACKET_NEXT without users, so remove them.
-PACKET_REJECT has the value of SKB_CONSUMED, and a stray one in a
-function that now returns a drop reason would build silently and be
-traced as a consumed packet.
-
-gre_rcv() no longer sets SKB_DROP_REASON_NOT_SPECIFIED once the header
-is parsed: every drop now gets its reason from the helper or the handler
-that fails.
-
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- include/net/ip_tunnels.h |  4 ----
- net/ipv6/ip6_gre.c       | 51 ++++++++++++++++++++++------------------
- 2 files changed, 28 insertions(+), 27 deletions(-)
+ mm/vmscan.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/ip_tunnels.h b/include/net/ip_tunnels.h
-index 5cccf4c0e691..792690ae4f26 100644
---- a/include/net/ip_tunnels.h
-+++ b/include/net/ip_tunnels.h
-@@ -207,10 +207,6 @@ struct tnl_ptk_info {
- 	int hdr_len;
- };
- 
--#define PACKET_RCVD	0
--#define PACKET_REJECT	1
--#define PACKET_NEXT	2
--
- #define IP_TNL_HASH_BITS   7
- #define IP_TNL_HASH_SIZE   (1 << IP_TNL_HASH_BITS)
- 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 75665a576657..eae170ea0ba6 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -451,7 +451,8 @@ static int ip6gre_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
- 	return 0;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 061fbd168d98..acc4efccda2f 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4192,28 +4192,31 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
+ 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
  }
  
--static int ip6gre_rcv(struct sk_buff *skb, const struct tnl_ptk_info *tpi)
-+static enum skb_drop_reason ip6gre_rcv(struct sk_buff *skb,
-+				       const struct tnl_ptk_info *tpi)
+-static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
++static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
++				  unsigned long nr[])
  {
- 	const struct ipv6hdr *ipv6h;
- 	struct ip6_tnl *tunnel;
-@@ -471,31 +472,33 @@ static int ip6gre_rcv(struct sk_buff *skb, const struct tnl_ptk_info *tpi)
+ 	int type;
+-	unsigned long seq, total = 0;
++	unsigned long seq;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	DEFINE_MIN_SEQ(lruvec);
  
- 			tun_dst = ipv6_tun_rx_dst(skb, flags, tun_id, 0);
- 			if (!tun_dst)
--				return PACKET_REJECT;
-+				return SKB_DROP_REASON_NOMEM;
- 
- 			ip6_tnl_rcv(tunnel, skb, tpi, tun_dst, log_ecn_error);
- 		} else {
- 			ip6_tnl_rcv(tunnel, skb, tpi, NULL, log_ecn_error);
- 		}
- 
--		return PACKET_RCVD;
-+		return SKB_NOT_DROPPED_YET;
++	nr[LRU_GEN_ANON] = 0;
++	nr[LRU_GEN_FILE] = 0;
++
+ 	for_each_evictable_type(type, swappiness) {
+ 		for (seq = min_seq[type]; seq <= max_seq; seq++)
+-			total += lruvec_gen_size(lrugen, type, seq);
++			nr[type] += lruvec_gen_size(lrugen, type, seq);
  	}
- 
--	return PACKET_REJECT;
-+	return SKB_DROP_REASON_TUNNEL_NOT_FOUND;
- }
- 
--static int ip6erspan_rcv(struct sk_buff *skb,
--			 struct tnl_ptk_info *tpi,
--			 int gre_hdr_len)
-+static enum skb_drop_reason ip6erspan_rcv(struct sk_buff *skb,
-+					  struct tnl_ptk_info *tpi,
-+					  int gre_hdr_len)
- {
- 	struct erspan_base_hdr *ershdr;
- 	const struct ipv6hdr *ipv6h;
-+	enum skb_drop_reason reason;
- 	struct erspan_md2 *md2;
- 	struct ip6_tnl *tunnel;
- 	u8 ver;
- 
--	if (unlikely(!pskb_may_pull(skb, sizeof(*ershdr))))
--		return PACKET_REJECT;
-+	reason = pskb_may_pull_reason(skb, sizeof(*ershdr));
-+	if (unlikely(reason))
-+		return reason;
- 
- 	ipv6h = ipv6_hdr(skb);
- 	ershdr = (struct erspan_base_hdr *)skb->data;
-@@ -507,13 +510,14 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 	if (tunnel) {
- 		int len = erspan_hdr_len(ver);
- 
--		if (unlikely(!pskb_may_pull(skb, len)))
--			return PACKET_REJECT;
-+		reason = pskb_may_pull_reason(skb, len);
-+		if (unlikely(reason))
-+			return reason;
- 
--		if (__iptunnel_pull_header(skb, len,
--					   htons(ETH_P_TEB),
--					   false, false))
--			return PACKET_REJECT;
-+		reason = __iptunnel_pull_header(skb, len, htons(ETH_P_TEB),
-+						false, false);
-+		if (reason)
-+			return reason;
- 
- 		if (tunnel->parms.collect_md) {
- 			struct erspan_metadata *pkt_md, *md;
-@@ -530,7 +534,7 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 			tun_dst = ipv6_tun_rx_dst(skb, flags, tun_id,
- 						  sizeof(*md));
- 			if (!tun_dst)
--				return PACKET_REJECT;
-+				return SKB_DROP_REASON_NOMEM;
- 
- 			/* MUST set options_len before referencing options */
- 			info = &tun_dst->u.tun_info;
-@@ -558,10 +562,10 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 			ip6_tnl_rcv(tunnel, skb, tpi, NULL, log_ecn_error);
- 		}
- 
--		return PACKET_RCVD;
-+		return SKB_NOT_DROPPED_YET;
- 	}
- 
--	return PACKET_REJECT;
-+	return SKB_DROP_REASON_TUNNEL_NOT_FOUND;
- }
- 
- static int gre_rcv(struct sk_buff *skb)
-@@ -573,19 +577,20 @@ static int gre_rcv(struct sk_buff *skb)
- 	if (reason)
- 		goto drop;
- 
--	reason = SKB_DROP_REASON_NOT_SPECIFIED;
 -
--	if (iptunnel_pull_header(skb, tpi.hdr_len, tpi.proto, false))
-+	reason = iptunnel_pull_header(skb, tpi.hdr_len, tpi.proto, false);
-+	if (reason)
- 		goto drop;
+-	return total;
+ }
  
- 	if (unlikely(tpi.proto == htons(ETH_P_ERSPAN) ||
- 		     tpi.proto == htons(ETH_P_ERSPAN2))) {
--		if (ip6erspan_rcv(skb, &tpi, tpi.hdr_len) == PACKET_RCVD)
-+		reason = ip6erspan_rcv(skb, &tpi, tpi.hdr_len);
-+		if (!reason)
+ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
+ {
+-	unsigned long total;
++	unsigned long total, sizes[ANON_AND_FILE];
+ 	int swappiness = get_swappiness(lruvec, sc);
+ 
+-	total = lruvec_evictable_size(lruvec, swappiness);
++	lruvec_evictable_size(lruvec, swappiness, sizes);
++	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
+ 
+ 	/* whether the size is big enough to be helpful */
+ 	return total >> sc->priority;
+@@ -5021,7 +5024,7 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
+ 			   struct mem_cgroup *memcg, int swappiness)
+ {
+-	unsigned long nr_to_scan, evictable;
++	unsigned long nr_to_scan, evictable, sizes[ANON_AND_FILE];
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+ 	/*
+@@ -5037,7 +5040,8 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
  			return 0;
- 		goto out;
  	}
  
--	if (ip6gre_rcv(skb, &tpi) == PACKET_RCVD)
-+	reason = ip6gre_rcv(skb, &tpi);
-+	if (!reason)
- 		return 0;
+-	evictable = lruvec_evictable_size(lruvec, swappiness);
++	lruvec_evictable_size(lruvec, swappiness, sizes);
++	evictable = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
  
- out:
+ 	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
+ 	nr_to_scan >>= sc->priority;
 -- 
-2.47.3
+2.34.1
 
