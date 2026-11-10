@@ -1,49 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319437;
-	b=rZnanaiUZD4AdtX3Xwl/vuYyTboDWSWA3PbL1YxcvJ8TPkpTyRiVK6QDcJHnlwkkh1Ht
-	 UgkYxrQJ9yR/IL6R4hohDG2i39XzLN7qGc7zn60t5FVYVHn3N4vOM0HhzfbpjPxSwBR7K
-	 +HuAxiV8dlKnJl7Xdl30vStbmRPK4BPPsoJSLodUPDpM0y527uqYeeEmMwM9t7qTl51UT
-	 n96Gq3/Tpiryxrb/+DoOjFwpl2YEKWQbOdsiojimfg5etHWFxJWiIoCf4vbAcbuHAfq6E
-	 m9ZyJdIRYn0SC0pOtT9Ur3QUy+IpqRw5wQMo1ZX0cEe0w08QrcuUgmLpsI6SVjORUeg==
+	t=1794319463;
+	b=2MbSVD6bS70N/LpLvfDL2qe4rhzH61Ve+kWNtgVFi6oJ2bnYDpn950jxC3UiXuQ4serb
+	 BiLt6zNnG5ujC3oIGJTHtxIYt+dZBns74NbPpS0XiUqWqhP1zBmsx/SdM2m1JnM3JHweb
+	 geHtPwdLytwG5lI+99u7cTCQQpvixD4rYauZBerk6eiSPXi09lpSKyZ1C3YjrTN2rwPku
+	 1Qid+hIr7cA2ZNXsJc7QilYn/1JBi0NGzMiaG3POsO8Y0IJC5FL1Zq1L1RUu00DrLsnje
+	 OggfuQc4tmHmuafKC3czVqNApMAtiew+sXBER2I/hykrqJj3sBkp/3+sR7WBkncNjrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319437;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=lUUY6SG4mSmfFm2bbpqT0Yc1wqBj4qXywugKTS2CAHs=;
-	b=xlgw1lUxV8voFmjb3oaCPaEYtfWKtfmjpV/L9DaTO2pVbKOztJED+r2k/ZdF+lsWPZsw
-	 GD1bJZhtX91A17MxwbI6K1nGXcXIQVgpT+4a7sotWs5/yEIFALnO8PIEh7Jc/IZvlq1r7
-	 uCVf0am7oz2SzgiCh+34fYCJ6iLs2fC1zuOJDPAU3PXOsU/K3gYygD1uAQzcN31QEDlTP
-	 BWUk8Qk4G0XDnBfS46n6ommhAB2o8g2/7dcJvLVMrxB6qfhKCe6N1VOPGhoa0N/GH2bkI
-	 BHKVqfNXV5HAHW9gzQTyNBPqUXMxuBZmFQWcqyBkkIeLQUgxl8XYYcBOwRAYDKZlz9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319463;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+5IAnWVHADA41IJuShMaFvKjUoEC1wrcq61K/G7feow=;
+	b=Q9AO7SqblC1JpC7uaEDSDNSL0jyNPKe1PCEW32m+2R9DVsJ2/5SUv6f2KD+XqvgvVKaY
+	 KQJUUh8PVFmdmhapG+04r1924AsNMsDZ3pLZMWZQ6i/Pso9SrIi6/Edl/4UO5thZcW8k7
+	 0F8pZJ6oO3GdT4FiLyTPalQ8mO+MS5UKlWAy7oiOaSNqGloLeeHN+a+zb82w4SYJSad3U
+	 s3CODir5FmR/2we57QqclxCJ9elF5j+WOhovfB00lt2ENG6jgL+sjGre/Eydpq5kSzSvq
+	 DDccpbyvakrHcIC6b2SbP1De8kamTxeMc7PbpHT3fugBKGJ4oLHZuA1hBwJHA6AjMVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLyYSmW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F2760A2616;
-	Tue, 10 Nov 2026 14:03:57 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h50fosA7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3742260A2621
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3742260A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLyYSmW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14281F008A2;
-	Tue, 10 Nov 2026 14:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319437;
-	bh=lUUY6SG4mSmfFm2bbpqT0Yc1wqBj4qXywugKTS2CAHs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fDLyYSmW7T9MgptwVDfMFXbcr+nvMZZmEDXUDgXC68WUbXRnFgIY94h+odPOW0slE
-	 yDKg2/+jI0j7jDQ6TY+9mvyjzs0WS0sxXRnk/AbvBklYq1FlEOX7f6qyD8QfJt+7T6
-	 6KngVa3Xx953OAo00kwoY8Uf8C6B0Qws37jeoTudEIgkRFhcVsa1djefznrxva26Az
-	 8yTXpfkiaQK8vOUlsZcWfH+G4vh6XxsqvvHuuar/XvgV9Z4fjtwqBWmf7tT3M4IpWj
-	 FRw3F+tM+Imhe2APLZuCLvH5KMoPj+bVcUXlJu8hxfrm5MPGI4Cd6dmrWKJIYvO8oB
-	 SZ1pFLm3dpkKA==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Tue, 10 Nov 2026 15:03:47 +0100
-Subject: [PATCH 1/4] media: i2c: imx355: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h50fosA7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4313B143D;
+	Tue, 10 Nov 2026 06:04:19 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F10A73F632;
+	Tue, 10 Nov 2026 06:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794319462; bh=+mA8U82Dmu9ftVLfB1lXmShJwdTcBL6ay0MsAqkBT58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h50fosA7PBG4YTWLL2nI17X7drceGdTlskyBQyQCe42PX4wOMVaPPoFfRqzRp7csX
+	 0t5A4Y1a6CLZdWWA3+/e6tdAPTaOpEMvk9eM5mVMNqFXkYUeCzRFr57W9z6+S8wLmA
+	 aYveBropJTBpgFFmbc+I6I855XbnB6DsFtCmhE88=
+Date: Tue, 10 Nov 2026 14:04:17 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rik van Riel <riel@surriel.com>,
+	Yuan-Hao Hsu <aa9736195201@gmail.com>
+Subject: Re: [PATCH v3 6/6] mm: gup: batch PTE-mapped large folios in
+ gup_fast_pte_range()
+Message-ID: <avMkYdbCetaQc_Jl@e129823.arm.com>
+References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
+ <20261109-refactor_gup_fast-v3-6-2aaef02df0e1@arm.com>
+ <529b409d-748e-4f47-bb21-77b3237da39f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +72,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
-References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- David Heidelberg <david@ixit.cz>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <crofts@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1216;
- i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=7pq2vQuuw5dAabFgpcuCosBYNK9UdD7ygDzJlEbAheg=;
- b=bGrDcFTSzD8C8M885X0FD6tPKjGX4pOEXwgvZA/CG5dTGUIyYL+3MM8oiYo/LpRmprkG392/G
- rSdWLw9vCx3B1iK7mIAM50QdiJwPsmcgfSKgHxwuWR6f2Urj4Eq10Gy
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <529b409d-748e-4f47-bb21-77b3237da39f@kernel.org>
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+On Tue, Nov 10, 2026 at 02:09:32PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/9/26 13:32, Yeoreum Yun wrote:
+> > GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
+> > costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
+> > atomic, a full barrier and a node stat update for FOLL_PIN), a
+> > gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
+> > pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
+> > 
+> > The users are the hot ones: iov_iter_extract_user_pages() pins every
+> > O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
+> > buffers through it, and so does RDMA memory registration.
+> > With mTHP those buffers are PTE-mapped large folios.
+> > 
+> > After the head page has been grabbed and verified as before, extend the
+> > run to the following PTEs that map the next pages of the same folio
+> > with the same protection bits, take the remaining references for the
+> > run with try_grab_folio(), and fill pages[] from the run.
+> > The PTEs of the run are read while the reference on the folio is held,
+> > so the folio can neither be collapsed, freed nor split underneath the scan.
+> > A read-only run of an anonymous folio stops at the first page
+> > that gup_must_unshare() rejects, so the per-page exclusivity guarantee for
+> > FOLL_PIN is kept.
+> > 
+> > folio_pte_batch_flags() does the scan.  It reads the entries with
+> > ptep_get(), which is not safe without the page table lock on
+> > CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
+> > and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
+> > Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
+> > site, so the other callers do not change.
+> > 
+> > The order-0 path keeps its instruction sequence.  The folio flags are
+> > tested before folio_set_referenced() on purpose: a load of the flags
+> > right after that locked instruction cost about 25% on order-0 pages in
+> > the gup_test benchmark below, and reading them first brings that path
+> > back to the baseline.
+> > 
+> > gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
+> > per call, median of 15 runs, two baseline boots / one patched boot, on
+> > an x86-64 VM:
+> > 
+> >                        get_user_pages_fast()   pin_user_pages_fast()
+> >                        before       after      before       after
+> >   4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
+> >   64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
+> >   1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
+> >   2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
+> >   2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
+> > 
+> > fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
+> > buffer in 64 kB mTHP, median of 15 five-second runs:
+> > 
+> >   bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
+> >   bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
+> >   bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
+> > 
+> > IORING_REGISTER_BUFFERS of 1 GB, median of 15:
+> > 
+> >   64 kB mTHP           6179/5998 us  ->  1599 us
+> >   1 MB mTHP            5790/5801 us  ->   893 us
+> >   4 kB pages           7173/6741 us  ->  6763 us
+> > 
+> > Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
+> 
+> There should likely be a co-developed-by? (also in the other one?)
 
-Remove the redundant function calls.
+Okay. I'll change.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- drivers/media/i2c/imx355.c | 2 --
- 1 file changed, 2 deletions(-)
+> 
+> LGTM, thanks.
+> 
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index c0dafabf5dc9ad6237c9c9380d6122edfedc96f3..89e42312265822428cbf0b909627c66415b3282f 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -1298,7 +1298,6 @@ static int imx355_probe(struct i2c_client *client)
- error_subdev_cleanup_runtime_pm:
- 	pm_runtime_disable(imx355->dev);
- 	pm_runtime_set_suspended(imx355->dev);
--	pm_runtime_dont_use_autosuspend(imx355->dev);
- 	v4l2_subdev_cleanup(&imx355->sd);
- error_media_entity_free:
- 	media_entity_cleanup(&imx355->sd.entity);
-@@ -1329,7 +1328,6 @@ static void imx355_remove(struct i2c_client *client)
- 		pm_runtime_set_suspended(imx355->dev);
- 	}
- 
--	pm_runtime_dont_use_autosuspend(imx355->dev);
- }
- 
- static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
+Thanks!
+> 
+> -- 
+> Cheers,
+> 
+> David
 
 -- 
-2.47.3
-
+Sincerely,
+Yeoreum Yun
