@@ -1,82 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327723;
-	b=JUT+SshrFiROYtWWZJVS+yI7NoXP+SNb8pfp25DYgy7nIXF2WGxH6v0YF4LP//ovu27O
-	 lcwphAizdJLW6+rQ2TbwamIcta2/9dmGU6fvcyUru2PBPasrnlwXxvR75UAr9DesZpnfj
-	 5rbj5w1YgubOeIMRaoXzCa8Wro3Z4+44UlBzq0b8yaPBxO4JXtr3e0o3aUTwvVtj1tCkp
-	 NSqqeg7sc9xoArFECQpi4Ido2j/E1qbgyKcszG5YOx5q6OCt++OYMt8QM3XqsNy0bHfW+
-	 9vBRZfwKAxq/qgQc0rwIvVty3DkHAmJlJHGqdcF8dgN9Gp2mkTx2t6LQzVq+QUVnVWw==
+	t=1794327725;
+	b=aLGnCS3j0tdF6BmpcRdPxFtzDIxl+72HgiNGiUnfGlnRxmO9X0VWscgKVEJGf/BhhDwr
+	 9B9YXitaICIzI11Mfqo4JoGJtXYKm6cfVUYapDmRc4cvZQ5KznN11Y3AoMRckIkyswrgs
+	 P2pvUlwMoAM+SB/0CpwwJ9ZuccmCpZCvjDTOC2HuVfrBZs5Hlgcmp7hUFnEtAdQdEI8xf
+	 yhgk0rIqSXgP8t336hTBYsoLU0DSz26x0qMR3x6T9xWoTKbr/UFKznUjcaPVUsUTKIWAf
+	 g8XGuhAD5TnCliA7IYzsiSY9ZhwP0uEnmmvN46OcyTf/U8QyHBm+df49KdkgTdAnBng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327723;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=CBpuD9EN7mGAnC0N09j6dxtwPl1Nk8UemTazmCtVEmo=;
-	b=ji8PlE3IBs84EyOGQBZNcCGWUxIvka6rvUJTw8pJ/VS3q7tr0ssI+gHm0/vLWjt7IT4P
-	 u+l1yuEVXmm1w3hYe5U4/Tx2Z0yKPEShf5JkWw/SIDk5FqMSh4H9Qo+oaU4Fgr2SsIs0r
-	 s5whZJ8WEgk/IBukepjH4HZTa6zfhQORYn+c5/hen40KwgXQoXNnDM6IMZnXRwHaRIx5t
-	 SEHorFTCXHeitT4hIBiLofOehsnBy/hS3FZqV4QsnLQB55Nlnfi7SXMTTG4ZiznGwIHeg
-	 8DHC+ObAE+zkEESbyFIDSZhR4EA+jPHrBc2B1YOurIW92rAB9otPicKka4/ABKT7dag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327725;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YF22N2q4+EVjchzKm7DJjpiWxKzMohvIopxi7htOEPM=;
+	b=FoMyFrnVXed021hth6TFsHgpIU+m+RDon1QbKqX+JNQyLa67Ty7H8ozKhqRLFOcC53RP
+	 rVuJlTw0xwiaqqzss7sMdWEsQk+BQVu5mb7YjYvbQ24FNmGpqOh2MfW0QV4h2zVg3KJdv
+	 YDBFiXR+LWQ7K1zUbeFtJy8hGmjiKLXVJ/xjOB5m7Gf52FiMY7nArUdUxMmDkxbDtJBLe
+	 yMJ3o0KbE3po6zixz0sh+9JZsUO8avScxU7KtPnpcRuFEWh5lrBpmNwj5pk0Gt7oPlSP/
+	 6Z/aCazt6OdHsIcbsrRYwHrpJoFfkaLiKzmM98VFS2NsPb8HQbMm6UIHoWif+VTBTiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MCOMSxH0;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bApd0IWq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9BE606A320;
-	Tue, 10 Nov 2026 16:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D9BE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92036606A335;
+	Tue, 10 Nov 2026 16:22:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MCOMSxH0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794327722; x=1825863722;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cy+rZt1gNtVr4opsRLmcs7QTL/zYCRzwfuBXOZCZ7sM=;
-  b=MCOMSxH0Q0tnrrazeDCeiFeBsy9/G1568ARzAi9XJFa65XoOmt7od/3y
-   aHU/3yYcZeB6UzIxWpDQV6nRa+rhQU6EKEZiGJQABaVQpIQ29UVEsRSSj
-   +TPZUXMmiP8o4/VDLdnTZLMTPClLCGU0WrqXiADJqi2T8VBQc3bfWpfbq
-   F2u+7oEujpDZt9xTwMCLJq617wbAdySfs2du7dtFNovj5BC70I16WRgRO
-   pPCmoKGq55mkDK1vbXr1OA28YRK9b3pzNaXlhtiY9rtVhjdhZbvyIpQ6P
-   OKeCWdNGHSLBUwuR63rdV+1VMxWmsXUItWRn9JWcB4uZsTiLa6678GaOc
-   g==;
-X-CSE-ConnectionGUID: nxd2x6UNRI2HEG+Q6/bwaw==
-X-CSE-MsgGUID: 18L8v8f7RESvf+NQVpcaRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2973430"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="2973430"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:22:01 -0800
-X-CSE-ConnectionGUID: rskXrzBaQJa6lenaPAoyjA==
-X-CSE-MsgGUID: EUnsRGwFTlyeG6iuM9I8lg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8018663"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:21:59 -0800
-Date: Tue, 10 Nov 2026 18:21:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Subject: Re: [PATCH v5 12/16] iio: adc: xilinx-xadc: Refine Zynq read/write
- error handling on timeout/interrupt
-Message-ID: <avNEpH6KGJkeI7dX@ashevche-desk.local>
-References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
- <20261110050201.1850399-13-dileepkumar.nagavarapu@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bApd0IWq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A401F0089F;
+	Tue, 10 Nov 2026 16:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794327725;
+	bh=YF22N2q4+EVjchzKm7DJjpiWxKzMohvIopxi7htOEPM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bApd0IWqTszQysGvdmEv04lCt1XgUDyKMRYVX8CA2uXMbR1cyMAH54zaPeMXrAlqj
+	 safYnsVPu/gqHE0UcWmmFH3oJBx1iRr5oOYp5zTeflAb5cmMiLE6seTxTTrqAl5Nb0
+	 lJHn7LmqlhaMQYH/3uFgnL+fuiu3ufd1VpIGkrrApvbPVsjUbz/+QhdBQOqK/yE3H8
+	 uK3GupdElCh5eIevPlkK1vLZJ7RrMTDLQdzdHgXC8nQDcO2TzDPabGa981PZaA0PDm
+	 /N+jMkb769ue4sbkzCAMZdCxJIu48/ioqpNZs4ZPc9oAZvFAC8mM4GqWeUhPGHd5Ef
+	 gimge/4axigqg==
+Date: Tue, 10 Nov 2026 17:21:56 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Danny Hu <dannyhu@arista.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>, 
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, 
+	Jan Kara <jack@suse.cz>, Victor Kamensky <kamensky@cisco.com>, 
+	Taras Kondratiuk <takondra@cisco.com>, Zheng Zengkai <zhengzengkai@huawei.com>, 
+	zhangguangzhi <zhangguangzhi3@huawei.com>, Jason Yan <yanaijie@huawei.com>, silviu.vlasceanu@huawei.com, 
+	hpa@zytor.com, arnd@arndb.de, james.w.mcmechan@gmail.com, niveditas98@gmail.com, 
+	pierre@arista.com, julien@arista.com, kbharathi@arista.com, 
+	alexandr.lobakin@intel.com, linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kbuild@vger.kernel.org, initramfs@vger.kernel.org, 
+	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, bug-cpio@gnu.org
+Subject: Re: [PATCH v6 0/4] initramfs: add support for xattrs in the initial
+ ram disk
+Message-ID: <20261110-hengst-tontechnik-ausfuhr-265b06d68611@brauner>
+References: <20261105193743.2654656-1-dannyhu@arista.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,60 +66,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261110050201.1850399-13-dileepkumar.nagavarapu@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261105193743.2654656-1-dannyhu@arista.com>
 
-On Tue, Nov 10, 2026 at 10:31:57AM +0530, Dileep Kumar Nagavarapu wrote:
-> Refine the error codes returned from the wait, the same way in both
-> xadc_zynq_write_adc_reg() and xadc_zynq_read_adc_reg(): a timeout
-> (ret == 0) now returns -ETIMEDOUT instead of the previous -EIO,
-> giving a more precise errno for this condition. An interrupted wait
-> (ret < 0) now propagates that error to the caller instead of being
-> silently treated as success.
-> 
-> xadc_zynq_write_adc_reg() waits on xadc->completion after issuing the
-> Zynq DRP write command, then drains the response word from
-> XADC_ZYNQ_REG_DFIFO. The DFIFO read already ran unconditionally after
-> the wait, regardless of outcome.
+On Thu, Nov 05, 2026 at 11:37:39AM -0800, Danny Hu wrote:
+> This proposal consists in including file metadata as additional files named
+> METADATA!!!, for each file added to the ram disk. The CPIO parser in the
+> kernel recognizes these special files from the file name, and calls the
+> appropriate parser to add metadata to the previously extracted file.
 
-...
+No, sorry. We're not going to do this:
 
->  	ret = wait_for_completion_interruptible_timeout(&xadc->completion, HZ);
-> -	if (ret == 0)
-> -		ret = -EIO;
-> -	else
-> -		ret = 0;
->  
->  	xadc_read_reg(xadc, XADC_ZYNQ_REG_DFIFO, &tmp);
->  
-> -	return ret;
-> +	if (ret == 0)
-> +		return -ETIMEDOUT;
-> +
-> +	if (ret < 0)
-> +		return ret;
+* This is in-band signalling by filename. A METADATA!!! entry changes
+  the meaning of whatever came before it in the stream.
 
-First check for generic errors, then for exclusive conditions ( == 0).
+  Which is just the TRAILER!!! nonsense all over again (cf. [1]).
+  No cpio tool knows about it and a kernel without this parser silently
+  extracts the metadata as junk files.
 
-> +	return 0;
+* It sets whatever xattrs the archive comes with through vfs_setxattr()
+  during early boot. Which is insane.
 
-...
+  Not just security.ima but security.capability, security.selinux,
+  trusted.* and anything else.
 
->  	ret = wait_for_completion_interruptible_timeout(&xadc->completion, HZ);
->  	if (ret == 0)
-> -		ret = -EIO;
-> +		return -ETIMEDOUT;
-> +
->  	if (ret < 0)
->  		return ret;
+  And we've NAKed this before in 2018 (cf. [2]).
+  The magic file name scheme was called a kludge back then too (cf. [3]).
+  Nothing about that has changed.
 
-Ditto.
+* The initrd is already covered as a whole. Appraising
+  individual files inside an image whose integrity is plain weird.
 
--- 
-With Best Regards,
-Andy Shevchenko
+* If kernel and initrd are owned by different parties this can be
+  done in userspace. A trusted /init can apply xattrs from a manifest
+  before it runs anything else. That was pointed out in 2019 already
+  (cf. [4], [5], [6]).
 
+This has been proposed in some form since 2018 and never found a
+maintainer willing to take it. I'm not taking a private cpio extension
+into init/initramfs.c either.
 
+[1]: https://lore.kernel.org/r/d69f329c-8365-bb0e-69ee-774cbea141b2@zytor.com
+[2]: https://lore.kernel.org/r/3d1bfbd7-7d45-4cf1-32d6-7f6985b42393@schaufler-ca.com
+[3]: https://lore.kernel.org/r/f2886ac7-aff9-94bc-5f65-b3b2e946a6ff@schaufler-ca.com
+[4]: https://lore.kernel.org/r/20190512091748.s6fvy2f5p2a2o6ja@isilmar-4.linta.de
+[5]: https://lore.kernel.org/r/20190512194322.GA71658@rani.riverdale.lan
+[6]: https://lore.kernel.org/r/CALCETrV3b205L38xqPr6QqwGn6-vxQdPoJGUygJJpgM-JqqXfQ@mail.gmail.com
