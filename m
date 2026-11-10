@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279143;
-	b=kqOzqeobk8CwsGqpuM2Rs3ZJzmET5q7vs3QMwf/MekY0grD00H0yg8sALayzw5BbGizx
-	 xYl7qrHhkk67Z/QS2Bg7O3EaYHuA5jj/Xt9RJKkqiNAH93LaDnvI5PRXTBWujT7n3EDOv
-	 bL+V02FDYxXMiTKC9TaEl2D+SRkIvzgRxJFZaRhEvlr+QWPPv1moP/ZKbi9TNpYScA/DR
-	 MKAujShT3vHlK3v+SGp6TCTNWLyPkHCLBHkt22p+oNIEGLbKbQl9zk9vUbfu3erRVwaJx
-	 F8ajHRrj0LR2mEfMaOgcLsjTpTx/h+RXQNTSFiBOkqYRW0qISfuzfoCZpStNR5674tg==
+	t=1794279147;
+	b=PrnBUKH0kBHEbZN24dKiI2v4RiDNHmyiXAHjWBpHsR1KIC+++FMnxkKHm0gfikgLQP4d
+	 qA3OziEdAdNI9Ag+5TWjJfcQsKLTty79/kln3XUP7aaECZZrbm+v65ODtaai7uPFpuS84
+	 CbpYj0GbiSMVDKXPhbAMhLbz5oRpJHn5WcFTkh8zQORGnEcJ8z9cvouHchUjWASXQqBDy
+	 qIHszFyUys/vNuq9vJURa2WXmrw90V+KzHI46dYr9uweheSnc88uGkLHGKR+gQbPfoCZ3
+	 nMACV2Lw8TlTokyoxEhYoeZUXA2Lxe3ONgMD3dmgU1+7rhjGdpu/PI5xH1VyWaYA9gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279147;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=/BigNl2VaL7rLRFpYi5hoO1tJBWhV6OR4KSa4Cct7es=;
-	b=u31se/+TlveuNU01hLAB2mPva0xCoehtpulC1qmZvTNdHcEPDuUNkYxq8bf/Y6owON3t
-	 4wMC+EtLjUjHlIdDI8MTYEoFUVKpcjLpWdZWRugH3xplAl1ITEuczTuEG5dRE4j1k06qh
-	 +qhIjbJU+YYuOCPzBHXNHirLqsBXuHVI3uuRu9xIGInQWRGRZqpVq7Q3AQt6eBkjioTeb
-	 648avc/Ju7SCgwosxSl1/+dTS+WIHUq7+lwAlH+LNwTg8+Xn6LUxPEgpAF2Xo+0EE12gA
-	 whGA/maab8mcvrS5eJ4CcDmOq1QtrRGDCulPXkF3ZjEP/fY3jGJo0nJnt9GBTGoAtuA==
+	bh=lQNUV5YgUByNTPltTuqOFpYJlWyhTkTkFmY14rehLIY=;
+	b=EpwwZxRs68giJ7W6BnxqtCQe2jPuaYM9ACnY9aOXbw2sQAt1Z7xmjdrYzuRLMTh7X7qq
+	 yyOaPWqTZAseQ6JcI05u5O13lSojDlKT2g9JVRgl0JUtbN/VHUL0ElSGeQ0TJhZ+hg2dg
+	 EdqTrdxypshaG4eaY0OKh1U55h0TUFRLyucLXqlPu7nQC2LK2jhdtMu/rkG3vrUJJWit/
+	 zL4u+B8V0pH0oAARP6wLpeWh92nS0pQBxG94gtWGbVyvvo4p+Ms0B1EbIPGEo6e5BlWd6
+	 W2QE3g6c4zfwy8gdrxdSff2kbWeNELIt6NJQqXM/FYAG2N5J5VEKK5VBf/4hpxbrH7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJpLugyq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2M2JpNX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B1B606A335;
-	Tue, 10 Nov 2026 02:52:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24BC60A2622;
+	Tue, 10 Nov 2026 02:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJpLugyq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAF21F008A5;
-	Tue, 10 Nov 2026 02:52:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2M2JpNX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258791F008A5;
+	Tue, 10 Nov 2026 02:52:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279142;
-	bh=/BigNl2VaL7rLRFpYi5hoO1tJBWhV6OR4KSa4Cct7es=;
+	s=k20260515; t=1794279146;
+	bh=lQNUV5YgUByNTPltTuqOFpYJlWyhTkTkFmY14rehLIY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TJpLugyqYyxeMgKLUGB+H96hePV0GSh/2Rbr1BFcoWE5f3cWlnQ6LSUxvXsVQg8Qr
-	 8ZResATyzXsxTssItZD/nyaJcSp8lWwF1xjaFsEDZOwPwa2yRSp7E7txAa6RRJT7kW
-	 Pnl0oFCiMy083W2Byvp/CZbjAkcLnwvPuZCHwOKWiu9rVKS/7Tj3DulPWMH7e09tKa
-	 hAh5A6dkJO4t0wDM+6Jq5v6SM4UikmO8blGVDozrImcts3gPQQItExgtuWNhRe3GuE
-	 MV0bEXYQLx44Eld4mqeFa6s6SCeW0pA4GjT0HdhWg8GtUMS+adutZWq0bfDq+ADlnf
-	 zaf8GIrM0Ae/g==
+	b=V2M2JpNXr6rbh+djVU0eYs6a3sLhSDAbAd79nJinvsp4fyVZnGCANL6TnB2dY+oIf
+	 MeUNjuPXXN9J/JuVCXIZmMyU/w3U7ZLx8PtaJ5+cgtcxcwLo3DdMpdfCcOtiqTRdtG
+	 wrK4Kww9qIgdsrBYPFr/8chYorpCdcAwAHibzmZfPfHYhr6/6eD3akM4tytKMnO1i+
+	 FqZMUjdr4PI039joXcqF9COBm2B+XyKP+ZdeYgSwT+31eQXc9ywvHxoV7K7bzXx59a
+	 qJiKQfsYeEmOjMat/p2JTnYz3ZoWFwneMamrYaGM49q4mX1QihIiVnN7NxkMt7wsGo
+	 AACyQ5bHobOPQ==
 From: Namhyung Kim <namhyung@kernel.org>
-To: Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, "GUO Ren (XuanTie)" <guoren@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-csky@vger.kernel.org, 
- Chen Pei <cp0613@linux.alibaba.com>
-In-Reply-To: <20261105-csky_c930_pmu-v3-1-3f33e6b3d259@kernel.org>
-References: <20261105-csky_c930_pmu-v3-1-3f33e6b3d259@kernel.org>
-Subject: Re: [PATCH v3] perf vendor events riscv: Add C-SKY C930 JSON file
-Message-Id: <179427914192.13444.10026998542210349507.b4-ty@kernel.org>
-Date: Mon, 09 Nov 2026 18:52:21 -0800
+To: irogers@google.com, acme@kernel.org, peterz@infradead.org, 
+ mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+ jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
+ lv.yating@zte.com.cn
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ liu.qingtao2@zte.com.cn, he.yilin@zte.com.cn, zhang.cheng35@zte.com.cn, 
+ ye.zhihao1@zte.com.cn, shen.lin1@zte.com.cn, dai.hualiang@zte.com.cn
+In-Reply-To: <202611021227.6A2CRwkO000175@mse-fl1.zte.com.cn>
+References: <202611021227.6A2CRwkO000175@mse-fl1.zte.com.cn>
+Subject: Re: [PATCH] perf test: Add LBR call stack branch filter test
+Message-Id: <179427914610.13444.13056121071412016191.b4-ty@kernel.org>
+Date: Mon, 09 Nov 2026 18:52:26 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,16 +66,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Thu, 05 Nov 2026 06:31:20 +0000, GUO Ren (XuanTie) wrote:
+On Mon, 02 Nov 2026 19:02:28 +0800, lv.yating@zte.com.cn wrote:
 
-> Add PMU event descriptions for the C-SKY C930 core so perf can list and
-> select its hardware events by name instead of requiring raw event codes.
-> The events cover core counters, branch prediction, instruction fetch,
-> integer execution, load/store operations, vector and floating-point
-> execution, caches and TLBs.
-> 
-> Add a mapfile.csv entry matching mvendorid 0x5b7 and marchid
-> 0x8000000009201600, allowing any mimpid, to select the C930 event table.
+> While debugging a NULL deref in resolve_lbr_callchain_sample()
+> triggered by "perf record -j stack" (fixed in commit
+> 4626d370ae89b8af4d46a45372b269f926ec662d "perf machine:
+> Fix NULL deref in thread__resolve_callchain_sample()"), the "-j
+> stack" filter was found to lack coverage in the perf record LBR
+> tests.
 > 
 > [...]
 
