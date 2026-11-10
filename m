@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316638;
-	b=h6WR439lQu/Kekj5Cj5y5csAsTuUlawPwaCpi5REfUzECwXIcWEErofIbDWFA9ssVvQs
-	 IcgEd+LNtooQuuh5S6uR867foyM/86MmcDnO23qU3x2xnn87EJt4T32dNqc6NDSZU1Kbs
-	 p9uUtYu4jpNhMi8JUOX2uNTIW8Q693DgCFlLva6DwiApftVtgc7XJSu1vsBS4+lyDf3Dc
-	 xpW7tNO28s++4xATzJm78rgjAtGQr/UlCXV8ci0svKUfdjfxBuMIlQLyx3IIy6cK7tVUw
-	 INSi0MHGE1HJsS4XxLbcpyHm3QioRC6oxQ6mIDejVf0fW3UNRwnOOu3lpJW4tADU/sw==
+	t=1794316646;
+	b=4NSS4xlazH155F4J3OT54ykYBmyTdOJbDPEeO/pif+vkApQBxYhqYidxOr8ZPEilmcFY
+	 d1DMNyJbtp7KylnPOObOK8DFLLvw2lZu6naV+WsjanJGib+7q3Ouw7tzq0y4I+ERBKhEh
+	 DV40sNlEI1FwP7cuo1aIOoyzqaymWEYS7Fyv4Ppks+3soXfr1sxZxzqeO+LDXVTdMcaLE
+	 i268bE2cOZYoUNExJZYzBt9PjLpxOQVUtuyBkdrKJJJaS0KtihkmY4Efvswklcm0sASXP
+	 xS8GyoRMe2CVQ7jlPC8f2R98ZnUzNRCyKsXxiluuWHT4wgJ+wH7rXbGcWzhQPgbFuRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316646;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=r3wr6IHLy4V7+ZNBxFAJmCOSfBx7lTozRB+lQsmMRkc=;
-	b=QF6voHZ2Vv0lHPuX4nuuw6E/uGVout6L+wKyFl/VxYLI3k+zDjd5ePHSkiWFnk9ozC/2
-	 uPaDFfd6r2d02ztXqr/hmfJrQ0ijS8aJm0SclOTnlXgctjjwNdnKnTHK15nsLfnBSVhBA
-	 4A4jjq6DQBikmlZ336Ixo6JTYRiLjtj9Bh3Z7vLiIK7bfR3D0EeAY60bEAjYcvBMGDK5n
-	 xQuJz/U0vOpSDIGpeuwsE8ggHULd+GuDPYlrczbsBNdWF8ffDKuDRHpexmbL0z0+c+UmF
-	 0s7HLMVYqKlt4NzOyldjIXJ/ZHa5vmzAa6DqyszSp7IQyZECwBOI7TCHnHp9jadJXmA==
+	bh=amYKu9Mlu4ZUHnYh3zoqDs5n/EBYvfKM0p/VC3iZw/s=;
+	b=0ykgULpcdm9K6pX9R2qBQPIgvkELmX5mXNzesrPlIPl2pZcYmteDhEKhV0dRK3vzJqhk
+	 9HsVyexcvmlHDkart2YEqwp30YCy708bpP0eFxRQOhGowtR1dlRvTTIwL5caRPjSQgxyj
+	 MXPdIvZ3+uvfs0n71b2gWqrZNmc/lwz7qjhS+0ec0vPnnkCz8Ru0lNJWjM9/ssCCNfOUb
+	 Oa6auvARvPyhENvfMySJPW/v9DowNeDEpGhkDYsGwzdQ0xug+679/og+mY8oKd59bazSa
+	 QMHrauwCIsUVdNfKxYo/StvlsND3vErkMsn8yKG36doGOVKq5r8vUAM6FN0bA2IABBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iZxFUalg;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrXf8wWm;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2030606A76A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2030606A76A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB7F6071E4A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BB7F6071E4A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iZxFUalg
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b08cf16decso1292178a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:17:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrXf8wWm
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso815263a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:17:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316637; x=1794921437; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794316645; x=1794921445; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r3wr6IHLy4V7+ZNBxFAJmCOSfBx7lTozRB+lQsmMRkc=;
-        b=iZxFUalgzOBVwtWuMdphShtd6WjtgWG627EyNp9xyU4q2GHZ4d2IMiye4iaCvyW3xi
-         pjbR43L3Z8aocTsO++ifSl9D1xwyC6BDkHMNb7iAweXlj1J8MzSH7I+DOZGuGXWC9nfY
-         BYKAP+8qLPR6SURsGEOOOq3UTTeU95mCl06gI0tI8FsegUooZSfPfcQig5xKjePPVbzk
-         MPXcNgm/tbX1wDpsVk3NC0wajrfLr6zbEdXdWOl5URWp4JKatnzaIf4/fbptYjaFNDw5
-         rkzrWdlNKmOF+ss1WYPKwdJBuwktKJ9EIfG1QvammA6GWxBYr63S/36ZbFTSf+uEFq7c
-         zJqw==
+        bh=amYKu9Mlu4ZUHnYh3zoqDs5n/EBYvfKM0p/VC3iZw/s=;
+        b=MrXf8wWm4iXgPVf0ei/9iKm3ujIo9AFWMrhwj29tFnKI1mmLIEFlXjP/1YH8S/xjmS
+         zxB9Mgu4BvYCkCzLLmHZUnNv8B8NLGhZUK0NjPxiKrjOHRPKhTwM2eMcLJbaoU0kT2n+
+         DLgepPgo/Ey390mn/I3PmZNRE/okJgzTVRnWAOQP7HQdX7rH80ynykHaDfbLNiXtQm+r
+         Qb3CGyUXDsKdjb8sscBvef8EkBw/qHwU9FtFQnHKMb7lIgTGs3w0cWq/91ihcye5Z7HF
+         PuLssEcZks6LItj5quTqwp/6C83BCCYnhGJZrVFgsHLGnBEdAGbtB60JVU+a3ot8Ydl8
+         Oa5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316637; x=1794921437;
+        d=1e100.net; s=20260707; t=1794316645; x=1794921445;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r3wr6IHLy4V7+ZNBxFAJmCOSfBx7lTozRB+lQsmMRkc=;
-        b=WHgzsgFXgKjdDk8Kp0VaQSEHThs7LEcxicLwCgjSp1JU9by0H3D7UGv+tvOUScOSiu
-         f0cr1n+MpdNvP65MoUSzlAQfiQqNrRpM0AdySRG7/BA50FKE746Ia56ZJ1ZeLFmMtrx3
-         pZ5eBamOIDNX5bjBdKvHpR0oCw5bgFPfdMuAJZBZ8oIWZUlWgo9LZbwxpu4IDd793NpB
-         C286AfOpB/C+OSbXnepYU599Zab/Yvhnq6Yo9hZpLSLe+Va6OC1gZwqMmgDMkwtP6jaL
-         XmNqusspO8y3sLaLQmX+X+VIrF4r7KFrqYhh8sAxDjWNjN0cbqnCyoC/waBNAd69Rty/
-         1RxQ==
-X-Forwarded-Encrypted: i=1; AL+hErFisa+DiDa9f4GT9Vlu7FXxCytlk54kvK6Viu+NL1wPjMwYC1EGPIcAR2N0VfZTaj1nOmdmlWZjCQrN2ek=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84aB2DVfY5AKDEo8W0fmixxUMSjxCTHLNkb6gW+RQ74ZBebMc8
-	XlkIsoeerKPIH50hnofPxm+YhoCYVzJcoAKKTI2ENIJJpzm1ilEqpWT5
-X-Gm-Gg: AYBFou2Z+07tfPR2jNvt6whRxI9iQb7HC5PZUxFeZp1AU1OAYB3vTKEgfZAsvZt43l6
-	JUX5X+KaDFIdSsYe3Q1udplTxSW3bVa3H3hhjvcPbhfVLFxQpkNifo95QcSEXBjEC6iWYpQ7qTn
-	UbYzdVd1IXp4h3fObygQ67QTvIQBFg6pvANyM7RJRNPTFCVY6YSP1zUefnEy7+sVkrG05iQvBft
-	Bv0DVyiUgddO5vvL+bSOs2G6VYUqBtEJZhcvmmqjKOilzRGWPweQns4BvfP2f8MIbcGC6EBM62T
-	nJzSThs+eaXZFrkNsojWuT5XCmwgxjSO79PERGmSga82PD1V17wuNNSyTtQGCwN21+iwT7iRjz1
-	1RUVON+62H5fl/8KHOfUuuavDvb2I0lNlIs74XP0bzPf58E86lgth9WSDkiLIgP0Atz+1H9ryfO
-	JCvgmboLeBhSS/hBZo2rNKi5lAFfgDmsrN0uCS/Q1SKQMyvW8NBCv1c2i/YZvbw0TnV96hY0FiH
-	uzl6GiRLdfRX0XU+5VCrowz3akzJnnUtpk7GUTa6mPt/y1rSKXBW8Y9Y5RPh+flRqysxCX+n/vc
-	u5zh8CWUSjYx2cY3n69cx4w4LHCnyxI=
-X-Received: by 2002:a17:90b:55cd:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3b166cb467fmr2693107a91.35.1794316637413;
-        Tue, 10 Nov 2026 05:17:17 -0800 (PST)
+        bh=amYKu9Mlu4ZUHnYh3zoqDs5n/EBYvfKM0p/VC3iZw/s=;
+        b=Ck22VVANm6wF+3WlbDF44nZFdgLE/LnROEHfug24wtCOcMW6udB4g8CCLUaAMeoRT4
+         nbnjZIszHhv/yV8BNHqUrCWV9vHZDvPTFUo/X7R/XeV0eWm9CyMdLtSMONb9pSRu0KeU
+         xlMN7AZ5U94x0Dnd7+gbJ0aZsbopoSWtAudANS2W/vSOm8IHrIrBeoyGnURbMIah5qj8
+         Z0L8/JUOrZhpwjBVfe7S+6M1fKhG/4XHKhv+q0CA0hdAesa6DFVYLvIrJCMR3DSu4dtn
+         fZcqP35xbqdSTRYveqdG6wyh9fzDT0YQVW16PY+RnQNsn4DoOsqP9tvmw6y46h94vvVf
+         3Wfg==
+X-Forwarded-Encrypted: i=1; AL+hErEHBa0lr1n12kVj07xVG3w73gYHWUUPVA6hAuTgwhbrWLXdENc/6VgWv8QgD7W9sUIzDJqzL5GtALU2cbE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dGCPDZ4ec9TpYgiqu3ctwwSso/rcT+4cB9vGYDDpkQWCL6WWh
+	/bN1FY+ruAFCnHAGfXv/41xkUyz4ju480vP39rwx5tuH2SC3mSf+stDiehWzQw==
+X-Gm-Gg: AYBFou2can8Tv2jwdzGfy8OJJcH0BSSMfzuRs5TKj5MTIFYWvyMZ6HTSVzyoaNFoDDQ
+	fv9C+TjOmuFL7TNBXnQ+508pcy2+KlgK46eRQJmNFzz/+KIH/x0nBRAvCV2bN2ERsB0vRah0/rv
+	8KZJUkErfMo96uTTtQY/oH+JgwCL2Ujy+hSgtG+IDLfYyyIOfMCs6UQt0OF7yIDvvtUCGRgbzTo
+	rFHVw2q2Te8LMBJJkXzDQahL0rLAh2q/rnmfTiVvElpjMIkMOC2oguo+Vs1uBBzxwloJH5Yaqch
+	IBpq7VLAJim1VLYngmzt09YXuaHZDkyfytymB+0YmumSiQ7tyYvk8pRWJv1aM1mdV2lcxwuXUFE
+	H+281/+9TiyrClamQ6Kvfa5plwsuKBfDZOiayQcfa5OhW/roCmtoX3H8GZNwXMzJOBrEU0wA3EN
+	Lf1o1bzi7i7XCsPdnTIZDX0/3Ea+iEGdi/2r0Ndtm1YE/Pbx8bZgCiU2NkO7AEu2ttZDDgZXzAX
+	SKMCo3//o1gZDCzDbfRFQg4WTPH5Dq9SNXYj0K+yrRlIodvoqfZONqaHKhk1vfBHdUYgxXLmazz
+	7ihZTIhz5NIvjHt4glPFyqAaWhzuXJ8=
+X-Received: by 2002:a17:90a:e2c6:b0:3b1:6cab:f68b with SMTP id 98e67ed59e1d1-3b16cabf8fcmr1224865a91.11.1794316644780;
+        Tue, 10 Nov 2026 05:17:24 -0800 (PST)
 Received: from cryptic.lan ([2001:569:7077:be00:8191:2bfc:aa6d:704b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.17.16
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.17.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:17:17 -0800 (PST)
+        Tue, 10 Nov 2026 05:17:24 -0800 (PST)
 From: Allen Pais <allen.lkml@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Allen Pais <allen.lkml@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Allen Pais <allen.lkml@gmail.com>,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Frank Li <Frank.Li@kernel.org>
-Subject: [PATCH v4 26/33] dmaengine: mpc512x: route callbacks via channel BH
-Date: Tue, 10 Nov 2026 05:13:26 -0800
-Message-ID: <051bf57158a5c5ae82d0b7babeefd951c3ba85a7.1794315350.git.allen.lkml@gmail.com>
+Subject: [PATCH v4 29/33] dmaengine: pl330: route callbacks via channel BH
+Date: Tue, 10 Nov 2026 05:13:29 -0800
+Message-ID: <e9d076ea58ba3701e0f9287ce2fa3ccae4c8df0a.1794315350.git.allen.lkml@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794315350.git.allen.lkml@gmail.com>
 References: <cover.1794315350.git.allen.lkml@gmail.com>
@@ -103,162 +103,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Schedule per-channel BH work for completions and process callbacks there,
-leaving the controller tasklet for IRQ/error handling.
+Convert the per-channel tasklet to dmaengine_*_bh while keeping the
+controller tasklet for non-callback events.
 
-Drain the per-channel BH work in mpc_dma_remove() after the controller
-tasklet is killed, so no callback can run once the device memory is
-released.
+Initialize the channel BH once at probe time, alongside the other
+per-channel state, rather than in pl330_alloc_chan_resources(). Unlike
+tasklet_setup(), dmaengine_init_bh() must not be called again on an
+already initialized channel, and a channel can be released and
+re-requested many times. pl330_free_chan_resources() still drains the BH
+when the channel is released.
 
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- drivers/dma/mpc512x_dma.c | 78 +++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 27 deletions(-)
+ drivers/dma/pl330.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/dma/mpc512x_dma.c b/drivers/dma/mpc512x_dma.c
-index f67421f2d6d3..b6a1b3c94da4 100644
---- a/drivers/dma/mpc512x_dma.c
-+++ b/drivers/dma/mpc512x_dma.c
-@@ -372,45 +372,47 @@ static irqreturn_t mpc_dma_irq(int irq, void *data)
- 	return IRQ_HANDLED;
+diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+index 977a9fde80ad..6e88f5b45fb4 100644
+--- a/drivers/dma/pl330.c
++++ b/drivers/dma/pl330.c
+@@ -417,9 +417,6 @@ enum desc_status {
+ };
+ 
+ struct dma_pl330_chan {
+-	/* Schedule desc completion */
+-	struct tasklet_struct task;
+-
+ 	/* DMA-Engine Channel */
+ 	struct dma_chan chan;
+ 
+@@ -1575,7 +1572,7 @@ static void dma_pl330_rqcb(struct dma_pl330_desc *desc, enum pl330_op_err err)
+ 
+ 	spin_unlock_irqrestore(&pch->lock, flags);
+ 
+-	tasklet_schedule(&pch->task);
++	dmaengine_schedule_bh(&pch->chan);
  }
  
--/* process completed descriptors */
--static void mpc_dma_process_completed(struct mpc_dma *mdma)
-+static void mpc_dma_process_chan_completed(struct mpc_dma_chan *mchan)
+ static void pl330_dotask(struct tasklet_struct *t)
+@@ -2061,14 +2058,15 @@ static inline void fill_queue(struct dma_pl330_chan *pch)
+ 			desc->status = DONE;
+ 			dev_err(pch->dmac->ddma.dev, "%s:%d Bad Desc(%d)\n",
+ 					__func__, __LINE__, desc->txd.cookie);
+-			tasklet_schedule(&pch->task);
++			dmaengine_schedule_bh(&pch->chan);
+ 		}
+ 	}
+ }
+ 
+-static void pl330_tasklet(struct tasklet_struct *t)
++static void pl330_tasklet(struct dma_chan *chan)
  {
- 	dma_cookie_t last_cookie = 0;
--	struct mpc_dma_chan *mchan;
- 	struct mpc_dma_desc *mdesc;
- 	struct dma_async_tx_descriptor *desc;
+-	struct dma_pl330_chan *pch = from_tasklet(pch, t, task);
++	struct dma_pl330_chan *pch = container_of(chan, struct dma_pl330_chan,
++						  chan);
+ 	struct dma_pl330_desc *desc, *_dt;
  	unsigned long flags;
- 	LIST_HEAD(list);
--	int i;
- 
--	for (i = 0; i < mdma->dma.chancnt; i++) {
--		mchan = &mdma->channels[i];
-+	/* Get all completed descriptors */
-+	spin_lock_irqsave(&mchan->lock, flags);
-+	if (!list_empty(&mchan->completed))
-+		list_splice_tail_init(&mchan->completed, &list);
-+	spin_unlock_irqrestore(&mchan->lock, flags);
- 
--		/* Get all completed descriptors */
--		spin_lock_irqsave(&mchan->lock, flags);
--		if (!list_empty(&mchan->completed))
--			list_splice_tail_init(&mchan->completed, &list);
--		spin_unlock_irqrestore(&mchan->lock, flags);
-+	if (list_empty(&list))
-+		return;
- 
--		if (list_empty(&list))
--			continue;
-+	/* Execute callbacks and run dependencies */
-+	list_for_each_entry(mdesc, &list, node) {
-+		desc = &mdesc->desc;
- 
--		/* Execute callbacks and run dependencies */
--		list_for_each_entry(mdesc, &list, node) {
--			desc = &mdesc->desc;
-+		dmaengine_desc_get_callback_invoke(desc, NULL);
- 
--			dmaengine_desc_get_callback_invoke(desc, NULL);
-+		last_cookie = desc->cookie;
-+		dma_run_dependencies(desc);
-+	}
- 
--			last_cookie = desc->cookie;
--			dma_run_dependencies(desc);
--		}
-+	/* Free descriptors */
-+	spin_lock_irqsave(&mchan->lock, flags);
-+	list_splice_tail_init(&list, &mchan->free);
-+	mchan->chan.completed_cookie = last_cookie;
-+	spin_unlock_irqrestore(&mchan->lock, flags);
-+}
- 
--		/* Free descriptors */
--		spin_lock_irqsave(&mchan->lock, flags);
--		list_splice_tail_init(&list, &mchan->free);
--		mchan->chan.completed_cookie = last_cookie;
--		spin_unlock_irqrestore(&mchan->lock, flags);
--	}
-+/* process completed descriptors */
-+static void mpc_dma_process_completed(struct mpc_dma *mdma)
-+{
-+	int i;
-+
-+	for (i = 0; i < mdma->dma.chancnt; i++)
-+		mpc_dma_process_chan_completed(&mdma->channels[i]);
- }
- 
- /* DMA Tasklet */
-@@ -419,6 +421,7 @@ static void mpc_dma_tasklet(struct tasklet_struct *t)
- 	struct mpc_dma *mdma = from_tasklet(mdma, t, tasklet);
- 	unsigned long flags;
- 	uint es;
-+	int i;
- 
- 	spin_lock_irqsave(&mdma->error_status_lock, flags);
- 	es = mdma->error_status;
-@@ -453,7 +456,21 @@ static void mpc_dma_tasklet(struct tasklet_struct *t)
- 			dev_err(mdma->dma.dev, "- Destination Bus Error\n");
+ 	bool power_down = false;
+@@ -2174,8 +2172,6 @@ static int pl330_alloc_chan_resources(struct dma_chan *chan)
+ 		return -ENOMEM;
  	}
  
--	mpc_dma_process_completed(mdma);
-+	for (i = 0; i < mdma->dma.chancnt; i++) {
-+		struct mpc_dma_chan *mchan = &mdma->channels[i];
-+
-+		spin_lock_irqsave(&mchan->lock, flags);
-+		if (!list_empty(&mchan->completed))
-+			dmaengine_schedule_bh(&mchan->chan);
-+		spin_unlock_irqrestore(&mchan->lock, flags);
-+	}
-+}
-+
-+static void mpc_dma_chan_bh(struct dma_chan *chan)
-+{
-+	struct mpc_dma_chan *mchan = dma_chan_to_mpc_dma_chan(chan);
-+
-+	mpc_dma_process_chan_completed(mchan);
- }
+-	tasklet_setup(&pch->task, pl330_tasklet);
+-
+ 	spin_unlock_irqrestore(&pl330->lock, flags);
  
- /* Submit descriptor to hardware */
-@@ -551,6 +568,8 @@ static void mpc_dma_free_chan_resources(struct dma_chan *chan)
+ 	return 1;
+@@ -2355,7 +2351,7 @@ static void pl330_free_chan_resources(struct dma_chan *chan)
+ 	struct pl330_dmac *pl330 = pch->dmac;
  	unsigned long flags;
- 	LIST_HEAD(descs);
  
-+	dmaengine_kill_bh(&mchan->chan);
-+
- 	spin_lock_irqsave(&mchan->lock, flags);
+-	tasklet_kill(&pch->task);
++	dmaengine_kill_bh(&pch->chan);
  
- 	/* Channel must be idle */
-@@ -1007,6 +1026,7 @@ static int mpc_dma_probe(struct platform_device *op)
- 		INIT_LIST_HEAD(&mchan->completed);
+ 	pm_runtime_get_sync(pch->dmac->ddma.dev);
+ 	spin_lock_irqsave(&pl330->lock, flags);
+@@ -2491,7 +2487,7 @@ static void pl330_issue_pending(struct dma_chan *chan)
+ 	list_splice_tail_init(&pch->submitted_list, &pch->work_list);
+ 	spin_unlock_irqrestore(&pch->lock, flags);
  
- 		spin_lock_init(&mchan->lock);
-+		dmaengine_init_bh(&mchan->chan, mpc_dma_chan_bh);
- 		list_add_tail(&mchan->chan.device_node, &dma->channels);
- 	}
- 
-@@ -1088,6 +1108,7 @@ static void mpc_dma_remove(struct platform_device *op)
- {
- 	struct device *dev = &op->dev;
- 	struct mpc_dma *mdma = dev_get_drvdata(dev);
-+	int i;
- 
- 	if (dev->of_node)
- 		of_dma_controller_free(dev->of_node);
-@@ -1099,6 +1120,9 @@ static void mpc_dma_remove(struct platform_device *op)
- 	free_irq(mdma->irq, mdma);
- 	irq_dispose_mapping(mdma->irq);
- 	tasklet_kill(&mdma->tasklet);
-+
-+	for (i = 0; i < MPC_DMA_CHANNELS; i++)
-+		dmaengine_kill_bh(&mdma->channels[i].chan);
+-	pl330_tasklet(&pch->task);
++	pl330_tasklet(&pch->chan);
  }
  
- static const struct of_device_id mpc_dma_match[] = {
+ /*
+@@ -3121,6 +3117,7 @@ pl330_probe(struct amba_device *adev, const struct amba_id *id)
+ 		pch->chan.device = pd;
+ 		pch->dmac = pl330;
+ 		pch->dir = DMA_NONE;
++		dmaengine_init_bh(&pch->chan, pl330_tasklet);
+ 
+ 		/* Add the channel to the DMAC list */
+ 		list_add_tail(&pch->chan.device_node, &pd->channels);
 -- 
 2.43.0
 
