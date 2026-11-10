@@ -1,71 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332551;
-	b=AxQjTtww2yDeeGmYBou0EMXu8SMluvH56V/24cgY84433m4AqN9sHFKabQ3rgif4WX6s
-	 VJCqFJqOjdOl8Aq1WPye7Uu3i0UCLLkUzNKAiVc3oeXE2sgp2MJtY6NZLM84b0+Sx6Y++
-	 GKh2yndNfQhXUMqesW+NSIk2RiB5JuhotHsuveYsU9xsKj2q3tRWvA7mm0uW1P/a98l4i
-	 kBatdDVPwX79mYMWphVKEZgEK6UKstaENrxrlYU0Dwdq5kPoht6ZYyLhkDiueaENLP6q6
-	 KmSszTDJrlEgGBywIjUIaNpfOWHuHDJddv+kk4gdWzu4OTnnspqF3pOFsvV1gkB1E7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332551;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
-	bh=PFADTOBDL8rf5JChbyPtnWiRVswNPTLPuQAhS3xLOYA=;
-	b=f4XzWTYBj2AjCkZbzG7QDZHzErlDtuSsofuLG9oNAtqizLqW1SYrQrrTHLEo/Bq+fvEJ
-	 uB8jdmm1ynjJQmnDKVf5HoMsI/8HKtUffVJ6eQpj59/Cvay3+1V8guu5byn8gnO9PwiAf
-	 RRm/bXFv2lmmpjoeFSxo5dHQFKCXbGSz1KamvBUhlfjC49cgzvMSGvz9Oazr76xjHrXXE
-	 lpgeT9NfukP8xnZ8GffvjrHaFBtnT5Isr/kNiES+67EEUnFDBlj9qyb1BRXYOIU2TzDdO
-	 n/xm8UfrQ/Bu0Ykb9IjM1g4yKSAAfelZZmbG4CHL7ohz8SZCXf77U/EQeorlQo6C+kw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deltatee.com;
-	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=AaG8lbfw;
-	arc=none smtp.remote-ip=204.191.154.188
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794332553;
+	b=KWFEPBFw2hbmZ4OnWaWLQIVtDDYENuPR0kh27ZOKW+KzUgQA/91Qfz03bajLGLWc9YqU
+	 q7Wqs7m9bniNa5l0bk8IfssOmOiAu5Vfa72YHgacGmM6PHPHQ4qa5Sxn0E2TEGORfLP8A
+	 jnsKLS8Ou3xBUN9U673Esk0D/7CMCVP54pyPWQ76hfM/HcyYXVhT7AChsuP8bIkAxUzWb
+	 qM2JU8C5xw4aMAtjXLqZ2MnE8Pja2LbE2n3AFduUvJCoaBXx+3xNS4ooCIekciXnE5h2m
+	 K6pkxAyUFocNC8rv/uDtWJXWwz6Hg9zEJU6J4WLxnp6HI59aeGHYqh6wGEeWR+ErXxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332553;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
+	b=Zg4nxGQK1HG5dps3twUW+rImjiSj2pWJFJgqQOiauyXiLYK58zYM0SAnzLHupx7V7deV
+	 53iRjOz/8iLyo8PyWUQcjWrb47jS6GdAwHTpE0YN4kTfyTBRffsjbA/nvDMtT+RGhNT3j
+	 4T5Q3Pw6TTCo7mLsQtF673jfKNTxO5lX/9tHL0D/9S1UUSW0yW7Uc8OEIv3lPaztUHT/J
+	 dgDSsISG0KtXm57XkifGfpDs7QFldyhwnea9w19wbD8oTUL97ZiQPYy2a3QGpgT8/C8pS
+	 UCKI+BCBCaGbVN91LOcNNIX7hfoRY6ZsL2a2UWh9ww+4IVyG22LIfNMzXewmyl/4Mjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0q2clSQd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FCE606A32A;
-	Tue, 10 Nov 2026 17:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41FCE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59134606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59134606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=AaG8lbfw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=PFADTOBDL8rf5JChbyPtnWiRVswNPTLPuQAhS3xLOYA=; b=AaG8lbfwGvwmKhJHuJCkiemay0
-	eI/hDBdgEGSMlkOWY4Xpqv1/NKC4pJoB91AymHl6CCayQN3k151aAAWNsUOvNvxkxZmbN5PEqfZmP
-	fJAa2WUIWGT30QcUA/6wJ7xn9F/hP72DUL+6fBIx01nxBBgFtefgavHwQVjD+rs6Jn5Abbqn2Fdaa
-	yor1OBw3iAxgWwj68gBF8ULDUmJeSmbvBULEREO8H84nUzgup8JikHn+OcESzHoJlSTrng03Aj0t9
-	FQJz6cN5LE1Zwb5qLG97Ycrke5B/zuPB1f0S47KW+lX9fwoOmJEacqa3dQUVIo6tv6z2T23BmxePI
-	fkSNP+UQ==;
-Received: from donard.priv.deltatee.com ([172.16.1.31])
-	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xQprZ-00000000o7w-0m00;
-	Tue, 10 Nov 2026 11:42:30 -0600
-Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xQpqg-00000002cVr-2KlW;
-	Tue, 10 Nov 2026 11:41:34 -0600
-From: Logan Gunthorpe <logang@deltatee.com>
-To: dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.li@nxp.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Date: Tue, 10 Nov 2026 11:39:25 -0600
-Message-ID: <20261110173927.624629-5-logang@deltatee.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110173927.624629-1-logang@deltatee.com>
-References: <20261110173927.624629-1-logang@deltatee.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0q2clSQd
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3adef977ad9so17180921fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:42:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794332551; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nVNrBObThwcwUe8NO9yrdo9mIZykc8NQ+LDYAt/ZmwoKR5iRs2VW+v2K6v+gJXUn9y
+         RZUsHpjCERuhdFXTWvCMrJUEs+OQrvca+XJDnicXnDV/KLZTFy3QEAYuvcu9geFseBgH
+         1l/8D4YnIah4IMnV6B7zP+yoPmTygm4Q3gPTY/RhUsPXm4o4ajTDcilLcTE3/NBPnL7i
+         U6C2HhFPt57qwFQbfDxupzqUF1gf1G9AjNMqwQPP07NjnjvNOPtihRJgLATZn5oJWldu
+         htBxG0+ErqF9hoRlfYUIq66Ujddh9HnXD4teS8WwONNcfOalr8phikkZmQaglAYIPMPz
+         A74Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
+        fh=KkVSKqeT3qUpERDVm8brl/6OduME81qJovVrXYEMVHg=;
+        b=QmFjsJz1pGY+5kS+UYekTnNKQihWlHvrTgpkFFhiP+1UM/AlKjPK9EcW8x1s/2OeJc
+         6WK3hpVf2Jf4LR3T2BXKUCJtGsGg+FKNvVKcbHe8cFC9PP19+j1E1wwQaw1yRkTrwgTx
+         UJbzstdwmKbgmYv61BJR47BfSu7/pkcBYRG9SNCeNDuWsVehWkOHt75mD4F6SRyebDFx
+         9BrprhJVT2EfGI4qXP9ef1UrQD8XO/BcTEWrKSIDUWIDrWsd22KnkqmLocrb/DrEiFwZ
+         FMNPI0ZFyZAGWEYxqQiP3wry8y53i2GhUmzkV7IW7FeKyFLHT8jTj7aQ671Qk5AG+xEF
+         MoMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794332551; x=1794937351; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
+        b=0q2clSQdX8ZXdvOcyhWvyl/+Un60UOtu/PtASKo56ajfRYY8xmcCJvg6WNROL4CaLs
+         dDO/+lMfgpxXYDzA8GBzWbYK79Oyj8Vb7QKai84sHrGnSHLQieMceEt0W6ca7Mkp1tWn
+         zv0/wfqNjy9P5E4VKZKw2tkTXjH8NqnF0WTxIggVR3aq6+O6Y+GGpsgoDxf+cd8Pa636
+         aV5mFJ0Vxrwy8wAq4mk3bnmnAsRmOeVUl4HHkpmBHstOLd3jTqEp/3OiyYdKT+IdCIV2
+         US0/j9nih6jcmku34qzV0BQFVcLnjqr4AE7g1FX5A94s+i8tkEaexwmQDiK20U8VFdyq
+         Kjag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332551; x=1794937351;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Km/1n1LHhDr02ASZV9qn8VhaPAsioBtH6JYVLmDFnWQ=;
+        b=BRps8B7z4pGzOTt0yZHWNS7QqZEoHdOXt9jhfDTl8pXQOMqVHM2s1I9Mt0AX5G00Yg
+         LQpsGWta4+4dIS9NrztzXVpAc4F6X6Fx1AnS8a9ElTBOUKHQhMPO2a7phmlJoqvLLMzC
+         JE7a1muIlJehg/G3RpSUP0GSK/QnYdF+OFUcfwAaBnz8ZDOxb+QQkQqWc6KbavmfKe8/
+         tTMJv4pgI7EtQ72frVcgjiDgFY4iVDO0F45RUwGIJU3KpTxKk0xVKafkgOR0STG/QO7v
+         WeJYjjU3/YueZt8+AiMbUTEQN3sdQsFe+idvXOhw8WuIqGnt7XWQWLt3h8ZwsK9rNeAA
+         7iwQ==
+X-Forwarded-Encrypted: i=1; AL+hErE/xeBSUAhn4d5kH5FZEYk9bc0UTH+IFQ4FtTV6DqDGjxYjeaWEiU/L5mT0o15jxjCIy1ONMyYj1e7Vk9U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8faMUn7NGyhbN7ohf+jhxQc8UJf+ceRDFaekJ1bYTclQrOUl+z
+	r6og2zgusHUEh8sveJx1s0oavjL1Sw3erzclF+uSXFDTFh7gAJMOU4BwgOt+3OV7a6gnNjjDglN
+	xLFZ6/KBiOlkSd8O/vvoOp9ho5LdODSI=
+X-Gm-Gg: AYBFou0Akn+uOtvDPhbmllCj7kyIvDZQzDxMr3zrhA5o/t80DC+m4+MG80twFqJtckh
+	JpJQrlbM2E1vivmnpbi5niA9S8ucsbVBAT2QE9acSKAXy2oyl7ajPqMXBCPKW8x2LTIXNZI27jI
+	x+vukqDZITgksfp71JgrpInj9CjqnIpIxrPJa0yz+HPeE3sPhrrrVYgUNRnrp3qmZOiINMY9j8a
+	8WpDzXLPZX/N3Cy3CIdqG5nlSBSvT5Py90IwydSrnW/T/+yR9WRs3RLUZPSyX16ITJ55w9SJvK4
+	0RIGMrs4ADmIdYK31L14/DqRVWaqXLDDnXzqdRdJZfiIYtePfe6Zprde27+Spm0ThWjH7TrbdZ3
+	gPOLkzZnkogRBMclgpqlBbo9FPtieS5TDot3vO+7sbwqkn9kL2yWWkphvOR9y+T3ImoC8Z84tO7
+	k2IbjqYkPyQ+AX7gr1D+TNWRmHYZEb6Pbtdwgiiqk2Ag+V44pRihe6
+X-Received: by 2002:a2e:a5c8:0:b0:3ac:e4b6:b93d with SMTP id
+ 38308e7fff4ca-3ae0960e26amr7913321fa.8.1794332551177; Tue, 10 Nov 2026
+ 09:42:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,61 +105,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 172.16.1.31
-X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Frank.li@nxp.com, logang@deltatee.com, vkoul@kernel.org, sashiko-bot@kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: [PATCH v2 4/6] dmaengine: plx_dma: add dma_rmb() after observing write-back status
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+References: <20261110054836.1515030-1-senozhatsky@chromium.org> <20261110054836.1515030-8-senozhatsky@chromium.org>
+In-Reply-To: <20261110054836.1515030-8-senozhatsky@chromium.org>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 10 Nov 2026 10:42:18 -0700
+X-Gm-Features: AclHuK_zSUkyB2sjWErWCiaaONj2fSjizGjk85ueR6Sb_actx7ETkPPr0xK7p08
+Message-ID: <CAKEwX=OtCcMak2gshXXDpiXiVK7v0H+gXQpQ-4D4BNvWSbvWHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 07/11] zswap: do not free the entry if its pool is NULL
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org, 
+	Yosry Ahmed <yosry@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Completing a descriptor involves two loads that must be ordered:
+On Mon, Nov 9, 2026 at 10:49=E2=80=AFPM Sergey Senozhatsky
+<senozhatsky@chromium.org> wrote:
+>
+> zswap_entry_free() warns if the entry has no pool (which should never
+> happen), skips zs_free() and then frees the entry.  A subsequent patch
+> embeds zsmalloc handle into zswap_entry, so zsmalloc object will point
+> to the entry, and we cannot free the entry while the object is still
+> there.
+>
+> Bail out early and leak the entry, its cgroup charge and stats instead.
+>
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-1. Reading desc->hw->flags_and_size and checking that VALID is clear.
-2. Reading the destination buffer, which may happen in:
-   a. dma_unmap_page() via dmaengine_unmap(), when a bounce buffer
-      is in use.
-   b. The client's callback, or its processing after polling with
-      tx_status().
-
-On a weakly ordered CPU like arm64, nothing forces load 2 to happen
-after load 1, even though load 2 is only reached when load 1 says the
-transfer is done. The CPU can predict that the VALID check won't
-break out of the loop and issue load 2 early. If the device hadn't
-finished writing at that moment, load 2 returns stale data, and when
-load 1 then confirms the prediction nothing is redone, so the stale
-data is used. This is the load-load control dependency case described
-in Documentation/memory-barriers.txt.
-
-Add a dma_rmb() after the status check so loads after it can't be
-satisfied before the status read.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
----
- drivers/dma/plx_dma.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
-index 1c995f0c4463..83c920eb173d 100644
---- a/drivers/dma/plx_dma.c
-+++ b/drivers/dma/plx_dma.c
-@@ -148,6 +148,13 @@ static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
- 		if (flags & PLX_DESC_FLAG_VALID)
- 			break;
- 
-+		/*
-+		 * Don't allow any read of the data the device wrote to be
-+		 * performed before the status read above shows the
-+		 * descriptor is complete.
-+		 */
-+		dma_rmb();
-+
- 		res.residue = desc->orig_size - (flags & PLX_DESC_SIZE_MASK);
- 
- 		if (flags & PLX_DESC_WB_SUCCESS)
--- 
-2.47.3
-
+Acked-by: Nhat Pham <nphamcs@gmail.com>
