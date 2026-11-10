@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292894;
-	b=AXFK507e9xXRvM/8GB9Ycm3+4apyOW3Woz9O3gvbmBfOz+dKbWTANRzFFCWw6JchYYYa
-	 /7ctM+wcQAW1u6Zz5wRGo1JVbvBmzwvbcVtsL8M4W1vg1pglLG6KCP3RA4/ZqJpZ2InNE
-	 9/5jG9PtuiY6hdT78a/csxOGArJuTvMKCeTeHN+TVpzvjiXhcXs02RkHXPtXHXl+WMP2V
-	 sHXxI/KXumbo/7eOh7JgIAInearQD4OMlSXwnP8MkxBqbYidQyT7JaO9c/fUQsxspjwSQ
-	 8EOud8JVNyny4P62PZBI7V6Jr7BtlMUj/UnrNrE+Il3Z19PH6Ch6WGyRaG80zakrDwg==
+	t=1794292883;
+	b=OpJvy+lXqQPlzSNYsMg2YLIcDu0NnmWWkBn3EtyPEpraA1uN7s5eXx0pH5V7uTVk9nbe
+	 3V/emW+1fKgesFqiY+MS0xcIAvcq+FChMRXsCXbENfAOXbD7MzLZaqTDUj27vCCeR0EiW
+	 FrcTw4H1BpDIVr366I6khRTwZgUt5NgI8j9IzJ2uHeXtnd0qNvUxLmZXuTh8hXLlJjZRd
+	 paDU9FT0W9rv2K4h1Pm8KUjzJ3MKo5VaaseelEOqsvqJXF4WSOjZA9J9GaTbqY8wDIN96
+	 2ELtg/V9dxdkwsbcUPzIcLPMMCenG6nZXW5IcQDMcpcyj8r3t82O7JNkjPsiTHgq0yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292894;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292883;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FBbFVOrNpBv1xR64tTFIaP52jLYu79YH/28NmRnr0wg=;
-	b=ictKlCZMT+be63e3LBDe1D70DwwkxCFB3Io/9nUF6Md+3b54la+NhJv8gEy6dsgFr9Bp
-	 sUU9n6xkhqlEXiAZmy72/fflxxsv4As4x7L3bjjPX4ASWjoTAfkU41olCvLSNIWJcw/Sr
-	 eabDRUDe8aTpTNRsaT4GuYNuKBI/ZvbtM9J6VkSEv5DbFTmJZBLypOWAj4G0xsgHjIst/
-	 95m47yY1ZIXqpB2vLPHrJQj6eT32Yis93gBCEihdzrAI3tLGOMBV0nhaYmGMV/csoZziC
-	 ggrytCDcmYU/9c5+XAjSKi4plSM7XD46+9OviA9RflBTAhqeFgIhCW8SXdaKoUuj5JA==
+	bh=xXxoNAlKa/PBpV5ol5S8Xdd6kzfXK1Yx10K2yYA4fw0=;
+	b=fDSp7VH66ocWZfrg1M8yQVA/fgm8Qpxl0HEHez9RfxHQjxmvy6wIk72yhm77qsWES5Uk
+	 36tKOQbDdyxUoXYcMjDg1eSf1LXHIGGv6Nqb6K2jqFId0zx0cYHEdvgCHNfck8Brns6lD
+	 dfEo8lJTWfVdSK3L4mm0mS3dw3l1NlWdKUTP9Dn0z3doLSGNR9J0z7e+Hgn3b2zeSp5ci
+	 rooVPVpWxOZW2TpV10wv9cWlzX4I6ZS8KifZoxfhK5vvYj+Gi4XGEhYqeW/K4lVHRtOdZ
+	 r9y1DW8+h5ITqmjlwuL3RdFyzWTXY2GDMVpA4UqTij4njLR9m9aTwhK5WE8/x/AoZPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fFm8R4Sj;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ULDv3TpI;
 	arc=none smtp.remote-ip=111.22.67.137
 Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC6D460A3811;
-	Tue, 10 Nov 2026 06:41:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC6D460A3811
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69EA960A5BCA;
+	Tue, 10 Nov 2026 06:41:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69EA960A5BCA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fFm8R4Sj
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ULDv3TpI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=fFm8R4Sj4Ka5YAqdXwfyGZ4kW6XFgd81/wmccYZ5IWX5Cyetn2f/vs5PA3mptb/wZ5HK4V7fkADDs
-	 TnjiAo1Eh52ksQMU3pXLncsiSX+j2aP0OVsTKCaYHHhN+eDBkR+CrExnIEK5gD+LAHfLyRJdUYIBXb
-	 halXSENyds8nrupE=
+	b=ULDv3TpI5s9dq82wvbKiK6lo3e21/yMtzSZpXfnO8tYVJ9A9LVAbdOCL3ZgVdHp56kD8vPPU1ZOZK
+	 1PyDFiicKvPzpgzGJaHxANEsntky82mqw93OMxqkhZf4naqwKlIqeme55lpGLhdMRHxQ+r3Wn/vZce
+	 7UaTcnHt6Ii/zqg8=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af2bc8d844-6b65a;
-	Tue, 10 Nov 2026 14:41:19 +0800 (CST)
-X-RM-TRANSID:2ee46af2bc8d844-6b65a
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af2bc8f847-6b65d;
+	Tue, 10 Nov 2026 14:41:20 +0800 (CST)
+X-RM-TRANSID:2ee46af2bc8f847-6b65d
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa126;
-	Tue, 10 Nov 2026 14:41:18 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa126
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa12a;
+	Tue, 10 Nov 2026 14:41:19 +0800 (CST)
+X-RM-TRANSID:2eea6af2bc812f6-aa12a
 From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 19/22] usb: serial: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:41:02 +0000
-Message-ID: <20261110064105.20335-20-shishunbo@cmss.chinamobile.com>
+Subject: [PATCH 21/22] usb: typec: fix a few spelling mistakes in comments
+Date: Tue, 10 Nov 2026 06:41:04 +0000
+Message-ID: <20261110064105.20335-22-shishunbo@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
 References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
@@ -75,99 +75,110 @@ No functional changes.
 
 Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
- drivers/usb/serial/cypress_m8.c | 2 +-
- drivers/usb/serial/f81534.c     | 8 ++++----
- drivers/usb/serial/ftdi_sio.h   | 2 +-
- drivers/usb/serial/mos7720.c    | 2 +-
- drivers/usb/serial/oti6858.c    | 2 +-
- 5 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/usb/typec/class.c            | 2 +-
+ drivers/usb/typec/tcpm/tcpm.c        | 6 +++---
+ drivers/usb/typec/tipd/core.c        | 2 +-
+ drivers/usb/typec/ucsi/displayport.c | 2 +-
+ drivers/usb/typec/ucsi/psy.c         | 2 +-
+ drivers/usb/typec/ucsi/ucsi.h        | 2 +-
+ 6 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/usb/serial/cypress_m8.c b/drivers/usb/serial/cypress_m8.c
-index 78fb1389b34c..bd9b68b691de 100644
---- a/drivers/usb/serial/cypress_m8.c
-+++ b/drivers/usb/serial/cypress_m8.c
-@@ -462,7 +462,7 @@ static int cypress_generic_port_probe(struct usb_serial_port *port)
- 		return -ENOMEM;
+diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+index 54c7810b563b..ea2564b9eff6 100644
+--- a/drivers/usb/typec/class.c
++++ b/drivers/usb/typec/class.c
+@@ -564,7 +564,7 @@ static const struct attribute_group *typec_altmode_groups[] = {
+  * @adev: Handle to the alternate mode
+  * @ops: Ops for the alternate mode
+  *
+- * After setting ops, attribute visiblity needs to be refreshed if the alternate
++ * After setting ops, attribute visibility needs to be refreshed if the alternate
+  * mode can be activated.
+  */
+ void typec_altmode_set_ops(struct typec_altmode *adev,
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index d721baef5210..dabb91319e8a 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -2520,7 +2520,7 @@ static int tcpm_pd_svdm(struct tcpm_port *port, struct typec_altmode *adev,
+ 			/*
+ 			 * PD2.0 Spec 6.10.3: respond with NAK as DFP (data host)
+ 			 * PD3.1 Spec 6.4.4.2.5.1: respond with NAK if "invalid field" or
+-			 * "wrong configuation" or "Unrecognized"
++			 * "wrong configuration" or "Unrecognized"
+ 			 */
+ 			if ((port->data_role == TYPEC_DEVICE || svdm_version >= SVDM_VER_2_0) &&
+ 			    port->nr_snk_vdo) {
+@@ -4461,7 +4461,7 @@ static int tcpm_pd_select_pdo(struct tcpm_port *port, int *sink_pdo,
+ 
+ 	/*
+ 	 * Select the source PDO providing the most power which has a
+-	 * matchig sink cap.
++	 * matching sink cap.
+ 	 */
+ 	for (i = 0; i < port->nr_source_caps; i++) {
+ 		u32 pdo = port->source_caps[i];
+@@ -5960,7 +5960,7 @@ static void run_state_machine(struct tcpm_port *port)
+ 			}
+ 			/*
+ 			 * Although tAvsSrcTransSmall is expected to be used
+-			 * for voltage transistions smaller than 1V, using
++			 * for voltage transitions smaller than 1V, using
+ 			 * tAvsSrcTransLarge to be resilient against chargers
+ 			 * which strictly cannot honor tAvsSrcTransSmall to
+ 			 * improve interoperability.
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 02539378ffed..67471c363a68 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -950,7 +950,7 @@ static irqreturn_t cd321x_interrupt(int irq, void *data)
+ 		if (!tps->data->read_data_status(tps))
+ 			goto err_unlock;
+ 
+-	/* Can be called uncondtionally since it will check for any changes itself */
++	/* Can be called unconditionally since it will check for any changes itself */
+ 	cd321x_connect(tps, status);
+ 
+ err_unlock:
+diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucsi/displayport.c
+index 572da7bbd29c..56cf7deb2312 100644
+--- a/drivers/usb/typec/ucsi/displayport.c
++++ b/drivers/usb/typec/ucsi/displayport.c
+@@ -165,7 +165,7 @@ static int ucsi_displayport_status_update(struct ucsi_dp *dp)
+ 	dp->data.status = DP_STATUS_ENABLED;
+ 
+ 	/*
+-	 * If pin assignement D is supported, claiming always
++	 * If pin assignment D is supported, claiming always
+ 	 * that Multi-function is preferred.
+ 	 */
+ 	if (DP_CAP_CAPABILITY(cap) & DP_CAP_UFP_D) {
+diff --git a/drivers/usb/typec/ucsi/psy.c b/drivers/usb/typec/ucsi/psy.c
+index c8ebab8ba7e7..8eb1ed42fbbd 100644
+--- a/drivers/usb/typec/ucsi/psy.c
++++ b/drivers/usb/typec/ucsi/psy.c
+@@ -255,7 +255,7 @@ static int ucsi_psy_get_charge_type(struct ucsi_connector *con, union power_supp
+ 		return 0;
  	}
  
--	/* Skip reset for FRWD device. It is a workaound:
-+	/* Skip reset for FRWD device. It is a workaround:
- 	   device hangs if it receives SET_CONFIGURE in Configured
- 	   state. */
- 	if (!is_frwd(serial->dev))
-diff --git a/drivers/usb/serial/f81534.c b/drivers/usb/serial/f81534.c
-index 0037767e4bbf..502c1c0260ec 100644
---- a/drivers/usb/serial/f81534.c
-+++ b/drivers/usb/serial/f81534.c
-@@ -83,7 +83,7 @@
- #define F81534_TOKEN_MSR_CHANGE		0x04
+-	/* The Battery Charging Cabability Status field is only valid in sink role. */
++	/* The Battery Charging Capability Status field is only valid in sink role. */
+ 	if (UCSI_CONSTAT(con, PWR_DIR) != TYPEC_SINK) {
+ 		val->intval = POWER_SUPPLY_CHARGE_TYPE_UNKNOWN;
+ 		return 0;
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index 1996f04ed5e6..d363e9a64763 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -509,7 +509,7 @@ struct ucsi {
+ #define UCSI_NO_PARTNER_PDOS	BIT(0)	/* Don't read partner's PDOs */
+ #define UCSI_DELAY_DEVICE_PDOS	BIT(1)	/* Reading PDOs fails until the parter is in PD mode */
  
- /*
-- * We used interal SPI bus to access FLASH section. We must wait the SPI bus to
-+ * We used internal SPI bus to access FLASH section. We must wait the SPI bus to
-  * idle if we performed any command.
-  *
-  * SPI Bus status register: F81534_BUS_REG_STATUS
-@@ -755,7 +755,7 @@ static int f81534_find_config_idx(struct usb_serial *serial, u8 *index)
-  * The F81532/534 will not report serial port to USB serial subsystem when
-  * H/W DCD/DSR/CTS/RI/RX pin connected to ground.
-  *
-- * To detect RX pin status, we'll enable MCR interal loopback, disable it and
-+ * To detect RX pin status, we'll enable MCR internal loopback, disable it and
-  * delayed for 60ms. It connected to ground If LSR register report UART_LSR_BI.
-  */
- static bool f81534_check_port_hw_disabled(struct usb_serial *serial, int phy)
-@@ -824,9 +824,9 @@ static bool f81534_check_port_hw_disabled(struct usb_serial *serial, int phy)
-  * f81534_calc_num_ports() will run to final we marked as "oldest version"
-  * for this IC.
-  *
-- * 2rd is designed to more generic to use any transceiver and this is our
-+ * 2nd is designed to more generic to use any transceiver and this is our
-  * mass production type. We'll save data in F81534_CUSTOM_ADDRESS_START
-- * (0x2f00) with 9bytes. The 1st byte is a indicater. If the token is
-+ * (0x2f00) with 9bytes. The 1st byte is a indicator. If the token is
-  * F81534_CUSTOM_VALID_TOKEN(0xf0), the IC is 2nd gen type, the following
-  * 4bytes save port mode (0:RS232/1:RS485 Invert/2:RS485), and the last
-  * 4bytes save GPIO state(value from 0~7 to represent 3 GPIO output pin).
-diff --git a/drivers/usb/serial/ftdi_sio.h b/drivers/usb/serial/ftdi_sio.h
-index 55ea61264f91..b053e038bda4 100644
---- a/drivers/usb/serial/ftdi_sio.h
-+++ b/drivers/usb/serial/ftdi_sio.h
-@@ -15,7 +15,7 @@
-  * USB on the other.
-  *
-  * Thanx to FTDI (http://www.ftdichip.com) for so kindly providing details
-- * of the protocol required to talk to the device and ongoing assistence
-+ * of the protocol required to talk to the device and ongoing assistance
-  * during development.
-  *
-  * Bill Ryder - bryder@sgi.com formerly of Silicon Graphics, Inc.- wrote the
-diff --git a/drivers/usb/serial/mos7720.c b/drivers/usb/serial/mos7720.c
-index 104f43a8f4d8..312fa11cea95 100644
---- a/drivers/usb/serial/mos7720.c
-+++ b/drivers/usb/serial/mos7720.c
-@@ -1208,7 +1208,7 @@ static int set_higher_rates(struct moschip_port *mos7720_port,
- 	/***********************************************
- 	 *              Set for higher rates           *
- 	 ***********************************************/
--	/* writing baud rate verbatum into uart clock field clearly not right */
-+	/* writing baud rate verbatim into uart clock field clearly not right */
- 	if (port_number == 0)
- 		sp_reg = MOS7720_SP1_REG;
- 	else
-diff --git a/drivers/usb/serial/oti6858.c b/drivers/usb/serial/oti6858.c
-index c6364e8ff71f..0e527fe56da0 100644
---- a/drivers/usb/serial/oti6858.c
-+++ b/drivers/usb/serial/oti6858.c
-@@ -13,7 +13,7 @@
-  * Warning! You use this driver on your own risk! The only official
-  * description of this device I have is datasheet from manufacturer,
-  * and it doesn't contain almost any information needed to write a driver.
-- * Almost all knowlegde used while writing this driver was gathered by:
-+ * Almost all knowledge used while writing this driver was gathered by:
-  *  - analyzing traffic between device and the M$ Windows 2000 driver,
-  *  - trying different bit combinations and checking pin states
-  *    with a voltmeter,
+-/* USB4 connection can imply that USB communcation is supported */
++/* USB4 connection can imply that USB communication is supported */
+ #define UCSI_USB4_IMPLIES_USB	BIT(2)
+ };
+ 
 -- 
 2.53.0
 
