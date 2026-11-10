@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794305257;
-	b=oI/OwdtLwCt4kut8Z+YJGFe1H9NKtKcYnvclimJYWzMYBRV2QF53agBs2ZOIyGSAd0GQ
-	 epnBtvsgCtHjQnFOKVyixOTBr0g/wtj9mQWxvJnvMUSpz12/+CB6aEhVKr3tX2bqwmsxs
-	 laXg2Rkys6i/X2H6kn8Yftm3yl2mcMJ1rV6Dr+C2biS+HcrcKknI65uK+R5tZlTFskGqf
-	 vDGUCG9Eyosyd5a3eC0pZ2KdSU3ylAiS5d31nkCQHMePIKnaRmbTJfASVjYx8hCttK0AR
-	 AFiAlQIi4mueydW8jPHELgAnSD2iMFQzCFbdJcnRL4cwf5q7+kkVm9ROqOFq5F0ddIg==
+	b=qODU2Rjr+Owv5Kt52zDh0RgixBuTp5GP1NpwK8AY5zwLfaWo4sC5tOXkzecYLuC7Cb58
+	 /jETSDcAJc40OBQmIPGea3HArCTE8PjcyLtWWCSdlwu/X6vJSmL6J2X447+fT5oqQmZrS
+	 8e8Mn+l6xfFXZnsKlz5JnCFQ2oKbHZjmRABcaNSJLALrnFjCDOmPLq2FJplqfOX4S+Veg
+	 FpYAH45TKQhUvRfMOQrsKJKs3jQMEI9r+CpTHOCXc40hSI3gDld6MoTaX7JWPAmRIw/U7
+	 2C174G5hd5fYnpGJc8BUKHWmgs5BiW/1YhwiTwhZY3z+6GQ2AcG7ifpvrD67uIQTG+w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794305257;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=huIdS+byDgFJjydCQ+kqgICCsFhMpNEi5xszXcVqdns=;
-	b=k5Ud8oKkGrrbbqLcCBmGjAO5evPr/gFKegPNIn26phzT0AhfCO5IT1aQj79lRN2yW8HH
-	 4ge/3zFybVEIrVKDvHmqaVhFeIuueXUx3iwCZJe8MUhl8RcmrUsN+4GcFwEyHItobPYpd
-	 kmfmLl3YWAQZsK0oxjjKxlEuAMwRtAilKw8KUtd68STzdgV/MYV6sXbMRggfsN/3Atqlz
-	 pDjv0mw16Qx7tAoBgGnKDw3luEy/XKfAVLNB0TRM1qNiWtU16flPKNmkpsljv8zokkIBg
-	 jnn7Lpk+c1R89fHwaQUJV0lzftn86yHmawbVAGfBYB/BzTefk4wI6W48CattSQev3yA==
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
+	b=eWYa6OVjGvFxUSxBQZGVTEbhyGGDl9poFFVaccpN21b021ShIOFGlZ0lF0vTfPWmwDlI
+	 dZFYLej02rxk+IPortgoxH9ZuMF2nJkU9RTzwbmkIOCOxNgb+c7sOCu8Ks6oKtFoKO38w
+	 teE1VNbrspP4sXlOh048tj+udMk4ngHkk6PRAb0TSdFChrmhaP71QwgoyYWjR1XEWDEJj
+	 WmaIFVidTtF7Lr+QuIjKT/ClBkoFynOHSnEF1xSVeTn+yKkuMDrUnwJOJDWYRKeQogMX8
+	 +r/yHaclpJZeAXLqTCcMztJ6FUX8tyNMqTOH2/+8aqloalov/166NNBm/dt2HFWNVrw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYUJ8oVC;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D47860A2635;
-	Tue, 10 Nov 2026 10:07:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9206B60A2607;
+	Tue, 10 Nov 2026 10:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYUJ8oVC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305256;
-	b=j6GFNyWN4pF4oyqcq6PniR/MWW7B6M5A2hIUKHu9VBuoaMb8zq8dNZ83btEk/HHkN9oV
-	 yy0IcsVRCSqwdVoT0fr8Xt6ooL+LUuVpV+oy7uhq+gmPfjrRvr7uOxD+nlvrI9e5/u4Rm
-	 6iUgdZlrej/eMs4iECJjBr4wHXnwocflOzWvzXla2qkNXCLlc2Llb3YAoFg11JoYRUnNA
-	 F0Kz1+vdTID7t1xuTyio8oeUAskE2BhWsKA9lgxTsMEqm4TrJsPFjYdJN5BqocfzRFX0L
-	 IsxosZ8Ahdx2VVR2w6nkCMGl2I3zEHNHkMKtHd2LfcG2Jya4XBfcSz3lBS7me8FmV8Q==
+	t=1794305257;
+	b=LIfsKi02U1RZVr7+mtp70QbX6MTGaOu55UYd+UJOeesU0AI7OBCGUpgveLinKeOt6R4n
+	 Wh12jUy0jLrMoFvvo8PtuJohg0cJIZNujJfOCimZRRW9BpJzswPvBAWWNuzMW3qcXGL2/
+	 4LWLZQzAv2NE4dTq29i3fs8aJsNiwuxnMhLZn01KL1SpZ1QC0KPB621PgtVYZTjfYhROT
+	 PjNCfw5e2hT/PK+Mep1YlKMvR8Vlb5teyIsAOePG6yBI9ompX1M0480mWWpZu459uiI+y
+	 X0vsbz/ep07lratmjVnNTXgJ4CqElrVKt3UDG44yLY7S8rQ27GPJurGA/WGSPGS/Oug==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305256;
+	c=relaxed/relaxed; t=1794305257;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=huIdS+byDgFJjydCQ+kqgICCsFhMpNEi5xszXcVqdns=;
-	b=OWgZMvKtRDY6x3HWWp+z/XIUbrwvVMApBSVwGnZMuRlldOoQuuilc1SMbutVejteYwtl
-	 PnSbhzgr6yy+Zu62Ps5/HxyzC6OXmrfxpOA5fsRvhWdJXbgx++OO0BfYjC/HD6PAeDdpl
-	 iO5Xo5t0ZrDm8SLx6HkJB7umt37/hKgnqWnDqsceyFFQ8Ea23I7jBKL/j1b3pUCUy5qXy
-	 1BCVgYouNWJTc1xTZ7Rm9inTsdS/2Bo32GGHZWWk2ynWr+g/dRJa+0T4PVWfPFYJxXMm7
-	 MsGJBm1mrOBz+gACf7QLBiNQAlglu6s6WN0NiucXrJirr6r3WROk1oyhD7VF2dPvsaw==
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
+	b=bwyj30sjEXhTF80povIwmQehUJuZ5bM01WUnjQ8V6u+AAjLTW2exE0CemOFNvbygWfXw
+	 XPrtJBAUHHEjjYYv+FsbkboqmS2qG1TO3gNZZSlBD+YiWeVfU5d1zECiV0I53GEKt5W+b
+	 9moJ0sgDhjoljsDwtCLt/V90eqiT3+L1wo7DkLqIJudscCeRWxxfwEqEQxLGJVpEfk3w6
+	 p6EVhgZf1cYORrNqqFKXYbP9w9szTkhZr9f/KPXe5DcezhmCNrxBVhepy7lfI8j8goaef
+	 jcxojNUB8xOeNHYEKlQ+0JjQCeoeihmsu8YkWIMjCn8+BJpuCl4U593JK981FHC3SvA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9EAC11F008A7;
+	by smtp.kernel.org (Postfix) with ESMTPS id E81971F008A1;
 	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305256;
-	bh=huIdS+byDgFJjydCQ+kqgICCsFhMpNEi5xszXcVqdns=;
+	s=k20260515; t=1794305257;
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=PYUJ8oVCXk2sWKnNZC18/6lMcm51dMoa0LO21tBuZyCvZBzyd7oS9AkQcwXlHHzsX
-	 fnm31jEI7ZJ+j/n5O779ZnKMxz1mbRDDGZA/HVQ9wW0t/2p0w6XBF3NEcg/om9VLYu
-	 AlQYKqMUtGlevJ7YHl7FNUL1GMUVT+QeU/X/0xANDapRmcOlGujsAaLIJ1JYN0s7Wv
-	 rVdpxBTmt5RO/lIKDkMbu2v02uulK3VgoXVQqZNV0GWkCCLbit5SBzZlUE/aaJC3Eq
-	 lpNH3nCkPcWzGlqL/VCUQl3TMHPE1QKdmyHY+7Yk2LLGtV9sa7JDdHQNlDoTo1M+yQ
-	 7BmdY2RDx7E5A==
+	b=Gjb5RIawi8F1ELfoluECWnHKpGwyXaKr+v4Bq6R1FNwvmKqSHQQZD3nJZz88s3MPH
+	 mcV6KFK0ZEn9/CTspVh312FpcD8EZh4WakDYSQV58vLsTrdpSRddnogMgErSdEXF8o
+	 g1DpIKnCyV4lWDZknr79rIvwqOnT/WK5rbo17K/2kTZAWkyyYSt4c53/9Bqva/h0sP
+	 uTwvLyUJUmrI0z3iuaOJJm69ANI2OsGiIrywF/O8UueIygufXOgVAhiPH+o/XT7PWn
+	 KgMtEiR1+V2nUkdzwVQYwfFnPNEsEitZikrbIigMmB/Fa58sIRc7Kh5fvbeQOoIn9g
+	 F7M82JgyOU8ww==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4C7C348AB6;
+	by lkml.kernel.org (Postfix) with ESMTP id 5DD9048ABA;
 	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:07:36 +0000
-Subject: [PATCH RFC 06/10] media: hevc: Add KUnit tests for the stateless
- encode core
+Date: Tue, 10 Nov 2026 10:07:37 +0000
+Subject: [PATCH RFC 07/10] media: v4l2-hevc-enc: Add a constant bitrate
+ mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hevc-encode-uapi-v1-6-38ae9fcfedd4@gmail.com>
+Message-Id: <20261110-hevc-encode-uapi-v1-7-38ae9fcfedd4@gmail.com>
 References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -93,11 +93,11 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=22748;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=6157;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=pRYF3Y+7AcANJzHW3QziQlcZPEFf098mS3D6qx0n5bM=;
- b=pUCUllq9lA47sWRUd3HoRZpxj0HkqstC9NZ8ETOpQh6j7xoRsNomyahJ6d/MIQJ6IrTw4Ke0f
- NqCQgiDTW75BsH/HFWP8znd3m4jfU1JAiamsRp+5EW0E/90hMGpvRo2
+ bh=23ba8LskleVLZZbBxcmsP87XKCLHrF2u42oZjR6n+6k=;
+ b=Gttsa90tsSGrgff3Gw4/JqPdfDS28JuD0I+laEZgjKtrfsmHsfMtHkft+VDMK/mlBnQ3tsbcZ
+ RTR6ruVgS3zAAYtAn0bOnbMPX+dCinf+dBHktpxIbP41GibMUIX/rIZ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,639 +108,163 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Run short sequences of pictures through the HEVC stateless encode core,
-with a real control handler and a fake CAPTURE buffer, and check:
+The HEVC encode core leaves the constant bitrate mode to the drivers, so
+each driver needs its own frame rate control.
 
-- an IDR picture followed by P pictures that use, keep without using,
-  drop and turn long-term their references: the coded RPS, reference
-  picture list 0, collocated picture, DPB contents, QP, buffer flags and
-  feedback;
-- that invalid references (dropped pictures, long-term pictures used as
-  short-term, POC values a decoder could not derive, B slices on P-only
-  hardware) fail without changing the DPB;
-- CRA and IDR pictures keeping and flushing references;
-- hardware that writes its own slice headers without TemporalId: nothing
-  is written for pictures without parameter sets, and
-  nuh_temporal_id_plus1 is patched after the encode run;
-- intra-only hardware, for which the SPS is accommodated and no
-  reference slots are allocated;
-- the control validation of the encode parameters, including its default
-  value.
+Provide the mode in the core with the codec independent rate control of
+the H.264 encode core (v4l2-enc-cbr): one QP state for the stream, I
+pictures 4 QP below the P pictures (the default of the Rockchip MPP
+library for HEVC), picture size targets from a GOP plan with the I/P
+size ratio and IDR period measured on the stream, and the deviation from
+that plan spread over the next pictures. The size target of the current
+picture is available to drivers whose hardware also controls the rate
+within a picture.
+
+A driver rate control with an estimate callback still replaces the mode.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/.kunitconfig          |   1 +
- drivers/media/v4l2-core/Kconfig               |  14 +
- drivers/media/v4l2-core/Makefile              |   1 +
- drivers/media/v4l2-core/v4l2-hevc-enc-kunit.c | 554 ++++++++++++++++++++++++++
- 4 files changed, 570 insertions(+)
+ drivers/media/v4l2-core/Kconfig         |  1 +
+ drivers/media/v4l2-core/v4l2-hevc-enc.c | 35 +++++++++++++++++++++++++++++++++
+ include/media/v4l2-hevc-enc.h           | 11 +++++++++--
+ 3 files changed, 45 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/.kunitconfig b/drivers/media/v4l2-core/.kunitconfig
-index 4ef422b5e0a8..65aa43070053 100644
---- a/drivers/media/v4l2-core/.kunitconfig
-+++ b/drivers/media/v4l2-core/.kunitconfig
-@@ -3,3 +3,4 @@ CONFIG_MEDIA_SUPPORT=y
- CONFIG_MEDIA_SUPPORT_FILTER=n
- CONFIG_VIDEO_DEV=y
- CONFIG_V4L2_HEVC_ENC_RBSP_KUNIT_TEST=y
-+CONFIG_V4L2_HEVC_ENC_KUNIT_TEST=y
 diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
-index 4c39bd943e81..eb245deb4622 100644
+index eb245deb4622..0de0bad58791 100644
 --- a/drivers/media/v4l2-core/Kconfig
 +++ b/drivers/media/v4l2-core/Kconfig
-@@ -75,6 +75,20 @@ config V4L2_HEVC_ENC_RBSP_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config V4L2_HEVC_ENC_KUNIT_TEST
-+	tristate "KUnit tests for the V4L2 HEVC encode core" if !KUNIT_ALL_TESTS
-+	depends on KUNIT && VIDEO_DEV
-+	select V4L2_HEVC_ENC
-+	select VIDEOBUF2_CORE
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Build the KUnit tests of the stateless HEVC encode core. They run
-+	  short sequences of pictures through it and check the reference
-+	  picture sets, reference picture lists, decoded picture buffer and
-+	  feedback that result, and the validation of the encode parameters.
-+
-+	  If unsure, say N.
-+
- # Used by drivers that need v4l2-vp9.ko
- config V4L2_VP9
+@@ -60,6 +60,7 @@ config V4L2_HEVC_ENC_RBSP
+ # Used by drivers that need v4l2-hevc-enc.ko
+ config V4L2_HEVC_ENC
  	tristate
-diff --git a/drivers/media/v4l2-core/Makefile b/drivers/media/v4l2-core/Makefile
-index 153b8a6e74b8..d57740d71fe1 100644
---- a/drivers/media/v4l2-core/Makefile
-+++ b/drivers/media/v4l2-core/Makefile
-@@ -35,6 +35,7 @@ obj-$(CONFIG_V4L2_H264_ENC) += v4l2-h264-enc.o v4l2-h264-enc-rbsp.o \
- obj-$(CONFIG_V4L2_HEVC_ENC) += v4l2-hevc-enc.o
- obj-$(CONFIG_V4L2_HEVC_ENC_RBSP) += v4l2-hevc-enc-rbsp.o
- obj-$(CONFIG_V4L2_HEVC_ENC_RBSP_KUNIT_TEST) += v4l2-hevc-enc-rbsp-kunit.o
-+obj-$(CONFIG_V4L2_HEVC_ENC_KUNIT_TEST) += v4l2-hevc-enc-kunit.o
- obj-$(CONFIG_V4L2_ISP) += v4l2-isp.o
- obj-$(CONFIG_V4L2_JPEG_HELPER) += v4l2-jpeg.o
- obj-$(CONFIG_V4L2_MEM2MEM_DEV) += v4l2-mem2mem.o
-diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc-kunit.c b/drivers/media/v4l2-core/v4l2-hevc-enc-kunit.c
-new file mode 100644
-index 000000000000..15c65663d46c
---- /dev/null
-+++ b/drivers/media/v4l2-core/v4l2-hevc-enc-kunit.c
-@@ -0,0 +1,554 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
++	select V4L2_ENC_CBR
+ 	select V4L2_HEVC_ENC_RBSP
+ 
+ config V4L2_HEVC_ENC_RBSP_KUNIT_TEST
+diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc.c b/drivers/media/v4l2-core/v4l2-hevc-enc.c
+index e2aa7d2da96c..a167c4af6288 100644
+--- a/drivers/media/v4l2-core/v4l2-hevc-enc.c
++++ b/drivers/media/v4l2-core/v4l2-hevc-enc.c
+@@ -18,6 +18,7 @@
+ #include <linux/sort.h>
+ #include <linux/v4l2-controls.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-enc-cbr.h>
+ #include <media/v4l2-hevc.h>
+ #include <media/v4l2-hevc-enc.h>
+ #include <media/v4l2-hevc-enc-rbsp.h>
+@@ -26,6 +27,12 @@
+ #define RBSP_UPDATE_AUD			BIT(0)
+ #define RBSP_UPDATE_PARAMETER_SETS	BIT(1)
+ 
 +/*
-+ * KUnit tests for the V4L2 HEVC encode core
-+ *
-+ * Runs short sequences of pictures through v4l2_hevc_enc_step() and
-+ * v4l2_hevc_enc_complete() with a real control handler and a fake CAPTURE
-+ * buffer, and checks the reference picture set, reference lists, decoded
-+ * picture buffer, headers and feedback that result.
++ * Constant bitrate mode: I pictures 4 QP below the P pictures, the default
++ * of the Rockchip MPP library for HEVC.
 + */
++#define RC_CBR_QP_DELTA_INTRA		4
 +
-+#include <kunit/test.h>
-+#include <linux/module.h>
-+#include <linux/v4l2-controls.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-hevc.h>
-+#include <media/v4l2-hevc-enc.h>
-+#include <media/videobuf2-v4l2.h>
-+
-+#define BUF_SIZE	4096
-+
-+struct hevc_enc_test {
-+	struct v4l2_ctrl_handler hdl;
-+	struct v4l2_hevc_enc enc;
-+	struct v4l2_pix_format fmt;
-+	struct v4l2_fract tpf;
-+	struct vb2_queue queue;
-+	struct vb2_v4l2_buffer buf;
-+	u8 *data;
-+	unsigned int rec_allocated;
-+};
-+
-+static void *fake_vaddr(struct vb2_buffer *vb, void *buf_priv)
-+{
-+	return buf_priv;
-+}
-+
-+static const struct vb2_mem_ops fake_mem_ops = {
-+	.vaddr = fake_vaddr,
-+};
-+
-+static int fake_rec_alloc(struct v4l2_hevc_enc *enc,
-+			  struct v4l2_hevc_enc_rec_buffer *buffer)
-+{
-+	struct hevc_enc_test *t = enc->private_data;
-+
-+	t->rec_allocated++;
-+	buffer->private_data = (void *)(uintptr_t)t->rec_allocated;
-+
-+	return 0;
-+}
-+
-+static void fake_rec_free(struct v4l2_hevc_enc *enc,
-+			  struct v4l2_hevc_enc_rec_buffer *buffer)
-+{
-+	struct hevc_enc_test *t = enc->private_data;
-+
-+	t->rec_allocated--;
-+}
-+
-+static const struct v4l2_hevc_enc_ops fake_ops = {
-+	.rec_buffer_alloc = fake_rec_alloc,
-+	.rec_buffer_free = fake_rec_free,
-+};
-+
-+static const u32 compound_ctrls[] = {
-+	V4L2_CID_STATELESS_HEVC_SPS,
-+	V4L2_CID_STATELESS_HEVC_PPS,
-+	V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS,
-+	V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK,
-+};
-+
-+static const struct v4l2_ctrl_hevc_sps test_sps = {
-+	.pic_width_in_luma_samples = 1280,
-+	.pic_height_in_luma_samples = 720,
-+	.log2_max_pic_order_cnt_lsb_minus4 = 4,
-+	.sps_max_dec_pic_buffering_minus1 = 2,
-+	.log2_diff_max_min_luma_coding_block_size = 3,
-+	.log2_diff_max_min_luma_transform_block_size = 3,
-+	.chroma_format_idc = 1,
-+	.sps_max_sub_layers_minus1 = 1,
-+	.flags = V4L2_HEVC_SPS_FLAG_SPS_TEMPORAL_MVP_ENABLED |
-+		 V4L2_HEVC_SPS_FLAG_LONG_TERM_REF_PICS_PRESENT,
-+};
-+
-+static struct hevc_enc_test *hevc_enc_test_init(struct kunit *test,
-+						unsigned int flags)
-+{
-+	struct hevc_enc_test *t;
-+	unsigned int i;
-+	int ret;
-+
-+	t = kunit_kzalloc(test, sizeof(*t), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, t);
-+	t->data = kunit_kzalloc(test, BUF_SIZE, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, t->data);
-+
-+	v4l2_ctrl_handler_init(&t->hdl, 8);
-+	for (i = 0; i < ARRAY_SIZE(compound_ctrls); i++) {
-+		struct v4l2_ctrl_config cfg = { .id = compound_ctrls[i] };
-+
-+		v4l2_ctrl_new_custom(&t->hdl, &cfg, NULL);
-+	}
-+	v4l2_ctrl_new_std(&t->hdl, NULL, V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_QP,
-+			  0, 51, 1, 30);
-+	v4l2_ctrl_new_std(&t->hdl, NULL, V4L2_CID_MPEG_VIDEO_HEVC_P_FRAME_QP,
-+			  0, 51, 1, 33);
-+	KUNIT_ASSERT_EQ(test, t->hdl.error, 0);
-+
-+	ret = v4l2_ctrl_s_ctrl_compound(v4l2_ctrl_find(&t->hdl,
-+						       V4L2_CID_STATELESS_HEVC_SPS),
-+					V4L2_CTRL_TYPE_HEVC_SPS, &test_sps);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	t->fmt.width = 1280;
-+	t->fmt.height = 720;
-+	t->tpf = (struct v4l2_fract){ 1, 30 };
-+
-+	t->queue.mem_ops = &fake_mem_ops;
-+	t->buf.vb2_buf.vb2_queue = &t->queue;
-+	t->buf.vb2_buf.num_planes = 1;
-+	t->buf.vb2_buf.planes[0].mem_priv = t->data;
-+	t->buf.vb2_buf.planes[0].length = BUF_SIZE;
-+
-+	t->enc.ops = &fake_ops;
-+	t->enc.private_data = t;
-+	t->enc.format = &t->fmt;
-+	t->enc.timeperframe = &t->tpf;
-+	t->enc.ctrl_handler = &t->hdl;
-+	t->enc.flags = flags;
-+
-+	ret = v4l2_hevc_enc_init(&t->enc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	return t;
-+}
-+
-+static void hevc_enc_test_exit(struct hevc_enc_test *t)
-+{
-+	v4l2_hevc_enc_exit(&t->enc);
-+	v4l2_ctrl_handler_free(&t->hdl);
-+}
-+
-+static int hevc_enc_test_set(struct hevc_enc_test *t,
-+			     const struct v4l2_ctrl_hevc_encode_params *p)
-+{
-+	return v4l2_ctrl_s_ctrl_compound(v4l2_ctrl_find(&t->hdl,
-+							V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS),
-+					 V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS, p);
-+}
-+
-+/* Encode one picture, with the hardware "writing" @hw_size bytes. */
-+static int hevc_enc_test_frame(struct kunit *test, struct hevc_enc_test *t,
-+			       const struct v4l2_ctrl_hevc_encode_params *p,
-+			       u64 timestamp, unsigned int hw_size)
-+{
-+	int ret;
-+
-+	ret = hevc_enc_test_set(t, p);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	memset(t->data, 0, BUF_SIZE);
-+	t->buf.vb2_buf.timestamp = timestamp;
-+
-+	ret = v4l2_hevc_enc_step(&t->enc, &t->buf);
-+	if (ret)
-+		return ret;
-+
-+	vb2_set_plane_payload(&t->buf.vb2_buf, 0,
-+			      t->enc.header_size + hw_size);
-+
-+	return v4l2_hevc_enc_complete(&t->enc, &t->buf, NULL);
-+}
-+
-+static const struct v4l2_ctrl_hevc_encode_feedback *
-+hevc_enc_test_feedback(struct hevc_enc_test *t)
-+{
-+	return v4l2_ctrl_find(&t->hdl, V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK)
-+		->p_cur.p_hevc_encode_feedback;
-+}
-+
-+static unsigned int hevc_enc_test_active(struct hevc_enc_test *t)
-+{
-+	unsigned int i, count = 0;
-+
-+	for (i = 0; i < t->enc.ref.slots_count; i++)
-+		count += t->enc.ref.dpb[i].active;
-+
-+	return count;
-+}
-+
-+static int hevc_enc_test_slot(struct hevc_enc_test *t, u64 timestamp)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < t->enc.ref.slots_count; i++)
-+		if (t->enc.ref.dpb[i].active &&
-+		    t->enc.ref.dpb[i].timestamp == timestamp)
-+			return i;
-+
-+	return -1;
-+}
-+
-+/* Like VEPU580 slice header registers, without long-term pictures. */
-+static const struct v4l2_hevc_enc_rps_limits no_lt_limits = {
-+	.num_negative_pics = 4,
-+};
-+
-+#define REF(ts, f)	{ .timestamp = (ts), .flags = (f) }
-+#define USED		V4L2_HEVC_ENCODE_REF_FLAG_USED_BY_CURR_PIC
-+#define LT		V4L2_HEVC_ENCODE_REF_FLAG_LONG_TERM
-+
-+/* IDR, then P pictures that keep, drop and turn references long-term. */
-+static void hevc_enc_gop(struct kunit *test)
-+{
-+	struct hevc_enc_test *t =
-+		hevc_enc_test_init(test, V4L2_HEVC_ENC_FLAG_INTER_PRED);
-+	const struct v4l2_ctrl_hevc_encode_feedback *fb;
-+	struct v4l2_hevc_slice_header *sh = &t->enc.slice;
-+	struct v4l2_ctrl_hevc_encode_params p = {
-+		.nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL,
-+		.nuh_temporal_id_plus1 = 1,
-+		.slice_type = V4L2_HEVC_SLICE_TYPE_I,
-+		.flags = V4L2_HEVC_ENCODE_FLAG_REFERENCE,
-+	};
-+	static const u8 vps_start[] = { 0, 0, 0, 1, 0x40, 0x01 };
-+	int ret;
-+
-+	/* POC 0: IDR, with the parameter sets. */
-+	ret = hevc_enc_test_frame(test, t, &p, 1000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_GT(test, t->enc.header_size, 40);
-+	KUNIT_EXPECT_MEMEQ(test, t->data, vps_start, sizeof(vps_start));
-+	KUNIT_EXPECT_EQ(test, t->enc.qp, 30);
-+	KUNIT_EXPECT_TRUE(test, t->buf.flags & V4L2_BUF_FLAG_KEYFRAME);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 1);
-+	fb = hevc_enc_test_feedback(t);
-+	KUNIT_EXPECT_EQ(test, fb->timestamp, 1000);
-+	KUNIT_EXPECT_EQ(test, fb->slice_qp, 30);
-+	KUNIT_EXPECT_EQ(test, fb->stats.header_size, t->enc.header_size);
-+	KUNIT_EXPECT_TRUE(test,
-+			  fb->flags & V4L2_HEVC_ENCODE_FEEDBACK_FLAG_REFERENCE);
-+
-+	/* The current picture and the 3 DPB slots of the SPS. */
-+	KUNIT_EXPECT_EQ(test, t->rec_allocated, 4);
-+
-+	/* POC 1: P referencing POC 0. Only a slice header is written. */
-+	p.nal_unit_type = V4L2_HEVC_NAL_TRAIL_R;
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_P;
-+	p.pic_order_cnt_val = 1;
-+	p.num_refs = 1;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(1000, USED);
-+	p.flags |= V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED;
-+	ret = hevc_enc_test_frame(test, t, &p, 2000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, t->enc.qp, 33);
-+	KUNIT_EXPECT_EQ(test, t->data[4] >> 1, V4L2_HEVC_NAL_TRAIL_R);
-+	KUNIT_EXPECT_LT(test, t->enc.header_size, 16);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.num_negative_pics, 1);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.delta_poc_s0_minus1[0], 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.used_by_curr_pic_s0, 0x1);
-+	KUNIT_EXPECT_EQ(test, sh->slice_pic_order_cnt_lsb, 1);
-+	KUNIT_EXPECT_EQ(test, sh->slice_qp_delta, 33 - 26);
-+	KUNIT_EXPECT_EQ(test, t->enc.ref.l0_count, 1);
-+	KUNIT_EXPECT_EQ(test, t->enc.ref.collocated, t->enc.ref.l0[0]);
-+	KUNIT_EXPECT_TRUE(test, t->buf.flags & V4L2_BUF_FLAG_PFRAME);
-+	fb = hevc_enc_test_feedback(t);
-+	KUNIT_EXPECT_EQ(test, fb->num_ref_idx_l0_active, 1);
-+	KUNIT_EXPECT_EQ(test, fb->ref_idx_l0[0], 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 2);
-+
-+	/*
-+	 * POC 2: keep POC 0 without using it, use POC 1. The closest
-+	 * picture comes first in the RPS whatever the order of refs[].
-+	 */
-+	p.pic_order_cnt_val = 2;
-+	p.num_refs = 2;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(1000, 0);
-+	p.refs[1] = (struct v4l2_hevc_encode_ref)REF(2000, USED);
-+	ret = hevc_enc_test_frame(test, t, &p, 3000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.num_negative_pics, 2);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.delta_poc_s0_minus1[0], 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.delta_poc_s0_minus1[1], 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.used_by_curr_pic_s0, 0x1);
-+	KUNIT_EXPECT_EQ(test, t->enc.ref.l0[0], hevc_enc_test_slot(t, 2000));
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_feedback(t)->ref_idx_l0[0], 1);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 3);
-+
-+	/* POC 3: non-reference, uses POC 2, drops POC 1, POC 0 long-term. */
-+	p.nal_unit_type = V4L2_HEVC_NAL_TRAIL_N;
-+	p.pic_order_cnt_val = 3;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(3000, USED);
-+	p.refs[1] = (struct v4l2_hevc_encode_ref)REF(1000, LT);
-+	p.flags &= ~V4L2_HEVC_ENCODE_FLAG_REFERENCE;
-+	ret = hevc_enc_test_frame(test, t, &p, 4000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.num_negative_pics, 1);
-+	KUNIT_EXPECT_EQ(test, sh->num_long_term_pics, 1);
-+	KUNIT_EXPECT_EQ(test, sh->lt[0].poc_lsb_lt, 0);
-+	KUNIT_EXPECT_FALSE(test, sh->lt[0].used_by_curr_pic_lt);
-+	KUNIT_EXPECT_EQ(test, sh->lt[0].delta_poc_msb_cycle_lt, 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 2);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_slot(t, 2000), -1);
-+	KUNIT_EXPECT_TRUE(test,
-+			  t->enc.ref.dpb[hevc_enc_test_slot(t, 1000)].long_term);
-+	KUNIT_EXPECT_FALSE(test, hevc_enc_test_feedback(t)->flags &
-+			   V4L2_HEVC_ENCODE_FEEDBACK_FLAG_REFERENCE);
-+
-+	/* A long-term picture cannot be used as short-term again. */
-+	p.pic_order_cnt_val = 4;
-+	p.num_refs = 2;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(3000, USED);
-+	p.refs[1] = (struct v4l2_hevc_encode_ref)REF(1000, 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 5000, 100),
-+			-EINVAL);
-+
-+	/* A picture that is not in the DPB (dropped, or never encoded). */
-+	p.refs[1] = (struct v4l2_hevc_encode_ref)REF(2000, 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 5000, 100),
-+			-EINVAL);
-+
-+	/* A POC too far from the previous TemporalId 0 picture. */
-+	p.num_refs = 1;
-+	p.pic_order_cnt_val = 2 + 128;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 5000, 100),
-+			-EINVAL);
-+
-+	/* More references than the hardware can signal. */
-+	p.pic_order_cnt_val = 4;
-+	p.num_refs = 2;
-+	p.refs[1] = (struct v4l2_hevc_encode_ref)REF(1000, LT);
-+	t->enc.rps_limits = &no_lt_limits;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 5000, 100),
-+			-EINVAL);
-+	t->enc.rps_limits = NULL;
-+	p.num_refs = 1;
-+
-+	/* Failed runs left the DPB alone. */
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 2);
-+
-+	/* No B slices without INTER_BIPRED. */
-+	p.pic_order_cnt_val = 4;
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_B;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 5000, 100),
-+			-EINVAL);
-+
-+	/* A CRA keeps references for leading pictures but uses none. */
-+	p.nal_unit_type = V4L2_HEVC_NAL_CRA_NUT;
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_I;
-+	p.pic_order_cnt_val = 8;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(3000, 0);
-+	p.flags |= V4L2_HEVC_ENCODE_FLAG_REFERENCE;
-+	ret = hevc_enc_test_frame(test, t, &p, 9000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.num_negative_pics, 1);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.delta_poc_s0_minus1[0], 5);
-+	KUNIT_EXPECT_EQ(test, sh->st_rps.used_by_curr_pic_s0, 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 2);
-+
-+	/* An IDR empties the DPB. */
-+	p.nal_unit_type = V4L2_HEVC_NAL_IDR_N_LP;
-+	ret = hevc_enc_test_frame(test, t, &p, 10000, 100);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_active(t), 1);
-+	KUNIT_EXPECT_GE(test, hevc_enc_test_slot(t, 10000), 0);
-+
-+	hevc_enc_test_exit(t);
-+	KUNIT_EXPECT_EQ(test, t->rec_allocated, 0);
-+}
-+
+ /* Table A.8: MaxLumaPs and MaxLumaSr (main tier is enough to pick a level) */
+ static const struct {
+ 	u8 level_idc;
+@@ -150,6 +157,7 @@ int v4l2_hevc_enc_init(struct v4l2_hevc_enc *enc)
+ 	memset(&enc->state_next, 0, sizeof(enc->state_next));
+ 	memset(&enc->ref, 0, sizeof(enc->ref));
+ 	enc->state_serial = 0;
++	v4l2_enc_cbr_reset(&enc->cbr, RC_CBR_QP_DELTA_INTRA);
+ 
+ 	if (!enc->max_l0_refs)
+ 		enc->max_l0_refs = 1;
+@@ -1052,6 +1060,18 @@ static int ref_step(struct v4l2_hevc_enc *enc)
+ 	return 0;
+ }
+ 
 +/*
-+ * Hardware that writes its own slice headers without TemporalId: the core
-+ * patches nuh_temporal_id_plus1 and writes nothing for pictures without
-+ * parameter sets.
++ * The core provides the constant bitrate mode unless the driver has its own
++ * rate control.
 + */
-+static void hevc_enc_hw_slice_header(struct kunit *test)
++static bool rc_core_cbr(const struct v4l2_hevc_enc *enc,
++			const struct v4l2_hevc_enc_state *state)
 +{
-+	struct hevc_enc_test *t =
-+		hevc_enc_test_init(test, V4L2_HEVC_ENC_FLAG_INTER_PRED |
-+				   V4L2_HEVC_ENC_FLAG_HW_SLICE_HEADER);
-+	struct v4l2_ctrl_hevc_encode_params p = {
-+		.nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL,
-+		.nuh_temporal_id_plus1 = 1,
-+		.slice_type = V4L2_HEVC_SLICE_TYPE_I,
-+		.flags = V4L2_HEVC_ENCODE_FLAG_REFERENCE,
-+	};
-+	static const u8 hw_slice[] = { 0, 0, 0, 1, 0x04, 0x01, 0xd0, 0x00,
-+				       0x00, 0x01, 0x04, 0x01, 0x80 };
-+	static const u8 patched[] = { 0, 0, 0, 1, 0x04, 0x02, 0xd0, 0x00,
-+				      0x00, 0x01, 0x04, 0x02, 0x80 };
-+	unsigned int header_size;
-+	int ret;
-+
-+	ret = hevc_enc_test_frame(test, t, &p, 1000, 0);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	header_size = t->enc.header_size;
-+	KUNIT_EXPECT_GT(test, header_size, 0);
-+
-+	/* Parameter sets only: the buffer ends with the PPS trailing bits. */
-+	KUNIT_EXPECT_NE(test, t->data[header_size - 1], 0);
-+
-+	p.nal_unit_type = V4L2_HEVC_NAL_TSA_N;
-+	p.nuh_temporal_id_plus1 = 2;
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_P;
-+	p.pic_order_cnt_val = 1;
-+	p.num_refs = 1;
-+	p.refs[0] = (struct v4l2_hevc_encode_ref)REF(1000, USED);
-+	p.flags = 0;
-+	ret = hevc_enc_test_set(t, &p);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	t->buf.vb2_buf.timestamp = 2000;
-+	ret = v4l2_hevc_enc_step(&t->enc, &t->buf);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, t->enc.header_size, 0);
-+
-+	memcpy(t->data, hw_slice, sizeof(hw_slice));
-+	vb2_set_plane_payload(&t->buf.vb2_buf, 0, sizeof(hw_slice));
-+	ret = v4l2_hevc_enc_complete(&t->enc, &t->buf, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_MEMEQ(test, t->data, patched, sizeof(patched));
-+
-+	hevc_enc_test_exit(t);
++	return state->frame_rc_enable &&
++	       state->bitrate_mode == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR &&
++	       !(enc->rc_ops && enc->rc_ops->estimate);
 +}
 +
-+/* Intra-only hardware turns P pictures into I pictures and keeps no DPB. */
-+static void hevc_enc_intra_only(struct kunit *test)
-+{
-+	struct hevc_enc_test *t = hevc_enc_test_init(test, 0);
-+	struct v4l2_ctrl_hevc_encode_params p = {
-+		.nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL,
-+		.nuh_temporal_id_plus1 = 1,
-+		.slice_type = V4L2_HEVC_SLICE_TYPE_I,
-+		.flags = V4L2_HEVC_ENCODE_FLAG_REFERENCE,
-+	};
-+	int ret;
+ static int rc_step(struct v4l2_hevc_enc *enc)
+ {
+ 	struct v4l2_hevc_enc_state *state = &enc->state_active;
+@@ -1074,6 +1094,17 @@ static int rc_step(struct v4l2_hevc_enc *enc)
+ 		if (range)
+ 			qp -= (state->quality - state->quality_min) *
+ 			      (state->qp_max - state->qp_min) / range;
++	} else if (rc_core_cbr(enc, state)) {
++		ret = v4l2_enc_cbr_begin(&enc->cbr, state->bitrate,
++					 &state->timeperframe,
++					 state->sps.pic_width_in_luma_samples *
++					 state->sps.pic_height_in_luma_samples,
++					 slice_type == V4L2_HEVC_SLICE_TYPE_I,
++					 state->qp_min, state->qp_max);
++		if (ret)
++			return ret;
 +
-+	ret = hevc_enc_test_frame(test, t, &p, 1000, 10);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, t->rec_allocated, 1);
-+	KUNIT_EXPECT_EQ(test, t->enc.ref.slots_count, 0);
-+
-+	/* The SPS was accommodated: no DPB, no TMVP. */
-+	KUNIT_EXPECT_EQ(test,
-+			v4l2_ctrl_find(&t->hdl, V4L2_CID_STATELESS_HEVC_SPS)
-+			->p_cur.p_hevc_sps->sps_max_dec_pic_buffering_minus1,
-+			0);
-+
-+	p.nal_unit_type = V4L2_HEVC_NAL_TRAIL_R;
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_P;
-+	p.pic_order_cnt_val = 1;
-+	ret = hevc_enc_test_set(t, &p);
-+	/* A P picture needs a used reference... */
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+
-+	p.slice_type = V4L2_HEVC_SLICE_TYPE_I;
-+	ret = hevc_enc_test_frame(test, t, &p, 2000, 10);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, t->enc.slice.slice_type, V4L2_HEVC_SLICE_TYPE_I);
-+	KUNIT_EXPECT_EQ(test, t->enc.slice.st_rps.num_negative_pics, 0);
-+
-+	hevc_enc_test_exit(t);
-+}
-+
-+/* Control validation of the encode parameters. */
-+static void hevc_enc_validate(struct kunit *test)
-+{
-+	struct hevc_enc_test *t =
-+		hevc_enc_test_init(test, V4L2_HEVC_ENC_FLAG_INTER_PRED);
-+	const struct v4l2_ctrl_hevc_encode_params *cur =
-+		v4l2_ctrl_find(&t->hdl, V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS)
-+		->p_cur.p_hevc_encode_params;
-+	struct v4l2_ctrl_hevc_encode_params p = {
-+		.nal_unit_type = V4L2_HEVC_NAL_TRAIL_R,
-+		.nuh_temporal_id_plus1 = 1,
-+		.slice_type = V4L2_HEVC_SLICE_TYPE_P,
-+		.num_refs = 1,
-+		.refs = { REF(1, USED) },
-+	};
-+	struct v4l2_ctrl_hevc_encode_params bad;
-+
-+	/* The default value is a valid IDR picture. */
-+	KUNIT_EXPECT_EQ(test, cur->nal_unit_type, V4L2_HEVC_NAL_IDR_W_RADL);
-+	KUNIT_EXPECT_EQ(test, cur->nuh_temporal_id_plus1, 1);
-+
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &p), 0);
-+	/* collocated_from_l0_flag is inferred for P slices. */
-+	KUNIT_EXPECT_TRUE(test, cur->flags &
-+			  V4L2_HEVC_ENCODE_FLAG_COLLOCATED_FROM_L0);
-+
-+	bad = p;
-+	bad.nal_unit_type = V4L2_HEVC_NAL_VPS;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.nal_unit_type = V4L2_HEVC_NAL_CRA_NUT;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.nal_unit_type = V4L2_HEVC_NAL_TSA_R;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.nuh_temporal_id_plus1 = 0;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.refs[0].flags = 0;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.num_refs = 2;
-+	bad.refs[1] = bad.refs[0];
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	bad = p;
-+	bad.flags = BIT_ULL(40);
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), -EINVAL);
-+
-+	/* An IDR has no RPS: the references and POC are dropped. */
-+	bad = p;
-+	bad.nal_unit_type = V4L2_HEVC_NAL_IDR_N_LP;
-+	bad.slice_type = V4L2_HEVC_SLICE_TYPE_I;
-+	bad.refs[0].flags = 0;
-+	bad.pic_order_cnt_val = 5;
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_set(t, &bad), 0);
-+	KUNIT_EXPECT_EQ(test, cur->num_refs, 0);
-+	KUNIT_EXPECT_EQ(test, cur->pic_order_cnt_val, 0);
-+	KUNIT_EXPECT_EQ(test, cur->refs[0].timestamp, 0);
-+
-+	/* The first picture must be an IRAP picture. */
-+	KUNIT_EXPECT_EQ(test, hevc_enc_test_frame(test, t, &p, 1, 10),
-+			-EINVAL);
-+
-+	hevc_enc_test_exit(t);
-+}
-+
-+static struct kunit_case hevc_enc_test_cases[] = {
-+	KUNIT_CASE(hevc_enc_gop),
-+	KUNIT_CASE(hevc_enc_hw_slice_header),
-+	KUNIT_CASE(hevc_enc_intra_only),
-+	KUNIT_CASE(hevc_enc_validate),
-+	{}
-+};
-+
-+static struct kunit_suite hevc_enc_test_suite = {
-+	.name = "v4l2-hevc-enc",
-+	.test_cases = hevc_enc_test_cases,
-+};
-+
-+kunit_test_suite(hevc_enc_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for the V4L2 HEVC encode core");
-+MODULE_LICENSE("GPL");
++		qp = v4l2_enc_cbr_qp(&enc->cbr);
+ 	} else {
+ 		if (!enc->rc_ops || !enc->rc_ops->estimate)
+ 			return -EOPNOTSUPP;
+@@ -1382,6 +1413,10 @@ int v4l2_hevc_enc_complete(struct v4l2_hevc_enc *enc,
+ 	    !v4l2_hevc_nal_is_sub_layer_non_ref(nal_unit_type))
+ 		enc->ref.prev_tid0_poc = encode->pic_order_cnt_val;
+ 
++	if (rc_core_cbr(enc, state))
++		v4l2_enc_cbr_end(&enc->cbr, (u64)bytesused * 8,
++				 &state->timeperframe, state->qp_min,
++				 state->qp_max);
+ 	if (enc->rc_ops && enc->rc_ops->complete)
+ 		enc->rc_ops->complete(enc, state, bytesused, stats);
+ 
+diff --git a/include/media/v4l2-hevc-enc.h b/include/media/v4l2-hevc-enc.h
+index 4797102e34b3..3db131370c56 100644
+--- a/include/media/v4l2-hevc-enc.h
++++ b/include/media/v4l2-hevc-enc.h
+@@ -9,6 +9,7 @@
+ #include <linux/types.h>
+ #include <linux/v4l2-controls.h>
+ #include <linux/videodev2.h>
++#include <media/v4l2-enc-cbr.h>
+ #include <media/v4l2-hevc-enc-rbsp.h>
+ 
+ struct v4l2_ctrl_handler;
+@@ -186,8 +187,10 @@ struct v4l2_hevc_enc_ops {
+ /**
+  * struct v4l2_hevc_enc_rc_ops - driver rate control
+  *
+- * The core selects the QP itself for the direct QP and constant quality
+- * modes. These callbacks provide the constant and variable bitrate modes.
++ * The core selects the QP itself for the direct QP, constant quality and
++ * constant bitrate modes. These callbacks replace the constant bitrate
++ * mode of the core (if @estimate is set) and provide the variable bitrate
++ * mode.
+  *
+  * @estimate: return the QP of the next picture in @qp
+  * @complete: account for a completed picture
+@@ -231,6 +234,9 @@ struct v4l2_hevc_enc_rc_ops {
+  * @rbsp: NAL unit writer
+  * @slice: slice segment header of the current picture
+  * @qp: SliceQpY of the current picture
++ * @cbr: constant bitrate rate control of the core. In that mode,
++ *	 @cbr.target_bits is the size target of the current picture in bits,
++ *	 for hardware with a rate control within the picture.
+  * @header_size: number of bytes the core wrote at the start of the
+  *		 CAPTURE buffer. The hardware writes from that offset.
+  * @parameter_sets_pending: parameter sets were written for a picture that
+@@ -261,6 +267,7 @@ struct v4l2_hevc_enc {
+ 	struct v4l2_hevc_enc_rbsp rbsp;
+ 	struct v4l2_hevc_slice_header slice;
+ 	int qp;
++	struct v4l2_enc_cbr cbr;
+ 	unsigned int header_size;
+ 	bool parameter_sets_pending;
+ 
 
 -- 
 2.55.0
