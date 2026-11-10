@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274722;
-	b=cMxavjSSZmKqCF+1QXce77rD+JhSR8tLzXY0IEzTtHe/RJGA+THp+UZTexBbtUq80AVs
-	 GiCj+x6Jmj+tGsZywIEISYrFez2z3fHljg8+Z9MrKYTpiwMb2ET/USfgLxqALbtPTCxOk
-	 iD4CEVpQkAK96aVMoKfE1qkq1VBGdi4FTliHZQzIDED1shNxpcH6PtAT5kfwxy2syIrR7
-	 KIsHmBgtApCokjtd0JEAwTFlALHs7fG+6+eyJswynp7RvbI/cpgGDTm1hDbO19XU0s7fy
-	 h1ORiNHwY4a8+rDH9lCj8xIjZnQwT80X+lVHsL5SVumDS70NQkyZ67WmYCyNs4ONc7w==
+	t=1794274719;
+	b=n8Ys/UXHK5xZBBX7emeqlPV/NDWOQeThN8ugUfYJCCHqW0ITvl5XoARRzyAGf4SxsFAS
+	 nYbEun9bRm3kGQXJqh18j8mai17A6bQVT1yL8PcIY71KZJNkwyUI3KeiKbfQ5F4BhJw41
+	 1dcoEauW2l5x31me3PNw4tLMEI3a1vG+IMRnwkljI8JW+IJxr96KVy2KIUomSleYhvXR0
+	 V/9Dy3uj+hGOw5haFe0g4f4KAEPzV6m6ur62+H2I/KH+7lsvqm8vK7B9TWvwi7nBwopRG
+	 hghXh82z3kJ398Nx3Uimr3bkSuY0l0jKkr1s8MGS/5Z6G8Ndj/5YfcVhFxeOS++vW1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274722;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274719;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=kyMu+c9WPiMfR1J/e9fy8+94zlLB1ydhIf2rwAsAFio=;
-	b=amaOg55JYATnqWLoPpn6jlURvujI+RM1iEQaiADceKzD+MTgEvZ3d5G72cxN3kvZZGhK
-	 QFW3Nji7cyWfIM+EEdxUf3YGA8igJG2ikySh4hVdkMSHFgvX+tZacGgGsuLck7zNEll1f
-	 AYOA+KiJ1cA6usKWbYSexTvzUwb8Bqe0lw3c/aPLEEw8fLn/bLZ6TZAblSmTy7NI/PNF3
-	 clOOx0iqbBrxVFs/MQl/3ZrT4zSdfeobwLWqYSSAdr5c03QrzPL26yp02o1AneELS+BZD
-	 B3KqnhdcybFwiW5XfhoyWGtFN9AbhcdiAsbALzkm4agM4r73joc6dNCzJQi9JKtMVIA==
+	bh=fkEE9d9MsSVbLsZ0o5u4ofj8b41Zhq4TGWUC/Rs9SMM=;
+	b=2pZfBasEyMTRnKppkqlNx7UFjTT6wL77ox7b/HRe/ztBsRDRPOfdZbMoasX54aqzJQ0i
+	 msPmhVNLviGkdyHroNiPf42TIlBMvrMG294MSuHed0rAYA00MeFBV8ITCdlYSSbanMSpg
+	 +5emlQgvs8ka/jX3ls2A2SvhfJfNkHzq8PpA2deTX2peg61l8Wb4jQsndQyynn4tSCqKY
+	 fVEvmRIJFr1Y6G1r8CbciLOmYtZprq+ib4DA99zspC2GuJwhMj5G8Ov7eroTetOUM7GWU
+	 ZSEqlncNlcFSDNs2ntY48mt6TSbkivn4vOD0HO2uAHaAVhV9OW4ysAxzAGuzYVpnmGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx+vMoIn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mS9YQLpS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C8D60718A8;
-	Tue, 10 Nov 2026 01:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9AB60A6F71;
+	Tue, 10 Nov 2026 01:38:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx+vMoIn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835181F00902;
-	Tue, 10 Nov 2026 01:38:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mS9YQLpS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B091F008A7;
+	Tue, 10 Nov 2026 01:38:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274721;
-	bh=kyMu+c9WPiMfR1J/e9fy8+94zlLB1ydhIf2rwAsAFio=;
+	s=k20260515; t=1794274718;
+	bh=fkEE9d9MsSVbLsZ0o5u4ofj8b41Zhq4TGWUC/Rs9SMM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mx+vMoInE3WWH3V1gwwrzuhsAIHwBtBzyN4H0bLNzYVQFusoRTJ3SVl78gjePSCxJ
-	 ASwye4TwzA+djXl2dNopc2bfHXN5B5JnJkN7WeaCuculFcm1YMPi/jFU1fo6CWTaYb
-	 Ur//ZW7j/4filF/8RseKU1S9x7sg1hXpygFieXzqZ+WXiENE1fmmnZ7avIw2hUyDtr
-	 8G5yMgUBX3KQ6hnKBgHoAKVCF3PzD+tovazHiga6zhQb/ZYZP9NNiwPAymhiultu4V
-	 WQbYnVjfjsqQOOEgEoCigfCQQTO7auHr0yMXJpYLn4Yn400cCvpWTWrlaL81dPbk1r
-	 zww9f4DCjyF8Q==
-Subject: Re: [PATCH net-next v20 09/13] ax88179_178a: Add Suspend/resume
- support for AX88179A/772D/279
+	b=mS9YQLpSzMzyWIX9IoQLtKBbJ0yNb4UWk11IbvFgMRP8mSnSqDN5JW4X55zR3cKHX
+	 lDLbt3AJ/QnMoP/EHhkr5qZlmvTgnq/p3cdURulkjHdAJyLhW4k+j0oEhR01FbgQWG
+	 IkOnE22pa4nKdA3Gux3vZe/zlNXKiS9KCH9+EMAWTx9lsiPDEVlO3Agq0cTjCxWe9h
+	 75qXtXUVqQJ/vKaZsQ7eZsnLwKqLmJoN33J0x/BMhNhmjwRq1AmVwX92hanH5u0Mb5
+	 laimHkjHvAxM/UKLH9Rg+k0SgVXFpNcte4SknLnhSIMCqq22G+5Ekptxke4TPzhikJ
+	 RY/jnQJ04weeg==
+Subject: Re: [PATCH net-next v20 07/13] ax88179_178a: Add VLAN offload support
+ for AX88179A
 From: netdev-bot+sashiko@kernel.org
 To: mail@birger-koblitz.de
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -50,10 +50,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  edumazet@kernel.org, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
  neuromoments@gmail.com, beganovic.emir@gmail.com
-Date: Tue, 10 Nov 2026 01:38:40 +0000
-Message-ID: <179427472012.994134.9257520567051014453@kernel.org>
-In-Reply-To: <20261106-ax88179a-v20-9-37b5a1189983@birger-koblitz.de>
-References: <20261106-ax88179a-v20-9-37b5a1189983@birger-koblitz.de>
+Date: Tue, 10 Nov 2026 01:38:36 +0000
+Message-ID: <179427471692.994134.3914237997430196941@kernel.org>
+In-Reply-To: <20261106-ax88179a-v20-7-37b5a1189983@birger-koblitz.de>
+References: <20261106-ax88179a-v20-7-37b5a1189983@birger-koblitz.de>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,10 +67,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 7 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 4
+Critical: 0 · High: 0 · Medium: 5 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,361 +78,292 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In ax88179a_reset(), the new `if (!ax179_data->in_pm)` guard
-  (ax88179a_devices.c:1172-1175) skips the whole ax88179_get_mac_addr()…
-- [Medium] On resume, ax88179a_reset() re-enables the hardware VLAN
-  filter (AX_VLAN_CONTROL_VFE written to AX88179A_VLAN_ID_CONTROL,…
-- [Medium] The series is not bisectable.
-- [Medium] ax88179a_resume() calls ax88179a_reset() whether or not the
-  interface is running (ax88179a_devices.c:207-224).
-- [Medium] On every resume, ax88179a_resume() power-cycles the PHY
-  through AX88179A_PHY_POWER: it writes 0 at line 221, sleeps 250 ms,…
-- [Low] The patch turns off USB runtime PM (autosuspend) for every
-  AX88179A/AX88772D/AX88279 device and the commit message does not say…
-- [Low] In ax88179a_resume(), if the first control read of
-  AX88179A_PHY_POWER fails (lines 207-209), the code jumps to err_out.
-- [Low] ax88179a_reset() always arms magic-packet wake (AX_MONITOR_MOD =
-  AX_MONITOR_MODE_RWMP, lines 1213-1217).
-- [Low] In the WoL branch of ax88179a_suspend() (lines 168-170), the
-  return value of ax88179_read_cmd(dev, AX_ACCESS_MAC,…
+- [Medium] ax88179a_set_features() calls ax88179_set_features() first.
+- [Medium] The patch makes NETIF_F_HW_VLAN_CTAG_RX user-toggleable and
+  off by default: it is added to hw_features only…
+- [Medium] ax88179a_reset() rebuilds AX88179A_VLAN_ID_CONTROL from
+  dev->features: VFE if CTAG_FILTER is set, VSO if CTAG_RX is set…
+- [Medium] When CTAG_FILTER is enabled, ax88179a_set_features() clears
+  the VLAN table with 256 iterations of…
+- [Medium] The new VLAN code treats any non-negative return from
+  ax88179_read_cmd() as success.
+- [Low] The last line of the commit message, "Error-checking fixes
+  Suggested-by: Jianhui Xu <neuromoments@gmail.com>", is not a valid…
+- [Low] The patch turns on NETIF_F_HW_VLAN_CTAG_TX by default and makes
+  it toggleable (`hw_features |= features`, ax88179a_devices.c:768-772).
 
 --
 
-ax88179_178a: Add Suspend/resume support for AX88179A/772D/279
+ax88179_178a: Add VLAN offload support for AX88179A
 
-This patch adds per-chip suspend/resume function pointers to struct
-ax88179_data and sends the usb_driver suspend/resume/reset_resume
-callbacks through new wrappers in ax88179_lib.c. It implements
-ax88179a_suspend() and ax88179a_resume() for the AX179A family. When
-called from resume, ax88179a_reset() now skips the MAC address read and
-phylink_start().
+This adds VLAN offload support for the AX88179A-based chips by wiring up
+ndo_set_features, ndo_vlan_rx_add_vid and ndo_vlan_rx_kill_vid. It enables
+NETIF_F_HW_VLAN_CTAG_TX by default. It also exposes NETIF_F_HW_VLAN_CTAG_RX
+and NETIF_F_HW_VLAN_CTAG_FILTER as toggleable hw_features.
 
-> diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-> index f78ad344c1c4f..b077b7153f0c0 100644
-> --- a/drivers/net/usb/ax88179_178a.c
-> +++ b/drivers/net/usb/ax88179_178a.c
+> Error-checking fixes Suggested-by: Jianhui Xu <neuromoments@gmail.com>
 
-[ ... ]
+[Severity: Low]
+This isn't a bug, but is this meant to be a Suggested-by: trailer? With
+"Error-checking fixes" in front of it, git interpret-trailers, b4 and
+checkpatch won't parse it as a tag. A per-version change note would
+normally go below the '---' line.
 
-> @@ -1362,9 +1365,9 @@ static struct usb_driver ax88179_178a_driver = {
->  	.name =		"ax88179_178a",
->  	.id_table =	products,
->  	.probe =	usbnet_probe,
-> -	.suspend =	ax88179_suspend,
-> -	.resume =	ax88179_resume,
-> -	.reset_resume =	ax88179_resume,
-> +	.suspend =	ax88179_suspend_wrapper,
-> +	.resume =	ax88179_resume_wrapper,
-> +	.reset_resume =	ax88179_resume_wrapper,
-
-[Severity: Medium]
-Is the series bisectable at this point? From "ax88179_178a: Add HW support
-for AX179A-based chips" through "ax88179_178a: Add AX179A/AX279 multicast
-configuration", the AX179A-family products entries are bound to this
-usb_driver. In those commits .suspend/.resume/.reset_resume still point
-at the classic ax88179_suspend()/ax88179_resume().
-
-In those intermediate commits, a system resume runs:
-
-ax88179_resume()
-  ax88179_reset()
-    mii_nway_restart(&dev->mii)
-      mii->mdio_read(...)
-
-ax88179a_bind() never sets dev->mii.mdio_read. Wouldn't the first resume
-of an AX88179A/772D/279 device then call a NULL function pointer?
-
-This patch fixes that by sending AX179A devices to ax88179a_resume(), but
-the commit message presents the patch only as a new feature. Could the
-patches be reordered or merged so that no intermediate commit registers
-these callbacks for the new chips? Could the changelog also mention the
-fix?
-
->  	.disconnect =	ax88179_disconnect,
->  	.supports_autosuspend = 1,
-
-[ ... ]
+The note also claims more error checking than the code has. The
+256-iteration table clear loop in ax88179a_set_features() doesn't check
+any of its ax88179_write_cmd(), ax88179_write_u16() or ax88179_write_u8()
+return values (see the comment on that loop below).
 
 > diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
-> index a6b0a3f47118c..01d6a35f68b2c 100644
+> index 272e923656832..4207d2cc2b865 100644
 > --- a/drivers/net/usb/ax88179a_devices.c
 > +++ b/drivers/net/usb/ax88179a_devices.c
+> @@ -258,6 +258,88 @@ static const struct ethtool_ops ax88179a_ethtool_ops = {
 
 [ ... ]
 
-> @@ -126,6 +128,63 @@ static void ax88179a_status(struct usbnet *dev, struct urb *urb)
->  	phylink_mac_interrupt(data->phylink);
->  }
->  
-> +static int ax88179a_suspend(struct usb_interface *intf, pm_message_t message)
+> +static int ax88179a_vlan_rx_add_vid(struct net_device *net, __be16 proto, u16 vid)
 > +{
-
-[ ... ]
-
-> +	/* Enable WoL */
-> +	if (priv->wolopts) {
-> +		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
-> +		tmp8 &= ~(AX_MONITOR_MODE_RWLC | AX_MONITOR_MODE_RWMP);
-> +		if (priv->wolopts & WAKE_PHY)
-> +			tmp8 |= AX_MONITOR_MODE_RWLC;
-> +		if (priv->wolopts & WAKE_MAGIC)
-> +			tmp8 |= AX_MONITOR_MODE_RWMP;
+> +	struct usbnet *dev = netdev_priv(net);
+> +	u8 vlan_ctrl;
+> +	int ret = 0;
+> +	u16 reg16;
+> +	u8 reg8;
 > +
-> +		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
-> +
-> +		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
-> +		tmp16 |= AX_MEDIUM_RECEIVE_EN;
-> +		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
-
-[Severity: Low]
-What happens if this AX_MEDIUM_STATUS_MODE read fails? For size 2,
-ax88179_read_cmd() starts with u16 buf = 0 and copies buf into *data even
-on error, so tmp16 ends up as just AX_MEDIUM_RECEIVE_EN.
-
-Writing that value back clears AX_MEDIUM_GIGAMODE, AX_MEDIUM_FULL_DUPLEX,
-the flow control enables and AX_MEDIUM_JUMBO_EN. Meanwhile the PHY keeps
-its link up for WoL.
-
-Could the MAC medium mode then disagree with the link, so that wake frames
-are not received? Should the return value be checked here?
-
-> +
-> +		if (priv->chip_version == AX_VERSION_AX88279)
-> +			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8,
-> +					  EPHY_LOW_POWER_EN | S5_WOL_EN
-> +					  | S5_WOL_LOW_POWER | 0x8000, 0, NULL);
-> +		else
-> +			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 0,
-> +					  EPHY_LOW_POWER_EN, 0, NULL);
-> +
-> +	} else if (priv->chip_version == AX_VERSION_AX88279) {
-> +		ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8, 0x8000, 0, NULL);
-> +	}
-
-[Severity: Low]
-Is magic packet wake really turned off when WoL is disabled?
-ax88179a_reset() always arms it:
-
-	if (ax179_data->chip_version < AX_VERSION_AX88179A)
-		*tmp = AX_MONITOR_MODE_PMETYPE | AX_MONITOR_MODE_PMEPOL | AX_MONITOR_MODE_RWMP;
-	else
-		*tmp = AX_MONITOR_MODE_RWMP;
-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, tmp);
-
-AX_MONITOR_MOD is only rewritten here, inside if (priv->wolopts). The
-chip therefore suspends with RWMP still set, even when ethtool reports
-WoL as off.
-
-For AX88179A/AX88772D, a WoL suspend also writes AX88179A_WAKEUP_SETTING
-with EPHY_LOW_POWER_EN. The else branch only covers AX88279, and nothing
-on resume clears the register.
-
-For a running interface, phy_suspend() powers the PHY down, which hides
-this. The PHY can still have link during a WoL-off suspend, for example
-in the down-interface resume case below. If USB wakeup is enabled in
-sysfs in that case, could a magic packet wake the host?
-
-> +
-> +	ax88179_set_pm_mode(dev, false);
-> +	return 0;
-> +}
-
-[ ... ]
-
-> @@ -135,6 +194,47 @@ static int ax88179a_auto_detach(struct usbnet *dev)
->  	return 0;
->  }
->  
-> +static int ax88179a_resume(struct usb_interface *intf)
-> +{
-> +	struct usbnet *dev = usb_get_intfdata(intf);
-> +	struct ax88179_data *ax179_data;
-> +	u8 reg8 = 0;
-> +	int ret;
-> +
-> +	ax179_data = dev->driver_priv;
-> +	ax88179_set_pm_mode(dev, true);
-> +
-> +	ret = ax88179_read_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
+> +	ret = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
 > +	if (ret < 0)
-> +		goto err_out;
-
-[Severity: Low]
-If this first read fails, the goto skips the AX_FW_MODE_179A write, the
-PHY power cycle and all of ax88179a_reset(). err_out still calls
-phylink_resume(), which in the non-WoL case starts phylink on hardware
-that was never re-initialised. It then does:
-
-	return usbnet_resume(intf);
-
-usbnet_resume() always returns 0, so ret is lost. Would the interface then
-look resumed but pass no traffic until it is brought down and up again?
-Should the error be propagated here?
-
-> +
-> +	if (!(reg8 & AX_PHY_POWER)) {
-> +		reg8 = AX_PHY_POWER;
-> +		ax88179_write_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-> +		msleep(250);
-> +	}
-> +	ax88179_write_cmd(dev, AX_FW_MODE, AX_FW_MODE_179A, 0, 0, NULL);
-> +
-> +	/* Now, that AX_FW_MODE_179A is enabled, the PHY needs a power-cycle.
-> +	 * PHY-power is re-enabled in ax88179a_reset()
-> +	 */
-> +	ax88179_write_u8(dev, AX88179A_PHY_POWER, 0, 0, 0);
-> +	msleep(250);
+> +		return ret;
+> +	vlan_ctrl = reg8;
 
 [Severity: Medium]
-Does this unconditional power cycle lose the PHY configuration when WoL is
-enabled? The comment suggests it resets the PHY registers to their
-defaults: BMCR, MII_ADVERTISE (including AX_ADVERTISE_2500 on AX88279) and
-the EEE advertisement.
+Can vlan_ctrl end up holding uninitialized stack data here?
 
-With wolopts set, ax88179a_suspend() calls phylink_suspend(pl, true). That
-takes the MAC WoL branch, which sets PHYLINK_DISABLE_MAC_WOL and does not
-call phylink_stop(). On resume, phylink_resume() then only does:
+__usbnet_read_cmd() only copies into the caller's buffer when the
+transfer returned a positive length:
 
-		phylink_mac_initial_config(pl, true);
-		phylink_enable_and_run_resolve(pl, PHYLINK_DISABLE_MAC_WOL);
+drivers/net/usb/usbnet.c:__usbnet_read_cmd() {
+    ...
+	if (err > 0 && err <= size) {
+		if (data)
+			memcpy(data, buf, err);
+    ...
+}
 
-It never reaches phylink_start()/phy_start(). ax88179a_init_phy() sets
-phydev->mac_managed_pm, so MDIO bus PM does not call phy_init_hw() either.
+For size == 1, ax88179_read_cmd() passes &reg8 straight through. A
+zero-length reply from the device returns 0. That passes the ret < 0
+check while reg8 is still uninitialized.
 
-Would the PHY then negotiate using its power-on defaults, while
-phydev->advertising and the phylink EEE state still reflect what was set
-with ethtool?
+The value is then ORed with AX_VLAN_CONTROL_RD and AX_VLAN_CONTROL_WE and
+written back to AX88179A_VLAN_ID_CONTROL twice. That sends a stack byte
+to the device and programs arbitrary VFE/VSO bits.
 
-> +
-> +	ax88179a_reset(dev);
+This also doesn't match the rest of the patch.
+ax88179a_vlan_rx_kill_vid() zero-initializes reg8 and reg16, and
+ax88179a_reset() checks its reads with > 0.
 
-[Severity: Medium]
-Should this also be gated on netif_running()? Only phylink_resume() below
-checks it. ax88179a_reset() powers the PHY, writes AX_RX_CTL_START, sets
-AX_MEDIUM_RECEIVE_EN and arms AX_MONITOR_MODE_RWMP whether or not the
-interface is up.
+The same pattern applies to u8 tmp in ax88179a_set_features(). It is
+uninitialized on the VFE-disable branch and on the CTAG_RX branch. If the
+filter-enable loop ran first, tmp is left at 255, so a short read would
+write 0xff | AX_VLAN_CONTROL_VSO.
 
-If the interface was down at suspend, ax88179a_stop() had left the
-hardware like this:
+Both add_vid and kill_vid read AX88179A_VLAN_ID_DATA0 with a 2-byte read.
+A short reply there leaves reg16 at 0, because ax88179_read_cmd() uses a
+zeroed bounce buffer. Wouldn't the write-back then clear the other 15
+VIDs in that 16-VID group?
 
-	phylink_stop(ax179_data->phylink);
-	...
-	reg16 &= ~AX_MEDIUM_RECEIVE_EN;
-	...
-	ax88179_write_u16(dev, AX_ACCESS_MAC, AX_RX_CTL, 2, 0);
+Should these checks treat anything shorter than a full-length read as an
+error?
 
-	ax88179_write_u8(dev, AX88179A_PHY_POWER, 0, 0, 0);
+[ ... ]
 
-After resume, the PHY is powered and can bring up a link with the peer,
-and MAC RX is enabled, but phylink is not started. The new comment in
-ax88179a_reset(), "phylink_resume() will start phylink, then", does not
-hold for down interfaces.
-
-A later suspend of the still-down interface does not power the PHY off
-again. With USB wakeup enabled, could RWMP then wake the host while WoL
-is off?
+> +	ret = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
+> +	if (ret < 0)
+> +		return ret;
+> +	reg16 |= (1 << (vid % 16));
+> +	ret = ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
 
 [Severity: Medium]
-Is the VLAN filter table restored on this path? ax88179a_reset() turns
-VFE back on whenever the feature is set:
+The VID bitmap only lives in device SRAM here, and the driver keeps no
+software copy. What restores it after the device loses power?
 
+ax88179a_reset() rebuilds AX88179A_VLAN_ID_CONTROL from dev->features
+but doesn't touch the table:
+
+drivers/net/usb/ax88179a_devices.c:ax88179a_reset() {
+    ...
+	*tmp = 0;
 	if (dev->net->features & NETIF_F_HW_VLAN_CTAG_FILTER)
 		*tmp |= AX_VLAN_CONTROL_VFE;
+	if (dev->net->features & NETIF_F_HW_VLAN_CTAG_RX)
+		*tmp |= AX_VLAN_CONTROL_VSO;
+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, tmp);
+    ...
+}
 
-The per-VID bitmap, though, is only written by
-ax88179a_vlan_rx_add_vid() and ax88179a_vlan_rx_kill_vid(), and the
-driver keeps no software copy of it. ax88179a_set_features() also clears
-all 256 entries when it enables the filter, which suggests the table
-contents can't be relied on.
+Later in this series, "ax88179_178a: Add Suspend/resume support for
+AX88179A/772D/279" wires .resume and .reset_resume to ax88179a_resume().
+That function power-cycles the PHY and calls ax88179a_reset(). The vlan
+core doesn't push existing VIDs to the driver again on open or resume.
 
-The chip can lose its registers across suspend, for example on
-reset_resume or when VBUS is cut in S3. Would the hardware filter then
-drop frames on the configured VLANs until the VIDs are added again?
+After a power-losing suspend or a reset_resume with rx-vlan-filter on,
+VFE would be set again on top of the power-on table contents.
+ax88179a_set_features() clears all 256 entries before enabling VFE, which
+suggests those power-on contents can't be trusted.
 
-> +
-> +err_out:
-> +	if (netif_running(dev->net)) {
-> +		rtnl_lock();
-> +		phylink_resume(ax179_data->phylink);
-> +		rtnl_unlock();
-> +	}
-> +
-> +	ax88179_set_pm_mode(dev, false);
-> +
-> +	return usbnet_resume(intf);
-> +}
+Wouldn't traffic for the configured VLANs then be dropped until
+rx-vlan-filter is toggled?
 
-[ ... ]
-
-> @@ -802,6 +905,13 @@ static int ax88179a_bind(struct usbnet *dev, struct usb_interface *intf)
->  	if (ret)
->  		goto initphy_err;
+> @@ -517,6 +599,75 @@ static int ax88179a_mii_ioctl(struct net_device *net, struct ifreq *rq, int cmd)
+>  	return phylink_mii_ioctl(data->phylink, rq, cmd);
+>  }
 >  
-> +	/* Keep this interface runtime-PM active by taking a usage ref.
-> +	 * Prevents runtime suspend while bound and avoids resume paths
-> +	 * that could deadlock (autoresume under RTNL while USB PM lock
-> +	 * is held, phylink/MDIO wants RTNL).
-> +	 */
-> +	pm_runtime_get_noresume(&intf->dev);
-
-[Severity: Low]
-This turns off USB autosuspend for every AX88179A/772D/279 device while it
-is bound. The usage count only drops when ax88179a_unbind() calls
-pm_runtime_put_noidle().
-
-As the comment says, the new ax88179a_suspend()/ax88179a_resume() take
-rtnl_lock() around the phylink calls. An autoresume under RTNL, such as
-usbnet_open() -> usb_autopm_get_interface(), would therefore deadlock, so
-the new callbacks only work for system sleep.
-
-The commit message only talks about adding the suspend/resume wrappers.
-Could it mention that runtime PM is disabled for the AX179A family, and
-why? The shared ax88179_178a_driver also still sets
-.supports_autosuspend = 1 without any note about this exception.
-
+> +static int ax88179a_set_features(struct net_device *net, netdev_features_t features)
+> +{
+> +	struct usbnet *dev = netdev_priv(net);
+> +	netdev_features_t changed;
+> +	int ret;
+> +	u8 tmp;
 > +
->  	return 0;
-
-[ ... ]
-
-> @@ -1055,9 +1166,13 @@ static int ax88179a_reset(struct usbnet *dev)
->  	ax88179_write_u8(dev, AX_ACCESS_MAC, AX88179A_MAC_SWP_CTRL, 1, 0);
->  	ax88179_write_u8(dev, AX_ACCESS_MAC, AX88179A_MAC_TX_HDR_CKSUM, 1, 0);
->  
-> -	/* Read MAC address from DTB or asix chip */
-> -	ax88179_get_mac_addr(dev);
-> -	memcpy(dev->net->perm_addr, dev->net->dev_addr, ETH_ALEN);
-> +	/* Read MAC address from DTB or asix chip, except when called
-> +	 * from resume context.
-> +	 */
-> +	if (!ax179_data->in_pm) {
-> +		ax88179_get_mac_addr(dev);
-> +		memcpy(dev->net->perm_addr, dev->net->dev_addr, ETH_ALEN);
-> +	}
+> +	changed = net->features ^ features;
+> +
+> +	ret = ax88179_set_features(net, features);
+> +	if (ret)
+> +		return ret;
 
 [Severity: Medium]
-Does skipping ax88179_get_mac_addr() on resume also skip programming the
-unicast address into the chip? ax88179_get_mac_addr() ends with:
+What happens to the checksum offload state if one of the VLAN register
+accesses below fails?
 
-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN, ETH_ALEN,
-			  dev->net->dev_addr);
+By the time we get here, ax88179_set_features() has already XOR-toggled
+AX_TXCOE_CTL and AX_RXCOE_CTL in hardware and updated
+data->rx_checksum. It also always returns 0:
 
-That is the only AX_NODE_ID write on the reset path.
+drivers/net/usb/ax88179_lib.c:ax88179_set_features() {
+    ...
+	tmp ^= AX_TXCOE_TCP | AX_TXCOE_UDP;
+    ...
+}
 
-ax88179a_resume() rewrites AX_FW_MODE_179A and power-cycles the PHY, so
-the driver seems to expect chip state to be lost, for example on
-.reset_resume. In that case AX_NODE_ID would go back to the efuse
-default. dev_addr, however, still holds a user-set address (from
-ax88179_set_mac_addr()), a DT-provided address or the random fallback.
+If the VLAN FILTER or CTAG_RX sequence then returns a negative error,
+__netdev_update_features() returns early. dev->features keeps its old
+value, and nothing rolls back the hardware.
 
-RX_CTL is programmed with AX_RX_CTL_AP and without AX_RX_CTL_PRO. Would
-unicast frames to the interface's own MAC then be filtered out after
-resume?
+Take ethtool -K ethX tx on rxvlan on as an example. TXCOE gets toggled
+on, then the VSO read fails, so NETIF_F_IP_CSUM stays off in
+dev->features. On retry, changed still contains IP_CSUM, so the XOR turns
+TXCOE back off, and this time the call succeeds.
 
-Could the AX_NODE_ID write of dev_addr be kept for the in_pm case, with
-only the read/selection step skipped?
+Wouldn't CHECKSUM_PARTIAL frames then go out without hardware checksums?
+RXCSUM can get out of sync the same way.
+
+The VLAN-only case has a similar problem. Suppose the FILTER-on block
+clears the table and sets VFE, and then the CTAG_RX block fails. Hardware
+filtering is now on with an empty table. dev->features still has FILTER
+off, so ndo_vlan_rx_add_vid is never called.
+
+Would all tagged traffic be dropped in that state?
+
+> +
+> +	if (changed & NETIF_F_HW_VLAN_CTAG_FILTER) {
+> +		if (features & NETIF_F_HW_VLAN_CTAG_FILTER) {
+> +			u8 vlan_state = 0;
+> +
+> +			ret = ax88179_read_cmd(dev, AX_ACCESS_MAC,
+> +					       AX88179A_VLAN_ID_CONTROL, 1, 1, &vlan_state);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			for (int i = 0; i < 256; i++) {
+> +				/* Address */
+> +				tmp = i;
+> +				ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_ADDRESS,
+> +						  1, 1, &tmp);
+> +				/* Data */
+> +				ax88179_write_u16(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0,
+> +						  2, 0);
+> +				/* Write-Execute */
+> +				ax88179_write_u8(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL,
+> +						 1, vlan_state | AX_VLAN_CONTROL_WE);
+> +			}
+> +			vlan_state |= AX_VLAN_CONTROL_VFE;
+> +			ret = ax88179_write_cmd(dev, AX_ACCESS_MAC,
+> +						AX88179A_VLAN_ID_CONTROL, 1, 1, &vlan_state);
+
+[Severity: Medium]
+Should the return values in this loop be checked? The read before the
+loop and the VFE write after it are checked. None of the 768 synchronous
+control transfers inside the loop are.
+
+If the device stops responding, each transfer can block for
+USB_CTRL_SET_TIMEOUT (5 seconds). This runs under RTNL from
+__netdev_update_features(). Wouldn't RTNL be held for about an hour?
+
+Errors that come back quickly, such as -EPIPE, would leave some 16-VID
+groups with stale bits. VFE is still enabled and 0 is returned, so could
+the hardware filter accept VIDs the stack never registered?
 
 [ ... ]
+
+> @@ -612,9 +766,11 @@ static int ax88179a_bind(struct usbnet *dev, struct usb_interface *intf)
+>  		dev->mii.supports_gmii = 1;
+>  
+>  	dev->net->features |= NETIF_F_SG | NETIF_F_IP_CSUM |
+> -			      NETIF_F_IPV6_CSUM | NETIF_F_RXCSUM | NETIF_F_TSO;
+> +			      NETIF_F_IPV6_CSUM | NETIF_F_RXCSUM | NETIF_F_TSO |
+> +			      NETIF_F_HW_VLAN_CTAG_TX;
+
+[Severity: Low]
+Enabling NETIF_F_HW_VLAN_CTAG_TX here, and making it toggleable through
+hw_features, makes the existing tag insertion in ax88179a_tx_fixup()
+reachable:
+
+drivers/net/usb/ax88179a_devices.c:ax88179a_tx_fixup() {
+    ...
+	if ((dev->net->features & NETIF_F_HW_VLAN_CTAG_TX) && (vlan_get_tag(skb, &tci) >= 0)) {
+		tx_desc |= AX179A_TX_DESC_VLAN;
+		tx_desc |= FIELD_PREP(AX179A_TX_DESC_VLAN_ID, (u64)tci);
+	}
+    ...
+}
+
+This checks dev->net->features again at transmit time, and vlan_get_tag()
+also looks at skb->dev->features. By then validate_xmit_vlan() has
+already decided to keep the tag in skb->vlan_tci.
+
+__netdev_update_features() doesn't quiesce the TX queue, and
+ax88179a_set_features() doesn't stop it either. If txvlan is switched off
+while a tagged skb is between validate_xmit_skb() and tx_fixup, can the
+frame go out untagged on the native VLAN?
+
+The lan78xx TX path only checks skb_vlan_tag_present() and
+skb_vlan_tag_get().
+
+>  
+>  	dev->net->hw_features |= dev->net->features;
+> +	dev->net->hw_features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_CTAG_FILTER;
+
+[Severity: Medium]
+Since NETIF_F_HW_VLAN_CTAG_RX is only added to hw_features, it is off by
+default and can be toggled. Its only hardware effect is the
+AX_VLAN_CONTROL_VSO strip bit. The RX path, however, tags frames based
+only on the descriptor bit:
+
+drivers/net/usb/ax88179a_devices.c:ax88179a_rx_fixup() {
+    ...
+		if (pkt_desc & AX179A_RX_PD_VLAN) {
+			vlan_tag = pkt_desc >> AX179A_RX_PD_VLAN_SHIFT;
+			__vlan_hwaccel_put_tag(ax_skb, htons(ETH_P_8021Q), vlan_tag);
+		}
+    ...
+}
+
+The chip may set AX179A_RX_PD_VLAN for tagged frames even when VSO is
+clear. In that case the frame would keep its in-band 802.1Q header and
+also get a hwaccel tag. Would the stack then treat it as double tagged?
+
+Should this be gated on dev->net->features & NETIF_F_HW_VLAN_CTAG_RX, as
+lan78xx_rx_vlan_offload() does? aqc111 can skip that check only because
+aqc111_reset() always sets VSO.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-ax88179a-v20-0-37b5a1189983%40birger-koblitz.de
