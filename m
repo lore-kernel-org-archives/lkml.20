@@ -1,115 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346662;
-	b=EOjAL/PXnQa+dWCOuiegPhjafBqjVMARKW4b2d0otQ7++EpW6PgUM943Njl0s9pxjmrP
-	 mpgAQGlegbO/Te/I7Cwk2LlImLyB4ttvl0Qw3n1ygFrfoXOw/m2RQflGXlRm8mli3oHm8
-	 1r52xgS/SB4brM9BPPmLQq17V6Hj71/OEJdrIJFuwUbwENW6Ef0En4+3NU12XiCHQ1OEk
-	 uF9y7NdQPxeO8cXzduZtY3jqqbt0V08cUAWHsrvIEAheqIb2IW2RJxmF9q1lnmGa3duKr
-	 801oJWVjoPxQevQSWK90BFxV6+WE9XPxBD65wn6a6Tyj3Xw9webITs45YeXFJ/eT/Aw==
+	t=1794346712;
+	b=EOELytF0G6WaQH+CYfvxeXtT79EXuy8JDuZpfbpDhEVJNggjJli6BOMgiZu8kdYBjv2A
+	 l2a22i4mWUZynEGDfDaIbrjt2Rq0sD1sv9+2w1rk9G0R9vlMtyw8waR2KM7p02U9Z7e8o
+	 trMSIFjiHO1FcaPsBozpqpF60J/fJqfM6uqJUt3Yn3DkMsFshWqhQmKfBALVfOjHMNZaK
+	 zEId8YgH4lLisIU5hnFko01pjqpflQzU5nb2KElYcseFlIKobjvMT+G6wZP1b1kAht3+V
+	 YWIf7ELRotQawa1nHofz2GZBN0jMrICHpzYfA5z17H5xeqJ+w9drs9UpjZQ3q6SKYYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346662;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=pQPeTacN/BYl2gLmAN7uuVOyVLhnQcGIVBITEszOTd8=;
-	b=4TxPdulJnp6WZdU0uUM9h4998u2pIUeXm/Rpdtvm4dU+tnbzmzxi95bwitD/yMS1Uiqc
-	 kF5mpNPPmYgDkDMMx7YDfi75zepeeyQmjkdHTbuBv2nxTNAN3eoPRyQLPOhyCrtV9Ishb
-	 UKo+XwqbWkZUhkx+fCf4RrjfAsRgiFqDtcTZqfq8Sir7pmyzAT5LZz8/L1fqp9lF5AzMF
-	 Ek7cR0OV/NfSFf+DkSLU2bfa+5SuuU5zNZwuNv2X6HBj6M96AhHLwDozk8vBXlN4xZVru
-	 OWPXkjYJIN6Wh05yZGjXWbnNm1yIkwOKT17tNUYvnbXbQi0Q0WVCoDCxudV036UKl1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346712;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 References;
+	bh=3lfe9XJVUJqfZUNmYUWNzH3GfRtqf9Bz2S5w2J9v1J4=;
+	b=Gpp56f2+Nak6CPy3sZIvMo/pRWb+Ixcpkoxi65ORj6B+Zny1Fo6+GONmeRu9UJVASr+V
+	 mul3NusllA9eKFISf1vZb3JCrenDnqIn61MRtJEx8IfYfdwKmLpUinnZSRuVCZsI3Z0LK
+	 MxKe+P7AF4FU+61QFqJYAg78c0xUdDoX6E6munCkrHseV3zkqVyOX0xVkrM8YMHMpc/R8
+	 kyDDAfulyHMNA5szCNkilwfyt5fXwnUdHl0ccOQ69x/UeFtKGAYT6hY4eb/MG32fmoNNq
+	 QmkJkPNAqmZzYKLCJcsX2KI+bWlHj7n1qgYZfEL1uL3yuEC7CQtyyZ+gVFPhgJS9Piw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.com;
-	spf=pass smtp.mailfrom=fastmail.com;
-	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=gfwTy7+c;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z8DX97bd;
-	arc=none smtp.remote-ip=202.12.124.149
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=UGaDePJs;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4117606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4117606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492E1606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 492E1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=gfwTy7+c;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z8DX97bd
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 2268F1D001EF
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:37:41 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 10 Nov 2026 16:37:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1794346659;
-	 x=1794433059; bh=pQPeTacN/BYl2gLmAN7uuVOyVLhnQcGIVBITEszOTd8=; b=
-	gfwTy7+cif1e1LVct/UzO93FySeF/L6rOHFYPigDO4WR6oti4A6SsYIb4FoBfHko
-	smrXwqe/XfsQvuRAQQZwvfRoX7/wfrwRuQWoGJQcZsbzoCc0JGB67TgSZT6DCs3X
-	BTEgfOmFp0uj/oDfn50THCpFKFnygLcMXQQhQ4m4gxX2ROeQoNmpkfv087Kc7RlD
-	+J+8Okz0YQ+4j7ZsDuxqv9xhn+RPidHFiegAOyv540OEMC4/mQZgfug+ef6RAK3J
-	+MMzaEuDB7Ndx4Vm/wdwJ0RWtC9fbXRUtemNsRe03eRRwjh/XoMlFAi3AAvGvxvv
-	2Wt1fCX6hQfEswmFUw/8hA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794346659; x=
-	1794433059; bh=pQPeTacN/BYl2gLmAN7uuVOyVLhnQcGIVBITEszOTd8=; b=z
-	8DX97bdVTiHKspQTFx5mViskJPWEI3RT+8mVC/gZLIyRhqUqi2X9MZlNdo/OzYT9
-	GbtRnGjP6gLAO6kObwoEzGOOrPfkZ2Ukod73dwDBIQKF9Ffb0ruv4yACYlYuZkGp
-	yxzlG1BopWQvQJrJLum5vYTfx/RxHh22sOlzneU0ABs5tFv3H4t6zXHjIr9w91gx
-	Ctrburv16t05CrUV3P3xuryJagtayithjlYz0gb4nHNHNzPLRtrVpxHcBIBBBsJI
-	lswFRoE/a5mp8zYibJYpMkR4iofYz25oKdLh0KjslLFb8OOUOWMByBUJYg2ndjcw
-	QVPD9CDFYiPbuksDN6yow==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794346659; d=fastmail.com;
-	mf=PGp1YW5sdUBmYXN0bWFpbC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:N2q0nlQR+XIY3MtyqpWxq0tbP3Xsz03/lCGNeOfCwUMzS2h
-	cNNp9td8ugDBde9zNktLyPhLMPE+CYxAFMcPt3hk5aiqBgnTrg++CP1BVaQEQX8k
-	sT9Djnn2FwkfbaTqsNLnR6X8M5lFFzhCNQNJzYXAZ0XWD4ScwuxVr/NpdpSKgvTd
-	1iCWkPDmzdqAC0iYJ6tt2BDZjtZoPkP8nGEyPn/yiT66/INbTHMy5IeT6Rab9YO3
-	CWzgvU9uua2HNkvvWzBw8aFb8pC5gHsJZdiMVOS4EVmLrDtCSuifE/gF73Jd5olS
-	47h1O7cv+4jJoSfy4Zf95JRN/r7LI+nxlRcB+cQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:eh/dKN/2QxMOjoEXNb5UK5C+r/WzrS1VQOk6m+ogYmA=:rIbkHgOQYUfQ1osRjj/4kXU7nTmkv5misKZNmcmqScE=;
-X-ME-Sender: <xms:o47zasAb6tti-vRIvRSQAI-J1iM1mXY0YGQhZn9gz5zFRioZGVhzGg>
-    <xme:o47zaiNEYqoBuBFRqJ0dzfYmm0VYNKN0RS-Z8Wa0OLRGRRreBzibecbbk0iFvOG0M
-    HIJjll9RmYuxH0wsrIAPKnIMMUOLIvmMpudTvk4ZO_fNOfdHLdfILRG>
-X-ME-Received: <xmr:o47zaoPCycbrKAKzHxOZW3oGQSESUZ-ZSdHBaA0sM1pV-M6YO9w2IvpN4SC0g3ySniYtvPdESWBOkakoJA>
-X-ME-Proxy-Cause: dmFkZTGNVXlGWE+7P2XXaL26F5AMGtpK2TycDVlf+xOjA+PYERZl6/BW+lbT0+wzTsbcnL
-    kBAhJvg1txFwRjOcd7bw7X+tErVQLKyqfU9/T4BbMHT193EbxKvHyY8bAQ6ww6NmZWX2Gj
-    S4oVvhJFMJ2BxkJuVf9ujSPSfv16nLGp7k9bwFNTR8UP/etY4ewbE2QpklWLWUkhZbd3tk
-    i2NFMM50EyvyBj3i7bkefkHzaAGSTWPc9b/2WlAEfIPv9QAFyLDidETcJqU8/KdZSLuzWm
-    YnikjaxRN8sYTqzmqmhrte8FXDDjJZwMnUc/kh6WLuGF7iefMNEW49vFlHrDG5ZIu0qxnb
-    vWHBHYmbVanc4mvFNBURK2LzrAF3B/Yo6DDs89K6yoDVQCqt4kOgmvGZEFc98pdMoX3UA+
-    ERVPXJV297cKHqg82Cmm4yWgRmP4ieHipAGa9mDa5wRUZP53ieM8gzbFuAxkR9awZXOr8t
-    kDNYvRgoAyPxlvwXs4pWirk7COdYvJ9s3rOrX1A/oF1hZTc2Y2fuSHjTuAw/3DEp6uUPxb
-    oA+82RihXNdAJtbxu/D1GwO8wsJ8VAKx9n2GBPr39VhzGtE382DS5nDm+JCa9hFGjJksMi
-    j1xABSJ7nsX21FNkUt6zJm+UumP7zctU530ecXwopTpDeaycXzd8/MZ688NQ
-X-ME-Proxy: <xmx:o47zakLL7QO78ILQizAgIMVkJ1B5GwKOlT3aVhNudLICMPiZpD4vGg>
-    <xmx:o47zaipfHw0lAq1mkKFM2WA2Kenhed-d6EhYInxm5KpefJT5UFepWQ>
-    <xmx:o47zagOAsYpXDOWckS1XKAsyMwJESmc5QxFgBxusffb6m6ZRXkfNOw>
-    <xmx:o47zarjG1QVeI8lDdNtLJdSik9ZTJemwFccGbEIM0ruYwmP7V22Gow>
-    <xmx:o47zal9_Ky0U15rZE_SEAgDZtkK19wkrP2KYdvqoLZECpYRqgYUsa_Jk>
-Feedback-ID: i80b64ba7:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 16:37:39 -0500 (EST)
-From: Juanlu Herrero <juanlu@fastmail.com>
-Date: Tue, 10 Nov 2026 13:36:49 -0800
-Subject: [PATCH 3/3] dma-debug: add bucket bound lifetime coverage
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=UGaDePJs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794346709; bh=3lfe9XJVUJqfZUNmYUWNzH3GfRtqf9Bz2S5w2J9v1J4=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=UGaDePJs00KsuTOr3tIpzsh5+Rryq2fcaaM24As3xOr3w2cRIdLGJ+TbWdCQb7qjRaZuWl4jwWs/LrkSFsG3VxML4xPQcI8j3QgDdf2zq/+JFzytoA9MW5Bx/9W3Stf4sW1UQpncGTsXcqt+di5Ce0YsIYA17sx+XAzqJ9IDVbXoo2AyjokiH7lvVUPynKd1RFQnkcwsBtwPsN1CJE4q51xCApOf237i1pHPqTWEFdBFp1JIPPJwjEK9Y+8uHJ6zlFhOB+kDpZ3CQhe4PDv/IqMhqyT53FJ4/woDVknWOi0q3HKGemR8Dp1BasKzJ8OAIPDF/nj8N2pKA6bMcNs8nQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794346709; bh=ddd213/xIuRaYTIRNw+4cj765E2PTX1AmQKuovn7ZSW=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=ZZ9ANuS7czr9vC+LjXvMWekfDvx3a+IpHwcWV633NXwLfkX9IHpTs0qce8vVis0I8RiFCkqrAudOF3cReFFZCKgz+WEGsYC8h8IVJebZWwRXUQZD+eVzKb+U/f8tIzdPYSVAp4Q7xpWDuKyENATPy1STVr8T440uNPoSUyieMzfWh/m1CJ3OJ0WoOvKyff7HfkVbDZM6ehpoXFq8+lF6CfXZDq/3INY5PVAlZjvMzm7m25GTNE5IgNGOCRNC5H9kQDlnkMKwvsYlrkpcltYo5Wl6l+kNW+M73Tr34jUpG2kxM3enCLIJB+eC0iiayvDdRVRYDMszl0PdNmQljx1aKw==
+X-YMail-OSG: lLQV0pAVM1nQtL48amN6Sf3PTFLD1QK18EGj4HPMjHByvyHVv030EPVoE5y2U9P
+ OGI.eGVs7_HW7W9NyRJbifUinH8mBpxHPlBHxY.Xy7iUDLgm.UA9C3zLoE0dg1M6BiAmArCgC60D
+ Llr9yFnMjBPm9IJKrgKewAfGqLIYn2ruJVDgZdHrY_jnYJCV8DcayOM3jiSZV4b34nUWzbnoKUp1
+ pJ9wC46HanqVVs9qKXk254DMNGQYKbE8RNS78btXbg740kmqYhqOQiweWpgvml_lwZoZpqEeJwdo
+ _uC6.K2ayccPFC5bmPBdjKp5SCc7HfnP5ghHlhgrv9oXNM58qPR1miNrOgkM60RoBnOqddUGFv9K
+ QAzSiqrfEAwahxopwHHTeDTpgfdNA_9KCLqZlSFRK9CR_RcL6sjptYYxYZuS5BGHzKvzv53efcmT
+ Judl5_qKU3d5Mg5nybWy6_fPctqwVZERQMloSAjU8lNNUeW5JPmRA.hudGh0y8jUXC4O4mryFhaU
+ FMDIB7idGKwp9o4AebVNq_yBn.X4PTUqDeXqy806a70wwap545IRaf_fRyvpphQe3QyQwWzOBz6t
+ nWDJmuuVbHeF7iYPoFvpfI877w49BIOq..Gpe8eQoE36tgD78xktHkSHUXobHxBNSbDv8NKDiDpj
+ oEf7ugAT0P0f3sLYPWTNPfIVZyzCGc9jtArWpDUtjZAg7n9QH0n2gB8inXSZ8Q7WACWX.KlK_dr9
+ UOxddzPZt0Xw4rpOsXT1cwBIA0260eZYN5MS3zB4Vd9dlAv1Y3pTDwoKFVPFwD52X0OO8WlpF_T_
+ 5KifNj_fcJN7fI7N0.tVu_.DjhoVmUukz6TPiQ1F9qhgiL1dZnPzEHCpemHgxUYi0GYa_hhmvBGw
+ KOwCsDnzYHsfWU0NtaJIkJXqs4nOIxDUoR1Z10Vxvj4E3rs9PMG4ZyQXXxCo3T5CiWi69Q54Zg.D
+ Z9b.pYpwVrOMy.ZERpWqni43UNvJ48jSb7j9MO1Qq4eDj1y1IdckwRe05mmeOVbwwFjp_7oIwB1.
+ Csx9MMYHbszjrgeL9ZFSx05qLPhzw.zECLgP..Hi9JxUjUXhGx86BFwzH6jsT6JnxvxHPS9OZHk9
+ nSjsgW1JixqgnVVoKzR_OC3CeYDuhQ5P9Bk3StQdm7pLFhEK4UHE4R5Cjf7nLuuafblX7xdPfTn9
+ 6K_Rip4hmRvfNHdhu0bgdmUzGHuQ3_bf_5o.rDGfh7wRgvp294Ek3WFQ50an7ZQAOnL.KdQ85QAR
+ yH9B9Tsg_0vZb41fxv9pMjbzCi7z5VTFc435PXBSPghWdn5ZodDInPWf6n2wTS.VLMFtCavyZw6d
+ awlGZnDmomRRTC2GA2Ql1Ju1Z8NnuAsh4cvImL9Y6.sRMVD3RGAGpFD1DwZxBkXTZLMeT3wHQJOx
+ rk3Efosdz5fKSLrngTW39kUYB8JkVLx2j5Mbv0eUXeDwBRzjM_dQ5Y0GA0bg9IiTsEO4FUJD81Y1
+ SrUYGj8y._ki6jYWRrtX7tyeRRyLAebIebUXtkbOIiJ2aCArs4OcxaL1QQaDyELt2Lc7dFaDZ39m
+ T.mrOweteyCgaxyKM6oPV62hh0kKkGk67qgu3HSj5FpnMtvBSVm_YZ5DSDW9curCCzevqIUjZbNa
+ .V3OVQ.JC0tulwlgDbijoSZVCXspTzuiQ_SacAiaupBMje3OHKQRMnYchDQg8_GUWSJocSKqHDCK
+ WpjsmcYhCJY0TOB0a6k3Mm_Drj_xDD2O5ZMbp202KX5l8mXDRYq6dC3gKZkMvXq7mEkvmL1sAxtE
+ bNtN40H4kh7yUXnQb3sw6WCUi39H_WZ2YcUzhPcM7Pr3ONi3GvtKTvXc5BrbquGbZC_0_SbMy8WU
+ G87u1C6iQbODA_MFYZuKKKr0tguk3YicOIjSik5hkjWbsO2h6d8Oxlp.mF6QY5OLwgaW88NsORGv
+ t8tTmNV4a_PClYWFl05b7pB9mOwxGE2k3B.nRdVBnU_f2G2IGUhlDpnOEleYkOICE0BJ0GCCAvh7
+ VMNyPxjHknNcpGEv6Ap9fC21O2ywKqc3TeAYmr7S_il.j82A-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: dc14178d-7249-4e31-afcc-73bcccc1e5b8
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-103 with HTTP; Tue, 10 Nov 2026 21:38:29 +0000
+Received: from dip99.lsn.ir2.yahoo.com ([87.248.99.108])
+          by hello (SMTP) with SMTP ID 2a421b6be2aeaa0fde31ced0cdbc5213;
+          Tue, 10 Nov 2026 21:38:26 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Tue, 10 Nov 2026 22:38:25 +0100
+Subject: [PATCH] platform/raspberrypi: vchiq: Fix kernel-doc Return section
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,127 +85,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-zcrx-dma-debug-registration-v1-3-48743ea61631@fastmail.com>
-References: <20261110-zcrx-dma-debug-registration-v1-0-48743ea61631@fastmail.com>
-In-Reply-To: <20261110-zcrx-dma-debug-registration-v1-0-48743ea61631@fastmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- Juanlu Herrero <juanlu@fastmail.com>
-X-Mailer: b4 0.13.0
+Message-Id: <20261110-vchiq-dev-kdoc-return-v1-1-dac3e840bcac@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1gYmoi32KsWFZmJNC2Ob0UEQ7
+ +60Xb7F/ztEMZUIt2IHk6RR55BBZQE89eEhqD4bKlddiMhh4kk/6CXhy8+MJstqAZuhb+uW/HV
+ 0DLl9m4y6/b737u+4Dk/h5TuD4zgB8y+JNXkAAAA=
+X-Change-ID: 20261110-vchiq-dev-kdoc-return-5ba9491d7f0c
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794346705; l=1419;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=U2NK5ps0z0iNnAb83TqN2kqEkdvH3JTkXiDpRRw1NEg=;
+ b=qLvxmRBg++uSG7Uvc4UhIiTlIMQlQEvqzAhszBGUsyynmVkxEGVkFpmSPsCkeoZI7qjIMln6/
+ m45tXNF5jdRA9m4JkqUQhc0qNukJxrolDXXudu1arbVsAhWrNtj5QuY
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20261110-vchiq-dev-kdoc-return-v1-1-dac3e840bcac.ref@yahoo.pl>
 
-Add a KUnit test on a local bucket for conservative bounds, equal-sized
-mapping removal, empty-bucket reset and reuse. Exercise the existing
-insertion and removal helpers without DMA hardware.
+scripts/kernel-doc -Wall reports that vchiq_register_chrdev() has no
+description of its return value:
 
-Signed-off-by: Juanlu Herrero <juanlu@fastmail.com>
+  Warning: drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c:1341
+  No description found for return value of 'vchiq_register_chrdev'
+
+The comment does describe it, but in a free-form "Returns 0 on success
+..." sentence that kernel-doc does not recognize. Convert it to a
+"Return:" section.
+
+No functional change.
+
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
- kernel/dma/Kconfig             | 10 ++++++++
- kernel/dma/debug.c             |  4 +++
- kernel/dma/tests/debug_kunit.c | 57 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 71 insertions(+)
+ drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/dma/Kconfig b/kernel/dma/Kconfig
-index 3830a63ae032d..3f295a1503597 100644
---- a/kernel/dma/Kconfig
-+++ b/kernel/dma/Kconfig
-@@ -291,6 +291,16 @@ config DMA_API_DEBUG
- 
- 	  If unsure, say N.
- 
-+config DMA_API_DEBUG_KUNIT_TEST
-+	bool "Tests for DMA debug bucket bounds" if !KUNIT_ALL_TESTS
-+	depends on KUNIT=y && DMA_API_DEBUG
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable KUnit (kernel unit test) coverage for DMA debug bucket bounds.
-+	  Check that insertion and removal keep the bound conservative and
-+	  reset it when a bucket becomes empty. Exercise reuse and equal-sized
-+	  mappings on a local bucket. No physical DMA device is required.
-+
- config DMA_MAP_BENCHMARK
- 	bool "Enable benchmarking of streaming DMA mapping"
- 	depends on DEBUG_FS
-diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
-index 8dad45d0a4360..1d0990e447516 100644
---- a/kernel/dma/debug.c
-+++ b/kernel/dma/debug.c
-@@ -1700,3 +1700,7 @@ static int __init dma_debug_driver_setup(char *str)
- 	return 1;
- }
- __setup("dma_debug_driver=", dma_debug_driver_setup);
-+
-+#if IS_ENABLED(CONFIG_DMA_API_DEBUG_KUNIT_TEST)
-+#include "tests/debug_kunit.c"
-+#endif
-diff --git a/kernel/dma/tests/debug_kunit.c b/kernel/dma/tests/debug_kunit.c
-new file mode 100644
-index 0000000000000..96cff02a6918d
---- /dev/null
-+++ b/kernel/dma/tests/debug_kunit.c
-@@ -0,0 +1,57 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <kunit/test.h>
-+#include <linux/sizes.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+
-+static void dma_debug_bound_lifetime_test(struct kunit *test)
-+{
-+	struct dma_debug_entry *entries;
-+	struct hash_bucket bucket = {};
-+	unsigned long bounds[7];
-+
-+	entries = kunit_kcalloc(test, 3, sizeof(*entries), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, entries);
-+	entries[0].size = SZ_4K;
-+	entries[1].size = SZ_64K;
-+	entries[2].size = SZ_64K;
-+	INIT_LIST_HEAD(&bucket.list);
-+	spin_lock_init(&bucket.lock);
-+	spin_lock(&bucket.lock);
-+	hash_bucket_add(&bucket, &entries[0]);
-+	bounds[0] = bucket.max_entry_size;
-+	hash_bucket_add(&bucket, &entries[1]);
-+	hash_bucket_add(&bucket, &entries[2]);
-+	bounds[1] = bucket.max_entry_size;
-+	hash_bucket_del(&bucket, &entries[1]);
-+	bounds[2] = bucket.max_entry_size;
-+	hash_bucket_del(&bucket, &entries[2]);
-+	bounds[3] = bucket.max_entry_size;
-+	hash_bucket_del(&bucket, &entries[0]);
-+	bounds[4] = bucket.max_entry_size;
-+	hash_bucket_add(&bucket, &entries[0]);
-+	bounds[5] = bucket.max_entry_size;
-+	hash_bucket_del(&bucket, &entries[0]);
-+	bounds[6] = bucket.max_entry_size;
-+	spin_unlock(&bucket.lock);
-+
-+	KUNIT_EXPECT_GE(test, bounds[0], (unsigned long)SZ_4K);
-+	KUNIT_EXPECT_GE(test, bounds[1], (unsigned long)SZ_64K);
-+	KUNIT_EXPECT_GE(test, bounds[2], (unsigned long)SZ_64K);
-+	KUNIT_EXPECT_GE(test, bounds[3], (unsigned long)SZ_4K);
-+	KUNIT_EXPECT_EQ(test, bounds[4], 0UL);
-+	KUNIT_EXPECT_GE(test, bounds[5], (unsigned long)SZ_4K);
-+	KUNIT_EXPECT_EQ(test, bounds[6], 0UL);
-+}
-+
-+static struct kunit_case dma_debug_bound_cases[] = {
-+	KUNIT_CASE(dma_debug_bound_lifetime_test),
-+	{}
-+};
-+
-+static struct kunit_suite dma_debug_bound_suite = {
-+	.name = "dma-debug-bound",
-+	.test_cases = dma_debug_bound_cases,
-+};
-+
-+kunit_test_suite(dma_debug_bound_suite);
+diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c
+index f1c9c0d4b96a..7dfeebbf34d3 100644
+--- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c
++++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_dev.c
+@@ -1336,7 +1336,7 @@ static struct miscdevice vchiq_miscdev = {
+  *				device files in userspace.
+  *	@parent:	The parent of the char device.
+  *
+- *	Returns 0 on success else returns the error code.
++ *	Return: 0 on success, or a negative error code on failure.
+  */
+ int vchiq_register_chrdev(struct device *parent)
+ {
 
--- 
-2.53.0-Meta
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-vchiq-dev-kdoc-return-5ba9491d7f0c
+
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
