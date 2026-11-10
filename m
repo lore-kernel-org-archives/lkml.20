@@ -1,66 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316155;
-	b=Jbh2RCeOEKl8Jd1wls6y84gA4QkYJ0/QI0+9QFrfzfBBhmABIV22+HPScWnkhog8dSbx
-	 3b5/CXfG9VpxvnQUFB2yeF3HhxhUEBRxZUJZsbCQ5Vt+LyxlCa6oB2Oc6jwa+afWHqbuJ
-	 0NW03/nUNWnUdV2y8bmQ/fVDmnDW9GsDsFCs8mZBmf6hORame8P4TUZBB4x1n+UQ45k/I
-	 TtQ/wRe/IMqWcHACQHpbZsy1qBWMMpao44dgx40nhnWevBY3ClSLagreok5R8uMC8RJcV
-	 xxZ5Aj6vdoWuVW5vDRq+zx/oOScqcKSR9K5xW5ODMtpqLKkfLuZVkygAMujqP/eqdpg==
+	t=1794316193;
+	b=Gz2KPDByWmY2CyyfTlvl0qqdJrxrHYL6bJKP3Q4TMaK9D7cuhOxHnRo1bndENvBFj4ax
+	 sIf04AtxU9cFrexW3tz4wSEnr3PV3S8M5XFv5KvrqsmcxHHLxtoUmg+LwxH5EtFYSkOUa
+	 foO5iZ9KKv7okv8JUgOnbbrmBPViVMrbueupkBSrb2f12ICi7MzsLoodBdLIty+Jy/V47
+	 j11GxDc4oN2qO90szTpoDjUUxNQTjw2HHbndD0sobNpMzcmJ1E+0UABWiXqu+WLOC/dGT
+	 zH1nMvASR4+IcjgneEcr4bblBC8XRxCeZTMal2K29DW9cCbau0WS3XTsNQFlqAQogZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316155;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=19XAClVuc+eajfIp7Ht34SDxVSiFZnDdEKutUwZPCB0=;
-	b=gW17icOAz2XqzF8j/GaXUDhdWfJxNYvkt9TyNj0RMWwLF8XZ6m7tFpFiH14GQre6e8Wg
-	 F1df0VtZ6Nj3ZAdiUsimNGBeB3ZBCXiIE1WKBHxsa3QTYS92a3/NalNdADn/MPYZorDin
-	 BJ6slo0PFRde2rkMBo2jRuuWgbaI07bOZ+AlE0V3QWbeRjWvZSDE8siiM8yFTNY5mo1Lp
-	 LsZYtA366XSPnNaFFA2N2NjWCh9KjMuFNvrQxOd6R0uRmDJITR748BN5e2Oir4qhPrQsG
-	 1PeAuJZXaKzACPMcOsg4+Sj/RQu54+aYoo6yCfViK9zgZFABuipKV2goNdh5LowpN5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316193;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=XCZuzNSLN1NYl985gudVq+Bd4tfHqYduRFZdeee+NWI=;
+	b=RHJSHFiuHVWrxdyGQMVrxJKYQfsoC7CiyYQoUQ0cxpqd+s35m4pGetIYYuiq4HqkB1Lg
+	 jIilCiEJMXnLbk8xuQw4NaS60yrK4/W1U48Q5gk5+BEJnufnIevI15psAxiXkfxpMDVqr
+	 v1nMtJGYe2FxVw/RZFQCcCdcTAtQ0CD/XAVOkFNQ8fhE8LYmSQ8WpKW8swnKCaXJ9M0Rq
+	 aSvYYRqV8YsoSZ0Jy/VZGvdFUFWc6HnbEYWS9D5DHZ3Dutj0dDSiGHisaDKhv5ItkuWVC
+	 zcpk+JTNCPreRNSBmf9ib65g85fOJVDNF3UN895+fMWtZx8WdNOAv9QixBZL/TXkrIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiHUAz2g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dqxKw8ih;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uBaLnPHF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dqxKw8ih;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uBaLnPHF;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 11A75606A32A;
-	Tue, 10 Nov 2026 13:09:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C981D606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:09:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C981D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiHUAz2g
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 64AD91F0089F;
-	Tue, 10 Nov 2026 13:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316154;
-	bh=19XAClVuc+eajfIp7Ht34SDxVSiFZnDdEKutUwZPCB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fiHUAz2gGOKSx8xziKopAJOHkhaXvZ+7Tcum0sZ0/6S2Op2IKiuhktrnDNVuS7+1T
-	 TtItHcfwP4/inoOgJppZzDcuUvhjwDggPY2ZoJLFpivbPIz/TFrL+MNUgZWM0oy/OY
-	 3xnPuUaoIqtjaH486n0lCjbhXgkBvh+0PpIyrxFpkEBlAML+mfeOAIrgvMt+ibFeDz
-	 d6r98nQ+J6tL+sVruA8JTd48YAlctQoExvy9MV9eoU1DYT8UN47rX+AhcyYSV+wu12
-	 V0voJnb9+IrTK7NY0tYecMkSXbGOpVzsuy0E6Ik7i4WYYLVK9lrvYBBPGrTdxj8aUg
-	 jTAUjpaRr1tng==
-Date: Tue, 10 Nov 2026 14:07:56 +0100
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: apm-power - remove driver
-Message-ID: <avMXLPuXKQGWoqL5@levanger>
-Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
- <20261109164425.GB1608140@ax162>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dqxKw8ih;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uBaLnPHF;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dqxKw8ih;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uBaLnPHF
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B906221E39;
+	Tue, 10 Nov 2026 13:09:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794316190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XCZuzNSLN1NYl985gudVq+Bd4tfHqYduRFZdeee+NWI=;
+	b=dqxKw8ihHDQxyc5XuI/DTRsLMzr1HxMtnF5fitN4zPDZePPlYqTAFQrFV38+duEN9F7Cgb
+	v6N/Kc5gbFhpi6566JwQAo8q0EHyLfk0oana3rZIBl/xMesygkbhbC75YytaGTTpbT8YjA
+	fdgJxwirTP45l5YfCz+LmTEqALtQUU4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794316190;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XCZuzNSLN1NYl985gudVq+Bd4tfHqYduRFZdeee+NWI=;
+	b=uBaLnPHFc6DANj63Li1yXgzWRaRREr8lo1iYH2B7TRwybVCvqRulnEw7SbKE1H9guuCQg8
+	iu0FcmQZcqJ3toCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dqxKw8ih;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uBaLnPHF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794316190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XCZuzNSLN1NYl985gudVq+Bd4tfHqYduRFZdeee+NWI=;
+	b=dqxKw8ihHDQxyc5XuI/DTRsLMzr1HxMtnF5fitN4zPDZePPlYqTAFQrFV38+duEN9F7Cgb
+	v6N/Kc5gbFhpi6566JwQAo8q0EHyLfk0oana3rZIBl/xMesygkbhbC75YytaGTTpbT8YjA
+	fdgJxwirTP45l5YfCz+LmTEqALtQUU4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794316190;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XCZuzNSLN1NYl985gudVq+Bd4tfHqYduRFZdeee+NWI=;
+	b=uBaLnPHFc6DANj63Li1yXgzWRaRREr8lo1iYH2B7TRwybVCvqRulnEw7SbKE1H9guuCQg8
+	iu0FcmQZcqJ3toCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6529D1339F;
+	Tue, 10 Nov 2026 13:09:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rXH7D54X82oqUgAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 13:09:50 +0000
+Message-ID: <e222873d-aff7-43a4-9e7e-ebea7df92a5e@suse.de>
+Date: Tue, 10 Nov 2026 14:09:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,50 +108,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109164425.GB1608140@ax162>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] nvme-tcp: allow setting per-queue io_cpu through
+ sysfs
+To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
+ nilay@linux.ibm.com, dwagner@suse.de, sgogte@purestorage.com,
+ hare@kernel.org, linux-kernel@vger.kernel.org, iyamahata@crusoe.ai,
+ kiyer@crusoe.ai, ganbalagane@crusoe.ai, sjpark@crusoe.ai, bchen@crusoe.ai
+References: <cover.1794015622.git.saravanand@crusoe.ai>
+ <394e47d486979175bc5ebb94c789db8bfacb1736.1794015622.git.saravanand@crusoe.ai>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <394e47d486979175bc5ebb94c789db8bfacb1736.1794015622.git.saravanand@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[grimberg.me:email,crusoe.ai:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: B906221E39
 
-On Mon, Nov 09, 2026 at 11:44:25AM -0500, Nathan Chancellor wrote:
-> On Mon, Nov 09, 2026 at 12:09:44AM -0800, Dmitry Torokhov wrote:
-> > The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
-> > events to queue APM_USER_SUSPEND via legacy APM emulation. The only
-> > in-tree platforms generating those events are legacy Sharp Zaurus ARM
-> > machines (spitz/borzoi/akita and collie), none of which were converted
-> > to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
-> > deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
-> > board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
-> > mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
-> > of the remaining ARM platforms or other APM_EMULATION targets
-> > (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
-> > enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
-> > already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
-> > CONFIG_INPUT_APMPOWER=m entry inert.
-> > 
-> > Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
-> > exposes a module name collision (apm_power) between
-> > drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
-> > Remove this obsolete input bridge to resolve the collision rather than
-> > renaming a module whose last target platforms are going away in the
-> > same cycle.
-> > 
-> > Reported-by: Sasha Levin <sashal@kernel.org>
-> > Closes: https://lore.kernel.org/r/20261108225808.1809266-1-sashal@kernel.org
-> > Link: https://lore.kernel.org/r/20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org
-> > Link: https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
-> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+On 11/7/26 10:53 AM, Saravanan D wrote:
+> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
+> as the least loaded CPU in the queue's blk-mq map group, and all socket
+> work runs there for the connection's lifetime. This decision falls
+> short when the host partitions its CPUs after connect time. On a 384
+> cpu multi tenant host with 128 queue controllers, blk-mq folds three
+> CPUs into every map group, some groups straddle two tenants' cpusets,
+> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
+> cpuset, seen by the neighbor as steal time.
 > 
-> Thanks a lot for helping with this.
+> Expose the io_cpu in each I/O queue's directory
 > 
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+>    /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
 > 
-> Nicolas, do you prefer taking this via kbuild-next directly or having
-> Dmitry take it via the input tree and giving us an immutable branch? I
-> assume the chance of conflicts or follow-ups are low, so we can probably
-> just take it directly but I don't want to assume your preference.
+> so a control plane that owns CPU placement can set it directly instead
+> of relying on the driver's heuristic. The attribute accepts a decimal
+> cpu number, -1 or "unbound". A user assignment, unbound included, is
+> marked in the queue flags, persists across reconnects and is never
+> reselected by the driver. The read-only managed attribute reports 1
+> while io_cpu is driver managed and 0 once the user assigned it. The
+> accounting of nvme_tcp_cpu_queues applies regardless of who set the
+> io_cpu.
+> 
+> A queue's directory is added once the connect time selection has set its
+> io_cpu, so readers never see a placement that is about to change, and
+> removed when the queue is freed, before it is torn down, so a sysfs
+> store never runs on a freed queue. All io_cpu writes, from
+> sysfs and from the driver, serialize with the accounting under
+> nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
+> The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since a
+> sysfs store may move io_cpu in between.
+> 
+> nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
+> count, because a queue can still be counted when it is freed. A sysfs
+> store may have run after the queue stop, or the connect may have
+> failed, and the setup error path frees such a queue without calling
+> nvme_tcp_stop_queue(), where the count is normally dropped.
+> 
+> Suggested-by: Sagi Grimberg <sagi@grimberg.me>
+> Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
+> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+> Signed-off-by: Saravanan D <saravanand@crusoe.ai>
+> ---
+>   Documentation/ABI/stable/sysfs-nvme |  31 ++++++
+>   drivers/nvme/host/tcp.c             | 167 ++++++++++++++++++++++++----
+>   2 files changed, 178 insertions(+), 20 deletions(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Thanks!  I'd like to take it via kbuild tree.  Please complain, if I
-shall drop it again.
+Cheers,
 
+Hannes
 -- 
-Nicolas
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
