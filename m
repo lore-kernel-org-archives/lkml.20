@@ -1,59 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327522;
-	b=J+fdgWdzqupTNbiM4wChWhNi0tnt28ytczONUH7wg3MjqB2Mj5e9GPYz/5jk4rYIhlTU
-	 Umk1RykOzqLF8iaxw1mkE5cpYm5sEhBSkp5V0vDgaAfHV5Gh2o4yCAJLIG5sWIfEusgDS
-	 pgAxxwCTfrw+w9naCtcVHvpieM/bzwgPai0cLqM//ee6zr+Ke4uS9IaDW74CuARPU6N1h
-	 sFQqgFWmICGm2Swy0fHSKTWNKT3kj97yySRygjEZwrGabK+dX50V4ck0RwC2y9MPqqpoX
-	 EeXxXgW0ZOYBhmcyU6Df6NjG1m9QKiuoHtiTqxTAMyh/M1zIxA/vg1OMABG+92MqbrQ==
+	t=1794327538;
+	b=ta6nfGdHcavXSLRp/qi9jbWRG1pE/yo6N304GMYL9UdkIBAzb4v228JfqI0O593UEog/
+	 hTD2tn0NBH/we03NvSvBNZqWQkf+mdb98Sz9nRXvih8z6HQhMYpBKkcbhm8LuyyZOy5Wp
+	 GcmTPAy18b9bDt0SNpsaovjc82dEocYM009k4Sit5KHW8fe/RxroN8Oy8XWeAxfhgskpo
+	 L8CUtBZuitHBG9GGQFJh9G/nu1cJLJ7vM31E9aunMsC4jJw1w8xWLpd+2D2wZj9+sUI+Y
+	 DqKODuiNEB5UdRiIgrG+78qbwFHBcCBhxWO7BaVmPO0wUZTb+wkMWxIsMr6fXpE4dYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327522;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UCECkq6v4+9D6kK3ah/nuf5WbScQfy10bXlUvhxbr5Q=;
-	b=UnR79RUqYA3g/k+Q7UMVg+tNqaXfUPwipRB49UxORVQDZmdq4dgVpPuDc45QvXJyFRIs
-	 lHu0LEeMSJZdL9/q7iSHrnYVI4iWxVbEtGk2ygsl7I1WhMMf5BaotkrZt1kN3Lo2awSTP
-	 mQP3HXLDYSzSfHYA+90UAmTsxrwDYL+Q9+u57TrY0LvlXAjfQZS/UWRYH8ZRLUuWYURh9
-	 Ki/X5rvGgm1KogwS9Du3oa3HcFqepCU72KR6iZ+udbbVI+qmuPFo9gh0KXKN9MyQ1T6Vq
-	 XdEBUC23znbIMWdxKpI+4Kl1AcKaDCCbBj1GNClrw/WGbw/iP0MtxjGk4o5OH4cfNiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327538;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=yYskAYVnH6XbVjZCWrX9MMKwY8O7EPYghGutgzkZiEk=;
+	b=gYI8Ql1bq1A/TSE5fm5DQ+lTBSCnYbLHyLEo/tUuv9gMv367M1zR4GsvHHLZhYb2Jl+r
+	 5FocWLqHbRkzFNQM235LLFv6Go4cZFyECnNHjr7c8B8wz6coDLN1vIXMXSdV87N9knmWB
+	 mgMJNYyR4NIpd4iC8uXeeqKu6uutnSRLTUKGaVX50eg3w1TPn4V/e/pQZagcCyqLu0OSe
+	 eVx0uz9W40UDCN7D2+uDV++5uPdw78BAlNsd085XkE0KIRylznv2NrYoP94agYYH1Fjju
+	 ocVHKL4cYn/gNlvGCn8T/V9/NPf+35FrYH7cqafOt0c69ufgfHGjrujCQPY43lBMpXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNfQ2j5T;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fsxeVPOQ;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E22A606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483CA606A31C;
+	Tue, 10 Nov 2026 16:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNfQ2j5T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1219C1F0089F;
-	Tue, 10 Nov 2026 16:18:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327521;
-	bh=UCECkq6v4+9D6kK3ah/nuf5WbScQfy10bXlUvhxbr5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SNfQ2j5Tt1wcgoESjEHsHrd/7ffBl6iai388sz/sKf9upCOfDKpqrXm5O6lQvjLqi
-	 Bgg5psXrozdaS7TIGnK/xbMVHtm+/Qf6O0YRa1ZbYvCwcf7HPguiACb9lPo10jqakN
-	 Sgo7UItp/Ws6HwcRU4iT8BAm1cu0JVevjrj1C4HOpFlg157gYI5kX+EMQ/ejcvOjIb
-	 DdZyFFMlrQuOx/z6qQdbP8sdEKL7q9+P1Dn4LIjOvyQkCeVyuVvWNVIJz1r9zfVv/p
-	 8gAFyY4uoTWyyra/7FoloqMDaf6pMbmsvqKlKFHZRh65q/OZ6aj0h2WoZl/CMj98m1
-	 OQxOwLEhzYfzQ==
-Date: Tue, 10 Nov 2026 16:18:35 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Lance Yang <lance.yang@linux.dev>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Seunghyun An <san55@wisc.edu>
-Subject: Re: [PATCH] mm/vma: predicate vma_assert_stabilised() on
- CONFIG_DEBUG_VM
-Message-ID: <avNDjxZ9jeYiwdVh@gremlin>
-References: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
- <avNAgtDzM0MYevV8@gremlin>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fsxeVPOQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794327537; x=1825863537;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XLgFMvrq3yUqIfrDH4auZGnz7OE5EcbDwFNADMKNHJ0=;
+  b=fsxeVPOQii9m1JAsbbCsy2rwRi9H1dQxwy8u/nYR95aM/AkAsCgSJqlq
+   q5VhFMk9I4THSXMhz70Zyl9ZPPb4WhKvbN5iLCgrSGIjepRqOjsdNC3Eu
+   HqWAe7PtXD7asvPLgqm71IY2jVgOAUVbYxsQ1YDA/ICwEox/LCULFpAVk
+   e/k8tF6wfAntsA6fmZhw3yTGFpAdgS0FtY5m366PUuY84BfCOdKpPAj2W
+   78X82VcvgB9FocWq7L3CaMbPoCBv1ykWv46p8fkVI2Zwmbd/diH02ZSpk
+   ptLvfnvQhXqlKLStmbEEXDBUn8jUNKM64F1ysAN4uPs5Mi7GhxQf0AUZ6
+   A==;
+X-CSE-ConnectionGUID: U7OfC/ipRkaiQTnxWxvAGQ==
+X-CSE-MsgGUID: hChN51gfRj20k7r22eAgFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2979647"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2979647"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:18:56 -0800
+X-CSE-ConnectionGUID: MneuRwbwRX2t1Z8hvWZwaw==
+X-CSE-MsgGUID: P73odN+YSh+sOAsPzzVs0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="9967128"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:18:54 -0800
+Date: Tue, 10 Nov 2026 18:18:51 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Subject: Re: [PATCH v5 09/16] iio: adc: xilinx-xadc: Add unit suffixes to
+ macro names
+Message-ID: <avND64ZLHcSPFUkX@ashevche-desk.local>
+References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
+ <20261110050201.1850399-10-dileepkumar.nagavarapu@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,50 +88,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avNAgtDzM0MYevV8@gremlin>
+In-Reply-To: <20261110050201.1850399-10-dileepkumar.nagavarapu@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 04:07:48PM +0000, Lorenzo Stoakes (ARM) wrote:
-> Andrew - could you update as below?
->
-> Thanks!
->
-> On Tue, Nov 10, 2026 at 03:10:40PM +0000, Lorenzo Stoakes (ARM) wrote:
-> [ ... ]
-> > diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> > index 9ccbbcbd7aca..9c3a9c6525c1 100644
-> > --- a/include/linux/mmap_lock.h
-> > +++ b/include/linux/mmap_lock.h
-> [ ... ]
-> >  /**
-> >   * vma_assert_stabilised() - assert that this VMA cannot be changed from
-> >   * underneath us either by having a VMA or mmap lock held.
-> > @@ -418,9 +423,18 @@ static inline void vma_assert_locked(const struct vm_area_struct *vma)
-> >   *
-> >   * With lockdep disabled we may sometimes race with other threads acquiring the
-> >   * mmap read lock simultaneous with our VMA read lock.
-> > + *
-> > + * Assert only if CONFIG_DEBUG_VM is set.
+On Tue, Nov 10, 2026 at 10:31:54AM +0530, Dileep Kumar Nagavarapu wrote:
+> Append the unit to the relevant macro names (_HZ, _MS, _CYCLES, _SPS)
+> so that the expected unit of each value is clear at the point of use
+> and to avoid ambiguity.
+> 
+> No functional change intended
 
-Also this should say:
+...
 
-'Assert only if CONFIG_DEBUG_VM or CONFIG_LOCKDEP is set.'
+> -#define XADC_MAX_SAMPLERATE 150000
+> +#define XADC_MAX_SAMPLERATE_SPS 150000
 
-> >   */
-> >  static inline void vma_assert_stabilised(const struct vm_area_struct *vma)
-> >  {
-> > +	if (!IS_ENABLED(CONFIG_DEBUG_VM))
->
-> Actually I think this should be:
->
-> 	if (!IS_ENABLED(CONFIG_DEBUG_VM) || !IS_ENABLED(CONFIG_LOCKDEP))
+Not sure if _SPS makes it anyhow better, but you may use (150 * KILO)
 
-Sorry this should be...
+...
 
-	if (!IS_ENABLED(CONFIG_DEBUG_VM) && !IS_ENABLED(CONFIG_LOCKDEP))
+> -#define XADC_ZYNQ_TCK_RATE_MAX 50000000
+> -#define XADC_ZYNQ_IGAP_DEFAULT 20
+> -#define XADC_ZYNQ_PCAP_RATE_MAX 200000000
+> +#define XADC_ZYNQ_TCK_RATE_MAX_HZ	50000000
+> +#define XADC_ZYNQ_IGAP_DEFAULT_CYCLES	20
+> +#define XADC_ZYNQ_PCAP_RATE_MAX_HZ	200000000
 
-(I have a bit of a fever today, can you tell? :P)
+We have units.h full of useful multipliers, use them.
 
-Thanks!
+_HZ --> _Hz
 
---
-Cheers, Lorenzo
+...
+
+>  	div = clk_rate / val;
+> -	if (clk_rate / div / 26 > XADC_MAX_SAMPLERATE)
+> +	if (clk_rate / div / 26 > XADC_MAX_SAMPLERATE_SPS)
+>  		div++;
+
+Side note, you can get rid of one division.
+
+	if (clk_rate / div > 26 * XADC_MAX_SAMPLERATE_SPS)
+
+>  	if (div < 2)
+>  		div = 2;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
