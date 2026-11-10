@@ -1,62 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292878;
-	b=ukFC3dmO59naTAixDHgO+zUkVyfsj23UejXq0r38SGfG/kDgbOP5Yj7N6eBSpt9EkTqI
-	 UdTnI8jP2839118YgnWxJNqfdFqLHEyYCwEJ1FlCbKFMqctKDsjkkIJoA1dnEswugoLGo
-	 kGqgYJL2PB44tuAGNyP9nHWTDcdFc6Hod5Y4HhcZE+i+/fkL2PpKQx3DF2TGvvuuq8lVr
-	 NhpwoHpmDc208DLEYLRRpHmAwGyMbHAxBulsOkj+TzODtWBQmll83NT53DNL3LFLcwCW6
-	 ayheuLtv6Qy5XFCfSXXRJ3pEOgPgDjler8xPWkajZAxJArFDY5d/BH/U5/7D8YObGGA==
+	t=1794292881;
+	b=PuueJnPZZpuBT2C/6MTOP7YtKMX+Zu53uVByVNUJ7P4tGbY3hqVF0rq0RFpiXefBdRWG
+	 w8iCoxIQAaq+lD5Ao8e6D26ZNmTATp8gj/4mEatPW070aYYULRNn/khLof0unN6UYTfMD
+	 rKe6zUbwcd7mv9CbxsWqOnyowoyaqt7VyR8vELgALiWDBVFZeJX87qy5iq+dsdmjUHbEH
+	 7gVUjtO/Elxessta1RwTSE8f7TimgNsFFFaUxuZRiw2CcF4IQ9z3QSEUqeHWjtgzqoUpi
+	 RHMWPCMkKO22ISHQQccQatHP0Jycrs4ZSk7ig9pw8x3PEzWOj/bmgtp4eLQ/3adaitg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292881;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kx4iwmvjSJb0+Jm+O4LtPjcYgpJHMX6nwoKreAx7I0k=;
-	b=hndAUN1Z6BxCAff6qojwv7DTTHzCBiel0ieJxc7FaMeQd+hJa0eU/faPSn7EIYgz8vvl
-	 5vq6asVQJUZ/NSopjGoVbU0OVFOBfKPRTeJ5j2HScDG8AJPZo2A1wuUXMkMuY6FP+OtLe
-	 1G1AE5xrCsL9c+Y2rz2wbGrFTSqJEE0yh07U/9FNUvBbXBLqE1MtDKOnBdv/797UV/jJZ
-	 Juqb1S7vYYW5tA6Djfdm67xtwsdunk6CHg7WW4nwF9TaZUsZRDL2zu/YOV4K8din3Niq4
-	 so869vO04665LRIl5JVbtiY9OFNO+qY1yb0A7ceRebT0ANInrYHIfjSMMPODb8DhA8g==
+	bh=2JFZFDYVdATotefp7Zy4yVOt+9nOnmZbJSkewmSL7Qo=;
+	b=4g8/mx4NKh1tltwyhEbN6OaUwIQCfBanhKJLBtmWSzSZTa0vN1uZM572r4G2JCG4t0o4
+	 NXRje37C5p72WC6aqt3Ofdzn8J99R+4L45pSuh4nborKiQXQ55w/IoabrFZKiLPOWNW3z
+	 go8aJ/52FzQbQH9qmZFaC6TybICWjHIow1FU/z0kKOArivzve1zyzAT9ga6PGF5Nk2sc0
+	 Jb3YBCVvjl3ehNvhedNbe5FUGIhdyApRkXtjMPNnknZ638GZt/QajRbIco3pA/SGCMB1Q
+	 lJwtIlwf+E5vQILubEQkwF4nKN/+zxgbJq6/lF0H5Va9YzeS5VlmM+oln8XpxDXRUPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LVXjnX2I;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABD3F606A333;
-	Tue, 10 Nov 2026 06:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABD3F606A333
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20BAC606A31C;
+	Tue, 10 Nov 2026 06:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20BAC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LVXjnX2I
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=LVXjnX2IgmKltVJwQ/B99I+AnTUsLdjwzCmRzDtEO0x4egTX6XjQHR4mhD/oPLDF1JRS0Zw1v3eZa
-	 uiiQop2h3cMniu5vt7A2ILSscnLL6FToAsG6Sb6KOWGDUdrk/2r4kRes7Hw6O6lCJfBz5VECfuSjKk
-	 lENDwEi9SY7lNPzE=
+	b=RR3z1RrYP4Q08RQCmTuRHQUrRpb85QVZVYMnd/IA5oIrUjOnCTpVpuRfS2zhYwZz8o1BZnpxmzHA6
+	 30yWC8GJkXyBqlhVZCgNGqV4aslty2Eo9mUOTWtLwdIbSOugjSKZDZ869EEJ6eUIUGHTtHp+ybC7qZ
+	 equqclaLL4FKzYRk=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af2bc86833-983d2;
-	Tue, 10 Nov 2026 14:41:12 +0800 (CST)
-X-RM-TRANSID:2ee66af2bc86833-983d2
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af2bc867fe-6b8f5;
+	Tue, 10 Nov 2026 14:41:10 +0800 (CST)
+X-RM-TRANSID:2ee86af2bc867fe-6b8f5
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa109;
-	Tue, 10 Nov 2026 14:41:12 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa109
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa101;
+	Tue, 10 Nov 2026 14:41:10 +0800 (CST)
+X-RM-TRANSID:2eea6af2bc812f6-aa101
 From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 07/22] usb: dwc2: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:40:50 +0000
-Message-ID: <20261110064105.20335-8-shishunbo@cmss.chinamobile.com>
+Subject: [PATCH 02/22] usb: cdns3: fix a few spelling mistakes in comments
+Date: Tue, 10 Nov 2026 06:40:45 +0000
+Message-ID: <20261110064105.20335-3-shishunbo@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
 References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
@@ -75,160 +72,96 @@ No functional changes.
 
 Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
- drivers/usb/dwc2/core.c      | 4 ++--
- drivers/usb/dwc2/core.h      | 2 +-
- drivers/usb/dwc2/gadget.c    | 6 +++---
- drivers/usb/dwc2/hcd.c       | 8 ++++----
- drivers/usb/dwc2/hcd.h       | 2 +-
- drivers/usb/dwc2/hcd_ddma.c  | 2 +-
- drivers/usb/dwc2/hcd_queue.c | 2 +-
- 7 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/usb/cdns3/cdns3-ep0.c    | 4 ++--
+ drivers/usb/cdns3/cdns3-gadget.c | 6 +++---
+ drivers/usb/cdns3/drd.c          | 2 +-
+ drivers/usb/cdns3/drd.h          | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/usb/dwc2/core.c b/drivers/usb/dwc2/core.c
-index 6a0135e06b00..7b98c3e1338a 100644
---- a/drivers/usb/dwc2/core.c
-+++ b/drivers/usb/dwc2/core.c
-@@ -113,7 +113,7 @@ int dwc2_exit_partial_power_down(struct dwc2_hsotg *hsotg, int rem_wakeup,
- 	gr = &hsotg->gr_backup;
- 
- 	/*
--	 * Restore host or device regisers with the same mode core enterted
-+	 * Restore host or device registers with the same mode core enterted
- 	 * to partial power down by checking "GOTGCTL_CURMODE_HOST" backup
- 	 * value of the "gotgctl" register.
- 	 */
-@@ -138,7 +138,7 @@ int dwc2_enter_partial_power_down(struct dwc2_hsotg *hsotg)
- }
- 
- /**
-- * dwc2_restore_essential_regs() - Restore essiential regs of core.
-+ * dwc2_restore_essential_regs() - Restore essential regs of core.
+diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
+index e29989d57bef..5d6d3616bfc6 100644
+--- a/drivers/usb/cdns3/cdns3-ep0.c
++++ b/drivers/usb/cdns3/cdns3-ep0.c
+@@ -643,7 +643,7 @@ void cdns3_check_ep0_interrupt_proceed(struct cdns3_device *priv_dev, int dir)
+  * @desc: pointer to usb endpoint descriptor
   *
-  * @hsotg: Programming view of the DWC_otg controller
-  * @rmode: Restore mode, enabled in case of remote-wakeup.
-diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
-index 015a5fb7842d..57f5b8180a32 100644
---- a/drivers/usb/dwc2/core.h
-+++ b/drivers/usb/dwc2/core.h
-@@ -1006,7 +1006,7 @@ struct dwc2_hregs_backup {
-  * @driver:             USB gadget driver
-  * @dedicated_fifos:    Set if the hardware has dedicated IN-EP fifos.
-  * @num_of_eps:         Number of available EPs (excluding EP0)
-- * @debug_root:         Root directrory for debugfs.
-+ * @debug_root:         Root directory for debugfs.
-  * @ep0_reply:          Request used for ep0 reply.
-  * @ep0_buff:           Buffer for EP0 reply data, if needed.
-  * @ctrl_buff:          Buffer for EP0 control requests.
-diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
-index 6c8a9f05fff0..1eebe14ea68b 100644
---- a/drivers/usb/dwc2/gadget.c
-+++ b/drivers/usb/dwc2/gadget.c
-@@ -2835,7 +2835,7 @@ static void dwc2_hsotg_complete_in(struct dwc2_hsotg *hsotg,
-  * @dir_in: Endpoint direction 1-in 0-out.
-  *
-  * Reads for endpoint with given index and direction, by masking
-- * epint_reg with coresponding mask.
-+ * epint_reg with corresponding mask.
+  * Function shouldn't be called by gadget driver,
+- * endpoint 0 is allways active
++ * endpoint 0 is always active
   */
- static u32 dwc2_gadget_read_ep_interrupts(struct dwc2_hsotg *hsotg,
- 					  unsigned int idx, int dir_in)
-@@ -4073,7 +4073,7 @@ static void dwc2_hsotg_ep_stop_xfr(struct dwc2_hsotg *hsotg,
- 
- /**
-  * dwc2_hsotg_ep_enable - enable the given endpoint
-- * @ep: The USB endpint to configure
-+ * @ep: The USB endpoint to configure
-  * @desc: The USB endpoint descriptor to configure with.
+ static int cdns3_gadget_ep0_enable(struct usb_ep *ep,
+ 				   const struct usb_endpoint_descriptor *desc)
+@@ -656,7 +656,7 @@ static int cdns3_gadget_ep0_enable(struct usb_ep *ep,
+  * @ep: pointer to endpoint zero object
   *
-  * This is called from the USB gadget code's usb_ep_enable().
-@@ -4657,7 +4657,7 @@ static int dwc2_hsotg_udc_start(struct usb_gadget *gadget,
-  * dwc2_hsotg_udc_stop - stop the udc
-  * @gadget: The usb gadget state
-  *
-- * Stop udc hw block and stay tunned for future transmissions
-+ * Stop udc hw block and stay tuned for future transmissions
+  * Function shouldn't be called by gadget driver,
+- * endpoint 0 is allways active
++ * endpoint 0 is always active
   */
- static int dwc2_hsotg_udc_stop(struct usb_gadget *gadget)
+ static int cdns3_gadget_ep0_disable(struct usb_ep *ep)
  {
-diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
-index d5275cd658d4..fd2c0a8a4d30 100644
---- a/drivers/usb/dwc2/hcd.c
-+++ b/drivers/usb/dwc2/hcd.c
-@@ -34,7 +34,7 @@
+diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+index f4dfd0131708..ba10ef9ea656 100644
+--- a/drivers/usb/cdns3/cdns3-gadget.c
++++ b/drivers/usb/cdns3/cdns3-gadget.c
+@@ -452,7 +452,7 @@ static void __cdns3_descmiss_copy_data(struct usb_request *request,
+ 			       descmiss_req->actual);
+ 			request->actual = length;
+ 		} else {
+-			/* It should never occures */
++			/* It should never occurs */
+ 			request->status = -ENOMEM;
+ 		}
+ 	} else {
+@@ -1062,7 +1062,7 @@ static int cdns3_ep_run_stream_transfer(struct cdns3_endpoint *priv_ep,
+ 
+ 	if (!(priv_ep->flags & EP_STALLED)) {
+ 		trace_cdns3_ring(priv_ep);
+-		/*clearing TRBERR and EP_STS_DESCMIS before seting DRDY*/
++		/*clearing TRBERR and EP_STS_DESCMIS before setting DRDY*/
+ 		writel(EP_STS_TRBERR | EP_STS_DESCMIS, &priv_dev->regs->ep_sts);
+ 
+ 		priv_ep->prime_flag = false;
+@@ -1404,7 +1404,7 @@ static int cdns3_ep_run_transfer(struct cdns3_endpoint *priv_ep,
+ 
+ 	if (!priv_ep->wa1_set && !(priv_ep->flags & EP_STALLED)) {
+ 		trace_cdns3_ring(priv_ep);
+-		/*clearing TRBERR and EP_STS_DESCMIS before seting DRDY*/
++		/*clearing TRBERR and EP_STS_DESCMIS before setting DRDY*/
+ 		writel(EP_STS_TRBERR | EP_STS_DESCMIS, &priv_dev->regs->ep_sts);
+ 		writel(EP_CMD_DRDY, &priv_dev->regs->ep_cmd);
+ 		cdns3_rearm_drdy_if_needed(priv_ep);
+diff --git a/drivers/usb/cdns3/drd.c b/drivers/usb/cdns3/drd.c
+index 42f13757d904..7465a2a4fb2d 100644
+--- a/drivers/usb/cdns3/drd.c
++++ b/drivers/usb/cdns3/drd.c
+@@ -58,7 +58,7 @@ static int cdns_set_mode(struct cdns *cdns, enum usb_dr_mode mode)
+ 			/*
+ 			 * Enable work around feature built into the
+ 			 * controller to address issue with RX Sensitivity
+-			 * est (EL_17) for USB2 PHY. The issue only occures
++			 * est (EL_17) for USB2 PHY. The issue only occurs
+ 			 * for 0x0002450D controller version.
+ 			 */
+ 			if (cdns->phyrst_a_enable) {
+diff --git a/drivers/usb/cdns3/drd.h b/drivers/usb/cdns3/drd.h
+index 1e2aee14d629..0b134c1e5a49 100644
+--- a/drivers/usb/cdns3/drd.h
++++ b/drivers/usb/cdns3/drd.h
+@@ -160,11 +160,11 @@ struct cdns_otg_irq_regs {
+  * Value of the strap pins for:
+  * CDNS3:
+  * 000 - no default configuration
+- * 010 - Controller initiall configured as Host
++ * 010 - Controller initially configured as Host
+  * 100 - Controller initially configured as Device
+  * CDNSP:
+  * 000 - No default configuration.
+- * 010 - Controller initiall configured as Host.
++ * 010 - Controller initially configured as Host.
+  * 100 - Controller initially configured as Device.
   */
- 
- /**
-- * dwc2_enable_common_interrupts() - Initializes the commmon interrupts,
-+ * dwc2_enable_common_interrupts() - Initializes the common interrupts,
-  * used in both device and host modes
-  *
-  * @hsotg: Programming view of the DWC_otg controller
-@@ -749,7 +749,7 @@ static void dwc2_hc_init(struct dwc2_hsotg *hsotg, struct dwc2_host_chan *chan)
-  *
-  * In slave mode, checks for a free request queue entry, then sets the Channel
-  * Enable and Channel Disable bits of the Host Channel Characteristics
-- * register of the specified channel to intiate the halt. If there is no free
-+ * register of the specified channel to initiate the halt. If there is no free
-  * request queue entry, sets only the Channel Disable bit of the HCCHARn
-  * register to flush requests for this channel. In the latter case, sets a
-  * flag to indicate that the host channel needs to be halted when a request
-@@ -5882,7 +5882,7 @@ int dwc2_host_exit_partial_power_down(struct dwc2_hsotg *hsotg,
- 	udelay(5);
- 
- 	if (!rem_wakeup) {
--		/* Stop driveing resume signaling on the port. */
-+		/* Stop driving resume signaling on the port. */
- 		hprt0 = dwc2_read_hprt0(hsotg);
- 		hprt0 &= ~HPRT0_RES;
- 		dwc2_writel(hsotg, hprt0, HPRT0);
-@@ -5982,7 +5982,7 @@ void dwc2_host_exit_clock_gating(struct dwc2_hsotg *hsotg, int rem_wakeup)
- 		/* In case of port resume need to wait for 40 ms */
- 		msleep(USB_RESUME_TIMEOUT);
- 
--		/* Stop driveing resume signaling on the port. */
-+		/* Stop driving resume signaling on the port. */
- 		hprt0 = dwc2_read_hprt0(hsotg);
- 		hprt0 &= ~HPRT0_RES;
- 		dwc2_writel(hsotg, hprt0, HPRT0);
-diff --git a/drivers/usb/dwc2/hcd.h b/drivers/usb/dwc2/hcd.h
-index b7254d94fdc3..656acd2f03bd 100644
---- a/drivers/usb/dwc2/hcd.h
-+++ b/drivers/usb/dwc2/hcd.h
-@@ -10,7 +10,7 @@
- 
- /*
-  * This file contains the structures, constants, and interfaces for the
-- * Host Contoller Driver (HCD)
-+ * Host Controller Driver (HCD)
-  *
-  * The Host Controller Driver (HCD) is responsible for translating requests
-  * from the USB Driver into the appropriate actions on the DWC_otg controller.
-diff --git a/drivers/usb/dwc2/hcd_ddma.c b/drivers/usb/dwc2/hcd_ddma.c
-index 703cda5a5895..bdeb2943c4a5 100644
---- a/drivers/usb/dwc2/hcd_ddma.c
-+++ b/drivers/usb/dwc2/hcd_ddma.c
-@@ -415,7 +415,7 @@ static u16 dwc2_calc_starting_frame(struct dwc2_hsotg *hsotg,
- 	 * Current frame is 1, scheduled frame is 3. Since HC always fetches
- 	 * the descriptor corresponding to curr_frame+1, the descriptor
- 	 * corresponding to frame 2 will be fetched. If the number of
--	 * descriptors is max=64 (or greather) the list will be fully programmed
-+	 * descriptors is max=64 (or greater) the list will be fully programmed
- 	 * with Active descriptors and it is possible case (rare) that the
- 	 * latest descriptor(considering rollback) corresponding to frame 2 will
- 	 * be serviced first. HS case is more probable because, in fact, up to
-diff --git a/drivers/usb/dwc2/hcd_queue.c b/drivers/usb/dwc2/hcd_queue.c
-index 4f00ff1dc3e1..68e50b94e99f 100644
---- a/drivers/usb/dwc2/hcd_queue.c
-+++ b/drivers/usb/dwc2/hcd_queue.c
-@@ -1006,7 +1006,7 @@ static void dwc2_uframe_unschedule(struct dwc2_hsotg *hsotg, struct dwc2_qh *qh)
-  * dwc2_pick_first_frame() - Choose 1st frame for qh that's already scheduled
-  *
-  * Takes a qh that has already been scheduled (which means we know we have the
-- * bandwdith reserved for us) and set the next_active_frame and the
-+ * bandwidth reserved for us) and set the next_active_frame and the
-  * start_active_frame.
-  *
-  * This is expected to be called on qh's that weren't previously actively
+ #define OTGSTS_STRAP(p)			(((p) & GENMASK(14, 12)) >> 12)
 -- 
 2.53.0
 
