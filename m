@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342500;
-	b=C/Ud9bxwXPhJcz+BXZWANKnjrxGDQBJIHJOqiM725NQK/P903Spt2YjewKZCc0oLS1Zj
-	 4uRopmSlVmISyLhQYRP7o8cdhnparwpMSyClIqZwUqM49MDWQoN/upo7LzBbY3rSUkIgi
-	 OYCkquOaJyFiVTbGSKJexSWky2lrcy9qDU19uYRQIO+Gqb6i3LcTJduUU+m36PvLEJA8h
-	 rSxWWJJSewBudwKAewYq4DEaZTN0wUXRJEHUsNVmr1yQVUvfD5/cYhVMG1xmps92ZxXLa
-	 2j2WTZo2Y9IWbY3ix8jpRKllI1a+Me/KBlHN9f87uelKzXj9HSe3jCSU1FJkPT6/fOw==
+	t=1794342574;
+	b=wFJT5rBmB5QptPNw1LxoRCBbyv4MqCwlstKG+i9jZ1xnNil5xIDBYGvSF84ajzGZZFd2
+	 tlTk8uklo6F9qB44hNFjab41vKm0uLmt0W8y1BAJos4VF72R2NyEUINkWl2Yewj/83sL6
+	 s5vzRqRcP1EfbOd77sUPoEEAFkEj98ODAU1iMqjuAkSbF2eRDmlA/4Ezljo+LL3k4CUKy
+	 Xp2DWzNnIQCL3TuC33EsafLcq+NW23F2cH86guvJE9wPnVAGxq3P+JO/dVBsrtisSCmh+
+	 YZVJ/l9G+DJPhnB6i9UwFWaUIxb2OL0xnYGhOBj954ixHDTTwABtdrvC1Eq2rL003Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342500;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Infomaniak-Routing;
-	bh=18Upaku51TXF7f7RVBOgnNL6ZM9H8UnRIpYKn77kd8I=;
-	b=RP2Q4BSqpt6dKJ/mB41tiRUvWIkIFQMhPGlovAR6aZNHHIbM/TJTxZ3r++x7w0TWovnv
-	 8yCFfyHgE8LUhuoip5EIX+WhdGiScskYJvH4gSpBChRRNMT5xHF/8rRu2soHjfkQQJbb9
-	 +DhGz6STi0bnqSb+RXgYGrRYsETvs9QPCvzj9CWh5KYPGL6eiNf3hUIEmPScE8Uy3/ozv
-	 6cMOj7OnUqfm9XR2DxAmHqQeLnwhPUVaU5h5SRzsPGLrml7E2NIPxlIRZekdgl0uyTGwJ
-	 0NUEIKo1si88F7k0+KDj54ncp21CtcgtLa40iVYyEG8a17fCxxt7GSPGNlm8gA828/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342574;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=Fk8LXHs8N79M/Gb/tHOLTac2s+kdfo9IKr/YpYoWCAM=;
+	b=rCWXnVtfw9rBeKxTqTplk4BpMAqYiJALFp2u+YpGWYmFRpLFlusWN3qeLTomqM4BXwNe
+	 FR4JOiKYvmGfRUvemAFoUCZ3BV/Rs0hYBLoHgnVQCb6eKzEoombW7+NsRfUYkEpFjEUN0
+	 OIFePkJ9KdyD/oMdJ9krVePDznteyN39xmzia5ik3AvWY4moPEI/ztZCjxSyq4qE65+Gy
+	 TEIxjBuNx3VpGVStCFI+sF66Zw3s4I/Az5cfwx9dJMU9GTQDu/wrYDbjxpqrFZgx9xEaC
+	 79ADXti/wvjPCRGceRUzXZQqnAyPJ/iQW9MHXgzeU1lIaAp7Yx6RWhDDEj88mrGnVpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=aaKjNMAc;
-	arc=none smtp.remote-ip=83.166.143.175
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=ifjBbS6T;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17760606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:28:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17760606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D948606A31C;
+	Tue, 10 Nov 2026 20:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=aaKjNMAc
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJBT1hyLzDcG;
-	Tue, 10 Nov 2026 21:28:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794342496;
-	bh=18Upaku51TXF7f7RVBOgnNL6ZM9H8UnRIpYKn77kd8I=;
-	h=From:To:Cc:Subject:Date:From;
-	b=aaKjNMAcjUMpcK3Mi2cc1oWepPvafda5NnJXtg4O67fC0qezloWSeXBCwTQo0WHod
-	 VC2xEceHUnvqQ15niSn2lfLoGJkZ5OVFgGqdite6eSyhFX/IBQERJ5Q7Ds/Au3mHUw
-	 YBSMt3oTb34+vZdnzm8povctJdtPpHh8Mch1uiJU=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJBR50kBztWR;
-	Tue, 10 Nov 2026 21:28:15 +0100 (CET)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: James Morris <jmorris@namei.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Serge Hallyn <serge@hallyn.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Ada Smith <adasmithgt@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	John Johansen <john.johansen@canonical.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	apparmor@lists.ubuntu.com,
-	bpf@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org
-Subject: [PATCH 0/2] Fix LSM mediation of PR_SET_SECUREBITS
-Date: Tue, 10 Nov 2026 21:28:05 +0100
-Message-ID: <20261110202811.2409395-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=ifjBbS6T
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=Fk8LXHs8N79M/Gb/tHOLTac2s+kdfo9IKr/YpYoWCAM=;
+	t=1794342573; x=1795552173; b=ifjBbS6T0LKTwJsTTmdUKVCoCMejBifaDxuHs16CwJLWq71
+	d7qgrt0fmiFYFMXC/7QgRHz1O4wqb2rt4vrUBsoMVtAVxIVFwDP/jGmMoqdcfJd1GIRst2Mau2PnQ
+	aiy2f85x6r0S3G9qvg9r6WOXvmJWq6f4QfrnJd2lFLMjvHWwWsm1r9ueuc6YCOEpedIFqRO4OEfNH
+	7S11/sfr1Z+vUyurTMouW7DKWbpGYyePoSW8Cql5c1dm1MWLSBifcOfXt2pxJ+td9PBdS8yrpjqhF
+	zONtDydMh/CPtppJ/6uR+gBDDBPokW1WdTrffk9Fxi1yEx2BGohIWgTVmovTz1bA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xQsTC-00000002IwI-2Cdq;
+	Tue, 10 Nov 2026 21:29:30 +0100
+Message-ID: <f4164ec832b8dab5da90ddccc527ddcae74a44c3.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 13/21] wifi: mac80211: apply SMD BSS
+ Transition STA sub-states
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 21:29:29 +0100
+In-Reply-To: <20261106-smd-v4-13-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-13-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,61 +69,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-malware-bazaar: not-scanned
 
-Hi,
+On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
+>=20
+> +static int sta_apply_smd_state_flags(struct sta_info *sta,
+> +				     u32 mask, u32 set)
+> +{
+> +	bool smd_prep_target, smd_exec_current, smd_dl_drain;
+> +	u32 expected_mask =3D BIT(NL80211_STA_FLAG_SMD_PREP_TARGET) |
+> +			    BIT(NL80211_STA_FLAG_SMD_EXEC_CURRENT) |
+> +			    BIT(NL80211_STA_FLAG_SMD_DL_DRAIN);
+> +	u32 smd_flags;
+> +
+> +	if (!(mask & expected_mask))
+> +		return 0;
 
-This is series 2 of 3:
+Not sure I'd call that "expected", it's more like "relevant" (for this
+function)?
 
-  1. fix Landlock mediation of commoncap's capability checks;
-* 2. fix PR_SET_SECUREBITS mediation and add focused Landlock tests;
-  3. fix Landlock mediation of capabilities guarding LSM policies.
+> +	smd_flags =3D mask & expected_mask & set;
+> +	if (WARN_ON(hweight32(smd_flags) > 1))
+> +		return -EINVAL;
 
-This series applies on top of series 1:
-https://patch.msgid.link/20261110202436.2408244-1-mic@digikod.net
+WARN? Isn't that potentially reachable from userspace?
 
-Since per-process securebits were introduced, PR_SET_SECUREBITS checks
-CAP_SETPCAP with cap_capable() instead of ns_capable(), so LSMs
-restricting capabilities through the capable hook (SELinux, AppArmor,
-Landlock and BPF LSM programs) cannot deny it.  A task with CAP_SETPCAP
-can therefore change privileged securebits, and thus how its
-capabilities evolve across UID changes and execve(), without the
-expected denial or audit record.
+> +	smd_prep_target =3D
+> +		!!(smd_flags & BIT(NL80211_STA_FLAG_SMD_PREP_TARGET));
+> +	smd_exec_current =3D
+> +		!!(smd_flags & BIT(NL80211_STA_FLAG_SMD_EXEC_CURRENT));
+> +	smd_dl_drain =3D
+> +		!!(smd_flags & BIT(NL80211_STA_FLAG_SMD_DL_DRAIN));
 
-Patch 1 uses ns_capable(), as PR_CAPBSET_DROP already does, for the
-changes that require CAP_SETPCAP; changes limited to the unprivileged
-securebits still do not check a capability.  It applies cleanly to the
-6.18 and 7.2 stable branches; older ones need a simpler adapted
-backport.  Patch 2 adds a Landlock audit test that fails without patch
-1.  It shares cap_test.c with series 1, which is the only reason for the
-ordering.
+bool, so you don't need the !!
 
-Serge and Paul, a review of the commoncap fix and an Acked-by for taking
-both patches through the Landlock tree would be welcome.
+> +
+> +	if (!test_sta_flag(sta, WLAN_STA_AUTHORIZED) &&
+> +	    (smd_exec_current || smd_dl_drain))
+> +		return -EINVAL;
+> +
+> +	if (smd_prep_target) {
+> +		clear_sta_flag(sta, WLAN_STA_SMD_EXEC_CURRENT);
+> +		clear_sta_flag(sta, WLAN_STA_SMD_DL_DRAIN);
+> +		set_sta_flag(sta, WLAN_STA_SMD_PREP_TARGET);
 
-John, Stephen, KP and Matt, please check the AppArmor, SELinux and BPF
-LSM implications of exposing this CAP_SETPCAP check to the capable hook.
+might be better to set then clear?
 
-Regards,
+> +	/*
+> +	 * SMD BSS Transition sub-states (IEEE P802.11bn/D2.0, Aug 2026,
+> +	 * subclause 11.3.1).
+> +	 * Only meaningful for SMD-capable stations (WLAN_STA_SMD set).
+> +	 */
+> +	if (test_sta_flag(sta, WLAN_STA_SMD)) {
+> +		ret =3D sta_apply_smd_state_flags(sta, mask, set);
 
-Mickaël Salaün (2):
-  capabilities: Check PR_SET_SECUREBITS with ns_capable()
-  selftests/landlock: Test PR_SET_SECUREBITS mediation
+Sounds more like an LLM invention than a useful comment ...
 
- security/commoncap.c                        | 42 ++++++-------
- tools/testing/selftests/landlock/cap_test.c | 69 +++++++++++++++++++++
- 2 files changed, 89 insertions(+), 22 deletions(-)
+It'd be good to know why any of this was needed I guess.
 
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-prerequisite-patch-id: 365071039dd2be439f67707944d12edbe1422d60
-prerequisite-patch-id: 021705fb5147cdc8edcac9dbe53c06b854cf976a
-prerequisite-patch-id: 1dfd782b28feeac47423e702764778031b850d6c
-prerequisite-patch-id: 0bf745b08b99168d266461ef5b0b943a2b71eceb
-prerequisite-patch-id: 542fe806b611c7cc8e2ded656b62731d25dcba9b
-prerequisite-patch-id: 39d6ce2bdfc170b545eb2d275ab781e15c9e887a
--- 
-2.56.0
-
+johannes
