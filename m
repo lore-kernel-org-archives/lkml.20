@@ -1,61 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315033;
-	b=oQz04+ftYWTEDQ2a9u0xjPNurVrwiYHDtoAi0PuWjXjQtNrl8XcTcebHHg+mUP9aTelx
-	 FMFrRgO14HFxHGzYfqpp7FAW8nY6/ptHqtirtVKhZ2kM6hQyP9CXxf0a0AC3/tjPpwevP
-	 Lq08syyBWO5cH3D5uL74K2W9sZ/xPLlhk+LTu0M5/EZ2rZQ4HhJMzYCAgqaQ415+66V21
-	 CClEcOrDkDrB6aG/xG2/TMJDflS/uwCR1ZbcFDG/FIW8DzLgro2S31ZeyAN5Z5C1dYngc
-	 MTYEzXkdTkUN8fOl3p/Uy4Sms+Ub0HrWnn7PYEshhFarwcnX52ey18uHpHcAfMriXMQ==
+	t=1794315050;
+	b=qRwkM/qRqKIgzQ2XDTIsoA+m0wmQMh/+11u5ZK9v7QocUfCi9bdNUtcyIg48Wf3/Seav
+	 N+Ce7aOJV/wFmnYAjFchPPV9WkPwU8H1b5wScB/NuBnLFviXazK97OGUQgwgKLpHSnge2
+	 IreaZ6nwQ7ej7BNwff5itn7Fxe4WP/2Y2xxKAon2DUyyggs5SDYkGu/wXsQuzh03MsOCp
+	 lwddfEuY5vTRVVlkvbACkcu1gLwGE9G/DmvznH1zT/6AKtHBY4l0pvNqjRr36bhMjcjn7
+	 twMwclpe41EAGALI0bhPZXkQMHNGHlVTsficwbHptPQ2l6rTV/VLJSELjcNoVhFHK5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315033;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=eSIyMO4qEqpO7aW8Uu4zxMpreeSiJEJ6/6xBHS948Fk=;
-	b=mnqXLccGk3PWtOmvU2uRafu3fq5rjRy4rtNNSy3upgRZl9ET0RfiUohXzMnDeh+TJxuv
-	 G32rci5/v8ypFrYh2AWQUfQnUO2HRVzm5HDCmiNCw2MHs0eFAggeWJHY6mrutZD41kdHJ
-	 YsXTwsZC1BEBVwZ4wV90BIPyrobd45tB4C+33cqTBDcKT5tGKXSi5+Z8E886Tbitx0JYw
-	 awry2FuDP+UTsr9Sv0yToMgwSvkcQPQj4ChUG/eAjT8MOYu9EklhL7C2P+EI5tYwW2/f/
-	 2QXbkfU/7xEIKyrTucNy2iz5Wi62w3drXP8f3HXorURgin36wNIDO2NR76KRIKuTdZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315050;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MoXBY7jP4//KMMEHW8C36nJPg5ZUiDBZiR2+vsM2zFQ=;
+	b=XJ96gRQTLNz3Wc8elXjGYy35weNgj5LHX6DqjfR4ht8U3qNoXfMSpMTkPujffkZKMasu
+	 Ik5AUDgLD0OZ/aSubCnY2DPyXKmMJZ7CMzUFQ5O9VgS0VVQqDcLv0aFSMwYXTYvGjdA0S
+	 Gx0iVOvkIv3aa8mPu1mNd71gIuJzAEuddkSjeMWWLPSvdUWsA7mqn4vVD8Yh41rOvObJE
+	 X+/Zr939WjtRaPBpeaKc0I/mGNCtBZNorY3zbh6Z8LBQcNxsyJ66T6abSjOFioT1V148B
+	 enpemB/HeR8dK67B2vvEzTrkK4xI1db7hCS2bLkCTlFo3nNC8Vv70cFLFNh//S/2mgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxKmqGw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JOfSgr2z;
+	arc=none smtp.remote-ip=91.218.175.115
+Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C85F606A335;
-	Tue, 10 Nov 2026 12:50:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3762D606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:50:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3762D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxKmqGw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A9D1F0089F;
-	Tue, 10 Nov 2026 12:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315033;
-	bh=eSIyMO4qEqpO7aW8Uu4zxMpreeSiJEJ6/6xBHS948Fk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUxKmqGw9tbGLyw35zdOXdvKprJ6RYJNccwnNwemZfhxfKN3/LaKBXwuGeYUy4QSp
-	 E3OPApuouKYGi2J7RQwoilrNbJaINkDQNdq+jvujJH+QKefK+tDEF/HugQsVkkuiT/
-	 BVdPgL2vkUpgEfD1P1DaO1yRnOU/e1DZFcPeICIFefQbHtwhIQYhopN5Q/RwGpk5LU
-	 UI0aCcrBamJ9UGhvO0/M8l4ynx01GbYkPYuEYmNHrJBFLv2wgQF0MZ/+9fy2xiVUqV
-	 Go3wSNsJ4UOha+IyIql6KOHUeLX+afGRWZyY+c7XQ5CHP+WKnyIhU/RyMLvv3MC61W
-	 2ZHp5EECvEV+A==
-Date: Tue, 10 Nov 2026 12:50:24 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v5 3/3] regulator: Add TI LM51772 support
-Message-ID: <a0dca1ff-f036-4c39-940f-cafa0c58dac6@sirena.org.uk>
-References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
- <20261106-paul-lm51772-v5-3-0e83ac9711d9@bootlin.com>
- <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
- <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JOfSgr2z
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nG74Kvi+0FYK1AbhxFJPmegfJsg4ATvaQ+d7OJ0WtK8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794315047; v=1; x=1794919847;
+ b=JOfSgr2zP4cWKwOKgIM7zFM+qWhKRL2ihindkVWHTKf/gIsyxweoeKOgVa343gcPS2pyqqud
+ HcnIjf2Pp1wr7nqCUPPTyX/P7Gc3bNN3x5Prtl90yJ4eF9vjYehWN4xmfyktpJCahF3zTmZrbJu
+ BMt/oq0d0A89A75BI0voqQkk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4f35b2bbf5b7c11c;
+	Tue, 10 Nov 2026 12:50:47 +0000
+X-Mizu-Trace-ID: 4f35b2bbf5b7c11c
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	liwanwu@kylinos.cn,
+	devnexen@gmail.com,
+	zhaomengmeng@kylinos.cn,
+	emil@etsalapatis.com,
+	yphbchou0911@gmail.com,
+	mingo@redhat.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH 1/9] tools/sched_ext: scx_flatcg: Reset the stats baseline on restart
+Date: Tue, 10 Nov 2026 20:49:53 +0800
+Message-ID: <20261110125001.4167503-2-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110125001.4167503-1-cui.tao@linux.dev>
+References: <20261110125001.4167503-1-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,49 +78,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iXfapwVFvBYP/e7D"
-Content-Disposition: inline
-In-Reply-To: <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
-X-Cookie: You can't take damsel here now.
+Content-Transfer-Encoding: 8bit
 
+From: Tao Cui <cuitao@kylinos.cn>
 
---iXfapwVFvBYP/e7D
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+last_stats holds the previous accumulator snapshot for the stats
+deltas and is initialized before the restart: label. A hotplug
+fail-safe reload starts the scheduler with fresh counters while
+last_stats still carries the previous generation's snapshots, so the
+first stats interval prints u64-underflow garbage.
 
-On Tue, Nov 10, 2026 at 09:26:04AM +0100, Paul Louvel wrote:
-> On Fri Nov 6, 2026 at 12:17 PM CET, Paul Louvel wrote:
+Reset it together with the rest of the reload state. last_cpu_sum and
+last_cpu_idle anchor to /proc/stat which persists across reloads and
+are intentionally left alone.
 
-> > Maybe would it be better if the core could also change the active discharge
-> > strength:
-> >
-> >   int (*set_active_discharge)(struct regulator_dev *rdev, bool enable,
-> >             int strength_uA);
-> >
-> > That would remove the need for introducing a vendor-specific property:
-> > 'ti,active-discharge-strength-microamp'.
+Fixes: a4103eacc2ab ("sched_ext: Add a cgroup scheduler which uses flattened hierarchy")
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ tools/sched_ext/scx_flatcg.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> Let me know what you think.
+diff --git a/tools/sched_ext/scx_flatcg.c b/tools/sched_ext/scx_flatcg.c
+index a223bff3746a..4c3c2cca2b85 100644
+--- a/tools/sched_ext/scx_flatcg.c
++++ b/tools/sched_ext/scx_flatcg.c
+@@ -140,6 +140,7 @@ int main(int argc, char **argv)
+ 	signal(SIGINT, sigint_handler);
+ 	signal(SIGTERM, sigint_handler);
+ restart:
++	memset(last_stats, 0, sizeof(last_stats));
+ 	optind = 1;
+ 	skel = SCX_OPS_OPEN(flatcg_ops, scx_flatcg);
+ 
+-- 
+2.53.0
 
-I'm not sure how general that is, it's very common for configuration to
-be done in terms of a resistance rather than some current regulated
-thing (which is a lot harder to implement, unless your thing is actually
-just a resistor and assuming a voltage or something).
-
---iXfapwVFvBYP/e7D
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzExAACgkQJNaLcl1U
-h9C0rgf+Lsdr9w5/Gpqi4yIWItJdwNPcb2ayISb/4PJAAg647zBhRW2kic2/3su0
-1mvk30XmHhoUIzLfiy8BmjhrF3SOydOTkjBoyFwQeCL9ew/x6Xfcmbu7aMRnAjg+
-MjimpO9OTeQgaV+e+i9wkvgpeL3mqNClHWQGqesLxpuUsPznutEITvARQogAazcb
-pQZTxXCnv0oZV6fSTKRtCUEpARTEsBrvZz15m46C4WBLvQZ7FogzzkL3hOM5Id29
-GwPq5M7a/NcHLxEeRyLLpIqf5xPC2In5zNQa7pRUR+ZgDw0fwiEGPf+4tytUSKx0
-o6R6huwHB9kPezKhFtO5KfRSRcGfxQ==
-=5J3X
------END PGP SIGNATURE-----
-
---iXfapwVFvBYP/e7D--
+base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
