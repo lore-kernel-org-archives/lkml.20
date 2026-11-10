@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328921;
-	b=uXzpOD7c+mjkdMVgwgAuSnTBaTwLGavgq+zVnemZtkPFEDsSM60FPUT2BYHRE2eW8n1C
-	 MaKouCnMSoIjuTHI8AQhLY4/8iZc6hWwzIu8A4fzpweMbJBInQKMZk6YIJJ6VcA63Zvu7
-	 EUT36pF3cMnSJ/Mr2vtYWRtfP0/wiB3L/De7UsGJD2gEiFGM/fJA9A0xZhygnbg/Vvux8
-	 NafiQHkaP/seN2MFPwkzv7YkrwVjDxpFrzJbphv76LwzuSBs28J+rZqQcq7shvkwpNvCy
-	 cub/Z4RFJUujKl+ca7qmtqHgMcROk6mTluFqrDYkq6VJEd/wZJ2Zw3fQH8hUKF98qkQ==
+	t=1794328950;
+	b=Fmkko0JdHsm+lQ6z4oBTZ2wPIFBm+NpOrkp70BHjx2mS1uZISsLfKT65jUbpBFryKm9o
+	 rS79smmbgdMreZTxkKsovG+emd8DJci6wqFa7vdQtk9x7+qCNStBwl67MihIX1TEpBSpu
+	 /8BO5vY8wqKMFgqUN6e/jMbXqdebej0ZS37kDConYGKPfPrHPVJIQNBTMsSCm2eVmj9HZ
+	 Fz8JDz7R6hsPNm+p8Yxh6sEw49PVcLAsqbiQMDwK3b6O8FLxLsftWZnbk1XcDbTTFM3Fa
+	 xKeEfDL4QwlSCnGl9x6ypFh9O3HCbb9+W31A2U6KDGsIXvkwR3PNTP03J9bjvCUgZ9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328921;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=UPv8V/xrjWAZHw4u5a/y1qB3kFPHXgtDXw6QmaGaE5g=;
-	b=tWiiRtqLBlXm+QZz4Yujel6+T/973udEbkVeSp1HjSlMwMd3Ww1QQNJ/5h+Oa+1uLUsU
-	 Y2PjUXcHMMexZPobZzGd8UrsSiS1vdVvE4NWsbZ5wp5I+2555XW6bXHdSRf66UlXN6xRS
-	 7B6RWyk404R94XO7/Bu81+uUub8ktfUQN5ApEXg0wxhmmReijSxvp8pLg9YyTz9/ebFIg
-	 Wx9xCJhqLGsU6vVDp3mNXtXqSVXEMMWs3cpvMsNeXYe7MxfIbKGB1aT4XzfXZMlzJTWws
-	 wHVErQhW9FONlqEPdVxVxm6iqqS7z1A2fVSKHOzUhebyPcM82Spg6t7igKDuHhxFrzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328950;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=g+yV/Nsu3Nxl8iuwR4TnHM+4q0ruKeEgQTk1qd+O/hc=;
+	b=xH8H3Bj3Q4+Lnj9ul8/eVUyayZ9bySgOur7VEP0dZ50t7uJduRq63i3PtMLsT7QOfMjn
+	 RzEWGJJEqTpkyH3e5FAdt7ps/9SAsb3dVHwjondMd2fh1Wn/nlTeLhEPoEDLIPkLuMGR1
+	 ftrJU3nJ9vz+U3o/TqwOnIOnuSiYllMhAIeMSXJp+VNu4xYC37TK9wmBVcFQTcdh237bs
+	 kjci2lrJcX3hPOaprXXIKIL9x28LuUjDDh9u917gb0uD6whMHDTIO/RRBSHr2Y0rYm9R7
+	 8cvvhZUJcpuA5Dq4RU6+zCcc8SBt1YzRR+hkJuIs63ZunWPGGNhh7MCyftlPh0qTAPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hd5S2ZiO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkOFcAP4;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C45606A227;
-	Tue, 10 Nov 2026 16:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA14606A202;
+	Tue, 10 Nov 2026 16:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AA14606A202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hd5S2ZiO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1949D1F0089F;
-	Tue, 10 Nov 2026 16:41:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794328920;
-	bh=UPv8V/xrjWAZHw4u5a/y1qB3kFPHXgtDXw6QmaGaE5g=;
-	h=Date:From:To:Cc:Subject;
-	b=hd5S2ZiO0KQa7Ha5cGe3EZIqx3kADb0lOBttZ9PVQBKwDbM8Y6/Hg3XvyYTSPTqVN
-	 M/Xg5b2FHThneEUqs7S0mkydeo0bk03nnMdISgzdTElbTs7s6T6JB3mpx+OUqPcxVy
-	 ImczSGRPxlxRtiDzKsvJ1hrzwgL49UM0/defOmjHlM4RvTDkhajVuVPKv3rWM3o4dR
-	 u2iW+uOr4lRXtdmH0W402fLs2WNBpLI0LDIHQztzuKLy+ZZiPu0ep15cvwZ8PI1OGE
-	 wy5k17UKluA/+ne9uw3vJGB5xTKN7+oc6bD2gG16+CpspihalJCIch/Ho26NkOi6p6
-	 3KupL4dmbWc3A==
-Date: Tue, 10 Nov 2026 16:41:56 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Colin Cross <ccross@android.com>, Thierry Reding <treding@nvidia.com>
-Cc: Aniruddha Rao <anrao@nvidia.com>, Kees Cook <kees@kernel.org>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the tegra tree with the origin tree
-Message-ID: <avNJVJwZOOZ96FD9@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkOFcAP4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794328950; x=1825864950;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5un4gBHXmeuSCtHiKM1fVsAEh4pAvuk+weiG8I2an3s=;
+  b=EkOFcAP4tdVs5Lv/oq1FyXk8NGKAhNPfYfXpInJGYRKM2gsd4R69vXtH
+   1MAdBjwVH3y/d0/QMc8SQfR7H+1ZY1c7yAMyvsMs7SXYCAPy3ceejKQRq
+   oSe6DB1o10WBE3kATDZ17AF5igrblLKk2hKoj7v09svC52St6F26dM0Do
+   EAGMbA7FlQsIOgGb1VKQqMOxO140Zpoj6byri/Wci3QDve34CIOUWB2TV
+   fn7gH89/4Vayh6ZU43wiuudo4rsHM2E+61nrIQrhrYJByLiQgLFzOGfcb
+   K9yTxYfHENNho4vnDahKXeRalwg6C7RIgt9qnP0MrRAOu6oUjLlXVifeQ
+   g==;
+X-CSE-ConnectionGUID: yTGON3yySZipJYjGDf64zA==
+X-CSE-MsgGUID: c4Ud6OOISaOknfUFo3OK3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2970503"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2970503"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:42:28 -0800
+X-CSE-ConnectionGUID: YxN4Qx6MSpSCOjVo5dqt8A==
+X-CSE-MsgGUID: mURPXlC7T+6dipbPfLo0FQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8021088"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 10 Nov 2026 08:42:26 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 4392499; Tue, 10 Nov 2026 17:42:24 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yury Norov <yury.norov@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	jorge.lopez2@hp.com,
+	hansg@kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>
+Subject: [PATCH v1 1/1] string: Export strnchrnul()
+Date: Tue, 10 Nov 2026 17:41:50 +0100
+Message-ID: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,168 +90,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XPJW4CVauCn/QGwu"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+Export strnchrnul() for users that may be compiled as modules.
 
---XPJW4CVauCn/QGwu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reported-by: Armin Wolf <W_Armin@gmx.de>
+Closes: https://lore.kernel.org/r/1969fb5a-38ef-4b4b-9d2f-cb9a4348b968@gmx.de
+Fixes: 0bee0cece2a6 ("lib/string: add strnchrnul()")
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
 
-Hi all,
+Assumed to go via PDx86 where the first (wow!) module user wants to use it.
 
-Today's linux-next merge of the tegra tree got a conflict in:
+ lib/string.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-  drivers/firmware/tegra/bpmp.c
+diff --git a/lib/string.c b/lib/string.c
+index a3778d5aab4a..cc8982a93afc 100644
+--- a/lib/string.c
++++ b/lib/string.c
+@@ -352,6 +352,7 @@ char *strnchrnul(const char *s, size_t count, int c)
+ 		s++;
+ 	return (char *)s;
+ }
++EXPORT_SYMBOL(strnchrnul);
+ 
+ #ifndef __HAVE_ARCH_STRRCHR
+ /**
+-- 
+2.50.1
 
-between commit:
-
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
-
-=66rom the origin tree and commits:
-
-  ee98ea41ee3fb ("firmware: tegra: bpmp: Add ACPI support")
-  7432bd82f69e5 ("firmware: tegra: bpmp: Add MBWT BPMP helpers")
-  fc92a01962b16 ("firmware: tegra: bpmp: Move channel initialization to hel=
-per")
-
-=66rom the tegra tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/firmware/tegra/bpmp.c
-index 5fbd6a3e69e09,d3508e98e3382..0000000000000
---- a/drivers/firmware/tegra/bpmp.c
-+++ b/drivers/firmware/tegra/bpmp.c
-@@@ -764,20 -975,96 +975,94 @@@ int tegra_bpmp_init_channels(struct teg
-  		return -ENOMEM;
- =20
-  	spin_lock_init(&bpmp->atomic_tx_lock);
-- 	bpmp->tx_channel =3D devm_kzalloc_obj(&pdev->dev, *bpmp->tx_channel);
- -	bpmp->tx_channel =3D devm_kzalloc(bpmp->dev, sizeof(*bpmp->tx_channel),
- -					GFP_KERNEL);
-++	bpmp->tx_channel =3D devm_kzalloc_obj(bpmp->dev, *bpmp->tx_channel);
-  	if (!bpmp->tx_channel)
-  		return -ENOMEM;
- =20
-- 	bpmp->rx_channel =3D devm_kzalloc_obj(&pdev->dev, *bpmp->rx_channel);
- -	bpmp->rx_channel =3D devm_kzalloc(bpmp->dev, sizeof(*bpmp->rx_channel),
- -					GFP_KERNEL);
-++	bpmp->rx_channel =3D devm_kzalloc_obj(bpmp->dev, *bpmp->rx_channel);
-  	if (!bpmp->rx_channel)
-  		return -ENOMEM;
- =20
-- 	bpmp->threaded_channels =3D devm_kzalloc_objs(&pdev->dev,
- -	bpmp->threaded_channels =3D devm_kcalloc(bpmp->dev, bpmp->threaded.count,
- -					       sizeof(*bpmp->threaded_channels),
- -					       GFP_KERNEL);
-++	bpmp->threaded_channels =3D devm_kzalloc_objs(bpmp->dev,
- +						    *bpmp->threaded_channels,
- +						    bpmp->threaded.count);
-  	if (!bpmp->threaded_channels)
-  		return -ENOMEM;
- =20
-+ 	return 0;
-+ }
-+=20
-+ int tegra_bpmp_init_ping(struct tegra_bpmp *bpmp)
-+ {
-+ 	int err;
-+=20
-+ 	err =3D tegra_bpmp_request_mrq(bpmp, MRQ_PING,
-+ 				     tegra_bpmp_mrq_handle_ping, bpmp);
-+ 	if (err < 0)
-+ 		return err;
-+=20
-+ 	err =3D tegra_bpmp_ping(bpmp);
-+ 	if (err < 0) {
-+ 		dev_err(bpmp->dev, "failed to ping BPMP: %d\n", err);
-+ 		goto free_mrq;
-+ 	}
-+=20
-+ 	return 0;
-+=20
-+ free_mrq:
-+ 	tegra_bpmp_free_mrq(bpmp, MRQ_PING, bpmp);
-+=20
-+ 	return err;
-+ }
-+=20
-+ void tegra_bpmp_deinit_ping(struct tegra_bpmp *bpmp)
-+ {
-+ 	tegra_bpmp_free_mrq(bpmp, MRQ_PING, bpmp);
-+ }
-+=20
-+ int tegra_bpmp_init_dt_providers(struct tegra_bpmp *bpmp)
-+ {
-+ 	struct device *dev =3D bpmp->dev;
-+ 	int err;
-+=20
-+ 	err =3D of_platform_default_populate(dev->of_node, NULL, dev);
-+ 	if (err < 0)
-+ 		return err;
-+=20
-+ 	if (of_property_present(dev->of_node, "#clock-cells")) {
-+ 		err =3D tegra_bpmp_init_clocks(bpmp);
-+ 		if (err < 0)
-+ 			return err;
-+ 	}
-+=20
-+ 	if (of_property_present(dev->of_node, "#reset-cells")) {
-+ 		err =3D tegra_bpmp_init_resets(bpmp);
-+ 		if (err < 0)
-+ 			return err;
-+ 	}
-+=20
-+ 	if (of_property_present(dev->of_node, "#power-domain-cells")) {
-+ 		err =3D tegra_bpmp_init_powergates(bpmp);
-+ 		if (err < 0)
-+ 			return err;
-+ 	}
-+=20
-+ 	return 0;
-+ }
-+=20
-+ static int tegra_bpmp_probe(struct platform_device *pdev)
-+ {
-+ 	struct tegra_bpmp *bpmp;
-+ 	char tag[TAG_SZ];
-+ 	int err;
-+=20
- -	bpmp =3D devm_kzalloc(&pdev->dev, sizeof(*bpmp), GFP_KERNEL);
-++	bpmp =3D devm_kzalloc_obj(&pdev->dev, *bpmp);
-+ 	if (!bpmp)
-+ 		return -ENOMEM;
-+=20
-+ 	bpmp->soc =3D device_get_match_data(&pdev->dev);
-+ 	bpmp->dev =3D &pdev->dev;
-+=20
-  	platform_set_drvdata(pdev, bpmp);
- =20
-  	err =3D bpmp->soc->ops->init(bpmp);
-
-
---XPJW4CVauCn/QGwu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzSVMACgkQJNaLcl1U
-h9B4qggAg3hthW+9jrSBo9cBu4HDdIAe9Lh162OZX2lLme1qKsNdKn8Q/gHfu/xY
-gbz/06RHqhhniPozdzr6BFiuRL/YX5oOWpjrtEzYdFs7rIE5xnEpn2mBVIjZrBFr
-Uo1Qo+1pJ4LNmt4sImQSHPtbqJQLk4iZDl5bqEFL4H9qSdgJoTSDmwwLF2gv7By/
-Iq1yPYmHILzhROXLDc7NUgNZo8OcPj+mjlp1wDHv6XcXVAD5sjJahnRZ4xj5uj+O
-M69nfwBPQrggR6w6MOptw6yWy4qDwiaTqs5H593UVl47yMU6wz1Xyp/XiGZX1Dei
-MKrGbGbDq9HTg3mcKZMi0VkEhS1/hQ==
-=1wH6
------END PGP SIGNATURE-----
-
---XPJW4CVauCn/QGwu--
