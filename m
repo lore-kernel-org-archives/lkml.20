@@ -1,98 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.149.154.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315018;
-	b=izZnOIWc7sc1+U8j7w3/tUWCXfoh5qEEALcI2OjNdBvmI9CF4BIe81I1mdyizkxaiVxk
-	 IPx5TkJrTs0AFZuyaXyRjjFFsCOj6bWDb+syOIK0DjJGOTguDS5HGdTHMickLLXPOJXIV
-	 ADcyBxQRH7kV3q0ANWOrwzc5dU/qAKGSRaqaR6yC0rV3jyQUf+MgnLKz7QrKQ/XLXvu3r
-	 6XMHF3u9hchvNyEPn+ZnqQy+1ki2mvtQA47uAGFRFowYIFQCgjuvZ2BCUSNLXnB2EZLLR
-	 Wa+JHV+PxqlM/WCTfCN94SLFsP/3qCIz5gAXt7Fy3nEw9OiWXzGNn8ktN7pAow1Tvkg==
+	t=1794315031;
+	b=0nqAranutpY51dpXb01iUQTAzi1MNjVKaD+rPEnuty98pdTn8q9nrAZ75/4My6UsA6pU
+	 m4H+ylOIBi73I4AC+7x/+7csUYZRtc7WowbLeT+gQb2vHw1S/Do/0wo4JGCVuSlKghnHE
+	 5xGZUEQo+AqMJJnczAxZHVk0tUNF9yeBK523L01QWjn6+fJaX/LKuESCDgSK1SCkleOfV
+	 zpur3YH5B9PJ5/7ljixNECuMpIiEQEfXk0I6ZYgRF4uLGskFN+7ln/hdQZeKrF4JpQqqp
+	 SyHIpj2MTKYaNie6fT7xQqWQNg65B6aQ4aufbDOmCoTFiIq4dxH1PqtZq6yhCrOT30g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hIqePvJF9vqtDiaaoJWj4mMGLwExY1SZs6wpgpJb2hI=;
-	b=YDZuFbivHFUAiKT3I617z/nTOf7lSqb9vbfAkAFzZGNhmWpf9t/PazkyGMxXZVujfURx
-	 1QnoqhTXn09LSjyL/xqBliCsWb/dgKcAC5JAibXzw+5IhnAqH+2lpCWa8ak7qc2P9nP21
-	 igQDrqkhb3Qxnnvsd0gi8lblf+9aaniCJ9GLLhGRUteiKE6Vcf1jv5zrseRka0U/9HUPQ
-	 lEbelsTic+Il4m0NI2QF5AJ26ugon1x1Jcs066xFBYGKqM7kyTzTJ7XL6FHstvZmOQ3iD
-	 vUYLqll0KeJb3qpeZMFeQE3Uhgef4hOYtvcErUC/ZaVe4c/0w6EHar+/pDUAfw1qK5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315031;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ke8k9Pom61RVocDNSNi53TyKiWzenyLEQQdp9t8ox30=;
+	b=M81yonpbMZPkhFnt2qBLIhJwDxRUCvvT9JU6VVnALdZs+SCIqQx/nqQZNseDtWRITDs3
+	 EmPo5qaDWYx8TlPCJyzsPgFgshX8+GwCy+7UVEAMztiuJ+qRVw2s2f+QXr+f/kUK6ewZk
+	 Dmhcfss32WncC7ZHFG8/HXyzYEFplORI1EnjtoMtAAlFMp8mEoD1fbo81nLR4rZMmhCCM
+	 lkop0lxJ7AKo8+93dZd+bjFFvzxUZNP4abGlmLT4yq8ycqLYcac8v8PRARaXMYZLzJTUR
+	 F4CvqQym0zoar0xH+UiwWQ0bpxu5/0U6oQH6anVNEYyMFhW/EtvQ0GbGNNlYD3BvUjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IotGoqC+;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntiq.com;
+	spf=pass smtp.mailfrom=sntiq.com;
+	dkim=pass header.d=sntiq.com header.i=@sntiq.com header.a=rsa-sha256 header.s=dkim header.b="JfqZ/YIU";
+	arc=none smtp.remote-ip=45.149.154.214
+Received: from mail.sntiq.com (mail.sntiq.com [45.149.154.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDF560A2603
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDF560A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEED606A325;
+	Tue, 10 Nov 2026 12:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFEED606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntiq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntiq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IotGoqC+
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-170135e43c7so2998890c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:50:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794315017; x=1794919817; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hIqePvJF9vqtDiaaoJWj4mMGLwExY1SZs6wpgpJb2hI=;
-        b=IotGoqC+GmG2HPnZoenFwtMfa8+hS1ddNGLnLGzjf0QcmNQlfehryt8YZELOvNqyAU
-         EIPz4rdTVIWYGt5P7G2457HW5qSQ4cEYKOjXx9BoxkllcA8luwYoXt71Zb0rJ+EMa8Of
-         ZgZxSbx0a5NJOg08UEhgDJU5fsEVrYdShGgK4dSNbJSbLiLHyMvJ2PhDmyicgGcHOwCg
-         /ofvq9VB3632C6AIp8UbNl2Wossa3ScvUZIsuJm8WWgIVaAqOCWv8LW5sXahzDJoxdzf
-         RSMCElxmOedIRXNcObQaefNGpbPh2JrDNneTpwEPwbelqcSyorj+tBIP8jJe6nnlVLkd
-         59Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315017; x=1794919817;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hIqePvJF9vqtDiaaoJWj4mMGLwExY1SZs6wpgpJb2hI=;
-        b=wOxS/H6cDx9LyePEYrb1SKRvhDcaKoMfJf00o2S6bckixIhlws1mcY8apdnVCq99wh
-         xBLXuxZDf/BrRSdec6jQxWXkAlOR3zKFcdU7KNL4xytt5uPxFq0dHNvyCYdn8PV2qiJf
-         zV1s1TzlXgEE8YYkw8RGAN1ZRtybeg5pFmGLvXyM1uzszPjYiBIMDECIVe5UJ1OVl69b
-         oXvXiYeSgFh3Xxz1hvy3KhveM4BkeJrxYyKY+YJVjRDeCFxvxlQ30QmCBHFrlUBMjd4E
-         eHJcnECDrNGJwPtcYEtHkRZRP/oVyaUJeJWritX/3fSf9sZgi09f4c6XHe7VBXEr6Xen
-         feQg==
-X-Forwarded-Encrypted: i=1; AL+hErFRfHWZ+816quOWXbtapb4PzsnQ1a6q5mN0fdhL5SQfEoGk9rllFdB2nSWt1gsWO2LyGOyuKuGYNVMtuso=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uXgjOPZZmOF10m8gYgv/vf+X13sW6qKmtKbLLAS1LiumCaKQC
-	pu26cTKPQELT9daegelT6x7K8exVoesqCYgs6czo3DgijLuCe4XIkaqtua1ywxhqs2I=
-X-Gm-Gg: AYBFou0jbyXGSnkhmCMeIMb0/NARqCA4QpLtwgYSdLvTrbCI3zaAQzLgUkIbsiMOq4j
-	myq5Oj4D5ubSeP13+1dqFBeNCYCo76yT72yIyxFGDVVyLQ6ocIAgPD0WLQ5TpLSXq59GHQeEbTm
-	6SEwiTmLptl0H6gTGeCvoWUMvq2GWppVwiLEiwJVcEGb6rs/+iHGPUIvkpvjf1ft5oDaSUBl+py
-	fjnPtk3bwYpHoslTVrcv4fK1Bmels92aYO2CHdkOGtMzt5EzehcnvOpGQY8nlDEBIT/dVyCEnOS
-	oaeSOac5Y/CS5SyWA4DISQFHIVdkAapq0cQkeA5G/IwP0Cda32ZryY9ptEEPB1/kHnMiL7aeTlk
-	BCMEn/+4mCc4FJv1A5pz3va7IEkCajvtsyuIwORrfZu3L0UZolQbwlCScFtJIWn5NiwnHPZKNJt
-	GB8yDgvml0xVkhyM5/kdCBHyZq7/cB3MSy70z4gUAzSo4YfjyiVYe4Gljz162SB7dKqutsDX/Of
-	qB6NuXPshtjHOirK2TzlqucHgmqKBnbj3qqZg6vyuz1+HLLV4iZYtPGWY6DmTQDh6qIbZVyJ/Bg
-	/R48q5wEWKsUj1tjHvHo22DhaJNCNpipqxOI3IylfJ2XtwqeI3iSgJFq6JGu+5Vpu4UKEnA29I7
-	NRAiDW/UUd4Kiu+o5VoT/3SZZCxQ3tiZ+82ZsoA==
-X-Received: by 2002:a05:7022:ed02:b0:196:aa86:fcf3 with SMTP id a92af1059eb24-1b3ba7b2b01mr1258881c88.26.1794315017171;
-        Tue, 10 Nov 2026 04:50:17 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:88e2:4271:a9b8:cc50])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b79649sm7614830c88.21.2026.11.10.04.50.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:50:16 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: jgross@suse.com,
-	sstabellini@kernel.org
-Cc: oleksandr_tyshchenko@epam.com,
-	boris.ostrovsky@oracle.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] xen/pvcalls: destroy the per-socket workqueue on release
-Date: Tue, 10 Nov 2026 21:50:02 +0900
-Message-ID: <20261110125002.46683-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110125002.46683-1-yhlee@isslab.korea.ac.kr>
-References: <20261110125002.46683-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=sntiq.com header.i=@sntiq.com header.a=rsa-sha256 header.s=dkim header.b=JfqZ/YIU
+Received: from node (unknown [9.246.125.159])
+	by mail.sntiq.com (Postfix) with ESMTPSA id 2C99420388;
+	Tue, 10 Nov 2026 12:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sntiq.com; s=dkim;
+	t=1794315023;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ke8k9Pom61RVocDNSNi53TyKiWzenyLEQQdp9t8ox30=;
+	b=JfqZ/YIUuz4GxqIqD4Jjz41VKX3cxuq7ciZ9Tv+AeGzYDUxrsS5Kwqf6mbSDDjTTNX/Ug+
+	dBz4B6ZzGaowXcsKdUHfGfLS+CkIUljW4nowiAnEkr9qIK4HkamKldTr+20nVo0tLlm2ZC
+	NPyZIS2+c5u7E9ISye1DRQoon0El60RiNxsq6r+Slv6nzk7JckffwG6QRg6o7RbepnhDtJ
+	Mvw5NqsTPBUytpgrxLwtDGbpVog/kKNykA0ZlW23suHYXWgMu6X2xQCkTuU9npe9DJE2jf
+	PcbaL4FGMEwY+Dz9hKVEvDgfEctmMUZOgDknN8ridjiezU8jvzsu33l6t6XXDQ==
+From: David Glushkov <david.glushkov@sntiq.com>
+To: Diogo Sousa <diogogsousa@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: Disable async suspend for AMD rev 0x62 ACP and HD Audio
+Date: Tue, 10 Nov 2026 13:50:24 +0100
+Message-ID: <20261110125025.2753861-1-david.glushkov@sntiq.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <5cdc7ef0-e18f-4afc-96b2-ee4e92bc29ee@gmail.com>
+References: <5cdc7ef0-e18f-4afc-96b2-ee4e92bc29ee@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,47 +73,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pvcalls_new_active_socket() gives every active socket its own ordered
-workqueue:
+(Resending in plain text, my previous mail was rejected by the lists
+because of an HTML part.)
 
-	map->ioworker.wq = alloc_ordered_workqueue("pvcalls_io", 0);
+Hi Mario, Bjorn,
 
-and nothing ever destroys it.  pvcalls_back_release_active() flushes
-map->ioworker.register_work and frees map, but the workqueue and its
-pool_workqueues stay allocated, so a frontend leaks a workqueue per socket
-it connects and releases - a loop a guest can run as long as it likes.
+I'm the author of the A9WJG subsystem-ID quirk that Diogo mentioned in his
+commit message, so a data point from the MSI side.
 
-Destroy it right after flush_work(): the IRQ is disabled and sk_data_ready
-restored by then, so nothing can queue new work, and the rings are still
-mapped while it drains - pvcalls_conn_back_read() reads map->ring and
-map->data, which xenbus_unmap_ring_vfree() takes away a few lines later.
-pvcalls_back_ioworker() does not take fedata->socket_lock, which the
-backend_disconnect() caller holds here - only the socket's own
-sk_receive_queue lock - so draining it from this point is safe; the
-flush_work() just above already has the same requirement.
+I hit the same problem on an MSI Raider A18 HX A9WJG (MS-182L): the ACP is
+rev 0x62 (1022:15e2 at 6a:00.5) with the Ryzen HD Audio controller
+(1022:15e3) at 6a:00.6, and HD Audio stops working after resume, same as
+Diogo describes. This is on the CachyOS 7.3 kernel.
 
-Fixes: 5db4d286a8ef ("xen/pvcalls: implement connect command")
-Cc: stable@vger.kernel.org
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v2: destroy_workqueue() moved to just after flush_work() (Stefano).  v1: https://lore.kernel.org/all/20261109122324.30134-1-yhlee@isslab.korea.ac.kr/
+Regarding the BIOS question: I'm on the latest BIOS for this model,
+E182LAMS.31B (dated 05/26/2026), so a BIOS update isn't available as a
+workaround here either. That makes at least two different vendors (ASUS
+and MSI) with the latest firmware still affected.
 
- drivers/xen/pvcalls-back.c | 1 +
- 1 file changed, 1 insertion(+)
+Given that, a generic fix keyed on the ACP revision, as in Diogo's patch,
+looks preferable to per-board subsystem-ID quirks. I'm happy to test any
+follow-up version on this machine.
 
-diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
-index dcefa91a40cd05..d97c5eca5f3513 100644
---- a/drivers/xen/pvcalls-back.c
-+++ b/drivers/xen/pvcalls-back.c
-@@ -452,6 +452,7 @@ static int pvcalls_back_release_active(struct xenbus_device *dev,
- 
- 	atomic_set(&map->release, 1);
- 	flush_work(&map->ioworker.register_work);
-+	destroy_workqueue(map->ioworker.wq);
- 
- 	xenbus_unmap_ring_vfree(dev, map->bytes);
- 	xenbus_unmap_ring_vfree(dev, (void *)map->ring);
--- 
-2.43.0
-
+Thanks,
+David
