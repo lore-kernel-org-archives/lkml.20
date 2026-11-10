@@ -1,112 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301336;
-	b=1F5v9FCD/4L36CuTwXWU2Mffa0wpkrbQ0ArGvz+ALQWj53CPeZa3DIOOqmlxXW1MzB09
-	 /MnJQTAkB1cfBE+x2OY/1aVplASyxTodlrI9KTAgBuDz1+C5LCuoLup57L08ZmxV9kPYM
-	 J2FhXhJtkqJXb43br9CWRp/AAveh3KTy9kpneiu6QkSGqBiDmrRQTlPLm7UsTF4UrQFIi
-	 O+PFlvxTYONIfXaXbQ5mWv7P8VYWy0CtxA+Zwr6GcXYfq+pc5W4LWJ2ivYcjve1Ai0EBQ
-	 65Nxs4IbjHcE/Jvr5adgKfoNoqLNzqgmAzQuHGAQo92whA0rQFhnaNOw4nUs4HpzzpQ==
+	t=1794301332;
+	b=mIDDZq+LuV/KWBCmAYtmqi6qnhyML4X53Pr2ac+Ugbw4Hqj6OmWReKLcT6taIf/TLySB
+	 oBLUzuJKe7ChCmIVTJPrYlLUzffntkO+0s2xrf62uKVZJnwo7vs7hXN6XPHYFQtI2x7ny
+	 KHOv4hdu+AlvbtaWhM+ACDDjdo6OTSct9R9ulecpWYWVzZxVnZLQZEgL8ni4xiA+v+UNz
+	 +VuZXJ+nspS3IXyz57Mztz+stfjwCCakfmO5/U375k4cpHIvYLdzJbhH7gXm3Uem10Yvc
+	 FFt79I0EN5BcwJg6chvVDTqhUA2O7tQuswEB01774MtaLNEHXTwzZtDbaPSLb/K1Ccg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301336;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=fs/m/EMOa29tktMuh2e5+aE5N+/Z3wgwvBQ/4dk1bZw=;
-	b=bHgvZJ1Xd1MN9Gqkq6JUfrgVzbH9kQ3CiR+oX5iyURTL3zua7Nve3v1RBgSlRtb9N5Ie
-	 HDfeQxrunXObAdKPOAk+zK1+NuQol5yiCQ3MPw0ZpcSBcozSy3hvVEq/tTS7Nn2qdab9B
-	 UleCVY8tXKxTpkgBe9EEdx3P/QYuegn0LtAFPn2KJRlTOY5ab9u/2qq9VGelC5lGWe2oX
-	 m4hdS/68aSsgVXC3crm9eiEWXXy4i+0b/9wclpbBOJNy4n8HauZVkiPOweI5SxY0faQKs
-	 AN6fXzzVgSmx9tpQrqoyAc04Tr9jbFe2zRKmwqbFIYoBiibtlU4c1eGcKW2bFyD1hLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301332;
+	h=DMARC-Filter:DKIM-Signature:X-Virus-Scanned:Received:From:To:Cc:
+	 Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X1KfdMZcAgnCUD23j/0cYj+kYJCpxMw2VuBfm46fahY=;
+	b=QMD557zYR9Ik9/CL2xjaELBGfLN4oECAE2M1sjPoyNZnpJPgjlSN8oEFdHyzgBBtzR15
+	 QG/tn20bkQ2S7xeklSr+BQEs5S1x5Lbsi7Qg6i3KqegKrzBvU7PqtfYs/No+KaB4kVDhS
+	 jnTBHOfIQx2tCfyTr4hf5UJ24QKWBpj+tNPM5ruUDac+Iun+ZaAria0NE43oBZlH7Tb3f
+	 ntryIjV33W/VfP4aXZI4UvdhVIm8D99fGqx13ztWqEGrGlFgIYfVZKD4NtcCxe4Us3s0S
+	 mv9/81K7HBvmAu6xU3glKVKAUxa/s/mH/iyNTWaOr3cBl96NLRh2U1QoJKR+9pPifUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GJ9bJ7VF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jbvOTw1J;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=tuxist.de;
+	spf=pass smtp.mailfrom=tuxist.de;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=WG+R0JUj;
+	arc=none smtp.remote-ip=173.212.254.19
+Received: from proxyplus-primary (groupware.tuxist.de [173.212.254.19])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02C606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A02C606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC9606A33F;
+	Tue, 10 Nov 2026 09:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36CC9606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GJ9bJ7VF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jbvOTw1J
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA8ZcAx1916840
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:02:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fs/m/EMOa29tktMuh2e5+aE5N+/Z3wgwvBQ/4dk1bZw=; b=GJ9bJ7VFGz+uzvSN
-	pfVMEAaW5baybuEj/sS4w0AK71rT7RTuHCDoROOZL9b8afwN82vA1YEm0VId4c+K
-	3mcsw67J2ispsW+D3LVfsbYp8ne/fxqQnXhzcLMchuzobK7/m1LOBN/SRj7dnXOq
-	PI2Y7mFqxeeEBgtJ6HT8plGaz/O0ZNzWSGxthOdg0Tbo0yp4eDbzIJdwJqkxiq7d
-	veUUOSZ/VPNdeqDL/SCDG9zWqRwJYmQU4S7f3NIc1/awpDxondAZN6b7cV982H8e
-	lxS5kD43EKVTuT8uXUpdNAE5IMFc6JP51Afifumv5kvMSy5TPrtbNJxBlVyEmygN
-	fb+aTw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4838n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:02:15 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd66551e02cso2108328a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:02:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794301335; x=1794906135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fs/m/EMOa29tktMuh2e5+aE5N+/Z3wgwvBQ/4dk1bZw=;
-        b=jbvOTw1JCLlWoCKEJLFV4j36xmhaYdyqWWQ1GvVxx5+OpVS+gmeSjCIDVlcyZvy3sB
-         oZgPKZqP1bf6Ev0PRwe4+cz/BwPrqusWs1GD1WP7ecTte1hIpBGLpK81rsLVMWLQyTzr
-         gbIFx1vGaKhQm6h351U5dCMMGi/xGhScqB23IfIhUuQEfi1g7k8bd+Xfov64YuRRdpuZ
-         BKWw/qAuLqzzQxIdMcUwnoNjUbPh1kSRPF4aGcEv4J5Ihdi/WUCNJaEnZEsXHOO0wdME
-         C02joeyEtGP+IMNINxfMK+IzRGY2trckwpMTifc9R5yLCk4gv7t3mAuBEpwljLG+QI5D
-         NodQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794301335; x=1794906135;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fs/m/EMOa29tktMuh2e5+aE5N+/Z3wgwvBQ/4dk1bZw=;
-        b=u9HN2X574KBMeYHVniVRGN3DfYVaVZoO89XN9QN719FHyWuM9DqEoR1X3nMccS4TtZ
-         rniNl0qj0c7amuWCfGBA8VMotZ6AtPjRLO4HdEsKYNyG/dh7tEq4NZ1EIDJL+6o+FCxL
-         /KhpUFaKQIUARx/DPHXpzxPekwiBVjiW7O/ItuBkAUefaFWExn0xOoAMyZaGrZWFRZwl
-         Z88eBaiGnOrhe4jzPmB/2AsPd4cbOjXilA6qQ+yTG/jU/OTI/vbsSNZT3vvRTLuLkF9d
-         MDXal0qjclI4UqKiLXDY4JCnB+Oi6bop/9Vfsrglqv3as/RQ328G7AMCCxvj9I+CYcH8
-         u/ow==
-X-Forwarded-Encrypted: i=1; AL+hErFBL5TQTA/ALPRaDqE71EQek14ouioXgeRwi7CwRoQe5r1OsmIpMJ8B5q+68jNTn7Gs4arXPMjcmD/x8Ck=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uGIUpBTgRDxT7ohAAe7qtu0SWqFA3uAnQmZUAnOl2Zwh+5x09
-	z5E4IRqrJZPu7CJiYgFI6J/Tb0jnvx3kLCTUTIpxMbXdpnK3RVE9Bcp3eRG4jUCzdlesyjUf7u5
-	ZGrR0VjrVCsy4GluNn66xD6gMktVvxuS3zVJ0e65yPD5pox+AoJWtDY5Uw8eMGnsZ1dU=
-X-Gm-Gg: AYBFou3o1M6lzOO7zGrYeXAOWSQGzrsyAys8upgaFVvf/I3Cx66KzQiRRtQYbpoOfcF
-	6psKtql5C9BayaJskxfvQcyAEopK+LHc7wmkRG2bqh5H8zRo8J41jh6UCGUdwDokFKH55LcXtXY
-	1MtTF4lYNHJgY5ozmJQrpMQSlpcOjFG/Bb5xAxUODGouTaT7ne3ObbOFLLFzt/Iaq6lse6tEYhw
-	sl/sM4Hrz2rxvbCMs4J5Hog9Ohcq8KIjJI+5i5CHz6x6jJBbJiAG+9jAWvqCbuVv4uRY6g3Mcwx
-	DdaAsvtMKZ6B3DB6VfKvxB7BVbGBoONt0zMve2rpdK64+SKnuoayqenhhFB8dgMp53aJiFQHUij
-	70e1rUPJraX5pY3JqTecdHaMK0ZUECXvjoe9XGTMJcgcnWLH1qO1V1DFnT9CONl51ulQrOuFx4g
-	lq
-X-Received: by 2002:a05:6a20:7490:b0:3e0:f07d:a73 with SMTP id adf61e73a8af0-3f18f0b850cmr2016591637.33.1794301334995;
-        Tue, 10 Nov 2026 01:02:14 -0800 (PST)
-X-Received: by 2002:a05:6a20:7490:b0:3e0:f07d:a73 with SMTP id adf61e73a8af0-3f18f0b850cmr2016550637.33.1794301334523;
-        Tue, 10 Nov 2026 01:02:14 -0800 (PST)
-Received: from [10.218.30.203] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab4fc2b5sm597115b3a.50.2026.11.10.01.01.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 01:02:01 -0800 (PST)
-Message-ID: <c204d6d5-a8dd-4ee0-8519-af09c231a4d7@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 14:31:47 +0530
+	dkim=pass (2048-bit key) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=WG+R0JUj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxist.de; s=201705; h=from:to:subject:date:message-id; bh=X1KfdMZcAgnCUD23j/0cYj+kYJCpxMw2VuBfm46fahY=; b=WG+R0JUjr+FOFwv27AaQPKOEhXsynf6Xinfx3ewmorJ1Tb4oLBGSg0GQr5ZeUdt98DaDSL0pyNwnSLgW0opY136IEtXYcBO2WDUMAcehvwmW4O6mDxf5ArInij3JtlkWoHI3SotUTD2EMJvwq3NXNjLMT0pIvmPhhkjaYtGsEUlwpvYxfmUYgQIy9Gn9joDEFblr+jNlDNFuTLK57jpeK0rcRlcqtnXo+Ky2G0d/KIVjTiSS6eLI6FANDjW/OWzGaOaNe1KTeaKOJjgHSaxnrYE+32rnfzAi+PrHm6jgqfqQlwf3mOsJm+oJojBq2p00+scr9MSiC1fqUUGki55Ckg==
+Authentication-Results: proxyplus-primary; auth=pass smtp.auth=713ee033-d4f8-4c9d-9e24-a891eb9c547d
+X-Virus-Scanned: proxyplus-clamav builtin
+Received: from groupi3 ([10.1.2.47]) by proxyplus-primary (ProxyPlus) with ESMTPSA; Tue, 10 Nov 2026 09:01:39 +0000
+From: Jan Koester <jan.koester@tuxist.de>
+To: linkinjeon@kernel.org, smfrench@gmail.com
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, brauner@kernel.org, linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org, samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 3/6] ksmbd: pass the domain of an NTLM login to user space
+Date: Tue, 10 Nov 2026 09:02:41 +0000
+Message-ID: <82748744eeaac5828009aab4@groupi3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,159 +52,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: remoteproc: Move iommus constraint to
- SoC-specific bindings
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
- <20261104-shikra-el2-v4-1-97e7019debff@oss.qualcomm.com>
- <20261105-cunning-whippet-of-success-e4fd3d@quoll>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20261105-cunning-whippet-of-success-e4fd3d@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzNSBTYWx0ZWRfXz5EUxl1/hjj7
- 2HuqhlbBHdomCO6W4rwFPq7ixoTW3xQKmdfxXNcnf2AyCTL3W58hIJ69nAYR1NSbxUT1G1S+bF6
- St7bEXyk03oYwnwIVftIF9k3MooSi97vdjz4ksloHOKX9dQFfwm+lbhreOrhFXZhLysFq0Z9LDy
- 0itP00xGTNgXGb5r2dPjY+WJ8XZ9KDS61Kr3z5hS1CGyk+xNvlbmbzMvPyQXtkEyN94UTUHp6Ko
- 5NhTzbRO5kK5OmaywzW5SsjUPBIsLjbqxmG2jhx4S85R6OvC5UmQg5Ew30Bc7QI9C9d/uh/Bf61
- UCfXWRY5pQgzE5I5KNIhA8O9YESNY5UeV4thgCyRX75ykdTDHBkEzwYVutAjrZYI1RXrpd1JZfv
- XBizQ6XKkfFoaDlxZvlVE6+/bHLzDWKrC9lYpPhIKdM7R3lXkJuiJhx7k7jes/OeqEB43tD+7GL
- LzTm353xEoNI2quMH5w==
-X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af2dd97 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=eWDS80NfvEsLDdy5rmYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzNSBTYWx0ZWRfX0dw/b7FJe9H1
- lmeKFEaFDs5sO0lGm7ISHdgzjJcLuFxwrqQ+IGytXLoMfgzijJG+VGpKVijkf2u2+p4V2kEm0XS
- fj5YYNCqTCcNYkFpQDpONhZpQsUQgig=
-X-Proofpoint-GUID: svbvN3yCYrIHbmgtjxnRNuxMgPckYGVp
-X-Proofpoint-ORIG-GUID: svbvN3yCYrIHbmgtjxnRNuxMgPckYGVp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100035
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 11/5/2026 7:05 PM, Krzysztof Kozlowski wrote:
-> On Wed, Nov 04, 2026 at 07:33:30PM +0530, Komal Bajaj wrote:
->> The `iommus` property constraint in qcom,pas-common.yaml is too
->> restrictive with `maxItems: 1`, preventing SoCs that require multiple
->> IOMMU entries from being properly described.
->   From here
->
->> Remove `iommus` constraint from qcom,pas-common.yaml and add it to
->> SoC-specific binding files that have EL2 support and require IOMMU
->> configuration:
->>
->> - qcom,sa8775p-pas.yaml: Add `iommus: maxItems: 1` for all sa8775p
->>    and qcs8300 remoteproc compatibles (lemans-el2, monaco-el2)
->>
->> - qcom,sm8150-pas.yaml: Add `iommus: maxItems: 1` for qcs615
->>    remoteproc compatibles (talos-el2)
->>
->> - qcom,sm8550-pas.yaml: Add `iommus: maxItems: 1` for x1e80100
->>    remoteproc compatibles (x1-el2)
-> to here - all this repeats the diff.
+The login request carries only the user name, though NTLMSSP's
+AUTHENTICATE message names the domain too. A user space serving several
+domains (or local accounts next to a domain's) can't tell DOMAIN\user
+apart from OTHER\user, picks the first account of that name, and a
+session that the domain controller then authenticates as one domain's
+user runs with another account's ids.
 
-Sure, I will drop them and keep only the reason for the change, and why 
-the SoC bindings now need to declare iommus themselves, in the next 
-revision.
+Put the domain into the formerly reserved room of struct
+ksmbd_login_request, flagged with KSMBD_LOGIN_REQ_DOMAIN, so the
+structure keeps its size and older user space keeps working. Ask for
+the login response extension by the account name user space answered
+with: that one is unambiguous, the client's may not be.
 
->
->> This allows each SoC to define its own IOMMU requirements while
->> maintaining backward compatibility.
->>
->> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
->> ---
->>   .../devicetree/bindings/remoteproc/qcom,pas-common.yaml      |  3 ---
->>   .../devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml     |  6 ++++++
->>   .../devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml      | 12 ++++++++++++
->>   .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml      | 12 ++++++++++++
-> While you are not answering the unknown - what about all other devices?
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jan Koester <jan.koester@tuxist.de>
+---
+ fs/smb/server/ksmbd_netlink.h    | 12 +++++++++++-
+ fs/smb/server/mgmt/user_config.c | 16 ++++++++++++----
+ fs/smb/server/mgmt/user_config.h |  2 +-
+ fs/smb/server/smb2pdu.c          | 20 ++++++++++++++++----
+ fs/smb/server/transport_ipc.c    | 12 +++++++++++-
+ fs/smb/server/transport_ipc.h    |  2 +-
+ 6 files changed, 52 insertions(+), 12 deletions(-)
 
-I checked all users of qcom,pas-common.yaml, including DTS files for PAS 
-remoteproc nodes using iommus, and ran dtbs_check on the arm64 qualcomm 
-DTBs.
-The only affected user outside this series is Glymur, where glymur.dtsi 
-specifies iommus for ADSP and CDSP nodes. I will add the corresponding 
-constraint to sm8550 binding in next revision.
-
->
->>   4 files changed, 30 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> index f75cab6b4ed9..4662fe4cff62 100644
->> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> @@ -32,9 +32,6 @@ properties:
->>       minItems: 5
->>       maxItems: 6
->>   
->> -  iommus:
->> -    maxItems: 1
->> -
->>     power-domains:
->>       minItems: 1
->>       maxItems: 3
->> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
->> index dda2d144b720..711c2f723b17 100644
->> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
->> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
->> @@ -106,6 +106,8 @@ allOf:
->>             items:
->>               - const: lcx
->>               - const: lmx
->> +        iommus:
->> +          maxItems: 1
-> Missing property definition in top-level.
-
-  Agreed. I will define iommus once in top-level properties of 
-qcom,sa8775p-pas.yaml and drop repeated entries from allOf conditions in 
-next revision.
-
-Thanks
-Komal
-
->
->>   
->>     - if:
->>         properties:
->> @@ -126,6 +128,8 @@ allOf:
->>               - const: cx
->>               - const: mxc
->>               - const: nsp
->> +        iommus:
->> +          maxItems: 1
->>   
->>     - if:
->>         properties:
->> @@ -144,6 +148,8 @@ allOf:
->>             items:
->>               - const: cx
->>               - const: mxc
->> +        iommus:
->> +          maxItems: 1
-> Not sure what is the point of repeating it multiple times.
->
-> Best regards,
-> Krzysztof
->
-
+diff --git a/fs/smb/server/ksmbd_netlink.h b/fs/smb/server/ksmbd_netlink.h
+index 3fa1c7f801..3df5264ad7 100644
+--- a/fs/smb/server/ksmbd_netlink.h
++++ b/fs/smb/server/ksmbd_netlink.h
+@@ -66,6 +66,7 @@
+ #define KSMBD_GENL_VERSION		0x01
+ 
+ #define KSMBD_REQ_MAX_ACCOUNT_NAME_SZ	48
++#define KSMBD_REQ_MAX_DOMAIN_NAME_SZ	48
+ #define KSMBD_REQ_MAX_HASH_SZ		18
+ #define KSMBD_REQ_MAX_SHARE_NAME	64
+ 
+@@ -140,9 +141,18 @@ struct ksmbd_shutdown_request {
+ struct ksmbd_login_request {
+ 	__u32	handle;
+ 	__s8	account[KSMBD_REQ_MAX_ACCOUNT_NAME_SZ]; /* user account name */
+-	__u32	reserved[16];				/* Reserved room */
++	__u32	flags;				/* KSMBD_LOGIN_REQ_* */
++	__s8	domain[KSMBD_REQ_MAX_DOMAIN_NAME_SZ];	/* with _DOMAIN */
++	__u32	reserved[3];			/* Reserved room */
+ };
+ 
++/*
++ * The domain the client named with the account (NTLMSSP DomainName): user
++ * space serving several domains can tell their accounts of the same name
++ * apart. Formerly reserved, so zero from older ksmbd.
++ */
++#define KSMBD_LOGIN_REQ_DOMAIN		BIT(0)
++
+ /*
+  * IPC user login response.
+  */
+diff --git a/fs/smb/server/mgmt/user_config.c b/fs/smb/server/mgmt/user_config.c
+index cb175a4c78..a25eb0647c 100644
+--- a/fs/smb/server/mgmt/user_config.c
++++ b/fs/smb/server/mgmt/user_config.c
+@@ -9,21 +9,29 @@
+ #include "user_config.h"
+ #include "../transport_ipc.h"
+ 
+-struct ksmbd_user *ksmbd_login_user(const char *account)
++struct ksmbd_user *ksmbd_login_user(const char *account, const char *domain)
+ {
+ 	struct ksmbd_login_response *resp;
+ 	struct ksmbd_login_response_ext *resp_ext = NULL;
+ 	struct ksmbd_user *user = NULL;
+ 
+-	resp = ksmbd_ipc_login_request(account);
++	resp = ksmbd_ipc_login_request(account, domain);
+ 	if (!resp)
+ 		return NULL;
+ 
+ 	if (!(resp->status & KSMBD_USER_FLAG_OK))
+ 		goto out;
+ 
+-	if (resp->status & KSMBD_USER_FLAG_EXTENSION)
+-		resp_ext = ksmbd_ipc_login_request_ext(account);
++	/*
++	 * The extension of the account user space found: the name it
++	 * answered with is unambiguous, the one the client gave may not be.
++	 */
++	if (resp->status & KSMBD_USER_FLAG_EXTENSION) {
++		resp->account[KSMBD_REQ_MAX_ACCOUNT_NAME_SZ - 1] = '\0';
++		resp_ext = ksmbd_ipc_login_request_ext(resp->account[0] ?
++						       (const char *)resp->account :
++						       account);
++	}
+ 
+ 	user = ksmbd_alloc_user(resp, resp_ext);
+ 	kvfree(resp_ext);
+diff --git a/fs/smb/server/mgmt/user_config.h b/fs/smb/server/mgmt/user_config.h
+index e55470e008..0035675e03 100644
+--- a/fs/smb/server/mgmt/user_config.h
++++ b/fs/smb/server/mgmt/user_config.h
+@@ -63,7 +63,7 @@ static inline unsigned int user_gid(struct ksmbd_user *user)
+ 	return user->gid;
+ }
+ 
+-struct ksmbd_user *ksmbd_login_user(const char *account);
++struct ksmbd_user *ksmbd_login_user(const char *account, const char *domain);
+ struct ksmbd_user *ksmbd_alloc_user(struct ksmbd_login_response *resp,
+ 		struct ksmbd_login_response_ext *resp_ext);
+ void ksmbd_free_user(struct ksmbd_user *user);
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 8e47d725c1..db7f677b07 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2169,8 +2169,8 @@ static struct ksmbd_user *session_user(struct ksmbd_conn *conn,
+ {
+ 	struct authenticate_message *authblob;
+ 	struct ksmbd_user *user;
+-	char *name;
+-	unsigned int name_off, name_len, secbuf_len;
++	char *name, *domain = NULL;
++	unsigned int name_off, name_len, dom_off, dom_len, secbuf_len;
+ 
+ 	if (conn->use_spnego && conn->mechToken)
+ 		secbuf_len = conn->mechTokenLen;
+@@ -2196,8 +2196,20 @@ static struct ksmbd_user *session_user(struct ksmbd_conn *conn,
+ 		return NULL;
+ 	}
+ 
+-	ksmbd_debug(SMB, "session setup request for user %s\n", name);
+-	user = ksmbd_login_user(name);
++	/* DOMAIN\user: which of several domains' user of that name */
++	dom_off = le32_to_cpu(authblob->DomainName.BufferOffset);
++	dom_len = le16_to_cpu(authblob->DomainName.Length);
++	if (dom_len && secbuf_len >= (u64)dom_off + dom_len) {
++		domain = smb_strndup_from_utf16((const char *)authblob + dom_off,
++						dom_len, true, conn->local_nls);
++		if (IS_ERR(domain))
++			domain = NULL;
++	}
++
++	ksmbd_debug(SMB, "session setup request for user %s domain %s\n",
++		    name, domain ? domain : "");
++	user = ksmbd_login_user(name, domain);
++	kfree(domain);
+ 	kfree(name);
+ 	return user;
+ }
+diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
+index 7bbe1b3607..4d2f16b96e 100644
+--- a/fs/smb/server/transport_ipc.c
++++ b/fs/smb/server/transport_ipc.c
+@@ -648,7 +648,12 @@ static int ksmbd_ipc_heartbeat_request(void)
+ 	return ret;
+ }
+ 
+-struct ksmbd_login_response *ksmbd_ipc_login_request(const char *account)
++/*
++ * @domain: the domain the client named (NULL or "": none); one too long to
++ * pass is left out, user space then decides by the account alone
++ */
++struct ksmbd_login_response *ksmbd_ipc_login_request(const char *account,
++						     const char *domain)
+ {
+ 	struct ksmbd_ipc_msg *msg;
+ 	struct ksmbd_login_request *req;
+@@ -665,6 +670,11 @@ struct ksmbd_login_response *ksmbd_ipc_login_request(const char *account)
+ 	req = (struct ksmbd_login_request *)msg->payload;
+ 	req->handle = ksmbd_acquire_id(&ipc_ida);
+ 	strscpy(req->account, account, KSMBD_REQ_MAX_ACCOUNT_NAME_SZ);
++	if (domain && domain[0] &&
++	    strlen(domain) < KSMBD_REQ_MAX_DOMAIN_NAME_SZ) {
++		req->flags |= KSMBD_LOGIN_REQ_DOMAIN;
++		strscpy(req->domain, domain, KSMBD_REQ_MAX_DOMAIN_NAME_SZ);
++	}
+ 
+ 	resp = ipc_msg_send_request(msg, req->handle);
+ 	ipc_msg_handle_free(req->handle);
+diff --git a/fs/smb/server/transport_ipc.h b/fs/smb/server/transport_ipc.h
+index f957a33ae3..1aefa23264 100644
+--- a/fs/smb/server/transport_ipc.h
++++ b/fs/smb/server/transport_ipc.h
+@@ -11,7 +11,7 @@
+ #define KSMBD_IPC_MAX_PAYLOAD	4096
+ 
+ struct ksmbd_login_response *
+-ksmbd_ipc_login_request(const char *account);
++ksmbd_ipc_login_request(const char *account, const char *domain);
+ struct ksmbd_login_response_ext *
+ ksmbd_ipc_login_request_ext(const char *account);
+ 
+-- 
+2.56.0
