@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292695;
-	b=amCScaUXSDxbKWF3SQ81PEM5NXatfNQ7/wHSwM3zRkcK2b9Qc0nLxWxmxDWYYjXBwjnO
-	 pWpbaumk9pPUn38uDqSQ1hyt59xSkRumTjbOQZGUTtg7G1iUPF0UcuePxTg1Ems6Y2Hqw
-	 Ui+JJTYsUIMQaBAAo9pVcNxLAff0mPpbxvZA5FAYOYF9w4eLjLxcfVajn9zvPnGC5b7/k
-	 pL3tp3PVemzabYzBX2hl+USMHsk66yFtXdsqwZHQDHCqFIuIupLmw1CF4rTbW4ZS3kdI9
-	 X1QYKWFX6xhybC3dO2bLW5UKUH5vAfMt9J387EujceJWxzQENXuHqIn0v7CajP1L1jQ==
+	t=1794292699;
+	b=vsPgwyoepQULKgreCaVc8OOmn+sPBW/EeuHL6/JNmSzjKSlm043JUpgDM5rkYydbCvko
+	 VHdWifxjrdw5h4Mw8jJFLnKTnRz/RV+mRXbGMayQBzjDcg5ecFm0B0lDLFquqlDtq59/j
+	 ZikdKR+2rU+CeGVA5evk+z/75H5005aqDHJxtJyGDUHwksM8KlBJ4ro6+lVpYkhK8xMIM
+	 D6YYQE7DWM8P2eEwBgeeZ4wzDl/A6KomZrc5dS1dZpnFOQFgFmsskXoUELv4/bhTku2Rx
+	 Cs4AfKXj0jb0oFmWv25eJb0Iv3jKR3d3V/yN7KeIqEOAi9Tth4NfaJ0tmjYAnCfFEYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292695;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uQfJDAzqv74OQj9PgNOrl2GZBw4mpbzbCmwJl/TcAx8=;
-	b=IZW/wgRM2NN/0ktuBCEjQnc+3EGPTFMzhJqWqg6HNIdG1NIOtx/WaeugIwX51F2UR/6V
-	 XMS1y2pYJ+9Ej6TlonHuJIGtxuafVBPgQpNN24xALvEQCEvfueYxzQ/AjOtrCMvP6Eg+D
-	 HudENgZ6frkZLb75YNVvv6glR4NxG94IOfCQWq3p/PwGcknI3PfGfWCbQlYYYjVNc70Lx
-	 sCVyUBRYMzYB5dCfyuHJSgr8jdgsSWjOM75X1OiUBAO3DDOD/UQ6+7MY6DwE0957KMsPx
-	 UzQK840JnxXv9TDduhfydcYI2arLy9nXjjKnvRF1YDIL3eH+BYGO7QTg6/cd4Ge7jIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292699;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=AgZ33A74N/3OfXAQhYF/jw8rO65lJKDN5faIKmJr/6U=;
+	b=e+obhwKX+lCzD+kN9wZKt1V6PYpYDDz1tZdxqjvveSiLP/kDnhnwusfdKxgD731+ee/K
+	 m/SNvP+4aalGQUTHkHsIA87Q4aff3EZmKIJkGrg3sG/IR6ceNCKgaSQaBAAF08XXfd9qS
+	 yBAKdNqto4b0o87ad1ACFrtYs8lyO5M9y7q1J1749Pb76XGbWs+R+ft0jenGXBTdhikmF
+	 k/qlKbsnfiv4f+Pq11JLEELxLDt2Cv06t0NItBVaztcztL6McW/AHvNLe9g2uUv3DTthc
+	 /kKSGYMp2IslzqS+cei7oQofRi2GmOE/rQsJv3ZEaoJPEpFY47xydBumptNwA9MOg5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="q6j/KNAO";
-	arc=none smtp.remote-ip=91.218.175.80
-Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jEBWeG4G;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7082B606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7082B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C74E606A32A;
+	Tue, 10 Nov 2026 06:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C74E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q6j/KNAO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1MH47SrJNKyrBlImZVUKfskfdpHDxxkHzS/Ye+6eADU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794292691; v=1; x=1794897491;
- b=q6j/KNAOpCDbT4nm7weTjZHADonNjBKLBCX5P7Od22VxLV6IfVe5/HqDFMdLyWe/Fb0yWvxm
- H+eyIHPZLFwpyfMMh6AoxXkvahHdL9PJUNRC10zOGZAwzplOYXJTO378nlsSAExW1ZqwW4o9juD
- zNxvUVGXDT8FCRm20FkwBNPE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2597cb3cd0548d62;
-	Tue, 10 Nov 2026 06:38:10 +0000
-X-Mizu-Trace-ID: 2597cb3cd0548d62
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4d46e469-e3b8-4ea6-a85d-b2aa3d750210@linux.dev>
-Date: Tue, 10 Nov 2026 14:38:03 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jEBWeG4G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=AgZ33A74N/3OfXAQhYF/jw8rO65lJKDN5faIKmJr/6U=; b=j
+	EBWeG4G8etrjgTGMxOv4qJcQEMF4gblKfKqqxzdKTk2UrnO6GqarnbNJlmyNboPf
+	oJoJ9RmNzn484d+QkhwJKzipXxBdtZlOeK+Qn0LwRTfD59SmkRK8qVmIR0DltOhu
+	QLdpYjSNA3DwYjA3rSaZ/IL27oMzKmMNdkyOeYasN8=
+Date: Tue, 10 Nov 2026 14:38:04 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: INFO: task hung in dvb_usb_i2c_exit on v7.3-rc2
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SBv6SvU4j4iCcbOkdmEsTju82UcS4ufQl245Xc+0Gpx/uxxgFbWVuH1zqy+aKERKnoRu9TDlC8s9YbKt+Jo4R6qGU3mEF0NYYiQev8g==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,83 +60,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] cpuset: settle isolation state when CPUs are given
- back to parent
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20261107120100.3587595-1-ridong.chen@linux.dev>
- <20261107120100.3587595-4-ridong.chen@linux.dev>
- <c2ab6077-750e-48cb-bfd0-18882c807de5@linux.dev>
- <d7fef280-a076-42c6-a6c6-cf355bbbc29f@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <d7fef280-a076-42c6-a6c6-cf355bbbc29f@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <182ccd7f.4ef9.1a1c42d951f.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kigvCgD3d4HMu_JqRRBrAA--.26W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3Qx5K2ryu8ysxgAA3G
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-
-在 2026/11/10 14:24, Ridong Chen 写道:
-> 
-> 
-> On 11/9/2026 11:20 PM, Guopeng Zhang wrote:
->>
->>
->> 在 2026/11/7 20:00, Ridong Chen 写道:
->>> From: Ridong Chen <chenridong@xiaomi.com>
->>>
->>> partition_xcpus_del() only updates isolated_cpus when the partition that
->>> gives back the CPUs has a different state than its parent. CPUs that were
->>> further distributed to descendant isolated partitions are not taken into
->>> account, so isolated_cpus_release() has to be called afterwards in
->>> several places to walk up the ancestors and fix isolated_cpus.
->>>
->>> Make partition_xcpus_del() always set the isolation state of the given
->>> back CPUs to the state of the parent that receives them. As the
->>> effective_xcpus of a partition covers the CPUs distributed to its
->>> descendants, the isolation state of those CPUs is settled at the same
->>> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
->>>
->>> compute_partition_effective_cpumask() invalidates a child partition
->>> without going through partition_xcpus_del(), so do the same there: the
->>> CPUs of the invalidated child take the isolation state of its parent.
->>>
->>> As the parent may be shrunk and its effective_xcpus not updated yet,
->>> only do so for the CPUs the parent still owns. This is to keep the
->>> isolation state correct for now, the in-place invalidation here will be
->>> removed later in the partition rework.
->>>
->>> isolated_cpus_update() assumes the old and new states are different,
->>> which no longer holds now that partition_xcpus_del() proceeds regardless
->>> of the states. Drop its @old_prs argument and the WARN_ON_ONCE() so that
->>> it simply sets the isolation state of the given CPUs, and use it
->>> everywhere. The state check in partition_xcpus_add() is dropped as well,
->>> as setting the state is a no-op when the states are the same.
->>>
->>> isolated_cpus_release() is no longer needed and is removed.
->>>
->>
->> Hi Ridong,
->>
->> Would it be worth briefly mentioning in the commit message that this patch also fixes the issue described here?
->>
->> https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
->>
-> Thanks, Guopeng.
-> 
-> As I replied to Longman, I will add it.
-> 
-
-Sorry, I just realized that my comment duplicated Longman's. I had some email connectivity issues and only just received the review emails.
-
-Thanks for the clarification!
-
-Cheers,
-Guopeng
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgaHVuZyB0YXNrIGluIGR2Yl91c2JfaTJjX2V4aXQuIEl0
+IGlzIHN0aWxsIHJlcHJvZHVjaWJsZSBvbgpMaW51eCB2Ny4zLXJjMiAoSEVBRCBkZjI5MDgwOTBj
+ZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3KSB3aXRoIGEgc3l6a2FsbGVyIHJlcHJvZHVj
+ZXIuCnN5emJvdCBvcmlnaW5hbGx5IHJlcG9ydGVkICJJTkZPOiB0YXNrIGh1bmcgaW4gZHZiX3Vz
+Yl9pMmNfZXhpdCIgb24gbGludXgtNi4xCihodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9i
+dWc/ZXh0aWQ9MmUwMzA3YjEyMWQxODBmY2EwODEpLiBUaGUgdGFyZ2V0IGNvbnNvbGUgc2hvd3Mg
+YSBtYXRjaGluZyBmYWlsdXJlIHNpZ25hdHVyZS4KCgpUaGUgcmVwcm9kdWNlciBwcm9iZXMgYW5k
+IHRoZW4gdGVhcnMgZG93biBhIERWQiBVU0IgYWRhcHRlciwgcmVhY2hpbmcgZHZiX3VzYl9pMmNf
+ZXhpdCB3aGlsZSB0aGUgaTJjIGFkYXB0ZXIgc3RpbGwgaGFzIG91dHN0YW5kaW5nIHdvcmsuCgoK
+T24gdGhlIHRhcmdldCwgdGhlIGtlcm5lbCByZXBvcnRzOgrCoCBJTkZPOiB0YXNrIGt3b3JrZXIv
+MToxOjQ0IGJsb2NrZWQgZm9yIG1vcmUgdGhhbiAxNDIgc2Vjb25kcy4KCgpUaGUgZGlhZ25vc3Rp
+YyBwYXRoIGlzIGkyY19kZWxfYWRhcHRlciAtPiBkdmJfdXNiX2kyY19leGl0IC0+IGR2Yl91c2Jf
+ZGV2aWNlX2V4aXQgLT4gY3h1c2JfcHJvYmUuCkl0IHNoYXJlcyAxOSBrZXkgc3RhY2sgZnJhbWVz
+IHdpdGggdGhlIG9yaWdpbmFsIGh1bmcgdGFzawpyZXBvcnQsIGluY2x1ZGluZyB3YWl0X2Zvcl9j
+b21wbGV0aW9uLCBpMmNfZGVsX2FkYXB0ZXIsIGR2Yl91c2JfaTJjX2V4aXQsIGR2Yl91c2JfZGV2
+aWNlX2V4aXQuCgoKVGhpcyBsb29rcyBsaWtlIHRoZSBpMmMgYWRhcHRlciB0ZWFyZG93biB3YWl0
+aW5nIGZvciBhIGNvbXBsZXRpb24gdGhhdCB0aGUgZW11bGF0ZWQgZGV2aWNlIG5ldmVyIHNpZ25h
+bHMuCgoKVGhpcyBpcyBhIGZvbGxvdy11cCBmb3IgYW4gZXhpc3Rpbmcgc3l6Ym90IHJlcG9ydCBh
+bmQgZGVzY3JpYmVzIGFuCm9ic2VydmVkIGZhaWx1cmUsIG5vdCBhIGJpc2VjdGVkIHJvb3QgY2F1
+c2UuCgoKUmVwcm9kdWNlcjoKwqAgc3l6IHJlcHJvZHVjZXI6CgpzeXpfb3Blbl9kZXYkdXNiZnMo
+JigweDdmMDAwMDAwMDBjMCksIDB4MjAzLCAweDg0MDEpCnN5el91c2JfY29ubmVjdCgweDAsIDB4
+MjQsICYoMHg3ZjAwMDAwMDAzODApPUFOWT1bQEFOWUJMT0I9IjEyMDEwMDAwNGI0MTQ2MDg2MDE2
+MzIwOWVhODAwMTAyMDMwMTA5MDIxZTAwMDEwMDAwMDAwMDA5MDQiXSwgMHgwKQpzeXpfb3Blbl9k
+ZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDAsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYo
+MHg3ZjAwMDAwMDAwMDApLCAweDEsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAw
+MDAwMDApLCAweDIsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAw
+eDMsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDQsIDB4NDAy
+KQpzeXpfb3Blbl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDUsIDB4NDAyKQpzeXpfb3Bl
+bl9kZXYkSTJDKCYoMHg3ZjAwMDAwMDAwMDApLCAweDYsIDB4NDAyKQpzeXpfb3Blbl9kZXYkSTJD
+KCYoMHg3ZjAwMDAwMDAwMDApLCAweDcsIDB4NDAyKQpicGYkTUFQX0NSRUFURSgweDAsIDB4MCwg
+MHg1MCkKc2VuZG1zZyRubF9yb3V0ZV9zY2hlZCgweGZmZmZmZmZmZmZmZmZmZmYsIDB4MCwgMHg4
+MDApCnNjaGVkX3NldHNjaGVkdWxlcigweDAsIDB4MiwgMHgwKQpzZW5kbXNnJG5sX2dlbmVyaWMo
+MHhmZmZmZmZmZmZmZmZmZmZmLCAweDAsIDB4YzAwMCkKc2VuZG1zZyRORlRfQkFUQ0goMHhmZmZm
+ZmZmZmZmZmZmZmZmLCAweDAsIDB4MCkKCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGVi
+aW4uY29tL3Jhdy8xTGEyQk01ZQprZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBz
+cG90LmNvbS90ZXh0P3RhZz1LZXJuZWxDb25maWcmeD02YTVjYmQyNjg0MDZiZjQzCgoKS2VybmVs
+OgrCoCBIRUFEIGNvbW1pdDogZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1
+NwrCoCBnaXQgdHJlZTogbGludXgtc3RhYmxlCsKgIGtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzIK
+wqAgdGVzdGVkIHRhZzogdjcuMy1yYzIKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRl
+dGFpbHMgb3IgdGVzdGluZy4KCgpUaGFua3MuCgo=
