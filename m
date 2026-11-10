@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319706;
-	b=toJz1xX48lh4vGk8qJi4E563TpYjFHg9IdPMUOi59Fn0TusKuYLbI5vpkJHMfy1jFd/t
-	 isIcyuyj5z+nd6mHkhcjCYglK7n+0tyxUqMtiwVQ8INY8hWXjDgImq4KOI0CKPX24bCG/
-	 wMkIZy006BbyF4C0dptl/FaHpqBq2svtdlXaEjuPUBJcNgretLS5tFNnyU29D11yQ26/2
-	 nrOw44bxn1xLLCD2mGRrx6rB4xK3B6UxsCdWLKM4OL67uTgGFnMISl1P1jOFc/HJjkILJ
-	 96eCoq5YsqMtPZwUH/Bp1XrDET0BSu2gUNVJpYdc8wUjxoCX0fULsVkYJ/biiatgmLQ==
+	t=1794319707;
+	b=VrsCPc5dx1CjY9JYYl4pDizQLm4HEdmJbqoKoOKex+NAQNEEw+woPjU5Tv93pjfTjzuX
+	 pUaSuftPK+VMYkrP9LoIfjd0CESRUMmKDiGfCHXGbKjMbhdCCWpJWb8GHe6PGdHqF7APr
+	 bhZAeFkQydYie2fupTCcvQOKuXLowS1K4U6C8kCNUn1DHLAsPq6qEDRt/TVlx1D5Lr2SW
+	 DmVQYbtNPIxNjgcq+J2vPRTQmA3AoeZYv4Dpb7EuheFaXxRC2fQuOTFPpf/s8doMxJjJh
+	 hpS2o1Wi6aCvawccvTbwARB3n00Yh9mM9HCt3OLIONEBf4N32PD/120GpfiR/joy0nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319707;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=l/hkdUu0jQxuIceoGCSduUqWvBUZAuvUYb5qya3kN7k=;
-	b=i5s7McIAIL1tYHnbwr9ZdCYTCaOic1AmZNHRWVzOWVaq6G6gcDca+9MEE3izjuM8JIt9
-	 Ek6iVhOBufTRqF4gOVYKEzD+0h7yemzjgxIrhvpa52JRG2XDyucOcu5LLZddfl5KiuSiv
-	 sQ4NljgBSTABrCI/zdarmpBFqw+CIrXaNOchw7XkytjKZOoemKVU4Xkoe3xxHDY7a7EBP
-	 cdh44otF0kxAPFnKRIZhxBNDHElVsA+rXKYQTgHnAdOdcQ/6ddDbT1bdGxMV69LYWMkPm
-	 F0Gvref5rNCyq36gax4A1MwDcGmocsb7VkjuL5QZ1SOiSd30F7tWAvEqBvSZQOZT3dA==
+	bh=WutInSFEzjhzZ1mliUNmR4z+1sZXRiB4dByH0qWieGs=;
+	b=kGjKjIlIP3mr/2U8oLmVhVlJgzN4JKmxrFVyAxuGGryWRpxMhXVgTebGBdplEFO7uA83
+	 pw6Fjp22785jCKpqUU/tN6PEbGeyo7Y78DB6bm8Hdm9QBQ8dieoYKOOQLxmFjJLEToLJX
+	 1dGTMSlbXHhYCuTY0vpFVe/MGq9+RrlKnyVh7tb9fpcHLF6FgaEeV9S6jHxwqYVO3q6gC
+	 LOLPxNy3TRdM8s9rheQwZHgCMFQRZIVmt9t74Qn18KzCpFMo7DeragdeaULp8mL14YjsC
+	 ml8P+13mZ1eG5LcPB8FL1w7HD04FvuvAs9JFKJC6YjFV/r1UcSUpblFRMsyo+MHRwKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwaB75pv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoaftSzo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1244E606A33D;
-	Tue, 10 Nov 2026 14:08:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775F6606A335;
+	Tue, 10 Nov 2026 14:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwaB75pv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFD71F0089F;
-	Tue, 10 Nov 2026 14:08:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eoaftSzo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC2C1F008A1;
+	Tue, 10 Nov 2026 14:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319705;
-	bh=l/hkdUu0jQxuIceoGCSduUqWvBUZAuvUYb5qya3kN7k=;
+	s=k20260515; t=1794319707;
+	bh=WutInSFEzjhzZ1mliUNmR4z+1sZXRiB4dByH0qWieGs=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OwaB75pvo2fyIIYLYndRGb2pt35bLOE7DV918RyYSl6MhjZi8PWUzkSGZ4tDPCqlq
-	 oa4ynCGsFERMLV9WPUHHb402j1GMgKwVmN1cMBpqEuysWPKvX2lAp3nkNyc4ADO92k
-	 wXciZq2+Su4xiUusryrP+Kzyfy31RLIL2YdUlmGVon3mag/tfpnziqJzFkVUA6VUEH
-	 j/a7t44jxVyUdb0szjQFNObNaHl+lC7c1PPLU19D4tUI9vav650SIflqw/OyssK1Ch
-	 XhsaPHcgQKzZwmUD++zOg0FtLiAn8US8KG+t+wrV3wp925Id96YDWLb9WFTBfibqYp
-	 otfXBvwUkTXhQ==
-Subject: Re: [PATCH net-next v01 3/4] Fixes: Ensure secure concurrent access
- to adaptive_rx_coal.
+	b=eoaftSzoU7HBiwGfusJazpPFleX1hnBwg5xpp9l9s5jh8cES3K/zT1GGUXGuBeqQo
+	 djvYH7tSjQlitf6kdRNPGe9sG6URpIDFib3lmM3uRi6QWk6rM9wPpeO+FmG/gOj6A1
+	 WyJhTI5In/bSABIPWV5uHmUKvlSv4GXouwQ2i7bkeuVDrdPTrALaQzJHgeysbj4KdF
+	 xQF4NdiD7/ACbVyKXd8/AdRwu/rv4bx1OEJcuMHP0Mt2JJ1Tt4DS2g6fq3ZAZgZKld
+	 /NkFFHRK5XR6/5mJYgtSrnqpa5Ju6JK5aJjmzPday3fia/PiMbUyP4dOE8htRqIfuz
+	 n1tPbdHHTVmUQ==
+Subject: Re: [PATCH net-next v01 4/4] Fixes: Ensure max_qps is always greater
+ than or equal to num_qps
 From: netdev-bot+sashiko@kernel.org
 To: gongfan1@huawei.com
 Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
@@ -52,10 +52,10 @@ Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
  larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Tue, 10 Nov 2026 14:08:24 +0000
-Message-ID: <179431970422.994134.5359832182077776184@kernel.org>
-In-Reply-To: <8e91de49c919cb2cd105bcb33ff54e8e1c5754be.1793946318.git.gongfan1@huawei.com>
-References: <8e91de49c919cb2cd105bcb33ff54e8e1c5754be.1793946318.git.gongfan1@huawei.com>
+Date: Tue, 10 Nov 2026 14:08:25 +0000
+Message-ID: <179431970580.994134.13093509469738984604@kernel.org>
+In-Reply-To: <4baa1668ede031c9a980e7dae711bbaef91c23e5.1793946318.git.gongfan1@huawei.com>
+References: <4baa1668ede031c9a980e7dae711bbaef91c23e5.1793946318.git.gongfan1@huawei.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,10 +69,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+Critical: 0 · High: 1 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,134 +80,186 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix does not close the race its commit message describes.
-- [Medium] The commit message describes a bug that cannot happen in this
-  tree, and the code change does not touch that behaviour.
-- [Low] The commit subject and body are malformed.
+- [High] In hinic3_try_to_enable_rss()
+  (drivers/net/ethernet/huawei/hinic3/hinic3_rss.c:309-314), the patch…
+- [Medium] The subject 'Ensure max_qps is always greater than or equal to
+  num_qps' describes an invariant that already held in the baseline…
+- [Medium] The commit message justifies the change with an out-of-bounds
+  read through netdev_nl_stats_by_netdev() -> netdev_stat_queue_sum() ->…
+- [Low] The subject uses 'Fixes:' as a prefix instead of a subsystem
+  prefix such as 'net: hinic3:', and there is no `Fixes: <12+ char sha>…
 
 --
 
-Fixes: Ensure secure concurrent access to adaptive_rx_coal.
+Fixes: Ensure max_qps is always greater than or equal to num_qps
 
-This patch wraps the write of nic_dev->adaptive_rx_coal in
-init_intr_coal_param() in WRITE_ONCE(), and the read in hinic3_net_dim()
-in READ_ONCE(). The commit message says this fixes a race where an
-already-scheduled DIM work item overwrites static coalescing settings
-after adaptive RX coalescing is disabled via ethtool.
+This patch changes hinic3_try_to_enable_rss() in two ways. First, max_qps
+is now forced to 1 only when the function reports max_qps <= 1 or lacks
+RSS support, and stays at hinic3_func_max_qnum() when RSS resource
+allocation or hardware configuration fails. Second, every error path now
+sets q_params.num_qps to 1. The patch also reflows the signatures of
+hinic3_alloc_channel_resources() and hinic3_free_channel_resources() and
+renames their trxq_params argument to q_params.
 
-> Fixes: Ensure secure concurrent access to adaptive_rx_coal.
-
-[Severity: Low]
-This isn't a bug, but the subject starts with "Fixes:". Tools and
-maintainers read that as a trailer pointing at an earlier commit. The
-subject also lacks the "net: hinic3:" prefix and ends with a period.
-
-> As noted in the subsequent review.
-
-The body points to a review the reader can't see. It then copies a
-reviewer's question word for word, but never says what the patch changes
-or why. There is also no real Fixes: <sha> ("...") trailer.
-
-Would something like "net: hinic3: annotate adaptive_rx_coal accesses
-with READ_ONCE/WRITE_ONCE" describe the change more accurately?
-
-> When disabling adaptive RX coalescing via ethtool, does the driver
-> cancel any pending Dynamic Interrupt Moderation (DIM) work items?
+> Fixes: Ensure max_qps is always greater than or equal to num_qps
 
 [Severity: Medium]
-Can this sequence happen in the current driver? hinic3_ethtool_ops has no
-.set_coalesce or .get_coalesce callback:
+Is this subject accurate? Before this patch, hinic3_try_to_enable_rss()
+already kept num_qps <= max_qps on every exit. The error label did:
 
-static const struct ethtool_ops hinic3_ethtool_ops = {
-	.supported_coalesce_params      = ETHTOOL_COALESCE_USECS |
-					  ETHTOOL_COALESCE_PKT_RATE_RX_USECS,
-	.get_link_ksettings             = hinic3_get_link_ksettings,
-	.get_drvinfo                    = hinic3_get_drvinfo,
-	.get_msglevel                   = hinic3_get_msglevel,
-	.set_msglevel                   = hinic3_set_msglevel,
-	.get_link                       = ethtool_op_get_link,
-};
+err_reset_q_params:
+	clear_bit(HINIC3_RSS_ENABLE, &nic_dev->flags);
+	nic_dev->q_params.num_qps = nic_dev->max_qps;
 
-The only writer of adaptive_rx_coal runs once at probe time, before
-register_netdev():
+The success path goes through decide_num_qps():
 
-hinic3_nic_probe()
-  hinic3_sw_init()
-    hinic3_alloc_txrxqs()
-      hinic3_init_intr_coalesce()
-        init_intr_coal_param()
-          WRITE_ONCE(nic_dev->adaptive_rx_coal, 1);
+	nic_dev->q_params.num_qps = min(dev_cpus, nic_dev->max_qps);
 
-The only reader is hinic3_net_dim(). The value never changes after probe,
-so the READ_ONCE()/WRITE_ONCE() annotations don't change behaviour.
-Nothing later in the series adds set_coalesce support either.
+At open, hinic3_config_num_qps() only lowers num_qps further.
 
-Could the commit message describe this as an annotation-only change,
-rather than a fix for a user-visible coalescing bug? As written, it may
-mislead maintainers and stable backporters.
+The problem the body describes is a different one: the per-queue arrays
+sized by max_qps can be smaller than netdev->real_num_*_queues.
 
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_irq.c b/drivers/net/ethernet/huawei/hinic3/hinic3_irq.c
-> index e7d6c2033b451..b4e58d4c8ba85 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_irq.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_irq.c
-> @@ -20,7 +20,7 @@ static void hinic3_net_dim(struct hinic3_nic_dev *nic_dev,
->  	struct dim_sample sample = {};
+The message also leaves out the behaviour changes this patch makes:
+
+- On multi-queue hardware without HINIC3_NIC_F_RSS, max_qps changes from
+  hinic3_func_max_qnum() to 1. That shrinks txqs, rxqs, intr_coalesce and
+  qps_msix_entries, and lowers the hinic3_get_stats64() loop bounds.
+- When alloc_rss_resource() or hinic3_set_hw_rss_parameters() fails,
+  max_qps now stays at hinic3_func_max_qnum() instead of 1.
+- err_reset_q_params now hard-codes q_params.num_qps = 1.
+
+Could the message describe these changes, especially the one on the
+non-RSS path?
+
+> As noted in the subsequent review.
+>
+> After that, hinic3_sw_init()->hinic3_try_to_enable_rss() can shrink
+> max_qps to 1 when alloc_rss_resource() or hinic3_set_hw_rss_parameters()
+> fails:
+
+[ ... ]
+
+> Would this read past the end of the rxqs and txqs slab objects and return
+> those values to user space? NETDEV_CMD_QSTATS_GET does not require
+> GENL_ADMIN_PERM, so any local user can issue it.
+> The same applies to nic_dev->txqs[i] in hinic3_get_queue_stats_tx().
+> Before this patch hinic3 had no stat_ops, and hinic3_get_stats64() bounds
+> its loops by max_qps.
+
+[Severity: Medium]
+Does the code path described here exist in this tree? There is no
+hinic3_get_queue_stats_rx(), hinic3_get_queue_stats_tx() or stat_ops
+anywhere under drivers/net/ethernet/huawei/hinic3/. The only per-queue
+stats consumer is hinic3_get_stats64(), and it is bounded by max_qps:
+
+	for (i = 0; i < nic_dev->max_qps; i++) {
+		txq = &nic_dev->txqs[i];
+
+"Before this patch hinic3 had no stat_ops" looks like it refers to a
+different, unmerged patch. If so, should this change be folded into the
+patch that adds stat_ops? As a standalone fix, its rationale depends on
+code that isn't in the tree.
+
+The message also opens with "As noted in the subsequent review." and
+pastes the reviewer's question ("Would this read past the end...?")
+verbatim. Could it say what was wrong and how this patch fixes it
+instead?
+
+> This patch also solve some defects reported by checkpatch.
+
+[Severity: Low]
+This isn't a bug, but the subject uses "Fixes:" as its prefix instead of
+a subsystem prefix such as "net: hinic3:". There is also no
+Fixes: <sha> ("subject") trailer, so backport tooling can't tell which
+commit this fixes.
+
+The checkpatch cleanup in hinic3_netdev_ops.c only reflows the signatures
+of hinic3_alloc_channel_resources() and hinic3_free_channel_resources()
+and renames trxq_params to q_params. It has nothing to do with max_qps.
+Could it go in a separate patch?
+
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> index 25db74d8c7ddb..4aa725339e604 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rss.c
+> @@ -308,14 +308,14 @@ void hinic3_try_to_enable_rss(struct net_device *netdev)
 >  
->  	if (!test_bit(HINIC3_INTF_UP, &nic_dev->flags) ||
-> -	    !nic_dev->adaptive_rx_coal)
-> +	    !READ_ONCE(nic_dev->adaptive_rx_coal))
->  		return;
->  
->  	dim_update_sample(irq_cfg->total_events, rxq->rxq_stats.packets,
+>  	nic_dev->max_qps = hinic3_func_max_qnum(hwdev);
+>  	if (nic_dev->max_qps <= 1 ||
+> -	    !hinic3_test_support(nic_dev, HINIC3_NIC_F_RSS))
+> +	    !hinic3_test_support(nic_dev, HINIC3_NIC_F_RSS)) {
+> +		nic_dev->max_qps = 1;
 
 [Severity: High]
-Does this close the race the commit message describes? Nothing cancels,
-flushes or disables rxq->dim.work when the flag changes. The work handler
-also never re-checks adaptive_rx_coal before it programs the hardware:
+Doesn't this recreate the mismatch the commit message says it closes,
+and now on the normal probe path? Take a function whose firmware reports
+max_sqs > 1 but doesn't advertise HINIC3_NIC_F_RSS:
 
-hinic3_rx_dim_work() {
-	...
-	cur_moder = net_dim_get_rx_moderation(dim->mode, dim->profile_ix);
+hinic3_nic_probe()
+    max_qps = hinic3_func_max_qnum(hwdev);
+    netdev = alloc_etherdev_mq(sizeof(*nic_dev), max_qps);
+    -> real_num_{tx,rx}_queues start at func_max_qnum
+hinic3_sw_init()
+    hinic3_try_to_enable_rss()
+        nic_dev->max_qps = 1;
 
-	hinic3_update_queue_coal(rxq->netdev, rxq->q_id,
-				 cur_moder.usec, cur_moder.pkts);
-	...
-}
+hinic3_alloc_txqs() and hinic3_alloc_rxqs() then size nic_dev->txqs[]
+and nic_dev->rxqs[] by max_qps:
 
-That goes through
-hinic3_update_queue_coal()->hinic3_set_interrupt_moder()->hinic3_set_interrupt_cfg().
-It writes the DIM-derived coalesc_timer_cfg and pending_limit to the
-hardware, then updates rxq->last_coalesc_timer_cfg and last_pending_limit.
+    u16 q_id, num_txqs = nic_dev->max_qps;
+    ...
+    u16 num_rxqs = nic_dev->max_qps;
 
-The check here also happens separately from the schedule_work() inside
-net_dim(), so this is a check-then-act sequence:
+hinic3_init_intr_coalesce() and the qps_msix_entries allocation also use
+max_qps, so each of these arrays ends up with one entry.
 
-CPU0 (NAPI)                          CPU1 (disable path, if one existed)
-hinic3_net_dim()
-  READ_ONCE(adaptive_rx_coal) == 1
-                                     clears adaptive_rx_coal
-                                     programs static coalescing values
-  net_dim()
-    schedule_work(&dim->work)
+Only hinic3_vport_up() lowers real_num_*_queues, and only on a
+successful open:
 
-hinic3_rx_dim_work()
-  hinic3_update_queue_coal()   <- overwrites CPU1's static values
+	err = netif_set_real_num_queues(netdev, nic_dev->q_params.num_qps,
+					nic_dev->q_params.num_qps);
 
-Work queued before the flag was cleared would still run as well.
+Before this patch, this branch left max_qps at func_max_qnum, so the
+arrays matched the netdev queue count.
 
-READ_ONCE()/WRITE_ONCE() only stop the compiler from tearing or caching
-the access. They don't order anything against the work item, and they
-can't stop it from running.
+The stat_ops consumer the commit message describes walks
+real_num_*_queues:
 
-Would the fix need one of these instead?
+netdev_nl_stats_by_netdev()->netdev_stat_queue_sum()->
+    hinic3_get_queue_stats_rx()/hinic3_get_queue_stats_tx()
 
-- The worker re-checks the flag under a lock (or with proper ordering)
-  shared with the configuration path.
-- The disable path clears the flag, quiesces NAPI, and cancels or
-  disables each rxq->dim.work before it programs the static values.
+Once that is added, wouldn't nic_dev->rxqs[i] and nic_dev->txqs[i] read
+past the one-entry slab objects on every non-RSS multi-queue function?
+Any local user could trigger this via NETDEV_CMD_QSTATS_GET, which
+doesn't require GENL_ADMIN_PERM.
 
-Right now the only disable_work_sync() calls on dim.work are in the IRQ
-teardown paths. Nothing later in the series adds this synchronization.
+At this revision the read can't happen yet:
+
+- hinic3_xmit_frame() is bounded by q_params.num_qps.
+- hinic3_get_stats64() is bounded by max_qps.
+- There are no per-queue ethtool or stat_ops callbacks.
+
+The bug class the message claims to fix is still there, though, and it
+now hits the common no-RSS probe path rather than rare allocation or
+firmware failures.
+
+Is the new assignment needed at all? hinic3_config_num_qps() already
+forces num_qps to 1 at open when RSS is off:
+
+	if (!test_bit(HINIC3_RSS_ENABLE, &nic_dev->flags))
+		q_params->num_qps = 1;
+
+On this path, the only effect of the assignment seems to be shrinking
+the arrays.
+
+Would it be more consistent to keep max_qps = hinic3_func_max_qnum() in
+every branch and set only q_params.num_qps to 1? Other options would be
+to size the netdev from the same value as the arrays, or to call
+netif_set_real_num_queues() during probe.
+
+> +		goto err_reset_q_params;
+> +	}
 
 [ ... ]
 
