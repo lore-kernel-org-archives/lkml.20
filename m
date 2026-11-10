@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303838;
-	b=ci1Bisb6Vx+Y8BzUihdH7vgi/CJBImNlWufT8NqLjhvg4UX/SpZ0ldjluu7rgxb2pGY0
-	 eoL5TqkAXyQmJoxez5ptsNKDActlt88qsqozBorCscxjVLphmxFEpqxQmBWGYqNCoKRav
-	 TQevc0IB1d+uQEuZ5MxqYzJ4FbThX6KONgvbQw5n/8Nj48aImFibA7MkR4f7Oa36AUjTX
-	 xTrmGXkzRRB3O9TNRGxWsYB+BJAjlPL7KwMkezzjoW7Et/Ft3NIpyM+fRcvQLkZu92183
-	 2K+L6bzzrBhaffBcjbSpipEXbQDKMhJ3TnQTOuLwmlcQcqzknTpxOcjJHyunKQZx5Aw==
+	t=1794303843;
+	b=mnf9EGBFeyEUz02nsDGA6XZ7pWneKDfal6J4y35knNLGlCe6YqLV5OjfGif3Bii529t1
+	 G1v01OFCHn3adHpNjHDU5apQ+mnTwNB7zYMpulBD2++lmiw62hnTDrk0X68lzMZymTyyu
+	 iFkreG2I/lR61lyb6FQnGUko4kEcF78fxBnqk4CEbUeGaLQD0twfuzlmJA+zNb9PE5C3K
+	 7cwiRL+EkwqFuVI/mRpOtafoBovL8kqeQP1VKbpF/KTC9o/34PcisqXta1NrF2JdQ9OHE
+	 b1wiAl2rs+6kqfmQoFyVXu/kMSZ+gnw+Tl/IB9t4zg39a4gk8i4WT6iQjQe5ch0Tp2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303838;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=fkGWqrJ70JJ/YxZ0EyhQwOPD14HnDV1vRYSJM51y4Lo=;
-	b=tRxm1cNiAhyKoe7O7xyeLBudV9A5EBPd/0mBIh2MwDKwC6TZ5gWsWtRmH7Okyjq5Wz5N
-	 Y1rDWr6KaUITjKvkf/9U2wheoccHLWKiNFBYOw5G9kf5TR+M460j2PO/9GBnyH7nd/1K6
-	 A0W5w9j8oYKj9fWtLXTPkYWzIWyWr9Cpk3ckz3newfT/QbMQREVPulYQE8juJUy6QC6nL
-	 /jQtDn8mGOX073Z/sbRHaIKmRegQ3c2/ts9L0pepCWCBNwYHds4ptN+swbHCQXbHE9CYK
-	 GS5yLO8A3Y9amFXJce/hPIKX7MZbC/kmx7Lt8jJ0T0RXKHk7cwXJOfAv7iQqxZiV0dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303843;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=hdK+pDEbjtxXIas5PTih8G25EZ5jkuMrar1Qn0ux3aM=;
+	b=TOzDWxQPIFsYeZdrgxstP9h/4jgU5QYnoP2HsOwoeL/aJVlMKvts/PQcuBohs3yjG0eo
+	 PAMOGCMPGd3o6/vDNWMC1b5FdZdSBY28JDAN8z78HHgp/jxXWPn/1XdfWxH/xR58O9259
+	 qlQc0Uc2qd4akMha1ujDnp5JQUQyKeLhQW1Tspz5Nf696UaQvSh/UjfmS2isB19wevDRR
+	 iYUIVs8UF9+82pNIGEEYbSzFST1gmzioRmpamkKDiwNnrONH2r867UVQZ9MZHPaH8SVgT
+	 8rK2hndiimeOyGWSM3ESUKZmCYuK5UVoA1B3Piaj+Lggb2x+Xsu/rLI/dUZjJto6ykg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=airoha.com;
-	spf=pass smtp.mailfrom=airoha.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=EmJ15X5B;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CSHsWJ2f;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7EA606BF1C;
-	Tue, 10 Nov 2026 09:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A7EA606BF1C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193ED6076115
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 193ED6076115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=EmJ15X5B
-X-UUID: 3c108d42dceb11f18dc8c9802ae25ab1-20261110
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=fkGWqrJ70JJ/YxZ0EyhQwOPD14HnDV1vRYSJM51y4Lo=;
-	b=EmJ15X5BynuDU2mHxWJNGXPObWysZQt9x5GkFP+IP90RZ8aJ+zQz/WGt2ywQEJqvorPlWuQwupaGVfuZRMmlytM3oCiWo1qTU+EIv6FrgG3+sWt3Om8lfqcLvrGP+mpfoa7FL1kdjw4ptVG2NxuuUsdTXZPKiXjxFu9nigbuebo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:9910fb91-fff4-41b9-90d2-34b6a1aff78a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:137d1357-a87d-42b7-8ffd-9e23ca174329,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3c108d42dceb11f18dc8c9802ae25ab1-20261110
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <zhengping.zhang@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1745189036; Tue, 10 Nov 2026 17:43:50 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 10 Nov 2026 17:43:50 +0800
-Received: from mediatek.com (172.18.153.129) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Tue, 10 Nov 2026 17:43:50 +0800
-From: Zhengping Zhang <zhengping.zhang@airoha.com>
-To: <linusw@kernel.org>, <lorenzo@kernel.org>
-CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<brgl@kernel.org>, <mikhail.kshevetskiy@iopsys.eu>, <naseefkm@gmail.com>,
-	<benjamin.larsson@genexis.eu>, <linux-gpio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mediatek@lists.infradead.org>, <lei.dong@airoha.com>,
-	<ansuelsmth@gmail.com>, Zhengping Zhang <zhengping.zhang@airoha.com>
-Subject: [PATCH 10/12] dt-bindings: pinctrl: airoha: describe all EN7523 GPIO mux groups
-Date: Tue, 10 Nov 2026 17:43:37 +0800
-Message-ID: <20261110094339.749110-11-zhengping.zhang@airoha.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110094339.749110-1-zhengping.zhang@airoha.com>
-References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CSHsWJ2f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794303842;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hdK+pDEbjtxXIas5PTih8G25EZ5jkuMrar1Qn0ux3aM=;
+	b=CSHsWJ2fiZRpFquNcvQRjYQTzm9y3ag4r9M/qBZtW/hgh8bVQpF49hPnsNQaevTx58Suzm
+	AfmOLN3SjSO0ZKxWEB2hZqJ8CQopE8yrbpGfNw59gzw4u2/8uuVvCZknhJynRfKpRT4J4e
+	vPByMkIb2CEZMCScOil6HADs6yRE+2M=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-459-q5guI-8xOCuxhWOGmMLpKA-1; Tue,
+ 10 Nov 2026 04:43:58 -0500
+X-MC-Unique: q5guI-8xOCuxhWOGmMLpKA-1
+X-Mimecast-MFC-AGG-ID: q5guI-8xOCuxhWOGmMLpKA_1794303836
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 662071956047;
+	Tue, 10 Nov 2026 09:43:56 +0000 (UTC)
+Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9277D39203;
+	Tue, 10 Nov 2026 09:43:51 +0000 (UTC)
+From: Ivan Vecera <ivecera@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Grzegorz Nitka <grzegorz.nitka@intel.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Petr Oros <poros@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michal Schmidt <mschmidt@redhat.com>,
+	Jakub Ramaseuski <jramaseu@redhat.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/2] ice: dpll: fix updates of the SyncE CGU registers on E825
+Date: Tue, 10 Nov 2026 10:43:48 +0100
+Message-ID: <20261110094350.184185-1-ivecera@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,40 +89,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Expand the GPIO mux groups from GPIO28-29 to GPIO0-29 to describe
-explicit GPIO mode selection across the controller's GPIO range.
-Allow multiple GPIO groups in a single mux state.
+All E825C PFs share the CGU registers R10 and R11, which hold the mux and
+the divider of the two recovered clock outputs. Both patches fix how a link
+change updates them, both found in review:
 
-The corresponding driver support is added in a subsequent patch.
+- Patch 1 adds a lock shared by all PFs around the read-modify-write
+  sequences of these registers. A link change on one PF could undo an RCLK
+  pin change made by another PF.
+- Patch 2 lets a link change set the divider of an output only when its
+  port drives that output. Every port set it from its own link speed,
+  which is wrong when ports run at different speeds.
 
-Signed-off-by: Zhengping Zhang <zhengping.zhang@airoha.com>
----
- .../bindings/pinctrl/airoha,en7523-pinctrl.yaml          | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Both were tested on GNR-D with dual complex E825, details are in the commit
+messages.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
-index 599f80e94432b..d93cf3a3532a2 100644
---- a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
-@@ -178,7 +178,14 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio28, gpio29]
-+                  items:
-+                    enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
-+                           gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gpio13,
-+                           gpio14, gpio15, gpio16, gpio17, gpio18, gpio19, gpio20,
-+                           gpio21, gpio22, gpio23, gpio24, gpio25, gpio26, gpio27,
-+                           gpio28, gpio29]
-+                  minItems: 1
-+                  maxItems: 30
-           - if:
-               properties:
-                 function:
+Patch 1 was also patch 2 of the net-next series "dpll: do not serialize
+driver callbacks under global dpll_lock" [1], which needs it. v2 of that
+series will drop it.
+
+[1] https://lore.kernel.org/netdev/20261106121005.1327603-1-ivecera@redhat.com/
+
+Ivan Vecera (2):
+  ice: dpll: serialize changes of the SyncE CGU registers
+  ice: dpll: set the SyncE divider only for the port driving the output
+
+ drivers/net/ethernet/intel/ice/ice_adapter.c |  2 ++
+ drivers/net/ethernet/intel/ice/ice_adapter.h |  4 ++++
+ drivers/net/ethernet/intel/ice/ice_dpll.c    | 11 ++++++-----
+ drivers/net/ethernet/intel/ice/ice_dpll.h    |  4 ++++
+ drivers/net/ethernet/intel/ice/ice_ptp.c     |  8 +++++++-
+ drivers/net/ethernet/intel/ice/ice_tspll.c   |  8 ++++----
+ 6 files changed, 27 insertions(+), 10 deletions(-)
+
+
+base-commit: 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22
 -- 
-2.43.0
+2.56.0
 
