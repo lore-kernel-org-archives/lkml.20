@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342087;
-	b=E+GlwP8rIyCxRlsQ8Dlq1U/JoCs46eEtMxJUvSsWCQ+qD5xeK14M885ryAW6Z+lUpoHi
-	 WbAQJRMDHaaDMb8cSxZUqaDwDxyDuFXaGap4jueZZipw4VR17i4SYqi3pW3LlT1tnqGTz
-	 5NFqIBU7rXXEyPS77jt2GatIIdQjoX5hypaMPd0TRC862o3k4IGlYdt5ARyuwtV0OW9fa
-	 zyt526wC8vLtn2PJhWvhgKWYE+P4/saa8B5HbrUNt2AEeLum++AE3TphV6X6DnbnoNrkH
-	 VH3bl/xgNUhHP3lsYdOIuFfQaYW6F4DIF3n/r+nC/O5sty973kJsws1mU6VbRubk3yQ==
+	t=1794342092;
+	b=AyvWAMBBVrdE2RQ2QgU79P52AexhEOTNbaCfQ1RmkD0knXo5F+vF0eydIZC71VDvzFug
+	 74K7OqTk25B1uR3LA52N0e8e2gzhgiqHbuhDQEz8rn6l0bKD6heU0pj7xbmXdI9/efEnY
+	 Htj4Yzsns08p8EwYgBxgjhfTM79jeKh5c7WEPzDHerQcr3DmEOQNsPItRlv7I5qoMrwfH
+	 59qIOOcVVPsq85lj8rqg7hf1bHQA0qh3vaPEhxfoAwOgdrS7Dl5HopMrhAJIIAV4hoIa8
+	 EpYej0Nt9r9IcBdireax9dXZ/SxHnHdEPMncVfqxDLpIzEoalTRjmAsgqV+4N4fJ+2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342092;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AiZ7N6GU02U+o9iesZbyf8ratkWg+EWsdL11fnyuYU8=;
-	b=te7aptToifAiaziWPhiWO0NMsztwzJ6HXHJpKnEceaRA4Gm2T8iYSCOZGC6M/SiZ6BK8
-	 WmC+RkNkMP0Yhi3rdcy2VeIKZPEHliXVpTZtLEYarb3YApLOaDD3ZCw9An97uf2LmKaaS
-	 RGBVfmrraUtC1LseIYQEi7NEaxrKag80rcBJKQAJrBaquOzpN7FKmavNsEKiDzFj8bEZP
-	 UehSkYrfnMt8AVlNjK5qZBAztNmuSY5FjQSBU+dOwudahsCWFCE3jj80MeaBEK9CmTlSX
-	 s9MvTsWe/x19h95mxCHRWsahqRwY935V65IsuLiWSHwFZtwq+O7NhY28NN7GHjJTeBw==
+	bh=DkWfkzdkG8JnZPnLVaaxVwnhsNZ1KUyME4j3NgArqy4=;
+	b=Z8WyKi3tYdnLeTaUeunv81uUJ+02psCwJ/vFgr5d+HS87U8H2Klt1wUW4VRHTurEUdkN
+	 YatEX10+Vl4RI9WkoEuEITkc6ijj4/sFAYCwkVxGEjNj4wSYN53MJ5cmp1av+lY4v7YmF
+	 Rtu95ZiiKfPg3cpcfDInSat1sB4KTdCITYWInaijhOwkaMx9IaDuC56qgWAorJrkQZwgo
+	 mBavrRUquPHjVqCCSZzcz/0ig+qXiszODva9koDwjYnZPI/mWX+sP66eOZ3JncRSlszg4
+	 rmRxDFHPjxIYPOScTpsGEw3TF9Nw//joMr1+f33QyUSEGKQjPBjDv3UB/bEqpgTH8DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQfpZpJD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW3DPdZP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE93606A33C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3705360A5BC4
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQfpZpJD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F56A1F008A1;
-	Tue, 10 Nov 2026 20:21:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW3DPdZP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD6E1F0089F;
+	Tue, 10 Nov 2026 20:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342087;
-	bh=AiZ7N6GU02U+o9iesZbyf8ratkWg+EWsdL11fnyuYU8=;
+	s=k20260515; t=1794342092;
+	bh=DkWfkzdkG8JnZPnLVaaxVwnhsNZ1KUyME4j3NgArqy4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GQfpZpJDF5NPDaWm5L0da6tQj33/hECXNWhj2Z8APnZoHS2nsmjGCgeYvP3O+FqnD
-	 PpbL6c/NCc9ulYh6r8/eTyb7O9JytaP9NkxmD5unJUPv1SZVRakV5iITHyDbCtfRxn
-	 MHwlyplZPfzDZxJzcHfBL4G5sarT6b1swJVj/HOtLDTtRieozKqrjLQ9mp6Fl/AXZ4
-	 d6VOTv57FKYCINNCi6vGIuwWmFjK+ZHsxf6t6LdRxl2kMtX62bOHBEJGKzD4EU0b6j
-	 dIcH6cH6LujqTdjhACz1XpeX7PoyTknXYnXBdoNwFnXMu5v/sNO8N7ljsS9gQ7OXzy
-	 VXIhweELWI+CA==
+	b=MW3DPdZPavU+zKRqSawyhYFMiSgqkT05HfqhIhc/hG2TTRXLTF/D6CRbrp4k5Goln
+	 dYyRAKxC5Dw+3r/FEDrqVZtoosqwMSrklxq5V4APE6lpQW+lgNsd2QPr3wpgRYSiW+
+	 8qZIaQXjYazDMIRZ7/h5JIhvbH9rO6IhWT86Ft+A118dpP11bzod9Pm4ZkU40Eo/sc
+	 Yu20a0HSfGxA9FJGUojR7u5VjQml7vg4fUHNrEtQP6cFXrpXbX5wvptGLGidcatdrz
+	 /YJRfpUMnBnTZpIM3KdhOPIAWFbKf0imBZVxr/mf6AwiI/ZdDQuoJdVYMKNS8rQPRe
+	 IK5j/F42nUO5A==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -68,10 +68,10 @@ Cc: axelrasmussen@google.com,
 	zhangbo56@xiaomi.com,
 	zhuhui@kylinos.cn,
 	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>
-Subject: [PATCH v6 10/15] mm/mglru: Run aging when pages are rare outside the youngest gen
-Date: Wed, 11 Nov 2026 04:20:20 +0800
-Message-Id: <20261110202025.25736-11-baohua@kernel.org>
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v6 11/15] mm/mglru: Restrict eviction accounting to eligible zones
+Date: Wed, 11 Nov 2026 04:20:21 +0800
+Message-Id: <20261110202025.25736-12-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261110202025.25736-1-baohua@kernel.org>
 References: <20261110202025.25736-1-baohua@kernel.org>
@@ -86,111 +86,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: lyugaofei <lyugaofei@xiaomi.com>
+For both lruvec_evictable_size() and lru_gen_imbalanced(),
+only count eligible zones below sc->reclaim_idx. This
+avoids inflating the number of scanned pages and allows
+aging to proceed more promptly when eligible zones have
+few folios.
 
-Run aging when the total number of pages outside the youngest
-generation across both types falls below 1/MAX_NR_GENS of the number
-of pages in the youngest generation. For extreme swappiness values
-such as 1 and 200, also consider the balance of the corresponding
-type.
-
-This improves reclaim efficiency, especially at extreme swappiness
-values, while reducing system time.
-
-To avoid the overhead of aging, we only allow imbalance-based aging
-when the reclaim priority is low enough that we might reclaim the
-youngest generation. We also limit it to once per priority.
-
-Signed-off-by: lyugaofei <lyugaofei@xiaomi.com>
-Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
- mm/vmscan.c | 45 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 42 insertions(+), 3 deletions(-)
+ mm/trace_vmscan.h | 4 ++--
+ mm/vmscan.c       | 8 ++++----
+ mm/vmscan.h       | 5 +++--
+ 3 files changed, 9 insertions(+), 8 deletions(-)
 
+diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+index 565c56428364..9dafdb5bd3ce 100644
+--- a/mm/trace_vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -488,9 +488,9 @@ TRACE_EVENT(mm_mglru_aging,
+ 			unsigned long seq = max_seq - MAX_NR_GENS + 1 + i;
+ 
+ 			__entry->nr_anon[i] =
+-				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq);
++				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq, MAX_NR_ZONES);
+ 			__entry->nr_file[i] =
+-				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq);
++				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq, MAX_NR_ZONES);
+ 		}
+ 		__entry->nid = lruvec_pgdat(lruvec)->node_id;
+ 		__entry->priority = sc->priority;
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index bde67da7db57..8014a90e4bc2 100644
+index 8014a90e4bc2..bfc9789a999a 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -5068,8 +5068,41 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	return scanned;
+@@ -4220,7 +4220,7 @@ static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
+ 
+ 	for_each_evictable_type(type, swappiness) {
+ 		for (seq = min_seq[type]; seq <= max_seq; seq++)
+-			nr[type] += lruvec_gen_size(lrugen, type, seq);
++			nr[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
+ 	}
  }
  
-+static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
-+		int swappiness)
-+{
-+	unsigned long youngest[ANON_AND_FILE] = {0}, old[ANON_AND_FILE] = {0};
-+	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	DEFINE_MAX_SEQ(lruvec);
-+	DEFINE_MIN_SEQ(lruvec);
-+	int type;
-+
-+	for_each_evictable_type(type, swappiness) {
-+		unsigned long seq;
-+
-+		youngest[type] = lruvec_gen_size(lrugen, type, max_seq);
-+		for (seq = min_seq[type]; seq < max_seq; seq++)
-+			old[type] += lruvec_gen_size(lrugen, type, seq);
-+	}
-+
-+	/* the vast majority of pages sit in the youngest gen */
-+	if (youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
-+	    (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS)
-+		return true;
-+
-+	/* Swappiness extremes: the corresponding type matters */
-+	if (swappiness == MIN_SWAPPINESS + 1)
-+		return youngest[LRU_GEN_FILE] > old[LRU_GEN_FILE] * MAX_NR_GENS;
-+
-+	if (swappiness == MAX_SWAPPINESS)
-+		return youngest[LRU_GEN_ANON] > old[LRU_GEN_ANON] * MAX_NR_GENS;
-+
-+	return false;
-+}
-+
- static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
--			     struct scan_control *sc, int swappiness)
-+			     struct scan_control *sc, int swappiness,
-+			     bool do_balance)
+@@ -5080,9 +5080,9 @@ static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
+ 	for_each_evictable_type(type, swappiness) {
+ 		unsigned long seq;
+ 
+-		youngest[type] = lruvec_gen_size(lrugen, type, max_seq);
++		youngest[type] = lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
+ 		for (seq = min_seq[type]; seq < max_seq; seq++)
+-			old[type] += lruvec_gen_size(lrugen, type, seq);
++			old[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
+ 	}
+ 
+ 	/* the vast majority of pages sit in the youngest gen */
+@@ -5826,7 +5826,7 @@ static int lru_gen_seq_show(struct seq_file *m, void *v)
+ 			char mark = full && seq < min_seq[type] ? 'x' : ' ';
+ 
+ 			seq_printf(m, " %10lu%c",
+-				   lruvec_gen_size(lrugen, type, seq), mark);
++				   lruvec_gen_size(lrugen, type, seq, MAX_NR_ZONES), mark);
+ 		}
+ 
+ 		seq_putc(m, '\n');
+diff --git a/mm/vmscan.h b/mm/vmscan.h
+index c6b583fc7493..2599d7c614ac 100644
+--- a/mm/vmscan.h
++++ b/mm/vmscan.h
+@@ -119,12 +119,13 @@ struct scan_control {
+ #ifdef CONFIG_LRU_GEN
+ /* The number of pages of @type in the generation @seq, summed over all zones */
+ static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
+-					    int type, unsigned long seq)
++					    int type, unsigned long seq,
++					    int max_zone)
  {
- 	DEFINE_MIN_SEQ(lruvec);
+ 	int gen = lru_gen_from_seq(seq);
+ 	unsigned long size = 0;
  
-@@ -5082,7 +5115,11 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
- 		return false;
+-	for (int zone = 0; zone < MAX_NR_ZONES; zone++)
++	for (int zone = 0; zone < max_zone; zone++)
+ 		size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
  
- 	/* better to run aging even though eviction is still possible */
--	return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
-+	if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq)
-+		return true;
-+
-+	/* run aging when folios outside the youngest gen are rare */
-+	return do_balance && lru_gen_imbalanced(lruvec, sc, swappiness);
- }
- 
- static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
-@@ -5168,6 +5205,7 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 	bool need_rotate = false, should_age = false;
- 	int swappiness = get_swappiness(lruvec, sc);
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-+	bool do_balance = (sc->priority <= DEF_PRIORITY / 2);
- 
- 	/*
- 	 * Proactive reclaim initiated by userspace for anonymous memory only.
-@@ -5192,12 +5230,13 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 			break;
- 		}
- 
--		if (should_run_aging(lruvec, max_seq, sc, swappiness)) {
-+		if (should_run_aging(lruvec, max_seq, sc, swappiness, do_balance)) {
- 			trace_mm_mglru_aging(lruvec, sc, swappiness);
- 			if (try_to_inc_max_seq(lruvec, max_seq, swappiness, false))
- 				need_rotate = true;
- 			should_age = true;
- 		}
-+		do_balance = false;
- 
- 		if (!evict_folio_lists(nr, lruvec, sc, swappiness, MIN_LRU_BATCH))
- 			break;
+ 	return size;
 -- 
 2.34.1
 
