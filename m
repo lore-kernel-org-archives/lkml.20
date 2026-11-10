@@ -1,68 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346521;
-	b=B3UCF4wBsQrYyUSwwGCkx82mMhEzwMpIaRlK9XI8RqKBv7BK6qjkiNFY2bzb/WiuM25a
-	 fl7y7IG+bkNYYDSOFfEGof0Cj6qqtYWlvXGpMGIypDWRno12vdnEQ5pBECo9ERTHcyK1L
-	 XNqjs2K64NXDgY3z5BTPjPoGQkN3E96+M9WUe/1UWHQDsF2NEzZGUMTcZnly3IakNpwzy
-	 zfQ2GeP2mWWdTfojuhPge867YsyveHJdERfHhLh1cVl4u3gBuArSET9gN4jwAifDpTjhk
-	 XZnzvfejpt/803fQEKBvQOprbDPWerfCspGOkTCIcEW/i9u/PgTsnGNZvLvZNpk1ldQ==
+	t=1794346636;
+	b=uioK/UWodyPbhZYO0LJc4cxDuT2rW4rVmdzKTDPTef7akSS7ZUKe+nt/6VUilyOXSmrs
+	 RYlsKvYL0sKQ0rmr++gZijrjf/nxmA7Zn1UtrZXVKkeS2mHIhXYBrS1WHEqxJebvR9GGB
+	 oCvlVHwojQxtfsX+EAx78kpLnHbKmr/bloOTePjh4uM3hMgClamyilNYJdFNYeerOw7YL
+	 5hs4YVheslmPlaJaBhFUpqAhngd6UNUJGmif9jzui32YU6sXMVtc2qI6CgEUJ6NX2YGqD
+	 fsWkl2/KoVKqFlobHrLWUqaT4hCpzGBfdng8zOJR7gYidxdJkud80Fn3Ovh7/ahOR1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346521;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Zey2HMt5klpTlY68NDHEVjd3B/NIYRgop9XZCkWkwSY=;
-	b=gZGgdyZLvu8gW/fw3QpPYOLDbyIQcCVsHn1xFN3gh6e8dkvdEoDeS0dIft2Yq7eqdyTO
-	 CdL6OzXDy8F8bvP4gCkynHrC3MOTdLvUR2M4mwUkkq725tdl1sJBABHSlAvG3sKx/U4gx
-	 JnAxiqf0Ub506NFllON5SLg68Wuwap6OLmeEvRvNQsKT7CqAAsDUeKGsjEMXiRHWfCPmq
-	 wXKGZTeQTv9nIXZ2hSnaH0HsdSh/ITgm9Ltwez8PgRawrLNhXTr5Jm50ck19/NoZ+y1W1
-	 64ix0rC8VRaqkLF3xku/ZCarMBbEyJ3sT9jC289Yhi/58O0o7u2htb+hbqIu3oFLXKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346636;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dHQLqsEaKr36dBaXrexzXFbwlAmhl8mbH8C+Uh+ZmTk=;
+	b=ESBsuo4Jr2Hp0LDthRlPmh8cGvXexK3Xt7tyHM9kYZUm5fHsHDoxpYYIMzn7rkqyX7kt
+	 axEhpDcyCINTxAKI3frFvjb//0QzHuXZuzF7+YY+oP+VkEMTdfy8YnctPDM1Te1YaTQFL
+	 UEF5HzV2mrjMF4NYjIPlBl9h7jkpEIgc12cWRMsjopRdgbVBVpVY/t3X0eLNNGZpcDSal
+	 lqnsII1lKc9mgkxzb+tG6iHdx6vpLUlg4psmLqhM3o6nh4O8k5oTadzpcsSs3ceNpON/O
+	 XE0KfwCykwJuYsRmtIqAxfrGKDTt3CZbE9XRLlwePNu4jBDVxQn1vZnd4b7jl+KWCAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyWF2Tb9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/WTij0I";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14605606A321;
-	Tue, 10 Nov 2026 21:35:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C624606A31C;
+	Tue, 10 Nov 2026 21:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyWF2Tb9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA631F0089F;
-	Tue, 10 Nov 2026 21:35:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/WTij0I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585E11F0089F;
+	Tue, 10 Nov 2026 21:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346520;
-	bh=Zey2HMt5klpTlY68NDHEVjd3B/NIYRgop9XZCkWkwSY=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=WyWF2Tb9oGDsmfwAziG7o4QccoVPMQa7E1m8keS522AgIfVXCHjGiiEc47YpBly0O
-	 y6v2AB3rtAkKxqrEZ/sGw1fSMdNY76jH9HsZb1xs6m+3e3Gs8BprQAa5INVKR/dOqX
-	 JN4W5RtRua+gtzfSStbnvl3tlWXV4UNSNpIn5xOfdfJOEb6mQ7ffV6s1nZ9Acpae7v
-	 NaiZEVvQ/qmZir6grlljcFn8JiNlyyJWqVurhyXx79nYPspANifo3/941JuYIrnHGF
-	 yx9tNlMUozolXphzse6xKDoZLXJ6+o33/A4OyHLjn1tgrQeznWB23LZbFBiZAssLXS
-	 OabHGzs8G31Kw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 621D7CE0AD8; Tue, 10 Nov 2026 13:35:20 -0800 (PST)
-Date: Tue, 10 Nov 2026 13:35:20 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, corbet@lwn.net, mingo@redhat.com,
-	frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org, urezki@gmail.com, dave@stgolabs.net,
-	stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org,
-	dhowells@redhat.com, j.alglave@ucl.ac.uk, luc.maranget@inria.fr,
-	akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev,
-	brads@mainlining.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org, rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 10/28] hazptrtorture: Add 128- and 256-CPU configs
-Message-ID: <83463788-5e18-4932-99c9-4cbf4148a213@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
- <20261104165504.2430480-11-kunwu.chan@gmail.com>
+	s=k20260515; t=1794346635;
+	bh=dHQLqsEaKr36dBaXrexzXFbwlAmhl8mbH8C+Uh+ZmTk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Y/WTij0IdvGa01fcN+2r8VYM0QcuRvDq9EheuYvkoEErjIYXCeVoHHIrKS/AI65sr
+	 4Noox06x31Yz/szrciT85fg02HaDUwTr9lUDEeCovsjEpKgJbyY70JKGmmN4V9oFeF
+	 uWP78Khuk/Qg9eUr9ozNoLdCeqYCoyCC5qUVbOHfvw+KYjoeex+aPvWVlfryw2KPB2
+	 TatY4lPEyVlDALJYdHBj6qImEOv0XcQmQdHGDEjJZNiriaUt3UxEJM6j5v+8jlbDNL
+	 x+i5N+cqelw76VaZEY2mKRpLIOSWSUf9YuWf56wcCA0OHVUV1MVCYxlFdvV79lbG5b
+	 X85UkkszueUHA==
+Date: Tue, 10 Nov 2026 13:37:14 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Kees Cook <kees@kernel.org>, nuno.sa@analog.com,
+ Heiner Kallweit <hkallweit1@gmail.com>, Chen Ni <nichen@iscas.ac.cn>,
+ "Alexandru Tachici" <alexandru.tachici@analog.com>, Lennart Franzen
+ <lennart@lfdomain.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4] net: ethernet: adi: adin1110: mask the RX IRQ of
+ the port being stopped
+Message-ID: <20261110133714.5990470e@kernel.org>
+In-Reply-To: <20261108-adin1110-net-stop-v4-1-yuehongwu@cmss.chinamobile.com>
+References: <20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com>
+	<20261104-adin1110-net-stop-v2-1-yuehongwu@cmss.chinamobile.com>
+	<20261106-adin1110-net-stop-v3-1-yuehongwu@cmss.chinamobile.com>
+	<20261108-adin1110-net-stop-v4-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,92 +66,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104165504.2430480-11-kunwu.chan@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 12:54:28AM +0800, Kunwu Chan wrote:
-> Add CPU128 and CPU256 configs for hazptr-stack torture testing.
-> These configs exercise the shared-scan path at larger CPU counts.
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+On Sun, 08 Nov 2026 12:05:00 +0800 Yuehong Wu wrote:
+> Subject: [PATCH net v4] net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
 
-For these, why not instead add '--kconfig "CONFIG_NR_CPUS=128"' to a
-run in torture.sh?  Ditto for 256 CPUs.  These will override the values
-given in the hazptr Kconfig files.
+For some reason CI could not parse this patch correctly.
 
-							Thanx, Paul
-
-> Acked-by: Bradley Morgan <brads@mainlining.org>
-> ---
->  .../selftests/rcutorture/configs/hazptr/CPU128   | 16 ++++++++++++++++
->  .../rcutorture/configs/hazptr/CPU128.boot        |  1 +
->  .../selftests/rcutorture/configs/hazptr/CPU256   | 16 ++++++++++++++++
->  .../rcutorture/configs/hazptr/CPU256.boot        |  1 +
->  4 files changed, 34 insertions(+)
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-> 
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-> new file mode 100644
-> index 000000000000..079b463607e8
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-> @@ -0,0 +1,16 @@
-> +CONFIG_SMP=y
-> +CONFIG_NR_CPUS=128
-> +CONFIG_PREEMPT_NONE=n
-> +CONFIG_PREEMPT_VOLUNTARY=n
-> +CONFIG_PREEMPT=y
-> +CONFIG_HZ_PERIODIC=n
-> +CONFIG_NO_HZ_IDLE=y
-> +CONFIG_NO_HZ_FULL=n
-> +CONFIG_HOTPLUG_CPU=y
-> +CONFIG_SUSPEND=n
-> +CONFIG_HIBERNATION=n
-> +CONFIG_DEBUG_LOCK_ALLOC=n
-> +CONFIG_PROVE_LOCKING=n
-> +CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-> +CONFIG_DEBUG_KERNEL=y
-> +CONFIG_HAZPTR_DEBUG=y
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-> new file mode 100644
-> index 000000000000..1d09a6446080
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-> @@ -0,0 +1 @@
-> +hazptrtorture.torture_type=hazptr-stack
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-> new file mode 100644
-> index 000000000000..b00a984977f3
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-> @@ -0,0 +1,16 @@
-> +CONFIG_SMP=y
-> +CONFIG_NR_CPUS=256
-> +CONFIG_PREEMPT_NONE=n
-> +CONFIG_PREEMPT_VOLUNTARY=n
-> +CONFIG_PREEMPT=y
-> +CONFIG_HZ_PERIODIC=n
-> +CONFIG_NO_HZ_IDLE=y
-> +CONFIG_NO_HZ_FULL=n
-> +CONFIG_HOTPLUG_CPU=y
-> +CONFIG_SUSPEND=n
-> +CONFIG_HIBERNATION=n
-> +CONFIG_DEBUG_LOCK_ALLOC=n
-> +CONFIG_PROVE_LOCKING=n
-> +CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-> +CONFIG_DEBUG_KERNEL=y
-> +CONFIG_HAZPTR_DEBUG=y
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-> new file mode 100644
-> index 000000000000..1d09a6446080
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-> @@ -0,0 +1 @@
-> +hazptrtorture.torture_type=hazptr-stack
-> -- 
-> 2.43.0
-> 
+If you want it merge you have to repost.
+Please make sure you start a new thread if you repost!
