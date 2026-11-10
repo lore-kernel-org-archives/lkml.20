@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318102;
-	b=onZBplXS5pbuVGqEtV/MfFGpKTlYD8XF4TMIIggjMFvEXnQFwm7eDCm0ay+SamU9fvJv
-	 iAmgqmJp+8FQ7HDUj+zWI4RUvTvHYQ3ztLCx/wQlG523ZFXGB9o9ME2ZRhGctEN1OVcuz
-	 ObS811o5lLcqX3qGKLNCmu1857M4X4mpyVQiJdl8L8nw9bOHFI5jI4o38MqCZ5JNBFi0E
-	 mFT3FyKlpn2IFntH2VwndKvXcOc5+k9id4qycRlqPUsKsrybDLjweHbDo0a2BFHi5kWVs
-	 RcqtPD9OxHmRvkQnhiyxae/O2VqmRGVNktULCHB0eraLEr9Dkvmd5iVpUsmHaz4l8HA==
+	t=1794318110;
+	b=o2qjDmfE2Ux15Zd2BnNwqceN0c4dwccpl5zK68EazQtxiNCMOogGW813arjZNL1auRIU
+	 3cAjKpeTtFwCC65UqnQ857ii81mIETqeyT4KBvKnO6Pf0xaO7zIf8w1lQ9mCZpAr1WBv1
+	 GmTmtV9dBV5drWu8GyQBckzGQzDcaIVl39owjpyUcgr3eYQq/TMmYlOBa6bcFffM9Eou0
+	 nyIPKgiEoVjTohMrT59hysw92xLzV4swyYEIbMyp3S7ktPN2TPNyNYAQgQvOvjCwrIKtR
+	 wJgSWAkg7CRBYJGxFgUkIuTQp4MN42UFo5x4krCjehn4Qw53hyTYTI2JDoaLdILRTaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318102;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:CC:From:To:
-	 Subject:X-Mailer:References:In-Reply-To;
-	bh=lasqxXVeKXMxHny0oj9QIIm0EdQKa7hCoZn0gBzmIq4=;
-	b=FekfZoBchlVTwebS8x6KVP5+kgbciAwZPaHK6uWaNX9qTkquEWik6nRkhCNlDHlMfiIW
-	 G/NlpUUVVt6L/pfLZ0hNROYBpU7rPzlNF5afWzWIPbvXE8jfcsGv2Ly+/wRZSYClqMhpg
-	 6/4Id0r59YIrHeRsgU1BGg7X9QCIi6+WawIGBsXzwp2Spu+6AJjqbLWI8bh95tYSHUF1l
-	 v7JQeb2JX/fB2m/YMUPaxq4dR/wJmyy/C7J8RvqcKYHuAU0bMozK3RoS5tc6UKCFGrhHu
-	 0lHD8+EvLydJ9HEqTCNbw14WIHqT9eYMHK3mzzyC1wz/m5pEtZkgmJrWClJE+F/TgOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318110;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=I4NC7lUnuU3t6RdztBdinj8K1pbEHcL7U0ZmdoGloDc=;
+	b=Uz3hdBoECw7a96wcCxgab1RyIxW/pY1NM4APOmX95KsZtzSbE5oMp85QiYTx95NYP7bD
+	 ESB9wYbaxQsq8gtQCD+kCyF5Ny/W0wU3Xw0dETodaTklDEANzmxuhbdiaTnqZknJx1Mcf
+	 fMzcXmUtdTmD8nqSpcQMLXR2ukbowrCzPAwkbvp5kNAyocVxiCa78LtYHWTKOOjc50Eff
+	 itoDgvs/v2fYxwUFnyQmbddUiZcvcH0C41b33Jid1DJ9IIclK+SrP7VzLNB5IcforIcu1
+	 zF1a1OFe5CxyJ+heXUtW3gO0+HZyymvv5zKgxG8RhgrSSP8ST3/rIQMnb4iDTrVMchg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=oeAHCfdj;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99D2606A321;
-	Tue, 10 Nov 2026 13:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99D2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B35606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B35606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iW59M+8o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794318107; x=1825854107;
-  h=mime-version:content-transfer-encoding:date:message-id:
-   cc:from:to:subject:references:in-reply-to;
-  bh=c/J2BX5zYovG7XXcvnry2XAw/WRw3cFjhkZ9MkToNyk=;
-  b=iW59M+8oln9X+WWzxl0gG8aKrZSib7EeaX9KFoZN9Fsztq6VU6OmILYd
-   dNflNr2PUJ4ruZxMPNR1KHBdcxwZPHqo6GHW2wZyn8XUFsCHc99OJteVg
-   iMDaZUQJGjxxlnfRyaeZ3nbRKibkZKXYa0wSJQ09gstX4UTnuTfLKLeFG
-   udDwFnMDAMzHcKG5w4LG15Ulmn+eDVZt5B/QlzCiCjTZQ0STyT2qjixT+
-   IJRl2+UnZKpqjomchMUXJIALaWq1kdoe7SN34luaR9Kn7gbChKd+JJ7EC
-   BjZP43wW2Mvx+OpOVzHrunbms/VagrrcHStpu4Sw5t8cc3+QOlx0alaKc
-   w==;
-X-CSE-ConnectionGUID: 6uO7UKHWTY+5neRwOdB0yw==
-X-CSE-MsgGUID: O8hmv08iQbeHE26wbSZtlg==
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="76951348"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:41:41 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Tue, 10 Nov 2026 06:41:34 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Tue, 10 Nov 2026 06:41:33 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=oeAHCfdj
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=I4NC7lUnuU3t6RdztBdinj8K1pbEHcL7U0ZmdoGloDc=; b=oeAHCfdj9hG7nViqF+JtS5/7lQ
+	QoT12sD6vmUY/ZE9sui9TSDfrb6BQVp1vZEREFpVvQgaTQMMp9Cu2COr++Wfsv59Dn9s9R9ZknZ1t
+	LE+pF0DaTZHwk2hMFVcNL2loQTBJXbPi5n7j8wPeJ8KPut8tE6dTCgguC14gJv8BBfv4G7qpMDvBL
+	MTFiyR2OPquilVrno7NEXYvCj4jsWiHxTjgRpRWGcIxWgpANvBiEfk8xptaueQdgPmqbol7WjbcYw
+	383U56D1KEeBhQbLDKSpr2iY0c2jWlkTqyl8zDQQ7+7O6/BaY7G9pj9T4UePdS9DfovweVEwYsyBk
+	GL0EmQmg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQm6a-00CRbD-1T;
+	Tue, 10 Nov 2026 13:41:44 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 10 Nov 2026 05:37:32 -0800
+Subject: [PATCH] configfs: lock the group inode in
+ configfs_unregister_group()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,223 +63,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 10 Nov 2026 14:41:32 +0100
-Message-ID: <DMRKOG9MGJ12.7OG591B2X3XB@microchip.com>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <horms@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-To: Paolo Abeni <pabeni@redhat.com>, <jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9645X
-X-Mailer: aerc 0.21.0
-References: <20261103-dsa_lan9645x_switch_driver_base-v16-1-781c96d735cf@microchip.com> <20261110112810.235223-1-pabeni@redhat.com>
-In-Reply-To: <20261110112810.235223-1-pabeni@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-b4-configfs_unregister_lock-v1-1-040529e5c509@debian.org>
+X-B4-Tracking: v=1; b=H4sIACoe82oC/x3MUQqDMAwA0KuEfFuwnbjRq8gQrUkXJu1ItiGId
+ xd8B3g7GqmQYYQdlf5iUgtG8A1gek0lk5MFI2BoQ++9b93cuVQLS2Ybf0Upi31Jx7Wmt+uZpju
+ n5TGHGzaAHyWW7dqH53GcMd8Ur20AAAA=
+X-Change-ID: 20261110-b4-configfs_unregister_lock-6fea7fcd8b23
+To: Andreas Hindborg <a.hindborg@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Joel Becker <jlbec@evilplan.org>, 
+ Daniel Baluta <daniel.baluta@intel.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3487; i=leitao@debian.org;
+ h=from:subject:message-id; bh=lZy4YFtwcqYImJlydQp/C9CCDBO/2v8XFYbkoIpRTF0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8x8TNg7J8twYc8Nrs523cDHp1G9cQEEiW7fml
+ vlHcIim+pSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavMfEwAKCRA1o5Of/Hh3
+ bbRhD/9CbWmh+OEi5RRkcMfSEb2J/AiToqn53SZ0HZH9K+a7n7Pgyld+UPsJ8k3797E6ozjaEi8
+ EANUH4Mo/HX78dM1LpeK5GOO4pzGrC0oJuo24sH42Tu2/WAxE1vhUjXsEu2qxztsANP7qa7Mb6F
+ d6tBiojZJVW3KS90NM6u0eiPCJVwmYh0z2UiG/ftkFMEUSoousSYrRRdxTI3pfMQgOyn8iWG1jU
+ +x5hLpQB4MXWQ8aoqPQsXdzQmonUMGcUqptyheWQoMt/lYHnsTWshYuqPFH9aMzvhU+9UhzV1oH
+ FlRiHdxS5zC/tcZXK274HzO91etbb6pc+u+MrqPbgRZ/HktlArHAwj1X4Ls/Njzai1WN+Epm9sy
+ ZUnQuHxCJ8gi3tK83CLeApdeG55D+Mnb0Ikoo8gb/IvU6U4UFhRAgRS5oo48vnIhKmjy+ZbIqNd
+ cE98mjOg/0S3muRkxoyPnh+VaNG97OAOe49JTyP8aAxT1g0NdNll6uXsCbaOWQCMmCQj4cIx6Wi
+ nbCvmbCMJ0ipJoziSCzIO0Qoq2h898v63ea0760/ENvz9kFIWhPGzc4/wBRkKAT3A2cdGyuBKTP
+ 0Zji5Eb9KOFj/Mb7OfDH9jmm891G4W5fr77OwRb457JwRX20wIrCmMpEHeJdlA7gkVSuOsYYKU7
+ ruMvrIuDNuWhjrg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Tue Nov 10, 2026 at 12:28 PM CET, Paolo Abeni wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
-> ---
-> --- Patch [1]: [PATCH net-next v16 1/4] net: dsa: add tag driver for LAN9=
-645X ---
-> commit 9f0c74e8611a75335b66615c753e5ac04e4a4bc9
-> Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
-chip.com>
->
-> net: dsa: add tag driver for LAN9645X
->
-> This adds a DSA tag driver for the Microchip LAN9645x switch. It uses a
-> front port as an NPI CPU port, with a long prefix plus a 28 byte IFH on
-> extraction and a bare IFH on injection. On receive, the classified VID
-> popped by the rewriter is restored as a hwaccel C-tag. On transmit, a tag
-> with a non-zero VID is moved from the payload into the IFH.
->
->> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
->> new file mode 100644
->> index 0000000000000..9b373bac91e90
->> --- /dev/null
->> +++ b/net/dsa/tag_lan9645x.c
->> @@ -0,0 +1,513 @@
->
-> [ ... ]
->
->> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
->> +				     struct net_device *ndev)
->> +{
->
-> [ ... ]
->
->> +	qos_class =3D netdev_get_num_tc(ndev) ?
->> +		    netdev_get_prio_tc_map(ndev, skb->priority) :
->> +		    skb->priority;
->> +	qos_class =3D min_t(u32, qos_class, GENMASK(IFH_QOS_CLASS_SZ - 1, 0));
->> +
->> +	/* Make room for IFH */
->> +	ifh =3D skb_push(skb, LAN9645X_IFH_LEN_BYTES);
->> +	memset(ifh, 0, LAN9645X_IFH_LEN_BYTES);
->> +
->> +	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
->> +	lan9645x_ifh_set(ifh, tag_type, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ);
->> +	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
->> +	lan9645x_ifh_set(ifh, qos_class, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
->> +	lan9645x_ifh_set(ifh, BIT(dp->index), IFH_DSTS, IFH_DSTS_SZ);
->
-> [Severity: Medium]
-> [Finding: main-7-6]
-> [Sources: opus-5-5]
-> Should IFH_IPV be set here too?
->
-> The field table at the top of the file lists IFH_IPV (pos 48, width 3)
-> under "Extraction/Injection header". Nothing on the xmit path writes it,
-> so after the memset() it is 0 for every injected frame.
->
-> The commit message says LAN9645x is in the same family as lan966x, and th=
-e
-> IFH layouts are close (IFH_TCI is at bit 103 in both). lan966x_ifh.h
-> describes QOS_CLASS as "Classified internal priority for queuing" and IPV
-> as "Classified internal priority for resourcemgt, tagging etc".
-> lan966x_port_xmit() sets both of them:
->
-> drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_port_xmit()=
- {
->     ...
-> 	lan966x_ifh_set_qos_class(ifh, skb->priority >=3D 7 ? 0x7 : skb->priorit=
-y);
-> 	lan966x_ifh_set_ipv(ifh, skb->priority >=3D 7 ? 0x7 : skb->priority);
->     ...
-> }
->
-> The lan9645x switch driver in this series reserves buffers per
-> (port, prio) through QSYS_RES_CFG. If IPV stays at 0, would high priority
-> traffic injected from the CPU be queued by QOS_CLASS but charged against
-> the prio 0 reservation? Any tagging or mapping based on IPV would also
-> see priority 0.
->
-> Could IFH_IPV be set to the same clamped qos_class? If LAN9645x ignores
-> IPV on injection when BYPASS=3D1, could a comment say so?
->
+configfs_unregister_group() detaches a group and marks its directory
+S_DEAD while holding only the parent directory's inode lock. rmdir()
+and configfs_unregister_subsystem() also lock the directory itself,
+and configfs_detach_group() documents that its caller does.
 
-Correct. With IFH.BYPASS set the analyzer is skipped and the queue
-system takes the egress queue from IFH.IPV, so every injected frame was
-queued in queue 0. The next version sets IFH.IPV to the same clamped QoS
-class as IFH.QOS_CLASS.
+Operations inside the group depend on that lock. symlink(2) holds it
+once the VFS has checked that the directory is not dead, so
+configfs_symlink() expects configfs_get_config_item() to find the item.
+Racing it with configfs_unregister_group() breaks that:
 
-> [ ... ]
->
->> +	/* While we have REW_PORT_CFG_NO_REWRITE=3D0 on the NPI port, we still
->> +	 * disable port VLAN tag pushing with REW_TAG_CFG. A frame ingressing
->> +	 * on a vlan aware port, which is forwarded to the CPU, will not carry
->> +	 * vlan info in the frame data, because the tag is popped. The
->> +	 * classified VID is only communicated via the IFH, never in the
->> +	 * payload. We therefore restore it via hwaccel and must not pop an
->> +	 * in-band tag here.
->> +	 */
->> +	if (ifh_gap_len) {
->> +		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
->> +		 * reports. The classifier recognizes both TPIDs as VLAN tags,
->> +		 * so an S-tag has already been used for classification by the
->> +		 * time we get here. Restoring it as 802.1AD would make the
->> +		 * bridge push it back into the payload and reclassify the frame
->> +		 * to the port pvid, on a different VID than the one the
->> +		 * hardware forwarded it on.
->> +		 */
->> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
->
-> [Severity: Medium]
-> [Finding: main-1-1]
-> [Sources: opus-5-5]
-> Do lan9645x_xmit_get_vlan_info() and lan9645x_rcv() agree on which bridge
-> VLAN protocols are supported?
->
-> On xmit, the bridge TPID is read with br_vlan_get_proto(). An in-band tag
-> is stripped only when its TPID matches that protocol, and an S-type tag i=
-s
-> signalled for 802.1ad:
->
-> lan9645x_xmit_get_vlan_info() {
->     ...
-> 	br_vlan_get_proto(br, &proto);
->     ...
-> 		if (ntohs(hdr->h_vlan_proto) =3D=3D proto &&
-> 		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
->     ...
-> 	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> 					     LAN9645X_IFH_TAG_TYPE_C;
->     ...
-> }
->
-> On rcv, IFH_TAG_TYPE is never read, and the tag always comes back with
-> vlan_proto 0x8100.
->
-> With a VLAN-aware bridge set to vlan_protocol 802.1ad, br->vlan_proto is
-> 0x88a8. Wouldn't __allowed_ingress() in net/bridge/br_vlan.c then see a
-> protocol mismatch?
->
-> net/bridge/br_vlan.c:__allowed_ingress() {
->     ...
-> 	if (skb->vlan_proto !=3D br->vlan_proto) {
-> 		/* Protocol-mismatch, empty out vlan_tci for new tag */
->     ...
-> }
->
-> In that case the bridge pushes the tag back into the payload and puts the
-> frame on the port pvid. The comment above says the C-tag choice avoids
-> exactly this, but it only does so when br->vlan_proto is 802.1Q.
->
-> The commit message says:
->
->     This assumes a bridge vlan_protocol of
->     802.1Q, which is the only protocol the driver offloads.
->
-> Is that enforced anywhere? DSA has no handler for
-> SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. __br_vlan_set_proto() sends that
-> attribute with SWITCHDEV_F_SKIP_EOPNOTSUPP, so changing vlan_protocol to
-> 802.1ad on an offloaded bridge still succeeds.
->
-> If 802.1ad really is unsupported, the TAG_TYPE_S branch in xmit looks dea=
-d.
-> Otherwise, could rcv take the TPID from IFH TAG_TYPE or from the bridge
-> protocol? tag_ocelot.c does this in ocelot_rcv():
->
-> 	vlan_tpid =3D tag_type ? ETH_P_8021AD : ETH_P_8021Q;
->
-> At the end of this series the lan9645x switch driver does not implement
-> bridge join or program VLAN classification yet. So this path stays dorman=
-t
-> until bridge and VLAN offload is added, and the tagger is not changed lat=
-er
-> in the series.
->
+  CPU 1 (symlink into G)          CPU 2 (unregister G)
+  inode_lock(G)
+  may_create_dentry(G)
+    !IS_DEADDIR(G)
+                                  inode_lock(parent)
+                                  configfs_detach_group(G)
+                                    d_drop(G)
+                                  S_DEAD set on G
+  configfs_symlink(G)
+    configfs_get_config_item(G)
+      returns NULL
+    parent_item->ci_type
 
-Dismissed, intentional.
+  [    9.725911] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
+  [    9.726694] KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+  [    9.728710] RIP: 0010:configfs_symlink+0x132/0x820
+  [    9.734253] Call Trace:
+  [    9.735132]  vfs_symlink+0x25b/0x4b0
+  [    9.735379]  filename_symlinkat+0x11f/0x300
+  [    9.735637]  __se_sys_symlink+0x16e/0x410
+  [    9.735889]  do_syscall_64+0x141/0x440
 
-The driver will not support 802.1ad bridges. The hardware classifier
-treats both TPIDs as VLAN tags and the egress TPID follows the ingress
-tag type, so following the bridge vlan_protocol in rcv would hide one
-symptom without making 802.1ad work. On xmit the TPID is taken from the
-bridge because the stack picks the TPID of the frames it sends.
+A NULL check there would not be enough: the IS_DEADDIR() re-check that
+configfs_symlink() makes after its unlocked window is stale for the
+same reason, so ->allow_link() can run while the group is unlinked and
+freed.
 
-The bridge offload patches will reject joining a VLAN-aware bridge and
-enabling VLAN filtering when vlan_protocol is not 802.1Q. A later
-vlan_protocol change on a bridge that already filters is not seen by the
-driver, since DSA does not handle
-SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL. Rejecting it needs DSA to pass
-the attribute to drivers, which is independent of this series.
+pci-ep-cfs registers its controllers/<epc> groups with
+configfs_register_group(), gives them ->allow_link(), and frees them
+right after configfs_unregister_group() when the controller goes away.
 
->> +	}
->> +
->> +	return skb;
->> +}
->
-> [ ... ]
+Take the group's inode lock around the detach, as
+configfs_unregister_subsystem() does for the subsystem directory.
+mkdir(2), unlink(2) and rmdir(2) inside the group rely on the same lock
+and VFS checks, but only symlink(2) was tested.
 
-pw-bot: cr
+A test module that registers and unregisters a group with
+->allow_link() in a loop, raced with symlink(2) into the group, faults
+within a second without this change and ran clean for 191k cycles
+with it.
+
+Fixes: 5cf6a51e6062 ("configfs: allow dynamic group creation")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ fs/configfs/dir.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 7f4f448a6c66..c4f570686bd2 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -1822,6 +1822,7 @@ void configfs_unregister_group(struct config_group *group)
+ 	up_write(&frag->frag_sem);
+ 
+ 	inode_lock_nested(d_inode(parent), I_MUTEX_PARENT);
++	inode_lock_nested(d_inode(dentry), I_MUTEX_CHILD);
+ 	spin_lock(&configfs_dirent_lock);
+ 	configfs_detach_prep(sd, NULL);
+ 	spin_unlock(&configfs_dirent_lock);
+@@ -1829,6 +1830,7 @@ void configfs_unregister_group(struct config_group *group)
+ 	configfs_detach_group(dentry);
+ 	d_inode(dentry)->i_flags |= S_DEAD;
+ 	dont_mount(dentry);
++	inode_unlock(d_inode(dentry));
+ 	d_drop(dentry);
+ 	fsnotify_rmdir(d_inode(parent), dentry);
+ 	inode_unlock(d_inode(parent));
+
+---
+base-commit: b8dd3e40fe051c328e71632e3f88b4df5d03ffbe
+change-id: 20261110-b4-configfs_unregister_lock-6fea7fcd8b23
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
