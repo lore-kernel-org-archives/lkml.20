@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298736;
-	b=sisJvJmUm54ORmAK/UGZ9az1Nm7HRPy8fh7zCWtJeq8O8O5FF+iJdpsO5Fo8pncpmKaN
-	 5uodz7XzwsfSlEdmow/hKdo/MopCpZuIwMHiCYeQqRIaZPWFnEmlqc2gfhgwOgmI67oaD
-	 H153j0XvbfTU/9qCOa+PJW8xRZDK4VMbqc5lm6z3uBc/BVL5+0Ikk16xl9zlq/aXmdsJq
-	 6WCSGBHoXDxs4lrxbZFlPp6p3MaOhaLjMTNMiUVQ5mYBuIggKKRz0CKf18LKn0pwFyIzv
-	 TlKSvNIy75fwUXyhK5/3d+ZzhCWalea+5n8ltn/1Q0jhBCvJiVEuKPJtQ8Yv55wQnzg==
+	t=1794298731;
+	b=QEd88Ml1yPh5e26g+w51FdBM6atx+tvIZ8VCaFQf3P8Ht/Ozn1Ti7SlWh832kzAG6Oiu
+	 XVu+DqYdkUb+Tzk9y15/1rhIHyFkacWGSjWuKrK3mqSz2yYwKR9J5Nf7mgJ+M8vqPGg74
+	 tR/3yDIplh7AW262Ru2EfOlV1VS9eVPSUCz5KCURxWhZAGeOTjEgxy5d7plTBVzu+ooIX
+	 flFSgrbL0VKyfXAq1zNyppAd5ybbH9EaF2lfNDHG7uOgVLp1jm+74tpIdKhXAFq80rAAC
+	 6/KyR0BGb1aNXXzdHvyriix/n8gURgZQSKhLxlvClzS56IMdIdj7yGyUqyWPI7lmiEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=58OrtSXJfJJ8mejcrjyYFp3mmVgIIq4F94FhF2tk08c=;
-	b=qRUAeAFWjzCOMHs6J27/bu77EbXjHbtG32SbuOKcECd2MgVL0IVx7hwsDJvDw76l0rtx
-	 jwxDDraMx9KcDXCrCM++o2cxuzh7U+V00xj0aI9DCNRBBftem0xXKLeAMQNKer8ArJTxV
-	 IF5LbnBjK/LFpb8vy1yXAz4LS5HqEqLvn3FMj3jw8LsdGhWZA5c4oaiLkW1lUSc7HwSHm
-	 AWCXkXWx/95M4ScfxPwp2hBAfi7aAXx3xyBqK81pw2JOJwK+wqK8JeG5EePu9v+dOypqR
-	 PyOXLFrma263D28QK+yHxdBs+KItAXDeUUbvUODkVjAwya+qUyT8Q39Nahyxp7zFNkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298731;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=E1d0Y8AFs/r4KdEu5f8rkTIOQJWTjXuDjQHahzUaRu0=;
+	b=1ShgBswhkLaxSUO3wrEmu1/0iJMRzhkSR9zg/XvyHidmYx9LcjyaonBUXNfOFF4DMmXq
+	 D5P6XROBm6g7q3FIk5z0EAQQZnxa7Bx/2RLBZPNcWnlCK7m88petZXXjp1uQnPFaQGejl
+	 WhM4USkkc20q3RnG9WIlchx+4nP1V+kQoxBI+94IevE3K9FB2OBeBEsT7ERjY/A5av3Hc
+	 uikr5yrTyO6yCEGQpKcjMjXVu7z0JOdRqSN6AOn3mh5jOBonxp0l84G5An2q6Ux5D4Fo9
+	 jDDGeLqjs9623Iq52fQCmln0+WDJjMWyXyxWeLmN8Sf/cifKiv2opW61FQJfv/iZOkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MR5TWrXD;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cxnjTVUm;
+	arc=none smtp.remote-ip=95.215.58.160
+Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FB760A5BCB
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4FB760A5BCB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B035860A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:18:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B035860A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MR5TWrXD
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36dc4797082so245421eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:18:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794298735; x=1794903535; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=58OrtSXJfJJ8mejcrjyYFp3mmVgIIq4F94FhF2tk08c=;
-        b=MR5TWrXDVzQ9hyFthbIP5cF84DSwXDEFGfJ683BQYCimZsxgCWBrp5skzyRtOaU3QM
-         k2CCsur3nwZ2Y0fSTzKok1GdU0b3kNc+zIwDSJK2MUWt1QDRveaNnY60dLmuOF27NfqD
-         oT/+9CTbaESUshK8BMcjL2vWM0iBie39hIEKHPZU3UGc3msmbFqkLwEzMFrU61xDhxuZ
-         8zUmR2kboHyA/5Jf8aD8zc3qoBcxac/c0y2aRwJS+knLpoMpMOPKN7svAq8AQ/YjG3/j
-         18rCVDv6rdVdqiPOMTzuIy9+KFtGO2Eq6qzEhwVtLHd8D6MuapO12ihZKLZIxi35T4au
-         YMqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794298735; x=1794903535;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=58OrtSXJfJJ8mejcrjyYFp3mmVgIIq4F94FhF2tk08c=;
-        b=CAQ5NfFAxf8T2yrTGXOomwU7msWXxilimhQjBEW+kAZVrcFVFA5WqZSB60y/leXvLO
-         AlhtWbbD8bhH1tV5FgpjcV1GfYbCsrN0D4kjNRnNN3BVPGE6SFvDLnPUMpnXTumwV5F0
-         4HkcryfXheKwVAHxoALGV3hDTkQvgPabhMwkWn50kt9vC/zj5iDmv4ugo8FG7DE20lUb
-         U5S9QdzoJI7vDqAYJpcETgKSIGARBff9F6kD5ayttdnI2dOAron0zmIMQi4H6j9tioXb
-         q3XoBS3IXHB3mj97Aov2UUIGBy6ogFR8nd19LIDFlGl6V/J4P5jmlRI5dSer/q8zaa3h
-         XMMg==
-X-Forwarded-Encrypted: i=1; AL+hErGkQ8XkJXNtZ5lO6r1gwh5CZQefhM9CQovaWvui/M3qsvfQmSX4GWnb6QCteCdFfIPG4+sdALzq1c9NZuQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aiqfSx5ZIKi563B/yyy/N5dnYxDiA0RisZqkzICr2KpUWqkG1
-	nVu0Dn0Yo7E9HgWRSW7l558RByC6cTQIqKsYe7QGXwWgrkpe6h6Yek6dC3leRBRLx+g=
-X-Gm-Gg: AYBFou3/KjoRTrKW3vlYgKRXnBnW2/6xVQbXwUSNBt/rEWKMRVHabcqIXkpyRP0VfFF
-	w31L7vdEaAFmWq5MK6yTs/hDl7qLKwDE/2rI4RYhgtqEM/AEprRpeWsik48FeAFUX3tHeBOh/GC
-	XfDJwxsfypoEX7XPSWTSiG94qrlqsHivgfIunQWpwlyrLsO12XUnZXkDkitKrODxlusqI01wV3V
-	QuwZO2kv5yDF52Rg88ilKSx4PobfEnyEPuvT1NYVs9nwlLrGB2P2FgsHYbBrteabv1ULS2J2YSX
-	Te19E/qcseFM+1pwfEjT5A/0pXeGbTs035g2DKOWjdfWHqKNdXBl3ZuqKnM1pl420/zccHLrsWB
-	PcKbKYsRYsX58qmhZbDLMHcFycRFE7HMYR8I6Fbe8nGjaWFKNEcFMFib849A8nX0zG0KnYknzeX
-	VgIWa1ALNcBGXv8NNhYZ+HZikqg16/DURObLriIQh1Hl2NVt++XF+/WbPEn4dKgOqL0maXx8KfK
-	QCy8T9RLk+YyeUetgN+gFXJvYztst0AChTFXCYJdr7HWL+ZKPOuS33XOQDF4kgX8KVemCXhaGM5
-	0uNu04mT9UU9Qy4p71isonajidWJOqwIQV872Xm+0H/H0Cdr7L1ZWsj+BGtsqg==
-X-Received: by 2002:a05:701b:451c:20b0:1b2:5884:a039 with SMTP id a92af1059eb24-1b3b5e0f414mr4048117c88.0.1794298734256;
-        Tue, 10 Nov 2026 00:18:54 -0800 (PST)
-Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm5236759c88.12.2026.11.10.00.18.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:18:53 -0800 (PST)
-From: Jason Yang <jason98166@gmail.com>
-Date: Tue, 10 Nov 2026 16:18:12 +0800
-Subject: [PATCH v6 9/9] arm64: dts: rockchip: add the dcphy mipi csi-2
- receiver nodes to rk3588
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cxnjTVUm
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h51mbEgDokfWt7y+tgY8pofTmHxOpDVgA/1opxZbMyo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794298727; v=1; x=1794903527;
+ b=cxnjTVUmdHVcUhvJpuUA+nW3kqxyd4P/9C4F0Jj7hgtBZlifYvd4J2MJE99bI2UW/dWvjTW6
+ ItqYAv5IxGDuEMrOuNerEHfX+zNgCE2ftkWhfyji9oBfvs1wzBIkcVQt8irfISRCIKHpcg/vsbq
+ dfWRRflVyahj+ERw6RhPfhRw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ea234c83bdd75544;
+	Tue, 10 Nov 2026 08:18:47 +0000
+X-Mizu-Trace-ID: ea234c83bdd75544
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5a141006-e289-45db-a928-c3685eb377e9@linux.dev>
+Date: Tue, 10 Nov 2026 16:18:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,156 +58,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-dcphy-rx-v1-v6-9-d681ba20b36a@gmail.com>
-References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
-In-Reply-To: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Guochun Huang <hero.huang@rock-chips.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Michael Riesch <michael.riesch@collabora.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794298692; l=3896;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=NfZPZ3x823SqrJqo1CoKHOAuhoYjmEYwXc5QK1HOeNM=;
- b=hmXOPmwC6P7NZm1wuYkfSpLT35bn5qW1AqUnz9qTDNabhwPjQoByidKwphwUGq55w1I4/Xb87
- kvoSvUiZUAtBJMwkXmepyPTarxTVvUdwdUbhQH90NUZWEgoS8Tle6rP
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] cpuset: settle isolation state when CPUs are given
+ back to parent
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261107120100.3587595-1-ridong.chen@linux.dev>
+ <20261107120100.3587595-4-ridong.chen@linux.dev>
+ <09c033dd-41dc-4503-9def-4e662e946dc4@redhat.com>
+ <fe49691f-54d9-410e-9110-bf2522ab17e8@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <fe49691f-54d9-410e-9110-bf2522ab17e8@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The MIPI0 and MIPI1 receiver units are connected to MIPI DCPHY0 and
-MIPI DCPHY1, whose receiver side is now supported. Add the two nodes and
-wire them to the VICAP ports.
 
-The dsi nodes keep <&mipidcphy0 PHY_TYPE_DPHY>, the only value the
-binding had before the PHY receiver was added. PHY_TYPE_DPHY still
-selects the PHY transmitter in D-PHY mode. The csi nodes use the new
-PHY_DIRECTION_RX from the dt-bindings header. Neither phy node needs
-phy-type: the DSI host and the CSI-2 host both run the block in D-PHY
-mode, the default.
 
-There is an ABI break if the dsi and csi nodes use the new cell values:
-an older kernel ignores phy-type and takes any cell value as the mode of
-the block. A DSI node with PHY_DIRECTION_TX then gets no display, and a
-CSI-2 node with PHY_DIRECTION_RX gets no camera.
+在 2026/11/10 11:14, Ridong Chen 写道:
+> 
+> 
+> On 11/9/2026 10:51 PM, Waiman Long wrote:
+>> On 11/7/26 7:00 AM, Ridong Chen wrote:
+>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>
+>>> partition_xcpus_del() only updates isolated_cpus when the partition that
+>>> gives back the CPUs has a different state than its parent. CPUs that were
+>>> further distributed to descendant isolated partitions are not taken into
+>>> account, so isolated_cpus_release() has to be called afterwards in
+>>> several places to walk up the ancestors and fix isolated_cpus.
+>>>
+>>> Make partition_xcpus_del() always set the isolation state of the given
+>>> back CPUs to the state of the parent that receives them. As the
+>>> effective_xcpus of a partition covers the CPUs distributed to its
+>>> descendants, the isolation state of those CPUs is settled at the same
+>>> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
+>>>
+>>> compute_partition_effective_cpumask() invalidates a child partition
+>>> without going through partition_xcpus_del(), so do the same there: the
+>>> CPUs of the invalidated child take the isolation state of its parent.
+>>>
+>>> As the parent may be shrunk and its effective_xcpus not updated yet,
+>>> only do so for the CPUs the parent still owns. This is to keep the
+>>> isolation state correct for now, the in-place invalidation here will be
+>>> removed later in the partition rework.
+>>>
+>>> isolated_cpus_update() assumes the old and new states are different,
+>>> which no longer holds now that partition_xcpus_del() proceeds regardless
+>>> of the states. Drop its @old_prs argument and the WARN_ON_ONCE() so that
+>>> it simply sets the isolation state of the given CPUs, and use it
+>>> everywhere. The state check in partition_xcpus_add() is dropped as well,
+>>> as setting the state is a no-op when the states are the same.
+>>>
+>>> isolated_cpus_release() is no longer needed and is removed.
+>>>
+>>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>>> ---
+>>>   kernel/cgroup/cpuset.c | 98 ++++++++----------------------------------
+>>>   1 file changed, 19 insertions(+), 79 deletions(-)
+>>>
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> index 85e5b529d144..fc9de6e16ff5 100644
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -1244,17 +1244,17 @@ static bool isolated_cpu_update(int new_prs, int cpu)
+>>>   }
+>>>   /*
+>>> - * isolated_cpus_update - Update the isolated_cpus mask
+>>> - * @old_prs: old partition_root_state
+>>> - * @new_prs: new partition_root_state
+>>> - * @xcpus: exclusive CPUs with state change
+>>> + * isolated_cpus_update - Set the isolation state of @xcpus
+>>> + * @new_prs: partition root state that @xcpus will belong to
+>>> + * @xcpus: exclusive CPUs whose isolation state may change
+>>> + *
+>>> + * CPUs isolated at boot time are kept isolated.
+>>>    */
+>>> -static void isolated_cpus_update(int old_prs, int new_prs, struct cpumask *xcpus)
+>>> +static void isolated_cpus_update(int new_prs, struct cpumask *xcpus)
+>>>   {
+>>>       bool updated = false;
+>>>       int cpu;
+>>> -    WARN_ON_ONCE(old_prs == new_prs);
+>>>       lockdep_assert_held(&callback_lock);
+>>>       lockdep_assert_held(&cpuset_mutex);
+>>>       for_each_cpu(cpu, xcpus)
+>>> @@ -1263,45 +1263,6 @@ static void isolated_cpus_update(int old_prs, int new_prs, struct cpumask *xcpus
+>>>           update_housekeeping = true;
+>>>   }
+>>> -/*
+>>> - * isolated_cpus_release - Remove the relevant CPUs in @xcpus from isolated_cpus
+>>> - * @cs: the current cpuset
+>>> - * @xcpus: the set of effective xcpus to be considered for removal
+>>> - *
+>>> - * This function is called when an isolated partition is invalidated or when
+>>> - * some of its effective xcpus are to be removed from isolated_cpus due to
+>>> - * changes in parent cpuset. The given @xcpus must be modifiable as the function
+>>> - * will update its value to determine the right set of CPUs to be removed.
+>>> - */
+>>> -static void isolated_cpus_release(struct cpuset *cs, struct cpumask *xcpus)
+>>> -{
+>>> -    struct cpuset *ancestor = parent_cs(cs);
+>>> -    struct cpuset *iancestor = NULL;
+>>> -
+>>> -    /*
+>>> -     * Search the furthest isolated partition root ancestor available
+>>> -     * until top_cpuset or a remote partition root is hit.
+>>> -     */
+>>> -    for (; ancestor; ancestor = parent_cs(ancestor)) {
+>>> -        if (ancestor->partition_root_state == PRS_ISOLATED)
+>>> -            iancestor = ancestor;
+>>> -        if (is_remote_partition(ancestor))
+>>> -            break;
+>>> -    }
+>>> -
+>>> -    /*
+>>> -     * If a furthest isolated partition acnestor is found, use it to
+>>> -     * determine which of the CPUs in @xcpus should be removed from
+>>> -     * isolated_cpus. Otherwise, all of them will be removed.
+>>> -     */
+>>> -    if (iancestor && !cpumask_andnot(xcpus, xcpus, iancestor->effective_xcpus))
+>>> -        return; /* No CPU should be removed from isolated_cpus */
+>>> -
+>>> -    spin_lock_irq(&callback_lock);
+>>> -    isolated_cpus_update(PRS_ISOLATED, PRS_ROOT, xcpus);
+>>> -    spin_unlock_irq(&callback_lock);
+>>> -}
+>>> -
+>>>   /*
+>>>    * partition_xcpus_add - Add new exclusive CPUs to partition
+>>>    * @new_prs: new partition_root_state
+>>> @@ -1325,9 +1286,7 @@ static void partition_xcpus_add(int new_prs, struct cpuset *parent,
+>>>       if (parent == &top_cpuset)
+>>>           cpumask_or(subpartitions_cpus, subpartitions_cpus, xcpus);
+>>> -    if (new_prs != parent->partition_root_state)
+>>> -        isolated_cpus_update(parent->partition_root_state, new_prs,
+>>> -                     xcpus);
+>>> +    isolated_cpus_update(new_prs, xcpus);
+>>>       cpumask_andnot(parent->effective_cpus, parent->effective_cpus, xcpus);
+>>>   }
+>>> @@ -1355,9 +1314,8 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
+>>>       if (parent == &top_cpuset)
+>>>           cpumask_andnot(subpartitions_cpus, subpartitions_cpus, xcpus);
+>>> -    if (old_prs != parent->partition_root_state)
+>>> -        isolated_cpus_update(old_prs, parent->partition_root_state,
+>>> -                     xcpus);
+>>> +    /* CPUs given back, including those of descendants, take parent's state */
+>>> +    isolated_cpus_update(parent->partition_root_state, xcpus);
+>>>       cpumask_or(parent->effective_cpus, parent->effective_cpus, xcpus);
+>>>       cpumask_and(parent->effective_cpus, parent->effective_cpus, cpu_active_mask);
+>>> @@ -1612,6 +1570,7 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+>>>       struct cgroup_subsys_state *css;
+>>>       struct cpuset *child;
+>>>       bool populated = partition_is_populated(cs, NULL);
+>>> +    static cpumask_t xcpus;        /* Protected by cpuset_mutex */
+>>>       /*
+>>>        * Check child partition roots to see if they should be invalidated
+>>> @@ -1640,14 +1599,15 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+>>>               int parent_prs = cs->partition_root_state;
+>>>               /*
+>>> -             * Invalidate child partition and update isolated_cpus
+>>> -             * if necessary.
+>>> +             * Invalidate child partition. Its CPUs still owned by
+>>> +             * cs take the isolation state of cs. effective_xcpus
+>>> +             * of cs may not be updated yet, so recompute it.
+>>>                */
+>>>               spin_lock_irq(&callback_lock);
+>>>               WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+>>> -            if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
+>>> -                isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
+>>> -                             child->effective_xcpus);
+>>> +            compute_excpus(cs, &xcpus);
+>>> +            cpumask_and(&xcpus, &xcpus, child->effective_xcpus);
+>>> +            isolated_cpus_update(parent_prs, &xcpus);
+>>>               child->partition_root_state = -old_prs;
+>>>               spin_unlock_irq(&callback_lock);
+>>>               notify_partition_change(child, old_prs);
+>>> @@ -2080,22 +2040,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>>            *
+>>>            * A partition error happens when parent has tasks and all
+>>>            * its effective CPUs will have to be distributed out.
+>>> -         *
+>>> -         * For an isolated partition with a shrunk root partition parent
+>>> -         * we may need to return some or all of its isolated CPUs.
+>>>            */
+>>>           nocpu |= cpumask_empty(tmp->delmask);
+>>> -        if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
+>>> -            cpumask_clear(tmp->addmask);
+>>> -            if (nocpu)
+>>> -                cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>>> -            else if (!cpumask_subset(cs->effective_xcpus, parent- >effective_xcpus))
+>>> -                cpumask_andnot(tmp->addmask, cs->effective_xcpus,
+>>> -                                 parent->effective_xcpus);
+>>> -            if (!cpumask_empty(tmp->addmask))
+>>> -                isolated_cpus_release(cs, tmp->addmask);
+>>> -            /* Expansion of parent's effective_xcpus is handled below */
+>>> -        }
+>>>           if (nocpu) {
+>>>               part_error = PERR_NOCPUS;
+>>>               if (is_partition_valid(cs))
+>>> @@ -2341,18 +2287,12 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>>>                   /*
+>>>                    * When parent is not a valid partition root,
+>>>                    * child partition roots become invalid too.
+>>> -                 *
+>>> -                 * For a to be invalidated isolated partition,
+>>> -                 * call return_isolated_cpus() to remove the
+>>> -                 * relevant CPUs from isolated_cpus.
+>>> +                 * The isolation state of their CPUs has been
+>>> +                 * settled when the parent gave them back.
+>>>                    */
+>>>                   if (is_partition_valid(cp))
+>>>                       new_prs = -old_prs;
+>>> -                if (old_prs == PRS_ISOLATED) {
+>>> -                    cpumask_copy(tmp->delmask, cp->effective_xcpus);
+>>> -                    isolated_cpus_release(cp, tmp->delmask);
+>>> -                }
+>>>                   WRITE_ONCE(cp->prs_err,
+>>>                          is_partition_invalid(parent)
+>>>                          ? PERR_INVPARENT : PERR_NOTPART);
+>>> @@ -3108,7 +3048,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>>>       if (!is_partition_valid(cs))
+>>>           reset_partition_data(cs);
+>>>       else if (isolcpus_updated)
+>>> -        isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
+>>> +        isolated_cpus_update(new_prs, cs->effective_xcpus);
+>>>       spin_unlock_irq(&callback_lock);
+>>>       /* Force update if partition is disabled & update effective_xcpus */
+>>
+>> The code change looks good to me. However this is not just a code restructuring, it also includes a bug fix. I wonder if we should clarify that and maybe add a Fixes tag.
+>>
+> Hi Longman,
+> 
+> Thanks for the review. You are right, it also fixes the isolated CPU
+> leak reported by Guopeng [1]. When a root partition with an isolated
+> child partition is invalidated, partition_xcpus_del() gives the CPUs
+> back to the parent without updating isolated_cpus as both are root
+> partitions, so the CPUs of the isolated child are left in
+> isolated_cpus.
+> 
+> I'd like to describe it in the commit message and add the following
+> tags in the next version:
+> 
+> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+> Reported-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> Closes: https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
+> 
+> Does that look OK to you?
+> 
+> [1] https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
+> 
+Hi Ridong,
 
-To keep the ABI break small, the dsi nodes keep PHY_TYPE_DPHY, which
-older and newer kernels both accept. With the csi nodes disabled, the
-display therefore keeps working on either kernel.
+Since I've dropped my patch, I haven't added the reproducer to the selftests separately. If it's convenient, could you also include it in test_cpuset_prs.sh in v4?
 
-The csi nodes have no older value to keep and have to use
-PHY_DIRECTION_RX. Enabling csi0 or csi1 therefore needs a PHY driver
-with receiver support. Since v7.0, a CSI-2 host driver probes the csi
-nodes. An older PHY driver then gives the CSI-2 host the PHY transmitter
-that drives the display. The camera gets no frames, and the display can
-stop working as well.
-
-Signed-off-by: Jason Yang <jason98166@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 68 +++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..c7174c2f15c3 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1516,10 +1516,18 @@ vicap_dvp: port@0 {
- 
- 			vicap_mipi0: port@1 {
- 				reg = <0x1>;
-+
-+				vicap_mipi0_input: endpoint {
-+					remote-endpoint = <&csi0_output>;
-+				};
- 			};
- 
- 			vicap_mipi1: port@2 {
- 				reg = <0x2>;
-+
-+				vicap_mipi1_input: endpoint {
-+					remote-endpoint = <&csi1_output>;
-+				};
- 			};
- 
- 			vicap_mipi2: port@3 {
-@@ -1568,6 +1576,66 @@ vicap_mmu: iommu@fdce0800 {
- 		status = "disabled";
- 	};
- 
-+	csi0: csi@fdd10000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd10000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_0>;
-+		phys = <&mipidcphy0 PHY_DIRECTION_RX>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_0>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi0_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi0_out: port@1 {
-+				reg = <1>;
-+
-+				csi0_output: endpoint {
-+					remote-endpoint = <&vicap_mipi0_input>;
-+				};
-+			};
-+		};
-+	};
-+
-+	csi1: csi@fdd20000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd20000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_1>;
-+		phys = <&mipidcphy1 PHY_DIRECTION_RX>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_1>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi1_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi1_out: port@1 {
-+				reg = <1>;
-+
-+				csi1_output: endpoint {
-+					remote-endpoint = <&vicap_mipi1_input>;
-+				};
-+			};
-+		};
-+	};
-+
- 	csi2: csi@fdd30000 {
- 		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
- 		reg = <0x0 0xfdd30000 0x0 0x10000>;
-
--- 
-2.43.0
-
+Thanks，
+Guopeng
