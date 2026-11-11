@@ -1,71 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386529;
-	b=okPe3tUnDEmQhhEBVqCWUknlt8qOmskbCBQwfEffRJOl9DAxJ68YlpuRiDQ0B5oTWzmk
-	 J0/9TDzz+V1fOx4Kf/W6YEcBl02J9opfHG7hAyUOSUK4YCDPNFXsxJwUVB8ht+Wwcd5xC
-	 pmlJ7g7OLVyPYwEFnrsIP899CgMSV2F6pqevOg0bzhfpRCYYfhZuQ4OmuvwuRZ+DGp9IA
-	 McFIB+/9lczeQBWj4gAdLRc8ELomifpbCxtlJCDqGwsu8rHrMXHqRzDcV2BecysN3eMpS
-	 x5GCyWuOjNwOmdqFAlPDecmyTg4JptEEIK3w99YQXSCFIyQlGHYzQBpEIWzZaKYQLOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386529;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6ne6roaEV/RhWN6heK6JAW4EAyY6eRh4+UTmgKxS2xQ=;
-	b=tm84ZIZHeCV5SGS9Pq+aI535DdhcCdxLrUOIge2H0tfNDJ46yqEj0A1ArV+s+C7v1lOh
-	 8BTDSjFpxda9Hzu7v2NoABkHR755/00IB9EkR+PqvYIfbol0FuweUpUDnRlTp16KQ9kWn
-	 oVeaaJTrC9MM5tBSlKNVZAIf5GWQ81hL235BeonRU8Cd25LitXpvRVW2l4TEU9St2KSdB
-	 cTYaZjB05sIqyXscc2e9P9JUtYjFZjiP92P1Xd2XhtvJLb+wg/8m/Hiv2TQyH92ZKPsCi
-	 hIMARe7kOD4pVO8xNn9MBljEAkDqyn7UtnsCmb0wJ5lh7Bws9xeOmGD9gu6vGQ6l4nw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=jLw1kKQn;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2451E606A338;
-	Wed, 11 Nov 2026 08:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2451E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794386553;
+	b=ctz+PMt+JNW4xsJkRKra7XbqmPIl6H5ZiIBckFPjmLa+xpD20q+VPbeQGcjMo9qF6w5D
+	 9pKjn721lIQMX2O//c2roWT2QdAn8kk1s4OFPZ1rXBbQK2Ir1O6/3fXfcc6TVLM5NtAUy
+	 mnwi2VvI5ID60rHbKGnW12uD7HfOHSbPJQd/CP5fwYG7buAJtrXKlXnsZabG4zPRKsHLH
+	 X8QSp/qnMUOnEbHV1h7W8UivKPiKvGKvwmzzwbrtub+OoHRdgWG9rEUSBtb3aBe7872E5
+	 a2KzCGuyhVKWZ5kEGIZfZjKLWDuhtn1/dQtdkLAyIdIi/ynYtKDZ/Ym5fBhNCpsF7ig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386553;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=FatHv7+69U0p39FN6pTtTDmbk9zN2SKWKr2RLPiY94k=;
+	b=c3kqkx0PIuCGXkW9F4/WW0yqFJuvayTC1r31HshHL3i9t0jxaZ9UL91gxkVj0SQwQvli
+	 WXl3Jawj00MEMoZCh05kmlfKPcVzttY1wkmRjGxgSe/YAEs6IAo1etPaexKjt5oPcxbLG
+	 GAd0UZROarI33wWZY9KthkOrHeF9KqE5e0NjJC97W8LMSgfSFRcqskWIOmZDM6ODyLNfm
+	 iF+tTK3GHqiEgnEtf+ow3ctudSi+9+RwkngEcz9j8qWR+qXLouD8UL3DKlmqVLEv9exHM
+	 LDRk6P7RdUupVPJrS1uJ4j2kUAcbUXXCpqrJvzfVd2QPgYIu8TwxEcGRscCAftVN9Hg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DOYfmNx3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.44
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B113606A327;
+	Wed, 11 Nov 2026 08:42:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B113606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=jLw1kKQn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=jLw1kKQnWdtnbsc3Lag6qkbq3XK5BwnAzRiy1q0o6KojkCVMtM+iXGfqBvIx2wWv0u1mBmhCG5kYg
-	 X2tqaTRUpnsWQbZIVVxhqapEErI/TdVQALTRx6bayDL8M1KYYJl3S6Kj9Q7Mrzd95QHXL1s+kkmHA3
-	 6TCc/IIS/Ci0mRlM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af42a5f02d-d7972;
-	Wed, 11 Nov 2026 16:42:07 +0800 (CST)
-X-RM-TRANSID:2ee76af42a5f02d-d7972
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af42a5c326-d5536;
-	Wed, 11 Nov 2026 16:42:07 +0800 (CST)
-X-RM-TRANSID:2eea6af42a5c326-d5536
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: akpm@linux-foundation.org
-Cc: vbabka@kernel.org,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+212c2d1f47994035cf7f@syzkaller.appspotmail.com,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] mm/compaction: Mark concurrent compact_considered accesses
-Date: Wed, 11 Nov 2026 16:42:05 +0800
-Message-ID: <20261111084205.80997-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DOYfmNx3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fc5NOJulnIQjjWxs19DYGz+htPn18gd5T3hwjVn3JLAEg/0RQvRcSzgaPzggwanMwb/DUUndVSdRJdg2zzFZabMyheoc1IlHN6gA9Gr1hr1vz1zUxCI+fDcMIb+K07ij7ugPRo84Mz6uVbbQk/VsevoXety5juZ/8nqVJMi7cNMefrRU5Rzm1Zh3lT5gwnr4uvV5xBvVrAQS6Ah2TuCReoHmjkLlxddmGaNlBs26pJMHRiz+PVelHBljSaAyNLhusf2bINeSWwlSbzQqNoGwRVmgsd6ah1kc5/q0tAdGNkEZOH6AKptQv7FpE5F+VSDg72JRNvGIE8rd5hDZYupViw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FatHv7+69U0p39FN6pTtTDmbk9zN2SKWKr2RLPiY94k=;
+ b=CxKnG3mqD+9C2aDowYx1L42+echv3WluSFKOerEvZSau3AR5RffGWr9iqHFLahMAhcmH8C3v/O1HwZjJi0/y3tS9b2MM2DT/13lnNo31anfAU59rkt2ID+FqLuDd0SEiRZJVum9oMPw4btYHl7XG9Mswo6DCqOGJ1HxOYkvewU5jXsEfNBFf+c5/mav4hIyU/eYozeObnjr/5pzRmzxV5hp1f9+MKIj4Z5q6ymlB4UpcsSN4Yj1Cc/QTC17kMD42lPBhM7zEg41A//AXObekeSYBynnhfzk+pnF+hSqDzjBo/2Bdu48HEbQwc/o/I7UrkuWXlZywCUtm7AlEVZEJPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FatHv7+69U0p39FN6pTtTDmbk9zN2SKWKr2RLPiY94k=;
+ b=DOYfmNx3JmFLQmDrBkZ6AD690f3kAY00FXlht9u5aawQf54afvPA+n0P7HvYg2CtCVwfmOtvO+wIkqeelaeHsxrtGNsNbr9+WBiAAKJsUU4VLVxkmKn4Nt1b/1icUyZWop7EQtuy17HsKeq/3EGpgHuyfSbiY2tE1fM3VCcJH0TvwWuE9I/1OgzMECYVV3Isp0/SW0aSpuiVTKt+0uZ8G53J6JwoirnR4mnCOWpLnemtipl1sTzoXt49FVrrN9Bf/SC3eu1D/6t9TMLG9eTXeglBd4kljMsBq6h9x57CUY1JaNA0JGWXsC7Cdcbmr4s57/PkQBbokB6g3Qk8TUUutQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
+ by PAXPR04MB8270.eurprd04.prod.outlook.com (2603:10a6:102:1c7::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 08:42:28 +0000
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
+ 08:42:27 +0000
+Message-ID: <731ae75d-26a2-4660-83f4-501eb11b200c@oss.nxp.com>
+Date: Wed, 11 Nov 2026 10:46:11 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] dt-bindings: arm: fsl: Add byteENGINE i.MX93
+ platforms
+To: Frank Obergfell <frank.obergfell@bytesatwork.ch>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, Fabio Estevam
+ <festevam@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexander Forsch <alexander.forsch@bytesatwork.ch>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261111081150.950272-1-frank.obergfell@bytesatwork.ch>
+ <20261111081150.950272-5-frank.obergfell@bytesatwork.ch>
+Content-Language: en-US
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20261111081150.950272-5-frank.obergfell@bytesatwork.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM8P191CA0029.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21a::34) To GVXPR04MB12316.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c6::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,91 +111,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|PAXPR04MB8270:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc9ad4da-dbc1-41da-6f6c-08df3fcfb6ef
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|19092799006|56012099006|10067099003|921020|11063799006|4143699003|261022075727099003|261026121527099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9FDfn5uUH4oAc+8Z9UbkvDBWmiVwtSV/BnlciGy6hUdL48kEZB1J1AiwChzSE+usmIMXykbf4SeCZmc8nIGLOYi4W1+FixY379GnpYSyT2QK3ZjQ5SC4XX4DAhCXCiWwikOsIN1asYQG3qxW8b6gyUDGkXaqHfeCQ9H0Z0iZ9C/w4f7LuUZFVceOqt7Z6/Qalr+rpVPVLjUhr1oXopodDwtArHh2thiBUQ2ywK1DGfJOq5nEkpKPPPMs3H0bt8BUFRjCQMDKSqYniqFMWm1uxE//85BCbguy9H9OUQ9Va1E1bxImCFd7JY3LO6Vyrgf7xZAJGc4YzuVoan6bi/TumynZ842g1TSk6smfWDXJir4aq3yV5O2n/ZisucKjYJQrR+5S14/RGCbE91/XourQblWsBHhoL86+Wde0oRkLUs2qXlG5iMF1s02LCDDGxPbBv/xmi7GZDPk62nJE5+zV57+tpYLsCLvmNfS19Up+Srhhm4po/k8D/jgN8z6sfOu4GXSNtg2Fk7w3hPduIpXRygevf/ao/6+ZM0T8tz/sctAqrzP7kajE8N7qFACRLzZ2LPlOOswTK9sKLGVbI4zTzLw+D+eY6FeOwNd4yLP5vyQ/c83Y1vmq0NcO9Kov8YuPtRvvwcLMq/xlS9P9GmQlgVBBsTVauKT+7sHHy/mSyns+moI+GzoGhnhxBM+PbZfPxMGOCExRfcDkMBxuwzRS6w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(19092799006)(56012099006)(10067099003)(921020)(11063799006)(4143699003)(261022075727099003)(261026121527099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dGNmNktQejFMdDkyMTBONkpyYnYzL1lOajRaRFZmU29sWHVNM2E1TndaUTVp?=
+ =?utf-8?B?Q08vNktSNDgvSjVPUmxYbDh0N0dybGI3anNjeGRQb2Q4UzQxbGl1clVHa0Vi?=
+ =?utf-8?B?dDl4M09Vd2lCaTZDeVB3SWxBTElpcjNoMkdSMGdpOUpvK3g5cXpDSmVONGxT?=
+ =?utf-8?B?Slh5V3JSQnRQYkYxTUcwNVp0Wm5rOXlwM3M0cG9VNFZqUHVwVjdLalJuaHZj?=
+ =?utf-8?B?TjZhb2pVcS9oeXIyM3JnVmo1TlpLZGE5NWVTV2tUTXBxN3FMWG9KemU5N0t0?=
+ =?utf-8?B?RTQ3SGtHN2g3d3RCWFNhODJBTW9XVjJGUkRTM1E0Y08ydnYrT1dHb01pbWpK?=
+ =?utf-8?B?b2IrVllnTnBXeWhyekxldEpkTU0vL016TzVnaWVMRWw3RzdPbEQ1alZHZWFv?=
+ =?utf-8?B?d0x5WUdzMUJOckZPcXluQlRNS1p2Q0hEZnFlbytqODFKb1QvWVhMcFU1MC9y?=
+ =?utf-8?B?T1lleHZBRWxiRkYwdkVNaHFUdEZLQTBUak02ZWt3Q1JMVDJhM3ovek1aYTdo?=
+ =?utf-8?B?Zk9UeUhja3dnSEJRNHQ3ZHh4NEp4clNIYXBqenV5ckdnbU1vL09Gd2FQRVRO?=
+ =?utf-8?B?UEs4YVpYcmtIa0YwdTI3ZjdOV3VpbmlNeXJOeXEzSEZST2ZJNnZ4K1N2bjBt?=
+ =?utf-8?B?Zmo0VHhDWUI1ZUhhRU9ZODUrWXVobzBsMFg0RmtoVVFpT0JNZUtjM1pZZFdm?=
+ =?utf-8?B?cVp0Tmt3RnZKYy9qeDZpVy80MU90ZXhRYzdJcU1lMmFCaHRsbm5ZcVRPRURH?=
+ =?utf-8?B?UWFLQ0xaOGdvK0krRG1HWXJ1cWgwR3g0b1dBZ2Z0anpZVDE4Vld3MG8rZjVI?=
+ =?utf-8?B?V1FYQVd5TldNbGZXTjNVSXkrOUJpamJITE9UUGtvNnN2ck94K0lrRmZnRnRh?=
+ =?utf-8?B?ZmRCS00yQy9xQ1Y2d25EbmEyRlJUQ3JRRFVFR2hyQ2lqVDI2aUlJa2hkNjZO?=
+ =?utf-8?B?dit5Ull2d09oZ2Nxb2VSWktaeGNlS2FoekJyMjhORHdDdnBmVzl5ZXlaMWky?=
+ =?utf-8?B?ZjdnUk5oMUdxdUFUUzlGczVzaGdwT0Q1cVBTZWxpMFQyRytwMjdEVjRpZVh4?=
+ =?utf-8?B?MUh4V0pzTUlNd2lqVzQ4ekJIeS93d2RTKy90VHoxa3ZnN1BvanZMVW9hNkVS?=
+ =?utf-8?B?cURodWUrRjhCaEc0Y1JoamdDQ1NpaWNHcTUxSk1pWk5taFBZODRDT3o1N1dY?=
+ =?utf-8?B?eXg3bDhJcHIyNHRWK2orMi9yMWZ3M1hCUWUxRjRSdVRpMTdBRkM3VU5kRjBM?=
+ =?utf-8?B?NDZWb1pVNXFySXlYTWVqalgxTjJVMjRyTkczRUE5VE5oUUx3clNXS3Ztb2FV?=
+ =?utf-8?B?YURVNm1UWnh5QVBlYU52NCtzK3pLZStzYWFCaTVBWE1zT2pYM2xqMzFnV2RX?=
+ =?utf-8?B?clAzenVXbkxkR1ZVYkxKTlFkaGhTeXl1M2taWWk1NUR0djZ3K3lscXU1cVNy?=
+ =?utf-8?B?ZVQxUCtDOHVBZGxRbGMvVG9XUG82OElMTnp6YlFGK2lleVhXYTI0aHAyT25w?=
+ =?utf-8?B?TGNGQTZmdVd0Z3BPYTRDeGJLeEd4K01aUXQ0KzQvMm9EZTUwbW9hcVlMbzlC?=
+ =?utf-8?B?R0VsbHVReXR1Q2Z4N3R4ZDdmdzdVUHVrcFI3OHNraWVBWm9WQXk3V2YyQlV1?=
+ =?utf-8?B?aVpBckxZWUkvdjE1SHlxNlg1d1RRbkZVS1NGMnhxNTU3aDJoUHZpeWhMSkdz?=
+ =?utf-8?B?RE5HZWFXOHRldWRqU0FCdS9uMVNkaUdtei9WRGk1d282ZnIzQ0JwUk9kWmJH?=
+ =?utf-8?B?V0FYZXpkcUdJRUJEaXpMV091blc3QlgzQlp3c2dFWnlKVmM0bWl2TlpkUXN0?=
+ =?utf-8?B?SnozaHlWcURYSngwUFptQkRVOHBiT2ZMSU1TdTI3Ui9KWkVmSXhsM0x2dXZt?=
+ =?utf-8?B?MVN4d0FJbjdHc3dLWW1TSXh0V3d1akIwMlZYZmxZQTUxY0RkZEgrT1ZSamUw?=
+ =?utf-8?B?ZFpMcnJSakVzZ1F3MjY1QktGaXQwNU1yYWxIYm9jZ3FNR2E3WEtnSnNFYmQ0?=
+ =?utf-8?B?ZjUwVUZnYURtU2tCTFhZcDBSMjRqTDNPUExyVVE3amdqK3QvU2dwQlR6cmtw?=
+ =?utf-8?B?RWMzMEtFR3VrbHFvaFlhTmFjRDBwNTNXYWpxU0NQS3dySGIzbkJxL25jRVll?=
+ =?utf-8?B?c0VLM1huSUxCUzBMYWFRUk1yTDdlaUxOTkJybTdUUVhxMUFNa1FONkZrWm9j?=
+ =?utf-8?B?OG5ucXVVeHBWTlJsNUhRTDBFTFk2Vmx6WmNOMHNBVnh5ZGw1WkNGbTRLTy9p?=
+ =?utf-8?B?cnNSUHFrTE4wekFmZUNkUnBFemhldUgrSGVUSHpJUVhGWUdmQmpTNkFnUGpq?=
+ =?utf-8?B?NEpFaXBuOWJnQmNWbnI2eHBFc1dIaWlERjd6RlVqaUYvZU5PREc1UT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc9ad4da-dbc1-41da-6f6c-08df3fcfb6ef
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:42:27.1184
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /LcXIej/IL3+pVITcI5rWVjp2HqF++sXjN/rZKT1xVBtXD1ZsaPRjMqg+RIcKhQZQnzoDoXu6/73oRbzgJ0d+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8270
 
-Direct compaction and kcompactd update compact_considered without a
-common lock. KCSAN reports the plain increment racing with a reset.
-This counter is an approximate backoff heuristic and already permits
-concurrent increments to be lost.
+On 11/11/26 10:11, Frank Obergfell wrote:
+> Document the vendor prefix for bytesatwork AG and add the compatible
+> strings for the byteENGINE i.MX93 System on Module (SoM) on the
+> byteDEVKIT carrier board.
+> 
+> Signed-off-by: Frank Obergfell <frank.obergfell@bytesatwork.ch>
 
-Use a local snapshot for the saturating increment and mark all shared
-loads and stores, including the tracepoint snapshot. Preserve the
-existing saturation limit and deferral decisions.
-
-Fixes: 4f92e2586b43 ("mm: compaction: defer compaction using an exponential backoff when compaction fails")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
- include/trace/events/compaction.h |  2 +-
- mm/compaction.c                   | 15 ++++++++-------
- 2 files changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/include/trace/events/compaction.h b/include/trace/events/compaction.h
-index d05759d18538..42303a4835f5 100644
---- a/include/trace/events/compaction.h
-+++ b/include/trace/events/compaction.h
-@@ -255,7 +255,7 @@ DECLARE_EVENT_CLASS(mm_compaction_defer_template,
- 		__entry->nid = zone_to_nid(zone);
- 		__entry->idx = zone_idx(zone);
- 		__entry->order = order;
--		__entry->considered = zone->compact_considered;
-+		__entry->considered = READ_ONCE(zone->compact_considered);
- 		__entry->defer_shift = zone->compact_defer_shift;
- 		__entry->order_failed = zone->compact_order_failed;
- 	),
-diff --git a/mm/compaction.c b/mm/compaction.c
-index f1b2060eb201..04b93d3545af 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -126,7 +126,7 @@ static unsigned long release_free_list(struct list_head *freepages)
-  */
- static void defer_compaction(struct zone *zone, int order)
- {
--	zone->compact_considered = 0;
-+	WRITE_ONCE(zone->compact_considered, 0);
- 	zone->compact_defer_shift++;
- 
- 	if (order < zone->compact_order_failed)
-@@ -142,15 +142,16 @@ static void defer_compaction(struct zone *zone, int order)
- static bool compaction_deferred(struct zone *zone, int order)
- {
- 	unsigned long defer_limit = 1UL << zone->compact_defer_shift;
-+	unsigned long considered;
- 
- 	if (order < zone->compact_order_failed)
- 		return false;
- 
--	/* Avoid possible overflow */
--	if (++zone->compact_considered >= defer_limit) {
--		zone->compact_considered = defer_limit;
-+	/* This is a heuristic; concurrent updates may be lost. */
-+	considered = READ_ONCE(zone->compact_considered) + 1;
-+	WRITE_ONCE(zone->compact_considered, min(considered, defer_limit));
-+	if (considered >= defer_limit)
- 		return false;
--	}
- 
- 	trace_mm_compaction_deferred(zone, order);
- 
-@@ -166,7 +167,7 @@ void compaction_defer_reset(struct zone *zone, int order,
- 		bool alloc_success)
- {
- 	if (alloc_success) {
--		zone->compact_considered = 0;
-+		WRITE_ONCE(zone->compact_considered, 0);
- 		zone->compact_defer_shift = 0;
- 	}
- 	if (order >= zone->compact_order_failed)
-@@ -182,7 +183,7 @@ static bool compaction_restarting(struct zone *zone, int order)
- 		return false;
- 
- 	return zone->compact_defer_shift == COMPACT_MAX_DEFER_SHIFT &&
--		zone->compact_considered >= 1UL << zone->compact_defer_shift;
-+		READ_ONCE(zone->compact_considered) >= 1UL << zone->compact_defer_shift;
- }
- 
- /* Returns true if the pageblock should be scanned for pages to isolate. */
--- 
-2.51.0
-
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 
 
