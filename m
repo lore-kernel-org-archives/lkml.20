@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424862;
-	b=HnZqNp3nYJ2vM2L4yyRZW1wb74TXuju+myoFGusDkXGTrhpAKUrfIOQ8A7h+q7K4JDLA
-	 7r8w5bVomNfKAX8Y7rRqeivXxB9XNNeF4M6yCzxwDcgD2lR7dJFFfnT0KbJ2VBXZodq2S
-	 6QUMbsYp4ygBCiH5n/yVZzr1QJhooToofnJvOx3rLyESKNoPXmh+fAF+gGzZjqEOFouk9
-	 ozJiwwCi29PLFg3N6SU7lyjrwT+zUYDHjG5BZxjR5+EXNS7seyGPajhFlDAeApu5dUGuf
-	 9G6+9V0zRZlVY6X9yMim1L+LBjgN3/udWZpyJWcMF+oiuOFY9dJyIxCLGW98HLskz6A==
+	t=1794424890;
+	b=UTf6j1/tMbCOJvm3D+FGT2vT5FsfR8H3AoL56RwMP+IU4RfGVKnx/62AyqrnFC0uiySx
+	 /vdEUtzsXOF5K63jHw161WBGbm1m9DXhxm+PDSgEwa88dPeJoCgMW1JSZTOkPD08dbvPZ
+	 zw4UHJ+o5gYMeyVdqimBJSznUkNRIE50FShaJtL2W5XhPve87qzulyDdaz1hGkECBfvQO
+	 OWDeWq4GEIgZMjybH7pdX86myeFZZKbuCpJeiS4vvn+WYeUW5zr8orn1EWsSot3PBU7RB
+	 2EHFguGdUm4Z/hgr5lPuXKmioGHaLeRNYNr+qumbB4Dt6Q85TpyDJa8FSP1IYeerH5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424862;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Soj930bwFBTZxNzA1GiyO1XhwtS7FvpbLkFUPLX9r8c=;
-	b=QS7FT1IYCgcqBTI6Dh6ODiqte8QVnZIfIdTmGCL29VcT9bpuwNF2JP14oQZLYMQP3phX
-	 F8+NN4hDbnPpZQV9UPHC+oipF3iDiyJOJZCcrJpX69klc92Ak89IHlZbxE/qTNQjv7rN1
-	 ppjuZiqs6+1x3AyY0kxu5LAk+6wOEWl5MlZDGHAvW8MJA53gfudZPCjDcI1vKV8l4/SWj
-	 hfdVgrueC9+kYjyEciXaOmoR7UCeXTBOxkPYl8+DJgKm1t1G9IhipTQz7SKH0HT9ec4Wi
-	 qpoZzGeMcrz+ewXq+XWRO1qq54+aZt5yww/xetqMhjQXi/Z3wAOVDAdK1E9J4RJjuaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424890;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EOz/+k6Rphfauu1mzh1ygpzQgMQ6Co5lqmSQNO16YRU=;
+	b=XF2kEY48ClQlvW91RCDihGnkXJsTFZIwc69h6dXPDGY4mZZzGZ4bpS3U0oDbSPEFeHBy
+	 ANIluCQD02u66mDbRtLpFuQ5+ArTlYsaWsbqnSAtTyLul1cTpYn9yGuOC3BJY86VjOTcv
+	 E7R5vzfDrcEZz4AppaZYIYxpSNlA+p96z5GSYqVRjIQ3BqzCn3XPD66H+fbuCCbGx9++z
+	 BmXFNKO910ICN4SVVvJN4hoGXpw0e1wBL/FDEkliiA2hSMMKbMnReACWN6Dm2Kd/ejYq/
+	 KbGKjL0pdwCatY7jBJMuylYtFSaLOPgmW2kdQ2ACN7ELoKWRukGKvLc4Dnz4Q4bDaUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1sqXpDL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0aNYUXD;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCC7606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:21:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D55606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:21:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43D55606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1sqXpDL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9E21F00A07;
-	Wed, 11 Nov 2026 19:20:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794424862;
-	bh=Soj930bwFBTZxNzA1GiyO1XhwtS7FvpbLkFUPLX9r8c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y1sqXpDLdAdEYxJPXUlN5q9+a+D9q0AIw9kjs9hfnxFdwMfaTrn8wGAI2YVSrHbjv
-	 YW9JZ/Y/L1yxqXLESu2IKbxbJcsACHsl0zmEWWkZSxcGPxY8kI7I2xtKnUEKGDuQIz
-	 XlUxiyPEZIVWJmsllMBNGhrXl2griP4Nx5PCZmITSsl5FxTWBNRwKEVm+SoRhA2X4Y
-	 xFuyyPjHlfu9BiAVl91vrEuaz5Wrs7d9dMW2DbfUJ/EhBAlKPa53M/DqML0HGfvyBA
-	 rTFKAw/f18EUatNd62vqptumb/RD83YPnexgHtqdt8dZAJ6gAGZ5DRDr4EGIB4FsWe
-	 bVCxIfLOeNhTw==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0A217198003A;
-	Wed, 11 Nov 2026 14:20:51 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 11 Nov 2026 14:20:58 -0500
-X-ME-Sender: <xms:E8D0akQmBszOOkf2V4Pas9hPJL_ml4TfiVb_k8Fa2fBqNoFSxLhiJg>
-    <xme:E8D0aujZHsoBlI9F-DCvDcYq1_1CIV6D_V6XKypQzWFk1y5byz7v7OfPCBgpAP_L0
-    YblrrZQPF_O7NZj-3vttgfEaVQoq6az4XXakadlhl-myb-CDEJz5BYD>
-X-ME-Received: <xmr:E8D0atbS4S9D5YkzppwCPjfey67EkNJRNTOoPBe_sgiq301jc7kQfv9btT0>
-X-ME-Proxy-Cause: dmFkZTFAt7HRtEDW5rAYKA5wJsU/hkNTWmvDTT2530v9ikh1nEEQoMGwn8WkkMXLFvMbzz
-    m+5MBTcByYkkaiHHf5Pvb+d+Yec9HEVjgvT8q8NB4D2n+yGRrYH3c0zsKTDEuZP0KKuEfB
-    5G61bTEB8knr93RLOGasXpXd5WRbwVHRx2ZWpa9/38aDo1YNO4lx87ZqWFlaYmXeP/Uf1r
-    LR0vRe2XGGjLFxegCM1tjgqZ1nDbP7IoHfh96QQs3jwVg4ZbeseYfJFn6+84ytWcS36xsH
-    BmTn6jUcDFZuxOoUoW586qRRfthPizlB2CqswLvyPaV8i2Puc2yV63QorfkwBa4BJNHIE6
-    FqTumCqimKhqGLg9qa4DTTglotYUJXNph9HpSyzly3WdQluCAku1TIy7mj+ykUg4PmcJn4
-    +fahCwVtu5FZv1r/j0XesuMnMeDRheOMiGFVtKbR40OXoen9Vv281WPZUbiClUPF/fjYtR
-    HeuGr5eWQ4f1pGSAQUNwoKGYm021RLG8ffdgZZ5HYvt8wZ0s3hwV8XNb0RoxsmTbdrBU4I
-    UunpRgweubVVrPj8NpJgrvgQ4haPMbaUV2K6rpJOjgAmv/PN67p7WNex65orWZqBgVmvzn
-    nMxnlQKBMTFArL6XMw8QtieEwtXdw0ZyEhCd+ennXm6qWXWhj+JfXJ8kj4XQ
-X-ME-Proxy: <xmx:E8D0auIU64qcshTDYMtTsiJmmHKWWTSxs48tFLF_Vms8J9SG77UG1Q>
-    <xmx:E8D0asdwFI96dLN1SzY7lP1yS0NevJfzO9LpwUX_eqxefPBa1KHVCA>
-    <xmx:E8D0avfjHO4FGyUTBk97IqYVQvWiB-U03Fm8wuCRLtcg16yvobGMYg>
-    <xmx:E8D0asP7tE6e5gmctaszQmX-9Sa2SxEpMJV5B5xSVmDlbW7MS4w-tw>
-    <xmx:E8D0akCFZ0Bxbsytf5KO62Iqr0VaDHxsJkNrKbCpZd6BwXOwZmyhwqzt>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 14:20:50 -0500 (EST)
-Date: Wed, 11 Nov 2026 19:20:49 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, =?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, 
-	Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 07/12] mm/mremap: resolve uffd state when the context is
- dropped, not during the move
-Message-ID: <avS_43B79K2lUV3Q@thinkstation>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0aNYUXD
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso1788078a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:21:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794424889; x=1795029689; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EOz/+k6Rphfauu1mzh1ygpzQgMQ6Co5lqmSQNO16YRU=;
+        b=t0aNYUXDdRAZpqsbOIRoanjkWthLrq9de/FZxXADbekc3TgpX5MGsP0isyhoiLOqHg
+         04lnghKOUMfOOHWfuePk6lKRbCLcRBcNrmM7q529KZNdIGKrJNCUQnGo7ndGsSEBf6Rp
+         QssCN7HeBGbLIG2BwTcpJ0OtCo0ikqLkYlngBgW0R78Asv2OI1UtWkQ5dNkACWhvPKiQ
+         MnF/2AP9lPuNQFQwAR5etpUQ3+GU6/eSb6EkdVxWs4s8DZD+RpgXC6DwpmIUGZ0PT8UN
+         TErDiRt59CF6DjrlXofNjc5t/3SiBT7qwPf28HtWRhUTbONWCjDln5BjHvWJOLPKBsr/
+         rIVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794424889; x=1795029689;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EOz/+k6Rphfauu1mzh1ygpzQgMQ6Co5lqmSQNO16YRU=;
+        b=AftT3jTU/JsihP0+lVG76ndf5AkRtvnHkgSHOpQ06lw0NoVJegUMPuosBwOwlYPtRr
+         8Mz5fRF7xtjmUOeIUFI2CWcOpfeQTU1gY5+eiLj+9A13UbhBmjzyuL7W3qFFYG5YjEZh
+         XE1FJvEY4HuvCpCCNdkKCo9j4f5JrFyxMh/aG0OgzaTtQqol0tbvfe4NYzWL43wTn7lq
+         cgdBMXTogJpiGh53g7jX5QqnvZdbtEi5m31ODXqit9LSVg5FMiAOCsS7okTZyF9ODwnp
+         ZAtP4UhLldqydk1SxsgEGMoIzKexaUeti955qi1JDL9Y7tAR3CrpHEK6g4GW5muQZ8YV
+         o0dA==
+X-Forwarded-Encrypted: i=1; AL+hErFB50ZrsrATLQrBUQclBzF0wYJ8CN1spCd0huETH1LIV9iBTNZtN9s0PhQl+S+UoCgVt+oyf40gjp9b1Eo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3mwQRNEwgk2s5cYp1IYaMIlcWR6WkKIKW56yVPdRvP025oZK6
+	QiImXjNYY9LXVPjLv6mAn/tGuh00jxNS6XOFwcgOjPBVbrNiIMXpOGJc
+X-Gm-Gg: AYBFou1qtdDj1Kk9lou1ymzb3A94k+Y0rMNle1JCmiKrcd5/wN6sGHjPaVZ0IJJFyeZ
+	zzAm79EAfnICrTXHSY7+oA2FGUyHlp+TOf24MYPRbl4NMuZhNLkT5iUjbmUsw7/W1wcntXKDr++
+	QoMjAn3jtq18BDOR0soIO1XkzaxYcToC0ateW8uIzFVLTJiAXUB0TWB6ShnCco2NcHbf06VAYyA
+	RPvajYN0xCFW9/UVgbF0b6vTGDmXYeZPGmbN7cV8NjmCj6AM7Z0flN2u+zHAFscDROXIaksnnNA
+	7/asUxc/5Mao98kZ1lI/UjBvzqOijDp4ApwvovFH0ZTZa/qiukgJAVfJH73BgiQZQkGJUpA7brL
+	39NdPMihNYUyW6QJ71c0fWYHHhwGiiAb9m8onZJHJhBuRN/9i1D/VjdoOq1fo8uzTIUwjcxuXq9
+	UyJBqP9qmQVehudRnpUDWCahnxhSsMueq2OH0TNBnU70C27FMzBrcNl2KFNHMH2dPOyN01XiyOx
+	+D8xdHZqyTHb82asKswwRmkIrLB5nUp4vb7+AbBYt6Z90IUbggwxtdgmmKtOlpFi+KzvZEsmya4
+	ZpVSUDn5pplgM529vmcnHjSCr5QT/UVRWn9KjokL7fbPVF0prcNoN1p0fw7c8tZquhXOVOZc3Iy
+	yHQ==
+X-Received: by 2002:a17:90b:57cb:b0:3ac:7872:d1b7 with SMTP id 98e67ed59e1d1-3b182eec0f1mr3136688a91.32.1794424889401;
+        Wed, 11 Nov 2026 11:21:29 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c42a4csm596583a91.4.2026.11.11.11.21.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 11:21:28 -0800 (PST)
+Message-ID: <dd549ba7-8c19-4c77-aef4-b3607298f6b0@gmail.com>
+Date: Wed, 11 Nov 2026 11:21:27 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,21 +93,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] clk: ingenic: Poll JZ4780 CPU1 power status
+ atomically
+To: Brian Masney <masneyb@kernel.org>
+Cc: linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ =?UTF-8?B?5ZGo55Cw5p2wIChaaG91IFlhbmppZSk=?= <zhouyanjie@wanyeetech.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, hns@goldelico.com, paul@boddie.org.uk
+References: <20261110043131.1985993-1-f.fainelli@gmail.com>
+ <20261110043131.1985993-2-f.fainelli@gmail.com>
+ <179442247882.1131744.13316822371180932611.b4-review@b4>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <179442247882.1131744.13316822371180932611.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 12:55:15PM -0500, Tal Zussman wrote:
-> However, this adds spurious minor faults on shmem and hugetlb.
+On 11/11/26 10:41, Brian Masney wrote:
+> Hi Florian,
+> 
+>> The CPU1 clock enable callback runs under the clock framework's spinlock
+>> with interrupts disabled. Its readl_poll_timeout() can sleep between
+>> reads, which is invalid in this context when SMP powers up CPU1.
+>>
+>> Use readl_poll_timeout_atomic() with the existing interval and timeout.
+>> This is a prerequisite for the JZ4780 SMP bring-up path. The original
+>> CPU1 clock implementation by Zhou Yanjie is already upstream.
+>>
+>> Cross-built for CI20; the subsequent SMP-enabled image brought up both
+>> CPU cores. Development and validation used Codex assistance.
+>>
+>> Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second core.")
+>> Link: https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@wanyeetech.com
+> 
+> Cc: stable
 
-"Minor faults" reads as UFFDIO_REGISTER_MODE_MINOR in a uffd changelog.
-Maybe "write faults"?
+OK, I will add that, thanks!
 
-The RWP side keeps its behaviour: vm_page_prot does not depend on RWP,
-so resolving with change_protection() gives the same PTEs as the
-per-entry code did.
+> 
+>> Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+>> ---
+>>   drivers/clk/ingenic/jz4780-cgu.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
+>> index 1e88aef7ac0f..f5983033583a 100644
+>> --- a/drivers/clk/ingenic/jz4780-cgu.c
+>> +++ b/drivers/clk/ingenic/jz4780-cgu.c
+>> @@ -242,7 +242,7 @@ static int jz4780_core1_enable(struct clk_hw *hw)
+>>   	spin_unlock_irqrestore(&cgu->lock, flags);
+>>   
+>>   	/* wait for the CPU to be powered up */
+>> -	retval = readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
+>> +	retval = readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
+>>   				 !(lcr & LCR_SCPUS), 10, timeout);
+> 
+> Since you are making changes here, please fix the alignment of the
+> next line with (.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
+Certainly, will submit a newer version shortly.
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Florian
