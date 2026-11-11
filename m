@@ -1,75 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418267;
-	b=Fp3vTKGfRidB7lzg/fbrlsMMr8HGabhMRAfH4mav6fwfyyQ/LFMnzLcpSMNod6WA2yvZ
-	 yBSNcfz3DMq4WnOiAVCRR8ylR92BhTvnch31h2gWFnSPOXyQ/RYuIPhkLyS640CpTwMSW
-	 AvDi1H4UxjmiLQm1WK+0f49CDacPVcfR2v6QZyMvJfshVMmJp7yva8a+GD5RU98vYdj+W
-	 /sKasEVJhQsG4oDU2qdEO8RcgTw2LS+Q08/BMaDeu9h25gz75KK0+t4iu0jjJ8VYQLDsn
-	 wVy5T4G+D/+WHhEniys/vIY3+8sJDhyLLAEb9wZ0eyytGUtCb5H/LoM5vKpqP3WknqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418267;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
-	b=RRTESc/wo28D+a8OPhjomwBG8+1se5s6SFGeN3+Mou5M2zmjuf6WncNyz9aSPcej7hzW
-	 ACczKhIFruOgdCNMTDEWYeyYS5UqOOehytuuLUxS1fusQsyUdfakGrmtzyClANNqReMpN
-	 utt2oZP3a/qMWCAp2wfsMrnQQkCgkCI71qwgKURTlRHBN7fUYALNUtFFFkO4mSZ+Io3ey
-	 ajlT3Rm7+UXGxVm7duDxVK9IIOUIneiMtHhoIQtiG2wi12FokgL933Nw56aXOJtMVNlga
-	 /OvuJn9EuNSG7WqxZNKFKLrxINGRnouSMt8LIvWfF7NRVkjW4b0SoeNWrCHj3wLih/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=F0JXi3Jk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794418299;
+	b=g7v1jHAHi2sy6k+VQFQiaLuftZf8D78WUhgg/F3GJi99C0/GNEtqEKlLqeqr3WsNh9y5
+	 tQgFDiHz/V36pY/gfjRM+TeddJ8jJZpr4P74wXYOM8F5XTu2dWhr3UmlGypujVyA41Rk3
+	 K3eUHeAzmEsI+z4dMQlZ4k/HDmIYi5disRH6LBUcGK12QBotJBue5FvQKtjKPhVYZNbn1
+	 KAVuhGLT8rI56l0MfkjPffSwa+GiL+TxQY2EFkct3kMcw9dvSF+WgBPMm7i/QEBxuyUtm
+	 c1O6bXLmRWGD4Ymasn2CGeJHaKGW5QB1z9sV8/QqCrbroFpIZbFizAPrKz019/sIP8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418299;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nfRcRl/M9CMIHhFB2poU3/svabg/YK+L1d4LcrG1cCU=;
+	b=AQiPgrac9lib+aLbPKYNet0ti89LTwx9QYgTjigwI9HAUoSV7COxj/VlOo8dXFi3wInV
+	 pAgOuqD+y0zyLYRTDrA1ciPcAl2jsmKFWsG9PF1v3DpQlNXiLmDcwx96dDi2GzVCas1EK
+	 Qj5pB+HI9Ux9/MXXEksEUzubWlxSabHB7LtAN5a22HEV87YPqOcnxeYZnYreQ2e5JcGTe
+	 Y/vf6mdPNIJSm50FUEic63xrE6x8K28lsxuTSLOHl/PXAZ6mRTfXASpKIOVR98nC5glLL
+	 1i5jmd6vyQc8LmFCW6ZemoZv1gN3ctpXDAEY3nmAYNyDAWjy6ean80ie7SzZ4cyoMOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P08L9r2l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24BD606A324;
-	Wed, 11 Nov 2026 17:31:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B24BD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BA3606A31C;
+	Wed, 11 Nov 2026 17:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=F0JXi3Jk
-ARC-Seal: i=1; a=rsa-sha256; t=1794418230; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XQ+4kTy1Sbg+S2qNqks5/t4BdOZlkR2RGbfx3y/El1qrOUQAACXO4gR1elMHCCnS3PfaFn1wyBg9AJ526lxZxpkoyUzWj2PWQBkFIRJEQ+3Te0fLtNfLc0j1S0paBxNAF5Bww5IlcEcXP1LqCG+U279JEiZ1r5cSe6yFngmRcP8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794418230; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
-	b=DgKZQP5SIj85Z+b2Ao90Am8f3aCxiUdNAXLepTZn80nMH5elWAeJdpif3MJw/baWpFno75pkfxoJ+tVXfnemyJqpoy80pA7jGfxN3bUTRsNE0gpmHbhFrU+Cn/paHcjy84knPtCp+Ag8JgVyBJgrCgKUfM+NgsWIiZeF/KWjBLQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=F0JXi3Jk1+ckm+EuI/KcTpwx6KLcN8S2S6w05QcozMJ25TNkCNkLdBa8MvUdDiTbqO54Qc9Pxdxo/BkRd9NrBN2MZ2/YT/opWYXHRUTqFeB167MonfJNVH4nFVdRnAbmLKIuqKIWQtpn0z29rV7B/CY1Op1bhd8FU5YgkfLMg6M=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1794418227715371.06425639823635; Wed, 11 Nov 2026 09:30:27 -0800 (PST)
-Date: Wed, 11 Nov 2026 14:30:27 -0300
-From: Daniel Almeida <daniel.almeida@collabora.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "aliceryhl" <aliceryhl@google.com>, "acourbot" <acourbot@nvidia.com>,
-	"ojeda" <ojeda@kernel.org>, "boqun" <boqun@kernel.org>,
-	"gary" <gary@garyguo.net>, "bjorn3_gh" <bjorn3_gh@protonmail.com>,
-	"lossin" <lossin@kernel.org>, "a.hindborg" <a.hindborg@kernel.org>,
-	"tmgross" <tmgross@umich.edu>, "tamird" <tamird@kernel.org>,
-	"work" <work@onurozkan.dev>, "brauner" <brauner@kernel.org>,
-	"lyude" <lyude@redhat.com>, "j" <j@jananu.net>,
-	"alvin.sun" <alvin.sun@linux.dev>,
-	"deborah.brouwer" <deborah.brouwer@collabora.com>,
-	"laura.nao" <laura.nao@collabora.com>,
-	"beata.michalska" <beata.michalska@arm.com>,
-	"nova-gpu" <nova-gpu@lists.linux.dev>,
-	"dri-devel" <dri-devel@lists.freedesktop.org>,
-	"rust-for-linux" <rust-for-linux@vger.kernel.org>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <1a1cba939ec.316e688b263885.5117314523612320809@collabora.com>
-In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
-References: <20261107021427.2105374-1-dakr@kernel.org> <20261107021427.2105374-8-dakr@kernel.org>
-Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File
- lifetime-parameterized
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P08L9r2l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206991F00A05;
+	Wed, 11 Nov 2026 17:31:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794418299;
+	bh=nfRcRl/M9CMIHhFB2poU3/svabg/YK+L1d4LcrG1cCU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P08L9r2liflwN1Dhjk5TTiGxbqMLqyrJgOuOgU1fXlo4rBCiDCHezPbd1kA+mf1OM
+	 CtJYekULJ2ONrVxHPDHcsrMZXHXGbsePZU08VU+7sACXNeUpvlN9ImhZEyE/4iBl6q
+	 J1rKFHk+lCBkqcTWsZDje6xx1/i1lqZ6QzanTdanNIg1pXqoCn75hHV8DB/Ek9SIxQ
+	 Jl+3mgGWHNRl9aQXLRWESalm9SINGFZ0li5uDMl2sWnW75j1Letj/7ASHbJkf2YPHK
+	 ArcoBxfr911U8Q4kkEG4BJu7zyOiJnilF+Es2KJFZxa3MgZlvXqEDBOnBzJ73HIy28
+	 moKbNb82lu4Ew==
+Date: Wed, 11 Nov 2026 07:31:38 -1000
+Message-ID: <bfe5007b2758bb06504b6966abaf1f7e@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: axboe@kernel.dk, josef@toxicpanda.com, oliver.sang@intel.com, nilay@linux.ibm.com, hch@lst.de, yukuai@fygo.io, linux-block@vger.kernel.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn, sashiko-bot@kernel.org
+Subject: Re: [PATCH] blk-iocost: fix the lock order in ioc_cost_model_write()
+In-Reply-To: <20261111162137.295523-1-cui.tao@linux.dev>
+References: <20261111162137.295523-1-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,11 +57,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Hello, Tao.
 
+On Thu, Nov 12, 2026 at 12:21:37AM +0800, Tao Cui wrote:
+> The inversion cannot currently deadlock because blk_mq_freeze_queue()
+> is in a noio scope since 1e1a9cecfa ("block: force noio scope in
+> blk_mq_freeze_queue"), so a caller freezing a queue cannot recurse
+> into the frozen queue through reclaim. Holding the mutex across
+> the freeze needlessly serializes config writers behind it and
+> leaves two different orderings in the same file.
+
+There is no deadlock here to begin with, and the noio scope isn't why.
+Freezing is counted and doesn't exclude other freezers, and a freeze only
+waits for in-flight IOs to drain, none of which takes rq_qos_mutex. The
+patch doesn't make the ordering consistent either. blk_iocost_init() still
+freezes under the mutex through rq_qos_add() and blkcg_activate_policy(),
+and so do blk_throtl_init() and blk_iolatency_init().
+
+> +	mutex_unlock(&q->rq_qos_mutex);
+>  	memflags = blk_mq_freeze_queue(q);
+> +	mutex_lock(&q->rq_qos_mutex);
+
+This lets the disk be deleted in the middle. @ioc was looked up before the
+unlock and rq_qos_exit() can tear it down before the mutex is retaken.
+With a delay added after the unlock and a null_blk device deleted during
+it, the write goes on to use the ioc after ioc_rqos_exit() and KASAN
+reports use-after-free in blk_mq_quiesce_queue() called from
+ioc_cost_model_write().
+
+So, this fixes nothing and adds a bug.
+
+Separately, ioc_qos_write() already has the same window. It retakes the
+mutex without rechecking disk_live(), so with the disk deleted in between,
+it initializes iocost on the dead disk and hits the same use-after-free.
+That's the part which needs fixing.
+
+Thanks.
+
+--
+tejun
