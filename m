@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389335;
-	b=MPmn/HeA+wG1MPbLK5w8Sa0o/fZF0THImZS6IAnEgerqjJWzJI+RHx+R/E5iPqQDxOG8
-	 +jt/G1eMaZZXMpxIqYxgt+PnkfYtE1C95wG7uHDxj0JTYAbyOJ2S1wEV1vSGbdPdaq4dd
-	 Aof21pA+Oc58Q/mOLQdKpAUI2Cuwui48Zfgl2BhyG38vXRMODCZ1rY/gwl1OPf58n0AhZ
-	 k71eqL3aOW9jQMX1HVDMzf8AdQhai2ninPyKrIY8N5pQrSzBRDGkEyuG5JstfIFUm0rc5
-	 Z9aBFj9T/TDchlhIn2uX0CBcWZLty2AIfTEp0iqL196iiu0o6pI32A60niAUyjKtgCg==
+	t=1794389376;
+	b=qimP5SwlypZY5MRDF4NdjExq1wTspwiJ/BTpgnbR3Vvwk85MPU4wrEiO7x30J+HOWaeu
+	 4RDG3YRe0gFcrnFfStQtElH4g78/yHqFCN78AV6N1NvJcfOv6+yuOUEQmYzYshaoYnGFB
+	 KkXqQMb/sAV3wWU2Z514uWIfrwtQJpxdMRq4mtdjvnVgukHjZoc+h8Ctl/zZoawwuRc1b
+	 JUBHPJKW/xZG0DafTIMxyFHYrTX++L9wnBfzSeb6G2j9xoRXjOjbujlN2ipyU7nivsWj1
+	 KBQc8wPnZosVfLpXgDzJQh4pnLHCtmNBX27riHMNel+9jrOs2KuyL9JdOXGEPgkv18g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389335;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qlD+cGMr3wTaXsI1Ws5nhCy30FUV4lzPs8nNTVDf9yE=;
-	b=K5ELVmvvCddnAR7C7tHU7sWdeOw3a8lXxI0vHz8SLjTZUPIAAGweyVRD+7JHDr2Vp5K3
-	 VwELYB/mTbEEfJdAnm9ufMVLCsbgiPQsLdHbF1HM6hJ6a6CtyjoSihzXwcSvqeUac6/vg
-	 Y9IKjtv4CquW7HaiY4MfazNS1E/kF4zokK3Xi/GLf5IuoTev8bzCf6eKuG/CVzN74zgmo
-	 xa18E2lWSJej3XUprLRx6ctoxZcPI7ASlcOzfyFA9oxQzsOk+qKWtdJY/HydaLdGBpUD7
-	 b+owFnmLTDbWwax0K/4FywGZ5nN9cBFK+OR6KTG2Z0GGmBfor7Iyb9V4YdwSp2/DBfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389376;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=1x6/q7+L9dxEYBNaqg2ktHXf+EsDRsOOjKgT005SyVg=;
+	b=HACw6TaR6DgMqj5X5UE58b+9t1LxVGMrcG/9idisvySkCZqD3zX6+k5eu0kX8CPwqbC7
+	 V5qWceuteAFCY9T3/IQK+TBrqozBG6VkFBQeLqJWWZyRAcwZEnoI5llyGvcyQLEzC4Y81
+	 MYb/j/0ctauOwmOFxirOPJH4nE/k4PEWAyE7jxHJojM61+wLKS7iThuWY8Tlfxb5c4y7m
+	 HkrrQBajI0+TWjja9umkAQaZsaRxz/5kulyZL9sXnnYn9ogK/ZjIiKbAsGYghh2RlWRk+
+	 LhstXBKHLOnGmXmBk41CjIc6GCqfUr5I/XG7UHJe6x8HlhjcwVRSJYLrG5G6ckeRdEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KGvkreVk;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=XQN8FHoR;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6195606A326;
-	Wed, 11 Nov 2026 09:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6195606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8249606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:29:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8249606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KGvkreVk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=qlD+cGMr3wTaXsI1Ws5nhCy30FUV4lzPs8nNTVDf9yE=; t=1794389333; x=2109749333; 
-	b=KGvkreVk3y/NZQiHhQdKDUE4ak2av/Y/3wHv/idBGrh4r/T/GZrbV7C/93NskhTtqPk0HiaGKEp
-	B/XGT/k8YaSCxfxynDWEo/JP9NAsmcQWJJ9jQsVV/8K8Bqk8ssHApeFXt2Qa1+G/ebpWEfln2b3p9
-	FAMk2PuHgddWU1pqZS84lhU8n7t6LkJxT9yASGsJT1eZ98hcrCsHOQ7N+Ril7BRyV7pKJP4h27rTQ
-	2+rMf2gNSzDxVeC8UC2rJvLsdYQIBPMvSu1sau0zTCZGIQh6BnTgVbvI6OCJD84u8FGSum57l9kQa
-	ZfuoWf0FzJqXgnh3UomdWTwy9LRHjIc0vgNg==;
-Received: from [188.250.79.109] (helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xR4dN-008h3G-CK; Wed, 11 Nov 2026 10:28:49 +0100
-From: Luis Henriques <luis@igalia.com>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,  fuse-devel@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  Miklos Szeredi <mszeredi@redhat.com>,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
-In-Reply-To: <20261110150250.71520-1-ekffu200098@gmail.com>
-References: <20261110150250.71520-1-ekffu200098@gmail.com>
-Date: Wed, 11 Nov 2026 09:30:31 +0000
-Message-ID: <87cxsbg1fs.fsf@igalia.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=XQN8FHoR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794389303;
+	bh=1x6/q7+L9dxEYBNaqg2ktHXf+EsDRsOOjKgT005SyVg=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=XQN8FHoRTkEzuOstNYTqZfTRafJorAlJCnVk8USfAdG3gjrPVrHvSCBO58jNUR+WC
+	 L7EZiH/WarNfa7BLMItRuQATpubfy7e3X6XStbUF9sqAdstKPhFZjZ1cKdsGTH/x9p
+	 LWmGqkRKoB/RRDRIdXqvt2IAFCzvQd1TIxkHKzgk=
+X-QQ-mid: zesmtpsz9t1794389297t3edad2e2
+X-QQ-Originating-IP: +XOiLYpaIA0jQa7S1Ua/duinw3+aYlE6x4ssoBLSJ1g=
+Received: from LT-LIANGBAIHUI.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 11 Nov 2026 17:28:13 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9060423660867139962
+EX-QQ-RecipientCnt: 19
+From: Baihui Liang <liangbaihui@linux.spacemit.com>
+Date: Wed, 11 Nov 2026 17:26:38 +0800
+Subject: [PATCH v2] drm/imagination: re-check firmware idle state before
+ runtime suspend
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,134 +64,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAM009GoC/32NwQ6CMBAFf8X0bAktSNGT/2E41LLAGmmbbkswh
+ H8X8O5xknnzFkYQEIjdTgsLMCGhsxvI84mZQdseOLYbM5nLSuTyynHsuR+5TtFRIg+25Uop2dZ
+ FKapOsW3oA3Q4H9FH82NKzxeYuJd2Y0CKLnyO10ns3t+DSXDBZVVfRF3muijh/kab5oy8NjBiz
+ IwbWbOu6xc4aKxxzwAAAA==
+X-Change-ID: 20261029-img-pm-autosuspend-7772d83416f7
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Baihui Liang <liangbaihui@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794389294; l=3688;
+ i=liangbaihui@linux.spacemit.com; s=20261015; h=from:subject:message-id;
+ bh=x6K34nWpBSBqZdwbwRIhO9SVuy6u2jufX/yBvPX5t3s=;
+ b=Nj5gTEREc6EDBnytR7IQoe/3SnxudUrSdxdlKMaGc9y3JbQk6N5bF/u8ohmdtVft9Via5jINg
+ tcmXPIUZt3uBOWXEoPob0o7ZFn0SkE8dVwDYC9hYEVFUI7O9FLtmeYU
+X-Developer-Key: i=liangbaihui@linux.spacemit.com; a=ed25519;
+ pk=L9Pa1YBHFuJrRPNu/FfSW/likBvv9j2dUrR3r+YyJ5M=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NjuDfT6zrIZctbTuX7v6lwY5Cf/QCqoCeG3BScg0IQVlz/ZpxYISa+k8
+	VHdGjlZJXiXl01u4QuLJhPa2Uht09CaaMvf1rNyatshuTmCadGwYMopuBr5uFTJZchRdG2u
+	bxe7qkPdhmC2ISvH25Gc1vM6+MeWw8UGIZb6TzItxvpMyEDyBtgXGxUGbdcWL8Pjh221mDL
+	hioJQOh5ZnuIRXI/Zm1CaEdypxdygXwQ6kIUYS/LQissz4ruOydg0rEtLaDVMgn1HJ5+0Q4
+	QPurfRKo44Ydc6zD3aapz3hRyx/9K+QbFj2SL1VIDmQvpO5Czw/qSraXeiZIFSlS16qp1FS
+	6RpXAW91zcUIEO01nGOYGywoFrjNWIowIeQxFOXJFvNUZUyvJzlv5Yut1tySUVRZMd+PUML
+	ZDZjFzShBSjjHGi/lSBFFA+V+l3FCZ5X+I4Ld9hJ+9Dw4apqPhbBoHkV0DDnkzGE0Ah8/1M
+	EKiBoV/yFnhrvjYFd8tin+Y72KcJ1g+iLE5MSu1xd3h2qyp7oHgfUKv/aHxnwae5KInDSNd
+	uoQvgXMZCP6XXCIPJNaysyQmRzBVq0azxUCuj2Beqm69o6tfSWNvnF3EinlbO0YBYYOcCHR
+	7rFMzAKgqJRecgayccL1rg97zn5BcpnGEzSjAV6t/PDBNTXyNHtmFGtfSFwNbnQkJgp9oK+
+	PxO97F6ij3MlzuDpuMgFh0v+diw73RIYQ/dI79/IgNahgRWH6xIKQziqSjBVK5uwO3NJqGk
+	G6Dq+1lztqsJFYEdhGPRKrLiTm+rANsIASTcKeLe6r7R+f1Al3yisXtbPEgpQBQ9rrJxxyV
+	yJBnW2nsG7g+toSi5or8PAB7N61Qo6ckUd0sK8Lt9InWYoyq0GKcsl4SoVYAUhYCQ3fYQVe
+	gecK4XrXv8e2K26Ks3pIGzOKWuqfQOvsAy6Ipc7OehnjZmdwbm2swy5+Jq1hP9Xw8a9Jaep
+	5uNQSscBQbSOgRewyA4pce/0wadPgWA5gcynuiU04LRafzzp557M13NX8p8x8/xtUeE1T1X
+	DgymDSTTzvZPxayPv9PPisOypcKmHBDv7yXNF7+l+s6FvgoBGh1+VLLBz7rAU=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
+pvr_power_device_idle() rejects runtime suspend while the firmware
+hasn't reached ROGUE_FWIF_POW_IDLE. The PM core doesn't reschedule
+idle notification after rejection, so no further pm_runtime_put()
+arrives on an idle GPU and the device stays powered indefinitely.
 
-> inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
->
-> But inval_wq_set() can be called at boot or module load before
-> fuse_dentry_tree_init() initializes the work, so __queue_delayed_work()
-> warns and the work never starts.
->
-> So defer scheduling the work until fuse_dentry_tree_init() sets it up.
->
-> Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate exp=
-ired dentries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> ---
-> QEMU based test result
-> - booted with "fuse.inval_wq=3D5"
+Move the idle check into pvr_power_device_suspend() and return -EBUSY
+after pm_runtime_mark_last_busy() so the PM core reschedules the
+autosuspend timer and retries until the firmware is idle.
 
-Thank you, Sang-Heon.  I've sent a fix for this already[1], but sashiko
-still has some race complains which I haven't looked into yet.  But maybe
-Miklos is happier with your patch, in which case you can add my
+Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
+---
+Changes in v2:
+- Move the pvr_power_is_idle() check into pvr_power_device_suspend()
+  and return -EBUSY after pm_runtime_mark_last_busy().
+- Drop pvr_power_device_idle() and pass NULL in RUNTIME_PM_OPS().
+- Link to v1: https://patch.msgid.link/20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com
+---
+ drivers/gpu/drm/imagination/pvr_drv.c   |  2 +-
+ drivers/gpu/drm/imagination/pvr_power.c | 22 ++++++++++++----------
+ drivers/gpu/drm/imagination/pvr_power.h |  1 -
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
-Reviewed-by: Luis Henriques <luis@igalia.com>
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274..541351d4bb6 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -1516,7 +1516,7 @@ static const struct of_device_id dt_match[] = {
+ MODULE_DEVICE_TABLE(of, dt_match);
+ 
+ static const struct dev_pm_ops pvr_pm_ops = {
+-	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
++	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, NULL)
+ };
+ 
+ static struct platform_driver pvr_driver = {
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index eb4b6ecdf4f..71267f714c7 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -378,6 +378,18 @@ pvr_power_device_suspend(struct device *dev)
+ 	if (!drm_dev_enter(drm_dev, &idx))
+ 		return -EIO;
+ 
++	if (READ_ONCE(pvr_dev->fw_dev.initialised) && !pvr_power_is_idle(pvr_dev)) {
++		/*
++		 * The firmware has not drained the GPU yet. Refresh last_busy so
++		 * the PM core reschedules the autosuspend and retries this callback
++		 * until the firmware becomes idle.
++		 */
++		pm_runtime_mark_last_busy(dev);
++		drm_dev_exit(idx);
++
++		return -EBUSY;
++	}
++
+ 	if (READ_ONCE(pvr_dev->fw_dev.initialised)) {
+ 		err = pvr_power_fw_disable(pvr_dev, false, true);
+ 		if (err)
+@@ -427,16 +439,6 @@ pvr_power_device_resume(struct device *dev)
+ 	return err;
+ }
+ 
+-int
+-pvr_power_device_idle(struct device *dev)
+-{
+-	struct platform_device *plat_dev = to_platform_device(dev);
+-	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
+-	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
+-
+-	return pvr_power_is_idle(pvr_dev) ? 0 : -EBUSY;
+-}
+-
+ static int
+ pvr_power_clear_error(struct pvr_device *pvr_dev)
+ {
+diff --git a/drivers/gpu/drm/imagination/pvr_power.h b/drivers/gpu/drm/imagination/pvr_power.h
+index c34252bda07..7d8df45c7b1 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.h
++++ b/drivers/gpu/drm/imagination/pvr_power.h
+@@ -18,7 +18,6 @@ bool pvr_power_is_idle(struct pvr_device *pvr_dev);
+ 
+ int pvr_power_device_suspend(struct device *dev);
+ int pvr_power_device_resume(struct device *dev);
+-int pvr_power_device_idle(struct device *dev);
+ 
+ int pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset);
+ 
 
-[1] https://lore.kernel.org/20261106155512.24801-1-luis%40igalia.com
+---
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+change-id: 20261029-img-pm-autosuspend-7772d83416f7
 
-Cheers,
---=20
-Lu=C3=ADs
-
-> 1) AS-IS (before fix)
-> [    0.011073] Kernel command line: rootwait root=3D/dev/vda console=3Dtt=
-y1 console=3DttyS0 nokaslr  fuse.inval_wq=3D5
-> [    0.011114] ------------[ cut here ]------------
-> [    0.011115] WARNING: kernel/workqueue.c:2704 at __queue_delayed_work+0=
-x11a/0x140, CPU#0: swapper/0
-> [    0.011124] Modules linked in:
-> [    0.011128] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.4.0-rc1-0=
-0010-gab9787d7e66a #1 PREEMPT(undef)=20
-> [    0.011130] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIO=
-S 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-> [    0.011131] RIP: 0010:__queue_delayed_work+0x11a/0x140
-> [ 0.011133] Code: c4 08 48 89 df 5b e9 85 28 0a 00 90 0f 0b 90 4c 8b 42 0=
-8 48 8d
-> 42 08 49 39 c0 0f 84 1c ff ff ff 90 0f 0b 90 e9 13 ff ff ff 90 <0f> 0b 90=
- e9 ec
-> fe ff ff bff
-> [    0.011134] RSP: 0000:ffffffff82e03e00 EFLAGS: 00010003 ORIG_RAX: 0000=
-000000000000
-> [    0.011135] RAX: 0000000000000000 RBX: 0000000000000040 RCX: 000000000=
-0001388
-> [    0.011136] RDX: ffffffff83a3f320 RSI: 0000000000000000 RDI: 000000000=
-0000040
-> [    0.011136] RBP: 0000000000000000 R08: 0000000000000082 R09: 000000000=
-0000001
-> [    0.011136] R10: 000000000000000a R11: 000000000000000a R12: ffffffff8=
-2c09fd0
-> [    0.011137] R13: ffff88807ffcfb89 R14: 0000000000000000 R15: 000000000=
-0001388
-> [    0.011140] FS:  0000000000000000(0000) GS:ffff8880fa26e000(0000) knlG=
-S:0000000000000000
-> [    0.011141] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    0.011141] CR2: ffff888003a67000 CR3: 0000000002e30000 CR4: 000000000=
-00000b0
-> [    0.011142] Call Trace:
-> [    0.011143]  <TASK>
-> [    0.011143]  queue_delayed_work_on+0x6a/0x80
-> [    0.011145]  inval_wq_set+0xc4/0xe0
-> [    0.011149]  parse_args+0x299/0x3c0
-> [    0.011151]  ? __pfx_unknown_bootoption+0x10/0x10
-> [    0.011154]  start_kernel+0x3b8/0x7c0
-> [    0.011156]  ? __pfx_unknown_bootoption+0x10/0x10
-> [    0.011157]  x86_64_start_reservations+0x24/0x30
-> [    0.011160]  x86_64_start_kernel+0xd1/0xe0
-> [    0.011162]  common_startup_64+0x13e/0x158
-> [    0.011165]  </TASK>
-> [    0.011166] ---[ end trace 0000000000000000 ]---
-> [    0.011173] ------------[ cut here ]------------
->
-> 2) TO-BE (after fix)
-> - no error while booting, and also fuse_dentry_tree_work works well.
->
-> ---
->  fs/fuse/dir.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-> index da23ccd8685c..6965a77a871f 100644
-> --- a/fs/fuse/dir.c
-> +++ b/fs/fuse/dir.c
-> @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
->  /* Minimum invalidation work queue frequency */
->  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
->=20=20
-> +static bool inval_wq_ready;
->  unsigned __read_mostly inval_wq;
->  static int inval_wq_set(const char *val, const struct kernel_param *kp)
->  {
-> @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const struct =
-kernel_param *kp)
->=20=20
->  	*((unsigned int *)kp->arg) =3D num;
->=20=20
-> +	/* Defer the work until fuse_dentry_tree_init() sets it up. */
-> +	if (!inval_wq_ready)
-> +		return 0;
-> +
->  	if (num && !old)
->  		schedule_delayed_work(&dentry_tree_work,
->  				      secs_to_jiffies(num));
-> @@ -224,6 +229,11 @@ void fuse_dentry_tree_init(void)
->  		dentry_hash[i].tree =3D RB_ROOT;
->  	}
->  	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
-> +	inval_wq_ready =3D true;
-> +
-> +	if (inval_wq)
-> +		schedule_delayed_work(&dentry_tree_work,
-> +				      secs_to_jiffies(inval_wq));
->  }
->=20=20
->  void fuse_dentry_tree_cleanup(void)
->
-> base-commit: ab9787d7e66ac7e6e94fc975b37c5b56fff98ca9
-> --=20
-> 2.53.0
->
+Best regards,
+--  
+Baihui Liang <liangbaihui@linux.spacemit.com>
 
