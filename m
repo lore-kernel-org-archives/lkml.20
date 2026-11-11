@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380239;
-	b=syRLRL1lkfKLzGTkI9X42gCOogNFxvUHjwN8dtzDviZoHVPWgSfz56Ef8mu1Pvw37p3y
-	 rSFT4qnMd0lJTiFIGLrMZ6GXe34SQD0JXLR+FQbWXDiQ/8mF+2e8y07xxAJncw3ZhJXeV
-	 5rt/7TlzQBdL6pk+5+mRm/Qn9fNZwN29J6pxaCKiHSyW1T9d1v+U7MYIrHepj+AFyOyKb
-	 043UC4+PJubHxI5hr3fi/7dgpedb6MQ38LEAV+OP74urNGb7tYIJX5VEBpeGNig0S1kSl
-	 xeYQk12JUQS+p562ea6I2YhcOtcPd+l2mo2Dv3igKV9b/2F4m3aR3oc86Wo6f91CRvg==
+	t=1794380235;
+	b=tZf61ttPUcNd0HSO+8TlFVdrBsnUWi2b838kvZSHaF9NuYR7Ht09W2fXtce1xW9wfDnM
+	 Xbr1rX4uaGesQgweK+I+uxm7GXrvf+FzLgAaeF8nilKWeLL934AYIS5w8IA66FfgDXbIU
+	 phQ3Up96YrF0D+bnyRBTp8HibskzHzxPzQTrM6DqvQYwNe0Q0G7pdl1lHclm8q9wHhmrR
+	 FO3pYTyVxmQf1kigO6GfclOnRbZx9r7M85AW5IRfcDTs83blb7dgLJtdIC4HujWI2dnAK
+	 B4NdHlU6/IzvdlCK7vi9aMQ5pNPQ/M6PU4RsGU0sJC8Nd0f7ornhoe+CLkg6mEXmqVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380239;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=LLae+NccOKaXCuAT/8LHfaWjJP6dfSgFnTHThUpT/B8=;
-	b=PFJnxWsko+QOsIWeKU3J8V/nAdJl+auegdYTj6mKXs1oQ5jpBcZJ/I4TMR9+UvhlyLNo
-	 F1+phejx2RlLdTdtJ+8WMfwC4HSNpu5yzgR2q2Zrd9cprDektvvltXr3sB5QjXu7Vx2ye
-	 3GAH/l/V19i8qpHUvSA4AEfJF/vHwHMMoeYae2PuS6Amn2HC212VfFCF/OrRBIlnoKPrx
-	 lil1Q0QPUqxHjwwaC2uZwGVu8K3CDlFpcG6DFN49uQ73QLn+QYJQpHNYhMlvcU2DdLL+2
-	 FLBwNRcmm42UuZP9S+zR3UGjhWpDznzolJ6R0KPkviBaBsjPmx1dzAPzj6/1JwoH00g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380235;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=R0WtzFK0QV9dTe74u2VAXpk+0dxVm5YnUHawi9+Z7JE=;
+	b=mKJpj8tGv1Uoft+M2pmOMp6C35q7Ig70cxtUwQ3s786xoeKTUKq6LjBpkCfHKrvHUS82
+	 OtY+5JiDpkkHi+AwZHXe2OfvEQ8vhhMSXpNBEhkIAgBiTn9zygUS6hpV819Mnhpox8+yg
+	 Odnf/RW2gMPintIOnvXeMswyju+2/IAdRvZGBoWkG/hufiNhlhVdnN1ihnOWHE/DrN0mC
+	 zkKix+daMc46NglG5pG9oKfMiolxD3AjZhm74cIi6udHjjmN+CL6sXZqBdqLAawl2YSso
+	 XScNHz17SpfzZZ+VaRHlM3oYp5kLv117ccYdym5nXfNasMD40vHPMyYtPwJpxFxAWtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=veJztS+t;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qCInZunJ;
+	arc=none smtp.remote-ip=95.215.58.181
+Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933D3606EDA2
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 933D3606EDA2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAED606E22F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BAED606E22F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=veJztS+t
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37000e7234bso663708eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:57:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794380239; x=1794985039; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LLae+NccOKaXCuAT/8LHfaWjJP6dfSgFnTHThUpT/B8=;
-        b=veJztS+tdKLJJJcjvy4KYbcS8XvcVBC0hP7hKvJVmO7pm+vsce8nBQspOqU0zpnHJJ
-         ZFv6RsfpP4253EPQnk71pwdbUK7Y1qS7IKS1A9kw6SNsAp6xWqw8ddIc6TM49fN1DHvP
-         7ZSGWHajWbq9M4/6uxTDHDYSptWBC/VbShPaYB7/Cny1JY+Ki7Ck1IpgQWmXnyMt1zeE
-         KfNuohp2pRtSxRjhy0I/y7g1ltb12N9jj+qCsn8wzEwIY48kjNtcuA8l5sQJVU1hSge8
-         /EGWkMD/z3tHGnJXbj0gm3cvEUVGuBwYCFLD414W5jo3ZFqry5z8Bb5xGY4ZsLkLbegK
-         MUHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794380239; x=1794985039;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LLae+NccOKaXCuAT/8LHfaWjJP6dfSgFnTHThUpT/B8=;
-        b=AYelkSF74B771jn9H9gRVJqN8GWXmrN3oLohwneJ4xcIytzZvBZ/qg//VZI9hs3CPL
-         SSP6QO2wEOI6B827v2WPvjiIVaJ78od/4B3MoYgK6zAPQDVWoHY4L1l+Za87Gq04tz1N
-         2/20tKg72RbNjsS8UYBZ0uwBK0fP/CGOJsZMRxk88M3fxNDf4Vg04Kux8kOB9SkT/QxM
-         ZCbkI9n+Hp/lTSbd3jPVpP7nOtkhw2s7mGok/OJ/Y3wilzennali1Y0w2dEb7lgA6xDL
-         M0xjUu5jrlYY/PaKXhHKJ5e3vUnvA3nE98/aIX3ymgc2LPxJ1ZTtt1X3742u1w5gQJ8Y
-         CYKw==
-X-Forwarded-Encrypted: i=1; AL+hErHWkcbX9SXD5H9OSI/e5d8wzJEdxFilm7x6kNwtiAQmlbZ9vRJwmYi0a/RwZVaFCIs5jlTMKUbkxAwqP3c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8d5lFlYAPDhIQz5WS9W1nqaGBDv1+tQ387XlPQqfay7IsQFKkT
-	OXdsWx9zXgh74M7VF0WAM99eQe0HmcFT4eMoMHhfDOnsJm4g8EyztwZI
-X-Gm-Gg: AYBFou2CnbIZ0c0fk6gPV+tbtIMXvhpK6fTF+deqORyRxh2d9Tw1d4BzQ/cUjFuP0Xm
-	1NiyebRt4+Uws8QPbRI+r1ygrs1y3cjJOHN0VEqWoo5AxuREOYF2+8Zf4RzrGXgCgZq6LS1QsSQ
-	OupJ9ZfUhPijUDfli/NLuCE+bBWoFk2IHCa/8M87NyT85kn/QkxoWuvQJ0JVg2PYUKxCKVAWIU1
-	Pm/tAGOPA7jem9gZTh7zgRI0xzCZBAtVZe2iNajykVCmI9OOzPTfCwo7f0HyCkkyBYp21t46SLT
-	c8ExCjyQ/wt39Ag7yLe2twvtO6Ki4NBoX6xyEV9ss43AbdiQUUYqG1LKClr9WeGVX0Od20Gz3yw
-	y0WbrVMqT+IBD1paJfcaEpMrXkf7YU4rWBhgBZHAnDlsX43by6l47FKyU8FNZAw4BdftXg7zq84
-	wJdi9lPunBg8t3kRayjAyeafP9U2pYnuwu9b/2PlXG1zUze1yPtp4LEtmXcZnd2EtgK17/kiedw
-	Ll0xJgiMbNigknmt3E+k9xLECZObyHuPGQiHWfAXchCdQtFCgMG0BmmKJuP3T5ttWjrCIt5XILS
-	tYzqJRMmIY5ju0SsIb6Hz6l7z5jFedxbXkT9uCYxBASHb9XMEeqfYwaKqOvBVfFyyBJh+uU3rF8
-	MN7yczbCDuEmXCfE54w==
-X-Received: by 2002:a05:7022:e21:b0:195:e4b9:d326 with SMTP id a92af1059eb24-1b3c02f09e4mr2248938c88.12.1794380238611;
-        Tue, 10 Nov 2026 22:57:18 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:311a:ad7a:93f8:96c8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm13858121c88.4.2026.11.10.22.57.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:57:17 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Tue, 10 Nov 2026 22:48:31 -0800
-Subject: [PATCH v2 33/33] HID: logitech-hidpp: remove unused kfifo and
- clean up minor helpers
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qCInZunJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OvQTYxYMkTqry3acjf+Vcm67A7weKjsIyvcUqj9sVD0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794380232; v=1; x=1794985032;
+ b=qCInZunJ91dT4NW8VshVhxlnxfpaB6Hkf+dDLxOpjaRZt/31gYcz6sSBwNcSUmQ5y/ff8x6Q
+ nT/J9um+GC4isFsbDp81LXxNnxkAdLk2YHI+oWBdUp57up3HqHbi7coSwd3YVdWPT9piW06xUWD
+ iJYi5yGxGyzBvVI56FkdbVzQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4febb5d57c92655e;
+	Wed, 11 Nov 2026 06:57:12 +0000
+X-Mizu-Trace-ID: 4febb5d57c92655e
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Wed, 11 Nov 2026 14:56:57 +0800
+Subject: [PATCH] mm/bpf: Add bpf_mem_cgroup_memory_events_local() kfunc
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,81 +61,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-hid-logitech-hidpp-v2-33-30743e91d83b@gmail.com>
-References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
-In-Reply-To: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Gideon Heinz <gideonheinz02@gmail.com>
-Cc: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>, 
- Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
- Edwin Velds <e.velds@gmail.com>, 
- Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
- Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.17-dev-e56a4
+Message-Id: <20261111-for-bpf_memctl-1111-v1-1-8b56784d9e5a@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSwqAIBRFtxJvnGAWDtpKRKQ+60U/1CKI9p7ln
+ Z0L59zg0RF6qLMbHJ7kaVsjFHkGeuzXARmZyCC4kEUcs5tjarfdgosOM0tfqaTRgle8NxDN3aG
+ l6682bWJ/qAl1+FLwPC+EilzPdwAAAA==
+X-Change-ID: 20261111-for-bpf_memctl-1111-f3b6dc2040ad
+To: Roman Gushchin <roman.gushchin@linux.dev>, 
+ JP Kobryn <jp.kobryn@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: hongfu.li@linux.dev, bpf@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794380225; l=2008;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=44vpfizS0VlosmJiTV7G7pfGCN7/3RT3A4dbxD9R4JY=;
+ b=6gHInHLqYiXWrXrNKs1ifLi/E8r+1T4xwxFAc+85WJ6yuMI6cmgl7yLnbs+kBxc10cJVZZjFA
+ R4BosQQkj/ZDPQyCe7D5Lff1qre8GMIERQTTAFcD3xRCzqBI3Xvd474
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-Remove unused linux/kfifo.h header inclusion and the unused
-delayed_work_fifo field from struct hidpp_device. Also drop the unused
-finger_count and button_feature_index fields from struct wtp_data.
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-Drop the redundant input dev.parent assignment in hidpp_allocate_input()
-which is already performed by devm_input_allocate_device(). Also drop
-the stale ret format specifier in the hidpp_connect_event() input device
-allocation failure log message.
+memory.events counts events for the memory cgroup and all its
+ancestors, so it cannot tell which cgroup in a subtree triggered an
+event. memory.events.local counts only the events of the cgroup
+itself.
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Expose the local counters to BPF programs with a kfunc, so that a
+policy can attribute events to a specific cgroup instead of only
+seeing the aggregate of the subtree.
+
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- drivers/hid/hid-logitech-hidpp.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ mm/bpf_memcontrol.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 019b917c3b90..6529c7b10b8f 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -18,7 +18,6 @@
- #include <linux/slab.h>
- #include <linux/sched.h>
- #include <linux/sched/clock.h>
--#include <linux/kfifo.h>
- #include <linux/input/mt.h>
- #include <linux/workqueue.h>
- #include <linux/atomic.h>
-@@ -198,7 +197,6 @@ struct hidpp_device {
- 
- 	struct work_struct work;
- 	struct work_struct reset_hi_res_work;
--	struct kfifo delayed_work_fifo;
- 	struct input_dev *delayed_input;
- 
- 	unsigned long quirks;
-@@ -2847,9 +2845,7 @@ static int hidpp_ff_init(struct hidpp_device *hidpp, struct input_dev *dev)
- 
- struct wtp_data {
- 	u16 x_size, y_size;
--	u8 finger_count;
- 	u8 mt_feature_index;
--	u8 button_feature_index;
- 	u8 maxcontacts;
- 	bool flip_y;
- 	unsigned int resolution;
-@@ -4360,7 +4356,6 @@ static struct input_dev *hidpp_allocate_input(struct hid_device *hdev)
- 	input_dev->id.vendor  = hdev->vendor;
- 	input_dev->id.product = hdev->product;
- 	input_dev->id.version = hdev->version;
--	input_dev->dev.parent = &hdev->dev;
- 
- 	return input_dev;
+diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+index d8f579c28560..826f711718db 100644
+--- a/mm/bpf_memcontrol.c
++++ b/mm/bpf_memcontrol.c
+@@ -133,6 +133,23 @@ __bpf_kfunc unsigned long bpf_mem_cgroup_memory_events(struct mem_cgroup *memcg,
+ 	return atomic_long_read(&memcg->memory_events[event]);
  }
-@@ -4474,7 +4469,7 @@ static void hidpp_connect_event(struct work_struct *work)
  
- 	input = hidpp_allocate_input(hdev);
- 	if (!input) {
--		hid_err(hdev, "cannot allocate new input device: %d\n", ret);
-+		hid_err(hdev, "cannot allocate new input device\n");
- 		return;
- 	}
++/**
++ * bpf_mem_cgroup_memory_events_local - Read memory cgroup's local memory event
++ * @memcg: memory cgroup
++ * @event: memory event id
++ *
++ * Return: The current value of the local memory event counter.
++ */
++__bpf_kfunc unsigned long
++bpf_mem_cgroup_memory_events_local(struct mem_cgroup *memcg,
++				   enum memcg_memory_event event)
++{
++	if (unlikely(event >= MEMCG_NR_MEMORY_EVENTS))
++		return (unsigned long)-1;
++
++	return atomic_long_read(&memcg->memory_events_local[event]);
++}
++
+ /**
+  * bpf_mem_cgroup_page_state - Read memory cgroup's page state counter
+  * @memcg: memory cgroup
+@@ -215,6 +232,7 @@ BTF_ID_FLAGS(func, bpf_put_mem_cgroup, KF_RELEASE)
  
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_vm_events)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_memory_events)
++BTF_ID_FLAGS(func, bpf_mem_cgroup_memory_events_local)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
 
--- 
-2.56.0.542.g3ef89b7020-goog
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261111-for-bpf_memctl-1111-f3b6dc2040ad
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
