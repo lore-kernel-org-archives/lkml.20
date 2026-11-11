@@ -1,73 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416208;
-	b=D/xAQfX1cjJhk2OKJmQfLRh5ij8gCWU7ivSnd9xTH1kg2Zv768D9NoC0AJV5vKUJmJIU
-	 u6DyoA/ITkpn+3Wlx6j3QX47FfX1vRDeCL8mMibfDdxLOX7FSkizTbirBfUUmIPepqhfd
-	 TxW6eiN0fjfDOD4HRE412R3JDpYmR/AT59wcK1OIyCHONWmmlojmdAdOnlVsqaHGDqzzA
-	 46hF3PJL399Wz9IbQzz5csA1AMoM4nxhWgo6ITvmEs8Uc41AQhC7jamXa81pxlJs/FQnX
-	 FTotRzOn/dc2aMaLwyhXorJFb/P/Dv6Je2oa8mdl/gOuMCSWLVmP7rDBkFpmxBq8sZw==
+	t=1794416225;
+	b=3y1Cb2ZKTaZpad+MtltjuiC5kSFL4mH2IG5KE2H6nzjrZcFvN1BG182JnvIYrWFEcDeP
+	 YeGhXvJWY1eCzRamv5uTRsQXpLMgpF1FQi4bpR+m3E7oSc535dB/d/qmzSQcu93USb3Zx
+	 qm5iFpkLf1rhw6MoBpUVgaYR7qWM6ZXmloXv19U4xYESgKGPtESuTpAkO7FbDkk14WBVD
+	 6ob543Zxag0gNm3dDLD4qEOhjLEyr7x3TkfJZq4rpgIjdgliPJmVIoJdU8SmeNwccz2q4
+	 CjS6GwAS4U8NfxlkgZMFk1HedhzWOODeH3r5Y/dEH4wsxC8Dfz8UzujItDcSzeIl9oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416208;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=479XHjyry+esrWGEqWJa1TbMqWU4kn9HwykCDUTXvDw=;
-	b=htsbjh8Ukz63eG3ESryT3KVcAvru3RDcDf+5NjcIn6zIJmD+6NZkzuZ8eNFEu9XfijGd
-	 1QuQXP63TR4ucU7Tk1DWENSfFFH+Sdi1xMnG6PhOZ4vJ2UdvBJo4eSHmSHlfuCCOQYxHl
-	 2vqLv9pff3pQIq29zn6PrX+EJOhEcwg7WTdD1Tg0EyP0PCyweveptYaIGaK/RYES4odC7
-	 RIgr2DxZqZJexlLaBafUZjrcPlM9WwWltNTrII8GAcM49s5+/jylEcuhDY+mnGLJ3hRmu
-	 JOoj3MutUXrPedJhGgndi6vOYp8KY20NHQkKIa4tXgC8KgdhJ88unZQ4SlUymVQMm/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416225;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DRnG07+MML/nLLq4qs6X9lcjbdBka9Mq9PjPAM29EKc=;
+	b=j6vTQjT83K87Yo/N2SBSRBROmtnkDFGiiAoYUWoL+s0HYvaQe/YWq3+0olRs3V/zatBP
+	 UqdI3mq3x2+C8JN5PNmElWCi2VUyqc8cWkhUwxxmDcBg1DNUqd2Kk8N7V1zbdADQND9YX
+	 Mh4l2qQNWYQAxY8Js/bnSD+lG6uz/EW5NDYvM1UWaloxccV9gr6eafoWhxTJL/cdCZppV
+	 7wDspShF93aEnOHoVGMkEKXlLIYEivw1g/ejKVtEodGn2RWyll4cZAnVKySYKSwG8toBN
+	 SSGmyi/Hiw0UNA+S0fjjByXHerEGaUX64RNxGaTpS9Kn7x7hQAexo5m5trnNEMl6a2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=utPeEWqs;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul6SI24x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE708606A89C;
-	Wed, 11 Nov 2026 16:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE708606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F623606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:57:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=utPeEWqs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=479XHjyry+esrWGEqWJa1TbMqWU4kn9HwykCDUTXvDw=; b=utPeEWqsu11ZRvRHShfJxKmH3b
-	tsE+6dt9AXJKTWJBZDrEyUT2DFK9S8j+8tdtBVEqneXY40w6dkQeHnQ6iLsfCfaodm1Uc7upFM8xb
-	JRzM10Wr/jXLi8cNqMDkhA0Cfp2jMm4H+dmAHXj8f1rDxtM0NXRK57f4fr6Umvq89sl0Wk1FaJNHE
-	7dwaSw9Qh7ZVmQ6v7niM/njBzEFo2DLpIKnNEX5GQy9qcKe24eflIxpFbj2uAWkKX31s3vZ4p+HAV
-	lQV7fXFXCNcBULuVbGMGt8faW2RsSMWbaHiHaiO+peQGlnHu+Ru+a0+laalqDLEPr/wAdLXs5oQv8
-	qmaDGJDw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRBcn-0000000BhFe-2jRA;
-	Wed, 11 Nov 2026 16:56:41 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A9661303154; Wed, 11 Nov 2026 17:56:40 +0100 (CET)
-Date: Wed, 11 Nov 2026 17:56:40 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Radu Toader <radu.m.toader@gmail.com>, mingo@redhat.com,
-	tglx@kernel.org, tglx@linutronix.de, tj@kernel.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
-	anna-maria@linutronix.de, bigeasy@linutronix.de, joshdon@google.com,
-	haoluo@google.com, brho@google.com, boqun@kernel.org,
-	joelagnelf@nvidia.com, enlin.mu@linux.dev, brads@mainlining.org,
-	kmehltretter@gmail.com, sched-ext@lists.linux.dev,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] softirq: Treat an interrupted idle task as idle in
- tick_irq_exit()
-Message-ID: <20261111165640.GQ1779021@noisy.programming.kicks-ass.net>
-References: <20261111112944.3868822-1-radu.m.toader@gmail.com>
- <avSTjihu0YXfFNUV@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul6SI24x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF171F00A05;
+	Wed, 11 Nov 2026 16:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794416225;
+	bh=DRnG07+MML/nLLq4qs6X9lcjbdBka9Mq9PjPAM29EKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ul6SI24xHE+TN0inGqrA4Rlo72M65ovH61mPY8Ofi3QiY/l8Ny8QJkiBhpoG8ltve
+	 FtpjoDE5o1sETrXdxS7vBUa34+HM/yiDsHIr+zxAX6cTq1XPNmKPMfQlxEu5uiwfkq
+	 e2kqCwE5Svx/SXFPFHEHMbYXTsstwXVUN3MTeIuezpYLmaZdH173sFwQMGp7l6TvBX
+	 fzsJBXfzeli4Wf4+ZtHEM+MCP3uS94B16jf5KQ9tjb3SORco7DPD2JL4hI/NbXAZfd
+	 ZGCvJoCsujbEsDnc59L7wxX8FRGjsARStbHCM++6jv2RSQxEdy3+tNCa98aT++xlZu
+	 VOjvenfchOziA==
+Date: Wed, 11 Nov 2026 17:57:02 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, Ingo Molnar <mingo@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Aaron Tomlin <atomlin@atomlin.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH v2 2/4] sched/idle: Don't handle polling idle as dynticks
+ idle
+Message-ID: <avSeXluNMl_XGPEw@localhost.localdomain>
+References: <20261111114406.346953-1-marco.crivellari@suse.com>
+ <20261111114406.346953-3-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,40 +71,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <avSTjihu0YXfFNUV@localhost.localdomain>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111114406.346953-3-marco.crivellari@suse.com>
 
-On Wed, Nov 11, 2026 at 05:10:54PM +0100, Frederic Weisbecker wrote:
-
-> > diff --git a/kernel/softirq.c b/kernel/softirq.c
-> > index 7fc2200392cd..e7d649c29c0c 100644
-> > --- a/kernel/softirq.c
-> > +++ b/kernel/softirq.c
-> > @@ -738,8 +738,16 @@ static inline void tick_irq_exit(void)
-> >  #ifdef CONFIG_NO_HZ_COMMON
-> >  	int cpu = smp_processor_id();
-> >  
-> > -	/* Make sure that timer wheel updates are propagated */
-> > -	if ((sched_core_idle_cpu(cpu) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
-> > +	/*
-> > +	 * Make sure that timer wheel updates are propagated. An interrupted
-> > +	 * idle loop counts as idle even with runnable tasks queued on the
-> > +	 * CPU: forced idle under core scheduling, and the tasks sched_ext
-> > +	 * keeps on a CPU's run queue while its BPF scheduler holds them back.
-> > +	 * idle_cpu() would skip the idle bookkeeping of tick_nohz_irq_exit()
-> > +	 * for those, and with an unstable sched_clock the CPU's clock then
-> > +	 * isn't resynchronized when it leaves the idle loop.
-> > +	 */
-> > +	if ((is_idle_task(current) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
-> >  		if (hardirq_count() == HARDIRQ_OFFSET)
-> >  			tick_nohz_irq_exit();
+Le Wed, Nov 11, 2026 at 12:43:48PM +0100, Marco Crivellari a écrit :
+> TS_FLAG_INIDLE tells nohz whether the tick is managed by the idle loop or
+> on IRQ exit. With idle=poll it is set while polling, but cpu_idle_poll()
+> doesn't run the idle loop again on interrupts: a nohz_full kick or the
+> expiry of a stopped tick isn't re-evaluated until something sets
+> TIF_NEED_RESCHED. The tick is therefore restarted before polling, and on
+> nohz_full CPUs it then keeps running after the wake-up and interrupts
+> userspace.
 > 
-> Works for me, but Peter might find something I haven't.
+> Enter dynticks idle only on the cpuidle path, from cpuidle_idle_call(),
+> and leave it before cpu_idle_poll(). While polling, the tick is then
+> managed on IRQ exit as for a running task: on nohz_full CPUs it stays
+> stopped if possible, and nothing is left to do on wake-up, so the task
+> doesn't pay for a tick stop after waking up. On other CPUs, leaving
+> dynticks idle restarts the tick as before.
 > 
-> Acked-by: Frederic Weisbecker <frederic@kernel.org>
+> tick_nohz_idle_enter() may now be called on each idle loop iteration and
+> always runs with interrupts disabled; tick_nohz_idle_exit() may be called
+> outside dynticks idle and with interrupts disabled.
+> 
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Juri Lelli <juri.lelli@redhat.com>
+> Cc: Vincent Guittot <vincent.guittot@linaro.org>
+> Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Ben Segall <bsegall@google.com>
+> Cc: Mel Gorman <mgorman@suse.de>
+> Cc: Valentin Schneider <vschneid@redhat.com>
+> Cc: K Prateek Nayak <kprateek.nayak@amd.com>
+> Cc: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Link: https://lore.kernel.org/all/aQiWfnnSzxsnwa2o@tpad/
+> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 
-I looked at the previous version and didn't spot anything more than a
-case missed in the verbiage passed around as Changelog. I think I'll
-queue this thing, its simple enough, ableit the changelog is a chore to
-read.
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+
+-- 
+Frederic Weisbecker
+SUSE Labs
