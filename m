@@ -1,67 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394634;
-	b=bJ1BKDhlMZfTkU4wQiV9giXDh3D6mhCCuttiJNL1rTqOkEjCatLwGYh6sdigbuyQOMgW
-	 9lk6BC4DCCJT+Ff+9HJjOB5YyG8uBNvZ1e3OGo4gKUXecsGpm+8usPHtucslsM2I2KiZ8
-	 Evc7mkn2UcQLNg7fwAsLnvdEx1I15cwl5ioubwAW4Uw9XVHrF1aCCufYkdCYJeDuHwfLO
-	 t7XhmbsW1cVnkMpMGntWH/Dg1dVz18LWSYpwgmhzmo6nHenP8w+IyYivpPAI01jj02J91
-	 qK6G7ZzWNBYhEjI7PINignpjDuNbN2x/1mlRIgMZeH1XG4Z/LH6qF/Ua5FdKQcO8XWA==
+	t=1794394637;
+	b=Lr7WLzvIUVRUH7APGMpw/BxtVPxkZ+0n7nVRNo6/OHesJ89JlItLm/0NdNGW0ulgjERS
+	 EE/Jqz4Xnk9Xh5JBE/cJj0NeRLGHiQmSPaaP6DZk2VbZj903Wh6ksPPB+oc/sLayzv2nv
+	 iwLfr5zkJQQ6Ps7o2qdLlWyH+W/j1lgvDthAiKlONK9eKheqFCPFIozx9oEnlVzJcUUnG
+	 QHyLkBgwHpCyCYba3o/WP29IXHIPKb1E2pZQfu6uV+wZWvanCojhJlnagrWzmJW3qXS21
+	 pvEptqnKyj22uhXl7tPjAg0B2IqhmQxMrdH+NRi8EHHYHNUi/Jy+5O9hVitoSOn9SlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394634;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=y71I2g5CiY6ZLFtOOjFefsyXa2Y2V1HXYev8hBP6Jd4=;
-	b=amg7ImZI4YDI8TPqhVbjsmHk1vMCYxySEOWWiyyAtoVcK1z8wkbd9cRpI0v+g1b2MtaN
-	 wsivNDK6mEnIpbCDcJj+1H1eow6PyQ1tlq2TQeshcweBh8JhXwfXlcOHI6pChjaQR5RTU
-	 SN7Dktbs3DImqyC1YIAGeWooLuUy4XuFneYYN2sNcwyOYt3zzajxjuNeduGD3ikz/dtJF
-	 3PsRpbBgNQ9Tf/5f4+IS0PfYdr6VVviWMXihFnh0WWoTe+C/09iaSFbkHs3SiBQR/tf7q
-	 U9xHFqIE4OJC1A3B5gitoW92dzg9bDGi2xpCI8mUyS8M3s616hxvMmDJAyguzKOm8Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394637;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/tEoO9wlGMqIvf0h432Z06K7uloWrBYOEEtmATNYZx0=;
+	b=bmVCs6lqm0gZx19JY9CSRQn6xg+G2wnv/b343PjaPo/vQwUts5BViYDzzwz/fZUk67R3
+	 366dBX8ZhZ5zd3jUBK6KEnaIbyxv4gGlw55gNVHXY7JptARDRCr+xe6OkOj5u7x4/Oyas
+	 ikUtGsIrNWBY4VHWATT7qPISTifJIf6j+FsohYfHLlQScTFk3lHy71Fn74/oorN4cvg4g
+	 lqcK31D3kvKKj9QwTiMrJikCToj2sBpiO/8+KS6A/6d4hoTjJPyVPwo4t94qa8x/zAhSR
+	 VNAXNPOLjBntD2UK1jvg58AfXP2UP+x4fBF//qdq04CkuH/wBqHyFZ3eKjHrXIB0eTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LJcz3i2L;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=D4tzSEUp;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4963606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:57:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4963606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100BF606A884;
+	Wed, 11 Nov 2026 10:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 100BF606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LJcz3i2L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794394632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y71I2g5CiY6ZLFtOOjFefsyXa2Y2V1HXYev8hBP6Jd4=;
-	b=LJcz3i2L3K2BBo4ahQLJAfzdjdNtDuB0P5x1fyq9oRGFJsvsu0KNYquhiAj4gMl5weB1CM
-	IWtDF8ao6daFvIPurkPa/ce8FWBdvAADaRy/nDXcE6hdkw02/b9H2+dYwzVYJmnOjn9gXk
-	HHEioKqJ+wcugjuPb/vQJEfEbndSmJA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-2-VSeC4wBmMpOyp6eJ7S0wcA-1; Wed,
- 11 Nov 2026 05:57:09 -0500
-X-MC-Unique: VSeC4wBmMpOyp6eJ7S0wcA-1
-X-Mimecast-MFC-AGG-ID: VSeC4wBmMpOyp6eJ7S0wcA_1794394625
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8C3941955F18;
-	Wed, 11 Nov 2026 10:57:05 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2DD8C19634EF;
-	Wed, 11 Nov 2026 10:56:58 +0000 (UTC)
-Message-ID: <47221876-07a8-46c1-86f7-552402a8d5a9@redhat.com>
-Date: Wed, 11 Nov 2026 11:56:56 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=D4tzSEUp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=/tEoO9wlGMqIvf0h432Z06K7uloWrBYOEEtmATNYZx0=; 
+	b=D4tzSEUphplymiaxdK4+frJVAUo73FzvoD6f9B/WMt73OuAQaQgFyYc7qWrP9tZzaHCjsnQsoh2
+	iGzXUgW3lO1I5RsK47JmGdKmyeGBCpUXI0A+d1c1mKtr22xCXrnqbPKhq6wXvjZWQi2YPwx8VRThO
+	D1OnzN89hYRe55A4/BQ8NAjw+4FYgpoWv0cJAbhm/AeMzJEXcgQREN5VZsvuysYz5oM1jRwNBggDj
+	XyMtCgzgUd0H48nhUAqETsGTeEHECuD9J0yFbu2at08Q49EItjsDXCDdaag80ohfrCL4WyboY+IJ8
+	I29Zif+gDV00+u2jSFkEvzsQHAymoD1kRuZw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xR60t-0000000Dm9I-3hdQ;
+	Wed, 11 Nov 2026 18:57:12 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 18:57:11 +0800
+Date: Wed, 11 Nov 2026 18:57:11 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Pratik R. Sampat" <prsampat@amd.com>
+Cc: mcgrof@kernel.org, russ.weight@linux.dev, dakr@kernel.org,
+	ashish.kalra@amd.com, thomas.lendacky@amd.com, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org, rafael@kernel.org, chao.gao@intel.com,
+	aik@amd.com, tycho@kernel.org, nikunj@amd.com, michael.roth@amd.com,
+	shansinha@google.com
+Subject: Re: [Patch v5 7/7] crypto: ccp - Implement SNP Download Firmware EX
+Message-ID: <avRKB59olTJmKQun@gondor.apana.org.au>
+References: <cover.1792599491.git.prsampat@amd.com>
+ <fe86fe10f9def87a2b463a6d4b44e266dd9497dc.1792599491.git.prsampat@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,71 +69,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 02/10] ice: dpll: serialize changes of the SyncE
- CGU registers
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, min.li@microchip.com,
- anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
- karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
- poros@redhat.com
-References: <20261106121005.1327603-3-ivecera@redhat.com>
- <179433320107.994134.16333323653199953270@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179433320107.994134.16333323653199953270@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fe86fe10f9def87a2b463a6d4b44e266dd9497dc.1792599491.git.prsampat@amd.com>
 
-On 11/10/26 18:53, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
+On Wed, Oct 21, 2026 at 05:05:03PM +0000, Pratik R. Sampat wrote:
+> Implement SNP live firmware update using the DOWNLOAD_FIRMWARE_EX
+> command.
 > 
-> Low priority / nit picks for your consideration:
+> DOWNLOAD_FIRMWARE_EX requires the legacy SEV platform to be UNINIT. If
+> it is WORKING then legacy guests are running and the update is refused
+> as busy. If it is INIT, shut it down, release the buffers the firmware
+> owns across that shutdown, run the update, and bring the platform back
+> up afterwards. SNP is never taken down, so SNP guests are unaffected.
 > 
-> - [Low] The commit fixes a race that already exists in the tree, but it
->    has no Fixes: tag and no stable Cc.
+> To test run the following with your sbin file in FW:
 > 
-> --
+> echo 1 > /sys/class/firmware/sev/loading
+> cat <firmware.sbin> > /sys/class/firmware/sev/data
+> echo 0 > /sys/class/firmware/sev/loading
 > 
-> ice: dpll: serialize changes of the SyncE CGU registers
+> The COMMIT bit is left clear, so the image is only loaded provisionally
+> and the admin decides when to make it permanent with ioctl(/dev/sev,
+> SNP_COMMIT). To roll back, do not commit and upload the previous image
+> the same way.
 > 
-> This patch adds a cgu_synce_lock mutex to struct ice_adapter, which all
-> E825C PFs share. It holds that lock around the CGU R10/R11
-> read-modify-write sequences in ice_dpll_synce_update_e825c(), and around
-> the ice_tspll_cfg_synce_ethdiv_e825c() call in ice_ptp_link_change().
-> 
->> ice_ptp_link_change() does not hold dpll_lock, so it can already overwrite
->> an update of another PF. RCLK callbacks are serialized by dpll_lock, but
->> the DPLL core is going to serialize callbacks per (module, clock_id), and
->> each complex has its own DSN and so its own clock_id. With that change, a
->> test toggling RCLK pins of both complexes lost an update.
-> 
-> [ ... ]
-> 
->> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
-> 
-> [Severity: Low]
-> Should this patch have a Fixes: tag?
+> Co-developed-by: Tycho Andersen (AMD) <tycho@kernel.org>
+> Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
+> Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+> ---
+> v4..v5:
+> * Report original firmware error on rollback failure - Tycho, Shantanu
+> ---
+>  drivers/crypto/ccp/sev-dev.c | 297 ++++++++++++++++++++++++++++++++++-
+>  drivers/crypto/ccp/sev-dev.h |   2 +
+>  include/linux/psp-sev.h      |  19 +++
+>  3 files changed, 317 insertions(+), 1 deletion(-)
 
-[...]
+Sashiko has a comment on this patch:
 
-> Another option is to split this patch out of the series and send it to
-> net.
-Done, the patch went to net with this tag:
-
-https://lore.kernel.org/netdev/20261110094350.184185-1-ivecera@redhat.com/
-
-v2 of this series drops it.
+https://sashiko.dev/#/patchset/cover.1792599491.git.prsampat%40amd.com
 
 Thanks,
-Ivan
-
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
