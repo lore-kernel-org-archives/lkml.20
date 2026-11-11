@@ -1,100 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389379;
-	b=v3UzQbtzE5HfOcyBlvDeyA/ocyTS+K8znPiMOdu7PFJOLvWmBKifqYTEZNRTERUvVOg0
-	 cOh47BPEnhcfqLxCfNhef9ENuZF/oTd3J22nF3T6H4QI/WIaGNbIJXTCc5uSFd/6v7Wua
-	 8X8C/UhwuSoZ+owOlXvKpiH3Xldwt4oObplfFNRWhJoclgkBJ5NbarrgOHXXKsWECeXP/
-	 d1DFzPLo+UuyvaoqrRpd9w68Nf/CZD5iNV2rr0OYN7xqJUrw3BxtEdwtXYrIkdqck0ewf
-	 40am5g5usKHm7AIddLJ8bS4WWOMkclqrGQ6FOql/umADX9lflkp9RXuf32YDUE00a8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389379;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
-	b=sLMfHlVYUSJffPLH8PTPrlvq0u2462PDGK+tW/uRqKH2wSRNJJwlKuAL+RV/EcXnpc97
-	 OYirQDlXVQx6bzudKc43uPzxuzlbEY56zKB5h0LdOEO4TPJnYcD2FHD4I2LgX59WsGz0C
-	 +rxLqdCj5zr0uC3ZrxQ/i1Iw8iMtwTBr0X12bI1wCDBna+dwGdxcnRZUPbnf6GkieaZrn
-	 9aag0qZAbj7k/uCoNSG2oODzPRBOK6ihP04AB/ehfPgdXDFBJZKjFa2o6DdalAfqAVviG
-	 5luiVtWQpKQojb7gCer19r6a+FUgje3+ssIVxvIAC8Qdt7STI94llyAb9cbYclABYQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mIz+x5NO;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794389397;
+	b=rxgOUW2/0Okl0vjPadtwn76zPooxor3IfK5xfjoUgL7pJMQnet8WBf8WQ1a3ouu5T27U
+	 nsymSNpe+wD18GQGd4lQYGvtYAaHvHVu76BUfAQvIVKufJGCFlpXq56jgKL5yfrWn+Luv
+	 VeLC1yNtoW7FCbYZg2W5KIMQkkWCz3aiQk/eQHFb9995DKg+f+fGvXf7EZen5e1EmTtwi
+	 t7lnxYFOMLYQN+T00QJwJBPVKnBMM+Q0AN44JiFCb8/T+kSyYIzK0ThMQ+iX2D8lKbtRU
+	 STmDr6awQDpdRQvC6G0Ud8W1cEOTjL1Iy2b+87rqmugX2OHIx99M+PWBQuwp0FQWLow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389397;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Reason;
+	bh=sV0Tc8/+t9d2UKdTv0+KDyGV9Lv2eFT61QEtLhMXr9A=;
+	b=BJ7PArtr9TGmeAJ0a5LnD6SLvNfUeDxHzypwiUmRgZQoagCrh5eZxLUC5mwqRtkot6rA
+	 vMMtJ0aYxVOtieMqY5aDHFUGqHvI0U41RtQ0XVb8BFEqI1cK5kP4Dvm1/5RXBfLYDkXnT
+	 10/myQi9zvGAer8U6tyZa9VPGigIVpqjWD3ZuDWaGmRLyQIh66J5tMawWMDfXAkfxvXp5
+	 LKANck8vcGLqb48LfWccjL9evXhcgz9G0upZmoh8+9sbbrYXgousJm0d5UWIVmcYZO2+b
+	 N65x7FnuR4rkF8vKwMsiqsYooMo/6d2t8nRYrX29j+MmjbHE6j5gtzjhm28FHasdKPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=J7CqR18k;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=s6Wl+Ae+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A65606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:29:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A65606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C338606A324;
+	Wed, 11 Nov 2026 09:29:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C338606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mIz+x5NO
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491aaed7565so1770846f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:29:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=J7CqR18k;
+	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=s6Wl+Ae+
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB9TjZF3414213;
+	Wed, 11 Nov 2026 03:29:50 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=sV0Tc8/+t9d2UKdTv0
+	+KDyGV9Lv2eFT61QEtLhMXr9A=; b=J7CqR18kA5q8OJpejfboXH0RNv7yCKjjcB
+	+/NPL7ULNqb/HUfkVjmYs1aIupwof6hqdmCKGmcvhQn7FzZKKX5NFq0tPy7n6eOf
+	dCrpArUo/PVRyubBzP8kW10sAVqCc30/Nig/o1dx+rC8KpLAKY2a6tETxjGt8ZLE
+	4zpvflPiCBM/XBwQzoOMQ4+yyZ4/zn3nDjSPI0KNHQ5c9DsLmfk5y1kxyaTkBBoQ
+	0eiSYvR9RIU+tKrUk5xJmYNMknmSscm4KIaKOVVURqVQhZV9UPBLEpDXA/j2TDIr
+	m/277HQbu2chiP1vh4LO2w1M+lWYkMZFyLsp6w0IV7FUJuREUweQ==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11020133.outbound.protection.outlook.com [52.101.56.133])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hv7urs75j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 03:29:50 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cZAS1f+lx3MHLgHOmGwDNmLRCtRtO14tqh5E3HVJRWFjh9HE4Sp0y9YlHlgGH7z0Iclw/AfrAZkXD4VupwGUzSI4JAG0rTDgFk1ycU7P9rTTF6PWK3wRKc3w6qrOVAUxRRoBhNOfUpUQMMi5mxPnvkcDw2+J2HaFjEJHw06rEIDkTI8M2jPQqS8JvrAXPi7h8jFRztuS43igN9oDZANOvf/bR2S0UjjT1voE70pGqgDWoFQe2Dn1BwOZqwShT1ou902LVZskQK+/jyEtDQ6ktGxeGH1l4OjY1KJilBiV7tevVsXQR7py/zQo6XQUspYsKTA5b4g90EkYsdnWWBhvYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sV0Tc8/+t9d2UKdTv0+KDyGV9Lv2eFT61QEtLhMXr9A=;
+ b=wopz4aeyRZK7hHAvI4hCia3vPdgh2u9HQQxMeW1SQaNeerFXFIVzWV7j9Rzz0tqQfqhlxU5+eU/Bb6Z9HpCWcA9tcz+/0J3veoCWJykb127YlxkcUjXpHjz5e9SsYBvjm1cNATuDfORF/y1TWXmryCI3iIzr+D0Pz1iZVfDRmQnZk1dUi9QhMomegCDC2KsbjMZmInV0dzrqi5ZnskBov+nVrsnqXa0al+mATkBbtH8Pyx+uI+Z0iuF46fYcqg7x6uQO7OBSGRYxOFonj8e9FMwCztaWQUEvLlclarIDf3ceyAbTLiAKNuqnz0YRPo0oRZ6ZPpHrXoy7cQ3iwLWcEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794389378; x=1794994178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
-        b=mIz+x5NOpN2cIR1fstIXQYnCW6VsEYNhbJ5YAA4meZT+odupw2IgpROiY5YB5r7r+c
-         mOJp+AdCWXCV8euzxhSfUecwtVnnQx6Cm6lKaIOf72GX6vB5NbP36m7XxayqEzrlDDye
-         h7JdokGCk4+FYZRXUrHOIzSsGy2r1+W1dB/VK53iq19VzP8AjqWhJbuHwsZa39J3h+62
-         CLdXEoJgSJVs0DHIW/THzxH0zM9+UGWQX4smgoEEoiexr6wF6DS1LIlx/phcG9iY1eBk
-         rQ8rqqKfkn8zLr2LbSEPNwkwQGoNBwiCmB9M0uiXjHKcgQyBN/Segh6x2BRAGsjX0fLX
-         zISw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389378; x=1794994178;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/wyfEDWWDuIr1slw1zxcxTDWKymMx6jtSpk7SY5bUAw=;
-        b=oSRdgczUrXLqpLlWw/Q+gMZ9/g2OxWgnGJLz22mC8yorzR19P2iCIMuYkdDqYbJtiw
-         5H31O5R+JvbyzWk/gbrQw3BETocD7T/Hq4R7t/xjGbWFKJPZLclFyfFJCMShcmeNkBG6
-         PfVJJN0gPgGHopMZheY1Zp3tjpfXcMBaZNybJbQFZR4A9GEMBvfWVW8LUkLidcBqXEyK
-         JcxCS7oCxH9Nvae+Kk7mlQ/+FpJgPimE3Klw8zlQ/d/uWB6SmNIHzbNoZ1NO5X15oRbL
-         biAYyilTqfP30l2/2k8xiIy8JhPrmLLRxYyUw0y7VQ54cXP3y0l66uJHMa4iStgWZR1B
-         at2g==
-X-Forwarded-Encrypted: i=1; AL+hErGMaJG/kxvOXE570K2OlHdAHtRQi1ulZ+03tVOR6DVYOcAjGduBkfO2xikOtevpxm4bFfr7NcdFNzDJIC0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sGmj6BPTMywMBIsacpy3lx9cAVEZm9+ZTRT/ySaiFGJNGzZh1
-	9br4VcGaNVQTzObmaaAGyUhuQvzc1a/M+lsA/uDyVlfFiCfLdz+tn3f/
-X-Gm-Gg: AYBFou0NeceeyGvzCxTxem8wSg3cyvCt7eNU2IAMv1HGPmML2POsUAcSf8jBKDxA7ap
-	aBJILAR2FV6B5fVnyObiD9Z69MeSkNxbMWFX5kIMfTHdvWDv6iAvMQ0ohTUyOu1stuK70XyXYep
-	X1kfy0FNmhXESgZnKSWHuJ1PbkgMF8GTnZ3QsmPhWTp50Bfyfw9B10gTYYQEQSw9lOIzS46o6Kf
-	8wW+N42keh3g2VDSbsq+aPOXJyG2+m/SPfJ4i5Gg/fCqW4fdtLAOI/a8I0X1PUdAG0jeiQJtDXm
-	EQyldDI0W47dyv16EXhnIq4eAVlumU9eFFusu38rQL8DdGwfeIdRZj4JQ7rdKp4GXUI3mc8vAl2
-	IuqsGbu8ptzWDKmICqxPMXniyxBu3s/2JRgPm49ssAB8YinCHoB64wd5wfo9jAqzXQoFCRAgeab
-	dtkQn/dVbCLSRL3hJFrylX1bTB0/k2Hdr30GG7PYF+U/IbdgaDbuxNwd9pk7iZGMimgxiVCHBE7
-	lpERSnGYMGTaGGQ2j+05hkCDpmhUzYYLRaRZ1/GdyQGDu83pfBAkGdRMTZVgd5vkLYzTKa9fD64
-	hFxdPkb3ErQWZJrOUwlDya4z+YOdiaMQ4/in+hOwaA5yjkBLRoL8lLv9TqDz+htJhg==
-X-Received: by 2002:a05:6000:4011:b0:492:e1a6:90f9 with SMTP id ffacd0b85a97d-499c72712e8mr3087990f8f.18.1794389377659;
-        Wed, 11 Nov 2026 01:29:37 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585923bsm10160123f8f.11.2026.11.11.01.29.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:29:36 -0800 (PST)
-Date: Wed, 11 Nov 2026 09:29:35 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: "Rui Qi" <qirui.001@bytedance.com>
-Cc: "Catalin Marinas" <catalin.marinas@arm.com>, <will@kernel.org>,
- <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>,
- <dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/3] arm64: patching: Fix instruction byte order in
- aarch64_insn_set()
-Message-ID: <20261111092935.4d6060ee@pumpkin>
-In-Reply-To: <3b540bc9-69b3-42a8-8431-75dd6079bf4f@bytedance.com>
-References: <20261010084721.2197683-1-qirui.001@bytedance.com>
-	<20261010085055.2200241-1-qirui.001@bytedance.com>
-	<atEGBsR3eI3cXKay@arm.com>
-	<3b540bc9-69b3-42a8-8431-75dd6079bf4f@bytedance.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sV0Tc8/+t9d2UKdTv0+KDyGV9Lv2eFT61QEtLhMXr9A=;
+ b=s6Wl+Ae+RtZpO6hkWBhPltON/9SrcK9o/DyskimRhXJam5T9JXTwRaW/bd1AlmoWEgWl9nRXZtg24UZoKJTrqO7vb0B8BS8fKGHgdpwAKxNTMpiNFuqQeR3DAnahsT0RZZZLtK/WqXYs3npOIC14yQ65RlAVrRC1ne++GRoh9Ps=
+Received: from DS7PR03CA0153.namprd03.prod.outlook.com (2603:10b6:5:3b2::8) by
+ SJ0PR19MB4398.namprd19.prod.outlook.com (2603:10b6:a03:286::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:26:48 +0000
+Received: from DS2PEPF00006E21.namprd05.prod.outlook.com
+ (2603:10b6:5:3b2:cafe::22) by DS7PR03CA0153.outlook.office365.com
+ (2603:10b6:5:3b2::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 09:26:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ DS2PEPF00006E21.mail.protection.outlook.com (10.167.23.214) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Wed, 11 Nov 2026 09:26:46 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 55810406559;
+	Wed, 11 Nov 2026 09:26:45 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 3B582820273;
+	Wed, 11 Nov 2026 09:26:45 +0000 (UTC)
+Date: Wed, 11 Nov 2026 09:26:43 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+Subject: Re: [PATCH v2 2/2] soundwire: Assume default maximum valid channel
+ if not specified
+Message-ID: <avQ009LpCFfgDfBl@opensource.cirrus.com>
+References: <20261110113842.347883-1-ckeepax@opensource.cirrus.com>
+ <20261110113842.347883-3-ckeepax@opensource.cirrus.com>
+ <105b2b77-7eb6-4b96-821d-51af94a2e21d@linux.dev>
+ <avMziZ9tYT5lg0Oa@opensource.cirrus.com>
+ <c477aed9-6b9c-4db1-8549-e1a407f55e43@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,54 +135,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c477aed9-6b9c-4db1-8549-e1a407f55e43@linux.dev>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00006E21:EE_|SJ0PR19MB4398:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d2e1637-2477-4ae9-268a-08df3fd5e84f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|61400799027|376014|36860700016|23010399003|16102099003|18002099003|22082099003|261009223027099003|261026121527099003|56012099006|10067099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	T+mD6d/8SSNcRyRCdBnwANScEAMYrsmA3axG8cNXRy+SbrFxRfE6ArGyN7Db/0t//7mu+xmSh6NM/wa3RVAtzNOYApnFdMjdKqa7+gBhMfF0X1yLLTzsD4FIJKmtv7xQXzRnGAQGumdptQ7Tw5p3Y8H56VKrXO3CbnZASJvHlTklcoMC9XBUbYNPjrxhRObjilhlif2/gRiyzHQuX0eiP2uNYmP1rXvIpWZa1pQBErWZarPf2e2+S0aaa34euZZKiYrNn0tmJWYY1OXJCOlaitIFVnjc2Nd9wR0weMhVB4iS2AXFWAZdtd/7OLWovNwqtj0VBJCy7iZdPDopIXedh6IBul5c3MCWo4G3PgrB/mm0FEH0wOFbqREor29bC8GuykzPPw6JNcXxNC+kQEBQwTYsDiBBCxwAawGYSVglkBUA6eFCGLd26t2tbfi8x08aK2VmdSm77k8WPmE/XHrXJ07SyWLPYlfXuKrkK+V6FiPHcvGuRNDdD6hKMDTAGBMG9lJDPXurS8PxfqJWsiIbmqCE8h05H7zq1+r1RnZmUVxAmHgpEcZ2iCQHE7NTRw36nCanu3Aa7YAV3NulmWryXk1XHSi7o20/ECBwvzDl2VfQgjJm0r7GSVxsypeus35PKCSr/GmuLNrgPSpwrJP576g4t3vwarbS/WRjr7k9uwiw/taJAlFWSKpGu6M4O4ANwEL7U0NHbhJ47ZKb83YXfg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(61400799027)(376014)(36860700016)(23010399003)(16102099003)(18002099003)(22082099003)(261009223027099003)(261026121527099003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OIoQpg97/UKCD7iwnmy1arqOmIitvIUnaIyTa8eQ+o1lE4z+vXPTPENa/rfp9/Tb58Kxxr3FQfMrNW06wuYZI/4XfvMlasG7XW9/n9EoNugoGZkLtO90mVywx6sUTRfTa0aWWceEnEtl0+8Udmd3STuFoRg2qBblyqkcFxmrptaIYH0Ejst+iSuIPo0eBeJruRgQGrXS22w3eeU2s5va+qyUnXWPNhJJSyXVRMuHFz/MmldEps8XRd6suSxu06YMkDk3inyVMBAXxZdIIwQ16s3oy4AWzdO5XZLOgsIN/ByLt4hG77MsI/3z9NT11nxLplJwIbCt7qlM4VUJUjGy4qSZZ7C3oSMuZjnkgTTouOzKSMa7rzriWaYNdRpfYATM90+BZnIJaF72kyGzEmKrgi+XiI54I+YS1xpwVgCy8DY2JJxSmseqwVN9ZkUPvDXH
+X-Exchange-RoutingPolicyChecked:
+	5SjJLWBEITul+ILHTaCBFRdIY1mRoG+gNgPnzihOnXRBESTMC3vmSynyLT/7Y4/NDIINmKBlT31KD3djWnRI/UT0lMC2DQQT0Kb2dQronU2sXqBzuA/3hlmFZ/90WScCMnpOHsNG4GABzxTcGrCM/OAmU/GCKox4LBkLvNUS1RIs/uAw/wHdsCDaBgRKb/bxNPZIMDNpKqCeqm59C9FaPyw0Zoyi37XuBnx2Udhlq5veSvcdXnGJTR4Ni3J7L2VlrI8K1YDTbF6C/TswtDgDSfp2XhTkljkqX6vhrKL/UCyLVtRbOroEeVEyx8CfrG4n+F4I5x9nBE0/q8OXbK62Sw==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:26:46.5109
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d2e1637-2477-4ae9-268a-08df3fd5e84f
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-DS2PEPF00006E21.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR19MB4398
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfXyftHEv2xiwWF
+ pXpQJw9XeKhWMve9LaUkedodB8lJTL9xsJDehVXKERwBfzhShOTm8n8DX/BxdV7d5bn4odFbN6x
+ gKnuod5PSJeV6d9BzoKA4t8+HEtxWNDa3M5h20FFSU6+lbJlDNs23mDjuL8Ims3md3VXAqNZmKh
+ EdADDTOZ57Zrn6TCf43NZSI3l/eIKUhXqJ33T94psbTa2g8Tbf3rdLmgeD2sRXPUUnqQPRt2M9A
+ 6bsXvRk11qJGSrzhrql2+9bBmkWtvGD2x0mI5WCOB6URwoglpCS9wvvDAAoky546d7x51nUUMfg
+ wDRfv0ZoiQiH8uK3I6BSTYWt1eL7eZVqGskaxE359oHqefCSkfLQ0GxKRTFodzfMfWn6xg0WSET
+ +II5ZvNP9VuoLCMvVMZqBKbwSWXXLjh9B0eTV7Jqifx2dUcOUG1aCFSByNYGk6aSp4rlpg9ZEOF
+ fgjoXykzskYNDN/LO5A==
+X-Proofpoint-ORIG-GUID: 4ATo2VcC35h1mnsEuN4vguSK4AzglvnF
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfX3X+2L5PnVdqz
+ xmo2FuxuhDqqF20Z/7GxZigcwBaKumCgWma5tsicjfKXtXBskFxdQ8t5oL6NFTCz5IR/xEIrN5J
+ pfS+XG6z5Xy0bobmpZCRoLOz2CtYxiI=
+X-Proofpoint-GUID: 4ATo2VcC35h1mnsEuN4vguSK4AzglvnF
+X-Authority-Analysis: v=2.4 cv=JagpPkKV c=1 sm=1 tr=0 ts=6af4358e cx=c_pps
+ a=q7ul7JX4f8a5wKXmg0eXeg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=3-cu2pGj93GlbvPsAm4A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Reason: safe
 
-On Wed, 11 Nov 2026 14:52:44 +0800
-"Rui Qi" <qirui.001@bytedance.com> wrote:
-
-> On 10/16/26 12:57 AM, Catalin Marinas wrote:
-> > On Sat, Oct 10, 2026 at 04:50:54PM +0800, Rui Qi wrote:  
-> >> aarch64_insn_set() passes the host-endian u32 instruction straight to
-> >> text_poke_memset(), which memset32()'s it into memory in host byte order.
-> >> AArch64 instructions must be little-endian in memory, so on a big-endian
-> >> kernel the written bytes are reversed and the CPU takes an UNDEFINED
-> >> instruction exception when fetching them.  The sibling aarch64_insn_write()
-> >> already converts with cpu_to_le32(); aarch64_insn_set() does not.
+On Tue, Nov 10, 2026 at 06:11:13PM +0100, Pierre-Louis Bossart wrote:
+> On 11/10/26 16:08, Charles Keepax wrote:
+> > On Tue, Nov 10, 2026 at 03:30:43PM +0100, Pierre-Louis Bossart wrote:
+> >> On 11/10/26 12:38, Charles Keepax wrote:
+> >>> +		fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
+> >>> +					 &dpn[i].min_ch);
+> >>> +
+> >>> +		ret = fwnode_property_read_u32(node, "mipi-sdw-max-channel-number",
+> >>> +					       &dpn[i].max_ch);
+> >>> +		if (ret && !dpn[i].num_channels)
+> >>> +			dpn[i].max_ch = 7;
+> >>> +
 > >>
-> >> This is reachable in-tree: bpf_arch_text_invalidate() fills freed JIT
-> >> regions with AARCH64_BREAK_FAULT through aarch64_insn_set(), and arm64
-> >> selects HAVE_EBPF_JIT without a big-endian guard, so the path is taken on
-> >> BE kernels with BPF JIT.  The direct-fill loop in the same file already
-> >> cpu_to_le32()'s the constant, confirming the expected byte order.
+> >> this works, maybe with one possible improvement: in theory if
+> >> "mipi-sdw-channel-number-list" is defined one can ignore the min/max,
+> >> the two approaches with the list or min/max are mutually exclusive.
 > >>
-> >> Convert the instruction to little-endian before the memset, mirroring
-> >> aarch64_insn_write().  On LE the conversion is a no-op, so behaviour is
-> >> unchanged.  
+> >> Something like this:
+> >>
+> >> if (!dpn[i].num_channels) {
+> >> 	fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
+> >> 				 &dpn[i].min_ch);
+> >> 	ret = fwnode_property_read_u32(node, "mipi-sdw-max-channel-number",
+> >> 					       &dpn[i].max_ch);
+> >> 	if (ret)
+> >> 		dpn[i].max_ch = 7;
+> >> }
 > > 
-> > We are just about to remove big-endian support (in 7.4).
-> >   
+> > I am happy to do so if you feel strongly. However, the spec
+> > doesn't really appear to rule out both being present, it does
+> > imply that the channel list takes precedence. But given it
+> > doesn't rule out having both, I quite like parsing both and
+> > allowing the driver to make a decision about what to do with
+> > that information.
+> humm, the wording "Conditions: If Property mipi-sdw-channel-number-list
+> is present, then this [mipi-sdw-max-channel-number ]Property shall not
+> be present" is pretty strong.
 > 
-> Understood.  In -next arm64 no longer has a config CPU_BIG_ENDIAN and
-> nothing selects it, so 1/3 and 2/3 are fixing a configuration that no
-> longer exists.  I'll drop both.
+> I don't mind keeping your existing code but then we'd need to add a
+> comment to say that we discarded the 'shall' to cover potentially broken
+> cases.
 
-Should it still be fixed in the LTS kernels?
-(or disable BPF JIT for arm BE)
+Nah, its cool I will update the code as you suggest. Should be
+able to get a spin out later today.
 
-David
-
-> 
-> 3/3 ("arm64: module: Use text-poke for late PLT/veneer emission") is
-> independent of the byte-order work: it routes
-> module_emit_plt_entry() / module_emit_veneer_for_adrp() through
-> aarch64_insn_copy() so a late livepatch relocation that falls back to
-> PLT emission does not write into the ROX .plt and Data Abort.  That
-> path is reachable on LE today (klp_write_section_relocs() on a
-> MODULE_STATE_LIVE patch module), so it is not BE-specific; it carries
-> Fixes: 91b89a634487 and Cc: stable.
-> 
-> I'll resend 3/3 as a standalone patch in a new thread.  Happy to route
-> it a particular way if you'd prefer.
-> 
-
+Thanks,
+Charles
