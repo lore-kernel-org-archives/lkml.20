@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387886;
-	b=MaDK0aKye0Z2WxfLGUjGC6HPdfA5Omxwki6Xb+6kQI6JIsuzK92oWSyt1cuwFd3fZuFD
-	 BexvO90a6e8D/A3jFF4jvdbBes7vct2VkkMA8WH2zrac2V5bpg0U+TtM7BnfgQLZ9BlZE
-	 NX5kUy1MdwLfp+5dqiJuzwB0Lrc0QsMr3ttaBWMiy3Il9WeuIrkHYLZ3Iw3Me1ftgnWRT
-	 +McocTmyJirU6d6yn2NzsaKt5o0nrBKSY8zdo8/v5AK1WI96vW897U2jiLwaoRJp7/nAY
-	 Q8jHSRJqSNivGC3Vw3NsXx3mEXbVVqc7QcK7GsNF604nx5Z+v3UGZh0OB+IzvVP0i8g==
+	t=1794387889;
+	b=A+VOnboaEskQ1YjuFBQHVlhkqy4GSXq4lwoiGZXsQfl9MpqYxIUS4dv61lGE2N2Rm6QB
+	 tXvdODfmN/gzVJm0v2BYKClFRLwY8BF0Q80cB3Mf2STd9p1Hq5lq0vXXqyltor2RdvZgp
+	 EeCgdnYRfQqBRymZPH/T/7dQ/AhVta6ANvHWNuNFzb6nWgCHtp/ffy73zTXPdCZs3xEG+
+	 FhhFVxlmWUUwRiIWXJv0ay2Rih1j72uJib4zsxWGzQZjuce6O4DSZSx+2xesRxDaj2K/j
+	 MjnKvLgEeX9qMKur4hKSrKRF46fnX662S9ztBy22QNemNT4yOKt/czUE2gBMVvEPQXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
-	b=r1H5csf0j1Mrp74b97YCdAwqkcdHqp8GqJIKnrNEBRMZUlQe1saSWviemI9pLeH5VGL3
-	 JuhAxaxcRNP9VbnRHkspU02cqSyZemTRUlWpPMYUR5UTEGj4Qp7zhPkck9ldw2HUnPvrA
-	 emPcc0jEWxioPmNK91DPXsfMabo+TwDSHXu2xvb2R9FrRCYmNnZ0OP4vLl10TlrYvx+ch
-	 /8oOw9O4dmWYu0sIvYv5a538RJQfPSrVi6l+YTeZiQegNRtpKMTovnl+s5/3TbS/b9Lso
-	 8u8I3aedFv5FiWB4XQgqjyqke0AiSxV3LAB4Fmun30iI4sDaqTZ7cELBYmj3bchwciA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+	b=SzSbLPdcJJUkZcRaJpJSIxs0JzmPUh9rUjMdI3sWTRGpeweXkJHi5U7CGoOtv+dzY5GT
+	 aTO1nSOpikHxoZdaX3qyxdXpemmHwLLxIi/wknv5nuIAOQx0EoTHl5IUUhtI3zZ1WdK9N
+	 QdPCyB8+nluWiUYWr6jnu0leonZBIYVnAWG5uu2xGIatE6uWbNhjPYDfUOSEiQl5ylAXC
+	 javXkUXc215lGDNZwKA54KlPRdqGWmZiZjJTkr/BYh94LM5JFuthVGWPDq95o6jNoFswY
+	 6IGgrYGPLok3trfoW+83fe/yXoJySiSDqMVZxp1DuWNvs/iKoM7ARgQoeOlWOoezJbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D11pQqVL;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=apEb4VFb;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEAC60A2620
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEEAC60A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BEC606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BEC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D11pQqVL
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b8ecfa886bso1388004b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:04:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=apEb4VFb
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so34895295e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:04:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794387885; x=1794992685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
-        b=D11pQqVLxduA2HiDS9kaLe4YqBelzGoE/SDyLf6kxKBLQDF9C2rBRssaQoZoSzQt7X
-         KLLjr8DL359uabODoinxTgWguCexJ8rmXUHxIAlmRcv6YnJm32LjC3rwevowjnr1supR
-         bILDTTctpU8VgbELeRcea/4+RJGNAx80V8hXvnJ8lPUCDOklhiA49lbWP4O7LTLE8yvr
-         i4FBS3NxqYl26HukRI7uOQKstJeqi0XHr3Qdv5JT1MwWNVeac5oVz2EDjS6QmA+kVXu/
-         llk0PDa6L5Q0MrL0KalB++Uef1C5uOcuo1As9tGv5ROY9NLTjFCjajeANUuJCFO9oWiQ
-         Q2hg==
+        d=baylibre.com; s=google; t=1794387887; x=1794992687; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+        b=apEb4VFb/kykf9goG9b0z6IJffaPwx06CrNXuZL7YC/2FpwlO/27X1htpMAFsEDnMq
+         pOrF4e1LFdSx+SsDQmEAaoCBxq5J8SVbasSxQxusVPQUmRK1pkf7lYNuO2cp7pw1cAYs
+         +h+oLY0F7xg+hMl1Mj4RNDFm4hpB8BwFvl0bpEt8by/bawtrq0HyMrHnrA3w/m2Xfrf0
+         vtw0JmaO9hevClVuGqLDfNE9HzJ3zT9gAiPohjPl0WyQiwU4Q3VI59uJispOlBfgJNi5
+         on5YfkhyudSJrv0Yl9/yyYfkLzFnmGF4srsCw4fWilP2M2BmSk4YuK7mpujVS4hFtv9d
+         nahQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794387885; x=1794992685;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
-        b=X+Sd4MtpbpMY6+mZJeHByUeO4sbDg50yJ28zh5EIAh2+p0PNOd1VekPU0a4Jl4A4Us
-         RaENJZ42xhPCNbEYQozFd5PMJZ2R/ukqO3DWLkWtWlNk6OGl6klZTl6AHdxRhdcn+S56
-         bArRnoB+Z5SAizwLY9TzFM8bB9Te5ydMlkN6QUSmDGuQa8KuMBxh/pr+T5AeXC5BQmBY
-         CM63Qhq+XS7K4Rf8n9NWgKI3g8SWden2MHbJ9kA0oeGwbPPFuum+WHYf7UCw56INautm
-         xXf6F9RpntNuA+bEE9b2Tgg6P8L+/SYCqxK9j9fJeJ+s8OzXP1yxh982Gh1bVT6YCe/E
-         EYLQ==
-X-Forwarded-Encrypted: i=1; AL+hErGJppan2mrCFDD9aJhfntThQzb/HC51eSyKNIVLVzH/VnGfhPsyxFS+UzMbWweCupMYOCPQQinlGSU56aA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PjlZhHlDDkG/GmqJHR+6vKzfEMJ7XG/sOheqYYMNcOKRfTIne
-	dFoUgIcporQmW1Z1SuFYjzuydAFZ3Yq0SOREdkNYYVBHgiwRWLri3YGQ
-X-Gm-Gg: AYBFou33q9Co0o3KIFidRxG1prIoeUpJ1ZbeNkYfgdO4Fs9+GDban6aUP6L+dLDd8+v
-	otzvdhVe9fTxBWwjh33gzdZC3OlF88nvAATRItQTuXdIz2jxMOIS1ML6TTacsNwwSFsjNlmB+Td
-	kXRr7+kDDGFmJpe0VyF6dtzo4sc67s9hB0LqKsn3tmK/GBtjZYQPUGOU2M88AUMc4EoG3c1jFCS
-	jEVcLJv3tPJMGPsdAUpHrXR6gpt/Y/R4qxZE6iSgCPtTFg+vdAYnqDSke6yJt2geLkGHRTjpfxJ
-	XisOGwZ31lImfMirN9qDzajXhGmYgGoqDhUHSSLGuXgNS4wj1G1XsuArh8d9e/4cU4HyYPsIsu+
-	OuCRdH5jCn73Gfgho9EIZVaTEmj+C37UeDFPZLepWHlhbPuRYLVxxDO/CCQXLAPi4wlI+d7w/fc
-	/rI6SgatuHiEN0SIYobbdgbpkwHUSir4qxnoUJfh+CJKNwlepHf20k5Cqd93f7ew8KlD65kWYD1
-	j+9g6mHh7Ug+s50v0LXQ95Tn905j6U2aFPI3varn47bPs6b+QAiJUQ3QNJOf2k4j7jESEnAk7s1
-	H/7Tx/HgLjZpYXbXkqDcIU4TB5aDj+H8fWQjW//qsq0uz+OIpoMgpJe146xhZG3jzqjhL0NWD5G
-	iqx2Ms1QrV0O9mYvQTMyi4xRNRNsVS9iEl4jaKCBi
-X-Received: by 2002:a05:6a21:610c:b0:3de:3f4d:f2bd with SMTP id adf61e73a8af0-3f2fa39112bmr1401992637.6.1794387885274;
-        Wed, 11 Nov 2026 01:04:45 -0800 (PST)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7cede06sm1929924b3a.7.2026.11.11.01.04.42
+        d=1e100.net; s=20260707; t=1794387887; x=1794992687;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+        b=U4tIwgMPysiUYzvITutyOGn/8w7N/1QISlWLd+M9CC/3K7IxMy+xRCg9V9fbnD3XwH
+         iqeamGDT535SREPLtWh60mqaBjHxNwOyIO6fIdPMIVgz23bOi/EhWfH9v2i3luHqL2ce
+         HhefZomO4kAfgR0Xb9ZlxbRF+r4M4RgklJbzHiirZCTA16xRPN9Z1k7Z/NyihoA2jmHC
+         Gc6hZYLTzEJMTt/gcE5EFb/H530P4NHvM/P0YePUBPr0YebOcHheSbDBB9fktMUjKkyf
+         K/58bXFmMpInIwYJmya9edOxqXi17fv1tUIBo2AjvdVCMPiF92ZkHhCO70devtdTI7K1
+         ocuQ==
+X-Forwarded-Encrypted: i=1; AL+hErEQA/u6iLNJbj9B42kxMAIlniSH66H0VmfXiQMp5Kqtgoz9bS0hsB6nnNKEW+MR4y7uMRdw5Y7f5gyXAH4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xJsXJpiKe11YtGSVHaE1rOzO5hRE176DGJxNgyGIMHSrhfELB
+	wQqovx6yDiun/nNSPe+LABkWQG9k9bb722Nqvn9DXhrjfbhXA2ipbvTWumFPS/s+lYE=
+X-Gm-Gg: AYBFou02a69nZdbOxaIAHGUgGJ3rHwFqz47/eNuhzdjE6AquSPMW+diNgZpcb/Wo7ox
+	0ydtClZ/DWvjHhZd61XwUhFrnQWE6EFNaUOq7HLtvJcmsunMZsuz/yesXnEiAu6X9vTBL0QU9bR
+	v4bwmJ68RRc9BdeskuRCUrxUb5aHJHQvU1qN43l8JBBqzxg9Yr9+OeZkFCumE03pHfTRr0L8Ctc
+	fGzaoCOZTVNUjtpD9jEN0iUg7JV1t7vutqqHlpjunyMh6OvgU1n/84H28DBlbFtFk4n9Y01o7x2
+	kqBYTZxr51ZxHfRMMpm4siVww9uo0zU1pTZmL5gfm6HG5a5auk7f3U7q/gi0db3vItRgqMVVQ+O
+	/8Y8qHOtPLK/w8B9nPsbkxmX3wzI6z7ZnFh1hXbhZZ6TnxfGNHesE47x6sZ39e4T7xiCQ4gXrDx
+	HPDpEq2ZV/0lLFnLh4/DVZbUtQwBORTKlZ9mSF+leW1EGXhym5QzXJb9mEf7lM7qarWL3XaEM1k
+	9OY9eU9bPaR/5e2NJrjG4vv9bKJNgCeNThuo1lis+qb/RNDd47Sov1Ro53609PIoz+UhKhtz5+z
+	lvgJ7rj50fYQcz18HLtd1kgq2sXR6S1zoieEL+EVv45gXxt+Vk2xDSSZmrKnEMCGk0LZBOXEiii
+	7lbUOUH//BQuFFGmqXmC+2CCVDsjo49F0dfk=
+X-Received: by 2002:a05:600c:4e87:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4ba0938ae31mr28591735e9.32.1794387887546;
+        Wed, 11 Nov 2026 01:04:47 -0800 (PST)
+Received: from localhost (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6051:dd5:6fc:51af])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba09509c74sm24119845e9.2.2026.11.11.01.04.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 01:04:44 -0800 (PST)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	ivan.orlov0322@gmail.com,
-	broonie@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH v2 1/2] ALSA: doc: pcmtest: Update to match the driver
-Date: Wed, 11 Nov 2026 18:04:28 +0900
-Message-ID: <683abc21677cc2fea5e00d1b620b9722dc98fad0.1794386073.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794386073.git.sammiee5311@gmail.com>
-References: <cover.1794386073.git.sammiee5311@gmail.com>
+        Wed, 11 Nov 2026 01:04:46 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:04:44 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
+Message-ID: <avQvaiaEyWDUQsZz@monoceros>
+References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
+ <aimXCmtgcejwInNg@monoceros>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,64 +100,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pma5azs7fhrm2bnu"
+Content-Disposition: inline
+In-Reply-To: <aimXCmtgcejwInNg@monoceros>
 
-The documentation does not match the driver in a few places.
 
-The inject_open_err parameter is missing from the parameter list and
-from the list of callbacks that can return an error. The fill_mode
-parameter is a short, not a bool. The selftest is
-alsa/test-pcmtest-driver.c, not alsa/pcmtest-test.sh. Pause support is
-not listed.
+--pma5azs7fhrm2bnu
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
+MIME-Version: 1.0
 
-Fix these.
+On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> Hello,
+>=20
+> On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > ... and PCI device helpers.
+> >=20
+> > The struct pci_device_id array of supported device was initialized
+> > by list expressions. This isn't easily readable if you're not into PCI.
+> >=20
+> > Use PCI_DEVICE* helper macros and named initializers which is more
+> > explicit and thus easier to parse. Also skip explicit assignments of 0
+> > (which the compiler then takes care of).
+> >=20
+> > The secret plan is to make struct pci_device_id::driver_data an
+> > anonymous union (similar to
+> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
+re.com/)
+> > and that requires named initializers. But it's also a nice cleanup on
+> > its own.
+> >=20
+> > This change doesn't introduce changes to the compiled pci_device_id
+> > array. Tested on x86 and arm64.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
+ylibre.com>
+>=20
+> Similar to the amdgpu driver patch I just pinged, this patch would also
+> be great if it made it in for 7.2-rc1. Please?
 
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- Documentation/sound/cards/pcmtest.rst | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+That didn't work and it failed to go into 7.4-rc1 either :-\ It still
+applies to next-20261110, is it still on your radar?
 
-diff --git a/Documentation/sound/cards/pcmtest.rst b/Documentation/sound/cards/pcmtest.rst
-index e163522f3205..ed0b57f583b7 100644
---- a/Documentation/sound/cards/pcmtest.rst
-+++ b/Documentation/sound/cards/pcmtest.rst
-@@ -16,22 +16,24 @@ At this moment the driver can do the following things:
- 	* Generate random or pattern-based capturing data
- 	* Inject delays into the playback and capturing processes
- 	* Inject errors during the PCM callbacks
-+	* Pause the streams
- 
- It supports up to 8 substreams and 4 channels. Also it supports both interleaved and
- non-interleaved access modes.
- 
- Also, this driver can check the playback stream for containing the predefined pattern,
--which is used in the corresponding selftest (alsa/pcmtest-test.sh) to check the PCM middle
--layer data transferring functionality. Additionally, this driver redefines the default
--RESET ioctl, and the selftest covers this PCM API functionality as well.
-+which is used in the corresponding selftest (alsa/test-pcmtest-driver.c) to check the PCM
-+middle layer data transferring functionality. Additionally, this driver redefines the
-+default RESET ioctl, and the selftest covers this PCM API functionality as well.
- 
- Configuration
- -------------
- 
- The driver has several parameters besides the common ALSA module parameters:
- 
--	* fill_mode (bool) - Buffer fill mode (see below)
-+	* fill_mode (short) - Buffer fill mode (see below)
- 	* inject_delay (int)
-+	* inject_open_err (bool)
- 	* inject_hwpars_err (bool)
- 	* inject_prepare_err (bool)
- 	* inject_trigger_err (bool)
-@@ -93,6 +95,7 @@ writing '1' to the 'inject_hwpars_err' module parameter:
- 
- Errors can be injected into the following PCM callbacks:
- 
-+	* open (EBUSY)
- 	* hw_params (EBUSY)
- 	* prepare (EINVAL)
- 	* trigger (EINVAL)
--- 
-2.43.0
+Best regards
+Uwe
 
+--pma5azs7fhrm2bnu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0L6kACgkQj4D7WH0S
+/k4KfAf/f5q3Vl7EnPVZaB/M3tX4n0SFtnKOCJkLtj4107/VpJ+jLb3mrCXFulXy
+Z1rgfK86pXvaFuknlwOCHRZ6mpoZCgbp7YQYcc1+hWncLfLYFcnGvQKoZLKP8RK6
+yHLzpWaGzaZvH7Q6DBQurfqIwGwTNRrFyZzi4ILzOS2nIhFGSsDwCxKAlkX1OrEp
+d1wJQgg7dLK5dcHAoejIUCKED5kOVs+Sh81KFrkkgvyDB6FunShTz3T3Q0BhTALD
+c1MP6XcJaHm5IpB4yWysfiiuKeYcO45KZSSKa0XoBjpmhXooicsJk6ggWaQbxElk
+MUXB5eCUZ9TeWy82BMLT7UZrHZzvRA==
+=gtpi
+-----END PGP SIGNATURE-----
+
+--pma5azs7fhrm2bnu--
