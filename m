@@ -1,88 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418786;
-	b=5Lqki+uvSgJ/xDLaBIdeX5Rcsg86IkljmSFBLXhwFr9ydUtPP3y8bACrhnxWOqRhNZzt
-	 E9E8KJ14Wl8saVWQuFl32J142SJPHcTSAsaiGZJZiQBb+A0szDl7q6U5OxcG9LDVk4UTt
-	 V2yRlWa3JMz8dEEdwdlm4u2r88Ba9d8vGCNDoL65m/xmhyX/ZPqRsPcNKfxTp0Znu+Zh0
-	 zv6miJCNQxjAIvhuVx+4yR3iynsvXmPEtgAv/zX1SFPN3XXYNdWdIM+DYKJ91xTz1R+tr
-	 byqLdjyx+ReGMholNYmnw95Z3RVWDq4X7jLGwzGNAaI/+8dy95Rj5xMTN1GAzSW5JwQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=k8WdTJwjtLS64rhFGeIkjIRb/IsmmVNj81Iwt/U0SP0=;
-	b=HCv5w8Jn2SwQ4mfTPAkXKyU+NPuzedvEU6GBkf7jj94kH/0mYeB8cP945dOr7e+Xuoq3
-	 Fn0Ex+0IVdKzlZk3nZi8Fy47phZVFUkKNqSDc5zpmuoZc4HLvp+cQiR+i4KM4dwuOf3Wq
-	 WxrujZnk5y0BHiDt9w2zQtS3FGnF7pF/teq8+2SlTbpFqwo0unAPRdn8OYfVMuJ9lujlK
-	 A/2kbbQheIxrJ/g8w7bshM3dwih8Nwf/NCYEt/hGuH/cRnxOKXoXl/ueRC7YheVg5NxD7
-	 GpCUHic0K98iPlbyLJI3lFeWrpbPoizlo3IYzhn4iJBpIyx3+HC263143LlU6VSbhhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Xy/BSBO4";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794418883;
+	b=fBe5jct9DVIne9tRc0HSrBjBXx8OpdFWsp8s3npIn46cPi9P9iDgf2VqsSJ8F9Er/RUf
+	 q1Bgo8hWMcZkaRys8BcgQzFSmrX1qbquetOt1PdRPx4QDcl7per2B51mY579tdoYtVuwG
+	 9Oyw40oYXHiR8gQ3W1esNCu7LAdD5k/DDzIXs0HWBfKWpuPI8vDW2kpoTzVBIYorAh8YP
+	 E/asN/3YqEvCrtVP5KZFo9ZQUxI/il4YKw8jfN+qFLCglkabqjGKGEBtgPrNIPcMxXo45
+	 s41iSFpgSilOPCMtTEQufUyOgemOY+F3KLQxvBJfLkqQNRUQ9ZLOSB818vuHM9P/Xjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418883;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
+	b=MGw7bVXEur1w4oFvMyEW3DHHQDUFQPbRtdm2MZTP5jm+MwWIIlDWziscgRLYGq8VyfUc
+	 ejXZIENJvSI5NU/7TGLlMv9GVFoNlN/Nj2//n276sTBJ4iRm/KxFKc3BdAGBgpoBfEUEL
+	 q5fH/Qh8JDXaWOqzdPQ6llUars+jaDrNFzsUHH++xiUddCK1bcaCGgAIh7yAxmaLCB5YW
+	 Zu1JKxxNME5nW0ZtYw8j4aOymfYgAyLRM9Vg6JUCAdvF99roCU0bi0D99nhgtpXkC1nQL
+	 AVyCGrtCS4HX+VAyFPVpekTj1i3yBlLIX3z6nQ2fVJ9LqosDbkEGr8SnMZ5k6INz8MQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A69606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A69606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC99606A326;
+	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC99606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xy/BSBO4
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so31805455e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:39:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794418784; x=1795023584; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k8WdTJwjtLS64rhFGeIkjIRb/IsmmVNj81Iwt/U0SP0=;
-        b=Xy/BSBO4dJxJPiP5GBNM0+ov0e+jyjJfTCrls9PNWt5QY1e/gLMPOXdG1IjaWjHxsg
-         YWjAPaDoYkP+5Mg5E5bPlDWYCMh96uWl5bBFdgtD5I1hzLOCfVEltTeY9oRe4Mqw/flr
-         JLePD+ZI1tHfTT+MSjx4uPGyNXoKUHRxYEdFqQCxtQTqQOa4hb3vDZPoZ/Y8uGn8/XXu
-         8yd56lDtsJmk5547FX6x5d0p0xZYRLBzd4u4m7FZ9pqS9M1TD0jN2kbvGnSNQqaHZCpe
-         Y7wIlDqO9NwlFVmB9ZN/iZDPs10Jg6o8qRUd+wNeDmw45L5M+akHe5IHb26WUfPCicQp
-         gIaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794418784; x=1795023584;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k8WdTJwjtLS64rhFGeIkjIRb/IsmmVNj81Iwt/U0SP0=;
-        b=fssSuJs3AH8ej2FsZIdM3WLY+f+jEU26qLzLEo+QC3B5fI4pP2k0uqLyy+4augvA+x
-         GDh8IhHGFa1uL+RYJLS7o7HCSpyBXkJqlxGMjiRHGm+1dJ6MfuaSSW5uyEf0OyU5kb20
-         ov2CIk2YphOOXrq7apy7AvO6ZL53D4mfXSrvR0B/1j7qdr2LOFEkuqILzOKEagAUtnjU
-         PazDrXuPEqBj+McukjMUDRm+wbsWS/OoR82Th8elYF8VAs0Rio/eBirx6g2rm0j+h1Lw
-         zf+ew1YoCMHNysdDpypF6Lc+WOgzaLFJv6KQNv4gNyqiwTBNHFueDSk3EAlCp8/08iUM
-         70DA==
-X-Forwarded-Encrypted: i=1; AL+hErGy7YljWfslhw954OjskLSH+ApBsodBtD7g5tQbLMf5dxBMBC03khUIEWV9nPpMiF0yF51Qz+tyvWUZq/M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NdVhzpG6fh84EdjVfyETNCzKW76yoMiNm+7vOZnzSIns5nScT
-	QeYfm1Hmbd35hrr/V0gkirAlXpRh1Rnj4/kJbCg2+ew5meCp3gZyorns
-X-Gm-Gg: AYBFou2OUtArqFM8BXQRnIi6rqxyT/q7BbnCOEh9qiWWOj3Z4B4d1ZANQ5D5z0egXQQ
-	GdNUTjTPPhTmv6R+brWsZhMyabQaKrKuhMe8ajbH8IaQR5W5fQu6pjGPBDYH/1lby8NgNn75XDZ
-	fgMlkcd3fHnu61krmSDIVdpiNj3IPC/SBJANsiQ+KjStDZDK7myvv8OiCNFmtl1ZfF44ESKJhc6
-	xVEF9O4H+VYrpxkVxgcfWTSL/oIZgJgGc6+nkEs/MgW9b3zeqaD/HILSnQVPRVpgwd+4gh2c+sF
-	CdodN78WRzYixK9p7E0erj6xP2kpYGk+Bt28GNkjPPy851YnY+AXkKzuXxHJ976T6cvh+CxGoyz
-	jED+H9hxZNP1A89+SDZZsQiPc2ahL1bMuVz+qykCHfMPq4zhSEnGgGJmO20bqombKc6R1M8QcyA
-	r9yPReJ29JRCm4nJF47JmIMORFXMskisPB8ov8Te3hmGYfcuIIvIwDqEbTw+MAldgRhjujL8904
-	ftR8MsDsszh0ID4OY6u61ZViWWOxXnzI7HaPftXdbgwakjr1VoyVJqMD85h0Smheb/YA2ZvM5OJ
-	+B964iFI/AZR0unYfq6s0irKLUj0sJumUgsvFJhhJodK3B/SyjHzHWq+4gvPbNzb1AEb
-X-Received: by 2002:a05:600d:82c6:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ba0937fee9mr61515195e9.32.1794418783899;
-        Wed, 11 Nov 2026 09:39:43 -0800 (PST)
-Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4984e26f8e3sm11087731f8f.1.2026.11.11.09.39.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 09:39:43 -0800 (PST)
-Message-ID: <0dc5be55-48e2-4973-8379-a23a94cea0b5@gmail.com>
-Date: Wed, 11 Nov 2026 18:39:42 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rDLTHc+X0L6ew/FNt24cDJ2em1vg+J/ZPctwY8GYcR72ZtwPw605Js+LTohUH6dmOjsBBGAGziE0oUS8D2IrNg5DnKRlV5+nyk5wSq6BnrPpI7zdp/66iHGyK0L3B0ZfIL+aCIKO5U/H4zy647WKMG4+uoNWcXf8FolLoskAE7qMIdP5cShFZ8qG9GAIfZIUzsjPJkK9rxezed0RVOvqYjofwTDEX8YWlj3UU0882KVU9aGpMTSJI6QlTZ1l9wNXtxOVdEnc6IYNq3EEWjM1+oCER2ai6OuzGlBzyoqfjhlrkZw37scO98rMKEDvAXlDA8G5HN5P8rUZkul9CyaJCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
+ b=OsqEJBh40wMP1V8eKdNbEHXKpLecNWn0mgiuaVfk1PMp2iXyghe7WSML9LYV53W4BxRknu8OeueQDGc0a1c1MOgwtqWu0vishlvAfF+UBVttWo4QKzlvvOom5GL9DhZf/TxS001h6T5xVRoTOegQ8a6+zINJTV8Xgn+6ywJfPysdUu18ZqV2OBUcnSteLyasMGNrd3s8DPSJaVtSAbTB4+44hnUEw4+3Cs0rI/iAJ9tSlf0ruBpByXLLNfiWvEOXHwv2sxvBvdXXqfM2jWN/govwVhw+phHoAl0JxBTyrR+krJWwrOfYjztBoomn99OdOfw7Hd7vd17an2A0wpki8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
+ b=p2U4fYQ2EjYxEz9szbtC2t7CPpU7dwwYjx7jerpHv8jAlYKNBnmlr9Iu396P/EByw4bW2yDVH9ZH8pGmOjDGjOlIIATR38bag42FEXlBuMiiPv4OdtDXyN97/kUblh8vZ93r47RcT7ZqpZm/I0nv9Zw1DceRu3KbZnoOvPKSnwBiEhZ62BaOXdQE1XtMDX5QWGAMcVvT9x3C82Cc712Q3yczjBjjkBg/tiTlxgGBmD4m8NaKCdrzZAG8mC7takDJhXqFQfsn7K5kWLzpYYyitKzrHPW2DBFg1cYjq3w8pb4jhxc+92ala/L5J0KkB4waFeCdz21Il+uTXvbx/h56DA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM0PR04MB949883.eurprd04.prod.outlook.com (2603:10a6:20b:7fe::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 17:41:19 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 17:41:19 +0000
+Date: Wed, 11 Nov 2026 11:41:07 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v5 4/7] dmaengine: move channel devices to the DMA
+ channel bus
+Message-ID: <avSos6SCYMYZrwX3@SMW015318>
+References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
+ <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
+X-ClientProxiedBy: PH8PR02CA0032.namprd02.prod.outlook.com
+ (2603:10b6:510:2da::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,74 +112,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/page_alloc: only skip kswapd nodes below their
- kswapd watermark
-To: Joshua Hahn <joshua.hahnjy@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Gregory Price <gourry@gourry.net>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB949883:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|376014|7416014|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|4143699003|11063799006|261021123027099003|56012099006|10067099003|22082099003|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	ZP6Ib/GPJKO8EWD6Vw3iZH+eiz8iWx8dDG27xKAxZgyi+algbJgzOzg3qb6pTFalozBtZPQZ7hyv6zGa7J9jmB/+wzW6Y1A6Hu+cJA6uDOLyqWARiKP+j6W0JaXaSuWWVN2X/7qWAgKPC+SacqqlYNFFmh5decQGwIiE5MikOZzYnKhBdCn/yaCr2gxDRsVgcfcZDgNlrMzAJDwh/rNEwDuacdVeXX/wj/7ihdkV1SpDfAyfGHxkyGxQwTvW7RcBqwQ7RNk0r6BJc1QxPHvvkLmoEqbxXO1vKyfdzk8OPZvdVzwV6k9taKusRKU0YIzx1RpXlwZWH1q3uQAPoAoe/s3tSBycziprFHqbsCs+FfZiqz+P4f37GSChn9VTkwLiirfM3DgdUKxHHaR0cQbTxAiaDXsWOz1zTmQLylNPwkkm2t34Evz9HCKcm4LEY5jfWbQGPzuwt1VktvOVmQs/YjHovMWuzHgtlyu/q+fDAKmx62oHBQf58KmbUbWmqvisICSFAossW0ZBswlekHiwKS+dfrenHRnKS9XkLtPIK6qQdxInxDfh4156WN7RW2XZ+5hF243lKY3UFfEbcgANuMIQ213a6yLgbsINg0fo7M37fPSVuXIbIm93XegBkz6wR+Ll2zrqN/uH6ZyGXHLdEo5cFIUr4YfrsgvpZW/ibPc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(376014)(7416014)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(4143699003)(11063799006)(261021123027099003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RIQUG3Ph2UH352Jdwnwq1Ee+Dz2v6CAhwPPNnlcf7EnfslmlxnwsM/dyuc2m?=
+ =?us-ascii?Q?vhAS92wSNDcjo3vYQlw+pDVr4rWMI87J8RqtLyTXNJ6mD+845hJxejIV66/c?=
+ =?us-ascii?Q?mgu2t7VxqxSHZBE+U0fPBMDtdVDnUPC8wbysgstLJfU5/Pq/qEZ3t2ko2yhZ?=
+ =?us-ascii?Q?yDOr+/8kHRxwu1JUfqmqTrQtM77gr0fvcJ1rLfrgE6LMkqv19xsIbcsA7ZTQ?=
+ =?us-ascii?Q?+17DgtdFLKxW3TlTEw3UmqQLxh7iagNJip+nlurxIYVmSO9XQD8Kk3c2O5CC?=
+ =?us-ascii?Q?p/8hHwgeg41hXpJXdXRQfn46k4weubRGzBf2am+KJIQqsrPwOmLG2/zcHRVX?=
+ =?us-ascii?Q?m7qKxjWj0pkX3QfRq/ppHlE+1WSp2V4teB8YZ2+lUiCyHGHcEnS5bhgviKr3?=
+ =?us-ascii?Q?LSqALXt813w5oFEc+rEyvzHr0EOncMFY0nsffhJ9SsFDwXi1yQM10aajgFHn?=
+ =?us-ascii?Q?y8sQ9l4IctyELvFb5NfXaAt9rtCvvYpgu8kRbxLABkXsTgbYibyLz6qChxcW?=
+ =?us-ascii?Q?EicWb82thSCuV4VIK78I4qsLj7bPntn8/LvtzO6vE2tYjOJchg64eYL+WKad?=
+ =?us-ascii?Q?7IKMNs+IXLMHi6igrYdz6eEkY/0i1edLMXQhbwEST2UvoeJEl2cb47tFN4lb?=
+ =?us-ascii?Q?hWEld8UfFLdPyni+nzLYckKyjysqSVJaAHr4rW6W8Jw8dCO1dKAtwiC9T3ae?=
+ =?us-ascii?Q?qDOZ5iAMIzmuVlxfjvkSYf3VZlFkfIJjj5rWKdEbhnFPj/t1r8ovcVNRACmS?=
+ =?us-ascii?Q?KlLKjRo9qVaL0ZflnvlumvM8y8zSiXzQapESOoR1ppeoX+a45g5CfAfakj1k?=
+ =?us-ascii?Q?yKWxURLSqbVwIXido4trZ7Rfd0ZjUIt3yppBjtsy2Y/7JQOwaYXvezmC3mh3?=
+ =?us-ascii?Q?NdL7tVXG/+UWtLt+RdOH29Mi2JU3gDpaL7n6JqEabGbYcaB/45rug3YCQswJ?=
+ =?us-ascii?Q?me7pDqxlOrgIZBOnhOOTOho4kK/YrAa7U6YkCIKFvrZb6nrzqdwQrW4/pbMB?=
+ =?us-ascii?Q?i4co/j/hu7Y1TL5OkbqVGP3OaVfeFCid1UPsMNx8cOZc0gi2ahnOXlaV0iko?=
+ =?us-ascii?Q?ODUv3d0c4m7zvoo31fcgXNEscsPdjubJ9SE3qAtpqBPmxtD4pv/jZBbB5ZaJ?=
+ =?us-ascii?Q?SMkSDk21+The0NsM2Dcoj7IShPvfPF+jcc8AYAuHOezaa7M7kOEkZVYiuIbW?=
+ =?us-ascii?Q?b7ZMnuEheg/3ez676jFicAZ3av+vLySOU79n18smFJg7eQ/jyJThxk4ScUXY?=
+ =?us-ascii?Q?gG9rZQyPmv5lSBCXGoibQVbL70HalduqQu3Y8RRP8dqw6TlRdvTdhYoHUR7m?=
+ =?us-ascii?Q?MVdcfBrYSt5lOXAcsLceFY6hI24brgzExZY9ccLSBsA/jvkydzyPW0+qU6Fd?=
+ =?us-ascii?Q?Bhxt3r+MumCAZz1lYSW7eWPyn/TrEvV28N7nSSQn14+Rom4FYYbwaCe51nN+?=
+ =?us-ascii?Q?VyE9Hdd3xx2USYySlfnYB/xgQLNOh46ziL97EHeuyQKD8+9gzWIod+jRZdiC?=
+ =?us-ascii?Q?Us34RCOlq6+Q9eD5VyXdDQ8v7qkQtEFes/jTQYfjC38XmaB2O1iWfFxawKMa?=
+ =?us-ascii?Q?sog6n69zfokO4GFYyMu+YL2ZtZ4K7aeYwqFCy7c9JSNfcC0OXAofhgflUOFG?=
+ =?us-ascii?Q?Hhh9cZlcl9OCtRRWraDZBl6LN9VQhNKSG+CKH7obCYm6m4zClDhW6MeAUSzp?=
+ =?us-ascii?Q?GxIM9DDS5oKzCPcvxKbLyWrFyLujvMv4v92h7LxqDbEYuzWyXb06M+NNc0Pk?=
+ =?us-ascii?Q?AZq8D0QcvziHdSLsVB2MESLbnwTNaaXuwI7SjpB1z3MsWHMV1BjA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:41:19.6983
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UOz8qB9mgaQ7cRWpO6aQjQAEAwTxwmdfAg7ngxwIs/Tdcau6A9XaqOQ6atsSS3ZeSUsSoCrzaSi1ZNHFXY5UgE2PQa7MYh/mDxZgWXDcRdV9bJjfrZGbeZl6JcYVN9I5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB949883
 
-On 11/10/26 11:44 PM, Joshua Hahn wrote:
-> Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
-> NUMA restrictions") makes get_page_from_freelist() skip any node with an
-> active kswapd on the first pass through the zonelist, so unrestricted
-> allocations don't immediately consume the memory kswapd is freeing.
-> 
-> But kswapd is also woken for high-order requests. With THP defrag set to
-> defer, each THP fault that fails on a fragmented node wakes kswapd at
-> PMD order. kswapd reclaims a batch, wakes kcompactd, and sleeps until
-> the next failed fault, so it stays awake much of the time even on a node
-> with plenty of free order-0 memory. This means those order-0 allocations
-> get directed elsewhere.
-> 
-> This was observed on some Meta production workloads running on 2-NUMA
-> systems, where processes with a preference for node0 allocations
-> continuously allocated order-0 pages on node1, despite node0 having
-> hundreds of GB of free memory.
-> 
-> Only skip a zone with an active kswapd if it is also below kswapd's
-> target watermark.
-> 
-> On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=always
-> and defrag=defer, I ran a process that prefers allocating on node0.
-> With a fragmented node0:
-> - Before the patch, 68% of pages were served from node0
-> - After the patch, 100% of pages were served from node0
-> 
-> One remaining gap is that since this uses kswapd's own threshold,
-> unrestricted allocations can take what kswapd frees above the target
-> watermark. The current code already lets such allocations drain from the
-> high to the low watermark while kswapd sleeps.
-> 
-> One potential solution, as hinted by Johannes in the discussion from the
-> original fix [1] is to add some kind of fudge factor (for instance,
-> wmark_pages + high_wmark_pages - low_wmark_pages).
-> 
-> But in tests that I ran in a VM where the allocation demand outpaces
-> kswapd, about 4% more pages landed on the busy node and kswapd reclaimed
-> about 15% more, but kswapd still finished and slept. So let's hold off
-> on the fudge factor until it becomes an observable issue in workloads.
-> 
-> [1] https://lore.kernel.org/linux-mm/20251001164131.GB1597553@cmpxchg.org/
-> 
-> Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUMA restrictions")
-> Suggested-by: Daniel Hodges <hodgesd@meta.com>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-LGTM:
+On Wed, Nov 11, 2026 at 09:47:32PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Register each dma_chan_dev on dma_chan_bus_type before device_register()
+> and make it a bus device instead of a class device. Setting the bus
+> before registration lets bus_add_device() take the bus subsystem
+> reference, so the matching bus_remove_device() calls drop references that
+> were actually acquired. Attach dma_dev_groups to the bus and set the
+> device release callback directly.
+>
+> Keep the existing /sys/class/dma interface by registering a class_compat
+> named "dma" and creating a link for each channel device. The channel
+> devices now live on the DMA bus, while /sys/class/dma/dmaNchanM remains
+> available to userspace.
+>
+> The bus is named "dma-chan" rather than "dma" to avoid colliding with the
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+dmaengine-chan
 
--- 
-cheers,
-jose a. p-a
+> SuperH DMA bus, which is also named "dma" and is registered later from a
+> postcore_initcall. As a result the device's uevent SUBSYSTEM and
+> "subsystem" link use "dma-chan", while /sys/class/dma is unchanged.
+>
+> Remove the post-registration dev->bus assignment from the Tegra GPC DMA
+> driver. Leaving it in place would overwrite the bus selected by the DMA
+> engine core and reintroduce the reference imbalance.
+>
+> The DMA channel bus match callback never matches, so no driver can bind
+> to these channel devices.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  drivers/dma/dmaengine.c        | 27 +++++++++++++++++----------
+>  drivers/dma/tegra186-gpc-dma.c |  1 -
+>  2 files changed, 17 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+> index 9a9d54d8f7c6..36f5a12641cd 100644
+> --- a/drivers/dma/dmaengine.c
+> +++ b/drivers/dma/dmaengine.c
+> @@ -239,11 +239,7 @@ static void chan_dev_release(struct device *dev)
+>  	kfree(chan_dev);
+>  }
+>
+> -static struct class dma_devclass = {
+> -	.name		= "dma",
+> -	.dev_groups	= dma_dev_groups,
+> -	.dev_release	= chan_dev_release,
+> -};
+> +static struct class_compat *dma_chan_class;
+>
+>  /* --- client and device registration --- */
+>
+> @@ -1115,8 +1111,9 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+>  		goto err_free_dev;
+>  	}
+>
+> -	dmaengine_chan_dev(chan)->class = &dma_devclass;
+>  	dmaengine_chan_dev(chan)->parent = device->dev;
+> +	dmaengine_chan_dev(chan)->bus = &dma_chan_bus_type;
+> +	dmaengine_chan_dev(chan)->release = chan_dev_release;
+>  	chan->chan_dev->chan = chan;
+>  	chan->chan_dev->dev_id = device->dev_id;
+>  	spin_lock_init(&chan->lock);
+> @@ -1128,6 +1125,11 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+>  	rc = device_register(dmaengine_chan_dev(chan));
+>  	if (rc)
+>  		goto err_out_ida;
+> +
+> +	rc = class_compat_create_link(dma_chan_class, dmaengine_chan_dev(chan));
+> +	if (rc)
+> +		dev_warn(device->dev, "Failed to create compatibility class link\n");
+> +
+>  	chan->client_count = 0;
+>  	device->chancnt++;
+>
+> @@ -1172,6 +1174,7 @@ static void __dma_async_device_channel_unregister(struct dma_device *device,
+>  	chan->chan_dev->chan = NULL;
+>  	mutex_unlock(&dma_list_mutex);
+>  	ida_free(&device->chan_ida, chan->chan_id);
+> +	class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
+>  	device_unregister(dmaengine_chan_dev(chan));
+>  	free_percpu(chan->local);
+>  }
+> @@ -1306,6 +1309,7 @@ int dma_async_device_register(struct dma_device *device)
+>  		mutex_lock(&dma_list_mutex);
+>  		chan->chan_dev->chan = NULL;
+>  		mutex_unlock(&dma_list_mutex);
+> +		class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
+>  		device_unregister(dmaengine_chan_dev(chan));
+>  		free_percpu(chan->local);
+>  	}
+> @@ -1650,8 +1654,9 @@ static int dma_chan_bus_match(struct device *dev,
+>  }
+>
+>  const struct bus_type dma_chan_bus_type = {
+> -	.name  = "dma-chan",
+> -	.match = dma_chan_bus_match,
+> +	.name		= "dma-chan",
+> +	.match		= dma_chan_bus_match,
+
+don't change format, origial code style is correct.
+
+
+Frank
+
+> +	.dev_groups	= dma_dev_groups,
+>  };
+>
+>  static int __init dma_bus_init(void)
+> @@ -1665,9 +1670,11 @@ static int __init dma_bus_init(void)
+>  	if (err)
+>  		goto err_destroy_unmap_pool;
+>
+> -	err = class_register(&dma_devclass);
+> -	if (err)
+> +	dma_chan_class = class_compat_register("dma");
+> +	if (!dma_chan_class) {
+> +		err = -ENOMEM;
+>  		goto err_unregister_bus;
+> +	}
+>
+>  	dmaengine_debugfs_init();
+>  	return 0;
+> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
+> index ec12b7288b43..93b136f875d4 100644
+> --- a/drivers/dma/tegra186-gpc-dma.c
+> +++ b/drivers/dma/tegra186-gpc-dma.c
+> @@ -1540,7 +1540,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>  		tdc = to_tegra_dma_chan(chan);
+>
+>  		if (use_iommu_map) {
+> -			chdev->bus = pdev->dev.bus;
+>  			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
+>
+>  			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
+>
+> --
+> 2.34.1
+>
