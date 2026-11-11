@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363996;
-	b=lbKioGjRhvF35sXKSmgfMEszVbVtSFSS/zQcHYOdoIyf+ocIj0uVzv58VE6Xa4dMk7DN
-	 USEZLRhGmHhwuqq/DoYe+2sFsKbV1fjxZ/qQJvGpD7cdnpVFtSoQsCcOJlUmHMNDiFbWf
-	 CALD488ADP9Q0lyRpJdjQB9M3Zuwdu2Ro9xTDmDCPsZrzBIyC7fs1f91e2bPEUra5bh7F
-	 YpfwXodqsTn8IpmDdjZxDOxDNWMKFwp1gzA/aXYhyFUq4zuCiqXau2izz8P1a2JvH4M/k
-	 04uU4WZieFtvXTDPkzQKrY193TNuQPYo1Ap+BA9KNNVOuKizoUcCLdnMbipoJeBWcJw==
+	t=1794364016;
+	b=31bAeV9qwyVlz0tn273M03hi/rup6zf3mr/oEydEn4XI54MsvEUo3ue2pLXeRBuBc2DX
+	 6aUJW1QAK8NpJtLbjvPmI0lTeEX4DLp16rwQqROg2MvMpVhRjogko9daE2YGHtFJA66f+
+	 SY61nsF5UeJMHCAyTzX5xjxEwsVOUcoJ24NvnMcM9J4XRRBBzmPyVQ1y7nad0MRNU5+Tf
+	 6ugagC58gP/7ar6LG8FxXa9W6cGpJugCXWvrWgbqUjR4kka2QProSbXrEX2mNsre6LDh8
+	 r0+09b9pv/LiPGn2PlcMDqubKmYCa5G4/z38J6fFsg+Y2MtAq+EqSuwYm1meM1ogxAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363996;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=bqAQthlYWXd2wB1UC1Kq1+fP5T/K7rstim8fmGmQbZY=;
-	b=Mv+7veL7WBseZYKfpfC3b7Chgch9S4mdXycPwWyklpeyo4F6KvXeuxIlmIq4zI0SyxrW
-	 sZwjlHsnHy1ZlYhmb+4ftWCBbQYHMYBMJTIwXGcsqkKX30+RyJ9zB0q2/EGwgXKiM9Civ
-	 bUKTS8T7ImFBbBIkoZlTXZnpCJBqY8Ucc2fNth7ZoERSx42tW1CFeEMXRGZOSP6sGrsLH
-	 Q+vYuP8oPZBhLYHVuW5jSDN1lyDePCg1LWP6S4F6uvpUwLWR0MAwi0JbFtGEdN7o2iM3J
-	 aqxjNnXDU8GoGuFQ0HPvIpEzsXDgwhOCyQLhNn34tUq4jrf/VHgEHM7LfaIsjUq7ZIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364016;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
+	b=KQf1QbzTG9GVosi8745uStpC+2GlL6qpRzBozI7JmOa/hlokl7nWNBbKV02t2eiBYyNE
+	 /wPDm3z03f1EF4a1GnQUd6R72PQF/RIbaIuGC05hkic7b3SuWfrY17ga9KqqXF+kWXQLK
+	 pHZqIVMRHrBa8OqAdwTbgVaMtUoFyYEYGgE6rJl3TVTpjzDs1so/y4Pz0EqZoLIBNGm47
+	 gSyxh/BKgjnbt2tAlEzqsuNovEY6kVdwy2f0q7TJFi/8/NbG0o8YNvIamx2eP0yr70WqL
+	 5SDu79k3Nz4925DEcuM4jPN1+Ul9PIQLIkLhWdvs/tfKq5LZ19qkMoDeJTdBfogbw9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="pEbO+iE/";
+	arc=none smtp.remote-ip=74.125.231.201
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD37606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD37606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-5384e381fbbso2199656b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:26:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794363995; x=1794968795;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556F7606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:26:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556F7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pEbO+iE/
+Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f61e12e8e0so506488b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:26:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794364015; x=1794968815; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bqAQthlYWXd2wB1UC1Kq1+fP5T/K7rstim8fmGmQbZY=;
-        b=nUHVchqVUIm8mMryT6XcqBG2racqm98kAMWfYnobWJJzI0lzrmwLsZ2LuajVMX093g
-         7STBUxguzwMlE6oCtEJ5dYjfR+6ibjQiFGxGltSZRSdFyU0HLS+kfp6lIchdHLAa+LR1
-         3eWx+2658hD7mV+QkAISjNDXp1E4D4rC9r76s3lhqqpUixkPNjz2DrLKqabQWAtwNmvF
-         5PgIyStz2jLbMeKgYHy9NMBvriGby7qEbxQU4ww2WGcmLVeODrLV/oGej0kNMFtinrlg
-         iXDr1VHwPIpLABO4UNczG9ZxiOUl5DsNl79KXmwNqKS4FZByHqpFkY2hVmormYNdYZFA
-         K+vw==
-X-Forwarded-Encrypted: i=1; AL+hErEc7Snz5DJ5Makl7QiQi0IWVOJVpuykH7ztr4gzrjUm4Ww/ANPldpIrSCvyQxwwTbU4MJHuCEoHKBc92r8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LNFnv7LqX7IDSE0ovnH7ovqd2oSo4dEEr8jhjhGXZcwvRt48Y
-	vMFAluWnZrMg7+TnKXHsEWF9NWUFR2n2f8GoS0dH8RtTS+TWsAg2qN6FsBHM+ZwKdmc9gVc/B/z
-	nh32qSRkIiJiY9kHPa8BhLiU2JtF3mRDxloxojeIItDf9YxwioKzsAI//6xk=
+        bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
+        b=pEbO+iE/MPg2zDij7Aje1g8wdN1YhFm7/BcmNNly+swHyJy22M3wDi6VoKS1P4CbOB
+         2U/tzXhLQCQri98JFfW1VMGVLqmPefWFr0duquAf6kcwzMdIUJJwLJwhaJJO/zbmSFHB
+         POO1mOgkMzPOrO5p+hoNaSTyMsvjnIHQb/fU7LLC3nr+1uz1RMf/j85gwHXxkmhDOcPK
+         JmIXmxi/9mErtsSJ/7xlexfCeGRB9DG1yX3cztwH5QagzHP/A40dku03l3hv09pguhZV
+         MpE0LfcChFyFvSww/eGoRZdzf+1VOVmTkz9F4LZqkKdFXTjxhXhLk+BMBd6hy7mqYxyp
+         oR9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794364015; x=1794968815;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D7F3TwUQ6dGzsMiU+yMtMue/xeRnuQuD+BhRm+g4jhU=;
+        b=ez68JxAoTu9Wwm5HmwHnoW6hokwnxwh4DYn8ShVw9rawlb1GR5BgYP/FrOhxmSMPW7
+         vGMNt8NDf4p30zoAF5BQc9L7pV/kNeM+r1+TWT1B9oT23r/Bvf3CCBbGLqyYx5qDokzi
+         HeJldQF9SgyH7KD+2BusFC6pQ6FzSrSmgCogVvV1ynoh/VYqVi0V1eqXpesJ1qRXJdQv
+         fP8Q4OStFwhYp/heQs6SrRa+bRs+/XksH0u0X1BcC4meBapGpPcI1uHYB0CwLeRyiOYU
+         sffOmwLSXJhwMozkJ8UD9ZY2ffvd/UUYB380aGXpHLHdjHXMHKpxyhTEuwDhIVeK2mnn
+         WKZw==
+X-Forwarded-Encrypted: i=1; AL+hErGHuyWlk0F6PFeutklOfBJ7bQ8xfmIjQWJcnm3lSTyV2TSVQM4jThkRH9LZPf9JxX2TnSe9l8iQRKO5rIQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vxG9KXc9axl7W1DcEDKOk1dcu456fWMIXqMU/YchN6QP91gO9
+	f+FBiSoLtYcSceAdYai9GWvQ8Uio9kqYOB0F+03eptXC4RuZjfWfqPW3OIduvt92aqRUOQ==
+X-Gm-Gg: AYBFou2mIGIIjitka99JON+/YIIQE3iwwPDV3aexCA+tAnGZnK5LQ37XpVIjzU+yUrS
+	byKESZSf1EEVPcjnSFOyGR5xP5RQcGtAjzvQ6a57pEOY7EJGkT0vLr1t5IdFlBYxXgMMxQ4Q3CA
+	b1J6xVQTHp9yYFZLyhLSc4+2kH5jQc3vWMo6YPFATYp2Rxg27lsvp+pAkrp0IkWxrfX17uKwBMt
+	Z8xlG9FEPBb40bsJXF1KOiZmCT70pkmuGxEOLG2mi+ABKQGXJ5qwQp2ZOlZ9xTzOEo/CD3XtgON
+	l8BmNjAoFsRr2bsxNXur9TOaLeN+eNc1H5ZVDxMPY6+11B3gG4N7xdzVXkN8L9iXkFAVAr/rC4I
+	l6WmPisTPgmyF+4YOaT47BeLWo3YlaKcjIWncE0iuDpAWhVKQSIDUe5OFpPJKaDDBNXanH6KbTN
+	dYzeHXGnuqRLYDcqk4C/Z2T8rsckU4DXDahxDkv0XBoCBlAs+yWfi1tHBC0e6STMFNkU/qQTcPd
+	Ba8TOzyJ9j0bDntOdG/ACuCfexc19O6BlDhJRfig9ifL1mCZ1bkiOGdQlaTS/uJ+fCMWRTnS7iS
+	S3aGEJGKbwGJJxRWPBJtSoJyaVx3mQmt+/K1/7fc3oBBqA==
+X-Received: by 2002:a05:6870:1649:b0:48f:e0f6:c45c with SMTP id 586e51a60fabf-4ae46c42d59mr1213442fac.42.1794364015190;
+        Tue, 10 Nov 2026 18:26:55 -0800 (PST)
+Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22d1d541sm2789026fac.2.2026.11.10.18.26.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 18:26:53 -0800 (PST)
+Message-ID: <8c8ff7e2-d1a4-45c8-aacf-bca93439a32d@gmail.com>
+Date: Tue, 10 Nov 2026 20:26:51 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,103 +92,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4442:b0:53e:3b0b:fc1f with SMTP id
- 5614622812f47-56b961950b9mr845236b6e.22.1794363995259; Tue, 10 Nov 2026
- 18:26:35 -0800 (PST)
-Date: Tue, 10 Nov 2026 18:26:35 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3d25b.17ff5aea.1b027f.01a2.GAE@google.com>
-Subject: [syzbot] [batman?] WARNING in __batadv_dat_purge
-From: syzbot <syzbot+89f07b62d8237346ecab@syzkaller.appspotmail.com>
-To: antonio@mandelbit.com, b.a.t.m.a.n@lists.open-mesh.org, 
-	linux-kernel@vger.kernel.org, marek.lindner@mailbox.org, sven@narfation.org, 
-	sw@simonwunderlich.de, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] drm/mediatek: dsi: force command mode in
+ mtk_dsi_poweron()
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi Chun-Kuang,
 
-syzbot found the following issue on:
+Gentle ping on this one for mediatek-drm-next now that 7.4-rc1 is out. 
+It has CK's Reviewed-by and Roman's Acked-by, and it still applies 
+cleanly to v7.4-rc2 and mediatek-drm-next. I can resend it with the tags 
+if that's easier.
 
-HEAD commit:    b3dfbde62cf1 Merge tag 'linux_kselftest-fixes-7.4-rc3' of ..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17356f35580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d16c0eae9c338e3c
-dashboard link: https://syzkaller.appspot.com/bug?extid=89f07b62d8237346ecab
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/403baefe34aa/disk-b3dfbde6.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e7f58e7003b8/vmlinux-b3dfbde6.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/83e039a928f8/bzImage-b3dfbde6.xz
-
-AI-generated root cause summary:
-Under PREEMPT_RT kernels, `__local_bh_enable_ip()` enforces that hard IRQs are
-enabled using `lockdep_assert_irqs_enabled()`. When `batadv_dat_purge()` invokes
-`__batadv_dat_purge()`, `spin_unlock_bh()` calls `local_bh_enable()`, which
-trips `kernel/softirq.c:289` because lockdep's per-CPU `hardirqs_enabled`
-tracker was 0 despite CPU hardware interrupts being enabled (`EFLAGS.IF == 1`).
-The lock and bottom-half operations in `__batadv_dat_purge()` and its callee
-`batadv_dat_entry_put()` are properly balanced, indicating lockdep's per-CPU IRQ
-tracking state became desynchronized from the CPU's hardware interrupt state.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=89f07b62d8237346ecab
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+89f07b62d8237346ecab@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-__lockdep_enabled && !this_cpu_read(hardirqs_enabled)
-WARNING: kernel/softirq.c:289 at __local_bh_enable_ip+0x1ea/0x2b0 kernel/softirq.c:289, CPU#1: kworker/u8:12/1182
-Modules linked in:
-CPU: 1 UID: 0 PID: 1182 Comm: kworker/u8:12 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Workqueue: bat_events batadv_dat_purge
-RIP: 0010:__local_bh_enable_ip+0x1ea/0x2b0 kernel/softirq.c:289
-Code: 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc 90 0f 0b 90 e9 66 fe ff ff e8 02 78 ec 09 41 f7 c4 00 02 00 00 75 d8 eb d7 90 <0f> 0b 90 e9 92 fe ff ff 90 0f 0b 90 e9 6f ff ff ff e8 e0 77 ec 09
-RSP: 0018:ffffc9000694fa30 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 0000000000000200 RCX: 0000000000000046
-RDX: 0000000000000001 RSI: 0000000000000200 RDI: ffffffff8b3e742e
-RBP: 0000000000000400 R08: ffffffff90d5a8bf R09: 1ffffffff21ab517
-R10: dffffc0000000000 R11: fffffbfff21ab518 R12: ffffffff8b3e7790
-R13: dffffc0000000000 R14: ffff888061f74b90 R15: 0000000000000001
-FS:  0000000000000000(0000) GS:ffff88812480e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fe1171a6000 CR3: 0000000034222000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- spin_unlock_bh include/linux/spinlock_rt.h:122 [inline]
- __batadv_dat_purge+0x343/0x400 net/batman-adv/distributed-arp-table.c:252
- batadv_dat_purge+0x20/0x70 net/batman-adv/distributed-arp-table.c:271
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Ryan Brue
