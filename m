@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794428848;
-	b=RP/udpmCiF979vr5NdOXTXStEWMmTgeC6LruhvAE5WpRxjVCKgtTChhEm+Tu25jVY6AD
-	 mV35AY+wqXcbgK2QFLdT41GTCLQF9iSZncG/4ctCQV8cCAk+mOEy8ryGEyGV1y57okabv
-	 yF9TNQi3SuYTJO8VEvFanpQicYeI6x4bFLsGQWcSwgGaxuHDMtaJFXPjawY2b4eSjchvr
-	 bZtUzouiP4rxNfoMUldZaxof7Tmper8w8EkhfAGrHsZPxCAmakGta/JAyEaHJ8VXYCL2S
-	 AHvNUUMx+BSzeAlu2xXv955vgG/tIaAnZpeVpsPyrCKVGuty7grlkJ7URtePxQrdjow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428848;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=g+hlyuXTXCIxB36zR/n3kH2plCVxKzMUEqxRKYhxisk=;
-	b=ff9dpWW+mNE77EAgcWczdUX+V9TIydi4r+1HtnurlaDvyLKvMCAJUOpoG4gaYEWFwfKL
-	 rYZb5iH1lOGHXrviKuBBi+O/VAizmGG+KecWulnI/YV7ETYdWlZIZMkd8SSYX0dk6wZ9V
-	 M1a854ZaoGqNG2B9eSxKTUttHORQ8NTqiuPXFlOjfxT8O6hUkkrzVWdy4DJ5TPxeHnpkA
-	 5b/tnTMRV47HQxwpyFrYN0iby46yni0UmTAScVAj47ohpMaHYcXzh+rF82We58tDhlfGU
-	 S007nKVcQgbT2zeFUiJt/1hapReXYMOkn6hzdgCpXrXz0ptR0XeDqTQQGJZWYR/TryQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4f18klA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794428874;
+	b=JYjKgtGXpW7FIsIEiKNEdaK2y9RrYzcsUoOs1ifX1dMPQivu53Dbl/paClUki8LgFI04
+	 zf0a/HybZjLoHsxwHz37jKOCNEu5AncowQC9whtmrXg5i4mtRd9TISXn7HRd/uPStsOYk
+	 b6udVo3yu1educOrjYLa4h4/bY1agKi1yxETSgT72sEhnm1tpgDBDAcRYjNrt0/mbP6np
+	 khrrBgdcqBj+gt5w4zqU+rhuUFZ6URj/g7HtI3DvGqTn0ewD5VlcsZwKneXXqrKFtFYZe
+	 SXT2tnq5cCDK81xrBz04YlfXDmcsJuS7t/LjLLP27wzUaMrwf+1w/fRBXzzi5qymRIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428874;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hHDUEXT8Smi77nRmQjdP8iGKQR/YAzPk8MpBCg5LccQ=;
+	b=wfIxoBDAboLrK09XAixW8Va78RD00m4IP2elZr+Be1lYhDbWIkDTKdplqY73tDq9srBf
+	 AqZgqrIV34xhpns+0PXdp1BELbvi/zhkfiEhIzNwUP7j61BgFTO/BOI/9CFlDxtG/0nS7
+	 J9DG6mncEV6I6UMl6MXvFHJ+eEMxnnd5qTQJzdl0uWSbsFtk7q1H+Q+7/PR3gHiymJR8M
+	 1/etmwuINM90R22WCfdgzHQ+JYv+DIdnh42nh9ufFzoDq+8nLfsc5G292pDE0syt5BgSW
+	 hAX7x9A2FsHW1W0X2N27NaVf4w9NR7H3KtSMzJ9TygKVLNRalMhH6/GCRJXmAXFOjvA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="Xy/IpXhK";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.11
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013011.outbound.protection.outlook.com [40.107.162.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3813F606A330;
-	Wed, 11 Nov 2026 20:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1516606A31C;
+	Wed, 11 Nov 2026 20:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1516606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4f18klA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD961F00A05;
-	Wed, 11 Nov 2026 20:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428847;
-	bh=g+hlyuXTXCIxB36zR/n3kH2plCVxKzMUEqxRKYhxisk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=U4f18klAluHIX1bmSD6lEPTg6vG33IcCHoGhX6EZvcUEqxSPMZp/CBRoKyLw+C/Hy
-	 VQZv7WUpY4qnzO98DJ2vo82dkDOyhmnedx1WV6CmhlBwn3oX1xGQHu2Gp3zmIuBAQR
-	 ElTC4UzRZGvBs3bSCDrRbWNrvdR7wqmdQZ7xaEoEKS4ukYGhKqM8ObzKVx1mPvtAI+
-	 A92sgoToXys2D4xv0lLl0MjarGgKBhMYjWhweQOTw0yYaASRMr6UcqJh0oir/A+AGL
-	 cH93oo11QU4OHOu9yqMF0Vy9nJcdeEz9PlI1RBgzxA4sKznXvblMjAv5XFON/Zojng
-	 aqSCH3vmCKL0A==
-Subject: Re: [PATCH 1/2] can: kvaser_usb: hydra: reject commands shorter than
- the header
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Wed, 11 Nov 2026 20:27:26 +0000
-Message-ID: <179442884694.488853.1203340184494622977@kernel.org>
-In-Reply-To: <20261110-kvaser-usb-validate-v1-1-f266b85aa908@gmail.com>
-References: <20261110-kvaser-usb-validate-v1-1-f266b85aa908@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Xy/IpXhK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uAdVDoQOVqrtfScZ2agLqDIz22W+lFoXa2YoiFxo81wMJkca6KL1CUnyJkLMaXWL9PWx4V963dNs6cBVVb5Hxnnhug8oJFHI/V6fjSVBHYD7mnPGSBlLR1vFJJCmcdymtMS8HnmSuxoc8iaLv5Fkh+Io6NrSxB3JUDeRVR70dfstGjP/Yc5DOM6P8p8mV2DrJ6U+m3ZRN4HGGspmp+vO13k9pV2Y2K8pW2yotkZV/m1Rfk4UnrsfaOqK6EKaPlmyYqfgzlc5ll1B4PpdjeTMRI9ox8lcXCBX0Liz5foRnepMgcWyNA12KGwn9e83RnwveBF874LVpWmBFlu/fynCPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hHDUEXT8Smi77nRmQjdP8iGKQR/YAzPk8MpBCg5LccQ=;
+ b=A9YPYSJBHMU8xZmOiQ3Dyj9VPF8slS8WT/0477SqJ1iN6ZhiwgJBW8GgcytB55zDLmHq5G/w5ncLvKmVOiHF8ThqaHpvMcvLQO9GkVTe8k6zVEbKefCu57hQhPJGbQJchBPCpduuNdgdydU39QhcD3lncN3n2dOv0Kcidr1LFv4n03usbsaCnb5dSAE3ertQwH1Xask4KMfKgntwEnBy/mIBN8WJS3aveGRaxK/liyS+zHa4CiX8D8bbHtYy1Tl7wSAXiHmK8bpJ8/pwQfJS6V6gmOtohVREUIK5mJcE5/SuenPXxzISSSVj5lYDs0hnePUrJ+I+8s43qsKKyy7AYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hHDUEXT8Smi77nRmQjdP8iGKQR/YAzPk8MpBCg5LccQ=;
+ b=Xy/IpXhKigimUTWrHIeVVgnYQ2soPZ3g9WBsbTtGjHhva+2JNr1185sorxMWhcUI1gJ482dqKfs55AgvWi3TI7Vaf0jbu36CZ5W3t3GXpoC11srr9bwh5a2p2h+dPgQN/9437GIpFrvTiwtpXLiC8N7DCfJ+px5GlCztkBdworxFWozClguZP4R7wN30X3Iy0b2k3a1NgrVTtWPmohAN/55wkrUrxW8dgZyORKFRjqO9OC0qE8CMpckapkN3g3eogpkojEhAMHEeNRXMT75M/jLcb3x9wuaBizWnLnKEKBE55lPHf3tn5ZQ+LbZUMOUEJJQ7cAwzZ2HIi7dWgFV/rg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB11018.eurprd04.prod.outlook.com (2603:10a6:150:224::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 20:27:48 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 20:27:48 +0000
+From: Frank.Li@oss.nxp.com
+To: Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org (open list:NXP XSPI DRIVER),
+	imx@lists.linux.dev (open list:NXP XSPI DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] spi: nxp-xspi: use dmaengine_get_copy_align() API
+Date: Wed, 11 Nov 2026 15:27:40 -0500
+Message-ID: <20261111202741.3866239-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS1PR03CA0002.namprd03.prod.outlook.com
+ (2603:10b6:8:450::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,110 +99,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB11018:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0226c45-7aa9-494d-3070-08df403240b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|19092799006|261026140227099003|56012099006|11063799006|261022105027099003|261021121427099003|261021123027099003|261028144727099003|10067099003|261102123227099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	jSMJi09TSlzM73IhB0vEPBSer5466PicI3IgJILAvlXeftOrkDITkK6oNTSzzI0oA0OfB+TVwLA/4EJ0QIMt7bTX4yy8lRGYyNi6ggTf/ocx0KMzGPImPOBGSlKdu68yYqP0ywnAPPlaj00qUtznpOLA8gnVgEKLfLr7ztDZRK8nxcZ5j4IJyVM2V++2X33ywJNV6I2j6JILXitwuPrxlTfd13JbWhEHVWOLzTQjm91NVNGvR2FmiPoM4NvHvaJaVCKZRvMit6RTxbUT3TCaTq451oV65lNeb9viI+2QH2B7491jHYYw69moovO5PdP9+PAtiSMFbl+o8ONSknEj3XzP8KKX5x12sHjp+xQirIZh/lT/eUOGD7EzzSwA3WtvUfVhUA+hO+JfLuLHQlUWpnVO1kvkBMOicjorsJ2ETADIb7QcTLii/mn/1VxXDdEaw0MryvaQGgf+0R6sSU74zo3mik5ria6wVhVRbxpiv32jWyqJp9Ba6mp7GTeNqwT6VuUKCvU6kgKX7yieRzJBojj8QrkY0L/Ly6gK4eQpt2qSLCeMScHJtcYZb5iw2syNJbgISwF0K+1rf02DjBsMb+K5vSUoHhluVNWsJRg1FOtEw8SV741/GQ09KgT/a0VTO+LPI3xc7fA0wJLJz8wY4xqd60pP8RYYopCEbL9nWc8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(19092799006)(261026140227099003)(56012099006)(11063799006)(261022105027099003)(261021121427099003)(261021123027099003)(261028144727099003)(10067099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+8vyxupp2m2Jlc8RIvqQC8kxibzZBguuIWGS5ttOdRy2vkBwPoCRvXJ65zU3?=
+ =?us-ascii?Q?KDTdBBDPIBM9MOpL92ciyDErdiakWG3v1Qgf2+5vueV4cNzPrqnrhhatheKg?=
+ =?us-ascii?Q?bR6S/Pewts00E4n8rlddqVaxeuShXtJKEV18dsb9Uhd5ZeFGb41e8kqGLF9s?=
+ =?us-ascii?Q?4r8hbQXdJIcUX0IkKZbpvqnnaLKzWd7WP0ApfpnXb2tPAyV6yhcLJLFy2qZP?=
+ =?us-ascii?Q?EzVZVmZ0auyFudlLq6T3uFv0vRxVLGO8dl+mrMjQIT7pS46Jg4HFXkCbtHfy?=
+ =?us-ascii?Q?QJwgJoJXqYPLspLekPyCIYM1HCW9pd5PkJMIX6PN46aHrCo2705bDWJsBjqj?=
+ =?us-ascii?Q?sf7kGa+okMu01SOi4+91XSpB9WvDYmxCWcpre4cFLsQ1nEFuW+zIq0iNz+Ka?=
+ =?us-ascii?Q?pRXCQBDILPHt4ySsoaSSDjk04vBKsnMxXA1vcdV9vMAjzWA+DdBmX+++SOQ+?=
+ =?us-ascii?Q?aqCKRVIlEv+PRtBUlVDXOCMs9IUfSt65BlNnQjz77H8tdwnO614fTCe5AmDW?=
+ =?us-ascii?Q?xwN5/2E/Ft+ab7D6x8Cg5dRsALLb/0qUPEDEJlMIz/drgX1dTN6m7u7O59lX?=
+ =?us-ascii?Q?ne/EbqR13tCcsYLoRCdNjTLaENIgfufZyFIYY4xoh+/7I/ei6SLhHZLgTlsB?=
+ =?us-ascii?Q?87jVpBR3Oumak0pdoIDmcVf+tMJ5ap/TOu3HZb//pmWNtzmfA8S1fJcssVI7?=
+ =?us-ascii?Q?dv0DOH7mlT9CoHkBnKvEsPha99l09zn6YlrmFUmSPhYX6aMntRYJgxvz9BC4?=
+ =?us-ascii?Q?8mr+oFsueZ1ztDk00XoWynOytTsK1D75wHSdDUbPk5IPT/siEronaKcl32BY?=
+ =?us-ascii?Q?nqxHg00vehXQZdi5f/MVlUe7Jy0B6akgvAItBk4tuLRHknDvVWewK1IZ6d3f?=
+ =?us-ascii?Q?stU6kR1OCfHkW3oHhmzX5b6747wAjNjN90IWg8qguu/U0zt6zDbgI50m7VZo?=
+ =?us-ascii?Q?CZPU++k7F0rUx4ImokZG+XTXfrySgD9CPxC4IUHjG6nusN4eXpon7nqK4j0F?=
+ =?us-ascii?Q?B41SN7UEuiQ8g0eP4zgLEq2kSaSlbl0ixoE9TeNpvnWsvErZAEpeWnM1Q5bb?=
+ =?us-ascii?Q?v9P/v0KlKSAujjhrxEn0SRaDR6+HnsENhLvQSAkOgBpUqJow69HfweTSdh25?=
+ =?us-ascii?Q?YUipwlukzdfBUsQsmmc9SMe1h02UhfP42n2vnb656hY5cG9Z0d5X+mYogzcq?=
+ =?us-ascii?Q?TiHKtcB2wdfuAg7h8O58o9wnYxivt50uOig8f8wp6uxUSX4kHMb2v8IuTNCo?=
+ =?us-ascii?Q?iYg+/CkgUCauqBH/KcQszFWPEXdo+6owRatp1i6z0wbljPvGXxh4RF6lxqX9?=
+ =?us-ascii?Q?1UaGsT3vaNKY7B1SGWwxvgKctp+WyCJmIliBFNdDcSkQPxJp8CwfZEWkLnoP?=
+ =?us-ascii?Q?fii2ImTDQQEWGe1pXooXb9WHCWgkCDVLAJDrwedgS3kU5IAFqold7HYfny6Z?=
+ =?us-ascii?Q?/3PAeUONCbD622rI32vyp1+DHEpo7fmSuli4nlwOq3Fo2sdCd9yJeRhEQwVj?=
+ =?us-ascii?Q?cUCoxexCL+i50WnyK7B64F1GsU63eUqQXglRaWgj00QQPWqPlC6j4p2LoFcq?=
+ =?us-ascii?Q?SXnGQLe0+4+Di8sM1zIYN4gcxdCBeqQ6foRxq5QsTpVoJKAGe62Ni8bO0ecm?=
+ =?us-ascii?Q?yAAsogVL3Yj28bAQt39eIc8eTeA8zVCZFoMyvfe3nc/ED1glq9qVCNAQYqaf?=
+ =?us-ascii?Q?z6Om0n14JVuCLrxqdbisChHkTRmIcWJ+cc+xK58isrBENsoGK4a7BX8aRZx9?=
+ =?us-ascii?Q?GxDVrcveChv3Nykq1/YhHeDhBo15FYUFDn2ow2ZS47ZQDmrCwXTr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0226c45-7aa9-494d-3070-08df403240b5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:27:48.8683
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oVFgrd4W8BsJejTP9c1Wf4JSl/51Am83dJKCo7FYiFJ8OexSEiNIeqi+tUI9apx4MgDv4QR/5nbHaxCaQtv7iwRZhKtz+4iZ057zS9j1WiiaHO1PrF49iQ3xMRH2rLQs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11018
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Frank Li <Frank.Li@nxp.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Use the dmaengine_get_copy_align() API function instead of directly
+accessing rx->device->copy_align.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+No functional change and prepare to move struct dma_device to private.
 
-- [Medium] The patch says it rejects commands shorter than the header.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/spi/spi-nxp-xspi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---
-
-can: kvaser_usb: hydra: reject commands shorter than the header
-
-This commit adds a lower bound on the command length returned by
-kvaser_usb_hydra_cmd_size(). The check is added in both
-kvaser_usb_hydra_wait_cmd() and kvaser_usb_hydra_read_bulk_callback(), so
-a CMD_EXTENDED command with a zero length no longer causes an infinite
-parse loop. Lengths shorter than struct kvaser_cmd_header are now treated
-as format errors.
-
-> diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> index 687911d764ded..92bfdcb04b019 100644
-> --- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> +++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
-> @@ -676,7 +676,8 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
->  
->  			tmp_cmd = buf + pos;
->  			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
-> -			if (pos + cmd_len > actual_len) {
-> +			if (cmd_len < sizeof(struct kvaser_cmd_header) ||
-> +			    pos + cmd_len > actual_len) {
->  				dev_err_ratelimited(&dev->intf->dev,
->  						    "Format error\n");
->  				break;
-> @@ -2156,6 +2157,11 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
->  
->  		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
->  
-> +		if (cmd_len < sizeof(struct kvaser_cmd_header)) {
-> +			dev_err(&dev->intf->dev, "Format error\n");
-> +			return;
-> +		}
-> +
-
-[Severity: Medium]
-Is struct kvaser_cmd_header the right lower bound here?
-
-kvaser_usb_hydra_cmd_size() returns sizeof(struct kvaser_cmd), which is
-32, for every non-extended command. So this check only has an effect for
-CMD_EXTENDED.
-
-The fixed header of an extended command is the 8-byte prefix of struct
-kvaser_cmd_ext, and the length field is part of that prefix:
-
-struct kvaser_cmd_ext {
-	struct kvaser_cmd_header header;
-	__le16 len;
-	u8 cmd_no_ext;
-	u8 reserved;
-	...
-
-With a 4-byte bound, a CMD_EXTENDED with len between 4 and 7 still passes
-this check, and also the new check in kvaser_usb_hydra_wait_cmd(). In the
-bulk callback the command is then handled like this:
-
-kvaser_usb_hydra_read_bulk_callback()
-  kvaser_usb_hydra_handle_cmd()
-    kvaser_usb_hydra_handle_cmd_ext()
-      switch (cmd->cmd_no_ext)
-      kvaser_usb_hydra_rx_msg_ext()
-        memcpy(cf->data, cmd->rx_can.kcan_payload, cf->len);
-
-Both cmd_no_ext (offset 6) and rx_can (from offset 8) are outside the
-declared command. So the dispatch decision and the CAN frame passed to
-netif_rx() come from the next command in the transfer, or from stale URB
-buffer bytes. Parsing then resumes 4 to 7 bytes later, in the middle of
-what was just treated as payload.
-
-The commit message says "A command can never be shorter than its header".
-The leaf fix it cites, 0c73772cd2b8, bounds by CMD_HEADER_LEN, and that
-header includes the length field.
-
-Should the CMD_EXTENDED minimum be at least
-offsetof(struct kvaser_cmd_ext, rx_can)? For reference,
-kvaser_usb_hydra_frame_to_cmd_ext() always builds extended commands of at
-least 32 bytes, aligned to 8.
-
-A complete fix would also need per-sub-command minimum sizes, similar to
-kvaser_usb_leaf_verify_size(). The extended handlers already read up to 96
-bytes based on dlc, whatever cmd_len says. That over-read predates this
-patch, and neither bound fixes it.
-
-The later patch in this series, "can: kvaser_usb: reject devices reporting
-zero max outstanding tx", only changes probe in kvaser_usb_core.c and does
-not touch these parsers.
-
->  		if (pos + cmd_len > len) {
->  			/* We got first part of a command */
->  			int leftover_bytes;
-
+diff --git a/drivers/spi/spi-nxp-xspi.c b/drivers/spi/spi-nxp-xspi.c
+index e532b2da54835..e8383fed461e5 100644
+--- a/drivers/spi/spi-nxp-xspi.c
++++ b/drivers/spi/spi-nxp-xspi.c
+@@ -824,7 +824,7 @@ static int nxp_xspi_dma_init(struct device *dev, struct nxp_xspi *xspi)
+ 
+ 	xspi->dma_rx = rx;
+ 	init_completion(&xspi->dma_rx_c);
+-	xspi->dma_copy_align = 1 << rx->device->copy_align;
++	xspi->dma_copy_align = 1 << dmaengine_get_copy_align(rx);
+ 
+ 	return 0;
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-kvaser-usb-validate-v1-0-f266b85aa908%40gmail.com
+2.43.0
+
