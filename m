@@ -1,47 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388948;
-	b=UdgXzluPrPguxDuvJxE+r1MyTEheUvAFYn1iFTqo548NgR7JCGTVF95Poe3StHxYD5xb
-	 jS0JSXGwSWn8uYTWJ9WOVVJrfNA5cYIh1hUBOP+QeYyIOZK2BTspK6ckWjfsur2I38fZ0
-	 V31WOcE/9Wc6A643MfHrQ6Stf2z9YiRZ+sce25T4dyqNdrDfSn445cWpuiq7Q0WPTfABQ
-	 fXvuXwCgJKO8KRlAnSxm0iF4N5zsGzTgoY5wEaOHAWrlkHsDjlAfk0uPZwN7Hp8tVFXc3
-	 fjqWXX2tWaGQkpPsG2okcFqktTa+cnPQJlTgT7iji/7TIk08G+In7xVfXTS43sxmz3A==
+	t=1794388974;
+	b=PBI7Ss8Tsel6dHIhEU/zWB3rdb3btDKCSyBBEHTeimY8LH3en2EjWailQsk398s+MhnA
+	 OgZsrJ16io9VAtnC1X0gugvyr71mQmBbHe26Elpkbo7IkAP5EBCPJZBPSuPE67wQc1Aw4
+	 VkTsjW0thghjgDVQ9QDDRE8GqXkOHLxeidqNktdN8D91zvV4uVTdAc7ttQ4BIQreTsFB9
+	 xXzuQO1tKx8tdXLSoP96CcpSYaQ/dNLyTItCR32hV+EsOouzBoyTC4w0DmxuABFoMoBLk
+	 ebeyAyxOyxcCJ6ce7lMdJcxjCJKQm0r1Tje8BtobAu/DJaRA/Z2knduHBgTV9DiMl9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388948;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Qtfi79sNkt5m/VGYUDKWPyqCBF/QwcBOUK8ADQR5ugg=;
-	b=NLlNSx09psoCU22Lsw98755JVzzmN8MjUEvZPIw5R5qaEbz/5TxdqWqHG2UNCwBaZ7mo
-	 IrqryMwZ5xwWGV9ske4zpQty2NvS3+ykS1kjCWNMzy28POXgjSYkVtoH/yiAiPig1tSJh
-	 IKQCH7bPIjhtlbcEfXUma0qXUWcqpBSpj03H+51byqCayZMaoFOqPLN2mQYh2HY9w7CSe
-	 bI8k/f+cmTlrYtAtYxIKnkryyez6ZCc2Ntrbq+RsQty5kLEt4pDCR5QAD/3C97Vzmoitj
-	 5paoK3qc6MWcq5KyPtcEDC0eRSNnWrlrxv2duUBmNkx6aKOen8a48RcqwFnm4fc7pVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388974;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7b5X+4SjztcHydS5WfCa1q0BYAFZqwdMD8BIV9hhKRI=;
+	b=eXuT8DD0ENXFM4/tz/ps6HWgAV0cbW3uNBpQm8tItEK+uSwDo8TGVPEwAn0u34vygCIu
+	 WhdllBhEtVJQiCe+Mcg2vzJN2GVeObuovSKWgudXerikHylRuXGAtdStkY766FKPoZiB7
+	 06aWbVAw+l6xQq2CGittUGTYrKlCXLb877n1X4eD3UftI2r0cWXj/zT0wxw0cQlw67+3W
+	 qeeffxSxY0cAtXyltWrnpuaEmEuHNw0l6no2hv/IYi4IbD0bjTAoNRIn3rmYkcXP/Zufc
+	 jdp8+FSQViupJUpA/mYG60OpJJIUXOnM1IgW1oGG1g4P/D59bbrIH7eBdfRQwMstJUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWXhrImQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ma+qyGKW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFE7606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E603C606A321;
+	Wed, 11 Nov 2026 09:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWXhrImQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944C71F00A0A;
-	Wed, 11 Nov 2026 09:22:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ma+qyGKW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A8C1F00A05;
+	Wed, 11 Nov 2026 09:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388948;
-	bh=Qtfi79sNkt5m/VGYUDKWPyqCBF/QwcBOUK8ADQR5ugg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KWXhrImQFuzpZKw/rzBUBYvNMKl1qxn7VBe2anF24Uyk9RZS1Nbr4w1h/RdmecNPZ
-	 TVcXiospwwgUvYCcCHCO0wY6pjT5qGDBpyEf30oX64aH2zamK+EQTsSgKROGj3VG2j
-	 PImW+0v70imhZhZtFxj7svIiwBrsbzUXtcNjs5slcjX+ovW4Ac6l7CpyvT4LwKb7Pz
-	 MzZANZtbMcc1vsZxVDJNYoNaSqn1cK1eppZhObGqluQeMfIImKrrLvIWpo2MOihMJx
-	 CmAeZOZlWXmsKZ9E3Symko1yg0hxb3Wco/zvnoFmZHkZZ8pmhQr9rsUzwSaLoqVeIO
-	 7RI4baxf/39dg==
-Message-ID: <af8dd40d-1561-4497-989b-abedb9afb248@kernel.org>
-Date: Wed, 11 Nov 2026 10:22:07 +0100
+	s=k20260515; t=1794388973;
+	bh=7b5X+4SjztcHydS5WfCa1q0BYAFZqwdMD8BIV9hhKRI=;
+	h=From:To:Cc:Subject:Date;
+	b=ma+qyGKWLh4TZNAaUdEeYWoinDKtueXJVN2fP2E5y1OM6V0uxGGOBrH2nMcQAPyZe
+	 9dqZEuscw1CZd30lO75Blugh5oW9HMarIoqzDud+2nTcFWdEzjJwnx1MlHMNX7aOdo
+	 JrgOMmpflyEpdwKj+JphfrPE1fHZNMowW1T+5LwCDy1Lz6nHtFceRQncP5FYdH1lOl
+	 mTgxOPztzQ410CyG1Rmij08KzZz9JozM4hiazqHpaK6BL+r3ZUuRiHplhYPTDJcdDL
+	 QztnNG4oMk9zErC0Lw8sjtaPaiiKfWy1onpGQsc/2akwcnrb7LZwzQ3Z4sakO49TdW
+	 9Y7Msma2BP9hQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Marco Elver <elver@google.com>,
+	Alexander Potapenko <glider@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Aleksei Nikiforov <aleksei.nikiforov@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Finn Thain <fthain@linux-m68k.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: [PATCH] [RFC] instrumented.h: mark instrument_write non-const
+Date: Wed, 11 Nov 2026 10:21:31 +0100
+Message-ID: <20261111092231.2027735-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,262 +77,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: use memory barriers for non PMD-sized folios to sync
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
- ljs@kernel.org
-Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, harry@kernel.org, jannh@google.com,
- lance.yang@linux.dev, qi.zheng@linux.dev, pfalcato@suse.de,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <09736bc2e01bec0ca7436733078c82c7e0cc6627.1794376686.git.baolin.wang@linux.alibaba.com>
- <3e5ceb38-d04c-4cd4-a783-5d0edcedf5dd@kernel.org>
- <59c59696-2112-44e6-818c-50bd10789b70@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <59c59696-2112-44e6-818c-50bd10789b70@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/11/26 09:43, Baolin Wang wrote:
-> 
-> 
-> On 11/11/26 3:48 PM, David Hildenbrand (Arm) wrote:
->> On 11/11/26 07:06, Baolin Wang wrote:
->>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
->>> uses PMD lock via sync_with_folio_pmd_zap() to synchronize when a cleared
->>> PMD is found while unmapping a folio.
->>>
->>> However, for non PMD-sized folios, the cleared PMD can only come from
->>> PTE table reclaim, which clears the PMD only after the rmaps for the
->>> table have been removed. This is plain message passing, and taking
->>> the PMD lock is more than needed, like I did in the previous patch[1].
->>>
->>> Without barriers, the walker can observe the cleared PMD but a stale
->>> mapcount on weakly ordered architectures:
->>>
->>> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
->>> ================================    ================================
->>> folio_lock()
->>>                                      lock(ptl)
->>>                                      clear PTEs
->>>                                      remove rmaps   /* W mapcount */
->>> [mapcount load satisfied early,
->>>   folio still mapped]
->>>                                      pmd_clear()    /* W pmd */
->>>                                      unlock(ptl)
->>> pmdp_get_lockless() -> none         /* R pmd */
->>> skip the PMD
->>> folio_mapped() -> true              /* R mapcount, stale */
->>> unmapping assumed to have failed
->>>
->>> Pairing an smp_wmb() before the PMD clear with an smp_rmb() after the
->>> PMD read forbids this outcome:
->>>
->>> CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
->>> ================================    ================================
->>>                                      remove rmaps   /* W mapcount */
->>>                                      smp_wmb()
->>>                                      pmd_clear()    /* W pmd */
->>> pmdp_get_lockless() -> none         /* R pmd */
->>> smp_rmb()
->>> folio_mapped()                      /* R mapcount */
->>>
->>> If R pmd observes W pmd, R mapcount must observe W mapcount, so
->>> folio_mapped() no longer reports the removed mappings.
->>>
->>> No changes for PMD-sized folios unmapping.
->>>
->>> [1] https://lore.kernel.org/all/542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com/
->>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>> ---
->>>   mm/internal.h        | 26 ++++++++++++++++++++++----
->>>   mm/memory.c          | 12 ++++++++++--
->>>   mm/page_vma_mapped.c |  2 +-
->>>   3 files changed, 33 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/mm/internal.h b/mm/internal.h
->>> index cd3675c044e0..a277bf4841f8 100644
->>> --- a/mm/internal.h
->>> +++ b/mm/internal.h
->>> @@ -592,6 +592,7 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>>    * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->>>    * @mm: The mm_struct.
->>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
->>> + * @nr_pages: The number of pages in the folio.
->>>    *
->>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
->>>    * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
->>> @@ -600,13 +601,30 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>>    * against later mapcount reads. Skipping the PMD without synchronization
->>>    * could make folio unmapping code assume that unmapping failed.
->>>    *
->>> - * Wait for concurrent zapping to complete by grabbing the PTL.
->>> + * Wait for concurrent zapping to complete by grabbing the PTL for PMD-sized
->>> + * folios, otherwise smp_rmb() is sufficient.
->>>    */
->>> -static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
->>> +static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp,
->>> +		unsigned int nr_pages)
->>>   {
->>> -	spinlock_t *ptl = pmd_lock(mm, pmdp);
->>> +	if (nr_pages >= HPAGE_PMD_NR) {
->>> +		spinlock_t *ptl = pmd_lock(mm, pmdp);
->>>   
->>> -	spin_unlock(ptl);
->>> +		spin_unlock(ptl);
->>> +		return;
->>> +	}
->>> +
->>> +	/*
->>> +	 * For non PMD-sized folios zapping, concurrent zap_empty_pte_table()
->>> +	 * may clear the PMD after the rmaps for the table have been removed,
->>> +	 * but later mapcount reads could still be observed before the PMD
->>> +	 * read, making the folio appear to be still mapped after unmapping.
->>> +	 * Order the PMD read before later mapcount reads, so that observing
->>> +	 * the cleared PMD implies observing the rmap removals.
->>> +	 *
->>> +	 * Pairs with smp_wmb() in zap_pte_range().
->>> +	 */
->>> +	smp_rmb();
->>>   }
->>>   
->>>   struct zap_details;
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index fe72e66c9c2e..1ee286cdd3af 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -2054,8 +2054,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
->>>   	 * Clear the PMD after the rmaps for the table have been removed, in case
->>>   	 * an incorrect mapcount is observed after unmapping the folio.
->>>   	 */
->>> -	if (can_reclaim_pt && direct_reclaim && addr == end)
->>> +	if (can_reclaim_pt && direct_reclaim && addr == end) {
->>> +		/*
->>> +		 * rmap changes need to be observed before page tables get zapped.
->>> +		 *
->>> +		 * Pairs with smp_rmb() in sync_with_folio_pmd_zap().
->>> +		 */
->>> +		smp_wmb();
->>>   		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
->>> +	}
->>>   	pte_unmap_unlock(start_pte, ptl);
->>>   
->>>   	/*
->>> @@ -2110,7 +2117,8 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
->>>   			/* fall through */
->>>   		} else if (pmd_none(*pmd)) {
->>>   			if (details && details->single_folio)
->>> -				sync_with_folio_pmd_zap(tlb->mm, pmd);
->>> +				sync_with_folio_pmd_zap(tlb->mm, pmd,
->>> +						folio_nr_pages(details->single_folio));
->>>   			addr = next;
->>>   			continue;
->>>   		}
->>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>> index a931243ca42b..d793ad0c5364 100644
->>> --- a/mm/page_vma_mapped.c
->>> +++ b/mm/page_vma_mapped.c
->>> @@ -295,7 +295,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>>   			pvmw->ptl = NULL;
->>>   		} else if (!pmd_present(pmde)) {
->>>   			if (pvmw->flags & PVMW_SYNC)
->>> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
->>> +				sync_with_folio_pmd_zap(mm, pvmw->pmd, pvmw->nr_pages);
->>>
->>
->> If there is no folio, why do we care about the sync? Should there be a folio
->> here? Anyhow, I think sync_with_folio_pmd_zap() really should be consuming a folio.
-> 
-> Since there are only two cases without a folio: 
-> mapping_wrprotect_range() and pfn_mkclean_range(), I'm hesitant to 
-> modify all page_vma_mapped_walk() callers to pass in a 'folio' parameter 
-> for these 2 cases.
-> 
-> Or should we add a new flag for the pfn walk?
-> 
-> / Walk a PFN range which need not belong to a folio /
-> #define PVMW_PFN		(1 << 2)
-> 
-> Then the changes would be:
-> } else if (!pmd_present(pmde)) {
-> 	if ((pvmw->flags & (PVMW_SYNC | PVMW_PFN)) == PVMW_SYNC)
-> 		sync_with_folio_pmd_zap(mm, pvmw->pmd,
->                              pfn_folio(pvmw->pfn));
-If we're working on a folio, we better pass in a folio. That might require some cleanups, yes.
+From: Arnd Bergmann <arnd@arndb.de>
 
-diff --git a/include/linux/rmap.h b/include/linux/rmap.h
-index 52fff8dc74213..80fb7ef9bab92 100644
---- a/include/linux/rmap.h
-+++ b/include/linux/rmap.h
-@@ -884,6 +884,7 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
- #define PVMW_PGTABLE_CROSSED   (1 << 16)
+I got another instance of a -Wmaybe-uninitialized in ntfs, as this is
+the only place that enables the warning:
 
- struct page_vma_mapped_walk {
-+       struct folio *folio;
-        unsigned long pfn;
-        unsigned long nr_pages;
-        pgoff_t pgoff;  /* Only meaningful if nr_pages > 1 and not a KSM walk */
-@@ -898,6 +899,7 @@ struct page_vma_mapped_walk {
+In file included from include/asm-generic/rwonce.h:26,
+                 from fs/ntfs3/file.c:10:
+In function 'instrument_copy_from_user_before',
+    inlined from '_inline_copy_from_user' at include/linux/uaccess.h:184:2,
+    inlined from 'copy_from_user' at include/linux/uaccess.h:222:9,
+    inlined from 'ntfs_ioctl_fitrim' at fs/ntfs3/file.c:78:6,
+    inlined from 'ntfs_ioctl' at fs/ntfs3/file.c:246:10:
+include/linux/kasan-checks.h:38:27: error: 'range' may be used uninitialized [-Werror=maybe-uninitialized]
+   38 | #define kasan_check_write __kasan_check_write
+include/linux/instrumented.h:146:9: note: in expansion of macro 'kasan_check_write'
+  146 |         kasan_check_write(to, n);
+      |         ^~~~~~~~~~~~~~~~~
+include/linux/kasan-checks.h: In function 'ntfs_ioctl':
+include/linux/kasan-checks.h:20:6: note: by argument 1 of type 'const volatile void *' to '__kasan_check_write' declared here
+   20 | bool __kasan_check_write(const volatile void *p, unsigned int size);
+      |      ^~~~~~~~~~~~~~~~~~~
+fs/ntfs3/file.c:66:29: note: 'range' declared here
+   66 |         struct fstrim_range range;
+      |                             ^~~~~
 
- #define DEFINE_FOLIO_VMA_WALK(name, _folio, _vma, _address, _flags)    \
-        struct page_vma_mapped_walk name = {                            \
-+               .folio = folio,                                         \
-                .pfn = folio_pfn(_folio),                               \
-                .nr_pages = folio_nr_pages(_folio),                     \
-                .pgoff = folio_pgoff(_folio),                           \
+The problem here is that copy_from_user() is called on an uninitialized
+object, but the instrumentation passes the pointer into a function that
+takes a const object. gcc deduces that any access to that object is
+undefined behavior and warns about it.
 
+The only workaround I could come up with is to remove the 'const' keyword
+from these annotations, which of course is not great either, as the
+functions do not actually access the data at all.
 
-The question is really whether pfn_mkclean_range + mapping_wrprotect_range really need that
-sync as well.
+This also found incorrect 'const' annotations in
+arch/s390/include/asm/fpu-insn.h, which writes to those pointers.
 
-(we could identify by seeing !folio I guess)
+Any ideas?
 
+Fixes: 33b75c1d884e ("instrumented.h: allow instrumenting both sides of copy_from_user()")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ arch/s390/include/asm/fpu-insn.h |  8 ++++----
+ include/linux/instrumented.h     | 10 +++++-----
+ include/linux/kasan-checks.h     |  6 +++---
+ mm/kasan/shadow.c                |  2 +-
+ 4 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
+index aaf1faeb3dc5..7cd6e9f30485 100644
+--- a/arch/s390/include/asm/fpu-insn.h
++++ b/arch/s390/include/asm/fpu-insn.h
+@@ -359,7 +359,7 @@ static __always_inline void fpu_vsrlb(u8 v1, u8 v2, u8 v3)
+ 
+ #ifdef CONFIG_CC_HAS_ASM_AOR_FORMAT_FLAGS
+ 
+-static __always_inline void fpu_vst(u8 v1, const void *vxr)
++static __always_inline void fpu_vst(u8 v1, void *vxr)
+ {
+ 	instrument_write(vxr, sizeof(__vector128));
+ 	asm volatile("VST	%[v1],%O[vxr],,%R[vxr]"
+@@ -370,7 +370,7 @@ static __always_inline void fpu_vst(u8 v1, const void *vxr)
+ 
+ #else /* CONFIG_CC_HAS_ASM_AOR_FORMAT_FLAGS */
+ 
+-static __always_inline void fpu_vst(u8 v1, const void *vxr)
++static __always_inline void fpu_vst(u8 v1, void *vxr)
+ {
+ 	instrument_write(vxr, sizeof(__vector128));
+ 	asm volatile(
+@@ -385,7 +385,7 @@ static __always_inline void fpu_vst(u8 v1, const void *vxr)
+ 
+ #ifdef CONFIG_CC_HAS_ASM_AOR_FORMAT_FLAGS
+ 
+-static __always_inline void fpu_vstl(u8 v1, u32 index, const void *vxr)
++static __always_inline void fpu_vstl(u8 v1, u32 index, void *vxr)
+ {
+ 	unsigned int size;
+ 
+@@ -400,7 +400,7 @@ static __always_inline void fpu_vstl(u8 v1, u32 index, const void *vxr)
+ 
+ #else /* CONFIG_CC_HAS_ASM_AOR_FORMAT_FLAGS */
+ 
+-static __always_inline void fpu_vstl(u8 v1, u32 index, const void *vxr)
++static __always_inline void fpu_vstl(u8 v1, u32 index, void *vxr)
+ {
+ 	unsigned int size;
+ 
+diff --git a/include/linux/instrumented.h b/include/linux/instrumented.h
+index a1b4cf81adc2..d28aa6b0aeb8 100644
+--- a/include/linux/instrumented.h
++++ b/include/linux/instrumented.h
+@@ -36,7 +36,7 @@ static __always_inline void instrument_read(const volatile void *v, size_t size)
+  * Instrument a regular write access. The instrumentation should be inserted
+  * before the actual write happens.
+  */
+-static __always_inline void instrument_write(const volatile void *v, size_t size)
++static __always_inline void instrument_write(volatile void *v, size_t size)
+ {
+ 	kasan_check_write(v, size);
+ 	kcsan_check_write(v, size);
+@@ -50,7 +50,7 @@ static __always_inline void instrument_write(const volatile void *v, size_t size
+  * Instrument a regular write access. The instrumentation should be inserted
+  * before the actual write happens.
+  */
+-static __always_inline void instrument_read_write(const volatile void *v, size_t size)
++static __always_inline void instrument_read_write(volatile void *v, size_t size)
+ {
+ 	kasan_check_write(v, size);
+ 	kcsan_check_read_write(v, size);
+@@ -92,7 +92,7 @@ static __always_inline void instrument_atomic_read(const volatile void *v, size_
+  * Instrument an atomic write access. The instrumentation should be inserted
+  * before the actual write happens.
+  */
+-static __always_inline void instrument_atomic_write(const volatile void *v, size_t size)
++static __always_inline void instrument_atomic_write(volatile void *v, size_t size)
+ {
+ 	kasan_check_write(v, size);
+ 	kcsan_check_atomic_write(v, size);
+@@ -107,7 +107,7 @@ static __always_inline void instrument_atomic_write(const volatile void *v, size
+  * Instrument an atomic read-write access. The instrumentation should be
+  * inserted before the actual write happens.
+  */
+-static __always_inline void instrument_atomic_read_write(const volatile void *v, size_t size)
++static __always_inline void instrument_atomic_read_write(volatile void *v, size_t size)
+ {
+ 	kasan_check_write(v, size);
+ 	kcsan_check_atomic_read_write(v, size);
+@@ -141,7 +141,7 @@ instrument_copy_to_user(void __user *to, const void *from, unsigned long n)
+  * variants). The instrumentation should be inserted before the accesses.
+  */
+ static __always_inline void
+-instrument_copy_from_user_before(const void *to, const void __user *from, unsigned long n)
++instrument_copy_from_user_before(void *to, const void __user *from, unsigned long n)
+ {
+ 	kasan_check_write(to, n);
+ 	kcsan_check_write(to, n);
+diff --git a/include/linux/kasan-checks.h b/include/linux/kasan-checks.h
+index 3d6d22a25bdc..90b878b876f5 100644
+--- a/include/linux/kasan-checks.h
++++ b/include/linux/kasan-checks.h
+@@ -17,13 +17,13 @@
+  */
+ #if defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS)
+ bool __kasan_check_read(const volatile void *p, unsigned int size);
+-bool __kasan_check_write(const volatile void *p, unsigned int size);
++bool __kasan_check_write(volatile void *p, unsigned int size);
+ #else
+ static inline bool __kasan_check_read(const volatile void *p, unsigned int size)
+ {
+ 	return true;
+ }
+-static inline bool __kasan_check_write(const volatile void *p, unsigned int size)
++static inline bool __kasan_check_write(volatile void *p, unsigned int size)
+ {
+ 	return true;
+ }
+@@ -41,7 +41,7 @@ static inline bool kasan_check_read(const volatile void *p, unsigned int size)
+ {
+ 	return true;
+ }
+-static inline bool kasan_check_write(const volatile void *p, unsigned int size)
++static inline bool kasan_check_write(volatile void *p, unsigned int size)
+ {
+ 	return true;
+ }
+diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
+index d286e0a04543..591c179164af 100644
+--- a/mm/kasan/shadow.c
++++ b/mm/kasan/shadow.c
+@@ -32,7 +32,7 @@ bool __kasan_check_read(const volatile void *p, unsigned int size)
+ }
+ EXPORT_SYMBOL(__kasan_check_read);
+ 
+-bool __kasan_check_write(const volatile void *p, unsigned int size)
++bool __kasan_check_write(volatile void *p, unsigned int size)
+ {
+ 	return kasan_check_range((void *)p, size, true, _RET_IP_);
+ }
 -- 
-Cheers,
+2.53.0
 
-David
