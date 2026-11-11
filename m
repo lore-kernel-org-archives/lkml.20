@@ -1,69 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436884;
-	b=33Yg3Fc90+hGzWZNNUdKG+iRg4ktvVieQioYkI0EDqjFZ4KZkhveCyhrpwGx7BD2qjor
-	 IE+Q6nHtoEyUTZdkvhqA68/2vuR/78ReHbBJXvtRFK5vnpBsrmyTJz3K6rVYw+lLxytC0
-	 c529b+4Y3xAn4kBoSlKl7j+Sjp+OL67cUI4IUa8aqWJMBrUtcdDYmBfXKPounrEjdku8w
-	 jzEmWkFmc54tvUsh/sbn7GslVHf5jtIJt2WAJ0JyRCkmhTmkltd1tnojHSE0LwZHKxtqF
-	 qXjUhgHqQKvTu4FKsP4EhX09WFDuzQPnFHNf/s8MGz+uuKz4mdyvdgwK9HtjPLNxrPg==
+	t=1794436898;
+	b=hF52i5wjXcBo09JVWFfhQtqiDCoFyFIYh69J42MuJR/CLhfO7aYkoxvq20w2VwoYZ7JL
+	 3aU0mfmxwTIaOVS2Ki7AYY7GhqWV0RP3Fuz0dj0cB548MnIR6kVIkf1GA6ydPS9yE4ENE
+	 xDMnxaQ6j+pTr/qvl4DDTQz1J/Mk/603j7hxD5fBEiBnQCAMAhnFx9WEBVJHU4PXorE21
+	 8EebjiSbL066WY+GcfPEdW7CEus2yNU0LCskwuoSSGMTd9Zkabaug3/G7+TQY0CRdxF44
+	 8BbQUXDxeVr1rNZF7PpzMUiWrXnecfhVvxGDwHGio7lmVSOS12+gcGtPrptEIIEWB8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436884;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=1ZszL408OtVOYhxcADqDXyCFPN2IPKvweH7l3LeJgEc=;
-	b=Kd4AYtacdyeXhjp4jGsydUorxKXwICT8AXlRcmEr5rBzCNsJ1YNPT/kKdyN/RmPi8gAk
-	 mIYXC12hwHIGXU7/P2sKSSAoFSC1EXt8kNx2lK7Y8VLw5ZNZFnKbkQYVdCMgbAp/4un1M
-	 Dar3XvOFzUIjBci9a1aYd0+lzQn2NVuJFp8LHeh5W7B3FvWEU1ct1v79YwDNDzzD5cIdr
-	 wAagb4h0o3GSJBOOlLHuzbpsaMRE05NMlGdVvIbHTihBuW8bQwN54p1QR0E0ak9MPnv9J
-	 UzJ5FNj3Cc7GKK02oxY7tu/Gqovq0mWgSKs7dsxlht/BkTfSppk4i2/4L0N4A3QT0WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436898;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=artujVBtkITv0xul/f4LcgQN/4n5We9dzsh5W3Leptw=;
+	b=RbbJnpEEENc8N9IYCYDH5ubFc67SbNDnYOEfIPWkXpR1vhusiZpGG/+/o0XtA3dudz1e
+	 Q2JCxG64eiFTuyhlEnHQ6ZqVLvmMeWZOo2m1b4J38alWUOepApnoogiAEqcX/gNQzVlcz
+	 hXu+JQ9vdXfJmEuF/TfGPfs6gh5a846AGKviYZ8+6xe9h+HsiOW+AfZws05HoSv3/TGXc
+	 8mft6dZbys8or2Dt93VlYzQOp1sf8Riliv3mk1zJpalo7F3sao7weJN/Ab7LR8bEv6dWS
+	 vxSIPaZdzZdDAV1CEMge2frl9ODan28mqiNjm4pl4IiVbjpUEf86ZRBLKBYcXj27dRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhGYVF1A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZELOpHA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A7B606A336;
-	Wed, 11 Nov 2026 22:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66808606A33D;
+	Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhGYVF1A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6C21F00A05;
-	Wed, 11 Nov 2026 22:41:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZELOpHA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6CA1F00A0A;
+	Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794436884;
-	bh=1ZszL408OtVOYhxcADqDXyCFPN2IPKvweH7l3LeJgEc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VhGYVF1ACkNkJmWQcgrSe4xq0u7p9IcPv50kYi0r0zkpK9kBgNCeLK5j/JWEIVewS
-	 SYM1BlCdSaKoa1Q8lDng/fxwNyw3HGDnK5lIxS/JkjCjpsng/iaSRridBJUevSX+DZ
-	 HnMAHRW9YMcJQzDvvOMG02pMh4btDUUj1zh8liWLiF9mlwpcdc6DOmEdKpsdho/OYF
-	 2ET5J0xk+iq1mFj+j2/PPi6p8RCK9S1l0GU/2PYech/JAwq7V1P61c8Sv8z7vRV9Fm
-	 OgpP++8N1IrCl6T6jZndpm5cJdtQrapg8uQJ940/ocRUORHk+P3LsAIipcog1dAgC2
-	 sUMFE6ef483Hg==
-Subject: Re: [PATCH net-next v1 02/11] net: Add memory provider capabilities
-From: netdev-bot+sashiko@kernel.org
-To: bjorn@kernel.org
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, alexanderduyck@fb.com, kernel-team@meta.com,
- andrew+netdev@lunn.ch, hawk@kernel.org, ilias.apalodimas@linaro.org,
- ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- asml.silence@gmail.com, axboe@kernel.dk, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, netdev@vger.kernel.org, bpf@vger.kernel.org,
- io-uring@vger.kernel.org, almasrymina@google.com, mike.marciniszyn@gmail.com,
- bestswngs@gmail.com, razor@blackwall.org, dw@davidwei.uk,
- aleksander.lobakin@intel.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, stuclar@meta.com
-Date: Wed, 11 Nov 2026 22:41:21 +0000
-Message-ID: <179443688151.2199510.3920075646889577971@kernel.org>
-In-Reply-To: <20261110102039.1002605-3-bjorn@kernel.org>
-References: <20261110102039.1002605-3-bjorn@kernel.org>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794436898;
+	bh=artujVBtkITv0xul/f4LcgQN/4n5We9dzsh5W3Leptw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=BZELOpHA05LqzQ806/IA3hS/mble4JA4SMN5wo/zZjQaqIWC0OCBlMBDK2sQhvV+n
+	 dkA7m+l9XAXrrJ1vyvuvsCgDJ/n1YkeFfGi5ibtx5yBDc6YnZBeNneFpO6Am8qxS2m
+	 UQulPJ79zSsWSZr4aSoYUBmRPIIEF3JPNSnHPhViMlkc4d6j2fkLwElxe1ezZ5JGwy
+	 ku4SNNqQ4WTMY6p5pFj0Wv+mM+gzbo/k3+40qdSCIAMGoySt1wld4Bdz7vIeKjrwhD
+	 1EbT+YjayK34qLqRx9lukCB8yqmedx6P8IsSOoZXBBKuYH/g2B+tmEv2oTzfBfytUd
+	 /bFe8kKnUK0Vg==
+Date: Wed, 11 Nov 2026 16:41:36 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261111224136.GA754433@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,77 +72,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111121602.GQ8635@unreal>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Wed, Nov 11, 2026 at 02:16:02PM +0200, Leon Romanovsky wrote:
+> On Thu, Nov 05, 2026 at 12:04:31PM +0200, Leon Romanovsky wrote:
+> > Punch line for Linus from Jason:
+> > "Enhance detecting if the PCI fabric can support a peer to peer path
+> > by evaluating the full bi-directional fabric path over each of the
+> > three traffic type ACS controls. Expand the number of fabric
+> > configurations where the P2P algorithm makes the correct determination
+> > of support to include non-uniform ACS and situations where translated
+> > takes different routes from untranslated."
+> 
+> Bjorn,
+> 
+> Just a friendly reminder.
 
-Low priority / nit picks for your consideration:
+Thanks for the reminder.  I put this on pci/p2pdma for build testing
+(no issues expected; I always try to get build testing before merging
+into linux-next).
 
-- [Low] Documentation/networking/netmem.rst, 'Driver RX Requirements',
-  disagrees with the readable-provider semantics this patch adds.
+I'm still struggling to describe this in a way that connects to the
+code changes and is accessible to non-experts, so please correct
+things I get wrong here.
 
---
+I had the impression that this series helps VMs by making P2PDMA work
+with passthrough devices in cases where it currently doesn't, but
+maybe that's not the case; I don't see any mention of that in the
+series.
 
-net: Add memory provider capabilities
+IIUC the P2PDMA core doesn't actually *control* any TLP routing, i.e.,
+it doesn't change any ACS controls or change any TLP attributes that
+affect how TLPs are routed, so to me, these subject lines suggest more
+than is actually happening:
 
-This adds MP_CAP_READABLE and MP_CAP_FRAG memory provider capabilities.
-The header split and XDP restrictions now apply only to unreadable
-providers. A new PP_FLAG_MEM_PROVIDER flag lets a page pool take a
-readable provider from its RX queue. devmem and io_uring are marked
-MP_CAP_FRAG and keep their current behavior.
+  Route Relaxed Ordering Completions directly
+  Reject Translated Requests blocked by Translation Blocking
+  Route Translated Requests under Direct Translated P2P
 
-> diff --git a/Documentation/networking/netmem.rst b/Documentation/networking/netmem.rst
-> index 6871dcdd700cc..39cb75339704d 100644
-> --- a/Documentation/networking/netmem.rst
-> +++ b/Documentation/networking/netmem.rst
-> @@ -103,6 +103,11 @@ Driver RX Requirements
->       which knows when dma-syncing is (or is not) appropriate.
->     - PP_FLAG_ALLOW_UNREADABLE_NETMEM. The driver must specify this flag iff
->       tcp-data-split is enabled.
-> +   - PP_FLAG_MEM_PROVIDER. The page pool takes memory from the memory
-> +     provider of its RX queue, readable or not. Page pool creation fails if
-> +     the provider is unreadable and PP_FLAG_ALLOW_UNREADABLE_NETMEM is not
-> +     set, so do not set it on header page pools of such a queue. Without it,
-> +     PP_FLAG_ALLOW_UNREADABLE_NETMEM selects unreadable providers only.
+It seems like we're just *learning* whether RO Completions will be
+routed directly, whether Translated Requests will be rejected, etc?
 
-[Severity: Low]
-This isn't a bug, but does this entry belong under item 4's heading, "The
-driver must use the following PP_FLAGS:"?
+I think the core basically looks at the ACS controls on the path
+between two devices and decides whether:
 
-PP_FLAG_MEM_PROVIDER is opt-in. The comment in
-include/net/page_pool/types.h says "Take memory from the memory provider
-of the RX queue, if one is installed".
+  (a) the devices can do P2P DMA directly (PCI_P2PDMA_MAP_BUS_ADDR),
 
-devmem and io_uring pools still get their unreadable provider with only
-PP_FLAG_ALLOW_UNREADABLE_NETMEM set, because page_pool_select_mp() assigns
-unreadable providers without the new flag. The entry itself also says not
-to set the flag on header page pools of a queue with an unreadable
-provider.
+  (b) they can do P2P DMA but only through host bridges on the
+  allowlist (PCI_P2PDMA_MAP_THRU_HOST_BRIDGE),
 
-Item 2 above is still an unconditional requirement:
+  (c) no P2P DMA is possible (PCI_P2PDMA_MAP_NOT_SUPPORTED),
 
-    2. The driver must support the tcp-data-split ethtool option.
+  (d) PCI_P2PDMA_MAP_NONE -- I don't understand this one; the comment
+  says "not a P2PDMA transfer", and pci_p2pdma_state() returns it when
+  the page is not a p2pdma_page, I guess because
+  pci_p2pdma_add_resource() has not set MEMORY_DEVICE_PCI_P2PDMA?
+  Not sure how this is used.
 
-However, __netif_mp_open_rxq() now checks hds_config and hds_thresh only
-when the provider lacks MP_CAP_READABLE:
+I guess one benefit of this series is that a path where P2P Completion
+Redirect is set used to mean that pci_p2pdma_map_type() would return
+PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
+it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
+Redirect is clear, Requests can be routed directly?
 
-    if (unreadable &&
-        dev->cfg->hds_config != ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
+That sounds great as long as the Request uses Relaxed Ordering, so the
+Completion won't be affected by P2P Completion Redirect.  But devices
+aren't *required* to use RO even if enabled, and I'm doubtful that a
+non-RO Completion redirected to the RC is going to work.  So I don't
+understand how p2pdma.c can guarantee safety.
 
-The MP_CAP_READABLE kernel-doc also says such a provider "may back header
-page pools".
+Translated Requests seems similar -- are we assuming that if ACS
+Direct Translated P2P is set and ATS Enable is set, the device
+*always* generates Translated Requests?
 
-Could items 2 and 4 be reworded to cover the readable provider case? As
-far as I can tell, this text is still unchanged at the end of the series.
-That leaves af_xdp.rst as the only place that describes the
-readable-provider driver contract.
-
->  
->  5. The driver must not assume the netmem is readable and/or backed by pages.
->     The netmem returned by the page_pool may be unreadable, in which case
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110102039.1002605-1-bjorn%40kernel.org
+Bjorn
