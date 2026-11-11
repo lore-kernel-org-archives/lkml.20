@@ -1,81 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398390;
-	b=2cZaCb7NsgTuZ7xn3K6We1Pbfmc8QTarlFRPwhkT16zW3P5maLFRfLix2fFPlVnFcsUv
-	 rKzRoESDYvg6FAY1LukfdHpdGd+mUnS2XSTlGN9NFGuwWbvZoMImmyUFwLLjmy8pGFZnm
-	 2xSA9c7QTpeKcDZcuYP+O8xsJTTH2izgsQXZuTycbVlM4nDHhmmw1jsNm/8wi0Z9nyD/U
-	 3lOrxejrm62Y5OR7yaefZpWBOPa27aPNSnbBnTdTbsOAv+uclYfkdJz7EneI5RLnsvz3k
-	 GDg7TTU+qdu17dc5NoBuhcfboLqk8srHvPN4yLAaIU0ankK2zO8UQxCoC+KSlZtnNIQ==
+	t=1794398503;
+	b=2EjwgNjZo6bF4Lm9LLcc02ZWbsFN9h2AhZ4QTGhFdNX4e1IEykGb30t0KS1SJultOh7R
+	 f09w4bSF15CGJMpcTnzR6sORKo0ibFNapXKhKEqiO5vInmznNjsTx6G8mD1UNoOi3Z+ck
+	 dLRSSDNK9ub1RQ5OfcdgynqDBzCviw+jGf7feVNwRQS7+CJIcfokaThN4yPlyO4ToCnUc
+	 toTrcXrkXhAlxnyfnEnWearhklSXwERtOjb+h9h1jImhE32+Sv1LiT0FNilQW2kC9JTCl
+	 oQ6Gtwx+LkETHPGj9rxNrXKPB5wHqoVnCqxraVUjXkVFhD+nCCL3Fm1Ig2C0bgL/76A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398390;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xlBa0++MchyYF2HXCkHIh6FGi/jkZlKN4wycmf7jXd0=;
-	b=zViQMX3cj0P6VUmmpaRntvbe4hrq5NKl/IgjfMo5sUBXWJ6BYkDgF6gG+34xyTzYNFC2
-	 lIoFa1PJ7oju2ycxnrInRsqLEI73Y6Him8TxTkxOVmTMPorun7O9IWekrdlvHShzYR/HV
-	 KlVVDO+Zk0ps5KklwqFOp9HVNrXSbZh40igZNZn3sgoCjblieO9gEEA+4PXr/Jyh9nNjg
-	 6Q+IATCB7ul28HOw6cj+7UnU5SfsAoSdfuzSH+6aLG0FMLtA2UbRKgfsKDbigcaopsqb7
-	 GCHxalKxlkWt2kyfN1nPn5EjQ1PeBFi0Sg7NCh/1iFEhtAzTzAogqnBHwYBkC2QCd0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398503;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=KlktvsLZYoPwubEiMpTIlxQcLIKK3gDMoHZIsK9MbTY=;
+	b=gN19sti0DMsl1nZ+DCWPcWGt2FBiM+jsXb2BOWWPXordq6yoFFIM5DNJoHnXJ80OTmoB
+	 281nDouPPYo7MoZJ6b11kOIKJ+99dzx89yumIHRbaqSkxXbETeL3AY8sL0Tl7TqaM+Oz1
+	 Od6br88eq9rWBCcYewk9NaZQChUhHgLhxMo/547QdsHXbwl8Tp5/yzrU0KWw/oxCUh6F/
+	 4J0IM1lHJJUPbG5aNlk3GiPJmp31MEjWiCLv1ollJiL3+HC8lXZDAGdRFk9soPt1nkT0F
+	 PjmWMIZB0fTLkL7MF5+9pYm5yHy6FHndt91V+7MQgzpKnyHk+1LjVPDtimdvyv2SLPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=gmail.com;
-	spf=pass smtp.mailfrom=runbox.com;
-	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=J8C8eJ1F;
-	arc=none smtp.remote-ip=185.226.149.37
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MRJ4P4rn;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4310C606A31C;
-	Wed, 11 Nov 2026 11:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4310C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1B7606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:01:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B1B7606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=J8C8eJ1F
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zN-001Svi-GL; Wed, 11 Nov 2026 12:59:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
-	:Message-Id:Date:Subject:Cc:To:From;
-	bh=xlBa0++MchyYF2HXCkHIh6FGi/jkZlKN4wycmf7jXd0=; b=J8C8eJ1FbXW8j34Z/Nkm2L61su
-	/R6bsAiFvlUCLkAAGU58MiB90vo67GsWEHc0ghxzi6ePaO/c3DrK1L6c1POofeSqorJPyRFajI3ZF
-	lu68hA11Hoxgmyn+q0T3Vvhqazp7XYehH0yNpwGm0WT9sw4nPBmIHqCy47q9yyOYFCE7zHnLH9dK/
-	pqNMvrzmcl+Rnnxq0Bj2929bnTitZfj6I2vVn/XzqpIPPbRsmrrPAtgkwCku+7WOfeTeSHlectlhV
-	86StXH+I3s6yylbCrEh3dq5rtUKVZfXdzeB9uV64MvooubJPY70VAth6RD/RibDIl8xnA0I15Qm5t
-	S6JE9Yug==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xR6zI-0000VZ-13; Wed, 11 Nov 2026 12:59:36 +0100
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xR6zC-001mRM-CE;
-	Wed, 11 Nov 2026 12:59:30 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Petr Mladek <pmladek@suse.com>,
-	Kees Cook <kees@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Jim Cromie <jim.cromie@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>,
-	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Samuel Wu <wusamuel@google.com>,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 next 13/13] scripts/kallsyms: Reuse little-used compression tokens
-Date: Wed, 11 Nov 2026 11:59:11 +0000
-Message-Id: <20261111115911.1142000-14-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261111115911.1142000-1-david.laight.linux@gmail.com>
-References: <20261111115911.1142000-1-david.laight.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=MRJ4P4rn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794398504; x=1825934504;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=BgXJlhRxC+Hv4DPLB3wg8Xh8XMZb+jo7t7rlEKPdX4I=;
+  b=MRJ4P4rnsgIFda1/1XSv8XByrCJGEZtOudx8TanMDbcDw2rdCW3KGn5j
+   POMxJ4hOOP9sBA5rakACFUTgwS6zTRF430oM8N+FieZB/OPdB0swl5qb9
+   UL63tAJ5+pQ8CQhBj2i6QNsVWvWOd1YsnPnXVH/uijSbVQZDFMyRk/1D1
+   D5rDiWK39keM7EH3NiHed3Uy54NFRG5vBI1bIzdsr5mB83qRbNn0OsbqU
+   M6NtercFox9FQbZXZCuaZi5x+Rg2v1f/yjPp8oa9LiNUv/QrBgDlhcCwH
+   DmkC1wIMzk5BS53+KimlvuwAhfhmsSeoJn1QCWMvaipYmywumM8byTKSe
+   A==;
+X-CSE-ConnectionGUID: u70z195URju4bTRXoeI/AQ==
+X-CSE-MsgGUID: UrpMuQ2/QZq5Oon+eWC9sw==
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="297769589"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Nov 2026 05:01:43 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 11 Nov 2026 05:01:41 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 05:01:38 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <srini@kernel.org>,
+	<linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <manikandan.m@microchip.com>
+Subject: [PATCH 0/2] mtd/nvmem: don't defer forever on absent NVMEM suppliers
+Date: Wed, 11 Nov 2026 17:31:30 +0530
+Message-ID: <cover.1794391847.git.manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,348 +81,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-If the symbols contain a lot of "abc" and "abd" and a few "abe" then
-the compression code first substitutes (say) 'x' for "ab" giving
-"xc", "xd" and "xe".
-It might later substitute 'y' for "xc" and 'z' for "xd" giving
-"y", "z" and "xe".
-The token 'x' is then hardly used, expanding "xe" back to "abe"
-costs one byte every time it is used, but frees up 'x' to be used
-for a much more common symbol pair.
+A consumer that gets its MAC address from an NVMEM cell can be deferred
+forever when the cell will never appear, instead of falling back to
+another address source. These came up while testing the SFDP EUI-48
+series [1], where macb reads its MAC address from a cell exposed by the
+QSPI flash, but both are generic:
 
-Add a check at the end of the compression that all the counts still match.
+ - 1/2: when the SPI NOR flash is not populated or not reachable, nothing
+   below its node is ever registered, yet fw_devlink keeps waiting on it
+   and the NVMEM lookup keeps returning -EPROBE_DEFER. Drop the fw_devlink
+   links below a flash that failed to probe, and return -ENOENT for a cell
+   on a node fw_devlink has marked as never becoming a device.
 
-Increases the compression ratio by about 3% on both the 'normal'
-kernel I'm building and on the x86-64 allyesconfig kernel.
-Since the compression ration is about 50% this is a 6% reduction.
+ - 2/2: a layout adds its cells from its probe and may add none, e.g. when
+   the data the cell describes is not programmed on the device. Only defer
+   while the layout is not bound yet, and return -ENOENT once it is.
 
-For simplicity the code will only expand tokens where the two tokens
-that were merged are still in the table and tokens that expand to
-three characters (which are never removed).
+In both cases the consumer then falls back, e.g. macb uses the address
+left by the bootloader or a random one.
 
-It is possible to find some others, but the cost of locating them
-adds completity and slows down the build and the gains are limited.
+This series depends on the SFDP EUI-48 series [1] and applies on top of it.
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
+[1] https://lore.kernel.org/all/cover.1794391660.git.manikandan.m@microchip.com/
 
-v3:
-- Formally patch 15, rebased on 7.4-rc1
-- Additionally support splitting tokens that contain three characters.
+Manikandan Muralidharan (2):
+  mtd: spi-nor: drop fw_devlink suppliers below a flash that failed to
+    probe
+  nvmem: core: don't defer for a missing cell once the layout is bound
 
- scripts/kallsyms.c | 223 +++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 196 insertions(+), 27 deletions(-)
+ drivers/mtd/spi-nor/core.c | 26 ++++++++++++++++++++++++-
+ drivers/nvmem/core.c       | 40 ++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 63 insertions(+), 3 deletions(-)
 
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index 2f517873e9b4..8370347a9ab0 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -91,7 +91,10 @@ static struct sym_arr token_syms[NR_TOKENS];
- static struct best_table {
- 	char           *str;		/* Full expansion, '\0' terminated */
- 	unsigned short len;		/* Length of str */
-+	unsigned short token;		/* Original token pair for this entry */
-+	unsigned char  splits;		/* Number of times this token has been split */
- 	unsigned int   refs;		/* Number of times used in a symbol */
-+	struct sym_arr syms;		/* Symbols using this token (if len != 1) */
- } best_table[256];
- 
- static void stamp(const char *where)
-@@ -111,11 +114,6 @@ static void stamp(const char *where)
- 			where, delta / 10, delta % 10);
- }
- 
--static unsigned int sym_arr_last(const struct sym_arr *arr)
--{
--	return arr->cnt ? arr->sym_indexes[arr->cnt - 1] : UINT_MAX;
--}
--
- static void sym_arr_maybe_expand(struct sym_arr *arr)
- {
- 	if (arr->cap > arr->cnt)
-@@ -126,10 +124,55 @@ static void sym_arr_maybe_expand(struct sym_arr *arr)
- 				    arr->cap * sizeof(*arr->sym_indexes));
- }
- 
--static void sym_arr_add(struct sym_arr *arr, unsigned int sym_idx)
-+static void sym_arr_add(struct sym_arr *sa, unsigned int sym_idx)
- {
--	sym_arr_maybe_expand(arr);
--	arr->sym_indexes[arr->cnt++] = sym_idx;
-+	unsigned int cnt = sa->cnt;
-+	unsigned int lo, hi, try;
-+	unsigned int *syms;
-+
-+	/* Ensure there is space to add a new entry */
-+	sym_arr_maybe_expand(sa);
-+	syms = sa->sym_indexes;
-+
-+	/* Mostly we are adding a new symbol in number order */
-+	if (!cnt || sym_idx > syms[cnt - 1]) {
-+		syms[cnt] = sym_idx;
-+		sa->cnt = cnt + 1;
-+		return;
-+	}
-+
-+	/* Or we found the same pair of characters twice in the same symbol */
-+	if (sym_idx == syms[cnt - 1])
-+		return;
-+
-+	/* split_token() can generate an out of order reference, insert. */
-+	if (sym_idx <= syms[0]) {
-+		if (sym_idx == syms[0])
-+			return;
-+		try = 0;
-+	} else {
-+		lo = 0;
-+		hi = cnt - 1;
-+		for (;;) {
-+			try = (lo + hi) / 2;
-+			if (sym_idx == syms[try])
-+				/* Already present - common. */
-+				return;
-+			if (try == lo)
-+				break;
-+			if (sym_idx > syms[try])
-+				lo = try;
-+			else
-+				hi = try;
-+		}
-+		try++;
-+	}
-+
-+	/* Insert before syms[try] */
-+	syms += try;
-+	memmove(syms + 1, syms, (cnt - try) * sizeof(*syms));
-+	*syms = sym_idx;
-+	sa->cnt = cnt + 1;
- }
- 
- static void sym_arr_free(struct sym_arr *arr)
-@@ -140,6 +183,15 @@ static void sym_arr_free(struct sym_arr *arr)
- 	arr->cap = 0;
- }
- 
-+static void sym_arr_prealloc(struct sym_arr *sa, unsigned int count)
-+{
-+	if (sa->cap >= count)
-+		return;
-+
-+	sa->cap = count;
-+	sa->sym_indexes = xrealloc(sa->sym_indexes, count * sizeof(sa->sym_indexes[0]));
-+}
-+
- static char *sym_entry_name(const struct sym_entry *s)
- {
- 	return (char *)s->sym + 1;
-@@ -724,13 +776,7 @@ static void learn_symbol(const unsigned char *symbol, int len)
- 
- static void token_add_symbol(unsigned int token_idx, unsigned int sym_idx)
- {
--	struct sym_arr *arr = &token_syms[token_idx];
--
--	/* Symbol indexes kept in sorted order, check for duplicate. */
--	if (sym_arr_last(arr) == sym_idx)
--		return;
--
--	sym_arr_add(arr, sym_idx);
-+	sym_arr_add(&token_syms[token_idx], sym_idx);
- }
- 
- static unsigned int sym_arr_free_all(unsigned int ch)
-@@ -779,16 +825,8 @@ static void build_initial_token_table(void)
- 	 * The initial occurrence counts tell us exactly how much memory should
- 	 * be reserved for each token's symbol array.
- 	 */
--	for (i = 0; i < ARRAY_SIZE(token_syms); i++) {
--		const int nr_syms = token_profit[i];
--
--		if (!nr_syms)
--			continue;
--
--		token_syms[i].cap = nr_syms;
--		token_syms[i].sym_indexes =
--			xmalloc(nr_syms * sizeof(unsigned int));
--	}
-+	for (i = 0; i < ARRAY_SIZE(token_syms); i++)
-+		sym_arr_prealloc(&token_syms[i], token_profit[i]);
- 
- 	/* For every symbol, index every token -> symbol it is present in. */
- 	for (i = 0; i < table_cnt; i++)
-@@ -819,6 +857,8 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
- 	unsigned char *sym, *p, *end;
- 	struct sym_entry *se;
- 
-+	sym_arr_prealloc(&best_table[compressed_chr].syms, token_profit[token_idx]);
-+
- 	/* Iterate through all symbols this token is found in and compress. */
- 	for (j = 0; j < arr->cnt; j++) {
- 		sym_idx = arr->sym_indexes[j];
-@@ -839,7 +879,11 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
- 			adjust_profit(sym_idx, token_second(token_idx), compressed_chr, p[2], p[2]);
- 			memmove(p + 1, p + 2, len);
- 		}
-+		if (se->len == end - sym)
-+			/* No substitutions. */
-+			continue;
- 		se->len = end - sym;
-+		sym_arr_add(&best_table[compressed_chr].syms, sym_idx);
- 	}
- 
- 	/* No symbol contains this token any more. */
-@@ -850,6 +894,123 @@ compress_symbols(unsigned int token_idx, int compressed_chr)
- 	return subs;
- }
- 
-+/* Change every occurance of idx back to token_pair/triple.
-+ * This extends all the symbol table entries but frees up a token. */
-+static __attribute__((noinline)) void
-+uncompress_symbols(unsigned int token_pair, int idx)
-+{
-+	struct best_table *bt = best_table + idx;
-+	unsigned int sym_idx, len;
-+	unsigned char *sym, *p, *end;
-+	unsigned int substitutions;
-+	unsigned int third_char;
-+
-+	third_char = token_pair >> 16;
-+	token_pair &= 0xffff;
-+
-+	for (int j = 0; j < bt->syms.cnt; j++) {
-+		sym_idx = bt->syms.sym_indexes[j];
-+
-+		sym = table[sym_idx]->sym;
-+		len = table[sym_idx]->len;
-+		end = sym + len;
-+
-+		for (p = sym; (p = memchr(p, idx, len)); p += 2) {
-+			len = end - p - 1;
-+			if (len) {
-+				if (third_char) {
-+					/* Adding three characters */
-+					adjust_profit(sym_idx, idx, third_char, p[1], p[1]);
-+					memmove(p + 3, p + 1, len);
-+				} else {
-+					adjust_profit(sym_idx, idx, token_second(token_pair), p[1], p[1]);
-+					memmove(p + 2, p + 1, len);
-+				}
-+			}
-+			if (p != sym)
-+				adjust_profit(sym_idx, p[-1], p[-1], idx, token_first(token_pair));
-+			token_add_symbol(token_pair, sym_idx);
-+			p[0] = token_first(token_pair);
-+			p[1] = token_second(token_pair);
-+			end++;
-+			if (third_char) {
-+				token_add_symbol(token_index(p[1], third_char), sym_idx);
-+				p[2] = third_char;
-+				end++;
-+				p++;
-+			}
-+		}
-+		table[sym_idx]->len = end - sym;
-+	}
-+
-+	substitutions = bt->refs;
-+
-+	bt->refs = 0;
-+	bt->syms.cnt = 0;
-+	sym_arr_free_all(idx);
-+
-+	token_profit[token_pair] += substitutions;
-+	best_table[token_first(token_pair)].refs += substitutions;
-+	best_table[token_second(token_pair)].refs += substitutions;
-+
-+	if (third_char) {
-+		best_table[third_char].refs += substitutions;
-+		token_profit[token_index(token_second(token_pair), third_char)] += substitutions;
-+	}
-+}
-+
-+static int split_token(unsigned int profit)
-+{
-+	struct best_table *bt, *first, *second;
-+	const unsigned int max_splits = 10;
-+	unsigned int i, best_token;
-+	int best_ch = -1;
-+
-+	for (i = 0; i < 256; i++) {
-+		bt = best_table + i;
-+
-+		if (bt->len == 1 || bt->refs >= profit || bt->splits >= max_splits)
-+			continue;
-+
-+		/* Ignore tokens where the original parts have been reused ... */
-+		first = &best_table[token_first(bt->token)];
-+		second = &best_table[token_second(bt->token)];
-+		if (bt->len != first->len + second->len ||
-+		    memcmp(bt->str, first->str, first->len) ||
-+		    memcmp(bt->str + first->len, second->str, second->len)) {
-+			/* ... unless they are three characters. */
-+			if (bt->len != 3 || bt->refs * 2 >= profit) {
-+				/* Don't consider again */
-+				bt->splits = max_splits;
-+				continue;
-+			}
-+			best_token = token_index(bt->str[0], bt->str[1]) | bt->str[2] << 16;
-+			profit = bt->refs * 2;
-+		} else {
-+			best_token = bt->token;
-+			profit = bt->refs;
-+		}
-+
-+		best_ch = i;
-+	}
-+	if (best_ch < 0)
-+		return -1;
-+
-+	/*
-+	 * Triplets (eg foo_xxx_bar) count as two pairs (in token_profit[]) but
-+	 * the substitution only saves one byte making the recently merged token
-+	 * a candidate for splitting again. This might cause an infinite loop.
-+	 * But I have seen t_/alloc_tag get merged then t_alloc_tag/_cntr merged
-+	 * leaving a single referece to t_alloc_tag - so it is split again.
-+	 * So only allow a token to be split a few times.
-+	 */
-+	best_table[best_ch].splits++;
-+
-+	uncompress_symbols(best_token, best_ch);
-+
-+	return best_ch;
-+}
-+
- /* search the token with the maximum profit */
- static int find_best_token(void)
- {
-@@ -882,17 +1043,25 @@ static void optimize_result(void)
- 			to_process[idx++] = i;
- 	}
- 
--	while (idx) {
-+	for (;;) {
- 		/* find the token that appears most often */
- 		best = find_best_token();
- 		if (best < 0)
- 			break;
--		i = to_process[--idx];
-+		if (idx) {
-+			i = to_process[--idx];
-+		} else {
-+			/* Try to free up a little-used token. */
-+			i = split_token(token_profit[best]);
-+			if (i < 0)
-+				break;
-+		}
- 
- 		/* Replace this token in all the valid symbols. */
- 		refs = compress_symbols(best, i);
- 
- 		bt = best_table + i;
-+		bt->token = best;
- 		first = best_table + token_first(best);
- 		second = best_table + token_second(best);
- 
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+prerequisite-patch-id: 76d8b1168f88c3e7912ac2ce01a705f7e69d8a3b
+prerequisite-patch-id: b360d0d00ac1a6feb76d4b3f9412b6f1741f6161
+prerequisite-patch-id: 659801d6f415ba79ce51f21b3a4f5e132348c150
+prerequisite-patch-id: bd1a5a10983aa3cfd99c93ee58fdeb04cdd87b76
+prerequisite-patch-id: 94ede38b6c2480cb1e0e102e9bbeb6ffd5b276ef
+prerequisite-patch-id: ae3977b6c56c5bd4f352d77bd8a7883a69d390af
+prerequisite-patch-id: 58d0ad25e81f16f60864d624eed7ff481607e960
+prerequisite-patch-id: ba140b71fdbfc992861ae4c34b6acc737d4e4528
 -- 
-2.39.5
+2.43.0
 
