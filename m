@@ -1,112 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794402116;
-	b=YiS3at+j0r+0wzFR5UsiP7a1s+gzbkQZZ4xKWMGaSnG8cdaAYpMcuIDIn2MYQKdxh+I9
-	 2pIsvYvbWvrjhJ2Fo7oEKSF/ZErLS8kRl8RmW2247pWEZPoYZEdHIcfDEx43nJa/1co+Q
-	 dDJgoo1V1BoMuVGR2b5BVz6h9HnBklNutolHx1aMfPMmM3XMtUFSg4eIKl/92EoaUp3fL
-	 RyOdylKYY0U/pSOcwsLqrBu72+OnevbC/LLm25g14u89TkX61pRC97WXOyEs6Rt8ozpik
-	 guiXQxmzA3UVnm+9/oS31pVVRvlYiICUWuFzwgfS7c+juBOlwNOx83xp49FHffjpwaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402116;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:User-Agent:Date:
-	 Message-ID:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RxRNwrYFPTvPifH3hqkyYVyXyMJ9nlE+QTRIGJOFbF0=;
-	b=MKNgZ6YsNfClYX34DS0TsiKOoMbgHEYcIkOF5l//Q1ZAIGiaPYqJCZl5akESsvpBANm5
-	 x7MKjlEPXLz6euDuenH5yzHjYQVi6lt8UkOMGzl2u52Za86ppAToVqGYmyVWUH+zHaS+f
-	 Z9HYTpfgYZm2jS6ztnURMEzhY1pzbfBxGz/h9lJ7ZA17Wl52bB6K8262Levwu0fThCr0K
-	 QBS+fQ3QxixmOjyJbFQExzaeNPUpYwMhdCAJzM/2xvr5jTgru72eL05MOfue0Oz4EuSHv
-	 pDWPX4OtkTIUkKfCzyBcPexQLD7GK++JEDRpyHGpSyFPmfmBcnoIbOs4NAjpvyoIeRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bxijEdiM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011003.outbound.protection.outlook.com [40.93.194.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.138
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794402124;
+	b=wi0RekqBaZGdiCq4tozT4D9IkmmjbpBhLoaWI8Dy0qKwL7YxJBVqvrpIrMPGDMZipUcj
+	 SvtcNRu3jM260bd7V+Sbpml/Ue2j2EHahAPUtUTx3rshm0T0JJnqjiYtlVeEGTjGxMCJr
+	 sDXe92+2I5G8IXwO1SDreWfbyby+LcZSQiwDtukFadost+H6I1wC5k4X3c9OE4PWHbfvG
+	 i27hMzl0nRfCEI/taahU2d5vrBIluxAswpt/NEuUXWkq0Z7t/f79O+k0TqF4XJ8JM9tVY
+	 uqO8h1X1J8j2Fxp+E97TT3bi2QGybByr2sgXtI1YBfaAVBsmMsWwcVGRcPFuKpw0YXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402124;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
+	b=Z/Qy8L/3MoLEyDoe6go1OH6W681WC4TJwEOVnkMgkc1mWlYeE6fRg5Z9sW80JjVh9YNu
+	 sF5+tnaoNzk+p3gRrWaScqj2CIQnOxYULO5NHBrL7MNh2jjqz4U7DfxOXWHYfBqWWLe7f
+	 DfBT/6+GGxKomGzQvrBm9g3bfJDUYlFDxZIhf6QV5HgV71JJ+8wiYsJwDGerh9uE0/r64
+	 Cgi229b/94K+y3pGaFJ982DRjVnCSVk5Bs8yX+L17fAVoMhiXiaixxWj1w03/xyzsnzto
+	 6Ohfm2sHOpAQ3jfobpe+Y0ZrnTCiChK96RkGxctDxYT8g2K81f1YMRRzV55taD9u7tQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HvZBZsK7;
+	arc=none smtp.remote-ip=74.125.229.138
+Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4338A606A326;
-	Wed, 11 Nov 2026 13:01:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4338A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3659E606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3659E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bxijEdiM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CjlugRTHYhRFAEOc2bYq9aAb26HTOPAwjGW3LwLe6PLum57wZmlHVECugSb2dnLDd+7/H0RJYPUL3/O+gf3WOANjXf25v5QBz1e4TPIM7vUnJTT/VkNJj/oxXInpWZirmoL6AF9gtaFn8OGLI0GQk7iZ3ERQppjJZ8E/0rQbiY5AQ+2mo6DdTOVNdnDBcdVat0T4ez+AGK1GW2wbr8+WqjRSMlJh2Xhc2QuoglipBm+IIRnvUIZqO2Y9SjAL4JHtL3I5C7bryVYMoD1T8q2Ye6A1qUwko2SP0Dxk9SN0abcAr12i8Q+ERBIMkMl1+AHjWbrN2BKO0vhwgbVVmnwMwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RxRNwrYFPTvPifH3hqkyYVyXyMJ9nlE+QTRIGJOFbF0=;
- b=hFZBq4yxTOF8D5e92iGWVCFZfIcbzeySZE3gr+7QGVs3SLlzNmv7Sh2sOmNGs9hjeyV2oIZOExNufwG9MyY5MSwqp2Bl33vgxFo3+sJbfK9SB0/jhn9Ru4SlPOMXKxfwk5VWnONe7qkGZm7FAo4r4WBrRzQjuLxkhx51M515QKbUabRUi9EQJZuxPRcv85w+S9oFwYUc257fvgJZLGsyU+7NIBXQ9mB/5qNn4WISleXuJkV9jEjKgAtJQ5Brq4gOns2QRBU03k28JMhG+0xwC7HTYy2Uz8OFeSDeSuKvfAvvZ9ZJ3BPcA+PW53XxauXGLJB9+jmzdLg12iCRXVQJ7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=qq.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RxRNwrYFPTvPifH3hqkyYVyXyMJ9nlE+QTRIGJOFbF0=;
- b=bxijEdiM8K3CXXM6DxCmGmzxCAhuAK3ni4j062Cm3mQb7KR8hEkOy2wOfcYv1lQ5QhQ0iTxhH+hFzHRMHZbVmxE3fnLHPcbY+rXY0GUSnwsF8CU/x69F1EhFl0p9JzcV3FFI0OuY+pknah32hH7sjJ54YpMpoX94kzokipEn4eMKYxhYTriq4iNtSwo3TuUtus3C9hFwTkS1aV/YbC0NE4OrI173vvbORLj+za+BnZGx/P+usluLZFP/cwlYpJxX5U2qzollf65lDLXtO9Qj4YoYpgoUUM4YQ8SrxXBQzcKLdynWn8SwKjbV4LC3HKM2gQEo2BGaKOnESAfF+SUX4g==
-Received: from DS7PR03CA0120.namprd03.prod.outlook.com (2603:10b6:5:3b7::35)
- by SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 13:01:51 +0000
-Received: from CY5PEPF00000E79.namprd02.prod.outlook.com
- (2603:10b6:5:3b7:cafe::7) by DS7PR03CA0120.outlook.office365.com
- (2603:10b6:5:3b7::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 13:01:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CY5PEPF00000E79.mail.protection.outlook.com (10.167.247.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 13:01:50 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 05:01:33 -0800
-Received: from tuxedo (10.126.231.37) by rnnvmail201.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
- 2026 05:01:28 -0800
-From: Petr Machata <petrm@nvidia.com>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-CC: Daniel Machon <daniel.machon@microchip.com>, Petr Machata
-	<petrm@nvidia.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei Lazar
-	<alazar@nvidia.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <1342116488@qq.com>
-Subject: Re: [PATCH net] net: dcb: flush rewrite table on device unregister
-In-Reply-To: <20261111033114.133296-1-sunwenbo@cmss.chinamobile.com> (Wenbo
-	Sun's message of "Wed, 11 Nov 2026 11:31:14 +0800")
-References: <20261111033114.133296-1-sunwenbo@cmss.chinamobile.com>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Wed, 11 Nov 2026 14:01:25 +0100
-Message-ID: <871p8ry122.fsf@pmachata.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HvZBZsK7
+Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-143601f9f98so806723c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:02:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794402123; x=1795006923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
+        b=HvZBZsK7tYvSumdzHkEQb7rSL9q5eY4Hda3xEbtuRJenmpkNB0i+OcZ2Nf8cTbbXKM
+         P+YIMusWBQrxjebN+a+q03WLFO4jkF7MAIlxBBxr62Yth1ABBEZQ+1h6lCWIrKSRAQzw
+         wzsp5iqL/G0DSX5Jtx55GrYYW1RC91+ns/WwXqfwNIz14a/dDqH7YUoSHQW+rf7FmE2C
+         zWiVbdfg9xNAXLgZnMPisZ5hPJj2YPzf897YTf29mJ046Ye8+gYQL9x/xbzjuidhZ4ff
+         n5ufoC0qFsLjkk23MPg2bshtTcHxWcVat8ty+IJLRWA0sQNN0lr4SxanfIpaNODwyppA
+         QCqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402123; x=1795006923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w2/+xHZKQ2U7spoWRX9s3/PlBR0bd8B1wNdFaiAbagI=;
+        b=ZE5sLZ0ej3HjDVS2VX5qg6WdguGqdIbHOb4bPrNQFV8B/3l5sEiqxVUUBRWJN45Rjz
+         KHPNh2nIcEF7n9tpL7YwgdjmYZqICCRp5hc4EwyAsURQb4MagBTRu+JxH3Z6+uXF9aQW
+         zP4D0ZMLDcS2XDq5eoocRaLGPP584tfjLggy5sSUESPbFKHcvqPZhwb9QTn0R5Z01F+D
+         I9Hx67M4baDZWV18kqivr+dk1zHAVac5ygh6FTJVjryCGuVglSFKIoX08lns5wk8PSj/
+         zxcunTRj8iMdIAbUaJ7DrH3/x8kSeVSO7HPsKzcnZjDvsM5IyLtvwAMjd40nVdNflfPD
+         Y9vQ==
+X-Forwarded-Encrypted: i=1; AL+hErGxt2yuu+1KbcVzifSaNCith/4pEB6b2nx1bSpIS0I4qjXXW4U1BZ/Y2A/IpJfKJtz4CS8ZzvmmWDUaOFk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HA5uBC1GK/9D8ZzBKj+aOqA2Q1BOZ81RNTFOkjPRM+daXkVyB
+	umuaYIvjBHo4b5Qan0zY90/7/q51v2MCapRlbJgxobVRDf8pPrwFSHYn
+X-Gm-Gg: AYBFou3ZtsWEy8pJ6A5npGDtG6itani1WQ2EqUyx+0iBLmRRd+Gb895Eyfo7WAseJUs
+	CAtZzHBz5rr7Ftek35EZ0zP1612PeOuBsZISXEgrsRagkX9vW7YDRSpZy2QfZGZVdiHRd0HyBec
+	Fgfgc+LRb5swqVnFDH08qoWb3BT+iag02YOMJjnp4R/1tE4r9JlHq+yTHjviP90c19SRKbFvtAs
+	TiJWgI35C3VhKHuwIK1RORRRr5H5S9TmDyA/wMu1yp26C/tKzc06S0rYU7sjeN7DkjBbT3h0k0L
+	CEnHNPry5KN3A/XEt9wyRm7/mgnVYNAJRhmtP7YWGkIGk97b6hxM6dERMSaSbme4cf47MkX23Ek
+	XnQEOcr0Yy8acXlBhoFKdACCjpR3G87NRcCAqFNqkBnEzetYCm5JiT+4NAyL87TKfuWfN75jIWW
+	RSJDdZ/Eoz6JBcsMZgW3W83LZo0RedSoo+j2htzwO22mlwdBXpEcrAssx9R33OipviGIB5I3tOl
+	a2OuBuS7n1EtAa6L/q14JLGdbKxvwFYAYTpJnpFuHj0rJS1pvNf6dGRbYcnZkhUQ5ws0ud+fuO7
+	/9m5rcSwEMxKxRhEulpazrWjGG2hm1MNc41jBNpJvHPOZzkatCXd7wiFuFeA+KfO+maxja3y+sX
+	waikaF4+dcqUc1f99zxCM3Ws5CjtUKsUg/0lnqw==
+X-Received: by 2002:a05:701b:450b:20b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b3c0303655mr2388509c88.19.1794402122900;
+        Wed, 11 Nov 2026 05:02:02 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm21696634c88.5.2026.11.11.05.02.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:02:02 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: muchun.song@linux.dev
+Cc: osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jm5905938@gmail.com,
+	dennylin0707@gmail.com
+Subject: [PATCH v2] hugetlbfs: report inode limits without a memory subpool
+Date: Wed, 11 Nov 2026 13:01:45 +0000
+Message-ID: <20261111130145.96534-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,62 +101,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E79:EE_|SA1PR12MB5614:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff550d47-2229-41e7-1b10-08df3ff3f3aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|82310400026|36860700016|11063799006|5023799004|56012099006|261021121427099003|261022075727099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	F5/+m7blg5KNTc0MDWhgBr0iNzUBHVGJrBKKbuyf/RM4PzDxA63qDQ0yTyi4enMCHJSt6xHXShyzHjUbHfFkRDszSG581+BdWQBkwNJ7Qdtgtp/SLLyc0OQ+sVfIw/PEBgCrRbrEmCly55c6N9jGVo0OzPhX748xyXTLkYOSMnRlmK7wYMr0TNsy7DF6tPplcIgbyiRDKsNi/GdDdxUacc8xsGMZhKbr+z9ZM9mWIC8nnd7ol7jGbgI072LgdusE0ebrjCld9B6HyhwvdbSNMKYXDWN7f685sbKKICatY+DOys56D2d89cWrk51p09q+/8Z9DeUoibzr2YoxERznzJR72pWy5rCir0ttkcDajN+td6WakpOzacytnQ6ZGDoHz+fdfgRXN0Nq3jTS4yZfeZFMHZ6AeksTOBHgXMnaRgovNPQ3MPx/nQ2Wjwj1J+kFrTrunxObmyGh1DyDKRXnirxsIIyHmrRiaD5KFbfR2NQD42vzFiQH0EnMPVEfkmTXuLF8omm6RDo11g2szuasQEVd9vYNDRbFrafIh6ESghoQ8gemPGXsOB6X+GmMPjAZheK/sNlLX2+BalL11M4+YhhSU2qLyx/sRMWA9HPqk/sASoipIDPaHULPICru6rdCLJKYTsf0qPTRpzbgRswkxTL95QEyLHlI92O/cQg+AzXsDT7iHcPgw8otzLNBthH4RRNUrrECX3csaxuneTdl/w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261021121427099003)(261022075727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	e9kYAyb5Bpl4yyKVNqnDg8hqC24JRYFEsReTc0AQMq3eKjhSgoNZD1uf7Nt0FhtITDK2CJcu8vn7Jfo7ENgQmyeRuwP49CD1YerRBSrcoTLB3CBwxvW+qigFdcFGcCFZL5N/oy84sfgSCxckWF5bHSJvzqDq+RlTpneK85yYBXr+UyDc0XZDEbVha0kB/KR3uK3+MqDvUFksmVnpoTSLMaqXakZSCKpAab4ucFMw92YT46lP+I0pp2Gc6cSK8gXRRSpOqLueDiXHFFLkMwyuROCK5YKev7+LOBM5IbA4hwhv6k2m2nozqotgHnzem/okLeKTHbEeBNxDXA6waqp1dhApEpgvhT/2iAXFi2j1MpnRAR6n6y3Ny1yn3HiecwN7tFe5ckGCw261eDjIIaMRdWikNOB7Saz4iwH6+NSgLmnGIKW0oK1A//X27GXpO74f
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:01:50.6590
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff550d47-2229-41e7-1b10-08df3ff3f3aa
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E79.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
+Content-Transfer-Encoding: 8bit
 
-Wenbo Sun <sunwenbo@cmss.chinamobile.com> writes:
+A hugetlbfs mount can limit inodes with nr_inodes independently of size
+or min_size. hugetlbfs_statfs() only fills f_files and f_ffree when a
+memory subpool exists, so an inode-only limit is enforced but its inode
+counts are reported as zero.
 
-> In dcbnl_flush_dev(), which is called upon NETDEV_UNREGISTER for net
-> devices with dcbnl_ops, only entries in dcb_app_list matching
-> dev->ifindex are freed. The entries in dcb_rewr_list added via
-> dcb_setrewr() are not flushed.
->
-> This causes a memory leak of struct dcb_app_type nodes in dcb_rewr_list
-> when a DCB-capable net device is unregistered, and leaves stale entries
-> in the global rewrite table that could inappropriately match if another
-> net device later reuses the same ifindex.
->
-> Iterate over dcb_rewr_list in dcbnl_flush_dev() and remove and free all
-> entries matching dev->ifindex, mirroring the cleanup performed for
-> dcb_app_list.
->
-> This issue was found via LLM-assisted code review, confirmed by
-> reproducing the leaked rewrite table entry upon netdevice unregistration
-> in a User-Mode Linux (ARCH=um) environment, and verified in UML by
-> confirming that all rewrite table entries for the unregistered netdevice
-> are flushed.
->
-> Fixes: 622f1b2fae2e ("net: dcb: add new rewrite table")
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+For example, a fresh mount with nr_inodes=4 reports zero total and free
+inodes instead of 4 and 3. This hides the inode limit from tools such
+as df -i, even when creating another file fails with ENOSPC.
 
-Reviewed-by: Petr Machata <petrm@nvidia.com>
+Report the inode counters when an inode limit is configured,
+independently of the memory subpool. Preserve the existing zero and -1
+results for unlimited inode counts.
 
-However, this has never worked, is therefore not a regression, and
-should target net-next.
+Fixes: 74a8a65c5261 ("[PATCH] Fix hugetlbfs_statfs() reporting of block limits")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+---
+Changes in v2:
+- Add Aveline Noir's Reviewed-by and Tested-by.
+
+v1: https://lore.kernel.org/r/20261101122653.53982-1-dennylin0707@gmail.com
+
+ fs/hugetlbfs/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..e94ee8e17004 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -1113,6 +1113,8 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 				- sbinfo->spool->used_hpages;
+ 			buf->f_bavail = buf->f_bfree = free_pages;
+ 			spin_unlock_irq(&sbinfo->spool->lock);
++		}
++		if (sbinfo->spool || sbinfo->max_inodes >= 0) {
+ 			buf->f_files = sbinfo->max_inodes;
+ 			buf->f_ffree = sbinfo->free_inodes;
+ 		}
+-- 
+2.43.0
+
