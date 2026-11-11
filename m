@@ -1,102 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390480;
-	b=NNPCxCCdMPWNtCvfjm6Vm0XPuQi60hnjq0sxjLx2tVEUTkHzd8T85pAQLkY58Rg4BaMG
-	 ioKC/G6GE9Y/84SC4p+5lvUskWJaDuDG6IL+M4ZEecjmzrDc0OJOaqR3F9hl/byolPnBY
-	 W0pGU804dAs+BaAkzRoM2qvPWBPGgC/1NmjwlC8y7mskI1Q7vDrkV6yBILRLwMas7OQaF
-	 jfQf9YWYpXHNbRUKixzmC8bUZcg0ieIZ4UNicmdkYsay39JsHyhvbO0N94uZiqMft2wKr
-	 lP8pOMqRxAh6mZTikjEosBbqOT3x62KzWCKcxjoC9FfEfMCONnrXHybqquZIXAUQlXw==
+	t=1794390529;
+	b=B/P/Tl96yz9+KE52CWjecM2vRCz2Q/CWzgFRnmTR14hAUqW9tVauzfFJpOFaSuytGBXE
+	 EJV1pV0HSxb1IVNjBx+ZrXo169jrfCmjJt6IG+gaSawH5fQ6acazfjE1+V2mx3cWEzqN7
+	 GOI8+bUyxMJxLmcPHuJEzEYCp50y9dc/D6qT7ieTBOEPqQFBB7h8VTw+mLBRJvSqC6QXc
+	 b+K+k9h/s6iON8EgCE3RHpAd2F8mXEPTFsOgl87hmPNWCrJUI00eSzBePXOQBNuqSOSWV
+	 wGpi+A3DeKy5gpdZ6qL+tQ0wTWZHSwW/dvQbPZEb5xaQUAL4+2Rgph/7uuZdHdHzuCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390480;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Xr+9Ecbsm+vbaizQH7M3bFs5ABTxIw+BtfIU+UNFjy4=;
-	b=SysRiFuuMfj+9hJHMEEnKyoSFXype4CwgI81fsFbNH0VQ/nDZyjlc0BENt9rxAy/J7pT
-	 tC8klaA5Jv1ijTNhzd9JlwlPopPetFeWRK/5/osduHh3fqrcp6Eez2tyTD4dgsrjvCNUh
-	 kAX98rCtkcxnLtLojrP8heDBru3YJLHf8Xr6ub7bTLYvoE/akNQiKCILUku3XEeLGVk4H
-	 tqCK3/ir2soSaMXI1Jz5pHWu64HAKn6QZGsq5F7HKmlZW5IyOa+FFqoJKM56LEjXkATKK
-	 yl7Gpu1HTlVvnj9Vt7kHpOjrlZPI6SJMCpvA/uKP14VvSTUkTb2Z/XJQI4utCLnLKOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390529;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EFr8QXqohI+L1KI/KcXXm4sKk4+earfHZx5Zb0ejnso=;
+	b=b94Rt4c0CHRFAU/3TTNV8KS/bhe1pqqlC8neJTdlUQO5TA7I5IPcTLX0cyeKy7/11T4w
+	 xyBkMXRqAJa4hpwrJcCzx7A7GG62oYWTFRAs1mLD47nUwMp2c4mlpJu6HOqTGECXc+KTm
+	 0cusSaPBKccMXixbYqd5cj6ZeIplZdIC6K6iD+58depgfRfcfXUSpT+JyO2shIBw1QVgU
+	 kbUXndvir7ezog5ujPgaApACLkQwiryyvO3UR6M7xkrK6g9KXMgxTqmzVUXJooUebATo+
+	 ikRRiErrE+O7ktPtUFCN0OwXEtwCLWHGDK8IPrILOZ2NbTleWq/4k7KdVrb2H5W49Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DFCo1pjU;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7AA606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C7AA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="UUew/Oz/";
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DE3F606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:48:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DE3F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DFCo1pjU
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so23143725e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:47:59 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=UUew/Oz/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794390478; x=1794995278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xr+9Ecbsm+vbaizQH7M3bFs5ABTxIw+BtfIU+UNFjy4=;
-        b=DFCo1pjUShcB8dERsebFrOr2ieoQTZr9MnbAgH9H0BL2tq5YyCSSU02xrx3rfPmgEg
-         kPBcAt/pwcMd0rej2x0MA3SeJBXM3UuuPTGSN3BuuraMzkCGEzz6d7kMrxBxIm25aYGW
-         LlhK6mVtLmN22k1US4rteSJm4UCa67qHAMGm0BMJGqh1us5p9eqOnnbv8+fBa2kG4TM2
-         ESueB9pj838LCByfQu2Wsgk0/nngl/AZi3kOuEShNj7WTerMOWk6Rb3XfV4Jv4bSnEKO
-         ch+tb00lm2sFu18tUsGMozRFveUd3pobuN78oXpj+Lh76SJQ/CiO39/ob8+Y+c6pLLUS
-         oOsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794390478; x=1794995278;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xr+9Ecbsm+vbaizQH7M3bFs5ABTxIw+BtfIU+UNFjy4=;
-        b=z/Q193Go+OiD9BKatnGVkvAJI9+Col2HDgXucBtyCgYKZ3LNnI1tYMnr9GYa25oydS
-         T6s0n1BIdFBpFtH3fG2wycl0zdLYQ2N2Qwam8euulPpsqPlM34aimvnW/xYwmolZqWo/
-         e3j+OKHWqf0/E93A5weNja9DDConwdDApZ5rEFKayD5BCKBS3UfmyPtINUT0K2SfYXD2
-         +ofEXQ3qUNl37O5k19orTC5eFu7Ut5rfQ6bKAK6jllkhhNnVpNZuWAi54AFUUMDvxqNA
-         bWv1+cm4q70uYYcimnYzQ659ZDsiAqlmQaPEAWuMZE/6O0KjVD21Ajo6Gh+6qAepnxIb
-         hoyw==
-X-Forwarded-Encrypted: i=1; AL+hErFyFW2SKlIyAyVLH7GWAXiDLLFtrc5JpFVqaTj/I4UtOReF4D3eBSbDCnU7sUdGLj07M9DGgfsM/66VoD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xykbGai43EIUOUA9jNW+beRY5O0RYDkZnHysm5rTa1miKtok0
-	FOpHkSuN7J9tV47WwbnCweMZslIyGiKj38aGy7ZNagHGT4TnRJJjKaKb
-X-Gm-Gg: AYBFou16E4ah4jKLdHBgyt3LIK0FzlL3Vr59t2zLcPgRV9sUo/hECXkppRf3z4M+u6K
-	MHYhjSFJQ5J6AYpCCeej/WLQEiXxAiC6LjsnDRIalbOo/ELa4nXn1INoN+qYWcnd1MP2a+ZjjkA
-	ZZM2w/CCOqCfDaipX/7cMih4K3zvvPjqUx0oKHalLT6u58hTrSvr6t1Pr7xOsMznBE5iDYF5APP
-	qK7IVb3PTmYxjDSMUIBY746c9xOjRbVWotFsYWlXYdjNuXsQCI9EX5ORkhuKhw2i7uOGDE09nka
-	FT9J2mDZh0NemozKNwKsUYWbIYO+P5uMe/yB6qnDWJFunGoKn5qT/pi39Om55wYpgzOm15GByxp
-	+CZ53KQRUpyY3uy/N0XRSb5oycnmJXTzUd0H+Lmn6WYzEJjlvS9JGZqC4bMCmWmkBn+1OnwWSf6
-	19ZiN5MiKkfhvd9XCBU2+M2ZFhd2MQ983NIfZD3J5XnYtG54ohxlTe8avVX3JM3BLa38r3fmBJ1
-	+KAT6uVCZwvn3H75iHqkzYQpci+fqI4oc0cfVm9bmFB0n4kkbg9FxJuYoJMtVmD3x2HAknEUo5a
-	f5SNqnJmsO3SIN6YYpKY1VL10wsyXMY281AwvIYW3umkr/JF0UQMOLTDVoBQI0Iln8aecRZ7m/i
-	8lvCtwsLS5qiw+4e6c00cJv7V12E0WHixc+MP+wRZZZoABfpKOQsnBkrv79SuABVGw2ztFAFfga
-	x9xkhOzNIeA2Ii5lqITfi2idthnpyDE0hB8I50xHRBgbB3suRJddoEmQ==
-X-Received: by 2002:a05:600c:6308:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ba09381867mr34638075e9.22.1794390478233;
-        Wed, 11 Nov 2026 01:47:58 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-a1a4-8dbf-7ab8-e5ac.ipv6.o2.cz. [2a00:1028:8388:a84e:a1a4:8dbf:7ab8:e5ac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea9eesm203884135e9.11.2026.11.11.01.47.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 01:47:57 -0800 (PST)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Ignat Korchagin <ignat@linux.win>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Cc: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=UUew/Oz/rUrlYEg/mMgL3LFx5lIL74NPwy/xBW4ODKKW6MzaLDaSmx3Xkom7PaFwi0C+DBDjE7XTt
+	 iOMWaobxzAhJzOyvnKoJ0R/LYggZyCyZd9DHfla86ElY9NcnsvoONKfSl0dKoGQUzhQEnp7VDdeQRX
+	 cFp+KDhysD2x9GHo=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af439ffafa-77ce4;
+	Wed, 11 Nov 2026 17:48:47 +0800 (CST)
+X-RM-TRANSID:2ee86af439ffafa-77ce4
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af439fdf36-d712c;
+	Wed, 11 Nov 2026 17:48:46 +0800 (CST)
+X-RM-TRANSID:2ee36af439fdf36-d712c
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	luca.ceresoli@bootlin.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Milan Broz <gmazyland@gmail.com>
-Subject: Re: [PATCH] dm-crypt: defer async write submission to write thread
-Date: Wed, 11 Nov 2026 10:47:56 +0100
-Message-ID: <20261111094756.20997-1-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CAOs+rJWmmUbYqU34Yb4qJvJsZ92=AztNwNsqX+xD8WaH8tVz-w@mail.gmail.com>
-References: <20261105072708.30722-1-pepe.schlehofer@gmail.com> <CAOs+rJWmmUbYqU34Yb4qJvJsZ92=AztNwNsqX+xD8WaH8tVz-w@mail.gmail.com>
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH v3] drm/bridge: analogix_dp: Drop dead error check for analogix_dp_init_analog_func()
+Date: Wed, 11 Nov 2026 17:48:44 +0800
+Message-ID: <20261111094845.1673-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,22 +81,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 8:51 PM Ignat Korchagin <ignat@linux.win> wrote:
-> At the very least I think it may be an unexpected/undesirable setup
-> for the user: they enable "no_write_workqueue" expecting a fully
-> inline setup, but still get io offloaded. Perhaps in such cases we can
-> do a pr_warn_once() to let the user know their setup is impossible?
+analogix_dp_init_analog_func() cannot fail: since commit 917c8d192ba6ad
+("drm/bridge: analogix_dp: don't wait for PLL lock too early") removed
+the PLL lock polling loop, the function only performs register writes
+and always returns 0.  The error check on its return value in
+analogix_dp_set_bridge() is therefore dead code.
 
-Now that Damien has confirmed async is fine for zoned devices, I would
-like to add this warning as a follow-up patch on top of dm-7.4.
+Drop the dead check and make the function void.
 
-Would a pr_warn_once() in kcryptd_crypt_write_io_submit() be acceptable,
-printed when an async completion is sent to the write thread despite
-no_write_workqueue? The other option is a warning at table load when
-no_write_workqueue is set and the cipher is async. Zoned devices would
-not get the warning in either case.
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+Changes in v3:
 
-Mikulas, which one would you prefer?
+- Use the real name "Xiangwu Lai" for the author and in the
+  Signed-off-by trailer instead of the account handle, as noted by
+  the Sashiko AI review (Developer's Certificate of Origin).
 
-Thanks,
-Josef
+Changes in v2:
+
+- Rework the patch completely.  The v1 fixed the runtime PM reference
+  leak on the analogix_dp_init_analog_func() failure path, but as
+  noted in the Sashiko AI review that path is unreachable: since
+  917c8d192ba6ad ("drm/bridge: analogix_dp: don't wait for PLL lock
+  too early") removed the PLL lock polling loop, the function only
+  performs register writes and always returns 0.  Instead of keeping
+  a fix for an unreachable path, drop the dead error check and make
+  the function void.
+
+Link: https://lore.kernel.org/all/20261111080149.1567-1-laixiangwu@cmss.chinamobile.com
+Link: https://lore.kernel.org/all/20261030082820.1457-1-laixiangwu@cmss.chinamobile.com
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 4 +---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.h | 2 +-
+ drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c  | 3 +--
+ 3 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df696374..5b1b05d24 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -996,9 +996,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+ 
+ 	pm_runtime_get_sync(dp->dev);
+ 
+-	ret = analogix_dp_init_analog_func(dp);
+-	if (ret)
+-		return ret;
++	analogix_dp_init_analog_func(dp);
+ 
+ 	/*
+ 	 * According to DP spec v1.3 chap 3.5.1.2 Link Training,
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 456059760..440007e22 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -192,7 +192,7 @@ void analogix_dp_set_pll_power_down(struct analogix_dp_device *dp, bool enable);
+ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ 				       enum analog_power_block block,
+ 				       bool enable);
+-int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
++void analogix_dp_init_analog_func(struct analogix_dp_device *dp);
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp);
+ void analogix_dp_force_hpd(struct analogix_dp_device *dp);
+ enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index c1344a3f0..3d196cf96 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -351,7 +351,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ 	}
+ }
+ 
+-int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
++void analogix_dp_init_analog_func(struct analogix_dp_device *dp)
+ {
+ 	u32 reg;
+ 
+@@ -372,7 +372,6 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
+ 	reg &= ~(SERDES_FIFO_FUNC_EN_N | LS_CLK_DOMAIN_FUNC_EN_N
+ 		| AUX_FUNC_EN_N);
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_FUNC_EN_2);
+-	return 0;
+ }
+ 
+ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
+-- 
+2.50.1.windows.1
+
+
+
