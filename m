@@ -1,74 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378059;
-	b=tpv3OWEfAH5/fkG77JDCQjPBHYDl3H/FR3/7Gf1vMfJyb7hIhWyTL81O4DN7PDJTmVmX
-	 y5Q6fA/iFredB0WuAGqIUe9kPxSB7QZuBQHdmfqeCIjE9yhmNGBtXA5fGVd/rHUZpQ3mg
-	 HHtOY+DSsjebwRXJd2jOg6UlQi6mra4TlGQLK8MmRYCfNqH8YwgrhV1WZD9Px0tAYcSKc
-	 0ia4BOIKHZPNJFx1ugjgrnFt70AerhJiOIzXqdJkKbBwupWXxz69qz3DwoJRvhukc0R99
-	 qVcSaycspgwZmTULQDkBbBuZbXkGFftZY3YStJ3VTKIFIHr9/w3vo813i8oV9wVwVJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Up8Sxm5Z/vJlw6/f/g9Tue73jy4SQVTZi+t46heonUg=;
-	b=sBOzfrK01To98CT319hzE55bYKu7pp3rZEXH79i5g36QJrG+bzRlwT5B3eXjgxkAjUEC
-	 44CfK9rzYQBk5gM0RtsNqW0HyO5nomwczigi6tX+OambEtKZyRS/f2HhzpsRjGiRHkRY0
-	 0HfuLgPaCf0NNUBgxrqYb/JlSUP4sPc9Bk3S6wcz8xZYNqEZVXHqawwYywPF86V51JfuX
-	 TpP47flqVGaxBzY37yE0l/jiPfoBSrNeP59PRvR2FdcpwZZYC2lpPJTNOE7Vks/Du8usH
-	 4iNMeVq2zjr9uGo8kmZk9PkQvYwz8SZJ7Ar0BQknGpdPDooQhZhluauAqi9zceqblwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K3SLra2K;
-	arc=none smtp.remote-ip=209.85.218.71
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794378186;
+	b=c8IlyYCNSteZsJTwfElNugKIsftGv/ivjK0d6U93mziXJhKs3mxoIHs9yJlQicjWPpfR
+	 KlgUhtGN+zut5inx/aVhRUy4Wper7R4LO24xj7Qo9a2wUCBzIi58NII+x7h1bsVHC8bha
+	 ce0x9vtJ+GCGSCR9Qziv7ltwKo6tblXeBkWgJ9XACwt4atGUmwKLZCPDXe2X+F+181li7
+	 943+IJ03NLuIKKpX8aYgASnqWt2U5eXMtFeRQRPwvOxmoD/uZhwyZXRFVWVI+EgTJGcxi
+	 dnaKB3o8uGFGgogognqNe2Km6zCbNoL4IrCelD6PDWe8A+m3r142M+XGH560gxZAK/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794378186;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0pnwXejhk1n8WCza1W3ydKGUAUIWhfGXOr70MqEVUkY=;
+	b=birg7J3JxwnaxaFMiy7gwyTd2t6a0GyfW1vV3pcl+Cep/OXKOEe06TMDdIIlrCSxQnY1
+	 6FbEbqQqp3AZomvnziD5VpXF8ez9GsukwbBnYnqSFHVOr/1IXJM77kfIxTJCQhXGTxtA1
+	 7gC2ukgBzj5McIOHTrtqN7zRxtwU1R7qhiAtYyphKT5+yqM2X34goWVqVsbqfA+RVrEXV
+	 CnmNwP5ERlouQLv5TXedvIylWT9ymHK0jhR8MkQO8EIfDSDfbaYcsC2A3O6+bkIQ6Qgs6
+	 ri0dW+GhbQmdqrWKp72r2q4TNaW8ksfxtoZcEzad3ehrw9/cnvWM9kLyp/AlpN1ltrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=vcok2eOE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.25
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013025.outbound.protection.outlook.com [52.101.72.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B16E606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:20:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B16E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C215606A31C;
+	Wed, 11 Nov 2026 06:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C215606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K3SLra2K
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c50547b4992so116653666b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:20:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794378056; x=1794982856; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Up8Sxm5Z/vJlw6/f/g9Tue73jy4SQVTZi+t46heonUg=;
-        b=K3SLra2KIWcksMIpKfy1Mxx9XFGe/HWkmm6BhzGD4Bpd+GFOdzlndylzR1bew3PJcB
-         guVwyNtd8ivH4Vf0d3fj1McYZ/0jV9+/kPMC0Qp0pnvAP7P4GWyUg2RA9z0XS5Z71E2G
-         FylBEQOIZHJZJ8Y90+p8snm3N2yzT1lAtoGCIyBhN4/eh7ZEEhBYP6G2BdG+hhDvt3Ru
-         t5O0CI58V5+9qSDYbxQw6g9QBa5k+9eGksHUHnlhEN2xel63jF+TkCZGz0OH+VJPxzLL
-         VmncvLlQ25gCCPe+ef198XExMv7Pp9TzxH8lfooCDGWV5RMYdoi9mlFVbMDyNVBbeMF4
-         Nn9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794378056; x=1794982856;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Up8Sxm5Z/vJlw6/f/g9Tue73jy4SQVTZi+t46heonUg=;
-        b=MpClZjRpHY0WXCAh7grZG8CIphvs8oRj9FUIKpwHnFEsIIVlJScuGU4Gr+E/eWjdTH
-         xt2eCznWVS5ZeTLEk5Lb/FQsQqf+MeI1F32Tk00gG/VTTVcWXSNRSl7Q4L/YHmAFuKsu
-         kekKDkUmDE7EjWXaXPBfw8IDyskfEo7QBncRbbd0WspyGQ+Ue+JbqIza8esDKS01AFF6
-         1GjyPDjLNGnFvFJ0OR1bZNT2CKr2PguJiBhrSuOPucNept/Y7FTkdHFdePyY3ngqrukO
-         OAqPzpLY/qyd4b6KsGecJp+vcOXaTsQiP+tWQdzxSMd+yAsmCpeOFWeGofkfRnn+nAzp
-         1jNQ==
-X-Forwarded-Encrypted: i=1; AL+hErG/3l0K4FVhtGHL/HkANe4hyCQpFQ+DPgnpQlbmoCll8fs/9bJ7N72HMmGNWRX8pseF4nXjb36+1MINs2w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KEfFqbJHnaWm+8K+Qy5OOdxvqkYbfM7Tk9cICOOYTH67Wjr8e
-	EH7XO5U+K+EuOargq66lSMGTL+iJv8P+utZO57tOmZtqCU9yLB/pM256dlYeafDQGwm5zAZy7f5
-	iJp1taaObqxC63/grNg==
-X-Received: from ejcuu11-n1.prod.google.com ([2002:a17:907:c60b:10b0:c3f:fb8f:67f3])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3e8b:b0:c31:8c48:e18b with SMTP id a640c23a62f3a-c5066aa85bemr101254666b.14.1794378056032;
- Tue, 10 Nov 2026 22:20:56 -0800 (PST)
-Date: Wed, 11 Nov 2026 06:20:55 +0000
-In-Reply-To: <179432062803.2329176.7220119921541924936.b4-review@b4>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=vcok2eOE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y9EGbsjHqSXfhSfoUe9M6xDoeb30sAOyMO7wYexIt/2LnHyMmBDQqE5MULjxGU8OTAprBeMG31Vte3PqqFWOsqRjVmJ8o8ziy6PYF5XU5IG2wEZgnbYZ3ALTGvrI0HepcPxqZq5JBYcy9AZZQuRl0yAqlFuEFdgzmWt54C95OiZDAJFBNq4e74oPsWHSWJg07Hp7vfJQJSVGvgp/3AvVuUrMg1polvfp8augwpUy5WXscVHKOpMDBiwvsMAq+cDuAJBKfb9pSUGgi6Q0/1Yqwy1iiLTkSnvx4RSPiOqZ5YPRj2hyhb8T9rvi+keqqVNQh1JQn5DL3KMQtIVXnWC/Ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0pnwXejhk1n8WCza1W3ydKGUAUIWhfGXOr70MqEVUkY=;
+ b=ZXx4G3b7ISH/tjLhgTUDZGA6dNWTQEdIK+BeOFBzj52WolC3f2wRZ+NnO4zZyjhjdF5WsY0HBaL9EXY4WtLmcUfoVOSDS0kwnRRXOC/Dr20zrTSasq/h2Nfsw/z+LbrejliHMPOJ5xTqVIUdQqiQNMNGEnxehjDpr4EPn8XceghNZyHJp7SF6K7TVZ161I6DlvQLJD8I4COflXNeGXXOMtdKF1tpmLBLZ0oKpRSd2bBi6wbtZFWjqp9SmZP9IvVxWgaCAgJYaBm52tPmu8A8DvD9q+h9uHsl+rXlo3t4HKLDZWoMnHz7KsqcWU9zGKSRcpbC9m83uuqdYwq3BNj5uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0pnwXejhk1n8WCza1W3ydKGUAUIWhfGXOr70MqEVUkY=;
+ b=vcok2eOEO4eKfX8cx15BW/CDZtbjoUSiwSbGg5N7/UbI098jtxAi5viE1cRcD2pGc3nqOaOvGKXDbN/cajy/AJ+oACLKQS7GbVJrsYjeB2IOBi3FEe7I/4iZ/hf9KTVdTM1dIMaHzZNG5usEiiL4HjLl4hDHENifjx9IDxU/ncjyOHEsBCORKxIO3qAim068188IPf2pYyCA6DDrWynnuje7Y2ORf0VQCz4B2X2HGcqLlcE10HDeSwGJRySNvOH/yv83lw6nIYyQFCcA1F59F+wz7Jh1Y3IQizVlH4sV6Eoed+QacDGn+NCH28RO4+SKiNPM1DGS4P9eWIwDxkPIow==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
+ by VI0PR04MB10543.eurprd04.prod.outlook.com (2603:10a6:800:25a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 06:23:01 +0000
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 06:23:01 +0000
+From: wei.fang@oss.nxp.com
+To: xiaoning.wang@nxp.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	richardcochran@gmail.com,
+	linusw@kernel.org,
+	linux@armlinux.org.uk
+Cc: wei.fang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v7 net-next 0/9] net: dsa: netc: add PTP support for NETC switch
+Date: Wed, 11 Nov 2026 14:27:44 +0800
+Message-Id: <20261111062753.1397582-1-wei.fang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2P153CA0013.APCP153.PROD.OUTLOOK.COM (2603:1096::23) To
+ VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,225 +107,140 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110050202.529473-1-tarunsahu@google.com> <20261110050202.529473-4-tarunsahu@google.com>
- <179432062803.2329176.7220119921541924936.b4-review@b4>
-Message-ID: <9huzy0azq46w.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH v4 03/19] kho, memfd_luo: Reference struct kho_vmalloc via
- serialized pointer
-From: tarunsahu@google.com
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
-	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
-	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
-	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
-	gle.com@google.com, pbonzini@redhat.com, 
-	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org, 
-	kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
-	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|VI0PR04MB10543:EE_
+X-MS-Office365-Filtering-Correlation-Id: be8ea51b-8042-499e-052b-08df3fbc3c2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|921020|261026121527099003|11063799006|261026140227099003|261102123227099003|261021123027099003|261009223027099003|261021121427099003|261102130727099003|261022105027099003|261028144727099003|56012099006|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	G3EVO1SQwUOQbSvPPWvD79avjhEt5tJbYTW1yaJSYZ6opu9SMFDrdsZ+CLJP6gYJ7z5LFgC9JMyPfxBeDC1hz/VX+/sM+Zua1Ba5f3CX7YqaAN1qYSaYrtzsyMa3l4V7nmfx514L9eUAJBFGqsv5IA2lFHcEzSDUl3kmopIJONDV7vDH0pFs1XLONAKd4972pulW6gfZOmdmuObQamvLis58QypqZlvI1QMtBfmKx3Nx7Ji3rvBUo2+zqF7KjkaDyNmvxxxxSrsz3WT9Y80KmgYobH2qyIgKlN2t2rPrAXRsAhk5+5PAqpymoIC7zSUDTJOPyy/2OQs8XlBzZHKAGicOFRLdjY1fFxjqdFAzmVMyFtoTFFGk4ws8vvEuZpgEv4mpOs7NAolc5ryiURUHI4/8CwR4yIF9JMgpqS4hPDik+Tnjtk0DWio6ATb+PTo8CVDWbrN3/51qdW6sn5bzWuAQ/aCqZ39HdHrA4AW4UJo2oGtFFAhEro9rUYWmwg/yf7E7Z0Tjf0puVKIcxwCHblty5650iTUqbUsaq7+ogYMYpwtYYCzv55CVjNwDtLduzdltJ2jqSuA8vrqDcv+YFBeTqpJ0D4Wup0kQ5mDArgnzWPmQ+aoR6sEyldH3WLOj7nFidWRTmdn6Ep0wUKYBoSa0Kkybfn5R7Pnk8f6rCVA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(921020)(261026121527099003)(11063799006)(261026140227099003)(261102123227099003)(261021123027099003)(261009223027099003)(261021121427099003)(261102130727099003)(261022105027099003)(261028144727099003)(56012099006)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/xevy80/ZOm4uI2Mq8rI2ghYMonSK693bGKSewMp0O31+dZwgKHx9DhqUeiQ?=
+ =?us-ascii?Q?rmkpCuMXUR8zh6nUIe45o/pbjweyMxDtPdr0M3fkF7Dw4RTsCoFLkIqoPsOV?=
+ =?us-ascii?Q?qmznhSYxKT5JAUuBS4cdOFd3chMO4a+H7zyG033VQhBwM2Oo9dO+EMS1e70y?=
+ =?us-ascii?Q?+4tqqNH6khQ3ocaWV5tq06LGtbWvV90pZF/iWeR7d8ZJI7ArFgisjDKXT331?=
+ =?us-ascii?Q?l3VQ6V5iBbWyvIpXYaa2koUptk0D+P38wzRVU4gYNljRjRpeQYGBvZSbY0F/?=
+ =?us-ascii?Q?mLvtGTPLE9QBynHnngzPqWFSPFryURWzSp2lEnU1qtdJANuOXyKwwf4zUG1N?=
+ =?us-ascii?Q?eMYYomPLPj1kfiUopp7PlUEgGQf7+mkd9+Dto2TjarjWbpT03D/VeEq807BK?=
+ =?us-ascii?Q?SeCE9bIdXdlZurU4wACNCLmlbtFFhDET8nnwtqrAssTHZG8gZnIgqlf+yxBP?=
+ =?us-ascii?Q?DTKyXLwuP1wc1TustVrmtKm9NA2aMaqFA7/+Cz+H+bGprdMg6Lekey/TSXVU?=
+ =?us-ascii?Q?+Efuf641AeOKcWWvVOwb8M6MGscQX0VwkazRzqkntWKN54LwnyfuO+gmk8nw?=
+ =?us-ascii?Q?NzYaR/5GlBnc4wMzKZ2wQu1zifoWbBVNE6KQJhqDNQrOpstx8wz0YLN7SB2q?=
+ =?us-ascii?Q?zb5jrgaOit+Y5R8rnipwinEFMJnZQFzZOb7XddV8OvtHSxwkxxhqxtHTEgFA?=
+ =?us-ascii?Q?m9y7sSTkFLvXaMw40DBTVzws4gn1svoY2WF6uLBYXwCnsaVEw2P5d94i3Y69?=
+ =?us-ascii?Q?3UmZQQwyG1Gs8wO+6kMMKK2c/zO/eEBXWSMwXBzTwgRVamM5RYfASnfMS1Pp?=
+ =?us-ascii?Q?4WlfPCkNOhudf/SBNbUYRvm7v9ihJ+O9yyUeMzJ0L3QmtCh5BIv9PA1TKtJA?=
+ =?us-ascii?Q?tvjRFKAqXn83gGvm4JQScQPfLwmHlLgNurnU4jpUuQPySrprXrmAQ3/f11Yk?=
+ =?us-ascii?Q?6O+kfD9BYWigrIoJGjouRAAUg+V9LbtT8+1LW8DGaEnWyeqNoXfnJAeCNBwU?=
+ =?us-ascii?Q?DM2jppwMHZQPSzTlim7A8nMo+oTc8lDXpjqs3jyj++sFUnusa7xRXyzatzxj?=
+ =?us-ascii?Q?KHKi9CVaIHOpdtg/a7hlDL31T6yjLfTBa57Of07OvZzf/0bkYGMuNWmAHTNi?=
+ =?us-ascii?Q?yytYxv6inP7XfrMNgAKQ4O7hx1I3vCCx6AwXcC6tRZKEgcnQk3sfcEi4Hafb?=
+ =?us-ascii?Q?XF9Sjkf6/sIxvI2zlhubFHfhVbdyslzHsv50ygqkx2AQn1bDiqUhptxE8px5?=
+ =?us-ascii?Q?CdZ/Vwild0DX5phLvd3OSB9NMw3Smxixjzdxvo7xBGr/d4fMufp64/Ma+z4K?=
+ =?us-ascii?Q?lKM7B7X6z8q+JagaUAASXB0BRtg1uxp5rg3dE13xgDhGIhsshOXrTy4HXPUZ?=
+ =?us-ascii?Q?Opew80gHcs3TyC5EcMN2J1iKpKD1WIwVHu+9jw+G6WppAnYWUWP1r8CpE3Mt?=
+ =?us-ascii?Q?q16JM8zI21Phus+6oVNoKRxRUe98UoZ8KbFsNo9OISynrsrAvruJs5JbkR6S?=
+ =?us-ascii?Q?NbXB/sweF79aJ1duhVBCdSelEzNQ6h2zCq+1BFIgRgw1V82kjjldn02iadDq?=
+ =?us-ascii?Q?91bJk4NKgbHfaE0REnkKBeYJgCECZfie7uIuOgtuRt2SWkP8Jy7MFM+t8MWw?=
+ =?us-ascii?Q?Fo/uWIaD/zcYeAwuVlSG8aDEmynML2QH9oKunkY1kSk22K/OchfdgaqYT+hQ?=
+ =?us-ascii?Q?VxzFrIPT/St0uyPRgmwEGWDyXyCXhASIjJelxQZZaaQ0q1raCcq71ZUmEkpe?=
+ =?us-ascii?Q?xkMtFNaTQ69C5s9cpOHfMN4hIn6qhRdYcHlvmoyjcD+0XIJMd4/F?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be8ea51b-8042-499e-052b-08df3fbc3c2b
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 06:23:00.9545
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fqf9vEjvuA2dizVdNXaK102H1H3r14Qy5P9GQNiZWpS+D6oUKQ1HXjNqhG+sixBTIqFxzdMg9zSc3MO0v+c520wmFUwTJUqGvXOipuv1X8tZ5Ut8ddmfth5U3+3GRKGN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10543
 
-Pasha Tatashin <pasha.tatashin@soleen.com> writes:
+From: Wei Fang <wei.fang@nxp.com>
 
->> Subsystems preserving vmalloc allocations currently embed struct
->> kho_vmalloc directly by value in their serialized structures or device
->> tree properties. For example, struct memfd_luo_ser embeds struct
->> kho_vmalloc folios, and test_kho writes the structure directly into the
->> folios_info FDT property.
->> 
->> Embedding struct kho_vmalloc directly couples the containing layout's
->> field offsets and size to struct kho_vmalloc. Any modification to struct
->> kho_vmalloc shifts subsequent fields in the containing structure and
->> breaks the handover ABI across kexec.
->> 
->> Convert callers to hold a DECLARE_KHOSER_PTR pointer to struct
->> kho_vmalloc instead of embedding it by value. In memfd_luo, allocate the
->> main structure and struct kho_vmalloc in the same preserved folio, placing
->> struct kho_vmalloc in the remaining 8-byte-aligned space, and bump the
->> compatibility string to memfd-v3. In test_kho, place struct kho_vmalloc
->> in the remaining space of the FDT folio, store the serialized pointer in
->> the folios_info property, and bump the compatibility string to
->> kho-test-v2.
->> 
->> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
->>
->> diff --git a/include/linux/kho/abi/kexec_handover.h b/include/linux/kho/abi/kexec_handover.h
->> index 6f12f5037ea5..bee75a7006e8 100644
->> --- a/include/linux/kho/abi/kexec_handover.h
->> +++ b/include/linux/kho/abi/kexec_handover.h
->> @@ -11,6 +11,8 @@
->>  #define _LINUX_KHO_ABI_KEXEC_HANDOVER_H
->>  
->>  #include <linux/bits.h>
->> +#include <linux/build_bug.h>
->> +#include <linux/kconfig.h>
->>  #include <linux/log2.h>
->>  #include <linux/math.h>
->>  #include <linux/types.h>
->> @@ -177,6 +179,10 @@ struct kho_vmalloc {
->>  	unsigned short order;
->>  };
->>  
->> +static_assert(sizeof(struct kho_vmalloc) == 16);
->> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
->> +	      __alignof__(struct kho_vmalloc) == 8);
->> +
->>  /**
->>   * DOC: KHO persistent memory tracker
->>   *
->> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
->> index 376a724a1d8c..7b49dd6d7e2a 100644
->> --- a/include/linux/kho/abi/memfd.h
->> +++ b/include/linux/kho/abi/memfd.h
->> @@ -81,7 +81,7 @@ static_assert(!IS_ENABLED(CONFIG_64BIT) ||
->>   *             to directly use them in the ABI.
->>   * @flags:     Flags for the file. Unused flag bits must be set to 0.
->>   * @nr_folios: Number of folios in the folios array.
->> - * @folios:    KHO vmalloc descriptor pointing to the array of
->> + * @folios:    Pointer to KHO vmalloc descriptor for the array of
->>   *             struct memfd_luo_folio_ser.
->>   */
->>  struct memfd_luo_ser {
->> @@ -90,14 +90,14 @@ struct memfd_luo_ser {
->>  	u32 seals;
->>  	u32 flags;
->>  	u64 nr_folios;
->> -	struct kho_vmalloc folios;
->> +	DECLARE_KHOSER_PTR(folios, struct kho_vmalloc *);
->>  };
->>  
->> -static_assert(sizeof(struct memfd_luo_ser) == 48);
->> +static_assert(sizeof(struct memfd_luo_ser) == 40);
->>  static_assert(!IS_ENABLED(CONFIG_64BIT) ||
->>  	      __alignof__(struct memfd_luo_ser) == 8);
->>  
->>  /* The compatibility string for memfd file handler */
->> -#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
->> +#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v3"
->>  
->>  #endif /* _LINUX_KHO_ABI_MEMFD_H */
->> diff --git a/lib/test_kho.c b/lib/test_kho.c
->> index aa6a0956bb8b..cd0f183ff68e 100644
->> --- a/lib/test_kho.c
->> +++ b/lib/test_kho.c
->> @@ -25,7 +25,7 @@
->>  
->>  #define KHO_TEST_MAGIC	0x4b484f21	/* KHO! */
->>  #define KHO_TEST_FDT	"kho_test"
->> -#define KHO_TEST_COMPAT "kho-test-v1"
->> +#define KHO_TEST_COMPAT "kho-test-v2"
->>  
->>  static long max_mem = (PAGE_SIZE << MAX_PAGE_ORDER) * 2;
->>  module_param(max_mem, long, 0644);
->> @@ -34,7 +34,7 @@ struct kho_test_state {
->>  	unsigned int nr_folios;
->>  	struct folio **folios;
->>  	phys_addr_t *folios_info;
->> -	struct kho_vmalloc folios_info_phys;
->> +	DECLARE_KHOSER_PTR(folios_info_phys, struct kho_vmalloc *);
->>  	int nr_folios_preserved;
->>  	struct folio *fdt;
->>  	__wsum csum;
->> @@ -47,13 +47,13 @@ static void kho_test_unpreserve_data(struct kho_test_state *state)
->>  	for (int i = 0; i < state->nr_folios_preserved; i++)
->>  		kho_unpreserve_folio(state->folios[i]);
->>  
->> -	kho_unpreserve_vmalloc(&state->folios_info_phys);
->> +	if (KHOSER_LOAD_PTR(state->folios_info_phys))
->> +		kho_unpreserve_vmalloc(KHOSER_LOAD_PTR(state->folios_info_phys));
->>  	vfree(state->folios_info);
->>  }
->>  
->>  static int kho_test_preserve_data(struct kho_test_state *state)
->>  {
->> -	struct kho_vmalloc folios_info_phys;
->>  	phys_addr_t *folios_info;
->>  	int err;
->>  
->> @@ -61,11 +61,10 @@ static int kho_test_preserve_data(struct kho_test_state *state)
->>  	if (!folios_info)
->>  		return -ENOMEM;
->>  
->> -	err = kho_preserve_vmalloc(folios_info, &folios_info_phys);
->> +	err = kho_preserve_vmalloc(folios_info, KHOSER_LOAD_PTR(state->folios_info_phys));
->>  	if (err)
->>  		goto err_free_info;
->>  
->> -	state->folios_info_phys = folios_info_phys;
->>  	state->folios_info = folios_info;
->>  
->>  	for (int i = 0; i < state->nr_folios; i++) {
->> @@ -123,14 +122,19 @@ static int kho_test_prepare_fdt(struct kho_test_state *state, ssize_t fdt_size)
->>  
->>  static int kho_test_preserve(struct kho_test_state *state)
->>  {
->> -	ssize_t fdt_size;
->> +	struct kho_vmalloc *folios_vmalloc;
->> +	ssize_t fdt_size, alloc_size;
->>  	int err;
->>  
->>  	fdt_size = state->nr_folios * sizeof(phys_addr_t) + PAGE_SIZE;
->> -	state->fdt = folio_alloc(GFP_KERNEL, get_order(fdt_size));
->> +	alloc_size = fdt_size + sizeof(struct kho_vmalloc);
->> +	state->fdt = folio_alloc(GFP_KERNEL, get_order(alloc_size));
->>  	if (!state->fdt)
->>  		return -ENOMEM;
->>  
->> +	folios_vmalloc = folio_address(state->fdt) + fdt_size;
->> +	KHOSER_STORE_PTR(state->folios_info_phys, folios_vmalloc);
->> +
->>  	err = kho_preserve_folio(state->fdt);
->>  	if (err)
->>  		goto err_free_fdt;
->> @@ -234,7 +238,8 @@ static int kho_test_save(void)
->>  
->>  static int kho_test_restore_data(const void *fdt, int node)
->>  {
->> -	const struct kho_vmalloc *folios_info_phys;
->> +	const DECLARE_KHOSER_PTR(*folios_info_phys, struct kho_vmalloc *);
->> +	const struct kho_vmalloc *folios_vmalloc;
->>  	const unsigned int *nr_folios;
->>  	phys_addr_t *folios_info;
->>  	const __wsum *old_csum;
->> @@ -255,7 +260,11 @@ static int kho_test_restore_data(const void *fdt, int node)
->>  	if (!folios_info_phys || len != sizeof(*folios_info_phys))
->>  		return -EINVAL;
->>  
->> -	folios_info = kho_restore_vmalloc(folios_info_phys);
->> +	folios_vmalloc = KHOSER_LOAD_PTR(*folios_info_phys);
->> +	if (!folios_vmalloc)
->> +		return -EINVAL;
->> +
->> +	folios_info = kho_restore_vmalloc(folios_vmalloc);
->>  	if (!folios_info)
->>  		return -EINVAL;
->
-> Why do we need DECLARE_KHOSER_PTR() in test_kho.c at all?
->
-I tried to keep the kho_vmalloc reference after kho_ser_hdr to be
-same at every places. But Now I realized it is completely unnecessary.
+This patch set adds PTP timestamping support to the NETC switch, so that
+the switch ports can be used for IEEE 1588 PTP synchronization.
 
-> DECLARE_KHOSER_PTR() makes sense in shared ABI structs like struct 
-> memfd_luo_ser where both kernels reference the same struct field and get 
-> type checking between KHOSER_STORE_PTR() and KHOSER_LOAD_PTR().
->
-> Here, struct kho_test_state is purely local to the saving kernel and the 
-> handover ABI is just the "folios_info" FDT property carrying a u64 
-> physical address. Having two unrelated DECLARE_KHOSER_PTR() declarations 
-> doesn't buy any cross-kernel type safety
->
-> Can we drop DECLARE_KHOSER_PTR() here, keep a plain pointer in struct 
-> kho_test_state, serialize a u64 phys addr into the "folios_info" FDT 
-> property, and read it back as const u64 * + phys_to_virt() like the rest 
-> of the KHO FDT code?
+The NETC switch has no time registers of its own and instead shares the
+PTP time of the NETC Timer, which is a separate PCIe function driven by
+its own driver. The first 3 patches prepare the Timer driver for this
+role: tidy up its 64-bit register access, drop an ineffective reset, and
+export netc_timer_get_current_time() so the switch driver can read the
+current PTP time across the driver boundary in a race-free way.
 
-Yes,Agree. I will update it. Thanks!
+The switch redirects PTP frames to the CPU through the ingress port
+filter table (IPFT). A few patches harden and simplify the existing IPFT
+and host flood handling first, then enable the ingress port filtering
+lookup by default so PTP filter rules take effect without extra software
+tracking.
 
-~Tarun
->
-> -- 
-> Pasha
+On top of that groundwork, the switch driver gains RX timestamping and
+both flavours of TX timestamping. Timestamps are carried between the
+hardware and the driver through dedicated switch tags: the ingress and
+transmit timestamps ride in To_Host tags, and per-frame requests ride in
+To_Port tags. Two-step TX matches a queued skb clone against the
+timestamp response echoed back by the hardware. One-step TX defers the
+Sync frame to a per-port work, where the driver reads a fresh PTP time
+and writes it into the Sync frame's timestamp field, then programs the
+single-step register and transmits the frame so the hardware can add the
+residence time to the correction field on the wire.
+
+Together these changes let standard user-space PTP stacks drive hardware
+timestamping on the NETC switch ports.
+
+---
+v7 changes:
+1. Rename in_probe to configured in struct netc_switch
+2. ptp_ipft_eid[] is initialized for every port, next to ipft_hf_eid
+3. Return -EOPNOTSUPP when netc_get_phc_index() is negative in
+   netc_port_hwtstamp_get()
+4. Initialize onestep_state to NETC_ONESTEP_PORT_INACTIVE in
+   netc_port_ptp_init()
+5. Drop the netc_port_enable_onestep() call from netc_port_enable()
+6. When the frame is not known to be a one-step Sync, set *twostep to
+   true instead of dropping it
+v6 link: https://lore.kernel.org/imx/20261103021024.3121936-1-wei.fang@oss.nxp.com/
+v5 link: https://lore.kernel.org/imx/20261012095924.1129312-1-wei.fang@oss.nxp.com/
+v4 link: https://lore.kernel.org/imx/20260918072852.501420-1-wei.fang@oss.nxp.com/
+v3 link: https://lore.kernel.org/imx/20260831082335.1184605-1-wei.fang@oss.nxp.com/
+v2 link: https://lore.kernel.org/imx/20260808032146.2335723-1-wei.fang@oss.nxp.com/
+v1 link: https://lore.kernel.org/imx/20260728104548.3301214-1-wei.fang@oss.nxp.com/
+---
+
+Wei Fang (9):
+  ptp: netc: use ioread64_lo_hi/iowrite64_lo_hi for 64-bit register
+    access
+  ptp: netc: remove unnecessary pcie_flr() call in probe
+  ptp: netc: export netc_timer_get_current_time() for cross-driver use
+  net: dsa: netc: tie setup resources and reset to DSA setup/teardown
+  net: dsa: netc: use entry ID instead of pointer to track host flood
+    rule
+  net: dsa: netc: check return value of ntmp_ipft_delete_entry()
+  net: dsa: netc: enable ingress port filtering lookup by default
+  net: dsa: netc: add PTP two-step timestamping support
+  net: dsa: netc: add PTP one-step timestamping support
+
+ drivers/net/dsa/netc/Kconfig          |   2 +
+ drivers/net/dsa/netc/Makefile         |   3 +-
+ drivers/net/dsa/netc/netc_main.c      | 404 +++++++++---
+ drivers/net/dsa/netc/netc_platform.c  |   1 +
+ drivers/net/dsa/netc/netc_ptp.c       | 895 ++++++++++++++++++++++++++
+ drivers/net/dsa/netc/netc_switch.h    |  67 +-
+ drivers/net/dsa/netc/netc_switch_hw.h |   5 +
+ drivers/ptp/ptp_netc.c                | 136 ++--
+ include/linux/dsa/tag_netc.h          |  38 ++
+ include/linux/fsl/netc_global.h       |  10 +
+ net/dsa/tag_netc.c                    | 228 ++++++-
+ 11 files changed, 1619 insertions(+), 170 deletions(-)
+ create mode 100644 drivers/net/dsa/netc/netc_ptp.c
+
+-- 
+2.34.1
+
