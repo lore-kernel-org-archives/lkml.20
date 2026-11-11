@@ -1,71 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395470;
-	b=Ak28A59ZY293JNBdo/RVqnSCPMitqOOkrImleOivf+iFr3Ev8o/3g7zc6xCYpcavZp3+
-	 ggHvNzmY4etcbukhU7foSGikVChjjYuWXt2qB+1uqS55YW2y0x1PEh7Hz9mRJTqnPH2vA
-	 Rpii1kjYKTGpz6aezneQijzRQpbQWkv3fGI0lXfA5iPYmtcxWqjqHoLTO4xARf5t/QvGP
-	 3stNS3DFecS51/s8PfB9KTFGFf9VJPln3R73A/G+an0GYfEBZYTV2Q2CharCUxfku5VhM
-	 UxexNyICFqW6tL7UHqFy+p7NhIIriWLA22v8Kx305QQ+uHi2fW/OSw8t1D9CIac2cbw==
+	t=1794395487;
+	b=NhExVqb1pO0gfLMP/i8UIai2AEox0w7SMlF5hDWcUgM0qugmuDXkmmmPMLqq+6c3jGo4
+	 aQwIj7qEgPitn1WtpESp2P9KBzJDhRr0C+yupMkBOHWahmzn+cYQY6Bh58iunUBin3xWV
+	 tOJNHb7WVJFYEeAhJ7VIrg0n2Limic87Fk43BWGONqezgJ7pVr7jDpFT3JEofnxe0cJbP
+	 mvWdwocdPsFzVA1HJTX90mcqHdUAArqNSoWYTBKj578ofKaTUVwCeGHWtGwhKuv9FxuDM
+	 grxN4wno6jhSVVTZpgrFOORP0pSNtY/pUajzXF3xcddCup0VrJnG7JVEfwVcLqDRH9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395470;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Wqf670lVRIqkSlXkc/j0Hs3DDZypkVmJhCP0wEC28B8=;
-	b=QQEbblUfkc8XGp4olvO7V3seu/TllyeamQzP7CUrVjYuoDX24tSrZAzfsSAryNU0mPdu
-	 uun7T18hKRNidsgYEEXx0o4biCVJm/jRzmNwx7hvvl1ChgulrHKKpVWV8/4FkTHFD5Jt4
-	 A+5d2kq2ITNX4FWTrGJ5YbIq6fVYYZSlqducihv8H2HQ7qCnnaG0qowtv8ErHY2qGYZYZ
-	 BoTvb7pQdiOUnwIoF4R7y8b94qoe2CUifFEHE1Y04PEk+mSEnEiURc4QF8SqoC/1DqeKZ
-	 qe27c8lEGTWANu9so/D07IEdXuq/TTXIxpNzX1wuQ9wwNnwS8/gJsF54kc2vxzCWK7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395487;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=ml3p/AxADI1kPwVB1ta2/1LkU6QgLRbPMaZJLAyCaWY=;
+	b=jvrKmD/WeK7x9vaF5SeaXhhFBKhMmLAOdyF/UFpjj8Awgt9aBhK+STqnM6DJkXesGCaD
+	 39LOcjFnKBJ/eHRdgLzhrHR5vGV9SWWwVG5/gpQkL7hVphKK97Kcq18/8saJgR8yfCY7s
+	 XpHEE2Grd7X9G6IEhlupgk5XrU3E+wEJr9s20Bb88Hlsl5cPcDt8A7u0cvHRTb8AX6dFp
+	 OMFSEyftNYABmiD+iYkRCmn2lrys05BUMuMvbY1XqJG0K2Biu5o2uzjgapWvFZNXRH+XI
+	 olIGkUoh2BQfH1OfvN6BBcfs5g+csCzb3rDV5Qy/oOebrtUo7ll2mmiUfyEwRruGHVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=OEHFVsDd;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=cryspen.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67525606A32E;
-	Wed, 11 Nov 2026 11:11:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67525606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=OEHFVsDd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=Wqf670lVRIqkSlXkc/j0Hs3DDZypkVmJhCP0wEC28B8=; 
-	b=OEHFVsDdXtsM4pU2FvmQHtHOH51IpmoKSRBy1vWyxbsZMT3R4KbiFcEzULHteifp3rB35e2F7/H
-	qQJfhosuWbVI51TWDfsflOrn/c9wBanTDe0ipURHOK+Y4epyY2l5pcpJ3Wi2SAJbuqi96cKEVS5of
-	YjTOBeZLf7UAh9xKlvC8F/qAsOU2eq/rsJvJlnaURTcAQLUwi7L9YBbkl7lurLKCofj7K3xXgiIib
-	e0RKiiFQJhjPYkN2y03VGAu6FCk+zcajXQ+8KhLpt/8p6+DpOwUxUJ2KtJTHk4AXaAT9mXEg/Y3d/
-	7/0YKCOLJgdZdDD321Fnv/CNk3gxjVKdQ6xw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xR6EM-0000000DmQ4-297H;
-	Wed, 11 Nov 2026 19:11:07 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 11 Nov 2026 19:11:06 +0800
-Date: Wed, 11 Nov 2026 19:11:06 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eneas U de Queiroz <cotequeiroz@gmail.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Demi Marie Obenour <demiobenour@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: Re: [PATCH v12 0/3] crypto - qce: fix self-test issues in aead
-Message-ID: <avRNSjAu-KDqJHSw@gondor.apana.org.au>
-References: <20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1585D606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1585D606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so32090455e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:11:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794395485; x=1795000285;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ml3p/AxADI1kPwVB1ta2/1LkU6QgLRbPMaZJLAyCaWY=;
+        b=oCMRzGypT7svoKrFsXF/9bhNJXqB0qMdtTm4uPttLJTDoTPaNbw+pwNUcL4J/6fQfb
+         88tcPcLTUG136f6o8ocVSdzGDkQ/x0Zo0uVxcdvMN6vKTAy6vyQQRjePJdkD2S/dXLlg
+         DN4pZppF48DQipXFlbfdIK011s6LZVT3+TASD7uyS7uqGIrt31jENrE9N0RZvGHVwbIF
+         0ExZQCmmradLYbiupSi0tY8hHCpHzZ7gp4YbeyNZrulVTnPU1TKXY7ArKjkLffT98Oqi
+         2c629xfxLF66TBaXkUJgPHm6Sf0s3we8HAJEMkrVSHhAvWg410Vk0Ql6QMNXq/+V0gc0
+         RfdA==
+X-Forwarded-Encrypted: i=1; AL+hErFLX4dT7hU+RkHvyZUFm7lhIOP2QGRXpuHYm2EHtVr4z6OOmeEdq/ZSAL5k+aL5K5oFN1unGfbFiAWhjfw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OXFU/eyZD2c9cBbuKyFH+fnvYtYJEmYkLp8ncDC14QJgp21tL
+	305deDHf8wJLpWJicyAXK+RIc3vDpxDVyhXA7Adbo8YDMpzq/ffHR3Ce
+X-Gm-Gg: AYBFou3ha2D7moG4H7xrB8Pqim25l1eka/Fo0ibIuedmsGhayXGAyqF+BYZsJJeBwre
+	ucmhPo6EanfA2YroAWkByT57pGghZZKY8swfOGLCBZ8+ciP6+EFjyygTmn4sNZvvOHqkbiyUPI1
+	5FbYJ5MRHKeBBXxT+jz3HGclDAeFx6vZDHWuU2/u2pt7TUwewrZpc8z1eabhbI4QIV5Gjui7KJI
+	rq0xlzvpjstJiXfSJlFBNqvJ+P9piQexT1t3sMLPkCJkluz+j4UwaseUkk2Gfs7l7y+B5vR6ZDz
+	OOe6XvoW2DBhn7QGs6QH3PyftWpdC8h3hf40vRZt2kmljiqgIDo77c66KD7Vw6DNkmo/OeNKsZ8
+	KEZfy9gxDcYOxalTEM0o1u9qzY1yzs75EMDxrqAKo2bZfn+pOOMU+PrxvN2pk+GLuATYAKlL4o5
+	+tYBGm+PO0TcLE4c62++3VIMW6aLBUwktFEFNMGKn0//BoyaFchdiQ8zQ550hYSA5SqeHMT64St
+	IEJHQdEjnMeneBUSYNuo2u2LfxsdeorPPZuU046t8Faw7KosZ3IQqZkBd9y6tEyz3Mc7+Url0Uh
+	1SXplD7V0efD5yUXXrBzHMF+BEy7yFfe1VqxhPlT1oIWVkzkkpTXpTE++JHyvWjrGMoChQsb+bH
+	kF8oLOZXZGNr+vNF08vjduI5k9DPgy5NeOyQatXokGzG2y1srbxYPkYIZq+rwrIqu
+X-Received: by 2002:a05:600c:a0c:b0:4b8:4af2:88b3 with SMTP id 5b1f17b1804b1-4ba0938b7f3mr40085265e9.22.1794395485364;
+        Wed, 11 Nov 2026 03:11:25 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02043149sm125436565e9.8.2026.11.11.03.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 03:11:23 -0800 (PST)
+Date: Wed, 11 Nov 2026 14:11:19 +0300
+From: Dan Carpenter <dan@cryspen.com>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
+	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
+Subject: [PATCH] KVM: arm64: nv: Initialize hw_mmu to NULL for nested vCPUs
+Message-ID: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,102 +89,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com>
 
-On Tue, Oct 20, 2026 at 02:47:00PM +0200, Bartosz Golaszewski wrote:
-> As requested by Herbert: this is the aead part of the QCE fixes sent
-> separately for easier review.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v12:
-> - clear the ctx->need_fallback flag for key sizes other than AES-192
->   (sashiko)
-> - Link to v11: https://patch.msgid.link/20261019-qce-fixes-aead-v11-0-11c55cc7a695@oss.qualcomm.com
-> 
-> Changes in v11:
-> - Split out the aead patches into a smaller series for easier review
-> - add a patch fixing a race condition resulting from sharing
->   ctx->eed_fallback by concurrent requests
-> - Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
-> 
-> Changes in v10:
-> - don't pass a NULL buffer to sg_init_one()
-> - fix byte order of the imported hash state on empty finalization
-> - don't recompute the CTR counter in software for every request
-> - reject skcipher requests with a too short scatterlist
-> - check fragmentation for empty CCM decryption requests too
-> - don't use a static loop iterator (duh...)
-> - initialize the return value in qce_handle_queue()
-> - Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
-> 
-> Changes in v9:
-> - Rebase on top of cryptodev/master
-> - Rephrase Kconfig help text changes
-> - Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
-> 
-> Changes in v8:
-> - Add a patch making the crypto driver *not* register algos by default
->   but only if the user explicitly requests it with the provided module
->   parameter
-> - Use the "offloader" name for the crypto IP instead of "accelerator"
-> - Fix device module table issues
-> - Make the core driver use a list (despite it only having a single
->   member now) of child auxiliary devices to register to make it clear we
->   have the intention of extending this once we start the work on secure
->   media playback
-> - Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
-> 
-> Changes in v7:
-> - Add follow-up changes converting the QCE crypto driver to auxiliary
->   bus, adding the core QCE driver under drivers/soc/ registering the
->   auxiliary device and removing the BROKEN Kconfig label
-> - Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Handle all zero-length HMAC finalizations (like imported state with
->   data already hashed), not only the genuinely empty message case
-> - Add an additional patch addressing the fragmented skcipher payload
->   issue
-> - Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
-> 
-> Changes in v5:
-> - Dropped patch 1/8 that's already queued
-> - Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
-> - Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Remove remaining ECB and DES3 bits
-> - Pick up tags
-> - Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Remove even more algorithms and dead code in patch 1/8
-> - Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Add fixes for the full suite of crypto self-tests
-> - Add Fixes and Cc tags
-> - Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
-> 
-> ---
-> Bartosz Golaszewski (3):
->       crypto: qce - Don't modify the TFM context for per-request fallback
->       crypto: qce - Use a fallback for CCM with a partial final block
->       crypto: qce - Use fallback for CCM with a fragmented payload
-> 
->  drivers/crypto/qce/aead.c | 46 ++++++++++++++++++++++++++++++++++++----------
->  1 file changed, 36 insertions(+), 10 deletions(-)
-> ---
-> base-commit: 0aac16003b01b9282491ea3d454697c2dc7e8c78
-> change-id: 20261019-qce-fixes-aead-e229fa2015e3
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Before commit 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2
+MMU when scheduled out"), kvm_vcpu_load_hw_mmu() would set ->hw_mmu on
+every load.  Now it only sets it when it is set to NULL.
 
-All applied.  Thanks.
+In kvm_vcpu_init_nested() the vcpu->arch.hw_mmu points to &kvm->arch.mmu
+from when it was set in kvm_arch_vcpu_create().
+
+Normally what happens next is a two step process.  KVM_ARM_VCPU_INIT
+calls kvm_reset_vcpu_core() and that sets the vcpu into hyp context
+(vEL2).  Then KVM_RUN calls kvm_vcpu_load_hw_mmu() which doesn't do
+anything.  But that is fine because we are in hyp context and the
+->hw_mmu already is pointing to the correct place.
+
+However if, for example, we are restoring a vcpu that was saved in L2
+context, then the VMM uses KVM_SET_ONE_REG to overwrite the vEL2 state
+that kvm_reset_vcpu_core() set up, and the vCPU is in L2 context when
+KVM_RUN loads it for the first time.  Ideally, kvm_vcpu_load_hw_mmu()
+would set the hw_mm to point to L2's page tables but, since is non-NULL,
+it leaves it as is.  At this point L2 can access L1's memory.
+
+Fix this bug but setting ->hw_mmu to NULL in kvm_vcpu_init_nested() so
+that kvm_vcpu_load_hw_mmu() always sets it correctly on the first load.
+
+Fixes: 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2 MMU when scheduled out")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dan Carpenter <dan@cryspen.com>
+---
+ arch/arm64/kvm/nested.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 78fa433774c6..60bccb66e52c 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -140,6 +140,8 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+ 		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
+ 	}
+ 
++	vcpu->arch.hw_mmu = NULL;
++
+ 	return 0;
+ }
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
