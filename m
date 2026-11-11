@@ -1,99 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794438385;
-	b=DMrF12Ze6nGmPq48cAV+sFsYOh5ihBQLWB+ZM3D1qpSf/uftQa5hSwiHTDeCzq33mvBO
-	 lHKJ+NX/HpZ1RrsRrtaff6Ty5H7VF2IyWShirDhNoFuS7kK7K7QkqKfV4hinBfBJz3nhc
-	 CoTEo6kswsaft+Wjx1rYsf2IgQNHxS0/NMZRFNjjkax/M4AUqZ4WENqoD0b44K7TNE0lF
-	 9f6TKr9yopv6HU6FBbxMEkzB9OvfM2SDqR0Q7JaIf95xfhF5tLma0CHHXHhBlfoRJGJBH
-	 s1gt23NNh75FOfp916mIoI+bQrFGtgU01vV5qAX/Ce6VXTxix7jBPVfjeIf368IFhYg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
-	b=0UEWKOZeE+hlf/4ZvyFb95DBVbQDjGwPOZzdckcWo+VaqJVN3qnXZMwB2O9bZN/kCRlQ
-	 n/bI2G2j8is+Q3LUzPPPa3utKTX2vsVJQetCOhUNOxhBnaG6IJJ7R0sNVoqIsvtDRPgqZ
-	 Eg5SgymUitikmWhiyTdMaX7YuUgy9k1G4kFqSGfcSgBsvYorHSiVnCk5pkngHnni+o2F5
-	 gbqfI9+IQ//fJSFLDF42f5pc1ciMYROXE+P+xEA1q4LL+DAxf5OVryqBg7U74EOYoksfU
-	 B8D0+TlNpm4Uxv1beuygC3m164MgfLlpN5+esdRSudFpRVhPi/mMErMqUJel9ii+nEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=clyso.com;
-	spf=pass smtp.mailfrom=clyso.com;
-	dkim=pass header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=nuU7BGkg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794438399;
+	b=ZusOVnS9k0BuBKgsLrK/kFp+RWpwMBxUiRMrjEy3zj5jKmDvnG9Fe6c97O8RwGMKelqm
+	 N6+VcA916UmU6m3ld+dDlraFUlJau6s1oGDcEvqub/X/KxXfiN7l2ozf9ZU7uQuuUdhJZ
+	 xxsIIVRSba+mWtZUjGjS2uS7iYiJQexBi8LrB1OV5lTpU8Jid9s9pZIXrzgAzNxjWhpgE
+	 1tbyAEnfMOzuUPP+fYPjsh7OkdFLs2zK570HAlEVdR5uGbUHYISYYhrsDXX2kzPxq/bcr
+	 ei+kk9KS2ajIBq9pcfKizI4JKpYsghGi+M9ez50yADvAPuklW6o3EpIRE217MCxDmkw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438399;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=lMLQtoMK+FF9PMlISJsUmmPmSZAB3/0ZdR3/LW/bJ9I=;
+	b=g+ehJY0dKBS3ZL707RBhEF+qZa4VE6McRTCVBYb6D34xNUrtQe7osO2JG89AIBv/7otu
+	 EFzi2OKeGr+iE2WDgzR/2brlMqV2CS/iqULvkEfKpTXpKf1WWwk9vlKYz2PwuMuWkpzw8
+	 1OsTe3Oksm0VLs6TM1aiEIoRpfN2+vnQygBLPBYu0fu/1yS79LrEvCxYkuj1b1P34tHuM
+	 HMiw7ABZrcBMbRIN8Hp3btyL079IPJ/aIWN1Cx6m4Ajfn9dV9wV3ywXVKtrkgnRvkOO7O
+	 2q14LRnA+/mdDVwZ7LqZXgR4dGszCUjbfHYaD7TRgRe18o1rkARFwuFybuY51buIrjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Jz0TnK1C;
+	arc=none smtp.remote-ip=35.83.148.184
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCF6606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FCF6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3500C606A324;
+	Wed, 11 Nov 2026 23:06:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3500C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=nuU7BGkg
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b429f71dbeso4070929a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:06:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794438381; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IIc2td6TNTlJffgclfkl4PQueQFUneAQBNfxNNz4TYB1/ZxITIJtvX6bKHDTmzLu/V
-         BUPA6F+CUEU/toN8sYqUnvb4XPTLnx0CELcX7TJ/cupuIcmAoZ5m/SdtBYb+ACYoqndo
-         +KYNnI5AJdCbNckgsaa24/67pB9wTGYeeu15hIyGx5qWEqS0wNDIum2wfSL3oVaP8hoE
-         2Mf6SLl1rpuoPmSeqR1q3w4RtBaj6K9DxZUJAtTxV5+Zbx9KsjqgO4DzdY6iIwnrIM4/
-         EPz6HcKn1jUAtx0eAe6tCs2Jkksm84jQqWe8uKlRmlWxO04Ypz+QLHlPUirZotgzVtO0
-         8GjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
-        fh=Wj4ugXRoVRclDszni9eSGb7Ijf7d9//I9ikmkXLyha8=;
-        b=Iq5KUkNzPVR5haovi4HUFW2LHWvorRPVYasc37bG/dR0eIxch0gneZvpwLdTXCYKsa
-         cEm7Tk/h+ItqJ3pGvWyf692qBid2ZZj0O4v6Tzhx5go1tHRNuH6NFCSv/eSTdIki2ulx
-         +QeEzO/6A573ufNYRouTmI1A5bzF/oAI7KdVDgRNJAPw4PZ4VcKN9K2e5huct8oj+Xsn
-         2CBNpjIiY3wPPpk3eDCIMHHlVJZQ1V+7Ll9O4nmW/O3PCOLw1sM5yBS+u281T0KEDfXw
-         KNYZM95s6XWUKl3MlgDi9SUcGxxN2aNjjC0yUNqhJH1cytm6hscUHTciFBjBcYZDm3M7
-         Wvig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Jz0TnK1C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1794438381; x=1795043181; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
-        b=nuU7BGkgeaBonrt8SiDqzF42Ei7Sj9iRF0pQx0xNoYjkaeJfIUegbcAFZP23/jDlfn
-         f/TjmBk0tZ3jzNTo61K/YOkV5OaIT+VENaOUS0OB1yhiK3HjlARMEsdbeT+1WdrTDABo
-         LLGSdkG49e0VBARKd5QqZcAM2BpayfoI5AjvoIrQ8MK7xlN7rY6sIE4+yZgRrwxNQVuq
-         Od6EaykX2Bp647jWK/q0Wt2YGhhclT2esYQzGg/JMQ7IBeQExgEEpMH+CVwbxjggC8pw
-         D7XXn3A1OcIVpxsb+Gv4edqs4ke2WWLGHfLLcW+jXrEi1nB+dhxN3j+3XIBhD0uNCvY2
-         AYzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794438381; x=1795043181;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
-        b=XfqR5wUqdLxj2ObJ5LnQ09x8WXFuxthLUssHWZJTxspq218guA7LfbEdJGQ8voAV6G
-         JWeFSG4Zij21SS8N3OfWqfvQuzaErV77HoICNu73cq49f+I/eX6ywwqjhrgsBsVG08Wh
-         gKmXAYC9r3Egal61j9Zfnh1+iTWkQ8KFTYcERkrniQfr8mzB6KaWFDDBcpXSFV/+6CI/
-         fF40OaDMv7xuhRsFPygfGK0vBgq6OJKwy7tzps+X5XbLty8PCJ77wjLOUQ3KFzh6b2g2
-         mlbBcNEJ1tofsb4Z11m6R9IEGel67q4ZL2Ni1FwXYZrFQTrXZjC3+K7hGEcqdGJWG0yH
-         02yA==
-X-Forwarded-Encrypted: i=1; AL+hErF4zJ4q+KnTlL7rcy9EoAnVjtK6OzeQ6WNtRSpngIR8CL524K2uTW60oz2FzoZfGfIDvnzqE+3F/bbwgn0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86gwCCT8rgwKbADG8AWxzpKGAuv1rlHemwnCMdAqjf+7d83r+Z
-	qX68k1cxJ6szgWa4j3+e/NTJe0JaTgSQmjbqjHQxvEqUBl2K8blQPmlERcy+7EM3Xs82+m1+mJy
-	TCMTb2vmwiMfVuGiwZx5kd+eyCfQHxV6GOEwbiAKagw==
-X-Gm-Gg: AYBFou1jb6dKTTjMtKOCczFGoNZ1UhzYWJ+Zo0zwn6j7AVASeJ/2r7zCYzOCzDN2uoa
-	3NfWXceI2s8um47P/x9GM9wT7Rb1VIm9s7XFyzJjS4ohhgJrWhglNJKT8wvI/LNyM42psGPh0s1
-	NF2OxPiY+PNhY4MTATVZMWJIJW+evfHNk9mpppV/sNUKvfL+lb+0dB+tjsNSyBaCe0NCTWSA74V
-	VX9bF2FxW5LS12XbTYyvXFYPZH+yjH/TnGSF1qDd0wR9HlBOH7IAlyz1jt2pm+PTFf4qtZkK5G4
-	vtNvrhPAP+E4NlxNHawC4nxZ9hkylko947/gnpnYu/KuwarF4O0ugzGg+7mvN/B3YaqSm/5Ha90
-	FDVvSHWfdlhclOFgUGZZ/KKwGmsd+qmapFWUBqc0=
-X-Received: by 2002:a05:6402:2110:b0:6b4:1037:2b87 with SMTP id
- 4fb4d7f45d1cf-6b7778161f1mr2989176a12.31.1794438381548; Wed, 11 Nov 2026
- 15:06:21 -0800 (PST)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794438399; x=1825974399;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=lMLQtoMK+FF9PMlISJsUmmPmSZAB3/0ZdR3/LW/bJ9I=;
+  b=Jz0TnK1C0Q51eo60UsqVjcfXAPApyYvtZrrl8utk3mEax3Y1+zgyQZDM
+   j7upeLysdKIIIR1NgsINyQeQ0zB9ecDp68R6kUk0zWzb3VHduIdAgUJvw
+   dX62rCS7vExjBkcaOPFkZm5TZK+GcYSl7bBjKcCs/ktIfcDMblH4MSr6i
+   rOpfJknF7yOEIwfEuSUaJpB4hW6S61tYr8rNeJpAldIOBpjzVjXnqJnfQ
+   iBQy+UDp73N9mwcS84eP5/Q22qTUiQBJEWG9sKEM0vhyUSxxmqXb/i6iS
+   7liqWtY01APEH4yKh8q9hHc5lnGi4YgO+22symhb77oU8A33OhFYAu9A3
+   A==;
+X-CSE-ConnectionGUID: a0qphS5PSkW3vKQQb7o4Tw==
+X-CSE-MsgGUID: puhEAopkQb68Udz8yNQ+5w==
+X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
+   d="scan'208";a="33551130"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:06:38 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:16609]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
+ id 11ec9860-3c62-40c8-a31e-cc39e6372e83; Wed, 11 Nov 2026 23:06:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 11ec9860-3c62-40c8-a31e-cc39e6372e83
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:06:38 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Wed, 11 Nov 2026 23:06:35 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
+CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
+	<corbet@lwn.net>
+Subject: [PATCH 27/40] nitro_enclaves: Dispatch multiplexed interrupts to per-queue bindings
+Date: Wed, 11 Nov 2026 22:59:31 +0000
+Message-ID: <7cb23d5eb46abf8a1caa61b8887132837fe256c4.1794393490.git.graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <cover.1794300002.git.graf@amazon.com>
+References: <cover.1794300002.git.graf@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,174 +91,364 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111113029.959595-1-max.kellermann@ionos.com>
-In-Reply-To: <20261111113029.959595-1-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Thu, 12 Nov 2026 00:06:09 +0100
-X-Gm-Features: AclHuK9aye7AVhvzAeKWqenEAyLYJI-Y8Iege0JrFoT70qCLwujofRbt6K_kSvU
-Message-ID: <CAOJNxR+fkE3LigjhojZzk-XOpOBpT-2mqe5ky5ho91TmyFmpxw@mail.gmail.com>
-Subject: Re: [PATCH] ceph: fix d_lock leak in debugfs mdsc_show()
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Max,
+Nitro Sandboxes provide a way for user space to receive
+per-device-virtqueue events. These are multiplexed through a
+nitro_enclaves device built-in interrupt multiplexer. Implement logic to
+support this multiplexer and distribute the respective interrupt events.
 
-Good catch.
+Signed-off-by: Alexander Graf <graf@amazon.com>
+---
+ drivers/virt/nitro_enclaves/ne_pci_dev.c | 179 ++++++++++++++++++++++-
+ drivers/virt/nitro_enclaves/ne_pci_dev.h |  47 ++++++
+ 2 files changed, 225 insertions(+), 1 deletion(-)
 
-I reproduced this on a KASAN + lockdep 7.4-rc1 kernel against a vstart
-cluster.  The real window is only a few instructions wide, because
-ceph_invalidate_dentry_lease() takes dn->d_lock right after d_move(),
-so I widened it with a test-only udelay(2000) in ceph_fill_trace()
-between the lease invalidation and the r_dentry/r_old_dentry swap,
-plus a 50us delay inside the d_lock sections of mdsc_show().  The load
-was 4 tasks doing rename() back and forth while 2 tasks read the
-debugfs "mdsc" file in a loop.
+diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+index 0fafd42162f3a..de96d68906bbf 100644
+--- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+@@ -7,6 +7,7 @@
+  * DOC: Nitro Enclaves (NE) PCI device driver.
+  */
+ 
++#include <linux/bitops.h>
+ #include <linux/cma.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+@@ -27,6 +28,7 @@
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+ #include <linux/wait.h>
++#include <linux/xarray.h>
+ 
+ #include "ne_misc_dev.h"
+ #include "ne_pci_dev.h"
+@@ -551,6 +553,129 @@ static void ne_teardown_msix(struct pci_dev *pdev)
+ 	pci_free_irq_vectors(pdev);
+ }
+ 
++/**
++ * ne_mux_binding_rcu_free() - RCU callback freeing one enclave queue binding.
++ * @head:	RCU head of the binding to free.
++ *
++ * Context: Softirq or process context.
++ */
++static void ne_mux_binding_rcu_free(struct rcu_head *head)
++{
++	struct ne_mux_binding *binding = container_of(head,
++						      struct ne_mux_binding,
++						      rcu);
++
++	eventfd_ctx_put(binding->ctx);
++
++	kfree(binding);
++}
++
++void ne_mux_binding_free_rcu(struct ne_mux_binding *binding)
++{
++	call_rcu(&binding->rcu, ne_mux_binding_rcu_free);
++}
++
++/**
++ * ne_mux_scan() - Deliver the bits set in the bitmap of a pooled vector that it
++ *		   has a binding for.
++ * @mux_vec:	Multiplexer state of the pooled vector.
++ *
++ * A bit leaves the bitmap by the same atomic read-modify-write that decides to
++ * deliver it, so a bit this vector has no binding for stays set. It is left set
++ * on purpose: a queue can be kicked before user space has bound an eventfd to
++ * it, and a bit taken out of the bitmap on the strength of a binding that is not
++ * there yet is a kick nobody can ever be told about. The bit waits instead, and
++ * the bind of that queue takes it and delivers it.
++ *
++ * So a set bit is consumed at most once, and exactly once if a scan finds a
++ * binding for it or a bind for its index runs. A bit whose index is never bound
++ * is consumed never, and stays set until the page is reclaimed when the device
++ * unbinds. A bit whose bind is still coming looks the same to the driver, so it
++ * holds both.
++ *
++ * The bound only ever rises, so a scan reads every word a binding has reached
++ * into and not only the words the bindings of the moment need.
++ *
++ * Context: Interrupt context. Called with the RCU read-side held.
++ * Return:
++ * * true if the scan found no bit it could deliver, false if it found at least
++ *   one.
++ */
++static bool ne_mux_scan(struct ne_mux_vec *mux_vec)
++{
++	struct ne_pci_dev *ne_pci_dev = mux_vec->ne_pci_dev;
++	u32 bits_per_word = BITS_PER_TYPE(*mux_vec->bitmap);
++	u32 nr_words = READ_ONCE(mux_vec->max_bit) / bits_per_word + 1;
++	bool empty = true;
++	u32 i = 0;
++
++	for (i = 0; i < nr_words; i++) {
++		u64 word = READ_ONCE(mux_vec->bitmap[i]);
++
++		while (word) {
++			u32 bit = i * bits_per_word + __ffs64(word);
++			unsigned long notify_index = bit * ne_pci_dev->mux_nr_vecs +
++						     mux_vec->vec_rel;
++			struct ne_mux_binding *binding = NULL;
++
++			word &= word - 1;
++
++			binding = xa_load(&ne_pci_dev->notify_xa, notify_index);
++			if (!binding)
++				continue;
++
++			empty = false;
++
++			if (test_and_clear_bit(bit, (unsigned long *)mux_vec->bitmap))
++				eventfd_signal(binding->ctx);
++		}
++	}
++
++	return empty;
++}
++
++/**
++ * ne_mux_handler() - Interrupt handler for one pooled MSI-X vector.
++ * @irq:	Interrupt line the pooled vector is on.
++ * @data:	Multiplexer state of the pooled vector.
++ *
++ * Context: Interrupt context.
++ * Return:
++ * * IRQ_HANDLED on interrupt handled.
++ */
++static irqreturn_t ne_mux_handler(int irq, void *data)
++{
++	struct ne_mux_vec *mux_vec = data;
++	u32 pass = 0;
++
++	/*
++	 * xa_load() drops its own RCU read-side before it returns, so take one
++	 * here to keep a binding alive for as long as it is dereferenced.
++	 */
++	rcu_read_lock();
++
++	/*
++	 * The device sets a bit and then raises the interrupt, and one interrupt
++	 * can stand for several bits, so a scan can miss a bit set while it runs
++	 * or one past the bound it read. The device raises for every bit it sets
++	 * whatever the bitmap holds, so such a bit has an interrupt of its own
++	 * still to come and reaches its eventfd on that one. Scanning again,
++	 * reading the bound again, delivers it on this interrupt instead, so stop
++	 * on the first scan that delivers nothing. Stopping on an empty bitmap
++	 * instead would wait for a read a bit no bind is coming for never gives.
++	 * NE_MUX_MAX_PASSES caps the scans either way, so a device that goes on
++	 * setting bits cannot hold the handler.
++	 */
++	do {
++		if (ne_mux_scan(mux_vec))
++			break;
++	} while (++pass < NE_MUX_MAX_PASSES);
++
++	rcu_read_unlock();
++
++	return IRQ_HANDLED;
++}
++
+ /**
+  * ne_mux_teardown() - Take the interrupt multiplexer bitmaps back from the
+  *		       device.
+@@ -561,6 +686,8 @@ static void ne_teardown_msix(struct pci_dev *pdev)
+ static void ne_mux_teardown(struct pci_dev *pdev)
+ {
+ 	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
++	struct ne_mux_binding *binding = NULL;
++	unsigned long notify_index = 0;
+ 	u32 i = 0;
+ 
+ 	if (!ne_pci_dev->mux)
+@@ -568,13 +695,40 @@ static void ne_mux_teardown(struct pci_dev *pdev)
+ 
+ 	iowrite32(NE_MUX_SHUTDOWN_ON, ne_pci_dev->iomem_base + NE_MUX_SHUTDOWN);
+ 
+-	for (i = 0; i < ne_pci_dev->mux_nr_vecs; i++)
++	for (i = 0; i < ne_pci_dev->mux_nr_vecs; i++) {
++		if (!ne_pci_dev->mux[i].bitmap)
++			continue;
++
++		if (ne_pci_dev->mux[i].irq_requested)
++			free_irq(pci_irq_vector(pdev,
++						ne_pci_dev->mux_vec_base + i),
++				 &ne_pci_dev->mux[i]);
++
+ 		free_page((unsigned long)ne_pci_dev->mux[i].bitmap);
++	}
+ 
+ 	kfree(ne_pci_dev->mux);
+ 
+ 	ne_pci_dev->mux = NULL;
+ 	ne_pci_dev->mux_nr_vecs = 0;
++
++	xa_for_each(&ne_pci_dev->notify_xa, notify_index, binding) {
++		xa_erase(&ne_pci_dev->notify_xa, notify_index);
++
++		eventfd_ctx_put(binding->ctx);
++
++		kfree(binding);
++	}
++
++	/*
++	 * Freeing the handlers above quiesced the readers that hold no lock,
++	 * and the loop above freed every binding that outlived them. Wait for
++	 * the callbacks a replaced binding already queued, so that none of
++	 * them runs once the module text is gone.
++	 */
++	rcu_barrier();
++
++	xa_destroy(&ne_pci_dev->notify_xa);
+ }
+ 
+ /**
+@@ -631,8 +785,11 @@ static int ne_mux_setup(struct pci_dev *pdev)
+ 	ne_pci_dev->mux_nr_vecs = nr_vecs;
+ 	ne_pci_dev->mux_vec_base = vec_base;
+ 
++	xa_init(&ne_pci_dev->notify_xa);
++
+ 	for (i = 0; i < nr_vecs; i++) {
+ 		u16 donate_err = 0;
++		int irq = 0;
+ 
+ 		ne_pci_dev->mux[i].bitmap = (u64 *)get_zeroed_page(GFP_KERNEL);
+ 		if (!ne_pci_dev->mux[i].bitmap) {
+@@ -663,6 +820,26 @@ static int ne_mux_setup(struct pci_dev *pdev)
+ 
+ 			goto teardown_mux;
+ 		}
++
++		ne_pci_dev->mux[i].ne_pci_dev = ne_pci_dev;
++		ne_pci_dev->mux[i].vec_rel = i;
++
++		irq = pci_irq_vector(pdev, vec_base + i);
++		if (irq < 0) {
++			rc = irq;
++
++			goto teardown_mux;
++		}
++
++		rc = request_irq(irq, ne_mux_handler, 0, "enclave_mux",
++				 &ne_pci_dev->mux[i]);
++		if (rc < 0) {
++			dev_err(&pdev->dev, "Error in request irq mux [rc=%d]\n", rc);
++
++			goto teardown_mux;
++		}
++
++		ne_pci_dev->mux[i].irq_requested = true;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
+index 2cef40c627f9f..0dbce83cb06bd 100644
+--- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
++++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
+@@ -9,12 +9,15 @@
+ #include <linux/atomic.h>
+ #include <linux/bits.h>
+ #include <linux/build_bug.h>
++#include <linux/eventfd.h>
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/pci_ids.h>
++#include <linux/rcupdate.h>
+ #include <linux/stddef.h>
+ #include <linux/wait.h>
++#include <linux/xarray.h>
+ 
+ /**
+  * DOC: Nitro Enclaves (NE) PCI device
+@@ -201,6 +204,12 @@
+ static_assert(NE_MUX_MAX_BITS / BITS_PER_TYPE(u64) * sizeof(u64) <= PAGE_SIZE,
+ 	      "the bitmap of a pooled vector has to fit its donated page");
+ 
++/**
++ * NE_MUX_MAX_PASSES - Largest number of times the handler of a pooled vector
++ *		       scans its bitmap in one interrupt.
++ */
++#define NE_MUX_MAX_PASSES	(4)
++
+ /**
+  * enum ne_pci_dev_cmd_type - Device command types.
+  * @INVALID_CMD:		Invalid command.
+@@ -648,9 +657,35 @@ struct ne_slot_pool_run {
+  * @bitmap:			Page-sized bitmap in which the device sets a bit
+  *				for every enclave queue that signalled through
+  *				this vector.
++ * @max_bit:			Highest bitmap bit an enclave queue has been
++ *				bound to, bounding the scan of @bitmap. It only
++ *				rises, so a scan reads the words of bindings that
++ *				are gone as well.
++ * @ne_pci_dev:			NE PCI device this vector belongs to.
++ * @vec_rel:			Index of this vector within the pool.
++ * @irq_requested:		Whether the interrupt handler of this vector is
++ *				installed, which is not implied by @bitmap: a
++ *				vector whose bitmap the device already owns may
++ *				have no handler yet.
+  */
+ struct ne_mux_vec {
+ 	u64			*bitmap;
++	u32			max_bit;
++	struct ne_pci_dev	*ne_pci_dev;
++	u32			vec_rel;
++	bool			irq_requested;
++};
++
++/**
++ * struct ne_mux_binding - Eventfd bound to one enclave queue.
++ * @ctx:			Eventfd signalled when the queue is kicked.
++ * @rcu:			Head used to free the binding after a grace
++ *				period, so that an interrupt handler which
++ *				already loaded it can still dereference it.
++ */
++struct ne_mux_binding {
++	struct eventfd_ctx	*ctx;
++	struct rcu_head		rcu;
+ };
+ 
+ /**
+@@ -672,6 +707,8 @@ struct ne_mux_vec {
+  *				capability, and with it the multiplexer and slot
+  *				pool registers.
+  * @iomem_base :		MMIO region of the PCI device.
++ * @notify_xa:			Enclave queue bindings, keyed by the notify index of
++ *				the queue.
+  * @mux:			Per-pooled-vector interrupt multiplexer state.
+  * @mux_nr_vecs:		Number of MSI-X vectors in the interrupt
+  *				multiplexer pool.
+@@ -706,6 +743,7 @@ struct ne_pci_dev {
+ 	struct workqueue_struct	*event_wq;
+ 	bool			has_vendor_cap;
+ 	void __iomem		*iomem_base;
++	struct xarray		notify_xa;
+ 	struct ne_mux_vec	*mux;
+ 	u32			mux_nr_vecs;
+ 	u32			mux_vec_base;
+@@ -750,6 +788,15 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
+ 		  struct ne_pci_dev_cmd_reply *cmd_reply,
+ 		  size_t cmd_reply_size);
+ 
++/**
++ * ne_mux_binding_free_rcu() - Free an enclave queue binding after a grace
++ *			       period.
++ * @binding:	Binding that has been removed from the queue bindings xarray.
++ *
++ * Context: Process context.
++ */
++void ne_mux_binding_free_rcu(struct ne_mux_binding *binding);
++
+ /* Nitro Enclaves (NE) PCI device driver */
+ extern struct pci_driver ne_pci_driver;
+ 
+-- 
+2.47.1
 
-Without the patch it locks up within seconds.  The check in mdsc_show()
-fires first:
-
-  mdsc_show tid 229 op 4612 r_dentry changed ffff888209d8acb0 ->
-ffff8882939b92e8 while d_lock held
-
-and then:
-
-  watchdog: BUG: soft lockup - CPU#4 stuck for 26s! [cat:30609]
-   _raw_spin_lock+0x73/0x80
-   lockref_get+0xd/0x50
-   ceph_mdsc_build_path+0x23e/0x1560 [ceph]
-   mdsc_show+0x242/0xab0 [ceph]
-   seq_read_iter+0x2e9/0x12d0
-
-The ceph-msgr worker is stuck in handle_reply() waiting for
-mdsc->mutex, which the reader holds while it spins.  So this is the
-same leaked d_lock as in your report, with the two CPUs arriving in the
-other order.
-
-With the patch and the same delays, 120s and ~6300 renames went through
-ceph_fill_trace() with no warnings.  bpftrace showed mdsc_show() taking
-1-8ms, so the readers really did wait out the window on r_fill_mutex.
-A further 180s of renames plus fsstress without the test delays was
-also clean.  lockdep stayed enabled throughout, recorded the new
-&mdsc->mutex -> &req->r_fill_mutex dependency and reported nothing.
-
-One side effect, not a problem in my view: a debugfs reader now waits
-for any reply that is being filled (including readdir_prepopulate on a
-large directory) while it holds mdsc->mutex, so it can stall request
-handling on that client for that long.  The abort paths you listed
-already do the same, and this is debugfs, so I think it is fine.  If
-anyone cares, mutex_trylock() with a placeholder in the output would
-avoid it.
-
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Tested-by: Xiubo Li <xiubo.li@clyso.com>
-
-Thanks
-- Xiubo
-
-On Wed, 11 Nov 2026 at 12:30, Max Kellermann <max.kellermann@ionos.com> wrote:
->
-> mdsc_show() walks the request tree under `mdsc->mutex` and prints the
-> request's dentries like this:
->
->   spin_lock(&req->r_old_dentry->d_lock);
->   seq_printf(...);
->   spin_unlock(&req->r_old_dentry->d_lock);
->
-> (same for `r_dentry`).  The pointer is loaded again for the
-> unlock, but ceph_fill_trace() can change it in the meantime:
-> ceph_fill_trace() runs with req->r_fill_mutex held, but not
-> mdsc->mutex, and:
->
-> - after d_move() for a rename, it swaps `r_dentry` and `r_old_dentry`
-> - splice_dentry() replaces `r_dentry` with the spliced alias and drops
->   the request's reference to the old dentry
-> - a lookup without a locked parent assigns a new `r_dentry`
->
-> If an unsafe rename reply is being processed while mdsc_show() is
-> between spin_lock() and spin_unlock(), mdsc_show() unlocks the other
-> dentry, and the `d_lock` of the one it locked is never released.  The
-> next attempt to lock it spins forever.  I have seen this on a
-> production server, where our monitoring reads the debugfs "mdsc" file
-> periodically:
->
->  watchdog: BUG: soft lockup - CPU#67 stuck for 48s! [kworker/67:2:3746175]
->  Workqueue: ceph-msgr ceph_con_workfn
->  RIP: 0010:queued_spin_lock_slowpath+0x4a/0x240
->  Call Trace:
->   <TASK>
->   ceph_fill_trace+0x7a4/0x910
->   mds_dispatch+0x9f4/0x1ac0
->   ceph_con_process_message+0x66/0x80
->   ceph_con_v1_try_read+0x392/0x17e0
->   ceph_con_workfn+0x329/0x590
->   process_one_work+0x146/0x2b0
->   worker_thread+0x182/0x2f0
->   kthread+0xe4/0x1d0
->
->  watchdog: BUG: soft lockup - CPU#55 stuck for 49s! [cm4all-kernel-e:16346]
->  RIP: 0010:queued_spin_lock_slowpath+0x1a2/0x240
->  Call Trace:
->   <TASK>
->   lockref_get+0x47/0x60
->   ceph_mdsc_build_path.part.0+0x85/0x2a0
->   mdsc_show+0x239/0x3e0
->   seq_read_iter+0x11f/0x480
->   seq_read+0xfd/0x130
->   full_proxy_read+0x50/0x80
->   vfs_read+0xa4/0x340
->
-> Both CPUs were waiting for the `d_lock` of the same dentry, which
-> nobody is locked but nobody will unlock it.  The first CPU was in
-> update_dentry_lease(), called after the rename swap.  The second one
-> was the next read of the debugfs file.  Since the ceph-msgr worker was
-> blocked, all requests to that MDS hung.
->
-> Replacing `r_dentry` with a spliced alias also means mdsc_show() can
-> call dget() on a dentry whose last reference has just been dropped.
->
-> Fix this by holding `r_fill_mutex` while mdsc_show() uses `r_dentry`
-> and `r_old_dentry`.  Taking r_fill_mutex with mdsc->mutex held is the
-> established lock order; __do_request(), handle_forward(),
-> ceph_mdsc_wait_request() and ceph_lock_wait_for_completion() do the
-> same.
->
-> Fixes: 76aa844d5b2f ("ceph: debugfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  fs/ceph/debugfs.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/ceph/debugfs.c b/fs/ceph/debugfs.c
-> index 6a9a5551d9d7..83506d9207fa 100644
-> --- a/fs/ceph/debugfs.c
-> +++ b/fs/ceph/debugfs.c
-> @@ -109,6 +109,14 @@ static int mdsc_show(struct seq_file *s, void *p)
->                 else
->                         seq_puts(s, "\t");
->
-> +               /*
-> +                * ceph_fill_trace() may replace r_dentry (dropping the
-> +                * request's reference to the old one) or swap r_dentry
-> +                * and r_old_dentry; it does so while holding
-> +                * r_fill_mutex, so hold it while using them.
-> +                */
-> +               mutex_lock(&req->r_fill_mutex);
-> +
->                 if (req->r_inode) {
->                         seq_printf(s, " #%llx", ceph_ino(req->r_inode));
->                 } else if (req->r_dentry) {
-> @@ -151,6 +159,8 @@ static int mdsc_show(struct seq_file *s, void *p)
->                                 seq_printf(s, " %s", req->r_path2);
->                 }
->
-> +               mutex_unlock(&req->r_fill_mutex);
-> +
->                 seq_puts(s, "\n");
->         }
->         mutex_unlock(&mdsc->mutex);
-> --
-> 2.53.0
->
