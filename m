@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361219;
-	b=ldXmMqnUn3bWJK4CaWBbouJFilFXqIsONH+MrWSMqrNRcdqYcuMtVe+QXJYTB6T18Yva
-	 S2PH7NkBjhBX51jwzD5Ry8iqmLWBJeiKaUBtbxSvsjhafnfFpi2Xki56AnSE+royVEUUz
-	 gAmGWz6vWGRwKqzqsDtSbzZxDNvGl9xrdb5WijlKCWmbk5jldVundkuMvkT3RnX49bRWP
-	 kHhqWMJ7I1zJWfWdCtUxN2LfpiPjTyBTfWE+kB3NzUj5VIBdQ+vNQDfIC8DRbskBcVECd
-	 m9cYAhzTIVFD9mUwy8TjXcLYox+PFN5Wh/3J/fjS9eJvqD4W2s+ZMZGezTvs20wRrQA==
+	t=1794361216;
+	b=uols9qspNN+wK6zV3PisT479Z8RGAoBXVNLIUpN1VCEpCko0tFJa+PkH3YSgDLYcawuB
+	 Off8T2gV38md8QblF8kTM+eGTaoeBVlybjtwq3fgO5ftiputnUyG6/x1e6IvKGpJdiXX9
+	 pdDr+jZOZbg6jVr7IwxH+BJIlvJlKeIUY3CLepQoPKB8jP3KrvzLypeUOfVFNzo2VSnCb
+	 6Cddc4MnxNWpzhoWgockaV9xhhPhCEYi1n8Y5twJosWvbDvNPyoJ7OH9CxLbnjpJJE+zO
+	 eW3gnVu/Fl70g0MhDxmqp35wz+Pi+VtlZZo7FdnPdxR5B2EfKrSgrEoIMXUP/No06eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361216;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Xua9KrF0O3LRzi+yunjF88sRtaGrQ3t1jbaGl4lHsUs=;
-	b=TCVZfWRc01zFSfsHULTys2UWbz+2D8npqe0v//c1OtJQwf4WMu7I0u8d9q6EuAzHIJmB
-	 7B4+CUOGWoPXtjlHMlaZYvmMdtk7bK/jErxWLobAKAy05thSnsDdmSGuAiXYOtBINGd/1
-	 jmr6Gbu9TNkSn7gEzuO176Ng+K4fexH3qHIPyzvJ5Vj58QLfl9zQ/2HXzIjFbSa1YOBvH
-	 Gq5Phuw3aMCIZR9qKZZ8UXj2SVvNzBjMYPlF373G4yvh+cgi9G8HYfEozzjiPlLsECNwK
-	 MZkPlCCPhVyJ8+EU4CPzrPrxJOsaY6IhQ85zopo2sfGaA5z5KGAAse+9Q3YszcnYD0A==
+	bh=ykFGH6gPM0SkWbKXPmtRjujCSZJ5+PpFSuGK9oR+Dno=;
+	b=4++ed2l+WLZ8LVgqOFy2I/Iav6k5Hh5FGbAn+6X00ir3gINwQmN/I18fO7bT/DljbxMB
+	 12PVC3QFi4moUgxFjGRWAXnXabaZszBpPqRFQLWKsfIC2FQzvJXG8MVLw/yoVrTTEHe/J
+	 BPtJthTKUxAsodKy/yYGGvYbxM0OyfKvYMqE22/KldZf8/n/OOGEpy+FOvKGMyNNdYygF
+	 VWvPc4T6ZixhSbh+QC5AGhKbWhO4WmmrUhjBGu4uV/AX131TGG7V6zSmdVA3/gTzk8d0/
+	 qjQJt8jj8LOXLKD0lWMl/NOFDBW98Usp11EIWn/XAWyWEMW3cH3ncKSttgSq9Km4ePQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=dankook.ac.kr;
 	spf=pass smtp.mailfrom=dankook.ac.kr;
-	dkim=pass header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UjVWZU0k;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WLkRO3c0;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C73606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:40:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C73606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1B5606A337
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE1B5606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dankook.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dankook.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UjVWZU0k
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdd89d84521so734297a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WLkRO3c0
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a594d313a3so1561570b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dankook-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794361217; x=1794966017; darn=vger.kernel.org;
+        d=dankook-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794361215; x=1794966015; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Xua9KrF0O3LRzi+yunjF88sRtaGrQ3t1jbaGl4lHsUs=;
-        b=UjVWZU0k47XX1gLMOok+NZ87n+y37CkAuC2N2Y7Whd7V8dTrya+YJTqE2R53K6rHgF
-         oGfTKOL+OdqgHADBER8BCkwTcvWCni4OYrUbFq8nMXnBah5sQdkNoNhXVVKredMsLf0C
-         Ns72cfEJpeD7snMHk6V14igmVg9R2+8qFO/4/HyEDFBM6BjT8xPIYb8JyDPss/gxE9RC
-         xGk0t/OWbZJWAFUtpUGIZvjb0+7Vibq5eTjkUKgr53VHFM2+3IjUv3q0hXLzztGtPEkz
-         Vd5hgmiWEi20L0IsKD5eH/inoAPxWN4Xc4dMzLeT1T6lSZnhJLce9EW0v4Mnpn+xOccW
-         o56g==
+        bh=ykFGH6gPM0SkWbKXPmtRjujCSZJ5+PpFSuGK9oR+Dno=;
+        b=WLkRO3c0YqXv25uSyL6aAZJ6yrawkjxBU6b68X1ydWWn6203PJK0/UVBjxdIV2Vrh+
+         j7E2BAX10mERQH2zUm6/l6ZwPECkqipZj2BGSOMykmO4xhNhKOiVfaz8iAjbfWzvTOJ7
+         Du5wez8wObK5QWtrK7wMgrtOD15F8xAiohC6u73CtLIYw4X8sMhtVC7BrzPxOJZXlz2T
+         esxofHExaj5jjaiwq3MxcbPakejAHh/GdUSrcFyA0zjrgGXPYFYf0GSxzYQudlD795CW
+         y7nYJFH/ushOHmH83mLuV/yOynlwrRtigWb10dzUGZ/dzES3j93fzjMmltR3/4jhEmHL
+         RSGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794361217; x=1794966017;
+        d=1e100.net; s=20260707; t=1794361215; x=1794966015;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xua9KrF0O3LRzi+yunjF88sRtaGrQ3t1jbaGl4lHsUs=;
-        b=FMRuEcWYQ1B3IrdSVsE4cdDea+Bk9MkeSLiALJ2RWHH9/dEeO38v9xTgDTUpJwBY0f
-         N9CAK/RmK9nJzUyrPF5vqZdh7hBAy7ho/iLBQW8ULRCAJYvHRtUJcJv/JlGt5N9GApA0
-         aBjhNZvW43xUy0dcsErROpGR1F6K7myk8zDqMb5k6pV5I+3ZJuabuRc6YIstGXSwD/5G
-         t7ggdytx9DXcuQc1CNnaB/C5GwUY2I1p/Biky5HaKc0FLUMH+WD3zMxwiWd9xxznARQd
-         ykFtvYHj5cyIQFlRDYcC9dZ/baGR62SlFYIDvmc5m85524W1XHRdt+zD043qhqMZC4BW
-         J3Kg==
-X-Forwarded-Encrypted: i=1; AL+hErE0cJge24SIFX8JCYD8w3036XOtJgO+1GRhJkddRae62rT2TK4s12o1Ev0S/D5UzPBxyXwWUN7UYctCVvE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8M8G8cZo/R8V6juhXlJ07zTGmEt8y3wccxFPszHJSz/1Q6QHh4
-	vc9/0qmY0cUZHN6VY8okHoXLdE/hm1WWdW7RsvehQnz5CQskvAFxcJDFfJGNaHwGd08=
-X-Gm-Gg: AYBFou0UKy+/RLK4aQsgMvhqwJihSBqgt3YXMTxzYHJz3VmnO2N9bUJB3MRiEnBLtzW
-	HsCwmnJ7rBuQaByyHPJGpUG8qW2HlR5doamEnDFILfJc7Sq+0XdMz/cpV7LlYbDP/Q/sN7+au/1
-	+XEn/gq67VefJ5UnWqzOUnUTqVKwOin4mCxNTL7Hp9SHMfO04mrKfcu5wvjN11VUBiLqr50pUo1
-	VfcjuBxA02ORtjTtY6tPuY+S+xupEK50tTya0AIdHpGD2f72ikC7JXnfzqUodyd9sygk84tv8sn
-	p55ezicTAWHRAXPCg/I9pgzNXPT9iUHqb55iSzUX95oljTtsSaL0gOkOZJdblCOq8nh+4Tdvpbk
-	hZ0WGSp50AvWjVxZxXlB0npWoGkH/n1xAkRKfDuYi0Rtj0k8UPTDyvPh4Laz+WKhq76JvxoBb4i
-	TiwcaNn/e3IohQIPDF88hGconX/Zc8zqNKUZlqdSoDpbgST0KBcHTLuj6o1DkS3dY+GwnFvcpYw
-	jDpLXQ4Lh3vZy5W/YbSzMKBKXOROkzX0HCjPMwwYVlhNkncqDiPls+xyUoDtK/EEqCWhIS+G5du
-	ttTShApMzzB2JfkeoRZxvOLoymx5yUyPJvptqORkFyg=
-X-Received: by 2002:a17:90b:4aca:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3b182e0c282mr596738a91.5.1794361217607;
-        Tue, 10 Nov 2026 17:40:17 -0800 (PST)
+        bh=ykFGH6gPM0SkWbKXPmtRjujCSZJ5+PpFSuGK9oR+Dno=;
+        b=BXJ+ak0BCLxiF1I3lFLn4YfX5TZb4Cs/NRMtB2f44TEiQZrt05mQzugrN1RFLlgkdG
+         UhGovHrZ3OP2fJ3c1fjdMUSTcwtYwh4tEmM8/E0CtgYXPAkRqVkvbDvq1X21ZIOVxqt3
+         Mk+yNAAjyiwLRJOD1ZzL0tuWdl8tP+HpPj8HdleHZDvJZXIgNAlGJG2QxBDut9C+k3B4
+         /cJ8PGYA6/JldxpUi13/UKVc9Z+j8qcJzGM4bC5wZKs2P3MsHjoyChJrD9HJkUnEz5c4
+         oco09fhtngUYYpQvrm6I3hAVpv8Es7JMUO8TxgF4P3rPjvC1osu2J6QCf+tfi5lO3OCZ
+         YVyg==
+X-Forwarded-Encrypted: i=1; AL+hErFtRt+OgHFDCNXN0RlyrDAbv/jyZcg7cXbRg9bmrtiSXrmcBrrsK5jWUif4fnDS0rmsysPsB3GukQKBA1g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U2X1P1j5pwyaIHCQ4SytSP4JJMS7WiOrPmtLl7p8vIQSocqDd
+	etWb1gq9rtZDa6jvQHYOU2uyrbrxOfXgO7LmQDFUuDsQaAyGkCIDvqy9ewFbMogv8cfDbWmNV+l
+	8mulXZXo=
+X-Gm-Gg: AYBFou1DhwXCUXk1DUMJZZvXdXFF1rzEqZT6kfAx13Fc+x03IosIpqnEpJBvdWc9yVo
+	ytvyIXzwsMXfn8KMYuBQEM15XVFFizcB4T2Mlk2tu6nDFcvA8gDnMGOFHLzGqVYSgYZkVud6Sc0
+	ymJV6K3XyiG+SFbZyL3htVm9Od8a+vAJbxBq8dHs5vY4Hz8Wo+h1LVq7Tvh1/wadkqjafDbovOF
+	5uXTgdbLpKuvkfLUXoSWszdJE/InJu5Wup2i9stEKDbx+3vOA5YCxE7lL+h/tabmNPAa+R7Cdzg
+	pxPH30t2SuzKaLOUxHpSHcV1t2tQh9UPC/ODOtJ6qp3pcmD3KQnWOUJybQTdpl7wBMbIiKfQ03B
+	lYpu1KNU13YV4tT0f8ZndLIcjaC9v++cogqGP4cERkUXNio1kA48U1To0+4oF//9XOqK9HrKyaS
+	xiyKabm4RZBjsRrc99rvChKVtE4V7dcqrlJKsDu4ZobfD2IOy5w3iHedLATiO7Zliqw3w7snXh2
+	dDMgONNzuY8fn7inOdKaTV2MlI1nt0NGFLBULd4BSN/wvi00vFFM/1aASujcoXzf6U1mVN6A3fa
+	BEy9+ErIc+N5QFrdmRPX0g==
+X-Received: by 2002:a17:90a:c888:b0:3ac:a203:e0a5 with SMTP id 98e67ed59e1d1-3b182e94153mr836619a91.11.1794361215104;
+        Tue, 10 Nov 2026 17:40:15 -0800 (PST)
 Received: from myarch ([61.254.29.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db9d1fbsm1912111a91.15.2026.11.10.17.40.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db9d1fbsm1912111a91.15.2026.11.10.17.40.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 17:40:17 -0800 (PST)
+        Tue, 10 Nov 2026 17:40:14 -0800 (PST)
 From: fixca <jaehoon1744@dankook.ac.kr>
 X-Google-Original-From: fixca <jaehoon1744@gmail.com>
 To: broonie@kernel.org,
@@ -87,9 +88,9 @@ Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jaehoon Kim <jaehoon1744@dankook.ac.kr>,
 	"Claude Opus 5.5" <noreply@anthropic.com>
-Subject: [PATCH RFC v2 2/2] ASoC: amd: acp70: Add rt713 + rt1320 SoundWire machine for LG gram 16Z95U
-Date: Wed, 11 Nov 2026 10:39:10 +0900
-Message-ID: <20261111013953.4011-3-jaehoon1744@gmail.com>
+Subject: [PATCH RFC v2 1/2] ASoC: amd: acp: Add ACP70 ACPI flag override for LG gram 16Z95U
+Date: Wed, 11 Nov 2026 10:39:09 +0900
+Message-ID: <20261111013953.4011-2-jaehoon1744@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261111013953.4011-1-jaehoon1744@gmail.com>
 References: <20261111013953.4011-1-jaehoon1744@gmail.com>
@@ -104,147 +105,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
+From: Jaehoon Kim  <jaehoon1744@dankook.ac.kr>
 
-The LG gram 16 (16Z95U) uses an RT713 jack codec on SoundWire link 0
-and a single stereo RT1320 amplifier (unique ID 1) on link 1. There is
-no matching entry in snd_soc_acpi_amd_acp70_sdw_machines[], so no
-machine device is registered even once the SoundWire path is selected.
+The LG gram 16 (16Z95U, AMD Ryzen AI 400 series, ACP rev 0x72) BIOS
+sets "acp-audio-config-flag" to 0x10 (FLAG_AMD_LEGACY_ONLY_DMIC), but
+the machine has no ACP PDM microphone. All audio endpoints are
+SoundWire peripherals declared under the ACP SoundWire controller:
 
-Add two machine entries:
+  link 0: RT713 (UAJ + SmartMic functions), _ADR 0x000030025D071301
+  link 1: RT1320 (SmartAmp function),      _ADR 0x000131025D132001
 
- - rt713 (jack + DMIC endpoints) on link 0 and rt1320 on link 1, used
-   when the RT713 exposes a SmartMic SDCA function (rt712-vb check).
-   On this machine the internal microphones are routed through the
-   RT713 SmartMic function; the ACP PDM controller is not used.
- - a fallback with only the rt713 jack endpoint and rt1320.
+With the flag honoured, snd_pci_ps bails out with -ENODEV, the legacy
+snd_acp_pci driver binds instead and fails with:
 
-The existing jack_dmic_endpoints cannot be reused: it maps the DMIC to
-endpoint #2 for rt721, while on rt713 the SmartMic DAI is the second
-DAI, so endpoint #1.
+  platform acp_asoc_acp70.0: warning: No matching ASoC machine driver found
 
-Tested on LG gram 16Z95U-GS59K with kernel 7.2.14. The "amd-soundwire"
-card is created with these PCMs:
+so no sound card is created at all.
 
-  SDW0-PIN0-PLAYBACK-SimpleJack  rt712-sdca-aif1
-  SDW0-PIN3-CAPTURE-SimpleJack   rt712-sdca-aif1
-  SDW0-PIN5-CAPTURE-SmartMic     rt712-sdca-aif3
-  SDW1-PIN1-PLAYBACK-SmartAmp    rt1320-aif1
+Add the machine to acp70_acpi_flag_override_table so that the
+SoundWire path is used.
 
-Headphone playback and internal microphone capture work with the
-stock alsa-ucm-conf (1.2.16.1) HiFi profile; headset microphone
-capture was not tested. Speaker playback through the RT1320 is still
-silent although the stream starts without errors; see the cover
-letter.
+Tested on LG gram 16Z95U-GS59K (PCI SSID 1854:056c): with this change
+snd_pci_ps binds and both peripherals enumerate
+(sdw:0:0:025d:0713:01, sdw:0:1:025d:1320:01).
 
 Signed-off-by: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 ---
 v2: rebased onto broonie/sound for-next (v1 did not apply).
- sound/soc/amd/acp/amd-acp70-acpi-match.c | 83 ++++++++++++++++++++++++
- 1 file changed, 83 insertions(+)
+ sound/soc/amd/acp-config.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-index c2f0479..b492cbe 100644
---- a/sound/soc/amd/acp/amd-acp70-acpi-match.c
-+++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-@@ -583,6 +583,78 @@ static const struct snd_soc_acpi_link_adr acp70_rt722_l0_rt1320_l1[] = {
+diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
+index 3d4c852..febf559 100644
+--- a/sound/soc/amd/acp-config.c
++++ b/sound/soc/amd/acp-config.c
+@@ -140,6 +140,13 @@ static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Dell 14S DS14265"),
+ 		},
+ 	},
++	{
++		/* LG gram 16 16Z95U (ACP 7.2) */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "16Z95U"),
++		},
++	},
  	{}
  };
  
-+static const struct snd_soc_acpi_endpoint rt713_jack_dmic_endpoints[] = {
-+	/* Jack Endpoint (AIF1) */
-+	{
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	/* DMIC Endpoint (AIF3, SmartMic function) */
-+	{
-+		.num = 1,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt713_vb_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025D071301ull,
-+		.num_endpoints = ARRAY_SIZE(rt713_jack_dmic_endpoints),
-+		.endpoints = rt713_jack_dmic_endpoints,
-+		.name_prefix = "rt713"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt713_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025D071301ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt713"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1320_1_u1_single_adr[] = {
-+	{
-+		.adr = 0x000131025D132001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1320-1"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp70_rt713_vb_l0_rt1320_l1u1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt713_vb_0_single_adr),
-+		.adr_d = rt713_vb_0_single_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-+		.adr_d = rt1320_1_u1_single_adr,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp70_rt713_l0_rt1320_l1u1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt713_0_single_adr),
-+		.adr_d = rt713_0_single_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-+		.adr_d = rt1320_1_u1_single_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_adr_device tas2783_2_adr[] = {
- 	{
- 		/* left */
-@@ -820,6 +892,17 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
- 		.links = acp70_rt722_l0_rt1320_l1,
- 		.drv_name = "amd_sdw",
- 	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp70_rt713_vb_l0_rt1320_l1u1,
-+		.machine_check = snd_soc_acpi_amd_sdca_is_device_rt712_vb,
-+		.drv_name = "amd_sdw",
-+	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp70_rt713_l0_rt1320_l1u1,
-+		.drv_name = "amd_sdw",
-+	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
- 		.links = acp70_4_in_1_sdca,
 -- 
 2.43.0
 
