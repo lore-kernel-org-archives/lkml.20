@@ -1,105 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384392;
-	b=TRLdYWBvGZxxwcy6vt6nIMygYwFKU7sSv+VJQiTaBsgxe4PCEXSZV5SL0bCwHTzkkAR3
-	 wCZo4NDwn2Y79StU+OglSsl2hJFqrLYLllG/yfO4sn1k4AOq0TgwN3v3TMrngfBl5t2Xi
-	 LQXycdzDcdkX01HH8aVZG7QE5TWDNPRtPaPzgTqA8ijPPrRn9WRGowR3Ktkt9tLcF+eEK
-	 VxTwgAFwA08WBLLW8LehfhUBlZcBZ0qpbNtt1t2au6G2YBnlxPXwXUaj5p/G6awhSrf0N
-	 8ptgt97Qn1liwmxedtmzZWnCz+yMSX5t+9LD8fzFPPftjUQFtCznW+h6eUBHzszyNbg==
+	t=1794384398;
+	b=LAAQ1kZE3s+DbASo8uYHX8SEmJjvmjx2mh07aaJFAp0SQk+oWwRsid6ufoYwqOne1Dd/
+	 +v5UBgn8HIr3gO89J0/SQDgruKF0zizVSkb/e9YCKNDzqTA/yRUteBf7NE8FNw5pVTHla
+	 N07NO90uVJcepI+aAymai+jXHspU1p6lV6ubLHkOsZqZqy1QMzTLDQ3EHFnjASeWk2Ery
+	 cljoX3QauryMeI+k4Fyht21RNx0PTmy51e9Q9tO9gODdn5GigE6Uv8POOZ1MARRXGrl1/
+	 +m1fgTlvAUWJNzEBDZLK7k0efowWY9/NiJlceD8WnZ9jVa5LRaESE62nVMw8vfqKTtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384398;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ilorIFABOQKAQ/aKTk5K0G4CTwEpXyjboWX5m7/i2y4=;
-	b=jLNiDRxnBGblG5kg9U6uzxVD2f2vEvsrLS11roT683EXDcE6bOssKJ/RFDNMmA7cckmF
-	 J9XjWF4u0AoMHi9hHLAlzDPIC+YAy04stxc8twaKhk0QvhCP7kPM7Iju3JUX5VNdhFOft
-	 4VVT3z19eDV+EzHpPtD7gV8UXbzq1x4OA7NplPWZzvaDdSEe1t67gq/TAKaFyVvww517g
-	 qBbrUA1t/HHyozlMgkYEciIfJGQPIlk8Gfq7XCM/wjVyTZQj/+hcPzLPA19UQCeSLWs+u
-	 smyHe0VYJTr9jvL6O/bdDItjbpPOl41FaGIDVnHggpuargiqFjAU6NHaNoxDImwuddg==
+	bh=/Vw/Ng9DVAcAXNdpYFohPWP/a42h4elI1qUZ0Yy3RdI=;
+	b=BZiBmrMGYKVFaiNp7sAlOPW3IT918j3jxbFM8wTkmiUaGF0hgsr9ZBBRMD0NckSIzBOL
+	 CqsybYJiUpYeHPzPG8iyY8rr+DsyDg75jHop/yGeokgXLXbWBr+FaZPJ1SzKKPt7D7eFE
+	 qS1MbI1lCMLq4iWM707iS3wIHlk2DmmiMfU8KLdU143fc6tx9N8yYJeXO363ff7B8y9/y
+	 UTumNKKQ1d4BnYnmDgjC0BSZTVeN0wryX1nHVlofrrudoKx2W1HkHmnDNH6yb1y5dvGTz
+	 KPLEyHn3+tMNs6cthwGesKT5pfWLzTn/egLPE0Qb9478GcLL4QyTv8/Dvb40BSYoEHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=mCt2Jvyh;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=gacpxWE9;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B5A60A3814
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20B5A60A3814
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CC160A6F61
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8CC160A6F61
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=mCt2Jvyh
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b596569640so4657213a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:06:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=gacpxWE9
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso504598966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:06:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794384390; x=1794989190; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1794384396; x=1794989196; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ilorIFABOQKAQ/aKTk5K0G4CTwEpXyjboWX5m7/i2y4=;
-        b=mCt2JvyhLbIgpcDDRzYJMS/AVmNFEiu4KU+zCdVMvmuuRbKRK9epQhkcBsuUpfxDku
-         Jl2L/qrw8crgiZXeHafeJ5vX+QL6NhB/HdVNPVl/HKAqBtQjQcisV9PtXjjPwzs+6l46
-         pTTPCwYWrmThkGPUqw0iD/F+Hxmncx1huTBboJhQGIrVCKPn/H6lD1NbnWV2CnOx/DOp
-         GYnIAF6ZszzfgUiMPIR9qgbsH6E+VlmQFixUIWgIeDFYra9fPHC4yqK9I8UXp+jQzK+U
-         UTcqxm5jaAR+EY/PspK+eyYnhc3tRPSFzxZC3NXOCRb+w/9vCvBvfTu1i21fBHDouQ5o
-         kS0g==
+        bh=/Vw/Ng9DVAcAXNdpYFohPWP/a42h4elI1qUZ0Yy3RdI=;
+        b=gacpxWE9WxZOwiWnKoLF6LJ7DhjMhXDCXTqv4CdbCFctA7Tg2HZucpZPc/vwNZv9jR
+         FSZYkFWf32Zf3DqADqJQh1r/wnr+UsrgAyo+TZy9IBM73JImieNt2dtqHX8KA5RM2adD
+         3uEIVIV5VNfdGoYx/oBkMJVoC3SJOCpdjk/5f64xjSa4vm3qssEed2ROGcAgNIAll3TB
+         5cyCpqtgQNsQPFR6QXBSXJhoEeee0YFFHEMH9QATMdPgr+OZSTzX51FqG1YKfBZ7zuKR
+         75BknnVTz+CIPLaweKs5YCQo7x3mPnfe0cY+h4CNJcrC4CJB3y/0rWNXQIjSbTy5DfWx
+         4QTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384390; x=1794989190;
+        d=1e100.net; s=20260707; t=1794384396; x=1794989196;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilorIFABOQKAQ/aKTk5K0G4CTwEpXyjboWX5m7/i2y4=;
-        b=iEwZGEfU6Tf/gg+48Kj/1Zx/+XL0yFcRTyJq5fwUSSK9zMeZ0XGq5RGaiJ4N6XLLuB
-         4sMCpNHfEtONyiz7vod1mbH/nYGPde4KWtl0Y4+ooSOf3ey7EwsApS5yByVguJR/JUAy
-         Pfd66aZ+X63O+0hspKaREQMVDJZ3TQjMhLpMKiLCSiLbGDVuwlXc4apf1SvPwk5mMoqP
-         iZ+SkQnQSxkRSVsMsiJy4f2Pc26bw6pZRxARUPlQ7zDqAlQCdo86rkkMcZadQYwNAc6t
-         GGWvE5IO37NvVsz8Gk5m/9NiB9WJbu9+PVCidVP/nuwq5oiealTq16N8G3uvrHDvf3A0
-         i83w==
-X-Forwarded-Encrypted: i=1; AL+hErGcY8ignD/7Q1xl5xEUlteQnafegOgL+S/yMxX8giw0PVirkJPC6ZkWQQQydHkqA0s2B3CO3nIxd9R2usg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GvgoxNRNvpHNa48Bb367Pl6L4PnyA0UDZjWqUuR0E68jxYpoW
-	3TBJXMuWuunpzLvCMPVT7LxydVLFoDYspAo209n6PF8SISMUnDiW6Xd8QgkVIQg0Yg==
-X-Gm-Gg: AYBFou1+qXYTTk74ySohJj17SfUQH2BeYP+LsIY4anAdnEeNN2dQNcCvZCb4OMiBAXl
-	SHWuZjrz00LkItPsQ5laYCUyoD/D2jqA3Mv/zE8Wt/KNoy1qfzWlrEnO4N37lZUiQOEzTqXvvqI
-	yQw3PvTKMa/M6liq6Zs1N35cheqNRkrm82gyDLwqe9adP34VamVmHlvQHGo7sdgGzhEDv+Ac6Gb
-	7A1wcRjeuaUquMMHGnyYGubj/GTgaHW6HYHeuMmufTThX6YVov1zxUkKg6LlpqzVeRiDuktnI7N
-	UmIOoLtl6L5E3kqAIsIPB0tV9faoDCyc6mF8/1DXKJLJcoXuSjEvr1QIFIqjzxjkYqjd6VFtci6
-	Zz4w8DcWEoGNnu5YVqLhkuZlq0SGKaX99Oh1ouL2evl7tQf/c41uXkyZ5xR+LHwphXh9CRVijSY
-	GBl6/kJD7Axnjfmm8SR4t5N0ERjwvihEVsg6C1kPQwtZu+n9NyIdGy5oYqDxPJhU3Cjic7nePS/
-	J4bWhVMT9JOvpncBdZOXEED7eVdCt2/23GvWmo/AHmlUgMDTtjAOCwosbl3vjWf6B7JTgCsx2Ko
-	bFauSzv96GpxvEehaiHKp2bGtSZqjVpLZOrH+8CO5NbFTWbX/l+Yq7nUXMhrHr5J9YZ7DqJ8pf3
-	HkqaZpgH8hqnzBzIUVu1DTws3SCg+bt+HFG/wBkPi0/w00IawAwm8fhH1MP2chEZHb4KrN1Wq3V
-	ENSIlauM+QLdlPucis41MFcwYxxcnSrTUGsfTG6bh4VC6ZXMJ6j5VNyY3Qfw0/f2S8+28vnrB4c
-	gn9hWndCDrqKlKvmE9ntlDrDGg26kAwgb4cNeHaeRC0C9QyArRw0gfliazBi3KZQIdb65fuDyH2
-	YzlfCcjkNZXXV1ax+5Q=
-X-Received: by 2002:aa7:c0d5:0:b0:6b3:d0a0:39c9 with SMTP id 4fb4d7f45d1cf-6b7773e790fmr851218a12.6.1794384390543;
-        Wed, 11 Nov 2026 00:06:30 -0800 (PST)
+        bh=/Vw/Ng9DVAcAXNdpYFohPWP/a42h4elI1qUZ0Yy3RdI=;
+        b=SY65mKFpS95KVDd0KVai1YtJauGHnbt54eIR0H6/WlFt/o0WKIhqs6J8kI3o/Szbg6
+         A575dfpkO6jOXaVKkC2twIwxKia3/V76SrxbSZ35AKpR/UOQ+1nNuJn5jrNnaSukHylZ
+         4EXCdMZhofpjbsPv8ZU8bvZgMUQ4MuJPPVhdplhG5Iwcgvli0jmaJvqTaMBS/dl227H0
+         zcxBa/BeC816mJqAWO/zHfbj4F0sH4fR+pDQcWAebqjtVTgxdX1tYdafM8SYSSmuipYA
+         LkJhvqx09sjXEwCN18yWnbuW4V8jMsYUldna4nmUxCaQObTLDwZ8UxLW5TPPTzRsvYhx
+         bHUw==
+X-Forwarded-Encrypted: i=1; AL+hErEgtqUq+CyAwdJYRsvcm1BRqA9jhOHv8F4T4IYuHletOAFMBamuwlnaoe8DVbSTw6rQnJhccsiXNGzvmdE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xdf9Mdss9KYXE37tiE8mEGYKe4Bsksiry/1th4kaQNtNyDKUs
+	2obpJwsx40apaKbVjoGN6VQP3a+I1B7qfQahS6qnoSYmCYkQlDxdcMyPejdJRN2C5tHY7E+tKUa
+	Pi8udI+CE
+X-Gm-Gg: AYBFou21eOFxrWJCSAGPbf42BBZdBLv2rJJCuYAziohJ0LOMxwyMvGZg5e3spVq/hBV
+	VjDGmZWQoujI27bmtdUQABCjAV1AmtllOtodMsMBGeyORrs4wcHFhNotHUg93JqpWZ/YZ6rPOQw
+	If2G1GzhNRxNB9RvMIt4sea7xyiayw4X2UkZM8/LSKLXwGi8R3BPcLsKDOUYAf6XCm6BpMPNcVe
+	lZRarkgV3137BhHHTvVtF8C9DPauaIxMOkn4dR5CSnNOJaRQH77/G48yZ/Xy8sRJk9cLh/CToA7
+	EjmxeCtMfZq3UkOvfULrVvcSV00qxsxWNAln0c2iLvVF0YADmqZBXdBJ1dQYUSk3gv1052uIEws
+	vVTK2a2y8h2+Fh46r9mT5YZ0lpW92Cryd4YH3YxiGyLX+f8yxM4auybi2gs1PqTMzHXlMx7wnnx
+	syu/ZeR9wNn0DsPzU+zvGDhtQbzbjSc9BtvrUJRfIdUphdjbLD+GdGWSQfPU7z+M97Glg5q0Ure
+	LDq7TBko4BUlxLcPT52DHmhGi57quUHViirXxLdHWvVxeEqVnbUS+ZMOAWcqdOxJAHNp2tp95B1
+	PjXtCh2jZpCKJUW3nzgZa+eS9xBxxOE2IFeDH+rZgq7CnIYloHjk38N5O6fwpT1U+qQ9u9E9eUy
+	+jaKSri1SO3ouPfsE3ortvj9Ch8H1oTkxurUW7hcQ06nn3JYcD3yVptoDFV25cvQRdibMdGqQRD
+	XtlCxRIRK7AUa4sX4rdqWv7lhfX33tHpd+eDHFzPODn72F5DowcmYtd91WKCBJCgOowRK9g3WBP
+	eXOjoNdJMaJu7ujt781AmUN6MBpa0czD2sFY+DhEGgXNfhuB3bQVmngSTu8xwBv0kOWbeLeNrPx
+	5jbiHqkmKQAujnEcgrkrDof+P5kqsbgLfEDa5w31
+X-Received: by 2002:a17:907:d311:b0:c25:f7db:4bec with SMTP id a640c23a62f3a-c5066b54812mr120674466b.18.1794384396170;
+        Wed, 11 Nov 2026 00:06:36 -0800 (PST)
 Received: from Desktop (p54aff574.dip0.t-ipconnect.de. [84.175.245.116])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b75775fcf0sm2287549a12.0.2026.11.11.00.06.28
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a6af519sm203722266b.87.2026.11.11.00.06.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:06:29 -0800 (PST)
+        Wed, 11 Nov 2026 00:06:35 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	linux-sound@vger.kernel.org,
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Chris Lew <christopher.lew@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Karthikeyan Periyasamy <karthikeyan.periyasamy@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Sriram R <sriram.ramachandran@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] ASoC: qcom: q6apm-dai: reject compress rings larger than the DMA buffer
-Date: Wed, 11 Nov 2026 09:06:23 +0100
-Message-ID: <20261111080624.244291-2-julius@bairaktaris.de>
+Subject: [PATCH 3/3] wifi: ath12k: ignore WLFW servers on the local node
+Date: Wed, 11 Nov 2026 09:06:30 +0100
+Message-ID: <20261111080630.244427-4-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111080624.244291-1-julius@bairaktaris.de>
-References: <20261111080624.244291-1-julius@bairaktaris.de>
+In-Reply-To: <20261111080630.244427-1-julius@bairaktaris.de>
+References: <20261111080630.244427-1-julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,39 +117,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-q6apm_dai_compr_open() allocates a fixed 8 MiB DMA buffer, but
-q6apm_dai_compr_set_params() takes the ring size from the fragment size
-and count that userspace passes to SNDRV_COMPRESS_SET_PARAMS without
-checking it against that buffer. The compress core checks the geometry
-against the runtime buffer only for drivers without a copy callback.
-q6apm_compr_copy() places each write() at the stream position modulo the
-ring size, so a ring larger than the DMA buffer lets write() copy user
-data past its end, and after SNDRV_COMPRESS_NEXT_TRACK the copy starts at
-the next multiple of the fragment size.
+Any local process can publish a server for the WLFW service through the
+QRTR name service, which records it on the local node.
+ath12k_qmi_ops_new_server() connects to every server the lookup reports
+and starts the QMI handshake with it, so that process takes the place of
+the firmware, including the REQUEST_MEM indication whose handler frees
+the DMA memory that the running firmware writes into.
 
-Reject a ring larger than the DMA buffer.
+The WLFW service is provided by the firmware on a remote QRTR node.
+Ignore servers on the local node.
 
-Fixes: c317d148a2b0 ("ASoC: q6dsp: q6apm-dai: Add mmap and copy compress DAI callbacks")
+Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
 Cc: stable@vger.kernel.org
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/ath/ath12k/qmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 58beaf906b9ff..80b837992b429 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -990,6 +990,9 @@ static int q6apm_dai_compr_set_params(struct snd_soc_component *component,
- 	if (!pdata)
- 		return -EINVAL;
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 817bd820623d2..ca1d8720a4830 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -3994,6 +3994,10 @@ static int ath12k_qmi_ops_new_server(struct qmi_handle *qmi_hdl,
+ 	struct sockaddr_qrtr *sq = &qmi->sq;
+ 	int ret;
  
-+	if (runtime->buffer_size > prtd->dma_buffer.bytes)
++	/* WLFW is served by the firmware, never by the local node */
++	if (service->node == qmi_hdl->sq.sq_node)
 +		return -EINVAL;
 +
- 	prtd->periods = runtime->fragments;
- 	prtd->pcm_count = runtime->fragment_size;
- 	prtd->pcm_size = runtime->fragments * runtime->fragment_size;
+ 	sq->sq_family = AF_QIPCRTR;
+ 	sq->sq_node = service->node;
+ 	sq->sq_port = service->port;
 -- 
 2.53.0
 
