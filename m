@@ -1,70 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.219.36.190
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402293;
-	b=JWjO2qFEDy0oFUeWYxtJxU4E8EndYLKS1uIt8YZ0/7yKgKlsCkupvt3qaMCpzrAySfxO
-	 IK9ipqh240RaPtHdheDQb7xikOq422dMAMTxk3e/qQnBQXsUfvl6lDkvWkwyYsmTwyX8F
-	 NrjQR2HU1xHR4Vhh/E5EbnPd8K8Q5InX0hl2wM57VzK7olAwghExzd5m7zEMm8AXVWzA/
-	 oDamPTbJrTFKi8vLI5uqlu9AFWRn8Bs7dFhG+Uk5a3XjiOawpli4B2RfL36d4C1FQ0cUL
-	 hcFgbq/9Ih7JhLseet3VQJSem2F5VhhbiFWU1a5ly7iT9AbhdXa5pavhBugHXiox0yQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402293;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=6G+pw+teY+QNpHzmCsxDpYnI0ruF/BglJQxzs6UK3iM=;
-	b=bz0AUj4Bl1Y74Rblir5B60Zn1HyIJxtBwd0kikM4kO5hYpGevoy4UHC64YDf58nmoPxO
-	 qYvI+Hdc27/PKhOSWyfoCaZ+MMQzULOj9cOxsQdNrVkOGRpI8Utks7kEQSWdN8u0krMvP
-	 vp7JKxdoeeInirj6BgS5NEqX7MNtCd1+2nszuu6RVOuZJVwMf1yeMaIrmL7c3rdXAKvcm
-	 zQCgSevDQmFa7waolXYOljgg5dyJsJr7tCb829qpwqAXnuUj9hV3YyVMfRxrmltZBkMlF
-	 3H6WW+FTAJkWsNxQNVXZ7ou3SthQSC5V4CLKQ0YNYX5GqBN0qoapiH4TjY2xia85r2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alpinelinux.org;
-	spf=pass smtp.mailfrom=alpinelinux.org;
-	dkim=pass header.d=alpinelinux.org header.i=@alpinelinux.org header.a=rsa-sha256 header.s=smtp header.b=PLiO8SMG;
-	arc=none smtp.remote-ip=213.219.36.190
-Received: from gbr-app-1.alpinelinux.org (gbr-app-1.alpinelinux.org [213.219.36.190])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794402303;
+	b=Yw9T1ihTKmeNA++xXqOJFA7gjs+buRpxS4hhTHGtjl2fBQ30EYqWUXLdsxhsdj8jY2Eh
+	 UGBONKMxs5aE+dVatmB+2mLCCHiXTyn42Tgo8CLRPLvBJ8f+8ND8g5DrctHee8E4MTync
+	 /1FlNyjqbvKhaYJ5vaWgzXnm5roz5TGlhvbbtmJ4BGGoPsth7pzjIzbypebqDNcOGs2D/
+	 PdURRFoOHvuMsm094vTOvLATRPS0DVYIAW2ke2XehHsBhmAcNdAtfDaZlwD9S6sUmz+3N
+	 JO2deORqbK59wCrRzeQutFWaIlTrycrST6BrhkBi6ijEgWDba3eAgTBrC2J66kedu/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hUdHRWHMk5SGs7+YuKFMHezWxysz9j61hMdmcrFAg1A=;
+	b=TMKgXdj8wZ0pZczba/SxaL/EcpYCfixnhYM+DRZjP6jL8LqQzR69sTD/C7VJGr4V6mjB
+	 +9IgFmxSjQhjULzU2bkoEXeV26P49AWPKjoaqVQg6KfobzxsLC++q0IctnAZlINBKht1s
+	 rPU1vvmtVQJupVgq7InScbKzAQVI8h2mKR2AWHIvhE7BtzN1wOG+hVVYJLHfedb5dzc5g
+	 3ZnyH+sVUzCFcsHBi0gF44d5a8ib0GHu81fB8vZC2CoWiheVAOWG+IS8HOci9KGBCCOBZ
+	 ClVsunudqXtFKORKgvx0UqxDeFHBuaSzDkTvaIyjKsu2w12okaH4WHg6jf8BM6Hjv2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NF04M1Kt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCB9606A324;
-	Wed, 11 Nov 2026 13:04:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCB9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpinelinux.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpinelinux.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5151E606A33E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:05:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5151E606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=alpinelinux.org header.i=@alpinelinux.org header.a=rsa-sha256 header.s=smtp header.b=PLiO8SMG
-Received: from ncopa-desktop.lan (unknown [IPv6:2001:4646:fb05:0:3161:925b:8dfd:3d53])
-	(Authenticated sender: ncopa@alpinelinux.org)
-	by gbr-app-1.alpinelinux.org (Postfix) with ESMTPSA id 953BE224165;
-	Wed, 11 Nov 2026 13:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alpinelinux.org;
-	s=smtp; t=1794402285;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6G+pw+teY+QNpHzmCsxDpYnI0ruF/BglJQxzs6UK3iM=;
-	b=PLiO8SMGdBF6l+7TgGcRi1TW3dgupmrEEJVoZVmuBxqEXnsIbBBgAwDgODz1mjNSj8mYk7
-	+CVDm0M+kt45YbVugTpYaBGanJLbsO1BAQWFNl+oCVbx2Ec6x2OHCmdTyB/lUvSR0TWEdB
-	QnuLnNW2msULPT0JiE/xD9aL4IBU70U=
-From: Natanael Copa <ncopa@alpinelinux.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Nishanth Menon <nm@ti.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	=?UTF-8?q?Milan=20P=20=2E=20Stani=C4=87?= <mps@arvanta.net>,
-	Natanael Copa <ncopa@alpinelinux.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Shuwei Wu <shuwei.wu@mailbox.org>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	spacemit@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH] cpufreq: dt: Set the initial OPP to apply its voltage constraints
-Date: Wed, 11 Nov 2026 14:04:26 +0100
-Message-ID: <20261111130430.10359-1-ncopa@alpinelinux.org>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NF04M1Kt
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e96502e447so26025755ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:05:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794402303; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c4WTwBnTNnidHUpmTh8+GAbdEQ6YpFxv0R5+hsi3DZQnGeJOh6Xpuqk/58ZjrkAEL7
+         sIgZZbUxyi0bUrx/R+1s85a77LGjtiFMJFOmIHRRP1BBn7zaZw7n1uBRYrLhA57oouiy
+         ed53uhvCGzMoODMBamlu2RvcgNN2Hma4FeVOM4Pd0zDBvVMww1slCjiT8Tdx970A5AO4
+         9GBa9xPPRuG0lgoqRKDKMzjyNahIspC3SHdgo3vzKGZJw6V9baRu80EAAeFx/s66WCxg
+         g6aORIA3qRqvRrnhZluMbN+Ea8kzesvXpTfqgZHuEIKgvMgjQ8MdwJo7WTKyFGswz8v/
+         eAIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hUdHRWHMk5SGs7+YuKFMHezWxysz9j61hMdmcrFAg1A=;
+        fh=DsSxLWuFk/SzYvp9kBKCw/xZfDjJVbj+wUs518XzQmQ=;
+        b=csLdQ25bBGDKq3jMwLthHjdhOrSbA3V0XW8JRupIodUfs2jBMItruzuSXhAIzxNdCZ
+         utDB2R8xedfle82Mkt2QQ8vylaEOpZMdZp+Yz/6k0qCqKWWUJKx1Wjf5zso29rZnHT3F
+         9wDXiAc2T9oE69n/ES2aYN4jVjV3nTwEo3dMbmK66YRnBKQOdf/FCdJCdPsO2BnOnrLH
+         bSqzlgvU5Yw/raCWHIcu5aiSB5Bw3zzAiq4NwzxMZmJ+nHIK9aJXFxn+xvyz30dhxZak
+         9iIMdmonyWU6g6pazhC+nQQJarFih0oByXpy2hqtZ+FLuGfaebNS+Z3TheCWSiclR5p3
+         oJRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794402303; x=1795007103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hUdHRWHMk5SGs7+YuKFMHezWxysz9j61hMdmcrFAg1A=;
+        b=NF04M1Kt8vcF1YGnL81CoMMrRsJVzbCr32V81Yt9CToUl5HKyxQViuRBg+tiH3Ns+3
+         N5ho30WYv9Hd04lhj4vzJFGt+a2GPYUeKbQgGXRjA9cj01MhST9bQu8GCkf3rJ+sq9Lv
+         yPcx7zo/W5RWaStkLg+FTi70eKMAx/NPSG2SJ/eRsZ3ArqjOcwvskWuZCytxnKYorzRt
+         2q60k1qQqHxE0TbUouPuE+EtMBJlLBJN66R1MiPH8650AHBA3JQl1z0QvIVLsblffevX
+         O7TEZcZ1GqWqk8F4e7vB49gMPGvokRFDYWAr+6o8sO+ouhZTLUaUsze9uUzLbFQzQLPZ
+         5kyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402303; x=1795007103;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hUdHRWHMk5SGs7+YuKFMHezWxysz9j61hMdmcrFAg1A=;
+        b=JMDuo4BmI3nN8I4exi2ufz0CTScBTFRcPnUzdZ6YgoAIAy7P59s/6izVWurex0AnyC
+         kNAVwFtB13+oZcPO4weQCG8/jK8/vGIUBXrFx55SHXHvGXDpaO5GsiSRAEETz5Cudj0M
+         Pn3CN2HnQAgrHUKDvAQ2Bzv2AWb3VeItH1SBvBIw2rfQD8KCZWKE6yLHAVOiG54cf6ye
+         CAzw59IpGQ9A7VwZjTlO51C0lv3m7S2VHgOey2bevL/P4Wz6MRYojDbSUi24PIDazX3y
+         aKMUWf3l2dXcwRAZkBMxfMrn0K+/KmFyAxiRt9HYn2iYkalfIBUU6KYs3TW0QK/EiU9Z
+         d98g==
+X-Forwarded-Encrypted: i=1; AL+hErEw0mjddDW9x+OX8qJnoIBOX0PECum3cTRKrhNKat3xWXTW1sKf7pLTh4xgJCgIEhU9YQGRf3ky/1Xwoc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D2SYGFiC5b76oAcEAcmt5RybGb/EWmncA1DVG+ZBBBsBGky2k
+	erRioEzLRiF5eCqRHPNaVMfzcXE8H91KcEArvnSkZfCFH3nNgjcRjJmj9McitBXnhfSFAHRdm5w
+	kvGScn1Bww/AtCI550WKd/gdoc0f13n4=
+X-Gm-Gg: AYBFou2spwquRU/XNzOYv6lPFZAAlaDjqqzDrhmcLhHvt1C/yuw/kZp+fYS4ATWvJUy
+	ggZMFEcFEFq3OU7Iv2ZB8vrotkMGtoSLVdgkckF/GDOUz6gRHd2MGn5la5TMLXp9xfA+yfTNjSm
+	CZonRoz7oUibyuVQsJVaz4n/nydpQqcydH8nLP2iZ8jEKYc5ANrtftZLpWRjUzlrt0JI46XeBkJ
+	JwZbyhZnCpu/RmrsKZXlPxZaCE6D5twlXiFIPxyXySf1n9AyoZowQD9noxkk5WrX1XfpcWyBfUA
+	nrUapEPPVW4CYxeHjJQ1dsC79ewJzPVtJjUFnoJg1LMe7sSlosJbZyQ8xwL2CkL4TN1TkRVP5sX
+	6o+pXIHf1H7V4G1+SJQheCsYcfSCRlKkydjs2nw==
+X-Received: by 2002:a17:90b:1c01:b0:3b0:9a2e:b491 with SMTP id
+ 98e67ed59e1d1-3b182f8c3e4mr2105707a91.66.1794402302257; Wed, 11 Nov 2026
+ 05:05:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,93 +104,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110120743.6301-1-stefan.ghetu@nxp.com> <20261110120743.6301-2-stefan.ghetu@nxp.com>
+In-Reply-To: <20261110120743.6301-2-stefan.ghetu@nxp.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 11 Nov 2026 21:04:47 +0800
+X-Gm-Features: AclHuK9gW152QspKH7kQnf0y9WcVt11cA0ZeBNkE67Czjx0uGH17tx_pcQrtqzY
+Message-ID: <CAA+D8AO47ctz1voKax0OsyYiLQ+UT9gU-E7Z0i6=D6RKgb9=yA@mail.gmail.com>
+Subject: Re: [PATCH 1/5] ASoC: fsl_asrc_m2m: fix out-of-bounds write when draining
+To: Stefan Ghetu <stefan.ghetu@nxp.com>
+Cc: Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, daniel.baluta@nxp.com, 
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The cpufreq core skips requests for the current frequency, so a policy
-has no voltage constraint on its supply until its first frequency
-change. Another policy sharing the supply can then lower the voltage
-too far.
+On Tue, Nov 10, 2026 at 8:07=E2=80=AFPM Stefan Ghetu <stefan.ghetu@nxp.com>=
+ wrote:
+>
+> asrc_read_last_fifo() checks the FIFO fill level, a number of frames,
+> against a length in bytes, and ignores the frames already drained by
+> previous iterations of its retry loop. With an output length close to
+> the 512 KiB buffer size, which userspace controls through the task input
+> size and formats, the drain writes past the end of the output buffer:
+> 312 bytes for 10 channels of S24_LE with 8 frames left in the FIFO.
+> 8-bit formats are also stored as 3 bytes per sample.
+>
+> Check the space needed by all drained frames in bytes, and add a 1-byte
+> path for 8-bit formats.
+>
+> Fixes: 24a01710f627 ("ASoC: fsl_asrc_m2m: Add memory to memory function")
+> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+> ---
+>  sound/soc/fsl/fsl_asrc_m2m.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
+> index 58101ce07c9f..cadfebb12e7c 100644
+> --- a/sound/soc/fsl/fsl_asrc_m2m.c
+> +++ b/sound/soc/fsl/fsl_asrc_m2m.c
+> @@ -53,21 +53,26 @@ static void asrc_read_last_fifo(struct fsl_asrc_pair =
+*pair, void *dma_vaddr, u32
+>  {
+>         struct fsl_asrc *asrc =3D pair->asrc;
+>         enum asrc_pair_index index =3D pair->index;
+> -       u32 i, reg, size, t_size =3D 0, width;
+> +       u32 i, reg, size, t_size =3D 0, width, frame_bytes;
+>         u32 *reg32 =3D NULL;
+>         u16 *reg16 =3D NULL;
+>         u8  *reg24 =3D NULL;
+> +       u8  *reg8 =3D NULL;
 
-On the SpacemiT K1, both clusters share one supply and boot at 1.6 GHz.
-When policy0 scales down, the supply drops to 0.95 V while policy4
-still runs at 1.6 GHz, causing random crashes during boot.
+The asrc doesn't support 8bit output. so don't need to add reg8 here.
 
-Set the OPP for the current clock rate of all CPUs before registering
-the driver.
-
-Fixes: 3b9c34556fc1 ("riscv: dts: spacemit: Add cpu scaling for K1 SoC")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-2
-Signed-off-by: Natanael Copa <ncopa@alpinelinux.org>
----
-Reproducer, booted with cpufreq.default_governor=performance:
-
-  # echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
-
-buck1 drops to 950000 uV while policy4 is still at 1600000 kHz, which
-crashed my board within seconds.
-
-Tested on a Banana Pi BPI-F3 with v7.3.3 and v7.4-rc2. Without the
-patch, v7.3.3 crashed on every boot with schedutil (three). With the
-patch, the reproducer keeps buck1 at 1050000 uV, and five boots with
-schedutil were clean on each kernel. Not tested on other SoCs.
-
-Other OPP users that never set their current OPP have the same gap. If
-you would rather fix this in the OPP core, I can rework it.
-
-Found and fixed with the help of an AI assistant (Claude). I reviewed
-and tested the result.
-
- drivers/cpufreq/cpufreq-dt.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/cpufreq/cpufreq-dt.c b/drivers/cpufreq/cpufreq-dt.c
-index eb15650f99bf..2646dda10aac 100644
---- a/drivers/cpufreq/cpufreq-dt.c
-+++ b/drivers/cpufreq/cpufreq-dt.c
-@@ -153,6 +153,30 @@ static struct cpufreq_driver dt_cpufreq_driver = {
- 	.suspend = cpufreq_generic_suspend,
- };
- 
-+/*
-+ * Set the OPP for the current clock rate, so that its voltage constraints
-+ * apply before any policy can change frequency. Otherwise another policy
-+ * sharing the supply could lower the voltage below what this one needs.
-+ */
-+static void dt_cpufreq_set_initial_opp(struct device *cpu_dev)
-+{
-+	struct clk *clk = clk_get(cpu_dev, NULL);
-+	unsigned long rate;
-+	int ret;
-+
-+	if (IS_ERR(clk))
-+		return;
-+
-+	rate = clk_get_rate(clk);
-+	clk_put(clk);
-+	if (!rate)
-+		return;
-+
-+	ret = dev_pm_opp_set_rate(cpu_dev, rate);
-+	if (ret)
-+		dev_warn(cpu_dev, "failed to set initial OPP: %d\n", ret);
-+}
-+
- static int dt_cpufreq_early_init(struct device *dev, int cpu)
- {
- 	struct private_data *priv;
-@@ -251,6 +275,8 @@ static int dt_cpufreq_early_init(struct device *dev, int cpu)
- 		goto out;
- 	}
- 
-+	dt_cpufreq_set_initial_opp(cpu_dev);
-+
- 	list_add(&priv->node, &priv_list);
- 	return 0;
- 
-
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
--- 
-2.56.1
-
+Best regards
+Shengjiu Wang
+>
+>         width =3D snd_pcm_format_physical_width(pair->sample_format[OUT])=
+;
+>         if (width =3D=3D 32)
+>                 reg32 =3D dma_vaddr + *length;
+>         else if (width =3D=3D 16)
+>                 reg16 =3D dma_vaddr + *length;
+> +       else if (width =3D=3D 8)
+> +               reg8 =3D dma_vaddr + *length;
+>         else
+>                 reg24 =3D dma_vaddr + *length;
+> +
+> +       frame_bytes =3D pair->channels * width / 8;
+>  retry:
+>         size =3D asrc->get_output_fifo_size(pair);
+> -       if (size + *length > ASRC_M2M_BUFFER_SIZE)
+> +       if (*length + (t_size + size) * frame_bytes > ASRC_M2M_BUFFER_SIZ=
+E)
+>                 goto end;
+>
+>         for (i =3D 0; i < size * pair->channels; i++) {
+> @@ -76,6 +81,8 @@ static void asrc_read_last_fifo(struct fsl_asrc_pair *p=
+air, void *dma_vaddr, u32
+>                         *reg32++ =3D reg;
+>                 } else if (reg16) {
+>                         *reg16++ =3D (u16)reg;
+> +               } else if (reg8) {
+> +                       *reg8++ =3D (u8)reg;
+>                 } else {
+>                         *reg24++ =3D (u8)reg;
+>                         *reg24++ =3D (u8)(reg >> 8);
+> @@ -89,12 +96,7 @@ static void asrc_read_last_fifo(struct fsl_asrc_pair *=
+pair, void *dma_vaddr, u32
+>                 goto retry;
+>  end:
+>         /* Update payload length */
+> -       if (reg32)
+> -               *length +=3D t_size * pair->channels * 4;
+> -       else if (reg16)
+> -               *length +=3D t_size * pair->channels * 2;
+> -       else
+> -               *length +=3D t_size * pair->channels * 3;
+> +       *length +=3D t_size * frame_bytes;
+>  }
+>
+>  /* config dma channel */
+> --
+> 2.53.0
+>
