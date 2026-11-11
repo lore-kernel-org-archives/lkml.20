@@ -1,71 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394118;
-	b=WUrtPF1CcUooNKi1d8O2P/wKLB5utD6PSnulehkYfYKvKg0tXhoB9tl76N9RLdvHSThW
-	 rESGGr31qN7lnBQOqZwPkI4sINUwxzQozDCeVpkvXb55cSBpj/VfAdPKCk3jMeSxZ44j0
-	 YcPLpCMc7lhYCjLBSPJlXh4pULG9aTZROvz8jI9Ed7T4V+z6zAEYFU7JYndRbuS+zoqbl
-	 Is+rR/BXZaSiClVk50gtDblzU92AeghqFUWX+tl0DbiVhu19TkqiiCk2gD8KFQkhmqadF
-	 DZ41CYj8pWxsV88TgL33HPs2+iQJWIcI9L++72hL5nAJuENutKJ3mT8dbGliSEFPXVg==
+	t=1794394130;
+	b=EKqp55wy2rffqoOA1mW+ETt10Z6ikN11XM2X45JJJLt97acK5dGQqTb8D9oR0BwBCp5L
+	 evGENhyFLpHgFetu/1pxI+dYj79if8LyDNFSiy2DCgsmLJ7XHMvGIhVsGPZvCATv+8RWg
+	 kvPg9X1dYUpKX6R8dG31vHngVGL9P8r6uiGr8R590/tP5Mvxxnzy6X2DKOU6nOFSkkTqo
+	 8mBkfZjsCYmzseaDWZzwY1WImfsVStV2qffxelM3uJftNDSu0kGUtT1UzMxHNqhBbaTg+
+	 //0cvSaen1+f9F6Oc2iBEzVI3m9TuPNNSXYoWPwFWuAkXQeIXo6ISsT4LlPyboSQU+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394118;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=ad6FU7Y+CZOMr0uGpGArGMy8cMkHauN05AxVml3ZXXU=;
-	b=dJOKC/q0xVetYrTZjIjRKRnH3Wk775QL6qNTu5nrXHzZVBzO09Nvi1N9A5znRQyeAhP2
-	 cIOwam4efkqOJuAh8dzVejxKGxjrtQbTILjq8DUfUJOV5wPzH9Oh9zhbVPuUMua4BnbO+
-	 ptOe8/ZmUA+YlFIQy0UaOah+6JZxvcbA1tgI5ZkI4wIrZ2VbIDOD71jCwu4SKjlZulimX
-	 6p5cRWBncQrnTI3VF5ceROniEfLd2g0JqFfIFT9A2q6kdAG4Lr9q8ake5L05R0pjxSHaH
-	 kdakkcFKNsB78kF7CclBxzF2p/ByRviWHtb8T7fzhgn8Tprj9fLWqkZXENCoMFe/tOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394130;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SJE8c/dZm+CWhQbZBqBGTdaX2jwL8ZWmvduRU6X8Ew0=;
+	b=vHHJy26pYii8ToGiJO8mAPNGzVPEzDHFaCtzsGPluKJZLzMC3rHUsnPTpLudfBmIqGOv
+	 1QERnFEmMtdwQv2HCA0lheqnzhQc9LznMhx+HOVE5OSNGJi5/ra+iV1C/w+FzHq3BDLjD
+	 0VaLPyKqXcEMiT6mqzyibL1u64wS7fHVIWwGwDj0H0mY7Gb3TkKPc69n09wD98Gn17+Cx
+	 Vzn5DJTvjoeQ43/qr0Ocgl+heWrtswtYe82XhFwwZJ3kl2/ITV/mpEEGQ8Bmp055UhL1I
+	 jqf+z4ZRoHq7y0E8evjuE4gjqaqtw6x2esZP8+dPOz2uuLZJPgg7zpOosRZgSEDmNNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QsUaCyk8;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GBKkvpuR;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F07606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F07606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE20606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE20606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QsUaCyk8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 25B591A1609;
-	Wed, 11 Nov 2026 10:48:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DC46B6017E;
-	Wed, 11 Nov 2026 10:48:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 12B4511BC0CA6;
-	Wed, 11 Nov 2026 11:48:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794394115; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ad6FU7Y+CZOMr0uGpGArGMy8cMkHauN05AxVml3ZXXU=;
-	b=QsUaCyk8oHaVG6a7PrFLh8ya9RivlvgLKDf2efvlwxiDM1cbG8CQ+35C+E/kufAQl4XO2s
-	nlcq15mOHMHECSLLYyB2L6jpB5UoRNZ3+KNo42DvuJDHWA5hmVVeiBVLNXQ5aJdfoiPJ72
-	rVCAjN6lsZ61ELKlbHCfD2Cyj5Y+WzklegU7MG+8M77lDG0kq2okUjWrK67kQVRBqMZtw8
-	Ggx5NTO8vIeJ3Iv79nOqdIOB7U4Lsrcyh5FHRUH5dPeFPpmiawX6bvf+uoNjg8SgFoVtfO
-	5SCCo08BdRPi72MeUsdc3u9RGj1VLc4dr5FF3Xjv6G2/3xxYF5YrjkRg7iMUFQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261025133636.253505-1-clamor95@gmail.com>
-References: <20261025133636.253505-1-clamor95@gmail.com>
-Subject: Re: [PATCH v1] drm/bridge: ssd2825: Fix panel enable sequence
-Message-Id: <179439411041.1683659.16967386126317635129.b4-ty@b4>
-Date: Wed, 11 Nov 2026 11:48:30 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GBKkvpuR
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so27284135e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:48:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794394128; x=1794998928; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SJE8c/dZm+CWhQbZBqBGTdaX2jwL8ZWmvduRU6X8Ew0=;
+        b=GBKkvpuR5r+JH+yFSCx2MRbxX6k1mn+PDhE0+d7qG4hyFMh2NoIazPozMTmQIzj+JD
+         9V8o/DugtUDYfrwFdXFHHxGzNFBYTu7e76oRigVpHZa80NBx+zbfSyUnBxDqxg3KoAOA
+         I2K6lq0c9BVy7Cbjw4IwNKTP+XHg7DTaHTxQbG5Nh6/cbrNOti3bTUOFGssN6RfM71le
+         ijhIsPf9Un9wqeCXlb5W6zgWPLYabiBOKuih/2tp/XV9plgnBLPIiy+2ydMVk2wWH3eO
+         jqtcIRFucEU87Lf0iApwLllYGg7Jt9b4puTC3EpxpXWCSs10ncEoku0H26XlqImr5k37
+         xJ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794394128; x=1794998928;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SJE8c/dZm+CWhQbZBqBGTdaX2jwL8ZWmvduRU6X8Ew0=;
+        b=Ul9qBLAqzsW10t4NrXCND1nQr4xhUV6foOqAO08ElbGYUlqZFKMkQavquYo21l22bd
+         Pa0XRWrzpDIakdfz/Fy0ruqxsvQAw9/wAfrqkSGXkjnFHH3JxUPCXMedBpP1z7bIQbdl
+         o5yVd8LuSB28UpbCIpN31ukmpBth/ltTIsHK6aw0BpNdRbb6QU7hKKo0T/ex+C5qjo+t
+         DF6SlX+HLUcMsk7kxg+D2NNMMFISUXnM3lKTFIJsUTnXZaCVb2opchVwQPHVANDNIKLv
+         t7kfRT9yduuBbpvTu75xSuVdLaAgu7xFNMaYkVwT7WWnv4+1XtHHrenHgUerRj5c9eUP
+         4efA==
+X-Forwarded-Encrypted: i=1; AL+hErGOFs3IIUl7opAI4szl9lydUds6nYdXr1P7gemBNYuWmUELfb0Pamiu5DpvnxbBsROiy7ylHnLdvz7THm0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iehnjyEghn5V9Zvz7blwqZTpVkX/XzJ2NiL9IN9eC0MBGN68L
+	ShmIfKM1MNalPvyGPDp6hKZCrwtAviUKl9KmrwlrGmI39S0TflMI9f59pR6Of8RXPio=
+X-Gm-Gg: AYBFou1NCgZOUgXjUdXPOKeNCa/9K4dQi0Ck0fvMqV1Gd87xaLVX7gTTsSBkeDovT2v
+	MSIoR/r3wHtuzQAaCYp/d2ShZTgd36O1joT1Jh0k6bLgbMeJ0rCVHVGmuUkzAyXFL/h7Kqx8C3i
+	dIUYcOQOJc9AfSm48ccBJ3u9qVIpm+R2kj14tUrc6HeLOetb5tnvFMYTbHDc0ZU2J7e9YnAb/QI
+	Xm8EuGbmlPfwsuRhB18vkei7NIh8fLiIkBUDSv2K1EP0bSP8mQOoCrNy+T23yC3i5UDhH8eO1M/
+	k3NOqDXtjEHc5f5GrkxV/XITIQu3XoDsfuavEkAI5cw6Bs49GNWzCMxaBG+mVElcF2fLtiPhCs3
+	+c5Jc06+ZmjlQfzrCJXsegD90WiLkWOCWXefJbBf3q2A9b/r2Nfd5q58+Iw8bTNvXK7oFLJ3Nzz
+	EeFBLel3IFOlW1Sv90Ip06Ld+PZFQeczSurjtxKaND0dgWUCS4pq4LurOoqz+vSUR7GkGhXQms9
+	TaXx4t848khjqerPQGbt22tjvRy7Aa3yPkZzDzI2WjuIkqt76oQyyFYPbm4ss09+XhJxiTQ43lD
+	vQyVpmJO0KBDu27vHfhgXsElvCQWErbm244Ur65SSMF8ssKZEospbJuVnfFqlDj/bQ==
+X-Received: by 2002:a05:600c:1f93:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ba0938124fmr41926975e9.16.1794394127955;
+        Wed, 11 Nov 2026 02:48:47 -0800 (PST)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0951fe22sm54693255e9.3.2026.11.11.02.48.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 02:48:47 -0800 (PST)
+Message-ID: <2e392c2b-3fde-42fd-82e0-8130d2de48d2@suse.com>
+Date: Wed, 11 Nov 2026 11:48:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,32 +92,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] Remove obsolete __MODULE_STRING()
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
+ Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+ <2e88806e-57dd-47e0-a9ef-a8507d22aa3e@suse.com>
+ <a190f981-d668-4208-8148-f4e50adb31a6@suse.com>
+ <6c00fc009f4e61e87895eb2dd3d77c5dfb28183d@intel.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <6c00fc009f4e61e87895eb2dd3d77c5dfb28183d@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-
-On Sun, 25 Oct 2026 15:36:36 +0200, Svyatoslav Ryhel wrote:
-> Currently, in the case of a single bridge and a single panel, the DRM
-> framework calls panel prepare() > bridge pre_enable() > bridge enable() >
-> panel enable(). While this is fine for most cases, the SSD2825 requires
-> the last two steps to be swapped. There is no meaningful way to achieve
-> this using standard bridge chain configuration, so the bridge previously
-> called panel_enable() directly at the end of its pre_enable() hook to
-> gain fine-grained control over the sequence.
+On 11/9/26 7:07 PM, Jani Nikula wrote:
+> On Mon, 09 Nov 2026, Petr Pavlu <petr.pavlu@suse.com> wrote:
+>> On 10/14/26 11:36 AM, Petr Pavlu wrote:
+>>> On 10/2/26 10:31 AM, Petr Pavlu wrote:
+>>>> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+>>>> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+>>>> moved it to the graveyard section at the end of linux/module.h
+>>>>
+>>>> Replace the remaining uses of __MODULE_STRING() with __stringify() and
+>>>> remove the macro.
+>>>>
+>>>> Apologies for the wide distribution. Acked-bys are appreciated.
+>>>>
+>>>> [1] https://git.kernel.org/tglx/history/c/136839a1b4
+>>>
+>>> I've queued the second patch ("drivers: Replace __MODULE_STRING() with
+>>> __stringify()") on modules-next for v7.4-rc1. Thanks for the Acked-byes
+>>> and reviews.
+>>>
+>>> The first patch ("hwmon: Replace __MODULE_STRING() with __stringify()")
+>>> should go through the hwmon tree. Once these changes are in mainline,
+>>> I plan to pick up the final patch ("module: Remove obsolete
+>>> __MODULE_STRING()").
+>>
+>> v7.4-rc1 no longer contains any __MODULE_STRING() calls, so I've queued
+>> the final removal in patch 3 on modules-next for 7.5-rc1.
 > 
-> [...]
+> Perhaps send it for v7.4-rc3 to prevent *new* __MODULE_STRING() users
+> from cropping up between now and v7.5-rc1?
+If I need to send an earlier pull request for the module loader, I'll
+include this patch as well.
 
-Applied, thanks!
-
-[1/1] drm/bridge: ssd2825: Fix panel enable sequence
-      commit: 8bf8cda54c08ee3693f4dd1e2b7607fe5e466c79
-
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+-- Petr
