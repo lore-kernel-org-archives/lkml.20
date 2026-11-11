@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434495;
-	b=mtj42BqH/SAtAZHxbKI1MfvSW/xHUvr6IwN6L49bgTH7SkZsvKrVRGqw8jqtLB+Wvh78
-	 x9LVplesEXEUgipztaRKDFJdPs69Cc5kzHGlpR2dEpxWW9W/lQ2ON1nXSz6gE+bUW72J7
-	 7esyJGmg+1Az0QV4zfnvMe/E1TpX5D2jOX5kXDuAnMuJiSY0YLgdEuBoj1N9PTbdkntmR
-	 QWWApA7M3Re7M2iBKkHuLKbhcuYCDN9x8+QOjvt3MbMzwWKgKoCGnNP5QzVl30AdvY0m6
-	 mop/WLCBUQg+sU/dROeCUGHeR7y/cx8fspCN5WNzatgq+THoofQYr2+gP5+jDol89hA==
+	t=1794434502;
+	b=DP+sU4kT2TG8Ai3JjBp6wc0j2yR4s8EtM6ShtMCaLF8hr8yKNsbZ0uOwTtivAUawIbm+
+	 4UKXzLVrQcbbk5SXiqexAviv+TKH0/BCKRAI9zFAfw5z8GVbayk7mvB9R8XT+JyuIhjGe
+	 O6P13hGT4fOEorYgPgq10Z7OFfTzr3mQydCIlTrNrQeaWWazyNhPyq3Lni5eKLIeGAyHU
+	 JNyGFY9iekzwP+Jj9mmIRtpOgtPXmtZsWOlzP5Oif1BZMzQ/i6T0kmr9W7XCX7oyCU5Q4
+	 wLN6UuBVh6iD12BKFq3u+KCH66PBBjsjsEDkwUvUMDWWKgADwO4YCuSm+kC0ybdiy2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434502;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PN800ywekWk9XeZU1A46yK2GvDU4OTLmLYi6Rpi1abk=;
-	b=xTOSa3fwTBFg4bSxZB4rnrop9Y8j5vMKTKXecbuvmBmJABXSe3NqnGXhaFhX+4KA1uWF
-	 5sfeq1CUcvPQ1hEgIHf7qbRLegGsYQpvvfK2cGkFwwQbxTYSSvENfWCFo44ZkCWGVrSCK
-	 3Jh3JYxfRwHkhXOlb5nNaxUuHlBR9tMpc8qVZRyCAfDxnFyTSn7iFcuUjI40K/8tc/iK+
-	 oe7rIc5X6+6o7ANVeRPkUa1CotS4j0MuvXxa/E3Tx0v+sfb/K9Q1xnzGGLHSd9v2+lS9m
-	 wU2AFH9ZkBfYOZ5dlTh5rwRaBj87WC9wi6pYfqpbRl9ZibWqU3PB8TQ+sL9z6i+aNeQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
+	b=LahAB/F7SO5LTNDhMy0s9YmqvNoFzBpaODT4AhaimwM0dAr4B7SR0dSMw1Znc02T3RBi
+	 aWtS1wVcBzOZi97VTl9sXzePU0mrrENPmI8WbbGUFqC5Q2fOHFHIVVNpeVAbL7MKSEYbj
+	 6s1bK3+GqDkegNPHKS76MKr++0fwE4hq7OZGxYA7zMhtfOtbHEfxUQINzDKsfncO2A7ss
+	 VDjsnlVD8/nF0fRalGNc5dswFicZyTl/QQhUktr0XgX7VtkX47mpwCNhupSTvoczsLWKc
+	 a0nm+LQZV771QUZU2ctOL5l2tDE3LgJRU0X46JI2gGQelXV03/sIzmkT9urRGqOEb4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl+Mh9+m;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="yP81/8gz";
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AAE60A380C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25AAE60A380C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2D360A5BDC
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:01:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2D360A5BDC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl+Mh9+m
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5edf97136aaso1957808e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:01:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yP81/8gz
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-85ac281604dso2090847a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:01:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794434494; x=1795039294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PN800ywekWk9XeZU1A46yK2GvDU4OTLmLYi6Rpi1abk=;
-        b=Rl+Mh9+mXU3EKkMv5CtlZZ8HRUvdg1jNFjsPEN0uJUJ+jMwCKivCIqN8sNEvuPhQRV
-         QcbaJJCIk/ePxDM0LP01+iJrIoIFGQ/0VpI0ARDxHbkeIsibUyivY/4BmLjBymUIPLl8
-         kT+euTSiEcyRLWMZ2uatL8/flVYaFUueTc36wi2nJXrRgss6tv5IhPSz5vQX5ZrYUfi/
-         8kcXssqoySRzmGdjC5bp0nXKO8x2RDSy6CtqGM2/4ycP2NY5NkYa+5gjx6KrwVu2oyoM
-         gWCet2LY9fdGUUNhSZdEo0saHVBLMzRDi3zV/1Y1w0d3DJHHhSBvXMlPp6X5CoAsGHxs
-         f9Ag==
+        d=gmail.com; s=20260707; t=1794434501; x=1795039301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
+        b=yP81/8gzn1Ll3IwuLCMoEbwPV0nMk1P0BANs+bgr5w90XkSeiq9vbfukn2+cw0IvPw
+         BELqNQ/UghmV3vPpfIY8uKZTgtrVbFpFkqvuwLbl4B39z1o4mvXXvXHXaX3xYTjqfuUG
+         mnFO6bx6foH0Is6jPiOc8vt0FWnJfcsvqwWjoaycm002osiIlKozAjH5bDuNMVpk2i36
+         ZKOquwGqNrRDElTVfKSsv5qNhdEKrOxkDeN0B4q6wTQo1JzJCCbtVdLyqjZXiFINhoY3
+         lZMcZnlzozw93HATT0hdeTPHF6qmMfm9P9J0qG0s87Dai2dmov4rGZOMxhx6gRoRlWDA
+         ekMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434494; x=1795039294;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PN800ywekWk9XeZU1A46yK2GvDU4OTLmLYi6Rpi1abk=;
-        b=fGy2e5E6daCkuYC/XVVS6mCdGaRDs1H7w813jjSFJQd976thbp7sjqw0QiBGHPP6UD
-         kAsHZqizqZvW0bSpSGW2CEb00lYODIZsJsnW8O6Rrs0CIVe5YxgxWmoEwjK25szgRvet
-         HlcxGM6322vSnpWiC4Eop7B0Hxoc1FaN7rkCpfUbLM0ObATkX2tv9z8DczmPp5KKpJOD
-         1agXJ837uwILBRf6Oh7+Xg9FgEpTOk/zsb3hEjOWiz1qqDeztKMtmAS3BgVnQFGCPwWt
-         CGUQjJxCWic/wheBMXnpm3axS/7C95eoc9Sm+Vh2YpnYTAoDAJcVLnT+d/fh9KiMTofa
-         rZRQ==
-X-Forwarded-Encrypted: i=1; AL+hErGl67cLmniwMqFdQsCcCKoGQQ01Y/wiDl49qhTws4Na86ilgkn32ArFEAvFcH6NVpyhqPEDmwPNXvm2YlM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NJKMeXKQFyLaO13dG4ZJJaJ1JXLIU2mHtrTg1XccFbWuERjel
-	aXzbmqw45xOn9PCCI8wFiFJzTzSWsr1Fh/z9ZGTKi9y50OmMURiZhnM=
-X-Gm-Gg: AYBFou0N8S94+WXc2OoUwxYDy1jJNCl75eW7i5aq7hXlPURxgL/fsLpLqCZr3QUYO/L
-	QcgwpKU75qLXX+kMIH5me2etJrEanOD76S6CGWUBcqXEEZxaHKvdtY1sxl/EZ0hVKHqFEk5xwaM
-	Sp0lSQdpT+AUvoVDVEc/YGsocR78tGRywhnc4Xj5Y69TuPcjWvIecDmViMyQ7G+r0QTZuvq0P4i
-	WqB1742zzieU5YQ1w8bzA8m1ZUvRIJcDuqHNI/curx+7/lOj6ulr7jbrzTollhtBFsOC0jl9FtE
-	FzCcGdoVUu4xfmIjt8/Y3ILVzTgoKXMQyYZ+JqOcGuiL+v61698JGCVIQCvwg1VE0GsqfxF9VN5
-	6mEmyTyr2AnaerTKmD33BRAeuJgnZfvbwx/XCXA03ElFznb5UvoA9FMCgdcWesk5s7wcGMMRPCD
-	hUtVnBBzj/0PWegKhDp+6w4wpJzT4AHPGBDuMag9d8QyE9g9O1CYp7En767wWQagj0lTaXbHjLK
-	V6zye+KnFrvDoZi/6owD1axzkiqWw9AN4zZakBG9IGxcNT2Vq33HEIB7ilVgFfrfFraXJLO74Sv
-	S+DC+mz0aKnoMPIqW/A1fo60I4KX
-X-Received: by 2002:a05:6122:d25:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5ee1c3e566dmr1829463e0c.4.1794434494109;
-        Wed, 11 Nov 2026 14:01:34 -0800 (PST)
-Received: from Ixchel.lan ([70.49.63.180])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe63asm4557992241.4.2026.11.11.14.01.33
+        d=1e100.net; s=20260707; t=1794434501; x=1795039301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LOO2h5QK8CfY8Gg/3IS9sOkN8AMCYlWmi2Pn5OTG2Oo=;
+        b=i5y+nXTrIQzG0ZsgkJG4dLi9y4ByK/cYy1QPppRsU8K9jXHAtHetOBHig/7kd1Eb1h
+         8SfvHbwjmZYPW5urAXlfcZAzvWJw8en9wGBjcNx4lzA3Zvpo5Pe2CmEutsjoG1l2Lh0v
+         Zl//Vjz/q1kLoGbU5tiiGFLCBGPcx9oh/TA3hgBNIL7H0WsPrMnb2Gwn6cwjNhNATw75
+         8+u6hMzMCPfX1gCK0udB/Rp2Kk+Mr5hPCVVl8H9ZWYa9bm3BtnPZDyesWMDr4mKg/mAJ
+         3CvYrvw6j5kdwNUv7TnHAaB5hkHoqpKkJDfsYEtnQKylx1wdMdy+7ELCpieiwEKrZO13
+         39/w==
+X-Forwarded-Encrypted: i=1; AL+hErEnKsBN4kAs5prWW+/CdCXhOBNd7wGJbaCQV9JlmK1ekyQBdxd130V5Q1MPC5EB7IJ5WFNasMFvbieP4GA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9W6DJBH23kY/OmJoyenugdyXdEyCc7qB4T5bA2BK+Udaner9IB
+	azOoZY/Y6vR6ClhkYpP+CG9/ZNAjBkA6pzkjnn0E93EPxpyMkaXmZQ6E
+X-Gm-Gg: AYBFou2a/ADUIYfFOtGE+9R18UuO12PkTDYE3apcGTVpIny9TJG5ydfynPONicw3Vw5
+	m6zxCVgY1py/DPydN1645Onfne7nbrq0VQm7sl8tDtBp5xrmwGpDtj0zo15uvzydZR1chZpnCwO
+	GwU4TDJ7qC7umotD2mJZXyTVnZYOLyTSXj3Pg3qoBE4B7PaBmzyiAgfLThcSmYPbndDmLzpdSe2
+	VY8W1zTaNpQk78Oh7OLmutWM+clqhgkpKSI6emBuXqqLhbQ+6YXLlyWFnQjkWZumObhbeIbXg5p
+	oZ+tzP2jRLQikS6DMNOfep+oeQ0CAchP3Yfn0X7EYqqWI0JNLGxYuE72wvvctdjPtQsN1KUqwWa
+	LsudXcdvov8vFgVtp9e68hdCEGl3JZPE+zUpbOTw524UXNdDzPPj68EcflZfF/Z38PIGWBrdF+6
+	WizLtFW12TNgfMGSfwLQiAEQQUxu/aJuX/3pLB3cAtnp7WFeNwfw+Sb5PGkimighl7vIFncVm3F
+	Kbaaeo8NB+limEG2Q1BJ3JTCds4Mivn3Oho6DPpVShumxpR9i4QCO0uAfUKNnr0ILUpu4rcpFBv
+	WpkwQnBP8183HhWkdZV1wryCRzSiPK/K9duSiQBBoR+u4QAWnlbAdCq3W2upu7z0G57JLALot/m
+	4r5c1llzHtOciBwxAcWX/+tM818o6TSibowS1V6ThySQXrCMyEorygDqISdNwpGficwmsyHRI2o
+	8MCA==
+X-Received: by 2002:a05:6820:1ca8:b0:717:866:abef with SMTP id 006d021491bc7-7191789058bmr2582841eaf.34.1794434501099;
+        Wed, 11 Nov 2026 14:01:41 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae23095c5csm4206140fac.16.2026.11.11.14.01.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 14:01:33 -0800 (PST)
-From: Vlad Banea <montrealtango@gmail.com>
-To: netdev@vger.kernel.org
-Cc: hkallweit1@gmail.com,
-	javen_xu@realsil.com.cn,
-	nic_swsd@realtek.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: [RFC net-next 3/5] r8169: make the RSS hash types and descriptor type per chip
-Date: Wed, 11 Nov 2026 17:01:12 -0500
-Message-ID: <20261111220114.3863505-4-montrealtango@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111220114.3863505-1-montrealtango@gmail.com>
-References: <20261111220114.3863505-1-montrealtango@gmail.com>
+        Wed, 11 Nov 2026 14:01:39 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Kees Cook <kees@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v2] drm/exynos: fimc: allocate formats as a flexible array member
+Date: Wed, 11 Nov 2026 14:01:29 -0800
+Message-ID: <20261111220129.12128-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,93 +110,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RSS hash types and the RX descriptor type used with RSS are those of
-the RTL8127A. Make both per chip, set in rtl_setup_rx_params().
+The formats array is allocated separately with devm_kcalloc() and only
+referenced through the fimc_context. Make it a flexible array member at
+the end of the context and allocate both in one go.
 
-No functional change.
+Annotate it with __counted_by(num_formats) so the array accesses can be
+bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
 
-Signed-off-by: Vlad Banea <montrealtango@gmail.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/net/ethernet/realtek/r8169_main.c | 29 +++++++++++++----------
- 1 file changed, 17 insertions(+), 12 deletions(-)
+ v2: use devm_kzalloc_flex().
+ drivers/gpu/drm/exynos/exynos_drm_fimc.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index a77bbedc8c02..cc253728109c 100644
---- a/drivers/net/ethernet/realtek/r8169_main.c
-+++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -858,6 +858,7 @@ struct rtl8169_rss_data {
- 	u8 rss_key[RTL_RSS_KEY_SIZE];
- 	u8 rss_indir_tbl[RTL_MAX_INDIRECTION_TABLE_ENTRIES];
- 	unsigned int hw_supp_indir_tbl_entries;
-+	u32 hash_types;		/* RSS_CTRL_*_SUPP bits to hash on */
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+index 9c2ad95799ee..9233cd3b2f04 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+@@ -99,7 +99,6 @@ struct fimc_context {
+ 	void		*dma_priv;
+ 	struct device	*dev;
+ 	struct exynos_drm_ipp_task	*task;
+-	struct exynos_drm_ipp_formats	*formats;
+ 	unsigned int			num_formats;
+ 
+ 	void __iomem	*regs;
+@@ -108,6 +107,7 @@ struct fimc_context {
+ 	struct fimc_scaler	sc;
+ 	int	id;
+ 	int	irq;
++	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
  };
  
- struct rtl8169_private {
-@@ -884,6 +885,7 @@ struct rtl8169_private {
- 	unsigned int irq_nvecs;
- 	const struct rtl_vec_map *vec_map;	/* NULL: single vector only */
- 	enum rx_desc_type init_rx_desc_type;
-+	enum rx_desc_type rss_desc_type;	/* layout used with RSS on */
- 	struct clk *clk;
- 	int speed;
+ static u32 fimc_read(struct fimc_context *ctx, u32 reg)
+@@ -1273,19 +1273,16 @@ static int fimc_probe(struct platform_device *pdev)
+ 	if (exynos_drm_check_fimc_device(dev) != 0)
+ 		return -ENODEV;
  
-@@ -2906,6 +2908,15 @@ static void rtl_setup_rx_params(struct rtl8169_private *tp)
- 	case RTL_GIGA_MAC_VER_80:
- 		tp->hw_supp_num_rx_queues = R8169_MAX_RX_QUEUES;
- 		tp->rss_data->hw_supp_indir_tbl_entries = RTL_MAX_INDIRECTION_TABLE_ENTRIES;
-+		tp->rss_data->hash_types = RSS_CTRL_TCP_IPV4_SUPP |
-+					   RSS_CTRL_IPV4_SUPP |
-+					   RSS_CTRL_IPV6_SUPP |
-+					   RSS_CTRL_IPV6_EXT_SUPP |
-+					   RSS_CTRL_TCP_IPV6_SUPP |
-+					   RSS_CTRL_TCP_IPV6_EXT_SUPP |
-+					   RSS_CTRL_UDP_IPV4_SUPP |
-+					   RSS_CTRL_UDP_IPV6_SUPP;
-+		tp->rss_desc_type = RX_DESC_TYPE_RSS;
- 		break;
- 	default:
- 		tp->hw_supp_num_rx_queues = R8169_DEFAULT_RX_QUEUES;
-@@ -3066,14 +3077,7 @@ static void rtl8169_set_rss_hash_opt(struct rtl8169_private *tp)
- 	rss_ctrl = FIELD_PREP(RSS_CPU_NUM_MASK, ilog2(tp->num_rx_rings));
+-	ctx = devm_kzalloc_obj(dev, *ctx);
++	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
++	ctx = devm_kzalloc_flex(dev,*ctx, formats, num_formats);
+ 	if (!ctx)
+ 		return -ENOMEM;
  
- 	/* Perform hash on these packet types */
--	rss_ctrl |= RSS_CTRL_TCP_IPV4_SUPP |
--		    RSS_CTRL_IPV4_SUPP |
--		    RSS_CTRL_IPV6_SUPP |
--		    RSS_CTRL_IPV6_EXT_SUPP |
--		    RSS_CTRL_TCP_IPV6_SUPP |
--		    RSS_CTRL_TCP_IPV6_EXT_SUPP |
--		    RSS_CTRL_UDP_IPV4_SUPP |
--		    RSS_CTRL_UDP_IPV6_SUPP;
-+	rss_ctrl |= tp->rss_data->hash_types;
++	ctx->num_formats = num_formats;
++	formats = ctx->formats;
+ 	ctx->dev = dev;
+ 	ctx->id = of_alias_get_id(dev->of_node, "fimc");
  
- 	rss_ctrl |= FIELD_PREP(RSS_HASH_MASK,
- 			       ilog2(tp->rss_data->hw_supp_indir_tbl_entries));
-@@ -4272,11 +4276,12 @@ static void rtl_hw_start_8125_common(struct rtl8169_private *tp)
- 	    tp->mac_version == RTL_GIGA_MAC_VER_80)
- 		RTL_W8(tp, 0xD8, RTL_R8(tp, 0xD8) & ~0x02);
- 
--	/* enable rx descriptor type v4 and set queue num for rss */
-+	/* set queue num for rss and enable its rx descriptor type */
- 	if (tp->num_rx_rings > 1) {
- 		rtl8125_set_rx_q_num(tp);
--		RTL_W8(tp, RTL_DESC_TYPE_CTRL,
--		       RTL_R8(tp, RTL_DESC_TYPE_CTRL) | RTL_DESC_TYPE_RSS);
-+		if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+			RTL_W8(tp, RTL_DESC_TYPE_CTRL,
-+			       RTL_R8(tp, RTL_DESC_TYPE_CTRL) | RTL_DESC_TYPE_RSS);
+-	/* construct formats/limits array */
+-	num_formats = ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
+-	formats = devm_kzalloc_objs(dev, *formats, num_formats);
+-	if (!formats)
+-		return -ENOMEM;
+-
+ 	/* linear formats */
+ 	if (ctx->id < 3) {
+ 		limits = fimc_4210_limits_v1;
+@@ -1319,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
+ 		formats[j].num_limits = num_limits;
  	}
  
- 	if (tp->mac_version == RTL_GIGA_MAC_VER_80)
-@@ -6142,7 +6147,7 @@ static void rtl8169_set_rx_ring_num(struct rtl8169_private *tp)
- 		tp->num_rx_rings = rounddown_pow_of_two(min(rss_queue_num,
- 							    tp->hw_supp_num_rx_queues));
- 		if (tp->num_rx_rings >= 2)
--			tp->init_rx_desc_type = RX_DESC_TYPE_RSS;
-+			tp->init_rx_desc_type = tp->rss_desc_type;
- 	}
- }
- 
+-	ctx->formats = formats;
+-	ctx->num_formats = num_formats;
+-
+ 	/* resource memory */
+ 	ctx->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(ctx->regs))
 -- 
-2.53.0
+2.56.1
 
