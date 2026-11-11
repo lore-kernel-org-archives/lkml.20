@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794432566;
-	b=iB2hlGM6t0oRg5OFTEEvCpgOv7CSjU6ddr7tRsrgrwLKG0sXhhgle4W+7Jb9rBl2eVDm
-	 9gUd8dkKTvNYdZW0Itphsq7qDIaBB2ecV++nugBB31wlCk7CqLkCeIaUPMHZ1p+PwxwKI
-	 kQGtlOGihKXCqCi9joTsSrVs/UuV5AMO1FT4WrzXAu4A271qYc8pRfhsMcArcYMr/7zZh
-	 svxDhlwYLAWK+6jfrr9MrktxnILZZ0EtDhsXx7JlvQZlvqHIHfawWANd18jLgWukehaQs
-	 9BALe0fe+/a1x+D0KkJaF5/En4xEHNFsbfBlCq0dKbdRuFHisQFu2Xmwv84hTtuXOtQ==
+	t=1794432699;
+	b=0wjXvO93L6YAhCYH+suye59cBYkF0TLk6aIsoykQJDAIPPYGNX26dOAekuO0HS5N81Zj
+	 TLsT7fUshWsR5MiHCzwMC0OBbxmRgWwAcEVFMrCADUobbjY59UY9uKTu6nvJnNO+jHv39
+	 LoJZX7PYN9ddkmB+LNwgL8lhr/QmnvHG641fkoFFKLRXqGeOsoR8JjN/66ANoWXMXEg/e
+	 xCsMPIox8eavg2XfsmykrADVBOC9UtGDk34Hg4wQIyhkazPD0L0mKGGqxm6B8fDbVXJum
+	 yz7bV8ZEsT52A2Ndf0f8xnp3cnm6RcZWsbgxHnas6sda09mofEr15AMeGthGk8ktSxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794432566;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-	b=i0XqftOHDTQMrR5eddYVkKM/p75RTHtzT8zi69x382ozpOAFuOPQ6g2hYzw9bjJi+ums
-	 K3/YIR+KkVidzTBS8LrwaRaRT5vIXNRyKE0dlSj3rP9xTzs9bPKIJGVoXZC8vJ3y4mYBd
-	 rk0ZT7xARApdmrW/k56lPbG3p0lo3CXr9k5rDpdn11Z1uwdjgz9m7dL3lTugw0f9t+ZBn
-	 /k5duPh9rffx0subO39umPRne6o9i1cfHnFqOSqF5IzpuvQgxMqugkXjPFszhUCu6jWec
-	 ine6mLZOSybyNfQCWwbGfP2KSIkT3+JhscSFvJIsSUpizCB5+EXl8fQhqKWCTdw34uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794432699;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UVG/CGDtj+WnEdQHJR7jPrTzEBlnNFXUpNMHguIfMb4=;
+	b=Q+NPfI7jXdPFh1pYO/6mDMESswU0z8tdiRBGz8UKnbUVs8QSFcx/GmV4DCJkJ+BRk/gw
+	 pZyPeIxUNFzTPt9VNrvJ0b4fvptCLuMiEAX+ZT97xl819eINYTlCg3Si3qJ4gr0GWhuxV
+	 nOhJQ89tktpPfKDHoehLJrnoFqoU/voLTGCsx7RwFa6Zl3vLLS6flzoL9BECSlE4nkBsh
+	 VuF0HX4r1y0fdMKNkmP+ekYfw3y/v4yVk77fJCANsoMM87dJ+rJCQHSmZVnkJ9xGobf3m
+	 KApdxxK3/0m17niH/fsPIrb57NDkGmoGwKMBFJVHEbbQky3V3LHO4ZFgmKEYeQ+fTWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="Gz+KM/8E";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F77606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:29:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7F77606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3806D606A321;
+	Wed, 11 Nov 2026 21:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3806D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdba1b5ed8dso125991a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:29:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794432565; x=1795037365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-        b=DTLKRFfnZ9XydDu38dZPgAw6wPK7MFh60q2ondkRQNEHwW79dfA9HkFUIRmzK3Y5Oi
-         PGm+TIDXm2T6nMkuod/Zpsn9U1PNw8FKBL85KrUaX8EVrwLELcWAbre/q1Hucbt8EJg1
-         YRYeVWyY2WiyNt2rNckOeXwp+t7pd+Snfm0CLYczNrA7Uu7DyzQxn3Y/EkaUbyGU3LEe
-         wl8jsQ0QL6yg2J84yiAQBEHwYePRMvZbBKRO6KPBcR6SrlTRXzFfx7kO0UfTzBpWPQUE
-         DGVV1JX9fPru0sahKe0OJzSofVJOhOqMrNPYPTAH3IimnCbhWTX7J600ensH0AqcjZaf
-         71PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794432565; x=1795037365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
-        b=FKTe6ossivrK5xLRPFQhV1M5FL+MrS9bQ3f08371r6pLZGVlAPZjQG0RQrPlq3oZj+
-         fNfgPnSFJtQEcc4vlGjJv+BUm8sWO/XOKO2C7QZl8CdjdDLDNGEyudDY8Y53q+BZG0zy
-         3o5tIx2CABHoDwjYnsRojBgAooE3dfbn2k/8KZObPbXXsHIW5JxLeTubB/ntXB/UbFeI
-         vyE0JZzzjVGFFRN/nyakaxvAMTubziZzDi/xkk9fV1LhsBv9k+O+UC2W/kQmkkarOGNL
-         jOqjBw+F62LfdBv7+CpviZcA2g+Zudr71MBylhLLpytRsn0GknemPh2xdayYNYIe2MsH
-         YOmQ==
-X-Forwarded-Encrypted: i=1; AL+hErE9fJCor/sijbI35O/o4zxTKyA/X2eh0nttkj09KzIXY0r7Wp5IHfHd8Sls/qO2pslVL7p8igArmWUSN7U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AHw5Rq19OSevfokF+QiZ4xUI3EGceQVr2EiQOHE4QLcUj2u35
-	9tLlKczL9bChAFxYSKhS89LdfYqMkfUrV2W3RZtc/CHVTlkg2QFhp71q
-X-Gm-Gg: AYBFou0b9nZFgSMkcIYOX+UzW8HdmgcPZ55AIizOSv46NxiqpqQE2mOf7rhueXdbMzj
-	+KIHd+4abzXgBMYTY7/jCdoQfZCdNzK/pGX8NKfQDHPIP5AcR+McUFcPHgQdnJKqsdEdtw7Wgcc
-	fjLCZ9ZH0lsWPMeS7zxaeQ26Agk/gW6E65G3XjnFLGgB8Onr6HYc5jsvLxVfNkQzTICxyIRYvK9
-	HRhKsNj/A3ArS6Y8P4iZ26WqBJ+Ng+llpngAtaEJTZEDaTkQrcsRJbL25aGiED7uQ2So4XOZrXr
-	cZx/CkbkNI4M+blfxxKAMP3YZrzrgOsu4+161cXUFKAHRe4VxEcEMPCJrN2RSInArBkFsE+iobh
-	IztuBdRgsPfMzH97l32V4uupgSaPKMR/9LEg0Ye9GzHhSlJrJ2SCWN2EKvUpbP375felA/8i00v
-	AXPKN60Sv0u17n6zeiIMF4o6aoSAEunUf+C5X8HfHyx+ZIq3KoPlIlaBEqgkmyp/b4rBc391vm2
-	7pxK95H1/gGdZjCZ4BZ90ZP4M7cI2h8//OJ3xkuPlUs8mvV6YOsNgmiPSKrydp0B8bTZs2wcoz7
-	9l0wdbFatUcjNKAq9eRoKqeiCEg4s8c=
-X-Received: by 2002:a17:90b:54d0:b0:3ac:b3c7:de04 with SMTP id 98e67ed59e1d1-3b197ccc66bmr418449a91.34.1794432564906;
-        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
-Received: from fedora.lan ([172.219.65.15])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182e0ecd3sm2310465a91.3.2026.11.11.13.29.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
-From: Artem Novak <artem122novak@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
-Date: Wed, 11 Nov 2026 15:29:21 -0600
-Message-ID: <20261111212921.290857-1-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Gz+KM/8E
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=UVG/CGDtj+WnEdQHJR7jPrTzEBlnNFXUpNMHguIfMb4=; b=Gz+KM/8Efvp4Gv5jveINaF1L7U
+	B2bI72LQUT+elW3NVEGKWQvbtDRb2WnF1FWV7f/QQ9VCM+eSUNYmPCQUGTrAEEeZboL45BxGTR3Wc
+	hbEyYehDEk+qjUsuhPxmquHogbDfY3jtca9FJXkCe+gpMkZKdai5ZWFYEP5Z1pWOTt0/XmpaHvNr/
+	4Rp/CcZkiVypa3kbL2gDuC27IkyBJhsGivGu7l3W8XgCySwdTjViNgsb6cB3V2GVTamUTm7yar4VB
+	jTDT/Fi4uQlq5Pky2pFMVJvcCHNx05I7RdmgUK3g7JjEU0ZG/LQH0Q14L3z9o8Y4Do2IlFSTDtyMQ
+	t1zYYAyQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRFur-00000007p3u-2ymr;
+	Wed, 11 Nov 2026 21:31:37 +0000
+Message-ID: <15a3112f-5411-43b2-93f5-5f62d627c920@infradead.org>
+Date: Wed, 11 Nov 2026 13:31:35 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,32 +58,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] KVM: Fix comments that refer to non-existent
+ identifiers
+To: Fuad Tabba <fuad.tabba@linux.dev>, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Huacai Chen <chenhuacai@kernel.org>, linux-mips@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>
+References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+ <20261111085448.1130701-6-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261111085448.1130701-6-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
-registry.
 
-This prefix will be used by upcoming Devicetree bindings for
-Casio calculator hardware.
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+On 11/11/26 12:54 AM, Fuad Tabba wrote:
+> Comments in the generic KVM code and its headers refer to functions,
+> structures, fields, capabilities and Kconfig symbols that have been
+> misspelled or renamed. Use the current names.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..f05475072eec 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -303,6 +303,8 @@ patternProperties:
-     description: Capella Microsystems, Inc
-   "^cascoda,.*":
-     description: Cascoda, Ltd.
-+  "^casio,.*":
-+    description: Casio Computer Co., Ltd.
-   "^catalyst,.*":
-     description: Catalyst Semiconductor, Inc.
-   "^cavium,.*":
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
+
+> ---
+>  include/linux/kvm_dirty_ring.h | 2 +-
+>  include/linux/kvm_host.h       | 4 ++--
+>  include/linux/kvm_irqfd.h      | 4 ++--
+>  include/uapi/linux/kvm.h       | 2 +-
+>  virt/kvm/binary_stats.c        | 2 +-
+>  virt/kvm/eventfd.c             | 2 +-
+>  virt/kvm/kvm_main.c            | 2 +-
+>  7 files changed, 9 insertions(+), 9 deletions(-)
+
 -- 
-2.56.0
-
+~Randy
