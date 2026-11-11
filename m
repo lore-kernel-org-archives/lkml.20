@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426231;
-	b=XJ8BRFBZqA5xV45zfN1zfRGtu4N6mpUx4L8TGtxIRVzy4glR30Iylfk3tEcVhvbNGVsu
-	 z6xN3AdUKK/V3q18alX6CBl/H/ZYzLdB8haBi12pWzUoBabHP1zDe41TDxN1zkKmrIqMy
-	 mJ7++IuCnRCPcTa7fDja/DX81WuzAMxt8ApgfQLwb/0d3TEcuJQvMvGNN+hxb/8BIQw94
-	 DLdoEdoRm35cV5YKNqahhg2Mfp4rr5sQO74FFy6UbV2XSqUJFUE8yztXT+hxQxP8NbNhy
-	 7qHDrbAyJ8MG6eoXibhwGasAr/GAsKJgxs/0fnhYNSGS2Jg/eBZPM+9Y+ODjpTlKIUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426231;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794426245;
+	b=w/clqTTP+tYLnLKgtdoLw+0QybSSQ1wMrUxsF9qFxFnqS9SDuXo9ghgE5LdjPX3UoSdy
+	 cHK5tZoHvSGZ0HLtZkpquqDfacMFeNwRUoi6MDiiQyrzc1zxDKtjBzuEk1IyagPWUMg25
+	 AxQGJXc4F+98iuEQc5Kh+I9EURetYF3WCSu/UnZfIWSDTSzvkw0sIs1U14W2JSOZDXvuM
+	 7jsda/35c5Y7AJ/J/UoWXvKkOBzakYI+X0Ar1MO9vpyBeB627wdjfZc6EzSohsiSlz/2s
+	 YoZDwqY79WoaGZMUnXAIcF7+c9UV/lUDbeTDMRlV7ZrPR8aSrouBBqoJJkeasgbNRpg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426245;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qPQBpyJHjmsj5LG3VBmEeZ6gqORHq46wFNwC+BMZwmc=;
-	b=A69sxLl3LExTDP3nSFXiqwhub1Dk2pLKZLSNaIM36HpYLDXWECcwaikU5vZkIXs2Ma83
-	 Lbwa+siYephHfW4ABK0dSKlOp5GyTyyjgieW2HtkK2T4hkGpM0Ey8afBUf8+0HFiYq5sz
-	 UHWnhym2kxB8AtpXrOE3zLDk76D6HiX39NhyoiNF3TCVrc0bB9Nn2F+/gGX+n4oheyja+
-	 T5QMmZ/9Mo3wW0vwuagKIabSw9IEOpsY3abl2Ar2QLFJtbHa0K4dOL7WrCbiOn0SIIZYZ
-	 uFZ5ZEZJdoHTbvddnbq7mcCpxw/WKncORO20ckn9YLDVN+v+jxY4iRJCIWGRnJkZJAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iL80ifvK;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0c78mVQK74LynOaPiL/mQdianq/QQ399Mugm9IGaPmE=;
+	b=thel0/EpihC3w7YhiPu8RicQAJp1q0qmB1IHn9R5KhKx8mMSpTvMVj+ogIXNS1PdsQ9O
+	 z8VeCtwOaLPG4QbYW7rlblg7mn15dHwRqHW/02O6Mcco4V3KMf6RMIYSXK2+m38amj2NC
+	 VWpvBxS7M709G265KeTPFZFUYfbcINSEsmJcWPvTzkw03dLI2BIh59vzKIku27pnpS3GO
+	 bo03uK+zeysSyN0WQ3BUtf04lw6JbU54iRzK8vHSzZsG7flPD1LuptHjWcpccG2PqhGpN
+	 /f5ZA1/JB2T4EZN68j/JdyzKJzp7cftLXYx03RtYs1F3xkNDbT1wfEkSn2LLz2n4fmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sentinelone.com;
+	spf=pass smtp.mailfrom=sentinelone.com;
+	dkim=pass header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=Szh2okIx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34198606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34198606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E919606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E919606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sentinelone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sentinelone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iL80ifvK
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso37329015e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:43:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=Szh2okIx
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ea19c28a50so498655ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:44:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794426244; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kewnP6k+SyuE1VPwC+cnbc5zMBo505TASweX6lEV+3o8IRA0/H67vOpCVktGLZmlLV
+         fZXz3Azq5CR5WUF5DO4E52o5UW/U1f4v2P7Y1TIYKM7YKbzAXzLiP6Afj9TzjweXI7pu
+         BZXkvZ8sarsdBxZI6W2AL5QbszE34p+OYg/0x/ZhqoyKN4cyIKeHUJtYLY96D29tk8er
+         dIEG1RP1lbp6NA5ci6+T5HNQkSkKk1iZX1qceGFTwjSa6wf/m/eE7lWk5keaZ/qwuM8p
+         qolMZlKodpyFgqKTtcjAIL4nKp90R6cqVAKMjSRasgMSQZ3i00+99tj4TdBA5EdVAYHu
+         ddeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0c78mVQK74LynOaPiL/mQdianq/QQ399Mugm9IGaPmE=;
+        fh=EphO6nT9J2/UmcCxRq/WLuHMqLDyByYWli5ckqignsQ=;
+        b=inI3rxJs+bAugXTwgeCzTQ5KVWrtuo7Oz+aM/qsCa6dWeGXSpaaQHOEYx2u8j3ceeY
+         QDUxTvYAQhOm1xYpsMEdSfCJqEmUDxX73r0LtXf2EPdgjoM9vxwcy5+ZtYLmMfnXVVu2
+         pQ4bRNJ+KGtB2TPSCatz3+/0jHsKPxvGfXaBSzIDsI2SV6BkMwPswoTNQajCZ8bXcsOD
+         S8iNpMrnenghX3mqjdLyseHW7y61lq/c3C7C4zGneTYNKrxmw66DdUFuoT7e7E+9Sqzi
+         lPRBttKaMZZ/JeD1xff7pPLpadmnzqmpAyj8UjffMhwDlRyjCt3Fx0j9splmgZFMAYz/
+         3Utw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794426229; x=1795031029; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=sentinelone.com; s=google; t=1794426244; x=1795031044; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qPQBpyJHjmsj5LG3VBmEeZ6gqORHq46wFNwC+BMZwmc=;
-        b=iL80ifvKLKFZgLpJn/e7lNXdSJam0veRmlVkdvTZNFBW22yP/7Z0D0aJpFwMwD2+r0
-         cxRQmcmVZJ4t3jdjbvKfWPw/1sBjYKmdpzht24cQVBBDi2yB0Lew0TQXm4BLmGuFKzin
-         o6qGkBuHRTqH4HJ4C3PKM/jx7w/L33n6vkvoCXoSzCFy7VHkHjOBqXRsTfEXpATqJJGB
-         vK12CsMOV7Rzr50wQYK3bCxe7I2DLDubQHfiFs4RtSUK0Nqu4a7p3/gkOmRKxT6XgHsn
-         Rzp4irT2QU0I/X9z0qPOK7Ndv0t6fbv+wkNGuVo9BZMKUtVufGdsSVqUMOv3Bo7aKpCF
-         M2rg==
+        bh=0c78mVQK74LynOaPiL/mQdianq/QQ399Mugm9IGaPmE=;
+        b=Szh2okIxPn42DAW4rJdqCEHxXRlzlWdQUlKv14FIT8XWsBz5vjlzjCzgn0FaVZJDaq
+         39Vm/RZA8ElBOh5u7Mzw/+Py5wvddWw8SdG8KrjG/yyy8Ut6dOT2nB7Vyod/G7kRfDo3
+         NEPXrzu6FpqalSZZElj1FedVp1EH7SsGuZAuWq/Fc+rmSEGHijFtFUjVehCGYQrVNDMH
+         KupkNOerYb4ew7Ip/cWcDzIG7fjaaPi3kqNlFlLTFMK4PJIiWmJFryJmJWgX6dVYAq0t
+         Beud0aSkg1ydIKiT7aLPx46cS4KidcnGADP8iFP6WwLwMu64NJpW1IQiHuhhjYL0ooA7
+         u78Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794426229; x=1795031029;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qPQBpyJHjmsj5LG3VBmEeZ6gqORHq46wFNwC+BMZwmc=;
-        b=JdWlWVjO1anNT7z382sPA9v6Cl9LcCwW3uWSZKlv/biMT1h7bm3TzWVfyTzPPoxipA
-         OjDinjJSsDa0+7spmqEoiJ/aqg1htlc++yPKQwobdojHs3uVnM4RXb736GbZB6HqEjjT
-         QUeJvcgUoIHkhfkKohv2s2x09h5k7N8wXc+zXctJdXlMz3gztZn8u0d1nhECbhRx62CG
-         UPq3V8mRhY6i8A08HStLkLPgkm63gChYn6nLjgHU5ycOAPVTZrQDr3isC1lLsQBJYN8j
-         hhCRCNTTbwycwINE71/JeVJA6k0y/dvOfpQhVRNAdK6AgsAODQH3XeKf0AcDhkPw0wRf
-         fF9A==
-X-Forwarded-Encrypted: i=1; AL+hErG7H+gytkYTtN4oGdzd+jKDafRrP+7S52Aa7rFj6ani/W0YX8jUxe6GN3hG6IQkSb32etWIqs4rHCkr7ak=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+DHR12SHFpqI+o/DmTHdz8y4L9SUUPNrTKzBael0kTErC97Bp
-	o0al8eV0xj+tEGoYM0/rBQTLFz/ZTQfArm/av2l/UsFwFdUGa1AAHppM
-X-Gm-Gg: AYBFou12CzA7S1UrcrFAHG8rC8Je+kzO8tiM+IbmdUr2TZ0ZbBUusx8jGJHRqgfo1be
-	dZEHazLFpDBAKH1eLzrdjnYrpq8dh3+y6FXcqdnN7Ehd/ImEsTAQgpv9DHG6eZ74Y1nXA6Q+pfD
-	QriHTHpRysey8F4GfCCAAATuS8xDeVMOaV63sLI+EsJsRgE6KxuardNpkOuRu2jAmU3T0VScecl
-	7LlQtwcA357RbMzaoEZfCwyX758tnhXWjvc0hkiFHiHVTVFl+/axRPccA4S6fbAJdBCaREl3TwT
-	AxiHc2ve4FPMLCUcpUP86BfPT59tUzvP+d9qy7+XuMNNuhH1D//ynK15jE4XUugPf7PbjLLpj70
-	iudAOZrj7ReQpSnE4CshqTOWuB9fb9kg5uceFGuI2Y4+tQe6gG6m6IvDFlw9DUD0A5R0IoXGr90
-	DMrLEiRKPLXBZE2LtWgENy8VNdAd+Zokj+dgrjcM1CJq5I4KActEUq1EWNvl1ARm45EFkVZ1KPd
-	Q/D0V6QoN0+wNgWgCcRCH4nx+wi48y6Yrl4TpK0g/yFwDT+OiePbsscGi/1qSDBVlunBEM70Enx
-	Gb8NiE1Mizc+2s++8GV17J4vZV5mTcK7+TSdvM/HhkWivIkvYncRRidUb03EeSjEFcd4
-X-Received: by 2002:a05:600c:1e04:b0:4a7:9025:5c3b with SMTP id 5b1f17b1804b1-4ba093b9702mr62316215e9.19.1794426229399;
-        Wed, 11 Nov 2026 11:43:49 -0800 (PST)
-Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm12088665e9.2.2026.11.11.11.43.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 11:43:48 -0800 (PST)
-Message-ID: <60029f5a-091a-4022-ae48-8fb9a00d922c@gmail.com>
-Date: Wed, 11 Nov 2026 20:43:47 +0100
+        d=1e100.net; s=20260707; t=1794426244; x=1795031044;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0c78mVQK74LynOaPiL/mQdianq/QQ399Mugm9IGaPmE=;
+        b=FvJG4YAbKGi03vnRK+pOWfgTRtDPgoIIvIOVDNDeXVpaKlpl4Z7Cz+zHA+nGgk6Xk4
+         oU4PcM7v/TwuaPfpiRycMm6cTAM0oM3NkrblNfFtpg6Hu07jSL0/X1yCKFPBISLPUU/k
+         /njr/JoFqQg4YCKrrFUpeTX0OtDAjTX479YaRGsya/GjAxAvqSIs2Xv62QSwn4bXWYG6
+         BHUw3MBBiydaFCGLvllGJ6yxK8YwL7z5Y8qmIwnbRSSs1OlE2bShoYPJ9oEdiW2bg/01
+         po7M6Rsrg0Wf16QKryvvIQzHc87TJlMWHvEcRduuLUvICkRx9YTe8qKZ3A5hMPcI+IvT
+         yCbQ==
+X-Forwarded-Encrypted: i=1; AL+hErHqTfP2rvd17H2k8vGf6wT/c2/viS5ld/nN1+856JIrG2yarA4ZK/q1UjMRa1fMVSFa97n+j9vaSNt24J8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KAt0tYEDoJ8vsaC+QkcsfCAXoEu4nVCf+HVgtzSd8kWAQ1PcK
+	nYY0LvY5ShQ/T7JpupA8hC8wtl4f5wuWW9NSKT5A8s8gq6bcrJMxDI6KRJwnguGeFSoY0NSICeS
+	4Lz+bpToUHXhF6og9b+xbi0xzGEhcc8Jt884Nq82q4w==
+X-Gm-Gg: AYBFou3bvc4hSmAuoae1PT6bzut/qojpZi8Y4Z9fDHiESJFwopab0APCdJIw0h/Jhbm
+	GjAH8+vZ+Wm9SINyfwwis4WnQDM2406OfggX8ScmzMqDC1koVrfReTaP/i6waLrVW5iptOpmrrm
+	cvxEIwxrQnfhqiDKsdwY46Cb+1zFeMGZtuGGLVLl32yqXnEC9w348S2s6ePJSTyFmz/qgIzHdfs
+	ODbAtoDZOg3/RbgiK22e4Fo1TvKLeECUPzziGsJC/qXfMNDoerDspUlI9c3ZjFO9mh182mOA3JW
+	ye0MaZBQXEjJiaeqjDYAq3M/w2sWtKS4a8AUcYtCjRw84o52cin/8Y7/uRCyE9dGP7UhoWcXf3q
+	UKrQURSmVecw9n35F7GT4SL7NEMukTNE0ia3x5WmWTm2Qisuy924lLmU=
+X-Received: by 2002:a17:90b:3d82:b0:3a8:9db2:a59 with SMTP id
+ 98e67ed59e1d1-3b182d37a0cmr4916155a91.0.1794426244317; Wed, 11 Nov 2026
+ 11:44:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,74 +103,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [SECURITY] mm: khugepaged collapse_file() drops RWP PTE markers
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Tal Zussman <tz2294@columbia.edu>, n3rd <18670333770@163.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "ljs@kernel.org" <ljs@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
- "ziy@nvidia.com" <ziy@nvidia.com>, Mike Rapoport <rppt@kernel.org>,
- "peterx@redhat.com" <peterx@redhat.com>,
- "security@kernel.org" <security@kernel.org>
-References: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
- <60541e98-b1f0-4f92-a155-8a29c0bb17dc@kernel.org>
- <44abb8ef-7711-4ad0-be9f-ca47206892a3@columbia.edu>
- <856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <856cdf21-7982-475a-b244-a7ceff4eb6aa@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-fb8eadbfebab@sentinelone.com>
+In-Reply-To: <20261025-b4-bpf-trampoline-preempt-v1-0-fb8eadbfebab@sentinelone.com>
+From: Mike Bazov <mikeba@sentinelone.com>
+Date: Wed, 11 Nov 2026 21:44:07 +0200
+X-Gm-Features: AclHuK8saDkuU9yD83aEJP9vw27K78S0OdlGm4k94CqvQAsOXBX2ygr_2svCp3E
+Message-ID: <CAPnbwjrf-X-p8JSkF2xcxz9weP9XxaLCiRqQLuCd=09pNQxtSQ@mail.gmail.com>
+Subject: Re: [EXT.MSG] [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
+ cause false recursion drops in trampoline progs
+To: mikeba@sentinelone.com
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	JP Kobryn <jp.kobryn@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/11/26 8:29 AM, David Hildenbrand (Arm) wrote:
-> On 11/11/26 04:19, Tal Zussman wrote:
->> On 11/10/26 6:55 AM, David Hildenbrand (Arm) wrote:
->>> On 11/10/26 12:54, n3rd wrote:
->>>>
->>>> Hello,
->>>>
->>>> I am reporting a security bug in the Linux kernel.
->>>
->>> Stop sending uffd problems as security bugs. STOP IT NOW.
->>>
->>> Tal has a long list of uffd-related fixes he is about to send out. CCing him.
->>>
->> So this issue was originally on my list and I had a fix for it... but it was
->> REALLY ugly and a band-aid, so I dropped it.
-> 
-> Yeah, RWP is a mess.
-> 
->>
->> I think the real solution is to just add actual markers for RWP and solve
->> all of these issues at once... but that should be a separate series from my
->> batch of fixes (which I'll be sending shortly). Is there a reason RWP
->> markers weren't done in the first place that I'm missing?
-> 
-> Let's ask kiryl: why is it ok to drop RWP PTE bits during swapout, zap, collapse
-> etc?
-> 
-> https://kernel.org/doc/html/latest/admin-guide/mm/userfaultfd.html?utm_source=chatgpt.com
-> 
-> states "Unlike WP (which persists via PTE_MARKER_UFFD_WP), there is no
-> persistent RWP marker today. The user needs to re-arm the range with
-> UFFDIO_RWPROTECT after any operation that explicitly frees PTEs."
-> 
-> But requiring the user to re-arm is rather questionable design if the kernel can
-> just zap these page table entries.
-> 
-> @Jose, maybe you want to look into marker support for RWP to make RWP a bit less
-> horrible?
+Hi all,
 
-oops. I overlooked the thread because of the AI report...
+v2 is out, following the discussion here. Instead of keeping the
+programs non-preemptible, it checks recursion per task through the
+bpf_ctx chain, and it now also covers raw_tp/tp_btf, sleepable programs,
+BPF_PROG_TEST_RUN and syscall tracepoints:
 
-IMHO (and after reading Kiryl's email), I'd fix the doc instead. "Scope 
-of protection" doesn't mention collapse or shmem reclaim, and it still 
-tells the user to re-arm.
+https://lore.kernel.org/bpf/20261111-bpf-preempt-v2-r2-v2-0-9d8f6b952ad2@sentinelone.com/
 
-I could work on that patch :)
-
--- 
-cheers,
-jose a. p-a
+Thanks,
+Mike
