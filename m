@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794367419;
-	b=PZUScLtWBll5sGEOsEOxyUy+/0TvLY5SfXNqYRo2EhXW2Wrq2/aQpWPKlTBGp5stWKkK
-	 rZ0AgqTfuVpJM3CT/5r4xLTw3ehKm5a7wA6KvEYRWuhjzxmEgJwNWMEO23SADM1/8vbuC
-	 enAi4ZgwhzRBCe6g03KFrIJQ2D0GYBFHgesEln6C/6YLxNy8AEkpkM90evzAN9i9rQTKt
-	 Fqjqja3MYqlkeQfu/y+/cHmz5vJTG3bNgnDjp5cmBX59pHR/um/0EcKhSBLUXJv52OcEI
-	 59PM7orxhm11dM3xws+DgkG70ZxaUPloMT0YRZTmX7okP71fLQT0c2maNHOBeEdTEjg==
+	b=4hTTVJ4/JIkeG5/fmBSaDQfzXAtNSjYU8D7H+PwtYjLSELY8J3tZ0oOh6oxqnllauzS2
+	 iN7cHXhSOlE2TpaWzzJXkM3D0ijYAHyZSYV0wGtczuddu/V7jA6K/mDBwwy9asD7wq7zq
+	 uE5kqYEZFSYGLcvD1lhYh3s0wmSjxHq0E6/1lG9JhdW1y72J+poXQUw58EWr9v9L3HPWj
+	 iuvTP+dixKZb1p1ghygznZUR5OlU6Ksl7HNt/i074cD6Civo8AQQCxZS7HBp2P0X9ra7X
+	 pCouAk7OEUm03RQkiS36IjX9T1Z+1PMAEbWlbNYvyisd7aM4sOaK9IGjyIY84c6bJeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794367419;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8D935cCybZcKPmLSQDzuIWE83ffg1Yvgg9sYd3csxZM=;
-	b=0q8Wi48ap5s8xQCRqcGCOmZHFypIUlF7k6rjSOHqzxh16zdHfQiKnatxGzm7rkiD+knU
-	 4e7yrpFWGdr1SCW1UYZBFadI3KrRlkXG71Ix+9JpZiEIdvKA/m9thtWejGltN4B3ZLfnr
-	 y5fOAZA3et/+zlTQtfyMTiZtNToJ4u9LmsonMkPRGPF/VJfmZYKgoo2ehWDWUwPXmdMO9
-	 vzK3lctqgmM3oY7huJMxn6lhtzeMZPVr/RO+0YavJtWMyW42ngVlui0ifVdx8PrvnW5HD
-	 y+WZxDqkAeFJ8zHBLIs9q1aC+W+TcniQiQSlZF8cUtvrgYY1OvhC/YVi70MFncycpGA==
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=jlaJm4LX2PMMKh5kI2WAJJdUG1atJ4HZp+uvQrPRAJM=;
+	b=mMK4VlUWxSGZFD7h5xLQsTbchTS0OJR4+ODQYPqhgT4JdTNN3LqEdA1cE1bY6eqhjpaL
+	 IgL4BjRlL1q7oSqA6sUi0w3Un2EDHE8GKD6WmmKFv06Gs3gzENRNOhxpz0qHp2Y286t2j
+	 sF7hlGYRAq2U4RCN2YNQacUKGrDVJEV/35+bBTvgA4dT2P6+cmU3a7YTI8jrxvX+Rv2Mj
+	 03v/66cdxzX2A/T4A7ugil/3UgLUEdEOWp4Z8H8HCunKKRGMKMp4jWC3ndmo2GafGEiyO
+	 00jbAa+KqT471OUyt/DZsmeu+U5fwM42gn07ciZfI7lv35Fc2eFEX9ZFstUbenClPww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XeJtmV8N;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=p2lnXLPu;
+	arc=none smtp.remote-ip=203.205.221.191
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C4606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535C4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16BB606A33D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:23:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D16BB606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XeJtmV8N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794367417; x=1794626617;
-	bh=8D935cCybZcKPmLSQDzuIWE83ffg1Yvgg9sYd3csxZM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XeJtmV8NBp5ph4zvL+nrMi8n1dx3ilMrS03XQWrw5GAZ4XtnNeC4jNsFgV5p7yuBW
-	 iu54L3mnAUm0FBC7OeCp69xEELIDnF9QYWtpO40u57URraEUrGewOhPurUSrA8ea9f
-	 IlBjqIPJponT+zVOpJB/sXOMK9f1vkJhQMTLSkldUVYcTlPiTXW/fMj2zTzTUZem9t
-	 DmacdZhvtgsNULlCc5RBCnHoKwMq4twO2f4o56gKkhseBobtcR+tW6V+el4U6g+RD2
-	 2bnLz56TMhtN0pTMKNvabFhElGTeGMAqSTERB9R21eYOmCLsi6R1ns34/LLGidMmYf
-	 Zalk9RZIJn9DA==
-Date: Wed, 11 Nov 2026 03:23:34 +0000
-To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-From: Soheyb <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>, stable@vger.kernel.org
-Subject: [PATCH v2 1/3] phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
-Message-ID: <20261111032309.3365794-2-soheyb_boulaa@proton.me>
-In-Reply-To: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-References: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: a639c261283024b524429f862b345c132fd67912
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=p2lnXLPu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794367409; bh=jlaJm4LX2PMMKh5kI2WAJJdUG1atJ4HZp+uvQrPRAJM=;
+	h=From:To:Cc:Subject:Date;
+	b=p2lnXLPuyYTldEtde83+5cFnxxOjz2F4wjzOeAb6zDW0mfDwqe3XHv8j7KV5VFhjf
+	 LptNzhCMpnGr9jomi1MGz2d+vmgMLNIOfDtIEUeiK1L1abwP4EI6Q1Kkyt4sCbnxTP
+	 mF9gcjCdRWGOnWc2MVMxUIYB5kVO+G1Izqh/wTUY=
+Received: from DESKTOP-KS8HP5K ([59.78.171.188])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 5C9B5682; Wed, 11 Nov 2026 11:23:09 +0800
+X-QQ-mid: xmsmtpt1794367389tlf7g5psm
+Message-ID: <tencent_10059585FDBE07269A8A28C34F0D2574C00A@qq.com>
+X-QQ-XMAILINFO: M5f61TQAi9/2YwMuGin0fOKcO6iVoQByQkFt6cLzCZqCVyW5ZZxLWLmGJEDX+4
+	 KnZiGoftspIUCqZC5DOcFTQZ37P8tXoGfgBXFvcbeFQqVFS0kGYjWpX+u//ds8BSwBX2bwlmRxU2
+	 OCNwpAtwXSu2WoOSM1rtaDKMkFJ7wqWwRADjtvvIKcVC+zXE85Omp9G1e17eqfkQpn5gDHbc4Yzi
+	 8A8/hmYu9k8UeoDs41d2tTPfxM4pYYT2okOjC5QE7HrEelEgFNp02hfulcKMs5IYgGFrON7+29Q5
+	 xzpzXhGnAKU+nw/JMzTMlyLNWmdOTIlD/bylipw3EyUs7UoKd3qiLCT3jCB0EyE2GqumJIdCAjjx
+	 16J8Tr39NRJVPGxY4QmpXtpOpJVHQwdtKF6QvBmtwdBjNLbWNcy+PoM6c7MMPaCSz5WXHCVHnLpU
+	 2ri4x6kL3ijYCTvV5lddDNTzYJ8Qv61951kLZtkxrrcRKE+f2jeq63wUJqxLlQFCQhNos6QIjvGc
+	 E3mXY0zuiGQU9ogitDyONfTjmEgmfCUhFVv58jR5Tkz/PeWpC9xXWWsmq2N34FfZgM9l0dADIsix
+	 hU4r3mC4TRsrOZ5XKWTW8NsMFl/nHLnQsQmRHrxlIgbjb+7SAZMrDOS0x4niEsOh99vLN68rOxsN
+	 gV0xM5KGK6zwvekSjDP+plwN5LxhS6jeawNEl4+JTzW07780o6ju/qIEbw//cclwH/3WIP/maFT1
+	 enOkyAvIlELRpOo8IswLh7Z/BWl0eh9zdqhQX6hGntN8J116VPpHv06/kUoZMt/F5eKL2ftVLMTB
+	 6ojlheRO9yo66MDoXwdqPh1AYWE2xiEQtG4kYyklZk2tbZK9YER0vju8wmg7T5otcdfesnlKheFv
+	 uqH86a6zsq0lzHhTgtlMrwWI3lISjz+fiBHC9bcOrg4CO8Vab3T7RT3sEAotA+rqcIxuhH6S+qX6
+	 2AE3Bt2CLBideEehtqSLL/jWh8h5Gi2HBFacViL253QiPDOXmLdBYSoSnImYurFUl8n8RIiwJvDN
+	 tIEgmUbPjgdaC/h9XE
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: usualtree <1340399194@qq.com>
+To: ericvh@kernel.org,
+	lucho@ionkov.net,
+	asmadeus@codewreck.org
+Cc: linux_oss@crudebyte.com,
+	v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	rahul.priolkar@asu.edu
+Subject: [PATCH] net/9p: publish fd cancellation error before status
+Date: Wed, 11 Nov 2026 11:20:15 +0800
+X-OQ-MSGID: <20261111032015.1948-1-1340399194@qq.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,67 +80,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-exynos2200_usbdrd_phy_init() enables the regulators of the UTMI phy and
-takes the phy out of isolation in the PMU before it enables the clocks.
-When clk_bulk_prepare_enable() fails, it returns without undoing
-either. The phy core does not count a failed init, so no exit undoes
-them later: the phy stays out of isolation, and its supplies stay
-enabled, until an init and an exit succeed.
+p9_conn_cancel() publishes REQ_STATUS_ERROR under req_lock, but only
+sets req->t_err after dropping the lock. A waiter in p9_client_rpc()
+can observe the error status and read the initial zero t_err before
+the transport stores the actual error. The zero value skips the
+transport error path and leads to parsing an empty response instead
+of returning the transport error.
 
-Isolate the phy again and disable the UTMI regulators when the clocks
-or the phy-specific init fail. The phy-specific init does not fail yet;
-the next patch makes the UTMI init return the result of the init of the
-high-speed phy.
+Store t_err while moving both pending and unsent requests to the
+cancellation list. Add a write barrier before publishing
+REQ_STATUS_ERROR so that the error store is visible before the status.
 
-Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
-ntroller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Soheyb <soheyb_boulaa@proton.me>
+Add a read barrier after p9_client_rpc() confirms REQ_STATUS_ERROR and
+before either the debug log or the error path reads t_err. Keep the
+existing post-wait barrier for normal response ordering. The new
+barrier covers a signal-interrupted wait where the second status read
+is the first to observe ERROR.
+
+Keep callbacks outside req_lock and preserve the existing list cleanup
+behavior.
+
+The issue was reproduced in QEMU using an fd transport mount and a
+temporary delay after the early status publication. The waiter
+observed t_err == 0 before this change and -ECONNRESET after it. The
+delay and observation instrumentation are not part of this patch.
+
+Kimi assisted with the reproducer, fix, and validation, based on a
+request to find and locally verify a small 9P upstream fix.
+
+Reported-by: Rahul Priolkar <rahul.priolkar@asu.edu>
+Closes: https://lore.kernel.org/lkml/20260911092132.3328659-1-rahul.priolkar@asu.edu/
+Fixes: 11c10956515b ("9p/fd: fix issue of list_del corruption in p9_fd_cancel()")
+Signed-off-by: usualtree <1340399194@qq.com>
 ---
-v2: new patch.
+ net/9p/client.c   |  5 +++++
+ net/9p/trans_fd.c | 17 +++++++++++++----
+ 2 files changed, 18 insertions(+), 4 deletions(-)
 
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
-/phy-exynos5-usbdrd.c
-index 087d552..a6fe779 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -1462,7 +1462,7 @@ static int exynos2200_usbdrd_phy_init(struct phy *phy=
-)
-=20
- =09ret =3D clk_bulk_prepare_enable(phy_drd->drv_data->n_clks, phy_drd->clk=
-s);
- =09if (ret)
--=09=09return ret;
-+=09=09goto power_down;
-=20
- =09/* Set up the link controller */
- =09exynos2200_usbdrd_link_init(phy_drd);
-@@ -1475,6 +1475,17 @@ static int exynos2200_usbdrd_phy_init(struct phy *ph=
-y)
-=20
- =09clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
-=20
-+=09if (ret)
-+=09=09goto power_down;
+diff --git a/net/9p/client.c b/net/9p/client.c
+index e63e8c2a85..d68827af8c 100644
+--- a/net/9p/client.c
++++ b/net/9p/client.c
+@@ -611,6 +611,11 @@ p9_client_rpc(struct p9_client *c, int8_t type, const char *fmt, ...)
+ 	}
+ 
+ 	if (READ_ONCE(req->status) == REQ_STATUS_ERROR) {
++		/*
++		 * Pair with the smp_wmb() in p9_conn_cancel(): once the error
++		 * status is visible, t_err must be visible too.
++		 */
++		smp_rmb();
+ 		p9_debug(P9_DEBUG_ERROR, "req_status error %d\n", req->t_err);
+ 		err = req->t_err;
+ 	}
+diff --git a/net/9p/trans_fd.c b/net/9p/trans_fd.c
+index 159d57e41e..5bfeaacbb3 100644
+--- a/net/9p/trans_fd.c
++++ b/net/9p/trans_fd.c
+@@ -172,20 +172,29 @@ static void p9_conn_cancel(struct p9_conn *m, int err)
+ 
+ 	list_for_each_entry_safe(req, rtmp, &m->req_list, req_list) {
+ 		list_move(&req->req_list, &cancel_list);
+-		WRITE_ONCE(req->status, REQ_STATUS_ERROR);
++		if (!req->t_err)
++			req->t_err = err;
+ 	}
+ 	list_for_each_entry_safe(req, rtmp, &m->unsent_req_list, req_list) {
+ 		list_move(&req->req_list, &cancel_list);
+-		WRITE_ONCE(req->status, REQ_STATUS_ERROR);
++		if (!req->t_err)
++			req->t_err = err;
+ 	}
+ 
++	/*
++	 * The error code must be visible before the error status. Pair with
++	 * the read barriers in p9_client_rpc(), including the barrier after
++	 * the error-status check for waits interrupted by a signal.
++	 */
++	smp_wmb();
++	list_for_each_entry(req, &cancel_list, req_list)
++		WRITE_ONCE(req->status, REQ_STATUS_ERROR);
 +
-+=09return 0;
-+
-+power_down:
-+=09exynos5_usbdrd_phy_isol(inst, true);
-+=09if (inst->phy_cfg->id =3D=3D EXYNOS5_DRDPHY_UTMI)
-+=09=09regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+=09=09=09=09       phy_drd->regulators);
-+
- =09return ret;
+ 	spin_unlock(&m->req_lock);
+ 
+ 	list_for_each_entry_safe(req, rtmp, &cancel_list, req_list) {
+ 		p9_debug(P9_DEBUG_ERROR, "call back req %p\n", req);
+ 		list_del(&req->req_list);
+-		if (!req->t_err)
+-			req->t_err = err;
+ 		p9_client_cb(m->client, req, REQ_STATUS_ERROR);
+ 	}
  }
-=20
---=20
-2.56.0
-
+-- 
+2.52.0.windows.1
 
