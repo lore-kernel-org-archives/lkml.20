@@ -1,52 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370486;
-	b=qaAXI9+oewotFXi1VK+tfYFeguiiY/9zE4xm6QrYw1j1JlatcsRPcWwbhBzvusRbQPms
-	 oX6CANx3rj2/ClZPmDzggNAqdpsc46Wy8Y2FkUdIFcyJLu/3BGBgt5gLKaLdSDDEI1pAz
-	 YvXD7/dEk6iiCQHCEcbQ83RNr831YsQcKC7TwyV3ZKxwqtB6v2qiMpOvnWMGWqBA2u32V
-	 9bgXgG6YsqJkJaRQSbB/rEmdKLr1eiBqO0u/Bd+dj97W6ZSpu9LRCEpP3GMRTHN1hDfzg
-	 9uFQUa9KGb8bb6IT0XhyDOrcjyxN93X/pJCiEqM65U1dMIVbTM3v38w+JZNwTy/sNnA==
+	t=1794370493;
+	b=K+fxPA4Iv7Z0oiflGkiobmbX8rN6+e5mz2iSAe/xVXmnaUrr2TKTMuM1urXorv4mmLHg
+	 p+M0acLyc4iDYzOzcZU8JnGlG3nyDk6V5s9CkyK1JOZkC4zXp+x66CwAEQEWwZdfYtHv7
+	 523GMGZuhO33saSfrPsSve6K/NAnRL115Dx+yzENBYCRRQoQCbjDcyWDA8vsSbPO9UVY0
+	 NYm4/ArzIB5ZBxoWUKYa5mlXpSdnKmHLYaAesSeq32bU6KoClHg4oavMSJY+xmMiw3rVe
+	 j71kAlM7/9s/ST+/tDSMfcMYsqelxasxli1fcvECh3r3T0TlXbvpeAonVofnhZuleiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370486;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Bka+P1SKn7+o7710EoziSWAmGI6ixZAyxquFEjs1PAs=;
-	b=H8vtm9aczBJD4tq2p2CSwyoaSyq216avJkbAsvxGUO9XW0+l5DrAZmiIFJY+3W0kgOPm
-	 va9XWIUaeRM28r9b3MrFavWOTaMQ0I2gzoSR5lp5Jsdc6jzIpo2vNVFiLxg0DqwmQPFZb
-	 Lqr52YtEYADuU8f7uTKs8xT84CQ7EwUq7dqL1JJp3iEwRyQO+5LcdA83f9z20XYnLAIkY
-	 9pMaAbQwYCjKTJZoQV2cdIWlAGNm3i4dyKu/r/ak4382E67C/ydeUVfl2bwi61kIFYPof
-	 giM0m64/unICzxGltgCTNjvkJsWBqoQvm5CYa5EcChixtuGWDE0j1qfOQQUQNHcCPNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370493;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6Jx0m1gR/D5Ve2Igam7P3jRhX1J0ZyZQYElBbHXWnmE=;
+	b=42eihO4QcalA/bGtIyjnivI8HWSgBp9smhmeXg8dV9Pw/eRYd3Ne+WLTQa348wpv/unv
+	 QYCfi4LNH5rCZB6GcJwQJbwXxE7pvPKgjR2CRwA9zDvfltmnXNief8MwTa2EkyqbHaUEl
+	 2AMEdBeo1SlS/AoEIjvvs/tTLEomudT1rQfeW7b6NtDfXrYr0MvzzApY16THggyqbKgYr
+	 6KiNAsc8UB4bOUmEeAq/7e4Hw6Ydurl3LPFUEiTwh5tuB0MXXOTE4kB+fRtXcu4kdlq03
+	 0jXMvzVR6DzFwdVLOP/5ZyKgw9L1iSNZ5w5uanqsaUbRRiJepmKLQoPTmEioggNgKgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Sc6fSMSq;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=03ydl0RT;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61CA606A31C;
-	Wed, 11 Nov 2026 04:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61CA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731A5606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:14:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731A5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Sc6fSMSq
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 24FC410DD83;
-	Wed, 11 Nov 2026 05:14:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794370480;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Bka+P1SKn7+o7710EoziSWAmGI6ixZAyxquFEjs1PAs=;
-	b=Sc6fSMSquBBcfsDHjtLo5bB5J7aopkltjJTi9XygiXTqObpYtwnCoIaEWwubIqF9Dg5esX
-	stboBY5p3f1nt2Lt6QNF1bd+2n9NLY98oj9ejH3UF09a1bbCnOMu+6/6RMbYaU6Z3/7f/z
-	o45+dbX++pyipfFfta+I+cddBceOuULLpMl6cYgao1QMmeE32E7tEQS9ClpHBwqmnASXhq
-	NdO7N8gVgguw/1aG+cB8MjCk5Rz8cr+oKG/cSwaGnSK7pYNcFePgswpHdIdX3Pgdx6fmkX
-	t0oVJ2p6tcdq37rCk5s/KWlqLf+/FeMU1cZj1hG6F2T1Tt+0LApWj8I/fTKBEg==
-Message-ID: <58f2ae35-c310-491a-a4c2-ead854ad10e8@nabladev.com>
-Date: Wed, 11 Nov 2026 03:41:01 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=03ydl0RT
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53644b28706so40426181cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:14:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794370492; x=1794975292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Jx0m1gR/D5Ve2Igam7P3jRhX1J0ZyZQYElBbHXWnmE=;
+        b=03ydl0RTCX3B6ITWY/G1RpQm6rply5nXPHjXFdECUKSjWR7H6xA5K8HMejxzjsYVRw
+         FIE4Gb+IgGEvkoQp0ahkxjfSLfqEBA5piYMgXsc9gfn6REAcGNC7u6vBaT8cv0jjlfyV
+         X4YMcecqJC7cv1WuBlcs5THWD7KjR+PLmYuA3+EzfnY6yRgLhf9SKUTc1rFPDiZhqzIk
+         64JxUKAQxMDeGGm1nFLDqDBc7uL0EwcVJoouQjVUfFBs/c3MhAKNrPrBkGR8UYx2ZXxW
+         IbKvxwjINumcStWCT0/Uobm2va2WpWKoC3QcuYlYrT7Vz1YYKQZquOROdXwfmnbxcAPN
+         dJ3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794370492; x=1794975292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Jx0m1gR/D5Ve2Igam7P3jRhX1J0ZyZQYElBbHXWnmE=;
+        b=qGk8nMro6DRlLB4DLLp5tdnVlVrM3+HjVNse+/3D1mMcccsmsGcMbsnYj0bDUvMnRI
+         yd37va/HvoBCbp2uM7/X01MydfGxaM+dOCTVuRLXA7/syPDKQGA0JVPvcZ+zCfnR33T/
+         xeFCsbcvz1YrZur8JAgJA06D6Uz/GYnmLCtwuL6D4Arx7Zyky7xaD/NOHmU4rmE/YhGR
+         Hv4m84aXPo6u7AKQPpmQl1LJ6eGHj+n0OPKl8aUuJ97Hvw3NsJ0FoceCxuKx849NCXub
+         4q+bFqLFnwO9pRNDGokztOP9+hreu4je0WQI6hLwSzF9TSSK0gb6ILeySlSB3WIWTFZY
+         qHgw==
+X-Forwarded-Encrypted: i=1; AL+hErGwI3OfKX2YaesUPSS9oNJfCjAiBT42nk4Jf7EwvKWDeV4bWzZoRISHfV842jlgJVwtwerQeofn7ZZYL+A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/hWL6Erov1LCupFwcT2+VFwOTie/Shpp5A7zjdLDzIv4xri36
+	Zj/rt0m4uEIV78zYlrcbQsesGPc+xOTlN3WolY/nr2E9vKHyJrAuljD4
+X-Gm-Gg: AYBFou1t7HR+PkIqirQz05kjGH8hAFRItDe9Bxo7Rb0wyRCC/2x8dpATpw3MyFXGdAv
+	PMJr0zq0cijVHVqa3YC94UhYEW+2RWS1+xN0vJ7yAMZVIYSDlaiUbHuN+rfDNMy8ENvkqBP8dc2
+	TCYJLmgSAbjWXgx5pCrNbQMNNvmEp3uHweaO622pPK5a+uPgvyCkxX1Na4ePjgo99SCfLjfRi5g
+	p0QZKsL6D6mIcQdFUpgyPFEVBgfCzqs1PnBmRNwL2DM+wsKHT+6NocHbvP3Jg6vMDoZu0iTPAE5
+	7TwVmMZdn5Yi757wNkkVze18ODen76sC6x/AlThUqMmq7277BvErl4fCMkSPhct7MOOUPVSI5DL
+	M/BdWTp+QV9e0qryDos2IGOMgMqoWZSgDbbtL45/l3hA5YU0b1HARXQqETRRECo6Lqc9O1uvWSR
+	5qLdzCQo9a0LwVOnOSu1Q1r8sKUMmFd5OziF8F75ZWPFPy4HYy9CnjqV5b7Ms1o9mXBTXXcLhA/
+	mOGxiVX68F3ilqlh+e8w7T5T/v5QpHdK82jXLWXkKKOV+JX4M196drf/Q5oPepHM0kWPI4HvypN
+	ekGOrKPA9A2o1bCGxA==
+X-Received: by 2002:ac8:5ac1:0:b0:535:14f9:3f03 with SMTP id d75a77b69052e-556c0205a1dmr17834711cf.25.1794370492247;
+        Tue, 10 Nov 2026 20:14:52 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b942e83sm40856271cf.18.2026.11.10.20.14.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 20:14:50 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] usb: typec: Check the alternate mode ID allocation
+Date: Tue, 10 Nov 2026 23:14:46 -0500
+Message-ID: <20261111041446.3072716-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,64 +96,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: usb: generic-ehci: Restrict
- access-controllers to ST STM32MP2 SoC
-To: linux-arm-kernel@lists.infradead.org
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org
-References: <20260907161203.713424-1-marex@nabladev.com>
- <20260907161203.713424-2-marex@nabladev.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260907161203.713424-2-marex@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 6:11 PM, Marek Vasut wrote:
-> Tighten the access-controllers DT property availability, restrict it
-> only to ST STM32MP2 SoC, which is currently the only known user of it.
-> Once more users start using access-controllers, the restriction can be
-> losened here.
-> 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
->   Documentation/devicetree/bindings/usb/generic-ehci.yaml | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> index 908b02d9175e0..9f5130a0e784c 100644
-> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> @@ -217,6 +217,9 @@ allOf:
->         required:
->           - access-controllers
->           - clocks
-> +    else:
-> +      properties:
-> +        access-controllers: false
->   
->   unevaluatedProperties: false
->   
+typec_register_altmode() stores the return value of altmode_id_get()
+in an unsigned int without checking it. When ida_alloc() fails, the
+error code becomes the ID, and the alternate mode is registered under
+a name such as "port0-partner.4294967284". A second failure on the same
+partner then fails with a duplicate name:
 
-How can we proceed with these patches ?
+  [    0.423055] sysfs: cannot create duplicate filename '/devices/platform/altfail/typec/port0/port0-partner/port0-partner.4294967284'
 
-Thank you for your help !
+Return the error when the ID allocation fails.
+
+Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+Found with a static analysis tool we are developing.
+
+Reproduced in QEMU (x86_64) with a test module that registers a port,
+a partner and 63 partner alternate modes, and then two more with
+failslab (task-filter) making ida_alloc() fail with -ENOMEM. Without
+this patch, the first of the two is registered as
+"port0-partner.4294967284" and the second fails with -EEXIST and the
+error above. With it, both return -ENOMEM. Same result in three runs
+each.
+
+ drivers/usb/typec/class.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+index 54c7810b563b..29fb13ca9f28 100644
+--- a/drivers/usb/typec/class.c
++++ b/drivers/usb/typec/class.c
+@@ -641,11 +641,14 @@ typec_register_altmode(struct device *parent,
+ 		       const struct typec_altmode_desc *desc,
+ 		       const struct device_type *type)
+ {
+-	unsigned int id = altmode_id_get(parent);
++	int id = altmode_id_get(parent);
+ 	bool is_port = is_typec_port(parent);
+ 	struct altmode *alt;
+ 	int ret;
+ 
++	if (id < 0)
++		return ERR_PTR(id);
++
+ 	alt = kzalloc_obj(*alt);
+ 	if (!alt) {
+ 		altmode_id_remove(parent, id);
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.43.0
+
