@@ -1,61 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794432561;
-	b=Pr56iUJyPCrgrFq98YB+TCuC+f3/t5tIv087SeDGIWvC9gTkR1KwQXgR/xzBLP2S5grg
-	 vNles+NvCvxWzGgnuymTrP+6fkGISH2DH0x0r4tb38ha0HLrPxtZmqRNgiEyr0FI0fK++
-	 EcGE1hLE0j+z21iBzfG+vx7vqDalFEGnscjKGQx+NTpa6YTT8VtDxvPfSrBl+M5HtqoI4
-	 RNaGme3nWUqKqmEhuB7oqQ/MkyW8JD0nf6EA5bjqIoLDFCGWReS3iJM/MNDVUyK49Qjht
-	 h1YOyz84gcSoo6l0aXjCl+b9SNEAYt7wCeJN81hVCM6+N7s6cgaluLzFacPbM4gW17w==
+	t=1794432566;
+	b=iB2hlGM6t0oRg5OFTEEvCpgOv7CSjU6ddr7tRsrgrwLKG0sXhhgle4W+7Jb9rBl2eVDm
+	 9gUd8dkKTvNYdZW0Itphsq7qDIaBB2ecV++nugBB31wlCk7CqLkCeIaUPMHZ1p+PwxwKI
+	 kQGtlOGihKXCqCi9joTsSrVs/UuV5AMO1FT4WrzXAu4A271qYc8pRfhsMcArcYMr/7zZh
+	 svxDhlwYLAWK+6jfrr9MrktxnILZZ0EtDhsXx7JlvQZlvqHIHfawWANd18jLgWukehaQs
+	 9BALe0fe+/a1x+D0KkJaF5/En4xEHNFsbfBlCq0dKbdRuFHisQFu2Xmwv84hTtuXOtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794432561;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=VApbm77dz29aNz+Amn2HSvzQFJ7RcIUsAN+hrR5d+ZA=;
-	b=nRJF9RXcwo+ItF+NBVwB9OmpiO81APxQwvVh8hGkzOzD1TqLwOiccnR2DVdzD1eXwng2
-	 RhgZzGijy+a0VpJvLLH7FvscGKLCiIy0g5TSYW3kZxDXwSXUpIyEqeLSO9BKWp1RudB2D
-	 9k/bzbu6DEqtiannwEzD1wiFRzAwBF+7ilnap1hiecjJM4L1RHdq4ThQYnUgnnoYx3MJ4
-	 hcSMIffnim0Dt/ztA5v4Ss26ZgKot+WG2KZPnlQgovuDeFd9S6+voPffKzf2m3CSqj+22
-	 6iX1186NGaA9SVRiSrKH5zcynyL3FuhsSLpGOGotDUVLwZ/DByO3AazX0JqfPfye+gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794432566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
+	b=i0XqftOHDTQMrR5eddYVkKM/p75RTHtzT8zi69x382ozpOAFuOPQ6g2hYzw9bjJi+ums
+	 K3/YIR+KkVidzTBS8LrwaRaRT5vIXNRyKE0dlSj3rP9xTzs9bPKIJGVoXZC8vJ3y4mYBd
+	 rk0ZT7xARApdmrW/k56lPbG3p0lo3CXr9k5rDpdn11Z1uwdjgz9m7dL3lTugw0f9t+ZBn
+	 /k5duPh9rffx0subO39umPRne6o9i1cfHnFqOSqF5IzpuvQgxMqugkXjPFszhUCu6jWec
+	 ine6mLZOSybyNfQCWwbGfP2KSIkT3+JhscSFvJIsSUpizCB5+EXl8fQhqKWCTdw34uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl+K2rjZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0153C606A31C;
-	Wed, 11 Nov 2026 21:29:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F77606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7F77606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl+K2rjZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A581E1F00A05;
-	Wed, 11 Nov 2026 21:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794432560;
-	bh=VApbm77dz29aNz+Amn2HSvzQFJ7RcIUsAN+hrR5d+ZA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Hl+K2rjZd+CLZS2Vbq+GNytGPxglv7o6wjMXPRn2tkTdkdGiuCmVILCciJuuiP3LW
-	 nyikYTeX5eRGrSV4fhlFgcNB05YBmN72SDCWbhhJmnYd/MTkOaSkWNeomt6bkKy2ld
-	 vX/T5lAX4U3/Vi0v5jjJLf7jl/b0u4JfGzWyLs89UaKlv6I1uyBDOk+liNxI03yhjn
-	 +KZhCM57TBbkpyksu8ey8C7fI9BPM6sEgdv8bBhl7ARv4R2u2HZHQi4+0aLyaTzd19
-	 0Har2I6jcZgafR3rC91BK+uK8ZJuon+2NGD5CxfLfkzs+kujt3qd87E9hhMQdWMAUT
-	 yhhqnI2STD5qw==
-Subject: Re: [PATCH net] net/mlx5: E-switch, Query port function mac only when
- vport is enabled
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- ajayachandra@nvidia.com, gal@nvidia.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- moshe@nvidia.com, saeedm@nvidia.com, udar@nvidia.com
-Date: Wed, 11 Nov 2026 21:29:19 +0000
-Message-ID: <179443255917.2199510.5948232347809644575@kernel.org>
-In-Reply-To: <20261110092648.2511196-1-tariqt@nvidia.com>
-References: <20261110092648.2511196-1-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DTLKRFfn
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdba1b5ed8dso125991a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:29:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794432565; x=1795037365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
+        b=DTLKRFfnZ9XydDu38dZPgAw6wPK7MFh60q2ondkRQNEHwW79dfA9HkFUIRmzK3Y5Oi
+         PGm+TIDXm2T6nMkuod/Zpsn9U1PNw8FKBL85KrUaX8EVrwLELcWAbre/q1Hucbt8EJg1
+         YRYeVWyY2WiyNt2rNckOeXwp+t7pd+Snfm0CLYczNrA7Uu7DyzQxn3Y/EkaUbyGU3LEe
+         wl8jsQ0QL6yg2J84yiAQBEHwYePRMvZbBKRO6KPBcR6SrlTRXzFfx7kO0UfTzBpWPQUE
+         DGVV1JX9fPru0sahKe0OJzSofVJOhOqMrNPYPTAH3IimnCbhWTX7J600ensH0AqcjZaf
+         71PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794432565; x=1795037365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QSsMUUEQnXB3GC+EEMSfP/z1n1AfARRtyZWyBqYvQns=;
+        b=FKTe6ossivrK5xLRPFQhV1M5FL+MrS9bQ3f08371r6pLZGVlAPZjQG0RQrPlq3oZj+
+         fNfgPnSFJtQEcc4vlGjJv+BUm8sWO/XOKO2C7QZl8CdjdDLDNGEyudDY8Y53q+BZG0zy
+         3o5tIx2CABHoDwjYnsRojBgAooE3dfbn2k/8KZObPbXXsHIW5JxLeTubB/ntXB/UbFeI
+         vyE0JZzzjVGFFRN/nyakaxvAMTubziZzDi/xkk9fV1LhsBv9k+O+UC2W/kQmkkarOGNL
+         jOqjBw+F62LfdBv7+CpviZcA2g+Zudr71MBylhLLpytRsn0GknemPh2xdayYNYIe2MsH
+         YOmQ==
+X-Forwarded-Encrypted: i=1; AL+hErE9fJCor/sijbI35O/o4zxTKyA/X2eh0nttkj09KzIXY0r7Wp5IHfHd8Sls/qO2pslVL7p8igArmWUSN7U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AHw5Rq19OSevfokF+QiZ4xUI3EGceQVr2EiQOHE4QLcUj2u35
+	9tLlKczL9bChAFxYSKhS89LdfYqMkfUrV2W3RZtc/CHVTlkg2QFhp71q
+X-Gm-Gg: AYBFou0b9nZFgSMkcIYOX+UzW8HdmgcPZ55AIizOSv46NxiqpqQE2mOf7rhueXdbMzj
+	+KIHd+4abzXgBMYTY7/jCdoQfZCdNzK/pGX8NKfQDHPIP5AcR+McUFcPHgQdnJKqsdEdtw7Wgcc
+	fjLCZ9ZH0lsWPMeS7zxaeQ26Agk/gW6E65G3XjnFLGgB8Onr6HYc5jsvLxVfNkQzTICxyIRYvK9
+	HRhKsNj/A3ArS6Y8P4iZ26WqBJ+Ng+llpngAtaEJTZEDaTkQrcsRJbL25aGiED7uQ2So4XOZrXr
+	cZx/CkbkNI4M+blfxxKAMP3YZrzrgOsu4+161cXUFKAHRe4VxEcEMPCJrN2RSInArBkFsE+iobh
+	IztuBdRgsPfMzH97l32V4uupgSaPKMR/9LEg0Ye9GzHhSlJrJ2SCWN2EKvUpbP375felA/8i00v
+	AXPKN60Sv0u17n6zeiIMF4o6aoSAEunUf+C5X8HfHyx+ZIq3KoPlIlaBEqgkmyp/b4rBc391vm2
+	7pxK95H1/gGdZjCZ4BZ90ZP4M7cI2h8//OJ3xkuPlUs8mvV6YOsNgmiPSKrydp0B8bTZs2wcoz7
+	9l0wdbFatUcjNKAq9eRoKqeiCEg4s8c=
+X-Received: by 2002:a17:90b:54d0:b0:3ac:b3c7:de04 with SMTP id 98e67ed59e1d1-3b197ccc66bmr418449a91.34.1794432564906;
+        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
+Received: from fedora.lan ([172.219.65.15])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182e0ecd3sm2310465a91.3.2026.11.11.13.29.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 13:29:24 -0800 (PST)
+From: Artem Novak <artem122novak@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Artem Novak <artem122novak@gmail.com>
+Subject: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
+Date: Wed, 11 Nov 2026 15:29:21 -0600
+Message-ID: <20261111212921.290857-1-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,105 +97,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
+registry.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+This prefix will be used by upcoming Devicetree bindings for
+Casio calculator hardware.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Artem Novak <artem122novak@gmail.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-- [Medium] The new `if (vport->enabled)` guard in
-  mlx5_devlink_port_fn_hw_addr_get()…
-
---
-
-net/mlx5: E-switch, Query port function mac only when vport is enabled
-
-This commit wraps the mlx5_query_nic_vport_mac_address() call in
-mlx5_devlink_port_fn_hw_addr_get() in a vport->enabled check. The goal is
-to stop QUERY_NIC_VPORT_CONTEXT from failing in firmware when a port
-function is dumped while its vport is not enabled.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> index c712848b202db..b83c6c02670f8 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> @@ -5121,8 +5121,9 @@ int mlx5_devlink_port_fn_hw_addr_get(struct devlink_port *port,
->  
->  	mutex_lock(&esw->state_lock);
->  
-> -	mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
-> -					 vport->info.mac);
-> +	if (vport->enabled)
-> +		mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
-> +						 vport->info.mac);
-
-[Severity: Medium]
-Can this check ever be false here? The commit message says "A port
-function can be dumped while its vport is not enabled". The ordering of
-devlink port registration against vport enable/disable seems to rule
-that out.
-
-mlx5_devlink_port_fn_hw_addr_get() is reachable only through the
-.port_fn_hw_addr_get op in mlx5_esw_pf_vf_dl_port_ops and
-mlx5_esw_dl_sf_port_ops. Devlink calls that op only on registered ports.
-
-Those ports are registered in mlx5_esw_offloads_devlink_port_register(),
-via mlx5_esw_offloads_load_rep(). That happens only after the vport has
-been enabled:
-
-drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:mlx5_eswitch_load_vport() {
-    ...
-	err = mlx5_esw_vport_enable(esw, vport, enabled_events);
-	if (err)
-		return err;
-
-	err = mlx5_esw_offloads_load_rep(esw, vport);
-    ...
-}
-
-On teardown, the devlink port is unregistered before the vport is
-disabled:
-
-drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:mlx5_eswitch_unload_vport() {
-	mlx5_esw_offloads_unload_rep(esw, vport);
-	mlx5_esw_vport_disable(esw, vport);
-}
-
-mlx5_esw_vport_enable() and mlx5_esw_vport_disable() are the only places
-that write vport->enabled. Rep netdev notifications that reach this op
-also run inside the same window. So every dump, doit or notify that gets
-here should already see vport->enabled == true.
-
-If so, would the quoted QUERY_NIC_VPORT_CONTEXT "bad parameter(0x3),
-syndrome (0x29d722)" error still occur after this patch?
-
-One possibility is a vport the driver has enabled but firmware still
-rejects for the query, such as an inactive SF. In that case this query
-still runs and still fails.
-
-Another candidate is the unconditional query that the same Fixes commit
-eea31f21dce1 added to esw_vport_setup(). It runs on every vport enable,
-including bulk SF creation:
-
-drivers/net/ethernet/mellanox/mlx5/core/eswitch.c:esw_vport_setup() {
-    ...
-	mlx5_query_nic_vport_mac_address(esw->dev, vport_num, true,
-					 vport->info.mac);
-    ...
-}
-
-This patch leaves that query unchanged. Was the failing path confirmed
-to be mlx5_devlink_port_fn_hw_addr_get() and not esw_vport_setup()?
-
->  	ether_addr_copy(hw_addr, vport->info.mac);
->  	*hw_addr_len = ETH_ALEN;
->  	mutex_unlock(&esw->state_lock);
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..f05475072eec 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -303,6 +303,8 @@ patternProperties:
+     description: Capella Microsystems, Inc
+   "^cascoda,.*":
+     description: Cascoda, Ltd.
++  "^casio,.*":
++    description: Casio Computer Co., Ltd.
+   "^catalyst,.*":
+     description: Catalyst Semiconductor, Inc.
+   "^cavium,.*":
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110092648.2511196-1-tariqt%40nvidia.com
+2.56.0
+
