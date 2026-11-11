@@ -1,115 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402518;
-	b=cM/IxWg4/b8QQ3FfglAgd7S+t0ijXVbh0Rl8wOfIeiqt7P2fxWf+ReUcX3UJxg8A5Tqz
-	 U+OOTp0UQNJPRyJaIEcuIdgaRmUoWFG+MqxNyzQTOhS4gBbjqqCVuY3VSeaUp7WUTj5/D
-	 9hZK5UnY+vc0tipW7A9GbOK/jqgDWDI0D9G4In+aO0jIwlRG3j+p9vw1AXeWeas3xw3BN
-	 RWKUmCpmt6UYcplzXY5dVwfbjqaK/MV6Rz0kOMOeKZ80verx/PbgpuIw0y7HB1Brec7dj
-	 /Hlg88IQITAdFKrcGrDmVaD4GlMemwkYHuAtCZA1s8CwWGmc4zGbPz38OQXGJR6NEQw==
+	t=1794402524;
+	b=AsVw0F2zZ4y9yrb8gON+jJiUuwpsK7fJv5nZBpqcvJDb7+dGXhS+Y588zwT8BLwjE52B
+	 uhARS4spo4JqJnIDJep+AbP1GaUz084jmbA+8wuX1lUzXvXfLGaOvo8jyVrnVBJY4alyR
+	 NuGxyhzEryH1TgO2whwBGEiflz+MpwL1pNahH+LJADLWVQvMPWdD0JfgfwAJuyyA+ij4f
+	 2HjaOO6I3/M4G+Yy0nckpD5UasFSlYinj77V9ohQWwOyl+4jc6OWRgPVhjlC15l+hbqSU
+	 QPlNLcirgISmgA6zn+oG4EA6sv6HGJePy6Mp13+Ce/wqP6tZONSi3RD/8+XVOxsoGhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402518;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
-	b=PXtVp5kalQDMgxfhyaQyVcnOAAz5AYJsYi9kK92Ge5zxTa8w9XtYtsDCVMvD5luvSbUc
-	 qRu8s4SxDi51ORGAJVKdOE2i+7m9XePHT0IqIzPvyaaIVr9EPzK43YBxLjIkbkARVBdBB
-	 rbVP/4o+gxcUiIlFzw4Kw7fAgKlQkznFmTugVF7h7jhh0WGQMlrN0LjG6ljsArS9tbsOp
-	 NqMvun/q2Y930Z4KhzolYqoAsE9d4vfRmg2lyBMW4bKVN5qMxWv9Z7WhIE0HeQsOnnnEf
-	 1dLee159j7Ioe3XuZ9NAOrj2gFvgNwwj/dfMcN5JDLmBMEP0aWzXAWdLoNOE4cIkKgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402524;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tpSt5JkGUaHCP8XlikkEOI4qJddO1S2MUXWY1pm1gq8=;
+	b=m+AUwk3oZViKoEJCaSpy1RB/StI8+rHv4JrUtcQsV49QQjIlZ5l6E3dRVsMF1e1ryhz/
+	 7596mT90udUVM/ssCOOdKa71Pg7JRM6y7hqlt3WPgNNJhGu55yj7IhqFTjKL7WEvioxM2
+	 VVw0aKU8qsrFd6QgF7yP/mP9DxlB0veNEIA1Zmcmbx5E0hcvmDenSL+5fY2dptB4pj6At
+	 czjoEF7OMmcJe7tPuQF7XhwZKcjBEWkHT4Kb5oVo3XHg+fHl8XHlyQCo2BBqn71UdcIDN
+	 uH53RN3ZF7InpIxP7SIZ2GxLDVajYL7xlrLo27YdbPB287PbX8n2ckJGU71tQDPAZiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CyP6U48N;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dl+iOwHk;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6kuST3N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B247606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:08:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B247606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453F9606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CyP6U48N;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dl+iOwHk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794402516;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
-	b=CyP6U48NEphKdWZGm0NGAYw4ZgL/9yEtOaxLjN2odfWfumXQ4FP9WLV6QTzYUbqIwvpLxq
-	IFADfrcjZCtJTwY5j3w0NXwHC8D015mnBo6uD0pnf1b+BvuDX2DHCZRtDKqRV3l9/qQEw1
-	AFvNtXKvkOk3UuVNcnz5BxivSmqiSEo=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-495-g5cKS1RbOqGo4DaEtVpfCg-1; Wed, 11 Nov 2026 08:08:35 -0500
-X-MC-Unique: g5cKS1RbOqGo4DaEtVpfCg-1
-X-Mimecast-MFC-AGG-ID: g5cKS1RbOqGo4DaEtVpfCg_1794402515
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5358515b4easo56196181cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:08:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794402515; x=1795007315; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
-        b=dl+iOwHkeDxqEWRUx94xdYjyTxeBE3I7du8tCWGfgmbz1p0Kym3NW1urdiiCed8L1M
-         2sNgecxvFfeP4U+AKJ7fCm9/YyBChLDxw0BvvfvhqSRodKyg4uZWth/oFV66j5h6sDbt
-         RShoxxDEyan74c5YocY2EJO44SfUysTqg2y/Ny9J819ItDXzaY17uQrGH/hcLAxyv8Mm
-         eo2BtG/Nj1aORecA4IBgNIlAzzIMEZsslcBUSFVKsGg4R4rElvSAcaXrWg5x/+OeLcHy
-         Z6ystUPxgJULckqABYZNeRkXxOwAdbC65vvixoaLcNlgsFqgQQUi/tKTgbRIqfnbjFYA
-         E9FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794402515; x=1795007315;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gSQbVcKPQJwETt5FSUoaPH66H/Mu8r7z5yZRwgw9qTM=;
-        b=2joKxE6RK6nhIGFrHYmreHh6kqCylCySr13BrixZmicB2qQ4g9GQ6ByRMYJLQDSZKK
-         JLwzZiHRNS06zc7AhyM9deYQ8X6Aab6MVNqZ8ZVBwkh2tqY+6HTyyRa1DqbhVX6kH1fw
-         e8TlXO8lWe6Kb3xup+h0zaoGbELj5uYu/fcLmQC+2JBX9/8GrZCLtXBFFDxFLg7fDyNK
-         OjZy4Bh8PItBsE+1z128dkz39KRm7uJNAmP5flNsLuCLUMfqQEg4c8Vhk1RegVLctQjZ
-         HlVw7ntXZk2am2hs3a7HVYIz/ZRLtSCVNesoxOaq8eh5Gz85ynuG97RKWqzD0G4kXeFO
-         VIWQ==
-X-Forwarded-Encrypted: i=1; AL+hErFgKsUxAO1wBHRFkCj6wZFkUNeqlJMwXhic0ydNMn5Gt/iQup9yl9BHjo3ZdEGKGatvbc6q3wifQASSzz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ID+w6KcFpoCL5YVbtNNtPevjFUUgkdL+4UqSFbWfD3d1ODHAZ
-	2toz3lml8ZBiaizXD536xTGcWNbnLKgSYZuzg+RsJcGFB0AQDM7Ey49PU2J/Kw1Us7hzEwAVZEU
-	D9DaYcFWZFihOKEoCBB9XvAB0YzClRBMzAho5QQFbnWRsE0m6PHmRdb69+Lj/7EfxgA==
-X-Gm-Gg: AYBFou1IdNqZndT/16Z1KSUXdALgnJ7Q7g1pBxBfuPe7u6Y3aT1AhkrxddQbsUW6EbE
-	TGnTIDdZhZhAzwqaVN4I99fInn3yBSTcMaRL/k2HiQzv8Gboj0kM1sXUtPbFgD7eokbs1CS4sL3
-	l3XYwGPTgjX1zyc9Jd99CHen0oVpEkkI6lKa+XgTpWFFW4ZL6+6yDUsszVYQrdJRsFeQj6Gs6BY
-	Tu9cZspx69g/FePJ/V+nlivfV8cL0Mq+n6S5b+Dg4aW6HtqeVQ8UkNyqib7T7y20O59hUh1J6nq
-	oOVaYLDvXh6V6BaShaKNsvWEtdTCGdFAvmFxixxA7MYJ1LBtuL9a/2Is8m+qw+RseogiyW1a2Rx
-	jLvkSB/a/FZu/wsfMrlEIGyCo3tVT+4PTAoeK/qK0QM13LvOsQCYKLb4Vr4MJMBQBdC7bF+i5Je
-	t61f5CZIZVFcc3AuMTDKT4tj2nswyFPK790/krECXf
-X-Received: by 2002:a05:622a:1907:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-556bf740beamr31921841cf.15.1794402514467;
-        Wed, 11 Nov 2026 05:08:34 -0800 (PST)
-X-Received: by 2002:a05:622a:1907:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-556bf740beamr31921281cf.15.1794402514008;
-        Wed, 11 Nov 2026 05:08:34 -0800 (PST)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550af5f09fsm49902031cf.6.2026.11.11.05.08.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:08:33 -0800 (PST)
-Date: Wed, 11 Nov 2026 08:08:32 -0500
-From: Brian Masney <bmasney@redhat.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-mips@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] pinctrl: intel: convert to subsys_platform_driver()
-Message-ID: <avRo0ItlTKTKyZ2f@redhat.com>
-References: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com>
- <20261106-pinctrl-subsys-v1-2-f17582f32aaf@redhat.com>
- <avJKiYtczueslNSQ@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6kuST3N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536EF1F00A05;
+	Wed, 11 Nov 2026 13:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402524;
+	bh=tpSt5JkGUaHCP8XlikkEOI4qJddO1S2MUXWY1pm1gq8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=W6kuST3NNP4zzA9PqmXm/bYJ6yoRhEgKl5fNUQn6dha9mMZiyvNhUUICtqwe3+ArG
+	 jrSjuVs6BfBQGx22OPJQDQ77+zIoHH2HjoU2ZvMA72U2kcHSkaIJPXdd7WX8Q6lU23
+	 BvsgBMhjHnKrtcDHA0gHVEVcKkuv7cyNUTCCbadw4goRnxkbFWPRAj5QxKya1CySU1
+	 vhoM+ye5tViT7u0sZFpSC8q3yi9BbrZSS0jKAptLmf2YYRwMsQ1ePzHf2uCedCXW4f
+	 /KreGp+leeCIRPhMfpge9Ms4JosjH+/kYUEU1/2xKHMyvkoAXWxY72zws1fLN5KnlT
+	 mk5wUibYF1QZg==
+Message-ID: <e2d1dc9f-59ff-4dfb-8ca4-35c584d14b35@kernel.org>
+Date: Wed, 11 Nov 2026 14:08:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,20 +51,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avJKiYtczueslNSQ@ashevche-desk.local>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: don't set SLAB_MAY_ACCOUNT for
+ KMALLOC_PARTITION_CACHES
+Content-Language: en-US
+To: Hao Li <hao.li@linux.dev>, harry@kernel.org, akpm@linux-foundation.org
+Cc: cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Suren Baghdasaryan <surenb@google.com>
+References: <20261111125628.375624-1-hao.li@linux.dev>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261111125628.375624-1-hao.li@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 12:34:49AM +0200, Andy Shevchenko wrote:
-> On Fri, Nov 06, 2026 at 07:27:13PM -0500, Brian Masney wrote:
-> > Reduce boilerplate code in these drivers and convert them over to use
-> > the macro subsys_platform_driver().
+On 11/11/26 13:49, Hao Li wrote:
+> An allocation with __GFP_ACCOUNT set (without __GFP_DMA or
+> __GFP_RECLAIMABLE) is redirected to KMALLOC_CGROUP and will never hit
+> KMALLOC_NORMAL or KMALLOC_PARTITION_CACHES. Consequently, neither of
+> these caches requires objcg slots in obj_exts.
 > 
-> Look at 20261104113343.1634218-1-peng.fan@oss.nxp.com.
+> While KMALLOC_NORMAL already skips setting SLAB_MAY_ACCOUNT,
+> KMALLOC_PARTITION_CACHES still carries it unnecessarily.
+> 
+> Extend the check to skip KMALLOC_PARTITION_CACHES as well, saving
+> unnecessary objcg slots in obj_exts.
+> 
+> Signed-off-by: Hao Li <hao.li@linux.dev>
 
-OK thanks for the pointer. There's no need for a follow up from me then
-since the series from Peng already covers everything here.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Brian
+> ---
+> This doesn't seem like a real bug to me, just a small waste of memory, so I
+> didn't add a Fixes tag.
+
+Hmm I'd add
+Fixes: 7def2e8549e5 ("mm/slab: add cache_ and slab_needs_objcg() helpers")
+
+The question is whether cc stable as well. 7.3 LTS will be used for Android
+and IIRC they have memory allocation profiling enabled. Not sure about
+kmalloc partitions. Cc'ing Suren.
+
+> ---
+>  mm/slab_common.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 2befd24b4d09..f0ea1fa178e7 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -1000,16 +1000,18 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+>  #endif
+>  
+>  	/*
+> -	 * If memcg_kmem is enabled and this is a KMALLOC_NORMAL cache and not
+> -	 * aliased with any other type, make sure it's never merged with any other
+> -	 * cache.
+> +	 * If memcg_kmem is enabled and this is a KMALLOC_NORMAL or
+> +	 * KMALLOC_PARTITION_CACHES cache and not aliased with any other type,
+> +	 * make sure it's never merged with any other cache.
+>  	 *
+>  	 * In other cases the kmalloc cache may end up being used for a
+>  	 * __GFP_ACCOUNT allocation so mark it as such. The exception is a
+>  	 * KMALLOC_NO_OBJ_EXT cache.
+>  	 */
+>  	if (!mem_cgroup_kmem_disabled()) {
+> -		if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
+> +		if (type >= KMALLOC_PARTITION_START &&
+> +		    type <= KMALLOC_PARTITION_END &&
+> +		    KMALLOC_RECLAIM != KMALLOC_NORMAL)
+>  			flags |= SLAB_NO_MERGE;
+>  		else if (!(flags & SLAB_NO_OBJ_EXT))
+>  			flags |= SLAB_MAY_ACCOUNT;
 
