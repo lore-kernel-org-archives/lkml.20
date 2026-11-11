@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794388102;
-	b=EPMPeKbijTusFIuPGPqfh2+6XTM3pO5p6AArZuqBWIAKrxO0mhUQ0TqtgFFLmEnn8X3C
-	 Ri+JKlDncElOvmpn0Zekt1Y40nhT1oGYLY3mi3sg1+18QaAs4OpUp1kcQcyRlDt60SZ5k
-	 a4xLaX09GfK/Piql1uMln5yiF2rN61gRyZduoyQBxePKmc2ESZnm6upJPFeYkKVYmTx2L
-	 qxAK2ZUAnuCrXsAOqBwhbR+MfM1WzpHyJA8ri0F5E/7W/CF+EHaPeAYjxee0IihZPjlVa
-	 ztdRIEz+kv7qIbKYaNrXmUtW6KemhGtWI161iSuZBZxwg32D19W0e1nN9i6BCYU6QHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-	b=gAfoD9ZmWTjAn+yBlX7szv9rfaKS1nYGy1qPkTauA6OirLBAqvcvUjSbw0XytCNp6CwJ
-	 VuV9/tXJb9eAc+mHOLOSi6bn+LviseaSirGryPd5lCTVkjYSa/BZwjIPs2E9I37lrc5nQ
-	 iNCGc7kqXbrfDp4ybbtE9ZCkcJ51QG9mPk7GVDp/LNRi8TvjSTHdueChvLhgzc0N/dTaI
-	 hWogFBygjUcSpAiEbuejfTzygRn/MnZwlfuYja+p26SWOeVA8vpcZrFi1j8oIc9jW2WqY
-	 zlggrKoUgMGsrTxX+zyJJuNefKQN9DnzzvFeTkdlu9M0Tn7z+cYU0n2bmrgMU6iQoew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL7Ux6x4;
-	arc=fail smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794388104;
+	b=AUvJGzaU0V2BYxROXVDcBhr58oIxssaBAsXrES59SMMZExW+hIMoi+kUTWUVUxZYlRxk
+	 W4DLTwkGSFvNtsstZhl/klBw5Xm3Inb5FZO7S2PExUMMoNd+PdkWzdzES20ujw7nAjvxe
+	 F+N67aitQIwl4QyZ+YT6UYxyCePfR5O+4Io/untuc+2OxkwRcFWQRVhzCPgj9FcVWFhxt
+	 0/auYspOzRjXcRNAil1B+J9wbNCMT5pf275eCV5UKn3PJ98pBrOkbBj5x06+CzPlm3ysl
+	 Q/9ah2gINCYwjam8mSnZ+VYbLE7D2WClCZxGBW8EJyFWcEsmEHBM/arInS+zOmsvkMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388104;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=beCq0yEdS9NGRvXAH25NWBlijnEtfYCeuB+kkXj75ZA=;
+	b=KapckyqgJ6EiQxQK2tc0vaZdmx60bNVF38bw5x+wNtU7PX9I7814euiG3U3M+C0i8aHx
+	 dUjIH+KUxRXL+u3kPYSSXeYYQlo/Jabk37PgRQohBwY8m06AMcTGTbSRHCxIpC0swPWe5
+	 AxbqvpLK5ADngcCN6iVGlZAtyZuRXvstA/UyhIToUtsQ1Ci3nH62Ee0c2MFGXga1QU2Ir
+	 nyDGuaNFnCNqqxQ/TdoLgUCbusoN9/tcwbEfKYEy1OsWSWftu0/W1h0Os2UVHPB64BcHe
+	 dOsjJ2wHOAYlIK/Sg097M3uRUnVjb/j7EN4zjdqrlRSYwkswTm8lYbH5E4Hh7hphcDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxHOTt66;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB12606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB12606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D43606A33F;
+	Wed, 11 Nov 2026 09:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL7Ux6x4
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-823b938464fso2009207a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:08:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794388100; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hJSMiHJYVVo6zRzCIDu4GYMj/FBRELw5xzH0AZLjEC82FNKBrI0lQRwOjewUgCs750
-         Li09fNOaA11/mS321ylz6U8VRP5jElsBkBMqJgXVjf9KW7/wUpQf6udhOro18e0Hae0O
-         CPpVx+xvrU/MTvSQNJasOUaylxED5UeimjHe91R+rZV69br8K2eY6eTkSua2ToBMQKq3
-         8nJ0gO9soktA9mABHjVJ+h8DXl3rjqXm6e9tru5SVAGxKOpx/Ydujw3juI71IoJvOFGc
-         NTUP9gRlTaWDjsfOVQ3wmIatLjkFqMzjg5BB5mEaZ/UgNOj9f7+hsNRvo6+dBGzhrk6u
-         yV+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        fh=77j5W8D6y1ifk/JDeHhT6TF/flE6a+eNBQG6KJ0Mqy8=;
-        b=Lj79Wfe7sx194/2GB5D3Zznq1vQRfASH+BDCVJNQFxiy4C3F3LaooM7gO75wPWTfCx
-         rsx23acDBhkfK0sE716Q7XqHDiCpFPOKJ6EvDRcJTHRb6f0Sc5+6D8ueDfd22NEW2vgT
-         NX6EQAzPHhAdJvB8lDSW6t2lnJTHGYhsDAGT3uPDYlidausYDWoD72sdf2qI16GHbDcE
-         JpHOQ8uN6d7QzHMe6sxT5ID8GfeolCYr+GM2U8J5TAZhBObLa5GmliURAkUaclm7z6aj
-         +Cj9Osup5vBRPmbTCeEpNk0MTGfJidQ5rR7oTbxn3T1IJ8VkC69F72UKNcWLPMk3ZcYw
-         hqUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794388100; x=1794992900; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        b=AL7Ux6x4ip6rFzYdnmZzpTZruFrBi/tmi2O32NjvsCi1areQq2rhMCzynqpCv98H7a
-         umHzge6mEBjWcY6Eni+wB7y++iWqUVjSmTnHqfVsB6M9DscVKGiegKkyoKoAtBZ2UkEE
-         30Et8RY7qNnRuffk7BPRpJbt7j6D8df750SgHA8s0WX1bLF8+FYDE1nfa0/NZ2VFTAfH
-         e10oDV5I1pmbNECEa3YDmY13aEiLq/LRDyYtKEMmnZoKjxj2o1qPLZGOfZP+nFWzyD8n
-         wyjAERxIXd518dGg119g9WUeeBlKJQ/qXYMzGFcCNw5kYuZYruMt9LZvdIKHwSrEtu5y
-         VSlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794388100; x=1794992900;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/l2T4p9jCPLPtTUGGPewfdDVP0Og2K5VK9xJnKL6jZ4=;
-        b=ScV7G8F/KFKq6AlvOOE5OcE3nvdkQWBtGPENF/p8J/1Adrn2LyonLwa1IL+YkroMhw
-         t63+Go6FL3vn614OwlBLszN/T+69XmbI5uw1iY87jCXDrP0M5yF/G38zT42VT931/Bhz
-         7+xHEtWOENxHhCj7yMTeeoEqbTwwho+wMnnZqHMN2KOgApH6D8o+/3iujYgz45zcM2Zi
-         ZIuCpMYTaWCxSjijIsSTgdTzMrFkab6xMOrjnjO9JsnN2QV1NZD3FT3lnIFWFZot8bHS
-         8D6d+ACo0MyHIDnTWpFoGDYVWGeln+rwqsQ/9QP9rN1csCVtgB8m5m3pZsFwntjZ7dVT
-         AlVw==
-X-Forwarded-Encrypted: i=1; AL+hErHgGFwEi81vZpTjBPSnatnLbENZCrIfzqp/YNZdjbIgyqnjblUGVpaV/mzqG6LPiqspChLkrMDCqcVOyiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PbHY+ESUGOJH4ZtXdOt1hCkVkBVRhc6M+I6FC9KBOsDGXAmBf
-	dokPBpTDVyiTdBhKKZWuSFwmCxzXEmn9qu/+IxfpnLwu3aGBd3SeYel20xQPkZ0sDUPz3KF6w4X
-	OCpGqiA5rvVa9wy1uHAcHYBzFmkko9qc=
-X-Gm-Gg: AYBFou3tsegPMhkE+GbO0fueLK7fqkX56Ga7JxB22PcyrT1CuOPvQ3ODr5eJvijurBx
-	3HVMqB55UndY925Fhdba42hF+MN3ae3bHPTQtLUtGaPU+/iHwNgjE4cdVUhpqJ7e/LKbfO2r7MW
-	075j0xnYJ+a3JhpTheFO//HsjtsLMiFwp38VRQTD+KPpCetrMagOiUWoIMuGv0/pfjAe/S7W+lz
-	faCCYXaUyIBnumKtdkxPN0tfCJ+olbyMi0NRtdG/khwM5cgSWLwoA0Dgbsh+OsEtMKnxx1RqW40
-	lgSjW0UVzI8MfE9yK+7NtjaxJjcxjFir0BxDa3ei6HUa61eTTMBYAqPCIF+QcxlM5XTXy7/tP6O
-	kycT+RvH6CyUbBd+hUDEJPKLsGVuLELj37VhZDA==
-X-Received: by 2002:a05:6830:438a:b0:824:e29:e00e with SMTP id
- 46e09a7af769-860f287b5famr1402960a34.20.1794388100515; Wed, 11 Nov 2026
- 01:08:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxHOTt66
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9711F00A05;
+	Wed, 11 Nov 2026 09:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388104;
+	bh=beCq0yEdS9NGRvXAH25NWBlijnEtfYCeuB+kkXj75ZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BxHOTt66uVPC3Wb/2B4DVOu6adBNeprM9i1Vl1vG0o5PiFeJDmWYYaxDhEY19Wxy+
+	 KY0/ARXkcgwR4OS+05SQGwgZg6n/7sN7/rRZmMihhYQ1vde1ajzknDX1E+hXHEO5hE
+	 RLm6yHt7lB5jAj2b3AI5iiKYWVeKyIWpzccl5gnBeekq6qW5w63uTgMxe2z8IrRoN/
+	 K98Tdyfx0qNhtpeebAOfy9GtApphmHtsQAydLSlOhhM+fmk+KnwkIaJigPbfdPR4Dd
+	 hjIM79US+3KYZMmH2oIOx788A1EOFYf1pLb2yaMlgfhRZpDPxGpgEhHdfwSwEdr7c6
+	 soz1f/4i/4JMw==
+Message-ID: <5445434f-078f-47d8-9851-dcc3712d18f1@kernel.org>
+Date: Wed, 11 Nov 2026 10:08:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,123 +51,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com> <4d149414902c2e7d2d8cbfb2cf741f6e6b21add0.camel@codeconstruct.com.au>
-In-Reply-To: <4d149414902c2e7d2d8cbfb2cf741f6e6b21add0.camel@codeconstruct.com.au>
-From: Eric Yang <eric.yang.wiwynn@gmail.com>
-Date: Wed, 11 Nov 2026 17:08:09 +0800
-X-Gm-Features: AclHuK9PoMNLsTgMB1BxJw0pLV5rr9HNmObTBU7Lyh86uA-154BvlF3_R020LyE
-Message-ID: <CAFme=rkf7Kgvv2DjLos8EbLamqVzcHMUWsUQb-ZRmeMWjWZ-mA@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: yosemite4: Remove Floating Falls board nodes
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, patrick@stwcx.xyz, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	Sean He <sean.he.wiwynn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages
+ under only_merge_zero_pages
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev, corbet@lwn.net,
+ link@vivo.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ odys.yuan@gmail.com, rppt@kernel.org, surenb@google.com,
+ tujinjiang@huawei.com, vbabka@kernel.org, xiao.wang@vivo.com
+References: <20261110074312.219847-1-xu.xin@linux.dev>
+ <20261110074451.220524-1-xu.xin@linux.dev>
+ <20261110074451.220524-2-xu.xin@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261110074451.220524-2-xu.xin@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+On 11/10/26 08:44, Xu Xin (vivo) wrote:
+> When only_merge_zero_pages is enabled, ksmd only ever merges empty
+> (zeroed) anonymous pages with the kernel zero page. A page that carries
+> data can never be merged, yet the current code still allocates an
+> rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
+> decides to skip it.
+> 
+> On workloads with a large amount of non-mergeable anonymous memory this
+> is a real cost: every scanned non-zero page pays for an rmap_item
+> allocation, and the rmap_items accumulate in the per-mm pending list.
+> For example, a MySQL instance with hundreds of gigabytes of anonymous
+> memory (mostly buffer pool pages that cannot be merged) ends up with
+> ksmd creating rmap_item metadata for each candidate page; the metadata
+> overhead can wipe out any gain from the zero-page merging and even turn
+> the net benefit negative.
+> 
+> Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
+> get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
+> checks whether the candidate page is all zeros. A non-zero page is
+> skipped entirely: no rmap_item is allocated for it, and any stale
+> pending rmap_items below it are freed (as get_next_rmap_item() would).
+> The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
+> counts it as scanned and continues, so the pages_to_scan budget is
+> preserved.
+> 
+> The all-zero check (pages_identical() against the kernel zero page) reads
+> the whole page. For a non-zero page this is a net win: the extra page read
+> is cheaper than the rmap_item allocation and the stable/unstable tree
+> operations it would otherwise trigger.
+> 
+> A page that is zero now but is written before cmp_and_merge_page() runs
+> is still handled correctly, because the checksum-based decision in
+> cmp_and_merge_page() (added by the previous patch) is the authoritative
+> one.
 
-Thanks for the review.
+I think we should get rid of any rmap items when merging the shared zeropage
+only. That might require more changes to the ksm code, but it really doesn't
+make any sense to have rmap items.
 
-On Fri, 2026-11-06 at 15:46 +1030, Andrew Jeffery wrote:
-> So the expander and EEPROM are on a pluggable board?
+Maybe we just want a separate KSM infrastrcture that only focuses on
+deduplciating shared zeropages in KSM: get a page, see if it is zero-filled. If
+so, try deduplciating with the shared zeropage. Done.
 
-Yes, they are on the Floating Falls board, which is a separate board
-that would connect to the Sentinel Dome through a connector. That
-connector is not populated on any Sentinel Dome currently in use.
+Mangling this into the existing infrastructure might look easier but it just
+adds things like additional zero-page comparisons and (as Lorenzo points out)
+makes the code harder to understand + maintain.
 
-> Which "stage" does the devicetree currently represent?
+-- 
+Cheers,
 
-The Yosemite 4 hardware itself is not going to change any more, and
-this is its only devicetree. The Floating Falls board is not part of
-that hardware: no system currently in use has it. This patch therefore
-only makes the devicetree describe the hardware as it is, by removing
-the nodes for a board that is not there.
-
-> Have you seen this discussion:
-
-From what I read in that thread, your concern is that a devicetree
-that is changed to follow the current design phase no longer says which
-hardware it describes, so changes to it become incompatible changes
-against a boundary that is unclear. You suggested:
-
-- sending only the finalised design
-- a separate .dts per phase, with the common parts in .dtsi files
-- for small differences, a .dts that includes another .dts and adjusts
-  properties or deletes nodes
-
-Did I understand your concern correctly, or is the number of changes to
-a devicetree also part of it?
-
-I would also like to ask for your advice on how we handle future
-platforms during their pre-production design phases.
-
-In our case the firmware is built from the devicetree of the latest
-stage only, and the devicetree and the userspace usually change
-together, so we would like to send each change as we make it. Even
-within one stage, the devicetree can need changes because of new
-requirements or problems found. A platform can also have several SKUs
-that are developed separately and can be at different stages. We build
-all SKUs of a platform into one firmware image with a single
-devicetree, so a devicetree per SKU would mean an image per SKU for us.
-
-Of your three suggestions, the second looks the most workable for us.
-Sending only the finalised design would leave the devicetree we build
-our firmware from out of upstream until the design is final, which we
-would like to avoid. The include approach looks suited to small
-differences, but the differences between stages on our platforms can
-include:
-
-- a device moving to a different I2C bus
-- GPIO line names changing
-- devices being added or removed
-
-My understanding is that your per-phase suggestion could work for us in
-the following way:
-
-- The top-level .dts keeps the platform's current name, and our
-  firmware is built from it.
-- Parts that do not change between stages or SKUs go into a common
-  .dtsi.
-- For each SKU, the top-level .dts also includes a .dtsi for the stage
-  that SKU is currently at.
-- Each change is sent as a DTS patch against the file for the SKU and
-  stage it applies to, or against the common .dtsi if it applies to all
-  of them.
-- When a SKU moves to its next stage, DTS patches add the next stage's
-  .dtsi and switch the top-level .dts to include it. The previous
-  stage's .dtsi can be removed in a later patch, or kept if you prefer.
-
-For example, with two SKUs at different stages:
-
-  platform.dts            (top-level, keeps the platform's name)
-    includes platform-common.dtsi
-    includes platform-sku1-stage2.dtsi
-    includes platform-sku2-stage1.dtsi
-
-and after SKU 2 moves to its next stage:
-
-  platform.dts
-    includes platform-common.dtsi
-    includes platform-sku1-stage2.dtsi
-    includes platform-sku2-stage2.dtsi   (added)
-
-Is that correct and acceptable to you, or would you recommend something
-different? I would appreciate your advice.
-
-Also, when two SKUs have different devices at the same address on the
-same bus, the devicetree cannot describe both. I would appreciate your
-advice here too: is removing such devices from the devicetree and
-creating them in userspace the only way, is there another way, or
-should this be avoided at the hardware design stage?
-
-> This kind of verification isn't terribly useful?
-
-In v2 I will leave that paragraph out and reword the commit message to
-say that the board is not in any system currently in use and its
-connector is not populated.
-
-Thank you for your time and for sharing your perspective on this,
-Eric
+David
