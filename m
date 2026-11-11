@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440643;
-	b=EFJHJxjOG3CLFAklz1w8mCyaeCNcJBF2KrQkEZyawRX33W3XMLVyn3ttqb+7r8v7MXoW
-	 YpBCp+puuuTbFa2GoBLp4hTPjE/O05JBIpAd+6bPFKfJge60cjfwgOym+har/+4OIsj/y
-	 kvz5/7kOsspc77bObtGeDVs1e1Epl2eLJHjzovRW7FAgFahzolUkacxawhlIvqmxp8wSu
-	 FT7G3tqPHzeeAal1lZS0gw9NgJUAo3KFOBx0mRI+beagvLMMD9o2lrff5/LYV3HcNCAGr
-	 N9hQrhWcZjSgC+Bm+1ZkVbZwOh6TdA+cQhpeY+C+9Xa/Vr6vr3b4uAEvDbLsnGYZvlw==
+	t=1794440682;
+	b=HElkjRAG0/fsuC47r99l6G6wYu6N4M2sGlm4cdlDBQbmchp4ukxnmvpkYoGpHdmJYzIf
+	 gSlIAaE5GyhNz+aug6Ia/E4TVKVB+0FOfA0zHBo6vjwpO+xMSiV40Sq9ZjmCPYzgQzn7I
+	 YIcaZj0B0ReLzDdp/mU+taQ0D/cC8jDjFhkDHd27RgCdADUWq9yTuoXqnumf6eYQ4DG+y
+	 Uy+LHKx7/qmEIowxzyuk+TlKqa7J78EYGzCdcaXMH9exMNivIHZsdSMIfOdCR9Ya52jux
+	 SImECYbqc8Q4YyjBrpSUh7H9VOXvrWil6w9zkggiupHA2Pxic/lvCGvf4qTLbC7Qn2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440643;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4nwTcWKBQd+TU0Te6S0UfHED4bkzf8en/Ar11xJ+i5w=;
-	b=28P7XAbze+EkY+hTsFa8IZ7Cj/vnHdQNNqUMdCIIPijK4G6pnsFYsBwseqzIPcYWJAdF
-	 uYlhxWmtcwFqwnjS5AdEEBW75hsqhpsa3gsdQxblxP2d0j/Zq2vu2W6AGmR9WIQYqbxco
-	 BwaP25iJxgIuHZj4KJkjvu3s+njM7ZJH5tXxIiVCknwXylErjddysOwSXY2JF+E9mh2h/
-	 4j1d753eTt3BsuMuGzEzhwqL+ElI57anPTN51MMrE+/TajMlhoYInYMP3/QUEGlNXDT+Q
-	 vX5rlCQ+N8PEIuES7X6jioX7To3YmzEeRib+DRxwqDSzv5z/phb5VzWhJu5gvcoO2Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440682;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
+	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	b=FEWDQnOClJXBuOmJ9EFLEka8CsUFk9EN7qCwf66e+8xP7gkvyDsc4azvcuNsDxFGE8hW
+	 7puMkR9MP50AWCI9Ccui43T5zHBso3aj6V1tyF/ZTc1fNlkMdJCGEI8K/cCSn5TThVemp
+	 ExrNFBKKkrxxd68vlh6gkSZv0t+irycsNHWezFWK5ZsEFRIg7umygqUxWzh45U1d5wL7v
+	 0Dj3YWGTU9J4NYSoHQPZr+MuI7jU+chBQl+nGgc1I3RKS9DQ58RCb3aVhZ42EOGd1iDXD
+	 1aShdTHGApI4cKE3ztTZZlBEEYR8v95d+pqzrNqxTxI3I24NsumD9N8pQveiA959Vzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MSlQS7T;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=squashfs.org.uk;
+	spf=pass smtp.mailfrom=squashfs.org.uk;
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=IZhVqtxb;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=QqNTTXTc;
+	arc=none smtp.remote-ip=188.121.53.28
+Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BEB606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91BEB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E65F606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E65F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MSlQS7T
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdd89d84521so120225a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:44:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794440642; x=1795045442; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4nwTcWKBQd+TU0Te6S0UfHED4bkzf8en/Ar11xJ+i5w=;
-        b=0MSlQS7TrxODbVyWhIXvjexrlj43q+xYfxfDzsruD2dHxTCYYhfyKpNRdKAx3daCR+
-         v8TB140rqAYxCBkAN5NNZ8KAgjpXMG7EcPM63y18/UspOL3Q0keUwKwyVGueSHqAu2Yu
-         X/5MbB+0J6RMSDmoUzYWgMoJzsPzFFYocRtAvWIYRYa0q367tmCJOcjfHqlxH03/eaUt
-         M4TCxiGYgPJKgouC1D5OdTRKHoaP6WJxVzZ+IAaBrOUPELVpv8hfRi1OkIZXMB8vkp/w
-         20UJTrBz6Z04q7FB5UOB57qgPcqbnyYuSbN72DfTdnQnuQG2zZ15SxgSKwHxf/m13S2o
-         3FfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794440642; x=1795045442;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4nwTcWKBQd+TU0Te6S0UfHED4bkzf8en/Ar11xJ+i5w=;
-        b=N0srteZAPTW5arOD54+3Vb6u9ggPlSOAF6FEkUmWtmh0EEVmTUX4npAJfnWGYs+XpB
-         U3pU7zfySexAf9X1WS8OXGtsljlW4fGuSESROf5nc0L12Bt9nPpMaYEaIvN38OvZI9Rf
-         DflrVjy+o7mBRCbUtngLl86gThoNwP8fROU9uge56DvG4ePLjsvltOmNwHXAQYLHbQcD
-         dgM0ghyQSa2U7zlP2H+6bQq8B3Wqq00n/wpCYa/SY26UxdJ8G9WDPr1a5YfL13K8OB7f
-         JleC15yBIi8vWNhzsI+ZP0cYHJ7XwprjHWDt1H2bLBiELpmnivvgJUJmhARfwlcQ7e3t
-         hNfA==
-X-Forwarded-Encrypted: i=1; AL+hErFjSHMsNgMNOTAJo6qiMHkppOnhj0b2ga+eiq/t6B2JGeiXy6Y7tzs8dUsVJt6RRHGJUoQoZfk5pIJ4s/I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/UVBEbm/rnDqGSSNcFpTtGsgSbFJCCbu7rnbTwyZ9l+qC2CpJ
-	Yz2iuYeZhYzsVVPg+LJKqh44/y/XAznQ1kaUsuirK919/uod+Qnbh83D
-X-Gm-Gg: AYBFou1mdQyPtuFxD2QWcINGOMzYJfjSGu+p0U7ugTkfsflJLd+S4mM7Xel8D+ggt4s
-	8cQ4RYURNr1WeToMYm7K12AyNodnUTaBD6KjcUgU19AHe7usWH8GyfS22/KOqsBAWwHUDN4Iv5L
-	0IqOX4ttIv1M5p455BLlvI30haR8daQerCX53L4NPVhgZkESO1Z3yfY0qkyfbFZAIczEl7Lhfud
-	Nh0gEzkyIJP2f3/cYK5KMzgYDjL5Ec7PeZBYrQ5Bz024wi8dJuX0TjzxaH+FX3hxYDmpfTHCCgN
-	n5k1EmOeoWb5QuekvnmLqJmF9JRHlfn/Lwno/tEKQu5YIdexh+ba6qhqaNPE+1YYEuvw134EvMU
-	avlhX3BWDpYfCgVzXV60Z1Kq5Obyw3a7sPynnjkg6anf3ejtyD1mfJ7njtlAVU0o8VqaDNo44/t
-	QNC8Qtc+NFtQapk1G0uOJCq5oyQFIFVQFI69Sdrn45S+oaYMEz+b2LafrsGQ2hn3P7SbMPOrV+t
-	/y8bgMmmU2glCXaysZ16uiC9rwWmYbKDxZPedTRG9V4yt9M2gVaTHSI+4f68HUInqjUcdGaJvJz
-	xOMjH2ETK6Z9utYZrMGdknKFjhtwYULCR4qktvhLZvdwT+e9AFLsaGAhXv+5RnzIHWm75nY5pv0
-	=
-X-Received: by 2002:a17:90b:1dc7:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b197c81836mr533867a91.8.1794440641776;
-        Wed, 11 Nov 2026 15:44:01 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:6e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c74bf3sm1328794a91.10.2026.11.11.15.43.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:44:01 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 3/3] net: dsa: motorcomm: Use VID 0 as the unaware PVID
-Date: Thu, 12 Nov 2026 07:41:06 +0800
-Message-ID: <20261111234110.1449602-4-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111234110.1449602-1-mmyangfl@gmail.com>
-References: <20261111234110.1449602-1-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=IZhVqtxb;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=QqNTTXTc
+Received: from avalon.fritz.box ([82.69.79.175])
+	by :SMTPAUTH: with ESMTPA
+	id RHz6xtxIpLwCURHzNxAFXd; Wed, 11 Nov 2026 23:44:26 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
+	s=secureserver2; t=1794440667;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IZhVqtxbMgSZP+nnZZ37ANfwdJowclRAjYPlueuyCuDug4+D9lZib5ey6GRNHUNJ2
+	 VfQ8eZ5dJRhely5eO2nMg6Ac6E6bUilam8BDZt/W2EwlxkSosvYpx+mxZof3Bipug8
+	 Jr4TxXdF3lfghB70ylG55qaEGGnNnt+C0cjvcoXaW8t0/O+A5zoXo9hK0lIBZAACj+
+	 Rkne7XOzr1gvl7lCy3hlYaBP0FWcbZ+poJ55L2FJY5JNP3oTVhLGP5Tr3rnHMSxCZZ
+	 rlX6AoE0OK/mFEIzTC4+tuhIgfsMqbDDT7OgdIMV4mAkW8mBnrWoIaZNDKmrfiwoZx
+	 JdEaa4IgFDeqg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
+	s=secureserver1; t=1794440667;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QqNTTXTchRncgCA1UofQ3cVgoHzlhTrzByGE42kMDui5rtovFz+dlZoHe9/5InskP
+	 AteTNx3z7Fq1tP62qEHUp647u0k5Yed/B440KIV1N30cfujic67ElJCkwdc4aMTQRf
+	 zfxAG/uP+9OnwedxWE8pXNHQxRDeIb5pvazmT/OIbneHE62rPfnScnvEc1aNvHBHSx
+	 NvNNlnyiK7GQgKK69fR7SWHh74fewseU1TJn3a+WiUKrsWANaRDpIk9Z1MBBfDHhOl
+	 R/eWcCDvqUnqOsgWjDlHrqBQLumsj1eO0QtpDuaBBMfPT8Si7eBhDZeS33U85I2/ox
+	 hT8CNOue3PNXA==
+X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdda
+ a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
+ a=sSupuuxbErciYv1SbbcA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 1aeb6f86b77ed2bec1d6bda2403537b8:squashfs.org.uk:ssnet
+X-SECURESERVER-ACCT: phillip@squashfs.org.uk
+From: Phillip Lougher <phillip@squashfs.org.uk>
+To: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	akpm@linux-foundation.org
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Subject: [PATCH v2 01/22] Squashfs: convert SQUASHFS_COMPRESSED_* to inline functions
+Date: Wed, 11 Nov 2026 23:43:41 +0000
+Message-ID: <20261111234402.252354-2-phillip@squashfs.org.uk>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
+References: <20261111234402.252354-1-phillip@squashfs.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,90 +85,182 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfDSUifKDI9GWrTm0gi5TY3CkA67Zm7NEgspdkKnvV5ZgJ9kVeHHYwn0wcLNhVWj4mDEsCyQxBzDdFm0beKRCLo8KJrn6l0mQepsENTwkM/1UAr1EFi6l
+ kDa4nnIW+caj1i9NbVYYFyAo9248UO9LGWe2Hs09lP7/PoXbLoZIowM4WY8nDCTKTt/ay5sVwwoWYzBm8p0myzQkWj9U0KtqElW3nMNGoVkQ01m/JFN5zdhO
+ G2eJCEZLeib5XFaUAKDwJa4He8Nyv1nVwEaw0zBXa9LI0jBDZqyJF3oAZEy6THQ8df8gA7QKKfqcpDtxdXam03gWMqJBwl45XRD432wTgjY=
 
-The hardware classifies untagged and priority-tagged frames to the
-port's PVID before the VLAN table lookup, and the FDB lookup key equals
-the classified VID (measured on YT9215S).
+Convert old fashioned #define macros into inline functions.  This has
+the following improvements:
 
-The driver assigned PVID 4095 to the VLAN-unaware ports, while switchdev
-reports the bridge's FDB entries with VID 0. These entries were then
-installed under FID 0 and could never be hit by the hardware lookups.
-Dynamic entries learnt under VID 4095, if any, took effect instead.
+1. Inline functions are typed, which makes the width and sigedness of
+   input and outputs explicit, which reduces errors.
 
-Lift the restriction on VLAN 0, and use it as the PVID of the
-VLAN-unaware ports instead. The standalone default of 4095 stays, so
-mislearnt entries, if any, would not pollute the bridge FDB.
+2. The inline functions enable more sanity checking to be added in
+   later commits.
 
-Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+3. Inline functions are easier to read than #define macros, which
+   improves code comprehension.
+
+Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- drivers/net/dsa/motorcomm/chip.c | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+ fs/squashfs/block.c            | 11 ++++++-----
+ fs/squashfs/cache.c            |  1 +
+ fs/squashfs/file.c             |  3 ++-
+ fs/squashfs/squashfs_fs.h      | 17 -----------------
+ fs/squashfs/squashfs_helpers.h | 35 ++++++++++++++++++++++++++++++++++
+ 5 files changed, 44 insertions(+), 23 deletions(-)
+ create mode 100644 fs/squashfs/squashfs_helpers.h
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index a2be819ccbed..376f16466cdd 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -79,7 +79,6 @@ static const struct yt921x_info yt921x_infos[] = {
- 	{}
- };
+diff --git a/fs/squashfs/block.c b/fs/squashfs/block.c
+index 2d5850168026..20c3030b4f96 100644
+--- a/fs/squashfs/block.c
++++ b/fs/squashfs/block.c
+@@ -23,6 +23,7 @@
  
--#define YT921X_VID_UNWARE	4095
- 
- struct yt921x_reg_mdio {
- 	struct mii_bus *bus;
-@@ -962,7 +961,7 @@ yt921x_vlan_filtering(struct yt921x_priv *priv, int port, bool vlan_filtering)
- 	bdev = dsa_port_bridge_dev_get(dp);
- 
- 	if (!bdev || !vlan_filtering)
--		pvid = YT921X_VID_UNWARE;
-+		pvid = 0;
- 	else
- 		br_vlan_get_pvid(bdev, &pvid);
- 	res = yt921x_port_set_pvid(priv, port, pvid);
-@@ -1030,8 +1029,7 @@ yt921x_pvid_clear(struct yt921x_priv *priv, int port)
- 
- 	vlan_filtering = dsa_port_is_vlan_filtering(dp);
- 
--	res = yt921x_port_set_pvid(priv, port,
--				   vlan_filtering ? 0 : YT921X_VID_UNWARE);
-+	res = yt921x_port_set_pvid(priv, port, 0);
- 	if (res)
- 		return res;
- 
-@@ -1188,7 +1186,7 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
- 	/* Unrelated since learning is off and all packets are trapped;
- 	 * set it anyway
- 	 */
--	res = yt921x_port_set_pvid(priv, port, YT921X_VID_UNWARE);
-+	res = yt921x_port_set_pvid(priv, port, 4095);
- 	if (res)
- 		return res;
- 
-@@ -2270,7 +2268,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "decompressor.h"
+ #include "page_actor.h"
+@@ -292,7 +293,7 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
  {
- 	struct dsa_switch *ds = &priv->ds;
- 	unsigned long cpu_ports_mask;
--	u32 ctrls[2];
- 	u32 ctrl;
- 	int port;
+ 	struct squashfs_sb_info *msblk = sb->s_fs_info;
+ 	struct bio *bio = NULL;
+-	int compressed;
++	bool compressed;
  	int res;
-@@ -2328,15 +2325,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
- 	if (res)
- 		return res;
+ 	int offset;
  
--	/* Tagged VID 0 should be treated as untagged, which confuses the
--	 * hardware a lot
--	 */
--	ctrls[0] = YT921X_VLAN_CTRLa_LEARN_DIS | YT921X_VLAN_CTRLa_PORTS_M;
--	ctrls[1] = 0;
--	res = yt921x_reg64_write(priv, YT921X_VLANn_CTRL(0), ctrls);
--	if (res)
--		return res;
+@@ -300,8 +301,8 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ 		/*
+ 		 * Datablock.
+ 		 */
+-		compressed = SQUASHFS_COMPRESSED_BLOCK(length);
+-		length = SQUASHFS_COMPRESSED_SIZE_BLOCK(length);
++		compressed = squashfs_compressed_block(length);
++		length = squashfs_compressed_size_block(length);
+ 		TRACE("Block @ 0x%llx, %scompressed size %d, src size %d\n",
+ 			index, compressed ? "" : "un", length, output->length);
+ 	} else {
+@@ -341,8 +342,8 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ 		bio_uninit(bio);
+ 		kfree(bio);
+ 
+-		compressed = SQUASHFS_COMPRESSED(length);
+-		length = SQUASHFS_COMPRESSED_SIZE(length);
++		compressed = squashfs_compressed(length);
++		length = squashfs_compressed_size(length);
+ 		index += 2;
+ 
+ 		TRACE("Block @ 0x%llx, %scompressed size %d\n", index - 2,
+diff --git a/fs/squashfs/cache.c b/fs/squashfs/cache.c
+index c1a83bb0e519..7cb16414cd23 100644
+--- a/fs/squashfs/cache.c
++++ b/fs/squashfs/cache.c
+@@ -42,6 +42,7 @@
+ 
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "page_actor.h"
+ 
+diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
+index d83594ce91d2..ad6382cd22d3 100644
+--- a/fs/squashfs/file.c
++++ b/fs/squashfs/file.c
+@@ -39,6 +39,7 @@
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
+ #include "squashfs_fs_i.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "page_actor.h"
+ 
+@@ -188,7 +189,7 @@ static long long read_indexes(struct super_block *sb, int n,
+ 				err = size;
+ 				goto failure;
+ 			}
+-			block += SQUASHFS_COMPRESSED_SIZE_BLOCK(size);
++			block += squashfs_compressed_size_block(size);
+ 		}
+ 		n -= blocks;
+ 	}
+diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
+index a955d9369749..b406e52a83c2 100644
+--- a/fs/squashfs/squashfs_fs.h
++++ b/fs/squashfs/squashfs_fs.h
+@@ -101,22 +101,6 @@
+ #define SQUASHFS_XATTR_VALUE_OOL        256
+ #define SQUASHFS_XATTR_PREFIX_MASK      0xff
+ 
+-/* Flag whether block is compressed or uncompressed, bit is set if block is
+- * uncompressed */
+-#define SQUASHFS_COMPRESSED_BIT		(1 << 15)
 -
- 	return 0;
- }
- 
+-#define SQUASHFS_COMPRESSED_SIZE(B)	(((B) & ~SQUASHFS_COMPRESSED_BIT) ? \
+-		(B) & ~SQUASHFS_COMPRESSED_BIT :  SQUASHFS_COMPRESSED_BIT)
+-
+-#define SQUASHFS_COMPRESSED(B)		(!((B) & SQUASHFS_COMPRESSED_BIT))
+-
+-#define SQUASHFS_COMPRESSED_BIT_BLOCK	(1 << 24)
+-
+-#define SQUASHFS_COMPRESSED_SIZE_BLOCK(B)	((B) & \
+-						~SQUASHFS_COMPRESSED_BIT_BLOCK)
+-
+-#define SQUASHFS_COMPRESSED_BLOCK(B)	(!((B) & SQUASHFS_COMPRESSED_BIT_BLOCK))
+-
+ static inline int squashfs_block_size(__le32 raw)
+ {
+ 	u32 size = le32_to_cpu(raw);
+@@ -449,5 +433,4 @@ struct squashfs_xattr_id_table {
+ 	__le32			xattr_ids;
+ 	__le32			unused;
+ };
+-
+ #endif
+diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
+new file mode 100644
+index 000000000000..94edc7f46ae4
+--- /dev/null
++++ b/fs/squashfs/squashfs_helpers.h
+@@ -0,0 +1,35 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef SQUASHFS_HELPERS_H
++#define SQUASHFS_HELPERS_H
++/*
++ * Copyright (c) 2026
++ * Phillip Lougher <phillip@squashfs.org.uk>
++ */
++
++/* Flag whether block is compressed or uncompressed, bit is set if block is
++ * uncompressed
++ */
++#define SQUASHFS_COMPRESSED_BIT		(1 << 15)
++
++static inline s16 squashfs_compressed_size(s16 size)
++{
++	return size & ~SQUASHFS_COMPRESSED_BIT;
++}
++
++static inline bool squashfs_compressed(s16 size)
++{
++	return (size & SQUASHFS_COMPRESSED_BIT) == 0;
++}
++
++#define SQUASHFS_COMPRESSED_BIT_BLOCK		(1 << 24)
++
++static inline s32 squashfs_compressed_size_block(s32 size)
++{
++	return size & ~SQUASHFS_COMPRESSED_BIT_BLOCK;
++}
++
++static inline bool squashfs_compressed_block(s32 size)
++{
++	return (size & SQUASHFS_COMPRESSED_BIT_BLOCK) == 0;
++}
++#endif
 -- 
-2.53.0
+2.47.3
 
