@@ -1,72 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356648;
-	b=budiST3Oxq8RIXvjI0ZxbYgQTSblEPtTrc7kh3BcquKT6DyO1xy+xzSRNQFu3onX/oSn
-	 NdZCLMqNBTYVwh3S+Xaj2aBKlrSaVScSmba66p6I5sMBPnbrEbX2eFJB5fS15fFBYxayg
-	 DsEYbnn7IUUCuOkAuvSBxrkf+p63WAc5+n3Bf00LJ5l35QwhbhPqljtT1o41QUWSZDh2Z
-	 bLe023LtPNNEIdzDSizCSEwptKfL6u9egMt21gF0FS2mJ7f6R50e/fNdvRtE+YGbYDgQO
-	 l/FZocb5NAArEu/6NnJ4dXNNL5pBI5ZrbxPE9YaalWsxbzEkX29SDMPxkVMaRSN0mcA==
+	t=1794356653;
+	b=CrkBTAcs7Q3WTqJkbMO6H4PEkUCTwQA9oWGm7k4bnw3mXsLYsEB4uMONkByeHbWmOBEH
+	 BTR2afwfmX3F9FoEbt5rvjBj93xwxbQ6dnbNepO853dgEtGyIrQ/ZgbwpZSgya2cfb7iO
+	 ujuI49GT0sxk+vye0ZweROh6UW3gDvjMUGsnTUiahjqzg33KYEfL+PakX0bgVC437n7Hk
+	 LLp7QgFvO9HzsYIGMzr9WWdEwJ+ExbRJXE3OdmFIaGiylP3bnZEoaeW9iPHeqTOT8Csom
+	 zdUZQIZis8qimultjT4VHCB6TYpchKKhelaeXC06G4eduJ4RvLoHBmsT3gsh4Q/N7og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LybfooOZFr/ZxceoY2G/oKZxTKcGOCYNwMjM25zJ0mU=;
-	b=cZbmt8TEX8Xa80MCaxKzOTOK9SZM7WsvbPxliH8cyG+8Z5Agvy+l7WTwu34wfJO6oCGK
-	 JfQKQ3/u/M9XYYYn7/cedF6kCsPJIyr8O8nhwxzveS06BWT2aIqyqQAqCQomL+Dz6LHE3
-	 /4lvDWUSDvvQhUquX+d8F+C+RLww7HMmUpjA9jWgVZc3ZtXXNqH95vC4fDMF9VtjPTEMn
-	 HuU1WljvahE/xOeaQ9koCt8In5W6jj7mCmq88IDODL2jsmOA0vWuZQurMSs/WRfCNlPB7
-	 thZ28KuPdmPQd2OwooFhEb6RzrkFUSW7nKg5nVRQl4mnfU4Mm5dRcZwv1drhLb57rVg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=XT74yUDszl/ziK0mi3MJ4vZ5wlDvYd0idF7CJlDoa8U=;
+	b=MXOCXveOFLY7cl3RyERU/uGjb8/a+VeVZKFSj70k4Cck4yIPoouogfNxIaJeMTq0bFc9
+	 Sph/RcoGD57UEwN2T7paC9cl6MsQbfdkHoqQihrcOd3CZVEA3D1h63+av0aT0qIB9+/0l
+	 4+k1rogvT0hqnw+CqvfwWpRnbu1XSODc/2f3AVCZJ5kGq95n293vyy+b/2FpocnIbR0ws
+	 zaQUH7eZGhkGuxCCcP5MeezwJuUn8BCLdYtBZK08noRoBB3fS1LDL5uZGqVnKw9QZsmTc
+	 /pA2vF4y3vHKF/51dtkaVoctagniGr9kndh3nZ17TdsjJ222RT+/APpoUHTV7OuvVPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="S/EgXx97";
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iR3k3qyg;
 	arc=none smtp.remote-ip=209.85.167.197
 Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8B0606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D8B0606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8558160A262E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8558160A262E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S/EgXx97
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5682eb98dafso2901186b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iR3k3qyg
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c55ba309c2so3202154b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:24:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794356647; x=1794961447; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LybfooOZFr/ZxceoY2G/oKZxTKcGOCYNwMjM25zJ0mU=;
-        b=S/EgXx977QPwgLXfhhR57waPX4t2xWAe2m1ezeiL1Oq4pT8f6TTnRgoHouktVKuFPy
-         tNdDWDDKHiqBEIQbqoAjr8DtuYZArFVqqpV+NYwdmn3kNZiO8fC1+IleONNN2lkXzXZC
-         Ue90v+UhppEIK46Hh+uF/SMm5WjziLTMhfbsj9z3Ws9XKnvzXG8/36Gy2U9iXVEerrwF
-         m8jBn6WJeD9IqB1OE1DQZKjnjuKR86t5eVYUfLpX+4crILQr01KRjWgW7VF/2fDJ9e8y
-         w/YpjxiPG00CHhYBFDY2tqH0/fP8m/SS6gE/STDw3qGHoZYfYKNE/dJI9CZIJ1XWVOa2
-         wTUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794356647; x=1794961447;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794356652; x=1794961452; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LybfooOZFr/ZxceoY2G/oKZxTKcGOCYNwMjM25zJ0mU=;
-        b=CabqQXNpUyBDrqEHEHfmDBlk1JZ+U/FMnAXH8xGTyS5OvubopNQsa8KG0NffQODbKy
-         Ce516nyMZJEyrLkSnRCezg54JBJ0rweSacClEcsxXy2Q3NLfYqoZfmMKrVLObjNeUIye
-         nTqqAOOuJn+yl1p0vVnvogqYAnHnX8M437kNrUDJvyS0ELjc7vpEdnF0bZ9HbWSyFaxM
-         6vElRKp5i+w1JydseH3gjT0BJJMe7qoBSR39H0aJCUVJuVMrEzhyXi/26dksiRjp68LF
-         gixM2ZXVheFKPKjG8owBcfjfyhto0fQgTz9MBEt/Rwz4ts2mK67KZCI/0T09tvpmIrBx
-         kzaA==
-X-Forwarded-Encrypted: i=1; AL+hErGoooY1hB9orfdE7qOQ3BnGKb/AmXgXanNv6ESux1IHGME3A2ohUz5AxOKR6seXvsUbtK65qcPWt3monG0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PXuKoBd8BXqgoq6ZfhM/KXdB85wasZK6c+1QwhbYvwA6r0jQJ
-	bhcqRTnEZyfuRo+dizsJ7mJkoAxgmZ7d1ejCwWeWbGP471YwwxB5FwWx9ySN+al+8mNJMFNTbdd
-	p3aBcE9VgGhwC9Q==
-X-Received: from iobh26.prod.google.com ([2002:a05:6602:9a:b0:9c4:bd6e:a838])
+        bh=XT74yUDszl/ziK0mi3MJ4vZ5wlDvYd0idF7CJlDoa8U=;
+        b=iR3k3qygvb3aCIlCIrSKnYKmCnxQIS+qdVbCG/ptGdEvqAtkZagRhJbJIpQT7cfNph
+         Npr+bDvbpQFEHA4A1kjUFAzZRLFIW8QnhcM/IogtLe22hW+kAOUhU8eC22immRSzbHo5
+         BSarK/TnJPYhmBn2umUi/osFakN9sQA44AoViByT7+lEfp1JPrfne8zRpQAHX2uYRO7E
+         exdLdpEQU6vHp6YcY4kZJIOKJqpMtR7TYQiQovC+aXKCiCsNU1rcwkWtOW4rWwpg3eer
+         1GiPGJ8LkTOMU0ph/lBRftNBUij831P5sYdgInBz4TdDUgAGrkroii7knK0lBxV1071i
+         mBCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794356652; x=1794961452;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XT74yUDszl/ziK0mi3MJ4vZ5wlDvYd0idF7CJlDoa8U=;
+        b=0mX9rB00JxIPh+7Nywt2oP4eIXdfepW8MsRO5iB5XAfyKycclKI7M7JwuRAJ7Q9Zjf
+         4J1uLYcJ34fB0RLbTFX99s7qY/1+cz6v+RMhhEXXtqiiowkvalrV5TVeAtbgpnOjNp79
+         SnVz9CxkxCK++xEhgT2/4UyGnkfDA9AhlaF/grLBiszDFEJvQ7Zk2Ljcj+mnlkVy5ERc
+         1DpwSzQ9NYcOwvlUFIrt97T4WBfCcxDts3G5/gNcVhUwNTCx6Lm2T6KfkH0p00HkcmhV
+         uwXNDpnn9ixEPyLBvFiXBiwLTbFCyulJzjH4OJDNRA+HwNG+eMjZXrSz1333NyG8pQUG
+         GFEw==
+X-Forwarded-Encrypted: i=1; AL+hErGjcQrTVRe6xZ9hFmgJU6TcponJm0kzTPlAsPqPxjXKHc94AFW5Kb+xgCT4lsajwiq7n3nL5t7ipTrVkkg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Z649L5mb30mUBUcavdW7u+k2LUW8WPgaY8wfyVWJ8LMCVrIUU
+	3t28SHIxZwjqstwntXUFFV5o+gB3PUQUk7RAwsB6/qcwru8IKRyXzpARRI7ot0rmMx9Zc01GrBo
+	xsFqtnvSQ8nm/vQ==
+X-Received: from ilbej4-n2.prod.google.com ([2002:a05:6e02:4e04:20b0:523:a008:3bb])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:238a:b0:55b:ea1c:3ce8 with SMTP id 5614622812f47-56b95163a2cmr557277b6e.21.1794356646841;
- Tue, 10 Nov 2026 16:24:06 -0800 (PST)
-Date: Wed, 11 Nov 2026 00:23:38 +0000
+ 2002:a05:6808:2392:b0:4f5:c4b9:dc14 with SMTP id 5614622812f47-56b968d6d45mr569805b6e.13.1794356652192;
+ Tue, 10 Nov 2026 16:24:12 -0800 (PST)
+Date: Wed, 11 Nov 2026 00:23:42 +0000
+In-Reply-To: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261111002358.1842967-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111002358.1842967-1-dmatlack@google.com>
-Subject: [PATCH v4 00/19] liveupdate: Preserve tmpfs files across Live Update
+Message-ID: <20261111002358.1842967-5-dmatlack@google.com>
+Subject: [PATCH v4 04/19] liveupdate: Allow file handlers to mark retrieve
+ failures as retryable
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
@@ -94,307 +99,127 @@ Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This series can be found on GitHub:
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
 
-  https://github.com/dmatlack/linux/tree/liveupdate/tmpfs/v4
+Add a retryable output flag to struct liveupdate_file_op_args, which a
+handler's .retrieve() can set on error to tell LUO that it hasn't
+consumed the preserved state. LUO then lets userspace retry the
+retrieve, and .finish() still releases the preserved state if the file
+is never retrieved.
 
-This series allows userspace to preserve files on tmpfs mounts across a
-Live Update, in addition to memfds. Today only memfds are supported, so
-userspace has to put every in-memory file it wants to preserve in a
-memfd, which works for VM guest memory but not for other files that live
-on tmpfs mounts and need a path, owner and mode, such as in-memory logs,
-binaries, and configuration files.
+When luo_retrieve_file() invokes a handler's .retrieve() callback and it
+returns an error, LUO currently records the error in
+luo_file->retrieve_status and blocks any subsequent retrieve attempts.
+This is necessary when the handler has already partially consumed or
+freed the preserved KHO state.
 
-The kernel preserves the contents and size of each file, and the file
-position and seals of memfds. After the Live Update, userspace creates
-an empty file on a tmpfs mount of its choice, with the owner, mode and
-other metadata it wants, e.g. with O_TMPFILE, and the kernel restores
-the contents of a preserved tmpfs file into it. Userspace then links the
-file at the path of its choice, so userspace decides the directory
-structure, names, owners and permissions of the restored files.
+However, with user arguments passed to .retrieve(), a handler may fail
+early while validating caller-supplied parameters, such as a missing or
+invalid argument, before touching any preserved KHO state. In such
+cases, userspace should be able to fix the argument and retry
+LIVEUPDATE_SESSION_RETRIEVE_FD.
 
-Patches 2-4 come from v1 of this series [1], posted by Pasha. They add
-a file-handler-specific argument to LIVEUPDATE_SESSION_PRESERVE_FD and
-LIVEUPDATE_SESSION_RETRIEVE_FD, as suggested on the RFC [2]. The design
-of retrieving tmpfs files was discussed on v1 [3] and on v3 [4].
+Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ include/linux/liveupdate.h      | 11 ++++++++---
+ include/uapi/linux/liveupdate.h |  8 +++++---
+ kernel/liveupdate/luo_file.c    | 20 ++++++++++++++------
+ 3 files changed, 27 insertions(+), 12 deletions(-)
 
-[1] https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
-[2] https://lore.kernel.org/kexec/2vxz7bjmkjeu.fsf@kernel.org/
-[3] https://lore.kernel.org/kexec/atE53vmlDeA4cWD2@google.com/
-[4] https://lore.kernel.org/kexec/20261105-sitzordnung-nahkampf-ausbleiben-6db911d0333e@brauner/
-
-Series Overview
----------------
-
-This series implements the following:
-
-  1. Remove an outdated list of steps from the comment of
-     luo_preserve_file() (patch 1).
-
-  2. Let userspace pass a file-handler-specific argument to
-     LIVEUPDATE_SESSION_PRESERVE_FD and LIVEUPDATE_SESSION_RETRIEVE_FD,
-     and let file handlers mark retrieve failures as retryable, so that
-     userspace can fix a bad argument and try again without losing the
-     preserved file (patches 2-4).
-
-  3. Rename memfd_luo to shmem_luo, since it will also handle tmpfs
-     files (patch 5).
-
-  4. Fix two existing problems in the retrieve path: a WARN_ON() that
-     userspace can trigger when tracking a retrieved file fails, and a
-     leak of the preserved folios when a retrieve fails before it
-     restores them (patches 6 and 9). Then let shmem_luo retrieves that
-     fail before they restore the folios be retried (patch 10).
-
-  5. Let file handlers retrieve into an existing file: They claim the
-     file before they restore the preserved state into it, so that LUO
-     can reject a file that it already manages before the preserved
-     state is consumed, and LIVEUPDATE_SESSION_RETRIEVE_FD returns the
-     file descriptor of that file instead of a new one (patches 7-8).
-
-  6. Require permission to preserve a file, since preserving a file
-     freezes its size for all of its users (patch 11).
-
-  7. Retrieve files preserved from a tmpfs mount into an empty file that
-     userspace created on a tmpfs mount, passed in the new struct
-     liveupdate_shmem_retrieve_arg (patch 12).
-
-  8. Allow preserving tmpfs files (patch 13).
-
-  9. Add tests for which tmpfs files can be preserved to the liveupdate
-     selftest, which doesn't need a kexec (patch 14), and add a kexec
-     selftest for retrieving tmpfs files, split by feature into several
-     patches (patches 15-19).
-
-uAPI Changes
-------------
-
-  - struct liveupdate_session_preserve_fd and struct
-    liveupdate_session_retrieve_fd gain a 64-bit @arg field, a pointer
-    to a handler-specific argument that starts with a 32-bit size
-    field. Callers that pass the old struct size are not affected.
-
-  - Passing a non-zero @arg when retrieving a token that was already
-    retrieved fails with -EBUSY.
-
-  - A file handler can leave a token intact when a retrieve fails
-    before it consumes the preserved state, e.g. because of an invalid
-    @arg, so that the retrieve can be retried.
-
-  - New struct liveupdate_shmem_retrieve_arg, with @fd, the file to
-    restore a preserved tmpfs file into. It must be an empty regular
-    file on a tmpfs mount, opened for writing, and is returned in the
-    @fd field of struct liveupdate_session_retrieve_fd instead of a new
-    file descriptor. Files that were preserved from a tmpfs mount can
-    only be retrieved with it, and memfds can only be retrieved without
-    it. Before this series, the memfd file handler accepted unlinked
-    tmpfs files (e.g. created with O_TMPFILE) by mistake and retrieved
-    them as memfds. That was a bug, and such files now require the
-    argument like all other tmpfs files.
-
-  - Preserving a file now requires the file to be opened for reading
-    and the caller to have permission to write to it, and append-only
-    files can't be preserved (see Permission Model).
-
-ABI Changes
------------
-
-  - struct shmem_luo_ser (formerly struct memfd_luo_ser) gains a
-    SHMEM_LUO_FLAG_TMPFS flag in its existing @flags field, which
-    records that a file was on a tmpfs mount rather than the internal
-    shmem mount that memfds use.
-
-Permission Model
-----------------
-
-Preserving a file freezes its size until it is unpreserved: For all
-users of the file, truncating it, fallocate() and writes past its end
-fail with -EPERM, and the owner of the file can't undo that. Without a
-permission check, anyone with a session fd could preserve e.g. a
-world-readable file in /dev/shm through a read-only fd and break the
-owner's use of the file.
-
-Patch 11 therefore requires the file to be opened for reading, since the
-retrieved file can be read, and the caller to have permission to write
-to the file (inode_permission(MAY_WRITE)), but not a file opened for
-writing or a writable mount. The owner may also preserve a file that is
-immutable or on a read-only superblock, since its size can't change
-anyway. Append-only files are rejected.
-
-The checks apply to memfds too. They only reject memfds that are opened
-write-only, or whose mode was changed to deny the caller write
-permission, since memfds are created with mode 0777 (0666 with
-MFD_NOEXEC_SEAL).
-
-Retrieving a tmpfs file needs no permission check beyond a file opened
-for writing, since restoring the contents is a write to that file.
-
-Open Questions
---------------
-
-  - Should LUO enforce the permission model for preserving files for
-    every file handler, rather than only shmem_luo?
-
-Merge Plan
-----------
-
-This series applies on top of the next branch of liveupdate.git
-(commit a0dc8eddbfdb ("Merge branch 'lu-pci-preservation' into
-next")) and is targeting Linux 7.5.
-
-The series will be merged through liveupdate.git.
-
-This series conflicts with Pratyush's "mm: allow freezing mappings"
-series [5], which also changes mm/memfd_luo.c and replaces
-shmem_freeze() with mapping_set_frozen(). Whichever series lands second
-will need to be rebased. Keeping retrieved files frozen until the
-session is finished, as suggested in [6], is left for Pratyush's series,
-since it needs the AS_FROZEN mapping flag that series adds.
-
-[5] https://lore.kernel.org/kexec/20261027173031.763213-1-pratyush@kernel.org/
-[6] https://lore.kernel.org/kexec/179322496574.1894369.544573858973645958.b4-review@b4/
-
-Testing
--------
-
-All patches were build-tested individually. The series was tested on
-x86_64 in QEMU using the Live Update selftests:
-
-  - luo_tmpfs (new): kexec test cases covering the contents, size and
-    holes of restored files; that only the contents and size of the
-    target change; which targets are accepted (open for writing, empty,
-    regular, on a tmpfs mount, not immutable, not managed by LUO);
-    executing restored binaries after the session is finished;
-    retrieving files that were preserved through read-only fds, on
-    read-only mounts and superblocks, and immutable files; block
-    accounting on the target mount, including large folios that extend
-    past the end of the file; mount and memcg limits; memfds; invalid
-    arguments; retrieving a token twice; and that no kernel warnings are
-    triggered.
-
-  - liveupdate, including the new preserve_memfd_with_arg test and the
-    new tests for which tmpfs files can be preserved (permissions,
-    read-only and append-only files) and the frozen size of preserved
-    files.
-
-  - luo_kexec_simple, luo_multi_session, luo_stress_files and
-    luo_stress_sessions.
-
-The selftests were run with vmtest.sh:
-
-  $ tools/testing/selftests/liveupdate/vmtest.sh -T luo_tmpfs
-
-luo_tmpfs was also run on bare-metal x86_64.
-
-Changelog
----------
-
-v4:
- - Rebase onto liveupdate/next, which is now based on v7.4-rc1.
- - Collect Reviewed-by and Acked-by tags from Pratyush and Pasha.
- - Add patch 1, which removes the list of steps from the comment of
-   luo_preserve_file() (Pratyush).
- - Patch 2: Pass the argument to luo_preserve_file() and
-   luo_retrieve_file() as a __user pointer (Pratyush).
- - Patch 5: Update the Kconfig prompt and help text (Pratyush).
- - Patch 6: Keep a WARN_ON_ONCE() for -EBUSY, which userspace can't
-   trigger (Pratyush).
- - Add patches 7-8, which let file handlers claim the file they
-   retrieve into, and return its file descriptor instead of a new one
-   (Pratyush).
- - Add patch 9, which leaves freeing the preserved state to finish(),
-   since the preserved folios may be in use until the session is
-   finished. The fix for leaking the preserved folios when a retrieve
-   fails early moves into this patch.
- - Patch 10: Fail the retrieve of a preserved file that this kernel
-   can't restore, e.g. one with unsupported seals, permanently instead
-   of letting userspace retry it (Pratyush).
- - Split the permission checks for preserving a file into patch 11,
-   which also applies them to memfds (Pratyush).
- - Patch 12: Go back to retrieving tmpfs files into a file created by
-   userspace, like the RFC and v1, instead of having the kernel create
-   the file like openat(O_TMPFILE). struct liveupdate_shmem_retrieve_arg
-   now only has @fd. The file position is no longer restored for tmpfs
-   files, and retrieving with O_RDONLY (v3 patch 9) is dropped
-   (Christian). Reject preserved tmpfs files with seals other than
-   F_SEAL_SEAL instead of applying them (Pratyush). Describe the
-   handling of unlinked tmpfs files before this series as a bug that
-   this patch fixes, not as supported behavior, since the LUO uAPI is
-   stable (Pratyush). Document which retrieve errors can be retried
-   (Pratyush).
- - Patch 13: Retitle it to "Allow preserving tmpfs files", and describe
-   it as adding support for tmpfs files (Pratyush).
- - Rewrite the changelogs and comments to be shorter and clearer, and
-   drop leftovers from earlier designs (Pratyush).
- - Move the tests for which tmpfs files can be preserved into
-   non-kexec tests in liveupdate.c (Pasha), and split luo_tmpfs into
-   several patches by feature (Pratyush, Pasha). Update luo_tmpfs for
-   retrieving into a file created by userspace, and add test cases for
-   the target file.
-
-v3: https://lore.kernel.org/kexec/20261103010216.3447716-1-dmatlack@google.com/
-v2: https://lore.kernel.org/kexec/20261022225035.377445-1-dmatlack@google.com/
-v1: https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
-rfc: https://lore.kernel.org/kexec/20260901180713.4185641-1-dmatlack@google.com/
-
-
-David Matlack (16):
-  liveupdate: Remove the list of steps from luo_preserve_file()'s
-    comment
-  mm: Rename memfd_luo to shmem_luo
-  liveupdate: Don't WARN if tracking a retrieved file fails
-  liveupdate: Add helpers to track the files that LUO manages
-  liveupdate: Let file handlers retrieve into an existing file
-  mm/shmem_luo: Leave freeing the preserved state to finish()
-  mm/shmem_luo: Don't make early retrieve failures permanent
-  mm/shmem_luo: Require permission to preserve a file
-  mm/shmem_luo: Retrieve tmpfs files into a file created by userspace
-  mm/shmem_luo: Allow preserving tmpfs files
-  selftests/liveupdate: Test which tmpfs files can be preserved
-  selftests/liveupdate: Add a test for retrieving tmpfs files
-  selftests/liveupdate: Test memfds and LUO interactions in luo_tmpfs
-  selftests/liveupdate: Test the targets of retrieved tmpfs files
-  selftests/liveupdate: Test retrieving tmpfs files preserved read-only
-  selftests/liveupdate: Test block accounting of retrieved tmpfs files
-
-Pasha Tatashin (3):
-  liveupdate: Pass user argument to file preserve and retrieve
-  selftests/liveupdate: Add tests for preserve and retrieve user
-    argument
-  liveupdate: Allow file handlers to mark retrieve failures as retryable
-
- Documentation/core-api/liveupdate.rst         |    2 +-
- Documentation/mm/index.rst                    |    2 +-
- Documentation/mm/memfd_preservation.rst       |   23 -
- Documentation/mm/shmem_preservation.rst       |   23 +
- MAINTAINERS                                   |    4 +-
- include/linux/kho/abi/{memfd.h => shmem.h}    |   57 +-
- include/linux/liveupdate.h                    |   81 +-
- include/uapi/linux/liveupdate.h               |   59 +-
- kernel/liveupdate/Kconfig                     |    9 +-
- kernel/liveupdate/luo_file.c                  |  213 +-
- kernel/liveupdate/luo_internal.h              |    5 +-
- kernel/liveupdate/luo_session.c               |   29 +-
- mm/Makefile                                   |    2 +-
- mm/internal.h                                 |    1 +
- mm/shmem.c                                    |    9 +
- mm/{memfd_luo.c => shmem_luo.c}               |  369 ++-
- tools/testing/selftests/liveupdate/Makefile   |    1 +
- tools/testing/selftests/liveupdate/config     |    4 +
- .../liveupdate/lib/include/libliveupdate.h    |    3 +
- .../selftests/liveupdate/lib/lu_utils.c       |   17 +-
- .../testing/selftests/liveupdate/liveupdate.c |  347 +++
- .../testing/selftests/liveupdate/luo_tmpfs.c  | 2103 +++++++++++++++++
- .../selftests/liveupdate/run-vmtests.sh       |    1 +
- 23 files changed, 3162 insertions(+), 202 deletions(-)
- delete mode 100644 Documentation/mm/memfd_preservation.rst
- create mode 100644 Documentation/mm/shmem_preservation.rst
- rename include/linux/kho/abi/{memfd.h => shmem.h} (53%)
- rename mm/{memfd_luo.c => shmem_luo.c} (54%)
- create mode 100644 tools/testing/selftests/liveupdate/luo_tmpfs.c
-
-
-base-commit: a0dc8eddbfdb6dd9c5c2b70eb66ab49cb1978425
+diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
+index 7543f5d648d3..e4ad0bf78a5c 100644
+--- a/include/linux/liveupdate.h
++++ b/include/linux/liveupdate.h
+@@ -58,9 +58,13 @@ struct liveupdate_arg_spec {
+  * @session:          The session this file belongs to.
+  * @retrieve_status:  The retrieve status for the 'can_finish / finish'
+  *                    operation. A value of 0 means the retrieve has not been
+- *                    attempted, a positive value means the retrieve was
+- *                    successful, and a negative value means the retrieve failed,
+- *                    and the value is the error code of the call.
++ *                    attempted (or only failed with a retryable error), a
++ *                    positive value means the retrieve was successful, and a
++ *                    negative value means the retrieve permanently failed, and
++ *                    the value is the error code of the call.
++ * @retryable:        For .retrieve(): [OUT] Set to true by the callback on
++ *                    error when the preserved state has not been consumed and
++ *                    retrieval may be retried.
+  * @file:             The file object. For retrieve: [OUT] The callback sets
+  *                    this to the new file. For other ops: [IN] The caller sets
+  *                    this to the file being operated on.
+@@ -83,6 +87,7 @@ struct liveupdate_file_op_args {
+ 	struct liveupdate_file_handler *handler;
+ 	struct liveupdate_session *session;
+ 	int retrieve_status;
++	bool retryable;
+ 	struct file *file;
+ 	u64 serialized_data;
+ 	void *private_data;
+diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
+index 87e77c3bfd82..7420e2c5434b 100644
+--- a/include/uapi/linux/liveupdate.h
++++ b/include/uapi/linux/liveupdate.h
+@@ -174,9 +174,11 @@ struct liveupdate_session_preserve_fd {
+  * associated with the token and populates the @fd field with a new file
+  * descriptor referencing the restored resource in the current (new) kernel.
+  * This operation must be performed *before* signaling completion via
+- * %LIVEUPDATE_IOCTL_FINISH. If a retrieve of a token fails, subsequent
+- * attempts to retrieve the token fail with the same error code. Failed
+- * retrieves are not retried.
++ * %LIVEUPDATE_IOCTL_FINISH. If a retrieve of a token fails after consuming
++ * preserved state, subsequent attempts to retrieve the token fail with the
++ * same error code. A file handler may instead leave the token intact on errors
++ * that occur before it consumes the preserved state, e.g. an invalid @arg, so
++ * that the retrieve can be retried. See the documentation of the file handler.
+  *
+  * Retrieving a token that was already retrieved successfully returns a new file
+  * descriptor for the same file. Passing a non-zero @arg in that case fails
+diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+index 1437630d435e..0c9a3b6921d1 100644
+--- a/kernel/liveupdate/luo_file.c
++++ b/kernel/liveupdate/luo_file.c
+@@ -152,9 +152,10 @@ static DEFINE_XARRAY(luo_preserved_files);
+  * @retrieve_status: Status code indicating whether a user/kernel in the new kernel has
+  *                 successfully called retrieve() on this file. This prevents
+  *                 multiple retrieval attempts. A value of 0 means a retrieve()
+- *                 has not been attempted, a positive value means the retrieve()
+- *                 was successful, and a negative value means the retrieve()
+- *                 failed, and the value is the error code of the call.
++ *                 has not been attempted (or only failed with a retryable
++ *                 error), a positive value means the retrieve() was successful,
++ *                 and a negative value means the retrieve() permanently failed,
++ *                 and the value is the error code of the call.
+  * @mutex:         A mutex that protects the fields of this specific instance
+  *                 (e.g., @retrieved, @file), ensuring that operations like
+  *                 retrieving or finishing a file are atomic.
+@@ -588,7 +589,9 @@ void luo_file_unfreeze(struct luo_file_set *file_set,
+  * The operation is idempotent: if a file has already been successfully
+  * retrieved, this function will simply return a pointer to the existing
+  * 'struct file' and report success without re-executing the retrieve
+- * operation. This is handled by checking the 'retrieved' flag under a lock.
++ * operation. If a previous retrieve failed permanently, it returns that
++ * saved error code; if a previous retrieve failed with a retryable error
++ * before consuming preserved state, the retrieve operation is re-attempted.
+  *
+  * File retrieval can happen in any order; it is not bound by the order of
+  * preservation.
+@@ -655,8 +658,13 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
+ 	err = luo_file->fh->ops->retrieve(&args);
+ 	kfree(args.arg);
+ 	if (err) {
+-		/* Keep the error code for later use. */
+-		luo_file->retrieve_status = err;
++		/*
++		 * Keep the error code for later use unless the handler marked
++		 * the failure as retryable (e.g. invalid user argument before
++		 * preserved state was consumed).
++		 */
++		if (!args.retryable)
++			luo_file->retrieve_status = err;
+ 		return err;
+ 	}
+ 
 -- 
 2.56.0.542.g3ef89b7020-goog
 
