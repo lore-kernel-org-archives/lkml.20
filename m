@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794413801;
-	b=FvWaKnnLyb+sNIZI4nH3XavBv354nGIAstrOOFmDq5x7FxbdGt4jrRKjum6dcVOqFoIR
-	 2GCZfXQg9Wed+bDXhM6awH5GJ2g0+k3mg8B95G9bbF//57unBOOdRZql3SyyYEwfSTQcf
-	 FIM4+5U/pfaoFxt7TsqWNTi+QzN30mNqbUHkL+Nzp1bu1OoHKnLW5boQAwAE+66gdZDSc
-	 1B5q+irdNPVHI9wW76nmeXt+HU9mB/5IF3v3h9MuhwMsRqB2sgrkoUcdtlfrAzOr5MwBM
-	 egvTTP7CpfWrmw+vtFT+yuL5v50QjBzSBVDPeBJYizHBSoPzf67zNKyb6/PJx9iySew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413801;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794413803;
+	b=uEhm3XqzbzEy2MWsXyEH0xSbarSATxV80P9WJtyj9HIwsfDwxCirItOGw/W0+jg6p4PQ
+	 5jRy0jFdsLwkAYsrR+B8hvh6yiPZx36CkXViFiSSi6o3YneAbCqYLzNZn9m8JXmrWY8jr
+	 Xssm18ojFWC74KqIcID+apymqu8iermWB28K/5Ohpq7ep0aXbsTtPpLxBfe5bB+rgdj+g
+	 pRUkwIDPG0X+06YbRwnz4fKwuMqSN//Fq5jmNUF8YVgWPNhWNUKNSs0iMRyZ1/lGQP2XN
+	 Ld/b4Gxsu+fZgghxFuhmRxVnf7jwrMRQgRN6gP21tqUyzYjeiVUzmwgQQ2jRfgDEnbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413803;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LstdQ1KayOvKvBdXTZ++PJBU/OdNbClhnjMs5/mc9b8=;
-	b=j4ZOGxqiVyXyTMwx2n6jWsNYAEfNa4QKn68pKF/DPGTnYxsRfS1QTX8A4KMRjwkDaMhv
-	 Xj9Eahxci1rqlp8OSYv7OY16l89PEY2YRRPrcba7KyHjimRwYEqs3iHe6SzgCR1m5CI9e
-	 nJmi0QprSxRnXd3CBbBR2HvoIkc4X0A+twKYnqV2SlBSzx4dWPhOw3o5aFe5kgO63/XX0
-	 vNmw5B7IRragtvg72qMHNhgJZaJhcCx/mluH3qEMDyOQYki6oSCFJgcT7IpVqq75MnAAp
-	 93sSmKOf97mxT24CmkQ+d/DPabDdKsV6uiq3oMu4LEe9torhiU499pR5d3Ld6q1R8Rw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JxN7fWT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
+	b=Uv1NA6lcdoOM4nIoVQe17yD55er/erkjRS3xc8CApgenTndbIU4HPPH42WHltK0DZ3zq
+	 tSY2a1JInIUBFSKYNLu4/x1s/mtZMP0EzpN/09cc3v2rIykCyDqauSxAUV/PM2jdHDTCs
+	 94TAljeIIEtnlGkMYrG32bdJ/4S8hmHGU3F2RqZ5RB7j74BF6WHW5w9vjsO5bF4aZzmWV
+	 SGDgXgreYpjLs7ndVc5vTzEld2LugOAMJbd5IkGDMJZddCGgVxg+hhyETQElDmJmiP2bX
+	 NLdrJ8ogUuY3YsVY44kMPlWO+Acol8/B5W7dIDYxgyaYobfCbdmr9CWccEWRBBEa1EQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sartura.hr;
+	spf=pass smtp.mailfrom=sartura.hr;
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b="CVimmv9/";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FBF606A88F
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FBF606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC1C606A8AA
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DC1C606A8AA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JxN7fWT
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5361e313e63so35064811cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:16:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794413800; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YMfz48pO5QplYQw6iDmVFygUTM8OMWctm7xLzIz4GyEhBrtn1XgqOVRQKi0uxwbmKP
-         y/JH1bCEmAtEc4tjMZHqZlCZhAz8RO6NLRDr9jGR0N/WEZtN22/AAkidH/24o4WezCAv
-         aQgK/h2Je6LtVltc4Qw7JJbVXcDKMVK1bhuI1zI4yBXiIwlc0GqmoQzhzeRlbLEkpAuj
-         Vlb61K4IWxAs85mxftSWWRgeKKhwPqSrRVGM/BgNXVFfTAKtgDLfzS1+Z3F1cJ7vGRU0
-         KpkvPfMf2CrWpUPp1weg+/CtQYVFcAyew/iBHABVTezpkZzu2QDAQDsYdTCB8aatfvt1
-         AQyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LstdQ1KayOvKvBdXTZ++PJBU/OdNbClhnjMs5/mc9b8=;
-        fh=jckHtuUSdrku1XKHL6v5QJijzzUuRwbBXXzXVCYrC4A=;
-        b=mWsc6r+xvimw6vppPnZa+lIQuxzt7CxJbEz8EDEk13NvOylm6s6y9SmvlR+sph244e
-         3tBrng975e2RVEFx4PSKH3wzqnx0lJ1kCvb3c93eON3lLW4bX4fITttgkclCQLEOuDDH
-         lRyMfgMoSaUXK7qz24dE/hdNcMWu7Kw8LEkhkIB/uuI6W5ifkltB0ewqV0RgNHix7r0i
-         MTm1ub5XogFRoDxy+w9qK7wNq1vTPdS1+lct8AUPIOgscuxCSpjyYsBPPW3XmlheLWF6
-         at1/4k+rZzvkUQ2z4LR2t1/AwlWfHAgLinBO8QGgRimLaSLO/xnvHz7w/NYuFIrgg0cF
-         XSSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=CVimmv9/
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25855935e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:16:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794413800; x=1795018600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LstdQ1KayOvKvBdXTZ++PJBU/OdNbClhnjMs5/mc9b8=;
-        b=0JxN7fWTeKWIsx7m78aKG+Z2QcLJcr5M6BuEFEQqqNXAgAExJkgaSdP6nqWFybkMEK
-         yuydX1NB4Tf8IXzRDDsX9jws7uMFamu0Ga2IM0Ma6FDwXBJgVde8rnnjrkFGDM5x/NCM
-         ZwJjId2+BdtRNm9Nr1/R5kcvOC2Ut9vRWNmEc36BlpOuNhxPKSTnNKwzMEsXQeJK4Urv
-         ogvZYbHTnZ0ZvOTngleZOddIiislZRdunvX9XufiUZ/L1UIWnQDJmFN8Rk0NPwg5dijb
-         Gb/LWn7z4eVYBK9hGTx4yNWCfa7B8MFUOw0fs8KCn9NHyrhJZCOe+CGLVIaZOXKOGEtS
-         64Fw==
+        d=sartura.hr; s=sartura; t=1794413801; x=1795018601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
+        b=CVimmv9/YyZU6AJwXGaip7fVyORgOVY9vHCD0+v9Wsq2yB1Mgho/tn/ThCTYFKNijG
+         oV0p33U2a1daomR19trtTfpeUBCWvFTNi4+juWIcEu4kjy3hQ9AurAVAfbuEBQh0qie/
+         3g0dDnORCF42d1HF4U+O4bx10ZDDeqbDtc/+bNWE68IhE2Dw1dB90XPgmcbClpwLelqw
+         se75rKSVFNADxNyHo4nwo2YKPPUlO+TizaKYzva+wrIt2vlopEERzC2WC/Aw3fVFU8v2
+         f5ctqoTruT+DUYX7023GtjqCUtLnlcE4np1oDxg3RJpbzwn9cw5iwvdZ6MdDjer2XkYF
+         afYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794413800; x=1795018600;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LstdQ1KayOvKvBdXTZ++PJBU/OdNbClhnjMs5/mc9b8=;
-        b=ZUIsbnsuQOTrv6eSbWY5NPK94PEAzxq6rCsk2JEYXRFHCPnfjO8STL10tRoT17gvLv
-         q09ZLNpOcJ8G5uuhkf4bceqVnp6qHhNBGuLft22p87SZEHSzKa8141gj6g0z6dSNH/aK
-         0nnXjN1EgFb3fPLw84Hr/IXaw9qXBzhF1CXyOADI9n2BRPAKOGSl58L4JnlW1Yt5gqZd
-         RjCcbrs9MptTxdTEfAjxi/MZZc8SZD+aSttIJmeG4u0WZuuyzsdT47vH8b1ELSirtJJt
-         99a4l36xfYvSVXVKlj1h8T6G63Y31HKYq0t91rt4MbFJ2llIoN5r6rCK3AH2fn8TiDhY
-         fLRw==
-X-Forwarded-Encrypted: i=1; AL+hErH8rYVN52W/WCm+AkI3ePuXUeShGlp8bSJvgNhQyrczdid8br0Zo/hDPlEkUprWLIffR7Ta/H0fWZ6xSD8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7iJzvNxTw93q8Tv+uUpUGssHGCgTUaiNZNM3AjN0qGhREcKc5
-	xP04EaqLr+e7JdvyOHD9vuCS/sBIINhvcoyj41Q3YTnXtOZnGy92hyl2EKgpZNajHxN2VpaYq9F
-	2HXVPe+9CleefCbPYlGzbSJ8qjHwIGLuo5Via6Y8=
-X-Gm-Gg: AYBFou2GCzIgS21U4geuAu473nWFLgibV5Z4qmzvggbEhtfvIpextEFUOttlmRVg67C
-	lNnEz0x3AXobfnPPUPmLKyoJ8eLS+JRFXz51EYNyIg0egFes4moqblJOBgoUTcvqPTHy2mHYRxg
-	ZV4Oo4MZx78w3pLx716lXBiz0R0XCkiC9TdT7bVzmHCAH+jfuXO6IjYptdb9U99SCXvDx4pUrHw
-	PJEtYr47P/rdBJbBJcBL6GwM81wwWEWKRv20kaD0odbg+S7OJwO2Fxk3ZW0ezWKtedroNvwfETh
-	7ukFz7EpqRtUOZ2DxJ34zI+y4cDM92Qgu0WhjJUC1LoP+gIqaImvAv4eEh49GSmVQVvdMFaA+SH
-	R0469p7GjiYL8g/IF0wFiWc4ACPl+KjdllSSoDLg2AFdmEBJicihPATv7TWmiDMX2xatE
-X-Received: by 2002:ac8:59cc:0:b0:537:f05d:abef with SMTP id
- d75a77b69052e-556c1d519e6mr45516351cf.54.1794413800061; Wed, 11 Nov 2026
- 08:16:40 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794413801; x=1795018601;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+dRaeVfgsyPtrbZOsuqy4B0zrN0QNLB0gPpKiOiCtw0=;
+        b=F566JuuR6PYVyrk8bzxoKw86DOLC2g2mclHTnBzyxRO8P/eT6eAZnTOSF9AaokDwDJ
+         4arvpP+Dwo4jrncVqT/gS9rOBPLVXWWmf8xB4+E9K7U809NBMSEU6CjC1alXheR+V5JR
+         TY7V797s3KGVPtQZ9OUHSbwlVoEOm0PHr2yUjJ+2WZbwYmfU6qw9THnJJXk9MhU5k3UO
+         aMYmmnQemkAEESUdS5+Vf4lq3cPzLdEONilJ1Nv0VD/9+Ctza64LE6IROawg5gnBDfVv
+         TufLTqk4GVuxkRTIu1WmSxmnCbU/lfMaYi9E8qiCFQo4wLfSoNbODHmCfVcme/NNej3m
+         jxjQ==
+X-Forwarded-Encrypted: i=1; AL+hErEIQwjg9gmYyz5YFc16RxHC49airpFUilMX0F95ELT9zqbcUMQno39cCeBxyGC6+lYJe32SeyOiEgXRewQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1KUGKq5j7HD/CLtzQHPGZLKMHGnaW/3SPvi/ZrHmsQtnUMd2M
+	fLIxxhniFjFx5EpSUDG9I68KLwgSNMEl4JqDAd6uJOMKE33Q87nHfv0O/2EeU3EKM60=
+X-Gm-Gg: AYBFou3XKjpEf/7pRq6UVZBzFzsG5PYRYyq/o2CLecG/9HqHsu3brP3fiLunYM0QcOQ
+	8UmmlbR5EnG+lnqs9KVQMfi23bp/snQcfJ0eZ+E1IYatCskDwpOBuOryQwyHW9yiYO1G57UVLg9
+	5Dj1ZcGrEKgAqeAR5bVc1xpAQmltW3jD8/96alQM61NWsjhkhJb4ZSnc/3Mm6ThpTLGD8zKaBSU
+	EVfMI+HcVVNDMevRbiDJ2017Wm1QELl0qTYccSd+IarEaFTFh/SSSDHvmUtRUhYJGX757nMDWBJ
+	/So+AN3EgWzMJCKWjyDua4EBKu+NVA7uIKln2GpsBN8i3imxP+HD3qB6ypmlMwRctXljn2yBbZ/
+	TTRVN8Nsu8b+qX2O/0pmVpalwjH+K5b3tLm19yFGIC+xpFXCI7/WCZQGTBh/ImOjIXzYroPoFKh
+	OCTHsNbWKnX+f9ObaGK21pDu4fnix6h04NMbhMDJXGW4/wEvDfl1hmPpuvRsNiRSjRc0kkC1hsc
+	zjh3GxYD0zjmmt5LnqdqmgrGBdMaW9CiQQj1U9qu6iCjEetkKolsv+LHjYwVAcQFnX5eqk5yjDn
+	MLTK8U/QdMZX8f5OkEHrsoH8jZHXHd78MVMe62dVWzmDUoUHn1aqptv8m3hxlGbTeVeIvDmlycx
+	EHvnMhqT8Zlk3t3BcOTkMvFMkKut/kveWTyvnzw2pTuvKQ2OOA/cPS4Pxnl1RA0Pf27Eq7ULQJG
+	AEbz7j3FXkL+USbwN3Hlhz3CToTTtUyrztBDlWbk8arRGr
+X-Received: by 2002:a05:600c:1986:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4ba09379b69mr50759305e9.8.1794413801590;
+        Wed, 11 Nov 2026 08:16:41 -0800 (PST)
+Received: from threadripper-fedora-workstation (d-zg1-240.globalnet.hr. [213.149.36.254])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c52fd01sm8374925e9.4.2026.11.11.08.16.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:16:39 -0800 (PST)
+From: Robert Marko <robert.marko@sartura.hr>
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH v3 4/4] arm64: dts: microchip: lan969x: add fan controller
+Date: Wed, 11 Nov 2026 17:12:48 +0100
+Message-ID: <20261111161619.232141-4-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111161619.232141-1-robert.marko@sartura.hr>
+References: <20261111161619.232141-1-robert.marko@sartura.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,85 +112,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260917155834.2161361-1-vulab@iscas.ac.cn> <CABjd4Yy-9A0xWCDfZemHOTZDrDdtdO05nUjmN=w=sLwYjzZn8Q@mail.gmail.com>
- <1794138380.2883200.vulab@iscas.ac.cn>
-In-Reply-To: <1794138380.2883200.vulab@iscas.ac.cn>
-From: Alexey Charkov <alchark@gmail.com>
-Date: Wed, 11 Nov 2026 20:16:29 +0400
-X-Gm-Features: AclHuK_TvAgrqod0P7IPbUF8DOI19D1hjrLWu98p4t7n70-06Rpy9qCBuSwEasU
-Message-ID: <CABjd4YxYzrxakckCaNODgrCWUfx77J0h3D+gbV95p7_gt1kiog@mail.gmail.com>
-Subject: Re: [PATCH] serial: vt8500: Use devm_clk_get_enabled()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux@prisktech.co.nz, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Wentao,
+LAN969x provides a PWM fan output and tachometer input in a register
+block separate from the temperature sensor. Describe it as its own
+fan-controller node and keep the temperature sensor compatible.
 
-On Sun, Nov 8, 2026 at 4:15=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wro=
-te:
->
-> Hi Alexey,
->
-> Sorry for the very late reply. Working through the review comments I got
-> in September has taken me far longer than it should have.
->
-> Your suggestion was right, but the leak fix went in before I could act on
-> it: it is commit 9d8955281d92 ("serial: vt8500: Fix clock reference leak
-> in vt8500_serial_probe()") in mainline, and it kept the clk_put() you
-> asked me to replace. It has been backported to the stable trees by now as
-> well. So the patch below is not a v2 of that one, which would only resend
-> something that is already applied, but a follow-up that does the
-> conversion on top of it.
->
-> devm_clk_get_enabled() gets the clock and enables it in one call and
-> registers the disable and put with devm, so both the manual error handlin=
-g
-> and the clk_put() go away. Probe now returns the error code from the cloc=
-k
-> lookup instead of a hard-coded -EINVAL, and the clock is released
-> automatically through devres. The success path is unchanged and nothing
-> else in the driver is touched.
->
-> For the record on where this came from: the candidate came from our stati=
-c
-> analysis tooling, and DeepSeek and GPT-6.1 Sol were used to audit it and =
-to
-> help write the change. I reviewed the result and I am responsible for it.
-> The patch is build-tested only: it compiles cleanly with W=3D1 for arm
-> (vt8500_v6_v7_defconfig, CONFIG_SERIAL_VT8500=3Dy) and passes
-> checkpatch.pl --strict; I have no VT8500 hardware to test it on.
->
-> Thanks for the review,
-> Wentao
->
-> From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-> From: Wentao Liang <vulab@iscas.ac.cn>
-> Date: Sun, 8 Nov 2026 11:41:30 +0000
-> Subject: [PATCH] serial: vt8500: Use devm_clk_get_enabled()
->
-> vt8500_serial_probe() gets the clock with of_clk_get() and enables it
-> with clk_prepare_enable(), so the reference has to be dropped by hand on
-> the error path, and the clock is never disabled or released afterwards,
-> even though the rest of the probe is devm-managed.
->
-> Use devm_clk_get_enabled() instead, which gets and enables the clock in
-> one call and registers the teardown with devm. The manual error handling
-> and the clk_put() can then go, and probe returns the actual error code
-> from the clock lookup rather than a hard-coded -EINVAL.
->
-> The clock still stays enabled as long as the port is in use, so the
-> success path is unchanged.
+Connect the EV23X71A fan to the controller and route its pins. Use a
+25 kHz normal-polarity PWM for the board low-side FET. Set cooling
+levels so the fan starts at full speed.
 
-Thanks for the patch, but you missed the sign-off line, without which
-it cannot be taken any further. The concern raised by Sashiko in its
-reply is also valid. The whole bitmap is quite an eye sore frankly, so
-it should probably just go anyway.
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+---
+Changes in v3:
+- No DTS changes; renumber from 6/6 to 4/4.
 
-Let me take a stab at these - I'll put you in Cc.
+Changes in v2:
+- Split the fan controller from the temperature node.
+- Add the EV23X71A fan child with board-specific PWM and cooling levels.
 
-Best regards,
-Alexey
+ arch/arm64/boot/dts/microchip/lan9691.dtsi         | 7 +++++++
+ arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 8 +++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+index 52c22dd1a15d5..039c2014aa341 100644
+--- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
++++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+@@ -522,6 +522,13 @@ sgpio_out: gpio@1 {
+ 			};
+ 		};
+ 
++		fanctrl: fan-controller@e2010348 {
++			compatible = "microchip,lan9691-fan";
++			reg = <0xe2010348 0xc>;
++			clocks = <&fx100_clk>;
++			#pwm-cells = <2>;
++		};
++
+ 		tmon: hwmon@e2020100 {
+ 			compatible = "microchip,lan9691-temp", "microchip,sparx5-temp";
+ 			reg = <0xe2020100 0xc>;
+diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+index abb21a8bace9e..3cbe5beebce1d 100644
+--- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
++++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+@@ -775,9 +775,15 @@ port29: port@29 {
+ 	};
+ };
+ 
+-&tmon {
++&fanctrl {
+ 	pinctrl-0 = <&fan_pins>;
+ 	pinctrl-names = "default";
++
++	fan {
++		pwms = <&fanctrl 40000 0>;
++		cooling-levels = <0 128 192 255>;
++		#cooling-cells = <2>;
++	};
+ };
+ 
+ &usart0 {
+-- 
+2.56.0
+
