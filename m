@@ -1,111 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.61.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380262;
-	b=2B1jxez6YNnqiFSoW1kex3WPw797PfvGvCYpBml9OEunT95LbDdow5fUXvWaZ5Z493qy
-	 YNwRiEZfmSxNSw7tFDKcvf6mcuiBcqF/VDHi+js+znzDnd44MplGbi22QBv2c7vWmK1GJ
-	 +01AvUwKdhNPpB2A+W8erEAao8gwO8qkdCpBEwokSn+8iYSOS2RK+1wnTXT2oxig8fwFH
-	 phWwat0/XQsBKebUTeRbpVvpSMDEnWtZ4q3N+jq/SlfmrD9d9Y2ICWEUDwgnTbnGZ355Q
-	 sLuszAzY5jx20WUko8mlgW20qdtXwwlxTruCl/KW5ePnQ2/HDHWHX9EI4ehZag6XqTw==
+	t=1794380261;
+	b=SIT61Vuch4hMTnBOZ8XkHWX0vRVw1wS9Zr4jMJUK+2L3LIryXQ9xI/qZAtMI3Js6/A/Z
+	 Tyu/BmdYiqVAcARbJ1Pz4ps9u7th3DYeGdazbxmAFkbIW367nFrjPeY5z51Q2W4bXpukY
+	 fBLD+CwQoihZCWHsU3/cWkVean3l5xH27ZM4DEI2Kyj/kjHhib1twKwPCHVUs4hS3qO5w
+	 ZIJsKcTuUihKpBg2i3WtwhFul7BcZRPaokNz9uIDSx1bW0FYRx1/L8gg1pz2NH2Q0Xvsz
+	 CvAVsKovRr3jupSi9BZM2okqznrJJvEMfxEXq1X4k+gtLxLpV10FIDpMilfrMBTCERQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380262;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-	b=Ft3O0RWXhbusqFfB0t7dLTBEsJBG7NSvk1HJevAuQqAozNVmuRSt6Wp37pxRRGm/w46X
-	 zI3Z75oEwsM5+DrFBnFOpzCHT0yRnRdy83WnlN/DFKmtwSJJAxiiVf5CBKJGQlL6gqMZ2
-	 FUixsf66jj+6gKj1BHybvZ2p7rTBVzGK0KT5u0gFJJ2aowle62+A6KhpVp/7LnLpKMCrU
-	 YvUJtlN7Z8J6IbRCtIKg0E95HE8TlX8GwBT5XqvyXGTDCoMKuSy5doLoGqTJOg40/5orX
-	 X2hti9o3qZ1eEYAqLowpHJtzsUx9tD9O1ir0KdpHcpwWhm20EWUWEMCor+bY+WAkryQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380261;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
+	bh=Ii/JANG12rhgUYH14odhnT3AUGJ7mzTHmXQwKDpHhrY=;
+	b=NLK1rtENaXL3BFhbKAXgr5IxwuVVjmEcN56vOcweNkND5QmhRf9lNw9TxQasVuN4/pn0
+	 J2UdG+KrfrBXg4vcQdfUt9obeYHUZffDD08CpYWtxGx8RsxPAWPHFAyafJfosMfQIwJ1d
+	 nUHxazFksxK53J5atBpFj0sflueEiK7Z1E1ZszUQFjJKWyxjATghXuHB9yITEni5ux64h
+	 gp+NMo0eyXte9uhGPeLCfVO+aiMFP+PYppuy9wMIWaPqoaPBZI1ONo1I6XUVKFsyUWEAo
+	 yKz8A22p22sE5obV4yVkBDO30yE62qZoYAFIfyLuTbE2RPHksV46TEv/7ngyaXs4fLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=axXQ16DA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fsRYDQ6X;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=j+HyK+IE;
+	arc=none smtp.remote-ip=188.68.61.107
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFE6606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FFE6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029D6606A32D;
+	Wed, 11 Nov 2026 06:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 029D6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=axXQ16DA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fsRYDQ6X
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5Kocw1052608
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=; b=axXQ16DA8WQV/U2s
-	x9ZEvqdayTXPXdLznvqfpZoY2iO9ccV0Gfy4lLUkWz6iUe45A591S43RqhQPqZ3R
-	grtFvA1DuHJ9Ma6u4d3ZTLdg2wngGwLaVX65z/BaYmBByy2b5esbQ2ojAfdcJrXF
-	FjJhd4Ct0QEuRMvz8IOmwtrTYcYn6+fwikmPYIiHqVlEO04+3fI6USiv1hJHYcXQ
-	ht2DkF2uW7wNfFoTkDoOlhmqfRj92/7nz8hn3vF10L0Uyv+cDswY3xomf4ArSsmu
-	vZ0b91hL7Y6d0ecqxEfKWya/w9YLkM/insgJ7Fy1QObeY0bnr4pSZD0/o6u46InD
-	LK5odQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdrh18s6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:57:40 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b847ab3fd3so3744394b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:57:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794380259; x=1794985059; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-        b=fsRYDQ6XfaADkpH0BAu4o+G+96/vlz4HmIJuTTUcxnlSQi7PUQSBOb2nFmAvRCYqbv
-         gi8+vTLUI+9f5gxGVhHeCWJJHMa+yQ13A/dMYuaZkTt30/uC3csGyXVtsySbnoifV29G
-         eevRGs4Qd+eoEFFc0FuseiFdT0V7cU/4C4ChAqND+NhZLPw2D7HmwzGVJ/vnWE9qh0Oi
-         3iiXLuVgZt5JA7VOJ+nUFKfhLfvHDzaO5OgXl2xYHu999xO6jhlKmPRucx9deda2RhEX
-         zWlDZFu9C9Gx1MW3ZCnCFZq1IpmqLoIwXX4T/FLKY6ElWPsMq5rCI4Zix8MPExYP7nRe
-         p2hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794380259; x=1794985059;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-        b=COAa8pCI/ayrxdLLWAbmG5SfTuD5LIt9Oa0z1x86emZcp3O4E3YprYay36n8gxPEhv
-         AQ75pGANZq51nGS6EyTvHXVJL65NKTKmyN3WS7F/JOOqACgeu/mYdms159OLYEa/N+gd
-         Xf9mk1Q8T1zPS+Ekz+qqK5HzcsTfmGvaaO7T+mL99xNSGhwutziZYVys4FJ3ZwPB/7O+
-         4FuJAqg9S0QACbZCLPSMXa0neLmW/ZW3gZUR6EZKNqEOu4p/lqX6sx3aIoCPUeZ1YooD
-         G2hQoKBGiVtbgJB4m2I/UexIe3mI+CNpzwFejyURIPKeg5w1BTWAkM6pkLZM18upJCeM
-         Q19Q==
-X-Forwarded-Encrypted: i=1; AL+hErG6KEao/8lW99KnjJI3CZmNnFb3cpe3qjpFDnKaorfSrJmAiE9UtwdA4Gw7xw7pCfEEoUtRIEE0XMdiko4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FSTO4l3fP1dznghaGnIirkmrbYcmWNgqcBh1Qlc4mfm7Xm9uL
-	DhATZI9uwIDxgkoDeIxZ0xw+ElHYvIEUfJpdXfs3cNSGvT2iuX07nvhVJ2nsfwZOcpYEuwwIxXz
-	etBdfo+QTtce1C4l66/yiIlt/PD79mIPBy/5d7i2WIXFbea5MXBolAC487w9/G9rqTJ4=
-X-Gm-Gg: AYBFou2+oaP0LHVBRVJa2mhIGUq3/LsyjA0XiTS6d5h+547L/XTfIDg8PTC0bBDHOjl
-	g6j4FpSTyrvk41UoT00q3xdUH0a+SH1qkAzBUuf4AXqQN8fzj50J6aMmggqdx+6srPjTLY0zD2P
-	jnaAf2Jpo7X+0eHg7LjaeWO+aBMwMG9fWFZX+gVEVKjLJa4UxWT16yfbecPEWJfR83btaCy7dDz
-	QT/gdnMuWi8bzTAklrFrH2Np5Knq9X1qZWZxFZLhAHukQdsuZr1CAmryK8sZ+wUJcCuGbS/8xjQ
-	CcKvpe7Qfz8GNa6dsXkDzv+OSuQBcgpDkKiFfdoG65AcbDuDHjpLkB1vCW1sZapSHKEV0tdlU+C
-	VkNBnC/iFAMGD2lGzuNdW3V0C4x8n49sNS11SAjfs7KvfWewig4Qka3O2R3u7dJCUNqzIHPw=
-X-Received: by 2002:a05:6a00:4187:b0:8a0:3ed7:939f with SMTP id d2e1a72fcca58-8bc1bcd5240mr1595140b3a.30.1794380259244;
-        Tue, 10 Nov 2026 22:57:39 -0800 (PST)
-X-Received: by 2002:a05:6a00:4187:b0:8a0:3ed7:939f with SMTP id d2e1a72fcca58-8bc1bcd5240mr1595118b3a.30.1794380258747;
-        Tue, 10 Nov 2026 22:57:38 -0800 (PST)
-Received: from [10.64.69.121] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa86e030sm1800660b3a.27.2026.11.10.22.57.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 22:57:38 -0800 (PST)
-Message-ID: <58dbf12d-dae7-44c3-b7da-b65a4800c3b0@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 14:57:32 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=j+HyK+IE
+Received: from mors-relay-8405.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4jPZ8V5KMrz7DQV;
+	Wed, 11 Nov 2026 07:57:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1794380250;
+	bh=0kRS6HcThTRfwBZuoYJysD3XRboaoxYenf5JUqHSq7A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=j+HyK+IEv74c50BE5JDPsIHxzP6sjEoSgjMzPXIPQHHM25FPjzoWGu3CN1WglQxtj
+	 UvEhbq4zdziX1ThVpN+yGGe2iQmRSHjdV/NYxGObk5qd4D5RJ4OfAfRHwLP4mvZ690
+	 m4eAKQCryTlvlle1j3EraSUbOLUPMr/un7COw7EduVFnWk3Iiku3pMVkyRCShUxzRs
+	 dtQSm+yR1DNxqI+9vxapJLuO5X+iY5pvm1uWeQiGIPR5j03DOByvhP6y8HDKpZgR3X
+	 kFJGU9r2s/luNxf8zaaRU2GA4CZhKNr9xQHSNi/WyKTDl1lTOy7me55xbDRQTzB7dS
+	 tqzg9oEkbSUuQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4jPZ8V4bLSz7DNj;
+	Wed, 11 Nov 2026 07:57:30 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jPZ8T45gtz8svf;
+	Wed, 11 Nov 2026 07:57:29 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1AA845F957;
+	Wed, 11 Nov 2026 07:57:20 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=thorsten@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <5fa96a09-9004-4de5-894b-06a9e801e363@leemhuis.info>
+Date: Wed, 11 Nov 2026 07:57:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,220 +74,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: Lukasz Luba <lukasz.luba@arm.com>, Viresh Kumar
- <viresh.kumar@linaro.org>,
-        Vincent Donnefort <vincent.donnefort@arm.com>,
-        Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
- <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
- <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
- <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
- <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
- <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
- <ec04f795-6cc6-444a-bbee-70c7982932e3@oss.qualcomm.com>
- <CAJZ5v0js0pbcKRp-cNVu_aPstT4meF-u_z012Q-AA=pvvOY=qA@mail.gmail.com>
-Content-Language: en-US
-From: Guo Chen <guo.chen@oss.qualcomm.com>
-In-Reply-To: <CAJZ5v0js0pbcKRp-cNVu_aPstT4meF-u_z012Q-AA=pvvOY=qA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyNyBTYWx0ZWRfX3kXymrTClFjh
- FzuYPaReQGtXXD0avYuGbWQICGWOBa/ozGTvV8ObBKLaGHeA0l27RTifKX84m/2jkiCD2E2oJJu
- 1BqLb1T7TG6tO21eRUGsAMG1BaEBqsk=
-X-Authority-Analysis: v=2.4 cv=PoQG/AM3 c=1 sm=1 tr=0 ts=6af411e4 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=PXZ8zqEZW9EwPeroSyQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: f0_-KhEn8xsAzFDqoq_d-i-T1Jt4pZ31
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyNyBTYWx0ZWRfXz8HK3N+HoYfE
- jnKi8ORaKkAMerNzRkfxitDSo/7ZTQwdzEXlnIqjfjaMiYbO/G0S9etdDFkUl8ibu45gle0TvKF
- NcQckSe4Vyo3WOLK5m2mNq7OHLL0p+XPKqNDGbw+P7gMDNQFcrCDbEytunPtQMXpH4uv3ppRqyD
- 6TD8zpY8TUskfTpv1+AKXONh5g3736XfQ9DrT78Pi0C/rJhrJsz6+f32Bn529RrBysjVJccWB1+
- xwei9W4bGku1w2nh4YnYQRddhh6A3/JWvq6+GC0dYC3RxvHqJOCkPfY3w4fZ4RxgTKesYPukAqm
- gUF1nL9YrjAAQzr6X8SYMwNXCqK73HhkVM0XmqYrw8O/9fSDR7F79g0bN0+JQz+FuoQq0abUeKq
- LOOxOPQ1vmrGvLOyS9GYyWDcAsFsWEB/TpdAJyVmwR11cJuczSTXNPZcXvrD+HYpEU+srrQkdSA
- sXbWSGOrkjGGOedbiww==
-X-Proofpoint-ORIG-GUID: f0_-KhEn8xsAzFDqoq_d-i-T1Jt4pZ31
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110027
+Subject: Re: [PATCH] docs: cve: Describe how security fixes reach users
+To: Kees Cook <kees@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: CVE Assignment Team <cve@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <20261111014419.i.586-kees@kernel.org>
+From: Thorsten Leemhuis <thorsten@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=thorsten@leemhuis.info; keydata=
+ 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
+ uTaBMEK4
+In-Reply-To: <20261111014419.i.586-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179438024055.383810.15326130967008139699@mxe9fb.netcup.net>
+X-NC-CID: o6Q3L7U+z0f8iPWa8mrti+ud5yjvwquEdPtCcCX9RbqK++8xbLA=
+
+On 11/11/26 02:44, Kees Cook wrote:
+> Recent threads on kernel-hardening proposed new mechanisms for
+> mitigating kernel CVEs while waiting for distributions to ship their
+> fixes. The CVE documentation does not say how fixes reach users, or
+> whose job it is to get them into a vendor's kernel. Add a section that
+> does, summarizing the answers given in those threads.
+> 
+> Link: https://lore.kernel.org/all/2026110719-zipping-silliness-2443@gregkh/
+> Link: https://lore.kernel.org/all/2026111052-spectator-legwarmer-4c1e@gregkh/
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  Documentation/process/cve.rst | 30 ++++++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/Documentation/process/cve.rst b/Documentation/process/cve.rst
+> index 5e2753eff729..d16b5c2bf7ba 100644
+> --- a/Documentation/process/cve.rst
+> +++ b/Documentation/process/cve.rst
+> @@ -119,3 +119,33 @@ assigned to all fixes for all issues, but sometimes we will fail to
+>  notice fixes, therefore assume that some changes without a CVE assigned
+>  might be relevant to take.
+>  
+> +Getting security fixes
+> +======================
+> +
+> +Fixes for security issues reach users the same way as every other
+> +fix: through the stable and longterm kernel releases listed at
+> [...]
+I found a few things expressed slightly too complicated. I first wanted
+to point that out, but then decided to just suggest something better.
+Not sure myself if I like the result. If you do and want to take it, let
+me know, then I will polish it a bit more.
+
+"""
+Getting security fixes
+
+======================
+
+All fixes for vulnerabilities are first resolved in Linux' main
+development branch and then reach users like any other fix: through
+backports to one of the currently supported stable and longterm kernel
+series, which https://kernel.org/ lists.  New versions of those series
+are released frequently, each one tested as a whole by many community
+members.  Only once a fix is in a stable/longterm kernel release, the
+CVE assignment team announces the CVE on the linux-cve-announce mailing
+list.  No vendor thus learns of those before anyone else -- except for
+the very rare case of :ref:`embargoed flaws
+<process/security-bugs:Disclosure and embargoed information>`, which do
+not include :ref:`AI-discovered flaws <process/security-bugs:What
+qualifies as a security bug>`.
+
+All of this is available to everyone at no cost.  The best response to a
+CVE and the quickest way to receive its fix is to always quickly switch
+to the latest release from one of those stable/longterm kernel series,
+as then you will frequently receive security fixes even before CVEs are
+published.
+
+Some Linux distributions or hardware vendors regularly distribute those
+new stable/longterm releases as updates within days of their release at
+no cost -- and thereby distribute fixes to their users.  But if your
+vendor does not regularly ship those releases or even bases its kernel
+on a series that is not supported anymore, it is that vendor's
+responsibility to integrate the fixes -- if those reach you later than
+you need them, raise it with your vendor, particularly if you pay them
+for support, since keeping your kernel up to date and secure is part of
+what that support provides.
+"""
+
+Wondering if we should mention what "EOL" on kernel.org means -- and
+that some CVE fixes are not backported to older series and suggest
+something like Greg did here:
+http://www.kroah.com/log/blog/2018/08/24/what-stable-kernel-should-i-use/
 
 
-On 11/10/2026 10:59 PM, Rafael J. Wysocki (Intel) wrote:
-> On Tue, Nov 10, 2026 at 3:56 PM Zhongqiu Han
-> <zhongqiu.han@oss.qualcomm.com> wrote:
->> On 11/10/2026 10:05 PM, Lukasz Luba wrote:
->>>
->>> On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
->>>> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
->>>>> Hi Rafael,
->>>>>
->>>>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
->>>>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com>
->>>>>> wrote:
->>>>> [snip]
->>>>>
->>>>>
->>>>>>> That's fine, please continue.
->>>>>> I have a couple of questions though.
->>>>>>
->>>>>> First, why is the ondemand governor mentioned in the changelog?  In
->>>>>> the mainline, the ondemand governor cannot work with EAS, so it
->>>>>> shouldn't matter for this issue, should it?
->>>>> The ondemand is affected by the EM setup code and set 'inefficient'
->>>>> flags for some OPPs. The EM is also present for cooling devices
->>>>> and can work w/o EAS and schedutil, w/ just ondemand governor.
->>>>>
->>>>> Because EM marks the OPPs kind of 'globally' as inefficient, then
->>>>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
->>>>> In the EM code we have:
->>>>> cpufreq_table_set_inefficient(policy, table[i].frequency);
->>>> So maybe this is the one that needs to be fixed?  What about simply
->>>> skipping boost frequencies in it?
->>>>
->>>>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
->>>>> pass to __cpufreq_driver_target() with that flags as well.
->>>> Thanks for explaining and all of that needs to be said in the patch
->>>> changelog.
->>>>
->>>>>> Second, why is the issue regarded as a defect in the code and not in
->>>>>> the energy model?  Arguably, boost frequencies should be more costly
->>>>>> than the non-boost ones.  At least the idea behind the boost is making
->>>>>> higher-cost OPPs temporarily available.  If they are sustainable,
->>>>>> treating them as boost OPPs is rather pointless.
->>>>> IMHO it was a bug in the commit mentioned in this patch fix tag.
->>>>> It is affecting more than just EAS or EM, since the EM is working with
->>>>> all generic code and all cpufreq governors.
->>>> To be precise, the EM initialization may affect cpufreq in general
->>>> because inefficient frequencies are used for CPU cooling.  Fair
->>>> enough, but I'm not talking about this.
->>>>
->>>> I'm talking about a reason for giving boost frequencies lower or equal
->>>> cost relative to non-boost frequencies in the energy model because
->>>> this doesn't make sense to me TBH.
->>>>
->>>> And I get that such energy models were there before the commit in
->>>> question and now they are not working properly, but IMO they are
->>>> broken, not that commit.
->>>>
->>>>>> TBH, I'm too comfortable with looking at cpufreq frequency from within
->>>>>> the EM code.  If that needs to be done, something is amiss at the
->>>>>> design level.
->>>>> I think this edge case is special, as I described above.
->>>>>
->>>>> I'm happy to hear your view on this EM influence to some global
->>>>> setting in cpufreq. Maybe it was too far to establish this
->>>>> 'inefficiency' flags in there for many usage?
->>>> There's nothing wrong with using the information from the energy
->>>> model, when available, to amend cpufreq, but the patch goes the other
->>>> way around: It tries to amend the energy model with information taken
->>>> from cpufreq (in order to avoid making mistakes later when amending
->>>> cpufreq with the energy model information).
->>>>
->>>> I think that cpufreq should simply refuse to set
->>>> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
 
-
-Got your point. Having cpufreq directly refuse to set
-CPUFREQ_INEFFICIENT_FREQ might be the simplest approach. Let me
-summarize my understanding. There are two cases where we can
-simply avoid setting the CPUFREQ_INEFFICIENT_FREQ flag:
-1. boost frequencies.
-2. the highest non-boost frequency.
-
-However, there is another issue. If we refuse to set
-CPUFREQ_INEFFICIENT_FREQ for certain frequencies, I think the
-corresponding EM_PERF_STATE_INEFFICIENT flags in the Energy Model
-also need to be updated. Otherwise, the EM state would be inconsistent
-with the frequencies used for energy estimation in the EAS path.
-
-I think we also need to update the EM_PERF_STATE_INEFFICIENT flags
-accordingly, something like the following:
-
-for (i = 0; i < pd->nr_perf_states; i++) {
-     int ret;
-
-     if (!(table[i].flags & EM_PERF_STATE_INEFFICIENT))
-         continue;
-
-     /*Return -EOPNOTSUPP if the rejection condition is met. */
-     ret = cpufreq_table_set_inefficient(policy, table[i].frequency);
-     if (!ret)
-         found++;
-     else if (ret == -EOPNOTSUPP)
-         table[i].flags &= ~EM_PERF_STATE_INEFFICIENT;
-}
-
->>> I see your point now, about the direction. Yes, you're right.
->>>
->>> Since we are taking the information about 'boost' from the
->>> cpufreq, then refusing to set OPPs inefficient in the first
->>> place makes more sense.
->>>
->>>
->> I also agree this should be fixed in cpufreq rather than by feeding
->> cpufreq information into the EM. However, refusing
->> CPUFREQ_INEFFICIENT_FREQ for boost frequencies seems not help the
->> example in the changelog, because the frequency marked as inefficient
->> there is 4.0 GHz, which is not a boost one. The problem is not specific
->> to boost either: with 3.9 GHz, 4.0 GHz, 4.1 GHz and a 4.2 GHz boost OPP
->> at costs C - d, C, C and C + d, 4.0 GHz is rightly inefficient, but if
->> policy->max is capped at 4.0 GHz by scaling_max_freq, thermal or QoS,
->> RELATION_HE for 4.0 GHz still resolves to 3.9 GHz. I think the lookup
->> should not skip an inefficient frequency when the next efficient
->> frequency above it is beyond the max limit, which can be done in
->> cpufreq_frequency_table_target() without touching the EM or looking at
->> boost flags.
-
-
-@Zhongqiu: thanks for the example. I think the two cases are different in
-nature.
-
-In the case of the changelog, the highest non-boost frequency of cluster is
-marked inefficient because of the boost frequency. A sustainable 
-frequency is
-being affected by an unsustainable one, but it is not really inefficient: I
-don't think these two kinds of frequencies should be compared with each 
-other
-in terms of energy. So I think this should be fixed at the source, by not
-marking such frequencies as inefficient.
-
-The case you describe looks different, as it is dynamic: policy->max is
-changed at runtime by scaling_max_freq, thermal or QoS, which would mean
-ignoring the inefficient flag every time policy->max lands on an inefficient
-frequency. Whether this is really necessary seems to me to deserve a
-discussion. Thermal and QoS limits are there to keep the frequency from 
-going
-above the cap. In your example (3.9 GHz, 4.0 GHz, 4.1 GHz), if the 
-frequency is
-limited to 4.0 GHz at some point and ends up on 3.9 GHz because 4.0 GHz is
-inefficient, the original purpose of the limit, not going above the cap, is
-still honoured.
-
-So I am not sure that handling the dynamic case is needed, and I would 
-like to
-hear what you, Rafael and Lukasz think about it.
-
-Thanks,
-Guo
-
-> Good point.
+Ciao, Thorsten
