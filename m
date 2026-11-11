@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405414;
-	b=JAmLn9/oQgonCzgkoqar8xFyzq40h6j0rvjZ4CAXosrP7GH/yqJlleDW8tipJdJi4MjY
-	 WBTy8uZHN7RF/QbU9Z94lOlsJWbEJi25k9iKpmt4W39iX7EMj0dK9yk7T9HIIZq5IRqF3
-	 rQ+i4V+5TgDzjv7+V2+ayglcynIra+Rp3Twmyc5q2yn+m9yZmitgT1VNeR40nsvoWeoAI
-	 GFhp/GhE++xO1k3B6p33vTEbHHWdkiuOu64ZInjobx4TA4OtdnpbO74U8ygpaz+BU4Eva
-	 1ffh/Pfuqppu9P/XyL8ANp2I5mrMzUHlNnNK9X1kD9QpdNE4e8Y3KaRiXYPdVzQqKFg==
+	t=1794405419;
+	b=UXstFW41FPL9B4/6GgwLReUyRCuPXRwsKnp3DLm5Vj/0+KNLxarOFzSXCscpSfIzG9VK
+	 tyw+hcsAjymX+La6hzQRCPb62bOUtYtMzDsvLakbOgdtxGPumgFTAHbpu4g0edbzFMiLY
+	 JryM5RhrJ65i92dRbvNwR9Tyh5h/5b4QTaZ1hmLxHnMknH3TQDcDsEeFYCufbo9OvtQfN
+	 KN1MlOXS7jF+yN4HFZadvWDnQi9UHlxpPxxAvQCP+jj7poLCH4aagBH0xxdWWXmtSLH2E
+	 oq5rvZuD/cKaKGaDxRshIzpFqNm38EU2KykdBBW6CmLuKZ+V/U+qIGXVRzyfhC9NILQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405414;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=r6pLTgFd8oItjnu3lynKGJejvkGial6lZLOh86HxVAQ=;
-	b=KZ0t520PtiUVAol2stmd0jc7BWCTujOaf5q3EMaShfmeOGpi6UUY4e+jUFJVPZrUh1al
-	 IRMkAi3itSF1OBIUZrx7ww5lKTry1/33haW1ZzVhywl8t8K1+3YiCrV/QfG76Fy0ubpfa
-	 F+EGzm2hnnF5Jbonni0HpOyAeDXIytgMOd8LIe35e4hoCASjIQ6zAJU2veUiAcUeLWBrS
-	 B01MgPpwdParGPxf80oLealSXzMlcVQioG9eN1hps6p2h+18AxgBowqTgIPX8FceZZCzm
-	 RIbbUoachnFKjyFtYywC9gZKOP8AK91M90ZSOCSGxgnfMh7cuRCwSldSEoDLr8oPFZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405419;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	b=PJ1xEi5CxmTAxZTzTlcHf5/WoU5B2o1tQpmBqrfLjrtvvgbayuFwU9HtrhwxTwB5Jerf
+	 xXoQORj+FiSOZ+jhr8NMKK5Z/F+vJfQVYlsWo+P3Ol2n/XdNstf3LV5mMkma7LVwuyjoM
+	 C3eXifNPSehA3/wswWafdIyj6eNU7FhGpOfXwwuBDlTHZQI/dqjuYk5lYOtxDJvzdNv8F
+	 IvCQXfQP6dIXF1gelUFtnXQqyTuXvM0ZgbnpgNbAsuo+Igr8t2KftqZ/ooeMJCReIGRws
+	 VTIH/Ev1KVDkmcH3MrBB7wWHCL6zY/+fIlW5QosE2Luo8zJheD+r8nHyCHe7dwNWCSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vkD8spSm;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21CA7606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21CA7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XT3L0yyo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38547606A324;
+	Wed, 11 Nov 2026 13:56:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vkD8spSm
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F90D2F;
-	Wed, 11 Nov 2026 05:56:50 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 509613F673;
-	Wed, 11 Nov 2026 05:56:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794405413; bh=u/LGPrv/k6PTGiWhdZQ+jym/BFJyfT3LpJBoDuv93Ng=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vkD8spSmFx39shOqIqqJAejbtjz9KaoNs3/Wn/eGTlw5XGP5Hs96Up8gMK/KtGO7E
-	 90kN1DLrFfBeTq5Auxs1k9d87C+kQTElRIT9e6pQiMn2eAEYOfgM60lQFCfGB2hlH8
-	 skd/1uMMdD8m1GOwwdTnThcSWHOfoPLEhnTPL0LE=
-Message-ID: <45d9ce54-0f6f-46b0-aed6-de8d12b3d6de@arm.com>
-Date: Wed, 11 Nov 2026 13:56:49 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XT3L0yyo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0AE1F00A0C;
+	Wed, 11 Nov 2026 13:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794405418;
+	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XT3L0yyoPtIu3cfLH/k+LTL8V7cZekjOMriLR+CRGYWUCb/jpCRxQAwnKjhhn1Nns
+	 06jxZtlXg5LBVnKoN/jM4mE+P6g0RQh1vY8CT9VBseQBwVBvrjS2VvQZIePcoxfYnp
+	 lcv2oORx9ucKM82gG04iPUSCUtT4hDfFv9yuB0jV4T237Q1OonKjB/MRjyNtiKvngy
+	 UHSRq/Mmf+/3pvizaaoaiU7vddX2ieWE8jDexb4VbDTyfya0iQHOA5d7+xiAPZOa1v
+	 A0LczXfn9IHr7tj3oS9O0Sr7uYfSpWS46U7m8F6ODyJJsIzkXKIXuRoMa94icBZ3tq
+	 Cz1ezn7bX6IfA==
+From: netdev-bot+sinfo@kernel.org
+To: Congjie Zhou <zcjie0802@qq.com>
+Cc: netdev@vger.kernel.org, mst@redhat.com, jasowangio@gmail.com,
+ eperezma@redhat.com, xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: napi: add completion with an ordered IRQ
+ mask callback
+Date: Wed, 11 Nov 2026 13:56:57 +0000
+Message-ID: <179440541756.2168702.17991706426089713368@kernel.org>
+In-Reply-To: <tencent_74EA7A2E8BF5758E9C5EF18C9B1CED401D06@qq.com>
+References: <tencent_AA4F39DA7ADE330C721C03AAA832B92DD608@qq.com>
+ <tencent_74EA7A2E8BF5758E9C5EF18C9B1CED401D06@qq.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,147 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: topology: Reduce the skew for AMU feedback
- counter sampling
-To: Beata Michalska <beata.michalska@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Vladimir.Murzin@arm.com, catalin.marinas@arm.com, will@kernel.org,
- suzuki.poulose@arm.com, xuewen.yan94@gmail.com, linux-kernel@vger.kernel.org
-References: <20261111124005.2688820-1-beata.michalska@arm.com>
- <20261111124005.2688820-4-beata.michalska@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261111124005.2688820-4-beata.michalska@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/11/26 12:39, Beata Michalska wrote:
-> With the FFH support for CPPC, the AMU feedback counters, core and const
-> counter, are being sampled to measure CPU performance. Checking for errata
-> (which can affect both counters) between the reads delays the second
-> sample and can skew the result.
-> 
-> Take both samples in succession, then discard values from affected
-> counters. This narrows the sampling interval used for CPPC feedback.
-> 
-> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-> ---
->  arch/arm64/kernel/topology.c | 76 +++++++++++++++++++++++-------------
->  1 file changed, 49 insertions(+), 27 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index 66ac67bd025e..c968fa5b0c88 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -381,29 +381,45 @@ enum cpc_ffh_ctr_id {
->  	CPC_FFH_CTR_CONST = 0x1,
->  };
->  
-> -static void cpu_read_corecnt(void *val)
-> +static inline void cpu_read_corecnt(void *val)
->  {
-> -	/*
-> -	 * A value of 0 can be returned if the current CPU does not support AMUs
-> -	 * or if the counter is disabled for this CPU. A return value of 0 at
-> -	 * counter read is properly handled as an error case by the users of the
-> -	 * counter.
-> -	 */
-> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT) ?
-> -		0UL : read_corecnt();
-> +	*(u64 *)val = read_corecnt();
->  }
->  
-> -static void cpu_read_constcnt(void *val)
-> +static void cpu_try_read_corecnt(void *val)
->  {
-> -	/*
-> -	 * Return 0 if the current CPU is affected by a HW erratum.
-> -	 * A value of 0 is also returned if the current CPU does not
-> -	 * support AMUs or if the counter is disabled. A return
-> -	 * value of 0 at counter read is properly handled as an error
-> -	 * case by the users of the counter.
-> -	 */
-> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
-> -		      0UL : read_constcnt();
-> +	if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT)) {
-> +		cpu_read_corecnt(val);
-> +	} else {
-> +		/*
-> +		 * A value of 0 can be returned if the current CPU does not support AMUs
-> +		 * or if the counter is disabled for this CPU. A return value of 0 at
-> +		 * counter read is properly handled as an error case by the users of the
-> +		 * counter.
-> +		 */
-> +		*(u64 *)val = 0UL;
-> +	}
-> +}
-> +
-> +static inline void cpu_read_constcnt(void *val)
-> +{
-> +	*(u64 *)val = read_constcnt();
-> +}
-> +
-> +static void cpu_try_read_constcnt(void *val)
-> +{
-> +	if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT)) {
-> +		cpu_read_constcnt(val);
-> +	} else {
-> +		/*
-> +		 * Return 0 if the current CPU is affected by a HW erratum.
-> +		 * A value of 0 is also returned if the current CPU does not
-> +		 * support AMUs or if the counter is disabled. A return
-> +		 * value of 0 at counter read is properly handled as an error
-> +		 * case by the users of the counter.
-> +		 */
-> +		*(u64 *)val = 0UL;
-> +	}
->  }
->  
->  static inline
-> @@ -461,14 +477,20 @@ static void amu_read_core_const_ctrs(void *val)
->  {
->  	struct amu_ffh_ctrs *ctrs = val;
->  
-> +	cpu_read_corecnt(&ctrs->corecnt);
-> +	cpu_read_constcnt(&ctrs->constcnt);
-> +
->  	/*
-> -	 * cpu_read_constcnt() incurs slight latency due to the
-> -	 * ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT check.
-> -	 * Read it first to minimize the sampling skew between the const
-> -	 * and core counters.
-> +	 * Return 0 if the current CPU is affected by a HW erratum.
-> +	 * A value of 0 is also returned if the current CPU does not
-> +	 * support AMUs or if the counter is disabled. A return
-> +	 * value of 0 at counter read is properly handled as an error
-> +	 * case by the users of the counter.
+Hi!
 
-Why do we read them first then on 
-ARM64_WORKAROUND_BROKEN_AMU_CORECNT or ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
-respectively?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
->  	 */
-> -	cpu_read_constcnt(&ctrs->constcnt);
-> -	cpu_read_corecnt(&ctrs->corecnt);
-> +	if (this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT))
-> +		ctrs->corecnt = 0UL;
-> +	if (this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT))
-> +		ctrs->constcnt = 0UL;
->  }
->  
->  static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-> @@ -543,10 +565,10 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
->  
->  	switch ((u64)reg->address) {
->  	case CPC_FFH_CTR_CORE:
-> -		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
-> +		ret = counters_read_on_cpu(cpu, cpu_try_read_corecnt, val);
->  		break;
->  	case CPC_FFH_CTR_CONST:
-> -		ret = counters_read_on_cpu(cpu, cpu_read_constcnt, val);
-> +		ret = counters_read_on_cpu(cpu, cpu_try_read_constcnt, val);
->  		break;
->  	}
->  
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
