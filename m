@@ -1,45 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415321;
-	b=cMm7zg8YJqafyeIJ1iBQU5Hw0JtQL1+Yws83Av58IwmiyW9vcQZzlppem5bkDU1hxC+X
-	 MEtkCD9o7mGdIGAeqWoMs3Pufv3V1lFBbOwa7rSCSnq2DUPhpl5dOPflm2Yjq4pAdwoEq
-	 OoRdLOCaTKzxhndV4nGanFLp/tQs9y8BrXvcF2jd/rBfL4RBIpAxndJcYj+KAm37NOVcS
-	 DeMfmT05c7pT/fK8s40kK8L9kNAwVUf6ayAz/mSQ3A2NrOKqXNMTe4Z0pKePchY2/3OVt
-	 p1hQuikFgVCIZ+PzEoLK1jQO+x927yQETHiyuWCrwJEM9MAGH1dKmtlsn1PaSK62Suw==
+	t=1794415355;
+	b=wsSJKPkYW8quzH38V2UhOmMVzL8YPIMCTxUcyA9yqnMPafMD0Zf6InBktmAu/wUhQ3s0
+	 Njv3S5/jXjZ82VncgJDpG8+BJ6YuRlOgakyy23nSTAg+FcQoFo5Z3qPzmv1fbP+PYI5V2
+	 NP5NI25S/Oc/NCl0VCPpr1sBPTgB57E4OGshghcKP9L9bHyd8GJFsZB0ldWRFBX6NixNi
+	 KjiKupKo98ChI5VquuQZZDAoqSxMhZCqS2CUB1qVKz2UcTta5AqdOJfvElb1kTeqHdu0T
+	 6Dl7cZXsF8JcLePmJ0Ndk9kDee3bxYnjvj97GcgpjruA9wMA+wJId25X9OB8PIxHLjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415321;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
-	b=agAh6W8NRwdrqgXrhUoaM/oSp7OIFCK5if3yJd8aN1HJ2v5HSbbkT7KrmPpF3Cff4HEq
-	 b9Z2cfRjAuC4B+L0QA8QA9J87MCUp8YAtr1JL/cdeM+ZsJ6x2afzRksLOz8fdu8Ne4ep+
-	 TTkaJBMEvua2+xsA9ZisFK4ad3Q7miPvwgGm5+xpI5lnZ1owgvmW7h+WrL5FiASkFq6OD
-	 2ov47uSViQE4b/Cn7j1ACecqrVhenHqaacirFPYW9fas+uR+zAjpGcbKpBiMn85V9I0Sy
-	 /7SzPfl8o1kTXu/UdBQ9CuXadot4ioGP9mkRCmJA//X34DwqGtEe0YtSYksQHGrQJfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415355;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=j26EAR/dzc2upvRIQcmRb74iTI2baBkwNia6YMWLcb0=;
+	b=xVD21bmLdVKFT6OOf5MUyGYC3d04DPs0sh4chWs0yav0JmYPBWdMqeGmCkcEZBh6B6D+
+	 6YWWHgj1Kv5MqGwNPQlaQUAbmt2Vhbejx1nyymQPLZ4tbN38cyc58NDoWaG2gV1X6h+Gz
+	 atR70L//gRp602eUb3ubbGYGApdhMhi3Ql/GoVo1wOya0xPBVFQE2VSY69PSEoa0Y9iNo
+	 yTDAgz3AiTk2UxyTPZMQ2EfYgdGDZMyOyfVveYSfG52fbVJIvkLubmENaoHLRqSVDsnoD
+	 jTG8ucmlQU/JIzE4tMezII/alDamzMaasuAEjiq4yVL7nxsVVLwvXYVdMaQX3qNTSZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WilOHMSs;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF341606A31C;
-	Wed, 11 Nov 2026 16:42:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF341606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id DA37368D1C; Wed, 11 Nov 2026 17:41:55 +0100 (CET)
-Date: Wed, 11 Nov 2026 17:41:55 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: shao.mingyin@zte.com.cn
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] nvmet: handle short reads and writes in the file
- backend
-Message-ID: <20261111164155.GA18076@lst.de>
-References: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn> <20261111224245786kBVGPR0wSFFqHjmtHwtAJ@zte.com.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C487606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:42:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C487606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WilOHMSs
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36dbde64409so6866458eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:42:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794415354; x=1795020154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j26EAR/dzc2upvRIQcmRb74iTI2baBkwNia6YMWLcb0=;
+        b=WilOHMSsQ9/jscG6ljE4lyLwA+KOIJa0Q8EIPDGseTny19jiw0ZJ+cs9NpA9Sq/n1d
+         IvR7Pc/CH5BmanR4cFVF3APRepjdWrWmot/wNJB6rn7uTBD4yDk5tBh95tX2urCx+Blu
+         il5ulDDVNrR46fCUZFvmzbml/fRkfasN8Lrfw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794415354; x=1795020154;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j26EAR/dzc2upvRIQcmRb74iTI2baBkwNia6YMWLcb0=;
+        b=s24JIerYqJCG45FI19QybSsjKtj8pIxcOKDeCxSsLKe3cphy1Bbb+ojj2SU582f+bl
+         BWL+zXjlRSEhKGwfLPjsHbh30pLNRZ4c3t2mufGGCxa6suySDwERQeKTG7rTju7xIc/r
+         W4w0zDPA9LZ1kVz69Gs9sWfhRZiuJuRLsuTJesi6z/SeGDm9bzHFJ6Xur3DCLosgxMN/
+         EC+BK5Q5b3cAjnPslCZcwLO8Tr862PtHcGuxy1a1D7I0rTnZywX5RmCTmO2nPj/VMZDw
+         hXK3Z79lhDnjCzsty3rppW3Xv4KWTkbT5AjblgzGQwBghs55kCIrYLAt9eAthC/xn9tO
+         bUww==
+X-Forwarded-Encrypted: i=1; AL+hErHliVHIC7oO/gmOycfe1dWcpiJJfR5f6NpiHvPDyFwJR5BWd6A+LTPqVccPaaA0xACEjsellpxpl52z5OY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8T1npRv7oa/NhGwMVXa6gIeV4eq8UC0+UpWQoJUsvI7N8i6Unx
+	sSn1IqHdSTW01Nn3DqgfaB8gKrUGmE21dU0h/MeKMF/iZi0FSCN+czi3KvPJySWVdA==
+X-Gm-Gg: AYBFou3zIKn9BXZq1T5oK5LtIFRH3EOOVjGMt6XbxdJungF9MiAZYSyjkSEOsPNStAX
+	7Rqm0u50//8ZJG5TRsKeABxQ/pC0amyc2+zg/GWdb/HbCCEUJfUb+J5pSBt262Y5dJdgvEo2IR+
+	rrfGqS/w9oPZ+1PuVeGBKVXD+EoT+R1CVvEw3hnuqfQi2n/sfSJ6AE0E+HqYEtEvQtpjp/E5jhZ
+	cM5diJesNAti/3sMeZ0Du5lSR8+bkzlBWb3Q3H2gIUz/lje+8XbHDmfVTLpoel4zYRtDVChDUJb
+	R5jgvWc99vBi/ASRxnybu2VEnr0Q00IZO0qp78Sjmw9mPJT07rjnMhpnz/gd8cRKavfnnmf8xMt
+	yBeXGz7nSpAB6ITi7BUZcg5l/Ih+7Qh+dB3C2kzbY3W4eu2yMdpIlbzlk29s691PsKbPbhLq2w4
+	c66uppd9xvZJp7rvYvBCzkD/RH5mNiVI2EIVVoRnL7LLY6yo2JbWfbVbAem6GIw2F6vjJYeNiiz
+	aHULrzAr/DGdL1KR0nqbat6N0l2JL+iiJDU+7XeVqbxoo0SUjVxCr4TlDeJab8hIoP8K4z+GBDb
+	ZSWfvlErZ/TyiXvbPgSsC4/76R2OrF2POqTD22vecdLA8oZWiOsDyMZLcJ8qMp7z+Rk=
+X-Received: by 2002:a05:693c:40c7:b0:36a:15ee:c20e with SMTP id 5a478bee46e88-37686755924mr3880718eec.33.1794415353952;
+        Wed, 11 Nov 2026 08:42:33 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:1fca:3f2:2d78:dd60])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-37520cfe07dsm18544278eec.20.2026.11.11.08.42.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 08:42:33 -0800 (PST)
+Date: Wed, 11 Nov 2026 08:42:31 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
+ to dependency
+Message-ID: <avSa97F1Nu1LTSCA@google.com>
+References: <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
+ <auuICAm4BC_8Pzs5@google.com>
+ <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
+ <auzlLwlleGLPsLcw@google.com>
+ <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+ <au0oKFb9CmNzc6Cg@google.com>
+ <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
+ <avOw_4ZkqtKFHu1B@google.com>
+ <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,10 +113,179 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111224245786kBVGPR0wSFFqHjmtHwtAJ@zte.com.cn>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
 
-Looks good:
+Hi Alan,
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+On Tue, Nov 10, 2026 at 10:47:59PM -0500, Alan Stern wrote:
+> On Tue, Nov 10, 2026 at 04:04:15PM -0800, Brian Norris wrote:
+> > (+CC Alan, since he wrote much of the autosuspend stuff, but also
+> > because he might(?) have better context for some of the .runtime_idle()
+> > + pm_runtime_mark_last_busy() questions)
+> 
+> I'm coming into this discussion in the middle, so I probably don't have 
+> a good picture of all the issues you've been talking about.  From what I 
+> gather, it sounds like this is mostly a question of how long a parent 
+> device should delay autosuspending after all its children go into 
+> runtime suspend.  Is that right?
 
+How long, and when should the inactivity timer start. (The latter more
+than the former, really.)
+
+> The idea behind autosuspend was simple enough: Try to optimize energy 
+> usage by putting a device into runtime suspend only when it seems likely 
+> that the device will remain suspended for more than a brief period of 
+> time -- long enough to make the extra work of suspending and resuming 
+> worthwhile.  In principle the driver core could collect statistics for 
+> each device about how long it remains resumed and suspended, but the 
+> benefits of such a detailed analysis didn't seem worth the effort.  And 
+> given that drivers know more about how their devices will tend to behave 
+> than the core does, it made sense to let drivers determine the best 
+> autosuspend delay time for each device individually.
+> 
+> In theory, a driver or bus type might want to have differing delay 
+> values for the time after all children are suspended vs. the time after 
+> the device had some other work to do (not related to its children).  How 
+> much of an advantage would that yield?  I don't know, but I felt that it 
+> wasn't large enough to put support for it into the first implementation 
+> of autosuspend.
+
+Right, I don't think anybody is asking for this right now. We're just
+trying to clean up the corners on how the existing timer works.
+
+> So yes, in the current scheme a parent's inactivity period doesn't start 
+> until all its children are suspended (unless the ignore_children flag is 
+> set, but never mind that now).
+
+But to be clear, that's not actually how runtime PM works today. It only
+works this way for the very small handful of drivers where the parent
+calls pm_runtime_mark_last_busy() in .runtime_idle(). I think several
+people have acknolwedged that this is a bit of a hack, or at least a
+missing feature in runtime PM, and probably should be extended more
+widely.
+
+> The parent's autosuspend delay therefore 
+> should take into account the expected time before one of the children 
+> may have to be resumed, as well as the expected time before the parent 
+> itself may be asked to do something that doesn't involve any children.
+> (Note that if a device has more than one child, the expected time before 
+> any of its children will be resumed can be different from the expected 
+> time before any single particular child will be resumed.)
+
+"Expected time before a child may have to resume": isn't that child
+last_busy + child delay? So that expected time is already in the past by
+the time the child autosuspends.
+
+But:
+
+> The simplest way to carry this out is to do pm_runtime_mark_last_busy() 
+> whenever a child suspends.  But other approaches to the same goal are 
+> conceivable.
+
+Yes, I agree it's simple. Maybe the distinction I'm making doesn't
+matter that much.
+
+> Of course it's not possible to determine an "ideal" autosuspend delay 
+> time.  In fact, I suspect that in most cases we aren't even close.  But 
+> I think doing it this way is still better than anything else that isn't 
+> a lot more complex.
+
+Ack.
+
+> > I don't think we should be treating current autosuspend delays for
+> > parent devices as meaningful at all, per the above. So I think this is a
+> > chance to try to improve the architecture so it makes sense, and then
+> > figure out if any existing delays should be tuned/reduced.
+> > 
+> > Ideally, yes, we can avoid making significant system power changes to
+> > the negative, but I don't think that we should prioritize that above all
+> > else, as long as it's *possible* to tune the autosuspend delays in a way
+> > that makes sense.
+> 
+> Of course it's possible to tune the autosuspend delays.  That's what 
+> /sys/.../power/autosuspend_delay_ms is for.  Whether it's possible to do 
+> so in a way that makes sense will depend very heavily on the type of 
+> device in question and the way the system is used.  One possible 
+> approach might be to have a userspace daemon that tracks all runtime PM 
+> transitions and tries to do some sort of dynamic tuning.  How well would 
+> that work?  I don't know, but it would be a good research project for 
+> somebody.
+
+My point here was that I think Rafael was overly concerned about
+precisely tuning parent autosuspend delays at the same time as changing
+the runtime PM core behavior. Yes, they clearly can be tuned in user
+space; but he was suggesting a phase-in / opt-in approach to this
+change, because it might harm system power if it's not re-tuned.
+
+> > Side note: I think .runtime_idle() should be removed. As far as I can
+> > tell, it's only used for working around architectural problems in
+> > runtime PM (like $subject), or for implementing autosuspend without
+> > actually using autosuspend (usually because they predated autosuspend).
+> 
+> I have never given much thought to runtime_idle().  When we were doing 
+> the initial implementation of runtime PM I didn't see any use for it, 
+> but Rafael was quite certain that it had its place and the issue wasn't 
+> important enough to argue about.  I wouldn't mind a bit if it were 
+> eliminated, but I also don't really mind the extra overhead of the idle 
+> callback pointers and support routines.
+
+The overhead isn't my concern. The mental overhead is. There are several
+rough edges that would be smoother without it, IMO.
+
+> > At the same time, it makes it harder to reason about the runtime PM API
+> > surface -- because currently, .runtime_idle() is a primary reason that
+> > pm_runtime_put() and pm_runtime_put_autosuspend() are different.
+> 
+> I wouldn't put it that way.  My feeling is that pm_runtime_put() could 
+> be replaced by pm_runtime_put_autosuspend(), since they should behave 
+> identically for devices that don't use autosuspend.
+
+Ah, but that's not actually true! pm_runtime_put_autosuspend() skips
+.runtime_idle(). It (semi)directly calls rpm_suspend().
+
+> (If there are any 
+> devices that _do_ use autosuspend and also use pm_runtime_put() -- well, 
+> I'd say that sounds like either a design error or a simple oversight.)  
+> The reason for having two different routines is mainly historical: 
+> pm_runtime_put_autosuspend() was added some time after pm_runtime_put() 
+> and we didn't want to mess up the existing callers.  Maybe this 
+> judgement was a mistake.
+> 
+> > "Last PM reference" can be a bit subtle; particularly, the child only
+> > drops a reference on its parent once it *completes* autosuspend (even if
+> > it was last "busy" much earlier). That means autosuspend delays become
+> > additive along the hierarchy. Is that desirable?
+> 
+> That's up to the maintainers of the device and its bus subsystem.  They 
+> can arrange the default autosuspend delays any way they like, taking the 
+> children's autosuspend delays into account if they want -- and the user 
+> can always override the defaults.  But one thing that does _not_ make 
+> sense would be to have non-additive delays where a parent's delay is 
+> shorter than its child's.
+> 
+> Your email was fairly long, and I have touched on only a few of the 
+> issues it brought up.  Is there anything significant you still want to 
+> discuss?
+
+I appreciate all the responses. One particular part I did have questions
+on, which I'll mostly copy/paste:
+
+[Rafael:]
+> Now, let me acknowledge that some drivers evidently want rpm_idle() to
+> always set the autosuspend timer instead of suspending the device
+> right away.  That may be because of the "unwanted parent suspends"
+> problem at hand or for other reasons.
+
+Do we have any idea what the "other reasons" could be? For example,
+because driver writers found it too difficult to find all the
+appropriate places to call pm_runtime_mark_last_busy()? (Does commit
+b3db492e8335 ("PM: runtime: Mark last busy stamp in
+pm_runtime_put_autosuspend()") help? Or should pm_runtime_put() behave
+similarly?)
+
+I see that USB is one of the subsystems where .runtime_idle() calls
+pm_runtime_mark_last_busy(), and I thought you (Alan) might have some
+more background on that.
+
+Thanks,
+Brian
