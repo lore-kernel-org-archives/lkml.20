@@ -1,101 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794411616;
-	b=E2kAcerz6x+oteduxImWxN9SCu8NYqGkv4Xzi449ZH8WvQvb1tKxf6VJ2nUIelezZAUx
-	 cxohURZxmSM1Y3H6Q5d1OYWiriftIMI/FEQc/wj6jUJ/Zowm/7QmzdIGt0zqHMajoINBE
-	 8tkqFzIr6K4QnSswNN30RgBBTZXtXv2ibP3IH/2H+TU/QLe2laqaQw2CgQ6yLH1oCBgHU
-	 /+//3udmOsDcf7UFOfhGul5Z06ejSYA8kjZpSQIWZTULjTbn7r8+cCUO8C0Q1XleNaA0A
-	 t45iC3lr1RJSEc/AMmH/MjhwygdQykZJtPoKjzReLQbMyTBdzRaMQRnypNFovAzzLrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411616;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fxe6EHHyTC6tFnKkI3FHL/YYHiwBPYFWFLZtkSdQDic=;
-	b=mlrUv17TWf+ELJpqxv4K+guiyh2597fZRPIKFkPnUSCH1xcfsUPoe6j9BfFX1A9aA6Dm
-	 V/+kvvDULpQwiChIScMgr598UruPakTdlC996g00cMcy5p4iLPJi0hqJtehijXerZDyfL
-	 AQK4KCpgorC56d+ZbHD80tnYvmlWjo+Nd0gFfHXdW3FPc9cEAOnQF5KN1d2Yo3EwfKSXj
-	 8g1R5MgUAor7VSiHsulOEmBsPutYPrjbLSM4uCbEBWI8fxskJDwCs1NueMzLVrUINV6oQ
-	 CAlEB6fZsVhc5MpeXn7Hqa676cSuj+Qo2SprfdL80BgVsK3l3ETqwsp9AOCLpxws0Pw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUVIlqux;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794411619;
+	b=bkm5dZ2ps85fXk6NZBymtjo87amUjoXxZlVLdjidqpNsx86MXTHSkCFhP864c15b/psp
+	 CaF/D1DrH5W5ao9jstSOVGx3mVJ1boxqqy8QqkgLsaRyC0pTIaznqlCxmm5uyvPD21RVY
+	 npBvdJJYV4Up7nQnwf1u1p+bhq/NmO83zjvupag8QDPF1JtlebQuMdw095nBNt4LkatUY
+	 vbpHDWDoVzMuDKqAhbO6sL5GUoIT01NuuHfCilW95Ye9sr0qvyqp9bHiOIuV/NLyA1Fmu
+	 AfRUbOntNrTyv6IjXewJBRqpRjqJRu+DMl99OuDew9rVudD0ky3JoptYsHkol7nQWUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411619;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=OprF36JLM5p8Id+XvKPw4GzNwkz1XZPEfq/0vWjxfZk=;
+	b=u6IJPP0Bhd67qwfqdUNGg4Np3a51xOXFb13LOIDPtbtsEwmc6HvZGq6fH3J5A1t1Pz/v
+	 HHAM+hIURiB+jUKxUJJHFzCRlMs8gNZvoCB0jzvv6GiRNuv+TAnNvdFLH6vTbfBXp/AIp
+	 ODkozqAfFBQ48VaeXSZHqZNrArCZwzyg5AwTpK6lJNU06uRH8W6/90ZYt94tPEMCavTv5
+	 zAlRqHASdQTSDf4MtXUzw6YvwBZgwLFeHuyEEY9tB4zYjm3QYHKaqOAmXjG5iZ5jbXM9/
+	 CFUF/Yievzo8pzkyf8Z4Vd8MzRrQHeDlM+u1/18lyDZU/JNnOmd//GsE1l+KpM2Z4cQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M3QwgKSx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F6K+7eDA;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A6E606A884
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80A6E606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE59606A8A6
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:40:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EE59606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EUVIlqux
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3720addb068so5955440eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794411616; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I/6SsMN6eYwWn/T/lI7Xn9F2z9nxEmiSxy3M8GH29572eDnqj729LQNVEbIlaPUGMV
-         jEtDFhE6YqNbqYrpBt81pXeM31dZ7khlfQbus8p8W9UQsFd+AeFCeuk0eKozoRLRl/8s
-         IdATWHNOgJVx6guGTiXfx0ljbPelskeNXPoE/qgKlX1KPociYKRMe89lwzAAiR+8Knwy
-         rLlhDvNsa7jaFOxiag30VDqCl/btKjkSTf0aX2/zpgH6tE2X9CgLlZsTuoDDSBuBkSIJ
-         eJVPpjA2r57dmo6VXzIyLIFlC9A7DRsTKA2RFuGlrvDAZEQDPo0Y/TyakkkuBGpFjd68
-         V3Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fxe6EHHyTC6tFnKkI3FHL/YYHiwBPYFWFLZtkSdQDic=;
-        fh=kTi0Tp2aztHtQWqkLW6U83hTcaolxvblgWP1iYHKIH0=;
-        b=Ahyx8GdMCokxtQYAaZfYBqBc+nZ2BayfKCkcl0s+qPw9d/jmIuhmaaL2DW2ZlYguPP
-         aE8CnprYzuRHgBqyoX1mt6CdUWEU5NZphYU/maeZkQVhwAMPUAI4eamUeTx+4+OQ/x3d
-         z+8+s+RKfoi4LJuaymWCWWnxqhhpDorfC9owTAzK0hsOBJ51fM6weG2JcQ9r3OsnCpc5
-         ealWwwZPx46NDxc613ggpZzbJ5aqKCu+7N05txpR2uAAb/L7a/6BPZsPFcVqGpZxpEmd
-         T0/jSndht7NBtGXcQRDaAlXJQTEdU2zHfvazlZqhz03vVnbUW79U1YOxR1DR/gNUZjGF
-         oiHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M3QwgKSx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F6K+7eDA
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF0Jct2651104
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:40:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=OprF36JLM5p
+	8Id+XvKPw4GzNwkz1XZPEfq/0vWjxfZk=; b=M3QwgKSxxQJcxSGDa83MrU9chql
+	7DznRsYzMHol8NytPvt3D1F2xJjmZ7dbthOA0b/J5D1EodiOHkvC0ns+JiO33T1T
+	K0X8/mW6GYTCiciPkvLf9yJh4vSogWBim3GwODi6alKa11Ki6We46ssLeTFXRZbQ
+	73acnyKcZNE6fPVGfRl3youG4KSxRumDeKrCNIpH4/ZgK4GE7Hc1IhSozZ/qOkdJ
+	W6BHo95e5jnbpoyzkd/qx+2ZxtVCZXc4g8mFRyMYmyY1ShMMCTR63hokMnRaUZ8I
+	ry39PhoMrxAMgMeaQN3W1WenZC5Lho3ZexgSJFvWTYn2LyqR/cvuYBmwERQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnmberf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:40:18 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc37ee6562so333922137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:40:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794411616; x=1795016416; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fxe6EHHyTC6tFnKkI3FHL/YYHiwBPYFWFLZtkSdQDic=;
-        b=EUVIlquxammoSTN9iurX3iFNjZ9wQuiOwUEdWPlRwWkDWX7hi/f6JjeG2Y7i9JI1Ew
-         EV418Eb2te9j2g9OKOB5NyTsETaciNBq24TUMcA/cSgN4RTLoPnPNmtlfbR6gpXucI0/
-         LLIZbo4FCfTIe35Vpi9XX6oawD5fyAeigI1kGO6T+iLKmgRuTSa6VblTz3fIZ6Gv9rHm
-         pVJ+il0AA5mMuKec2C2133edzkW4+/j6TP5iWkZQHzi1fUR5QZgSi5VhkPbBJoHi6d5P
-         1BlTYBQaI/XMdcItwa3pDxmHNxl7QmHb4EbgZDhmIHV2cjzQnEVG26rTA8jMtNowhJHs
-         el6A==
+        d=oss.qualcomm.com; s=google; t=1794411618; x=1795016418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OprF36JLM5p8Id+XvKPw4GzNwkz1XZPEfq/0vWjxfZk=;
+        b=F6K+7eDABkt7UC+imlBBZ1AEA4ZfVsAuhxpuk2455MVR3z5g8rTJGGrz5TNokawhCQ
+         eGEe0h58hYX1GN0mcO7tcueEZmUKgcWXfhy7WJr4W8ZN/OxHjI5lTKBzKqVClo38aziH
+         I7sdhV4e14u4935XIbBad+Z7jaicPpIFUzl8GQJYKVM4xHVALHxCkWc9agQiJr2K9FIE
+         QKolPWM4xdcX/06T24Dfa77cyhp7YSgl2UyTUDM5kbyGunUd6HPZyEz0U6DFJvAyDCZs
+         AwYSD6ycuTIxD7Dmb/+0gMmc9on/GNiX1qa7jOw6WrNDtYwz0+27tvOd0vDsC3C73Gid
+         xFFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794411616; x=1795016416;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fxe6EHHyTC6tFnKkI3FHL/YYHiwBPYFWFLZtkSdQDic=;
-        b=e65iGaYGdo+UazkimoCYTE7hs4klxUGy1qrcDpGHDow0orjNSKP0lqoI6Gk4t5rk4T
-         9XG4C+NudvObWkBCZoS9OeCzUDQWzwohp2TxPSenoj9Qqa1x12xIgZMAt3djVkFJcEtx
-         XXDIy0vEs6R7afQtrapUj60BvSsVNYDef+sz80BbLx5CK1Phxbt4dFc06JjVO5vaiiUw
-         Jy0cow2e/7gxGXhflhi2af6hz5I1+xQPe0tcWooalpkvrjqJoHTRPK0LJ8X6/H2y8Qvu
-         0IGaxT407PxRiis5ykBqDMM1snlekt42nR52/z3B30hWgFiCbgr0Ca88p3rFXx54kHtW
-         sUEw==
-X-Forwarded-Encrypted: i=1; AL+hErERstU6dwe0r1zAwYwn4N0300J43gwmXZDwZSXbfnKz1Bp+R341nPxjb25Sx2yFAFev/aHDwCtDjVEJgR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/O8HUKiKqIjyxOFxrU1DDPySHsXQ07iR6WhCzEdLng8jzHT3uC
-	jZLK2MkZKnI+KaqHCRkDFmDUeXXlLI52JLN/qdaKcq3Pdod/SYr5NLG8xVJDtMEkCarljeX/95Y
-	d4tudc4/ANih2Woo/tZqdH0nWou8ODHA=
-X-Gm-Gg: AYBFou3smNGQMANn3btHroP5qqlcQ/JX1WGSQ7eqxpOoJ2jqOSHuZzqXN6WvyLV5mkx
-	nonTewv8aQKiBQAespRW+VNlmwh9Gn6HHB2juCTFQLJEW4j21DmSPxkqB8q9eC9X746RpUV/T7r
-	VZ3j35U0/zlFemP+WrjvIkBXI+aWNbJhXxUNcWTJMIgUaI+DEYvbovm1mHs1erL03C3tFMqfw9g
-	r72X7LbIWY1KFW4NAqbXHbLwq229f17qTDrrLO9nditiJT0ZwBrqE9B2YrO/4hGFth5ApOT0i9i
-	aglr0bkvSOuFBKmQ3VPhp7/Su7dNSXeIe8Wz6GkIpIF/vUNxDICcKAEM5KuOXZfJV6LUIt/zz8c
-	xQzTS7fsfEBv/KL2VnyLqPk+7FHSHL+nOBEkGBMfT7OYG/BuAiyxlwc04I3dmmQXglOsKLzxd2y
-	Mcvc6KJMrOXfPMxMAu
-X-Received: by 2002:a05:7300:8a19:b0:369:faa2:1fb2 with SMTP id
- 5a478bee46e88-376854b7fbamr3110380eec.8.1794411615515; Wed, 11 Nov 2026
- 07:40:15 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794411618; x=1795016418;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OprF36JLM5p8Id+XvKPw4GzNwkz1XZPEfq/0vWjxfZk=;
+        b=my4/H+er+vLf7DIaagL/7B62VCACAuOVZUctxGAA7HtIxZaYXqLhWYGJMELqrUTLzn
+         S3nIgqCaGCVmHUQtY/+HFKrZFmhU5+4Vf1W9Am4xLdYK2+eEjNlX4gMtltj7LjtOHAna
+         1auLa8qI/5Vj5X6Z/2oBzCmZ8CzvNW434CffkfXaG89yftS2ck+yOwrMbZsyt737BcOI
+         RSWgZ9xjWYWQj88G+JD6/i4ajMfBNI4RKluLbumAYUj9kewZXRLJEEEhyPC+8DI9R+IS
+         KI3m90YDTHjXRV9MJqiTykZKSHo5XsZkSEE0frjptPRfl1gHP3+A0ttiqwoWdQ87QKqR
+         j6Xw==
+X-Forwarded-Encrypted: i=1; AL+hErF75oykIrHyPnIesZWSfnioEYSZcmt4xH2qjxlBs6HVoiomu33Cqz9QA1jYyGfvayL/RXDxfVPlAlu1nsg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p69kse9KPifM0eb0TgYKcFKROgygPRQwaZjRpdFIeOsQekkSe
+	p9IGpzy83PjbFan/sntXmPTd9BRUAaZkurI1LiLffXt+ZL1NNmufSAW9Ld0aZ3FwUhQFOIIJrKk
+	KjVgXxbdUBi4pNl3sHhiaK0cxHDce0M7UBeF1jqnwZNoI7Rx06p/zrx/oeYCC7wMNGFA=
+X-Gm-Gg: AYBFou0HM8j4jAxakFMtKFh94mazZsxmUYHWqzIyOU2Ou5XxnxJRlAv9/urwbFYwJNb
+	LKS6AikippVfT5YkqksOapY9S3/zzwlnBEReEXQpwIC6d0CxZwFoe6+8fzXpB2grSJ8UPeOEIqC
+	0SjNE/8NhHgyiVLaZZa3ub5ltICukmf4KXxw7EGGpqqi3nzX0tZCsT9AWvLnRiXlLVPPM778lIV
+	hVvYqEpJ02a7owR/noJ8rphsRvt1L8LKax29Te9y5xnUxESFXieXmFjfYRlXb7seAHOMnjWPvnl
+	zPljxrW38pw41QvoF11VKaze8oSQt12SZlAD8a8qYBYuv0dWEpD/PBfgejuFLqh/YRQ4EqSjJL6
+	Lvc70MI8Xs71/MKFhJT48+rH+SeQlfweOp1xhfmBEb388rws6a0e40KaEPCuFDkjwfW5I7xhgLA
+	==
+X-Received: by 2002:a05:6102:5798:b0:7b3:7653:5487 with SMTP id ada2fe7eead31-7d50610a960mr802012137.32.1794411617701;
+        Wed, 11 Nov 2026 07:40:17 -0800 (PST)
+X-Received: by 2002:a05:6102:5798:b0:7b3:7653:5487 with SMTP id ada2fe7eead31-7d50610a960mr802004137.32.1794411617218;
+        Wed, 11 Nov 2026 07:40:17 -0800 (PST)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c5f53efsm3517355e9.13.2026.11.11.07.40.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:40:16 -0800 (PST)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
+        gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        atanas.filipov@oss.qualcomm.com
+Subject: Re: [PATCH v8 3/8] media: v4l2-jpeg: Add a baseline JPEG header writer
+Date: Wed, 11 Nov 2026 17:40:14 +0200
+Message-Id: <20261111154014.654617-1-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <qb6mqteoxdk7xb7qhgiruncdamptf7m62m3y4zrccs4cesxr4t@q3oukzsd6qyr>
+References: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com> <20261110163909.78085-4-atanas.filipov@oss.qualcomm.com> <qb6mqteoxdk7xb7qhgiruncdamptf7m62m3y4zrccs4cesxr4t@q3oukzsd6qyr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,95 +124,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111041446.3072716-1-lcy8047@gmail.com> <avSD8X8aRtT--4iK@black.igk.intel.com>
-In-Reply-To: <avSD8X8aRtT--4iK@black.igk.intel.com>
-From: Changyul Lee <lcy8047@gmail.com>
-Date: Wed, 11 Nov 2026 10:40:04 -0500
-X-Gm-Features: AclHuK8YYwgVK0aL7BIkYdbexCHW2lBFLFnga8S1u2LfgEZ_-aTqTN5xvJ2oqzM
-Message-ID: <CAKefsHtCtM-kUvw++2PN0tOoAuzHPYZ1YwSBX6jJ4KM1g3dHFQ@mail.gmail.com>
-Subject: Re: [PATCH] usb: typec: Check the alternate mode ID allocation
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: ivyRkgceuACOMZMbwRGdppOsepupnylH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2MiBTYWx0ZWRfX5GgzeXI9I1nX
+ z7gM3ioa2bnuj7QT2YhNpm2AYi7UPLIbFDGx/x1eqOR+kJhbY7wGxlLwQWXuH2gpWpYPaVv1FIZ
+ xRjY9QsXIjEHcYhsQiXY/Rf+zf5e+bI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2MiBTYWx0ZWRfX3ne3kadhm6s2
+ nOGi3S6sjtpYutRJ4VEHRUzd2pKhZQuoQlZHBKZUfSsLLYCC+EyN74fP5HEKqCkDi2H2Qtsv7Y5
+ Zt04BOq+EDQjBZ/mvow9Aagpw1SbSKUrFOAqlXDoXAdiT2o7dsUJ4+qZgTDyh+6sPKzqgmbd3TM
+ wVnX0ktkxIyqK0jvynfMGDAGmHLGahYteIy6dJDcQtOUQOULB7q6ONtr0eGqhobwnhXasP1tBOX
+ J8e8BA/lp6BsvLwn+qp8wJaulnmBdobkvRCcpzjzYqtDxcI1cgXzmK2Y9Ttumn0DqgqItgyzLiE
+ hyUFfHH6vOOpfZA4DGUkE4eJfwIP4RZ8Owl1ve7UFc+ldmUrDKIyPymuI/8gPsIp5wJE+hGIzkQ
+ t2xx4CWdVOWkk51++X35qnFpi/wvdYx5tBNxe2B1ySc7nS9G9XeMhUpAsRYg9Gw4vGUBfh240+q
+ LS54jaNxbHP2OJ5Ichg==
+X-Proofpoint-GUID: ivyRkgceuACOMZMbwRGdppOsepupnylH
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af48c62 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=l-wiyt6Y1aSZOmScoPQA:9
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110062
 
-From lcy8047@gmail.com Mon Sep 17 00:00:00 2001
-From: Changyul Lee <lcy8047@gmail.com>
-Subject: Re: [PATCH] usb: typec: Check the alternate mode ID allocation
+On Wed, Nov 11, 2026 at 03:30:57PM +0200, Dmitry Baryshkov wrote:
+> > +/* Writes past the end only advance pos; v4l2_jpeg_write_header() checks it */
+> > +static void jpeg_put_bytes(struct jpeg_hdr_buf *b, const void *src, size_t n)
+> > +{
+> > +	if (b->pos + n <= b->len) {
+> > +		if (src)
+> > +			memcpy(b->buf + b->pos, src, n);
+> > +		else
+> > +			memset(b->buf + b->pos, 0, n);
+> > +	}
+> > +	b->pos += n;
+>
+> Now b->pos has advanced past the b->len. Is it expected?
 
-On Wed, Nov 11, 2026 at 04:04:17PM +0100, Heikki Krogerus wrote:
-> On Tue, Nov 10, 2026 at 11:14:46PM -0500, Changyul Lee wrote:
-> > Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
-> > Signed-off-by: Changyul Lee <lcy8047@gmail.com>
->
-> CC stable...
+Yes. Nothing is written past the end, and the final check returns
+-ENOSPC. I agree it is not clear. I will use an explicit overflow flag
+in the next version.
 
-I'll add the stable Cc tag and send a v2.
+> > +	jpeg_put_u8(&b, nc);
+> > +	for (i = 0; i < nc; i++) {
+> > +		jpeg_put_u8(&b, i + 1);
+> > +		jpeg_put_u8(&b, i ? JPEG_SAMPLING_H1V1 : params->luma_sampling);
+> > +		jpeg_put_u8(&b, i ? JPEG_QTABLE_CHROMA : JPEG_QTABLE_LUMA);
+> > +	}
+>
+> I think it might be better to write explicitly:
+>
+> 	jpeg_put_u8(&b, 1);
+> 	jpeg_put_u8(&b, params->luma_sampling);
+> 	jpeg_put_u8(&b, JPEG_QTABLE_LUMA);
+>
+> 	if (params->num_components != JPEG_COMP_MONO) {
+> 		jpeg_put_u8(&b, 2);
+> 		jpeg_put_u8(&b, JPEG_SAMPLING_H1V1);
+> 		jpeg_put_u8(&b, JPEG_QTABLE_CHROMA);
+> 	}
 
-Thank you,
-Changyul
+Ok, I will write them explicitly in the next version.
 
-2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 10:04,=
- Heikki Krogerus
-<heikki.krogerus@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> > +	jpeg_put_u8(&b, nc);
+> > +	for (i = 0; i < nc; i++) {
+> > +		jpeg_put_u8(&b, i + 1);
+> > +		jpeg_put_u8(&b, i ? JPEG_TABLE_SEL_CHROMA : JPEG_TABLE_SEL_LUMA);
+> > +	}
 >
-> On Tue, Nov 10, 2026 at 11:14:46PM -0500, Changyul Lee wrote:
-> > typec_register_altmode() stores the return value of altmode_id_get()
-> > in an unsigned int without checking it. When ida_alloc() fails, the
-> > error code becomes the ID, and the alternate mode is registered under
-> > a name such as "port0-partner.4294967284". A second failure on the same
-> > partner then fails with a duplicate name:
-> >
-> >   [    0.423055] sysfs: cannot create duplicate filename '/devices/plat=
-form/altfail/typec/port0/port0-partner/port0-partner.4294967284'
-> >
-> > Return the error when the ID allocation fails.
-> >
-> > Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
-> > Signed-off-by: Changyul Lee <lcy8047@gmail.com>
->
-> CC stable...
->
-> > ---
-> > Found with a static analysis tool we are developing.
-> >
-> > Reproduced in QEMU (x86_64) with a test module that registers a port,
-> > a partner and 63 partner alternate modes, and then two more with
-> > failslab (task-filter) making ida_alloc() fail with -ENOMEM. Without
-> > this patch, the first of the two is registered as
-> > "port0-partner.4294967284" and the second fails with -EEXIST and the
-> > error above. With it, both return -ENOMEM. Same result in three runs
-> > each.
-> >
-> >  drivers/usb/typec/class.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
-> > index 54c7810b563b..29fb13ca9f28 100644
-> > --- a/drivers/usb/typec/class.c
-> > +++ b/drivers/usb/typec/class.c
-> > @@ -641,11 +641,14 @@ typec_register_altmode(struct device *parent,
-> >                      const struct typec_altmode_desc *desc,
-> >                      const struct device_type *type)
-> >  {
-> > -     unsigned int id =3D altmode_id_get(parent);
-> > +     int id =3D altmode_id_get(parent);
-> >       bool is_port =3D is_typec_port(parent);
-> >       struct altmode *alt;
-> >       int ret;
-> >
-> > +     if (id < 0)
-> > +             return ERR_PTR(id);
-> > +
-> >       alt =3D kzalloc_obj(*alt);
-> >       if (!alt) {
-> >               altmode_id_remove(parent, id);
-> >
-> > base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> > --
-> > 2.43.0
-> >
->
-> --
-> heikki
+> The same.
+
+Ok, the same for SOS.
+
+--
+Best regards,
+Atanas
