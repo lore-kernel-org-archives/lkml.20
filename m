@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378518;
-	b=0Tc+unbWdeWHVE/BIWUUpY+wxCQmKizD9oXxIinsCoS09pDUb2UvSznuJV/8Tgrr0NDt
-	 OmZ+OIF5WLqnHnzkIBRvTdxdzpceqzrZ2xEQuCzowmzkGyF9KihdBt8OFnOCGRy1fRe0Y
-	 EXn2o87MDNUcYBTGJixwBtEqWWZNJTGY9XTrwcHwpEPO2kldfzfGL5L8OOeBJWX72dUgF
-	 onCn5I5mKQ+kl5anOyL66fNjUnFPIRMD7wOYsR4hKCOTeyyTJFYD2ttJIB5ts1k+1cBI9
-	 OIejNYx0zfW7TvQytsIEnaCxvhU/lVJy/og4XsKUXsREqNiVR8f8zRpYoTdZ7b8o4Xw==
+	t=1794378536;
+	b=a08C25QFBm7yYPFwGt47nMwnsYQdZ1ve5HuwDlCD/WctZQINm7POPFYVTi6Jmo3sMRck
+	 ADO48L7YWmyfcMR5r47e8vGNfE2PI6bhWfSaNPxwzNtaO4tprxy11gZzJ6e3DtlmS4bQR
+	 dvfsWBeic7OjUBK+AcEFhm2FNZ+d3gOtfv5bnS5kF7AZAcDoIUkiv6M6ekxDUhrzuPMop
+	 AOaR6H9EtIavNGg4dcQStvkCTMcWsTNivRoHAFVwuWhvUGVlT5aKN7yNLnjRMdUn+cGGE
+	 r8jZ5/JMTBOYkOt/5elbnwp9RSjY+3rmlyVd0yCyugKR/hfaVyZjxo6ShR3iv2l0PFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378518;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794378536;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QBLR9XH6XThUbhGQIxGDHNv6K9NcvEAlLUNRJvnhuEQ=;
-	b=ynwUSATDA4J2NBszYIJfwlv+Z6M7MGsw0Dn5WJygKFhU+Afrwin2RqtIUzN92WiuL3oY
-	 DU+lf1H0R/9ADEbR41ZVetdKgIBHHOEh/6LedoWt7gmODxazW3N7sEVIXjWORc2BJH5wt
-	 y65WqTNpp6Hlna59640U1NHKL7nrAkxly3/Vin27JZPEciKJkUHE3kzsDghiU2+anOrGM
-	 StPf/fQ5OYBwJxZXW3DZL6SEJ25mnvqPP6owuuxFgNKp18475LLsWRMCebfUt6cFfKTn6
-	 K1KNfQS/RjzBt7hvd+Anf7+Q2gAUSP40lsz6WS1mwxF35zK2Uf1kiKbectR/s09zPOw==
+	bh=2ploE/VOi2AUYUkE+k1r3qWF9UTHVjA/86tbWIbW9QI=;
+	b=ykf7VrNbdkydWWLsaDB+hMXYjBA1ZDs2ihYwn9NvAdgfYE3svM9NKf36DmZ8WXeK6+H0
+	 nG2MMWeiboVk8bq5DPzWJutCC2USnhBL8sLeQbCRmfLv4vKJ0yDW+6Ct3N5+WNTiAAC0/
+	 xACVOL71XVedqQ9AUvi+GSs3nHZZKK4PWAcMbR2U3UKbLxM0Bp+/TK5LdZM/uw65zmjR7
+	 ipLzksM8JUIkQh034xcQFWJmmi7wZxMtqXnUewFkaYxGSQIuIpmNjWnK6/JW7Avp5NrHo
+	 tUKbKpsfZtoV8ej9oQiZTiYfABib28+5ALrJ+9ivfhCe5gp4UKV5aq3YoKYs9FxHlYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ADBcKkEa;
-	arc=none smtp.remote-ip=95.215.58.233
-Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E51606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:28:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5E51606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aib+l7Du;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEF8B606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:28:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEF8B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ADBcKkEa
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BYbsrt73utANP6mJklczqOlZOZawKJyWNF3cXm6ASNQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794378514; v=1; x=1794983314;
- b=ADBcKkEa5QyorHa+Ceev5wxwZMVzdoXqLZpy+vw9WQRNRDA8KOz5jh+FI0TtEr1a6sunBPez
- T+jPXRAQT+bhJLKomksP2IdhO9pU+PARJqVHki7HZj1VkGh+F5045v/zGZioo38Ikm+qQjhQwuB
- XanT99FVDShNWYjC7cDpV4rc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2fb7476acf35cca4;
-	Wed, 11 Nov 2026 06:28:34 +0000
-X-Mizu-Trace-ID: 2fb7476acf35cca4
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 07:28:28 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalpesh Solanki <skalpesh942@gmail.com>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v4_0/3=5D_wifi=3A_rtw88=3A_firmwa?=
- =?US-ASCII?Q?re_recovery_fixes_and_LPS_hang_handling?=
-In-Reply-To: <3fa52468b46142639eb6800cb52b146c@realtek.com>
-References: <20261108142708.489067-1-skalpesh942@gmail.com> <3fa52468b46142639eb6800cb52b146c@realtek.com>
-Message-ID: <7243D84A-CB81-477E-9A87-05AA4B3D0892@linux.dev>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aib+l7Du
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=aib+l7DukaYnWzq0h9Jvza7Zeo2Pg2C5MJTI/f0VqQtVWWkdPMjLERcWmXjiIrJfOhAw4XEt6SYw1
+	 2MdDWdpcS08q+WazUqanXmV8gJTK7qv1l7yc4M9mBnu36hG5A1ejgJ1JC251cAX+sWrkDcDAnqLkwm
+	 J8VZLjox27Nl5Jxs=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af40b25874-b0ce1;
+	Wed, 11 Nov 2026 14:28:54 +0800 (CST)
+X-RM-TRANSID:2ee16af40b25874-b0ce1
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af40b2531f-d1437;
+	Wed, 11 Nov 2026 14:28:54 +0800 (CST)
+X-RM-TRANSID:2ee76af40b2531f-d1437
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: tglx@kernel.org
+Cc: peterz@infradead.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+7a8157b6d979dc7367e8@syzkaller.appspotmail.com,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] cpu/hotplug: mark concurrent accesses to should_run
+Date: Wed, 11 Nov 2026 14:28:53 +0800
+Message-ID: <20261111062853.16835-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,31 +69,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On November 11, 2026 4:37:18 AM GMT+01:00, Ping-Ke Shih
-<pkshih@realtek.com> wrote:
->Kalpesh Solanki <skalpesh942@gmail.com> wrote:
->> Changes in v4:
->> - In patch 1/3: Also clear RTW_FLAG_RESTARTING in rtw_ops_start() if
->>   rtw_core_start() fails.
->> - Add patch 2/3: Prevent double free and sta_cnt underflow in
->>   rtw_sta_remove() when recovery races with station disconnect.
->> - In patch 3/3:
->>   - Keep rtw_fw_dump_dbg_info() in place on first failure.
->>   - Restrict firmware recovery invocation to PCIe devices to prevent
->>     scheduling while atomic panic on USB and SDIO.
->>   - Explicitly check rtw_hci_type() in rtw_fw_recovery().
->
->I can't see v4 in lore nor patchwork. Please send v5 (identical to v4).
->
->
+The boot processor sets should_run to wake the application processor's
+hotplug thread. cpuhp_should_run() reads that flag without a common lock.
+The existing memory barriers order the associated state, but do not mark
+the flag accesses themselves, which KCSAN reports as a data race.
 
-Shouldn't Kalpesh address the review comments before pushing v5 so we don't
-waste a version cycle? He mentioned he'd follow up in a few days with v5 to
-address the v4 feedback.
+Use READ_ONCE() and WRITE_ONCE() for should_run accesses while preserving
+the existing barriers and completion protocol.
 
-Best regards,
-Luka Gejak
+Fixes: 4cb28ced23c4 ("cpu/hotplug: Create hotplug threads")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ kernel/cpu.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index 376d297a6292..ab8dae116e0e 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -774,7 +774,7 @@ static void __cpuhp_kick_ap(struct cpuhp_cpu_state *st)
+ 	 * true. Paired with the mb() above in cpuhp_thread_fun()
+ 	 */
+ 	smp_mb();
+-	st->should_run = true;
++	WRITE_ONCE(st->should_run, true);
+ 	wake_up_process(st->thread);
+ 	wait_for_ap_thread(st, st->bringup);
+ }
+@@ -1045,7 +1045,7 @@ static int cpuhp_should_run(unsigned int cpu)
+ {
+ 	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
+ 
+-	return st->should_run;
++	return READ_ONCE(st->should_run);
+ }
+ 
+ /*
+@@ -1068,7 +1068,7 @@ static void cpuhp_thread_fun(unsigned int cpu)
+ 	bool bringup = st->bringup;
+ 	enum cpuhp_state state;
+ 
+-	if (WARN_ON_ONCE(!st->should_run))
++	if (WARN_ON_ONCE(!READ_ONCE(st->should_run)))
+ 		return;
+ 
+ 	/*
+@@ -1087,10 +1087,11 @@ static void cpuhp_thread_fun(unsigned int cpu)
+ 
+ 	if (st->single) {
+ 		state = st->cb_state;
+-		st->should_run = false;
++		WRITE_ONCE(st->should_run, false);
+ 	} else {
+-		st->should_run = cpuhp_next_state(bringup, &state, st, st->target);
+-		if (!st->should_run)
++		WRITE_ONCE(st->should_run,
++			   cpuhp_next_state(bringup, &state, st, st->target));
++		if (!READ_ONCE(st->should_run))
+ 			goto end;
+ 	}
+ 
+@@ -1116,14 +1117,14 @@ static void cpuhp_thread_fun(unsigned int cpu)
+ 		 * playing.
+ 		 */
+ 		WARN_ON_ONCE(st->rollback);
+-		st->should_run = false;
++		WRITE_ONCE(st->should_run, false);
+ 	}
+ 
+ end:
+ 	cpuhp_lock_release(bringup);
+ 	lockdep_release_cpus_lock();
+ 
+-	if (!st->should_run)
++	if (!READ_ONCE(st->should_run))
+ 		complete_ap_thread(st, bringup);
+ }
+ 
+-- 
+2.51.0
+
+
