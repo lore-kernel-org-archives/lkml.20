@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434497;
-	b=sbCk9UEU0htyBp4q3dZNT9MRYU96XxmC+ewRr9YsAPxveX4Mc3ymxEmSTpkY/HM3t1Gm
-	 PdgFyHtAownGHz4SMTpPE6JosMo/l57IVpCnl8da+ANlkvDhrEjkJKvPRZIwppscy+xhH
-	 ZpoQMLP/pT5wtfHxGYHQnW2FkaopM/Z2lB2CsAExGb9tlX4Pf+iynN+Y/+41eOXOVkpop
-	 V6M8jFkWENKRVWPN8v2EimwJPor+xdjcTm1hfmOP8YZiEL1kSbVEK/YWAWgHkN3Xyb+oq
-	 9MGxZCE75ISE/Xm+7PM6LHACFEY/Zvv6hSaYbzuUcx9oUKnoA4w9j7hA1VVd/XLmE2A==
+	b=aAVyrhKyqA6l8/voDEO9gK6vn2Fxyytf7AQxMsN8U3wJnIyD1H5aNrEbIcfvFDJeZn8m
+	 vtAM5dmrBB1JGxh8QLgqiw2sGd3BPUg+HHZnGy2Qp0EF+3ePzdxzX+sVbUmtx2LEGfZ3q
+	 2MH/WjbZrxeA/89VWe2j/9B09tmURSoXB+n4CMti7ZOCbEsU/r20tVS7PASC6gL/ZiXyT
+	 jI33GXhXXAOzztJ/G48VEAG5jnkQttEe5Kl4Hizf0xj86pQvJi+OaZUgczrMPh/WuRzRe
+	 zOL0hgGuJaREUQBKYhRCuyU8KiCtJJl/2d70y6DagiDaA3BWsI2oX4VjoFWc8+y+NxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434497;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JSIAzpXnSdisZ+wf/icgEJDDLXAEGjiCSiJJgkCBhpM=;
-	b=UCg+fFJWuu3ultPrrfaUkUA7Vg2WR9Gw1XJ/KQx737by9Hpv69Cu2nA5r0r8xU0hiBRa
-	 MS5U3LWlFWErgeLnCo88/HiS73qkr+27t3MKiKbyF3nzpaX8FQ6u0QvmVlP18r8piT2iU
-	 7OVACO1famhmZZjejSvdlElTOwGZ+TzPvW0FfkQrFhQVVAG/AwL0xNq/EqWconJPKWMs6
-	 CcDNC2OC9RdMztGtBVqkR+hZNy35uY4mdJt1+qKiEBIze2I5J4SXHMtLuUS0ELqWfP69n
-	 ZaGVpmanwo36OFgL3/Whw1Zrasw9o2RgGoG69Ez9A/SodNxoD4pBg7j0iNlRCRowE1A==
+	bh=aGRCzrOyLm5RcQrXArj7+bIIsdtxJpzMcLjLki4ZcpA=;
+	b=Y/MPiLP1PMOszSztfgGIJsw6LKHCAPArZW4A7Ric47M7+qzdTHpuVwOS52emEgC2TtzN
+	 EWSLIqwDFaOFLbY7urGO00dSTsKMcMYWYJDAxLFGZhjQrIP3+iaDCVFc3Q4D3mJ62d+qe
+	 hf6McFVvCSc/YR9A45XqYhWpNtw6ir3+7tv7vRG6IPu/YDZl27TQUOdARDS+CqXudp4K1
+	 0T4CNppVECf8QUgotSLpjQ90D7Q+NxHvdjZoTy1c8jtdEBtO+htAz3oU52GHvzqtKHz2+
+	 mN4j42QwnMCY/yhmCsXUbaPA34vX4YJ8mGBP7dpQ8I0q6wpLl1QW0DL6xiewN7pSzEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MIQgOtgl;
-	arc=none smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcXgxU1T;
+	arc=none smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463D860A6F78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15323606B348
 	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:01:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463D860A6F78
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15323606B348
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MIQgOtgl
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ec20398b05so2108196e0c.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcXgxU1T
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c9e7731b34so2669500e0c.2
         for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:01:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794434495; x=1795039295; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794434496; x=1795039296; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JSIAzpXnSdisZ+wf/icgEJDDLXAEGjiCSiJJgkCBhpM=;
-        b=MIQgOtgl0vOXZcLS+Pw9trXj0U9ZoWMmP4kYK2eOorx2DLByexEHr2PHrkKX8YxRJ0
-         bOMc8PO2pZmQMLGAVgjWzsCGV+bpmSd7Rl5itPybghf+W9WEdKYPr0Se1IjnNOr51JL9
-         INoTMI4GZd2dWpuGQnXQf8bIlj4kt++DdMUS2cMFtznO5o3nd/ymK/sOjg3xI38d5Bx6
-         eVbYKoMqjAZxIiIfMjVdMqmdSBHylXrj29W9pY5ceg+YSfL+zboDTVG3mlg+lp8hweNz
-         CJkiRaewjHA2Qwzx+x17pteM51mSEnEsXwsFs2jw9yI5vL+g/lzqW8ZSQZ5+LDTrwSjy
-         DViw==
+        bh=aGRCzrOyLm5RcQrXArj7+bIIsdtxJpzMcLjLki4ZcpA=;
+        b=GcXgxU1TEaoOwaQ7FaxKHoS5/K0blKwcO56rckk9IDy3SjnQHN3Iw50VBqitaHeg7y
+         lgkgpGefeWc+bcvNEPmTDesPRvuz3qAL6pJ+xUI6GRDwZwPXrR+X9/mZ6uvLRQ8i/FE0
+         SOVhNtRg07R3g/sKIqXh+BcByQgtKnyNgMIrlsBRIJq+MpwZM79DNBOZfNgasvRuXvHU
+         CRsUb1pODK+FvcUbtvembZdiH06na+XlvqjfCb54SF8T3N8Y7lGxeNBikZTHFizpzPlY
+         7oKDg85rgh7JMpclRR4R5y3lPDfv5nvnrS2R4+LtfIr90uAZosvQ0Wfmla/FhvqEROLB
+         cbBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794434495; x=1795039295;
+        d=1e100.net; s=20260707; t=1794434496; x=1795039296;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JSIAzpXnSdisZ+wf/icgEJDDLXAEGjiCSiJJgkCBhpM=;
-        b=a5DA4GsoW4/3ZgGqy3ouomsCf6uBauw1DouRAfHtSk6xWuldfKzkBvffgMUJzKWglq
-         e0ad2w5OxzAsUVyMmZEZ1z9dVnm0qNT6m5MYMEADT7Pa8zeG8Qnm1Teq2jf2iBM8ymz2
-         MQaKxSZeGcx0qbwCildw8sT+IgmaOdTDcfQWun47y7HuBMxo2ZtnDHlBADdEEnRAg3HQ
-         zwGlrvwlLPQUFGHb4e2Nw/4kFaKlF3YiuX5vmxw52R03hOekzCRl9zlqF5WNi3WCShym
-         Nfg3SMXsp57hTaplXMYMW1BsHevTBUk5wq/prIUlgknsB2a+oEBKR38lZP6zOUlFjyO7
-         r7pA==
-X-Forwarded-Encrypted: i=1; AL+hErF/aN+osNkLMY3lgADWk6xBn0OBlxBYXgn2oFmNkjv9A/YPL6KTlD0/NtCCnS3N2Ys2OQJAQRHGLABg/pU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WzgpTuKnTpTTcjCW8zWA7bByp4INEv9f9ksNHP/SUNcOZKKEx
-	KdMIU1qtyd/yMvsS62oujYQGZi4W+/Z78UFgO+U+TJO+LIOZuS2bYf4=
-X-Gm-Gg: AYBFou0LmwFbo1rWPdRJ/Iwi51rku9AQIMkVyNLVPilppsW60aMWll8an8itmO9ZTIO
-	Dydz5hVw2h94c+ppWNcfXbkcxh02adLWfAfdChwRDXgkGxB76Duow0nkTD35mvffRcOPPFbFT/Q
-	sywICW0+j8uSrR548ejcwl4YsVXDddANNT/yFtm+ylLfOUc/OgoYEGDg+WuEuwCbVZ79hL91xX5
-	q33lHfI8jVX9mTs574rd/b0tOE+4zoD9SIzPtMM/O2R96ifmmS7W5oQ8NDR9DFiLJP+EYNDdttV
-	uPG8lzMCmiH+naGuBSXlpIcc+Yo2OFKtBQnK6+t9M5ihRIRMug6HJumRtU8mF9qXnk3zOa/LX07
-	n1JsC8SAddoPQZq7e9rcUuYsVmtChHiSC09dde7xgUbYe0qdylC94dX/ibs4HjVOW0jUi6xeuvG
-	O0Z4x4M3ztIuB5KnJM++31AiOHtUi2B9gEqocmEElAg2lCTmo9xfPusn5qWX7UaTVTXnBBnj/O+
-	h4fk0TI4llwucodSa2otQdmUrpdPPDuFgOnhtdj/IyHnyHDUIC7LAKjvuWylgaChuMnBeExFeCR
-	BgpZCMx0LxhNR0j8IVj/vU6eRNjk
-X-Received: by 2002:a05:6122:4683:b0:5ec:c186:d22b with SMTP id 71dfb90a1353d-5ee1c49c9a5mr1620587e0c.22.1794434495089;
-        Wed, 11 Nov 2026 14:01:35 -0800 (PST)
+        bh=aGRCzrOyLm5RcQrXArj7+bIIsdtxJpzMcLjLki4ZcpA=;
+        b=KKA/vkJ3nbAYrMOROlsi3wDpt3HrYjLSWka1KqRz/Z6jvjORIfXCkguzaQC0VDZsk1
+         ZyS5bASELWp2yd99Wzd0FjtLZ7Bu9n8HKdjMy0VNoaq/08hXfCR2T60ggrNRVYaOYCWo
+         m59JLEx4H/MeaUO9fHJw+4chVAYHRQe2pl8w924cO64h9vPaMFF3sMw3Xw57K6wD8uG/
+         Rj5V44mEpWDBZFsA+ytojQDOMxKqZOGtf+uT1J30Rh2bzSiIQFs/on5nK54GbbspAVSt
+         10WW3scH2DSxyB/xc1hQlIv519wYg4kqrjinft2t7TEh3sVGQ+C3I1o+GopRYNGwBiQ3
+         vVwg==
+X-Forwarded-Encrypted: i=1; AL+hErFXtK9loF7v1dh4UNNI2ZHD9QllEdXEU1MvbjfiUGabGCP0972F20yD4O3UluKxy1qafvK1DD5yztqv+Pk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98uYszwJWWuRI4Sg9XmS5UhCfVEgFKrt/P+2mmi0JzKG19MAZT
+	oqzLK7logT5sPh8NTIFSxUl3IzTbUDKj//Fkzn3t3irKLLkP3XnotfE=
+X-Gm-Gg: AYBFou2S9hZec5NUfGY5M+/4ilJTCtMVXlLNCx6q28GFdJ7Im3lR43aUmH6pHd4Lg7R
+	Xn5cbnHzZvp38j+JHATbxd//A869pO7OqA6/RS++OhojcFfPDYob4mFTjJosXOXqzyz64q7G/JM
+	CFV//mFa8F3SbS/mP2b0ySO5VSIvldKnecn9S9k0yfc5Fs3i54jBbRwED6yxcWBmmGMXhcYVnyI
+	tRu3yJFbgiBITd0ha9aaunYAHSHZfR9UUvxPVUnkK8vtlPwmjAxdDQ+EPuNMbqTBMRtwEXtHK/0
+	SrQKXCkp7R1xJCTQ1kbSqe4AHKg0Pte7O1KQQN9tmju/0TsrybJX5cXL0ZO3SwctMnJiLThoM+b
+	Tr/FnhIqlDX30eRwQ1hB4WAlxArP2jqgJ+JuB6HvcgESN8PsLOsYNWgNGttJSNy37e5Y6IGdQ+k
+	vTuCJ0woshFRxpJlL8r61VWqxr7nYxpgJEkqFjuMFJx8eDRwBq7MLWx1L5OpedAYrix4/3v3sXJ
+	gKHuHAcaDjxrzj0Nea5woNNvfFnDiSOOQx5t6hYADxhq9+h0V2aZJzbOdqjvXUn+wVnQNbbtwwV
+	BwnTKiWUAvsr4k5Q69/6uCdvqeta
+X-Received: by 2002:a05:6122:1d12:b0:5e9:176f:a548 with SMTP id 71dfb90a1353d-5ee1bf5e39cmr1711028e0c.0.1794434496006;
+        Wed, 11 Nov 2026 14:01:36 -0800 (PST)
 Received: from Ixchel.lan ([70.49.63.180])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe63asm4557992241.4.2026.11.11.14.01.34
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c1fffe63asm4557992241.4.2026.11.11.14.01.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 14:01:34 -0800 (PST)
+        Wed, 11 Nov 2026 14:01:35 -0800 (PST)
 From: Vlad Banea <montrealtango@gmail.com>
 To: netdev@vger.kernel.org
 Cc: hkallweit1@gmail.com,
@@ -89,9 +89,9 @@ Cc: hkallweit1@gmail.com,
 	kuba@kernel.org,
 	pabeni@redhat.com,
 	linux-kernel@vger.kernel.org
-Subject: [RFC net-next 4/5] r8169: add the type 3 RX descriptor
-Date: Wed, 11 Nov 2026 17:01:13 -0500
-Message-ID: <20261111220114.3863505-5-montrealtango@gmail.com>
+Subject: [RFC net-next 5/5] r8169: enable RSS on the RTL8125B
+Date: Wed, 11 Nov 2026 17:01:14 -0500
+Message-ID: <20261111220114.3863505-6-montrealtango@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111220114.3863505-1-montrealtango@gmail.com>
 References: <20261111220114.3863505-1-montrealtango@gmail.com>
@@ -106,398 +106,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RTL8125A/B family has a 32-byte RX descriptor ("type 3" in Realtek's
-driver), which the RTL8125B requires with RSS. Its second half is laid
-out like RX_DESC_TYPE_RSS, so add RX_DESC_TYPE_V3 as a 16-byte header
-followed by a struct RxDesc and reuse the RSS accessors.
+The RTL8125B has four RSS queues with the vector-map interrupt model:
+RX queue N on vector N, TX on 16, link change on 21, and at least 22
+vectors. RSS requires the type 3 descriptor. The RTL8125A has neither,
+so enable this for RTL_GIGA_MAC_VER_63 only.
 
-Differences from RX_DESC_TYPE_RSS:
- - FirstFrag/LastFrag at bits 25/24 and RES/RUNT/RWT/CRC at 20-17 of
-   opts1;
- - one checksum flag per protocol in opts2, and only the matching
-   protocol's failure flag is valid;
- - the RSS hash in rss_result, its type in hdr_info;
- - selected by RxConfig bit 24, set before the receiver is enabled.
-
-No chip uses it yet.
+Hash on TCP and IP only: the RTL8125B does not spread UDP flows by port.
 
 Signed-off-by: Vlad Banea <montrealtango@gmail.com>
 ---
- drivers/net/ethernet/realtek/r8169_main.c | 158 +++++++++++++++++++---
- 1 file changed, 136 insertions(+), 22 deletions(-)
+ drivers/net/ethernet/realtek/r8169_main.c | 27 ++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index cc253728109c..85e2c03fa61d 100644
+index 85e2c03fa61d..a313216998d2 100644
 --- a/drivers/net/ethernet/realtek/r8169_main.c
 +++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -75,7 +75,6 @@
- #define NUM_TX_DESC	256	/* Number of Tx descriptor registers */
- #define NUM_RX_DESC	256	/* Number of Rx descriptor registers */
- #define R8169_TX_RING_BYTES	(NUM_TX_DESC * sizeof(struct TxDesc))
--#define R8169_RX_RING_BYTES	(NUM_RX_DESC * sizeof(struct RxDesc))
+@@ -78,6 +78,7 @@
  #define R8169_TX_STOP_THRS	(MAX_SKB_FRAGS + 1)
  #define R8169_TX_START_THRS	(2 * R8169_TX_STOP_THRS)
  #define R8169_MAX_RX_QUEUES	8
-@@ -492,6 +491,26 @@ enum rtl8125_registers {
- #define RX_VLAN_INNER_8125	BIT(22)
- #define RX_VLAN_OUTER_8125	BIT(23)
- #define RX_VLAN_8125		(RX_VLAN_INNER_8125 | RX_VLAN_OUTER_8125)
-+#define RX_DESC_V3_8125		BIT(24)	/* type 3 (32-byte) RX descriptors */
-+
-+/* RX_DESC_TYPE_V3 status bits, opts1 unless noted */
-+#define RX_FIRST_FRAG_V3	BIT(25)
-+#define RX_LAST_FRAG_V3		BIT(24)
-+#define RX_RES_V3		BIT(20)
-+#define RX_RUNT_V3		BIT(19)
-+#define RX_RWT_V3		BIT(18)
-+#define RX_CRC_V3		BIT(17)
-+#define RX_UDPT_V3		BIT(29)	/* opts2: UDP packet */
-+#define RX_TCPT_V3		BIT(28)	/* opts2: TCP packet */
-+#define RX_IPF_V3		BIT(26)	/* opts2: IP checksum failed */
-+#define RX_UDPF_V3		BIT(25)	/* opts2: UDP checksum failed */
-+#define RX_TCPF_V3		BIT(24)	/* opts2: TCP checksum failed */
-+#define RXS_RSS_UDP_V3		BIT(9)	/* hdr_info */
-+#define RXS_RSS_IPV4_V3		BIT(10)
-+#define RXS_RSS_IPV6_V3		BIT(12)
-+#define RXS_RSS_TCP_V3		BIT(13)
-+#define RXS_RSS_L3_V3		(RXS_RSS_IPV4_V3 | RXS_RSS_IPV6_V3)
-+#define RXS_RSS_L4_V3		(RXS_RSS_TCP_V3 | RXS_RSS_UDP_V3)
- 
- #define RX_FETCH_DFLT_8125	(8 << 27)
- 
-@@ -740,6 +759,19 @@ struct RxDesc {
- 	};
++#define R8125B_MAX_RX_QUEUES	4
+ #define R8169_DEFAULT_RX_QUEUES	1
+ #define R8169_MAX_TX_QUEUES	1
+ #define R8169_IRQ_DEFAULT	1
+@@ -880,6 +881,13 @@ struct rtl_vec_map {
+ 	u8 max_nvecs;
  };
  
-+/* 32-byte RX descriptor of the RTL8125A/B family ("type 3") */
-+struct RxDescV3 {
-+	__le32 rsv1;
-+	__le32 rsv2;
-+	__le32 rss_result;
-+	__le16 hdr_buf_len;
-+	__le16 hdr_info;
-+	struct RxDesc desc;
++static const struct rtl_vec_map rtl_vec_map_8125b = {
++	.tx		= 16,
++	.linkchg	= 21,
++	.min_nvecs	= 22,
++	.max_nvecs	= 32,
 +};
 +
-+static_assert(sizeof(struct RxDesc) == 16);
-+static_assert(sizeof(struct RxDescV3) == 32);
-+
- struct ring_info {
- 	struct sk_buff	*skb;
- 	u32		len;
-@@ -812,6 +844,7 @@ enum rtl_dash_type {
- enum rx_desc_type {
- 	RX_DESC_TYPE_DEFAULT,
- 	RX_DESC_TYPE_RSS,
-+	RX_DESC_TYPE_V3,	/* 32-byte struct RxDescV3 */
- };
+ static const struct rtl_vec_map rtl_vec_map_8127 = {
+ 	.tx		= 8,
+ 	.linkchg	= 29,
+@@ -1835,7 +1843,8 @@ static enum rtl_sfp_mode rtl_get_sfp_mode(struct rtl8169_private *tp)
  
- struct rtl8169_rx_ring {
-@@ -2112,6 +2145,7 @@ static void rtl8169_rx_vlan_tag(struct rtl8169_private *tp,
- 
- 	switch (tp->init_rx_desc_type) {
- 	case RX_DESC_TYPE_RSS:
-+	case RX_DESC_TYPE_V3:
- 		opts2 = le32_to_cpu(desc->rss_opts2);
- 		break;
- 	default:
-@@ -2817,7 +2851,9 @@ static void rtl_init_rxcfg(struct rtl8169_private *tp)
- 		break;
- 	case RTL_GIGA_MAC_VER_63 ... RTL_GIGA_MAC_VER_LAST:
- 		RTL_W32(tp, RxConfig, RX_FETCH_DFLT_8125 | RX_DMA_BURST |
--			RX_PAUSE_SLOT_ON);
-+			RX_PAUSE_SLOT_ON |
-+			(tp->init_rx_desc_type == RX_DESC_TYPE_V3 ?
-+			 RX_DESC_V3_8125 : 0));
- 		break;
- 	default:
- 		RTL_W32(tp, RxConfig, RX128_INT_EN | RX_DMA_BURST);
-@@ -2825,12 +2861,36 @@ static void rtl_init_rxcfg(struct rtl8169_private *tp)
- 	}
- }
- 
-+/* RX_DESC_TYPE_RSS and RX_DESC_TYPE_V3 share the address/opts2/opts1 order */
-+static bool rtl8169_rx_desc_rss_layout(struct rtl8169_private *tp)
-+{
-+	return tp->init_rx_desc_type != RX_DESC_TYPE_DEFAULT;
-+}
-+
-+static size_t rtl8169_rx_ring_bytes(struct rtl8169_private *tp)
-+{
-+	if (tp->init_rx_desc_type == RX_DESC_TYPE_V3)
-+		return NUM_RX_DESC * sizeof(struct RxDescV3);
-+
-+	return NUM_RX_DESC * sizeof(struct RxDesc);
-+}
-+
-+static struct RxDesc *rtl8169_rx_desc(struct rtl8169_private *tp,
-+				      struct rtl8169_rx_ring *ring,
-+				      unsigned int index)
-+{
-+	if (tp->init_rx_desc_type == RX_DESC_TYPE_V3)
-+		return &((struct RxDescV3 *)ring->rx_desc_array)[index].desc;
-+
-+	return &ring->rx_desc_array[index];
-+}
-+
- static void rtl8169_rx_desc_init(struct rtl8169_private *tp)
+ static bool rtl_hw_support_rss(struct rtl8169_private *tp)
  {
- 	for (int i = 0; i < tp->num_rx_rings; i++) {
- 		struct rtl8169_rx_ring *ring = &tp->rx_ring[i];
- 
--		memset(ring->rx_desc_array, 0x0, R8169_RX_RING_BYTES);
-+		memset(ring->rx_desc_array, 0x0, rtl8169_rx_ring_bytes(tp));
- 	}
+-	return tp->mac_version == RTL_GIGA_MAC_VER_80;
++	return tp->mac_version == RTL_GIGA_MAC_VER_63 ||
++	       tp->mac_version == RTL_GIGA_MAC_VER_80;
  }
  
-@@ -4533,6 +4593,9 @@ static void rtl_hw_start(struct  rtl8169_private *tp)
- 	/* Initially a 10 us delay. Turned it into a PCI commit. - FR */
- 	rtl_pci_commit(tp);
- 
-+	/* Select the 32-byte descriptor before the receiver is enabled */
-+	if (tp->init_rx_desc_type == RX_DESC_TYPE_V3)
-+		rtl_init_rxcfg(tp);
- 	RTL_W8(tp, ChipCmd, CmdTxEnb | CmdRxEnb);
- 	rtl_init_rxcfg(tp);
- 	rtl_set_tx_config_registers(tp);
-@@ -4570,6 +4633,7 @@ static void rtl8169_mark_to_asic(struct rtl8169_private *tp, struct RxDesc *desc
- 
- 	switch (tp->init_rx_desc_type) {
- 	case RX_DESC_TYPE_RSS:
-+	case RX_DESC_TYPE_V3:
- 		eor = le32_to_cpu(desc->rss_opts1) & RingEnd;
- 		desc->rss_opts2 = cpu_to_le32(0);
- 		/* Force memory writes to complete before releasing descriptor */
-@@ -4589,7 +4653,7 @@ static void rtl8169_mark_to_asic(struct rtl8169_private *tp, struct RxDesc *desc
- static struct page *rtl8169_alloc_rx_data(struct rtl8169_private *tp,
- 					  struct rtl8169_rx_ring *ring, unsigned int index)
+ static enum rtl_dash_type rtl_get_dash_type(struct rtl8169_private *tp)
+@@ -2965,6 +2974,20 @@ static void rtl_setup_rx_params(struct rtl8169_private *tp)
  {
--	struct RxDesc *desc = ring->rx_desc_array + index;
-+	struct RxDesc *desc = rtl8169_rx_desc(tp, ring, index);
- 	struct device *d = tp_to_dev(tp);
- 	int node = dev_to_node(d);
- 	dma_addr_t mapping;
-@@ -4607,7 +4671,7 @@ static struct page *rtl8169_alloc_rx_data(struct rtl8169_private *tp,
- 	}
- 
- 	ring->rx_buf_dma_addr[index] = mapping;
--	if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+	if (rtl8169_rx_desc_rss_layout(tp))
- 		desc->rss_addr = cpu_to_le64(mapping);
- 	else
- 		desc->addr = cpu_to_le64(mapping);
-@@ -4619,6 +4683,7 @@ static struct page *rtl8169_alloc_rx_data(struct rtl8169_private *tp,
- static void rtl8169_rx_clear(struct rtl8169_private *tp,
- 			     struct rtl8169_rx_ring *ring)
- {
-+	struct RxDesc *desc;
- 	int i;
- 
- 	for (i = 0; i < NUM_RX_DESC && ring->rx_databuff[i]; i++) {
-@@ -4628,12 +4693,13 @@ static void rtl8169_rx_clear(struct rtl8169_private *tp,
- 		__free_pages(ring->rx_databuff[i], get_order(R8169_RX_BUF_SIZE));
- 		ring->rx_databuff[i] = NULL;
- 		ring->rx_buf_dma_addr[i] = 0;
--		if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS) {
--			ring->rx_desc_array[i].rss_addr = 0;
--			ring->rx_desc_array[i].rss_opts1 = 0;
-+		desc = rtl8169_rx_desc(tp, ring, i);
-+		if (rtl8169_rx_desc_rss_layout(tp)) {
-+			desc->rss_addr = 0;
-+			desc->rss_opts1 = 0;
- 		} else {
--			ring->rx_desc_array[i].addr = 0;
--			ring->rx_desc_array[i].opts1 = 0;
-+			desc->addr = 0;
-+			desc->opts1 = 0;
- 		}
- 	}
- }
-@@ -4642,6 +4708,7 @@ static void rtl8169_mark_as_last_descriptor(struct rtl8169_private *tp, struct R
- {
- 	switch (tp->init_rx_desc_type) {
- 	case RX_DESC_TYPE_RSS:
-+	case RX_DESC_TYPE_V3:
- 		desc->rss_opts1 |= cpu_to_le32(RingEnd);
- 		break;
- 	default:
-@@ -4666,7 +4733,7 @@ static int rtl8169_rx_fill(struct rtl8169_private *tp, struct rtl8169_rx_ring *r
- 	}
- 
- 	/* mark as last descriptor in the ring */
--	rtl8169_mark_as_last_descriptor(tp, &ring->rx_desc_array[NUM_RX_DESC - 1]);
-+	rtl8169_mark_as_last_descriptor(tp, rtl8169_rx_desc(tp, ring, NUM_RX_DESC - 1));
- 
- 	return 0;
- }
-@@ -4679,7 +4746,7 @@ static int rtl8169_alloc_rx_desc(struct rtl8169_private *tp)
- 	for (int i = 0; i < tp->num_rx_rings; i++) {
- 		ring = &tp->rx_ring[i];
- 		ring->rx_desc_array = dma_alloc_coherent(&pdev->dev,
--							 R8169_RX_RING_BYTES,
-+							 rtl8169_rx_ring_bytes(tp),
- 							 &ring->rx_phy_addr,
- 							 GFP_KERNEL);
- 		if (!ring->rx_desc_array)
-@@ -4697,7 +4764,7 @@ static void rtl8169_free_rx_desc(struct rtl8169_private *tp)
- 		ring = &tp->rx_ring[i];
- 		if (ring->rx_desc_array) {
- 			dma_free_coherent(&pdev->dev,
--					  R8169_RX_RING_BYTES,
-+					  rtl8169_rx_ring_bytes(tp),
- 					  ring->rx_desc_array,
- 					  ring->rx_phy_addr);
- 			ring->rx_desc_array = NULL;
-@@ -4832,11 +4899,12 @@ static void rtl8169_rx_desc_reset(struct rtl8169_private *tp)
- 		struct rtl8169_rx_ring *ring = &tp->rx_ring[i];
- 
- 		for (int j = 0; j < NUM_RX_DESC; j++) {
-+			struct RxDesc *desc = rtl8169_rx_desc(tp, ring, j);
- 			dma_addr_t phy_addr = ring->rx_buf_dma_addr[j];
- 
--			if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
--				ring->rx_desc_array[j].rss_addr = cpu_to_le64(phy_addr);
--			rtl8169_mark_to_asic(tp, ring->rx_desc_array + j);
-+			if (rtl8169_rx_desc_rss_layout(tp))
-+				desc->rss_addr = cpu_to_le64(phy_addr);
-+			rtl8169_mark_to_asic(tp, desc);
- 		}
- 	}
- }
-@@ -5300,9 +5368,13 @@ static void rtl_tx(struct net_device *dev, struct rtl8169_private *tp,
- 	}
- }
- 
--static inline int rtl8169_fragmented_frame(u32 status)
-+static inline int rtl8169_fragmented_frame(struct rtl8169_private *tp,
-+					   u32 status)
- {
--	return (status & (FirstFrag | LastFrag)) != (FirstFrag | LastFrag);
-+	u32 frags = tp->init_rx_desc_type == RX_DESC_TYPE_V3 ?
-+		    RX_FIRST_FRAG_V3 | RX_LAST_FRAG_V3 : FirstFrag | LastFrag;
-+
-+	return (status & frags) != frags;
- }
- 
- static void rtl8169_rx_hash(struct rtl8169_private *tp,
-@@ -5315,6 +5387,20 @@ static void rtl8169_rx_hash(struct rtl8169_private *tp,
- 	if (!(tp->dev->features & NETIF_F_RXHASH))
- 		return;
- 
-+	if (tp->init_rx_desc_type == RX_DESC_TYPE_V3) {
-+		const struct RxDescV3 *v3 = container_of(desc, struct RxDescV3,
-+							 desc);
-+
-+		rss_header_info = le16_to_cpu(v3->hdr_info);
-+		if (!(rss_header_info & RXS_RSS_L3_V3))
-+			return;
-+
-+		skb_set_hash(skb, le32_to_cpu(v3->rss_result),
-+			     (rss_header_info & RXS_RSS_L4_V3) ?
-+			     PKT_HASH_TYPE_L4 : PKT_HASH_TYPE_L3);
-+		return;
-+	}
-+
- 	rss_header_info = le32_to_cpu(desc->rss_dword.rss_info);
- 
- 	if (!(rss_header_info & RXS_RSS_L3_TYPE_MASK))
-@@ -5329,11 +5415,23 @@ static void rtl8169_rx_hash(struct rtl8169_private *tp,
- 
- static void rtl8169_rx_csum(struct rtl8169_private *tp,
- 			    struct sk_buff *skb,
-+			    struct RxDesc *desc,
- 			    u32 opts1)
- {
- 	bool csum_ok = false;
-+	u32 opts2;
- 
- 	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_V3:
-+		/* The chip also sets the failure flag of the other
-+		 * protocol (a TCP frame carries UDPF); check only the
-+		 * matching one.
+ 	tp->num_rx_rings = 1;
+ 	switch (tp->mac_version) {
++	case RTL_GIGA_MAC_VER_63:
++		/* The UDP hash types do not spread UDP flows by port on the
++		 * RTL8125B, so hash TCP and IP only.
 +		 */
-+		opts2 = le32_to_cpu(desc->rss_opts2);
-+		if (((opts2 & RX_TCPT_V3) && !(opts2 & (RX_TCPF_V3 | RX_IPF_V3))) ||
-+		    ((opts2 & RX_UDPT_V3) && !(opts2 & (RX_UDPF_V3 | RX_IPF_V3))))
-+			csum_ok = true;
++		tp->hw_supp_num_rx_queues = R8125B_MAX_RX_QUEUES;
++		tp->rss_data->hw_supp_indir_tbl_entries = RTL_MAX_INDIRECTION_TABLE_ENTRIES;
++		tp->rss_data->hash_types = RSS_CTRL_TCP_IPV4_SUPP |
++					   RSS_CTRL_IPV4_SUPP |
++					   RSS_CTRL_IPV6_SUPP |
++					   RSS_CTRL_IPV6_EXT_SUPP |
++					   RSS_CTRL_TCP_IPV6_SUPP |
++					   RSS_CTRL_TCP_IPV6_EXT_SUPP;
++		tp->rss_desc_type = RX_DESC_TYPE_V3;
 +		break;
- 	case RX_DESC_TYPE_RSS:
- 		if (((opts1 & RX_TCPT_DESC_RSS) && !(opts1 & RX_TCPF_DESC_RSS)) ||
- 		    ((opts1 & RX_UDPT_DESC_RSS) && !(opts1 & RX_UDPF_DESC_RSS)))
-@@ -5358,6 +5456,7 @@ static __le32 rtl8169_rx_desc_opts1(struct rtl8169_private *tp, struct RxDesc *d
+ 	case RTL_GIGA_MAC_VER_80:
+ 		tp->hw_supp_num_rx_queues = R8169_MAX_RX_QUEUES;
+ 		tp->rss_data->hw_supp_indir_tbl_entries = RTL_MAX_INDIRECTION_TABLE_ENTRIES;
+@@ -6236,6 +6259,8 @@ static void rtl_set_irq_mask(struct rtl8169_private *tp)
+ static const struct rtl_vec_map *rtl_get_vec_map(struct rtl8169_private *tp)
  {
- 	switch (tp->init_rx_desc_type) {
- 	case RX_DESC_TYPE_RSS:
-+	case RX_DESC_TYPE_V3:
- 		return READ_ONCE(desc->rss_opts1);
+ 	switch (tp->mac_version) {
++	case RTL_GIGA_MAC_VER_63:
++		return &rtl_vec_map_8125b;
+ 	case RTL_GIGA_MAC_VER_80:
+ 		return &rtl_vec_map_8127;
  	default:
- 		return READ_ONCE(desc->opts1);
-@@ -5369,6 +5468,17 @@ static bool rtl8169_check_rx_desc_error(struct rtl8169_rx_ring *ring,
- 					u32 status)
- {
- 	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_V3:
-+		if (unlikely(status & RX_RES_V3)) {
-+			u64_stats_update_begin(&ring->stats.syncp);
-+			if (status & (RX_RWT_V3 | RX_RUNT_V3))
-+				ring->stats.rx_length_errors++;
-+			if (status & RX_CRC_V3)
-+				ring->stats.rx_crc_errors++;
-+			u64_stats_update_end(&ring->stats.syncp);
-+			return true;
-+		}
-+		break;
- 	case RX_DESC_TYPE_RSS:
- 		if (unlikely(status & RX_RES_RSS)) {
- 			u64_stats_update_begin(&ring->stats.syncp);
-@@ -5407,7 +5517,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 
- 	for (count = 0; count < budget; count++, ring->cur_rx++) {
- 		unsigned int pkt_size, entry = ring->cur_rx % NUM_RX_DESC;
--		struct RxDesc *desc = ring->rx_desc_array + entry;
-+		struct RxDesc *desc = rtl8169_rx_desc(tp, ring, entry);
- 		struct sk_buff *skb;
- 		const void *rx_buf;
- 		dma_addr_t addr;
-@@ -5437,6 +5547,10 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 			if (tp->init_rx_desc_type == RX_DESC_TYPE_DEFAULT) {
- 				if (status & RxRWT || !(status & (RxRUNT | RxCRC)))
- 					goto release_descriptor;
-+			} else if (tp->init_rx_desc_type == RX_DESC_TYPE_V3) {
-+				if (status & RX_RWT_V3 ||
-+				    !(status & (RX_RUNT_V3 | RX_CRC_V3)))
-+					goto release_descriptor;
- 			} else {
- 				if (!(status & (RXRUNT_RSS | RXCRC_RSS)))
- 					goto release_descriptor;
-@@ -5454,7 +5568,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 		/* The driver does not support incoming fragmented frames.
- 		 * They are seen as a symptom of over-mtu sized frames.
- 		 */
--		if (unlikely(rtl8169_fragmented_frame(status))) {
-+		if (unlikely(rtl8169_fragmented_frame(tp, status))) {
- 			u64_stats_update_begin(&ring->stats.syncp);
- 			ring->stats.rx_dropped++;
- 			ring->stats.rx_length_errors++;
-@@ -5484,7 +5598,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 			rtl8169_rx_hash(tp, desc, skb);
- 			skb_record_rx_queue(skb, ring - tp->rx_ring);
- 		}
--		rtl8169_rx_csum(tp, skb, status);
-+		rtl8169_rx_csum(tp, skb, desc, status);
- 		skb->protocol = eth_type_trans(skb, dev);
- 
- 		rtl8169_rx_vlan_tag(tp, desc, skb);
-@@ -5499,7 +5613,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 
- 		dev_sw_netstats_rx_add(dev, pkt_size);
- release_descriptor:
--		if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+		if (rtl8169_rx_desc_rss_layout(tp))
- 			desc->rss_addr = cpu_to_le64(ring->rx_buf_dma_addr[entry]);
- 		rtl8169_mark_to_asic(tp, desc);
- 	}
 -- 
 2.53.0
 
