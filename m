@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794418883;
-	b=fBe5jct9DVIne9tRc0HSrBjBXx8OpdFWsp8s3npIn46cPi9P9iDgf2VqsSJ8F9Er/RUf
-	 q1Bgo8hWMcZkaRys8BcgQzFSmrX1qbquetOt1PdRPx4QDcl7per2B51mY579tdoYtVuwG
-	 9Oyw40oYXHiR8gQ3W1esNCu7LAdD5k/DDzIXs0HWBfKWpuPI8vDW2kpoTzVBIYorAh8YP
-	 E/asN/3YqEvCrtVP5KZFo9ZQUxI/il4YKw8jfN+qFLCglkabqjGKGEBtgPrNIPcMxXo45
-	 s41iSFpgSilOPCMtTEQufUyOgemOY+F3KLQxvBJfLkqQNRUQ9ZLOSB818vuHM9P/Xjg==
+	t=1794418885;
+	b=oFELRqj7BCTZ5CfbywHPPkaY6OraCkU2AedchYoHk93ny0t9wwfYQ0XpviCe1AHFz7iQ
+	 OT+VT9wZWumChAi0NXvR9zEKP7p9boFZlAgbkqNf7pbjSbEw8HOT0rpi3lfv4U9RYKdYW
+	 mYtZkrIqBf3Y5lr8mU+k1SM3fQjcg10DeUs+SF75bQ0tOSTM1qXC0s4Zw5r7SfaRnKotn
+	 INQEIKkU+aAZfQsyuUPSGFiiZLxIDaPQXZbdK/sMsEltn/qteE1JkMmzB1mbgo+JyaQsB
+	 QdaL5ws+fEBYYwkqmBhDEcb19qMDfFfj/hP88MlWd39WCY6fyHUjBL6LLD9b7OAFZIA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418883;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
-	b=MGw7bVXEur1w4oFvMyEW3DHHQDUFQPbRtdm2MZTP5jm+MwWIIlDWziscgRLYGq8VyfUc
-	 ejXZIENJvSI5NU/7TGLlMv9GVFoNlN/Nj2//n276sTBJ4iRm/KxFKc3BdAGBgpoBfEUEL
-	 q5fH/Qh8JDXaWOqzdPQ6llUars+jaDrNFzsUHH++xiUddCK1bcaCGgAIh7yAxmaLCB5YW
-	 Zu1JKxxNME5nW0ZtYw8j4aOymfYgAyLRM9Vg6JUCAdvF99roCU0bi0D99nhgtpXkC1nQL
-	 AVyCGrtCS4HX+VAyFPVpekTj1i3yBlLIX3z6nQ2fVJ9LqosDbkEGr8SnMZ5k6INz8MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418885;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UzhG6eWlPwxpX167+QaDtZKGhL6hJQsFTV1UXHY4BGM=;
+	b=JjggefIMfNC/IF0wZHAiyKUCppE2IYGxxBF5yYVa97Q5o0x29a/APbB5WvwABFgl0Ofc
+	 QyDHMTXDN+i5aoO6NFz3RyIq+fRIqbJu4kPIbCRvEyZj9CR8JmSscymhhheSzouhOqHLa
+	 nyf8js+VaU9rAw1ckIEUNLXnpa89hEOejeQ3WTVLMRnlDUcYT30PCTyPcCQOp/L+Nep8s
+	 G/SMfYpesX6uBQGqUYCY4VL4/bhAdzG/LWqbkGn+mxFTsFPmHkfGGTITrwlaVeyB/JOcy
+	 fq+t74L0r3NwHQt8xEUA8pZM/308v5uFbSx2YsmnEoQTSPiGnivdeTKCkJsG3L5vL6w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.10
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHybwEoC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC99606A326;
-	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC99606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001A4606A884;
+	Wed, 11 Nov 2026 17:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=p2U4fYQ2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDLTHc+X0L6ew/FNt24cDJ2em1vg+J/ZPctwY8GYcR72ZtwPw605Js+LTohUH6dmOjsBBGAGziE0oUS8D2IrNg5DnKRlV5+nyk5wSq6BnrPpI7zdp/66iHGyK0L3B0ZfIL+aCIKO5U/H4zy647WKMG4+uoNWcXf8FolLoskAE7qMIdP5cShFZ8qG9GAIfZIUzsjPJkK9rxezed0RVOvqYjofwTDEX8YWlj3UU0882KVU9aGpMTSJI6QlTZ1l9wNXtxOVdEnc6IYNq3EEWjM1+oCER2ai6OuzGlBzyoqfjhlrkZw37scO98rMKEDvAXlDA8G5HN5P8rUZkul9CyaJCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
- b=OsqEJBh40wMP1V8eKdNbEHXKpLecNWn0mgiuaVfk1PMp2iXyghe7WSML9LYV53W4BxRknu8OeueQDGc0a1c1MOgwtqWu0vishlvAfF+UBVttWo4QKzlvvOom5GL9DhZf/TxS001h6T5xVRoTOegQ8a6+zINJTV8Xgn+6ywJfPysdUu18ZqV2OBUcnSteLyasMGNrd3s8DPSJaVtSAbTB4+44hnUEw4+3Cs0rI/iAJ9tSlf0ruBpByXLLNfiWvEOXHwv2sxvBvdXXqfM2jWN/govwVhw+phHoAl0JxBTyrR+krJWwrOfYjztBoomn99OdOfw7Hd7vd17an2A0wpki8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oG9ha2LWQs56fcnZA/Rb6MMdlE844LZCFuTGodZCilk=;
- b=p2U4fYQ2EjYxEz9szbtC2t7CPpU7dwwYjx7jerpHv8jAlYKNBnmlr9Iu396P/EByw4bW2yDVH9ZH8pGmOjDGjOlIIATR38bag42FEXlBuMiiPv4OdtDXyN97/kUblh8vZ93r47RcT7ZqpZm/I0nv9Zw1DceRu3KbZnoOvPKSnwBiEhZ62BaOXdQE1XtMDX5QWGAMcVvT9x3C82Cc712Q3yczjBjjkBg/tiTlxgGBmD4m8NaKCdrzZAG8mC7takDJhXqFQfsn7K5kWLzpYYyitKzrHPW2DBFg1cYjq3w8pb4jhxc+92ala/L5J0KkB4waFeCdz21Il+uTXvbx/h56DA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM0PR04MB949883.eurprd04.prod.outlook.com (2603:10a6:20b:7fe::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 17:41:19 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 17:41:19 +0000
-Date: Wed, 11 Nov 2026 11:41:07 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v5 4/7] dmaengine: move channel devices to the DMA
- channel bus
-Message-ID: <avSos6SCYMYZrwX3@SMW015318>
-References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
- <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-edma-iommu-v3-v5-4-2537cebe6ca2@nxp.com>
-X-ClientProxiedBy: PH8PR02CA0032.namprd02.prod.outlook.com
- (2603:10b6:510:2da::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHybwEoC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794418884;
+	b=J/0S5Na75+IanZc9l6CQ/Yt9a8r646NV6x9GjwcroRpMOpxbZLD+gFJ25fYlXxpoackr
+	 3Xvq/oQzhjqGYPVyAXf2cVjuEnTsjVIYjCwxlFHJJpDM1YanURErSfgAdbZLEa9Lf8IVl
+	 8am/Fhm5l6TNKEVq8oGNayKRC0nNVUy2M242r6ItgEhbXgbogk5tRQCTdtvhNcrdU48zo
+	 Cjt6KyuS3CqbxcycmTlqW3zg+NoU7A+re8i4+8Lj0tb0/C4ilBR8jzt4SfKpHtt0Ke1Ta
+	 lh3Z0tuC79mx1qY2U6ARBA8egV6Huy0V2GAWja8WRTQPwezQWkzmSPWTfcHN7JX5rCg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794418884;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UzhG6eWlPwxpX167+QaDtZKGhL6hJQsFTV1UXHY4BGM=;
+	b=Q6ouK/xDQVBpUXQ6pTfAXEgSYoXaxjxWyf9AqVcsM9jaD5VHX5zoplYNk9XZ9LOJA6nu
+	 Lj/D4Fx9GiGo47G7n0UIaiP1ltSXWp4Hj9qaz0AyhZmlf0WNcsREUtbGDhvaD1uG5PDKe
+	 f20j9qWBMCb5lmgEwoUJjhMGIM6dBOISzVI+2P6fbcZtORdcoZhgMcMmYLdM3MjfXIEcm
+	 b3AyyPFMrU2GaMJA5PerqkWMWQsUYuJtuOIRrkIjnMiNYQH9TrcL96MB2KxM+r79BCFss
+	 l1jhEgJi5JpQLhxikxbc5LV4f28R/LyZJBbG8O5QhdyTQAtmof+yF8AliBh0AsYeUTg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 760191F00A0C;
+	Wed, 11 Nov 2026 17:41:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794418884;
+	bh=UzhG6eWlPwxpX167+QaDtZKGhL6hJQsFTV1UXHY4BGM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RHybwEoC/oyv/zDLKEY3YMs2R7GQYh8LQWK//yrkJ2M7sObYWQ+F+yP1Av6JNwElP
+	 KI+ggHBEZTKu7AXxmNWWDTk3EVSQKJWuVycZDsnqQHeTb2O4tQcvPl5VO47f9Z63fR
+	 qOe4TMn6T+0K6dPFWbJ7vyY33dcYZc83WbTenOox05Z5UlP4U3bpNqpt5vqAj+mSq4
+	 dXn98Z8j6aYcsV367uNBpZAiv8NiD0UvjEOtNNSVX85GahvAt8hVMG4Vi8iNrWfQX6
+	 iyRGYoCMA4jrJBFqutWxJLrKmM3rGfk9VrViPj6EsJ2otK6j6lzurVAOFP7xfQWhpN
+	 foliYneElR24w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EECEB49065;
+	Wed, 11 Nov 2026 17:41:22 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 11 Nov 2026 18:41:21 +0100
+Subject: [PATCH v7 2/2] arm64: dts: qcom: sdm845-google: Add WCD9340 codec
+ and microphone capture
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,198 +83,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB949883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|376014|7416014|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|4143699003|11063799006|261021123027099003|56012099006|10067099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	ZP6Ib/GPJKO8EWD6Vw3iZH+eiz8iWx8dDG27xKAxZgyi+algbJgzOzg3qb6pTFalozBtZPQZ7hyv6zGa7J9jmB/+wzW6Y1A6Hu+cJA6uDOLyqWARiKP+j6W0JaXaSuWWVN2X/7qWAgKPC+SacqqlYNFFmh5decQGwIiE5MikOZzYnKhBdCn/yaCr2gxDRsVgcfcZDgNlrMzAJDwh/rNEwDuacdVeXX/wj/7ihdkV1SpDfAyfGHxkyGxQwTvW7RcBqwQ7RNk0r6BJc1QxPHvvkLmoEqbxXO1vKyfdzk8OPZvdVzwV6k9taKusRKU0YIzx1RpXlwZWH1q3uQAPoAoe/s3tSBycziprFHqbsCs+FfZiqz+P4f37GSChn9VTkwLiirfM3DgdUKxHHaR0cQbTxAiaDXsWOz1zTmQLylNPwkkm2t34Evz9HCKcm4LEY5jfWbQGPzuwt1VktvOVmQs/YjHovMWuzHgtlyu/q+fDAKmx62oHBQf58KmbUbWmqvisICSFAossW0ZBswlekHiwKS+dfrenHRnKS9XkLtPIK6qQdxInxDfh4156WN7RW2XZ+5hF243lKY3UFfEbcgANuMIQ213a6yLgbsINg0fo7M37fPSVuXIbIm93XegBkz6wR+Ll2zrqN/uH6ZyGXHLdEo5cFIUr4YfrsgvpZW/ibPc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(376014)(7416014)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(4143699003)(11063799006)(261021123027099003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RIQUG3Ph2UH352Jdwnwq1Ee+Dz2v6CAhwPPNnlcf7EnfslmlxnwsM/dyuc2m?=
- =?us-ascii?Q?vhAS92wSNDcjo3vYQlw+pDVr4rWMI87J8RqtLyTXNJ6mD+845hJxejIV66/c?=
- =?us-ascii?Q?mgu2t7VxqxSHZBE+U0fPBMDtdVDnUPC8wbysgstLJfU5/Pq/qEZ3t2ko2yhZ?=
- =?us-ascii?Q?yDOr+/8kHRxwu1JUfqmqTrQtM77gr0fvcJ1rLfrgE6LMkqv19xsIbcsA7ZTQ?=
- =?us-ascii?Q?+17DgtdFLKxW3TlTEw3UmqQLxh7iagNJip+nlurxIYVmSO9XQD8Kk3c2O5CC?=
- =?us-ascii?Q?p/8hHwgeg41hXpJXdXRQfn46k4weubRGzBf2am+KJIQqsrPwOmLG2/zcHRVX?=
- =?us-ascii?Q?m7qKxjWj0pkX3QfRq/ppHlE+1WSp2V4teB8YZ2+lUiCyHGHcEnS5bhgviKr3?=
- =?us-ascii?Q?LSqALXt813w5oFEc+rEyvzHr0EOncMFY0nsffhJ9SsFDwXi1yQM10aajgFHn?=
- =?us-ascii?Q?y8sQ9l4IctyELvFb5NfXaAt9rtCvvYpgu8kRbxLABkXsTgbYibyLz6qChxcW?=
- =?us-ascii?Q?EicWb82thSCuV4VIK78I4qsLj7bPntn8/LvtzO6vE2tYjOJchg64eYL+WKad?=
- =?us-ascii?Q?7IKMNs+IXLMHi6igrYdz6eEkY/0i1edLMXQhbwEST2UvoeJEl2cb47tFN4lb?=
- =?us-ascii?Q?hWEld8UfFLdPyni+nzLYckKyjysqSVJaAHr4rW6W8Jw8dCO1dKAtwiC9T3ae?=
- =?us-ascii?Q?qDOZ5iAMIzmuVlxfjvkSYf3VZlFkfIJjj5rWKdEbhnFPj/t1r8ovcVNRACmS?=
- =?us-ascii?Q?KlLKjRo9qVaL0ZflnvlumvM8y8zSiXzQapESOoR1ppeoX+a45g5CfAfakj1k?=
- =?us-ascii?Q?yKWxURLSqbVwIXido4trZ7Rfd0ZjUIt3yppBjtsy2Y/7JQOwaYXvezmC3mh3?=
- =?us-ascii?Q?NdL7tVXG/+UWtLt+RdOH29Mi2JU3gDpaL7n6JqEabGbYcaB/45rug3YCQswJ?=
- =?us-ascii?Q?me7pDqxlOrgIZBOnhOOTOho4kK/YrAa7U6YkCIKFvrZb6nrzqdwQrW4/pbMB?=
- =?us-ascii?Q?i4co/j/hu7Y1TL5OkbqVGP3OaVfeFCid1UPsMNx8cOZc0gi2ahnOXlaV0iko?=
- =?us-ascii?Q?ODUv3d0c4m7zvoo31fcgXNEscsPdjubJ9SE3qAtpqBPmxtD4pv/jZBbB5ZaJ?=
- =?us-ascii?Q?SMkSDk21+The0NsM2Dcoj7IShPvfPF+jcc8AYAuHOezaa7M7kOEkZVYiuIbW?=
- =?us-ascii?Q?b7ZMnuEheg/3ez676jFicAZ3av+vLySOU79n18smFJg7eQ/jyJThxk4ScUXY?=
- =?us-ascii?Q?gG9rZQyPmv5lSBCXGoibQVbL70HalduqQu3Y8RRP8dqw6TlRdvTdhYoHUR7m?=
- =?us-ascii?Q?MVdcfBrYSt5lOXAcsLceFY6hI24brgzExZY9ccLSBsA/jvkydzyPW0+qU6Fd?=
- =?us-ascii?Q?Bhxt3r+MumCAZz1lYSW7eWPyn/TrEvV28N7nSSQn14+Rom4FYYbwaCe51nN+?=
- =?us-ascii?Q?VyE9Hdd3xx2USYySlfnYB/xgQLNOh46ziL97EHeuyQKD8+9gzWIod+jRZdiC?=
- =?us-ascii?Q?Us34RCOlq6+Q9eD5VyXdDQ8v7qkQtEFes/jTQYfjC38XmaB2O1iWfFxawKMa?=
- =?us-ascii?Q?sog6n69zfokO4GFYyMu+YL2ZtZ4K7aeYwqFCy7c9JSNfcC0OXAofhgflUOFG?=
- =?us-ascii?Q?Hhh9cZlcl9OCtRRWraDZBl6LN9VQhNKSG+CKH7obCYm6m4zClDhW6MeAUSzp?=
- =?us-ascii?Q?GxIM9DDS5oKzCPcvxKbLyWrFyLujvMv4v92h7LxqDbEYuzWyXb06M+NNc0Pk?=
- =?us-ascii?Q?AZq8D0QcvziHdSLsVB2MESLbnwTNaaXuwI7SjpB1z3MsWHMV1BjA?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9264cf61-cacb-44b3-1c9f-08df401afe9d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:41:19.6983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UOz8qB9mgaQ7cRWpO6aQjQAEAwTxwmdfAg7ngxwIs/Tdcau6A9XaqOQ6atsSS3ZeSUsSoCrzaSi1ZNHFXY5UgE2PQa7MYh/mDxZgWXDcRdV9bJjfrZGbeZl6JcYVN9I5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB949883
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-pixel3-audio-v7-2-ecf28efc5c33@ixit.cz>
+References: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
+In-Reply-To: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4077; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=uuakIZu6Wy/NrugWd1DLRLYP2J4loRYGwzYovA75Huc=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq9KjBE6O2BocYEO+M7shiFBskLapAfjCKS9MYF
+ QuxhcjixPyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavSowQAKCRBgAj/E00kg
+ cnN3EADA25mhVpQJMStudgdTqNBMfDMGsD47VSdLZmJkOnZNpKJ9WHRWPVsgpHNExpZNyi7PMoG
+ VE2vcIDgfN51It3Dn3roS81kyOsu3V/L/GFHJ03jwfQ6UbTU3nw53TQh5V1LTH5F6gHx02Dp0sA
+ u4GcZwaeNSA9+EL1oopde46oatPuIDV/7xP0TVhiMmKptt/Hjb6aaPtPN4PQ4OfumQhOPr/34cJ
+ YmLcw0HxcKmU7z1uJWWkCTES78/ofNuRZHROxQrI/HcesNRv8bCam9s2hRSZOpUHkLJkwbQUBsX
+ /lfkzMtnrXaIOqwDXYS/E5+WVq812O983RkGynOvXaj7nxvmf2wabiWOFA0tfW24943TkBvNyr4
+ /WgOSqitN1S13Vyd98dXmXXBH55RlmIBbcpiekuAeLMFTwzO6ms6oVFAHRe/SgyQ0Jwx6p05HZe
+ cQsR4nKHkBNTVYOiu6VI0woFElfImpQ1enr1a2+PNsfxBoe3JkjlB/OQHzxtQMLm+D4tb92VcLt
+ cOUKhd9gkCiO/da4/0G4HjTAQnBwEobxX12Xik66D12VOGaoGojytcxZ3IY4hGTZr1XgFJXZf7P
+ qRf1X6Mv9BZIUrg6C5S1GykYwD6+4P8wVyfSCPMAkcs6waAdJEB0wXeoMg8IlZQadp6wAmeGabi
+ MzQPUeewHYDl5wg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:47:32PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Register each dma_chan_dev on dma_chan_bus_type before device_register()
-> and make it a bus device instead of a class device. Setting the bus
-> before registration lets bus_add_device() take the bus subsystem
-> reference, so the matching bus_remove_device() calls drop references that
-> were actually acquired. Attach dma_dev_groups to the bus and set the
-> device release callback directly.
->
-> Keep the existing /sys/class/dma interface by registering a class_compat
-> named "dma" and creating a link for each channel device. The channel
-> devices now live on the DMA bus, while /sys/class/dma/dmaNchanM remains
-> available to userspace.
->
-> The bus is named "dma-chan" rather than "dma" to avoid colliding with the
+From: David Heidelberg <david@ixit.cz>
 
-dmaengine-chan
+The Pixel 3 sound card so far only drove the two CS35L36 speaker
+amplifiers. Wire in the WCD9340 codec, add a SLIMbus capture link
+for it and route the three digital microphones
 
-> SuperH DMA bus, which is also named "dma" and is registered later from a
-> postcore_initcall. As a result the device's uevent SUBSYSTEM and
-> "subsystem" link use "dma-chan", while /sys/class/dma is unchanged.
->
-> Remove the post-registration dev->bus assignment from the Tegra GPC DMA
-> driver. Leaving it in place would overwrite the bus selected by the DMA
-> engine core and reintroduce the reference imbalance.
->
-> The DMA channel bus match callback never matches, so no driver can bind
-> to these channel devices.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/dma/dmaengine.c        | 27 +++++++++++++++++----------
->  drivers/dma/tegra186-gpc-dma.c |  1 -
->  2 files changed, 17 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-> index 9a9d54d8f7c6..36f5a12641cd 100644
-> --- a/drivers/dma/dmaengine.c
-> +++ b/drivers/dma/dmaengine.c
-> @@ -239,11 +239,7 @@ static void chan_dev_release(struct device *dev)
->  	kfree(chan_dev);
->  }
->
-> -static struct class dma_devclass = {
-> -	.name		= "dma",
-> -	.dev_groups	= dma_dev_groups,
-> -	.dev_release	= chan_dev_release,
-> -};
-> +static struct class_compat *dma_chan_class;
->
->  /* --- client and device registration --- */
->
-> @@ -1115,8 +1111,9 @@ static int __dma_async_device_channel_register(struct dma_device *device,
->  		goto err_free_dev;
->  	}
->
-> -	dmaengine_chan_dev(chan)->class = &dma_devclass;
->  	dmaengine_chan_dev(chan)->parent = device->dev;
-> +	dmaengine_chan_dev(chan)->bus = &dma_chan_bus_type;
-> +	dmaengine_chan_dev(chan)->release = chan_dev_release;
->  	chan->chan_dev->chan = chan;
->  	chan->chan_dev->dev_id = device->dev_id;
->  	spin_lock_init(&chan->lock);
-> @@ -1128,6 +1125,11 @@ static int __dma_async_device_channel_register(struct dma_device *device,
->  	rc = device_register(dmaengine_chan_dev(chan));
->  	if (rc)
->  		goto err_out_ida;
-> +
-> +	rc = class_compat_create_link(dma_chan_class, dmaengine_chan_dev(chan));
-> +	if (rc)
-> +		dev_warn(device->dev, "Failed to create compatibility class link\n");
-> +
->  	chan->client_count = 0;
->  	device->chancnt++;
->
-> @@ -1172,6 +1174,7 @@ static void __dma_async_device_channel_unregister(struct dma_device *device,
->  	chan->chan_dev->chan = NULL;
->  	mutex_unlock(&dma_list_mutex);
->  	ida_free(&device->chan_ida, chan->chan_id);
-> +	class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
->  	device_unregister(dmaengine_chan_dev(chan));
->  	free_percpu(chan->local);
->  }
-> @@ -1306,6 +1309,7 @@ int dma_async_device_register(struct dma_device *device)
->  		mutex_lock(&dma_list_mutex);
->  		chan->chan_dev->chan = NULL;
->  		mutex_unlock(&dma_list_mutex);
-> +		class_compat_remove_link(dma_chan_class, dmaengine_chan_dev(chan));
->  		device_unregister(dmaengine_chan_dev(chan));
->  		free_percpu(chan->local);
->  	}
-> @@ -1650,8 +1654,9 @@ static int dma_chan_bus_match(struct device *dev,
->  }
->
->  const struct bus_type dma_chan_bus_type = {
-> -	.name  = "dma-chan",
-> -	.match = dma_chan_bus_match,
-> +	.name		= "dma-chan",
-> +	.match		= dma_chan_bus_match,
+Based on work done by Casey Tunturi.
 
-don't change format, origial code style is correct.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 56 ++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index fa327ff156b86..7020bbddbcff2 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -4,18 +4,20 @@
+ 
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
+ #include <dt-bindings/input/linux-event-codes.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,wcd934x.h>
+ 
+ #include "sdm845.dtsi"
++#include "sdm845-wcd9340.dtsi"
+ #include "pm8998.dtsi"
+ #include "pmi8998.dtsi"
+ 
+ /delete-node/ &mpss_region;
+ /delete-node/ &venus_mem;
+ /delete-node/ &cdsp_mem;
+ /delete-node/ &mba_region;
+ /delete-node/ &slpi_mem;
+@@ -512,16 +514,20 @@ dai@72 {
+ 		qcom,tdm-data-align = <0>;
+ 	};
+ };
+ 
+ &q6asmdai {
+ 	dai@0 {
+ 		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
+ 	};
++
++	dai@1 {
++		reg = <MSM_FRONTEND_DAI_MULTIMEDIA2>;
++	};
+ };
+ 
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
+ &qupv3_id_1 {
+ 	status = "okay";
+@@ -544,40 +550,79 @@ &qup_uart9_tx {
+ 
+ &sound {
+ 	compatible = "qcom,sdm845-sndcard";
+ 	model = "Pixel 3";
+ 	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
+ 		    <&quat_mi2s_sd1_active>;
+ 	pinctrl-names = "default";
+ 
++	audio-routing = "DMIC0", "MCLK", /* Top mic */
++			"DMIC0", "MIC BIAS1",
++			"DMIC3", "MCLK", /* Top-edge mic */
++			"DMIC3", "MIC BIAS3",
++			"DMIC4", "MCLK", /* Bottom mic */
++			"DMIC4", "MIC BIAS4";
++
+ 	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
+ 	mm1-dai-link {
+ 		link-name = "MultiMedia1";
+ 
+ 		cpu {
+ 			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+ 		};
+ 	};
+ 
++	mm2-dai-link {
++		link-name = "MultiMedia2";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
++		};
++	};
++
+ 	cs35l36-dai-link {
+ 		link-name = "Speaker Playback";
+ 
+ 		codec {
+ 			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
+ 		};
+ 
+ 		cpu {
+ 			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
+ 		};
+ 
+ 		platform {
+ 			sound-dai = <&q6routing>;
+ 		};
+ 	};
++
++	slimcap-dai-link {
++		link-name = "SLIM Capture 1";
++
++		codec {
++			sound-dai = <&wcd9340 AIF1_CAP>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai SLIMBUS_0_TX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++};
++
++&swm {
++	/*
++	 * Nothing hangs off the codec's SoundWire bus on this board: the
++	 * speakers are CS35L36 amplifiers on QUAT_TDM.
++	 */
++	status = "disabled";
+ };
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+ 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+ 
+ 	panel_default: panel-default-state {
+ 		reset-pins {
+@@ -732,16 +777,27 @@ &usb_1_qmpphy {
+ };
+ 
+ &venus {
+ 	firmware-name = "qcom/sdm845/Google/blueline/venus.mbn";
+ 
+ 	status = "okay";
+ };
+ 
++&wcd9340 {
++	/* PM8998 LN_BB_CLK2 feeds the Pixel Visual Core on this board */
++	clocks = <&rpmhcc RPMH_LN_BB_CLK3>;
++	reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++	vdd-buck-supply = <&vreg_s4a_1p8>;
++	vdd-buck-sido-supply = <&vreg_s4a_1p8>;
++	vdd-tx-supply = <&vreg_s4a_1p8>;
++	vdd-rx-supply = <&vreg_s4a_1p8>;
++	vdd-io-supply = <&vreg_s4a_1p8>;
++};
++
+ &wifi {
+ 	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
+ 	vdd-1.8-xo-supply = <&vreg_pmu_xo>;
+ 	vdd-1.3-rfa-supply = <&vreg_pmu_rf>;
+ 	vdd-3.3-ch0-supply = <&vreg_pmu_ch0>;
+ 
+ 	qcom,snoc-host-cap-8bit-quirk;
+ 
+
+-- 
+2.55.0
 
 
-Frank
-
-> +	.dev_groups	= dma_dev_groups,
->  };
->
->  static int __init dma_bus_init(void)
-> @@ -1665,9 +1670,11 @@ static int __init dma_bus_init(void)
->  	if (err)
->  		goto err_destroy_unmap_pool;
->
-> -	err = class_register(&dma_devclass);
-> -	if (err)
-> +	dma_chan_class = class_compat_register("dma");
-> +	if (!dma_chan_class) {
-> +		err = -ENOMEM;
->  		goto err_unregister_bus;
-> +	}
->
->  	dmaengine_debugfs_init();
->  	return 0;
-> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-> index ec12b7288b43..93b136f875d4 100644
-> --- a/drivers/dma/tegra186-gpc-dma.c
-> +++ b/drivers/dma/tegra186-gpc-dma.c
-> @@ -1540,7 +1540,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  		tdc = to_tegra_dma_chan(chan);
->
->  		if (use_iommu_map) {
-> -			chdev->bus = pdev->dev.bus;
->  			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
->
->  			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
->
-> --
-> 2.34.1
->
