@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389898;
-	b=XIVLSPljQLVzo23NOHJ78iHPJbSrrXGx+6EFXfswcBYFQxSmRy68yKsR20wmkn1CepbF
-	 B9u4QRxFKt1F3PWrJTQByLz66hP7dw4hzLX3d2duhy5QFFOn6NbYjywsNIvnLIa2Ixll2
-	 l6HxMfS8Jwubh3LsOOmxEC9wwbnxntD33sqvuiX7k5uYgDgQ0o+tUzP/AZ7hw5FnYieK7
-	 s52LDlTjpGyV9ss3fC8dC3z5XZckdQfSCrLRnhuh0K7yMUrewjtTjtjT7vLTt7it4vK/e
-	 rUWI52ly39+1ZO1mGgVWkgGN3cQJN9ikuMEXWUg/HyNj5ivoWK0OAUC8frwzkAwnuZg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389898;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5p/q3+WMS3ls8L+KObTnHmV8zpLfczVrwuNUj9yKsvQ=;
-	b=fP/co/ghCsXlUg+HytqaH1IoVg9MBAT6CRW32g9IWJpWSYxC3tCVz8fa5G/Lzk7EwwMH
-	 hkHWhGKhwEZQCPIykKdx+D9hJnoop3dYppEeG0d4gSEVyjwv/AwV5soGZR7XXRzCSNABm
-	 l1LT+sPLUzcsVyHB91QQBNlOPbDRlS8lZLSKVFECIpHMOca3Aeta+G7vqyEcwvOmq5b6D
-	 9y0u7gV5ZjGWtH2lNQu3B46UwIY6vzGVJkQmFznXU1BItUGvd1aauYQ+Tp1DzmZrrj52J
-	 fRssma/8hbpRQX7Ysig03Zub13T8AliBTBn4qlHAvgFOk6ahO/LFjWjbKM6+mZnCPNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MzR37AmC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794389901;
+	b=lkueMT02rvCihtfodpi9jFaCtydPIRZCfTofcb1gRhVGTIMHNG+Ni+EJg1bJqJ+vnCA/
+	 I0h6DgrqtbgLyYwfa4A1UYu+6K+O/poeodLxp3bNTT8plU9iUSU593yJv7FAmdKHxH7Wj
+	 3sRzVkexJgdKO0BLSy/h70fJXhFcSsH+JbB8/t2Ow/FfzV13ncFebyTIOu5JM0phCcLzD
+	 0Bq1IFyLchZxrVXjxav++K2mo48s0N9x5Tp4Y2LijiNPFlMNNMD6anvcqmuFcxrZkOjy5
+	 JcS8v0UXGXRB6UOvveruD2d2HE7BXYFf0KKTgfGtjl2fEzEVDi+sySGbO1DBEo0Qzrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389901;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+	b=fqAjeEdi4STsvtqr7YCID0BICGHxBUu/N1FSciypFkSJIIDXy9E0bJiycK5r5rh4kfvP
+	 KBPiGN6LKBXXFIReR9EQGDcNHdthXzakcA6C787zR+bHP0L9wce65EmAHV3SfZalADRCv
+	 pePK4MwL0H7b2WTewYXQxehR8B1iMW2ZGsfYltTq1BWggo9pAKJq1aIOwEsDH3d5C0246
+	 Vj5az6df5haQkwEj4uzQS7c0OQx/WNvXYJWoBBc4rtBMtEDXgDYBaZDXoEwUUOGjMr3OI
+	 ORhxkXEhTkQCiQN1iH/HCNqTM20RBQQa0iVpfcSxxr6zJjhtHmuLwiMHL5ofuKhd7OA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pcc.me.uk;
+	spf=pass smtp.mailfrom=pcc.me.uk;
+	dkim=pass header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AA6606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:38:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F174360A2636
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F174360A2636
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pcc.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pcc.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MzR37AmC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79D91F00A06;
-	Wed, 11 Nov 2026 09:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794389898;
-	bh=5p/q3+WMS3ls8L+KObTnHmV8zpLfczVrwuNUj9yKsvQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MzR37AmCszwGbQH+6B0ZwpFLoz/cN8Un+xeXNMhovJUZ/SghyRwpY2NP1NfcnmXLh
-	 slCIxDons0PwXhP6IQbO5Q+NTv+dwJmdtafsQhv2LJQ9yRoNir8jp7il4Q8ob368ZI
-	 9aiFYwL7b6Dy+Y4PfoVdvMIXAAZ9S53m/5DbrpZAEYZeAH0iBM+ofGCE5N6uY1b+wt
-	 tnZCwTuG0BiN8pCnOH1DCNxPAT3lpCsEWgr8aoFBUVwOFbf4k+ewGTBFkTXceIRyTk
-	 HZGac6UXuQfiCFRdcaCaEH3h8VpZjBmmr5tcc9D7AH0v8kK2vEsSfWudNIVhE3njf0
-	 mOnTOJOWiAVRQ==
-Message-ID: <d053c2b5-dc2b-4475-9832-db575e4b8cd5@kernel.org>
-Date: Wed, 11 Nov 2026 10:38:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso391956a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:38:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794389899; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V7DWBfhVTD5YTLYraGA6mFekOrnsN4CFJ9OIC4wyq++OCSoqioDqvE7MbE4WbJh6a+
+         YJ4WkTaK0Ei4mFGd8GIrea5UrduWCAGO2N5HznuQsEISbnA6oJADmUTkxKiq3mxIO1C6
+         cGy0OH/mgd1GYlFT8Gl42gFjr1IlEiZszfZTEBLTLBE8StkgURFTRLukMZroiQgEka8T
+         n45RBM/6+Ae+79mhOwJs7qV2JPBODoQhuHH6YucbFg7cNt60KGSZcgfZHUwjsNINLrlG
+         vU2ExTO07b58BjqMxi9n8vNpE9nhU+zSMLw8lv7L57j1aCSzFgJODwv2Hbts5Hkg6azr
+         2PSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        fh=/ByzhoosHpy0iD4M71jhKG4KwTbZK4Ujj49vEGz45Tg=;
+        b=fbiMJCltknz4tJKHemmdwqy5Kdg/d+Fbl93/l+NMMn509+JC6+7zljcJsAR8qPI4YV
+         ZAQRpdSrBW3GS+6v1p7QpTJNNoyfUQsJzNEf6RuGblYGg5sA6a1YZFLk3QISRCPjmpjJ
+         OkZpwxgmA0hmnsQ+QcBHRcxXyDNGSJSngQifFoOf518JMGsfGBdD0vxD0gRXr0T5DI9O
+         YWhKhyfHthM9KfRog8v5i6RJbDSAbEtrrvL0hV3IFUp5R63yrC0i23dgUM89T3cAkQ8l
+         FTf4M+X6zoelwVzTY6w8Wp7aXE4LU1QznqkF8SH4+RTO3RPgcLQ/vqZBlv9bc6tvfw07
+         JORA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pcc-me-uk.20260707.gappssmtp.com; s=20260707; t=1794389899; x=1794994699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        b=C2w8b7OYkg7O6ncEssqboYxo4r22YL6J95e/T49TeMXUL2k0xnALN9YymFBsayWC/Y
+         /aiCRjZweTxNor60miNWYMu5GTviTVd+I2jgn9sJflJJMvEgRDTFbUcBWBtVxkBJ8nKK
+         e7AAdO+j9b0hGq41NCxDbWSFFg990yTj4LaDBrvZWHkhJnGNh4fA3ISsavIbx3MYZDyf
+         SNMIilWJLam/OsH0oK1KbGIH2rusvJilQJoU5oDhHomPnmCf+zIoHZkLL72MuOlrwaC9
+         u4BXGOqjXz0vDDexPr4YyiJXEX2H1cc+QJRfyjzBl6IaAE6Mpn9EnyX01x3Pf81XuVXC
+         1+MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794389899; x=1794994699;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        b=oaD29Br6hxFjluKYqf2wDJi2N8Xj5K6eHbgHS5R82PHZEuaqsZH/QT0D7HpMfue3zl
+         24o025Dkjv3Qqqns5yhAHD0ZKhNqUejRG2+b23SKLgxgWrD0ofq2nOxrZhGtOmWvBOlk
+         ZA0pd/d3D04sOR2T0EW7/jivKfYw4ZwE8UYQxV6E4u610yTzjNASOruG74tdRgueeick
+         iOl86cHN+swjLiSk/bATFMGj7kEnhK1vyLjSpgsCmGlsW0FWJ4gBeKP7CXLibsGo1THp
+         TaV/Yb9kFiiplsKnbX9DGjlhEaO9O99fpsq0JBb2fJS901XTYc2sIy8szfZkCJOu69Zl
+         Ct/g==
+X-Forwarded-Encrypted: i=1; AL+hErGSsAGegzX6nfUuo2KjPL4u/hjytUOoMsEj77e/ifdvcP/bmkmWrVks+WwR6IPPZxZcIaSWEeONi7lrxfo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OthnaTGf+TstylKgSxgBcMmsMPbL8oKb09etO+cOXHuuNSb+r
+	7ZwXHq7mSSj2cWBTF6m4MLfBxRdU7ypA1oe2rNzs3YoHzz7Cg8w1CPNcBNAmfdBBpbn7v3lahqK
+	9hdBIa95k5smp7lhoKy2MOt1ZthYth3/HJ0Etbz779Q==
+X-Gm-Gg: AYBFou1oiYXu7Boxqp8b6gmfWUZgH1dB9TtUzl7z9Ful1DuienNMzPN5lrPbLwGE0TV
+	6SbtZsQtOCWUqH7sBMbU33oS4WP0VTtV3RCQ3shUDZRRwC62TUMjwB6aWtU56itaaAD9OrEymh7
+	r58VCnHuhs8M/l4T2Jk1wi3doSWy7BY5lq9y4KXg4XvzceM5JNMU06pG98e0LE/uCS6yJUmsulU
+	XKgCcS3TahD+ndviKav1McxmepCtN6KnIzb52/gfWztQtTuygWQDaC26338c6W5N08pU6Lwm8Cs
+	wK29QC5FSEJND0a6x1O5FVodyLuZNIMObcwGsCgeL8Z1926T9QEcKWMjKaip7k91yhSYnGG8OTb
+	0ojyOhoSrhWX/rP+TjZhD8DRDgiTIadbKeKxTcI/6jisD9LvZOTpT9ngda+I+jWjQ3p7u4g==
+X-Received: by 2002:a05:6402:13c5:b0:6b5:76be:be54 with SMTP id
+ 4fb4d7f45d1cf-6b777829b2fmr1504916a12.35.1794389899169; Wed, 11 Nov 2026
+ 01:38:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,158 +104,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] mm: only assert VMA locks if CONFIG_DEBUG_VM is set
-Content-Language: en-US
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
- <20261110-tame-vma-asserts-v1-2-be293ff499a7@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261110-tame-vma-asserts-v1-2-be293ff499a7@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
+ <20261107-mte-kasan-split-v1-1-d84ea5f30f94@google.com> <avNjcKtuQkZW0_Sr@arm.com>
+ <avQqdBEGwje1iVlz@google.com>
+In-Reply-To: <avQqdBEGwje1iVlz@google.com>
+From: Peter Collingbourne <peter@pcc.me.uk>
+Date: Wed, 11 Nov 2026 01:38:06 -0800
+X-Gm-Features: AclHuK-VneSANYCNXJ36s2sFC-63re0-bOqlxxsBmGtmuBf0Sv7UobeBKGGbfM8
+Message-ID: <CAPQLkRi4zdGZRy=59SeaRz67Vj-+jEJKH-eWMZZ=kk8t-=3-kg@mail.gmail.com>
+Subject: Re: [PATCH 01/24] arm64: Fix lazy TCO clear when enabling user MTE
+To: =?UTF-8?Q?Pierre=2DCl=C3=A9ment_Tosi?= <ptosi@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/26 17:57, Lorenzo Stoakes (ARM) wrote:
-> Similar to the mmap lock asserts, we have also asserted VMA locks
-> regardless of whether or not the kernel is a debug build or not.
-> 
-> Similarly, these are asserting basic assumptions about kernel code which
-> should never assert in production code.
-> 
-> Since all such bugs are generally asserted using VM_WARN_ON_ONCE() or
-> similar, it creates an odd and inconsistent situation where some
-> programmatic asserts are only checked under CONFIG_DEBUG_VM and some are
-> always checked.
-> 
-> Since the intent is the same as any VM_WARN_ON_ONCE() check, do not assert
-> if CONFIG_DEBUG_VM is not set.
-> 
-> Implement by updating vma_assert_attached() and vma_assert_detached() to
-> use VM_WARN_ON_ONCE() rather than WARN_ON_ONCE(), and gating
-> vma_assert_[write_]locked() and vma_assert_can_modify() on CONFIG_DEBUG_VM.
-> 
-> nommu loses its CONFIG_LOCKDEP asserts if !CONFIG_DEBUG_VM in
-> vma_assert_[write_]locked(), but this doesn't seem to be a problem.
-> 
-> In addition, there were already inconsistencies - vma_assert_write_locked()
-> uses VM_WARN_ON_ONCE_VMA() and performs no actions if CONFIG_DEBUG_VM is
-> not set, and vma_assert_locked() looked up vma->vm_refcnt but also only
-> asserted if CONFIG_DEBUG_VM was set.
-> 
-> Therefore simply update these functions such that they're predicated on
-> CONFIG_DEBUG_VM and update their kdoc descriptions accordingly.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Wed, Nov 11, 2026 at 12:57=E2=80=AFAM Pierre-Cl=C3=A9ment Tosi <ptosi@go=
+ogle.com> wrote:
+>
+> Hi Catalin,
+>
+> On Tue, Nov 10, 2026 at 06:33:20PM +0000, Catalin Marinas wrote:
+> > On Sat, Nov 07, 2026 at 04:36:07PM +0100, Pierre-Cl=C3=A9ment Tosi wrot=
+e:
+> > > On kernel entry from EL0 with HW KASAN inactive and user MTE disabled=
+ or
+> > > in async mode, mte_disable_tco_entry() leaves PSTATE.TCO set to avoid=
+ an
+> > > expensive write, as it assumes that EL1 tag checks are not needed.
+> > >
+> > > However, if the thread is in the process of enabling sync or asymm MT=
+E,
+> > > set_mte_ctrl() updates SCTLR_EL1.TCF0 without clearing PSTATE.TCO! As=
+ a
+> > > result, kernel uaccesses miss tag faults until the next context switc=
+h.
+> >
+> > Nit: next context switch or another syscall. I think this makes it
+> > clearer that the only potential missed tag accesses after the prctl() i=
+s
+> > a signal frame write as we don't have other uaccesses.
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Or any other kernel entry such as signal delivery.
 
-> ---
->  include/linux/mmap_lock.h | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> index 9367430ee53c..bada7a03ddf4 100644
-> --- a/include/linux/mmap_lock.h
-> +++ b/include/linux/mmap_lock.h
-> @@ -354,9 +354,14 @@ int vma_start_write_killable(struct vm_area_struct *vma)
->  /**
->   * vma_assert_write_locked() - assert that @vma holds a VMA write lock.
->   * @vma: The VMA to assert.
-> + *
-> + * Assert only if CONFIG_DEBUG_VM is set.
->   */
->  static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
->  {
-> +	if (!IS_ENABLED(CONFIG_DEBUG_VM))
-> +		return;
-> +
->  	if (!IS_ENABLED(CONFIG_MMU)) {
->  		mmap_assert_write_locked(vma->vm_mm);
->  		return;
-> @@ -369,11 +374,16 @@ static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
->   * vma_assert_locked() - assert that @vma holds either a VMA read or a VMA write
->   * lock and is not detached.
->   * @vma: The VMA to assert.
-> + *
-> + * Assert only if CONFIG_DEBUG_VM is set.
->   */
->  static inline void vma_assert_locked(const struct vm_area_struct *vma)
->  {
->  	unsigned int refcnt;
->  
-> +	if (!IS_ENABLED(CONFIG_DEBUG_VM))
-> +		return;
-> +
->  	if (!IS_ENABLED(CONFIG_MMU)) {
->  		mmap_assert_locked(vma->vm_mm);
->  		return;
-> @@ -480,12 +490,12 @@ static inline void vma_assert_attached(struct vm_area_struct *vma)
->  	if (!IS_ENABLED(CONFIG_MMU))
->  		return;
->  
-> -	WARN_ON_ONCE(!vma_is_attached(vma));
-> +	VM_WARN_ON_ONCE(!vma_is_attached(vma));
->  }
->  
->  static inline void vma_assert_detached(struct vm_area_struct *vma)
->  {
-> -	WARN_ON_ONCE(vma_is_attached(vma));
-> +	VM_WARN_ON_ONCE(vma_is_attached(vma));
->  }
->  
->  static inline void vma_mark_attached(struct vm_area_struct *vma)
-> @@ -549,6 +559,9 @@ struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
->  
->  static inline void vma_assert_can_modify(struct vm_area_struct *vma)
->  {
-> +	if (!IS_ENABLED(CONFIG_DEBUG_VM))
-> +		return;
-> +
->  	if (vma_is_attached(vma))
->  		vma_assert_write_locked(vma);
->  }
-> 
+> >
+> > > Clear TCO in set_mte_ctrl() immediately after setting the task's SCTL=
+R.
+> > >
+> > > Cc: Peter Collingbourne <peter@pcc.me.uk>
+> > > Cc: stable@vger.kernel.org
+> > > Fixes: 38ddf7dafaea ("arm64: mte: avoid clearing PSTATE.TCO on entry =
+unless necessary")
+> > > Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
+> >
+> > The patch is correct but I wonder whether we need a cc stable.
+> >
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>
+> Thanks for your review.
+>
+> I'm happy to drop the cc in the next version. The rationale was that this=
+ fixed
+> an unexpected userspace-visible kernel behavior and closed a window durin=
+g which
+> tag checks were not performed, which _could_ be a concern when userspace =
+enables
+> MTE for security. I can see how this doesn't make a strong case for backp=
+orting.
 
+I don't think this needs a cc stable.
+
+I'm also skeptical that this is worth "fixing" at all. All that this
+patch does is move the TCO disable slightly earlier in a way that is
+almost unobservable except by sending a signal to a process at the
+right time. So this patch only has a useful effect if it would
+otherwise be somehow possible to compromise a process by taking
+advantage of the kernel's signal frame write. Even then it doesn't
+really help mitigate anything, it just makes the window of opportunity
+slightly smaller.
+
+Peter
