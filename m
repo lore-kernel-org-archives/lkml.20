@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413670;
-	b=3ipKfLezdW4w5dyplK4KukEMTrtWpzbyafUIMks4yUhmmDUPuz9+1Lo4+fc1anQyDrGH
-	 +Kai+afz0hYpiSOvclGiCGIRTvV7UAV+vCWQKMJTgT/BCZeO2w6zDnpiVYOyCYPryvSx7
-	 O2ea1kN9uWlO3yEtKT6joq//wDwz8NoSjSK5kBPg7r90vIwwotspuTryXDFgRIufEckdr
-	 AWQvgL5DKtO/882aTqJ5/JoRptkRBVSc5NBR8eOK1nsy798bkuoiWQ2Ta4ZQSzxQ/Q5fh
-	 Ufl6m4Xc2KICLC5XVd1XA8zuxyoM5Bi30F3r8uy/iUSQKI0SnkdnDcFKT43UAjvj7Rw==
+	t=1794413734;
+	b=2n+G3UzpzHwIb53/ocvE017afliG7mtx6MVbm0LYBsNnbhESCT7iL9BSawwNxCpBOkui
+	 03VwOK70j3H17Hhvr7e9OCRWcbCwLC61ffsAUxqTriG3mozipqPHfiGdExYNTLAlT1hX8
+	 X7G1xcIR9QI1bHKNnCW1nqZkGrqSIIQLS0zOHAuZw8PERPpmkETfqh8cSy5zPH65LkGwn
+	 p+8IPnaaMTtFS+zmoV4A+4845FivgfLjOL4mX7VxViOgq1ud3ECViPdFZSe+9gcy7Swwb
+	 2tFWvei2w5k3+ORmBvgDCfEtWjCV3KEAc8wzbpfG7Hjr4RJRzElE75zHWKlPB4yyVIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413670;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=waVa0swUhVILDQ3Fdt9NwC388Zn+UttTKWbxLoq2k0s=;
-	b=ehtlpvbhtYOI6/21ByST0fQLgf3T0Ij/Vv7xDOa8Cm2SauBqK6H21KxwXze6Qs/sp/Fu
-	 wPz5xnO2+bVLw1X4ENrOFYqxXnO92lZbCxO/yDqGVptjLtjLqi9Vtb57nj3gp9vVaosap
-	 dfvcER43IIXnuH9WKB3QDad2hnOWGXg6uMO+qbiny3hPe7OIefnDMr0Wa696FwE2mLxWs
-	 TK228EomX6b0qlnoaMEtCIHbOL7JMkfEbhsZ+31W7tg7xRZsnOkqmg8HW/f7ou4jr3VNE
-	 BtTJIp9eNxQNG7KLeYUl4pUsvknGZVSuNnGLou07wl6AbgS6rSlym2Zh4da4PWbBF8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413734;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=VKVZDuo43HDlgu6gOEYkUkH86H3I7WTmhbeGGpDOkGg=;
+	b=baTqt/JCc8kwPgrYoHoGF/h6DsE3gD3ldMD/ZB+ZT2/LOv0ABDAWDPEv+a/02L3YZMTX
+	 Ic8IQFoDFuvgEDmCHiueh+zI20eLiTJReYLfETHWBKNR1qYUp2Lad/YmR1qtva4QvqZ7P
+	 hdp6riRT0lDbvSR9+ciY8Lke2IZorxvprzwxYxKOUPlIsL231UCXR/nUxNQyiHfoJME0y
+	 iYDWq9NAqzPyXG2PBIDRATYFvR74v/Q3VcJ7FgdPfAEhWe3zxj/XQdbxnmWHkcvrhInvb
+	 RTtd3GHHWDeNkPMkgFWHFwEcqIbOP5zkM2l3CUSodHywoOVx6Sh+SeKhbzqtQ663Mdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=To8g6BJ6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CHBNpW0b;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC6A606A324;
-	Wed, 11 Nov 2026 16:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23122606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23122606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=To8g6BJ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D25B1F00A07;
-	Wed, 11 Nov 2026 16:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413670;
-	bh=waVa0swUhVILDQ3Fdt9NwC388Zn+UttTKWbxLoq2k0s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=To8g6BJ6/R18EgHt+BPeAHAVBQbuXk+t6aIFx2fn332bSqauYGxIX/MhTCqN4+MGd
-	 ONerEaPLhIWKa6BYiQzy9Dt9em18MCRu5Z+LROMLZse3SPa18WvY1YByGKq/Q80ZVA
-	 IybU0qgALTugrvS/EnJa/0gmU4kIQqopiAZHZJnggWryksTuMTqRkL+IZXxgi6S/+C
-	 hDWhJWIRxfSbtd6BScuCTFZMH4NIBoOB0hE/y26arVXZ6a1H5DlUP82BcxDL1ayokQ
-	 BrNA5M+ZSvTYC+LbA2xAFIBtmSz4zlZoGkfaxvlkVO5KhPcaqZhiiLy9/vmka5XMvo
-	 g8MGR+fGcvhIQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	amd-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-next@vger.kernel.org
-Subject: [PATCH linux-next] drm/amd/display: give the dprx CRC test its connector state back
-Date: Wed, 11 Nov 2026 11:14:27 -0500
-Message-ID: <20261111161427.3274232-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avNxxfHK_Zh2GN2o@sirena.org.uk>
-References: <avNxxfHK_Zh2GN2o@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CHBNpW0b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=VKVZDuo43HDlgu6gOEYkUkH86H3I7WTmhbeGGpDOkGg=; b=CHBNpW0baXKgM/vEfq+f7+aypQ
+	d8ZbOtLs7oqqWRkyn5DCFKw3Yd/deF+oyBP5lOQkkxKusfZMZoor7/UI1O+9pmG6rnSwakg2gPPj6
+	aLLcjCj3Q0hHpmMR3jDW3uoTBadLKFOylP/L6vbRKyyJ/5gZ9EssEHLRC56fPMPDhtcfs6MJ8ftTz
+	0eG63vKAQcpytW/mMl+1/vRVAf7Ye3Zvf9gb6/ABpI5fxAvITAIHlmzJdikaZNNrdEDPZ4nqnRuFb
+	HlJgC9s02RRE8ho5YgqHQLxpIAQihuer0KcV9SofX7NUkxmpz5UuOWBpSPquX7tD5nFPPHWL5uicO
+	7EP04rjQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRAyp-00000009K8T-3ug4;
+	Wed, 11 Nov 2026 16:15:24 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 97C8A30031E; Wed, 11 Nov 2026 17:15:22 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:15:22 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: Tejun Heo <tj@kernel.org>, mingo@kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
+Message-ID: <20261111161522.GD1922751@noisy.programming.kicks-ass.net>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120208.153536827@infradead.org>
+ <a98c40701cc874318e7fe475d90795c6@kernel.org>
+ <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
+ <20261111131152.GD2669272@noisy.programming.kicks-ass.net>
+ <avRzGYNT-_p3KP9R@scheduler.schedules>
+ <20261111154724.GO1779021@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,52 +75,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111154724.GO1779021@noisy.programming.kicks-ass.net>
 
-The merge fixup in commit c62c2736d82f ("amdgpu: Merge merge merge
-cherry-pick cherry-pick cherry-pick") dropped the call to
-drm_atomic_helper_connector_reset(), which drm-misc removed. But that
-call is what gave the test's connector a state, so the assert right
-after it always fails now.
+On Wed, Nov 11, 2026 at 04:47:24PM +0100, Peter Zijlstra wrote:
+> On Wed, Nov 11, 2026 at 05:57:01PM +0300, Kayra Cizmeci wrote:
+> > Hi Peter!
+> 
+> > Let's say a fair task named TA is working in CPU1, a DL task named DA is
+> > waking up. We enter the normal wakeup path, and call enqueue_task_dl()
+> > and from there enqueue_dl_entity(). enqueue_dl_entity() sets next_class
+> > to dl_sched_class. Later enqueue, when we call wakeup_preempt TA does
+> > not gets preempted because:
+> > 
+> > void wakeup_preempt(struct rq *rq, struct task_struct *p, int flags)
+> > {
+> > 	struct task_struct *donor = rq->donor;
+> > 
+> > 	if (p->sched_class == rq->next_class) {
+> > 		rq->next_class->wakeup_preempt(rq, p, flags);
+> > 
+> 
+> Gah, you're right. This don't work right. Let me try again.
 
-Create the state with drm_atomic_helper_connector_create_state()
-instead, and check it before storing it: cleanup would choke on an
-error pointer in connector->state.
+Here, something like so then?
 
-Fixes: af8e519642bd ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
-Link: https://lore.kernel.org/all/avNxxfHK_Zh2GN2o@sirena.org.uk/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-The amdgpu_dm_crc KUnit suite goes from 34/35 to 35/35 with this.
+Subject: sched/deadline: Fix wakeup_preempt() vs dl_server
+From: Peter Zijlstra <peterz@infradead.org>
+Date: Wed Nov 11 14:12:25 CET 2026
 
- .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Tejun noted that dl_se enqueues from timers, esp. those for dl_server, do not
+pass through wakeup_preempt() and will not cause rq->next_class to be bumped.
+As such, when such an enqueue happend in the middle of schedule(), this might
+cause a failure to restart the pick and run a lower class entity.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-index 2b94d1bcaf62c..32b33d72dd0f3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-@@ -694,6 +694,7 @@ static void dm_test_crtc_set_crc_source_dprx_connector(struct kunit *test)
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct amdgpu_crtc *acrtc = dm_test_alloc_crc_crtc(test, adev);
- 	struct amdgpu_dm_connector *aconn;
-+	struct drm_connector_state *state;
- 	int ret;
+Fixes: 704069649b5b ("sched/core: Rework sched_class::wakeup_preempt() and rq_modified_*()")
+Reported-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+---
+ kernel/sched/deadline.c |   40 +++++++++++++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 15 deletions(-)
+
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -715,8 +715,7 @@ static struct rq *dl_task_offline_migrat
+ 	return later_rq;
+ }
  
- 	aconn = kunit_kzalloc(test, sizeof(*aconn), GFP_KERNEL);
-@@ -704,7 +705,9 @@ static void dm_test_crtc_set_crc_source_dprx_connector(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, ret, 0);
- 	ret = kunit_add_action_or_reset(test, dm_test_crc_connector_cleanup, &aconn->base);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
--	KUNIT_ASSERT_NOT_NULL(test, aconn->base.state);
-+	state = drm_atomic_helper_connector_create_state(&aconn->base);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+	aconn->base.state = state;
- 	aconn->base.state->crtc = &acrtc->base;
- 	/* Balance the reference the state destroy drops for a set CRTC. */
- 	drm_connector_get(&aconn->base);
-
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
--- 
-2.53.0
-
+-static void
+-enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags);
++static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags);
+ static void enqueue_task_dl(struct rq *rq, struct task_struct *p, int flags);
+ static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags);
+ static void wakeup_preempt_dl(struct rq *rq, struct task_struct *p, int flags);
+@@ -1184,10 +1183,7 @@ static enum hrtimer_restart dl_server_ti
+ 			dl_se->dl_defer_running = 1;
+ 		}
+ 
+-		enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
+-
+-		if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &dl_se->rq->curr->dl))
+-			resched_curr(rq);
++		enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
+ 
+ 		__push_dl_task(rq, rf);
+ 	}
+@@ -1520,7 +1516,7 @@ static void update_curr_dl_se(struct rq
+ 					replenish_dl_new_period(dl_se, rq);
+ 					start_dl_timer(dl_se);
+ 				} else {
+-					enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
++					enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
+ 				}
+ 			} else {
+ 				enqueue_task_dl(rq, dl_task_of(dl_se), ENQUEUE_REPLENISH);
+@@ -1812,9 +1808,7 @@ void dl_server_start(struct sched_dl_ent
+ 
+ 	trace_sched_dl_server_start_tp(dl_se, cpu_of(rq), dl_get_type(dl_se, rq));
+ 	dl_se->dl_server_active = 1;
+-	enqueue_dl_entity(dl_se, ENQUEUE_WAKEUP);
+-	if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &rq->curr->dl))
+-		resched_curr(dl_se->rq);
++	enqueue_dl_entity(rq, dl_se, ENQUEUE_WAKEUP);
+ }
+ 
+ void dl_server_stop(struct sched_dl_entity *dl_se)
+@@ -2379,8 +2373,8 @@ static void __dequeue_dl_entity(struct s
+ 	dec_dl_tasks(dl_se, dl_rq);
+ }
+ 
+-static void
+-enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
++static bool
++_enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+ {
+ 	WARN_ON_ONCE(on_dl_rq(dl_se));
+ 
+@@ -2418,7 +2412,7 @@ enqueue_dl_entity(struct sched_dl_entity
+ 		if (flags & ENQUEUE_WAKEUP)
+ 			task_contending(dl_se, flags);
+ 
+-		return;
++		return false;
+ 	}
+ 
+ 	/*
+@@ -2442,7 +2436,7 @@ enqueue_dl_entity(struct sched_dl_entity
+ 	 * deferred task and still got to wait, don't enqueue.
+ 	 */
+ 	if (dl_se->dl_throttled && start_dl_timer(dl_se))
+-		return;
++		return false;
+ 
+ 	/*
+ 	 * We're about to enqueue, make sure we're not ->dl_throttled!
+@@ -2457,6 +2451,22 @@ enqueue_dl_entity(struct sched_dl_entity
+ 	}
+ 
+ 	__enqueue_dl_entity(dl_se);
++	return true;
++}
++
++static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags)
++{
++	/*
++	 * Deadline can enqueue entities from various timers; and esp.
++	 * dl_server() entities will not pass through wakeup_preempt().
++	 */
++	if (!_enqueue_dl_entity(dl_se, flags))
++		return;
++
++	if (!dl_task(rq->curr) || dl_entity_preempt(dl_se, &rq->curr->dl))
++		resched_curr(dl_se->rq);
++
++	rq->next_class = &dl_sched_class;
+ }
+ 
+ static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+@@ -2534,7 +2544,7 @@ static void enqueue_task_dl(struct rq *r
+ 	if (task_on_rq_migrating(p))
+ 		flags |= ENQUEUE_MIGRATING;
+ 
+-	enqueue_dl_entity(dl_se, flags);
++	enqueue_dl_entity(rq, dl_se, flags);
+ 
+ 	if (dl_server(dl_se))
+ 		return;
