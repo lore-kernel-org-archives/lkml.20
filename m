@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411353;
-	b=PT9cErtm40K9lRHF/eFVqscmAzla2FwG+9Oi8Gfw6Bt/3wwBI/tnX29dYoaUlwKVCboj
-	 5x6WHeh3wd3M7FB1pv6vcHPvgfwKRDL6e4sMfMA98XN55MzbU0FuyjOt5WXT6W1BfM3UO
-	 3T+WgHc5lTrGMLBmXfzsmepWzA9Xmtuv/1jNTYa56jQqAtBEQ473venzhDMlZeSdWhTaW
-	 vNybqDnQwPUEwVW8DbC4IX8p2aPq9PjYu9LRLkHlNgMkgydNiatk9dgB13ZO+nPw97uKe
-	 IQpc3n0DN6udH8fyGU2iLclZ8ngB1j/ZszPZhjIyRhpy1qixwAStxB4t3dI+p8lnURg==
+	t=1794411359;
+	b=3O+iSZmLqFco1YExX6WmGh8FYBcezUr6c/9LXKpbQFmQwS1j4YXemDweXnfA+DLlxqnR
+	 KQ1Knoaf73Eby67pz0Ih7hzQMtOnAyIcqWZV64+1YE0+k5zH3uWxYbLNsKH255N5C37nc
+	 wG70Vlgig6m8CjlBsmFDYitITKMyKSo4YQUxE4Q/TKbwEAVZ1nj219bcAu0DYF84BJbpJ
+	 0dGlU5CisOM2j3iJWZmx8zxr2A4eOf2rRC6wi01fhQ5RgBjchsI/F6tdNQNYcz0132djv
+	 ZY/LXUsGrBGToOvAXVQ4mpyxDPsy8sk6ghlMfbNTnOarvE4Kqkey5q3h69ahVoWrAag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411353;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411359;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Vz84Kwwxu/OXORILPVs0FJv1ASydR/NK4sfzJcCSGcc=;
-	b=qBv50lby/1aGt3xt69i3Q7cGFRw4j0JxFvcdm1d1IJLX9zDhsv9XU+PZ5UcezIOLVOY3
-	 Wtgjpi9t1cM1hPSv3hkxIy6ggM29FEjqK5mm/IzDjZKn82+gE6kBpXHSPqDp0dmkgkSQ9
-	 jA4P1wVKnga4r7WyF5dFVC7VCg+uvuL/fwe8GImSao2CRTBJ2NMNwp+tyMA4kEDECBr/6
-	 iww/ItA1q3WZ2N98lPn+o28O3SUJWseYZxgm20EHKmLF99QhHON5FdtH2g9nOceVvs3+l
-	 +tzICSLczOxAWqXow6RT33akvNM+qfQZlV0We0G2kFuhEFfK+muLIWCCYoEFPoWBQvA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fj67uJIexCq/nLllAUwirpRaTK68JNnZnw90fZ+XBzg=;
+	b=oQV6ORN8SMHWrJOoo6JHzrLoQisSStdUq2OYOgC+JgxpUetocQgmmaL+oM10xHj/azAq
+	 /aNKBwwSTGifq82bLeOgPD9gWMYvyg0w8RVrhYI+0Rpgb07X2T4Pf0XYZKTEJmP52QPS1
+	 CEhQS9LvJCKgzQWr4t2XFI4m4wJ4sx3diM/+mtmge+Td6g++PHnYptHkl+N5ZZAC/K/VT
+	 e9NiGp7v4vgptrDfcGc2CNPTsB2INi156hchCjhFpGrO61/IrKwRwAL4Sa5hhCw4wN+Hz
+	 3M0WTebAYBMTw8AnOTQ6QU/VEPkntAT4FR9Hn0XvThy9mMXp5PZSr+UwzW7bgOMo9DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FuOjHULe;
-	arc=none smtp.remote-ip=91.218.175.105
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqDEgFQ;
+	arc=none smtp.remote-ip=91.218.175.111
+Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45D8606A33B
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E45D8606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19D2606A8AC
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:35:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19D2606A8AC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FuOjHULe
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqDEgFQ
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aX9pIIbzr0WUjOOk9ufqdHhoopyWbM7JVXWDvohF98Y=;
+DKIM-Signature: a=rsa-sha256; bh=cW3e6v6S8n5JercVte195CK4nR9zZ28vbmPV4+LMgoQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794411351; v=1; x=1795016151;
- b=FuOjHULeZ4ZA4/WVPcUF3X0QnNLWtVcic5UB2IwZMDHmSZZNODuGnY07gPZ2fn/9NiQ+iqiL
- /ZOiLmqaNti3Ez5r5JkCMX9rZ+s7ryIILNBDQTLBIyXF1Vl3Lkf8Q4XlNRArwEGfBOMojs30KyW
- bbLw85cRuWKYTmzTzK5D4ipg=
+ t=1794411357; v=1; x=1795016157;
+ b=lXqDEgFQs69ZIepWDgXjCTUbjhRebCFqTIyg6OfAeio52PM7KbzGOs/Pi0QGQZVL9e9q7AvC
+ mQA1KvSgaj9bQc7FvHfUlBEc4KUpphQ1Y+/zzG4twzU12HWkhm/EqNdNJ04+K6q7MIN2LbWeygU
+ neof1gSc+H7sy0KbubsK62rE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 5069cfac4354fb9b;
-	Wed, 11 Nov 2026 15:35:50 +0000
-X-Mizu-Trace-ID: 5069cfac4354fb9b
+Received: by mta10.migadu.com with ESMTPS id 57900353a63a43d2;
+	Wed, 11 Nov 2026 15:35:56 +0000
+X-Mizu-Trace-ID: 57900353a63a43d2
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Herbert Xu <herbert@gondor.apana.org.au>,
@@ -63,10 +64,12 @@ To: Herbert Xu <herbert@gondor.apana.org.au>,
 	shakeel.butt@linux.dev,
 	kernel-team@meta.com
 Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH 0/2] crypto: use vmalloc() for large stream workspaces
-Date: Wed, 11 Nov 2026 07:07:38 -0800
-Message-ID: <20261111153532.1036709-1-usama.arif@linux.dev>
+Subject: [PATCH 1/2] crypto: zstd - use vmalloc() for stream workspaces
+Date: Wed, 11 Nov 2026 07:07:39 -0800
+Message-ID: <20261111153532.1036709-2-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111153532.1036709-1-usama.arif@linux.dev>
+References: <20261111153532.1036709-1-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,39 +79,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The zstd and deflate acomp implementations retain per-CPU stream
-workspaces until the algorithms are unregistered. On x86-64 with 4 KiB
-pages, kvmalloc() can back them with order-9 and order-6 kmalloc()
-blocks, respectively.
+The zstd acomp streams retain their workspaces after the last transform
+has been freed. The first is allocated during transform initialization;
+additional per-CPU streams are allocated on demand. They are released
+when the algorithm is unregistered.
 
-Use vmalloc() and vfree() instead. For a server with 384 CPUs, if
-we have streams on all of the CPUs and kvmalloc() takes the
-kmalloc() path for every stream, their workspaces use 193.5 MiB more
-for zstd and 42 MiB for deflate.
+In a 4 KiB-page x86-64 build, each stream requests 1,566,281 bytes.
+If kvmalloc() succeeds via kmalloc(), it occupies an order-9 block
+(2 MiB). vmalloc() needs 383 backing pages (1,532 KiB), 516 KiB fewer
+per stream. Across 384 populated streams, that is 193.5 MiB less
+workspace backing if all would have used kmalloc(). There is no such
+gain when kvmalloc() already falls back to vmalloc().
 
-In five before/after boot pairs on a 96-vCPU x86-64 VM with 8 GiB RAM,
-the test populated both algorithms crypto workspaces on every CPU. All
-192 baseline workspaces used kmalloc() without these patches. The patches
-reduced workspace backing by 48.375 MiB for zstd and 10.5 MiB for deflate
-—58.875 MiB combined—in each pair.
+Use vmalloc() and vfree() directly to avoid the high-order allocation.
+This uses vmalloc address space, page tables and bookkeeping; the
+figures above compare workspace backing only.
 
-In five before/after runs in a 4-vCPU x86-64 VM, median compression
-and decompression throughput changed by less than 1% (-0.93% to +0.64%).
-Inputs were 4 KiB and 64 KiB synthetic buffers containing pseudorandom
-data or a 50/50 mix of repeating-pattern and pseudorandom bytes.
-The differences were within the observed run-to-run variation.
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ crypto/zstd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/crypto/zstd.c b/crypto/zstd.c
+index 76bdaca327330..f012293919368 100644
+--- a/crypto/zstd.c
++++ b/crypto/zstd.c
+@@ -44,7 +44,7 @@ static void *zstd_alloc_stream(void)
+ 	if (!wksp_size)
+ 		return ERR_PTR(-EINVAL);
  
-Usama Arif (2):
-  crypto: zstd - use vmalloc() for stream workspaces
-  crypto: deflate - use vmalloc() for stream workspaces
-
- crypto/deflate.c | 5 +++--
- crypto/zstd.c    | 4 ++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
-
+-	ctx = kvmalloc_flex(*ctx, wksp, wksp_size);
++	ctx = vmalloc(struct_size(ctx, wksp, wksp_size));
+ 	if (!ctx)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -56,7 +56,7 @@ static void *zstd_alloc_stream(void)
+ 
+ static void zstd_free_stream(void *ctx)
+ {
+-	kvfree(ctx);
++	vfree(ctx);
+ }
+ 
+ static struct crypto_acomp_streams zstd_streams = {
 -- 
 2.53.0-Meta
 
