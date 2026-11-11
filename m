@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407983;
-	b=hp1z8WG7CkwFM9cIfAmlG5o8co3FJkxOxz/qkP1jdnVZMqjzTfXDRig3jNAy2ndi57Hz
-	 g7wJWAdaWpqJULGFGhX1g+FQCBMxhYMc86oaEW3eRyKWZPPGl47oXir8rXYHLOYfxvtei
-	 6HPoa1a047rtgrwjIbpy2YJ3PNGFd/2DUTF8dM8lRhtWLXLCZGJkpEejVTkmlkkZeS6Sb
-	 wmO7P7US/kut8MDNWCqKm/Awykfp35s2dJ6g9HzZ0iHkNEi+U4MCp8KEBZ03bIzaulkMV
-	 gNofGJ2DQOeUs3FVHcxIlh1AOLfTMEWLjfS69JQPJ8p0xvPx2nems4aQs8GOGILH7Ng==
+	t=1794408064;
+	b=NNNRBhIF7b1kEnzh1gHjz9HwFqWfquYVCy+v/KPGB/5PBbDFTKwOVgHlTzdh+1S5wo3G
+	 HAH5EGfWpvC6hNCKEa5jO0pQXba8dE6H721nB/LYMZiQV7aBypvPiD4+PunCaLDwg8AyK
+	 m3VsUpCOz1SI84hiFnyXLIO80/50ERbbdgOaUEg9FgxWQa7suz7Ba03E6/VrQobLdfFfk
+	 Pb+Gdrb25TOS6y6CT4GwsF3bzoK7YNNABSckVBRlZgSYWiE90O6dxuIXzl2WsE/EfUCdu
+	 ta8QEk987VP9MmYZ+D2daQUkagGs/bmZthSzB7vNrm0q5s/oo6e9s49Qj16laEk+RzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407983;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=PZuSeEw5gKgjrhc7pmpD/7ZvZbd7Pher3TMM1GaWe58=;
-	b=AGVNR6xW/Asjc8SNOI2/8EQsl/rKSxAMKeO3mv280oGDyLUZN7dYAI60LpJTKsAJHa8d
-	 nbF+FdslcyrYHzlZOmZfyPM048EsG6Y+L2QuUPFuQQJeUnKDP3S3MhVcIktGh2PUru4Pe
-	 Tpf66tg06gLFd1AM2Jh3CTWoP4Ho1+aj9XfLR3EWSMyNbzEqCWLr4Lsln4pGfTDxh8urE
-	 4xI/Il1aqf7UIVBE30RQPM7vJIuugrb1SpRlA81GFjSO6/IML1s9BUNdK6r/YTS9v5oaS
-	 n/QM4M/I2YkLahLfaIMBL6/JGxfqzBVo72cpfE4vkhPMq40o/5wDgnnzB9zV/NA+Weg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408064;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wLuYVG31aOuvXm5nXyw+VGAFyrApPMdjAgSKGv1aXp8=;
+	b=ykrZ6fKGAglg2Hrn/I6QVepkcgeR5/gyhe7NVbZY2V0WYtK+FxmcaqigFBddIVrKykB1
+	 gYMslCOqLggNF9cpypJ+jPncp8/6eObyhv8+OfS0ZYppz+FR5m0FOjezsnoEq+auaYzln
+	 VfC8ftGyvSmp4c/Y8huS7cHEKZAKTRgeu4NBnUbtW1RpjEnCOSAcp7uflTNZT5dK4KwiY
+	 OW3UKmbkgHdS3jsXE6OaVh7bqmKd8ddzN3RhtmYYktsnSTvUot9F5N2g0/eQ9IiBukG98
+	 44oMrPma7qTeqeyiaR01EqCYoGpwgpvzP1kiVERfYuJPLWwJCTlJ5lJJLS+97zoPSGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cL3NEJka;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1X9V2LK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DA7606A327;
-	Wed, 11 Nov 2026 14:39:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0DA7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71B4606A324;
+	Wed, 11 Nov 2026 14:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cL3NEJka
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794407983; x=1825943983;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m/mxqNQyOZsf3BKcIbzdVgfwzzv2uTsmpPIvY6eXe0w=;
-  b=cL3NEJkaUHxWM4cIdiBLtL6cpMYIV4x0gWbTl4TEidA66LxlOP+5y4Kb
-   /Gu02zNOtuY4Oe9lpermiYZ77bJQy6hkEMaGpVfrSAK62+I9e1dn/1oot
-   bKuPQrD1mclD2EZo5kIBD8Gcv59iZvjLJlZrAqVadHsybgyF9nqbc8Ww9
-   kpH44rQsa6L/2OrplYpYtrBr7h455ePufVl2E/u2ph/s8Z5iAGeeMrFdQ
-   y3xGNSOEFHJ9z4NSi1L7UF/IGFU3XVaTMl3tX3lCKF/8fPDfUs1q9fZLs
-   mVPRjPJ/NHkFUj4iPmmjDmijZANWznL5+TZsrC+VAsiDZUrKkRTFD9Tr9
-   w==;
-X-CSE-ConnectionGUID: qxNVpGZjQUacp+16rfNTDA==
-X-CSE-MsgGUID: tF4xyA1uRPWHsdiIn8aBnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3100564"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3100564"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:39:42 -0800
-X-CSE-ConnectionGUID: 5wWgrPazStCtvfNccIpzEA==
-X-CSE-MsgGUID: mhYAUYHoQ3Oj5ypjCTWWtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8608433"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:39:39 -0800
-Date: Wed, 11 Nov 2026 16:39:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Di Wu <diwux@google.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, bleung@chromium.org, groeck@chromium.org,
-	tzungbi@kernel.org, linux-iio@vger.kernel.org,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: cros_ec: use sysfs_emit() in show callbacks
-Message-ID: <avR-KT-6e77EexZn@ashevche-desk.local>
-References: <20261111072608.3490763-1-diwux@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1X9V2LK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937301F00A05;
+	Wed, 11 Nov 2026 14:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794408064;
+	bh=wLuYVG31aOuvXm5nXyw+VGAFyrApPMdjAgSKGv1aXp8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Y1X9V2LK3dCb0pqF39TJSEoU/PRTHMftqIAM5VpHe0HMRj3ne7who9235lgDlixKY
+	 OBsjzdWWnCWzROosSAeej4jFm0JT5izZRH5kOuE+VghkI88CXBtM9ujIEBs00+xdjq
+	 ddeXgksczPd+iCxD32JsrlRc7w4MTgj+Lpd5lIvDB1zGn/CQMhz6onGtkJ0UnIhHHu
+	 wrCkxlorRRAqBlvyekXet9PX27VTeUnTMouGbqa5p4eJytHDTVL+78WSQlmiT/WzOG
+	 IzHxc6c4pbM6GtsX7UxfYHxqCYa4oyjkmxZZOBOJM+fFWuAPCKoDtxv2BS+9Q53Xz0
+	 Bx2M0/G20k47w==
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, James Calligeros <jcalligeros99@gmail.com>, 
+ Janne Grunau <j@jannau.net>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261110-snd-soc-apple-mca-capture-multiple-be-v1-1-d9569a8374c5@jannau.net>
+References: <20261110-snd-soc-apple-mca-capture-multiple-be-v1-1-d9569a8374c5@jannau.net>
+Subject: Re: [PATCH] ASoC: apple: mca: Fix clock selection for clock
+ consumer FEs
+Message-Id: <179436215179.926575.1549688408471335738.b4-ty@b4>
+Date: Wed, 11 Nov 2026 01:55:51 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,35 +62,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111072608.3490763-1-diwux@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1138; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=RK6gBITWLHLecOXMvHd6YAysIFJ6kV3/lMHfI2gv+gQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+1NUEJ6WvZn9Ssrr40jHtrTbXt/ye9djCKzT574Fns
+ gmL59+M7ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEJgowMnwJqLtz/9aCLg2f
+ Sd2p+/3yL20s7XTnf7XTftatu0oWGYcYGdZGRs2+l1EQlrWgatUllc4NTQJ+oUtZ/33XrEnUr8z
+ gZQcA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Nov 11, 2026 at 07:26:08AM +0000, Di Wu wrote:
-> Replace sprintf() and snprintf() with sysfs_emit() in the sysfs show
-> and ext_info read callbacks. sysfs_emit() is aware of the sysfs buffer
-> PAGE_SIZE limit and is the preferred helper for show callbacks.
+On Tue, 10 Nov 2026 17:46:46 +0100, Janne Grunau wrote:
+> ASoC: apple: mca: Fix clock selection for clock consumer FEs
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Applied to
 
-...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> -	return sprintf(buf, "%d.%06u\n",
-> -		       latency / 1000,
-> -		       (latency % 1000) * 1000);
-> +	return sysfs_emit(buf, "%d.%06u\n",
-> +			  latency / 1000,
-> +			  (latency % 1000) * 1000);
+Thanks!
 
-As David said, since you touched these lines, make the less amount of them
-while at it.
+[1/1] ASoC: apple: mca: Fix clock selection for clock consumer FEs
+      https://git.kernel.org/broonie/sound/c/d9bcb20e4039
 
-(But no need to resend, usually Jonathan is kind to tweak this small thing.)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
--- 
-With Best Regards,
-Andy Shevchenko
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
