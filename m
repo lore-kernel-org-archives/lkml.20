@@ -1,86 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398570;
-	b=EVpyos60FgZdydfk5fXcSWzqBUW2Zj6pd+FzB4BQEucn/4AadHCxrVA3KRd2/qPSe4Ns
-	 qPKFBn0jrcP6iBLBlTl9ASQ44H71UziXfotwmBd20a6xl/82avrhPFXYW+yEBGhYT2web
-	 bssOTXepJOiFw2zAVZUIrhWXauU0zIHhEv4GlJIxd1OQQ8/yJtG0Ccduki0t7hgQBKimX
-	 DpIN1YQPfPpRF0K7e5I5+nB0fovPanrWUKZBWLDoS2Takhr5VXodW7t/M5wZ5GOiPUpw1
-	 M2+P0Wk/fcRf4DLflL2RO8rOeXnPdJOCNbT2jdzO3gcmdG/DxCbAIxS3VB1j899DbQA==
+	t=1794398575;
+	b=1v8WkEiJJJdFqGRPvvpbxnNV3s4Jp+gHcrVvIifQ/wxTWU45aAnRiklqw/Ckv7SwD8he
+	 czuChPL9Hw1DbBPMHjdoCyIJ1Iikl+1zcj6X9Kjq8/K5BZgiNCXYp7oeu1R+htA4Z3Cu/
+	 DqZjPjbuTGeGzjpQjQpGSoefK+P68MuqY9wylbdKfJHDg1zyLswVruTKpcN3YCDGv+Bfg
+	 QWGRcHk/cagYxI5XRnwtgyHhOMU211B9EKp1oO6DObfXE0G3pj11QwL49Oecxt5rakcSV
+	 XVvCu5ZPPJXgyjDn9RUNDbt2LMI2o40k/8vGJg7udjKgxb4nqwV9VG9SV+7vaopXfFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398570;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-	b=jTOlCJHRE+UENkoQ4gKz4FJIKF0m0tA8I8e7s5BxF23aywqOhAoc4wMySOin+tchbve2
-	 GIxHwVrC3PVic0/1df56L/zggAlWEoR3bzb1qA4NZqYw0LI2mH0MNBFMShxEDyNiRr3bn
-	 qj/TaRAkrbm7MRfW0wL2IMOKMjbGsiE5KXLYEhk/iTHcTUu3rTxahRpN/Qrfp0jZDX8Am
-	 xNM83i4mX+LMlxPNayV4wj4RwAW1lipblY2+nPWZvKHxjHVETzB9sbYRs/EIaIbR0lIKB
-	 KYxlV+rZpG/y53JRWi1zAOJJ+5R8PzmqhORN4spGSnai7RYU/wKHnSu0sbyTUs2oS2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398575;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UivbCTrZu5T6Ljh0amMXD77aTIMYr502Yn6jcLHNbLM=;
+	b=uHsz+rxHWzKu5bLkIbc3dArrkrflfJadpXkrhwZc7N2Cf4nNxsvJ1LjaBzE8pa4wO5W9
+	 Q3nzPJWwEK++aTjZBPbzPHxm04c/NgjnzaDxymg35l918aAXxNlqkvpwSzBsyn71+Tnm6
+	 DYy2/Q8Tgq5Mjmw3PcDqshQIaa7PNzyobju3O7JJXfppUtM7LDY75/ALHVypqLj4VmqAx
+	 WUGLjCj9Mf22cRGbAr2Hqo1awHtf0dgn0dnx7TR6S1PY4GvxeNvFWsR5EawDgfZSeGZDT
+	 ygnKndCpw389Olyd/f/WVap5uZ8qtlMixxnt7M7znpVtDR75J5fbCIV83y3Dlyfw0zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=kNKPAqZm;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93BF606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93BF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAAE606A89E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BAAE606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso1665812f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:02:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794398568; x=1795003368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-        b=Je1CYIjfuwflh3C8ZTO7fGiG3VT2JZ4/KZsAnIckMk5yyFTVUjMTyMSMVoowIwUALe
-         rIx+YCcQd5d3c/Oo7ywHWhe+3KSTQ7o6rFpU0FKq7oz4uEO2xHVWkEcknh525ow1mgCu
-         gWFknAYgozrE3xkB1Hf35d8etynb8NZA5amXxyEuDKuHJdX9BiOMQOk4XO6ih4oDz5ll
-         jiNbUTntFWcfE3xAvdYsPO01gTShdzNlx4xruDnGGl89qAWG/eS5QeVSu9Tt1rrguObP
-         WWiW9en2E3WuuFqlZwdLZQMuWBF1+OevnHMcH8EoqrsFJwJLse2YUIb6yJUacp0hHv8D
-         xyBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794398568; x=1795003368;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-        b=TX+rvwcd0+JD3K7tkvucMANs48LDSyZG3pcEqM7+flbZPRrQ99BtEOq8HNFVm9H936
-         3tK3klEwPl9G6fqzpcBJD1YlpXXWNaSoIyDBVQanKhcW4+C7CHu8zfKdQiNNbErAmo6n
-         AK4VGCxotWc+m8LhWJ5TVHaankeq4pGQaSlbQU9SkuPCqFrNb+fmXN4B7sfMXSfDV+FS
-         ZEfE47MA4Nfg9bHSE+BVdDli4IvxP60nQxWb8ONVUfLGaimnRfo7+3aKCoHxnM+77F9t
-         uBxrTbJ+ijnS2vwbwOnb6f8w/HcIOCT3CUwSG3eBKDmZYNGvr7Y0XERCSvM+srLwjOYQ
-         yMKw==
-X-Forwarded-Encrypted: i=1; AL+hErFIcYMzbHGwtF13fdnpY+uQVVGk+ReIu8GRplDYFBsYXRcMDlHxyJRFHMQzoJm4hHUR8uMpaSVxkNm/YWM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z952E9U2rcSmJhrPMBdOSqSoVaetkCd0OG1wv/hSSHAIH+wNMPs
-	BP6bX3KL4D+SveIo1O15ZUab+8NsTeAHse/nI3dGwR21aVhdvRtY1jh90Td1x8Y6AVY=
-X-Gm-Gg: AYBFou0NrHht+7p+doz1qnD8ZrkZGWqs9eBqx8CRK1qUs/7meeB38x8uaOEgAsgUnVj
-	4+vxMKyYtIfd69Ucy9y/iBtPn3Wl8j352Llv2AanopeCRbnfHnFspvhKsiK8mbD328zB7z3BQAC
-	CkxfCMtx64jOOtDAocVCBZr/lQIDOBZ/yJds5eA+g7viHgv0IqHzx7j5+wu4CqcZpxVbEl2BzWI
-	xPH//6m2SbKc36GFCnhpUnJuZytOU6/KfbuCiwvmMPSZP3kcOJwrw8l0gC+4BkVLTDDhwssPS2K
-	URg4hzQ0ssED1eSV6+liTdVoNYH7yx42a/L/WATEuR4gsBNtOVbL3qaIDbITRAVACjvBmBSWttF
-	yfYfzsrguP1TT8c22sgk49Z5S8+D7zB5Xl44+IL+/Qkfa4+D6UKtKRQmqmHixdtfBVGYOdCygzL
-	y+1+UaBdePTWydyXzXeEU2poB2KDD0FkkPRUkB7NLkxBVeCk5YQ8g1P/1cVxDUrb2XVJG+idT+d
-	euHmV01/6ku2/ZMPe5szmDAhFkawPj5OQXYpDt70KfgNuNFUwf7IROSs3q5SXy2/qPq95IZYvme
-	7w6MTKM8M0AUjrldvtWHdvqh180ufsjKd7KDl6nB
-X-Received: by 2002:a05:6000:420d:b0:48b:1a0:5630 with SMTP id ffacd0b85a97d-499c86a10f6mr3780756f8f.41.1794398567805;
-        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.11.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c377fdsm8869991f8f.21.2026.11.11.04.02.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
-Message-ID: <3713bf13-cec6-4b02-a29b-8f76070f03b3@linaro.org>
-Date: Wed, 11 Nov 2026 12:02:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=kNKPAqZm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Uivb
+	CTrZu5T6Ljh0amMXD77aTIMYr502Yn6jcLHNbLM=; b=kNKPAqZm0U48zhq/xx09
+	8GhhQN3oE3+XjWr1iTFPU9kh7Z3AivRTL5oWb/Ll99NYpGzWAff1ZHWS2pNGsz+X
+	OqnJTLnW7ACs7bCK5PljXHDSORyjChmBelwA08fBsYKjspIugYJj0roht8A3s64k
+	uHdkNe4Ymd9nI1VDJJmCoL4rTJEt55Rklq3Jj+XULIm3Ib9wiFmWeanO5t/Nc5vu
+	le5a/AB6yxCY0i4es68MCu1CNaTNFA1vETJwIKCzn1LCznE4BqekiRDe5YHtkRlL
+	nCrt4T28ryjw8MV/Cnd3njlMSFO0qQ65Qs5YCnMlAcG6naHfU+82IN/4e/nnz5pf
+	cg==
+Received: (qmail 601576 invoked from network); 11 Nov 2026 13:02:50 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 13:02:50 +0100
+X-UD-Smtp-Session: l3s3148p1@/Kpe+f5fQokujnun
+Date: Wed, 11 Nov 2026 13:02:50 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Marek Vasut <marek.vasut@mailbox.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+	Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Shawn Lin <Shawn.lin@rock-chips.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jingoo Han <jingoohan1@gmail.com>
+Subject: Re: [PATCH v5 13/17] PCI: rcar-gen4: Route Root Port AER to a
+ virtual Root Port IRQ
+Message-ID: <avRZanGRks2mtIw0@ninjato>
+References: <20261020031049.969895-1-den@valinux.co.jp>
+ <20261020031049.969895-14-den@valinux.co.jp>
+ <33e7f153-9dde-4bf7-8ab4-d128b256239a@mailbox.org>
+ <dwgbyrulxrbiygjquuyd6cke4i43um7oio4fefey4lfgngwuoe@lkkn7ulwi3vj>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,47 +84,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>, Joerg Roedel <jroedel@suse.de>,
- Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uYPSiGB8a/xbkduS"
+Content-Disposition: inline
+In-Reply-To: <dwgbyrulxrbiygjquuyd6cke4i43um7oio4fefey4lfgngwuoe@lkkn7ulwi3vj>
 
-On 06/11/2026 17:14, Vikash Garodia wrote:
-> @@ -257,6 +252,9 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   				}
->   				type = iommu_resv_region_get_type(dev, &phys, iova, length);
->   
-> +				if (type != IOMMU_RESV_DIRECT)
-> +					continue;
-> +
+--uYPSiGB8a/xbkduS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This change is not about requiring a reg though, which is why it should 
-be a standalone patch with its own justifications.
+On Mon, Nov 09, 2026 at 11:41:52AM +0900, Koichiro Den wrote:
+> On Wed, Oct 21, 2026 at 02:19:46AM +0200, Marek Vasut wrote:
+> > On 10/20/26 5:10 AM, Koichiro Den wrote:
+> > > On R-Car Gen4 SoCs, the APP block exposes the Root Port interrupt
+> > > signals in PCIEINTSTS0 and routes them to platform IRQs: AER to
+> > > intreq_pcim_lperr, and PME and bandwidth notifications to
+> > > intreq_pcim_sub. On an R-Car S4 with GIC ITS, a link retrain set
+> > > LnkSta.LBMS and latched PCIEINTSTS0[23] (cfg_bw_mgt_msi), but the Root
+> > > Port's MSI never fired while endpoint MSIs worked fine. With iMSI-RX =
+the
+> > > Root Port MSI capabilities are already hidden, but its INTx maps to
+> > > intreq_pcim_sub. Note that even before this driver took over the IRQ
+> > > with rcar_gen4_pcie_msi_irq_handler, the port service was unable to
+> > > request it, as the DWC core used that IRQ for its chained MSI handler.
+> > > In either case, iMSI-RX or an external MSI controller, Root Port
+> > > interrupts are not delivered to the port services.
+> > >=20
+> > > Hide the Root Port MSI/MSI-X capabilities so the port services use
+> > > INTx regardless of the MSI controller. Do this in the R-Car host setu=
+p,
+> > > which also runs on reset and resume. Use a virtual IRQ to deliver
+> > > notifications from separate platform IRQs to the standard handlers.
+> > > Route AER from the optional "aer" interrupt. DTs without it remain
+> > > supported, but Root Port AER stays unavailable.
+> > >=20
+> > > The APP block may still receive MSI-form notifications because hiding
+> > > the Root Port's MSI capabilities does not clear MSICAP0.MSIE. Handle
+> > > these alongside the INTx-form level signals. Clear the MSI-form latch
+> > > before the AER handler clears Root Error Status, so a late APP clear
+> > > does not erase a new notification.
+> > >=20
+> > > Check for reset requests before dispatch: on S4, DBI accesses from
+> > > the port services can hang the host immediately after link down.
+> > >=20
+> > > The next patch also feeds PME and bandwidth notifications from "msi"
+> > > into this IRQ, so both parents may dispatch concurrently.
+> > > handle_level_irq() calls irq_ack() before checking whether it can run
+> > > the handlers. Keep the APP latches set while the IRQ is in progress or
+> > > disabled, so the level parents can retry through the reset checks.
+> > > This avoids losing notifications without a raw lock around port
+> > > services that take regular spinlocks.
+> > >=20
+> > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > > ---
+> > > Changes since v4:
+> > >    - Hide the Root Port MSI/MSI-X capabilities in host_setup() instea=
+d of
+> > >      adding a no_rp_msi flag to the DWC core. (Shawn)
+> > >      https://lore.kernel.org/r/bi3rvyqpdu4iq6pfyrqvx7eplyim6gmg2ijal6=
+7mpateobmtlq@gec7zewfm76r/
+> > >      I did not carry Marek's Reviewed-by tag over due to the change.
+> >=20
+> > Bjorn/Manivannan, can you please have a look at this patch and the MSI
+> > handling, to be sure this is OK ?
+> >=20
+> > (no further comments from me below this point)
+> >=20
+> > Thank you !
+>=20
+> Marek, thanks for the review.
+>=20
+> Bjorn/Mani, just a gentle ping. Could one of you take a look? To summariz=
+e:
+>=20
+> - v4 had 'no_rp_msi' flag to the DWC core. Shawn suggested keeping that i=
+n the
+>   glue driver instead, which I found reasonable:
+>   https://lore.kernel.org/r/20261015033103.3076869-14-den@valinux.co.jp/
+> - v5 hides them in rcar_gen4_pcie_host_setup(). (this patch)
+>=20
+> If you'd rather I send v6 first, rebased on the pp->msi_irq_domain rename=
+ Shawn
+> and Geert pointed out, please let me know. Otherwise I'll wait for your c=
+omments
+> before respinning.
 
-Basically the patch should state why a mismatch is dropped instead of 
-being reserved.
+As maintainers are usually super-busy, is there another MSI expert we
+could ask to offload work from them?
 
----
-bod
+I'd also like to have this series in the next merge window. Thanks
+everyone for all the work involved, so far!
+
+
+--uYPSiGB8a/xbkduS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr0WWoACgkQFA3kzBSg
+KbYs9Q/7B3w5TZnOMFExvZX9yMd5lzx1q1A4XHWwbRYefW/EEEQ/+zv95I5Dhi+O
+nHxM1xuaVsccXZjU2Dydd6EuxUBRQTsXyfH1YOZafne8TkqJMLVYKmQabQZUc7AR
+0isKW2mzqAWB93xVP7L0E+GljY88DsUZSwn+1s/i/cwzYdTjf1b33QvByphEhnD4
+g2VA9RvInhouw+VGUWZ280E4WmP5KO/1d4sH/93HClKnJz/3luZkuln/2kp+ak8E
+4s2X0iIakTXta0xrvg9ywh40C3hZKHYsI8wuMjKgSWBpa2qHKOtbgESa0wf5Xanc
+rFJk/6ulBHv2gYpn0+nFYVzG/y6IlLlx3FbV2t6zp98AfeZpBF4ac0ICG/arkJGv
+s3ObseI/GFbD2Ajqtwhqp4YjoW7GRG5bni9WqPrXK4C22paoC4bSLPBlG/7xx17d
+o1E+LKLaKINiCQF6c6VZg86yLF6TWiwojQn0IMJNHaWwg8fu8Lb+pVTgCX8iO97s
+wOQrktHcHceR+ZFjl3AAl9/Do5IPCoggZGRmz4yH6s+Un14Qk+cTSvAv1utQ6Z7b
+l54Kdwv4VDifJQMzxdDAClKCLlktIkN0nz05t5uGikEP/0tUpd2CFR9WU+eZyng0
+q64/s74UAYeQ/sztagEs9SiBlnBzsQKf/a1c2FcZn8AblhaQXHA=
+=6r5x
+-----END PGP SIGNATURE-----
+
+--uYPSiGB8a/xbkduS--
