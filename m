@@ -1,84 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416941;
-	b=JGDNXz7I4TTaNEJoi0VhuvwEw+/Kb0Ck/oj7CTx1p9xWnUeSAOvd+v1o3whjMQ2abg33
-	 l0Y+tKahkZEjXoi2EAIhSlFCktvdzYFDTLauq7usK62ZyxDCrIlHaU1tAjdudRLvL6VXR
-	 Vh9LeB62LpK5hQJRWn0MVIbbdisNtBm2dCDPtT0qtHVDLonmEpewi5VqrhqPDiHmmMmZ6
-	 8Xjc6JUBPBPPHU4AzB4vDy6aUevKL9cwbPV8d77O3mBv5HUGo/PIiB7dbcmOtCsjlvrln
-	 vUVGpWTwxZV3yEJR5jRaeK002L06D/FEE+3AofxYZOLev3UChari10d8lI82pdXaFcg==
+	t=1794416952;
+	b=jEX6xnkvJ6g127SgQPIChBuqwwqSjp3gw7P2JiogXui+u6+e8UuS78cG8UTgfGLBelhi
+	 jIjKCdHL+kPS0v2YKKOcyPVqLrNPVnrWeX+AtfY+TqqtHrqSHdQT/ZaLK3nMZh6txM4Dw
+	 JaAr4OSp/z60SPa+daGpBm6rXfJvhEGzAVAbMzVP1dEI8SRb9IYiF4Yd9chjO6Tl069xB
+	 2RQLB3Mx45sntHp87vxXtCA80ISFVLhogJR8sz/6MAEuQmlJivMubrbDhDp+FtJZe05T9
+	 fEht1hWicmR2+qRmHGJgqmNOUAVkOao0wtA4rny4CVrv1tzzrMkQ0U8iPcEu8xmq/uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416941;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=CArIVjyNi1DdLLI1Xo+6NV2Inj4tLWeam02ZRhLj0sU=;
-	b=p4JvPZg30DGNKzHC+dLY/YaU9A/Nz3ibH7YFxZCWJTs8/TuDFiDMXv0ii4v6vA6828ns
-	 whvneQ0pHgE0qK9EAQMpOxaNZjU58StuPorRvu2U+rjQ5ULYCcviDLj50I3sdjk8j0bUJ
-	 9EWtAcp6AGpUjYlKC0k9SJK+sPXVphDidimKHLgyhHGyQqVVlv/82U2GI7cKcSacZwfcS
-	 gqguqBU3Sfm3sNXFaMILQ+DbOH/VkxjR6AGh0vtiTZaN2esYLQBvvxpnVIL0GQyioo4m6
-	 2/PaezDGVaHfnEgxeb2ruy5ZNY+bBEXNsZ6dMtUqzv7nnJnz+R0uXBxUeSxO5CNkzsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416952;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=tVcctW/oKDuxTt7DrKIQJLMMmlpeEMy6Mr9dwtxp8WY=;
+	b=yBhp97tr81vkP3xkLoMto9ZgA+T2PZFs6pN0KEVtwKtq6ThvTs38VabrkWHW54gSuF85
+	 dT6nUaf6vEEZU/DKmA09f4+xvcBgh3iGX5+8c9qeIeFKke0hCSVnA53dNyLERNycXwaI0
+	 m12vmWCsVurErSGQBjo+6ma/8anCT+ryjIhTKsSLP6Zo6jf2PG677uOUlaM90qzIdyJUF
+	 qDluSusr1gW1eCyVvHBdfHjFGISc+dBozB42NOTPPxj7WcriAnJ+H3JcfeRkY3Ar4SHxJ
+	 ApWYCh+xnmJQrMAuludPHf0VEYv2uhQKgtbMT/JMNRXKq/LeI+BG92q7sFDiKG5NRrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.net;
-	spf=pass smtp.mailfrom=gmx.net;
-	dkim=pass header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=bE8bEooa;
-	arc=none smtp.remote-ip=212.227.15.18
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S1djNy02;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="WB/3UJnL";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DD1606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DD1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384C6606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 384C6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=bE8bEooa
-DKIM2-Signature:  i=1; m=1; t=1794416938;
- mf=PGhlbnJpLm9tbWVyQGdteC5uZXQ+;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.net;
- s=s31663417:rsa-sha256:g89iK43LGpv37FRhzSYjhna6jCqX
-   yxdbAxbbex6rUH2KFDrBeGIG4qmyhvlrmrR8fGtoUfL5xDEKoCMlSI1rf2deRlX+r2WqyvNhuHV
-   DhbFIx9W+hq3iYpBf/LkuKBVPVOx+GA2L3SWLFU342HGt1gZYM8KuL8uBZZ3FRG40s+el2hd0N9
-   Q2u2S23yC4fYvw2EQoLcQNC7ktpF/D19NhQqB3jgQhEonwy6YtvgbvP9EHCJWuJvQde6odXspE3
-   yzH/nxpbzx1vO8jpU5bEG+/NJAHGLWgEWzfKxOtBFFfvyi5R8Y7C7J9uoj7J/mFIxsNdlQO1O5R
-   D2BBj7/yE15NBA==;
-Message-Instance:  m=1;
- h=sha256:
-   cyABrvZ6nXAvy7YdNlx1rdjnKmfbIKzv/4kOS5ERsz4=:
-   R/D/xO9eKJZycpfyOOBKs/eVBuKuBDisXjAwbfIQ6ZU=,
-  sha512:
-   jzZJFyFZg/WxnqyaDwZUBuOYf1uVLZ4SL0ckevyOS6piGENlbmzEz18ILKmjB61cYHNpYSvwQNLTOJPpibaykw==:
-   SR12AkSEPosM+u4tDqubMUuIQ2BIfx5+O+NQ2iU+lxRyB0R6Zf4WB0FQQAsUnl2FBnKXI4BuKROY2Ft7NgxqhA==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1794416934; x=1795021734; i=henri.ommer@gmx.net;
-	bh=CArIVjyNi1DdLLI1Xo+6NV2Inj4tLWeam02ZRhLj0sU=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=bE8bEooaFj0lu4WuKIvhOAGo1sGoF7SA0HZe0iA3Y79DygJu2KtvcTkqipYmR0xN
-	 MHJQ2KHHBi0qWZVBFNlfEv/cPH4z9YgXxj5CSvTwb78ACg7NoSbRcmmIfLvJ6szhv
-	 9QXwjgDgNzT8C/mpQt8YI+dhpj3yGcomnrLEdBJAnrQ5MML7ZnCQFQ4Tm2m4ngnHE
-	 9pEorVGc9SiwIkJnQl+odKl/HRhN61ExMhBHfi0724O1UPFg53wk2jBUiCXsRj9Zd
-	 yylSiXEE10+brAK6M5TV+P/AJd5tgd8kslCBaVRdSv9+T0G7Dj1yx6YyCiMv7xkik
-	 duZs6dL6UWtwIN8ixQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MKbgE-1xAlxZ3iJQ-00Nx7E; Wed, 11
- Nov 2026 18:08:53 +0100
-From: Henri Ommer <henri.ommer@gmx.net>
-To: job@noorman.info,
-	dmitry.torokhov@gmail.com
-Cc: phone-devel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henri Ommer <henri.ommer@gmx.net>
-Subject: [PATCH 2/2] dt-bindings: touchscreen: trivial-touch: Add hx83102d
-Date: Wed, 11 Nov 2026 18:08:51 +0100
-Message-ID: <20261111170851.2334-1-henri.ommer@gmx.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S1djNy02;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WB/3UJnL
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF19OQ2115748
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:09:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tVcctW/oKDuxTt7DrKIQJLMM
+	mlpeEMy6Mr9dwtxp8WY=; b=S1djNy02soVsnM6zgLcxLwbTC4mKwOQot0aMq5SJ
+	svQ58fBgLts9WD/bnLtpmQBZaz+5SN+YHJVUWm5vGbCtlDNA2lEN0awRmnJfT/Ek
+	qmaqwyfT2sbuGxL+alvXmY73mfehcdLC7CclqIBeqnZ2U81QKb7bjrEnqfjAGBRp
+	7nDfGjbUAQ9a6QpHSrNryZ0wUnmzOT6/ivbJc7Is/qesQ6AUTgU8afQFHSmZZXtQ
+	ueu4z4Rz2aHdnEPHY/roYhHbNiOz1wiHrkVJUulvtamN5Z4IHM42eBBNh0QcRc42
+	Y5e8zvnbJsZRBdwYGODw9uVDY7BhdxAjucBsntxv+AiDnQ==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvfawk6wp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:09:11 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eaad8219b0so1084603e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:09:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794416950; x=1795021750; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tVcctW/oKDuxTt7DrKIQJLMMmlpeEMy6Mr9dwtxp8WY=;
+        b=WB/3UJnLNP59TawUNQ7dHi9Nf/WOEjaC3DKi59QRPNBjLJeCrxQUBJsIhU6YuXiYRm
+         qg/fTWer0GyL8Hscqft33sdeieL0AH2zcZCJDOJ/hWIHalLE06dc9jIaSEevg0iLs4Pu
+         wJfB1oEed308yjWFhkGpavYYHLNA4Ge+f2s4sWTqrmGbiX4wLT1XaMODbci9x4jCKH9b
+         hk4F57FAxq/Xrly3CwvNO9BVku39FNus7tEV8nnFCXbbQ1YfXfmAHIT9kYd7XI73heyO
+         Fu4BPbSFl3D2gvSx7WN6untKccZp4F5NtOM4YeM4U8IHcqj+aYugb9xskLgIla/tpV55
+         EiAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794416950; x=1795021750;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tVcctW/oKDuxTt7DrKIQJLMMmlpeEMy6Mr9dwtxp8WY=;
+        b=Cb5VXGHdfa6ZCvGa9mfkd2ObIgFl0+uqdWaVE4ZOC70zLruHYr5KwGoMwaeKVdI0A9
+         UpXmYqQ/u7GdA/PzgMecX2132XQGD84aa5ML2b592kVZoKLPTqcKe0dTezUnqxuqyDqz
+         NFHGd9cAo/RGuSwnH4CUzdoSHKNPYRGl6XIAfEvbNHmF0P6lJhoajxn7smOZr+b9VywS
+         bM1WQL6FvTsym2i4NMeZSAuGZxopZVd1apTgKwFMmHsGq6ZPR+bRSzuf7dcaCNnqrPtH
+         OggKGt99iOAKHx5iylZyurCtiqbVLoR4yPcMeVGxGydYXRoPcOzITXdc00qsxJgutBon
+         MDpg==
+X-Forwarded-Encrypted: i=1; AL+hErHSW5i/VIOrtuRwHitpAdx386+hmc0u1AR1xNRh8G8RYZgthcuKGNmSZmVx8STikN9pfk5qiWW0WgHSfFU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aCaSV6vCHK6b6XHx5bMBYszBJgBeFy4Gf8WQRu/n4+cytUcts
+	NfFE4IoKzLjKFFyqjsCspMFwRyBNUG1eZSYI2E7U4ql0878+ByNZuY4sk33IVZ8q7Wmv1rE6Zbu
+	ihlGRcDpg8u+N+M7YwqncBP5qjrqv+/CNg5eicr+u5e6ZtKulAf5MGRsduKvQEZ9FHHA=
+X-Gm-Gg: AYBFou3uWWzZkC9XzZWJ07zBYvA1jaN4VfpeKPJMEEuZfSXypnhMdw5tIQJxAO/7Yyq
+	aVMIeIRpcV/GvuiJmyzigygLXR7erIZrfkWugGojp7yYawxuaRK6Gu96PEzyojeoKoxO6j2dj0P
+	ORXDhMtXZoAPQ4jmDXo6lpNqfcaG8ribGfj3P3MhM3iUSYIa7wHq49Xk8iufFLe5FVpd+YgXJet
+	HcjtWWFcMWfipqsdSU4PG4Ynkb749ElGBGLrwqeokBHbHyBE5wV8Xx2KzU4KQgiOvMz6FhH2Ehv
+	cxbr0MPoZNaxcgwrCzOkfhrUS00/hDz9gsZ8CgVTrSZR0COH92KzBVi96QEMmGgpvPdKsAkQTrD
+	nyZIKIl3UGmxEcvPWp+C8SjvhT50onbBAt2bplA3le9nCEKya9uqwq2jXcyoKbr2FTC9RUBwZq0
+	9TJhXvJWD1WH8EjnjAymxOPG0KhCtf1AH0M21cn4fG/RnZ+QkwgqvjNMo+gwUQaQ==
+X-Received: by 2002:a05:6122:4b16:b0:5ea:b9b5:8c43 with SMTP id 71dfb90a1353d-5ee1c480a5emr1354771e0c.18.1794416950279;
+        Wed, 11 Nov 2026 09:09:10 -0800 (PST)
+X-Received: by 2002:a05:6122:4b16:b0:5ea:b9b5:8c43 with SMTP id 71dfb90a1353d-5ee1c480a5emr1354753e0c.18.1794416949763;
+        Wed, 11 Nov 2026 09:09:09 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157b7a0dcsm1105809e87.5.2026.11.11.09.09.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:09:08 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:09:07 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi/phy: program PLL_SYSTEM_MUXES on the first
+ PHY enable
+Message-ID: <e4ul4zxjta4oyo5fpjjzwkykb4gicztcn7yrgjw7aer6bqowkw@6nx2arhvmyca>
+References: <20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,139 +125,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:PXW+kykLxlcqwnTeQZnYRQRQvhvLAHHF/uB+ddpUEabMg021n8D
- UjYYGcSL3VXYDCkvCCQKclIFm+/9nHmbQY17iZ3+fApHHL6fgbBdvi3pRqLczDmVeMcFW5I
- BqmoZqTbvnfL0QF5GCFcTgbxJ0i33lAV19leVwS3GP1c96jbzTNuJvKjfnjeAE4A/k1zDcm
- Tjnity/jpL3zZZmCyX5tw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:a6LFJEvVa7I=;RtDzadSFECiBy+4BFzEII2soQeR
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX7w6KImXMCPTH
+ gBHAJz6amGSZ9sIVmz0hi5L5CzDQhOyBj0Morlv1gi2qhHM2Szt+u2RK0oUvvC/jNr6OnNk4K+1
+ D+RY7812Q5QDe0HC8bSKk/euRdzgh0M=
+X-Proofpoint-ORIG-GUID: 0bjFKinKDV8Y38f7ZQcpUdiH0L9XobsV
+X-Proofpoint-GUID: 0bjFKinKDV8Y38f7ZQcpUdiH0L9XobsV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfXyz9KxPS/8XT6
+ wLHHqHHS5XRktstantzIz0yqfHnSgmtZCST9GTScbSpZZpUR9nbYRMklEaQrPybM6jO9wX5hC7m
+ 0rxLoN4PniMrZvGnlbP0wRNa8kcyTjsilRXyMea2STCOfxgc25EaakKqG+xG6yLZ0iFj2UnHSOy
+ pjXOIf50xlYmPSq0LEoKrE5Jl2DUDB+Uscks5Ee8oDhWQBEKDEAPUVPby4p0UGsPY5G+HaS94gF
+ r9OiffUDRu/SqRhe4XyD86Z75zS3v8Kf4Q/+25RR8YgmlDrPbqx/Nm0DOkZs9VWeN+fihSHccLW
+ NxuytOC/NIiHLuSlW9VSRP7iotZGA6uZQDI17G6jVKbXgFAL99uVSysFevjj8Z1tY3fgmOpIn3k
+ yZHqsvDGs+gZYGmAxf998TiF8xsjZyIi/p3RY3fmdGyYdV3QDVR3xh3CBaOQgsBLD00TmnOMxpO
+ iZo8D7fDVw1oGbggeLg==
+X-Authority-Analysis: v=2.4 cv=CZadd7rl c=1 sm=1 tr=0 ts=6af4a137 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=InjWm6lT3iDBAsjdKxMA:9
+ a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110068
 
-Adds the Himax hx83102d touchscreen controller compatible string.
-The hx83102d is software-compatible with the hx83112b (except for the mode=
-l number).
+On Mon, Oct 19, 2026 at 09:00:41PM +0800, Qianhui Xu wrote:
+> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+> 
+> dsi_7nm_phy_enable() pre-seeds pll_enable_cnt = 1 before calling
+> dsi_pll_enable_pll_bias().  That makes the bias helper take its
+> early-return path, so its PLL_SYSTEM_MUXES = 0xc0 write is skipped on the
+> first (bonded) bring-up and the register is left at 0x0.  Panels wired
+> for bonded DSI then come up with a blank display.
+> 
+> Write PLL_SYSTEM_MUXES in dsi_7nm_phy_enable() as well.  The write in
+> dsi_pll_enable_pll_bias() is kept for the warm re-enable path where
+> pll_enable_cnt is 0.
+> 
+> Fixes: 44784327815b ("drm/msm/dsi: phy: rework PLL bias enable/disable")
+> Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> index 1fc3b4f0c..5dd4830a1 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> @@ -1144,6 +1144,15 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+>  	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
+>  	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+>  	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+> +	/*
+> +	 * Program the PLL output muxes here as well.  The pll_enable_cnt
+> +	 * pre-seed above makes dsi_pll_enable_pll_bias() take its early-return
+> +	 * path, so on the first (bonded) bring-up PLL_SYSTEM_MUXES would
+> +	 * otherwise never be written and the panel would stay dark.  The bias
+> +	 * function keeps its own write for the warm re-enable path
+> +	 * (pll_enable_cnt == 0).
+> +	 */
 
-Signed-off-by: Henri Ommer <henri.ommer@gmx.net>
-=2D--
- .../devicetree/bindings/input/touchscreen/trivial-touch.yaml  | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This belongs to the commit message rather than the code.
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/trivial-t=
-ouch.yaml b/Documentation/devicetree/bindings/input/touchscreen/trivial-to=
-uch.yaml
-index 6316a8d32f39..d0ee79ba096d 100644
-=2D-- a/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.=
-yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.ya=
-ml
-@@ -16,9 +16,9 @@ properties:
-       - azoteq,iqs550
-       - azoteq,iqs572
-       - azoteq,iqs525
--      # Himax hx83100a touchscreen controller
-+      # The Himax hx83100a, hx83102d and hx83112b touchscreen controllers
-       - himax,hx83100a
--      # Himax hx83112b touchscreen controller
-+      - himax,hx83102d
-       - himax,hx83112b
-       # Hynitron cstxxx series touchscreen controller
-       - hynitron,cst340
-=2D-=20
-2.56.0
+> +	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+>  	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
+>  
+>  	/* Assert PLL core reset */
+> -- 
+> 2.53.0
+> 
 
+-- 
+With best wishes
+Dmitry
