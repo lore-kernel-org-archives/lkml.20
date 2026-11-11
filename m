@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794393365;
-	b=NKJabkCOO+vfDVl6Bm5HxZjtVNF5mMckncEYAy6FMMYudQRk9I4kGmdlTnHBK9vpJJ5p
-	 tQwpkGmOrIdqPEUM3zAC0CXoQ/STUP2jhgcT88AiJfQ6woC6zFRVvRIYj8fu9ya1mxYCV
-	 hoIlPGcGrz/ez6YcTiAojekdHEgw4sNkvAfi/EJcFest7Kl2RJYsFkrvb6tHQopc2pmsp
-	 PWSGZm0SEGocJT7JpTQzGVrZjpU0kgore5tQe7nP18GX02NWRy35bXDwBUbG7I+Ee+nvy
-	 S6JYZxILCgcL3pDjZqQ4DZpW2UTKHX8wMlasMthQoguk8l77HMwbOvYVeiST4lRNaoQ==
+	b=baz0YQIAVzMoo2XqlOMwOAvgRm36Il7MgNXggV0YPwsVbCWcwzVLBhGXZ3INZxFN+VVh
+	 jryYffRd/vyV79lls/f6BOaGYFDtRcLWBnlsVYQp7MyQih+wdt3BaIvmry/2oFtj3TdgJ
+	 H9cqhoo3o2961dQrSF2bhzV2YPkD77//C2IvmDzC9SqnNhoQjJgZa/nLdmmuiB4PfNWhX
+	 u1WY7EJyQzau75HJ7RR/w9N0rzmEVXD18dItgVzQlhPExFMbTSbkgLZ6mrfcATIeUVIg0
+	 0UcPvAVmgd6lcm7ZVR+tKVv+P57g3PEi3h848FxP1GkM32C7unMFSJaXgcNXRZjoR/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794393365;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=9GyQKB8iaVrL7OKczNALnDV+X9QlrYFe08OEdZjN8Mc=;
-	b=hVwL11rY/kl49Ze9gu7AaUVF/4QrjmkNF+mDPO66TSAk5o0BhGZh8plRdD2t6BYktJM5
-	 lwN0X5qNV4AEsBAjaWojyhOlOjLw0girEQjELs/MwkYaB/GINQU4teYpqw2yPngwfEFKN
-	 7/ci+CCV49b3ikfJRlyWr1s1v0niqg6kYxL7PQLJSJ/ulyvBpRfZX7H+JUs1zJoy/BzvS
-	 9tgzwxQ+WWFm/rSYoHdW1ZsAaV5gxKpMMNxktSIQEh/0UwC/kcs8LE8dGHfdbPXnmbppU
-	 +4oJw45XBr7HozF5SNt3Gvm7jNCrPLYeK2Dg/O7sZvj/F0VEIRtJHltgDfSt+8TWWDg==
+	bh=p5JSa0bx8XJ/WrOKH8JXKlh5zXhjuHQcMoZ3qXzM6TE=;
+	b=c3EnTE9BJ16hNcC6e/PHX4PJTiaeKj8ZNtASyf9sRzEN+18xUyk0ZGquE0gz9P/j6+aQ
+	 oBr24upRm1CmndX9kVZoHB7Tv1SISY6b4kldjnUp9LHQov1qvU5U1lED62XXeUUV+jzRK
+	 OCo2G3i3w6FX5OEfQ7ILWxDdEgdA+QRIST6JNVnVGYYKH391o5Mxm/qYVFoO47UH3MZSs
+	 v0cQNNwnjT3868SZRFKJzLgcqI/BN0SwMEh6mTs5jHXxy5UKKePrsUh0U6M5D02xcbj4y
+	 AyKern+JoKmorU6BexyZQHlvGAeJ+EpXsbPiXXitXztDatUjDYQKdNH3jOJS1w2jTdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o0k7p7pP;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=j+edLPGw;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE7F606A899;
-	Wed, 11 Nov 2026 10:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AE7F606A899
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142BB606A8A1
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 142BB606A8A1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o0k7p7pP
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=j+edLPGw
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id E68EDC69165;
-	Wed, 11 Nov 2026 10:36:04 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D2AD04E41573;
+	Wed, 11 Nov 2026 10:35:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 380956017E;
-	Wed, 11 Nov 2026 10:36:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 14E1911BC17BE;
-	Wed, 11 Nov 2026 11:36:00 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A75806017E;
+	Wed, 11 Nov 2026 10:35:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CDA7311BC17BE;
+	Wed, 11 Nov 2026 11:35:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794393362; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794393357; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=9GyQKB8iaVrL7OKczNALnDV+X9QlrYFe08OEdZjN8Mc=;
-	b=o0k7p7pP1a0s0BOWRJ9MK7egn4KoazU750hM5HmzHXvHnOeGNO/d6NiY5xwbcGTMsrQ0/W
-	ilMeMVvlcQ2lpNcp3+E7c/kw0FwK6vLCHisDyhsWkie/i4KLBDyFzo+Ht4DPl3oTRjn+dq
-	PEqvvqpBo1FAU/gF85GdpCydKRIVLzqUbJtwOIgKWAEKzrvqZ84kI6z+h1rDpclzI5zG9U
-	zMGyWl7Yyn52xyl7mDWmeRv+QMTAKbEyHhqzFqw8tY/01r3kySMTWMO9L8O52HZfMnbvDN
-	Vxnszvpbt+jPVtCFEez7vmgLuZNH+tKLPQAMdwjfjsl5AaF/thOEGP2jda72Ig==
+	bh=p5JSa0bx8XJ/WrOKH8JXKlh5zXhjuHQcMoZ3qXzM6TE=;
+	b=j+edLPGwasyV6HAyS4hFg5KhjSuMdMX54j0lF7sN8ytL8eR7blL7yTu3lrhT5A5oV8z9wQ
+	sppHD6XAKiDUUPwYqasoKEIeMe47igi15FOQEebNUD0jVx58UjtS+Tj1f2HdBwJXZNwfdY
+	53q+tgT5uWkpqmrtjeNz/JyM+5iQi2MalSOQVjA4giRa7K0x52/7Qt/vsIjHS96ijdz5qy
+	RQZ1phjYl+ctrnJsevFvN5/zxCxutyaqydp0aSOh4v4QBz438S2qbzki11Um9ZuKiLvYd2
+	SCfca9ogjBE6KZz9aVZt4/afbTPFWiQlVJNTW3lajUXKdtNDtbdmcI0/6yh6OA==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: linux-spi@vger.kernel.org,
@@ -60,9 +60,9 @@ Cc: linux-spi@vger.kernel.org,
 	Tanmay Jagdale <tanmay@marvell.com>,
 	Jisheng Zhang <jszhang@kernel.org>,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 5/6] spi: cadence-xspi: Rework resource discovery
-Date: Wed, 11 Nov 2026 11:35:40 +0100
-Message-ID: <20261111103541.100848-6-paul.cercueil@bootlin.com>
+Subject: [PATCH v2 2/6] spi: cadence-xspi: Reconfigure to STIG mode before SPI message
+Date: Wed, 11 Nov 2026 11:35:37 +0100
+Message-ID: <20261111103541.100848-3-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261111103541.100848-1-paul.cercueil@bootlin.com>
 References: <20261111103541.100848-1-paul.cercueil@bootlin.com>
@@ -80,108 +80,80 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Tanmay Jagdale <tanmay@marvell.com>
 
-The previous code worked, but calling
-devm_platform_ioremap_resource_byname() on ACPI where resources aren't
-named causes warnings to be printed, one per call:
+The .transfer_one_message() function uses the STIG mode, therefore the
+xSPI needs to be configured to STIG mode before starting any transfer.
 
-cadence-xspi PRP0001:02: error -EINVAL: invalid resource (null)
-cadence-xspi PRP0001:02: error -EINVAL: invalid resource (null)
-cadence-xspi PRP0001:02: error -EINVAL: invalid resource (null)
-cadence-xspi PRP0001:02: error -EINVAL: invalid resource (null)
+Without this, .transfer_one_message() simply won't work, at least on the
+CN10K SoC.
 
-We can avoid these warnings by first obtaining a pointer to the resource
-with platform_get_resource_byname() and fallback to
-platform_get_resource() if it fails, and then ioremap the resource using
-devm_ioremap_resource().
-
+Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
 Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
 Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
 ---
 
-v2: - Drop error messages as devm_ioremap_resource() already prints
-      errors.
+v2: Adapt the code slightly to work on top of [1/6]
 ---
- drivers/spi/spi-cadence-xspi.c | 56 ++++++++++++++++------------------
- 1 file changed, 27 insertions(+), 29 deletions(-)
+ drivers/spi/spi-cadence-xspi.c | 31 ++++++++++++++++++++++++-------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index f4ce4820b08f..8fa58a0412e3 100644
+index a584a3c395d0..87b986a318f3 100644
 --- a/drivers/spi/spi-cadence-xspi.c
 +++ b/drivers/spi/spi-cadence-xspi.c
-@@ -1276,44 +1276,42 @@ static int cdns_xspi_probe(struct platform_device *pdev)
- 	if (ret)
- 		return -ENODEV;
+@@ -367,6 +367,20 @@ static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns_xspi)
+ 					  100, 1000);
+ }
  
--	cdns_xspi->iobase = devm_platform_ioremap_resource_byname(pdev, "io");
--	if (IS_ERR(cdns_xspi->iobase)) {
--		cdns_xspi->iobase = devm_platform_ioremap_resource(pdev, 0);
--		if (IS_ERR(cdns_xspi->iobase)) {
--			dev_err(dev, "Failed to remap controller base address\n");
--			return PTR_ERR(cdns_xspi->iobase);
--		}
--	}
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "io");
-+	if (!res)
-+		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++static int cdns_xspi_set_stig_mode(struct cdns_xspi_dev *cdns_xspi)
++{
++	int ret;
 +
-+	cdns_xspi->iobase = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(cdns_xspi->iobase))
-+		return PTR_ERR(cdns_xspi->iobase);
++	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
++	if (ret < 0)
++		return -EIO;
++
++	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
++	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
++
++	return 0;
++}
++
+ static void cdns_xspi_trigger_command(struct cdns_xspi_dev *cdns_xspi,
+ 				      u32 cmd_regs[6])
+ {
+@@ -536,12 +550,9 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 	int ret;
+ 	int dummybytes = op->dummy.nbytes;
  
- 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "sdma");
--	cdns_xspi->sdmabase = devm_ioremap_resource(dev, res);
--	if (IS_ERR(cdns_xspi->sdmabase)) {
-+	if (!res)
- 		res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
--		cdns_xspi->sdmabase = devm_ioremap_resource(dev, res);
--		if (IS_ERR(cdns_xspi->sdmabase))
--			return PTR_ERR(cdns_xspi->sdmabase);
--	}
-+
-+	cdns_xspi->sdmabase = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(cdns_xspi->sdmabase))
-+		return PTR_ERR(cdns_xspi->sdmabase);
- 	cdns_xspi->sdmasize = resource_size(res);
+-	ret = cdns_xspi_wait_for_controller_idle(cdns_xspi);
+-	if (ret < 0)
+-		return -EIO;
+-
+-	writel(FIELD_PREP(CDNS_XSPI_CTRL_WORK_MODE, CDNS_XSPI_WORK_MODE_STIG),
+-	       cdns_xspi->iobase + CDNS_XSPI_CTRL_CONFIG_REG);
++	ret = cdns_xspi_set_stig_mode(cdns_xspi);
++	if (ret)
++		return ret;
  
--	cdns_xspi->auxbase = devm_platform_ioremap_resource_byname(pdev, "aux");
--	if (IS_ERR(cdns_xspi->auxbase)) {
--		cdns_xspi->auxbase = devm_platform_ioremap_resource(pdev, 2);
--		if (IS_ERR(cdns_xspi->auxbase)) {
--			dev_err(dev, "Failed to remap AUX address\n");
--			return PTR_ERR(cdns_xspi->auxbase);
--		}
--	}
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "aux");
-+	if (!res)
-+		res = platform_get_resource(pdev, IORESOURCE_MEM, 2);
+ 	cdns_xspi->set_interrupts_handler(cdns_xspi, true);
+ 	cdns_xspi->sdma_error = false;
+@@ -1112,7 +1123,13 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 	int current_transfer_len;
+ 	int cs = spi_get_chipselect(spi, 0);
+ 	int cs_change = 0;
+-	int ret = -EIO;
++	int ret;
 +
-+	cdns_xspi->auxbase = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(cdns_xspi->auxbase))
-+		return PTR_ERR(cdns_xspi->auxbase);
++	ret = cdns_xspi_set_stig_mode(cdns_xspi);
++	if (ret)
++		goto out;
++
++	ret = -EIO;
  
- #ifdef CONFIG_64BIT
- 	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
--		cdns_xspi->xferbase = devm_platform_ioremap_resource_byname(pdev, "xfer");
-+		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "xfer");
-+		if (!res)
-+			res = platform_get_resource(pdev, IORESOURCE_MEM, 3);
-+
-+		cdns_xspi->xferbase = devm_ioremap_resource(dev, res);
- 		if (IS_ERR(cdns_xspi->xferbase)) {
--			cdns_xspi->xferbase = devm_platform_ioremap_resource(pdev, 3);
--			if (IS_ERR(cdns_xspi->xferbase)) {
--				dev_info(dev, "XFER register base not found, set it\n");
--				// For compatibility with older firmware
--				cdns_xspi->xferbase = cdns_xspi->iobase + 0x8000;
--			}
-+			dev_info(dev, "XFER register base not found, set it\n");
-+			// For compatibility with older firmware
-+			cdns_xspi->xferbase = cdns_xspi->iobase + 0x8000;
- 		}
- 	}
- #endif
+ 	/* Enable xfer state machine */
+ 	if (!cdns_xspi->xfer_in_progress) {
 -- 
 2.47.3
 
