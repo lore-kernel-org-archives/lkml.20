@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359556;
-	b=NLnLcuNUFd/f0t3jUTupsK+ExIBGCwxlxTLMHvy1lj51gcsB51s9jF7krX8zW/5gtxWz
-	 igpbiJQHJIpgxx6YuAhIuBXkmcJkrP8KNRZl1vKqanZI4wm9oa6wzant4/MM42lC+zDiC
-	 50igg/gI9U5JtuSAkE+ZWnQyNetAiiTOLRCGuqB1PfBdvQbOVZG1alzHF25SaSH4XpcpW
-	 dmKe6JcKpM4TqLpoiHRGULVVWDX1vHoB6S+qsschGsSI52lc/R8oo/LrCu3GAA7ipRhtr
-	 r4dpGLqxg8/mFY0LUQLCcWck+4M/M1/+UTcqXn6EWSq4NcrFe7KJ7fFP5RHAfm9UUhg==
+	t=1794359560;
+	b=XTNtjKrP8fHczWmBC1bnUMBk1R4Ijln37uROvMhRCmfPPDZKzj/APNJ0+hHRbKpoSCdR
+	 FdJkHxOHlgIQq4zAlcozfEiVqrKf+JXC713w8qab3ndpWnY0VoWXDIs9iOjoh2jfzxvRz
+	 YvklSEi+TKPPMrnYwaj5VnIRBjHGHFphgR6Lz401AUath08Ifn1AqPTilEi99wo1EhHou
+	 At0rqWTYfd7Mus7CQWsyIz0/6DsjdzBTb/eDK3WRt0HFu+ccjQBzqzaCz+6x7qyTaLEv2
+	 gTafZmrbpsh2fBkhP6NCLh9kbSiA9f5LqZBuujX5Diolx7XyjJpll5fSuelvzHaarog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359560;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
 	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
 	 Content-Type;
-	bh=SIWfoxvOGQzQzHQfjEY1KjwfR1NJq/Fzgk+eBIX7VSE=;
-	b=VM6aCSlyIP+usNfftTlDGFw4PBrpBKGceN91C+awAGInej87kTjlBiM35C0u8RxruDND
-	 oJoNfMCLOEYotk7bxGD+Tw7bfo4tRdqrlHUrvar7a4lvs21ziKc/HD4qXnmkQloFXt82q
-	 6xkwIqycyT2v1Nqeb/MnMlgNio0kABwTIpjGhUhFRIu3nIAMq4t2pj133h6x0HUrGsSdf
-	 YECNY3O0tN8yWAebXeA75Ekp/C/l4EemuUsb+xniFyzk3/g2xVNKG4nEMD6/44TH8YEr6
-	 undMuzRblU2+XgAKODqfl+1hX3VKXT1YqV2bCjt3K4vPuvF5Ybfo4MTulcHYbQJB6Cg==
+	bh=+mkH6EmiJLsw0LgYdB8cE8bG7NqkR6d4lNmfVUbGQOs=;
+	b=CgpJbjtvxtj8NE8JfZAOid7sycAApqAV6Y/gKkHzbM/MHEWM6QkOU/UoNsE4YQ4UqmAs
+	 3u0kEF8tLgUrfhCf9RCruWLlxLqfOnM/jvoyOPnDHRorM5CMn4Z/2SJ9PW/wcgTbYrg4D
+	 OyqxvoSd8RWnJMwH2efV1P4fh10VzyfKtgHfLJjZ8MLkLg0SFyI0gyxiIKmmZ4OM3Efp8
+	 8v519tTrYBUuGQUvJrTiDF8g94+n1NmDbri+/6TrqYJaeluSGHXPCWU+pNMq3WCUg5o+N
+	 KdgEHmLI+abynbYEJ+iZwipvSQSkLhJIOlr4Azt+oXCzY7KOTyDIhPSuwVE6uS0B8/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056CF606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:12:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 056CF606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0913A606A33B
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0913A606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5640a2d9708so2987404b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:12:35 -0800 (PST)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-84478a97bfbso4059730a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:12:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794359555; x=1794964355;
+        d=1e100.net; s=20260707; t=1794359559; x=1794964359;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=SIWfoxvOGQzQzHQfjEY1KjwfR1NJq/Fzgk+eBIX7VSE=;
-        b=JnNkp0KiSYWT17rc0FGPJcmhzvQoVTmGFzXGFmPfhyrU8Dz9BMQulD9n6E4aDos345
-         U6epx/adQYANFqyiibQ7urB/WhyUJO1BHxdyvHhWCK26vS9/ridsUhHfkxL5XzZ68irW
-         6mZOL5UJptqDUOKYGv1kxlEXsLl2NemoTEZ+gIJj6j0BV4oPLiIcsm6Yyyw92pZ0w/Ux
-         2Bl0kmqGHWime7tX5vuXgUJe/aAWd9ohqcmEWnfZr+BWlgTEUhvRXAySzKhX+UYAFXNV
-         JkllrglJXuBmGwoTXWfNgHeagcigZHOxHHqISAFCkII/hYHOxKD5kuq56+JgehDB631k
-         8MXA==
-X-Gm-Message-State: APuU4Z9T85m7w7UrOu55RrUUIkQYTe2p8bCIX+kBrazc6Ay9JnDBeBt4
-	RYJOwDeRyI7D2O9Tzsqi8cTse28M3XZ2ueX9yDD8JxqB/G0wP3p8eA5eYyHQYAK/+7WPxQoUvwE
-	/HiQ+6WXiDG8sSBVYV7lKD5JlE3+0I8zxJNSb87hcSm4XinuzlCFs3UuHjEY=
+        bh=+mkH6EmiJLsw0LgYdB8cE8bG7NqkR6d4lNmfVUbGQOs=;
+        b=jwojAlP/sWMi3o7LY4GWx0ZF64nnYMaAX/GBiQgJN10NtzLrp+YqbMbvKClLYi7tVF
+         lZoXyqdxc42Q35MV8LcCW0QYvpWumDci2x812JRHNNlll3/UR+/R2dLpv1GM2kqEkngD
+         dxoLiy46JR4EQtEmYEic5RMrVTUGchWbF21Z8JRbm3TXCO53Q+O8zw18esDQ5TgUDUvM
+         vxkJL8zP3B7UQBiQsPXNIlh/J2egwCLgqnZUXj40cBxbZ2KyALwHfG8euXrrT3ZjW+eu
+         lqsxY6OAY6BLR/NrLiUfpveKjp218uJnwOUQDDjCYwvPptSQ+64ORkYSt2qESi7swGOb
+         ZpLQ==
+X-Gm-Message-State: APuU4Z92n/KSt+Hm7LKlUEbCWPSiMyKxUytKgiaWVtw3iTdAIZ8QqEeE
+	9eo+LY4E63w1cVGeWb3YHnFb2Pe7llD4A3WNkOdIzqaIMpKRT0J54JFvP5fTe8k43963u4YCfOX
+	RgaRcco4c8cnkWONG3O6UIJGu0muS8+INVuNO0P2o1sw+WvkLtCGC7+ZtVfk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,14 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6614:b0:4d6:90f3:74a1 with SMTP id
- 5614622812f47-56b9771889emr610667b6e.44.1794359555068; Tue, 10 Nov 2026
- 17:12:35 -0800 (PST)
-Date: Tue, 10 Nov 2026 17:12:35 -0800
+X-Received: by 2002:a05:6809:103:10b0:4f7:d324:bc3a with SMTP id
+ 5614622812f47-56b968c33c5mr500542b6e.18.1794359559069; Tue, 10 Nov 2026
+ 17:12:39 -0800 (PST)
+Date: Tue, 10 Nov 2026 17:12:39 -0800
 In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3c103.c2a1e073.10a5a1.117d.GAE@google.com>
+Message-ID: <6af3c107.17ff5aea.1b027f.01a0.GAE@google.com>
 Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
  request in blk_mq_complete_request_remote
 From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
@@ -81,6 +81,21 @@ Author: nenkov2004@gmail.com
 
 #syz test: https://github.com/torvalds/linux.git
 58c1eb84e97701c583605ba2fd553b69afba2245
+
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -3815,7 +3815,9 @@ static int nvme_dev_map(struct nvme_dev *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
+
+-	if (pci_request_mem_regions(pdev, "nvme"))
++	if (pci_request_selected_regions_exclusive(
++		    pdev, pci_select_bars(pdev, IORESOURCE_MEM),
++		    "nvme"))
+ 		return -ENODEV;
+
+ 	if (nvme_remap_bar(dev, NVME_REG_DBS + 4096))
 
 
 On Tue, 10 Nov 2026 13:49:04 -0800, syzbot
