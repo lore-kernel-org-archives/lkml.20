@@ -1,103 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400545;
-	b=F/8XA0jS5JpMLO0lUe8KeLr8mTeExLBdYO1FmkpIw+TFBUwU8spFTpQhLBDAVJ5LfwwL
-	 a5D5yzC+BOLUAu5F+7Vi1fE4/ZnuDhsrPTyIQPjdEF2suuWc58Xvipayp97HhDrkUGOwN
-	 6v2PoqgNgpkpi4CbSI/ZaqWVYb+5hbvL+6Cgz7Y4/SAXJGSO/NWRjTh6ju6c/E07uYKo4
-	 uJlx9aqpjKOOhuOA76nxdsRAZLlLTW3Tpi51HB0wgbMvtm8gaUlpvHB4L92FV8TxLe03I
-	 NXEcZLCCW7mzHGFo4xTeWjRn74JbZIMr7CBSIroNUPonymE3JfyMwfbPvrYxV2TAKtA==
+	t=1794400551;
+	b=4k00utzyfOpqpQxBjt5NczFHgdGreMEilmdW7dG7YG8HDwaDcgg3acD7l9r5P6u8fXTk
+	 AJpQC49TTwtjBD/zoJ1OVgf694gFovvwFtJkbrlaEPhhptItmCU38uCMrnT1jKgS+1ojf
+	 SF6w6ReFMK7aPSUqy3RQ1JQoGgBLO1mkA2Ey5j+x/9fSWQ8PTzf7PUNmanyIh57Oz1xIl
+	 fkcI0dAje6r7THByg/zEjaEj7Rq7cCa/DwnttkdN5b+KPq6zzlFepJSJ3Q504Yoc2iKnM
+	 tuQ0KQoue35fBIizwq5eVibo+UwM2hA0kh3nlmz6w7wQUGsNFHCEzjQMShvtWgaYN6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400545;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qEns8j9TNQ6X545oefisWAHMaLi6RDahAOhPC5RfDi4=;
-	b=OZ8XGXB5CliyCL5vfZGSLImiXXB9A32uujTKtKDBP9uK+dJGv5xlDvkyS1GxIV9J1k9z
-	 9PIx/2TXCYWZjvHpXanU0IMvZdPH8ARSsmlIa3KbcCE2EAARCyU9LVx1dudaTyG09NK1c
-	 7nT+JUNfj1bx31px6AyROeWC0HuVTrMPTmK8nvWdGR0f+oMnbfkQtmysHfea454cbsZ9R
-	 SVyMNJ9sv7y5bRdHR/ZecZoda217Yf3RRGz/S6y/NKAzOovRj74DUJX0hE4j5DgzhIJ1G
-	 +1YfqAl0KFozN+LfdbFvRF3lxdtmzRhGcGYohLQo28tTyFcq/+HmFw1L5JmWPhm1nRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400551;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=11jF/GSaAPTptgC+43mLEOCCQpvNHCe7mgdAslshHpw=;
+	b=F/f8aV/3c5LoSnOMZTlOhzPHUka/CECzuvwh94Dz6WGJSg+24WDPyKd4s+7qK3zOlmTb
+	 gZc9bu0ubrT3iLU0eKXstbWDoSS3X1eSPwe3U46QPwxAFaRmlQP66tjU7J0Nmo+aMQ4sC
+	 Y3Q0T8jn35X2aHFgx2jQD32SEQAs5S8dqZqjGhDr8s/2dF2DM2J/eIo3qB+BPvfPsmCzk
+	 xPq7wbNQt1fi50oSmj44k7EJ1eAZCDwwa6LqaSW9oYUbnGI/R4ofQgmUm72tZkCxe3PXH
+	 nRgfEKz5T0JzZD2+XEuFbwcjGzWajeiGluFcNfuxXOmPULkcXL+TDTH1yFOrjcm9YEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMO6Sf42;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KwUqrMiU;
+	arc=none smtp.remote-ip=91.218.175.31
+Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D86F606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D86F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEFD606A886
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEFD606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMO6Sf42
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdab938dc83so1246627a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:35:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794400545; x=1795005345; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qEns8j9TNQ6X545oefisWAHMaLi6RDahAOhPC5RfDi4=;
-        b=AMO6Sf42HMxpa/RUtsNsKu9oaktHRowsQ1OjLfufSbUd0H/O0bVGuGJFnKUj/kMcE0
-         L43cgNELZGL1x/unT80EVCikKU6iWTVCoDRY2SwfO2ll4Ptxw67R6bVko8s9Wtqoaztp
-         m/MTROlVppiphLCrdWLtwz1X2FSxcUUDStFP8ygQHfPlp+wSXq2MKMJe7RFX1msSa+r9
-         YOtAOhIC6zg2UQthwdjD6Rj+r+6em3LVdGQyvzj/Tqf7VBEnolw7CZ3iDFnuHT5bRfr7
-         hBf84SgQ2TW+DVT8kii5kKgtG/lmvDwvtZesONwtOnjfwzqUeuqh0KUrFRBQ1TbfM7GV
-         e8GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794400545; x=1795005345;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qEns8j9TNQ6X545oefisWAHMaLi6RDahAOhPC5RfDi4=;
-        b=o4A1h0K3FEZPXNtE8SfYanQq+kzC9D4I+r/97s6XDJqEHI62LyKlLy/mx3NKCYaPXL
-         2hdfGoqfhxXNvQsZPwvf/pXgnALaX1/oeBY/TYTAIkKTPndpaqmBoPHZJMfIjKJp8nEx
-         wTcOMkAJ1uGZFE3YJPBmGjWjiURSMWC4m4Pup0sgrWmVKISZTxEowdvE77m9BR7xwVGL
-         JDSAcuSJe5KFKkHtKMpYpMxmZkD5yAEyovlrZr+XVjfeq02mrCiTHZByHQJLK5YPwqOq
-         lG241LTwwNsJniZY6Q2KMCfcPfW/Nxwh2Kb4Kw3UPEpb+ep6orYfzDxNpgo4hHXy66l1
-         7plg==
-X-Forwarded-Encrypted: i=1; AL+hErFzrGAUSbO+iHG0JvojoVkiwsLRqn0+2ZKxn8nfSrzqnqQ0Sc+R7r7ksHuM+rYDkfJX+q1OGqGVJZs5U3U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d0gT0AJN+dVF1jpdszM1elZNVBFfrZxMYtREm7p1Dt3yyz1oC
-	HvZ4mJ0uv9iZgA9jPE7VHOLI6Cprub8xlUBipgDGBCCBjGvKmDSE0D8o
-X-Gm-Gg: AYBFou1g9OR9EBEz2KrBV2EIyUl2iwASjcKVc41Pt+G2MHxydg7uyCEP4Cwq1jofAJ7
-	5ZtHXpx7jn41m/lmZlDoLh/MMdDdcw2fqZ7iT6VArnWk9y49Ab4/qfz9xEDtY2BV2wY3TzQsV3j
-	ulGTmZSuKQFcqxlTTxiQCRYZNqBQToseE5uYyLX6VRya7jx2YanE5JN8bC1rYwo9erbbvyRHOk+
-	EPp0z7qlPvoR8Y2VQA+xqhTegQGJGcdsBikUtOnm2KbRUnOoVLR6E3e04aBp+j0EtQo5fEysIEv
-	L0c/jEc0xRPxBvESBKZZ7V4lIf2sN1zhaCwJtnMcmUEJ7xZi674waFbb+EjYyzdDEMsfZqBGoLE
-	/wOYHras3/FuE0HsmpZT7JOCz1r7IRXn/a3mCxHGvINKAlLUtu5BfRGoA4AGoNw/3THttno3Qd5
-	MjTycOsSDC6RQqM6Ck6kQsmUmNybaswICHdExPk0ieCChXENdxCHrdlEBRG87q9Jop9CdrhB9KW
-	scbtdyLjmZW4AHM8gasTwJEg6E9V3a6JelJuPuUaXSF8Eh7WEjImUEcc3jw6TlNFcLW5eL9H3rd
-	4F/uvnhowlBuXR1yGJCUPbuZoFDPBIz4Ym9oKdKboeIpdtx1K5T5
-X-Received: by 2002:a17:90b:2e83:b0:3b0:ada3:b505 with SMTP id 98e67ed59e1d1-3b182efad80mr2416852a91.19.1794400544724;
-        Wed, 11 Nov 2026 04:35:44 -0800 (PST)
-Received: from localhost.localdomain ([152.136.45.109])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17e0d550dsm4364082a91.8.2026.11.11.04.35.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:35:44 -0800 (PST)
-From: diasyzhangqing@gmail.com
-To: axboe@kernel.dk,
-	linux-block@vger.kernel.org
-Cc: jack@suse.cz,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	syzbot+d4ecb9a1e5b3dcf8baec@syzkaller.appspotmail.com,
-	diasyzhang@tencent.com
-Subject: [PATCH v2] block: make bdev_freeze() mutex waits killable
-Date: Wed, 11 Nov 2026 20:35:29 +0800
-Message-ID: <20261111123530.871952-1-diasyzhangqing@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261110132118.11265-1-diasyzhangqing@gmail.com>
-References: <20261110132118.11265-1-diasyzhangqing@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KwUqrMiU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ctchA8+QA7OJ9mC0YgHbLm+kQmf4MKhJ/GLR+IFkTW0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794400547; v=1; x=1795005347;
+ b=KwUqrMiUmqS5DrJumrSeLhRWD33GRtzvEWuXwXo4EchrlPRhs+/EHcV//OtLHwFX+2ejXrHL
+ C62O9PVO4YQM0P89+Bcq7HKyYSWvD6W3k5il7se/NYnke9+bdvHbc3M5hwq5mcdnfohmWxanUKI
+ OAJh1czWhOJjt4JftJkS38/s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 3bf1067f9e372de6;
+	Wed, 11 Nov 2026 12:35:47 +0000
+X-Mizu-Trace-ID: 3bf1067f9e372de6
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 11 Nov 2026 20:35:27 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Breno Leitao <leitao@debian.org>
+Cc: Gustavo Luiz Duarte <gustavold@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH net] selftests: netconsole: enable the targets created by
+ the torture test
+Message-ID: <avRhDyP9sHREqgGP@fedora>
+References: <20261110-netcons_selftest_fix-v1-1-86643b837216@debian.org>
+ <avPLyMTFkhCRqRAS@fedora>
+ <avRBD4SMHnfoqn3k@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,45 +72,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avRBD4SMHnfoqn3k@gmail.com>
 
-From: Qing Zhang <diasyzhang@tencent.com>
+On Wed, Nov 11, 2026 at 02:20:08AM -0800, Breno Leitao wrote:
+> Hello Hangbin,
+> 
+> On Wed, Nov 11, 2026 at 09:58:32AM +0800, Hangbin Liu wrote:
+> > On Tue, Nov 10, 2026 at 04:32:25AM -0800, Breno Leitao wrote:
+> > > create_and_delete_random_target() is meant to create, enable and remove
+> > > targets while messages are sent, but it only creates and removes them.
+> > > The helper it calls, _create_dynamic_target(), stopped enabling the
+> > > target when the bonding test moved that step into
+> > > create_dynamic_target().
+> > > 
+> > > Enable the targets again, so they come up while messages flow and are
+> > > disabled before being removed. Like toggle_netcons_target(), ignore a
+> > > failed enable, which would otherwise end the function and leave the
+> > > targets behind. With a console per target, this also registers and
+> > > unregisters their consoles under load.
+> > > 
+> > > Fixes: 236682db3b6f ("selftest: netcons: add test for netconsole over bonded interfaces")
+> > > Signed-off-by: Breno Leitao <leitao@debian.org>
+> > > ---
+> > >  tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > > 
+> > > diff --git a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > > index 33a44adb6f8f3a..3dfab0bf1b0756 100755
+> > > --- a/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > > +++ b/tools/testing/selftests/drivers/net/netconsole/netcons_torture.sh
+> > > @@ -46,6 +46,7 @@ create_and_delete_random_target() {
+> > >  
+> > >  		# Basic population so the target can come up
+> > >  		_create_dynamic_target "${FORMAT}" "${RND_TARGET_PATH}"
+> > > +		echo 1 > "${RND_TARGET_PATH}"/enabled 2> /dev/null || true
+> > >  	done
+> > >  
+> > >  	echo "netconsole selftest: ${COUNT} additional targets were created" > /dev/kmsg
+> > > 
+> > > ---
+> > > base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> > > change-id: 20261110-netcons_selftest_fix-4cbf633295ef
+> > > 
+> > > Best regards,
+> > > --  
+> > > Breno Leitao <leitao@debian.org>
+> > > 
+> > 
+> > Ignore the failed enable makes sense to me, as we enabled `set -e`
+> > and use random target.
+> 
+> ack!
+> 
+> > Do we need sleep 1s like create_dynamic_target() to make sure the
+> > configuration loaded?
+> 
+> I don't think we need it. The write to enabled is synchronous:
+> enabled_store() sets up netpoll and moves the target to STATE_ENABLED
+> before it returns. If the setup fails, enabled reads back 0, and the
+> disable loop checks enabled before writing 0 to it.
+> 
+> The other reason for that sleep, keeping the console messages in
+> order, does not apply either, since the torture test does not read
+> back any message.
 
-Concurrent bdev_freeze() callers may wait a long time on
-bd_fsfreeze_mutex while another caller freezes and syncs the filesystem.
-Use mutex_lock_killable() to allow fatal signals to interrupt this wait.
+Thanks for the explain.
 
-An interrupted wait returns -EINTR before bd_fsfreeze_count is
-incremented, so no freeze reference needs to be dropped. This does not
-make the filesystem freeze operation itself killable.
-
-Reported-by: syzbot+d4ecb9a1e5b3dcf8baec@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d4ecb9a1e5b3dcf8baec
-Suggested-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
----
- Changes since v1:
-- per Jan's suggestion, move the killable wait from a new ext4
-  per-superblock mutex into bdev_freeze() itself.
-
-block/bdev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/block/bdev.c b/block/bdev.c
-index f20f91b3176e..e57be2320423 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -301,7 +301,9 @@ int bdev_freeze(struct block_device *bdev)
- {
- 	int error = 0;
- 
--	mutex_lock(&bdev->bd_fsfreeze_mutex);
-+	error = mutex_lock_killable(&bdev->bd_fsfreeze_mutex);
-+	if (error)
-+		return error;
- 
- 	/* A device being removed from its filesystem refuses freezes. */
- 	if (!atomic_inc_unless_negative(&bdev->bd_fsfreeze_count)) {
--- 
-2.43.7
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
