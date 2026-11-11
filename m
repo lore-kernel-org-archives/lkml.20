@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.21
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794362554;
-	b=DAzmj9V3hKU5akRsb3YIn4NjuEN9yjMEVDVkHtbDSQjyJb+S5VmwtyarK3ZWtH997nIn
-	 XlswJFiJ4VhYtDh7x7mu1BXtn8ei9hGlRfgRG48AuJf5gQAYBnm3YdYqLI+23t9aIP+o0
-	 XJlcO88qiwPyLhIBQqWOCXNDq5+XuhwPB8e0uTQxyMNEI6jhSGnRzN56n7Lzv3TMiGd62
-	 JMp6UDzOq9X10dweRVfCX9dOPBesBLGZeerV/VGjPZWgUToK0zHDqyvn//3ua88l1UNyf
-	 pdRsruw+vzZ+aWxFcUysiK15vLL6FtVwqWK+/QAMDBdYyKVeQ60Ycnqc5TfTVkPxh5w==
+	t=1794362592;
+	b=QLH9lgTSGSID7gQo0x5XMtIJSa7gwyOwFPuWqQEjhvD2iS1YIRkz7IkqAZc6PvMriHmZ
+	 4bXalvHJkCnwDbAuTbTV/37gJbkNf3fl+cGH40RQaYk54Fy+oP4a8Xj/HcxGzmEVWSoU8
+	 jlZGX9VVUse5X8xgtlUslc6vjLmC/kv8NNh51He/H6p5pb0mUSEdpEPR5PU5Om+F0SbjY
+	 S4b4pJQY+oamyzMhcWlOOxI16YAPlHG3UkA9lsgUy4kTsS1CMicMuE/pTSX03yfy6S71P
+	 GaxYRPYsLnq/05RqyZ1exte3a9pMhEcQEbsSQtEFahU233LHf2/LXerJY8XwtdFs3YA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362554;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GWWBCrecTEA7wjQVHlGiOaDhojUdZ8WkR49KBkN2ep0=;
-	b=3iq1Xraf8hGuO0ol4hbuRkHWH3s9XkQiFc4fpx0EHqajiQ3hP91QU+3zdcNFwEuFUcMV
-	 jXbyxIMJ4kdr13XC9xswp7ZQQinmxKZ33MbgDTPfdBXjOEyVDx49XgibBMDt/oS7Hxve1
-	 BzWs5paxuPzSs5bBw9PD2Q/+Bp642CRIiIOy36dsppWu51oZ8exv0nuhjoYdkPC5uJ7U6
-	 q8JIhzFj4Ho5dokbhoIPaEE/5nwP0rwXjVmbYMU3RyRlrIbWSYH/7sj4CCaaBZMvG+17+
-	 aXdk3cwpL1+/Ij5381ab3/pvaZH4klhA/A3Gww0UJZUyQUzQYslDliYIZlG+zRg9qQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362592;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VBnxo1cyrBP9eH26ieZ3qEE4H0EMBAPCxXo+MXkFYS0=;
+	b=jWUiMteBYe8vjRlvlMBpiDb1Gx76vF/MebdnenLBJFafnGJA/LA53NkclFWEhww3Wkb0
+	 t0CAnD5PnOYh4IE+6hKCh+3ZigEqQNfpsm1iQaDa9/zaMFaJ/EuflyefoThEhjIE5643H
+	 /urau7bTKfhtaKpJt7/EJo/JUoWkPA3PqtlVihkqbobupV5L3bFbm8mjcXWb6T23qPkGQ
+	 BIvMn6aFE0tJhYiXeA8BB/VKDdeCO5CuvprIxZK/y40A4GMxjDqTw8mUOz2rl8pAlVJIK
+	 igCT65hXTngFDXqYH4AAE34CZ3cYrzbdY+RA7+hGwKifRZTzR0YWJfPPHXClJ4/qSzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=er8I4iwV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.21
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012021.outbound.protection.outlook.com [52.101.53.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tc2mvNEV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D42F60A261D;
-	Wed, 11 Nov 2026 02:02:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D42F60A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DEB606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:03:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45DEB606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=er8I4iwV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oPigw/59uhjvvs16S6xKu5XbQPvGYTvSISR+uQ/cXjrst72rwtL3MsjrR1ATOdYhA9WiP0UWkMEPSoNU8OmkcqoL+5pKAhYiN9sN/5Kl7Xkxh4IYQqtXHKr8+MjeYNYHs/zGcmbwJwQOXJggAZZqIW0L46TcrFSEZib8RNkumj0XqF3wP/FuQyYrsBQ9CCO8dvQpZxQXmXme7f6c/dvodKIT9bUSB0dxwUH4bPds5ilzaGNfCtkKcs+A3/Sx3uKBsgGNn5gkvs9SU28ZG3bdE9Wkj4sCfIoLGSVKnFbUWEGZlcDLsvu0JwukPKflLfyKlV/+rujVvsqD4URs6hClGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GWWBCrecTEA7wjQVHlGiOaDhojUdZ8WkR49KBkN2ep0=;
- b=waiIrQPFKMkWk0q0ZF3kqzPrCoh+wxyQrRHXnV6IJwq0Mddk/N2Ejv4W2drgGK9e0syrZ3TV9+t0MFv4/ooeSaieOhRYAZqVG8zEryG/DDYj5xIfUKcdUpZsXJynhZZyfqn3qMP0FrOxHKE0thMsXu3NdhTZzLgargiNz8agrJTB5UVB03DZ8b08Oz0m9QhFYA6MQncRNdXyvtotKNCPVzWAf8QtVvhGmaTTJK3uKAbNuAyTBX7UBIcuMW3dNVtDxRFaN6BQ/U3KUeqOrwCoiv6K/q+gYWzffkLSR/iWUaxCF9msgok9J64EhdUHGpKmyqfpawkClbShtlfGvY9AiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GWWBCrecTEA7wjQVHlGiOaDhojUdZ8WkR49KBkN2ep0=;
- b=er8I4iwVoT5SwRTOT58gzgtO4V4iiDsXohJ5SL/oPE+TlE6Qi0wSCcwlwGQ8aX/JR8esFKehJ0+eSlAMRQaybhNZJXsqyJLVnXqX1i03Fk6FiuRBy31JzzRZPR8TZZXTqcmHmZtdfEX3dTSFuiOxcyxFfVUPtxGn23E0S21BoLA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
- by SJ2PR12MB9244.namprd12.prod.outlook.com (2603:10b6:a03:574::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 02:02:28 +0000
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
- 02:02:27 +0000
-Message-ID: <3ed4c949-3c22-473a-917f-fb604c7f468c@amd.com>
-Date: Wed, 11 Nov 2026 07:35:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 2/2] ASoC: amd: acp70: Add rt713 + rt1320 SoundWire
- machine for LG gram 16Z95U
-Content-Language: en-US
-To: fixca <jaehoon1744@dankook.ac.kr>, broonie@kernel.org,
- shumingf@realtek.com
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Claude Opus 5.5" <noreply@anthropic.com>
-References: <20261111013953.4011-1-jaehoon1744@gmail.com>
- <20261111013953.4011-3-jaehoon1744@gmail.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <20261111013953.4011-3-jaehoon1744@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:49::12) To CY5PR12MB6252.namprd12.prod.outlook.com
- (2603:10b6:930:20::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tc2mvNEV
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33fb4680717so2312951eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:03:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794362591; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cj+5A//FN8DhQsE04Vkbl6Pcv3mfiP4IRH7BNhMnP7jIqNBul/7egtqRibbveJb0jh
+         AN9P1xC9aPn9gAsZbfc0V9Gq+MiIB7W4diHUQMecF6TdZmcFXulRod0Q1jmrKzhxAaa/
+         EHO2TBRSofFZhw2pEPgUxVsEQWZEZ0eq7q6PEEKPNpPJYxTB5ttcTx3BWSTL9LexXbF5
+         RGDRopC4EXYL6P4CRUyQAbC+QCD2yf3hU6hBGE6mvytuLGSoYy3DmCl5lEQf5q0gbHzs
+         PB1JgfdLq9EuGiIRjhIxN9GBYhMjf+8e2FN13b4Uzcfu+c6Sx+INcA0P5xB+ruVt04fG
+         ZSqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VBnxo1cyrBP9eH26ieZ3qEE4H0EMBAPCxXo+MXkFYS0=;
+        fh=wy+axy1/rLFKDyxSfqqNOgZm1sKSh7M5uo8+IyjdtDA=;
+        b=Oej6tk6FMOnEGxjroR3OZPmJert1pbKJDO0rlVBegvVA36msVefVuXXEiOU5TZfc+6
+         pMQkStqmryeB1+GmM0ixh9wJYNluaAdpnbpkDITFU/7aVsHJkqifKvuEZq1qVAM6XUwN
+         I/dHCTWAZO29TCssC52+5Qh1qy7IJOkZWwNpYpsSTlf/SctVKdmcdm9Ke4rSEaQJFntq
+         wutlv3YrkWtzQ0LVLRaJ0dxNGd8qNCwadX74oZqEFryedMSKCg9hHua88W0066pIUe2H
+         feg9z/N5K0cLkwdDJuqyR5mYTJklM21CZaHWLZwcpT+7ZyUAyt4M11268jdHMv8xbbHS
+         WCoA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794362591; x=1794967391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VBnxo1cyrBP9eH26ieZ3qEE4H0EMBAPCxXo+MXkFYS0=;
+        b=tc2mvNEVIdm8B2xyfNM9PSN/LYEqHpd+CNNM5+GFrAjNJAEVehCOmZfouiWm6H033P
+         Hv2o/4hJq854Uf3xuG809NW5W5Szou42PXkOPvSdJSA/g1ZA4ZvDpu84vKZA+EEp3I85
+         2wnCUDAz6A9gdQ5KOyu9GEnlWDpj7eoednBRT62k6BWDuisKRR0EyAkd3HO9+61lpKMs
+         1FEJlUZu1M63H2XTMlBtjVu/g8o3bsx/bOjWUHDf8hM9W3KUgYEbWZA8gWcGn2ldO6AQ
+         xn3bexjLcOGgmwgeFiW3Fo0aYcsvuJwu9Ts/JCL1WSO/k6Pt/SL9RWzwZtVOpDkDOx06
+         J3ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794362591; x=1794967391;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VBnxo1cyrBP9eH26ieZ3qEE4H0EMBAPCxXo+MXkFYS0=;
+        b=RwtVVPT0AYVQOosogd4bMmQpv3DsmHzFNeYTHRZnpcwMQIpTYDbRzuEM+r+QjOfpfW
+         7Frwp7/FkQb5WUyMjpfCZNolN8bo8LdCFd80J150nwI9lWVVyY7kbWg1NihGzYd4GjVf
+         eRzTqAnW/SowEcI+C3I8MI4d2jMlSznsTqxHS8zf+pCB5vk1JjpGDO6ydV4kqqtHnB+1
+         nAD1UJzXrG/3GvUvA0R2dwDE5T029ldjHLmXmUUzWKXBhyFpQwf/cPa4mY1ng3J+JF/Y
+         WEZ0z58ehcLLK56NWEGv+s5Vnq9xJw6KmcvjxoJrlszl5rZE/gmfKxbyNHZA9PLj8Nl4
+         BpbA==
+X-Forwarded-Encrypted: i=1; AL+hErEW1QrpZsgUC0tao3VLdRjchtJFgQXz4w4MHbCssImIt4A24xhcSoyvp9ADL2HN++Ymt5GisgTijrEXunk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5kNEelqdaO6guBX0uxUW1CJZ5Bs6isaQvzw2gMQ32qCmnCBdy
+	RAI0HdxvuKI3zQUSvCXQuSTirtmZWR0MdjBXuOC+igRnir8QelmVlCdRVJptX/pqPMJveBXmQoa
+	o+mtc+t8/xX1KVnPlgrz5nhO1SYhanpI=
+X-Gm-Gg: AYBFou1fRcWNn9Lxf1JgTvVK3qOZy9NjSZpcjzqvzH3cMwTVTLUXQXZHmgNC5CRowsF
+	kVgim6ZCMtSKxZqqOMGvfafY/8LIiphVHsvNACPPesC8Tb+MkC7cIzXDsrXRF8yYcyJCtGnqsJ+
+	vHUZZwrDbiNnLfYIc1T8XRd1641x9e1aWEaRP3A3h/ePIOBSr6sCPv5HjP40YSbfaGMmXiv+VYg
+	lvSpseQZ90oUVPA8lT8Qp+rZAa1NLxMpt9LWiFIaZm8rTFDFSDALJuw8HMeOWHxFuAMspOq5/6e
+	HvIloYRc+mA6F1jihdljTK65wNIRHCAzZwTmJMK3gl/mH4X3MpvjI5fJlWOnB7nhZUgATrd9A+u
+	Z73z3SqdZTSokck3ceMpSGT56nrWKMVGTOU51KqDa2TzG8bn2I6Gi9+J0jFYFsATotZ8JqYShI7
+	ZVS8JyCkhxd00uIa680HK+Mo4QRA==
+X-Received: by 2002:a05:7301:a0f:b0:36e:9773:84b9 with SMTP id
+ 5a478bee46e88-37685e6af02mr1672191eec.23.1794362591163; Tue, 10 Nov 2026
+ 18:03:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,215 +105,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|SJ2PR12MB9244:EE_
-X-MS-Office365-Filtering-Correlation-Id: e30cf477-77da-4a43-db33-08df3f97d613
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|18002099003|22082099003|6133799003|56012099006|4143699003|6123799006|261026140227099003|261028144727099003|261026121527099003|261022105027099003|261102123227099003|261021121427099003|11063799006|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	t5gb8fH2Fkqyr0KZ/XPjNyuASKmuxvs387IrI4920GF45LahJ4Jd/wfvEq64LETxBLQkFaw6pRIwpX29Wrp23lxS/mSs9gitczQ6/pQ002C2y/nG4jERUyrIBlusxaq2WTKfP3WnguY0Irb4RIHQCTb4Bj3M/bVZIxh5UBkgMgT2Bgy/vIlJ5/DBHhnu5emt+ERylgplJQzbxpOdWvAoNxUZhAfWW1ApEs1cBAPgTnWkEMYxe51CozwU9bFelekXxra2kSNvdOY27OA5JVxUCD+3hnqw2gsmjF5YFdXJItlLaB/fjdmkQ3LSwMlRf9DiouGbh5sAe9d0rrDCs0OUaY61Ql1RQLn7q2h06eR/oNn6UNzSnQ3YPrnf/mE9mNsZZ5y+yeX07JzH3KS4cnRTM3Kru8+or221ht7N3DtNbATTj2vZLAaaOhRW0j12A3DYagVcWqG/kV7Uix4XODEI2W/IzCWFcw7/oVB+aUaV8EPbrhO5J+FLY7M5i7tomwAvH2VtP+Zp54W6Qvrl/n6VO+HgecUGxwazIWJEjuXyKvSPbtSzuNeGWzZSiEtLJI5IFtbxFeEL8hDD/fIDgoPw/xMvo//kquoYj7H9w02MiMTNJutKhMosOKvswAqFsXtVbqx/h0Urwvh/SPfg3bCzfwLPkg53LMmb+CidbLiE8to=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003)(6123799006)(261026140227099003)(261028144727099003)(261026121527099003)(261022105027099003)(261102123227099003)(261021121427099003)(11063799006)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZDk0dWNQLy8wSldnQjR4dkxtK3ZuV1ZwTGRYYURZV0dWS3ZpdjFIck5MNnF1?=
- =?utf-8?B?K0JqZEdnU2JGUTdmT3crcExpdllSVUd0QzZiQUhFcFYwMEJTVmNaeElYUWZB?=
- =?utf-8?B?ZUdrSFczVGFYekZPYlQ1U2JEMWlFMENXb0pJVERaVkJ3TEl5dDVySXVBanZk?=
- =?utf-8?B?MFFFaWVsalQvVDUzWElLVXNtN3pRUTVxN1lwRmZOM1YyZFRVc0JIZkFQZ05a?=
- =?utf-8?B?WVpvMVY2dXdTeitMWEZGVGNLcUpVVnlCRDFweDllanBRNklHQXB3cGlRRUpQ?=
- =?utf-8?B?L1B0OFZEbUFtTDZJNjdneTA1ZUk0U1YrdkxybERGUFdkWEJSRHhXYmR0ejFu?=
- =?utf-8?B?azdZRStsdFpHVUVST3AzWlJvV1NoNFN2OWZKWG9qREpUOGlEdFIxMzZTT3ZS?=
- =?utf-8?B?YXpEZFE5UzlSR29zODRodnp3RU5MOXF2ZVcvSDAzTjByRDRWVUxGNFlvUVFF?=
- =?utf-8?B?TkhRTTByOVRZTFlPK05JcHQ2WklSV21jVHlWRllIUjVOYVVRZ3BkSXZhZnpP?=
- =?utf-8?B?cHNzVFEwNkNweXE2Q0ptZmduVVpRendFL1NDOFRKenFRcnQ2U1ZPRWxBdzNx?=
- =?utf-8?B?L0MyNXFwQnJoNktwWjNpQm1PN0RUcDVxMWdIQzhPeHdIZEpTTFRYNXRZbGRR?=
- =?utf-8?B?QkJNMGg0cHprUHRiZzRCZThScks5WkUwVnczSTVpQ0poSmE2UHZwVkhYai83?=
- =?utf-8?B?bmVqUFZQWlBVd3JVYzRxd1FwZmJ0cDUzQWhwWFg2TFl2ZkN0M21NemNCVCsz?=
- =?utf-8?B?OFVnVEszRzZEd1NSQ3lBK1p2UVY0dE9mbnJtT0FDTzdZOUlCNWdxUWF1OE5M?=
- =?utf-8?B?SnpsS2lnYldDRlFyb1RLdDZMekU3M2dmRTZ1Tk13R2cvNEJtclVaSkhzdjZB?=
- =?utf-8?B?TmpGdm5zZU55QWhMVXllQUpGZ3k1VWdGR1djYjQyNEpMZjNUekovVTNoN281?=
- =?utf-8?B?aDlXcVJtdnpWQWpPZUFJeWd6K1JjZVBmK1FNV1pKbDZPVEgvckJRMzVRaHE2?=
- =?utf-8?B?M3Izd0pTM05LUjZiSStCaXFqVmtFYk1FY0ZxenNuckJMNUZ3ZU5ncWVreEdw?=
- =?utf-8?B?c2o5dFhpVmlZZnZYcDVtV2o2dmVWTWRIMFkrazhOT1ZzWnU2MEJ0bGdNdWhT?=
- =?utf-8?B?cEszenB1ZzZGKzZ1SmZqeGNVS0JRbXpKRjZtanpWQ1dReGFkWDY0Rkl1a2Fh?=
- =?utf-8?B?NGY5Qks0RUJraGNKcEwxSEpYTmQwek1FSjVadDBVSEtRUW15eTBtYkdQUFJ6?=
- =?utf-8?B?eCtVRVF3c2kvbEJSRjBOVkxaOHUwcktyb2FVZk9palBXY1ZZQXF2WmVDZDdt?=
- =?utf-8?B?R0JCeTlqckJBSHdnTGVIV1AwbDM5RGNUU1AvSitsRjdXRXRpcW1ROXZncWpD?=
- =?utf-8?B?UEtPZlBudWt1MW5zS0JOdExQeWZNLzRYeXdsUmJETmtXTDEwalUyeXVZS1Mx?=
- =?utf-8?B?QlhDZ0toRVB5TXRFUnljeVdEb0huUjdHcG8xUG14R3lsWDFtMjcraHBRUWxa?=
- =?utf-8?B?VEc3MlNaeVRQakpJR1VkUUpyellHMW8weC9WVytXSXRXM09XZmpZQVJZUHhJ?=
- =?utf-8?B?VENoYTVJRXZVUWZMVW1FNnpJQ2FoYmhMMHZYeDdXSjZYRUhRUHZLaG5Jb1Rr?=
- =?utf-8?B?L3lUc1ZUWTB2ekp0Q1IzLzROT2pnZEcwdmNlN1FUZVlQZUN2eUVtVTY0a3dn?=
- =?utf-8?B?QzJlRVcxR1hsb0RpZGk5c0xta3NZallKelEvOGdWQ3RpV1daamw0OUx6a25z?=
- =?utf-8?B?YnZiZ0lFL2doZmlCV1dEY3VCUDhTbVE3Z1F6clhnQ2QycDVoZ3A3VXZNTkhE?=
- =?utf-8?B?ckprbW4wQVluSHRzNThUdmFkSElPL29uWDU2VGZiZUNUM1NEbzVkUjJnWnA3?=
- =?utf-8?B?MHNsV1A3Q2JjUnpxZU5naDN1dnJCazA1ODNWQ3R2V2RNVlQ2RmtQNUxiS28w?=
- =?utf-8?B?TnBrejgzaGE2TVZvSndQUE0rc01aVG1KeGVoVklQTTZkREgrQ1Z6RkhTeTA2?=
- =?utf-8?B?TXIyTnI5TGprY2JYVDdzT0FTUldrMEZ6bzZLVHJSdnlob3JqZ3VrLzlrMk50?=
- =?utf-8?B?TjFwdHJjWEg3Z2hENTBhbzFBVzVJdUw1VlZoMSt0bmM1NkpxOGJJMFUxUlpw?=
- =?utf-8?B?d01WeEVKNW9kYmQ3M0FiUE1NcXZkVVdPcjZlV0V0ektiaTN3eEEvWlJxMVc3?=
- =?utf-8?B?VTBQQllXTHdoeTY5eXcxdzFjSkZoM0liYkhvdks2S0tOWG9UN05jcTFYR01w?=
- =?utf-8?B?UXUrR0N5WkVWZ0lDU2ZLTWJXdGJwNkVnMm9vQTZaTFd5NjZZTXBNQVlGaEZC?=
- =?utf-8?B?YjdpdTJqTlF2cmlGWTlrRUVZZ1hocm1LRnRiNERTZGxkdnI2MXp1QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e30cf477-77da-4a43-db33-08df3f97d613
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 02:02:27.8545
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zxA9wc6K3PHg7BDkH3vThT6pH71LvJxYGODSt4u1QLFw/+bfKTLjCettm8WG0+wbyMbPzgZr9nay61BEuI+uTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9244
+References: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com> <265240b9-c9d9-4dcf-aea3-b31c460a0e3a@web.de>
+In-Reply-To: <265240b9-c9d9-4dcf-aea3-b31c460a0e3a@web.de>
+From: Joas Antonio <joasantonio108@gmail.com>
+Date: Tue, 10 Nov 2026 23:03:00 -0300
+X-Gm-Features: AclHuK-wtfZcgBU4GAq4_YpIoQqfFNcIZX-I7sEBpi8z3DxPXOmg25d0xNehB-4
+Message-ID: <CAOCBhwHW8=-CLB3rj=if3MQN=3En=t1eQ3eQuVJA6e9vMgLrxA@mail.gmail.com>
+Subject: Re: [PATCH net] gtp: free the skb after handling an echo response
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: netdev@vger.kernel.org, osmocom-net-gprs@lists.osmocom.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Harald Welte <laforge@gnumonks.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
+	stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/11/26 07:09, fixca wrote:
-> [You don't often get email from jaehoon1744@dankook.ac.kr. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> From: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
->
-> The LG gram 16 (16Z95U) uses an RT713 jack codec on SoundWire link 0
-> and a single stereo RT1320 amplifier (unique ID 1) on link 1. There is
-> no matching entry in snd_soc_acpi_amd_acp70_sdw_machines[], so no
-> machine device is registered even once the SoundWire path is selected.
->
-> Add two machine entries:
->
->  - rt713 (jack + DMIC endpoints) on link 0 and rt1320 on link 1, used
->    when the RT713 exposes a SmartMic SDCA function (rt712-vb check).
->    On this machine the internal microphones are routed through the
->    RT713 SmartMic function; the ACP PDM controller is not used.
->  - a fallback with only the rt713 jack endpoint and rt1320.
->
-> The existing jack_dmic_endpoints cannot be reused: it maps the DMIC to
-> endpoint #2 for rt721, while on rt713 the SmartMic DAI is the second
-> DAI, so endpoint #1.
->
-> Tested on LG gram 16Z95U-GS59K with kernel 7.2.14. The "amd-soundwire"
-> card is created with these PCMs:
->
->   SDW0-PIN0-PLAYBACK-SimpleJack  rt712-sdca-aif1
->   SDW0-PIN3-CAPTURE-SimpleJack   rt712-sdca-aif1
->   SDW0-PIN5-CAPTURE-SmartMic     rt712-sdca-aif3
->   SDW1-PIN1-PLAYBACK-SmartAmp    rt1320-aif1
->
-> Headphone playback and internal microphone capture work with the
-> stock alsa-ucm-conf (1.2.16.1) HiFi profile; headset microphone
-> capture was not tested. Speaker playback through the RT1320 is still
-> silent although the stream starts without errors; see the cover
-> letter.
->
-> Signed-off-by: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
-> Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
-> v2: rebased onto broonie/sound for-next (v1 did not apply).
->  sound/soc/amd/acp/amd-acp70-acpi-match.c | 83 ++++++++++++++++++++++++
->  1 file changed, 83 insertions(+)
->
-> diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-> index c2f0479..b492cbe 100644
-> --- a/sound/soc/amd/acp/amd-acp70-acpi-match.c
-> +++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-> @@ -583,6 +583,78 @@ static const struct snd_soc_acpi_link_adr acp70_rt722_l0_rt1320_l1[] = {
->         {}
->  };
->
-> +static const struct snd_soc_acpi_endpoint rt713_jack_dmic_endpoints[] = {
-> +       /* Jack Endpoint (AIF1) */
-> +       {
-> +               .num = 0,
-> +               .aggregated = 0,
-> +               .group_position = 0,
-> +               .group_id = 0,
-> +       },
-> +       /* DMIC Endpoint (AIF3, SmartMic function) */
-> +       {
-> +               .num = 1,
-> +               .aggregated = 0,
-> +               .group_position = 0,
-> +               .group_id = 0,
-> +       },
-> +};
-> +
-> +static const struct snd_soc_acpi_adr_device rt713_vb_0_single_adr[] = {
-> +       {
-> +               .adr = 0x000030025D071301ull,
-> +               .num_endpoints = ARRAY_SIZE(rt713_jack_dmic_endpoints),
-> +               .endpoints = rt713_jack_dmic_endpoints,
-> +               .name_prefix = "rt713"
-> +       }
-> +};
-> +
-> +static const struct snd_soc_acpi_adr_device rt713_0_single_adr[] = {
-> +       {
-> +               .adr = 0x000030025D071301ull,
-> +               .num_endpoints = 1,
-> +               .endpoints = &single_endpoint,
-> +               .name_prefix = "rt713"
-> +       }
-> +};
-> +
-> +static const struct snd_soc_acpi_adr_device rt1320_1_u1_single_adr[] = {
-> +       {
-> +               .adr = 0x000131025D132001ull,
-> +               .num_endpoints = 1,
-> +               .endpoints = &single_endpoint,
-> +               .name_prefix = "rt1320-1"
-> +       }
-> +};
-> +
-> +static const struct snd_soc_acpi_link_adr acp70_rt713_vb_l0_rt1320_l1u1[] = {
-> +       {
-> +               .mask = BIT(0),
-> +               .num_adr = ARRAY_SIZE(rt713_vb_0_single_adr),
-> +               .adr_d = rt713_vb_0_single_adr,
-> +       },
-> +       {
-> +               .mask = BIT(1),
-> +               .num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-> +               .adr_d = rt1320_1_u1_single_adr,
-> +       },
-> +       {}
-> +};
-> +
-> +static const struct snd_soc_acpi_link_adr acp70_rt713_l0_rt1320_l1u1[] = {
-> +       {
-> +               .mask = BIT(0),
-> +               .num_adr = ARRAY_SIZE(rt713_0_single_adr),
-> +               .adr_d = rt713_0_single_adr,
-> +       },
-> +       {
-> +               .mask = BIT(1),
-> +               .num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-> +               .adr_d = rt1320_1_u1_single_adr,
-> +       },
-> +       {}
-> +};
-> +
->  static const struct snd_soc_acpi_adr_device tas2783_2_adr[] = {
->         {
->                 /* left */
-> @@ -820,6 +892,17 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
->                 .links = acp70_rt722_l0_rt1320_l1,
->                 .drv_name = "amd_sdw",
->         },
-> +       {
-> +               .link_mask = BIT(0) | BIT(1),
-> +               .links = acp70_rt713_vb_l0_rt1320_l1u1,
-> +               .machine_check = snd_soc_acpi_amd_sdca_is_device_rt712_vb,
-> +               .drv_name = "amd_sdw",
-> +       },
-> +       {
-> +               .link_mask = BIT(0) | BIT(1),
-> +               .links = acp70_rt713_l0_rt1320_l1u1,
-> +               .drv_name = "amd_sdw",
-> +       },
->         {
->                 .link_mask = BIT(0) | BIT(1),
->                 .links = acp70_4_in_1_sdca,
-> --
-> 2.43.0
+> I suggest to reconsider the error detection a bit more.
+> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/net/gtp.c#L541-L57=
+3
+> https://cwe.mitre.org/data/definitions/252.html
 
+Hi Markus,
+
+thanks for looking at the patch.
+
+Dropping the return value of genlmsg_multicast_netns() is intentional
+here.  At that point the echo response has been parsed and the
+notification has been handed to netlink, which owns and frees msg on
+every path.  The only thing left for the handler to do is to release
+the received skb, and that is the same whether the notification
+reached a listener or not.
+
+The failures that can come back are -ESRCH (nobody is subscribed to
+the group) and -ENOBUFS (a listener's receive queue is full).  Neither
+is a receive error for the GTP packet, and there is no recovery to
+attempt.  Passing them on is what the current code does, and it is the
+second problem described in the commit message: gtp_encap_recv() only
+knows 1, 0 and -1, so any other negative value goes back to the UDP
+stack, which treats it as a request to resubmit the packet to another
+protocol.
+
+The errors that the handler can act on, nlmsg_new() and
+gtp_genl_fill_echo() failing, are still detected and now return -1 so
+that the skb is dropped.
+
+Regards,
+Joas
+
+Em ter., 10 de nov. de 2026 =C3=A0s 10:08, Markus Elfring
+<Markus.Elfring@web.de> escreveu:
+>
+> =E2=80=A6
+> > +++ b/drivers/net/gtp.c
+> > @@ -561,16 +561,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *=
+gtp, struct sk_buff *skb)
+> =E2=80=A6
+> > -     return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev=
+),
+> > -                                    msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC=
+);
+> > +     genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+> > +                             msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
+> > +     consume_skb(skb);
+> > +
+> > +     return 0;
+> >  }
+> =E2=80=A6
+>
+> I suggest to reconsider the error detection a bit more.
+> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/net/gtp.c#L541-L57=
+3
+> https://cwe.mitre.org/data/definitions/252.html
+>
+> Regards,
+> Markus
+
+
+
+--=20
+Joas Antonio dos Santos
+Cyber Security Specialist and Ethical Hacker
+joasantonio108@gmail.com
+LinkedIn
