@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.60
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393455;
-	b=nKGTD1hSfVTorKk8BGjErJH0yNTxc77ZPph6v0OJlS2Qqe6biEQHUZB21B9bswGihAMN
-	 E2TJ4LfV84tybmxuBwU9CATt5tcjLZx92s2ZnN3RVYCWCOZOFpz+MrobPAaeliAtetXKo
-	 Ui+vvwu1Swtw1mGtfOkr7xhdZrdr3ksaP7XjwCBBsXxWOGF/WJuI6N/LwuU/8Iky+Aocr
-	 0UT0yt3CtRY/H926GSdTE7XLdQPqIr9RCG8CpSVPkBi/wI9Fu85sxo1Be/qXGKCyWhyRi
-	 unf5afCTMt+BZra3xZUN/pF8/xjPZZ3VqNM9jsWRNBgBMAmzj+tebvWpJarokL4n/vQ==
+	t=1794393462;
+	b=n//R49geoWyNxfgbK2CR4u741WeDd1uY6GJqNhVEGqVWVMghw/UHQ3lEiKEIZq6NQDD7
+	 EthW32/9X1d3CzzDLkU1fN3RwyPaavSySe3Tmlly68IbbKPwqoRQ9pg9mm5Ahv+BrH1NS
+	 f/oqwLfRCz9RciFO9I0EyS4puPozwwCOvkxrVX2+l9P8f7C3eCWtbBrivlK3EjQB6HvFD
+	 xxheNX5tqNgo6MbYhF8WoG4QNmk32eOrQLXXuOgJtda/19fjzAnURAq7B1oLteppHnfJX
+	 WV5f8zpQYvX+PXkgctjvf1mPYWjmyqBC2WWgbe5oZ+C7bv6ovon3cE0Kb3cAvgtdwsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393455;
-	h=DMARC-Filter:DKIM-Signature:Reply-To:To:Message-Id:Content-Type:
-	 Received:Mime-Version:Content-Transfer-Encoding:In-Reply-To:
-	 References:Cc:Subject:Date:User-Agent:From:X-Original-From:
-	 X-Lms-Return-Path;
-	bh=aNSRDIHMfArUzsdQdb8aFfjRjsd0lZAoJPAwWQjeJEQ=;
-	b=uGsPObgWJURruCmUfJ3CxClb7tBXxzxMDj+7HHY8B1b8UgkXfVtzYyaLzvDf/H8poN1x
-	 x69LNuSOc5IK0618ExR1OGw8yoKU85b0M665licfaQyXWsVX0PwHh0GYrc4yiNULH0DMz
-	 yeICbkr0elcHOjorjOM8P8Dc98VgL/V1yS4z7sUvNYua0KhMmI7zmbeDuwGfi+z2KnL7h
-	 Cxo8ylhDwrhQM4ot6KpXwJ1LzdBliYykJq0fNJwXGs2th87KfAIDCGVP8M2Zn5MuyQfaV
-	 JHfEFckfcULg2nTrtMtW226pam9jp7tf2+6zInfs+SCf143wnLGiYIxqDyHsUDXKiVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393462;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=o7SRZFmppRjb9BEcBE8C/dEOzRCctvE4fO7K4fNweYc=;
+	b=3Ou364jKWTsL+YshqTkKBWGPZuDn4oXzCKcrYo/mXiIqVn6vRXDfaHatuKrP0e2DUPtm
+	 /7UxIB1oiiMsekFHfOjkEE32+vyU0Dp4wf34hAgHefy5LSZO67a32nIenUOuAPnBq68G0
+	 hYtGUHjT91z3XL2dk+1XsLA6Lcj2/7ZJbBTR+ygx8/Y+rTEHT04bom4c0iBPUN4Kq1OjO
+	 2DCSPQbkQWUKGbVmwJaLoWFrlEwPg72o+K0yGY5PTmncAl3QrjLGKJJutT1PtYPnbB3ez
+	 2w6l8uaMfd6wETTuuO2kMAY/59oYCkuKeTk95UKCgg/q6l9eyuz2Rlz9M2JR6Af+CEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=OUCNqEDu;
-	arc=none smtp.remote-ip=209.127.231.60
-Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HjQErhaF;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAF3606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEAF3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B38606A31C;
+	Wed, 11 Nov 2026 10:37:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B38606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=OUCNqEDu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794393445;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=aNSRDIHMfArUzsdQdb8aFfjRjsd0lZAoJPAwWQjeJEQ=;
- b=OUCNqEDuQgKhmFpLzuNkvwQ+BkPHWtpEkA9yahNyrhsYIBFSJ6Kh5BDM2V3600QUfIIgXq
- swBV2Mtv5nRWEG/ma3UY1SCtuewMwWGOzWuBbZH/VnoaxDtnm+B1GWMxO/j5XrJnRLU1i7
- Xe5Zs7itOzJ3kFNqjEWlN3WCAHoBxwsx+F6PRQScuf4Nmtq0KeP4rQ/0C5N3vldLnbc++h
- Xu0LUEugIYzSVO1X2MqM7uXXhKA7YAm21TqSqF+fNW6N7Qs6o9gg5iYlkqTC0L9qwrNB7c
- b3q/4XhzJycZW3uMd/SQVOslLG/Vcia8n5cRqCloOLEooYg+Ne6RJu6YfgX6Xw==
-Reply-To: yukuai@fygo.io
-To: =?utf-8?q?=E7=8E=8B=E7=BB=A7=E6=99=A8?= <wangjichen@kaihong.com>, 
-	"yu kuai" <yukuai@fygo.io>
-Message-Id: <b9b085a3-b56e-41e3-b88c-2f1618c3835f@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.1.104] ([39.182.0.55]) by smtp.larksuite.com with ESMTPS; Wed, 11 Nov 2026 10:37:23 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HjQErhaF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=o7SRZFmppRjb9BEcBE8C/dEOzRCctvE4fO7K4fNweYc=;
+	b=HjQErhaFqrZ+okoTOuMo1sfBoqjqBbMmk59Wpk6wwVTQneHsXfBXdTD+oZb1Ol
+	mw4XTZkHLCgsYJ/VjUmuhMHn0QO/OfhMpGsrdft0NyZGHMcg13GNAWcqaq3KtnNq
+	1E8j6Zv0kgonsqzk1gaUateEW2NFs2PbF9ATu+PVIgi1g=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Robin van der Gracht <robin@protonic.nl>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v8 0/4] can: j1939: fix the abort timer and bound EDPO
+Date: Wed, 11 Nov 2026 18:36:00 +0800
+Message-ID: <179439336063.276536.1205296974801485658@163.com>
+In-Reply-To: <20261111-daffy-bright-galago-0e3bd2-mkl@pengutronix.de>
+References: <1794300100.11111.1000000@163.com>
+ <20261111-daffy-bright-galago-0e3bd2-mkl@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,252 +60,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <8b878c802e81b6b8dc57299e05cbda9f3dc94e50.3c3928d4.e7a4.4b9f.86dd.da76b4f384c7@feishu.cn>
-References: <20261103115530.2913093-1-wangjichen@kaihong.com> <90fee426-1a0c-4964-bf20-8175a64917a4@fygo.io> <8b878c802e81b6b8dc57299e05cbda9f3dc94e50.3c3928d4.e7a4.4b9f.86dd.da76b4f384c7@feishu.cn>
-Cc: "Jens Axboe" <axboe@kernel.dk>, "Song Liu" <song@kernel.org>, 
-	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-raid@vger.kernel.org>, 
-	<syzbot+cd254889291ef8666036@syzkaller.appspotmail.com>
-Subject: Re: [PATCH] md: avoid block autoload while importing rdev under reconfig_mutex
-Date: Wed, 11 Nov 2026 18:37:19 +0800
-User-Agent: Mozilla Thunderbird
-From: "yu kuai" <yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-X-Lms-Return-Path: <lba+26af44564+72bb16+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f+tdRfRqFJVJHQ--.9277S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Jry8Cw4Dtw17Zr4kuFW3Jrb_yoWkAFb_W3
+	yqq3yUt3WxJFWfKw43CFZ8Zr40vw47Ar95Jr9Yvr12kwnYyrs7WFna9r9aqr1xXFs5Jr98
+	A3s0vw47CayI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjByI5UUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB5AtWr0RV41-gAA3l
 
-Hi,
+Hi Marc,
 
-=E5=9C=A8 2026/11/11 14:32, =E7=8E=8B=E7=BB=A7=E6=99=A8 =E5=86=99=E9=81=93:
->> From: "yu kuai"<yukuai@fygo.io>
->> Date:=C2=A0 Sun, Nov 8, 2026, 11:18
->> Subject:=C2=A0 Re: [PATCH] md: avoid block autoload while importing rdev=
- under reconfig_mutex
->> To: "Wang Jichen"<wangjichen@kaihong.com>, "Jens Axboe"<axboe@kernel.dk>=
-, "Song Liu"<song@kernel.org>, "Li Nan"<magiclinan@didiglobal.com>, "Xiao N=
-i"<xiao@kernel.org>, <linux-block@vger.kernel.org>, <linux-kernel@vger.kern=
-el.org>, <linux-raid@vger.kernel.org>, "yu kuai"<yukuai@fygo.io>
->> Cc: <syzbot+cd254889291ef8666036@syzkaller.appspotmail.com>
->> Hi,
->>  =20
->> =E5=9C=A8 2026/11/3 19:55, Wang Jichen =E5=86=99=E9=81=93:
->>> From: wangjichen <wangjichen@kaihong.com>
->>>
->>> md_import_device() runs with mddev->reconfig_mutex held from md_ioctl()=
-.
->>> Opening a member disk via bdev_file_open_by_dev() triggers legacy block
->>> autoload (blk_probe_dev), which takes major_names_lock. md_probe() can
->>> run under that lock and call md_alloc(), which takes disks_mutex and
->>> reconfig_mutex =E2=80=94 a lockdep ABBA with the ioctl path.
->>  =20
->> Is this a real deadlock? mddev is already existed from md_import_device(=
-),
->> while md_alloc() just allocate a new mddev, so the reconfig_mtuex is not
->> the same.
-> Hi Kuai,
->
-> Thanks for the question.
->
-> You're right that md_ioctl() holds reconfig_mutex on the existing array
-> mddev, while md_alloc() takes reconfig_mutex on a newly allocated mddev =
-=E2=80=94
-> they are different per-device mutex instances, not the same lock.
->
-> The syzbot/lockdep report is about a lock *class* cycle, not a
-> single-mddev self-deadlock. Lockdep treats all &mddev->reconfig_mutex as
-> one class, so the dependency it reports is:
->
->  =C2=A0 reconfig_mutex -> major_names_lock -> disks_mutex -> reconfig_mut=
-ex
->
-> Concrete race (syzbot extid cd254889291ef8666036, C repro on QEMU):
->
-> - Thread doing ADD_NEW_DISK on array A holds A's reconfig_mutex, then
->  =C2=A0 md_import_device() opens a member via bdev_file_open_by_dev(), wh=
-ich
->  =C2=A0 with legacy autoload calls blk_probe_dev() and takes major_names_=
-lock.
->
-> - Concurrent open of an unregistered md node takes major_names_lock in
->  =C2=A0 blk_probe_dev(), runs md_probe() -> md_alloc() for device B, take=
-s
->  =C2=A0 disks_mutex, then B's reconfig_mutex.
->
-> Without lockdep, the same ABBA ordering between threads can still hang;
-> the syzbot report includes the standard CPU0/CPU1 "Possible unsafe
-> locking scenario" text for this chain.
+All three points were right. v9 is out with them fixed.
 
-I still don't understand how is the ABBA deadlock possible, md_alloc() hold
-reconfig_mutex before add_disk() and kobject_add() for mddev->kobj, there i=
-s no
-concurrent context that can hold reconfig_mutex before md_alloc() hold it.
+The threading one was the worst and it was entirely my fault: I generated the
+five mails with my own script and never set `In-Reply-To`, so the four patches
+went out as four separate threads. They are not separate now — v9 goes through
+`b4 send`, the patches are replies to the cover letter, and the series carries a
+`change-id` and a `base-commit`. The hand-rolled script is retired for this
+series.
 
->
-> For context on when reconfig_mutex entered the md_alloc() path: the cycle
-> became visible after the fix for the half-initialised kobj window:
->
->  =C2=A0 ca39f7502425 ("md: fix mddev->kobj lifetime")
->  =C2=A0 d1472ca2ca5d ("md: don't hand out the array before md_alloc() has=
- added
->  =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 mddev->kobj=
-")
->
-> The latter holds reconfig_mutex across add_disk() and kobject_add() so
-> ioctls wait instead of touching an uninitialised mddev->kobj (Fixes:
-> ca39f7502425). That closes the kobject race but completes this lockdep
-> ring with ioctl + legacy autoload on the other side.
+The cover letter now has an overview of the two bugs and the two hardening
+changes, the testing status, and a bulleted change log for v9 and v8.
 
-For this test case, you can just use mddev private lockdep class to initial=
-ize
-reconfig_mutex, or if there is still other lockdep wanings please attach th=
-e
-report.
+All four changelogs start in the imperative.
 
->
-> This patch does not revert that behaviour. It only breaks the ioctl-side
-> edge by not triggering legacy block autoload while reconfig_mutex is
-> held: md_import_device() uses bdev_file_open_by_dev_autoload(..., false).
-> Member disks are expected to already exist for normal mdadmin usage; the
-> syz repro still gets -ENXIO for bogus minors, but on a fixed kernel there
-> is no lockdep warning (Tested with syzbot's C repro on QEMU, 6628e7d4
-> bzImage, before/after).
->
-> If maintainers prefer a block-layer approach instead (e.g. not calling
-> md probe callbacks under major_names_lock in blk_probe_dev()), I'm happy
-> to respin.
->
-> Thanks,
-> Jichen
->
->>  =20
->>> Add bdev_file_open_by_dev_autoload() and use autoload=3Dfalse from
->>> md_import_device(); member devices must already be present in the
->>> block layer (normal mdadmin usage).
->>>
->>> Link: https://syzbot.org/bug?extid=3Dcd254889291ef8666036
->>> Reported-by: syzbot+cd254889291ef8666036@syzkaller.appspotmail.com
->>> Tested-by: Wang Jichen <wangjichen@kaihong.com>
->>> Signed-off-by: Wang Jichen <wangjichen@kaihong.com>
->>> ---
->>>  =C2=A0 block/bdev.c =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 13 ++++++++++=
----
->>>  =C2=A0 drivers/md/md.c =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A08 ++++++--
->>>  =C2=A0 include/linux/blkdev.h | =C2=A02 ++
->>>  =C2=A0 3 files changed, 18 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/block/bdev.c b/block/bdev.c
->>> index f20f91b31..e78936556 100644
->>> --- a/block/bdev.c
->>> +++ b/block/bdev.c
->>> @@ -1076,8 +1076,8 @@ static unsigned blk_to_file_flags(blk_mode_t mode=
-)
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return flags;
->>>  =C2=A0 }
->>>   =20
->>> -struct file *bdev_file_open_by_dev(dev_t dev, blk_mode_t mode, void *h=
-older,
->>> - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct blk_holder_o=
-ps *hops)
->>> +struct file *bdev_file_open_by_dev_autoload(dev_t dev, blk_mode_t mode=
-,
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void *holder, =
-const struct blk_holder_ops *hops, bool autoload)
->>>  =C2=A0 {
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct file *bdev_file;
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct block_device *bdev;
->>> @@ -1088,7 +1088,7 @@ struct file *bdev_file_open_by_dev(dev_t dev, blk=
-_mode_t mode, void *holder,
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret)
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return =
-ERR_PTR(ret);
->>>   =20
->>> - =C2=A0 =C2=A0 =C2=A0 =C2=A0bdev =3D blkdev_get_no_open(dev, true);
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0bdev =3D blkdev_get_no_open(dev, autoload)=
-;
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!bdev)
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return =
-ERR_PTR(-ENXIO);
->>>   =20
->>> @@ -1110,6 +1110,13 @@ struct file *bdev_file_open_by_dev(dev_t dev, bl=
-k_mode_t mode, void *holder,
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return bdev_file;
->>>  =C2=A0 }
->>> +EXPORT_SYMBOL(bdev_file_open_by_dev_autoload);
->>> +
->>> +struct file *bdev_file_open_by_dev(dev_t dev, blk_mode_t mode, void *h=
-older,
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct blk_holder_o=
-ps *hops)
->>> +{
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0return bdev_file_open_by_dev_autoload(dev,=
- mode, holder, hops, true);
->>> +}
->>>  =C2=A0 EXPORT_SYMBOL(bdev_file_open_by_dev);
->>>   =20
->>>  =C2=A0 struct file *bdev_file_open_by_path(const char *path, blk_mode_=
-t mode,
->>> diff --git a/drivers/md/md.c b/drivers/md/md.c
->>> index 03e35386a..d3717e2e8 100644
->>> --- a/drivers/md/md.c
->>> +++ b/drivers/md/md.c
->>> @@ -3858,9 +3858,13 @@ static struct md_rdev *md_import_device(dev_t ne=
-wdev, int super_format, int supe
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (err)
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto ou=
-t_clear_rdev;
->>>   =20
->>> - =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev->bdev_file =3D bdev_file_open_by_dev(=
-newdev,
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0/*
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * md_ioctl() holds reconfig_mutex; legacy=
- autoload in bdev open takes
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * major_names_lock via blk_probe_dev() an=
-d can deadlock with md_probe().
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev->bdev_file =3D bdev_file_open_by_dev_=
-autoload(newdev,
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 BLK_OPEN_READ | BLK_OPEN_WRITE,
->>> - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0super_format =3D=3D -2 ? &claim_rdev : rdev, NULL);
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0super_format =3D=3D -2 ? &claim_rdev : rdev, NULL, false);
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (IS_ERR(rdev->bdev_file)) {
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pr_warn=
-("md: could not open device unknown-block(%u,%u).\n",
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 MAJOR(newdev), MINOR(newdev));
->>> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
->>> index 0c2010230..e5121101a 100644
->>> --- a/include/linux/blkdev.h
->>> +++ b/include/linux/blkdev.h
->>> @@ -1699,6 +1699,8 @@ struct blk_holder_ops {
->>>   =20
->>>  =C2=A0 struct file *bdev_file_open_by_dev(dev_t dev, blk_mode_t mode, =
-void *holder,
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const s=
-truct blk_holder_ops *hops);
->>> +struct file *bdev_file_open_by_dev_autoload(dev_t dev, blk_mode_t mode=
-,
->>> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void *holder, =
-const struct blk_holder_ops *hops, bool autoload);
->>>  =C2=A0 struct file *bdev_file_open_by_path(const char *path, blk_mode_=
-t mode,
->>>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 void *h=
-older, const struct blk_holder_ops *hops);
->>>  =C2=A0 int bd_prepare_to_claim(struct block_device *bdev, void *holder=
-,
->>  =20
->> --=20
->> Thanks,
->> Kuai
->>  =20
+Two things I fixed on my own while rerolling, because they would have cost you
+review time:
 
---=20
+- [1/4] and [4/4] were missing `Fixes: 9d71dd0c7009`. All four patches fix
+  behaviour that dates from the original J1939 commit, so they all carry the tag
+  now, plus `Cc: stable@vger.kernel.org`.
+- [2/4] said the CTS bound was "a separate fix" while [4/4] of the same series
+  does it. That now says where it lives.
+
+Functionally nothing changed since v8 except one comment in [2/4].
+
 Thanks,
-Kuai
+Chaosheng
+
