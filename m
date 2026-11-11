@@ -1,66 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403574;
-	b=CUW39sCC1ddN4T4vCnHrZxQXk4G/fAJPeBR8kXxeiFy/3qi4OlrHLZTNyLfCR/bUkwYj
-	 uDor9lbtV1K+bjBNFAPnYU5/4betARzQJqTAYazGxTbWAHD44J3xnfsFmUEu3SSBLcOoF
-	 cGLJ1yRmHBmzcuzavPlJsmzxwpinMDRjaSSsCN3rB0QEDan/Hd56cPKTwGwG4WZPQRWSJ
-	 Ky0rltSt6DCvD3l6BsaMCLGtTsvtbPGkIZOjvjvbExbqLG6i3nCI3HpfLzCIxGP5I6uRi
-	 LR/4si1g47ylk2VsakA9J2hOBxcySpzUCtH0DilF6MKYN0XVdtYtQJvGimbZ7fAY23w==
+	t=1794403590;
+	b=wZGeH0d28YcsVWAR+XkQ5ZUuUImcf3MDUH00C3CArdXeEKNKmvts4l97yfcgFm2UMhJG
+	 7IIXmHlW/hbcRHEGC3WFihxEAWaUCDzv4sQnjV8kRwIULKRzeigpvhxZwLxhPkrMIMiSv
+	 TXotIpiix+7qXv8PTZ5OEZozwfsnm0znrk9dGoXEc4rqzZ0sViqs07/2KqBzw2dAZHeYV
+	 GDXAnoaFhK13oj0Ob8WLJSnrwUgFkSf3zHAUw2OZ2XKPADklMfnjwen/4kvCIOJW0AAzf
+	 IAttWzlw/MSdztjtCqzzrcFaEcIzqhqFCr5qA+kV2gxK9w07Q8maTVwPVxdu+qUOIsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403574;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=oWibahG2+QM42E0pwbef1XpX0UCKvPhGaW6o9ujTid4=;
-	b=2efsLMvJvs5G1Gp7krkCKfPyr0eFqr4joF8E635li1WgJXWV/qgEZmflAwzFzZcwTgFB
-	 Ih20dMKuMiRU09dUBa1H8LAa92QqA5PfHAPtaX3O+S8gh5IgZcwszBdPBMVD5BTKKSXsa
-	 yHpPfNtTO5c0rAp9PTfZdE16HQR+Qs++ea5O4est3JwHxTsd/9wTWNFg4OJ68upepvo35
-	 j9wS0aPPIvtaH/TBoTXKbDbwtn6ykz/z/3Omm6V/CBe+GBoTmK7Uni0YfDJlB275A1yUe
-	 BNITGy0+dDualLuiRtVSnsj7P7rUgUjGJ6jk37bijXB1U+FojGi9p09ffNF2so6A9QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403590;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=88rAM2oHhFqNhLiz8qe8zFsCZuZ5oGk0TJbNGquyza4=;
+	b=Oh8P3uUfCGbE2SXP+hk10pc9PBbW6ZYHqN/6bOx57vwwV9o626RQOtcbEXGI6+dEhoT5
+	 KzBEWnGrZG0XSZEOZgvymL1baTWq3ccskacv5Y1D8k8MkN+klzycs7+Y7Ntjuff5Ntgzt
+	 +0TdjW0bG2cFad4P7AVHqXa8DFdFKpXUJU4O+MPPBZ/H+huxLcBBaLZUsxJ4hRnOfIoyu
+	 EXIMI3CA7+hyzkoWE607vSM9n6Q3XwVSI4itUGoVoG8w7NwZdbEmB+FWiW6USaLLIDUcQ
+	 zLZlwFvpyrCjYu+iHyWXlYr60KBFk4/aGRi/Ja+eR8g86dgKcdJ5wh7TXwER3pWrXtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fusE+kuT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mEeLGdIL;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAE1606A31C;
-	Wed, 11 Nov 2026 13:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD31606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:26:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AD31606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fusE+kuT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C051F00A05;
-	Wed, 11 Nov 2026 13:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794403574;
-	bh=oWibahG2+QM42E0pwbef1XpX0UCKvPhGaW6o9ujTid4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=fusE+kuT1Ng0ykR3xMZISIR5SNUWUIbhSXbteiixscNE0XQZ/4QF+lakMcdMxFHHi
-	 M1mf2UJ2QPW3x9uw5PvSrA0AiNKey2XpD3ViEAZuZxBMJECyLvyXNBuR3XNQgDseCj
-	 Whk45lzZ+x8Mpy4LUpd0w/baDScc9ZMbhNDMRN84OrkG6G9Ugfr7+e1ccIwv9RNxnO
-	 /8bt196Es0Cjr24URtzA0XQscyM0tSANiVymhCILjUq9OJs53Wq2zeq2Mg+H7fWrO4
-	 mlxPOy3d25I6SxQYUZynbD7a5RayOrPhbilrd1qgBTVjJzpwTgPs0ciRjwaOwRlNDN
-	 TalR3lpEjL2pA==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj?=
- =?utf-8?Q?=C3=B6rn?= Roy
- Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor
- Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Will Deacon
- <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>,
- Lyude Paul <lyude@redhat.com>, linux-mm@kvack.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev
-Subject: Re: [PATCH v5 0/4] rust: byte-wise atomic copies between `Page` and
- shared memory
-In-Reply-To: <20261111093017.GX2668804@noisy.programming.kicks-ass.net>
-References: <20261110-page-volatile-io-v5-0-a91ef252c24b@kernel.org>
- <20261111093017.GX2668804@noisy.programming.kicks-ass.net>
-Date: Wed, 11 Nov 2026 14:26:01 +0100
-Message-ID: <878q2zwlcm.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mEeLGdIL
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a8cc11ac42so3098090c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:26:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794403589; x=1795008389; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=88rAM2oHhFqNhLiz8qe8zFsCZuZ5oGk0TJbNGquyza4=;
+        b=mEeLGdILxddied5+J5ytDjMBs8y/z9lOnZA92CI5+T5OGiiKebFbIyyn/YflaHYzhy
+         loWwkNlUG2Dq9A5lFvCmZDsFKmAzTaEW98Ibzg5ZZMXpRarIj7JPYzW6XoFSe+5lJrzg
+         7ULt5y+KeoFQ83fNf1h1IxX9H7W4yNXa1Clg4KI8i/8RMp5Z9/YoacwDqYd0rlMkTk3V
+         4amUgodqLEUZVYv6Ej6/qUWAdXR4aAH/2In4aFQarkv/ThxmovVDsUlgmtpMldkp0NwI
+         ySJLfF6gd9EbGhEFQ0aAzmkqaAfY54hHTCJ1dPQb8E0C26VEiOmSFmIfthQ/3COuHOXw
+         FPVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794403589; x=1795008389;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=88rAM2oHhFqNhLiz8qe8zFsCZuZ5oGk0TJbNGquyza4=;
+        b=kpIQEZUqTSyrn5wMRpkZo3wK2BhBlT/hYYMwUX1zJeqKyr18y1O2dFMGJK+st3HtVu
+         kVwFs/lw5GWiq68gVQuyOF1A99VtphDJ/aaMzOyvIJ9GALvCcJ0vT9WnURU5oeyuB/Xm
+         jPc7BbY8vz8QSvftWSR3YAckK7c64bRebpk4N/TDYGn7YF3fbnBHsfm5U1wPIFO6U19K
+         NOQ3KK6Ia5MO1T+D+QD7iMqAvre8aGKEqrsoqUgFtF5KDT3eSluP/MWl0oumu7mR7Nr/
+         Z8JevCKQWMtar9A5ne6o7rWkMQHqKHyq/G2p99jtl6wb6XAp68BogUOW4AVyiV3+de72
+         qnXg==
+X-Forwarded-Encrypted: i=1; AL+hErEUBQn0bdglGj+T9afwo+8BkaLOc9ZKQX9NQ2ULSgi53w6nBYVaRlW05jBAQtfl4j+dGyJSg4u93p26yuw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8962RbPOPDMsAc9dF/zDhlYRAdItCvL7K34n1UIMI7e1h5ZSDj
+	5B/u+b7uwVg9qi3e70jjzrxUm165q/PNYBho27rnkPvCeJZkpVU2/fSj
+X-Gm-Gg: AYBFou28tTC5o3EnG7lc1o958QLe/+t+nRqxOYa6vHbymAgP1qyuUHEyRhK09kTy/jP
+	VCM+8mZhuBNelmKrYWLDeztKe4rzpHTH5cBPcFbKwwrwoS//6zMCYzBhxtNjw67kainE9eSaZL6
+	GC1nDFsLnKouWYKvmqOrwdl5CEc7pfHg2cK6mKWGgUpIsNwjlq33IdQVIAEmPm2qLQQeKib1udm
+	ogBxbn9uOFTagVRLhP3dmC7q4gMjES+GoVKHZqPEGALkyEtu1WbT/Za9wWWVaoU6tSXeXrxSoDM
+	zwZyeOqb07UFLp9Gt1axBnc29YhqmOevuFK1t4Y64RNAjCeKMjORYhciBXO1R/8apc+ZXuqxtCj
+	iue/zepxC9JsOC1dRnwV+zCnS+FR1T98BcYtHv/ropDOBAGcdN9nYvguzsoxA1CvsQiUqB4yv64
+	K1FbWJ4+y7wYi/6HrXUlYSb6o9nZR7lfAtDWtOO/sMcyg2gbJC//HSxMiyV5tx7dEs21ZQ5thHY
+	AiVvxMsxd3Q6KEWiu5thQvkSMKO9fEXH/3RoCOBQyQ+Dfi5/y+F1/4cemh64DrN17931vUNi/dw
+	3Tx4u0jvqfPYQvUE4lIa
+X-Received: by 2002:a05:7022:2510:b0:1b2:6844:25c9 with SMTP id a92af1059eb24-1b3c024a16amr3072928c88.3.1794403589243;
+        Wed, 11 Nov 2026 05:26:29 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm33053502c88.10.2026.11.11.05.26.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:26:26 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	John Garry <john.garry@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v5 0/3] perf jevents: Check the JSON keys a table may carry
+Date: Wed, 11 Nov 2026 13:26:19 +0000
+Message-ID: <20261111132622.2349165-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111041045.2031464-1-takano32@gmail.com>
+References: <20261111041045.2031464-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,53 +102,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Peter Zijlstra <peterz@infradead.org> writes:
+jevents.py takes the fields it wants out of each JSON object by name and
+ignores the rest, so a key spelled differently is dropped without a word
+and the object is built without whatever that field held.  Two of those
+are in the tree: "PublicDescrition" in 16 entries of an Arm table, where
+the lost long description repeated the brief one and so nothing a user
+saw changed, and "BriefDescript6ion" in one entry each of three AMD
+tables, where the event is generated with no text at all.
 
-> On Tue, Nov 10, 2026 at 03:44:18PM +0100, Andreas Hindborg wrote:
->> This series adds a way to copy data between a `Page` and memory that is
->> shared with actors outside the kernel, such as user space threads or
->> hardware, without introducing a data race.
->> 
->> The copy is built on `SysMem` from `kernel::io`, which already accesses
->> system memory with volatile or byte-wise atomic operations. The series
->> first makes the requirements of `SysMem` explicit by requiring freedom
->> from plain accesses for the lifetime of a view. It then adds
->> `atomic_per_byte_memcpy()`, a wrapper around the kernel's `memcpy()`
->> with explicit safety requirements, and routes the `SysMem` copies
->> through it. Finally, it adds `Page::{read,write}_bytewise_atomic`, which
->> take a `SysMem<'_, [u8]>` view of the shared buffer.
->
-> I am still completely confused by this. In what universe is your magical
-> atomic_per_byte_memcpy() not memcpy() ?
+Patch 2 makes the model argument optional when the tables are generated by
+hand, and patch 1 names the metric that has a name and no MetricExpr
+instead of failing on the file.  Patch 3 says which keys a table may carry
+and checks the tree against that, instead of reporting the keys a run of
+jevents.py did not read.
 
-This Rust function is the C function `memcpy` in all known universes.
-The commit message even says so.
+v5 rewrites patch 3 rather than revising it.  The review asked for
+something strict and simple instead of a near-miss heuristic, so the
+similarity cut-off, the tracking of which keys were read and the wrapped
+objects are gone: the schema is a list of 51 names, 47 of which this
+file reads, and a key outside it is reported with the object that
+carries it.  A JSON Schema would say the same thing, but perf's build
+would then require jsonschema, which it does not use today and which is
+not in every builder's python; the list holds the same names either way,
+and a vendor that adds a field adds one line here.
 
-There are safety requirements for calling the C `memcpy` from Rust. This
-function makes them explicit.
+Patches 1 and 2 are unchanged.  The check is still something a maintainer
+runs - make check-jevents, with JEVENTS_CHECK_ARCH to look at one
+architecture - rather than a step of the build, so the generated tables are
+byte identical.  An architecture that is not there, or named as a path, is
+an error rather than a silent pass, an object where a list belongs is
+reported, the name of a metricgroup is not treated as a key, and a small
+perf test runs those cases.
 
-If it helps, we can rename the function so that it is more clear that
-this is in fact just `memcpy`. The current name was chosen to encode
-some of the semantics of the function in the name.
+The two misspellings the check reports in the tree today were posted
+separately in November.
 
-`atomic_per_byte_memcpy` is different from the "regular" Rust memcpy
-function `core::ptr::copy()`. `copre::ptr::copy()` is lowered by llvm
-under the assumption of no concurrent accesses to the buffers on either
-side of the operation, and so may generate code that is UB in Rust under
-concurrent reads or writes. Examples of problems were given in v2.
+Link: https://lore.kernel.org/linux-perf-users/20261108183846.3804875-1-takano32@gmail.com/
+Link: https://lore.kernel.org/linux-perf-users/20261108184600.3810059-1-takano32@gmail.com/
 
-We need a (Rust) function that can copy data from A to B in the face of
-concurrent accesses without producing UB. This patch introduces such a
-function, which happens to be just a call to the C `memcpy` function.
-Letting every user call `bindings::memcpy` directly would also work, but
-then every call site has to discover when that is OK. A Rust function
-gives us one place to enumerate the safety requirements
+TAKANO Mitsuhiro (3):
+  perf jevents: Name the metric when a MetricExpr is missing
+  perf jevents: Make the model argument optional
+  perf jevents: Check the JSON keys a table may carry
 
-Best regards,
-Andreas Hindborg
-
+ tools/perf/Makefile                     |  13 +-
+ tools/perf/Makefile.perf                |   1 +
+ tools/perf/pmu-events/jevents.py        | 228 ++++++++++++++++++++----
+ tools/perf/tests/shell/jevents_check.sh |  62 +++++++
+ 4 files changed, 272 insertions(+), 32 deletions(-)
+ create mode 100755 tools/perf/tests/shell/jevents_check.sh
 
 
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
 
