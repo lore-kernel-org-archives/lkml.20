@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392067;
-	b=AxywON6SB+VH6uC+2XZiRkWbnN9EH5fahpJGUH8wlDuABZ77r55lIRtXtcPbB00ImfOV
-	 7ZOQMDi1TqlQHaJFXFNVIEhtLfyr3W5mjIb9eFQTS3VcHbBLx0Y8vppc0mLId3zcPbhQq
-	 Xxwq05G4uDrw1QcwggbP8DlcfvVhCrsaMrEdWKbc/KNgt18QvOuIxDHMXxA77/dtiDhNk
-	 Wkhe8xZ95BSBvlbImTPNLmrQORwoBpkxMgjCHs+NSh6q6SnGXhOSo69zMIFh0ObKzK0xg
-	 6D6hebmtZueNeKd37pulwyrQR6MvLpJFJc7TX3rJRjqzjdwsI3lzgbOq27n0MdV/c8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392067;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=O2yy4V/+eRWwmPhN0rKWvJ8TBXDXhmiokVDl73YABGI=;
-	b=z5VKZpxasp/tjbK3B9QbYrpbrM2I5ZcMnNxbr9Z3EF/prDDcYnNh2ScZwG5TcQ5gMP9P
-	 o4PLayagq1mV/Eb2YUqvm5jieZ2xSRiqUm36F72AenX/Tx3tpngNJNy2utKanGLG4RW5z
-	 MXgkxmo9hhwMZpAu4sXX3GcAJlhzCgoifWbbhLpvGOmX5Dg2W3ofabxBYcEbmS3eJLoS2
-	 ji3AnXyXsoO6UOwTLcU6v5CqQ/+2j4OG4dJjlP5Tra5ClDF9dJoFWHXzJ9oSCS3pT5Soz
-	 H/UBdpUJh7+rNHUkfwfoBfcUspsA8MV4xSgLzoMDkgpurIL864eeCVAXBhQoa/D6G7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J8dFTzKN;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B8A9606A324;
-	Wed, 11 Nov 2026 10:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B8A9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794392095;
+	b=ohsg+8oO3O0D+KGUKIYIcnkJo5lpS/xxqW0ZgQcs5abrRWhopiRmdCC7g5fMsgP1f4lj
+	 b6ryrKNlcNwCvutHVYQCll1RmB32L8DpOddxa6/PIveKCh9DWfaffCsxo4OAmYH0555Hp
+	 sZmAG2vV4g9YTet10zG+Ba61uSiMxW+e7Rn0hrwUMfQx5ERzGLabPu300IlarTyIKv4is
+	 R0dHxk7zZxfaQ2ybwvzsr4YT1NcP/jVIXxX/429sIUVUU2/B/nMuTPWDG3/caZF0q60ir
+	 2U//qNtlFefkN14UnuV9ptoRGdPSGwunEg7j3h/qKSx1+hHZEF81S26tWnMUCp4DMqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392095;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XZ4b+XzZVJKQkDZyWOAJQrEn1AJC2/ca7/9qI+oGbNk=;
+	b=xawhIFvkAan5Fdw3MAs1Q8Fy4sUGcPZB3mejNhRjI4rB5MloqAjCbHqUuD1HyE5elehQ
+	 N9kDCKWvtANY78C+h+LlDks/ciESok3Qhx09dgxxJjwUZYd3dXZRuCiPK0e4oE0vihstA
+	 LHZVsTJ1wamlAgUoD4jcicvvbkHTs2N8ddpr7xkENwog7tP93VW65zad1dtZUfyGT9azM
+	 rK59XL8h0z4s3MDTicw7m9mrbOVu+UAFPImH0NVyS6Y4r3RK2xjt8eRY/avCHj984qqFQ
+	 vxMR8e5BauFl/0SiTeQ5V1F60r6GI/K+JMtIXhDxtuxs//pBZmqYBoCsFtnvhw1HRbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIJumyJ+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77836606A31C;
+	Wed, 11 Nov 2026 10:14:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J8dFTzKN
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D4CE71576;
-	Wed, 11 Nov 2026 02:14:22 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 646E23F632;
-	Wed, 11 Nov 2026 02:14:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794392065; bh=ld6QCXuiYeyxffuOuDY+SDVXlqPyqjix1+nuLDfWSFA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J8dFTzKNyF6kYm9CzUq26UxXEEBaqYaG302JjseermLJdecPfaeRRszp2cyBjAtcb
-	 jEPWLxXKFHHrCm3Q8OObBwGJbopqGSy24pJXyJddmL5QqxkMPgSwcW+pANCDyWtFN7
-	 wAfiCXWRzNkIs7TW59Dpa18wRpMlmvps2Tojh/rE=
-Message-ID: <bc0a6290-ddca-4005-9d22-b74833f435b9@arm.com>
-Date: Wed, 11 Nov 2026 10:14:20 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIJumyJ+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794392095;
+	b=E1pEPBcvlGLagg0bbmhQo/wPF6z1DVAJqBCdXUKpFva7PHgbIBoKKqSROeQf1xlvsfA2
+	 8HEa4TzDf+cZe7ipwBNj6LMJ8uaaKWviyWpA5bkBgWY/trEgS4rPX2RlmvuDjrG3phuMS
+	 MXeuR43ke1h97xMX1g6pbi+jMRO68VS/esNzvjVulp0+qdVNWWy8N1QBetmf6GFmqFnbw
+	 SQVnXTI29zmhCtrlO7BuYAd9WzkFwj47PtpmxyWXB4blyCfu0E1oD9igj1w0ZjH5LD7IA
+	 lHT5C915wC1ANN9Q5tQyan+ZllJVCb8nHurN2qVJOSgX6Zl6LRj+5kTG5aBHSyMsnHw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794392095;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XZ4b+XzZVJKQkDZyWOAJQrEn1AJC2/ca7/9qI+oGbNk=;
+	b=fpK5r5OHEVtH5APF0w9S0F4Rcb7SKn4ZHUOwkS+YDdxWYrzyNTXuLXuPC4w5M4Guixsg
+	 o/YyLT4xJneqXjhpNVkvSIe5gJPVF2ylfA8SeVQyzTalFTqkIA+oyzy5PwaXXtlgliRl1
+	 QvN9CnEH50iOiHp6SsDHFnMvDYNZNtNJr+qgqhj/DQ6Bt96TJ4VMIrANy7ac9JI+/Sgi8
+	 vKPkYaGb2fu8ae8245l3XI7YvzI/5byvy5hdV7LiZ9gZ6wVV1r8CZvGwh+kCCiv4IFAsH
+	 +x0pupjyiSHmEYGQuPB5d6FhHOVJFk/wrIE5GjEhISjyndg5Nt2c3y4inJkHQAWju8w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id B1CD01F00A05;
+	Wed, 11 Nov 2026 10:14:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794392095;
+	bh=XZ4b+XzZVJKQkDZyWOAJQrEn1AJC2/ca7/9qI+oGbNk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=gIJumyJ+Maj8VCW9xKoWHYrqA9/RZ8tjCI0OothbBPpo8/bN2Xmex0Ey6Dx4o2WPp
+	 e3Ybmf5szsnbFySvkJ9StL8RYgUKYRO+3RtHPg02LpS7DPfzwErfJ+xZqOYmvLSNiu
+	 Ai79eBaw7IfZWH4OD9NM9HSnv6w1DEdF8RkqZdu0CImTdcYwNczPMctsu4IQ4odBlB
+	 hcVplBFaX4uVpKBCiulnYx7/SpnxnC1KlTHzHeTEQuejtorTv1wxAd5a0MB4najddZ
+	 bfJ8Cb7kD+d6b+POsoZQi7tNKny6RneY2mrtbzR3y43D1x4tdk05og5rnMeN8QtLyS
+	 hCUodbkuKZ3CA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 07C1A48F1A;
+	Wed, 11 Nov 2026 10:14:54 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Wed, 11 Nov 2026 11:14:10 +0100
+Subject: [PATCH] clk: tegra: tegra124-emc: Skip timings whose parent rate
+ cannot be set
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,285 +83,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] KVM: arm64: CCA: Introduce Realms
-To: Steven Price <steven.price@arm.com>, Kohei Enju <enju.kohei@fujitsu.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-3-steven.price@arm.com>
- <avL9kNR2mGmqmcA9@FCCLS0092175.localdomain>
- <45104e19-4197-4584-895a-0486c0782c9c@arm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <45104e19-4197-4584-895a-0486c0782c9c@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-upstream-clk-emc-parent-v1-1-636eea572572@tsv-stahl-riesa.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw7CMAwA0atUXmMpKSq/qyAWqeOCgYbIThFS1
+ bs3wPItZmYwVmGDUzOD8ltMXqnCbxqgW0hXRonV0Lp2573b45StKIcR6flAHglzUE4Ft52PLtJ
+ w7OMBap2VB/n8zufL3zb1d6by3cGyrPLnGj17AAAA
+X-Change-ID: 20261107-upstream-clk-emc-parent-351d0dcf9bd8
+To: Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Brian Masney <bmasney@redhat.com>, Thierry Reding <treding@nvidia.com>, 
+ linux-clk@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable+noautosel@kernel.org, 
+ Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794392093; l=5092;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=6O+WzvkYoAaO5jXWXFBWqRwW5kYIxCEWKdPNp4Ndczk=;
+ b=FTrv+GtupkxKHloaZku+A8CmQfPKs7Jw2RLUllNkiQ39lY2K/SZIafaFEiPVqwi2WGVxpNsVw
+ HAh0WYWsz55CQiIDQaZpA4G58xqwqLe9lTrWmaTaUs/hp4U2nKHiw+g
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 10:11, Steven Price wrote:
-> On 10/11/2026 11:42, Kohei Enju wrote:
->> Hi Steve,
-> 
-> Hi Kohei,
-> 
->> On 11/02 14:12, Steven Price wrote:
->>> From: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>
->>> Add foundational work for supporting Realms.
->>>   - Add a new VM flavor.
->>>   - At KVM init, check if the KVM can support Realms (though not functional
->>>     yet) and will be advertised by static key kvm_rmi_is_available. This
->>>     will be turned on in a later patch, once we have all the bits and
->>>     pieces ready. For now check if we are blessed with KVM_MODE_RMM.
->>>   - Add realm specific tracking in kvm_arch. Since Realm and protected pKVM
->>>     states are mutually exclusive, move them into a union.
->>>   - Also adjust the memslot preparation checks to reflect the changes.
->>>
->>> Please note that we cannot create Realm VMs yet. This requires further
->>> changes to the UABI and core RMI driver support, which will come later.
->>>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> ---
->>>   arch/arm64/include/asm/kvm_emulate.h   | 16 +++++++
->>>   arch/arm64/include/asm/kvm_host.h      | 57 +++++++++++++++++-------
->>>   arch/arm64/include/asm/kvm_rmi.h       | 61 ++++++++++++++++++++++++++
->>>   arch/arm64/include/asm/virt.h          |  1 +
->>>   arch/arm64/kvm/Makefile                |  2 +-
->>>   arch/arm64/kvm/arm.c                   | 24 ++++++++--
->>>   arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  2 +-
->>>   arch/arm64/kvm/hyp/nvhe/switch.c       |  4 +-
->>>   arch/arm64/kvm/hyp/nvhe/timer-sr.c     |  2 +-
->>>   arch/arm64/kvm/mmu.c                   | 13 +++---
->>>   arch/arm64/kvm/rmi.c                   | 18 ++++++++
->>>   11 files changed, 169 insertions(+), 31 deletions(-)
->>>   create mode 100644 arch/arm64/include/asm/kvm_rmi.h
->>>   create mode 100644 arch/arm64/kvm/rmi.c
->>>
->>> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
->>> index 334211b8b2ee..32021bdf2610 100644
->>> --- a/arch/arm64/include/asm/kvm_emulate.h
->>> +++ b/arch/arm64/include/asm/kvm_emulate.h
->>> @@ -831,4 +831,20 @@ static inline void kvm_reset_vcpu_psci(struct kvm_vcpu *vcpu,
->>>   	vcpu_set_reg(vcpu, 0, reset_state->r0);
->>>   }
->>>   
->>> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
->>> +{
->>> +	return READ_ONCE(kvm->arch.realm.state);
->>> +}
->>> +
->>> +static inline void kvm_set_realm_state(struct kvm *kvm,
->>> +				       enum realm_state new_state)
->>> +{
->>> +	WRITE_ONCE(kvm->arch.realm.state, new_state);
->>> +}
->>> +
->>> +static inline bool kvm_realm_is_created(struct kvm *kvm)
->>> +{
->>> +	return kvm_vm_is_realm(kvm) && kvm_realm_state(kvm) != REALM_STATE_NONE;
->>> +}
->>> +
->>>   #endif /* __ARM64_KVM_EMULATE_H__ */
->>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
->>> index ccd2dc8f73c3..7d0222047ca1 100644
->>> --- a/arch/arm64/include/asm/kvm_host.h
->>> +++ b/arch/arm64/include/asm/kvm_host.h
->>> @@ -29,6 +29,7 @@
->>>   #include <asm/kvm.h>
->>>   #include <asm/kvm_asm.h>
->>>   #include <asm/kvm_hcall.h>
->>> +#include <asm/kvm_rmi.h>
->>>   #include <asm/vncr_mapping.h>
->>>   
->>>   #define __KVM_HAVE_ARCH_INTC_INITIALIZED
->>> @@ -48,6 +49,13 @@
->>>   #define KVM_VCPU_MAX_FEATURES 10
->>>   #define KVM_VCPU_VALID_FEATURES	(BIT(KVM_VCPU_MAX_FEATURES) - 1)
->>>   
->>> +#define KVM_REALM_VCPU_VALID_FEATURES			\
->>> +	(BIT(KVM_ARM_VCPU_POWER_OFF)		|	\
->>> +	 BIT(KVM_ARM_VCPU_PSCI_0_2)		|	\
->>> +	 BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS)	|	\
->>> +	 BIT(KVM_ARM_VCPU_SVE)			|	\
->>> +	 BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC))
->>> +
->>>   #define KVM_REQ_SLEEP \
->>>   	KVM_ARCH_REQ_FLAGS(0, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
->>>   #define KVM_REQ_IRQ_PENDING		KVM_ARCH_REQ(1)
->>> @@ -409,6 +417,7 @@ enum kvm_arm_vm_flavor {
->>>   	VM_PKVM,		/* Normal guests on pKVM */
->>>   	MARKER(__VM_PROTECTED),
->>>   	VM_PROTECTED_PKVM,	/* Protected VM */
->>> +	VM_REALM,		/* CCA */
->>>   	VM_FLAVOR_MAX
->>>   };
->>>   
->>> @@ -502,11 +511,14 @@ struct kvm_arch {
->>>   	/* Count the number of VNCR_EL2 TLBs */
->>>   	atomic_t vncr_tlb_count;
->>>   
->>> -	/*
->>> -	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
->>> -	 * the associated pKVM instance in the hypervisor.
->>> -	 */
->>> -	struct kvm_protected_vm pkvm;
->>> +	union {
->>> +		/*
->>> +		 * For an untrusted host VM, 'pkvm.handle' is used to lookup
->>> +		 * the associated pKVM instance in the hypervisor.
->>> +		 */
->>> +		struct kvm_protected_vm pkvm;
->>> +		struct realm realm;
->>> +	};
->>>   
->>>   #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
->>>   	/* Nested virtualization info */
->>> @@ -1572,30 +1584,43 @@ struct kvm *kvm_arch_alloc_vm(void);
->>>   
->>>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
->>>   
->>> -#ifdef __KVM_NVHE_HYPERVISOR__
->>> +#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor >= __VM_PROTECTED)
->>>   
->>> -#define kvm_vm_is_protected(kvm)			\
->>> -	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
->>> +#ifdef __KVM_NVHE_HYPERVISOR__
->>>   /*
->>>    * Accessing vcpu->kvm from nVHE hyp stub is tricky, as we need to convert the
->>>    * pointer to the hyp VA. With pKVM, the nVHE code runs with the hyp_vcpu,
->>> - * which is populated correctly and is gated on is_protected_kvm_enabled().
->>> + * which is populated correctly. Always vcpu_is_protected_pkvm(), which is
->>> + * gated on is_protected_kvm_enabled().
->>> + */
->>> +#define vcpu_is_protected(vcpu)		BUILD_BUG_ON(1)
->>> +#else
->>> +#define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
->>> +#endif
->>> +
->>> +#define kvm_vm_is_protected_pkvm(kvm)					\
->>> +	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
->>> +
->>> +/*
->>> + * Rely on is_protected_kvm_enabled() check in kvm_vm_is_protected_pkvm() to
->>> + * make sure the vcpu->kvm is always valid VA in the context
->>>    */
->>> -#define vcpu_is_protected(vcpu)						\
->>> +#define vcpu_is_protected_pkvm(vcpu)					\
->>>   	({								\
->>>   		struct kvm *__kvm = READ_ONCE((vcpu)->kvm);		\
->>>   									\
->>> -		(__kvm && kvm_vm_is_protected(__kvm));			\
->>> +		(__kvm && kvm_vm_is_protected_pkvm(__kvm));		\
->>>   	})
->>
->> I've tested the integration branch and found that the secondary CPU
->> bring-up fails:
->>      [    1.426502] smp: Bringing up secondary CPUs ...
->>      [    9.194442] CPU1: failed to come online
->>      [    9.194558] CPU1: failed in unknown state : 0x0
->>      [    9.197714] smp: Brought up 1 node, 1 CPU
->>      [    9.197775] SMP: Total of 1 processors activated.
->>
->> It seems that this patch missed replacing a use of
->> vcpu_is_protected() introduced by the following commit:
->>
->>      25d726dddc23 ("KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off")
->>
->> The following diff fixes the issue for me. Also, though not included in
->> the diff, I think vcpu_is_protected() in __pkvm_create_hyp_vcpu() should
->> be replaced with vcpu_is_protected_pkvm() as well.
-> 
-> Thanks for the patch - I'll include that in v2.
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Please could we make it something like this :
+Each EMC timing names a parent clock and the rate that parent has to run
+at. On Tegra114, PLLM is registered with TEGRA_PLL_FIXED, so its rate
+cannot be changed, but the Tegra114 device trees still contain timings
+on pll_m at rates the bootloader did not set up, e.g. 792 MHz on a
+Tegra Note 7 where the bootloader leaves PLLM at 408 MHz.
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 4edcaf1090f9..2108c1bf5481 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -989,7 +989,8 @@ static bool kvm_arm_vcpu_suspended(struct kvm_vcpu 
-*vcpu)
-  /* Only the guest's CPU_ON may start a vCPU EL2 holds powered off. */
-  bool kvm_pkvm_vcpu_is_powered_off(struct kvm_vcpu *vcpu)
-  {
--       return READ_ONCE(vcpu->arch.mp_state.mp_state) == 
-KVM_MP_STATE_UNINITIALIZED;
-+       return vcpu_is_protected_pkvm(vcpu) &&
-+               READ_ONCE(vcpu->arch.mp_state.mp_state) == 
-KVM_MP_STATE_UNINITIALIZED;
-  }
+emc_set_timing() calls clk_set_rate() on the parent, which succeeds
+without changing anything, and then loads the 792 MHz timing while the
+EMC runs at 408 MHz. On the Tegra Note 7 that gives a refresh interval
+of about 15 us instead of 7.7 us (DDR3 allows 7.8 us), and the clock
+core then reports 408 MHz, so later requests for 408 MHz keep the
+792 MHz register values.
 
-  int kvm_arch_vcpu_ioctl_get_mpstate(struct kvm_vcpu *vcpu,
-diff --git a/arch/arm64/kvm/psci.c b/arch/arm64/kvm/psci.c
-index b01f8d44033f..b7606c3542f8 100644
---- a/arch/arm64/kvm/psci.c
-+++ b/arch/arm64/kvm/psci.c
-@@ -68,7 +68,7 @@ static unsigned long kvm_psci_vcpu_on(struct kvm_vcpu 
-*source_vcpu)
-          * STOPPED before that is the VMM's pause.
-          */
-         if (!kvm_arm_vcpu_stopped(vcpu) ||
--           (vcpu_is_protected(vcpu) && 
-!kvm_pkvm_vcpu_is_powered_off(vcpu))) {
-+           !kvm_pkvm_vcpu_is_powered_off(vcpu)) {
-                 if (kvm_psci_version(source_vcpu) != KVM_ARM_PSCI_0_1)
-                         ret = PSCI_RET_ALREADY_ON;
-                 else
+Skip timings whose parent cannot be rounded to the requested rate when
+loading them, so that the highest reachable timing is used instead.
+On Tegra124 PLLM is not fixed, so its timings should all stay; this was
+not tested on Tegra124.
 
+Fixes: cf561283254d ("clk: tegra: set up proper EMC clock implementation for Tegra114")
+Cc: stable+noautosel@kernel.org # needs the Tegra114 EMC auto-calibration fixes
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+Tested on a Tegra Note 7 (Tegra114, P1640) with Svyatoslav's tegratab
+device tree on top of v7.3: both 792 MHz timings on pll_m are skipped at
+boot ("pll_m cannot run at 792000000 Hz, skipping"), the EMC goes up to
+624 MHz on pll_c instead, and the timing registers match the table at
+each rate. Actmon requests for 792 MHz now end up at 624 MHz without
+errors; a memory test of 3 h 20 min with mostly such requests ran
+without errors, together with the EMC series below. Before, an actmon
+request for 792 MHz left the EMC at 408 MHz with the 792 MHz register
+values.
 
-i.e, check for pkvm vcpu as it should have been in the first case, 
-rather than spilling the check for protected vcpu and an explicit
-check to see if that is powered off ?
+This came up together with a series for the Tegra114 EMC driver,
+"memory: tegra114-emc: Fix bus width and pad auto-calibration" [1],
+which I sent to the memory controller tree earlier today. This patch
+builds without it, but please do not let it land in a release without
+"memory: tegra114-emc: Stop clearing EMC_AUTO_CAL_CONFIG" from that
+series: this patch moves the EMC from 408 MHz with the wrong register
+values to a real 624 MHz on pll_c, and both kernel panics I saw on a
+change to 624 MHz were with the pad auto-calibration cleared. For the
+same reason it is not marked for stable and asks to be left out of
+AUTOSEL, despite the Fixes tag: I could not show that the wrong register
+values cause failures, while 624 MHz without calibration did.
 
+[1] https://lore.kernel.org/r/20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de
 
-Suzuki>
-> Thanks,
-> Steve
-> 
->> Thanks,
->> Kohei
->>
->> ---8<---
->> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->> index 522a837637fe..be676c13e219 100644
->> --- a/arch/arm64/kvm/arm.c
->> +++ b/arch/arm64/kvm/arm.c
->> @@ -960,7 +960,8 @@ static void __kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu, u32 mp_state)
->>   /* The guest's own CPU_OFF: EL2 has already powered the vCPU off. */
->>   void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu)
->>   {
->> -       u32 mp_state = vcpu_is_protected(vcpu) ? KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
->> +       u32 mp_state = vcpu_is_protected_pkvm(vcpu) ?
->> +                      KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
->>
->>          spin_lock(&vcpu->arch.mp_state_lock);
->>          __kvm_arm_vcpu_power_off(vcpu, mp_state);
->> diff --git a/arch/arm64/kvm/psci.c b/arch/arm64/kvm/psci.c
->> index b01f8d44033f..6674e8d6ff4c 100644
->> --- a/arch/arm64/kvm/psci.c
->> +++ b/arch/arm64/kvm/psci.c
->> @@ -68,7 +68,7 @@ static unsigned long kvm_psci_vcpu_on(struct kvm_vcpu *source_vcpu)
->>           * STOPPED before that is the VMM's pause.
->>           */
->>          if (!kvm_arm_vcpu_stopped(vcpu) ||
->> -           (vcpu_is_protected(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
->> +           (vcpu_is_protected_pkvm(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
->>                  if (kvm_psci_version(source_vcpu) != KVM_ARM_PSCI_0_1)
->>                          ret = PSCI_RET_ALREADY_ON;
->>                  else
->>
-> 
+As Svyatoslav confirmed, PLLM does not have to be fixed on Tegra114, so
+the proper fix would be to make it scalable, as the downstream kernel
+does. Until then, this keeps the EMC from running with register values
+for another rate.
+
+Tool use (see Documentation/process/generated-content.rst): the patch,
+its changelog and this note were prepared with an LLM coding assistant
+(Claude Code). It traced the rate change through the EMC clock code,
+read the EMC registers on the device, wrote the code change and drafted
+the texts from my measurements and instructions. I reviewed the change
+and ran the tests on the device.
+---
+ drivers/clk/tegra/clk-tegra124-emc.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/clk/tegra/clk-tegra124-emc.c b/drivers/clk/tegra/clk-tegra124-emc.c
+index 0fc74808fe39..2f4d39922b73 100644
+--- a/drivers/clk/tegra/clk-tegra124-emc.c
++++ b/drivers/clk/tegra/clk-tegra124-emc.c
+@@ -458,7 +458,7 @@ static int load_timings_from_dt(struct tegra_clk_emc *tegra,
+ 	tegra->num_timings += child_count;
+ 
+ 	for_each_child_of_node_scoped(node, child) {
+-		struct emc_timing *timing = timings_ptr + (i++);
++		struct emc_timing *timing = timings_ptr + i;
+ 
+ 		err = load_one_timing_from_dt(tegra, timing, child);
+ 		if (err) {
+@@ -466,11 +466,28 @@ static int load_timings_from_dt(struct tegra_clk_emc *tegra,
+ 			return err;
+ 		}
+ 
++		/*
++		 * The register values of a timing are only valid at its rate.
++		 * If the parent cannot provide the parent rate, for example
++		 * because the PLL has a fixed rate, the EMC would run at a
++		 * different rate with these values. Skip such a timing.
++		 */
++		if (clk_round_rate(timing->parent, timing->parent_rate) !=
++		    timing->parent_rate) {
++			pr_warn("timing %pOF: %s cannot run at %lu Hz, skipping\n",
++				child, __clk_get_name(timing->parent),
++				timing->parent_rate);
++			clk_put(timing->parent);
++			continue;
++		}
++
+ 		timing->ram_code = ram_code;
++		i++;
+ 	}
+ 
+-	sort(timings_ptr, child_count, sizeof(struct emc_timing),
+-	     cmp_timings, NULL);
++	tegra->num_timings -= child_count - i;
++
++	sort(timings_ptr, i, sizeof(struct emc_timing), cmp_timings, NULL);
+ 
+ 	return 0;
+ }
+
+---
+base-commit: f4897f9ed38a327ce63658e025c7d2229a0d9368
+change-id: 20261107-upstream-clk-emc-parent-351d0dcf9bd8
+
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
+
 
