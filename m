@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794441097;
-	b=jAOSjn91YaMWdHmjrsPe4J9BWHVpoMYQ3JMH7P6eI9C9guFm68aGVvtH6n+i/RSTWmwF
-	 4bpVBEFIx6kSYMSiPUiLpg8MGaJYhj55HCblCHQazA1YOqYBPoyfajC9FeaUgJTQH9gJY
-	 fA3w9lATBsy9blSYKKK8zGdihs4kSA+DNiPV3F/H50roxVux103450Wrn1SXXLr/hP+sp
-	 roulHs7VuFB8CYPojEmvO48mUqtiPtfaKPCUKwHYkoTL0KEILGKd7graI2jhOO9zm37X6
-	 WhM0CBf1JO4YgyIEbulM+bhcbfgNoUpf552DkrEts1HoFMGtkmwHa1dUKT2Khgq5esw==
+	t=1794441243;
+	b=cUvgpBRPdCWxIL7Oc8FaJBBn/0G+WrdHfzM27UVL42v3Zunuvws9yajrLqI5Yopzgk3N
+	 fbG/CC6wfBTaPVY9MAEpe6HRnJ6N+40o58BuZuKHjagxiapb9TqSe+H58+HZwaxmgWov6
+	 Q1zePDsP/fglMypO5PjXOS1+Gg+O5grWmPGVzIyqtJPYL39fIT5PGpIeK6XOXZA0tF5ou
+	 TKlgG6a+UCwdH1haTSoLcf6KpoyzFR3tqqxwbVKZAWPnrYZb5tzbSVbKVv08D7KccRFDK
+	 Qbh53Bz9OX3NC1u4BsZMxDnJF4MeNKJO2aviPzCt7O+uimuJgzHMJ3hcVoLF3cc1kuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794441097;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	b=hPoMjE8AetyVHmCDrslXyl3snmW5/vEA4DnyWC83Ztc//+2LDXkw7RSRfkVXwA7N9PT7
-	 XYXmWqXBzPHeDcnzkWZZBoj6mwLFAzUwueVTzl4FnxXdHNxpO3L6VD6skuHp7PlD6MdAQ
-	 luuZbTjNyE7vHMjq6zsLNg1tN5VPZEq2nbhEnjKJONNNroV3YTfsQD/kfStSsuQ1zKydN
-	 XsqKsd3MSr4xnHQHvX2eSwjEUbVohDIAv9qTX5/D70rK0jWD0GBTAUGdFfsKLvIeCoDCs
-	 lP/MMYksuqwGLkwNcThT9dR3DoUOGpe+RDBP1ELLwCrCLpcYGY/+MQJInrKaP/DhiYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441243;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=87cjur00E5X3W55oKhkJKGbBj84maKnMOGWtMkcOS4o=;
+	b=Fgpan0xZpglgbtShSyXKBtHJg4OES78a4/uslt19OKsBJJFF1XSL6L3afKmam2LmDIId
+	 xVAlsY6I5p1XupSgePWqqqVdJXB9wB57hsQMb/xK62ieX1j4EWMfLtfhadwYIFs+2g0kL
+	 yGAnJ/qimiKsu1y3IX0h3gsr+DpFhVlctHmuZgpw+o+AhB/aQlKtEw6Dw4utI30CXhT2D
+	 CbhYB85vrKOgD3O2y4H+IZKrl5KKM51FiJJlF1czJbNtwZv+GSdSO1nRUQ40VatYcSZKQ
+	 k5sHj8JYl8yrPNFVQ6QbZSOGZJwZMs8sZE4YSsQF496obR4V63F9k+98mYnAqMsCg5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFl+UB35;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy;
+	arc=none smtp.remote-ip=91.218.175.193
+Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E24A606A331;
-	Wed, 11 Nov 2026 23:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4F2606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:54:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B4F2606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFl+UB35
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C8E1F00ACE;
-	Wed, 11 Nov 2026 23:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794441096;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oFl+UB35XlTkei2dg8HWPlfN9VCn1rCsmTeH3H5IzZrlXDiIpiE3v4m1lIAtF8/Rw
-	 3bBHQ6syxx3BJpoLKRfkjTNirAkRd2ukxnqCC8Hb4Zy6THfbM7E2uyN9mGsN30XU0m
-	 ie0UWfgRC4FaOTZg26Fa/ePbfiSPP9I6nXRPlD4g0mXaTH4Sv1t22MBW4GIopqkKMz
-	 6wWWpxkjPXFx9261KPn+N53MS/qyqvoFAxelLGstkPooD1KMKwPuvMSedBPZR+/JPL
-	 95EtJZWyNStqPbp3uaEbPGybCr3BG6SPbKSKZ4zIPMFu9x6ejfpZ7iVqqDRlNeZki9
-	 Z5/I0dKHInjcw==
-From: netdev-bot+sinfo@kernel.org
-To: Igor Velkov <iav@iav.lv>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Lukas Wunner <lukas@wunner.de>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Wei Fang <wei.fang@nxp.com>,
- Niklas =?utf-8?q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Paul Barker <paul@pbarker.dev>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Doug Berger <opendmb@gmail.com>,
- Thangaraj Samynathan <Thangaraj.S@microchip.com>,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Haoning Cheng <Haoning.CHENG@cn.bosch.com>, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 0/4] net: phy: postpone PHY interrupts during sleep
- with MAC-managed PM
-Date: Wed, 11 Nov 2026 23:51:34 +0000
-Message-ID: <179444109487.2168702.10631162542543162252@kernel.org>
-In-Reply-To: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
-References: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=MFIMZRdy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794441239; v=1; x=1795046039;
+ b=MFIMZRdywKCI6l0qgNg7CrqHrpd1JO14Odr6OWuKiMpdI11ARFy1q2E0fIDPpmVZd2ovCpAo
+ +deM9n4gDfu8wcJ2TDg6Aefp/7x5dg7QS7oXWIgfB9YByn7lAHYnTN3c9R/lZXYgsuEAqpzJSkt
+ XOo2G0hrlF+Q99DzRQ3V2BH9SRGJ7L1Hjkjvud+NjKzd/mjTDdf29DYYny0+XcrU2wvMD3urQOR
+ CdDhMkgitpYFEZgvSc1bno5fmI8O0caLnl0qQ6/sUkf4qM5ecyqpM/Yp6rkKlpoQc22WjkoYAZI
+ uCxIPBg1gxOPShMdkmqtHcnhDsVHPc0bVnTGVLA5fKCPg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 309c136bc5822c4b;
+	Wed, 11 Nov 2026 23:53:59 +0000
+X-Mizu-Trace-ID: 309c136bc5822c4b
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Wed, 11 Nov 2026 16:53:46 -0700
+Subject: [PATCH] arm64: dts: qcom: sdm845-lg-judyln: Drop qcom,te-source
+ property
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,21 +62,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-judyln-panel-glitch-fix-v1-1-ecee1f0a1b30@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QpAQBBFf0XzbMoQyq/IA7uD0ba0i0j+3eS8n
+ VP3PhA5CEdokgcCnxJl9SqUJmDm3k+MYtUhz/KKFFwOezuPW+/Z4eRkNzOOciHVFWUDUUmFAV1
+ vgTX/z233vh9L40R8aQAAAA==
+X-Change-ID: 20261111-judyln-panel-glitch-fix-17610b11513c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Amir Dahan <system64fumo@tuta.io>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ David Heidelberg <david@ixit.cz>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794441235; l=960;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=V3cehZEUOP5ybTF1yl7Sucyl3THFXUu4zKLkQP68yVk=;
+ b=tp2/BeRNN4TEd6J9sKaOCcnJ3bw9h2fG4R7tvxJ5zcB0Hg9+KlfKB89nEHOTab99vZ4dJDSyL
+ lmP5FH9qRWxBxWknBvPcxnU53S+jCZqsaNOpOMQq4Pq8o/U8hihjxjx
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-Hi!
+It was introduced without proper verification, and causes
+graphical glitches on the display. Discovered by bisecting.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Fixes: c6c66aa3ef33 ("arm64: dts: qcom: sdm845-lg-judyln: Add display panel")
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 349faa123ff1..e54e46a1a6dd 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -111,7 +111,6 @@ &mdss_dsi0_phy {
+ &mdss_dsi0_out {
+ 	data-lanes = <0 1 2 3>;
+ 	remote-endpoint = <&panel_in>;
+-	qcom,te-source = "mdp_vsync_e";
+ };
+ 
+ &ibb {
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261111-judyln-panel-glitch-fix-17610b11513c
+
+Best regards,
+-- 
+Paul Sajna <sajattack@postmarketos.org>
+
