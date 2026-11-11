@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412583;
-	b=znrOWpowttoJ29r7/BT7ddadrP3JQ0mNGs4ipSIR886baOvvSQRcOPbUNEGINTsAzC3O
-	 r0UXa2q1uPPaLcie9eQMyaghRzCTdNwNycOqVwkdN7z5nASU82dqqpeLWYtTebzXVhA52
-	 zcA/8z+MGhKOe3R/2trMBXSZSOz2JI4JkNGEfZKLvWgxeI8fdKBlHILVdx4K+fdTBhuku
-	 LV5TliFtiDsutAkCI7IMMWA2L//TSVqnLqybf6Q2mW4I49J98EhQc5f2/j1xQs7cq3jRE
-	 exr4N79xHw+n7xrPTeSgVKSAb0FfGmshju4gRDOIMGkyMWDMFcYwk1KapMbk7m/eU1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412583;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Y0UAXs1+0nAZfPmRj+PFNvx6nKwxNy3aasNLrMSA9g8=;
-	b=RvT/hHJoaRdReKUr+ta20b/mUCwSwrfLDpZKYXJXvm/JeBpoQLCk8iBMFiakboC18KyL
-	 oMK3BE8/7PsVm31bYWJzh5CpUJocol0DBYzj6iy70LBQ0k/FTLbarPR5HZLeE+nputNyE
-	 Ig5apUKXx2fgkHxaBNAO5Lp3xLW+VmZivo5L82atmMQpy+VuvNWISjyVg8PlC07u4P5dO
-	 kJAQFIoYdBEmIys6enp/6LT0Ct2r7iQmYWYxmSQ3jrukhJ410Zvxgi9aVqQrgbj8yh7PP
-	 VY/zB19rE8x3NRoQ9T3MF3jOIIQfMc4p8ck5osSsQGLZo7anciGlU4LoEl/BgPF+pIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=XON1dO3V;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794412623;
+	b=1zzGAYYMKR+O3sSWvMZjCtgAw5+wNQ77e9jV2+SRHejxAIr4PaZ4Dg49C6Cu/4PO1rXm
+	 2TGLyA23VwQlT+37WKQt54vlXCbhbvFumi/0189JHjeC6DUg7lttN4+LqUqMSpjJuEN5B
+	 PIwz/PhGcwSSIfCa6JklFdmKq/67BAjPa/ef7w7rME4fj2/TRf9ISFO215OXUX/1wosIs
+	 oEy23rkMyWsB3uKKOEiGTTjqoJaj7w5MvaNtK3sr99J1aufYEE1MG64OdW1NI+Bqy6fkg
+	 rCvV6wa3DniSwdpuyaOn2FvzEMXlhnuXiqXUsjnWK4l6Cd0UCUMABCU7bKCLNo7Untg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412623;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=hB3qr0XijsciFSTqEKSx+8DjTeDGtKWKa/wAKflq8fY=;
+	b=k/w1ueTCOEsuIglipdkP45rsVoRGfzShEX7PCQHSf4BeH033YG/DCCvaGYOn75rEQLRW
+	 QaFwAjMlQV62ag8GnqfQMfjYDFCO4SIPG0xcaDgt8U9DU7OdEMrzixNXNxZWTGA9uLy/Y
+	 t5Y89Oeow6hhZwbo8rhlykn6fDU7R/fnjgglVoT4SUNmmouDyrj46CelcPMuYMxMqtxAq
+	 Vo+tWhJtKjY3yfxtKICiljYIQvmho8dpcTC/UZKJGgPS+nPQ0mVbqAUZ/3HoHsI6N8SCI
+	 Jrz1bvjoig1mQM3EkQf+wLNrdnxKcl2AG8XNCNhhqyhl+ewQTP4AIjMOye/uUcPkLqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkz4FcqF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321D4606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 321D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECADE606A32D;
+	Wed, 11 Nov 2026 15:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=XON1dO3V
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6f74f6b46abso1410987eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:56:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794412581; x=1795017381; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y0UAXs1+0nAZfPmRj+PFNvx6nKwxNy3aasNLrMSA9g8=;
-        b=XON1dO3VFm2jKu5PlDdxw00zEK4dt2fLz3UFu8HgZKpOdAqpRJJJ9v4t5/3Fw3NbN8
-         BWJhcKOZmvI0fyDMFBy9N6xbEdaBhHBaaxnPVwtgsW156bPo9b1afNvP0U+cDcKY+WpZ
-         hGrRZe1orfh+wlQ/GfJwS/JPAxZAi26vTqygI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412581; x=1795017381;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y0UAXs1+0nAZfPmRj+PFNvx6nKwxNy3aasNLrMSA9g8=;
-        b=CN9YFHEwS+PfMl6ppkTU3aRogv/+eBSQISlA5dISkyhq44W6zll5tL6gcaHp5tBipV
-         e2DR6ZpKeeTiZiDKjEG4w4xZyoWV1CDE10JGoh73KEurII9ZiDzshLjJ9oZStGhtM/ld
-         qQgTzvKajRYA3RgHYt4Lw4lp/7K5tNlOi5mBL5YCYplp+L2pAog/Nl2eqqzgzExbtZ0A
-         gHTPI8iJuXVet6FETiTsPbjWCV5Tn7CwCIvVUDPXcLi/xBZYCxaswHl0ksSDp9rLNfkM
-         g9O+7OU6q2WLSWofcKUwEs0RR/ri6avkuKUf1gn1dV1pDeSvOvIa79daJJisKX0+7Ugp
-         Qgug==
-X-Forwarded-Encrypted: i=1; AL+hErFHxLzICtR+CNcwkdnzKRw0Mnd03v1BNqxPOSz1t9taKMla20U1z3fMa+BZlbzvnjxq0wIrc0KeJ9o8gPk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CkGz5yYfZTOE2DU+PLJAWhNMhYLawREuo/6qdZuX/wcGgWOry
-	1vJJbUHg0a6tH7DajxXHD+idv/bzZEb69MDwqrrF7gKPvVXLCXZvP0PYwi1S33XZqnA=
-X-Gm-Gg: AYBFou1eGqySuwrprJQLvkWg5cOIXy3X5sSJM8g/pUh1CDQh3YiMBUNfW7NsJgMw6lk
-	xNfT1vjp7W4oYXeUnx9D1JTIlk1MNdWxnFsBnajBqPmHaD0uaBcoNCxjrwY9eqPuR+UhmGzHOfV
-	dgGVMRMFecos519nV/CHrdHKEIjFKiVNkfOWpsE46x3MMdmV6vUce1/YDM2kyfeOCCxPkC0xxpW
-	QPFjBaNm3UMTL7hLW48Uqx4fIkFcfTL9W3htJFsFujcSbCfaPI59caZMIwprZMtbYXIO1uT+VJZ
-	3KEduFx8tByxHt+/8QMRT3j1HkF/UMuhw/1JiRLsYP4sotdraooJFAmf9t1z1lUQptS7kCtUQcS
-	dktUVJ6z63tQC6pVANConMswlQGak7tYCGcHIXDHuNdgVovDptmMb3FhGnwAujIOCLcDiWFtspf
-	zFj1wgvYxRAYbHztA/Io0kEgmufWN51Tg4xsmgg4eudRTTL+bkOsjIYCpv0OsCtuNjD6KJTMExA
-	Nk6ZuBLdjjCP/gyyZV5yuQnCwIMyMF/O3nkBsiOCHlnDUo6VhUHRQs1pZ7gNMR2SPyDD4kwpUal
-	5UGl2ewA8I6DT1vQzpU18GedHTTDjD8hbS66Tg==
-X-Received: by 2002:a05:6820:7708:b0:716:adb7:3f57 with SMTP id 006d021491bc7-719179f72eamr1482448eaf.86.1794412580991;
-        Wed, 11 Nov 2026 07:56:20 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbc5e1csm4926122a34.14.2026.11.11.07.56.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 07:56:20 -0800 (PST)
-Message-ID: <248619eb-9164-477f-89c0-f391214cd273@linuxfoundation.org>
-Date: Wed, 11 Nov 2026 08:56:18 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkz4FcqF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794412622;
+	b=fUqQUrQA7hB3EdmLYXkbEUjqHSMIvCaV3nHgzgjuhFJWjUAomgHQgifzLchrZaYaU3wJ
+	 BqN6KQ7uIKv5bI9RGo2ywbMJG5H+WDaNSaOCosMaNWLI3UBrb2EKCwJRTjOYnYKKw9PC8
+	 o5NoCeO5hjDfyw8oaE9PpE9A2SUigDX5dIWe46z1v7yXh8eCglqgDHp3vMpE3jKchwkkm
+	 2Re0nqdu3OYj7a3jQ/4Y7ag2a+7PoifKZppEB92Wd5nP26xdO372EXp4c+D+bg2gg7y2c
+	 aMAhzk7IcoVYxE37lQz9rmZPui+aeXjCn08Pvc5162kr+Jo04iRUwuAni20KGadjazQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794412622;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hB3qr0XijsciFSTqEKSx+8DjTeDGtKWKa/wAKflq8fY=;
+	b=FQsfeBuVSmZEPuEhU9i8eglrvKEfq+HKQXPCJqfyTaVlmcSmBBEg3Po0mIip0K5XJD47
+	 PPL2LbKIz55IX1OWcax6DllxL7wgm/joOSEzX7F+/LZUJ6Z6f4vMrGqb6GVjHNSYuXzYx
+	 Dc6rwXyAVeHi237GP2+tcxJQ11Yf7h2MT05SHZDv8gTCNNvENVkF72fvQFZW9OOnhRvoo
+	 8Xws4QYtrDxAFnBeEHKCjPqmwp3G/MjdhAuDYGHfsQVqFd+zFJWZJt4DN6vQYaLcmJjqh
+	 Ct71dH0/iYbFT6OQ3peM0orNScjn8KUclXCsvdQTHq++o1VpspfF5DZNFYbK9d3XpLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DBC211F00A05;
+	Wed, 11 Nov 2026 15:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794412622;
+	bh=hB3qr0XijsciFSTqEKSx+8DjTeDGtKWKa/wAKflq8fY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=mkz4FcqFfpaNw9TRp2Sal4Nhd6pwXiiuNOHTyhIVf8qIc8lHZSjZoEQHbsS6Oy0SL
+	 7krBZQI+qkM0GiBlbuG1ff2NWyvFYD7B2hL1eSSVAC50zESQTJcNsLIWNNFw3l7KT9
+	 Y2Dkcu8Cp18ky8LQqAbN31JAjr30XaXpNI4C3aHLK/7rhWfFPvrvUt40PtnacZALff
+	 o+OxKa/IHkL6Bcbtq7kP+dLIqjFszZnAnQR5XtHMeLYyAIIEja6EfVxdL6pk2zvUd5
+	 RLu+hbALuOjIYBghRKeBbqsOSAOa3JAHWCZeBx0X0SyTcB1UBPEBAb5pV5AQgAb7tT
+	 b25difc71pTiw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 32F8548F87;
+	Wed, 11 Nov 2026 15:57:01 +0000 (UTC)
+From: Florian Bauckholt via B4 Relay <devnull+florian.bauckholt.cispa.de@kernel.org>
+Subject: [PATCH 0/2] KEYS: two fixes for the asymmetric keyctl operations
+Date: Wed, 11 Nov 2026 16:56:06 +0100
+Message-Id: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,78 +83,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] usbip: clear actual_length after a failed receive
-To: Alan Stern <stern@rowland.harvard.edu>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Cheng Yongkang <teel4res@gmail.com>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <179328314073.648427.8311262845412746237@gmail.com>
- <179328314074.648427.388274461758949120@gmail.com>
- <a0772d9b-83e8-4502-9e02-f61345e406bb@linuxfoundation.org>
- <179333358668.2111112.12827497703998022783@gmail.com>
- <3648026e-e93b-4543-87db-e56020770831@linuxfoundation.org>
- <94436653-ae58-46c9-a2cf-241231ac8eab@rowland.harvard.edu>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <94436653-ae58-46c9-a2cf-241231ac8eab@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINDNTq1MLsnRLQDSummZFanFukZmxqYWiRbmBuZJZkpAfQVFqWAJoLb
+ oWAi/uDQpKzW5BGSQUm0tAM4iKAB1AAAA
+X-Change-ID: 20261111-keyctl-pkey-fixes-26358a8707b6
+To: David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Lukas Wunner <lukas@wunner.de>, 
+ Ignat Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>, 
+ keyrings@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Florian Bauckholt <florian.bauckholt@cispa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794412620; l=1414;
+ i=florian.bauckholt@cispa.de; s=20261105; h=from:subject:message-id;
+ bh=GOMrVRBSeE8hLfYs6YtkMRfH5HXSdleUYoeN7mchAzM=;
+ b=ttCpoRZ+CbmvpkYf413TemwqzcVJRwcmDQFBw0RzMU4Y567p7HmCNsBTbuz39K5A+kzj5pEPC
+ UY6g6KZOvd/CwiN08BuJKpNjqRuza+FpOi7QwafT0wnivIQ2G0SvzMu
+X-Developer-Key: i=florian.bauckholt@cispa.de; a=ed25519;
+ pk=n9klXQ+dI45FWy0qWLrGpQfXU5ylIA0SN+uWSmOx3ok=
+X-Endpoint-Received: by B4 Relay for florian.bauckholt@cispa.de/20261105
+ with auth_id=1420
+X-Original-From: Florian Bauckholt <florian.bauckholt@cispa.de>
+Reply-To: florian.bauckholt@cispa.de
 
-On 11/10/26 14:29, Alan Stern wrote:
-> On Tue, Nov 10, 2026 at 11:57:34AM -0700, Shuah Khan wrote:
->> On 10/29/26 22:13, Cheng Yongkang wrote:
->>> Hi Shuah,
->>>
->>> Without this change the URB is still completed to usbfs, with status
->>> -EPROTO but with the peer-supplied actual_length intact:
->>>>     vhci_recv_ret_submit()
->>>       usbip_pack_pdu() -> usbip_pack_ret_submit():
->>>           urb->actual_length = rpdu->actual_length;   (usbip_common.c:471)
->>>       usbip_recv_xbuff():
->>>           size = urb->actual_length;                  (usbip_common.c:849)
->>>           if (size > urb->transfer_buffer_length)     (usbip_common.c:856)
->>>                   goto error;  /* rejects the packet, returns < 0 */
->>>       urb->status = -EPROTO; goto error;
->>>     error:
->>>       usb_hcd_giveback_urb(hcd, urb, urb->status);    (vhci_rx.c:107)
->>>         -> urb->complete(urb)                         (hcd.c:1657)
->>>         -> usbfs async_completed()                    (devio.c:1911)
->>>
->>> usbfs copies data on reap whenever actual_length is non-zero, and does
->>> not look at the URB status:
->>
->> It sounds like fixing usbfs to check the URB status before copying
->> sounds like the right fix.
+Hi,
 
-Cheng, I missed that the you sent usbfs patch to bound the length. Thank
-you for both patches.
+two small fixes for KEYCTL_PKEY_VERIFY and KEYCTL_PKEY_DECRYPT that I
+ran into while doing differential testing of crypto implementations
+with the kernel hooked up via UML:
 
-> 
-> No, that's not possible.  A transfer may terminate with an error partway
-> through, after some data has been sent/received.  The URB status would
-> then be a negative error code, but actual_length would still need to
-> reflect the amount of data that usbfs has to copy back to userspace (for
-> an IN transfer) or tell userspace was sent (for an OUT transfer).
-> 
-> In general, the USB core relies on HCDs to set urb->actual_length
-> correctly even when there was an error.
-> 
->> Changing vhci to zero out a filed in an URB that it received, itsn't
->> something we want to do. Why not fix this in usbfs and that would work
->> for other invalid lengths?
-> 
-> HCDs are _supposed_ to set the actual_length field in URBs.  It's not
-> a mistake to do so.
+Patch 1 fixes a regression from commit cb481e59ea6c ("KEYS: fix overflow
+in keyctl_pkey_params_get_2()"), which was tagged for stable:
+KEYCTL_PKEY_VERIFY ignores the signature length passed by the caller.
+It also is a prerequisite for making the x962 ECDSA template reject
+signatures that are not DER-encoded, which I'm posting separately to
+linux-crypto.
 
-Alan, Thank you for weighing on this.
+Patch 2 fixes PKCS#1 decryption of an empty message returning the
+ciphertext.
 
-Greg, please pick this patch up.
+Both changes were part of a patch posted by Hui Peng in September that
+did not get a reply [1]. That patch also changed the out_len checks in
+keyctl_pkey_params_get_2(), which is not included here.
 
-Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
+Thanks!
 
-thanks,
--- Shuah
+[1] https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
+
+---
+Florian Bauckholt (2):
+      KEYS: fix signature length passed to KEYCTL_PKEY_VERIFY
+      KEYS: asymmetric: Fix PKCS#1 decryption of an empty message
+
+ crypto/asymmetric_keys/public_key.c | 6 +++---
+ security/keys/keyctl_pkey.c         | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261111-keyctl-pkey-fixes-26358a8707b6
+
+Best regards,
+--  
+Florian Bauckholt <florian.bauckholt@cispa.de>
+
+
