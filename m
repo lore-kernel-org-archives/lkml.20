@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397155;
-	b=whCR1zPhC4i7r5jmew/lO8yCe08FVvcYoLHOr90EiWQmF/gOcOdknUryRz2yvi8QD3mg
-	 WYsPhcJOhdRydb4LGFcD9bnm8Q0TXl8aBa9LkVIinPmgf2fpLfAAZeYFADNIzPAAxD0xG
-	 gBjYYWcGjPmnh6VSY8oOdABDbOL/IDbX+7I82N/t0h8CQwCain7CXjo4qh/Y7iQ60aUYu
-	 ngXgDFoaukAKK/5sr4dUykV9FGrEz0t3vP6yyzUM6cX/up27V5/nQ4yo5j94VQAh4xewt
-	 XaMEiddDv+HuUwTFu5vUFCpY+W4GWfcmMiNwHOhNgKdGDEWe/AUWN7q+iT6RRrWQWFg==
+	t=1794397159;
+	b=j3Ga22jiEa0HgV1ke1PypdClPCYmhAgC3APYc9tWvh+I1jfpApvroUiTZwsHgF8NlBsi
+	 K7ivMSk8/cw0D8tGbnbIZdlw8KaLDf0Xf94NjqkGctXuKExfDXsXdsqqrl0jcPOgFLx+Y
+	 o8dPyQtpihFNIBQ+WEZuLZs6IqE8tVHgMWHsCCNGTl7jw2HolkFX7JNOPyBB+lXKc2rxV
+	 f9mcJQWXRkHxTHgTT37uFdDDKR6hYhUjQsVKUJuKRnZitJfav2WnqKTmCDgwo1ki9NS7k
+	 FtJTRoaREz/S+tLceuiTi5At1I6risL7fPs862Ixacr2UY4p4dT+VqfEDafefOJJenQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397159;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=sm9PXJr5TIiyZl5zOIT5PuR1aDglg76Y9OqldJz8H9E=;
-	b=h2txOat5WVnpsVBSrwsZB36bvfXRrRFejjkSnfceLokRBNdNKHYnD3FzN0ZnlvWz9U5c
-	 OXGfsf+xZdeLw08xXlT17XA7S7A9VUcngpymK3wKMC0ElbAFCBEzhZKybmoqHbBPG8Lki
-	 Aik9OkqW83bsvDJj7pPqnCexezUrIIYbgpymx3ME28B/93AqvweTnRzTafrxIheHT1DwV
-	 00aUN3eNLRr3EX8ESa72jufogOHLpRRv2HqHplIG3OicbVQVPFkXRAwC1pHujwk/gbGpo
-	 VbZxCvjj2z5rgJZCgjeHHDQML3wr6ObUz89IqByqNUbN+MEBrDWBsWp5LasjaDdWSEA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JsSfYSFniRGmuPRfq48u5DDdTpeJF4QuAl3fe5dik5M=;
+	b=uFk/zelNSiTNmYjONbrfzR0bo+1ZWUJ5p0BjXXaDTvRp5OzriYCAkdUJRIir2zyBP8CV
+	 BsKyFj62dwgzDEVeBPEQT27tf/RHxRmb8GsL7qpK0bgFNfDaQuaux3YkquOAZZFyqYMHn
+	 kRJy4JnTVSJj1/gwsbOG8u7R2izd+ye+HwtLfk6nSS3UNEN49TRpXKigLwIDyIQXXZrys
+	 YtSALYhLQBXicjEF+ySHDLHXd41kUmgTrme07v2l61PVvoXFp8glLiRfK4s2RV30Cvgqn
+	 6H6ooc5sRqlqeT8+OA9ARREzrGqFuNondHYBxdCssdH+COec/CxkXY3YbM+IXxUe0Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="i0Eu/+F3";
-	arc=none smtp.remote-ip=95.215.58.136
-Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ag3zwCYS;
+	arc=none smtp.remote-ip=95.215.58.151
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CC0606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:39:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6CC0606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADDA606A881
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ADDA606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i0Eu/+F3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ag3zwCYS
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4Mq5z6I5/MSe2xUzwOBENm+Vhd7unCO4r5C+7Fe1rDA=;
+DKIM-Signature: a=rsa-sha256; bh=zdZjBwRCrc/bJJQOamLttRr417Z2hw8mLNGL8JIUru8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794397151; v=1; x=1795001951;
- b=i0Eu/+F3b/9EIe3orqhl3IDtDiqj4w5mYalWC3I9BI2zzPkKVtmddwZ2out4xDtscItFvv4Z
- zw1nVFvdEnGmaBICuCkqy+b/02u54VlQdV1xPlQBGtCfHJA+z+BLwF0Smp5dKKDBTxDw9iHv6Ua
- wc4mCiMli/81WCRU8/mACUy4=
+ t=1794397155; v=1; x=1795001955;
+ b=ag3zwCYSpzqYUYA54fdErOhJI5ZfvsIqZlLhFTR1lN2npGQBNhVAXh6oxEb6plsz/R/fgyCU
+ V+qWgWJFemeb0IuQrEJ88ypX1XdKx5B74yIqkTzMdNehMo4ZhvIUBUaprRDrs1rOmFFyiM19fPu
+ PlounxJCpV3EDB8RajRn5Nnw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 48df2cab8c88d833;
-	Wed, 11 Nov 2026 11:39:11 +0000
-X-Mizu-Trace-ID: 48df2cab8c88d833
+Received: by mta10.migadu.com with ESMTPS id 780683f44d9afa50;
+	Wed, 11 Nov 2026 11:39:15 +0000
+X-Mizu-Trace-ID: 780683f44d9afa50
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -78,11 +79,14 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	dev.jain@arm.com,
 	baohua@kernel.org,
 	lance.yang@linux.dev
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH 0/3] mm: fixes for THP migration, swap-in and device-private smaps
-Date: Wed, 11 Nov 2026 03:38:28 -0800
-Message-ID: <20261111113904.650722-1-usama.arif@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
+Date: Wed, 11 Nov 2026 03:38:29 -0800
+Message-ID: <20261111113904.650722-2-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111113904.650722-1-usama.arif@linux.dev>
+References: <20261111113904.650722-1-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,38 +98,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series contains three fixes for existing THP migration, PTE swap-in
-and smaps paths. They were extracted from the work on PMD swap entries
-for anonymous THPs [1] and can be merged independently. Sending this
-separately as requested by Andrew (should have sent them separately
-anyways, my bad).
+do_swap_page() checks PageHWPoison() on the faulting page, but the
+large-folio batching path then maps the rest of the folio without looking
+at the other subpages. A poisoned subpage that is not the one being
+faulted gets mapped anyway, and the fault that would have reported it
+never happens.
 
-1. Avoid a folio reference leak when concurrent MADV_DONTNEED clears
-   or splits a migration PMD before the device migration split helper
-   acquires the PMD lock.
+Skip batching for such a folio and let each page take its own fault,
+where the existing check catches it.
 
-2. Prevent PTE swap-in batching from mapping poisoned subpages of a
-   large swap-cache folio. Include the subpage scan helper with this
-   fix so it can be applied on its own.
+Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
+memory_failure() sets PageHWPoison() on the subpage first and only sets
+the folio flag much later, and the bail-outs in between - for example
+get_hwpoison_page() losing a page lifecycle race - return with the
+subpage marked and the folio flag never set.
 
-3. Account device-private PMDs using mapcounts in smaps, matching the
-   PTE path. Shared mappings get proportional PSS, and exclusive
-   mappings are counted as private.
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ mm/internal.h | 15 +++++++++++++++
+ mm/memory.c   |  4 ++++
+ 2 files changed, 19 insertions(+)
 
-[1] PMD-level swap entries for anonymous THPs:
-https://lore.kernel.org/r/20261002095503.3585565-1-usama.arif@linux.dev/
-
-Usama Arif (3):
-  mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
-  fs/proc/task_mmu: don't read young/dirty from a non-present PMD in
-    smaps
-  fs/proc/task_mmu: account device-private PMDs as present in smaps
-
- fs/proc/task_mmu.c | 12 ++++++++----
- mm/internal.h      | 15 +++++++++++++++
- mm/memory.c        |  4 ++++
- 3 files changed, 27 insertions(+), 4 deletions(-)
-
+diff --git a/mm/internal.h b/mm/internal.h
+index cd3675c044e0a..e61c02f4019b0 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -28,6 +28,21 @@ struct folio_batch;
+ int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+ 		void *buf, int len, unsigned int gup_flags);
+ 
++/*
++ * Check every page of the folio for HWPoison, rather than relying on the
++ * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
++ */
++static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
++{
++	long nr = folio_nr_pages(folio);
++	long i;
++
++	for (i = 0; i < nr; i++)
++		if (PageHWPoison(folio_page(folio, i)))
++			return true;
++	return false;
++}
++
+ /* mm/workingset.c */
+ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+ 			    bool flush);
+diff --git a/mm/memory.c b/mm/memory.c
+index d477a4f986bc8..4b7d456332200 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
+ 			goto check_folio;
+ 
++		/* Let a poisoned subpage take its own fault. */
++		if (folio_has_any_hwpoisoned_page(folio))
++			goto check_folio;
++
+ 		page_idx = idx;
+ 		address = folio_start;
+ 		ptep = folio_ptep;
 -- 
 2.53.0-Meta
 
