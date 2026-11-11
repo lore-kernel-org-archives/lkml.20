@@ -1,100 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794383492;
-	b=KsURt1dHUovQJ/7jbPYiZ7jnxqHDWc0fgavciLd1PX8cakd+CFfmCVvtL9jekAVoPZNT
-	 XEfemSwIZk20c0LUA4G3rB06dZ2crrAR/ZxGoZ++miFN/MP3vvO0S0Io4aqXWks18bLBe
-	 XnvvEPj521Xp1ViZ4nhXAuftFTkCvl7DDk/Ng4tVy1o4jCH8+I1g290wBuryk/5yTD1aY
-	 TUcm5PYe5RfVrkVRAwrB72Wy69HICUp84moBNYM0e/k5AcTZ6ZabZsvtXNGdnFlmDd2Cr
-	 tXyO15nvTZa9P9c+5gKChRs/bSihy8NAfYFMzEMu/6bFdC941zDsd/mYLD6DVhklfyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383492;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LFEMjHMawTmVswvfRrvWbFxJOe74UcDMeDcBfOcyoV4=;
-	b=UUZCxnWGoa3L8DaMGcNm1ooyRfivQpI+wyh136yR0mtWTXvsQZ5toBjtvDC9BuFzc8zm
-	 6G3GG/bst595hp1j4ZhCGlOf+jZnFCzbx5H4TH3vL8T0ej4hH4EPi7vxxvKpN4etgHSEX
-	 /hxciv84wJyS7/lLwT5K6cb8zbFn+Lv6/90i9rSOQy7kEdAchFBD/PHfSjviwnx/cPECS
-	 Lv5gtu5xUTdOhKuPA9BCb6yXXd4e73dhHLtrXcJmCD8p0ZwQw3xpEd7utDGCjwK/e7J/c
-	 Lyd97nplKxVkPgZLG/2N3yDm79Bakf4IGkYxr0OgjMhYgwrXT1S6lWzQKaNLO0CvwcA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=md4l3zAY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794383519;
+	b=TCF3DLZNPJEKDX3Hahqf7hS0J3G3V1OWvzsYFHrnMjwi/OLErA0be7it3V5nxVrKGlBH
+	 WnX7NOPsGLcQofU2yAsNFOON6fqwJfAbI6fdK2+WRtjiZgTQ7edreUlFX2CYkencpaqMr
+	 bVnKWBDhWuXDF8A9qZN3levPNqeRZwz2VFy4uO+Z7SG5ZF+werfp09K95aWSUShWsyhkS
+	 GLzuvZWVqP/uj9JbAlCQH7Ec+qjrXR3Uw0z1+P5CAzilLO3wKHcfHrf9V7hQnr/xoG9gE
+	 PAfjKoqqh8SNScLuS5UxbnkgXnsO1Y7zTqW0UNHIQCz89q8qSpx72rz0rJgDLTSuVKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383519;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sbGapmF40loUUYp4PlJ5Iv/5btWlxr3ogTT7+r0GLOc=;
+	b=4D+pBJPcSsv1Mg2WUw22V0v1IfufflequGc5AweJ94/a6xjeK6o3bd/W1ln7dgC1kW0r
+	 g38M1tYQth7zgwrZCT795+rC0fHJ5ZQlK9TPgEi1v5xorrrW45FI+sCH7lZXCePHj3kF9
+	 hFttfjloWgH1sfRPX6VZnk+Dp8Y68TN0jG8f5s6FVeGCCFEpXo3xoIuGngUZ/qToy3zBy
+	 7CVo+O29rdK+OeOJWZP9lPGcCaRh6x2X9PcPIVkp7+Dpqmzfa2Irmekmdr4hkf9HyBMVr
+	 01jzcRPkPIIQCJc3DZfoO7bajwZta5iiUHnprWWy6keZ9bLuFyqxmOOrHXaquxRBUMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="g6jN2/TJ";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ocoiuj1r;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35395606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35395606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C7C606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C7C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=md4l3zAY
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso449463566b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:51:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794383490; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GvDPVeKXpPOXkmhFX6+nyO3db8Q+ptkW97B7pooci6FyMTWD6ObEPaEC4AZn5FtSUd
-         wpRUX7ULax2I6EbtJGtx+R0q+T0koj+7iJCvmwiplyY0uvHyTWn82JLXljKrD20/nUvM
-         3VCeTWb3BmnbKfvDTXQSXJurDEOiAiTNXuXUrnNu6GnLXQJXOPX1PTbAh0p0oLCV6tC+
-         ZbC3ZA8ULe33pIMHLkGRLHq+Is3q+XVdVjs+NDC5ZAlBzl96fm6hruFr14mMYudKH80a
-         uVbrsPCruu6LprSv7OCs9d21drW1Jo8h2ojykeURhOVNhclVaSSObG7/ZeKWnt01+4l2
-         UcXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LFEMjHMawTmVswvfRrvWbFxJOe74UcDMeDcBfOcyoV4=;
-        fh=JiFPNn3PboDj5UfEIG796nPFBwPjEPzc+T2+wNE3tUw=;
-        b=sIFyS3D7/ocKBkvyeotSBCjKFUDNf4702FtdTYQjXAyjln4O7iHip7ohTt14uK82db
-         kiUeua7O5+6vi4gD20eVQ/Z8esnELZRq1KuM8wHhN2REvDl4BSc8fw7sQAuxBbMLzNEH
-         EBHeeYUGtXDLYeWAtyS7F0tLMKB8ambzbm8GMeAMI2BETNqJoAgXF29+sZF7AgprS+7r
-         H6QomWqlEcD+XmCG6Q+uy53DBYli08TIURNP20rj2UULNNtZKfH7LsyKfVAGYvQ0HFao
-         2IOk9LlkePUO5C8RV9QVWxf/wDS7BW6/s/fEZTEnLbllpH76kcGPk2R4WlwmwvkhFXef
-         6Nfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g6jN2/TJ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ocoiuj1r
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KIYA1386358
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:51:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=sbGapmF40loUUYp4PlJ5Iv/5btWlxr3ogTT
+	7+r0GLOc=; b=g6jN2/TJnKQlQ3LWHBIjulmA/nJ3InBGL9LDv2WANCxjJytwuSd
+	Z2LY3dz+FlvWmP2i/illxSJ/WOKeLRvPzVxINF7/OEWKaclEFIl8/jhcg+qpBGZk
+	k24ELdPMONKhUao54VpiZ5C3UlrnmWC538ym+hRimmqJ1OIitPMso6fHmB6M71xb
+	qNjL/mNJzOWz1hJ+RbPpjdj03hOrU1I1LoCaaE3UNLXoD9X3prurDD4QsukDzhNv
+	HcZjADIs3Ertr6jUvcH6+v5gxYmbUZDH4wHqV+5Ij2TZoN2rv1+UA9X8Oa12XIp6
+	VTy2ySgG3gYj9SNcl8IDM1OXotcH/H/AVDQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnm9fsy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:51:57 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36ecd5db581so5125692eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:51:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794383490; x=1794988290; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LFEMjHMawTmVswvfRrvWbFxJOe74UcDMeDcBfOcyoV4=;
-        b=md4l3zAYv1zu9HhijK+oX3dpDB6YUSeOKHdEMKTuN7pX+J0HNpZQaAtuo3AKBkgH7s
-         Xol8EfdG076x931RcDKNcJMSnMJqRR9zy2fns0x48pWylIn+nzYcFB3mqKrdNbi2xkgq
-         W9FOovP9uE8OulDKq2Mr+k7s0oo6YxvtxoWjuUd8CwzVieGl9R+IqZ8ZhCK4zSe9dF7B
-         vQpHxeF2Vo9uDifi6j0iiemE6/GzaxofZXrrz2bF5g9h7P/Bww+w1X27r7PK9XQa35eh
-         70AF3W71JWv7eNXpZwiksuer5G6PZ1mIkog11t93J4zqczq1jX+HjywgfOx+nUnWwkf8
-         bVTA==
+        d=oss.qualcomm.com; s=google; t=1794383517; x=1794988317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sbGapmF40loUUYp4PlJ5Iv/5btWlxr3ogTT7+r0GLOc=;
+        b=Ocoiuj1r/eto6Tazxq7OR+Z18sK2NNwOK3/aa/FLuj3IoNI6fWdN+q0ZMJw/tWvVb4
+         q9/aw8iKnU4+CeQ/NRWr6KQGt/HeGD+UClaWvgipHy/RnEANHCk66wwUTMnrT2VVxMCb
+         FvlqKeZ8FLH0sL5Sbuj0UlbHfY/eWWvdw7ZFkedrnlCM11C1f3ARp+hJXtxKEQW7hMNv
+         Fh9LYx65z9hd6qU4b05YFCU+gQbuHnJsbQorgNeaUfRJGvCNB9WmsOJsSPDpn3tfl49p
+         H9j78xIFBQo/bwTeSedPxoPamS5rRe082yX9noiaUDtJrfsghW5NiEHRkRyQq02d9LI7
+         5G+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794383490; x=1794988290;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LFEMjHMawTmVswvfRrvWbFxJOe74UcDMeDcBfOcyoV4=;
-        b=ZubQLpPUGrTETkS8/oAbp9XS9e1cffu0h3EYv1plCHXHSAGAI6JrxRzvOoSWRV5zYQ
-         8DQ1QvzbIAw4hGOG+KmT3JdN+LdXJkc0pmVJCFMZWBZcetEuxwcVS1Lk3lB9RhjxOlz9
-         K3qclskzXDPzjJ9SF2udVAhxKk5jnGiGAEd3jfrR4GTey9G488qZMF0iNubEz9Tr1T2W
-         n1hRY1aDf6+nrgzQyRVQUbsCiv7qJQmziOqnCqWhN9VT92oa6I0tbi/xyhpXXt3dwETo
-         ZXmnBjm8VNfaYAmz0KGjsp+/7RxrmUlLhjnKF6jse5zHTEe5S8rEGrkvROg11N8AeeJV
-         eFAQ==
-X-Forwarded-Encrypted: i=1; AL+hErH5g9pSUvO/Jnuk1+LlHYTqYhuzRDSwCxCJ+1wwAJG9G29VBRbVRvTbHp4DoOXZ7tZizKZaLVTv3wTG4zo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9r+3h/teuyQUw0VOPVWnfyXJlPj7poeV8TjdevktiPs/KcWe5a
-	2CiGRIP7tdZTlGDNcbXBse1XwIAD1ddnkufweXkKAzp2y8J1RFLefRuqth6O6GzFVXnkuyBcVlL
-	AquYdoHG3jGXN4lyuKu4Htcncc2SpjoI=
-X-Gm-Gg: AYBFou1qOxkCFulKMLvELZdHu8/34z6zLzOekmZRVRpL1iThOaLapvKPW4anvm+dLzY
-	gSqX8HX1p1ZSdQPr2Ako+qDhredlGceQ12HgnK/UkNY9N0z82ifHzDyZvHZmezgqHXY8WAeN526
-	G/U+1ax/WVZ7IBr5M+Tcj1jFplQtN74GiiLFMZjLZ0QCvVU9HTMUnutVUEhjkimqOgLmNzkRw8Z
-	spOJRTrQV/lh76QWk9MO6WXM3gsYadyoSXu7+uSNu+g8c6HxomtpH4oTwKC5F8R+XG07NRCHTxm
-	TSXvqFtxOyinox7hTGDODm8deBkNfk+7kDBGLkaeO1EjTLErWu4RkSetkAkdkKx+3fOGZ79WXaW
-	gFCRKUpkhyFpCaP3ypQzcjUKE0xLQdSvQTOeXqdq5YGa1hreyhh8V0auQtPL/fRGvql+pIA==
-X-Received: by 2002:a17:906:f596:b0:c33:923b:ad66 with SMTP id
- a640c23a62f3a-c5066d0bb14mr114825966b.43.1794383490428; Tue, 10 Nov 2026
- 23:51:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794383517; x=1794988317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sbGapmF40loUUYp4PlJ5Iv/5btWlxr3ogTT7+r0GLOc=;
+        b=CuwqWBILvaRiPkUqtx80h7tigtQKgq6KItYERWPUoqjfhZ6U5et5cLgvpO/u75bwor
+         KNd/GOpVrGBy7boa7qRBXuTblbgd278T27pqisPhBawvg6th+Cpn2O3QSlVobA4fhXZz
+         FtZF9LhSCwXlvcLYyezovTrMXc0aUyTo9yuRUf+fIUhXaknoPBz2qBadpentIMEZ444V
+         klbBKxXqf2gj5i9cZ4auFe0TElLemEbAJQdFrxIeb31PLjqlpHZQun74f8gNxSoe2gXQ
+         vnOzWyODS0haimSXED5iirWoC0DPN6MkT6LG+WGRqVECkEPOpVzw8NGK/aOaDuoev1h5
+         bVkg==
+X-Forwarded-Encrypted: i=1; AL+hErEbDHUTRzYd9cckJMHBN9yfS3Iju1i2r28XEVAsEQAngpHkeusMxRn95BfEWimGiynOTU8azXWIBxupVOU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LXmGor7GIOUdgpYzZnVN/AMaDuwCbIpQjM7gF3FCT0CGJPYOu
+	brrqAXCo2WlJuYn3T38I0LJKcuxXeEqoOVT/X9/P/OohzxRFnlT7ZZdbw+V+BdJ909LXyicX1Rb
+	EvwIp8FplCLv5CoTX40L/4j0e7AhSXuazrn6hblV48ZspxQCJdVmM7V+tBk+C3+HicVc=
+X-Gm-Gg: AYBFou1z2uaOgP0KlqYEqWIMEF9IPGiIIIVR/60L8cX7H/JafZeGI5saZwE5zLE8X8/
+	Ty1wzwE3s/1DJQKUxlojrqUH41dPQocgkZ2oaTEv2W5Qge689P7hT2c1Qjms06V2HwFBBm/8djE
+	b7A8TmQJsfGQ/IKo6Xgw2lIaTyYVyFlBR34BbbT3kGFwJiYTw48eKcvf8l8OMdT0LQpXUd3kZVH
+	3Q+S19vP3h84QgMYV2L+RsptzuUL115ra/LuiNBiZqLQpaM6CjiTgpnEEPpIFaGXT6PKCttlt4S
+	2CtLLiSsLTmYSaqXJCkVIZKyD1cuh0zrk8hItDEj5smWzChM1M9xEY6h/oMRw1jj0AcqnE8p9Pn
+	TUgxMYj5u1rbLphPmZOPAQ3vm/ejvz4mXyrBEW/dxHK0UAzOeC/61t4JOjbIPnnxxH4ap0KKLis
+	k8gH5ROe7KSfnnnl27282i2B5+SrTVj+e8
+X-Received: by 2002:a05:7022:b90c:b0:1b3:b131:6a22 with SMTP id a92af1059eb24-1b3c02f09efmr1648453c88.7.1794383516491;
+        Tue, 10 Nov 2026 23:51:56 -0800 (PST)
+X-Received: by 2002:a05:7022:b90c:b0:1b3:b131:6a22 with SMTP id a92af1059eb24-1b3c02f09efmr1648419c88.7.1794383515897;
+        Tue, 10 Nov 2026 23:51:55 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-377531d3287sm187032eec.0.2026.11.10.23.51.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 23:51:55 -0800 (PST)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>,
+        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v5 0/7] arm64: dts: qcom: nord: Add PCIe and WLAN/BT support
+Date: Wed, 11 Nov 2026 15:51:34 +0800
+Message-ID: <20261111075141.3710366-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,175 +125,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com> <20261105-tonyk-syscall_table-v9-12-8d1275885d9c@igalia.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-12-8d1275885d9c@igalia.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 11 Nov 2026 08:51:18 +0100
-X-Gm-Features: AclHuK9CC8htHdABEClpUnIw4kUNRCRbcWaYA_peZjxEX-MI6234hqDvVucRruU
-Message-ID: <CA+=Fv5QBnNipJH5SKKV0iiPc1CQz+6f8dGzsRoKt1riMNxxOOg@mail.gmail.com>
-Subject: Re: [PATCH v9 12/15] alpha: Use the common syscall table
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>, 
-	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, kernel-dev@igalia.com, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-alpha@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	soc@lists.linux.dev, linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: MZHTjfHztoEN44KU5mPdABJJH23tVwIz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzMSBTYWx0ZWRfX2AqJd3XfC+Mx
+ 6SfnPf1x8W/H7S0s0c7ZdliSgM3YAGrpRQQ5QcKS8Iw0w9NRSjSvOihJSL6fAvsjVuduoiMYLiB
+ 7JGuo7v7KkCow0US7qQYMnslAr2FgJs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzMSBTYWx0ZWRfX61jhPssBWLK9
+ FEEVHiwQ67eelYjikafhSS2IaguAe+9EzmIEPxuXiLTZLMw/1d3wQDZSreLKeIqN2ZFWjpcwSI+
+ jnLP0vsua8cElSMheAKdn7y49p8zt3ZNShR0TQ3/pEW6uQnT3wodhdPSwNxIFsRoYTGlUOG5bIK
+ fTaRAT4Nh88tr72gh4Wt4o+PZc/PCVcZ6bQLJsyCINI/xQvsGhd860IJRXRn8nmyQPjA4U7Kuaa
+ FvUEf1dcXuylhP5oH2kD2bv2Fg/bysEBXKS3w2rLnpc2t3MHGE43MrZh9EOXODY/2bEndrzgV+7
+ Cmyc97Pif2mIa/1C1cgrOdEUVNZ4TYA6lAVf9VDsTz3ImjU2igRpOotijedDbllJfP13ylDu4QT
+ JKeiC+E+wh/Fi4SjxJXWE4XFk/oTz7fidx2Wm8/U33Q+/1U7Cxhh7dol/GMiljJItKlsOujIKGL
+ 77C4W7RyjSKmq5Napgg==
+X-Proofpoint-GUID: MZHTjfHztoEN44KU5mPdABJJH23tVwIz
+X-Authority-Analysis: v=2.4 cv=MpzHeGae c=1 sm=1 tr=0 ts=6af41e9d cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=U0NwJVSz-9pN22jjyd8A:9 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110031
 
-Hi Andr=C3=A9,
+This series enables PCIe on the Qualcomm Nord SoC and brings up the
+WLAN/BT modules on Ride and RRD board.
 
-On Thu, Nov 5, 2026 at 9:06=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@igal=
-ia.com> wrote:
->
-> Remove some of the duplicated code by using the common syscall number
-> table.
->
-> Tested-by: Magnus Lindholm <linmag7@gmail.com>
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  arch/alpha/kernel/syscalls/Makefile    | 14 +++++++---
->  arch/alpha/kernel/syscalls/syscall.tbl | 49 ----------------------------=
-------
->  arch/alpha/kernel/systbls.S            |  1 +
->  3 files changed, 11 insertions(+), 53 deletions(-)
->
-> diff --git a/arch/alpha/kernel/syscalls/Makefile b/arch/alpha/kernel/sysc=
-alls/Makefile
-> index b265e4bc16c2..03099daff6b9 100644
-> --- a/arch/alpha/kernel/syscalls/Makefile
-> +++ b/arch/alpha/kernel/syscalls/Makefile
-> @@ -7,17 +7,23 @@ $(shell mkdir -p $(uapi) $(kapi))
->  syscall :=3D $(src)/syscall.tbl
->  syshdr :=3D $(srctree)/scripts/syscallhdr.sh
->  systbl :=3D $(srctree)/scripts/syscalltbl.sh
-> +systbl_common :=3D $(srctree)/scripts/syscall_common.tbl
-> +abis :=3D common,__clone3
->
->  quiet_cmd_syshdr =3D SYSHDR  $@
-> -      cmd_syshdr =3D $(CONFIG_SHELL) $(syshdr) --emit-nr $< $@
-> +      cmd_syshdr =3D $(CONFIG_SHELL) $(syshdr) --emit-nr \
-> +                  --common-tbl $(systbl_common) --common-offset 110 \
-> +                  --abis $(abis) $< $@
->
->  quiet_cmd_systbl =3D SYSTBL  $@
-> -      cmd_systbl =3D $(CONFIG_SHELL) $(systbl) $< $@
-> +      cmd_systbl =3D $(CONFIG_SHELL) $(systbl) \
-> +                  --common-tbl $(systbl_common) --common-offset 110 \
-> +                  --abis $(abis) $< $@
->
-> -$(uapi)/unistd_32.h: $(syscall) $(syshdr) FORCE
-> +$(uapi)/unistd_32.h: $(syscall) $(systbl_common) $(syshdr) FORCE
->         $(call if_changed,syshdr)
->
-> -$(kapi)/syscall_table.h: $(syscall) $(systbl) FORCE
-> +$(kapi)/syscall_table.h: $(syscall) $(systbl_common) $(systbl) FORCE
->         $(call if_changed,systbl)
->
->  uapisyshdr-y           +=3D unistd_32.h
-> diff --git a/arch/alpha/kernel/syscalls/syscall.tbl b/arch/alpha/kernel/s=
-yscalls/syscall.tbl
-> index 59eb066a40bf..7066a3920899 100644
-> --- a/arch/alpha/kernel/syscalls/syscall.tbl
-> +++ b/arch/alpha/kernel/syscalls/syscall.tbl
-> @@ -463,52 +463,3 @@
->  532    common  getppid                         sys_getppid
->  # all other architectures have common numbers for new syscall, alpha
->  # is the exception.
-> -534    common  pidfd_send_signal               sys_pidfd_send_signal
-> -535    common  io_uring_setup                  sys_io_uring_setup
-> -536    common  io_uring_enter                  sys_io_uring_enter
-> -537    common  io_uring_register               sys_io_uring_register
-> -538    common  open_tree                       sys_open_tree
-> -539    common  move_mount                      sys_move_mount
-> -540    common  fsopen                          sys_fsopen
-> -541    common  fsconfig                        sys_fsconfig
-> -542    common  fsmount                         sys_fsmount
-> -543    common  fspick                          sys_fspick
-> -544    common  pidfd_open                      sys_pidfd_open
-> -545    common  clone3                          __sys__clone3
-> -546    common  close_range                     sys_close_range
-> -547    common  openat2                         sys_openat2
-> -548    common  pidfd_getfd                     sys_pidfd_getfd
-> -549    common  faccessat2                      sys_faccessat2
-> -550    common  process_madvise                 sys_process_madvise
-> -551    common  epoll_pwait2                    sys_epoll_pwait2
-> -552    common  mount_setattr                   sys_mount_setattr
-> -553    common  quotactl_fd                     sys_quotactl_fd
-> -554    common  landlock_create_ruleset         sys_landlock_create_rules=
-et
-> -555    common  landlock_add_rule               sys_landlock_add_rule
-> -556    common  landlock_restrict_self          sys_landlock_restrict_sel=
-f
-> -# 557 reserved for memfd_secret
-> -558    common  process_mrelease                sys_process_mrelease
-> -559    common  futex_waitv                     sys_futex_waitv
-> -560    common  set_mempolicy_home_node         sys_set_mempolicy_home_no=
-de
-> -561    common  cachestat                       sys_cachestat
-> -562    common  fchmodat2                       sys_fchmodat2
-> -563    common  map_shadow_stack                sys_map_shadow_stack
-> -564    common  futex_wake                      sys_futex_wake
-> -565    common  futex_wait                      sys_futex_wait
-> -566    common  futex_requeue                   sys_futex_requeue
-> -567    common  statmount                       sys_statmount
-> -568    common  listmount                       sys_listmount
-> -569    common  lsm_get_self_attr               sys_lsm_get_self_attr
-> -570    common  lsm_set_self_attr               sys_lsm_set_self_attr
-> -571    common  lsm_list_modules                sys_lsm_list_modules
-> -572    common  mseal                           sys_mseal
-> -573    common  setxattrat                      sys_setxattrat
-> -574    common  getxattrat                      sys_getxattrat
-> -575    common  listxattrat                     sys_listxattrat
-> -576    common  removexattrat                   sys_removexattrat
-> -577    common  open_tree_attr                  sys_open_tree_attr
-> -578    common  file_getattr                    sys_file_getattr
-> -579    common  file_setattr                    sys_file_setattr
-> -580    common  listns                          sys_listns
-> -581    common  rseq_slice_yield                sys_rseq_slice_yield
-> -582    common  fchroot                         sys_fchroot
-> diff --git a/arch/alpha/kernel/systbls.S b/arch/alpha/kernel/systbls.S
-> index 68f3e4f329eb..9a67d29f7818 100644
-> --- a/arch/alpha/kernel/systbls.S
-> +++ b/arch/alpha/kernel/systbls.S
-> @@ -7,6 +7,7 @@
->
->  #include <asm/unistd.h>
->
-> +#define __SYSCALL_WITH_COMPAT(nr, native, compat)        __SYSCALL(nr, n=
-ative)
->  #define __SYSCALL(nr, entry) .quad entry
->         .data
->         .align 3
->
-> --
-> 2.56.0
->
+Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
+multi-PHY. The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
+selected by firmware through a TCSR register that the PHY driver reads at
+probe time, so the DT only describes the PHY ports and hands the driver
+the TCSR handle.
 
-This also needs an adjustment when combined with my Alpha for-next:
+Changes for v5:
+- Rebase on next-20261110
+- Drop RFC tag as dependencies are cleared
+- Link to v4: https://lore.kernel.org/all/20261031142433.1212809-1-shengchao.guo@oss.qualcomm.com/
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/lindholm/alpha.git
-  branch: for-next
+Changes for v4:
+- Correct pcie_phy vdda-pll b/c/d supply: vreg_l1e_0p9 -> vreg_l2e_0p9
+- New patches for RRD WLAN/BT support as RRD boards with WLAN/BT module
+  become available in lab for testing
+- Link to v3: https://lore.kernel.org/all/20261021022921.2053957-1-shengchao.guo@oss.qualcomm.com/
 
-Following d38895ba9330 ("alpha: dispatch system calls from C"), Alpha
-uses sys_clone3 directly. The ABI selection should therefore be:
+Changes for v3:
+- Tag the series with RFC due to the unresolved dependencies
+- Add PMIC E GPIO7 for enabling WCN DIG rail that feeds the WCN7850
+  VDD_DIG domain
+- Drop RRD WiFi patch as RRD with WiFi module is not easily available
+- New patch to add Bluetooth support for Ride board
+- Link to v2: https://lore.kernel.org/all/20260915015632.283642-1-shengchao.guo@oss.qualcomm.com/
 
-  abis :=3D common,clone3
+Changes for v2:
+- Add missing leading zero for pcie_smmu reg property
+- Link to v1: https://lore.kernel.org/all/20260914071944.164217-1-shengchao.guo@oss.qualcomm.com/
 
-rather than common,__clone3. The removal of the old table entries
-also conflicts because the clone3 entry has changed.
+Krishna Chaitanya Chundru (3):
+  arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
+  arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
+  arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
 
-For testing, I skipped patch 11, removed the entries from 534 onward
-as intended here, and selected common,clone3.
+Shuai Zhang (2):
+  arm64: dts: qcom: nord-ride-embedded: Add WCN7850 Bluetooth support
+  arm64: dts: qcom: nord-rrd: Add WCN7850 Bluetooth support
 
-With those adjustments, full GENERIC SMP and DP264 UP builds passed
-using GCC 14.2.1. The generated syscall numbers are unchanged.
-Comparing the native dispatch entries shows only patch 10's intended
-change at syscall 560; clone3 remains sys_clone3.
+Yu Zhang(Yuriy) (2):
+  arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
+  arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
 
-The only build warning was the previously observed saved_config
-COMMON-symbol warning. I have not runtime-tested this combination.
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 926 +++++++++++++++++-
+ .../boot/dts/qcom/nord-ride-embedded.dts      | 179 ++++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         | 179 ++++
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 297 ++++++
+ 4 files changed, 1577 insertions(+), 4 deletions(-)
 
-Thanks,
-Magnus
+-- 
+2.43.0
+
