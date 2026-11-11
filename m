@@ -1,185 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794393559;
-	b=IqEdXPXgVrAPTZBVsDa9Hl/knBKtZrvn2du4y8ZsKveF0GarawlbgvTBMQyAWYlWaf1t
-	 lk47EuQJginke54UANxwsAh/RxVbVBdziV+i32cX4A33HYwUIh83MSL2e0aqSGQTQXKzS
-	 Y50E6ISlQ65X7bbFkxUz9CBv+NaVdu/QrWMu35aoWaBNKwZ7rDh9PSj9hL2HUmRm3e9Kr
-	 3ClKYceNl97e/iDPs63tvT5uAkbnAF8DZnOKNczetFFREOauted387aLMOwHmINxq2J5+
-	 m68tv3VulFMQ9GdAzf3oiDvQAFP0pMGhk17HgJ5Prr7DbwXSXIA+MZstZu0ljTmUuvg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393559;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ld-processed:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fmOLhtpUt5v0Frlwo2TlTJuDL0i/hY4zx2d0lYFcyjg=;
-	b=ykFuNfqG6BkMXkhE3arUK8jjCGaXwRymoFXEr1PcOSYjUZ+krYanpn4S57w79yEEChK3
-	 C0fHY2qUIndIWkGEfygf3wiMMIp+/BoXmdhOG65CbrCP9OAwnVJmYk+tug0SrfeUebd71
-	 xConnnY5RACW6Q59X0noISrbgt6spvd70/u0Y2cK0yAmjKWumvkkZhCIiVQO+VTdgty6R
-	 9+HO8X5fBaPetzj4yAwQa8McE8dXeqv5EZC6ALWV/rwmPde0x1XVEWE2To3+7I/IdNwFJ
-	 Z0UPNnxoJBK919WY6wNw2q+g/VxQVFi3mrg9/xTZ+vpKfWBXtAuSY8W0NCtWwE3kKGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=RrsiGydz;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=U+o5r1Zu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794393565;
+	b=eIvW35QI4q/FfYSxKiX47GzSshFJNu0clW4jqJJHy9zHacqrH1J95ldwr+iH70Ju7HMC
+	 ZAhG5dXP3WF/FAMOFksUA5Ctwyef7MgW6xGdDJSFawoMKO1kgPTt5j2D3yQOTrqBAWvlF
+	 qX32Qbwm7Os3O+SNIsBCADQCkLKFCmVKTAWNjGF9qokFeWf2H2wJf2jYSnsaQY0hgpyrI
+	 Fqy2e2fv+ZHxaZEaDstUDTpRVjgC9m8POOdWeGjnFrbFTd5TE3/tH4Zfvw92sxrVf+vpQ
+	 AJYPYyfm0cV4yjxsYkoi1pkWuYxYux5aUPqxUMOgX3lwYEDB8LNv/A7VzWaKbew3bzQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393565;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SOj8k/5RKPxcdre/sZVrkcreJylNi4xr/NsUFepQse8=;
+	b=wpJhotCz0n7vaWQffRWUFlLwGN0LzunpftRVQUK8b8tzUE0kbk1BD3RpyY3nUqpJiXje
+	 juZmUoWlkSnZr0LwQhU2YkXGluMp7kxDH5H1jsM2Wc5KltH3L28TOoa0bhnKthfJnBEHK
+	 4Px+ikkNSyR3L4lu3kSEoRL1zu+E36FUPwWDVFlnKYAkvztEAvDln92PObca1cweNXbbV
+	 6huUEiQ6lmhnwDmpFrFx8nx42oYBwvJnHshtUc6PA3LQA8cN3vqDxoh2IjZOLuirQjTbT
+	 fGyXijP2ImnwfJYEK5R6NWExGQKmVHVN0/gfY4Z1DPVgNzgX8s0wxS2hDv9GYKPT6lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wSsmkW87;
+	arc=none smtp.remote-ip=95.215.58.44
+Received: from mta1.migadu.com (out-44.mta1.migadu.com [95.215.58.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F89606A88F;
-	Wed, 11 Nov 2026 10:39:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27F89606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5E260A2618
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:39:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D5E260A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=RrsiGydz;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=U+o5r1Zu
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB7MDb9088628;
-	Wed, 11 Nov 2026 04:39:10 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=fmOLhtpUt5v0Frlwo2TlTJuDL0i/hY4zx2d0lYFcy
-	jg=; b=RrsiGydz4219VK9LNL9LKXt4iT1anhk91QMVbQfQXFRGAr5NroUb6NH/4
-	17W2JLlVDqhewDztHNcr7FwMy5YvoCYFUIiweeDZOGZHT0vxZLlrlxQCC4g9E5yI
-	Z7PJN24KLSAKAnzimbkVgER+tomBfzvSUr7/3dgrtMtmGW4IXaCfXAv4Q0pIUoZj
-	YwRSqEPmGrIYQSsrdJHQ9Xs85nLqL3zML44FesqFEVCTXP0DR/o3ZNtInTslE7m9
-	pYkVyrGnKrW7gGbR/5u9ZJXaVLKiPKY9ajBsHx9tkueTlgMhmnPTpBF00KCH1zTg
-	qenB1Wqp0obp+7eeIHABuCRU/QyCA==
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012040.outbound.protection.outlook.com [52.101.43.40])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hv9pjv7m4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 04:39:10 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VQJXufDtJ/XZBCw3UOMAmlVJJJSx4hD85WSHrKSKpdoDB9Y9lo1/Ux+4fpRKke+JG8hluuBhSPUtg/xuO1rcGlH842fsVL+3wykLq6sciJCqFYkSGNFBFznC9HgrcpKCn0ezCfXMZlZgUr1zleTxmOy650hnpTV7XnoPj6t3eCakYxfyfCCfaeRuA6tX1+JOet24TFaZbAWbtI+ek2jU6PbIgv7Mr60OfE4LIEz6wBWs20ye7paJJku1LUx7PGQ1B+t93m7ZRGYsEWP7IparLUvfjFNnWN33iSNseqynOlwV/ZyPuhxolkxGEs3Tj1dliaZESWnEEqc+xmWcqytDqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fmOLhtpUt5v0Frlwo2TlTJuDL0i/hY4zx2d0lYFcyjg=;
- b=D9be3bOrjhbrXPkf5sQP6dww8YLBwRAOZBSgaJnEqeXn9PVCUaJE9vSaizQRudyga+2Xyd+Q6LJ78+BvdSN7iF6RYBDJiPrMGYB5SiDdsUmjqmkpYcHpc0YkQnkSBP9ins2jVhDomEoIHnCYWnFW43e1Mg3AWQlKSlS/Dw6nlhDu32Y4XVJ2J7UXPgDSNBgPFp0BgkR9+YDW0jBUbvW7MrWEJKKULdbEvh6vr4nCT0kkDMJY6OygROBdXGVyhi9n2eQNt6G46Wk0lvDOSRERm0zjmlCyLrxqrQHePrxq5/r30oVvh8LsejKe2e+vf4nD2ZrNb4JHWrlverk6muT5zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ti.com; dmarc=pass action=none header.from=ti.com; dkim=pass
- header.d=ti.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fmOLhtpUt5v0Frlwo2TlTJuDL0i/hY4zx2d0lYFcyjg=;
- b=U+o5r1ZuSg4MXY3P9WVnf3pO6dapyA2TYLyWXgrMs2pCB9jY2rImpw7gdD7G7RDW8nGCBNmYFwgihTIacxy2uvMzPhnApiKMUbAht/FXHW+uegz3Ygie6EvKFvZOPR2ju0SplYuC8jfvsB0jr6FZaR0N/NZQ04zLZWCmCcI2i8w=
-Received: from BN8PR10MB3652.namprd10.prod.outlook.com (2603:10b6:408:ba::10)
- by DS0PR10MB6800.namprd10.prod.outlook.com (2603:10b6:8:13b::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 10:39:07 +0000
-Received: from BN8PR10MB3652.namprd10.prod.outlook.com
- ([fe80::86d1:377b:3bec:884a]) by BN8PR10MB3652.namprd10.prod.outlook.com
- ([fe80::86d1:377b:3bec:884a%4]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 10:39:03 +0000
-From: "Thakkar, Devarsh" <devarsht@ti.com>
-To: "Brnich, Brandon" <b-brnich@ti.com>,
-        "mchehab@kernel.org"
-	<mchehab@kernel.org>,
-        "hverkuil@kernel.org" <hverkuil@kernel.org>,
-        "benjamin.gaignard@collabora.com" <benjamin.gaignard@collabora.com>,
-        "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-CC: "Willis, Kendall" <k-willis@ti.com>,
-        "jai.luthra@ideasonboard.com"
-	<jai.luthra@ideasonboard.com>,
-        "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v8 3/4] media: imagination: e5010: Update
- e5010_init_device Call Sites to Ensure Proper Device State
-Thread-Topic: [PATCH v8 3/4] media: imagination: e5010: Update
- e5010_init_device Call Sites to Ensure Proper Device State
-Thread-Index: AQHdcTE7sG9epRI/I0qa5ZvjdS2FTLcor1eA
-Date: Wed, 11 Nov 2026 10:39:03 +0000
-Message-ID: <db8ff212-97a7-4ec6-b0f1-ab1dec916eb7@ti.com>
-References: <20261110163247.48712-1-b-brnich@ti.com>
- <20261110163247.48712-4-b-brnich@ti.com>
-In-Reply-To: <20261110163247.48712-4-b-brnich@ti.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ti.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN8PR10MB3652:EE_|DS0PR10MB6800:EE_
-x-ms-office365-filtering-correlation-id: aa0368f8-1500-4dc8-05d1-08df3fe00143
-x-ld-processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|38070700021|10067099003|4143699003|56012099006|261021121427099003|261021123027099003|261021135927099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261022115727099003|261022105027099003|261022075727099003|261028144727099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- bx7Ost8roAVAkT+x4JmtOGicHUI5/yTPMd5FRqjLQo0sikbj6kc3T9kn/3XyWxtHn+0YMFvY+u2v/WA30KW9J+8lTIGPLvF/yVVoWcXrhgsHpsB+AUXuVxqyA2K4aOy8nzljfX0atqgDp2N2691PUFHitva9P4x0UU2HZDoiGmr5YEEGq8G8YVyTP65lXk7pbv5wgDxIg9DTQW5RTKS7rcrwTnB8b6+g4/B86RM2HOdyCoMCk7DdH7x+iHJljj321je0zduxS0iuCbpL/dZwxjUgwGjLpADF3Nb1slxTUfRhkZFcfy4ZKx3ERHidMNu6z3zxu3y4/yw0AG/oyG4gXkJePY5Oojj+kSeI7nGvwJ55r4T1bw7jLxsiFrKeTgKmLPk3gljYFy10xLzPFB+bkZpPDpwVovH8OS5drHK2e0g92tzlhL+OjZ1z7s8/l+3+IW1J8GnjoXEYh52SU06vS90zEbKEkgg/cJDXBbrIwsKrKiBmFSZLjtvJqKBA6wp7Lgl0/8fHfCSZWM6kpe3fcgcRHd3V9Nh9Vl/dErvg7HhkIBaXnwyV7PibPQQ5sbAlcIqfEhvxFH4Kv4/KazJdPTqw7ifwtkYh9PkrMVxFn/qctSnNit6tEZM0GYduJUQzINkkfw8LRBX5DUbuzyRXdkkxYk1xaaHa8Xvt4twsrjWEZ+K9GDlm5IZ12tcHdnz/iLNY9r42rG7s/5SxaiiR5LZ9bJ3K2nX69WuGTA+pMlg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR10MB3652.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(261021121427099003)(261021123027099003)(261021135927099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022115727099003)(261022105027099003)(261022075727099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?NkQ4UGZkL0p4ZTdhbVR1NndQTHFsQ1lDYUtmV1BJQ0NQZ3pXVG5neEJiWnR0?=
- =?utf-8?B?dWUrdUhpRkJROEFpQlR3YklZUGdBUm9IemlLWVY3aDdOWmxzRXdmRlh0OVdo?=
- =?utf-8?B?WGdFYkVubzVmQ1JLKysyM3RPUUZJK21ZdG5rU25TWVZxM05nVXBFQjFZSUwx?=
- =?utf-8?B?UHlhL2NBSWRXTXoxSHZyZ2t0UTJBQzVzelpBa3VsSk1Hd2VSVHdqU2NIMjNB?=
- =?utf-8?B?VmdYMVlOYjBwbCt3cVo5NVZSN0J1YWxGbWZCc2dnWWg5TW9PTU0vRHRqWkQ3?=
- =?utf-8?B?eCtIY1hodytKYUc1ZDJQMzBZMTVNcjVvNk54Ukh5SXlzSmo5MUFnQWc5Z2o5?=
- =?utf-8?B?MlBrbHVuZXExTk1tOEwxSWRHVWk5b1BVajRtR2owcitScXI5YWE1clFDUEls?=
- =?utf-8?B?Q2lkQVZoWkhqN0JVVFhYV1FNbGJ3RkRXSUYvcGhqOEMzaFdFZWpWeTlrWHcy?=
- =?utf-8?B?dUhCclQ3Vy82RWFtc0t2UzA3b3IrYzNPb3RoTDIrMkVhRlp6azJYUGFmV0Ir?=
- =?utf-8?B?MFFvNzd6bkdiYjlJQ3ppclNqb0EwRmJFelF6TFV6Z2RxQldMeVZnbGlITUY1?=
- =?utf-8?B?TVRBNEpuRUxQaGV2WkFRUGlIZGloV3dUcjRReEJidFV0YjE3SHlpWmdXM2JT?=
- =?utf-8?B?UjRYQWNIdFV5UG9yS3puNTJoMnhTalRSZlVUSDlVSHRpMXZUSDdDTU0xSUNM?=
- =?utf-8?B?ZDh1TFh1Q1pqZnlOTm1aZW9QWWlsdy8yNERCY1JnSEpucXlXblpGL0RIRTRs?=
- =?utf-8?B?dWg2WHVkamI4SytLR3M3QVZnNHZQdUVZVld1WlFDMUY1cFlUbHRWY0RsUmc2?=
- =?utf-8?B?YytQTk5BcEUvZHZXbko1NHFFN01SUFVoeTlvM3lhS1F6V3pUbHBUOEZlTzBW?=
- =?utf-8?B?c1JxZUdENi9KYmJQQ3UxaVpBQ0tvY0pzYXJDNFV1TUtObjluN0JwTDJ1Zktz?=
- =?utf-8?B?SFJwcW43eGM5U0dZN0VKdjJHV2oyanA1OEZsUlgwRXBmVFNxcHdXbTNVOFQr?=
- =?utf-8?B?Qzk2RGxuTEZycUVkaU9YSTkvcExqT3c3NlZ3dEFQbU1UQkdnMEIwVEQ1QmRX?=
- =?utf-8?B?Mm9HNC9TZDY4dXcyNmhBVzhOT29DNGtjbEhJT3RWMHhwanhMMGJaSzVFUUx2?=
- =?utf-8?B?NTlZUUlTclRzYkhyQ3lRSUZSbFVPVUEvdjh3NjFoLzM1SVk0TGhiOENoZVBH?=
- =?utf-8?B?dzJKQ1p3ZGU3eVYwbFpXSi9pSGJRNDJXeGNuaTk3anNOTW5zbUppbFNQZXhp?=
- =?utf-8?B?elcvMjJrd211OHFTQmRYdkpwYmNDZzNnWE0yOWN3TDdKSDk0dk5ma2V6Q3FZ?=
- =?utf-8?B?TzN4U2hVbkRTU1V2Q2NJV014aGErQnBEVnNoTW5SckRVRWVDSTB6WTA3R29n?=
- =?utf-8?B?Yjkrb2NPdlhwMDZ4MDljZ0MwNUFZMktUWDhDdmJuUVdKdGRBZ3paNWx0My9r?=
- =?utf-8?B?Wks1SHNFdm5ldERBUnVQUDNSa3Q1LzhXVXI5aWpaMzFwbyttSVpKdUNyNGFl?=
- =?utf-8?B?eHE1d1pMeDYrNWc2TXZvTzNtYWdpeHhHSngydmw4TmZDcEZNdlR1ZFdITWRs?=
- =?utf-8?B?NUFWemIxTG54WGtRMXdUWWkvYWgrdHZJV0hWZVliZlE4QUZFemZVNmEyS0tn?=
- =?utf-8?B?OXlMUllBOEtkZ0djTTVCMWxadnRPbG1rb09nbE5TVVVvcGg0K3YyQWlpWE1Z?=
- =?utf-8?B?L3l4NDZBQitPWWlwa3pXV0I4d2QvL1RFb3FEdTgvd0UyMExvdmxCZDJzMGRN?=
- =?utf-8?B?bS84M0pDanRsWWNId283czZaS29kbWNVUVRFNWQ1Tm1DSUM2cXpkZHBOSlBG?=
- =?utf-8?B?b0Jjd09yMDJ0ZURlVTU1d0ZhMzgyRkY2bUN6RU9zMTMrajA5RVh1OGpob2VM?=
- =?utf-8?B?c1BLZVBpb2tObTFSeHFHZ214SUU0WHpaVWQxaEpYS0RGWE9EbU9vWEs3RFl1?=
- =?utf-8?B?V3JvZGNEMnNJdDZQWTI1dlA5L1JFWVNJcnJ5SDhObGVmT1hwL29xeWRjU2VK?=
- =?utf-8?B?SE1ZSit3UjgyTUNHWWtqRTJwaTRrZWQyNUsyUktXK1F6Vm12L3hTK1EyQ2tQ?=
- =?utf-8?B?WWR0bk9QN29jV3JQL0FXaE5xOGViQUZWL255OFJVenloTFYzNUFmWDFPeVI4?=
- =?utf-8?B?eGE5SWpUcTc3aG5FaWxmK0l4RFpMbDZFMmcyZlRCL3c5bnBwN0ZNVzVlMnY4?=
- =?utf-8?B?dkFlbjltUEJMcy9qUTZpczdnVjF2Q1VHRXhkYTNzb0swb1FkQlBUckdERVZh?=
- =?utf-8?B?aUdOQ3k5NWpLTnFHc0JCREN1ZmVFMlBnTzl3RjFUeUg5R2VLZkR6RkNPMW5S?=
- =?utf-8?Q?6+kWvfhctzP68pIpqj?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D99147C59ACD494E936CCFF807D4A19D@namprd10.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wSsmkW87
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0FYI2PpatlC1JTEvKjUAGOziWuxtTE83605BZhXzyNY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794393561; v=1; x=1794998361;
+ b=wSsmkW87FRsoJT6HKL9J6EoHfyAs5h2X6ZPMP15dC43Y7wRSwqrqD1sVkYuURKyOMEwhHSww
+ aOII267hkxls3LH7XU7Ghm9ZNMHzPsIO0VvRK3aZUccESaDhnXNCbOYiU5TMHmKKt/CjZQrMBcF
+ hsh6mpU2luYN4nanOBpeKKxA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 850f3b6db8d38eda;
+	Wed, 11 Nov 2026 10:39:20 +0000
+X-Mizu-Trace-ID: 850f3b6db8d38eda
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	JP Kobryn <jp.kobryn@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	davem@davemloft.net,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	KP Singh <kpsingh@kernel.org>,
+	Tao Chen <chen.dylane@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Tobias Klauser <tklauser@distanz.ch>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Rong Tao <rongtao@cestc.cn>,
+	Hao Luo <haoluo@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Jeff Xu <jeffxu@chromium.org>,
+	mkoutny@suse.com,
+	Jan Hendrik Farr <kernel@jfarr.cc>,
+	Christian Brauner <brauner@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Brian Gerst <brgerst@gmail.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Paul Chaignon <paul.chaignon@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [RFC PATCH v2 2/2] selftests/bpf: Add bpf_memcg_ops protection test
+Date: Wed, 11 Nov 2026 18:38:16 +0800
+Message-ID: <42180b829dca92d4bc2eee47eca4dbcd826b19bb.1794393349.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794393349.git.zhuhui@kylinos.cn>
+References: <cover.1794393349.git.zhuhui@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -189,103 +123,432 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	rU7Rcp+kHdUHCet0UcSMwPoeAO9Jr2413l+bNjfAbwsAgk8dZJf4a/Ik/n3aSomI9ruaJcbexc3gqQKYNkC8dOuuqFw8DpkD0ccZRPIpgs1Dg2FVpM77owfsfKuZnvM6yOSJQtvSjO+SlzA3O29mLZKwI00/Ko7K0k8S1BNE4mpYjVMlHujzrAYbmhqamHAZwQh3pH+PjK+PLG3tGehO1z/IKCUbSeF+OKRI5+DP8pxPAmkYFciDAUllh0uJVl/G5kay9IV3UErWD7g8HD8koT26t/lwK3DmeyB5LlPkM8OBCUVrknMqmmfXsymDGzQrkWBR0asoxMIobB/18X4NfA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR10MB3652.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa0368f8-1500-4dc8-05d1-08df3fe00143
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 10:39:03.5945
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yH3GCKYioJHE+XK1uNnp/eP0KjRaa1tsqB+PNf0dF75JNqgznZq/i5LJeew/9odG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6800
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfX1qUxYwSktlyM
- Pjb2jb8NfHnw66GOEaa2sCtjjHIXiJnBiGhRgxt/Ym15/eN/mZPs6iXBUJeeBHWnjwu/a0DlWKq
- h6yoYdUqNdiSkK4v65pMcma2PGXiqpjXmQuoFF6Q7WC3LYJMZfPnRv/eA2ScFOqnbU630RjPw7f
- tI8DYatoUexMk9GD5KHdfAy4pCZ2LYY3KfWRbWZUCg7ZefW3+jchEwN40u+xmbdnaPikPJTF+/u
- GXZNDjWACMV722S62EkW8apaLFZVAitoIl7ZspC5vlRI43VHEndyKHNZrcOC9YqFj8eHo+s5Omo
- uYtlzA0yNM7ZJIaVP/H5XbP0DCYeqiRyVmOE9X7xZcrCUwaL9Kx25+bN/HatOG4AZ2FNd4tyewM
- Si7n6goSY9w3zbFhME6sbj2JdwmejHMqVOgaHV8K03bRPvXpwQDX7/cJJPWbTxM6k0PotaJ8GHH
- zbht1e3SqI/omndiRPg==
-X-Proofpoint-GUID: yf7aNLnbyfIx-tURmerRFv_EwoW5xGyG
-X-Authority-Analysis: v=2.4 cv=ebOo7LEH c=1 sm=1 tr=0 ts=6af445ce cx=c_pps
- a=cXHsTeABgwIgPhuKzetQTw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8
- a=VwQbUJbxAAAA:8 a=tiM-kIHm-4S82qFA0dEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: yf7aNLnbyfIx-tURmerRFv_EwoW5xGyG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0MiBTYWx0ZWRfXxNMGNPNhUrOy
- ekrVTkFrA3DvJI7nmgm6i/l5r6qUrCzfDI1Cl/GPRMPOuBhGYFQ5di/y4N9Ce84uI6X5cc6Roqv
- SlwkNUoaLQr/UGVFK4bujz4/3/6lLO8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- malwarescore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110042
+Content-Transfer-Encoding: 8bit
 
-T24gMTEvMTAvMjAyNiAxMDowMiBQTSwgQnJuaWNoLCBCcmFuZG9uIHdyb3RlOg0KPiBUaGUgUE0g
-ZnJhbWV3b3JrIHNraXBzIHRoZSBydW50aW1lIHJlc3VtZSBob29rIGlmIHRoZSBkZXZpY2Ugd2Fz
-IG5ldmVyIG9uDQo+IGluIHRoZSBmaXJzdCBwbGFjZS4gVGhpcyByZXN1bHRzIGluIGEgY3Jhc2gg
-aW4gdGhlIHN5c3RlbSByZXN1bWUgaG9vayB3aGVuDQo+IGEgY2FsbCB0byBlNTAxMF9pbml0X2Rl
-dmljZSBhdHRlbXB0cyBhIHdyaXRlIHRvIGEgcG93ZXJlZCBkb3duIGRldmljZS4NCj4gDQo+IE1v
-dmUgZTUwMTBfaW5pdF9kZXZpY2UgdG8gdGhlIHJlc3VtZSBob29rIHRvIGVuc3VyZSByZWdpc3Rl
-ciB3cml0ZSBvbmx5DQo+IG9jY3VycyB3aGVuIGRldmljZSBpcyBwcm9wZXJseSBwb3dlcmVkIG9u
-Lg0KPiANCj4gZTUwMTBfaW5pdF9kZXZpY2UgbmVlZHMgdG8gYmUgY2FsbGVkIGFmdGVyIGU1MDEw
-X3Jlc2V0IGZvciBuZXh0DQo+IGRldmljZV9ydW4gdG8gaGF2ZSBhbGwgcmVnaXN0ZXJzIHByb3Bl
-cmx5IHJlc2V0LiBXaXRob3V0IHRoaXMgY2FsbCwNCj4gcmVnaXN0ZXIgdmFsdWVzIGFyZSBzdGFs
-ZS4NCg0KTm90IHN0YWxlIGJ1dCBjYXJyeWluZyBkZWZhdWx0IHVuLXByb2dyYW1tZWQgcmVzZXQt
-bGV2ZWwgdmFsdWVzLg0KDQogU2ltaWxhcmx5LCBlNTAxMF9sYXN0X2NvbnRleHRfcnVuIHNob3Vs
-ZCBiZQ0KDQpUaGVyZSBpcyBubyB2YXIgYXMgZTUwMTBfbGFzdF9jb250ZXh0X3J1bi4NCg0KPiBz
-ZXQgdG8gTlVMTCBpbiBlNTAxMF9pbml0X2RldmljZSBzbyB0aGUgbmV4dCBkZXZpY2VfcnVuIGNh
-bGwgZG9lcyBub3QNCj4gdXNlIHN0YWxlIFFQIHZhbHVlcy4NCg0KTWF5YmUgZ29vZCB0byByZXdv
-cmQgYWJvdmUgcGFyYSBhcyBiZWxvdzoNCmU1MDEwX3Jlc2V0KCkgcmVzZXRzIHRoZSB3aG9sZSBJ
-UCwgd2hpY2ggcmV2ZXJ0cyBhbGwgcmVnaXN0ZXJzLA0KaW5jbHVkaW5nIHRoZSBpbnRlcnJ1cHQg
-ZW5hYmxlcywgaW5wdXQgc291cmNlIGFuZCBxdWFudGl6YXRpb24NCnRhYmxlcywgdG8gdGhlaXIg
-cmVzZXQgZGVmYXVsdHMuIENhbGwgZTUwMTBfaW5pdF9kZXZpY2UoKSBhZnRlciB0aGUNCnJlc2V0
-IHNvIHRoZSBuZXh0IGRldmljZV9ydW4oKSBzdGFydHMgZnJvbSBhIHByb3Blcmx5IHByb2dyYW1t
-ZWQNCmRldmljZS4gQWxzbyBjbGVhciBlNTAxMC0+bGFzdF9jb250ZXh0X3J1biBpbiBlNTAxMF9p
-bml0X2RldmljZSgpLCBzbw0KdGhhdCB0aGUgbmV4dCBkZXZpY2VfcnVuKCkgcmVsb2FkcyB0aGUg
-dXNlci1jb25maWd1cmVkIFFQIHRhYmxlcw0KaW5zdGVhZCBvZiBlbmNvZGluZyB3aXRoIHRoZSBk
-ZWZhdWx0IG9uZXMuDQoNCldpdGggYWJvdmUgc3VnZ2VzdGlvbnMsDQpSZXZpZXdlZC1ieTogRGV2
-YXJzaCBUaGFra2FyIDxkZXZhcnNodEB0aS5jb20+DQoNClJlZ2FyZHMNCkRldmFyc2gNCg0KPiAN
-Cj4gRml4ZXM6IGExZTI5NDA0NTg4NSAoIm1lZGlhOiBpbWFnaW5hdGlvbjogQWRkIEU1MDEwIEpQ
-RUcgRW5jb2RlciBkcml2ZXIiKQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBTaWdu
-ZWQtb2ZmLWJ5OiBCcmFuZG9uIEJybmljaCA8Yi1icm5pY2hAdGkuY29tPg0KPiAtLS0NCj4gIC4u
-Li9wbGF0Zm9ybS9pbWFnaW5hdGlvbi9lNTAxMC1qcGVnLWVuYy5jICAgICB8IDE5ICsrKysrKysr
-KysrKy0tLS0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA3IGRlbGV0
-aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vaW1hZ2lu
-YXRpb24vZTUwMTAtanBlZy1lbmMuYyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vaW1hZ2luYXRp
-b24vZTUwMTAtanBlZy1lbmMuYw0KPiBpbmRleCAxN2VhNjE2ZmYxNzk1Li40ZTc3MTEyYjU5MTk3
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2ltYWdpbmF0aW9uL2U1MDEw
-LWpwZWctZW5jLmMNCj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9pbWFnaW5hdGlvbi9l
-NTAxMC1qcGVnLWVuYy5jDQo+IEBAIC05ODYsNiArOTg2LDggQEAgc3RhdGljIGludCBlNTAxMF9p
-bml0X2RldmljZShzdHJ1Y3QgZTUwMTBfZGV2ICplNTAxMCkNCj4gIHsNCj4gIAlpbnQgcmV0ID0g
-MDsNCj4gIA0KPiArCWU1MDEwLT5sYXN0X2NvbnRleHRfcnVuID0gTlVMTDsNCj4gKw0KPiAgCS8q
-VE9ETzogU2V0IE1NVSBpbiBieXBhc3MgbW9kZSB1bnRpbCBzdXBwb3J0IGZvciB0aGUgc2FtZSBp
-cyBhZGRlZCBpbiBkcml2ZXIqLw0KPiAgCWU1MDEwX2h3X2J5cGFzc19tbXUoZTUwMTAtPm1tdV9i
-YXNlLCAxKTsNCj4gIA0KPiBAQCAtMTQ4OCw3ICsxNDkwLDkgQEAgc3RhdGljIHZvaWQgZTUwMTBf
-ZGV2aWNlX3J1bih2b2lkICpwcml2KQ0KPiAgDQo+ICBkZXZpY2VfYnVzeV9lcnI6DQo+ICAJZTUw
-MTBfcmVzZXQoZTUwMTAtPmRldiwgZTUwMTAtPmNvcmVfYmFzZSwgZTUwMTAtPm1tdV9iYXNlKTsN
-Cj4gLQ0KPiArCXJldCA9IGU1MDEwX2luaXRfZGV2aWNlKGU1MDEwKTsNCj4gKwlpZiAocmV0KQ0K
-PiArCQl2NGwyX2VycigmZTUwMTAtPnY0bDJfZGV2LCAiZmFpbGVkIHRvIGluaXRpYWxpemUgZGV2
-aWNlIGFmdGVyIHJlc2V0XG4iKTsNCj4gIG5vX3JlYWR5X2J1Zl9lcnI6DQo+ICAJaWYgKHNfdmIp
-IHsNCj4gIAkJdjRsMl9tMm1fc3JjX2J1Zl9yZW1vdmVfYnlfYnVmKGN0eC0+ZmgubTJtX2N0eCwg
-c192Yik7DQo+IEBAIC0xNTE3LDYgKzE1MjEsMTMgQEAgc3RhdGljIGludCBlNTAxMF9ydW50aW1l
-X3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+ICAJCXJldHVybiByZXQ7DQo+ICAJfQ0KPiAg
-DQo+ICsJcmV0ID0gZTUwMTBfaW5pdF9kZXZpY2UoZTUwMTApOw0KPiArCWlmIChyZXQpIHsNCj4g
-KwkJZGV2X2VycihkZXYsICJGYWlsZWQgdG8gcmUtZW5hYmxlIGU1MDEwIGRldmljZVxuIik7DQo+
-ICsJCWNsa19kaXNhYmxlX3VucHJlcGFyZShlNTAxMC0+Y2xrKTsNCj4gKwkJcmV0dXJuIHJldDsN
-Cj4gKwl9DQo+ICsNCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gIA0KPiBAQCAtMTU0OSwxMiArMTU2
-MCw2IEBAIHN0YXRpYyBpbnQgZTUwMTBfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRldikNCj4gIAlp
-ZiAocmV0IDwgMCkNCj4gIAkJcmV0dXJuIHJldDsNCj4gIA0KPiAtCXJldCA9IGU1MDEwX2luaXRf
-ZGV2aWNlKGU1MDEwKTsNCj4gLQlpZiAocmV0KSB7DQo+IC0JCWRldl9lcnIoZGV2LCAiRmFpbGVk
-IHRvIHJlLWVuYWJsZSBlNTAxMCBkZXZpY2VcbiIpOw0KPiAtCQlyZXR1cm4gcmV0Ow0KPiAtCX0N
-Cj4gLQ0KPiAgCXY0bDJfbTJtX3Jlc3VtZShlNTAxMC0+bTJtX2Rldik7DQo+ICANCj4gIAlyZXR1
-cm4gcmV0Ow0KDQo=
+From: Hui Zhu <zhuhui@kylinos.cn>
+
+Attach a low_request policy to a grandchild cgroup, give the middle
+cgroup a memory.low as the budget, and reclaim from the top of the
+three-level tree.  The policy asks for the victim's current usage on
+every pass; the test checks how the kernel arbitrates that ask.  The
+outcome is read back through the next pass's ctx threshold (the
+effective value the previous pass computed) and the victim's
+memory.events low counter.
+
+Three budgets, same request: with 0 the effective value stays 0; with
+2M an 8M request comes back capped to 2M and reclaim still goes into
+the victim; with 16M the request is granted in full, reclaim skips the
+victim and its events counter moves.  A request thus goes through the
+same arbitration as a declared memory.low and can never lift the
+subtree above its parent's budget.  The ctx contents (victim id,
+reclaim target, usage) are checked along the way.
+
+The workload is anonymous-only: without swap each memory.reclaim
+trigger returns EAGAIN, yet every scan still consults the hook, and it
+avoids temporary-file support issues on shared mounts.  Recorded
+snapshots are filtered by cgroup id and reclaim target, since the
+dispatcher runs for every memcg and global reclaim recomputes
+protection with no target.
+
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+---
+ .../bpf/prog_tests/memcg_ops_protection.c     | 297 ++++++++++++++++++
+ .../bpf/progs/memcg_ops_protection.c          |  82 +++++
+ 2 files changed, 379 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/memcg_ops_protection.c
+ create mode 100644 tools/testing/selftests/bpf/progs/memcg_ops_protection.c
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_ops_protection.c b/tools/testing/selftests/bpf/prog_tests/memcg_ops_protection.c
+new file mode 100644
+index 000000000000..b60c573fc480
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/memcg_ops_protection.c
+@@ -0,0 +1,297 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Drive the memcg_ops_protection sample: check that the kernel consults
++ * low_request during reclaim, that the ctx describes the check faithfully,
++ * and - the point of the test - that what the policy asks for is arbitrated
++ * like a declared memory.low rather than granted outright.
++ *
++ * Layout, under the test workdir:
++ *
++ *   memcg_ops_prot                P   reclaim runs from P/memory.reclaim
++ *   memcg_ops_prot/budget         M   memory.low is the budget C is capped to
++ *   memcg_ops_prot/budget/victim  C   holds the memory, carries the ops
++ *   memcg_ops_prot_ctl            -   where the test process normally sits
++ *
++ * The victim asks for its current usage (8M) on every pass.  The runner
++ * varies M's memory.low - the budget the request is arbitrated against -
++ * and reads the outcome back two ways: @threshold in the ctx of the next
++ * pass carries the effective value the last pass computed, and C's
++ * memory.events "low" counts the passes that skipped C as protected.
++ *
++ *   budget   request   elow(C)         C's memory.events low
++ *   0        off       0               unchanged (nothing asked, nothing got)
++ *   2M       on        2M, capped      unchanged (asked 8M, parent affords 2M)
++ *   16M      on        usage, granted  increased (parent affords all of it)
++ *
++ * The middle row is the ceiling: the request can move protection around
++ * inside the parent's budget but cannot lift the subtree above it.  Break
++ * the cap in effective_protection() and that row turns red - elow(C)
++ * becomes usage, reclaim skips C, and the event counter moves.
++ *
++ * The test process joins C itself and faults in 8M of anonymous memory.
++ * Nothing is actually reclaimed - without swap there is nothing to take -
++ * so each trigger walks the subtree repeatedly and returns EAGAIN, and
++ * every walk consulted the hook and recomputed the effective value.  No
++ * file is involved on purpose: a VM's working directory is often a shared
++ * mount where temporary files are unsupported or unevictable.  On the way
++ * out the process rejoins the ctl cgroup, so the framework's cleanup can
++ * rmdir C, M and P.
++ */
++
++#include <errno.h>
++#include <fcntl.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/mman.h>
++#include <unistd.h>
++
++#include <bpf/bpf.h>
++#include <bpf/libbpf.h>
++
++#include <test_progs.h>
++#include "cgroup_helpers.h"
++#include "memcg_ops_protection.skel.h"
++
++#define CTL_PATH	"/memcg_ops_prot_ctl"
++#define PARENT_PATH	"/memcg_ops_prot"
++#define BUDGET_PATH	PARENT_PATH "/budget"
++#define VICTIM_PATH	BUDGET_PATH "/victim"
++
++#define FILL_SZ		(8UL << 20)
++#define RECLAIM_SZ	"1M"
++/* Below FILL_SZ, so the request overclaims and the cap has to bite. */
++#define BUDGET_CAPPED	(2UL << 20)
++/* Above FILL_SZ, so the parent affords the request in full. */
++#define BUDGET_GRANTED	(16UL << 20)
++
++static int set_budget(unsigned long sz)
++{
++	char buf[32];
++
++	snprintf(buf, sizeof(buf), "%lu", sz);
++	return write_cgroup_file(BUDGET_PATH, "memory.low", buf);
++}
++
++/* .bss is frozen once the skeleton is loaded, so the phase switch that the
++ * policy reads lives in a map rather than in a global.
++ */
++static int set_request(struct memcg_ops_protection *skel, int on)
++{
++	__u32 key = 0, val = !!on;
++
++	return bpf_map_update_elem(bpf_map__fd(skel->maps.cfg), &key, &val, 0);
++}
++
++static long events_low(const char *path)
++{
++	char buf[512];
++	char *p;
++
++	if (read_cgroup_file(path, "memory.events", buf, sizeof(buf)))
++		return -1;
++	/* "low" is the first key in memory.events. */
++	p = strstr(buf, "low ");
++	if (!p)
++		return -1;
++	return strtol(p + 4, NULL, 10);
++}
++
++/* One triggered reclaim walk.  EAGAIN is as good a scan as success. */
++static int trigger_reclaim(int pfd)
++{
++	ssize_t n;
++	int rfd, err;
++
++	rfd = openat(pfd, "memory.reclaim", O_RDWR);
++	if (rfd < 0) {
++		log_err("open memory.reclaim");
++		return -1;
++	}
++	n = write(rfd, RECLAIM_SZ, sizeof(RECLAIM_SZ) - 1);
++	err = n < 0 ? -errno : 0;
++	close(rfd);
++	if (err && err != -EAGAIN) {
++		log_err("write memory.reclaim");
++		return -1;
++	}
++	return 0;
++}
++
++void test_memcg_ops_protection(void)
++{
++	struct memcg_ops_protection *skel = NULL;
++	struct bpf_link *ops_link = NULL;
++	int ctlfd = -1, pfd = -1, bfd = -1, cfd = -1;
++	__u64 seq_before, threshold, usage;
++	long budget_pages, low_before, low_after;
++	void *mem = MAP_FAILED;
++
++	/* Sets the environment up and parks this process outside of P. */
++	ctlfd = test__join_cgroup(CTL_PATH);
++	if (!ASSERT_GE(ctlfd, 0, "join_cgroup"))
++		return;
++
++	pfd = create_and_get_cgroup(PARENT_PATH);
++	if (!ASSERT_GE(pfd, 0, "create_parent"))
++		goto done;
++
++	bfd = create_and_get_cgroup(BUDGET_PATH);
++	if (!ASSERT_GE(bfd, 0, "create_budget"))
++		goto done;
++
++	cfd = create_and_get_cgroup(VICTIM_PATH);
++	if (!ASSERT_GE(cfd, 0, "create_victim"))
++		goto done;
++
++	/*
++	 * The memory.* files of M and C need the memory controller in the
++	 * subtree_control of P and of M.  A failure here is the usual "v1
++	 * still owns memory", which is a skip rather than a fail.
++	 */
++	if (enable_controllers(PARENT_PATH, "memory") ||
++	    enable_controllers(BUDGET_PATH, "memory")) {
++		fprintf(stderr, "no memory controller under %s\n", PARENT_PATH);
++		test__skip();
++		goto done;
++	}
++
++	skel = memcg_ops_protection__open();
++	if (!ASSERT_OK_PTR(skel, "open"))
++		goto done;
++
++	skel->bss->target_cgroup_id = get_cgroup_id(VICTIM_PATH);
++	skel->bss->parent_cgroup_id = get_cgroup_id(PARENT_PATH);
++	if (!ASSERT_NEQ(skel->bss->target_cgroup_id, 0ULL, "victim_id"))
++		goto done;
++	if (!ASSERT_NEQ(skel->bss->parent_cgroup_id, 0ULL, "parent_id"))
++		goto done;
++
++	if (!ASSERT_OK(memcg_ops_protection__load(skel), "load"))
++		goto done;
++
++	ops_link = bpf_map__attach_cgroup_opts(skel->maps.prot_ops, cfd, NULL);
++	if (!ASSERT_OK_PTR(ops_link, "attach_ops"))
++		goto done;
++
++	/* From here on the test process lives in C; leave via done. */
++	if (!ASSERT_OK(join_cgroup(VICTIM_PATH), "join_victim"))
++		goto done;
++
++	mem = mmap(NULL, FILL_SZ, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (!ASSERT_TRUE(mem != MAP_FAILED, "mmap"))
++		goto done;
++	memset(mem, 0xa5, FILL_SZ);
++
++	budget_pages = BUDGET_CAPPED / sysconf(_SC_PAGESIZE);
++
++	/*
++	 * Phase 0 - nothing declared, nothing requested.  The hook still
++	 * runs: reclaim asks every cgroup it visits, protected or not.
++	 */
++	if (!ASSERT_OK(set_budget(0), "budget_zero"))
++		goto done;
++	if (!ASSERT_OK(set_request(skel, 0), "request_off"))
++		goto done;
++	seq_before = skel->bss->record_seq;
++	low_before = events_low(VICTIM_PATH);
++	if (!ASSERT_GE(low_before, 0, "events_phase0"))
++		goto done;
++	if (!ASSERT_OK(trigger_reclaim(pfd), "trigger_phase0"))
++		goto done;
++
++	if (!ASSERT_GT(skel->bss->record_seq, seq_before, "passes_phase0"))
++		goto done;
++	if (!ASSERT_EQ(skel->bss->saw_from_parent, 1, "target_phase0"))
++		goto done;
++	/* No claim anywhere below P, so C ends up with no protection. */
++	if (!ASSERT_EQ(skel->bss->seen_threshold, 0ULL, "idle_threshold"))
++		goto done;
++	low_after = events_low(VICTIM_PATH);
++	if (!ASSERT_EQ(low_after, low_before, "idle_events"))
++		goto done;
++
++	/*
++	 * Phase 1 - the ceiling.  C asks for its full usage but M only
++	 * affords BUDGET_CAPPED, so the arbitration has to cut the request
++	 * down: elow(C) lands at the budget, below usage, and reclaim does
++	 * not treat C as protected.
++	 */
++	if (!ASSERT_OK(set_budget(BUDGET_CAPPED), "budget_capped"))
++		goto done;
++	if (!ASSERT_OK(set_request(skel, 1), "request_on"))
++		goto done;
++	seq_before = skel->bss->record_seq;
++	low_before = events_low(VICTIM_PATH);
++	if (!ASSERT_GE(low_before, 0, "events_phase1"))
++		goto done;
++	if (!ASSERT_OK(trigger_reclaim(pfd), "trigger_phase1"))
++		goto done;
++
++	if (!ASSERT_GT(skel->bss->record_seq, seq_before, "passes_phase1"))
++		goto done;
++	threshold = skel->bss->seen_threshold;
++	usage = skel->bss->seen_usage;
++	if (!ASSERT_GT(usage, 0ULL, "capped_usage"))
++		goto done;
++	/*
++	 * The request was honoured - it is what lifts elow off zero - and
++	 * capped - it never exceeds what M affords.  Exact equality with
++	 * the budget is the normal outcome; the cap is the invariant.
++	 */
++	if (!ASSERT_GT(threshold, 0ULL, "capped_threshold_nonzero"))
++		goto done;
++	if (!ASSERT_LE(threshold, (__u64)budget_pages, "capped_threshold"))
++		goto done;
++	if (!ASSERT_LT(threshold, usage, "capped_below_usage"))
++		goto done;
++	low_after = events_low(VICTIM_PATH);
++	if (!ASSERT_EQ(low_after, low_before, "capped_events"))
++		goto done;
++
++	/*
++	 * Phase 2 - the same request, but now M affords all of it: elow(C)
++	 * reaches usage, reclaim skips C as protected, and the skip shows
++	 * up in C's memory.events.  Together with phase 1 this pins the
++	 * request to the arbitration: same ask, different budget,
++	 * different outcome.
++	 */
++	if (!ASSERT_OK(set_budget(BUDGET_GRANTED), "budget_granted"))
++		goto done;
++	seq_before = skel->bss->record_seq;
++	low_before = events_low(VICTIM_PATH);
++	if (!ASSERT_GE(low_before, 0, "events_phase2"))
++		goto done;
++	if (!ASSERT_OK(trigger_reclaim(pfd), "trigger_phase2"))
++		goto done;
++
++	if (!ASSERT_GT(skel->bss->record_seq, seq_before, "passes_phase2"))
++		goto done;
++	threshold = skel->bss->seen_threshold;
++	usage = skel->bss->seen_usage;
++	/* The budget covers the ask, so the request is granted in full. */
++	if (!ASSERT_EQ(threshold, usage, "granted_threshold"))
++		goto done;
++	if (!ASSERT_GT(usage, 0ULL, "granted_usage"))
++		goto done;
++	low_after = events_low(VICTIM_PATH);
++	ASSERT_GT(low_after, low_before, "granted_events");
++
++done:
++	/* Detach before anything else: no policy may run during teardown. */
++	bpf_link__destroy(ops_link);
++	memcg_ops_protection__destroy(skel);
++	if (mem != MAP_FAILED)
++		munmap(mem, FILL_SZ);
++	/* A no-op when the process never made it into the victim. */
++	join_cgroup(CTL_PATH);
++	if (cfd >= 0)
++		close(cfd);
++	if (bfd >= 0)
++		close(bfd);
++	if (pfd >= 0)
++		close(pfd);
++	if (ctlfd >= 0)
++		close(ctlfd);
++}
+diff --git a/tools/testing/selftests/bpf/progs/memcg_ops_protection.c b/tools/testing/selftests/bpf/progs/memcg_ops_protection.c
+new file mode 100644
+index 000000000000..47318a82d012
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/memcg_ops_protection.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * The low_request policy for the memcg_ops_protection runner: count the
++ * consultations about the victim cgroup, snapshot what the ctx carries,
++ * and ask that the victim's current usage be protected.
++ *
++ * What the kernel does with that request is the point of the test: it is
++ * arbitrated exactly like a declared memory.low, so the budget cgroup
++ * above the victim decides whether the request is granted in full, cut
++ * down, or - with nothing requested - ignored.  The runner varies the
++ * budget and reads the effective value back from @pctx->threshold, which
++ * carries the elow the previous reclaim pass computed.
++ *
++ * The snapshots are victim-scoped and, on top of that, filtered to the
++ * reclaim the runner triggered: a request attached anywhere makes the
++ * dispatcher run for every memcg, and global reclaim recalculates
++ * protection with a NULL target, which would otherwise overwrite what
++ * the triggered passes recorded.
++ */
++
++#include "vmlinux.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++/* Set by the runner between open and load. */
++__u64 target_cgroup_id;
++__u64 parent_cgroup_id;
++
++/*
++ * Toggled by the runner between phases, before each trigger.  A map rather
++ * than a global: .bss is frozen once the skeleton is loaded, so the runner
++ * can only read it from here on.
++ */
++struct {
++	__uint(type, BPF_MAP_TYPE_ARRAY);
++	__uint(max_entries, 1);
++	__type(key, __u32);
++	__type(value, __u32);
++} cfg SEC(".maps");
++
++/* How often the kernel consulted us about the victim. */
++__u64 low_calls;
++
++/* Passes that recorded a snapshot; the runner brackets each trigger. */
++__u64 record_seq;
++
++/* Last snapshot from a runner-triggered pass. */
++__u64 seen_threshold;
++__u64 seen_usage;
++int saw_from_parent;
++
++/* BPF_PROG() uses "ctx" for the raw argument array, hence "pctx" here. */
++SEC("struct_ops")
++__u32 BPF_PROG(prot_low_request, const struct bpf_memcg_prot_ctx *pctx)
++{
++	__u32 key = 0, *enabled;
++
++	if (pctx->cgroup_id != target_cgroup_id)
++		return BPF_MEMCG_PROT_NO_REQUEST;
++
++	__sync_fetch_and_add(&low_calls, 1);
++
++	if (pctx->target_cgroup_id == parent_cgroup_id) {
++		saw_from_parent = 1;
++		seen_threshold = pctx->threshold;
++		seen_usage = pctx->usage;
++		__sync_fetch_and_add(&record_seq, 1);
++	}
++
++	enabled = bpf_map_lookup_elem(&cfg, &key);
++	if (!enabled || !*enabled)
++		return BPF_MEMCG_PROT_NO_REQUEST;
++
++	return BPF_MEMCG_PROT_REQUEST_USAGE;
++}
++
++SEC(".struct_ops.link")
++struct bpf_memcg_ops prot_ops = {
++	.low_request = (void *)prot_low_request,
++};
+-- 
+2.43.0
+
