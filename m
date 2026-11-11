@@ -1,139 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.38
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794417100;
-	b=jDnUDXmiKVGcVIT2850Pv4qyitJ+uYWcn8Vr3SUa0B0ZF0iaMt3bGXPVv+HdlJkjiI4c
-	 hTqnhM+Ino+KE1/y1Wek0EHVtBDszesq8EByUsFA4ILA8zNUq03wb3yNBzo5NZuNm4Ewh
-	 CaiLUsxVnB245pWZrB4BaTSLvy8843v88wLDNY80nCrkDuRvNzV7b9pfElTotF0wv2PCB
-	 iIFaavRoVUfGBkXx2+yY3kiRed9Z8oeNc/mR6WAJ0jB5lJK8AaE5/xV73eoe1aDUf+mKZ
-	 TkRyOxKCYMXnVNpC0Bs+usxR8ibZSXduSxPOqu/GXIa9Qrcio+ncFKSRLOvJEPnDKhQ==
+	t=1794417119;
+	b=49IX0U0IReV+DeSCYxCQkfG1vdd9WhQUKZkiI2N6g73wxE2kiQ+Rw3n1EoJ7xwDxH3Eu
+	 a//KwSAiGDi8X1YI7sSCsxVFPhciW5cTEOj6uxd1Ar41U5SvZTt8YgHI2W2AWlG28i/bS
+	 o1zdCPahuAECfPBs6cQCnfu/igs3GcpQ8WwLp9UNmlKmRHN4Cz1uVWMRqFxKgay8xcyYG
+	 BDfwnNPMmHyovSXtNYO4qD/DsKcB40BSO3raU1HXUciiexF5WLCSySVYG1JndtRlYyHEC
+	 8pOjbb80guofZh3MGNNOB9boM71NYk+sM2O2TbYuTcXwiZcaesdg6O+OWlXrmT8jidw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417100;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417119;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=j44swFNWreQeP9wiM8B85prMtqbDh7ScyUkYkb4cdqc=;
-	b=AgBubgwiuS3CW2MjoyLphkmISY/+ucKEe5k1eBH1GFWjlXpXzHLAQHcHNzvsRu+jzqGJ
-	 YZfSxpqg6H1zPZ1aT+zBnL7LfXsQft5WnOn1udWLpBUR6CnBjDZm5dRHDScZHgofYVY1T
-	 5hRAW7ktBKUM+16Xxp2SbQ/PCpl+52aYe72nE7fa+YJ14nNQRuOmteRXCk9sYw4HcaUUS
-	 0QLC8XqvWXpt4POCAUv62elzLVbhCnmmz4aXxLkgjiW1KM1ZEzsG/tGc7HX3EC4A8pkwW
-	 wQch+6/LnOk2K2vXWxyU8sSn898SoLxVobviqE+K7i69zIHLpYXl2v6KICBOSF66oyA==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yy22XWQwpnPPgJ/pVk38p0ugt5BRPKvge48cU9RAFDo=;
+	b=qzNmqyQM/ijj5Ei76/5BYdt7jSjvv+s6ds3LbO0047V7O1hamTZ5qZZdsUNo+pjYeJ07
+	 qmNwWTcigLSH6ftHRFuLQsIEvtok0aQKHlxVVxN63UhmE7GrwwZrTMe7ymAlitb+dSB81
+	 UMNmctUuDycNma6Q4MhZMPoltys1arMpONpZ7HT9xx5jAHG2fVM93FsLIFGyvqRxOoxLh
+	 lvPrJeC/vMMmFqqK0MEqOoZ3Yy9GxTkFuYaKuwKtJDC0ESEc6ZjQm2fyOmuNcayuLwmKo
+	 aCCLfxkek1an7bxR7a+1m3lTRgl315OBjTTE3q1bIrd0eKovWfb8/s9khceN0WsqDOA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=iEpukxrF;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b="kdvft8L/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lWVtj1Al;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.38
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011038.outbound.protection.outlook.com [52.101.70.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59688606A326;
-	Wed, 11 Nov 2026 17:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59688606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDAC606A321;
+	Wed, 11 Nov 2026 17:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DDAC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=iEpukxrF;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=kdvft8L/
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF2ulf981001;
-	Wed, 11 Nov 2026 11:11:33 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=j44swFNWreQeP9wiM8B85prMtqbDh7ScyUkYkb4cd
-	qc=; b=iEpukxrFbAnajmie5cDBC/xN0t6Yo3jQG1pDRsX9/umMtN6b/dRwkKUSv
-	XYWPfn3Oomec9gdV/F25bGr6cPQZ7tl4XZbbbHdfZ3/UD3148rcnI/Z7GRqFQyaq
-	Domk/74CJ2oj5bjddWOxKfGC6x/ebqDHar6gB6z+q4AKrdc1sds3NKXjP97U87Td
-	+uA/a1EDcklmpztu/BshNr9btl7LA15a9yzFDY1tXqQmnK87QvEA1HL8YkyeDF6w
-	P2zCxktPJDjocDzgFaCvnsEXvkZPLQ038lOvEO+NPsbBwUhoUaML2UN9V2gWuwEu
-	6nDEoj7Ohwb52UQGk0Cp9SfqAXOsQ==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013020.outbound.protection.outlook.com [40.107.201.20])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hv9pjxd0h-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 11:11:33 -0600 (CST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lWVtj1Al
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PRA6M7F8VArzmiSOJ1xWTl1m70SkG7aQqKb4n/z4CCa2ac/UKqrqzZ5+lqCQRh/kvfuDk1CirlDecR/eiZ7fxd77mbKM1x5nbeUHrkDEeQI2arzWQhr1+77yCN2Q+mOiTtr6QUoN7IXOc8s0aPZVIkJeF25r0A+hemBBKOGlfIg6+r5MZdXzqYIHuxy4eAR7mQ5Jwj+6NFNpUCtnLZSiOFRlbBOXc1XQaJTxnEE8MaE11gkhZwa1wGqgswOeANh6t89unxj5JjpBxc4jRReybhSoR4E2LSDXU/k4BjpJOQwH4lZSElxVPRTLYI4L6cNSD2j5Qbuvu4CZvl5yPTQOoQ==
+ b=tUWmbepC/ZDeioBE2E7IiXdXiX6It3fzKUQOE96uM2YWXCPRw/OixLLNDl9vJfYCSbbxyq843qpKLRHSxCrrJ44Jig7LxiJuHQH22iHQfGmWIU4mEFr4writ3F+vMnZZoIU4XLPetvGEXJgpSWnhmlf/21Be7C58edDDPurQqII3Nnw7hndMpCfj5ujisVbQQhoREAKs/54ymMwjGtZBFBGba1IbnD1qeLwcT8tWN9DH96qigq2AdVSfDbtbX5B72YmyPeQdMQBzDSINHE2Uyzc3V01srDjHiL8KfpJinJBvosFr8t8toWolYJPL6xOfguei66IJh1c5q7iv1NdMhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j44swFNWreQeP9wiM8B85prMtqbDh7ScyUkYkb4cdqc=;
- b=Bq8rD7U/rQRRjAYscv7vT0yBo83K3hSQhS8SylK8vgD/j6xjpRTi7HI1vDIxLh0pfQoHnuCyMrCdF6r5ZcXpgPg0e+My6wjqbc/+/pPRxHg6LcdJJa6SLMHb4C54ZIDpw89TTqznBTLimI5w4OQjLb3KcvTHcezzf1lhQchd+PfiBhB3oynKnd5M2zjzx0kQfE4K4yg6pm6TvCsilt249JDzLJJXPyqPhYfvgSx45QxwobpmoMCzNYHqV/8SlI3JVmIA3q6SF6OUy0OsK46bqla851CvC5f83FXUELH6N7IQLLcjj1ZHAO4xL7YU01tpYhB7BuCTRnK5m60HTh/eJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ bh=yy22XWQwpnPPgJ/pVk38p0ugt5BRPKvge48cU9RAFDo=;
+ b=SYAs53JymBj/d2aqvALSV6rWkTXM9F7aARhVS582WXGkJMhO1eaT8dOO5SbYCRXGAULliZJvD4n/beWurJ7dOztE5Wd9RsvAqPenWUBL41NGje0lYQTDjeOE6NMWmoJjf/yLCvkpBBxfG7MJGvPXwj3U1RRMDD0y1nOzqs+atNHy2dfJR895KlBbjzT8yKfEm1huS0h5FlogS9m6d69jQEDop7VJwxZelFeBOMv1WItmPRmxH75e720HWsW3C4vVrRwnyq5EcP2oT4YezjhX9zl0/hrmXyPlH+/BGyG/WY5l2lRQd7nn36zEu1nBbZq8begf7iB3CK3E/v40PUli9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j44swFNWreQeP9wiM8B85prMtqbDh7ScyUkYkb4cdqc=;
- b=kdvft8L/Y5+0XHblNoMfbaYgI2TmhSjjyykHA2NDYsMhLytaqH5aBNoFcCQ2tyP0IyD/mAw7YeemwLUavlz6bDtvCu7RCxPENIyyO2m4EG/n/UGtlLWWVgw/3AHqneRsWVT3yNfJ/oP7KDBo3yncTiMB+qFRrJemGkc3xMratoI=
-Received: from PH7P220CA0091.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::10)
- by SAAPR10MB361405.namprd10.prod.outlook.com (2603:10b6:802:303::9) with
+ bh=yy22XWQwpnPPgJ/pVk38p0ugt5BRPKvge48cU9RAFDo=;
+ b=lWVtj1Al4RHPwVNrBbxSyLRoqcX7Q6ZK/R4wEOKsOJr1hmHetbluCZU0g4IhgGPgChlhDbT7boEmcoMKwhsHvdjtHRZ5DcScbslmzVv0KvnPqr/x5a5ZUXR+SRq4ak0u0WFlXSHoDGSTLH0p+PA/v/WihYoymHwiKcQdY558B0+BFI1U6qL1RFVWhPSrYFR+J/IKBy9h7kQMkg6jVPrNVJaY+evdiPWp8lgjUlxwAc9M9G/u50fEzAk2YnqhrcQhI8pv7v7UzjJkwqmzxVTrZD0KfVAJuT+7+jz6G60UtpSYAxNhrmBKOUAP8I3658R/JH+kUU2erUOVkEy9N1IH+g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB8261.eurprd04.prod.outlook.com (2603:10a6:20b:3b1::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 17:06:30 +0000
-Received: from MW2PEPF00014675.namprd04.prod.outlook.com
- (2603:10b6:510:32d:cafe::8) by PH7P220CA0091.outlook.office365.com
- (2603:10b6:510:32d::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 17:06:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- MW2PEPF00014675.mail.protection.outlook.com (10.167.249.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 17:06:28 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 11:05:33 -0600
-Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 11:05:33 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 11 Nov 2026 11:05:33 -0600
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6ABH5WAt123833;
-	Wed, 11 Nov 2026 11:05:32 -0600
-From: Brandon Brnich <b-brnich@ti.com>
-To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
-        <benjamin.gaignard@collabora.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>,
-        Brandon Brnich
-	<b-brnich@ti.com>
-Subject: [PATCH v9 4/4] media: imagination: e5010: Enable autosuspend for runtime PM
-Date: Wed, 11 Nov 2026 11:05:30 -0600
-Message-ID: <20261111170530.809226-5-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111170530.809226-1-b-brnich@ti.com>
-References: <20261111170530.809226-1-b-brnich@ti.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 17:11:52 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 17:11:52 +0000
+Date: Wed, 11 Nov 2026 12:11:43 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Ryan Chen <ryan_chen@aspeedtech.com>, tbevis@amazon.com,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/9] i3c: mipi-i3c-hci: Add support for the AST2700
+ I3C controller
+Message-ID: <avShzxfk1kpji2iZ@lizhi-Precision-Tower-5810>
+References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
+ <20261111-b4-i3c-hci-ast2700-v2-6-4d8fff5c5196@aspeedtech.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-6-4d8fff5c5196@aspeedtech.com>
+X-ClientProxiedBy: PH7PR02CA0011.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,233 +106,982 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW2PEPF00014675:EE_|SAAPR10MB361405:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03a2ddb8-b3f2-4ca1-5811-08df4016208e
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB8261:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef9ca551-b35d-4e79-4fab-08df4016e167
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|18002099003|22082099003|261009223327099003|261009221227099003|261009221727099003|261009220027099003|261009223027099003|56012099006|10067099003|261028144727099003|261102123227099003|261021121427099003|261026121527099003|261021123027099003|261022075727099003|261021135927099003|261022115727099003|261026140227099003|261022105027099003;
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|23010399003|376014|18002099003|22082099003|6133799003|261009221227099003|261009220027099003|261009223327099003|261009221727099003|261009223027099003|3023799007|4143699003|10067099003|11063799006|56012099006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003;
 X-Microsoft-Antispam-Message-Info:
-	QeKq0gErXwraTiIB12uVvf/lc8SHKyrPSphnInXDj9l6PF+EkldMhwv8rMfx+wv+l7p9/hfDky+AnFYT6lzFIDoGb/J3sbIt9MITkEzrL9bqCLjIqRcgrqgB7yW4B+Q7BJ6OmoK6P5yWFOYZtROuk78lsrElxa4acIxhvTndVc6AGQZzF7mxTZ6xK017E5mUoJ8fxF+Ktw1ENqUdrro+2Zvj9u1203PPByG5BXtapoQpnNfTlyintOxs33Sx9qHdf+gXuVRHUJhWxQLm7zdA/VKDeCL5H+nxaTXD3tZtm2XC5Ed7csQ8yDi+WKkkhak4zm3hLSUQMKKkT3Toz3yIwbYo41jiaqHPUef6bqGVlpzPzlE8PsDtKldhaniZF7sZBiNP05UW4up3r96fVAXSuh9WbbKyPDD2/DDJcgcMcovknaXl7XHBMSdosGrXavRX5w5GqSYv3Xjjcw0emVWBFmSUszCOssw1ZCvZK9D7mVWkSCJ/WwhvyabCOyQuWaxrdlJTep04TrBaB7iXln1mhdMkrh13Xyfi6ixrD9Hi/7+Sz8y4LxDAHeT8sNhLGw+DefLrwVD42G7ucX6m9gHi69xU5hkdU/QaXo4UVW0lJDwJ7+3uWLKOU9XehlBYBjbmvftvX8DFWoa6jn8+df+5ZP0+AyzT5rrHdzAnlveC5YhtIUkJgc4JZbcxirn8Oh5Iyru00m5bGK3nSnUpjYJeig==
+	bZ3pGIZidm2LsAYG/6ZHBmb7HvHSci7MgyjpzWk9u0oYXXxh5yblpx8uy4TqORmt3GXfa0M+hfQx6Sit/nvpHMK1+wm3y0HPxWraB6xenvKrzQyEHMStVIUbLJH9v9WGOVJo0fOeoWn8CUMGDpfwmMlDjaIC9uaCLUH8AQ14O5+pQ+Hjs0Y1ANWjS9amgh7FCkhy4EoSLlAtfK5HjRd7Gp2fnqDNKdxXCmnBJDWchEO1rCYUVw9YZ1cTzbGw3aGWDvsM4xMP7PjdkIs693LiFPWKaClrwg8JrgK2jUP1AnjJcjNxW1IlnvPu1/bgkWgiTxeNtGXaK5xYIjGr+cXPbO9tSYkuWIRVzh3sZOm2+M9fpN1wP6S5zHhrMzB0ocUxRt2xmy+aBObJp6dw3WTONIJvafl4xr5q5Qb9WW129XTzKVYAx+bdaJ18AfL3m9kMXve7dbEg6AnUtE6VLupp9TPpfRWY+TLuu6R61AD3Gfxddz5motqvrb2pWyS2lnFD/6zgGC/6n5910W88XOgwYfa7heH06wDM/mwmwmd368JBRMfnunH92XRRpSUTwX02yhL46J+hDv7UzPpyCL0dfgAg4idCzqEsUPuihfnlwB4QkHZg1uI/4V12qrQkO5CKfIllkc5o000lczwq0HJjEBo5TAiJGu9OM1g5nuNdtDU=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009220027099003)(261009223027099003)(56012099006)(10067099003)(261028144727099003)(261102123227099003)(261021121427099003)(261026121527099003)(261021123027099003)(261022075727099003)(261021135927099003)(261022115727099003)(261026140227099003)(261022105027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(261009221227099003)(261009220027099003)(261009223327099003)(261009221727099003)(261009223027099003)(3023799007)(4143699003)(10067099003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	jz5NjxKZwBxQs/Y6hv1JndKp8yQ/XLEDoamlxFDIeX4zqBVmllXQC1R+Bkw28YQEQ/bwd3gGgXiV3d8ummwhUbYSjV2bXnDHt4n5oxTTBdtzPjbL248eCdl82wjyU8k7+dcFWKF4k3Vj2L5ZFUgwWOsHC1rJGzPPMfx6BU15uyTUkYIDrXAodArARnndfAmBufLvLoog40HqcFjUKETp/hek6zxKbz2U0h92AuISUEBdrUIVQxiO7ZAc08V7WtOI91RhMhWEoG2au4Fl2KNpSE58FVwQZyJwYCEHfok0NJ+PN4bHXbStkdAlg47+mcPoBmujp4fWL6aCS9AW0M38R2LEK/5WeamppCeXmaVhb3rLAeaWWcBfKjQdnlddfVzLI+WxwP+2kaFifhTjxOARocebrF5ev6DcMywQN6qqupu5rozxakniw7lu1AGXeNv2
-X-Exchange-RoutingPolicyChecked:
-	zipcfDLxIiMxYAQonZRE8qohTCPhLIeE4CNHlXVDcRvEhdGg4Im13ars8KLW0ml1Z7xJwqFUGXQPk4y+OO8Z8P418JFjvasMBPCibcqdsBx5/WfPyukuPA50m4XuS/bRK689FQkZWxLor6xdQTk69bPiBSGiRAPw3Om9RjmmJfS6VT8Uy9ECaYBhJUB3L+lXUvUPWXAeNhP0jDb8neX3cqtBSzjOpghY5+1LgMxi54WtAuRmvZ8qTSspXAv/t5DiS2/Q0SZUFGt+3JlC7I09clSCYdTKAq93kt9TyB/bNTP3TjVBfleo0nLdS8ohKOHCZWdVHFnzN8Za5F/ogsr+ew==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:06:28.8225
+	=?us-ascii?Q?hwECnjLJWyrAx2jrCDlKVRJCnnd8EoNZ1yKEtLPO+iXneHrhhIp7ZJ+B0lzs?=
+ =?us-ascii?Q?V7vqQOfZ7z/woLfytLpiyQfj1mGu/lvKgAkIiDrbcGP7cda0hbHIhKdAAZZK?=
+ =?us-ascii?Q?OauUpFdWQlxlUSUMgVdvg/sPYN9OCVg0ejVZDcH5OVvSEaflxmRX4Y3W/mCC?=
+ =?us-ascii?Q?oslt+5OIIonMvX3DqZlXHKLrt5OMpHJsyH9WlXBD9W1GC9o4zh2uIbbSZp3s?=
+ =?us-ascii?Q?KIcxpOh0mMQyPVVTk2UXmE0PeFQ0ey4fOnXVj4XkW9wGFx5TbWQL4Rfr5ycS?=
+ =?us-ascii?Q?dCdSATfY/sN4iUkC6gT3SuBo9UMjamxanSoENn4IkET4Yy/OlsGDWPhSKiy4?=
+ =?us-ascii?Q?k3+Uj/ky3GG8BYl4vX2ETA6TrXYsNlcmTsUtQOazAVhWh79sr2oVpTEM5Ecp?=
+ =?us-ascii?Q?j1aOkGohjXGzasXhcNJfRJAIHxgHoTHRZRiK9oYSbL0Ol+bgx569J9Xbkohh?=
+ =?us-ascii?Q?w1J11yS/uoaGu8ZhZLS2yHpLsFDUEOzMSNmDOZAQyhQ+4aIkyivqOKy6zN0u?=
+ =?us-ascii?Q?EnAvgBpHTZNvuYTK0f5akfOuyfSeV1NOH8I7bRjNfO+qtGWcrA0x14ffpM9r?=
+ =?us-ascii?Q?uEqvSd/+03dPQty1pbFAaJQl1qOvpnSi/OJTq3IHWJwB7fo0f7T9j/zhmwk3?=
+ =?us-ascii?Q?gLAVnXP83bVVrrV2VyJortisfb9ZPLx7gMdBPlJcyheR2681CVpUTZN8eeFP?=
+ =?us-ascii?Q?ciocLYazNO/8f7YhuHJlmx/2zxOVgbb5E9pe5vTIkEXZwXht89d3F+hjWSYI?=
+ =?us-ascii?Q?z18vnB8QFVwFL9WJuj+DFDj9H6ExCaIQUaEPPwlKS1jDM60y8VQ/rQMT0epT?=
+ =?us-ascii?Q?hgoR9HmJaiSBSTaDuhcmq+5f0lQm/G8G/1lfIPeNZr6+QEqTd6TEsYkxVidJ?=
+ =?us-ascii?Q?mO6xipYXZejFXsRthNRAUuiUZ8E/JWfSXo/ao/u8D7iir+bqwNhVq/cN5V0F?=
+ =?us-ascii?Q?BXSdPmi5CSh/NkrsWCnrKsaF4w/LITgN/sYed8psWy2wPJ1xvJa1RDv+DhYB?=
+ =?us-ascii?Q?E6nkFiVZCryWt3aaieG0Hd2V+RruTfuEZ4UuAfjyJMgElBTWI0bQfc2HWgmZ?=
+ =?us-ascii?Q?ijisn4gyTcfOWYyqox9FdLCcZxKYv/ajLpytyGpKuev0RRWz3HjYuPvWhbNU?=
+ =?us-ascii?Q?nFzDN/DUHLQOi/bAsb1ZIFGI+lcU7XEZpHOqXMu5RqOM7rRU/lNirva8QE9L?=
+ =?us-ascii?Q?xEUQWdmvV0MXWswmDpvKHI0Zk7f2K0WiaUTbfcPt4+zN1VhOuzJNv8HwuPn1?=
+ =?us-ascii?Q?aKi9n6mXR7L/x1FJUYb5tuyJj4VrDBKGUZB8liBWr5guskJ/yyVCd9SlJg9i?=
+ =?us-ascii?Q?f/N2ROyVt8gAaZGFWgTBLE/U1962KklWqCZLFCdEOlkGftf9s1VUwdY9YEwi?=
+ =?us-ascii?Q?sRVBV9ejt+YkJp4rnyzXaSjGC59XYJKKVJU9fsqT6uoAaSpTW5po4IsEgTSD?=
+ =?us-ascii?Q?cwKYc4YiYyH6iB4TRrLl59O7AbVr5N13Okgac8Of4A4aNh5lRav++o3kcPgX?=
+ =?us-ascii?Q?5WYV1QW032dReOcDN2qyxryMtka6OjJIA04eQ9O+tAAz4WrQlo7nyOA4Nzay?=
+ =?us-ascii?Q?Lt2QIKg2OIZQAXjV+Imt7b83l9y2C0F4eSTZFcxLaKjsxKRERKIh+kzQPodh?=
+ =?us-ascii?Q?c5UG2wOWvWzx1DcvA27NsJdEASeTYqhmQ7801e/WyLjbSwdW20lRNqZvY/Vg?=
+ =?us-ascii?Q?JdHjGAfEES+Z96trXU8pThjSaugN08f5kTy0ZDofbhQxsJ2wcFy4OVn2G/ji?=
+ =?us-ascii?Q?87qh7jG1t1feMAYpxaCxXreEPFmQcDAW8kU5IWcW0ua/wRcFvvUa?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef9ca551-b35d-4e79-4fab-08df4016e167
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 17:11:52.7850
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03a2ddb8-b3f2-4ca1-5811-08df4016208e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW2PEPF00014675.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR10MB361405
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX3gj+1OEwDHOs
- fBkO8FykE22/xM5s9J7B1tagZy5pQKL7E+BDxtXFwEs9RE3i8lpK2CGX6etG5BaMfz9T38Y4DiH
- igPNfk30qp4VtuF+f/8673eQa78fFgYcNQVmHZ2B9VR52cKSrnsI7lHR4JB3X3qr7ckE/1P4X+M
- 1XZYoWYHZjMjIGb7hiH1is+HdwO565xu4AlHFM7UWFFjuNs6ke8R/rlOeHf6FM0E3oTbB1B9jPP
- awhGHFM0sfhdr/K91it3oPLFSidORtyRqL/kEPh0x5pPP/omB9rfP2S9IpmwpeNxyKA1pPrx/iM
- Dq2fXKpUNo7Pxk/ulIUk7jy73FxXvTtHHY4GUg+5wFbPJVOfCZB2Kk6MXICUDgQHsUAkuNJ+sKL
- MRCCThWEAMIb7UwKV4ydTiUgfsOsozAliixyETU6R4BgSeNh1ygnZlj9H/5tYtYKxkQumobq7Dk
- lOeixsBlnehA1gyZkZQ==
-X-Proofpoint-GUID: venhiroW6zkh1JaPmSJulEEa0pySKmqx
-X-Authority-Analysis: v=2.4 cv=ebOo7LEH c=1 sm=1 tr=0 ts=6af4a1c5 cx=c_pps
- a=YVy+1Oos88+FgPqksjWX8g==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22
- a=sozttTNsAAAA:8 a=tgKt1I_ZsljtpmWdy5MA:9
-X-Proofpoint-ORIG-GUID: venhiroW6zkh1JaPmSJulEEa0pySKmqx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2OCBTYWx0ZWRfX1FpGUZJpYlbn
- 5uYFjubY44auEXPseTO2tjIYZfHBD4NAke+QB6WnYC6EhRfQJ7E2h9YgORdRYyNpAZFWHuy8Fjw
- H1ez/kjQF9TcKVlcYodVwflmEfi7aSI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- malwarescore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110068
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lQU06uM/mIeHGlZLhDZS+lGWlUDAXyGIHLTb9YUpL6Y3BKXu/Y4pR9/CHtM0wWcUbcHcAv1qlYHxUGEA86i6PIZWZNavELPbE4UXb9ITYes3NgnVriFMrq8TONcXI2BU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8261
 
-Current implementation only has one call to turn the device on -
-start_streaming(). This can waste power of system as the device can be in
-STREAM_ON state, but no buffers are actually being submitted. To address
-this, device_run() will obtain a PM reference and will release it after
-interrupt completion is handled utilizing the pm autosuspend framework so
-device can shutdown if no other job is scheduled within 100ms.
+On Wed, Nov 11, 2026 at 11:16:34AM +0800, Billy Tsai wrote:
+> The AST2700 I3C controller carries an ASPEED vendor extended
+> capability describing an in-house control block and a PHY programming
+> window. Recognize the ASPEED MIPI vendor ID in the extended capability
+> parser and cache both register bases via the generic vendor_data
+> pointer, which other vendors (e.g. NXP) also populate.
+>
+> Bringing the controller up for transfers needs more than the generic
+> HCI reset sequence: the vendor block has to be switched to master
+> mode, PHY timing registers programmed from the selected bus rate (with
+> i3c-*-ns device tree properties to override values derived under
+> nominal bus loading), and all interrupts funneled through a vendor
+> summary register whose handler dispatches to the same core and IO
+> handlers as the generic path. Master clock stall is enabled alongside
+> master-mode init so an underrun pauses and resumes the transfer
+> instead of aborting it. Hook this initialization into bus setup and
+> resume, and acquire the core clock and reset-names resources the
+> binding describes for it; probe fails if the vendor capability was
+> expected but the hardware doesn't actually expose the register blocks
+> it needs.
+>
+> During normal operation, the vendor DAA index registers must be told
+> which DAT slot is being assigned during ENTDAA, clearing all four
+> index register banks each time since the controller scans forward
+> across all of them for the first bit set to pick the address to
+> assign. The PIO/IBI FIFOs also need resetting after a DMA error or
+> abort, which the core already implements behind
+> HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET, so set that quirk.
+>
+> Each of these behaviors gets its own quirk bit
+> (HCI_QUIRK_VENDOR_BUS_SETUP, HCI_QUIRK_BOARD_PHY_TIMINGS,
+> HCI_QUIRK_VENDOR_INTR_SUMMARY, HCI_QUIRK_VENDOR_RESOURCES,
+> HCI_QUIRK_VENDOR_DAA_INDEX), set together for the
+> "aspeed,ast2700-i3c-hci" compatible alongside DAT_INDEX_IS_ADDR,
+> DMA_64BIT and TX_START_THLD.
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> ---
+>  drivers/i3c/master/mipi-i3c-hci/Makefile   |   2 +-
+>  drivers/i3c/master/mipi-i3c-hci/aspeed.c   | 351 +++++++++++++++++++++++++++++
+>  drivers/i3c/master/mipi-i3c-hci/aspeed.h   | 160 +++++++++++++
+>  drivers/i3c/master/mipi-i3c-hci/cmd_v1.c   |   3 +
+>  drivers/i3c/master/mipi-i3c-hci/core.c     | 148 ++++++++++--
+>  drivers/i3c/master/mipi-i3c-hci/ext_caps.c |   2 +
+>  drivers/i3c/master/mipi-i3c-hci/ext_caps.h |   1 +
+>  drivers/i3c/master/mipi-i3c-hci/hci.h      |   7 +
+>  8 files changed, 658 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/Makefile b/drivers/i3c/master/mipi-i3c-hci/Makefile
+> index e3d3ef757035f..ce560b81be01f 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/Makefile
+> +++ b/drivers/i3c/master/mipi-i3c-hci/Makefile
+> @@ -4,5 +4,5 @@ obj-$(CONFIG_MIPI_I3C_HCI)		+= mipi-i3c-hci.o
+>  mipi-i3c-hci-y				:= core.o ext_caps.o pio.o dma.o \
+>  					   cmd_v1.o cmd_v2.o \
+>  					   dat_v1.o dct_v1.o \
+> -					   hci_quirks.o
+> +					   hci_quirks.o aspeed.o
+>  obj-$(CONFIG_MIPI_I3C_HCI_PCI)		+= mipi-i3c-hci-pci.o
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.c b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
+> new file mode 100644
+> index 0000000000000..3aa910e786f8e
+> --- /dev/null
+> +++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
+> @@ -0,0 +1,351 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026 ASPEED Technology Inc.
+> + *
+> + * AST2700 vendor capability handling: resource acquisition, register
+> + * access, PHY timing initialization and DAA index support.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/device.h>
+> +#include <linux/i3c/master.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset.h>
+> +
+> +#include "hci.h"
+> +#include "aspeed.h"
+> +
+> +/*
+> + * The AST2700 vendor extended capability points to an in-house control
+> + * block and a PHY programming window inside the controller's register
+> + * space. The core clock and reset lines are only specified in the
+> + * AST2700 binding as well. All of it is ASPEED-specific, so it is kept
+> + * out of the generic struct i3c_hci and reached instead through its
+> + * vendor_data pointer.
+> + */
+> +struct aspeed_i3c_vendor_data {
+> +	void __iomem *inhouse_regs;
+> +	void __iomem *phy_regs;
+> +	struct clk *clk;
+> +};
+> +
+> +int hci_extcap_vendor_ASPEED(struct i3c_hci *hci, void __iomem *base)
 
-Since e5010_runtime_resume() now initializes the hardware on every
-power-up, drop the e5010_init_device() call from start_streaming(). In
-the case where PM is not configured, e5010_init_device() would no longer
-be called since the only path was in start_streaming(). Move this call
-to e5010_probe() if runtime PM is not enabled so that the device
-registers are properly set.
+function name don't mix low/up case.
 
-Reviewed-by: Devarsh Thakkar <devarsht@ti.com>
-Signed-off-by: Brandon Brnich <b-brnich@ti.com>
----
- .../platform/imagination/e5010-jpeg-enc.c     | 47 +++++++++----------
- .../platform/imagination/e5010-jpeg-enc.h     |  1 +
- 2 files changed, 24 insertions(+), 24 deletions(-)
+hci_extcap_vendor_aspeed()
 
-diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-index 2da43c14a25c8..3c7c5f121a32f 100644
---- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
-+++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-@@ -976,6 +976,7 @@ static irqreturn_t e5010_irq(int irq, void *data)
- 
- 	v4l2_m2m_job_finish(e5010->m2m_dev, ctx->fh.m2m_ctx);
- 	dprintk(e5010, 3, "ctx: 0x%p Finish job\n", ctx);
-+	pm_runtime_put_autosuspend(e5010->dev);
- 
- job_unlock:
- 	spin_unlock(&e5010->hw_lock);
-@@ -1101,6 +1102,8 @@ static int e5010_probe(struct platform_device *pdev)
- 		goto fail_after_v4l2_m2m_init;
- 	}
- 
-+	pm_runtime_set_autosuspend_delay(dev, JPEG_AUTOSUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_enable(dev);
- 
- 	if (!pm_runtime_enabled(dev)) {
-@@ -1109,6 +1112,11 @@ static int e5010_probe(struct platform_device *pdev)
- 			dev_err_probe(dev, ret, "failed to enable clock\n");
- 			goto fail_after_v4l2_m2m_init;
- 		}
-+		ret = e5010_init_device(e5010);
-+		if (ret) {
-+			dev_err_probe(dev, ret, "failed to init device\n");
-+			goto fail_after_clock_enable;
-+		}
- 	}
- 
- 	ret = video_register_device(e5010->vdev, VFL_TYPE_VIDEO, 0);
-@@ -1123,10 +1131,12 @@ static int e5010_probe(struct platform_device *pdev)
- 	return 0;
- 
- fail_after_clock_enable:
--	if (pm_runtime_enabled(dev))
-+	if (pm_runtime_enabled(dev)) {
-+		pm_runtime_dont_use_autosuspend(dev);
- 		pm_runtime_disable(dev);
--	else
-+	} else {
- 		clk_disable_unprepare(e5010->clk);
-+	}
- fail_after_v4l2_m2m_init:
- 	v4l2_m2m_release(e5010->m2m_dev);
- fail_after_v4l2_register:
-@@ -1143,6 +1153,7 @@ static void e5010_remove(struct platform_device *pdev)
- 	video_unregister_device(e5010->vdev);
- 	v4l2_m2m_release(e5010->m2m_dev);
- 	v4l2_device_unregister(&e5010->v4l2_dev);
-+	pm_runtime_dont_use_autosuspend(e5010->dev);
- 	pm_runtime_disable(e5010->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		clk_disable_unprepare(e5010->clk);
-@@ -1306,31 +1317,13 @@ static int e5010_encoder_cmd(struct file *file, void *priv,
- static int e5010_start_streaming(struct vb2_queue *q, unsigned int count)
- {
- 	struct e5010_context *ctx = vb2_get_drv_priv(q);
--	int ret;
- 
- 	struct e5010_q_data *queue = get_queue(ctx, q->type);
- 
- 	v4l2_m2m_update_start_streaming_state(ctx->fh.m2m_ctx, q);
- 	queue->sequence = 0;
- 
--	ret = pm_runtime_resume_and_get(ctx->e5010->dev);
--	if (ret < 0) {
--		v4l2_err(&ctx->e5010->v4l2_dev, "failed to power up jpeg\n");
--		goto fail;
--	}
--
--	ret = e5010_init_device(ctx->e5010);
--	if (ret) {
--		v4l2_err(&ctx->e5010->v4l2_dev, "failed to Enable e5010 device\n");
--		goto fail;
--	}
--
- 	return 0;
--
--fail:
--	e5010_vb2_buffers_return(q, VB2_BUF_STATE_QUEUED);
--
--	return ret;
- }
- 
- static void e5010_stop_streaming(struct vb2_queue *q)
-@@ -1346,8 +1339,6 @@ static void e5010_stop_streaming(struct vb2_queue *q)
- 	    v4l2_m2m_has_stopped(ctx->fh.m2m_ctx)) {
- 		v4l2_event_queue_fh(&ctx->fh, &e5010_eos_event);
- 	}
--
--	pm_runtime_put_sync(ctx->e5010->dev);
- }
- 
- static void e5010_device_run(void *priv)
-@@ -1360,7 +1351,6 @@ static void e5010_device_run(void *priv)
- 	unsigned long flags;
- 	int num_planes = ctx->out_queue.fmt->num_planes;
- 
--	spin_lock_irqsave(&e5010->hw_lock, flags);
- 	s_vb = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
- 	WARN_ON(!s_vb);
- 	d_vb = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
-@@ -1368,6 +1358,14 @@ static void e5010_device_run(void *priv)
- 	if (!s_vb || !d_vb)
- 		goto no_ready_buf_err;
- 
-+	ret = pm_runtime_resume_and_get(e5010->dev);
-+	if (ret < 0) {
-+		dev_err(e5010->dev, "Device failed to turn on\n");
-+		goto no_ready_buf_err;
-+	}
-+
-+	spin_lock_irqsave(&e5010->hw_lock, flags);
-+
- 	s_vb->sequence = ctx->out_queue.sequence++;
- 	d_vb->sequence = ctx->cap_queue.sequence++;
- 
-@@ -1492,6 +1490,8 @@ static void e5010_device_run(void *priv)
- 	ret = e5010_init_device(e5010);
- 	if (ret)
- 		v4l2_err(&e5010->v4l2_dev, "failed to initialize device after reset\n");
-+	spin_unlock_irqrestore(&e5010->hw_lock, flags);
-+	pm_runtime_put_autosuspend(e5010->dev);
- no_ready_buf_err:
- 	if (s_vb) {
- 		v4l2_m2m_src_buf_remove_by_buf(ctx->fh.m2m_ctx, s_vb);
-@@ -1505,7 +1505,6 @@ static void e5010_device_run(void *priv)
- 		v4l2_m2m_buf_done(d_vb, VB2_BUF_STATE_ERROR);
- 	}
- 	v4l2_m2m_job_finish(e5010->m2m_dev, ctx->fh.m2m_ctx);
--	spin_unlock_irqrestore(&e5010->hw_lock, flags);
- }
- 
- #ifdef CONFIG_PM
-diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.h b/drivers/media/platform/imagination/e5010-jpeg-enc.h
-index da57bc1baa464..807821ded127e 100644
---- a/drivers/media/platform/imagination/e5010-jpeg-enc.h
-+++ b/drivers/media/platform/imagination/e5010-jpeg-enc.h
-@@ -23,6 +23,7 @@
- #define DEFAULT_HEIGHT			480
- #define E5010_MODULE_NAME		"e5010"
- #define JPEG_MAX_BYTES_PER_PIXEL	2
-+#define JPEG_AUTOSUSPEND_DELAY_MS	100
- 
- /* JPEG marker definitions */
- #define START_OF_IMAGE			0xFFD8
--- 
-2.43.0
+> +{
+> +	struct aspeed_i3c_vendor_data *vd = to_aspeed_vendor_data(hci);
+> +
+> +	vd->inhouse_regs = hci->base_regs + readl(base + 0x04);
+> +	vd->phy_regs = hci->base_regs + readl(base + 0x08);
+> +
+> +	return 0;
+> +}
+> +
+> +bool aspeed_i3c_vendor_cap_found(struct i3c_hci *hci)
+> +{
+> +	struct aspeed_i3c_vendor_data *vd = to_aspeed_vendor_data(hci);
+> +
+> +	return vd->inhouse_regs && vd->phy_regs;
+> +}
+> +
+> +static void aspeed_i3c_core_rst_assert(void *data)
+> +{
+> +	reset_control_assert(data);
+> +}
+> +
+> +int aspeed_i3c_alloc_resources(struct i3c_hci *hci, struct platform_device *pdev)
+> +{
+> +	struct aspeed_i3c_vendor_data *vd;
+> +	struct reset_control *rst;
+> +	int ret;
+> +
+> +	vd = devm_kzalloc(&pdev->dev, sizeof(*vd), GFP_KERNEL);
+> +	if (!vd)
+> +		return -ENOMEM;
+> +	hci->vendor_data = vd;
+> +
+> +	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, "core");
+> +	if (IS_ERR(rst))
+> +		return PTR_ERR(rst);
+> +
+> +	ret = reset_control_assert(rst);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = reset_control_deassert(rst);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(&pdev->dev, aspeed_i3c_core_rst_assert, rst);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Unlike "core", "dma" is shared across every I3C instance and the
+> +	 * DMA engine behind it does not tolerate being reset once running,
+> +	 * so it is only ever deasserted here, never pulsed.
+> +	 */
+> +	rst = devm_reset_control_get_optional_shared_deasserted(&pdev->dev, "dma");
+> +	if (IS_ERR(rst))
+> +		return PTR_ERR(rst);
+> +
+> +	vd->clk = devm_clk_get(&pdev->dev, NULL);
+> +	if (IS_ERR(vd->clk))
+> +		return PTR_ERR(vd->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The DAA index registers name the DAT slot being assigned during ENTDAA;
+> + * they live in the vendor capability block discovered at probe time. The
+> + * controller scans forward from the named slot across all four banks for
+> + * the first bit set to find the address to assign, so a bit left over
+> + * from a previous round must be cleared or it is mistaken for the current
+> + * one. This assumes exactly one index is armed per ENTDAA attempt,
+> + * matching hci_cmd_v1_daa()'s one-device-per-command loop; it is not
+> + * meant to arm multiple indices ahead of a single multi-device ENTDAA.
+> + */
+> +void aspeed_i3c_set_daa_index(struct i3c_hci *hci, unsigned int dat_idx)
+> +{
+> +	void __iomem *inhouse_regs = to_aspeed_vendor_data(hci)->inhouse_regs;
+> +
+> +	writel(0, inhouse_regs + ASPEED_I3C_DAA_INDEX0);
+> +	writel(0, inhouse_regs + ASPEED_I3C_DAA_INDEX1);
+> +	writel(0, inhouse_regs + ASPEED_I3C_DAA_INDEX2);
+> +	writel(0, inhouse_regs + ASPEED_I3C_DAA_INDEX3);
+> +
+> +	if (dat_idx < 32)
+> +		writel(BIT(dat_idx), inhouse_regs + ASPEED_I3C_DAA_INDEX0);
+> +	else if (dat_idx < 64)
+> +		writel(BIT(dat_idx - 32), inhouse_regs + ASPEED_I3C_DAA_INDEX1);
+> +	else if (dat_idx < 96)
+> +		writel(BIT(dat_idx - 64), inhouse_regs + ASPEED_I3C_DAA_INDEX2);
+> +	else
+> +		writel(BIT(dat_idx - 96), inhouse_regs + ASPEED_I3C_DAA_INDEX3);
+> +}
+> +
+> +u32 aspeed_i3c_read(struct i3c_hci *hci, u32 reg)
+> +{
+> +	return readl(to_aspeed_vendor_data(hci)->inhouse_regs + reg);
+> +}
+> +
+> +void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val)
+> +{
+> +	writel(val, to_aspeed_vendor_data(hci)->inhouse_regs + reg);
+> +}
+> +
+> +static void aspeed_i3c_phy_write(struct i3c_hci *hci, u32 reg, u32 val)
+> +{
+> +	writel(val, to_aspeed_vendor_data(hci)->phy_regs + reg);
+> +}
+> +
+> +static u16 aspeed_i3c_ns_to_cnt(unsigned int ns, unsigned long period_ns)
+> +{
+> +	unsigned long cycles = DIV_ROUND_CLOSEST(ns, period_ns);
+> +
+> +	/* All PHY counter fields are 11 bits wide */
+> +	return min_t(unsigned long, max_t(unsigned long, cycles, 1) - 1,
+> +		     ASPEED_I3C_PHY_CNT_MAX);
 
+now use min() and max() should be okay.
+
+> +}
+> +
+> +static u32 aspeed_i3c_get_sdr_ctrl0_reg(struct i3c_hci *hci)
+> +{
+> +	struct i3c_bus *bus = i3c_master_get_bus(&hci->master);
+> +
+> +	if (bus->scl_rate.i3c > 8000000)
+> +		return ASPEED_I3C_PHY_I3C_SDR0_CTRL0;
+> +	if (bus->scl_rate.i3c > 6000000)
+> +		return ASPEED_I3C_PHY_I3C_SDR1_CTRL0;
+> +	if (bus->scl_rate.i3c > 4000000)
+> +		return ASPEED_I3C_PHY_I3C_SDR2_CTRL0;
+> +	if (bus->scl_rate.i3c > 2000000)
+> +		return ASPEED_I3C_PHY_I3C_SDR3_CTRL0;
+> +
+> +	return ASPEED_I3C_PHY_I3C_SDR4_CTRL0;
+> +}
+> +
+> +int aspeed_i3c_phy_init(struct i3c_hci *hci)
+> +{
+> +	u16 hcnt, lcnt, total_cnt, min_tbit_cnt, cas_lcnt, cas_cnt, cbp_cnt;
+> +	u32 pp_sda_hold = 0, cas_ns = 0, cbp_ns = 0, sr_p_low = 0;
+> +	struct i3c_bus *bus = i3c_master_get_bus(&hci->master);
+> +	u32 pp_high = 0, pp_low = 0, od_high = 0, od_low = 0;
+> +	struct device_node *np = hci->master.dev.of_node;
+> +	u32 sdr_ctrl0_reg, ctrl0, ctrl1, ctrl2;
+> +	unsigned long core_rate, period_ns;
+> +
+> +	core_rate = clk_get_rate(to_aspeed_vendor_data(hci)->clk);
+> +	if (!core_rate) {
+> +		dev_err(&hci->master.dev, "invalid core clock rate\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	period_ns = DIV_ROUND_UP(NSEC_PER_SEC, core_rate);
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_CAS_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_SU_STO_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FM_CTRL0,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL0_CAS, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL0_SU_STO, lcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_SCL_H_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_SCL_L_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FM_CTRL1,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL1_SCL_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL1_SCL_L, lcnt));
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FM_CTRL2,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL2_ACK_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL2_ACK_L, hcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_HD_DAT_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_AHD_DAT_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FM_CTRL3,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL3_HD_DAT, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FM_CTRL3_AHD_DAT, lcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_CAS_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_SU_STO_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FMP_CTRL0,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL0_CAS, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL0_SU_STO, lcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_SCL_H_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_SCL_L_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FMP_CTRL1,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL1_SCL_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL1_SCL_L, lcnt));
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FMP_CTRL2,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL2_ACK_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL2_ACK_L, hcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_HD_DAT_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FMP_AHD_DAT_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I2C_FMP_CTRL3,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL3_HD_DAT, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I2C_FMP_CTRL3_AHD_DAT, lcnt));
+> +
+> +	of_property_read_u32(np, "i3c-pp-scl-high-period-ns", &pp_high);
+> +	of_property_read_u32(np, "i3c-pp-scl-low-period-ns", &pp_low);
+> +	if (pp_high && pp_low) {
+> +		hcnt = aspeed_i3c_ns_to_cnt(pp_high, period_ns);
+> +		lcnt = aspeed_i3c_ns_to_cnt(pp_low, period_ns);
+> +	} else {
+> +		/*
+> +		 * Each of hcnt/lcnt is programmed as N-1 (the PHY counts N
+> +		 * cycles for a stored value of N-1), so pre-subtract 2 here
+> +		 * to cancel the two implicit +1s and match the requested SCL
+> +		 * period exactly. Clamp the pre-subtraction value so
+> +		 * total_cnt cannot underflow when an unrealistically high
+> +		 * scl_rate leaves less than 3 cycles per period.
+> +		 */
+> +		unsigned long cycles_per_scl = DIV_ROUND_UP(core_rate, bus->scl_rate.i3c);
+> +
+> +		total_cnt = max_t(unsigned long, cycles_per_scl, 3) - 2;
+> +		if (hci->master.bus.mode == I3C_BUS_MODE_PURE) {
+> +			hcnt = DIV_ROUND_DOWN_ULL(total_cnt * 2, 5);
+> +			lcnt = total_cnt - hcnt;
+> +		} else {
+> +			hcnt = DIV_ROUND_UP(I3C_BUS_THIGH_MIXED_MAX_NS,
+> +					    period_ns) - 1;
+> +			lcnt = total_cnt - hcnt;
+> +		}
+> +	}
+> +
+> +	ctrl0 = FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL0_SCL_H, hcnt) |
+> +		FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL0_SCL_L, lcnt);
+> +	sdr_ctrl0_reg = aspeed_i3c_get_sdr_ctrl0_reg(hci);
+> +	aspeed_i3c_phy_write(hci, sdr_ctrl0_reg, ctrl0);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_SDR0_CTRL0, ctrl0);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_DDR_CTRL0, ctrl0);
+> +
+> +	min_tbit_cnt = DIV_ROUND_UP(60, period_ns) - 1;
+> +	ctrl1 = FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL1_TBIT_H,
+> +			   max_t(u16, hcnt, min_tbit_cnt)) |
+> +		FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL1_TBIT_L,
+> +			   max_t(u16, lcnt, min_tbit_cnt));
+> +	aspeed_i3c_phy_write(hci, sdr_ctrl0_reg + ASPEED_I3C_PHY_CTRL1_OFFSET,
+> +			     ctrl1);
+> +	aspeed_i3c_phy_write(hci,
+> +			     ASPEED_I3C_PHY_I3C_SDR0_CTRL0 +
+> +			     ASPEED_I3C_PHY_CTRL1_OFFSET, ctrl1);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_DDR_CTRL1, ctrl1);
+> +
+> +	/*
+> +	 * tCAS and tCBP default to a value derived from the SCL low period
+> +	 * of the applicable bus context, clamped to the MIPI I3C minima
+> +	 * (tCAS >= 38.4 ns, tCBP >= 19.2 ns). Explicit device tree values
+> +	 * are used as-is; the binding carries the minima as constraints.
+> +	 */
+> +	if (hci->master.bus.mode == I3C_BUS_MODE_PURE)
+> +		cas_lcnt = lcnt;
+> +	else
+> +		cas_lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_I2C_FM_SCL_L_NS,
+> +						period_ns);
+> +	of_property_read_u32(np, "i3c-cas-period-ns", &cas_ns);
+> +	of_property_read_u32(np, "i3c-cbp-period-ns", &cbp_ns);
+> +	cas_cnt = cas_ns ? aspeed_i3c_ns_to_cnt(cas_ns, period_ns)
+> +			 : max_t(u16, cas_lcnt,
+> +				 DIV_ROUND_UP(ASPEED_I3C_PHY_OD_MIN_CAS_NS_X10,
+> +					      period_ns * 10) - 1);
+> +	cbp_cnt = cbp_ns ? aspeed_i3c_ns_to_cnt(cbp_ns, period_ns)
+> +			 : max_t(u16, cas_lcnt,
+> +				 DIV_ROUND_UP(ASPEED_I3C_PHY_OD_MIN_CBP_NS_X10,
+> +					      period_ns * 10) - 1);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL0,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL0_CAS, cas_cnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL0_CBP, cbp_cnt));
+> +
+> +	of_property_read_u32(np, "i3c-od-scl-high-period-ns", &od_high);
+> +	of_property_read_u32(np, "i3c-od-scl-low-period-ns", &od_low);
+> +	if (od_high && od_low) {
+> +		hcnt = aspeed_i3c_ns_to_cnt(od_high, period_ns);
+> +		lcnt = aspeed_i3c_ns_to_cnt(od_low, period_ns);
+> +	} else {
+> +		hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_SCL_H_NS, period_ns);
+> +		lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_SCL_L_NS, period_ns);
+> +	}
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL1,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL1_SCL_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL1_SCL_L, lcnt));
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL2,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL2_ACK_H, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL2_ACK_L, lcnt));
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_HD_DAT_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_AHD_DAT_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL3,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL3_HD_DAT, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL3_AHD_DAT, lcnt));
+> +
+> +	of_property_read_u32(np, "i3c-pp-sda-hold-ns", &pp_sda_hold);
+> +	hcnt = aspeed_i3c_ns_to_cnt(pp_sda_hold ?: ASPEED_I3C_PHY_HD_DAT_NS,
+> +				    period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(pp_sda_hold ?: ASPEED_I3C_PHY_AHD_DAT_NS,
+> +				    period_ns);
+> +	ctrl2 = FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL2_HD_PP, hcnt) |
+> +		FIELD_PREP(ASPEED_I3C_PHY_I3C_CTRL2_TBIT_HD_PP, lcnt);
+> +	aspeed_i3c_phy_write(hci, sdr_ctrl0_reg + ASPEED_I3C_PHY_CTRL2_OFFSET,
+> +			     ctrl2);
+> +	aspeed_i3c_phy_write(hci,
+> +			     ASPEED_I3C_PHY_I3C_SDR0_CTRL0 +
+> +			     ASPEED_I3C_PHY_CTRL2_OFFSET, ctrl2);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_DDR_CTRL2, ctrl2);
+> +
+> +	of_property_read_u32(np, "i3c-sr-p-scl-low-period-ns", &sr_p_low);
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_SR_P_HD_NS, period_ns);
+> +	lcnt = aspeed_i3c_ns_to_cnt(sr_p_low ?: ASPEED_I3C_PHY_SR_P_SCL_L_NS,
+> +				    period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_SR_P_PREPARE_CTRL,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_SR_P_PREPARE_HD, hcnt) |
+> +			     FIELD_PREP(ASPEED_I3C_PHY_SR_P_PREPARE_SCL_L, lcnt));
+> +
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_PULLUP_EN, 0);
+> +
+> +	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_DAP_NS, period_ns);
+> +	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL4,
+> +			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL4_DAP, hcnt));
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.h b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
+> new file mode 100644
+> index 0000000000000..7ff1f66b67cd9
+> --- /dev/null
+> +++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
+> @@ -0,0 +1,160 @@
+> +/* SPDX-License-Identifier: BSD-3-Clause */
+> +/*
+> + * Copyright (c) 2026 ASPEED Technology Inc.
+> + *
+> + * AST2700 specific MIPI I3C HCI definitions
+> + */
+> +
+> +#ifndef VENDOR_ASPEED_H
+> +#define VENDOR_ASPEED_H
+> +
+> +#include <linux/bitfield.h>
+> +
+> +#include "ext_caps.h"
+> +#include "hci.h"
+> +
+> +struct platform_device;
+> +
+> +/*
+> + * The AST2700 vendor extended capability points to an in-house control
+> + * block and a PHY programming window inside the controller's register
+> + * space, plus the core clock and reset lines the AST2700 binding
+> + * specifies. All of it is ASPEED-specific, so struct aspeed_i3c_vendor_data
+> + * stays private to aspeed.c; everyone else reaches it only through the
+> + * functions below.
+> + */
+> +struct aspeed_i3c_vendor_data;
+> +
+> +static inline struct aspeed_i3c_vendor_data *to_aspeed_vendor_data(struct i3c_hci *hci)
+> +{
+> +	return hci->vendor_data;
+> +}
+> +
+> +int hci_extcap_vendor_ASPEED(struct i3c_hci *hci, void __iomem *base);
+> +int aspeed_i3c_alloc_resources(struct i3c_hci *hci, struct platform_device *pdev);
+> +bool aspeed_i3c_vendor_cap_found(struct i3c_hci *hci);
+> +void aspeed_i3c_set_daa_index(struct i3c_hci *hci, unsigned int dat_idx);
+> +u32 aspeed_i3c_read(struct i3c_hci *hci, u32 reg);
+> +void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val);
+> +int aspeed_i3c_phy_init(struct i3c_hci *hci);
+> +
+> +#define ASPEED_I3C_CTRL				0x00
+> +#define ASPEED_I3C_CTRL_CLOCK_STALL_EN		BIT(14)
+> +#define ASPEED_I3C_CTRL_INIT			BIT(4)
+> +#define ASPEED_I3C_CTRL_INIT_MODE		GENMASK(1, 0)
+> +#define   ASPEED_I3C_INIT_MST_MODE		0
+> +
+> +#define ASPEED_I3C_DAA_INDEX0			0x10
+> +#define ASPEED_I3C_DAA_INDEX1			0x14
+> +#define ASPEED_I3C_DAA_INDEX2			0x18
+> +#define ASPEED_I3C_DAA_INDEX3			0x1c
+> +
+> +#define ASPEED_I3C_INTR_STATUS			0xe0
+> +#define ASPEED_I3C_INTR_STATUS_ENABLE		0xe4
+> +#define ASPEED_I3C_INTR_SIGNAL_ENABLE		0xe8
+> +#define ASPEED_I3C_INTR_SUM_STATUS		0xf0
+> +#define   ASPEED_INTR_SUM_INHOUSE		BIT(3)
+> +#define   ASPEED_INTR_SUM_RHS			BIT(2)
+> +#define   ASPEED_INTR_SUM_PIO			BIT(1)
+> +#define   ASPEED_INTR_SUM_CAP			BIT(0)
+> +
+> +#define ASPEED_I3C_PHY_I2C_FM_CTRL0		0x08
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL0_CAS	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL0_SU_STO	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FM_CTRL1		0x0c
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL1_SCL_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL1_SCL_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FM_CTRL2		0x10
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL2_ACK_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL2_ACK_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FM_CTRL3		0x14
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL3_HD_DAT	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FM_CTRL3_AHD_DAT	GENMASK(10, 0)
+> +
+> +#define ASPEED_I3C_PHY_I2C_FMP_CTRL0		0x18
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL0_CAS	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL0_SU_STO	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FMP_CTRL1		0x1c
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL1_SCL_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL1_SCL_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FMP_CTRL2		0x20
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL2_ACK_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL2_ACK_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I2C_FMP_CTRL3		0x24
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL3_HD_DAT	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I2C_FMP_CTRL3_AHD_DAT	GENMASK(10, 0)
+> +
+> +#define ASPEED_I3C_PHY_I3C_OD_CTRL0		0x28
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL0_CAS	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL0_CBP	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I3C_OD_CTRL1		0x2c
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL1_SCL_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL1_SCL_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I3C_OD_CTRL2		0x30
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL2_ACK_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL2_ACK_L	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I3C_OD_CTRL3		0x34
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL3_HD_DAT	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL3_AHD_DAT	GENMASK(10, 0)
+> +#define ASPEED_I3C_PHY_I3C_OD_CTRL4		0xd8
+> +#define   ASPEED_I3C_PHY_I3C_OD_CTRL4_DAP	GENMASK(26, 16)
+> +
+> +#define ASPEED_I3C_PHY_I3C_SDR0_CTRL0		0x38
+> +#define ASPEED_I3C_PHY_I3C_SDR1_CTRL0		0x44
+> +#define ASPEED_I3C_PHY_I3C_SDR2_CTRL0		0x50
+> +#define ASPEED_I3C_PHY_I3C_SDR3_CTRL0		0x5c
+> +#define ASPEED_I3C_PHY_I3C_SDR4_CTRL0		0x68
+> +#define   ASPEED_I3C_PHY_I3C_CTRL0_SCL_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_CTRL0_SCL_L	GENMASK(10, 0)
+> +#define   ASPEED_I3C_PHY_I3C_CTRL1_TBIT_H	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_CTRL1_TBIT_L	GENMASK(10, 0)
+> +#define   ASPEED_I3C_PHY_I3C_CTRL2_HD_PP	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_I3C_CTRL2_TBIT_HD_PP	GENMASK(10, 0)
+> +
+> +#define ASPEED_I3C_PHY_I3C_DDR_CTRL0		0x74
+> +#define ASPEED_I3C_PHY_I3C_DDR_CTRL1		0x78
+> +#define ASPEED_I3C_PHY_I3C_DDR_CTRL2		0x7c
+> +
+> +#define ASPEED_I3C_PHY_SR_P_PREPARE_CTRL	0x80
+> +#define   ASPEED_I3C_PHY_SR_P_PREPARE_HD	GENMASK(26, 16)
+> +#define   ASPEED_I3C_PHY_SR_P_PREPARE_SCL_L	GENMASK(10, 0)
+> +
+> +#define ASPEED_I3C_PHY_PULLUP_EN		0x98
+> +
+> +#define ASPEED_I3C_PHY_CTRL1_OFFSET		0x04
+> +#define ASPEED_I3C_PHY_CTRL2_OFFSET		0x08
+> +
+> +#define ASPEED_I3C_PHY_CNT_MAX			GENMASK(10, 0)
+> +
+> +#define ASPEED_I3C_PHY_I2C_FM_CAS_NS		1130
+> +#define ASPEED_I3C_PHY_I2C_FM_SU_STO_NS		1370
+> +#define ASPEED_I3C_PHY_I2C_FM_SCL_H_NS		1130
+> +#define ASPEED_I3C_PHY_I2C_FM_SCL_L_NS		1370
+> +#define ASPEED_I3C_PHY_I2C_FM_HD_DAT_NS		10
+> +#define ASPEED_I3C_PHY_I2C_FM_AHD_DAT_NS	10
+> +
+> +#define ASPEED_I3C_PHY_I2C_FMP_CAS_NS		380
+> +#define ASPEED_I3C_PHY_I2C_FMP_SU_STO_NS	620
+> +#define ASPEED_I3C_PHY_I2C_FMP_SCL_H_NS		380
+> +#define ASPEED_I3C_PHY_I2C_FMP_SCL_L_NS		620
+> +#define ASPEED_I3C_PHY_I2C_FMP_HD_DAT_NS	10
+> +#define ASPEED_I3C_PHY_I2C_FMP_AHD_DAT_NS	10
+> +
+> +#define ASPEED_I3C_PHY_OD_SCL_H_NS		380
+> +#define ASPEED_I3C_PHY_OD_SCL_L_NS		620
+> +#define ASPEED_I3C_PHY_HD_DAT_NS		10
+> +#define ASPEED_I3C_PHY_AHD_DAT_NS		10
+> +#define ASPEED_I3C_PHY_OD_DAP_NS		12
+> +
+> +#define ASPEED_I3C_PHY_SR_P_HD_NS		16
+> +#define ASPEED_I3C_PHY_SR_P_SCL_L_NS		40
+> +
+> +/*
+> + * MIPI I3C minimum timing for the open-drain start/stop, in tenths of a
+> + * nanosecond to keep the fractional spec values (tCAS >= 38.4 ns,
+> + * tCBP >= 19.2 ns) in integer arithmetic.
+> + */
+> +#define ASPEED_I3C_PHY_OD_MIN_CAS_NS_X10	384
+> +#define ASPEED_I3C_PHY_OD_MIN_CBP_NS_X10	192
+> +
+> +#endif
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c b/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+> index d267aa19cb75b..04e29313b1fb2 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+> @@ -14,6 +14,7 @@
+>  #include "cmd.h"
+>  #include "dat.h"
+>  #include "dct.h"
+> +#include "aspeed.h"
+>
+>  /*
+>   * Address Assignment Command
+> @@ -338,6 +339,8 @@ static int hci_cmd_v1_daa(struct i3c_hci *hci)
+>  		if (ret < 0)
+>  			break;
+>  		dat_idx = ret;
+> +		if (hci->quirks & HCI_QUIRK_VENDOR_DAA_INDEX)
+> +			aspeed_i3c_set_daa_index(hci, dat_idx);
+>
+>  		dev_dbg(&hci->master.dev,
+>  			"next_addr = 0x%02x, DAA using DAT %d",
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+> index da77384e985cf..759892a3785b8 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+> @@ -26,6 +26,7 @@
+>  #include "cmd.h"
+>  #include "dat.h"
+>  #include "ibi.h"
+> +#include "aspeed.h"
+>
+>  /*
+>   * Host Controller Capabilities and Operation Registers
+> @@ -140,6 +141,20 @@ struct device *i3c_hci_sysdev(struct device *dev)
+>  	return dev->parent && dev_is_pci(dev->parent) ? dev->parent : dev;
+>  }
+>
+> +static void aspeed_i3c_bus_setup(struct i3c_hci *hci)
+> +{
+> +	/*
+> +	 * Enable master clock stall: when the controller cannot keep the
+> +	 * data pipeline fed it holds SCL low instead of underrunning, so a
+> +	 * transfer pauses and resumes cleanly rather than aborting.
+> +	 */
+> +	aspeed_i3c_write(hci, ASPEED_I3C_CTRL,
+> +			 ASPEED_I3C_CTRL_CLOCK_STALL_EN |
+> +			 ASPEED_I3C_CTRL_INIT |
+> +			 FIELD_PREP(ASPEED_I3C_CTRL_INIT_MODE,
+> +				    ASPEED_I3C_INIT_MST_MODE));
+> +}
+> +
+>  static void i3c_hci_set_master_dyn_addr(struct i3c_hci *hci)
+>  {
+>  	reg_write(MASTER_DEVICE_ADDR,
+> @@ -153,6 +168,15 @@ static int i3c_hci_bus_init(struct i3c_master_controller *m)
+>  	struct i3c_device_info info;
+>  	int ret;
+>
+> +	if (hci->quirks & HCI_QUIRK_VENDOR_BUS_SETUP)
+> +		aspeed_i3c_bus_setup(hci);
+> +
+> +	if (hci->quirks & HCI_QUIRK_BOARD_PHY_TIMINGS) {
+> +		ret = aspeed_i3c_phy_init(hci);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	if (hci->cmd == &mipi_i3c_hci_cmd_v1) {
+>  		ret = mipi_i3c_hci_dat_v1.init(hci);
+>  		if (ret)
+> @@ -826,22 +850,12 @@ static const struct i3c_master_controller_ops i3c_hci_ops = {
+>  	.set_dev_nack_retry	= i3c_hci_set_dev_nack_retry,
+>  };
+>
+> -static irqreturn_t i3c_hci_irq_handler(int irq, void *dev_id)
+> +static irqreturn_t i3c_hci_core_irq(struct i3c_hci *hci)
+> +__must_hold(&hci->lock)
+>  {
+> -	struct i3c_hci *hci = dev_id;
+>  	irqreturn_t result = IRQ_NONE;
+>  	u32 val;
+>
+> -	guard(spinlock)(&hci->lock);
+> -
+> -	/*
+> -	 * The IRQ can be shared, so the handler may be called when the IRQ is
+> -	 * due to a different device. That could happen when runtime suspended,
+> -	 * so exit immediately if IRQs are not expected for this device.
+> -	 */
+> -	if (hci->irq_inactive)
+> -		return IRQ_NONE;
+> -
+>  	val = reg_read(INTR_STATUS);
+>  	reg_write(INTR_STATUS, val);
+>  	dev_dbg(&hci->master.dev, "INTR_STATUS %#x", val);
+> @@ -864,12 +878,73 @@ static irqreturn_t i3c_hci_irq_handler(int irq, void *dev_id)
+>  		dev_warn_once(&hci->master.dev,
+>  			      "unexpected INTR_STATUS %#x\n", val);
+>
+> +	return result;
+> +}
+> +
+> +static irqreturn_t i3c_hci_irq_handler(int irq, void *dev_id)
+> +{
+> +	irqreturn_t result = IRQ_NONE;
+> +	struct i3c_hci *hci = dev_id;
+> +
+> +	guard(spinlock)(&hci->lock);
+> +
+> +	/*
+> +	 * The IRQ can be shared, so the handler may be called when the IRQ is
+> +	 * due to a different device. That could happen when runtime suspended,
+> +	 * so exit immediately if IRQs are not expected for this device.
+> +	 */
+> +	if (hci->irq_inactive)
+> +		return IRQ_NONE;
+> +
+> +	result = i3c_hci_core_irq(hci);
+> +
+
+this part should be seperate patch, which not related add aspeed controler
+support.
+
+Frank
+>  	if (hci->io->irq_handler(hci))
+>  		result = IRQ_HANDLED;
+>
+>  	return result;
+>  }
+>
+> +static irqreturn_t i3c_aspeed_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct i3c_hci *hci = dev_id;
+> +	u32 status, inhouse_status;
+> +
+> +	guard(spinlock)(&hci->lock);
+> +
+> +	if (hci->irq_inactive)
+> +		return IRQ_NONE;
+> +
+> +	/*
+> +	 * The vendor summary register ORs together the core HCI status
+> +	 * (CAP), the PIO/DMA ring status (PIO/RHS) and the in-house block's
+> +	 * own status (INHOUSE) into single bits, so each source is
+> +	 * dispatched to the handler that knows how to service it.
+> +	 */
+> +	status = aspeed_i3c_read(hci, ASPEED_I3C_INTR_SUM_STATUS);
+> +	if (!status)
+> +		return IRQ_NONE;
+> +
+> +	if (status & ASPEED_INTR_SUM_CAP)
+> +		i3c_hci_core_irq(hci);
+> +	if (status & (ASPEED_INTR_SUM_PIO | ASPEED_INTR_SUM_RHS))
+> +		hci->io->irq_handler(hci);
+> +	if (status & ASPEED_INTR_SUM_INHOUSE) {
+> +		/*
+> +		 * The in-house block has no dedicated handler; just
+> +		 * acknowledge its status bits so the summary IRQ clears.
+> +		 */
+> +		inhouse_status = aspeed_i3c_read(hci, ASPEED_I3C_INTR_STATUS);
+> +		aspeed_i3c_write(hci, ASPEED_I3C_INTR_STATUS, inhouse_status);
+> +	}
+> +
+> +	/*
+> +	 * Unlike i3c_hci_irq_handler(), this IRQ is not shared
+> +	 * (IRQF_SHARED is not passed at request_irq() time), so a nonzero
+> +	 * summary status is always ours to handle.
+> +	 */
+> +	return IRQ_HANDLED;
+> +}
+> +
+>  static inline bool is_version_1_1_or_newer(struct i3c_hci *hci)
+>  {
+>  	return hci->version_major > 1 || (hci->version_major == 1 && hci->version_minor > 0);
+> @@ -921,6 +996,11 @@ static int i3c_hci_reset_and_init(struct i3c_hci *hci)
+>  	 * Bit 0:5 are defined in IP version < 0.8 but not handled by PIO code
+>  	 */
+>  	reg_write(INTR_STATUS_ENABLE, GENMASK(31, 10));
+> +	if (hci->quirks & HCI_QUIRK_VENDOR_INTR_SUMMARY) {
+> +		aspeed_i3c_write(hci, ASPEED_I3C_INTR_SIGNAL_ENABLE, 0);
+> +		aspeed_i3c_write(hci, ASPEED_I3C_INTR_STATUS_ENABLE,
+> +				 GENMASK(31, 0));
+> +	}
+>
+>  	/* Make sure our data ordering fits the host's */
+>  	regval = reg_read(HC_CONTROL);
+> @@ -1004,6 +1084,15 @@ static int i3c_hci_do_reset_and_restore(struct i3c_hci *hci)
+>  	if (ret)
+>  		return -EIO;
+>
+> +	if (hci->quirks & HCI_QUIRK_VENDOR_BUS_SETUP)
+> +		aspeed_i3c_bus_setup(hci);
+> +
+> +	if (hci->quirks & HCI_QUIRK_BOARD_PHY_TIMINGS) {
+> +		ret = aspeed_i3c_phy_init(hci);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	i3c_hci_set_master_dyn_addr(hci);
+>
+>  	mipi_i3c_hci_dat_v1.restore(hci);
+> @@ -1181,6 +1270,11 @@ static int i3c_hci_init(struct i3c_hci *hci)
+>  	if (ret)
+>  		return ret;
+>
+> +	if ((hci->quirks & HCI_QUIRK_VENDOR_RESOURCES) && !aspeed_i3c_vendor_cap_found(hci)) {
+> +		dev_err(&hci->master.dev, "required vendor capability not found in hardware\n");
+> +		return -ENODEV;
+> +	}
+> +
+>  	/* Select our command descriptor model */
+>  	switch (FIELD_GET(HC_CAP_CMD_SIZE, hci->caps)) {
+>  	case 0:
+> @@ -1205,6 +1299,8 @@ static int i3c_hci_probe(struct platform_device *pdev)
+>  {
+>  	const struct mipi_i3c_hci_platform_data *pdata = pdev->dev.platform_data;
+>  	struct clk_bulk_data *clks;
+> +	irq_handler_t irq_handler;
+> +	unsigned long irq_flags;
+>  	struct i3c_hci *hci;
+>  	int irq, ret;
+>
+> @@ -1233,7 +1329,7 @@ static int i3c_hci_probe(struct platform_device *pdev)
+>  	}
+>
+>  	platform_set_drvdata(pdev, hci);
+> -	/* temporary for dev_printk's, to be replaced in i3c_master_register */
+> +	/* Temporary for dev_printk's, replaced with the real value by i3c_master_register(). */
+>  	hci->master.dev.init_name = dev_name(&pdev->dev);
+>
+>  	hci->quirks = (unsigned long)device_get_match_data(&pdev->dev);
+> @@ -1243,6 +1339,12 @@ static int i3c_hci_probe(struct platform_device *pdev)
+>  	if (hci->quirks & HCI_QUIRK_DMA_64BIT)
+>  		dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+>
+> +	if (hci->quirks & HCI_QUIRK_VENDOR_RESOURCES) {
+> +		ret = aspeed_i3c_alloc_resources(hci, pdev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
+>  	if (ret < 0)
+>  		return dev_err_probe(&pdev->dev, ret,
+> @@ -1254,9 +1356,15 @@ static int i3c_hci_probe(struct platform_device *pdev)
+>
+>  	hci->irq_inactive = true;
+>
+> +	irq_handler = i3c_hci_irq_handler;
+> +	irq_flags = IRQF_SHARED;
+> +	if (hci->quirks & HCI_QUIRK_VENDOR_INTR_SUMMARY) {
+> +		irq_handler = i3c_aspeed_irq_handler;
+> +		irq_flags = 0;
+> +	}
+> +
+>  	irq = platform_get_irq(pdev, 0);
+> -	ret = devm_request_irq(&pdev->dev, irq, i3c_hci_irq_handler,
+> -			       IRQF_SHARED, NULL, hci);
+> +	ret = devm_request_irq(&pdev->dev, irq, irq_handler, irq_flags, NULL, hci);
+>  	if (ret)
+>  		return ret;
+>
+> @@ -1291,6 +1399,16 @@ static const __maybe_unused struct of_device_id i3c_hci_of_match[] = {
+>  	{ .compatible = "microchip,sama7d65-i3c-hci",
+>  	  .data = (void *)(ulong)(HCI_QUIRK_PIO_MODE | HCI_QUIRK_OD_PP_TIMING |
+>  				  HCI_QUIRK_RESP_BUF_THLD) },
+> +	{ .compatible = "aspeed,ast2700-i3c-hci",
+> +	  .data = (void *)(ulong)(HCI_QUIRK_DAT_INDEX_IS_ADDR |
+> +				  HCI_QUIRK_DMA_64BIT |
+> +				  HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET |
+> +				  HCI_QUIRK_TX_START_THLD |
+> +				  HCI_QUIRK_VENDOR_BUS_SETUP |
+> +				  HCI_QUIRK_BOARD_PHY_TIMINGS |
+> +				  HCI_QUIRK_VENDOR_INTR_SUMMARY |
+> +				  HCI_QUIRK_VENDOR_RESOURCES |
+> +				  HCI_QUIRK_VENDOR_DAA_INDEX) },
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, i3c_hci_of_match);
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/ext_caps.c b/drivers/i3c/master/mipi-i3c-hci/ext_caps.c
+> index 77840fd4aa51f..ab0f18f74a5f7 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/ext_caps.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/ext_caps.c
+> @@ -14,6 +14,7 @@
+>
+>  #include "hci.h"
+>  #include "ext_caps.h"
+> +#include "aspeed.h"
+>  #include "xfer_mode_rate.h"
+>
+>  /* Extended Capability Header */
+> @@ -221,6 +222,7 @@ struct hci_ext_cap_vendor_specific {
+>
+>  static const struct hci_ext_cap_vendor_specific vendor_ext_caps[] = {
+>  	EXT_CAP_VENDOR(NXP, 0xc0, 0x20),
+> +	EXT_CAP_VENDOR(ASPEED, 0xc0, 0x08),
+>  };
+>
+>  static int hci_extcap_vendor_specific(struct i3c_hci *hci, void __iomem *base,
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/ext_caps.h b/drivers/i3c/master/mipi-i3c-hci/ext_caps.h
+> index b15e629951f03..46dd83c0d4c54 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/ext_caps.h
+> +++ b/drivers/i3c/master/mipi-i3c-hci/ext_caps.h
+> @@ -12,6 +12,7 @@
+>
+>  /* MIPI vendor IDs */
+>  #define MIPI_VENDOR_NXP			0x11b
+> +#define MIPI_VENDOR_ASPEED		0x3f6
+>
+>  int i3c_hci_parse_ext_caps(struct i3c_hci *hci);
+>
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/hci.h b/drivers/i3c/master/mipi-i3c-hci/hci.h
+> index 3f28f821bf0dc..2b876dfb1087b 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/hci.h
+> +++ b/drivers/i3c/master/mipi-i3c-hci/hci.h
+> @@ -181,6 +181,13 @@ struct i3c_hci_dev_data {
+>  #define HCI_QUIRK_DAT_INDEX_IS_ADDR	BIT(10)  /* DAT entries are indexed by device address */
+>  #define HCI_QUIRK_DMA_64BIT		BIT(11)  /* Controller DMA supports 64-bit addressing */
+>  #define HCI_QUIRK_TX_START_THLD		BIT(12)  /* Clear TX start threshold in DMA mode */
+> +#define HCI_QUIRK_VENDOR_BUS_SETUP	BIT(13)  /* Vendor block needs setup to bring the bus up */
+> +#define HCI_QUIRK_BOARD_PHY_TIMINGS	BIT(14)  /* Apply board-specific PHY timing from DT */
+> +#define HCI_QUIRK_VENDOR_INTR_SUMMARY	BIT(15)  /* Vendor interrupts funnel through a summary */
+> +#define HCI_QUIRK_VENDOR_RESOURCES	BIT(16)  /* Vendor block needs its own reset lines/clock */
+> +#define HCI_QUIRK_VENDOR_DAA_INDEX	BIT(17)  /* DAA needs the DAT slot in a vendor register */
+> +#define HCI_QUIRK_IBI_PAYLOAD_THLD	BIT(18)  /* Controller has a payload IBI term threshold */
+> +#define HCI_QUIRK_VENDOR_TX_AVAIL	BIT(19)  /* Controller reports exact TX FIFO free space */
+>
+>  /* global functions */
+>  void mipi_i3c_hci_resume(struct i3c_hci *hci);
+>
+> --
+> 2.34.1
+>
