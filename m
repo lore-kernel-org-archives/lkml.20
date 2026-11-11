@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794395893;
-	b=e7eB74mDa7n3/9jHoQ3lA+8xhKO3fOVqOONeSca88l2QvRzhF5uUK8SAUgibwhuK3+Vc
-	 z4KSF/p7ZqcsrOeBsqrcIipohXbq+KpDGvxcHhCvYZeld3CZxstCgc+1UNQcT7iM2Nmvd
-	 rHuscgp86+vDsI3Iq4/wqoNMvrxsSS7nI+CylqiQ7stDndVIBrPCZ9IMQ3eeFIArUXW/n
-	 JkhYWpW1dgFl0mmgeEOBoIjZ9oGqR67+vcwo1O79kq7O2WmfcdKZZNPDcZR6ybVWSn+4u
-	 u0KKookwvesZ1BMm5cWw6u8Yldu4kgo/FtFwN9LVH4nPfLPuX54Lzi43hblEYAzai9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395893;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-	b=rEKD5tzohSE+PfOZozEKmVP+ffHpv/eMEo8GHcjSJRh1HZJ0FBw0uWpimScWliPu19IN
-	 TiZapRAyFGmngIyW/4sTw6aL6DAN2nnmAYC87VXnbd3Y585zfwtKQltQKcILoS5Vt7Xqg
-	 +adx0TrtcwH0UeKVlcll9wHiCo7LfRyVyICFOfQ6qR5Sf5gP3BJ7W250e0DkS9t6QRjBq
-	 Cej5+2tTdV/SDzxzcTQKEMiMzAFIltIL2q9v7KtUs1Bpg39/mAiNoYb/Fhu3AuwYNAmKK
-	 zp3Ox7hK0xfMmgsayKRPYWAhHUncbmMfgw6xjXExZZf4e6dFwaM3Eq48tU+vxNQ4cig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1dKiKMF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794395909;
+	b=1aCScthIIxdxmuSTICBko5ULFvKKDvg5GzCdaFOcbX3Kqj3csfm0fiCb+DKAfik3dH1R
+	 Cx68tDU+G7Y99MBGKbf9ofQuh08sZelgAUJTbxXAY6EW2sMKLCwVR0ZesskRX4F6ZqPkO
+	 rXE1nPOIVcHjPcoYodS9v2sZEksWFFNEYFWEWHUJB/0juOQbjESRD5ZAJWgfUfAi8mgaC
+	 I6msd9111fkTjOEd2s1FU3adGVcMVxP/Xls1nF59liD5u4FgELZKDnaubzGeXskxEi7yr
+	 fRzwmvN7fLoOOQ3tLrIu185PolZQa3KA1yAvsyRUOSp/tuNZ704Z9ZixfS0dHcae1bQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395909;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=;
+	b=L3LGqcB3X2IWvd50AQPvyjJ559RVrxxp8eHs9g/45WkNlZ528gi6jn8yTIrjU7FoTDZ0
+	 k+4DgIyWGZ8Uje/gGs7e1Iud2NOwcebxmzT8uTdA+d2ms3gPxLhAgE8wxyvhE3LCxWpe+
+	 qSn3k8PMhG+hZua+nGq8EU2ow4gtVNXr6CBUxVDSg3r+4D/82jXRUIUGN+6PwKPxHKfHR
+	 VB2hTTq268Sj/R5A37GIdawc6R3nHgZoDLJt5NsvGxFrtnsOfuMksgBtBVe7YWlih6IL0
+	 AsKlEx+HRUGL17f0xT99RLDTS0VryCnIGjCL1skSvAdZr0TO77SgTccxDNN4qAvp5rg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DANd6YRb;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RDgbgZk5;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE62606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DE62606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6858F606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6858F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1dKiKMF
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36f8cdd30beso5257541eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:18:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794395892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aqkhZritrV3LjdEvY80p1Rbsa0t552476zvV9RQC6pRYBlwjTR/u1pB0k9wpMwzwQ/
-         i0Z50uW4fK1lmJjNLf4O1oojSvw6IuAKDu9Xs/gbF7VQyiNSHPmLzOrLw35MuujNjYzQ
-         QoRvwSg5rN6kb78aRA29TSS2jxA67hfg9YPjhmsGSvBjpUtx92oJIkiTJDEsAUk10AZk
-         HivqgO5RZsPaVduMdhsvt9QF1w8NJYcIjU+poi8RhOvRYnlleAwKcNQEKhSqszCxKo6N
-         FiHL+lSBQrFE9+RxgJQV6EOJ8SZiWRrpnxIx9iXbp9RrVa3K6tY7mVAD7mC34Jrd8yYk
-         TKow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        fh=qOMngD4ND0jb6DfrvQ8Ek/7zk1HKgys2MaMHNXBEAfg=;
-        b=mGZKSBWV5pJcdE7EXQxvLJ3nuSxc/mX8CqS7FeR7oKARF7XjAKoZEmaSXbCeFvEBsR
-         yjsuqLZjmShhmETzsUUtCnykc3KZWJwfMWcMlkE4tYA0ajvbz53nFuBgCNJNr414MKIS
-         9PJITViKpDSjUwUS9h+jTA8yEGde4aoddWGksnDJFkThKhnTzzeIO8y5rzhCxK+tp+9g
-         /TaRW96407v5FLlgMxr/3Cf73B3zeyJy8NRWics6DZ906Adq0egUdYUARV1yBck/MR4x
-         Asn8uHdUwOxin9yJEmn2CDRi77dDESlKGDAquhuKDDsbLy27BGJHGE/4qFKsinD3H1ek
-         JcVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794395892; x=1795000692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        b=F1dKiKMF4VJajRFj0nHNImoDhIUp8W9AWsqwjUNVel+BFQjyDQmyuTVu/c4p+Nr2QE
-         7GUJznGwWgwagJDi+zaKjBM2+70O7Z17rGubc1sag41BoblWWRgDyB8IYE54sC9joJFh
-         fsu55pggmsU8lE6RGjMwRFWbKkT1QYx2wetE4yKjWffmSRYfD2ekBOwW1ZeKnPykNnCC
-         4K/Dwrjd45d170g1jscSUYj+wI6H26nwwYP1yX/PkIYSw8wsiuEDYez3uO4tNEYjr7mR
-         rbGxhKiq5f/Y/Kjom2fy1knuvLGAvdVS7+Mh03iimoiLj78422wBEurEl3iOKv61qrUk
-         T3bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395892; x=1795000692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r1oyng5HmTkXJYBOjO4xwXQ4nKo/fyLrx6V7oMlvY/A=;
-        b=BC5xUIaGMNsfwtFlTXJjOjUHl4Fq/sNdF+2iJJj/BbHUkYZjjcNGF53FY/UtXQL8Op
-         Anwgfhf5FTxFpuGmBnXeVlNyAjf7JmNXdDZTmjtOK5pOeU8hVnUQd6eC5vQj8Rz4eqQ8
-         M6YXIKbSwUTHkcrc2y3JaokBeKDe8x6qnwqAdL2QVFVXgvNDwJFrVYRihcWwr1m41Rtq
-         J7IxndsqTQi9cJhWBmyrCer+70QCjqH0GqXfQcINiKXPS0rVEZ8xz6AIU2U1Q5AwtPTx
-         de0R+aLOwO75nETpmTh/0hOZ3EnJsqhwxMGnJ9FdtNIwWrhyZS5gwtaVUodkfI2gMhYG
-         BC2g==
-X-Forwarded-Encrypted: i=1; AL+hErHlJMAiuxw7+pw4febJOkH0FXIiytYimiNk2t8V0vPh6uKjBGt0p7YiKLJ1aOFTmhQHHfBy8g63uQQpKvA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1boDQ+RDqpiBsEHZPxFkEHqjc8fMNj8wJEWwtzUwm+4WivfLH
-	eoUkLaeoMqVoXdss0ucG+m3/WwXBcAFZEKzQMzuyj88QAaZEEPFlcAOTpcLiB2wY5J9oNvmSLZh
-	u9cfanp60ORjHfnCtCu5WstGHRXp5sRw=
-X-Gm-Gg: AYBFou1Wez/gWjfo3q8bR3xWJ1mwJK+oKkpUF8tEOzrAmvOZyOLBox58J37Ip+eS+V4
-	5It/HDmR234B5MhBlEpvzH34vQmYWrM/5/0FCGgeYCFx8N5untpTnAxzHwlBLlb9W1v1CwjJ/2w
-	WrqzHTja28ZEsjNKy6Raq7uouRX0GRqoqF3ZtH8tt7JnwDHQ1QyO2omYxrhCWJPPcDNBB2pPBdN
-	fSSjx525st1+OTk7JojaCtNf/opdZen71XCBxC/qSGoPulcArpb0yxA7daF06IrNv60Dauwr+Kg
-	pon3N/sZQk3mLy/5C1Cd7lRC7MyKtHUGjdTpE+zivSReA6e+athffI7t826ct512qAEmZdgCYJz
-	Z1+PneyYOsVvRh2xyGv8OOmyLjRkl6mRU7IQnZP1kmlXqKpfv+OkCzlhxdB7K8K4p47xLJ3Vnpl
-	x1PZo7s0mlNcbDvN9XcvfFJJIwcBX+3w==
-X-Received: by 2002:a05:7300:d942:b0:375:50d9:474e with SMTP id
- 5a478bee46e88-3768366a40amr2582746eec.4.1794395891501; Wed, 11 Nov 2026
- 03:18:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DANd6YRb;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RDgbgZk5
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 9A71714000E7
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:18:28 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 11 Nov 2026 06:18:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794395905;
+	 x=1794482305; bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=; b=
+	DANd6YRb6JnLSJlZxt0H/DrJgMRh6Bwi+3uwNYrWjLz+D1n7StDZ7GhA5n3Pgl3Q
+	QA2GO9AOOlbd2U7fG1itud6TZKs1wuB7YQw8DF29RYpoiDtQjqEGu2Xem9KiuXiD
+	ywQ3D1H9bpZNQuqAr8DEZpEeZafD30lSSQwthAPfDQUEUhGfk3cffB4K/xSN6o4o
+	YlytyspignpmGXqYOonGd1zVPNPC+xWIDfroQqSAMhPfGgq9J6ntJpbinCNotcNx
+	zVX2PUKrod8HXHa2mTexvRMS6g1+uXQpHoCxpY1VKGNXTyQ0pYCZp+2CbzLXX6mB
+	abypSxQW72D1Ua+Lo9Wc0Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794395905; x=
+	1794482305; bh=2naI8V6x44s+b3e0fqUVTpUd5KiO9jYz1ZEuXTSEtHc=; b=R
+	DgbgZk5DdHL+slhmhBkM2Js5wx0DEIQMxcx3uqNgfVVjTNi3LYkmidAM45U5RBT5
+	tBwvAp8eiJgmWemShWmuYarq3Izvx8VVIWgc5/sxGj7dqNiGX7uDM9OK1dMVuzzL
+	rPx88zZelyzVkF4KRIxY3cjdNRBXC53SnlPYAZy8Npfo9vBsYjWu4ThSdIK8aOXZ
+	R4xuc7kOAp8vDgA2pV69uCIdWJTzJSJHRqyB299JxY+mA33Wq2G2Mjhnf8rddl1b
+	plSP15mTVjxn3aBn6mvRa6oeQP0bc5ctzi1I6ngs4eyRQ+4iJq/6+CKnUglwhqwF
+	EpBqutLuXgRTHuNlvI9ug==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794395905; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:N4yOR898D59w1h3Se3IamV9f+18uZHtb6Tjx4OkhmCDl4K1
+	igegI7ovUsEJnRjuQFSEJ6bDtJwPuZ+SiRtv91T74ikkBDyTxaAdjEL0q1HH/Pxg
+	sjUY2wfjckNYW5Viuntbq7SZ2yzicyRNTFNW0SsT5eKtglR/hjg24dUtbNUjNuMa
+	mSx+1dNj4QFYMSBvXLK2Wl47dgWY68Z5kG6HtRCAM2Z7Y8h1keJdU0wVdXFxDPaG
+	rDMANIFwRI4gBCsd0+p/UmqQ8N+WRo+n44MrLIB+HTPfLro75D+QI7x97yNWkawp
+	YVxQioHehFg/244AtDQi3EQXzfJLqMc4pLpWltA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8Mi958utAakp2sYxBNcZabiO06Gm3v8zp1gjOI3Wo0o=:bICPIpF/J9LCSVxxGsuyc1UB0Kkifxs4nyUb4LlfVbQ=;
+X-ME-Sender: <xms:_k70ahc-fQTpUwTJ9TQb5A75LqpbQmfc_t76yCItVKenqNr8QS-HOQ>
+    <xme:_k70aqDt3nnNk7L1NYBr0glSiD3BZ3tP9YzzzLcPmG56UZW3BVORUK3IbYnEVPwJV
+    tkEX99v63aXy-tG4HD76rs8j7BtJMQOLR-_pqfr3ivOdq4PS8hwT94>
+X-ME-Proxy-Cause: dmFkZTFboftFQnktVHHeCwK8Qq4eUL/jmPMFmYesiFAf6XsVAajF8mVles1YhuR5y6FN1c
+    UrDA9MSOSOM/sxCmWqE9dyCLtqseCcJg0yWk4dT9DWq6ReBhV8II7NUB9tvuaRBfOoo5/2
+    ljEBV4aZHn09/XqRWrCzuT4hK2TKMyLnli77tHwdyqPSBAKM+3Eb7MJNzv9hZmQonEYdZw
+    sWBK284ikST/Rdy3KQRmxG8Fm4ov/hyQktNjys8b8hpBw5jtkkwYV3ZgQH0k1CdHCFPw+s
+    r91V4KzJZl4JMgMkQZb0fUXTmRt95XW6D+15o2lv8NG4aQd9g1FP8LKC5vftzY3QC2IuLZ
+    3O0rQv5OMnzauQYRe2EgtUFIzHee5MYoZSxBjMU4yM8JKFwad4mARpuuQxE1+O2aAHRpGL
+    7LjH8AgTz+AOZbfO++P2O32r4+ju0/msqvq+FWLhuLZlk/aPgj6FZk2Dke1+jP9Rfb2p26
+    IVENzzWUG7aPIXfJdcNo68lU4cFUeTlUNxbh0TPH3Gi0Hk99cExAgHt9Yvk6/GOF3eBnIn
+    Q7Wb9G7HytZPodblVsrQX829fW6WoQnQLCCTAxua9mnayHF6DroGYrwfLmtQ9R+3Hwwo84
+    Pj9EaLS1HOZAkqo7jjbWXHEMahTJOWo04z/nQK8J3i+DQIFvIt8OduUVN6gQ
+X-ME-Proxy: <xmx:_070anCiSlkFqJB4u1hK6DnPzTESE6rR-NAkHEcmFW17fMjdkERDjA>
+    <xmx:_070avzNxfAImndN5QEReW2dIGfGRKyizWJ00A3ANsUT2OQFPGJEDQ>
+    <xmx:_070ak343JJ99NJGTM-49rzdZ_fFPSU1R-TOxBEkIgQeEA5G5497PA>
+    <xmx:_070avxU1koAQIOvRUS02VHJd_hFoV4b7BlmN0pnI_qEQgWsND6hiQ>
+    <xmx:AU_0aulfXZvb40rC2PQkJLs7y_kbOkruk1QJiSEnFZFqJAZCs8RE2j6n>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 34DB232A009B; Wed, 11 Nov 2026 06:18:22 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,106 +115,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 11 Nov 2026 13:18:00 +0200
-X-Gm-Features: AclHuK-O2dC4RAUcsZW-78NPaZ5DVC69K9fHpFDz6S6p3zKh72SRrQsMpZxuDAU
-Message-ID: <CAPVz0n0-jBU3jnDsA4FmAkiF22Bqba=87_VRU3P1H2dzHHbteA@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port optional
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Selvaraj <jo@jsfamily.in>, Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Michael Trimarchi <michael@amarulasolutions.com>, 
-	Michael Tretter <m.tretter@pengutronix.de>, Cristian Cozzolino <cristian_ci@protonmail.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Ryan Brue <ryanbrue.dev@gmail.com>, 
-	Nickolay Goppen <setotau@mainlining.org>, Robert Chiras <robert.chiras@nxp.com>, 
-	Alexander Koskovich <akoskovich@pm.me>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Chris Morgan <macromorgan@hotmail.com>, Barnabas Czeman <barnabas.czeman@mainlining.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Arpit Saini <arpit.saini@oss.qualcomm.com>, Michael Walle <mwalle@kernel.org>, 
-	Ritesh Kumar <quic_riteshk@quicinc.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Danila Tikhonov <danila@mainlining.org>, Jens Reidel <adrian@travitia.xyz>, 
-	Michael Srba <Michael.Srba@seznam.cz>, Shawn Guo <shawn.guo@linaro.org>, 
-	Alexandre Mergnat <amergnat@baylibre.com>, Alexander Baransky <sanyapilot496@gmail.com>, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Romain TISSERAND <romain.tisserand@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AgpoH-kgjtug
+Date: Wed, 11 Nov 2026 12:18:01 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Jeffrey Bencteux" <jeff@bencteux.fr>, "Paul Moore" <paul@paul-moore.com>,
+ "Eric Paris" <eparis@redhat.com>, audit@vger.kernel.org
+Cc: Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org
+Message-Id: <e817126f-83b7-4450-a893-ac4e59460ae1@app.fastmail.com>
+In-Reply-To: <20261111110200.30415-1-jeff@bencteux.fr>
+References: <20261111110200.30415-1-jeff@bencteux.fr>
+Subject: Re: [PATCH] audit: add missing syscalls to signal class
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-=D1=81=D1=80, 11 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:0=
-3 Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> DSI panels can be placed under DSI bus directly and many Linux DRM
-> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> such panel and DRM driver does not use OF graph to configure lanes.  The
-> affected here Linux panel drivers do not use OF graph, either.
->
-> Requiring graph port for such panels is tying the binding to one
-> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
-> requires the port.  The port is not needed for the hardware to operate
-> and for some of the Linux drivers, so it should be optional.
->
-> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> ---
->
-> Remaining one Ilitek is fixed in:
-> https://lore.kernel.org/all/20261109160706.2272332-2-romain.tisserand@gma=
-il.com/
-> ---
->  .../devicetree/bindings/display/panel/anbernic,td4310.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/boe,td4320.yaml  | 1 -
->  .../devicetree/bindings/display/panel/boe,tv101wum-ll2.yaml      | 1 -
->  Documentation/devicetree/bindings/display/panel/ebbg,ft8719.yaml | 1 -
->  .../devicetree/bindings/display/panel/elida,kd35t133.yaml        | 1 -
->  .../bindings/display/panel/feiyang,fy07024di26a30d.yaml          | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112a.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx83112b.yaml        | 1 -
->  .../devicetree/bindings/display/panel/himax,hx8394.yaml          | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml       | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9805.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ilitek,ili9806e.yaml       | 1 -
->  Documentation/devicetree/bindings/display/panel/lxd,m9189a.yaml  | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt35532.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672a.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt36672e.yaml      | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt37801.yaml       | 1 -
->  .../devicetree/bindings/display/panel/novatek,nt51021.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67191.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm67200.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm69220.yaml       | 1 -
->  .../devicetree/bindings/display/panel/raydium,rm692e5.yaml       | 1 -
->  .../devicetree/bindings/display/panel/renesas,r61307.yaml        | 1 -
->  .../devicetree/bindings/display/panel/renesas,r69328.yaml        | 1 -
->  .../devicetree/bindings/display/panel/ronbo,rb070d30.yaml        | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams581vf01.yaml    | 1 -
->  .../devicetree/bindings/display/panel/samsung,ams639rq08.yaml    | 1 -
->  .../bindings/display/panel/samsung,s6e88a0-ams452ef01.yaml       | 1 -
->  .../devicetree/bindings/display/panel/samsung,sofef01-m.yaml     | 1 -
->  .../devicetree/bindings/display/panel/sony,td4353-jdi.yaml       | 1 -
->  .../bindings/display/panel/sony,tulip-truly-nt35521.yaml         | 1 -
->  .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml | 1 -
->  .../devicetree/bindings/display/panel/synaptics,r63353.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,g2647fb105.yaml   | 1 -
->  .../devicetree/bindings/display/panel/visionox,r66451.yaml       | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm69299.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,rm692e5.yaml      | 1 -
->  .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml     | 1 -
->  .../devicetree/bindings/display/panel/xinpeng,xpp055c272.yaml    | 1 -
->  39 files changed, 39 deletions(-)
->
+On Wed, Nov 11, 2026, at 12:01, Jeffrey Bencteux wrote:
+> diff --git a/include/asm-generic/audit_signal.h 
+> b/include/asm-generic/audit_signal.h
+> index 6feab7f18a53..65336a9aef7b 100644
+> --- a/include/asm-generic/audit_signal.h
+> +++ b/include/asm-generic/audit_signal.h
+> @@ -1,3 +1,12 @@
+>  __NR_kill,
+>  __NR_tgkill,
+>  __NR_tkill,
+> +#ifdef __NR_rt_sigqueueinfo
+> +__NR_rt_sigqueueinfo,
+> +#endif
+> +#ifdef __NR_rt_tgsigqueueinfo
+> +__NR_rt_tgsigqueueinfo,
+> +#endif
+> +#ifdef __NR_pidfd_send_signal
+> +__NR_pidfd_send_signal,
+> +#endif
 
-Thanks!
+Why the #ifdef checks? These should be available on all architectures.
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com> # for renesas
-r61307 and r69328
+     Arnd
