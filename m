@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387882;
-	b=N7HxAIi5YbB3rqBK/UYhxyesHfqmAn45AQLs7W1pBV0njmRuH5ZOZPPEesxNg7pBudRD
-	 GtZf7ysB6J96rUxtqX7f8t5mZm/S1KXlc1Vi+a3e6q53HKsCByt21btPLMhhHYiYF9/6Y
-	 5GjwOwSxzq5bFRuwBdSgaYq40HSs2Ri4bYg7kQ17iK5UOEeEtc84yNa486/Z1imo/ePc6
-	 FOd6EXpNIXGlYUWTdM7C50vBHbUf/HANcUEZbuPOuTelQG9FcwFU+aWpVguMxodaVMYl+
-	 Fhy6W0gnrfg5Oshrs8My2h4MpeHb3DsQtJbI5eqIJp46UWRxhgpSo8Sd8duUetb/OKQ==
+	t=1794387886;
+	b=MaDK0aKye0Z2WxfLGUjGC6HPdfA5Omxwki6Xb+6kQI6JIsuzK92oWSyt1cuwFd3fZuFD
+	 BexvO90a6e8D/A3jFF4jvdbBes7vct2VkkMA8WH2zrac2V5bpg0U+TtM7BnfgQLZ9BlZE
+	 NX5kUy1MdwLfp+5dqiJuzwB0Lrc0QsMr3ttaBWMiy3Il9WeuIrkHYLZ3Iw3Me1ftgnWRT
+	 +McocTmyJirU6d6yn2NzsaKt5o0nrBKSY8zdo8/v5AK1WI96vW897U2jiLwaoRJp7/nAY
+	 Q8jHSRJqSNivGC3Vw3NsXx3mEXbVVqc7QcK7GsNF604nx5Z+v3UGZh0OB+IzvVP0i8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387882;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=DV1OgHHTBAF1XctG06F7SeDucSGx6hal8QEtfbslYV8=;
-	b=1SPlzLZiTHYTSV5TN0LaMolU+O9wYSMH0157C+Wp/qIeEaGJ8cIDxrmICVQHamfgr4gh
-	 r3J2ump7lbxjBIPc4OX/6kJZsJPYPf6x5yvmJEbvQC4DyFbXZe9g+GnmQ7BObrMrYEPSG
-	 GVOscYokJEj856MJD9OEfhnt9UmIxCT4iAx+rt9a4WE8Z0IcTbROyc+ka9rcqWSUyrFM+
-	 JJKYwYdygmYq+qEtN8tN50+MKIukqgSPTAqMpY/vpU/8qwRa05rV0kFYbSSYjR2H1Rmzm
-	 6NQIW46goaDqx4+ePRBFJHyprlbbFUEPU2QR3Pxq5BGnAUCdD6MXbvQsb7XRdRLqIgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387886;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
+	b=r1H5csf0j1Mrp74b97YCdAwqkcdHqp8GqJIKnrNEBRMZUlQe1saSWviemI9pLeH5VGL3
+	 JuhAxaxcRNP9VbnRHkspU02cqSyZemTRUlWpPMYUR5UTEGj4Qp7zhPkck9ldw2HUnPvrA
+	 emPcc0jEWxioPmNK91DPXsfMabo+TwDSHXu2xvb2R9FrRCYmNnZ0OP4vLl10TlrYvx+ch
+	 /8oOw9O4dmWYu0sIvYv5a538RJQfPSrVi6l+YTeZiQegNRtpKMTovnl+s5/3TbS/b9Lso
+	 8u8I3aedFv5FiWB4XQgqjyqke0AiSxV3LAB4Fmun30iI4sDaqTZ7cELBYmj3bchwciA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9Mco97l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D11pQqVL;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB0B606A33F;
-	Wed, 11 Nov 2026 09:04:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEAC60A2620
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEEAC60A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9Mco97l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857961F00A0A;
-	Wed, 11 Nov 2026 09:04:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794387882;
-	bh=DV1OgHHTBAF1XctG06F7SeDucSGx6hal8QEtfbslYV8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Y9Mco97l5r6HnLH80/GNgE1rsFu6Fc5lbV15PBYbIjMxkDAEHkVDeKsQrrcjw2Zor
-	 TSETIfBeNGGIdTWSVAVJNFEFH0h/4oViwcWg3w63EOy9rIAnt1YFkzgO2k5Ss5Dm7b
-	 Kf3Ul/4tvynDJ7P3DbUAeSbY/UFDURMaNWC97bucH/RvdOEtZCGDqkWNeHHifIaido
-	 lkY7DBwfw84CoWysrSNYotCDgtZnbwKvIOurTBSycoPfjf61a1owoxLk1huzYJZdlK
-	 yUGEi1CT/9WJHUfWJX4nHH8unsQonqFXmgdQuT0FZZJNjjf8MpT8D50SXYhgnYrJza
-	 RLCinMABTWLZA==
-Message-ID: <23a6d8be-d4af-4cf9-bf48-8ab7272abc1e@kernel.org>
-Date: Wed, 11 Nov 2026 18:04:40 +0900
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D11pQqVL
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b8ecfa886bso1388004b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:04:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794387885; x=1794992685; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
+        b=D11pQqVLxduA2HiDS9kaLe4YqBelzGoE/SDyLf6kxKBLQDF9C2rBRssaQoZoSzQt7X
+         KLLjr8DL359uabODoinxTgWguCexJ8rmXUHxIAlmRcv6YnJm32LjC3rwevowjnr1supR
+         bILDTTctpU8VgbELeRcea/4+RJGNAx80V8hXvnJ8lPUCDOklhiA49lbWP4O7LTLE8yvr
+         i4FBS3NxqYl26HukRI7uOQKstJeqi0XHr3Qdv5JT1MwWNVeac5oVz2EDjS6QmA+kVXu/
+         llk0PDa6L5Q0MrL0KalB++Uef1C5uOcuo1As9tGv5ROY9NLTjFCjajeANUuJCFO9oWiQ
+         Q2hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794387885; x=1794992685;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iopuf+0CPJ1prxbi5e5LK6HB0bPSt5qJvXq2KBBjS3Q=;
+        b=X+Sd4MtpbpMY6+mZJeHByUeO4sbDg50yJ28zh5EIAh2+p0PNOd1VekPU0a4Jl4A4Us
+         RaENJZ42xhPCNbEYQozFd5PMJZ2R/ukqO3DWLkWtWlNk6OGl6klZTl6AHdxRhdcn+S56
+         bArRnoB+Z5SAizwLY9TzFM8bB9Te5ydMlkN6QUSmDGuQa8KuMBxh/pr+T5AeXC5BQmBY
+         CM63Qhq+XS7K4Rf8n9NWgKI3g8SWden2MHbJ9kA0oeGwbPPFuum+WHYf7UCw56INautm
+         xXf6F9RpntNuA+bEE9b2Tgg6P8L+/SYCqxK9j9fJeJ+s8OzXP1yxh982Gh1bVT6YCe/E
+         EYLQ==
+X-Forwarded-Encrypted: i=1; AL+hErGJppan2mrCFDD9aJhfntThQzb/HC51eSyKNIVLVzH/VnGfhPsyxFS+UzMbWweCupMYOCPQQinlGSU56aA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PjlZhHlDDkG/GmqJHR+6vKzfEMJ7XG/sOheqYYMNcOKRfTIne
+	dFoUgIcporQmW1Z1SuFYjzuydAFZ3Yq0SOREdkNYYVBHgiwRWLri3YGQ
+X-Gm-Gg: AYBFou33q9Co0o3KIFidRxG1prIoeUpJ1ZbeNkYfgdO4Fs9+GDban6aUP6L+dLDd8+v
+	otzvdhVe9fTxBWwjh33gzdZC3OlF88nvAATRItQTuXdIz2jxMOIS1ML6TTacsNwwSFsjNlmB+Td
+	kXRr7+kDDGFmJpe0VyF6dtzo4sc67s9hB0LqKsn3tmK/GBtjZYQPUGOU2M88AUMc4EoG3c1jFCS
+	jEVcLJv3tPJMGPsdAUpHrXR6gpt/Y/R4qxZE6iSgCPtTFg+vdAYnqDSke6yJt2geLkGHRTjpfxJ
+	XisOGwZ31lImfMirN9qDzajXhGmYgGoqDhUHSSLGuXgNS4wj1G1XsuArh8d9e/4cU4HyYPsIsu+
+	OuCRdH5jCn73Gfgho9EIZVaTEmj+C37UeDFPZLepWHlhbPuRYLVxxDO/CCQXLAPi4wlI+d7w/fc
+	/rI6SgatuHiEN0SIYobbdgbpkwHUSir4qxnoUJfh+CJKNwlepHf20k5Cqd93f7ew8KlD65kWYD1
+	j+9g6mHh7Ug+s50v0LXQ95Tn905j6U2aFPI3varn47bPs6b+QAiJUQ3QNJOf2k4j7jESEnAk7s1
+	H/7Tx/HgLjZpYXbXkqDcIU4TB5aDj+H8fWQjW//qsq0uz+OIpoMgpJe146xhZG3jzqjhL0NWD5G
+	iqx2Ms1QrV0O9mYvQTMyi4xRNRNsVS9iEl4jaKCBi
+X-Received: by 2002:a05:6a21:610c:b0:3de:3f4d:f2bd with SMTP id adf61e73a8af0-3f2fa39112bmr1401992637.6.1794387885274;
+        Wed, 11 Nov 2026 01:04:45 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7cede06sm1929924b3a.7.2026.11.11.01.04.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 01:04:44 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	ivan.orlov0322@gmail.com,
+	broonie@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH v2 1/2] ALSA: doc: pcmtest: Update to match the driver
+Date: Wed, 11 Nov 2026 18:04:28 +0900
+Message-ID: <683abc21677cc2fea5e00d1b620b9722dc98fad0.1794386073.git.sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794386073.git.sammiee5311@gmail.com>
+References: <cover.1794386073.git.sammiee5311@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,118 +102,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] scsi: scsi_debug: wrap around the store when zeroing
- a reset zone
-To: Tal Zussman <tz2294@columbia.edu>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Douglas Gilbert <dgilbert@interlog.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261110-scsi-debug-zone-reset-v1-0-28cb9184b5ea@columbia.edu>
- <20261110-scsi-debug-zone-reset-v1-1-28cb9184b5ea@columbia.edu>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261110-scsi-debug-zone-reset-v1-1-28cb9184b5ea@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/11/11 6:23, Tal Zussman wrote:
-> zbc_rwp_zone() zeroes the blocks of a zone that is reset, using the
-> start of the zone as an offset into the store. With virtual_gb set, the
-> device and its zones can extend past the end of the store, which is
-> only dev_size_mb in size. Writes wrap around in do_device_access(), but
-> the memset() doesn't, so resetting a zone that has been written to can
-> write past the end of the store.
-> 
-> On a device whose fifth zone starts exactly at the end of the store,
-> write to that zone and reset it:
-> 
->   # modprobe scsi_debug zbc=managed sector_size=4096 dev_size_mb=16 \
->         virtual_gb=1 zone_size_mb=4
->   # dd if=/dev/urandom of=/dev/sda bs=1M count=1 seek=16 oflag=direct
->   # blkzone reset -o 32768 -c 1 /dev/sda
-> 
-> The memset() starts at the first byte past the store, in the guard page
-> after the vmalloc'ed area, for the 1 MiB that was written:
-> 
-> BUG: unable to handle page fault for address: ffffc90002c00000
-> Oops: Oops: 0002 [#1] SMP KASAN NOPTI
-> RIP: 0010:memset_orig+0x33/0xb0
-> RDX: 0000000000100000 RSI: 0000000000000000 RDI: ffffc90002c00000
-> Call Trace:
->  zbc_rwp_zone+0x1a7/0x2a0 [scsi_debug]
->  resp_rwp_zone+0x19c/0x450 [scsi_debug]
->  schedule_resp+0x2dd/0xbc0 [scsi_debug]
->  scsi_debug_queuecommand+0x1286/0x2950 [scsi_debug]
->  scsi_queue_rq+0x1d74/0x3200
->  blk_mq_dispatch_rq_list+0x3ad/0x23c0
-> 
-> The command never completes, so the reset returns EIO to userspace and
-> the device is unusable afterwards.
-> 
-> Zero the blocks in a helper that wraps around at the end of the store,
-> and that stops after one pass over it for a zone that is larger than
-> the store.
-> 
-> Fixes: f0d1cf9378bd ("scsi: scsi_debug: Add ZBC zone commands")
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  drivers/scsi/scsi_debug.c | 26 ++++++++++++++++++++++++--
->  1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-> index a922c8318a2f..1c27ea0f9b69 100644
-> --- a/drivers/scsi/scsi_debug.c
-> +++ b/drivers/scsi/scsi_debug.c
-> @@ -6612,6 +6612,29 @@ static int resp_finish_zone(struct scsi_cmnd *scp,
->  	return res;
->  }
->  
-> +/*
-> + * Zero the blocks of a zone that is being reset. The store can be smaller
-> + * than the device, so wrap around at its end like do_device_access() does.
-> + */
-> +static void zbc_zero_blocks(struct sdeb_store_info *sip, sector_t lba,
-> +			    sector_t num)
-> +{
-> +	/* One pass over the store zeroes all of it */
-> +	num = min_t(sector_t, num, sdebug_store_sectors);
+The documentation does not match the driver in a few places.
 
-Why do you need to do this in a loop?
-You can certainly calculate the total number of blocks that need zeroing and do
-a single memset, no? What am I missing here?
-> +
-> +	while (num) {
-> +		sector_t block = lba;
-> +		u32 n;
-> +
-> +		block = sector_div(block, sdebug_store_sectors);
-> +		n = min_t(sector_t, num, sdebug_store_sectors - block);
-> +		memset(sip->storep + block * sdebug_sector_size, 0,
-> +		       (size_t)n * sdebug_sector_size);
-> +		lba += n;
-> +		num -= n;
-> +	}
-> +}
-> +
->  static void zbc_rwp_zone(struct sdebug_dev_info *devip,
->  			 struct sdeb_zone_state *zsp)
->  {
-> @@ -6629,8 +6652,7 @@ static void zbc_rwp_zone(struct sdebug_dev_info *devip,
->  		devip->nr_closed--;
->  
->  	if (zsp->z_wp > zsp->z_start)
-> -		memset(sip->storep + zsp->z_start * sdebug_sector_size, 0,
-> -		       (zsp->z_wp - zsp->z_start) * sdebug_sector_size);
-> +		zbc_zero_blocks(sip, zsp->z_start, zsp->z_wp - zsp->z_start);
->  
->  	zsp->z_non_seq_resource = false;
->  	zsp->z_wp = zsp->z_start;
-> 
+The inject_open_err parameter is missing from the parameter list and
+from the list of callbacks that can return an error. The fill_mode
+parameter is a short, not a bool. The selftest is
+alsa/test-pcmtest-driver.c, not alsa/pcmtest-test.sh. Pause support is
+not listed.
 
+Fix these.
 
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ Documentation/sound/cards/pcmtest.rst | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/sound/cards/pcmtest.rst b/Documentation/sound/cards/pcmtest.rst
+index e163522f3205..ed0b57f583b7 100644
+--- a/Documentation/sound/cards/pcmtest.rst
++++ b/Documentation/sound/cards/pcmtest.rst
+@@ -16,22 +16,24 @@ At this moment the driver can do the following things:
+ 	* Generate random or pattern-based capturing data
+ 	* Inject delays into the playback and capturing processes
+ 	* Inject errors during the PCM callbacks
++	* Pause the streams
+ 
+ It supports up to 8 substreams and 4 channels. Also it supports both interleaved and
+ non-interleaved access modes.
+ 
+ Also, this driver can check the playback stream for containing the predefined pattern,
+-which is used in the corresponding selftest (alsa/pcmtest-test.sh) to check the PCM middle
+-layer data transferring functionality. Additionally, this driver redefines the default
+-RESET ioctl, and the selftest covers this PCM API functionality as well.
++which is used in the corresponding selftest (alsa/test-pcmtest-driver.c) to check the PCM
++middle layer data transferring functionality. Additionally, this driver redefines the
++default RESET ioctl, and the selftest covers this PCM API functionality as well.
+ 
+ Configuration
+ -------------
+ 
+ The driver has several parameters besides the common ALSA module parameters:
+ 
+-	* fill_mode (bool) - Buffer fill mode (see below)
++	* fill_mode (short) - Buffer fill mode (see below)
+ 	* inject_delay (int)
++	* inject_open_err (bool)
+ 	* inject_hwpars_err (bool)
+ 	* inject_prepare_err (bool)
+ 	* inject_trigger_err (bool)
+@@ -93,6 +95,7 @@ writing '1' to the 'inject_hwpars_err' module parameter:
+ 
+ Errors can be injected into the following PCM callbacks:
+ 
++	* open (EBUSY)
+ 	* hw_params (EBUSY)
+ 	* prepare (EINVAL)
+ 	* trigger (EINVAL)
 -- 
-Damien Le Moal
-Western Digital Research
+2.43.0
+
