@@ -1,191 +1,184 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=210.61.82.184
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794403776;
-	b=Pr183UewnZGFEyg0K5FTRvLga/u+Ry9h9hvntdAiRrRLr099wFU7ZiGS8+AQha4DuQI4
-	 z7hYHlL/hmdWs7rf1iEjDhSqv+BhqVtNst6+pRTQ20100/ctOzMU/VzkHksnmo8zgE6Gz
-	 dy96OliYydVbjcURFnwxa6+10nM65OzA1n6dTJRcoYyKTFaS39tgaihq+H/eN4G/wBrrj
-	 P3NrtHsakhEIkf2AfB/R2p5PczmEr7UL7xhqHHmebvVgd972PoQGl/oaVcknGxKue+F+L
-	 B4K57Pn/TjtPE+7aTfSTgK483gFpF9o2urE1ozffi/wX7Q6+ZFllQM0m+MpTaE6zPtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403776;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-MTK;
-	bh=Qhy9FdV5evwoBibJ8OuemTgs/rxJBvEyoBkgIMVwQgI=;
-	b=WgiaD0JmmfK55LyjLrNRZbdcT09zEEtrVYN+AYrg1edtU2fzTwfeF0mGJVS8UtABNnj5
-	 ma5mLhUu31KriZaYvW7RU+LurWd/NcEbdfWDNU+oyjHJIKzz3FnxxI+YtkuojnNHrXWEM
-	 DsJ603K+uDo2iXPhUvKpCctuvcHSZuoc+00hNtrdbD5fCEIeHz15s3tRjRmqFv3JUVVLn
-	 u5QLe4XyFCI1xAgEgddvfJVNbVBlyyoNrECkHEGBR9h5k2bP43WgGpWJKJatU1wChy9Ua
-	 D0JGj/gR9ClPvxMk1BNNJgnueao8oMjcmASqdnJ6yPWbhk0J2223rsXQ4gpC6/u9Tag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=h3AfG2wO;
-	dkim=pass header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=LwgCM5sE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794403824;
+	b=wYWZsjGSy7VidY/lE9gh21xYAEV3SKC+Akar1Q3TYbAuZMigAIG5jFaZGCo34L0TaKtV
+	 D/FoyurYXSfB2uXYVxQm+7ZftxZdhZx0KzvITOl8QXbJaEZW0QOTJyFVoaJA5BFIKGEHU
+	 boN4hJtVa9s9UQuD7p/Z2BAx6qz8QlpefWttJdRR8Y5lV/T00yMFdKJPL/fTFHIERRQY6
+	 HhgU5HnuB8h9Ife2IIYfx/WJT7xr7t6ZJwgmXr8b6nBmNXR3NduBNzGHjUOzfhez8nLuI
+	 spIJ8YQ5nJDgUbgq+xD5FHYa8vBFIkfFdXJ2Gzo2SqATwDHqXG0zY5FTDqFAKOXbqbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403824;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:Date:MIME-Version:User-Agent:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vJ2dUUZCJGSHVy+N9jFxxvcVlyEBSBDtM55u9FMgeyE=;
+	b=yJvSShGCCFj0I/TqvGEyKvpX/KhIRkhue0M4P5IHbqlPsT5TxA0XoDRZKWGWyeNQv1Qq
+	 Ym6Dq+qg/cUz3b3RcE1XylSS9hVMM1+Q6Dw6PwN7D6U/N+2GuvbojhvjlCxb0EECzTPHa
+	 NIJJBuA/YoKaIovc/AnX7AGs3XqmEYIhmX9DEhLmisXN2BhAFKOa05qIcoiz/nM1czZoz
+	 JopS4t/VhmQoedk33wMYXbkTv1S4wVERO45w74yZCmRLvkmQe0WUwGSso45aMvxOUv7ZY
+	 ogoN3uP21OCJwIZVff25S0gdXjmNPSnJjUR3zLCRrdJTMKsc+Ryz/fSbCpmEWdEEuZg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="ei6IDIE/";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C9E606A324;
-	Wed, 11 Nov 2026 13:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C9E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AFB606A32A;
+	Wed, 11 Nov 2026 13:30:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5AFB606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=h3AfG2wO;
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=LwgCM5sE
-X-UUID: ec0f1ec8ddd311f18dc8c9802ae25ab1-20261111
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=Qhy9FdV5evwoBibJ8OuemTgs/rxJBvEyoBkgIMVwQgI=;
-	b=h3AfG2wOzU+Sw8sExFNYqjV+FT9qTDLWSYXZHkcdJwm2U7ujf5YuNurGVvO07+mcqoAO6lArqvzwkODXLNAaRU64CD77PQEVBSNCqVL0PXV9FLgKe2jadn8EZdOnPjOb/gOdpqg79TB4tlkTGNIIUP+fdpt4TbBQhvWvkghSWC8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:905a69e4-e69a-49b8-8667-898ca4669b4c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:d5d7b530-f289-4656-bb36-27baf4489f11,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|51|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:n
-	il,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ec0f1ec8ddd311f18dc8c9802ae25ab1-20261111
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <chunfeng.yun@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 257355840; Wed, 11 Nov 2026 21:29:29 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 11 Nov 2026 21:29:28 +0800
-Received: from SG2PR04CU010.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 11 Nov 2026 21:29:28 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LftFGkzkv95FLc2BHO7mB4y5OG8NlZcHwg4XDNB3s0QBC6NXfHrsXyUhIHjc8+6fLdupc77z2JTTCLUi3JkRU8qi21fbIxRW3Xd6aPRlBa3r9C5kDglj7fYWiRQr7EYJZnvvq7GJ3nLA6AqNU+FNgf2qSPMyaw5bfqa05fbSxMY1u3AutczwgO2PLQu74CmKlMYC+KnRkkbNSMGDuRcbp6MxamKqpMoFTHq1uedTshQHvCUMX+IR4lZDiVHSSzeetZ5euBAHsrHG2nOmlKthrxYryXHzp+BU6D1nZwQVgZ7RYFBmKeiVU3U+3/ORIIsr1Q0spK2tl8BKgcA7F4/Ggg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qhy9FdV5evwoBibJ8OuemTgs/rxJBvEyoBkgIMVwQgI=;
- b=BdmWhfNLNRhk4JukA4HOnMBOOj6r0/hnzb3iJJF+NNFBMa17YxtTjLXOQefXxFzSkMEfA5pUmGApjeVKfPN7Tr9RfTUMlE2epEuC9xo9LXzzaADwVTalNSxpcRWH805EO9X2fC61wUSStcYTQ0CLho0vBEZTq6Ba31kSrhavJMyKT8wL9jzZ3J3+/9EEEhl8/dYmvfLDuTLTCvfAHDv0DHRtNtK2PkxxIH1Xh9VqO6qp/YA0dSoEcBe6WeQcAO6UTAJ4TnUtxCTMvpiwvlpnkAJCtkQDMrktbIyV1p2LOn5rF66+u24TgjLtqlOVgbfy7pUgA9V5B8Psi17TI1eVLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qhy9FdV5evwoBibJ8OuemTgs/rxJBvEyoBkgIMVwQgI=;
- b=LwgCM5sEVbhMf04h1iVnZvrSpW923VlWJ6cSlsenxyTuMVxw5yC3Clmv0JXUX+kbhyIlN3Ku+cOfnIXgJKCC6hcmowxzM7B8oVuDGMtrPkrE+p0+Kw9rDMMKvQg5UcpnRMUSW7L8rIoumrUkDNSAYshh4GEMuash4ehJa+V7Y3w=
-Received: from OSNPR03MB9677.apcprd03.prod.outlook.com (2603:1096:604:471::11)
- by SEYPR03MB6721.apcprd03.prod.outlook.com (2603:1096:101:6b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 13:29:24 +0000
-Received: from OSNPR03MB9677.apcprd03.prod.outlook.com
- ([fe80::5af1:6974:a8f7:dc02]) by OSNPR03MB9677.apcprd03.prod.outlook.com
- ([fe80::5af1:6974:a8f7:dc02%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 13:29:24 +0000
-From: =?utf-8?B?Q2h1bmZlbmcgWXVuICjkupHmmKXls7Ap?= <Chunfeng.Yun@mediatek.com>
-To: "konrad.dybcio@oss.qualcomm.com" <konrad.dybcio@oss.qualcomm.com>,
-	"westeri@kernel.org" <westeri@kernel.org>
-CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "AngeloGioacchino
- Del Regno" <angelogioacchino.delregno@collabora.com>, "YehezkelShB@gmail.com"
-	<YehezkelShB@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "sven@kernel.org" <sven@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "andreas.noever@gmail.com"
-	<andreas.noever@gmail.com>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "linux-mediatek@lists.infradead.org"
-	<linux-mediatek@lists.infradead.org>
-Subject: Re: [PATCH v2 4/7] thunderbolt: add platform NHI driver
-Thread-Topic: [PATCH v2 4/7] thunderbolt: add platform NHI driver
-Thread-Index: AQHdcQmVpPqBwBYaX0OmA8rjtdaWS7cnQDYAgAGfCoA=
-Date: Wed, 11 Nov 2026 13:29:24 +0000
-Message-ID: <b53bf99311bd999b9687666741e100051659ec33.camel@mediatek.com>
-References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
-	 <20261110114925.722014-5-chunfeng.yun@mediatek.com>
-	 <830a0984-8938-40f6-9400-5962dfbbf274@oss.qualcomm.com>
-In-Reply-To: <830a0984-8938-40f6-9400-5962dfbbf274@oss.qualcomm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSNPR03MB9677:EE_|SEYPR03MB6721:EE_
-x-ms-office365-filtering-correlation-id: bdf75930-6fce-4c67-6c52-08df3ff7cd56
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|18002099003|22082099003|6133799003|261009223027099003|56012099006|11063799006|10067099003|261028144727099003|261102123227099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|261021121427099003|38070700021|4143699003;
-x-microsoft-antispam-message-info: lKIZJt7aJtLuu2TIcABM3LQQOXetH2OIoafyVwU9x1hZpw4Plkfw8xeT/MisMfHaU1kjdyCsZbHKBKE8EEOT6sr+NgtKL1lO+bwUCjztP2plp3npUskilVLB4PNzM/p5c2gYhTWijtimGh/SQHAYVwkxrqp60dI9Aq5aS/U5d3cAMf/TXrv0cpIA0UZCSjAI5TnTJQeZF0ZOChADO5NPigK+7YHTyx8Ee7QiTXmqh8UPqAZUIL46MFDBMw2fYdyt3ITBlhKK1DORDD8rlfyq92RffTWBXnLxgF9gm1x6dvEbvgx5uDMgLLr7g0ajYDxt62LdhY4oGNLvrZDIYFIX7wCSsWkJ3HXo/rXMl9EtegBG7exrWeF/7i9dGHne1GQcn+XuXJCeMRTPvLqy51EQ65dM44tJFarlLLmVZZXyAuJxp+p6WE/VYxa8vfd4oq7b3Ak1+KifG/6QXklQ/S4yp3bTM+TYilco3V2/63FllbRtVOtN6evpuwkG5Ic73C6YhoTySpHsYYNIfsmgUXBJHwBrPAJIipG1QO/VjYZeEYxxa8v8GgLOEMuYSH9SyKm8VcYi0+uuh9DI/VFmK70PauF3GTCN9ReASxOQASPHnntzZTimW1eVPi7M/6+3otzs0/YoTzAdmetC361ahQwe8nJU1GllWWpcRXuimxMWmLvOL7tCMN98L0Qma6YPN58X+lFYkXfpsaeM3ZBtRb4NtrrtW7NShmmr9QZg69uBopk=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSNPR03MB9677.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(6133799003)(261009223027099003)(56012099006)(11063799006)(10067099003)(261028144727099003)(261102123227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(261021121427099003)(38070700021)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q0tIMy9JRVlaeEp0bkY0SUt3TFNDTkMwOWxzZ3NmcytkYk41YkNlajVMK1Fh?=
- =?utf-8?B?NGt6WWFuMXRrZytiSVJEWUxKSkR3UVdvUjlxV2NNWTE0SjZTNnV1N1R6L1ZR?=
- =?utf-8?B?NGFncHZMU2wwNnZZZ3h2dDdIRGJNWU1aNVBLaER6cStVNUVkbTIzK1RyUGVu?=
- =?utf-8?B?ZGJEQzRSazJOUjV3aWQvTkIwb3JUOHovQ2lBSy9IOHp4Y25TdWs2TUJ3R2F4?=
- =?utf-8?B?MlNsNytWcG4vLzRhUlpTVFEvcjErZXVhQzBLOUNpQW0wNFJ4YkQzdHlGZWdO?=
- =?utf-8?B?RjdqQ21sNXV0aWVDVVd5bUM1UzRXMkxtR1N6U3FJeVVNcVVDSkRjWFIzckgw?=
- =?utf-8?B?VnhaSlZYVTQ5emNYU3NlSXRvQVowWUNnR3JhdXYrSG43UWJXRkUvMWZ3SWJw?=
- =?utf-8?B?cTBHNjlmYnd2eXhsakRBQTZHcnoxNExvZzBMS3N3V1NqSlVoUUV2ZGFtR1BP?=
- =?utf-8?B?blFDa0pmODZlRmNIVjZUUVBNRmd3OG81ZjBpZmd1a2Q1eUdEekcybUxWdVFi?=
- =?utf-8?B?dFEzR3FMeUFmNmhkeW9WNzVkU09kci9qMGdCanR5SVROT3hNeTJnL0d2MExy?=
- =?utf-8?B?QjBtc05EVVJKQXE2RGlMcWR5UDJwN0I1TGoyU0hqYm9LOWhTaGVoak9mdWRp?=
- =?utf-8?B?L0tKYk9BUm91S0hacVdBWlJqa1V2azdXNU9sWkw3bnQ2M2djYm5GRGVueWUz?=
- =?utf-8?B?QWZJL2EvT0U1bnN2dTR5N21YWExucHdiZVhtcW1MRzBQdmdhVFFYUmw0SlBv?=
- =?utf-8?B?bmY3QW1hTGZoNEtMczhIVmJVSHdOR2FIRnpXZ2d3OGdReThZaVF5UTlRM2VO?=
- =?utf-8?B?T2c4c2FoRVZHQmlMWUtqeXY0MzUwc1lsQkM0TVI3MzRXRkNDRlNLK05vV3hs?=
- =?utf-8?B?RFhIRi9UWkVWTURwV2RLTU1oVDFWeSt2N09iRytJYWFjVUpJalJwU2t1S1B5?=
- =?utf-8?B?SlpCemtjVWVCWTJVZUpBbGZyRzZoNVU0R1A5S2RmTVlJYy9jdU1NRWxwSTl3?=
- =?utf-8?B?b2xNRXhKbStKR0ViTE1TVHNGNjhNU3M0VCtRVlNXRUtDWGdRQS8wajZMRnRG?=
- =?utf-8?B?Y2xUNVUrZFFsbElXemhzbTBLU1QwS2NWYXo3RitQTDIrbEozN0xvcU5PaUx2?=
- =?utf-8?B?L1lqS1ViQzl4N3hvR0txeERJZlRBR2NsU1paYkJCV0RsSTdtN0gwM0NFV1M5?=
- =?utf-8?B?ektiWEZzZVN0bm1xQ1Z1RVZhY25ycTNPMjNUQ0ZMQkZIc09PbDFSaUdrQmt6?=
- =?utf-8?B?Q2lsOGpIbi9FRlcvVkxYOUFyeDBmc29CdC9RMUdLWHpvTWxtS1l0L2Nvd2RZ?=
- =?utf-8?B?TkUxQThsVVQrY0Y4aUFpMG94dGpzbis4Z2xDdUxaTkFxT1JlbkhQVHIwdUpX?=
- =?utf-8?B?STBTRDE2K2JHL3V1RmVmR0dGemVzMmJtV1NRZlFQbmtpY1RYMmdKcVFVUm45?=
- =?utf-8?B?Zy94Uk5DV2h0TUpyL3BXa25tanJkYlJ6blVyNS9wUkgxNWMzTWlCRzBnM1R5?=
- =?utf-8?B?VHVNKzUxNVNLREUzbjJMTzJ0RkdyZWdISFlNVzNyR3RwUHU0Y0w5SmtvWHlt?=
- =?utf-8?B?alBWMGYxL1AwSnJWamtVZGg4eWlIV2ZLQmY5Z3FaQWwxQlpNWlphR0g0empz?=
- =?utf-8?B?MEhZQzZjREVUZVFMajR5TE9NVVM1Vi8zMzZQbTlLSkxnUUZUSUR6WVBwSWll?=
- =?utf-8?B?Z0hadWZ4Q3I4RTllKzUreUw3Nnp0c1NTVlkrRkNMWURTVjNYbFZ0SUZrdlE1?=
- =?utf-8?B?VWdPWElHOVBHcTFDaUluNnUxSWNCTVBlUTVLVkVIVnUvdktmTmtJM1hQV2ty?=
- =?utf-8?B?TFJHc3RDSkREMEwxSkt4eXVWSVBER1ZZME5VOGpIczZqa0c4TjBma1A0MXFB?=
- =?utf-8?B?NmpqTHNRamRBWG14czlQelp0TC9lVzBmcW5GY21oZ2RncVduQWh0VGNQaUtF?=
- =?utf-8?B?UVM4dUxrM3NoT3ZBa0E0NHFEeS9lK0UyRmdWNTlWM3JwdCtobWNnYmV2a1Nx?=
- =?utf-8?B?UDVYZERQSmdTajRvcVlIaHFsbi9BTTlZc2ZhWFdadUhiMzJLQTJaM1NqNXo0?=
- =?utf-8?B?L0ZIR3MxNUt6TTlqY1R6MkVTMGUyazBDcUhTSWYwVkRhVS9Gc1VLeXU0c1pK?=
- =?utf-8?B?Z2VRU05xR0ZFV0Q1QVdOeXRvWVVzMzVsb29QdEpyTEUvcm14aHpRY3BXWHVU?=
- =?utf-8?B?TTludFlUUjNFNHFiOEgvaXEvcXlRWitxbHJLejh2U1p3RTBoQWY0MjRZVmRO?=
- =?utf-8?B?ejVZNnh3TnpTT2hoUnlnQ3RGRG55cXFZRDFmb3Y1MHIvVnlQMEV0ZzlyNWtY?=
- =?utf-8?B?bjI1ZkxneDRVK1Bsb081Zkt1cFFYMHBwYmpVSkEzMzFqdWhYcFZaQ1dBa3pS?=
- =?utf-8?Q?LloTc++/uCLUrwXk=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <31B0CCEC891EB04C8F21EBF8CC33F449@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ei6IDIE/
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCimbW1145607;
+	Wed, 11 Nov 2026 13:29:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vJ2dUU
+	ZCJGSHVy+N9jFxxvcVlyEBSBDtM55u9FMgeyE=; b=ei6IDIE/R5IK1aSjm/JJtJ
+	rweoEk1alSMyDBenEHcPMuwFfi0HTTSEGJBmjQTeKPFUI55BDD1K960CCbWtmyWI
+	TkVqBZsGtK68APk9qq/2z4GuWyqtcIaXgsoEaDncAZYCXf5Y8MMbOV3vhNNQ0IvV
+	5z+UOf5JYFHjQib40MH96J5W7gjWfNwlUumHiUDleL23ZRMgbm4+fUYh3cp89tQr
+	UF81u/zIyH5b+cV0kowMIMID/mm1mgqv6wT3Imm6Mk4KoyMliDZtpVSZSdsyyAFk
+	jPF5Y+hZ3BiN8p3QOl09WXZI7fLp0EOYCafktTF/NcUxhNP6lWJrXJ3zlLCEfGYg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq72c3j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 13:29:55 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCYs0T3379745;
+	Wed, 11 Nov 2026 13:29:54 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv4nsv86q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 13:29:54 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ABDTrgn33358522
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 11 Nov 2026 13:29:53 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3C04A58054;
+	Wed, 11 Nov 2026 13:29:53 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4559A5805A;
+	Wed, 11 Nov 2026 13:29:47 +0000 (GMT)
+Received: from [9.111.22.168] (unknown [9.111.22.168])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 11 Nov 2026 13:29:47 +0000 (GMT)
+Message-ID: <757b59869b1a58e714d6a411f7c5a4714d0f959e.camel@linux.ibm.com>
+Subject: Re: [PATCH v15 1/5] PCI/IOV: Make pci_lock_rescan_remove()
+ reentrant and protect sriov_add_vfs/sriov_del_vfs
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Benjamin Block <bblock@linux.ibm.com>, Benjamin Block
+ <bebl@ategam.org>,
+        Bjorn Helgaas <bhelgaas@google.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Heiko Carstens	
+ <hca@linux.ibm.com>,
+        linux-intel-xe <intel-xe@lists.freedesktop.org>,
+        piotr.piorkowski@intel.com, Farhan Ali <alifm@linux.ibm.com>,
+        Halil Pasic	
+ <pasic@linux.ibm.com>, Gerd Bayer <gbayer@linux.ibm.com>,
+        Lukas Wunner	
+ <lukas@wunner.de>, Guenter Roeck <linux@roeck-us.net>,
+        Manivannan
+ Sadhasivam	 <mani@kernel.org>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander
+ Gordeev	 <agordeev@linux.ibm.com>,
+        Ionut Nechita <ionut_n2001@yahoo.com>,
+        Tobias Schumacher <ts@linux.ibm.com>,
+        Ramesh Errabolu
+ <ramesh@linux.ibm.com>,
+        linux-kernel	 <linux-kernel@vger.kernel.org>,
+        Sven
+ Schnelle <svens@linux.ibm.com>, Keith Busch <kbusch@kernel.org>,
+        Andreas
+ Krebbel <krebbel@linux.ibm.com>,
+        Julian Ruess	 <julianr@linux.ibm.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        Ionut Nechita	
+ <ionut.nechita@windriver.com>,
+        Omar Elghoul <oelghoul@linux.ibm.com>,
+        Michal Wajdeczko <michal.wajdeczko@intel.com>,
+        linux-pci
+ <linux-pci@vger.kernel.org>,
+        Ionut Nechita	 <sunlightlinux@gmail.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        linux-s390	
+ <linux-s390@vger.kernel.org>,
+        Dragos Tatulea <dtatulea@nvidia.com>, stable@vger.kernel.org
+In-Reply-To: <3e3bfc04a89459de57c4783734ff56e4ec979db0.1790267348.git.bblock@linux.ibm.com>
+References: <cover.1790267348.git.bblock@linux.ibm.com>
+	 <3e3bfc04a89459de57c4783734ff56e4ec979db0.1790267348.git.bblock@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=mQINBGHm3M8BEAC+MIQkfoPIAKdjjk84OSQ8erd2OICj98+GdhMQpIjHXn/RJdCZLa58k
+ /ay5x0xIHkWzx1JJOm4Lki7WEzRbYDexQEJP0xUia0U+4Yg7PJL4Dg/W4Ho28dRBROoJjgJSLSHwc
+ 3/1pjpNlSaX/qg3ZM8+/EiSGc7uEPklLYu3gRGxcWV/944HdUyLcnjrZwCn2+gg9ncVJjsimS0ro/
+ 2wU2RPE4ju6NMBn5Go26sAj1owdYQQv9t0d71CmZS9Bh+2+cLjC7HvyTHKFxVGOznUL+j1a45VrVS
+ XQ+nhTVjvgvXR84z10bOvLiwxJZ/00pwNi7uCdSYnZFLQ4S/JGMs4lhOiCGJhJ/9FR7JVw/1t1G9a
+ UlqVp23AXwzbcoV2fxyE/CsVpHcyOWGDahGLcH7QeitN6cjltf9ymw2spBzpRnfFn80nVxgSYVG1d
+ w75ksBAuQ/3e+oTQk4GAa2ShoNVsvR9GYn7rnsDN5pVILDhdPO3J2PGIXa5ipQnvwb3EHvPXyzakY
+ tK50fBUPKk3XnkRwRYEbbPEB7YT+ccF/HioCryqDPWUivXF8qf6Jw5T1mhwukUV1i+QyJzJxGPh19
+ /N2/GK7/yS5wrt0Lwxzevc5g+jX8RyjzywOZGHTVu9KIQiG8Pqx33UxZvykjaqTMjo7kaAdGEkrHZ
+ dVHqoPZwhCsgQARAQABtChOaWtsYXMgU2NobmVsbGUgPHNjaG5lbGxlQGxpbnV4LmlibS5jb20+iQ
+ JXBBMBCABBAhsBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAhkBFiEEnbAAstJ1IDCl9y3cr+Q/Fej
+ CYJAFAmmAWs8FCQl6sYAACgkQr+Q/FejCYJAn2g//UKzlXOgizdk0wudLooRbGzDo23ktGSPK5Oj9
+ 9o5z6v4Jz5+qOHo5835683cqkMLM9//udA1ZcKV88LVwyfmoHChPW24cWBmOEy7RJOWCR4WeEINaO
+ pZUGF5YOx7oKTkPs511ky2FR0Heg35754pgTuTMEpYzRXr5pNMPS8mHXcXSARFPDPaCF+uBJ9BafO
+ L7XbpSwKRttePsWAlPHbSbloeDApBfHUhcF/pbuM9GNs+c/8V9NK+SwwqNK214t7jaSq9k+19/hfE
+ jvU45nbiYQM4VqGCelxVFRWol93JnwPFp/JaMgxgV1VYFH9Ijtgh+qNVVBqO8bbTjioFKy1bHdprN
+ 9GyPLDxoaI/lBg+5CwKewzazUjFd0xaqZbTXSgNK4ev/IuNI3qZV8tpvZZWwIgZU1K0Bhplt8Sku+
+ O9Yl2H54erq9zuzwXjqBJtoW0+MaKbe+1gZ/v2/AVE2VeQMugPUWDg+2bpJaApRkeA4xQ9XfeW6Bp
+ It7xYrwwbVhQtWRC0sRh+QNlU9HI28wPSnLWn7HFBeWupaIrxSp4IEL3eHUn8xv4aA8lpdNsHXD/X
+ vqOSUwy5jlTPTlemvwaC9mNHagNdVXng8C6+hxiDLhZ6xH2P4qNHTKmjW61NsdF6Y/HfWP+lmbi8/
+ 474UNCltDt/fP01ajqogfWZKFymoH0O0KU5pa2xhcyBTY2huZWxsZSA8bmlrbGFzLnNjaG5lbGxlQ
+ GlibS5jb20+iQJUBBMBCAA+AhsBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEEnbAAstJ1IDCl9y
+ 3cr+Q/FejCYJAFAmmAWusFCQl6sYAACgkQr+Q/FejCYJAtIw//WmQW/Z+SLdfrlDH5J2bvixzFNnO
+ TOvp8uM8vcNZsxZwPXem4AeCXHayCqipxpa0iXWufEIvdMxkBxWvvM//V+rTUgQnJe6nhDxfLGklx
+ 5Mb2H+K/ndS73ElCuA30MPYq7mHr8i3gEmi2ZFX1W47JecJ8hno/DQxhHRG7bd+GFsiKCbsjLWXNq
+ s/VaAK9uyOTQx7m6/2nR8L+Mvl1BrRXwkj7Qp0qxfQSd4r+IVNBzNFOcrGagBqsyHrN7Is7IICktH
+ 9VFl/G8P+hfviHQLnlxw9ltzpM1Dy6N1+BM3kbqD59gX+L6wqiLJI42eh+SHCiy35FvD3AFlYx4jZ
+ MWE6qIgFnbwcL1kvcA7nnwfr3ZizCYPm8e334xXxslXBoRGsvjXSbAeAyZo2dvJXffNHdcDdUbJSl
+ CfOixNGGKiQvs00X9ekfq9WmmRFvmYHu/m3lg1OXnMjFFIO41O51ZdhbEYJiqZEki7jA8Hd9xuWwQ
+ nFDHhacU3xxivZ4BKQGQc+4XZ3yp/q6+7ux9prepRy/LeRyoaAmE67oxEsAgj+qyA3Tfy5nRTDdRQ
+ E//gpaIt9H1VEx+68dRWHroxBQeozpnFPi25AlX3k4/EtVZjcItPWgE9iru1qT4DH3BBrz7Kd1zUw
+ NnQC77zDJyZD2WUj1E+5bftO0aeE+7HZXj3tM/ea0K05pa2xhcyBTY2huZWxsZSA8bmlrbGFzLnNj
+ aG5lbGxlQGdtYWlsLmNvbT6JAlQEEwEIAD4CGwEFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQSds
+ ACy0nUgMKX3Ldyv5D8V6MJgkAUCaYBa6wUJCXqxgAAKCRCv5D8V6MJgkF/TEACOY2kL4NGFIbWeM5
+ TUhatxqe8c3RT6jvNjq32CkvaK/cSZzBkS0smddyOzxt2WnsvMgkr9cM7P+CevoMwhT3e0lgQbqBD
+ /vXZJjWKddC+iKXeqWkjMVcgCOsWNZ7PWEzRUT5X1AEFq2zzxQAQ/bCWEYNqIbHN4b6G1Wk+2Y598
+ +KypZ3FS0bwiItnPQOWzOOqJCGxDxaEUuXFx4ah8HtVdtIev8jPS/5uzQO9iG2vZQUWeMEYZtfMHW
+ sbFWqo2A3lxB+KPzNIYFhul4Lyx1CwvKUAGSHOx7FZuc2xI5DYt/Wdh2QyKFYr7xVzv3uwJjeS1+3
+ 6gvyB7DJaQuY+PziNPv4GPr5wy0cRkJ6Ps15fgC6y6wNwoNdNXKlwiuclIsBzJKa7A0pZMIfpCpIJ
+ bEHP7oy3drBRAhIrBx7Lx1lyqqodDqc+ok5IQ5WcKG/TOrH732mTmJX6fxYTiCVxcU4WLJSNZbrZ/
+ pjF0AWXs7E+onAkQy6RLg/XU1iiU5QdMvug+fTA6TpPSUMdujWtGWUt3/4nC+69AVc8tXtRQTZ7gP
+ t7uIcQFwPqUuJGS26vl0w/6dIABQAyU9acvE3adCZra+/PBKFZi/yxT1WgV1T2mexKSWwQgLcR57J
+ Yp5oWnQRgi/S6fAoskIWkp9UVcfAQPY0p45NwO5cZR9/g06JZmyrQhTmlrbGFzIFNjaG5lbGxlIDx
+ uaWtzQGtlcm5lbC5vcmc+iQJUBBMBCAA+AhsBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEEnbAA
+ stJ1IDCl9y3cr+Q/FejCYJAFAmmAWusFCQl6sYAACgkQr+Q/FejCYJAz4A/9F+dMhzu7YonagL4qh
+ WDz5IpRD4vzYKOBZ+qwYp1ugJz1BIUppN9i68HKoS4ARfgP97Sv9GpOy9g7L0lymH2MPF8hRPK0Yn
+ 7DKIkeu/r28YWEoWfoVm5reC+gpxMgmxBz4JScE4f6xfa7+Nw0bbTDl+nxftJD7lf/dTiruNJsXph
+ HQnZ5wPXmxeH6XVJikfpyrGe8iJZALbtHtjlx6Omu7NvRGikenB8trrWS5W0F60ZdbqH1HdmDDcrZ
+ pDq6LtAARHK5tGRm0SK6sZpKe3nULFeeCt7T/edk2FC6KVh4sL1jw1kyceX4DjiMffqYBPrhK5gz5
+ cDIixLBF9C6Wt1ObvuDBrIQf1/3q6EZrUrUuf6qtaXDMuC6cSlShm47qaPEvVYh67O9JZQ7vzvaea
+ UI74DJUb8Pjnz7mTOmMOzsS1gUhCue4n2YSSM6ythioCGb/3bgMGTpuer3JhvZG5s5uKD9yyj8s8x
+ 35qJkCFfjmjVx9s3vSUS48X+cUpYcMispErKzFu7C0YgKoxvJ4XTfXlDBiMFMPYcN67hsb2jeYHVJ
+ wzE+fIZiDx9JLh1oQW2krwjweisE+3glOaKXZKi0fBtkxyH41iemLtLNYZRJopv6ykdl3hiI+Nh+a
+ 3FZJPTo/OpqchMm8XIeDxC4NFFiPMpyLeYzIxO7eZpiGrAjVTE=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Nov 2026 14:28:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -195,52 +188,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: lb3s/nJoeyNSP4ecwpAw8GILVTV+uyvsuBwXf0gu2PC+Mfqrgtw6nl05pFzC6RQyq/ap4MCAPh+Y9lFx3S1K8yS06Br8mk7LrBdsCq6TC40cd5ZHV9f8Eo4FkvOInTmCOd9be/yqema/GrTzw5qSdmm5QixDZHGW3D4Dw554/LYtgCPycuxbSKxq1Sr9D8aXlhPbmcMOYa3xANBC1U5E89BF6I8U3o+rJD9zHWaHmU87W8nmfMlpUSqAG5Hz0kg6CxHbdwfK+h8sPYri/iPka1/wnBE4TbyT3uEBFsWu0Kl0IFBusCKqEMpCDhM+0rXyzXfOPU0sH01oDFY7rqiVqg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSNPR03MB9677.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdf75930-6fce-4c67-6c52-08df3ff7cd56
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 13:29:24.3976
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1DIyUZMPGVZX/Lq7oKirBozQXI5OslWY29nY8tEpdWen02t9WSZ2KkPJxfcCIYVMbxaxuh9aJWRBMMePEPfXQ5XxD3iK39vpgfVS4Of7sKc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6721
-X-MTK: N
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfX4spW+bdZtEdO
+ ar8AL2puVV37v8xLEuWdydbvJGCAfZv7jhQMxP4spXqglOTESXJyECpmvLgw3//SzfYdoKCbjcT
+ crvjrrdRvWAhi5LeOAhkb0SAL0tie5s=
+X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af46dd3 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=t7CeM3EgAAAA:8
+ a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=PtN3Y-iHzQweFIBZXwoA:9 a=QEXdDO2ut3YA:10
+ a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-ORIG-GUID: CsYFFla_IZOQuiBb-vm6JEcbsyFqbI9L
+X-Proofpoint-GUID: DNWZkMfk9r_h-L_vg50Z-qH3Fp5-F0gy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MiBTYWx0ZWRfX2lvR4i2tS2Rb
+ Mr+C1ZfKibFPPn2oujL71vl+PdEFW0XmBf0/jiig+Izam+zpv0oZ/fCRb+570AHf2ZfHWpwE418
+ sx+/jDHKVoJirKD+119u66LJXp1i5uV56VhYgP0kLWLnhT9/foDud5lFmX+QifSDcfVypyjlXJ9
+ 7n/qrDVdlSPk8hmDCL29XDzD21YsK5WlLDKHKe6qdptjrBddD4pYRPoqp6CfY6wgMt9wLiY3Zrn
+ NgzAnmeWsX6QUNIuJPZjPtsUpacvfAawVwMiCYd4kV96Xzi63p/yZImXWsaHx6jJO/3AMFZM2kV
+ vBno4t4yAa5ZX7wf1Avwcnms3IyQ7XB0+rr96Aox1TB2Ap5rW+sja1dxeA3ReZpi9rhosOcBMXe
+ /0kQQjyIFKYd/xYZkpWHxpFAyKYftYnLIxXL6HV9s+2U7bvKgQvorkBTKQ8fYasp2TYzbprFX0m
+ kYe5RpbpnupBNR36XRg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 clxscore=1011 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611110052
 
-T24g5LqMLCAyMDI2LTExLTEwIGF0IDEzOjQzICswMTAwLCBLb25yYWQgRHliY2lvIHdyb3RlOg0K
-PiANCj4gRXh0ZXJuYWwgZW1haWwgOiBQbGVhc2UgZG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4g
-YXR0YWNobWVudHMgdW50aWwNCj4geW91IGhhdmUgdmVyaWZpZWQgdGhlIHNlbmRlciBvciB0aGUg
-Y29udGVudC4NCj4gDQo+IA0KPiBPbiAxMS8xMC8yNiAxMjo0OCBQTSwgQ2h1bmZlbmcgWXVuIHdy
-b3RlOg0KPiA+IEhpc3RvcmljYWxseSwgdGhlIFRodW5kZXJib2x0L1VTQjQgTmF0aXZlIEhvc3Qg
-SW50ZXJmYWNlIChOSEkpDQo+ID4gY29udHJvbGxlciBoYXMgYmVlbiBleHBvc2VkIGFzIGEgUENJ
-IGRldmljZSBoYW5kbGVkIGJ5DQo+ID4gZHJpdmVycy90aHVuZGVyYm9sdC9wY2kuYy4gSG93ZXZl
-ciwgc29tZSBTb0NzIChzdWNoIGFzIE1lZGlhVGVrDQo+ID4gbXQ4OTAxL210ODk5MikgaW50ZWdy
-YXRlIHRoZSBOSEkgYXMgYSBtZW1vcnktbWFwcGVkIHBsYXRmb3JtIGRldmljZQ0KPiA+IGRlc2Ny
-aWJlZCB2aWEgRGV2aWNlIFRyZWUgb3IgQUNQSS4NCj4gPiANCj4gPiBUbyBzdXBwb3J0IHBsYXRm
-b3JtLWF0dGFjaGVkIE5ISSBjb250cm9sbGVyczoNCj4gPiANCj4gPiBJbnRyb2R1Y2UgcGxhdGZv
-cm0uYyB0byByZWdpc3RlciBhIHBsYXRmb3JtIGRyaXZlciBtYXRjaGluZw0KPiA+ICJ1c2I0LW5o
-aS1wbGF0Zm9ybSIgKE9GKSBhbmQgIkFDUEkwMDE1IiAoQUNQSSk7DQo+ID4gSW1wbGVtZW50IHBs
-YXRmb3JtIHRiX25oaV9vcHMgaG9va3MgZm9yIHBtLCBpbnRlcnJ1cHRzIHJlbGF0ZWQ7DQo+ID4g
-DQo+ID4gU3VwcG9ydCBhbiBvcHRpb25hbCBkZWRpY2F0ZWQgd2FrZSBpbnRlcnJ1cHQ6IG9uIGlu
-dGVncmF0ZWQgU29DcywNCj4gPiB0aGUgTUFDL1BIWSByZXNpZGUgaW4gYSBwb3dlciBkb21haW4g
-d2hvc2UgY2xvY2tzIGFuZCBwb3dlciBjYW4gYmUNCj4gPiBnYXRlZCBkdXJpbmcgc2xlZXAsIHBy
-ZXZlbnRpbmcgdGhlIHByaW1hcnkgTkhJIGludGVycnVwdCBmcm9tDQo+ID4gYWN0aW5nIGFzIGEg
-d2FrZXVwIHNvdXJjZTsgc28gYWRkIGFuIG9wdGlvbmFsIGRlZGljYXRlZCB3YWtldXANCj4gPiBp
-bnRlcnJ1cHQgd2hpY2ggY29tZXMgZnJvbSB0aGUgYWx3YXlzLW9uIHBvd2VyIGRvbWFpbi4NCj4g
-PiANCj4gPiBDbGVhbiB1cCB0aGUgdW51c2VkIG5oaV9lbmFibGVfaW50X3Rocm90dGxpbmcoKSBw
-cm90b3R5cGUuDQo+ID4gDQo+ID4gU2lnbmVkLW9mZi1ieTogQ2h1bmZlbmcgWXVuIDxjaHVuZmVu
-Zy55dW5AbWVkaWF0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+IHYyIGNoYW5nZXM6DQo+ID4gKiBBZGRl
-ZCBDT05GSUdfVVNCNF9QTEFURk9STSB0byBidWlsZCB0aGUgcGxhdGZvcm0gZHJpdmVyIGFzIGEN
-Cj4gPiBzZXBhcmF0ZQ0KPiA+IMKgIG1vZHVsZSAodGh1bmRlcmJvbHRfcGxhdGZvcm0ua28pLCBp
-bnN0ZWFkIG9mIHN0YXRpY2FsbHkgZW1iZWRkaW5nDQo+ID4gaXQNCj4gPiDCoCBpbnRvIHRodW5k
-ZXJib2x0Lm8uDQo+ID4gKiBSZW5hbWVkIHBsYXQuYyB0byBwbGF0Zm9ybS5jLCByZW5hbWVkIGlu
-dGVybmFsIGZ1bmN0aW9ucyBmcm9tDQo+ID4gbmhpX3BsYXRfKg0KPiA+IMKgIHRvIG5oaV9wbGF0
-Zm9ybV8qLCBhbmQgdXBkYXRlZCB0aGUgRGV2aWNlIFRyZWUgY29tcGF0aWJsZSBzdHJpbmcNCj4g
-PiBmcm9tDQo+ID4gwqAgInRodW5kZXJib2x0LXBsYXRmb3JtIiB0byAidXNiNC1uaGktcGxhdGZv
-cm0iLg0KPiANCj4gVGhlcmUgYXJlIHN0aWxsIG5vIGR0LWJpbmRpbmdzIGZvciB0aGlzIG1lYW5p
-bmcgaXQgY2FuJ3QgYmUgbWVyZ2VkLg0KPiBZb3UgYWxzbyBoYXZlbid0IGFuc3dlcmVkIFN2ZW4g
-YW5kIG1pbmUncyBjb25jZXJucyBhYm91dCB0aGlzIGJlaW5nDQo+IGFjdHVhbGx5IHVzZWQuDQpT
-b3JyeSwgSSBtaXNzZWQgeW91ciBjb21tZW50cyBvbiB2MSBiZWZvcmUgc2VuZGluZyBvdXQgdjIs
-IGFscmVhZHkNCmFuc3dlcmVkIHlvdXIgY29tbWVudHMuDQoNClRoYW5rcw0KDQo+IA0KPiBLb25y
-YWQNCg0K
+On Thu, 2026-09-24 at 18:29 +0200, Benjamin Block wrote:
+> From: Ionut Nechita <ionut.nechita@windriver.com>
+>=20
+> After reverting commit 05703271c3cd ("PCI/IOV: Add PCI rescan-remove
+> locking when enabling/disabling SR-IOV") and moving the lock to
+> sriov_numvfs_store(), the path through driver .remove() (e.g. rmmod,
+> or manual unbind) that calls pci_disable_sriov() directly remains
+> unprotected against concurrent hotplug events. This affects any SR-IOV
+> capable driver that calls pci_disable_sriov() from its .remove()
+> callback (i40e, ice, mlx5, bnxt, etc.).
+>=20
+> On s390, platform-generated hot-unplug events for VFs can race with
+> sriov_del_vfs() when a PF driver is being unloaded. The platform event
+> handler takes pci_rescan_remove_lock, but sriov_del_vfs() does not,
+> leading to double removal and list corruption.
+>=20
+> We cannot use a plain mutex_lock() here because sriov_del_vfs() may also
+> be called from paths that already hold pci_rescan_remove_lock (e.g.
+> remove_store -> pci_stop_and_remove_bus_device_locked, or
+> sriov_numvfs_store with the lock taken by the previous patch). Using
+> mutex_lock() in those cases would deadlock.
+>=20
+> Make pci_lock_rescan_remove() itself reentrant by tracking the current
+> owner task and a recursion depth counter, as suggested by Lukas Wunner
+> and Benjamin Block, since these recursive locking scenarios exist
+> elsewhere in the PCI subsystem:
+>  - If the lock is already held by the current task (owner =3D=3D current)=
+:
+>    increments the depth counter and returns without re-acquiring,
+>    avoiding deadlock.
+>  - If the lock is held by another task: blocks until the lock is
+>    released, then records the owner and sets depth to 1.
+>  - If the lock is not held: acquires the mutex normally.
+>=20
+> pci_unlock_rescan_remove() decrements the depth counter and releases
+> the mutex (clearing the owner) only when the depth reaches zero.
+> A WARN_ON catches mismatched unlock calls from tasks that do not own
+> the lock.
+>=20
+> This avoids relying on mutex_get_owner(), which is not exported to
+> modules and caused link failures for builds that inline this code
+> outside of the core kernel image.
+>=20
+> This approach keeps the API unchanged: callers simply pair lock/unlock
+> calls without needing to track any return value or use separate
+> reentrant variants.
+>=20
+> Add pci_lock_rescan_remove()/pci_unlock_rescan_remove() calls to
+> sriov_add_vfs() and sriov_del_vfs() to protect VF addition and
+> removal against concurrent hotplug events.
+>=20
+> Remove the rescan/remove locking from sriov_numvfs_store() that was
+> introduced by commit a5338e365c45 ("PCI/IOV: Fix race between SR-IOV
+> enable/disable and hotplug"), since the locking is now handled directly
+> in sriov_add_vfs() and sriov_del_vfs() where it is actually needed,
+> reducing the lock scope.
+>=20
+> Fixes: 18f9e9d150fc ("PCI/IOV: Factor out sriov_add_vfs()")
+> Fixes: 05703271c3cd ("PCI/IOV: Add PCI rescan-remove locking when enablin=
+g/disabling SR-IOV")
+> Fixes: a5338e365c45 ("PCI/IOV: Fix race between SR-IOV enable/disable and=
+ hotplug")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Lukas Wunner <lukas@wunner.de>
+> Suggested-by: Benjamin Block <bblock@linux.ibm.com>
+> Signed-off-by: Ionut Nechita <ionut.nechita@windriver.com>
+> [bblock@linux.ibm.com: rebase on v7.3, READ_/WRITE_ONCE changes, comments=
+]
+> Signed-off-by: Benjamin Block <bblock@linux.ibm.com>
+> ---
+>  drivers/pci/iov.c   |  9 +++++----
+>  drivers/pci/probe.c | 27 +++++++++++++++++++++++++--
+>  2 files changed, 30 insertions(+), 6 deletions(-)
+
+Thanks for taking over from Ionut and refusing to give up on this. I
+don't love needing a reentrant lock, but it seems like the simplest,
+and most contained solution to a real problem until such time as a full
+rework of the pci_rescan_remove lock comes up. It also feels easy
+enough to understand and the added WARN_ON() should catch the double
+unlock case. Also both upstream sashiko and my own LLM reviews with
+multiple models are all happy with this.
+
+So I think we should go ahead with this and feel free to add my:
+
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+
+Thanks,
+Niklas
