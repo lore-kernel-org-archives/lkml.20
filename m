@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437989;
-	b=CRjOg9I+5YzIeiZ1yBhSvquvd35sQsZ90P2C9ku+E75WGHMm5THixbCtTsYcnlMLj/Un
-	 jqGNmnuV9hht3K6DYlJNR+0dMhk2tSyMoQFk3Rws2qqozqzGDWp5USWYn1fZo0tLYy8LR
-	 kmxDPolJyTzK1vsu9PtV/PPhei/SdjBzvsKnH7E0jsiaCHHo5Ca19tGBBGUP8LjpSiPjb
-	 6h54/bzPoh8LH1SF1JibV3dIBXP9QuGIeyrli4x1EmnJ3hTipzbXxSsdbJ6P14WfU4Wx7
-	 pHjZmYfP3uBJHyFwL1zzfpBCm80LJWrgZnh/WlMBO86847B9b7rEGpcJm2jtPvhT0oQ==
+	t=1794438009;
+	b=K+zunBXZ7MzCXKUMUAn7rmOSd9ttIrkEWUMT2r3pWYQ6NDvcaV8tjY917lu4ofWFyIG3
+	 zMstKwcPt25dfeLIs4j46gaT7nZRFRqzCa1kbQRyejouUliKF3oZEBsVgVjveC/Ma/jGc
+	 OiZq/1SJSpl13aBrR0KJ/rSwe1K1fCSGhXw96hMq0Un1HyXHSMB7oDJq74Be3QeFsIMBi
+	 0EJunnnsLhEmDkMBWhNQREZJ0Iui/cAMbKWdhczRlz6S3LiKuAxrG41HhMIOgtMWweCf7
+	 hDRfOgNRWh+nfHm4oF6SHqW10PsLdVKvptrEbT8McXjAQcODql2f27elYRLovpMGhlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437989;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=NxlZ3d0PBPnk05nrYhRlkiXhE+5MZd2ltaw+yg5jqDs=;
-	b=HlK2xMiY8sv2nlTnJUFTJxhxeAj3gAkS/6DLb86X6/XE7d+Fbmkx48lqsGPvDRf8tPKl
-	 G9LsvcdkqSfec8ZDxymnTIf4bmYl0OFd7QzMiDvtQrbhMtjnR3riwSG1+/ob+G+hNpR4m
-	 9Q1OYfDXlmOsmpohuob5fQPC/HwISfdNKNeLmfe1d9Vs5cwQA9l0r6HuUjhaWhqrl2Z5v
-	 ooZ0ZOlskQHMjjy2XUU1Wsdp3S6v9HeRmivFa+NEfbJhb7mDgSQm+Wf4uk4/sPxyg8w8h
-	 CaCQR53kea9CRAOLQZYxF5j9TD9gajMwDVZQBjGQY0Yub8o/VhSjEriLKFqeIvsAx2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438009;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=u/lyJaSf0jh00R25h2n09r2vJy/Cqs58RLY5lnto2rE=;
+	b=FmvC6UJMpfYCjhLcpEp+k3eG+hFX8R7QFM2TeMBetUNbogD9oWLG1jtLoeg1ZE2f57nE
+	 XF/gPfdCFK3yVrRvf9n7ZZ3WO5t5dyiaSKR1aksfofC2tIbxWU+vxADMLt6F52dYBPkCl
+	 YxfyUQ2I64ZkjKjA08sY1eAIwjFIf9iL6ZzBNtEWSaPKC7Dois17Zt04tr22NaMcxvOj3
+	 C77jB8AXRoOVkL4HWoaDD6I5A5HFcNciD4mb1rEIsF2/KBWUJFqpH+e8qAQKRg/CRZ3sW
+	 yOUlKtaVlmnAaRl/LlQlwq0mZWNYTPTjCxs2qCV4+SCEqqj1JU7QPoPeuebZdpVKvFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="IO/PpZn+";
-	arc=none smtp.remote-ip=35.162.73.231
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDkY0QQ2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2A9606A31C;
-	Wed, 11 Nov 2026 22:59:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F2A9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17891606A327;
+	Wed, 11 Nov 2026 23:00:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IO/PpZn+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794437989; x=1825973989;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=NxlZ3d0PBPnk05nrYhRlkiXhE+5MZd2ltaw+yg5jqDs=;
-  b=IO/PpZn+Wzfc35UQWMioQZS5/HJokM5d/IX6H296oT7ZOajbqXGpxeqs
-   w06gOOUA1X3RMZGKCl0ATE2DIoFIdYlboGz4Xx6d4oDr8uulcJL32HVMm
-   nDDMZtoAFdFFeuQnZRySZeBgh+9dDgx2tWyvF5UYJOtTIQkQ5h5TcIr9m
-   T9MTwA8o6/ejNApBR5b1+T4P2Ra+CVkWl4AD6+zrUBcO4jNxjL1JlH6j4
-   0DnnDsae28UezxNIj8X490yGnWFQ3q6MJaKP7MzLNuwIFmADPg5IUczPd
-   NIl6Q3AkHOJvqBG50WvFTZwStIE5/dRDNCAbla0L/Y3rVDDPtd4lf273F
-   Q==;
-X-CSE-ConnectionGUID: tfAma2DzRFOFb8bdIGIDVw==
-X-CSE-MsgGUID: iyTsTEHxS0uD4j25ZbIutg==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33573114"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:59:49 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:10977]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id f883803e-6c22-4425-9ce0-85931add301b; Wed, 11 Nov 2026 22:59:48 +0000 (UTC)
-X-Farcaster-Flow-ID: f883803e-6c22-4425-9ce0-85931add301b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:59:48 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 22:59:45 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 15/40] nitro_enclaves: Document the info page in the memory pool
-Date: Wed, 11 Nov 2026 22:59:19 +0000
-Message-ID: <e7f196dd3055426734dc363f9a75a45e442d3eec.1794393490.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDkY0QQ2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F171F00A05;
+	Wed, 11 Nov 2026 23:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794438008;
+	bh=u/lyJaSf0jh00R25h2n09r2vJy/Cqs58RLY5lnto2rE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=DDkY0QQ2gyiQj9ji51vw1ZNaVYF3+upGlifhK6ePRIcggKHK1w8XPNJhXs28g7RKE
+	 gT4Ohpc5ZbBeT8JBO9VkDCdCH2FnMiGcZ4Z38Y9Wlm4vzbDWDjTr716DCupP25yLFZ
+	 ch1k50MThxiu0F3UeqJLxGwgjW3W6N/1YyPqyrvnMsUUlgIORCVswwj3xMusonEZKw
+	 Xg//C/lQE1nNZMw9sFcVhwBynT8seZoE7iVa+eBIlNKOwRNb9cHW6qERGjDKi7DBJG
+	 UQkh9KGI2I7xj5ctiE6r7cD5jSn8d10U2IU70f6lMQfWNtt2z2i4bbzLOXVJr3IalU
+	 jT7sOspQokNJg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B266391AFC6;
+	Wed, 11 Nov 2026 23:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,68 +54,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Subject: Re: [PATCH net] net: ena: Keep the RX buffer mapped if skb allocation
+ fails
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179443800718.1692642.15271790587054510634.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 23:00:07 +0000
+References: <20261109-ena-rx-skb-alloc-fail-v1-1-aee2927cb51f@debian.org>
+In-Reply-To: <20261109-ena-rx-skb-alloc-fail-v1-1-aee2927cb51f@debian.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: akiyano@amazon.com, darinzon@amazon.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ shayagr@amazon.com, harry@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
 
-An info page takes one contiguous allocation from the same CMA
-reservation as enclave memory, so an admin reserving the pool needs to
-leave room for it. Document its size, that it is registered before it is
-mapped and is read-only to user space from then on, and that it keeps
-its allocation alive like a memory region does. Also say that a larger
-NE_ALLOC_MEMORY request comes back in several runs where it has to.
+Hello:
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- Documentation/virt/ne_overview.rst | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/Documentation/virt/ne_overview.rst b/Documentation/virt/ne_overview.rst
-index 4c4b7febaff0a..3cfc50f788433 100644
---- a/Documentation/virt/ne_overview.rst
-+++ b/Documentation/virt/ne_overview.rst
-@@ -150,10 +150,11 @@ node enables to name the node a reservation lands on. cma= needs neither, so
- on a host with one online node the driver's own select is the whole
- requirement.
- 
--NE_ALLOC_MEMORY on the enclave file descriptor allocates 2 MiB aligned,
--physically contiguous memory from one host NUMA node's CMA area. A request
--that area cannot serve fails with -ENOMEM, so the reservation bounds what the
--enclaves on a node can take between them.
-+NE_ALLOC_MEMORY on the enclave file descriptor allocates 2 MiB aligned memory
-+from one host NUMA node's CMA area, in one physically contiguous run where it
-+can and several where it cannot. A request that area cannot serve fails with
-+-ENOMEM, so the reservation bounds what the enclaves on a node can take
-+between them.
- It returns a file descriptor for the allocation. For an enclave whose cores
- all sit on one node the ioctl refuses any other node, so name the same node
- here and in NE_ADD_ANY_VCPU. An enclave built out of a pool that spans nodes
-@@ -195,9 +196,22 @@ a caller reaches and not for all of it. It keeps the memory reachable from the
- parent for as long as it lives, so an allocation that is only being handed to
- an enclave stays private.
- 
-+An enclave can also have an info page: an allocation the NE PCI device writes,
-+provided to the device by NE_SET_INFO_PAGE. It does not become the enclave's
-+memory. Only the device writes it, so from NE_SET_INFO_PAGE on it is read-only
-+to user space: write() on the descriptor fails and a mapping has no write
-+access. The call fails while a mapping made before it exists, so a caller
-+maps the page after it. It is asked for as NE_MEMORY_SHARED, since a mapping is
-+the only way for the parent to read back what the device wrote. The device is
-+given one address and one length for it, so it has to be one contiguous run,
-+and 2 MiB is the only size that cannot come back split. Ask for 2 MiB per
-+enclave that will have one, on the node its cores sit on, or on every node it
-+may draw from where the pool spans nodes.
-+
- NE_SET_USER_MEMORY_REGION is unchanged and still takes the address of a
- hugetlbfs region.
- 
--The allocation lives until the last of its descriptor, its mappings and the
--regions given from it is gone, so neither closing the descriptor nor
--unmapping takes memory away from a running enclave.
-+An allocation lives until the last of the things holding it is gone: its
-+descriptor, its mappings, the regions given from it and the enclave it is the
-+info page of. So neither closing the descriptor nor unmapping takes memory away
-+from a running enclave.
+On Mon, 09 Nov 2026 09:14:29 -0800 you wrote:
+> We are seeing the following issue in production on arm64 EC2 hosts
+> (m8g.metal-24xl, 64K pages, SMMUv3 in strict mode, 6.18 based kernel).
+> Right after a global OOM, the SMMU reports F_TRANSLATION write faults
+> from the ENA device, followed by a burst of:
+> 
+>   WARNING: CPU: 48 PID: 1656834 at drivers/iommu/dma-iommu.c:1242 iommu_dma_unmap_phys+0xf4/0x108
+>   Call trace:
+>    iommu_dma_unmap_phys+0xf4/0x108 (P)
+>    dma_unmap_phys+0x194/0x2a8
+>    dma_unmap_page_attrs+0x1c/0x38
+>    ena_io_poll+0x7bc/0x1790 [ena]
+>    __napi_poll+0x54/0x220
+>    net_rx_action+0x250/0x520
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: ena: Keep the RX buffer mapped if skb allocation fails
+    https://git.kernel.org/netdev/net/c/3e8e22a1007a
+
+You are awesome, thank you!
 -- 
-2.47.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
