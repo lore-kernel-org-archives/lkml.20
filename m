@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380197;
-	b=AlkyhxTQ8MXy3kP9ZUKZ4vikwZlGCBREmpZ/U3qZ+3Yiz03ioqhAu2N1HVjGJEzdUnBp
-	 N44mZs9ePXsjmletl/EtD60HcDipdCeDw8zaZbP0H0Z6fX+qo1nafxdW/Qwp6yPAyyQe5
-	 8dqYG3oCWpfz+DVyQ2ARjaJhSexBaKWKmbtyH2eQ4g+kQzM/eNoq8vn1oyee2GZrhZNDb
-	 pY/pqhv+FED8Ind5/r6b2sIM3G0d8entCol2bBMknMG4FJtxLJm/VQHo2nMF6jfL+o14l
-	 uO5syPl4CDrBgD1KyFNxwpnI0K2qT+ZvNnUO64lc5cHAp8g/jQ+bsODw9XHFT1it2XQ==
+	t=1794380204;
+	b=IBdLQwuBVSu4z3Gldkt5lNGMIfobMMabr+/89v2B0gYXDIvHJzjf36TGvbA5hbHPJ48C
+	 FB0MD46L27SbdZ82tuEIorEQE8Y6IEJpf88d9ZamNtmzK0JibcVYW+pUcmNVbB2DbSwd4
+	 7xt8AVod7PLavuh198qZkbkioNKzU3wtArffa6WkrKR84spqdrobmxRzd8dxw5+g8qInR
+	 1vynM6lMv0pu6iRfR4X+/9DrHObKptf4rjvmSku5rAX1Ytl1PAytnS5XS65XHfmTCuO4Q
+	 2AACXqwXSkI1Qsass2e1FjWnyNVT+laMbImc/rldsN3Q1uxyUl9VB2wNRtX36mGznfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380204;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=y727edWPKrlVhEHY7MYl4i0rzDCyKBHlem7bWOcM13U=;
-	b=QUoiQGW6Ym1eScb842chJTSLKO0i6jYb99YUsnEbSP5B9tMCChHdftqw8xbzXxOaqdtd
-	 /4PD9HnszYBdygSIG0Ll/QIhdz2exOBl7jjh6Nlxw3nnLY1flLY3lF8a3rX/9eKfMRG0L
-	 8pCtewBys+nE13P+95Ee0/lAMJ/TNnvecuBDmEIasYoIEhk7dyl3ttg83SnErefetV6CP
-	 omNDN83XQnNHrEtB/U0SPqjyK+5NMHuJFF2eZ9mqnFywIZyJDho59jqqajTQNJVjX7U3j
-	 bi/AQisRKzxghHb3yWIuKPI7yY/KmhsKE2NzRjBbBHuPXueO69g72O72ShvUjgm54Qw==
+	bh=s142rQGIYqwFuKUkekSLUqq2un/ylJfkIxejVPS7Jqg=;
+	b=14S4RfVz700PyeuzDcrkUpl/+2bxqoP0g0NxT8Hogv9gyFR5l88gf6y+OmJHLD9schzV
+	 P/3HvSqI/3ITs+f4rGdeFZ2SO+Nl4NjQEC7bRbmpF2LdxPGlAnwmAy0WQqcWIHEw8uwp7
+	 p50JRayi2DF4p5pnfdO9IF5q6iaIVs8I3oWyRQcsQjUG14uwVpaYyJ3hdxhGJvPfBUxQp
+	 qQEBMJWCFT96tl7npBw/wjmgZdb4/FYRFhP1rgTvXezi4zyfsCdLVPTYIpmSkZI3g44M6
+	 o0VUG0lH/JFjTdFi4M+IDRVkDDuHq9s3qJKLnSnQF7TKfdLnAfZoeeaMLURBxkxcczg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kz5duW3o;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jv6oAtCV;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D15A60A2618
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D15A60A2618
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969FA60A2625
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969FA60A2625
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kz5duW3o
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3acec6677so4468669c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:56:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jv6oAtCV
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a3c08d6928so4894416c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:56:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794380197; x=1794984997; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794380203; x=1794985003; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y727edWPKrlVhEHY7MYl4i0rzDCyKBHlem7bWOcM13U=;
-        b=Kz5duW3oCeUEpQPoyFGx9XDP8NoOLKO/iZVqv0L20raGqMXzZmvh/UvinV+W8Km6Vs
-         AsGG6tjv//0Z7AX0uBzeDUYxtlYC9At8NBXDb4+ZlOF/IuRpoon4wqLKDaTg1ewHHfZD
-         Imu+FecqmVk7JfqSDddt1+9wtTEKV22IPdIjIsdJLo1Q9HgBIAP9hZt82yqA3Zuvy0IY
-         K3t1jHr5IrLk4k7QlMslTDokhWFop5lbdQwvRKuLDeQIoeuPNgvI7xN63W4gLwxTRAgm
-         BwdBzHJxde3b7p2KppCnJ5bPFKBAoAQfCdlbBE16SM44Eiq4RMiGm2M6qzCkfitY3v0o
-         Hx5w==
+        bh=s142rQGIYqwFuKUkekSLUqq2un/ylJfkIxejVPS7Jqg=;
+        b=Jv6oAtCVj+V0OSEebtHUvH7w1tD2PVnjPhlkv+6C6YHxE9JtzJgPnXBEate9YhmSTm
+         XXBJCttF+EVZZOcLor92H9uk4QI0X4I6DbkadxKU+zPhjIISmVwzCU9nl1MFO/q76BsX
+         m8nVl3qY8Dj0tDi0ZbIyeKef/1rztkeMkspKt+62Eu9OOL0pSfzP4vAhjBgyi5m9lYCG
+         h0p2qCf6rHmHJkZU3i+ae4zEfXTOvr+6S2W0xCsfPV3VchXQyIsdshSA7HSkkmAOONR1
+         oB0Yfwq0Q3jTOwVHroCiAPEkAHXDBF1P0MtuRHRwgPKd3nOPFUf4JqJrnwHRjpUa/5TF
+         KKDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794380197; x=1794984997;
+        d=1e100.net; s=20260707; t=1794380203; x=1794985003;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y727edWPKrlVhEHY7MYl4i0rzDCyKBHlem7bWOcM13U=;
-        b=lqTxm7lD4pAM1C/klf9gbLs5KW5mSE6U45HHYqW2I4yXj655HTGWOAd6/Ok6z2Ajs8
-         R/9ZMadE8ECzKAfTWImq9iaJmUfaBwvvIALXLFPqIlu26YMf6feO6Dogwdltm29jo6hT
-         ioHH8VYuhwYwUD/Gr/LsjBPi1x5TeAF6g8k7qJ/dcxeA/V9/vvMRk+rIIAegbq0rpF29
-         PFIJTUQfnH4BsonsHHrSW/J6TaEUunI8cBOSGj97TORQ6mA2MizHDW0ENb5RuDqJtPPp
-         xFvgsFJ1v3JB8Rn2EKOdLXdPCsMxyypDvDVmKyxqprZf+jlyRxyKOcIemAjmREMEFK5T
-         pIYQ==
-X-Forwarded-Encrypted: i=1; AL+hErGpw53P9ToW3QJdqoGFQN+FMTelDn60Md24MuAbahHzP9Y/r12ykJdT4xB31VbMMk0wSrvuxaJ1xF0JZTw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87ai5yUSbuE+vHvTubl4U2CD8umz1wm2jyXYFFOXBsyJyiCbqv
-	1Mvj7O7vtiz4GCWhmNHOotFKiTnXxxHn4lq6EwB6m9YAG92TZWflZFmO
-X-Gm-Gg: AYBFou2JlYZTGrjP5V3whFT+F6Y0f7l/izgf+8Nj45J/t7/EfeDahfDSxc7R4CHgVNf
-	7yMPgo+HDBIToUO3rJKfHQCQ7vv/FSseGNLvT8dccgjLalWh5TxkSul7bnemfud3pAZD7rRdo3S
-	IcQrEpZPvB2dR9K6jAtIr7251UQ/h064GGVWWtczAxkDnOxhZtAhe24K962ZWZ6ysjGvchmmM5c
-	GLaDsqkoNSO1E0G/A2LiCk1diBcVwZ/6xFN07SEJvZzuSV6pcMQhIZjbEdszIyWeC8ZvP5rxyvh
-	0xxKCO7xp0pMQJEzwNt2XK4s0kJ2Zx/mSC/uuhY14A3rPw9bktHCbEA7rllYpb09I0Uqz24eD/w
-	BWE89NuYhzKk4q4r9g5YJ59ZtKRXW5azobtJw0ytcta98dZPYVT9fGgDXj7drRHcpF2YCO1kXEI
-	aMDxXObbWm7Eq+yEhYTYEZHkozKV1DLRK20Hf8WILO50nGytGHLAiFaAuFpVIHXZdNMAr7q9ba0
-	Ltyd+fIAjnCIKuJGYQ5rj4+AO8Mb1A154/CqceM9e3oTBosN/j1O22PPeTsgcYD5vV00yusfyPY
-	IptUZYdTovFMKCcvWAk+d/ldseIUncOeUFBKtLpDdKz/BnMYlxsoh4B0MCUbZtah77pDBjFPkgW
-	AzXfl8s4eE3OBxhAd65k=
-X-Received: by 2002:a05:701b:451a:20b0:1b2:42ae:94fb with SMTP id a92af1059eb24-1b3c034e996mr1553319c88.37.1794380195717;
-        Tue, 10 Nov 2026 22:56:35 -0800 (PST)
+        bh=s142rQGIYqwFuKUkekSLUqq2un/ylJfkIxejVPS7Jqg=;
+        b=PJVT3OHYMlil8rNVjydjvd4gnmpmzk2lwaPExcLe5KQ0Jc1yFaZme8X1UE9QIE/l0V
+         smJs9X+bsF77pAD3Z87gZzbe47Tz1yb9zVNZJUW4KsllfoIXsKS4jAKyuEaWYeMJ0kNG
+         EaCqvsayx7GPzbMu5+0HnbfMPO4CLb5Q67j5e/LcA31Y9V+7Yk6g3mNR3nFbbjb5Li2S
+         jLtDVzzsl7JSUURRYg/9BGA7UFD80KJ5tuk4HvOPEehHbJBDEUXYjPGbaw7bflL3sO/X
+         Ot3MvunS4mijP5wR5wjQH2Ete3X8NI+BlsIoun4gMhUbGoc1K/muNZIUDgKuaa/UBmf8
+         iMrw==
+X-Forwarded-Encrypted: i=1; AL+hErHZuzb7hDIfZWsk7KmoVMAT375PnTaj0Ue+GAGXhuBkIJXyK06rt1RCr1gKVdh/Ed7k9SGWc0LcS6xbguc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FS3ruMaP7EnZ+tPkoGVGWsrPbNq2Xj1twTltwuXkbliFv7QKD
+	h8Bm4Y+BKDrdBTnaKUNOSA7u+cUK1fdRmX3nkBz7FdlRul/XatVqjYlL
+X-Gm-Gg: AYBFou2hJq6hMn0tPY4WP0Eoc2o0MHqk4XsqKIBLbEv3ug4gpwGS4DoXScuY8nLxgKX
+	IDX9uGW/+fZupEtqia8L/a9x3GPiZSSC2dGFxaoYpqqofJTE6UZ89apeT73us1VHzeOko831dzF
+	YfYQNR2XBRLWKpSlwtxpAb+4MMQ1BJ39NeoVf7mRYz8ikpF6UZC//XjGlcWtyVO4Yn7CJQwkapR
+	ZAHK94IRn9ip9pXLlf5RZ3f9E4B4LBW+gvzzTAydu5+1E340VytK5gEiP+G5oRcfiTxsz/zEMP8
+	mBvEW6MoCd8yRJ8VJ+/JDZFkDy8wgsrErsTUtzglK1LC3mw9mtXXu3gNZTFcUiWyDdk3wNJlr7C
+	WlUXyxNUlymqhjcOUwP1wptEBQ+tr7iFXvLaPVtG6UCTX32BzHr3B4ERPDfD8gy6eMHbEfqFJns
+	ixmmwzee+qUQCEFLoNgxdEkJQctendFKNnZiH8vofWR8PBi7HFaThio4mEEmW/sjR3Y+J/jv0gz
+	8gFKTRhwH03Hj8ap3MjFy0Ym9UKPaF9VXO5UdLh8gdRfz1GkiD45tektDsVueRY+Rkw00jxGbjf
+	J9VWUY6EX6xwj2A8eiabq8CkvvedZQqPVQ4Er4oYGK1z5bwslbdO5GlUKsJu6+GHNB0RhftOh1o
+	PvcaV5o9MVn2ggKvInw==
+X-Received: by 2002:a05:7022:f519:b0:1ab:faad:cba with SMTP id a92af1059eb24-1b3c034e284mr1319869c88.34.1794380202584;
+        Tue, 10 Nov 2026 22:56:42 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:311a:ad7a:93f8:96c8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm13858121c88.4.2026.11.10.22.56.34
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm13858121c88.4.2026.11.10.22.56.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:56:34 -0800 (PST)
+        Tue, 10 Nov 2026 22:56:41 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Tue, 10 Nov 2026 22:48:07 -0800
-Subject: [PATCH v2 09/33] HID: logitech-hidpp: initialize response buffer
- before publishing send_receive_buf
+Date: Tue, 10 Nov 2026 22:48:11 -0800
+Subject: [PATCH v2 13/33] HID: logitech-hidpp: fix K750 solar battery
+ feature lookup and reconnect
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-hid-logitech-hidpp-v2-9-30743e91d83b@gmail.com>
+Message-Id: <20261110-hid-logitech-hidpp-v2-13-30743e91d83b@gmail.com>
 References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
 In-Reply-To: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -105,81 +105,54 @@ Cc: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
  Edwin Velds <e.velds@gmail.com>, 
  Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
  Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-e56a4
 
-__do_hidpp_send_message_sync() publishes send_receive_buf before
-initializing the response buffer. hidpp_raw_hidpp_event() runs in IRQ or
-softirq context without taking send_mutex whenever the mutex is locked,
-reading question and answer from send_receive_buf. If an incoming report
-arrives after send_receive_buf is published but before response is
-populated, hidpp_match_answer() inspects uninitialized memory.
+In hidpp_solar_request_battery_event(), the driver checked whether
+hidpp->battery.feature_index == 0xff instead of checking
+solar_feature_index, causing it to re-query the root feature table
+unnecessarily or misidentify whether the solar feature was resolved.
 
-Initialize response with the outgoing message and clear answer_available
-before publishing send_receive_buf with release semantics, clear the
-pointer with WRITE_ONCE() on completion, and read it once with acquire
-semantics in the event handler.
+Furthermore, in hidpp_connect_event(), the HIDPP20_BATTERY block lacked
+a branch for HIDPP_QUIRK_CLASS_K750, causing wireless reconnects of a
+K750 keyboard to fall through to hidpp20_query_battery_info_1000() which
+fails because the K750 does not implement feature 0x1000.
 
-Fixes: 2f31c5252910 ("HID: Introduce hidpp, a module to handle Logitech hid++ devices")
+Check solar_feature_index in hidpp_solar_request_battery_event() and
+re-enable solar battery reporting via the solar request helper on K750
+reconnects.
+
+Fixes: 696ecef9b587 ("HID: logitech-hidpp: add support for battery status for the K750")
+Cc: stable@vger.kernel.org
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-logitech-hidpp.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ drivers/hid/hid-logitech-hidpp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index c486488efe99..16dcd79059d5 100644
+index f717f0308454..cdeb1b3c2f21 100644
 --- a/drivers/hid/hid-logitech-hidpp.c
 +++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -300,14 +300,17 @@ static int __do_hidpp_send_message_sync(struct hidpp_device *hidpp,
+@@ -2122,7 +2122,7 @@ static int hidpp_solar_request_battery_event(struct hidpp_device *hidpp)
+ 	u8 params[2] = { 1, 1 };
+ 	int ret;
  
- 	__must_hold(&hidpp->send_mutex);
- 
--	hidpp->send_receive_buf = response;
--	hidpp->answer_available = false;
--
- 	/*
- 	 * So that we can later validate the answer when it arrives
- 	 * in hidpp_raw_event
- 	 */
- 	*response = *message;
-+	hidpp->answer_available = false;
-+	/*
-+	 * Pairs with smp_load_acquire() in hidpp_raw_hidpp_event() to ensure
-+	 * the response buffer initialization is visible before publishing.
-+	 */
-+	smp_store_release(&hidpp->send_receive_buf, response);
- 
- 	ret = __hidpp_send_report(hidpp->hid_dev, message);
- 	if (ret) {
-@@ -342,7 +345,7 @@ static int __do_hidpp_send_message_sync(struct hidpp_device *hidpp,
- 	ret = 0;
- 
- out:
--	hidpp->send_receive_buf = NULL;
-+	WRITE_ONCE(hidpp->send_receive_buf, NULL);
- 	return ret;
- }
- 
-@@ -4148,12 +4151,16 @@ static int hidpp_raw_hidpp_event(struct hidpp_device *hidpp, u8 *data,
- 	 * previously sent command.
- 	 */
- 	if (unlikely(mutex_is_locked(&hidpp->send_mutex))) {
--		question = hidpp->send_receive_buf;
--		answer = hidpp->send_receive_buf;
--
-+		/*
-+		 * Pairs with smp_store_release() in __do_hidpp_send_message_sync()
-+		 * to ensure the initialized response buffer is observed.
-+		 */
-+		question = smp_load_acquire(&hidpp->send_receive_buf);
- 		if (!question)
- 			return 0;
- 
-+		answer = question;
-+
- 		/*
- 		 * Check for a correct hidpp20 answer or the corresponding
- 		 * error
+-	if (hidpp->battery.feature_index == 0xff) {
++	if (hidpp->battery.solar_feature_index == 0xff) {
+ 		ret = hidpp_root_get_feature(hidpp,
+ 					     HIDPP_PAGE_SOLAR_KEYBOARD,
+ 					     &hidpp->battery.solar_feature_index);
+@@ -4582,7 +4582,9 @@ static void hidpp_connect_event(struct work_struct *work)
+ 		else
+ 			hidpp10_query_battery_status(hidpp);
+ 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_BATTERY) {
+-		if (hidpp->capabilities & HIDPP_CAPABILITY_BATTERY_VOLTAGE)
++		if (hidpp->quirks & HIDPP_QUIRK_CLASS_K750)
++			hidpp_solar_request_battery_event(hidpp);
++		else if (hidpp->capabilities & HIDPP_CAPABILITY_BATTERY_VOLTAGE)
+ 			hidpp20_query_battery_voltage_info(hidpp);
+ 		else if (hidpp->capabilities & HIDPP_CAPABILITY_UNIFIED_BATTERY)
+ 			hidpp20_query_battery_info_1004(hidpp);
 
 -- 
 2.56.0.542.g3ef89b7020-goog
