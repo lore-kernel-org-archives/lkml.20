@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391337;
-	b=nWomrw9cKJwgs6Ccf53N2nDXP/AXgudJju8zSF2fhClig4hctoBk+l5s3l5Qx31U7jva
-	 5OcEpBXh1p8TL4sJcVxSEFNIC99aRJ15VCJRgvjKwweyzrEqwOJcGCo1/abp4cM/zx/yd
-	 ni/aKTzDjXiXEvyj+SBG8GLXQw+/isGG167vM9VW5NC8YFg+1/ioSb058V/EffEBK0yNu
-	 H4jBk4+pyrdyVrLDxGNB85jHQu0AiyYfI5Rp9veKdVTzSY4I1zjEhaXNY0aFPj0+doNZ6
-	 MXKSx3KD5uPL38oudPF61ioV9mWwPxJ9G+tElVEt9bE8vL1LG9gJmNB4KpciwuZk04w==
+	t=1794391340;
+	b=zwPnCoD5LZI0GOgrRS2VZjuHcE3/VmmnTR/mJ33TZHHZkyGILrDEqPDJbJzQN00TZwD/
+	 Kc6wTzJMMMCht9nwzRG2OfFGnq78sB+V33hJwQb1vZF3FAVdIWLFRs0v2Kx6nLufmgZ0k
+	 +3tgRj7tqYFKEEHvojr0219hsZ8TQIeeqPnFddUo0xYyGsSOjxi9FPtXFYhsCV+gMWLu8
+	 0DzoK8F1I6JsskttFZSYh7F7EEYa388ol/he6S2P5PNs4KSHVXSuEQ933S8IqSN7tZQ5X
+	 TGyNtpvYqt369YA1mSwN/AxL4eAga8CVXAHfNo9sCnvrqlrp5tf8QswwtrB1wIIGMKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391337;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h4AVeGPggLSUFeJTT3dwsO6oUDmB9dp8f3J2h1ds3aI=;
-	b=Frwwinm9ZlWpVgs+UiyQGEPIFBwklEyTzi/3M7q3aneRIhK8zFWbLKUL9AUrSECCjZUM
-	 2yX48likO/660Hf/Zp9FhWAbZ+0Y0h5D/1uq3NSofhsgNabVennEbzYVj97AKJIHB5EU1
-	 5b9fLXgCOi97ajBp386liCQL2rmFpJu6tSopPsm3MjQaRkFezaY61E1mNTBsAM+Gcr4so
-	 VNtEk5SsZUAA6LWJHX8pQYDdyptAPFJCAJHdKKsAMzJDPegH9/uv/u/rHj/oaS5WudOtw
-	 ztEmGYvC5tO1Ky8pGvDxUJE2t9lYMZU93stughiDIMRSLXmc8kMaQCvUISZo7yXmWfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391340;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/008Nq1DBBEIqx5PPz70GiPaNVyQI+eFBJTDZljb44Q=;
+	b=K9DY4uzIKihVFv5D0UCDjKCdAo/tHNodheQW4W2DKrKRwcP2IAEsPQUzrhjY4HMvDgGZ
+	 z3uABubM89zASLlB4jJrwsjvYS/IlfNBVwP3kspQ7cOf1oehMt5ym61Ne+aJqJpyLcrWE
+	 14wBaeRJoALvq1GR9PKGeW8PD6jAwE5crTeIDu9+fa7KlgndlSN4OKxT360WbiShwmVn5
+	 bSpXLCo9ffQbKOAQQQN7cNQdC4NiK50sJxFvqtYZafzHIgAaN5jqlJiOCU/P2Vl+FjQ+p
+	 8oqR47aahS2dnp4HRuHsFICfENpgZUG5u92bxAyU0xuy806OhoZQyjX5n2n4uigCtvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbZRW1ql;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E76606A326;
-	Wed, 11 Nov 2026 10:02:16 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O6IdHv3P;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0673460A261C;
+	Wed, 11 Nov 2026 10:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0673460A261C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbZRW1ql
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4961F00A05;
-	Wed, 11 Nov 2026 10:02:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391336;
-	bh=h4AVeGPggLSUFeJTT3dwsO6oUDmB9dp8f3J2h1ds3aI=;
-	h=From:To:Cc:Subject:Date;
-	b=ZbZRW1qlJiOojFLzHjuxEoj4UfngzibvCjsvMqQR7C86NTKOjihLkfEbkvHph2Cop
-	 nyjN5vvT2ibj1Gb3KaUgLMK0FW1yuXAMA5DewTBrkTsPJ/pnqm5rphoxEIMMOTZJFm
-	 GtCpF+1LBUW2f/1r2tmxesW8Mxo4jcRqIpvT6D18bHlR8yapslRM9HNbkyOiGGX5g0
-	 7MwYbERL85wy6zamfpkcTy28jT8/o4UCowlLIb/QtnJQqLe1kE4ExH8OEPhtQhD9Kc
-	 /sPGHDBUpxIiwprkx4/DoWWo1urNGrNoHFu5nf6aWWqWvPoxCp9FBeaTdiH5ha1t4B
-	 e8tG/IB9Khnzg==
-From: Andrey Albershteyn <aalbersh@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ebiggers@kernel.org,
-	hch@lst.de,
-	Andrey Albershteyn <aalbersh@kernel.org>
-Subject: [PATCH] fs: constify inode argument of inode_state_read_once()
-Date: Wed, 11 Nov 2026 11:01:49 +0100
-Message-ID: <20261111100148.3665035-2-aalbersh@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O6IdHv3P
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A8041576;
+	Wed, 11 Nov 2026 02:02:16 -0800 (PST)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D8B973F673;
+	Wed, 11 Nov 2026 02:02:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794391339; bh=iBX7/caJMXnRG4auS6ChraoO4dSo/zwj7eCa2+s/N48=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=O6IdHv3Pa6BF4W/gj+tmwDWoCPsjfXKjFP32FDKfEVDMDMDI8b+AdWLJIeDX4vXWL
+	 5tTlEk8MizP4FV96CYNLY32LXX4mXYgk+F1dgumoIHRXhgBBrmbT7eHPSDKAQZbgOE
+	 L/w7KjxCQz+kqbd4w3gQ9WrqNb468FzIICjG6R/k=
+Date: Wed, 11 Nov 2026 10:02:14 +0000
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Isaku Yamahata <isaku.yamahata@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev,
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>
+Subject: Re: [PATCH 2/2] KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a
+ full dirty ring
+Message-ID: <avQ9Jhsnq7e3KPw-@raptor>
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-3-fuad.tabba@linux.dev>
+ <avMoubwqgXbpflwM@gremlin>
+ <CA+EHjTxT_9NghyLSZmOOi_oQboQw-g+6z9WxwaF=-7RdaGbMNw@mail.gmail.com>
+ <avM9_7aWUDJSL3Lq@seanjc-mac.roam.internal>
+ <avM_FXXF9oBkderF@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,34 +74,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avM_FXXF9oBkderF@gremlin>
 
-Constify inode parameter so that callers can pass const inode. Callers
-do not need a change.
+Hi all,
 
-Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
----
+On Tue, Nov 10, 2026 at 04:02:21PM +0000, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Nov 10, 2026 at 07:53:35AM -0800, Sean Christopherson wrote:
+> > On Tue, Nov 10, 2026, Fuad Tabba wrote:
+> > > Hi Lorenzo,
+> > >
+> > > On Tue, 10 Nov 2026 14:38:27 +0000, "Lorenzo Stoakes (ARM)"
+> > > <ljs@kernel.org> wrote:
+> > > > On Tue, Nov 10, 2026 at 11:07:24AM +0000, Fuad Tabba wrote:
+> > > > > Pre-fault more populated, dirty-logged pages than the vCPU's dirty ring
+> > > > > holds, and check that each call stops before the ring overflows, that a
+> > > > > retry returns ENOSPC without progress, and that the harvested entries
+> > > > > are the pages in order. A read pre-fault can map a page read-only, or
+> > > >
+> > > > Are we asserting an invariant that prefaulting happens in address order
+> > > > here?  Is that explicitly presumed in the prefault API, or just how it
+> > > > happens to pan out?
+> > > >
+> > > > I wonder if we might decide for whatever reason in future to do things
+> > > > differently there. Bit nitty I know, but wonder if it's asserting an
+> > > > implementation detail?
+> > >
+> > > Yes, the API doesn't guarantee an order. I'll assert that every page
+> > > is reported exactly once instead.
+> > >
+> > > [...]
+> > > > > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+> > > [...]
+> > > > > +static void test_pre_fault_dirty_ring(void)
+> > > [...]
+> > > > > +    /* Populate the pages, so that pre-faulting can map them writable. */
+> > > >
+> > > > Reviewed below, but I wonder how x86 could then read fault these?
+> > >
+> > > KVM_PRE_FAULT_MEMORY is defined as a read fault, but x86 maps the page
+> > > writable when the host page is, and marks it dirty, unless it falls
+> > > back to access tracking (below). Populating the pages makes sure they
+> > > aren't backed by the zero page.
+> >
+> > Before we effectively solidify the behavior, I think we should have an explicit
+> > discussion about the desired behavior of KVM_PRE_FAULT_MEMORY when dirty logging
+> > is enabled.  E.g. the only reason I kept the existing behavior in my auto-prefault
+> > series was because I couldn't think of a good reason to change it.  But we never
+> > made a concious decision in the first place, i.e. we never considered what would
+> > happen if prefaulting collided with dirty logging (as evidenced by this bug).
+> 
+> Yeah, I do worry about implicit assumptions (also commented re: ordering).
+> 
+> I guess what makes sense, given the general approach for prefaulting = injecting
+> a synthetic read fault, is for the expectation to be that it matches the
+> behaviour of an ordinary read fault.
 
-Notes:
-    I will have a user with const inode in fsverity
-    https://lore.kernel.org/fsverity/20261105115532.613467-3-aalbersh@kernel.org/
+Unfortunately, what happens in this case is not as obvious as it sounds,
+because a read fault on a memslot backed by guest_memfd maps the GPA with
+read *and* write permission on arm64 (if the memslot is not readonly,
+haven't checked what x86 does).
 
- include/linux/fs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks,
+Alex
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 99caef43ff3c..c5ba625c8ae1 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -877,7 +877,7 @@ struct inode {
-  *
-  * We hide all of it behind helpers so that we can validate consumers.
-  */
--static inline enum inode_state_flags_enum inode_state_read_once(struct inode *inode)
-+static inline enum inode_state_flags_enum inode_state_read_once(const struct inode *inode)
- {
- 	return READ_ONCE(inode->i_state.__state);
- }
--- 
-2.54.0
-
+> 
+> Or do you feel that it makes sense for the pre-faulting to do something special
+> in these cases and establish a sensible invariant?
+> 
+> If the pre-faulting does indeed dirty the pages, you'd need the dirty logging to
+> do its usual thing (not familiar with the code, so I'm guessing logging the page
+> :) though right?
+> 
+> --
+> Cheers, Lorenzo
+> 
