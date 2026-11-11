@@ -1,104 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386917;
-	b=LNUm0GPFYPGmMI0x5js6/43623yFF6tbidHUjz2Rma9aYPsBtsR/xm3pYwLfalMkO4lj
-	 ZDawEjlaImcK4jTtzJw7h9RjG1dX8VtOpAC7Nn/QM4EVxPzHq7XlK4cvtNtfGZgjH1i7+
-	 uLcYa5K+XxNngksT6YppR0+/CuSxHXVuzjvjnyLX5l7BQKtbt+ebFd9dwkoL/1zyKkWvy
-	 d+eVUnD1buMHaoWm6LtDPSnIkWiaG99PtDzbccXc4kJQkG+SmD9CHgCQMN+l7ifVEgohI
-	 5nTs4/QgqsQecdfR27a7eQtKh5ZK58YDjGAr0clJh9k8yZdVcb9UDWyvMPVbLnigvJQ==
+	t=1794386934;
+	b=Z4np71GhIayEOVUPnwQgY7SdiigBBzh7tQ8Seu6thN+9HBG+tmkPOPQqIfciLKuW31cG
+	 ykT81usk5WX/r8oJPYYdMa8gKf1+52ZfrxaOemlLUNB89TBtZ6SZFTQe5gV8y96aHrf6Q
+	 wzC1fxpaO6wZSdLpXSpZsKoMTiurxbOg9dn70L8/OEDLHPnCKTRTi0Yk1j82JV38rUe81
+	 WIda0GW1rPHAT5vasLubpdGXesswn19b4wu3mEgGgkygBTic350dk8IuAxSDmsvWntnn4
+	 xZFy7kaz9u33hJlEs9D8BcjWY2mQopXBVe/WQnEWmUQfmNqo7cin73dQ7D/MlGORl2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386917;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=QgoDMIFKi2tNr/3v23RGwhfeA7KQRN4J36T+PlHbRqY=;
-	b=b4E8pPv+DKcCEw99emXsh9do2R3D5SRCuityWs4vfEMGX+1LzHORcjrjJfCaaEGDZGY5
-	 thXQuuL0lLylyk0uiGiOLi4F7CkghQg6Ih79o2eWM9ea97nhXT5MGimkVzpE5QtEioX+0
-	 KzFW1VlKyYfjTHYYe4l8FozQZMjyya12CS8fBWFSzrwJCUolirOwbUiHR5Y57zJAExCxP
-	 FrcYeLigKhrQleuvt/fIAEZsQH21WPpsY+lCozMzeIcmxp5Yg9G9RsR2msy88ccvhYbXj
-	 z0JHMHSvcSOtbVNiChrOgAmqEDDMiBJic4YwO/+eaQr67rvzoXR0L6ibM56xhzPGdHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386934;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=h2mcr5qbrOkUwIV5FRHs1EuG1w/QzbTvgXeqDmHoSzk=;
+	b=W4ShI0Vk8BLN8WuMPv4NNRXc9F8qVzzQEcFR0P1lwK5Z52JKgFBI0kb9YNc9cPpDaGDf
+	 ILwT0929Iw8aPWBm0H1OBwxn7T5a9h7WDeXtQxQfvRNMHrll8LEFChAmAs4BTa+ITx7iX
+	 lLBAJ3sC7t/Pm7KmyaxHJcRIRQiHrEYjCCY26rD+wXnvnciJFUsLIopV8tud8QiT1+Jen
+	 roKlvJNUzd+cWTOzcrYQt7SVJ6p5VgCxY7nJ3WJjBV5/NkzVmigCsHnUy1aHyMPHEKoXH
+	 n1TsI8A2HvZ6qVOKLMOv16F2J6ws1f17e3cFmKTQYaU0a5xSciP7hHlmRy5QxXTxGcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=e6GlG5TO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pz6+SvTe;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=e6GlG5TO;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pz6+SvTe;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=paragon-software.com;
+	spf=pass smtp.mailfrom=paragon-software.com;
+	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=U1cKfgCf;
+	arc=none smtp.remote-ip=35.157.23.187
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4252606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4252606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42626606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42626606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=e6GlG5TO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pz6+SvTe;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=e6GlG5TO;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pz6+SvTe
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8975321D9B;
-	Wed, 11 Nov 2026 08:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794386914; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QgoDMIFKi2tNr/3v23RGwhfeA7KQRN4J36T+PlHbRqY=;
-	b=e6GlG5TOKRAzZovD2QKdoASLxw1J+FFJ1pTDyh2EYO5mVXtqabZedyO0pJm6RYMnqkH00V
-	95cWn52LuV0nQHjq9BJ3LznpRLfQijloJfjJ7UaSJMML7LBWtVIXNi26IIme5odVia2dfU
-	0lCxNbcHV1qTUwwRptvCgByTtJKLWX8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794386914;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QgoDMIFKi2tNr/3v23RGwhfeA7KQRN4J36T+PlHbRqY=;
-	b=pz6+SvTeWWrY4+Gw3pVy1I235ejePnS09tnwZjC0xKtBQYJTQbQGE3JWrNPguu18TVM223
-	94x7LHI1jEMG1MCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=e6GlG5TO;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pz6+SvTe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794386914; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QgoDMIFKi2tNr/3v23RGwhfeA7KQRN4J36T+PlHbRqY=;
-	b=e6GlG5TOKRAzZovD2QKdoASLxw1J+FFJ1pTDyh2EYO5mVXtqabZedyO0pJm6RYMnqkH00V
-	95cWn52LuV0nQHjq9BJ3LznpRLfQijloJfjJ7UaSJMML7LBWtVIXNi26IIme5odVia2dfU
-	0lCxNbcHV1qTUwwRptvCgByTtJKLWX8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794386914;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QgoDMIFKi2tNr/3v23RGwhfeA7KQRN4J36T+PlHbRqY=;
-	b=pz6+SvTeWWrY4+Gw3pVy1I235ejePnS09tnwZjC0xKtBQYJTQbQGE3JWrNPguu18TVM223
-	94x7LHI1jEMG1MCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D149134E5;
-	Wed, 11 Nov 2026 08:48:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LcxxO+Er9GqbKgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 08:48:34 +0000
-Message-ID: <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
-Date: Wed, 11 Nov 2026 09:48:33 +0100
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=U1cKfgCf
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 31C521D28;
+	Wed, 11 Nov 2026 08:49:37 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=U1cKfgCf;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 530742389;
+	Wed, 11 Nov 2026 08:48:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1794386931;
+	bh=h2mcr5qbrOkUwIV5FRHs1EuG1w/QzbTvgXeqDmHoSzk=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=U1cKfgCf+cUC6kWzElnJ7F8K37tf+3IWR/rqvGDC9GXlLbJznxzVxA04Qy9LyXdoB
+	 WIVHSxJC7vK5enUiLXT0APS5Ad9mcAnJScPlpNU0u5yWl+jWYv382wEnHei2AD100h
+	 3+QOFfeId+gydGRwrqrK7ETZ7eJ72B3vvdhS9ar0=
+Received: from [192.168.95.128] (172.30.20.190) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Wed, 11 Nov 2026 11:48:50 +0300
+Message-ID: <b54d213e-dae1-4d4e-af1c-c28c5a6cf84c@paragon-software.com>
+Date: Wed, 11 Nov 2026 09:48:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,429 +65,156 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] drm/sysfb: Copy damage outside the DIRTYFB ioctl
-To: Joseph Telaak <joseph@telaak.dev>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261110-sysfb-dirtyfb-v1-1-8571d455ccbe@telaak.dev>
+Subject: Re: [PATCH] fs/ntfs3: validate log replay bitmap buffer spans
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <20260817202941.1635505-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261110-sysfb-dirtyfb-v1-1-8571d455ccbe@telaak.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260817202941.1635505-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 8975321D9B
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,telaak.dev:email,suse.com:url]
-X-Spam-Score: -13.50
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-Hi
+On 8/17/26 22:29, Jérémy Jean wrote:
 
-Am 11.11.26 um 02:37 schrieb Joseph Telaak:
-> The sysfb drivers implement DIRTYFB with drm_atomic_helper_dirtyfb(),
-> which runs a blocking commit. The commit waits for the framebuffer's
-> fences, so the ioctl doesn't return until the GPU has finished
-> rendering into the framebuffer.
-
-Yes, that's a requirement.
-
+> do_action() derives the read buffer size for bitmap replay records from
+> lrh->lcns_follow in u64, then stores it in u32 bytes. A log record that
+> covers more than U32_MAX bytes therefore allocates and reads only the
+> truncated tail while the bitmap range checks still compare against the
+> full u64 span. ntfs_bitmap_{set,clear}_le() can then access past
+> buffer_le.
 >
-> Xorg's modesetting driver calls DIRTYFB from its main thread after
-> every frame. When a separate GPU renders for a sysfb display, X then
-> blocks for as long as the GPU takes to render the client's frame. With
-> a game running, X took a median of 1.85 s to answer a pointer query.
+> Keep the span in u64 until the read size has been validated against the
+> u32 ntfs_read_run_nb() interface. Also validate bitmap ranges in u64 and
+> reject lengths that cannot be represented by the helpers' int len
+> parameter, so crafted bitmap_off/bits values cannot wrap the existing
+> u32 arithmetic before the bounds check.
 >
-> Queue the damage instead and copy it from a worker. The worker still
-> waits for the fences, so nothing unfinished reaches the screen, and
-> damage that arrives while a copy is pending is merged into it.
-
-Pushing out work from the display update into a worker breaks feedback 
-from driver back to compositors. Your compositor/Xorg/whatever needs to 
-adapt to and deal with slow framerates.
-
->
-> With this change, X answers in a median of 23 ms and the game's frame
-> rate is unchanged.
-
-Fix X if you really care.
-
-Best regards
-Thomas
-
->
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> Assisted-by: Codex:gpt-5
 > ---
-> This is an RFC because I'm not sure DIRTYFB may return before the copy
-> is done. The fbdev emulation already defers its damage to a worker,
-> but userspace might rely on DIRTYFB being synchronous. If the approach
-> is fine, would you rather have it as a nonblocking mode of
-> drm_atomic_helper_dirtyfb() for all drivers instead of in sysfb?
+>   fs/ntfs3/fslog.c | 53 +++++++++++++++++++++++++++++++++++++-----------
+>   1 file changed, 41 insertions(+), 12 deletions(-)
 >
-> I hit this on an Intel Atom CE5300 board, where simpledrm drives the
-> display and the SoC's PowerVR SGX545 GPU renders with a driver I'm
-> writing (not upstream yet). I haven't reproduced it with an upstream
-> GPU driver, but nothing in the stall is specific to the GPU.
-> ---
->   drivers/gpu/drm/sysfb/corebootdrm.c       |   3 +
->   drivers/gpu/drm/sysfb/drm_sysfb_helper.h  |  15 ++-
->   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 154 ++++++++++++++++++++++++++++++
->   drivers/gpu/drm/sysfb/efidrm.c            |   3 +
->   drivers/gpu/drm/sysfb/ofdrm.c             |   3 +
->   drivers/gpu/drm/sysfb/simpledrm.c         |   3 +
->   drivers/gpu/drm/sysfb/vesadrm.c           |   3 +
->   7 files changed, 183 insertions(+), 1 deletion(-)
+> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+> index f038c799e7ac..21d89de96ba1 100644
+> --- a/fs/ntfs3/fslog.c
+> +++ b/fs/ntfs3/fslog.c
+> @@ -7,6 +7,8 @@
 >
-> diff --git a/drivers/gpu/drm/sysfb/corebootdrm.c b/drivers/gpu/drm/sysfb/corebootdrm.c
-> index 853da9a..4ca359b 100644
-> --- a/drivers/gpu/drm/sysfb/corebootdrm.c
-> +++ b/drivers/gpu/drm/sysfb/corebootdrm.c
-> @@ -206,6 +206,9 @@ static int corebootdrm_mode_config_init(struct corebootdrm_device *cdev,
->   	int ret;
->   
->   	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ret;
-> +	ret = drm_sysfb_damage_init(sysfb);
->   	if (ret)
->   		return ret;
->   
-> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-> index 6dab27b..59c4064 100644
-> --- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-> @@ -5,6 +5,8 @@
->   
->   #include <linux/container_of.h>
->   #include <linux/iosys-map.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/workqueue.h>
->   
->   #include <video/pixel_format.h>
->   
-> @@ -81,6 +83,12 @@ struct drm_sysfb_device {
->   
->   	/* hardware-framebuffer kernel address */
->   	struct iosys_map fb_addr;
-> +
-> +	/* damage from DIRTYFB, copied to the hardware framebuffer by damage_work */
-> +	spinlock_t damage_lock;
-> +	struct drm_framebuffer *damage_fb;
-> +	struct drm_rect damage;
-> +	struct work_struct damage_work;
->   };
->   
->   static inline struct drm_sysfb_device *to_drm_sysfb_device(struct drm_device *dev)
-> @@ -203,8 +211,13 @@ int drm_sysfb_connector_helper_get_modes(struct drm_connector *connector);
->    * Mode config
->    */
->   
-> +int drm_sysfb_damage_init(struct drm_sysfb_device *sysfb);
-> +struct drm_framebuffer *drm_sysfb_fb_create(struct drm_device *dev, struct drm_file *file,
-> +					    const struct drm_format_info *info,
-> +					    const struct drm_mode_fb_cmd2 *mode_cmd);
-> +
->   #define DRM_SYSFB_MODE_CONFIG_FUNCS \
-> -	.fb_create = drm_gem_fb_create_with_dirty, \
-> +	.fb_create = drm_sysfb_fb_create, \
->   	.atomic_check = drm_atomic_helper_check, \
->   	.atomic_commit = drm_atomic_helper_commit
->   
-> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> index 13df092..e77f0c0 100644
-> --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> @@ -12,6 +12,7 @@
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
-> +#include <drm/drm_managed.h>
->   #include <drm/drm_panic.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
-> @@ -612,3 +613,156 @@ int drm_sysfb_connector_helper_get_modes(struct drm_connector *connector)
->   	return drm_connector_helper_get_modes_fixed(connector, &sysfb->fb_mode);
+>   #include <linux/blkdev.h>
+>   #include <linux/fs.h>
+> +#include <linux/limits.h>
+> +#include <linux/overflow.h>
+>   #include <linux/random.h>
+>   #include <linux/slab.h>
+>
+> @@ -2967,6 +2969,35 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
+>          return o == attr_off;
 >   }
->   EXPORT_SYMBOL(drm_sysfb_connector_helper_get_modes);
-> +
-> +/*
-> + * Damage
-> + *
-> + * DIRTYFB returns at once: the damage is merged into one pending rectangle,
-> + * and a worker hands it to drm_atomic_helper_dirtyfb(). That commit waits for
-> + * the framebuffer's fences, the GPU work that last rendered into it, before
-> + * the CPU copies it to the hardware framebuffer. Done in the ioctl, the wait
-> + * blocks the compositor for as long as that rendering takes. Damage that
-> + * arrives while the worker runs is merged and copied by the next run, so none
-> + * is dropped.
-> + */
-> +
-> +static void drm_sysfb_damage_work(struct work_struct *work)
-> +{
-> +	struct drm_sysfb_device *sysfb = container_of(work, struct drm_sysfb_device,
-> +						      damage_work);
-> +	struct drm_framebuffer *fb;
-> +	struct drm_clip_rect clip;
-> +	int idx, ret;
-> +
-> +	spin_lock(&sysfb->damage_lock);
-> +	fb = sysfb->damage_fb;
-> +	sysfb->damage_fb = NULL;
-> +	clip.x1 = sysfb->damage.x1;
-> +	clip.y1 = sysfb->damage.y1;
-> +	clip.x2 = sysfb->damage.x2;
-> +	clip.y2 = sysfb->damage.y2;
-> +	spin_unlock(&sysfb->damage_lock);
-> +	if (!fb)
-> +		return;
-> +
-> +	if (drm_dev_enter(&sysfb->dev, &idx)) {
-> +		ret = drm_atomic_helper_dirtyfb(fb, NULL, 0, 0, &clip, 1);
-> +		if (ret)
-> +			drm_err_ratelimited(&sysfb->dev, "damage update failed: %d\n", ret);
-> +		drm_dev_exit(idx);
-> +	}
-> +	drm_framebuffer_put(fb);
-> +}
-> +
-> +static void drm_sysfb_damage_fini(struct drm_device *dev, void *arg)
-> +{
-> +	struct drm_sysfb_device *sysfb = arg;
-> +
-> +	cancel_work_sync(&sysfb->damage_work);
-> +	if (sysfb->damage_fb)
-> +		drm_framebuffer_put(sysfb->damage_fb);
-> +	sysfb->damage_fb = NULL;
-> +}
-> +
-> +/**
-> + * drm_sysfb_damage_init - Set up deferred damage for a sysfb device
-> + * @sysfb: the device
-> + *
-> + * Call after drmm_mode_config_init(). Framebuffers from drm_sysfb_fb_create()
-> + * then copy their damage outside the DIRTYFB ioctl.
-> + *
-> + * Returns: 0 on success, or a negative errno.
-> + */
-> +int drm_sysfb_damage_init(struct drm_sysfb_device *sysfb)
-> +{
-> +	spin_lock_init(&sysfb->damage_lock);
-> +	INIT_WORK(&sysfb->damage_work, drm_sysfb_damage_work);
-> +
-> +	return drmm_add_action_or_reset(&sysfb->dev, drm_sysfb_damage_fini, sysfb);
-> +}
-> +EXPORT_SYMBOL(drm_sysfb_damage_init);
-> +
-> +static void drm_sysfb_damage_bounds(struct drm_framebuffer *fb, unsigned int flags,
-> +				    const struct drm_clip_rect *clips, unsigned int num_clips,
-> +				    struct drm_rect *r)
-> +{
-> +	unsigned int inc = 1;
-> +
-> +	if (!clips || !num_clips) {
-> +		drm_rect_init(r, 0, 0, fb->width, fb->height);
-> +		return;
-> +	}
-> +	if (flags & DRM_MODE_FB_DIRTY_ANNOTATE_COPY) {
-> +		inc = 2;
-> +		num_clips /= 2;
-> +	}
-> +	drm_rect_init(r, clips->x1, clips->y1, clips->x2 - clips->x1, clips->y2 - clips->y1);
-> +	for (unsigned int i = 1; i < num_clips; i++) {
-> +		clips += inc;
-> +		r->x1 = min_t(int, r->x1, clips->x1);
-> +		r->y1 = min_t(int, r->y1, clips->y1);
-> +		r->x2 = max_t(int, r->x2, clips->x2);
-> +		r->y2 = max_t(int, r->y2, clips->y2);
-> +	}
-> +}
-> +
-> +static int drm_sysfb_fb_dirty(struct drm_framebuffer *fb, struct drm_file *file,
-> +			      unsigned int flags, unsigned int color,
-> +			      struct drm_clip_rect *clips, unsigned int num_clips)
-> +{
-> +	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(fb->dev);
-> +	struct drm_rect r;
-> +	bool queue = false;
-> +
-> +	drm_sysfb_damage_bounds(fb, flags, clips, num_clips, &r);
-> +
-> +	spin_lock(&sysfb->damage_lock);
-> +	/* Pending damage of another framebuffer is copied first. */
-> +	while (sysfb->damage_fb && sysfb->damage_fb != fb) {
-> +		spin_unlock(&sysfb->damage_lock);
-> +		flush_work(&sysfb->damage_work);
-> +		spin_lock(&sysfb->damage_lock);
-> +	}
-> +	if (!sysfb->damage_fb) {
-> +		drm_framebuffer_get(fb);
-> +		sysfb->damage_fb = fb;
-> +		sysfb->damage = r;
-> +		queue = true;
-> +	} else {
-> +		sysfb->damage.x1 = min(sysfb->damage.x1, r.x1);
-> +		sysfb->damage.y1 = min(sysfb->damage.y1, r.y1);
-> +		sysfb->damage.x2 = max(sysfb->damage.x2, r.x2);
-> +		sysfb->damage.y2 = max(sysfb->damage.y2, r.y2);
-> +	}
-> +	spin_unlock(&sysfb->damage_lock);
-> +
-> +	if (queue)
-> +		queue_work(system_dfl_wq, &sysfb->damage_work);
-> +	return 0;
-> +}
-> +
-> +static const struct drm_framebuffer_funcs drm_sysfb_fb_funcs = {
-> +	.destroy = drm_gem_fb_destroy,
-> +	.create_handle = drm_gem_fb_create_handle,
-> +	.dirty = drm_sysfb_fb_dirty,
-> +};
-> +
-> +/**
-> + * drm_sysfb_fb_create - &drm_mode_config_funcs.fb_create for sysfb devices
-> + * @dev: the device
-> + * @file: the DRM file of the caller
-> + * @info: the pixel format
-> + * @mode_cmd: the framebuffer from userspace
-> + *
-> + * Like drm_gem_fb_create_with_dirty(), but the framebuffer's damage is copied
-> + * outside the DIRTYFB ioctl (drm_sysfb_damage_init()).
-> + *
-> + * Returns: the framebuffer, or an ERR_PTR() on failure.
-> + */
-> +struct drm_framebuffer *drm_sysfb_fb_create(struct drm_device *dev, struct drm_file *file,
-> +					    const struct drm_format_info *info,
-> +					    const struct drm_mode_fb_cmd2 *mode_cmd)
-> +{
-> +	return drm_gem_fb_create_with_funcs(dev, file, info, mode_cmd, &drm_sysfb_fb_funcs);
-> +}
-> +EXPORT_SYMBOL(drm_sysfb_fb_create);
-> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
-> index 8b19f43..0ef093a 100644
-> --- a/drivers/gpu/drm/sysfb/efidrm.c
-> +++ b/drivers/gpu/drm/sysfb/efidrm.c
-> @@ -299,6 +299,9 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
->   	 */
->   
->   	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +	ret = drm_sysfb_damage_init(sysfb);
->   	if (ret)
->   		return ERR_PTR(ret);
->   
-> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
-> index c412555..4d31bb6 100644
-> --- a/drivers/gpu/drm/sysfb/ofdrm.c
-> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
-> @@ -1021,6 +1021,9 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
->   	 */
->   
->   	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +	ret = drm_sysfb_damage_init(sysfb);
->   	if (ret)
->   		return ERR_PTR(ret);
->   
-> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
-> index deaeb7d..c40a6c5 100644
-> --- a/drivers/gpu/drm/sysfb/simpledrm.c
-> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
-> @@ -813,6 +813,9 @@ static struct simpledrm_device *simpledrm_device_create(struct drm_driver *drv,
->   	 */
->   
->   	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +	ret = drm_sysfb_damage_init(sysfb);
->   	if (ret)
->   		return ERR_PTR(ret);
->   
-> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
-> index 1668aab..812db4a 100644
-> --- a/drivers/gpu/drm/sysfb/vesadrm.c
-> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
-> @@ -539,6 +539,9 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
->   	 */
->   
->   	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +	ret = drm_sysfb_damage_init(sysfb);
->   	if (ret)
->   		return ERR_PTR(ret);
->   
 >
-> ---
-> base-commit: 41b5458595c60143d0ebaa1e032c9cda5d764dff
-> change-id: 20261110-sysfb-dirtyfb-beda10fab602
+> +static inline bool calc_log_buffer_size(u32 min_bytes, u64 data_bytes,
+> +                                       u16 roff, bool align, u32 *bytes)
+> +{
+> +       u64 bytes64 = min_bytes ? min_bytes : data_bytes;
+> +
+> +       if (check_add_overflow(bytes64, (u64)roff, &bytes64))
+> +               return false;
+> +
+> +       if (align) {
+> +               if (check_add_overflow(bytes64, 511ULL, &bytes64))
+> +                       return false;
+> +               bytes64 &= ~511ULL;
+> +       }
+> +
+> +       if (bytes64 > U32_MAX)
+> +               return false;
+> +
+> +       *bytes = bytes64;
+> +       return true;
+> +}
+> +
+> +static inline bool check_if_bitmap_range(u64 bytes, u32 off, u32 bits)
+> +{
+> +       u64 start = ((u64)off + 7) / 8;
+> +       u64 end = ((u64)off + bits + 7) / 8;
+> +
+> +       return bits <= S32_MAX && start <= bytes && end <= bytes;
+> +}
+> +
+>   static inline void change_attr_size(struct MFT_REC *rec, struct ATTRIB *attr,
+>                                      u32 nsize)
+>   {
+> @@ -3114,6 +3145,7 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>          u16 roff = le16_to_cpu(lrh->record_off);
+>          u16 aoff = le16_to_cpu(lrh->attr_off);
+>          u64 lco = 0;
+> +       u64 data_bytes = 0;
+>          u64 cbo = (u64)le16_to_cpu(lrh->cluster_off) << SECTOR_SHIFT;
+>          u64 tvo = le64_to_cpu(lrh->target_vcn) << sbi->cluster_bits;
+>          u64 vbo = cbo + tvo;
+> @@ -3225,6 +3257,10 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>                  attr = oa->attr;
+>                  bytes = UpdateNonresidentValue == op ? dlen : 0;
+>                  lco = (u64)le16_to_cpu(lrh->lcns_follow) << sbi->cluster_bits;
+> +               if (lco < cbo)
+> +                       goto dirty_vol;
+> +
+> +               data_bytes = lco - cbo;
 >
-> Best regards,
+>                  if (attr->type == ATTR_ALLOC) {
+>                          t32 = le32_to_cpu(oe->bytes_per_index);
+> @@ -3232,12 +3268,9 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>                                  bytes = t32;
+>                  }
+>
+> -               if (!bytes)
+> -                       bytes = lco - cbo;
+> -
+> -               bytes += roff;
+> -               if (attr->type == ATTR_ALLOC)
+> -                       bytes = (bytes + 511) & ~511; // align
+> +               if (!calc_log_buffer_size(bytes, data_bytes, roff,
+> +                                         attr->type == ATTR_ALLOC, &bytes))
+> +                       goto dirty_vol;
+>
+>                  buffer_le = kmalloc(bytes, GFP_NOFS);
+>                  if (!buffer_le)
+> @@ -3717,10 +3750,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>                  off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
+>                  bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
+>
+> -               if (cbo + (off + 7) / 8 > lco ||
+> -                   cbo + ((off + bits + 7) / 8) > lco) {
+> +               if (!check_if_bitmap_range(data_bytes, off, bits))
+>                          goto dirty_vol;
+> -               }
+>
+>                  ntfs_bitmap_set_le(Add2Ptr(buffer_le, roff), off, bits);
+>                  a_dirty = true;
+> @@ -3730,10 +3761,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+>                  off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
+>                  bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
+>
+> -               if (cbo + (off + 7) / 8 > lco ||
+> -                   cbo + ((off + bits + 7) / 8) > lco) {
+> +               if (!check_if_bitmap_range(data_bytes, off, bits))
+>                          goto dirty_vol;
+> -               }
+>
+>                  ntfs_bitmap_clear_le(Add2Ptr(buffer_le, roff), off, bits);
+>                  a_dirty = true;
 > --
-> Joseph Telaak <joseph@telaak.dev>
->
+> 2.47.3
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+Hello,
 
+Sorry for the delay.
+The patch was applied, thank you.
+
+Regards,
+Konstantin
 
