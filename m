@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419491;
-	b=M9+y2zfOtSsXmWKkJsAW6PVCMGD/m3+RBabktIty4J8C4Ini1Ssu1lrB+wnn6H3vVHFE
-	 Se1bWOXVuVNNe9vXZk3gX9gCnhycNQrKaHorDonS1EbDgxkxei2Yh7tsLRVsw+oEgEmk+
-	 87UDYGAHSHIqRzygGZ3Aof4zCB5E0EVeFTGMg7mADTG/+JwRtcOMWGmtNJnXuBJOvDt7R
-	 gyFlIOfw7V7EvZGpODk5UHJsY6phZ+iAIdMP8MLCpD7F7XugraW8vwEve16eowmJDuasi
-	 ju23/2LyGBrU8LC6IepmUidiQBgIqoA0LC3+VlfcNaVRATC0Oub5hvPst49tfe9yg4g==
+	t=1794419492;
+	b=P2b9+TSknxekpv6BCqr8ZXgrjU5bklyV2IONBcKTsS6fBsewYBp6hH3fpqhb/+QRUj+V
+	 0UCAd28sI/gerEKj7c7yVyNHYlAUd3Ru56dNSc1H6yKyQy2BK5Vyx865q/vrLkklYoLQx
+	 HGXmaZVTVlDApGn0ml8IW33ZDJSQUXsAFdD2wSoGTVix+StxOdm9EqCNv3FphSghYRTxK
+	 5oa5ZSUYoV1sUB8liaoH4bTJ5vzpo2223Dn7IeveGXDBQnx/OvtCiL9NjeGSWN/X6vwTG
+	 0T+mCWrpEcKbMjcuDrC2quOMu5JvpH+uZMJoUYI6IBw4o5Q90D4gY6FGu3dxBoEsJdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419492;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=+HiscfN4+DVbmqui1EUJQgaWwTJHFwhJVZ/d6WtcwgA=;
-	b=jVhQLSaKh02xYsTYoYPGkFPQEVDQnapbvN5cMjQiJych+Jdo1Fx41BTz6V1KYu0EcuYN
-	 dYKO8n3163aHjEbUYiSYC6d2s1o9Xgz6TkXcUWuJZx78SNj5IsBuUF8Q9ARLJZYfWM6cu
-	 L8p7YkbrCVERX8/xg2KbgETdu7FuVYlYsw4Qk6KMLny0u+CghFgpc36J9GHGZtXBI8VVR
-	 sFwvzmd5P9w559KiE0VxJyPjpxIgbYm0r2WngbYJssBnoZv/VMZGihDCJPPEBEOBAcv3x
-	 CFiXUXMnPeDBUQ9BnUAo15hYHy2VNbfTMNsdWcfRo/EqXhj5/Em9TiM9D2F8JwOaJpw==
+	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=Lf6sqlY3+yAB952Y5PD4ErVl0pHq5ivSfG0Vn36FN/4=;
+	b=nbflHpP7aSOywjXQxEZp9vkp2V3jC77gXMKAkcboZrujyu0tV7PCSqic1q62bQURg4UH
+	 maiWKndCX7qAvBeVR/0Lued7OHDjNnEPdYXmOIn/4kW5Wc70cJNN3g0UUt1PRk2VURoGw
+	 cA1yL4+n8USjvHyoIIVCJdvMuWGB22GWUHZU2j7jQjwPBR+5m4Raa2urz29bv7aUPwZqS
+	 fcOM1aBNJEdGZFPOB5aA6tMMODaKjTm+8zWps2levXXctnh4KzfVJEHwtrgjz8C/GeJcZ
+	 +n4Q9N5gGwXuzB8eRVQmZ46ExGuDUlUBc8IJLIN8PTrCl6056u4k+4YdW7+/tjTwVgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.de;
 	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVtr62aZ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EqWUrHka;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVtr62aZ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EqWUrHka;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C1ALzjpG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m44ZE1oZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C1ALzjpG;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m44ZE1oZ;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159BD606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 159BD606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1976C606A8BA
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1976C606A8BA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVtr62aZ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EqWUrHka;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVtr62aZ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EqWUrHka
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C1ALzjpG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m44ZE1oZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C1ALzjpG;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m44ZE1oZ
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 808B91F78E;
-	Wed, 11 Nov 2026 17:51:29 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8EDAD21E4E;
+	Wed, 11 Nov 2026 17:51:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794419489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1794419490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+HiscfN4+DVbmqui1EUJQgaWwTJHFwhJVZ/d6WtcwgA=;
-	b=aVtr62aZ4JKq28xOjAsXbZN9koW/kss+w99l6WB4ET+8EbE2fEEQKgvGu5fjChrsxlk2qn
-	QCWhVaXu1GX1xjPDV3AWWJUJeRJaQvsYVsnEFiOYOEc1jgAl6TAT3ozOwUI0wOVzyWMVzQ
-	wvNJJwD+71gWFL+3Qumn/sQfkveP/xY=
+	bh=Lf6sqlY3+yAB952Y5PD4ErVl0pHq5ivSfG0Vn36FN/4=;
+	b=C1ALzjpGwF711mMV3rEPudZhADVNmSEPTWLYjqJIwXh+gpdz+01NSo2UuizdXUSsk6lS4h
+	eyJMe3uQYg/1OacEVhzTxH8YneXgsdkMJKdlyVJK02tjBxwIwCzF5b0BSgqvV6ZIpH+n6r
+	67QpeWLSSFijLxtAQT/cw6MuM7VCp+Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794419489;
+	s=susede2_ed25519; t=1794419490;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+HiscfN4+DVbmqui1EUJQgaWwTJHFwhJVZ/d6WtcwgA=;
-	b=EqWUrHka6Q1KNEBxYxIGTZlMYsHy8ZvGlp5vSwkY9LKJrPkEnDZnDW8PfnrY0JShawPGQ4
-	LADGpBrtJ4cdcVAQ==
-Authentication-Results: smtp-out2.suse.de;
+	bh=Lf6sqlY3+yAB952Y5PD4ErVl0pHq5ivSfG0Vn36FN/4=;
+	b=m44ZE1oZE1IM3Lqk8qPYxIFReIICotQUlw5cNiZDazgquvJ7On9Y+004BAsv7MRUvAJRIj
+	coOIWJqIl2xWnLBw==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794419489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1794419490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+HiscfN4+DVbmqui1EUJQgaWwTJHFwhJVZ/d6WtcwgA=;
-	b=aVtr62aZ4JKq28xOjAsXbZN9koW/kss+w99l6WB4ET+8EbE2fEEQKgvGu5fjChrsxlk2qn
-	QCWhVaXu1GX1xjPDV3AWWJUJeRJaQvsYVsnEFiOYOEc1jgAl6TAT3ozOwUI0wOVzyWMVzQ
-	wvNJJwD+71gWFL+3Qumn/sQfkveP/xY=
+	bh=Lf6sqlY3+yAB952Y5PD4ErVl0pHq5ivSfG0Vn36FN/4=;
+	b=C1ALzjpGwF711mMV3rEPudZhADVNmSEPTWLYjqJIwXh+gpdz+01NSo2UuizdXUSsk6lS4h
+	eyJMe3uQYg/1OacEVhzTxH8YneXgsdkMJKdlyVJK02tjBxwIwCzF5b0BSgqvV6ZIpH+n6r
+	67QpeWLSSFijLxtAQT/cw6MuM7VCp+Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794419489;
+	s=susede2_ed25519; t=1794419490;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+HiscfN4+DVbmqui1EUJQgaWwTJHFwhJVZ/d6WtcwgA=;
-	b=EqWUrHka6Q1KNEBxYxIGTZlMYsHy8ZvGlp5vSwkY9LKJrPkEnDZnDW8PfnrY0JShawPGQ4
-	LADGpBrtJ4cdcVAQ==
+	bh=Lf6sqlY3+yAB952Y5PD4ErVl0pHq5ivSfG0Vn36FN/4=;
+	b=m44ZE1oZE1IM3Lqk8qPYxIFReIICotQUlw5cNiZDazgquvJ7On9Y+004BAsv7MRUvAJRIj
+	coOIWJqIl2xWnLBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7542A134F4;
-	Wed, 11 Nov 2026 17:51:28 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 80B541339F;
+	Wed, 11 Nov 2026 17:51:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +SJmCxur9GphXQAAD6G6ig:T6
-	(envelope-from <pfalcato@suse.de>); Wed, 11 Nov 2026 17:51:28 +0000
+	id +SJmCxur9GphXQAAD6G6ig:T7
+	(envelope-from <pfalcato@suse.de>); Wed, 11 Nov 2026 17:51:29 +0000
 From: Pedro Falcato <pfalcato@suse.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -112,9 +112,9 @@ Cc: Pedro Falcato <pfalcato@suse.de>,
 	Kiryl Shutsemau <kas@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/8] mm/khugepaged: simplify prepare folio locking and exit paths
-Date: Wed, 11 Nov 2026 17:51:18 +0000
-Message-ID: <20261111175121.1328383-6-pfalcato@suse.de>
+Subject: [PATCH v2 6/8] mm/khugepaged: hoist isolation into collapse_isolate_folio()
+Date: Wed, 11 Nov 2026 17:51:19 +0000
+Message-ID: <20261111175121.1328383-7-pfalcato@suse.de>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261111175121.1328383-1-pfalcato@suse.de>
 References: <20261111175121.1328383-1-pfalcato@suse.de>
@@ -128,6 +128,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
 X-Spamd-Result: default: False [-15.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	REPLY(-4.00)[];
@@ -151,80 +153,160 @@ X-Spamd-Result: default: False [-15.80 / 50.00];
 	R_RATELIMIT(0.00)[to_ip_from(RL8d8xedm6iu8o66torxsk6bwd)];
 	RCVD_TLS_ALL(0.00)[]
 X-Spam-Score: -15.80
-X-Spam-Level: 
-X-Spam-Flag: NO
 
-folio_trylock() + folio_get() do the exact same thing on both is_shmem
-and !is_shmem paths. Unify them into one path.
+Move unwindy folio isolation logic from the main loop to
+collapse_isolate_folio().
 
-At the end of the day, there are two large invariants for the function:
- - xarray lock is not held at exit. Either it was dropped on error, or
-   dropped on success/IO.
- - success always means a locked-and-ref'd-up folio.
+As a small side effect, try_to_unmap_flush() is no longer called for
+errors prior to try_to_unmap(). This should be fine as there are other
+mechanisms in place to flush it before references/locks are dropped.
 
-After this transformation, it's trivial to notice how simple the error
-paths are, so do away with the gotos and hoist some code.
+Aside from that, no functional changes intended.
 
 Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 ---
- mm/khugepaged.c | 33 +++++++++++----------------------
- 1 file changed, 11 insertions(+), 22 deletions(-)
+ mm/khugepaged.c | 118 +++++++++++++++++++++++++++---------------------
+ 1 file changed, 66 insertions(+), 52 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 0eee2b6bbe64..236df9be7e27 100644
+index 236df9be7e27..1e58ae5b3e74 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -2314,7 +2314,8 @@ prepare_collapse_file_folio(pgoff_t index, struct collapse_file_state *state)
- 		 * will not succeed.
- 		 */
- 		lru_add_drain();
--		goto xa_unlocked;
-+		state->folio = folio;
-+		return SCAN_SUCCEED;
- 	}
- 
- 	if (!is_shmem) {
-@@ -2337,31 +2338,19 @@ prepare_collapse_file_folio(pgoff_t index, struct collapse_file_state *state)
- 			xas_unlock_irq(state->xas);
- 			if (dirty && !inode_is_open_for_write(mapping->host))
- 				filemap_flush(mapping);
--			result = SCAN_PAGE_DIRTY_OR_WRITEBACK;
--			goto xa_unlocked;
--		}
--	}
--
--	if (is_shmem) {
--		if (folio_trylock(folio)) {
--			folio_get(folio);
--		} else {
--			result = SCAN_PAGE_LOCK;
--			goto xa_locked;
--		}
--	} else {	/* !is_shmem */
--		if (folio_trylock(folio)) {
--			folio_get(folio);
--		} else {
--			result = SCAN_PAGE_LOCK;
--			goto xa_locked;
-+			return SCAN_PAGE_DIRTY_OR_WRITEBACK;
- 		}
- 	}
- 
--xa_locked:
-+	/*
-+	 * Note: trylock + simple folio_get() is safe here due to the i_pages
-+	 * lock being held; this excludes truncation happening in parallel.
-+	 */
-+	if (!folio_trylock(folio))
-+		result = SCAN_PAGE_LOCK;
-+	else
-+		folio_get(folio);
- 	xas_unlock_irq(state->xas);
--xa_unlocked:
--	state->folio = folio;
+@@ -2354,6 +2354,69 @@ prepare_collapse_file_folio(pgoff_t index, struct collapse_file_state *state)
  	return result;
  }
  
++static enum scan_result collapse_isolate_folio(struct collapse_file_state *state)
++{
++	struct folio *folio = state->folio;
++	enum scan_result result;
++
++	/*
++	 * The folio must be locked, so we can drop the i_pages lock
++	 * without racing with truncate.
++	 */
++	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
++
++	/* make sure the folio is up to date */
++	if (unlikely(!folio_test_uptodate(folio))) {
++		result = SCAN_FAIL;
++		goto out_unlock;
++	}
++
++	/*
++	 * If file was truncated then extended, or hole-punched, before
++	 * we locked the first folio, then a THP might be there already.
++	 * This will be discovered on the first iteration.
++	 */
++	if (is_pmd_order(folio_order(folio))) {
++		result = SCAN_PTE_MAPPED_HUGEPAGE;
++		goto out_unlock;
++	}
++
++	if (folio_mapping(folio) != state->mapping) {
++		result = SCAN_TRUNCATED;
++		goto out_unlock;
++	}
++
++	if (!state->is_shmem && (folio_test_dirty(folio) ||
++				 folio_test_writeback(folio))) {
++		/*
++		 * khugepaged only works on clean file-backed folios,
++		 * so this folio is dirty because it hasn't been flushed
++		 * since first write.
++		 */
++		result = SCAN_PAGE_DIRTY_OR_WRITEBACK;
++		goto out_unlock;
++	}
++
++	if (!folio_isolate_lru(folio)) {
++		result = SCAN_DEL_PAGE_LRU;
++		goto out_unlock;
++	}
++
++	if (!filemap_release_folio(folio, GFP_KERNEL)) {
++		result = SCAN_PAGE_HAS_PRIVATE;
++		folio_putback_lru(folio);
++		goto out_unlock;
++	}
++
++	if (folio_mapped(folio))
++		try_to_unmap(folio, TTU_IGNORE_MLOCK | TTU_BATCH_FLUSH);
++	return SCAN_SUCCEED;
++out_unlock:
++	folio_unlock(folio);
++	folio_put(folio);
++	return result;
++}
++
+ /**
+  * collapse_file - collapse filemap/tmpfs/shmem pages into huge one.
+  *
+@@ -2474,61 +2537,12 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		folio = state.folio;
+ 		if (result != SCAN_SUCCEED)
+ 			goto xa_unlocked;
+-		/*
+-		 * The folio must be locked, so we can drop the i_pages lock
+-		 * without racing with truncate.
+-		 */
+-		VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+-
+-		/* make sure the folio is up to date */
+-		if (unlikely(!folio_test_uptodate(folio))) {
+-			result = SCAN_FAIL;
+-			goto out_unlock;
+-		}
+ 
+-		/*
+-		 * If file was truncated then extended, or hole-punched, before
+-		 * we locked the first folio, then a THP might be there already.
+-		 * This will be discovered on the first iteration.
+-		 */
+-		if (is_pmd_order(folio_order(folio))) {
+-			result = SCAN_PTE_MAPPED_HUGEPAGE;
+-			goto out_unlock;
+-		}
+-
+-		if (folio_mapping(folio) != mapping) {
+-			result = SCAN_TRUNCATED;
+-			goto out_unlock;
+-		}
+-
+-		if (!is_shmem && (folio_test_dirty(folio) ||
+-				  folio_test_writeback(folio))) {
+-			/*
+-			 * khugepaged only works on clean file-backed folios,
+-			 * so this folio is dirty because it hasn't been flushed
+-			 * since first write.
+-			 */
+-			result = SCAN_PAGE_DIRTY_OR_WRITEBACK;
+-			goto out_unlock;
+-		}
+-
+-		if (!folio_isolate_lru(folio)) {
+-			result = SCAN_DEL_PAGE_LRU;
+-			goto out_unlock;
+-		}
+-
+-		if (!filemap_release_folio(folio, GFP_KERNEL)) {
+-			result = SCAN_PAGE_HAS_PRIVATE;
+-			folio_putback_lru(folio);
+-			goto out_unlock;
+-		}
+-
+-		if (folio_mapped(folio))
+-			try_to_unmap(folio,
+-					TTU_IGNORE_MLOCK | TTU_BATCH_FLUSH);
++		result = collapse_isolate_folio(&state);
++		if (result != SCAN_SUCCEED)
++			goto xa_unlocked;
+ 
+ 		xas_lock_irq(&xas);
+-
+ 		VM_BUG_ON_FOLIO(folio != xa_load(xas.xa, index), folio);
+ 
+ 		/*
 -- 
 2.56.0
 
