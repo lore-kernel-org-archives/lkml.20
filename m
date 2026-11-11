@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.12
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.22
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794437086;
-	b=puvDcT4V5cgiyNRNxNVcUJvyxujPQoRpoTswpEYvuBRTg0nB/G4GuTqndVe0G00r1Bqq
-	 3ss/yQg9Yd8GK57M6+8OR58Lg5n8CmF2NMQEJwZs+IgO9HI9R8CVmyBxIZ/a0vYwkPYBs
-	 3yAFIdW7nkwcHktYCDzpy6eAgV7EJ4oRytfAw1H8Gr0Ca98xyLBGcKL+8VZPcvU/YI1fO
-	 Op10i9Tm8M/5+RMaY5CFOBrnSL+ip41SLZR93ynru4xufTkRnF6m5f2Cpenx160nN633e
-	 EbuC1kmTHwsOTcs/Q57gZOY8zpPTnoFZy7s4jXRga1FvrlZUUpLrUtdmrhSSn7uXyKA==
+	t=1794437093;
+	b=Pyy41qGLYzrCs+zG2oS2072ZkDT/IX/GB2jKyrzFWdnk4wKB+dSQIzVUBw5y38HKCsX2
+	 nvKyN2cPOQfoUJuNW+Dtq/x3F7XoihmR+yYchYtQJon6oZriY29Hrs/UpS2HyK3UVBKhd
+	 ctYC0wNfCHHn/qmsji67Tb5rwWoWT2+jJA3CyuqqmX5zdlCOQT1P9/Llj5CvhokDp6rH3
+	 OuECY5lJUGjj/EDBQyDT6cRZEE1U74wNgqKTsoNHxB8HnhYs6sh5xjGYbxPn0TGGm0rYa
+	 9LibNnTJWYEArOMBNUABmbvBKfHF1u5f54tAMJccDC3IlCcBQ7y29z7o1odWwF26AQw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437086;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437093;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LYGmg32tY76QpwMGOUsRsKkAO6fc/ykxQ5niM0dx6eM=;
-	b=FD18oin4e8TOLfKhWzz+C75ka+2TIjsrYyOTqcx6z9tK0/r0/m+oYwba0BlI9dXaTswQ
-	 SE3MsT0ASOVo2aPMQIrZf25gSRcYxJzXjIg4QMgUvYVwpHVS8hRIRo+ud8/l88T+E2Zn1
-	 TfwTC3GN1PAaLDBPP1Pu9oJH93Xuq8VeI2FyRIPLNDEncvcF5DKkBxaUbgkQRfP8TbQ+Y
-	 qSOazQ+g07Yk+r7UoZQmr59xlKmsawwE6f74yfAywYOxtsVQKOKXnSgCXdl8i8TIIjj1M
-	 u/UVuS5OJIXCoRdcSG25UJLotBOKcAE1e6GwEXI2GKOTIjpUPCOftPoBJg3tgabvP5g==
+	bh=BcokNcIW5Y88SNjp6rtNW4Z8bO6tvA6Cwe6xhkycsSA=;
+	b=NarMl42+W/d6pLNtDo8d4QY1tb/OG6Cejf54ATXrdNhLzyi2xE2W5Qf81JUMJ/uYrGBi
+	 KRMa61U4Smp9y9L7jT4H44kqcYoPPBaJtVCym93GAoS0FQszaLKemQkr+Qu5c8+/Bf/9B
+	 Eqh3WdG8YhOZHfUnJAIktyKO1RtzJNJW2bQe5+NAmRtZHd50UJU7/6pv1GeR9iODIPFbc
+	 couY1pSDOxCzxmBLvgtGFZKrBXW6SC0bWXYdhWkhsLrwszhTk/vFBVLI0gtPK0kYQfiSI
+	 o0tjXYnT75CZ+ZZDpLcOLF0EU+M/5fvanXM5jNP/6QpTf9rNXdsFEDoDTrs1sSLO+dg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Y11R7R0/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.12
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012012.outbound.protection.outlook.com [40.93.195.12])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=aj5R1Kil;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.22
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E690060A261E;
-	Wed, 11 Nov 2026 22:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E690060A261E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A87C60A2638;
+	Wed, 11 Nov 2026 22:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A87C60A2638
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Y11R7R0/
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=aj5R1Kil
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ko9rlcn4N2bUAxG5kLME3O4JElxADaGX2vR6Qnk5JKXnli0jlpq98duZnwYpDhKm+3MHYyRYNY4JGzPrA8+maz9j9M2YKR0ZY2MIrzK0I+bQfYwT2EDVgC13Y0Oe6zovq5k294HP+5bAfx65TXDiH/+4eIQwSj/WarrOX8lcKTXzvGr0GyCcOCWRUMhueCaURyJArIaiMCmRk/GUy7lf4tnoPadcduEmL6/T8ycSc9ui8kP50csXNyQXloez/xA0UTkqNDPLPNkRPAXB4nfKw6GdlkW/N8Mgd+sKnm77Kuel89P99NActsSGCCcvJI7wlmc+ZGDfzIOhSzfl3fPYkQ==
+ b=uRoViKi80XuaSOTpjm8F0MbQb7FgyTilRUC1jXnI0nWYsYIMCVhDcY2NoJZgzr0kbdmxld6aOixqc3/1LRus7hvr7yIB8UWoFg+aB4DkGxvGUrdZf5nsxMFgxdzYiD4tKnzWtXQJihcOFIjYBxShUi/h292N4OTGOsMiSctrtxtzyxudyYF9kSntZ7V+dR028luLIfjO+gCOhiDGNdIWKLRRHTtiXG8D+UsLzTgjdz8I87Zb0lAMjYMVUlfgBZxBQjypovbv9bvZKLiDKbT8Q3C1ELpAenEP1R64Vv/VYyw9VxaG+O+w82e7aOZ9hBY+C+1Yr3X6jABtHM7VSAxV3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LYGmg32tY76QpwMGOUsRsKkAO6fc/ykxQ5niM0dx6eM=;
- b=PNSvxM35FxxclzCIBGgJbNUZWgUNnjCL+qAo2psdfTxjsAaTNK524Az3alJd3/XyRG3DjLFtDh6vWbgj9AUyoeMHJin7ZVYdKcmUQNTlEBEIvlmu6ZXcCHTx2r3dClxUjkV4lkvC8VnVqEs+VOTzkwHwyREZfjdrkMaC0uq5+99gc2s9Zf+nbIKvt1PIk83IMrHxSse/qapkekCO3UKuOsATQ5s0v63/h9GyMYytUq9fLhD/Mx5Tiwzgf3a8lgZzR7ZYg5a8jOstD0p5jFx0s0tR0AiZQS/hC4YesrxHojPvRyo3lm33WXg+mjloy5qbxvun1e9Ove/7aUdhinzKLw==
+ bh=BcokNcIW5Y88SNjp6rtNW4Z8bO6tvA6Cwe6xhkycsSA=;
+ b=uh8v+zPghsVdikIjb0fWSAITbSLDmlWhnqmGt3oU6z9zuHaWA7I0pqBr7AXwWqyl2/QJ3BzvbA05BgbZx8PuFFa8+vKYgreo+vfA5M2lSZXjKkwkhWX4nC2sXrL7DT3tHfrxxyFXYodBIIC7JUMEI7pGnQEfIfAEvYcP92FCbwo4mea1lGHNtmD0zmD83Q25m8W3hjlMW+81Lqhx5zs94RdEnRFDfDv99AJcNLbBEbk3IqhU3ou/pktnn9iAiyyyLidYey1NQycAaVXruUoEKl6QHYmYbOoP+kcwEZoY0SD41VNuYGXP9dU6MN80KLLOxSHXMzRMfKR8F5XwhBtiIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LYGmg32tY76QpwMGOUsRsKkAO6fc/ykxQ5niM0dx6eM=;
- b=Y11R7R0/nBUW65lh7EnGtDRGWux+PFwQ3ORQwFE+QAdzHEBrHUgaOqpZjkbx2tef0nxPmwtX91+yZ+bZsE/JqltZezs7TZhFXjWcOD6Ckf1QKLyIUe7aiWPCLWVqrteTbiur2g/J49Kxox0Uq/kJOmWd1jHvAMNGi5gHsbyC+qw=
-Received: from MW4PR03CA0066.namprd03.prod.outlook.com (2603:10b6:303:b6::11)
- by IA3PR12MB773576.namprd12.prod.outlook.com (2603:10b6:208:61f::5) with
+ bh=BcokNcIW5Y88SNjp6rtNW4Z8bO6tvA6Cwe6xhkycsSA=;
+ b=aj5R1KilB9f8Dk7IAnLvwL2mCgej2DB6T6MZpheiqRChgxTTQbl4OFHdJNVOK1AakUhn4MeCy0Yrh75f0JdS0swL9T4yGG4YtSXsyqGn0O37LvkW3YdRVBcmTEs4hPV1b/J9y0fprij1dmRuM2NbLOqeyxrapuTAB2JY+pRrj0k=
+Received: from MW4PR04CA0231.namprd04.prod.outlook.com (2603:10b6:303:87::26)
+ by LV1PR12MB663552.namprd12.prod.outlook.com (2603:10b6:408:514::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 22:44:41 +0000
-Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
- (2603:10b6:303:b6:cafe::1b) by MW4PR03CA0066.outlook.office365.com
- (2603:10b6:303:b6::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 22:44:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 22:44:48 +0000
+Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
+ (2603:10b6:303:87:cafe::2) by MW4PR04CA0231.outlook.office365.com
+ (2603:10b6:303:87::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
+ Nov 2026 22:44:48 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,13 +80,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:44:40 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:44:47 +0000
 Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 16:44:37 -0600
+ 2026 16:44:45 -0600
 From: Babu Moger <babu.moger@amd.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
 	<Dave.Martin@arm.com>, <james.morse@arm.com>, <bp@alien8.de>
@@ -102,9 +102,9 @@ CC: <babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
 	<kim.phillips@amd.com>, <ricardo.neri-calderon@linux.intel.com>,
 	<darwi@linutronix.de>, <linux-doc@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v7 01/19] x86/cpufeatures: Support Privilege Level Zero Association (PLZA)
-Date: Wed, 11 Nov 2026 16:43:54 -0600
-Message-ID: <92afaeb0484e915f5403d15684050c2f99cbe920.1794437052.git.babu.moger@amd.com>
+Subject: [PATCH v7 02/19] x86/resctrl: Add PLZA support to command-line options
+Date: Wed, 11 Nov 2026 16:43:55 -0600
+Message-ID: <7cdfb87055acedda5c5f54a84135627d5c80e8c5.1794437052.git.babu.moger@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794437052.git.babu.moger@amd.com>
 References: <cover.1794437052.git.babu.moger@amd.com>
@@ -123,105 +123,98 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|IA3PR12MB773576:EE_
-X-MS-Office365-Filtering-Correlation-Id: bde8bdc3-b411-4a3a-882a-08df40455f10
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|LV1PR12MB663552:EE_
+X-MS-Office365-Filtering-Correlation-Id: 179ff353-27e9-4a6c-1e41-08df404563bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|376014|7416014|1800799024|36860700016|56012099006|11063799006|261026121527099003|261022075727099003|261022105027099003|261026140227099003|10067099003|261102123227099003|261028144727099003|261021121427099003|261102124527099003|261009223027099003|22082099003|18002099003|13003099007;
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|82310400026|376014|1800799024|18002099003|22082099003|6133799003|3023799007|10067099003|56012099006|11063799006|261028144727099003|261009223027099003|261021121427099003|261026140227099003|261022075727099003|261021123027099003|261022105027099003|261026121527099003|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	hcGaO0QXxKZUX0jD4fyKkoD9F6tWAf+hEEevfzkQGf34hZfDB1Y0Gv6eHro22HAy+kCeOUl5GD2j7qQAbbi090vFX6IaJg2s1LwNSGIANQ3oalt5WVcd5gRmtHNAbl8IIlGaIIYPGO1GTch2HaaUtbITWPgPILL5pgbueVrrN8BVCU8PD1dCj7INdeuGkJD9PZVS/vsg5BMAFFMT4r7XEWMmV9Ieq9xef8yihTQShkbcK0Rv9wpYD9WuvAz/mE6MpUIibUvQI7o5aFR39e92mLThX+aHpkJewLFp0uL/83tuCNfbn3m2NKHdJo29ux3lC5z17Ldw1M7AlZTAHnFlyyQj1n5bjz2OirsrXVI8yi6REkaphGznQU3LgMr7lEop0GzpJPtm8xb5oeBDiBKXaH6bXZInSBw+ZtPkAEFlIlEoZwv6hKJZiiMYegU2TTYSbTB7U5Fw8potDuU+GIoJV/zlAZZCjh3qn0wRK8QhLU9peBEH0z0bQcIIkHDT5bi7kKeXvKPowoqXDU/s/kaU80nsJJEjUWxLd29huz0K1sQkAKMNAzDYkZzYPH5OKORhc7tlcSqFtkS0vMFUXQDE6YGKimbLhQl51tD0O8pCji19r4IbXEh/UZhLbRXF3J/sJPCMKUFMbkSt4TJ5xlwdnQ==
+	+LHtJgLJduOaqVay4izkIaAwANHVchSxWanf52/GRi3D4sEavcmyQSIW9fX9qEG9z/X61xA2LN3Uhmn9XBwXFWRiG3T/qpYgWB5RTwVPxfu0sbNdHL+ngWDycT7ReArEuZ8p82MrA98pzhYgZtgPabChvPRO414m1BgN7WbQBIhr7Z0BnGzVSlIBQHpt23cZZoJgXRMNbEHZTp3hm+xn/h+S2Tmy4zUzYvoIU+4FHu4lb9isrgCk9+tXfingX2r/R8SSiq0UOccoQB+yjeveqQ49KOJnF2tmoo1EWE2hNZS/aEMXb1589WEIuOQruIbPH/xXgB0R64aiiE6bDmFPphqxKrkUBdnSGRQHHLgBFHO3Yei6OMjbeHGcSCLgqN39AOMBgFYDYYx+n7sntqIXFiBaJzo/BK10h4hexD4CLxf1PmpxAfFn3mEkuZCCgR99Hix2D8CnwMh0cZp7w/ysA8PJKqYDdInqtLgkn8vSVFOZm1Y14ap/rWGzNeJknKONPwfkiUuZ4umjqpGAoSrr+v7V6I/+tXP6hOVNlo57TwYmTi8aKdEB1u7TlnzulP1derFwgj6J9MsHFjayKWJQQ++PZmCeUZX0sBwLXJrI91n6kht578DJSdkT94HEH6WzaXkN1FXNpQEgc4grl8xnxqpMqGdmPRIQ5g7PM4uQT0LpYEbvMU7Ff1bQS6EGliqCHOV9by+RVSLHHMcZD0RlLg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(7416014)(1800799024)(36860700016)(56012099006)(11063799006)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(10067099003)(261102123227099003)(261028144727099003)(261021121427099003)(261102124527099003)(261009223027099003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(261028144727099003)(261009223027099003)(261021121427099003)(261026140227099003)(261022075727099003)(261021123027099003)(261022105027099003)(261026121527099003)(261102123227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	m00yRew0X5tAuA1viU/XslGrxhCA8kigNKBwgwDRN2inXQ+Uy9D/Fikz3oLiXmeDVgl0xD3io9u85XsTO3dHVXp0P2u+BiILL9qJIKHhwmvd4IH6WT84kmwKC5U+4cDyH/ZXn+hSoDD3Mxr0wuDDYIovwOI3i96wpWbcmU2HNbn2NmRYAJbzxKehaWoFXdro46bLUeBgwl4J/e6odXKlRIkDj9gNm9jHACNdhVdgn0KfsS2ioCNZXeih040bn9OFKMq2MrBzIiw/gyhC9l6AKRrjDYrKZbcfRwUZ7LIrScggNnH/E3NwF93uf10o+cau5NtjBKsxI4SDghJguNoIZLITFke3JDmMMebiNsJI8PK3MbDLeAfCRJR0cPNcI8V9muxhoEpF8wl4rh24bWzT4PWX3R41fG7S4X+d1rPDviwW9fUXijIHj5wVWcA679je
+	P5IMCYXLx6+5D7C5i7vBJPUlqbugvqlUxlXPFtPhwfExGFPMm7KyhSxv3hdwqSoKw9tqaoeZmlzoR1nXSJcQWsZY5omXEhFulabHwzNG6oW5IVsEdFn3YPxRSIEdOeXwWZhl4U8zTAb85JT/gnh8xalyHJfW7QUfklg/wiZcdtDVliN1wHY9/97jDR07EmPWh8sQ93gazmin5gqgrq4zjKTdP0OjrJyad2/pO0V8IXwixJSai3PdZo/mSJcgJiggH43jILAHV4uh4CW7JX3YjEdU+IQuH8vXX7CPsmUGpSOatKoywpSi4lmpz/uZiJsCqeYe/4hCHubpGrUO0F126ESz54Ok1rCadCeAhY0xURsTIJB5bgpA9ibhvG7QYHw4osjjz8LyG0WAGlm9qSijRkB3nssvR/SM4ta062PbZ3YhYTfVWZ155EH58QsEx94I
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:44:40.0491
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:44:47.8771
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bde8bdc3-b411-4a3a-882a-08df40455f10
+X-MS-Exchange-CrossTenant-Network-Message-Id: 179ff353-27e9-4a6c-1e41-08df404563bb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F4.namprd05.prod.outlook.com
+	SJ5PEPF000001F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB773576
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB663552
 
-When memory bandwidth associated with a CLOSID is aggressively throttled,
-and a task with that CLOSID moves into kernel mode, the kernel operations
-are also aggressively throttled. This can stall forward progress and
-eventually degrade overall system performance.
-
-AMD hardware supports a feature Privilege Level Zero Association (PLZA),
-which allows the CPU's CLOSID and/or RMID association to be changed during
-the transition from user mode to kernel mode. This allows the kernel to run
-using a different CLOSID and/or RMID than user space, which can improve
-system performance and/or allow kernel work to be monitored separately.
-
-Note that PLZA feature associates CLOSID and/or RMID to kernel work, and
-therefore influences resource allocation and/or monitoring for all
-resources, not only memory bandwidth.
-
-The feature is detected via CPUID_Fn80000020_EBX_x00 [Bit 9]: Privilege
-Level Zero Association (PLZA).
-
-The PLZA feature details are documented in [1] available from [2].
-
-[1] AMD64 Zen6 Platform Quality of Service (PQOS) Extensions:
-    Publication # 69193 Revision: 1.00, Issue Date: March 2026
+Add "plza" to the rdt= command-line parameter so PLZA (Privilege Level Zero
+Association) exposure to resctrl can be enabled or disabled at boot. PLZA
+is exposed by default when supported; rdt=!plza suppresses it.
 
 Signed-off-by: Babu Moger <babu.moger@amd.com>
-Acked-by: Borislav Petkov (AMD) <bp@alien8.de>
 Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=206537 # [2]
 ---
-v7: Added Reviewed-by: tag(Reinette).
+v7: Removed repetative lines.
+    Added Reviewed-by: (Reinette).
 
-v6: Highlight that CLOSID/RMID association affects all resources,
-    not just memory bandwidth.
+v6: Updated the changelog.
 
-v5: Added Acked-by from Boris.
-    Updated the changelog to include cache allocation and monitoring.
-    Moved the Link tag last.
-    Updated subject line for cpufeatures.
+v5: Updated the changelog to mention about rdt= options.
 
-v4: Split the patch into 2. This patch only handles x86 changes.
-    Re-wrote the changelog along the ABMC changes.
-
-v3: Code did not change. Patch order changed.
-    Added documentation link.
-
-v2: Rebased on top of the latest tip.
+v4: Split the patch 1 from v3 into 2 patches.
+    This patch contains changes for resctrl subsystem.
 ---
- arch/x86/include/asm/cpufeatures.h | 1 +
- arch/x86/kernel/cpu/scattered.c    | 1 +
- 2 files changed, 2 insertions(+)
+ Documentation/admin-guide/kernel-parameters.txt | 2 +-
+ Documentation/filesystems/resctrl.rst           | 1 +
+ arch/x86/kernel/cpu/resctrl/core.c              | 2 ++
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 303467a498b8..3090fb28ce06 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -536,6 +536,7 @@
- 						      * and purposes if CLEAR_CPU_BUF_VM is set).
- 						      */
- #define X86_FEATURE_X2AVIC_EXT		(21*32+20) /* AMD SVM x2AVIC support for 4k vCPUs */
-+#define X86_FEATURE_PLZA		(21*32+21) /* Privilege Level Zero Association */
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd9..b8c680f7f638 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6460,7 +6460,7 @@ Kernel parameters
+ 	rdt=		[HW,X86,RDT]
+ 			Turn on/off individual RDT features. List is:
+ 			cmt, mbmtotal, mbmlocal, l3cat, l3cdp, l2cat, l2cdp,
+-			mba, smba, bmec, abmc, sdciae, energy[:guid],
++			mba, smba, bmec, abmc, sdciae, plza, energy[:guid],
+ 			perf[:guid].
+ 			E.g. to turn on cmt and turn off mba use:
+ 				rdt=cmt,!mba
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index 2750f2eabf70..d13a4998ee7e 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -28,6 +28,7 @@ SMBA (Slow Memory Bandwidth Allocation)				""
+ BMEC (Bandwidth Monitoring Event Configuration)			""
+ ABMC (Assignable Bandwidth Monitoring Counters)			""
+ SDCIAE (Smart Data Cache Injection Allocation Enforcement)	""
++PLZA (Privilege Level Zero Association)				""
+ =============================================================== ================================
  
- /*
-  * BUG word(s)
-diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
-index c990245d29d6..be387ba1cbea 100644
---- a/arch/x86/kernel/cpu/scattered.c
-+++ b/arch/x86/kernel/cpu/scattered.c
-@@ -62,6 +62,7 @@ static const struct cpuid_bit cpuid_bits[] = {
- 	{ X86_FEATURE_BMEC,			CPUID_EBX,  3, 0x80000020, 0 },
- 	{ X86_FEATURE_ABMC,			CPUID_EBX,  5, 0x80000020, 0 },
- 	{ X86_FEATURE_SDCIAE,			CPUID_EBX,  6, 0x80000020, 0 },
-+	{ X86_FEATURE_PLZA,			CPUID_EBX,  9, 0x80000020, 0 },
- 	{ X86_FEATURE_AMD_WORKLOAD_CLASS,	CPUID_EAX, 22, 0x80000021, 0 },
- 	{ X86_FEATURE_TSA_SQ_NO,		CPUID_ECX,  1, 0x80000021, 0 },
- 	{ X86_FEATURE_TSA_L1_NO,		CPUID_ECX,  2, 0x80000021, 0 },
+ Historically, new features were made visible by default in /proc/cpuinfo. This
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 3294b18ba45f..e64e9191184e 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -772,6 +772,7 @@ enum {
+ 	RDT_FLAG_BMEC,
+ 	RDT_FLAG_ABMC,
+ 	RDT_FLAG_SDCIAE,
++	RDT_FLAG_PLZA,
+ };
+ 
+ #define RDT_OPT(idx, n, f)	\
+@@ -799,6 +800,7 @@ static struct rdt_options rdt_options[]  __ro_after_init = {
+ 	RDT_OPT(RDT_FLAG_BMEC,	    "bmec",	X86_FEATURE_BMEC),
+ 	RDT_OPT(RDT_FLAG_ABMC,	    "abmc",	X86_FEATURE_ABMC),
+ 	RDT_OPT(RDT_FLAG_SDCIAE,    "sdciae",	X86_FEATURE_SDCIAE),
++	RDT_OPT(RDT_FLAG_PLZA,	    "plza",	X86_FEATURE_PLZA),
+ };
+ #define NUM_RDT_OPTIONS ARRAY_SIZE(rdt_options)
+ 
 -- 
 2.43.0
 
