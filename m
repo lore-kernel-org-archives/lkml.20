@@ -1,72 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387318;
-	b=qVAD/n5KEkQw4knMJJnrXO45e3JH9pWkaBghdye7+f53ubIYu8yhKY91BDgyVh1Mx8OC
-	 08KEo1CI+RG/SsfsTZoYHqvmZkwpbEvA+xn97OeXExN8/dvWgCO1MczOutJ5KFb7U+QUw
-	 5WjohS7xuCVRfYEma+KlyS/DderbgXKn2vSjbk1Nzt1st9otbAH9MSy08xFfc/NqXi9IV
-	 e9tD/3a22aYp2JS45aCX1BIGHKZ3yh0MDYIsgOI1AIyzPRWZuGSC5HiGr7thbKDFcSpdd
-	 bix02XvQZvJOQlf25AxFbVU7z+50iSbdwyd5fBRBFKvPUeBXlQksyzkJIhY12rsyWQg==
+	t=1794387330;
+	b=Ip96zaIv8N7helcMybj3svsABc+ipNZTSiDGgNyqg5FoMW9NseQQJmFbErY8x7ULT+VZ
+	 j/WYEI6OfphQP3iHN4AdwmJ18w2KIKjqn9YRZDyL8rMsdZgjowWfk9MrcZohufBX01uSe
+	 EOhzyZ6rWDxwdKp0mMVa5LPke4+WHaFKCeDWNqaiVUGl0v0siYfl1ETt7qYGKqT/tc3A/
+	 xLKbcEm9ZhCHOW4uDX+NlwX8Fo0lW8L9sZKT7lJ7oCF6UzuyafaGhYFmlfx45xTkVRWPf
+	 lAb4T4MtJgJ1NLEVHI3nvg1bv6XHGHS3uUQUwHTPM20VQ54n1m9b1Jb4XvBEsyEhUUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387318;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UR6UuX2zkKp3d1XiHLTZEcqOFwHxeBRHDTS4u//6Cio=;
-	b=4iTljuVtwBVNHPQYaEgaFBXVZ9H8sVxare0LZzXGKhnV7ASyf2OrGj0IX9RBT3+5mtDO
-	 8JshPXoVHTOiS3CR752j4ox233uj+C/pv9ojIvYer4Le7cjZsuMpFJXaxXdbdSfJ+ZKDH
-	 SjEZXOABtiJmLJVv4XBKVknN+vAla1xn7hKrA/EK9KsmzYywk5zyEjZELkcpS3UP8MGiC
-	 8MsTW01lD+3hJ7UXicLZb57VZYt59P5l58LghraJIXHMeQjK4nzr3D7WEEx7LSWlj9ad1
-	 D+n2+tmbsRlukkik7gdcM9VB193Gt9OAiVR0goO1TzmOP2cD+H00/qYIc0oqmXEaVXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387330;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kDDtfgXUqq2vWe9vI2nmZQX9n8pFv6185nZlpnia/WY=;
+	b=uRPh8xpq4db3nZ4Z0KPhrypm0yvN0lzIcL/EWrg+M91XQRsbtP9rnXuR/9Ow0m+AOAd/
+	 RpIutIjpa5bH+M6kBBPFwYuceO+E3iHa/zxh3ntwzk7amWL+F0GCpW2rLN2ozFi+lfc5X
+	 P85/N1ol/BKAP2QWjYBhL0vfjwjiEXZPruLcnp5FGGDWQtKBnFVnDaCuoK9n6yj/uRkHv
+	 YIdrs5pUkFA/CIC0AWy0s1U17tvM7pLvjjSly3I6zxHvyWoii+hvUCEB5MPWFKahTFbGI
+	 5dOvf6tQAHUOrSa99ii6g79wYEEM+tAufLMh1obFRk04vDSMcD1hpL5vJDzpLRb5FQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=f80xOZUt;
-	arc=none smtp.remote-ip=91.218.175.67
-Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7283B60A6F60
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:55:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7283B60A6F60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=f80xOZUt
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ns66tcmnhfnZMafbIPx+GLb8OcZk6avcw0DU4emgRrg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794387315; v=1; x=1794992115;
- b=f80xOZUtsXEmBYk4SHZ6i+UB5Q6jhrtXXjQ67QcxcsoexC5RrLGlvaK77Q1A4z0QohgwVmSX
- D36h4uF/3tfKE/0wNT2tWGliM87sNKQkadJGHLTWNPlO3hHJ+DuUo/tU28JGn9lLzE6A6h1RjsU
- /0kOcf4R6lRy081dmbYjhWAk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3863ed00744c8417;
-	Wed, 11 Nov 2026 08:55:14 +0000
-X-Mizu-Trace-ID: 3863ed00744c8417
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-mips@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 7/7] KVM: Fix typos in comments
-Date: Wed, 11 Nov 2026 08:54:48 +0000
-Message-ID: <20261111085448.1130701-8-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111085448.1130701-1-fuad.tabba@linux.dev>
-References: <20261111085448.1130701-1-fuad.tabba@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F34C606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:55:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F34C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1692006a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:55:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794387330; x=1794992130;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kDDtfgXUqq2vWe9vI2nmZQX9n8pFv6185nZlpnia/WY=;
+        b=UwA1nNpql82D+C/5YDq3wNiBossqLTUJlgSlcgeV/ACcVAqnVhsk/AmO/F20dhSUPj
+         8zPCZftL1sF3SdxEtIWm72fMsTE9K6W3jghmAEeK7cKaJtA6Mwb2MqexgBLsJEyCnQC/
+         8bIKYMcEh0iVxxnvRrUrCb/qN6KSESAZRKKB01pHwWCLxWvwB7v53Tjk7ddpqQ5BHQDp
+         6m3Iv3p9n/gwsd64s7sEDciphtUxKUn7QahVP7zTWa0Hll9vV3xVtU7uNXjxPGPgzrHr
+         4b5iEdBNIdlrQO25KYp1968wyvanEnUoC0LOV0WplD99QV8jcqC/nq2VmBDXX22HzROK
+         0Ajw==
+X-Forwarded-Encrypted: i=1; AL+hErGL5uIlgyxn66yAnYSt82oHhglqj5/ki4XWztvIDjRHXCqkC1I8anyP/UJWcerGU5GphX6tN1iPNXqHUb4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gHpNgi5mzoowSCD+UhIXmvi97hiAGvJvfCWohEkRwvaAy0CRP
+	Y9FTnr+Ltl4OJP4zcku6ORRqN3hwpYuwPEGQf9RmLSCgzqoB51oFs7VmHTXD8lzd
+X-Gm-Gg: AYBFou2q5Lg2V/on79BOQMDfIrbRPxiid6e8AR490y4dulOTQYG/lm4yIWfNFaYbUhz
+	PbqrJlRilKxHA9vUU1Ioss47d+JA5HHNt7F1y/MejZ3BenauNtwRc/f5r5mRe1an3qpAKp8Hchg
+	ekU1nsRLvzI+Q0bO6AA/Zt99mbXOuodxTlc1snM1pVdU5Kl0QNgsw+QRdxiRKRb8sRyhA0q7pa6
+	NyKUHDONWd8VPJq6kU5x5LA5AdIVNO7PvUhhNyy2XrC+tkugVNptRt+/aXsArKkFZfOda0VEyQG
+	9tI38faOe9GJgQw3qVn2pnuUBKEdRmH5aRbSl0es+em/xztxh3r9TRuvd7w6uK3VDHV3JRNdov2
+	0hJqQiijF6IILVlaUNAfSpgmDYyRkNyfmEEBMVK96lD6f91mPZ8P7NxZMTiNbHeHVr7UNIGm2a4
+	YsJaALQsyrC1ObWricXCxFxzwv0uRuPj93HeXgRZrxQoRniun2oq1jiKuUNwOHhWLi7LokMurSy
+	zIA/HYugzVFDz8IOM1fn0nWYb8j7Dp+5z6JFjdOkz5VXQHkGJE8tW3CGQS3nihmOx0NmOedvn47
+	qV6eih1lqWD9yeiF5Hw59ZyB4uR6QohStOvPVOHGTCSS/Y2S460tPBExA89O+YhpTN6IuRXpMMO
+	IH55Hac1kIVFfVCBzBw5g5a9v1p+EP6DdzHuvwmkLA+72
+X-Received: by 2002:a17:90b:384a:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b182efeeb7mr1286415a91.18.1794387329661;
+        Wed, 11 Nov 2026 00:55:29 -0800 (PST)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com. [74.125.82.180])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b186234c12sm1667988a91.10.2026.11.11.00.55.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 00:55:29 -0800 (PST)
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36e795af1d4so2478288eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:55:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFO3/mwcfw8J9CpDKo1WiRRwGxCbM55cky7rI/2FD/f95EbbB27KvkFgq7CdaKyqh7NXGc1OR/EiCaS4sI=@vger.kernel.org
+X-Received: by 2002:a05:7300:bc86:b0:36c:a3ae:936e with SMTP id
+ 5a478bee46e88-37669a36d11mr3294547eec.5.1794387328621; Wed, 11 Nov 2026
+ 00:55:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,168 +82,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110-sysfb-dirtyfb-v1-1-8571d455ccbe@telaak.dev> <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
+In-Reply-To: <215852e9-aafb-4ad2-93e8-afbadfd91fed@suse.de>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 11 Nov 2026 03:55:16 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
+X-Gm-Features: AclHuK-EsqBIwO9CGtat8AS-89hdImnJzEfTUQNfPyVgSSK9yYlt9MhNn6BdGfE
+Message-ID: <CAPY4CJ6rHjNGZ=5uuV_H=RyY9pceotPTzrnzMJ8hLCuwuz8PvA@mail.gmail.com>
+Subject: Re: [PATCH RFC] drm/sysfb: Copy damage outside the DIRTYFB ioctl
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fix typos in comments in the generic KVM code and in the KVM uAPI
-header.
+Hi Thomas,
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- include/linux/kvm_host.h | 10 +++++-----
- include/uapi/linux/kvm.h |  6 +++---
- virt/kvm/binary_stats.c  |  2 +-
- virt/kvm/eventfd.c       |  2 +-
- virt/kvm/guest_memfd.c   |  2 +-
- virt/kvm/kvm_main.c      |  6 +++---
- 6 files changed, 14 insertions(+), 14 deletions(-)
+Thanks for the quick review, and for explaining why the blocking
+commit is required. That makes sense, so I=E2=80=99ll drop this patch and l=
+ook
+at handling it on the X side if it becomes a real problem.
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 21207d234618a..f94fada229053 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -105,7 +105,7 @@
- #define KVM_PFN_ERR_NEEDS_IO	(KVM_PFN_ERR_MASK + 4)
- 
- /*
-- * error pfns indicate that the gfn is in slot but faild to
-+ * error pfns indicate that the gfn is in slot but failed to
-  * translate it to pfn on host.
-  */
- static inline bool is_error_pfn(kvm_pfn_t pfn)
-@@ -174,7 +174,7 @@ static inline bool kvm_is_error_gpa(gpa_t gpa)
- #define KVM_REQUEST_ARCH_BASE		8
- 
- /*
-- * KVM_REQ_OUTSIDE_GUEST_MODE exists is purely as way to force the vCPU to
-+ * KVM_REQ_OUTSIDE_GUEST_MODE exists purely as a way to force the vCPU to
-  * OUTSIDE_GUEST_MODE.  KVM_REQ_OUTSIDE_GUEST_MODE differs from a vCPU "kick"
-  * in that it ensures the vCPU has reached OUTSIDE_GUEST_MODE before continuing
-  * on.  A kick only guarantees that the vCPU is on its way out, e.g. a previous
-@@ -2185,7 +2185,7 @@ static inline int mmu_invalidate_retry_gfn(struct kvm *kvm,
- 	 * If mmu_invalidate_in_progress is non-zero, then the range maintained
- 	 * by kvm_mmu_notifier_invalidate_range_start contains all addresses
- 	 * that might be being invalidated. Note that it may include some false
--	 * positives, due to shortcuts when handing concurrent invalidations.
-+	 * positives, due to shortcuts when handling concurrent invalidations.
- 	 */
- 	if (unlikely(kvm->mmu_invalidate_in_progress)) {
- 		/*
-@@ -2471,7 +2471,7 @@ void kvm_arch_update_irqfd_routing(struct kvm_kernel_irqfd *irqfd,
- #endif /* CONFIG_HAVE_KVM_IRQ_BYPASS */
- 
- #ifdef __KVM_HAVE_INVALID_WAKEUPS
--/* If we wakeup during the poll time, was it a sucessful poll? */
-+/* If we wakeup during the poll time, was it a successful poll? */
- static inline bool vcpu_valid_wakeup(struct kvm_vcpu *vcpu)
- {
- 	return vcpu->valid_wakeup;
-@@ -2526,7 +2526,7 @@ static inline int kvm_xfer_to_guest_mode_handle_work(struct kvm_vcpu *vcpu)
- 
- /*
-  * If more than one page is being (un)accounted, @virt must be the address of
-- * the first page of a block of pages what were allocated together (i.e
-+ * the first page of a block of pages that were allocated together (i.e
-  * accounted together).
-  *
-  * kvm_account_pgtable_pages() is thread-safe because mod_lruvec_page_state()
-diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-index 951b891b8ae60..3d709737c3f83 100644
---- a/include/uapi/linux/kvm.h
-+++ b/include/uapi/linux/kvm.h
-@@ -508,7 +508,7 @@ struct kvm_run {
- 	/*
- 	 * shared registers between kvm and userspace.
- 	 * kvm_valid_regs specifies the register classes set by the host
--	 * kvm_dirty_regs specified the register classes dirtied by userspace
-+	 * kvm_dirty_regs specifies the register classes dirtied by userspace
- 	 * struct kvm_sync_regs is architecture specific, as well as the
- 	 * bits for kvm_valid_regs and kvm_dirty_regs
- 	 */
-@@ -1556,12 +1556,12 @@ struct kvm_dirty_gfn {
-  * @flags: Some extra information for header, always 0 for now.
-  * @name_size: The size in bytes of the memory which contains statistics
-  *             name string including trailing '\0'. The memory is allocated
-- *             at the send of statistics descriptor.
-+ *             at the end of statistics descriptor.
-  * @num_desc: The number of statistics the vm or vcpu has.
-  * @id_offset: The offset of the vm/vcpu stats' id string in the file pointed
-  *             by vm/vcpu stats fd.
-  * @desc_offset: The offset of the vm/vcpu stats' descriptor block in the file
-- *               pointd by vm/vcpu stats fd.
-+ *               pointed by vm/vcpu stats fd.
-  * @data_offset: The offset of the vm/vcpu stats' data block in the file
-  *               pointed by vm/vcpu stats fd.
-  *
-diff --git a/virt/kvm/binary_stats.c b/virt/kvm/binary_stats.c
-index c772fe7be5dd7..654381d22480f 100644
---- a/virt/kvm/binary_stats.c
-+++ b/virt/kvm/binary_stats.c
-@@ -22,7 +22,7 @@
-  * @user_buffer: start address of userspace buffer
-  * @size: requested read size from userspace
-  * @offset: the start position from which the content will be read for the
-- *          corresponding vm or vcp file descriptor
-+ *          corresponding vm or vcpu file descriptor
-  *
-  * The file content of a vm/vcpu file descriptor is now defined as below:
-  * +-------------+
-diff --git a/virt/kvm/eventfd.c b/virt/kvm/eventfd.c
-index 81ed20ec0d4a1..73db4938d5a11 100644
---- a/virt/kvm/eventfd.c
-+++ b/virt/kvm/eventfd.c
-@@ -470,7 +470,7 @@ kvm_irqfd_assign(struct kvm *kvm, struct kvm_irqfd *args)
- 
- 	/*
- 	 * Register the irqfd with the eventfd by polling on the eventfd, and
--	 * simultaneously and the irqfd to KVM's list.  If there was en event
-+	 * simultaneously add the irqfd to KVM's list.  If there was an event
- 	 * pending on the eventfd prior to registering, manually trigger IRQ
- 	 * injection.
- 	 */
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 8c97a69b16dc0..3e02acf889396 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -376,7 +376,7 @@ static int kvm_gmem_release(struct inode *inode, struct file *file)
- 	 *  CPU0				CPU1
- 	 *  kvm_gmem_get_pfn()
- 	 *    slot->gmem.file == A
--	 *					kvm_gmem_release())
-+	 *					kvm_gmem_release()
- 	 *					  slot->gmem.file = NULL
- 	 *
- 	 *					kvm_set_memory_region()
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index ba8f53ec3d718..65dc9d3eb8448 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1628,7 +1628,7 @@ static void kvm_swap_active_memslots(struct kvm *kvm, int as_id)
- {
- 	struct kvm_memslots *slots = kvm_get_inactive_memslots(kvm, as_id);
- 
--	/* Grab the generation from the activate memslots. */
-+	/* Grab the generation from the active memslots. */
- 	u64 gen = __kvm_memslots(kvm, as_id)->generation;
- 
- 	WARN_ON(gen & KVM_MEMSLOT_GEN_UPDATE_IN_PROGRESS);
-@@ -3044,7 +3044,7 @@ static int hva_to_pfn_remapped(struct vm_area_struct *vma,
- 	/*
- 	 * Remapped memory cannot be pinned in any meaningful sense.  Bail if
- 	 * the caller wants to pin the page, i.e. access the page outside of
--	 * MMU notifier protection, and unsafe umappings are disallowed.
-+	 * MMU notifier protection, and unsafe mappings are disallowed.
- 	 */
- 	if (kfp->pin && !allow_unsafe_mappings)
- 		return -EINVAL;
-@@ -4044,7 +4044,7 @@ static bool vcpu_dy_runnable(struct kvm_vcpu *vcpu)
- /*
-  * By default, simply query the target vCPU's current mode when checking if a
-  * vCPU was preempted in kernel mode.  All architectures except x86 (or more
-- * specifical, except VMX) allow querying whether or not a vCPU is in kernel
-+ * specifically, except VMX) allow querying whether or not a vCPU is in kernel
-  * mode even if the vCPU is NOT loaded, i.e. using kvm_arch_vcpu_in_kernel()
-  * directly for cross-vCPU checks is functionally correct and accurate.
-  */
--- 
-2.47.3
-
+Best regards,
+Joseph
