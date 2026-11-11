@@ -1,109 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415665;
-	b=Agl21UoIbiFvas1wdbAWZcgjF8JnNhZJ0N4C8kkgP7QmmS3oIwzYKiDfFrGo+zmCKDls
-	 Eku9o5HvgBfzOvbLl1UWzydqtiCuD6780dn3eoc0FaaoOfm1YGcjJ+IciC0ZifZ2mWQ9f
-	 NUAg1ZocaMuVMhBtxYiRjWZpvX6ZnYJHfqkfPpNUdnw4LcVmrsMgMDeKXd2fmRlKVFe4X
-	 8HvPP1jWpORSjrSCZjOtdmFD+/TzGJzXca1tGD8XuvY1uezJ2oWwtN8sHiDKZZ+n/1sC7
-	 j4gjuKZAG6JWMHq8K9713MbiY6wVibnzPj2yLt0/D70r1AXauXTAaWqtXfQVn5o7Q0w==
+	t=1794415707;
+	b=ESdhTqrM5BV5iQQNh1Lex2FyCUP3kDMEW3BWiw9T7DotYpj7u+GKRlvMW5j+KiG/SEJq
+	 llOboz9IDBrQ4bEy1pLIzKOhAfz4hTDaGu50yumSmmh6lE85oWk66dGQ9Ai1zMiqONRV5
+	 2NcHArOOvxmwfBrpmEkyvsLZLtO+NrhnXH+cNqHXJcCfSIDQdENFiy/Ig6gp+5KFnA3Gz
+	 wvX6w+okDasJQNO5iAnOtoKwno8WZdEtQ0jHd7hyYNSMRZc2Kkx2dLQjWqEiz5Bvlwdpw
+	 QiI3U8qTTXsR/xBYj2FvaE2M25pjWWnp0tZEpcoeT1luruawVs+RbYwumj1TEMtSjxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415665;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
-	b=vPh4BX3++Ur2lzJ5/hqExUIUBSrANmn4MD/1ZhuDJYaXHcD9j1wWFl8s2JGAq0zU2EsX
-	 4ZjqRKeBWs9Cau0pNLk687Pb0AdciQHqH42Zt8BC15edZmYRYvt/ci6NAoxuYjdzQ2NBc
-	 YvFtWHjGzg9cpvHZ8YJfUyIFP93ZtuhOy4vO+KXQAjJ83h8vXnggEee5P72Fau8PrStnY
-	 BZeTYe7m1yehk395qeANXkRHY3MWg5gRXdfGaUboLHCfldiRfmXMUMPq1gOCtkMa8tBYt
-	 8CidQ8scFwjz/g680aJGyzLlonl0hJ7gEWeXvAljh06kGH9CqRz+Bs3rmxTukXe+33g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415707;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=0sydFHNzITW/W9RiZ5lrBlSfj6odwN80cmBBE2TsUzo=;
+	b=DMaG1oScvXebnHPukm3lvGfM4nM44VS9QpWXkxdrstvizyiKZ2N/x7Ip90uPIfEnSdSC
+	 9cwlST1SB9qtbQsnbSqt6YHqDe4gg4xzvsq5laAucKFmYcbMxfMfsthCq/7H3x8SwNNcI
+	 JfljXvDjql5JQrZlGVOSSkC+hDhBzC8ZuFQ7lQJ4f6id9aV/LSw+RQN67runW5sWKNfUm
+	 ENdd8KW0da9IA6CPivQK5bmZiUfeM50WRuCuzoccVWX/p38UP/Bys5Obshne411YVJjHs
+	 zEz+H8/RHTJuz0ly4AeN72zGTpE5v4GLiu4VpqPaTHG7J+RuXsrwS4PIRi9LQEA+/Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Arhv0r+C;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=dyHdbNbZ;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADCF606A334
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:47:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ADCF606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB49606A321;
+	Wed, 11 Nov 2026 16:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB49606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Arhv0r+C
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4910b863b84so20956f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:47:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794415663; x=1795020463; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
-        b=Arhv0r+CzJ6kd+TulLavcwx/mGrglYS422JYKTdbpa5un1a18rj23MyxqxLhddkmnB
-         gNcaXJ2IrojyJbxM+OgBPEAeEpsNpzWgOGqEgdEdfbdQsuKembFEQ+6KhZaeIYR30gze
-         IooSZe2fNj/7K3ZNeH8x15dEsu+UQLaI/m1IWuoX86P9po90K2PyeQK2TvubNwe2um3L
-         oa28twmLTolBcK1wc4TjQY120ADR9pALZ4st9GAliG4qO1r6wi1yEW2L29tlSgZjmr2h
-         E0qSshK5f4Tgf9M06nnSpMmyfbMbMx74mcpO6fx0yDufhfISeijTTqV/EjmW0IdaeTyH
-         ahNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794415663; x=1795020463;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
-        b=IsPrsNWWUHrzmuLvwzF4pgHqAedcNtoZMID2TxoVfhofrLLtnbmUA1U6/82mil9mZs
-         bWGJy2X72t1lpyxAvbWEYSV6D3l2Ws5rXeG63wTS+55ZyKu70eFlXGK5rDZNhGj4OzOn
-         K4X9QmHknpJg7d4CHEF3wN8MYHQA4nJXn7fGkbvjb3WBbMhOG3KxlnAWjMT+4+QLsAu5
-         ekELXrR5zXjF72D9DB45Q2HpOMAho4Xt3298LJ/rhinqfd7Yr5G3e3MeZSHfbvpl0ehf
-         JFep0KhJ0IYPZB0m3D/mSA6LXDpOiRRTx12YqJ2e+0B+D0b7dmpFPhdAdsAhQubAvpvg
-         shzQ==
-X-Forwarded-Encrypted: i=1; AL+hErEYPqUyU2RM9AvkXBRtnL1mGbXIpU0yABJRRF/DFYRu5H+4dpNcC12yqIWf0DwvVenaOjhXp6k8Q8bCL/8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W42Vr5wFp0uS+p5cVEXPSNcq1wHgDGXTGbW/eJkT2nphT8Pu6
-	VaMeZqYzGpJP5zqlYZxkIfxUELhYpzaYqOdhveckolfaktRkdtHJnKH4GHoF75MzMA==
-X-Gm-Gg: AYBFou1iJEwwuVwv9IhITkAUJPRA2c8fXcQDjwc1kIRozURrOJI0OTirmc5GRYdNym7
-	u8uQvlLP4G+AlX38uHqdc5gmzr+gLoR1CHmmCyBK4HT56nBRxh9QyHTM6fEWQb8nJXgEGL6BQ5E
-	Sq3nFpVSwsaSbicd3UYKPHBFekOWWvxQR5Ul71Z6O/o9O4uLaYimFYu6yzqkKNDq1JFFKuVyg/j
-	8vBnSkAX0RPeT2P4pF6nnYTp1Exq0tB6x013TUDLw5S3uJV/wh3pOYQ4fkH9OmJUiqTqFDnxxjC
-	N+JnvEEruTn1dgrDMPGzk37vZ6YgRsySuXMFoKSbSz792ZfCKOtta1CXwxtbyTcAN4XrkvTXZva
-	TgwzG31m9c3DkvCD/NwGhmEo4IwRS3dalSoYMcorMdg7M3ed61nB6uViPNHSDPKw6jfJvtgEvbu
-	MHBe+96n6Ueh0QCrSjYbwqALxcT6pL6ELvEDddyC920Fho8MVYCo6ym7vMbiwH60jX3ra51svA2
-	qEpyZn36WOY0FqnXtEeycGJn1D0A94uk1cgrgWpGS7zGjj2e1J1xDXk1/lSqdzX1w1gmAzjGIxf
-	12fzuNHcYGznJYyxQDI/esgLJx2Uv6ZNmmd55HBy01oUZEX9vKXYMd8Km6GFRQod9g==
-X-Received: by 2002:a05:600c:3f07:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4bb4e27994emr1100895e9.6.1794415662004;
-        Wed, 11 Nov 2026 08:47:42 -0800 (PST)
-Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cd06fsm11724877f8f.40.2026.11.11.08.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:47:41 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:47:38 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
-	loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
-	vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
-	eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
-	rostedt@goodmis.org, mhiramat@kernel.org, jgg@ziepe.ca,
-	kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
-	James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
-	christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
-	will@kernel.org, linux-scsi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
-	mathieu.desnoyers@efficios.com, robin.murphy@arm.com,
-	mason@kernel.org, aesteve@redhat.com, tjmercier@google.com,
-	harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
-Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
- metadata to memcg
-Message-ID: <avScKhR22kFOQ1z4@google.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-5-cui.tao@linux.dev>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=dyHdbNbZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=0sydFHNzITW/W9RiZ5lrBlSfj6odwN80cmBBE2TsUzo=; b=dyHdbNbZ8KfDHmZzWygnexSWkp
+	vxdIR0q/Nyu3ONUYl8xOsXtkPy0E+7DA1dun3kA+Wv/u0AoStyC68/1gZnroCLRnlH2EG5MclmXD8
+	X1C0Iq7Nl/vCyDH80En9gEWCh5IkC3bc3Gov4Bdc87NZr9EyilnA4v2p1UqKM2NIGkRo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRBUg-00FnDz-HB; Wed, 11 Nov 2026 17:48:18 +0100
+Date: Wed, 11 Nov 2026 17:48:18 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joasantonio108@gmail.com
+Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
+ header and FCS
+Message-ID: <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
+References: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,91 +67,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106131829.3228926-5-cui.tao@linux.dev>
+In-Reply-To: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
 
-On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> Creating an instance immediately allocates two full sets of per-cpu
-> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
-> on the default config, plus the trace_array and its name.  None of it
-> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
-> while user_events in the same directory accounts everything it
-> allocates.
-> 
-> Instance creation is currently gated by tracefs file permissions
-> alone, so a
-> rootful container with the host tracefs bound in can create instances
-> until the host runs out of memory.  Charge the ring buffer pages and
-> the trace_array metadata to the creating cgroup.
-> 
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->  kernel/trace/ring_buffer.c | 8 +++++++-
->  kernel/trace/trace.c       | 6 +++---
->  2 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 1fd28a72e6ee..676c059c112c 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
->  	 * gracefully without invoking oom-killer and the system is not
->  	 * destabilized.
->  	 */
-> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
-> +	/*
-> +	 * The subbuffers are charged to the memcg of whoever caused the
-> +	 * allocation: the creator of a trace instance, or root at boot for
-> +	 * the global trace.
-> +	 */
-> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
-> +		  __GFP_ACCOUNT;
->  
->  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
->  	if (!page)
+> +			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
+> +				netif_dbg(dev, rx_err, dev->net,
+> +					  "size err rx_cmd_a=0x%08x\n",
+> +					  rx_cmd_a);
+> +				return 0;
+> +			}
 
-Hum, by default tracefs is root only. 
+This looks good as far as it goes.
 
-And even if made accessible to other users: 
+However:
 
-  1. The life span of a trace instance is not tied to the caller.
-  2. The ring buffer is shared by multiple users.
+static inline int rx_process(struct usbnet *dev, struct sk_buff *skb)
+{
+	if (dev->driver_info->rx_fixup &&
+	    !dev->driver_info->rx_fixup(dev, skb)) {
+		/* With RX_ASSEMBLE, rx_fixup() must update counters */
+		if (!(dev->driver_info->flags & FLAG_RX_ASSEMBLE))
+			dev->net->stats.rx_errors++;
 
-Overall I am not convinced charging the creator makes much sense.
+What is the value of FLAG_RX_ASSEMBLE in flags?
 
-Eventually a few allocations for iterators could be GFP_ACCOUNT.
+		return -EPROTO;
+	}
+	// else network stack removes extra byte if we forced a short packet
 
--- 
-Vincent
+	/* all data was already cloned from skb inside the driver */
+	if (dev->driver_info->flags & FLAG_MULTI_PACKET)
+		return -EALREADY;
 
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index e8c4efa8107b..04b60b9cc4f5 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -8693,11 +8693,11 @@ trace_array_create_systems(const char *name, const char *systems,
->  	int ret;
->  
->  	ret = -ENOMEM;
-> -	tr = kzalloc_obj(*tr);
-> +	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
->  	if (!tr)
->  		return ERR_PTR(ret);
->  
-> -	tr->name = kstrdup(name, GFP_KERNEL);
-> +	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
->  	if (!tr->name)
->  		goto out_free_tr;
->  
-> @@ -8708,7 +8708,7 @@ trace_array_create_systems(const char *name, const char *systems,
->  		goto out_free_tr;
->  
->  	if (systems) {
-> -		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
-> +		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
->  		if (!tr->system_names)
->  			goto out_free_tr;
->  	}
-> -- 
-> 2.43.0
-> 
+	if (skb->len < ETH_HLEN) {
+		dev->net->stats.rx_errors++;
+		dev->net->stats.rx_length_errors++;
+
+Should rx_length_errors also be incremented?
+
+       Andrew
