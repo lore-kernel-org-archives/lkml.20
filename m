@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401938;
-	b=nGKhRjncM8sf2/gCX8IIPz0AtvekMh4mWWP091zpact2PsMRzxjTShrtZFKM4Q7Jvk8d
-	 qq1XhSbxbtH7zM9zXR3v7WRn2WxcFmNpI0WxLYWj0jQhb57Urr9k7ZnOBwaYd3O+SeEpL
-	 rlRstlOVH1EqMI92SF8SqBVcwM2y40EojMZ9Bj4O3qODyajCl7uIFB1S8PPRiyw0vITVP
-	 teSAQ8l/17LWGJKrBqyGVgsMlBvT/Kgl4fd1z1Y32FhuX7vla7M+p7+SFBB7oxuWcgn76
-	 PK3yt8Gg2eUwzwbblIWkCVN5b9L1pnfxu4ISc6EAOnqk6CHFonv9/QR1Ibd7Nz9HBzQ==
+	t=1794401946;
+	b=xHfSokhs6P9D8gm4E5yCQiXdAhhlbnc+jyvcaMESaZjn2kBzYlRn1bmQ0ZLIxkGbp71G
+	 XXZ1GE3nVNe15gllLlb13rxgnrp5H2DI91UiKAj+F5z1Ir206tjaDoc2IiCxRuzcs7ue1
+	 eQdqKRkknnS0ZtW5JmD1qoqsd2jp/pOf7B1ljDw0723GB9Xa9zKdNSWIRg8Jl5laHUXmm
+	 6V6Tjy9qeMzM2Qt5H6UNXaFzQLEjBfHiLJF8mJ90ThRoHHmsv1HMST7q9R1Ct664Zwr1X
+	 f3a0sGXSn420qJ4GOqUQ2dQm56S7YFvBHqVTxRorh6TPyXrlr+iyToOkIfoLoXltTGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401938;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=LSwOKCGSvBqz4A0+9jCrrAb3atuhY2goYSger40ZS/s=;
-	b=4LDYAU6HsFdSZgcnckO9eOJjMavz1urcgZrOWUyeTOP2H8s7B40K3XS+BOe+sITin0nw
-	 VXYbyIiN97ucjLXSQxqRYkEGI7boISym+RT5GkbMuCIdAm8v4tFVJEIrXoe1uk19v6BHv
-	 PIdE/fGovx2epLv9jlUgq7pbp4yy5985nagZsMkcUMt2EfpUs60Xt0+pQcPUyvqYZEuXj
-	 KrOrgMriZCBUNemZF9dTNKwZYj+A7HI2MW1aJDurq8OQreBdPuiYs9FEsnC2FPGTmMUo2
-	 PqtWLnl7HHsPsW8zRyA89QZoyeHZQVAZCWFWc9YFaJUWYtmi/wxhtCKv2LWZE+LVLWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401946;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IFNXUO9Jr7TJnTM4pI8+RXJ3qfoW4xa5qsBB8IRLyHY=;
+	b=KJCwqHdXIfuW9RSZ3omaB95cLS/T2OUqHPEhYbAwyt5IDDnGPNvaCZvhKRzTA+UiAXL5
+	 W5DNjRpvYdoBMgydZSm1xE1aXtOf9kXLN9OBP4gMOoKPnvqcgtXR1MxpGqZJ4AkA9E/jf
+	 Dqj/p4Gy+c941T/3zZx4WO23V0ZSSoRrEdPlCyM1J4Ds1usZKPminrI5Qwd9NDDZQR9LP
+	 iL5RzXcC9rQwxbBzmtd4Sxm6K58hWEX3PrUtkC9dnlLCQTPcgQrOG6NGjqEjih0E6BEBJ
+	 VuORAk8OcfKqiLLN4ImDT2LDa4ZxVYlOJl/MfDKGXIRGljd9y34ZqYPJf7luBDDkqfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IU7NZTi7;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8211E606A327;
-	Wed, 11 Nov 2026 12:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8211E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7910F60A2614;
+	Wed, 11 Nov 2026 12:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7910F60A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IU7NZTi7
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=LSwOKCGSvBqz4A0+9jCrrAb3atuhY2goYSger40ZS/s=;
-	b=IU7NZTi7zztwh7ZR4qF2CNLSOAveA5dnH1xtjuISAH5tT1ctzNJ6/v4LFwq/+fD6ChJ7rRSFL
-	GwbbPHjUU6B1pYGJP2ZNUg738on6XQP83SaPCMw7NYIepoSfavIkHQ7oSrPs9cAtK6DrQ4YHrp+
-	7rvzI3PUmcLGdO4FH35docs=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jPk99651cz1cyQR;
-	Wed, 11 Nov 2026 20:58:37 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6CD914055B;
-	Wed, 11 Nov 2026 20:58:53 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 11 Nov 2026 20:58:52 +0800
-From: Jijie Shao <shaojijie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>
-CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
-	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
-	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
-Subject: [PATCH v4 net 2/4] net: hns3: fix page_pool leak in hns3_alloc_ring_memory error path
-Date: Wed, 11 Nov 2026 20:58:08 +0800
-Message-ID: <20261111125810.3359030-3-shaojijie@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111125810.3359030-1-shaojijie@huawei.com>
-References: <20261111125810.3359030-1-shaojijie@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C0DwQSOz
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97E801576;
+	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B9DE83F632;
+	Wed, 11 Nov 2026 04:59:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794401943; bh=Cdy/qokJ1H5l2i4X0IPSgmP/Ge5RQRh04NlGw7FyG/U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=C0DwQSOzO2O5bcR3VXJlOpuuJ9TPGqBenmbf9NmpLIwifpTSmMIcrDyG/aS3Od6UW
+	 IzrdOYaRBSikSpe8Z2mfLYIo5U7T/YAlenp3b3uPY1XJX0TrjklvzbGzlUVHjHpv7U
+	 2qWTdIvBOwzT18Unl4VGC1N3sZHgfGpA5pC2leiY=
+Message-ID: <14c0956c-904e-4a6a-98a0-882514d77b08@arm.com>
+Date: Wed, 11 Nov 2026 12:58:59 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,50 +53,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemo500018.china.huawei.com (7.202.195.199)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+To: Rob Herring <robh@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+ Leo Yan <leo.yan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+ <20261110154643.GA4159803-robh@kernel.org>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261110154643.GA4159803-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In hns3_alloc_ring_memory(), when hns3_alloc_ring_buffers() fails for
-an RX ring, the error path jumps to out_with_desc, which frees the
-descriptor ring but does not destroy the page_pool that was just
-allocated by hns3_alloc_page_pool(). The page_pool and its pages are
-leaked.
+On 10/11/2026 15:46, Rob Herring wrote:
+> On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
+>> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
+>> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+>> forces the device onto the AMBA bus, where the driver must read the
+>> peripheral ID from the device registers during probe. On several QCOM
+>> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+>> never probes and its trace path is unavailable.
+> 
+> But it works fine on some platforms? We have a property to override the
+> peripheral-ID which would solve your issue. That would be much simpler
+> and avoid the ABI break on any of the working platforms.
 
-Destroy the page_pool in that error path as well. The pool is torn down
-before the descriptor ring here, which is the opposite of the order in
-hns3_fini_ring(); that is safe because hns3_alloc_ring_buffers() has
-already detached every buffer it attached, so hns3_free_desc() walks
-descriptors whose dma is zero and never hands a page back to the pool.
+That is true ! Sorry, I didn't think of the quirk.
 
-Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
-Signed-off-by: Jijie Shao <shaojijie@huawei.com>
----
-Changes in v4:
-  - Name hns3_fini_ring() instead of the non-existent
-    hns3_free_ring_memory(), and drop "mirroring" because the destroy
-    order differs.  The pool is destroyed before the descriptor ring
-    here, which is safe because hns3_alloc_ring_buffers() has already
-    detached every buffer.
-v3: https://lore.kernel.org/all/20261030095633.377289-3-shaojijie@huawei.com/
----
- drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 2 ++
- 1 file changed, 2 insertions(+)
+> 
+> But this is already applied and it's not any platform I use, so I don't
+> really care.
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-index 2f3aeade558c..dbf32c00bb7f 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-@@ -5078,6 +5078,8 @@ static int hns3_alloc_ring_memory(struct hns3_enet_ring *ring)
- 	return 0;
- 
- out_with_desc:
-+	page_pool_destroy(ring->page_pool);
-+	ring->page_pool = NULL;
- 	hns3_free_desc(ring);
- out_with_desc_cb:
- 	devm_kfree(ring_to_dev(ring), ring->desc_cb);
--- 
-2.43.0
+I am happy to revert these changes and let the DTS be fixed.
+
+Cheers
+Suzuki
+
+
+> 
+> Rob
 
