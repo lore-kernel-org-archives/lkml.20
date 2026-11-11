@@ -1,92 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403643;
-	b=fvY5QqYYMBQLzoN52Jkt5UZpVth7ncIAVq03G5XcefHB/H0H9SfE5s9soSPd6ZY9AP13
-	 4C/sJLjd7SNGSNfrn/9ABTZnib/XkLtDOBrPRLWRhGMzZHLgyBn0M0+x2YB9lsnSPYakz
-	 6LHiPBtb3zRQYnETxK9LFgtLSs7DVRtoYbOp6O6IoeE2dSp/iPdnjCaOnLHtiXa0xRjJy
-	 9AFTJpahTGNpNePlqZ8uA/O9BQpbbLJQy887VLP/GBsP55fyMcYLr+nDwyA4ouiURWolV
-	 TDPGsfvVZzSIOJdEtcb8wl5+Vmct2GwIzByTtDYN8DNzGt6q3yyEZwWdwArYbRUcZsg==
+	t=1794403675;
+	b=MHUpu2dPnJTpe3pFhfaexDAF/xZgpBk77PH1fNmIepvvkKYhYk4W1dAjDY/mbZly5ov1
+	 TsTtDOfgDvMFQSxjM6+oRQtAlG3o7OVQ/pcCYiISoQK+mfQ1JvpUVCb3ooeyPriqbbE9q
+	 iTrcpHEiAv7c6LGKkrOTzqbwTzxWCBoxSExVV8S8gRggA7KaTLjR1CwhNFNG+cJ5FUyyP
+	 L0FHsF6s6AnhZWRxC7s3e3sIVuGGX7eL44QU91WHQGos/zhPBA3IDmAevoSGf6X0ORuQZ
+	 mPIhjyiEJ45fvzn8TrFX03Bwj557y02FnSZe/eLtN2zfjKci+zaarGqMzhZDr4D7/CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403643;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KjhafLL1UZbKPOZNQh1cMzv8u8RveGg8GMhtLtBENRY=;
-	b=BO/7wPeIV7tmOnc5Q41VilXGus9SCq9hEWozl5TUZyRUX+drSTVdid5xqm+tXCuKiIa/
-	 0b4a4ymuMUP3+5KFpiHRkvAhc98z7gU8tNhCYCN81+WCChMTKfHcMU1JvTQI30boTP1SM
-	 5c2WwF86j6gjYSLw5EdaWN6YNSgQ1gKKF/2WfyFglHQYF5EGC56t8YCNJmXs+RM+InC4R
-	 P1zfeNymvmZ2zj7EirW6gTv6uNIyaZoNDG/PpQaKGtuNivukRfm/6tYj7DQpUKyBe9Hzv
-	 wDiE0hwsfhpgijeyDb4i1HNuirOk3SxrtLdMFTKMKDH42h04d/e6RQ2/xMxhjiL07Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403675;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=5TobANsfNbQPE7bHGqRUO1+IBRipYYGScGTtUnijg5Y=;
+	b=t1rdQ2P5X5f+rf1hlU4xu+mWkN4QUQXQH8jftQrpkzpgyLyEZC9BF34PuAyjyRGViA2s
+	 OFqhcO+IZ/NjKq0LuUpC57dwyGoaFwMXceSp0dTxJ4tpuajomjvac12mpUHD0wrmeTM4b
+	 7HI2cPPPpxsVYBoEB55+rbl/rV1YFCPVf0N0PVpM50wORljxhEJ48DYg50ttdURIXKhyD
+	 WSkjWrQgDnis2nnFRR8oNt0prqdS0iTAHzP3K6gOie1wt4njZ+m+wJPzm3JXD4WQaa9ee
+	 wEo5Zu6VLwVPBaB3IprQDS4mBHx+w8lv9y6ePFcw0/qVFWacT/LzJcbt2EE6Z7PxuBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mvptNPQE;
-	arc=none smtp.remote-ip=74.125.229.133
-Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEdkPhkE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831E4606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 831E4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8E2606A31C;
+	Wed, 11 Nov 2026 13:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mvptNPQE
-Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso1775097c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 05:27:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794403643; x=1795008443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KjhafLL1UZbKPOZNQh1cMzv8u8RveGg8GMhtLtBENRY=;
-        b=mvptNPQEq/vtNOxrKTkNGyvTn5hcer5o67WHLqmXdXBljpmh+pwrb9xNdrFBu6uzZQ
-         XltD0kBMgg5UUZH5w4sy7C0j+MTfNEXIdOlD+zX8fFPkXH3MkSD8dXNUGqo841u13l//
-         5YXNx8otjWPzRVp9qJOzQnTuzodjfyeZBcvVB4Ej6eYb4NsQ1ac3Zedxwjy4is/aTrh9
-         aeT0BRLR/D3LiHBQIbGtFLkEDkfgi8nep6pZXLijD8Rh0VRNJ7fXg/VyEj6VSBiNZ571
-         rwR+sHkdqx5dRo09lIm5jruzRe2cavowOdQGEyDkTChtHMWxCfMsT8M7HqT+5E2e+vsV
-         vDlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403643; x=1795008443;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KjhafLL1UZbKPOZNQh1cMzv8u8RveGg8GMhtLtBENRY=;
-        b=Iezj8mXjN5gCJSWQ+MDJ4XLNMVPj7V+jxWd/yk/pCfmvn82PLeSebSxP69UynVzDw/
-         dmzb273xVLqPFhRd8JetDO6O8u8NQaVK/C/0uZsoAug0uC0CEQfWcHmsSo7DbK3lvZxp
-         aqEtgDhovob5kqWMgZKI8nNYsccASxI+Mi1+0G4m8Vhl/jLfF1ZQwnkf+Y66cG4d+DXn
-         0oO2mz9ggto4I/MetxFjuNocc1f7xbfHxZ2VAFapq1+fZ7GSpRHdf4MY/3AaEbqVo7J2
-         yA6ljRj8miPuZPd+VNO1M1AovR+qj0AwUbyqBedxvP4aJjzUlrYkz/yvM6aXfZUa391O
-         bBjQ==
-X-Forwarded-Encrypted: i=1; AL+hErG5r9ejGVxnFn6kJMpB4eWd6k1ZP6C4xesxiGVLH5J60W+ySXzO+Fs0HZDfnpMi0rFf+KkKl1Ga/WuSDRA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RISdS9LIDEl/RJuhMQuI/GNFlDObDzCaJEjJBvRzb1R/GZjlw
-	xGj/ozOgsPpid/Fzl9ZIXWYhwy8qk89jieISceW5NYiYiesNOUhqJaPd
-X-Gm-Gg: AYBFou3/l24Tq26rxjyhnZ1zkv2my03QbjOf90KbMo1WJqbQINaFss/RylyERFP0hoD
-	hpNyRFrsilWKC4yEAXcqdN/5xKZ+sqeZpAmNa7aeHS2MWIv2zvF0nE4KfsBHZVcpcJJVKVLzja9
-	XtS7hVFlfTFqsqoo1xf6gP0YhmpT2lj8Rs1pIH2cYqiup8MYBecrCdul4rt+HSq5H84qzOtx00n
-	cKvN/GdCnkAKaPWePI5EHGsvZF6rfPz3K5QkmBJ4SLE/HWO3NyBXVfqc8W36TAFpSOCf9PrUW3r
-	+G4HHnFTX+RVLbU7rXrFpwosyZ8QzT7xeOcM0sfkjP2GPTAgmRiMC6okmOF3PJaIV01BgHXIQeU
-	bIAzAFGKyNj0S76AoLAy+aGDLZJ0BjNj/64y79EaaE5ksxX+mdpIM2ehZaVNruziQxjeOO/F5P+
-	AjxHRP7a9Uz5RLlhX/1FUikvmn4d6rbRj2v7vgtmUkTdCBP7vmcXxvhKorQ2R9lxzjLWg87LG3q
-	rMq2HUN2V9HY4zLVYnIfli1rCjaIXj3ykL/ZHmufB/FWEkPWgxX+OfERUPeHd+a3LG8T7VTOggu
-	P3DZ++P7W957aaMWgBv9NBUMav/zmmN6yCn6oGTBem6iHHjWisFiYfTXoShaz5Sl5J41sidbfQ2
-	aqhrt4XUdVI4CS1nBWQUkHkD5VgtFHfP/a3zQ7g==
-X-Received: by 2002:a05:7022:290:b0:1b2:529c:5b6c with SMTP id a92af1059eb24-1b3c02f37ecmr2292070c88.14.1794403642285;
-        Wed, 11 Nov 2026 05:27:22 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890c0esm16146038c88.1.2026.11.11.05.27.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 05:27:21 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: giometti@enneenne.com
-Cc: akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2] pps: reject N_PPS on pseudo-terminals
-Date: Wed, 11 Nov 2026 13:27:09 +0000
-Message-ID: <20261111132709.5959-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEdkPhkE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6368F1F00A05;
+	Wed, 11 Nov 2026 13:27:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794403675;
+	bh=5TobANsfNbQPE7bHGqRUO1+IBRipYYGScGTtUnijg5Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=NEdkPhkEYUeNthxyHswKlC+LjnE3+C8o+r69jP/kWWwPJmNjwUjX+n+MMVxp86fU3
+	 nRjyHg29mW4zKgB9zMfQeSzMvvHdf2fKf94JxaWhgLL2UNMd7ycqXvlqYBgcx4uhXr
+	 YNd/LCvK63k37DwGXK6b0TQDBrIGUpyAfYnNWJlIJlGu+t2gyajY4rYAs18sR8WJ/x
+	 nMUEA4I988zdXET2E/tBIaZpQ2YcNX39oUAB+DEYSftb5YPfi2iJpdFO8M5uQWpbyh
+	 GauZxaMl/9tkIxRUqgCf6TE/U4Jrnhpnix3hcgOcAIFMfnQHTfRsfI3a89cyrPU9+6
+	 LZg4ZR/DaB6zA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 03/11] xdp: Copy buffers with restricted
+ lifetime
+In-Reply-To: <avOZa6jLnmvYkk2H@devvm16445.scu0.facebook.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-4-bjorn@kernel.org>
+ <avOZa6jLnmvYkk2H@devvm16445.scu0.facebook.com>
+Date: Wed, 11 Nov 2026 05:27:51 -0800
+Message-ID: <87eccra46g.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,42 +81,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Attaching N_PPS to a PTY registers a PPS source even though PTYs do not
-report DCD changes. An unprivileged user can exhaust the PPS source IDs
-this way, causing registration of a real PPS source to fail with
--EBUSY.
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-Reject N_PPS on PTYs before allocating a source.
+> On 11/10, Bj=C3=B6rn T=C3=B6pel wrote:
 
-Fixes: a0880df0ccde ("pps: serial clients support")
-Suggested-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Reject PTYs before registering a PPS source, as suggested by Rodolfo.
-- Drop the stable Cc.
+>> diff --git a/include/net/xdp.h b/include/net/xdp.h
+>> index 07231adfb5f8..1105bb9e3292 100644
+>> --- a/include/net/xdp.h
+>> +++ b/include/net/xdp.h
+>> @@ -81,6 +81,16 @@ enum xdp_buff_flags {
+>>  	 * XDP program is not attached.
+>>  	 */
+>>  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
+>> +	/* Internal: the head netmem and the shared info are in &xdp_buff.ext.
+>> +	 * Not copied to xdp_frames or skbs.
+>> +	 */
+>> +	XDP_FLAGS_EXT			=3D BIT(3),
+>> +};
+>> +
+>> +/* For a head buffer that cannot hold kernel data, see xdp_init_buff_ne=
+tmem() */
+>> +struct xdp_buff_ext {
+>> +	netmem_ref netmem;
+>
+> nit: netmem -> head ? and the same for xdp_init_buff_netmem netmem arg?
 
-v1: https://lore.kernel.org/r/20261107211753.75932-1-dennylin0707@gmail.com
+Yup, will fix.
 
- drivers/pps/clients/pps-ldisc.c | 3 +++
- 1 file changed, 3 insertions(+)
+>> @@ -138,7 +153,7 @@ static __always_inline void xdp_buff_set_frag_unread=
+able(struct xdp_buff *xdp)
+>>=20=20
+>>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff=
+ *xdp)
+>>  {
+>> -	return xdp->flags;
+>> +	return xdp->flags & ~XDP_FLAGS_EXT;
+>
+> The only consumer is xdp_update_skb_frags_info, so probably not worth
+> filtering out XDP_FLAGS_EXT here? Or is it for
+> xdp_update_frame_from_buff? Can we explicitly clear it at the caller?=20
 
-diff --git a/drivers/pps/clients/pps-ldisc.c b/drivers/pps/clients/pps-ldisc.c
-index fa5660f3c4b7..83f4caced0c9 100644
---- a/drivers/pps/clients/pps-ldisc.c
-+++ b/drivers/pps/clients/pps-ldisc.c
-@@ -46,6 +46,9 @@ static int pps_tty_open(struct tty_struct *tty)
- 	struct pps_device *pps;
- 	int ret;
- 
-+	if (drv->type == TTY_DRIVER_TYPE_PTY)
-+		return -EINVAL;
-+
- 	info.owner = THIS_MODULE;
- 	info.dev = NULL;
- 	snprintf(info.name, PPS_MAX_NAME_LEN, "%s%d", drv->driver_name, index);
--- 
-2.50.1 (Apple Git-155)
+It was for xdp_update_frame_from_buff(), but looking closer EXT never
+gets there...
 
+I'll drop the mask. Thanks!
+
+>> diff --git a/net/core/devmem.c b/net/core/devmem.c
+>> index 8f190b574beb..dea4a4a17e86 100644
+>> --- a/net/core/devmem.c
+>> +++ b/net/core/devmem.c
+>> @@ -698,5 +698,5 @@ static const struct memory_provider_ops dmabuf_devme=
+m_ops =3D {
+>>  	.release_netmem		=3D mp_dmabuf_devmem_release_page,
+>>  	.nl_fill		=3D mp_dmabuf_devmem_nl_fill,
+>>  	.uninstall		=3D mp_dmabuf_devmem_uninstall,
+>> -	.caps			=3D MP_CAP_FRAG,
+>> +	.caps			=3D MP_CAP_FRAG | MP_CAP_RETAIN,
+>
+> Not sure I understand this part, can you explain?
+> These are MP_CAP_RETAIN because they are unreadable?
+
+No, RETAIN is about lifetime: the stack may hold page pool references
+after the RX poll, e.g. skbs on a TCP receive queue. That's how devmem
+and zcrx work; without it the stack would try to copy them, and they'd
+trip the DEBUG_NET check in skb_add_rx_frag_netmem().
+
+A provider without RETAIN gets copied, so it must be readable. I'll try
+to make that more clear in the kdoc, and probably refuse a provider that
+is neither.
+
+>> diff --git a/net/core/xdp.c b/net/core/xdp.c
+>> index 1d679e8fd649..0cf46d492d91 100644
+>> --- a/net/core/xdp.c
+>> +++ b/net/core/xdp.c
+>> @@ -23,6 +23,8 @@
+>>  #include <trace/events/xdp.h>
+>>  #include <net/xdp_sock_drv.h>
+>>=20=20
+>> +#include "dev.h"
+>> +
+>>  #define REG_STATE_NEW		0x0
+>>  #define REG_STATE_REGISTERED	0x1
+>>  #define REG_STATE_UNREGISTERED	0x2
+>> @@ -559,10 +561,41 @@ void xdp_return_buff(struct xdp_buff *xdp)
+>>  			     xdp->rxq->mem.type, true, xdp);
+>>=20=20
+>>  out:
+>> -	__xdp_return(virt_to_netmem(xdp->data), xdp->rxq->mem.type, true, xdp);
+>> +	__xdp_return(xdp_buff_head_netmem(xdp), xdp->rxq->mem.type, true, xdp);
+>>  }
+>>  EXPORT_SYMBOL_GPL(xdp_return_buff);
+>>=20=20
+>> +bool __xdp_buff_needs_copy(const struct xdp_buff *xdp)
+>> +{
+>> +	const struct skb_shared_info *sinfo;
+>> +	u32 i;
+>> +
+>> +	/* Provider buffers come only from page pool queues */
+>> +	if (xdp->rxq->mem.type !=3D MEM_TYPE_PAGE_POOL)
+>> +		return false;
+>> +	if (!netmem_can_retain(xdp_buff_head_netmem(xdp)))
+>> +		return true;
+>> +	if (likely(!xdp_buff_has_frags(xdp)))
+>> +		return false;
+>> +
+>> +	sinfo =3D xdp_get_shared_info_from_buff(xdp);
+>> +	for (i =3D 0; i < sinfo->nr_frags; i++) {
+>> +		if (!netmem_can_retain(skb_frag_netmem(&sinfo->frags[i])))
+>> +			return true;
+>
+> Do we want/need to go that deep? Can we have a skb-like assumptions that
+> mixing retain and non-retain in the same shinfo is not allowed?
+
+Yep, let's make that the rule. I'll remove the deep checks.
+
+
+Bj=C3=B6rn
