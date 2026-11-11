@@ -1,88 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408981;
-	b=Et2CllPe8FG7T4oOWdlvvrZ/oFgDycWj6MzloOd1adbwEKEc5mCoNazNl0wgh7jC9X24
-	 BZ6AXYw37dGZOgoenX9LbG1geJLxyJvlqpZJdQpWu2j87i6b5Y1MQCpmW1Rmi5zQDrTbC
-	 S5snzWl0I0TAHOJmXrb2nAh+PGxP+33cSleES9O0KdMxhI88qWsV2ZHcyPkIwDMm0O5ZN
-	 yCcqFLJiJGwB/kr5jS5AYVtozi+7znpxgUv9R0eTY2DuXvwMTdQYjMdx1Ek1i7bQhSi4H
-	 BVIjc5fOaVX2vbUGE/ZleZ7EAgkesaXK6rM/AUSr+/mNGvcc5uimEsUjwWvo4/oVarQ==
+	t=1794408976;
+	b=s9x7IuAQbpuP7TYSbTlT42CXdHuBNgymorxiFB1hF2uyoz6HKiiaH1QZH3R+gdGxtvkj
+	 ZDLcZeGJy6CqFw/qwHYkbVv9ONMBpjs9nqs+d63kDmm5017L5rac8S8+OJiJ8uToP8UKj
+	 sSzNDsdU8boiaSm1w9klfN3j2SE5hzlH+k/fGBzFQN9Ypu6w/F0+sYel9UUzICwiIe4iS
+	 qygcxL712x0/kYvfl72s+2tkzEw1dZnThZF4jxxVWZs23hK1Ysq7VjY/++pVPcvuLpSvP
+	 P3eMIOR18E9xHC6qFhzdMEAmn2LLMvj0P5xKnudxoTC7KnVensy7t4mDXJOU4j0EDkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408981;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MYyJqKHKy98cz/KTExGNTJetx9UGJc+W2b5O0OHZLt4=;
-	b=YUkNrg8S/SMXQPvSXNR7XURpz85K4ad+T6U5QeIC00tF3OvmhcDuqfpyHxltLVlIHu80
-	 X619cQsyCW+uLutQfS5htp4EDI5vMJl8vn91dNZYEjGzJHLHJZWdxnH2Q5RniIt0dcIus
-	 5fy2//hoNThxLewHOcbelDEpfMfg5fgwZgGV0fBoT+be0iynSM5RsqX51KV01/TiOKVn6
-	 jiejvGmK0o753miqMDodmh8VCixZLpCtb41+l/2BF5dS5aCvzdPIvILKpy9T2znbWMSKH
-	 y27PtoE5pnLUa9TwKJE1tPJ0OqwDK7YCPDlyxtr5+JPYIvQDL7tkUoGmMnYM+F2LbKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408976;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=HIxqZpO2DkxXQxVSlLihZrvF0i6BWvR7KaufIV3r23s=;
+	b=KRPYQQJyNOjy6ocH2yPXT4qHaG1AWqMLuIKLK2i9r6MBJioqCcCXm4u1ZFOc+uB1aCmP
+	 2d3WDDirfvPfX2rJ9Rrb+an9yY0m9hJbW7M8pKBS3b7sLrom6aKVH2Lp8Yn4ZahHl0QIE
+	 VShDZqfYFmniwP1RUw3LlNBM5ePQsw6WBn2dHGGPYSdvmmPUyVc25EsEAzekX0vBHPavM
+	 qQjSp7ClSwptr5DGptFaWUdGB35by/XVx+Z5WtwZ4ELCPtUXxoosakZUzpEm9cIqOtZsc
+	 F09nkocq0PeFq18HiBTnSgtZR3+A/B7j5dl5IZlQ4tjNsLsiiQTRLcU6CcZfAq+QzxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGF+OwVA;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXh5ESzV;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E0A606A881
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4E0A606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A371606A332;
+	Wed, 11 Nov 2026 14:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A371606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGF+OwVA
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25199905e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:56:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794408979; x=1795013779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MYyJqKHKy98cz/KTExGNTJetx9UGJc+W2b5O0OHZLt4=;
-        b=DGF+OwVABMpS2xBu0T6d07x5i1sBBDP4m4vqxkjoTgsPNkT6n/XAuf+zDy/mIAUflx
-         rAPxgMuj4EnkAwQ8/8tf3gVR1qZbiU++2jcYfsxcdZK01Fh5djQJBAmVN6ZwG4IJGTnr
-         Kmuu9zqea6V+UlVcuO6zyTF4ULlXDYPWg3fjcyC1mixriL+3y6i2G+2aRQ362m2FsNi+
-         yDMdOY0eixVhT2ZS+PmgQb361VHkqTWTzElyYXLrVNCk0hsSVjli9CWLj+9yn8mV2Bhg
-         g9i5EpUBL3zIB0POGK7O76WlZnNQIwdXiRpFUPPjjtKz4dWkH4dkHJMfLAtLLPr8UZ27
-         VxHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794408979; x=1795013779;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MYyJqKHKy98cz/KTExGNTJetx9UGJc+W2b5O0OHZLt4=;
-        b=kHHLUo5aTnX0Z/3T+Qod7UrDfsW0L8erSrntTc32ElpIV/x7NGyf0tqfhfUKmrPKQF
-         SYhdt77ZF45k+MXzRSYoOiwItDjoDGle+Li3O02XQzHVF1rkngx3wto1qgBLIrh+Pl+q
-         /XcHUh+XlHj7uKhX7MH6kJIzfe6bRAor20AsYMCFqPbnFxnhtWFARru0Zx2u+EzPFMzQ
-         0z8uoTKvo1bhaba28zL74sUwHvBxYInnKElfSJbE9Uns5XIQp/p98Q5sAwlhdg9a81p9
-         JzJDtzSCVRSCJFNVNZVPSoMH/JXuEbUzqZamZM4cfhNpzVECeq+AkNlq4zJUydHMPXe8
-         w09A==
-X-Forwarded-Encrypted: i=1; AL+hErGp5FvsYu1MM182Pme0daRP7m6qu3G3L76ufXGdlUKK6bFjn8RlNfhApJ4CvADRoxDXZ84lt0PHjWhGmqs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AO8PwFx2GyTBNHxUDHigB8Z7Aiy0z9fLO2Knp6R4CaQDOyBEj
-	lNDd0uc3YIYjTxDQ9TlQa6r/xIffeh1BfsHPOlZ3y6gIewNyL+tNdyIF
-X-Gm-Gg: AYBFou3sDe7ohDDd9C9ZdtrEwMTG+7RRc78iugvi2eaueaUUPj3369+jXpV3zKJE/vY
-	e4knzIe6+kx6wefa81n4Tw7GRMUyH9VGcj17o++3O9AR4Sxxkt4kKKvz//HXN9EboXssScF0gl+
-	PyBMJcDSS8joGfZLdKU0ebJ+0pHhiYdX2OlMhFYBKbgbYHRVgcLjgb44rIx4z7GDwG3ZioQSRLc
-	B9UvyFuIjzaEyNOefg6aIkCevseTAWe7RgdnPPuyyzGcydLNeCIEkqP0GSZkh5/V6u3yaK3W3Q/
-	UVFW0uerx24USIr0D6/psE3FrZHLiKRxJRPlvuTQsRIWOBdDMwzC4hbyN83KzRZ01D+3fjv+hBD
-	ALeibYH3Q80DBNpwoP1U8UZ+xXLzMnYmxQ2PS5lTcytPLJdWceFSppEWXRWM/9y+wiA62jW6WjP
-	N5ByMmriLSSLlcQ7rDyMrkBhDwyKwHIG/24T+9F9z+0HHBs1RfcUL9lFSpSG4I6/PnZ/h04B0Cx
-	Qb5yE45pe6FzaIA8uTNFkR85znUnO281LstuucjxlJqAAczRGsKoV/NWYN5UjBBM2x/ydsX+7SK
-	bwFgD0UJOjcyi0SfgGlhTl+3dJZp7tm2rczI16EWNk5zwJDVmtIqYLPiQ3ANvOnTeFDvIw==
-X-Received: by 2002:a05:600c:e558:10b0:4a3:18ca:806 with SMTP id 5b1f17b1804b1-4ba0938e116mr29687345e9.20.1794408978700;
-        Wed, 11 Nov 2026 06:56:18 -0800 (PST)
-Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c554832sm1533175e9.12.2026.11.11.06.56.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 06:56:18 -0800 (PST)
-Message-ID: <998f89d2-774f-47d3-b6cd-df7bbfbf2b3b@gmail.com>
-Date: Wed, 11 Nov 2026 15:56:17 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXh5ESzV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794408976; x=1825944976;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5so1kCrTiCcFWXxMcqxCPb9dL1nC50/E0xGXG4pyrAE=;
+  b=mXh5ESzVA9lR+mgIpwi243JbM+SpTNZGUcb8mK2PD5uLj42P/GRSyaXX
+   fDJbjEcO6h0S0q6C5J7nWsO3FJlmGps7XjfaES4R0yiFe1dgS+qko6l/z
+   CHyac/a/PjNQTiVtCcFr49ePw3X4IJtO7ZfsZscvTGBMcIC6z7lbv3pli
+   UIcuf7rH97nRFh25qA2T+ND7WZQnlI+AbZYBpxPUUKqfd6jV7dwXkSf1P
+   sZsby7VISbV0IhMCzNQ2Pg8mGy275RRoayIzdB9FwgjSuUw/M8fbLe/yL
+   LRL5nsplrT5c1zwjXlM9vlBN0wYWhF9dgZNKhCEPVy3rs3Quub6Vf8dZH
+   Q==;
+X-CSE-ConnectionGUID: DQmkG58VRTK8mdO4M/KTHA==
+X-CSE-MsgGUID: mhXGSIPqQoeneRJT5r91jQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3075593"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3075593"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:56:16 -0800
+X-CSE-ConnectionGUID: BywnVwgeQzui3PC5ta84og==
+X-CSE-MsgGUID: GWttU/xnQA22g+UdHz/5CA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8774236"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 11 Nov 2026 06:56:14 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 7536D99; Wed, 11 Nov 2026 15:56:13 +0100 (CET)
+Date: Wed, 11 Nov 2026 15:56:13 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: brianellis@gotenna.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: ulpi: warn when a PHY with no DT node cannot be read
+Message-ID: <avSCDSv15j7KBrDa@black.igk.intel.com>
+References: <20261109-ulpi-warn-unidentified-phy-v1-1-64537f455dd8@gotenna.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,65 +80,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] mm/hugetlb_vmemmap: fix deadlock during PMD split
-To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Miaohe Lin <linmiaohe@huawei.com>
-Cc: Muchun Song <muchun.song@linux.dev>, David Hildenbrand
- <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111093747.50048-1-songmuchun@bytedance.com>
- <20261111093747.50048-4-songmuchun@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261111093747.50048-4-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-ulpi-warn-unidentified-phy-v1-1-64537f455dd8@gotenna.com>
 
-On 11/11/26 10:37 AM, Muchun Song wrote:
-> vmemmap_remap_range() currently walks vmemmap page tables under
-> init_mm.mmap_lock. If the walk reaches a leaf PMD, vmemmap_split_pmd()
-> allocates a PTE table with GFP_KERNEL and can enter direct reclaim:
+On Mon, Nov 09, 2026 at 11:22:57AM -0700, Brian Ellis via B4 Relay wrote:
+> From: Brian Ellis <brianellis@gotenna.com>
 > 
-> hugetlb_vmemmap_optimize_folio()
->    vmemmap_remap_range()
->      mmap_read_lock(&init_mm)  <-- outer read lock
->      ...
->        vmemmap_split_pmd()
->          pte_alloc_one_kernel(&init_mm)  /* GFP_KERNEL */
->            <direct reclaim>
->              ttm_pool_shrinker_scan()
->                ...
->                  change_page_attr_set_clr()
->                    mmap_read_lock(&init_mm)  <-- self-deadlock
+> ulpi_read_id() checks that the PHY's registers can be reached by writing
+> ULPI_SCRATCH and reading it back.  If the write fails or the value does
+> not come back, it falls back to OF matching and returns success, with
+> nothing logged and ulpi->id left at 0000:0000.
 > 
-> Since commit d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on
-> attribute changes to avoid UAF"), reclaim through TTM can enter CPA,
-> which also takes init_mm.mmap_lock. If a writer is pending, the nested
-> read blocks behind it while the outer read cannot be released, causing a
-> self-deadlock.
+> Commit ef6a7bcfb01c ("usb: ulpi: Support device discovery via DT") added
+> that fallback for PHYs described in DT, which may not be powered yet when
+> the ID is read.  For a PHY with no DT node it does nothing:
+> of_request_module() returns -ENODEV for a NULL node, and ulpi_match() can
+> only match a zero vendor ID through OF.  The PHY is never identified and
+> nothing says why, so code that keys off ulpi->id, such as dwc3's USB3340
+> detection, silently does not apply.
 > 
-> HVO walks vmemmap ranges whose intermediate page tables remain present.
-> vmemmap_split_pmd() revalidates the PMD under init_mm.page_table_lock
-> before installing the PTE table. Use the lockless page-table walker so the
-> allocation no longer runs under init_mm.mmap_lock.
+> Commit 8a7b31d545d3 ("usb: ulpi: defer ulpi_register on ulpi_read_id
+> timeout") made the failed write an error for this reason.  It was
+> reverted by commit b659b613cea2 ("Revert "usb: ulpi: defer
+> ulpi_register on ulpi_read_id timeout"") because QEMU's Zynq machines,
+> where this write times out, then could not boot from USB.  So keep the
+> behaviour and only report it.
 > 
-> Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-206969@kernel.org/
+> We hit this on a ZynqMP board whose USB3340 takes its PLL supply from
+> VBUS, so its ULPI clock only runs with a cable attached.  Booted without
+> one, the scratch write times out, the PHY reads as 0000:0000, and dwc3
+> never enables the USB3340 transceiver delay, all without a message.
+> 
+> Warn when register access fails and there is no DT node to fall back on.
+> PHYs described in DT, and PHYs whose registers work but report no vendor
+> ID, stay silent as before.
+> 
+> Signed-off-by: Brian Ellis <brianellis@gotenna.com>
+> ---
+> How this was tested: the failure was observed on our board, on AMD's
+> 6.6-based vendor kernel, where an earlier version of this patch warned on
+> every fallback and printed
+> 
+>   dwc3 fe200000.usb: ULPI id read failed or unavailable (0000:0000); relying on OF match
+> 
+> on a boot without a cable.  That version would also have warned for
+> DT-described PHYs and for PHYs with no vendor ID, which is why it was
+> narrowed to this one.  This version has not been run on hardware.  On
+> usb-next it is compile-tested only (x86_64 allmodconfig, W=1, no
+> warnings).
+> 
+> On QEMU's Zynq machines, where the scratch write times out (see
+> b659b613cea2), this prints one line at boot.  That is accurate there too:
+> the PHY is not identified.
+> 
+> Tool use: an LLM coding assistant (Claude) helped investigate this, wrote
+> the code change, and drafted this changelog and these notes.  The
+> observation above was made on our hardware.
 
+Instead of adding this kind noise back, I would prefer to see a patch
+that fixes the root problem. Do you know how is the PHY powered on on
+this system?
 
-LGTM:
+The message is probable only useful for debugging. Maybe it should be
+dev_dbg instead of dev_warn.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Thanks,
+
+> ---
+>  drivers/usb/common/ulpi.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/common/ulpi.c b/drivers/usb/common/ulpi.c
+> index dec4baca1c..9d94d51726 100644
+> --- a/drivers/usb/common/ulpi.c
+> +++ b/drivers/usb/common/ulpi.c
+> @@ -209,14 +209,14 @@ static int ulpi_read_id(struct ulpi *ulpi)
+>  	/* Test the interface */
+>  	ret = ulpi_write(ulpi, ULPI_SCRATCH, 0xaa);
+>  	if (ret < 0)
+> -		goto err;
+> +		goto err_access;
+>  
+>  	ret = ulpi_read(ulpi, ULPI_SCRATCH);
+>  	if (ret < 0)
+>  		return ret;
+>  
+>  	if (ret != 0xaa)
+> -		goto err;
+> +		goto err_access;
+>  
+>  	ulpi->id.vendor = ulpi_read(ulpi, ULPI_VENDOR_ID_LOW);
+>  	ulpi->id.vendor |= ulpi_read(ulpi, ULPI_VENDOR_ID_HIGH) << 8;
+> @@ -230,6 +230,13 @@ static int ulpi_read_id(struct ulpi *ulpi)
+>  
+>  	request_module("ulpi:v%04xp%04x", ulpi->id.vendor, ulpi->id.product);
+>  	return 0;
+> +err_access:
+> +	/*
+> +	 * A PHY described in DT may not be powered yet and is matched via OF
+> +	 * instead.  Without a DT node nothing else can identify it, so say so.
+> +	 */
+> +	if (!ulpi->dev.of_node)
+> +		dev_warn(&ulpi->dev, "PHY registers not accessible, PHY not identified\n");
+>  err:
+>  	of_request_module(ulpi->dev.of_node);
+>  	return 0;
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261109-ulpi-warn-unidentified-phy-8c94d2e43f19
+> 
+> Best regards,
+> -- 
+> Brian Ellis <brianellis@gotenna.com>
+> 
 
 -- 
-cheers,
-jose a. p-a
+heikki
