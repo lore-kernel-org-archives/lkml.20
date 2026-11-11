@@ -1,102 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364500;
-	b=cspjvFh7mpE4XxqKTk2M//Ar4ki1AwNpQFGbWC7xvcK0VeGCLgke7oL62dfBmkCroo4J
-	 5rt5IH3hdviOaqkLPIYejG7ht+u6wLc8becV+S/XnJEBNDrUhKCVOx1u2nHWkZ8Up8B9g
-	 4/pnCEhy7BmCe4XCU6FCI+Tq5rzTfRanfBh98vKDlLu405q6pcUmq98MGqOOhpAjlxkqM
-	 hPmyotEsDd7TAuB+Oveh/DcLlrN6fcliX3hefiQ18PzTPzuqfKveMe2OvU428NJqLlnjN
-	 VwNXeQbGG49w4tTJCCQnD2ed50A8E16GRpfK4JB8Q6BrkiBAzmJvwE2pATvDBtp66zA==
+	t=1794364505;
+	b=naFVj/tI4KSvDvcYjYYS2f6mbCkNDLc9ztl2rFgddrIK/AEK8zDLdvnU0yRHFfqVDg3L
+	 ZgvXF9TLlpvGZROQgA3nqgpgXm3S9h+f9QROwCbc8Y762gRf3pt6wZqxkSG13jsUprZFy
+	 UC64u4lBf/JmHdI3SM8i3p/32jhN1fVH55mKUeKb10CDXfHmNxWT/rMKQin1BU/L+EkH8
+	 dp+PRMmxWGl0KiUJIUU6tnbMmP8EDj8HLbqhhOcTyakQnLBrC22ThrGBmN6MRFnE7k6cq
+	 MNLi6wtUqBBx3/1chLKwP0avbci3FK4B4F/kWJpCNonR4lmUSRuvRPY+vl/maeuM5vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/sscL++uEr8+NPbUC/LnCaXlXYDhriflAFmiBIYpZ5s=;
-	b=uU09WiZ6E973oO6RuL3ddHq7Qj9pK1QDbnEPYA0JutUPeWg9XvTiKa2E9fFK7wvBO/Bs
-	 3CUHZ2/v0JBaVXxyy4ec2z/DCeXf3d5AS6dC4JhA/k3AeK4ICaSVIxzrTtjangL+46hNm
-	 DB3EiCcbGWwDJmXc4luTA9BKFS89/kPcA9ZXIOtvqqSX8uWMrS0fpFI7v/BsR6vTT7urW
-	 buzftOO7zJ3ux8cqLuMH9pn/ZhmeivK4t6/SxVa86qDlBnP1iRCp6BeRwDfoUcvQAXEND
-	 KkKfj+m9oPYaLX/FzgmJ9wUje/jT+scpEIUyy3AX8nrg6FNR/HZitRWBYHN+8c23FYQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
+	b=Bq1nGD15XC5jh/0QDhDxwc3CFbhglwnLagsvEJMUU1R4nweAg9Mc3SKyL/SVgG5r4aLJ
+	 EDR99lr55rsyX6qwUyAN6TcqJi6g0edEgZuNAwhSEchPatdn7EP+64WU5DytPuSpIHzfJ
+	 8d4nTpKXwph70VXphkXWnHd13fjOwYbP3FA6ddZFhhKb2IHTyhieGRFUG0IKIvFk7CxKm
+	 p97RCqohCJbHdvmiNeKgPFMcltzsVip1BT2xAYOXo2Sgx/1Tb0S4j0jcAQpN3p1FBPAKZ
+	 4Ojxn8hQGiTSM5sIqjXA4pQNGMQ2lqkIcXq5PCDPUoGqt3vi086lscKVUlFW9OFbxuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UpqLJDJy;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTcyhR1o;
+	arc=none smtp.remote-ip=209.85.167.178
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF2F606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF2F606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256F1606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 256F1606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UpqLJDJy
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-14394530ec6so3565587c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:34:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTcyhR1o
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4f55a53898cso1282079b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364499; x=1794969299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/sscL++uEr8+NPbUC/LnCaXlXYDhriflAFmiBIYpZ5s=;
-        b=UpqLJDJy5jDVhammzpe4+UGok7wflEv2gvqJ8r189DmSKW/BhO5PfI2xhr5gK4p7iH
-         RrE0T9d8853XAeQ3TtXRLzDMX3UJWIz78xd7f0uz4S0PkjvVO4JltKSWu33UqB9jR8s8
-         w00tK3LP1dE4ZGDXZYEvqCie6yilCB2IqMW9Dgdjx3EW+2Ovn4SKRIxkoQWUTBCio5kH
-         Olbn5iWNfW83vJ2zDgt/eja10+rZXq09aXWGow5TrrvjXNl6IHAez9y3w82GbIA71F6v
-         y1QJXeTh6hsNLWchIv15I40nOVqELAQ1fK5RVvDt25BJ84EZKZJPbEoRlpgREZbAsZyk
-         NH+A==
+        d=gmail.com; s=20260707; t=1794364504; x=1794969304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
+        b=zTcyhR1o6wGRLJcDfRc0m0+EDyM7DnkJclPUy1kQ1UdAbkc5R5ekQ3A273YJX/P7M+
+         IKxQ04A4hYzWjYMM3+Rt+ip24qYSf5Jb/lKkKiSXc2Lxt6EHVwAKuU7SFbzpw99Zw3kP
+         MYXO2f8o2JRiIhQGaw/hvWZUGWc0D4chBG9dnmJC8+LDLbmpdE+yK+6fVW5XPiMvFGaB
+         tyRwQUNh621WjAa4h8mMYohiKKOSvsQjcuqoZil+EvbgTXeZxKiHMbw14HBGX5DjtMNs
+         FTYJ3dxN76wxrICcSFOyK+MQZ3Y64ZL0O6avgfvb1cIxOyaXYVac78FPqZF9DMWNig3O
+         w5zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364499; x=1794969299;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/sscL++uEr8+NPbUC/LnCaXlXYDhriflAFmiBIYpZ5s=;
-        b=m3Oky6pfa0PnfycPMfauKjuVi0h6QqFFng2mQPwxU6oZeVFJ8ELS/cEKg8KVKuydjd
-         kXxXYNqELx0tgViUzs4mk+t3vRUPk1ltOz4cZm6UT9ScIhc6gUWd3GxPf15Lobr2wziP
-         JDVUrTC5W/Wuy1AzAdZV/ZV/yS4LuBw8fyKHUXam9G5ullFn4eGrI/utFCmXGHZU927d
-         4Z0ilncXEHVTwxGUIBeJeul5NTUe3jfXfN3StusA8HpyzZVJJhkVUIxrCcD9LQ1gXXHb
-         7KbSnZdW5aSb5KvEVwlcNDQTYb9WeH0d31j+DlJjZjA1lwGEj60QEYKoh32LwXqyZhFc
-         Wl0w==
-X-Forwarded-Encrypted: i=1; AL+hErGhaGqXca6w/Txl7qalbrMAyiYcnN54SyLvq5mucsLU0GLJ1Neudts6hLM4aA4fw8IPDz6YtVbAUJUKmIs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86PezbkZE4x8adUkbjys1ZwCxuaRFthj5+Iw2QDeqphRD2AyEE
-	s8JHRggJYrlO8yxAN09n9C37hz2vPkzgBp3rX/HFp2mZKNo0BVGNeWF+
-X-Gm-Gg: AYBFou0yBeHGypO4lHfu3cZ892Xcs9Ke68MhwXpMjksNoP9Q+HCF+W0OfOdfpMacPpA
-	aawpMncfRtgAx7ZrCn86PZDMMATtFdgGkdaMlVuR8IJRnQQEUQcfj1KcrlvGdHhBANZFXKaNnhJ
-	om5EDdUpHsvucGmkabobSgNCbrLMR6ayhROtoX4SY0grm73IpiqOyN9g+tPhcn8O+tphlsH3Sp7
-	gHhgLiarW8cxGA8dLDnNiQ3DoqtzOnQjSbBDOUHSLeTPt/BGGH5HI7/kLLK7j64VOrs+0P1MoTT
-	9nPCKZkTwSTfFO7vQsoQg6NGDSqe0sKLmgrwZOUEy6yfzs+nbvwjeW9o1ioigukywtVliUQ5qc9
-	ApHoKBzCTjPcUaskbu+L0ChBbbHiMlbGkG7c2wRHk2/KZi4oMUfMx3qQ3rwzSAnbhI13n6hsK1X
-	Q0LJUNsncaQ+JhSil1p1hfrXfo3kHj32lGBlzBn90rVzysbK/zH8BACHM93cHfATQSDuAY6p6D9
-	F+YHaNyUkml1Ngo/rN4uF0hwd5iATYRLylLlBaKgiJBSTZPJabctEZDJ3mC7IKCEjS8OS7v5F/P
-	mp2avoLIBbISQ+0MqgBe
-X-Received: by 2002:a05:7023:a4c:b0:1b2:6d3f:6305 with SMTP id a92af1059eb24-1b3c023d80dmr1085194c88.1.1794364498348;
-        Tue, 10 Nov 2026 18:34:58 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm11752369c88.4.2026.11.10.18.34.56
+        d=1e100.net; s=20260707; t=1794364504; x=1794969304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V75Giv+e07vuq5RNj3c4MeVDXR/UQ6y5MO2wUYYunZo=;
+        b=zwryVDOQ6IIqPhLzUyrt3fhDkiL88h7PAxnGVcrlSgj3nzNKhhIBF/KbgGlzfm9bLG
+         Q2cbhhm1o+dabqXxIZPZbLM5sKX/vh5gCe77Hs8MpOi1bNwxIes2CyHisLzcEQnE/ILI
+         VPA6LTgEyVhwXY4S0fIZjpWdxpGOoSUMuL2/GtvhrB29+p/VuRBJ/KaAYE/Y9TQLpcbo
+         zLjbJaLJ2OnJj2q7EsY1SwLOXjfvp+KY06cqo9WTWr6n8ZPWHU8fvuptxhsiOoGEd1+Q
+         WYXH0q/8LRaW54wknMDOgNjf5eDNNMyIIwjdiHcPOmEsY2Eeo5IXsqadvV9yR1rbCef3
+         rljA==
+X-Gm-Message-State: APuU4Z/DaforXGW+aRX5bckSLIsMsb4+MVxzaultGOmBhsr45zLgRRJd
+	LYcb3B0iWrhfnpvgqRLEqXsjZPCTgnMAojShvHpIhhMaoUpw+4vjQbc77wT1fDN+
+X-Gm-Gg: AYBFou1DVX0uYKInoC2AnKwibZ5QlKDfEaTqwGVd69FKYt/0cWwk2Yk0IYFVtZi8lDE
+	1ivnhQzMEWMlsygP2onVopE+vs+rbt+1JzuxDdIEI3dAQJbwfNjMahie9fyQpXfX4NdQrbUkeGk
+	QmEbFM3VBB4kvEqkfFUyBlFMtCnwI/MZdqEvY0zjKGrsNgTvTKZ4wf1HEqlfezlUyIHyM0mbg65
+	1uuJkm9AesIAlzj4XkAX3aEP4N46owe/D2BTOUar5zmWT/o67vhLojx9mPQAjKjH3pzmweVp55E
+	cnbiRPPfyM2Yp25fZ07SvmVRKMfPGdm/7Rb2ZxuKgtfx8RuRMxAsOEAVCHkBaUKTe3WYSZbVrbK
+	PxMBgU4VBzPGbUbZ9CTduzc37Ki0BDQshSX0AxpZLpVliq2/qZUFagiB5VB3sD0YTGpgDpg7omu
+	rm2q9tKhZpzvE13sJHJcQaMYfE1IGCXyKDOCIchs3qyoiPEV1N+FjlYMyrt5vIgYxaF2RInodR1
+	FuDOcL6ROmlju9o99NPK9hG+WomyjxOCZeDaGJnJl5oSh+CYFFC9j/Jc5G3QOoZ3ctJCTyPv/BK
+	dYsRY6eJG2AP5CzQcbGe3L7oteShw63gxbmgfCGzKnNd198IKN6nL7/5pi6xS+wXg2AMfHsKX/K
+	XLayg7XGr7COia+30xKfXCebzhKXYSdvl8P+qty2qFHG28ES6iSEUEiO9rUjAWoUK0I2Rb3fdbG
+	dIpzk=
+X-Received: by 2002:a05:6808:4fd2:b0:4f4:73a9:f831 with SMTP id 5614622812f47-56b96bd1a1fmr820292b6e.19.1794364504066;
+        Tue, 10 Nov 2026 18:35:04 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56906330dc0sm3873864b6e.16.2026.11.10.18.35.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:34:57 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>,
-	James Clark <james.clark@linaro.org>,
-	John Garry <john.garry@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>
-Subject: [PATCH v2 3/3] perf jevents: Check the JSON keys that jevents.py never reads
-Date: Wed, 11 Nov 2026 02:34:48 +0000
-Message-ID: <20261111023448.1970467-4-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111023448.1970467-1-takano32@gmail.com>
-References: <20261110222250.1864777-1-takano32@gmail.com>
- <20261111023448.1970467-1-takano32@gmail.com>
+        Tue, 10 Nov 2026 18:35:02 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] lib/bch: use flexible array member for xi_tab
+Date: Tue, 10 Nov 2026 18:34:58 -0800
+Message-ID: <20261111023458.72092-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,691 +95,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-jevents.py takes the fields it wants out of each JSON object by name:
-jd.get('BriefDescription'), 'EventCode' in jd, and the names in
-event_fields. A key spelled another way is dropped without a word, and
-the object is built without whatever that field held.
+Convert xi_tab in struct bch_control from a separately allocated
+pointer to a flexible array member trailing the struct. This co-locates
+the xi_tab data with the struct allocation, reducing the number of
+individual heap allocations and simplifying cleanup.
 
-Two of those are in the tree now. "BriefDescript6ion" is in one entry
-each of amdzen4/cache.json, amdzen5/load-store.json and amdzen6/load-
-store.json, and since those objects carry no other description,
-ls_inef_sw_pref.all is generated with an empty text field.
-"PublicDescrition" was in 16 of the 28 entries of
-arm64/ampere/ampereonex/mmu.json; nothing a user saw changed there,
-because each of the 16 also had a BriefDescription with the same text,
-which is why the typo could sit there unnoticed.
+The xi_tab member is moved to the end of the struct and changed from
+'unsigned int *' to 'unsigned int []'. The allocation in bch_init()
+switches from kzalloc_obj + bch_alloc to kzalloc_flex, and the
+corresponding kfree in bch_free() is removed.
 
-Add a --check mode that reads every architecture, not just the one being
-built: a typo is cheapest to fix by whoever reads that table next, and
-that reader may be building something else. It records the keys
-JsonEvent was never asked for and reports the ones whose spelling is a
-near miss for a name jevents.py does read (difflib ratio 0.8). In this
-tree 52 distinct key names occur, jevents.py reads 46 of them, the two
-misspellings score 0.97, and the highest score among the remaining
-unread names is 0.78 (Counter against CounterMask), so any cutoff in
-that gap reports the same two.
-
-It also reports a metric that carries a name but no expression, by
-metric name and however the lost MetricExpr key was spelled: the key
-report needs the spelling to be close to a name jevents.py reads, and a
-metric without its expression cannot be generated at all.
-
-A key that is a near miss for two names at once is reported as well: the
-object may carry one of them with the same value, but that does not say
-which one the key was meant to be, and the key is one nothing reads
-either way.
-
-The tracking is off unless --check asked for it, so a build parses each
-object exactly as before and the generated tables are byte-identical
-(x86, arm64 and all architectures compared against the same tree without
-this patch). The check itself reads the 973 json files under arch/ and
-takes seconds of CPU.
-
-Exit status is 0 when nothing was reported, 1 when something was, and 2
-when a table could not be read or the command line was wrong; make folds
-both failures into its own status, so a script that needs the difference
-runs jevents.py directly. Status 0 means the tables under that directory
-were read and no unread key looks like a name jevents.py reads. It is
-not a promise that a build will succeed: mapfile.csv coverage, the model
-that selects a subset of the tables, and the C generation are not part
-of it.
-
-It is not a schema either: it checks nothing about types, required
-fields or value ranges, and looks at key names only, so a misspelled
-description in a value is out of scope. It does not read mapfile.csv,
-which has no keys, or metricgroups.json, whose keys are group names.
-Names that only metric.py or the C code read are outside it too, so an
-"Expermental" key is not reported, and file names and topics are not
-keys.
-
-The check runs from the new make target "make -C tools/perf jevents-
-check" (JEVENTS_CHECK_ARCH=x86 narrows it to one architecture) and from
-perf test, where tests/shell/jevents_check.sh skips with status 2 when
-pmu-events/arch is not next to the binary.
-
-Written with Hermes Agent, an LLM assistant, which found the
-misspellings and wrote this check, its test and this changelog. I built
-perf with it, ran the perf test above, ran the check over the whole
-tree, compared the generated tables with those from an unpatched tree on
-x86, arm64 and all architectures at once, and ran mypy on jevents.py.
-
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- tools/perf/Makefile                     |  14 +-
- tools/perf/Makefile.perf                |   1 +
- tools/perf/pmu-events/jevents.py        | 380 ++++++++++++++++++++----
- tools/perf/tests/shell/jevents_check.sh |  68 +++++
- 4 files changed, 408 insertions(+), 55 deletions(-)
- create mode 100755 tools/perf/tests/shell/jevents_check.sh
+ include/linux/bch.h | 2 +-
+ lib/bch.c           | 4 +---
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/tools/perf/Makefile b/tools/perf/Makefile
-index 00baf90e5bda..0b13f1e12899 100644
---- a/tools/perf/Makefile
-+++ b/tools/perf/Makefile
-@@ -140,6 +140,18 @@ check-headers:
- sync-headers:
- 	@./scripts/sync-headers.sh $(SYNC_HEADERS_ARGS)
- 
-+# The pmu-events tables are data, so a key nothing reads is invisible until a
-+# description goes missing.  Named in the wrapper like check-headers: this is
-+# a data check, not a build, so it needs neither config nor fixdep and reads
-+# the source tree whatever O= says.  JEVENTS_CHECK_ARCH=x86 reads x86 and the
-+# common and test tables every build reads.
-+# Makefile.perf picks the interpreter for the build; the wrapper does not
-+# include it, so default here and let PYTHON= win when it is given.
-+JEVENTS_CHECK_ARCH ?= all
-+PYTHON ?= python3
-+jevents-check:
-+	@$(PYTHON) ./pmu-events/jevents.py --check '$(JEVENTS_CHECK_ARCH)' all pmu-events/arch
-+
- #
- # All other targets get passed through:
- #
-@@ -147,4 +159,4 @@ sync-headers:
- 	$(print_msg)
- 	$(make)
- 
--.PHONY: all clean tags TAGS FORCE Makefile build-test build-test-tarball check-headers sync-headers
-+.PHONY: all clean tags TAGS FORCE Makefile build-test build-test-tarball check-headers sync-headers jevents-check
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index b74b534e1153..a330cd9de0fc 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -871,6 +871,7 @@ help:
- 	@echo 'Perf maintainer targets:'
- 	@echo '  clean			- clean all binary objects and build output'
- 	@echo '  check-headers		- check which header copies are out of sync with the kernel'
-+	@echo '  jevents-check		- report the pmu-events json keys that jevents.py never reads'
- 	@echo '  sync-headers		- sync those header copies with the kernel, creating commits'
- 	@echo '			  (SYNC_HEADERS_ARGS="..." passes options to the script)'
- 
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 844fa82887bb..d31f8e2fd6d3 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -3,15 +3,16 @@
- """Convert directories of JSON events to C code."""
- import argparse
- import csv
-+import difflib
- import json
- import metric
- import os
- import sys
--from typing import (Callable, Dict, Optional, Sequence, Set, Tuple)
-+from typing import (Any, Callable, Dict, List, Optional, Sequence, Set, Tuple)
- import collections
- 
- # Global command line arguments.
--_args = None
-+_args: Optional[argparse.Namespace] = None
- # List of regular event tables.
- _event_tables: list[str] = []
- # List of event tables generated from "/sys" directories.
-@@ -190,11 +191,78 @@ class BigCString:
- 
- _bcs = BigCString()
- 
-+# Names that some object in this process has been asked for.  Used only to
-+# find the spelling an unread name was meant to be.  The set is per process
-+# and the workers of the pool never share it, so a name is in it once some
-+# object in the same worker has been built; every object asks for the same
-+# names, so they are there before the first object is reported, but a read
-+# that moved behind a condition would make a report depend on which worker
-+# happened to build which file.
-+_read_keys: Set[str] = set()
-+
-+# Unread name -> the names it could be a misspelling of, or () for none.  A table
-+# repeats the same few names tens of thousands of times, and the name that
-+# misses is the common case (Counter, many thousands of objects), so the
-+# misses are kept too; _mark empties the cache when a name is read for the
-+# first time, so a hint computed while _read_keys was still growing cannot
-+# stick.
-+_hints: Dict[str, Tuple[str, ...]] = {}
-+
-+# Whether the objects are wrapped at all.  Only the check reads what the
-+# tracking records, so a build does not wrap anything.  Set in
-+# main() and, because the workers may be fresh interpreters, passed to them
-+# through _init_worker() rather than read from _args there.
-+_track: bool = False
-+
-+
-+class _JsonObject(dict):
-+  """A JSON object that remembers which of its keys were looked at.
-+
-+  jevents.py picks the fields it wants out of each object by name and
-+  ignores the rest, so a key it never names - a misspelled
-+  "BriefDescript6ion", say - is dropped without a word and the event
-+  silently loses its description.  Handing the parsed object to this
-+  class and asking it afterwards which keys were never looked at makes
-+  the misspelling visible.  Only get(), [] and 'in' are tracked: a read
-+  through items(), values() or pop() would not be, so a new read of a
-+  field belongs in one of the three.  The alternative, a list of the key names
-+  jevents.py reads, would be a second copy of the code below that goes
-+  stale the first time someone adds a field.
-+  """
-+
-+  def __init__(self, jd: dict):
-+    super().__init__(jd)
-+    # dict.keys() rather than the object itself: iterating the object would
-+    # go through __iter__, should that ever be hooked below.
-+    self.unread: Set[str] = set(dict.keys(jd))
-+
-+  def _mark(self, key: str) -> None:
-+    self.unread.discard(key)
-+    if key not in _read_keys:
-+      _read_keys.add(key)
-+      _hints.clear()
-+
-+  def get(self, key: Any, default: Any = None) -> Any:
-+    self._mark(key)
-+    return dict.get(self, key, default)
-+
-+  def __getitem__(self, key: Any) -> Any:
-+    self._mark(key)
-+    return dict.__getitem__(self, key)
-+
-+  def __contains__(self, key: object) -> bool:
-+    if isinstance(key, str):
-+      self._mark(key)
-+    return dict.__contains__(self, key)
-+
-+
- class JsonEvent:
-   """Representation of an event loaded from a json file dictionary."""
- 
-   def __init__(self, jd: dict):
-     """Constructor passed the dictionary of parsed json values."""
-+    if _track:
-+      jd = _JsonObject(jd)
- 
-     def llx(x: int) -> str:
-       """Convert an int to a string similar to a printf modifier of %#llx."""
-@@ -416,6 +484,39 @@ class JsonEvent:
-         raise argparse.ArgumentTypeError('Cannot find arch std event:', arch_std)
- 
-     self.event = real_event(self.name, event)
-+    # Keys of the JSON object that no code above looked at, set last so that
-+    # the copy of an architecture standard event above does not overwrite it.
-+    # A name that is a near miss for one the code reads, and whose name the
-+    # object does not carry with the same text, is almost certainly a
-+    # misspelling of it: the object lost the field the reader was looking for.
-+    # A name that is not a near miss is left alone, because a table is free to
-+    # carry metadata jevents.py has no use for.
-+    self.mistyped: Optional[Dict[str, Tuple[str, ...]]] = None
-+    if not _track:
-+      return
-+    assert isinstance(jd, _JsonObject)
-+    unread = jd.unread
-+    if unread:
-+      found = {}
-+      for key in unread:
-+        if key not in _hints:
-+          lowered = {name.lower(): name for name in _read_keys}
-+          # Two names can be equally close - RetirementLatencyMax and its Min -
-+          # and naming one of them would be a coin toss presented as an answer.
-+          match = difflib.get_close_matches(key.lower(), sorted(lowered), n=2, cutoff=0.8)
-+          _hints[key] = tuple(lowered[m] for m in match)
-+        hints = _hints[key]
-+        if not hints:
-+          continue
-+        # Reported even when the object also carries a name it could be a
-+        # misspelling of: two names can be equally close (RetirementLatencyMax
-+        # next to its Min, which can hold the same value), so a matching value
-+        # does not say which one this key was meant to be, and suppressing on
-+        # it hid a typo of the other.  Either way this is a key that nothing
-+        # reads, which is what the check reports.
-+        found[key] = hints
-+      if found:
-+        self.mistyped = found
- 
-   def __repr__(self) -> str:
-     """String representation primarily for debugging."""
-@@ -453,6 +554,83 @@ class JsonEvent:
-     return f'{make_comment(s)}\t{{ { _bcs.offsets[s] } }},\n'
- 
- 
-+def _report_mistyped_keys() -> bool:
-+  """Report the JSON keys that jevents.py did not look for.
-+
-+  jevents.py takes the fields it wants out of each object by name.  A key
-+  spelled differently from the name it looks for is never read, the object is
-+  built without whatever the field held, and the build says nothing; that is
-+  how "BriefDescript6ion" in the AMD tables and "PublicDescrition" in the
-+  AmpereOneX mmu table got in.  A name that is a near miss for one jevents.py
-+  reads is reported, with the spelling it was probably meant to be and the
-+  files carrying it.  A name that is not a near miss is not reported: a
-+  table may carry metadata for another reader, and reporting it would mean
-+  keeping a list of such names in this file that every vendor adding one
-+  would have to edit.
-+
-+  A table that cannot be parsed is reported the same way and does not stop
-+  the rest of the tree from being read, so one broken file does not hide the
-+  misspellings in the other 1000.
-+  """
-+  assert _args is not None
-+  found: Dict[str, collections.Counter] = {}
-+  hints: Dict[str, Tuple[str, ...]] = {}
-+  objects = 0
-+  for (path, _), events in _json_cache.items():
-+    for event in events:
-+      if not event.mistyped:
-+        continue
-+      objects += 1
-+      for key, hint in event.mistyped.items():
-+        found.setdefault(key, collections.Counter())[path] += 1
-+        hints.setdefault(key, hint)
-+  if not found:
-+    return False
-+
-+  paths = {path for files in found.values() for path in files}
-+  start = _args.starting_dir
-+  print(f'jevents: error: {objects} object(s) in '
-+        f'{len(paths)} file(s) carry a key that looks like a misspelling:', file=sys.stderr)
-+  for key in sorted(found):
-+    files = found[key]
-+    guess = ' or '.join(repr(name) for name in hints[key])
-+    print(f'  {key!r}, did you mean {guess}? ({sum(files.values())} object(s) in '
-+          f'{len(files)} file(s)):', file=sys.stderr)
-+    where = sorted(os.path.relpath(path, start) for path in files)
-+    for path in where[:5]:
-+      print(f'    {path}', file=sys.stderr)
-+    if len(where) > 5:
-+      print(f'    ... and {len(where) - 5} more file(s)', file=sys.stderr)
-+
-+  return True
-+
-+
-+def _report_metrics_without_expr() -> bool:
-+  """Report the metrics that carry a name but no expression.
-+
-+  A MetricExpr key spelled another way is not read, so the object keeps its
-+  name and loses its expression.  Unlike the key report above this does not
-+  depend on how close a spelling is: a metric the rewrite cannot handle would
-+  fail a build however the lost key was spelled.
-+  """
-+  assert _args is not None
-+  start = _args.starting_dir
-+  missing = sorted((os.path.relpath(path, start), event.metric_name)
-+                   for (path, _), events in _json_cache.items()
-+                   for event in events
-+                   if event.metric_name and event.metric_expr is None)
-+  if not missing:
-+    return False
-+  print(f'jevents: error: {len(missing)} metric(s) have a name but no '
-+        f'expression, so their MetricExpr key is missing or misspelled:',
-+        file=sys.stderr)
-+  for where, name in missing[:20]:
-+    print(f'  {name!r} in {where}', file=sys.stderr)
-+  if len(missing) > 20:
-+    print(f'    ... and {len(missing) - 20} more metric(s)', file=sys.stderr)
-+  return True
-+
-+
- _json_cache: Dict[Tuple[str, str], Sequence[JsonEvent]] = {}
- def _read_json_events_impl(path: str, topic: str) -> Sequence[JsonEvent]:
-   """Read json events from the specified file."""
-@@ -460,17 +638,20 @@ def _read_json_events_impl(path: str, topic: str) -> Sequence[JsonEvent]:
-     with open(path, encoding='utf-8') as f:
-       events = json.load(f, object_hook=JsonEvent)
-   except BaseException:
--    print(f'jevents: error: Exception processing {path}', file=sys.stderr)
-+    if not _track:
-+      print(f'jevents: error: Exception processing {path}', file=sys.stderr)
-     raise
-   metrics: list[Tuple[str, str, metric.Expression]] = []
-   for event in events:
-     event.topic = topic
-     if event.metric_name and event.metric_expr is None:
-       # A MetricName without a MetricExpr leaves nothing to put in the
--      # generated tables, whether or not the name has a dash, so the build
--      # must not go on.  Name the metric instead of letting the table printer
--      # assert on the None.
--      raise RuntimeError(f'Metric {event.metric_name!r} has no MetricExpr')
-+      # generated tables, whether or not the name has a dash, so a build must
-+      # not go on.  Name the metric instead of letting the table printer
-+      # assert on the None; --check reports it and keeps reading the rest.
-+      if not _track:
-+        raise RuntimeError(f'Metric {event.metric_name!r} has no MetricExpr')
-+      continue
-     if event.metric_name and '-' not in event.metric_name:
-       metrics.append((event.pmu, event.metric_name, event.metric_expr))
-   updates = metric.RewriteMetricsInTermsOfOthers(metrics)
-@@ -487,8 +668,12 @@ def read_json_events(path: str, topic: str) -> Sequence[JsonEvent]:
-     _json_cache[key] = _read_json_events_impl(path, topic)
-   return _json_cache[key]
- 
--def preprocess_arch_std_files(archpath: str) -> None:
--  """Read in all architecture standard events."""
-+def preprocess_arch_std_files(archpath: str, failures: Optional[List[Tuple[str, Exception]]] = None) -> None:
-+  """Read in all architecture standard events.
-+
-+  A failure is raised, or appended to failures when the caller can carry on
-+  without the table; either way the tables after it are still read.
-+  """
-   for item in os.scandir(archpath):
-     if not item.is_file() or not item.name.endswith('.json'):
-       continue
-@@ -499,7 +684,10 @@ def preprocess_arch_std_files(archpath: str) -> None:
-         if event.metric_name:
-           _arch_std_events[event.metric_name.lower()] = event
-     except Exception as e:
--      raise RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\': {e}') from e
-+        failure = RuntimeError(f'Failure processing \'{item.name}\' in \'{archpath}\': {e}')
-+        if failures is None:
-+          raise failure from e
-+        failures.append((item.path, failure))
- 
- 
- def add_events_table_entries(item: os.DirEntry, topic: str) -> None:
-@@ -1448,16 +1636,27 @@ def _parallel_worker_count(num_tasks: int) -> int:
-   return max(1, min(getattr(os, 'process_cpu_count', os.cpu_count)() or 1,
-                     _max_parallel_workers, num_tasks))
- 
--def _parallel_read_json_events(task: Tuple[str, str]) -> Tuple[str, str, Sequence[JsonEvent]]:
-+def _parallel_read_json_events(task: Tuple[str, str]) -> Tuple[str, str, Any]:
-   path, topic = task
--  return path, topic, _read_json_events_impl(path, topic)
--
--def _init_worker(std_events: dict) -> None:
--  global _arch_std_events
-+  try:
-+    return path, topic, _read_json_events_impl(path, topic)
-+  except Exception as e:
-+    if not _track:
-+      # The build stops here: keep the file and the reason in one message,
-+      # the pool adds the traceback.
-+      raise RuntimeError(f'Failure processing \'{path}\': {e}') from None
-+    # Carried back rather than raised: the parent knows the tree and can
-+    # report the file and keep going, which is the point of reading the
-+    # tables this build does not use.
-+    return path, topic, e
-+
-+def _init_worker(std_events: dict, track: bool) -> None:
-+  global _arch_std_events, _track
-   _arch_std_events = std_events
-+  _track = track
- 
- def main() -> None:
--  global _args
-+  global _args, _track
- 
-   def dir_path(path: str) -> str:
-     """Validate path is a directory for argparse."""
-@@ -1484,12 +1683,12 @@ def main() -> None:
-       if item.is_dir():
-         ftw(item.path, list(parents) + [item.name], action)
- 
--  ap = argparse.ArgumentParser()
-+  ap = argparse.ArgumentParser(description='Generate pmu-events.c from the json tables')
-   ap.add_argument('arch', help='Architecture name like x86')
-   ap.add_argument('model', nargs='?', help='''Select a model such as skylake to
--reduce the code size.  Normally set to "all", and that is what an omitted
--model means. For architectures like ARM64 with an implementor/model, the
--model must include the implementor such as "arm/cortex-a34".''',
-+reduce the code size.  Normally set to "all". For architectures like
-+ARM64 with an implementor/model, the model must include the implementor
-+such as "arm/cortex-a34".''',
-                   default='all')
-   ap.add_argument(
-       'starting_dir',
-@@ -1497,14 +1696,104 @@ model must include the implementor such as "arm/cortex-a34".''',
-       help='Root of tree containing architecture directories containing json files'
-   )
-   ap.add_argument('output_file', nargs='?', default=None,
--                  help='file to write the tables to, default standard output')
-+                  help='file to write the tables to, default standard output; '
-+                       'not written, and not opened, with --check')
-   ap.add_argument('output_string_file', nargs='?', default=None,
-                   help='file to write big_c_string to when it is to be kept '
--                       'apart from the tables')
-+                       'apart from the tables; ignored with --check')
-+  ap.add_argument('--check', action='store_true',
-+                  help='read the tables, report the keys that look like a '
-+                       'misspelling of a name this file reads on standard '
-+                       'error, and exit without writing any table; pass "all" '
-+                       'as both arch and model to cover the whole tree.  '
-+                       'Nothing is reported when every key is read and every '
-+                       'table parses.  The exit status is 0 when the tree is '
-+                       'clean, 1 when something was reported and 2 when a '
-+                       'table could not be read, so it can gate a script')
-   _args = ap.parse_args()
- 
--  # Opened here, and not by argparse, so that a failure before the tables are
--  # written cannot empty a file the caller named.
-+  if _args.check and (_args.output_file is not None or _args.output_string_file is not None):
-+    ap.error('--check writes no table; drop the output arguments')
-+  if _args.check:
-+    if _args.arch == 'none':
-+      ap.error('--check needs an architecture to read')
-+    # The model only picks the tables a build needs; a check is about the
-+    # tree, so it reads all of it and the model means nothing here.
-+    _args.model = 'all'
-+    _track = True
-+
-+  archs = []
-+  for item in os.scandir(_args.starting_dir):
-+    if not item.is_dir():
-+      continue
-+    if item.name == _args.arch or _args.arch == 'all' or item.name == 'test' or item.name == 'common':
-+      archs.append(item.name)
-+
-+  if _args.check and _args.arch not in ('all', 'none') and _args.arch not in [
-+      item.name for item in os.scandir(_args.starting_dir) if item.is_dir()]:
-+    print(f'jevents: error: no architecture directory named \'{_args.arch}\' '
-+          f'under \'{_args.starting_dir}\'', file=sys.stderr)
-+    sys.exit(2)
-+  if not archs and _args.arch != 'none':
-+    raise IOError(f'Missing architecture directory \'{_args.arch}\'')
-+
-+  archs.sort()
-+  import concurrent.futures
-+  tasks = []
-+  def collect_json(parents: Sequence[str], item: os.DirEntry) -> None:
-+    if len(parents) == 0:
-+      return
-+    if item.is_file() and item.name.endswith('.json') and not item.name.endswith('metricgroups.json'):
-+      tasks.append((item.path, get_topic(item.name)))
-+
-+  failed: List[Tuple[str, Exception]] = []
-+  try:
-+    for arch in archs:
-+      arch_path = f'{_args.starting_dir}/{arch}'
-+      preprocess_arch_std_files(arch_path, failed if _args.check else None)
-+      ftw(arch_path, [], collect_json)
-+
-+    if not tasks:
-+      print(f'jevents: error: no event table under \'{_args.starting_dir}\' '
-+            f'matched arch \'{_args.arch}\'', file=sys.stderr)
-+      sys.exit(2 if _args.check else 1)
-+
-+    with concurrent.futures.ProcessPoolExecutor(max_workers=_parallel_worker_count(len(tasks)),
-+                                                initializer=_init_worker,
-+                                                initargs=(_arch_std_events, _args.check)) as executor:
-+      for path, topic, events in executor.map(_parallel_read_json_events, tasks):
-+        if isinstance(events, Exception):
-+          if not _args.check:
-+            raise RuntimeError(f'Failure processing \'{path}\'') from events
-+          failed.append((path, events))
-+        else:
-+          _json_cache[(path, topic)] = events
-+  except (RuntimeError, ValueError, OSError, argparse.ArgumentTypeError) as e:
-+    if not _args.check:
-+      raise
-+    failed.append((_args.starting_dir, e))
-+
-+  if _args.check:
-+    # A table this check does not need is reported, not fatal: the check reads
-+    # the whole tree and a caller only asked about one part of it.
-+    for path, error in failed:
-+      text = str(error)
-+      # The architecture standard preprocess names the file and its directory
-+      # already, so prefixing the path here only repeats it.
-+      if text.startswith('Failure processing'):
-+        print(f'jevents: error: {text}', file=sys.stderr)
-+      else:
-+        print(f'jevents: error: '
-+              f'{os.path.relpath(path, _args.starting_dir)}: {text}',
-+              file=sys.stderr)
-+    reported = _report_mistyped_keys()
-+    reported = _report_metrics_without_expr() or reported
-+    if failed:
-+      sys.exit(2)
-+    sys.exit(1 if reported else 0)
-+
-+  # Opened here, and not by argparse, so that --check leaves the files it was
-+  # given alone and a failure before the tables are written cannot empty one.
-   if _args.output_file in (None, '-'):
-     _args.output_file = sys.stdout
-   else:
-@@ -1540,35 +1829,6 @@ struct pmu_table_entry {
+diff --git a/include/linux/bch.h b/include/linux/bch.h
+index 85fdce83d4e2..e736b3a46e96 100644
+--- a/include/linux/bch.h
++++ b/include/linux/bch.h
+@@ -47,12 +47,12 @@ struct bch_control {
+ 	uint32_t       *mod8_tab;
+ 	uint32_t       *ecc_buf;
+ 	uint32_t       *ecc_buf2;
+-	unsigned int   *xi_tab;
+ 	unsigned int   *syn;
+ 	int            *cache;
+ 	struct gf_poly *elp;
+ 	struct gf_poly *poly_2t[4];
+ 	bool		swap_bits;
++	unsigned int    xi_tab[];
  };
  
- """)
--  archs = []
--  for item in os.scandir(_args.starting_dir):
--    if not item.is_dir():
--      continue
--    if item.name == _args.arch or _args.arch == 'all' or item.name == 'test' or item.name == 'common':
--      archs.append(item.name)
--
--  if len(archs) < 2 and _args.arch != 'none':
--    raise IOError(f'Missing architecture directory \'{_args.arch}\'')
--
--  archs.sort()
--  import concurrent.futures
--  tasks = []
--  def collect_json(parents: Sequence[str], item: os.DirEntry) -> None:
--    if len(parents) == 0:
--      return
--    if item.is_file() and item.name.endswith('.json') and not item.name.endswith('metricgroups.json'):
--      tasks.append((item.path, get_topic(item.name)))
--
--  for arch in archs:
--    arch_path = f'{_args.starting_dir}/{arch}'
--    preprocess_arch_std_files(arch_path)
--    ftw(arch_path, [], collect_json)
--
--  with concurrent.futures.ProcessPoolExecutor(max_workers=_parallel_worker_count(len(tasks)),
--                                              initializer=_init_worker,
--                                              initargs=(_arch_std_events,)) as executor:
--    for path, topic, events in executor.map(_parallel_read_json_events, tasks):
--      _json_cache[(path, topic)] = events
+ struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
+diff --git a/lib/bch.c b/lib/bch.c
+index c991c71c4cbd..f003965a21b9 100644
+--- a/lib/bch.c
++++ b/lib/bch.c
+@@ -1320,7 +1320,7 @@ struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
+ 	if (prim_poly == 0)
+ 		prim_poly = prim_poly_tab[m-min_m];
  
-   for arch in archs:
-     arch_path = f'{_args.starting_dir}/{arch}'
-@@ -1607,4 +1867,16 @@ struct pmu_table_entry {
-     _args.output_string_file.close()
+-	bch = kzalloc_obj(*bch);
++	bch = kzalloc_flex(*bch, xi_tab, m);
+ 	if (bch == NULL)
+ 		goto fail;
  
- if __name__ == '__main__':
--  main()
-+  try:
-+    main()
-+  except SystemExit:
-+    raise
-+  except KeyboardInterrupt:
-+    raise
-+  except BaseException as e:
-+    # A build should see the traceback; a check gives its caller a status,
-+    # and 2 is the one that says the tool could not do its job.
-+    if _args is not None and getattr(_args, 'check', False):
-+      print(f'jevents: error: {e}', file=sys.stderr)
-+      sys.exit(2)
-+    raise
-diff --git a/tools/perf/tests/shell/jevents_check.sh b/tools/perf/tests/shell/jevents_check.sh
-new file mode 100755
-index 000000000000..2254bc96352c
---- /dev/null
-+++ b/tools/perf/tests/shell/jevents_check.sh
-@@ -0,0 +1,68 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# Check that jevents.py reports unread json keys and refuses a broken table
-+
-+shelldir=$(dirname "$0")
-+. "${shelldir}"/lib/setup_python.sh
-+
-+# The check reads the tables and needs no build and no hardware, but an
-+# installed perf has no pmu-events/ next to the binary.
-+pmudir=$(readlink -f "${shelldir}/../../pmu-events")
-+if [ ! -f "${pmudir}/jevents.py" ] || [ ! -f "${pmudir}/metric.py" ]; then
-+	echo "Skipping: no pmu-events/jevents.py under ${pmudir}"
-+	exit 2
-+fi
-+
-+workdir=$(mktemp -d /tmp/jevents_check.XXXXXX)
-+trap 'rm -rf "${workdir}"' EXIT
-+
-+# A table with one key jevents.py reads and one event, so that a clean run
-+# says nothing and exits 0.
-+mkdir -p "${workdir}/arch/x86/model"
-+cat > "${workdir}/arch/x86/model/events.json" <<'JSON'
-+[
-+  {
-+    "EventName": "CHECK_TEST_EVENT",
-+    "EventCode": "0x1",
-+    "BriefDescription": "a table the check should accept"
-+  }
-+]
-+JSON
-+
-+run_check() {
-+	"${PYTHON}" "${pmudir}/jevents.py" --check x86 all "${workdir}/arch"
-+}
-+
-+run_check
-+if [ $? -ne 0 ]; then
-+	echo "pmu-events json keys [Failed: a clean table was reported]"
-+	exit 1
-+fi
-+
-+# A near miss for a name jevents.py reads is reported, and the status is 1.
-+sed -i 's/"BriefDescription"/"BriefDescript6ion"/' \
-+	"${workdir}/arch/x86/model/events.json"
-+output=$(run_check 2>&1)
-+ret=$?
-+case "${ret}" in
-+1) ;;
-+*)	echo "pmu-events json keys [Failed: a misspelled key exited ${ret}]"
-+	exit 1 ;;
-+esac
-+if ! echo "${output}" | grep -q "BriefDescript6ion"; then
-+	echo "pmu-events json keys [Failed: the misspelled key was not reported]"
-+	exit 1
-+fi
-+
-+# A table that does not parse is a failure of the check and not a finding:
-+# the status is 2, which this script must not pass on as a skip.
-+echo '{ "truncated": ' > "${workdir}/arch/x86/model/broken.json"
-+run_check >/dev/null 2>&1
-+ret=$?
-+if [ "${ret}" -ne 2 ]; then
-+	echo "pmu-events json keys [Failed: an unreadable table exited ${ret}]"
-+	exit 1
-+fi
-+
-+echo "pmu-events json keys [Success]"
-+exit 0
+@@ -1334,7 +1334,6 @@ struct bch_control *bch_init(int m, int t, unsigned int prim_poly,
+ 	bch->mod8_tab  = bch_alloc(words*1024*sizeof(*bch->mod8_tab), &err);
+ 	bch->ecc_buf   = bch_alloc(words*sizeof(*bch->ecc_buf), &err);
+ 	bch->ecc_buf2  = bch_alloc(words*sizeof(*bch->ecc_buf2), &err);
+-	bch->xi_tab    = bch_alloc(m*sizeof(*bch->xi_tab), &err);
+ 	bch->syn       = bch_alloc(2*t*sizeof(*bch->syn), &err);
+ 	bch->cache     = bch_alloc(2*t*sizeof(*bch->cache), &err);
+ 	bch->elp       = bch_alloc((t+1)*sizeof(struct gf_poly_deg1), &err);
+@@ -1384,7 +1383,6 @@ void bch_free(struct bch_control *bch)
+ 		kfree(bch->mod8_tab);
+ 		kfree(bch->ecc_buf);
+ 		kfree(bch->ecc_buf2);
+-		kfree(bch->xi_tab);
+ 		kfree(bch->syn);
+ 		kfree(bch->cache);
+ 		kfree(bch->elp);
 -- 
-2.53.0
+2.56.0
 
