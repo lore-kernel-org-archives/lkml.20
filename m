@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434332;
-	b=DxjvyALSiMtGjhW00qZvlilGf/nV3QamnDV7nTuCJIArI6TkCqw2p/jDLwt+bn14yBrX
-	 trtS/l8E5apB8rYNh4n6RY1C14IT1w71pAtPksmReYV+HzpQ7sQo8KH4njwmfhmtLZl3n
-	 JNr+qqgYCTGGn/MySwqrnZHM2g2MbjqsOoA6X2phhxkVrjdJg++/2XQ07CRK+r1XGhCRl
-	 UqKkBgs0GzMiHtDW6JSc10gIZl3FcGeIcjDAFysBLron/MMYfmpZI8IuYn/YaBUobR638
-	 0NGCDp4tyRlVbc83K1dh57QsR/MlD73aNrsik9WNjPrZatNs8UYqu53tjX1eadoEEfA==
+	t=1794434333;
+	b=f+ewGULiLZcfiWq5KnZ7+u1RDn20vxiTOyLU27WxTR/E8qAXhT76GkU30xlWmtL8ulVN
+	 HqSihfSFIMA4q5PfS3Kl6CNtIC9S1q3acCr6Nrd81sXC4ay6zsnv64xyWe0/CgI0n2twp
+	 RCeNiPx8u2pUW10u14mgR2qMdlp8aYoUjbdOgpNYwcoDlcpNn0EEXAseJYQtYO1r9A7UX
+	 91VrQRaaDPciSPFwJC8+reqFY4Q72OxC65nKJ2Q6awabLLFbzXEd9Hqxj14Wopvy4+DPi
+	 Q2bBxiYYqAqsbuWJmfF2iE94s7E0rQEPJIbQ+X5DxhjiE3Hsmcwy8cP0KXPpGrmgPDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434332;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7is/EuGUyxJzrWCnl+bqzRKPbHplfvRNCrGUMaUa/8g=;
-	b=e6FIdFbimDODDvQIX1h0PiSTMDLGjwA2IbThKxB4TQV6h8E++sMX2M+P1lXZ+xgA4u++
-	 22qlQVqitX2Hbl3v+P8sktpiO3vbRabHxeYXiflbjvBC7Fwvl+3EzfEiQ3FX5CG88kaZq
-	 3FKD7VQw89S2Snl1zcRE3LxhTSqfrGKoC2GQLeBVJX4FVUfbzI1wGCth8HHcd4JgN6bra
-	 yZk6+CoUbOg1w21EI++Iggb+FZBhEsT8Ia4rqOJ4cibfZi5nyIBSpzJAhW1K8TjyxGizJ
-	 SsfGf1h5Rcb1e06iO4bGsepxfgTGZuLLfpB2cmFxIv++7bPGTNvo0SxE61r2T6zDIMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434333;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=Bzy/HWiS2g+uLlnxE35P9YvJAj3yVSHdky07Sp8MJkc=;
+	b=s0B1w+rEIIVnOph4P1haPi32tm90t7gmOLCrOsgEgFnm12dmQ5tdD9W8tyaLTEo+tWYl
+	 cV+RB7tGc6fNRxsn4pPRAfnKpN6vCHUQo/b/FNsYlfznsDTgD9etIe2BbOjYTKY3qBO2w
+	 /2R4fUqgUFgfo8/dMniYNkybRyAVyEY1fkU7b6m7qMkiKV4UqkjaWzJsF08+5GPkYTcCd
+	 gMvyAPWIr6CBv2uvTnihQtyGoDIuFhSQ48cZpAoiybUnAbrdQBXyZD0XAafbV8uHN45py
+	 8PJspmtcDVSYIr/atcQLfhwc4NPP1jkYrPWJEvf9sBzejQQVujZpHGhLc47gW+b1yLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=niFKsA2X;
-	arc=none smtp.remote-ip=91.218.175.69
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=AQRGB0tq;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DFB606A8A6
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:58:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0DFB606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A4160A2601;
+	Wed, 11 Nov 2026 21:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A4160A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=niFKsA2X
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3FhA4vWfPSmw7LsNUlTwxgLiHA4CFcE8Kepmszjn6cE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794434329; v=1; x=1795039129;
- b=niFKsA2Xy3Yl1NmhQMGmbtmCkM84vQLzMms9bgozmax9q8Sk+C3+DUInuyER0tKk/ZoCz07G
- MJgVHOKX/tbENW1gG8aK+sAXQ4Q7E2Wo+I3ppjF9wDtTLW8m8jy9wTjzZJ2xeDO+3DzHT8lGc5C
- CoOqx30pE5IenuiPVo7SOztE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d8db100ecdc5fe7b;
-	Wed, 11 Nov 2026 21:58:49 +0000
-X-Mizu-Trace-ID: d8db100ecdc5fe7b
-X-Migadu-Flow: FLOW_OUT
-From: Md Haris Iqbal <haris.iqbal@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	Md Haris Iqbal <haris.iqbal@linux.dev>
-Subject: [v4 2/3] block: allow error injection rules to delay bios
-Date: Wed, 11 Nov 2026 22:58:37 +0100
-Message-ID: <20261111215838.103356-3-haris.iqbal@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111215838.103356-1-haris.iqbal@linux.dev>
-References: <20261111215838.103356-1-haris.iqbal@linux.dev>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=AQRGB0tq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Bzy/HWiS2g+uLlnxE35P9YvJAj3yVSHdky07Sp8MJkc=; b=AQRGB0tqgq7wA77y/mB9wLAZ+j
+	UJgj8b2JNk/rb+fcJAg0ntpM2euoZy57H+0RViotqL6EEXtptfRNY8Y3QMlm6TMmn+PGtdSV0eB7J
+	GuLDsIgt9h7hbNZ0iLYEkytkMDZjAYgH6H9rJNzmCtUcH0etxbAbvDMwlz9tudnzwEJNW/xnHWg3R
+	81azx56g0V32mYp7q+HFTnZZggNkABHDDFxNZqIb7QEl3Gd1De6YKf46ax5Qy5NlQaC71qXTUCof9
+	3I1jrO+V+dk4HPBhQiEnneO1BJMUvGRst0SZgB+OhEAhKze/IZzbI3rLL1A9zlMV/6Kw+1s84Rpwm
+	D8+iBFMg==;
+Received: from [::1] (port=34640 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xRGLE-0000000CB0C-0h27;
+	Wed, 11 Nov 2026 22:58:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,304 +60,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 11 Nov 2026 22:58:51 +0100
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: netdev-bot+sinfo@kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] udp_tunnel: fix GRO callback mismatch during setup
+In-Reply-To: <179443388157.2168702.6402576631905322740@kernel.org>
+References: <20261111214622.2482547-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <179443388157.2168702.6402576631905322740@kernel.org>
+User-Agent: Roundcube Webmail/1.6.20
+Message-ID: <da59c8b8ee9d133dcebeabb40818959e@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Error injection can only fail a bio today. Add a delay_us option so that
-a rule can hold a bio back first, to model a slow device.
+On 2026-11-11 22:51, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-If a matching rule has delay_us set, the bio is held for that long. It is
-then failed if the rule also has a status, or resubmitted otherwise.
-
-The resubmission is done through submit_bio_noacct_nocheck(), which is
-where the injection hook sits. To avoid the same delay rule being applied
-to it again, mark the bio with the BIO_ERROR_INJECTED flag as soon as a
-rule matches. This also prevents bios that are split later and resubmitted
-from being evaluated for delay (or error injection) again. __bio_clone()
-does not propagate the flag, so a clone a stacking driver aims at a lower
-device is still evaluated.
-
-The bio is submitted from a workqueue rather than from the timer, because
-submitting a bio can sleep. A REQ_NOWAIT bio is failed with BLK_STS_AGAIN
-instead of being delayed. Values above 600 seconds are rejected.
-
-Cc: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
----
- block/error-injection.c   | 143 ++++++++++++++++++++++++++++++++++----
- block/error-injection.h   |   1 +
- include/linux/blk_types.h |   1 +
- 3 files changed, 130 insertions(+), 15 deletions(-)
-
-diff --git a/block/error-injection.c b/block/error-injection.c
-index db543fe27630..a6de52229ef3 100644
---- a/block/error-injection.c
-+++ b/block/error-injection.c
-@@ -6,9 +6,17 @@
- #include <linux/blkdev.h>
- #include <linux/parser.h>
- #include <linux/seq_file.h>
-+#include <linux/workqueue.h>
- #include "blk.h"
- #include "error-injection.h"
- 
-+/*
-+ * Cap the delay so that a typo can't wedge a device for good.  This is still
-+ * well beyond the default hung task timeout, which is one of the things a
-+ * delay is useful for triggering.
-+ */
-+#define BLK_ERROR_INJECT_MAX_DELAY_US	(600 * USEC_PER_SEC)
-+
- struct blk_error_inject {
- 	struct list_head		entry;
- 	sector_t			start;
-@@ -18,14 +26,97 @@ struct blk_error_inject {
- 
- 	/* only inject every 1 / chance times */
- 	unsigned int			chance;
-+
-+	/* hold the bio for this long before submitting or failing it */
-+	unsigned int			delay_us;
-+};
-+
-+/*
-+ * A bio held by a delay rule.  It does not point back at the rule, so rules
-+ * can be removed while delayed bios are outstanding.  The submitter holds the
-+ * bdev open until the bio completes, so the disk and queue stay allocated.
-+ * A delayed bio holds no queue usage counter reference, so it does not hold
-+ * up a queue freeze either.
-+ */
-+struct blk_error_inject_delay {
-+	struct delayed_work		dwork;
-+	struct bio			*bio;
-+	blk_status_t			status;
- };
- 
-+static struct workqueue_struct *blk_error_inject_wq;
-+
- DEFINE_STATIC_KEY_FALSE(blk_error_injection_enabled);
- 
-+static void blk_error_inject_fail(struct bio *bio, blk_status_t status)
-+{
-+	pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
-+			bio->bi_bdev->bd_disk->part0, blk_status_to_str(status),
-+			blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
-+			bio_sectors(bio));
-+	bio_endio_status(bio, status);
-+}
-+
-+static void blk_error_inject_delay_work(struct work_struct *work)
-+{
-+	struct blk_error_inject_delay *d = container_of(to_delayed_work(work),
-+			struct blk_error_inject_delay, dwork);
-+	struct bio *bio = d->bio;
-+	blk_status_t status = d->status;
-+
-+	kfree(d);
-+
-+	if (status != BLK_STS_OK) {
-+		blk_error_inject_fail(bio, status);
-+		return;
-+	}
-+
-+	/*
-+	 * Resubmit.  The BIO_ERROR_INJECTED flag ensures that a bio that was
-+	 * delayed once skips error injection entirely from here on, including
-+	 * any other rule that covers it.
-+	 */
-+	submit_bio_noacct_nocheck(bio, false);
-+}
-+
-+static bool blk_error_inject_delay(struct gendisk *disk, struct bio *bio,
-+		blk_status_t status, unsigned int delay_us)
-+{
-+	struct blk_error_inject_delay *d;
-+
-+	/* fail a bio that can't block, as a real queue would */
-+	if (bio->bi_opf & REQ_NOWAIT) {
-+		bio_wouldblock_error(bio);
-+		return true;
-+	}
-+
-+	d = kmalloc_obj(*d, GFP_NOIO);
-+	if (!d) {
-+		pr_warn_ratelimited("%pg: failed to delay %s at sector %llu:%u\n",
-+				disk->part0, blk_op_str(bio_op(bio)),
-+				bio->bi_iter.bi_sector, bio_sectors(bio));
-+		return false;
-+	}
-+
-+	pr_info_ratelimited("%pg: delaying %s at sector %llu:%u by %uus\n",
-+			disk->part0, blk_op_str(bio_op(bio)),
-+			bio->bi_iter.bi_sector, bio_sectors(bio), delay_us);
-+
-+	d->bio = bio;
-+	d->status = status;
-+	INIT_DELAYED_WORK(&d->dwork, blk_error_inject_delay_work);
-+
-+	queue_delayed_work(blk_error_inject_wq, &d->dwork,
-+			usecs_to_jiffies(delay_us));
-+	return true;
-+}
-+
- bool __blk_error_inject(struct bio *bio)
- {
- 	struct gendisk *disk = bio->bi_bdev->bd_disk;
- 	struct blk_error_inject *inj;
-+	blk_status_t status = BLK_STS_OK;
-+	unsigned int delay_us = 0;
- 
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
-@@ -45,29 +136,34 @@ bool __blk_error_inject(struct bio *bio)
- 		if (inj->chance > 1 && (get_random_u32() % inj->chance) != 0)
- 			continue;
- 
--		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
--				disk->part0, blk_status_to_str(inj->status),
--				blk_op_str(inj->op), bio->bi_iter.bi_sector,
--				bio_sectors(bio));
--		bio->bi_status = inj->status;
--		rcu_read_unlock();
--		bio_endio(bio);
--		return true;
-+		status = inj->status;
-+		delay_us = inj->delay_us;
-+		bio_set_flag(bio, BIO_ERROR_INJECTED);
-+		break;
- 	}
- 	rcu_read_unlock();
--	return false;
-+
-+	if (delay_us && blk_error_inject_delay(disk, bio, status, delay_us))
-+		return true;
-+	if (status == BLK_STS_OK)
-+		return false;
-+
-+	blk_error_inject_fail(bio, status);
-+	return true;
- }
- 
- static int error_inject_add(struct gendisk *disk, enum req_op op,
- 		sector_t start, u64 nr_sectors, blk_status_t status,
--		unsigned int chance)
-+		unsigned int chance, unsigned int delay_us)
- {
- 	struct blk_error_inject *inj;
- 	int error = -EINVAL;
- 
- 	if (op == REQ_OP_LAST)
- 		return -EINVAL;
--	if (status == BLK_STS_OK)
-+	if (status == BLK_STS_OK && !delay_us)
-+		return -EINVAL;
-+	if (delay_us > BLK_ERROR_INJECT_MAX_DELAY_US)
- 		return -EINVAL;
- 
- 	inj = kzalloc_obj(*inj);
-@@ -86,6 +182,7 @@ static int error_inject_add(struct gendisk *disk, enum req_op op,
- 	inj->start = start;
- 	inj->status = status;
- 	inj->chance = chance;
-+	inj->delay_us = delay_us;
- 
- 	pr_debug_ratelimited("%pg: adding %s injection for %s at sector %llu:%llu\n",
- 			disk->part0, blk_status_to_str(status),
-@@ -139,6 +236,7 @@ enum options {
- 	Opt_nr_sectors		= (1u << 18),
- 	Opt_status		= (1u << 19),
- 	Opt_chance		= (1u << 20),
-+	Opt_delay_us		= (1u << 21),
- 
- 	Opt_invalid,
- };
-@@ -151,6 +249,7 @@ static const match_table_t opt_tokens = {
- 	{ Opt_nr_sectors,		"nr_sectors=%u"		},
- 	{ Opt_status,			"status=%s"		},
- 	{ Opt_chance,			"chance=%u"		},
-+	{ Opt_delay_us,			"delay_us=%u"		},
- 	{ Opt_invalid,			NULL,			},
- };
- 
-@@ -187,7 +286,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 		char *options)
- {
- 	enum { Unset, Add, Removeall } action = Unset;
--	unsigned int option_mask = 0, chance = 1;
-+	unsigned int option_mask = 0, chance = 1, delay_us = 0;
- 	enum req_op op = REQ_OP_LAST;
- 	u64 start = 0, nr_sectors = 0;
- 	blk_status_t status = BLK_STS_OK;
-@@ -230,6 +329,9 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 			if (!error && chance == 0)
- 				error = -EINVAL;
- 			break;
-+		case Opt_delay_us:
-+			error = match_uint(args, &delay_us);
-+			break;
- 		default:
- 			pr_warn("unknown parameter or missing value '%s'\n", p);
- 			error = -EINVAL;
-@@ -241,7 +343,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 	switch (action) {
- 	case Add:
- 		return error_inject_add(disk, op, start, nr_sectors, status,
--				chance);
-+				chance, delay_us);
- 	case Removeall:
- 		if (option_mask & ~Opt_removeall)
- 			return -EINVAL;
-@@ -277,10 +379,11 @@ static int blk_error_injection_show(struct seq_file *s, void *private)
- 
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
--		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u",
-+		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u,delay_us=%u",
- 			   inj->start, inj->end,
- 			   blk_op_str(inj->op),
--			   blk_status_to_tag(inj->status), inj->chance);
-+			   blk_status_to_tag(inj->status), inj->chance,
-+			   inj->delay_us);
- 		seq_putc(s, '\n');
- 	}
- 	rcu_read_unlock();
-@@ -315,3 +418,13 @@ void blk_error_injection_exit(struct gendisk *disk)
- {
- 	error_inject_removeall(disk);
- }
-+
-+static int __init blk_error_injection_init_wq(void)
-+{
-+	blk_error_inject_wq = alloc_workqueue("blk_error_inject",
-+					      WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-+	if (!blk_error_inject_wq)
-+		panic("Failed to create blk_error_inject wq\n");
-+	return 0;
-+}
-+subsys_initcall(blk_error_injection_init_wq);
-diff --git a/block/error-injection.h b/block/error-injection.h
-index 9821d773abab..8b3809d85e83 100644
---- a/block/error-injection.h
-+++ b/block/error-injection.h
-@@ -13,6 +13,7 @@ static inline bool blk_error_inject(struct bio *bio)
- {
- 	if (IS_ENABLED(CONFIG_BLK_ERROR_INJECTION) &&
- 	    static_branch_unlikely(&blk_error_injection_enabled) &&
-+	    !bio_flagged(bio, BIO_ERROR_INJECTED) &&
- 	    test_bit(GD_ERROR_INJECT, &bio->bi_bdev->bd_disk->state))
- 		return __blk_error_inject(bio);
- 	return false;
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 0cc09b975d8f..1a5812fa4052 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -328,6 +328,7 @@ enum {
- 	BIO_ZONE_WRITE_PLUGGING, /* bio handled through zone write plugging */
- 	BIO_EMULATES_ZONE_APPEND, /* bio emulates a zone append operation */
- 	BIO_COMPLETE_IN_TASK, /* complete bi_end_io() in task context */
-+	BIO_ERROR_INJECTED, /* error injection rules already applied */
- 	BIO_FLAG_LAST
- };
- 
--- 
-2.53.0
-
+The bug was discovered by code inspection assisted by LLM.
