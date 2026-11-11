@@ -1,113 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794437350;
-	b=CKiE2Zovjms4W2AFHq6I2GiEtSgKEfIbwhhhuHY0mfup+7hq5Vyj88wRCOtB5eZQibYb
-	 XVu3C+ae5ow+VPnUkfZGjodHIePlsAoK/1y9WhZtabL8j9fik4BnLAN3Pnm26rmM+oz+O
-	 lASkwS/pECd9aVplAZcBcqnebgvuLXQEiesEZ71NjHzZI/RI4gieeq8sXZCAFuAyr7Wjs
-	 e7TQ+EDeG2hnrJaBOGGdKfGaglZHA5hfdyBYCMgvGGuiBL6oop355T0tVqQn4RxCZfzXJ
-	 OyacwpSenpVKWHZco9Kst+dQs6ooSVgzo/MScc9L8U2cO5nV8K5j8JtkwjCd45KxBZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437350;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2BUOGcrh2S97il4Ttrd7WSFGfZ/SB2ZyhbaF0FuMYg0=;
-	b=JZ/FbJ7H0/nAllFqfOimVZtG9o9BVve3vxeiKKxRk6q6eAdeLfI7t5CEq6kKYd3OhCBW
-	 +jlt2H1Qg3jhRrjq9YGpUL8OGR1gE/CRuu+/ilUJKKYueS0z04VDZ3yh3r4znO8oJToRO
-	 F4L+hrXkR9WI6AnJqswMBhm6Ik5b1mnYB5rn/yRTqXHcMg9uCycOTgDDaqKqVzsPW8dYy
-	 F9n53Ln1pEziNI5CxXSUMmuWBgnhFylhcFtZc3Z7jYFWTrIst9dbDwNJFGmQv1dAeYPBM
-	 Kz3Iu/40b/n4tueKagtTuZNaxZk2NcOQuyQ/u2s5ypBoqzi6l0/K8j8D+pHwC/INEUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=K+5tY+xW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010006.outbound.protection.outlook.com [40.93.198.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.242
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794437378;
+	b=SRL8NA+ZoOZsWIkDHzTMSXdDZUrkd9uxNqTUOTyPsLLM8SQCAIRs5sQUa/Ot/8AxkyjO
+	 oWFAHv1Bn1I+uy892ydKx0NXsagN/uuli4Jr+gNlbzKlahIR3LpG4ou6H3aJVncGHph97
+	 1DU6z4i9UnwSq0bH7D4zlstd0DXs9uiym0EW6X7Bg+y0dAmVVENIDQHtC1I0br/0j98rl
+	 WASIH518eD66WlDg3Di3gQs5h2qOSSu7yQZCemAOS/OEV620tNmjn8eUo36LFv9ZaNSDo
+	 cwY5MczbE88Olz8tbAPSpUBk1cD9KAuWeOonXKxt4/3tKP0t6Y0TaQa9pUu5akYdmuQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437378;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vQue7jLFUdSGesUi+3B7mc2JziPrIDnIULtffQJGgvg=;
+	b=N5lyzxnqdJfMMXm8ZONRqLjHeZs1uPbMEr04yO7F4YZpCS+jFQpIqpFHwZRQOFuQNtg/
+	 vleu1i46hWQtP9aN13ivK+ZC13SCb1JZw3zmNso8Y6VgppTApIJuzc9ooUkYgDHEunU5f
+	 CUemkpFJs/ctZe7aP0ZQYSJKoSm7sZOeLKtpiQGQ3SVcqOHJiAHJvL1L94+p4CDNTCP8f
+	 XanRlEZOdCYEUp0HlZtNBvqVMz+JJHYmo/oMKmiyl25xpVVR/Hgia7VfgjZNfcI/d1q/b
+	 LsGM3S49OqyC3b2w7b54e8g0gtj/t3OB1VwpYzLuInT5lUBo8TsDOYYz2Umee/0zNpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NGOjZg1k;
+	arc=none smtp.remote-ip=91.218.175.242
+Received: from mta0.migadu.com (out-242.mta0.migadu.com [91.218.175.242])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5226606A897;
-	Wed, 11 Nov 2026 22:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5226606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40435606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40435606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=K+5tY+xW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=od4pSscMDiC7q2SE+BUP9lvvdNTEDIWNWYL8B81T3BVzRJskZav/NG+jxOEOcL5TQzZXV6XiygcVww/A+iT1xIBfCtpdRgLXtGY7tm8oEnUKtlmUz2RzRx5CqixKTZxtBvZS6Ej80QQNVT/irwqR4rQlQbY21X2mVFLt/RUAs8li5ULW1JD2cF3gCN07vhu2RM5WbOHdUPle88qqol7l6XYzLWfebCVPQK4GvLsba8wu+hqDrGeoFWE5F/e69SvfbK/eFQhnsbkNcf9nmm7Rodd/VSIPjdzHU8Briz5I4iYpRZSg8BKhlk0QKMu+i06A/t58PuYRgJv4gzu3RM+Ptw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BUOGcrh2S97il4Ttrd7WSFGfZ/SB2ZyhbaF0FuMYg0=;
- b=MmWRudPtbUqMOoKQYqkMsFu5lIpRrjB4w0i5DcOPvQV8/0V3XqPrPLHVyzMCpxSpbk6FiOegCQ0RxQFTkMOenmM6cPwL0bSB7PEkqahdb96IR9oaJL7y0yY3OAw5fEcrn0kDunTKMPOchz6cE+bdyjUuyz4Zyyr9Gp6efYKGUqBzX9gMtcFjXoa5fjgHH9GWhem7rBfdo0oq0k6KS7fRaYP9WSfBQNRmzBVighAh6PgMEGe0gZyHZVhAFA9mdx/OyJXBQT8422PPfnaMPicacZ8Lom+1urZuHTh2TEzHAvYt890Y0vSnuSCoEsPup7mk1XQJ4UkXWBFmOEE/gCGeXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BUOGcrh2S97il4Ttrd7WSFGfZ/SB2ZyhbaF0FuMYg0=;
- b=K+5tY+xW5SqPW8DavTMqvNVVspzhVbbe9WhzKxAjqpipCkYuh0yfEop9z/FdSGOzC66Kt1s7FdxaCLluSlYtb1USDQKaB0vyxBTcvXb+JvW4dEX3BDFpoo6BfptYOZP1AAPU13PsqzLy9SveRBeJl1PVNzzd7mxQgcdduViVusg=
-Received: from MW4PR04CA0234.namprd04.prod.outlook.com (2603:10b6:303:87::29)
- by PH8PR12MB999298.namprd12.prod.outlook.com (2603:10b6:510:40b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 22:47:03 +0000
-Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
- (2603:10b6:303:87:cafe::5) by MW4PR04CA0234.outlook.office365.com
- (2603:10b6:303:87::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 22:47:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 22:47:02 +0000
-Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 16:47:01 -0600
-From: Babu Moger <babu.moger@amd.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <bp@alien8.de>
-CC: <babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <x86@kernel.org>, <fustini@kernel.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <fenghuay@nvidia.com>, <rppt@kernel.org>, <arnd@arndb.de>,
-	<kmehltretter@gmail.com>, <dapeng1.mi@linux.intel.com>, <elver@google.com>,
-	<enelsonmoore@gmail.com>, <jlayton@kernel.org>, <seanjc@google.com>,
-	<ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>, <nikunj@amd.com>,
-	<ashish.kalra@amd.com>, <peterz@infradead.org>, <superm1@kernel.org>,
-	<thomas.lendacky@amd.com>, <prathyushi.nangia@amd.com>,
-	<kim.phillips@amd.com>, <ricardo.neri-calderon@linux.intel.com>,
-	<darwi@linutronix.de>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v7 16/19] fs/resctrl: Reject mode changes for groups backing kernel mode
-Date: Wed, 11 Nov 2026 16:44:09 -0600
-Message-ID: <582409f73650a18edc594c2c40e14b404b0d25b8.1794437052.git.babu.moger@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794437052.git.babu.moger@amd.com>
-References: <cover.1794437052.git.babu.moger@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NGOjZg1k
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TJQVUzglty5DBhKdqOJX7Uq+2tUl+AilQ8bRBeO+zoU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794437375; v=1; x=1795042175;
+ b=NGOjZg1kEgy3pz8LKNVfq9xcU6WU08nFKlG0U3hFRV46SsAguTFXlvwzbAckX2UtQ8gBRTcm
+ NMTDlX+JyjqrDjKcEJHtHyM1cfA9R1d8DeBSRuQjVllwxhNvPrnGRHsVvVN6RZZ+md/YzcF2nYp
+ uImjB4h8am86aMNefRqQVhlo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7aea4d3fde09893e;
+	Wed, 11 Nov 2026 22:49:34 +0000
+X-Mizu-Trace-ID: 7aea4d3fde09893e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <aa4c71b6-f81d-4544-96fa-ed54e78b0de1@linux.dev>
+Date: Wed, 11 Nov 2026 22:49:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,126 +58,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Mark Brown <broonie@kernel.org>,
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|PH8PR12MB999298:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3733dac-75f7-42cc-b4a0-08df4045b426
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|23010399003|376014|22082099003|18002099003|6133799003|261009223027099003|13003099007|260925022911599003|11063799006|56012099006|260925021911599003|261028144727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|260925021311599003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	w5dJjv9EfHQzii+TX6UibDNAdmliMAFoDkQnuZBv21IGnQWH3hMST+Sv6GfmS7kWagj8XOKEw/4P22hh8zazMOdcQlTSEbfnp2avg43hdinJUaW22P8CzCwTiaeFqEXSq1S8XM8gfkPjTW67/TSv4lbRq7cg7ZL2exmXIhJ50d6FgywaAEUv5h23jD481wUNKCBm52pvyUR6uQhavCldPIFv5mn5TTRiBIPPabEZtgkAIzLC7iURDzcU5f7Ae7qsCBZc8MGg+9/1RuZnyA4yyv+IB2cOTsdnSh0E1nGHc1Jzdiva0gJqEhCJxgV0O0+Qp8MctfZnSjJ6Hk3pHdsNaHIkRgBcOIBnGqzf8deUobH9L5di0tuPvmI64R8jdV5K/n8oH2X0+iDyTx1pTpqxSYTcDkYNkurOwpS1DtY0mJltLyGnu93WTFXx950qOOcMwvFaIgdvx7z26vssVzDAQM7reaknMcP333mcTGxeCGHlZjEg3kwDaFh/7VoCHp9N8VKXXFMPnl9O2OJpQhbzh/2Wb3zy4AM2Su1fNghEfXKYhenPM1ipg7nZB1sE29zuIAW2pnK3RUFP0dNwDxcRi+hXc9kMr39C8fKJG46ee94MEEso3DEGSetnwWi/WNgOZSq7acyIfEsiwNnzntu0CQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(23010399003)(376014)(22082099003)(18002099003)(6133799003)(261009223027099003)(13003099007)(260925022911599003)(11063799006)(56012099006)(260925021911599003)(261028144727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(260925021311599003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uVNoLKjKHnuYm0CYhmFAZlG4AkK3tUP2ZowAKW4EySK0j/fD5SPZAIERJWRy7PWEh5X/+PIYQ6h9wbSnoBODg7Oq4mA3CMPhALsKsdb9GDyUeBYGSKa+xBGMWU8kEoEhrzA/l2Zx2ECdimU1kIBveVKzQ09Hjpd9Jk8R8c0M9kurhAkZt1wPirCstudaanPhl7FiqgiD/5NBIFKuTA8epeyK1n1xo1iQy9Rj/UIz5Gz2gm++g7fAJz1k4IE3PFqDu5E3F3YxMmSFQm3O6Y6bKV+y+RkfK8uCCn9/IJEObwWQpe4ZA/K8E25zPc2tuk3ht9vOw/FghsSwslIfz5qtD6+FNiqbS0vTX1hxI4YPmPiQPSN0pkNU/Q/4j8ZU3jnzqGsQlo0MJ7B5+r3cRHoNCsFa49T+LXFxMxwtKH0I5q4XqzvM0ZV40WjwrZ9okDjK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 22:47:02.8003
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3733dac-75f7-42cc-b4a0-08df4045b426
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999298
 
-The RESCTRL_GLOBAL_ENABLE_PER_CPU kernel mode uses the CLOSID and/or
-RMID of a backing group when transitioning from user mode to kernel
-mode. Since the CLOSID and RMID are shared with the group's tasks, the
-backing group must remain shareable while kernel mode is active.
 
-Reject mode changes for a group backing the active kernel mode and for
-the parent of a backing monitor group.
 
-Also reject reparenting a backing monitor group, as it would change the
-monitor group's parent and implicitly modify the active kernel mode
-configuration.
+On 11/11/2026 18:13, Lorenzo Stoakes (ARM) wrote:
+> The OOM killer can quickly trigger again after having selected a
+> victim. That victim might not have freed its memory yet, but its mm will
+> be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+> 
+> This can cause the OOM killer to kill an innocent process when the first
+> might have freed enough memory to relieve the memory pressure.
+> 
+> Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
+> 
+> Note that the task which calls mmput() might not be the victim - if it
+> took a reference on the mm (e.g. ptrace), it may hold the last reference
+> and release it when it calls mmput().
+> 
+> Therefore we cannot rely on current to tell whether the mm belongs to an
+> OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
+> unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
+> mark_oom_victim() sets on the victim's mm, and check that.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-Signed-off-by: Babu Moger <babu.moger@amd.com>
----
-v7: Changelog update.
-    Moved the patch after the kernel_mode modify interface.
-    Added code comments to justify reparenting.
+Makes sense, it will free an OOM victim’s pages before setting MMF_OOM_SKIP,
+avoiding unnecessary additional kills.
 
-v6: New patch to fix sashiko feedback.
-    https://sashiko.dev/#/patchset/cover.1787772750.git.babu.moger%40amd.com
----
- fs/resctrl/rdtgroup.c | 40 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+Acked-by: Usama Arif <usama.arif@linux.dev>
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 872755532fb4..1ad169e714a4 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1994,6 +1994,27 @@ static bool rdtgroup_mode_test_exclusive(struct rdtgroup *rdtgrp)
- 	return true;
- }
- 
-+/* True when @rdtgrp or one of its monitor groups backs the kernel mode. */
-+static bool rdtgroup_has_kmode_global(struct rdtgroup *rdtgrp)
-+{
-+	struct rdtgroup *child;
-+
-+	if (!resctrl_kmode.rdtgrp)
-+		return false;
-+
-+	if (resctrl_kmode.rdtgrp == rdtgrp)
-+		return true;
-+
-+	if (rdtgrp->type != RDTCTRL_GROUP)
-+		return false;
-+
-+	list_for_each_entry(child, &rdtgrp->mon.crdtgrp_list, mon.crdtgrp_list)
-+		if (child == resctrl_kmode.rdtgrp)
-+			return true;
-+
-+	return false;
-+}
-+
- /*
-  * rdtgroup_mode_write - Modify the resource group's mode
-  */
-@@ -2034,6 +2055,12 @@ static ssize_t rdtgroup_mode_write(struct kernfs_open_file *of,
- 		goto out;
- 	}
- 
-+	if (rdtgroup_has_kmode_global(rdtgrp)) {
-+		rdt_last_cmd_puts("Cannot change mode for kernel mode backing group\n");
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	if (!strcmp(buf, "shareable")) {
- 		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP) {
- 			ret = rdtgroup_locksetup_exit(rdtgrp);
-@@ -4922,6 +4949,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
- 		goto out;
- 	}
- 
-+	/*
-+	 * Changing the parent of a group backing the active kernel mode changes
-+	 * the effective CLOSID and/or RMID configuration applied to kernel work.
-+	 * Reject such moves and require kernel mode to be reconfigured explicitly
-+	 * instead.
-+	 */
-+	if (rdtgrp == resctrl_kmode.rdtgrp &&
-+	    rdtgrp->mon.parent != new_prdtgrp) {
-+		rdt_last_cmd_puts("Cannot move a group that backs kernel mode\n");
-+		ret = -EPERM;
-+		goto out;
-+	}
-+
- 	/*
- 	 * Allocate the cpumask for use in mongrp_reparent() to avoid the
- 	 * possibility of failing to allocate it after kernfs_rename() has
--- 
-2.43.0
+>  include/linux/mm_types.h | 2 ++
+>  include/linux/oom.h      | 9 +++++++++
+>  mm/mmap.c                | 9 ++++++++-
+>  mm/oom_kill.c            | 4 +++-
+>  4 files changed, 22 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 1ed35d258d2e..09e63ff12b04 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -2030,6 +2030,8 @@ enum {
+>  #define MMF_TOPDOWN		31	/* mm searches top down by default */
+>  #define MMF_TOPDOWN_MASK	BIT(MMF_TOPDOWN)
+>  
+> +#define MMF_OOM_VICTIM		32	/* mm is the oom victim */
+> +
+>  #define MMF_INIT_LEGACY_MASK	(MMF_DUMP_FILTER_MASK |\
+>  				 MMF_DISABLE_THP_MASK | MMF_HAS_MDWE_MASK |\
+>  				 MMF_VM_MERGE_ANY_MASK | MMF_TOPDOWN_MASK)
+> diff --git a/include/linux/oom.h b/include/linux/oom.h
+> index 00da05d227e6..a9390cb70541 100644
+> --- a/include/linux/oom.h
+> +++ b/include/linux/oom.h
+> @@ -76,6 +76,15 @@ static inline bool tsk_is_oom_victim(struct task_struct * tsk)
+>  	return tsk->signal->oom_mm;
+>  }
+>  
+> +/*
+> + * Use this helper if tsk->mm != mm and the victim mm needs a special
+> + * handling. This is guaranteed to stay true after once set.
+> + */
+> +static inline bool mm_is_oom_victim(struct mm_struct *mm)
+> +{
+> +	return mm_flags_test(MMF_OOM_VICTIM, mm);
+> +}
+> +
+>  /*
+>   * Checks whether a page fault on the given mm is still reliable.
+>   * This is no longer true if the oom reaper started to reap the
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 7618e72766a5..4cb18b217048 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
+>  	/* update_hiwater_rss(mm) here? but nobody should be looking */
+>  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
+>  	unmap_vmas(&tlb, &unmap);
+> +
+> +	/*
+> +	 * Free the memory before marking MMF_OOM_SKIP so a re-triggered OOM
+> +	 * killer will only skip this mm if it's already freed all it can.
+> +	 */
+> +	if (mm_is_oom_victim(mm))
+> +		tlb_flush_mmu(&tlb);
+>  	mmap_read_unlock(mm);
+>  
+>  	/*
+>  	 * Set MMF_OOM_SKIP to hide this task from the oom killer/reaper
+> -	 * because the memory has been already freed.
+> +	 * because the memory has been already unmapped.
+>  	 */
+>  	mm_flags_set(MMF_OOM_SKIP, mm);
+>  	mmap_write_lock(mm);
+> diff --git a/mm/oom_kill.c b/mm/oom_kill.c
+> index 5d48bd862c27..9de57a23893c 100644
+> --- a/mm/oom_kill.c
+> +++ b/mm/oom_kill.c
+> @@ -752,8 +752,10 @@ static void mark_oom_victim(struct task_struct *tsk)
+>  		return;
+>  
+>  	/* oom_mm is bound to the signal struct life time. */
+> -	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm))
+> +	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm)) {
+>  		mmgrab(tsk->signal->oom_mm);
+> +		mm_flags_set(MMF_OOM_VICTIM, mm);
+> +	}
+>  
+>  	/*
+>  	 * Make sure that the process is woken up from uninterruptible sleep
+> 
 
