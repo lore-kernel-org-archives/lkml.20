@@ -1,76 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391567;
-	b=EDFuX7hc2JfqtagjkgkIo4BLFRXG150WFMY5giSxi56/GFCnDbfGoGmHHEO3dppuH7pD
-	 zfue3mlB9r9mSa6xIHwmtz7g7547tolCmSgrrIl5pHrvh4v5e6NObmt5twHtxjAhY5FHk
-	 0wy/tz/f0du7baFnvD+/J6d3xg462iv3QWHL6u4pERypPYcr+UgdwuWoUNrRv9wRR99Nt
-	 Df+Xg+dS2a2HMmZkyaoHKNUa3oLl31Zn1WJh8I1ZX+USjRETNw2y6q24iYjQSMnN1nKbb
-	 /FjTUq9x4AhZ+N4E8nUKbkR1m9OdIdYCEgfdyRPlmBYZ9fXQiL/rC/YcNd11KiYtMkA==
+	t=1794391598;
+	b=Rq+YxGpLAjZRSXrQUZTnDhXcsKn8h70Z1C/QqWRKxfkeZDA3anNQ09ETgBAx6qrWJ/6V
+	 C1ZLYS4PKO5z5TC+9r/0VZKO//0dltRJomkpOrV5fBgU85i1nIWkjdIoX6gTB1ruk1GsA
+	 fyuiEufZs7MNzZsiUJRCYw0N6BqaiQduIsd6z3eQZHS4TaONVTQAVKub5sIh4rO/gZDgQ
+	 FJr5jwdFNaRF3iaMvECjOJgbSCmwS/DWJflYdeVGlQKl42TdQN4gpMELlTNTNwq9UYJWS
+	 JaEfkWP8tP3CEFtUbKUXINDUi6S/oKgxdDFsBU3FUpxR8UzQiCe0NFRFmNQovLmfdrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391567;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:Organization:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Virus-Scanned;
-	bh=+PZREDVu6udbS/MihShnEiQ1U4HP69UPMFupt24cgpg=;
-	b=MHt8YtKHz9opTJgaSUdU+4lduQP6zr9agVSVOayBukRR/VviRkjygwGZUw9qqrxY01Qu
-	 xaxdD2tCSLoA/lUhJVdGu6JSFXR0Gms96rhthKlTC3Akp119gCDh4U+zx/ueeyP4vB78K
-	 2gMv4ea2jfA10/dUQ1r1cjekSIo0zz+8ka+1fJMC0qiyd+VvHn4LbFWAa89993ncb45xQ
-	 eUQwiK6NiLsRKwe4EbX4d4u0IdUQ3rQTwXtMZJBliO1o4BHQAT62AlJnNBud4nuInjDu2
-	 h55srBLMOjO5Hfygx6HV67SK/7hgIIBRVv0tPES55szn+CLE4kwYDYs3xvftHJs1/Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391598;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wDTNKmKcvG/TVcEJQQhWa3Cr1cP+VoAZc+pn91JcdUM=;
+	b=i3PAp8Pxu1asNujpXev3R0VGFkizFaxIO3wuudiz+HdE5DabBNnAXBy4VOSTmrbcq0bC
+	 ZWFlxHea8hPnRsFh57qY4utPqfrE+wXNKLrpA1644oX2f1e65/caaxs1d5b8NZgHN44O5
+	 Br8aFzd1O/jNtuU7UY91yNNSJiXarSMW4wOc8QR6eK6bWqvDUo7HGdddEPIAObEP/mBhn
+	 s190DsW/O5+2R9Es9JfLPXbVc2xMHB57qKCMRNAcmD/T9Osu1mykk/ixymkDsN7PQeb7o
+	 qroNxpMQYF3RaMcZpt4naEaatQ2nl3VaIBFr+7o7xM2/7oaBD1VWzoAg2G/gwxlYhOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=eTjZemmm;
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vXlp5xsN;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EE1606A321;
-	Wed, 11 Nov 2026 10:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56EE1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F70D606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 10:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F70D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=eTjZemmm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=+PZREDVu6udbS/MihShnEiQ1U4HP69UPMFupt24cgpg=; b=eTjZemmmDK/nUMvH0MIwylgxRp
-	zBJijZmwANAtGI6XeYJN0AaK1/WNNowTqDGffMcflPH0LtvMTl23DmEBiTmwg3zcuP+i8uo6VT5Ev
-	h8Pltkah4Pvgl9RGNRfM2xO/i3iPo3ktotyka1EIQOVGsT2WPUTggvRz7HrcCT03LnHZnaQC2CtFI
-	KfIDQcYamMU5azfY0oop856p6giY3X6ACi87PMYdvjN03G+NpXTiN4h+JiDlouhEOpA8GEe/H8p90
-	/9N+qIVT/u8T3hEdEPLpbcSE/mfQ8j+j/CEAlBpFGpf+GADntCsBSlPaTUM/bPufoiIhkZ+DGN+9q
-	bZ8HfCyA==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xR5DQ-0003dD-0D;
-	Wed, 11 Nov 2026 11:06:04 +0100
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xR5DP-000CYs-1A;
-	Wed, 11 Nov 2026 11:06:03 +0100
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-sound@vger.kernel.org
-Cc: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Subject:
- Re: [PATCH] ASoC: soc-core: reset rtd->num_components after allocation
-Date: Wed, 11 Nov 2026 11:06:02 +0100
-Message-ID: <4024352.mvXUDI8C0e@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
-References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vXlp5xsN
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so2457337c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 02:06:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794391597; x=1794996397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wDTNKmKcvG/TVcEJQQhWa3Cr1cP+VoAZc+pn91JcdUM=;
+        b=vXlp5xsNRdR8tPKdKKNdWuHv2jGGCRjKuH6kH1nBvg2JP6WTYOt3s7fxGTSxDzXiAQ
+         JuEEHggsmdujIxcw6gAmWAV6lZfarMgEyTcZ97I6XtlPvAcU7E6IlO+vx44zdzrpLQqT
+         Zsguo3GgrKZeKoj3/ZpybO29gKYHhApF6EgjT3ftwURpjRtVF4RLdNfkGjeGsLbE013L
+         7Wxe1/CHkSckY21xf530W++WFItUaPng6k+/efueB+8iAHYLPX0geS1jSlY3+sUmqcm5
+         E+TD9rmt3fIfQb40MRVJ/S2txEtZjjNkjWhuc4HrcxhISPxLOn28Nj0Vleuz9JZmLzrw
+         rwew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794391597; x=1794996397;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wDTNKmKcvG/TVcEJQQhWa3Cr1cP+VoAZc+pn91JcdUM=;
+        b=uiJn8Pl7mBuk9R2agB38qf6W8MKuqMA2a6cKNO+ai1ocmWbpwLD52bhjcMHwbA3Jy5
+         QlpT7+EJmEMVqh+agADuza7vsbq1eQWzK0MnHWFVNIF7cj8mnATfTGLnF8a9qiWmVcOJ
+         miJr+JAlY0zvNyqRAx8OxxiHr0OP7MVITxaIh7ZRfxw4I7i/k2HIUPbJmXXf+idckp9p
+         o7qsz8tW2V1+qLbqKaXVwijvKtwCOuQtMKx1i6CcF6Cr1u+BlE2XGczAX8xFldPwnLUs
+         rLACW4wom/9QagRozDVIXYrZNuckfjDgUXWNHOm5Tkuf4Ill2gmBfCNJ00F0LIfhmxuG
+         Z0sQ==
+X-Forwarded-Encrypted: i=1; AL+hErF8zpLPzcJsKRPGCtszRdl0kN/tPFMJkdncmzGhMVWTcaZjzqfaErn858iHy6nHIDyu9VFiSkPHmjF+/UQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+brWUX5fFbZcV29X723EsnC8+S+3tHJMNk5KjQwxdFAOKpcYV+
+	+IYa/HtacG7bUCdr3u3uycNndjhksZ5dqIqn63wMOE0o2zI9a3Tq9Pe5
+X-Gm-Gg: AYBFou1TqrGxO02rxoMg+KdJu2Gxdu+9monx05JpeobfkohI5EZFaGU35jgHj2bpQVA
+	KJDMxkd+73Bf0tYVpN+bMceAP42vb4c7xdTW3I9Zrb6/mO9lif2KiE3pYI8Vwdklv/aIWpK4Hrn
+	ZbM0uScTM+OQvwBJZYtA3m3HvUi/ikAu/zPZkbelTqoaEORZ3kibww4Ldw5eLNcPQad64e4nyIv
+	ETgmgG7AaD+pkJ6LcHx8yVaoyKObU3mxXzmiJ0ft/Tm5t+xqGuyA62CDaUkEgg78YB8S4mXHU3e
+	Ywgv2pEPnXxQz/TbZ0KcfFRXN9XgZ4If3+44stRWbALXdAUxVKa8hvLhLSA7OsnN6p4V/PfgD8z
+	pmg4Z0TWio8FD8znGfY/2J+yKM7peescu2rNOfvpvcBa4AgB4eSbAnDA8rfon9ncoMgVv01FXvi
+	dvfhcTkM3RPZQ6nIuU5UHb7L3dzkGfOXipfCgxGu58na/LbK5fGWBLPRsTjN6+Nhfoz6ruyHpIV
+	Ygf/5U/NNT8jCCZNZvyIXp+YeXj4fPxOhN6G5ynlzeRGM/RBd/2FAqz+qOhSi6y8JxBzztXb0/2
+	nHDhvPFByVCKrOjfCqUzycsG92FoM6Q41h3e9L9bgQzsocQp8IqVgjUWFwe/9IViNtFtBQ6ckkQ
+	4Ma+LA2cKpkMcCXMArby7aCtxigDCPwMs40S6/wswUhCH
+X-Received: by 2002:a05:7022:107:b0:1af:2ba7:e44b with SMTP id a92af1059eb24-1b3c024be7cmr2489625c88.3.1794391596498;
+        Wed, 11 Nov 2026 02:06:36 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890584sm15778025c88.3.2026.11.11.02.06.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:06:36 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: atmel-i2s: Fix clock and slot width handling
+Date: Wed, 11 Nov 2026 17:06:14 +0700
+Message-ID: <20261111100616.31211-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,101 +105,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28180/Wed Nov 11 07:24:27 2026)
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-thanks for the patch.
+Hi all,
 
-Am Montag, 9. November 2026, 11:25:20 Mitteleurop=C3=A4ische Normalzeit sch=
-rieb Emanuele Ghidoli:
-> From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
->=20
->=20
-> Commit 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the
-> devm_kmalloc_obj() family") switched the snd_soc_pcm_runtime allocation
-> in soc_new_pcm_runtime() to devm_kzalloc_flex(). components[] is
-> annotated with __counted_by(num_components), so when the compiler
-> provides __builtin_counted_by_ref() the allocation now also sets
-> rtd->num_components to the number of allocated slots.
->=20
-> snd_soc_rtd_add_component() fills components[] one entry at a time and
-> expects num_components to start at zero. Starting from the allocated
-> size, for_each_rtd_components() stops at the first, still NULL, entry,
-> so the runtime has no components: they are not probed, no controls or
-> user-visible PCM devices are created and the card registers empty,
-> without any error message. In addition, each added component is stored
-> past the end of components[]. On the tested board these stores still
-> land in the slack of the kmalloc bucket that devres rounds the
-> allocation up to, so KASAN does not report them.
->=20
-> Reset num_components after the allocation.
->=20
-> Seen on a Colibri iMX7D (simple-audio-card, fsl-sai, sgtl5000): the card
-> is listed in /proc/asound/cards, but /proc/asound/pcm is empty and
->=20
->   amixer: Unable to find simple control 'Capture Mux',0
->   aplay: main:850: audio open error: No such file or directory
->=20
-> Tested on that board with v7.4-rc2 built with GCC 15.2 (first seen with
-> GCC 16.2): the failure is there without this change; with it, playback,
-> capture and the codec controls work again.
->=20
-> The root cause analysis, this change and the testing were done with the
-> help of an AI coding assistant (Claude Code, Claude Opus 5.5).
->=20
-> Fixes: 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the devm=
-_kmalloc_obj() family")
-> Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+This series simplifies peripheral clock handling and fixes the
+I2SC_WS slot width configuration in the Atmel I2S driver.
 
-This fixes TQMa8MPxL/MBa8MPxL as well which is also affected by commit
-4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the
-devm_kmalloc_obj() family").
-=46WIW:
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Link v1: 
+https://lore.kernel.org/all/20261111042746.14714-1-phucduc.bui@gmail.com/
 
-> ---
-> 4dd10fbbeb9c only reached mainline in v7.4-rc2 (not in broonie/sound yet),
-> so this is based on v7.4-rc2.
->=20
-> The other devm_k[mz]alloc_flex() sites added by 4dd10fbbeb9c were checked
-> too: none of them fills a __counted_by() counter one entry at a time, so
-> this one looks like the only user hit by the preset counter.
->=20
->  sound/soc/soc-core.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 68b54e509b65..06a1d5718997 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -387,6 +387,12 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runti=
-me(
->  		device_unregister(dev);
->  		return NULL;
->  	}
-> +	/*
-> +	 * devm_kzalloc_flex() presets the __counted_by() counter to the
-> +	 * allocated size when the compiler has __builtin_counted_by_ref(),
-> +	 * but snd_soc_rtd_add_component() expects it to start from zero.
-> +	 */
-> +	rtd->num_components =3D 0;
-> =20
->  	rtd->dev =3D dev;
->  	INIT_LIST_HEAD(&rtd->list);
->=20
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
->=20
+Changes in v2:
+ - Move the devm_request_irq() call below clock initialization and
+   dev->regmap setup, as suggested by Sashiko.
+ - Add a patch to fix I2SC_WS slot width configuration, based on
+   the SAMA5D2 Series datasheet (Inter-IC Sound Controller).
+https://ww1.microchip.com/downloads/en/DeviceDoc/DS60001476B.pdf
 
+Compile-tested only.
 
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
+Best regards,
+Phuc
 
+bui duc phuc (2):
+  ASoC: atmel-i2s: Use devm_clk_get_enabled() for pclk
+  ASoC: atmel-i2s: Fix I2SC_WS slot width configuration
+
+ sound/soc/atmel/atmel-i2s.c | 45 +++++++++++++------------------------
+ 1 file changed, 16 insertions(+), 29 deletions(-)
+
+-- 
+2.43.0
 
