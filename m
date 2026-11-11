@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439268;
-	b=GTwJ15ZKG6Sxp610EYYZRfAxw79I2ZzWQYIItBu25tyHLfHr8NWdf2jQRFN1XE9vi2qZ
-	 T0KzTUrTVfGIyT+N0it7XtbV0Jt/8KMHIgjR7sni0FvE71XJKZfw5cDefztnVpW7GCy3A
-	 WFI+TqwcGpa5gsV80hXPbF5RljNSPct4nQln1HJ6CgToh1fmhR+PRc7wK5jGZ8XYGrwHz
-	 gdM3MtL/LwGrwjyKQKef3+rm3wOuWsyg/bxeVDn7K1InkEr4NgvFY9M//Ow82VwLuWpIb
-	 IXq7T3G1b3tLwepT9PVDb70pIZ6rJF6FnPqhQbALKqT+DwqVwushqztff3pMgP2MvbA==
+	t=1794439264;
+	b=ez5HXfLFnaVzCwlxFuVMGyMrDT8bBtu5YkBBDNpWoGWxeqC2BuKOprZ65nxRrOx2xNCi
+	 3kk8oXWrnURedjn1ZHgixM4za4dlT8UYdsLp5y8KOBy8uCgFEukfVmYuolWKpNODH1qbi
+	 hQTvyK31x1YYYLWS8D8xYztBPKxBhwltnNXde494etJxWrESIlfPjRx844rcxikdCb5g/
+	 GYzVkXCUK960DE2hHfdr3uaXYOJ1N0TKMdDCwR7cqgecGmx64PjiotJIXZrNby3tyPrdj
+	 ZL8ukhuNT/GsiZGbVXQo7LS/aguVHrvmpqgJl4OYOA2A8+kKnPkctes9DBsnpmAJXEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439264;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
-	b=lscfQr02TWWL94xZGqupwUw2mfc8HRcOUYVdM9k457Z6gWApfmiJz9GZKmoGBu7kxUUU
-	 svfIedXtesyV1KGX3C09K3kezvyqS2MSIhU/niQZZySmQgp2cEf3Q5gwHTh6NHeNUYIel
-	 P9hu6R7pXGy3hUP/kQbpBgNWLBR4VyAKcG5kBYK6xk9L+USJF7/KPX88isBOclcvNYkEb
-	 Cxlz0VauF75EaoP+rB1X3YnvguNsunvS3nI9wqUdSwKU46vueqX0VBzr8tT6lD60yEBnS
-	 8ggYuk3Znj6voot9gVnB91w6EYNCx2nV7osdnZaD8kAuawIIgqugxcFeAE65/ZsD00w==
+	bh=eE9X9IsI4DGKfcKaEqbUpAyTJeGhuPKiIV6pCis8+mc=;
+	b=30177FL4PZMafI/h+OAC328mW8u/K+UZJKcuFRFGSc8ed8EdJ5fR5oWKA46nGEV49kEX
+	 +oecdquaY4+h9trpG221nU2BPXhuplIjmfEiK3JDTD5JEOl66CCl9c+U+9bdhakz561Gc
+	 bpq2Bb2cdxJTrjB5h/fUe0JnR9QMxg5sxZTrU/4kONxzS7lXImeW2JqF67NZHe5pdfVu5
+	 u177Ez4i2rTkjrpZBgUVB7GqON1oRhhb3nBW4HfUdtH0GaHKoQ79rzJt9NQP35TUHVaDD
+	 S9yFrxj+jDtNnk13zBUtYyHeR1BTTKPpWaA6molyeN7W0I70OZD1m80syfyXbNdSrhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ntajgG;
-	arc=none smtp.remote-ip=74.125.229.8
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AS4FCx2D;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E85360A3807
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E85360A3807
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1295606A8AA
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1295606A8AA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ntajgG
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so2171576eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AS4FCx2D
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso2074486c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:21:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794439267; x=1795044067; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794439263; x=1795044063; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
-        b=O0ntajgGNrfKFATlaSWgSLejjNVQgDjxhVsVSDttqGtq5aviS683LBngKpx4uv3XAj
-         dDXGAMnqhsJSWt+XdWei6LCeTtI0eQn5Nl+kVt5xLA7YMoToNjUv3RXoZQnXBzmCAAon
-         58HWQLnHa7Grvb7KMRM3cEQbiFQWgxyWzConOroVYW5bzGieZJD/P3DhTxaoXAjODtdB
-         g8pGGYhCkd+NRGJqXJU/6bLHnDl0nv1mZ9iVzHlkbKadEUNRBQGHmA6oJ1OCXi/IwLID
-         e7Vg3qQ2RpyRtzo25N8hBpRXogew+6Y7BNCYMMxSdgjwXmY/3cPgCHBTPC3v80B5QRTi
-         7uyw==
+        bh=eE9X9IsI4DGKfcKaEqbUpAyTJeGhuPKiIV6pCis8+mc=;
+        b=AS4FCx2Dzy3knLqQU0KfBNqF5KUSlkLF7ulR+nDPovTotbPJqyuHWJZbdiqD0hnert
+         Fjrod0191CeZY5GKnOqJQFXEdEHnEc9RnGOSGH5h4p748bHPLDNJ0byXo7dSycqqcU13
+         OyILZU4dK6tcd2Ci05DZ8FF8yEvMkGJErFQBNpoVdDDqtfOvSHLZqPU/NPmpqdQ/5ur1
+         G0ewEQXkjx0av1/XfhNJuB0qBTb2u6LImLfzoX4gBMIL2Eoag2sL2m+gsCjyN778IkpV
+         3mYuBiwwgs25VP7eFbwR1g1h0EZbnCDVpu2l2LNGRuQnz/SV5so618qySg3qt6ExWr2C
+         Jtpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794439267; x=1795044067;
+        d=1e100.net; s=20260707; t=1794439263; x=1795044063;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=F43DNKKfhUAoEAOcfO/HFf7w3xTwpvN1c5+q7kJ/AJQ=;
-        b=HkMi/VINBdFPXhjUNhRwY0DPKRqlIaTuY8kSX/QAbI9hBRAmw3HxyCYYFjajVcJCUy
-         iw91MtEL7/1GXGra9SzpCYqxp3D8PoT8y8/VtRJIP9GL3d93hFIJ1n+gn8IJWAWwDd+i
-         CCp/DqcS5mBSflu/DUtLKZoRvrm8F5pxTRDYSsEfLpt6tTOCXwR8Uk56hpGIJbBffJKX
-         tujv2f8s167SaFPm6SKtBO8/fIVL38eoHib9A1a/otN11KVdkGTkmpX5Yoz2LzONyYfn
-         pPcd5cX4xTXNuhhB0QOAt1iBDJJbGV/iQ+IVrWgo5FOy7Rml8t1xz0MN2waxWaJUC5hK
-         1grA==
-X-Forwarded-Encrypted: i=1; AL+hErG2GkZ4OS7JLqokzGBLeLBiHO5Gjo1RIgbEfve6BejAR2zf23pk4fsLgilR3abXJ0UEEZn3CNF6NAROYSg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9U3egtwKUusuYW9OUpR0C4aEArXknHQYaUBDfW1DmCEt7b1gF6
-	uWcsyBXvenGZzWsRfdqUHHHp8jP5lm9PWSrqXsA7pCQQjAOi9Nz5KMuX
-X-Gm-Gg: AYBFou00ge/qXw71rzc2/C2veBT3Z8FmabfY1atsMB+0s/+vAJKjO0AbBGCT0icruuG
-	NuuH6MioSBmwOTUFzvxwGFFynt7ciiRvcyTEa6MMy0hZlQZ8wkhM/lZ4rwBLaKffVZan6aN6gFl
-	W57KG6SNtp65O+HFkikQcv0cpnYE2zuOvtX0PTrUYz98bXG9JULHrJ4/r81+piKh7cj96by9n91
-	V4yBz9RsWr1LgOdCJUSo6bxULpZ8d5N2zOunbjx1ASn3brKf1B8MqVnr64WY3sRQ4zmHjK5kw9U
-	O+Fjg26/gOM5rfhG+zjsJzNlKqAg71OfnriHs3JmNYx+/Fuztg8D61JvOe3aghPMGbTl9skL//M
-	ZNaXo4s9fWNRY6uQkiaoxmGgx96W5UUhTE4Uh6+v6mBfOlYNOm1P99IsFRvEjMQ77HhFpcLwJ+n
-	kBUBOYp8pXimPPv6HjaWrCTEEElWyaVVK9jrTjybnacSYbTLtofP7AblevD/Pd4TwTjDML3ZLd5
-	8LOgQc/Y8hEZ+QLLPZA34FeJh+HYk4fRPzciO1GbkS8v4z10t8xtdeFjPZKT8QoilJa4HVIIpev
-	L4LYTUy9rdB7NCtafht7auvrv9K68CxupOTc31ks23PCaQ==
-X-Received: by 2002:a05:7300:6dac:b0:36f:4981:da16 with SMTP id 5a478bee46e88-37686754f0cmr6158044eec.25.1794439265724;
-        Wed, 11 Nov 2026 15:21:05 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:72::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm19142236eec.11.2026.11.11.15.21.04
+        bh=eE9X9IsI4DGKfcKaEqbUpAyTJeGhuPKiIV6pCis8+mc=;
+        b=cv7HNiQDkHQ7Uo5L52JV9esN9Ql9pfWwCjVJwVccaNVZkYTCn9tuy736drlRjxKXFV
+         vsh7/cXLR3mSr87db4AKxiX/647ZshGjlMTh+5BXHG716O3ej2TnqlEGQh+ZteIGtg3G
+         TCfNE3DYCMZUuH/+FlSf923RyvuzwNbi9xA+w2lhobsYs4U/BocQh6tV0cvCkP9K/RO4
+         MYVnOPxXkk9ehirNgplopiVp8mosKcTcSdALjdTBAPPDP4T8ATaDWl+dqrZvKP5cfKen
+         FJLmg97LGkcMgc9W4LOjjBwpVAObedbISSxEP7i/NMRk3wVMAgjOSeV9Di+QCxAPDGbj
+         gmPA==
+X-Forwarded-Encrypted: i=1; AL+hErFLh3e6wQ+pcYOEIXmcqix6HZdQ3yD5vJMlRIF8pdc4YM9mw+WTpP/3Kxqp9lc5tKCi+yWPgpmQqicGM3A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lLMoi0pp9cvElK8lQVsYMA7gfcqmlpvi0Ca0lCZ3FmhyD6sW6
+	P6dnyjdt+WcBUv2EEvOUXl35BB//NbK1Ne7NXONUCusOGenNx8N8GOlE
+X-Gm-Gg: AYBFou1i3SY3O7xX+KoYunbsuumN/5SciR/EsivJxCSDafAouEBpZz4pH5RaLpNYKlY
+	ocLeUhbvDHClOIcFUFDYHWHOB8ZOOGw3PiU4N3X1Y/HpxDeuxjju8xP2Af0rHkuRT6seIG7ro1x
+	Ec4pcZ8PqYy/pxvMmsdLlPR7v5wy57LYBGw3hfCxYQca4oYLhptnz7/GR9PAYlaeXGNq30RuU+p
+	d4Emj/i51kd3I7t6gBrarrI2mIsdVn2hzP0uib0am9yaKZTIOExgWchOjn+7wnMyoqeFkk3+NC+
+	T1KO8ncNCvX64KJZrTEFNShLrIQtQorczUq6b8Ct5kVEDrRKU0F1VRHft/qamDyYYgVzGVW3FP8
+	ctuHYM2EghDONFRKDYf1WhE1UPIATu0YcH1TIiBfbGgQaMEo1xJTs3XJnzJkmkvb4eHTtOed7fy
+	AUpU0MXeUeJWz3Aa3ieqZOqfpGH3jKvlOW3Ip9QARQtqRYDKKuQKU3q/HAJ2q8wxP7cx6D1qNG1
+	xCBSA8efUfKveIr81EgHSz+/HHoyOKDAOHooWF164pZmU6XrBpQ/TwR82YXjAscwXPnkGwzWZ1C
+	tjIZ+ss7w8ifhffW58Q786k=
+X-Received: by 2002:a05:7300:1899:b0:376:b957:c01 with SMTP id 5a478bee46e88-376b9570fd3mr5155040eec.16.1794439263001;
+        Wed, 11 Nov 2026 15:21:03 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:66::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe2ff5dsm19921294eec.5.2026.11.11.15.21.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:21:05 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:13:02 -0800
+        Wed, 11 Nov 2026 15:21:02 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:05:25 -0800
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
 Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
@@ -103,13 +103,13 @@ Cc: Magnus Karlsson <magnus.karlsson@intel.com>,
 	Nikolay Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, 
 	Alexander Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 06/11] page_pool: Coordinate refill with
- memory providers
-Message-ID: <avT2Fj5qjbJkArpg@devvm16445.scu0.facebook.com>
+Subject: Re: [PATCH net-next v1 03/11] xdp: Copy buffers with restricted
+ lifetime
+Message-ID: <avT0b5T5trWZXAMo@devvm16445.scu0.facebook.com>
 References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-7-bjorn@kernel.org>
- <avOtxBw_grmuDJae@devvm16445.scu0.facebook.com>
- <87tslnrwgt.fsf@all.your.base.are.belong.to.us>
+ <20261110102039.1002605-4-bjorn@kernel.org>
+ <avOZa6jLnmvYkk2H@devvm16445.scu0.facebook.com>
+ <87eccra46g.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,41 +122,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87tslnrwgt.fsf@all.your.base.are.belong.to.us>
+In-Reply-To: <87eccra46g.fsf@all.your.base.are.belong.to.us>
 
 On 11/11, Björn Töpel wrote:
 > Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 > 
 > > On 11/10, Björn Töpel wrote:
 > 
-> >> diff --git a/include/net/netdev_rx_queue.h b/include/net/netdev_rx_queue.h
-> >> index 989120cbf452..ca12cbf7b825 100644
-> >> --- a/include/net/netdev_rx_queue.h
-> >> +++ b/include/net/netdev_rx_queue.h
-> >> @@ -33,6 +33,12 @@ struct netdev_rx_queue {
-> >>  	struct pp_memory_provider_params mp_params;
-> >>  	/* stamps the page pools of each queue allocation */
-> >>  	u32				mp_gen;
-> >> +	/* NAPI of the running queue, for memory provider wakeups. Set while
-> >> +	 * mp_armed, and if the provider has a refill_done op. Written under
-> >> +	 * the ops lock, read under RCU, see netif_mp_wake().
+> >> diff --git a/include/net/xdp.h b/include/net/xdp.h
+> >> index 07231adfb5f8..1105bb9e3292 100644
+> >> --- a/include/net/xdp.h
+> >> +++ b/include/net/xdp.h
+> >> @@ -81,6 +81,16 @@ enum xdp_buff_flags {
+> >>  	 * XDP program is not attached.
+> >>  	 */
+> >>  	XDP_FLAGS_FRAGS_UNREADABLE	= BIT(2),
+> >> +	/* Internal: the head netmem and the shared info are in &xdp_buff.ext.
+> >> +	 * Not copied to xdp_frames or skbs.
 > >> +	 */
-> >> +	struct napi_struct __rcu	*mp_napi;
-> >> +	bool				mp_armed;
+> >> +	XDP_FLAGS_EXT			= BIT(3),
+> >> +};
+> >> +
+> >> +/* For a head buffer that cannot hold kernel data, see xdp_init_buff_netmem() */
+> >> +struct xdp_buff_ext {
+> >> +	netmem_ref netmem;
 > >
-> > The comment should explain why mp_napi != napi? (I do not understand why)
+> > nit: netmem -> head ? and the same for xdp_init_buff_netmem netmem arg?
 > 
-> Fair. It's the same NAPI, with other rules. napi is the driver's
-> association: read under the ops lock, and not cleared when the NAPI is
-> deleted. Provider wakeups run without that lock, from socket syscalls
-> and ->release_netmem().
+> Yup, will fix.
 > 
-> mp_napi is an RCU copy, set only while the device is up and the queue
-> isn't restarting, for providers with ->refill_done(). netif_napi_del()
-> clears it before its grace period. Setting it also schedules the NAPI
-> once, which replays wakeups lost while the queue was stopped. I'll put
-> that in the comment.
+> >> @@ -138,7 +153,7 @@ static __always_inline void xdp_buff_set_frag_unreadable(struct xdp_buff *xdp)
+> >>  
+> >>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff *xdp)
+> >>  {
+> >> -	return xdp->flags;
+> >> +	return xdp->flags & ~XDP_FLAGS_EXT;
+> >
+> > The only consumer is xdp_update_skb_frags_info, so probably not worth
+> > filtering out XDP_FLAGS_EXT here? Or is it for
+> > xdp_update_frame_from_buff? Can we explicitly clear it at the caller? 
+> 
+> It was for xdp_update_frame_from_buff(), but looking closer EXT never
+> gets there...
+> 
+> I'll drop the mask. Thanks!
+> 
+> >> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> >> index 8f190b574beb..dea4a4a17e86 100644
+> >> --- a/net/core/devmem.c
+> >> +++ b/net/core/devmem.c
+> >> @@ -698,5 +698,5 @@ static const struct memory_provider_ops dmabuf_devmem_ops = {
+> >>  	.release_netmem		= mp_dmabuf_devmem_release_page,
+> >>  	.nl_fill		= mp_dmabuf_devmem_nl_fill,
+> >>  	.uninstall		= mp_dmabuf_devmem_uninstall,
+> >> -	.caps			= MP_CAP_FRAG,
+> >> +	.caps			= MP_CAP_FRAG | MP_CAP_RETAIN,
+> >
+> > Not sure I understand this part, can you explain?
+> > These are MP_CAP_RETAIN because they are unreadable?
+> 
+> No, RETAIN is about lifetime: the stack may hold page pool references
+> after the RX poll, e.g. skbs on a TCP receive queue. That's how devmem
+> and zcrx work; without it the stack would try to copy them, and they'd
+> trip the DEBUG_NET check in skb_add_rx_frag_netmem().
+> 
+> A provider without RETAIN gets copied, so it must be readable. I'll try
+> to make that more clear in the kdoc, and probably refuse a provider that
+> is neither.
 
-And all this only to make sure that we are not recycling something from
-the old pp into the new one? And reworking existing pointer to change/update
-its lifetime is not gonna do it?
+Ah, yes, thanks, I did miss that warn in skb_add_rx_frag_netme, makes sense!
