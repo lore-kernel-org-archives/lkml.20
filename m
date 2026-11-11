@@ -1,53 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405704;
-	b=mWxsdE/ZSe6R7k5AUsGvyrwjUZZGI9BUTiyqVHuAWoJ4JfmXnCwUfzE8TCjYlFsqZxUv
-	 PimvStJkNF14+fr7QQyJf+qU1CYB1hGxDkzrWtMLGecJxG9IaTKIsI85oqezdHSO8TwRb
-	 kMS7JhAl5vqgRrY65k48W5XCPx9cS0xmRKegbD/UvOtSGH4JseI379REudLpd8n3NgpkV
-	 vLiz3qCRquq2BSMx7JX24CX/nLYCow3cPjhgSaZZi09j6HmzT6OHOPniMaPOvQWU8tj3C
-	 allxbm+40N8fAMt+WfL5m9wO0eU7csSLalJ0nqwGJP/GTYCXLz/jiOZ6LZ/T1yxZWPA==
+	t=1794405711;
+	b=0W3Wh5ikRX0cQ2sVxOSj7szIV4V2NLP0b+5Nyqb+GDKx1/oKBtvB0bMsfjFAzdGdHXzs
+	 mMx/6W3kt/hSXd9lE6ot3CzMzkn8RGf5eE0Lj2KAxy0Xu0oiwLKnb4HxjL6PL8UL7bSrg
+	 NQ4ngZ4RuSKqqFaby17Y2Xx1SD+0PQajd1ecg1MLWYGu3Rv0ZLWZFScU+DD4JkCFcKIPQ
+	 ANyvonVZlFNviDQ6rxrz3fGXbGXNZZgmW1hSSWZHlWp0ETMoasSEt3AqtkKWxDALcZJcV
+	 9BRyKbL64Y2nWb6VUKDcNmD8ejKIeh8WVyEzLf7pWfyYYX+uEHX2sspe4/UHdbwg61g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405704;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UMq53urTChEqakbyKN3u3QbkjFvSjvgE2saHaYUmqek=;
-	b=MD32zUSHhYWtZMO8eWcKNLYuePN2ck9VQAjhQqoOjSngdxq7Bir//omQs9E9cfGuj3Z6
-	 6+BWN1pv8EJQtfDlSOlA2ukzzCNy+mDcQ9ksuFam/m4jOB9NPWf7Kq2okHC5hl68o3z3D
-	 sJ83pcpKlWtJFDc7aJzh6DBwcqOKUvYRJjQePw6Vq9B1WlDYUBR3JKvZLyjOi34IV8y7U
-	 CE5nXL8sKAq9lx1Jdx+HOdHkxK/sfCqQfxrClgGdJrN2fgpO+9sA1I/5nfFsnmJ/bAqSU
-	 RHEFfkvpmOB8WslqwDZr4OhAu8q65sCC6NjNfnHbBE5RFnMx+Q/U037pNxuULaAz6sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=O8NgyjtDYz4pyha39rltZunf2bBWHEXRkohajtNJskA=;
+	b=V8kNiL51yXy3psdB7FUQlHNdU8enBM0uPqw4Cj8B1gC535Hmhces0JE3d8pJfvL0C2HN
+	 SBWceVT4ePZJ+Cb87iUMgdE/iN85fBX7L5Ri+YhUd5dG/PmfQo0K28eiYTbyKBd5r9srY
+	 j5n/M7QYvWk5FeZw8M0vB+7owPMc/cbIGJFDwZFojVo3a31tKrxCTMY9QcQTfudSBJJQG
+	 8N/DFoPEkflvt1SgdXJ/Z9zpqdeCvU5FoGjc3QAE0mk6gjPaBC3bldGL6qa7Ll2oD4R7j
+	 5M5xzMMJ2zNrw9/1t+OMeOxUbcNDV1GaEZ4yUi2yWiCVeMUKYWhdRUsmMBDylNDCJTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KKBmtlZX;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=Wl5idHGG;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F906606A326;
-	Wed, 11 Nov 2026 14:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F906606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25857606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:01:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25857606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KKBmtlZX
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=UMq53urTChEqakbyKN3u3QbkjFvSjvgE2saHaYUmqek=; t=1794405703; x=2109765703; 
-	b=KKBmtlZXe0JkeT1mc27G3Mh0TXwtZp4kif/noj3Lx70uWn6/1o2M2UcV1D3banazW72BOtCp6VZ
-	k8p7b8h5fy5ITrmc3K0lkFoA96L1xC15IDHaLhmqaGYCjXqBAAd4rEWwcrXekKbUCsIeCqsxB8mI8
-	iclx7HG9qeL+wAsgFVocoSw3wEpUartHSOX0Q7KYJmiLkTFUKk/uSduwCm/Kv+zwpI8PtmlUL0RbK
-	/LMMIemQ28EK6H4MDBUHs+p3d1HnZr3FLTP+tPfVXw5nkivYNk8z8OOVSAkJx9vGZ9VnsFz0bGWCL
-	WcvxV7/Hr8vb2krHtEWHtRLrtOE897+K4SOw==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xR8tD-008qp2-Bg; Wed, 11 Nov 2026 15:01:27 +0100
-Message-ID: <6028f8d4-5e57-4d83-81ae-2a679361a432@igalia.com>
-Date: Wed, 11 Nov 2026 11:01:20 -0300
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=Wl5idHGG
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3acec6677so4906532c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:01:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1794405710; x=1795010510; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O8NgyjtDYz4pyha39rltZunf2bBWHEXRkohajtNJskA=;
+        b=Wl5idHGG8+6GNQnjX94s0EZTSeshK00S72EEWd+SxHRyCQwBWnP8p+VmT0VkT1q31x
+         Tdo1IFOqKdaT3o9I+rw5p40TBXTbPCOMWdKAlgJBNKNy6R6EFWfN7Ra9O//tp7AOpuwK
+         7IGP9NhjK7O4hh4C5alKlt7KTJArDAT9AveXM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794405710; x=1795010510;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O8NgyjtDYz4pyha39rltZunf2bBWHEXRkohajtNJskA=;
+        b=ZJvMswQaMKHufGAwLHR0kYn7msOrqczk5sA5kp9Y7QIxkKD4SK8o8KrFdt+bbleuE6
+         tPUKrjzfLiRhNB7PUZc7vbBSe1YzRahlAILqBSCqhF/j/QoI4E6ImqI1jS8cima9H7zK
+         i+d4/oX3TuM6jobcYxlWGeSGHz5zSeMC+GhfY5mbJ/uaJDuOLwjQd5kUzKhG7JhmIzeB
+         xGbEKWef1xu/qvON4RAe4/Os2S6FCAqwPaqSf2Yqs72nFNsHhjANnIlrY3d/Retnxp47
+         4ZTrO3Wp03fH4YWlOV05ihXzy/fm75ojuPFm6nVO4AD+gY4bF2PjgtPMz5v535+U/qh4
+         QGDg==
+X-Gm-Message-State: APuU4Z+1alZM7dMHECHLjsLou9ayrJ3L6X3p1FuNy/TTwRIGgNdmEYLw
+	X5JRo9Hq0KIZHLL5ayifgLSAEibuPSKnA73RVDLwFf54ltvlR2FtKNDgB0cPzIKkDg==
+X-Gm-Gg: AYBFou0qj5wUq8L6mA6QtK2x6tBrDu6s0XiSaNjPS2oXcrv6+ocZGw8gAk0tZQgDgEG
+	myegISt9Jw/WmtdG2zrd9BOhWdA5oKWfHica+idrSBkP9OFg+GyqtK+fIOGDCOck9Zie4MJplUh
+	u2cZW8BQCj2PEMzoKwTJFfeajnTgnB7pHCkIAG6x5zjbrp4I1t39zcDJ91xI5pLgKFms5kQVnY+
+	SE+HL/WzJiPDHq08ayLvooinR84fWdK9nxGWPJYS2g9F6rhHTwe8PxmBKKkENRdc/0Y5nNFXFcS
+	UxTspVuLKAOPO7xVOqP7FgBH8FJIUJEo4O/ZCAb+WuniEoyefJ1hFY62lfWThhypSvfNZZjBZ0M
+	w9lJ/TaemjcGt344NxcbRTYkESe4E+X17bFrm59xXTpUpdr1SOi9amH8q5E/uJsok661rUk8ovU
+	F4wJAe40ZK/NBRtB2GhAyK05Ec6ZEgid7HIhGsJGLhgGJA+pSnG2dVRMEmACPJfv/hoxtpJPfkM
+	PZyUBTI12ZOH9/UiRKOjuVH/GWfmfisZVIp/3xYTdwkb3NbyE2+el0tzCxYrraOebjPp3lo7Htf
+	pg2i4ehIYcn/ZShJennRyiFUapgNYfOpZv+jiQ8=
+X-Received: by 2002:a05:701a:ca05:b0:1a2:fa1d:1de5 with SMTP id a92af1059eb24-1b3c2154fc8mr1737384c88.20.1794405709684;
+        Wed, 11 Nov 2026 06:01:49 -0800 (PST)
+Received: from ?IPV6:2804:14d:5c54:4d67::1c9d? ([2804:14d:5c54:4d67::1c9d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm16836234c88.9.2026.11.11.06.01.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 06:01:48 -0800 (PST)
+Message-ID: <0c970ddc-4cfc-4ee8-b0b9-6107a8804267@mojatatu.com>
+Date: Wed, 11 Nov 2026 11:01:42 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +88,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/vc4: release firmware on error paths in
- vc4_hvs_bind()
-To: Dan Carpenter <dan@pereq.eu>, Tomasz Unger <tomasz.unger@yahoo.pl>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-References: <ee4989e2-f55e-4d09-8a0d-306b78b9c9d0@stanley.mountain>
- <20261111131528.316472-1-tomasz.unger@yahoo.pl>
- <avRxlbgy9mtT1rR6@stanley.mountain>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: Re: [PATCH] xfrm: avoid stale tunnel pointers in deferred input
+ callbacks
+To: Jun Yao <yaojun8558363@gmail.com>, netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ dsahern@kernel.org, idosch@nvidia.com
+References: <20261111094629.230568-1-yaojun8558363@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <avRxlbgy9mtT1rR6@stanley.mountain>
+From: Victor Nogueira <victor@mojatatu.com>
+In-Reply-To: <20261111094629.230568-1-yaojun8558363@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Dan,
+Hi!
 
-On 11/11/26 10:45, Dan Carpenter wrote:
-> On Wed, Nov 11, 2026 at 02:15:28PM +0100, Tomasz Unger wrote:
->> So without the patch every failed bind leaks one reference, and with the
->> patch the reference is dropped.
->>
->> Tested-by: Tomasz Unger <tomasz.unger@yahoo.pl>
->>
->> One note about the Fixes tag: 2fa4ef5fb943 only moved this code around.
->> As far as I can tell, the rpi_firmware_get() before devm_clk_get()
->> without a put on the error path was introduced by commit 2a001ca00ad5
->> ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code"), which went
->> into v6.2.
+On 11/11/2026 06:46, Jun Yao wrote:
+> IP-TFS input can be deferred while its reordering queue waits for a missing
+> sequence number. The VTI receive callback stores a pointer to the tunnel in
+> skb->cb, and the device can be removed and freed before the callback runs.
 > 
-> Huh.  Wow.  Thanks.  I'll resend the patch with the correct Fixes tag.
-
-A patch addressing this issue is already queued for this week's drm PR
-[1]. Sorry for letting your patch slip through the cracks.
-
-[1] 
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/af200e91c7b996177aa90981b2f0e794b085d43a
-
-Best regards,
-- Maíra
-
+> Keep only scalar tunnel metadata in an skb extension. The VTI callbacks
+> look up the device by ifindex under RCU and check its link configuration
+> before using its private data. If the VTI no longer exists, drop the
+> deferred packet. Use the same metadata to preserve tunnel mark handling
+> and IPv6 tunnel detection, and clear it when a new XFRM receive path starts
+> and after the callback completes.
 > 
-> regards,
-> dan carpenter
+> Signed-off-by: Jun Yao <yaojun8558363@gmail.com>
 > 
+> ---
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6a..f97412b95 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -5044,6 +5044,7 @@ enum skb_ext_id {
+>   #endif
+>   #ifdef CONFIG_XFRM
+>   	SKB_EXT_SEC_PATH,
+> +	SKB_EXT_XFRM_TUNNEL,
+>   #endif
+>   #if IS_ENABLED(CONFIG_NET_TC_SKB_EXT)
+>   	TC_SKB_EXT,
+> diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+> index 445223a8d..defdd4088 100644
+> --- a/include/net/xfrm.h
+> +++ b/include/net/xfrm.h
+> [...]
+>   
+> -#define XFRM_TUNNEL_SKB_CB(__skb) ((struct xfrm_tunnel_skb_cb *)&((__skb)->cb[0]))
+> +static inline struct xfrm_tunnel_info *
+> +xfrm_tunnel_info_add(struct sk_buff *skb)
+> +{
+> +	return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
+> +
+> +static inline const struct xfrm_tunnel_info *
+> +xfrm_tunnel_info(const struct sk_buff *skb)
+> +{
+> +	return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
+> +
+> +static inline void xfrm_tunnel_info_clear(struct sk_buff *skb)
+> +{
+> +	skb_ext_del(skb, SKB_EXT_XFRM_TUNNEL);
+> +}
 
+The above lines are causing build failures when XFRM is not enabled:
+
+In file included from net/core/sock.c:134:
+./include/net/xfrm.h: In function ‘xfrm_tunnel_info_add’:
+./include/net/xfrm.h:777:33: error: ‘SKB_EXT_XFRM_TUNNEL’ undeclared 
+(first use in this function); did you mean ‘DST_XFRM_TUNNEL’?
+   777 |         return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
+       |                                 ^~~~~~~~~~~~~~~~~~~
+       |                                 DST_XFRM_TUNNEL
+./include/net/xfrm.h:777:33: note: each undeclared identifier is 
+reported only once for each function it appears in
+./include/net/xfrm.h: In function ‘xfrm_tunnel_info’:
+./include/net/xfrm.h:783:34: error: ‘SKB_EXT_XFRM_TUNNEL’ undeclared 
+(first use in this function); did you mean ‘DST_XFRM_TUNNEL’?
+   783 |         return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
+       |                                  ^~~~~~~~~~~~~~~~~~~
+       |                                  DST_XFRM_TUNNEL
+./include/net/xfrm.h: In function ‘xfrm_tunnel_info_clear’:
+./include/net/xfrm.h:788:26: error: ‘SKB_EXT_XFRM_TUNNEL’ undeclared 
+(first use in this function); did you mean ‘DST_XFRM_TUNNEL’?
+   788 |         skb_ext_del(skb, SKB_EXT_XFRM_TUNNEL);
+       |                          ^~~~~~~~~~~~~~~~~~~
+       |                          DST_XFRM_TUNNEL
+
+---
+pw-bot: cr
