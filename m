@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367414;
-	b=3Lzj8cl1/cEA/hHwB6Le0ljjtEudUqnZ9aKZHKE9Jugazn/krZ9BOfvY7s5bw0TgeJ31
-	 3bhsab8kwbShkTZ9aQR0aBaqYw5dILBWWjSbTaspzdiMX544JaMLPGSJ0HRxOfXv3F6LT
-	 FCxhNxH6OWu78liYjdzE9IZKzMOhB1K87FMZQhbOugn/IKbgLrqHg9gkvLhejPirs7VzA
-	 oaxYhgouHyUZbdnDbypVd2lAQj5XlNWp6Nrq6/P9Tbl5/w1GA4nAPiEvKigCOQVczxcwD
-	 NaPyxnQxPh/fsppgxtD26F5wgLHSQlXfRgAVzATFXv3C8Y9tsKAfCRhd/nxoIIlUTQg==
+	t=1794367419;
+	b=PZUScLtWBll5sGEOsEOxyUy+/0TvLY5SfXNqYRo2EhXW2Wrq2/aQpWPKlTBGp5stWKkK
+	 rZ0AgqTfuVpJM3CT/5r4xLTw3ehKm5a7wA6KvEYRWuhjzxmEgJwNWMEO23SADM1/8vbuC
+	 enAi4ZgwhzRBCe6g03KFrIJQ2D0GYBFHgesEln6C/6YLxNy8AEkpkM90evzAN9i9rQTKt
+	 Fqjqja3MYqlkeQfu/y+/cHmz5vJTG3bNgnDjp5cmBX59pHR/um/0EcKhSBLUXJv52OcEI
+	 59PM7orxhm11dM3xws+DgkG70ZxaUPloMT0YRZTmX7okP71fLQT0c2maNHOBeEdTEjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367419;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AnQTJxJsyON1/Fwj08spRDuNd9Ce/tmtwhBo1vhY0J0=;
-	b=FisTd3iFzZYbPkJYf1lTiOBcKXwcUw9FS3M9tiy1xz+jIb6KCX0CGW6f1GBHe0GVR8aC
-	 2s/bXjbggCGGyiJHE+R2O1RwblTlGPRNCsYulQcVy5ZIjOy4jIrxaK9JPsZl8fW0h1Vvi
-	 6KpjvDTjn4kkaYVUM8KMaHp+o+Mr5+Fyp+sZG3eMr2mz4EZubs+Wg0UUugDgIigWTqgCF
-	 e1NuahoKf7iwrpbETkJpvN25eNMPKwaX4d7nc8ENuyYGftGYynJBPiRrxIj0A5ZH1Vxwx
-	 OwTA9d2nYNhGuq/5bEnaAAbkgbscQLAIlkHaidwWSo9Ugp3R1mWBU0cdfvE2SA2R97Q==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8D935cCybZcKPmLSQDzuIWE83ffg1Yvgg9sYd3csxZM=;
+	b=0q8Wi48ap5s8xQCRqcGCOmZHFypIUlF7k6rjSOHqzxh16zdHfQiKnatxGzm7rkiD+knU
+	 4e7yrpFWGdr1SCW1UYZBFadI3KrRlkXG71Ix+9JpZiEIdvKA/m9thtWejGltN4B3ZLfnr
+	 y5fOAZA3et/+zlTQtfyMTiZtNToJ4u9LmsonMkPRGPF/VJfmZYKgoo2ehWDWUwPXmdMO9
+	 vzK3lctqgmM3oY7huJMxn6lhtzeMZPVr/RO+0YavJtWMyW42ngVlui0ifVdx8PrvnW5HD
+	 y+WZxDqkAeFJ8zHBLIs9q1aC+W+TcniQiQSlZF8cUtvrgYY1OvhC/YVi70MFncycpGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="y/Xa7m2B";
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XeJtmV8N;
+	arc=none smtp.remote-ip=185.70.43.100
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0626606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:23:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0626606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C4606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:23:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535C4606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=y/Xa7m2B
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XeJtmV8N
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794367409; x=1794626609;
-	bh=AnQTJxJsyON1/Fwj08spRDuNd9Ce/tmtwhBo1vhY0J0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=y/Xa7m2B+wNXpITqszqicbXrEPA5zE2ELQgvS8N6LNpxSTWasihv1+9eMSsb5yQ3r
-	 btvZmg0VTo4g3SxWNraEfa09zrPRB+r2jMpblL5xArYcy2Q0sjio+vfwqxHmJGTxJ4
-	 JD2t2uxlY7Cp0x1jvHFD0hseXNphKSkpFtuT6uGeNE57HB3eSGcZ90EouUDKaXzK0u
-	 XxAhsPGYNuhjN5xgPq2CEfjEfX9ltpRxFGID1IBsBn/BtVwO+e0eq62qNkBiKBiHZ4
-	 78rLNkf7hmXJrGVODy3n9jpJBh4Q4EN0lVNPDsZU4wA1//joug7In3fJ7NXaJRu8lk
-	 1QNtcTfhGoRXA==
-Date: Wed, 11 Nov 2026 03:23:25 +0000
+	s=protonmail2; t=1794367417; x=1794626617;
+	bh=8D935cCybZcKPmLSQDzuIWE83ffg1Yvgg9sYd3csxZM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=XeJtmV8NBp5ph4zvL+nrMi8n1dx3ilMrS03XQWrw5GAZ4XtnNeC4jNsFgV5p7yuBW
+	 iu54L3mnAUm0FBC7OeCp69xEELIDnF9QYWtpO40u57URraEUrGewOhPurUSrA8ea9f
+	 IlBjqIPJponT+zVOpJB/sXOMK9f1vkJhQMTLSkldUVYcTlPiTXW/fMj2zTzTUZem9t
+	 DmacdZhvtgsNULlCc5RBCnHoKwMq4twO2f4o56gKkhseBobtcR+tW6V+el4U6g+RD2
+	 2bnLz56TMhtN0pTMKNvabFhElGTeGMAqSTERB9R21eYOmCLsi6R1ns34/LLGidMmYf
+	 Zalk9RZIJn9DA==
+Date: Wed, 11 Nov 2026 03:23:34 +0000
 To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
 From: Soheyb <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>
-Subject: [PATCH v2 0/3] phy: exynos5-usbdrd: fix HS phy init count on Exynos2200
-Message-ID: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>, stable@vger.kernel.org
+Subject: [PATCH v2 1/3] phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
+Message-ID: <20261111032309.3365794-2-soheyb_boulaa@proton.me>
+In-Reply-To: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
+References: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
 Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: db6bc34dc5b1448ca86b8d1420ff9673299626ec
+X-Pm-Message-ID: a639c261283024b524429f862b345c132fd67912
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +67,64 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The UTMI phy of Exynos2200 initializes the high-speed (eUSB2) phy but
-never exits it, so the high-speed phy is not set up again after it lost
-power in system sleep (patch 3, v1 [1]).
+exynos2200_usbdrd_phy_init() enables the regulators of the UTMI phy and
+takes the phy out of isolation in the PMU before it enables the clocks.
+When clk_bulk_prepare_enable() fails, it returns without undoing
+either. The phy core does not count a failed init, so no exit undoes
+them later: the phy stays out of isolation, and its supplies stay
+enabled, until an init and an exit succeed.
 
-Sashiko's review of v1 [2] found two error paths that v1 leaves wrong: a
-failed init of the high-speed phy is ignored, so the exit that follows
-takes its init count below zero; and the high-speed phy exits before
-the steps of the UTMI exit that can fail, so a failed exit leaves the
-UTMI phy initialized and the high-speed phy not. Patch 2 returns the
-init error, and patch 3 exits the high-speed phy last. Patch 1 undoes
-the UTMI init when it fails, which its clocks path already lacks and
-which patch 2 makes reachable from the high-speed phy.
+Isolate the phy again and disable the UTMI regulators when the clocks
+or the phy-specific init fail. The phy-specific init does not fail yet;
+the next patch makes the UTMI init return the result of the init of the
+high-speed phy.
 
-Changes in v2:
-- patch 1, new: undo the init on failure
-- patch 2, new: return the init error of the high-speed phy
-- patch 3: exit the high-speed phy last, once the rest of the exit has
-  succeeded; drop the comment (Ivaylo); his Acked-by of v1 is left
-  out, since the exit has moved
+Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
+ntroller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Soheyb <soheyb_boulaa@proton.me>
+---
+v2: new patch.
 
-Tested on a Google Pixel 9 (Tensor G4), an out-of-tree port on 7.3-rc7
-that uses the Exynos2200 phy ops and powers USB off in system sleep:
-USB comes back after each sleep, and with each error path forced by a
-test-only switch, both init counts stay balanced. Not tested on
-Exynos2200 hardware, nor built in linux-phy next as a whole.
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/all/20261109221522.2796426-1-soheyb_boulaa@prot=
-on.me/
-[2] https://lore.kernel.org/linux-phy/sashiko-outbox-205724@kernel.org/
-
-Soheyb (3):
-  phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
-  phy: exynos5-usbdrd: return the Exynos2200 high-speed phy init error
-  phy: exynos5-usbdrd: fix HS phy init count imbalance on Exynos2200
-
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 28 +++++++++++++++++++-----
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-
+diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
+/phy-exynos5-usbdrd.c
+index 087d552..a6fe779 100644
+--- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
++++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+@@ -1462,7 +1462,7 @@ static int exynos2200_usbdrd_phy_init(struct phy *phy=
+)
+=20
+ =09ret =3D clk_bulk_prepare_enable(phy_drd->drv_data->n_clks, phy_drd->clk=
+s);
+ =09if (ret)
+-=09=09return ret;
++=09=09goto power_down;
+=20
+ =09/* Set up the link controller */
+ =09exynos2200_usbdrd_link_init(phy_drd);
+@@ -1475,6 +1475,17 @@ static int exynos2200_usbdrd_phy_init(struct phy *ph=
+y)
+=20
+ =09clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
+=20
++=09if (ret)
++=09=09goto power_down;
++
++=09return 0;
++
++power_down:
++=09exynos5_usbdrd_phy_isol(inst, true);
++=09if (inst->phy_cfg->id =3D=3D EXYNOS5_DRDPHY_UTMI)
++=09=09regulator_bulk_disable(phy_drd->drv_data->n_regulators,
++=09=09=09=09       phy_drd->regulators);
++
+ =09return ret;
+ }
+=20
 --=20
 2.56.0
+
 
