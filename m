@@ -1,70 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407502;
-	b=YsC+PhEwrREhWfMD/mI0DV0HpMD4BnT8KFpxXln9SJNS+e5p+lrFAQ5rKzZ+8gtyeiW2
-	 Xt2TTYhJto1SZBQy5CM/LxYkKdfm2T3RnJKjaFv6W5VX7ql0Z2ikkOcudPD3rFkLtSr3m
-	 tJFniYzXp7nDqMOOyRuW1iGOgnww5aH6ZcTUt/eStohKlO4EP6JMHltqcmEhsDHQXrf6D
-	 mv/PkZUw5bHQltuUhcB8x++tm8SlRFQjyfO1q8oYm107LpzYq2g9o4Utc2RsPWtvtZ3fo
-	 5biG+IqaYkbpWu4iIvUPcs4kENt4d/0kL618E3wvsfCjSZR7kH1qv56Tps4QHC9Ukwg==
+	t=1794407507;
+	b=Q2xI+dKs0TbQGzJIctl/iQLGf4Bdr611l349kAwtS8saOSxsqlNoMxAv34wEd5ASH9AN
+	 LMb7UM1TThQR+gXmny2jrk6g8hdZbXfVkn14xvUaZ0cZ4xd81vvjpGlIp5xYo5z+CnRg2
+	 FskcgcuGAFp1aieg6giytVTCpivRTCWmfkTb/J30XjYb+Egi7aKdasfjCZVYN8XhOO25B
+	 SQKaQlw0A3VgUgyqyd3TsPlvpuNou9snwIexHiC5sVGblYXS6iMLJIKb5TqkA3ZtSNDrA
+	 Go8ngKdH6mXOQ9BYkjRbWHRWa1oI+XmwFAHOdFRjWOr3mK6da6+ayoeJU1mCOYAE9Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407502;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
-	bh=kSUROwpO/ILBpmR/pHPLqsMr9h48VwvRxeErIiRA99U=;
-	b=eBOu5nomiN/cqyHDg77xfSslXM9K+XKUs9fSITHyOo/0GSWk8C4RcJVQG4asANPETXah
-	 qI2U81Q6kBrZJljtmAJeDGQJJ1CI3RZA0BIZbApCT8gLmpzIdMTkZihtAv4W6z5YdPtk7
-	 VIyOtf5B75m0gS/tifniPGKBJ1ahXKMtb5pXj9oYSA+xSWqYgRpaX5LNyoteQ4t1lrOaY
-	 iVEf9X4ZWpy+GZy/oUBKwRlRJfsbcc90ennSXpqr5dvxsLp95jiCEddRfGyro+aK+/ehp
-	 Zwdx9nKhODLaxmr+iRViHTsPf8hw3kTph6qaJGHns3luffoVXFHqWM6Otnu3n3JvWwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407507;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=PBtKdIxwq4rIEZb17LLphjD6mE33r01sxM7o1nqk0NQ=;
+	b=R/+8oL4qc/K+XZv7qtkTfI04FrCFMnckwr6BjWSwwyu5P2qrn55WLixBIly7+9yXpt4t
+	 Fq6uWi+yHbwge/amwLYlWFj5eH1G3Ac/6PsH7GdcL+fLEeW3qIs26frHoxr3o1SBiXlgT
+	 xWBRFCDsRjfRQY+dS6OgGOjN9PzvF97EJ7fQfLmenSg5VfYoh3YYpBws1TQvRYrGeg53J
+	 sxNV6DlwwZJ829U0sNvhk5x0vm6d5cijXAN7uqOwNsyN/+xw4UjdGAutDUsodOS8+DFLY
+	 AxCVjDDR92Iz3cGjvAcWCgoax606GRrK8zp6yyDVNT0nsfNMFMRf8l/OFuQDKj/trCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=RofhvVSz;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=xGBQkzOy;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747FE606A880;
-	Wed, 11 Nov 2026 14:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 747FE606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4E260A5BCF;
+	Wed, 11 Nov 2026 14:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B4E260A5BCF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=RofhvVSz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794407508; x=1825943508;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=3bqY4tgvqC+BAAd6eacYnbTfETfgiouFbG1wGZeMXGE=;
-  b=RofhvVSzDRZ+mrzxEEE7W+/nyBhA1TrbAR2pIY0hFh4wSAMi0sk3YACK
-   tB5jdRZEVj3Lhy04y2fwqmAM7DvlZu1Wkblvs3SmbBDjGypvTKnJFsKp8
-   U3YsEgCk1XoU34Bl2QuYmCzwuA2SfoAa02xkV8yutxAu1gP15o99s2p1f
-   vIHeQDc5fLa7iblUv4a+quYew+ZRFBYTUe0vD2p05Vz59KbwPR51HLUmk
-   52S3rxl6Q6rnRGuTGkqf07svonXEkNO+/MVnkkZ7AGJFXzr5wCQXjzq5q
-   LcRNjhgjp+gfrzKkv+vdf9RFDLdbQow8egFIuFEimmXxwK44j7VHa3iJa
-   w==;
-X-CSE-ConnectionGUID: JNrjTuQyR2+1N3l4d4fITQ==
-X-CSE-MsgGUID: q4dmzBIyRq2qO5h3tS6lcw==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="233412663"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Nov 2026 07:31:47 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 11 Nov 2026 07:31:40 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 11 Nov 2026 07:31:37 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Wed, 11 Nov 2026 15:31:15 +0100
-Subject: [PATCH net-next v2 5/9] net: sparx5/lan969x: size the FDMA buffers
- from the port MTUs
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=xGBQkzOy
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPmDd4ZgNz5BNRx;
+	Wed, 11 Nov 2026 22:31:45 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794407505;
+	bh=oBYcgWpLFWuaMipkGAF9+PgF9UGEluHWTZ4iLzdNLEI=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=xGBQkzOym3og+F6wjDl+DzAvqN5qiryPWyYkGpnnX4Ie7DIIlHPl8Emp/BTBVLhyM
+	 pzqpfVyqrdAcG4wq22fOJMbHIYjpPe8DLlb7ztJM/EzlIFRriIhkH68FB0Drnskt60
+	 rt9Vr37wB6/yZw8RzZr3nbTzUvbNqyqn42Bk/8/c1TvLlRSt+D/Kn+yn1i5r9jD/6h
+	 XkYZkdGCrlu1T3/yIkt1nwDVYHDAB22u/k1Xy4Ghm0PSDfYXg2BhFxOfh/C1teRKmX
+	 W5K+fQ8JCouGff+8F6vcUpIocgIarv0BEWyuiizXHpYmPzO1eBfvEm3MTtsr6+LZ68
+	 Smz+mqsBPdxDA==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6ABEVVGl089040;
+	Wed, 11 Nov 2026 22:31:31 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 11 Nov 2026 22:31:33 +0800 (CST)
+X-Zmail-TransId: 2af96af47c45de8-4ece6
+X-Mailer: Zmail v1.0
+Message-ID: <20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn>
+In-Reply-To: <20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn>
+References: 20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn
+Date: Wed, 11 Nov 2026 22:31:33 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,213 +72,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-sparx5-mtu-change-v2-5-59c91357e8f6@microchip.com>
-References: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
-In-Reply-To: <20261111-sparx5-mtu-change-v2-0-59c91357e8f6@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Richard
- Cochran" <richardcochran@gmail.com>, Russell King <linux@armlinux.org.uk>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Robert Marko <robert.marko@sartura.hr>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDQvNF0gYXRhOiBsaWJhdGEtc2NzaTogZml4IHJlbWFpbmluZyBwYXNzdGhydSBmaWVsZCBwb2ludGVycw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6ABEVVGl089040
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:31:45 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF47C51.000/4jPmDd4ZgNz5BNRx
 
-The FDMA buffers must hold the largest frame that can be received by the
-CPU, including the IFH, and on Sparx5 also the largest frame that is
-transmitted, as Sparx5 copies the frames into its TX buffers. On Sparx5,
-the RX buffers are skbs, and the TX buffers are a contiguous area. On
-lan969x, the RX buffers are page_pool pages, which are turned into skbs
-with build_skb(), and TX frames are mapped directly from the skbs. The
-buffers are currently fixed to a single page, which is not large enough
-to hold jumbo frames.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Instead, size the buffers from the largest MTU of the ports, plus the
-Ethernet header, FCS, IFH and two VLAN tags. On Sparx5, use this length,
-rounded up to the 128 byte granularity required by the FDMA, as the RX
-and TX buffer size. As the TX buffers can now be smaller than a page,
-make sparx5_fdma_xmit() drop frames that do not fit. On lan969x, use the
-page order needed to hold the frame and the skb_shared_info, as lan966x
-does, and limit the RX buffer size so that the FDMA never writes into
-the skb_shared_info at the end of the page.
+Several error paths in ata_scsi_pass_thru() report field pointers for
+the 12- or 16-byte CDB when rejecting a 32-byte CDB. Initiators then
+receive INVALID FIELD IN CDB sense data pointing at an unrelated byte.
+READ/WRITE LONG also reports PROTOCOL when its sector count is invalid.
 
-With the default MTU of 1500, the Sparx5 buffers become smaller, and the
-lan969x pages are unchanged.
+Use the PROTOCOL offset and record the FEATURES, SECTOR COUNT and
+COMMAND offsets for each CDB format. Report SECTOR COUNT separately
+from PROTOCOL when validating READ/WRITE LONG.
 
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- .../microchip/sparx5/lan969x/lan969x_fdma.c        | 22 ++++++++++----
- .../net/ethernet/microchip/sparx5/sparx5_fdma.c    | 35 ++++++++++++++++++++--
- .../net/ethernet/microchip/sparx5/sparx5_main.h    |  2 ++
- 3 files changed, 52 insertions(+), 7 deletions(-)
+Changes in v2 (Niklas Cassel):
+- Add a separate patch for the remaining PROTOCOL, FEATURES, COMMAND
+  and READ/WRITE LONG sector-count field pointers.
+v1: https://lore.kernel.org/all/20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn/
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-index d435c4df5effa..40cdb0323eb49 100644
---- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-@@ -131,7 +131,7 @@ static struct sk_buff *lan969x_fdma_rx_get_frame(struct sparx5 *sparx5,
- 	if (WARN_ON(!port))
- 		goto free_page;
- 
--	skb = build_skb(page_address(page), fdma->db_size);
-+	skb = build_skb(page_address(page), PAGE_SIZE << rx->page_order);
- 	if (unlikely(!skb))
- 		goto free_page;
- 
-@@ -161,21 +161,27 @@ static struct sk_buff *lan969x_fdma_rx_get_frame(struct sparx5 *sparx5,
- 	return NULL;
- }
- 
-+/* Get the page order needed for a page to hold the largest frame */
-+static u8 lan969x_fdma_get_page_order(struct sparx5 *sparx5)
-+{
-+	return get_order(ALIGN(sparx5_fdma_get_max_frame(sparx5), 128) +
-+			 SKB_DATA_ALIGN(sizeof(struct skb_shared_info)));
-+}
-+
- static int lan969x_fdma_rx_alloc(struct sparx5 *sparx5, struct sparx5_rx *rx)
- {
- 	struct fdma *fdma = &rx->fdma;
- 	int err;
- 
- 	struct page_pool_params pp_params = {
--		.order = 0,
-+		.order = rx->page_order,
- 		.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV,
- 		.pool_size = fdma->n_dcbs * fdma->n_dbs,
- 		.nid = NUMA_NO_NODE,
- 		.dev = sparx5->dev,
- 		.dma_dir = DMA_FROM_DEVICE,
- 		.offset = 0,
--		.max_len = fdma->db_size -
--			   SKB_DATA_ALIGN(sizeof(struct skb_shared_info)),
-+		.max_len = fdma->db_size,
- 	};
- 
- 	rx->page_pool = page_pool_create(&pp_params);
-@@ -268,7 +274,12 @@ static void lan969x_fdma_rx_init(struct sparx5 *sparx5, struct sparx5_rx *rx)
- 	fdma->n_dbs = 1;
- 	fdma->priv = sparx5;
- 	fdma->size = fdma_get_size(fdma);
--	fdma->db_size = PAGE_SIZE;
-+	/* Keep the FDMA from writing into the skb_shared_info at the end of
-+	 * the page. The DB size must be a multiple of 128 bytes.
-+	 */
-+	fdma->db_size = ALIGN_DOWN((PAGE_SIZE << rx->page_order) -
-+				   SKB_DATA_ALIGN(sizeof(struct skb_shared_info)),
-+				   128);
- 	fdma->ops.dataptr_cb = &lan969x_fdma_rx_dataptr_cb;
- 	fdma->ops.nextptr_cb = &fdma_nextptr_cb;
- 
-@@ -414,6 +425,7 @@ int lan969x_fdma_init(struct sparx5 *sparx5)
- 	struct sparx5_rx *rx = &sparx5->rx;
- 	int err;
- 
-+	rx->page_order = lan969x_fdma_get_page_order(sparx5);
- 	lan969x_fdma_rx_init(sparx5, rx);
- 	lan969x_fdma_tx_init(sparx5);
- 	sparx5_fdma_injection_mode(sparx5);
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-index 7ac5887abe6ee..3a74a305d55d4 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-@@ -18,7 +18,6 @@
- #include "sparx5_main.h"
- #include "sparx5_port.h"
- 
--#define FDMA_XTR_BUFFER_SIZE		2048
- #define FDMA_WEIGHT			4
- #define SPX5_FDMA_STOP_SLEEP_US		500
- #define SPX5_FDMA_STOP_TIMEOUT_US	10000
-@@ -218,6 +217,10 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- 	struct fdma *fdma = &tx->fdma;
- 	void *virt_addr;
- 
-+	/* Drop frames that do not fit in the TX buffers */
-+	if (unlikely(IFH_LEN * 4 + skb->len + ETH_FCS_LEN > fdma->db_size))
-+		return -EMSGSIZE;
-+
- 	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)))
- 		return -EINVAL;
- 
-@@ -289,6 +292,33 @@ static int sparx5_fdma_tx_alloc(struct sparx5_tx *tx)
- 	return 0;
- }
- 
-+/* Get the size of the largest frame, including IFH and VLAN tags, that can be
-+ * received on any of the ports.
-+ */
-+u32 sparx5_fdma_get_max_frame(struct sparx5 *sparx5)
-+{
-+	u32 max_mtu = 0;
-+
-+	for (int i = 0; i < sparx5->data->consts->n_ports; i++) {
-+		struct sparx5_port *port = sparx5->ports[i];
-+
-+		if (!port)
-+			continue;
-+
-+		max_mtu = max(max_mtu, READ_ONCE(port->ndev->mtu));
-+	}
-+
-+	return SPX5_HW_MTU(max_mtu) + IFH_LEN * sizeof(u32) + VLAN_HLEN * 2;
-+}
-+
-+/* Get the DB size needed to hold the largest frame. The DB size must be a
-+ * multiple of 128 bytes.
-+ */
-+static u32 sparx5_fdma_get_db_size(struct sparx5 *sparx5)
-+{
-+	return ALIGN(sparx5_fdma_get_max_frame(sparx5), 128);
-+}
-+
- static void sparx5_fdma_rx_init(struct sparx5 *sparx5,
- 				struct sparx5_rx *rx, int channel, u32 db_size)
- {
-@@ -418,7 +448,7 @@ void sparx5_fdma_injection_mode(struct sparx5 *sparx5)
- 
- int sparx5_fdma_init(struct sparx5 *sparx5)
- {
--	u32 db_size = ALIGN(FDMA_XTR_BUFFER_SIZE, PAGE_SIZE);
-+	u32 db_size;
- 	int err;
- 
- 	/* Reset FDMA state */
-@@ -435,6 +465,7 @@ int sparx5_fdma_init(struct sparx5 *sparx5)
- 		 sparx5, CPU_PROC_CTRL);
- 
- 	sparx5_fdma_injection_mode(sparx5);
-+	db_size = sparx5_fdma_get_db_size(sparx5);
- 	sparx5_fdma_rx_init(sparx5, &sparx5->rx, FDMA_XTR_CHANNEL, db_size);
- 	sparx5_fdma_tx_init(sparx5, &sparx5->tx, FDMA_INJ_CHANNEL, db_size);
- 	err = sparx5_fdma_rx_alloc(&sparx5->rx);
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-index e08b1635cfcd9..1ff096b65f1b4 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-@@ -109,6 +109,7 @@ enum sparx5_feature {
- #define SPX5_BUFFER_CELL_SZ    184   /* Cell size  */
- #define SPX5_BUFFER_MEMORY     4194280 /* 22795 words * 184 bytes */
- #define SPX5_TAS_ENTRIES_PER_PORT 2 /* TAS lists per port */
-+#define SPX5_HW_MTU(mtu)       ((mtu) + ETH_HLEN + ETH_FCS_LEN)
- 
- #define XTR_QUEUE     0
- #define INJ_QUEUE     0
-@@ -480,6 +481,7 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- irqreturn_t sparx5_fdma_handler(int irq, void *args);
- void sparx5_fdma_reload(struct sparx5 *sparx5, struct fdma *fdma);
- void sparx5_fdma_injection_mode(struct sparx5 *sparx5);
-+u32 sparx5_fdma_get_max_frame(struct sparx5 *sparx5);
- 
- /* sparx5_mactable.c */
- int sparx5_mact_learn(struct sparx5 *sparx5, int port,
+Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
+the translation functions verbatim with SCSI/device stubs. The rejected
+32-byte DMA/NCQ and READ/WRITE LONG protocols passed field pointer 10 to
+the invalid-field helper, SET FEATURES passed 21, and TPM passed 25.
+Invalid READ/WRITE LONG sector counts passed 4, 6 and 23 for 12-, 16-
+and 32-byte CDBs. These are helper arguments observed in the harness.
 
--- 
-2.34.1
+ drivers/ata/libata-scsi.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 645899c2625424c7e305c7a2d426cdcc217dde43..a74527b4e12c73b8694104c9f9db58a5b2d43667 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3383,6 +3383,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	struct ata_device *dev = qc->dev;
+ 	const u8 *cdb = scmd->cmnd;
+ 	u16 fp;
++	u8 feature_offset, nsect_offset, command_offset;
+ 	u16 cdb_offset = 0;
+ 
+ 	/* 7Fh variable length cmd means a ata pass-thru(32) */
+@@ -3443,6 +3444,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->lbah = cdb[12];
+ 		tf->device = cdb[13];
+ 		tf->command = cdb[14];
++		feature_offset = 4;
++		nsect_offset = 6;
++		command_offset = 14;
+ 		break;
+ 	case ATA_12:
+ 		/*
+@@ -3457,6 +3461,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->lbah = cdb[7];
+ 		tf->device = cdb[8];
+ 		tf->command = cdb[9];
++		feature_offset = 3;
++		nsect_offset = 4;
++		command_offset = 9;
+ 		break;
+ 	default:
+ 		/*
+@@ -3482,6 +3489,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->device = cdb[24];
+ 		tf->command = cdb[25];
+ 		tf->auxiliary = get_unaligned_be32(&cdb[28]);
++		feature_offset = 21;
++		nsect_offset = 23;
++		command_offset = 25;
+ 		break;
+ 	}
+ 
+@@ -3499,8 +3509,12 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	case ATA_CMD_READ_LONG_ONCE:
+ 	case ATA_CMD_WRITE_LONG:
+ 	case ATA_CMD_WRITE_LONG_ONCE:
+-		if (tf->protocol != ATA_PROT_PIO || tf->nsect != 1) {
+-			fp = 1;
++		if (tf->protocol != ATA_PROT_PIO) {
++			fp = 1 + cdb_offset;
++			goto invalid_fld;
++		}
++		if (tf->nsect != 1) {
++			fp = nsect_offset;
+ 			goto invalid_fld;
+ 		}
+ 		qc->sect_size = scsi_bufflen(scmd);
+@@ -3566,13 +3580,13 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 
+ 	/* We may not issue DMA commands if no DMA mode is set */
+ 	if (tf->protocol == ATA_PROT_DMA && !ata_dma_enabled(dev)) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+ 	/* We may not issue NCQ commands to devices not supporting NCQ */
+ 	if (ata_is_ncq(tf->protocol) && !ata_ncq_enabled(dev)) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3609,7 +3623,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	 */
+ 	if (tf->command == ATA_CMD_SET_FEATURES &&
+ 	    tf->feature == SETFEATURES_XFER) {
+-		fp = (cdb[0] == ATA_16) ? 4 : 3;
++		fp = feature_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3629,7 +3643,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	 * can turn off TC features of their system.
+ 	 */
+ 	if (tf->command >= 0x5C && tf->command <= 0x5F && !libata_allow_tpm) {
+-		fp = (cdb[0] == ATA_16) ? 14 : 9;
++		fp = command_offset;
+ 		goto invalid_fld;
+ 	}
