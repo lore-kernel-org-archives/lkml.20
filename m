@@ -1,127 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399179;
-	b=gHbWv5yr4o05npMJVNKcNxStnWHQeEoJZaNAf4t1q0+BtNKe/eWV57qet5HdnbFEPHxH
-	 qCwIB1tiZrjQIN7H3aYqeEWWx0rZxHnE6wDnJRi5NfmiWoA0Hd+Gg5sJvrdEsnOCWwHZo
-	 1HrSR9CIuCalSZOg449D/i5/IS/0iDXrP4xIiVCblTURE2FLKZWqoFGJjjcmrVBxSj/s9
-	 pwdClzs6tmJpqtQsCsV8ggKHXMx6LB6mdJqPHb7D2g0U9DzIAo42/rSPu2/aOz5qFKMk4
-	 MlDOd7ahmpoe7c3zXTFDDJOWOVJ/jklAj87NjYeyiaIWDuOvEpbSXNVLuPWwRhoyLeA==
+	t=1794399189;
+	b=t8o5tDnX9rV/0hvQsQNVGyTUaJaJgu7DJ9XvwgzLU2mOBcg8H2bjqBrIWj6tYxtCUj+J
+	 TGcMKgYB+XCJ8feYUMyNjWe3zy05fXnYuIR93XQb7g4DwIn3F+d+sx7kCY0eUz6F7fXta
+	 S7wXLpnRXsCQeAiancVk8Z/mhA6U+E0+5+xJ2B1IjTUAE5e83Dlt2bUGZP3xNBqHXC/7V
+	 f7yrh0MRom08ErjKrA5yqfwpjnI9z6J/eEpwjZ/5+NtitMR0QvbTAbX4IkX68FnL0zl/d
+	 FHe+xyXGwHsfMr3X3j7fUNWO/nbNI9BYUSYuCzn2ur2vc3SKGje6ESlgjlOHWogOsAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399179;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dvghIzBw0O5GdRnMjzzOWphS3vZYatvIGIcTOmd8Jr8=;
-	b=xRIAlo2EAZIk5NF77w2hh+F1aerHG7VqxdfbYCNM73RlSPL+NaqJasoL9tIVlU8VR/O7
-	 ea36l3ZkAcMUh04qYTFGwE5qP8eO/cSMxnFqBQIS9A+A8D17ErtsN4xt75XK2dZFYVRGX
-	 8W+jBadTtLAMSCDc0H3Ie+QVExmTWNk/o6oVbFBwnrzy2S/0QbanzEMj4NfBESEJ/ySl/
-	 gNKFGx6NRefyT8h+hwUIMPSWAmYT2O3oGI+2yXMcPwJrVbR/w1WQ4soonb31wWdiqXcDx
-	 KjN+gwg1hNhA+Jfqc7PzE4G7QcMFU1ZB9BxvpMOxtXDVLDHYY8uv8F7uROZsJOqkgTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399189;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=JLh3UxeSvAdeG/KWWx5ge/22lfbIqtPOr/f2gxOM+cc=;
+	b=Ib25t1LXh08YXbf7XsA4llzjx7VMRydJIH+VBMBDg+loK/8n2rJJi7GzZrn2tMlTHdgK
+	 n55tw0r+EzUUKNnPV9LHk2KaMGkduHF0bB8fT8gM7+u9BCllyaqPQEUDLHq4PgzDI/9VN
+	 NVriT+JNVaw3q1hTHVLWC3ZnRXxfKlCB7hzJYfTC5YMp/LcZYAHvSfadaScJo53J7lnKO
+	 5/3kSXYoB+PoIWGQt+xW8qUOJe8pJo5PUrZAtVrqdhY5JgeFxfa+K71OtS3L3jAzSVs8m
+	 c/fRCqxs5FcGIbnV1mPx01vQLSUGUnsOFehacPmLFgYhTg+4NvdrFeaWGcd6PTsBqvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LSli6rNd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hWTZbPGZ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PGKYAgSJ;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32813606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32813606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1172606A32D;
+	Wed, 11 Nov 2026 12:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1172606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LSli6rNd;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hWTZbPGZ
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABAXOau2017398
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:12:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dvghIzBw0O5GdRnMjzzOWphS
-	3vZYatvIGIcTOmd8Jr8=; b=LSli6rNdgYS+dfKIOBHsyxhzbGY+sRAh53KFkuk0
-	JVfWLVwQqupLGo0cDdvm2AeZ6eM/ktyhvJn2t5YuwxqKomWVaRskgqGFrN85U9+9
-	mkqmejtkPkXQ+3adl4I/wtu5G3/t3qzOiHC3uRmi2GsumY3PJZ3sgYVGh7pk+GJm
-	1svk4JL1JEWCJ+V7e0tKPZ3+k9YeQhhZlBrYbXTn6Q2F5XthaNBxgT46ZnYmBxV5
-	6mNAdvHb1o2jdmpZmhPr/5SPaWPnYc+G5lmDi9r5lko2Seg6V7Oq+LNbSKMN55dC
-	hnGdEcBGSQzbIVeYkTO8qHkVNZaX1qKXLKObZV6kDgMkOA==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97cbpre-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:12:58 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so2526630c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:12:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794399177; x=1795003977; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dvghIzBw0O5GdRnMjzzOWphS3vZYatvIGIcTOmd8Jr8=;
-        b=hWTZbPGZZ+4cS+WNdjW4+w5jbh0aWJ9ezjl8tGxOBKmgvFcPfxsAnX+/3rth8R2gVg
-         Q4VZq3vKerMoYYABZaZWN4xfmHUz27FPK7iL2EO06Av7bgODTbbdfdpnmXp9j/Fytc3F
-         dAtoV8ckUNqR1+6wmDXxS+ByBA7ww4ALizktKaZ/cT5OWfvEkmzLkqUMCcQre1txBael
-         RLyTgTlN/NDZjDVRXmJvi/KWGqSR4l+N5/MWRTd+GkS2n1Q79XYdcAM4OgzQJuZ3xzxK
-         D9gsh73p+hJo/rBMWwSafxtjTos+7ovxjHzlLgzM1y+bhix91TbJ5IoRpUMczh8kfrg3
-         HfnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794399177; x=1795003977;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dvghIzBw0O5GdRnMjzzOWphS3vZYatvIGIcTOmd8Jr8=;
-        b=lZ5KeqEfsnKq7m2qGzT3gfmcz2BwPmdiiwGBnxTuM25b1ynBTaZi6N0wsmlfBOOA84
-         QZu/nvSj6Nn6bhlJq896YKSnvj4CGs+RMYEgnSd9gTCOQ8B/V9UQuRTQpBM66pMooyBW
-         L+421o29b2ZaCRAU6V1ODLdkzxs5PeIFgpr4l324TI3qVbUpxG9RfHy8hbBv+wyGn5Xj
-         WimQhGXqo0sJHKnKGkZy2B2CiSkKz1rXT/LnXYKnvU6c2qkoowUBK+fgRDfnOBo/ZZ1z
-         P1gkpHfe/0IxcLQq0XVlOVh4m717wC2TTdH1K7OoRd4WLAWhqOIV7yG0r8von/ktFuNX
-         YlUQ==
-X-Forwarded-Encrypted: i=1; AL+hErECsRvLSpY8YyLp2cVuefgaXpC/8VaiX3oTzLdNX8KWPwRzY/jVriAtW1TyBFn+AfxUnexUe32Ky5RZ3NI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8k9hL/a4CiZV7KE1dqabuBTnEIpfWEYg23KcVb6YHl8w8v7v1M
-	JuD3E3P0Tr3blaTRnkRz2V9wkUdZHxUEdgy8Xof31cSUOQTf/zDI6U+MIWRvl0TevStsAyHePlv
-	96Wp94rfwM4I1CWVUsoFrYxv3bC2RZV5i+5JLY+WGHXVpjA4gHiTGyHKPXtye+nuP9xQ=
-X-Gm-Gg: AYBFou2ucq43Lh3Ua8EqITv2a93lfzTbGMUZhMa/ndv1R1Mrzo5XR/lAQORsw7vS15s
-	v4j+tzJgXJzCReWsJv3fqNABQhRAekBgfZEBf8i7I3agMYifVzqv2ZYYEmFCuVlJ1OrwTjlqzrt
-	Y5L6e53NHdsmwB6hz9IoG6Ej+UVvS0VEQY0yBfHNa35IXo2ZGyYFbhAwHc8uIG+K97cwZrbpnug
-	+xsGV1+HiWjMkLIOWCriA9l+NXGLl7PKOIwo47UR0al4Kik1WYFxwneunIGvbBgdJq2+w9UIl4f
-	KIT1Wyuc6MtkeC+wKc9uDoqQGGvovbERKjB6gOdZ2ZI3Th7Fzt2Y5ho/Ul+WStrX3gtqQslAvxT
-	8w3BdfpwEj+H3ngPg+sIEjDYJ3zYHNAwmX2V6DNfsVcPnG39byKQe2zPfu7nZxm1Fd1Nm4tYYt6
-	Azm8cMcUztnMQbdXIPw0fv+8I7lSb/dEoCTQp5AIqf6xb3mQzlZecJqL2UebZJedND
-X-Received: by 2002:a05:7022:1706:b0:1b2:43ac:d3a3 with SMTP id a92af1059eb24-1b3c03117e3mr1632718c88.24.1794399176870;
-        Wed, 11 Nov 2026 04:12:56 -0800 (PST)
-X-Received: by 2002:a05:7022:1706:b0:1b2:43ac:d3a3 with SMTP id a92af1059eb24-1b3c03117e3mr1632703c88.24.1794399176111;
-        Wed, 11 Nov 2026 04:12:56 -0800 (PST)
-Received: from hu-anancv-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm15887599c88.9.2026.11.11.04.12.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:12:55 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:42:49 +0530
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Jie Zhan <zhanjie9@hisilicon.com>,
-        Pierre Gondois <pierre.gondois@arm.com>, linux-kernel@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v3 1/2] arch_topology: seed capacity_freq_ref with
- highest available frequency
-Message-ID: <avRbwew20G2fd0Eo@hu-anancv-blr.qualcomm.com>
-References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
- <20260929-schedutil-boost-frequency-handling-v3-1-68de169498c7@oss.qualcomm.com>
- <fbd7fe35-5e14-4589-a072-909e49a92e76@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PGKYAgSJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794399189; x=1825935189;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Yxtf0hRV4UQkQ6vFchIm03/BuNrHGbrsgGIuk3PfC/o=;
+  b=PGKYAgSJex2C6vCSIQDk7agIWLJnUdDNBvnqp9/6hcDI94q+UEgOiAlv
+   7vUVORZL/nsgk+zo1aKUMtAm/LqTb8iQKSNYZtKUaWPjsWp9JgrBwxHPz
+   A9XhsI8HmqCbtzBL9GaZCs27J1FYv+8E3MyPAtbiwISc8ni5ps59FXOlJ
+   2q2c0OSGaduoEtiEWsizhBBP6FKEZ4jUC4LnSkdTo4O1xI0S1IfcAbbNB
+   IAra/WZhb/JA1MbPaUWByy3B1Hu8pUOeakVcjNe6WtnUlEycqANl08VQ5
+   74WnJUb1RxdRuMkYoYRbtjrEUnN0DvCREpSRDynOtqCY1Mms3HH0bP0Sj
+   Q==;
+X-CSE-ConnectionGUID: hHmAUWiGTCyvLVH+JlcJYg==
+X-CSE-MsgGUID: OQVeRlaBTvm94J5TbxHkpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3076539"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3076539"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:13:09 -0800
+X-CSE-ConnectionGUID: /ikH9VojSLGqF7/2qI2FSw==
+X-CSE-MsgGUID: XPaGxVQ7Qx+lvTcKP+Oa1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8720325"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.192])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:13:03 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 11 Nov 2026 14:13:00 +0200 (EET)
+To: Ciro Pedrini <ciro.pedrini@gmail.com>
+cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, Rong Zhang <i@rong.moe>, 
+    Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+    Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+    Werner Sembach <wse@tuxedocomputers.com>, 
+    Aaron Erhardt <aer@tuxedocomputers.com>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    linux-input@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] HID: lenovo-legion: Add keyboard backlight driver
+ for Legion Gen 10
+In-Reply-To: <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
+Message-ID: <3e8f3452-06c1-8194-2d76-524418f0194c@linux.intel.com>
+References: <20261110-legion-lighting-rfc-v2-0-845726afb71c@gmail.com> <20261110-legion-lighting-rfc-v2-2-845726afb71c@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,81 +85,419 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fbd7fe35-5e14-4589-a072-909e49a92e76@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0OCBTYWx0ZWRfX2noSbhueUug5
- OcnmBD0NRVF7rrORKpd9NSiTUfGJq6SbwqAaVVfw6Yd0pFNRUvkaP8XUcbKk4iOpYf55iUd9PF4
- FuHkkbw8ctENDALIbAvmOQQv2cFyj7mBLwixWENfHqvauD2y+hejQBEyaSz076RoHdBHgZJxzIr
- o3gBcIU9st2M4V9KzQGgrMt3BM3ovvsnXvXw6ZcBXp32iGk2Bp3DCJaQSyXJ3qCQuIks3Zd+rBc
- AIMxCXaPEzYW9rz8pA7fJ5I92bUpObZuFOwBLU6mmDk8V5TBEKyzaZaujoIug1xV5TaHa9q5TI/
- pHeDPSQIIP1U+uHMCRRBwfIpLspxPJ1MjH6Fd7NqZRUYORRy3Hh+VLc6kli2EPdldRO4ep4xdOu
- ZzT4mBXOmY9gthmqMojjC2yJH4Dsk8SkiWdSEnbbai/BgXNa3ZBSQ6JKBVNPH3DNvhtCEEzBeCb
- FMICVnDk0BdQ2S5+4Cw==
-X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af45bca cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VdZ5ZUKuIB4TndN85GoA:9 a=CjuIK1q_8ugA:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: RKNAMP5SHRaGoiZguaKImqfqp0Es8B7N
-X-Proofpoint-ORIG-GUID: RKNAMP5SHRaGoiZguaKImqfqp0Es8B7N
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0OCBTYWx0ZWRfX4GkXUF5i0j1o
- PaLyj4ATVjEa072VPRbDGWhOmDnX61rHKMnJ653tUx6utXv7bF71apwSivFmLI36fE354X6qlL1
- yVms+4NcA7ArOG4shqpj82wgevkJo+o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110048
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Zhongqiu,
+On Tue, 10 Nov 2026, Ciro Pedrini via B4 Relay wrote:
 
-On Sun, Oct 11, 2026 at 10:16:37PM +0800, Zhongqiu Han wrote:
-> The current implementation looks correct and works well. That said, we
-> might be able to optimize it with a simpler implementation as shown
-> below:
+> From: Ciro Pedrini <ciro.pedrini@gmail.com>
 > 
-> +/**
-> + * cpufreq_frequency_table_max - Get the highest frequency in a policy's
-> table
-> + * @policy: the &struct cpufreq_policy to inspect
-> + *
-> + * Boost entries (%CPUFREQ_BOOST_FREQ) are taken into account regardless of
-> + * whether or not boost is currently enabled.
-> + *
-> + * Return: the highest valid frequency in @policy->freq_table, or 0 if
-> there
-> + * is no frequency table.
-> + */
-> +static inline unsigned int
-> +cpufreq_frequency_table_max(const struct cpufreq_policy *policy)
-> +{
-> +	struct cpufreq_frequency_table *pos;
-> +	unsigned int max_freq = 0;
+> The keyboard backlight of the Lenovo Legion Pro 7 16IAX10H (2025) has no
+> Linux support: on the test unit nothing ever lit, because the keyboard
+> controller's brightness was 0 from the factory and nothing exposes it.
+> 
+> The ITE 8258 keyboard controller (048d:c197) is the built-in keyboard and
+> carries a vendor protocol on feature report 0x07 (960 bytes): a request,
+> answered by reading the report back once the controller has prepared it.
+> Its hardware brightness, 0..9, is stored in the controller and applies to
+> every LED of the machine (keys, front strip, rear vents, lid logo). The
+> firmware handles Fn+Up and Fn+Down itself and reports the new level on
+> vendor input report 5.
+> 
+> Expose the brightness as a kbd_backlight LED, legion::kbd_backlight, with
+> brightness_hw_changed for the hotkeys so that desktops show their OSD.
+> Unregistering keeps the level (LED_RETAIN_AT_SHUTDOWN): switching it off
+> would be stored by the controller.
+> 
+> The colours stay the controller's own effects, which Fn+Space cycles. The
+> machine's HID LampArray (048d:c193) is left to hid-generic, or to a
+> generic LampArray driver.
+> 
+> Tested on the 16IAX10H (83F5) with 7.2 as a module: brightness from sysfs
+> and KDE, the hotkeys with KDE's OSD, suspend/resume, unbinding and
+> rebinding, and a userspace LampArray client alongside the driver.
+> 
+> Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+
+Thanks for the update, this one looks much cleaner already. :-)
+
+> ---
+> Prepared with Claude Code (Claude Opus 5.5) from measurements on the
+> laptop (usbmon captures) and analysis of the vendor's Windows software
+> for interoperability; I reviewed and tested it.
+> ---
+>  MAINTAINERS                     |   1 +
+>  drivers/hid/Kconfig             |  13 ++
+>  drivers/hid/Makefile            |   1 +
+>  drivers/hid/hid-ids.h           |   1 +
+>  drivers/hid/hid-lenovo-legion.c | 261 ++++++++++++++++++++++++++++++++++++++++
+>  5 files changed, 277 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..843906a1f9d5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15187,6 +15187,7 @@ F:	Documentation/ABI/testing/sysfs-driver-hid-lenovo-go
+>  F:	Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s
+>  F:	drivers/hid/hid-lenovo-go-s.c
+>  F:	drivers/hid/hid-lenovo-go.c
+> +F:	drivers/hid/hid-lenovo-legion.c
+>  F:	drivers/hid/hid-lenovo.c
+>  
+>  LENOVO YOGA BOOK 9 KEYBOARD DOCK DRIVER
+> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> index 2481bc01c435..55d25afddb69 100644
+> --- a/drivers/hid/Kconfig
+> +++ b/drivers/hid/Kconfig
+> @@ -652,6 +652,19 @@ config HID_LENOVO_GO_S
+>  	S. Say M here to compile this driver as a module. The module will be called
+>  	hid-lenovo-go-s.
+>  
+> +config HID_LENOVO_LEGION
+> +	tristate "Lenovo Legion laptop keyboard backlight"
+> +	depends on USB_HID
+> +	depends on LEDS_CLASS
+> +	help
+> +	Support for the keyboard backlight of 2025 Lenovo Legion laptops
+> +	(Legion Pro 7 Gen 10): the hardware brightness of the ITE keyboard
+> +	controller as a kbd_backlight LED, with the Fn+Up/Down changes
+> +	reported to userspace.
 > +
-> +	if (!policy->freq_table)
+> +	Say M here to compile this driver as a module. The module will be called
+> +	hid-lenovo-legion.
+> +
+>  config HID_LETSKETCH
+>  	tristate "Letsketch WP9620N tablets"
+>  	depends on USB_HID
+> diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+> index 43a8eb0f389b..713bb1c89861 100644
+> --- a/drivers/hid/Makefile
+> +++ b/drivers/hid/Makefile
+> @@ -78,6 +78,7 @@ obj-$(CONFIG_HID_LCPOWER)	+= hid-lcpower.o
+>  obj-$(CONFIG_HID_LENOVO)	+= hid-lenovo.o
+>  obj-$(CONFIG_HID_LENOVO_GO)	+= hid-lenovo-go.o
+>  obj-$(CONFIG_HID_LENOVO_GO_S)	+= hid-lenovo-go-s.o
+> +obj-$(CONFIG_HID_LENOVO_LEGION)	+= hid-lenovo-legion.o
+>  obj-$(CONFIG_HID_LETSKETCH)	+= hid-letsketch.o
+>  obj-$(CONFIG_HID_LOGITECH)	+= hid-logitech.o
+>  obj-$(CONFIG_HID_LOGITECH)	+= hid-lg-g15.o
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index 91319aa6516d..992b9b147e95 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -773,6 +773,7 @@
+>  #define USB_DEVICE_ID_ITE_LENOVO_YOGA2  0x8350
+>  #define I2C_DEVICE_ID_ITE_LENOVO_LEGION_Y720	0x837a
+>  #define USB_DEVICE_ID_ITE_LENOVO_YOGA900	0x8396
+> +#define USB_DEVICE_ID_ITE_LENOVO_LEGION_GEN10_KBD	0xc197
+>  #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD	0x8987
+>  #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD	0x83db
+>  #define USB_DEVICE_ID_ITE8595		0x8595
+> diff --git a/drivers/hid/hid-lenovo-legion.c b/drivers/hid/hid-lenovo-legion.c
+> new file mode 100644
+> index 000000000000..6d0b4adc6f49
+> --- /dev/null
+> +++ b/drivers/hid/hid-lenovo-legion.c
+> @@ -0,0 +1,261 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * HID driver for the keyboard backlight of Lenovo Legion laptops (2025).
+> + *
+> + * The ITE 8258 keyboard controller (048d:c197) is the built-in keyboard and
+> + * carries Lenovo's vendor lighting protocol: feature report 0x07, 960 bytes,
+> + * a request (struct legion_msg) answered by reading the report back with a
+> + * GET_FEATURE once the controller has prepared it (up to ~50 ms).
+> + *
+> + * The backlight brightness is op 0xCE (set) / 0xCD (get), 0..9, stored in the
+> + * controller; it applies to every LED of the machine (keys, front strip, rear
+> + * vents, lid logo). The firmware handles Fn+Up / Fn+Down itself and reports
+> + * the new level on vendor input report 5 (struct legion_event).
+> + *
+> + * The colours are the controller's own effects. The LEDs can also be handed
+> + * to the HID LampArray of the "Lenovo Lighting" device (048d:c193), which
+> + * this driver leaves to others.
+> + */
+> +
+> +#include <linux/cleanup.h>
+> +#include <linux/compiler.h>
+> +#include <linux/container_of.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/hid.h>
+> +#include <linux/leds.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/slab.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#include "hid-ids.h"
+> +
+> +#define LEGION_REPORT_ID		0x07
+> +#define LEGION_REPORT_SIZE		960
+> +#define LEGION_ANSWER_DELAY_MS		100
+> +
+> +#define LEGION_OP_GET_BRIGHTNESS	0xcd
+> +#define LEGION_OP_SET_BRIGHTNESS	0xce
+> +#define LEGION_MAX_BRIGHTNESS		9
+> +
+> +#define LEGION_EVENT_REPORT_ID		0x05
+> +#define LEGION_EVENT_BRIGHTNESS_UP	0x02
+> +#define LEGION_EVENT_BRIGHTNESS_DOWN	0x03
+> +
+> +/* Request, and its answer: the value is params[0]. */
+> +struct legion_msg {
+> +	u8 report_id;
+> +	u8 op;
+> +	__le16 len;			/* of params */
+> +	u8 params[];
+> +} __packed;
+> +
+> +struct legion_event {
+> +	u8 report_id;
+> +	u8 event;
+> +	u8 level;			/* brightness after the change */
+> +} __packed;
+> +
+> +struct legion_kbd {
+> +	struct hid_device *hdev;
+> +	struct mutex lock;		/* one request/answer exchange at a time */
+> +	struct legion_msg *msg;		/* LEGION_REPORT_SIZE, DMA-safe */
+> +	struct led_classdev led;
+> +};
+> +
+> +/*
+> + * Send one request. When @answer is non-NULL, wait for the controller to
+> + * prepare its answer and return its value there.
+> + */
+> +static int legion_exchange(struct legion_kbd *kbd, u8 op, const u8 *params,
+> +			   u16 len, u8 *answer)
+> +{
+> +	struct hid_device *hdev = kbd->hdev;
+> +	struct legion_msg *msg = kbd->msg;
+> +	int ret;
+> +
+> +	lockdep_assert_held(&kbd->lock);
+> +
+> +	memset(msg, 0, LEGION_REPORT_SIZE);
+> +	msg->report_id = LEGION_REPORT_ID;
+> +	msg->op = op;
+> +	msg->len = cpu_to_le16(len);
+> +	memcpy(msg->params, params, len);
+> +
+> +	ret = hid_hw_raw_request(hdev, LEGION_REPORT_ID, (u8 *)msg,
+> +				 LEGION_REPORT_SIZE, HID_FEATURE_REPORT,
+> +				 HID_REQ_SET_REPORT);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (!answer)
 > +		return 0;
 > +
-> +	cpufreq_for_each_valid_entry(pos, policy->freq_table)
-> +		max_freq = max(max_freq, pos->frequency);
+> +	msleep(LEGION_ANSWER_DELAY_MS);
 > +
-> +	return max_freq;
+> +	memset(msg, 0, LEGION_REPORT_SIZE);
+> +	ret = hid_hw_raw_request(hdev, LEGION_REPORT_ID, (u8 *)msg,
+> +				 LEGION_REPORT_SIZE, HID_FEATURE_REPORT,
+> +				 HID_REQ_GET_REPORT);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret <= (int)sizeof(*msg) || msg->report_id != LEGION_REPORT_ID ||
+
+Just remove this cast. It was probably added by llm and doesn't look 
+helpful to make those types compatible, everyone even remotely familiar 
+with the code will know sizeof() for that struct fits to int anyway.
+
+> +	    msg->op != op) {
+> +		hid_warn(hdev, "unexpected answer to 0x%02x: %*ph\n", op,
+> +			 min(ret, 8), msg);
+
+Printing data like this looks more like debug level stuff. I don't 
+see benefit for normal user from it (non-debug level messages are for 
+consumption by normal users so code and too cryptic stuff should be 
+avoided).
+
+> +		return -EIO;
+> +	}
+> +
+> +	*answer = msg->params[0];
+> +	return 0;
 > +}
 > +
-> 
-> 
-> >   static inline int cpufreq_table_count_valid_entries(const struct cpufreq_policy *policy)
-> >   {
-> >   	struct cpufreq_frequency_table *pos;
+> +static int legion_brightness_set(struct led_classdev *led,
+> +				 enum led_brightness value)
+> +{
+> +	struct legion_kbd *kbd = container_of(led, struct legion_kbd, led);
+> +	u8 level = min_t(unsigned int, value, LEGION_MAX_BRIGHTNESS);
+> +
+> +	guard(mutex)(&kbd->lock);
+> +	return legion_exchange(kbd, LEGION_OP_SET_BRIGHTNESS, &level,
+> +			       sizeof(level), NULL);
+> +}
+> +
+> +static enum led_brightness legion_brightness_get(struct led_classdev *led)
+> +{
+> +	struct legion_kbd *kbd = container_of(led, struct legion_kbd, led);
+> +	u8 zero = 0, value;
+> +	int ret;
+> +
+> +	guard(mutex)(&kbd->lock);
+> +	ret = legion_exchange(kbd, LEGION_OP_GET_BRIGHTNESS, &zero,
+> +			      sizeof(zero), &value);
+> +	if (ret)
+> +		return led->brightness;	/* keep the last known level */
+> +
+> +	return min_t(unsigned int, value, LEGION_MAX_BRIGHTNESS);
+> +}
+> +
+> +static int legion_raw_event(struct hid_device *hdev, struct hid_report *report,
+> +			    u8 *data, int size)
+> +{
+> +	const struct legion_event *ev = (const struct legion_event *)data;
+> +	struct legion_kbd *kbd = hid_get_drvdata(hdev);
+> +	unsigned int level;
+> +
+> +	if (size < (int)sizeof(*ev) || ev->report_id != LEGION_EVENT_REPORT_ID)
 
-ack, I will try to further simply this with taking in your suggestions, thanks.
+Remove cast.
 
-> Thx and BRs,
-> Zhongqiu Han
+> +		return 0;
+> +
+> +	if (ev->event != LEGION_EVENT_BRIGHTNESS_UP &&
+> +	    ev->event != LEGION_EVENT_BRIGHTNESS_DOWN)
+> +		return 0;
+> +
+> +	/*
+> +	 * hid-core calls this only after probe() has returned and not once
+> +	 * remove() has started, so the LED is registered. The controller has
+> +	 * already changed the level: keep led_cdev.brightness in step with it.
+> +	 */
+> +	level = min_t(unsigned int, ev->level, LEGION_MAX_BRIGHTNESS);
+> +	WRITE_ONCE(kbd->led.brightness, level);
 
+Please add include for this. Either rwonce.h or barrier.h, it currently 
+comes through compiler.h but I don't see anything that would technically 
+require "compiler" to include "rwonce" so it's not a "guaranteed" include 
+path in my eye.
 
-Best,
-Ananthu
+> +	led_classdev_notify_brightness_hw_changed(&kbd->led, level);
+> +
+> +	return 0;	/* let hid-core handle the report as usual */
+> +}
+> +
+> +static int legion_probe(struct hid_device *hdev, const struct hid_device_id *id)
+> +{
+> +	struct legion_kbd *kbd;
+> +	int ret;
+> +
+> +	/* As hid-generic: one input device per application collection. */
+> +	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
+> +
+> +	ret = hid_parse(hdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	kbd = devm_kzalloc_obj(&hdev->dev, *kbd);
+> +	if (!kbd)
+> +		return -ENOMEM;
+> +
+> +	kbd->msg = devm_kzalloc(&hdev->dev, LEGION_REPORT_SIZE, GFP_KERNEL);
+> +	if (!kbd->msg)
+> +		return -ENOMEM;
+> +
+> +	ret = devm_mutex_init(&hdev->dev, &kbd->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	kbd->hdev = hdev;
+> +	hid_set_drvdata(hdev, kbd);
+> +
+> +	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Keep the interrupt endpoint polled so hotkey reports always arrive. */
+> +	ret = hid_hw_open(hdev);
+> +	if (ret)
+> +		goto err_stop;
+> +
+> +	kbd->led.name = "legion::kbd_backlight";
+> +	kbd->led.max_brightness = LEGION_MAX_BRIGHTNESS;
+> +	kbd->led.brightness_set_blocking = legion_brightness_set;
+> +	kbd->led.brightness_get = legion_brightness_get;
+> +	/*
+> +	 * LED_RETAIN_AT_SHUTDOWN: unregistering (unload, unbind) must not
+> +	 * switch the backlight off, the controller would store 0.
+> +	 * LED_BRIGHT_HW_CHANGED: Fn+Up/Down are reported to userspace.
+> +	 */
+
+This only documents what these flags are so why a driver needs such a 
+comment?
+
+> +	kbd->led.flags = LED_RETAIN_AT_SHUTDOWN | LED_BRIGHT_HW_CHANGED;
+> +
+> +	/*
+> +	 * Not devm: the LED must be gone before remove() stops the device,
+> +	 * devm would release it only after that.
+> +	 */
+
+Yeah, mixing devm and non-devm can result in this kind of ordering problem 
+(sometimes one can get away with it, e.g., freeing allocated space later 
+is normally a non-issue but for other things it does break things like 
+this).
+
+But could you solve this with devm_add_action_or_reset() (for hid 
+teardown) and use devm for everything?
+
+> +	ret = led_classdev_register(&hdev->dev, &kbd->led);
+> +	if (ret)
+> +		goto err_close;
+> +
+> +	return 0;
+> +
+> +err_close:
+> +	hid_hw_close(hdev);
+> +err_stop:
+> +	hid_hw_stop(hdev);
+> +	return ret;
+> +}
+> +
+> +static void legion_remove(struct hid_device *hdev)
+> +{
+> +	struct legion_kbd *kbd = hid_get_drvdata(hdev);
+> +
+> +	/* hid-core no longer calls legion_raw_event(): the LED can go. */
+> +	led_classdev_unregister(&kbd->led);
+> +	hid_hw_close(hdev);
+> +	hid_hw_stop(hdev);
+> +}
+> +
+> +static const struct hid_device_id legion_devices[] = {
+> +	{ HID_USB_DEVICE(USB_VENDOR_ID_ITE, USB_DEVICE_ID_ITE_LENOVO_LEGION_GEN10_KBD) },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(hid, legion_devices);
+> +
+> +static struct hid_driver legion_driver = {
+> +	.name = "hid-lenovo-legion",
+> +	.id_table = legion_devices,
+> +	.probe = legion_probe,
+> +	.remove = legion_remove,
+> +	.raw_event = legion_raw_event,
+> +};
+> +module_hid_driver(legion_driver);
+> +
+> +MODULE_AUTHOR("Ciro Pedrini <ciro.pedrini@gmail.com>");
+> +MODULE_DESCRIPTION("Keyboard backlight of Lenovo Legion laptops (2025)");
+
+I don't think we should put year into this, it will just become obsolete 
+pretty fast like all time bound reference. :-)
+
+IMO it's fine even if this wouldn't cover all "Lenovo Legion" laptops 
+without explicitly stating that it only is for part of them.
+
+-- 
+ i.
+
