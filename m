@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401046;
-	b=nRCnqHVLFT6Rs8I6R3f1qQlbkGeWweOlGkCalU91gVm/Vylg+qZIN2+HHSfaNLJXnfkv
-	 lwqyeM/NW5MCXlVcbF8Y9FkYRKSCrxUCG1rubPhTrcnIo8Olx6mqOkJj6kzjA8ym0+X9u
-	 JsiKV5yDOa8QAhbUawXx/eKnQ+3Cn6YROkd8HLSTkW7t27YN9SU1Gl5Db5mWGfspBV9n7
-	 LEfMKPpFxaGYPXWTHiaUExW8NG6jGXXIAw/yBiDb/NRN4xjklfRltrjIvcsMu7YY7KmCw
-	 Jy9XRGwthhvlb8SQiMURS5QCQnnAxeLJhF2ys/gUPLo8pwsJU8CvrsMuNkfEAtq9RiQ==
+	t=1794401072;
+	b=o+9Q8WLjacN5CRv2VlxWqL36jFGbCr52TUgOOMWfZO9nHPBEorOPlFHa/4h8XOA4AjF7
+	 BUOBnbdO4mLqiq1iTrErwo1cbbS0+4udgsu37VSu3U2TM5RZW+RzaymVzpM0eBoZuSkfc
+	 9KXAT53fJPKkNFuO+IU7/e8PXA4tavZRPsKnhHyAo8kPuHDVuF8//Uj7TVIAebnqOsc4s
+	 tVKsa1WOFeFblmEXbpULiHZTBtUh5rF/I8AhzOHALPVwlaC/jaQALmEqFCi9haTvaBak5
+	 TPdS5nfQqjKSiCC6uCuPmAQQ1SlbpVUg/WEKK0L1kLf18GiBueCpCxs15L6TWG/4aMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401046;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wBVufWqx+zH+Uabek6EiBTZA75eVbJUE6aSars2bL34=;
-	b=g1RTxBRIAobLmAg0cJ81FRqOph94IFBTrLdx0PpoUXW0GH3JYTE2rwL56qrk0g7RWVtE
-	 ROi/IZvSuHEpY29vqgaQR3EekOlUK66RYxc70yf472mb4ymH7TL420ooj98hfX0sHGGB8
-	 TFz2KMD9Tz+v+HJsRmzDNzmPgm/Q8sH2CfCFwq1usQjvs28rwG0uYRv501iSgBQSZHrMp
-	 GE0h0Nqb26Tdyf6YaCzxSkZsO/ZaA6m7NJGXpNxovQW3qm+1dQVN5gv4aVYPH7tOWXbLC
-	 j9bUHUsgaVaC0tdGXZ20BOw7sEYvOXLrHo0bIIGcDzvBM7yIJXnmNVsWNx1YG2VI+PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401072;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Svom+v5DKCDjCiWUGZ7T4HxR2P7zbfjjfUl54/X/CgA=;
+	b=NyN0P+GOuUj64k8bVrneyI9a0A770gajdoDaoP6SCaPmz9Xq3ig2czFmNt+ehm/gC6I4
+	 k2BX8GsW35EUmWoZbsfuUohuydedQiprbenawOdbTvY+D37RcEQTSOVUHsiK43tLH8n6Q
+	 Z0B78GicXwPMSOMz2D5mOnA0+A4gj7eTv36laAqr+prX/A+eJ94bwHwUkoSCppzsNIpN5
+	 wBPvcmJ3jPvgRKtB9D2l4zXRjj9zOeQmEg/DlYOek9508HvlolzWBN4cb69tnMOeQXHFF
+	 10NdDBGU1h2hBvEcYLDAuV5QrZ5rLfug0KxepBDVfOTaCnV6CzPZ5wOUiDlZy/t+oYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q5K79/ES";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZxMgJ9LH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eOaBFmlw;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A152606A32E;
-	Wed, 11 Nov 2026 12:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E285606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E285606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5K79/ES
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B201F00A08;
-	Wed, 11 Nov 2026 12:44:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401046;
-	bh=wBVufWqx+zH+Uabek6EiBTZA75eVbJUE6aSars2bL34=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Q5K79/ESG/5STADM/C4yNOyYanyQR+iMqif/9JX8s2kGjcWLTcPqJyC/MSpNok2Kq
-	 epm6pHdIZLUjJ+jsZxuuLRPVfmmeonGUaaDJpxqgxmvpLnzn5eCdO6sQv6UwHaHuyD
-	 RUuluQ6RpF+0BNvTIPVg151dShj/Nc4GztlisY4n+aEx2XppIiuFck+HhmDlZBselD
-	 sRWHhVaKADnvGSLzYnl4Tee1c0Cr1r1NGToNaTSlwMpxO5aTyZ85qKgrp4qKEYJoRH
-	 PkmOtLbMjPUYLN8DRPDu3XREjwiA4kRf8CP74P/FCm+mLBXGvkwm1ER1FYEHW9du8C
-	 qUpLmEz993KNg==
-Message-ID: <6ac5aaef-8753-46b4-b934-1a9b6fe1af46@kernel.org>
-Date: Wed, 11 Nov 2026 13:44:02 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZxMgJ9LH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eOaBFmlw
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCYutO1806583
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:44:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Svom+v5DKCDjCiWUGZ7T4HxR2P7zbfjjfUl54/X/CgA=; b=ZxMgJ9LHyx+yYhb7
+	DGDEcUnJoT5haAODh0YG7f7GPmJBi6ogrxMSbDi/RS+7aI0rfbfwIDQ6D043tCwO
+	xzY5Osy18UV5kSLtcCS3N6EWbJKZFoEMYQttlRJd9Kg7eWREXmvDNC0WuPxVmOan
+	m6bznMkWN1p7NrrhTtbF1wMiIbwPdD/fdPKChkXD2rlmQeRPeP0+4lZvd4aEBE+o
+	N6NdBP9MtjVLoB5mMJZHx3uL6zKk2yu3Y/u5k671dCgJZ6Ag5AxR6WoBct5BjJhO
+	elzMzwtUO1FJm4Ct+Kr/pN/bz6wKAHLTMeEJV1tQKSJn8qqCaBer8ckXHTuZNSSF
+	ooJfNg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvfawj5hu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:44:31 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f32050e72so764837885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:44:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794401070; x=1795005870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Svom+v5DKCDjCiWUGZ7T4HxR2P7zbfjjfUl54/X/CgA=;
+        b=eOaBFmlwiuljviMbR+EsaRDkoFRnYPbiH51juUP7BInl0sC9mYsr46hFV53+rVcS2M
+         GpMI0fIyiHTUz85I52H9OfchvY92GIkeRwgAthOz/zw5T0u1GdPENrxqLJRso64zXBwj
+         Y2eTysER4hVuCU2tihtb4wxz9YqLiTuqrytYpbTNgIDlwvaH7g5jkr2i9dL6I1NEkrsl
+         LuaHOqbtTRz0EFTQbV9unRfScrnuJlyC5eaIHQ0IRcl1mn/77BMDWzarGGYQ5fnDqg9x
+         FGgpNfUkVijwUaWk5QTflii5c8YMxAfoqxx90AIwXxK4P/WhPDv7vKyAhOiUs26hFhRR
+         I/vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794401070; x=1795005870;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Svom+v5DKCDjCiWUGZ7T4HxR2P7zbfjjfUl54/X/CgA=;
+        b=LXUVU8WiCpdQJRz0QVK2uwF9XKkPaYCVPO7I+vbrU0hTcQsDN/gjGtP8C43z4M8xUM
+         tEC/fdpqwT6o+eW3Jysrb5UmDwP4i1I7f55fifoNtGYWQmKgNi1OHcVoJWFKEOYA4sO0
+         DwNPFp3m0dYeD6W/yLPCHFU/O40FkVVbE9ECdQ2zpHZ8qks3uLLveClTMfKSs3ECRX24
+         FeAYIgHS88cv3E8PG89Ce8HUjJ8Qv84EjyKxxMWJF4yaPVm7rbv4P9pzItehYSo2+OiZ
+         P8q//+9Zx+yWH8GPNW/xIbjCeJvIU2o2dKSjLL+9Q+LXe6qyF9BaKQB3swjygiTT9DGP
+         bfEA==
+X-Forwarded-Encrypted: i=1; AL+hErGz0zBxMoRYg2dR4aGV2bn47/HIwPms4UyPp0pZWbiO2D/iHmPxlCXYOVV3npIM+DfoO+ESomWGeeT86z0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eXEndBHXqkMAAJAHEXck270c7DuC6x3kEenat+ybejOiU3r22
+	KAB1D7HTC8WsiR40DsBXCK/GtpMtQV9s71vyTOFl3v+E2iBcyOjDDAAODg+Yyn3bLO4TnBYQ8zL
+	IjyhQXh4pk5m9bED1wemDfZLcUjBVbqTcknHQJWmdYq6H8P5+R0qUgGzxY1ufkuQ5Jt4=
+X-Gm-Gg: AYBFou2odCaXyaqWBWB7pwmLEWR7GJA0RfLikGflKMTAbskSefURFXajIJp27UrfsXk
+	zUGCX3aRi+lN0Ux5bQBXCjKD8McIUFOohsUGvsCLVCcg22TEi4+dUXZG/A6ylmou0EXghjvJTyV
+	o0UwLQpE6utV0+/P2yY6TkeLrlPGzNHAhX6/R2T/u4tmC4MmRnSwq2OGZ90A7Q6sAj/CrThkaOL
+	atUrPlLBYbaE0Tnb/o0b+bLLzZQ13pE/9mr5uK6olzOilsXa2gumb+sQatkMcuc1KEHPQi29KWG
+	hqouiDU+UXUIOMxa83KgAHtyEmV7PxtgerXIcJYQ2N+RhTx2QOjlm3UpTJEvNL55V0dCS3emLnP
+	wpOyMmMtGdEUC1idMwsQ8xYc9PTtmPpDglkacI/bZo9Z19GLQdRPXsl+xnzpqju3O4fgiD/H8ix
+	U=
+X-Received: by 2002:a05:620a:1b9a:b0:93f:2c95:658c with SMTP id af79cd13be357-947aff969bemr317656285a.14.1794401070300;
+        Wed, 11 Nov 2026 04:44:30 -0800 (PST)
+X-Received: by 2002:a05:620a:1b9a:b0:93f:2c95:658c with SMTP id af79cd13be357-947aff969bemr317649185a.14.1794401069520;
+        Wed, 11 Nov 2026 04:44:29 -0800 (PST)
+Received: from [192.168.1.110] ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc9asm10036962f8f.29.2026.11.11.04.44.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 04:44:27 -0800 (PST)
+Message-ID: <0f2c0eae-ed05-41a2-8688-e4b6fe1b7ff3@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 13:44:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,129 +115,134 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2] media: cec: meson: ao-cec: enable the controller clock
- at probe
-To: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
- hverkuil@kernel.org, mchehab@kernel.org, khilman@baylibre.com,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com
-Cc: linux-media@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261106102105.47244-1-christian.koever-draxl@student.uibk.ac.at>
-Content-Language: en-US, nl
-In-Reply-To: <20261106102105.47244-1-christian.koever-draxl@student.uibk.ac.at>
+Subject: Re: [PATCH] dt-bindings: display: panel: Make DSI panels port
+ optional
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
+        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Michael Trimarchi <michael@amarulasolutions.com>,
+        Michael Tretter <m.tretter@pengutronix.de>,
+        Cristian Cozzolino <cristian_ci@protonmail.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Ryan Brue <ryanbrue.dev@gmail.com>,
+        Nickolay Goppen <setotau@mainlining.org>,
+        Robert Chiras <robert.chiras@nxp.com>,
+        Alexander Koskovich
+ <akoskovich@pm.me>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Chris Morgan <macromorgan@hotmail.com>,
+        Barnabas Czeman <barnabas.czeman@mainlining.org>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        Michael Walle
+ <mwalle@kernel.org>,
+        Ritesh Kumar <quic_riteshk@quicinc.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Svyatoslav Ryhel
+ <clamor95@gmail.com>,
+        Danila Tikhonov <danila@mainlining.org>,
+        Jens Reidel <adrian@travitia.xyz>,
+        Michael Srba <Michael.Srba@seznam.cz>,
+        Shawn Guo <shawn.guo@linaro.org>,
+        Alexandre Mergnat <amergnat@baylibre.com>,
+        Alexander Baransky <sanyapilot496@gmail.com>,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        Romain TISSERAND <romain.tisserand@gmail.com>
+References: <20261111110338.81717-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avRM_GhtR8vMdTO4@houat>
+ <c8dea6ad-ce41-44d2-96ab-233b0a4b1340@oss.qualcomm.com>
+ <43373a9e-9ff3-4641-b961-b63f4de21cb9@oss.qualcomm.com>
+ <oubzclitudtqiv64wvg5lvxvbhuffxmc5bgbsdz4ou24pfhbb4@decarhvjzl2a>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <oubzclitudtqiv64wvg5lvxvbhuffxmc5bgbsdz4ou24pfhbb4@decarhvjzl2a>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfX7Y2Dz0V8EC4R
+ AkEmGAgIaKbQOBzm2/mGxvyipJRlrvVFbbr1T5nRfqLTVH1ygmBAjxf7OKo6+4z8G90vu1qREbT
+ acdRPIS4KKrkB/hKVPKcncowOZ9YkV4=
+X-Proofpoint-ORIG-GUID: re-StSFQIgEu-TPUFu4K-uJ9y6tI42-g
+X-Proofpoint-GUID: re-StSFQIgEu-TPUFu4K-uJ9y6tI42-g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MCBTYWx0ZWRfX0rlBkm7nIRQe
+ czQgeqOiHR3aBFSmAsgsiykhZW+Orcw6MDI9Ai0Xj35/4ozH40pE5Y9z/QfB0/TIOJlqJL8PCD5
+ Wn4AmqUSUzVKm3Kg6sC++74G5WpLKEuWP4DUrYq03RlwyDBfvXhzz802uD63CA+lMf5/AlK4EuL
+ riQDeFSMYpMZnUJeDor9svO10iVPne5QIiPBds5ynoUitIW9kRfM+xZWjHwQs+HIfKOaKSrV6k+
+ UEsekR9T6/G4qMTA5VRrmvwVl7O2TbSdVqPZh0/Bx0gVbhVHcc2XdBM+s5UtADq+2eKIjPh8t0h
+ YhzU6eGjHP2nJ+JgmG9TNOVrLtZB58pHCuSLLWfnpGoAfV+qTjJSO986WHoJRaC3Bl3QkojghZ+
+ pYySkHpOfldbnI/fCZPFw5LYo38hSCmvnzjL+qLXCw2xdNOVF8VuDts+3muNClHKjoJ0xjgih4n
+ R3S1vhvzJ9Duxd+Pafw==
+X-Authority-Analysis: v=2.4 cv=CZadd7rl c=1 sm=1 tr=0 ts=6af4632f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=FoKKIyl-W1BixC_GgiMA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110050
 
-Hi Christian,
-
-On 06/11/2026 11:21, christian.koever-draxl@student.uibk.ac.at wrote:
-> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+On 11/11/2026 13:37, Dmitry Baryshkov wrote:
+> On Wed, Nov 11, 2026 at 01:31:39PM +0100, Krzysztof Kozlowski wrote:
+>> On 11/11/2026 13:30, Krzysztof Kozlowski wrote:
+>>> On 11/11/2026 12:13, Maxime Ripard wrote:
+>>>> On Wed, Nov 11, 2026 at 12:03:39PM +0100, Krzysztof Kozlowski wrote:
+>>>>> DSI panels can be placed under DSI bus directly and many Linux DRM
+>>>>> drivers will work fine with it: mipi_dsi_host_register() adds device for
+>>>>> such panel and DRM driver does not use OF graph to configure lanes.
+>>>>
+>>>> That's not true. We do use the endpoints to configure the lanes through
+>>>> the data-lanes property. See drm_of_get_data_lanes*
+>>>
+>>> Some drivers use endpoints, some not. As discussed on other thread,
+>>> there are more than which do not.
+>>
+>> "there are more than one which do not."
 > 
-> The CEC core calls .adap_log_addr() before .adap_enable(), so the first
-> register access can happen while the controller is still in power-off
-> mode (CEC_GEN_CNTL clock field 0). The probe only pulses the reset bit,
-> leaves the clock field at zero, and does so only after the adapter has
-> been registered, when the core may already be using it.
-> 
-> On S4 an access to the powered-off controller never completes: it
-> stalls the AO bus and hard-hangs the SoC. This triggers on every HDMI
-> unplug, because that invalidates the physical address and makes the
-> core rewrite the logical address.
-> 
-> Reset the controller and leave its clock running before the adapter is
-> registered, as .adap_enable() would.
+> Which means that those should be fixed. We have legacy cases where the
+> drivers assumed that, but we should not target legacy.
 
-Hmm, I have a few issues with this.
+These legacy drivers work fine for 10 or 15 years, like Exynos.
 
-The commit log does not really match what is happening: the problem is
-that the CEC adapter is registered while the controller is still
-powered off. That's clearly not right, since once it is registered, it
-can be used by userspace, so in that respect this patch seems sane.
+You can improve them, for sure, but if no one does that then requiring a
+graph is a mistake there, from the panel point of view.
 
-Regarding the changed code for the RESET pin: Neil, can you review this?
+...
 
-Christian, can you also point out where in the CEC core adap_log_addr is called
-before adap_enable? Because I am not sure that should be done at all, so
-that might be a core framework bug. In any case, that is unrelated to the
-actual patch.
-
-Regards,
-
-	Hans
-
+>>>> DSI busses can handle multiple devices, and multiple data types. If we
+>>>> were to drop the port node, how does the upstream video device know
+>>>> which device it should send its video output to?
+>>>>
+>>>
+>>> We do not drop the port node, who suggested that?
+>>>
+>>> You do get, that we are not talking about the DSI host, but the panel?
 > 
-> Fixes: 7ec2c0f72cb1 ("media: platform: Add Amlogic Meson AO CEC Controller driver")
-> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
-> ---
-> Changes in v2:
-> - Set up the controller before cec_notifier_cec_adap_register() and
->   cec_register_adapter(), not after: once registered, the core may call
->   .adap_log_addr() straight away (reported by the Sashiko AI review).
-> - Link to v1: https://lore.kernel.org/r/20261025192046.208710-1-christian.koever-draxl@student.uibk.ac.at
-> 
-> Tool use (Documentation/process/generated-content.rst):
-> This work was done with the help of an AI coding assistant, Claude
-> (Anthropic), used through Claude Code over many sessions. It did a large
-> part of the hands-on work: it read the vendor kernel and the firmware
-> interfaces, probed registers on the board, drafted the code and the
-> changelogs, and ran the builds, checkpatch, dt_binding_check and the
-> tests on the hardware. I directed the work, reviewed every change and
-> the final patches, and take responsibility for them. There is no single
-> prompt to quote; the sessions were of the form "find out why X fails on
-> this board, fix it, test it on the box".
-> 
-> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
-> 
->  drivers/media/cec/platform/meson/ao-cec.c | 26 +++++++++++++++++++----
->  1 file changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/cec/platform/meson/ao-cec.c b/drivers/media/cec/platform/meson/ao-cec.c
-> index 2df0d3743077..4c03c829fe86 100644
-> --- a/drivers/media/cec/platform/meson/ao-cec.c
-> +++ b/drivers/media/cec/platform/meson/ao-cec.c
-> @@ -660,6 +660,28 @@ static int meson_ao_cec_probe(struct platform_device *pdev)
->  
->  	device_reset_optional(&pdev->dev);
->  
-> +	/*
-> +	 * Setup Hardware, before the adapter is registered: from then on the
-> +	 * CEC core may call .adap_log_addr() at any time.
-> +	 *
-> +	 * Leave the controller with its gated clock running. The CEC core
-> +	 * calls .adap_log_addr() before it ever calls .adap_enable(), so the
-> +	 * first register access happens while the block would otherwise still
-> +	 * be in power-off mode (CEC_GEN_CNTL clk field == 0). On Amlogic S4
-> +	 * that access never completes: it stalls the AO bus and hard-hangs the
-> +	 * SoC - every CPU stops, IRQs included - which happens on every HDMI
-> +	 * hot-unplug, because that is what invalidates the CEC physical
-> +	 * address.
-> +	 */
-> +	writel_relaxed(CEC_GEN_CNTL_RESET |
-> +		       FIELD_PREP(CEC_GEN_CNTL_CLK_CTRL_MASK,
-> +				  CEC_GEN_CNTL_CLK_ENABLE),
-> +		       ao_cec->base + CEC_GEN_CNTL_REG);
-> +	fsleep(100);
-> +	writel_relaxed(FIELD_PREP(CEC_GEN_CNTL_CLK_CTRL_MASK,
-> +				  CEC_GEN_CNTL_CLK_ENABLE),
-> +		       ao_cec->base + CEC_GEN_CNTL_REG);
-> +
->  	ao_cec->pdev = pdev;
->  	platform_set_drvdata(pdev, ao_cec);
->  
-> @@ -674,10 +696,6 @@ static int meson_ao_cec_probe(struct platform_device *pdev)
->  	if (ret < 0)
->  		goto out_probe_notify;
->  
-> -	/* Setup Hardware */
-> -	writel_relaxed(CEC_GEN_CNTL_RESET,
-> -		       ao_cec->base + CEC_GEN_CNTL_REG);
-> -
->  	return 0;
->  
->  out_probe_notify:
-> 
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+> The panel might be driven by the host directly or there can be other
+> chips on the bus (someboby has been asking about the retimer or
+> something else sitting on the DSI bus between the host and the panel).
 
+Sure, does not change that panel DOES NOT require the graph node.
+Neither current Linux drivers, except some.
+
+Best regards,
+Krzysztof
