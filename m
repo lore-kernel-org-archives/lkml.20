@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388589;
-	b=Wd0vXcStiLjSHUWTwc89lPfTL/WcGrvFYxLI+/t5zEXIT1rtf8xLP0kdVl03oEhRB2dT
-	 6QzEN7QwfSTu8WafIC/SieVFIoaicM6Kfs0ihJZq+oxPXtFsJ7ad6LjS3dVLrCD8HHhbg
-	 TMrwNoUxrRG3y4EIdg23eHUahRVbN9muS6wOhk/hoRQt2N9fC9CRsiswDa+rWb2wSZb5q
-	 j/oia4/366LVEUC0rBYvJCx2d/UUXZEGGwvMZUWKuj8wTdXb5+O02L53of1UeNr81d0MX
-	 G7Uh794A8tt6Vq5/iEQLUBMdSogVRO+V8oJkwQR9prEV0/+OqRsrWM+P2IUV4kA79kA==
+	t=1794388610;
+	b=SeegkbNFZ02KiKp+TRw/lqiHkmAVaJsT/LkwJoJfSQ5xM/g9z/Q3t4+TI0CBB+wl/HCy
+	 xx149D2BWvmBP5d4MekylVEzZRzFTaYDkG4GHipJRNRVQhZ/mudJwwIgAKV6b7PVcSjgL
+	 zW41vhfTIPWtS8l8Zg1iC+aIYbsf85cKR+81f8riq4xHdXY7oFVKxU1QPBjcyMGkRidg9
+	 4btccbblbpfXfBMYLYq0N6aB9reQM7gcLyKDeKk5fSl4PXXmjGa0ztsu6eokITgcKovA2
+	 J4vYqtjDLYTxZDtEWEHfUxJraMXhSFPmkgf4JFnL51Lc9idDwvJg/bRSevtV0aQMZcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388589;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=/kxyqAjTx8NKkvcCIqcp+hxivFQPr/EPfwfGlYdXLBo=;
-	b=dJOaVdt8z/Ojma9U5YR8RGOCDcheQpqdOWAmiQmDRVEac1BbypxJ7z4oiLxP+1T8iF5m
-	 H0za7FnEzDFMc4j1GkLY4gWbMe+kPhV7ItMgCHTK+tKrH8bHUvbZRi/steiScdNErf5jh
-	 OaKrz/V5HLDrrYzN4L2kiMK/dAyk7DZhLnuXoVoXz2lSM/yyMkJwlzaUr58bwMgkzazXq
-	 Qk3KH/uD6ZxjZEWNQwbiWTaVMV3J3dIhsMngVRrmz9S2l4LtOHfwLirT6g+uSY4ECqhqW
-	 nyYuPHp/s9cCsCErgbnbBXDSvRdLIN1gc3xQYfJ19LWTZI0kNprPtJ/7k8765vwV46w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388610;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=w+8gffM9pBG1sxQLRYggSN/g+Ts9H9BUGYDhUHnOgAk=;
+	b=hO8OfHnWm1imCXVUaWrc+xMz62uEaMNIRmqtK56ensT47nQuxt8ESB1DMyVWuboWf4YX
+	 VFzD3KEDkU0/OfO2On9RT46e1kuPV5cin/5wDP2pPX1Vzwm74MU3manUi6Mb1FCoxzmor
+	 qOEei4UmSjFKVDstylj7M/jkUfK8f0k8ZRbqNFAK4dtHStg8gwjz0tjljqlbX0IG2SD1e
+	 MvATE9//IinemQcPDvIaTGZww5UxQRBrhBzyfbz/AW1fpNdt7y+56JjTz7ftfPR/Vtgxy
+	 IdWoIrWJjLs295fIu/hMlv9EAtYUa/GCW1uOkEuVDovqoiFlHEgahKHXRxdhN2o4Dfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P7A1TJfi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="Xpa1mH/N";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E74E606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9C9606A324;
+	Wed, 11 Nov 2026 09:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE9C9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P7A1TJfi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9938C1F00A05;
-	Wed, 11 Nov 2026 09:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388588;
-	bh=/kxyqAjTx8NKkvcCIqcp+hxivFQPr/EPfwfGlYdXLBo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P7A1TJfiZg5LGMcrmNqWFXtnGzfzl8JlB4qhPmCkPJlDbx8GzwX2BXfFhJi56MwTW
-	 WByErjjad9MmnJuLPDh3pHLeEyaRZluGONi4TamiQorHBlHA7p+1uUSXsLKvq/iSLR
-	 9AZClhvcAFsuEU5NS8Vf6mPRLFU1WHlh+vofS+o+s9viRNQsg8207ziHMVp+ldVP/2
-	 4vHLS22uyAyuy4Y4H1hNUCd0V7oDMPEdEOy9q8qPX2YGpCn7VOLIPoB/1wMc5eaBL7
-	 O4kQf5RdXfTED7Pq5b1g+NAhyxlgSS1RaQ4qwCTuAgZC9j0lKbmmdnfR6MLq5b/zVS
-	 o0x4MnDlC24ng==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xR4RO-0000000ECsx-1jVW;
-	Wed, 11 Nov 2026 09:16:26 +0000
-Date: Wed, 11 Nov 2026 09:16:26 +0000
-Message-ID: <86qzgr20et.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
-In-Reply-To: <20261103201817.1259660-2-oss.patchbox@gmail.com>
-References: <20261103201817.1259660-2-oss.patchbox@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Xpa1mH/N
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=w+8gffM9pBG1sxQLRYggSN/g+Ts9H9BUGYDhUHnOgAk=; b=Xpa1mH/N2jMqrlncBL+rVQVd5P
+	UFdbVF1oye3L2HckTPl5lkHk4KdDSfV2mIh0ZzVnxi7Gc4dTRRNMLtSEcI8QP3H982ZIrwCCIDr/s
+	s8BdOlRN/xVxRAgGp847jYjFU7mt/IRWkMju50tdPRuT/jIueIID7tlrgKtNgCHTUTpbLJ9lo5tAy
+	kiRoh+mBx16v08IaCp4nAcrMj2Up/8r7YPiDqw0LmTdGoTcDSAPc/eXonq9LAxiLmktDNJOpW/VOj
+	Q7Wm7Xc7Nhd9SrTxgPV56pveZG/vQzIRA080IWCFSYzRvxuN3j77AhdCKeyU8KsJJ2eQCvqP71cB7
+	H4JhwNLg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR4Rg-00000008DKQ-36mn;
+	Wed, 11 Nov 2026 09:16:45 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4CE7E3005AF; Wed, 11 Nov 2026 10:16:44 +0100 (CET)
+Date: Wed, 11 Nov 2026 10:16:44 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, yury.norov@gmail.com,
+	linux-perf-users@vger.kernel.org, mingo@kernel.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, tglx@kernel.org,
+	sudeep.holla@kernel.org, linux@rasmusvillemoes.dk,
+	"Rafael J. Wysocki" <rjw@rjwysocki.net>
+Subject: Re: [PATCH 0/5] cpumask: Use cpumask_intersects* APIs where
+ applicable
+Message-ID: <20261111091644.GW2668804@noisy.programming.kicks-ass.net>
+References: <20261111075945.3930230-1-sshegde@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,84 +69,19 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oss.patchbox@gmail.com, tglx@kernel.org, jonathan.cameron@oss.qualcomm.com, lpieralisi@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111075945.3930230-1-sshegde@linux.ibm.com>
 
-On Tue, 03 Nov 2026 20:18:10 +0000,
-Yuho Choi <oss.patchbox@gmail.com> wrote:
-> 
-> its_of_probe() walks the ITS nodes with of_find_matching_node(), which
-> drops the reference on the previous node and returns the next one with
-> its reference count raised. The loops are balanced when they run to the
-> end, but the three error returns (a failed its_reset_one(), a failed
-> its_node_init() and a failed its_probe_one()) leave with the current
-> node still referenced.
-> 
-> Declare the iterator in each loop with __free(device_node), so that the
-> reference is dropped whichever way the loop is left.
-> 
-> Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
-> Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
-> v2:
-> - Use __free(device_node) on the loop iterators instead of adding
->   of_node_put() to each error return (Marc).
-> - Rebased on v7.4-rc1.
-> 
-> v1: https://lore.kernel.org/r/20260923165447.619477-1-oss.patchbox@gmail.com
-> 
-> Compile-tested only (arm64 defconfig, W=1).
-> 
->  drivers/irqchip/irq-gic-v3-its.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-> index 282e4bafb084..7c5df91a317c 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -5572,7 +5572,6 @@ static void its_node_destroy(struct its_node *its)
->  
->  static int __init its_of_probe(struct device_node *node)
->  {
-> -	struct device_node *np;
->  	struct resource res;
->  	int err;
->  
-> @@ -5582,7 +5581,8 @@ static int __init its_of_probe(struct device_node *node)
->  	 * reset, don't even try to go any further, as this could
->  	 * result in something even worse.
->  	 */
-> -	for (np = of_find_matching_node(node, its_device_id); np;
-> +	for (struct device_node *np __free(device_node) =
-> +	     of_find_matching_node(node, its_device_id); np;
+On Wed, Nov 11, 2026 at 01:29:40PM +0530, Shrikanth Hegde wrote:
 
-nit: please don't split assignments. Long lines are perfectly fine.
+> Shrikanth Hegde (5):
 
->  	     np = of_find_matching_node(np, its_device_id)) {
->  		if (!of_device_is_available(np) ||
->  		    !of_property_read_bool(np, "msi-controller") ||
-> @@ -5594,7 +5594,8 @@ static int __init its_of_probe(struct device_node *node)
->  			return err;
->  	}
->  
-> -	for (np = of_find_matching_node(node, its_device_id); np;
-> +	for (struct device_node *np __free(device_node) =
-> +	     of_find_matching_node(node, its_device_id); np;
->  	     np = of_find_matching_node(np, its_device_id)) {
->  		struct its_node *its;
->  
+>   cpuidle: Use cpumask_intersects_and where applicable
+>   arch_topology: Use cpumask_intersects where applicable
+ 
+>  drivers/base/arch_topology.c | 9 +--------
+>  drivers/cpuidle/coupled.c    | 4 ++--
 
-With that addressed:
-
-Acked-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+That's not actually code I maintain. That's rjw stuff.
