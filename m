@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.178.41.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410672;
-	b=BXVdGWLd2ukwSO80ZewBQLZfanGMV2WAGyJAQh5hXGBX3Wpk1m59PkOmrEUmOEMEl91V
-	 AQedTS3Up6bx9KH1Cy250vcrRLEr3V25FSZ4lZTSRO+CM5NbKbr6wGTsxi/xuGMpvuP9c
-	 gsUsmE9/5hNo11UWYJv01utm4/1VPr7wZ9Xz9RjWGyM/p3aFBXGZWKgyz9IE2FpC+FS27
-	 Or5TOWEXi4r8n4zew++ubWfHIJrsAgLjArtpxWy3qrk6azBUY7gBmttU2JO9wUWHjpya6
-	 izlXohBRuhbOKEWo25Lgpo5JXocr/IuzyA3T51MfZjj1EzLOsF8LRyY/jWBr/rN0PwQ==
+	t=1794410681;
+	b=F2co37cB6rrPkBJCNQ9Ior1vOasPiVSY6OFqnPwPq5St9Toj98UpVn9+A6SjAEqiFUU9
+	 soKEkIT4cjeSuc2+hpPjwql1mrmS8V0/t0q48viodFMMdNvFhnjMPIW2nB48EFGOC6fCL
+	 pxgm1nyBJRuMKzV0tNBk6Q6l1okXMW6UgmUftiG83uY05SYXuI3i6PO4oW+fAUlWBs9rZ
+	 +Mz91bmI/aNac0bVZt8sYiyCkg0MUXMo0jJA2SCx/0xfg6IvqXmexQcnNKM4+T9qbigcG
+	 ZaAK+6zZ9GBraJ2l4THjqNQ4dMZFMMN+uSk3q4Y765VpuuOqiROhSnCmQqrHJ4Kqmhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410672;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=joqpnfazpg45b8CAOPhTIGRk8ga+vSwh/VQww6gpLz8=;
-	b=NWn0gvKyUJ5JVJFK5/2ZyoqicLGU/beQ6ai+1keHxZGiGhMaMae+FXLZLjCNfU3YJdTS
-	 0bajIPxb6NvhOczbSt7kTpxKRllC8Jpva5/QNEsz4A+tKQs1bhlpycwCZtAUtKrinagAM
-	 MuE7qrEJd/PPLJtlwdeiIe/1FmoGch+K/mr8bCYTb9Mz9unJpvfjaF3dSI0tfYSF+iuWx
-	 dQCWsXonFzk6Bm6aGciOqkPdPlllAnpPzCnLi1VDJVf6/48e0MAwAHSUb+TilDOaKqZiE
-	 31UcKni+eLf5dAAm4KJOJm6rewDon9nst7VvhBanlcM3+1uJDgOTTRnb6o5kB4nQJDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410681;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7rlJEv9evoBI2KAjTlHLGZOiwbHI0+oY97L62l2xy8o=;
+	b=lyd1r+GL1bj6DBXXkR9ZnR0rhpd8HwaheBqz73VqwJ5+bFu4G4OTDVQVqoI7RQTLjWIm
+	 hDQZ303F3MllQLB9vx5aPq/4vbsegTkjKfUGelMqWrcTa/gJXHncN6LlMz8LrLxH8om8S
+	 ZoqS921ENWiZyLnSFbHLE9TnNSNlxeL5wHqoSlJzPgQLcjiYiktwbVhmEpWYCUP2SyXXE
+	 jB8PQ5IiPY6IYiaOs1gByNzfzRir5RoHJnqEDeb+FNohaZTOpb8kzrZjYyFzSU9hoNzXn
+	 GizOt6PXcf4Jm1U8f3FJ/6mueDdNOhnU+DuRZbekgnHoxg4N46Dvc6uYRpbEXrvwPpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bencteux.fr;
-	spf=pass smtp.mailfrom=bencteux.fr;
-	dkim=pass header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b="MCT2UNH/";
-	arc=none smtp.remote-ip=51.178.41.114
-Received: from beta.bencteux.fr (114.ip-51-178-41.eu [51.178.41.114])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP0WtOTS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F206A606A321;
-	Wed, 11 Nov 2026 15:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F206A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bencteux.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bencteux.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0244B606A321;
+	Wed, 11 Nov 2026 15:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=MCT2UNH/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bencteux.fr; s=mail;
-	t=1794410489; bh=DQZ/K8C5Xuvonbckgw4rX87bpSwrJG+odV2IIvPcb0I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MCT2UNH/sg5PVMBKhGCRYKzj0DbK8bi9cxaj+UiCJk5T7ZWUQL6l1Yu3I+MFALkOq
-	 vtCoOshcPucn5uqwleBzXDCMBqmJRIS2vW6h2449+5xxwGYuP6c9+QEU+t9DxlKwZx
-	 0SVUNx7YDorK5WQULnj6h+AVLc1xIf0cjsEFciOY=
-Received: from localhost (unknown [146.70.188.209])
-	by beta.bencteux.fr (Postfix) with ESMTPSA id 33BBF4029F;
-	Wed, 11 Nov 2026 16:21:29 +0100 (CET)
-Date: Wed, 11 Nov 2026 16:12:05 +0100
-From: Jeffrey Bencteux <jeff@bencteux.fr>
-To: Ricardo Robaina <rrobaina@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Paul Moore <paul@paul-moore.com>,
-	Eric Paris <eparis@redhat.com>, audit@vger.kernel.org,
-	Linux-Arch <linux-arch@vger.kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] audit: add missing syscalls to signal class
-Message-ID: <avSFxQDmHlxNhrJ7@ultrabook.localdomain>
-References: <20261111110200.30415-1-jeff@bencteux.fr>
- <e817126f-83b7-4450-a893-ac4e59460ae1@app.fastmail.com>
- <avRzKRB2f_dP-xEv@ultrabook.localdomain>
- <6f26e8fd-6198-4c2c-9702-3b7b8dc73f7c@app.fastmail.com>
- <CAABTaaCAhp7n-yNLMPoyJ6=uYaLjkA82KT0CTG4MGfKHdjMvDQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP0WtOTS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E171F00A06;
+	Wed, 11 Nov 2026 15:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794410680;
+	bh=7rlJEv9evoBI2KAjTlHLGZOiwbHI0+oY97L62l2xy8o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UP0WtOTSWMqKEZDXuJZiTJAE6wRoWBDo1pbT4VRCMFyZWqITM3/tzSpcGU22ySLk0
+	 Twf5YoC8ENgWXKEuA0hnf6q4YbCOx2OAVAIYzYrJqpAlt2bOGsT2J4yDKth6tNnymm
+	 B+r409xvxfyqXGh8eG99Vm8M2BVAWvm1uLlE2ntQO6dZbPPKpyEm6HhAH2fYbJO5lq
+	 CsPJg/rbWWYjTfbwqlShW+gqYEv5NQGYbvqdFKnxFrfnY91BG0gsxotesYonbwKUHQ
+	 U/oUp3lcvFJF4W835IEEYpOcStF7CJpHDSOPzYEWoGg64AhMduzX8uIzGPQ790cmVQ
+	 I+qMUbEIiZ41A==
+Message-ID: <182e7cc2-43cd-4858-99ca-5f243e2c9eb5@kernel.org>
+Date: Wed, 11 Nov 2026 16:24:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,39 +51,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAABTaaCAhp7n-yNLMPoyJ6=uYaLjkA82KT0CTG4MGfKHdjMvDQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/7] init: discoverable root partitions
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, Davidlohr Bueso <dave@stgolabs.net>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Dave Hansen <dave.hansen@intel.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Matthew Wilcox <willy@infradead.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org
+References: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
+ <20261110-fachlehrer-anhaften-unkenntlich-86fc48b56f8f@brauner>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBAhsDBQsJCAcC
+ AiICBhUKCQgLAgQWAgMBAh4HAheAFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmrTM8wFCR1O
+ HxcACgkQq1/riG27mcJ2KAEAhG19xBSkjiA9dtatvq2WJnGaes4SUmY+LSn7dh1Lf7YBAIwB
+ lsMMmigMTk3Qgwymg1nT+Z8z1Owc/TGtRlo4ZcwMzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmAhsMFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmrTNKcFCRUFdT0ACgkQq1/riG27mcLEVwD/VmnQtTf6yhowaIFj
+ AjUtwiyQz9ja4NRu9GOvz/pb2L8A/3QcADR0dcxADGsmOiBpN2M9KI7nqdNIq3VPM/3/5fcB
+In-Reply-To: <20261110-fachlehrer-anhaften-unkenntlich-86fc48b56f8f@brauner>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 11:50:48AM -0300, Ricardo Robaina wrote:
-> On Wed, Nov 11, 2026 at 11:31 AM Arnd Bergmann <arnd@arndb.de> wrote:
-> >
-> > On Wed, Nov 11, 2026, at 14:52, Jeffrey Bencteux wrote:
-> > > On Wed, Nov 11, 2026 at 12:18:01PM +0100, Arnd Bergmann wrote:
-> > >> Why the #ifdef checks? These should be available on all architectures.
-> > >
-> > > I included them as convention, should they be removed?
-> >
-> > Not sure where the convention comes from, it just seemed
-> > odd that you have the #ifdef checks for the newly added
-> > entries but not the ones that are already in this file.
-> >
-> > I had not checked the other files that have similar ones.
-> >
-> >      Arnd
-> >
+On 10/11/2026 at 17:03, Christian Brauner wrote:
+> On Mon, Nov 02, 2026 at 10:29:07PM +0100, Vincent Mailhol wrote:
+>> This series adds root discovery directly into the kernel so that people
+>> who are not using an initrd can still benefit from it.
 > 
-> Hello everyone!
-> 
-> It's not a convention. Arnd is right, ifdef checks should only be used
-> for the ones that are not available on all architectures.
-> 
-> Jeffrey, please take a look in this commit c0d73c09381e ("audit: add
-> missing syscalls to PERM class tables"). Note that '__NR_statx' is not
-> guarded by a ifdef.
-> 
+> Nothing has changed since
+> https://lore.kernel.org/r/20260617-irritation-rollen-wirst-7d636cbfec92@brauner
 
-Arnd, Ricardo,
+I replied to your earlier message to explain my position but did not
+hear back.
 
-Thanks, it is now clear to me these are always available.
+Since v1, I have rewritten the cover letter to better explain why I
+think implementing a subset of DPS in the kernel makes a
+difference. The relevant paragraph is:
+
+  This is useful for booting a kernel manually, for example from the edk2
+  file browser, or recovering from a lost or corrupted bootloader
+  configuration without having to supply the correct root= argument or
+  load an initrd from the bootloader shell. Finally, it allows systems
+  that otherwise need no initrd to discover their root partition through
+  DPS without introducing an early userspace environment solely for that
+  lookup.
+
+Similarly, I clarified the scope to address your concern about the
+complexity of DPS:
+
+  The scope is deliberately limited to block devices that the kernel can
+  already mount through the root= parameter. Other DPS features, such as
+  setting up LUKS-encrypted partitions, mounting partitions other than
+  root or container setup, remain userspace responsibilities, with no
+  future plan to implement them in the kernel. The intended usage is
+  thus a hybrid approach in which the kernel DPS only mounts the root
+  partition and leaves the remaining setup to userspace (either with DPS
+  or with a classic fstab), just as it does today when root= specifies
+  the root device.
+
+I would appreciate hearing whether these use cases and the limited
+scope address your concerns.
+
+
+Yours sincerely,
+Vincent Mailhol
