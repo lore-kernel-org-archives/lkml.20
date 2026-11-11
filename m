@@ -1,113 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794422727;
-	b=kVFduuHJ1E38eMEhVZS71DVZ2WnQXJoutndOooUwCcV9Nvjh9KvKaIvBJrT2AITeBWJn
-	 l1Q+LfwOAbft22yzakyrRJqLIBwMsDGIwafXyAA876lL3NDHJLsXaw9J+e9Bu8MLhIX32
-	 oLi+LgAnjuYoNg3offJ2W8+GnCaoedkjU+NEtUjKXjVJAyt+AlF2gJ42//pSM0eOC5MC1
-	 YxU5e/w+fP2SVMuDgUPvf3ltDoFNc0dbRVdgQqUgKjjx4Yjn2vD7PWG0cBXk8tRs+AmoK
-	 sHbYXP4ADgNtKXm4X5RQ2o+6d5wtW8ElCfi1A7m1F1k1Hvr144VKFF7eV0jrdc0hiQw==
+	t=1794422728;
+	b=B9oDyjovLaTRW0qr5woDkhVucdArIkK2+V4Mz9jfN4+dqQLMmu96yQC+BwWdJlFvf6rw
+	 1ZjeK2HEkWBe8hby+V+zuy6sSr4g13EcjRRIuM+FrumaFwHFdfqfvogzm/bxJKadhYqV6
+	 LsGlpIVFiRjblTLSxOLt/VwBzCkyNLAjPSSwYizPq+NYnwFY9k7GvR6+TjOvB0FTR3lFU
+	 HL1Z5+4KAohUjes7ED6Ow7v1LGaIV1KgUfXnb7eVUzashSOT1qdMCXoob7LncHzt0gyEd
+	 fVgMFnGm99hdVLa3vH1XXyVvNnIXTuuZUFd9L7c5B8GokcK8j7EP+aGoAer2SoUqRBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422727;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=49MaCQym9slg1wd6k0otIRMRT27LbiHCT0+a1bCeTqo=;
-	b=pV6p6S5jHf2qMnuB/PO7pUbCwC04jpLRIz2GXeZI5hIfQPNUbbMBQ+GRHuc0uwif+piX
-	 i+uxv7O3cTHMQH1KAldyfpumUB2tOmVVZISUpB9jT/TjCFIXA6x+yg92miXm43M2yGe03
-	 PrtHnETMxa+pED2awOKy2tXGYxjYd0cky9yNH9Kg+gA9qBjgS3Uyr3bNcn1+VemyefByY
-	 U0YpXJon1oFnpXydrllDxbzPBmJth7qTaGAzUbSSkp6MN6K3iK4mocS0Zuh6uvzbPx6aX
-	 BAlrN6reb9fB+RE2vH8Cb8EFR2558kf3bZCQEK/jvlMdOOM2Rax7pF2lrLp1wy+bT4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422728;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=2yMqdEoLkLNHpg5NeFYoX3pGkM6E5xBE6BECcgZwEdg=;
+	b=DvxAZvjZGZQHIFTYSXM+BxaLQ4zvjZhs4ptkjCZsnPuhRbDpF4+r9kpXelrk1xe6o4FC
+	 IBoW5Qc5spiIf+7DS/+54KpfSI5EDpt3EIG/VgENZ0/qYjzTEFCzF5JZ4lhwd6jFls+UQ
+	 tb3V/iAAfHfwtjje2YwTKMUh0ZI6g23mQGjAh+JPAtUyjWDJOsLqKOfVTvpu12HGt3B0W
+	 02HlowQM6c81SHTJZpW63XOzLfoXT8AVTos5PR9vzh+nQZDK4LxZLLGeQo8g4Lw9lcsK6
+	 6243vJ2KhKv0ez/rAcCoIU9P5p1zeDb3iFah0+kp4ySweOtKs7YizvY6s1Uofg0dt5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=A4ELrNMy;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=gmx.net;
+	spf=pass smtp.mailfrom=gmx.net;
+	dkim=pass header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=H+q00WEz;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1FD606A32D;
-	Wed, 11 Nov 2026 18:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D1FD606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E84606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E84606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=A4ELrNMy
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABIiSvi672058;
-	Wed, 11 Nov 2026 18:44:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=49MaCQ
-	ym9slg1wd6k0otIRMRT27LbiHCT0+a1bCeTqo=; b=A4ELrNMySsqqi06Tj8LY/0
-	DvvFAT6UPgCLbtdtzfJXgwwy6V0S+NEyHXU76mKcOPVtRO7KDwnhYUjjT3+7A3xm
-	Yebgqh9q7BLWJOimyJFiS3d9bOw4py/3t4laHmE4e82pajRGlUCh7xfPo6LOGaig
-	NHY2zs4QYPehcixAIt+ipmf0uVk3RLXmAdGMH7wR+0Ch/FfbFwmwYSdxJzW2lz+q
-	Y4QIgTlIhRc2l47lgEHkv2mapSnoAH4G/ZZTgKY+8K4bpVTlvm1HBQUpHc91m+0d
-	jkw3hWhWPF0EDjFvhhiP67XmssSn7gj7uq0RctRm3RFqlO1KbaRuibSzvrngYWkA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdgb4yu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 18:44:47 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABIJuDi3740537;
-	Wed, 11 Nov 2026 18:44:46 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hvkq0t7mk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 18:44:46 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ABIijIs25625264
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 11 Nov 2026 18:44:45 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 37C8858060;
-	Wed, 11 Nov 2026 18:44:45 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B9C4B5804E;
-	Wed, 11 Nov 2026 18:44:42 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.123.17])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 11 Nov 2026 18:44:42 +0000 (GMT)
-Message-ID: <eb536f08b27ed28cf490205c57176b7fc8eccfda.camel@linux.ibm.com>
-Subject: Re: [PATCH v6 0/4] initramfs: add support for xattrs in the
- initial ram disk
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>,
-        Christian Brauner
-	 <brauner@kernel.org>,
-        Danny Hu <dannyhu@arista.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-        Roberto Sassu	
- <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-        Eric Snowberg <eric.snowberg@oracle.com>, Jan Kara <jack@suse.cz>,
-        Victor
- Kamensky <kamensky@cisco.com>,
-        Taras Kondratiuk <takondra@cisco.com>,
-        Zheng Zengkai <zhengzengkai@huawei.com>,
-        zhangguangzhi	
- <zhangguangzhi3@huawei.com>,
-        Jason Yan <yanaijie@huawei.com>, silviu.vlasceanu@huawei.com,
-        hpa@zytor.com, arnd@arndb.de, james.w.mcmechan@gmail.com,
-        niveditas98@gmail.com, pierre@arista.com, julien@arista.com,
-        kbharathi@arista.com, alexandr.lobakin@intel.com,
-        linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
-        linux-security-module@vger.kernel.org, linux-kbuild@vger.kernel.org,
-        initramfs@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-kernel@vger.kernel.org, bug-cpio@gnu.org
-In-Reply-To: <a9edb8a433e8efcba3d11b2a06fa1063df41a24d.camel@huaweicloud.com>
-References: <20261105193743.2654656-1-dannyhu@arista.com>
-		 <20261110-hengst-tontechnik-ausfuhr-265b06d68611@brauner>
-	 <a9edb8a433e8efcba3d11b2a06fa1063df41a24d.camel@huaweicloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Nov 2026 13:44:42 -0500
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=henri.ommer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=H+q00WEz
+DKIM2-Signature:  i=1; m=1; t=1794422726;
+ mf=PGhlbnJpLm9tbWVyQGdteC5uZXQ+;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.net;
+ s=s31663417:rsa-sha256:LXBkJ/RzWWSdqkM4tUNPhm3zgthe
+   ar64Vr9lRFD0xR85b0tOqRSOIFE24xmJOLuhW4uCpcedgbr6IVHxcZkCB1v7z0QYHXtcXGBqnHg
+   fZL6U+E9XAhCciTqiVhaUODDbuA4P6EoPUw2hQ34qPokKxtIi31J8yN7HwTJCTCg7fEv7d/RpMn
+   dMWaXhyV17NWV23FCG+u/MTaAjloQMS8zUW6pIP4/Ie+95mB3F/lrnNpjIZaH0qOii/HeQ0KQX1
+   UmE8u3rVC11ymwFWml9FaAxMyJlrohsSKxcMQn6/H3kcHe9O+t5oMm3oQL5jkP+pIFsrrhTivmZ
+   LNx2jibxECXynQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   GbwKkVUm442bNApTawxDRWS2epmUS6/FYWubFddHfcM=:
+   UTmggoAckeQCnVXc4lfzfycgcQZ+ZkbEk0rr4zsrqyM=,
+  sha512:
+   A279Ei4m5z4tqPu+UufRysTAIE92VuPzZLjZGZcfEE9lijhBLq4n4aCmFn8Qm3iEuxI+TrHUC02TK9ErwjTubQ==:
+   kf+WqYgojw8076RQins9RpH7NR8YSAVzjbzRntyDYkMDNHy9E2jcXxAO3c0BBd+TBCyKaoogXOeOAnRYhCiC+A==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1794422715; x=1795027515; i=henri.ommer@gmx.net;
+	bh=2yMqdEoLkLNHpg5NeFYoX3pGkM6E5xBE6BECcgZwEdg=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=H+q00WEzp6Eb/FUFJ77AjGxEnsvRr84Hw7j6HsPzvgfXt06LXXyr3uqYdSkeVN5q
+	 LjLX1cub2wxnDeduErqQ4Wq8Ib1+PILpZ+AA4f7CkL3dFLrtEUa980JJBd6xB26qr
+	 hi9q6ZW6LFjpSZLR0nXZ/UWu7k0Ykm5HErs6d/6dzbXzsJAPbibwqzsuvdcO0TYvq
+	 xCM+jm5eqH6/add3h3/ThB+50V0amyJPIrVEWfZhKAELvw7fYvYt6lTONDBh+fL87
+	 M5/+21ycVv5CG/CV5WqMxENHEO3pOtT3JfzgIbyS1JwvLjwlDnXONEKwul3+VAssP
+	 0lxV+Yz+dqln52nxPg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVvLB-1x01Hi2QCb-00Qeyg; Wed, 11
+ Nov 2026 19:45:15 +0100
+From: Henri Ommer <henri.ommer@gmx.net>
+To: job@noorman.info,
+	dmitry.torokhov@gmail.com
+Cc: phone-devel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henri Ommer <henri.ommer@gmx.net>
+Subject: [PATCH RESEND 1/2] input: himax_hx83112b: Add hx83102d support
+Date: Wed, 11 Nov 2026 19:45:12 +0100
+Message-ID: <20261111184512.5607-1-henri.ommer@gmx.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,131 +88,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af4b79f cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=07d9gI8wAAAA:8
- a=VwQbUJbxAAAA:8 a=oGMlB6cnAAAA:8 a=vpqfxihKAAAA:8 a=pGLkceISAAAA:8
- a=meKO6n-CRK1YFxY-CrEA:9 a=QEXdDO2ut3YA:10 a=e2CUPOnPG4QKp8I52DXD:22
- a=NdAtdrkLVvyUPsUoGJp4:22 a=AULIiLoY-XQsE5F6gcqX:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA3NCBTYWx0ZWRfX3gn636Rji0NZ
- iSazCfHd8HXcmr4d5jGXXmBYPn05xP83IXxhjJWgXtsiJj2XWUExmGRX/xv9PlqCaHRhCSn2SOe
- j5LtDKi4Rc8DcKEhpP7RcYKWeHaLZ0ecPaQ8gfSJzAT7t9Z4c6W09cS8Jett6BR4fKtlaHvEsgb
- b1kL1SWdkRTVnUBfBRk4HAhckbmQPg21AEdFu5zSOO0Tolp1QTigj02PbtGt/BZEgWn5EDMwyaP
- I6O70FNB873BNEHt0GcnX/O/5ve5Add6ywtZ83eG3LNqs5BwMhpDJCberDh+L/OEKvVGBrJ3m7x
- XIE7gZcvU2G8HXb/HD2OrKyoNo8kTVnYzNpH+nYk9yPJ9l+D5n1vU848ZwY+uhkUOuG1brxZss0
- zUaafrXUOy942LMCUgckXVQfA0yP4oRWn2lDFjYhj1fKI3hmcEdVr2Jaf1nyGSzMURDs2FwyCTv
- s9MeY++t5Ie4lIDFrZg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA3NCBTYWx0ZWRfX/y+xAAh94onv
- cLdD7EEkkfO+pTmM/OFNa7h9sGBipx+EUhnDh76AIMXj6ABAP0oRIFN9yeuLUdU7tQbUudaImwI
- 2JwPY1t126ZMmdL6vm9Xbbyj/BLK6vo=
-X-Proofpoint-GUID: CTJhBYIyODsTvXA5TgxC6EstFdV3S_SH
-X-Proofpoint-ORIG-GUID: VeWHy195uGzXlBEJaEaDPnLzgJqp5EgW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 clxscore=1011 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110074
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:d6Vj9h02iqxHr9kGrlacLTxDK7SsdXhEqYQvXy+ZiWdWDhZ/fLM
+ NL1RPpGWBiCC0n4GHS/a+FdYUBym6tkk1CNeiZqudzYZOZh142nEX6HGUByyaKlznXDfxH3
+ HPzIK7Hqz/XGW2OpIDn2W9Gt8zIrRhCVGRKZIO8SkAshTS9WPkLhhejkkDZ+t2AyPA1qwtk
+ yL+10gOP+ykUtDrdZXs9g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:HqMdl1Ggdek=;2j7inzJTH3jCDJ9YkOfLgFCZ3Lo
+ +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
+ JsclrXuQ+hfNcD/1lQnggl0hqjQ==
 
-On Wed, 2026-11-11 at 14:45 +0100, Roberto Sassu wrote:
-> On Tue, 2026-11-10 at 17:21 +0100, Christian Brauner wrote:
-> > On Thu, Nov 05, 2026 at 11:37:39AM -0800, Danny Hu wrote:
-> > > This proposal consists in including file metadata as additional files=
- named
-> > > METADATA!!!, for each file added to the ram disk. The CPIO parser in =
-the
-> > > kernel recognizes these special files from the file name, and calls t=
-he
-> > > appropriate parser to add metadata to the previously extracted file.
-> >=20
-> > No, sorry. We're not going to do this:
-> >=20
-> > * This is in-band signalling by filename. A METADATA!!! entry changes
-> >   the meaning of whatever came before it in the stream.
->=20
-> Yes, it is a hack, but such an image is backward compatible with
-> previous versions. There is no new format, version bump, etc.
->=20
-> >   Which is just the TRAILER!!! nonsense all over again (cf. [1]).
-> >   No cpio tool knows about it and a kernel without this parser silently
-> >   extracts the metadata as junk files.
->=20
-> METADATA!!! is stored in ramfs/tmpfs if not processed, so it is just a
-> temporary file, like the rest of the initramfs content.
->=20
-> > * It sets whatever xattrs the archive comes with through vfs_setxattr()
-> >   during early boot. Which is insane.
->=20
-> Similarly, the archive can already ship arbitrary binaries that get
-> executed as root. If you want, we could restrict it to security.ima and
-> security.evm only.
->=20
-> >   Not just security.ima but security.capability, security.selinux,
-> >   trusted.* and anything else.
-> >=20
-> >   And we've NAKed this before in 2018 (cf. [2]).
-> >   The magic file name scheme was called a kludge back then too (cf. [3]=
-).
-> >   Nothing about that has changed.
-> >=20
-> > * The initrd is already covered as a whole. Appraising
-> >   individual files inside an image whose integrity is plain weird.
->=20
-> I agree when the image is prebuilt and has a known reference value. As
-> far as I know, there is no reference value when the initial ram disk is
-> dynamically generated on the host. In the latter case, using finer-
-> granularity measurement/appraisal is the only option.
->=20
->=20
-> > * If kernel and initrd are owned by different parties this can be
-> >   done in userspace. A trusted /init can apply xattrs from a manifest
-> >   before it runs anything else. That was pointed out in 2019 already
-> >   (cf. [4], [5], [6]).
->=20
-> Unless the trusted /init is in the kernel image and launched as User-
-> Mode-Driver (UMD), you need to measure/appraise it, which again
-> requires its signature to be carried in the initial ram disk.
->=20
->=20
-> > This has been proposed in some form since 2018 and never found a
-> > maintainer willing to take it. I'm not taking a private cpio extension
-> > into init/initramfs.c either.
->=20
-> I understand. v3 was close to being upstreamed but then got stuck
-> because nobody was willing to take it, despite all review comments
-> being addressed. In its favor, this extension is harmless. If
-> METADATA!!! is not there, nothing happens. If it is there and not
-> supported, it is a junk file removed together with the rest of the
-> initramfs content.
+The core functionality of the hx83102d is software-compatible with the hx8=
+3112b. As with the hx83112b, firmware flashing is unimplemented.
+This commit also adds support for touchscreen chips which do not have a re=
+set GPIO, like the hx83102d in the Samsung Galaxy A20e.
 
-At the time, there was no initramfs maintainer.  At LSF/MM 2018, I brought =
-it up
-[1]. AL said he wasn't the maintainer (and if I touched it, I would become =
-the
-de facto maintainer).                                        =20
-                                                                           =
-    =20
-[1] https://lwn.net/Articles/753276/
+Tested on: Samsung Galaxy A20e (SM-A202F)
 
-Mimi
+Signed-off-by: Henri Ommer <henri.ommer@gmx.net>
+=2D--
+ drivers/input/touchscreen/himax_hx83112b.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-> > [1]: https://lore.kernel.org/r/d69f329c-8365-bb0e-69ee-774cbea141b2@zyt=
-or.com
-> > [2]: https://lore.kernel.org/r/3d1bfbd7-7d45-4cf1-32d6-7f6985b42393@sch=
-aufler-ca.com
-> > [3]: https://lore.kernel.org/r/f2886ac7-aff9-94bc-5f65-b3b2e946a6ff@sch=
-aufler-ca.com
-> > [4]: https://lore.kernel.org/r/20190512091748.s6fvy2f5p2a2o6ja@isilmar-=
-4.linta.de
-> > [5]: https://lore.kernel.org/r/20190512194322.GA71658@rani.riverdale.la=
-n
-> > [6]: https://lore.kernel.org/r/CALCETrV3b205L38xqPr6QqwGn6-vxQdPoJGUygJ=
-JpgM-JqqXfQ@mail.gmail.com
-> >=20
->=20
+diff --git a/drivers/input/touchscreen/himax_hx83112b.c b/drivers/input/to=
+uchscreen/himax_hx83112b.c
+index 345ece27fe74..04c9c6aba396 100644
+=2D-- a/drivers/input/touchscreen/himax_hx83112b.c
++++ b/drivers/input/touchscreen/himax_hx83112b.c
+@@ -7,6 +7,9 @@
+  * HX83100A support
+  * Copyright (C) 2024 Felix Kaechele <felix@kaechele.ca>
+  *
++ * HX83102D support
++ * Copyright (C) 2026 Henri Ommer <henri.ommer@gmx.net>
++ *
+  * This code is based on "Himax Android Driver Sample Code for QCT platfo=
+rm":
+  *
+  * Copyright (C) 2017 Himax Corporation.
+@@ -132,6 +135,14 @@ static int himax_bus_read(struct himax_ts_data *ts, u=
+32 address, void *dst,
+=20
+ static void himax_reset(struct himax_ts_data *ts)
+ {
++	/*
++	 * Some versions of himax touchscreen chips do not contain a reset
++	 * GPIO. The downstream driver only resets these chips for firmware
++	 * updates (which aren't implemented in this driver)
++	 */
++	if (!ts->gpiod_rst)
++		return;
++
+ 	gpiod_set_value_cansleep(ts->gpiod_rst, 1);
+=20
+ 	/* Delay copied from downstream driver */
+@@ -349,7 +360,7 @@ static int himax_probe(struct i2c_client *client)
+ 		return error;
+ 	}
+=20
+-	ts->gpiod_rst =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	ts->gpiod_rst =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	error =3D PTR_ERR_OR_ZERO(ts->gpiod_rst);
+ 	if (error) {
+ 		dev_err(dev, "Failed to get reset GPIO: %d\n", error);
+@@ -399,6 +410,12 @@ static const struct himax_chip hx83100a_chip =3D {
+ 	.read_events =3D hx83100a_read_events,
+ };
+=20
++static const struct himax_chip hx83102d_chip =3D {
++	.id =3D 0x83102d,
++	.check_id =3D himax_check_product_id,
++	.read_events =3D himax_read_events,
++};
++
+ static const struct himax_chip hx83112b_chip =3D {
+ 	.id =3D 0x83112b,
+ 	.check_id =3D himax_check_product_id,
+@@ -407,6 +424,7 @@ static const struct himax_chip hx83112b_chip =3D {
+=20
+ static const struct i2c_device_id himax_ts_id[] =3D {
+ 	{ .name =3D "hx83100a", .driver_data =3D (kernel_ulong_t)&hx83100a_chip =
+},
++	{ .name =3D "hx83102d", .driver_data =3D (kernel_ulong_t)&hx83102d_chip =
+},
+ 	{ .name =3D "hx83112b", .driver_data =3D (kernel_ulong_t)&hx83112b_chip =
+},
+ 	{ /* sentinel */ }
+ };
+@@ -415,6 +433,7 @@ MODULE_DEVICE_TABLE(i2c, himax_ts_id);
+ #ifdef CONFIG_OF
+ static const struct of_device_id himax_of_match[] =3D {
+ 	{ .compatible =3D "himax,hx83100a", .data =3D &hx83100a_chip },
++	{ .compatible =3D "himax,hx83102d", .data =3D &hx83102d_chip },
+ 	{ .compatible =3D "himax,hx83112b", .data =3D &hx83112b_chip },
+ 	{ /* sentinel */ }
+ };
+=2D-=20
+2.56.0
+
