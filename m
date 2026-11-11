@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794431322;
-	b=lBjUbrXI35z/TDqQ63zlX0hHqRe54NLJ+8Dtyntk44rJ6R27YBbO1Inm27wOeLIEPegu
-	 IA50H+mEyvL2in2nzeetzhspANtOnP1WgJUtdjr4CMTnqbmspkn67xNM6G6FR0x6v2ElY
-	 L74LsVaKsWTo9q/MrOSs1mQgXMwoIP/WfM260jpbK22MRQh/ekYm80jZ5xqd/Q8NjgTF6
-	 NBQULiH5HpCWsoAutvDgw25G6MimA2APa5+fHhGXC6xtgNdUEgWN8x3gK6LB7YdOpCHDH
-	 pVgrRXkXRQBXZYf8ApwXg2WqiBr/Se8ZWLLGnB5AVLe3o+A45j27n8NdHK07KBYCRDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794431322;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=btDrkYTYNJ0PoGfoU0vNHJPAv57DG39AtPHvIg5EYYI=;
-	b=L6tsTbJtXCzvweZRjLgg6lg+lC5cqc6VWwWtx2b9Sz1Qa/h3fq3Gmh/TcNtTZtyiMDts
-	 hYGVZgae6wqTg6OK8SrWic1UeY9OvAL9kHpB+j+8AyvjLGsvEUR7nMfABaMwleWHTFBzD
-	 D3vG3OdBuo/aQd7sWYLF/AZH1l3fjzdHh4SkuyCZlqNqT6seu7spuDdsta6CbuKdQlTJU
-	 Jtz3IXW8GpcHmqlye6rWzgndkycVNHEeP277gbxcr9dp23MWM7AVsJZ3VoF/itMIDDvq9
-	 S0bHVvmcpqHzoLzRHTMP6jojhQwPo5b+0PgYo2PDhKUuckBUrnuP0oYdKBUhNR+hZgw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=bQ+l9VVo;
-	arc=none smtp.remote-ip=209.85.222.41
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794431420;
+	b=5n/omuJMG+8wtuNyNgbRO41FW8JP/6IucxTVf3KvsfyJk6jdpaqAvF1BhjkLvoR4ewHI
+	 qeoCHCK97TEkb4Xzs748TLPhaBAHcCuaZEtR22os9qPS5aoFRjXneSd9JaOTCZWG9XUiX
+	 QUqfFCkQd6sltc/06qs/3wb6eJzkhAxddqsh3F7s5mweXTXaMoLe9h2hhoiYEcrzAVgfk
+	 llcZh+LtgeeIxSqZp5yBNGTqq/dYGYRfto3z/p0n/Zh77I2PD60mG4VvKUNa4LRHXz8AF
+	 FeS5DiE1Wn0pE9ary/sVLp+0ppuCFZWEf3zIKW/m1UPn9XKukjf0Xjn0fKSPpvxl2ww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794431420;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=R0l2g1VzA2+y2dr/PMBAOnhDTsNQZBQYybpf5pAA+ZY=;
+	b=3QcTCSJsNyamONaHMzbVlcKiz9BgcGfvHtccvG0e2fZZ2UJHGkPbxfbdv+ViPMJRmZXk
+	 V5NECDOeq/HJKcfjHxYuo7BeeYoR4KAHK1zZXvLQuQFMmhQageWTgY3NhAgKunhJ6y5I+
+	 YRO43RRE0Ecn7BRZc9m0quuzSFvqYYOpUEggMF4g/wLJ4uX5UsVi8zLo1xVQgmIRSkv7B
+	 eb662hKbndGbXymq3GlIyUWBAVPr8/m4rloZAOpqHIMXZaRw97nwRJA0R7RsRiBoUbDau
+	 7yqyRjDRROjqI5hv0mDBcYmfZ/xJEv05vBkz2Ev9GKis7UusaYfgudWOoiip1IHvAUQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mePDC2Hq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB85606A31C;
+	Wed, 11 Nov 2026 21:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mePDC2Hq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794431420;
+	b=oz2D0smNcSykICs8oy8JVcrvZsMX34S8+PbtvecaS2iAPRylMOHNquWqhVhWuNOzkjbc
+	 WIY9Uk6y2aCkDTDwMPAasXe30VzFly1v7BaMY0YMP0YMlY7xK17l9cRK+zIqyk6Sls2vf
+	 O469eTsig8mmFrl2gIj37ETp7/cNlbk1oU9FQfuTdPEHxoO5qud5uPFsJdqO+nPypiiMX
+	 SaZntDVvLiiS1BPr0Sd+dY8acyzvwU7IitwdBmKtpKCzl0z8M7pAPwuhDje3NsxtBZQJl
+	 zL/WLONu28RgFi/BcRBDqv37AzkD+f2xE02MKYokWPO9uPcycwjeDozhLdHJm71WpsA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794431420;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=R0l2g1VzA2+y2dr/PMBAOnhDTsNQZBQYybpf5pAA+ZY=;
+	b=VBxfNz07TtBT4RwZszCG6n++N0H6vyph9PhJQaB42+eTmyyx83BWVvXNjd7C6dvQxDay
+	 mbhI/ddLYqQ8FiTqzhC3OMMx5TpcPlCpoBbyCuoKF3L32Ok9QstRFJGoLIj7lhs02izQi
+	 0MqXeQNBJnghADUanMTshQrPgBtJ05DrEPF2CZa2nJfoEqqqnEB8skvl/UvtXqSupd2QN
+	 IKv0AXdbcFNpAp6744gYXqOl+0FAVtvdyVYGp393j9Ar8h2mzTFks9zdOvPbtOH1pDx1N
+	 zpJTZnQoxHSvh9BfPcB9vUy5W0O6pSXWVvtVoah4gy4e3ifFAxNguiYHOv5Y6k5RHGw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3240E606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3240E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=bQ+l9VVo
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-996eeadfbeaso1841468241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:08:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794431321; x=1795036121; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=btDrkYTYNJ0PoGfoU0vNHJPAv57DG39AtPHvIg5EYYI=;
-        b=bQ+l9VVoMwvAm/CKFZgdLB2QydP5aWKXNvnAuRgO7SaPeutgpV7zl6BX4179rQZg48
-         ZV422cFKzeEEenQuviO7fzqLfdEAJrZqNkxCUmgzDhFOrFBXYoqhQkBnRCkt4NAN2Tmf
-         E+w6NsOSrf/Np+SEOkqdA7z52ETjOzKDkDzQ1Pow+VrZmLFAetPIFsK2vGPn6GZjJ8kb
-         PVSZqcryXLm4jIPf34OloxwEtRHMsZ9XDOZzW3kSR0vgGB8SxqYOmzuOV7vWn6Ch+lPL
-         MVnwmggm63D/Gv5FomqIr5b/eUgN9HWBbgn7rzYLaLo/IOG4tqYrV98AGbIp4D/L9UEl
-         Uk3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794431321; x=1795036121;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=btDrkYTYNJ0PoGfoU0vNHJPAv57DG39AtPHvIg5EYYI=;
-        b=ZurWAGntzuGZmN2vAjwWpgT/YlU5Kh8t6pGgn+t7mx+dydcT2mpYRfkXxg+lhtcZSb
-         CWbd8nHtZvwUe7kF3HaPKynK//coIO7IiG703Q+odeOwIu/85Ivt35J1npUl/c3K3IGY
-         WIAD0XK6kCRM0cWRBujr3oeGFdg7hr4N9kbWlYKayYARWqBED25K2FscJB34kzaIZmCK
-         TiceTcP8ubDZKsyQ72cX8+THsERi8Dq92Ub5+A4SysrBcOUNLkeoskLqMK9UMPRgwlgx
-         O2/Iq1MWNH+wrHRvuaNILE8kP5+wQbsuwa21l7rIuhqnTMgHLAEgh4E3yq1TkksFz7Vn
-         oRnw==
-X-Forwarded-Encrypted: i=1; AL+hErHqzat0kIGUK27HrwB0qDcGA3x06V5I36WFvebLMWYw5MBKKIIpOr48XKjOlp16nm2X6yvwFVLfi8A/hgo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80OmkluT/rqLtjwrzHhn6GV5tMqldMjpWWym+In+PgskDufXC0
-	vl3lFY739AH4XB21thj2KWrzPkfDsP3EUvTSHC0dn7/lO7mLHOHLQcpgmv1qrMotj1U=
-X-Gm-Gg: AYBFou0oOaMpxmQa6pS1/uVt7nlhXCFfvaOcUgdIdPnfNC7abYLYdX46RuMzxleC5Sb
-	s7+nkO1GCcLwPHcg3gS2UEQ6a9znXjEWxsB+gfkM2xiVCA38CUCp10R62GHBXMGGcdRxVEk8zbZ
-	SQ+1+7kCNL/4dbTP5jl4PIBE2gwKXMW65it0Kg0SUNPjQR748IkjSEl53rEoL25OTlaz3gNOFiW
-	yYIyenUX7aVUI87NMErAZMS6xpKUFMU+zFoTvCDPqwgNj9nhN465C7QMV4AK1o2advx+2okmqsR
-	c4cpVDznOwNDwq1b0cCn0Ylrb3AIJUi8AgOX3vvynRF8A1+lxHaRNWGSDngToxvP2A/yS72t+i+
-	LkGPV29tJPsgSfYyMpac9B+JRu2RABOCu3AaKAWAaiMx3kLaP2/WkXLfl15wCxX3IFWPraYyxEy
-	UAZmzEXq7aCHerMVi0IelQIfGBMlq9NHI701NjxdeWO7GdzaunS/Ek4qyzdkqWHExA0yPYMV040
-	5aq+IPJG0D8536CVTnzwWgnd1m6omd3CL/ghr+WlYL/QmcevsBZ+Q0PcDCOCa5xI+E+FJ4D+Dag
-	3JQVlcZ/u9ZipCVqJuCKH6tYc6aoVLmcluRthC/Is6NdrxS5cuRpDZvyEa3hWzVSOvWh3K5aibx
-	kj+YFTt4+BpR4C8LCWhojoINNNKyt9CmdXdJD6BjZ+z4RraVWYQ==
-X-Received: by 2002:a67:e7cc:0:b0:7cc:2bb7:1335 with SMTP id ada2fe7eead31-7d50619786fmr1721867137.33.1794431320983;
-        Wed, 11 Nov 2026 13:08:40 -0800 (PST)
-Received: from localhost (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d302239188sm4464461137.2.2026.11.11.13.08.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 13:08:40 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 806921F00A05;
+	Wed, 11 Nov 2026 21:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794431420;
+	bh=R0l2g1VzA2+y2dr/PMBAOnhDTsNQZBQYybpf5pAA+ZY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=mePDC2HqUkGvPM0EEJg0dZeAUfBnFlNw/0HM+DBmakdAc4myUpY+sp7oKYlsS9thK
+	 EMo3+rOtrIKWxJVIv14LHceeeO04GQAEWLnNxDyfpc4Lvp6RCaMjd60IkmmpqqxySR
+	 lKZIQ9ztAcllEEb7el8EP1odPZGS3YBqP4kG6PJyb1tNOBZt1Gc8TodchR/0DwlZfy
+	 ictBoMiP+9G74y/bPmkqfiJDZSru5c1tYKISwhbnzR2QyLAnXIdUC8IKXO06Hd4X35
+	 IFKReM4vtzr+chfzYX5soWeCvc7PTyREdFkgSpApRzQmN5OYLvxzGwzIVVVeu9xPD1
+	 U7NCo1kyGWgAA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D005749119;
+	Wed, 11 Nov 2026 21:10:18 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 11 Nov 2026 16:10:18 -0500
+Subject: [PATCH] sched/wait: Queue non-exclusive waiters at the head in
+ do_wait_intr*()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,241 +82,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 16:08:39 -0500
-Message-Id: <DMSOTBXD71F7.1EJSHUFZLZH39@soleen.com>
-Cc: <linux-kselftest@vger.kernel.org>, <shuah@kernel.org>,
- <linux-mm@kvack.org>, <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>, <vipinsh@google.com>,
- <linux-kernel@vger.kernel.org>, <corbet@lwn.net>, <dmatlack@google.com>,
- <kexec@lists.infradead.org>, <pratyush@kernel.org>,
- <rdunlap@infradead.org>, <graf@amazon.com>
-Subject: Re: [PATCH v5 4/6] liveupdate: luo_flb: support incremental
- outgoing FLB publication
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-To: "Mike Rapoport" <rppt@kernel.org>, "Pasha Tatashin"
- <pasha.tatashin@soleen.com>
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261105050053.3063001-1-pasha.tatashin@soleen.com>
- <20261105050053.3063001-5-pasha.tatashin@soleen.com>
- <179439592041.425130.7284974054491864276.b4-review@b4>
-In-Reply-To: <179439592041.425130.7284974054491864276.b4-review@b4>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMOw7CMBCE4atEW7NSHDkIcRVE4ccYL4VBXvOQo
+ twdh0z3FfMvpKgCpfOwUMVbVB6lwxwGCtmVG1hiN03jdDR97C1ryIj8cdJYSquc4SKHGac0+tm
+ aZKm/nxVJvv/y5bpbX/6O0LYcresPfOz7DXsAAAA=
+X-Change-ID: 20261111-b4-sched-wait-intr-head-c5e8f0b541f4
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+Cc: Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>, 
+ Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794431418; l=3328;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=aBf1tiVmoERImLGkIeTudmuMhxlNlGR/QO90qjNZf4c=;
+ b=0J3ROETF5fxEF0iC8HWrpHh6eAV/x7d2MVrYq/bu3LA5m0ULolawd1s+PMuZ1vwHvoj/C/nNo
+ yyNhK7kPb+7APywjUL4k3ZtYbz2cKxN49bGso7QvmFHlvHiQSFv8STj
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On Wed Nov 11, 2026 at 6:18 AM EST, Mike Rapoport wrote:
-> Hi,
->
->> When a session is published to KHO via luo_session_publish_one() ahead
->> of reboot, any FLBs that its preserved files depend on must already be
->> present in the outgoing KHO FLB array so the KHO tree remains
->> self-consistent.
->>=20
->> Currently, outgoing FLB metadata in luo_ser->flbs_pa is populated only
->> during reboot by luo_flb_serialize(), leaving luo_ser->flbs_pa empty
->> when sessions are published earlier.
->>=20
->> Publish outgoing FLBs from luo_session_publish_one() via
->> luo_file_publish_flbs() -> luo_flb_file_publish() ->
->> luo_flb_ser_publish_one(), and drop the now-redundant
->> luo_flb_serialize() pass from liveupdate_reboot(). For each published
->
-> Oh, my :(
-> Why do we care about exact long call sequence here?
->
->> file, luo_flb_ser_publish_one() either appends a new luo_flb_ser entry
->> with count =3D 1 using smp_store_release() on header_ser->count or
->> increments the existing entry's count in place, keeping the serialized
->> count equal to the exact number of published files in KHO without
->> including uncommitted sessions or transient
->> liveupdate_flb_get_outgoing() references.
->
-> Got tired here, the prose needs a lot of human touch.
->
->> FLB publication is one-way and never needs to unpublish: before reboot
->> it runs only when a session is committed, and a committed session never
->> unpreserves its files, keeping private->outgoing.count >=3D 1 until
->> reboot so flb->ops->unpreserve() is never called on a published FLB.
->> If more FDs using an already-published FLB are preserved later,
->> flb->ops->preserve() is not called again; file handlers update the
->> shared live object via liveupdate_flb_get_outgoing(). Consequently, FLB
->> handlers must:
->> - return a stable root KHO handle in argp->data from .preserve() whose
->>   address does not change as FDs are added later;
->> - synchronize concurrent mutations to outgoing.obj with their own lock;
->> - support per-FD rollback when uncommitted sessions close without
->>   disturbing already-committed entries.
->>=20
->> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
->> ---
->>  kernel/liveupdate/luo_core.c     |  10 +--
->>  kernel/liveupdate/luo_file.c     |  16 +++++
->>  kernel/liveupdate/luo_flb.c      | 111 ++++++++++++++++++++-----------
->>  kernel/liveupdate/luo_internal.h |   3 +-
->>  kernel/liveupdate/luo_session.c  |   2 +
->>  5 files changed, 95 insertions(+), 47 deletions(-)
->>
->> diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
->> index 1b2bda22902d2..9fef5161a1f3d 100644
->> --- a/kernel/liveupdate/luo_core.c
->> +++ b/kernel/liveupdate/luo_core.c
->> @@ -219,18 +219,10 @@ late_initcall(luo_late_startup);
->>   */
->>  int liveupdate_reboot(void)
->>  {
->> -	int err;
->> -
->>  	if (!liveupdate_enabled())
->>  		return 0;
->> =20
->> -	err =3D luo_session_serialize();
->> -	if (err)
->> -		return err;
->> -
->> -	luo_flb_serialize();
->> -
->> -	return 0;
->> +	return luo_session_serialize();
->
-> I suppose the wall of text above describes why you change this.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Yes, FLBs are now serialized as each session is serialized, so the separate=
- luo_flb_serialize() pass in liveupdate_reboot() goes away. I will make tha=
-t clear and short in the commit message.
+A task blocked in read() on an eventfd or timerfd can sleep forever
+while the file is readable, if an epoll(EPOLLEXCLUSIVE) watcher of the
+same file was added before it.
 
->
->>  }
->> =20
->>  /**
->> diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
->> index 988eb313a135f..611b9967a3a91 100644
->> --- a/kernel/liveupdate/luo_file.c
->> +++ b/kernel/liveupdate/luo_file.c
->> @@ -380,6 +380,22 @@ void luo_file_unpreserve_files(struct luo_file_set =
-*file_set)
->>  	kho_block_set_destroy(&file_set->block_set);
->>  }
->> =20
->> +/**
->> + * luo_file_publish_flbs - Publish FLBs for all preserved files in a fi=
-le_set.
->> + * @file_set: The file_set being published to the outgoing KHO subtree.
->> + *
->> + * Iterates through all preserved files in @file_set and ensures their
->> + * associated FLB metadata is published in the outgoing KHO FLB array b=
-efore
->> + * the session itself becomes visible in KHO.
->> + */
->> +void luo_file_publish_flbs(struct luo_file_set *file_set)
->> +{
->> +	struct luo_file *luo_file;
->> +
->> +	list_for_each_entry(luo_file, &file_set->files_list, list)
->> +		luo_flb_file_publish(luo_file->fh);
->> +}
->> +
->>  static int luo_file_freeze_one(struct luo_file_set *file_set,
->>  			       struct luo_file *luo_file)
->>  {
->> diff --git a/kernel/liveupdate/luo_flb.c b/kernel/liveupdate/luo_flb.c
->> index cd715a7c1d992..6cd87a9f8307d 100644
->> --- a/kernel/liveupdate/luo_flb.c
->> +++ b/kernel/liveupdate/luo_flb.c
->> @@ -34,6 +34,15 @@
->>   * This reference-counted approach ensures that shared state is saved e=
-xactly
->>   * once and restored exactly once, regardless of how many files depend =
-on it,
->>   * and that its lifecycle is correctly managed across the kexec transit=
-ion.
->> + *
->> + * Serialization: Outgoing FLB metadata is published into the KHO FLB a=
-rray
->> + * incrementally as sessions are published to KHO (when committed early=
- via
->> + * LIVEUPDATE_SESSION_FREEZE_COMMIT or during reboot). Because a commit=
-ted
->> + * session never unpreserves its files, FLB publication is one-way: onc=
-e
->> + * published, the FLB's .unpreserve() callback is never invoked and its=
- root
->> + * KHO handle from .preserve() remains immutable in KHO, while later se=
-ssions
->> + * may still add or remove per-FD state in the shared live object under=
- the FLB
->> + * handler's own synchronization.
->>   */
->
->
->> =20
->>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->> @@ -72,6 +81,13 @@ static struct luo_flb_global luo_flb_global =3D {
->>  	.list =3D LIST_HEAD_INIT(luo_flb_global.list),
->>  };
->> =20
->> +/*
->> + * Serializes updates to luo_flb_global.outgoing.header_ser and .ser[].
->> + * Lock hierarchy:
->> + *   luo_register_rwlock -> private->outgoing.lock -> luo_flb_ser_lock
->> + */
->> +static DEFINE_MUTEX(luo_flb_ser_lock);
->> +
->>  /*
->>   * struct luo_flb_link - Links an FLB definition to a file handler's in=
-ternal
->>   * list of dependencies.
->> @@ -104,6 +120,36 @@ static struct luo_flb_private *luo_flb_get_private(=
-struct liveupdate_flb *flb)
->>  	return private;
->>  }
->> =20
->> +static void luo_flb_ser_publish_one(const struct liveupdate_flb *flb, u=
-64 data)
->> +{
->> +	struct luo_flb_header *fh =3D &luo_flb_global.outgoing;
->> +	u64 nr;
->> +
->> +	guard(mutex)(&luo_flb_ser_lock);
->> +	if (!fh->active)
->> +		return;
->> +
->> +	nr =3D fh->header_ser->count;
->> +	for (u64 i =3D 0; i < nr; i++) {
->> +		if (!strcmp(fh->ser[i].name, flb->compatible)) {
->> +			WRITE_ONCE(fh->ser[i].count, fh->ser[i].count + 1);
->
-> An LLM says:
->
->   Why the WRITE_ONCE()? All writers hold luo_flb_ser_lock, and nobody rea=
-ds
->   this before kexec.
+eventfd and timerfd wait with wait_event_interruptible_locked_irq().
+do_wait_intr_irq() adds the reader at the tail, behind the exclusive
+epoll entry, and __wake_up_common() stops after waking that entry.  If
+the woken epoll task is killed or leaves without reading, nothing wakes
+the reader:
 
-Same kho-ro prep as in patch 2, will switch to fh->ser[i].count++ in v6=20
-and move the concurrent reader bits to the kho-ro or luo-ro series.
+  Task E                   Task A                 Task C
+  epoll_wait(ep, -1)
+    /* EPOLLEXCLUSIVE */
+                           read(efd)
+                             /* queued after E */
+                                                  write(efd, 1)
+                                                    /* wakes E, stops */
+                                                  kill(E, SIGKILL)
+                           /* still asleep, efd is readable */
 
->
->> +			return;
->> +		}
->> +	}
->> +
->> +	if (WARN_ON_ONCE(nr >=3D LUO_FLB_MAX))
->> +		return;
->> +
->> +	strscpy(fh->ser[nr].name, flb->compatible, sizeof(fh->ser[nr].name));
->> +	fh->ser[nr].data =3D data;
->> +	fh->ser[nr].count =3D 1;
->> +	/*
->> +	 * Ensure the serialized FLB entry is visible before exposing the
->> +	 * incremented count to concurrent KHO readers.
->> +	 */
->> +	smp_store_release(&fh->header_ser->count, nr + 1);
->
-> An LLM says:
->
->   And this release store pairs with nothing.
+A periodic timerfd doesn't wake A either, since the timer is restarted
+only by a read.
 
-ditto
+prepare_to_wait_event() and add_wait_queue() add non-exclusive waiters
+at the head, which is what __wake_up_common() relies on.  eventfd did
+the same itself before it switched to these helpers.
 
---=20
-Pasha
+Do the same in do_wait_intr() and do_wait_intr_irq().  This only changes
+the order in which non-exclusive waiters are woken.  Each of them still
+gets every wakeup.  With the fix, A is woken by the write.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: 22c43c81a51e ("wait_event_interruptible_locked() interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/evexcl.c
+
+gpiolib-cdev and cros_ec_chardev use the same helpers and can be
+polled too, so this fixes them as well.
+---
+ kernel/sched/wait.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
+index f8d6d8b9d03e..342dec5fd937 100644
+--- a/kernel/sched/wait.c
++++ b/kernel/sched/wait.c
+@@ -319,8 +319,12 @@ EXPORT_SYMBOL(prepare_to_wait_event);
+  */
+ int do_wait_intr(wait_queue_head_t *wq, wait_queue_entry_t *wait)
+ {
+-	if (likely(list_empty(&wait->entry)))
+-		__add_wait_queue_entry_tail(wq, wait);
++	if (likely(list_empty(&wait->entry))) {
++		if (wait->flags & WQ_FLAG_EXCLUSIVE)
++			__add_wait_queue_entry_tail(wq, wait);
++		else
++			__add_wait_queue(wq, wait);
++	}
+ 
+ 	set_current_state(TASK_INTERRUPTIBLE);
+ 	if (signal_pending(current))
+@@ -336,8 +340,12 @@ EXPORT_SYMBOL(do_wait_intr);
+ 
+ int do_wait_intr_irq(wait_queue_head_t *wq, wait_queue_entry_t *wait)
+ {
+-	if (likely(list_empty(&wait->entry)))
+-		__add_wait_queue_entry_tail(wq, wait);
++	if (likely(list_empty(&wait->entry))) {
++		if (wait->flags & WQ_FLAG_EXCLUSIVE)
++			__add_wait_queue_entry_tail(wq, wait);
++		else
++			__add_wait_queue(wq, wait);
++	}
+ 
+ 	set_current_state(TASK_INTERRUPTIBLE);
+ 	if (signal_pending(current))
+
+---
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+change-id: 20261111-b4-sched-wait-intr-head-c5e8f0b541f4
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
