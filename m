@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794368334;
-	b=b6ZUungUO83SLoxOA3+PC28ByIoxxGDwzTdJZx1hVJMC088QjsYdBtjmkl3g7N0W6pz7
-	 Q485+Hz0cixPv6XzPfLc4KKMFQkwA0PIwlSQ5SmN26cN0Lehe8O2e2u16ymHWKm10kZmb
-	 8Sp2B5plXveUJ3RwNvnZ2j/VZeN9db8vTzd/SnZoEMPCAlz/hhftMiV5KG7HZETy4QZGK
-	 WwLoXc/vatCr2MxUPgi+eT3iM0/zoIBFL9TU7evKIIL8mHOrz8E8oEHpExn2u7TxW9Uti
-	 SLsTF7SPcy4b/amfrwrCtvDOmFDQgdbN9kue4z5no9iSg6BNfqxZWWK3lyElrSEPN/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368334;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Z2ET6l1kFZ7646cHbCayQI5WEMFcXf1kwxAiWCRuN1g=;
-	b=UCkkOl4UYvPfkP8aXivzyZIwLZnyGuvnc/GnUbFYtp3WoKVYmScSLPplYLZM1xCSXl7U
-	 xrMG4lP8mozHApmqQ9kIg7aGXCuUlVtG4e1lU760fHbAQFU7YuLQppOs86o2PmYaWbEVZ
-	 kNrFFoyz7btCvDN3PAF4O0aHzOHUNDgZizrnBUOu2m91Uv39A5kxGzkL/7cHbkjfmJbRV
-	 bcvyVuu/CTK0LPtG5I2/CQ7L1ieby4mB3JPv6xOGY8Ok115MFQmA9LMjkJlGRSUkcY5y+
-	 V7muauzSjcn2Qrrbs47OHfwS3SYu4dnuutNW4vRYBePtJzGjevC9FftskOdVGa4p6uQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q48DEDPK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794368396;
+	b=zvq8CBCqRG+Hg05pqM8LIQlsqyC6yW/tx+uFnIztOvRzrShtj3QhM2JPv6Y7xqQFpKCp
+	 qxErJV6bT8ML47q7YVkdGISIHf6er81hAPyLPuNZrTAnwIn04oyVLlKI8XCQrn13fx0UP
+	 PPce4Zm51aa8IGMop7oMy6KMjz4RW6TqALW7YhMOeLhGYljoCLPm6ozLnIFsiAIwm2GoY
+	 r1ozdMHVi0qkd5SItpYyDnH6hQM1jDDdh17VCaZw0iEE0/qdgx/n7TwKTBo8kxRxrZhv9
+	 6FmDrP5Yp/bE7ih/FcVFDKw858qgH+wjobdRWRhKclYuqdLqYL0sO2GW8MG9JeIIhaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368396;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=k8pe3tOEsqNneCAZxFljqZ7LcXG/k88tOXHdLWz/vDc=;
+	b=Mcv1xgw5G6ywwkwNtK2yF6nAmnvo+EWm1pEjmlkkO9d8pIJR/Ul8AseGx6BzZAgVEu3r
+	 qcYSUpIo9II/2f8gc1JSiLBJwV2C8Dx7aACmzr2k2uL4ib3iYK7dhAWy8xmeZ/5sEVdSH
+	 bogs1q6H8g6UC2HWCBrcqbDVrLySL8nZjziBc0LA2MougBULA9EXcy1H1/JzISIy2IX6D
+	 IT8FFTyo1P05rl3rSk1bj5MwPxtHZ4JnSyoctG7/K47xjEnj+FmeliI0GDvPQNcyyvl2K
+	 SDfNESSMbYQt1B2gECWC/HZcFpzH7d/GKjCse2xeU0nuNhxMmcsDkYVjuu1rep3dWMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8C7606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8C7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q48DEDPK
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c445c95d553so372417166b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:38:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794368333; cv=none;
-        d=google.com; s=arc-20260327;
-        b=At2FZxV9FwVKsScL2medOl2tN/lnow0I5Stno7tJcBWR9IPvrHL8tdosjk4eCZ5uYL
-         CB02cs/S+Gi+KjoHRcI+2rAKQtPAx4Tz16+Lm6Vt1hM31W1QVMXnQBOPJH2F/nvP1PI0
-         9dAnbu6ZpZNJTvuj6mR9/8RUq+L7rdO9ZYKp58eA3bnENg4uQxZ2u3nCChCFywItg9Rx
-         E6PLoKZQIFAJdnHOppAhRY/WI48A/xy7JfmZ1EjWi1b3NS6QOe/skK3jkEFzMpcuYVVG
-         JCqrtWnofTMm6ZDoo13Hy7Ii7d1e+GqBW+fc6oMz8NzpLsHI5jbzqQLMmJSHMupO9SZu
-         rCWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z2ET6l1kFZ7646cHbCayQI5WEMFcXf1kwxAiWCRuN1g=;
-        fh=EFxvdNx85LUwgUU5v1bXMDThNGQl3bQmWP2dHwe0koY=;
-        b=L+53WM8nuWyrKc6nkqcZd/Z7jtjkUgre/SLuZNIol8S8jZL9c6Za7heijOYeWHjAdu
-         EtjIcrJ8Z1tByFGUoZunhX++fNflsAuE1RgB/cGr1cuQf0E2F7w7e6imVj0wfAU7CYWP
-         +3nhzFeZnku7St3S+WAm7C0EB/z0EQSEdAKTmf085yXoIef/T2btY9tB4o/iCf51apUN
-         tOAgeVDqCrrQZ5pFReNX/FldlyQy0FqZz+mDaAn4ChTOPbqn93IA9q1q4LRcXmUBjRXL
-         CTXV9L3cY+fuxATP1ULpucLv6cu8tYH9GtD6/8nDjOJ4V0ua68EQQbSWNMW4uaea/c1p
-         Hy7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794368333; x=1794973133; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z2ET6l1kFZ7646cHbCayQI5WEMFcXf1kwxAiWCRuN1g=;
-        b=Q48DEDPK3Of2iJ2kM6UKtQiZRfJnMg7PyITt8bFmZHKKWWyFDhm1OJuxNnIOt/aTgT
-         4bh8Y8ReU9hiLWFjht2jSVZITzhyJbDqR6fXNRhud4YAFKX3Uiw99skP5j1XYatYxLY3
-         gDMzKgqAbw8BWKRZyGpJC09abkkh6f+MKiwXaa4NmlWXMjRWfZeE1b53DMUe4h3/v7NI
-         D/oJCcbaLwyfi1rAwa0YEZoCngyaU9qmRWFrpK9AXsDauYUC3/MWazSQAIkOO5DvYhSi
-         9AITZcX0gGxQSRfuIIwS7ZmCZzbja+jLDTMkekuCm1RM7Hfa1n3kB9ZE8K2qSyVmUSVO
-         1qnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794368333; x=1794973133;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z2ET6l1kFZ7646cHbCayQI5WEMFcXf1kwxAiWCRuN1g=;
-        b=N65LKMXX5O51Hd6DT+UM/2SA7HPQB+qexqrZhmqOhqb8f6Se1OjJOXljXllL8zoZTi
-         SWEH/GV1oesb2q1guNms6XWr2wXHHYMUwq6OUcbbR/AVwmIRLMpblScp9GjbLFeY8vO/
-         fUz2xceM1ohvpy1GKPwrKixgLITOS0+S3EZSaa6xCXOT97DTFN6dm924trImAFeN/cMu
-         Ho4TDc4pD6RnRGlITjIH7399/PRfMm60DntJKnPlLgcG7hp1T0Ddh8hhwUQc06LMQAAJ
-         tO2gZSMXIDFZiFogsuk4Q4Rf/R7ZmELFTHZLeRF4PNZb2GztFhta8PLJJ2svaD8C6yc0
-         J1+A==
-X-Forwarded-Encrypted: i=1; AL+hErEqFcjwbszNIwI3snGuo6dGNJnZLOn4bn+NB/kZEtnIHk+Xm4F7udRTe+5wZOaEx+whVRJnbkhz96SkqbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/C9xgbqWbnvlMiGg66pCHlN0x42V0zTYUSZ53Th+uzyWR0htBl
-	7dFG5vGDaHeQz5rUPmUTonH0bFuofWUzEcVsFH74Az0pg0D4p6z2EcOfg/WLQA8nhshthWk6+DR
-	qxpVp7JaszgySj05OLyM9LB3UxNooxT4UXS0C/I46
-X-Gm-Gg: AYBFou009XVBcQrZxaWu2+lUX4tnavLBNoGMvha2wm+9ZOHptqSwLM5nO61J5ghWekq
-	q5RrMvpHTzDbvE9ExpZq+g67F/XOJyWHrC183d1YNwE+WMhpMa8B7m1d+5sXwm4N9fdu2zcYwiv
-	NSmljca7NiAvfR24KIToFPnHQ3MjvhcNzwclRNNvEUtSo6i8dhIIRDxsFdVBO/ZVUNTDdCWb5C+
-	QPspkD78tAkm7vurZBJt9zSsjbYp1QQcTD0zNjg72eDtLNL/wDkBK0anxQVvmEwXPJgT6CRziaE
-	jQJY55J8d7g5+3OzpewmwIKhW6GbmsRjhvarqBjRt8g25EeZURxqjKkCH8XndHwaet4jD0LvwjF
-	v1Dvydvzvf43rVlZpe1g5cvUxC0Ekm1yjXt7FPKwfJ4HYcKdCIE0OELAkkdngncemRbCVk+Ded/
-	WauE+HJ29xvyFcTls=
-X-Received: by 2002:a17:907:3e8f:b0:c31:c767:adfb with SMTP id
- a640c23a62f3a-c50662a8062mr90474166b.0.1794368332418; Tue, 10 Nov 2026
- 19:38:52 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773CC606A31C;
+	Wed, 11 Nov 2026 03:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 773CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3DrSB4_NqwzzZAA--.16282S2;
+	Wed, 11 Nov 2026 11:39:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+ Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, linux-kernel@vger.kernel.org,
+ workflows@vger.kernel.org
+Subject:
+ Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on teardown
+In-Reply-To: <20261110122714.GA3809@killaraus.ideasonboard.com>
+References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+ <a39b1918-5d04-452b-8b5a-0703963f4587@oss.qualcomm.com>
+ <179430684554.3011466.3431045638041318447@iscas.ac.cn>
+ <20261110122714.GA3809@killaraus.ideasonboard.com>
+Date: Wed, 11 Nov 2026 03:39:57 -0000
+Message-ID: <179436839700.3055208.16759622808608708086@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,97 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
-In-Reply-To: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
-From: Samuel Wu <wusamuel@google.com>
-Date: Tue, 10 Nov 2026 19:38:39 -0800
-X-Gm-Features: AclHuK8W422emwCtXaoFuChUjWHORL2ljfu7vHUC1vM8aNEtLmFd_5-AJv8NDRY
-Message-ID: <CAG2KctpRRDMXR8wG40PeohsTyAdoNC=+4Nc9pHGQc1fmw9AXeQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] PM: runtime: add new runtime metrics and summary
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Dominik Brodowski <linux@dominikbrodowski.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:zQCowAB3DrSB4_NqwzzZAA--.16282S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruw18Zw47JFWxGryfurW3Wrg_yoWkXFbEka
+	4qvFykKw1UXFZF9a1Sqr43Zrs29FW2v34UJ34Fqa1kZ345GF47XF4akFnxAr1SyrZ0kF43
+	Wr13Gw4Fyw1xujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxAYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48J
+	MxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
+	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r12
+	6r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
+	kF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07
+	b5lk3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIIA2rzsLXizwAAs0
 
-On Tue, Nov 10, 2026 at 3:34=E2=80=AFAM Joshua Crofts <crofts@kernel.org> w=
-rote:
->
-> Add a new set additional PM runtime metrics to improve power management
-> debugging and reporting (these metrics may be useful to userspace
-> utilities such as Powertop).
->
-> MOTIVATION:
-> The current implementation only measures the duration a device spends in
-> suspended or active mode, which is very limiting. We can't find out how
-> many times a device changed state or what its shortest suspend cycle
-> was (to detect a sort of power "thrashing" behaviour).
->
-> NEW FEATURES:
-> This series introduces the following new metrics:
-> - resume_count : number of successful transitions to active
-> - suspend_count: number of successful transitions to suspended
-> - last_suspended_time: duration of the most recent sleep cycle (ns)
-> - min_suspended_time / max_suspended_sleep: shortest and longest sleep
->   cycle durations to help detect power thrashing (ns)
->
-> By reading the debugfs file /sys/kernel/debug/pm_runtime_summary, you
-> get the following table describing the power stats of each device with
-> runtime PM enabled:
->
-> Device                           Status        Resumes Suspends   Active(=
-ms)  Suspend(ms)   Last(ms)    Min(ms)    Max(ms)
-> -------------------------------------------------------------------------=
--------------------------------------------------
-> 0000:00:02.0                     active              1        0        45=
-688            0          0          0          0
-> 0000:00:1f.0                     active              1        0        45=
-687            0          0          0          0
-> 0000:00:1f.2                     active              1        0        45=
-686            0          0          0          0
-> 0000:00:1f.3                     suspended           1        1         1=
-658        44028          0          0          0
-> 00:03:0                          active             15       14        19=
-627        25899         42          5      14811
-> 00:03:0.0                        active             14       13        19=
-626        25900         42          5      14811
->
-> TESTING:
-> Tested with an x86_64 defconfig kernel and QEMU.
->
-> AI ASSISTANCE:
-> Gemini was used to prepare this series.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
-> Joshua Crofts (3):
->       PM: runtime: add additional suspend/resume metrics
->       PM: add sysfs attributes for additional suspend/resume metrics
->       PM: runtime: add debugfs entry for pm_runtime_summary
->
->  Documentation/ABI/testing/sysfs-devices-power |  36 ++++++
->  drivers/base/power/runtime.c                  | 156 ++++++++++++++++++++=
-+++++-
->  drivers/base/power/sysfs.c                    |  81 +++++++++++++
->  include/linux/pm.h                            |  12 ++
->  4 files changed, 281 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261110-pm-runtime-summary-8dd29a1383bc
->
-> Best regards,
-> --
-> Joshua Crofts <crofts@kernel.org>
+Hi Laurent,
 
-What is the vision for using these runtime PM stats once surfaced to
-userspace? Runtime PM and suspend have disjoint portions, but I'm
-curious if you see any non-obvious areas where these stats would be
-insightful.
+My main goal is to study how to find bugs in the Linux kernel. When
+that work finds a bug, I also want to help fix it and contribute to
+the kernel.
 
-And is there a reason the stats need to be surfaced in both sysfs and debug=
-fs?
+Static analysis flagged possible bugs, and we reviewed them by hand
+with help from DeepSeek and GPT-6.1 Sol. Even after that review, many
+of them still seemed worth looking into. I got excited about the
+findings and sent more patches than I could follow up on. I regretted
+that decision soon afterward. I should have sent fewer patches and
+replied sooner. I'm sorry for the extra work this caused.
 
-Thanks!
-Sam
+I'll use this shared address only to reply to feedback I haven't yet
+answered on patches I've already sent. I'll go through that feedback
+one message at a time and respect the decisions maintainers have
+already made. If any of the remaining patches are still worth
+considering, I'd be grateful for the chance to answer questions
+about them.
+
+I still hope to contribute to the kernel in the future. If I have
+the chance to do so, I'll use my own email address, respect the
+maintainers' requests, and send only as many patches as I can
+follow up on promptly.
+
+Thanks,
+Wentao
+
