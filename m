@@ -1,62 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418995;
-	b=I7qvZHeP2Tmap5JPrVr04VwroMbCFjwwX5nM9h13hKovVmbFF+hAO3fQTfWWoMVGeGMy
-	 NiA3XuVnt2SmQxCV8wkE1BPyDEq6YEdjY7obXDytXc06ABo86hR8fR99HKfBaWhF+582s
-	 iprWouDvvYefXuRxSeiRHZYCUYgnGBYmeZ898BGCNPMXe+50zU5lLfyfc9uKcNmBf/7Mp
-	 Rd2L/ByAhIRmd3NEPCeEKzuoyeOSG0TzafSjnXQolb4VO0R0tlN8DxziUui3m2JklXgDz
-	 qM/ho7ldNP2jlEoKk5vDyh0uAeL8e39L3qsvKf65YK0gSDfjl1TbkDZFdJ4oDLg7c+Q==
+	t=1794419076;
+	b=gPDExN6F5vdjYaJ1uEbPHqBJrvhgr37p0PccleJs7igXR4LDO3CTJRGnjNkIUTMFaGOb
+	 YqroNv8LTyA7Sn6h6Ieof+q/ukmVVf0DWcRegRlQKmk8FBQ+yQ+tGHm+8FvsdPNruJ1Dh
+	 z+1zZIcacOP4iRVd5srgcqlwgtoBXKb4BgUz+cAttC/a7uO33QufbxjxEeTwHwiF9U66r
+	 T3WE34KEE5AgKXRHH+FMz41b+xRVAVEoDcimcUQKyW6DhRe5qCrwVHcGFhJYSUcF2oYEl
+	 O301WtCyU51XJnQ9TVJN51YiMtcXSNfxz3jWfvRCMwno4sMc5qsdv9/cTZYWFSX66VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419076;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u1s5rkPCeMxXLGpOkwm4W0sjwzd61X5pioztJG/wrP0=;
-	b=k2tS8ccPNK4TotGyx5piKS+JwCMvwqDfDJWYZtIsQLheHKdh0Fd7OTbq0Es1vdZ30f/y
-	 So5Bne8hlFxz/t+Y5hmM8Jwyxna9usecVHb9SRomzsn3WDzj6NHAG+vdy1eCGqC9NaLjF
-	 1713zMgKt5ksT21gY5li8CMZSMH5G7tD4FFceGN1W8IIwduHt1qrZ4bN+2fbqbmkMGJwj
-	 KtN5uIakUJBeF892TRLI5q+lLbZec8xUTqWZUSr+TMqXcEPBPLUzQcaYdi4Grhqj9nTw1
-	 qGG8YxHRMkxF6hCvaTyQZQ2K10nXgWcqKQrJ68eyEhI7NjX12+WQE/HZ7M6UOe6S9WQ==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=ybRw0ZlrRJAFpdQu9B5v/NsFAfk4/b1SORGlH2Ul+2U=;
+	b=FgIk3OXRWKiU2TOL5a5soZatw7CiK8h2/9FZnjsp9YKpeGVSjnZfdUDeQoNKzQm/HwrU
+	 Aq7JQEZgGYoqeMb6ktmC6JJouq4Xxd1edRPVpOgOO9TTx6zEVgjNyFAe2WDScmxNkVRQG
+	 Xfuf2u/+gP/oBV4U1ICh1IEncB+fQO7VxmdZqYlTukrgr/8YUuLgFEF8wYpb3OdOg42Ou
+	 39F77+Oa7cp7w40LQTsKTerADK1epPSRxoBRKSsCJs9VWCpALWof6jenAveskVFW2BfSu
+	 ZznzgUnYpzQtR6G0cfT7QECJiWl9UDdlpOV5ACG1RQputnR051wGDxtq9q1Gz3ZdAiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I/mCXOuA";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBv4WPrd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004EA606A321;
-	Wed, 11 Nov 2026 17:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA28606A331;
+	Wed, 11 Nov 2026 17:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I/mCXOuA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9B51F00A05;
-	Wed, 11 Nov 2026 17:43:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBv4WPrd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C305B1F00A09;
+	Wed, 11 Nov 2026 17:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418994;
-	bh=u1s5rkPCeMxXLGpOkwm4W0sjwzd61X5pioztJG/wrP0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I/mCXOuAMNT5zpb2utZopCT8CByLpH3Z/uKgQnosx8sd5tFK+YMXQ/ni3Hgp3ArBc
-	 H5LrV3retAVvTH7jAt/heABIZ1E18wI6B8y2De77d8IbvKpiqT8tm2LclA6HGaHunk
-	 md3ldu6kkQdkvKSo4iKD8+s+w+e51clIVf4LzOxpgJzXk33wn/v07/DBgkLAwPdA20
-	 Y4PCEkRilqzOUgWI9BitIs9gl2hmz4yWwSF1wezsOacD3D1fQoP7cl/YjjFdxP44z7
-	 cghZiXmqyMWbqDmIkVIXf6sZMuCnwdI+2oPzOEz/38db+pE+pkxZIsJhafgm/wzTfa
-	 7Y4+F+ld8NWrg==
-Date: Wed, 11 Nov 2026 17:43:09 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rong Zhang <rongrong@oss.cipunited.com>
-Cc: Keguang Zhang <keguang.zhang@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] MIPS: Loongson64: Add watchdog node for LS7A PCH
-Message-ID: <20261111-unlucky-parrot-eb416eb0c794@spud>
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
- <20261110-mips-ls7a-wdt-v1-3-968bb85122e6@oss.cipunited.com>
+	s=k20260515; t=1794419076;
+	bh=ybRw0ZlrRJAFpdQu9B5v/NsFAfk4/b1SORGlH2Ul+2U=;
+	h=Date:From:To:Cc:Subject;
+	b=HBv4WPrdbTYSvNSBfPPoE8sADTP77cdHU69z9ZggME9+uMBkGo0LSvF6PWbuOb9TE
+	 /VcC8wQxdQveSTNsDvUiO84NUthSBILMoDkbPPBrZuune4zd6XVoj2hv78gtvt4LU0
+	 ubsz2uql/BNvDNmGx9RRxcqt7NpdIXAgF4/ZT1/p88NFpSk4H7QNpsXW8221BW4gp4
+	 p4GBX8MCBjfGzIT9BWYlJZXBdpu0n7wAgPrb1VH19PZRMyDOjsaKRSFAh/se3a++yL
+	 94J/i16eohLPEc40dhJLTTkyQLjzqt512RfWajgLXrkSt6rZu0z/qziFdXq/OEM+dz
+	 qj5cu0tFDYPFg==
+Date: Wed, 11 Nov 2026 17:44:33 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Nov 11
+Message-ID: <avSpgZm3mocwprs1@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,62 +55,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="El6grj8KCEocYUnH"
+	protocol="application/pgp-signature"; boundary="szWOCY1/YMUR5XtT"
 Content-Disposition: inline
-In-Reply-To: <20261110-mips-ls7a-wdt-v1-3-968bb85122e6@oss.cipunited.com>
 
---El6grj8KCEocYUnH
+
+--szWOCY1/YMUR5XtT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 03:02:32PM +0800, Rong Zhang wrote:
-> The Loongson-7A has a watchdog. With proper support added to the
-> loongson1_wdt driver, wire it up by adding a watchdog node to
-> ls7a-pch.dtsi.
->=20
-> Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
->=20
-> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> ---
->  arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/d=
-ts/loongson/ls7a-pch.dtsi
-> index f304f99946f1..770c96e9b908 100644
-> --- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
-> +++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
-> @@ -67,6 +67,12 @@ ls7a_uart3: serial@10080300 {
->  			no-loopback-test;
->  		};
-> =20
-> +		watchdog: watchdog@100d0030 {
-> +			compatible =3D "loongson,ls7a-wdt";
-> +			reg =3D <0 0x100d0030 0 0xc>;
+Hi all,
 
-The style here is weird, usually we like to have the whole property in
-hex BTW.
+Changes since 20261110:
 
-> +			clock-frequency =3D <50000000>;
-> +		};
-> +
->  		rtc0: rtc@100d0100 {
->  			compatible =3D "loongson,ls7a-rtc";
->  			reg =3D <0 0x100d0100 0 0x78>;
->=20
-> --=20
-> 2.55.0
+The fuse tree acquired a conflict with the vfs-brauner-fixes tree.
 
---El6grj8KCEocYUnH
-Content-Type: application/pgp-signature; name=signature.asc
+The rust-fixes tree acquired a conflict with the kbuild-current tree.
+
+The pmdomain-fixes tree lost it's build failure.
+
+The pmdomain tree lost it's build failure.
+
+The wireless-next tree acquired a conflict with the wireless tree.
+
+The drm-intel tree acquired a conflict with the drm-intel-fixes tree.
+
+The mmc tree acquired a conflict with the origin tree.
+
+The drivers-x86 tree lost it's build failure.
+
+The leds-lj tree lost it's build failure.
+
+Non-merge commits (relative to Linus' tree): 5729
+
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 436 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--szWOCY1/YMUR5XtT
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavSpKgAKCRB4tDGHoIJi
-0uh8AQD94th9BfopVZyqRbIZD31gY1VVmL6TqtnSFDsxE0d5BwD/YfeALYRNnFP3
-ncDWkx77DWCCWzkm8mNqiRG4oFQnagU=
-=mk3p
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0qYAACgkQJNaLcl1U
+h9AH4Qf/cz5HNtfQ8uVKxmLhUue1FBs7Uh2EY91f6R5gFSoxObMglG8mtdQ5b81k
+4PXSaAFSr9jyJdLFLZ3pGpKXXcL6At1WRVhwuf6kJ6MG9iBTuL37f8VyMaToK7dg
+9wjmyC4fJk3L97CmgDpt/e3lpV74Ph2/2RrO0YOOtSXn5De3ybQkZS3grbKAAGQ/
+6uqU/wuO2g0zk8Reun3Ds6mv3AJLRooVzgqhpJBZPsBNV8q7q/5MGlONqPvsH615
+hyIzCmSTx4Axrtpq98Cp0KNEXRGeT8XCyz9km7JtX3u5v/rwABTT1WvOfTxaiEKc
+L0LJ8rt3jOea1G2s14aZp5t8CY7pOQ==
+=INJl
 -----END PGP SIGNATURE-----
 
---El6grj8KCEocYUnH--
+--szWOCY1/YMUR5XtT--
