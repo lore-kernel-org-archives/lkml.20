@@ -1,62 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402414;
-	b=GQlMlhfiZr2RV5bGGVkL0c9KyAoFNN4bVu7ARhIQ8+QfNSyCFq7EIELbHQ2Jh831/4eF
-	 KX6QB00xWIFvI63y/+aQJ+0R2mOPMk7iXGqBgl47jucnPUVTmb9b7jm1QXi/DesMInS4S
-	 CpkFZzn4lK6bMl4MnMW1LK43a0qIRYslFjLLVeZuBl5+LTm2BMm3c+piM9ndD1P/Jq4Kw
-	 AD6xm0tz+9DjwUGw2M/ryCg6SQIOHSovPUhbGZvOyWbqP6reAVqoKAtntiyggoXP/BTDl
-	 UhSR1RFBCkJ9cSQZqXoyiTLpABHevGbfVb6xnpsDR3tnT8v2nWkUqkf1H9V2GMhrrQg==
+	t=1794402419;
+	b=iQWiDJ17LdzkhQlby4XrvAdCB3eEozbTCo1jHfeZNqCOEpnwSqQySGeAlQMkUjW8k4BL
+	 iQvbSn73r2MSX9WnRe9UVTD3q8st1FqmouCfXWHaSyv94GuOWdk5GHbFqfilmq2XFMEwv
+	 4WCmvq5Tu20/GHuYfScnJEC+VGKHF6AfAM/IJsVh53DjsCVxPMSnDTJa8G41fCCCEniJu
+	 sPmqpbuEDgdr5GjXfWaPfMcx0J+7wej1pCt9eTr1awiQpx5vnfstTJSbGM4jvIfLO4DAU
+	 zx6XU/ahnuAmQYiEQm0Q4DprlMTau6SJ79B75uR4fPMFhyWK/cJ/sBIB6xib/ChfNOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402414;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=TsavWsjShJJGBgdbg3MCd30tYdrc0p8AQysSwTzBos8=;
-	b=RVpeCp41DXBvQlDNXX7sSiXYW3gF5wWpDQTSFwzI4PZlskZUxm1w69BSYyCraUDV1oMQ
-	 rI9HKKpK53hVOEHA0+OvfgxOh4dxuWylVN8grPTiG0o6N0ULUg4xA1MzZRDS9RDkhQIaM
-	 kM7AyA3HJ2FDgZtLgBax+XVLPXPB3qCUFcYaGO4gCLtOjt77YMI+tXGJ5CJG3hD0qWbIF
-	 2utwn4KX27Br+gkE04rhe3iDwroArOPPkHiqsv/vT2pwS1qXXEoKG1JVhSo4fg95Gbrcg
-	 gaO0G3R9OYrFnUKT1ipGv2tNunINA+CNItf2s/XaRlvdHxOpja3ZOLD+4NLJES99vjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402419;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qDgJN/3uyXucx3MvWswasgproOwS7hGFjV3S9xLY8ak=;
+	b=NIvi1o06bykSkqUsDpyTleLvgU/ZzlFbxhm9A77FLt/aO4xLaKVlEyGv9HRzzern7Bgb
+	 hH4VSv41mmcIt+sdW9rHmGDZgnUj9vcDzo1I7z+5LCo5g92HykGx17udR1znw/Uv6Khq9
+	 87RNOckm4SU3VmO0DjQRTxAQiepu6/1UTZJFdmh5PQ1SOp4SxPqbhZnercrzNP36+ub33
+	 l9JrQcn3SzSmqjj9Kz2SHAo8AwXvZnDN/spZtiszC7nzeGQunDpbOV/KeiYpm2MFf1TL5
+	 jxbCP/XvN2fxlFoCKad5B2xauBBNbxRy/bNbkee4+YQwre7/FJMImqJ21m0tXFHdLOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WuCc8pdz;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSOkcNF0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BED606A31C;
-	Wed, 11 Nov 2026 13:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4BED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1520B606A31C;
+	Wed, 11 Nov 2026 13:06:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=WuCc8pdz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=TsavWsjShJJGBgdbg3MCd30tYdrc0p8AQysSwTzBos8=; b=WuCc8pdzkGjLD1lqWBww+P9lpe
-	devYGnPLiUvLgvjOBXhkamuh6TbLj9i/vU5SQiNA/6iZMVgtNBDUQ4dN1puyzBWlwCWrbaNnZ5NeL
-	XyDluwEU43rO/gt6EKbFAw8gV1UXaJTX0MnLHiemGEDoI0MVSwO05e4LLa9sp9Pvd06w=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xR82J-00FkQI-On; Wed, 11 Nov 2026 14:06:47 +0100
-Date: Wed, 11 Nov 2026 14:06:47 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: aiyengar1990@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] arm64: dts: rockchip: use rgmii-id for the Orange
- Pi 5/5B ethernet PHY
-Message-ID: <fdb7836a-67f9-4db0-8820-d72f56beca3f@lunn.ch>
-References: <20261111-opi5-dts-v2-0-821f666418a6@gmail.com>
- <20261111-opi5-dts-v2-1-821f666418a6@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSOkcNF0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF011F00A0C;
+	Wed, 11 Nov 2026 13:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794402418;
+	bh=qDgJN/3uyXucx3MvWswasgproOwS7hGFjV3S9xLY8ak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cSOkcNF0tYQXbkEqsMOH+/P6GrQwv9MhqNLJR2ZP9Frbq8AYYJk0KSztoWiPT8K+U
+	 iWJXBRQ6w+YBL9CXnC39H/ty/fDojjU0WD0xHTpWyPHqdwqluEpYrBfKXoq7QpTPlU
+	 EozaddBxYTTpvNe1qdq6shEOQNQiBqg95HG18V6ARLBdNfe3FCtj9iFndxwU3KegWA
+	 szBOaD2i7iy7jz02MAfoCUhOHbKEFAyAJ5cNWeReWRnW1BzSZPIC/5JBbFjpM/n8Xv
+	 AKjYhCCG4YSXw02hdIDtJeeueQYvqqCVkdLQxBxnRF31u9Ab5AbUksx43NW+sT1kNM
+	 e5ZlZ0cWRQEDQ==
+Date: Wed, 11 Nov 2026 14:06:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nizat Mikayilli <nacht@dxdmail.cc>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] dt-bindings: display: panel: Document Anapass
+ ANA38407 DDIC
+Message-ID: <20261111-durable-passionate-sawfly-5cb0f5@quoll>
+References: <20261107-b4-ana38407-v1-0-c8b33147110a@dxdmail.cc>
+ <20261107-b4-ana38407-v1-2-c8b33147110a@dxdmail.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,34 +63,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111-opi5-dts-v2-1-821f666418a6@gmail.com>
+In-Reply-To: <20261107-b4-ana38407-v1-2-c8b33147110a@dxdmail.cc>
 
-On Wed, Nov 11, 2026 at 07:19:49AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> The Orange Pi 5 and 5B have a Motorcomm YT8531C RGMII PHY on gmac1
-> (the PHY driver binds as "YT8531 Gigabit Ethernet"). The board neither
-> uses extra long clock traces for TX nor for RX, yet the device tree
-> describes it as "rgmii-rxid", which according to ethernet-controller.yaml
-> means that the PCB provides the TX delay, and then makes the MAC insert
-> the TX delay with tx_delay = <0x42>. The setting was copied from the
-> vendor kernel, which uses the MAC delay lines everywhere.
-> 
-> Describe the PCB correctly as "rgmii-id" and drop tx_delay, so that the
-> MAC adds no delay and the PHY adds both: motorcomm.c programs its
-> default 1950 ps for RX (as now) and for TX. This is the setup the
-> binding recommends, and the one the same vendor's Orange Pi CM5
-> (rk3588s-orangepi-cm5-base.dts), with a YT8531C on gmac1 of the same
-> SoC, already uses in mainline.
-> 
-> Besides being the correct description, this removes the MAC from the
-> timing path for both directions, so no board-specific delay-line value
-> is needed any more.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On Sat, Nov 07, 2026 at 08:47:25PM +0100, Nizat Mikayilli wrote:
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vci-supply
+> +  - vddio-supply
+> +  - reset-gpios
+> +  - port
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Do not require port, unless panel driver or panel hardware requires it.
 
-    Andrew
+Best regards,
+Krzysztof
+
