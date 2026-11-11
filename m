@@ -1,78 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794376811;
-	b=YW0iXRsjqblsgAXpK/oah64wSzd2ym2Oq4SXS83Cd+9jhcqL3huVuKjr3uhzSwnMCy/6
-	 iCNewt8Gt4TFpEFoIvjq/iumU65Dn3s3XuzFt0IziMgLczfUe4qas1z48ZNXx2jLsGw4G
-	 KJ0ea3D9Fg3ZLzGghDprO9QuuSoj/fM5SYGaWX/Jdz/B3WNYKAM1IIW/1RNtTN2glxUJh
-	 4qNB8ufTHGtWWBziQg8VHAQbzFw55StzCE6yTKPj8CudD/WTTX0jzlkLEADmce2n5Yaid
-	 41epEIY22HW6jX8DZxR6r8H2Ky/ZhdP/xElgC0wNHWgYyUSzH6GTR+9MFFDi2zxIYcg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794376811;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
-	b=KPQ4B0RWfJkVV1aR4SMo+gcPf6gucObWpRSoFL2L+UH5+WvlmqPgeq95v8olSpFg5qOj
-	 1uENWSPZ8twHb3WN1ZAhxlcJtxwddvkN7tIkfazFafGzWqmBI8Pzvak/+hDybBdcOMF2a
-	 MuNgCTQPrXr+0ANr1N1yec/Bma1tolb+mUBqKcDkEBIdmuYkWP2VT7Q6LbUhTKYW9OToR
-	 rdH0pmm8UJmoFlkK9fttAgg6oOgKI1ZFunNSISUIvE/aIPCRa1Y7n5gRTQX20Stcv862H
-	 UlbcIrBDznBndUV5W/N1jowR60gzCmKAwdWWdedDMfS1vUZj0ypaenP1s0atOR99iqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B84960A2620;
-	Wed, 11 Nov 2026 06:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVdUetIP
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794376811;
-	b=JExD8vrHyAeABQvsNNWzApJ0FaqO43y6CFl00nx99KAEuLDLEggSNqS4WVIIIdxxC+fl
-	 M0aZjp7S4luZ9u+BjZZem8pXjYH5lcpEFaWYS2EqaXdyZ4/ck9NDNb75pfQe2qL02p9lX
-	 CkUHZVQ0FRtjKvJIPbBp5EtfMGO04asAERusTFAgkcd8IUyRwchP68Bes2lg+aaWtivXC
-	 ZNgL/5Ua/xe/RpujUX0B9mlSOJsGcgMh01bn9lhYft7epk9gmINH3PvMbGcGgjtl9nHrd
-	 gmiMR2BbQc5efIaUtxH5+qckaLnN8DRqTf5FrEAYdRM9Ss7+DsFr7VCSSS3La/UvBjw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794376811;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
-	b=bxObUZjZhH8ALlT2lsBdzDIRE5ohZy6YD1mJpt7FsK31MRT3TmQyqUSqrfrOnoDhBwVa
-	 IyE2ZVsk6IHGOVMxwpfqLivmvZAGlQ+P/OrcAefRP3lXaO5WfdqiKp03zMxstrqX6cpXM
-	 2xOV8lhFLN6Te3ydMlrhom9SUsPBBDLJKFZ7VWFs4ITBUQkzAW21EHKLeVb4MIKmB+Kjf
-	 N0MOCcAagI3cFUTUaAGA2YLvpQZxS7XWZf2SWE3Au9OTP08OSNkfDfQrfMUQauEKM+LIT
-	 pa7F6Zp2xmUGGUJM9JiG446CR5yoEc++Ju2H2bw+DqF+xReqa7u6EjV461NJrJom8jA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794376820;
+	b=a0S2IC6AaXAx36DmHyfK2KFmos1aOelUv6xq4yHzHKEdNKNxZ6nLkeGjQ5rybWfs5lLR
+	 gEzNbelgt+GUV4rduWZ0LNh16k3N7QGNGqjQ22e4Z66UF+jt0mGnmU7ygrbQI/K5gKVW2
+	 1r/cnJtAuCqbiKnDZGiAZ+l9FRcfzoshqcqWMmn0CxcU7k4wIfWiBS6XLmhzHBq5At3Mu
+	 iK9mpU9x3UfIEyOEsnT0BjrzMEHKLCxXSVDj/pbEfjoL+uTAxUKUQ188WK64tHb8WOdcQ
+	 GixyToe6aJAx6I/8iZb0rNtMuS0Q8YG7L0cl3CLXgsDsJ8yGj4FtlHWozlfYuuiSPIw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794376820;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
+	b=Hu2P/XMlOBr+o/TF5KRqBfxbbZxf6flXPZyHg4r0UdqAVdbsjUHAqwag4ugbIgPnPKy/
+	 /M/6hAhfaZoWa6Hwft94GXpMbU971FtlLfaRZ/fhHjvYE+QTYh3cdMnl7eVu/xZ6DXXJx
+	 73WjP4+fiWZgtds91FZWrgt2i2dMWqkIN5GqQNKpwgtUHQAAl5OuVdUVhjI6t0g4Tu77K
+	 cwoBBpEr4SND2QCPqEE3YvgsW+ow34DQqhrPQE3401Eyi9VVOPRSXadvc2Cl3XajtWWnR
+	 Kb+R2X9hiDSq1NJVc9/r8R9bXccbpi0zdBVAMDCk1uPoJwUtZGNuVGCqaX++KY0fy1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RqzHKapO;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4E07B1F00A09;
-	Wed, 11 Nov 2026 06:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794376811;
-	bh=GJA0oJzXunV8vsMdooEnIiNstpwLJzqlzvQY0n1w7Qs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jVdUetIP/savyPraFV3uYjtXAhj9ATEKgTc3cekFAQOK0RBzMDzRgermNgFYcIxDa
-	 T3qTxgQoNgELJrSNtzvs7IQQj+mlloxmGTyV2RELQMWlX1s76ImgwamBIm4IGdKuiy
-	 bwa859gXF8qtJ1sOrbmXIHpaqdI59Ut4YaskvE/Ss4xizfVmuuN0pgJS7mV7xyDV7n
-	 IBxpeywMw1xEOL9Uugt2RPHS/+WNO7gRQFzpmQ33Nt8e0Zm6Q5yDGKtm2y6WnE+6hY
-	 1Z/Pdq0LF73yVjbZop3ssShC2m3IC4i/bP+uDnwSyxPXCeG+wUDbfxkYtI9ik8MTXI
-	 BlfFbM/LyX1fg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C845E48DE2;
-	Wed, 11 Nov 2026 06:00:07 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 06:00:09 +0000
-Subject: [PATCH v2 3/8] arm64: dts: allwinner: h616: Add GPU OPP table
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BCF60A2619
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53BCF60A2619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RqzHKapO
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1768361a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:00:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794376820; x=1794981620; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
+        b=RqzHKapO+QtDvs7uHnjoQORw3iYRXoaenL17JZMtLVDsAjHcXvEFGpusWy+QEtwPMW
+         HmBoNUJ3pjLygwPvZntvIHPVDyHUfhAET1nltf6Arc5PkSiP3YP+gGLx3WVgXZVlP1Cd
+         e//j+uvSWKASN2gI9QWLbq7I4wQsSira6axZlYoI+cVoO3Yja5VQjXeNZdbER/icro17
+         PNIAUf8FI/j40le9cczdKAOXmppDUg25pLarFdDvWmkCxzji18DhWbrVEZslgMZ1vu2T
+         uztnlixlHwFWb83h1XjmIcAYrP07tUGKERYrsq3tLzCjHtKC1wCRnPN8QrAQa0B/sFUQ
+         Maxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794376820; x=1794981620;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cMEdyLvG0WO8h2gcVneXCt4kujyphjxRvduCSlQeHKk=;
+        b=pYqZxX6ZHR/M9Dnn5zVvq6OaIRIMCvxUKsYol3SzPInw8gZqdqGJQzJOn23JYOucen
+         dpE38UxXLptKWt8RbtwaSaN+s5s+YWqCLC+jHJvO9/S24Bt3W78Ywq7/PmrazC1FZVOx
+         ymQ60vH112CEjOFx93aw7NTNHc8aWlfvv/4R0IleTA4G2ceHmOyL5Q3OFXt1OrgolodE
+         z9ruWVDp8B/vnQbUUt8pEUpzgmD2rhiOPybB8J+dOJMPbRf5y2y1pPsvOU5wiCCqRkx8
+         lLuhukB0/3DVErT3FntI7gF6AGWg4j9O9za2kaSr6RlaoXNUZxiZ31+qA7/TmiCfe9Mc
+         0r+w==
+X-Forwarded-Encrypted: i=1; AL+hErHizQ5lbfCk9/Mc3l6Cn9aInYKYgTat0B+bwt9kh71eXwQuZUU4cfgtKkSTLYL3PZy4W+OGIlcPcOef8nA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ynbaKtb6NJKfzOEdWOww97WfYVOvEukCkILvsnN2HOs34i+zw
+	7mwX1Re3r74hf3TUUeNkf0924WZxXJyfddK522EWU+lvHpzPGS4x1F+3
+X-Gm-Gg: AYBFou0iXzMQ4I2Jmg4iL05XcTWUDjSS6lbCu89lAHRDn4wU02AU3sXUMy0qog18zwA
+	cOhxaF+pR1PZO9lS6F+Aj9hcHTydxGBhzJ1pXUdNvLL9Gle9XLMSkv2yApun8suHLJDjM2/WoM5
+	lqbeCawbbIXEvnxDBXCDuyrl8bxcVqNK04orKSQY0WmWjcUC0ClnW6h/uF/+xTnDNDpKEKueNf+
+	Z9xCcNvx8bbDm4de7rru9+sdMHtbppRbtpbKy4pyiHHAD5c7EIWse85784ZvQsI9kW8j57D1Bqr
+	bO2QDVunR0yILZ33xUp4YIrWAf8/OfJYg+TuogmQ2/pwrFgbt+K8Coi95VbY8A5dSF+cZcf+smk
+	f0MLrjANaF9SClEMhUAS0LzQQjYNH45Z1Evzyfn0foWPSrLQGmRonYbyhDPF3NNXmo1t596KHso
+	FeyI6A1bh4q+dRcKjIIOG/ZDRwnn2bEQiaaraRfGq8r/7AXzAwNFcMvSPnfPU/Q48sZMfV7EiOv
+	BPHUz6tbafS5aQRt6wcn7U4RYQCNHYhZ32WofzsazummZ16jctKI/SbguzI9FTLmawUG26cPGBk
+	zdfLXRVltjS4NvgR4mFQxda8rOrB9BGM75XHTonKbyHQS47og5ptXM8L+xSU933TsKfkS8SwlSX
+	RklT7VnZDaQS4fkGBhtBhqWfBlfE806BRrHz/abVENiA+/dK37zdfwLkyWC3k/0eMue2M7Oaob8
+	N87ihA1MHW6Y8WtG0Hut/z
+X-Received: by 2002:a17:90b:1a91:b0:3b1:2810:dfd6 with SMTP id 98e67ed59e1d1-3b182f36f48mr1556357a91.64.1794376819334;
+        Tue, 10 Nov 2026 22:00:19 -0800 (PST)
+Received: from [127.0.1.1] (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17db56c7esm2879890a91.8.2026.11.10.22.00.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 22:00:18 -0800 (PST)
+From: LiangCheng Wang <zaq14760@gmail.com>
+Date: Wed, 11 Nov 2026 14:00:14 +0800
+Subject: [PATCH] ASoC: max98090: keep the MIC boost across mic input
+ power-up
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,121 +95,120 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-h616-zero2-dt-v2-3-88d8030fc975@gmail.com>
-References: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
-In-Reply-To: <20261111-h616-zero2-dt-v2-0-88d8030fc975@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376807; l=2569;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=lGUm88hkiiCwsS06lh6tLUaHZIc5LqI3MybFyqamLeE=;
- b=xEKB4Lxds9YjAC84e9tRqBGpiqU7fynFWhfPxxDTvlTwyA7O7OdVtCL01VJKXissGbeXUJ8Hx
- WplS3IBcC8oD0wT1neISMHPFnTS+AwDztx0a0fuouYNDKwxfkYqZHPF
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-max98090-mic-boost-v1-1-20b9bd8816db@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAG0E9GoC/x2MywqAIBAAf0X2nKD2IPuV6GC21R7KcCME6d+Tb
+ jOHmQyMkZBhEBkiPsQUziK6EuB3d24oaSkORplOa63k4ZLtlS1AXs4h8C1907X1sjpU1kMJr4g
+ rpX86Tu/7AQ/Se4NkAAAA
+X-Change-ID: 20261110-max98090-mic-boost-c4653dfae09c
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jerry Wong <jerry.wong@maximintegrated.com>, 
+ Ralph Birt <ralph.birt@maximintegrated.com>, 
+ LiangCheng Wang <zaq14760@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794376816; l=3781;
+ i=zaq14760@gmail.com; h=from:subject:message-id;
+ bh=Lc66jw5s26WwD5JavhljQJeyZ6ZUCJVqeJsR1Vj5mjs=;
+ b=PL7ALtf+UhJ2CZlWwRE+Etw7x2bjlHjnnnH6v3rWn+FTrA8WgKQwJ+3EOqcPjeD/eH5sW4SLk
+ p6BBicb+7z3B1IEwa/O3zQg68j2jSWgzfefTUEa/CmiyZHCe6XC/RUO
+X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
+ pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+PA1EN/PA2EN select both the MIC1/MIC2 preamp enable and its gain
+(0 = off, 1 = 0 dB, 2 = +20 dB, 3 = +30 dB). "MICn Boost Volume" keeps
+the selected gain in max98090->pa1en/pa2en while the input is off, and
+max98090_micinput_event() writes it to the field when the "MICn Input"
+widget powers up.
 
-Add the operating points of the H616/H618 Mali-G31, so that boards can
-enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
-950 mV. The table is the one of the vendor images (as recovered from a
-KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
-it uses <target target max> voltage triplets with a common 990 mV
-maximum: a board whose GPU supply cannot reach an OPP's target voltage
-loses that OPP, while a board whose supply minimum is above the target
-of the lower OPPs keeps them, as their [target, max] range still
-overlaps the supply's range.
+The event handler also reads the field back to keep the stored gain in
+sync ("Update for volatile"), but it does so on POST_PMU and POST_PMD.
+The widget drives PA1EN/PA2EN as a single enable bit, the low bit of
+the field, so at both points DAPM has just rewritten it:
 
-Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
-boards include once their GPU supply is described.
+  - POST_PMU: DAPM has set the field to 1, so the read-back stores
+    0 dB and the handler then restores 0 dB.
+  - POST_PMD: DAPM has cleared the low bit, so a +30 dB (3) gain reads
+    back as +20 dB (2).
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+As a result every capture starts at 0 dB: a boost set while the input is
+powered down, e.g. restored by alsactl or an audio HAL at boot, never
+takes effect, and one changed during capture is lost at the next
+power-up.
+
+Read the field back on PRE_PMD instead, while it still holds the active
+gain, and only restore the stored gain on POST_PMU.
+
+Tested on i.MX95 with a MAX98090 headset mic on MIC1, running NXP's
+6.18.38 vendor kernel (max98090_micinput_event() is the same as in
+mainline): with MIC1 Boost Volume set to 2 (+30 dB) before capture,
+register 0x10 reads 0x20 (0 dB) during capture without this change and
+0x60 (+30 dB) with it, and a boost changed during capture is kept for
+the next capture.
+
+Fixes: 685e42154dcf ("ASoC: Replace max98090 Device Driver")
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
 ---
- .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+ sound/soc/codecs/max98090.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
-new file mode 100644
-index 000000000000..18989d11c832
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
-+
-+/ {
-+	gpu_opp_table: opp-table-gpu {
-+		compatible = "operating-points-v2";
-+
-+		opp-306000000 {
-+			opp-hz = /bits/ 64 <306000000>;
-+			opp-microvolt = <810000 810000 990000>;
-+		};
-+
-+		opp-336000000 {
-+			opp-hz = /bits/ 64 <336000000>;
-+			opp-microvolt = <810000 810000 990000>;
-+		};
-+
-+		opp-360000000 {
-+			opp-hz = /bits/ 64 <360000000>;
-+			opp-microvolt = <820000 820000 990000>;
-+		};
-+
-+		opp-384000000 {
-+			opp-hz = /bits/ 64 <384000000>;
-+			opp-microvolt = <830000 830000 990000>;
-+		};
-+
-+		opp-420000000 {
-+			opp-hz = /bits/ 64 <420000000>;
-+			opp-microvolt = <850000 850000 990000>;
-+		};
-+
-+		opp-456000000 {
-+			opp-hz = /bits/ 64 <456000000>;
-+			opp-microvolt = <870000 870000 990000>;
-+		};
-+
-+		opp-504000000 {
-+			opp-hz = /bits/ 64 <504000000>;
-+			opp-microvolt = <890000 890000 990000>;
-+		};
-+
-+		opp-540000000 {
-+			opp-hz = /bits/ 64 <540000000>;
-+			opp-microvolt = <910000 910000 990000>;
-+		};
-+
-+		opp-576000000 {
-+			opp-hz = /bits/ 64 <576000000>;
-+			opp-microvolt = <930000 930000 990000>;
-+		};
-+
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <950000 950000 990000>;
-+		};
-+	};
-+};
-+
-+&gpu {
-+	operating-points-v2 = <&gpu_opp_table>;
-+};
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index a985853e48eb6fc4b02c8f148f73fb70bf18168b..3ed513f6d81cd6bdc85caea12f38030f85cdda13 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -743,14 +743,6 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
+ 	else
+ 		val = (val & M98090_MIC_PA2EN_MASK) >> M98090_MIC_PA2EN_SHIFT;
+ 
+-	if (val >= 1) {
+-		if (w->reg == M98090_REG_MIC1_INPUT_LEVEL) {
+-			max98090->pa1en = val - 1; /* Update for volatile */
+-		} else {
+-			max98090->pa2en = val - 1; /* Update for volatile */
+-		}
+-	}
+-
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+ 		/* If turning on, set to most recently selected volume */
+@@ -759,6 +751,14 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
+ 		else
+ 			val = max98090->pa2en + 1;
+ 		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		if (val >= 1) {
++			if (w->reg == M98090_REG_MIC1_INPUT_LEVEL)
++				max98090->pa1en = val - 1;
++			else
++				max98090->pa2en = val - 1;
++		}
++		return 0;
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		/* If turning off, turn off */
+ 		val = 0;
+@@ -1121,11 +1121,13 @@ static const struct snd_soc_dapm_widget max98090_dapm_widgets[] = {
+ 
+ 	SND_SOC_DAPM_PGA_E("MIC1 Input", M98090_REG_MIC1_INPUT_LEVEL,
+ 		M98090_MIC_PA1EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
+-		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
++		SND_SOC_DAPM_POST_PMD),
+ 
+ 	SND_SOC_DAPM_PGA_E("MIC2 Input", M98090_REG_MIC2_INPUT_LEVEL,
+ 		M98090_MIC_PA2EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
+-		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
++		SND_SOC_DAPM_POST_PMD),
+ 
+ 	SND_SOC_DAPM_MIXER("LINEA Mixer", SND_SOC_NOPM, 0, 0,
+ 		&max98090_linea_mixer_controls[0],
 
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-max98090-mic-boost-c4653dfae09c
+
+Best regards,
 -- 
-2.55.0
-
+LiangCheng Wang <zaq14760@gmail.com>
 
