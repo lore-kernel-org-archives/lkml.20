@@ -1,68 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367743;
-	b=TbTpw/s9LP7z5PC4kQzyEqastBYXijEtZVyBkRA0zJa7OJV9PmDjDqRWX6hEB15H1qc+
-	 AYnataVyJuM4Ol4ikQ/bdhp/Z+9X0eauMxasFAzvFze16J3N3oj7hkiS4h8S/WmHQt/v9
-	 WCy5PpWZ3y5Yi9qoES/E6SKH3HNmQLX4bb28ePD7hAsLQk0aSHcpVGpKhCSZnvGpimSTa
-	 xDSKx2StRUfXEBLk5SdTi/KY5jY3ngu7RF2C1fzvubjxvzoWbQm9Hil2h7cTrVrcy7RxP
-	 Q0i3CUxu2YGk8wvET+w5ETRBZ7hmEygBh5UiitfsJtw8E+eU6LPlJCp/42z5uGZ6IYA==
+	t=1794367768;
+	b=rGu6afYu7LxG+1mhqeF8b3oywg6sW1ucDtfXeqIsd1f/B8HQWn6uaJeG5FXvkYsM1H7n
+	 u8VkzmRWyHjm+CxET9eMsG9kOdG6exxJ/cd26/HaHGm3Enwx+4faTD11+FojgT316kMqq
+	 HYSqREUKTmRaLL6bCk9ipTItzedJ1qOsqw01Rkan4OcQe8px7+aYkuSVCiahj3fOmC1hp
+	 6cmyGQSKoTfELG4Kns4pzCzW92JnbSP9zMARZIBmWup51wHoQjsterh5xcDiFpSNqn/DU
+	 LSLRAFg0xGBpb7asNC8oXy8C+/4gqUuaTrL4eLMFGfaCDXqSUiuph7/2U0JyQBwuIqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367743;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=3shCqHpoO/77+ZajI3JbwZXKqJGThMJGmuA8MAb9XKo=;
-	b=egWuRpSPVVqw4Ho1lmlxYK7AefmzE+NJgxxsea9Gu/sua/mLXi52herAv2ARYIayE2UH
-	 N2wel7CKpXMfLHDrf7RcIvrPtW7hAnH8ft6aaObQoozZQQ+65YwLrkxMWfVrNFICjDUAt
-	 ViI36nY70g0mPZuMDNXW0ovT1TulBmnxZUcK/jstlF1o3VwhLBeXGcQ1KJdc+dcFTzbnp
-	 vJ76tc2ymEx7woZD79bRfVoivNIPJsFLYkSmU7l35sKfkEWdrtVNYC6nhY/65fUgKF9cx
-	 2GuLi1BM/K9U+WlG0PCyJHStZE+cE2OPsZFyxMiJPY/zWqFPA1DEef8A85d67eyW+yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367768;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=63zja+L/Zy4k27NBr3ncpDsv78yUrecMVA9G5WJb/kI=;
+	b=bT6EgBEjqbSsuthvi2KB9mmd5Cn2PUSTnkGsp2Ke1X7YSP47iFC6KmuRlA209LmnIho3
+	 eq4CNFYClszXk0obRgpLUcd+Gnrc+rGVjrpzVPn0qBTPUkm3Mb6f3/920tYbXJNiWrYjC
+	 D/GLKNAm/gVfZ+AjJ5bpl9c3WYqQxuG07QpyywJGsSdBhsGY5VxricpIclrAiICk/hHhO
+	 YL4Muk5euAqXckzZ0Eq8YcvrFasqS0yjBRoYwBHd6iwX5nx3Y8e5ogSnpLgRGCPv5AyCZ
+	 MH+rTdk5c3788bx6CqfkpAIGe3axq1OM0eIAvr2yV9MhTE6+bqqgXIxMNFqJHfOYRtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QFqjd941;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8754C606A320;
-	Wed, 11 Nov 2026 03:29:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8754C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=ultrarisc.com;
+	spf=pass smtp.mailfrom=ultrarisc.com;
+	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=I7Cn0PHQ;
+	arc=none smtp.remote-ip=218.76.62.146
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D12B1606A320;
+	Wed, 11 Nov 2026 03:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D12B1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QFqjd941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794367743; x=1825903743;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=LIqe+UaWIv5xD2OLQNWbOHAajfuaJ0LtwTwlPHLih5s=;
-  b=QFqjd941ooOH/kOF5SvbgsqAw63JgOs94hMY8pLaY+6dvXXoRBpXlt0m
-   Du4hYaDxWK+PMqP+jh2c/Sd973vJZe7cs6sfmGRR6LHfFqZ9/WshuWWcv
-   Esgoy8+XrynFiiHssSfZONMD3jtSgQrXf8VK7o1/vzb9LBncC0BCV4tJT
-   jGG21z7gBzK/VIuxXsWJZ+zKO5O+ea5X7p60qNJmJollSMLWhnn4yyaF6
-   n8yD3bsjDCGb4uiYtu0O0W+eozjuQpOX/YpoTek5TNSaqI6qNIK6AV8fA
-   xlW2dRYNcTZjtohzfNjfQUR+xzvgu6AoNK9O0Ub/YVxw+E7ic2ghOav+H
-   w==;
-X-CSE-ConnectionGUID: RGwRE3iSRtimbd4/721C0A==
-X-CSE-MsgGUID: ys48Tz6ZTReGT34sBFPcfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3164728"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3164728"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 19:29:02 -0800
-X-CSE-ConnectionGUID: DYOdHDRGTmKxfokK3Y5okg==
-X-CSE-MsgGUID: FB+bV/FkQ72g55I1buRHQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="10108612"
-Received: from ssivasu2-mobl.amr.corp.intel.com (HELO [10.246.166.85]) ([10.246.166.85])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 19:29:01 -0800
-Message-ID: <970e231b-c3ce-4159-ab27-ac371426500c@intel.com>
-Date: Tue, 10 Nov 2026 21:28:59 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=I7Cn0PHQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=63zja+L/Zy4k27NBr3ncpDsv78yUrecMV
+	A9G5WJb/kI=; b=I7Cn0PHQVkPhjY5CtZ1CqhgDvxD2nlQ/lvN8oDMnjC+3creiz
+	n0TUH4I4Y2LVToxxij0aHrRVfM1OJ9uN+ErlVmZvQY7xN6ksd98kK3y8ZZuve17P
+	61YV62eJyMuWyX4O7Muoz9iG8f07K3q8UD+acEVcp3VmP3eFj5U50I5ZVw=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwC3cwXp4PNqsMYDAA--.1209S2;
+	Wed, 11 Nov 2026 11:28:46 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,208 +50,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/18] KVM: x86/pmu: Populate CPUID.0AH:ECX
- fixed-counter bitmap
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-14-zide.chen@intel.com> <au491iiV7koeP0t6@google.com>
- <f20b59bb-a3c6-4129-ba61-5cec4d975601@intel.com>
- <f12bcb27-9c17-4b8c-b48c-c36a17e70ab6@linux.intel.com>
- <5f129d63-10c6-414b-86a9-a604e42038ce@intel.com>
- <51089074-1be0-47e3-8d53-732ca33f29a2@intel.com>
- <fceb4f61-621a-4d62-a648-a1cdd0de1671@linux.intel.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <fceb4f61-621a-4d62-a648-a1cdd0de1671@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 0/7] riscv: Add device tree support for UltraRISC
+ DP1000
+From: Xincheng Ji <jixincheng@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Xincheng Ji <jixincheng@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, linux-riscv@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20261110-amused-strobe-d6cf2bf24861@spud>
+References: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
+ <179419183382.2791817.17305257804227954338.b4-reply@b4>
+ <20261109-december-oil-cb6524baf274@spud>
+ <179427984780.3452989.12543035151641565906.b4-reply@b4>
+ <20261110-amused-strobe-d6cf2bf24861@spud>
+Date: Wed, 11 Nov 2026 11:28:46 +0800
+Message-Id: <179436772613.807980.10142857721315033398.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794367726; l=395;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=0SLf2nrrfMV2vgx/6JNw0ABQWLCUVi/sJj65uSmx73I=;
+ b=RFs5OaD1kZIBTupWsAhefRjCEbpw/lYIweCHEWGWuBJKCN8xqcuxmtCZVTy9rdKK8VSydaR5A
+ CDNSLgnRoIZDTJGgvHik5QHd6K4OnlcqFIs43D0xrpdU79O3ck56E9V
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-CM-TRANSID:AQAAfwC3cwXp4PNqsMYDAA--.1209S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYG7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
+	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
+	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
+	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26x
+	kF7I0En4kS14v26r4a6rW5MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU=
+	=
+X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAIDmryvzAAHwAAsP
 
+> I suppose I can. Send a new version with your name instead of Jia, and
+> add my git tree to the entry for now:
+> https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/
 
+Hi Conor,
 
-On 11/10/2026 6:25 PM, Mi, Dapeng wrote:
-> 
-> On 11/11/2026 6:56 AM, Chen, Zide wrote:
->>
->> On 11/10/2026 10:29 AM, Chen, Zide wrote:
->>>
->>> On 11/10/2026 12:28 AM, Mi, Dapeng wrote:
->>>> On 11/10/2026 4:41 AM, Chen, Zide wrote:
->>>>> On 11/6/2026 3:00 PM, Yosry Ahmed wrote:
->>>>>> On Thu, Nov 05, 2026 at 06:39:22PM -0700, Zide Chen wrote:
->>>>>>> PerfMon v5 adds a fixed-counter support bitmap in CPUID.0AH:ECX.
->>>>>>> This is the superset of EDX[4:0] which indicates the contiguous
->>>>>>> counters starting from 0. For backward compatibility, it's recommended
->>>>>>> to use the following to determine if a fixed counter is supported:
->>>>>>>
->>>>>>> FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i);
->>>>>>>
->>>>>>> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
->>>>>>> Signed-off-by: Zide Chen <zide.chen@intel.com>
->>>>>>> ---
->>>>>>> v3:
->>>>>>> - Remove '&' when populating entry->ecx. (Jim)
->>>>>>> - Gate entry->ecx on kvm_pmu_cap.version >= 5 in intel_pmu_refresh() to
->>>>>>>   avoid enabling v5 fixed counters on hosts where KVM caps PMU at v2.
->>>>>>> ---
->>>>>>>  arch/x86/kvm/cpuid.c         | 5 ++++-
->>>>>>>  arch/x86/kvm/vmx/pmu_intel.c | 8 ++++++++
->>>>>>>  2 files changed, 12 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
->>>>>>> index 3310c370c5fa..00a2ca6d3049 100644
->>>>>>> --- a/arch/x86/kvm/cpuid.c
->>>>>>> +++ b/arch/x86/kvm/cpuid.c
->>>>>>> @@ -1554,7 +1554,10 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
->>>>>>>  
->>>>>>>  		entry->eax = eax.full;
->>>>>>>  		entry->ebx = kvm_pmu_cap.events_mask;
->>>>>>> -		entry->ecx = 0;
->>>>>>> +		if (kvm_pmu_cap.version >= 5)
->>>>>>> +			entry->ecx = (u32)kvm_pmu_cap.fixed_cntr_mask64;
->>>>>>> +		else
->>>>>>> +			entry->ecx = 0;
->>>>>>>  		entry->edx = edx.full;
->>>>>>>  		break;
->>>>>>>  	}
->>>>>>> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
->>>>>>> index 1372091dc1f8..37b34b588601 100644
->>>>>>> --- a/arch/x86/kvm/vmx/pmu_intel.c
->>>>>>> +++ b/arch/x86/kvm/vmx/pmu_intel.c
->>>>>>> @@ -597,7 +597,15 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->>>>>>>  				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
->>>>>>>  						      KVM_MAX_NR_FIXED_COUNTERS));
->>>>>>>  
->>>>>>> +	/* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
->>>>>>>  	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
->>>>>>> +	/*
->>>>>>> +	 * Do not enable fixed counters via the v5 ECX bitmap if KVM caps
->>>>>>> +	 * PMU version below 5 (e.g. when mediated PMU is disabled or on
->>>>>>> +	 * older hosts), matching KVM's advertised CPUID.0AH:ECX capability.
->>>>>>> +	 */
->>>>>>> +	if (kvm_pmu_cap.version >= 5 && pmu->version >= 5)
->>>>>> Having to check both versions is confusing. Can they go out of sync?
->>>>>> Should we clamp pmu->version to kvm_pmu_cap.version and only check the
->>>>>> former?
->>>>> Yes, actually, other fields (bit_width, mask_length, and
->>>>> nr_{gp,fixed}_counters) in intel_pmu_refresh() are clamped to
->>>>> kvm_pmu_cap as well.
->>>>>
->>>>> pmu->version = min_t(int, eax.split.version_id, kvm_pmu_cap.version);
->>>> I'm not quite sure if we could do such clamp. I remember Sean ever said KVM
->>>> should allow user space to set the PMU capabilities which KVM doesn't
->>>> support, like what currently kselftest pmu_counters_test does, e.g., KVM
->>>> only supports up to PMU version 2 in non-mediated vPMU mode, but
->>>> pmu_counters_test can set PMU versions larger than 2.
->>>>
->>> KVM's principle of "not policing guest CPUID" means KVM allows userspace
->>> to configure an arbitrary guest CPUID without rejecting the ioctl or
->>> mutating the vCPUID entries.
->>>
->>> However, KVM's internal vCPU state (pmu->version) tracks the "effective
->>> PMU version" that KVM can actually virtualize.
->>>
->>> This distinction is documented in commit 4f1bd6b16074 ("KVM: selftests:
->>> Test Intel PMU architectural events on gp counters"):
->>>
->>> "KVM only officially supports up to version 2, but the behavior of the
->>> counters is backwards compatible, i.e. KVM shouldn't do something
->>> completely different for a higher, architecturally-defined vPMU version.
->>> Verify KVM behavior against the effective vPMU version, e.g. dvertising
->>> vPMU 5 when KVM only supports vPMU 2 shouldn't magically unlock vPMU 5
->>> features."
->>>
->>> pmu_counters_test itself explicitly mentions this rule:
->>>
->>> /*
->>>  * Return the effective PMU version, i.e. the minimum between what KVM
->>>  * supports and what is enumerated to the guest.  The host deliberately
->>>  * advertises a PMU version to the guest beyond what is actually
->>>  * supported by KVM to verify KVM doesn't freak out and do something
->>>  * bizarre with an architecturally valid, but unsupported, version.
->>>  */
->>>   return min_t(u8, kvm_pmu_version,
->>> this_cpu_property(X86_PROPERTY_PMU_VERSION));
->>>
->>> In my understanding, clamping pmu->version perfectly reflects the above
->>> rule, and it's similar to other KVM code, e.g.:
->>>
->>>         eax.split.bit_width = min_t(int, eax.split.bit_width,
->>>                                     kvm_pmu_cap.bit_width_gp);
->>>         eax.split.mask_length = min_t(int, eax.split.mask_length,
->>>                                       kvm_pmu_cap.events_mask_len);
->>>
->>> Without a PMU version cap, guest resource validation could become
->>> increasingly complicated as more advanced PMU features are supported, as
->>> KVM would need to allow the guest to access PMU resources only when it
->>> satisfies both the vPMU version and the KVM capability.
->> The above sounds reasonable at first glance, but in practice it is
->> problematic because it arbitrarily masks out features that can be 100%
->> emulated in software even when there is zero host hardware dependency:
->>
->> - Features that can be emulated entirely in software (e.g. there is no
->> problem emulating the PerfMon v5 AnyThread deprecation, or emulating
->> MSRs like GLOBAL_STATUS_SET or GLOBAL_INUSE on a v2/v3 host). Clamping
->> the version unnecessarily prevents the guest from using features that
->> correspond to its configured PMU version.
->>
->> - Features that actually need host hardware support need to be checked
->> against both guest and host PMU capabilities.
->>
->> I'd propose something like this instead, leaving pmu->version unclamped:
->>
->> static inline bool kvm_pmu_has_version(struct kvm_pmu *pmu, u8 version)
->> {
->>         return pmu->version >= version &&
->>                kvm_pmu_cap.version >= version;
->> }
-> 
-> pmu->version currently indicates the guest PMU version, it may exceed the
-> kvm_pmu_cap.version in current emulated vPMU,  that's why I don't think we
-> can do the clamp directly. I think the key point is if KVM depends on the
-> hardware to virtualize the PMU features (that's what currently mediated
-> vPMU intends to do). If one day we completely retires the emulated vPMU, we
-> may can clamp the guest pmu version with kvm_pmu_cap.version.
+Thanks for picking this up. I'll send v8 with myself listed as the
+platform maintainer and your tree in the MAINTAINERS entry.
 
-I think whether it is an emulated or mediated vPMU, userspace can
-configure a higher vPMU version than the host. The reason why we cannot
-clamp the guest PMU version is that doing so makes the clamped version
-the effective PMU version, features that can be emulated entirely in
-software (MSR 0x391, 0x392, Anythread depreciation, etc.), would never
-be emulated. This remains true for both emulated and mediated vPMUs.
-> I agree we could need this function for the future mediated vPMU feature
-> support, but could we change the function name to be mediated-vpmu
-> specific? maybe kvm_mediated_pmu_supported_version() or something better?
+Thanks,
+Xincheng
 
-Thus, I would not suggest using a mediated-specific API name here.
+-- 
+Xincheng Ji <jixincheng@ultrarisc.com>
 
->>
->> /* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
->> fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
->> if (kvm_pmu_has_version(pmu, 5))
->>       fixed_mask |= (entry->ecx & kvm_pmu_cap.fixed_cntr_mask64);
->>
->> And potentially this API can be used for other advanced features like
->> CPUID leaf 0x23H, PMUv6, etc.
->>
->>>>> Without this, as more advanced PMU features are supported in KVM, we
->>>>> will have to manually validate guest features, and it seems this doesn't
->>>>> violate the general principles of "not policing CPUID configurations"
->>>>> and using the "effective vPMU version".
->>>>>
->>>>>>> +		fixed_mask |= entry->ecx;
->>>>>>>  	fixed_mask &= kvm_pmu_cap.fixed_cntr_mask64;
->>>>>> I see why this is needed now, to re-apply KVM's fixed counter mask after
->>>>>> reading it, but if this is only needed there, it's probably clearer to
->>>>>> do:
->>>>>>
->>>>>> 	if (version >= 5)
->>>>>> 		fixed_mask |= (entry->ecx & kvm_pmu_cap.fixed_cntr_mask64);
->>>>> Agreed, this is cleaner. Will update accordingly. Thanks!
