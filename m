@@ -1,93 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378317;
-	b=okCXRcNHxFQNXFyboKNpRlRJ4p2fxGoq8xuQmv34OZZEfEzaM4OsqPuvlwgf0A9uq1Vr
-	 Rrja3T/WZHNtIFjF74RtJ8CY7atzrHa3H5O1NRyx3AW9ekfdr1ryROVgg6vl80zPfneYh
-	 ZiOduwTUDxdfsAOHDezcgKKsyKzn3WWFiSsJuTjsUolAp+Mb0CnUc55awvqMZuV7oe/z5
-	 a2TuGyOiy0Zr/6CEW/+g5Fnj7ne8zH0ebeWRT7AUzNzZ3JVbAtMsLjjSDsdDbM3LG4wtZ
-	 PO2Cflvo+LK0W2v4UZqsmhFDjtbmLzgtEsXkxuIubDEC9HAUe1MWmzqo2sJWSduXvhw==
+	t=1794378354;
+	b=B66bCWFOvzATsscu1JeG6xLQKfDdwZc1fvOvAAiLUgIaQgyUFJdLABmSjEJrNATjyWnP
+	 IuDWxBaHtoy4DPH7jddUOt7qNcq1L/IM6votWujtzOnRUB7QTc1OpZXTfAvk0Dng82vAk
+	 PL8wCFIM00YHlyvB5k8L4iSfK30yIsCr0n9UyapGaYQnOevpDM0mn4o/x3fNDYI7QhrNG
+	 rftgmWCJV1qVSOyY1n9S95wP7VKcP1ZYvTuO+xeCsBoAVk+4SUylLhGLNFWgBa2JkHGWc
+	 mzs801wwGFibqi78QwxY0Ns116M8kCUUaTixl6VgyNQ8RXQ+6+ce2wvgJ1o7bNRPMMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378317;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=UpG4mWaD3IAbNd6Zc+GPW6MdrE6UHLepfWNOwfzGPT0=;
-	b=lxHpo1n9p2Dp7inv8UBxFz3ZcKq8tpyfq4MnLl/sjpJ9AYXhMF+MTzj8HRJheMb8QsSg
-	 +/iwcxnTppSK65VXh9pg1vYHwrpvCR7J1JXvMDKTm4tAn6b5NZlXIXzD9j0jIL/nvy07f
-	 iMNFh/S0PjsQ4cBL3+O5UEvnyGcxwl1WTKwOo1PiHk9R0gcgo0iTQQaaDFxJzkN3Wgekg
-	 v5m2y5VBRoy+irFiYHJCyLWwgXEin3vwC1CKa0NDE8gBrD+eDRG5NqweLsAhDPPX0FMUm
-	 Hc74k9+uksGg2ipQPxyTyuPqBp8wlvwh8Yv6DF7gOwwqlwmwpXxLUwTSqTLfFsyNxFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794378354;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=cZQmf3rKYa62Ru0ytEh6HRhQWVPRFmnqQycLLmAQQW0=;
+	b=w+AZLpvQR9lFvv9AqAVGiDXlhFUo07buDhOysoh0ZzDVgFszaAiTRKsBFxOivyiX8N6N
+	 txxdXFb+FfAYfJT63zt8bx2u9D8B2tAdssfDGFHl/vZ7Yuce/jO4+SyP1j9g81W50EWqE
+	 G//ar89cPr0ke2bCA0zLfhatmVDOWTL5iBl6eFxO6FtDHCnM5UVfkY8SYpk/QUr4wB6eg
+	 FBiTefaqVbxv+H0OyRWOFUiSgdv4QEUpb+yDDAmYZMGkezzmmqWH/8TlPTVJv7bmedFFs
+	 JfE0UbQJ5ta2rQptt42nEV8dK6RznPmpjAG086IRG58dVO9uH2wCzK908KwseO5Wbxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="HuF/Iumb";
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTSkVDt2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80B6606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E80B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1BC606A31C;
+	Wed, 11 Nov 2026 06:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=HuF/Iumb
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so1788664a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:25:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794378316; x=1794983116; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UpG4mWaD3IAbNd6Zc+GPW6MdrE6UHLepfWNOwfzGPT0=;
-        b=HuF/IumbWB0KpNcWC8DaOcXzSND8qrtJGOIjhPx/P1Li2rYS5Z14RPDqdtmbzu/PPa
-         L1LQejIChf776Y+xvDTp4BRUCWZ/I4gtn/iSzWzdN4onK5KpzVOgP8i27DIspqJFUMKs
-         iO7L5c0S9J0WqFdZd2teNeEHsOaqEXKez+gsg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794378316; x=1794983116;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UpG4mWaD3IAbNd6Zc+GPW6MdrE6UHLepfWNOwfzGPT0=;
-        b=tPyG/bxx8bVJC4t9PWltemkaLgnAshUUp1Zly3nlIs6AvouCs+Hyqs4R/GBdvBmXq1
-         pJvJrkGiS9MJwELyaeCDr6tjHte2ERmU0owKTsjoXVBzlg0sgrOKA9P52nRaTySXh8LN
-         /OZWPtHeguqkt+Tz5S5wBOSMS0LdgsM1xikcPsf7xM1AB/sChP3jf4PuZ5s+Rj3yK2c3
-         BLttJXMp78YKUYNc0kxzYWA56ahmEHPihwJyl9mwjdEW8xQNeOihmJOuT6r20a0jhDOG
-         2z7Ln5mZ41PbGpM00fCZqbcf1ECRpk3ivCNVnx0LvKXu+4hkQL9JwLsFu1go8ZTOAv+x
-         jMXw==
-X-Forwarded-Encrypted: i=1; AL+hErED8onENzZD5pG3voeV4NLmKXuql7aLeqshLWE+gHmRVJMXh8p0btFjG33Is2ilkEGZuJKNzdlwVeODQ/g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/RKaBNGmOzZO9bKUaDce/MMRoCNTb6SoRfvPv74Qoux1QtDhC8
-	5iafWN1emXofqqHJDj4GBVvSPne/PLXkAJ/aQQWm8ZStNfHpUTGr7mcobKBtrdJG5Q==
-X-Gm-Gg: AYBFou0YAkmY+obPloU4sc1tOOcdrXahI3rXvU3WRLf09erpIctpv/AqUTNk8nTuPMt
-	z79gQ4FfDJHaF1X7EXP84UMxRjBaVSRBbIvOfefoqH/nncL21tvXgu3zKdQcO6njGC4fLs1aD/+
-	P1ZslSuakL4QRA51D+eosM2WNgkgv47v7HDY9h7QsTSv3R03Qd85kae1BU/rlFAFIpLdbyIj8Oa
-	zEaWp7H8oj2LRmLFIAi577DjQs3IortnVVaMF+WP0wDKIzK6wUsE+Tt1XHJoWEhejmW39w6v8Ih
-	WUb/H/KzTPxcOpsYLKrtpgjCF1FkXrHYHWX0VQ+nJVmV9bigFbj5Q+CjpZWdoV68Lkh+nU5sypl
-	MszxI9r93KUFmxqqz7cRIhOE0ai9VEqsiGnP2+82aUPiG70GwCOB3ldBMoBIsx1816yVAEbAL9n
-	xz2f6Qink6GoMjz/LDsw0tNLN+00bcyZQGndTC37Br/q8o5+b5E1IBTQFs+QdaBYJkDBv7dpMok
-	SfS0EI8xq56wWz4E1gAUgacvlNDwqz7GHK9Tyq5cgC6uIi6Y1DlC0Mseg7H4QVNwXrq6/v+XvJu
-	RVMpFp3gUhW8qT2t3GBNm5klaI/Sswc9l+A1fLbGlXUhKKTAo1qsqf88O0/427RBVjbBDpI=
-X-Received: by 2002:a17:90a:dfcf:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3b182f858f5mr1600801a91.47.1794378316367;
-        Tue, 10 Nov 2026 22:25:16 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:ad6a:b446:df00:78dc])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d9ed10sm17185825ad.49.2026.11.10.22.25.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:25:14 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:25:09 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Minchan Kim <minchan@kernel.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] docs: zsmalloc: describe statistics with
- CONFIG_DEBUG_FS
-Message-ID: <avQJ5NG99xSRhAwV@google.com>
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
- <20261109-zsmalloc_stat-v2-3-caee41684aba@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTSkVDt2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133071F00A05;
+	Wed, 11 Nov 2026 06:25:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794378353;
+	bh=cZQmf3rKYa62Ru0ytEh6HRhQWVPRFmnqQycLLmAQQW0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dTSkVDt2MZgKxE5gNAHSsZYqTggsReO4ZtPqt4qVNEl62VwzSW9akXRGFYoLBIedn
+	 P69/MlL1Muc1EUXsVRho86vy/qTb7WrButfiFzlEvm7LyhT6oeX0Kv9imRHp2qxzhB
+	 rx921EHIKeJ1T4TDF88DoOz/UcCEzpstO+NT4wY5Occqm3qm0eomBk/mAjOZay8r6a
+	 bqqlXMYwnWpOQOiLzz2KiVvV2RsMpYA4G/oXv3c47kDm7DTDm9C3OFYEvTfNmFsVf9
+	 zOWu2U8tOff90jrjNXLx2/kog4PCwurFUOAiHXxddjlQABZa1HaGsi47eI8+4rFbN/
+	 +O4uv2B63dg3A==
+Date: Tue, 10 Nov 2026 22:25:51 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Magnus Lindholm <linmag7@gmail.com>, Ian Rogers <irogers@google.com>
+Cc: Matt Turner <mattst88@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] perf alpha: Decode ProfileMe samples
+Message-ID: <avQKb-vBxTvMn1yF@z2>
+References: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
+ <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,12 +68,113 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109-zsmalloc_stat-v2-3-caee41684aba@gmail.com>
+In-Reply-To: <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
 
-On (26/11/09 20:59), Xueyuan Chen wrote:
-> -通过CONFIG_ZSMALLOC_STAT，我们可以通过 ``/sys/kernel/debug/zsmalloc/<user name>``
-> +通过CONFIG_DEBUG_FS，我们可以通过 ``/sys/kernel/debug/zsmalloc/<user name>``
->  看到zsmalloc内部信息。下面是一个统计输出的例子。::
+Hello,
 
-Just out of curiosity, what does <user name> mean?  The stats are at
-/sys/kernel/debug/zsmalloc/zramN/classes, where N is zram device number.
+On Tue, Nov 10, 2026 at 08:31:02PM +0100, Magnus Lindholm wrote:
+> Hi all,
+> 
+> On Wed, Nov 4, 2026 at 7:53 PM Matt Turner <mattst88@gmail.com> wrote:
+> >
+> > The Alpha kernel series "alpha/perf: add ProfileMe sampling" adds
+> > ProfileMe sampling to the Alpha cpu PMU. Each ProfileMe sample carries
+> > the profiled instruction's PMPC and its I_STAT and PCTR_CTL status as
+> > PERF_SAMPLE_RAW data, which says whether the instruction retired,
+> > whether it trapped and why, whether it was a mispredicted branch,
+> > stalled before map, or was killed on a wrong path, and what PCTR1
+> > counted while it was in flight:
+> >
+> >   https://lore.kernel.org/r/20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com
+> >
+> > This series is the perf tool side. Patch 1 decodes the raw data in perf
+> > report -D and perf script -D, as is done for AMD IBS. It copies the new
+> > uapi header from the kernel series into tools/arch, so it should wait
+> > until that header is merged. Patch 2 adds a script that sums the status
+> > by symbol or by instruction, in the style of DCPI. Patch 3 gives perf
+> > mem a ProfileMe event, as the kernel series reports the DTB hits and
+> > misses of loads and stores in the data source.
+> >
+> > To try it, with the kernel series applied:
+> >
+> >   perf record -R -e cpu/instructions,profileme/ -- ./workload
+> >   tools/perf/python/alpha-profileme.py --pc
+> >
+> > I tested this on an AlphaServer ES47 (EV7). Sampling a loop whose
+> > branch tests random data reports that branch mispredicted in 21% of its
+> > samples, and 0% with sorted data. As a normal user, perf mem record on
+> > a loop that loads one word from each page reports the load's DTB hits
+> > and misses.
+> >
+> > Signed-off-by: Matt Turner <mattst88@gmail.com>
+> > ---
+> > Changes in v4:
+> > - Patches 1 and 2: ignore TRP, and MIS and the trap type with it, for
+> >   an instruction killed before it was mapped, as the kernel series
+> >   does. Thanks to Ian Rogers.
+> > - Patch 2: record cpu/instructions,profileme/ in the example, as a
+> >   precise event now samples only retired instructions, which leaves
+> >   the killed% and invalid% columns at 0. Thanks to Ian Rogers.
+> > - New patch 3: add a perf mem event for Alpha, cpu/cycles,profileme/.
+> >   Suggested by Ian Rogers.
+> > - Link to v3: https://patch.msgid.link/20261102-perf-alpha-profileme-v3-0-4bf6e1dda733@gmail.com
+> >
+> > Changes in v3:
+> > - Patch 1: silence -Wpacked around the uapi header, which breaks the
+> >   build where __u64 is 4-byte aligned, such as sh4.
+> > - Patch 2: only read raw data from cpu PMU events, as a tracepoint's
+> >   payload can pass for ProfileMe status. Thanks to Magnus Lindholm.
+> > - Patch 2: print a table for each thing PCTR1 can count, so that mixing
+> >   events no longer averages unrelated values. Thanks to Magnus Lindholm.
+> > - Link to v2: https://patch.msgid.link/20261030-perf-alpha-profileme-v2-0-9ce2f0b0e622@gmail.com
+> >
+> > Changes in v2:
+> > - Patch 1: copy the raw data out of the sample and convert it from
+> >   little endian, so that it decodes on strict-alignment and big-endian
+> >   hosts.
+> > - Patches 1 and 2: follow the new 28-byte struct alpha_profileme_sample
+> >   from kernel v2.
+> > - Link to v1: https://patch.msgid.link/20261028-perf-alpha-profileme-v1-0-f46c1938d001@gmail.com
+> >
+> > ---
+> > Matt Turner (3):
+> >       perf alpha: Decode ProfileMe raw samples
+> >       perf python: Add alpha-profileme.py
+> >       perf alpha: Add perf mem support
+> >
+> >  tools/arch/alpha/include/uapi/asm/perf_event.h |  31 +++++
+> >  tools/perf/Documentation/perf-mem.txt          |   3 +
+> >  tools/perf/arch/alpha/Build                    |   2 +-
+> >  tools/perf/arch/alpha/util/Build               |   2 +
+> >  tools/perf/arch/alpha/util/mem-events.c        |  17 +++
+> >  tools/perf/arch/alpha/util/mem-events.h        |   7 +
+> >  tools/perf/arch/alpha/util/pmu.c               |  11 ++
+> >  tools/perf/check-headers.sh                    |   1 +
+> >  tools/perf/python/alpha-profileme.py           | 178 +++++++++++++++++++++++++
+> >  tools/perf/util/Build                          |   1 +
+> >  tools/perf/util/alpha-sample-raw.c             | 156 ++++++++++++++++++++++
+> >  tools/perf/util/sample-raw.c                   |   2 +
+> >  tools/perf/util/sample-raw.h                   |   2 +
+> >  13 files changed, 412 insertions(+), 1 deletion(-)
+> > ---
+> > base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
+> > change-id: 20261028-perf-alpha-profileme-8010299be323
+> >
+> > Best regards,
+> > --
+> > Matt Turner <mattst88@gmail.com>
+> >
+> 
+> My plan is to take this series through the Alpha tree alongside the
+> kernel ProfileMe support. Does that work for the perf maintainers?
+> An Acked-by would be appreciated.
+
+Should be ok as it hardly touches the common code.
+
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+
+Ian, does it look ok to you?
+
+Thanks,
+Namhyung
+
