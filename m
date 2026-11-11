@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.178.41.114
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411271;
-	b=lToBvruOVxrRa/a+fLdae+d0TmsQD98YEcHbsMX6lxY2E3ooLpoDR58gjxSoeJ4uPILk
-	 Ah5TG8clQr5D28cbqKOALknFKa6UP02/FJmrRz5UPKcqRY8gEtuDo3UW472UrBgASh0TJ
-	 uQTlmxqzhns26gBxTZsgt+BnbsYUZ8lEiSn5x/3l8QcrN2+h8yKJMd8MzMMLBjFjqN+70
-	 +ov2+AUEqWou7Csr1EJ9A7I1PqWwLcTFx63BcYqnrZWrmxouTcPIN2QwaUkz7AhC+x5JV
-	 O8wyqJK3cixgx+GuZGQoVwuoer2yvYgC5Me/PLsLBk4K4/XrlWGrWr3LrxoUD/NR/qw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411271;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=MC35NwvYHbQmTMFdIYuy0TI1TVZGM/Iyjc/cBErfQM4=;
-	b=IeO24YXFpv1TpVTNP5G26ubEX76qYW6TkuYf6M13QzVBXW5HQleMEHBS6FubilwN8RUZ
-	 QbI7wDAP+Y7rz/34LgU8rWCcVTliXui0g+Obi8odoDBmrgNPCdJclINas9oGHzej2A3LH
-	 +dfwRkLWiFX31HA+1RRIXbnuxE+AtneA5nyQneNg7sK3TbnJlOlH86TcwxY3KjIlNuK8i
-	 YAn6NcarPbugKgjUrptC9c5cKpjVWf29diOLQw4fxgXitxOLeWtYtLJ/FMRCekDYF1iCq
-	 K/KeOBXAE70/2tcdDC5Xo6ji8vs3JMb2zAx6wQc+8ULWb9WzV0o07qpphDLfsrGvZXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bencteux.fr;
-	spf=pass smtp.mailfrom=bencteux.fr;
-	dkim=pass header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=uI0l03g5;
-	arc=none smtp.remote-ip=51.178.41.114
-Received: from beta.bencteux.fr (114.ip-51-178-41.eu [51.178.41.114])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794411272;
+	b=kGTSlSUxLX9vGgn30QTkufxRHmAQfvJAutdGrywXP9agN+pPYigXQgoFn1tkKD3iQxBL
+	 A0YohCnqB5bfUSROn60LmbkTk6iOoPjGy8PGo9tSP+ByY4plrycscAYzefaBXFmRuufy8
+	 SppDdQKCUElffrqgMfgxOmGFe+d6rnW5sD90VzI0ApcyRufyyzbyPgGeeDv3vjfZdvsnc
+	 e/M2/rU5j5xo8YJ6qk2eMjb1pGbIK/2l+OEAWqzgnu/YXDveZTiz6UKHQG0qU+Dy0xvw0
+	 Fp7rHRItd+Yhck9nMi/K2iLBBdCq/WqaDS2T2lLQijrtFhKjLBEBH3wgjv0lzzUwiVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411272;
+	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Mime-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To:X-Mailer:X-ZohoMailClient;
+	bh=3d6GwUcI41vPeyH4xF1H67Snjlg/ya1dkGHnX8U2dlU=;
+	b=pZtbIl1OT0iz71zMl80tUGpu51uMo1oULz1gzP53hdyvTapi0vKqwnaCdC4Pw/zSghy+
+	 9iF36UO1uqAuXRwoExE6dnJtC+rPaDvf7SFpYN9cSzqeg6bJO96G4mvjtQyTBVv203hGc
+	 G4V7oR3KmkoZyKYXsmIjk5DyStDbPYa25wGUovtKb7LIQj5HQGiMlvIGrCr5gj+Rk1aX4
+	 TfaVsx2c7tWBRh3dSqL6hXR2NXMR0nN7Q9HXbAZ9Lq9u6pkxhYv4fk/NuBVwMOcyWN9bA
+	 mY9TJBx9arZeFMcb6peDaVVcOTsqRZuWl7a+1gXhAp6x55MP0tY2VDjHxe4A3PQZ21Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Gxq2A+gU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C3E606A321;
-	Wed, 11 Nov 2026 15:34:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C3E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bencteux.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bencteux.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C495C606A331;
+	Wed, 11 Nov 2026 15:34:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C495C606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bencteux.fr header.i=@bencteux.fr header.a=rsa-sha256 header.s=mail header.b=uI0l03g5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bencteux.fr; s=mail;
-	t=1794411088; bh=gXW8SyVARUoohB2SsNyiHx3TvB4I/8N9VeiFAUqba0w=;
-	h=From:To:Cc:Subject:Date:From;
-	b=uI0l03g5k++BJxlUcQmhttMm2ydWQ/DRfvZB0v8KvXsKf6jX3Jesx6NkQw0ehPiME
-	 7lPZPBBaaU+ACrAmw04wR64q5e4Xgceh1tfxvc16OBSSqM6vOwl7OYSY4hSoiKa10M
-	 Zur8SkpovVpvPitlnNfVBQYnxgKPWnFdG83KrJ+Y=
-Received: from localhost (unknown [146.70.188.209])
-	by beta.bencteux.fr (Postfix) with ESMTPSA id B654C4029F;
-	Wed, 11 Nov 2026 16:31:28 +0100 (CET)
-From: Jeffrey Bencteux <jeff@bencteux.fr>
-To: paul@paul-moore.com,
-	eparis@redhat.com,
-	arnd@arndb.de,
-	audit@vger.kernel.org
-Cc: linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jeff@bencteux.fr,
-	rrobaina@redhat.com
-Subject: [PATCH v2] audit: add missing syscalls to signal class
-Date: Wed, 11 Nov 2026 16:20:51 +0100
-Message-ID: <20261111152057.59798-2-jeff@bencteux.fr>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Gxq2A+gU
+ARC-Seal: i=1; a=rsa-sha256; t=1794411245; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YH4GCyBgSUE4ZWKabNOPkedslFjxEeN2y+ukxGakA+nTWBBltm2ACuFjgZAhuUQTipu/k0RbB80tfJvN8S6sRxp656EDfhDzhNAFmmXoCRmjBs6G5FSi3shPCK6isX1o6IwDEmku5nWcqAut99U7JlydtjyHNmclAZhtiwxdQmk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794411245; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3d6GwUcI41vPeyH4xF1H67Snjlg/ya1dkGHnX8U2dlU=; 
+	b=AcKJI43GQKyj21gx708w3BVs9FDY87GsU+SlJyfy+C7zpBpMU2mCbc5YnDPs2/sLUNypYTKIG5B5UB8Qv6KRIJc4zz3KBXSYpnIEIaqqXa52NKZWjEV7rJf5D+ZxGWcv4IFtT/cwzyWw9AQNdjhoKVCUgGBnOufpZJLiIUSpOSA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Gxq2A+gUMWVLn5WHW9l3vwnxQlQIYUqQccBXHbU8H12DDAaAOMmh6r+KWJaTUxaf5EKbaNKh4Iw8OCrcvFEdIx5UgYOxmgLH+KSccnvqk96LmLlzwTSEZUAn6cZ6vRBuklZ+0VTUjKDniwcU+BVWJcPNofa0CIDBh/pzNaUuzfk=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=3d6GwUcI41vPeyH4xF1H67Snjlg/ya1dkGHnX8U2dlU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794411244551300.58005091833445;
+	Wed, 11 Nov 2026 07:34:04 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,43 +57,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261111100745.3929894-1-work@onurozkan.dev>
+Date: Wed, 11 Nov 2026 12:33:47 -0300
+Cc: linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ dakr@kernel.org,
+ aliceryhl@google.com,
+ airlied@gmail.com,
+ simona@ffwll.ch,
+ ojeda@kernel.org,
+ boqun@kernel.org,
+ gary@garyguo.net,
+ bjorn3_gh@protonmail.com,
+ lossin@kernel.org,
+ a.hindborg@kernel.org,
+ tmgross@umich.edu
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
+References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+ <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
+ <20261111100745.3929894-1-work@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 
-The pidfd_send_signal(), rt_sigqueueinfo() and rt_tgsigqueueinfo()
-system calls are missing from the AUDIT_CLASS_SIGNAL* class. It seems
-to be used only in kernel/auditfilter.c to increment the audit_signals
-counter.
+Hi Onur,
 
-This counter is used to determine if information related to a target
-process of a syscall audit rule using signals, such as its pid,
-should be logged (e54dc2431d740a79a6bd013babade99d71b1714f).
+>=20
+> Any updates on this? I am preparing v2 of the GPU unplug series [1] =
+which
+> depends on this series. The reset patches need rebasing against =
+current
+> drm-rust-next.
+>=20
+> Would you prefer me to send a rebased v8 and base unplug v2 on it or =
+are
+> you planning to pick up v7 and handle the rebase?
+>=20
+> Thanks,
+> Onur
+>=20
+> [1]: =
+https://lore.kernel.org/all/20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@o=
+nurozkan.dev
+>=20
 
-Information related to signals sent via these system calls are
-currently not correctly logged. The current patch adds it to the
-AUDIT_CLASS_SIGNAL* class.
+I'm only waiting Alice's R-b before bringing this in. Feel free to send =
+a
+rebased version, since it will probably be needed for the unplug work =
+too.
 
-Signed-off-by: Jeffrey Bencteux <jeff@bencteux.fr>
----
-Changes in v2:
-- Removal of unneeded #ifdef guards
-
- include/asm-generic/audit_signal.h | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/include/asm-generic/audit_signal.h b/include/asm-generic/audit_signal.h
-index 6feab7f18a53..c02edbee3311 100644
---- a/include/asm-generic/audit_signal.h
-+++ b/include/asm-generic/audit_signal.h
-@@ -1,3 +1,6 @@
- __NR_kill,
- __NR_tgkill,
- __NR_tkill,
-+__NR_rt_sigqueueinfo,
-+__NR_rt_tgsigqueueinfo,
-+__NR_pidfd_send_signal,
-
-base-commit: 6614d4c05c7a661a925b3d8dbf9c70faac3bd2da
--- 
-2.56.0
-
+-- Daniel=
