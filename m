@@ -1,45 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367008;
-	b=v/vSB+jorG9RdV1YENfcsdG4ZG5CSw1Ra/htr5nemBcGihNlJvXnldWwyMoF06SzyfRt
-	 ByiOJj3BXoU8xp43KaLHxru9nKZkoGN0Xp2MAFgd2cxd9j8l+LsyjOvzA3DYP+l1dhESj
-	 yyZkV9wsKtIpSeV1yatMUYwg8i+aUEnDuwyQSs80qwJsdJp6W4OLx8ql2tnW+/bQTBXLF
-	 QrW5eDPNuedtIYBAOUV/WNHn9ChcG9q7MibxaOvRx5qgEdCQtOFhYN9/2TNjkmBKMjeIi
-	 V3zflH+1txKZfAFuy3lNgjKaeLgjupH1FxGs3C7M5xlWH+wlVM1EjhFu/aKkmU2n20Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367008;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=meOhYogBFYndjJYJOHnWj3u2vMsujDAyf/fw+ttqvVc=;
-	b=VGRLAWqw3iqfKg6Xra/tRum2u7ogZ1NGja5MicWKTJ0dq/NB8sfT9sT4YCIW3RFzlzW3
-	 cXlTlVcLenfwX0B5m0DcfQORbMKGV0T2y0m1dVk0dns2iNshkL98JO6l5qQZh8N2AR8q9
-	 7hHtYX6zyz0GnRWjk+4iPuCIvxRF9ES6Jjw7uqrIPpGHmPjkqAVmiFzGMpWPVAKKc9PDi
-	 3XgWp1J7+VCDn/NscPp4vckDSmx4rsLCPlMsJnYyZafbUcMTogzP7dAwqlbF/Z/0xZjBq
-	 Pjm2bijOrxbFD1lWmpHqqRkWPvKKcCpt18IoxcF+namGHvqbBnyLARnfkSwucC2y4PA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794367033;
+	b=xrrbt+PiRSnFu5fGkbjg8QA8osKfS1SRsrtVX/rnpDnim6EcTSiD0N/ezVa89xQ3RiQj
+	 UtnjZP2o6bHGJUqohVmJRnIBMVWm5jl/FDuGEcXVaUBbNWvC/h1do3b0mKhMzZvqqvPHa
+	 ZKAk2eNIrjC/WOnBahmwB3NBso7WTeXpqu/7NOzvhMev2FMoVGBvLXBCiVRlcXxHoDPQg
+	 Ab7iBi+teFplZuOnvNOn4AawvgHVsuHdSsJlvsDtfWbWLbunIYuFMdnAWB/BVwfy2qYjW
+	 muLwEvoix48c9+sCQaiZIcvxDNqwfYbJ8rIMfY1DOc2YxgLWGSo11vpCg6/1GNPkPfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367033;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=1vjq4WJ2E/VrmteftSGIAuvyGzJ38GK9he7dKG79KRU=;
+	b=tjHcXTgtYakXkxM5tNyHZFDSsDD+rYYpzTm/ANAeIwN3YhKksUKoM0m1bRXQ81PzFVCx
+	 g0A46WeQE2Fyp90kdpE4ZNydrfefleRzWPEIYgt8MQ49aIFwKQ5TDq3Wit8DLGm7nGg1U
+	 lFTZDEm5hZo32Nype2TdkzHPcnK3Du22WZAhYGOIc2sBdf3aZabYXgo2f21aV2gHsO+Cw
+	 gwId9dvg3WK3DMzTsXWq5rJMh0sfqeZKFrONDjO60Id4RbkkmfER7uRbmM5Cf7nMoh+qq
+	 Wkbuq/QatjxfmDGkK968gQLQjaUiaXaPfzqgitFbeY3C+A9+HJxff2jhLYFXnZI9n8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jazMZnms;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3318160A382B;
-	Wed, 11 Nov 2026 03:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3318160A382B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Wed, 11 Nov
- 2026 11:16:32 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Wed, 11 Nov 2026 11:16:32 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Wed, 11 Nov 2026 11:16:37 +0800
-Subject: [PATCH v2 9/9] i3c: mipi-i3c-hci: Support the AST2700 internal
- pull-ups
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A23A60A2600;
+	Wed, 11 Nov 2026 03:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jazMZnms
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794367032;
+	b=dPfxmDneZJFOM4sbndUz/FaQzxBR2QlJroIm1vuHBcMMLkz3dejlJZIppRs2acHLxRmz
+	 +m3Lk5zIWHmiKp/BI76/E9V/5AXHZJ5R92ac6Iu7I2SJm/BzZAmZTybYFv79h8bjGM551
+	 gYen9BI52LwHOdjMMjzjsxOtS9pPgSUISp+bd7D/THmIWueJ293h0WMGgTxDeYznrYsh+
+	 pyJQo4IgYYc+3k0Er352AXV1B2Y+9r1ykHLWAIs3hDQquP34IMzbreyqASkNZBGhasHux
+	 oapL149AvlLLIN1Z7CdkusUiqjzvAnKbkvIunRJsuL7s/qX5l1krXFuwyYPmqeVjqFQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794367032;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=1vjq4WJ2E/VrmteftSGIAuvyGzJ38GK9he7dKG79KRU=;
+	b=M7iJOBRWSrdg+ZgrfoP+yhpe1GF5jSzUjlt/19Fe1XY692u5NMt3KIlLUAHHD8XXpkDm
+	 urha66ToT9ZZzKCLUeAOzurHP/Pr45hxuCvK0Gd0YPWG7r8fmYuqlA6PIvA1HBpSoW4L0
+	 JGRk46yldAA5Oqm77cKkcO/miB2R9oZlnoReUXyY0lP7PZzZMW3Auqr3ToHPp2orf3ntF
+	 kNTMg4txdTzT3s+tBnaCO1SC/S6jDgemtlrSNVJE5QrOBEDbi2HcXkrK58Fldx3F2LwY3
+	 92A84vetLNdzv2fbQs+8Brlc2aiKw1OneChqxW/imp2o0RhY4nSnsTQ/fkmwIinC/zw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 43BF71F0093C;
+	Wed, 11 Nov 2026 03:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794367032;
+	bh=1vjq4WJ2E/VrmteftSGIAuvyGzJ38GK9he7dKG79KRU=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=jazMZnms7uOcWXLO8P8O9t/Xc7f1ueVcF4Qazm+cU9arL674IVdrbMCjkpdIwg1FF
+	 FpYAOqCWcKPxkZaITMBfh0CbGR1DBrMkXs8nSoS6IAxSCBs+B+fTSjXM8On3XV99p1
+	 lEQU/+MX0EgTSsdXdZo3mS9EgDie4MIqvcECJko7ZHuyKhTa+WEF/XMts4K9M4ztII
+	 1uHVaVr6oIl2q/Yqtdrz8jpYsJawlzu6TzENeVlpq4LYNPclZ1/qanQdLI7wczUI3C
+	 Jh6mIe30gqTE5KjT/2ZL6kW7pDdFpMBR8I5XCoMl8KvtbM1sm3eV1ZIjvPdyh26QrX
+	 FTsjUrxxicaqg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8FBAF48D44;
+	Wed, 11 Nov 2026 03:17:11 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Subject: [PATCH v2 0/2] xfs: skip redundant fsync cache flushes
+Date: Wed, 11 Nov 2026 12:17:10 +0900
+Message-Id: <20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,215 +85,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-b4-i3c-hci-ast2700-v2-9-4d8fff5c5196@aspeedtech.com>
-References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
-In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Miquel Raynal <miquel.raynal@bootlin.com>, "Ryan
- Chen" <ryan_chen@aspeedtech.com>
-CC: <tbevis@amazon.com>, <linux-i3c@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794366991; l=5963;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=+kGXXSXJX0VtXkxub2tvdKAYW26lF5M0TaZsOE2nZpY=;
- b=hZxmZzQe/z1aSlXnmHlyFoWDcS006utE+vM9s5x1nRR1y42JS0t1RJRM2h7BEooIP51fJKTbt
- BvX01yKmi9hB1UVV2pGJ19gbZvfCxJ2LyQ0k0Id9XprVlGN8v8T4T3W
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+X-B4-Tracking: v=1; b=H4sIADbe82oC/32NQQ6CQAxFr0K6toYpgYAr72FY4NDCJDLIVAiEc
+ HdHDuDyveS/v4NycKxwS3YIvDh1o49AlwRs3/iO0bWRgVIqjElzXEVRdPMW5TVrj8oTllnDZEU
+ Kohzi8h1Y3HpWH3Xk3ulnDNt5spif/d9bDKZIVfVsJWcqbXbXZtDZd1c7DlAfx/EFdgYRZrgAA
+ AA=
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>, 
+ "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein <amir73il@gmail.com>, 
+ Brian Foster <bfoster@redhat.com>, linux-kernel@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794367030; l=1829;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=c4BWBwBKwkn74Ov6XMf6CjVsk1F8tqFkdQIPCAjSv4w=;
+ b=ZLCHVLmcQn7q5tXwuxyvwaz6vsXPLFdxDMUFZLVPgOA7X+r9TAs/5MTtqOZ4/XN+AL1GolO2b
+ V40e8hp1lqTDZ/cX3Bc/KdIZbERy3JFUYZtJZ7Htirh+5kKz8PyDJ0Y
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-Boards that do not populate external I3C pull-up resistors can use the
-pull-ups built into the AST2700 PHY.
+Concurrent fsyncs often wait for an iclog that another task wrote out,
+and then send their own cache flush. Patch 1 numbers the cache flushes
+on each buftarg. Patch 2 uses the numbers to skip that flush when a
+later flush has completed.
 
-When bias-pull-up is present, determine the pin voltage domain from
-the pinctrl-0 group already selected for the bus and enable the
-internal pull-ups on both SCL and SDA at the requested strength.
-Currently only pinctrl-0 is inspected; a node selecting its group
-through a different pinctrl state is not yet supported. The controller
-reset clears the SW force control register, so the internal pull-ups
-start disabled unless bias-pull-up requests otherwise. A resistance
-with no entry in the domain's table, or an unrecognized pinctrl-0
-group, is rejected with an error.
+16 fio jobs of 4k append + fsync in a QEMU guest: 1111 -> 4498
+fsyncs/s. fstests -g quick shows no change, and a dm-log-writes crash
+test on an internal log lost no data (patch 2).
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
- drivers/i3c/master/mipi-i3c-hci/aspeed.c | 118 +++++++++++++++++++++++++++++++
- drivers/i3c/master/mipi-i3c-hci/aspeed.h |   6 ++
- 2 files changed, 124 insertions(+)
+Changes in v2:
+- Zero ic_flush_seq after the bio setup and take the flush number
+  where REQ_PREFLUSH is set
+- Move the fio result into the commit log of patch 2, measured again
+  for both kernels on the new base, and add the single job result
+- Rename the argument of xfs_buftarg_flushed_since() and the fsync
+  local to submit_seq, and describe the submit and completion ordering
+  in the comments
+- Keep the fsync comment on why the flush is needed
+- In patch 2, shorten the DAX text in the comment and the commit log,
+  and drop the commit log sentence on numbering the fsync's own flush
+- Say below --- of patch 2 what changes for a failed flush on
+  bio-based dm
+- Rebase onto the current for-next (v7.4-rc2)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.c b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
-index 8f2a00a940f7..1e093fb5d9d9 100644
---- a/drivers/i3c/master/mipi-i3c-hci/aspeed.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.c
-@@ -15,6 +15,7 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-+#include <linux/string.h>
- 
- #include "hci.h"
- #include "aspeed.h"
-@@ -197,6 +198,100 @@ static u32 aspeed_i3c_get_sdr_ctrl0_reg(struct i3c_hci *hci)
- 	return ASPEED_I3C_PHY_I3C_SDR4_CTRL0;
- }
- 
-+struct aspeed_i3c_pullup_ohms {
-+	u32 ohms;
-+	u8 code;
-+};
-+
-+/* SW_FORCE_CTRL strength selector to resistance, by pin voltage domain */
-+static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_hv[] = {
-+	{ 600, 1 },
-+	{ 470, 2 },
-+	{ 400, 3 },
-+};
-+
-+static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_lv[] = {
-+	{ 750, 1 },
-+	{ 550, 2 },
-+	{ 317, 3 },
-+	{ 400, 4 },
-+	{ 261, 5 },
-+	{ 231, 6 },
-+	{ 177, 7 },
-+};
-+
-+/* pinctrl-0 group names for each pin voltage domain */
-+static const char * const aspeed_i3c_hv_groups[] = {
-+	"HVI3C0", "HVI3C1", "HVI3C2", "HVI3C3",
-+	"HVI3C12", "HVI3C13", "HVI3C14", "HVI3C15",
-+};
-+
-+static const char * const aspeed_i3c_lv_groups[] = {
-+	"I3C4", "I3C5", "I3C6", "I3C7",
-+	"I3C8", "I3C9", "I3C10", "I3C11",
-+};
-+
-+static int aspeed_i3c_pin_is_hv(struct i3c_hci *hci, bool *is_hv)
-+{
-+	struct device_node *np = hci->master.dev.of_node;
-+	struct device_node *state;
-+	const char *group;
-+	int ret, i;
-+
-+	state = of_parse_phandle(np, "pinctrl-0", 0);
-+	if (!state)
-+		return -ENODEV;
-+
-+	ret = of_property_read_string(state, "groups", &group);
-+	if (ret)
-+		goto put_state;
-+
-+	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_hv_groups); i++) {
-+		if (!strcmp(group, aspeed_i3c_hv_groups[i])) {
-+			*is_hv = true;
-+			goto put_state;
-+		}
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_lv_groups); i++) {
-+		if (!strcmp(group, aspeed_i3c_lv_groups[i])) {
-+			*is_hv = false;
-+			goto put_state;
-+		}
-+	}
-+
-+	dev_err(&hci->master.dev, "unrecognized pinctrl-0 group \"%s\"\n",
-+		group);
-+	ret = -EINVAL;
-+
-+put_state:
-+	of_node_put(state);
-+	return ret;
-+}
-+
-+static int aspeed_i3c_pullup_code(struct i3c_hci *hci, bool is_hv, u32 ohms)
-+{
-+	const struct aspeed_i3c_pullup_ohms *map;
-+	size_t i, n;
-+
-+	if (is_hv) {
-+		map = aspeed_i3c_pullup_hv;
-+		n = ARRAY_SIZE(aspeed_i3c_pullup_hv);
-+	} else {
-+		map = aspeed_i3c_pullup_lv;
-+		n = ARRAY_SIZE(aspeed_i3c_pullup_lv);
-+	}
-+
-+	for (i = 0; i < n; i++)
-+		if (map[i].ohms == ohms)
-+			return map[i].code;
-+
-+	dev_err(&hci->master.dev,
-+		"unsupported internal pull-up %u ohms for %s-voltage domain\n",
-+		ohms, is_hv ? "high" : "low");
-+	return -EINVAL;
-+}
-+
- int aspeed_i3c_phy_init(struct i3c_hci *hci)
- {
- 	u16 hcnt, lcnt, total_cnt, min_tbit_cnt, cas_lcnt, cas_cnt, cbp_cnt;
-@@ -206,6 +301,7 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
- 	struct device_node *np = hci->master.dev.of_node;
- 	u32 sdr_ctrl0_reg, ctrl0, ctrl1, ctrl2;
- 	unsigned long core_rate, period_ns;
-+	u32 pullup_ohms = 0;
- 
- 	core_rate = clk_get_rate(to_aspeed_vendor_data(hci)->clk);
- 	if (!core_rate) {
-@@ -374,6 +470,28 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
- 
- 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_PULLUP_EN, 0);
- 
-+	of_property_read_u32(np, "bias-pull-up", &pullup_ohms);
-+	if (pullup_ohms) {
-+		int ret, strength;
-+		bool is_hv;
-+
-+		ret = aspeed_i3c_pin_is_hv(hci, &is_hv);
-+		if (ret)
-+			return ret;
-+
-+		strength = aspeed_i3c_pullup_code(hci, is_hv, pullup_ohms);
-+		if (strength < 0)
-+			return strength;
-+
-+		aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_SW_FORCE_CTRL,
-+				     ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN |
-+				     ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN |
-+				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL,
-+						strength) |
-+				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL,
-+						strength));
-+	}
-+
- 	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_DAP_NS, period_ns);
- 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL4,
- 			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL4_DAP, hcnt));
-diff --git a/drivers/i3c/master/mipi-i3c-hci/aspeed.h b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
-index e80a0dff0dc9..69d7ae92d3c5 100644
---- a/drivers/i3c/master/mipi-i3c-hci/aspeed.h
-+++ b/drivers/i3c/master/mipi-i3c-hci/aspeed.h
-@@ -69,6 +69,12 @@ unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci);
- #define   ASPEED_INTR_SUM_PIO			BIT(1)
- #define   ASPEED_INTR_SUM_CAP			BIT(0)
- 
-+#define ASPEED_I3C_PHY_SW_FORCE_CTRL		0x04
-+#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN	BIT(28)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN	BIT(24)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL	GENMASK(10, 8)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL	GENMASK(2, 0)
-+
- #define ASPEED_I3C_PHY_I2C_FM_CTRL0		0x08
- #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_CAS	GENMASK(26, 16)
- #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_SU_STO	GENMASK(10, 0)
+---
+Daejun Park (2):
+      xfs: number the cache flushes submitted to each buftarg
+      xfs: skip the fsync flush when a later flush has completed
 
+ fs/xfs/xfs_buf.c      | 40 ++++++++++++++++++++++++++++++++++++++++
+ fs/xfs/xfs_buf.h      | 43 +++++++++++++++++++++++++++++++++++++++++++
+ fs/xfs/xfs_file.c     | 18 +++++++++++++++---
+ fs/xfs/xfs_log.c      | 28 +++++++++++++++++++++-------
+ fs/xfs/xfs_log_priv.h |  1 +
+ 5 files changed, 120 insertions(+), 10 deletions(-)
+---
+base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
+change-id: 20261105-xfs-fsync-flush-seq-83ae2cff6225
+
+Best regards,
 -- 
-2.34.1
+Daejun Park <daejun7.park@samsung.com>
+
 
