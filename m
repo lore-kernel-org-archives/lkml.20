@@ -1,86 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436160;
-	b=F2ou1okzLGyqA3K0i3v4hof1244eFIMK3ReWdl8ZE+aDj92gnzBPHBrFQtJHsZ8Jr+T0
-	 +P1wqlBO/BukHpsd5Iptl5MXwSJdLbIc0pMQi4F/XaHklNCpZXN9XOxPAYzfj3lrg0jxb
-	 1y0J7EfLOl3pSsiMHChdniwIW7qAk0qsrFTEiD1BIh5mSOKalkR3AtHN7n4PcJW5NLyrM
-	 LR8lemIF/09UDpdS1Eg82TbZEPfZi4SIQBR3ouH96D8vTqJ8RatzpebnAKntq9ohKYCei
-	 OlMSpsUtdKWy/h3NobaiGDdpDVNDE3kcAUVzontL6mC9rRDluEXd48PESrpqU4Gh54w==
+	t=1794436235;
+	b=pl9i4Y+D8GiOpcxrU5CcMN2TH3lgTzfe8/2stqoWNKX4H0uJH0J6bN+FWO7C0T/cowtM
+	 POyWDxsO05mcSMcH2W4VIBP4kpiCjuQ7gAoaB6KLjjog1dAEmN8NtbPJmq0YhClegKmt/
+	 uDUHzhYXX0ul7KwxeMCsxABTTL3wnp5J2jFTqKeg+1M1Fyqv2RXSir8+PdQoQ3wX2/HtJ
+	 PeGNFf8RmAoeVaugMOAa5Y/iD6cof3UKL2tEaiU3XJ9VKk/aX1g/L+pliDmAfFmtEOMfH
+	 ms3VE10gHhDM/U9t5c7zJvolYHxEHXXFoVFYcpGo8HBTGIQzJTx4QWHm03uK+r1sIjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436160;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=W87fSQlkCnHCOpy3utcFbD7aEeTD91fXvM7EUGmB8/Y=;
-	b=HVxhDAvR0rjD1m1Ibd1gTO1w6bj9mwA2u2Z+B7fDfuhIypF7Omg5lF0rfKRsiiEHL1Rj
-	 DRozDshU3p3l5sZA3JOi0rawOmuZuSuT7r2pNZyDDSMSUQ9XzU6sJp9FvVwFcc6LvlToe
-	 nV1PR4NrRbv6D6EyYqDDYqqrvogOeSOnuvdKX9K2DcoAtdTYGKK47OmHnStfCX3lmviCk
-	 2T4m4XERgX9FHPK60Ieem7KH3IVjkozQXaGNJrdyzu6bsWe2sBVAvWpOo21Kdk9togR/J
-	 5hpYhvglzlAVsBSWugVicpdet+NEgoZFZMKUipvdtZo4Vrt+MHgEfWrE6/jA6UjoVkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436235;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=srInJ1lFttHBxQxY+VpLS4HIIUibvm9Rc8ekjajKEn0=;
+	b=T8YYgmf6xreiBcp5eeMJwS4Oen6ULGsUyw6z2T3t1/axxc6k0hLEWDICWBX6c1o0xZGZ
+	 BwkaH9iuW0KNzjM14L5h9HCm2gRE/5UH9TVWx6tCWx9/+uPryd4rACCHX73t3wAUmBMzm
+	 NjLVIQdKCjk7fWAYbT70U2g9xYQZQ4ZqC1AJNSfYIgJYPhA7waWXBQAlQ2LdXYdvvsw1H
+	 r1RacUQ4BXBP00AWEG8Kl8Bkxt1ba1VnBD1xOfebsnFfDTwWv55EhBsdcA1RnRiNXx7Al
+	 2VE5FAt5lc4kXq2mR/w6OLJsYGfGV7i2hAABq4Paw9honf/ZyWiTFlYJHkp+HGQ3NRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=S89Ev5TO;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7ZH5nzw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DA260A262B;
-	Wed, 11 Nov 2026 22:29:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DA260A262B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A2B66606A333;
+	Wed, 11 Nov 2026 22:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=S89Ev5TO
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=W87fSQlkCnHCOpy3utcFbD7aEeTD91fXvM7EUGmB8/Y=; b=S89Ev5TOPgWtVFvcEZ+48OAJIO
-	XHz1eDA+g6T6JYfr9wgyxYW44qIPA8sMuP2LBy3drm3Mq6Z16AUPK4cIEXJctn0e5AK/C/ii/1BPF
-	I8sHywp0m+SfQ0xUp4Ii92OiXPKnlcRyDIBGQF+a6OjjCamoqWClM6iPFWN+CGsFU0S6T+6yXOAEm
-	eOqyw+qJlVgYyC6BY/D3zJSWLRDxFfI0oJ4GoGkSwhknnUlc2HminKTDEuO4NmygkjAg2Fwc9SFRK
-	RWREfWfDrkmvA1BXZou0ErgSnapYQD/h+818v2lfgDVsrjTdwXB80aHIrnGH8dGLlsf4QdWgSC6r2
-	vKOpUNOg==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRGoc-00000009dbZ-2ABi;
-	Wed, 11 Nov 2026 22:29:14 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRGoZ-0000000007r-26M1;
-	Wed, 11 Nov 2026 22:29:11 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	ashish.kalra@amd.com,
-	michael.roth@amd.com,
-	nsaenz@amazon.com,
-	anelkz@amazon.de,
-	James.Bottomley@HansenPartnership.com,
-	Melody Wang <huibo.wang@amd.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm-riscv@lists.infradead.org,
-	x86@kernel.org,
-	coconut-svsm@lists.linux.dev,
-	joerg.roedel@amd.com,
-	Mushahid Hussain <hmushi@amazon.co.uk>,
-	Sriram Nambakam <snambakam@linux.microsoft.com>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH 01/16] KVM: s390: arm64: Pass plane_level to the kvm_set_routing_entry() stub
-Date: Wed, 11 Nov 2026 14:28:56 -0800
-Message-ID: <20261111222911.477-2-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111222911.477-1-dwmw2@infradead.org>
-References: <20260608144252.351443-1-joro@8bytes.org>
- <20261111222911.477-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7ZH5nzw
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 034FB1F00A06;
+	Wed, 11 Nov 2026 22:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794436235;
+	bh=srInJ1lFttHBxQxY+VpLS4HIIUibvm9Rc8ekjajKEn0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k7ZH5nzwqYIfvrDQEzyyLu6+KZ3xKazppHoXM5EP339KqOV6fG/GxYeoiSphdvnBJ
+	 QG8RMzqybUTQxPnGBF2ztZpbjCcUCe7qq8dOmQgU27HS3UgNRPX2D2MGsXDiGnh6ca
+	 pMY7McUMDUOjOQnwaOKXwgrUNO2iX+H+7lznG+U8Cx4Z4zTWWOqYCddhywwOPZcO00
+	 2xMOGVbhW1vh+MpxavKOdgHKyHmSBfnBwSISFRUVip+wJHMWhk3UfFIC0SQ+8gM+zj
+	 a/5T1jytDV+KncNF7PMkardjaGSlhFyrixbpRFiYwZRPnJeeUpThnKPri/Z7o1WfjK
+	 Nwf/dPxih4cvQ==
+Date: Thu, 12 Nov 2026 00:30:31 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	surenkj@amazon.com, noodles@meta.com, kernel-team@meta.com
+Subject: Re: [PATCH 0/2] tpm: Stop retrying TPMs that have stopped working
+Message-ID: <avTsh6pCI-sRGAJp@kernel.org>
+References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,46 +57,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+On Wed, Nov 11, 2026 at 01:57:32AM -0800, Breno Leitao wrote:
+> On Meta's datacenter, given the size, TPMs that stop working write about
+> 54 million lines a day to the kernel log, because nothing in the kernel
+> gives up on them.
+> 
+> Two cases make up nearly all of it.
+> 
+> Some TPMs stop responding. Every command then fails only after the
+> transport timeout, while the hwrng thread and userspace keep sending
+> more.
+> 
+> The goal is to retire TPM that are not properly working, similarly to
+> what was done for EFI in commit 4b2c033b5bc971 ("efi/runtime-wrappers:
+> retire the worker if a wedged call ever returns")
+> 
+> This feature aim to disable the chip once its commands have kept timing,
+> instead of keeping it in this desolate state.
+> 
+> Disabling the chip makes the failure explicit: the log gets one line
+> saying the TPM is disabled, and every later command fails at once
+> instead of timing out. 
+> 
+> A health-check daemon, such as machine checker, can then detect
+> the broken hardware and send the machine to repair.
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+> Breno Leitao (2):
+>       tpm: Disable a TPM that stops responding
+>       tpm: Disable a TPM whose hwrng reads keep failing
+> 
+>  drivers/char/tpm/tpm-chip.c      | 20 +++++++++++++++++++-
+>  drivers/char/tpm/tpm-interface.c | 29 +++++++++++++++++++++++++++++
+>  include/linux/tpm.h              |  3 +++
+>  3 files changed, 51 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+> change-id: 20261110-tpm_unresponsive-a5f71c1db026
+> 
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
+> 
 
-kvm_set_routing_entry() gained a plane_level argument, and every
-architecture's implementation was converted except the stub in the
-arm64 KVM module on s390, which arrived in the same release. An s390
-build with that module then fails:
+I think this good stuff so existential condition for having some changes
+to address these issues is fulfilled.
 
-  arch/s390/kvm/arm64/arm.c:745:5: error: conflicting types for 'kvm_set_routing_entry'
+I.e. debating the details through will likely lead to productive results
+:-)
 
-Give the stub the new signature. It still refuses every routing entry.
-
-Fixes the s390 arm64 stub that "kvm: Pass plane_level to
-kvm_set_routing_entry()" did not convert.
-
-Fixes: https://lore.kernel.org/all/20260608144252.351443-38-joro@8bytes.org/
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202611102242.ywP1yvPR-lkp@intel.com/
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- arch/s390/kvm/arm64/arm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-index 64a609f087a8..0f0fab76e71a 100644
---- a/arch/s390/kvm/arm64/arm.c
-+++ b/arch/s390/kvm/arm64/arm.c
-@@ -744,7 +744,8 @@ int kvm_set_msi(struct kvm_kernel_irq_routing_entry *e, struct kvm *kvm,
- 
- int kvm_set_routing_entry(struct kvm *kvm,
- 			  struct kvm_kernel_irq_routing_entry *e,
--			  const struct kvm_irq_routing_entry *ue)
-+			  const struct kvm_irq_routing_entry *ue,
-+			  unsigned plane_level)
- {
- 	return -EINVAL;
- }
--- 
-2.50.1
-
+Br, Jarkko
