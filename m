@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.91
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402657;
-	b=P107ZPKuAjBzXdgBzQ9SykGmySNKz3kytdMPC6JLZMRVM/mqajRBUNwEEYEVRji4DF36
-	 zSxtmpA3jrbMU5Cw3MdC6e6yZnFwFoDRPQmxXIJ23Ao1JsEMt4SIvR8Nek6KCzzgvCRSU
-	 LEAKvfnXbwMf4ruDr+o6Yc2kLS6pgJADorkdAigUmyas3n37Eg/P+YEelWohM41hLJu0g
-	 5tnYwP7qv3N7QSuBFre4fO/mOmFbLBTcBvxNbSTSRvH4eeiVsSaOL9edI0UGBwWPvZe6C
-	 G/qRTdj07dBk8vt1JmfL0NjrS/4P1LGupjLQTvmbAZBAyfloA6JMnpSG2ufTOBB2j9A==
+	t=1794402719;
+	b=KUSTEjiv+dO7zNTknCfkFw+a65Mbn040TsqnjaANhVYP8KB/HurLS525J4YBljDS4RjF
+	 MWvSrLAH9nTaelymTsaET4MLb7HIbJlUJB3K/pJ/4XIkec7c50u7aihf5yETdMTEjEg9H
+	 5w8T7BxAH1rUrn1d8SH4JvRluOwZLK3kmtGFK+nmmVy1YOLx24LBs4XV9ET0lPl3dcrRi
+	 Q1hHt2m+CXF773Zfh47mPb0Lx13b7Y8Dt7kCvusXhCOfnJPcXQ3bLNQePtaozwDT9WG4Q
+	 Iw4t9xKkaK/DX4zQERwE2NjKSN4yh3U0gC/F05RTNfYG86Db/7MoNqcZFz6vjBmpM6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402657;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=WIaBD4pgSCmuibi93MYmQK12NXnIoOv5CQ8dP5MJQxs=;
-	b=Vw/S5AxrBW9/CF9xqFS0v8ddiq3htAqQqmjCcSQVH0CCVQ3m7mqCniNfEQcqIa1c47Hh
-	 UYUfXTDqcqFXygklUPWa28khPoc1KZr3S2zclG3iDtut+gvTEYRiP7ErgQrF1umREalws
-	 qYzgaaLUjiF+uMrYpn6XtZh3GVfpQWO8rF/XQfspkDamrDhwRn3m9aBLV27IwG0OBcW04
-	 kR5VJAtrgdJjqlNpSQ2IxbHKyAJovNKN/A/L4yfOI/vtW3Q0ye1fguQKllxpgiEwVCreA
-	 2Hmh/pmVWWuNK6j4D3IcCXRcswq3b3m1TKPgqSCGUXGZXqwvPVRYi7T6xJvU8iAjW8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402719;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=OvNwj1NR6c0Jt8mRPTGwZj5b5ZhFzIrphoc1MFIW61E=;
+	b=4fhIgi0z+nCCPrElkXCBUoHa6T9WNdRYIg6X50g5xsqvlY4jtLjazXPDflK5kgX8OO07
+	 L762CQWBCIjVHgfW/DY/+cY+8pxPWUqrY1222/mKUhQV6CcyJdwJBmssOe+RozVVntOqz
+	 qzzOpJTXFdrpx4c/f/XEBVocFqasUnKf3z7wr8Y8NIC4pvi8fENp1YJvCgxr1HHiFRwY5
+	 jd8uoQMZmYd97FhTnN8RldpnEqwOCCuc+Wdge8v3aLF8uPW8+baHAZMST6hSbqHAMCvQd
+	 X+yPvn9br8Hwmp57l0m+TtYglh/48jJ8oTWmdLxWwd4o9iGdvMpYG+N4E5nTmoiT0cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e99vVF9B;
-	arc=none smtp.remote-ip=91.218.175.91
-Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KhvsWjcM;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFE6606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AFE6606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40B4606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F40B4606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e99vVF9B
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YZBAqSuD53IPCe0IdHJimmdy+f3FgILysUny7J+HSiE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794402654; v=1; x=1795007454;
- b=e99vVF9Bq5ioTiAPPx6HwDhBph8Rh4QyUJedrpGrlfh8pBmnJ5QQ8wD5fHKLSeNulAb8B42Y
- GbPs+LP8p7fSnUYQTw5a3DQDIJ6g5X7ugJ96TWtABVeyWI60Yp5s56yUWdYfe8y+KfHFYPEcrqD
- U/XDAzosWrz7cCUgjkFnirw4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c557147aac95f8f3;
-	Wed, 11 Nov 2026 13:10:54 +0000
-X-Mizu-Trace-ID: c557147aac95f8f3
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Wed, 11 Nov 2026 08:10:22 -0500
-Subject: [PATCH v2 2/2] nvme-multipath: don't wait for a grace period in
- nvme_mpath_set_live()
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KhvsWjcM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OvNwj1NR6c0Jt8mRPTGwZj5b5ZhFzIrphoc1MFIW61E=; b=KhvsWjcMK6m5OKYhzuvW5VxmJ8
+	JC7TRKDeLBxXGRt0RcwxPoqHkG/bp42TO75GuIJhrFK4PP9JRiygdiAXQtWHsE5ZoD0h2ifJ23sij
+	DIXqA90BoZHK8OsBQlymSNP6Oj5FFrUsXrfAUXqvslB0kXhSexvELM7SuwSwFMFqWjFoDS6AFCXg4
+	Dpisu8GLuP+kn25tGCFdWz4xsG/IeU4qmO/rsc7it2V2J7iG4XOWh1+Hx+5YEpm5DETALkRevJIfD
+	4O8/kZvQxnG55YdEbIH62y1uLEnQZrDA3tOFdFLkgZk7J9rgEWCA4J2B2wsVK/ElyWk0oS3x/Y3oj
+	mwtOSCBA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR87F-0000000A7cb-17QU;
+	Wed, 11 Nov 2026 13:11:53 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C4EBF300969; Wed, 11 Nov 2026 14:11:52 +0100 (CET)
+Date: Wed, 11 Nov 2026 14:11:52 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
+Message-ID: <20261111131152.GD2669272@noisy.programming.kicks-ass.net>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120208.153536827@infradead.org>
+ <a98c40701cc874318e7fe475d90795c6@kernel.org>
+ <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,104 +71,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-bug-nvme-mpath-set-live-srcu-v2-2-fc772914d293@linux.dev>
-References: <20261111-bug-nvme-mpath-set-live-srcu-v2-0-fc772914d293@linux.dev>
-In-Reply-To: <20261111-bug-nvme-mpath-set-live-srcu-v2-0-fc772914d293@linux.dev>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111130512.GO2668200@noisy.programming.kicks-ass.net>
 
-When a path goes live, nvme_mpath_set_live() waits for an SRCU grace
-period of the namespace head before kicking the requeue work, so that
-bios which found no usable path are on the requeue list by the time it
-runs.
+On Wed, Nov 11, 2026 at 02:05:12PM +0100, Peter Zijlstra wrote:
+> On Wed, Nov 11, 2026 at 01:18:42AM -1000, Tejun Heo wrote:
+> > Hello,
+> > 
+> > On Sat, Nov 07, 2026 at 12:59:25PM +0100, Peter Zijlstra wrote:
+> > >  static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
+> > >  {
+> > > -	struct task_struct *p;
+> > > +	rq_modified_begin(rq, &rt_sched_class);
+> > > +	balance_rt(rq, rf);
+> > > +	if (rq_modified_above(rq, &rt_sched_class))
+> > > +		return RETRY_TASK;
+> > 
+> > This exposes an underlying problem on the DL side. rq->next_class is
+> > raised only by wakeup_preempt(), but dl_server_start(), dl_task_timer()
+> > and dl_server_timer() enqueue a DL entity and open-code resched_curr()
+> > without going through it. prev_balance() ran before any class was
+> > picked, so it didn't matter. Now, pick_task_dl() has already returned
+> > NULL when balance_rt() drops the lock, and rq_modified_above() is the
+> > only thing which can notice a DL entity queued in the meantime:
+> > 
+> >   CPU0 RT task blocks, pick_task_dl() returns NULL
+> >        pick_task_rt(), balance_rt() drops the rq lock
+> >   CPU1 wakes a fair task onto CPU0, dl_server_start()
+> >   CPU0 relocks, rq_modified_above() is false
+> >        picks an RT task with the fair server queued
+> 
+> A very nice catch, but I'm not entirely convinced it wasn't a problem
+> before.
+> 
+> Similar argument could be made for FAIR vs EXT, and picking a FAIR task
+> while an EXT server is pickable.
+> 
+> > resched_curr() doesn't help as __schedule() clears it on prev after the
+> > pick. I can trigger this with NO_RT_PUSH_IPI and a delay added in the
+> > lock drop. With RT_PUSH_IPI, pull_rt_task() doesn't drop the lock.
+> > 
+> > Maybe the DL sites should raise rq->next_class where they enqueue and
+> > resched, so that they behave the same as regular wakeups?
+> 
+> Yes, something like that. I think the below captures all enqueues,
+> irrespective of rescheds. I'll add it as fix at the start of the series.
+> 
+> (although maybe I'll massage this a little more and create a helper,
+> doing the same thing over and over like this is daft)
+> 
+> Thanks!
 
-The ANA work calls nvme_mpath_set_live() for every namespace that
-becomes optimized or non-optimized, one after another, so an ANA change
-waits for one grace period per namespace.
-
-Start the grace period with start_poll_synchronize_srcu() instead and
-have nvme_requeue_work() wait for it only if it has not completed yet.
-Take the cookie under head->lock, so that concurrent callers store
-their cookies in order and the requeue work never sees an older one.
-The grace periods of all namespaces then run in parallel, and requeue
-work kicked for other reasons finds the cookie completed and does not
-wait.
-
-Flipping an ANA group from inaccessible to optimized ten times over
-nvme-tcp loopback, nvme_read_ana_log() takes (median, min-max in
-parentheses):
-
-  namespaces  before (ms)          after (ms)        change
-         256  51.9 (42.5-85.4)     8.9 (2.6-12.0)      -83%
-        1024  157.5 (133.5-179.6)  49.5 (32.8-67.1)    -69%
-
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
- drivers/nvme/host/multipath.c | 15 ++++++++++++++-
- drivers/nvme/host/nvme.h      |  1 +
- 2 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index a92a05b1f925a..9c1023102902c 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -712,6 +712,11 @@ static void nvme_requeue_work(struct work_struct *work)
- 		container_of(work, struct nvme_ns_head, requeue_work);
- 	struct bio *bio, *next;
- 
-+	/* Let bios that found no usable path reach the requeue list first. */
-+	if (!poll_state_synchronize_srcu(&head->srcu,
-+					 READ_ONCE(head->requeue_srcu_cookie)))
-+		synchronize_srcu(&head->srcu);
-+
- 	spin_lock_irq(&head->requeue_lock);
- 	next = bio_list_get(&head->requeue_list);
- 	spin_unlock_irq(&head->requeue_lock);
-@@ -767,6 +772,7 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
- 	mutex_init(&head->lock);
- 	spin_lock_init(&head->requeue_lock);
- 	INIT_WORK(&head->requeue_work, nvme_requeue_work);
-+	head->requeue_srcu_cookie = get_completed_synchronize_srcu();
- 	INIT_WORK(&head->partition_scan_work, nvme_partition_scan_work);
- 	INIT_DELAYED_WORK(&head->remove_work, nvme_remove_head_work);
- 
-@@ -849,9 +855,16 @@ static void nvme_mpath_set_live(struct nvme_ns *ns)
- 			__nvme_find_path(head, node);
- 		srcu_read_unlock(&head->srcu, srcu_idx);
- 	}
-+	/*
-+	 * Have nvme_requeue_work() wait for the grace period instead of
-+	 * blocking here, so that namespaces going live together, e.g. on
-+	 * an ANA change, do not wait for one grace period each. Start it
-+	 * under head->lock so that the newest cookie is stored last.
-+	 */
-+	WRITE_ONCE(head->requeue_srcu_cookie,
-+		   start_poll_synchronize_srcu(&head->srcu));
- 	mutex_unlock(&head->lock);
- 
--	synchronize_srcu(&head->srcu);
- 	nvme_mpath_revalidate_zones(head);
- 	kblockd_schedule_work(&head->requeue_work);
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -715,8 +715,7 @@ static struct rq *dl_task_offline_migrat
+ 	return later_rq;
  }
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index 8833a463f1c84..3fff9b394b1cd 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -587,6 +587,7 @@ struct nvme_ns_head {
- 		__guarded_by(&requeue_lock);
- 	spinlock_t		requeue_lock;
- 	struct work_struct	requeue_work;
-+	unsigned long		requeue_srcu_cookie;
- 	struct work_struct	partition_scan_work;
- 	struct mutex		lock;
- 	unsigned long		flags;
-
--- 
-2.43.0
-
+ 
+-static void
+-enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags);
++static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags);
+ static void enqueue_task_dl(struct rq *rq, struct task_struct *p, int flags);
+ static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags);
+ static void wakeup_preempt_dl(struct rq *rq, struct task_struct *p, int flags);
+@@ -1184,7 +1183,7 @@ static enum hrtimer_restart dl_server_ti
+ 			dl_se->dl_defer_running = 1;
+ 		}
+ 
+-		enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
++		enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
+ 
+ 		if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &dl_se->rq->curr->dl))
+ 			resched_curr(rq);
+@@ -1520,7 +1519,7 @@ static void update_curr_dl_se(struct rq
+ 					replenish_dl_new_period(dl_se, rq);
+ 					start_dl_timer(dl_se);
+ 				} else {
+-					enqueue_dl_entity(dl_se, ENQUEUE_REPLENISH);
++					enqueue_dl_entity(rq, dl_se, ENQUEUE_REPLENISH);
+ 				}
+ 			} else {
+ 				enqueue_task_dl(rq, dl_task_of(dl_se), ENQUEUE_REPLENISH);
+@@ -1812,7 +1811,7 @@ void dl_server_start(struct sched_dl_ent
+ 
+ 	trace_sched_dl_server_start_tp(dl_se, cpu_of(rq), dl_get_type(dl_se, rq));
+ 	dl_se->dl_server_active = 1;
+-	enqueue_dl_entity(dl_se, ENQUEUE_WAKEUP);
++	enqueue_dl_entity(rq, dl_se, ENQUEUE_WAKEUP);
+ 	if (!dl_task(dl_se->rq->curr) || dl_entity_preempt(dl_se, &rq->curr->dl))
+ 		resched_curr(dl_se->rq);
+ }
+@@ -2379,8 +2378,8 @@ static void __dequeue_dl_entity(struct s
+ 	dec_dl_tasks(dl_se, dl_rq);
+ }
+ 
+-static void
+-enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
++static bool
++_enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+ {
+ 	WARN_ON_ONCE(on_dl_rq(dl_se));
+ 
+@@ -2418,7 +2417,7 @@ enqueue_dl_entity(struct sched_dl_entity
+ 		if (flags & ENQUEUE_WAKEUP)
+ 			task_contending(dl_se, flags);
+ 
+-		return;
++		return false;
+ 	}
+ 
+ 	/*
+@@ -2442,7 +2441,7 @@ enqueue_dl_entity(struct sched_dl_entity
+ 	 * deferred task and still got to wait, don't enqueue.
+ 	 */
+ 	if (dl_se->dl_throttled && start_dl_timer(dl_se))
+-		return;
++		return false;
+ 
+ 	/*
+ 	 * We're about to enqueue, make sure we're not ->dl_throttled!
+@@ -2457,6 +2456,13 @@ enqueue_dl_entity(struct sched_dl_entity
+ 	}
+ 
+ 	__enqueue_dl_entity(dl_se);
++	return true;
++}
++
++static void enqueue_dl_entity(struct rq *rq, struct sched_dl_entity *dl_se, int flags)
++{
++	if (_enqueue_dl_entity(dl_se, flags))
++		rq->next_class = &dl_sched_class;
+ }
+ 
+ static void dequeue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+@@ -2534,7 +2540,7 @@ static void enqueue_task_dl(struct rq *r
+ 	if (task_on_rq_migrating(p))
+ 		flags |= ENQUEUE_MIGRATING;
+ 
+-	enqueue_dl_entity(dl_se, flags);
++	enqueue_dl_entity(rq, dl_se, flags);
+ 
+ 	if (dl_server(dl_se))
+ 		return;
