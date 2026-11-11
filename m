@@ -1,112 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395246;
-	b=MQvaXOXA8EqiIv/lrZAXUUR3oOl3JYumgpMd2A+DCdmhiCQPxejkatwDs7uJ34X4dzyL
-	 x9zinw4zuPcK5oHb6KqDw3Yexy9K2m3LMgSJ00mj8i6Nm5z8ynRR52Q0HIRPbCuO53Gsp
-	 PB/YMd7YDQIUutpThnWBLl4JzvbZZU/8Xbktx5cNMMUdNN4FIC9ocAgjRwmBUtHjCUCIY
-	 DPE+iItdN5NEJs2Z0fWBUGS0lk/DYbXbsTBz25UKZe2XKMoNx6nHvD3MQdBFujn2XWGzI
-	 8qvsRoXXW98QHSajrz3E/9KiLRfAX9aZLyzctPdTUaZbJwQBg9yu3CXHtiIBiiIaC8Q==
+	t=1794395270;
+	b=f0pP/nakgtY99l6dcOQ1KWyn7OPi88HxhQkETES3XLlJRkhwutMz9//8sRON2mPsh5ii
+	 0Oi47p8hgi4wLuPJ1kr60A7/xBCZS8ZRgs+4yDaeqT1jccWs5gkBQ+XOedYCxU0S1/UOl
+	 fo110JtiKUssRiOziXgmzioFg70ZogITK6bA9rbU0ViGdIJtYazAuLuVawd0tR1od+xqt
+	 5Djt4X1yi2VFHVi6w4KWN9HqkjHz1hUd0SLuYp0XeKAT3L4r8ABYCDnSp6L1/Mm1HYPhg
+	 PRTVN1rPQzDEpMYyoP932XT+z576jRlfNSNKbWwK+OIo5YjZsYfQJYJrceuHBc0pcmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1DKdyJESssw+eqxRBb106Pb/gP3e4B2hJY3u/Tbu8Oo=;
-	b=gUHDbqxA1V2UkRqDryoKZ6pdiYW6UWd6FWdHEfT6lmDucpHrbEiJ/oLniXDsJOVDk/Xp
-	 xxPyCC8o3qYHnJXthD2oGEsKpkVVe+wzE9T+rVhTC3/rbca+0/nhQq9y2xtVMzIbhTyle
-	 u2zLMIrBrwoNU8rBEV6v9KMfmwzD88gvoiumklKRUUy/vJPjVVq8IqEYbwAGfM3botiVQ
-	 7veWZFBNaV2n7oD6uhoBXqjaiPpBGRKFMWLbfIkWOddwug/cKxU2ntxuVgmCJmk+LAQmd
-	 ze1hWYK5IHblj47Wm44vHnP51zjOe1G12/z56jF7K21AX7TLwnZIh/xqnhDZEVXFIuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395270;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=qg3J6V8yVsrpDP4IPe5+8PWSFroLKLf+tnGolm3Dn0o=;
+	b=VHmCzs6j31s8gTRNJ7SMWFk8HndPCGRgCQ1pbIIsTdJllOGQDyPiTZvLqaVbEI79uqJa
+	 n5XGztBkhySd5pbO+jdiq4q4o9QXEqu0olGIbS+DttXfxG5vY/oCtMlEOL+lFJV6yr+Aa
+	 J+73nn9tll00c5JwMPUnCPhjm5vBhquJiApdBJgdcQSyWTFVoHlJcHbJG17KwTOBDAQsg
+	 Lq9rrV7bBOWrZ19lOtltfjMsvjcB71EOR+jSaoW6hBps5LVHFzaZQp4ClYSd0IRF6Zk3J
+	 n0Gom9mejq2LZqj0DYI2MKuigT6JwnCehu8PVn1xc8OVmk+9ib2gqyy1/XtmaT0s19Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hZbazZ2x;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DZYP7LgF;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF3606A898
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70DF3606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50510606A886
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50510606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hZbazZ2x
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so38583775e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:07:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794395244; x=1795000044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1DKdyJESssw+eqxRBb106Pb/gP3e4B2hJY3u/Tbu8Oo=;
-        b=hZbazZ2xx1xzRrcV2f+dFJ2skZ2Lu5V8v37Yd3xAvwy6+zV3qt9jdA3Y51aNt8JDqm
-         GB3STnUMinZtNkXoIyPF8xoVeX97EPsffn4uNE82NmBLDRD4aP5P0ZdqCIqzlJ/po07W
-         JI0EJTonArtRGK/2hss6Oy5v4S0jOZfaQG4TF/mDN/CFY0IUR5kvAJU1SzPUgqgyhOSt
-         1AlzMu2GjwleFEAw7pmj/Gs27zS2/hbN0O1lLNWiU90tiL2wehYxPCWopVqPLPevXmeX
-         pTkEmOetKS3TYYcbXr+IiLbI5czzgttJSokxjR9OeQetqaDWVkpM82qBMB7cbSQi4Rof
-         jAjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395244; x=1795000044;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1DKdyJESssw+eqxRBb106Pb/gP3e4B2hJY3u/Tbu8Oo=;
-        b=wOc47eqQqBq1n/gjbgpimL6LQwTDyh5ubImo/Te954yt16opDK7QQkUzPvJQysQxfd
-         N7g9MQAXGGpzKjpJ1wFq/ojh9rIjYoBK+VoeFBWlddLnvDIvmkyKvFWejsY5mbMOl2F/
-         VGNKdQIqQe9b1iXqKDP65bevxyGWqhPslD3zWW5bM6v+ECbhw7GzblzsU/5hLPb/bEIw
-         fxN9xWRVMj/F3A0H1fQofHKe4zBrelErtv1s7OEpZ6Xp3GkfQWO/cvyJS71jw0L2IBVi
-         QzuKmdluWJ7dw8F/HMZyeSIb/Jui2GHspsHM0C9f0FxExBdd7fiAiT5txx92Q/7bExkx
-         KRzQ==
-X-Forwarded-Encrypted: i=1; AL+hErE+NUFmJlUu9GlYU7jASVUlARRF25bsQqyX3SlEOxSRySb1hoIH9VOMQaIi9kRrmyUsGnT8otfi9gtgnXw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gpkaDzAA7Xscu8922Pg5eH8x2L9/aN7dNlW+sN+r8vYXUzG5Z
-	M8q/DYrQT9XaHdM1xZvVJYtcv0+32yur33HQMfCqdZq+FJIC2/zDOV38
-X-Gm-Gg: AYBFou0jemSyfDHY3+0jaBR30Lgb/VwrKR4KVAxD6zR0au5r3YTtB7Teyi0EFkqZiRC
-	4RV4U6WaCS4yJ6/WbsQDI57QE0FwrWFcKi7dQSY/p9sVokYbYgrIAvq4isSpD/IQw7NKmUqJP31
-	hSnJ1IQuMGJp/HGcq3AA0WNpj5LQ481yAEP2H3nyd5EbvsPzNfOB3fgRVggFavbtffDTyRRCrW6
-	bUEc0ztEra5YCOG+tNJMqPR1kMwiBPuuooHqSsTMl2qmLecwpYCtN3nJC9fkO4+b41VcWcv1tlB
-	gyzkM2ULXM/zTtPccrgCfJusuVvZlryvruXvW/SG28buyprcIGv/bFzeNrZWDRJ1xdZzX8xxOo8
-	iN+1Aul7EdSrRYhL7ZBYK6vg7s3hPaKaEUNeGtWpxVhuqO0cq3Ps99hkui1pinVhYuhHog0gZF+
-	Q8AjrHGn95NViR6a01av0wXBt8m5T8OzbpFY/HtnKRCdPk0IQvnrxvKLj/S4ze5z2AdKCdiOmFS
-	D3zFvNtnv182IyRxbGs2IO6xSeMou1gRkhnn+qG0TGzB7Ub9573kcbvy2cBrTdeMOnvpep3yT0b
-	pPGZ5upbZJZ735GncSkhJWzpdKfMSQTmuPhkVVzGmtlBvQiyWTO4kTg3b7EVhO8M4JhCsXqNy6F
-	eSKnT+ug1iEMifHeHqpTNjQ6Tmn+1BWQD9pT70Qu+f7Igh7x52zkGs8KcJv4zCTc3wrHVf/WcJ4
-	KF3Mg41m+I
-X-Received: by 2002:a05:600c:1986:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4ba09377221mr34575625e9.9.1794395243848;
-        Wed, 11 Nov 2026 03:07:23 -0800 (PST)
-Received: from iku.example.org ([2a00:23c8:254f:fd01:783d:786e:fe55:f40d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0203a6b0sm146727295e9.5.2026.11.11.03.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:07:23 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v9 3/4] arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
-Date: Wed, 11 Nov 2026 11:06:59 +0000
-Message-ID: <20261111110700.3331225-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261111110700.3331225-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261111110700.3331225-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DZYP7LgF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794395268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qg3J6V8yVsrpDP4IPe5+8PWSFroLKLf+tnGolm3Dn0o=;
+	b=DZYP7LgFMTFyL57ped10tlWkvcbRfzYGUIWkcT04LXBDcHH3iS+pTG+U0yyxemBZSwocQM
+	Z6+NERh6qP8VfK0QseKESSk+EONYHNKgbXpvJqYVtWYYUJ1sJgYRDZ0C5RsEXEEL4s+zlz
+	u1B8N42lIuG0gMppY9v4mPXcHuYVUrM=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-45-J2onJeQLMJ27aPHD_IZPJw-1; Wed,
+ 11 Nov 2026 06:07:42 -0500
+X-MC-Unique: J2onJeQLMJ27aPHD_IZPJw-1
+X-Mimecast-MFC-AGG-ID: J2onJeQLMJ27aPHD_IZPJw_1794395259
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E581218005BA;
+	Wed, 11 Nov 2026 11:07:38 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 98DE31956087;
+	Wed, 11 Nov 2026 11:07:32 +0000 (UTC)
+Message-ID: <10769f32-0570-484b-a518-144fd3bdd4b7@redhat.com>
+Date: Wed, 11 Nov 2026 12:07:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,127 +71,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/10] dpll: document locking rules
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, jiri@resnulli.us, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, min.li@microchip.com,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
+ karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ poros@redhat.com
+References: <20261106121005.1327603-11-ivecera@redhat.com>
+ <179433321053.994134.15233379643090486121@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179433321053.994134.15233379643090486121@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 11/10/26 18:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The new Locking section in Documentation/driver-api/dpll.rst
+>    covers three cases where a pin callback reaches private data owned by…
+> - [Low] The new driver rule in Documentation/driver-api/dpll.rst (lines
+>    716-718) says notifications for objects outside the callback's domain…
+> 
+> --
+> 
+> dpll: document locking rules
+> 
+> This commit adds a Locking section to the dpll driver API documentation.
+> The section describes the dpll_lock and per-domain lock levels, the domain
+> each driver callback runs under, and the rules drivers have to follow. It
+> also adds matching notes to the kernel-doc of dpll_pin_register() and
+> dpll_pin_on_pin_register().
+> 
+>> diff --git a/Documentation/driver-api/dpll.rst b/Documentation/driver-api/dpll.rst
+>> index 7c117ae37cc1b..40d5037ff3bb0 100644
+>> --- a/Documentation/driver-api/dpll.rst
+>> +++ b/Documentation/driver-api/dpll.rst
+>> @@ -675,6 +675,50 @@ In the error path we have to rewind every allocation in the reverse order:
+> 
+> [ ... ]
+> 
+>> +Callbacks of a dpll device run under the domain of the device. Callbacks of a
+>> +pin run under the domain of the pin, whichever driver registered them:
+>> +
+>> +- A driver registering a pin of another driver with its dpll device has these
+>> +  callbacks serialized with the driver that created the pin, not with the other
+>> +  callbacks of its device, so it has to protect the state they share by itself.
+>> +  A callback stuck in such a registration stops the domain of the pin.
+>> +- The parent pin of a pin registered with dpll_pin_on_pin_register() and its
+>> +  dpll devices can belong to another driver, so the callback must not
+>> +  dereference their private data.
+>> +- The frequency monitor belongs to the dpll device, so only callbacks of a pin
+>> +  of the same domain registered with dpll_pin_register() can include
+>> +  ``.measured_freq_get``.
+> 
+> [Severity: Low]
+> Should reference-sync pairs be in this list too?
 
-The WDTDCR registers for wdt0-wdt5 reside in the second register region of
-the CPG/MSSR block. This multi-function block is now exposed via a unified
-syscon regmap interface.
+[...]
+> Could the documentation say whether a ref-sync pair may cross domains, and
+> whether ref_sync_pin_priv may be dereferenced? The parent pin case in the
+> dpll_pin_on_pin_register() bullet already has an explicit rule like this.
 
-Replace the direct mapping of the individual WDTDCR registers with the
-new "renesas,sysc" phandle property pointing to the CPG/MSSR block syscon
-node.
+Yes. zl3073x and ice pair only their own input pins, so no in-tree pair
+crosses domains. v2 will add a rule that both pins of a reference sync pair
+have to belong to one domain, as the ref-sync callbacks of a pin get the
+private data of the other one.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
-v8->v9
-- No change
+[...]
 
-v7->v8:
-- No change
+> [Severity: Low]
+> Can a driver follow the work item suggestion safely without two more rules?
 
-v6->v7:
-- No change
+[...]
 
-v5->v6:
-- No change
+> Here the writer waits for the callback's read hold. The work's down_read()
+> blocks behind the queued writer, and the callback waits for the work.
 
-v4->v5:
-- Added review-by tag.
+Right, and if the work notifies an object of the same domain, it also
+waits for the domain lock. v2 will extend the rules to waiting for a work
+item that makes these calls.
 
-v3->v4:
-- No change
+[...]
+> The second rule is about lifetime. The text does not say that the work has
+> to be cancelled or flushed before the target pin or device is unregistered
+> and released with dpll_pin_put() or dpll_device_put(). __dpll_device_put()
+> ends in kfree(dpll). A work item that keeps a struct dpll_device or struct
+> dpll_pin pointer and runs after the final put would touch freed memory.
 
-v2->v3:
-- Renamed the "renesas,sys" property to "renesas,sysc"
-- Updated commit message
+This holds for any work item that keeps a pointer to a refcounted object
+and is not about locking, so I would leave it out of this section.
 
-v1->v2:
-- No change.
----
- arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 24 +++++++++++-----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-index 258c74c57b75..472cafe7d4b2 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-@@ -327,61 +327,61 @@ channel1 {
- 
- 		wdt0: watchdog@80082000 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80082000 0 0x400>,
--			      <0 0x81295100 0 0x04>;
-+			reg = <0 0x80082000 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 0>;
- 			status = "disabled";
- 		};
- 
- 		wdt1: watchdog@80082400 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80082400 0 0x400>,
--			      <0 0x81295104 0 0x04>;
-+			reg = <0 0x80082400 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 1>;
- 			status = "disabled";
- 		};
- 
- 		wdt2: watchdog@80082800 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80082800 0 0x400>,
--			      <0 0x81295108 0 0x04>;
-+			reg = <0 0x80082800 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 2>;
- 			status = "disabled";
- 		};
- 
- 		wdt3: watchdog@80082c00 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80082c00 0 0x400>,
--			      <0 0x8129510c 0 0x04>;
-+			reg = <0 0x80082c00 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 3>;
- 			status = "disabled";
- 		};
- 
- 		wdt4: watchdog@80083000 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80083000 0 0x400>,
--			      <0 0x81295110 0 0x04>;
-+			reg = <0 0x80083000 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 4>;
- 			status = "disabled";
- 		};
- 
- 		wdt5: watchdog@80083400 {
- 			compatible = "renesas,r9a09g077-wdt";
--			reg = <0 0x80083400 0 0x400>,
--			      <0 0x81295114 0 0x04>;
-+			reg = <0 0x80083400 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
- 			clock-names = "pclk";
- 			power-domains = <&cpg>;
-+			renesas,sysc = <&cpg 5>;
- 			status = "disabled";
- 		};
- 
--- 
-2.56.1
+Thanks,
+Ivan
 
