@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794370674;
-	b=oZs4zQ7Fgoq5uTUaabpYdBKFHwWZOtU4ZaXgpOOLzlDrjypEAN6kmLjc3pV6sanaz0C+
-	 IRXMi08WWy5G+Bb4BIcMTYeX/81KrPYYK2qYekzoRDir/3eUyzbpLEywxibLGPC20nk7b
-	 3SSiBRai+NVtz7viLcHg1XPmWSlp0Io1WmhBVdInVXL4tL3UVdhF16pMhHOmGO4EOHOnT
-	 2Z3Qb+Xl14qNa7CIqSD9mqNS7R85wC+0r4IMsx6Rv4si6yeUwvdffUbqixB05nDKDvvei
-	 HWd7wf4nzK0EzlWFNuig/3VYnJsMHoy7ZtDE3M3QO9zC6gPPUSa0i7iwVQQSyIu8IAA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370674;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NuefdyGrdEGI4G6kB8HaGwrhpuI/tyFukRQfwK0mqeE=;
-	b=CNXLEfnjd9zJIdweiVZMQ4E8w6lnuB21jenLX882E1/AR0iFBkJbC41Y4zwy1BA1A2jm
-	 4vCApw+6DSlT8PM1qxWPlcd3Bb6le9tcE1MmPURryc+zr86wAWof/IoS7v8tjcV1/VYBm
-	 NCSHaB5ucKd4+fSgTiGmrPg2LVsfOGoWHH3XoZ9e1nri2VLjb7DdLf0B9FCiljvApm18T
-	 N1T+NpKNyU/W575OBuLt8CYzPraDKh6QJKFrLTJeon+dn69iL9l+2FTmX0sUd2+ITQVD/
-	 c4NJOZm6nV6a59KiqJ8mXpVrNV5xFpYJs5F3JVWkIxGze2C7OmoE7nV6HGX2Dg1VH/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCAfuxm6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53033606A32D;
-	Wed, 11 Nov 2026 04:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCAfuxm6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794370674;
-	b=oyuHYYaNq0y2eAeq3NQEI9MOObmgu3/ZjGnHpXXKO3Qa/vSGcXbu8e6prwqxkPxKRvWz
-	 jm/uOPSsfP9m5m/upxpaQcmmS2Qy++lYevUEW5rmWPRy4AaOzCzlD9yCSKxV1w5FuDAo9
-	 YheuYWKfhmMNkRRMX4fAPThFQ1MHu4cJy/r76x/zFbKAeM/evTSOPBEU3yUINiqXBPSee
-	 GC7Kg+IplkCI2crTSiAJ1GGEfuNUW52bl517TPU3VM5/YGBkjHWvEXdMddOtQkq81T6qm
-	 NZo2WTU52L6hk6doXIvBrgrBnmir6S1pEzQ4IWM4R3PCoPBL5v1wQ5jrR+WaTYHKjIg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794370674;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NuefdyGrdEGI4G6kB8HaGwrhpuI/tyFukRQfwK0mqeE=;
-	b=LSrp3uhUA+dYfycAlkRt108kpTfd+6UAB91XoIsrOXBzN09kMSv7j/HvTk4DW6YAfWqA
-	 crtw7YYJplvSoot1Qv3fX9M9AXurK3/2n/DtfPxAI6dWrQpS6Rwix7comC2bIKYIVlgLq
-	 5tVM6SU7dTxDSDRBi/bEG3eV3+1jo0cW1loPlnJ1WVzKV6mhmVo9vfA3G14uGPi2xQkhS
-	 kUuQTrLimZv0e4OQwRgBcEo9xSzb3pO/tWkPek7by1bzxwtF3niJFLxDShFf+r4MOA9yn
-	 WQSEIRES6AZzWCOyS7fe1N7Oby14rJOYsiLys8YB21hJxGYcNJF+ah+g1iXdnfTg4XA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794370756;
+	b=qL+lpsiPGVc6zKmjBRE1/DAyFpeACGRjV6+ZQfJvErf3OtgM8gvniVDRM/rXkiHDChSG
+	 FekZUf4IDk3OZXQlCZc/se2+QDFHo0A1IoGJ5FThffhaqGegU6OqutDdjqNHIGC1p3U+1
+	 hm/oVKpHCXawGu9kOTQOYugLPBxG1oZxv6jMh04a+NFaCzskZRBZMwcmlV8xqIbGhdpyx
+	 kjuv9XOwu9jxbQltkRARiLuNo1I+YW1EdZ/MHUa+UXptpfoStI1/AuWkH0whcBt7vs2X7
+	 Vzt+i+/5PvR6Hqxn+tERyQSr/W+57hsJE+jX3iZnjxeHs/24sTuIJT+9b3u470NP6OA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tioxKfo0r6ymDmT2sdreesWQ9Kk6NZ3UAliEfKE+GeE=;
+	b=N1VXOqKiS5Mzbw6PyG55TTgIeQk9YfU04UvLDsiEUHniErcKyxkkhrU1iBQAxLiiq3dS
+	 q6CAF/mw9gFvmVWao6lMRtVWQTYmidoslP/he1QhVj95SR4I/3bojCTocIbLeZ9Fajmpx
+	 h0sPs5NO0lsJB/cE6osVXAFbUz57ylyMji7J7sdHZdIuvnXLoW8gNv7XtGXWahZky8NYI
+	 SnCOc9XT91BZymla4RJrI9XcFXYtxu6Cz6ty96qrJ4hdMRTT/kBAL5/EpBCcxDS1k+fBz
+	 p8cKJ2BICM6Ac+qKI7hsBJbxFlaem/T4KAXYPv/cxJTtEp5+40JY2pAb4ewZd2M/jRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mxdSpsSH;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 307121F00A03;
-	Wed, 11 Nov 2026 04:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794370674;
-	bh=NuefdyGrdEGI4G6kB8HaGwrhpuI/tyFukRQfwK0mqeE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VCAfuxm6eIeGSd68SugJrU8z6gZaBE9THS0xUJhjiByYhJtjSfw3HVosDWrzZaeZW
-	 vuU5Ly0yHKxcZCov0iTeWGYuJOkIMa+gdR7rWu9bEXxrtjISz8dw5NZTM5lNP5s6/o
-	 COABjdQh3bu3CpAO/1ze8U0Q10zKoc26qwodAFzLF5VdXwRAtBWBuBsbhQ3xZiogUM
-	 mw1xSs8OEPnbM5FrnTVr8EOo6K2RAL8Vk6iZN/FzOpSC7QMXJG97Vlr1T4Xy0kDAR5
-	 ABRbJk9b2ulTMvZP6QdI+/tNDsyE+sO9l2rQy1hYZ2VA7qxnd1hVjX1Yi1uq11KzM/
-	 imghhKGiVBy4g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B03C048D7C;
-	Wed, 11 Nov 2026 04:17:52 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Date: Wed, 11 Nov 2026 04:17:51 +0000
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8150: use standalone ICE for
- UFS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7102B606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7102B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mxdSpsSH
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a315ed211so3095018eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:19:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794370755; x=1794975555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tioxKfo0r6ymDmT2sdreesWQ9Kk6NZ3UAliEfKE+GeE=;
+        b=mxdSpsSH6+mr7crxIK8lbMW88P9Aekvjbv2subpODZ62WB5uVpeytOGowg6t5QATYR
+         M24Mdfg3i8/ukpLW/FuLj3DaVfbtV7PbkDrOQppUMi3xxOmqRSDTKBYvaSGLBh7gAphS
+         lJGwuOBLRhutjzOsq2KMfk3tBFn4pf+k2Bz+FjxqrECQ8j39QULw8qduwL6lofdLjxxd
+         IfhIMSrkYPFZPOXqx0fudF8/PuVZzIW6SCjroA1mXtUz/pUZMDukHwgQtBoHJ3dUeukW
+         ATrk5LPOtw7f0P535hNwihOg3WYw4AWabKjwElzpBB6n/QRUbS0hTT5v/rzKm4tlsyOw
+         4mSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794370755; x=1794975555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tioxKfo0r6ymDmT2sdreesWQ9Kk6NZ3UAliEfKE+GeE=;
+        b=lsakoZVRG1cwlDOb8g6XVZrzDZlMv8hA7AbbM7Ql+jszlPx/EFYn4gEDenJ4sb+hK2
+         4STdl3GmGKNkXkUmpVdFFUbdk7flCEZ4ZCeJDtJOMg38YYar45tOmLU78k7f+9yh5MUP
+         /aI3XE8HY+e0g2/bXtbd1Se3PfDxLme1WfRakcWtUYZ//RmXSD1i3U/IGy6w6HB9svvW
+         Cmb/d5cxLyx0ztYImabgMJ+rKroLxJWpmgsW1q4L1D9iDVKMoS/dzZpdJ1syWx3GT3aZ
+         u1RnPEgWO1tDbnnxazJjBb3Hzd2fiPCylDC9bOlA3mjuFvrNt9zHOUdhuTws2xqm5qJp
+         JFgQ==
+X-Forwarded-Encrypted: i=1; AL+hErE3byHDnHQVDagdRB8JahL+VRtl3JbntZoQUKKvd+XRq0S411677FLfCyepTZX1ACx2H3et2QswCafc0ms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9PCe3fDA5MFSl59+08wV1dWWXulcBx3dApNWzyF7wMFONKigRF
+	NHgpANqZwKpL25BfDOTSIgD7uoAfQmTiwi0R6BwOD/Cm29h3EOL6bOHy
+X-Gm-Gg: AYBFou1T9zNgHYHcpni9gza4LhHGuGwxdw9QAcFu6q9pfhwtKT2Qh6nJgyRN2us0xdR
+	GntCO16lXmr9mynYSBoCmaSJYEZo1n5NCHlelsDN+HuTFeHEqB8WpxcMtI6x5IMfDXrMIsJKNhX
+	lO8HCO/9Yu1PSF7GLtHeJRvxVjyHTapOMqIsTPiX+sTnvrlKw8hhYO3GELelon4fahHR0qQZ8Vu
+	YVqFxrCQMgdieuJEuTfyxCJbIyV3azNt4xIDBR8fO0QVhB+MuT4lDKWr8pv2f0/IF1qlPITyzFq
+	jAUmKznk0e2e9cjh5J2rSWRH2sYdS//EuHHux5/PSgiJhIcPapPiCmpKHV0Hq6N3tSW6sUUQWR4
+	0UIn7gaBx1W9A2wU/Te0jiE5Vt+/RyrdDIAz9cMDikngUpdAo8EMXKTBN88RF0OSttLS4Hi/bjM
+	u1ZLZXHnARDBhu3TamexLRqQnC7aOBxSEogNfE8jyA9lWUifx3QMv10iJcibcD8b7FqpfKBIh6r
+	R4nJUvyc9lZEtp5JWneM6PE1SZ9dfNzpkit6UNY7tw0WntM9UrAAuIeZNwtuA0ihk/9vmWmP74s
+	FPyhT7tfR5DzD4rozr2fhMDlXuYoF1qG8wYU3ShKo+fXsgnNkqpCsaVwAMhPTUmE4YgO2T6hy/q
+	hupHQumcVAOMGqqwShtBNOeeNV5u3sPWe4yuVbt0SSjJYfLFTp95M5ZdT+TfdpUBs7JJBAwGa
+X-Received: by 2002:a05:7301:488a:b0:36d:be15:2dd6 with SMTP id 5a478bee46e88-37686b42aabmr1877422eec.11.1794370754436;
+        Tue, 10 Nov 2026 20:19:14 -0800 (PST)
+Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060c4b6sm11820704eec.15.2026.11.10.20.19.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 20:19:13 -0800 (PST)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: netdev@vger.kernel.org,
+	vadim.fedorenko@linux.dev,
+	andi.shyti@kernel.org
+Cc: linux-i2c@vger.kernel.org,
+	Michal Simek <michal.simek@amd.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 1/3] i2c: xiic: allow platforms to require 32-bit register accesses
+Date: Tue, 10 Nov 2026 20:19:01 -0800
+Message-ID: <20261111041904.48916-2-ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111041904.48916-1-ahmadexp@gmail.com>
+References: <20261111041904.48916-1-ahmadexp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,112 +102,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-sm8150-ice-rfc-v3-3-f9d5a806fc95@andrewgigena.dev>
-References: <20261111-sm8150-ice-rfc-v3-0-f9d5a806fc95@andrewgigena.dev>
-In-Reply-To: <20261111-sm8150-ice-rfc-v3-0-f9d5a806fc95@andrewgigena.dev>
-To: Abel Vesa <abelvesa@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794370671; l=2347;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=5ojOLo8hWLDK0hV2yglUJhrUv/sb3CLr9di70RGzFCA=;
- b=fYh/wnOjTAhn9em3DNVhlUH56Virjz5sZPm4HyxwD2C0/aw3IssZBPyFgRnsaQITow4T7Ovq8
- 3+M+kZvHIPjCyalquq6BFaIzxHn8MJ6Hzp0XNvakSNUYBWfy2DrPmIG
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Andrew Gigena <mail@andrewgigena.dev>
+The LitePCIe bridge in the WiWi Time Card production image cannot safely
+service subword MMIO accesses. Bringing up its AXI IIC controller with the
+existing byte accessors caused a fatal machine check. Two crash dumps
+placed the faulting access in ioread8(), called by xiic_clear_rx_fifo()
+during xiic_reinit(). The affected register was the IIC status register.
 
-Align SM8150 with the standalone ICE representation used on newer
-platforms instead of embedding ICE registers in the UFS node.
+Add a platform-data flag to use aligned 32-bit accesses for registers
+carrying byte or halfword values. Keep the detected register endianness
+and use a single transaction, not read-modify-write, for FIFO accesses.
+Platforms that do not request this mode retain their existing accessors.
 
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+With these accessors on a WiWi card, the controller probed and at24
+registered the board and MAC EEPROMs. Repeated EEPROM reads and I2C
+interrupt delivery were tested separately on an earlier Ubuntu port.
+
+Tool-origin disclosure, as required by generated-content.rst: Codex was
+used to analyze the supplied crash evidence, implement the accessors,
+prepare tests and draft this changelog. The request was to support the
+WiWi card while retaining the existing behavior on other platforms.
+
+Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8150.dtsi | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ drivers/i2c/busses/i2c-xiic.c          | 56 +++++++++++++++++---------
+ include/linux/platform_data/i2c-xiic.h |  3 ++
+ 2 files changed, 41 insertions(+), 18 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 293fcbacff34..b3d6f3d92395 100644
---- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-@@ -2071,9 +2071,7 @@ pcie1_phy: phy@1c0e000 {
- 		ufs_mem_hc: ufshc@1d84000 {
- 			compatible = "qcom,sm8150-ufshc", "qcom,ufshc",
- 				     "jedec,ufs-2.0";
--			reg = <0 0x01d84000 0 0x2500>,
--			      <0 0x01d90000 0 0x8000>;
--			reg-names = "std", "ice";
-+			reg = <0 0x01d84000 0 0x2500>;
- 			interrupts = <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
- 			phys = <&ufs_mem_phy>;
- 			phy-names = "ufsphy";
-@@ -2092,8 +2090,7 @@ ufs_mem_hc: ufshc@1d84000 {
- 				"ref_clk",
- 				"tx_lane0_sync_clk",
- 				"rx_lane0_sync_clk",
--				"rx_lane1_sync_clk",
--				"ice_core_clk";
-+				"rx_lane1_sync_clk";
- 			clocks =
- 				<&gcc GCC_UFS_PHY_AXI_CLK>,
- 				<&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>,
-@@ -2102,8 +2099,7 @@ ufs_mem_hc: ufshc@1d84000 {
- 				<&rpmhcc RPMH_CXO_CLK>,
- 				<&gcc GCC_UFS_PHY_TX_SYMBOL_0_CLK>,
- 				<&gcc GCC_UFS_PHY_RX_SYMBOL_0_CLK>,
--				<&gcc GCC_UFS_PHY_RX_SYMBOL_1_CLK>,
--				<&gcc GCC_UFS_PHY_ICE_CORE_CLK>;
-+				<&gcc GCC_UFS_PHY_RX_SYMBOL_1_CLK>;
- 			freq-table-hz =
- 				<37500000 300000000>,
- 				<0 0>,
-@@ -2112,8 +2108,8 @@ ufs_mem_hc: ufshc@1d84000 {
- 				<0 0>,
- 				<0 0>,
- 				<0 0>,
--				<0 0>,
--				<0 300000000>;
-+				<0 0>;
-+			qcom,ice = <&ice>;
+diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
+index ba560462d..d13cfb012 100644
+--- a/drivers/i2c/busses/i2c-xiic.c
++++ b/drivers/i2c/busses/i2c-xiic.c
+@@ -66,6 +66,7 @@ enum i2c_scl_freq {
+  * @rx_msg: Current RX message
+  * @rx_pos: Position within current RX message
+  * @endianness: big/little-endian byte order
++ * @force_32bit_access: Bridge requires aligned 32-bit register accesses
+  * @clk: Pointer to AXI4-lite input clock
+  * @irq: Interrupt number
+  * @state: See STATE_
+@@ -95,6 +96,7 @@ struct xiic_i2c {
+ 	struct i2c_msg *rx_msg;
+ 	int rx_pos;
+ 	enum xiic_endian endianness;
++	bool force_32bit_access;
+ 	struct clk *clk;
+ 	int irq;
+ 	enum xilinx_i2c_state state;
+@@ -282,52 +284,68 @@ static int xiic_i2c_runtime_resume(struct device *dev)
+  * Only the least significant byte [doublet] of the register are ever
+  * accessed. This requires an offset of 3 [2] from the base address for
+  * big-endian systems.
++ * Some bridges only support aligned 32-bit accesses. For these, access the
++ * entire register in its detected byte order, without a read-modify-write:
++ * reading or writing a FIFO register must perform exactly one transaction.
+  */
  
- 			status = "disabled";
- 		};
-@@ -2139,6 +2135,17 @@ ufs_mem_phy: phy@1d87000 {
- 			status = "disabled";
- 		};
+-static inline void xiic_setreg8(struct xiic_i2c *i2c, int reg, u8 value)
++static inline void xiic_setreg32(struct xiic_i2c *i2c, int reg, int value)
+ {
+ 	if (i2c->endianness == LITTLE)
+-		iowrite8(value, i2c->base + reg);
++		iowrite32(value, i2c->base + reg);
+ 	else
+-		iowrite8(value, i2c->base + reg + 3);
++		iowrite32be(value, i2c->base + reg);
+ }
  
-+		ice: crypto@1d90000 {
-+			compatible = "qcom,sm8150-inline-crypto-engine",
-+				     "qcom,inline-crypto-engine";
-+			reg = <0 0x01d90000 0 0x8000>;
-+			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
-+				 <&gcc GCC_UFS_PHY_AHB_CLK>;
-+			clock-names = "core",
-+				      "iface";
-+			power-domains = <&gcc UFS_PHY_GDSC>;
-+		};
+-static inline u8 xiic_getreg8(struct xiic_i2c *i2c, int reg)
++static inline int xiic_getreg32(struct xiic_i2c *i2c, int reg)
+ {
+-	u8 ret;
++	u32 ret;
+ 
+ 	if (i2c->endianness == LITTLE)
+-		ret = ioread8(i2c->base + reg);
++		ret = ioread32(i2c->base + reg);
+ 	else
+-		ret = ioread8(i2c->base + reg + 3);
++		ret = ioread32be(i2c->base + reg);
+ 	return ret;
+ }
+ 
+-static inline void xiic_setreg16(struct xiic_i2c *i2c, int reg, u16 value)
++static inline void xiic_setreg8(struct xiic_i2c *i2c, int reg, u8 value)
+ {
++	if (i2c->force_32bit_access) {
++		xiic_setreg32(i2c, reg, value);
++		return;
++	}
 +
- 		cryptobam: dma-controller@1dc4000 {
- 			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
- 			reg = <0 0x01dc4000 0 0x24000>;
-
--- 
-2.56.0
-
-
+ 	if (i2c->endianness == LITTLE)
+-		iowrite16(value, i2c->base + reg);
++		iowrite8(value, i2c->base + reg);
+ 	else
+-		iowrite16be(value, i2c->base + reg + 2);
++		iowrite8(value, i2c->base + reg + 3);
+ }
+ 
+-static inline void xiic_setreg32(struct xiic_i2c *i2c, int reg, int value)
++static inline u8 xiic_getreg8(struct xiic_i2c *i2c, int reg)
+ {
++	u8 ret;
++
++	if (i2c->force_32bit_access)
++		return xiic_getreg32(i2c, reg);
++
+ 	if (i2c->endianness == LITTLE)
+-		iowrite32(value, i2c->base + reg);
++		ret = ioread8(i2c->base + reg);
+ 	else
+-		iowrite32be(value, i2c->base + reg);
++		ret = ioread8(i2c->base + reg + 3);
++	return ret;
+ }
+ 
+-static inline int xiic_getreg32(struct xiic_i2c *i2c, int reg)
++static inline void xiic_setreg16(struct xiic_i2c *i2c, int reg, u16 value)
+ {
+-	u32 ret;
++	if (i2c->force_32bit_access) {
++		xiic_setreg32(i2c, reg, value);
++		return;
++	}
+ 
+ 	if (i2c->endianness == LITTLE)
+-		ret = ioread32(i2c->base + reg);
++		iowrite16(value, i2c->base + reg);
+ 	else
+-		ret = ioread32be(i2c->base + reg);
+-	return ret;
++		iowrite16be(value, i2c->base + reg + 2);
+ }
+ 
+ static inline void xiic_irq_dis(struct xiic_i2c *i2c, u32 mask)
+@@ -1480,6 +1498,8 @@ static int xiic_i2c_probe(struct platform_device *pdev)
+ 		return irq;
+ 
+ 	pdata = dev_get_platdata(dev);
++	if (pdata)
++		i2c->force_32bit_access = pdata->force_32bit_access;
+ 
+ 	/* hook up driver to tree */
+ 	platform_set_drvdata(pdev, i2c);
+diff --git a/include/linux/platform_data/i2c-xiic.h b/include/linux/platform_data/i2c-xiic.h
+index 2e3683c23..df1aeb42c 100644
+--- a/include/linux/platform_data/i2c-xiic.h
++++ b/include/linux/platform_data/i2c-xiic.h
+@@ -16,6 +16,8 @@
+  * @num_devices:	Number of devices that shall be added when the driver
+  *			is probed.
+  * @devices:		The actuall devices to add.
++ * @force_32bit_access:	Use aligned 32-bit accesses for all registers, including
++ *			byte and halfword payloads, on bridges without subword I/O.
+  *
+  * This purpose of this platform data struct is to be able to provide a number
+  * of devices that should be added to the I2C bus. The reason is that sometimes
+@@ -26,6 +28,7 @@
+ struct xiic_i2c_platform_data {
+ 	u8				num_devices;
+ 	struct i2c_board_info const	*devices;
++	bool				force_32bit_access;
+ };
+ 
+ #endif /* _LINUX_I2C_XIIC_H */
