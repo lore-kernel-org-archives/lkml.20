@@ -1,104 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403979;
-	b=rejdo+sCLnbSi9ZDJPkRjNyYC/9KNgSrRHWN+HeTthBqyOyTeNtAcmr1tbTO0pCFoMCx
-	 itCtl17cnioSgWhlVacCRW2D1fA+Ixxqs9kGZ1gbES2gunkWw/yjYTz4o3M4t6GIhciqz
-	 vBtqX4wvsALuVP8YHxEVMVHC9WYYFEMjUw3nS0zesmn4ERAliL1RpOxWUx7eNNn5Mzuqx
-	 pp82t89CpyjLQm+wJUAPoJtBr//998F/9/xzWYxWC8T2zjlRaNPPBdVXOrD67xtlQMkz/
-	 GmrCNoOYpX4k3BqPF8pn37z3GRKwzPCjA5d7zGFxx0fGUhtjP47TEcHMPioPm7cStgw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403979;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=e7z68HpmiXeC9H97zBTrax0xsqzXKKitlWH4KRxwk6M=;
-	b=qKnzln7Qw9kuSq8X9ypmkuSAqvB5QrthsVRJ7O+IX+UDvcd08N3+YKrY1JlZnuIR74BB
-	 TxVQ00izldS7Id15+UStWsJxZ3d3jBzwjmmzjlYB145FXKM3NQaYIAGB6JX+dIJ9KrT7T
-	 C8LYMyN87OAbpRgJb81nOVc5sF0PNzbHrG+wpQHoDyuXk0l6oQHSDsxgiCTYpRAU5R/KM
-	 7xRFMaKTKK3mynIFzEwbK6I933Ngq1Ar53gljCP9g2QY3C2bF9LuxNsgArXmFwnV1GErf
-	 0XkthdnNG6VBtz51J18GrMaIxoOW/HJA8BNvm6TxJMc3KKCWZ0slpODkpf0432FUU/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV7sNpKt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wKzYBZSN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TcAGs3Pe;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MLamnDrL;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794403983;
+	b=jHbkohrCUQdzL94rhsTXeMLH1CkMp9oVcPI8BPYf0k3xDYhf8beW0eI+6pBGP+bsawML
+	 nBEDrHqaDA+8K19fFx1nOO4NZIw0FGldjOY0BfolbgQE1pAi5CQ8O32y4yNXfruXdBQu4
+	 j/RBrIwXI7zvqwa2mr+vRQMP0/STswxuJgl06w2vhSQGPO4TIRUIoGUzJF7M6H1xKDcN+
+	 v1BgpxWyhhyR0/QYtPZoCuNpmtw0JKGfsjS9rrVRWp1RMiXnv3sDuDGlCLpGHGS66rD7z
+	 Z5wLHJGvgqHQtsHybh778Kk/caI2E84Fxz6ZiSUloc1HwzF4FnKzqwEDw5IHkKyrn8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403983;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=HgCEM27S7IbNhqq3jM19SR/jbOHjwjqAZf0wVe5KS5o=;
+	b=A1W4mE6SkfL4cSd7jbcODSRE8aW5rL5Q1WUq66aXyQExJycfXKcN/rDsgzGh+8Nf1zUx
+	 +OKfCJmE/6j5fTRXVWTxg5N8+RjB6DnfEXtQLr8wO0pi1f3O4CwgDSZpIhrFMHE0MyIb2
+	 b25E37VQ/eLVFUUR2vyT5jA2FBNXSaAf4rvGsXgy6mvT2n7t5m2DMsEWeIdIqSRG51MLb
+	 ERRe1gQXGj7By859xKDe+lmJKgokAJyho92JniEZCPWwUubG4K++vdj5HgHD5NDB/QVa+
+	 NX6vwLSjRTUlcTKwYWPc+5lFfrkxu4SeNBSTIzytpW4YOnvxSLFLTvVelYbVa59TnOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=lWP+oOsk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C87606A326;
-	Wed, 11 Nov 2026 13:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C87606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D5606A33A;
+	Wed, 11 Nov 2026 13:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514D5606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV7sNpKt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wKzYBZSN;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TcAGs3Pe;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MLamnDrL
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6EA5C5C5A3;
-	Wed, 11 Nov 2026 13:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794403963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=e7z68HpmiXeC9H97zBTrax0xsqzXKKitlWH4KRxwk6M=;
-	b=oV7sNpKtQUP+XCrIwJ9vmr1a/hIepyee8rtAOnqs4b7Bp55cpy9BErfQX+GcH1K8BX0HjU
-	ZyF2NHu6MXecMZwMFed3qrbYecZ8GG1sYZj1bM4/P3Ubgi21ohSabzJG28V0gW91t4FohR
-	Q4bYbaE8oUPLJwrbIQeYoTu3OeSUGGo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794403963;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=e7z68HpmiXeC9H97zBTrax0xsqzXKKitlWH4KRxwk6M=;
-	b=wKzYBZSNql2bQTGND4h0zHEXCHdVSvZ8x6LQOjYo3SUjFjCC1N7DaxtNSdJXVoNVXEQ52B
-	tt62tMDdUyrJCLCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TcAGs3Pe;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MLamnDrL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794403961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=e7z68HpmiXeC9H97zBTrax0xsqzXKKitlWH4KRxwk6M=;
-	b=TcAGs3Pe811lw/I6rgmCFa7s4fN/gpO6QCTfA/tt2KjxBubX8zN/sgYf31N+7m5WEJtoKX
-	//N1ixFYnotItdt07vEZNmoVisQQZZVGcBsAEOCdUQQE8uYC3zD3ftgoKXKnyUiFPov1Ux
-	lRms4Uyb3TRJ3z/c8XHsMcFCizyDgOE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794403961;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=e7z68HpmiXeC9H97zBTrax0xsqzXKKitlWH4KRxwk6M=;
-	b=MLamnDrLzMYlNR9eKOxS4pqe/b7Zevkh0gp9zi9Ho5Lszt1xFBs6edOzQ4eYNbPbGn2XyU
-	i302lMispj/RtpBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 97F3D1339F;
-	Wed, 11 Nov 2026 13:32:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id WJ5TEXhu9GpuVAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 13:32:40 +0000
-Message-ID: <2d57015d-5ad3-4cfc-b001-2cbbbf9d7bfd@suse.de>
-Date: Wed, 11 Nov 2026 14:32:39 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=lWP+oOsk
+ARC-Seal: i=1; a=rsa-sha256; t=1794403961; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mPlMZ4QBfCYhqRipVGIeZsOMwEbcb63/j0o01IhSP7fWxRYSo8DD/waCAOmx0issHPqj0W3ADT/2nVhLM/lhAjyDv8DiO8Q2R69I2QS/aKeWCI5JXJgLZqRK6IqDq71PXGyY/GZR75GiUJLYWjD9SbZF1HNQ03yi1a0ZhlPwsS8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794403961; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=HgCEM27S7IbNhqq3jM19SR/jbOHjwjqAZf0wVe5KS5o=; 
+	b=I+/M9noVCAvGbkX6B4zoaMWUBvlGqe5lOu089fhVLuQZ6GsLbydsiJ/4TSp63wugMYmAd5HlVvvQIqg4D+tk6oRwF8DZG/FQLxqvleQS8ho9oIPMer8kc42Q8lXxed7ZGPwEmn2T+ysaATAHzMb4wEa/fKxifExLmuzFvScmm+Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=lWP+oOskxefOGnze70OdGE2pkyOkOegIGhKXhiqLmhkEQ3mQVw5WxA3fq+sOuxJWCySeZvGid/i8QV2wxJalmYcbuonWWmc016tW6S0bMNIyuRluHPCNJ71xNVXJFf34AhQ6GOMhvKwvLY+RcWJ67LZBuY9qn6bOrkZV4SqdZg0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=HgCEM27S7IbNhqq3jM19SR/jbOHjwjqAZf0wVe5KS5o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794403959576103.49384226317557;
+	Wed, 11 Nov 2026 05:32:39 -0800 (PST)
+Message-ID: <a11909bf-01f4-4905-81d9-e5c295feb595@collabora.com>
+Date: Wed, 11 Nov 2026 14:32:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,146 +59,127 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/15] drm: docs: remove bootsplash from TODO
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v6 7/9] phy: rockchip-samsung-dcphy: Support the new
+ phy-type and direction binding
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
- <20261027135342.2003632-7-maximpedraza@gmail.com>
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-7-d681ba20b36a@gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261027135342.2003632-7-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 6EA5C5C5A3
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net,gmx.de,redhat.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	R_RATELIMIT(0.00)[to_ip_from(RLtokucttkpew6o6awf6ycppik)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,patchwork.freedesktop.org:url,valla.it:email,suse.de:dkim,suse.de:email]
-X-Spam-Score: -12.00
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261110-dcphy-rx-v1-v6-7-d681ba20b36a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+Hi Jason,
 
+Thanks for the patch!
 
-Am 27.10.26 um 14:53 schrieb Màxim Pedraza Padilla:
-> From: Francesco Valla <francesco@valla.it>
->
-> Now that a splash client exists, remove the bootsplash task from the
-> TODO list for the DRM subsystem.
->
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+On 11/10/26 09:18, Jason Yang wrote:
+> The binding now selects the PHY with the cell and the mode of the block
+> with the phy-type property of the provider. Read phy-type in probe,
+> D-PHY by default.
+> 
+> of_xlate() returns the transmitter for PHY_DIRECTION_TX. The deprecated
+> PHY_TYPE_DPHY and PHY_TYPE_CPHY select the transmitter as today, so
+> existing DTs are unaffected.
+> 
+> A phy-type other than D-PHY or C-PHY fails probe. A deprecated cell
+> value that does not match phy-type gets a warning, and the transmitter
+> then refuses to power on, as in C-PHY mode today.
+> 
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+
+Best regards,
+Michael
 
 > ---
->   Documentation/gpu/todo.rst | 17 -----------------
->   1 file changed, 17 deletions(-)
->
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index e6d36f8da086..5e987e18bfcd 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -756,23 +756,6 @@ See drivers/gpu/drm/amd/display/TODO for tasks.
->   
->   Contact: Harry Wentland, Alex Deucher
->   
-> -Bootsplash
-> -==========
+>  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 32 ++++++++++++++++++-----
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> index c40c84791eca..e8e229fc4856 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> @@ -297,6 +297,7 @@ struct samsung_mipi_dcphy {
+>  	struct reset_control *grf_apb_rst;
+>  	struct samsung_mipi_phy tx;
+>  	u8 type;
+> +	bool legacy_mismatch;
+>  
+>  	const struct samsung_mipi_dcphy_plat_data *pdata;
+>  	struct {
+> @@ -1376,6 +1377,9 @@ static int samsung_mipi_dcphy_tx_power_on(struct phy *phy)
+>  {
+>  	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+>  
+> +	if (samsung->legacy_mismatch)
+> +		return -EOPNOTSUPP;
+> +
+>  	switch (samsung->type) {
+>  	case PHY_TYPE_DPHY:
+>  		return samsung_mipi_dphy_tx_power_on(samsung);
+> @@ -1549,13 +1553,21 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
+>  		return ERR_PTR(-EINVAL);
+>  	}
+>  
+> -	if (samsung->type != PHY_NONE && samsung->type != args->args[0])
+> -		dev_warn(dev, "phy type select %d overwriting type %d\n",
+> -			 args->args[0], samsung->type);
 > -
-> -There is support in place now for writing internal DRM clients making it
-> -possible to pick up the bootsplash work that was rejected because it was written
-> -for fbdev.
+> -	samsung->type = args->args[0];
 > -
-> -- [v6,8/8] drm/client: Hack: Add bootsplash example
-> -  https://patchwork.freedesktop.org/patch/306579/
-> -
-> -- [RFC PATCH v2 00/13] Kernel based bootsplash
-> -  https://lore.kernel.org/r/20171213194755.3409-1-mstaudt@suse.de
-> -
-> -Contact: Sam Ravnborg
-> -
-> -Level: Advanced
-> -
->   Brightness handling on devices with multiple internal panels
->   ============================================================
->   
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+> -	return samsung->tx.phy;
+> +	switch (args->args[0]) {
+> +	case PHY_DIRECTION_TX:
+> +		return samsung->tx.phy;
+> +	case PHY_TYPE_DPHY:
+> +	case PHY_TYPE_CPHY:
+> +		if (args->args[0] != samsung->type) {
+> +			dev_warn(dev, "unsupported phy cell %u with phy-type %u\n",
+> +				 args->args[0], samsung->type);
+> +			samsung->legacy_mismatch = true;
+> +		}
+> +		return samsung->tx.phy;
+> +	default:
+> +		dev_err(dev, "invalid phy cell %u\n", args->args[0]);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+>  }
+>  
+>  static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+> @@ -1566,6 +1578,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+>  	struct phy_provider *phy_provider;
+>  	struct resource *res;
+>  	void __iomem *regs;
+> +	u32 type = PHY_TYPE_DPHY;
+>  	int ret;
+>  
+>  	samsung = devm_kzalloc(dev, sizeof(*samsung), GFP_KERNEL);
+> @@ -1620,6 +1633,11 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+>  		return dev_err_probe(dev, PTR_ERR(samsung->grf_apb_rst),
+>  				     "Failed to get system grf_apb_rst control\n");
+>  
+> +	of_property_read_u32(np, "phy-type", &type);
+> +	if (type != PHY_TYPE_DPHY && type != PHY_TYPE_CPHY)
+> +		return dev_err_probe(dev, -EINVAL, "unsupported phy-type %u\n", type);
+> +	samsung->type = type;
+> +
+>  	ret = devm_pm_runtime_enable(dev);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> 
 
