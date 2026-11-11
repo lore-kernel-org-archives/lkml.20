@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.238.7.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383425;
-	b=NQXqHiNCmdz95QjsacBewGtYrFZPyNqwIxeXq3I2RsN0lmIYP4mAv22686CJEb6kbC2S
-	 CokwMyX+0WlYxqOA97OkeG5vYgMnSfijub1ekPfq03wcaBS3fCSDqSyJP/w5yhRifpJ/g
-	 uphWVbO7xNh3hWtdXr5N3FKiP/FF7qh4j696eDmGcZp5vGhmuYCMmxbXAUuQSYmXwleW5
-	 ak9ItDbL0g1AvwC+Biak8karruDEL22iJ3ybZ0aJuCCkdvwC3WwjLERflVfCAhY5oBMtC
-	 0XAD7XS/rNk1AgfzTcgMZVtU/iPNqiQnLd46SawFDsCVsYS5aPBA7evhDxse46H8fvA==
+	t=1794383434;
+	b=h51dV90u4LkKHIPa7bpnYdWZgYONNDeahhKCMcuHSRR/KSoRSp7I3SfNTKkAvN4opf6d
+	 CUrqrV+MIQVwNoMd/OIlGhoJF9QCCBv8dFqL4TD0ShrsaJenKGJqc8g8LI/nnfhD6pXKS
+	 BEIHg7Wa3ukD/5QTB3BzTOCEijxd/eqGhUgGl/8ozSLAHgim6wm83J1O5W2gOGcuAwREB
+	 kukIvO2bRv3+WKVbQUwpnnG7nR98R7agg3js6YxWpWaaMWJFCgizhPMJ8btw5i5+W1Tnj
+	 KqKPVn4Xjno03RB8/i9lRtZfEtf6oBfwtv5wQMzz0MYD1ZVANdebVJg8ju0w9oqe9KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383425;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uq+L6cPLS8Wa01hR151F3a5DAKKg4V5vijaXWb/aJ1k=;
-	b=svPU3C00oQSIk+xiDIG0pcCwH9BumybWTOjJ7TZYhsly3LY0Z3cBVC3zL5sHNB9RZVXM
-	 YdAbEBq13Z2SMsbE6rU0z9PoClO1s+JRk6QBjGacB/iew4JZsXVP9LT2m3qTiQpBFkwgr
-	 UnouzJYw0ahzIrRQj+DO97ATBwtLYHMrplZXiqEzxGInFvBnco0WqHaWw9XhauB0sD8g4
-	 0ViEACTIHS771I9PakjgoOKiqFHl7C1ElSxnP53xMbtd2LXamdmnxAlXrmLenp8D4Hd5M
-	 1NMrZGqPV1U4AU5PBxzw4vgZ8Z2wfaK2KD3OLhVGryWD9zDCCJBhvHdQEBulENSNJnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383434;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-Halon-ID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-uu-exchange-origin:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=lAdLzm0lC6RteZTIgPAPr9QVhABezDfRESoAcyYKOqc=;
+	b=0vxCswRCWtTlJ8YU5KH6i6prQHvfuqGwBypWsQb1u/jZPej75rOi3OgAU8s4XWfsSMd3
+	 MzZzkTbQeiw/Frkvpr6z8iCLxWim7dGgdQu0S0EnjJscihGrcoS9veqt+71Gv4nbTyeti
+	 QWUNG9m5gcrqw1M89Hy6W1J+r4HpBkBeFEPDVXCVL5k0rIMJA0tcEC1t7hCTamNt4bRGl
+	 qvHxOH0WXifLNmtr5CH8IWnnRHHNL0s9yQFQ5uRsLy9+R6+vjxGftiKLKUVWnzsJWyUG6
+	 1weqInpSX7Yf8vLUia2x1kNEGU3nJYSgA03J1xdu9LQs0OsibDaPKyRBcyJMzVtR6kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/rCe1Q8";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=it.uu.se;
+	spf=pass smtp.mailfrom=it.uu.se;
+	dkim=pass header.d=uu.se header.i=@uu.se header.a=rsa-sha256 header.s=centralsmtp2 header.b=X0fzAzJB;
+	dkim=pass header.d=it.uu.se header.i=@it.uu.se header.a=rsa-sha256 header.s=halon header.b=Qq5BqxLJ;
+	arc=none smtp.remote-ip=130.238.7.177
+Received: from smtp-out6.uu.se (smtp-out6.uu.se [130.238.7.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E564606A31C;
-	Wed, 11 Nov 2026 07:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2336C606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2336C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=it.uu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=it.uu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/rCe1Q8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8821F00A05;
-	Wed, 11 Nov 2026 07:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794383425;
-	bh=uq+L6cPLS8Wa01hR151F3a5DAKKg4V5vijaXWb/aJ1k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F/rCe1Q8/Z1SPdFpdpBTaG7s0720UBBSMpuVV/Yc400nPp+MT5MidrNAZqtoeSDeI
-	 FufHNaxvWqihCkZqqLkqNDEYOl/ftFdjOm8+RhKGLLn7PwKlyWcS7IS4vXww+efTjM
-	 w4NVEElC8AQQ5+hg7f96cryHiRLSqEui2DIgx155u8v21fhnGwF1OGj+ycGgYVagSO
-	 9f/HPcQZ5hGyQvPL12UzkZ0CUezLPJChWkKhXQSf1fmYmsW5570qB0oY3g8Vz9Mm4o
-	 YC7rADKquBZOpACW3GA/btlG0WgVJLFQ33ezA7pnJGkB6GCkNEJnHv9+6Qwh98/Qjk
-	 zwgnyqhkmL7Sw==
-Message-ID: <537d8cc2-7740-4e51-a4aa-8adf03322480@kernel.org>
-Date: Wed, 11 Nov 2026 08:50:19 +0100
+	dkim=pass (2048-bit key) header.d=uu.se header.i=@uu.se header.a=rsa-sha256 header.s=centralsmtp2 header.b=X0fzAzJB;
+	dkim=pass (2048-bit key, unprotected) header.d=it.uu.se header.i=@it.uu.se header.a=rsa-sha256 header.s=halon header.b=Qq5BqxLJ
+Received: from mailfilter-ng-3.sunet.se (mailfilter-ng-3.sunet.se [192.36.171.200])
+	by cursorius.its.uu.se (Postfix) with ESMTP id 28F766801C2
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:43:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uu.se;
+	s=centralsmtp2; t=1794383038;
+	bh=lAdLzm0lC6RteZTIgPAPr9QVhABezDfRESoAcyYKOqc=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=X0fzAzJBxqmCcUWUW107VD4jNm2DEjgqwA/gfIoTMmfIb0Ig9bP4C65WSTohrXzRZ
+	 GrdJPf5Bkh0ojEp18Nf8ytBBpx4hCNrisLz+Hx8v/BxIJvD/TyXHksHCY79GYA15fU
+	 34nhygh0wRqDzx2SQcry5O2a4QHK34qgzoSYNhHz8zzwtCfo6kQrtaHy5f/PX/BQGK
+	 AUE/qcr7thBH0JIfkT/MUZzCLEpVi1qnvLCiLASjdmEKMotjLrQObTz2Rjrv4FVDaQ
+	 iKQW9FmFMenowBFQU0rAr6nHR+T6Oi0ZjnVYkILNuf8R0CYcnLhe/KGcFeyeEOCrm2
+	 eKo+tyM53aQzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=it.uu.se; s=halon;
+	h=mime-version:content-transfer-encoding:content-id:content-type:in-reply-to:
+	 references:message-id:date:subject:cc:to:from:from;
+	bh=lAdLzm0lC6RteZTIgPAPr9QVhABezDfRESoAcyYKOqc=;
+	b=Qq5BqxLJ4oAo00iMNlrHTOpc9HvjRubpjClAEe5L3t+l2IozLY455YfG9pN9eHB5WO2RSNeUZ927l
+	 ODci0EOU9b3Nd/DbKkSRhAhErAihDZxMg3Lhq+AdjG0MU9Hbp8r7I0GBYk9LeAdTOWIYuImLeLcluL
+	 37j/LfZd1I8HaOXVQIXN1N2Xjj9LpFOrIMzJRcXHz226+VHP2fvZMJJ5IKwdMZ2jJMTlwYMsCyPkRi
+	 re0nJPjknrXj5GpwEWyfSZiCQLgosSuMOsD3V510XmS06H++eryZDC4QyhuL24WRYi5N7F0jYgXVGa
+	 0oxoLONhHEkhuwGJvT5DjsLbvZU4CIg==
+X-Halon-ID: a67b696e-dda3-11f1-95df-0050569a1168
+Received: from lyra.its.uu.se (lyra.its.uu.se [130.238.7.73])
+	by mailfilter-ng-3.sunet.se (Halon) with ESMTPS
+	id a67b696e-dda3-11f1-95df-0050569a1168;
+	Wed, 11 Nov 2026 07:43:56 +0000 (UTC)
+Received: from smtp.user.uu.se (uuc-epost016.user.uu.se [130.238.3.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by lyra.its.uu.se (Postfix) with ESMTPS id B1301600088;
+	Wed, 11 Nov 2026 08:43:54 +0100 (CET)
+Received: from UUC-EPOST014.user.uu.se (130.238.3.24) by
+ UUC-EPOST016.user.uu.se (130.238.3.26) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 08:43:54 +0100
+Received: from UUC-EPOST014.user.uu.se ([130.238.3.24]) by
+ UUC-EPOST014.user.uu.se ([130.238.3.24]) with mapi id 15.02.2562.056; Wed, 11
+ Nov 2026 08:43:54 +0100
+From: Alireza Haddadi <alireza.haddadi@it.uu.se>
+To: Gopal Malaviya <gopalmalaviya53@gmail.com>
+CC: "jack@suse.cz" <jack@suse.cz>, "willy@infradead.org"
+	<willy@infradead.org>, "akpm@linux-foundation.org"
+	<akpm@linux-foundation.org>, "vishal.moola@gmail.com"
+	<vishal.moola@gmail.com>, "fujunjie1@qq.com" <fujunjie1@qq.com>,
+	"roman.gushchin@linux.dev" <roman.gushchin@linux.dev>, "linux-mm@kvack.org"
+	<linux-mm@kvack.org>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "regressions@lists.linux.dev"
+	<regressions@lists.linux.dev>, "tracekotae@gmail.com" <tracekotae@gmail.com>
+Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
+Thread-Topic: [PATCH] mm/filemap: let sequential faults restart mmap readahead
+Thread-Index: AQHdcFXobp3vto+/eEuuawUN31FcZrcoN0gAgAA4CQA=
+Date: Wed, 11 Nov 2026 07:43:54 +0000
+Message-ID: <26E03EC6-F37C-4350-B2A9-1F354217F469@it.uu.se>
+References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
+ <20261111042310.191979-1-gopalmalaviya53@gmail.com>
+In-Reply-To: <20261111042310.191979-1-gopalmalaviya53@gmail.com>
+Accept-Language: en-GB, sv-SE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-uu-exchange-origin: Internal
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <00E735D1736E5D4697FA838A52C10B56@user.uu.se>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +114,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: ice: Document sm8150 inline
- crypto engine
-To: Andrew Gigena <mail@andrewgigena.dev>
-Cc: Abel Vesa <abelvesa@kernel.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
-References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
- <20261104-sm8150-ice-rfc-v2-1-d697bbce0278@andrewgigena.dev>
- <20261106-offbeat-hawk-of-purring-50a8aa@quoll>
- <fb4d03b3-eb35-4aeb-baa1-f4df54653192@andrewgigena.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <fb4d03b3-eb35-4aeb-baa1-f4df54653192@andrewgigena.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 05:23, Andrew Gigena wrote:
->> This part should be a separate commit.
-> 
-> I splitted it into two commits in v3:
-> 1. Add qcom,sm8150-inline-crypto-engine compatible.
-> 2. Move qcom,sm8150-ufshc to the standalone-ICE UFS binding.
-> 
-
-No clue what's this about, you completely cut context.
-
->> And what about eight clock? All existing DTS will report warning? I
->> don't quite get the need of this move.
-> 
-> After the move, SM8150 UFS no longer provides the ICE register region or
-> ice_core_clk; those live in the standalone ICE node. The only in-tree
-> user of qcom,sm8150-ufshc is arch/arm64/boot/dts/qcom/sm8150.dtsi, which
-
-So you introduce the warning at this point?
-
-> is converted in the DTS patch, so there are no leftover users of the
-> embedded-ICE binding for this compatible and no schema warnings.
-
-
-Best regards,
-Krzysztof
+DQoNCj4gT24gMTEgTm92IDIwMjYsIGF0IDA1OjIzLCBHb3BhbCBNYWxhdml5YSA8Z29wYWxtYWxh
+dml5YTUzQGdtYWlsLmNvbT4gd3JvdGU6DQo+DQpIaSBHb3BhbCwNCg0KVGhhbmtzIGZvciB0ZXN0
+aW5nIHRoaXMgc28gdGhvcm91Z2hseSwNCmFuZCBmb3IgcG9pbnRpbmcgbWUgdG8gVHJhY2XigJlz
+IHJlcG9ydC4NCg0KPiBIaSBBbGlyZXphLA0KPg0KPiBJIGhhZCBzZW50IGEgZGlmZmVyZW50IGZp
+eCBmb3IgdGhlIHNhbWUgcmVncmVzc2lvbiBbMV0sIHJlcG9ydGVkIGJ5DQo+IFRyYWNlIGluIFsy
+XS4gSmFuIHByZWZlcnMgeW91cnMsIHNvIEkgaGF2ZSBkcm9wcGVkIG1pbmUuIEkgcmFuIHlvdXIN
+Cj4gcGF0Y2gsIGFsc28gd2l0aCB0aGUgdjIgY2hhbmdlIHlvdSBkZXNjcmliZSB0byBKYW4sIHRo
+cm91Z2ggdGhlIHRlc3RzDQo+IEkgaGFkOiBhIEtWTSBndWVzdCAoeDg2XzY0LCAyIHZDUFVzLCAz
+IEdpQiksIG1tLWhvdGZpeGVzLXVuc3RhYmxlIGFzDQo+IG9mIDIwMjYtMTEtMDgsIGV4dDQgYW5k
+IFhGUyB3aXRoIDE2IEtpQiBibG9ja3Mgb24gdmlydGlvLWJsaywNCj4gcmVhZF9haGVhZF9rYiAx
+MjggdW5sZXNzIG5vdGVkLg0KPg0KPiBUaGUgcmVwcm9kdWNlciBmcm9tIFsyXSAoMjAwMCBzaW5n
+bGUtcGFnZSBmYXVsdHMgMSBNaUIgYXBhcnQsIHRoZW4gYQ0KPiA2NCBNaUIgc2VxdWVudGlhbCBy
+ZWFkKSwgbWFqb3IgZmF1bHRzIGluIHRoZSBzZXF1ZW50aWFsIHBhcnQ6DQo+DQo+ICAgICAgICAg
+ICAgICAgICAgICAgICBiYXNlICAgYXMgcG9zdGVkICAgd2l0aCB2MiBjaGFuZ2UNCj4gIGV4dDQg
+ICAgICAgICAgICAgICAgMTYzODQgICAgICAgICAgIDIgICAgICAgICAgICAgICAgMg0KPiAgWEZT
+LCAxNiBLaUIgYmxvY2tzICAgNDA5NiAgICAgICAgNDA5NiAgICAgICAgICAgICAgICAyDQo+DQpU
+aGF0IG1hdGNoZXMgd2hhdCBJIHNlZSBoZXJlOiBvbiBtbS1uZXcgd2l0aG91dCB0aGUgcGF0Y2gs
+IFhGUyB3aXRoDQoxNmsgYmxvY2tzIHRha2Ugb25lIGZhdWx0IHBlciAxNiBLaUIgZm9saW8gaW4g
+dGhlIGluLW9yZGVyIHJlYWQuDQo+IFRvdWNoaW5nIDElIG9mIHRoZSBwYWdlcyBvZiBhIGNvbGQg
+MjAgR2lCIGZpbGUsIGxhcmdlciB0aGFuIG1lbW9yeSwgaW4NCj4gcmFuZG9tIHJ1bnMgb2YgMSwg
+MiBvciA0IGFkamFjZW50IHBhZ2VzLCBNaUIgcmVhZCBmcm9tIGRpc2sgd2l0aCB0aGUNCj4gdjIg
+Y2hhbmdlIChmaXJzdCBvZiB0d28gcnVuczsgdGhlIHNlY29uZCB3YXMgd2l0aGluIDEwJSk6DQo+
+DQo+ICAgICAgICAgICAgICAgICAgICAgICByZWFkX2FoZWFkX2tiIDEyOCAgICAgcmVhZF9haGVh
+ZF9rYiA4MTkyDQo+ICAgICAgICAgICAgICAgICAgICAgICAgYmFzZSAgIHdpdGggdjIgICAgICAg
+IGJhc2UgICB3aXRoIHYyDQo+ICByYW5kb20gNC1wYWdlIHJ1bnMgICAgIDI0MCAgICAgIDExNDYg
+ICAgICAgIDEyMDAgICAgIDU3NzQ4DQo+DQoNCj4gVGhlIDQtcGFnZSBydW5zIGF0IHJlYWRfYWhl
+YWRfa2IgODE5Miwgd2hpY2ggaXMgd2hhdCB0aGlzIGd1ZXN0J3MNCj4gdmlydGlvLWJsayBkaXNr
+IGdldHMgYnkgZGVmYXVsdCwgcmVhZCBhYm91dCA0OCB0aW1lcyBtb3JlLiBBcyBmYXIgYXMgSQ0K
+PiBjYW4gdGVsbCwgZWFjaCBydW4gbm93IGhhcyB0d28gbWlzc2VzIGFuZCB1cCB0byB0d28gaGl0
+cyBvbiB0aGUgbmV3DQo+IHdpbmRvdywgc28gbW1hcF9taXNzIHN0YXlzIGFyb3VuZCBNTUFQX0xP
+VFNBTUlTUywgYW5kIGVhY2ggdGltZSBpdCBpcw0KPiBiYWNrIGF0IHRoZSBsaW1pdCB0aGUgbmV4
+dCByYW5kb20gbWlzcyBnZXRzIHRoZSBmdWxsIDggTWlCDQo+IHJlYWQtYXJvdW5kLiBNeSBwYXRj
+aCByYW4gaW50byB0aGUgc2FtZSBhbmQga2VwdCBtbWFwX21pc3MgYXQgaXRzIGNhcA0KPiBvbiB0
+aGF0IHBhdGg7IHNvbWV0aGluZyBsaWtlIHRoYXQgbWF5IGhlbHAgaGVyZSwgYnV0IHlvdSBhbmQg
+SmFuIGtub3cNCj4gdGhpcyBiZXR0ZXIuDQoNClRoaXMgaXMgYSByZWFsIHByb2JsZW0sIHRoYW5r
+cyBmb3IgY2F0Y2hpbmcgaXQuIE5vbmUgb2YgbXkgdGVzdHMgaGFkDQpzaG9ydCBzZXF1ZW50aWFs
+IHJ1bnMgYXQgcmFuZG9tIHBsYWNlcywgc28gSSBtaXNzZWQgaXQuIEnigJlsbCByZXByb2R1Y2UN
+Cml0IGhlcmUgYW5kIHJld29yayB0aGUgcGF0Y2ggYmVmb3JlIHNlbmRpbmcgdjIuIEkgd2FudCB0
+byBjb21wYXJlDQprZWVwaW5nIG1tYXBfbWlzcyBoaWdoIG9uIHRoYXQgcGF0aCwgYXMgeW91IGRp
+ZCwgd2l0aCBvbmx5IHJlc3RhcnRpbmcNCnJlYWRhaGVhZCBvbmNlIHRoZSBmYXVsdCBjb250aW51
+ZXMgYSBsb25nZXIgcnVuIG9mIGNhY2hlZCBwYWdlcy4NCg0KSmFuIHRoYW5rcyBmb3IgYmVpbmcg
+T0sgd2l0aCB0aGUgbWluLW9yZGVyIGNoYW5nZS4gR2l2ZW4gdGhpcywgdjINCndpbGwgY2hhbmdl
+IG1vcmUgdGhhbiwgc28gSSB3b27igJl0IGNhcnJ5IHlvdXIgUmV2aWV3ZWQtYnkgb3Zlci4NCkni
+gJlkIGJlIGdsYWQgaWYgeW91IGNvdWxkIHRha2UgYW5vdGhlciBsb29rIGF0IHYyLg0KPg0KPiBP
+biB0aGUgRml4ZXMgdGFnOiB3aXRoIHRoZSBjb21taXRzIG9mIHRoZSBzZXJpZXMgYnVpbHQgb25l
+IGJ5IG9uZSwNCj4gY29tbWl0IDBiOWMwYWViYTkzOCAoIm1tL2ZpbGVtYXA6IGNvdW50IG9ubHkg
+dGhlIGZhdWx0aW5nIGFkZHJlc3MgYXMNCj4gYSBtbWFwIGhpdCIpIGFsb25lIGRvZXMgbm90IHNo
+b3cgdGhlIHByb2JsZW0gKDEgbWFqb3IgZmF1bHQgd2l0aCB0aGUNCj4gcmVwcm9kdWNlciksIGFu
+ZCBjb21taXQgOWIwZmNhYzNjZmU3ICgibW0vZmlsZW1hcDogZG8gbm90IGNvdW50DQo+IEZBVUxU
+X0ZMQUdfVFJJRUQgcmV0cmllcyBhcyBtbWFwIGhpdHMiKSBkb2VzICgxNjM4NCkuIFsyXSBpcyB0
+aGUgc2FtZQ0KPiByZWdyZXNzaW9uLCBpbiBjYXNlIHlvdSB3YW50IHRvIGFkZCBSZXBvcnRlZC1i
+eSBhbmQgQ2xvc2VzIHRhZ3MgZm9yDQo+IHJlZ3pib3QuDQo+DQpJIG9ubHkgdGVzdGVkIHJldmVy
+dGluZyBib3RoIGNvbW1pdHMgdG9nZXRoZXIsIHNvIEnigJlsbCBjaGVjayB0aGlzIGFuZCBmaXgg
+dGhlDQp0YWcgaW4gdjIsIGFuZCBhZGQgUmVwb3J0ZWQtYnkgYW5kIENsb3NlcyBmb3IgVHJhY2Xi
+gJlzIHJlcG9ydC4NCg0KPiBJIGFtIGhhcHB5IHRvIHJ1biB0aGVzZSBhZ2FpbiBvbiB5b3VyIHYy
+LiBUaGUgdGVzdHMgd2VyZSBzZXQgdXAgd2l0aA0KPiB0aGUgaGVscCBvZiBhbiBBSSBhc3Npc3Rh
+bnQuDQoNClRoYXQgd291bGQgYmUgZ3JlYXQsIHRoYW5rIHlvdS4gQ291bGQgeW91IHNoYXJlIHRo
+ZSBzaG9ydC1ydW4gdGVzdCwNClNvIEkgY2FuIHJ1biB0aGUgc2FtZSBoZXJlIHdoaWxlIHdvcmtp
+bmcgb24gaXQ/DQoNCkJlc3QgUmVnYXJkcywNCkFsaXJlemENCg0KDQoNCg0KDQoNCg0KDQoNCk7D
+pHIgZHUgaGFyIGtvbnRha3QgbWVkIG9zcyBww6UgVXBwc2FsYSB1bml2ZXJzaXRldCBtZWQgZS1w
+b3N0IHPDpSBpbm5lYsOkciBkZXQgYXR0IHZpIGJlaGFuZGxhciBkaW5hIHBlcnNvbnVwcGdpZnRl
+ci4gRsO2ciBhdHQgbMOkc2EgbWVyIG9tIGh1ciB2aSBnw7ZyIGRldCBrYW4gZHUgbMOkc2EgaMOk
+cjogaHR0cDovL3d3dy51dS5zZS9vbS11dS9kYXRhc2t5ZGQtcGVyc29udXBwZ2lmdGVyLw0KDQpF
+LW1haWxpbmcgVXBwc2FsYSBVbml2ZXJzaXR5IG1lYW5zIHRoYXQgd2Ugd2lsbCBwcm9jZXNzIHlv
+dXIgcGVyc29uYWwgZGF0YS4gRm9yIG1vcmUgaW5mb3JtYXRpb24gb24gaG93IHRoaXMgaXMgcGVy
+Zm9ybWVkLCBwbGVhc2UgcmVhZCBoZXJlOiBodHRwOi8vd3d3LnV1LnNlL2VuL2Fib3V0LXV1L2Rh
+dGEtcHJvdGVjdGlvbi1wb2xpY3kNCg==
