@@ -1,53 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372663;
-	b=zIEayphMCbvyEdCP6kTZlZjMYGldE+K7mXVrXxqKXQON6Kv4YacW/VVxF8T00ZX6e4SC
-	 43UcLS4h+YM/yMztxnyoZWPH1kgj3aU6Zz/0FO4DJMrXe1waR4WF2INkDOUt6Gc4SVIXA
-	 VRjnA/VsGXQx95C89edaWv1lJZ1kskkW08uWedrHd2dtWnGoBUasIMd6XXC3qm6Jr5oT4
-	 v6EG9XjVGON/qpEejTM/OYBEjtP66Q8kUEgJIoEe8LvLhexN6ovFssyf5xoy+l0wyggJ6
-	 hI4+aqi1F//++7l6F7kxJrH7VQ60VIAKtL9L3PwoYiZIn4bJ73K5/w59t66bqGZAbrA==
+	t=1794372710;
+	b=SGjktFyNrR7W8WoUO6rDrhXapOZB0eIXxZzUKgCkq8fTPWQd7Xew9zmoKFbrwOP5Pj42
+	 tJp/ldD0ywQq67AEZMBVisWXQDGkwqtHlke7iD3M+chXXCoKa06wEuwsXJ2xA3qb4SYXg
+	 ttbfhZOS3rzJnedetQA6t87Ur7TeWFvC5McBfpJ9+KRCWUbRPEVClOvyMRidNwsz6Gxz/
+	 gVfix92vLfUR28uv5q58rkXBRUwukBNjkQ/J/ZRooVG5KXOGli5zMF/mmgxOs8/qUqZ8m
+	 MeI3HAQEOgixuORgWrOhzxpcS0P06CbjiVjhxRh+8et+nrcSxDE4yFdJxBpT+OeP0MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372663;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=/F39+d5jm7TvFntDuZ/rqZMu1N7lCVM5pP/2Xlm8kik=;
-	b=j8LZQId7qjkGGMCC4ahg6I9lZNGIrN6i6+1xF+EADHsL57PLT2OBRTKCDEi90g1Z+62m
-	 rD14PAX2UYFHmnDgD9xU+M8bdYuyam3XUFF1srvkSTTvW8fY9QUOZaNOXXFwyYF1eyL1a
-	 LYDnkJSc9icuTwH2SuKSZKs5B1CfD1/M0HfyRNOU/xqTl/+wogdSsRA13WvHDRwAB1B3N
-	 7C9xl8YZv8sg+tPUfXqxML5UKSdFqe7zlDXXgToQY7/fxXNBafgQtDySMPvvTcGMmb1v0
-	 FhMNh6gJeIQK3Ca1SR4HUY9Zp/au9tKObJKjycTkwlk3o/SuODPiUNnCkuxlJaW3XEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372710;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=PdkaeDBkQPMcZsP8x8dXInLvq16R0F/aoOqvWMheSX0=;
+	b=r1LhDtuEQRwoUMc82cPlML7du315xlhjs+AXb5OkzuJqh177SVIJ6AFP9Bw/ib/whaPM
+	 DiTZQR6ybTK7vWihMYryQiDpdF26qUGqvIN6PBpbhlzZl0l9hRvLz5otugv+A/E4glFDZ
+	 1jtF0oxdksCvoPVpmJPj2b8M+tBYIEVXfxezAlpesVaR7VZgx5bxuig8WNqx1y5v+7+ZA
+	 TQUeAUPIU8TcTOwBU7FxBEFJ2a7Xr4WBT1Ft/Upgs53R4FWR2Rlog7eysgoAVNrRkiV+t
+	 IvCoBbQrFUfpHBvP+O0jiz7CFG90AONTUpmcaQd+EQlCdx5UfYNn5P1KVJFoXybfpqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="cR59v/eg";
+	arc=none smtp.remote-ip=162.62.57.137
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B9A606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B9A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so3285248b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:51:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794372662; x=1794977462;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/F39+d5jm7TvFntDuZ/rqZMu1N7lCVM5pP/2Xlm8kik=;
-        b=VJlNgEk7ZibSHusStgTe6L0gDbKQ6nG22XNWRzvdbjrFc9sSdHciaJLgowlt74quHi
-         BsKP6n/DQe41iLRpgU9g46z743kl/BuEO4aGF2p3iRx2imJmCDYfty0g5hTtTud0+TCR
-         HZjvzs3XjsHIGwUIibsJHQICGWbJ5B+lNUyZ1NH32UtavoGrljnBYCXBexmMxg0df3B4
-         Kefd3vv13Hx5CaSLahdeG82jlu42ip7VjUiyz2UnhX5xrm1u9giuIpTNsIV+CmXlk+hE
-         YhdW0UOzhyqDxXXe+9yZnm4ayZo8K3BcWyzhl6RIP/UV1eg0veKFGpuE1gN3sA0EZuya
-         xWZA==
-X-Gm-Message-State: APuU4Z89XGFn1Yvk59UtYNMSgMLktYMsuhzz9PrQhqKqBxlnohcCUEoa
-	dmgyutrLJCUgfWyuvwf3PjgXb9tsxn9ii8o5WTSXxMfztEhp4Y8FHJNfEzaNwPr1t8GDfmt6es2
-	r++oyqBpz2W/ZrlXE5PMi8MmHgCFfrtj2NorxWHspwQFCnFKeiG57V7ge1uE=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F2C606A320;
+	Wed, 11 Nov 2026 04:51:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F2C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=cR59v/eg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794372678; bh=PdkaeDBkQPMcZsP8x8dXInLvq16R0F/aoOqvWMheSX0=;
+	h=From:To:Cc:Subject:Date;
+	b=cR59v/egOY0iEFUchsVcdCFYnmPyQaQkG2gyTWRk8kYZ54njuRU6eBdh7QIbkg62+
+	 WyMniU10LID+ZI2vCl0fiDhqUCSxt46eOMIDHqzFfPNHCJXLt5k9H6SdakEUHTE/Yt
+	 9pyjo+yUYXyLUVYt9+ysYuyGwyMdLqq2BjxLjhPs=
+Received: from localhost.localdomain ([2001:250:4000:5114:b573:5664:a517:f40d])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id C8211CBB; Wed, 11 Nov 2026 12:50:02 +0800
+X-QQ-mid: xmsmtpt1794372602t8hws913d
+Message-ID: <tencent_924108DBAEA30F3DD09C66FEC41A965A970A@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+NsHQm9vJZQnypQN9OSiEG/eIobvkb+ciMqifAF58A+l04etCU8
+	 fxfHEu3l4fiAJIF/ID9TbrcHMdaru0ksZW9bXS4SwI/PbbJZL69w0SpxxiDcJuz3PSPh4yCxEfFq
+	 mldS3F1QBQ3/BSnVEBoC7ROBX5whvWqlyMBl6ij8Q87ZEfqnOcivCH3LFDyCYwOabDEVedTABBsx
+	 +BrEKkq45nd9+SyB9THP0JQ2TPvtESg7Osv8S281BlzA9wp35s7OR4Xp0SnSajnCmez07t7wcF5s
+	 xHAfO+rcfqE523D2GuWS0kRff73XSOC95Tfw9DycVjAusIgyCTs1HfQbMnckwK8/1cn37KyuAfTU
+	 ORWPULoRo03i3E/i5iezR9xYL4Bmbys46z5Y0viUKqZKBHkwpvTQVgve84g75gE3r+ZpTBrwbbJF
+	 wn9CezRUnvoZa6zfFhj3t/rRlGWNQlzUTTN64ooRWYxGgj/Bfra/4MMhJZM0JoyxZ7t6tCbxAkM+
+	 fOFoSY+bd0qiDSgTxFQXhP8eL0aV5jxzdj7kQIcTX6Ejs7P8BsSu5SYHrbiLxYw9P9b5MjuwB+FS
+	 IOslDmz3Og/ZSmddhdmjTqjQHn2rArSLMi9qW/2sPV0DqDU0bmN1eGQu7VXO1xC7lr8MKJ/2mbLS
+	 kOehpKF9febhcXp5iD1wxrJNlGfrg7OL3nj5s+4NEKypfPjTqvfLLMP2eb/qsF2IaRLHDqkzl1wY
+	 ub4nOFmFyzgYRUnpjgiKMuySBoFNRczzNt1tYSy+Gly35jl6z+WnoFipcljWzvcQtBlmXv0nCyNZ
+	 Ak8S/yqdHJ8MzkbdvwljswXGwdcSpg6xOP96dw8DCSes2HPlDcU5M78Km2jgM5zsLvtXHYJLyNMV
+	 v0/8lxGe01TuUtXAxsM+5ulpxEf18EEyFbqZTLRMPmhpY6/XzGD/MxBTrBNzTv/cNklvFdAypiqT
+	 6/S7fl3TqAfPDY0bCX7yJ+0v2srT8CZwilhLUC8swN3jGjFinv0qDxr7AW3uDn7fF0boZsa5zNuP
+	 XsWPdcNbjkGgwuwuTEtv9EkoLOn7yKqKAscY9xn2zYww99NEtT
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: LiuJunyuan <2058432396@qq.com>
+To: nkapron@google.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+2a7ce560c30c4ca3bc22@syzkaller.appspotmail.com,
+	LiuJunyuan <2058432396@qq.com>
+Subject: [PATCH] usb: gadget: udc: handle NULL request in tracepoint
+Date: Wed, 11 Nov 2026 12:50:01 +0800
+X-OQ-MSGID: <20261111045001.13625-1-2058432396@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,98 +79,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:13c1:b0:53a:2f73:29ff with SMTP id
- 5614622812f47-56b9325050bmr1121814b6e.6.1794372661873; Tue, 10 Nov 2026
- 20:51:01 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:51:01 -0800
-In-Reply-To: <CAO7_G+xSmFavmMUAKYcLVBFaDt4okxAFx0XZT5t-3v=hULmO5w@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af3f435.926a6ce0.263fd.019a.GAE@google.com>
-Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nenkov2004@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+usb_ep_alloc_request() passes a NULL request to
+trace_usb_ep_alloc_request() when ep->ops->alloc_request() fails.
+The udc_log_req tracepoint assumes req is non-NULL and dereferences
+req->length, causing a NULL pointer dereference.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-BUG: unable to handle kernel paging request in tomoyo_realpath_from_path
+Make the tracepoint handle req == NULL so allocation failures can still
+be recorded safely.
 
-Unable to handle kernel paging request at virtual address dfff80000000000c
-KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff80000000000c] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 1 UID: 0 PID: 5306 Comm: syz-executor Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : tomoyo_realpath_from_path+0x1a0/0x4dc security/tomoyo/realpath.c:265
-lr : tomoyo_realpath_from_path+0x140/0x4dc security/tomoyo/realpath.c:257
-sp : ffff800093a67510
-x29: ffff800093a67540 x28: ffff0000c39b8fff x27: dfff800000000000
-x26: 0000000000000fff x25: 0000000000000060 x24: 0000000000001000
-x23: 1fffe0001e436caf x22: ffff0000d3d16090 x21: ffff0000c39b8000
-x20: ffff0000f21b64e0 x19: ffff0000d3d16050 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-x14: 00000000ffff8000 x13: 00000000ac727a19 x12: ffff800080021608
-x11: ffff800080021608 x10: 0000000000000003 x9 : 0000000000000000
-x8 : 000000000000000c x7 : 0000000000000000 x6 : 000000000000003f
-x5 : 00000000ffffffff x4 : 0000000000000c40 x3 : 0000000000002000
-x2 : 0000000000001000 x1 : ffff0000c8e2bb00 x0 : 0000000000000000
-Call trace:
- tomoyo_realpath_from_path+0x1a0/0x4dc security/tomoyo/realpath.c:265 (P)
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x1c4/0x394 security/tomoyo/file.c:776
- tomoyo_file_open+0x78/0xcc security/tomoyo/tomoyo.c:334
- security_file_open+0xbc/0x258 security/security.c:2760
- do_dentry_open+0x2a0/0xfb4 fs/open.c:977
- vfs_open_consume+0x54/0x2ec fs/open.c:1131
- do_open fs/namei.c:4851 [inline]
- path_openat+0x1098/0x1910 fs/namei.c:5016
- do_file_open+0x1c8/0x2e8 fs/namei.c:5045
- do_sys_openat2+0x114/0x1ec fs/open.c:1442
- do_sys_open+0xb0/0xe0 fs/open.c:1448
- __do_sys_openat fs/open.c:1464 [inline]
- __se_sys_openat fs/open.c:1459 [inline]
- __arm64_sys_openat+0xa8/0xc4 fs/open.c:1459
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-Code: 97d64865 f9400328 91018119 d343ff28 (387b6908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	97d64865 	bl	0xffffffffff592194
-   4:	f9400328 	ldr	x8, [x25]
-   8:	91018119 	add	x25, x8, #0x60
-   c:	d343ff28 	lsr	x8, x25, #3
-* 10:	387b6908 	ldrb	w8, [x8, x27] <-- trapping instruction
+Reported-by: syzbot+2a7ce560c30c4ca3bc22@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2a7ce560c30c4ca3bc22
+Fixes: 5e42d710a108 ("usb: gadget: add tracepoints to the gadget API")
+Signed-off-by: LiuJunyuan <2058432396@qq.com>
+---
+ drivers/usb/gadget/udc/trace.h | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-
-Tested on:
-
-commit:         58c1eb84 arm64: sdei: Preserve the interrupted context..
-git tree:       https://github.com/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=141d05a1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1141b4c3580000
+diff --git a/drivers/usb/gadget/udc/trace.h b/drivers/usb/gadget/udc/trace.h
+index fa3e6ddf0a12..bcf89b5693db 100644
+--- a/drivers/usb/gadget/udc/trace.h
++++ b/drivers/usb/gadget/udc/trace.h
+@@ -239,15 +239,27 @@ DECLARE_EVENT_CLASS(udc_log_req,
+ 	),
+ 	TP_fast_assign(
+ 		__assign_str(name);
+-		__entry->length = req->length;
+-		__entry->actual = req->actual;
+-		__entry->num_sgs = req->num_sgs;
+-		__entry->num_mapped_sgs = req->num_mapped_sgs;
+-		__entry->stream_id = req->stream_id;
+-		__entry->no_interrupt = req->no_interrupt;
+-		__entry->zero = req->zero;
+-		__entry->short_not_ok = req->short_not_ok;
+-		__entry->status = req->status;
++		if (req) {
++			__entry->length = req->length;
++			__entry->actual = req->actual;
++			__entry->num_sgs = req->num_sgs;
++			__entry->num_mapped_sgs = req->num_mapped_sgs;
++			__entry->stream_id = req->stream_id;
++			__entry->no_interrupt = req->no_interrupt;
++			__entry->zero = req->zero;
++			__entry->short_not_ok = req->short_not_ok;
++			__entry->status = req->status;
++		} else {
++			__entry->length = 0;
++			__entry->actual = 0;
++			__entry->num_sgs = 0;
++			__entry->num_mapped_sgs = 0;
++			__entry->stream_id = 0;
++			__entry->no_interrupt = 0;
++			__entry->zero = 0;
++			__entry->short_not_ok = 0;
++			__entry->status = 0;
++		}
+ 		__entry->ret = ret;
+ 		__entry->req = req;
+ 	),
+-- 
+2.43.0
 
