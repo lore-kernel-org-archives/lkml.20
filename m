@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794377909;
-	b=QmTuRQPyLcTeXnP4v8lUZYD+hvxtMzEQOQ1uY3DwbLA3TfQMmy9A6rttsdWvav07Kcth
-	 eEMdXozF4DwH/qWLxdWBU4bxbN+Y5P3ylYEtp97r9rjg3n5liT2jVcFyr+FXvlzdwRdZd
-	 w5qKOiZdJDZklxBHmHWmC+zekjjSeWL4C14GtV7CbmSrDLgvFZk7brXm0FYakybFQIA2c
-	 sjEWAFH3kd8mwyzUGu+Qt8XE1TnIvVz5ZliqeuxpoD2vPjLpcjEtGj+ltA6PAizIU983N
-	 qeeKTRCXxARLDjHeTArxi72dZWgLF6kVqMz2D71wvwoGBSt7FgVai0H8u50pvUPhQ9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377909;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=om0iTKkrps9N5Lebuh6/coCyaUIRntPem6corznYjn8=;
-	b=Z/Z4DbMhdKrSZamaONiMEty23d3frSAfJ/QD7pqFZy/b9+BWjM/5GwmvZrXrw6rJY2q/
-	 VxhblWDKJmoBeWH7iMiex9xk//zl/cRoIwGUHT/Zwxs1yahWSxbqchynFnNa/mFY0sZrV
-	 Hdw5ywcQ4IWF93HHu9cqKPqa8btloGi7le6z62FgrQuAUZjnzAJVH17b+XqUGe0JYzCjC
-	 jP8jMV5ufacwtIkZrGN5czu9jQqmcWwX0gHHWm6M1sm5jjyp5ephZv0a8J4IpJOsU26dj
-	 aqRKTZJ0zWjEyHiwOygw6sguXBQJfNYF6CWNPHYmtez3CvKaUbQcU7FiKLzvuj86Aag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.173
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794377928;
+	b=y7fceuBYJGLqJXnmfk1grblWpMEFS1iEE+3Z8YaWYIotDKGqsS5t5ELWgnNrnV1LFij1
+	 BUJ9vzH5AO2GdFNVro8iwq0LHgeRPTCpVLoSsHhG7VWwEi/PutaDKYoarkwUr/Fm4INNp
+	 IQ7w7u/XtcOBjCqx6nXuGJmSDxzUgn1FPiBK5mXUYmQpprtKiGQ/VWcS83lVW76NSLruQ
+	 2xPm8sC5B5enSzFbrQyXMM5PWpRe0/KCKFA80HF/jNaN6Rf76mJyJ+S/4CQuqSQS5+j8N
+	 Vatp3vgVBBIP5JN1KCgdKWNL3PEPVdj2L4wliAmCjRVXUh1veqYuPE7RqKeexMxqKJg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377928;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=Lft7t/Pd6lbQ1q/PbU6GADsR1ZcLNV2ta2CQM+/hYSYFNy3Fvc6XkSZOFal0jETgBoAA
+	 29MDfcA4nnhRzHzbpGmYhu6q3CclHscEzyVxnz/TA5hHIJPcQHb3QyfGTDEDVxGJyfbAe
+	 QmA0Ph8yCWusIPCIUJ7CqldPdlucFiNslcpxesqt6X5W0DE0S6TpbePdZtODZl4vuZdr7
+	 TJt98wdE2PscqWIxcOlY8azi3x/R+8axJEzFZbiSQaP6TbhntFIYQ4rI2cJWzII952em+
+	 /x+n7M0xuR0Vy/3oI4qxfJkHH0mpVyJZzrYcP62fEYFvonpx4ZzaPRAqe1ROrAhD6Qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEAqvzN9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B36F606A320;
+	Wed, 11 Nov 2026 06:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEAqvzN9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794377928;
+	b=h7ueBH+XYghige5DuadhGiB1glqCVPaEF2UnujYUOt10x4+jKh+NpOxkGW/H/PmNHkb+
+	 +xCbeMp8LuBhTs5vWUtywFN5P99n82IcZRwoHKRwX4HXlOASD5ilfjKoa7nRvLW9bEHtx
+	 TfFu66YUYkyR3deY+a15SDC6VUXQwJAzDQgrED6NBnio+tliLRSXUKHgJ+B3xeVJGSSK7
+	 0I8uJGS9KYe/QchmBdZ2ZKvAPrP1BV9YqfIQ3XSRvoTDxdw0qkrPdaUPcug2BPzcpTAK5
+	 FgeJCug4Rp1gFitthKEA5I1nznU9DYhFkaGWlZ1gLbVTCdECqQJ0f+2YjR0ijzUiqhg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794377928;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=ndiPg7eoTcOJuB1Uik/N3u215eB51Z8n0mzXpFetCI2mDLlhb6TL8LSGdg5OYmARGNkM
+	 fcrTUSfEHODgWT6t+RMSZHURCsuMWexiBn+Vg4Mlj6KwNQrZqGJP0fmONBD1/SaKSY8KT
+	 C6rhGTijy2+wITsD5+Gw7Tido8SvRG3xDTdUGjRONrWoFP3hZJoIGptSyLsPezYxve92j
+	 /CqsNShE3giIRjmuW1aX9sZlZ21AyI5Aqq5oOCaPBS86NZ+qPvTmqyM/3wmcotL7p9uVQ
+	 KaqM1R/dNdYFUKXAD976STzEeW10lzkeEYaaoRizBca770w6naDIsN3P3ZV/k5HazNw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF24606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FF24606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0110897-0.00104702-0.987863;FP=1429708571006321915|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.k.bVInj_1794377895;
-Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.k.bVInj_1794377895 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 14:18:16 +0800
-From: Li kunyu <likunyu@open-hieco.net>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org,
-	Li kunyu <likunyu@open-hieco.net>
-Subject: [PATCH v4] sched/fair: Distribute burst-woken tasks when rq depth reaches 3x average
-Date: Wed, 11 Nov 2026 14:18:03 +0800
-Message-ID: <20261111061803.337042-1-likunyu@open-hieco.net>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id 6FFCD1F00A08;
+	Wed, 11 Nov 2026 06:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794377928;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WEAqvzN94RlB8SiMI75i32D73GYujz1zPy7KZVpLkkN7csNeA7eTtCAqdd5xgdwFF
+	 QuVRMBhUJhw/yIQjYGSsTy+6Wz9+M1KHt0atvOtTL/vL/8+5IM1bFFoWSLAhhfRqEy
+	 N9O/VcqP3ppsVtJi7VmxoTXtlTk82UF4hRysY7sBINxb88F+XT8gFusTqbCxyMFNU0
+	 i17Miv8OpMO30aL85e5lzlgHb8DIrDOoXAMIj6jp8MQfTxMMgCGsxTwMjCg9gmr7ie
+	 eJxB3Dv/KE0jX7L+DXbf4AU4jPhqhUNMv57+9xihqF8e08vtmoWN0n2/Y2dwz+VFLt
+	 Rw2NDzxk6LLdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EFBC648E06;
+	Wed, 11 Nov 2026 06:18:46 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Wed, 11 Nov 2026 14:17:57 +0800
+Subject: [PATCH net v9 03/10] can: rockchip_canfd: retry the outstanding TX
+ buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,194 +83,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-rockchip-canfd-restart-close-v9-3-6643f3825ba3@qq.com>
+References: <20261111-rockchip-canfd-restart-close-v9-0-6643f3825ba3@qq.com>
+In-Reply-To: <20261111-rockchip-canfd-restart-close-v9-0-6643f3825ba3@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794377925; l=1735;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=mAdiDJWuUPvQyM82hTpk52wGLUSpbq2jpnpY6emM93U=;
+ b=DzwygOqoERFHhFngW+ttdCvPayAo5SCyAJg6NN02KVaARwkXTLiaR2cVUEUmPSWO6BeSrJlw7
+ Dl2C05kKccfAfx0OCDOESTknt/QULmXvs4rJArR/0E+j/VJG7WUdSoZ
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-When a task burst-wakes a large number of tasks in a short period, tasks
-can pile up on a single CPU regardless of whether the system has idle
-CPUs or NO_HZ enabled.
+From: Cunhao Lu <1579567540@qq.com>
 
-During the periodic load-balance pass at the top-level domain, compute
-and cache the 3x average runqueue depth threshold (floored at 3 tasks)
-in root_domain, updating it only when the value changes.
+rkcanfd_xmit_retry() uses tx_head to select the buffer for the erratum 6
+retransmission. With a TX FIFO depth of one, the masked head and tail
+indices both select buffer 0. With two buffers and one outstanding frame,
+tx_head selects the next free buffer instead of the pending one.
 
-In select_task_rq_fair(), if the target runqueue depth reaches 3x the
-system average, fall back to cpumask_any_and_distribute() with
-housekeeping_cpumask(HK_TYPE_DOMAIN) to rotate waking tasks across
-allowed non-isolated CPUs. In addition, reset the periodic load-balance
-and scheduling-domain intervals so regular load balancing can promptly
-smooth out the distribution.
+Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
+entry can remain incomplete and leave the TX queue stopped.
 
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Link: https://lore.kernel.org/all/20261021125419.GK2823843@noisy.programming.kicks-ass.net/
-Signed-off-by: Li kunyu <likunyu@open-hieco.net>
+Backports must include the preceding TX serialization fix or equivalent
+synchronization. It prevents completion and retry from observing a newly
+published head before its initial TX command and serializes the
+MODE/CMD/MODE sequences used by submission and retry.
+
+Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+
 ---
-Changes in v4:
-- Gate the scheduling-domain interval reset within the time_after()
-  conditional block.
-- Update the commit message to match the current implementation.
-- Only update overload_nr_threshold when env->cpus has complete CPU
-  statistics for the domain (Kayra Cizmeci).
-- Filter out isolated CPUs via housekeeping_cpumask(HK_TYPE_DOMAIN).
-
-Changes in v3:
-- Move the overload check to the end of select_task_rq_fair() and verify
-  dist_cpu has fewer running tasks than new_cpu (Kayra Cizmeci).
-
-Changes in v2:
-- Rebase onto latest mainline (Kayra Cizmeci).
-- Cache pre-calculated 3x threshold in root_domain and only WRITE_ONCE()
-  when the threshold changes to avoid hotpath math and cacheline dirtying
-  (K Prateek Nayak).
-- Expedite periodic balance via rq->next_balance gated by time_after()
-  (K Prateek Nayak, Kayra Cizmeci).
+Changes in v8:
+- Apply the retry-slot correction after TX serialization.
 ---
- kernel/sched/fair.c     | 67 ++++++++++++++++++++++++++++++++++++++---
- kernel/sched/sched.h    |  3 ++
- kernel/sched/topology.c |  2 ++
- 3 files changed, 68 insertions(+), 4 deletions(-)
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98..46ae9ab62a2d 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9900,6 +9900,36 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 	return target;
- }
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index caa71cf8e39a..8998b7855d15 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -63,8 +63,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
  
-+/*
-+ * Check if a CPU's rq depth reaches the 3x system-wide average threshold
-+ * cached in root_domain (floored at 3 tasks).
-+ */
-+static inline bool rq_burst_overloaded(int cpu)
-+{
-+	struct rq *rq = cpu_rq(cpu);
-+
-+	if (unlikely(!rq->rd))
-+		return false;
-+
-+	return rq->nr_running >= rq->rd->overload_nr_threshold;
-+}
-+
-+static inline void reset_periodic_lb_interval(int cpu)
-+{
-+	struct sched_domain *sd;
-+	unsigned long next = jiffies + 1;
-+	struct rq *rq = cpu_rq(cpu);
-+
-+	if (time_after(rq->next_balance, next)) {
-+		rq->next_balance = next;
-+
-+		for_each_domain(cpu, sd) {
-+			if (sd->balance_interval > sd->min_interval)
-+				sd->balance_interval = sd->min_interval;
-+		}
-+	}
-+}
-+
- /*
-  * select_task_rq_fair: Select target runqueue for the waking task in domains
-  * that have the relevant SD flag set. In practice, this is SD_BALANCE_WAKE,
-@@ -9970,12 +10000,22 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 	/* Slow path */
- 	if (unlikely(sd)) {
- 		new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
--		return select_idle_smt_cpu(p, new_cpu);
-+		new_cpu = select_idle_smt_cpu(p, new_cpu);
-+	/* Fast path */
-+	} else if (wake_flags & WF_TTWU) {
-+		new_cpu = select_idle_sibling(p, prev_cpu, new_cpu);
- 	}
+ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
+ {
+-	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
+-	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
++	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
++	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
  
--	/* Fast path */
--	if (wake_flags & WF_TTWU)
--		return select_idle_sibling(p, prev_cpu, new_cpu);
-+	if (unlikely(rq_burst_overloaded(new_cpu))) {
-+		int dist_cpu = cpumask_any_and_distribute(p->cpus_ptr,
-+							  housekeeping_cpumask(HK_TYPE_DOMAIN));
-+
-+		if (likely(dist_cpu < nr_cpumask_bits && cpu_rq(dist_cpu)->nr_running <
-+			   cpu_rq(new_cpu)->nr_running && cpu_active(dist_cpu))) {
-+			reset_periodic_lb_interval(dist_cpu);
-+			return dist_cpu;
-+		}
-+	}
+ 	lockdep_assert_held(&priv->tx_lock);
  
- 	return new_cpu;
- }
-@@ -11682,6 +11722,7 @@ struct sg_lb_stats {
- struct sd_lb_stats {
- 	struct sched_group *busiest;		/* Busiest group in this sd */
- 	struct sched_group *local;		/* Local group in this sd */
-+	unsigned long total_nr_running;		/* Sum of nr_running in this sd */
- 	unsigned long total_load;		/* Total load of all groups in sd */
- 	unsigned long total_capacity;		/* Total capacity of all groups in sd */
- 	unsigned long avg_load;			/* Average load across all groups in sd */
-@@ -11705,6 +11746,7 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
- 		.local = NULL,
- 		.total_load = 0UL,
- 		.total_capacity = 0UL,
-+		.total_nr_running = 0UL,
- 		.busiest_stat = {
- 			.idle_cpus = UINT_MAX,
- 			.group_type = group_has_spare,
-@@ -12977,6 +13019,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
- 		/* Now, start updating sd_lb_stats */
- 		sds->total_load += sgs->group_load;
- 		sds->total_capacity += sgs->group_capacity;
-+		sds->total_nr_running += sgs->sum_nr_running;
- 
- 		sum_util += sgs->group_util;
- 		sg = sg->next;
-@@ -13000,6 +13043,22 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
- 
- 		/* Update over-utilization (tipping point, U >= 0) indicator */
- 		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
-+
-+		/*
-+		 * We update the average task count at the top-level (root)
-+		 * domain, as this incurs the least overhead and comes
-+		 * closest to the ideal scenario. The trade-off is that we
-+		 * must accept some temporary data inaccuracy.
-+		 */
-+		if (env->sd->span_weight && cpumask_weight(env->cpus) == env->sd->span_weight) {
-+			unsigned long thresh;
-+
-+			thresh = max_t(unsigned long,
-+				       (sds->total_nr_running * 3) / env->sd->span_weight, 3);
-+
-+			if (READ_ONCE(env->dst_rq->rd->overload_nr_threshold) != thresh)
-+				WRITE_ONCE(env->dst_rq->rd->overload_nr_threshold, thresh);
-+		}
- 	} else if (sg_overutilized) {
- 		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
- 	}
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c5633524a..71d946da9600 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1096,6 +1096,9 @@ struct root_domain {
- 	cpumask_var_t		rto_mask;
- 	struct cpupri		cpupri;
- 
-+	/* 3x average per-CPU rq depth threshold for burst wakeup distribution */
-+	unsigned long		overload_nr_threshold;
-+
- 	/*
- 	 * NULL-terminated list of performance domains intersecting with the
- 	 * CPUs of the rd. Protected by RCU.
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 919d0fb00bd9..fe154dfdf23e 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -572,6 +572,8 @@ static int init_rootdomain(struct root_domain *rd)
- 
- 	if (cpupri_init(&rd->cpupri) != 0)
- 		goto free_cpudl;
-+
-+	rd->overload_nr_threshold = 3;
- 	return 0;
- 
- free_cpudl:
+
 -- 
-2.47.3
+2.34.1
+
 
