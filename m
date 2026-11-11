@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427672;
-	b=Q2wj/Qe0YAujrMsz0HM0ldhemA73Fhptgmzv/aeTHHyypGQAxFwE1Cos5kFDZaQaLEJf
-	 7drNWhClcnm/7Kaj7+4H1e9zIOo6iroTTSSB5AFZtoXeg9hJ9wV8IQjcaq8GD3oVoTosU
-	 pKLiGi+TnNmMpZFl19ubFrNhIYqUatm7uxSTHEP1dnu0+BCf6Hl+wjODW2S6LxwCeFyBg
-	 LLWw79867e+Oh1esyti/6yr8WhsMarhoSN+7sXi9P314V5lDlpOPuUfMk2RQOdpImiF/R
-	 zc5igJdH6cj0VvzR670v0wX4H04Z82aWP+5ks6/UPeEbQxQboF6YwsA4QEASe0gzacg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=5EMCD1rtKeIzP4pmI2Kq0aEOHvbQvIVCDlgtYyGqRvY=;
-	b=BsBTPoLvmL0JC1Cy/wTBnK7NuhQw+ujob2dlfYRnTEkAEWBNKmiDJAcWU9/N6muymeiv
-	 uXWQkXvI9dP5zimxrPJmeTdEy0dt/nqw8kpmkRPpg0iVVbPp70MfS85UTmgmLqoF96Z44
-	 Mv6bSe2OX9q5oJg9RTf0Rj3zJHHXW6qiz80lr77D+HXbiEW9Nc3ogGqEcYCgoG70c3GiJ
-	 emYdO10mxG/ahPPD7eGWt6ow19u51Py/wY5ZQ/CZKFUWci4TXRtYmZvCr/vL+lldSrOfD
-	 Zck5562I1PcOhZ/ekTUmd1AAxFPf0eq2i4l5TbrzRadF3m7VmZ3glbv6voolPeFKpzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ib994pDE;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794427675;
+	b=qaLYg+nv+1lrhAk1CcQqP4KrPGRUO15+pS6D0CFt9t1Bd25Hhu/Pq15oRYrxu8MllTg9
+	 8+T6joRvgdVFnb7Ozc9Gp/YJzZpNZvSRVIRYvgnrKuodRtGCZ5v7t4ZpDlLh/FoD87iHM
+	 6g8eyYXBt7IbckRtXk5voSyOGVep96SiFwxePPO3UKmsqFSLW6k5PlGxZ+Ab9A7tPQ0hi
+	 vIiqVST7MTpkrq7c98xS7MXcDtV+ApNo/UCuPF2LXjSddnaKOygatrAQSmCqyO4NrwXcC
+	 sHkxcVCnXTcAJCLCxPD53D/YDcmx1Axbv6Ustdh5ez3hC6ZUkwXcvXY2Gmz5DdxDgBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427675;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0Hd2pblsQRehI+CCzvQhKXYdpBhHTc1vxLjntnCUCeo=;
+	b=ci53xD72GK3BFLhL5G8DKrwRxjbJVuuvZr9DJPe2X++VnxjBzW/IZbcGYyt56k1j2eK0
+	 5PlRZpMIXA0ndPx6YWoRJ/zvBwKbkDjTgDccPdWaWi3SyBxRxeBATdZ3CYmJjjeGXPkev
+	 3bzXLHgziFhbjdUbBrLzG9B+xcgQ0/xHxNe5Hv/0ghEuy1yVymlp8Z9znFujuPQMgqQSm
+	 L4q4Dpnh7XvFewMB3p6Vx040lcbXLURzD7j4a+kTJAhWeYoFH3C6s1crYbGbrC9zEO2tY
+	 yGAFMPh2tWGVkTAWJU9pwhrWe7dXzgD0dyKmzN2ABfiVyszNfIn9PKPPU6jSfrNSHGA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hax2IX9D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013060.outbound.protection.outlook.com [40.107.159.60])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53E4606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C53E4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDED606A883
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDED606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ib994pDE
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso1358206a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:07:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794427671; x=1795032471; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5EMCD1rtKeIzP4pmI2Kq0aEOHvbQvIVCDlgtYyGqRvY=;
-        b=Ib994pDE2Q7BaLhj22bPoqfOJhpjDDRFZvrAJjF7ehEjzTVOj9cWTjN5eyCaRLx9Do
-         uaS2NF2dBOoNhOHaCI9cq6B0c4DpZT44Hwg4BXixTHzx/hoKZRKbUk2vfdj9GyW29j7f
-         U4BAO1G3gUuj8dyUyzwVofzhK55MVd3KDdmWW0CyJi7QEjT+RRSF0k5VKFhX7ObI7VYH
-         ZihBiev0hpknq2qZjGUOhL6B6WeIU89r6TxdMuT5YsT29F1WLV/aGEEzx20tAeRGPyaL
-         zxhqro5AjHVmfqcVxw1iU2Dd3YE+92tQUea9yMj1bQgdPsP8FxxF9dTN/JDZEZO6Q3mi
-         hP9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794427671; x=1795032471;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5EMCD1rtKeIzP4pmI2Kq0aEOHvbQvIVCDlgtYyGqRvY=;
-        b=K5WjRw7T0jlcnl4stMghWeq79OgQMWNbtLEjXXqnx6GzIp2qJsKC+spIH3TbH8COwP
-         CWAiMFKf5olSKaBNrKeruFFTbGkeX2K213ui7O5g9NCemF6zF/318EvpXdyhmdUqGLoW
-         4IQaCuazcRB8CAjTFBQmuCiCLEOCSnaWDc4nedHTZXT5lruSjOzhofpLiJGjsYe8AMiX
-         epevK6vzLOrVbq9FtyZBfbQ78vE6tUQQaNuu6w+41M9ws9cD0RoKCyxx6nHtDDusfmQg
-         5rC1xHiLeNt3DO936qkWaz6hAlefkQnM+R6eb7R3fij6uKZCahoBsLp2hcUCb8LfBlhE
-         FCdg==
-X-Forwarded-Encrypted: i=1; AL+hErFQR5WkcP9N8j2hsu2ebhHvhNOgwnwluybSisrM4S8o8wxkx9mq7Nkjrex90RXcSbLWDdCRv3DmVwva3yE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zbKHdYW973iep9jxP43TTVr4T/0a1sdI3/6vVr5jgKzGdCLkv
-	6zu1cQVK1MPsOTNRjEtxsJ9RZtbRcIHtuoRvxAjh/ErFmbWKHAtEjEps4wIO7nhQyYd6X+j4+hZ
-	geHmhMA==
-X-Gm-Gg: AYBFou236jui3zdzM0zU4GaaEV5hpdr2IMMyP1XRKMe3lIwifxJMMyEPYwat1FAjiv3
-	aH89uRblVws+uUedVnwt42jySvtdfcyzlzJ8a+OE5nffYHnvrg4FFP4vg/7UwmZmr/gHl5jt/Az
-	sQDh++ENIsqB7uQa96QD9uSMyXOInAYn3vyCRa7T274Agb+bSMF6silogT+RI2DmfLTHKx6d1y4
-	4MCJd+4YnFCBoi+ytCTZNtXuifW0UdQ/n/dNJpUqt5wBk21Ex117KLCch7Zczx0qD6agCXe0Uwc
-	o6hRXyMPo+KnulyNJJw7jkBzeqj/9l8ZA/uXaPUkzvCl5LJwNJre1VyoVQQnesDjAr5ZPEqalgu
-	Ou0Mp42xHYhdkINDweb9w7la5etSmEOoQWEkkN3ldgGg9NKPDX84H9VuDWr2VPxrY5Kdgf+v5c9
-	IDYBAVG6Xaa8C8tC3yrQX39bxaaS8cWh2r9Vk3UxV7s+coKucfamlNnNsRkVpkXMUIjeQvCkbhN
-	v3eyK2mUtv2Pu7FISPIITh0P29GCb9K1AiHRWTGdy3lHntZ5LOf3imlJTfzotC68njXHvt8udXO
-	F7edaUSfh2BJg2qBtlr7msFkA/T4ugClvpBileemijg/Q6SY398rD5ofqpbP54lW
-X-Received: by 2002:a17:90b:5101:b0:3b1:64d3:f308 with SMTP id 98e67ed59e1d1-3b182f8511amr3538560a91.43.1794427669947;
-        Wed, 11 Nov 2026 12:07:49 -0800 (PST)
-Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d27cf1sm691230a91.12.2026.11.11.12.07.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 12:07:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hax2IX9D
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QC7Lf5L9E/BMpaZqhpJkeKkGPQpfxM5n/38KRBFCOnCfI8YjN1M8M3uJ/dPfeDGPPdIhOU9aHuAafI06wGHcGjHEX4nA3yteIHyNImWGhC+VWkYCVeJGQ4Q5VguECN8T0KNaaebYvYzBnUGCh/QOdkkGMJi6qdU7VvN87BJkWsrp8YtM5qSX4JzCy9FNIXsuaChwlyhQDs3Ps/d4wAYw4pYEugbHj+ci8CWi2q5gOBW6PGmxzVhkbdbb0u5YhzwXwy0Em6+cg3ODiC0S1vypiGr4WPune63qDAdZzX1zuEI8At4FmRGmqvzSIEc9UPsV1WSdydyEL/TQpWwtXFqUbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0Hd2pblsQRehI+CCzvQhKXYdpBhHTc1vxLjntnCUCeo=;
+ b=DbFhdivve66eH0Zqw+do7ISMceH8G/Aq2am5o4ePkJjwIoBP506c+0LKH0D7yKEYvGYqs2Ob7l/HQUH8dL3PcJnSiLpfjRiMYf0ASDwbpm5Pg4HfU+f+QgITBYc1BCTVhgHvYLZNYFqCm+bDKPI03SAwaCFj+P2lmdumfPXaFyZK+5ChASLXTEsSCAy5g5aiNKl34au1lUyW4k648uvw1eZjctOhuhuqgl1flrCQ5ofDXToJAc3Uc5zCQHIxtAVVW5PKBa68etauHLNqCWEMd3N8rgF7zxmxoIT/3HrnrcY6RtldZPZuYhJ5q6a/7apPpQY90+j0diAAfZ3M9NZ91w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0Hd2pblsQRehI+CCzvQhKXYdpBhHTc1vxLjntnCUCeo=;
+ b=hax2IX9DvX1Qsg+2sRwMG7sCLiO32BK0rGdlYG7OqHhR5hhgah0mktIt/DgY9y19/O1KWIHfqN48Ztvnq57190WZgf0GvxAPfRR/WHL4YouDyFok+6E4a7HLfKW9c5sxAVl/2j7N0oSNNFfrfk6omG8n/pBHwqfViINZGBG+eR1rluCUS2KW4e09IRaPi/BoIp5uWPvmtoV8cWEoWwQKr39d2F8sk4FoFiSR3I6Y42BXc+IBzzIdysEFzFbQgOzR4qvwg8I39x0jW5yg74g3qYsFXb9c7ja08LTLKcUu3hoAAOL5ucQGTbbrh/NVNzJertlkSmVLYFrteOhLF5QoSQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB9118.eurprd04.prod.outlook.com (2603:10a6:150:25::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 20:07:49 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 20:07:49 +0000
+From: Frank.Li@oss.nxp.com
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Michal Simek <michal.simek@amd.com>,
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR XILINX),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] drm: xlnx: zynqmp_disp: use dmaengine_get_copy_align() accessor
+Date: Wed, 11 Nov 2026 15:07:37 -0500
+Message-ID: <20261111200739.3823753-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7P220CA0146.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::32) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,76 +103,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 12:07:48 -0800
-Message-Id: <DMSNIQJ9G6P3.2L2X6PDV6QBGA@google.com>
-Cc: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>, "Abhishek
- Sahu" <abhsahu@nvidia.com>, "Raghavendra Rao Ananta" <rananta@google.com>,
- "Shuah Khan" <shuah@kernel.org>
-Subject: Re: [PATCH 4/5] vfio: selftests: Add sysfs_kernel_warn_count_get()
-From: "David Matlack" <dmatlack@google.com>
-To: "Alex Williamson" <alex@shazbot.org>, "David Matlack"
- <dmatlack@google.com>
-X-Mailer: aerc 0.21.0
-References: <20261029203324.1637772-1-dmatlack@google.com>
- <20261029203324.1637772-5-dmatlack@google.com>
- <20261110103434.48709eba@shazbot.org>
-In-Reply-To: <20261110103434.48709eba@shazbot.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB9118:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d229518-ca10-4bc4-b875-08df402f75c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|7416014|376014|23010399003|366016|18002099003|261009223027099003|921020|11063799006|56012099006|261102123227099003|261021121427099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	FAv0Ceic4oJkDgv2Nw6RmP0iuC71yCp97LntpKqraE6LDNsk43YKz5t3u2ScSCEOwEBPfe7B9dYpz8wGSEobzW6rT8EsgR5KQLupviMX+WbPxm79ZfUCdOd5dIIRuLPIpSe6W65ZQNgSXwit3ficvuATQissox/7XsZx0vfrEeIdfDcfUFruMq4+V6K9nNzoQzENcaMhQfvtNrX+ORH9esAqhYsqhjvYyMD532nYTXB2CvztgdrXvczEq2aASabEVYKbmibfsP6EzBUoeTCmIsMiwGgtl4x9ghNXOuGq8LLmRvDdREHM+2ZAzk1QDal/eiI5FCR9xNwNikU4mfEEK5B7kD03Dhj+buFaExvXwhxXkNGiPP6wNW+AaoZifqGG7hdWROTgNLbCvTo61EbnORuCexfY6GlwV/N1ealhcGEb/zvNQTjZxC1s2hjOHHjvWLMCzyHckjtZPZcvAB1cbPmAD0P4aWLmb5pVgcxXI0WBAqWpDj567DxxjHAc9Z/iclDkZ5iPy31l0eLNa+wEf4+VkhdP03vKjA6lxs6qMvyLlyw/Nx9fScat4rm2dWt94PlIoRlWJ41VqWYJw6IsI7r29On2aP4qE86Y1scRKdNJ0ziUJt0tu4OBVqNq7j2TV2e7VCWWkMQCfFVu2wTzYXrKq7Pgt1a3W3u3InL3EyzEaFWECyueboAqq95SXsp2HFKqULELn5QQPtqtXCNGkg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(7416014)(376014)(23010399003)(366016)(18002099003)(261009223027099003)(921020)(11063799006)(56012099006)(261102123227099003)(261021121427099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OqdgA/fdrurAIO9nJegX96jbx4XcUIh+Q+KIewSsf1IOTBNQU1dCUUI0tY+g?=
+ =?us-ascii?Q?pMlsb6G5psPRceT0kRQyas8BL23FozCU8DMv2liwjYDjqxw72lx0e3Dkvpzp?=
+ =?us-ascii?Q?Oa1nvSDn/Yv5gxF8uwIZ9Sf4RQetYIdmsngqTF/dqu2qhUG5BwI896uiUFjl?=
+ =?us-ascii?Q?+qCXk4YS6spdtFhzWNwvdZgIwP1L7Sgg09r6n0Op2jnaTTtNuDo0P2hTyEHN?=
+ =?us-ascii?Q?K1jmNj4fUM2s3YsjhlnO3AYgJA2Io8fjVakf4HHhGE+FhcvGi/gvAHZ69wsR?=
+ =?us-ascii?Q?+lckItWa1NmIk51Cv8n0BeSRv4tiRqgH2fmBCFanmp7BtqkrhB8+uswvvcUi?=
+ =?us-ascii?Q?fvfnC8+mTVvALGMECvZhOlol7UCfXrR8RvCjZCgQD/xdR0Sdab4pWF/0N/p6?=
+ =?us-ascii?Q?TYpdQHlr56qgAjD3Z25ZpZ03pzc6C5kcFj6R1OgnKZuSppn5DFUvv/JapjMW?=
+ =?us-ascii?Q?cXid/MDsp6jB/BPh+eKqz5WYFCUI77aEWtcKRnzpjx1kkcXGgKd7LRWIRGVf?=
+ =?us-ascii?Q?K8fXdZQZ4ntpqKxkQ/eGdxfo0OOnK3zJfHgwJvgCwj5E3UkxxeuALP7L63yG?=
+ =?us-ascii?Q?1dXu/7FHbL6/RSwWsMr9nS08aoun10eGSc5O1QDc3vz+x0Gfi/yZq4O0wP8G?=
+ =?us-ascii?Q?jfnHGT4ytSV37EqvXPcLG3FOsOzll6S6qG3Fp2qpnJhXl6Lgfy9+cy6VJsfl?=
+ =?us-ascii?Q?lQnhFS6rIZx1EvvlmLiabdQMUOA5SpcDjmM0eE2ItGlBsQFZ1qL6q4AlJGBP?=
+ =?us-ascii?Q?CtCN4f/RjOoFjz/2qZzCL6jYkmgrQ9kPx68cG4DejCcKyh/r5URGD8PDDSI3?=
+ =?us-ascii?Q?U5yuvlC0OuMGENLIDt0N2yRrTzo7k868a5tj+yDXBEimTGJup8zw6WvuV7D+?=
+ =?us-ascii?Q?Iglbz9bC41sIr4QCxr8C8NnhAnUGn5DZtpeV+E3/ZXm5qWS+NrkreynxTtOx?=
+ =?us-ascii?Q?FHor2ykXWxv6ZE602hIoAFzm6oJcAN6SIm5+9EsP9gF6IpI8aGgpbk7uZ/7n?=
+ =?us-ascii?Q?dZLIIJP6voaMlTVXFyclJtRVndLK+Txr7dDjy4TdgtNomnm5s0lYMlPeKDCc?=
+ =?us-ascii?Q?WJLCPlag3Jy9i1Ax1SgC25J8HsSKt17wKqVHa14rd+LKlsEdX4MVBluunADo?=
+ =?us-ascii?Q?S8i0wmq0gdB0ISPG+adx60sQLpf5srfMnNpDTloDLuMzlkQje5m+jNN+OI0N?=
+ =?us-ascii?Q?7g3sCaeAuP+Yb7t18MqehqfAeadYNPGvQTjUNe/mK71kqczRVdXU5zpyGzEU?=
+ =?us-ascii?Q?kWudN8vGJz5Iea2pE6FVscxdj7TwbOp/PFWjCpqO3gISozRRWriPKiKBZVkF?=
+ =?us-ascii?Q?jzz9I8nrdfgUtQUN+EOvBuGUNp7el9vonCfvpAkdGpF/pi1jGPJUNjcsOsSo?=
+ =?us-ascii?Q?DIP/Q6RNwz8ZBQJ8objH/KfzrKrixYqEzQoyu0htdfQ2GNK68d+8Z7Z9VDwT?=
+ =?us-ascii?Q?qDfPsFk19bbncB0jgjZfNzmRnFCS2hKmzlgGUJbt15ACfCUE+xirrGOtFGcD?=
+ =?us-ascii?Q?2/EByaW0OkFotTa9mdWUdrHsFjtEwpmyScQd3l1UmleUdI4Y0yBP1faONbXK?=
+ =?us-ascii?Q?Yu2MOr4gORkZsAZiE/5QPc6QhftMP3EWDOArat8bnwHNDSenWcsPwv+8ghnQ?=
+ =?us-ascii?Q?zZpZ4jAm65lfNZhoqfukHjljICLjSJ7uZlG552S7oVX3BGTdE3ToCJJNv69a?=
+ =?us-ascii?Q?QNXeQnkprJIa46KMaP7fmIg1cIDVWUDI4ms/1nOhkL3/00FIVXbXoJfFsw9i?=
+ =?us-ascii?Q?r2LlXf1QjrB92aOFC+JWn2njyFRt+agQDMw7P0IU6IPudk1pcxHO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d229518-ca10-4bc4-b875-08df402f75c9
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 20:07:49.4331
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qV8a6tFvqijjG2ad8yvZov3LeGZUNo/E1GejD0Zy78SKZDQeKJS15bnLMSL2bApC4tRMIP5a0iXuHsH3r/HTdke7gaGLJ4usEcLEreiw1VjuWOh55WUbWBCrmz9VEqZc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9118
 
-On Tue Nov 10, 2026 at 9:34 AM PST, Alex Williamson wrote:
-> On Thu, 29 Oct 2026 20:33:23 +0000
-> David Matlack <dmatlack@google.com> wrote:
->
->> Add a helper to read /sys/kernel/warn_count, which counts the number of
->> warnings (e.g. WARN(), KASAN, and UBSAN reports) the kernel has
->> encountered since boot. Return a negative value if the file does not
->> exist, e.g. on kernels that predate it.
->>=20
->> Factor the code to read an integer from a sysfs file out of
->> sysfs_val_get_int() so that it can be shared by both helpers.
->>=20
->> This will be used in a subsequent commit to detect kernel warnings
->> triggered by tests.
->>=20
->> Signed-off-by: David Matlack <dmatlack@google.com>
->> ---
->>  .../vfio/lib/include/libvfio/sysfs.h          |  7 +++++++
->>  tools/testing/selftests/vfio/lib/sysfs.c      | 19 +++++++++++++++----
->>  2 files changed, 22 insertions(+), 4 deletions(-)
->
-> I have a concern with this approach.  I run selftests in parallel as
-> much as possible, using multiple devices, each targeted at specific
-> tests, with other functional and performance tests running
-> concurrently.  When wiring this into my harness, I initially saw a
-> failure, but can't reproduce and have no log from the original event.
->
-> I've updated my local CI to keep a console log so that I might have a
-> chance of chasing the next instance, but I don't much like the fact
-> that any warning occurring concurrently with this test can trigger a
-> failure and the test doesn't provide anything to go on in the test logs
-> themselves.  Thanks,
+From: Frank Li <Frank.Li@nxp.com>
 
-Thanks for trying this out and the report.
+Use the dmaengine_get_copy_align() helper instead of directly accessing
+the copy_align field from the DMA device structure.
 
-What do you think about keeping warn_count to detect warnings, but also
-reading /dev/kmsg so the failure details are captured?
+No functional change and prepare to move struct dma_device to private.
 
- - In setup, record warn_count and open /dev/kmsg and seek to the end.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/gpu/drm/xlnx/zynqmp_disp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- - In teardown, if warn_count changed, read the new /dev/kmsg records
-   and print the kernel warning reports (WARNING:, BUG:, KASAN, UBSAN,
-   etc.), including their call traces, into the test log before
-   failing.
+diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+index e998f22686748..0753236b9546a 100644
+--- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
++++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+@@ -1433,7 +1433,7 @@ int zynqmp_disp_probe(struct zynqmp_dpsub *dpsub)
+ 		struct zynqmp_disp_layer *layer;
+ 
+ 		layer = &disp->layers[ZYNQMP_DPSUB_LAYER_VID];
+-		dpsub->dma_align = 1 << layer->dmas[0].chan->device->copy_align;
++		dpsub->dma_align = 1 << dmaengine_get_copy_align(layer->dmas[0].chan);
+ 	}
+ 
+ 	dpsub->disp = disp;
+-- 
+2.43.0
 
-That way, if the check fails, the test log would show exactly what
-fired and you could tell right away whether it came from VFIO or from
-something else running concurrently.
-
-To avoid breaking setups like yours that run lots of tests in
-parallel, we could also make failing on warnings opt-in via an
-environment variable, so by default the test only logs the reports.
-
-Alternatively we could just say warn checking should be up to the user.
