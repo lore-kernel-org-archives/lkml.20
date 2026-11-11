@@ -1,126 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401962;
-	b=Rit0A5YIacRUhAs/b/2pocrxO6WLEr6eg9Bq+Sy5J1CLVjY7jG+KJXWuvnkvwNr1Co3F
-	 HeCFppeuuOx2zjg5czi8icFudo98JsCkLQBvWQuHDpmvYg4DgyeAnVo2/5clixevGnCIb
-	 3edPdM687rjnRTSg6X/qSMhn8khrOqfhFv9hDFp9uAHJQPxispBL2aI+MF1UKB5jWiPfS
-	 G5onZvN279ZKsmUcD874ZNKeU/+s2YNeHrgKIYwqAXjVaC41vAIhoOD6N/pdqE6QselBu
-	 g4T8wKEvSR2Oj5aij+2NvkRZWRWlEDYLoL6zVNDU6dxWU0d17YfYWEP4Ou5toPcu6Ng==
+	t=1794402008;
+	b=zsjoUy2GlNPiSbBTE3C5BYeaZY60jnpu+672XHfUI1aC1t8csPGKz5vjoLoqQBv0+3yu
+	 fAHSVrGa3hmCKK8cpNokUf0k2F7GjxH8V2fktmxAlkzaGQn9BJ2qtfSMUozBoyk8vD8rg
+	 5jQqAVjSNp85NqWvXkq4WADAt8Mw7dDMfVioAULNqKW+8cs8bf8qv3KtPFA4hJLq0oGr/
+	 /RhIyIZZuZfZQvXG1yIzHqVGbbLWbhcNRSkt/sdiREe6Ncn937s55J6hVBLdPAj4HoXMz
+	 1GUeNf3jnNiAMwEOtH6Qe564eoJEiWUWCWyVt/SK8BczF0lsFZsZ+Elk9O5Hy08cusw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401962;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-	b=U8TvUG/wBhh9JbV0bOfMLA0wQqjC8ZXsLGDAsgTkChpZ2hP1PmgdIjWF2xG882KVNSCi
-	 8FdXU2KylQ8oFXplvbHcDW4qYqoXx3Skg5e13RNw4E4SwwE0oyAs72xbJN9hgksmEKZjR
-	 0Y8rDu5sPkLT+VZUECNfNtx4ooXSuZNCE3a05JoIY+wfqp4hWnxjY31UqmJw62PD03UTk
-	 Cnc1kLAzQFz6FfPm7HDuaHM2Ajb4uHJfhV5cholWW3jSdvFIWTIO7t2kGw5TcG+1DuRZi
-	 Uh0vcUGcp8iox3kA12KDGDAZigjiPZxBImcYKECN1di0/aAsL82/ePp9MfC6MCST5tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402008;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
+	b=B9QG5n0jMWbhUTbFUpBBkoSd046xDwXU2zQlVyC66C8d3h4LpGQrAgS4UVm2ZkUabTX6
+	 IRWRySQTgOTzCBMNrLcNi4IIy8Dz4JcehVBdC90YF8Wzj9oGMoLi2tYSzIOJGUm96WRji
+	 63pZ5c91PyH+G06ZaiLVt52ayFRPahlif48AOyFgGgLMJDjAmI8HTSM/htbVtBzKQ7BVX
+	 z0PsDr1GzqY90B/zvstMg0HjF/CztlchJhs67q3A5L9YsYtcvle8nLqi+wuEpZE0dWcI4
+	 ngyOP5CH3NPULww8dFiarYSejE3cof9ZdOESTv+5TBx6G4rmizFFjPB3yMZanGkH+pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Smiccc5X;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=egZJe0Wi;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=otOxawUx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fg+Nrul0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EhbSiBds;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3pIOXjjl;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECCA606A88E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ECCA606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921BB606A326;
+	Wed, 11 Nov 2026 13:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 921BB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Smiccc5X;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=egZJe0Wi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794401960;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=otOxawUx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fg+Nrul0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EhbSiBds;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3pIOXjjl
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1077822163;
+	Wed, 11 Nov 2026 12:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794401998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-	b=Smiccc5XO49PMyUug1kF3pjsPszfftMnVBpgNlav+pQkype24Nk9GhCQZQfZ33DpJguM2D
-	xlq52biitAoXbC+sEieXvnqjVAmE9jOfLRpq7tFCBErIySuHFQy6ZRe5Ojhux9HUPLhO6G
-	CcKh0UEQCF6IU3sJbiqkImdrE57HOT0=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-468-oYnL5npAP4CPvbErbGspoQ-1; Wed, 11 Nov 2026 07:59:19 -0500
-X-MC-Unique: oYnL5npAP4CPvbErbGspoQ-1
-X-Mimecast-MFC-AGG-ID: oYnL5npAP4CPvbErbGspoQ_1794401958
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so2718693f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:59:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794401958; x=1795006758; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-        b=egZJe0Wi2sgZjvTjgJJhuoiDyof/Zk202uF3RPLv7m98WY0lrJYAOScdPXsTc5/K6H
-         iWOQD8Q8pfH+bo+CxmkCanycg34E778FPSycBkv9TT0zKvt9ZQos2kBtFwTiEay0ifT6
-         sSYwu/OX3X2UwHWh0WW6Yx1NOEsfd7LJni2XNK2svB60HCMrsPeai6p86u2aOxhQ15iZ
-         uJ1mxwmz1LeTHMj1zCcCEmD3liecbAY3V3qZdZ6mJxbQCkb27aD7Zd21LnW/3QY3kvjE
-         3Eakp+wW7kTWdyz5OQLLcZi4t8I9nQnbeRV0QIejW3m79wGCkWLbU7k3Ux1HXOR9GZPL
-         9bPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794401958; x=1795006758;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-        b=XRRKKZCwtrFnqwIWwopsnXxbP3kgd/9hC96pV8U25dz9o1SAoUfgu+c7OfBpPVjb9p
-         nhvkcxBkM0M0576nVkydoW6M5S/y6e5ETmcWP244NoFJiRo1GyNm6tikKotSmDpSvsVn
-         //RIUbirhg+aCCnZf0LzwZaiTTVA216ZUfsO+xH318SvDoklnsg57kVViSUNL64fkoJI
-         rCcRZapniVTlLIVA2KPHqJtYhvF1cS4RiTSnEQQ+6qchJBiJgZ53B2GUZnbHkR8H7TEJ
-         zuhSIi+LcqP0Rlvjh49UY3tBl0a0ZGRzBFEhu0L9qvKmLei/g7e0eaCxmBmiWI5JHp/D
-         UNPQ==
-X-Forwarded-Encrypted: i=1; AL+hErEQs7D8PTnCmpHUrpc26NsatRqK9peUneZpIIoLJfBtqYY1A5G+blOgRidz2vly8zSyotT1szluhSrh/e8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ctgy4Fz73adHl/qM6feTK5uXwrNEyxa3oLum1BK/sPjo+iwDP
-	4HYpDSwQSSsDIeuJ+6wzYM2pE4L0xbB8Q5cP3UKDUPZspcL0nl7gtR17pW9HWQHrAK3HJG+/kBq
-	jUQ76Ms4WT+eG2kxKlcZiLP5AIHOah7J5QPW1XNtMJ7+so/J+7oR+06JRGLtIXSCn8Q==
-X-Gm-Gg: AYBFou3I50BTmG5vpx/Z/aAXSedPykr28460kN5IWWa+Cbg2R7MYMd06DOlGVBBVhtQ
-	1HAfkOmZzzk6OeSwVjNGMzwroB7+aAqBEMmsgrm46MxCeL+TkX5ykrW3h/+mRP2chVa3Y4UhhjT
-	RBCI1HWIb1rcVV4+iCecHA+VQThRNcHUTBX0IDhhfk86lcqEzlLmEoz7rREwXJOu/tVJMVaUCgK
-	LPYYqzNt+3PdDpmEwFo4CnoqCZGHAz1bISW0d+nXLE8bcbmxWgR4pxjuk39Fhvfqig5VuaHv68N
-	886di6X01LAEZb5JD0xc3qMKAFzN1N+FXY1p3t26jwxsG+PIbDtuYAOfLU2xEtjkhnttpYz4AdG
-	w8+TUdBXItm9pRP4gPP6SW5bX92JWz8Q0aqCLqodsyy1/CvgfYL4FbhvdtRn48rFTBK5UtCV27P
-	QFEc0=
-X-Received: by 2002:a05:6000:2502:b0:491:1e11:9ffe with SMTP id ffacd0b85a97d-499c48154f6mr4396748f8f.2.1794401957793;
-        Wed, 11 Nov 2026 04:59:17 -0800 (PST)
-X-Received: by 2002:a05:6000:2502:b0:491:1e11:9ffe with SMTP id ffacd0b85a97d-499c48154f6mr4396705f8f.2.1794401957282;
-        Wed, 11 Nov 2026 04:59:17 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49842f2a1f9sm11424324f8f.15.2026.11.11.04.59.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:59:15 -0800 (PST)
-Date: Wed, 11 Nov 2026 13:59:12 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 13/29] sched/deadline: Keep departing bandwidth across
- a root domain rebuild
-Message-ID: <avRmoK08LoIeySBL@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
+	b=otOxawUxw790/QFBjM3l+MFthA3861nlTmYALPAV8UroFCQPTuhWdqQLx2Bc1uIFTNjUSf
+	mnB6pWLs5IMmL/6Nh1C4bBTDNKUwUU7gS0QrpHdV+W4K35O9r7vi4hE7ol2MHfBI5rkx3k
+	JbleWrObvsXGVSk2sYZAGh9tC4q+53o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794401998;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
+	b=Fg+Nrul0Jyo5LklpxiAuZ0HYrvjr7mnXZnx3MVHOfvH21g/exOhh1s1UL3D/FUe/akkrR2
+	wP4WfFpYZXc1TlDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EhbSiBds;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3pIOXjjl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794401997; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
+	b=EhbSiBdsrSVaKSADwnL0R0h2FhNTtiQe8O4S+eqdUQd7Xrl3mwHjJ524yrql/BM+FAIbBh
+	HcAzG0kPGFOJOYhrbr+minyw5ZLHbacQpG6BNn1fmyvfN8AukapPIrVspm4teWxjv0DZBr
+	REDvjtoemSrILrH4izF8HUQ1q72PYZk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794401997;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
+	b=3pIOXjjlSEb/Dd0pQ3rAW5PfZnnK2WJEDuZe2OvPfIrsqGCueoEmJPkiIgDh+2Aw4Jz8eq
+	hcEUcN+9syH0oIBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E94B11339F;
+	Wed, 11 Nov 2026 12:59:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id SHrxKstm9GqAMwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 12:59:55 +0000
+Message-ID: <64a26d9d-664b-4443-8d71-b854bb01316d@suse.de>
+Date: Wed, 11 Nov 2026 13:59:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,218 +108,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
+To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Kees Cook <kees@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft
+ <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
+X-Rspamd-Queue-Id: 1077822163
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[38];
+	FREEMAIL_TO(0.00)[ilvokhin.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,intel.com,ursulin.net,kernel.org,jms.id.au,codeconstruct.com.au,aspeedtech.com,infradead.org,linux-foundation.org,canonical.com,perches.com,lwn.net,linuxfoundation.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.ozlabs.org,kvack.org,gmail.com];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ilvokhin.com:email,suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.00
 
-Hello,
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> A task that leaves SCHED_DEADLINE, or dies, keeps its bandwidth in
-> total_bw until its 0-lag time. This keeps admission control on the safe
-> side. Then inactive_task_timer() removes it from the root domain of the
-> task's CPU. Two things break this:
-> 
->  - A rebuild of the accounting clears every root domain, then adds back
->    the deadline tasks of the cpusets. It misses a task out of the
->    class, or a dead one. Their bandwidth is dropped, and the timer
->    removes it again.
->  - A task out of the class can also move to another root domain. The
->    timer then takes total_bw from that one, which never had it.
-> 
-> Either way, a root domain admits deadline tasks beyond its capacity
-> until the next rebuild.
-> 
-> Fix this with dl_departed_list. A departing task goes on it with the
-> CPU it is on. A rebuild puts its bandwidth back in that CPU's root
-> domain. The timer removes it from there, and so does
-> sched_dl_overflow() for a task back in the class.
-> 
-> A rebuild still drops the bandwidth of a task whose CPU is inactive, or
-> that dies during the rebuild. Each task records a count of the
-> rebuilds, dl_bw_gen, with its bandwidth. The timer removes nothing if a
-> rebuild came since.
-> 
-> Make dl_cookie and dl_bw_visited() static: only deadline.c uses them.
-> 
-> deadline_rebuild_test, added later in this series, fails every time on
-> v7.3 and v7.4-rc1 kernels. A one-CPU partition root admits two tasks of
-> 600ms every second there, where it has room for one. It passes with
-> this patch.
-> 
-> Fixes: 387e31300b57 ("sched/deadline: Fix the update of the total -deadline utilization")
-> Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+
+Am 28.10.26 um 09:19 schrieb Dmitry Ilvokhin:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+>
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
+>
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+
+I've added this patch to drm-misc-next
+
 > ---
+>   include/drm/drm_gem.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index ed329408acbe..56dd15921c7a 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -566,7 +566,7 @@ static inline void drm_gem_object_get(struct drm_gem_object *obj)
+>   	kref_get(&obj->refcount);
+>   }
+>   
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>   static inline void
+>   __drm_gem_object_put(struct drm_gem_object *obj)
+>   {
 
-...
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-> +/*
-> + * A task that leaves SCHED_DEADLINE, or dies, before its 0-lag time keeps
-> + * its bandwidth in total_bw until that time. Then the inactive timer
-> + * removes it. Meanwhile the task may run anywhere, under another policy.
-> + * The timer holds a reference to it.
-> + *
-> + * A rebuild of the root domains' accounting (dl_clear_root_domains() and
-> + * dl_add_task_root_domain()) does not find such a task among the deadline
-> + * tasks of the cpusets. So dl_departed_list holds these tasks, from their
-> + * departure to their timer. The rebuild puts their bandwidth back in the
-> + * root domain of the CPU each one was on when it left.
-> + *
-> + * dl_bw_gen counts the rebuilds. Each task records its value when its
-> + * bandwidth is counted. If a rebuild dropped the bandwidth since, there
-> + * is nothing to remove. A rebuild drops it when the CPU recorded is no
-> + * longer active. It also drops the bandwidth of a task that dies while
-> + * the rebuild runs. The cpuset walk skips that task, and it was not dead
-> + * yet when the list was put back.
-
-It took me a bit of staring to (hopefully) understand better how
-dl_bw_gen works, maybe the following can help others?
-
- /*
-  * dl_bw_gen numbers the rebuilds of the accounting: how many times the
-  * root domains were wiped and reconstructed (dl_clear_root_domain
-  * increments it). A task records the number of its last definite
-  * state, counted or settled. That number dates the state:
-  *
-  *  - Current: the bandwidth is counted, or a release settled it since
-  *    the rebuild began. A release subtracts; the walk of the cpusets
-  *    skips.
-  *  - One behind: the clear that just ran wiped it. The rebuild puts
-  *    it back.
-  *  - Older: an earlier rebuild dropped it. Leave it out; its release
-  *    removes nothing.
-  *
-  * Only equalities are compared, so the wrap of the counter is
-  * harmless.
-  */
-
-> + *
-> + * dl_departed_lock protects the list and both counts. Take it with
-> + * interrupts disabled, under the task's rq lock or pi_lock or in the
-> + * rebuild, and before any dl_bw lock.
-> + */
-> +static LIST_HEAD(dl_departed_list);
-> +static DEFINE_RAW_SPINLOCK(dl_departed_lock);
-> +static unsigned int dl_bw_gen;
-
-...
-
-> +/*
-> + * Clear every root domain before a rebuild of their accounting, and count
-> + * the rebuild in dl_bw_gen. Put back the bandwidth of their servers. Put
-> + * back the bandwidth of the tasks on dl_departed_list, which no cpuset
-> + * holds as deadline tasks. Put each in the root domain of the CPU
-> + * recorded for it, or drop it if that CPU is not active.
-> + * dl_add_task_root_domain() then adds the deadline tasks of the cpusets.
-> + */
-> +void dl_clear_root_domains(void)
->  {
-> -	dl_clear_root_domain(cpu_rq(cpu)->rd);
-> +	struct sched_dl_entity *dl_se;
-> +	u64 cookie = ++dl_cookie;
-> +	struct dl_bw *dl_b;
-> +	int cpu;
-> +
-> +	guard(raw_spinlock_irqsave)(&dl_departed_lock);
-> +	dl_bw_gen++;
-> +	for_each_possible_cpu(cpu) {
-> +		if (!dl_bw_visited(cpu, cookie))
-> +			dl_clear_root_domain(cpu_rq(cpu)->rd);
-> +	}
-> +	list_for_each_entry(dl_se, &dl_departed_list, dl_departed_node) {
-> +		cpu = dl_se->dl_departed_cpu;
-> +		/*
-> +		 * Skip bandwidth that an earlier rebuild dropped. It is not
-> +		 * counted now, and its release removes nothing
-> +		 * (dl_task_release_bw()).
-> +		 */
-> +		if (dl_se->dl_bw_gen != dl_bw_gen - 1)
-> +			continue;
-> +		if (!cpu_active(cpu))
-> +			continue;
-
-Maybe additional info can again help (before the above)?
-
- /*
-  * Drop the bandwidth of a task whose CPU is inactive.
-  * That CPU no longer identifies the root domain that
-  * counts it: a CPU going offline sits in the default root
-  * domain by then, and the old one cannot be found back
-  * from the recorded number. The release then removes
-  * nothing, and no later rebuild restores it.
-  */
-
-> +		dl_b = dl_bw_of(cpu);
-> +		raw_spin_lock(&dl_b->lock);
-> +		__dl_add(dl_b, dl_se->dl_bw, dl_bw_cpus(cpu));
-> +		raw_spin_unlock(&dl_b->lock);
-> +		dl_se->dl_bw_gen = dl_bw_gen;
-> +	}
->  }
-
-...
-
->  static void switched_to_dl(struct rq *rq, struct task_struct *p)
->  {
->  	cancel_inactive_timer(&p->dl);
-> +	/*
-> +	 * A task on the departed list gets here when priority inheritance
-> +	 * boosts it back into the class before its 0-lag time. (A policy change
-> +	 * took it off the list in sched_dl_overflow().) The inactive timer no
-> +	 * longer removes its bandwidth: the task does when it leaves the class
-> +	 * again. So take it off the list. If the task moved to another root
-> +	 * domain meanwhile, it then takes the bandwidth from that root domain
-> +	 * instead.
-> +	 */
-> +	if (p->dl.dl_departed_cpu >= 0)
-> +		dl_task_undepart(p);
-
-Can something like the following happen? And do we actually have a test
-for it?
-
-1. T departs. A SCHED_DEADLINE task with bandwidth X leaves the class
-asleep, 0-lag still ahead. Per the design, X stays counted in rd(A)'s
-total_bw; T goes on dl_departed_list with dl_departed_cpu = A, and the
-inactive timer is armed as the designated releaser. So far so good — the
-record says "rd( A) owes X on T's behalf."
-
-2. T migrates. T is now a fair task; it wakes and gets placed on a CPU
-in a different root domain, rd(B). task_cpu(T) = B.
-
-3. T is PI-boosted back. A deadline waiter blocks on a mutex T holds ->
-rt_mutex_setprio -> class change -> switched_to_dl():
-   - cancel_inactive_timer() — the designated releaser is cancelled;
-   - dl_task_undepart() — T is delisted and dl_departed_cpu is reset to −1.
-
-   X is still sitting in rd(A)'s total_bw, but nothing anywhere
-   remembers that. T runs in rd(B) on its donor's reservation.
-
-4. The boost ends. T is deboosted out of the class -> switched_from_dl()
--> task_non_contending() -> dl_task_release_bw(p, task_cpu(p)). T is not on
-the departed list, so the passed-in CPU is used: X is subtracted from
-rd(B).
-
-...
-
-Apart from the above, the proposed approach looks alright. I now wonder,
-though, if an overall different scheme might make more sense. The
-half-baked solution we have today for rebuilding bandwidth information
-after domain changes is based on cpusets keeping track of DEADLINE tasks
-(with the indirect cpu <-> rd association complicating things further).
-With dl_departed_list, we now have one half of a per-domain membership
-structure; the accounted current tasks are the other half. Wouldn't it
-be better to move to a single list of accounted tasks (current and
-departed alike), keyed by their recorded home CPU, which turns the
-rebuild from a reconstruction into a re-partition? The dl_bw_gen
-machinery and the cpuset walk would both go away. I understand this
-would require some major restructuring of a number of patches in this
-set, so maybe we can think of doing it after this set lands (or the
-majority of the patches in here). Unless you are open to trying the idea
-(if it makes any sense) and see if it simplifies things?
-
-Thanks,
-Juri
 
