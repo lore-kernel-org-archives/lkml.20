@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380424;
-	b=TUcmf3Vivg6vhEwPi9JDeOsoM+maKMDOHDBIeilWuFbZS3hkF9242RNk/GQGbgP3ZGj1
-	 sasooJG0ObVYbjaZsyn9PZtjMml8z0kXmy1qwSZUDzqWqgv9RlMB7tpmvc1o1Sfa4rcOh
-	 aNbNLY25h09ymXBe99wUUtGpXxDeT68QDiQU1FO+faWi3HSRCF9c3hj3aw+fqsrw+UV3g
-	 YhAwgYV1SCcZBOvl7zjxNL8+tSYDXBzgR2txeDMPWMaZUY8bQi/VbjymeitLNf4xP3C9J
-	 gXDozQm9QJQbh0S+UzwuiuakmrrUyX6azTS8Un3M+9xYeOO7B5AD57923v21jlDxnXg==
+	t=1794380449;
+	b=GVx7xGImHSMib0oWE62uG60qa8cyVOt5EdqK5qGDFcERBcm9k3JcNkIRrN5GbbZMTrHj
+	 H6cCpOl+ot7x8ZYW3V0c4G7BcnHGrMVR3z2gx8esXil6isRGfnOgnHuamC6L4dbK+xl+w
+	 4n36YKixgvN2JAF0RehC5GwKeAXwkhnnjadBrMbX4KjW8NumObUdpptgiwoU6KUSXCds+
+	 i5PJpyaPw2uTdUAb2WcY7jnZyAfgSM/iBmN8J6BEcg9h4Qxe8ifGSnzp0OtnTfkfVAbxt
+	 SZGqYkLx3axcmEnexOvywrd5YgOM9JG7zwJ3HnCIvHs47c51itMhYgSqO6ZO+oXKkzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380424;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=XbGUDRnsyaaUxVos4H9PDE7yNX3hjKafZBXvG5BAqqY=;
-	b=JglSo24tiHaiPbnqHeT3x/eYYCjF91V8rpdho3yPsfLnoWNcMeKc93eHozwNcsY5ZQ7V
-	 SoY7BOOwq6pQU+D+9blJd12pncjILfrFoKqV/0ZEJ9DsoXat2IyHeHoy9IpdZ0RK9VWiS
-	 +IBXvrfSY9o6eiGL9XBdQLtN1jJquOysxvtujQvhJgDauhtkQY5VnA9ZSfCfvVRwD3HOO
-	 pi87GA1UcmoCznK1JPVZ/yM2UvWkOGvwIdQMV2xGP4zJ+1ZnAaPndy04SOWMOWTQI5ngU
-	 6mIfgF9GeN6q6BDr4MVRNtWUDKmBWpVPXWpCBNWMZ/Io2RCNz/8CMR829Fr7p70QT6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380449;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2ouSIVibQ0IAuWP6veUt46S6PYfL1Q7e71p91rBGGR8=;
+	b=jDP0qI8hdfIi5yY+L/trX7RCz0DElfss/+Vm/1EiyOm1QUn3LujtdO7FcaGGVpd2yWGY
+	 ax+yYY6MZ3vit0+Wkxja8tvijqBRcvgt+Wvn0c6J1PGE5uq2W23WyvPEXXokRToj1HXAo
+	 vwmm4lChab/AQvsftMKZ+Ly+y8390jwOgeb9icyaoT1l4HveeouJMZLMZd09mlkWja5Vo
+	 hZ8TLflCR93pjT57EjzrfsVr0ynulmY+BE2F3lr5d7FlDhjASNBywddOJhXNtFDo1Zqag
+	 5C8SKJKnvioyKj9GptlrXgyFMmVymEAvNxobmZIjTFcU9vRXnsxxAsK89ZYqjAqQj6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QA2Gd+66;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="Jcv/wRRx";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=lFc7wsOv;
+	arc=none smtp.remote-ip=61.135.153.166
+Received: from smtp153-166.sina.com.cn (smtp153-166.sina.com.cn [61.135.153.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A977606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:00:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A977606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2E7606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:00:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2E7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=QA2Gd+66;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Jcv/wRRx
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D93531F793;
-	Wed, 11 Nov 2026 07:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794380421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XbGUDRnsyaaUxVos4H9PDE7yNX3hjKafZBXvG5BAqqY=;
-	b=QA2Gd+66oywmmKoUtFwP1l7GSOtNck10S2VrjEstVseKWy40J9uWcs/5eOHmVG0cjBIgiB
-	nYOOVKTJKNllZj3ULnhxkbEdPOznafksAk4qvl91wkYVBSojgH6XnZPWdrmRQ2WuZOXNUC
-	tNUxjsnvdGCKHV0pvMs1OxjXZ2yBFWE=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="Jcv/wRRx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794380419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XbGUDRnsyaaUxVos4H9PDE7yNX3hjKafZBXvG5BAqqY=;
-	b=Jcv/wRRxf3pmd3es4y0v4IGka3YcZPbe5swY0AhvRM0IGjeo+Syfo6ECyNjGm8XxhWol/K
-	9gYB3W7jgcFfd51ohVtaw+gqDZ1HgmFwlYtaLCvMRnh/vwbqHt92lS8dwjBAvEFv4tXkfu
-	QjrzJpT6lVPmfHgvidAzs50Q2IAIkP8=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83B1B1339F;
-	Wed, 11 Nov 2026 07:00:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HLZ+FoMS9GoQOwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Wed, 11 Nov 2026 07:00:19 +0000
-Message-ID: <22042792-9463-4484-abbd-971c29e01840@suse.com>
-Date: Wed, 11 Nov 2026 08:00:19 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=lFc7wsOv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794380445;
+	bh=2ouSIVibQ0IAuWP6veUt46S6PYfL1Q7e71p91rBGGR8=;
+	h=From:Subject:Date:Message-ID;
+	b=lFc7wsOvdNMlMLuTGS6/3FhI2BV520y9+2NOBUXRZw3tSLd2YJpUKldUvl+UQx3Ty
+	 wuj26Fgr3obDuCSzluUdLU3VmlSZuIphb8QcOODHCWhXsYTkRIWkb+4KxHkM4VZg+U
+	 rq1gRppMjx0SfySzRVq1Bi9GoRQSBjDRFO0ICo0s=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.244.129.109])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AF4128F000073E2; Wed, 11 Nov 2026 15:00:35 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 2496976685437
+X-SMAIL-UIID: 234134A976844ED78BCD497480B8C07D-20261111-150035-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+b1146b58a9d6d90e0eb4@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [bluetooth?] WARNING in disable_delayed_work_sync
+Date: Wed, 11 Nov 2026 15:00:36 +0800
+Message-ID: <20261111070037.422-1-hdanton@sina.com>
+In-Reply-To: <6af2d48b.4dd4714a.f8d02.0024.GAE@google.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,153 +68,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] x86/xen/time: Mark xen_setup_vsyscall_time_info()
- __init
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
- <20261016170613.173406-2-teddy.astie@vates.tech>
- <1792170397.8631fc262581453bbf619ec5b2062170.1a145ae0f160008425@vates.tech>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <1792170397.8631fc262581453bbf619ec5b2062170.1a145ae0f160008425@vates.tech>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kgRFpAC9UyTa0lIb8QSfBvH4"
-X-Rspamd-Queue-Id: D93531F793
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-10.14 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	NEURAL_SPAM_LONG(3.36)[0.959];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	HAS_ATTACHMENT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,vates.tech:email,suse.com:dkim,suse.com:email]
-X-Spam-Score: -10.14
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kgRFpAC9UyTa0lIb8QSfBvH4
-Content-Type: multipart/mixed; boundary="------------yXgtOc0VjzvvoLlZBuliXusW";
- protected-headers="v1"; hp="clear"
-Message-ID: <22042792-9463-4484-abbd-971c29e01840@suse.com>
-Date: Wed, 11 Nov 2026 08:00:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] x86/xen/time: Mark xen_setup_vsyscall_time_info()
- __init
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
- <20261016170613.173406-2-teddy.astie@vates.tech>
- <1792170397.8631fc262581453bbf619ec5b2062170.1a145ae0f160008425@vates.tech>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <1792170397.8631fc262581453bbf619ec5b2062170.1a145ae0f160008425@vates.tech>
+> Date: Tue, 10 Nov 2026 00:23:39 -0800	[thread overview]
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted context..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1070f24e580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
+> dashboard link: https://syzkaller.appspot.com/bug?extid=b1146b58a9d6d90e0eb4
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> userspace arch: arm64
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12869155580000
 
---------------yXgtOc0VjzvvoLlZBuliXusW
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
 
-T24gMTYuMTAuMjYgMTk6MDYsIFRlZGR5IEFzdGllIHdyb3RlOg0KPiBUaGlzIGZ1bmN0aW9u
-IGlzIG9ubHkgY2FsbGVkIGJ5IHhlbl90aW1lX2luaXQoKSBiZWluZyBpdHNlbGYgX19pbml0
-Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVz
-LnRlY2g+DQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0K
-DQoNCkp1ZXJnZW4NCg==
-
---------------yXgtOc0VjzvvoLlZBuliXusW--
-
---------------kgRFpAC9UyTa0lIb8QSfBvH4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr0EoMFAwAAAAAACgkQsN6d1ii/Ey9p
-gQf/f9yFG95PmKYUDM9jfMAcugXHCHXs24N9nG0gdtAZCNQvwW+/MuoWoQaACodehikxnS7InP6Y
-pbUHsWyoheHIT2Hd6XKXhn9GJ6YhJO7KXy7UXcRwurWXjK+GZQq2PVnehySC/9I1tK0t5ukbCEfE
-JPGVKf3h7wxPMgduH5W2Njs73ORCD26s+GbqCHd0t0BYSFJ7K0zDUkdb5vVDBJTs8e+/dKUubY7t
-Iy1XhISO470+7L5QIeXvsXL3ueeSIoU4Q7UWf3XZEwBmK6T2eRG6JmXmUk/YueN1gJT2AwMjBY3n
-JlqTF6Ne/I4E3Ksrizz787xQR8IiTlQwYpMZ6AmOuA==
-=QX1o
------END PGP SIGNATURE-----
-
---------------kgRFpAC9UyTa0lIb8QSfBvH4--
+--- x/net/bluetooth/hci_conn.c
++++ y/net/bluetooth/hci_conn.c
+@@ -1151,6 +1151,7 @@ static struct hci_conn *__hci_conn_add(s
+ 	}
+ 
+ 	hci_conn_init_sysfs(conn);
++	hci_conn_get(conn);
+ 	return conn;
+ }
+ 
+@@ -1316,6 +1317,7 @@ void hci_conn_del(struct hci_conn *conn)
+ 	 * rest of hci_conn_del.
+ 	 */
+ 	hci_conn_cleanup(conn);
++	hci_conn_put(conn);
+ 
+ 	/* Dequeue callbacks using connection pointer as data */
+ 	hci_cmd_sync_dequeue(hdev, NULL, conn, NULL);
+--
