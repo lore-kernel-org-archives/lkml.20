@@ -1,78 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387791;
-	b=4UBIA5W/yuC/04ixjn5MinVYSB+M+FFDkGAxSWyaEYkRVYOfoSZBs6tE6tUlyshNx0wC
-	 f8j7iGwTXaLxh5nYhNxGawvc/JlXZXfuH4X0fdcZqdMe72Mble/6aDIi5DwdPnLwRF237
-	 SYcGoZz5ZdT/0AgSpCXYFTWOhHAPjcQtF4o6uEIfsoU0Q27lTrPtDOkaP3Z4/AHyRk9O2
-	 4k00bWcp87R5v1mLQXMKKM3Vna8J3HrrIeGLPJSQccLqmDKZ6dRaiiF66cXhIonv/0hS8
-	 P0HPLnZ31FXkC+6blScq4qssGwHQxE0y+qjW6iWZ+jGIeDGA5hv92Gi5MnG8VcxiZEg==
+	t=1794387841;
+	b=HAZYPGpzhebX107M/gKmnAungIR6vjpRVmKsneSDsr5ssgsChcggJqoWojsTdG5p5wKI
+	 VoGfT49RmeQByPisVbKPPg8iFkLrCxBojyFYlVo+5aoYclilvRyjZ2cyWu6yA/3qto1r4
+	 AaCpGzmYzthPoYk07Z5TpPgYkmIwD5j32pdd0R9K0M7i1xpv8FP18ks8ABYAJUmJF1Tqb
+	 VZiTxF3Ah6Dd2hAUvPxwDsZizH68XrNAuOFSKojzWAgcFSiT7GjEBU81VFbtoEjYMpQQt
+	 JUCBPsYELVu5YlVJT5KYZoMo4Y7hQggT/b6tfS1HZRyswxGIBHAB44pKOjsOjoz+oUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387791;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-Hop-Count:
-	 X-CMS-RootMailID:References;
-	bh=kTYY8x+hTdAdQLqwG3no5Cq26knGsOfbqx8bpZjUYog=;
-	b=zECRtM5XomE568+Al2CzclNW+U3/aB5Wmae+N62k1tNhCli092LZdXSPaC1yvhki+i9A
-	 2AD7ZqSjUSe6MqxgD+hDrWqTd+++EhvgsRdcX+3SWBjDllSmderqMFUefx26RU4e2eG2b
-	 iQsOv4PFdjsatJFp5coHuBm5E78F0MSvsfQWK8aoxFZS+au9sEDxkp356DynmhsIBWRMk
-	 WciWXYBLOlF8ckUjvjDEYx4HmZBJWob/UFf0zJgL9KVdRpM7ecGjdH4IuOZ4BbmX+mDt6
-	 qyNQPM+9W0NFs23NrwEkqOhaUKjR0SU88F9ZwjDKH88BkGGDSoH3gRYDQULTK6OL1Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387841;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=CY9z4QEeIEDwH6apgb1ycoV4HKxdCekmhlR9jszG3Zo=;
+	b=gajs5J1KNP689MssEOPhIYHgUPfKu4BsY33jb6znBUbhxqbgMrI0jU9RemR5/7r+LBt/
+	 k2otKwoe+By0U59SzTxw1smp6vBLOqjehoDpWMohGegbkNBVtlKFdFsdXQXgJwKXIGtmr
+	 K4jdZ9SmkYTyVSrAMYjHcCUJKqkOhFWL9BdEQ13WGkS3ZNgy6QsjFuExDq83TMP7m0/Ja
+	 OvOyaKJqn0dl7TrCsFnGNtOvjd8eErRT7NMHK/kMIZGHNVHixPPmgkWQqFlJAWEHwoGOw
+	 7ff8c9fiCrSdyjqbxBmUw854BHUce7dUQJDyxfCOk/y0owNFOUuXNt37KieV1x1+LiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Gv+z99ak;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=B63AjCSX;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEF4606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:03:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EEF4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9011C606A323;
+	Wed, 11 Nov 2026 09:04:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9011C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Gv+z99ak
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261111090308epoutp0369decc27ce413d24a1075e4aa8891c2b~m8i_18y6n0357503575epoutp03q
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:03:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261111090308epoutp0369decc27ce413d24a1075e4aa8891c2b~m8i_18y6n0357503575epoutp03q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794387788;
-	bh=kTYY8x+hTdAdQLqwG3no5Cq26knGsOfbqx8bpZjUYog=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Gv+z99akpuq5lr5xeji1Mj4C6TtmfJ1Gcar66ayHMs+/myptRu8CdiQrqh2EvOMbC
-	 EAQEFvC5PdvJ2zNf4qSmpTn3CpGonqfD2R8pbvXBt9Dpc1tNhf8XVOe/t7TLld/vbt
-	 AcMZyozW8xUUO8qUR1Rt/EoYKeoNzbgCwMSYmRFE=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261111090307epcas2p11c8c8ab701dca152853830fd5ee2fb92~m8i_grtFN3213232132epcas2p1G;
-	Wed, 11 Nov 2026 09:03:07 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jPcxR6Hn7z6B9mF; Wed, 11 Nov
-	2026 09:03:07 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261111082306epcas2p21456a0a7d81ed5328ec01f022b87ee32~m8ACAi9to1539115391epcas2p28;
-	Wed, 11 Nov 2026 08:23:06 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261111082306epsmtip2a6c844e271c821f53d371dab5d9466a4~m8AB7GGJy1507515075epsmtip2k;
-	Wed, 11 Nov 2026 08:23:06 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
-	stanleyjhu@google.com, peter.wang@mediatek.com, alim.akhtar@samsung.com,
-	kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgsproxy1@samsung.com,
-	h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v10 3/4] scsi: ufs: core: Make ufshcd_wl_poweroff() behave
- like ufshcd_wl_suspend()
-Date: Wed, 11 Nov 2026 17:18:33 +0900
-Message-Id: <603443293.161794387787869.JavaMail.epsvc@epcpadp2new>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1794384665.git.hy50.seo@samsung.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=B63AjCSX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=CY9z4QEeIEDwH6apgb1ycoV4HKxdCekmhlR9jszG3Zo=; b=B63AjCSXNuw0/1ct1QbA/4iUUY
+	qDF2y3IEzjqidt2mz4G6V1aog3vqIsT8PMx6pj7A5TNcZt1aR+jBN2s4rSKWU3qB2AK8cLYPtTXfa
+	zWD03O4XUWR/L3O2Hsi//9FYFPL6WWGsmSDFlDPxXRZY46WGlfOyAiIGfYcjq6OfMoO1+TPneYqGs
+	DhWmzGgjPjOICzK5Kndw3gjQOcraQxMsOMKn7ZWC0JzZfTH3UOtRppasLqbWugYhAPOE3vBlvNq4/
+	Y4dm7WkcBmdvXPd7OP0eBH08xiTbDfITTB53vScAFMy4ZM82zHl4ZedO0rHIgLQzPMg9o6r/cakl+
+	QLVNsgKg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xR4FH-00000008wy2-41vh;
+	Wed, 11 Nov 2026 09:03:55 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 9E1CE30025D; Wed, 11 Nov 2026 10:03:54 +0100 (CET)
+Date: Wed, 11 Nov 2026 10:03:54 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@redhat.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	sched-ext@lists.linux.dev, qyousef@layalina.io,
+	christian.loehle@arm.com, pierre.gondois@arm.com,
+	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+Message-ID: <20261111090354.GG2668564@noisy.programming.kicks-ass.net>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org>
+ <au38gSTzmvPKmqWT@scheduler.schedules>
+ <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com>
+ <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
+ <CAKfTPtAL9T0bGZdhkodC49DtNUFKJgEn9f5wLNBe_rGxzJEN0w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,88 +80,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261111082306epcas2p21456a0a7d81ed5328ec01f022b87ee32
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-Hop-Count: 3
-X-CMS-RootMailID: 20261111082306epcas2p21456a0a7d81ed5328ec01f022b87ee32
-References: <cover.1794384665.git.hy50.seo@samsung.com>
-	<CGME20261111082306epcas2p21456a0a7d81ed5328ec01f022b87ee32@epcas2p2.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKfTPtAL9T0bGZdhkodC49DtNUFKJgEn9f5wLNBe_rGxzJEN0w@mail.gmail.com>
 
-ufshcd_wl_poweroff(), the hibernation poweroff callback, calls
-__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM) directly and ignores the
-result. Unlike ufshcd_wl_suspend() it:
+On Mon, Nov 09, 2026 at 05:27:57PM +0100, Vincent Guittot wrote:
+> On Mon, 9 Nov 2026 at 16:45, Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > On Mon, Nov 09, 2026 at 04:27:14PM +0100, Vincent Guittot wrote:
+> > > On Fri, 6 Nov 2026 at 17:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> > > >
+> > > > On Fri, Nov 06, 2026 at 04:19:29PM +0100, Vincent Guittot wrote:
+> > > > > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> > > > >
+> > > > >       dequeue_hierarchy(p, flags);
+> > > > >
+> > > > > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
+> > > > > +             cfs_rq->idle_seq++;
+> > > >
+> > > > This needs WRITE_ONCE, no?  3/20 uses READ_ONCE().
+> > >
+> > > I hesistated to make it WRITE_ONCE but i concluded that it was not
+> > > strictly necessary because the READ_ONCE is only used to compare the
+> > > value but not use it for any computation or sync so if the compiler
+> > > wants to do any kind of optimization what we really care is : is it
+> > > equal or not ? so any intermediate value that we would read would be
+> > > ok
+> >
+> > Right, so without WRITE_ONCE() the compiler is allowed to write the word
+> > in random order byte writes. When comparing only cares about equality,
+> > any intermediate messed up state is not equal. And since we were
+> > incrementing, we're not supposed to be equal to any previous snapshot.
+> >
+> > Therefore all is well.
+> >
+> > That said; we should either document the above reasoning, or just do
+> > WRITE_ONCE() and get all the sanitizers off our back, because I'm
+> > certain that KCSAN is going to complain about this.
+> 
+> I agree that it needs at least a comment. I can use WRITE_ONCE but I
+> remember seeing somethign about its cost. But does it worth having
+> sanitizers complaining ... I will run some tests and use WRITE_ONCE if
+> I don't see difference
 
- - does not take hba->host_sem. An error handler that runs in the
-   meantime can reset the link concurrently with __ufshcd_wl_suspend().
-   It also leaves host_sem unbalanced: if hibernation is aborted after
-   ufshcd_wl_poweroff() has been called, ufshcd_wl_resume() is called as
-   the .restore callback and releases host_sem, which was not acquired;
- - does not check pm_runtime_suspended(dev). __ufshcd_suspend_prepare()
-   leaves the WLUN runtime suspended if ufshcd_rpm_ok_for_spm() is true,
-   which is the case if rpm_lvl and spm_lvl are equal. Then
-   __ufshcd_wl_suspend() triggers error recovery and returns -EBUSY;
- - does not set hba->is_sys_suspended, so ufshcd_err_handling_prepare()
-   does not restore the clocks and regulators if the .restore callback
-   fails;
- - ignores errors.
+Mostly it doesn't actually cost anything. The thing with WRITE_ONCE() is
+that the compiler cannot elide or merge the stores, it is forced to
+actually emit the store. But here we need a store anyway.
 
-Call ufshcd_wl_system_suspend() with UFS_SHUTDOWN_PM from
-ufshcd_wl_poweroff() to fix all of these, as suggested by Bart Van
-Assche. host_sem is held until ufshcd_wl_resume() releases it if
-hibernation is aborted, and released if the suspend fails. For
-UFS_SHUTDOWN_PM, __ufshcd_wl_suspend() does not convert failures into
--EBUSY, so a positive SCSI or UIC status can be returned. A dev_pm_ops
-callback has to return a negative error code, so convert it.
-
-This changes the behavior of ufshcd_wl_poweroff(): an error is now
-returned from the .poweroff callback, which aborts hibernation, instead
-of being ignored, and a runtime suspended WLUN is left as it is like in
-ufshcd_wl_suspend().
-
-Do not use hba->shutting_down to stop the error handler: it makes
-ufs_mtk_system_suspend(), which is also the .poweroff callback of the
-MediaTek host controller, fail with -EBUSY, and nothing clears it when
-hibernation is aborted.
-
-Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
----
- drivers/ufs/core/ufshcd.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 4825349e87fd..8aea99f5c364 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -10729,6 +10729,9 @@ static int ufshcd_wl_system_suspend(struct device *dev, enum ufs_pm_op pm_op)
- 	if (ret) {
- 		dev_err(&sdev->sdev_gendev, "%s failed: %d\n", __func__,  ret);
- 		up(&hba->host_sem);
-+		/* __ufshcd_wl_suspend() can return a positive status for UFS_SHUTDOWN_PM. */
-+		if (ret > 0)
-+			ret = -EBUSY;
- 	}
- 
- out:
-@@ -11576,11 +11579,7 @@ EXPORT_SYMBOL_GPL(ufshcd_suspend_prepare);
- #ifdef CONFIG_PM_SLEEP
- static int ufshcd_wl_poweroff(struct device *dev)
- {
--	struct scsi_device *sdev = to_scsi_device(dev);
--	struct ufs_hba *hba = shost_priv(sdev->host);
--
--	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
--	return 0;
-+	return ufshcd_wl_system_suspend(dev, UFS_SHUTDOWN_PM);
- }
- #endif
- 
--- 
-2.34.1
-
-
+So the worst WRITE_ONCE() does it get in the way of compiler
+optimizations, but I don't think any of them are relevant here.
