@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440704;
-	b=48p7E8dE/iOrHf1WhOhu0AhdH7LHlXJJT+ej46WRon3hnMoZh6EmNvSCxeJ8iNblfzdv
-	 e3k0WH1/6Z+P7jApfZL3JolIjgbHQWYSfQ9HThRqcJ+fzIsi7a3kLKevpmW4rtdKnJ2ZB
-	 zqeGQEu4BqGsZ3NtHrRAF8EeNU/3+7OMY0kisqBR7aZBf8xRrC27PDbY9+hXYToZhcKHt
-	 o0ChzacROqqL61rLnAbE5Tz1ncEbZf5u2WAjCDRTzUE8qmxxhhwhzB9EqALHIOrTxzA9T
-	 PLYyiidJyAgn9R/0+lN1d43AWUkrqmQagyQFjH5afoObkeIqnRbY0Dz1ZjZKq8fykfA==
+	t=1794440808;
+	b=2c/WHUU7xvVG9yWV/aAI9hiX8dVIarJigNrz42cnhVsgtcj4NNZ/a8PsyaJwVxpGdhvA
+	 sMUVtEHULVoohtXZ0KB/Mk3gnY51oxZNGYiZFIqGGTW3+lGXCixEHnv4v03UR812U6lIZ
+	 lXguAdXSTFQdxm2WyiQp0Wz9neQt1OVu+YjkHgGddwvIbEB/ZFJ5rWhx4l0XePWKNUnu6
+	 opi2jjE4wS31sfnic83boGUFKhvhUBesvyKLOrwmNJ7pTWHSoArc9lNRfPLlo+uUB2klK
+	 cHvUVeNqjnOuDhul2MYamGY4hBOJQYKkyi6kAFbwhlltpxLCiWzYoQ5cSHeereeldaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440704;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=JgATLH6zKQKTOc9e1w1ejnf6eH7WAhhgNo/J6AvQ39o=;
-	b=YAZ4bcrNj+LNVbU7SfFDfK171UKdqnByqCLlpt4XHU4tt2cv3pYnjjld0HObFsGr/DJ8
-	 sAuwXww02GREf42CbAwWAbpana1nnB5cFbCASy9AmkdEo5gPmpDoH2xfbQiCX/UH7IUYY
-	 nZEI9xAxsogDCjzkg4hKlBFCwrd8hzf+3QvLPZnxjs5dqvS+YljDxccmypmzv8zTVInAM
-	 Q0Q5/j2jagQKwtOYN4Mc9iAceQ3svIqliYBQ5kd0AiQB0KCjdOsVghyWEV7wVame2oUor
-	 YZb71N0jNgZKRJJljYj+VuS2TfLqFtrnSJRLZV2FdeS5FijZSqGWhLWFOsXLEu0yuiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440808;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8AZdaQqyQXPs5g0zywn6Yjq6k1JFMUQHaphCD5EDm/o=;
+	b=mt3hAnOq6bJmBDIJNWjw09E4J5IHmzQlwpDZNvNycBAW4lGOntx/xPs0jMOXXSr2JEyi
+	 01BYvZTRfLwnYhRycptLSjuWc4v7WYx+hV2v0IXHFB2QeT7FJUr8JqBsNo4G5GFm5zIwp
+	 4Zis8zmbUwelPg25PhTNrAlfn3+/SGFAQb1ObRSlsuXiDrwQS8U8U7sHUCpJTyYFRStPW
+	 ftPpr5ti9XjxAwVtJLZlRCrt3mR4Fj/XCpmPEBOe6elrfzAfKKIUeIwoQbuBlRSzYjM5G
+	 JvsTIvUnjy/yWZz1EUxNAHjs6MTvDoKdnv7b6gnRhiHqoXd2NhQUFRX12wiB3NtX3/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=OOcjaJzW;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b="R7o1/D0V";
-	arc=none smtp.remote-ip=188.121.53.30
-Received: from sxplsmtpa04-03.prod.sxb1.secureserver.net (sxplsmtpa04-03.prod.sxb1.secureserver.net [188.121.53.30])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Nim5WA3o;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76793606AE52
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76793606AE52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67DC606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:46:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D67DC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=OOcjaJzW;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=R7o1/D0V
-Received: from avalon.fritz.box ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPA
-	id RHz6xtxIpLwCURHzkxAFYx; Wed, 11 Nov 2026 23:44:49 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794440690;
-	bh=JgATLH6zKQKTOc9e1w1ejnf6eH7WAhhgNo/J6AvQ39o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OOcjaJzW673MbWyFRXB+pwyQWIa0EW/KAgi1d5Jj9xDrh6B3Iy/SkDl8OJO76n1rT
-	 8s8sWpxzkXDDRnzJVhl61SbU41Zlt3jCtPQG6NqHnBr+2m2/yWAuFwoQSV8hLN9Sim
-	 Mm27Zy+W5q/vo/JnAkoW53O56unTMpHG16t+14A5Rux234BG2gAxJaixkqYOZpyPY2
-	 kXg9ex1L2viGm5vsqWXqouRwVmEWOw8c7J99mxrSR+UsBsH54W8djhjwa2eTaaewjO
-	 LoJBM3pKr5LsYbdhxYv4ITbZIYkE6VWAGysr1f6MSGbHzmZVlYnbL3CI6v8auorBKx
-	 24zBZ0gjjQ8Sg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794440690;
-	bh=JgATLH6zKQKTOc9e1w1ejnf6eH7WAhhgNo/J6AvQ39o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R7o1/D0Vxkbv9x9j62zvgytGaqd9gYRAIhBaDKCa+TzjBgp8/6Cbx8Lxes9vk39Tw
-	 E2B15rEBRqmDH0pHr6mLePYhnzoXuXkmgAnoFhUlVA2VT0ViX+ie3xY6Oyscn5NCUE
-	 a47vR6SLic2UQeWatqDxVohVgj8DIKy5xvLwNA5NJxLiWlka7q3h0hUc2sFGomfBvR
-	 Z/vhriTn2mLTWmy7ad+wjnuxVW9MMTwSRCOh+xCgK0W5oNvqSYifMfXQTsDtRuljJM
-	 AjMJeZxisKLcI8Pq8DR6p63uoeKUdujjT8pcoxwd8eoVGF1k2K6bQQqr4wjP1+8Y7P
-	 HmNCmwm0eprEg==
-X-CMAE-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6af4fdf2
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=RkH14jvAPMWmjoHUV8UA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 19798285c647448f3e954976d0aaa4f7:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-From: Phillip Lougher <phillip@squashfs.org.uk>
-To: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH v2 14/22] Squashfs: add more sanity checking to squashfs_block_size()
-Date: Wed, 11 Nov 2026 23:43:54 +0000
-Message-ID: <20261111234402.252354-15-phillip@squashfs.org.uk>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111234402.252354-1-phillip@squashfs.org.uk>
-References: <20261111234402.252354-1-phillip@squashfs.org.uk>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Nim5WA3o
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 531C140E021B;
+	Wed, 11 Nov 2026 23:46:44 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id voosb1uhMyQJ; Wed, 11 Nov 2026 23:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794440801; bh=8AZdaQqyQXPs5g0zywn6Yjq6k1JFMUQHaphCD5EDm/o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Nim5WA3o6dpIUXLZ4zkdIqoBMXYvHYNRlKVIdfR+w+yBlO8CZQMAZWcPnIgjsKp9B
+	 h3Yz449/YvKp8QWQmbJ+/7vG3xz+9cubgouUmCWNerwIqJVd2I1/0ESI9ZkPdJcdkg
+	 7ohk7mdfZN77yeP+u11vkslOMKbZy+jnEChbkIHHP5No6NughMw/1Zh38sCVGB0PcE
+	 USgleSFIW2UF97kWbprRHgYT8JGZ86C1qeAXetukveWm8jkBoER2iz8sVKeuHw5Wmb
+	 9XbUi+jYv/zi2apKlgfIpZVtzPKlciOhiysi6cNHk5k2+KM6Doxi2rS0HO1zUzvCSE
+	 YeaPc+IWuHaeT+24FdZnOIDC8Ja95cgRykoP+4MHX+F2QYBkEmPv3Wz9zJUecBOga/
+	 PXSVd232C+rxiEtXiMdJIDIVDtJ/cLc6QNSigZvPYVl6jDPpC+Ytuqwu0aZ2FRyGzQ
+	 dos1HicHgsrPIu6J4n9HMFbjPk9YFiFJLnfOHDMinkuD7RExEDpqsYPGP1NX9p4k1+
+	 wVK0OrWzi1pvt9+NsR5gOs9FZ6bbXHlKtfoByIekqbsGLB3h/bHQTxnH6HNvpl8Pd1
+	 ZsfSyxycs5bwTzYhJyuz61cX/rMRn2NzVFCmbUItT2r11mNCu6F8k2HXTxsXegb4W5
+	 4Xhpp379+UgkKdfwvvEQVnVM=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5675E40E0218;
+	Wed, 11 Nov 2026 23:46:24 +0000 (UTC)
+Date: Wed, 11 Nov 2026 15:46:08 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: david.laight.linux@gmail.com, dave.hansen@linux.intel.com,
+	dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+	torvalds@linux-foundation.org, kas@kernel.org, hannes@cmpxchg.org,
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v3 2/2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
+ CPUs without FSRM
+Message-ID: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local>
+References: <20261111132214.2979125-1-usama.arif@linux.dev>
+ <20261111132214.2979125-3-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,229 +84,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfMXW3MSYyY2yhkdV97QvtRnnKFNdaCAFk5PrqfkfbPqDSpl8lDyS46jNkUlmlxomlh7DycyrxSVTRZPPMY9DWI1LCpYkOHiloVNIVVa8US/ukfAzI50T
- ZgUmXXcGymwz+Y0GRbBfSxsCtWXzAk2QrO34eLWufhZ4Ycu7LNe7GxTQ4imLe1MUcBpAtktRwinVAqmCgjayiFzM0A/NKksVoYoJIFWJC8BDwvFXq+2JuLnd
- WOoiEK1E/ABCPefsociSNnpwZD2gggcGtixplI4G6mpnL3rTgYp0haxc/raL0jy8RrkTs+u5gmnEMioifjGe+6a0/j/FlssuqLPE6Xpmirs=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111132214.2979125-3-usama.arif@linux.dev>
 
-Squashfs_block_size() sanity checks the data and fragment block size
-read from disk.  However, it doesn't do all the sanity checking that
-it could do.  This means detectably invalid block sizes are passed
-down to squashfs_read_data().
+On Wed, Nov 11, 2026 at 05:20:53AM -0800, Usama Arif wrote:
+> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+> index 7bb146c811029..5320862e0274e 100644
+> --- a/arch/x86/lib/memcpy_64.S
+> +++ b/arch/x86/lib/memcpy_64.S
+> @@ -27,15 +27,13 @@
+>   *
+>   * The 'rep movsb' itself is small enough to replace the call, but the
+>   * two register moves blow up the code. And one of them is "needed"
+> - * only for the return value that is the same as the source input,
+> + * only for the return value that is the same as the destination input,
+>   * which the compiler could/should do much better anyway.
+>   */
+>  SYM_TYPED_FUNC_START(__memcpy)
+> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+> -
+>  	movq %rdi, %rax
+>  	movq %rdx, %rcx
+> -	rep movsb
+> +	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
+>  	RET
+>  SYM_FUNC_END(__memcpy)
+>  EXPORT_SYMBOL(__memcpy)
+> @@ -45,12 +43,16 @@ SYM_PIC_ALIAS(memcpy)
+>  EXPORT_SYMBOL(memcpy)
+>  
+>  SYM_FUNC_START_LOCAL(memcpy_orig)
+> -	movq %rdi, %rax
+> -	movq %rdx, %rcx
+> -
+>  	cmpq $0x20, %rcx
+>  	jb .Lhandle_tail
+>  
+> +	/*
+> +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
+> +	 * Shift RDX to check length >= 2048 without destroying the REP count.
+> +	 * The 10-byte alternative fits a NOP without ERMS.
+> +	 */
+> +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
 
-This situation is sub-optimal because in the case of fragment
-blocks, a fragment cache buffer has to obtained (with possible
-waits for a free buffer etc.) before squashfs_read_data() is called.
+Sorry, this is adding more JMPs in "conditional" alternatives code and thus
+turns this into a bigger and unmaintainable mess than it already is.
 
-In both fragment and data block cases if the buffer is compressed, it
-means a free decompressor may be obtained (with possible waits for a
-decompressor) by squashfs_read_data(), only to have the decompression
-fail.
+The 2K limit looks like something conjured out of a thin air as it seems it
+work for your particular case. I'm sure we will have to whack it in the future
+because someone else will complain of the opposite.
 
-In both these cases this adds unnecessary overhead which may impact
-performance, and this is with values that should have been detected
-earlier.
+This needs to be done with alternative_call*, even at the price of some
+duplicated code but without turning what already is a mess, into a bigger one.
 
-This commit adds extra sanity checking to trap additional incorrect
-values.
+Or a static key or even with stop_machine_nmi() (currently in review) which
+patches the kernel even later, when it is convenient to do so.
 
-Reproducer
-==========
+Whatever it takes to keep this code readable and sane.
 
-The reproducer generates a Squashfs filesystem and then corrupts the
-block size value for file zero block 0.  If the exploit succeeds this
-corrupted value is not detected, and it is passed to the decompressor
-via squashfs_read_data() which then fails at that point.
+But not this.
 
-====================================================================
-#!/bin/bash
+Sorry.
 
-ARGS="-quiet -no-progress -no-fragments -noI -noD -no-sparse -comp gzip"
-
-finish() {
-	popd 2>&1 > /dev/null
-	rm -rf $DIR
-	exit 1
-}
-
-DIR=$(mktemp -d)
-
-pushd $DIR 2>&1 > /dev/null
-
-echo Create Squashfs filesystem with one file
-
-echo "/ d 0777 0 0" > pseudo
-echo "zero f 0777 0 0 dd if=/dev/zero bs=1024 count=128 2>/dev/null" >> pseudo
-
-if ! mksquashfs - img.sqsh -pf pseudo $ARGS; then
-	echo Failed to create Squashfs filesystem
-	finish
-
-fi
-
-echo Corrupt the data block size for block 0 in file zero
-echo Flip the compression bit from uncompressed to compressed.
-echo "This is at byte offset 131207 (96 + 128 KiB + 37)"
-
-dd if=/dev/zero of=img.sqsh seek=131205 bs=1 count=1 conv=notrunc status=none
-
-echo Mount the filesystem to /mnt
-
-if ! mount -t squashfs img.sqsh /mnt; then
-	echo Mount of Squashfs filesystem failed
-	finish
-fi
-
-echo Read the file zero.
-echo If the exploit succeeds, dmesg should show the following:
-echo "SQUASHFS error: zlib decompression failed, data probably corrupt"
-echo "SQUASHFS error: Failed to read block 0x60: -5"
-echo "SQUASHFS error: zlib decompression failed, data probably corrupt"
-echo "SQUASHFS error: Failed to read block 0x60: -5"
-echo "SQUASHFS error: Unable to read data cache entry [60]"
-echo "SQUASHFS error: Unable to read page, block 60, size 20000"
-
-dd if=/mnt/zero
-
-popd 2>&1> /dev/null
-
-rm -rf $DIR
-==============================================================================
-
-Fixes: 1701aecb6849c ("Squashfs: regular file operations")
-Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
----
-v2: Add additional sanity check, a zero size cannot have
-    SQUASHFS_COMPRESSED_BIT_BLOCK set.
----
- fs/squashfs/file.c             |  8 +++++---
- fs/squashfs/fragment.c         |  2 +-
- fs/squashfs/squashfs_fs.h      |  6 ------
- fs/squashfs/squashfs_helpers.h | 36 ++++++++++++++++++++++++++++++++++
- 4 files changed, 42 insertions(+), 10 deletions(-)
-
-diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
-index 2396fad1de61..96c15088cdee 100644
---- a/fs/squashfs/file.c
-+++ b/fs/squashfs/file.c
-@@ -166,6 +166,7 @@ static long long read_indexes(struct super_block *sb, s64 n,
- {
- 	int err, i;
- 	long long block = 0;
-+	struct squashfs_sb_info *msblk = sb->s_fs_info;
- 	__le32 *blist = kmalloc(PAGE_SIZE, GFP_KERNEL);
- 
- 	if (blist == NULL) {
-@@ -185,7 +186,7 @@ static long long read_indexes(struct super_block *sb, s64 n,
- 		}
- 
- 		for (i = 0; i < blocks; i++) {
--			int size = squashfs_block_size(blist[i]);
-+			int size = squashfs_data_size(blist[i], msblk->block_size);
- 			if (size < 0) {
- 				err = size;
- 				goto failure;
-@@ -333,6 +334,7 @@ static int read_blocklist_ptrs(struct inode *inode, s64 index, u64 *start,
- {
- 	long long blks;
- 	__le32 size;
-+	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
- 	s64 res = fill_meta_index(inode, index, start, offset, block);
- 
- 	TRACE("read_blocklist: res %lld, index %lld, start 0x%llx, offset 0x%x, block 0x%llx\n",
-@@ -362,7 +364,7 @@ static int read_blocklist_ptrs(struct inode *inode, s64 index, u64 *start,
- 			sizeof(size));
- 	if (res < 0)
- 		return res;
--	return squashfs_block_size(size);
-+	return squashfs_data_size(size, msblk->block_size);
- }
- 
- static inline int read_blocklist(struct inode *inode, s64 index, u64 *block)
-@@ -720,7 +722,7 @@ static loff_t seek_hole_data(struct file *file, loff_t offset, int whence)
- 			goto finished;
- 
- 		for (i = 0; i < indexes; i++) {
--			length = squashfs_block_size(blist[i]);
-+			length = squashfs_data_size(blist[i], msblk->block_size);
- 			if (length < 0) {
- 				offset = length;
- 				goto finished;
-diff --git a/fs/squashfs/fragment.c b/fs/squashfs/fragment.c
-index 9f63e5b5c513..1f372374c29d 100644
---- a/fs/squashfs/fragment.c
-+++ b/fs/squashfs/fragment.c
-@@ -54,7 +54,7 @@ int squashfs_frag_lookup(struct super_block *sb, unsigned int fragment,
- 		return size;
- 
- 	*fragment_block = le64_to_cpu(fragment_entry.start_block);
--	return squashfs_block_size(fragment_entry.size);
-+	return squashfs_frag_size(fragment_entry.size, msblk->block_size);
- }
- 
- 
-diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
-index 3e7d0730b2d9..6ca8d7227a0e 100644
---- a/fs/squashfs/squashfs_fs.h
-+++ b/fs/squashfs/squashfs_fs.h
-@@ -101,12 +101,6 @@
- #define SQUASHFS_XATTR_VALUE_OOL        256
- #define SQUASHFS_XATTR_PREFIX_MASK      0xff
- 
--static inline int squashfs_block_size(__le32 raw)
--{
--	u32 size = le32_to_cpu(raw);
--	return (size >> 25) ? -EIO : size;
--}
--
- /* cached data constants for filesystem */
- #define SQUASHFS_CACHED_BLKS		8
- 
-diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index 4fb13096fcbc..d46d123aefc4 100644
---- a/fs/squashfs/squashfs_helpers.h
-+++ b/fs/squashfs/squashfs_helpers.h
-@@ -204,4 +204,40 @@ static inline s16 squashfs_xattr_offset(s64 xattr)
- {
- 	return xattr & 0xffff;
- }
-+
-+static inline int squashfs_block_size(u32 size, s32 block_size)
-+{
-+	/* reject any size with bits set where they should not be */
-+	if ((size & ~SQUASHFS_COMPRESSED_BIT_BLOCK) > block_size)
-+		return -EIO;
-+
-+	/* a block can't be both full size and compressed */
-+	if (size == block_size)
-+		return -EIO;
-+
-+	/* a zero size block will never have SQUASHFS_COMPRESSED_BIT_BLOCK set */
-+	if (size == SQUASHFS_COMPRESSED_BIT_BLOCK)
-+		return -EIO;
-+
-+	return size;
-+}
-+
-+static inline int squashfs_data_size(__le32 raw, s32 block_size)
-+{
-+	return squashfs_block_size(le32_to_cpu(raw), block_size);
-+}
-+
-+static inline int squashfs_frag_size(__le32 raw, s32 block_size)
-+{
-+	int size = squashfs_block_size(le32_to_cpu(raw), block_size);
-+
-+	if (size < 0)
-+		return size;
-+
-+	/* a fragment block can't be zero size */
-+	if (size == 0)
-+		return -EIO;
-+
-+	return size;
-+}
- #endif
 -- 
-2.47.3
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
