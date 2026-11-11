@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.24
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794441268;
-	b=yrzX+OGB9U/yN8lNgr82POWeTq/9zzidH8/Al3DKQWY5Y6MoNij6lrda9nY6zlnnPkSb
-	 2wYGReoVYWvZSg+3vcW50inGcLK43o+pMicsElyOJjY+gDqGF3cQoJCZAGU95NqYqhUzA
-	 g/9FJanfZ96LKLP3FBo5PYAMjXXCxf81b9jBNcP0ZhlwHzKF3kDB+MUNV6d3mv1/ftxQB
-	 aVYFKIpWXrQBSG6eTpRxXW86k43z1gyewPQkbEtLMOnT8QqanzuWz0n9g+w1n9XksVblY
-	 B6eFcYyceHVfY0Rr2YhO/ins2CHuuBu4OKQELg6u8xFxBhtpfTCr8LfOiw0E1fEz/Ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794441268;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UyAJ5kJwvbBsuuagMuqH0uqvCIRf2LNOJbAvJkGPWDc=;
-	b=Ppm9mdvsAm3i0b7YOVhDh9DzZIUO+iUoAwZAQ57AsU/Yj5wd/mY3wEoo3mticucdp/8W
-	 NMeMjmH3TPmz8UtBwY3X94ZMa44YA+s7AGcvo+6LOCBcmp/MDr2gthE4FYJCryVoSokJl
-	 e0tO4pU1Kj8TvvZBqIWa0komkFtW5s7g1MoHfyyIG0/c2fSK08YmA+e1pZxzyvkIgyPyx
-	 xFv5L1U2fAqbxX9dzWmWHLPJGixMmYWEpx6pNSRupjodPt4djJUVqgDsMyGRtrn5R0Rkl
-	 NvlLiNL1xWvRmgafDeOImjWjEaAgIB/jk7m78ab7qIZ+Y7Yg9h9x1FfOehn2SsaKgNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=sDJmPVy6;
-	arc=none smtp.remote-ip=202.108.3.24
-Received: from r3-24.sinamail.sina.com.cn (r3-24.sinamail.sina.com.cn [202.108.3.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794441274;
+	b=sBUbF3YemsPOZJtuXwGji4y90Xr5OJaPoGzki9EQsLiNQwwcSQmipoeqyWdNp0zsBNPs
+	 3ZJ5vCqIUoerqz4dSH8X24Ca8aD++p25c6anWHdTEAPmNfhf0RY8EE6lcGyxUwyCEpIyY
+	 KYVDHxEki427IOSOyqv2QRavrLtRAByWNOcwVF6JAM4lwKAA6sqNaPUU6Fa1muSMjerYe
+	 DV0tdTox19nJIq5bgl8VfTVgks95hDepfx0BO1K9Xxqcbf9RycN2XPzCZS7HLbT1kI3sv
+	 NKmewHCB8+w/tOEpF1lAkstBJCMjC6O9bjYe3amf0DhJkITx80eLkJTYm+2jj1aDyAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441274;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jGvFpDsz598JX1tRXTqbNVLCtafK4G/dmHbNByWRzkY=;
+	b=rJwjnG/pFSIV0aEYsITUhsFnMXWxm4mmJ/YMb5JPDaBzSKMcglYbTFLv/WykPoBW4LGa
+	 kj9N82htkTAlmzsQfgrYvTQeoz2qCucJ5zj8hc1NZbXkElQJ6HwtYc0Hkd0AsbWKtCoq8
+	 0kmhTKQTonH51AdLvCizRnmCIWSGDCudpiE3wNjpAjUpwmi2xBjY8ZhcqKBw26Oc0bEBD
+	 lMetMFHIqRsEtZiRl+Zcsyg2KQU5n3zzhb7P0jpz2UxSt7qLwwu/ZRIB9/NS4KQ9EcgAN
+	 bRQJyFU/AShGfvDqeOzt6h+uKGtdM7pfywgjtNrCC+75VlSv+U1MwgDPgeaRMXOCF9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=AFkFNMTq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2AB606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:54:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A2AB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E1D606A339;
+	Wed, 11 Nov 2026 23:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E1D606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=sDJmPVy6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794441266;
-	bh=UyAJ5kJwvbBsuuagMuqH0uqvCIRf2LNOJbAvJkGPWDc=;
-	h=From:Subject:Date:Message-ID;
-	b=sDJmPVy62FuW8Te+t8W2UY0uxr+qHpgTE8lf9E8hrtoaXmvtMfvx3PiQxy4vRFSWq
-	 whTjN581i8mWI6x6Kmsx5MGnjJTZRr/Mf/5HgPCYNof5Rcwuf4vYNz4uY7p73BF1ay
-	 y2GKzVAdQ9kzZ88wSkjuLgHIG3WuB8tv44QR19no=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.246.239.105])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6AF50025000001B3; Wed, 12 Nov 2026 07:54:16 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 9846096815980
-X-SMAIL-UIID: A440C302B0374BF9BF0CDE3F682F057D-20261112-075416-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+b1146b58a9d6d90e0eb4@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [bluetooth?] WARNING in disable_delayed_work_sync
-Date: Thu, 12 Nov 2026 07:54:02 +0800
-Message-ID: <20261111235403.447-1-hdanton@sina.com>
-In-Reply-To: <6af2d48b.4dd4714a.f8d02.0024.GAE@google.com>
-References: 
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=AFkFNMTq
+ARC-Seal: i=1; a=rsa-sha256; t=1794441206; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=e7RVnaCvhoD/9oippd2IGtyP6w2g50/JUyV/VOGPkmXC47tOZmMwknBiCYeh5+/2prSpPVCGBP/JoxTjhJi2k2mjOSJ753yHsK5WqGbVxt2goc+D1vijFtaYKhLxbE1p8m5xBQp87Rnw9ds+dl2kkAb1hpuWypmj1qRmqZj7g/c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1794441206; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jGvFpDsz598JX1tRXTqbNVLCtafK4G/dmHbNByWRzkY=; 
+	b=fKLp95xd/xUni1BBl97Ctd3K61CcUKlqKeuWO0vpkstuiMUIqGsZXXA5TMxyT2reYJVsRDMBOGQQtIEj3rNpVbFugHemuCeaQKhwIElciH6r9ileWALhO6sTRHtmLFotiB6aU+SWyGxfnc4GAlCo1udWnNPgli6brRNZacDqT84=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=AFkFNMTqWkB5Dz0mtDydGaCnJEop9b9YsAr3K8AAmmJWZRVdS/yxYRdJr9IVl7V7lKlbnAaf7mMciL+G1F6Kl4RvwRQnFDd5QbM/zUI7DMFaoWzC4HbKPdpgUa3qe3zEVDyoSR5/6ozJnsWAoHjWQXefrTCbODLE5Kt/hY+7aKA=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=jGvFpDsz598JX1tRXTqbNVLCtafK4G/dmHbNByWRzkY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 179444120369778.37346185581566;
+	Thu, 12 Nov 2026 00:53:23 +0100 (CET)
+Date: Thu, 12 Nov 2026 01:53:21 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+Cc: Igor Velkov <iav@iav.lv>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Lukas Wunner <lukas@wunner.de>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Wei Fang <wei.fang@nxp.com>,
+ Niklas =?utf-8?q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Paul Barker <paul@pbarker.dev>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 0/4] net: phy: postpone PHY interrupts during sleep
+ with MAC-managed PM
+In-Reply-To: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
+References: <20261111-b4-phylib-mac-pm-irq-v3-v5-0-bbfdb5afb7d3@iav.lv>
+Message-ID: <20261112-phylib-v5-haoning-retest-1@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +79,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-> Date: Tue, 10 Nov 2026 00:23:39 -0800	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted context..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1070f24e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-> dashboard link: https://syzkaller.appspot.com/bug?extid=b1146b58a9d6d90e0eb4
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> userspace arch: arm64
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12869155580000
+Hi Haoning,
 
-#syz test: upstream  master
+Thanks for testing v4. v5 changes patches 2-4 (freeing the interrupt,
+a failed resume, the wakeup policy for MAC-managed PHYs), so I kept your
+Tested-by on patch 1 only. Could you rerun your fec tests on v5?
 
---- x/net/bluetooth/hci_conn.c
-+++ y/net/bluetooth/hci_conn.c
-@@ -1151,6 +1151,7 @@ static struct hci_conn *__hci_conn_add(s
- 	}
- 
- 	hci_conn_init_sysfs(conn);
-+	hci_conn_get(conn);
- 	return conn;
- }
- 
-@@ -1316,6 +1317,7 @@ void hci_conn_del(struct hci_conn *conn)
- 	 * rest of hci_conn_del.
- 	 */
- 	hci_conn_cleanup(conn);
-+	hci_conn_put(conn);
- 
- 	/* Dequeue callbacks using connection pointer as data */
- 	hci_cmd_sync_dequeue(hdev, NULL, conn, NULL);
---
+Igor
