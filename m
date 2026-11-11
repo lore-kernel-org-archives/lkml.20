@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794425509;
-	b=SEf/MJsYjpqZN1AFSL9Az0TWdMMOQX7xm9bk0IK6P2Ru2Yq8tDwRYAIQoIoc01Dx/QxC
-	 zagTlIcXV6Z3XIHAoca+ES//mOun0FpCShMPGMBnUZseKjPnFokv+j8d2y70jl6ARaQnL
-	 9euT443L1KxpUkLOfMvhmcWGcwSMUHjrmOsYLb+X8F0z5z5im2+TO2qwB/lo3x2QYtm8L
-	 tP4qFaZ2tDl+6Tt3/cwWBIcasfSXnMXQksDAIZD6QV9MrufZYr58k3OKq3OYlElj5H4Qr
-	 Ch3g8HOZXpXEqo5cqvyRyX0rfGKXkO7odq2FsxqAmujasb6IP0797JGrGxWdi6Jplhg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425509;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
-	b=be8Iwr1n2B4IKaxzSElWU+fYZO7sc5apDxQ0LJwekaljtY1l6NbKSvRMcGPWt1yskE1V
-	 tXlrSDd+NXGqRAoMWp4RSHp0seM0kq/e2XVFqBJj7QqKMA8iIeqawjgz5a7G/yEbYnK/n
-	 SYLfdpClkl3pnOBBbB4cdlqhHGm/BNpQDu1soVfyAjMzJK80EMuJ0TZgxatNrAx5DmOzg
-	 SQFMP2k9IRpgtcfx8OT7mp788Xdm9MOANF9CpB/rgOKrjNIm+aXTLKM/Tpur4PfLimSEQ
-	 /s4migTcKGdC7aEtVgoSllhcG6ubujdovSJ4/ZXORH1HWNUt/C5lZD3oIDIPIiXGqEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W+/T+mmy";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794425510;
+	b=f5Uwy2vZaZUr1Dgh1H1zZCDuhyQ01zIw0ibfUWrv4vI+mJh9IHbt8EP1DXz+9IKAK0bb
+	 jW5zxbZG+1LKo1rt/56A79yODa3yagAq6EGmGaPeHqBtVqXAgQ7KRQgF0D44Y7wCsgXKS
+	 VSnMvu15pGpZPB+00/8rLuTSKb12d2ChsrksB+aVGie/FxvkixiZ6FokZZ3tQH2juyUSn
+	 ZO65xuC6WbTxaa9AImomVlsr/n3/UB0xvjXgpc3mp6DTzLAImv2dW/8q+lmzOmkCBqWVa
+	 aJ3GQlICnR+u4oS1MheltELvLidV6NH0paGc91TQtLkvSjw9uSimVw1JH1+wrnsY65g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425510;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ihmjpaq362zzdxmp/sT8AuTP1S4oabw2RE04rYS9y5E=;
+	b=mux3ma5/URXJN4K16+BwfnQiuc6dNahgx++4vOeAnLvftnlW1gAcVmkm6QP8MNOYIwIA
+	 oVQ8HK64RzrwGE98UkDLLQz0JaQOhMzpu4+o2nszS2vY3ME2DlwMMpPa4F65e1bs33Hm6
+	 olTA8x2x626weLig76QC2/Sne+ad5L5kM+3CqjvtSbKMh0s9xVdoB8CVbwj2aOTJlqYxC
+	 g7bavhNVOtvLzVwmQuTpC44paWk9AoVRtR1oe/0VZWPvSegmSo3IyryE54HqRyI5T/lvP
+	 GyBUc/NuBgcad/6dF7LR2vDz+yy1rqA4IsXcx8LbmpnGV0z2caBQyN5jY3Vle4v9liw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T0dFk7c9;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E68606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1141606A332;
 	Wed, 11 Nov 2026 19:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1141606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W+/T+mmy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794425508;
-	b=OtKQaSucPWMKJ1eFv8bMmhmDb6RH4DVPbvsTOYgYfYAfRQ1shXmDTWQWdQdofApozqIn
-	 i2KIrqdeUL5gXdQzhYYA36ZrtndbFo94H9Ojt2PL2iMp2Uw/cgFVzbXQ9TK6cIbXaMi39
-	 CLvPnXvQM2iUPaizOi4bDmjhnXaLbsw0Jd/ah1O+C8f4bZBEgLo8hsOhMRHPdScQ/cjS2
-	 xBBUe5Sd73ywfTyayYfZPWQgYvm6mkuLvZw6y1/11/E4DQVUkZMieAjkqXHu03D3uhPTB
-	 j5oesNg3sedNyPYZ0QHAMUQEf02WBE1J5dYpwa42PnUf1+V+Sb6OWTvrjof5E6gXwAA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794425508;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
-	b=amGFHJYPv9+dNGPX1i50MNvP9gNKkCU3iDathSb5b0OwmtNKbeFFFuFw15HlGk5/9TWX
-	 FLEEu94wvhnYGmz5UU7uru8nKvPlKiSu7zD0QjQupy77d/ALf+SO96iSCxz5tTYZe50a6
-	 U06KvPviiVw3Uk6ZmO8MvgUKGmWq8aGF14JtQ0rs3xpVaEbyrmcQjpkU54wyBgMOls9WI
-	 6yQ4zHLGUf5ZG4CjbJTd31Xt3esHBSGGGsOsSSswJ/pPmVav4JEqWz4tMVqqFMgsGvKlN
-	 eO892yEk1fp4jue+koYxLy9zWleq5HujlOlvNFiwMGHUBz77zg2IIdLdkZ6A8vIaqbg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 663221F00A05;
-	Wed, 11 Nov 2026 19:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794425508;
-	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=W+/T+mmyD3X0cIpn1rAgTiINN64y3iqC/UvCFO0wOCUSYsSI7G4GU8EaG0Y25KuW9
-	 ZHCUBKdAru8o8tIh+JPWiQ6DRmNfBt6OoqdtOplPk67zlcb83fMMJ2B04FrahS0yQy
-	 UQ5NMg51hjNM4V7iAxH3w5s2zfqkVXksPEHwiVYDBdJXR8/k03N6pDMf2mUZOfwHL3
-	 kssoqQZFZImR92u2yFdn4rfBVhPimt4P/MaLu1slmhUSLF+ns2jX8Z8v72bJl+KHpa
-	 AycYA6jPejQ1daE8s/7OUTBpABNYjrz8jOauOkxwV7GkmHPuuP2m+CJlb+brcb1ep2
-	 G741PvJ3/oY1g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B17D7490A4;
-	Wed, 11 Nov 2026 19:31:47 +0000 (UTC)
-From: Darren Worrall via B4 Relay <devnull+darren.worrall.shopify.com@kernel.org>
-Date: Wed, 11 Nov 2026 19:31:39 +0000
-Subject: [PATCH iwl-net] idpf: select AUXILIARY_BUS to fix link failure
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T0dFk7c9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794425510; x=1825961510;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DcTofesJFT1jeKz+4gvXAC2F9ujJKAM96Sgs1nkt01o=;
+  b=T0dFk7c9m3m7kFV4rOmhFdAQVhA4EAKbMnU6tKzTmHNAY9tSf3moFCM2
+   KkW5lZZ0vJm/Sdy3Mpyq97CUwZeVBDRGwU55IDYyn3+QWvUnibJ475new
+   XNKJRvOONmrAXiN9Ya6Kas+JuQQcSNLY0T5XGbySWLtI0ZbEr4mYBKIlO
+   xRn9rPoLbS+RM9SnsWUCkSSxCbP0QcvT5mmziO/mvcQGZRzzoeKxSAeBF
+   rAdgh2ioWxHtf0/etD4GifkhI9WuSA6XFkBsr2UIznCeuNn1y3TkuGOpJ
+   pLTwhmpP6xYYJU8SN6iEfRpQMa2nax60vhzL2L2FswsxD8TRKsUpHjr0q
+   Q==;
+X-CSE-ConnectionGUID: hurCFDhZRuudM/5K7dOxYg==
+X-CSE-MsgGUID: 5w4zhrEGQ5uLcFlZ9HJsQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3099038"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3099038"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 11:31:49 -0800
+X-CSE-ConnectionGUID: 7Qov/K15S6C/fBiJhfO24g==
+X-CSE-MsgGUID: l+vjy1i3SXmfMFLMolRq8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8820410"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 11 Nov 2026 11:31:44 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRE2n-00000000zZl-2KpJ;
+	Wed, 11 Nov 2026 19:31:41 +0000
+Date: Thu, 12 Nov 2026 03:30:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Xueqin Luo <luoxueqin@kylinos.cn>, rafael@kernel.org,
+	viresh.kumar@linaro.org, sudeep.holla@kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	zhanjie9@hisilicon.com, christian.loehle@arm.com,
+	zhenglifeng1@huawei.com, sumitg@nvidia.com, lenb@kernel.org,
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com,
+	gregkh@linuxfoundation.org, dakr@kernel.org, johan@kernel.org,
+	ionela.voinescu@arm.com, pierre.gondois@arm.com,
+	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, acpica-devel@lists.linux.dev,
+	driver-core@lists.linux.dev, Xueqin Luo <luoxueqin@kylinos.cn>
+Subject: Re: [PATCH v6 3/3] arch_topology: Add topology_update_cpu_capacity()
+ for runtime updates
+Message-ID: <202611120358.5eM3xOiA-lkp@intel.com>
+References: <20261111085022.1229866-4-luoxueqin@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,96 +91,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-idpf-auxiliary-bus-v1-1-e76b940fc929@shopify.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSQ6DMAxFr4K8rtUQqeNVKhYZDLhCgcaEUiHu3
- qT9u/enDYQik8C92iDSwsJjyFAfKnC9CR0h+8yglT7XWRmnFk1aeWATP2iToFPqdCV9cf7mIQ+
- nSC2vv9MH8HvAQDM0/0CSfZKby2WpWiOENprg+mKNkTsOR08LvhIlgn3/AmLEkuGiAAAA
-X-Change-ID: 20261111-idpf-auxiliary-bus-c0058e27cd9d
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Madhu Chittim <madhu.chittim@intel.com>, 
- Joshua Hay <joshua.a.hay@intel.com>, 
- Tatyana Nikolova <tatyana.e.nikolova@intel.com>
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Darren Worrall <darren.worrall@shopify.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2450;
- i=darren.worrall@shopify.com; h=from:subject:message-id;
- bh=RbjW4ti8gsuFIX9ZjzwA73lhgVe0TsMd8tFgxZGXUIc=;
- b=owGbwMvMwCX2T4mx4WrYUgPG02pJDFlfDi1K9b6aINvzofyiZEOjge+28g0e39h3vWQV6XC4+
- NLgt9qbjlIWBjEuBlkxRZZJ28v+mU1q+VUe1bULZg4rE8gQBi5OAZjIBwGG/zmqa/U2nFimHeLt
- Fvcmu3CP2V2N1JI3lYLL1FgsLs1e4MzI8P3FuYc1cy/sZZJTuBTKY7a/aP7m5bMtItdqLI/ab+R
- yjwcA
-X-Developer-Key: i=darren.worrall@shopify.com; a=openpgp;
- fpr=92B776FE369284FA775A8ABAFE220180D556A530
-X-Endpoint-Received: by B4 Relay for darren.worrall@shopify.com/default
- with auth_id=1491
-X-Original-From: Darren Worrall <darren.worrall@shopify.com>
-Reply-To: darren.worrall@shopify.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111085022.1229866-4-luoxueqin@kylinos.cn>
 
-From: Darren Worrall <darren.worrall@shopify.com>
+Hi Xueqin,
 
-The build can currently fail with
+kernel test robot noticed the following build warnings:
 
-    ld: vmlinux.o: in function `idpf_plug_vport_aux_dev':
-    drivers/net/ethernet/intel/idpf/idpf_idc.c:82: undefined reference to `auxiliary_device_init'
-    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:86: undefined reference to `__auxiliary_device_add'
-    ld: vmlinux.o: in function `idpf_plug_core_aux_dev':
-    drivers/net/ethernet/intel/idpf/idpf_idc.c:223: undefined reference to `auxiliary_device_init'
-    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:227: undefined reference to `__auxiliary_device_add'
+[auto build test WARNING on driver-core/driver-core-testing]
+[also build test WARNING on driver-core/driver-core-next driver-core/driver-core-linus amd-pstate/linux-next amd-pstate/bleeding-edge linus/master v7.4-rc2]
+[cannot apply to rafael-pm/linux-next rafael-pm/bleeding-edge next-20261110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-if IDPF is enabled but no other driver pulls in AUXILIARY_BUS. We hit
-this building a minimal kernel for hosts with IDPF NICs. It can be
-reproduced on x86_64 from allnoconfig by enabling PCI, PCI_MSI, NET,
-NETDEVICES, ETHERNET, NET_VENDOR_INTEL and IDPF.
+url:    https://github.com/intel-lab-lkp/linux/commits/Xueqin-Luo/cpufreq-cppc-Add-update_limits-support-for-Highest-Performance-changes/20261111-165020
+base:   driver-core/driver-core-testing
+patch link:    https://lore.kernel.org/r/20261111085022.1229866-4-luoxueqin%40kylinos.cn
+patch subject: [PATCH v6 3/3] arch_topology: Add topology_update_cpu_capacity() for runtime updates
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20261112/202611120358.5eM3xOiA-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e73e336290028f26553b46c9fba844c13da38c9c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120358.5eM3xOiA-lkp@intel.com/reproduce)
 
-Select AUXILIARY_BUS in IDPF, as ICE and I40E already do. The same
-link failure was fixed for BNGE in commit d7065436e8a0 ("net: bnge: add
-AUXILIARY_BUS to Kconfig dependencies").
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611120358.5eM3xOiA-lkp@intel.com/
 
-Build-tested with that configuration on net-queue (dev-queue,
-34a70a40c954) and on mainline (067c5c24cef2): vmlinux fails to link
-without this patch and links with it. Boot-tested on bare metal (AMD
-EPYC) with a Google Cloud IDPF NIC, using a 6.18.60 kernel carrying the
-same change and IDPF built in: idpf probes the NIC and its link comes
-up.
+All warnings (new ones prefixed by >>):
 
-Fixes: f4312e6bfa2a ("idpf: implement core RDMA auxiliary dev create, init, and destroy")
-Cc: stable@vger.kernel.org # 6.17+
-Signed-off-by: Darren Worrall <darren.worrall@shopify.com>
----
-The link failure was diagnosed, this patch drafted and the tests above
-run with the help of an AI coding assistant. I reviewed the patch and
-the test results.
----
- drivers/net/ethernet/intel/idpf/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/intel/idpf/Kconfig b/drivers/net/ethernet/intel/idpf/Kconfig
-index 586df3a4af..6b59173e0d 100644
---- a/drivers/net/ethernet/intel/idpf/Kconfig
-+++ b/drivers/net/ethernet/intel/idpf/Kconfig
-@@ -5,6 +5,7 @@ config IDPF
- 	tristate "Intel(R) Infrastructure Data Path Function Support"
- 	depends on PCI_MSI
- 	depends on PTP_1588_CLOCK_OPTIONAL
-+	select AUXILIARY_BUS
- 	select DIMLIB
- 	select LIBIE_CP
- 	select LIBETH_XDP
-
----
-base-commit: 34a70a40c954fb8044ecd124840a2c38cd3aa4cc
-change-id: 20261111-idpf-auxiliary-bus-c0058e27cd9d
-
-Best regards,
---  
-Darren Worrall <darren.worrall@shopify.com>
+>> drivers/base/arch_topology.c:232:21: warning: unused variable 'raw_capacity_lock' [-Wunused-variable]
+     232 | static DEFINE_MUTEX(raw_capacity_lock);
+         |                     ^~~~~~~~~~~~~~~~~
+   1 warning generated.
 
 
+vim +/raw_capacity_lock +232 drivers/base/arch_topology.c
+
+   230	
+   231	static u32 *raw_capacity;
+ > 232	static DEFINE_MUTEX(raw_capacity_lock);
+   233	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
