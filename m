@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794408652;
-	b=Dn/8Y5+M8iT6frLDHbRctMduGJ4FNzVFaqvfa1EkTNnTAMsaZIYj3NOS3IJyf4NT3H40
-	 a9mclZrBOcAALmiATgH/ipSC7MjcTUg1aVu6KYPP+gfYGr7um4akdPg4quEOz/eKhgV4a
-	 bAGT5rE/aQTy8ve4DFwsuTMJR7pgh1StoJIWEz+2HPKx9Mx7KV9P+M5cCTRUL9xYl9Pwr
-	 5F3RgD9OWXebpgpeHTrqPAH/C7drCny2BVH57cFG+r6+uFD+D6P1M8qm64uoRHCRZUAsr
-	 Jmug5y6WFUX9fDG3nU+vbasUjAQYtymtMgFIALa0iHt8ae5Dbtx12IiTzdnDWCHFoLQ==
+	b=ano4wPflDLW+Y9aWw63mhAri7paULK79Aoj5qBTIZI1DSYhb4tuH8/Dgts3eHR2Ypq3C
+	 NfbAFS5787G2/sSOXc4pQhNZuZcJgcIxrC4sWw/rUhNmiIrnRwIErc02O2nFX55pO4873
+	 ZB3I+eJMeALKlvTONW/pTy3Wa+5bwYpEZr6XIasj3oDDgAP3pecikUZV7SDLpUwyRiOff
+	 8el9UCSpzGo4L5OBoCRZQ72ANQWKMZkruZqQdWH2rYyetyeCm0JuIXDw2NzLOFd3qaYe0
+	 c9yCF1SMvq+HE+pmcxaB6noAxDuFDlXyO89jFVvyrwxqJCRqagMaPL95hoD64rOjaWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794408652;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
-	b=4/dJutJjEn37O8iCF5nVfQ9zvO6ZE3ZY6KWj9Oacyy47k5T4ezjxSfgdG+kdVi799Gd6
-	 Kzv1Sf09I+bdCC/+7ud4MVJV1Rduzon/AYbSOcJdvWDGgqvA949xYo8HUCNajQVgDzi4h
-	 9bFv1whcIfIWkhXSsn8LaX6Km9EhaOqoIhcn1ePSDbwullry0K5M1SGVoj8qoIiibzuN0
-	 wzZUOfik/3K8gMnABI3x+Pk0kvW74DuZQ2B4l78/oQYIZbdE9UllS7V04GV4Cj4YNE4Tv
-	 WhH6L/jc8r03Rl0IYvP2VIz+j7yk0W9OdvWjz0Hiy7YPh9pi/66xUsKHczpsrzOAR7w==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=in9PLro9lMFGv0mYwnCPKthhm5ByPZ39fDEfz6yqKgw=;
+	b=CuFkndE9Uqj2mcJda5l2arba2If4B9Bj086xA6we2swMawEjWkwFJVnU2QqN1k8HM5CS
+	 F8Xc3BwbDQTwLQHo+kFxu5QnaAG/43oZoTLNaQ5rdTKBpUXNBHENJPisdjyr4JNXyfr6D
+	 WiyT+f8jEMyoyg419J9nvBTBUaolndZBcN7VRpEyL2o32I2AbXMKeddmO1Ts915yavp8e
+	 DIU4ECn9vN+iR7rF8acOKhY5u/YVuUM2nCGuiSu1tuvkmtg5mNTh3IVXwpWDHrvC7/c+D
+	 f5KDJaVQBmvwkaeN3Fvr4zw6YFS5MtUqQy4J6+VLM+4KMDu2SuQU8VJvmmjklFtQYWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EnhWMxWB;
+	arc=none smtp.remote-ip=91.218.175.67
+Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A74606A33E;
-	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3E1606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D3E1606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCB71F00A07;
-	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408652;
-	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oquIw1LuPko9xQrUJELBnwskn345Pa0CjNLnbaWuTe1gPG46TRshOlT3TQTMUsqWr
-	 H5HPwgGE2gaTAEiCIIPcRxefE/kDsuVfCrlIruA+VfqXzNAE+AZqo1RBFiaP9D64+X
-	 chT/Mt7RzF/In9eWtub/qYXtnu7lb18rmyQtPEC+na4fQBU00FTD0BjKK79DNcz3py
-	 ker3YOqseqzE5f9NMCriCvAZJKaA1plKrNeZJiPPPj2anRJ3lLh3FpFXfKyiOQUM4A
-	 zpEvBx9/ykoYnWsNrmihF87OpWsKUmIJYkwO+ng+MmQP0mIXpEDwVBaG57p/04JaT4
-	 ftu1eTthVnb7g==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xR9ez-00000000VcO-449A;
-	Wed, 11 Nov 2026 15:50:49 +0100
-Date: Wed, 11 Nov 2026 15:50:49 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 1/2] serial: core: do not hold the port mutex while
- waiting for references
-Message-ID: <avSAyV6QE0Id3rAk@hovoldconsulting.com>
-References: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
- <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EnhWMxWB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7QlHaYu+LBh346BG07UqQIEHqd8tmQtc/kJLw6MKCas=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794408649; v=1; x=1795013449;
+ b=EnhWMxWBnU720igFzLMyg8a1Aidzw9CtrNWxuRMeRaVrpF+XGvKmWrv5RHoq6reeXaehY0i1
+ 59qRI3VVC49Q8aWlJpMjBcoBg0YdyNJHZp6yQcnCgXJPldHuJy3Hdc/fICZc2fVelCn5T1DVsAd
+ d9cya+1BaK+W2Tox76KNE+mU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8bbdbe130a30bd31;
+	Wed, 11 Nov 2026 14:50:49 +0000
+X-Mizu-Trace-ID: 8bbdbe130a30bd31
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: axboe@kernel.dk,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	dgilbert@interlog.com,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org
+Cc: linux-block@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2 0/2] blktrace: gate the blktrace interface behind CAP_SYS_ADMIN
+Date: Wed, 11 Nov 2026 22:50:32 +0800
+Message-ID: <20261111145034.248717-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,58 +73,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 10:27:15AM +0000, Tapio Reijonen wrote:
-> serial_core_remove_one_port() takes the port mutex and then waits for
-> the uart_port_ref() holders to drop their references. Since commit
-> 8ca59f7baee7 ("serial: fix ioctl hangup race") uart_wait_until_sent()
-> takes the port mutex on every poll iteration to check for the hangup
-> before it touches the hardware, while holding its reference for the
-> whole wait. A tcdrain() in flight when the port is removed therefore
-> deadlocks: the removal holds the mutex and waits for the reference,
-> the drain holds the reference and waits for the mutex. Both tasks sit
-> uninterruptible, and the port is unusable until a reboot.
-> 
-> Reproduced by unbinding a UART driver while a process drains a few
-> kilobytes at 300 baud: the unbind blocks in wait_event() under the
-> mutex, the drain in mutex_lock(), and reading the driver's proc file
-> blocks on the same mutex.
-> 
-> Drop the mutex around the decrement and the wait. The decrement is an
-> atomic paired with uart_port_ref() and uart_port_deref(), which never
-> take the mutex; the clearing of the port pointer stays under it, where
-> uart_port_check() readers expect it. Between the hangup and this wait
-> the removal already runs without the mutex, so a mutex holder seeing
-> the released port is not a new state.
-> uart_wait_modem_status() takes a reference and then the mutex in the
-> same way, with a smaller window, and is covered by the same change.
+From: Tao Cui <cuitao@kylinos.cn>
 
-Thanks for catching this. I can reproduce it here as well, and we should
-fix it even this is hardly something anyone would hit during any kind of
-normal use.
+hello,
 
-> Stable trees before the guard() conversion of this function need the
-> same change with explicit calls: mutex_unlock() before the
-> wait_event(), mutex_lock() around the store of the port pointer.
-> 7.3.y has the guard() form and takes the patch with a three-way
-> merge.
+This series gates the blktrace interface behind CAP_SYS_ADMIN.
+BLKTRACESETUP allocates user-sized relay buffers and sets up traces
+that outlive the creating fd, but holding the block device node, an
+sg node, or write access to the sysfs trace attributes is the only
+requirement to drive that state today.  Split by tree so each patch
+stays in one subsystem: patch 1 gates the block side (the ioctl
+dispatch and the sysfs store) and documents the sysfs attributes,
+patch 2 gates the sg passthrough.  The two are independent and can
+be applied in any order; patch 1 should go through the block tree,
+patch 2 needs a SCSI Ack (taking both through block with the Ack
+works too).
 
-Right, the guard conversion makes any backport a bit harder, but that's
-something for the stable team to deal with. So you can drop this
-paragraph.
+Unprivileged callers get a single answer (-EPERM for the ioctls,
+-EACCES for the sysfs store) instead of values that revealed whether
+a trace existed and was running.  With CONFIG_BLK_DEV_IO_TRACE=n the
+sg passthrough still returns -ENOTTY, as before.  Privileged callers
+behave identically with and without the series.
 
-> Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
-> Cc: <stable@vger.kernel.org> # 6.18.y and older need the open-coded form, see below
+Verified on next-20261104 under qemu: with the series applied,
+BLKTRACESETUP with all capabilities dropped is rejected with -EPERM
+through both /dev/sda and /dev/sg0, and a dropped-privilege write to
+the sysfs enable attribute is rejected with -EACCES; without the
+series the unprivileged ioctl and the sysfs write both succeed.
 
-And just drop the comment here, and if you want to help, send a backport
-when the fix fails to apply to older trees.
+Base: next-20261104.
 
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Changes since v1:
+ - also gate the sysfs trace attribute group, which reached the same
+   tracing state without any check (found in follow-up review)
+ - document the sysfs trace group in Documentation/ABI, where it has
+   been missing since 2009
+ - gate the sg passthrough commands in a new patch; the v1 commit
+   message mentioned the sg path but gated only blk_trace_ioctl()
+   (flagged by sashiko's review of the first posting)
+ - commit messages now claim only what each patch covers
 
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Tested-by: Johan Hovold <johan@kernel.org>
+Link: https://lore.kernel.org/all/20261106142852.3233950-1-cui.tao@linux.dev/
 
-Johan
+Tao Cui (2):
+  blktrace: require CAP_SYS_ADMIN for the blktrace interface
+  scsi: sg: Require CAP_SYS_ADMIN for BLKTRACE passthrough ioctls
+
+ Documentation/ABI/stable/sysfs-block | 18 ++++++++++++++++++
+ drivers/scsi/sg.c                    | 10 ++++++++++
+ kernel/trace/blktrace.c              |  6 ++++++
+ 3 files changed, 34 insertions(+)
+
+-- 
+2.53.0
+
