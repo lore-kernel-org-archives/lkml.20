@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405040;
-	b=SfBRQOUFBFoaVWgijk+I8DuhUdqJoTbeXViqvuJVr0mb2+vRWfJRX994V+4Nn9gjwyv9
-	 DYwvZoiLUmPiC9DzZLQi1pKEB/z4H2qYZ8d+3Rw2KI4Y9bdxKM7CJ6Afcowwc1FlLVILp
-	 E68xY5YjeUcxjDiUgzXijRry5W9gq6tmWHK9KeMQ1PwXMWTrbjZQg0WVF/E0iB9p8QHY8
-	 cPh4sl6IqcWtkPFGN0OiHxiWjbnluVZHHQ5+WnP0cdS+CChFKgGZAkGVTUaJFi0/u/XzQ
-	 HQC8tUwNe3BGx1bVb7m+C0ZaQSCp+S5BEqjE0SlNriWvf6J3zYX0kygV8tUiQtjAnFQ==
+	t=1794405041;
+	b=HM8oFiJSNno/Da73DcyxW5eZhJZuxs/LEkKfQ2Kjht7bKDM9vVLoBEs1KSvVX1ZM9BE3
+	 OsUWO/yzZuKJNULguxkFC0Mont8TmMiZj9frwzEvxm1SoE5BICcXLvzVmNoyT1K5qGmuj
+	 Jg1dGisLK9SgVbROjzFpX+mLQmCbcjYcjqI3Sm2cBDa4BGdPkn5asZ1abSSYG4TDR3WXq
+	 VqQNFR0yq7vZJ6DM5rh+iyWU5EEG4OBsRrCmcVGKK/ToTErnIsR21P8nuBDd4BjqWPgMc
+	 GeE5U76zL9PphW+Hk3n47s7gYcTEnPG8yua7sGJ+A6qnpo652iW7d+nSNSjdZnV5vTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405041;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=3I2sFpfk7JOHt50Xn9z5VFX6ZirlazCKqpyLShKJUiU=;
-	b=SS03DKfKJcrbNvoHRVPKnkwVsC02ZEHiIozBFubxarK4YdLbv9uXVN/n64q0MhqZKZCD
-	 pzpOY9GpcV6AcnyEh6C2d8A5NY1mwekf64fKoj9bZ+5ZSDsNHymHoR8q00cF5iE8B/HG9
-	 c430aVD1fMNxR9hluF4tXHHEOFymPlfHxasLo/Y69oV9/+6vkh0IA0zNN12mkxjpETikk
-	 zylUgppDrtRBytW/Y0Xh/Rc+YH+xZzDT+ozkrbQedtPZOP4wktRvLbsBYZpqy4OSaoGKU
-	 bOdUNl3pq9s711WHul3J+fbUplgVkBAJAHFKwumQUI/Q3OvIh8w6fSbt4uEWnj+bSpQ==
+	bh=v34hq+2+UwnOmAPj53wlQxlZutQrpnzrAkgDgt3RX28=;
+	b=0BhHCq/3JTsxzKZF7Y+gF7sqeRpuNAUfihsygEkBNWMWMoFESN110wS1PCPPovxBhAv3
+	 rnhJcEl442EHRZicLBpPs3vqQ/4up/aNCfA09X3V2CoxPGchD0h1wwQ2EjMpWbIqa/Rjf
+	 xdwqkdeV+F8SY9qb50UmIlzdeZTQF+IUYCbRmi0LcUlrrbnUR4/hE/AZz3VI9zWpFQu7J
+	 8LqZwXUpMVu6wLDUzoE4QKcthP10CarQXTxB0cL4iECMU1xbXpiSZ4LfpsJKAl4DTpxQn
+	 RlqmAW+O2iPOz6g/7+j/X/fw4NSRJtCtKWSe/RxKYyThHzFyVOjj4U1qlBtNvMOLmdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=gMOmKGeX;
-	arc=none smtp.remote-ip=52.12.53.23
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DSeJ0pZc;
+	arc=none smtp.remote-ip=44.245.243.92
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5D260A263A
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD5D260A263A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998F160A263F
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 998F160A263F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=gMOmKGeX
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DSeJ0pZc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794405039; x=1825941039;
+  t=1794405040; x=1825941040;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=3I2sFpfk7JOHt50Xn9z5VFX6ZirlazCKqpyLShKJUiU=;
-  b=gMOmKGeXpofrkA5ZqVDv90mvnO1P2Nm/6YKo5s1NpAwvthlzjo8sPMLw
-   Ml2qSrVBS6htXw1h7/AsPgf/LVBDewFU+cMr7wHxg8RXObCbuu5qUhtTr
-   EV5EByZsGXi9SyUY4dllcFl2pc0tIvr+3jCdKwe8LTMwiEDd4qU10vI5c
-   KWJOAiJxc44I7GYKqqPVOXInqRiZY0OuN8V3CL1fKez5g8qxsYfxv8tuL
-   JjrnGzpxZAiMF0iCwehxL9pBO+WFGVl7FHb96hHJjMfP9+gsQQ1HFBGHa
-   NH+pBHs6YGF2oJWV97tnvVC34/krVCYPm9OEkU8+Sx3AlAP6zgX8IiLxD
-   A==;
-X-CSE-ConnectionGUID: TxPYh5fFS8GFglYQ4Trdiw==
-X-CSE-MsgGUID: qIJcmwXWQVWYgdYZzTVeTA==
+  bh=v34hq+2+UwnOmAPj53wlQxlZutQrpnzrAkgDgt3RX28=;
+  b=DSeJ0pZc4xw3BMATiGsp8yZg2hXbLcMi2ZdyLXmyYx6l8q8VCLoHDiAY
+   tfCWEGaY/WsFKLjR6GOhumSChmiZpWW8tvX9tUkpdZR6IA1RksCuI3iDl
+   ycTFD+gCFsdJVbOPvhClxgmZiC+2Fhd9NzQRX1h8KkY/jKlClYcvX4Cl9
+   OyFqJ8zXQ+EWdW8t/yzsuX2I8u8dm9RpJuiCYlaB+X6gGS3r+CVEDMwd8
+   aCQqAdgnQhbq+coKq9iqajjxMbjbYEPlqqLOFgbqXWdS12otJ+pRhRHN4
+   2/zhpWHWRN9MQw0wJBlWEXRzuSsS1HlbvE9AUHDgPs6MEcMAsIThlgbmV
+   w==;
+X-CSE-ConnectionGUID: JqHESYAMQWaGg0Xp2hEftw==
+X-CSE-MsgGUID: +0pSZ1C6QiWZ8wnwdEl7FA==
 X-IronPort-AV: E=Sophos;i="6.27,207,1787011200"; 
-   d="scan'208";a="33584287"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 13:50:39 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:8275]
+   d="scan'208";a="33227245"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 13:50:38 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:18696]
  by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
- id d8d1cbaa-b114-4571-9cfd-4a401990cb1a; Wed, 11 Nov 2026 13:50:39 +0000 (UTC)
-X-Farcaster-Flow-ID: d8d1cbaa-b114-4571-9cfd-4a401990cb1a
+ id d89652c2-f271-4de0-9e6f-9b50a15efa04; Wed, 11 Nov 2026 13:50:38 +0000 (UTC)
+X-Farcaster-Flow-ID: d89652c2-f271-4de0-9e6f-9b50a15efa04
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 13:50:38 +0000
+ Wed, 11 Nov 2026 13:50:37 +0000
 Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
  EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 13:50:37 +0000
+ Wed, 11 Nov 2026 13:50:36 +0000
 From: Alexander Graf <graf@amazon.com>
 To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
 	<gregkh@linuxfoundation.org>
 CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
  Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 05/19] nitro_enclaves: Stop sending commands to a broken device
-Date: Wed, 11 Nov 2026 13:49:54 +0000
-Message-ID: <712030a1a6fc70eeca39388a193246ff3d53d15d.1794393487.git.graf@amazon.com>
+Subject: [PATCH 04/19] nitro_enclaves: Retry a command the device asks us to retry
+Date: Wed, 11 Nov 2026 13:49:53 +0000
+Message-ID: <59febb32ee6366b39e484b3cd0c70b1133fadd87.1794393487.git.graf@amazon.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1794300000.git.graf@amazon.com>
 References: <cover.1794300000.git.graf@amazon.com>
@@ -90,205 +90,244 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The Nitro Enclaves device always answers quickly to its commands. Consider
-it broken if it does not reply to a command within 120s. Except for
-STOP/FREE commands which legitimately may take longer because the
-hypervisor performs cleanup work that may take some time. For those,
-use a 10 minute timeout.
+The nitro_enclaves device may return -EAGAIN under rare circumstances,
+which asks the system to perform the command again. Handle it as gracefully
+as possible inside the kernel driver.
 
-Rework the request handler logic to enforce these limits. But still keep
-processes killable during that time. Except for stop commands, which
-are used as part of the slot shutdown sequence and have to block.
+Most commands finish almost instantly; give them a 40s timeout. But commands
+like free may indicate through -EAGAIN that they are still actively working
+on freeling a slot which can take significantly longer. Use 10 minutes for
+those.
 
-If a STOP/FREE command failed to respond in time (10 minutes), the
-device is clearly broken. Switch to a mode then where it no longer
-accepts any new commands.
+To ensure that user space still reacts to events during such long timeout
+periods, rework some of the locking ordering and use killable locks.
+
+With this patch applied, a launch or a release that runs into such a
+window waits for it to pass. When the device still asks for a retry once
+the time is up, the caller gets -EAGAIN.
 
 Signed-off-by: Alexander Graf <graf@amazon.com>
 ---
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 20 ++-----
- drivers/virt/nitro_enclaves/ne_pci_dev.c  | 63 ++++++++++++++++++-----
- drivers/virt/nitro_enclaves/ne_pci_dev.h  |  4 ++
- 3 files changed, 59 insertions(+), 28 deletions(-)
+ drivers/virt/nitro_enclaves/ne_misc_dev.c | 28 +++++---
+ drivers/virt/nitro_enclaves/ne_pci_dev.c  | 83 ++++++++++++++++++++++-
+ 2 files changed, 101 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index 0e9d6157dcc64..964cb21b27c77 100644
+index bb5fdc377b051..0e9d6157dcc64 100644
 --- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
 +++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -1500,29 +1500,17 @@ static int ne_enclave_free_slot(struct ne_pci_dev *ne_pci_dev,
- 		rc = ne_do_request(pdev, ENCLAVE_STOP,
- 				   &enclave_stop_request, sizeof(enclave_stop_request),
- 				   &cmd_reply, sizeof(cmd_reply));
--		if (rc < 0) {
--			dev_err_ratelimited(ne_misc_dev.this_device,
--					    "Error in enclave stop [rc=%d]\n", rc);
--
-+		if (rc < 0)
- 			return rc;
--		}
+@@ -1155,7 +1155,9 @@ static long ne_enclave_ioctl(struct file *file, unsigned int cmd, unsigned long
+ 		if (copy_from_user(&vcpu_id, (void __user *)arg, sizeof(vcpu_id)))
+ 			return -EFAULT;
  
- 		memset(&cmd_reply, 0, sizeof(cmd_reply));
- 	}
- 
- 	slot_free_req.slot_uid = ne_enclave->slot_uid;
- 
--	rc = ne_do_request(pdev, SLOT_FREE,
--			   &slot_free_req, sizeof(slot_free_req),
--			   &cmd_reply, sizeof(cmd_reply));
--	if (rc < 0) {
--		dev_err_ratelimited(ne_misc_dev.this_device,
--				    "Error in slot free [rc=%d]\n", rc);
--
--		return rc;
--	}
--
--	return 0;
-+	return ne_do_request(pdev, SLOT_FREE,
-+			     &slot_free_req, sizeof(slot_free_req),
-+			     &cmd_reply, sizeof(cmd_reply));
- }
- 
- /**
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-index 199c3c7f8c42e..70fda4d29891f 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-@@ -46,9 +46,10 @@
- #define NE_CMD_RETRY_TOTAL_MSECS	(40000) /* 40 sec */
- 
- /**
-- * NE_FREE_TIMEOUT_MSECS - How long after a first -EAGAIN ENCLAVE_STOP and
-- *			   SLOT_FREE may still go out. Scrubbing a large enclave
-- *			   can take minutes.
-+ * NE_FREE_TIMEOUT_MSECS - How long the driver waits for the reply to
-+ *			   ENCLAVE_STOP or SLOT_FREE, and how long after a first
-+ *			   -EAGAIN it sends either again. Scrubbing a large
-+ *			   enclave can take minutes.
-  */
- #define NE_FREE_TIMEOUT_MSECS		(600000) /* 10 min */
- 
-@@ -98,13 +99,14 @@ static void ne_retrieve_reply(struct pci_dev *pdev, struct ne_pci_dev_cmd_reply
- /**
-  * ne_wait_for_reply() - Wait for a reply of a PCI device command.
-  * @pdev:	PCI device for which a reply is waited.
-+ * @timeout_msecs:	How long to wait for the reply.
-  *
-  * Context: Process context. This function is called with the ne_pci_dev mutex held.
-  * Return:
-  * * 0 on success.
-  * * Negative return value on failure.
-  */
--static int ne_wait_for_reply(struct pci_dev *pdev)
-+static int ne_wait_for_reply(struct pci_dev *pdev, unsigned int timeout_msecs)
- {
- 	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
- 	int rc = -EINVAL;
-@@ -112,10 +114,13 @@ static int ne_wait_for_reply(struct pci_dev *pdev)
- 	/*
- 	 * TODO: Update to _interruptible and handle interrupted wait event
- 	 * e.g. -ERESTARTSYS, incoming signals + update timeout, if needed.
-+	 *
-+	 * A slot that is being scrubbed holds the reply for minutes, which is
-+	 * no hung task, so wait idle.
- 	 */
--	rc = wait_event_timeout(ne_pci_dev->cmd_reply_wait_q,
--				atomic_read(&ne_pci_dev->cmd_reply_avail) != 0,
--				msecs_to_jiffies(NE_DEFAULT_TIMEOUT_MSECS));
-+	rc = wait_event_idle_timeout(ne_pci_dev->cmd_reply_wait_q,
-+				     atomic_read(&ne_pci_dev->cmd_reply_avail) != 0,
-+				     msecs_to_jiffies(timeout_msecs));
- 	if (!rc)
- 		return -ETIMEDOUT;
- 
-@@ -179,9 +184,23 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
- retry:
- 	/*
- 	 * Use this mutex so that the PCI device handles one command request at
--	 * a time.
-+	 * a time. A slot being freed can hold it for minutes, so let a task
-+	 * that waits for it be killed, unless the task frees a slot itself:
-+	 * release has to do that for a process that is being killed too.
- 	 */
--	mutex_lock(&ne_pci_dev->pci_dev_mutex);
-+	if (ne_cmd_frees_slot(cmd_type)) {
-+		mutex_lock(&ne_pci_dev->pci_dev_mutex);
-+	} else {
-+		rc = mutex_lock_killable(&ne_pci_dev->pci_dev_mutex);
+-		mutex_lock(&ne_enclave->enclave_info_mutex);
++		rc = mutex_lock_killable(&ne_enclave->enclave_info_mutex);
 +		if (rc)
 +			return rc;
-+	}
+ 
+ 		if (ne_enclave->state != NE_STATE_INIT) {
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+@@ -1219,11 +1221,14 @@ static long ne_enclave_ioctl(struct file *file, unsigned int cmd, unsigned long
+ 
+ 	case NE_GET_IMAGE_LOAD_INFO: {
+ 		struct ne_image_load_info image_load_info = {};
++		int rc;
+ 
+ 		if (copy_from_user(&image_load_info, (void __user *)arg, sizeof(image_load_info)))
+ 			return -EFAULT;
+ 
+-		mutex_lock(&ne_enclave->enclave_info_mutex);
++		rc = mutex_lock_killable(&ne_enclave->enclave_info_mutex);
++		if (rc)
++			return rc;
+ 
+ 		if (ne_enclave->state != NE_STATE_INIT) {
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+@@ -1267,7 +1272,9 @@ static long ne_enclave_ioctl(struct file *file, unsigned int cmd, unsigned long
+ 			return -NE_ERR_INVALID_FLAG_VALUE;
+ 		}
+ 
+-		mutex_lock(&ne_enclave->enclave_info_mutex);
++		rc = mutex_lock_killable(&ne_enclave->enclave_info_mutex);
++		if (rc)
++			return rc;
+ 
+ 		if (ne_enclave->state != NE_STATE_INIT) {
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+@@ -1347,7 +1354,9 @@ static long ne_enclave_ioctl(struct file *file, unsigned int cmd, unsigned long
+ 			return -NE_ERR_INVALID_ENCLAVE_CID;
+ 		}
+ 
+-		mutex_lock(&ne_enclave->enclave_info_mutex);
++		rc = mutex_lock_killable(&ne_enclave->enclave_info_mutex);
++		if (rc)
++			return rc;
+ 
+ 		if (ne_enclave->state != NE_STATE_INIT) {
+ 			dev_err_ratelimited(ne_misc_dev.this_device,
+@@ -1777,15 +1786,18 @@ static long ne_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	switch (cmd) {
+ 	case NE_CREATE_VM: {
+-		int enclave_fd = -1;
+ 		struct ne_pci_dev *ne_pci_dev = ne_devs.ne_pci_dev;
+ 		u64 __user *slot_uid = (void __user *)arg;
++		int rc;
+ 
+-		mutex_lock(&ne_pci_dev->enclaves_list_mutex);
+-		enclave_fd = ne_create_vm_ioctl(ne_pci_dev, slot_uid);
++		rc = mutex_lock_killable(&ne_pci_dev->enclaves_list_mutex);
++		if (rc)
++			return rc;
 +
-+	if (ne_pci_dev->failed) {
-+		rc = -ENODEV;
++		rc = ne_create_vm_ioctl(ne_pci_dev, slot_uid);
+ 		mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
+ 
+-		return enclave_fd;
++		return rc;
+ 	}
+ 
+ 	default:
+diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+index c37777bb95b49..199c3c7f8c42e 100644
+--- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
++++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
+@@ -26,6 +26,32 @@
+  */
+ #define NE_DEFAULT_TIMEOUT_MSECS	(120000) /* 120 sec */
+ 
++/**
++ * NE_CMD_RETRY_INITIAL_MSECS - Delay before the first retry of a command the
++ *				NE PCI device asked to be sent again.
++ */
++#define NE_CMD_RETRY_INITIAL_MSECS	(10)
++
++/**
++ * NE_CMD_RETRY_MAX_MSECS - Upper bound on the delay between two retries of a
++ *			    command the NE PCI device asked to be sent again.
++ */
++#define NE_CMD_RETRY_MAX_MSECS		(160)
++
++/**
++ * NE_CMD_RETRY_TOTAL_MSECS - How long after its first refusal a command the
++ *			      NE PCI device asks to be sent again may still go
++ *			      out, before -EAGAIN is reported to the caller.
++ */
++#define NE_CMD_RETRY_TOTAL_MSECS	(40000) /* 40 sec */
++
++/**
++ * NE_FREE_TIMEOUT_MSECS - How long after a first -EAGAIN ENCLAVE_STOP and
++ *			   SLOT_FREE may still go out. Scrubbing a large enclave
++ *			   can take minutes.
++ */
++#define NE_FREE_TIMEOUT_MSECS		(600000) /* 10 min */
++
+ static const struct pci_device_id ne_pci_ids[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMAZON, PCI_DEVICE_ID_NE) },
+ 	{ 0, }
+@@ -96,11 +122,24 @@ static int ne_wait_for_reply(struct pci_dev *pdev)
+ 	return 0;
+ }
+ 
++/**
++ * ne_cmd_frees_slot() - Whether a command is one of the two that free a slot.
++ * @cmd_type:	Command type of the request.
++ *
++ * Return: true for ENCLAVE_STOP and SLOT_FREE.
++ */
++static bool ne_cmd_frees_slot(enum ne_pci_dev_cmd_type cmd_type)
++{
++	return cmd_type == ENCLAVE_STOP || cmd_type == SLOT_FREE;
++}
++
+ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
+ 		  void *cmd_request, size_t cmd_request_size,
+ 		  struct ne_pci_dev_cmd_reply *cmd_reply, size_t cmd_reply_size)
+ {
++	unsigned int delay_msecs = NE_CMD_RETRY_INITIAL_MSECS;
+ 	struct ne_pci_dev *ne_pci_dev = pci_get_drvdata(pdev);
++	unsigned long deadline = 0;
+ 	int rc = -EINVAL;
+ 
+ 	if (cmd_type <= INVALID_CMD || cmd_type >= MAX_CMD) {
+@@ -137,12 +176,23 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
+ 		return -EINVAL;
+ 	}
+ 
++retry:
+ 	/*
+ 	 * Use this mutex so that the PCI device handles one command request at
+ 	 * a time.
+ 	 */
+ 	mutex_lock(&ne_pci_dev->pci_dev_mutex);
+ 
++	if (deadline && time_after_eq(jiffies, deadline)) {
++		dev_err_ratelimited(&pdev->dev,
++				    "Device asked to retry cmd type=%u, giving up\n",
++				    cmd_type);
++
++		rc = -EAGAIN;
 +
 +		goto unlock_mutex;
 +	}
- 
- 	if (deadline && time_after_eq(jiffies, deadline)) {
- 		dev_err_ratelimited(&pdev->dev,
-@@ -197,10 +216,18 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
++
+ 	atomic_set(&ne_pci_dev->cmd_reply_avail, 0);
  
  	ne_submit_request(pdev, cmd_type, cmd_request, cmd_request_size);
+@@ -159,6 +209,27 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
  
--	rc = ne_wait_for_reply(pdev);
-+	rc = ne_wait_for_reply(pdev, ne_cmd_frees_slot(cmd_type) ?
-+				     NE_FREE_TIMEOUT_MSECS :
-+				     NE_DEFAULT_TIMEOUT_MSECS);
- 	if (rc < 0) {
--		dev_err_ratelimited(&pdev->dev, "Error in wait for reply for cmd type=%u [rc=%d]\n",
--				    cmd_type, rc);
+ 	atomic_set(&ne_pci_dev->cmd_reply_avail, 0);
+ 
++	if (cmd_reply->rc == -EAGAIN) {
 +		/*
-+		 * A reply does not name the command it answers, so a reply that
-+		 * comes after this would be read as the answer to the next one.
++		 * The device answered, so nothing is in flight and another
++		 * command may go out while this one waits to be sent again.
 +		 */
-+		ne_pci_dev->failed = true;
++		mutex_unlock(&ne_pci_dev->pci_dev_mutex);
 +
-+		dev_err(&pdev->dev, "No reply for cmd type=%u, not sending more cmds\n",
-+			cmd_type);
- 
- 		goto unlock_mutex;
- 	}
-@@ -242,6 +269,18 @@ int ne_do_request(struct pci_dev *pdev, enum ne_pci_dev_cmd_type cmd_type,
- 	rc = 0;
- 
- unlock_mutex:
-+	/*
-+	 * A device that does not stop or free a slot leaves the driver unable
-+	 * to tell what the slot still uses, so treat it like one that did not
-+	 * answer.
-+	 */
-+	if (rc < 0 && !ne_pci_dev->failed && ne_cmd_frees_slot(cmd_type)) {
-+		ne_pci_dev->failed = true;
++		if (!deadline) {
++			unsigned int budget_msecs = ne_cmd_frees_slot(cmd_type) ?
++						    NE_FREE_TIMEOUT_MSECS :
++						    NE_CMD_RETRY_TOTAL_MSECS;
 +
-+		dev_err(&pdev->dev, "Slot not freed, cmd type=%u [rc=%d], not sending more cmds\n",
-+			cmd_type, rc);
++			deadline = jiffies + msecs_to_jiffies(budget_msecs);
++		}
++
++		msleep(delay_msecs);
++		delay_msecs = min(delay_msecs * 2, NE_CMD_RETRY_MAX_MSECS);
++
++		goto retry;
 +	}
 +
- 	mutex_unlock(&ne_pci_dev->pci_dev_mutex);
+ 	if (cmd_reply->rc < 0) {
+ 		rc = cmd_reply->rc;
  
- 	return rc;
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index 6e9f28971a4e0..19e129d14a3a0 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -279,6 +279,9 @@ struct ne_pci_dev_cmd_reply {
-  * struct ne_pci_dev - Nitro Enclaves (NE) PCI device.
-  * @cmd_reply_avail:		Variable set if a reply has been sent by the
-  *				PCI device.
-+ * @failed:			A command got no reply in time, or the device did
-+ *				not stop or free a slot. No command is sent to
-+ *				the device after that.
-  * @cmd_reply_wait_q:		Wait queue for handling command reply from the
-  *				PCI device.
-  * @enclaves_list:		List of the enclaves managed by the PCI device.
-@@ -294,6 +297,7 @@ struct ne_pci_dev_cmd_reply {
-  */
- struct ne_pci_dev {
- 	atomic_t		cmd_reply_avail;
-+	bool			failed;
- 	wait_queue_head_t	cmd_reply_wait_q;
- 	struct list_head	enclaves_list;
- 	struct mutex		enclaves_list_mutex;
+@@ -221,7 +292,14 @@ static void ne_event_work_handler(struct work_struct *work)
+ 	int rc = -EINVAL;
+ 	struct slot_info_req slot_info_req = {};
+ 
+-	mutex_lock(&ne_pci_dev->enclaves_list_mutex);
++	/*
++	 * A release holds these locks for as long as the device takes to free
++	 * the slot, which can be minutes, so wait killable: that is not
++	 * reported as a hung task. The worker gets no signal, so the locks do
++	 * not fail.
++	 */
++	if (mutex_lock_killable(&ne_pci_dev->enclaves_list_mutex))
++		return;
+ 
+ 	/*
+ 	 * Iterate over all enclaves registered for the Nitro Enclaves
+@@ -229,7 +307,8 @@ static void ne_event_work_handler(struct work_struct *work)
+ 	 * is corresponding to.
+ 	 */
+ 	list_for_each_entry(ne_enclave, &ne_pci_dev->enclaves_list, enclave_list_entry) {
+-		mutex_lock(&ne_enclave->enclave_info_mutex);
++		if (mutex_lock_killable(&ne_enclave->enclave_info_mutex))
++			break;
+ 
+ 		/*
+ 		 * Enclaves that were never started cannot receive out-of-band
 -- 
 2.47.1
 
