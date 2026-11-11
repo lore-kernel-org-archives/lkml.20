@@ -1,76 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794400140;
-	b=f4ltg1e7d/njne4Ootyy59+OUHNkvxKTPfOKzc7dpqLces+vEBJzxoLKh6mH1YhB+b49
-	 XtGFb2yIIqVS1lk34e0Nm9IyZA4Kpc4sMiBvTF7+k3qweZUSBNFeid6/gWQ+ZBZQC7qXa
-	 Vbc3s0htPbU+6X67lgzSAAGWLzGM0KOkh3wcNK6VWg4H9BogB2aINcxZqxmQNAM6a5uOl
-	 bupSjwZ4h7bTLaqmF6XqwvmDTbmBuDwcoB/8MVUJ7JH+MMD4linAlcGLsfXMVCGjRYgPR
-	 RTeQXgMOiOx4PaTbVg6ZB+L02tTSfyC/6NUaFPksPQKt0fm2ucZ53Z0pa1PRxFsv0ew==
+	t=1794400156;
+	b=za4KjDaR2z4JoXT8NhX95Gnidq8w3ad2IRAq1yrBiaBWPQxnXYJ+2XEd40MfGc04Zk39
+	 AvTlGVP0d0SE3DIXySG5Zl0pIdVQIpb9xI/TymdFovvyZe4cj7lSFu0MwrxY9YPvDIsCG
+	 mmtslisOxYhOvDJ+DFAJAElSYKqBZCU0cvLm5ErOQbCUzY37JDQAChnWCz/zjzGJu1HEP
+	 UrCSgwtKqBEp3Soe5NXddpVGQuoDCoYYSTxzcoPMUMDKLG1Jq/hg2zSZZVQILafXlWhKG
+	 VMhx7jVg8T3iH59BOCI7sL5/Vw/Wzr5IJTqZw2ukRoXPmm1zEkPjtZFCRrJ7fKOKB2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794400140;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=2uXXxCptiBVKiV7trnfsefY6P8MdSqZYuQPA6gJbIGg=;
-	b=XpXsxrPwORDR9rYio3OLRZplpYrqiMlP8zBOHyxILZsNyaM6tn0SrrKZboMCdtasDADr
-	 t0wnKY3GtmxKJAZy7vIEixTa09BdvyhWU5JlpuAzOQMgKFXFuLznHx2Ml7F/ANSKEbpVD
-	 C2vhm1Z9dRz67Kl4Sry3osuBWWgfSCLJywvJaJ7p3AwWegL6a6TCmYS2Aeamaz1kXWo6l
-	 YZA1ohuNQQYL7eo7lNx/Ud3xmyNO92NPjz3xOt2GzuJmeLNEZ5T9fERu0adYpEAZ3TZGT
-	 2bIfQELK7qMkGms6mdjPnfs262cTkJBdKYl4xfAip+D/OsSj9btL4+RU2T1hTk6l+Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794400156;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jGFnHp/uKGNPG6eXjwGHrK2QKoQXCdOfknclUfftapQ=;
+	b=daOWIG9WnPU56wBE5Fuy0PVq1cMxR0LRAL1yee95AGfbgKHGI/QNHxGmAhILbgOUyrMs
+	 jQbvM0JlOO3in1JCilc7prrIsA3APsTo8fb6+CFRMFT0uD5HfS8z5g6rEA36NkJ2ha8Z/
+	 yBFtuIvdwHWRRoey7RSMdMLC7fbCTHwE7rkzIQGmLEWpqT04dsS4gvONRoeGhwvTUni7C
+	 dzuvPIm5ieBPSnUyjQ68AL9Zj2qTIcczau/9BH7T1AKhcixwRk2/412laLYHIQRJmFQcd
+	 rfCBn71DAZES4hUVhiSVEJfUiHXHbsCG+PCvzPUzn/YpScLPxuOSBo1skcobVc8qY7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="VV6Ms0F/";
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSyhMgCW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CDE606A335;
-	Wed, 11 Nov 2026 12:28:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93CDE606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357DE606A326;
+	Wed, 11 Nov 2026 12:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VV6Ms0F/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794400140; x=1825936140;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=an7Iiy5Su5gkoynIAwmzhjvcJg2aeqyxVs2OyeoTxdQ=;
-  b=VV6Ms0F/R773LCmi9gqMtPjeHslZoU1292JcHAkeclrbs2pZKpjlw244
-   x3GbuWcR1KFNSuINeB7KlSR0JGrBKCUT06WSa9o32oTJ4irEQC5W2zXMu
-   Uib5brRNTG5lsty4ttmhwve4Mj+0L2Bk2bAvto7jw6DZ+7MykygkJm4B5
-   dnZWjCra0M1tTk+I1SoD3doakP8fbSQhuUAD52bhq/c67j9tcrQUCudcl
-   9aAzowKcwmb6puNx7ha5NVVzPWJ2XWVSnDvsQ1jD/a88XRM4YFoMMKCUe
-   dLb4BjlVbLHFm5/iiH6DD+cYFL69fzZaM9tn54R71pDGfri4/mwNjWmBO
-   A==;
-X-CSE-ConnectionGUID: umqx0W9ESOKnHPos/XNqaw==
-X-CSE-MsgGUID: BBmPm79wT527G1SXKOKIuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3175912"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3175912"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:28:59 -0800
-X-CSE-ConnectionGUID: WVJi+QieSViAYyAM5mt8GA==
-X-CSE-MsgGUID: Ihd47nl9QX2JqjoS1mOu6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8572768"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.192])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:28:57 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 11 Nov 2026 14:28:53 +0200 (EET)
-To: Tao Xiao <guanlan@awinic.com>
-cc: Hans de Goede <hansg@kernel.org>, 
-    "open list:ACPI SERIAL MULTI INSTANTIATE DRIVER" <platform-driver-x86@vger.kernel.org>, 
-    open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: serial-multi-instantiate: Do not request
- IRQ for AW88399
-In-Reply-To: <20261111043759.306458-1-guanlan@awinic.com>
-Message-ID: <ccd77135-cb25-d49f-7e30-1777682485e9@linux.intel.com>
-References: <20261111043759.306458-1-guanlan@awinic.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSyhMgCW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7361F00A05;
+	Wed, 11 Nov 2026 12:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794400156;
+	bh=jGFnHp/uKGNPG6eXjwGHrK2QKoQXCdOfknclUfftapQ=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=KSyhMgCWYm1q9hjjpwyqSkQotfahEWnexALjRm3p1gU7WgNkKnOHdVyIFqXjH1Rx7
+	 Y9zyp/LftysIhpC9MDKwXnIDuiqW0SWDEBdAXz0AiB66LV10H2zMQS/RsdT0k31ATK
+	 YpcJYiYUx9tbcWvWZAhOaj+tB5QJBu7neVK0U/iBFVi6U8ZbgkacWZHUS8mrTxxmjP
+	 c9IeoAz4/sEdfYZ5qnMqiVmn5K9/JJIoJ4apAsZ7ykjuwG2Kky2IvrQJ94rfLetLbZ
+	 6NJOxCL4mA+IutCT7po5UqLldIqRJe17UvDX03qBKO1E3KFnO+SZXqbQfg4m0Y18JN
+	 Ry5fPamXlT2gg==
+Message-ID: <dc4b0511-56a6-4510-a4b7-311906c9fd69@kernel.org>
+Date: Wed, 11 Nov 2026 13:29:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,44 +51,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: msi2500: return buffers as QUEUED in buf_queue()
+ before start_streaming()
+To: zhangdaolong <dlzhangak@isoftstone.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Antti Palosaari <crope@iki.fi>, Valery Borovsky <vebohr@gmail.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <1793954471.6AED92A4.003.4jLXhN6Cksz4Dr7@fangwg01>
+Content-Language: en-US, nl
+In-Reply-To: <1793954471.6AED92A4.003.4jLXhN6Cksz4Dr7@fangwg01>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 11 Nov 2026, guanlan@awinic.com wrote:
-
-> From: Tao Xiao <guanlan@awinic.com>
-
-I expected problem or justification described here first, but all I got 
-was what was done:
- 
-> Set the IRQ resource type to IRQ_RESOURCE_NONE for both instances so
-> the device instantiates regardless of the ACPI interrupt description.
-
-Was there like a problem with some device that you're trying to fix? Why 
-that's not mentioned?
-
--- 
- i.
-
-> Signed-off-by: Tao Xiao <guanlan@awinic.com>
+On 06/11/2026 09:41, zhangdaolong wrote:
+> When vb2_start_streaming() is invoked, it first passes all pre-queued
+> buffers on q->queued_list to the driver via buf_queue() before setting
+> q->start_streaming_called and invoking start_streaming(). If
+> start_streaming() subsequently returns an error, videobuf2 requires all
+> buffers passed to the driver to be returned with VB2_BUF_STATE_QUEUED
+> and warns via WARN_ON(!list_empty(&q->done_list)) if any buffer was
+> completed with VB2_BUF_STATE_ERROR or VB2_BUF_STATE_DONE.
+> 
+> If the USB device disconnects before vb2_start_streaming() runs (for
+> example when v4l2_read() races with msi2500_disconnect()), dev->udev is
+> already NULL when vb2_start_streaming() enters. msi2500_buf_queue() sees
+> !dev->udev and immediately completes each pre-queued buffer with
+> VB2_BUF_STATE_ERROR (moving it onto q->done_list) instead of adding it
+> to dev->queued_bufs. Right after that, msi2500_start_streaming() also
+> sees !dev->udev and returns -ENODEV, triggering
+> WARN_ON(!list_empty(&q->done_list)) in vb2_start_streaming().
+> 
+> Fix this by checking vb2_start_streaming_called(vb->vb2_queue) in
+> msi2500_buf_queue() when !dev->udev: return VB2_BUF_STATE_QUEUED when
+> start_streaming() has not been called yet, and VB2_BUF_STATE_ERROR when
+> streaming is already active.
+> 
+> Reported-by: syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=930e6201080a31e9d0c8
+> Fixes: 977e444f59ad ("[media] Mirics MSi3101 SDR Dongle driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
 > ---
->  drivers/platform/x86/serial-multi-instantiate.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/media/usb/msi2500/msi2500.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/x86/serial-multi-instantiate.c
-> index ffec4f0a4992..f69ad3815c8c 100644
-> --- a/drivers/platform/x86/serial-multi-instantiate.c
-> +++ b/drivers/platform/x86/serial-multi-instantiate.c
-> @@ -309,8 +309,8 @@ static void smi_remove(struct platform_device *pdev)
+> diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
+> index 282256ab812a..d89db57f924f 100644
+> --- a/drivers/media/usb/msi2500/msi2500.c
+> +++ b/drivers/media/usb/msi2500/msi2500.c
+> @@ -625,7 +625,9 @@ static void msi2500_buf_queue(struct vb2_buffer *vb)
 >  
->  static const struct smi_node aw88399_hda = {
->  	.instances = {
-> -		{ "aw88399-hda", IRQ_RESOURCE_AUTO, 0 },
-> -		{ "aw88399-hda", IRQ_RESOURCE_AUTO, 0 },
-> +		{ "aw88399-hda", IRQ_RESOURCE_NONE, 0 },
-> +		{ "aw88399-hda", IRQ_RESOURCE_NONE, 0 },
->  		{}
->  	},
->  	.bus_type = SMI_AUTO_DETECT,
-> 
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-> 
+>  	/* Check the device has not disconnected between prep and queuing */
+>  	if (unlikely(!dev->udev)) {
+> -		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_ERROR);
+> +		vb2_buffer_done(&buf->vb.vb2_buf,
+> +				vb2_start_streaming_called(vb->vb2_queue) ?
+> +				VB2_BUF_STATE_ERROR : VB2_BUF_STATE_QUEUED);
+>  		return;
+>  	}
+
+I think the real problem is that msi2500_buf_queue is calling vb2_buffer_done
+at all.
+
+What happens if you just remove this 'if' completely?
+
+I don't think I have seen vb2_buffer_done being called from buf_queue before.
+It's very dubious code.
+
+Regards,
+
+	Hans
+
+>  
+
