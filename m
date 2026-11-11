@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389761;
-	b=3zxsowEi1dr3tEjurtXhnDk7UbezXVjv61Pwb81Ysoib6iBSq2BFiuRqmipLbbfM04A+
-	 BbrQxfA/9CEcHSyzi8CP+cbwiSBSeT5NbGI/WQ7ZS1iWborjHLd8zSECa1w3nFiM3dMkH
-	 fkuCBv1sk47HjS5xbwrk7PB0L3di75ZEu2JsXoUqmFULKi/Nuzh3Qa4pZ8aIFIO73ENAe
-	 K5efHCVe3eoGKf2yOuuxKY4zG6pVYDpRXYEDRNYgLQbmnHyYkewOVJ52QiTwICyrxRbjz
-	 mCf08ZLg/VwFbszeiTmkMGjDTaIfG/8AYUTcS26p186y1MXnc9bwq4SzS97kNs+zwHA==
+	t=1794389778;
+	b=vTNyy4ujrT5u4lGJkqXVSg5VKB4yl3y8YS1ASSodANC4n2rIHAzd6jreY6c5pe4YkYNg
+	 jKUhmWlVRmMm8/yBuoTd7gPLMqmRKEWghX4+NonWwSSY0DvLmossLg6i/2MA9/oQLzHe+
+	 3ecGfTL0zrWgESfdJaq99w6XGOrp6StcKWlhcJ9ki2CSozpOdNgeSoqw9sh2lUAmIMKg6
+	 FM3t0nMDnfDuwfyH+41Jj2fZ0Mh+psCQ+Lz8dS100M/Pv1cfZsCMRWTNr9doUqzxh+JCw
+	 fUpwV8gV8C/pWGjZt0N5vfBKTpx2fu72j8HNdl41wsrvSC14R8uSoOPT9uMv5gU0UzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389778;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=FLxx306+tAISOP/bkIgH6EctXfc6n+IEfXg8sHsWejY=;
-	b=u4qDY2l5oLw4m/ahXYkBKylKulF62PktnJ9PrMkAhEw5g9qK/SnHXuZkwsynqvlDeafw
-	 XK+vfTmih+opJ7o4rvshsOhO/lMuWwiZUcHa/+oERcWDoi2YAKr+L3kRgaMViNl2gwsdN
-	 qTClc+t09OZS/y9lNs99e07I5AX9I3l1N+hji/ZIxAu/0wigBuVgpsRsLLrX/YK2CLlsc
-	 BvXo08jXnrS9PxZCkGAAzeb3gV+ZiNdYDbSthcmO8y9fRNc44g4JsMEKKgwO5Y8W/mPJh
-	 ovJw1Ax4AUv7wnNKwceHlyp/iY33GBO6p13DAONbVGA5shyp5Q+YPzIq7iXyx7j2QWw==
+	bh=xYfhnM/B3nbEhSHaZbxy90wKrc0VRagGYhRr8V1JAok=;
+	b=EMo35+ndXisW/7VIP5H8a7yr2PsqWMcKKhwlWmf8jzoVmlbgacF6ppfbsl8wprLBJJsp
+	 oZaUU9s0KgJukSQ8Cu8uU2zWhA4x6/9nYI7Dt1+0rH6zs90MGo/ZyDt3GdJoyXpgyWwAd
+	 WplPTgjjny60Adq1/iopI6t00dtYFpCI148/2cxZCOV51oRHjLaAqqEW1pQYT5mIwN5KS
+	 LEvnTNDwp5KTD4r/4okSq3aRzgZZ7n8qero+z7IovTPaqUHPSuU9dQfPw53VFEJfLIv7o
+	 l8a9xmaYYO8GJcVRXwAydSPK0XG6x4+jT2yQFOTJJr2gTmlEQU8jKooDK/E6XSiT81A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=OwAkZraT;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=nNZ5OnAH;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69868606A324;
-	Wed, 11 Nov 2026 09:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69868606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466BD606A31C;
+	Wed, 11 Nov 2026 09:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 466BD606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=OwAkZraT
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=nNZ5OnAH
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jPdgG1F6kz5B147;
-	Wed, 11 Nov 2026 17:35:54 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPdgh3Bhbz8Xrrc;
+	Wed, 11 Nov 2026 17:36:16 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794389754;
-	bh=M65uMDfm7EZkwKp4x31kX/uQWmsDRn/+DdbUriicHVo=;
+	s=z202610; t=1794389776;
+	bh=nISwyAkGwW+5KPZlR7klQihrMRsBcil/fLEMXbhFKD4=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=OwAkZraTE3FJ3UG0y+tDshPE54pAg6EbZwPOOv7C55mwMIVC9G/zMQXwxjn7vvfr8
-	 IQaOlrC0s99xVjXt7NNsDfQqByYjKpzkJyLbaqERTkzxS4CRfgvC4EiO5Y4KkiQJTy
-	 xgx75OGpH/BIAnCjOBH8idRGJ5IU+NEddks08XNAIBYP3jQ6I8XEtnXTPKHOjCq3nY
-	 XJLNRJlkC+ssqjsrzg5Vn90DtN5bHDF76RrGtMwV5Mt03vwYfbhuLXvkaay+Ha86or
-	 8jOnNwDfNuLvcJwHFlHMSmOlYLiIXU0gQJwEz8LdidZLOuEorZ2OeVZbrTRnWdhCh4
-	 mMxlzMnTc609w==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6AB9Zih2007469;
-	Wed, 11 Nov 2026 17:35:44 +0800 (+08)
+	b=nNZ5OnAHag8nUux3OqaAPxF0FgodwUuM+fXu930K4eh65z/WUE57yeP1m/sPkaZI+
+	 hphq+2+TWAyEnjdQlpV96pK2XZlRu6UO/aIJxlHHcPSuvJSg2xcC8NqFOTXDvI/bwp
+	 wKck/wb6/7RQ7DWuiIHzFiGExKfkTwIs9UuLhHl3Emgpx8VwT26cMWHmg1IXAbATZ8
+	 y2/8E2NNu7H9SJpzFQCoPWqN1LISATzo+UHKh/rBf5eSuXgYVGU089eGR86FzF3+mw
+	 1nLyfdFAsSm29v5qCOE52czapW95/Psbeq3fOE8xVt+yO9ckpZZdIEKSPsaVNMoH7p
+	 RetWLGHWc1yMg==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6AB9a7km008108;
+	Wed, 11 Nov 2026 17:36:07 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 17:35:46 +0800 (CST)
-X-Zmail-TransId: 2afb6af436f2a9d-e5b02
+	Wed, 11 Nov 2026 17:36:10 +0800 (CST)
+X-Zmail-TransId: 2afb6af4370a4f9-e655d
 X-Mailer: Zmail v1.0
-Message-ID: <20261111173546439alUdLx-iD6-ISoa9jqS5H@zte.com.cn>
-In-Reply-To: <8f5f5582-523f-4632-be69-b176f7ac52db@gmail.com>
-References: 20261110225742308FW7iPw8mc9gwd2DU0W-_w@zte.com.cn,8f5f5582-523f-4632-be69-b176f7ac52db@gmail.com
-Date: Wed, 11 Nov 2026 17:35:46 +0800 (CST)
+Message-ID: <20261111173610100jiAz_Z1qb0aBv45pMvy3c@zte.com.cn>
+In-Reply-To: <b8b3dd8e-7d66-4d8f-87f8-c88148334ebf@sirena.org.uk>
+References: 20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn,b8b3dd8e-7d66-4d8f-87f8-c88148334ebf@sirena.org.uk
+Date: Wed, 11 Nov 2026 17:36:10 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,32 +74,36 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <jelonek.jonas@gmail.com>
-Cc: <linusw@kernel.org>, <brgl@kernel.org>, <linux-gpio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2Ml0gZ3BpbzogbGluZS1tdXg6IGZpeCB1bnNpZ25lZCB0cnVuY2F0aW9uIG9mIHByb3BlcnR5IGNvdW50IGVycm9y?=
+To: <broonie@kernel.org>
+Cc: <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-riscv@lists.infradead.org>, <pjw@kernel.org>,
+        <samuel.holland@sifive.com>, <william.zhang@broadcom.com>,
+        <kursad.oney@broadcom.com>, <jonas.gorski@gmail.com>,
+        <bcm-kernel-feedback-list@broadcom.com>, <anand.gore@broadcom.com>,
+        <florian.fainelli@broadcom.com>, <rafal@milecki.pl>,
+        <linux-arm-kernel@lists.infradead.org>, <sven@kernel.org>,
+        <j@jannau.net>, <neal@gompa.dev>, <asahi@lists.linux.dev>,
+        <ryan.wanner@microchip.com>, <nicolas.ferre@microchip.com>,
+        <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAwLzVdIHNwaTogZml4IGRpdmlzaW9uIGJ5IHplcm8gd2l0aCBhIHplcm8gdHJhbnNmZXIgc3BlZWQ=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AB9Zih2007469
+X-MAIL:mse-fl2.zte.com.cn 6AB9a7km008108
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Wed, 11 Nov 2026 17:35:54 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 11 Nov 2026 17:36:16 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF436FA.001/4jPdgG1F6kz5B147
+X-Fangmail-MID-QID: 6AF43710.000/4jPdgh3Bhbz8Xrrc
 
 --------------------------------------------------------------------------------
-Hi Jonas,
+On Tue, Nov 10, 2026 at 04:14:21PM +0000, Mark Brown wrote:
+> Oh, I see you also sent those v2 patches as part of the series as
+> normal.
 
-On 10.11.26 17:07, Jonas Jelonek wrote:
-> I think you still need to move it up where 'unsigned int ngpio' was
-> before for RCT.
-
-I read RCT as ordering by decreasing declaration length, in which case
-`int ngpio, ret` after `size_t size` already complies.  But if you want
-it in ngpio's old slot (right after `glm`), that's a one-line move --
-say the word and I'll fold it into the next revision (v2 already has
-your Reviewed-by, so I'd rather not respin just for this).
+Yes -- the two standalone mails from 22:57 were a mistake and are
+superseded.  v2 only changes 1/5 (sifive) and 5/5 (atmel); 2/5–4/5 are
+unchanged.  Waiting on your review.
 
 Thanks,
 Shao
