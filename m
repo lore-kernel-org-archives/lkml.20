@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482594;
-	b=YT0keW9C3p1KcYMJGBZh2vsBXmfr2QcKvrYe60I/W8tE6GXLUViYzk2b2Jjp2NS/uqF5
-	 CFSwiwtPhTNO9N139t8yLixiEysFdIsbXgxclcFb40kuvOkVI2cfSlrbTNLP9/IhVyWss
-	 bxQ8jvEVB9xL4fJ2DUf2JgRsrkJV+N2EvwAJbuh1tr0Gf3SZ3nBbLzLj2NRLAHJNoQ15W
-	 m0kQtfCVq7srblmsWWqdHydU+YHHRTb+7gPxS/iANXb+aXsqpeX1ylZZ5RNnguqsoLrB5
-	 XOLffvpFT/wlNcTqour1i4G636IDn3ZduwBgjy5siQR1X/3a19T36+t0gq04g1P3XWQ==
+	t=1794482597;
+	b=OIEe4rEkHpoeuJ3x03Iim64vdX7+faQPIq4l/EKLxydm9UtxZ1VxB8wEd0WExbA9x6kD
+	 XYc8JlFdkzK7cpIVjGsnT4TTkvwGIekWRz+g92LIAC5kgwr/6EqmBi+y5UDow5iVDWJ88
+	 GP4P1OiMZwQbED990/hTklmScmDjqTnMtgkvUCmqUNK/b9ZHzdfOzIgGG81uzmY01iIpd
+	 KiFqdjDz+g9OGm0AvccA9FXCnhoTsAS76DgkflqSm1/g7qHnYwrsLv+T6mwXdy3B2GR0M
+	 fMY1gz5LA8NPYSg5fvGDb/ymPaCXYDNASLEbMBkVmDzwVFqZiVJrxRTKK/QFbp4VnXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482594;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482597;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=nS1zpLXR0Ltc9jPx4jJyxbCNLHAzN4pNMWWnCEovFkE=;
-	b=vgrf4xwPAaWu2Fiyn+X2evfw2BsjN85LN85TXhdjIauPZ6pgF8s0d9du0tUjRkLYuyEI
-	 KauyVCyacU6HsgL4zwGuiB156t0Py9KbAuxoO50uPLDGnvIgrGpPMuUz9NQK8ZhpYaZb4
-	 2FBcqaqQqMbQqrB3NhTLzYVgGpnG8tZZy4MRXiFSDwgW3dqa79kAPML8GUqW6T/nsXmiH
-	 GiEyuyhMF9ZVcadIz/n2WR9Nv57VqKdGAcPqo2NS94p4TXAGclclI8xs0nLVhkPnKMe/3
-	 XhNj6PybKQnu5v3SBiLAYdwzBLXvfB0rMjhC8xWiblmc2zDH6YL41bhEn0hiMlhn+1w==
+	bh=DZX7LrkkoITSV9q8/hf9tQANgdUAkilb9PapYVkP0Us=;
+	b=4GpXONGjYXSmWOFgsJbrI4EsV9cN7hx1dqvxeVtF/uR9WSVGnxeMI5M0FdN18vrhjmkk
+	 aBYZ/v5CXzXmLypxgVbg1ZLi09tpWDidL+ZgU1oWofi9vnR1wMz/4dFatUp7J2xAqsV/l
+	 ahnlR2H6WleVG/3viNJ2htYyW7bnJp/7cf1Pguxt5E9CjkuYQlxuxACs8WQ3TGS1IZBDc
+	 UY136zGV9OWCGQW0MsUhLpF6dxRGzqgho5jKeBFLD8dh+8h1SxXQ9zhmjaoxnK8oSAX4l
+	 8e8nNP5HkfGIvKJGsc8ipsZ60muNUhmRwG56lZeU/HoWNy3vjTSxKZjrH99+ZtOPurQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpMHpshI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqmAvoQX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AED2606A885;
-	Thu, 12 Nov 2026 11:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C3E606B5A7;
+	Thu, 12 Nov 2026 11:23:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpMHpshI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B4E1F01561;
-	Thu, 12 Nov 2026 11:23:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqmAvoQX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84BA1F00A09;
+	Thu, 12 Nov 2026 11:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794482593;
-	bh=nS1zpLXR0Ltc9jPx4jJyxbCNLHAzN4pNMWWnCEovFkE=;
+	s=k20260515; t=1794482597;
+	bh=DZX7LrkkoITSV9q8/hf9tQANgdUAkilb9PapYVkP0Us=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mpMHpshIC9+Z6JINvsrLzCOtpPD5vvGuEs1nJLsPeOiJ769IRzgxOQHYt+waJ71Q4
-	 NIJpTftbU36FFTWRnVKrO/ISmjIe9pJZBJ1+0tU2hSp4Jr5Dl0KbMbpBgw0ZhoXXmU
-	 61VJ9HAAgTjM9GR4ZbNbQ5mOwAWu+SoJIWeSriIenqBeKjUDRltMtgpe4AiLSELU5z
-	 9klfs9H9OH8jIoDRahjVqV/RLnxSOwAmQIKTaGDNzAtYywaRolcUEcLGFnwm08/Uvb
-	 5urWG1ZoIbmE0J4fY8+F2xryyAbOSYd5PPOUlSRIh7BoCsedfKgdH/yXDBs/OQMkvG
-	 506NIeH2QDFNg==
+	b=YqmAvoQX8W4N+wqZSyw9pDbbUpniRn45n7LV6ZTubKpQXfpqBlFX4JcoAfVoZAIlS
+	 OLASWhwS0rZjwY2tt6LsppgyHiLisBJgYxORqQGH8GydG3Od699tTjKm6x+Eqx9Fq9
+	 fqpBzyJB0pTPWq+WFptNg+vhtcaBcuVubPOQvrPyOFv74DaFluwQ/sV9GjXdENntVL
+	 uB7UZ5EQbZd014TkijwPVJ2BNPvwfAWcGtFR36y3jzwh6vbA4rTZOqn1rWfUpKKuqc
+	 ImWGVpkZJRNg1PLXnpN2SoYoEDEHYEg8uYQBD2BK/HMLr+h7zj+IWX8qCZEBOOicC5
+	 7fqJWGLRqDkjA==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>
-In-Reply-To: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
-References: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: (subset) [PATCH v1 0/4] regmap: a small set of cleanups
-Message-Id: <179442317606.513646.4119576994084921273.b4-ty@b4>
-Date: Wed, 11 Nov 2026 18:52:56 +0000
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ linux-spi@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261110-spi-bcm2835-kdoc-return-v1-1-dffdfcc36233@yahoo.pl>
+References: <20261110-spi-bcm2835-kdoc-return-v1-1-dffdfcc36233@yahoo.pl>
+Subject: Re: [PATCH] spi: bcm2835: Add missing kernel-doc Return sections
+Message-Id: <179441977679.393238.9199268057403171713.b4-ty@b4>
+Date: Wed, 11 Nov 2026 17:56:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,41 +63,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1664; i=broonie@kernel.org;
- h=from:subject:message-id; bh=vECO2nGHp6mmFONnkP6rFQ0yXK3OJ3PiM3rZZQoYdLE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+LpzHqDa7bPqd3Dk/nG708kYGZMpvLNM+JSR8+dj+S
- 0kHXYxfdpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiWbcY/pm2q607HHGX0Uyi
- a5Hyys8vznO8EluSdLnufdiqfW2sv3QZ/mcsnNxhsCrRcMuVvGpz9hmpN1ccbk7ZH8afKV7722z
- rCQ4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=WxllxCixDuNeTCya0yxN5aR0r/TIzJI3BYcLFM2baPM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+LlwUd+xWgOOCyIXfLpjOipJ/w7ysnbNxw59nZk+Cr
+ T48CtvM3VHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJvFNi+Kfn3XP5sNGtTO6a
+ wN+MHOIqL49/nqJp2X0hVndH3JZd8xYx/A/fHLl0pdPcy9JSz92nn3k2WTmDObDrxcm3nU3T09t
+ st/MBAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 10 Nov 2026 10:36:58 +0100, Andy Shevchenko wrote:
-> regmap: a small set of cleanups
-> 
-> This is a mini-series of a small set of ad-hoc cleanups.
-> Read individual patches to get the idea.
-> 
-> Andy Shevchenko (4):
->   regmap: Switch to use kmemdup_array()
->   regmap: Drop never used devm_regmap_*_free() APIs
->   regmap: Defer assignments to the later in some cases
->   regmap: Drop duplicate ret assignment
-> 
-> [...]
+On Tue, 10 Nov 2026 22:33:02 +0100, Tomasz Unger wrote:
+> spi: bcm2835: Add missing kernel-doc Return sections
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
 Thanks!
 
-[1/4] regmap: Switch to use kmemdup_array()
-      https://git.kernel.org/broonie/regmap/c/ed8939e50466
-[3/4] regmap: Defer assignments to the later in some cases
-      https://git.kernel.org/broonie/regmap/c/ac5fd39a1718
-[4/4] regmap: Drop duplicate ret assignment
-      https://git.kernel.org/broonie/regmap/c/64db965e43d4
+[1/1] spi: bcm2835: Add missing kernel-doc Return sections
+      https://git.kernel.org/broonie/spi/c/2a28392d4b4c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
