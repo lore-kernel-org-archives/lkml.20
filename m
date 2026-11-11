@@ -1,79 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794433331;
-	b=gfm6z6uh5szCYJFd6LFkkK7RUKh1hW5hpClkGzfAuniz1MwkJQX6QUcKRdHNLLrYOC1v
-	 VAXFKGnh5Z5IRX1L0J0fVy3+tBGZrEXHy8zh9Mg8UZP0mvSIRU6PKB/Lfccuk+LfgxoLz
-	 EldU/sdoAIU2lIVD2jNtu1eSAKiBIbF0ubYQpEjxQPOhtTBs8OoW5WH8J2+nDWIszIxvs
-	 ZM+wNwj2GMa1qxSpRcsvZUZo0/oN57xhBldydzsiqQGH+HC+XZoWBjG5kgAkMtOd2bCVJ
-	 YDxeyzxbmDzZuoif/WATQjH6vMT9ZId+DH3b76+HmcZ1QfAHk1PLrQzcdgRygtbPh5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433331;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=m1H6PEUUGzZtXDKA9cN05ENAzMenk9bcSbcBDw6iHvE=;
-	b=wOkvqdrzJ21m6aHy3cKMlsaLUkKlZI3pm46BBJdu5yzbDyhz5Je1bp5KyEJff8DFLMDK
-	 2N08uUGI5TwpQA+0ns6ofDh6xO1U7xE54RHLnrqEizhXjFLc60Rio6OfxKCnqC4MPHUAU
-	 vxJwRd5n9ZykX2Z+jWwxzlxU/fzuiI28pig3Aam7IxuVtNGPC5updX6sDFWCu0I+g8zyK
-	 /OIX1noPIqUOSoyiTPHY/WNQP+ullG5De9xgF5ccJS6AQmrr0C+oCS2jxViFa+XdnwYij
-	 6bN7WUOZRV+/pb3O4s6ODkkwkMSDnH5bBAUls3h0R5kiFtgN2Ob07QzIAi/NVpAb3wQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfygPN9q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794433436;
+	b=hUQAK4EeRskg/4hg7bqPVAVG5J21Li7LLBdKhO0teXnxaim1S2CqPrVeqvgxH3N3Q3no
+	 +3MRbeYn+DUkrR9RaJXwUci1wREcOQORGZe1aAhNFm6grq14TTgizHF8BiDTwIm+eQxW4
+	 9Tte7ebktSTbVtbt8sPQsrelgKT23nGA1g8rop9g8iFqgvtNvz4krnGbw7PnsXYtwBXxG
+	 jzfezU+JiIGKtXs5P4pVp04BaPddIrVN80anSqL/rpVqXs/QF7EadY5nU/lLjfFAXfSI8
+	 tb/7MTk0KuOuvWx+IRo3ULK/RhoNHuLxxqRgLDDtMlS1U9L6W+PEfGBKA5WZP+gkkDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433436;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Q/j6WirJUN5GZuo8ESQMe2tD96p/TfxN7ERvmMa2eZg=;
+	b=pi6PyvcjsDRyFJE1C6n+NJK0qxaQrTq6Nc+M1VKNbeEgAYJMYc6VkgQw1wJCPKdCGjuD
+	 sVhtKVnYxyThH/nZm5VDG47wiAVVQY/DnNRddF3OKYRNaZYPlO/2C4pGvGoTD3PFw/0kn
+	 LkhE+eX8XhvkIY3erskOLmpa44SUtpF8QByvKUmeWfcbCbvSmryUydGmlzvXsRDByfSo8
+	 pfVmx615oQoGGohviwa80I09kFu8ZIW4fPHv47Ec8hIKW/eRZRtEa7zX96Sqd9sh/Uyfk
+	 JoYe5GAkS0niPjv6eivwvrztXsPrEP2vJFFkb3ilEfYMsqAMp3qb6x7taZB+K+52jpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQvEdYk;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA00A606A321;
-	Wed, 11 Nov 2026 21:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74D1606A326;
+	Wed, 11 Nov 2026 21:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfygPN9q
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794433331;
-	b=lym665HYIKGxkyYRK+wzKn6fGLt9x9z/YxEtvKFRgIO3E21bRZ3zaoAqV9wFSq/Xd2hX
-	 lfv69+EuMOO8XHvuSwBrjGRJygFlcxaE7K2jt6Y6jaGGeRirdEaCW406J40VjeIBlBVeL
-	 /FO4z7RoKU57apnxo+m6n1oJnHBRs+N/rewU7DioTNMidiCv5y5TSsmYGj+eHBf3ri3ty
-	 rN3o/WC3+/uqqrkvQzjLG9Bd7J/V0KCITDJ+OTQ2n/kEPDH4zEfKcD8sUDeSFZaX/JG0E
-	 nzj7PAiPh9/keCZGkQlHD/J2Smn0QgVXGMz7XDToODZNSohAlHwSnuXfXA78iulB1Lw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794433331;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=m1H6PEUUGzZtXDKA9cN05ENAzMenk9bcSbcBDw6iHvE=;
-	b=0oDJQR6RtmvVLV+8ReNlLberMH3M9kbxOxfdz3NM/b1MBhzy6FNqE5lkj8/tBqoAb46G
-	 3tEw3RnUBe3In6PqZBBdxPkr+pETiqB1sxKr3ugTX7GTpngICvnycIRYIFCjgf6NFKAzW
-	 nQ+x7MjSuY/PTNTO0e4SEVKSfoYJy4Fo1Mv4l8KMgGqwGiLrtHFe/dUgDNUE6aG9wlU7m
-	 zVaotufzZQF4VkBAX1MslImN7FmgLjQRvj8zHva6SmGyBVF/njwSnRwfaoIBXAZf0Lnur
-	 oGG3uqxspU3X8w0+cnM10OJYeKmFlBZ/YChpho0kTJua7iIjWrWbVX68iilZdro8xFw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AFE3C1F00A05;
-	Wed, 11 Nov 2026 21:42:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anQvEdYk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D511F00A05;
+	Wed, 11 Nov 2026 21:43:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794433331;
-	bh=m1H6PEUUGzZtXDKA9cN05ENAzMenk9bcSbcBDw6iHvE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LfygPN9qmYFbrkJ6g9awFQak2LIubTCnSclbJQvZoiTm87P9Mr4rESfu1cvl55t7i
-	 HkoTc+pUgA44sEo7SILwAg2PSHBnXwLZ4BNsUHKDdDJQsiWqmHhtLzlJOJ/2ZSYkEF
-	 opdCvtd1Yx3DUWOTmqh3ymxQ2BkHQIuOWRmt9uOcpMJBAvdywpEuJU2N8/E70CDrl/
-	 /u1ppb/1ku9Xz6gSRiDo/26gghyJfcgrEU7Ad1BQRjA7Rf41Swxv3h/qpD5GwMi0QF
-	 /Qo4YNykLdEmaiPsAI1STWGm795wddifCQ1lggMNMDLTxHrE/eT91haD5PoetjG1la
-	 wJUZhVAsWL7TQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 38D244912F;
-	Wed, 11 Nov 2026 21:42:10 +0000 (UTC)
-From: =?utf-8?q?Eren_=C3=96zen_via_B4_Relay?= <devnull+erenozen.protonmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 00:42:01 +0300
-Subject: [PATCH] platform/x86: huawei-wmi: Set battery charge thresholds
- through \SBCM
+	s=k20260515; t=1794433435;
+	bh=Q/j6WirJUN5GZuo8ESQMe2tD96p/TfxN7ERvmMa2eZg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=anQvEdYkNx+yEjmg+V13ijEuuDvDLl2UD2AgfEmTfm6mrTUhTNgIPo6VWptfZVlgT
+	 io4xS6t8j0Zd98bRTxtBPT/ivT2WpmUieGLMXy3GFjCRCLnrPBnF52o5FoaYLT7b2C
+	 tikStScHVK0FzHyxyUn6SEY7PnxaKd8wX13BjK0NPOEhFUrzQ4DfHKWTFmANW/Dao/
+	 S27el57DnU++jrW4msHfqyCg6fCw//qdV8E30Cj/O8FtUHRUAIh2MmNaR6DvezVOTh
+	 I7yZIwwYYKTp3K+fOlTha2rts0iTWjBrpeWZtuCe/faspPExQgW18grnDLhwlktaIo
+	 zlbIVgM6DsAVw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,263 +50,172 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-huawei-wmi-charge-mode-v1-1-89974ab1e859@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+2Ak4rSXKV0EZKJmYVaEloF8
- e4F3wHeiabVtMHTiao/a7at8CQdIZawzsqW4Amud6OIOC7fsKvxvhjHEuqsvGxJecpDjs9xkEe
- f0BE+VbMdd/x6X9cfbHNpbWgAAAA=
-X-Change-ID: 20261112-huawei-wmi-charge-mode-7f4fc964130d
-To: Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794433329; l=8844;
- i=erenozen@protonmail.com; s=20261110; h=from:subject:message-id;
- bh=nxTo3yrgLY39Tbu/qZyO+niDlk6IopPlQicF8+c6U5M=;
- b=qt6MLNtiiC8TzEN0lqM6cRvjvS3dlAAcp3BQ6SCu3pKDkwNXypDRCE61VRGqVmmmVjxTXD1Sz
- J86/ulgdSe5AG7sfDiKazdSJpn8X4b/nZnhtiD5eJEtR6qUBfSSsFZb
-X-Developer-Key: i=erenozen@protonmail.com; a=ed25519;
- pk=tPAwfVmIbYF3QziJ3LcoTIZDU12BsjVK+EkAB9nN1gA=
-X-Endpoint-Received: by B4 Relay for erenozen@protonmail.com/20261110 with
- auth_id=1479
-X-Original-From: =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Reply-To: erenozen@protonmail.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 2/4] clk: ingenic: Add Ingenic X1600 CGU clock driver
+ support
+From: Brian Masney <masneyb@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com, 
+ Paul Boddie <paul@boddie.org.uk>, Brian Masney <masneyb@kernel.org>
+In-Reply-To: <50983be55e467076e83e3ffc37b30fc4e5648e15.1792955907.git.hns@goldelico.com>
+References: <cover.1792955907.git.hns@goldelico.com>
+ <50983be55e467076e83e3ffc37b30fc4e5648e15.1792955907.git.hns@goldelico.com>
+Date: Wed, 11 Nov 2026 16:43:44 -0500
+Message-Id: <179443342468.1143992.1536494507903693852.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5629; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=zYx5gEDCYfb/4k5A01V/xuE63SeQKUuL1sqAIc16+yk=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+PJx42tf5qd/MXlPW5fXv7n+bUreDwUZk3bqfxoy/D
+ K38Ve/JdJSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjARmRJGhs7pbQVen9nF+949
+ KLi7yZyB4ZaPsN//t19+LnplIHJXr5WRoV1CcVaAhsCN6cKfyh08Ln+VCrZ9cCSaX77x8rT1mmI
+ nOAE=
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-From: Eren Özen <erenozen@protonmail.com>
+> Introduce clock driver support for the Clock Generation Unit (CGU)
+> found in the Ingenic X1600 SoC.
+> 
+> To support the X1600 platform, update the common Ingenic CGU core
+> framework to accommodate a secondary post-VCO divider (OD1) within
+> the PLL configuration registers. Additionally, prevent a NULL pointer
+> dereference in the rate determination path by properly supplying the
+> secondary divider tracking during PLL calculation calls.
+> 
+> Implement custom handling for the I2S clocks on the X1600. Since
+> complex compound hardware dividers are not yet natively supported by the
+> core framework, explicit M-divider (mdiv) and N/D-divider (nddiv)
+> structures are introduced to describe these specialized fields. This
+> avoids a compilation failure and enables a stable, though limited,
+> division encoding suitable for current needs.
+> 
+> Furthermore, this patch:
+> - Fixes the gating of the I2S0 and I2S1 clocks, matching the control
+>   bit behavior which functions as a clock enable flag.
+> - Introduces the custom OTG PHY clock operations and initialisation
+>   routines utilizing the hardware's OPCR registers.
+> - Registers the independent I2S0 RX and TX gate clocks employed by the
+>   X1600 peripheral block.
 
-Newer Huawei firmware implements \GBCM/\SBCM ("battery charge mode",
-HWMI functions 0x1603 and 0x1503) next to \GBTT/\SBTT. Besides a pair
-of thresholds, they hold a charge mode and a parameter byte of unknown
-meaning.
+Just from reading the commit message this patch needs to be split up
+further into several smaller patches to make it easier to review.
+Ideally try to make the different bullet points separate patches.
 
-On the HUAWEI MateBook 16 (CREM-WXX9, BIOS 2.32), the charge mode
-decides whether the EC uses the thresholds returned by \GBTT. With the
-charger connected and the battery above the end threshold, the battery
-discharged in charge modes 1, 2 and 3, but charged in modes 0 and 4.
+> Tested successfully on the LX16 (X1600) boards and CI20 (JZ4780) to
+> not interefere.
+> 
+> Checkpatch complains about not 4 lines of help paragraph but the
+> style is the same as for the other machines. It also recommends
+> using 'unsigned int' for the new struct ingenic_cgu_mdiv_info
+> and struct ingenic_cgu_nddiv_info but this follows the style 'unsigned'
+> of all other structs in cgu.h. Finally it complains about the empty
+> line between struct ingenic_cgu_clk_info x1600_cgu_clocks[] = {
+> and the comment. But I think it is more readable this way.
 
-The driver disables the limit by writing 0/100 through \SBTT, which
-stores it as 0/0. On this machine that switches the EC to charge mode 4
-("smart charge" in Huawei's PC Manager), after which \GBTT reports
-40/70 and so does the driver. In this mode, with the charger connected,
-the battery charged from 75% to 87% in 20 minutes and was still
-charging (at 81% it had not started charging).
+The checkpatch note can go below the --- below.
 
-A later \SBTT write does not necessarily leave charge mode 4. 40/70
-switched the EC back to charge mode 1, but with 75/80, a pair UPower
-writes on this machine, the EC stayed in charge mode 4 and the battery
-kept charging at 88% while the driver reported 75/80. So once GNOME's
-"Preserve Battery Health" setting has been turned off, turning it back
-on can leave the battery charging past the limit.
+> 
+> Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+> ---
+>  drivers/clk/ingenic/Kconfig     |  10 +
+>  drivers/clk/ingenic/Makefile    |   1 +
+>  drivers/clk/ingenic/cgu.c       | 150 +++++++---
+>  drivers/clk/ingenic/cgu.h       |  42 ++-
+>  drivers/clk/ingenic/x1600-cgu.c | 476 ++++++++++++++++++++++++++++++++
+>  5 files changed, 646 insertions(+), 33 deletions(-)
+>  create mode 100644 drivers/clk/ingenic/x1600-cgu.c
+>
+> diff --git a/drivers/clk/ingenic/Kconfig b/drivers/clk/ingenic/Kconfig
+> index f80ac4f2992b..9b8b00c9e6d1 100644
+> --- a/drivers/clk/ingenic/Kconfig
+> +++ b/drivers/clk/ingenic/Kconfig
+> @@ -75,6 +75,16 @@ config INGENIC_CGU_X1000
+>  
+>  	  If building for a X1000 SoC, you want to say Y here.
+>  
+> +config INGENIC_CGU_X1600
+> +	bool "Ingenic X1600 CGU driver"
+> +	default MACH_X1600
+> +	select INGENIC_CGU_COMMON
+> +	help
+> +	  Support the clocks provided by the CGU hardware on Ingenic X1600
+> +	  and compatible SoCs.
+> +
+> +	  If building for a X1600 SoC, you want to say Y here.
+> +
+>  config INGENIC_CGU_X1830
+>  	bool "Ingenic X1830 CGU driver"
+>  	default MACH_X1830
+> diff --git a/drivers/clk/ingenic/Makefile b/drivers/clk/ingenic/Makefile
+> index 81d8e23c2636..7e93e0893abe 100644
+> --- a/drivers/clk/ingenic/Makefile
+> +++ b/drivers/clk/ingenic/Makefile
+> @@ -7,5 +7,6 @@ obj-$(CONFIG_INGENIC_CGU_JZ4760)	+= jz4760-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_JZ4770)	+= jz4770-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_JZ4780)	+= jz4780-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_X1000)		+= x1000-cgu.o
+> +obj-$(CONFIG_INGENIC_CGU_X1600)		+= x1600-cgu.o
+>  obj-$(CONFIG_INGENIC_CGU_X1830)		+= x1830-cgu.o
+>  obj-$(CONFIG_INGENIC_TCU_CLK)		+= tcu.o
+> diff --git a/drivers/clk/ingenic/cgu.c b/drivers/clk/ingenic/cgu.c
+> index ad223aa20e8d..c4fbee32c3b9 100644
+> --- a/drivers/clk/ingenic/cgu.c
+> +++ b/drivers/clk/ingenic/cgu.c
+> @@ -4,6 +4,7 @@
+>   *
+>   * Copyright (c) 2013-2015 Imagination Technologies
+>   * Author: Paul Burton <paul.burton@mips.com>
+> + * Copyright (c) 2023, 2024 Paul Boddie <paul@boddie.org.uk>
+>   */
+>  
+>  #include <linux/bitops.h>
+> @@ -76,6 +77,40 @@ ingenic_cgu_gate_set(struct ingenic_cgu *cgu,
+>   * PLL operations
+>   */
+>  
+> +static unsigned
+> +ingenic_pll_recalc_rate_od(u32 ctl, u8 od_shift, u8 od_bits, u8 od_max,
+> +			   const s8 *od_encoding)
+> +{
+> +	unsigned int od, od_enc = 0;
+> +
+> +	if (od_bits > 0) {
+> +		od_enc = ctl >> od_shift;
+> +		od_enc &= GENMASK(od_bits - 1, 0);
+> +	}
+> +
+> +	/*
+> +	 * Use the encoding table if indicated. Otherwise, use the value
+> +	 * directly, interpreting an encoded value of zero as a divider
+> +	 * value of one.
+> +	 */
+> +	if (od_encoding) {
+> +		for (od = 0; od < od_max; od++)
+> +			if (od_encoding[od] == od_enc)
+> +				break;
+> +		od++;
 
-When the firmware provides \GBCM and \SBCM, write the thresholds
-through \SBCM in charge mode 1, keeping the parameter byte reported by
-the firmware, and write 0/100 as 0/0. Thresholds set through \SBCM are
-also reported by \GBTT, so keep reading them from there, but report
-0/100 while the EC is in a charge mode other than 1 to 3, which may
-have been set by another OS or an older kernel. Report an end threshold
-of 0 as 100.
+So if the entry is not found, then od will be set to od_max + 1, and it
+will pass through the warning checks.
 
-The new interface is only used if both methods exist and \GBCM returns
-a zero status, so other firmware keeps using \GBTT/\SBTT unchanged.
+I started to look through the rest of the driver but I stopped because
+there's just too many unrelated changes here. This needs to be split up
+further into separate patches to make it easier to review. If your
+commit message has the word 'and' then that's a hint that you may want
+to consider splitting it up further.
 
-Link: https://github.com/aymanbagabas/Huawei-WMI/issues/55
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Eren Özen <erenozen@protonmail.com>
----
-Tested on a HUAWEI MateBook 16 (CREM-WXX9, AMD, BIOS 2.32) running
-Fedora's 7.2.15 kernel. This huawei-wmi.c was built out of tree (W=1
-and C=2 clean) and loaded in place of the in-tree module. The charger
-was connected, the battery was at 83-84%, and the EC state was read
-with raw HWMI calls:
+Also be sure to go through all of the feedback from Sashiko.
 
-  mode 1 or 2 with \GBTT 40/70             -> reads 40/70
-  mode 0 or 4 with \GBTT 40/70             -> reads 0/100
-  in-tree driver state (mode 1, 40/70 in
-    \GBTT, 0/0 in \GBCM)                   -> reads 40/70
-  mode 4, then write 75/80                 -> mode 1, discharging
-  GNOME off (UPower)                       -> mode 1 0/0, charging
-  GNOME on (UPower)                        -> mode 1 75/80, discharging
+Brian
 
-With the same write path in an earlier revision, I also tested writing
-only the start or end attribute, 0/80, 40/100 (charging at 84%),
-rejected invalid values, and a 4.5 minute s2idle with the limit kept.
-In charge mode 1, a 1 hour lid-closed s2idle did not charge either.
-
-The start threshold does not seem to be used by this EC: with 79/83, once
-charging had stopped at 83%, unplugging until 82% and reconnecting the
-charger made it charge back to 83% right away. This is not changed by
-this patch. While connected, the EC holds the battery at the end
-threshold ("Not charging", 0 A) or discharges it when it is above it.
-
-Not tested: other models, and firmware without \GBCM. For the latter,
-I only checked in this machine's AML that the HWMI dispatcher returns a
-non-zero status for unknown functions. The acpi_has_method() checks
-follow what the driver already does for \GFRS/\SFRS. The get-then-set
-in the sysfs store callbacks predates this patch and is left alone.
-Tested-by from other Huawei/Honor owners is welcome.
-
-I found this because the battery kept charging to 100% with "Preserve
-Battery Health" enabled. The ACPI/EC analysis, the test module used for
-raw HWMI calls and this patch were done with an AI coding assistant
-(Claude) under my direction, and tested on my machine. I reviewed the
-change and can explain it.
----
- drivers/platform/x86/huawei-wmi.c | 94 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
-
-diff --git a/drivers/platform/x86/huawei-wmi.c b/drivers/platform/x86/huawei-wmi.c
-index 96ee9a97c..917fb2fa8 100644
---- a/drivers/platform/x86/huawei-wmi.c
-+++ b/drivers/platform/x86/huawei-wmi.c
-@@ -36,6 +36,8 @@
- enum {
- 	BATTERY_THRESH_GET		= 0x00001103, /* \GBTT */
- 	BATTERY_THRESH_SET		= 0x00001003, /* \SBTT */
-+	BATTERY_CHARGE_MODE_GET		= 0x00001603, /* \GBCM */
-+	BATTERY_CHARGE_MODE_SET		= 0x00001503, /* \SBCM */
- 	FN_LOCK_GET			= 0x00000604, /* \GFRS */
- 	FN_LOCK_SET			= 0x00000704, /* \SFRS */
- 	MICMUTE_LED_SET			= 0x00000b04, /* \SMLS */
-@@ -61,6 +63,7 @@ struct huawei_wmi_debug {
- 
- struct huawei_wmi {
- 	bool battery_available;
-+	bool charge_mode_available;
- 	bool fn_lock_available;
- 
- 	struct huawei_wmi_debug debug;
-@@ -324,11 +327,87 @@ static void huawei_wmi_leds_setup(struct device *dev)
- 
- /* Battery protection */
- 
-+/*
-+ * Newer firmware also implements \GBCM and \SBCM ("battery charge mode").
-+ * \GBCM returns the charge mode in byte 1, a parameter of unknown meaning
-+ * in byte 2 and a pair of thresholds in bytes 3 and 4, and \SBCM takes the
-+ * same four values in bytes 2 to 5 of its argument. Thresholds set through
-+ * \SBCM are also returned by \GBTT, but \SBTT does not update the ones
-+ * returned by \GBCM.
-+ *
-+ * In charge modes 1 to 3 the EC does not charge above the end threshold
-+ * returned by \GBTT, and a 0/0 pair means that charging is not limited.
-+ * In charge modes 0 and 4 it charges past the end threshold. \SBTT,
-+ * which turns a 0/100 request into 0/0, switches the EC to charge mode 4
-+ * ("smart charge") in that case, and a later \SBTT write does not
-+ * necessarily switch it back. So write the thresholds through \SBCM in
-+ * charge mode 1 instead.
-+ */
-+#define HWMI_CHARGE_MODE_THRESHOLDS	1
-+#define HWMI_CHARGE_MODE_PRESET_LAST	3
-+
-+static int huawei_wmi_charge_mode_get(u8 *mode, u8 *param)
-+{
-+	u8 ret[0x100] = {};
-+	int err;
-+
-+	err = huawei_wmi_cmd(BATTERY_CHARGE_MODE_GET, ret, sizeof(ret));
-+	if (err)
-+		return err;
-+
-+	if (mode)
-+		*mode = ret[1];
-+	if (param)
-+		*param = ret[2];
-+
-+	return 0;
-+}
-+
-+static int huawei_wmi_charge_mode_set(int start, int end)
-+{
-+	union hwmi_arg arg;
-+	u8 param;
-+	int err;
-+
-+	err = huawei_wmi_charge_mode_get(NULL, &param);
-+	if (err)
-+		return err;
-+
-+	if (start == 0 && end == 100)
-+		end = 0;
-+
-+	arg.cmd = BATTERY_CHARGE_MODE_SET;
-+	arg.args[2] = HWMI_CHARGE_MODE_THRESHOLDS;
-+	arg.args[3] = param;
-+	arg.args[4] = start;
-+	arg.args[5] = end;
-+
-+	return huawei_wmi_cmd(arg.cmd, NULL, 0);
-+}
-+
- static int huawei_wmi_battery_get(int *start, int *end)
- {
- 	u8 ret[0x100];
- 	int err, i;
- 
-+	if (huawei_wmi->charge_mode_available) {
-+		u8 mode;
-+
-+		err = huawei_wmi_charge_mode_get(&mode, NULL);
-+		if (err)
-+			return err;
-+
-+		/* The thresholds are not used in the other charge modes. */
-+		if (mode < HWMI_CHARGE_MODE_THRESHOLDS ||
-+		    mode > HWMI_CHARGE_MODE_PRESET_LAST) {
-+			if (start)
-+				*start = 0;
-+			if (end)
-+				*end = 100;
-+			return 0;
-+		}
-+	}
-+
- 	err = huawei_wmi_cmd(BATTERY_THRESH_GET, ret, sizeof(ret));
- 	if (err)
- 		return err;
-@@ -342,6 +421,10 @@ static int huawei_wmi_battery_get(int *start, int *end)
- 			*end = ret[i];
- 	} while (i > 2 && !ret[i--]);
- 
-+	/* A 0/0 pair means that charging is not limited. */
-+	if (huawei_wmi->charge_mode_available && end && !*end)
-+		*end = 100;
-+
- 	return 0;
- }
- 
-@@ -353,6 +436,9 @@ static int huawei_wmi_battery_set(int start, int end)
- 	if (start < 0 || end < 0 || start > 100 || end > 100)
- 		return -EINVAL;
- 
-+	if (huawei_wmi->charge_mode_available)
-+		return huawei_wmi_charge_mode_set(start, end);
-+
- 	arg.cmd = BATTERY_THRESH_SET;
- 	arg.args[2] = start;
- 	arg.args[3] = end;
-@@ -507,6 +593,14 @@ static void huawei_wmi_battery_setup(struct device *dev)
- {
- 	struct huawei_wmi *huawei = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Only trust the \GBCM status if the firmware actually implements the
-+	 * methods, in case the HWMI dispatcher of some model reports success
-+	 * for unknown functions.
-+	 */
-+	huawei->charge_mode_available = acpi_has_method(NULL, "\\GBCM") &&
-+					acpi_has_method(NULL, "\\SBCM") &&
-+					!huawei_wmi_charge_mode_get(NULL, NULL);
- 	huawei->battery_available = true;
- 	if (huawei_wmi_battery_get(NULL, NULL)) {
- 		huawei->battery_available = false;
-
----
-base-commit: a514d723595bd8e5ce926a7fea148ceb3c26915c
-change-id: 20261112-huawei-wmi-charge-mode-7f4fc964130d
-
-Best regards,
 -- 
-Eren Özen <erenozen@protonmail.com>
-
-
+Brian Masney <masneyb@kernel.org>
