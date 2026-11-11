@@ -1,71 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379645;
-	b=nrtbZ0W5m3jXxzmrQ+6y7bVDuAXch+zfJRNRpRO0kyl78qZscqgeSP+OPuNDpo5ivC5V
-	 xfMkRESbrfzmu88vbZHYoGAYZzFBmXYgHs/BpccCMlLNwoUTdlCTXlyvEzI/7q9rqlvgU
-	 YGzhw5zh44LqG9N1Kv1Eb31Tx/VJ9UhPpNyWOO6seBSe7NupDX/o7KLWbFHyrrmlDIK12
-	 fMucvlPXWzHWypxgfWisiXV9OeghJyg5Gaa6Bjyr5iJ/QDVOzYuDFeF9QkbJttKTIsplu
-	 y1l8Qtzx3GMdhGQ1KH6ltbnWX5nUw7EXZhkwzysHVZABau4GDBU8AXDfLKf3/whZCgA==
+	t=1794379641;
+	b=DmuHpN3/7CQ05C2aRSvQSTCntdvc8kLJWY8x3G9iIhAAOHFjC2Ity5knfm8Xhrl/F2+D
+	 ULMTYvEcGBdboL8B9qqciNSMHYLR7TJvjTO/RI2xKJ7lp3KcNxaZBsz+f/E14C5M/JYnm
+	 URVsDpXPrKn8ZTxuAX/huyY2VBbiUYiNjb1M9raS7MTLKytzEqqMDu/P9A+lbVBZ0DEHM
+	 42r80lTbvyJZGZO4YRhETUoLB4FAtGIo/oAiC/oNpKZmAMzjf2z4vCP0wE2RZVuCgBauD
+	 jMAcXvUzz/beTqnnZ3tsYwHu14rGzAGkLcleEL9Q6VULeIliwY75A5Tu5Xyn7IdeuYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379641;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FhfwlU4Cu7/dKeluYJ5+3JUKxIlFopvSssPKy+noPwE=;
-	b=b0Luzbm6otx+gGoi8Vr1irxfDgoMwmgS32ocm+cyjUt4rqC+bZKOzbK4y5zCVfuimHTa
-	 c3aXRVLJ5hrD0F3v3y6W9qfd7wOyY6Hd5jIiN7g8E/Dk1bUNhwg8c6rkr+sXlGq3zPgfg
-	 F0b1ewXIHcCjxjJ+jfeI7iEraj7NfNcM21cfB6cj1X9vM+4CTkpd7OPcFiVPfGqfy9imb
-	 hbA7i+Fv1zGyhnzjl265LkXFyn0QHBzAeQkfphINuL3ZLmG8iENjIbn3hDZZWb0/jrfaa
-	 AidrGAisFoXukoixWi7HrIhhdlXNwN38Z12XmnkPYCtd92ExP2nfwQ2SzMy+ditl6+A==
+	bh=/3b05ApE7UziTlREebkT1yH2k0t+ooDMznf9ZVFrj2M=;
+	b=FyxAa/yBgZc749Kqp2u74G979rM7PJrw6pfaPxrhVGsTJqsbMity8Cyi3JHnu2L9R2QK
+	 Dp7+g8TJitEdt3BVya2YOUUtVDTIUYV8Pt9XSrnhVwJHTEpzfHB/8lSBdZT4NyqjlBMot
+	 myxAJgdFyOGTVjQoSkNjI9amfV5WGrtqciZNTrVTgZ5foJMb1PElNqwwwPgUAjCpH4Mtt
+	 /OZaJCkfEsk2M7q5FMUAD+6zq/JW7/2GzGcEX8ffYMh2AyUC6GM4cm/nTF+mv0K0rsYWi
+	 lklpw4AX2McCLHRo5i1eYDjlGZdKGQ50YLmznKjrNGWx843vZVqNLkHdwVmkJUWLe/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yj3v71IP;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=q+2Y+ix+;
 	arc=none smtp.remote-ip=111.22.67.139
 Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E9E0606A33B;
-	Wed, 11 Nov 2026 06:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E9E0606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0414760A2605;
+	Wed, 11 Nov 2026 06:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0414760A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=yj3v71IP
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=q+2Y+ix+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=yj3v71IPAG7S/R7e7wSHYDSjpZYxoDv6iU4cSSiZS1z+PWQ2psdaYlwQWcO0zXQB6TxS3njrGaCBx
-	 Ds5KaTOyhR4nL0LDwACnWYXPKtKWXle/WiMctc/ojkh9cwSg/a9BXpJLG01b9fkz5cI8nzdt5+LT08
-	 0lBUb9alb7DvAw3M=
+	b=q+2Y+ix+wKEohMDCondptIOYO59miP3IljwZrCn08wUBp67gkT+9aBlT7sE6/FZL5Yf2EG/JOFkr6
+	 P39YWmqF79ZWFJIh5oa1ZrGkwCyCs7GAe6ZthsIVcl+TB30XVZFzQIxQmerpT6toBA7LKMI6iYqeXE
+	 izqnPRr5V86p6hgk=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af40f795cf-d2bc0;
-	Wed, 11 Nov 2026 14:47:21 +0800 (CST)
-X-RM-TRANSID:2ee56af40f795cf-d2bc0
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af40f745cc-d2bbd;
+	Wed, 11 Nov 2026 14:47:18 +0800 (CST)
+X-RM-TRANSID:2ee56af40f745cc-d2bbd
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af40f78f42-d10dc;
-	Wed, 11 Nov 2026 14:47:21 +0800 (CST)
-X-RM-TRANSID:2ee36af40f78f42-d10dc
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	Mahesh Bandewar <maheshb@google.com>,
-	netdev@vger.kernel.org,
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af40f75d9c-d1e6c;
+	Wed, 11 Nov 2026 14:47:18 +0800 (CST)
+X-RM-TRANSID:2ee46af40f75d9c-d1e6c
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: brauner@kernel.org
+Cc: viro@zeniv.linux.org.uk,
+	jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: [PATCH net] ipvlan: update port flags only after ipvlan_set_port_mode() succeeds
-Date: Wed, 11 Nov 2026 14:46:55 +0800
-Message-Id: <20261111064655.233265-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
+	syzbot+c4a4cf7debda88305d2b@syzkaller.appspotmail.com,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] pipe: annotate lockless checks of the file count
+Date: Wed, 11 Nov 2026 14:47:17 +0800
+Message-ID: <20261111064717.17165-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,64 +73,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ipvlan_link_new(), the shared port->flags is updated before
-calling ipvlan_set_port_mode(). If ipvlan_set_port_mode() fails (e.g.
-switching to L3S mode without CONFIG_IPVLAN_L3S), the error unwinds via
-unlink_netdev, but the shared port->flags has already been modified and
-is never restored.
+pipe_lock() and pipe_unlock() inspect pipe->files without inode->i_lock,
+while opening or closing a pipe changes the count under that lock. KCSAN
+reports these checks racing with put_pipe_info().
 
-As a result, subsequent operations on existing ipvlan interfaces on the
-same lower device operate with corrupted port flags (e.g., VEPA or
-PRIVATE flags inadvertently set or cleared).
+Only the zero/nonzero distinction matters here: a caller's file reference
+keeps the count nonzero for a regular pipe or FIFO, and an internal splice
+pipe has no files. Use data_race(READ_ONCE()) to document that distinction
+and take a single snapshot without changing the file-count writers.
 
-Fix this by deferring the update of port->flags until after
-ipvlan_set_port_mode() returns successfully, matching the behaviour of
-ipvlan_nl_changelink().
-
-This issue was identified with the assistance of an LLM-based code
-review tool, confirmed by reproducing the state corruption in a
-User-Mode Linux (UML) environment when ipvlan_set_port_mode() fails,
-and verified in UML that the shared port flags remain unchanged upon
-failure.
-
-Fixes: a190d04db937 ("ipvlan: introduce 'private' attribute for all existing modes.")
-Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Fixes: 6447a3cf19da ("get rid of pipe->inode")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- drivers/net/ipvlan/ipvlan_main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/pipe.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ipvlan/ipvlan_main.c b/drivers/net/ipvlan/ipvlan_main.c
-index f29864db662a..5732b167c5b3 100644
---- a/drivers/net/ipvlan/ipvlan_main.c
-+++ b/drivers/net/ipvlan/ipvlan_main.c
-@@ -678,12 +678,6 @@ int ipvlan_link_new(struct net_device *dev, struct rtnl_newlink_params *params,
- 	if (err)
- 		goto remove_ida;
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 4fa69192e6fb..cdca0df67f90 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -87,14 +87,16 @@ static int pipe_lock_cmp_fn(const struct lockdep_map *a,
  
--	/* Flags are per port and latest update overrides. User has
--	 * to be consistent in setting it just like the mode attribute.
--	 */
--	if (data && data[IFLA_IPVLAN_FLAGS])
--		port->flags = nla_get_u16(data[IFLA_IPVLAN_FLAGS]);
--
- 	if (data && data[IFLA_IPVLAN_MODE])
- 		mode = nla_get_u16(data[IFLA_IPVLAN_MODE]);
+ void pipe_lock(struct pipe_inode_info *pipe)
+ {
+-	if (pipe->files)
++	/* A file reference keeps this nonzero; internal splice pipes stay zero. */
++	if (data_race(READ_ONCE(pipe->files)))
+ 		mutex_lock(&pipe->mutex);
+ }
+ EXPORT_SYMBOL(pipe_lock);
  
-@@ -691,6 +685,12 @@ int ipvlan_link_new(struct net_device *dev, struct rtnl_newlink_params *params,
- 	if (err)
- 		goto unlink_netdev;
- 
-+	/* Flags are per port and latest update overrides. User has
-+	 * to be consistent in setting it just like the mode attribute.
-+	 */
-+	if (data && data[IFLA_IPVLAN_FLAGS])
-+		port->flags = nla_get_u16(data[IFLA_IPVLAN_FLAGS]);
-+
- 	mutex_lock(&port->pnodes_lock);
- 	list_add_tail_rcu(&ipvlan->pnode, &port->ipvlans);
- 	mutex_unlock(&port->pnodes_lock);
+ void pipe_unlock(struct pipe_inode_info *pipe)
+ {
+-	if (pipe->files)
++	/* As in pipe_lock(), only the stable zero/nonzero distinction matters. */
++	if (data_race(READ_ONCE(pipe->files)))
+ 		mutex_unlock(&pipe->mutex);
+ }
+ EXPORT_SYMBOL(pipe_unlock);
 -- 
-2.33.0
-
+2.51.0
 
 
