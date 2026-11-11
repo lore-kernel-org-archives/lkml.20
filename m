@@ -1,55 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794369543;
-	b=3ML4+/4x60ENKnj4aCle0CawdMv9aTotW5SP4NYlFTAE1Zue19qXgM9vLFsBQHauE/CR
-	 ShWV/XiYORUTfVJuMn9jswzVHS4GkvoYIlvrOs4eNeFUcpxh1QQRDnYdhWhBXtnVAniB/
-	 Mxs98zbqYFvJ8cCqNx2PMiVpl1d5gOWv8QvrGh8GAE4CSOyNrsZhK6PCSU1HsZdrqo5JW
-	 3ZSJQMNx/fliI0lLqWB0HgMozLUn5hu0+lAGp44Hg3HXcsOVVA8XCbss96Z3Ew8KtgcMv
-	 EBg4aiOU1Q+DHrPxTFENNkAV4I7aTIRkjJAdVU6MTCoDFP99JjVn3r4GfWD82+cjR5w==
+	t=1794369646;
+	b=aI791idU9NL1KxDYYkOw/vf1iE4hkQROldaMlqmZJbCX9qeHm1wwBET5+xRJvGgphfbY
+	 ev/ri2TffrcOwFS9WgxXHsXcgs9I8nsEhJnOHK3P0I2L7hfitrUIPpOjelNN5Ji1GDBzI
+	 XNxZmsIkGptRHPljSJONi8u6gLuoudKJamSk9Xij0GlKFwu22YXP4WPhIeILTpkDVnqev
+	 SYevotPt8q0k5FkAREtRTZqousK6BpSWluZomanhdse+HnilfcxXEtDG/si6G7qw8tBA7
+	 znzFx1AUXcL51bsgfPt3drz3tjWgfxBd/n5jVuN+HKM4tgfGk9uG54GhrwXORM++2LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794369543;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZjXqMQ6hdZ4kwTB36gvdCoIT1cQInDYuK47u5mGhQyM=;
-	b=ce6AJRBuVKGRg9Xu5EvGhjDMAOj1g4P+Lp4uROsUbYy/ATMAWQHVIfSuiy3YnShAz6zl
-	 KvlbQuSZtU5Qs9CUmq3OBr7rpgIJr34qMh77JwaqhxD3ghUfet8MYAXTVlPpyfJcMz92E
-	 ROu6HGTB0hEeMksk+z3J3KwUc1acAgUuCNodleCtzW73RftCcdhKosAQF4ab4mnnqg84H
-	 iLY1df/WN4o1NbDF4rMNaXA2esbYj6XrZjdYyQiZgOJLFciEG2JkI4TNU4aFtRMJ3k8eN
-	 OdhU7AWx+57RMjPfRFMoaEYlyWaC2OX4BUNKBA45pjoSRlMnZwKJz99jKe2R82Zw5Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794369646;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Qlr228EuIzXhz/N5k30rrxvQvI1lv73pvJhSOTxy21I=;
+	b=fYsjTusr6htMFA70gLH22gZ3Ny2G9X+zUDTGSRM5Ru/5BDOUrfZyQxGnYTKAUGnGihht
+	 S7DyzzW+h1n98C0jP3KY9Hxh5K6g5NKN0Tb0odzWun4dXH264N1WDiaO8Hg/t3VbVK5wt
+	 mMKHgkmrAJieCJERwHcSRlLABa2nR56RtrP8H8wCltuONRyJidNfevA8wxNEWBsR518LB
+	 taPjkUMJR92Bt2+RaXQqlBFBv7wOh/Ai3mvZrenjeLtiY1NBH0vgb1UxWoSHg+6GhdJV4
+	 FPJaOulmZtf07KEAwxwq1rK344TWrIDCpicpEYnbYML3gpIqOx8DqqSCc9O8K0qX4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFHl1tC6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FH2Z4Cpp;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=izKeNjmg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29DB606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0240606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0240606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFHl1tC6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA701F00A06
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794369543;
-	bh=ZjXqMQ6hdZ4kwTB36gvdCoIT1cQInDYuK47u5mGhQyM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EFHl1tC6ueX3JKX2R3ySeYPUy01OSp6rXKtawQKXTBu94NPvJm9mZtRwQPE/LwqwY
-	 sYJqDrj04Y72nFkSsHbqlx0Vq7ptabNrt904LWtsXtWEXgDJLqJJV9p5GTnBdsZ2ex
-	 lehRSjT8cFj5yBfHb6sNHDAb5D/DvQ5mj7MhCbnGVmj7ruOszC3JzidQLA5jkKu+te
-	 DGtADIVeIJlEMT7kKXt6YHH5ZQdG01K3Cj/Ze3HWoex5ELm6ZrGKZGaEdti8OpX/na
-	 HJ0w2H/NIANei2micvB/xdnX4+C4DvTP4HpcIlTRsRcIhVYUCQNjZ7oOKOYyiU//li
-	 4BPALXu3EvhxA==
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-930c0f9c1b1so279111285a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:59:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFNxxgxcHaGmYmZyn7xawezVO+g+Y9uNsz08v0nKfy1oLqIcPz9u3IM0efb5e4ZIElNe1aViMNnvqOrEaM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95iAsbD6fuHQ06pMs9hoUxQkqiBzCJMIemlDTM7viYubGpjnyB
-	p/hmmygQ2K2GD5KybUPpMv7PBhEeihOiTmCZ+oeltOTMSpsIbqcYczgpCg3ZYQpNAoc44prObQg
-	1fKN52ZCPdvWORavrb/7mk5vVO6P1c4Q=
-X-Received: by 2002:a05:620a:26a5:b0:93c:c7c6:90b5 with SMTP id
- af79cd13be357-947afcd389amr174760785a.9.1794369542448; Tue, 10 Nov 2026
- 19:59:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FH2Z4Cpp;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=izKeNjmg
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB1teD31569907
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:00:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Qlr228EuIzXhz/N5k30rrxvQvI1lv73pvJh
+	SOTxy21I=; b=FH2Z4Cpp50sveYA9YR0ZNB9Gwvy745VBjhwlYRsIhZikOFq5p3j
+	kXU4mwGf5GNYAeauUytxS5Xny5LWwATbquA15HEW0/zGQCM7eO/gBp6A4DM8TtNu
+	Ss5gRsPHJgDW3rZOtnsHGFuMOGpIrhFWIjXQRDjpxnKn1WQa6eXANUUtnyuj3Nj9
+	6tm4zlinmG1GETMYf4JvDiW69iTOrq01eO4Y0KxDth1Hz7TLeez0J9hhqPWgLlZU
+	WCPnxR4rn6pGKxOZJGavmH/akD4s3JZlJvYNL7oHJiJxOl/mhphp5Wy+4ZrL0h4s
+	I3oeI2Ohu9i73AXnNByIYjNd77x9xEGOSLg==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97c9sps-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:00:44 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4fb73e868aaso3845096b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:00:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794369644; x=1794974444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qlr228EuIzXhz/N5k30rrxvQvI1lv73pvJhSOTxy21I=;
+        b=izKeNjmgGEb+ohQD0Lo2MAj/aQnsOQBqGfHNjKP+5ahwFvmAq8ETD1AtOpQfQqZkY5
+         3Ccfku4MgdWRhiqeryy3U30ZPyIcHWkE6E10kp/hy60LDsJC+W45uW3U6MPZKb3NFMGE
+         TU7GYYYUWkF8slxjOWFa9MOBF5SSQgoSRzcj/nH60b96PgXijTmJwNzWYM8PsB4hisZC
+         6KtNdCM+Di9U6fUFETUdxFuu0MDbvA+OM4tQfomqYUix9Y02DXSft+LOK9tHSMR3cRhq
+         NGJ4cXp8wySDAs4ThKvo7+sLe7W9Oax5OYv9Hp0qYGrqjSDm3YmS8lyFmQ9R83uE68Be
+         ATiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794369644; x=1794974444;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qlr228EuIzXhz/N5k30rrxvQvI1lv73pvJhSOTxy21I=;
+        b=m3bqkXIkDzrqXN1sqZQAMnUNt6sEhV5krX5XCPZjD9nxPBeoYBRB+JXsAII+Rk+D3R
+         533SCideKyUqbcxFqUyg2KwWMFRjtjxDt/zEQEGER5rVCMnCs1psS6DL6w/basicQmCe
+         rvBUKk8ZUbWhtr42gqFTNa8su3v08lm++WPmNZ+8I753gjrfN3w5Vx90YoFndlt4s5Hq
+         sZrPWNAAD8M3uojLRHC/k+E68K+IW1k8/cFI7E4aUHaDAIdmniGBe6HIey2BRrhQhSjz
+         oR+FEI6cJONK0tvUs9C8Nndp81seXeMCmqJZrxRDko/Hz+BxVawjctP9j/UPR2v0Okln
+         vlRA==
+X-Forwarded-Encrypted: i=1; AL+hErEhr+v/VU+sECBfGJBhdK6jZq/n7XlfKFKYfloU2KDO93MC1/LPPj5Ca9A4DZ8Xw99wdvol5qZM3ulZgwI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dyHd417V2FWkd4DizK0Ke58gNzETAnOzXl+zpp8c+GlgeBjK/
+	QD6kAUXCiL/qjcIi05N+AncMUkQX6n2oONGRxGQx8TwQ57WDzrnKV7brdEAbOEu8XH6WCkkokkn
+	wVF21aG+IPz+ZfOjrOwzMhd4zWMdK+3mGBT+sePmuj5k2Xo2ZRfGSEnb223VCDTijfyA=
+X-Gm-Gg: AYBFou0gt/RZvSu1QuhhzeNRLSuCAcntuaH2mbwDeOQYpVeLjql8Zs19onEncBnygZc
+	h3QjDigJSRdTCT5ioJ41PAfzfx7UJ/ze+DKGLqpchzm4EPGF65plcyeFEzsQqS+BaVZRF9Z1WmB
+	LJnf6HKCLAl/L25LbmxojE6zp6BrpuC3CjcR+33rm155W3YaSmoMTLCjtK5qMNdwdGziJ7y6tBp
+	ywA+hLXEMqjNhMbVhmFGf7Sxf8cG2dLg3HV4TP0rM2vFlm0fErDAlTzm3miAnLhSDHxo/oGulaJ
+	NWY2PzigtjsFgrXq9rNtT2nAShtxgZRSujdgl02C7lLBqvkE1TIJjHj1aZ7RNDDkarzq++kZ07i
+	3VcZMUFVQB3gti2b0s1b0D+1haKWAtIrwf2LJoVgfFdUQe+pOkmZEel4/hf05cODzmPJWGBu0aw
+	5Yvvk87kZuXF0335J3trSGLDyj+aoFaUV9
+X-Received: by 2002:a05:6808:3a0e:b0:53a:d128:4021 with SMTP id 5614622812f47-56b96bd580emr1045799b6e.15.1794369643972;
+        Tue, 10 Nov 2026 20:00:43 -0800 (PST)
+X-Received: by 2002:a05:6808:3a0e:b0:53a:d128:4021 with SMTP id 5614622812f47-56b96bd580emr1045783b6e.15.1794369643526;
+        Tue, 10 Nov 2026 20:00:43 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-568f083d000sm4089276b6e.0.2026.11.10.20.00.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 20:00:42 -0800 (PST)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] arm64: dts: qcom: nord: Add ADC-TM thermistor channels
+Date: Wed, 11 Nov 2026 12:00:18 +0800
+Message-ID: <20261111040021.3636059-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,60 +124,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028214534.1919398-1-song@kernel.org> <avMR6tKwddVBrkpk@pathway.suse.cz>
-In-Reply-To: <avMR6tKwddVBrkpk@pathway.suse.cz>
-From: Song Liu <song@kernel.org>
-Date: Tue, 10 Nov 2026 19:58:50 -0800
-X-Gmail-Original-Message-ID: <CAPhsuW4Dh=QRgChcfbrTZtxCko90+o5cgzFpytBEQcHh9xd61A@mail.gmail.com>
-X-Gm-Features: AclHuK8gWgOZlTHZU4sFNAsP3ftW_dWVZ6cjjSNApGFC4mxEwRvyPBBX-lKjT34
-Message-ID: <CAPhsuW4Dh=QRgChcfbrTZtxCko90+o5cgzFpytBEQcHh9xd61A@mail.gmail.com>
-Subject: Re: [PATCH v2 00/12] klp-build: Fix dependent patches, add selftests
-To: Petr Mladek <pmladek@suse.com>
-Cc: live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz, 
-	joe.lawrence@redhat.com, shuah@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAxNSBTYWx0ZWRfX5Sza1713ZXVV
+ wzPImPqyVCp5T/2s0LAQXVH/QM8cWiU7iPaOusDddlEGVKdz53Pp0cUyUHq8hPQhe+kcE0BShZR
+ LnXFBdlMU1lcoNxTe+nzd469kz3Owkec+I8P27k3Es+J2woEYetpFjff2duoLuHCNHsRJpoL46h
+ 4uU9P/la2M4e1zxW2QIUuEvBTZN+xQXqZaPRZCgfTCqnnglbFeD7aVY1rJ11/tcCnIEyZiYEyIs
+ cOpXh3PR6c0O7Q6q2zkEtY4cXRAnegLevi0geTCUqFTktFGdh5dCxXoBJZFvx9JQyRh7O8gO/8i
+ LfSB/ugHrwQCAAkBGiXb4iAjvV4KJLPJWpk+kxd5N0OJaWuBZAs32gYkizV61nbEYqpLOigTDB9
+ oPmDredRRrFf70RCgWfzFzlQOw2K0i+y0O2/oQtBehrYer6k2iVAMatSCzKV3CFr6840cYGdHTa
+ 9nGglXCuAVnLQjGjcIw==
+X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af3e86c cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=-jktPZProMVJZdFyxj4A:9 a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-GUID: 5nP17-c2qPLOE2zqW-eW9VqpEpqRlmiI
+X-Proofpoint-ORIG-GUID: 5nP17-c2qPLOE2zqW-eW9VqpEpqRlmiI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAxNSBTYWx0ZWRfX3avZoht7SwDm
+ nQkZYmmpd3uVZxOF7S4/kvJs06ydxEIHQebxmfFkRQ4D8pC9ofWax92fLkoEPvAFYDKcA4lx+dJ
+ 8mIVbG04f2WyYNbS5+YrluXJJlTgK8g=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_01,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110015
 
-On Tue, Nov 10, 2026 at 4:45=E2=80=AFAM Petr Mladek <pmladek@suse.com> wrot=
-e:
->
-[...]
-> >  create mode 100755 scripts/livepatch/klp-prepare-patch
-> >  create mode 100644 tools/testing/selftests/livepatch/test_klp_build/Ma=
-kefile
-> >  create mode 100644 tools/testing/selftests/livepatch/test_klp_build/fu=
-nctions.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/ru=
-n-tests.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-basic.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-cancelling-patches.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-independent-patches.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-line-directives.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-new-and-deleted-files.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-offset-and-fuzz.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-patch-not-applying.sh
-> >  create mode 100755 tools/testing/selftests/livepatch/test_klp_build/te=
-st-unsupported-files.sh
->
-> I am sorry, I am overloaded and do not have time for a proper review.
+Add the three board thermistors wired to PMAU0102 (Kai_MV) AMUX pins on
+Nord Ride and RRD: SDRAM3 (Kai E AMUX1), SDRAM1 (Kai I AMUX1)
+and UFS (Kai I AMUX2).
 
-No worries.
+Changes for v3:
+- Rebase on next-20261110
+- Drop RFC tag as the dependency is cleared
+- Link to v2: https://lore.kernel.org/all/20261103135445.2049110-1-shengchao.guo@oss.qualcomm.com/
 
-> I just see that it adds a lot of new files. And I wonder how much it
-> shares with the livepatch selftests. Would it make sense to put
-> it into a separate directory, e.g. tools/testing/selftests/klp-build ?
+Changes for v2:
+- Move thermistor channels and thermal zones from pmau0102-nord.dtsi
+  to board DTS
+- Keep #thermal-sensor-cells in pmau0102-nord.dtsi and set it for
+  all Kai ADC instances
+- Rename thermal zones to sdram3/sdram1/ufs-thermal
+- Link to v1: https://lore.kernel.org/all/20261028150103.520428-1-shengchao.guo@oss.qualcomm.com/
 
-This set of tests is mostly independent to current livepatch selftests.
-But in the longer term, as we add more end to end tests with klp-build,
-there will be more overlap between klp-build tests, and livepatch tests.
+Dhruvin Rajpura (1):
+  arm64: dts: qcom: nord-ride-embedded: Add PMIC ADC thermistor channels
 
-Thanks,
-Song
+Shawn Guo (1):
+  arm64: dts: qcom: nord-rrd: Add PMIC ADC thermistor channels
+
+ .../boot/dts/qcom/nord-ride-embedded.dts      | 84 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         | 84 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/pmau0102-nord.dtsi   |  8 ++
+ 3 files changed, 176 insertions(+)
+
+-- 
+2.43.0
+
