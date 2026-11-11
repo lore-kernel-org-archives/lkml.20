@@ -1,77 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438938;
-	b=h/+Roe2yZhkZWA/Qcwb6wGlHqp0ooliamWZziaD11FP+DtXnvRqKGlecuZYHmu21quyQ
-	 yQLszWauutUXvmKpFcMgvi1P+tQw3uI60KIu6pPN0WrG5208ONGuak1rSeWD+WkY/jbXw
-	 dscMOadzfmK7lVmEroxhQmWD3lE57oRrchj3QfCSAFd/HKZilOL1pHL/Y4SsTk2ehKrna
-	 zkFaMVHeB39zZPvCwhI5Uv+fkCLWTXEjd1i9bYYVc4ZUn7Ii/hNKc7/5g7S6jn66va2F8
-	 TbNuQbAevHVuz3lyfOGL2vNkvKlsT+PY2ViOCi2IqNlICgKw4+CPQ4z9DAlieW1ltFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438938;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Ib3Jyrng3eMRwPlu4vvYbRPIULO3xoAFugNEwMFenwk=;
-	b=GjlKGAlJwyJk4USBEzbsgVo7dVupHpvPzwWba6StF4QyTiJ05tQ+3BqIu7AxJyMpByh5
-	 F/Ce2imPWb82F4P3u3dJ3UkAdKDg43fqxFRUYGSo1+sovGLfqnvpN4c5ntkn4hpT+B5NA
-	 iR8Fk8g+EAwmsTVOs5cL4HhGGsEiPNADiUPmuu5HNCYWzUXed8Y818u6wiM99t4Ghz1JB
-	 qN7sb6FcC/BwkpNnlluVZ7cjo6lOnkTXlL8kOGL4L2h6wqKK3WzAIUPrnLke68hG00jL6
-	 wFEi3DTWNsl/2Sq1RyZa7Ecdb+BnFWG6wxUMAEK/Lg4aqMlmbO1wl91V/RGzxZr+R2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794438937;
+	b=cHLn6kC++7v1tkVjxi2qx1+Kwpfji7x+exmYJIxgFSH1PwfH+gqSQOoncSjsUeaKMPHU
+	 WvVgneQUca5aE+LwsWo1GUrwUO0KmCX1ZFbds33Bgg1+ABsE9xijPO1fE+W8YE4R1+aeU
+	 DGnKxuVcf0NvWStFG5SsVfHFjlWbMXDba6DTWSpyqk6xzAT52+UZolnHJJeoQeC9DuIox
+	 IVqWOLCWNHwReu3uzIeuB8QOMe1qlhjHwEmDtNOFmNeG6D6axxP9mFIi7XkS2qc8WJWt9
+	 5HIo8sYliVRVQW/OYN+wkXiEpZO/RkYO+b9I33H/Xt4gtS/O1JsaB2QDsUj17w9eBfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438937;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
+	b=GDi4u5q8Jyes1vaXMKV4WKhcEvl27BpFu+pYI87TuglslWNfg+d4l+vGtvOMLc4NUHhc
+	 IRkjGsqksotwRcyOJEM6cvjaZj7Nqd8AO4x87/kbK7G3X8qs+J/c8uqv+8aORpvzfMFrj
+	 O8wCJdK5CFItbI3CxlQd8FfZBtxOEG/e3aJQYAywmjcA5ESF8K10o9mmvdVD+Z4qS919c
+	 U6YAvlDJ5pZy4pZlsdGQhiPvvRJwF5mKu917Ad0AtlgGV/lG2KUaUElMUkdLYI/1th8xy
+	 c2HXssmRk57xJIapZN3r33PrQX8/QgdIn2JcMBpU8U/hxs1n8pwHofzY9Ocp9Zpemuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EU3wBpIy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E75606A885
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:15:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E75606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a05b210703so1940845b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:15:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794438937; x=1795043737;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ib3Jyrng3eMRwPlu4vvYbRPIULO3xoAFugNEwMFenwk=;
-        b=U4N4SmMd8G6+0RltOvIGeHJZm89+dirc/kpNT/G33lZru3t+JI5ngr4kn1IMlMVP2P
-         7eGksMGGTe+sudCYyhW3AaN5S6/Pudg2LggFmJsQon//Rgkb5bHP9HmucY8yEOEceE6Q
-         4+ZJMwi5NrOnGwQWatdabFRjtte4ZMSBs3DHbLOB9W8MtnkSpLJJ2D7/Bh6QnWRozFAh
-         A1CiiJWc4cUFjQXUsPr/k8sO7jB8/nJV/XgUsqeeD0YcNeYluXG4X69CdmY6iblJm2Tj
-         kri3EdnzQfoER/Aj3U8ajcVxGlMkSRgYOH2XCcxVcjnbo9tvaGXCQ+/SZQ8+Au+uxHuU
-         /Ekw==
-X-Forwarded-Encrypted: i=1; AL+hErEZCNh+ds45g6M6+rtOXUNK/46DVG46FCKqaAnFg82XnVsnF3cy5/dsocwWQeQIeRhHEgZxkVAIGEZBSWY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OZvc8rkW6BQ+Djm4/MDOFfDH09DpzhvjeNnGX1RPv7aHPg1qd
-	ShkwgnJEko5YU8DmHpDXlDbF38uCMqvfAVtQsbuWG/jD39XNk5DM+fjwDaVpM0Mp
-X-Gm-Gg: AYBFou1Wn0XjrxzZSPptAzEnzTv9VLiWmxkHzLwiX+cPqgjeArHvsUZk2NfxXkyv0Jc
-	bq292iOpWheLJ3biE9OnCY75BMNZ7x17KyDjQozAGGp58SUx4o+Btp3aUxCZp2Y8tsBmqcMVEdy
-	qW2j/i2MT2OTJwKwYEm0wFrBCXJdryyYW59y3rFqvbsZPeUSVwMD5CHdysM5uqWYipXKGV1l7Pq
-	Wp+65TyXRxb6b/teXwPucyAF5A8WiI9iMhVl9EUBTU0KBYR8WJLPAsPAubzgp+IBJQsT2N6LxvN
-	JTynVIZN1UR5QfPT3uh2+ctQfxzAbHfI4tz4J9WMCd5lWgGALTzCbRKl2LkupIL3pJsM2WR0KiN
-	2VKFJoLNQPh0sObl4HdAs5FVnLLnyPkpx2a07UmPCnNil7YWyOBs3cpvkil41Z4CVey7rCuWhIR
-	9AkT2hdVvvyolS2NjxFJS4brxzTtj+dz5SYL3NhEshED+jxvp0wiMUhUNuUtpMy+25OV73VKlwn
-	mB3gBCEbixa7OzXfeHV/WesDYYz0LPGbjSPyR77vmPmV+GDxCQpRxaiRTLyR3WqOPeJCH1EU92/
-	go+2GvCTbQRDa3eDkcCz20ijo97CwDh6UDT4he4RayUwGptawJsUhTy+P+KCkfPt2Qb5w3NDJtv
-	OHh5RvZ+no4gvnIKcXHD79WnBr9YKjULuPug7ykuMWkgP4t35L6w5So8sC90tnw==
-X-Received: by 2002:a05:6a21:50f:b0:3d3:af85:eb99 with SMTP id adf61e73a8af0-3f2fcf9caeamr3990840637.27.1794438936812;
-        Wed, 11 Nov 2026 15:15:36 -0800 (PST)
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com. [74.125.82.46])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm2595365b3a.5.2026.11.11.15.15.34
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 15:15:35 -0800 (PST)
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3acec6677so5517633c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:15:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEhvmwOcMp98RFTJtTMg+oCrhidgvdwSbHAyVjAp8ypTUB+3A6hkWuOWsKHQXZ5oad5VQ0ZibDRfRqFrqs=@vger.kernel.org
-X-Received: by 2002:a05:701b:4301:b0:1b3:ae7e:c1af with SMTP id
- a92af1059eb24-1b3c02fd90bmr3524170c88.14.1794438934098; Wed, 11 Nov 2026
- 15:15:34 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C9C606A321;
+	Wed, 11 Nov 2026 23:15:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C9C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EU3wBpIy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aQk1OSIi4RMTsfy9h1AhemrAoI4TV7Zgnmaqwck7w8urDIAprbe5Cwqcm/wlZsVPamoRf3WwlgLJyl7F8ifiMlOeud0XyWE3zXRW4NxYyeWudfR/IOKHbUHlPOryZco3fff8dka17SAX8K03htCUmMNL6d/HrhKZx52HiAqoR0XYLSOf7GTurTxurVZuf17vX3PS6hXHWx92LLzm+DMUHMPq6bojmsaNZzCwB6Dpptg3nhnvE8iPKOLiSscWJIFgmX9Kc8vi2UGrvFrPmcHlTpKEXAMVtWFcZEvKPhqxYMx7BulMLKv5bmBNO75kPh4XozUjcuWjwXkbkufCrEj7EQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
+ b=FwU54WGWJR2u0ys71T9Pm5eIWUqanTBEpFPxYfrZlMn17jyXaBOWusN9sFCXj27y752jwTvw+4/58hcGlmQsyjZ1pH4B/LErxD6mncbK+rxJUB8GfMdtqLzojr0XDjwV6eyTLwJBrVXin7N5jaeaT1gceawAkt9kV3eHzUyJKSChIe4ttC0YT1MU0+I9e95ClcS9TWOE0xvCG6MPPJdlPr6t7a9LjB1n8ae8lrsAmDy3Vam9Gjr038N6B35kkWvaD7Y3v4nc4wzZRUVtsDmLjdXKr/vZ3SsSagry1HhOmeEMVaUFKC/rUWKM65hx35sH3P/Acla0jUog1eHnV1sxOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
+ b=EU3wBpIywsakbpPoR1k6d3Uhfc4Y1BfomcoFcTSoPq4aXW6grTWNOON27KACmDJgNZgmUkRDWjaRVLWBQHmvy0kQe8tCB7Hx3vDLRDY0VVfKOaSY+rB/BXVkE5bq4WJzyCp672YMvQ4JOOnBrbJ2z3u9311kDadN4aDd+HvtvplfjvYBdXdn1lTg3asQtfjMdwcjnYRImals2HXd4Z3cp8Zp5/Gp1tr67gd/CeTX9HipgjbSHR1JRY+H0o3wQZeCHF+u2WZqv2h1TsoA0skj6hmZ78Ss9NHiAXuCS/3L5u659bjBMt4jM0hX8bwQicknSFQqwHAKdi+g0ye4wjp9wg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7)
+ by DM3PR12MB9328.namprd12.prod.outlook.com (2603:10b6:0:44::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 23:15:28 +0000
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc]) by DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc%5]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 23:15:27 +0000
+Date: Thu, 12 Nov 2026 10:15:22 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 10/13] mm/migrate_device: refuse to migrate shadow stacks
+Message-ID: <avT2FNTZoEuijEZP@nvdebian.thelocal>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org>
+X-ClientProxiedBy: SY5PR01CA0105.ausprd01.prod.outlook.com
+ (2603:10c6:10:207::13) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,55 +113,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-b53-bpdu-mirror-v1-1-f9f32e9d25db@telaak.dev> <CAOiHx=kTUBtFVgFhNqGhP135CdUmK8imCE_+pdk7qsdZKMqByQ@mail.gmail.com>
-In-Reply-To: <CAOiHx=kTUBtFVgFhNqGhP135CdUmK8imCE_+pdk7qsdZKMqByQ@mail.gmail.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 11 Nov 2026 18:15:22 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5mZTXQK99jv9-n4cRk1GfQWaJ+SqJWRB9UFuCcjJ_v0g@mail.gmail.com>
-X-Gm-Features: AclHuK86_0OUm-XrVyjZYS_UH-BHfAyNuDZEiDXCKmytJxx7toAduKngN_4CdEM
-Message-ID: <CAPY4CJ5mZTXQK99jv9-n4cRk1GfQWaJ+SqJWRB9UFuCcjJ_v0g@mail.gmail.com>
-Subject: Re: [PATCH net-next] net: dsa: b53: mirror BPDUs to CPU port 5 when
- port 8 is not a CPU port
-To: Jonas Gorski <jonas.gorski@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB634945:EE_|DM3PR12MB9328:EE_
+X-MS-Office365-Filtering-Correlation-Id: d58076cd-9631-423c-a33d-08df4049ac23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|22082099003|18002099003|11063799006|56012099006|4143699003|261028144727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	4GYQ+jiDImRHARbt9k9zD1dhK/V6n83PM0KTbSlyWk18y7VLnysnXake+a9pFJ9CJMtXQYwKJhrd/ppw3Yz64WTFo0VbvrwFEWQFIdr4+Xk8aGsIhSJYY+OwQ4Yh2jIV7HF2YruH5L+uYNbpNg5zqGCdbWf1/Y4yvHDYLN5JfR90ejoGNqyBkd/EL6WXrVQ1KV23XYNYFm2V5bCbE6kJR/NTxeETZDNHBnhU8Udjv5dlksqBTagVLtaK643uTPJzS0jkVLQuKlwhYQkWSrIpWK5IFAba+8N1IswB72s4GT3XxaHQ7hYbCPu8+7iLCAAfH8xlNzbyetGc6OcIfmhfcwYr6+wYiwWKDtHtH7/SOWOeQVCstlc08rh6OpFVzkwOpq3Vdl+ucahAoQNCDS/2fsmJyCYLSxIDwaMcYwG9WLwQ0apdvU4BXmPwhu33XpSksj9QZxNC3uIcSszeRbCgTOXqb3ciac2CXjxELlrdzQMRVs6c00E+aCayvAfSpceFUxRtVpPTUjEMLrFi8XZZJ7fg3F/OVLWV0FORnshpatlsuFeESI4RGR8DLZk9DLJJ9P4AqQ29NcD1fZt0CI5XbM9l3Sahy/INkqR1GGVyBX14VrmgQ3C5KZrwMyBM3C2YJ3uVYcWKrncUCYXkG1EiLagt3Bo82s+BegbhFTGoBWs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB634945.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(261028144727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?G0ZQorIlwpecL3itzRhy+8iDyALUz9OaDSuNlzAI6RWjJzuQe7aLtcWaAINc?=
+ =?us-ascii?Q?U8lyqU8/DrvldDSThntQY3FHHblgGUvuB7LZbzdDvTUtau4Bt1+TH3GfOsSw?=
+ =?us-ascii?Q?LoP4T6A/viKD3lfMG3i1heNdwmznM9jZE0DCes6E6CvDpAdDPh91QcAXidAt?=
+ =?us-ascii?Q?LkQSDb6m/JrzbugynQd+zcssJ6s19XsCT0BGqSYcFtqSSc+tEyXCqtutD3Y9?=
+ =?us-ascii?Q?YFrzyEpVo9eE0YpmbUjxTkpdCcLDmqIRoixvzA2MvT91lMaU2Wc54YGcrvHS?=
+ =?us-ascii?Q?czKzEg2YfURSqzx09/ZdASndHM7bKYdaXzQZ5Ysgs9i52kgmoYpaW4GSGLpQ?=
+ =?us-ascii?Q?F0l29qLfI7eMSMVPekjELhZXB5BMY9KPHfHBXf/NITMTcHYiSatxsVq7lG7z?=
+ =?us-ascii?Q?ynt/cXTPUPhmnl/Hi72IxZhR7lpAzu9NzqJgJ0JefPqF5AcQxpzA/zLpha88?=
+ =?us-ascii?Q?6BYS8wjJGmwX0iPGf+jA1raMRzvZU8ZIYaiWygTV/H0R7vmZGy306OolpxHw?=
+ =?us-ascii?Q?UcutIYkFTBotXObtQrFS2VOxZJzfYF5g7RrCm9j9uYDgGxk0SDJU/73+0LeH?=
+ =?us-ascii?Q?tQc+UUdor7p4MfCnCGroo7vIxMMjjrTWj4/lPrkZTnTSlJglRpgLl82I18de?=
+ =?us-ascii?Q?sgIpI4Txmj+RNY3ixQcAUe5cBde1vVgAcCzzdOb7j7SDb31syxciBeo1rOvR?=
+ =?us-ascii?Q?zQ5HLGh7k7Pbe04xJ8PW0Mtiahubu9Hh4+ALVRGDmNVWOqriHJs3ER6nYISv?=
+ =?us-ascii?Q?tA6DMikjMOmz46IMwJrSo84sWIL3nguH02Dxv6K9EADd1u1jz1/PciMUJvX4?=
+ =?us-ascii?Q?hVOrBXn1bXLzAJdUJP9xfmF70d8YyMzzOjWY8sdkeVpwNBxomWZXq1pNC/61?=
+ =?us-ascii?Q?7GYyuMtalZNfOWjmaPBTofyvBoSeq0+D9c5s/QwBYrpppcY3KKTvc7ID9NX4?=
+ =?us-ascii?Q?0HDR6B/q7n/HtYEjKITEXTa+7IgnzJ/QPEo/oqp18aTPQ1w81cnOMbmGzbBO?=
+ =?us-ascii?Q?Qcve4k0FQXLqQEHwEqTm2Sgtgxj3Hanbxd0O39SAOYJoByCyR7PDyxudBMBT?=
+ =?us-ascii?Q?a8PdNq3qI6ol+IDgbuya/Urc+IoAzwXyjIbhpXDsJfQWABZLFzYyTzQkUOjO?=
+ =?us-ascii?Q?R/d8/2YOwaKZy/rM65FNJfn+kMsBK9cz+jGXB9fbmFtVTqb/d1RM8QMPj5Wm?=
+ =?us-ascii?Q?1ltZOEt+15eCuujJZ4+kA0oECVE2Va8p5TckIX83tbG5+jhFooRVqsbINbuT?=
+ =?us-ascii?Q?5aU72DlWyY/67kTN923b/Z0dfj3KnSBRRrjLc5dYTmfH1nXVDwIrGrGiPp9x?=
+ =?us-ascii?Q?KdstMiAlMLAOIEt5r5eoBJBB8g+r//y0lr7JWbp0n/8l++ae+dD0k/jC+skt?=
+ =?us-ascii?Q?8nrCNxJlBppcOMAsWOa1h+E79brQwslEy+KqrFYDwLhICZ7TpMewylZy7im0?=
+ =?us-ascii?Q?+7ocshtedfafpGn3IVGkIH+46NeM6dTma98HXjNgMFibFs9Rj0PMkylz7qTZ?=
+ =?us-ascii?Q?AFecsKqaD8ngPWa5YcbsqckbdNPBhQknRfcNWeNlQjZXWFEolWYfqim/oiG/?=
+ =?us-ascii?Q?7Bxt16F9x2AK7tGBIVIg+M8pN2tY7ujdqlr3zneX8De90RV8i7gNpmbPsxnj?=
+ =?us-ascii?Q?PM35gheHo9k3P4qYOkhluto+GoKqh7ABHRb/pfvr3S1J3SLCuut/9k5aVp+V?=
+ =?us-ascii?Q?KeZL9MODo11t9P2iSEc6evyaM+A4dvj08hteF/r9EC33utsfvR3L9wnwyPEn?=
+ =?us-ascii?Q?URBdssSY8A=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d58076cd-9631-423c-a33d-08df4049ac23
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 23:15:27.8667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZSKwXduKy99LYwG6sdRex8m/vShAhyoE8L1FrrMO05FxRvdm1jofrFCaN5ZKd6qz7QDRaSetRxI+jigzuFBYaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9328
 
-Hi Jonas,
+On 2026-11-12 at 05:13 +1100, "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote...
+> From: Chris Mason <mason@kernel.org>
+> 
+> The kernel blocks ordinary writes to a shadow stack. But pte_write() is
+> true for a shadow stack entry, and migrate_vma_setup() sets
+> MIGRATE_PFN_WRITE for each page where pte_write() is true.
 
-> So on your board only port 5 is wired up, and port 8 is unpopulated
-> and no way to make it work?
+Does hmm_range_fault() have a similar problem? It allows devices to mirror PTEs
+into their own page tables, and AFAICT it doesn't check for shadow stack VMAs
+and would see the PTEs as writeable. Thus devices would mirror the PTE into
+their page tables as writeable.
 
-Yes. The SoC has a single GbE MAC, wired to port 5 over RGMII, and
-port 8 is not connected.
+This change looks good though, so:
 
-> Have you tried a catch-all port 8 egress to port 5 mirror? If that
-> happens to work, it should catch any trapped traffic. May not work
-> while the port is disabled in software though.
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
 
-I tried it on the BCM53125 with a host sending test frames into a user
-port:
-
-- Standalone port: without a mirror nothing reaches the CPU, not even
-  broadcast. With the port 8 egress mirror everything does except
-  01:80:c2:00:00:03, but only with Rx/Tx enabled on port 8 and its
-  link forced up in the IMP override register. EAPOL sent to the
-  host's own MAC does get through.
-- Bridged port: the egress mirror does not catch BPDUs, whatever the
-  state of port 8. The DA mirror from v1 does. 01:80:c2:00:00:02/03/0d
-  don't reach the CPU with either.
-- IGMP: with the CPU copy bits from 3362cb822ea7 set by hand, reports
-  for a group the bridge has offloaded reach the CPU only with the
-  egress mirror. I couldn't test MLD, as the board's kernel has no
-  IPv6.
-- Both mirrors can run at once. Bridged BPDUs, IGMP reports and
-  standalone traffic then reach the CPU, each frame once, and
-  forwarding keeps working.
-
-So for v2 I would set up both mirrors, enable port 8 and force its
-link, on all dual IMP chips, and refuse tc mirroring with -EOPNOTSUPP.
-Does that sound reasonable?
-
-Joseph
+> Notably, the nouveau GPU driver takes that flag as permission to map its
+> copy of the page writable for the GPU, meaning that the next CPU access
+> migrates the page back into the shadow stack, and the page then holds what
+> the GPU wrote.
+> 
+> Be consistent and disallow this for migration.
+> 
+> Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: removed unnecessary comment, refined commit msg ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/migrate_device.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 5fe11dd01291..a59864f2e9a6 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -759,6 +759,8 @@ int migrate_vma_setup(struct migrate_vma *args)
+>  	/* The migrate_vma page walk has no hugetlb support. */
+>  	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma) || vma_is_dax(vma))
+>  		return -EINVAL;
+> +	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
+> +		return -EINVAL;
+>  	if (nr_pages <= 0)
+>  		return -EINVAL;
+>  	if (args->start < vma->vm_start || args->start >= vma->vm_end)
+> 
+> -- 
+> 2.56.0
+> 
