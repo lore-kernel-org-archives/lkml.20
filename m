@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388735;
-	b=TyJQn3CyV2hZYLhH1+M5WORfP/zl1nUz40Bg/mB751j9QxkHksCFCBSJpkP6SlhKFtZk
-	 Z8+hWhhAKyQxTNTP6yZ8OrTQBRqRgdJbWdR5O04ubOrQoFRUiblG1/vy7bQ6Bqe0Sfecd
-	 X8PTpXPXqJa4sNaEhmLOZJNcwOKdI/FEI+fT2sjFoNmhIBxGAHctOTfaOKAWTjFQJE63z
-	 f16gnxpZ4zvikBhzO4fU4EbyBuO/nZx7aLxyb8zcRMTuGUqFhAYbz0o/SnhCaQiGJD4dR
-	 yClUC50xxatEiaI1Q4jCrHjpPWNt1xqruyX1OcNgIylsEinsUY76fffgnIUnItCGJXA==
+	t=1794388782;
+	b=mI9oiRyFKZJoNkihsbZpF9RJsQZ0oYGVWZSP2/tiCLivplTjgZfoiXnOSKMWzWI6mxMI
+	 iKy9l+VkyytTtMrWmdcpema1WoU5nvI7GEPiVNfF8yO9/R8hCoyd2PHUWeuO+U9fRenwj
+	 LsjJIPv1xFYQJtPWfd8eH3amHeSuAURstLscXhbhDEDl97L2sMsTYmNL52TPNd3YwMNPI
+	 ZECRdsxYaL9IJfWQfp/gMQUkThbX8H6yhe4rETUJhjgfVNuTd23ZfVnSvLeJnWgZ86dpH
+	 3LD88jX8JKZnZaRqHCTvH3vZeWu0TeDce2LmO1aSm/ldpVJpW7X+MjIZFb3Ujl/a0Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388735;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Developer-Key:
-	 X-Developer-Signature:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
-	b=FjlcGodcMqTDr1Ms54bZkL7K7AJBnmatgCEHOUW4L5LaebOquz/2w2zIaagCB4TzMVUs
-	 mkE1bztMm9tDCUN0OVEYdtQDc5rXXDOaTakRFH3G/z6lGq16vZU+d6pEJ2T3mMb4nt2Ux
-	 X+TdtXZK8yx1XN1Rio0AYCM6AhXj70Ajh+qdDJJRQU4OWdAviIQEuYoxoIBOd6n5aPaHX
-	 quw/E6hRrQ1Zbq/EJXtZBvi3IkigGEtRbEUA0boefBEgRrhmwj02yDBGKiU9MnV6Rk03i
-	 A63tanpp2bUTgqKRUqE5hMYQPR9Saj7YUGci2zq7m6YYYBNt52Bmt1XnLTfUoSiPVXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794388782;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ifuEriw8WcC3rzQiq9PJJHtE9VRbVuBPyCsDSpTXl5k=;
+	b=llacMrsU4n0FJm1k0IQq2xz19drC+kOJWVtVfi9ie9/dZf1mOKwD1NLQAl3xmjbPacps
+	 jDs47wwU0lIwEUg6yOCGUz/bNvf55yfwi6cfMAtmuz/8lQZU5hSqn+/X4WikFpO7fwPRj
+	 6+UOTfAbpaYnA6/NZIIp3dXT0thnYMfwpqDoK70isxjrX9B3wV9b+ChOg6dQ2Spj4xAjO
+	 V06pKdTrV5tr15GIG6fosJrGRYBrYMerGjFcLszGMFW8TZFFxDBNM7v5OHCY2WvNMHFYf
+	 5y/Rdx3ACxp/cgV7BxgM+P57xyZ6kGBogf7Y3ECUNPsyi3YQrk1R0e75BAzexNvQ6og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B8Ty4QMx;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsB3Awzt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2DC606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 09:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E2DC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36BD606A31C;
+	Wed, 11 Nov 2026 09:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B8Ty4QMx
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4b9f7cace4bso27427255e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 01:18:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794388733; x=1794993533; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
-        b=B8Ty4QMxm1vfEdE1VnKY4U6c5t+iG9oumO2n2YkMjk/9hSxY1CjNIxFCaBPVgrhJ27
-         4bvasjZIiY7dWta5ZXt+n/fC6cJ4W7AGMYQ4yRP7uQMLjFHFLYaT5w+VC+WgGqSzAPdt
-         zPj1Nw5q8f5mNR+gYLjm97XKYTTAzewaaeHCGD9hkIYnlpC//AAils9q6rJt9Ndp9ePl
-         /bhDn12fgIVYtcKwC1zelS5Et40vXXxbcHhfCnSxL3FJ2Z6SWwjH6Vtu+XdyNlD8q4Z+
-         9AZa4vF7LCwnxZ4A7AoCdca9e+i2U/IrzGHwJ2vG+Jhlqfcdos5U5dx55ipjvHYo4WoU
-         9bHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794388733; x=1794993533;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TT7VtQW9u3ynfbpc9fZSH0gzZlmmELI2VQAwXCCXBdk=;
-        b=LJPY1QGYUGtQ0B/i6YE/7WcV7qVMnhlt98NjF/BRZmoqfkOWpDeHJe3Niwl4egFzkm
-         gvy/WVSEJqQlwhNa8h5yxSxm8RCQaqlzrrOJnSnpkL2WYEu7fT0z6SQ23tOjVx+vuYmr
-         nLIv2W/tMyra/wcLxQsw6mJ3j0zq8wcyUS4mzU90sKva1WUwPayxCrOVH3VpX7jq21hL
-         R5/jZcADrIRfHPiDrzz2hkY7ofNTUoIR5r1xtxChK1z8/SvmzX5ou0WtCk/9Vsvyx9JO
-         OPrLY02WaM67pLrCpK3W0wj9KDpWbN3yFQQKZ+5JB+mRQt3ttFVGayva/Indbq6AaBCa
-         qXYQ==
-X-Gm-Message-State: APuU4Z8SRXYCryjKxl6xzBx8jsZ8pGGcyHQ5Pkz1Hb7wgP6f9irQicoq
-	0UXwWQu3ZIGMdU+h6wewl370uM7Qms07hvjQkjCZlwBYS4H0cuJKZm46EScMoF98dhgi6cnvCw=
-	=
-X-Received: from wmbgx4.prod.google.com ([2002:a05:600c:8584:b0:4a2:966:8982])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4f84:b0:4a1:e92b:ae4a
- with SMTP id 5b1f17b1804b1-4ba093b9a3cmr28555185e9.21.1794388733378; Wed, 11
- Nov 2026 01:18:53 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:18:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsB3Awzt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E561F00A05;
+	Wed, 11 Nov 2026 09:19:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794388781;
+	bh=ifuEriw8WcC3rzQiq9PJJHtE9VRbVuBPyCsDSpTXl5k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PsB3AwztcP3VgumQNohb4pgYlAaEvVCN2BjqH7/MXYu8/PP+ddhhYSkmEZhIjeCyp
+	 BXetWxvHYfh7F9g9NtIKM3x169O6ZiUKpbt3su6PrUTFs4qdQKEKhyGnJLO5oJeuVu
+	 c3T6hCmARrFWQosK3w5Vet7O8II94DsQMy5NMy4svGE6hfAJmsRliqycRrH0kQx4Gy
+	 CHu9ziS4tg84ny6mmB5bYHNd2Oct1Sy3CAxxIx2ctWmNQAwYVR/Dyis81HiPR0aGZ/
+	 F21kaUAM+QTc0wXLAptx8mdyN/5hLw5tNEE0fmij+h9Xj7R8rNFsIokDj+O2GYWqxg
+	 efDwn2Xci+aAg==
+Message-ID: <995164cd-34a6-4190-898a-79d25248b6f3@kernel.org>
+Date: Wed, 11 Nov 2026 10:19:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,226 +50,248 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8041; i=ardb@kernel.org;
- h=from:subject; bh=N/v1V05jBJ0umOaiddD8bOXjCN0qyvgKpT10lVOTxKM=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIeuL0Zdvr5RkGir/8LxJfMhtdqK77+SH6i2HBdim7foc9
- unV1G01HaUsDGJcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAiX9oYGRpNgi1mlgrs0Jwu
- PvVhZHvonV+CtwKeLdyQV/9i7basgliGf1YvF9t5G3XsXruF58E3Q+MrcrunXL27qo/ntdvimLr rN9kA
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261111091843.3621782-2-ardb+git@google.com>
-Subject: [PATCH] x86: Make the 64-bit bzImage always physically relocatable
-From: Ard Biesheuvel <ardb+git@google.com>
-To: x86@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, hpa@zytor.com, 
-	Ard Biesheuvel <ardb@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+ <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261109-fix-split_folio_to_order-race-v3-1-1cdc509e34be@nvidia.com>
+ <5a7bb477-5392-404c-a748-4748cec2c84f@kernel.org>
+ <940CBBBB-D564-4D4F-9C8A-A9A272F08064@nvidia.com>
+ <a3557629-d86d-42f6-b181-bf8540dc1982@kernel.org>
+ <1B3B1BC7-7623-4070-ABD7-13A5EE559297@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <1B3B1BC7-7623-4070-ABD7-13A5EE559297@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ard Biesheuvel <ardb@kernel.org>
+On 11/10/26 18:03, Zi Yan wrote:
+> On 10 Nov 2026, at 6:31, David Hildenbrand (Arm) wrote:
+> 
+>> On 11/9/26 22:05, Zi Yan wrote:
+>>> On 9 Nov 2026, at 15:21, David Hildenbrand (Arm) wrote:
+>>>
+>>>> On 11/9/26 20:32, Zi Yan wrote:
+>>>>> __split_folio_to_order() calls prep_compound_page() on each new head page
+>>>>> to create a compound page after clear_compound_head(). prep_compound_page()
+>>>>> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+>>>>> and frozen and no one else is supposed to modify the folio's flags.
+>>>>>
+>>>>> However, code calling migration_entry_wait() can reach the folio by PFN,
+>>>>> then access its flags. It is because softleaf_entry_wait_on_locked() used
+>>>>> by migration_entry_wait() sets PG_waiters concurrently without taking a
+>>>>> reference and the frozen refcount during split cannot block it. Meanwhile,
+>>>>> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+>>>>> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+>>>>> __SetPageHead()'s read and before its write.
+>>>>>
+>>>>> One example code interleaving:
+>>>>>
+>>>>> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+>>>>>
+>>>>> 1. clear_compound_head(new_head)
+>>>>>    new_head->compound_info = 0
+>>>>>    (page_folio(new_head) == new_head now)
+>>>>>
+>>>>>                                            2. migration_entry_wait()
+>>>>>                                              softleaf_to_folio(entry)
+>>>>>                                              page_folio() -> new_head
+>>>>>                                              (not the old head any more)
+>>>>>
+>>>>> 3. prep_compound_page(new_head, new_order)
+>>>>>      __SetPageHead(new_head)
+>>>>>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+>>>>>
+>>>>>                                            4. folio_set_waiters(new_head)
+>>>>>                                              set_bit(PG_waiters, &flags.f)
+>>>>>                                              enqueue on waitqueue, sleep
+>>>>>
+>>>>> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>>>>>        <-- store; overwrites step 4, PG_waiters == 0 again
+>>>>>
+>>>>> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+>>>>> and CPU1 can remain blocked indefinitely.
+>>>>>
+>>>>> Fix it by setting PG_head along with other flags in new_folio->flags before
+>>>>> smp_wmb() and clear_compound_head(). The remaining compound page metadata
+>>>>> is set after clear_compound_head(). In that way, after
+>>>>> clear_compound_head() makes new_folio visible, nothing overwrites the
+>>>>> PG_waiters from softleaf_entry_wait_on_locked() by modifying
+>>>>> new_folio->flags non-atomically.
+>>>>>
+>>>>> While at it, use data_race() to suppress the KCSAN issue reported by Ye
+>>>>> Liu's patch (the second Closes) on reading ->flags during a folio split.
+>>>>>
+>>>>> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+>>>>> Reported-by: David Hildenbrand <david@kernel.org>
+>>>>> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+>>>>> Reported-by: Ye Liu <ye.liu@linux.dev>
+>>>>> Closes: https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+>>>>> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>>>> ---
+>>>>> The issue was raised by David when reviewing Ye Liu's "mm/huge_memory: use
+>>>>> READ_ONCE() when cloning folio flags during split" [1]. This patch also
+>>>>> supersedes Ye Liu's patch.
+>>>>>
+>>>>> [1] https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+>>>>> ---
+>>>>> Changes in v3:
+>>>>> - set PG_head before smp_wmb() like Kiryl suggested instead of
+>>>>>   prep_compound_page_atomic().
+>>>>> - used data_race() to suppress KCSAN reports while at it.
+>>>>> - dropped Lorenzo's ack, since the patch is changed.
+>>>>> - Link to v2: https://patch.msgid.link/20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com
+>>>>>
+>>>>> Changes in v2:
+>>>>> - renamed __prep_compound_head_and_tail() to __prep_compound_page().
+>>>>> - added comments to prep_compound_page() and __prep_compound_page().
+>>>>> - Link to v1: https://patch.msgid.link/20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com
+>>>>> ---
+>>>>>  mm/huge_memory.c | 32 ++++++++++++++++++++++++++++----
+>>>>>  mm/internal.h    |  2 ++
+>>>>>  mm/page_alloc.c  | 17 +++++++++++++++--
+>>>>>  3 files changed, 45 insertions(+), 6 deletions(-)
+>>>>>
+>>>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>>>> index bd44d58e86845..99b48d7c988db 100644
+>>>>> --- a/mm/huge_memory.c
+>>>>> +++ b/mm/huge_memory.c
+>>>>> @@ -3714,6 +3714,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>>>>>  		 * Don't pass it around before clear_compound_head().
+>>>>>  		 */
+>>>>>  		struct folio *new_folio = (struct folio *)new_head;
+>>>>> +		memdesc_flags_t new_flags;
+>>>>>
+>>>>>  		VM_BUG_ON_PAGE(atomic_read(&new_folio->_mapcount) != -1, new_head);
+>>>>>
+>>>>> @@ -3730,8 +3731,16 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>>>>>  		 * unreferenced sub-pages of an anonymous THP: we can simply drop
+>>>>>  		 * PG_anon_exclusive (-> PG_mappedtodisk) for these here.
+>>>>>  		 */
+>>>>> -		new_folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+>>>>> -		new_folio->flags.f |= (folio->flags.f &
+>>>>> +		/*
+>>>>> +		 * ->flags are stable since the folio is locked and frozen.
+>>>>> +		 * data_race() is used because reference-less writers,
+>>>>> +		 * 1. PG_waiters from softleaf_entry_wait_on_locked() and
+>>>>
+>>>> Hm? I thought that case would be handled by your patch? How can they still write
+>>>> to the page?
+>>>
+>>> This is V3 of the patch. Instead of using prep_compound_page_atomic(),
+>>> PG_head is written before clear_compound_page(), after which new_head
+>>> is visible to the reference-less writers.
+>>
+>> I'm confused, how is it then valid to have PG_waiters set concurrently while we
+>> read new_folio->flags.f? Because that's what your comment states.
+>>
+>>>
+>>>>
+>>>>> +		 * 2. PG_hwpoison from memory_failure(),
+>>>>> +		 * can still write to it.
+>>>>
+>>>> We lose PG_hwpoison left and right when racing with non-atomic updates. It needs
+>>>> a fundamental fix. Is this really something we should take care of in this series?
+>>>
+>>> IMHO, memory_failure()’s reference-less access violates the frozen
+>>> page contract and should be fixed.
+>>
+>> Exactly.
+>>
+>>> But I do not think it needs to go
+>>> along with this patch. We discussed HWPoison flag race with
+>>> Michael S. Tsirkin and Miaohe before [1]:
+>>>
+>>> 1. Miaohe proposed to reset HWPoison in memory_failure() as a best effort,
+>>> 2. mst used RCU for all non-atomic flag accesses,
+>>> 3. you also proposed to move HWPoison out of ->flags.
+>>>
+>>> So memory_failure() needs a separate and proper fix series after
+>>> we decide the right solution.
+>>>
+>>
+>> Vlasta raised the idea to set hwpoison only after we actually managed to
+>> isolate/grab the page. Which might be the proper fix.
+> 
+> I was bouncing the same idea with LLM yesterday, but it does not solve
+> all cases:
+> 
+> 1. normal page: taking a ref just prevents it from going to be a free page,
+>    but atomically set PG_hwpoison can still be lost when another one uses
+>    a plain write, __folio_set/clear_*().
 
-On x86_64, the physical placement of the kernel is independent from its
-mapping in the 'High Kernel Mapping' range. This means that even a
-position dependent kernel built without boot-time relocation support can
-run from any suitably aligned physical address, and there is no need to
-make this behavior dependent on whether or not the kernel is virtually
-relocatable.
+Hm if I pin and isolate a page, I'd expect my atomic flag updates to be
+RMW-race-free. Who is doing plain writes to flags on pages they don't "own"?
+I'd expect there would be more breakage than hwpoison in that case.
 
-On i386, the situation is different, given that the physical and virtual
-load offsets must be equal, and so only a relocatable kernel can be
-loaded at a physical address that deviates from its build-time default.
+> 2. free page: isolating works if the free page on its free list, but it
+>    could be on pcplist and we then need to drain all pcplists. That could
+>    hurt performance.
 
-Clarify this in Kconfig and in the code, and advertise the 64-bit
-bzImage as loadable at any physical offset regardless of whether
-CONFIG_RELOCATABLE is set. In practice, this makes little difference,
-given that it defaults to 'y' and is a prerequisite for EFI_STUB and
-RANDOMIZE_BASE, but it will help with some future refactoring of the
-relocation code.
+Sure, but it's for an event that's already disruptive enough and should not
+be happening a lot.
 
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- arch/x86/Kconfig                   | 40 ++++++++++++++++++------------
- arch/x86/boot/compressed/head_64.S |  4 ---
- arch/x86/boot/compressed/misc.c    |  8 +++---
- arch/x86/boot/header.S             |  8 ++----
- 4 files changed, 29 insertions(+), 31 deletions(-)
+> 3. we cannot take a ref on slab page and other frozen pages, then we will
+>    need a case by case handling for them.
 
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 58dce0b66179..c7427daa0c3e 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -1898,7 +1898,7 @@ config EFI
- config EFI_STUB
- 	bool "EFI stub support"
- 	depends on EFI
--	select RELOCATABLE
-+	select RELOCATABLE if X86_32
- 	help
- 	  This kernel feature allows a bzImage to be loaded directly
- 	  by EFI firmware without the use of a bootloader.
-@@ -1995,8 +1995,9 @@ config PHYSICAL_START
- 	help
- 	  This gives the physical address where the kernel is loaded.
- 
--	  If the kernel is not relocatable (CONFIG_RELOCATABLE=n) then bzImage
--	  will decompress itself to above physical address and run from there.
-+	  If the kernel is not relocatable (CONFIG_RELOCATABLE=n) and built for
-+	  i386, then the bzImage will decompress itself to the above physical
-+	  address and run from there.
- 	  Otherwise, bzImage will run from the address where it has been loaded
- 	  by the boot loader. The only exception is if it is loaded below the
- 	  above physical address, in which case it will relocate itself there.
-@@ -2031,16 +2032,22 @@ config PHYSICAL_START
- 	  Don't change this unless you know what you are doing.
- 
- config RELOCATABLE
--	bool "Build a relocatable kernel"
--	default y
-+	bool "Build a relocatable kernel" if X86_32
-+	default X86_32
- 	help
--	  This builds a kernel image that retains relocation information
--	  so it can be loaded someplace besides the default 1MB.
-+	  This builds a kernel image that retains relocation information so it
-+	  can be placed someplace besides the default PAGE_OFFSET + 1MB. This
-+	  is a prerequisite for KASLR.
- 	  The relocations tend to make the kernel binary about 10% larger,
- 	  but are discarded at runtime.
- 
--	  One use is for the kexec on panic case where the recovery kernel
--	  must live at a different physical address than the primary
-+	  On i386, where the virtual and physical load offset of the kernel
-+	  must be equal, this also allows the kernel image to be placed at a
-+	  physical load address that differs from the compile time default. On
-+	  x86_64, this is always permitted.
-+
-+	  One use is for the kexec on panic case on i386, where the recovery
-+	  kernel must live at a different physical address than the primary
- 	  kernel.
- 
- 	  Note: If CONFIG_RELOCATABLE=y, then the kernel runs from the address
-@@ -2049,7 +2056,7 @@ config RELOCATABLE
- 
- config RANDOMIZE_BASE
- 	bool "Randomize the address of the kernel image (KASLR)"
--	depends on RELOCATABLE
-+	select RELOCATABLE
- 	default y
- 	help
- 	  In support of Kernel Address Space Layout Randomization (KASLR),
-@@ -2085,7 +2092,7 @@ config RANDOMIZE_BASE
- # Relocation on x86 needs some additional build support
- config X86_NEED_RELOCS
- 	def_bool y
--	depends on RANDOMIZE_BASE || (X86_32 && RELOCATABLE)
-+	depends on RELOCATABLE
- 	select ARCH_VMLINUX_NEEDS_RELOCS
- 
- config PHYSICAL_ALIGN
-@@ -2098,12 +2105,13 @@ config PHYSICAL_ALIGN
- 	  where kernel is loaded and run from. Kernel is compiled for an
- 	  address which meets above alignment restriction.
- 
--	  If bootloader loads the kernel at a non-aligned address and
--	  CONFIG_RELOCATABLE is set, kernel will move itself to nearest
--	  address aligned to above value and run from there.
-+	  If the bootloader loads the kernel at a non-aligned address and it
-+	  is built for x86_64 or CONFIG_RELOCATABLE is set, the kernel will
-+	  move itself to the nearest address aligned to above value and run
-+	  from there.
- 
--	  If bootloader loads the kernel at a non-aligned address and
--	  CONFIG_RELOCATABLE is not set, kernel will ignore the run time
-+	  If the bootloader loads the i386 kernel at a non-aligned address and
-+	  CONFIG_RELOCATABLE is not set, the kernel will ignore the run time
- 	  load address and decompress itself to the address it has been
- 	  compiled for and run from there. The address for which kernel is
- 	  compiled already meets above alignment restrictions. Hence the
-diff --git a/arch/x86/boot/compressed/head_64.S b/arch/x86/boot/compressed/head_64.S
-index 1aca51390f73..de1973f032c7 100644
---- a/arch/x86/boot/compressed/head_64.S
-+++ b/arch/x86/boot/compressed/head_64.S
-@@ -143,7 +143,6 @@ SYM_FUNC_START(startup_32)
-  * for safe in-place decompression.
-  */
- 
--#ifdef CONFIG_RELOCATABLE
- 	movl	%ebp, %ebx
- 	movl	BP_kernel_alignment(%esi), %eax
- 	decl	%eax
-@@ -152,7 +151,6 @@ SYM_FUNC_START(startup_32)
- 	andl	%eax, %ebx
- 	cmpl	$LOAD_PHYSICAL_ADDR, %ebx
- 	jae	1f
--#endif
- 	movl	$LOAD_PHYSICAL_ADDR, %ebx
- 1:
- 
-@@ -316,7 +314,6 @@ SYM_CODE_START(startup_64)
- 	 */
- 
- 	/* Start with the delta to where the kernel will run at. */
--#ifdef CONFIG_RELOCATABLE
- 	leaq	startup_32(%rip) /* - $startup_32 */, %rbp
- 	movl	BP_kernel_alignment(%rsi), %eax
- 	decl	%eax
-@@ -325,7 +322,6 @@ SYM_CODE_START(startup_64)
- 	andq	%rax, %rbp
- 	cmpq	$LOAD_PHYSICAL_ADDR, %rbp
- 	jae	1f
--#endif
- 	movq	$LOAD_PHYSICAL_ADDR, %rbp
- 1:
- 
-diff --git a/arch/x86/boot/compressed/misc.c b/arch/x86/boot/compressed/misc.c
-index 0f41ca0e52c0..d37569e7ee10 100644
---- a/arch/x86/boot/compressed/misc.c
-+++ b/arch/x86/boot/compressed/misc.c
-@@ -314,12 +314,10 @@ static size_t parse_elf(void *output)
- 			if ((phdr->p_align % 0x200000) != 0)
- 				error("Alignment of LOAD segment isn't multiple of 2MB");
- #endif
--#ifdef CONFIG_RELOCATABLE
--			dest = output;
--			dest += (phdr->p_paddr - LOAD_PHYSICAL_ADDR);
--#else
- 			dest = (void *)(phdr->p_paddr);
--#endif
-+			if (IS_ENABLED(CONFIG_X86_64) ||
-+			    IS_ENABLED(CONFIG_RELOCATABLE))
-+				dest += (unsigned long)output - LOAD_PHYSICAL_ADDR;
- 			memmove(dest, output + phdr->p_offset, phdr->p_filesz);
- 			break;
- 		default: /* Ignore other PT_* */ break;
-diff --git a/arch/x86/boot/header.S b/arch/x86/boot/header.S
-index 9bea5a1e2c52..b72e6055e103 100644
---- a/arch/x86/boot/header.S
-+++ b/arch/x86/boot/header.S
-@@ -332,7 +332,7 @@ initrd_addr_max: .long 0x7fffffff
- kernel_alignment:  .long CONFIG_PHYSICAL_ALIGN	#physical addr alignment
- 						#required for protected mode
- 						#kernel
--#ifdef CONFIG_RELOCATABLE
-+#if defined(CONFIG_RELOCATABLE) || defined(CONFIG_X86_64)
- relocatable_kernel:    .byte 1
- #else
- relocatable_kernel:    .byte 0
-@@ -342,14 +342,10 @@ min_alignment:		.byte MIN_KERNEL_ALIGN_LG2	# minimum alignment
- xloadflags:
- #ifdef CONFIG_X86_64
- # define XLF0 XLF_KERNEL_64			/* 64-bit kernel */
--#else
--# define XLF0 0
--#endif
--
--#if defined(CONFIG_RELOCATABLE) && defined(CONFIG_X86_64)
-    /* kernel/boot_param/ramdisk could be loaded above 4g */
- # define XLF1 XLF_CAN_BE_LOADED_ABOVE_4G
- #else
-+# define XLF0 0
- # define XLF1 0
- #endif
- 
--- 
-2.56.0.611.g1030f0b940-goog
+It's also not possible to evacuate such pages (e.g. slab) so it's just bad
+luck if those got corrupted.
+
+> Anyway, this probably belongs a separate discussion on hwpoison.
+> 
+> Best Regards,
+> Yan, Zi
 
