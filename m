@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401812;
-	b=TyrG2aj+cFlHiLg1Yi5MySD4Kar5ij8Cxyqq3q2TGYojpnARDxXv//O1zKstTycfh3lt
-	 rtuBEJTBJ+mUgEpTaDKYpW9I1BKMo1D3LLOZ3DngXcjMd3Kjzlgzint8BNVb601OSS4n/
-	 sk3MpzTW/NOQIYjWPN30m2lUJo8WIEQgwRmdRHV0gAAufxppUlfYq1C87HuOvDb83ExFi
-	 JYTTS2SkL0g+xX4wktHAscJsHitUru3TQ1vaUz+rzHVaHdwYNgiI+gBVPUvy4luf/PyeB
-	 o/zi+PQOH0UNOhLDQU1xnfTWudYUhuUqGABXmdDQq/DDKEG0z5gx/0U+VhbYQnY37vw==
+	t=1794401813;
+	b=lhYYPPfFLTePSwFfdFJGJ2Gleypq1nJ0GD1fDB9hLCeLhp6PimZBebay8+8YIAJyezdU
+	 5DuiTcrUMFWoKCrsCE8lsDsi9VZhR/ZjsizYP8vgaUDrDrKGxWwUKLVjb9DIB1IPaPf0s
+	 aqH8CnlaKl6EDWrDpwJ540QNN1Dli34YlBHiE0S6fEr9WWkozQlMqQvlqe+tJTMtbctYV
+	 HqBhvGjlPQZDVrOYMSa/RUm64DVeJFf7O6OenSu0TsF1DIqDZI/1HH9CwZmCi6SxpU2A3
+	 9NcPoqeaQTR8Nl4RYtmnIEVoLq3hG279HZrDMi8CDJjS9S19xXyu8Mbx5lLdDqovQkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794401813;
 	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
 	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kQuLm2GSZanDzJQHz8hVGRV3EilfPxe3tA1ZktCyWds=;
-	b=OtIeTsIXGpQUZHsw/MO5DQGmz5AK04QAfRlBsl0Xn1EvF87qkaFXWhHLRMFqg+47DMgF
-	 tZIu/sAWbRjHmT6mwpWB7QjzIJvLPIiC9nMI3YDwGu/xC3R9kWZqEraop1pBmYwyoFBXO
-	 OHyI+htDFmoxFkM17Jy99lpGtLW9UJDTYcSYlnI7ToQWdcEgVhTuWlbtktqYOCHnu0riR
-	 6semjBiolwPbTayrGkWvN0IBXB/b+s3MsD+F+m2pXUo7cpuuFCKOf0PinWSQhhL0pAe9m
-	 7V/fQWEAaIIQaH557SxzEr1frfIGL5n0ncv9YAdfIU2SkT5VUrvtNKbtTJfDUz8+64g==
+	bh=GRqsW99z045zrNzeax8TqDqEq+YnJyvJPh8H3rmOg+E=;
+	b=Fx8P8BM0emPrw6Dng3u95ke9F+VO0ehsXj5/Ghr9Jmv+nXpJ8sU92+2wW0Zphx91C5yS
+	 mV24yqdR67gob2UUaF0q2ejBjx/6Yrm6uw2rKUtTI54g+U/cHF6hzL+NHTVuLoPpsDZiJ
+	 sAQmfDksdYUiEgPdceJ02952r5iTczDfBJ6uuvmlsW0wKPOwCZABOfZLpMJWxpOebQ7y8
+	 aZRmUQFMVgpwKa3ceVdX2ObARmmMQvPjLld/wP84yc5PxCDviCFdJFdecFuAESht1zTPA
+	 Ki0uuJB0RxGj+6Ajgt4WaxdEcu+5PXQL14/7Qkuj79D8xkZ2AtxOXKCLnEZcZX+gkqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=kylinos.cn;
@@ -26,40 +26,41 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C988606A31C;
-	Wed, 11 Nov 2026 12:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C988606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9AF606A327;
+	Wed, 11 Nov 2026 12:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA9AF606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 581e9d14ddcf11f19a56ed5b684f684d-20261111
+X-UUID: 58f566beddcf11f19a56ed5b684f684d-20261111
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:bcb93d10-3a6c-4beb-8c34-5eafc1376293,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:ce4e2207df1264bbae1f97dcb536cf0b,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.19,REQID:d37deed2-367c-4297-b4d8-91c5653ff9e0,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:285355e5227d1e34a2e6f7b01005e2fa,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 581e9d14ddcf11f19a56ed5b684f684d-20261111
+X-UUID: 58f566beddcf11f19a56ed5b684f684d-20261111
 X-User: zhangheng@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zhangheng@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 148736116; Wed, 11 Nov 2026 20:56:43 +0800
+	with ESMTP id 798016759; Wed, 11 Nov 2026 20:56:44 +0800
 From: Zhang Heng <zhangheng@kylinos.cn>
 To: tiwai@suse.com
 Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	Samuele Carli <carlisamuele@csspace.net>
-Subject: [PATCH 1/4] ALSA: hda: cs35l41: Add support for ASUS ZenBook Pro Duo UX582ZM
-Date: Wed, 11 Nov 2026 20:56:34 +0800
-Message-Id: <20261111125637.1046581-1-zhangheng@kylinos.cn>
+	Zhang Heng <zhangheng@kylinos.cn>
+Subject: [PATCH 2/4] ALSA: hda/realtek: Add quirk for THUNDEROBOT Gravity16G2Pro
+Date: Wed, 11 Nov 2026 20:56:35 +0800
+Message-Id: <20261111125637.1046581-2-zhangheng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261111125637.1046581-1-zhangheng@kylinos.cn>
+References: <20261111125637.1046581-1-zhangheng@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,37 +72,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ASUS ZenBook Pro Duo UX582ZM (SSID 10431A8F) has two SPI CS35L41 amps
-but no _DSD for SPK1, causing -EINVAL on probe.  It matches
-104316A3/10431DA2; add the missing config and prop-model entries.
+After S3 resume the ALC256 on this model has COEF 0x10 bit 9 set
+(0x0220 instead of 0x0020) and the internal speaker stays silent.
+Reuse ALC256_FIXUP_XIAOMI_PRO15_RESUME, which clears that bit on
+every init, including resume.
 
-Reported-by: Samuele Carli <carlisamuele@csspace.net>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221981
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222028
 Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 ---
- sound/hda/codecs/side-codecs/cs35l41_hda_property.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-index a2e6b3024820..ab909218d0db 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-@@ -116,6 +116,7 @@ static const struct cs35l41_config cs35l41_config_table[] = {
- 	{ "10431863", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "104318D3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
- 	{ "10431A83", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
-+	{ "10431A8F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
- 	{ "10431B93", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "10431C9F", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "10431CAF", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
-@@ -587,6 +588,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
- 	{ "CSC3551", "104318D3", generic_dsd_config },
- 	{ "CSC3551", "10431A63", missing_speaker_id_gpio2 },
- 	{ "CSC3551", "10431A83", generic_dsd_config },
-+	{ "CSC3551", "10431A8F", generic_dsd_config },
- 	{ "CSC3551", "10431B93", generic_dsd_config },
- 	{ "CSC3551", "10431C9F", generic_dsd_config },
- 	{ "CSC3551", "10431CAF", generic_dsd_config },
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index a756e0076021..6d7bc33bd0d5 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8367,6 +8367,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
+ 	SND_PCI_QUIRK(0x152d, 0x1262, "Huawei NBLB-WAX9N", ALC2XX_FIXUP_HEADSET_MIC),
++	SND_PCI_QUIRK(0x152d, 0x1577, "THUNDEROBOT Gravity16G2Pro", ALC256_FIXUP_XIAOMI_PRO15_RESUME),
+ 	SND_PCI_QUIRK(0x1558, 0x0353, "Clevo V35[05]SN[CDE]Q", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x1323, "Clevo N130ZU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x1325, "Clevo N15[01][CW]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
 -- 
 2.25.1
 
