@@ -1,82 +1,170 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371507;
-	b=gVHjkCzcX8JcUC1A0pFxuRhVjUDzpwLWa0UANDqAfzrkF0DE6Ulaivs5RAp2HaMwNdYw
-	 G0GapqSrLWtys1SYxFPOYCU3uK8vP1Q/Lf5pCkeDi0HAJcTrF4dqzbHihuoNt6pW54jtO
-	 g/YWIJVLXKVqkaMFOED7fcRcs64wdnmoUv3i+Mgf4w5D4+8gS2rrnlNVW91NyaLhzePMg
-	 DhMHDuzupyZK+nEBVOpUEryboPAjhqGY0WFNjoBc79MnqPuq0X6DIuwI8Dqtw0UUTNgry
-	 gAtbMKog5bZZVBaHXMnsJIyVrfRp9v4fQbfgFo8I+KhND38ktVlV32o3UemW/Tg4UTw==
+	t=1794371594;
+	b=lRGkcTim0BX7K7qNj28UXuSng3uQk/lQuF9PqCntl7Hfi5U5HQWkuzjogC8TBqsLBluA
+	 sKcNm1EVpkh0TPShIzwPUKjYsWfTcadkOnrPga8k441dYBslUqPYbMaUWDqAc+pOjB9RG
+	 AeX8Zvebmb0pZVIzcsWat7TP+SEf8Uhpv3kJf5cpbzay5f9MQ/M5RsRg66ggkgEfsdBQD
+	 4y1Q5JhwA6oRdKP4jBt5+TkjiAWgVInko81g1puLGSJO+VDMSFKkzSXDuVPECRsm7H9fD
+	 S6xFLAMrZxc3Uw86XaaLlt1oHgxR4kDulC7GGqZIgf/CMXyKbnTSh3sjiXbfOZyxfvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371507;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Y+iIg1pXUD42WQF9JALOzbFDdcxViOQceIlrVTJLhKY=;
-	b=Vlj/QpIPgVAQnfIK0QTSlhWaHQeG9VDUicwyn0ZOfYEtoSHZnFcrBWOMIT0Tv1xe/Sme
-	 A9ETMHAv4yyqs5EzKR5Cl/eDvLWvgWBFcovsgOWInYQxKSk38N8CeT6UBCMMWF+/djco/
-	 auDFLsv4WfcstCLXBfW92wNFKRU9DigVZygMgq/JzomR3qnpTCmc0Uq/kfTPgsh2dcX6l
-	 TSxpmAsbDKjuioK9KQT6o6EY5xpI4nEiLVINlQzN8gQvCZjdtihbfN3RU1FG0F3xkbv4/
-	 F/qA31PvaaDtdVztXTjcV/pTo9XQTJH+J/JWcsPRdw1Ca5kib+0b7RYROY01GFFaS2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371594;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Autocrypt:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=KMUzsxkq63JqPiyHGK1lz9dIxsB5lBy8/utrr4GnuhI=;
+	b=p37d8XT9WctJyFhcaufeBhfwTnENo6r47uVEEfQQCieMVQhi+bb/5bhwldVAhKEYSGis
+	 sClyCKEnxZUMuPeT8YfGH8BUHEnvldaWRaMEEZpzolLUbTqyT1+0UEdmWs+PqnEFgEc/p
+	 TQ/t9F3lJpngbQp4OyuX8GWzBgFrug88ZN9en3B9dBz+qL1Wm3OoYUv2Mf624H4YcY+HD
+	 ESfHcksnXLRzvIEIsdkO1Ne66V+HIu0swVlNFw0OjgdDCj4nbhGtL4BASVghclrOcQ9E6
+	 wZQkQll2t9FO1/R1zYSKE2Uc2wR/KC5DFe6uyc0oJIAoxiBSeRWixYnThQNcDns77qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkuNCwr3;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=themaw.net;
+	spf=pass smtp.mailfrom=themaw.net;
+	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b=iP+jdNnj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wEYwaRFA;
+	arc=none smtp.remote-ip=202.12.124.152
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15BF606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:31:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15BF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1676606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:33:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1676606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkuNCwr3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794371506; x=1825907506;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5/MyIjpzQZ0pBKb/iFF80cArFt9LPEZbOSC7vbHdfBI=;
-  b=mkuNCwr3oPr9qDPo6vtArw427j2tA7/s3955cC9ouMcX32cUmqh5KzHO
-   SMqWzy2lx6TeMdgSz24zqHhlfwI242ws8QwAfJ5V3nL5oEJpqX4A++jTM
-   S2Lmjepj/xmQQ+IcP4Np9qUohK5Vj5ZpaVzFrUZa8zrGk5aN2k/RrCoVi
-   epctUWsmsSXY44VMByqYRu7kFqeddFyOSPpxA24ShIpAjE9ejrFMHM1vB
-   NlQdwdBCcsLfw5GR1F+eRxjkr+O7+8ktLkMi8Mb/ARIn6bVTleIpEmy7c
-   b3JB6eQHt5IGNKYgGRbcMSq2pk9fAxIQRkpBC7szyt4m3O8EM1JlGfrtJ
-   w==;
-X-CSE-ConnectionGUID: UDujcoeCQb6hlHKu+gM7IQ==
-X-CSE-MsgGUID: t5V5kGjyTE+NsVoewZf4YA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3141366"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3141366"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 20:31:45 -0800
-X-CSE-ConnectionGUID: R5NBuziaSrqXHmQE8TkCQw==
-X-CSE-MsgGUID: +ih3ISCdR+C9uOiKErMugQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8418569"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 10 Nov 2026 20:31:43 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQzzo-00000000y55-09L7;
-	Wed, 11 Nov 2026 04:31:40 +0000
-Date: Wed, 11 Nov 2026 12:30:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] pstore: Use match_string() helper to simplify the
- code
-Message-ID: <202611111158.Qtw7vGo7-lkp@intel.com>
-References: <20261110151844.661926-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b=iP+jdNnj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wEYwaRFA
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 81E9C7A01EB
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:33:12 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 10 Nov 2026 23:33:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794371592;
+	 x=1794457992; bh=KMUzsxkq63JqPiyHGK1lz9dIxsB5lBy8/utrr4GnuhI=; b=
+	iP+jdNnjW8WIFH2RlqNvadzjK0vxB8k8a7QhG4xnpeFkTBImRRNdqYhyrHQhQBWX
+	1EGWqtLEGPJ/plJmobCv+GzB5QMXq/puOgslzipz+VMktGD80r3TaEroTlkAgLTR
+	atdffHMesZ+bKs4BUURgD0rUr2LzeRjacew+hbCXDYh5W3PaxsR6sRdr13ssuY4L
+	ySScG5suuQ9A4aG9yencnD+Olt2ujLq/IIwxXCKjLCNGZq8oQYsg67aiU/GADw8Z
+	c0kdtZPssortBwEszD6fqrjr2aLwocAaeXQdvdg/HhrG7K4xpcCHUuwQnK5+s+Dc
+	JrO0z//rn3JZnISatZS9YQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794371592; x=
+	1794457992; bh=KMUzsxkq63JqPiyHGK1lz9dIxsB5lBy8/utrr4GnuhI=; b=w
+	EYwaRFAN4LqDVxXtuC62SReV6iR85phBLBIMXwVkXIDs+hGebHczVMkt1tw9ST6y
+	EO+MXwxXM4JSCTjS0xbb6wVgI1KWkUIKe9HTxbKFImzT0jk5kpIRCExR7TvJBY6Q
+	k//+Lkb8Fn2h1G4jEEP/r+ED76T9PryyUcK0p3XvdmFfF+5S+18dAyB3Whm9Fjl+
+	Ag5cx1/RU16nzLkthvnFbg1JXPk3j+zQdmS60nHsreMqNtd0DMB+3YJvVhRe8+VM
+	koUXD+m6wV5d9JGHH6uLtraIEwNV9gQuV/aJyg7Erh8Suap4YK+AuqdoX7PZjHnf
+	Z3sNeCGOWzY0F4rLUXIJg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794371592; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:BcTA/CJWXD16Ym7icmgPJQvt5SzHXXuBytyxktv4yZ7LcUR
+	1UaGHTByTgbaiMc+65nNPDNOHAPXu1DmfeYOtvXlsqblyRL+XoSMfd1Zy4SfBrbH
+	FwaqN+EBce6mPhRQPlrby3xfuARUkS6H3T4uvj05gbc8Gp78g4Sq128eNFqhf8m7
+	2Yx4mIU3hFdXlDi9YxK99Mjj2qlW5FsT9byjpLNZk1bLfIdqvEufpNr+VNlp5c5D
+	vWzmigJcKW3zz3DqS3AXinvElXFmBLrGw4UazM4EBaI/eVPSbyFVoMqppFavFshT
+	+4+izaRWS1tr36SEmJzdTIePRot5V+CWu+cdG+w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=autocrypt,cc,content-transfer-encoding,content-type,date,
+	feedback-id,from,in-reply-to,message-id,mime-version,references,
+	subject,to,user-agent;
+Message-Instance: m=1; h=sha256:H9VyCrvnt/nKEhmMCUA+deFPnOiqbKsv03FYn32wtlo=:KMUzsxkq63JqPiyHGK1lz9dIxsB5lBy8/utrr4GnuhI=;
+X-ME-Sender: <xms:BvDzar3yxAFyolBbZlLujwoJ_i8qmFrQ5El9jcDeaHfApT8r6gODVA>
+    <xme:BvDzag8PWnqZgOjZXxDocu2od7hJ42FBWx7URhZjiZBZCK0AKFfRJGfXqExBec72c
+    pCf1X5W42ZVzx4s7dMk_4e9QNg5S8c1fn5iPRox7OAmYk92TQ>
+X-ME-Received: <xmr:BvDzakN2xogztGWQ6ywqS4Y5V-lFfSwf7nrPf9kSiErtTOpLaSwWz4x0aCBc57ua3qLMoKhBVS4ExGhi96ZBgI0Ak2XiK3p2E5EIQA9dId9KuYa-8y4w7c5jnw>
+X-ME-Proxy-Cause: dmFkZTF+oQVf0JnUxi4gzWy8isi3VafZx2u0urWwh2RbXFSiUO21Wx5z7YwCLS+GogJz4l
+    CNVucRoD6y/4mwU3HcF8k1ii+MR61/75LkgDFwOs6gaO5QXAt7hFqxqIP6YYwiiyKf0m8j
+    7z8jJ/skSoatEGD5rNMlRupJKoMCJSkeDRgoXlIjvSC8shAvZEqGsEaJBAbSqq40nAz3qR
+    NkYVLArKXVqqlWZqi/rKvJW+pwFC5d0JpEfCPuHnnFnKi84DBfnqAjYAsX0R+Zfzxgl91f
+    5QWoNhpfoCzfqT2tg5WboXjlD1hABNPpS34kEtrQblStaimbTeRYOdJ8NUgl55XWnN3CMB
+    31M7egBGEUt2k5Rs5PCVH6jcVIJ6pjFFzfI8nb30XGZMPNiHN9mTTbGkk7KNz/NYmmTkyA
+    ueGLE0Op7uJfOCxSXgp0FO5/T7BW+e3PGBgiytqIm0+LzONMp8pYYQqocnU7Jvfrg2hLUK
+    oy24lam3ToC/Kxy8L9qqurKxic0DkMpYYtddg/SB7XU/J75VOkC4GVmULbp2iEUgfhlFHE
+    y49Vt9r76yRGmsuELPUQSFRN9dsuXDXSiWsWl8hEeQL0bbM9FCYkUFT/mooRFbzJmpAYhp
+    bRnP8wnEIy8gZgrC6YbamCGQYWHFuqggPsg0NcWqbdYd8w5s1/xjlQuI88WQ
+X-ME-Proxy: <xmx:BvDzase2JTA1zJ9Wd_GhXwMDbbBdmmhGzP6YWwTntWnbq5BlSMZwHQ>
+    <xmx:B_DzarVZz6iLIwlrc4LdRy6oEIPKBPYPgCuKux7d3UXVeFp_u9Zgmw>
+    <xmx:B_DzasgputdnA6ALIF1m4h9GHGMZQ_A0VlcrhB7o4Z0TVrJBT924Uw>
+    <xmx:B_Dzai_CZmaiPsWW8_PRFbG7C7AbE-SLKCevvcCnOPXFucRFHgs4Rg>
+    <xmx:CPDzasJWGralz-r08_aFLThDsmvB8_uZiJZXTGrLmikxCEkTwT2WXC8v>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 23:33:09 -0500 (EST)
+Message-ID: <5a3c91335fad00a6fa9d0667d6377a4da482533f.camel@themaw.net>
+Subject: Re: [PATCH] autofs: serialize allocation of global wait queue tokens
+From: Ian Kent <raven@themaw.net>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: autofs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+c6d286fd51860df64d9a@syzkaller.appspotmail.com
+Date: Wed, 11 Nov 2026 12:33:05 +0800
+In-Reply-To: <20261111034050.12573-1-zhujun2@cmss.chinamobile.com>
+References: <20261111034050.12573-1-zhujun2@cmss.chinamobile.com>
+Autocrypt: addr=raven@themaw.net; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45app1) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,63 +174,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110151844.661926-1-andriy.shevchenko@linux.intel.com>
 
-Hi Andy,
+On Wed, 2026-11-11 at 11:40 +0800, Zhu Jun wrote:
+> autofs_next_wait_queue is shared by all autofs superblocks, while
+> sbi->wq_mutex only serializes requests on one superblock. Concurrent
+> requests on different mounts can therefore lose updates to the global
+> counter. A delayed update can also move it backwards, allowing an
+> outstanding token to be reused on a mount.
+>=20
+> Protect token allocation with a global spinlock. Keep the existing
+> token
+> type and the wraparound rule that reserves zero.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 
-kernel test robot noticed the following build warnings:
+Yeah, good catch ...
 
-[auto build test WARNING on kees/for-next/pstore]
-[also build test WARNING on kees/for-next/kspp aegl/next linus/master v7.4-rc2 next-20261110]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Acked-by: Ian Kent <raven@themaw.net>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/pstore-Use-match_string-helper-to-simplify-the-code/20261110-161844
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/pstore
-patch link:    https://lore.kernel.org/r/20261110151844.661926-1-andriy.shevchenko%40linux.intel.com
-patch subject: [PATCH v1 1/1] pstore: Use match_string() helper to simplify the code
-config: arm-randconfig-1002-20261111 (https://download.01.org/0day-ci/archive/20261111/202611111158.Qtw7vGo7-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 15.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611111158.Qtw7vGo7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611111158.Qtw7vGo7-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   fs/pstore/platform.c: In function 'pstore_name_to_type':
->> fs/pstore/platform.c:134:20: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-     134 |         if (i >= 0);
-         |                    ^
->> fs/pstore/platform.c:134:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
-     134 |         if (i >= 0);
-         |         ^~
-   fs/pstore/platform.c:135:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
-     135 |                 return i;
-         |                 ^~~~~~
-
-
-vim +/if +134 fs/pstore/platform.c
-
-   128	
-   129	enum pstore_type_id pstore_name_to_type(const char *name)
-   130	{
-   131		int i;
-   132	
-   133		i = match_string(pstore_type_names, PSTORE_TYPE_MAX, name);
- > 134		if (i >= 0);
-   135			return i;
-   136	
-   137		return PSTORE_TYPE_MAX;
-   138	}
-   139	EXPORT_SYMBOL_GPL(pstore_name_to_type);
-   140	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ---
+> =C2=A0fs/autofs/waitq.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/fs/autofs/waitq.c b/fs/autofs/waitq.c
+> index 92c0bbbf452b..22bc59c2f63e 100644
+> --- a/fs/autofs/waitq.c
+> +++ b/fs/autofs/waitq.c
+> @@ -5,12 +5,14 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/sched/signal.h>
+> +#include <linux/spinlock.h>
+> =C2=A0#include "autofs_i.h"
+> =C2=A0
+> =C2=A0/* We make this a static variable rather than a part of the
+> superblock; it
+> =C2=A0 * is better if we don't reassign numbers easily even across
+> filesystems
+> =C2=A0 */
+> =C2=A0static autofs_wqt_t autofs_next_wait_queue =3D 1;
+> +static DEFINE_SPINLOCK(autofs_wait_queue_lock);
+> =C2=A0
+> =C2=A0static void autofs_catatonic_mode_locked(struct autofs_sb_info *sbi=
+)
+> =C2=A0{
+> @@ -396,9 +398,11 @@ int autofs_wait(struct autofs_sb_info *sbi,
+> =C2=A0=09=09=09return -ENOMEM;
+> =C2=A0=09=09}
+> =C2=A0
+> +=09=09spin_lock(&autofs_wait_queue_lock);
+> =C2=A0=09=09wq->wait_queue_token =3D autofs_next_wait_queue;
+> =C2=A0=09=09if (++autofs_next_wait_queue =3D=3D 0)
+> =C2=A0=09=09=09autofs_next_wait_queue =3D 1;
+> +=09=09spin_unlock(&autofs_wait_queue_lock);
+> =C2=A0=09=09wq->next =3D sbi->queues;
+> =C2=A0=09=09sbi->queues =3D wq;
+> =C2=A0=09=09init_waitqueue_head(&wq->queue);
