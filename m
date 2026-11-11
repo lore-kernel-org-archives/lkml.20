@@ -1,127 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.1
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794389574;
-	b=otfXJ2Bl3DPZdXME9CiMbm+7+ceeQDi7tDSTazpNAyXeiSqiVuwfGnZ/tCuzFZZaEMtU
-	 v0uWWEVFz6BSR69DpSeUtBGSC0gihnhNOSxxkNDKZ76OH8jBvr0QtOfrXHBXHyGbjHVb1
-	 /Lr/TDJxnSay+5poRgDTIrVgAukJdbgp8Aj9TtDhg4e5YxZJE9GPgGhNzTPlkpt4w5Atv
-	 vLj47VSJCkE/Kab04Q8RSP0QkS3Rh9nOTwFgsg8DsuboqyXcswXXbXLt3S9q8TXPRcwMg
-	 eIj2S/K6XQBC/FAEzZnRPpVsrnYEA3CHEGr2d+bH+12S1+1BvjlC7jSGfX+kSdCFi/Q==
+	t=1794389596;
+	b=KIHQNJlwO6xqMBvwDheYOXAT+F41u5yybMY5drXRcT+d3uzUKS94M9gndEEnyhHxoqz7
+	 O1yaPKBBcpLjLeH3nYXod43yJ/cpoFSqp7BSM1LY/GGI1x6qCx7U80jvcZ3w/qewczk+6
+	 uFix6HUDqcHRHx0QpMKrY0gIuvGN2lILzy1uD41yn1ODK6ppJt0Sd8kousuH5liiMoCLO
+	 fzYLVDDsfmz0d0oVW2gsrePC9ZpbaeccJt4BG4nyKY1Ytc0B1A1mWn+G+RXWZHM/GVaWF
+	 gTDqZv6Nb+0gElH7f1GhTUB+9CBeYtjIeatJ2NSq4LETqnCYGxV0hcU5AdknCfbV20Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389574;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389596;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-Id:
 	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Reason;
-	bh=B7aQ3q2DNqnMo/WIPHLbk1Xhn2EPnkmKcTpn550r/qk=;
-	b=1SStRax0AJtM4ZueFie/viPn88lwWXwqATmVhOXzJTDmt+51OFRPKQnd1pTCUy/UP/kv
-	 +FUSxWrYd/bFbgYtakDN0CFehjdhJGRxikR0n7Wj0mVIgKGRXibmEBFDk+6rKtGQBLgjn
-	 k9d9sB0BCRAheZR135fF6E2RaAa1AheFmsk1QCRqDcG6uX3v9Fdo8k0EV4sTtViJuGzHC
-	 wuoFeKdfznQX+EXkH1GMlzjRmq0XyctB6oghrYY8EQbofBQNGc5SP7FqzeQJQgpOOqhNF
-	 jOtxAu5gDrnN1XDu5Ia1x9+XrLSdzFz/5xmxZWxuHEMrcNDTdFsoCFEmp8E67BaghPg==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=g4zrxnTD6clFQg6ZGzIK3ka00uJSjzYkFoU7/oubAgw=;
+	b=EFZEeSMikP0LYQnVMdyY0KwN8mUH3sutqF8Jg6JkM8Fy+XyYBI4crMOH+Ez92osHcfEI
+	 E1EvgqVIrQ3LrU5DJLO0rm4K5mxGTGcUe1d/hXwphD5WXF1MX0jehP3e1QLpcZtLXW/Uo
+	 s6xffVDXQjirNteVbb4zuEhUFuIiQkN/+mdKex0LHyzPtpXkwjFQEjx27YeNFjQsGZZll
+	 exuuGtqqQwsRb4cs+D0E9MUR4OOMoZ5QavIiM3slGDXq167rQPb0oK7angAOmD+PSVRhp
+	 3MFnP2mJBLokpvUH0X2NpsWU2OxrRnjbit1JIE/npfncMGa3aXyZF4FhRrzepu4hDwg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=oJMwcuPp;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=sA+UmWsk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=itLivLbI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.1
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013001.outbound.protection.outlook.com [40.107.201.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647D6606A321;
-	Wed, 11 Nov 2026 09:32:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647D6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE68A606A31C;
+	Wed, 11 Nov 2026 09:33:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE68A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=oJMwcuPp;
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=sA+UmWsk
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB919vh3365657;
-	Wed, 11 Nov 2026 03:32:28 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=B7aQ3q2DNqnMo/WIPH
-	Lbk1Xhn2EPnkmKcTpn550r/qk=; b=oJMwcuPpHwnjKGAAT606rYghDEWt9K8Osc
-	+fpuW+UDkK5gW6ai5GWtqyKedlRx7jMirl6czaOhtITDM0/vDctSxUk49MdxNC8H
-	Pbwshfubh0f5/llYLzakYgrrvBc+o9PSNIM/tYbEAoygVFxSkcu/bNguHGaaa9QQ
-	9+O/q51MagV1YP1O2ZW+HK7y8LdDJmQzicQNlLM4wtdEPUHxM/hL49N3bCOQmVmo
-	BAJQdxtkYM8wyc6P4QTvUcyoSb7Ho9lnwv2dh8clG3BVaM5WyfYRUEctSd8UGT92
-	2fAc0b79oXBxyAAT+0PoKOi/aNq5OP49bTE//uUJe1VXqIKy1OKg==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022081.outbound.protection.outlook.com [40.107.209.81])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hv7urs7db-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 03:32:28 -0600 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=itLivLbI
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DBvDm/A1BRtJoLojAAxTlPHwvtaNjEIicagvXd6ATDBc3mRZNf7mUu1tIYfNMVfmBg3hlkkrrvNuUz/4Upst8FylfbVvX992C3NCEKgEey+4ihah0LWsv69C1Me9hXlRfnQ7aDLoG++7WWt85OV8JBF8xozhAj7yUccAUhOpttXKUtKV0Byiv5UkqL9uFvcWqC3dXJSe8kcComgMw2yq2u8dfUiwmc5cyAVDlft+5scxT9BMZH6cbylOkQm7rnT0XRv+LgocKbKb25P58rR3cN4TW4e9ELLWpM/VwdHQwf6/CTKxmPxsQb1YN41ncdpn+sAKrYc0s75fcBX7yT3PRA==
+ b=pK5oAzxbnyD1dwaPQFJLEE9BKkkMfzRwRjUP5TRl94RJgq1whWftguO61Y2ZXeaxXItPI3h1D9qvN0L0g/KcpNNOiKsRHnt4R90fpudNQ8oGwLhweYXvK79EFFH7NG3vT6Doxzow/kqcQL6nkqqDZDjNQA5wJIfuO0P6dFxmvGV5cHHbrGmdSwe1zGMAPPWiaQJPIY0xPHzVuKHPmWFO27U74nPs2dGC2GVzSfVazKgwVMv5OvLCPZ1gQhiy+EXTg4kkvEnvvr6A6fM1CINU3abqcaNLo5UGetZjxxGo/E2tTNFbpl4Q26lxOp/ES1PuLzYLgw6kRjCR6eH5+Zrb5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B7aQ3q2DNqnMo/WIPHLbk1Xhn2EPnkmKcTpn550r/qk=;
- b=AMExj6Zvn5RNgWKWs95S1fQ/vM/TlBNUkcBB9bzhxTeOnlAKVoEH48yuGCQjhXT/YowNMteW+T0SLDPnU45AuQgicESAwQzxkCZO1cYi5u0knuPS95G9GWMfpb3NWRQxvp7eH94PrIT4JfoWziOF/WLN1rY8xNoIaZe9UjKFlUbgD8jtLhmiYwghw4ke2i5mKQbd0aCCbDT5xAAefiFS6g/4Nbz4DXn+N7kX5HZmjTFUucs246QU3PbwM45jNBFMSxzeREHP77ES8A3NbxTDkJvnKfQGZ27ckCTCcLMpchmt5rElCn3798DTyPDHZ/DN+FR3AjONOO+pNHH/vmNhsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=g4zrxnTD6clFQg6ZGzIK3ka00uJSjzYkFoU7/oubAgw=;
+ b=MRGTmFlH10qGBy7jJkM+FwuHi8RJLfyvcNErhqbYkW0grXsZFyYAxZS5dvfvZvi7Vm3GYADlN5jexGX1tRyGRla1tuzx6mcarir6A7WCV2apRg8Q0UHw+2ee4ASJrKF4qT36k4ejBW9eJX2uJTrGc1FaQTXaw/US5yyRTWizy1eLDNsEn+SrhxfdtJSC0sYeOE/VC+lERey1xT3Y1Ea73y1PhovwOgTVFlpgeNZJpnUn63NS0MsS7QOcCf441fYl8dBiTyuAFDZgBRilYkbqstTCED4qhi6qSv9im5QhSKd07ZZRjdDypaB1D8BKo1eUy+0S910MJA/KN1bdsTR1lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B7aQ3q2DNqnMo/WIPHLbk1Xhn2EPnkmKcTpn550r/qk=;
- b=sA+UmWskyzGqdWYR0jXjOHbDEVH0UewsbqiVusPtZlQFlEnU/LpEivnvISB2k6sTqK3roTPoqEQ+5LBuOH2rYb+2GH2KwfKaeUUfv8DKhu4/OnQ4JUJCEVdH3Q3daqqbJvr+ra+WKzNWIkSXnmYYejqIuOohtSCiKYjk9jAbNLA=
-Received: from CH2PR18CA0045.namprd18.prod.outlook.com (2603:10b6:610:55::25)
- by DM4PR19MB6415.namprd19.prod.outlook.com (2603:10b6:8:a3::14) with
+ bh=g4zrxnTD6clFQg6ZGzIK3ka00uJSjzYkFoU7/oubAgw=;
+ b=itLivLbIwiJ4mO4iuZoTfYRJgFHjk6wLQ8tqqOyuNRmfEm1onGi36EbI1TV6FYcaGT9tdrGZfKJDWysrLaI7vHpvi4sKjDNw/3cuRjnjr5mlcD3D4Fim5dwrs2IvXQ0qhpWj/8XVqtT71EB16F5RJkBS6xaZP0X7KXSDrdJe/HJqdgi3ZICJNNqbE9iWbeqwuIb31mqvuMKeT7O1Cz8L4DnBrqoAZQaFoZP02qpjKTZR7AhmVofP8jiYjCuPPf2FDqKklwnGXQG9NeTpC6PaenD8OnTr/y1BDF84oxsnayFF2+s1AbdMzJ6nIe8x6QM+0d3Tn6M/aMleMOmYzsHXBw==
+Received: from CH0P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::27)
+ by DM4PR12MB6616.namprd12.prod.outlook.com (2603:10b6:8:8e::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 11 Nov
- 2026 09:32:24 +0000
-Received: from CH01EPF000BE942.namprd02.prod.outlook.com
- (2603:10b6:610:55:cafe::90) by CH2PR18CA0045.outlook.office365.com
- (2603:10b6:610:55::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 11
- Nov 2026 09:32:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CH01EPF000BE942.mail.protection.outlook.com (10.167.244.134) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Wed, 11 Nov 2026 09:32:24 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2CD02406559;
-	Wed, 11 Nov 2026 09:32:23 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 185CB820273;
-	Wed, 11 Nov 2026 09:32:23 +0000 (UTC)
-Date: Wed, 11 Nov 2026 09:32:22 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: rf@opensource.cirrus.com, linux@roeck-us.net,
-        patches@opensource.cirrus.com, linux-hwmon@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (lochnagar) Avoid oversized shifts for zero
- readings
-Message-ID: <avQ2JvdLKIp51/wH@opensource.cirrus.com>
-References: <20261111064930.17408-1-zhujun2@cmss.chinamobile.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:33:09 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:116:cafe::31) by CH0P223CA0026.outlook.office365.com
+ (2603:10b6:610:116::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
+ Nov 2026 09:33:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 09:33:08 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
+ 2026 01:32:51 -0800
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 11 Nov
+ 2026 01:32:48 -0800
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: <andrew@codeconstruct.com.au>
+CC: <joel@jms.id.au>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <ryan_chen@aspeedtech.com>,
+	<billy_tsai@aspeedtech.com>, <devicetree@vger.kernel.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>, Jacky Huang
+	<jackyhuang@nvidia.com>
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+Date: Wed, 11 Nov 2026 17:32:28 +0800
+Message-ID: <179438627442.2016371.12057101111349178921@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
+References: <91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,79 +116,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111064930.17408-1-zhujun2@cmss.chinamobile.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE942:EE_|DM4PR19MB6415:EE_
-X-MS-Office365-Filtering-Correlation-Id: c91a10de-2f0c-45e2-9427-08df3fd6b18f
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|DM4PR12MB6616:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef72ffe8-f055-4f3e-ac28-08df3fd6cc0d
+X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|61400799027|18002099003|22082099003|16102099003|56012099006|11063799006|10067099003;
+ BCL:0;ARA:13230040|1800799024|376014|82310400026|7416014|23010399003|36860700016|10067099003|3023799007|261102123227099003|261021121427099003|5023799004|11063799006|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	1WAIYenRAGUO6Uayo3pwuMTxdsb2k+rFB3hZNmyPliB2Oy0QIJRW+ei3ZnpcLwjpPpI6WGK88ksWkHhQJC1oSk2898PjLaDpAaYdnX7QKPsh6gOjlHTXkCCxygASk8ysaob1kR5OzahR44+hRiSnLyRqlDm637Lk7VzhsFh/KW+b11/ESClvLknTl7FW6mOkU3HlBlrzfRmBp1gGakscCrhkkUOonKNPVwkb57fwt6rJbQHvSLnHT79K9GZXQ6muvwFCqdVViagyVPRx4GCS14dQmiASBVgPHzLv19rGXY+ljnLBVREOj89fopAQxlBMSkKSy9Yu/PD21ikZD3+l56BOoTTHw8StKPO2yth71uwMuDpFvsiPgiBHPWQNGom3Bx2HcHNsnpeXvlb8PsOQlF+f5D2YuDVQYw55u+OPHE/cE9JMGgrzThIVTVmLr5R5ibrj7LIZpgDvizUAp4f/KB/VCdAXvJM+qNuT9Bn7BeNSghWntiJyfrzfdqfeh7EiahxthQPFA3WAPmiWxJOi8zlComjwztDpHq+goQTPDlgXwuOyASfN/Xj/EYcMpXNxA7u8nzOionoIMxrKh4xdhn9QdPY6mdfReDw84WZnZV+bgFmBIU9cSk2fQ7t3VKqAROj/Ds1yCr/2n9S3jmFyryKdGKFhagyehPBSIvS+fX4ET59kZdRBy7XGI4ZjRMv3BHkiKQc3lww59blHQHlnOQ==
+ nYMTzxO9VjxK6EdjaLe14ZFJFXDg7054NsBwIOSPy31MLTCJz1FcSvo/j0XflDIh3bvHGIH5w/bkZj4MS9HSNx05hca+oASrpD5/VqLgIs0ERD0VDvN8gJvkECyILsKXyXin5+7hF/2SBqftySCRS4E+Cg+2Ld/G+0yKWgwmmHJwWHfu/tUvp514/EXxa9htyXpP9UUHTwXgXoqMmLOjc5X5YoMYB/HxXnLcU4ajvq5fuNUVOgXCN6jtnpmXTNrfQr25aLscwm8GUPKCZzHoQ6MhqrMY1st5vApHbmaQfOJHvMAmfzscI+FWYJYnG6DHsuJeEP/I4TOKvM5E2sm9Js8+hB2OYb/L65gySsDJY4rQd08SPwsRtor2X3GX3kQv79B78Dpnyy3NJfu31ctNQtib/4EcuR25SXO3LgZyAiu1OxeyjNn+Q7F1g1MiyJVa4ChqDvHHePOJ+PQGb8rBvRIPzr19RW/1qoYkWJUI+cf8dixZ49eckGnziFYX33HJrT5ZPtEtqNy1TT/Mp2YXi9HRSZDgXiNiMtvqxFR7G1tZ22MFfKE+gJXZiiN57BFTtehvEiD704XWuHxQhDOiWlmpuqi5hDhStRDMsUSHzdSnYaGqvfNAMaYsfGrlhtM8RHF00ekKi/gtXZVvEadxeMLKHk19bovOqeIdYzXGCQIXZF+RhwwDYzio/ojsMGobXERuxX41Xhbc85iUgozEmA==
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(61400799027)(18002099003)(22082099003)(16102099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1102;
+ CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(7416014)(23010399003)(36860700016)(10067099003)(3023799007)(261102123227099003)(261021121427099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	GLe36E/CbYIpommo+CsE0LoUwyXuw8s2Ciio84ZYHQ+s+gUl2y1/saHumaAbVAnvDvYzGdnqFFlxgQBXV3e0Rze8/gY4lsPKjw2mSg3Q78HciAqFKm+3KAgiH+S9p8SsT3kYTUyi/QnCCOsDrmCePidbyVBTwsJZIqFUY8XBdfH77DUELWoQcrHplYiM5kOjGxixgDa75/igFwED4g/ndnyR0sunOOoMbQWKvibIeXWGIgfMY+dID4Q/owGT9+Z/t7ukqimIHjWVjms7VfUgv0QGLnRlwvtOQkNm6dbtEw9Mdz3ORJDpKtYceqcQT5tNNWp26LRNK6G4qhB2OlCPXOI4WCPLJvB7Jf15KvS589ELWP6MQzkTcATUa3tncPG3mhj91b50nysHGRVz+WNhNinb/JETrOkt8XJ/uQzZ2MD1BPaRZOZzYFoopZpY4xhf
-X-Exchange-RoutingPolicyChecked:
-	kTiluLRIrAQPPZC12+rz+aoa80Skps7MW79mUCQTTwityt69dAXBGOJ0VK48Xxb1bxxg+kwtZ993CspLE+yg5F2eDzTju4Zq5rvURFSB10RgQyBtz03bKwvzrsFnI+SngU03Kjp/pEggjb6QEjVlhrRskpGFdJwsWoRxM2+3bxVQdqdupwkG9gjzdKoLQ8NxuSOdeSJbOUMQEDy0n6MdjzuyBKuHUIi+uj+bbG09rNSCbQGJj2FqmjPBhFdjI7XFgPn7C9UYYYYjGndShdVz1bEmXTRHAIdeItgZFnPnSPLNuWueBXSs55y4ThkTFffBL9TlFW4FLGVz+k6/WVU4tg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:32:24.2054
+ alv4sFMQKU8BqkccOrbhjuuAMj1LGYEuM+f099Ucq01Mak5QS2W4B/G4NCIBth+84+odMOh0H0hFl8qZz6rAmXwQXlTJ8UmML5gFgAzZX/uHrx2oHpj91hSxZUTSK7zHd896Nssb5Dl/NSV6cmPeixqACixucTC/1+3B+CumxLtATfXL8mkRuMmMEzjs7xzkdvTdhCY9w387WXhjEPQXGCutTfjYqOMr8FgPU4nBwiXXVm4ShU9vhg2qBYyPKX71vsCd+BtMjk+9B+WUyHmmDnZAYkRT2XwNM+tarTnDnvFjj0gBmW+R4Mcn5eU64WCd6zFjVWZZoGTFyHvfs/QbGQQ0b9BmBElfV8eDTiRO+xNaQM/ys6h42if4sNmztKt0/W1br+RAnFeHaa2nMse31CKR4nPbnXebkhBkp+CixHqRiQ9jjDR/x9TpM8Y6HKJn
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:33:08.7495
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c91a10de-2f0c-45e2-9427-08df3fd6b18f
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH01EPF000BE942.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef72ffe8-f055-4f3e-ac28-08df3fd6cc0d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR19MB6415
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfX+loshmtt7B/e
- RSn4RJFCag5do5sZvwy+uOmQv5/NrGqhEeaiujMekOBj0lsTAgQo1MTM9DZE52BYqDDhXUTUV2W
- iB3lrUkICYbvGRIT4XNl8/dOJ+/WSMxInkdNlFviR0RRvFXEMBs3W9osUZc/bUF5rifPaPMiKG2
- BdRRuoFM0BYnC/VGZnDq+KPBRUd2nxtirwy+Rj6BJP43522X1BOJ2lTPaQ8DyyaxgyxYKKyqGTG
- 10ITJb2KgUTwoF4uIyM3hW2+MJIEW4E9MM4vGGUCy1IOL5q4/K3zzGdeJ0WobM9KKM8wJS7lJdI
- CQesuqFprrXLCpNaTDN2DVLPr5MW3+JmIB9rlmix/puyDjkv5SpUErE/BBqHhYucRodJxjO+ffQ
- Pd0Nkkrjdpj5yMS8R18shXU5ZyVtb/ouRjrx22rsc4T7Pao/bMxXqutiS2VD6lTuxX7vaxqawCP
- Frb/cDelLyBU5HTSMWQ==
-X-Proofpoint-ORIG-GUID: anQeUH_8tz1R5sgQ3FrPCOw5GzFm2cvi
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzNyBTYWx0ZWRfX5tKLTKCdlCA+
- 658JRr/vvuVMyLR3TCPxeeA8zuV6/fvW90DqFsmK+a2u8che7PBKyxK7u0lXcLcV6M3jwz854uR
- EFCyIrdXQ9jQujp/3KLkqB/S6nhJGMk=
-X-Proofpoint-GUID: anQeUH_8tz1R5sgQ3FrPCOw5GzFm2cvi
-X-Authority-Analysis: v=2.4 cv=JagpPkKV c=1 sm=1 tr=0 ts=6af4362c cx=c_pps
- a=XJoAL0HPiv6B0cYJlRTKVw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=R5C9hjxsAAAA:8 a=FHBEN9-or5iHGesUZp0A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6616
 
-On Wed, Nov 11, 2026 at 02:49:30PM +0800, Zhu Jun wrote:
-> A zero IEEE754 reading gives exp = -150 in float_to_long(). Both shifts
-> in the rounding expression then exceed the width of u64. UBSAN reports a
-> shift exponent of 149, and the conversion can return a nonzero reading.
-> 
-> Return zero when the required right shift is at least 64 bits. With the
-> supported precisions, the scaled mantissa is too small to round up in
-> this case.
-> 
-> Fixes: 4cdb56214746 ("hwmon: lochnagar: Add Lochnagar 2 hardware monitoring driver")
-> Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
-
-Thanks for adding the sign off.
-
-> +	else if (exp <= -64)
-> +		result = 0;
->  	else if (exp < 0)
->  		result = (man + (1ull << (-exp - 1))) >> -exp;
-
-But as I missed and Guenter Roeck kindly pointed out there is no
-value in this. The shift in the following case will just result
-in a value of zero anyway.
-
-Thanks,
-Charles
+Hi Andrew,=0D
+=0D
+Thanks for taking the time to review this.=0D
+=0D
+> Can you please expand the description of the platform? Why was it=0D
+> designed and built? What's its purpose?=0D
+=0D
+The NVIDIA MGX Vera C2 is a Vera CPU-based server platform. I will=0D
+expand the description in v3 to clarify its purpose.=0D
+=0D
+> I assume the -{I,O} suffixes refer to input or output. Are they necessary=
+?=0D
+=0D
+Yes, the -I and -O suffixes indicate the intended GPIO direction and help=0D
+distinguish inputs from outputs at a glance. This follows the same naming=0D
+convention used on Facebook SanMiguel. The suffixes are not essential, and=
+=0D
+I would be happy to adjust the naming if it's preferred.=0D
+=0D
+Thanks,=0D
+Jacky=0D
