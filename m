@@ -1,103 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794387044;
-	b=Klosx5Kfvjvuh+Ij6BE0xS7fukxoTYvFSz/DCjYFIHykiVmx5YJH99RLo1AuOZ32yrHF
-	 5rYSSegrAGjDT7J0rDPqONS1kms6sBNdq81j3hcXc5oTIR06OUPAZ40Zs0mEViCB0fzq6
-	 Uw3Rkc4ReLbwxctPAMqHJvOFkPX9kG/WIbit7vjvPTEHcEUVdWkQEStVhj/E7FudDCpLB
-	 vrdDzZnR9bPWo3SAEhUT7I0Sc3z1vfqXM1E4yBhQIyryYX/7H3YcVAM+Cmr8eF/eEjb0+
-	 GPSwhgdQ1CC/yXDrHEu0GOLN9Qlxx8dKtqREhaysHQuKe/h8gdYExa0xC09PvJ9sSJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387044;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=86Xy7tOlMZQlOZmnjDzW/q09G8pEnwjBFLfG29MwE7Y=;
-	b=Zpsr8qWuymncapglrJAG7AH7B671/AUWP1hVM3HEnmfTQe7DPSSBp7OZ9+1T3YR8uUoJ
-	 ozipcrKA50V2UZMSpD8rlGNS/XTwxH2x7PN45zo3xbuXcM5t05mZ/rNmt0FYx7gigvq5c
-	 kwOfYijJoxPBSq72TNCp9lHjbPVbWxKFWhLaePmK5paqLdqYw00Z4yUmdaDPFy6YkGKY6
-	 at7XreTVafyWuGV/WfnGMqs+eZPpVjMWbHHzkg7MyrIQx7Q8oktEhfbScn37W5gk/ky0j
-	 u2p5EoY82k6Syo+skDwq6t7DYrNLgZeTd/AP22iKSZVO8dB8GCzRaFC6q7CcskB8ZlA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AI3F8vqM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.33
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012033.outbound.protection.outlook.com [52.101.66.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794387040;
+	b=YJKsXvt9d57Y7OW7MDBzwv9efTy7BbxBa3oZCaZT6/PWNsG5h0O4TnPtZ1zLaSDWqqKn
+	 e6nGmE7xpWQkJALLfvwYBf9B5+9cUtNnrEK8YkxslX6TBFNGcuRijQWniBz+SUBorf4mm
+	 wy8KI+Ki1ibKp4HQWb2MD58dTvw/L8VyJpgPbICOmqUbPtrVsWzbB3uGQ1AdQVGN2fH+l
+	 BTgEOJpYI9L0aG3JCZf1GRuzU9eGJ8KyVblqy0eAYhjj9ofIyQG1rXqfdPRVJxKWJNHRU
+	 8oT2YiawrV2VQKEbBjr01qOwDmvM8dMHaiE6TvEx7/ksk3clLUvCvhlT7exC3dXQRAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387040;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=zCRooG2x6MjJhhdGz/yUbWYEgmkxtWTULJ4B2gjVcXc=;
+	b=19kyLe/2IEGCwP0egtg+o17V5QU5APgTx3nEOR2TrBQtUj1BwORVQmNk6m5Z9jigN4xY
+	 Bp7w3o+HBQ0rDH0ci8bp6BC6oSEPVrtjJ3WK4zw6IsrKztUU4ILyg0Hm8SoH8tJkEt+nN
+	 AQNJfoq2B8FyxJDF36T0xvnWoziZRzFG/CazGg8C7MuHv8iQLCwFaPpBivesInZiNY+x5
+	 rXjzZt0E0PInaQ292ENVZyXvVXLuBQnr1qYNDdgw5AK6qW3pLJWpNwILT69tueQssvymG
+	 0OFDuXyFfxnyBdvy8hcppWgiMpX+9uK2V7PXdYbpfHl1TSPiLIR2XJPNr3PHWCRO1GQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=74.125.227.129
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF6A606A32E;
-	Wed, 11 Nov 2026 08:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF6A606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AI3F8vqM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hcJ5VHulTyweJxn4FbO96IQCfjm6d1/7Rt03UXSDIhdVIT2JasHIicheIS/B9/rLzCXn6vsTIhwMv/ompSO86wCgTkvB0MkEFfqtI9ZBTiU3EmcxINtady2CVi5nBS98WGR8qHxG3u3/U/f1zkYv69ib3gNpZz7DYYOcKpvrfM+CaLG9kfMLbuT+7kwAa6CujACYpOOYsaNRh6tLtvrJZDRZLo1Gjk5VLmGO+60Tby0HYTBwL35ZH9FkTvnwjMhIh4PJeY3JI9scNWAXhL30hx96mx3sCDu9Sn4LqL0SusB9GcbODj6KyKdf7vTr47sANIkd9QfK9yTmmEOyGCwGIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=86Xy7tOlMZQlOZmnjDzW/q09G8pEnwjBFLfG29MwE7Y=;
- b=NwlcnzyUYoLDrnpMhD7fcBiNOLhv5y1/BwpTwrspq2tUym6dYPMR8/W37KWeIvdEbt3jlcJ+feaq0pkuZsKjCe3PUee/CZnEnuuR/gT4knJQGxtUtONTr8cWf0TrOi6MqVM4XvYYb9yfYOPfHwamb+Rcsl2qnSgSzBn4K3sFIdMTm7L99tQmw58KN8gTXr2PDfqtlSuuUrFyteEGKLSb/c1RjEcN2CjkRL/YGPyMDk/tNkgB1oPZfoUPdZ7bZ6vvmeYM52pokHnx/2whiFtbH/QyiBnr8UNOPhmN8Kg83YqsOe4TPqR0r4A0YmtCfA0GHrs25vqGT/qulaF95Bi1AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=86Xy7tOlMZQlOZmnjDzW/q09G8pEnwjBFLfG29MwE7Y=;
- b=AI3F8vqMCtMzmhtx77qzHfmwvp9lBGgX+hjT4LlUklPJP13O632KCCYU9bP0yOiNrBqypkw6/lbeBb/3dW/0cPxSqIX5FHFtyi4hFAma2gUi4IxS+RzfQX0JD0Eu84NU1AFy2IHX+TBxMO57noSpL/dbTR9yvoymyUy6DSP/2yslyYIWO1iG7bnBqjI9/DJFnqqDmWED1v9QEmPXJVc6sy/2ugNHFnspxePCGcxiIaIp/xEYCsL4D5IGgY6PwYUNUeSHUmblGsE20GNOaaHdJdNgvm6q33aqoaxz12gaDYbI/XzOU80O5DT+7jqcyuZgj6cUJEV3QUgSQHtq/LxbVQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by MI9PR04MB215858.eurprd04.prod.outlook.com (2603:10a6:290:ba::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 08:50:39 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0592.012; Wed, 11 Nov 2026
- 08:50:39 +0000
-Message-ID: <4ab5696e-dd7f-47bb-8025-4f9104c9d0ab@oss.nxp.com>
-Date: Wed, 11 Nov 2026 10:54:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: freescale: Add device tree definition for
- Cloos CBASE with i.MX8MM
-To: =?UTF-8?Q?=C5=81ukasz_Majewski?= <lukma@nabladev.com>,
- Fabio Estevam <festevam@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110150546.1535950-1-lukma@nabladev.com>
- <CAOMZO5D0Eq0FDJq00x1aitQe1HoSzXk+DEfMo2Qv=nJB=Njdkg@mail.gmail.com>
- <20261111092653.0df91d0d@wsk>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20261111092653.0df91d0d@wsk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P195CA0003.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e2::9) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4D0606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4D0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3b0d11b85f0so1780665a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 00:50:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794387039; x=1794991839;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zCRooG2x6MjJhhdGz/yUbWYEgmkxtWTULJ4B2gjVcXc=;
+        b=jH0yXLkQIN7t91MEmeryuAytZW7MkNTmGinVPuvvUzC2Y6yruKp0/F358VgXMbCxl6
+         3G8iZWQZ0doDeQSGHXkpQ/ckcMmETlncz9JvbnxXvMMR5oZi0durZjvMkHFBDp8a6SLM
+         EtsXqe4G89mrE06xhAPTZb4eLyleVrh0z4HST31V77HnYXf0BmysD6h0QBWSaqIiGCwO
+         ShIL43R/oUpLKrlbu/Qe8Sju2IKzzeDzW8hA/TgdZKOl8PP85vQn0qpB+27zsTbnWNH7
+         SMprd/IIQYFL9sHxRS2L2IIQUJs32NToDMt3N2PJM8nf5U57MnYzZnOcoryEFZKRm0K3
+         NfXw==
+X-Forwarded-Encrypted: i=1; AL+hErELbRhe2UMqLAkkomAYRfJK/3dbFn+rmb2x9s+OF1qps9doSIjISVHGFnBj1Ur1T1JXk/6zKYdYCgCLT90=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+h57T55zMRULaRWC6ZW2N4QzZv9Fsobf6iE/FiqkrgZv/WBcQB
+	4e6GNdFRMCbUMqjcd37HIHANEHRWgn6a8wP1UtMirhmr3KqhbFSEAQHxEZku3VrU
+X-Gm-Gg: AYBFou1c2Bvu2pcCU89tjv8dfR2gQ4uPd+uZqrPQk71MI2heJVRx4Ape4Fq6RD/aYwS
+	bAtlYntTXiclkyk0moPacxXJaZP76403mR3NmvcdoD1Uqp0nh5x4u9tYOKl+/lPuvHfbu+tf0YK
+	zM1DFlHYsSKbwBe5TCBNdi15Uu34BIOptMjgGj78CMpDks93k4Ul3RovdBodZ3r3ECYxIDkTYK7
+	9UUVLVKtB0YvRBP2Tr/zQB+Zdk5+k/It+e59Qrwdy04Ozuglr7Hsaepsz6nEo+Y45COTNg9l77C
+	j5cKTf+z0LBt/R7iHs3gze2ozb+SwFRIoWmBbkXG8I/RgiaYqlMJrXsHBoz3fxnvV0yAMyFx9Fj
+	MUPbEodm35FHAndm6aQdYvD7WAyWPaWz5HEEv802vJQkfcFScVIDVoPIG9imT0JI6BNXkb0dvfQ
+	U9nyguCOoA4ZrKdcwN0+IBlQ2ObcKNuXeZSpYdXr9ZRFAE47KybU7RxTZG8xYr+2Lbgxg4hg+E8
+	zHeiwXp2u8dfnpr7a/AQdtMVTvW9UTpRFCPmDz3gM0tTEOOb5HeKnntotgVXMekLHNfokmnMMpe
+	y0OW27uKg6D8XGLsYrTjKSXqurr+lYQhh7qcp7TnlB43KpexYBE=
+X-Received: by 2002:a17:90b:4fd0:b0:3ac:9f00:3bc7 with SMTP id 98e67ed59e1d1-3b182eee784mr1752558a91.33.1794387039460;
+        Wed, 11 Nov 2026 00:50:39 -0800 (PST)
+Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1838e616dsm2396406a91.4.2026.11.11.00.50.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 00:50:39 -0800 (PST)
+From: Xueqin Luo <luoxueqin@kylinos.cn>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	sudeep.holla@kernel.org
+Cc: zhanjie9@hisilicon.com,
+	christian.loehle@arm.com,
+	zhenglifeng1@huawei.com,
+	sumitg@nvidia.com,
+	lenb@kernel.org,
+	maciej.wieczor-retman@intel.com,
+	pawel.chmielewski@intel.com,
+	gregkh@linuxfoundation.org,
+	dakr@kernel.org,
+	johan@kernel.org,
+	ionela.voinescu@arm.com,
+	pierre.gondois@arm.com,
+	linux-pm@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	driver-core@lists.linux.dev,
+	Xueqin Luo <luoxueqin@kylinos.cn>
+Subject: [PATCH v6 0/3] cpufreq: cppc: Handle Highest Performance changes at runtime
+Date: Wed, 11 Nov 2026 16:50:19 +0800
+Message-ID: <20261111085022.1229866-1-luoxueqin@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,97 +97,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|MI9PR04MB215858:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76ffe532-b29f-45e3-a455-08df3fd0dc91
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|366016|23010399003|7416014|1800799024|22082099003|18002099003|261009223027099003|4143699003|11063799006|56012099006|10067099003|261026121527099003|261022113327099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	ohtv0IDFARRl4kU7kmK+PPd1lNj8t5zxIGupVFbA01U3d+na1U8jMFvADsvNxFFvCZmZmum4OPVS4u+kMwnNcFYfV1vgX41nC2BNlzJ1A4cJ0VxfrdgnBvDfV3fRkAq4LpvsrIvmadupn1Lr8Nv9A3jFRM6P7vyyX5dYD9jIx04c78RtjX3OPMFDRhMUzacJLa9GWCBMUkQ9Uq9Q4EiP49r17cl/SOYeyifutaoLYzlUWabfacHLMVqZiIFiHlNA/b+znp8oioTC2seOpUOG+2jHtwUxy6esU93HzZsEteTvvssM0WBnamS8WSQfV72XREzDEvSAUWNh7LouZR41i/MLckF34FiBrs/XnOvnLT1oVCpNpg7C3N9b7Iy/2qPppFec4z9NNA8nMa/AXTRSS6J46j43HWQLlPLiwjtqsUl/PUAfP/ENILuEVxbnhsyr/CNNtwJSuBv3plDnUr/EFCVIPyjcAyDBAouNetBg4vKZChvNpdw/Mnktpm02QjNi7uQhiWk1i3V6jHVBY3K5XZ4YVescuo5TDL6FkoBQWgiMU/s75zxtBWk9/mimwBr9cpwTDPaZhvlDdalAqTm8uo9ByPjTnKztdssiZMaelX0F+00BqewNT9RB+2kTgjYq
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(366016)(23010399003)(7416014)(1800799024)(22082099003)(18002099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(10067099003)(261026121527099003)(261022113327099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eHh1UlJQZ1Zld21nZnNEd1lsR3hxNmYvRGJYdm5wNE9YQm0wTXRzUWsxZlZM?=
- =?utf-8?B?R3BhS2phSHc5OThWOCtsNmQrdCtPaHNmT254UWIvbHlqVHNXOVhJdURlVk40?=
- =?utf-8?B?cm9YMlZoL2NlRHNjdi9DZ3pkMU5zbzVuU0g1YlVwUVlzaElaUExDNXBIT2NZ?=
- =?utf-8?B?dGZ4ZXZuNDBJQ2Z6TTg3WURPaFEzRkVzN3pOYXA3UEVFRTJLVDRvMi9mV2My?=
- =?utf-8?B?QmtrOWxFQTJjekQzM040RUsraWdpdFhLbUNxYXBkNDJYa0RYQ1NwQUVpMGMx?=
- =?utf-8?B?QlRjckQ1TjNMc3pGMDRhS3o4dDY3UGo5bXVQNTlTbjMyem56L0ZYZXV0Umc0?=
- =?utf-8?B?bHZHNVUvbXZUQlZDblBoUk4yRjRCNGF3aFRPVnN5cGdQT0NYVEVMS1pyME1O?=
- =?utf-8?B?SlVTOHJLdDJTcWo2WjlEZ3RYUGlHT0JkRU5rakFXRjFzSWo1RVFVUzcwTFVv?=
- =?utf-8?B?UU1jOHpnenYwdEgyazlTUTZRem1xRDhYWXVaMU91MjluSGROdmVMTWdkZDhZ?=
- =?utf-8?B?MzNNZWVQbk1RMHhRamxSN1RWUXlwZWZGV1oxc09sR0hjdWtDcGF4WFVVMWxP?=
- =?utf-8?B?Lzh0L0N5aHk5THdWQi91VW9tdlZiSkJNd3QxMExySUZNM1g3VXFwUkRKbmQ2?=
- =?utf-8?B?aHpzMW5EaTc0UGthSHpJR1RUSWVlS0FYRG1Gd0REdDVaUFFZY1NUN3lyQzk2?=
- =?utf-8?B?STc3QTVVenhVTDQxWjJkM0pZT1FsdDk5Z08yQyt1VE9ySW54OVVQdElTS0Ir?=
- =?utf-8?B?dnlkenlqSGVSdWo1MXVxbE4vd1ZjbHNlZHlGNnF0Vjh2aWVVTW9PMHZaNkFu?=
- =?utf-8?B?bjJURGdkSGFQc3Z2UVgrN3pFRTFlRUVIMDlMM0paVW9Fc0E4dGVLT1JSbEJt?=
- =?utf-8?B?QjVkMi83YVNNemh5UEJnRWNkYmxTSUtXT0dtVVVYS2dQVGpMZEh3MmFObnJD?=
- =?utf-8?B?WGxmT3JrS1NDK0plRmw4UjdvdTNJYkpzSmhONTBLMWp0bm1DN1l3aDBZdVVC?=
- =?utf-8?B?Q3FYNEI2NHNIcEVaMkNRRmdJK1RVTHRpSHFMR3FRZUxIdTg1cGdVWndMQ09S?=
- =?utf-8?B?bC9hbm5IRUdWYmVYM1BnTWFodmlQbHFyakFYNmoyc2ozR3o1U0VRQzZheFpl?=
- =?utf-8?B?VW1jTWR2Vzk2c1l1ZXMxb0NBWmJxZWR2bEo5ZXhTK1ZkK2RobW9ITjFhc0NM?=
- =?utf-8?B?eGc4djdZbkNLNU5LMG9GeTZhdGlPaFROTjBGSUJUbDYzK3NhZjlCQm5NMlZv?=
- =?utf-8?B?ZlRCMmtSUk0xWTMvaUZiNXhSZ3hWOE9kWEZrbUNCTEtwTnlqcmxSZ1NuTXlM?=
- =?utf-8?B?VDBUZXpwNXVCVHdFaU1HdkpMQXVkRlBrdHZHTDhFVHREZE5nUGsvWXpSam5y?=
- =?utf-8?B?UmRKbFFmR3lvQ0ExUUpYMGlGWnB0a000aWxRU0dkK0I5YWZnejVOZ2hXenYv?=
- =?utf-8?B?ZWhWK09SbjZwcFh0bkJTWEZHYWdCU2pldGk4QTVzbHczWmJ5c3dsTFAybHhn?=
- =?utf-8?B?TXRFbWxEeEYxQ3NVd0liUCtaUmFtZXZnTXdZd0UxU2gxSGR3ajlpdEViNWxM?=
- =?utf-8?B?MWZvV0JCd0w1MStBcDhqMXdxR0NvMUIzdnpMUG5YTDl0ZVdVNWQwVHlWYUR3?=
- =?utf-8?B?SlArY2N4eDZHaEM3VWw5MGdEaFVNWC8vYmpJRzhJb2UyNHkrOTNsK2FsWGQ1?=
- =?utf-8?B?Vld5bFRmODFNaWp6TFEycy8zSmF2d0tOY0REZUluaVd0QlZRTldZeWRSOVNH?=
- =?utf-8?B?WkJRN1NWYlkrWkZrSU13SmVXMXd5cWpBT3d6YmFVazExSmZmUGhtTHdKeDQy?=
- =?utf-8?B?K09vRnRKa0cxZHlKL3ZSbGdmSVFndWU2NWhKaExvTFNnUzYrbjF6QXpreVlt?=
- =?utf-8?B?anJxN0RnZUk4VXptdkN6U0s3WTBRcWR1OWxCUnVWY2doWS9CamJhNXFURENE?=
- =?utf-8?B?NXBPYWJ3WnVBNTNtMENrd2ZtTzczbVBEUk80L3lic3V5K0ZtVUVybDVjTDVh?=
- =?utf-8?B?d2w4NVB1UTFHODlMVlVNeHhsUjh0dkFoU3FZYWpiZk52VE51eVJkNXlwMTZz?=
- =?utf-8?B?aU55RUg5ZXJadGRnM2h4T0psOHpER3grOFlxb0VZQ1dtWUpiUmtUd1Q1SzF4?=
- =?utf-8?B?ZzQwTVl1K2hvdUJuaXBoYVlYWHVvMTV4dTlURWM0anBDVktJYWw4akJoR3RM?=
- =?utf-8?B?QzZwNVZYMVRVdTltQ2hkSFJDR1VqVERHVEVYTGl2UWxaM2RJTVhzMFkrQ1o0?=
- =?utf-8?B?STBsWnptVWJYekt6ZHI4U3h1WGxnUU9uKzRQOFJDMm5SazdVRzJSZTlITjUz?=
- =?utf-8?B?ZTJUbDRZNmtYMkwxZU1la2FsWndPSFpHaE00SUNVbFo2RHVrZkIzZz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76ffe532-b29f-45e3-a455-08df3fd0dc91
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:50:39.7746
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dqUfW0YvmKFr7Qn2Qy7vbcQGDVHKeNvpLtL7mrmq2Hq08IjS9V27x1Yeqmkw/N+A7d2b0PsT/ZZ2mURIII/VHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB215858
+Content-Transfer-Encoding: 8bit
 
-On 11/11/26 10:26, Łukasz Majewski wrote:
-> Hi Fabio,
-> 
->> Hi Lukasz,
->>
->> On Tue, Nov 10, 2026 at 12:06 PM Lukasz Majewski <lukma@nabladev.com>
->> wrote:
->>>
->>> This commit adds support for CBASE board, which incorporates the
->>> TQMa8MQML module.
->>>
->>> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
->>> ---
->>>  .../arm64/boot/dts/freescale/imx8mm-cbase.dts | 577
->>> ++++++++++++++++++  
->>
->> You also need to document the board in
->> Documentation/devicetree/bindings/arm/fsl.yaml
->>
-> 
-> I've sent a separate patch for it (the same as in PHG).
+Hi Rafael, Pierre, Christian, Jie,
 
-Hi Lukasz,
+This series adds support for handling ACPI CPPC Highest Performance
+register changes at runtime, triggered by Notify(0x85) on a processor
+device. When the platform changes the Highest Performance value, the
+OSPM must re-evaluate the cached capability and propagate the change
+to the cpufreq policy, the scheduler's CPU capacity model, and the
+frequency invariance engine.
 
-As I understand https://docs.kernel.org/devicetree/bindings/submitting-patches.html
-the patches should be sent as a patchseries.
+Concrete use cases discussed during review of the previous versions:
 
+- A processor can age over time and its core frequency degrades. It
+  is good if platforms can make OSPM and userspace aware of this
+  (Jie, Christian).
 
+- Platform operating mode changes between "performance" and
+  "powersave" (longer battery life) when the top-most OPP is a
+  high-cost one (Rafael).
+
+The mode-switch use case can also move Highest Performance back up,
+e.g. when switching from powersave back to performance. update_limits
+therefore accepts changes in both directions, capped at the Highest
+Performance probed at policy init, as proposed by Christian: any
+value above the first probe is ignored, since it would allow boost
+support to appear after policy init, which the cpufreq core cannot
+handle today (the boost QoS request is only created at policy init).
+A policy that started without boost cannot gain it at runtime;
+supporting that would need runtime QoS request creation in the core
+and is left for later.
+
+v5 -> v6:
+
+- Cap runtime Highest Performance changes at the value probed at
+  policy init (Christian): any value above the first probe is
+  ignored, since it would allow boost support to appear after policy
+  init, which the cpufreq core cannot handle today (the boost QoS
+  request is only created at policy init). Within that bound both
+  decreases and increases are accepted, so a platform switching back
+  to a performance mode restores the previous Highest Performance
+  (Rafael's mode-switch use case).
+
+- Refresh the topology capacity for every CPU of the policy
+  (policy->related_cpus, covering offline CPUs of the domain as
+  well) instead of only policy->cpu, so a shared-policy Notify(0x85)
+  targeting any CPU of the policy refreshes the whole domain at
+  once (Christian).
+
+- Trim the internal helper comments (cppc_cpufreq_sync_boost_limits(),
+  cppc_cpufreq_set_autonomous_perf()) down to the essential notes,
+  drop the debug-only value dump, and report boost QoS sync failures
+  through pr_err (Jie).
+
+- Ignore values that would drop Highest Performance below Nominal:
+  they violate the CPPC invariant and cannot be handled cleanly, so
+  the special-casing for them is gone; such
+  values are now warned about (Jie).
+  topology_update_cpu_capacity() rejects such values as well, to
+  match the boot-time validation.
+
+- Return early from cppc_cpufreq_update_limits() when the policy is
+  inactive: a concurrent CPU offline may have freed the driver data
+  after cpufreq_update_limits() acquired the policy reference.
+
+Note: proposed spec extensions would allow nominal_perf to change
+at runtime [1] and introduce a highest_freq value; neither is
+handled here.
+
+[1] https://lore.kernel.org/all/20260430142430.755437-3-sumitg@nvidia.com/
+
+The series is split into three patches:
+  Patch 1: Core update_limits callback with boost QoS handling;
+           runtime changes capped at the boot-probed value.
+  Patch 2: Refactor autonomous perf bounds into a reusable helper
+           and wire it into update_limits with error logging.
+  Patch 3: Topology subsystem runtime capacity updates with
+           validation, early-return optimization, and concurrent-safe
+           normalization for all CPUs of the policy.
+
+The v5 series was tested on an arm64 8-core big.LITTLE system with runtime
+highest_perf changes injected through a debugfs hook that exercises
+the same code path as ACPI Notify(0x85), including values above
+1024 and full capacity re-normalization (see the v5 discussion for
+the measured capacities).
+
+Xueqin Luo (3):
+  cpufreq: cppc: Add update_limits support for Highest Performance
+    changes
+  cpufreq: cppc: Refactor autonomous perf bounds into helper
+  arch_topology: Add topology_update_cpu_capacity() for runtime updates
+
+ drivers/base/arch_topology.c   |  77 ++++++++++++++++
+ drivers/cpufreq/cppc_cpufreq.c | 157 ++++++++++++++++++++++++++++++---
+ include/acpi/cppc_acpi.h       |   1 +
+ include/linux/arch_topology.h  |  13 +++
+ 4 files changed, 235 insertions(+), 13 deletions(-)
+
+Cc: Ionela Voinescu <ionela.voinescu@arm.com>
+
+-- 
+2.43.0
