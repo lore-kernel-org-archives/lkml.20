@@ -1,48 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437002;
-	b=Yutwe26ARIvq7DV3MkyQICOWopAw8Em2ugDPuv229wp/4y9MIaV0SmEZXhv3qhv+FH0V
-	 x9d5imIjVQjOCuyJ90kgrNhrHmAQgVfvXxOWi9FNqjg+jSfsTzMeuZcbSNpZMU3Q0PLLp
-	 oabxw+ie75idrbDZUBrBJAr5AAHZjtg5XyoTxt1aRqWEOKEycYLwoOVQxJ0Ce+GpZsxSY
-	 PU/gUuSmY1nA6oO31PT+jUfQoy55+VzxGTfUBpc6S3PJS5o44/3yfg5KfASGSvmJ9KUCH
-	 BYmG1MPT5SfLOzoDikXtWOpGH+C58+C4WrZ7rECE6jl6WZ37PGofYTD5ftiQkGD04rA==
+	t=1794437007;
+	b=qb97kRSymDarop9f3SGz+WyIz7z4fH49tAQDTAqgBgekKJUIxJtdRs8YnKG2E3VXIWAS
+	 fB4RanxUNa+tuz03w9niZcIjlsQ5eUDvvKcZc15EyiWE0EmuxaxFWv0kpdgVO2UupIYPl
+	 DpmzCMuPI+sKjglFkZTrWmewwa46Qgl1IFU/bR/FVA+Ax1d+BtDhEUJUk6EBfSV3OtEsE
+	 /C8UR1WsH1xRExkIxGOU9fNpC90xlyjIGl6S4D9FchdVBhIni9jCqWCNzyX0GsJrj/fVF
+	 xYFegqJQd9pC4Ik/m6buPnyuF3g6aq/+A/iTQxIk2wWnfZ5OVg280960IUpT1e8AMEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437002;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=9/5/8dOyDqQ1xEhv/96Eczu20G83ALlhjhXbEVyTE3A=;
-	b=V5BQ/luLxsaQCIsgggwvo7/yIa6jRGys88/Jm01Q8I5yrrj1SKSfEprrj5Ef/xXSeKd/
-	 FBCc+Mdvmx47crfVYXRgGlqUJoVbPLyVFloKINyrY0B4uYAvOR1949zEmguFhfqcZMcon
-	 PO1BOaU6oeJ0prKtvrrCHEHt7HnPqV7MDq/XDGgORDIeRHl3xQM1F3LBjOIUPyZtRs9F8
-	 tIATShcsHZpzHzGffiQ51siFHGCETz+VShCqqRK0rf6yFROzb/Ak1J+O20ZWvkVtLdBmj
-	 21Wh4KGCo+cpUi+a4GXkHnqGAU0ajwCyfCNSkH/Fwu3OE8GxthWoC0yD1pyP9a1/Sag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437007;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=UXJicnuhcwmyx0ZYJWZpTRYTgCzguUEv8BN06l+oadg=;
+	b=jor1VbzORoo/AdqH47MPRVZK2sDal4CUEnhAUjunma7PfYon6TNrWECWK04EIioQFnYj
+	 OCwUNFfFeinFZ0CaM0bJ+AccBUry+C41DECTY5k10txD1rQ6MkJhMDYjE4Y7AIZRO/IPY
+	 t0vjGnEMB83Lhv8ALrVUyk3n0AHfZl0HwoDoMAogi5MTe6oCsckRu7FBt6QSPI0l44nvB
+	 HNhw2c40CmbcHlxXd0pVS4ulIjBb7tFiDPpbtBl1qD53xtZ3gf97eHHvHni9QhZbM0ECE
+	 UVAY8zOly5zi0tB6j2y90/gS/6YtXOPEHmHfX9jYMztIdcI15I+z6erFFCaeD8mJgLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/+5yJmE";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=IpAAWb2Q;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B42360A6F47;
-	Wed, 11 Nov 2026 22:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEB1606AEDE;
+	Wed, 11 Nov 2026 22:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DEB1606AEDE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/+5yJmE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620681F00A10;
-	Wed, 11 Nov 2026 22:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437001;
-	bh=9/5/8dOyDqQ1xEhv/96Eczu20G83ALlhjhXbEVyTE3A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=R/+5yJmE4KaBsF1aXUf+XjI8G0njxOL9DRSS62soWh5qV6EpsGweYh8SvvT1Q4NWN
-	 oD0dpqtE/SV288KczymCJqk30dbZ76d+km6r/bKOEsMUyd2DrXENWzQmFjHDQstVqW
-	 03ES3pIeuqIgqo5D7JTbdvxDQOiZ4SNGD+a7pMb1kPyZuFQg4TtTXEiF0NSGJSv1Zo
-	 Z7B/eWHQjkS1KXl3TZC3rJuUSnULofoSguyVmMqjFhZsCV4QWiaHNgReP88kyqxENr
-	 jguGv4fjm2xOasjdfw1W/64ue9IkLwxb+bA4Wc9ba0rynirBhPm70ZL1sOLDQ+ALzf
-	 RwSBeZHDc33mA==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 11 Nov 2026 16:43:02 -0600
-Subject: [PATCH 5/9] arm64: dts: marvell: Fix node names
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=IpAAWb2Q
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=UXJicnuhcwmyx0ZYJWZpTRYTgCzguUEv8BN06l+oadg=; b=IpAAWb2QYQq1OQrUQlpz1rnWzL
+	aG10MJCkusMI0It1L9PJ0imlAUtAx80PMFNBicd4WeLbQG7ASLUbsVcQ2YEkOUqSHBOYpK4qnXjHW
+	XPSFOHdjFPBEG/IOUsUyL/5bkQcWxyxk97Fu/f3VvVQ3M2kGEJIMdFHMvuz+nTrrXgASmukGbxfLh
+	9pifajPnWaN5btFRK1om88IzeCPSVMUOiknx8u6NdQqORqrW/M+SrXWpjl8nZeGuLjT66CjdmmoOp
+	BSIATXvaEcs+qRI7HIKFVokCcn1JglIZsleo8XtWVNt5bo3KNgeXRxgsnH5YsSsCQM/uL/QGRWFc3
+	8QbsahNQ==;
+Received: from [151.115.150.205] (port=36454 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xRH2H-0000000DOpX-0xOk;
+	Wed, 11 Nov 2026 23:43:20 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>
+Cc: linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v3 2/2] selftests: overlayfs: reject different lower idmaps on same fs
+Date: Wed, 11 Nov 2026 22:42:27 +0000
+Message-ID: <20261111224227.2496049-4-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,92 +73,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-dtbs-marvell-v1-5-938788aff3ae@kernel.org>
-References: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
-In-Reply-To: <20261111-dtbs-marvell-v1-0-938788aff3ae@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Fix various node names to use standard names.
+Add an idmapped overlay test for two lower layers that share a backing
+superblock but use different idmaps. Check that mount creation fails
+with EINVAL.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi              |  2 +-
- arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts |  2 +-
- arch/arm64/boot/dts/marvell/armada-8040-puzzle-m801.dts    | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ .../filesystems/overlayfs/idmapped_mounts.c   | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi b/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-index 4878773883c9..814b8a2e8ea9 100644
---- a/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-+++ b/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-@@ -231,7 +231,7 @@ sdhci: mmc@805c0000 {
- 		 * Dedicated section for devices behind 32bit controllers so we
- 		 * can configure specific DMA mapping for them
- 		 */
--		behind-32bit-controller@7f000000 {
-+		dma-bus@0 {
- 			compatible = "simple-bus";
- 			#address-cells = <0x2>;
- 			#size-cells = <0x2>;
-diff --git a/arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts b/arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts
-index 4efa2a1dbda7..101d1518e28f 100644
---- a/arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts
-+++ b/arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts
-@@ -324,7 +324,7 @@ cp0_led1_pins: led1-pins {
- 		marvell,function = "gpio";
- 	};
+diff --git a/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
+index 44a75839f4ed..b496b279ce98 100644
+--- a/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
++++ b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
+@@ -498,4 +498,47 @@ TEST_F(idmapped_overlay, nfs_export_handles)
+ 	EXPECT_EQ(close(ovl), 0);
+ }
  
--	cp0_copper_eth_phy_reset: copper-eth-phy-reset {
-+	cp0_copper_eth_phy_reset: copper-eth-phy-reset-pins {
- 		marvell,pins = "mpp43";
- 		marvell,function = "gpio";
- 	};
-diff --git a/arch/arm64/boot/dts/marvell/armada-8040-puzzle-m801.dts b/arch/arm64/boot/dts/marvell/armada-8040-puzzle-m801.dts
-index 06a861f83ad8..68c8489e0a6f 100644
---- a/arch/arm64/boot/dts/marvell/armada-8040-puzzle-m801.dts
-+++ b/arch/arm64/boot/dts/marvell/armada-8040-puzzle-m801.dts
-@@ -165,7 +165,7 @@ cpu_active: cpu-active {
- 		};
- 	};
- 	cooling-maps {
--		fan-map {
-+		map-fan {
- 			trip = <&cpu_active>;
- 			cooling-device = <&chassis_fan_group0 64 THERMAL_NO_LIMIT>,
- 					<&chassis_fan_group1 64 THERMAL_NO_LIMIT>;
-@@ -191,19 +191,19 @@ flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0x0>;
- 		spi-max-frequency = <20000000>;
--		partition@u-boot {
-+		partition@0 {
- 			label = "u-boot";
- 			reg = <0x00000000 0x001f0000>;
- 		};
--		partition@u-boot-env {
-+		partition@1f0000 {
- 			label = "u-boot-env";
- 			reg = <0x001f0000 0x00010000>;
- 		};
--		partition@ubi1 {
-+		partition@200000 {
- 			label = "ubi1";
- 			reg = <0x00200000 0x03f00000>;
- 		};
--		partition@ubi2 {
-+		partition@4100000 {
- 			label = "ubi2";
- 			reg = <0x04100000 0x03f00000>;
- 		};
-
++/* Same-superblock lower layers must not use different idmaps. */
++TEST_F(idmapped_overlay, reject_same_sb_mixed_idmaps)
++{
++	char lower1[PATH_MAX], lower2[PATH_MAX];
++	char upper[PATH_MAX], work[PATH_MAX];
++	int fd_lower1, fd_lower2, fsfd;
++
++	if (!ovl_supported())
++		SKIP(return, "overlayfs not supported");
++
++	snprintf(lower1, sizeof(lower1), "%s/l", self->base);
++	snprintf(lower2, sizeof(lower2), "%s/l2", self->base);
++	snprintf(upper, sizeof(upper), "%s/u", self->base);
++	snprintf(work, sizeof(work), "%s/w", self->base);
++	ASSERT_EQ(mkdir(lower2, 0755), 0);
++	ASSERT_EQ(chown(lower2, ID_HOST, ID_HOST), 0);
++
++	fd_lower1 = idmapped_layer_fd(lower1, ID_HOST, ID_NS, ID_RANGE);
++	ASSERT_GE(fd_lower1, 0);
++	fd_lower2 = sys_open_tree(AT_FDCWD, lower2,
++				  OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
++	ASSERT_GE(fd_lower2, 0);
++	fsfd = sys_fsopen("overlay", 0);
++	ASSERT_GE(fsfd, 0);
++	ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
++			       "source", "test", 0), 0);
++	ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
++			       "upperdir", upper, 0), 0);
++	ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
++			       "workdir", work, 0), 0);
++	ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_FD,
++			       "lowerdir+", NULL, fd_lower1), 0);
++	ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_FD,
++			       "lowerdir+", NULL, fd_lower2), 0);
++
++	errno = 0;
++	EXPECT_EQ(sys_fsconfig(fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0), -1);
++	EXPECT_EQ(errno, EINVAL);
++	EXPECT_EQ(close(fd_lower1), 0);
++	EXPECT_EQ(close(fd_lower2), 0);
++	EXPECT_EQ(close(fsfd), 0);
++}
++
+ TEST_HARNESS_MAIN
 -- 
-2.53.0
+2.47.3
 
