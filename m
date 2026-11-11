@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794384019;
-	b=vD7KTF1F2ZIOM5tft0u5ITIJONK+yvaQYgPZTYX4G/jv1F91nUkFTZYMtqArEl614xje
-	 UtUvoP1Yf9/c7CuOm+pQu0oSGdqvfGMLaopI4Hy303HtzQFyk1T1ftVLTH2mJcA9sszEZ
-	 Xj0C8GFD9svctgCUjpDVAmMsMownuKapN4mH27fYc0PjFOTze9pbX5g2kIZsiT8NbSLec
-	 5ifa06uZYr4K/S32bMpApXksZy0Bx2Qx0P58ksXJ+85zjnLeKPgyUZTalZquGXRmd1uB/
-	 qu57b7jrM4GJySMJIUF31bc7LYaCKp/Vpk/SuZv16zGvtk8gN2550ZT0XbOhf2XZjjA==
+	b=QWHRCDAzrLoK0fpkWN2JisqmPEnF106q6Y8u/3EBLsu+ydJE7YOipEhzrrlKNlsgX1T8
+	 WzpKWKLSVCsehJPk6iyUxch9DE5817f5lYT0F8qB5G2auUV/eWVEPy0XNX0euMgtPWpL5
+	 Gd1VPNNWFretWWi6l2oIqbVKhW8XYiqVKAYYIYTmGjFY9O/idk0OBE4/3KqUrnVfD0sHl
+	 lYqd/aKEVsyEJ3V7I4Zk9J8Dz+7v+WNxkzVtJExx3ew4Y5K5e/Owf/cHhdRxhspVBY9Wn
+	 OVwgXeBVTnoynjSU30Efpw7BeLLAREFveGRvhCCLvy8+Cev+V/LSCsZPBM1bmOK4EhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794384019;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=woGTuOQF6sgceNcGTTCsJ5ol5XKQC1dVcx8vvLW3Ql8=;
-	b=Nfzjy3x7L2lD2IcfZWW0QFGxM4kFjoKGsjOhi+Rgp8VlYRJhNo7n5B0pB9y/NYK10xtW
-	 lHAPzojJeERv+/hauc6DnxYqVc7nkhwZacKcUdW3VJpV4lJEC3UrzzNhldAhvRZZ+evak
-	 K+/K4DIfCip6W6Xl79/IbfCjCyz31GrwbXXZQUrecelfx7bl/dVb0qYXws6UmMjucs7mE
-	 cHjPP07aRBFpXAEgqt9qM7G2BEIeLaaRSRYZacWjtWRntj+6d8inZTHe2dNq4mdX/bEaz
-	 EMiz+LZ286qpwZrLW1+tNj4LdtTYU7X9bFiJ2iAql5p3p0UqyDbnFdB3XDTwcdgeC0Q==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ymCWphKfzcDfO41n1HV0rigfpNtNxqnMt90FaYWdvh4=;
+	b=lVE+fMGiSERHoU9ni+vEVjMwdT+3kpmQvPmWgXF/Ij3siR8xQmeJ64d7HbwUFmCf/xEI
+	 CxaoTTj1p21THAzQ6JEXVCT9VM8iAhjGWUcKxEixsaXbs0okHkkWknpc2KIfInsidt4yJ
+	 ralXpwGv9lFdormeRlMjTRFOmsdhQyPIBm+5ZKDaiYzkkGp/e0cNDVnaan1XvnIObkrLc
+	 gd2VbGF+aEaUfmEV+1jXKZrnIa8tepbkAApJAYC97FSXaxsvtzeAj3jthNBOE1zfiHcUg
+	 okiBB/qTDK6Mg0Mm6vTaqnNlg6lt76jL+HC07Trujyu33A826e14b+YlLWZvJFqipjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=iHuGtLzt;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sn2dg4v4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E5760A260C;
-	Wed, 11 Nov 2026 08:00:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36E5760A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C7460A2601
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=iHuGtLzt
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5iTop286306;
-	Wed, 11 Nov 2026 08:00:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=woGTuOQF6sgceNcGT
-	TCsJ5ol5XKQC1dVcx8vvLW3Ql8=; b=iHuGtLztM3C7QLlGXzyOCxkxAWGtFq8g6
-	T7yjtOPx5XkICB9g9rjU7rQwm9S8HI0tgXOMp6QghJQJykGBHGzlqOfrtam/zBYS
-	dYSTbvUkqUS20byVdIn+aLpl6+gmQNx8TASu4i71c07FKRQwYfouh9XNVSwoJVGJ
-	9PdA0ammD16HmLvkmqkuiXZn4rmZnxKlX6+gtbm3MErLivr8z6Di77tdOPAWKpqx
-	rPhVjHUi2XhIN2zdcv2YWBkzt1CYD7Ze3rSub2x0cdglt0K88VdUPfVl82PLGSPx
-	3QMPCIbbAZQttd6/x3wzfOtFGwwjy9ebWi8jYv3YC4l4gOV507/Cg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumv093b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 08:00:08 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5K2O12913824;
-	Wed, 11 Nov 2026 08:00:07 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv4nsu8w9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 08:00:07 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AB8057J50856294
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 11 Nov 2026 08:00:05 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4ACD92004D;
-	Wed, 11 Nov 2026 08:00:05 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6CBD520040;
-	Wed, 11 Nov 2026 08:00:01 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.213.92])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 11 Nov 2026 08:00:01 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, yury.norov@gmail.com,
-        linux-perf-users@vger.kernel.org
-Cc: sshegde@linux.ibm.com, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org, tglx@kernel.org,
-        sudeep.holla@kernel.org, linux@rasmusvillemoes.dk
-Subject: [PATCH 3/5] perf: Use cpumask_intersects where applicable
-Date: Wed, 11 Nov 2026 13:29:43 +0530
-Message-ID: <20261111075945.3930230-4-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111075945.3930230-1-sshegde@linux.ibm.com>
-References: <20261111075945.3930230-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sn2dg4v4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41D01F00A05;
+	Wed, 11 Nov 2026 08:00:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794384019;
+	bh=ymCWphKfzcDfO41n1HV0rigfpNtNxqnMt90FaYWdvh4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Sn2dg4v4Q0NRYHhHk+EwkVrva7WTpJ32iIZNPLtwX1VLgiGQBCCGLp0Zhu9zujEWE
+	 O5c2LSjMzcr3UYvSWrmtB4Xl0D2lyGYnmaW6FSo1BqDProO/Btm+A+vd/BC+yB/5YI
+	 9n2YNd6kDO4tw4z4Wka8ipOEHsO5eQ3nSlenDf2ahQYdSM+d1yfEoVaqSd7nwP5Y4/
+	 MpLJkqgV1lL+ZCMYYBJCkDnpEVTqpTpH4EziTtVs2YSJ/4K8chde5xh862ZTfUJt6m
+	 04y/ZZP1WO3VkuWy/+YJvWdmfVHJYPQR9jjbVk7NECFd9tmphdmGouCexMKKPWXnA2
+	 gawIpNy0TiUqw==
+Message-ID: <5f9c449e-43b3-4732-9c14-8199418cace0@kernel.org>
+Date: Wed, 11 Nov 2026 09:00:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,82 +51,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAzMCBTYWx0ZWRfX9HUt9bAOXVTi
- 7wwavZ6KsIrNkW/Gy1ugKba5iZ6m6Ha8Jad0hBkZoe9fSFFUE45qzOy013AEmm9aLXIf7maRFZA
- uV93D96bi93pnArdoVwkfK03iZqv8L8=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af42088 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=515Tmr3Vc-2sszKO7bAA:9
-X-Proofpoint-GUID: WDlNZdzKnf6xOwlw6xW646P2rMlDBBRi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAzMCBTYWx0ZWRfX3OAESfSRNTZd
- +95gkvslBkXaD27zItiRurmMHNrGNOdh96fbzuxQe4g6FOUHfcIRXdaKZhS5Q+ls40F3X6F7jOU
- AZl3Klzx5e8JloQwMF+HPS8XPLGgvfoxL0At8sQloincCytHNJdkOMIFUQYKq33ig7YknK0jy/u
- /s4sBFcqnNaU8B5KK7I2WI6bf/DBWTzwXfgGpm1cnKEt6I4XIO6Jr0AJEv42WyfCcQrvZK28YEv
- 68c5DGnUFGOwJm7C8JXQKJAfjIJvylQYAJoijG+tKJk7XcKFMutU5a2T5BWGNiwFFNDVfJFCpiH
- KEmMcv0JUvnKK+baOfeHNtmTp8RJSRlcBmJWvk9RH+Tr1RVUeJaXO/xb0X88U/FZxIuVahVmur1
- nnho9JNCDRCjAXBCBuirp3brsgqJepMt7Wcogf3EsRhnB5Q1v3ffvOC25/ZZGDTieMPYayBUFSL
- 1Ly5dN+du8Jsc1ebb9A==
-X-Proofpoint-ORIG-GUID: 0Gyhd9kZTBswYaRYrA5zj9pGa8Q1rV0C
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110030
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/migrate: improve mlock tracking for PTE-mapped
+ large folios
+To: Wandun Chen <chenwandun1@gmail.com>, hughd@google.com,
+ akpm@linux-foundation.org
+Cc: ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>
+References: <20261110123218.1579490-1-chenwandun1@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261110123218.1579490-1-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-cpumask_any_and returns, usually the first cpu in the intersection
-of the two cpumasks. However, if the returned value is not used or
-only to check it against nr_cpu_ids, that implies whether the two
-cpumask have a bit in common. i.e cpumask_intersects.
+On 11/10/26 13:32, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> Commit ab521b4142aa ("mm/rmap: improve mlock tracking for large folios")
+> mlocks a large folio when all its pages are added in one rmap operation.
+> However, when a PTE-mapped large folio is migrated, remove_migration_pte()
+> restores PTEs individually, passing nr_pages = 1 to the rmap helpers. As a
+> result, PG_mlocked is not set on the destination folio.
+> 
+> Reclaim can restore mlock in try_to_unmap(), but Mlocked in /proc/meminfo
+> remains undercounted until that scan occurs.
+> 
+> Restore mlock once the full mapping has been restored in a locked VMA
+> under one page table lock, rather than waiting for try_to_unmap() to
+> restore the mlock state.
+> 
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> ---
+>  mm/migrate.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 94033c222e04..140e291d4587 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -353,6 +353,7 @@ static bool remove_migration_pte(struct folio *folio,
+>  {
+>  	struct rmap_walk_arg *rmap_walk_arg = arg;
+>  	DEFINE_FOLIO_VMA_WALK(pvmw, rmap_walk_arg->folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
+> +	unsigned long nr_ptes = 0;
+>  
+>  	while (page_vma_mapped_walk(&pvmw)) {
+>  		rmap_t rmap_flags = RMAP_NONE;
+> @@ -446,9 +447,16 @@ static bool remove_migration_pte(struct folio *folio,
+>  			else
+>  				folio_add_file_rmap_pte(folio, new, vma);
+>  			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
+> +
+> +			nr_ptes++;
+>  		}
+> -		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
+> +		if (READ_ONCE(vma->vm_flags) & VM_LOCKED) {
+> +			if (folio_test_large(folio) &&
+> +			    nr_ptes == folio_nr_pages(folio) &&
+> +			    !(pvmw.flags & PVMW_PGTABLE_CROSSED))
+> +				mlock_vma_folio(folio, vma);
+>  			mlock_drain_local();
+> +		}
+>  
+>  		trace_remove_migration_pte(pvmw.address, pte_val(pte),
+>  					   compound_order(new));
 
-cpumask_any_and uses ffs on (addr1[idx] & addr2[idx]) whereas
-cpumask_intersects checks only (addr1[idx] & addr2[idx]).
+I guess pte batching would be one way of handling it, but that requires more churn.
 
-So replace such occurrences.
+The spirit is similar as in try_to_unmap_one(), where we count the number of
+ptes in one VMA. For consistency, I would call it "ptes".
 
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- kernel/events/core.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+@Kiryl, can you take a look?
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a6c8e38a3110..f9fa1b47ddf4 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -13159,7 +13159,6 @@ static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
- 	if (pmu->scope != PERF_PMU_SCOPE_NONE && event->cpu >= 0) {
- 		const struct cpumask *cpumask;
- 		struct cpumask *pmu_cpumask;
--		int cpu;
- 
- 		cpumask = perf_scope_cpu_topology_cpumask(pmu->scope, event->cpu);
- 		pmu_cpumask = perf_scope_cpumask(pmu->scope);
-@@ -13168,8 +13167,7 @@ static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
- 		if (!pmu_cpumask || !cpumask)
- 			goto err_destroy;
- 
--		cpu = cpumask_any_and(pmu_cpumask, cpumask);
--		if (cpu >= nr_cpu_ids)
-+		if (!cpumask_intersects(pmu_cpumask, cpumask))
- 			goto err_destroy;
- 
- 		event->event_caps |= PERF_EV_CAP_READ_SCOPE;
-@@ -15312,8 +15310,7 @@ static void perf_event_setup_cpumask(unsigned int cpu)
- 		if (WARN_ON_ONCE(!pmu_cpumask || !cpumask))
- 			continue;
- 
--		if (!cpumask_empty(cpumask) &&
--		    cpumask_any_and(pmu_cpumask, cpumask) >= nr_cpu_ids)
-+		if (!cpumask_empty(cpumask) && !cpumask_intersects(pmu_cpumask, cpumask))
- 			cpumask_set_cpu(cpu, pmu_cpumask);
- 	}
- end:
+BTW, why don't we care about that in try_to_migrate?
+
 -- 
-2.52.0
+Cheers,
 
+David
