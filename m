@@ -1,58 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398526;
-	b=raAe1XJe95SwlRR2DyC7+y+m1zFdbhWh+mYGQGEcYpH53rD8XsTHJPv+r19ksDjbatva
-	 Xz4LErEgZ9SIsebkxJnqlCKmgQyTkNkEtbeIHdsmcFnYTaCKhJp2hPT95LavqM1FHIr/C
-	 jbf5Z33pfBcQdLcjyt+Rew9f2M1/Ba1sJZ7m2MJJ0Vx8caO9ukHx9Rn+aiAbmW76DwSWD
-	 KsDxvpzS1o2C1eyIhi53a1z8t8f4wnTNSIAJv5zGGXIhR0P2Mx0RjOqeXcpbOJRxyTnqG
-	 zIgwKPdG4t1Pffh5fN+ZYMkq/Vmm6VlBI5eTSN1HwSy8FbjdK+jPr5H8hiK0cb9/6kw==
+	t=1794398570;
+	b=EVpyos60FgZdydfk5fXcSWzqBUW2Zj6pd+FzB4BQEucn/4AadHCxrVA3KRd2/qPSe4Ns
+	 qPKFBn0jrcP6iBLBlTl9ASQ44H71UziXfotwmBd20a6xl/82avrhPFXYW+yEBGhYT2web
+	 bssOTXepJOiFw2zAVZUIrhWXauU0zIHhEv4GlJIxd1OQQ8/yJtG0Ccduki0t7hgQBKimX
+	 DpIN1YQPfPpRF0K7e5I5+nB0fovPanrWUKZBWLDoS2Takhr5VXodW7t/M5wZ5GOiPUpw1
+	 M2+P0Wk/fcRf4DLflL2RO8rOeXnPdJOCNbT2jdzO3gcmdG/DxCbAIxS3VB1j899DbQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398526;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=hLlB9PIDPa4FwR0ytVgqyr+GYjQb+wnK9lGZmR7GcW4=;
-	b=dxQEylFHBcWeaxOznhR6vRavJXMxG0FpiU4DqKDDwh0HeAuRhkACcHU9usV9g6yxzWHe
-	 csaT5S+DSeEDxWLhP9ZAfWdjlCxXcicWits4XeUp7yaXSwma4NpPbnFqTvnJZL4fLLqtZ
-	 94+/UQ5jnklS4t+ue33zdr2eXRFXDjTLN7EoHDGiNV/NhMLWuHB0x5MIdsIHcB/+Z33GD
-	 J71TtJ1FhCVj55Q2ZEXWiMzXq88lx1JLEK/XUKeKUrIe8RQG4WoZPWRJtxf6yZg8qFLtV
-	 2sb5zKzoYaYG9grTFAyjKtyJswC3EHt7pQ+ksl0q3tagIaA22Z0a0MsNRDZYcYd8Snw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
+	b=jTOlCJHRE+UENkoQ4gKz4FJIKF0m0tA8I8e7s5BxF23aywqOhAoc4wMySOin+tchbve2
+	 GIxHwVrC3PVic0/1df56L/zggAlWEoR3bzb1qA4NZqYw0LI2mH0MNBFMShxEDyNiRr3bn
+	 qj/TaRAkrbm7MRfW0wL2IMOKMjbGsiE5KXLYEhk/iTHcTUu3rTxahRpN/Qrfp0jZDX8Am
+	 xNM83i4mX+LMlxPNayV4wj4RwAW1lipblY2+nPWZvKHxjHVETzB9sbYRs/EIaIbR0lIKB
+	 KYxlV+rZpG/y53JRWi1zAOJJ+5R8PzmqhORN4spGSnai7RYU/wKHnSu0sbyTUs2oS2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="A/8QfyjR";
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FEB606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FEB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93BF606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93BF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=A/8QfyjR
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=hLlB9PIDPa4FwR0ytVgqyr+GYjQb+wnK9lGZmR7GcW4=;
-	b=A/8QfyjRiaBChHXgN5XNj/qC6s6VEqJwOoJCEIPPsSdA1xn/u9+4I2BNIdvO6VwakQ1MwuTCd
-	pj5GIPYBFjb6edzmQpShYUk32wfSlLjBaFgXCSpJhe/z8AYNpDzsASB94Ju4K3qlDzqztwlntQB
-	KB4pcepY8BB3ooGO1+Evs6g=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jPhvg5fcvzRhT3;
-	Wed, 11 Nov 2026 20:01:51 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3A53140538;
-	Wed, 11 Nov 2026 20:02:02 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 11 Nov
- 2026 20:02:00 +0800
-Message-ID: <d6047caf-4838-4007-8483-8739dd2a429a@huawei.com>
-Date: Wed, 11 Nov 2026 20:01:59 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso1665812f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:02:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794398568; x=1795003368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
+        b=Je1CYIjfuwflh3C8ZTO7fGiG3VT2JZ4/KZsAnIckMk5yyFTVUjMTyMSMVoowIwUALe
+         rIx+YCcQd5d3c/Oo7ywHWhe+3KSTQ7o6rFpU0FKq7oz4uEO2xHVWkEcknh525ow1mgCu
+         gWFknAYgozrE3xkB1Hf35d8etynb8NZA5amXxyEuDKuHJdX9BiOMQOk4XO6ih4oDz5ll
+         jiNbUTntFWcfE3xAvdYsPO01gTShdzNlx4xruDnGGl89qAWG/eS5QeVSu9Tt1rrguObP
+         WWiW9en2E3WuuFqlZwdLZQMuWBF1+OevnHMcH8EoqrsFJwJLse2YUIb6yJUacp0hHv8D
+         xyBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794398568; x=1795003368;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
+        b=TX+rvwcd0+JD3K7tkvucMANs48LDSyZG3pcEqM7+flbZPRrQ99BtEOq8HNFVm9H936
+         3tK3klEwPl9G6fqzpcBJD1YlpXXWNaSoIyDBVQanKhcW4+C7CHu8zfKdQiNNbErAmo6n
+         AK4VGCxotWc+m8LhWJ5TVHaankeq4pGQaSlbQU9SkuPCqFrNb+fmXN4B7sfMXSfDV+FS
+         ZEfE47MA4Nfg9bHSE+BVdDli4IvxP60nQxWb8ONVUfLGaimnRfo7+3aKCoHxnM+77F9t
+         uBxrTbJ+ijnS2vwbwOnb6f8w/HcIOCT3CUwSG3eBKDmZYNGvr7Y0XERCSvM+srLwjOYQ
+         yMKw==
+X-Forwarded-Encrypted: i=1; AL+hErFIcYMzbHGwtF13fdnpY+uQVVGk+ReIu8GRplDYFBsYXRcMDlHxyJRFHMQzoJm4hHUR8uMpaSVxkNm/YWM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z952E9U2rcSmJhrPMBdOSqSoVaetkCd0OG1wv/hSSHAIH+wNMPs
+	BP6bX3KL4D+SveIo1O15ZUab+8NsTeAHse/nI3dGwR21aVhdvRtY1jh90Td1x8Y6AVY=
+X-Gm-Gg: AYBFou0NrHht+7p+doz1qnD8ZrkZGWqs9eBqx8CRK1qUs/7meeB38x8uaOEgAsgUnVj
+	4+vxMKyYtIfd69Ucy9y/iBtPn3Wl8j352Llv2AanopeCRbnfHnFspvhKsiK8mbD328zB7z3BQAC
+	CkxfCMtx64jOOtDAocVCBZr/lQIDOBZ/yJds5eA+g7viHgv0IqHzx7j5+wu4CqcZpxVbEl2BzWI
+	xPH//6m2SbKc36GFCnhpUnJuZytOU6/KfbuCiwvmMPSZP3kcOJwrw8l0gC+4BkVLTDDhwssPS2K
+	URg4hzQ0ssED1eSV6+liTdVoNYH7yx42a/L/WATEuR4gsBNtOVbL3qaIDbITRAVACjvBmBSWttF
+	yfYfzsrguP1TT8c22sgk49Z5S8+D7zB5Xl44+IL+/Qkfa4+D6UKtKRQmqmHixdtfBVGYOdCygzL
+	y+1+UaBdePTWydyXzXeEU2poB2KDD0FkkPRUkB7NLkxBVeCk5YQ8g1P/1cVxDUrb2XVJG+idT+d
+	euHmV01/6ku2/ZMPe5szmDAhFkawPj5OQXYpDt70KfgNuNFUwf7IROSs3q5SXy2/qPq95IZYvme
+	7w6MTKM8M0AUjrldvtWHdvqh180ufsjKd7KDl6nB
+X-Received: by 2002:a05:6000:420d:b0:48b:1a0:5630 with SMTP id ffacd0b85a97d-499c86a10f6mr3780756f8f.41.1794398567805;
+        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.11.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c377fdsm8869991f8f.21.2026.11.11.04.02.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
+Message-ID: <3713bf13-cec6-4b02-a29b-8f76070f03b3@linaro.org>
+Date: Wed, 11 Nov 2026 12:02:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,324 +91,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 12/15] kexec: Add kexec_load_other_segments() helper
-To: Mike Rapoport <rppt@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<thuth@redhat.com>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
-	<robh@kernel.org>, <sourabhjain@linux.ibm.com>, <kees@kernel.org>,
-	<coiby.xu@gmail.com>, <Yeking@Red54.com>, <tangyouling@kylinos.cn>,
-	<maqianga@uniontech.com>, <zhangtianyang@loongson.cn>,
-	<guodongtai@kylinos.cn>, <blum@kernel.org>, <adityag@linux.ibm.com>,
-	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
-	<gaohan@iscas.ac.cn>, <kai.huang@intel.com>, <kas@kernel.org>,
-	<vishal.l.verma@intel.com>, <piliu@redhat.com>, <jbouron@amazon.com>,
-	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
-	<bgwin@google.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<kexec@lists.infradead.org>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
- <20261026075201.699550-13-ruanjinjie@huawei.com>
- <179430504583.425130.15302016434972990362.b4-review@b4>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <179430504583.425130.15302016434972990362.b4-review@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+ Eric Auger <eric.auger@redhat.com>, Joerg Roedel <jroedel@suse.de>,
+ Srinath Mannam <srinath.mannam@broadcom.com>,
+ Oza Pawandeep <quic_poza@quicinc.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+ kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 06/11/2026 17:14, Vikash Garodia wrote:
+> @@ -257,6 +252,9 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
+>   				}
+>   				type = iommu_resv_region_get_type(dev, &phys, iova, length);
+>   
+> +				if (type != IOMMU_RESV_DIRECT)
+> +					continue;
+> +
 
+This change is not about requiring a reg though, which is why it should 
+be a standalone patch with its own justifications.
 
-在 2026/11/10 18:04, Mike Rapoport 写道:
-> Hi Jinjie,
+Basically the patch should state why a mismatch is dropped instead of 
+being reserved.
 
-Hi Mike,
-
-> 
->> arm64, LoongArch and RISC-V duplicate the elf core header and initrd
->> loading.  Move it into a common helper with one arch hook for the boot
->> parameters; a failure releases everything added for the attempt.
-> 
-> I like the idea of pulling out the common code, but I'm not convinced
-
-Thank you for the review.
-
-> that the split you suggest is right.
-
-Yes, the current solution is straightforward.
-
-> 
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Baoquan He <baoquan.he@linux.dev>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Suggested-by: Mike Rapoport <rppt@kernel.org>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  include/linux/kexec.h | 15 ++++++++
->>  kernel/kexec_file.c   | 90 +++++++++++++++++++++++++++++++++++++++++++
->>  2 files changed, 105 insertions(+)
->>
->> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
->> index faba26f871a4a..de1d83ddc38bd 100644
->> --- a/include/linux/kexec.h
->> +++ b/include/linux/kexec.h
->> @@ -259,6 +259,21 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
->>  extern int kexec_add_buffer(struct kexec_buf *kbuf);
->>  int kexec_locate_mem_hole(struct kexec_buf *kbuf);
->>  
->> +struct kexec_load_params {
->> +	unsigned long kernel_load_addr;
->> +	unsigned long kernel_size;
->> +	char *initrd;
->> +	unsigned long initrd_len;
->> +	char *cmdline;
->> +	unsigned long cmdline_len;
->> +};
-> 
-> initrd and cmdline are already in image->initrd_buf, initrd_buf_len,
-> cmdline_buf and cmdline_buf_len, that's where fops->load() gets them from.
-
-OK, will delete them.
-
-> 
-> And the outputs are scattered: elf_load_addr goes to the image, the initrd
-> address is passed as a separate argument to the hook, and LoongArch infers
-> "there is an initrd" from initrd_load_addr != 0.
-
-These are currently just being shoehorned in.
-
-> 
-> 
-> 
->> +
->> +int arch_kexec_setup_other_segments(struct kimage *image,
->> +				    struct kexec_load_params *params,
->> +				    unsigned long initrd_load_addr);
->> +int kexec_load_other_segments(struct kimage *image,
->> +			      struct kexec_load_params *params, bool top_down);
->> +
-> 
-> The call chain is now fops->load() in arch -> kexec_load_other_segments()
-> in core -> arch_kexec_setup_other_segments() back in arch. That's a
-> midlayer: the core helper owns the sequence and the arch fills a hole in
-> the middle of it.
-
-The new refactoring will follow this principle to ensure that the
-framework code is in control of the order.
-
-> 
-> The weak default is never used, all three users override it, and x86,
-> powerpc and s390 build a helper and a hook that nothing calls.
-
-Yes, x86 and powerpc has not used it, Some adjustments need for the rework.
-
-> 
->>  #ifndef arch_kexec_locate_mem_hole
->>  /**
->>   * arch_kexec_locate_mem_hole - Find free memory to place the segments.
->> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
->> index 62d4cba278a57..8b80f1186875b 100644
->> --- a/kernel/kexec_file.c
->> +++ b/kernel/kexec_file.c
->> @@ -1295,3 +1295,93 @@ int kexec_purgatory_get_set_symbol(struct kimage *image, const char *name,
->>  	return 0;
->>  }
->>  #endif /* CONFIG_ARCH_SUPPORTS_KEXEC_PURGATORY */
->> +
->> +int __weak arch_kexec_setup_other_segments(struct kimage *image,
->> +					   struct kexec_load_params *params,
->> +					   unsigned long initrd_load_addr)
->> +{
->> +	return 0;
->> +}
->> +
->> +int kexec_load_other_segments(struct kimage *image,
->> +			      struct kexec_load_params *params, bool top_down)
->> +{
->> +	struct kexec_buf kbuf = {
->> +		.image = image,
->> +		/* Do not allocate anything below the kernel */
->> +		.buf_min = params->kernel_load_addr + params->kernel_size,
->> +		.buf_max = top_down ? PFN_PHYS(max_low_pfn) : ULONG_MAX,
->> +	};
-> 
-> top_down does not describe a direction, it selects "RISC-V policy" vs
-> "arm64 policy": the upper limit for all buffers, the initrd direction and
-> the 32G initrd window.
-
-Yes its the topdown of initrd and distinguish between different
-architectures is a bit of a stretch here.
-
-Right! arm64 has its unique boot protocol restrictions. Here, RISC-V has
-a bug fix that requires specifying a memory top limit.
-
-> 
-> These are boot protocol constraints and they belong to the architecture.
-
-Agree
-
-> The 32G window comes from arm64 booting.rst and the SZ_64K alignment below
-> is "largest supported page size" on arm64 and LoongArch. With this patch
-
-Yes.
-
-> they become generic and RISC-V silently switches from
-> ELF_CORE_HEADER_ALIGN to 64K in 15/15.
-
-There are indeed some function changes, which are also mentioned
-in the commit message.
-
-> 
-> 
->> +
->> +	unsigned long orig_segments = image->nr_segments;
->> +	unsigned long initrd_load_addr = 0;
->> +	int ret = 0;
->> +
->> +#ifdef CONFIG_CRASH_DUMP
->> +	if (image->type == KEXEC_TYPE_CRASH) {
->> +		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
->> +		if (ret) {
->> +			pr_err("Preparing elf core header failed\n");
->> +			goto out_err;
->> +		}
->> +
->> +		if (unlikely(image->elf_headers))
->> +			vfree(image->elf_headers);
-> 
-> The headers don't depend on where the kernel is placed, yet they are
-> rebuilt on every iteration of the arm64 and LoongArch retry loops. That's
-> why the vfree() above is needed, and with the out_err path freeing them
-> it's now dead code.
-
-Yes, it need deleted now.
-
-> 
-> Building the headers once and only placing them in the loop removes the
-> leak instead of fixing it.
-
-I agree, I had a similar fix attempt before, where I only allocated once
-to avoid placing it in a loop.
-
-> 
-> 
->> +
->> +		image->elf_headers = kbuf.buffer;
->> +		image->elf_headers_sz = kbuf.bufsz;
->> +
->> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->> +		kbuf.memsz = kbuf.bufsz;
->> +		kbuf.buf_align = SZ_64K; /* largest supported page size */
->> +		kbuf.top_down = true;
->> +
->> +		ret = kexec_add_buffer(&kbuf);
->> +		if (ret)
->> +			goto out_err;
->> +
->> +		image->elf_load_addr = kbuf.mem;
->> +
->> +		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
->> +			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
->> +	}
->> +#endif
->> +
->> +	if (params->initrd) {
->> +		kbuf.buffer = params->initrd;
->> +		kbuf.bufsz = params->initrd_len;
->> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->> +		kbuf.memsz = params->initrd_len;
->> +		kbuf.buf_align = 0;
->> +		/* within 1GB-aligned window of up to 32GB in size */
->> +		if (!top_down)
->> +			kbuf.buf_max = round_down(params->kernel_load_addr, SZ_1G) +
->> +					(unsigned long)SZ_1G * 32;
->> +		kbuf.top_down = top_down;
->> +
->> +		ret = kexec_add_buffer(&kbuf);
->> +		if (ret)
->> +			goto out_err;
->> +		initrd_load_addr = kbuf.mem;
->> +
->> +		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
->> +			      initrd_load_addr, kbuf.bufsz, kbuf.memsz);
->> +	}
->> +
->> +	ret = arch_kexec_setup_other_segments(image, params,
->> +					      initrd_load_addr);
->> +	if (ret)
->> +		goto out_err;
->> +
->> +	return 0;
->> +
->> +out_err:
->> +	while (image->nr_segments > orig_segments) {
->> +		kexec_free_segment_cma(image, image->nr_segments - 1);
->> +		image->nr_segments--;
->> +	}
->> +
->> +	kexec_free_elf_headers(image);
-> 
-> This drops segments added by the arch hook (DTB, RISC-V purgatory, arm64
-> dm-crypt keys) without knowing anything about the state attached to them,
-> like image->dm_crypt_keys_addr or the purgatory info. The hook, in turn,
-> frees its buffers but not its segments.
-
-Yes
-
-> 
-> Nobody owns the unwind, so "a failure releases everything added for the
-> attempt" is not quite what happens.
-> 
-> The conversions also bury ordering changes in "simplify" patches: on arm64
-> dm-crypt keys move after the initrd, and on RISC-V the initrd moves before
-> the purgatory. And dm-crypt keys loading is not an arm64 boot parameter,
-> x86 and powerpc use it as well.
->
-
-Yes, the segment allocation order is indeed changed.
-
-
->> +
->> +	return ret;
->> +}
-> 
-> 
-> What I had in mind was to make the core provide building blocks and let
-> the architectures compose them, e.g. a common rollback function that
-> frees CMAs and drops segments above nr. The retry loops in arm64 and
-> LoongArch image loaders can use it instead of open coding
-> kexec_free_segment_cma() and nr_segments--. There also could be a helper
-
-I agree.
-
-> for adding FDT for example and maybe some other common parts, like, say,
-> efl headers.
-
-
-I am trying out your refactoring ideas so that x86 and PowerPC can also
-use these newly added small hook functions.
-
-> 
-> Arch's load_other_segments() could use these helpers and still define
-> their own policy for segment placement.
-
-This will eliminate the issue of changes in the above sequence or the
-problem of the startup protocol being modified.
-
-Thank you again for your review and suggestions for refactoring. I will
-thoroughly consider the issues you raised, revise the code, and conduct
-more testing.
-
-> 
-
--- 
-Best regards,
-Jinjie
-
+---
+bod
