@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426988;
-	b=Ul0SfhnFF/g3JKxQTRAvZ1A18iCKyryjJU5bYlii9HRCzSWSxxdlquIkwxT0er0cZ9ke
-	 5KfgbfDHADxF7ZGLAd2Otfm8EyV5vzGJIWiKxMJ+730++bBDTpMCoZ/YXfelv3o+HXVWw
-	 JXxWo1H5HvlwKMJu9cVRTpVGVrlrEm7BcrmQsmDc4ObgTbSUibr7oEgjAhOB6fDHwz/yc
-	 K7edGuZ2zHOYpfXbZZ2Q1TxURg9ySgwNTjsCoeT0NreKI8S1ppbbT2DHkO1/J/j2kq0US
-	 FoKJZMI4ZEWdVu424xqkrfN1wu3/AuCeDf3Z3C6tkH1xl47TqKCUg6ZbHoDSgkShngQ==
+	t=1794426989;
+	b=qjDI8N1DufrdB1XsYCKJACgRquJXwywR6fdRW/HGhLNBtRejt1KIQbxPkLjqCCYAmG2J
+	 61+Jc0hwx+EdVaDp7HCbj7Ofg3EaS6du+yBGwcC9qx7dmHyvZ+CGoM/5VXZgL8E5tGNT/
+	 0IUnt9e62IKZQtngNg52Tw9kL3dMr88d5iLLCLgVFvONqFeOsbeuL6RbIofz0xxtEgG0E
+	 FzxeLVL0GEejqO5oRIYSZyFh0QL2pyICyUW2WiVOu1uvv5QzBKj4KuYLv/hZtbXnGC6Wu
+	 /J1s5tiMaYlFFkmDkYnm3EV6UpB2jy474T3Z13hG/R3jlGY6A6bYsE6+60GTtDxatJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426989;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
-	b=un7Bo/MlBg9YzipW4kRxFyJTyK6nnEZWMf9Arel4qpOnqoyKPTDmoTYya+gCC7STbLhm
-	 ihw2DnYHeLqJPep4Jko+8aaw6EIrCpFQax0Vuueekb8AtbgtMWfwoqJY62ozEBnP1o3/H
-	 ncajELubyzKNl3BmJ2wy4jcwIl2x42lOBqyPKd0zJARfLEV17FXLDYvPPLavWmvKgz/vy
-	 lEKIFYVoHHzAvdFJVST1U7ezTFhWkWrbBK3rp7rLXfQ6QVknhACeZlqD1jFdXoPK2vGaA
-	 D+KJDMaXl6vQGcGUXN7W4E/SpV8QLmoREX05mHaxWoML8aes6TmowGFguVjN/kahGpg==
+	bh=IZC92NAT45T5ByMF8WzT4ou/UAFGH2EerpRaarMuct4=;
+	b=fqe8P713H9/3NJnKJzp/rbYxLpsEF1zb52h5JxEQaDRQZkm2FeAo9vFB6x9IrINTTDEM
+	 mnob2crhzn9v4vpKdj/N4b5+oADiGjbvEUiiNZZiMKJ5Ssjr042rSz5c17a8VAK7tbYHx
+	 6evjzMd2ZhoK4bUkF3ko6ccL0AYbiAnE+VZGrEBwLnOK79sRmKIvaJomb+hC3JnOfk5la
+	 6g3mnfz0lje6tLvQv4DZBmbQXPLHMlS3DAixUlgcCQL/ZBIPWebILrp32ksp1IzIOIZWE
+	 X/T/9WwLYA4xRGLGeUo2kSzU81bKNJmqVju8Y7vGOWF5G97eV7GIbLuZ18cIx8/svow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ywxRhDZD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CIYcXcjD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=czYYqTpc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cDsVAqne;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9948160A2633;
-	Wed, 11 Nov 2026 19:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9948160A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF0F60A3813;
+	Wed, 11 Nov 2026 19:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF0F60A3813
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ywxRhDZD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CIYcXcjD
-Date: Wed, 11 Nov 2026 19:56:24 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=czYYqTpc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cDsVAqne
+Date: Wed, 11 Nov 2026 19:56:26 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794426986;
+	s=2020; t=1794426987;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
-	b=ywxRhDZDlB6lvZtz1OFgHVmpKtfC67+/KrExNc0NDRLfyZSx2J28LQo7tGJ+cbub9HEl5Z
-	Xj2V1yxEeTPXDR0PF8X1CLZj6pzqL7u1BRBaVntsP/8cQDCzB+lixOs1vIw/fgGtHzcVIE
-	m69K0h9sVxj57MPDo+cQWpXaSF4swKCnJWSvIIoGC4dyW6M8GqmWe92y5L21xkyhTPkGlX
-	Mr3s2wdjT3s/m3CUNYyqRQZQGqbzFnNNlHlSpIK6Xr9NhZOET5j0ZKOI2O58OzgEIFhwex
-	OxE2qGEnyUym28EaP0GXgiR8wrYgNgwtTHwmUfIGbp0AYQaqodJLm93RT7WUsA==
+	bh=IZC92NAT45T5ByMF8WzT4ou/UAFGH2EerpRaarMuct4=;
+	b=czYYqTpc4crt2sx8vwqKPTv1JtwuTm4T4Czp5Yjid1GY+xRKoVvE/fMfNEwRLoWw2C3NHu
+	+MzCOTGTZB0JiDKhydFRs5ZG820ZeSj13H76gtiXlb7brorBkJZcXoutHdxElN/nRzmRp3
+	znd13/ll3wpxTlpqoISZ0Rdhp5ASZolqewrxsaJKPiBzmespXUKNknvyWEyJ4WChbz+Dnl
+	9aqCYLIMuBXUp96ypqXXzs1Yi+edfe0gceYKC35R0C0NC4shWFDsGDZn8s+Irsw3lxPbEF
+	UsDFE/My6kWxzzEydARAxDLMOUfaMgJ6NnPAWWFh1CaWczcY1uimPjNyi5WhVg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794426986;
+	s=2020e; t=1794426987;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=v3Qa5vOCuuvOXb/Xv35GctSnGrHaFWpH9kgty02qfxM=;
-	b=CIYcXcjD0Tb635P5hkG+5PLlT2ICRAG83dQBY/5z3N29UY/crVrm9jHr5tQepXHu4fPamO
-	YMZKm8drhOVLhNBA==
-From: "tip-bot2 for Zyta Szpak" <tip-bot2@linutronix.de>
+	bh=IZC92NAT45T5ByMF8WzT4ou/UAFGH2EerpRaarMuct4=;
+	b=cDsVAqneaHQztUPck5cut8iAPaBJHZIGvCosfTAk2BNTszguAhpBIP0wLLCu92HRe+2eDQ
+	J4fTPDSF1DDzl1DA==
+From: "tip-bot2 for Konrad Dybcio" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/mediatek: Add Kconfig option for MediaTek
- SYSIRQ and CIRQ
-Cc: Zyta Szpak <zyta@google.com>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105104234.2734199-1-zyta@google.com>
-References: <20261105104234.2734199-1-zyta@google.com>
+Subject: [tip: irq/drivers] irqchip/qcom-pdc: Handle ESPIs in qcom,pdc-ranges
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102-topic-pdc_map_espi-v2-1-64431c8f8ac3@oss.qualcomm.com>
+References: <20261102-topic-pdc_map_espi-v2-1-64431c8f8ac3@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,7 +78,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179442698465.2093942.14344894051795365589.tip-bot2@tip-bot2>
+Message-ID: <179442698609.2093942.16767483897709073950.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -88,76 +88,62 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/drivers branch of tip:
 
-Commit-ID:     702ae15488ce96d9818deee812d9fc271316fa6e
-Gitweb:        https://git.kernel.org/tip/702ae15488ce96d9818deee812d9fc27131=
-6fa6e
-Author:        Zyta Szpak <zyta@google.com>
-AuthorDate:    Thu, 05 Nov 2026 10:42:34=20
+Commit-ID:     d793f5346645adbafa2385dee4c16bd6b5d384a5
+Gitweb:        https://git.kernel.org/tip/d793f5346645adbafa2385dee4c16bd6b5d=
+384a5
+Author:        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+AuthorDate:    Mon, 02 Nov 2026 16:45:48 +01:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 11:16:45 +01:00
+CommitterDate: Mon, 09 Nov 2026 11:16:44 +01:00
 
-irqchip/mediatek: Add Kconfig option for MediaTek SYSIRQ and CIRQ
+irqchip/qcom-pdc: Handle ESPIs in qcom,pdc-ranges
 
-Currently, the MediaTek SYSIRQ (irq-mtk-sysirq) and CIRQ (irq-mtk-cirq)
-interrupt controller drivers are unconditionally built whenever
-CONFIG_ARCH_MEDIATEK is enabled, without a dedicated Kconfig symbol.
+The qcom,pdc-ranges property maps GIC interrupts to PDC output pins.
+That data is then subsequently used by irq_domain to resolve into the
+interrupt parent (which again, is always GIC).
 
-Not all MediaTek SoCs require SYSIRQ or CIRQ (for example, newer ARMv8
-SoCs and platforms using the MStar interrupt controller), so building
-these drivers unconditionally prevents disabling them in tailored kernel
-configurations. Tying the build rule directly to CONFIG_ARCH_MEDIATEK in
-the Makefile also prevents compile-testing these drivers on non-MediaTek
-architectures via CONFIG_COMPILE_TEST.
+The code that handles this hardcodes parent_fwspec.param[0] =3D 0
+(GIC_SPI). Make that conditional to prevent this warning at boot:
 
-Introduce the CONFIG_MTK_IRQ Kconfig option to control building
-irq-mtk-sysirq.o and irq-mtk-cirq.o. Make it depend on ARCH_MEDIATEK ||
-COMPILE_TEST, default to ARCH_MEDIATEK to preserve existing behavior for
-all MediaTek configurations, and select IRQ_DOMAIN and
-IRQ_DOMAIN_HIERARCHY as required by both drivers.
+GICv3: SPI 4115 out of range (use ESPI?)
 
-Signed-off-by: Zyta Szpak <zyta@google.com>
+Fixes: 81ef8bf88065 ("irqchip/qcom-pdc: Add irqdomain for wakeup capable GPIO=
+s")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261105104234.2734199-1-zyta@google.com
+Link: https://patch.msgid.link/20261102-topic-pdc_map_espi-v2-1-64431c8f8ac3@=
+oss.qualcomm.com
 ---
- drivers/irqchip/Kconfig  | 14 ++++++++++++++
- drivers/irqchip/Makefile |  2 +-
- 2 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/irqchip/qcom-pdc.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 1620a57..90daedb 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -793,6 +793,20 @@ config MST_IRQ
- 	help
- 	  Support MStar Interrupt Controller.
+diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
+index 29025a2..6c2a2d1 100644
+--- a/drivers/irqchip/qcom-pdc.c
++++ b/drivers/irqchip/qcom-pdc.c
+@@ -21,6 +21,7 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
 =20
-+config MTK_IRQ
-+	bool "MediaTek Interrupt Controller"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	default ARCH_MEDIATEK
-+	select IRQ_DOMAIN
-+	select IRQ_DOMAIN_HIERARCHY
-+	help
-+	  Support for the MediaTek System Interrupt Controller (SYSIRQ) and
-+	  Core Interrupt Controller (CIRQ) found on various MediaTek SoCs.
-+	  SYSIRQ provides interrupt polarity configuration in front of the
-+	  GIC, while CIRQ records and flushes external interrupts during
-+	  system suspend and resume when the primary interrupt controller
-+	  is powered down.
-+
- config WPCM450_AIC
- 	bool "Nuvoton WPCM450 Advanced Interrupt Controller"
- 	depends on ARCH_WPCM450
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 16a5fd1..eb539d4 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -72,7 +72,7 @@ obj-$(CONFIG_BCM7120_L2_IRQ)		+=3D irq-bcm7120-l2.o
- obj-$(CONFIG_BRCMSTB_L2_IRQ)		+=3D irq-brcmstb-l2.o
- obj-$(CONFIG_KEYSTONE_IRQ)		+=3D irq-keystone.o
- obj-$(CONFIG_MIPS_GIC)			+=3D irq-mips-gic.o
--obj-$(CONFIG_ARCH_MEDIATEK)		+=3D irq-mtk-sysirq.o irq-mtk-cirq.o
-+obj-$(CONFIG_MTK_IRQ)			+=3D irq-mtk-sysirq.o irq-mtk-cirq.o
- obj-$(CONFIG_ARCH_DIGICOLOR)		+=3D irq-digicolor.o
- obj-$(CONFIG_ARCH_SA1100)		+=3D irq-sa11x0.o
- obj-$(CONFIG_INGENIC_IRQ)		+=3D irq-ingenic.o
+ #define PDC_MAX_IRQS			256
+ #define IRQ_ENABLE_BANK_MAX		BITS_TO_BYTES(PDC_MAX_IRQS)
+@@ -597,8 +598,14 @@ static int qcom_pdc_alloc(struct irq_domain *domain, uns=
+igned int virq,
+=20
+ 	parent_fwspec.fwnode      =3D domain->parent->fwnode;
+ 	parent_fwspec.param_count =3D 3;
+-	parent_fwspec.param[0]    =3D 0;
+-	parent_fwspec.param[1]    =3D pin_to_hwirq(region, hwirq);
++	/* GIC ESPIs start at 4096 */
++	if (pin_to_hwirq(region, hwirq) >=3D 4096) {
++		parent_fwspec.param[0] =3D GIC_ESPI;
++		parent_fwspec.param[1] =3D pin_to_hwirq(region, hwirq) - 4096;
++	} else {
++		parent_fwspec.param[0] =3D GIC_SPI;
++		parent_fwspec.param[1] =3D pin_to_hwirq(region, hwirq);
++	}
+ 	parent_fwspec.param[2]    =3D type;
+=20
+ 	return irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, &parent_fwspec);
