@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407165;
-	b=qnCHh1blppwvwpFPz2E9pZj4Ic6xOQv7osxjf9aM7bn1eKGEV34CcZSdHuP9n/KvZAP2
-	 4l9CNDMSozmVIOu0x4m9TKhc6t2BGyqME/OdVw0mUvqQWTUWtGGjYa7EuqDesGfUYGypR
-	 F1UKyzOvE8vKVKTXuYHv03GMCOVabAWb1IOamjRwC/j/yZ6mtK3vPIGjksb4wjgHMUPu4
-	 23ATelp/MXC3aikMK9iX98OjrxYgBwnIftI25xOexkJUWp0gfjaNoJCqMD+h+MysaMVeB
-	 CVKUZFhq7I4w0x5BPRFcInlxZpvsi7LessGKsz4NZk3cqbUckW3f9DFKVn08rVI4wRw==
+	t=1794407252;
+	b=YShtPAG405epibnSXIFdCBs9PU5NFPOl+YU0Q88Cw1SgiNDJjAATva6QKNcCjT1fuKpP
+	 BxJHYdZtAOxErUDtkdgaVqikRbcAmiGW7zTtJuRsg3th2ms9L65CGCAwusV2HEOubTiu5
+	 qDpZ/56n/pdIl2nVMvq9Amf/ucdwERDrlJD+NwqEeN6RM7i2zOeng5WPbZeZ9P6UHeEzH
+	 FM6QYVPyOlBu87vPjTYf+S3ZgSZoT6tJ/yOnrPyAey3EHI8ioHoCPqSIZN4QhCJIpDmYE
+	 nRjREa2BcR6jposD9UqzX4/jNgr/jDzIAmKsQ09RHTZaiwKhSV39LVFp3zZ6I+W06wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407165;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qFhH+DuXlrDIKXE31QIGluXuB3wLng0mdx3IRRiWcXE=;
-	b=dnQCE7eA+BAmbTs0b9q+pS96IMJZFD7K+oXqVGF6t9qW9jwx+JuloeyZyta2tcYuMvb6
-	 krDL3beQGIZwpeKouXRnsaQ2OQkKG9N8yjlCKBSjqqi+Z8KQe2XxJ+/stWaz2f31n+cC2
-	 hNAt0KnL+fz3xjwotTxf8RVtFi8jWoOzGBLe4CWlg5/aXtBC/tIYtU8L3RHSYWpFG7/xu
-	 vsEsPsvrV57FKtUy4d57rqnXQEVZxo5xIMBzHPHp8Pxe87xHsNOahl3Ghtv6lMx29+R6r
-	 87OE6YmBTE5N5zow0jwLQiYMGpx53FLdjWO/d0HyO/CDkBaPQBB9AbpKblwALXe52EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407252;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
+	 X-Mailer;
+	bh=5OdqLlXVofYhgXwfpFpn5S7e9rSwH2M7lMV1Hw+hRww=;
+	b=b6ymeU9hON+ZQy+1Y3o5rH8CF5TCxEnFW4yQSTTeM2n3U7Qb1s1rb39y/LcZ9yXwinEe
+	 xrSKXVcK32i2IGRzteHuV4PLPxeSnL2YQZwJ22FawOK4Tz6q9ddm/aWJIj+tusafse00N
+	 1jlrSIR9lFlLFLCSZfUF49CfNMwRsxcICwETF2UUV1e49pLsbUPSGmZk9DKE3GCkYlWUE
+	 GtfyUJBTAFhRKOIcrdunw6KdtskyGcg1KHTQwfJACZjuVxPnJ0lmdCusydbgxLEXti0My
+	 2i7V7vjLp1QzxtIMTPvpR0UqWyQB0bKGsRPEfBFnT365nYit03Q8CV2eHOKvSfaP13g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fj0fBxLo;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0729C606A324;
-	Wed, 11 Nov 2026 14:26:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0729C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="NS/DzVdQ";
+	arc=none smtp.remote-ip=91.218.175.155
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D496A606A337
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 14:27:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D496A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fj0fBxLo
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AB991576;
-	Wed, 11 Nov 2026 06:26:01 -0800 (PST)
-Received: from NH27D9T0LF.arm.com (unknown [10.57.18.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 545F73F632;
-	Wed, 11 Nov 2026 06:26:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794407164; bh=bSw9qW9XrWR9mir/DsI2CHm3KFsYSYDYES37Mt9ZnOI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Fj0fBxLoFm1tHSsPGEhhkk8i5k53nYoZEm2dIFOQoZepDQ6oUgLct6vuQpILIGAXj
-	 xH37zDRFNC+fkGHoRMzls7HX+Ib0uDDS0dI1jwgKe9izrmJSqyXKVANDAAeqL96XqT
-	 oaIh+qO3Y667KHQnpXGESPYSKvbQqHdGbuzLq0F4=
-From: Emanuele Rocca <emanuele.rocca@arm.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] lib/crc: arm64: use .arch_extension to enable CRC and crypto
-Date: Wed, 11 Nov 2026 15:25:56 +0100
-Message-ID: <20261111142556.67489-1-emanuele.rocca@arm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NS/DzVdQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n7dKz5VV++RbTugrK9P7KhSNMntn2iLxBmjeZLHK0hc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794407249; v=1; x=1795012049;
+ b=NS/DzVdQwYZFY/k5KQ10KPQXnEMR4Pn8/ahwNhVmUu1OPjeb+kPJD2ktdQqY8+MpRfB6WPBK
+ 0qn4vozFmRQCSymeuoJIMHKwhU7aQGLqBuIWS3rrX4d92UvY5+zUHIxNTQfVhWajtskSFLbQ6Aw
+ 5Z4WpFSCrPcxrSWdkp5Wx4Rc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2f1b5625be9d2d26;
+	Wed, 11 Nov 2026 14:27:29 +0000
+X-Mizu-Trace-ID: 2f1b5625be9d2d26
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Date: Wed, 11 Nov 2026 09:27:19 -0500
+Subject: [PATCH] scsi: target: alua: Hold tg_pt_gp_lock across the RTPG
+ size check
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,65 +60,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-bug-target-rtpg-oob-v1-1-1c6b9cfb6831@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAEZ79GoC/x3MMQqAMAxA0atIZgNNh4peRRxajTWLlbSKIN7d4
+ viG/x/IrMIZhuYB5UuypL2C2gbmze+RUZZqsMY6IjIYzojFa+SCWo6IKQV0biEfjO3s3EMtD+V
+ V7v86Tu/7AVymkullAAAA
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Mike Christie <michael.christie@oracle.com>, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
-Use .arch_extension instead of .arch and .cpu in crc32-core.S and
-crc-t10dif-core.S.
+target_emulate_report_target_port_groups() checks that each target port
+group, with one descriptor per member port, fits in the allocation
+length, and then writes a descriptor for every LUN on the group's list.
 
-.arch and .cpu reset the assembler's feature set, dropping extensions
-enabled via -march. See commit 9142c2f8f84b ("octeontx2: use
-arch_extension to enable LSE"), where this caused an actual build
-failure.
+The size check reads tg_pt_gp_members without tg_pt_gp_lock, which is
+only taken for the list walk. A LUN attached to the group in between,
+e.g. by a LUN created through configfs, adds a port the check did not
+account for, and its descriptor can be written past cmd->data_length.
 
-That is not a problem here: the instructions these files use are all
-covered by the CRC and crypto extensions. Switch anyway for consistency
-and to avoid surprises if the files later use instructions outside
-generic+crc+crypto.
+Take tg_pt_gp_lock before the size check, so that the member count and
+the list walked stay in sync.
 
-.arch_extension is supported by binutils since 2.26 and by clang since
-8.0.0, both older than the minimum versions currently required to build
-the kernel (2.30 and 17.0.1 respectively).
-
-Signed-off-by: Emanuele Rocca <emanuele.rocca@arm.com>
+Fixes: 6b20fa9aaf0c2 ("target: Fix REPORT TARGET PORT GROUPS handling with small allocation length")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
-Changes in v2:
-  - Update crc-t10dif-core.S in addition to crc32-core.S 
-  - Clarify in commit message that this is not a functional change
+ drivers/target/target_core_alua.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Link to v1:
-  https://lore.kernel.org/all/20261105154145.557042-1-emanuele.rocca@arm.com/
+diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
+index 140154d93c430..c9413e67b7f3f 100644
+--- a/drivers/target/target_core_alua.c
++++ b/drivers/target/target_core_alua.c
+@@ -166,9 +166,17 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
+ 	spin_lock(&dev->t10_alua.tg_pt_gps_lock);
+ 	list_for_each_entry(tg_pt_gp, &dev->t10_alua.tg_pt_gps_list,
+ 			tg_pt_gp_list) {
++		/*
++		 * Hold tg_pt_gp_lock from the size check to the end of the
++		 * descriptor list, so that LUNs joining the group cannot make
++		 * the list longer than the space checked for.
++		 */
++		spin_lock(&tg_pt_gp->tg_pt_gp_lock);
+ 		/* Skip empty port groups */
+-		if (!tg_pt_gp->tg_pt_gp_members)
++		if (!tg_pt_gp->tg_pt_gp_members) {
++			spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
+ 			continue;
++		}
+ 		/*
+ 		 * Check if the Target port group and Target port descriptor list
+ 		 * based on tg_pt_gp_members count will fit into the response payload.
+@@ -178,6 +186,7 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
+ 		if ((off + 8 + (tg_pt_gp->tg_pt_gp_members * 4)) >
+ 		     cmd->data_length) {
+ 			rd_len += 8 + (tg_pt_gp->tg_pt_gp_members * 4);
++			spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
+ 			continue;
+ 		}
+ 		/*
+@@ -215,7 +224,6 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
+ 		buf[off++] = (tg_pt_gp->tg_pt_gp_members & 0xff);
+ 		rd_len += 8;
+ 
+-		spin_lock(&tg_pt_gp->tg_pt_gp_lock);
+ 		list_for_each_entry(lun, &tg_pt_gp->tg_pt_gp_lun_list,
+ 				lun_tg_pt_gp_link) {
+ 			/*
+
 ---
- lib/crc/arm64/crc-t10dif-core.S | 2 +-
- lib/crc/arm64/crc32-core.S      | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-bug-target-rtpg-oob-66d1ab0272c9
 
-diff --git a/lib/crc/arm64/crc-t10dif-core.S b/lib/crc/arm64/crc-t10dif-core.S
-index 71388466825b..e77af0aecf5e 100644
---- a/lib/crc/arm64/crc-t10dif-core.S
-+++ b/lib/crc/arm64/crc-t10dif-core.S
-@@ -69,7 +69,7 @@
- #include <asm/assembler.h>
- 
- 	.text
--	.arch		armv8-a+crypto
-+	.arch_extension	crypto
- 
- 	init_crc	.req	w0
- 	buf		.req	x1
-diff --git a/lib/crc/arm64/crc32-core.S b/lib/crc/arm64/crc32-core.S
-index 49d02cc485b3..0877d07ed1bf 100644
---- a/lib/crc/arm64/crc32-core.S
-+++ b/lib/crc/arm64/crc32-core.S
-@@ -11,7 +11,8 @@
- #include <linux/linkage.h>
- #include <asm/assembler.h>
- 
--	.cpu		generic+crc+crypto
-+	.arch_extension	crc
-+	.arch_extension	crypto
- 
- 	.macro		bitle, reg
- 	.endm
+Best regards,
 -- 
-2.55.0
+Qiliang Yuan <qiliang.yuan@linux.dev>
 
