@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438536;
-	b=tN2UR/MOYaGMdHtOwCBA0Jgkc6c+Va7I8yC9OFojfIMqsLQEqWfUIxtqc/UGEBjmGq0A
-	 UfnC3xOhKQzpoJSZSAF7yS0Eej8n4/zyG2AN1MQ05RCoDq7dPzh6+Zhay9IJlKtr5u6cx
-	 jqPXqrhqKI8EwZ7dbIjnCQBs9Z49cqFR+r947MGeLYBG+peXs7tID+8ngoEGxH9Sd0r3S
-	 jVsgJYZNuv78J0eVyHn71dRQx6CeVn1Q+NbNzKo6m6XUbZQsBrbpW8CRVbJM+6dvPNb3X
-	 ChfOomWu+hswpPiXlBfrHd0SRKQ8vZjljbFp4l9JvMqm0sKiTYKPF0D+vRK+Or5zBXw==
+	t=1794438558;
+	b=ciSKHxj4OpzRBr+6QNxjkYcKZs9tvHg5KPZOy94gr2LKJxall6W54lUCHx2OaNXCctr6
+	 3/ct7SILThxyR1/ZrX9I+JlX2zQKTfdOH609CjqTPNE8/oQGlQt3Drboa/yczMM5HUqpS
+	 uWSCvPaCNmQKcDpuBygJ23LoJCnclOa5ZzZLRriw9MmNGvWyr6s8qomQayj9tQAAS7wPY
+	 Z8kr8X2wOcr4pgUNHIXYLbu14nDrLMbn2i+13EuhNO1tcUi+7mU7gUzLqrz83rPrmq9E/
+	 rl6A9HYtt5YKbSMgFg1ntrSlMqu15bRfyUfD5o7bc61kqKhGrbYoTh+dxiVESlimOYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438536;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=VUp4hSPJVd2nb6nX2jrCTXpj2VQXaacU9dBBzQGocbM=;
-	b=DBJk7Nze6trLCqUt11RjnSgITn69CIV6zen7zBnDFA46qKmrG9DOEXApiQPiDyvOPeDP
-	 UD3hchq2UtwJR2aLwNBI8jaDbcD1RErhQtc6ia0nAhkI+WZK/MOishOALjMy0lL4ZqK2W
-	 BFh2ejiFMrUFGXar5bvULE5lKA/Kl9jEcXHdzWLhJaX/8sTZ0k0+soTX1/7g6jJBJ7r+T
-	 TBuBWs81ziQ92PdI4ZM0zDBKjch8gGqWLER9WG3tiH5avd8DJwVqobQWPtaw1RGz44Eub
-	 CsCRI5eofYtAM4CZbjS/HV14HPIwtjtqPTZgkvKJ2w2oyXhxfmAXzaQXikmA3by4CqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438558;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=vZZFw2Ags+4t3vPs7KDSZfrmQf6/AGi96Xfe0bS6fp4=;
+	b=VslGNeS6Re8J6WePs/Fk1XtcZ3mOBAf9RfrDDqNSWZxM1pynlFfeC7jVCit4ufugw3Mt
+	 M22ImT7Wn7vrD0m+uNGPTUx/y/yFEXKeomECq9X+XDR9bUWYwrhOMaYtxAeeJiBsw/pwi
+	 tjvEhEiPgBzWRVaZOTZXKW5YJjC1FmJSalSnPrUOLmyeYvl9RmZvBdB24ORClV0ag5AC6
+	 /j0v/662C97NC0S5XjTPlkWJN+9Qqu33P1+dnvF7wXspf2Y2NGjfdvFq9fcc6/GlwC5Z8
+	 8RYxqAaYANDEAVsyriqCzqM6VYdaxQzpo6JWtckFRj8W8srL+3VQ2+/ihHYMsb4ZHzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=svJoIJu4;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A29606A31C;
-	Wed, 11 Nov 2026 23:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5A29606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RBFuGBtc;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 643DE606A324;
+	Wed, 11 Nov 2026 23:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643DE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=svJoIJu4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794438535; x=1825974535;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VUp4hSPJVd2nb6nX2jrCTXpj2VQXaacU9dBBzQGocbM=;
-  b=svJoIJu4g0JJDYDwKukknQbdgHD56efypn03yGLbrCQklaoCQzXpN4m5
-   n5eLkYKqrT+7NipXGCkyF9gsLEQ3vGRDWbbHekMYx5yzuwgIVDA0EcUcf
-   rSFxht+SObIve2u7GtA/FiKiggRL40yp3iWDB4RMy0SF9BAm/xw/bkz8Z
-   YQmVi6dmORCdR7u99VwxPy+vJXrajm8TDTSv/8Qmp6/QN5Nxu85Dp1q3V
-   0pzR1pU68E9enxotbRTWPtlkrcqr8arEWULdaa6TTxXz5qY0/nFicnr1R
-   o2+6PqCjhdCN33ibpwZNbo0z/eZhXxU2WihyeBrpZOvrR5JuWwaiPlP3d
-   g==;
-X-CSE-ConnectionGUID: GmQR3KdLSIK2VGL9i1Vgww==
-X-CSE-MsgGUID: Lv8CQC79SS26CvRd2fhFtw==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33789838"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:08:55 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:12889]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
- id 03263252-400d-47dd-9ab4-f24010c32c62; Wed, 11 Nov 2026 23:08:55 +0000 (UTC)
-X-Farcaster-Flow-ID: 03263252-400d-47dd-9ab4-f24010c32c62
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:08:54 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 11 Nov 2026 23:08:52 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-CC: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, <linux-doc@vger.kernel.org>, <iommu@lists.linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	<nh-open-source@amazon.com>, <linux-mm@kvack.org>, Jonathan Corbet
-	<corbet@lwn.net>
-Subject: [PATCH 31/40] nitro_enclaves: Map the doorbell window at probe
-Date: Wed, 11 Nov 2026 22:59:35 +0000
-Message-ID: <8a8052b1943deb9139d1244e43d519fec83acf5f.1794393491.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300002.git.graf@amazon.com>
-References: <cover.1794300002.git.graf@amazon.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RBFuGBtc
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 2D1A720B7166;
+	Wed, 11 Nov 2026 15:09:14 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2D1A720B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794438554;
+	bh=vZZFw2Ags+4t3vPs7KDSZfrmQf6/AGi96Xfe0bS6fp4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RBFuGBtcsb19NOcWncTWCNuz/bCEbDa7HyhaWyJRgMDTWQ4AiwQ2pCFEy+kQE9oeA
+	 E/tS0SqjnbhwrClB4GCR2j8R4R6BFNiw9tCIkGCskkixgczoCsPdt6uug4JKZK0Xji
+	 bK2rKE9Z0DFH5IeVJ2xQMMiPSBYIaTBGguADcHrs=
+Message-ID: <488ac669-eeb6-4873-217d-da111d58eb09@linux.microsoft.com>
+Date: Wed, 11 Nov 2026 15:09:16 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,111 +53,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH V0 1/2] Drivers: hv: Add new function
+ hv_isolation_hw_cvm()
+Content-Language: en-US
+To: Michael Kelley <mhklinux@outlook.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "mhkelley58@gmail.com" <mhkelley58@gmail.com>
+References: <20261111022036.351231-1-mrathor@linux.microsoft.com>
+ <20261111022036.351231-2-mrathor@linux.microsoft.com>
+ <MN2PR02MB68638A29ED39B5D77EF34616D4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB68638A29ED39B5D77EF34616D4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In preparation to support notifying a sandbox virtqueue from the parent,
-map the doorbell window of the NE PCI device. The doorbell window is a
-second MMIO BAR of the device holding an array of two-byte doorbells; a
-write to the doorbell of a virtqueue tells the device that the queue has
-data waiting for the sandbox.
+On 11/11/26 10:09, Michael Kelley wrote:
+> From: Mukesh R <mrathor@linux.microsoft.com> Sent: Tuesday, November 10, 2026 6:21 PM
+>>
+>> Add a new function hv_isolation_hw_cvm() for convenient check
+>> if a VM is running in HW confidential mode, ie, TDX or SNP.
+>>
+>> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+>> ---
+>>   arch/x86/hyperv/ivm.c          | 5 +++++
+>>   drivers/hv/hv_common.c         | 9 +++++++--
+>>   include/asm-generic/mshyperv.h | 7 +++++++
+>>   3 files changed, 19 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+>> index 2ce4dfe53472..b3340be0c43a 100644
+>> --- a/arch/x86/hyperv/ivm.c
+>> +++ b/arch/x86/hyperv/ivm.c
+>> @@ -944,3 +944,8 @@ bool hv_isolation_type_tdx(void)
+>>   {
+>>   	return static_branch_unlikely(&isolation_type_tdx);
+>>   }
+>> +
+>> +bool hv_isolation_hw_cvm(void)
+>> +{
+>> +	return hv_isolation_type_snp() || hv_isolation_type_tdx();
+>> +}
+>> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+>> index 27b9b79d4f4c..62b52855ae69 100644
+>> --- a/drivers/hv/hv_common.c
+>> +++ b/drivers/hv/hv_common.c
+>> @@ -528,8 +528,7 @@ int hv_common_cpu_init(unsigned int cpu)
+>>   			*outputarg = (char *)mem + HV_HYP_PAGE_SIZE;
+>>   		}
+>>
+>> -		if (!ms_hyperv.paravisor_present &&
+>> -		    (hv_isolation_type_snp() || hv_isolation_type_tdx())) {
+>> +		if (!ms_hyperv.paravisor_present && hv_isolation_hw_cvm()) {
+> 
+> Any reason not to use hv_is_isolation_supported()? Your
+> new function seems conceptually equivalent, though at a
+> detailed level it handles VBS isolation differently from
+> hv_is_isolation_supported(). But I don't think including
+> VBS isolation here is a problem since set_memory_decrypted()
+> is a no-op with VBS isolation.
+> 
+> Also, Kameron Carr has a patch set in flight that collides
+> on exactly this code.  See [1] for the patch and my comments.
+> 
+> Michael
 
-A device that does not offer the window serves every enclave operation
-that does not involve a virtqueue, so keep the mapping optional and let
-probe carry on without it. Record the length of the window so that a
-doorbell offset can be bounded against it.
+Hi Michael,
 
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_pci_dev.c | 17 +++++++++++++++++
- drivers/virt/nitro_enclaves/ne_pci_dev.h |  9 +++++++++
- 2 files changed, 26 insertions(+)
+The issues my patch addresses only apply to hardware isolations, like
+TDX and SNP, hence I called the function: hv_isolation_hw_cvm()
 
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.c b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-index 4678799998f4a..b5a7ecfffb4b6 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.c
-@@ -1968,6 +1968,15 @@ static int ne_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto release_pci_regions;
- 	}
- 
-+	/*
-+	 * A device without a doorbell window serves every enclave operation
-+	 * that does not involve a virtqueue, so carry on without one.
-+	 */
-+	ne_pci_dev->doorbell_base = pci_iomap(pdev, PCI_BAR_NE_DOORBELL, 0);
-+	if (ne_pci_dev->doorbell_base)
-+		ne_pci_dev->doorbell_len =
-+			pci_resource_len(pdev, PCI_BAR_NE_DOORBELL);
-+
- 	pci_set_drvdata(pdev, ne_pci_dev);
- 
- 	atomic_set(&ne_pci_dev->cmd_reply_avail, 0);
-@@ -2086,6 +2095,8 @@ static int ne_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	ne_teardown_msix(pdev);
- iounmap_pci_bar:
- 	pci_set_drvdata(pdev, NULL);
-+	if (ne_pci_dev->doorbell_base)
-+		pci_iounmap(pdev, ne_pci_dev->doorbell_base);
- 	pci_iounmap(pdev, ne_pci_dev->iomem_base);
- release_pci_regions:
- 	pci_release_regions(pdev);
-@@ -2127,6 +2138,9 @@ static void ne_pci_remove(struct pci_dev *pdev)
- 
- 	pci_set_drvdata(pdev, NULL);
- 
-+	if (ne_pci_dev->doorbell_base)
-+		pci_iounmap(pdev, ne_pci_dev->doorbell_base);
-+
- 	pci_iounmap(pdev, ne_pci_dev->iomem_base);
- 
- 	pci_release_regions(pdev);
-@@ -2171,6 +2185,9 @@ static void ne_pci_shutdown(struct pci_dev *pdev)
- 
- 	pci_set_drvdata(pdev, NULL);
- 
-+	if (ne_pci_dev->doorbell_base)
-+		pci_iounmap(pdev, ne_pci_dev->doorbell_base);
-+
- 	pci_iounmap(pdev, ne_pci_dev->iomem_base);
- 
- 	pci_release_regions(pdev);
-diff --git a/drivers/virt/nitro_enclaves/ne_pci_dev.h b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-index 71aaa8f557679..5a92e0c565ba0 100644
---- a/drivers/virt/nitro_enclaves/ne_pci_dev.h
-+++ b/drivers/virt/nitro_enclaves/ne_pci_dev.h
-@@ -31,6 +31,10 @@
-  * PCI_BAR_NE - Nitro Enclaves PCI device MMIO BAR.
-  */
- #define PCI_BAR_NE		(0x03)
-+/**
-+ * PCI_BAR_NE_DOORBELL - Nitro Enclaves PCI device virtqueue doorbell BAR.
-+ */
-+#define PCI_BAR_NE_DOORBELL	(0x04)
- 
- /**
-  * DOC: Device registers in the NE PCI device MMIO BAR
-@@ -724,6 +728,9 @@ struct ne_mux_binding {
-  *				could not be made, and the calls that take it
-  *				turn such a pointer down themselves, so it is
-  *				kept as it came.
-+ * @doorbell_base:		Virtqueue doorbell window of the PCI device, NULL
-+ *				on a device that does not offer one.
-+ * @doorbell_len:		Length of the virtqueue doorbell window.
-  * @enclaves_list:		List of the enclaves managed by the PCI device.
-  * @enclaves_list_mutex:	Mutex for accessing the list of enclaves.
-  * @event_wq:			Work queue for handling out-of-band events
-@@ -766,6 +773,8 @@ struct ne_pci_dev {
- 	bool			failed;
- 	wait_queue_head_t	cmd_reply_wait_q;
- 	struct dentry		*debugfs_dir;
-+	void __iomem		*doorbell_base;
-+	resource_size_t		doorbell_len;
- 	struct list_head	enclaves_list;
- 	struct mutex		enclaves_list_mutex;
- 	struct workqueue_struct	*event_wq;
--- 
-2.47.1
+IOW, hv_is_isolation_supported() cannot be used in my case.
+
+If there is conflict, I guess, one of us will have to rebase depending
+on who merges first.
+
+Thanks,
+-Mukesh
+
+
+> [1] https://lore.kernel.org/linux-hyperv/MN2PR02MB6863AA6357C8E0D4881F5FEAD4712@MN2PR02MB6863.namprd02.prod.outlook.com/
+> 
+> 
+>>   			ret = set_memory_decrypted((unsigned long)mem, pgcount);
+>>   			if (ret) {
+>>   				/* It may be unsafe to free 'mem' */
+>> @@ -696,6 +695,12 @@ bool __weak hv_isolation_type_tdx(void)
+>>   }
+>>   EXPORT_SYMBOL_GPL(hv_isolation_type_tdx);
+>>
+>> +bool __weak hv_isolation_hw_cvm(void)
+>> +{
+>> +	return false;
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_isolation_hw_cvm);
+>> +
+>>   void __weak hv_setup_vmbus_handler(void (*handler)(void))
+>>   {
+>>   }
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index a3d497d99b0b..440c599784eb 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -87,6 +87,13 @@ u64 hv_do_fast_hypercall16(u16 control, u64 input1, u64
+>> input2);
+>>   bool hv_isolation_type_snp(void);
+>>   bool hv_isolation_type_tdx(void);
+>>
+>> +/* This needs to be before hv_do_rep_hypercall() below */
+>> +#if IS_ENABLED(CONFIG_HYPERV)
+>> +bool hv_isolation_hw_cvm(void);
+>> +#else
+>> +static inline bool hv_isolation_hw_cvm(void) { return false; }
+>> +#endif
+>> +
+>>   /*
+>>    * On architectures where Hyper-V doesn't support AEOI (e.g., ARM64),
+>>    * it doesn't provide a recommendation flag and AEOI must be disabled.
+>> --
+>> 2.51.2.vfs.0.1
+>>
 
