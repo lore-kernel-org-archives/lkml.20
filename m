@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794369267;
-	b=S+uN7513ImtCjosroApEFJEGtz11iKl2/ycOjjzUNAL0W51NSNjc22KWtcgz7MLDhjBA
-	 SjvtpmQbeBsAIg20smYQT6lQj/w8NBn2g0MxKmW0pYhnOctmwmOv2/2/SAezfXOTzcizI
-	 dijKu4ap1kkszXEeUNee0RAleq/ChBDzQKlRkwO22Rns1c+vqOLSWje9nXXZ2EgtRxSwK
-	 tWvSp8nu9imy/PPvRMiVTT2tM2lljavnXfXwgUq55BxV/oY6RdyOYTlaU/SkNGHF3zBIP
-	 r6MbpSu+8seJTdU1HBP/buiz0gKlCeah473lgt9nGrUYJ3jZrmKWPoH1q7GnlXyN4eQ==
+	t=1794369301;
+	b=Vm3uFHMMrunswlksbHjcup7eEir3VyuIkJU3MYuOJthzFlP1xgngiBWzQps5uL8Xmp14
+	 hMEYr4Y30rusapQaoezQ3HCkUMQw6clMlewIM+lz3wuoAVCk7M95vHgcTGObbARAauasW
+	 WM8xDlMFn3iRQolDuuXhTW4d0mPFyuNhuc4ThGkjjvWkyimOT6n6AM6wCU5OyJ2T0HNZv
+	 Fl5T5TE3EbJZiNLEjjGBnoL0ZKp29N2SxIeiTtkiKRhU9BtCUBBsNqp/7w8zz15oFCAle
+	 4TCkax9lOTIzrFJtg3YsmqomBFXjA3u6zZrIjdR4X9+qYOXq9z0IfN96w8/DTSbIAtQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794369267;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Q40CG4k2plWZZZHeVxKy1553B7ISjHFgclJYmcBytJs=;
-	b=tAct5iLFS/3kA/4t3dwIZE6/UowbXFAkZQMYV/R2ofMyblhYkmL/BTN481bMJ2zYWj59
-	 yybIgeqFpYj3OqUJlWB+hQnhQOPLBheECqOoqR72qb/pbQBHpdXh9jEEMzJPG+/RJrKtU
-	 7YhbJ7YypY+D+iehe+QsN7kLMfpyW8nYJSKi+9cf/bfnivhX0zUZG+6lU42KDh1cP/Qoh
-	 PbNLZyYBJIOFUQGB8XlyzIVUP5vgAzeoayqzJoTNnGOA45AF7gc58AjGaKvMQ32MuxYyY
-	 jN36oFrAefwRBnw+iJm2Wsh1usoF0ogS8s4CeTo9ai/Ee4yr4fMJ+M/FrF1xksG3dpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794369301;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aD2h9JAO6KKGqjDEvXaAdNPjcuSnCW5ASboBZWnubsE=;
+	b=HtsDRTImEeuai+QwQlSzXPpFRNatezfl/6l7t7DqZj3RI86f0899pejkbafuHNu9lggc
+	 LWXiaKiOJI4JF4811GHRF/5R0d4l1mU9+E+3MihReSKZlUnKEI9+5mUiS/KA91gJdJc5N
+	 RD6Jrd1El04yEddnjrNoScegvDeuKna62PQMUQgVVlZO8NQ1D3/Hg82YS4TFHD7hlnKIb
+	 8EPyKY97ZgXk/3WBNL5urpt6QiYlrYTWhe/7DX3M/oSdrIpUdq9KcZ4CMRWfnyXkDDRq5
+	 SqdSbinNtqx7FQ0X2tViSjDNbMBEVQqyGMuqB/xBk7UF/axx0uZZYwLH8eBXVnLpX5g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QbLaQ78J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PhRbqG/d";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9855A606A31C;
+	Wed, 11 Nov 2026 03:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PhRbqG/d
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794369301;
+	b=mBug/Jf6P4r6g+iq9xzTQqYHkGlT3uPs28qxazV7uk2Chhq8duSd69TqQM8Mw7NnzHFr
+	 QMWrtjTmtoe9kMz0o3+oIhr+o+aszJ82QiWzNO1WVYwt/527LPxAVDbAQsrBhDc3Lk9Al
+	 DNXXVoiPOI4BOwwoRRGz2nBGWxngGZ54dBPAb1iL0YWxu0qMXYrIyX895ijqyJkPIfJlm
+	 vZn2q/8K35cptwVuTYUc0PLZS3feQ/EIpoXnlrJxCxzGsVm2yVoHXPSjIsm1M2Z8ZCam0
+	 FEP+JuuV9vmKHyKS6MQKN1XaMcUkuSGeT4KoQEFkn+snbeJRgPRq3FcpKkdC3u/Bo3g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794369301;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aD2h9JAO6KKGqjDEvXaAdNPjcuSnCW5ASboBZWnubsE=;
+	b=HcJi6a++38aJ/LGeFarwHJ1v9ln/0Dypd2HOjiI1lxjSlRuYl93yvR4OGRMNtVl8fhkh
+	 U3ssrUbFmYBVzFRUxm6BYFOduDoURuTyfbCSRoFN0fc+LNrniLth0pNWVmGmGG14eM5P0
+	 U0Tnqw6LspNck1NjysLTg+YXZd6sEhQyHf6ihxsBcwQ/AETVs8gm4gqFtlFI6RGB06fRL
+	 qDaHgDM8o1+IErhJbdsDkMAe6KfBiwD6NDEv1L4FWgAXbpfSzFYt6zjv6tX99r3ULZ2lp
+	 e5z+3fc5pfgj2PPpcV9nFbUllo2zRqjN+SxDTTDu6ppnQIN5RqoArmh6mhKWP6GyL+g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D734606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D734606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QbLaQ78J
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-150ef97e790so1171c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:54:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794369266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a9H3XyiQJgEq8SKMThEkyHdVQrPG9Lr6TCVCnOvqMvIf8loIr6xE4CTe0jgbW5RRma
-         F3e9B5qLEDNU/awqLAiYhtHf6M2BEcbrCbdwEejYA6zvumsiWaHRgRZlUttCZXClSUpK
-         /pE2/C85CZ853/qqb0QEhiOFNjWSS2UXQuA2JT4czC6ckqxiEWs1z75C1Dg7R3aPPYDy
-         /KLUuh4WDEQOWZezTGebDyNXV72h9aZimLa1KM7JSzSBBLmkcCfHfXtFxUiMTFbGMJTe
-         /BXT8p5Apy2i7wnH4P6MoW9HQuVMuku2Et6S3yCXBhgF9mWwqzVGfVJv8uva6cYX0xcR
-         Ld/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q40CG4k2plWZZZHeVxKy1553B7ISjHFgclJYmcBytJs=;
-        fh=NLebwANmMdIKRFBxs2oKJ9NW175nD0KmhDp4kl/i4L0=;
-        b=W2ww6b1cVSp5WIJhtLwc0p6ONRo4r/qcgzmrWdH2/Uzo5VmyHij5OYbCbQl2mfOsXy
-         p9n/9t2dkIiT7INDSLoNMVmztm2A5tYCyoL18DymaD2OlmW852qnZkFdjzok9ZiNHe5Q
-         fo6oMN/DtHU0eA6GpJ3ljrPqt4RJ9Xgmhfo9u7VfZMdvHBAV3dIgOqMzhOJAIvuGqZm/
-         ny3NghsCFk9jyaIneYj2k87EJ1/m/tFuEHB1rWdQiIKfSY7PaVnreO9OGGhmN3vmSDJ0
-         1yic5KQfWGn5Fq9e31n2Lvphp1b64ShpNz+of3IbpxSDLqkERfzDmVt9CLFHtLI86P9Z
-         Or2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794369266; x=1794974066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q40CG4k2plWZZZHeVxKy1553B7ISjHFgclJYmcBytJs=;
-        b=QbLaQ78J3j5IRaccLWErIYIP7lFdwJcEdAsaCKFo8ufMt0QKCdlz+FDOjBBiLoxpJI
-         X9RjD2rUgotcKWWUSNrvElCmti/cazFK9MEPaOcWnxbNA+q2c0a6dqHd/KGAzMvJOxFN
-         qO/P91o+WQBIVS/DKLdYHL1GbtRlCQAevdy003/9rH5ihAJbw8CcY4PuCHTJN5wQpc8y
-         bfqFWAsLBZkmF7XV/hBzNO4xcbHr5e4kiSpeAhCkmzLtMGlEhGOTtNnseubVKSUGLZ60
-         Eg2n9AxPO7Drz5B9+6+OOXY/Klx0DnCb4K9PW+XXLQq46K+26+yAm8hJWTbi39v0Aw9h
-         uAnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794369266; x=1794974066;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q40CG4k2plWZZZHeVxKy1553B7ISjHFgclJYmcBytJs=;
-        b=YOow/rQBzjSWyWSbaMQfubBxemUd0155wOjdbJ2SxtZOLl0PxoY+J7QcAUhNCZsD8o
-         dkDntwrc0H7nmwtkGjbw1Lvg9HIqtDBQ++zKBJUuAE3BhiQGMDzyRQveOKagZcD6ogdu
-         bb9qb/PZMXy/uiVKJC5vmQoiOqZEejiQI/PVHH51gNGYx/qvyZvDttjTnI9DCMNdUdSA
-         NSB8syv4Ct6qxOaYARnEPCRij+Sw3+95D8/X0ZCAT0Q/fCtDFQsr2qsmaR6us5wfYpQR
-         0xJTOqkG811AoVHnrvhJu+AY9GTvSG35k8xC7zR3ndDkooo8/eTcFjvHozLKCTPHmJzJ
-         muuQ==
-X-Forwarded-Encrypted: i=1; AL+hErFEzuaVkzu0F28OgiTR3jxzFh0P/5+F5TaBRpKzO83DCFubplfSnawKZv6keR/SpU9/lZ1OyhJvPApUmO0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wKApOgth2PH6dXknig1ecxNr6f5+kHUNP6RKAdzR35T/cPLoB
-	qEwxKEfRRCFwAjNeplT4ZagNBkR4zpzPTkPMEVvdyVHFnjfORk7ERG0i+PLigHXr7MuBZ4LXFWp
-	wdIkFOXH7uOKsGFhxfXRJffHpA76OExRFb6cAg4s/
-X-Gm-Gg: AYBFou13DsX4KP4h7jOzXDvD37uNiMD5ov7Wlfw3+3CYWMVuBaN2SbN3BOQI2ScT23x
-	mMD+gMaD/2WU2GAt1/PDXYirhmhB4ggjcPr/yiNmfetwKbxQ/Q8oEOfJyALNvBeoeUkkKuQdGyx
-	gD6kEJN5w5StoHYF2g+eOUWB756MrTJENpvR2+6CJ81yoJfnlP65KdjhAMJIFseICBGeofuF4dR
-	Ek0m0B+QGFGwIIovDJmUih9Dirnfd2ZqyhyVALhRLGA9LcE5vQKqEL8NoppGjrGCoEvgbVq+6Lb
-	LV8VMLcKljEOXrWC+hlzPLsHcMgDg42Ki3Uc5j4NVeMT10D5nq/Lvj0pimGAOZHcULLYokBIG49
-	vI7XOEkiCi+9QRZjqaFX3Ag19dHhwNPipr/fS3tokU8Zpd13cl46ZsaTN
-X-Received: by 2002:a05:7022:287:10b0:184:da92:298d with SMTP id
- a92af1059eb24-1b3c02ec4eamr144581c88.14.1794369265615; Tue, 10 Nov 2026
- 19:54:25 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id C02E91F0089F;
+	Wed, 11 Nov 2026 03:55:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794369301;
+	bh=aD2h9JAO6KKGqjDEvXaAdNPjcuSnCW5ASboBZWnubsE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PhRbqG/duJvk2CPLAJG0ihdIQyUnfrg/s1TPlBdr4OW/65iCxY8YHRZuqeBBNaU1B
+	 TDAFYmryXh6BmN4QeNd8vpazz8F9i6jho28dVo8Oku11JTtlhIUgVO4k5T3OxMAl0Q
+	 CIcr+BY3xFpg2m4pcCyD9L6/bbEO60z+WVFYqApiFRgUKnl1YWRx0xHq1Er4pu47Ze
+	 V9a7a4oD1P87fHTCBF1ftZuVHm7zUjqUfF3NTFqVoxEW1rUSE/vsiUGeg6RaQ16Q8l
+	 Ubv5J/Ah6noX26d+3C5/Wqjy3Ylkl9V+FS4MIdJBqeMzyTdGbj8hQNzekG6YBTKEBc
+	 OB5Qhp1153dxA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1FBD848D59;
+	Wed, 11 Nov 2026 03:55:00 +0000 (UTC)
+From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 11:54:59 +0800
+Subject: [PATCH] perf stat: Count kernel events in a group led by a tool
+ event
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,66 +83,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108013838.1454450-1-almasrymina@google.com>
- <20261108013838.1454450-3-almasrymina@google.com> <avIRJ3vdIj6Jr9zJ@devvm16445.scu0.facebook.com>
-In-Reply-To: <avIRJ3vdIj6Jr9zJ@devvm16445.scu0.facebook.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Tue, 10 Nov 2026 19:54:09 -0800
-X-Gm-Features: AclHuK-JtIAVd6VP5d7vzEq2SapeoytwLPH4YiLGKJljtfdYyoUDCkIMXYehBVU
-Message-ID: <CAHS8izOxvUxCND3R18_HfZhB=2RS4_RNfAmx7S=Ex6b5z_CQuA@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 2/2] net: prevent mixing frags from different
- memory providers or bindings
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, linux-kernel@vger.kernel.org, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Daniel Borkmann <daniel@iogearbox.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-tool-pmu-leader-v1-1-6173b5569f59@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ7CIAyA4VdZOIsBNhAWY3wPs0MHnRLHmLAZE
+ +O7i7O3v0m/vknG5DGTtnqThE+ffZxK8F1F7A2mK1LvShPBhOJl6BLjSOew0hHBYaJOyAE1l7U
+ 0hpSrOeHgX5t46f6d8LEWePkvScCcYYPb6ri5TNRMSyXMnivTmIbT8gfuMMVanK8B/Li3MZx+f
+ A8ZaYngl7ay1jAJXINqDqCxBtcI67g0qgdgyPTQg1DYk+7z+QIJ9nYQ6gAAAA==
+X-Change-ID: 20261111-tool-pmu-leader-d25fe8153599
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ TAKANO Mitsuhiro <takano32@gmail.com>, 
+ Hang Zhengyang <hang.zhengyang1010@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794369299; l=2997;
+ i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
+ bh=VvW12yxTCrB+KnTAFdjmOLOxHwodDVDySkgBau//oek=;
+ b=n/Id/pDpNke3bFPw6iGLKQYWvbdCMJGdvHqkDEFmZ2pvyMptXkZ69OZPcSq/GdzE3dlsmmnfa
+ Eh8jrX+40duAKZuTY85C568pvrEUK3EX8tIXfEWtgkUoPdAU8TS/vDr
+X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
+ pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
+X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
+ with auth_id=1133
+X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Reply-To: hang.zhengyang1010@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 9, 2026 at 10:33=E2=80=AFAM Stanislav Fomichev <sdf.kernel@gmai=
-l.com> wrote:
-> > --- a/net/ipv4/tcp_output.c
-> > +++ b/net/ipv4/tcp_output.c
-> > @@ -2692,8 +2692,9 @@ static int tcp_clone_payload(struct sock *sk, str=
-uct sk_buff *to,
-> >                                    probe_size - len);
-> >                       len +=3D todo;
-> >                       skb_shinfo(to)->flags |=3D skb_shinfo(skb)->flags=
- & SKBFL_SHARED_FRAG;
-> > +                     to->unreadable |=3D skb->unreadable;
-> >                       if (lastfrag &&
-> > -                         skb_frag_page(fragfrom) =3D=3D skb_frag_page(=
-lastfrag) &&
-> > +                         skb_frag_netmem(fragfrom) =3D=3D skb_frag_net=
-mem(lastfrag) &&
-> >                           skb_frag_off(fragfrom) =3D=3D skb_frag_off(la=
-stfrag) +
-> >                                                     skb_frag_size(lastf=
-rag)) {
-> >                               skb_frag_size_add(lastfrag, todo);
->
-> From [0]:
->
-> Maybe easier to not merge niovs here? Add '&& !skb_frag_is_net_iov' to
-> that 'if (lastfrag' check? (or your new skb_has_net_iovs)
->
-> Looks like it is tcp_mtu_probe path, not sure we care about merging there=
-?
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-I'm guessing this is not an issue with pages because they're
-PAGE_SIZE? But, seems maybe a bit lazy to just hammer all possible
-net-iov coalescing? Is there a slightly cleaner and more generic check
-( && skb_frag_size < PAGE_SIZE or something) so that we don't add
-net-iov tech debt? Technically this will be an issue for hugepages in
-the tx path or large folios or something.
+A tool event like user_time has no perf event in the kernel, but
+get_group_fd() still passes its fd, the /proc/stat fd, as the group_fd
+of the members.  The kernel rejects each member with EBADF and nothing
+is counted:
 
-Also I think it belongs in your patch series maybe. That's the one
-adding the large niovs :P
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+     <not supported>      cycles
+     <not supported>      instructions
 
---=20
-Thanks,
-Mina
+Open the members with group_fd = -1, as the enable/disable code already
+assumes, and don't give them PERF_FORMAT_GROUP since they are now read
+on their own:
+
+  $ perf stat -a -e '{user_time,cycles,instructions}' -- sleep 0.05
+                   0      user_time
+            42637254      cycles
+            28279395      instructions
+
+The kernel events in such a group are no longer scheduled together.
+perf only builds these groups when the user writes them; metrics move
+tool events out of their groups.
+
+Fixes: 6828d6929b76 ("perf evsel: Refactor tool events")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+---
+This goes on top of TAKANO's segfault fix, as asked in that thread.
+
+With -a, this counted before 6828d6929b76 too, because the cpu mismatch
+check split the group up, so the kernel events weren't scheduled
+together then either.  Ian, is that fine, or would you rather have the
+first kernel event lead the rest?
+---
+ tools/perf/builtin-stat.c | 2 +-
+ tools/perf/util/evsel.c   | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
+index 37752d6bfef4..59890916dcc4 100644
+--- a/tools/perf/builtin-stat.c
++++ b/tools/perf/builtin-stat.c
+@@ -721,7 +721,7 @@ static int create_perf_stat_counter(struct evsel *evsel,
+ 	 * the group read (for leader) and ID retrieval for all
+ 	 * members.
+ 	 */
+-	if (leader->core.nr_members > 1)
++	if (leader->core.nr_members > 1 && !evsel__is_non_perf_event_open_pmu(leader))
+ 		attr->read_format |= PERF_FORMAT_ID|PERF_FORMAT_GROUP;
+ 
+ 	attr->inherit = !config->no_inherit && list_empty(&evsel->bpf_counter_list);
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index 560741d9599d..5a919303562a 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -2378,6 +2378,10 @@ static int get_group_fd(struct evsel *evsel, int cpu_map_idx, int thread)
+ 	if (!evsel->supported || evsel__is_group_leader(evsel))
+ 		return -1;
+ 
++	/* A userspace PMU leader has no perf event to group with */
++	if (evsel__is_non_perf_event_open_pmu(leader))
++		return -1;
++
+ 	/*
+ 	 * Leader must be already processed/open,
+ 	 * if not it's a bug.
+
+---
+base-commit: cc905a18a647a8e3ad42cd1596baa0e08fba26eb
+change-id: 20261111-tool-pmu-leader-d25fe8153599
+prerequisite-message-id: <20261023085629.1694941-1-takano32@gmail.com>
+prerequisite-patch-id: b92ce8b0c6248a4af182670458912b760b98a410
+
+Best regards,
+-- 
+Hang Zhengyang <hang.zhengyang1010@gmail.com>
+
+
