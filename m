@@ -1,67 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414697;
-	b=tYE3j7QQ0g1OIrp4AXaTaCaKgPCZ3Y2vuVFJEuT0ENzYmWZh1bwHbL/GVD1Iw83KH25/
-	 snt7HgqU9rrG0RT6GkmsklUKlouNpWfold0fq70PTW/8CfzMjdh5B/StFFm7dM9kt8H7d
-	 fsM1Zkzeg8tmWkwzwmmFuEhioJU21L0uM+DMXmreYxTGg8jKAE2KCRptannF3DHndK+4o
-	 JzMoJcP2kiNsx5ZhV7374axh0BguIUwFCq8Ud0KO2kl35/gANl72OtSr6gqqGTS1VwI7J
-	 WJmPcjWRsrxFDZL7BfF1a6wZ4X8/nDxfC2s8w2+ieObCYarhmg/b3w1tkM+nDA/kDWg==
+	t=1794414702;
+	b=LQ+vz8RCv2CK00ACmuJlUax8M3SjtE21Hr0nr1biSSTeoloR3ZycB/Pc3izurwJcQurg
+	 VM1HzFjQ9tOAaUEv/Wv1QTg1ffT6b3dwL/3M0qZLkuUin9mw5fzmoxepsAtajtE9GDxxl
+	 4im/xroLI9atwqu1CeAaQJ1xniuC82yehD1DYpcD23ERp/xK5ehdgU7vA9ZVtK0VfdWbo
+	 ySvGnD9+SZcp7iyW4TXX6AHSOLpC4Eiv6Zs2xZCHrQdqdhfxsfRMSMdD0tyl6DvYqP3y8
+	 Osh0uWhSsOabcg1ourQnQvYnt7RGwAvuvZnUaZ3awImmZDQpTCfBfrSZQETILm/N/RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414697;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=APZI7CiU6LomQhDhdPfDm5AIR0g7StSMHorYfLj9NFI=;
-	b=YVdF7mYRIU3JOAzi8Ejc4YinXliMUnMNqWCwEDTpzryTAGs/EPdeK0bMiGh4vcJBJ3/b
-	 lRFXEP68N5HvRZ+pR8hITSsCJI8LOqmgGg4/5E3+seTRqSdYisc1azwCiQDwoR+8YM5uh
-	 KUtBv2Q+qK4rBNYeqAj0BZx9powrRMZkKqWTx7hH4wSdH24U437A/hqmUMg1dNGfRQFH+
-	 DUlMI6I6H6d+wKvbxhLZpAaErMWVa8ay1KsXSlgjT6Xhm04IAKl/ECSlHDQUN0dgjoXAf
-	 A1IQEUJsA+I0c19BaN5FnGi57tA39njqEp87JHi36KGdk0ZlaAYeduVu19Nm2Wo/Xug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
+	b=RfYMPQJaLN8TAFPIEtD7/1hKylKvGHEYZUlWEsMYYEluRqZ67FdFbp6LNXCAklhtpU5L
+	 nUgeo/Ws5GZiKzEl423UvglY//EG9t0uzYTUW6c9aeS7nTNPUSreYtLY8vipx9kHQnARc
+	 St1ggmd4RWyHlMaPDTTNBVQkRAVk0tYLUiaSs4ZYTyYlRcQDBRvKLDtq6O+XiS9DWrbTm
+	 +PK7j3+4OIyw9FAVeYveJfm6O8V5G0FRLQc6IuCB43WXDCA/EPglXKnVIICrml9l7634Q
+	 Ek6eCqdkH3VUElrwoANc72Fb+pG78sOdLxJdl6UoLWtBbJHn/3cMx89Efqst+m+hQFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MjJKuKR8;
-	arc=none smtp.remote-ip=91.218.175.168
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj8HxgoM;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70AA606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D70AA606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF46606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF46606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MjJKuKR8
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=APZI7CiU6LomQhDhdPfDm5AIR0g7StSMHorYfLj9NFI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794414694; v=1; x=1795019494;
- b=MjJKuKR8AA2qE80ni2BQOis510+8i8823B8WV9JsRvMixHdGn+FU+Nkn0s878izMiEfRkSaB
- K+JLhrE5VEgZ7VhzDEiOF9kYl/FWNi+XJe/R8hkHvJMMl3SUj+cPrLJjjXlPv73K4UwI7DJsdLy
- 6+loOYentyuGsWIocRNq6Ogs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4647fe6a3e7ecebd;
-	Wed, 11 Nov 2026 16:31:33 +0000
-X-Mizu-Trace-ID: 4647fe6a3e7ecebd
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 16:31:31 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: radu.m.toader@gmail.com
-CC: anna-maria@linutronix.de, arighi@nvidia.com, bigeasy@linutronix.de,
- boqun@kernel.org, bpf@vger.kernel.org, brads@mainlining.org, brho@google.com,
- bsegall@google.com, changwoo@igalia.com, dietmar.eggemann@arm.com,
- enlin.mu@linux.dev, frederic@kernel.org, haoluo@google.com,
- joelagnelf@nvidia.com, joshdon@google.com, juri.lelli@redhat.com,
- kmehltretter@gmail.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
- mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, rostedt@goodmis.org,
- sched-ext@lists.linux.dev, tglx@kernel.org, tglx@linutronix.de,
- tj@kernel.org, vincent.guittot@linaro.org, void@manifault.com,
- vschneid@redhat.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3=5D_softirq=3A_Treat_an_interru?=
- =?US-ASCII?Q?pted_idle_task_as_idle_in_tick=5Firq=5Fexit=28=29?=
-Message-ID: <19FFF394-CD37-43DF-BCEE-594179867434@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj8HxgoM
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so939852c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 08:31:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794414701; x=1795019501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
+        b=fj8HxgoMlKQajGCvS7xA0Yv2Ryc56KHF6KQdQ37bFGtOKK/GIbjJDeVeP+oIXDM2q4
+         vF+E3csA/VV3PGyO423TQAY2ZT0bwGF4+GzD6vSj4tGuFcoVWt7/Uv2udlxyc+79G2BB
+         z1sogktN+wBrp5b/ZaVGJWB5Hokg0g8ilCu5SIo4Pe1JPOpy+bA6RE2ysR/k7MVxMczY
+         4D1FNMSXlB7JWBA5h8KEE+k/YJPiUenRNoI6+H0eKUYzpMkS6jxr8YbIASoRk8BkLnMA
+         qgLO5+obMVyU1Atoj3Sg7fOwpSjLvc2CD70tXXJc2lKBRWG5IQ94RYlNC2omlyYg91vm
+         u8iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794414701; x=1795019501;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mVXVpcIxf04fTtGzwVKXj/X6mhkeKnV3VwdMgeKl5U8=;
+        b=nKPQY0gZFs/U9xq0V+gcvYrisVsCxp3CxSOAhk0DDW8NKD2tACxObdOKbrQoLbXRSN
+         Pz82I94uAAsvfalOLevbCJaC7CoskVSOQsn1v65XU/15eIh9rdDe5hNXwPqgUklBdyqI
+         UMZUy2y9Kbo6EFjWA8TxbGi1d/EMmZfzHLx4KATAu097bEpcxNGs2yuXMtreHzS5t4+e
+         O1OvAPy7XSUO4H2KLKZRTAtoYmUnlZNYagfYfoKeWM+3HGynKG8zlXnPuUFdUwLhLcsr
+         WkAVZKmiCOh7hAEPElvb02hGW3k/d5ETdcTlCTAUMQ9gv+vJQidAxCl07GhEBoQiNtHc
+         GVxQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAVSir4QMPowsGFftpcsiJaFLyJeceLPXgRK312ZkU7QRRvUmbgHQsPxtjr95rjX58O1WByyn9d+bVqVM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qddfI32wsTOYsbg7Hs5a+cmYz32uud/P21wgfuIusozLFQCgX
+	kjdHez8DGYJFVDI3iH1x0j5ga1RvvHV5ItkOc6sYxff6hG8xFcDf18kH
+X-Gm-Gg: AYBFou1kkyBXEAJTe/T752AYxD661cAW0EGhO9SQMty2jY9UXf4x5G+7Sa0YvOeY0a9
+	Ed4fk5URZvWaYFn1W4H40sMSjQNLSqFUx4/rOCA/BJ/56VOUoppzRPPxxlhUXatXZ4NwqyM0bVR
+	THbDGDZ4yCMLDlM9fYSLgixMHWziK/BIL5IKao3Vccwzr90yhU6kdWn4GApcUKCkZTWQxB7OIra
+	NHaruWBlPPuCb8pubv0sl6EIPyADPJemom+j2MQGJhz7BF+7EDbAFyghm+E1GKx+r9+yg0VyvUY
+	LuC9xWdbFN4eX4AcppgTKoS2TXyGVEwkM3tt7jR+BZQy60S4QXqelhqlff7zn9i8swAC6XTLn3/
+	p5ifWrl9yPKhlhQzoEBtSN1HaSpqxVZRXFNtm4TEueCjnxZ46FJMr8O3jusOS9IIJnvHI8M5Dvy
+	NjeQrA1eXYc9X39eSbamwcWtI12OikOwqGsDKfyZqFYDkZ2QXjnTlzsK3qC9+Ws7TBipX/+Epdj
+	ccBtwpM/f2ZpRfdymnR+lRqg/Nl970nh5VRNrw7sSQbgQJ4uMfkI8lSn1fGz3D+uvho7dKqgFZG
+	R8bcMt3OFXnDYazhaOJFo9c3T4buR+lsUnOPcSQui+46/TFtK6UzbF+y+f56y1CBljVl4JzBeDz
+	hSB47lBlVmOC0+HaePVoCxqwLnF0=
+X-Received: by 2002:a05:7022:7e09:b0:143:868a:20c1 with SMTP id a92af1059eb24-1b3c0366cafmr3066679c88.46.1794414700262;
+        Wed, 11 Nov 2026 08:31:40 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:1808:a1a7:f209:e018])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm23661200c88.5.2026.11.11.08.31.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 08:31:39 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix kernel-doc in amdgpu_ualink.c
+Date: Wed, 11 Nov 2026 22:01:23 +0530
+Message-ID: <20261111163131.25965-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <CADnq5_N7zDDuE-S6Jyg7q706H3SW6WuM4eOTBcEU90boYJG=PA@mail.gmail.com>
+References: <CADnq5_N7zDDuE-S6Jyg7q706H3SW6WuM4eOTBcEU90boYJG=PA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,14 +103,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Wow, the changelog is huge! Could you please shorten things down?
+On Wed, Nov 11, 2026 at 11:21 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> for patch 1.  I'm skipping patch 2 because I find str_enable_disable()
+> harder to understand and just as long to write as the current code.
 
-Other than that
+Thanks for the review, Alex. For what it's worth, the helpers were meant to
+keep these strings consistent across the tree, but it's your driver and
+your call, so consider patch 2 dropped. Thanks! Have a nice day ahead.
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
-
---- Thanks!
+Aryan
