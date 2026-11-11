@@ -1,123 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794399558;
-	b=jGU7XfvJZ/OAG/f9btjvH9GbGvaHRVbv9slmh7XhZYaNtbuKjnNREwjfwOGs2MtOATM9
-	 phsxps5rI3pHkbYJ3HCWGr8sIpvHy0MgERGcYgt/dqyQ26Apci55bK2rANlIXeil3p8fV
-	 mpBdM42nmtOEo0Y3SDdLZxlbZblyBzelt/L7bv+7rozbvxWe+wugUv5RYi6Y8hYNxR8nc
-	 f6dJ9DUxBfSU+7VvJHb69ijigg5tdoKI2qEQ3U/MxPoMqCfbA+cQ3dYo2uXWiUynn2jfg
-	 RZlZipCqOwMzIilpaDIKIg/Pssyq7Xt/pZwYv37Ud2B/9ZRzxttIUroV7KO9wUuJF+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399558;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Z1TCNs1smOCp3Z56q7h6cFW/kToZwEK3IDBGLcQoIJ0=;
-	b=bkliCZ5lA8I6eLPN+U8/3BlQkeM/f4/eAqDYn0cTm3XBuO1X9xsU/zQGH/9X4xbho6Tt
-	 0Wf8I6mj7kseMHRJUiyUjjWXvqNv5VLcK7xQFJKfB0ir6w1JyTkl6kcsE39TGYdCRMrPw
-	 kNE6nUJjXhKHexv+JI8UkgxPs2SY7XlzOWJOspMXpqIjID8mesKjhULVgWBE3clrfv/Wx
-	 qyGU4VRU25yO2M7UC0c957I3jGl/G+KzsOxsO7L1lX5gbEASggRVETHORyfHAiAFQZUxE
-	 pcVh25Tjj9JJwJNlJa9Is7IUw5T9M1KKy9yloj06Skhckmjd7KdTBboyHuKxi0M8bzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hvb+1f5j;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="MHlQgSn/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794399594;
+	b=EiFOihbIZAWtldyeYedwAB3QNcdMXPBsFuB8qakGmufWzMDh34uj9JY+wr3h4BE1hJKT
+	 sGfHHepP4otutudoSMjeGbtTspLFphenOMZxWQn3mziC114e2O2QMpQ/o+8G1VxI5gxMT
+	 D17rqFYk2UGGqauAYSbMwbTY6NCLI1XoWqOk+R3RZa3OzG1M+XDfwULW4WLULHvm73/9p
+	 OIcyciTujDWr0lFv0KqUfGZ0pjVMx0i7TI4t0HDX6a9+2/Qo0ROmOH0WUQAYn+i8SLMiZ
+	 y1u4nP/HDoaWq/9UalNv2PD8AmoS9ueUM1k+Bx57rgjx8yxkqB3C+yzXQ8pUOkp5oXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399594;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=j0AhxUhrLJVyiS9LamjeO4ZOqBJa+SlV8QCjSr0r9B0=;
+	b=dkdCkhlhrhdYs6SFqgu+goVFmTxwhRJnDrd+WnthLmGNd7eB511jukXCPxeNkwe1hOlw
+	 J/rG/+p6FHuYkezi++VoF+knpqbAwPC9P/z/BwXLD5+xMi+7djYY2rNVLJguQKGHKXbg5
+	 S9Qh4/uw0pT0DWCn/OYd770uw1pMFsAEGS0TB4QY/rBUEU7buTVfxgRsGUpQ4M/EliD66
+	 Rxmc332M9UtrrVzxdPUaJYW2jg8AIfXVsxNtaJgqOcCGA1d3JrmfLe0H5ozK8l+LM/XtH
+	 8sDZDW2k8yx4ZM72ob6ZcCuTag4FhJgwdzleNhn9xoyFB2dpFY70Kck48wPpFg7QsvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ArEkJ5LM;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E057E606A8B5
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E057E606A8B5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF41606A31C;
+	Wed, 11 Nov 2026 12:19:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF41606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hvb+1f5j;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MHlQgSn/
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABALDKV2017788
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:19:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Z1TCNs1smOCp3Z56q7h6cFW/kToZwEK3IDBGLcQoIJ0=; b=hvb+1f5jwZYKCwEb
-	sFVeoXbL/PmuXkm/knPitOedzCAytCOWKB+lxAoiuqSp9ZRqYCFG+C65Sk623pVA
-	pGEdZ2F0NmNeNiJSE10oHM3wctp1zuDDLl0qkMZoDlHm8x/KDjqHaeF+uAXpbwgl
-	oadUfofG8+Fdm3ac9uIlc59N7m8XKOYyyjVtqeS2Oh4cO5bxp0RkpOs75VgDjMmO
-	9sMs8iuU641GyoOGAl6TCxWFApRntYCvtBqimmye144DJ2b+TdHbnHhuQSh+xsp8
-	Ysdx1hyOYPngeZbJgJQ4sxuwlfom+NtqbdWUNj9H/hiK+LGEODxxPg14BPddZwSz
-	XGaSbA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97cbqbn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 12:19:16 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98a829c43f3so654733241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 04:19:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794399556; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qdG9jI+6h+ypBmO8J0TrbUbKY0Aw5epxIU5Ek/Uu28RqC+1VQCnon7pLhmyGS5mev6
-         VjJafjV/HaEQ/uafxV6A52sWzRuRfdCcKkwfAQsVetZ2UF6nx4Tu7KhJv9NS60fwr9Uc
-         7tdoYq48ZbkPg8bINtDxHbo2tqhssKxke3PIx+z7gpVSmt6sQAbkIcnEXdlcGIMwrk0U
-         8XNVjZimp0L5Aec8nEgtsu61haMANEb+RiLIMxfkmFdht6eFENXcjBA+sMaDWuCjRBy9
-         TxIDTMKME4FeyGcgimn6QDlu+hXAnLy8tmDtLH28OHxjPh3YZ9tYgpmNVzbBHQmN+IVH
-         R/AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z1TCNs1smOCp3Z56q7h6cFW/kToZwEK3IDBGLcQoIJ0=;
-        fh=hrZSkBVaw5YnulSljrZac7cXKTRBOiEUQkr10QrXGbw=;
-        b=aK4g2MSugU1vGXzAziAZaXrUnj3yzHyRAnSqLpBFVMx7KFP4+zkX4uPCRjMAfiY87/
-         U2TENSA8i8J2xQzssU+TYP66dz73WcXYbtTVNaZKSnIsD8Sv9hI/lDDfgAgqq/a8ts3J
-         WPhocWhSFz0H/q3YdRYkq/Cae/Zg/vD1+nCRjY6WmJL6hy0SAYz12wi3CnitvT3PcaHL
-         20uvDojmGfhdV7P1NvWaUbGMq9yB7YHIPieY02jn3XmuQJZj26l40F6HsckDFUW2GbrH
-         8+VyyWp2uKlZXA53MbTdbdCxtxHITIinDi2q5gryB87ssSY0itFwyjj2VkCrmXR/4ndw
-         yQUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794399556; x=1795004356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z1TCNs1smOCp3Z56q7h6cFW/kToZwEK3IDBGLcQoIJ0=;
-        b=MHlQgSn/qc0TU3pjyhcQ2egydg6FlkU2muvMQwQ8KWxSODaDjZttFq4II9LlZ6zkaW
-         7LdTRQ2oXTk68pi96roLl7L0smRVGrgdQvW0IKPoQVTMaHRORTlbbfE0KEg4B/osjDAg
-         MBqX6SVwcJZbXgCl7HekYFy3Og43bmjyhL5bdgza2vdvXK64Pt3w0Ejrt5Y+b5NUAVAX
-         LjjauVM3o+WpZVzZnF9ys1v2APaQvaptHqkNMAayzC0NkDfi+WbPb0NMT9cmZsHtb+jl
-         HiQJ1FqXe5xXvsv1kdk8O5Y1UjTTMhkKV0Ed8nD+KpFou9C0eovjGfjsOhq4tJfudW+i
-         0FLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794399556; x=1795004356;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z1TCNs1smOCp3Z56q7h6cFW/kToZwEK3IDBGLcQoIJ0=;
-        b=J2qzFY63OXn+hCrgv1VIrMy+vaDDmvzKdYlanMCQjpHJr+k6Ub6g+0G083YGXZP+44
-         fcNJ8dwkQcK8eHPBy/cFNDiqEYtD4DSyScavC3H3KNzjOe5YRk33HBVQelrcgh3+DR9v
-         g7eARmQPfOVhQ3WIbJZ4RyrygF/Ag6H7W/F8A6DyDOb1QRGw/e0clbMn5+QP4DOgJVFl
-         d78BRZlhVi8ezCNHEHa5Tdsdm9ABGA6tOgcYXJCajWvW5MLZHrxN16worAh1sdwTNWXp
-         oHeMWSVcgD0dIUUNeEZPXcKvJdkkHoaseScjGR2tDNXGH3rzy9+RI1Mz/MrnAU7rzguL
-         ej1g==
-X-Forwarded-Encrypted: i=1; AL+hErGA5PmC9GYEDtq2GVqgYzYSzyEp3bFwX0VIQEWKd8FiidbkNKabsapO3x7ck0dNYkZnhajTpoBa7foymEo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q7+QEiwWrfXqiMbCc3qvl9zlkFyhwJEUq7in3b+VBoEbtCePg
-	MwQF/DSPAp7gM3GmstEohGB9SD1eFphE3/G11YHKkeTe8Le5yA7eCkcWyeo58kh/OdkAj4GWyFb
-	c0UNFszNQfcGzOCJZ5unwHdScky4bKDYKPv8lAHQ1EDW9EDrAHuA3v0+QJ/9tzvAorrqNFjiM5K
-	GkL+SQqCXlf1Cs5IZ0U1HS6at0NoQseebyiXwf/s4WLA==
-X-Gm-Gg: AYBFou0B1rz4OCdQ8g2JpMcAp1zoIT0LBvcqjXqN9NQPboU7pEE/UD7fU6UApU9rGLK
-	9nHSmHqaIRCtB4AF759xRgG7l1Fsp2FCCJ6CPYJsFbDgjngXO6IMMn/zlcnaOtlgSOb7NxcsXEP
-	hMriFYdhuvmppWH1IFhmFqtUVyScgX45zQ8KVPCF4mi2gv1PVpTEhRJkNQMg==
-X-Received: by 2002:a05:6102:6e89:b0:779:5049:87b2 with SMTP id ada2fe7eead31-7d4ed9c43aamr397416137.0.1794399555831;
-        Wed, 11 Nov 2026 04:19:15 -0800 (PST)
-X-Received: by 2002:a05:6102:6e89:b0:779:5049:87b2 with SMTP id
- ada2fe7eead31-7d4ed9c43aamr397408137.0.1794399555154; Wed, 11 Nov 2026
- 04:19:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ArEkJ5LM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794399595; x=1825935595;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=1tVgXZ21bFyIt+s7SyM9x+EraDmYzYOS+XlHSPdxZEA=;
+  b=ArEkJ5LM6gqZOxxmK5RuTymBn6OGJ+bSFOtkrDlqRlnia+73n8p0oTf5
+   QSOcZRNQLKuNEKNzS4CBinQJdvBnpt0Z+Sk3n2uQ9gDuk1hVkcQyBoBci
+   UoDONmuUadHLSd84ho7rwzLKeCbRDPZ9gUjYLaSAdrOLLuVyTSzv2+++i
+   Aa9TscSxvd7di4p+usfZr1HJGB+fMlmPzXDtbUdYxpVO4M87ejqaMiHtN
+   gP6MFJLlf0gSVG+wnluUN70sAo6YFwm8ReJl+rm2jwMvanIyUfYqHbp/G
+   wFXiN4lS1szw9RqexSgxS7RxpO1q1p8wGf9+/pMfOQgayrQhLZr/2WsOV
+   g==;
+X-CSE-ConnectionGUID: XoWtpXSwTveqogSbeiY66g==
+X-CSE-MsgGUID: BfX6eRG9Th6K3HTWoeEm0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3063047"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3063047"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:19:54 -0800
+X-CSE-ConnectionGUID: Ifc0LpwsRyyx1b+wTxLq4A==
+X-CSE-MsgGUID: pN8Sh8OsTh2OdbZPbgkcrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8383013"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.192])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 04:19:49 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 11 Nov 2026 14:19:46 +0200 (EET)
+To: Moad Tarrih <tarrihmoad@proton.me>
+cc: Corentin Chary <corentin.chary@gmail.com>, 
+    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+    Hans de Goede <hansg@kernel.org>, Antheas Kapenekakis <lkml@antheas.dev>, 
+    Benjamin Tissoires <bentiss@kernel.org>, 
+    Sercan GOKMEN <gokmensercan@gmail.com>, Burak Goncu <burakgon12@gmail.com>, 
+    Denis Benato <benato.denis96@gmail.com>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v3] platform/x86: asus-wmi: Ignore unusable kbd backlight
+ WMI device on ROG Strix G814FP
+In-Reply-To: <20261110-asus-wmi-kbd-readback-v3-1-646adf2b8629@proton.me>
+Message-ID: <358b5f4f-d7ed-2e5c-81a0-f5640e3e12c0@linux.intel.com>
+References: <20261110-asus-wmi-kbd-readback-v3-1-646adf2b8629@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,278 +85,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102171603.368298-1-pmazzini@gmail.com> <20261102171603.368298-5-pmazzini@gmail.com>
-In-Reply-To: <20261102171603.368298-5-pmazzini@gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 13:19:02 +0100
-X-Gm-Features: AclHuK9L2i5QMofYq-DCHvqZDWhP-djf1yvf5YQeg9uH5hqyPXlLD5ujeUlfzIg
-Message-ID: <CAPx+jO9uDvEyrT9ij3Rrb0=rmKzn+TK4AH1zqrM1Gz=_eW2pfQ@mail.gmail.com>
-Subject: Re: [PATCH wireless-next 4/4] wifi: cw1200: add XRadio XR819 support
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: linux-wireless@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
-        linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0OCBTYWx0ZWRfX4y1ZC6oNICYl
- eP2tYiZvUAMhI1WwZDstwyaSXdpcTi35TUAgSEkMOzzx2r4Hq81cBHyRiww+XMl4WNDfDJST8Sl
- Nfquw+mhulPo1fmlbIafVUzvv6trbD5DKLulByHpg4kUjMIPg0vZqFFLi8w5IARX1KpxEinkaIB
- 4FSCFRU1IYoPwlTS6O7ueueNdQRPDYqtuWeccPZcdzrfRG5guHrHZjTh9H62y+WHinFzy/LZWZ1
- 4jJd58nPDJuy/9LPIBDHe0BYUfrT1G5533+8t3rpruGa3OGDNmc9jE9DXIDws8IyLUKtbMlqSX8
- ax+Vng96SrCZniUOt3AyeoUzI1nYUhjO8f7y0xS1YbKVJTJhjBWDe6hg0yVg0Iht1cGMsdv/SWe
- RAF6PREuGOLR9v8uVBziv7vOLZklU+X/tVETDXTBotQ7IWSOPDPmF3157SSNkmjTONc4l9ezJez
- ljsjG+7zRhTfC0G90Pw==
-X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af45d44 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
- a=4gwp0c1PgdtURhtzPC4A:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-GUID: dRkS8kcEG8JvK1yn1L3plp0a0NKVfcDX
-X-Proofpoint-ORIG-GUID: dRkS8kcEG8JvK1yn1L3plp0a0NKVfcDX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0OCBTYWx0ZWRfX7whsz4R41KAy
- gVHOJD4CvS2MuscsLnSX42NcfsQ7h10n+UZpX4aFZqDo1zGTOLEUfvYqe30RWaNzNm+Y2jqEW+d
- SEfC6kN2m1K10uhDl8w0wYkNF8WtoHo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110048
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Nov 2, 2026 at 6:16=E2=80=AFPM Pablo Mazzini <pmazzini@gmail.com> w=
-rote:
->
-> The XR819 uses the ST-E SDIO vendor ID with device ID 0x2281 and
-> reports itself as a CW1x60. It starts from a bootloader written into
-> its memory, then takes the usual firmware download. Its modules run
-> from a 24 MHz reference clock.
->
-> Give the CW1x60 entry the XR819 bootloader and firmware, and load the
-> bootloader instead of the NOP instruction.
->
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+On Tue, 10 Nov 2026, Moad Tarrih via B4 Relay wrote:
 
-Please funnel this via the wireless tree.
+> From: Moad Tarrih <tarrihmoad@proton.me>
+> 
+> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+> backlight brightness in sysfs works, but reading it back always gives
+> 0, and the read makes the Fn brightness keys misbehave.
+> 
+> The firmware reports the keyboard backlight WMI device as present but
+> doesn't implement it. DSTS(0x00050021) always returns 0x50000, which
+> is level 0 regardless of what the actual level is, and every
+> DEVS(0x00050021) write is rejected as an unsupported method. The
+> keyboard backlight is actually driven by hid-asus.
 
-Acked-by: Ulf Hansson <ulfh@kernel.org>
+> asus-wmi saves the 0
+> as the current level on every read, and the brightness keys step from
+> the saved level. So after any read, for example by the desktop or by
+> systemd-backlight, the brightness-up key sets the keyboard to the
+> lowest level instead of one step higher.
 
-Kind regards
-Uffe
+This seems just unnecessary fluff. LLMs tends to overword changelogs, 
+please be mindful with that when reviewing the output you got from LLM.
 
+> Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
+> backlight WMI device as absent, and set it for this board, matched on
+> the DMI board name. asus-wmi then keeps the LED registered for hid-asus
+> and no longer reads from or writes to the WMI device.
+> 
+> With its own quirk entry, the board no longer gets
+> wmi_backlight_set_devstate from the default quirk_asus_unknown. That
+> flag makes asus-wmi write DEVS(0x00050012, 2) at probe, but this
+> firmware rejects both DSTS and DEVS on 0x00050012 as unsupported
+> methods, so the write never did anything here.
+
+I think this paragraph too just makes changelog longer for no reason.
+
+> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
+> no longer created on this board, they never worked here since the firmware
+> rejects those writes as well.
+> 
+> This patch was written with the help of an AI coding assistant (Claude
+> Code, Claude Opus 5.5). I reviewed it and tested it on my affected laptop.
+
+Notes on how a patch was prepared belong under --- line.
+
+> Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+> Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
+> Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
 > ---
->  drivers/net/wireless/st/cw1200/Kconfig       |  3 +-
->  drivers/net/wireless/st/cw1200/cw1200_sdio.c | 13 ++++-
->  drivers/net/wireless/st/cw1200/fwio.c        | 58 ++++++++++++++++----
->  drivers/net/wireless/st/cw1200/fwio.h        |  7 ++-
->  include/linux/mmc/sdio_ids.h                 |  1 +
->  5 files changed, 66 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/net/wireless/st/cw1200/Kconfig b/drivers/net/wireles=
-s/st/cw1200/Kconfig
-> index 03575e9894bb..9404e318137c 100644
-> --- a/drivers/net/wireless/st/cw1200/Kconfig
-> +++ b/drivers/net/wireless/st/cw1200/Kconfig
-> @@ -3,7 +3,8 @@ config CW1200
->         tristate "CW1200 WLAN support"
->         depends on MAC80211 && CFG80211
->         help
-> -         This is a driver for the ST-E CW1100 & CW1200 WLAN chipsets.
-> +         This is a driver for the ST-E CW1100 & CW1200 and the XRadio
-> +         XR819 WLAN chipsets.
->           This option just enables the driver core, see below for
->           specific bus support.
->
-> diff --git a/drivers/net/wireless/st/cw1200/cw1200_sdio.c b/drivers/net/w=
-ireless/st/cw1200/cw1200_sdio.c
-> index 2b6afe221268..3db937785cab 100644
-> --- a/drivers/net/wireless/st/cw1200/cw1200_sdio.c
-> +++ b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
-> @@ -35,6 +35,12 @@ static struct cw1200_platform_data_sdio sagrad_109x_ev=
-k_platform_data =3D {
->         .sdd_file =3D "sdd_sagrad_1091_1098.bin",
+> Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317,
+> keyboard 0b05:19b6) on 7.2.14, built as DKMS modules. The keyboard
+> backlight is still registered and driven by hid-asus, the attribute
+> reads back the level that was set, the brightness keys step from the
+> real level, and the level survives suspend/resume and reboots. v3
+> was retested the same way, and the screen backlight
+> (nvidia_wmi_ec_backlight) still works without
+> wmi_backlight_set_devstate.
+> Build-tested with W=1 against pdx86 for-next (c339f4010dea): no
+> warnings. checkpatch --strict is clean.
+> 
+> The kbd_rgb_mode and kbd_rgb_mode_index attributes are no longer
+> created on this board. They never worked here: writes to kbd_rgb_mode
+> are rejected by the firmware with -ENODEV, like the brightness writes.
+> 
+> To answer Denis's questions on v1, the bug this patch fixes happens on
+> the latest BIOS for this board as of writing, which is version 317.
+> I only have the G814FP, so I don't know if other 2025 G814 models
+> are affected, the quirk only matches G814FP.
+> 
+> This no longer depends on Sercan GOKMEN's kbd_led_no_readback patch.
+> Both patches add a field to struct quirk_entry and a DMI entry, so
+> whichever lands second may need a trivial rebase.
+> 
+> AI assistance: Claude Code was used to trace the keyboard backlight
+> code in asus-wmi, run the debugfs DSTS/DEVS probes, write the patch and
+> draft this message. Testing and final review were done by me on the
+> hardware.
+> ---
+> Changes in v3:
+> - Drop the comment on kbd_led_no_wmi (Antheas).
+> - Don't set wmi_backlight_set_devstate for this board: the firmware
+>   rejects both DSTS and DEVS on 0x00050012, so the write did nothing
+>   (Antheas).
+> - Add Antheas's Reviewed-by.
+> - Link to v2: https://patch.msgid.link/20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me
+> 
+> Changes in v2:
+> - Add a quirk that makes asus-wmi skip the keyboard backlight WMI
+>   device on this board instead of detecting rejected writes at
+>   runtime (Antheas), so no more WMI writes that are known to fail
+>   are issued (Denis).
+> - Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-1-bf38f6400ade@proton.me
+> ---
+>  drivers/platform/x86/asus-nb-wmi.c | 13 +++++++++++++
+>  drivers/platform/x86/asus-wmi.c    |  3 ++-
+>  drivers/platform/x86/asus-wmi.h    |  1 +
+>  3 files changed, 16 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+> index 3b0f3346dc60..9b2a4b829885 100644
+> --- a/drivers/platform/x86/asus-nb-wmi.c
+> +++ b/drivers/platform/x86/asus-nb-wmi.c
+> @@ -93,6 +93,10 @@ static struct quirk_entry quirk_asus_unknown = {
+>  	.wmi_backlight_set_devstate = true,
 >  };
->
-> +/* XRadio XR819 modules, with a 24 MHz reference clock */
-> +static const struct cw1200_platform_data_sdio xr819_platform_data =3D {
-> +       .ref_clk =3D 24000,
-> +       .have_5ghz =3D false,
+>  
+> +static struct quirk_entry quirk_asus_g814fp = {
+> +	.kbd_led_no_wmi = true,
 > +};
 > +
->  /* Allow platform data to be overridden */
->  static struct cw1200_platform_data_sdio *global_plat_data =3D &sagrad_10=
-9x_evk_platform_data;
->
-> @@ -51,6 +57,8 @@ struct hwbus_priv {
->
->  static const struct sdio_device_id cw1200_sdio_ids[] =3D {
->         { SDIO_DEVICE(SDIO_VENDOR_ID_STE, SDIO_DEVICE_ID_STE_CW1200) },
-> +       { SDIO_DEVICE(SDIO_VENDOR_ID_STE, SDIO_DEVICE_ID_STE_XR819),
-> +         .driver_data =3D (kernel_ulong_t)&xr819_platform_data },
->         { /* end: all zeroes */                 },
->  };
->  MODULE_DEVICE_TABLE(sdio, cw1200_sdio_ids);
-> @@ -295,7 +303,10 @@ static int cw1200_sdio_probe(struct sdio_func *func,
->
->         func->card->quirks |=3D MMC_QUIRK_LENIENT_FN0;
->
-> -       self->pdata =3D global_plat_data; /* FIXME */
-> +       if (id->driver_data)
-> +               self->pdata =3D (const void *)id->driver_data;
-> +       else
-> +               self->pdata =3D global_plat_data; /* FIXME */
->         self->func =3D func;
->         sdio_set_drvdata(func, self);
->         sdio_claim_host(func);
-> diff --git a/drivers/net/wireless/st/cw1200/fwio.c b/drivers/net/wireless=
-/st/cw1200/fwio.c
-> index 1a68ef6ed2fa..6b885fd717db 100644
-> --- a/drivers/net/wireless/st/cw1200/fwio.c
-> +++ b/drivers/net/wireless/st/cw1200/fwio.c
-> @@ -66,9 +66,10 @@ static const struct cw1200_chip cw1200_chips[] =3D {
->                 .firmware =3D FIRMWARE_CUT22,
->                 .sdd =3D SDD_FILE_22,
->         }, {
-> -               .revision =3D CW1X60_HW_REV,
-> -               .firmware =3D FIRMWARE_CW1X60,
-> -               .sdd =3D SDD_FILE_CW1X60,
-> +               .revision =3D CW1X60_HW_REV,      /* XRadio XR819 */
-> +               .bootloader =3D BOOTLOADER_XR819,
-> +               .firmware =3D FIRMWARE_XR819,
-> +               .sdd =3D SDD_FILE_XR819,
->                 .sync_join =3D true,
->                 .no_switch_channel =3D true,
->         },
-> @@ -85,6 +86,38 @@ static const struct cw1200_chip *cw1200_find_chip(int =
-revision)
->         return NULL;
+>  static struct quirk_entry quirk_asus_q500a = {
+>  	.filter_i8042_e1_extended_codes = true,
+>  	.wmi_backlight_set_devstate = true,
+> @@ -167,6 +171,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
 >  }
->
-> +/* The bootloader is written word by word into the AHB memory */
-> +static int cw1200_load_bootloader(struct cw1200_common *priv)
-> +{
-> +       const struct firmware *bootloader;
-> +       const __le32 *data;
-> +       u32 addr =3D 0x08000000;
-> +       size_t i;
-> +       int ret;
-> +
-> +       ret =3D request_firmware(&bootloader, priv->chip->bootloader, pri=
-v->pdev);
-> +       if (ret) {
-> +               pr_err("Can't load bootloader file %s.\n", priv->chip->bo=
-otloader);
-> +               return ret;
-> +       }
-> +
-> +       data =3D (const __le32 *)bootloader->data;
-> +       for (i =3D 0; i < bootloader->size / 4; i++, addr +=3D 4) {
-> +               ret =3D cw1200_reg_write_32(priv, ST90TDS_SRAM_BASE_ADDR_=
-REG_ID,
-> +                                         addr);
-> +               if (!ret)
-> +                       ret =3D cw1200_reg_write_32(priv, ST90TDS_AHB_DPO=
-RT_REG_ID,
-> +                                                 le32_to_cpu(data[i]));
-> +               if (ret) {
-> +                       pr_err("Can't write bootloader.\n");
-> +                       break;
-> +               }
-> +       }
-> +
-> +       release_firmware(bootloader);
-> +       return ret;
-> +}
-> +
->  static int cw1200_load_firmware_cw1200(struct cw1200_common *priv)
->  {
->         int ret, block, num_blocks;
-> @@ -136,6 +169,12 @@ static int cw1200_load_firmware_cw1200(struct cw1200=
-_common *priv)
->         if (!priv->sdd_path)
->                 priv->sdd_path =3D priv->chip->sdd;
->
-> +       if (priv->chip->bootloader) {
-> +               ret =3D cw1200_load_bootloader(priv);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
->         /* Initialize common registers */
->         APB_WRITE(DOWNLOAD_IMAGE_SIZE_REG, DOWNLOAD_ARE_YOU_HERE);
->         APB_WRITE(DOWNLOAD_PUT_REG, 0);
-> @@ -143,9 +182,11 @@ static int cw1200_load_firmware_cw1200(struct cw1200=
-_common *priv)
->         APB_WRITE(DOWNLOAD_STATUS_REG, DOWNLOAD_PENDING);
->         APB_WRITE(DOWNLOAD_FLAGS_REG, 0);
->
-> -       /* Write the NOP Instruction */
-> -       REG_WRITE(ST90TDS_SRAM_BASE_ADDR_REG_ID, 0xFFF20000);
-> -       REG_WRITE(ST90TDS_AHB_DPORT_REG_ID, 0xEAFFFFFE);
-> +       /* Write the NOP Instruction, unless the bootloader runs instead =
-*/
-> +       if (!priv->chip->bootloader) {
-> +               REG_WRITE(ST90TDS_SRAM_BASE_ADDR_REG_ID, 0xFFF20000);
-> +               REG_WRITE(ST90TDS_AHB_DPORT_REG_ID, 0xEAFFFFFE);
-> +       }
->
->         /* Release CPU from RESET */
->         REG_READ(ST90TDS_CONFIG_REG_ID, val32);
-> @@ -483,11 +524,6 @@ int cw1200_load_firmware(struct cw1200_common *priv)
->
->         switch (priv->hw_type)  {
->         case HIF_8601_SILICON:
-> -               if (priv->hw_revision =3D=3D CW1X60_HW_REV) {
-> -                       pr_err("Can't handle CW1160/1260 firmware load ye=
-t.\n");
-> -                       ret =3D -ENOTSUPP;
-> -                       goto out;
-> -               }
->                 ret =3D cw1200_load_firmware_cw1200(priv);
->                 break;
->         default:
-> diff --git a/drivers/net/wireless/st/cw1200/fwio.h b/drivers/net/wireless=
-/st/cw1200/fwio.h
-> index 9925d4bcedda..fb66d564c304 100644
-> --- a/drivers/net/wireless/st/cw1200/fwio.h
-> +++ b/drivers/net/wireless/st/cw1200/fwio.h
-> @@ -14,13 +14,13 @@
->  #ifndef FWIO_H_INCLUDED
->  #define FWIO_H_INCLUDED
->
-> -#define BOOTLOADER_CW1X60       "boot_cw1x60.bin"
-> -#define FIRMWARE_CW1X60                "wsm_cw1x60.bin"
-> +#define BOOTLOADER_XR819       "xr819/boot_xr819.bin"
-> +#define FIRMWARE_XR819         "xr819/fw_xr819.bin"
->  #define FIRMWARE_CUT22         "wsm_22.bin"
->  #define FIRMWARE_CUT20         "wsm_20.bin"
->  #define FIRMWARE_CUT11         "wsm_11.bin"
->  #define FIRMWARE_CUT10         "wsm_10.bin"
-> -#define SDD_FILE_CW1X60                "sdd_cw1x60.bin"
-> +#define SDD_FILE_XR819         "xr819/sdd_xr819.bin"
->  #define SDD_FILE_22            "sdd_22.bin"
->  #define SDD_FILE_20            "sdd_20.bin"
->  #define SDD_FILE_11            "sdd_11.bin"
-> @@ -28,6 +28,7 @@
->
->  struct cw1200_chip {
->         int revision;
-> +       const char *bootloader; /* NULL: write the NOP instruction */
->         const char *firmware;
->         const char *sdd;
->         bool sync_join;         /* no asynchronous join */
-> diff --git a/include/linux/mmc/sdio_ids.h b/include/linux/mmc/sdio_ids.h
-> index dfffda3d8002..35789be747a5 100644
-> --- a/include/linux/mmc/sdio_ids.h
-> +++ b/include/linux/mmc/sdio_ids.h
-> @@ -27,6 +27,7 @@
->
->  #define SDIO_VENDOR_ID_STE                     0x0020
->  #define SDIO_DEVICE_ID_STE_CW1200              0x2280
-> +#define SDIO_DEVICE_ID_STE_XR819               0x2281
->
->  #define SDIO_VENDOR_ID_INTEL                   0x0089
->  #define SDIO_DEVICE_ID_INTEL_IWMC3200WIMAX     0x1402
-> --
-> 2.52.0
->
+>  
+>  static const struct dmi_system_id asus_quirks[] = {
+> +	{
+> +		.callback = dmi_matched,
+> +		.ident = "ASUS ROG Strix G18 G814FP",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+> +			DMI_MATCH(DMI_BOARD_NAME, "G814FP"),
+> +		},
+> +		.driver_data = &quirk_asus_g814fp,
+> +	},
+>  	{
+>  		.callback = dmi_matched,
+>  		.ident = "ASUSTeK COMPUTER INC. Q500A",
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index b33ebdb21aa2..51fea21ff247 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+>  	asus->kbd_led.brightness_set_blocking = kbd_led_set;
+>  	asus->kbd_led.brightness_get = kbd_led_get;
+>  	asus->kbd_led.max_brightness = ASUS_EV_MAX_BRIGHTNESS;
+> -	asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL);
+> +	asus->kbd_led_avail = !asus->driver->quirks->kbd_led_no_wmi &&
+> +			      !kbd_led_read(asus, &led_val, NULL);
+>  	INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
+>  
+>  	if (asus->kbd_led_avail) {
+> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+> index b45f81b38a47..e53c6b3fc619 100644
+> --- a/drivers/platform/x86/asus-wmi.h
+> +++ b/drivers/platform/x86/asus-wmi.h
+> @@ -41,6 +41,7 @@ struct quirk_entry {
+>  	bool wmi_force_als_set;
+>  	bool wmi_ignore_fan;
+>  	bool filter_i8042_e1_extended_codes;
+> +	bool kbd_led_no_wmi;
+>  	int key_wlan_event;
+>  	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
+>  	int wapf;
+> 
+> ---
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+> change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
+> 
+> Best regards,
+> --  
+> Moad Tarrih <tarrihmoad@proton.me>
+> 
+> 
+
+-- 
+ i.
+
