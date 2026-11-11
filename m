@@ -1,124 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412460;
-	b=b36EKGZJZRVQPxnBO1zX4veYKLP+rf7ujRS6j92fyuMqrVkTalljNuwSRSsmKTLEZpxU
-	 naRI/guvOWuWYmO6ZAYGlP2aBytatCpY6LMciOzViB4pubgb5+E9yZX/Q3XwUgr9Li8Gh
-	 1l7A+LfmFJ2InKy8iy6FlD8QntEZDe/beLW/Uf128zd1dOqGPYsm2I9cxOh1CsT7S3ghJ
-	 GBlJVrSWuKyF5383tSU1IheduoTItM/IIr6dXPG3sVphWLjteIrtLT/a998WKrTayG+98
-	 5kRDVsgvM3miRvnelReGCtcv1SDyspnjeFV0dpafClQwEkRW5hMftZAUWMV0ibCEbcw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412460;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9yO4iRBEsOuH32jlGyQ/kcDjMlOuvsYBA1s1+h7mpqw=;
-	b=4AYNUsd16ByFyQwfBjAc/Ex3xPBiYKYQ2EWKumZn9D0Q8vefFwJL5CQaagrwiQQiN8UY
-	 Rk0WE9wfxItEpOC8Ah6u2rpwx09L1PAYrQEMrXT/Chrcb7q4B0ifh0WT5N2IF5zH48Oqd
-	 RtObfd8FZRi229ht/JxHC+8nIouoFA616VlPdpgaeABsS5r+gaILdlIIvW+VxpcudFS/e
-	 KWpTTq25n0hKxpA6leH+4Hn9/jbXaL3QvqwBQb8TXkeeDj1R8wOE5Dzp+pdbVaB4Ima4y
-	 8A6ScQsJZL42ud5ipor3x45R4rdWz05LY4DGlHIvQMVsTUDLCSr/8BxAwYIdAgINbuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KK6LNNng;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hiKOE+VI;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794412488;
+	b=MhUo5nfTRXFXOSqYUuw6e69GfcGNQlPVEQpN4f+6oGDVlvqzbv4gBjpi64IGZuU3eDa0
+	 nv2AVOM2HCagfI/f9DuM0KcHoGULy1Qgpm0Mwy7nPu3WJGNY8iPJAmfVExulLNIBYKTNY
+	 SSYnYKWEvS3iax1QTGO+OxiWNrbhG1b2t2X/QFQ/uCnlxP1rKuh00Q6zqGKIkY75fDYW0
+	 PTLbc0a8gz1jzQlWkTIsBluX2UDHKFG5XazX8Be6udsWCENKyTEcMpmdMM+G8SWcSFATi
+	 ySUvcK8ufx4uYK5N9wsgTFHUYO0umcpOU0vfQ03O3bimhoJRC/Oo5ppWo55FvfDaEyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412488;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7hAIthPPH2hVY2TgCctLYfF1/xUrBisDOjTbFKSE0Sc=;
+	b=W0Iu7s0KgpHXdx2Thavrb65lp9X+gAGR/GuWxHAuU43OJBmQRao+a65kHFU5btozBpds
+	 osx/6SIqDm3aPGkopCzMS3qBrtLZkzjIv7BCJXI+dVJ5BRQnWW2kcWKCYHc/9biYuFtbu
+	 PpgLaJXkXd8Xn8aK67ibNunIE8AYc5mJucIDyJGaWopcWcWvlIawN+jxk9bDkoS56LYjv
+	 cgvhQ7SGSSccVfmUvckrZEtPr6uDooVE2P6auRDU8gxCrHsGPzAuh7j5C9K59ALQ43bxw
+	 Xv0TRm1bbGpCxSPq3coxztjQGQib1rxzkLaTqmNA9WE6aBev+T0G0Vdlhdk5DrqiNdw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BfkdUczh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.10
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012010.outbound.protection.outlook.com [52.101.53.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D17D606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 15:54:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D17D606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DAF606A324;
+	Wed, 11 Nov 2026 15:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DAF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KK6LNNng;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hiKOE+VI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794412459;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9yO4iRBEsOuH32jlGyQ/kcDjMlOuvsYBA1s1+h7mpqw=;
-	b=KK6LNNngeGKzlk8qLFYdr/CPUXaaaxatz/3cc1/rJ6fnYk//zGrwEWTXBDpNQDTE3u911/
-	y8ZT9yhDMOM6LxJSpwIr53CRzXwMFyurAl471MDCDMoRvqrpqH/FvObOB1f4ALAGKbsCcg
-	kGSbLU7/3CUbyw2UH59TSla0WJL8qMY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-656-Xdqf1UtKMs-oZZz7ICPNhw-1; Wed, 11 Nov 2026 10:54:14 -0500
-X-MC-Unique: Xdqf1UtKMs-oZZz7ICPNhw-1
-X-Mimecast-MFC-AGG-ID: Xdqf1UtKMs-oZZz7ICPNhw_1794412453
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-490d2ac331bso2833918f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 07:54:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794412453; x=1795017253; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9yO4iRBEsOuH32jlGyQ/kcDjMlOuvsYBA1s1+h7mpqw=;
-        b=hiKOE+VIlxbOcOlW6Xs+bhV4MDSUdNJj6lNYBdYkNH69xwc9iSfRZYyqR7pcSGVcej
-         EEcP0okGXd9WXoggo1LTQD1ur2KEqBKSF6BKBBIIczRS41MfIiOYfb/Q3TECGm1AC33g
-         acxaxTc+t8FERzKUTxnKL6LcDwV94/ki7XqzzoXMgcwLLPY2tgkCgAaizVvmDNVC14JR
-         YovK5EmSA7o+FM4ykQ2tpnVnOXA1/Niyfr/4eNpGPM9bTaJtf7lz2NhewOXTg0z6hpAu
-         Bss9OudKo9sHusaHPSJKqdyUQkQrVi9n1Q/4nbn7rWfMu1fbBKm77f3Fj+JGWxFjQH29
-         xS6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412453; x=1795017253;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9yO4iRBEsOuH32jlGyQ/kcDjMlOuvsYBA1s1+h7mpqw=;
-        b=k/VQxytVaToUsTyBNATf5t1dkhXptPgTz6V27xxRtVpwGU2MCYaYrFPvMLOc7sm0iA
-         ql465llWh+S6bczeawshTKLX5rPDnkfApUJwc1d/u+P1A7JuvpEbtLvpBotw8t4PlCm/
-         rgO+dZQe/ztnGVTTb3fuwpk+sEZCYz0NcNGpQMgvocNEpGmbB5Upjot988NSe7ZARaQ9
-         hMzcGcUjP448V4XdFCtm0ZPM5kgPY3koly4cAOakoJFQ8jnrJa729f8SxyGFUGlyQ5DJ
-         g/1bwrQsNe+GyPtw2u4lSr4AILueKFO2Ch0tTjWbaY33HDqSbqLgNkv/b14wNYqfV0Kw
-         WZXw==
-X-Forwarded-Encrypted: i=1; AL+hErHKR/m3v3lwW5N53tBYtLEflviHfKMbmOn5B4QUpG6HM37MQxbPQiRPcAlYTicrtvaqsEJ4k7lItSZVa48=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dTq4TGDZj/52Hqpmxv1D3pgqFzbAE1NIpTNXMbVGBeWO0MUXa
-	oppSlpMKUWuD1zMxzhA0vzRogZHe6bZMtRrILUcEN+lO2ic6EzAWZLdprWZZ1LEEdaQTmN5SKOd
-	xvvumkpPugrD429axhbdD9XNAIomse+1fE1wB16mENXFrVm6jxHE+LPqqPrvsFqDEAA==
-X-Gm-Gg: AYBFou3H7XJogt+RmT9dCU9Qldzles8HpFtVdVEAN5GKCFtZQ7bIi5cYlnIFDJ8FOFi
-	wZjMm69UzyKm6qTcZoN2KOgG3KPnxzHuMNYOvlTy9viDQ32qks2zveo9FODLJYQxi+i8Uqj9yiD
-	urobbhENs7GtOUuyhhamOwpYB0XrwFhF7LHSi0LgAn+IQy/fSr5Vu+SKCCfdEYGzwTDIzrKE+Ol
-	LgCFqMXF4xsTOXSiR/RJbslKLMdfOQmZfbjgqEt7MCdTZLt4RQSVGNKIWVemU3/Oc4BffmJWyRs
-	T4icEaKosezsJ4QRRU0eHur2t2avhlZMPkHjwdF82nYMjGOer2AXxlb9tgxyteI5GQoeEaGWhv+
-	QJuMnYbhNZnQjmmFbWQk/65IWaAOy4hh5G5eqe97xQfmKs6owSMN1/hQRrtTdojB5OXVmkO/ef5
-	0Jswc=
-X-Received: by 2002:a05:6000:3ce:b0:48e:2f7e:bdbb with SMTP id ffacd0b85a97d-499c77423e2mr4360025f8f.50.1794412453238;
-        Wed, 11 Nov 2026 07:54:13 -0800 (PST)
-X-Received: by 2002:a05:6000:3ce:b0:48e:2f7e:bdbb with SMTP id ffacd0b85a97d-499c77423e2mr4359995f8f.50.1794412452846;
-        Wed, 11 Nov 2026 07:54:12 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836b8eb11sm12632851f8f.57.2026.11.11.07.54.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 07:54:11 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:54:09 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 16/29] sched/deadline: Record the root domain holding
- a task's bandwidth
-Message-ID: <avSPoSnNATnwZ8cS@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-17-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BfkdUczh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rkgT8joAkja9SGog/GrUi6Nlvq9oznVGtas3hTzIxy2FNuW0JHPieP7xFlMakecn54tg6q4ZNsYMSaaJRBByCLRF2Ipaj6RRB2HzNwNrHBrRa6XVb6jxYLrjNrH0QFQfeFrDGDngyx6hcqZPnURQYPn3A3kRDgqhvNEo/MRNLbWofJdn1LxFe4cwEhI4v+coNkFcfD3b8gaZn5+fnrHE+mW/TrrN7IsppeJs4R9bXh5UI5h/izJicgJIM79Sw8fGW4t+XNXiHpEsQcKYPay3C5ID/XcUqgCbZlKrUW6dDi2YinCjOcMVjRSwdiYqPpQHImh6BaNFdPeYPVN2ZKg1nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7hAIthPPH2hVY2TgCctLYfF1/xUrBisDOjTbFKSE0Sc=;
+ b=D1rta2pQiw6Xxn9NR/iXbh7CjdQPjk42kYXfWCznPkoH979V46R3gpncNXC9vsckPSvTdU00N7TkngOwXJFsrFsT9FjKUasKmO17kd9w/0CbT+sxHv/NFyhOyWR+Dp13/SEVlMbjlZXKJ7dpc0CeFEuQ0Eltjtr+kLBBH3pLumMOHKVwTbOGMGEv2mhx1LTIz9qjouihJWFjCnK7UgszeIj/7tDyzFiz6DRaqwJ7yQoqCL4jxFM49QL+YDKXD6i2eFQwdxERTuzJubsynqLg0FcTs/QB03wnTzWzRH7C19nJrLdMtUIAv+XsEWWkpVPXLpULsX6Apk5Wv7W+JmoCyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7hAIthPPH2hVY2TgCctLYfF1/xUrBisDOjTbFKSE0Sc=;
+ b=BfkdUczhBFG3/6snd8Gbgltsrd+2SnLS5algS1DNdVUZYb1VHNXRK6bdxmi1oehkT2k86NqK2KRRKmlafilasIJmRc9cWLfLN3TPjpncPLKvfmKkd6TRUIQFgqG1V58NL7E5lVSgdg7emTcHzI9oQnpCyTm7JhhR6Pc6lLMjdo/IpDPk5NWMBxyVlWsD2kd9hUabo752LJkk81vcF3/MB0ViZIOD5KTtb+OE1i9F6xA7TgdcXQXTPg6zge4CMuwnMN1d623uvT9P3m+GaSNvyCleWH9FPXM3yPgvAvoB22Jexqs9H136MbxYvH6hs+vjd4Z9a30STzKG4GYBfREy/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18)
+ by SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
+ 2026 15:54:45 +0000
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6]) by DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 15:54:44 +0000
+Date: Wed, 11 Nov 2026 10:54:41 -0500
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Song Liu <song@kernel.org>
+Cc: rcu@vger.kernel.org, paulmck@kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, rostedt@goodmis.org, leitao@debian.org,
+	david.dai@linux.dev
+Subject: Re: [PATCH] rcu-tasks: Use pr_debug() for callback contend/collapse
+ messages
+Message-ID: <20261111155441.GA1829883@joelbox>
+References: <20261111053551.3367903-1-song@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111053551.3367903-1-song@kernel.org>
+X-ClientProxiedBy: MN0P220CA0006.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:52e::30) To DM4PR12MB7742.namprd12.prod.outlook.com
+ (2603:10b6:8:102::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,159 +97,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-17-mathieu.desnoyers@efficios.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB7742:EE_|SJ2PR12MB9161:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a6b4605-4931-4886-32a3-08df400c1aff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|10067099003|3023799007|261009223027099003|11063799006|56012099006|261102123227099003|261026121527099003|261021121427099003|261021123027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	OpjgUcYUy5P1RNDk0uw6sYjcMUCcIjfuaEpYD1CDWDkURDFSfuGxdv4rY+LaFa7nuhzd3C+O06Maky9OzGOV2xd7sY55W7HepaS6BWWUoGpnWlannF0i4YrHlfRDOFWaovjaJGBwkxIxn+kmq0wlLMgE1dEhUzJnL7UD+XQNFQOnoz0yAxIVW6+PaTRYAZ3olP9jPdWVESES/JdyEl+kIhk7XnzvgXUOnni3fbmdt8lk8FVjqqf8sE6yH3VN5fn9Wk98xkK5QHAXTlYxy/j/S5Yu3lNHPBCFmcwimCmmK/iE8x9lBAmNdklU2t54YlpMCXyiFz17M6X9+zBaJm88Ip4St/OYurT2sy5QqZJBx+TlXUog8QAHGFtH0UUoS8MD8/GwmfKFOMXNYtWUgiMnTvvj9EVFM1D3liulyyGVSKJDBNgymoihgQPM1Mv/ix2hOZCDp4S7IPofW6QJrsac/0eglCK+oYHxPwAJ9ASfptsD9h47Etppr7lSZlJwM5j1+aKi/7o9OYYNIG4flnnqV9Y9Na5ssHdGHxRtP9q8K272XsjbJwRwo7l8Hx7hcRDsuMpArI2ODNGu2DHm8e2BVV1ZXUuFFaAzFQFOJPd5PoJp+wwtCsmOvs5MFojCa5owANuKH4Kaw5SifDsQH021YzhZHYQY3P+CQmUXmJjsGOk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB7742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(10067099003)(3023799007)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6I4Mnf4zP5+r1LAFDCeL6sxCfAGjKAVUg0WYv35RaJ3AFZKPbG4wpZ7694Ad?=
+ =?us-ascii?Q?stIfAS0LtY62Uvoopzw+BK2HnUdsdk8NzNgsG0KYSbHIH6OQmsGhZ/auXLAb?=
+ =?us-ascii?Q?Xbym5iAOrY9fcEulfkpxDjAQH/L9EEh8NmMJSW5LeDVGGsBFJVFHLOY6GT1r?=
+ =?us-ascii?Q?oVdZU/pFo/N9eEvvGrLAvJPTaYqv6Rl6N7tMNUNXmow2b+cwZj9W1RMjvSOS?=
+ =?us-ascii?Q?Gt8zWvy/yoHQWr9VutUaLKv33Ce1EvJAGBmsYVvQWTex7jaWchuFOpXVyuy/?=
+ =?us-ascii?Q?EGVljAdJUGhwKw4yh7GKJsDO7OPOwKDhZx1z5yYLVPWl60h2Sx5MOlu/9OUc?=
+ =?us-ascii?Q?7CqtdTADvJRxMuyH5EkcTJyqqEvVy6em2/H6SsG2VSgMvmsuu7AwfxkCfGu5?=
+ =?us-ascii?Q?hPx/DU5LRnAqiLpPS1yHzgKrKCHBekJq31qzOoS9FvVBpwa78UF++OcosmK+?=
+ =?us-ascii?Q?0xNmpfpI+zT4+ZrWOYTH94t6X0iqhQL7QfmYO4O256TCZccx2o/RZjzYJw/c?=
+ =?us-ascii?Q?yJqOuoT0SotSJYSrwtgBXICMNhQ/T+txgaXHMbVjEgA2FaTiqkdgkms7tICd?=
+ =?us-ascii?Q?KDxl11C/fl+d0WmYr8nuTcTdweFKOuAM07Z/bItbK2CO0Mt4BRtzmLkNBxU8?=
+ =?us-ascii?Q?HXyENRkhPZxx2nk7DatzoOcGD8qafhSUvNriI7RfDruaDOzUtEYiM0pIu72u?=
+ =?us-ascii?Q?6aAHXFO4THVcZNzECmPYbnoaadhx/XASkkMQPR/Jb7eWft2PNKp/NZu//Sho?=
+ =?us-ascii?Q?mAfSihaqKTR7Myv7C2caqGUxGugEXCO3pFZKmLrxPo5gA0k3kH++g8ttmfoe?=
+ =?us-ascii?Q?Ln6/apTbx7TDH2dOKVX8hDLXIe0RjKx/fWFxzO77r8MzTKmEkuQ2uitS1Sb0?=
+ =?us-ascii?Q?NgnbrLrQe4Myh+GZ+hA0l1lpVFQRjSiX9y6HeXdDFPrzOgkb/L8W4A6bdVur?=
+ =?us-ascii?Q?Dofo1D9jvlv+1eCd967zLvB9XcKlxQ8dmeMU+bZ6PAYu0g42/4qaPrGbJ9hj?=
+ =?us-ascii?Q?5/Cq3mljCXyy/2DcIZO/LJ84Agn/fwovDH9Xh0Z+Vz7zUhgqIjgFQ8KOgcd2?=
+ =?us-ascii?Q?xT16mc2Til3IDlUHxAjFe43yujYKSp3JKAg81OfhA8rT/w+ybrIbCepubXSX?=
+ =?us-ascii?Q?ts4wnh+8/30yEewFwLRjlzbkgaAy9sfZW0dOpI7BIo2LeTDhMc45Zy4CcbqB?=
+ =?us-ascii?Q?tknBr84hWAyvTg2nqkCin5fZjMNgw5ZBTJ75YIAAhHq/PpjmwVzdaMCEccdW?=
+ =?us-ascii?Q?xkvtNq09D9i9azqgfe62xrRL7slh8iGo2hHt4o9BlYsWHEEObftyhl/wWDsM?=
+ =?us-ascii?Q?fgCzooC3ertVdT1K/TVUIV77au0x3mxQUIUgvB8sqTSjVdEpNcgjmWS0QCDJ?=
+ =?us-ascii?Q?NV3BCabqmlcdr0gGRM4Eolyxc/ZdhzGLdDvY5QW3a4lUu65uV/43xHswBGoP?=
+ =?us-ascii?Q?0tUKSWobhXTnTjqwy+zY90ohSeqslr1D4ssVIB5LsSfShFfl1Pl5rGvjNIEB?=
+ =?us-ascii?Q?/6UUNDVxidLQIRo9Pef3ISImlGyriO6e5FQrjXPHWqKEUabGToPM2OsPpTJi?=
+ =?us-ascii?Q?rm5oKd94NwVg2/DVxgyCQ+S56J9bedux1rR6YKyL4AG3bzFWg/yhBTTZGIR/?=
+ =?us-ascii?Q?jZRT6x3ULjAlbaxXuR9IXOJlYDsPxHpvOknUkvAFYEGFNrem80+/BHZ+42Os?=
+ =?us-ascii?Q?y0pjUtkrjgyvLbsZy9mQve3InJ4qd+pOzlqCPtI8+9QDvUpzhGOWfydK0uYr?=
+ =?us-ascii?Q?ta4Iug5QXA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a6b4605-4931-4886-32a3-08df400c1aff
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7742.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 15:54:44.8709
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: efIyg7YwRM8x6rAAgPSsdH4ECmPocDzXGv+6Q0H7ARdKWq97XBM6hZi5JybmH72UCwl9eXhHDe4Fys9Nfpcppg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9161
 
-Hello,
+On Tue, Nov 10, 2026 at 09:35:51PM -0800, Song Liu wrote:
+> Commit 5de907d24919 ("rcu-tasks: Disable callback contend/collapse
+> messages by default") added the rcupdate.rcu_task_collapse_debug module
+> parameter to gate the three pr_info() messages that report RCU Tasks
+> switching between CPU-0 and per-CPU callback queuing.
+> 
+> The kernel already has a mechanism for debug-only messages that are off
+> by default: pr_debug().  Use pr_debug() for these messages, and remove
+> the rcu_task_collapse_debug module parameter, its documentation, and
+> its boot-time announcement.
+> 
+> The messages stay off by default.  On CONFIG_DYNAMIC_DEBUG=y kernels,
+> they can be enabled at boot with:
+> 
+>   dyndbg="file kernel/rcu/tasks.h +p"
+> 
+> or at runtime with:
+> 
+>   echo 'file kernel/rcu/tasks.h +p' > /proc/dynamic_debug/control
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Song Liu <song@kernel.org>
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> Admission, moves and releases of a deadline task's bandwidth find the
-> root domain that counts it from the CPU the task is on. That CPU can be
-> in another root domain. Two cases show it.
-> 
-> Commit 7f51412a415d ("sched/deadline: Fix bandwidth check/update when
-> migrating tasks between exclusive cpusets") moves a deadline task's
-> bandwidth in two halves. cpuset_can_attach() reserves it in the
-> destination. set_cpus_allowed_dl() frees it in the root domain of the
-> task's runqueue. Both halves now move nothing when that root domain
-> overlaps the destination. But a sleeping task stays on the CPU it last
-> ran on. So a sleeping task moved to a partition and back leaves its
-> bandwidth in the partition:
-> 
->   admin                                       task T
-> 
->   makes P a partition root of CPU 3
->     CPU 3 is now in root domain B
->     CPUs 0-2 are in root domain A
->                                               sched_setattr(SCHED_DEADLINE)
->                                                 A: total_bw += bw of T
->                                               runs on CPU 0, then sleeps
->   echo T > P/cgroup.procs
->     cpuset_can_attach()
->       dl_task_needs_bw_move(): true,
->       A does not overlap P
->       B: total_bw += bw of T
->     set_cpus_allowed_dl()
->       dl_task_needs_bw_move(): true
->       A: total_bw -= bw of T
->                                               still asleep on CPU 0
->   echo T > cgroup.procs of the root cgroup
->     cpuset_can_attach()
->       dl_task_needs_bw_move(): false,
->       A overlaps the root cpuset
->     set_cpus_allowed_dl()
->       dl_task_needs_bw_move(): false
->   kill -9 T
->                                               wakes up on a CPU of A
->                                               exits
->                                                 A: total_bw -= bw of T
-> 
-> B keeps the bandwidth of T. A does not count T while T is in A, so A
-> admits beyond its capacity. When T exits, A loses the bandwidth of T a
-> second time. Its total_bw can underflow.
-> 
-> A rebuild of the accounting counts a task in the root domain of its
-> cpuset. With admission control off, a task can be pinned to one CPU.
-> When that CPU goes offline, it joins the default root domain, and the
-> release takes the bandwidth from there. The root domain of the cpuset
-> keeps it until the next rebuild.
-> 
-> The first case was reproduced on v7.4-rc1. The second was reproduced
-> with the earlier patches of this series. Without "sched/deadline:
-> Release the bandwidth of a task that leaves the class asleep", nothing
-> releases the bandwidth of that sleeping task.
-> 
-> Fix this by recording, in dl_bw_cpu, a CPU of the root domain that
-> counts the bandwidth. Each site that counts it sets the record. Each
-> release or move reads it, and the release clears it. A move skips a
-> bandwidth of 0, so sched_dl_overflow() does not use its record. The
-> move_zero_bw case of deadline_bw_test, added later in this series, tests
-> this. The record replaces dl_departed_cpu. If dl_bw_gen shows that a
-> rebuild dropped the bandwidth, nothing is taken back.
-> 
-> A move now leaves out a sugov kthread and a task boosted into the class
-> with no bandwidth of its own. The rebuild leaves them out too: no root
-> domain counts theirs. A move would take a sugov kthread's bandwidth
-> from a root domain that never held it.
-> 
-> Weiheng Qiu reported the moved sleeper, and Juri Lelli analysed it. His
-> fix, linked below, took the first active CPU of the task's mask. A mask
-> can have none during CPU hotplug. Tip dropped the fix after a sugov
-> kthread hit its BUG_ON() there. The Sashiko AI reviews of this series
-> found the other cases.
-> 
-> Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
-> Closes: https://lore.kernel.org/all/14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com/
-> Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-1-dd761fe005b4@redhat.com/
-> Fixes: 7f51412a415d ("sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Makes sense to me,
+
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+
+Will apply for 7.5.
+
+thanks,
+
+Joel Fernandes
+
+
 > ---
-
-...
-
-> @@ -3541,17 +3570,29 @@ static void set_cpus_allowed_dl(struct task_struct *p,
->  	 * domain (see cpuset_can_attach()).
->  	 */
->  	if (dl_task_needs_bw_move(p, ctx->new_mask)) {
-> -		struct dl_bw *src_dl_b;
-> +		unsigned int src_cpu = dl_task_root_domain_cpu(p);
-> +		struct dl_bw *src_dl_b = &cpu_rq(src_cpu)->rd->dl_bw;
-> +		unsigned int cpu;
+>  Documentation/admin-guide/kernel-parameters.txt |  7 -------
+>  kernel/rcu/tasks.h                              | 15 +++------------
+>  2 files changed, 3 insertions(+), 19 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 0b3c140babd9..176648941aec 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -6369,13 +6369,6 @@ Kernel parameters
+>  			period to instead use normal non-expedited
+>  			grace-period processing.
 >  
-> -		src_dl_b = dl_bw_of(cpu_of(rq));
->  		/*
->  		 * We now free resources of the root_domain we are migrating
->  		 * off. In the worst case, sched_setattr() may temporary fail
-> -		 * until we complete the update.
-> +		 * until we complete the update. A rebuild that dropped the
-> +		 * bandwidth of @p leaves nothing to free.
-> +		 */
-> +		if (p->dl.dl_bw_gen == dl_bw_gen) {
-
-So, this is not guarded by dl_departed_lock, but then this gets fixed in
-later patches?
-
-> +			raw_spin_lock(&src_dl_b->lock);
-> +			__dl_sub(src_dl_b, p->dl.dl_bw, dl_bw_cpus(src_cpu));
-> +			raw_spin_unlock(&src_dl_b->lock);
-> +		}
-
-...
-
-> @@ -4189,6 +4245,23 @@ int sched_dl_overflow(struct task_struct *p, int policy,
->  	if (new_bw == p->dl.dl_bw && task_has_dl_policy(p))
->  		return 0;
+> -	rcupdate.rcu_task_collapse_debug= [KNL]
+> -			Enable debugging prints that record when RCU Tasks
+> -			and RCU Tasks Trace expand to per-CPU callback
+> -			queuing and collapse back to CPU-0 queuing.
+> -			This is default-disabled due to the fact that
+> -			some workloads can make it quite noisy.
+> -
+>  	rcupdate.rcu_task_collapse_lim= [KNL]
+>  			Set the maximum number of callbacks present
+>  			at the beginning of a grace period that allows
+> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> index fcac7361ec51..743f777b4c18 100644
+> --- a/kernel/rcu/tasks.h
+> +++ b/kernel/rcu/tasks.h
+> @@ -178,8 +178,6 @@ static int rcu_task_contend_lim __read_mostly = 100;
+>  module_param(rcu_task_contend_lim, int, 0444);
+>  static int rcu_task_collapse_lim __read_mostly = 10;
+>  module_param(rcu_task_collapse_lim, int, 0444);
+> -static bool rcu_task_collapse_debug __read_mostly;
+> -module_param(rcu_task_collapse_debug, bool, 0644);
+>  static int rcu_task_lazy_lim __read_mostly = 32;
+>  module_param(rcu_task_lazy_lim, int, 0444);
 >  
-> +	/*
-> +	 * Change the bandwidth of a deadline task where it is counted: in
-> +	 * the root domain of the CPU recorded with it. A task moved asleep
-> +	 * has not run there yet, so the CPU it is on can be elsewhere. No
-> +	 * bandwidth is counted if a rebuild dropped it, or if the task
-> +	 * enters the class. A runtime below about a millionth of the period
-> +	 * gives a bandwidth of 0. It counts for nothing, and no move updates
-                    ^^^
-Ah right, quite cryptic corner case buried in this comment. :)
-
-This is the 1024ns/2s of the test. Which indeed gets dl_bw 0. Don't
-think it's a huge deal from a theory/practice pov as to actually make an
-impact we probably need quite a lot of these admitted (fork bomb style).
-But it's still weird :P. Not sure if we want to impose a min of 1 dl_bw
-for these. If it actually complicates the accounting (for no good
-returns) or not.
-
-> +	 * its record. In these three cases, the root domain of the CPU the
-> +	 * task is on takes the new bandwidth. The caller holds cpuset_mutex,
-> +	 * or dl_accounting_mutex without cpusets, so no rebuild runs
-> +	 * meanwhile.
-> +	 */
-> +	counted = task_has_dl_policy(p) && p->dl.dl_bw_cpu >= 0 &&
-> +		  p->dl.dl_bw_gen == dl_bw_gen;
-> +	cpu = counted && p->dl.dl_bw ? p->dl.dl_bw_cpu : task_cpu(p);
-> +	dl_b = dl_bw_of(cpu);
-> +
-
-Thanks,
-Juri
-
+> @@ -392,8 +390,7 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
+>  			WRITE_ONCE(rtp->percpu_enqueue_shift, 0);
+>  			WRITE_ONCE(rtp->percpu_dequeue_lim, rcu_task_cpu_ids);
+>  			smp_store_release(&rtp->percpu_enqueue_lim, rcu_task_cpu_ids);
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Switching %s to per-CPU callback queuing.\n", rtp->name);
+> +			pr_debug("Switching %s to per-CPU callback queuing.\n", rtp->name);
+>  		}
+>  		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+>  	}
+> @@ -514,9 +511,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+>  			smp_store_release(&rtp->percpu_enqueue_lim, 1);
+>  			rtp->percpu_dequeue_gpseq = get_state_synchronize_rcu();
+>  			gpdone = false;
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Starting switch %s to CPU-0 callback queuing.\n",
+> -					rtp->name);
+> +			pr_debug("Starting switch %s to CPU-0 callback queuing.\n", rtp->name);
+>  		}
+>  		raw_spin_unlock_irqrestore(&rtp->cbs_gbl_lock, flags);
+>  	}
+> @@ -524,9 +519,7 @@ static int rcu_tasks_need_gpcb(struct rcu_tasks *rtp)
+>  		raw_spin_lock_irqsave(&rtp->cbs_gbl_lock, flags);
+>  		if (rtp->percpu_enqueue_lim < rtp->percpu_dequeue_lim) {
+>  			WRITE_ONCE(rtp->percpu_dequeue_lim, 1);
+> -			if (data_race(rcu_task_collapse_debug))
+> -				pr_info("Completing switch %s to CPU-0 callback queuing.\n",
+> -					rtp->name);
+> +			pr_debug("Completing switch %s to CPU-0 callback queuing.\n", rtp->name);
+>  		}
+>  		if (rtp->percpu_dequeue_lim == 1) {
+>  			for (cpu = rtp->percpu_dequeue_lim; cpu < rcu_task_cpu_ids; cpu++) {
+> @@ -711,8 +704,6 @@ static void __init rcu_tasks_bootup_oddness(void)
+>  		pr_info("\tTasks-RCU CPU stall info multiplier clamped to %d (rcu_task_stall_info_mult).\n", rtsimc);
+>  		rcu_task_stall_info_mult = rtsimc;
+>  	}
+> -	if (rcu_task_collapse_debug)
+> -		pr_info("\tTasks-RCU callback contend/collapse debug enabled.\n");
+>  #endif /* #ifdef CONFIG_TASKS_RCU */
+>  #ifdef CONFIG_TASKS_RCU
+>  	pr_info("\tTrampoline variant of Tasks RCU enabled.\n");
+> -- 
+> 2.53.0-Meta
+> 
