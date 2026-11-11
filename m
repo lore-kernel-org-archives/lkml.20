@@ -1,117 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424835;
-	b=Ul3NXCTdbv5lz9QDxkOR9/ReTkRO1EPz8GXHEIUb83cLlsoOc2aRulbLkF0mz9FoWBV8
-	 tWWz2gB8uENjbGANezh9vT9wmw6IXOpJQK93VVJUpQuXejUG1zJoStUIeWuws0oanXzid
-	 bMFwQEPFi/AUa7fqggKuq6i/FieYGw72nLbZMJxVGQ7agy2DtGPjRqdaZAL0PGk0BJzVX
-	 ClhWJM5bUJmOyfIAECmWdn2AAqI5/WnjU5UfWc3XUR4rD9NMlkHJnjsrmmKogZP+34ria
-	 TzaBGKV8Amwzdh74vpEOtnHtjlX3y08Fl54dN1m+QIK6BZqlttr+y9EzPHMz7vUdotw==
+	t=1794424862;
+	b=HnZqNp3nYJ2vM2L4yyRZW1wb74TXuju+myoFGusDkXGTrhpAKUrfIOQ8A7h+q7K4JDLA
+	 7r8w5bVomNfKAX8Y7rRqeivXxB9XNNeF4M6yCzxwDcgD2lR7dJFFfnT0KbJ2VBXZodq2S
+	 6QUMbsYp4ygBCiH5n/yVZzr1QJhooToofnJvOx3rLyESKNoPXmh+fAF+gGzZjqEOFouk9
+	 ozJiwwCi29PLFg3N6SU7lyjrwT+zUYDHjG5BZxjR5+EXNS7seyGPajhFlDAeApu5dUGuf
+	 9G6+9V0zRZlVY6X9yMim1L+LBjgN3/udWZpyJWcMF+oiuOFY9dJyIxCLGW98HLskz6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424835;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4AU6yrqWvCc/nyHqN3PU3r1GIThqckGTo09wAzMWOLA=;
-	b=N1HeNmMAxpURxOs2NhrMx7K/I35elNrMiFHrt7PmjWhzCa4R8H8QPErsy6U0VUX4GJJ9
-	 cir7tF7N6kWm7g09FQa5JLLeIxe3yxpIliVCIQ20JOMKQ3PSWqFSL9E19l8/oW98UWFTm
-	 QIaaZDRyGtFmOXOxq8U2z1Q9eEqIK1qPgnu11CrOEPLXZsuCem+acixaJF60ERuz5Njh5
-	 iMQ3/K5AX/vEBdaXeIl1PXUdufBAEUJJ3VvSpYShx1iqgxt+yrguj56XGJsVpYY0xiI1g
-	 V5RupdIMmmxGH31zg8HGVZxIHrCtOU4qXb1fJvC8uy54wE0JoxxD30cRXOof4s+3sYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424862;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Soj930bwFBTZxNzA1GiyO1XhwtS7FvpbLkFUPLX9r8c=;
+	b=QS7FT1IYCgcqBTI6Dh6ODiqte8QVnZIfIdTmGCL29VcT9bpuwNF2JP14oQZLYMQP3phX
+	 F8+NN4hDbnPpZQV9UPHC+oipF3iDiyJOJZCcrJpX69klc92Ak89IHlZbxE/qTNQjv7rN1
+	 ppjuZiqs6+1x3AyY0kxu5LAk+6wOEWl5MlZDGHAvW8MJA53gfudZPCjDcI1vKV8l4/SWj
+	 hfdVgrueC9+kYjyEciXaOmoR7UCeXTBOxkPYl8+DJgKm1t1G9IhipTQz7SKH0HT9ec4Wi
+	 qpoZzGeMcrz+ewXq+XWRO1qq54+aZt5yww/xetqMhjQXi/Z3wAOVDAdK1E9J4RJjuaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=GYKn+hd9;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1sqXpDL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E5B606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:20:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E5B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCC7606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:21:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=GYKn+hd9
-Received: from mail-pj1-f69.google.com (unknown [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 2389840603
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1794424831;
-	bh=4AU6yrqWvCc/nyHqN3PU3r1GIThqckGTo09wAzMWOLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version;
-	b=GYKn+hd96JsWGZYKf+1O9dFdYouUZASvmL7xQgF8O7cYLFcWPdtKBXQB33DverlJm
-	 mOqf89/yBYpBe3RZwqq8bZfewuGBW2TwqZtr4ZZtFQRuO5ZivNEf7E+qvBFUxbMb8J
-	 r1o4Xgr3W2i7zgHOL8emwIMp+Rz1GqEPX+oqJ9xGO3L/Ewwc+ltDnhWJfj7hTYcz2p
-	 YkQTB/yS71ogyhHBNy0fs6sPWOOogMCCIUACy1HIAj5wvb8ebIQahoOsEEaoXLEHlY
-	 5iIifwyhQgZ1QtU6S7EcbAzWdYA8XxElwaSsTkKZwyyM0GCd/i4b8vXjK5R9y/YK6s
-	 R2MEEJXSAQUWAUBlmfYTMRb8kLCEQNp51i0P1mhdAyI+q2QeDnETyYq9L+r2ov3ItP
-	 CNPP6xhLAaEN7v0l4zBqhJvNQuOmepEGIVKa2zP95eXjsPRL6UDCFySobD+X+E+7sz
-	 P3l7qEuBsRHl0LOfAWXZ2r91tbfs2azZURc1vLAM3mz/gN7wHoOEmgRj9443VIgYoe
-	 36jvOgSp3+isXmggUDdvXKrgbh93qlsAHNelmkgLm2RBkTzGusn6SXEb7lyZHAhIY9
-	 CMLzUvQakCbbp2ugUSk05tT/IJmQemt/HUwKSsibQFtK4/SbiFIfzIEBei20vWd2dL
-	 QZOCUJawLt8tw6MCFt363Ggc=
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso4236395a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:20:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794424810; x=1795029610;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4AU6yrqWvCc/nyHqN3PU3r1GIThqckGTo09wAzMWOLA=;
-        b=cVX17AG6Zq11wHjPeMTS9204VIIp+y+pa0pBTJOWJtrAeLDZx3xUv82ty2hbdQoemQ
-         GgaqHPKxaJByNsJtZaRfF8aEAhpddRxPBnViKBwwFryDWB8fSz3QuDrP1F7kPnAdyopd
-         9QlpHkxE5CkdObpJDkbcOhDxlC+YkRtvpNL1ZVmSMoRWvnA8RsxG9y7ysQs/vpjvsx8M
-         BBqWQ4xSY481+E9sDne7s4K88tpAm22uOz+Yl7pZ1MxSIivV5E2MCRahAt42UG+aTnCc
-         YgksgxJUARDqJ33DtGA3kd5njN0Y/+SLUgmG9MExPQ9HBZY8gMRIiRCrvspp/65AFnrP
-         NV5w==
-X-Forwarded-Encrypted: i=1; AL+hErFK3Go7PMbGJt/2SSiwoZGuU0JnzvEYMO7HEnRFHBaSs/jShyCc7B0Gu9ku+Z4/KHfnzvz1A7AUU9uABCY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JxOKpSCdBArY0XEDO5V6eUEQe207BZwAh6iHSttmtmA1kp/oR
-	IAZIlfcmm2kFby1zdl/CQb8meWRJvO7Z1o3kyvAW71feEWanD5RH0Ewkyxieax2tiRVEQYm42KV
-	Hv1OmaHmmljPUeowVU2jYJ9X8OVlW2WqV5lQXa9RzCN/ScohUWwz2n23iIHMniaTS4yKBAznPyf
-	9zY1LH0g==
-X-Gm-Gg: AYBFou0GQ4Kuf0aq04Uo5SoyCATN21lctTSWdfQ0lYR6ckLee3RAq2wfC6da+pZumuA
-	eYwXlAcXbFQ8gDZOSEIAfIWeV9RD+SUrZo009t+Q/4owI3HoLtdG37K5+VKWXazeI8+ikh699uS
-	1RieL7C/7aEAiYoY03vqLoK5iT3oSo5o1CmNoCbPShZWz91eZhz/8WTF7Vj8m6AORMjpZs3phyP
-	lKAJqS7jTDv9JSqdtsdKYfgHZT2WuwdK4Nl20bvzqscJ3bSkvwnsmxDxyhmm7hVAsdGIwbppR0/
-	KLjTmB3Tmm2u+VI7x4jqm7c4Tj0OUxHWmxG6A1uiI9DXnQDzZz+5t9dvZ+Rfempm3RkUXYjfrod
-	MymMqc0eYMTcSpGVyhLb+9R667GP0UffncGhfRP04nZEACvPX7rPwD5LRdAE=
-X-Received: by 2002:a17:903:f83:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2edd76d1b91mr27420515ad.14.1794400871215;
-        Wed, 11 Nov 2026 04:41:11 -0800 (PST)
-X-Received: by 2002:a17:903:f83:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2edd76d1b91mr27420345ad.14.1794400870858;
-        Wed, 11 Nov 2026 04:41:10 -0800 (PST)
-Received: from ZBook.gateway ([123.208.39.53])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4d79bsm20660295ad.16.2026.11.11.04.41.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:41:09 -0800 (PST)
-From: Changwei Zou <changwei.zou@canonical.com>
-To: herbert@gondor.apana.org.au
-Cc: changwei.zou@canonical.com,
-	davem@davemloft.net,
-	gaurav.jain@nxp.com,
-	horia.geanta@nxp.com,
-	iuliana.prodan@nxp.com,
-	jeffbarnes@linux.microsoft.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lukas@wunner.de,
-	martin.kepplinger-novakovic@ginzinger.com,
-	pankaj.gupta@nxp.com,
-	sahil.malhotra@nxp.com,
-	sahil.malhotra@oss.nxp.com,
-	stephane.debusne@cynove.com
-Subject: Re: [PATCH v3 2/2] crypto: caam - Use bounce buffer for unaligned RSA destination buffers
-Date: Wed, 11 Nov 2026 23:40:59 +1100
-Message-ID: <20261111124059.789629-1-changwei.zou@canonical.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avRIYjWB6AUbeLUS@gondor.apana.org.au>
-References: <avRIYjWB6AUbeLUS@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1sqXpDL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9E21F00A07;
+	Wed, 11 Nov 2026 19:20:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794424862;
+	bh=Soj930bwFBTZxNzA1GiyO1XhwtS7FvpbLkFUPLX9r8c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y1sqXpDLdAdEYxJPXUlN5q9+a+D9q0AIw9kjs9hfnxFdwMfaTrn8wGAI2YVSrHbjv
+	 YW9JZ/Y/L1yxqXLESu2IKbxbJcsACHsl0zmEWWkZSxcGPxY8kI7I2xtKnUEKGDuQIz
+	 XlUxiyPEZIVWJmsllMBNGhrXl2griP4Nx5PCZmITSsl5FxTWBNRwKEVm+SoRhA2X4Y
+	 xFuyyPjHlfu9BiAVl91vrEuaz5Wrs7d9dMW2DbfUJ/EhBAlKPa53M/DqML0HGfvyBA
+	 rTFKAw/f18EUatNd62vqptumb/RD83YPnexgHtqdt8dZAJ6gAGZ5DRDr4EGIB4FsWe
+	 bVCxIfLOeNhTw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0A217198003A;
+	Wed, 11 Nov 2026 14:20:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 11 Nov 2026 14:20:58 -0500
+X-ME-Sender: <xms:E8D0akQmBszOOkf2V4Pas9hPJL_ml4TfiVb_k8Fa2fBqNoFSxLhiJg>
+    <xme:E8D0aujZHsoBlI9F-DCvDcYq1_1CIV6D_V6XKypQzWFk1y5byz7v7OfPCBgpAP_L0
+    YblrrZQPF_O7NZj-3vttgfEaVQoq6az4XXakadlhl-myb-CDEJz5BYD>
+X-ME-Received: <xmr:E8D0atbS4S9D5YkzppwCPjfey67EkNJRNTOoPBe_sgiq301jc7kQfv9btT0>
+X-ME-Proxy-Cause: dmFkZTFAt7HRtEDW5rAYKA5wJsU/hkNTWmvDTT2530v9ikh1nEEQoMGwn8WkkMXLFvMbzz
+    m+5MBTcByYkkaiHHf5Pvb+d+Yec9HEVjgvT8q8NB4D2n+yGRrYH3c0zsKTDEuZP0KKuEfB
+    5G61bTEB8knr93RLOGasXpXd5WRbwVHRx2ZWpa9/38aDo1YNO4lx87ZqWFlaYmXeP/Uf1r
+    LR0vRe2XGGjLFxegCM1tjgqZ1nDbP7IoHfh96QQs3jwVg4ZbeseYfJFn6+84ytWcS36xsH
+    BmTn6jUcDFZuxOoUoW586qRRfthPizlB2CqswLvyPaV8i2Puc2yV63QorfkwBa4BJNHIE6
+    FqTumCqimKhqGLg9qa4DTTglotYUJXNph9HpSyzly3WdQluCAku1TIy7mj+ykUg4PmcJn4
+    +fahCwVtu5FZv1r/j0XesuMnMeDRheOMiGFVtKbR40OXoen9Vv281WPZUbiClUPF/fjYtR
+    HeuGr5eWQ4f1pGSAQUNwoKGYm021RLG8ffdgZZ5HYvt8wZ0s3hwV8XNb0RoxsmTbdrBU4I
+    UunpRgweubVVrPj8NpJgrvgQ4haPMbaUV2K6rpJOjgAmv/PN67p7WNex65orWZqBgVmvzn
+    nMxnlQKBMTFArL6XMw8QtieEwtXdw0ZyEhCd+ennXm6qWXWhj+JfXJ8kj4XQ
+X-ME-Proxy: <xmx:E8D0auIU64qcshTDYMtTsiJmmHKWWTSxs48tFLF_Vms8J9SG77UG1Q>
+    <xmx:E8D0asdwFI96dLN1SzY7lP1yS0NevJfzO9LpwUX_eqxefPBa1KHVCA>
+    <xmx:E8D0avfjHO4FGyUTBk97IqYVQvWiB-U03Fm8wuCRLtcg16yvobGMYg>
+    <xmx:E8D0asP7tE6e5gmctaszQmX-9Sa2SxEpMJV5B5xSVmDlbW7MS4w-tw>
+    <xmx:E8D0akCFZ0Bxbsytf5KO62Iqr0VaDHxsJkNrKbCpZd6BwXOwZmyhwqzt>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 14:20:50 -0500 (EST)
+Date: Wed, 11 Nov 2026 19:20:49 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, =?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, 
+	Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 07/12] mm/mremap: resolve uffd state when the context is
+ dropped, not during the move
+Message-ID: <avS_43B79K2lUV3Q@thinkstation>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,34 +104,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
 
-Hi Herbert,
+On Wed, Nov 11, 2026 at 12:55:15PM -0500, Tal Zussman wrote:
+> However, this adds spurious minor faults on shmem and hugetlb.
 
-Thanks a lot.
-This is a valid finding, I'll fix it in v4.
+"Minor faults" reads as UFFDIO_REGISTER_MODE_MINOR in a uffd changelog.
+Maybe "write faults"?
 
-> rsa_edesc_alloc() allocates req_ctx->bounce_buf with size
-> ALIGN(req->dst_len, dma_get_cache_alignment()), but initializes the
-> bounce scatterlist entry via sg_init_one(&req_ctx->dst,
-> req_ctx->bounce_buf, req->dst_len) with the unaligned req->dst_len.
+The RWP side keeps its behaviour: vm_page_prot does not depend on RWP,
+so resolving with change_protection() gives the same PTEs as the
+per-entry code did.
 
-Correct. The bounce buffer is allocated with the aligned size, but the SG
-is described with the possibly-unaligned req->dst_len.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-So the fix is to describe the SG with the aligned allocation size:
-
-	unsigned int bounce_len =
-		ALIGN(req->dst_len, dma_get_cache_alignment());
-
-	req_ctx->bounce_buf = kzalloc(bounce_len, flags);
-	if (!req_ctx->bounce_buf)
-		return ERR_PTR(-ENOMEM);
-	sg_init_one(&req_ctx->dst, req_ctx->bounce_buf, bounce_len);
-
-My own test case (loading signed kernel modules) used req->dst_len = 512
-bytes, which is already cacheline-aligned, so this unaligned-length path
-was not exercised and the issue was missed.
-
-Kind regards,
-Changwei
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
