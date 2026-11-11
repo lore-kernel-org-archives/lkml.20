@@ -1,98 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396569;
-	b=Mlc56Y0ISmIpSngDmO6As4yfwBCGw7Izck/Ljmn+9MU/CQlBjrLIGgvDSjG4D9OKpyW2
-	 zdt8dzypaZRQoBU6ELNRjI3zxrsE3AEPycsY3mFDHfoiZzrSDEaJCkYsC0A2exyqX3Iam
-	 sVZKn5aEqyGL2cwRozoLQuaYIugc6RlnGEjnSpkVlu6QgblxgXXAq6JHcM2ubFV9SE3JL
-	 YKQ0xsTBXRRj+PplQRt22ZOt7wT4jcFizAiAM7UqLAOBA3agQWTdFcnZMjuoq7Ti2utV+
-	 wjaB/ZF6te+XomwZ+NHX93HMGZNsPkY2qxI23+mSyPc/0hetvnfi2gsLktgohU7PEEQ==
+	t=1794396573;
+	b=TXiHjFJV2bv5FpXp9GEGzGPo+W9bKSM4DPX8LWk7sZPCOaUImoQgrq8Dtexx9Z6pOcWR
+	 wk4HCH6Mq8GPeJMEQPDOTpWMB5CjfBA5qRE8788ErQeA9mVfv7kSmkDeeU/jM3L/8vGE6
+	 cTC/CYGhZgORi2WLx9RXXIMGgEB3EpbM1P9wXN+VTNoP9fqY5I5WakVZUDWjQJTmHbCRw
+	 DDeLfGWfM2fAEiEFBbkTZYW5ZeuUTeQ1WYlAYGDMzDIEumszt8e6CuYrEcS8qYYkzMXYt
+	 eRvIZldbHm+rKAQoEMbAMeF1nejDy4X51QtkroICpVhtffJt3xIfDUnbGoX9Nt4m4pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396569;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794396573;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
-	b=Qt8amy1oa9lX1IUyNKQaD1ad1kqcubStobfpYZ79QozaYZyhWEktPrs2Ocongw+Fx1ZL
-	 5JsBlAR9mmbTu4XhKoQzMtkSK/3OAXfDP4kHDYyBhaWM9oejmLzyxpJpnnPo5wQcGNQt8
-	 PBFVrdv0O7OItGLqRrkjO9RoV+wWP7yuTi6ia0zDyGaQmGmXih1Zq53lBhqHsZ5RJsseE
-	 5W1HckvhZmg+KACJt5D+424yby+ZVvkVkn2UigcR91KYzChiA1EIKWmR4zqk4v0MwvMGv
-	 DzkrRVjGJL94wO1iIVKyKQoRweeBAaqLS6N/Ypvhw7B5+3KNeVMeGrqbrBEu+mkB0pg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
+	b=rDHbUiLY/y0xwh+uD0AaeiM0uTTjK0Q2sFchEjitPbTCvAlCCwGRPHEV/UzhCl1gaU2q
+	 Oscp+Mvz7Zvo1foZOqK1olhIWwd7WT0427Olr1/KdRJJCHLCOIFKnl7gz7WYfHEu8ToO9
+	 uj+XIzc4XzXd7xo2/Slgc5Mc/wnWjN1NWMrcnnBWYGOWqSfzIuE90C3Xd7qeXwfdovgej
+	 j13jKph+QzvaKIf/3yuUDerj3G82ZsbEAgg06fZzD8JTpIhj4Py2LOztC82rg3OsGSU1J
+	 6DkC8gRNiNqqehtXgG6pwI5rIoBQxAkkLdqTv1BQA+bwEBc4QZUns6kcRk0MSHBaeOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUDKoIpN;
-	arc=none smtp.remote-ip=74.125.225.75
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dl7utlAL;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612C7606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 612C7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928B8606A33D
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 928B8606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUDKoIpN
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48fdea35dafso1163639f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:29:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dl7utlAL
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bb5afa736so54811eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 03:29:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794396568; x=1795001368; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
-        b=AUDKoIpNLkyrldLXbo1ZDQ1otgEI/vNPvbgblUzXsd6GUuG+ssKADFJTm4mlhZLfJB
-         e0CNjY4GgiUGS5jDBQyVQSHuSoQ2xik0QvLToaSnKfCajJXiXpAFTASAyXzWqqXoyUZV
-         nWRI+54naZVSG88MTcp5WqQYt6GrzkXg5B8mXAgMl00pNfuU6ik7YvPsb7PQQAyRXXyH
-         6gwhKSE2aZ4d54dBSrJ8JCAAZiEpQ/Y540Y6Z5QXH01WZj9+RblibfioYVpVKsUriOGn
-         NQDqfm1zpSO1wMEvcDmpupAWl9kaPtrtMZP73bdn6nJIzzPWEbtwFbB8pS6Ln9PgbGXE
-         /How==
+        d=gmail.com; s=20260707; t=1794396571; x=1795001371; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
+        b=dl7utlALocldmlkR7C5aRRy9z+1xWwUA0DXUtzlofmnoI1Dw0HhFnekB/G9Rl8cdKQ
+         /hY75msaXUKJE2r4mqv2K2HhUmYpZu0lSnJixqqUy8yG/KhzyVmtXJW3f6bUNNVWZTv0
+         wf+3Kmp2jAVC6e6wMgmSSigp381IZhNl/Pv95yyIHHoSuWk9p59YpTBYtjR0uX1JjN85
+         JdcxdxYDHsGtsd0OhyFe5fOzk3ELQ2bvh7MgylK/eM+st9tBEUn1xtqeTFWkvGWErNpI
+         Hn2hlc0rGcgFbLCT+/49J27ozOvUj7P74s9avTF5IHqS2LBtdAfe0SxgRV/Wl3bdLOVc
+         yJiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794396568; x=1795001368;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zTtDGLue5JqVxGOZgA8LDHzbFgoJeRKQNOdcqpXnAX4=;
-        b=ciJ1yuEBe2zjaaRCF8wTAKK03sp1fVluufyEXvP3OiCwYcJhiHo0GimxLfJI81okeA
-         nbNmqoqQo1fv30fMYBcz2IFSfFKueDCP4cjOfm2ZRid42RJ+L6ArGMe1Gk3ivKMcJ0fK
-         HMb3Jdm1UlV962yy7LjIiRWrG1arPHEXRIVBAx+d7ezq2L1FRO3EubId2lT/TmfvySc3
-         DpoZGZANf8jgV/QUP8KqnxR3oxh+r++6ZuQ2qd8j8V1N2zwuIJ6qQ5TXHjJgr6F5pbXB
-         2CND3TQnO1+ZvhM/i2ikJzXtpYniaz+KQWVT4ch/JL8wMlTrM9QPgXv5o55YzlQtFta8
-         CxXQ==
-X-Forwarded-Encrypted: i=1; AL+hErFmZQ6+x8MAHAqP3pzGlsZzE8BjaA/aZQTeh+pXkSp/cpdxC9sVDp20xt2nXIx3irn5KQHM7Txk/Trvq7k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y204G3OXWjUbOE5g3+D/r1rJolbHSSNn3FBUcSiUQSK7GX3SH
-	4sRs2d3/NfT8Lc5PjxAY2gyLqTpd1sTKJu06aoPYJ+Qw41F4sb43yi8f
-X-Gm-Gg: AYBFou2QMyt+5OdRQBBh0t9yQSEgHCJCxmdHBXSd4OB3VFgJnK+7o1JMT99ZmA90Izg
-	IG8Vhw0A0T5m0G2ke468dxOnpcZurpGDxPxIBTu0XIpVIVCBGLkUwKuk41yLhc6zt4rJwrLfzqn
-	bmeROfk/7w+ZiSuQlXplQm+GxBt1jEP7EPxp497fFq3s3nFEHtB7wVQvTE55FZreqXABE1F2Q5/
-	cTMI9pBr60LYJo/0l1XcAtfRZFXaEqPciKxk0CC0fjqo500ZIS68yCo58XWJ4iWdgMZNmPHKln7
-	WVPuUaDfRK2bxJYHyuG3JXaWgcxm3TPzzoafuyKrcAYuCaY+/KsHuxldP41N7S6P84tTjY0DWOW
-	pHHmG6veqYU+twe8w6J6ZUhzjOL1pPB+OAEKFQ1n/ZImmNPtz083fdTQ+XNvAR9VUbiGXu2X34s
-	QgY1Ja+aBO/Fxv0+3JzBEp2WjsFnxGAnPFBkcpQ55biFR74EdktJd5A9OMknWXIHjsQYAdDAl58
-	l7PVU6hP4qFvHc9tBAlKajUWK5obXE5Aoc99QqyUKN6i2QcGdLls3+gKlzEdHsJwbcyIQGMcHet
-	g6DtHurFcIqD7X5uFTn0i2kgQfHqnnM=
-X-Received: by 2002:a05:6000:250e:b0:48e:75f:477d with SMTP id ffacd0b85a97d-499c4814a86mr3885367f8f.7.1794396567358;
-        Wed, 11 Nov 2026 03:29:27 -0800 (PST)
-Received: from fedora41 ([2a01:e0a:1058:7c30:e315:b955:cb8b:b86b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm10536016f8f.22.2026.11.11.03.29.26
+        d=1e100.net; s=20260707; t=1794396571; x=1795001371;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q8gUr6YQpOMRYWSFdHxvUy3rBFE83YPVYbXBV1p9Los=;
+        b=jzZhEkq+aVBgf97ctfdneZIZmw0nGR7eShPoFl16tDQUQrSRQqnhan4ECad3mYvUEC
+         /eqiY/CrjSHEi0cqKBUuzWgNW/meEIa8OtMDsXfXYbD+N6EnOnxMoZwl7BRzttFtG5Gi
+         OB8cazyoueo8wS/KQiNIrI2knzgnhRvb1dj6yjeJdpSeC57kutMmmiO8JygKciRPKSnW
+         HTHjP/XkM8USZVQAxMFgvHrru+W9r4u9J3X9FGJuVFpKMlZhD4UncT1D7G2iSnVubIKP
+         qAnYuXSnfI8eF1BkTJNpLbvbNdkucRpLpSzUkqDTC7H+7/m5Mhw7kJ1ftx34blLhBFaW
+         ttYA==
+X-Forwarded-Encrypted: i=1; AL+hErGAQ2pvFMeZmJ3uoUtzBn5eL1/vxTOuHMPrwYWWnWVp5WjwA4K0HcQfsXYHvwHqD3ePYgCeq7VuyGdgops=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PoVFpMr857m6ZKo9XXIcSrUDD3gNYcX55FjnbiJecvDuZs5a9
+	PtlE9w1HNzS5TC5W7IkTN8dBnzdqHsYS3qhKV+SQbrCdokNVm1Q9FGIpFhHe0b84J5A=
+X-Gm-Gg: AYBFou2MuAYYquKAb5PStYSjjjYGQgsbdMGuwM1rXArd3elR3p6FCQVflp9nG4hhWvA
+	ZL85kB8eCHPDoWMwMs9YDhvxFJaS9WNf4s4+ZD/qFi63ZSQLiSreDNu5nqxFZqydaA3AZ9J0n4N
+	9VJ+7Ly8ho8kNcxzBvYBT6L6hg5Ihy+Qobz/Jt6RHN9yR/qUnCHFYnD+JsPO7hTXE6OKO2IttJ/
+	XupTYClwCrf3v/rzql/qKOhWYfk8TQl4odKww/aESYh6Mk+UB7LzHtmgIywOdtELiJ/yVF/JTyW
+	IaK1p9Ocy9932PMRI5hS+/JInr0SwIVtOOBq9nM3E5dPnLU1RzSWIAWJCBOhBg2Y5OLN4w99Nb3
+	Gzzwrr0eUbpb6eC7hYwGFx1FMBw5BqBs//o9B6rQitU2c5XcbYvCWSJXgg4mjhIapmXznqSr4HT
+	yGYD+oSceYRC9yHwYwUS+a5vvkDW/JI9OOV5YmAf8AIzk2F2QQ/OCPH6L4ZJz+bNJICVh42UgBH
+	6O1Rlx3XntpVXdN0ozXpHvkOj+yvE6O4pgT+t0fxgfrOZDjF99HIs30VaxMyAS1BiTx4vkOjR0J
+	v4fsiJ7rpZKLzpGgYNPHnsIR/BX+PZOKOYFNjmGe/f8YKAyvumLt9fnaE6k5o/UDKvU=
+X-Received: by 2002:a05:7022:5f1c:b0:165:be2f:c56e with SMTP id a92af1059eb24-1b3c02e9530mr2733676c88.2.1794396571126;
+        Wed, 11 Nov 2026 03:29:31 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm17527411c88.7.2026.11.11.03.29.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:29:27 -0800 (PST)
-From: Timo Joannin <timo.joannin@gmail.com>
-To: trintaeoitogc@gmail.com
-Cc: axboe@kernel.dk,
-	bvanassche@acm.org,
-	josef@toxicpanda.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nbd@other.debian.org,
-	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nbd: fix circular lock dependency
-Date: Wed, 11 Nov 2026 12:29:21 +0100
-Message-ID: <20261111112921.306969-1-timo.joannin@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261111101919.215767-1-trintaeoitogc@gmail.com>
-References: <20261111101919.215767-1-trintaeoitogc@gmail.com>
+        Wed, 11 Nov 2026 03:29:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,26 +88,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+In-Reply-To: <avPwLHMalD_kzD-z@google.com>
+References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
+ <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
+ <CAKEwX=M6dJMccGcDqp2S-66cbegdivnB6MqQRj6tQ2u18UH62g@mail.gmail.com>
+ <avPwLHMalD_kzD-z@google.com>
+Date: Wed, 11 Nov 2026 19:29:26 +0800
+Message-Id: <179439656670.2142163.17566683934241550445.b4-reply@b4>
+X-Mailer: b4 0.16.0
 
-On Wed, Nov 11, 2026 at 0:40 AM, Bart Van Assche <bvanassche@acm.org> wrote:
-> Moving nbd_get_socket() makes this patch much larger than necessary,
-> which makes reviewing and backporting it harder. Adding a single
-> nbd_reclassify_socket(sock) call in nbd_genl_reconnect_sock_cb() right
-> after the nbd_get_socket() call is sufficient. 
+On 2026-11-11 13:35 +0900, Sergey Senozhatsky wrote:
+> On (26/11/10 08:00), Nhat Pham wrote:
+> > On Mon, Nov 9, 2026 at 5:59 AM Xueyuan Chen <xueyuan.chen21@gmail.com> wrote:
+> > >
+> > > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> > > counters are updated regardless of this option.
+> > >
+> > > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> > > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> > > debugfs is unavailable.
+> > >
+> > > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > > ---
+> > >  mm/zsmalloc.c | 33 ++-------------------------------
+> > >  1 file changed, 2 insertions(+), 31 deletions(-)
+> > 
+> > FWIW, LGTM:
+> > 
+> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> > 
+> > But I come from the perspective of large(r) server machines - I'd wait
+> > for the feedback of embedded folks too :)
+> > 
+> > Sergey, how do you feel about this direction? We've run the stats
+> > collection (even before we select CONFIG_ZSMALLOC_STAT to expose the
+> > stats to userspace) for eons, and it was never a bottleneck AFAICS in
+> > our fleet...  And the stats files seem trivial, relatively speaking?
+> 
+> Yeah I guess I'm fine with this change.
+> I think this can be just one patch.
+> 
+Yeah, Nhat had the same suggestion. I'll squash them into one patch in v3.
 
-Hi Guilherme and Bart,
-
-Thanks for working on this! I'm currently fixing a possible deadlock
-in wg_ratelimiter_uninit 
-(Reported-by: syzbot+72fceb8393e04ce876d9@syzkaller.appspotmail.com)
-involving cpu_hotplug_lock and slab_mutex.
-
-My one syzbot test failed because of this lockdep
-false positive that this patch addresses. I applied Bart's suggested 1-line
-fix locally, and will see if it resolves the false positive.
-I will be submitting my cpu_hotplug_lock fix separately.
-I am looking forward to see your v2!
-
-Thanks,
-Timo Joannin
