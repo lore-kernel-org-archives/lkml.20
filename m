@@ -1,70 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426416;
-	b=uu+nQDWpR6EWc/eX8D9rPL32Jm/bi4uWCr/KqlIcSbCttLUA3p1dgedayu4Ctr7PZmR4
-	 LMKmV+rh3HXzS7J4iAO84Yt5TI+HCm9yyFltZxqqptYt+oVF3fWNgcw3FTmV+A5bcmp6J
-	 KT0wqe5c+xQX4LMtp3EfXrX05lDwOrd5pvmikOVbjfitLbi56qJh65K+/Q9xMIeEscNFj
-	 DgGjGlxeXWfU6BQGActkKz2hOUe6Sqfqg3fBzug/MZpLI0SJY+Sd+rpu/qZsS2UaXgfXH
-	 V2I3KGjnHzgkNBTEUgSpZauSktaIu8aLPpQ5K0m50JbPn3FpcXmhzIm//2m39yktoiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426416;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=TEA8Apju+c2xFXRAkFgrvx3sun6rF0Eje/7sHrYH2Vo=;
-	b=k2KAJijxtJ6l0jt/GzwQAwsLy0jMtbs9TvfkuuNzDxvs5utmJf5lA5CtuBXV0IuLEhVt
-	 KcbIPDUeYdfboKC+NyGJXDDZ2/GS8r3XhhMJYgDN4lcuTujRY4eX1FzOBl5jlc9XHM0eI
-	 svDuB/NIWlpEmzBKVJz6VrEXamTsfBsZw2A8K/lSvILbyGduYor9PbKo7PeF04zca2xeK
-	 gqEAdvWVR4Gh8ZC+B6S0HY/W15xYDBfAAAMqY/c5NCD3pE3Ww1uvaV8+QbGT6YvTlIHTW
-	 7hg7SUh5ogwWIiJZA4SekTUfo+RwupqIaIzV7BT76CCmskSs/Xtfl/yVPGLcZO4uoFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCHAVtIZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794426561;
+	b=JeSYdr/yCUsMuPcJJCghIsY0h/VWRtviNr0TnVM1i0updLwUUXfUoKKX0MjcpfKFTPVn
+	 5yyyppK2BMYQeJ4PhEVb9MjGaFooMxbvnE2RYAaKRVk5zsn2hpaNLBkcBiQLrwyl1HGJ6
+	 OTqf+hOyzjdo+XkVlTWeL7MGP+ivZBve0KSZjSA5V9CE4zmS8uR+YP6WhAisQQdc2y/vb
+	 ppORQ0tugvrP/zgxhUKeTqEzcqQrm5x6ntzyOjaECaah3IMx8egIWrp6bnYpHjEwk5OzW
+	 gI3RnK02fCRdZQ2a0x6taCHFnLUjEgKL0Ev5btB5f8Jz130YQS4BdBm4/QFrMO6k7ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+	b=UsktkyBLeYwCflLNSz3E8R/qqppWSqFF5Q3FG+J12ijj8BhOLIpuA1B8riRMGZunTIdt
+	 0+6UWGGAK7mybpPSnEuOvxp2Z7nEpraIUGvu1A6RRgPL8laZAh7gTmz67ze0F38FHGAYG
+	 0IWgI0oIDIWJre9eLPge7mqTXfkoHwoZ+dZsZ1ReaVOXW5eZ4WA7kb3RVNUtHz8jQB53R
+	 nYdfiRlbpAdOnQB4F9zBCGCnuFBT7pGtmwKKZR2AHhPXwFNA/DaDuej1fukW9TXmM4gU2
+	 D9a9I0vXWymjZwIZ5671iHuV0o8Mt1U0fZZGGpUz0tB7DT3WCsnLdSPLDHWKMk0sCdg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyveBgFZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CB1606A321;
-	Wed, 11 Nov 2026 19:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8942E606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8942E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCHAVtIZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147C61F00A05;
-	Wed, 11 Nov 2026 19:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794426416;
-	bh=TEA8Apju+c2xFXRAkFgrvx3sun6rF0Eje/7sHrYH2Vo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iCHAVtIZhmXIEkCi9XEq5ZvLA0vhBX9/VL11RcUGWxznfbZwW6tuCL26tfzeSXJO1
-	 Qf979tWcOSyzU9sMCyiiCrv3tVOLGIzCBslYE92/Oap7tz4772n7PdhXYAlJnFvaGt
-	 7YXMYq3A2oRDAd4ff+HKEBH/4AjfOmrVlLV31UlYRCNQYfQhZZYEXTkeMVstTsOVvR
-	 ZBkxjipDEEpO6IjZk1+AsUXq17W73ZhUfM7RHWH4acrHdJ6oCW1iRoI9jEyPJXoYYe
-	 qRXwIQSeO4fpeD33h/lULr3mUSeF+eB+zPPBQ75SjPVCYz82iIlh5gRkgYOUabLxem
-	 PcaHUhNHFj16g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xREHV-0000000ESvo-3uKv;
-	Wed, 11 Nov 2026 19:46:54 +0000
-Date: Wed, 11 Nov 2026 19:46:53 +0000
-Message-ID: <86ld6z1782.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Dan Carpenter <dan@cryspen.com>
-Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
- <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
- Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,	Karthik Bhargavan <karthik@pereq.eu>,
-	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Initialize hw_mmu to NULL for nested vCPUs
-In-Reply-To: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
-References: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyveBgFZ
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67c24619b19so3596276d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 11:49:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794426559; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g5Vzw0RaGqU/1S1ILiI6Sise1OZnYxs0DPVx+88Q165BQ5u6FiaSRaewxLJQlrDEqm
+         O9gz3tEur4ynQ1YA0XMbqSnDmq/LkAjtoH70D4JBUPUTxUJOL6BwvjLvPD5a+BT4Nlzn
+         tvRzPQfY/6e6NvMxrhMdrrhPXFXT+JIrYjaTSesxPYJQyO8gMMQW6vIrZ74+l1F4Tx/C
+         Jx4Km8uHTYDbM4lHMLDFuLoieOln60vq1I3H7xtDSOTKIs5j71aR2FHficIsNTQhhhRh
+         ouT2ZFulEvabLyyW49cgRmihq8cD/dLLDRJCGrG7V4ndNkOay4W1sKbPqGM3HVaU8hQq
+         WnXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        fh=7uJfAmfrb7yjfEoigUrMi6ReGq774LcOpWxBBQHONHE=;
+        b=gXqsZhFTNihop1smN2TF2oLWVKSeLuLskHdhwdZb/P9TFJ+ZjX6fYGNX6ZoE9Ziqdn
+         4GucCnaDu5j3wbGluRr037L5mFreCLBNQ/GMYtOqUZvGTxILP+g2q3b8U3LgGD+bDhGX
+         gH23tiYIEp9Dbg1KKWnfaQl7Npg0lSVQi/7/UfFt7cN7L2F2abgV4eJ/giHarsyAN9QG
+         NYbhlmyzCJrXirxF/7yWBAmYR9H6DgUndsxCY3zdAShkLu6nB8xck5giKrtl9RfaAjKX
+         FYUSOc17D7CBj52vGDPdn22ORklRko4p3GrmOqEpWsohAFMuyer3gwIb2pLsNbzHFmBr
+         DtSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794426559; x=1795031359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        b=dyveBgFZOSJ1AmxXJr3r+ZDDSuXIK8tQ0OFELTZLAYAsiF2dsH81Vwlxok6b9fbMEP
+         t7zC9+EVmwjCOK/QC26cxcLW4IRQaCqP2MWTQE6YzfWG2Tdz2wb4hKYBcBSXBR17Ok5E
+         t9vjzioN727NkjJgM1q/lf+Bz0BiED/xbQ9wij/mDpgxo3CKQWQeDMdIzWZXzU0SojWg
+         6OU7onAy0aLRvH79OTl/RFgBqhggobkzHqNNIsvr92IpPrypxp+hEcRfuhZzqQvnqbQ/
+         v+H4caZ+ytIGVQJd2xzECjkICGv/CIdiWdg+/dHQ8CTkki1meHdcYGi+McEBPK8z5fgL
+         cmXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794426559; x=1795031359;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        b=RuSMthTS9otoOgZYijMQcwJV10anrp39lKMeJmQV3Iq4+o43zNTaDfJFJyBz6/a2tO
+         qexboLYyurZVs6qZn842eZu47qwUHIBfOGX4ZIMeB/ibmStOAMT48xW+w8asc9mR7gMo
+         gKeTb+rH7Ub/wXbAleHKyj3fOcG1Iu95eOpGBkoI2ibx5x5IIm+S52Y9XYWDUIS8gcal
+         JRooSj0m7RR24u9/Kgv1iIAZA2P1A77RX+yDLiM3GgqFlPWyPRoYmkc4C/9bnGy6TxCj
+         aA4N3QIVx3/6wTXB/opAl5j4lLrrz2croQaXb8jN4Uqr1ahEQzpNQQFlCxpgjkZUwfwM
+         9xAQ==
+X-Forwarded-Encrypted: i=1; AL+hErG57lE/Dz9n7hB7taR8x7/qUXQ3VajTCazpl8iheYA80u56aDtAaaVYpllxXr7MTULdNbZi8DM63fiLHzA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85HGV5GOnyn/JBpx4j6rF4UeqHZR8b8ypc68iv6QhiJgIw/1f8
+	7q+lB6RDoi3R1HhUKZZvfCRcWR8QHWWsquZt0+jyZ9bcY/NryRuKBcfIyqNP5ljyRaD/xrfkRP6
+	OLuPBK3/UwB3pT1ccnWWh5AjUCiIABsw=
+X-Gm-Gg: AYBFou08ki32P4uW+iZHIjwqt/pztZTgCl9LF0Iq5ouIfFk4pVPs0Ru2IBzkGxNMEoS
+	QDIuDN8kZgbmU+3BXRQYYYuGoY1lz2RQ4Gn0G9AG8Rx1pBh/KFwmpEyi404Af0/0wpyQuw7C9W/
+	d2PWESQdA3kRaJ6xeEAnhiX8w6j9lJa7c9M8KwjSoqOxl2/7pFZMvtZjm6YNDl8RJdlk6vAzy8j
+	JarHbaxGu0jojjTdOLWbALjPMI3xEXpQ/7NlZOniuDfHkQZaIEBlaDYNTsaKOoGL1waIVb7Nv97
+	PdSGS7j/5pt3E76+badTA27pS8aS/Atxz4mLrarx1GcslkuXjzL4pe7FpYxDOgslYgAWW3t1itM
+	+Iu2ZTtKSn7zH2ZMPOE9aF/KPtkaHjYcQzSskNEdkJwJq9nImM1aQxzoVgVCXfBunFAneVr2/Gm
+	Jhzr+nO7VNKeFPkBEwGQMMIn0DKwO5V31JVIhnSnYGG9tLy3c8wXbHOaRBpeM=
+X-Received: by 2002:a53:cec6:0:b0:679:9e0b:dc4a with SMTP id
+ 956f58d0204a3-67c67f5905fmr1755689d50.49.1794426559390; Wed, 11 Nov 2026
+ 11:49:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,89 +104,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dan@cryspen.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, karthik@pereq.eu, clement@cryspen.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+References: <20261110175334.676816-1-piyus@iiitd.ac.in> <20261110175334.676816-2-piyus@iiitd.ac.in>
+In-Reply-To: <20261110175334.676816-2-piyus@iiitd.ac.in>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Wed, 11 Nov 2026 14:49:07 -0500
+X-Gm-Features: AclHuK-nfByfHGxFAPmMdYDp3chGaQIH-KV5UpMqKHJaLwdjvVYyKqOTEoEvZVI
+Message-ID: <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the
+ controller cannot carry
+To: Piyus Kedia <piyus@iiitd.ac.in>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dan,
+Hi Piyus,
 
-On Wed, 11 Nov 2026 11:11:19 +0000,
-Dan Carpenter <dan@cryspen.com> wrote:
-> 
-> Before commit 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2
-> MMU when scheduled out"), kvm_vcpu_load_hw_mmu() would set ->hw_mmu on
-> every load.  Now it only sets it when it is set to NULL.
-> 
-> In kvm_vcpu_init_nested() the vcpu->arch.hw_mmu points to &kvm->arch.mmu
-> from when it was set in kvm_arch_vcpu_create().
-> 
-> Normally what happens next is a two step process.  KVM_ARM_VCPU_INIT
-> calls kvm_reset_vcpu_core() and that sets the vcpu into hyp context
-> (vEL2).  Then KVM_RUN calls kvm_vcpu_load_hw_mmu() which doesn't do
-> anything.  But that is fine because we are in hyp context and the
-> ->hw_mmu already is pointing to the correct place.
-> 
-> However if, for example, we are restoring a vcpu that was saved in L2
-> context, then the VMM uses KVM_SET_ONE_REG to overwrite the vEL2 state
-> that kvm_reset_vcpu_core() set up, and the vCPU is in L2 context when
-> KVM_RUN loads it for the first time.  Ideally, kvm_vcpu_load_hw_mmu()
-> would set the hw_mm to point to L2's page tables but, since is non-NULL,
-> it leaves it as is.  At this point L2 can access L1's memory.
-
-Ah, nice one. You can tell how much testing has gone into
-save/restore...
-
+On Tue, Nov 10, 2026 at 12:54=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> wr=
+ote:
 >
-> Fix this bug but setting ->hw_mmu to NULL in kvm_vcpu_init_nested() so
-
-nit: s/but/by/
-
-> that kvm_vcpu_load_hw_mmu() always sets it correctly on the first load.
-> 
-> Fixes: 6ded46b5a4fd ("KVM: arm64: nv: Keep reference on stage-2 MMU when scheduled out")
+> An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
+> in adv_info. How much of that is accepted when the instance is added is
+> decided by max_adv_len(), which depends on a feature bit in the
+> controller's LE Extended Advertising support:
+>
+>   ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
+>
+> ext_adv_capable() reads hdev->le_features[1], which is re-read from the
+> controller on every bring-up, while the instance list is only freed in
+> hci_release_dev(). Instances therefore outlive a power cycle, and an
+> instance added while the controller reported LE Extended Advertising
+> can be far larger than the capability now allows.
+>
+> hci_update_adv_data_sync() picks the writing path by that same bit.
+> Without it the legacy path runs, and hci_set_adv_data_sync() writes
+> into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
+> (31) bytes on the stack, while eir_create_adv_data() copies
+> adv->adv_data_len bytes into it. A controller that reports the feature
+> on one bring-up and not on the next overflows that buffer. This can
+> happen when, for example, a USB dongle answers LE Read Local Features
+> differently after a reset. scan_rsp_len has the same problem against
+> hci_cp_le_set_scan_rsp_data.
+>
+>   BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
+>   Write of size 220 at addr ffffc90006b679c1 by task syz-executor
+>
+>   BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
+>   Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
+>
+> Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
+> re-arming a stored instance.
+>
+> Bounding the copy in eir.c would leave the instance registered and
+> unusable, to be retried on every bring-up. Unregister it instead, once
+> the features have been re-read and before anything is scheduled, and
+> report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
+> instance again at a size this controller will accept. Dropping the
+> instances before the list_empty() test below also lets the default
+> instance be set up.
+>
+> The removal is under hci_dev_lock() because
+> hci_schedule_adv_instance_sync() sends commands, which cannot be done
+> with the lock held.
+>
+> Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENGTH=
+")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@cryspen.com>
+> Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
 > ---
->  arch/arm64/kvm/nested.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index 78fa433774c6..60bccb66e52c 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -140,6 +140,8 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
->  	}
->  
-> +	vcpu->arch.hw_mmu = NULL;
+>  net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index 9213e3ef9f26..ee8b1cd9dee5 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hci_=
+dev *hdev)
+>         if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
+>                 return 0;
+>
+> +       /* An instance's data was accepted against max_adv_len() as it wa=
+s
+> +        * when the instance was added, and that is a branch on a control=
+ler
+> +        * feature which has just been re-read. Anything too large for th=
+e
+> +        * current capability can no longer be rendered: drop it and tell
+> +        * userspace, so it can add the instance again at a size this
+> +        * controller will take.
+> +        *
+> +        * This is safe as long as there is no command send while the loc=
+k is
+> +        * held.
+> +        */
+> +       hci_dev_lock(hdev);
 > +
+> +       list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) {
+> +               u8 instance =3D adv->instance;
+> +
+> +               if (adv->adv_data_len <=3D max_adv_len(hdev) &&
+> +                   adv->scan_rsp_len <=3D max_adv_len(hdev))
+> +                       continue;
+> +
+> +               bt_dev_warn(hdev, "instance %u too large for this control=
+ler",
+> +                           instance);
+> +
+> +               if (!hci_remove_adv_instance(hdev, instance))
+> +                       mgmt_advertising_removed(NULL, hdev, instance);
+> +       }
+> +
+> +       hci_dev_unlock(hdev);
+> +
+>         /* If RPA Resolution has not been enable yet it means the
+>          * resolving list is empty and we should attempt to program the
+>          * local IRK in order to support using own_addr_type
+> --
+> 2.34.1
 
-I think this really needs a comment to explain why we repaint hw_mmu
-to NULL, because the next idiot who looks at this (likely me) will
-probably remove this line...
+Sashiko flagged a few problems:
 
-The other thing is that this means that nothing can evaluate
-vcpu->arch.hw_mmu anywhere outside of the loaded path, as it can be
-NULL. I *think* this is OK, but I need to really convince myself...
+https://sashiko.dev/#/patchset/20261110175334.676816-1-piyus%40iiitd.ac.in
 
-I'd like to add something like:
-
-	/*
-	 * We can't rely on the S2 MMU being the canonical one,
-	 * as userspace can restore a nested context. Nuke the
-	 * hw_mmu early to ensure that we pick the correct one
-	 * load time. It also means that we can't rely on hw_mmu
-	 * being set to anything useful if the vcpu isn't loaded.
-	 */
-
-If that works for you, I'll squash that in.
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+--=20
+Luiz Augusto von Dentz
