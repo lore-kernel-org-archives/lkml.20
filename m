@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405543;
-	b=VOHEveMeQBA+zHDz893HY22/Ea500Pyfr5THbwQ52qEJxHdth9PUw0NsCaP87Zbha7oP
-	 //dElK4VuPLkVgK8+Kv5Ipm2AmtGHXVcIk/9F5FBqoTxtzvy8qpNzhzbQ0P6cdpV+DMOb
-	 vNuuL4OJUhb3GBFDBIeE2/eeQXha77zjOqxw5YWTW5z5kyKDGQ9gqXqK9QMfRir6WJ4b0
-	 xJ2U+YWgJlZb+AIfhU36Ij8DGjqp0dIEIzJ+V3CsRz32ctQBgbYdk9IJx+wQGppvqhyof
-	 yI3UzKvk28rRCJdkESA3roz2xpdqOCBKif8t+EUAjSglr8096O1torQ9gdf96rtZEgQ==
+	t=1794405563;
+	b=QQpyLRMnA5z2NuevpQRhtU5FRtaQKFlMqmL8ZxIX9eimLrZt0Bth/rounGLmy+c7DHbL
+	 kjg4MiUUk6BWTGZuR8uU3fACyS+TKnHvymjO62qBHnDc2BO4B3PT6mWIpb3gw4espYgYC
+	 NpRGiS78sBkyUzGwYgcz1QtepIZ6uhwfo1gRlsgGDKsF997Vaq5K7r8U9dbELxZQpNyAK
+	 6rq41TRpLLkT560RnuJZZDAxzrXS+RK0WbOeNcMSmxU9Ut/1pnRWXMxIuZRPZcxwNl5gI
+	 6rwuIA/NLfBwScTL3Zg5MSmgWMSgbHWWJbv1o+FINz2kdvVTazJ5IiT4C/XvsYkug+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405543;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Xnkn3qGs1fsK1Jbk4oAGn/q/RWKnHPNQC/oOAD9dVvs=;
-	b=J0EHKAUNYZes2VAAN15s8JkoE2rKa0dH+RaVbMa6UDKJ/hZeF/CVfbZvlRdVwNZl4ja9
-	 KW2ALwJkK5mLZz68dwSPtddcD5YjO58FArA4S40CgT8FfCV42ZOSAYqQb8lZzJU2VBYWL
-	 SPZKnYNtVTosjRBXqkeYD6q7+1BEMOXCOrvxjyQyi+atxnSicEaYpuKP4xc27SO85UAIH
-	 tX7Qd0/ApKvg17dJWM+04SvdIsnXhHvy2SIh/KjSszkpLvsZIeKCYZVvrtE2Xw8IseTVr
-	 s9llloXvdofVqubJnb7MCTj2F6rlP8TtNRrEbPW48IlC7pW7oI5dTYpUgkYv8afD4Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405563;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yWS0+4kurKjndaOQRErlwqMS9KCLA/8IMzcMt6fHeEk=;
+	b=HeREUxe8DoofpFbcLDMiOZxDl7ZPfLN9utmeG+vvRqXxsTQidAlgmhmJ+qVAlStryxIc
+	 SI8qA+TSl7MVIn0IknV0LFJL+Ck3x84fKTdHk2fROaLQGCW/2Jm+W+AFfrH1vWf9U4fwY
+	 2IC+YGHumKaUvQs3Ce/PO3TUq1J2fhJOXoZogBjfl5JqiddsIkNkqiAFOq3Dq5w6h4S8t
+	 HV3a0qjmHB7bk6jMIMxMMXR2gCRuw68kyfsd7fqcPahdJKVH7bp2iFsy+uBp2VnevnS+1
+	 awtusAgZHfqWGtyQ/AaSqM1hxnuJ76VYSLx9piHwyyjUTBROX5vhogcbAjEwsAPXR1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSkwj9l9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7A7606A321;
-	Wed, 11 Nov 2026 13:59:03 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eO3N8mVU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83D94606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 13:59:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D94606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSkwj9l9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54411F00A05;
-	Wed, 11 Nov 2026 13:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405543;
-	bh=Xnkn3qGs1fsK1Jbk4oAGn/q/RWKnHPNQC/oOAD9dVvs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OSkwj9l9IMm57wGjjV7p+Z87300v79/UTtnE3FdU6bM74hMsnfHhG7P/jAkCdJ4Hk
-	 ZI7A0lY90kc211b+tTqA9HgyLxSVdxJecqiKsdTI9xXU/ZNPX6+nAfuVr5xYpIOGMc
-	 lMneCR3oxowd9r/EDx+edw4JoNU1Dz+Hn6w2PX3w4yhY4lTEjfVIxZSt55SJpmvCSA
-	 nzhHgpTut+0DT03zXe9H8jyWeW3hO2aZYE8k1YyL1kGl8g/siv3wWiD5JYozgaHh1i
-	 iErH0DjW8VflvjHgqozhfg+IJHlmHVysfbCIuH7Rc17c5A92OYQrTVrVT5PekuTE9H
-	 bI+/k5jyLZ44Q==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Tariq Toukan <tariqt@nvidia.com>, 
- Mark Bloch <mbloch@nvidia.com>, Shay Drory <shayd@nvidia.com>, 
- Chiara Meiohas <cmeiohas@nvidia.com>, 
- Michael Guralnik <michaelgur@nvidia.com>, 
- Edward Srouji <edwards@nvidia.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261109-rep-netdev-leak-v2-1-9a6d164142e5@nvidia.com>
-References: <20261109-rep-netdev-leak-v2-1-9a6d164142e5@nvidia.com>
-Subject: Re: [PATCH rdma-next v2] RDMA/mlx5: Add missing error flow in
- mlx5_ib_set_vport_rep
-Message-Id: <179440554049.585435.15743124528960715774.b4-ty@kernel.org>
-Date: Wed, 11 Nov 2026 08:59:00 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eO3N8mVU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E68AB1576;
+	Wed, 11 Nov 2026 05:59:18 -0800 (PST)
+Received: from [10.57.69.47] (unknown [10.57.69.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AD9FE3F673;
+	Wed, 11 Nov 2026 05:59:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794405561; bh=ZS/6+logSEVjBhsJ898Tt4DanlJ8je6TCRqCH1C6kak=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eO3N8mVUBUtNqhII9a/tEc81Ec4bqXfC3opjg7RtnAwOj48vBxoFwn0gTgJjSe28j
+	 azwZd8fu84HHjudgNafZPbstRNInc2Bj0M4wjZcfOLEnhYbNtLA5Mf3TPRwFsRl/9u
+	 ZATQVUicbb+glkJc/EWmw1eC3blUY/XrGaS/I4Jc=
+Message-ID: <5fa8a1fb-4e2c-4746-8a70-a47f387ef0d6@arm.com>
+Date: Wed, 11 Nov 2026 13:59:17 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,28 +53,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/18] KVM: arm64: Implement HVC handling for protected
+ guests at EL2
+To: Fuad Tabba <fuad.tabba@linux.dev>, maz@kernel.org, oupton@kernel.org,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+ seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+ mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com,
+ qperret@google.com, tabba@google.com
+References: <20261001135711.1640520-1-fuad.tabba@linux.dev>
+ <20261001135711.1640520-10-fuad.tabba@linux.dev>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261001135711.1640520-10-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+
+Hi Faud,
+
+I have some drive-by comments for this patch, having stumbled upon it while
+poking around in SSBS code today...
 
 
-On Mon, 09 Nov 2026 14:28:45 +0200, Edward Srouji wrote:
-> mlx5_ib_set_vport_rep() attaches the representor netdev to the IB
-> device, which takes a netdev reference, and then adds the LAG demux
-> rule. If mlx5_lag_demux_rule_add() fails, the error is returned
-> without detaching the netdev. The eswitch does not call unload() for a
-> representor whose load() failed, so the reference is never dropped and
-> a later unregister_netdevice() of the representor waits forever while
-> holding the eswitch representors lock.
+On 01/10/2026 14:57, Fuad Tabba wrote:
+> Extend kvm_handle_pvm_hvc64() to handle SMCCC_VERSION,
+> SMCCC_ARCH_FEATURES and the vendor hypervisor call UID at EL2, so
+> these queries don't reach the host. ARCH_FEATURES is mandatory from
+> SMCCC 1.1, the version EL2 implements: it returns SUCCESS for itself and
+> for SMCCC_VERSION, NOT_SUPPORTED for anything else, and handles the
+> ARCH_WORKAROUND_1/2/3 queries as the host does, from a copy of the
+> host's mitigation state taken at init with the sanitised ID registers.
+> The workaround calls themselves are already handled on hyp entry.
 > 
-> [...]
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/include/asm/kvm_hyp.h |  4 ++
+>  arch/arm64/kvm/arm.c             |  4 ++
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c   | 68 ++++++++++++++++++++++++++++++++
+>  3 files changed, 76 insertions(+)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
+> index 4974492744cc8..7609c78c68f34 100644
+> --- a/arch/arm64/include/asm/kvm_hyp.h
+> +++ b/arch/arm64/include/asm/kvm_hyp.h
+> @@ -10,6 +10,7 @@
+>  #include <linux/compiler.h>
+>  #include <linux/kvm_host.h>
+>  #include <asm/alternative.h>
+> +#include <asm/spectre.h>
+>  #include <asm/sysreg.h>
+>  
+>  DECLARE_PER_CPU(struct kvm_cpu_context, kvm_hyp_ctxt);
+> @@ -150,6 +151,9 @@ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
+>  
+>  extern unsigned long kvm_nvhe_sym(__icache_flags);
+>  extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
+> +extern enum mitigation_state kvm_nvhe_sym(spectre_v2_state);
+> +extern enum mitigation_state kvm_nvhe_sym(spectre_v4_state);
+> +extern enum mitigation_state kvm_nvhe_sym(spectre_bhb_state);
+>  extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
+>  extern unsigned long kvm_nvhe_sym(hyp_nr_cpus);
+>  extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index db36815630790..cceeeee266902 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -2622,6 +2622,10 @@ static void kvm_hyp_init_symbols(void)
+>  	kvm_nvhe_sym(__icache_flags) = __icache_flags;
+>  	kvm_nvhe_sym(kvm_arm_vmid_bits) = kvm_arm_vmid_bits;
+>  
+> +	kvm_nvhe_sym(spectre_v2_state) = arm64_get_spectre_v2_state();
+> +	kvm_nvhe_sym(spectre_v4_state) = arm64_get_spectre_v4_state();
+> +	kvm_nvhe_sym(spectre_bhb_state) = arm64_get_spectre_bhb_state();
 
-Applied, thanks!
+Is it really correct to snapshot this state then use it at runtime assuming its
+still accurate? See below...
 
-[1/1] RDMA/mlx5: Add missing error flow in mlx5_ib_set_vport_rep
-      https://git.kernel.org/rdma/rdma/c/da0c7b9ba5e91b
 
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
+> +
+>  	/* Propagate the FGT state to the nVHE side */
+>  	kvm_nvhe_sym(hfgrtr_masks)  = hfgrtr_masks;
+>  	kvm_nvhe_sym(hfgwtr_masks)  = hfgwtr_masks;
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index 6ff08d195ff56..10ff2ba6c6c1b 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -10,12 +10,18 @@
+>  #include <linux/mm.h>
+>  
+>  #include <asm/kvm_emulate.h>
+> +#include <asm/spectre.h>
+>  
+>  #include <nvhe/mem_protect.h>
+>  #include <nvhe/memory.h>
+>  #include <nvhe/pkvm.h>
+>  #include <nvhe/trap_handler.h>
+>  
+> +/* The host's Spectre mitigation state, for SMCCC_ARCH_FEATURES. */
+> +enum mitigation_state spectre_v2_state;
+> +enum mitigation_state spectre_v4_state;
+> +enum mitigation_state spectre_bhb_state;
+> +
+>  /* Used by icache_is_aliasing(). */
+>  unsigned long __icache_flags;
+>  
+> @@ -1181,8 +1187,70 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  {
+>  	u64 val[4] = { SMCCC_RET_INVALID_PARAMETER };
+>  	bool handled = true;
+> +	u32 feature;
+> +	uuid_t uuid;
+>  
+>  	switch (smccc_get_function(vcpu)) {
+> +	case ARM_SMCCC_VERSION_FUNC_ID:
+> +		/* Nothing to be handled by the host. Go back to the guest. */
+> +		val[0] = ARM_SMCCC_VERSION_1_1;
+> +		break;
+> +	case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+> +		/* The workaround calls themselves are handled on hyp entry. */
+> +		val[0] = SMCCC_RET_NOT_SUPPORTED;
+> +		feature = smccc_get_arg1(vcpu);
+> +		switch (feature) {
+> +		case ARM_SMCCC_VERSION_FUNC_ID:
+> +		case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
+> +			val[0] = SMCCC_RET_SUCCESS;
+> +			break;
+> +		case ARM_SMCCC_ARCH_WORKAROUND_1:
+> +			switch (spectre_v2_state) {
+> +			case SPECTRE_VULNERABLE:
+> +				break;
+> +			case SPECTRE_MITIGATED:
+> +				val[0] = SMCCC_RET_SUCCESS;
+> +				break;
+> +			case SPECTRE_UNAFFECTED:
+> +				val[0] = SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED;
+> +				break;
+> +			}
+> +			break;
+> +		case ARM_SMCCC_ARCH_WORKAROUND_2:
+> +			switch (spectre_v4_state) {
+> +			case SPECTRE_VULNERABLE:
+> +				break;
+> +			case SPECTRE_MITIGATED:
+> +				/* With SSBS advertised the guest's default is safe. */
+> +				if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, SSBS, IMP))
+> +					break;
+
+For this case (and the break immediately above) you return val[0] =
+SMCCC_RET_INVALID_PARAMETER (from init at top of this function). But the
+kernel's kvm_smccc_call_handler() returns val[0] = SMCCC_RET_NOT_SUPPORTED in
+these cases (which seems more likely to be correct). Does this violate the ABI?
+
+> +				fallthrough;
+> +			case SPECTRE_UNAFFECTED:
+> +				val[0] = SMCCC_RET_NOT_REQUIRED;
+
+Is it possible that the (compromised) kernel could have disabled the mitigation
+after the state snapshot was taken? I.e. spectre_v4_state == SPECTRE_MITIGATED
+and the VM doesn't advertise SSBS so it returns SMCCC_RET_NOT_REQUIRED here. But
+the kernel has since turned off the mitigation?
+
+Thanks,
+Ryan
+
+> +				break;
+> +			}
+> +			break;
+> +		case ARM_SMCCC_ARCH_WORKAROUND_3:
+> +			switch (spectre_bhb_state) {
+> +			case SPECTRE_VULNERABLE:
+> +				break;
+> +			case SPECTRE_MITIGATED:
+> +				val[0] = SMCCC_RET_SUCCESS;
+> +				break;
+> +			case SPECTRE_UNAFFECTED:
+> +				val[0] = SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED;
+> +				break;
+> +			}
+> +			break;
+> +		}
+> +		break;
+> +	case ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID:
+> +		uuid = ARM_SMCCC_VENDOR_HYP_UID_KVM;
+> +		val[0] = smccc_uuid_to_reg(&uuid, 0);
+> +		val[1] = smccc_uuid_to_reg(&uuid, 1);
+> +		val[2] = smccc_uuid_to_reg(&uuid, 2);
+> +		val[3] = smccc_uuid_to_reg(&uuid, 3);
+> +		break;
+>  	case ARM_SMCCC_VENDOR_HYP_KVM_FEATURES_FUNC_ID:
+>  		val[0] = BIT(ARM_SMCCC_KVM_FUNC_FEATURES);
+>  		val[0] |= BIT(ARM_SMCCC_KVM_FUNC_HYP_MEMINFO);
 
